@@ -1,5 +1,5 @@
-from collections.abc import Iterable, Iterator, MutableSet
 import sys
+from collections.abc import Iterable, Iterator, MutableSet
 from typing import Any, Generic, TypeVar
 
 if sys.version_info >= (3, 9):

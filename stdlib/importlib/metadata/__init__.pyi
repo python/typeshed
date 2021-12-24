@@ -1,9 +1,8 @@
-from collections.abc import Iterable
 import abc
 import pathlib
 import sys
 from _typeshed import StrPath
-from collections.abc import Mapping
+from collections.abc import Iterable, Mapping
 from email.message import Message
 from importlib.abc import MetaPathFinder
 from os import PathLike

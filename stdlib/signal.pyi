@@ -1,6 +1,6 @@
-from collections.abc import Callable, Iterable
 import sys
 from _typeshed import structseq
+from collections.abc import Callable, Iterable
 from enum import IntEnum
 from types import FrameType
 from typing import Any, Optional, Union

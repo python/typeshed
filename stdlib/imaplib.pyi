@@ -1,8 +1,8 @@
-from collections.abc import Callable
 import subprocess
 import sys
 import time
 from _typeshed import Self
+from collections.abc import Callable
 from socket import socket as _socket
 from ssl import SSLContext, SSLSocket
 from types import TracebackType

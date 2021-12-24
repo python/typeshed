@@ -1,5 +1,5 @@
-from collections.abc import Iterable
 import sys
+from collections.abc import Iterable
 from sre_constants import *
 from sre_constants import _NamedIntConstant as _NIC, error as _Error
 from typing import Any, Match, Optional, Pattern as _Pattern, Union, overload

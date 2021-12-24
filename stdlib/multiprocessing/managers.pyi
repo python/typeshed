@@ -1,9 +1,9 @@
 # NOTE: These are incomplete!
 
-from collections.abc import Callable, Iterable, Mapping, Sequence
 import queue
 import sys
 import threading
+from collections.abc import Callable, Iterable, Mapping, Sequence
 from contextlib import AbstractContextManager
 from typing import Any, AnyStr, Generic, TypeVar
 

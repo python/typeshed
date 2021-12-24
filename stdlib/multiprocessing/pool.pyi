@@ -1,6 +1,6 @@
-from collections.abc import Callable, Iterable, Iterator, Mapping
 import sys
 from _typeshed import Self
+from collections.abc import Callable, Iterable, Iterator, Mapping
 from contextlib import AbstractContextManager
 from typing import Any, Generic, TypeVar
 

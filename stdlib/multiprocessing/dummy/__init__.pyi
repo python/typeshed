@@ -1,7 +1,7 @@
-from collections.abc import Callable, Iterable, Mapping, Sequence
 import array
 import threading
 import weakref
+from collections.abc import Callable, Iterable, Mapping, Sequence
 from queue import Queue as Queue
 from typing import Any
 

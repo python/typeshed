@@ -1,6 +1,6 @@
-from collections.abc import Callable, Iterator
 import sys
 import types
+from collections.abc import Callable, Iterator
 from opcode import (
     EXTENDED_ARG as EXTENDED_ARG,
     HAVE_ARGUMENT as HAVE_ARGUMENT,

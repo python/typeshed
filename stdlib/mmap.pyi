@@ -1,6 +1,6 @@
-from collections.abc import Iterable, Iterator, Sized
 import sys
 from _typeshed import ReadableBuffer
+from collections.abc import Iterable, Iterator, Sized
 from contextlib import AbstractContextManager
 from typing import NoReturn, overload
 

@@ -1,6 +1,6 @@
-from collections.abc import Callable, Iterator
 import enum
 import sys
+from collections.abc import Callable, Iterator
 from sre_constants import error as error
 from typing import Any, AnyStr, Union, overload
 

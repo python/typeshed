@@ -1,7 +1,7 @@
-from collections.abc import Iterable
 import functools
 import sys
 import traceback
+from collections.abc import Iterable
 from types import FrameType, FunctionType
 from typing import Any, Union, overload
 

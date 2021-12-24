@@ -1,5 +1,5 @@
-from collections.abc import Iterable, Mapping, Sequence
 import sys
+from collections.abc import Iterable, Mapping, Sequence
 from re import RegexFlag
 from typing import Any
 

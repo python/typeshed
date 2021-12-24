@@ -1,6 +1,6 @@
-from collections.abc import Callable
 import sys
 from _typeshed import SupportsWrite
+from collections.abc import Callable
 from typing import Any, Type, TypeVar
 
 _T = TypeVar("_T")

@@ -1,5 +1,5 @@
-from collections.abc import Iterable
 from _typeshed import SupportsItems
+from collections.abc import Iterable
 from typing import Generic, TypeVar
 
 _T = TypeVar("_T")

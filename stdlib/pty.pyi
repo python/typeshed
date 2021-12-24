@@ -1,6 +1,5 @@
 from collections.abc import Callable, Iterable
 
-
 _Reader = Callable[[int], bytes]
 
 STDIN_FILENO: int

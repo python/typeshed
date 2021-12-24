@@ -1,6 +1,6 @@
-from collections.abc import Iterable, Sequence
 import typing
 from _typeshed import StrPath
+from collections.abc import Iterable, Sequence
 from datetime import tzinfo
 from typing import Any, Protocol, Type
 

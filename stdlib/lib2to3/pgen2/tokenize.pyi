@@ -1,7 +1,6 @@
 from collections.abc import Callable, Iterable, Iterator
 from lib2to3.pgen2.token import *  # noqa
 
-
 _Coord = tuple[int, int]
 _TokenEater = Callable[[int, str, _Coord, _Coord, str], None]
 _TokenInfo = tuple[int, str, _Coord, _Coord, str]

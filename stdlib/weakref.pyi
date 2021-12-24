@@ -1,5 +1,5 @@
-from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping
 from _weakrefset import WeakSet as WeakSet
+from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping
 from typing import Any, Generic, Type, TypeVar, overload
 
 from _weakref import (

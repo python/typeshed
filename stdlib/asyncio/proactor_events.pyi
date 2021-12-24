@@ -1,5 +1,5 @@
-from collections.abc import Mapping
 import sys
+from collections.abc import Mapping
 from socket import socket
 from typing import Any, Protocol, Type
 from typing_extensions import Literal

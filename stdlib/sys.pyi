@@ -1,25 +1,11 @@
-from collections.abc import AsyncGenerator, Callable, Sequence
 import sys
 from builtins import object as _object
+from collections.abc import AsyncGenerator, Callable, Sequence
 from importlib.abc import PathEntryFinder
 from importlib.machinery import ModuleSpec
 from io import TextIOWrapper
 from types import FrameType, ModuleType, TracebackType
-from typing import (
-    Any,
-    
-    
-    NoReturn,
-    Optional,
-    Protocol,
-    
-    TextIO,
-    
-    Type,
-    TypeVar,
-    Union,
-    overload,
-)
+from typing import Any, NoReturn, Optional, Protocol, TextIO, Type, TypeVar, Union, overload
 from typing_extensions import Literal
 
 _T = TypeVar("_T")

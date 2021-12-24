@@ -1,7 +1,7 @@
-from collections.abc import Callable, Mapping, Sequence
 import sys
 import types
 from _typeshed import StrPath
+from collections.abc import Callable, Mapping, Sequence
 from typing import Any, Optional, TypeVar
 from typing_extensions import ParamSpec
 

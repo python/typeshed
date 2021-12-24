@@ -1,5 +1,5 @@
-from collections.abc import Callable
 from _typeshed import WriteableBuffer
+from collections.abc import Callable
 from io import BufferedIOBase, RawIOBase
 from typing import Any, Protocol, Type
 

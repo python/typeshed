@@ -1,6 +1,6 @@
-from collections.abc import Callable, Iterable, Iterator
 import sys
 from _typeshed import Self, SupportsRead, SupportsReadline
+from collections.abc import Callable, Iterable, Iterator
 from socket import socket
 from ssl import SSLContext
 from types import TracebackType

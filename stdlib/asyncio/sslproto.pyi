@@ -1,7 +1,7 @@
-from collections.abc import Callable
 import ssl
 import sys
 from collections import deque
+from collections.abc import Callable
 from typing import Any, ClassVar
 from typing_extensions import Literal
 

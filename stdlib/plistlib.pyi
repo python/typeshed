@@ -1,5 +1,5 @@
-from collections.abc import Mapping, MutableMapping
 import sys
+from collections.abc import Mapping, MutableMapping
 from datetime import datetime
 from enum import Enum
 from typing import IO, Any, Type

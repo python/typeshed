@@ -1,5 +1,5 @@
-from collections.abc import Callable, Mapping
 import sys
+from collections.abc import Callable, Mapping
 from typing import Any
 
 class BaseProcess:

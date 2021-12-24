@@ -1,5 +1,5 @@
-from collections.abc import Container, Iterable, Sequence
 import sys
+from collections.abc import Container, Iterable, Sequence
 from types import ModuleType
 from typing import Any, Type
 from typing_extensions import Literal

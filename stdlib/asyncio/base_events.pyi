@@ -1,4 +1,3 @@
-from collections.abc import Awaitable, Callable, Generator, Sequence
 import ssl
 import sys
 from _typeshed import FileDescriptorLike
@@ -8,7 +7,7 @@ from asyncio.futures import Future
 from asyncio.protocols import BaseProtocol
 from asyncio.tasks import Task
 from asyncio.transports import BaseTransport
-from collections.abc import Iterable
+from collections.abc import Awaitable, Callable, Generator, Iterable, Sequence
 from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
 from typing import IO, Any, TypeVar, Union, overload
 from typing_extensions import Literal

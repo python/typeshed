@@ -1,6 +1,6 @@
-from collections.abc import Iterable, Sequence
 import datetime
 import sys
+from collections.abc import Iterable, Sequence
 from time import struct_time
 from typing import Any, Optional
 

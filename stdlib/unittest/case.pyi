@@ -1,30 +1,12 @@
-from collections.abc import Callable, Container, Iterable, Mapping, Sequence
 import datetime
 import logging
 import sys
 import unittest.result
 from _typeshed import Self
-from collections.abc import Set  # equivalent to typing.AbstractSet, not builtins.set
+from collections.abc import Callable, Container, Iterable, Mapping, Sequence, Set as AbstractSet
 from contextlib import AbstractContextManager
 from types import TracebackType
-from typing import (
-    Any,
-    AnyStr,
-    
-    ClassVar,
-    
-    Generic,
-    
-    
-    NamedTuple,
-    NoReturn,
-    Pattern,
-    
-    
-    Type,
-    TypeVar,
-    overload,
-)
+from typing import Any, AnyStr, ClassVar, Generic, NamedTuple, NoReturn, Pattern, Type, TypeVar, overload
 from warnings import WarningMessage
 
 if sys.version_info >= (3, 9):
@@ -202,7 +184,7 @@ class TestCase:
     ) -> None: ...
     def assertListEqual(self, list1: list[Any], list2: list[Any], msg: Any = ...) -> None: ...
     def assertTupleEqual(self, tuple1: tuple[Any, ...], tuple2: tuple[Any, ...], msg: Any = ...) -> None: ...
-    def assertSetEqual(self, set1: Set[object], set2: Set[object], msg: Any = ...) -> None: ...
+    def assertSetEqual(self, set1: AbstractSet[object], set2: AbstractSet[object], msg: Any = ...) -> None: ...
     def assertDictEqual(self, d1: Mapping[Any, object], d2: Mapping[Any, object], msg: Any = ...) -> None: ...
     def fail(self, msg: Any = ...) -> NoReturn: ...
     def countTestCases(self) -> int: ...

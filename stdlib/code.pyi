@@ -1,5 +1,5 @@
-from collections.abc import Callable, Mapping
 from codeop import CommandCompiler
+from collections.abc import Callable, Mapping
 from types import CodeType
 from typing import Any
 

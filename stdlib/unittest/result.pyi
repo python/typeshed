@@ -1,5 +1,5 @@
-from collections.abc import Callable
 import unittest.case
+from collections.abc import Callable
 from types import TracebackType
 from typing import Any, TextIO, Type, TypeVar, Union
 

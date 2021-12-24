@@ -1,6 +1,6 @@
-from collections.abc import Callable, Generator, Iterable, Iterator
 import sys
 from _typeshed import Self, StrOrBytesPath
+from collections.abc import Callable, Generator, Iterable, Iterator
 from datetime import date, datetime, time
 from typing import Any, Protocol, Type, TypeVar
 

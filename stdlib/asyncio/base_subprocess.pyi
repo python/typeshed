@@ -1,6 +1,6 @@
-from collections.abc import Callable, Sequence
 import subprocess
 from collections import deque
+from collections.abc import Callable, Sequence
 from typing import IO, Any, Optional, Union
 
 from . import events, futures, protocols, transports

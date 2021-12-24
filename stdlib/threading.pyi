@@ -1,5 +1,5 @@
-from collections.abc import Callable, Iterable, Mapping
 import sys
+from collections.abc import Callable, Iterable, Mapping
 from types import FrameType, TracebackType
 from typing import Any, Optional, Type, TypeVar
 

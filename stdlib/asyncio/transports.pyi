@@ -1,7 +1,7 @@
-from collections.abc import Mapping
 import sys
 from asyncio.events import AbstractEventLoop
 from asyncio.protocols import BaseProtocol
+from collections.abc import Mapping
 from socket import _Address
 from typing import Any
 

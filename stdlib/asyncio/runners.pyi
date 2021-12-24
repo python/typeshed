@@ -1,5 +1,5 @@
-from collections.abc import Awaitable
 import sys
+from collections.abc import Awaitable
 
 if sys.version_info >= (3, 7):
     from typing import TypeVar

@@ -1,5 +1,5 @@
-from collections.abc import Sequence
 import sys
+from collections.abc import Sequence
 from typing import Any, NoReturn, overload
 from typing_extensions import Literal, final
 

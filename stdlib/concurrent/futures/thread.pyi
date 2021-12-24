@@ -1,7 +1,6 @@
-from collections.abc import Callable
 import queue
 import sys
-from collections.abc import Iterable, Mapping, Set  # equivalent to typing.AbstractSet, not builtins.set
+from collections.abc import Callable, Iterable, Mapping, Set as AbstractSet
 from threading import Lock, Semaphore, Thread
 from typing import Any, Generic, TypeVar
 from weakref import ref
@@ -47,7 +46,7 @@ if sys.version_info >= (3, 7):
 class ThreadPoolExecutor(Executor):
     _max_workers: int
     _idle_semaphore: Semaphore
-    _threads: Set[Thread]
+    _threads: AbstractSet[Thread]
     _broken: bool
     _shutdown: bool
     _shutdown_lock: Lock

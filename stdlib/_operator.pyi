@@ -1,23 +1,7 @@
-from collections.abc import Callable, Container, Iterable, Mapping, MutableMapping, MutableSequence, Sequence
 import sys
 from _typeshed import SupportsAnyComparison
-from typing import (
-    Any,
-    AnyStr,
-    
-    
-    Generic,
-    
-    
-    
-    
-    Protocol,
-    
-    SupportsAbs,
-    
-    TypeVar,
-    overload,
-)
+from collections.abc import Callable, Container, Iterable, Mapping, MutableMapping, MutableSequence, Sequence
+from typing import Any, AnyStr, Generic, Protocol, SupportsAbs, TypeVar, overload
 from typing_extensions import ParamSpec, SupportsIndex, final
 
 _R = TypeVar("_R")

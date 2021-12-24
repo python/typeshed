@@ -1,23 +1,7 @@
-from collections.abc import Callable, Generator, ItemsView, Iterable, Iterator, KeysView, Mapping, MutableSequence, Sequence
 import sys
 from _typeshed import FileDescriptor, StrOrBytesPath, SupportsWrite
-from typing import (
-    IO,
-    Any,
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    TypeVar,
-    Union,
-    overload,
-)
+from collections.abc import Callable, Generator, ItemsView, Iterable, Iterator, KeysView, Mapping, MutableSequence, Sequence
+from typing import IO, Any, TypeVar, Union, overload
 from typing_extensions import Literal, SupportsIndex
 
 _T = TypeVar("_T")

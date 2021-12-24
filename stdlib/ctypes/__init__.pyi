@@ -1,23 +1,8 @@
-from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 import sys
 from _typeshed import ReadableBuffer, WriteableBuffer
 from abc import abstractmethod
-from typing import (
-    Any,
-    
-    ClassVar,
-    Generic,
-    
-    
-    
-    Optional,
-    
-    
-    Type,
-    TypeVar,
-    Union as _UnionT,
-    overload,
-)
+from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
+from typing import Any, ClassVar, Generic, Optional, Type, TypeVar, Union as _UnionT, overload
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

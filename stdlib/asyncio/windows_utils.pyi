@@ -1,6 +1,6 @@
-from collections.abc import Callable
 import sys
 from _typeshed import Self
+from collections.abc import Callable
 from types import TracebackType
 from typing import Protocol, Type
 

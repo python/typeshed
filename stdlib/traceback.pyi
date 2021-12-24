@@ -1,6 +1,6 @@
-from collections.abc import Generator, Iterable, Iterator, Mapping
 import sys
 from _typeshed import SupportsWrite
+from collections.abc import Generator, Iterable, Iterator, Mapping
 from types import FrameType, TracebackType
 from typing import IO, Any, Optional, Type, overload
 

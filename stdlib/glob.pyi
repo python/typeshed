@@ -1,6 +1,6 @@
-from collections.abc import Iterator
 import sys
 from _typeshed import StrOrBytesPath
+from collections.abc import Iterator
 from typing import AnyStr
 
 def glob0(dirname: AnyStr, pattern: AnyStr) -> list[AnyStr]: ...

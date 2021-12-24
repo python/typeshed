@@ -1,5 +1,5 @@
-from collections.abc import Iterable
 import sys
+from collections.abc import Iterable
 from typing import NamedTuple
 
 class _RequestRate(NamedTuple):

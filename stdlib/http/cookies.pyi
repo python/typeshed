@@ -1,5 +1,5 @@
-from collections.abc import Iterable, Mapping
 import sys
+from collections.abc import Iterable, Mapping
 from typing import Any, Generic, TypeVar, Union, overload
 
 if sys.version_info >= (3, 9):

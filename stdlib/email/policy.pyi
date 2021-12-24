@@ -1,5 +1,5 @@
-from collections.abc import Callable
 from abc import ABCMeta, abstractmethod
+from collections.abc import Callable
 from email.contentmanager import ContentManager
 from email.errors import MessageDefect
 from email.header import Header

@@ -1,7 +1,6 @@
-from collections.abc import Sequence
 import sys
 from _typeshed import StrOrBytesPath, StrPath
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 from configparser import RawConfigParser
 from threading import Thread
 from typing import IO, Any, Pattern

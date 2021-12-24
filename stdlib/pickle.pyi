@@ -1,5 +1,5 @@
-from collections.abc import Callable, Iterable, Iterator, Mapping
 import sys
+from collections.abc import Callable, Iterable, Iterator, Mapping
 from typing import Any, ClassVar, Optional, Protocol, Type, Union
 from typing_extensions import final
 

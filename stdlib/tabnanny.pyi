@@ -1,6 +1,5 @@
-from collections.abc import Iterable
 from _typeshed import StrOrBytesPath
-
+from collections.abc import Iterable
 
 verbose: int
 filename_only: int

@@ -1,8 +1,8 @@
-from collections.abc import Callable, Generator, Iterable, Iterator
 import sys
 import types
 from _typeshed import Self
 from abc import abstractmethod
+from collections.abc import Callable, Generator, Iterable, Iterator
 from typing import IO, Any, BinaryIO, Protocol, TextIO, Type, TypeVar, overload
 from typing_extensions import Literal
 

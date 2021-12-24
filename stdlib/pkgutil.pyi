@@ -1,6 +1,6 @@
-from collections.abc import Callable, Iterable, Iterator
 import sys
 from _typeshed import SupportsRead
+from collections.abc import Callable, Iterable, Iterator
 from importlib.abc import Loader, MetaPathFinder, PathEntryFinder
 from typing import IO, Any, NamedTuple
 

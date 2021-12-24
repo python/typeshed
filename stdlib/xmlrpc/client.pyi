@@ -1,9 +1,9 @@
-from collections.abc import Callable, Iterable, Mapping
 import gzip
 import http.client
 import sys
 import time
 from _typeshed import Self, SupportsRead, SupportsWrite
+from collections.abc import Callable, Iterable, Mapping
 from datetime import datetime
 from io import BytesIO
 from types import TracebackType

@@ -1,5 +1,5 @@
-from collections.abc import Iterable, Mapping
 from _typeshed import StrOrBytesPath, SupportsWrite
+from collections.abc import Iterable, Mapping
 from distutils.cmd import Command
 from typing import IO, Any, Type
 

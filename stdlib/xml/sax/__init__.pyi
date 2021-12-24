@@ -1,5 +1,5 @@
-from collections.abc import Iterable
 import sys
+from collections.abc import Iterable
 from typing import IO, Any, NoReturn
 from xml.sax.handler import ContentHandler, ErrorHandler
 from xml.sax.xmlreader import Locator, XMLReader

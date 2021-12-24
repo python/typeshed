@@ -1,5 +1,5 @@
-from collections.abc import Callable, Container, Mapping, MutableMapping
 from _typeshed import SupportsWrite
+from collections.abc import Callable, Container, Mapping, MutableMapping
 from reprlib import Repr
 from types import MethodType, ModuleType, TracebackType
 from typing import IO, Any, AnyStr, NoReturn, Optional, Type

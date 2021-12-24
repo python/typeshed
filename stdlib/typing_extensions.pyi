@@ -1,33 +1,29 @@
-from collections.abc import AsyncGenerator as AsyncGenerator, AsyncIterable as AsyncIterable, AsyncIterator as AsyncIterator, Awaitable as Awaitable, Callable, Coroutine as Coroutine, ItemsView, KeysView, Mapping, ValuesView
-from collections import ChainMap as ChainMap, Counter as Counter, defaultdict as DefaultDict, deque as Deque
 import abc
 import sys
+from collections import ChainMap as ChainMap, Counter as Counter, defaultdict as DefaultDict, deque as Deque
+from collections.abc import (
+    AsyncGenerator as AsyncGenerator,
+    AsyncIterable as AsyncIterable,
+    AsyncIterator as AsyncIterator,
+    Awaitable as Awaitable,
+    Callable,
+    Coroutine as Coroutine,
+    ItemsView,
+    KeysView,
+    Mapping,
+    ValuesView,
+)
 from typing import (
     TYPE_CHECKING as TYPE_CHECKING,
     Any,
     AsyncContextManager as AsyncContextManager,
-    
-    
-    
-    
-    
-    
     ClassVar as ClassVar,
     ContextManager as ContextManager,
-    
-    
-    
-    
-    
-    
-    
     NewType as NewType,
     NoReturn as NoReturn,
     Text as Text,
-    
     Type as Type,
     TypeVar,
-    
     _Alias,
     overload as overload,
 )

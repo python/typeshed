@@ -1,6 +1,5 @@
 from collections.abc import Mapping
 
-
 errorcode: Mapping[int, str]
 
 EPERM: int

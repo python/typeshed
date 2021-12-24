@@ -1,5 +1,5 @@
-from collections.abc import Iterator
 import sys
+from collections.abc import Iterator
 from typing import Any
 
 # This is a >=3.7 module, so we conditionally include its source.

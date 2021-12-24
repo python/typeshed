@@ -22,11 +22,11 @@ from _typeshed import (
     SupportsTrunc,
     SupportsWrite,
 )
+from collections.abc import Set as AbstractSet
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from types import CodeType, TracebackType
 from typing import (
     IO,
-    AbstractSet,
     Any,
     BinaryIO,
     ByteString,
@@ -49,7 +49,6 @@ from typing import (
     SupportsFloat,
     SupportsInt,
     SupportsRound,
-    
     Type,
     TypeVar,
     Union,

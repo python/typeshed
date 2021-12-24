@@ -1,5 +1,5 @@
-from collections.abc import Callable
 from _typeshed import StrOrBytesPath
+from collections.abc import Callable
 from typing import Any, TypeVar
 
 def run(statement: str, filename: str | None = ..., sort: str | int = ...) -> None: ...

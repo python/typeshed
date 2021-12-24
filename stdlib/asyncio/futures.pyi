@@ -1,5 +1,5 @@
-from collections.abc import Awaitable, Callable, Generator, Iterable
 import sys
+from collections.abc import Awaitable, Callable, Generator, Iterable
 from concurrent.futures._base import Error, Future as _ConcurrentFuture
 from typing import Any, TypeVar
 

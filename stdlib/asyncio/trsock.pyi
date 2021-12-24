@@ -1,6 +1,6 @@
-from collections.abc import Iterable
 import socket
 import sys
+from collections.abc import Iterable
 from types import TracebackType
 from typing import Any, BinaryIO, NoReturn, Type, Union, overload
 

@@ -1,5 +1,5 @@
-from collections.abc import Callable
 from _typeshed import StrOrBytesPath
+from collections.abc import Callable
 from types import FrameType, TracebackType
 from typing import IO, Any, Optional, Type
 

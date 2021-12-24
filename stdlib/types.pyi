@@ -1,28 +1,22 @@
-from collections.abc import AsyncGenerator, Awaitable, Callable, Coroutine, Generator, ItemsView, Iterable, Iterator, KeysView, Mapping, MutableSequence, ValuesView
 import sys
 from _typeshed import SupportsKeysAndGetItem
+from collections.abc import (
+    AsyncGenerator,
+    Awaitable,
+    Callable,
+    Coroutine,
+    Generator,
+    ItemsView,
+    Iterable,
+    Iterator,
+    KeysView,
+    Mapping,
+    MutableSequence,
+    ValuesView,
+)
 from importlib.abc import _LoaderProtocol
 from importlib.machinery import ModuleSpec
-from typing import (
-    Any,
-    
-    
-    
-    
-    
-    Generic,
-    
-    
-    
-    
-    
-    
-    
-    Type,
-    TypeVar,
-    
-    overload,
-)
+from typing import Any, Generic, Type, TypeVar, overload
 from typing_extensions import Literal, ParamSpec, final
 
 # Note, all classes "defined" here require special handling.

@@ -1,6 +1,6 @@
-from collections.abc import Iterator
 import sys
 from _typeshed import ReadableBuffer, WriteableBuffer
+from collections.abc import Iterator
 from typing import Any
 
 class error(Exception): ...

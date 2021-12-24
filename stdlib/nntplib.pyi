@@ -1,9 +1,9 @@
-from collections.abc import Iterable
 import datetime
 import socket
 import ssl
 import sys
 from _typeshed import Self
+from collections.abc import Iterable
 from typing import IO, Any, NamedTuple, Union
 
 _File = Union[IO[bytes], bytes, str, None]

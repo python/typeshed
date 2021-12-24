@@ -1,6 +1,6 @@
-from collections.abc import Callable
 import sys
 import threading
+from collections.abc import Callable
 from contextlib import AbstractContextManager
 from multiprocessing.context import BaseContext
 from typing import Any, Union

@@ -1,5 +1,5 @@
-from collections.abc import Callable, Sequence
 import sys
+from collections.abc import Callable, Sequence
 from typing import Any
 from typing_extensions import Literal
 

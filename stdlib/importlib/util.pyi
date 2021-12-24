@@ -1,9 +1,9 @@
-from collections.abc import Callable
 import importlib.abc
 import importlib.machinery
 import sys
 import types
 from _typeshed import StrOrBytesPath
+from collections.abc import Callable
 from typing import Any
 from typing_extensions import ParamSpec
 

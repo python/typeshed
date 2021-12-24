@@ -1,5 +1,5 @@
-from collections.abc import Callable, Iterable
 from abc import abstractmethod
+from collections.abc import Callable, Iterable
 from distutils.dist import Distribution
 from typing import Any
 

@@ -1,6 +1,6 @@
-from collections.abc import Callable
 import sys
 from _typeshed import structseq
+from collections.abc import Callable
 from threading import Thread
 from types import TracebackType
 from typing import Any, NoReturn, Optional, Type

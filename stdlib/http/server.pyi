@@ -1,9 +1,9 @@
-from collections.abc import Mapping, Sequence
 import email.message
 import io
 import socketserver
 import sys
 from _typeshed import StrPath, SupportsRead, SupportsWrite
+from collections.abc import Mapping, Sequence
 from typing import Any, AnyStr, BinaryIO, ClassVar
 
 class HTTPServer(socketserver.TCPServer):

@@ -1,7 +1,7 @@
-from collections.abc import Iterable, Iterator
 import os
 import sys
 from _typeshed import Self
+from collections.abc import Iterable, Iterator
 from types import TracebackType
 from typing import IO, Any, AnyStr, Generic, Type, Union, overload
 from typing_extensions import Literal

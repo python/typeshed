@@ -1,6 +1,6 @@
-from collections.abc import Iterable
 import sys
 from _typeshed import StrOrBytesPath
+from collections.abc import Iterable
 from cProfile import Profile as _cProfile
 from profile import Profile
 from typing import IO, Any, TypeVar, Union, overload

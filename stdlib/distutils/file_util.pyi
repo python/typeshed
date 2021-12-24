@@ -1,6 +1,5 @@
 from collections.abc import Sequence
 
-
 def copy_file(
     src: str,
     dst: str,

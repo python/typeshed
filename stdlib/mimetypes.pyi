@@ -1,6 +1,6 @@
-from collections.abc import Sequence
 import sys
 from _typeshed import StrPath
+from collections.abc import Sequence
 from typing import IO
 
 if sys.version_info >= (3, 8):

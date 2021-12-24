@@ -1,5 +1,5 @@
-from collections.abc import Callable
 import sys
+from collections.abc import Callable
 from typing import IO, Any
 
 from .types import WSGIEnvironment

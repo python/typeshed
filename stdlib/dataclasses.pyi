@@ -1,6 +1,6 @@
-from collections.abc import Callable, Iterable, Mapping
 import sys
 import types
+from collections.abc import Callable, Iterable, Mapping
 from typing import Any, Generic, Protocol, Type, TypeVar, overload
 
 if sys.version_info >= (3, 9):

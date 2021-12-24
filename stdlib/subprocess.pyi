@@ -1,6 +1,6 @@
-from collections.abc import Callable, Iterable, Mapping, Sequence
 import sys
 from _typeshed import Self, StrOrBytesPath
+from collections.abc import Callable, Iterable, Mapping, Sequence
 from types import TracebackType
 from typing import IO, Any, AnyStr, Generic, Type, TypeVar, Union, overload
 from typing_extensions import Literal

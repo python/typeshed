@@ -1,8 +1,7 @@
-from collections.abc import Mapping
 from _typeshed import SupportsWrite
 from codecs import StreamReaderWriter, StreamWriter
+from collections.abc import Mapping
 from io import RawIOBase, TextIOBase
-
 from xml.sax import handler, xmlreader
 
 def escape(data: str, entities: Mapping[str, str] = ...) -> str: ...

@@ -1,6 +1,6 @@
-from collections.abc import Iterable, Iterator
 import unittest.case
 import unittest.result
+from collections.abc import Iterable, Iterator
 from typing import Union
 
 _TestType = Union[unittest.case.TestCase, TestSuite]

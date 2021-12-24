@@ -1,6 +1,6 @@
-from collections.abc import Iterable, Iterator, Sequence
 import sys
 from _typeshed import StrPath
+from collections.abc import Iterable, Iterator, Sequence
 from http.client import HTTPResponse
 from typing import ClassVar, Pattern, TypeVar, overload
 from urllib.request import Request

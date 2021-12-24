@@ -1,5 +1,5 @@
-from collections.abc import Iterator, MutableMapping
 from _typeshed import Self
+from collections.abc import Iterator, MutableMapping
 from types import TracebackType
 from typing import Type, Union
 from typing_extensions import Literal

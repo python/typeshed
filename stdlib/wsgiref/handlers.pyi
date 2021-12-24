@@ -1,5 +1,5 @@
-from collections.abc import Callable, MutableMapping
 from abc import abstractmethod
+from collections.abc import Callable, MutableMapping
 from types import TracebackType
 from typing import IO, Optional, Type
 

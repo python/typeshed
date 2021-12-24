@@ -1,7 +1,7 @@
-from collections.abc import Callable, Generator, Iterable, Sequence
 import sys
 from _typeshed import StrOrBytesPath
 from builtins import open as _builtin_open
+from collections.abc import Callable, Generator, Iterable, Sequence
 from token import *  # noqa: F403
 from typing import Any, NamedTuple, Pattern, TextIO, Union
 

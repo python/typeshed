@@ -1,7 +1,7 @@
-from collections.abc import Callable, Mapping, Sequence
 import _tkinter
 import sys
 from _typeshed import StrOrBytesPath
+from collections.abc import Callable, Mapping, Sequence
 from enum import Enum
 from tkinter.constants import *
 from tkinter.font import _FontDescription

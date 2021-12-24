@@ -1,6 +1,6 @@
-from collections.abc import Iterable
 import sys
 from _typeshed import SupportsTrunc
+from collections.abc import Iterable
 from typing import SupportsFloat, Union, overload
 from typing_extensions import SupportsIndex
 

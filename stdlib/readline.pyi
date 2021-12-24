@@ -1,5 +1,5 @@
-from collections.abc import Callable, Sequence
 from _typeshed import StrOrBytesPath
+from collections.abc import Callable, Sequence
 from typing import Optional
 
 _CompleterT = Optional[Callable[[str, int], Optional[str]]]

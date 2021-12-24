@@ -1,5 +1,5 @@
-from collections.abc import Callable, Mapping, Sequence
 import sys
+from collections.abc import Callable, Mapping, Sequence
 from typing import Any, AnyStr, Generic, NamedTuple, Union, overload
 
 if sys.version_info >= (3, 9):

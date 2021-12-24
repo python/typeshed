@@ -1,8 +1,8 @@
-from collections.abc import Iterable
 import _compression
 import sys
 from _compression import BaseStream
 from _typeshed import ReadableBuffer, Self, StrOrBytesPath, WriteableBuffer
+from collections.abc import Iterable
 from typing import IO, Any, Protocol, TextIO, TypeVar, overload
 from typing_extensions import Literal, SupportsIndex, final
 

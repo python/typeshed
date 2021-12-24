@@ -1,7 +1,7 @@
-from collections.abc import Callable
 import pyexpat.errors as errors
 import pyexpat.model as model
 from _typeshed import SupportsRead
+from collections.abc import Callable
 from typing import Any, Optional
 from typing_extensions import final
 

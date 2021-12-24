@@ -1,6 +1,6 @@
-from collections.abc import Sequence
 import sys
 from _tracemalloc import *
+from collections.abc import Sequence
 from typing import Optional, Union, overload
 from typing_extensions import SupportsIndex
 

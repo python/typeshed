@@ -1,6 +1,6 @@
-from collections.abc import Callable, Iterable
 import sys
 from _typeshed import Self
+from collections.abc import Callable, Iterable
 from email.message import Message
 from types import TracebackType
 from typing import IO, Any, BinaryIO, Type, TypeVar

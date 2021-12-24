@@ -1,5 +1,5 @@
-from collections.abc import Callable
 import sys
+from collections.abc import Callable
 from typing import Any, Generic, TypeVar, overload
 from typing_extensions import final
 

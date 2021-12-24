@@ -1,6 +1,5 @@
-from collections.abc import Callable
 from _curses import _CursesWindow
-
+from collections.abc import Callable
 
 def rectangle(win: _CursesWindow, uly: int, ulx: int, lry: int, lrx: int) -> None: ...
 

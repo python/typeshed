@@ -1,8 +1,8 @@
-from collections.abc import Callable, Sequence
 import sys
 import unittest.case
 import unittest.result
 import unittest.suite
+from collections.abc import Callable, Sequence
 from types import ModuleType
 from typing import Any, Pattern, Type
 

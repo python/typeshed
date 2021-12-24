@@ -1,7 +1,7 @@
-from collections.abc import Callable, Iterable, Sequence
 import os
 import sys
 from _typeshed import StrOrBytesPath, StrPath, SupportsRead, SupportsWrite
+from collections.abc import Callable, Iterable, Sequence
 from typing import Any, AnyStr, NamedTuple, TypeVar, Union, overload
 
 _PathT = TypeVar("_PathT", str, os.PathLike[str])

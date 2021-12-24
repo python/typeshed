@@ -1,6 +1,6 @@
-from collections.abc import Callable
 import codecs
 import sys
+from collections.abc import Callable
 from typing import Any, Union
 
 # This type is not exposed; it is defined in unicodeobject.c

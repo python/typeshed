@@ -1,6 +1,6 @@
-from collections.abc import Callable
 import types
 import unittest
+from collections.abc import Callable
 from typing import Any, NamedTuple, Type
 
 class TestResults(NamedTuple):

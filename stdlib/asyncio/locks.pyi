@@ -1,6 +1,6 @@
-from collections.abc import Awaitable, Callable, Generator
 import sys
 from collections import deque
+from collections.abc import Awaitable, Callable, Generator
 from types import TracebackType
 from typing import Any, Type, TypeVar
 

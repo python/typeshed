@@ -2,7 +2,6 @@
 
 from collections.abc import Callable, Sequence
 
-
 def cloexec_pipe() -> tuple[int, int]: ...
 def fork_exec(
     args: Sequence[str],

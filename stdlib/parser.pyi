@@ -1,5 +1,5 @@
-from collections.abc import Sequence
 from _typeshed import StrOrBytesPath
+from collections.abc import Sequence
 from types import CodeType
 from typing import Any
 

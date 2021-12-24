@@ -1,5 +1,5 @@
-from collections.abc import Awaitable, Callable, Iterable
 import sys
+from collections.abc import Awaitable, Callable, Iterable
 from typing import Any
 
 from . import events

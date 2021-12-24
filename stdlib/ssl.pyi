@@ -1,8 +1,8 @@
-from collections.abc import Callable, Iterable
 import enum
 import socket
 import sys
 from _typeshed import ReadableBuffer, Self, StrOrBytesPath, WriteableBuffer
+from collections.abc import Callable, Iterable
 from typing import Any, ClassVar, NamedTuple, Optional, Type, Union, overload
 from typing_extensions import Literal, TypedDict
 

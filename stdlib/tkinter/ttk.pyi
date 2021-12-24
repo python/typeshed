@@ -1,7 +1,7 @@
-from collections.abc import Callable
 import _tkinter
 import sys
 import tkinter
+from collections.abc import Callable
 from tkinter.font import _FontDescription
 from typing import Any, Union, overload
 from typing_extensions import Literal, TypedDict

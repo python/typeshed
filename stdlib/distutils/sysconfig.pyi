@@ -1,7 +1,6 @@
 from collections.abc import Mapping
 from distutils.ccompiler import CCompiler
 
-
 PREFIX: str
 EXEC_PREFIX: str
 

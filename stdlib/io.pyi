@@ -1,8 +1,8 @@
-from collections.abc import Callable, Iterable, Iterator
 import builtins
 import codecs
 import sys
 from _typeshed import ReadableBuffer, Self, StrOrBytesPath, WriteableBuffer
+from collections.abc import Callable, Iterable, Iterator
 from os import _Opener
 from types import TracebackType
 from typing import IO, Any, BinaryIO, TextIO, Type

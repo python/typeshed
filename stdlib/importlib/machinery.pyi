@@ -1,7 +1,7 @@
-from collections.abc import Callable, Iterable, Sequence
 import importlib.abc
 import sys
 import types
+from collections.abc import Callable, Iterable, Sequence
 from typing import Any
 
 if sys.version_info >= (3, 8):

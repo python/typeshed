@@ -1,6 +1,5 @@
-from collections.abc import Callable
 import sys
-from collections.abc import Generator, Iterable, Mapping, MutableMapping, MutableSequence
+from collections.abc import Callable, Generator, Iterable, Mapping, MutableMapping, MutableSequence
 from multiprocessing.connection import Connection
 from multiprocessing.context import BaseContext, Process
 from multiprocessing.queues import Queue, SimpleQueue

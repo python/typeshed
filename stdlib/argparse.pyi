@@ -1,21 +1,6 @@
-from collections.abc import Callable, Generator, Iterable, Sequence
 import sys
-from typing import (
-    IO,
-    Any,
-    
-    
-    Generic,
-    
-    NoReturn,
-    Pattern,
-    Protocol,
-    
-    
-    Type,
-    TypeVar,
-    overload,
-)
+from collections.abc import Callable, Generator, Iterable, Sequence
+from typing import IO, Any, Generic, NoReturn, Pattern, Protocol, Type, TypeVar, overload
 
 _T = TypeVar("_T")
 _ActionT = TypeVar("_ActionT", bound=Action)

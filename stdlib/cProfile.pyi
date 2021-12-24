@@ -1,6 +1,6 @@
-from collections.abc import Callable
 import sys
 from _typeshed import Self, StrOrBytesPath
+from collections.abc import Callable
 from types import CodeType
 from typing import Any, TypeVar
 

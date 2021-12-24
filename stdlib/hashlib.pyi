@@ -1,6 +1,6 @@
 import sys
 from _typeshed import ReadableBuffer, Self
-from typing import AbstractSet
+from collections.abc import Set as AbstractSet
 
 class _Hash(object):
     @property

@@ -1,7 +1,7 @@
-from collections.abc import Callable, Hashable, Iterable, Sequence, Sized
 import sys
 import types
 from _typeshed import SupportsAllComparisons, SupportsItems
+from collections.abc import Callable, Hashable, Iterable, Sequence, Sized
 from typing import Any, Generic, NamedTuple, Type, TypeVar, overload
 from typing_extensions import final
 

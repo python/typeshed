@@ -1,5 +1,5 @@
-from collections.abc import Sequence
 import sys
+from collections.abc import Sequence
 from typing import Any
 
 def symtable(code: str, filename: str, compile_type: str) -> SymbolTable: ...

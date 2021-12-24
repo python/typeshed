@@ -1,4 +1,3 @@
-from collections.abc import Iterator, Mapping, Sequence
 import sys
 import types
 from _typeshed import (
@@ -11,6 +10,7 @@ from _typeshed import (
     StrPath,
 )
 from abc import ABCMeta, abstractmethod
+from collections.abc import Iterator, Mapping, Sequence
 from importlib.machinery import ModuleSpec
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from typing import IO, Any, BinaryIO, NoReturn, Protocol, Union, overload, runtime_checkable

@@ -1,6 +1,6 @@
-from collections.abc import AsyncIterator, Awaitable, Callable, Iterable
 import sys
 from _typeshed import StrPath
+from collections.abc import AsyncIterator, Awaitable, Callable, Iterable
 from typing import Any, Optional
 
 from . import events, protocols, transports

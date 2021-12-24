@@ -1,6 +1,6 @@
-from collections.abc import Callable
 import sys
 from _typeshed import ReadableBuffer
+from collections.abc import Callable
 from types import ModuleType
 from typing import Any, AnyStr, Union, overload
 

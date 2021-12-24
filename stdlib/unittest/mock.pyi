@@ -1,5 +1,5 @@
-from collections.abc import Awaitable, Callable, Iterable, Mapping, Sequence
 import sys
+from collections.abc import Awaitable, Callable, Iterable, Mapping, Sequence
 from typing import Any, Generic, Type, TypeVar, overload
 
 _T = TypeVar("_T")

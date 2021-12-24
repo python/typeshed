@@ -1,6 +1,6 @@
-from collections.abc import Callable, Iterable, Sequence
 import sys
 from _typeshed import StrOrBytesPath
+from collections.abc import Callable, Iterable, Sequence
 from os import PathLike
 from typing import Any, AnyStr, Generic
 

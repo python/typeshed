@@ -1,6 +1,6 @@
-from collections.abc import Sequence
 import sys
 from _typeshed import BytesPath, StrOrBytesPath, StrPath
+from collections.abc import Sequence
 from genericpath import (
     commonprefix as commonprefix,
     exists as exists,

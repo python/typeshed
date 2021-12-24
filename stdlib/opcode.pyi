@@ -1,6 +1,5 @@
-from collections.abc import Sequence
 import sys
-
+from collections.abc import Sequence
 
 cmp_op: Sequence[str]
 hasconst: list[int]

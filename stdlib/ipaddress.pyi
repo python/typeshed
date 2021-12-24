@@ -1,5 +1,5 @@
-from collections.abc import Container, Iterable, Iterator
 import sys
+from collections.abc import Container, Iterable, Iterator
 from typing import Any, Generic, SupportsInt, TypeVar, overload
 
 # Undocumented length constants

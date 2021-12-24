@@ -1,8 +1,8 @@
-from collections.abc import Awaitable, Callable, Generator, Sequence
 import ssl
 import sys
 from _typeshed import FileDescriptorLike, Self
 from abc import ABCMeta, abstractmethod
+from collections.abc import Awaitable, Callable, Generator, Sequence
 from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
 from typing import IO, Any, TypeVar, Union, overload
 from typing_extensions import Literal

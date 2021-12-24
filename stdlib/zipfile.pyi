@@ -1,7 +1,7 @@
-from collections.abc import Callable, Iterable, Iterator, Sequence
 import io
 import sys
 from _typeshed import Self, StrPath
+from collections.abc import Callable, Iterable, Iterator, Sequence
 from os import PathLike
 from types import TracebackType
 from typing import IO, Any, Protocol, Type, overload

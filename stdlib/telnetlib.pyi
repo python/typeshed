@@ -1,6 +1,6 @@
-from collections.abc import Callable, Sequence
 import socket
 from _typeshed import Self
+from collections.abc import Callable, Sequence
 from typing import Any, Match, Pattern
 
 DEBUGLEVEL: int

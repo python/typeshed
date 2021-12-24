@@ -1,6 +1,6 @@
-from collections.abc import Container, Iterable, Sequence
 import sys
 from _typeshed import StrPath
+from collections.abc import Container, Iterable, Sequence
 from typing import IO, Any, Type, TypeVar, overload
 from typing_extensions import Literal
 

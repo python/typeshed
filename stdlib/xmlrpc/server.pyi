@@ -1,8 +1,8 @@
-from collections.abc import Callable, Iterable, Mapping
 import http.server
 import pydoc
 import socketserver
 import sys
+from collections.abc import Callable, Iterable, Mapping
 from datetime import datetime
 from typing import Any, Pattern, Protocol, Type, Union
 from xmlrpc.client import Fault

@@ -1,21 +1,7 @@
-from collections.abc import Callable, Iterable, Iterator
 import sys
 from _typeshed import _T_co
-from typing import (
-    Any,
-    
-    Generic,
-    
-    
-    SupportsComplex,
-    SupportsFloat,
-    SupportsInt,
-    
-    Type,
-    TypeVar,
-    Union,
-    overload,
-)
+from collections.abc import Callable, Iterable, Iterator
+from typing import Any, Generic, SupportsComplex, SupportsFloat, SupportsInt, Type, TypeVar, Union, overload
 from typing_extensions import Literal, SupportsIndex
 
 if sys.version_info >= (3, 9):

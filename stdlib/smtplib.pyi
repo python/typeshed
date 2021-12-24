@@ -1,6 +1,6 @@
-from collections.abc import Sequence
 import sys
 from _typeshed import Self
+from collections.abc import Sequence
 from email.message import Message as _Message
 from socket import socket
 from ssl import SSLContext

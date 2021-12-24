@@ -1,5 +1,5 @@
-from collections.abc import Callable
 import unittest.result
+from collections.abc import Callable
 from typing import TypeVar, overload
 from typing_extensions import ParamSpec
 

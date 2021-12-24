@@ -1,6 +1,6 @@
-from collections.abc import Container, Sequence
 import numbers
 import sys
+from collections.abc import Container, Sequence
 from types import TracebackType
 from typing import Any, NamedTuple, Type, TypeVar, Union, overload
 

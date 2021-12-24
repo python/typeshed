@@ -1,5 +1,5 @@
-from collections.abc import Callable
 import email.feedparser
+from collections.abc import Callable
 from email.message import Message
 from email.policy import Policy
 from typing import BinaryIO, TextIO

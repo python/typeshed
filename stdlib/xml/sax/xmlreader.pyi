@@ -1,6 +1,5 @@
 from collections.abc import Mapping
 
-
 class XMLReader:
     def __init__(self) -> None: ...
     def parse(self, source): ...

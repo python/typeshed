@@ -1,8 +1,8 @@
-from collections.abc import Iterable
 import socket
 import sys
 import types
 from _typeshed import Self
+from collections.abc import Iterable
 from typing import Any, Type, Union
 
 if sys.version_info >= (3, 8):

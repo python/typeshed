@@ -1,5 +1,3 @@
-
-
 AdpcmState = tuple[int, int]
 RatecvState = tuple[int, tuple[tuple[int, int], ...]]
 

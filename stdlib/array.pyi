@@ -1,5 +1,5 @@
-from collections.abc import Iterable, MutableSequence
 import sys
+from collections.abc import Iterable, MutableSequence
 from typing import Any, BinaryIO, Generic, TypeVar, Union, overload
 from typing_extensions import Literal, SupportsIndex
 

@@ -1,5 +1,5 @@
-from collections.abc import Iterable
 import sys
+from collections.abc import Iterable
 from typing import Any, Generic, TypeVar
 
 if sys.version_info >= (3, 9):

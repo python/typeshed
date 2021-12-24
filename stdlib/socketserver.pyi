@@ -1,7 +1,7 @@
-from collections.abc import Callable
 import sys
 import types
 from _typeshed import Self
+from collections.abc import Callable
 from socket import socket as _socket
 from typing import Any, BinaryIO, ClassVar, Type, TypeVar, Union
 

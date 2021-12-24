@@ -1,6 +1,5 @@
-from collections.abc import Callable
 import sys
-
+from collections.abc import Callable
 from xml.etree.ElementTree import Element
 
 XINCLUDE: str

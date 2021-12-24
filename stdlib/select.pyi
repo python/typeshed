@@ -1,6 +1,6 @@
-from collections.abc import Iterable
 import sys
 from _typeshed import FileDescriptorLike, Self
+from collections.abc import Iterable
 from types import TracebackType
 from typing import Any, Type
 

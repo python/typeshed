@@ -1,4 +1,3 @@
-from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping, Sequence
 import sys
 from _typeshed import (
     FileDescriptorLike,
@@ -13,30 +12,11 @@ from _typeshed import (
     structseq,
 )
 from builtins import OSError
+from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping, Sequence
 from contextlib import AbstractContextManager
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper as _TextIOWrapper
 from subprocess import Popen
-from typing import (
-    IO,
-    Any,
-    AnyStr,
-    BinaryIO,
-    
-    Generic,
-    
-    
-    
-    
-    
-    NoReturn,
-    Protocol,
-    
-    
-    TypeVar,
-    Union,
-    overload,
-    runtime_checkable,
-)
+from typing import IO, Any, AnyStr, BinaryIO, Generic, NoReturn, Protocol, TypeVar, Union, overload, runtime_checkable
 from typing_extensions import Literal, final
 
 from . import path as _path

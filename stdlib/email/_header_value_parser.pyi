@@ -1,5 +1,5 @@
-from collections.abc import Iterable, Iterator
 import sys
+from collections.abc import Iterable, Iterator
 from email.errors import HeaderParseError, MessageDefect
 from email.policy import Policy
 from typing import Any, Pattern, Type, TypeVar, Union

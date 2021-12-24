@@ -1,7 +1,7 @@
-from collections.abc import Mapping
 import sys
 from _typeshed import FileDescriptor, FileDescriptorLike, Self
 from abc import ABCMeta, abstractmethod
+from collections.abc import Mapping
 from typing import Any, NamedTuple
 
 _EventMask = int

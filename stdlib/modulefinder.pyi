@@ -1,5 +1,5 @@
-from collections.abc import Container, Iterable, Iterator, Sequence
 import sys
+from collections.abc import Container, Iterable, Iterator, Sequence
 from types import CodeType
 from typing import IO, Any
 

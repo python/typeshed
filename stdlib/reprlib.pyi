@@ -1,6 +1,6 @@
-from collections.abc import Callable
 from array import array
 from collections import deque
+from collections.abc import Callable
 from typing import Any
 
 _ReprFunc = Callable[[Any], str]

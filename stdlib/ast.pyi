@@ -2,14 +2,15 @@
 # from _ast below when loaded in an unorthodox way by the Dropbox
 # internal Bazel integration.
 
+import sys
+import typing as _typing
+from _ast import *
+
 # The same unorthodox Bazel integration causes issues with sys, which
 # is imported in both modules. unfortunately we can't just rename sys,
 # since mypy only supports version checks with a sys that is named
 # sys.
 from collections.abc import Iterator
-import sys
-import typing as _typing
-from _ast import *
 from typing import Any, TypeVar, overload
 from typing_extensions import Literal
 
