@@ -2,8 +2,8 @@ from collections.abc import Mapping
 from types import TracebackType
 from typing import Any, Callable, TypeVar, overload
 
-from ..log import Identified, echo_property
 from ..dbapi import DBAPIConnection
+from ..log import Identified, echo_property
 from ..pool import Pool
 from ..sql.compiler import Compiled
 from ..sql.ddl import DDLElement
