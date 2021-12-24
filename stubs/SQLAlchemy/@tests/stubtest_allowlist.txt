@@ -28,6 +28,8 @@ sqlalchemy.testing.util.resolve_lambda
 sqlalchemy.util.WeakSequence.__init__
 
 # not always present
+sqlalchemy.engine.Engine.logging_name  # initialized if not None
+sqlalchemy.engine.base.Engine.logging_name  # initialized if not None
 sqlalchemy.testing.util.non_refcount_gc_collect
 
 # replaced at runtime
@@ -107,9 +109,9 @@ sqlalchemy.orm.strategy_options.Load.undefer_group
 sqlalchemy.orm.strategy_options.Load.with_expression
 
 # abstract fields not present at runtime
-sqlalchemy.engine.Engine.logging_name  # initialized to None
+sqlalchemy.engine.Transaction.connection
 sqlalchemy.engine.Transaction.is_active
-sqlalchemy.engine.base.Engine.logging_name  # initialized to None
+sqlalchemy.engine.base.Transaction.connection
 sqlalchemy.engine.base.Transaction.is_active
 
 # initialized to None during class construction, but overridden during __init__()

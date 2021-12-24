@@ -1,4 +1,5 @@
 from _typeshed import Self
+from abc import abstractmethod
 from collections.abc import Mapping
 from types import TracebackType
 from typing import Any, Callable, TypeVar, overload
@@ -116,7 +117,6 @@ class ExceptionContextImpl(ExceptionContext):
         invalidate_pool_on_disconnect,
     ) -> None: ...
 
-# Abstract base class, non-instantiable
 class Transaction(TransactionalContext):
     def __init__(self, connection: Connection) -> None: ...
     @property
@@ -126,13 +126,24 @@ class Transaction(TransactionalContext):
     def commit(self) -> None: ...
     # The following field are technically not defined on Transaction, but on
     # all sub-classes.
-    connection: Connection
+    @abstractmethod
+    @property
+    def connection(self) -> Connection: ...
+    @abstractmethod
     @property
     def is_active(self) -> bool: ...
 
-class MarkerTransaction(Transaction): ...
-class RootTransaction(Transaction): ...
-class NestedTransaction(Transaction): ...
+class MarkerTransaction(Transaction):
+    connection: Connection
+    is_active: bool
+
+class RootTransaction(Transaction):
+    connection: Connection
+    is_active: bool
+
+class NestedTransaction(Transaction):
+    connection: Connection
+    is_active: bool
 
 class TwoPhaseTransaction(RootTransaction):
     xid: Any
