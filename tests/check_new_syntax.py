@@ -12,16 +12,42 @@ STUBS_SUPPORTING_PYTHON_2 = frozenset(
 CONTEXT_MANAGER_ALIASES = {"ContextManager": "AbstractContextManager", "AsyncContextManager": "AbstractAsyncContextManager"}
 CONTEXTLIB_ALIAS_ALLOWLIST = frozenset({Path("stdlib/contextlib.pyi"), Path("stdlib/typing_extensions.pyi")})
 
+FORBIDDEN_BUILTIN_TYPING_IMPORTS = frozenset({"List", "FrozenSet", "Set", "Dict", "Tuple"})
+
 IMPORTED_FROM_TYPING_NOT_TYPING_EXTENSIONS = frozenset(
-    {"ClassVar", "Type", "NewType", "overload", "Text", "Protocol", "runtime_checkable", "NoReturn"}
+    {"ClassVar", "NewType", "overload", "Text", "Protocol", "runtime_checkable", "NoReturn"}
 )
 
-IMPORTED_FROM_COLLECTIONS_ABC_NOT_TYPING_EXTENSIONS = frozenset(
-    {"Awaitable", "Coroutine", "AsyncIterable", "AsyncIterator", "AsyncGenerator"}
-)
+# AbstractSet intentionally omitted from this list -- special-cased
+IMPORTED_FROM_COLLECTIONS_ABC_NOT_TYPING = frozenset({
+        "ByteString",
+        "Collection",
+        "Container",
+        "ItemsView",
+        "KeysView",
+        "Mapping",
+        "MappingView",
+        "MutableMapping",
+        "MutableSequence",
+        "MutableSet",
+        "Sequence",
+        "ValuesView",
+        "Iterable",
+        "Iterator",
+        "Generator",
+        "Hashable",
+        "Reversible",
+        "Sized",
+        "Coroutine",
+        "AsyncGenerator",
+        "AsyncIterable",
+        "AsyncIterator",
+        "Awaitable",
+        "Callable",
+    })
 
 # The values in the mapping are what these are called in `collections`
-IMPORTED_FROM_COLLECTIONS_NOT_TYPING_EXTENSIONS = {
+IMPORTED_FROM_COLLECTIONS_NOT_TYPING = {
     "Counter": "Counter",
     "Deque": "deque",
     "DefaultDict": "defaultdict",
@@ -34,21 +60,28 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
     errors = []
     python_2_support_required = any(directory in path.parents for directory in STUBS_SUPPORTING_PYTHON_2)
 
-    def unparse_without_tuple_parens(node: ast.AST) -> str:
-        if isinstance(node, ast.Tuple) and node.elts:
-            return ast.unparse(node)[1:-1]
-        return ast.unparse(node)
+    def check_object_from_typing(node: ast.ImportFrom | ast.Attribute, object_name: str):
+        if object_name in FORBIDDEN_BUILTIN_TYPING_IMPORTS:
+            errors.append(f"{path}:{node.lineno}: Use `builtins.{object_name.lower()}` instead of `typing.{object_name}`")
+        elif object_name in IMPORTED_FROM_COLLECTIONS_NOT_TYPING:
+            errors.append(
+                f"{path}:{node.lineno}: "
+                f"Use `collections.{IMPORTED_FROM_COLLECTIONS_NOT_TYPING[object_name]}` instead of `typing.{object_name}`"
+            )
+        elif object_name in IMPORTED_FROM_COLLECTIONS_ABC_NOT_TYPING:
+            if path not in {Path("stdlib/_collections_abc.pyi"), Path("stdlib/builtins.pyi")}:
+                errors.append(f"{path}:{node.lineno}: Use `collections.abc.{object_name}` instead of `typing.{object_name}`")
+        elif object_name == "AbstractSet":
+            if path != Path("stdlib/_collections_abc.pyi"):
+                errors.append(
+                    f"{path}:{node.lineno}: Use `from collections.abc import Set as AbstractSet` instead of `typing.AbstractSet`"
+                )
+        elif not python_2_support_required and path not in CONTEXTLIB_ALIAS_ALLOWLIST and object_name in CONTEXT_MANAGER_ALIASES:
+            errors.append(
+                f"{path}:{node.lineno}: Use `contextlib.{CONTEXT_MANAGER_ALIASES[object_name]}` instead of `typing.{object_name}`"
+            )
 
-    def is_dotdotdot(node: ast.AST) -> bool:
-        return isinstance(node, ast.Constant) and node.s is Ellipsis
-
-    def add_contextlib_alias_error(node: ast.ImportFrom | ast.Attribute, alias: str) -> None:
-        errors.append(f"{path}:{node.lineno}: Use `contextlib.{CONTEXT_MANAGER_ALIASES[alias]}` instead of `typing.{alias}`")
-
-    class OldSyntaxFinder(ast.NodeVisitor):
-        def __init__(self, *, set_from_collections_abc: bool) -> None:
-            self.set_from_collections_abc = set_from_collections_abc
-
+    class UnionFinder(ast.NodeVisitor):
         def visit_Subscript(self, node: ast.Subscript) -> None:
             if isinstance(node.value, ast.Name):
                 if node.value.id == "Union" and isinstance(node.slice, ast.Tuple):
@@ -57,30 +90,6 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
                 if node.value.id == "Optional":
                     new_syntax = f"{ast.unparse(node.slice)} | None"
                     errors.append(f"{path}:{node.lineno}: Use PEP 604 syntax for Optional, e.g. `{new_syntax}`")
-                if node.value.id in {"List", "FrozenSet"}:
-                    new_syntax = f"{node.value.id.lower()}[{ast.unparse(node.slice)}]"
-                    errors.append(f"{path}:{node.lineno}: Use built-in generics, e.g. `{new_syntax}`")
-                if not self.set_from_collections_abc and node.value.id == "Set":
-                    new_syntax = f"set[{ast.unparse(node.slice)}]"
-                    errors.append(f"{path}:{node.lineno}: Use built-in generics, e.g. `{new_syntax}`")
-                if node.value.id == "Deque":
-                    new_syntax = f"collections.deque[{ast.unparse(node.slice)}]"
-                    errors.append(f"{path}:{node.lineno}: Use `collections.deque` instead of `typing.Deque`, e.g. `{new_syntax}`")
-                if node.value.id == "Dict":
-                    new_syntax = f"dict[{unparse_without_tuple_parens(node.slice)}]"
-                    errors.append(f"{path}:{node.lineno}: Use built-in generics, e.g. `{new_syntax}`")
-                if node.value.id == "DefaultDict":
-                    new_syntax = f"collections.defaultdict[{unparse_without_tuple_parens(node.slice)}]"
-                    errors.append(
-                        f"{path}:{node.lineno}: Use `collections.defaultdict` instead of `typing.DefaultDict`, "
-                        f"e.g. `{new_syntax}`"
-                    )
-                # Tuple[Foo, ...] must be allowed because of mypy bugs
-                if node.value.id == "Tuple" and not (
-                    isinstance(node.slice, ast.Tuple) and len(node.slice.elts) == 2 and is_dotdotdot(node.slice.elts[1])
-                ):
-                    new_syntax = f"tuple[{unparse_without_tuple_parens(node.slice)}]"
-                    errors.append(f"{path}:{node.lineno}: Use built-in generics, e.g. `{new_syntax}`")
 
             self.generic_visit(node)
 
@@ -88,21 +97,9 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
     # currently supported
     #
     # TODO: can use built-in generics in type aliases
-    class AnnotationFinder(ast.NodeVisitor):
-        def __init__(self) -> None:
-            self.set_from_collections_abc = False
-
-        def old_syntax_finder(self) -> OldSyntaxFinder:
-            """Convenience method to create an `OldSyntaxFinder` instance with the correct state"""
-            return OldSyntaxFinder(set_from_collections_abc=self.set_from_collections_abc)
-
+    class OldSyntaxFinder(ast.NodeVisitor):
         def visit_ImportFrom(self, node: ast.ImportFrom) -> None:
-            if node.module == "collections.abc":
-                imported_classes = node.names
-                if any(cls.name == "Set" for cls in imported_classes):
-                    self.set_from_collections_abc = True
-
-            elif node.module == "typing_extensions":
+            if node.module == "typing_extensions":
                 for imported_object in node.names:
                     imported_object_name = imported_object.name
                     if imported_object_name in IMPORTED_FROM_TYPING_NOT_TYPING_EXTENSIONS:
@@ -110,17 +107,17 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
                             f"{path}:{node.lineno}: "
                             f"Use `typing.{imported_object_name}` instead of `typing_extensions.{imported_object_name}`"
                         )
-                    elif imported_object_name in IMPORTED_FROM_COLLECTIONS_ABC_NOT_TYPING_EXTENSIONS:
+                    elif imported_object_name in IMPORTED_FROM_COLLECTIONS_ABC_NOT_TYPING:
                         errors.append(
                             f"{path}:{node.lineno}: "
                             f"Use `collections.abc.{imported_object_name}` or `typing.{imported_object_name}` "
                             f"instead of `typing_extensions.{imported_object_name}`"
                         )
-                    elif imported_object_name in IMPORTED_FROM_COLLECTIONS_NOT_TYPING_EXTENSIONS:
+                    elif imported_object_name in IMPORTED_FROM_COLLECTIONS_NOT_TYPING:
                         errors.append(
                             f"{path}:{node.lineno}: "
-                            f"Use `collections.{IMPORTED_FROM_COLLECTIONS_NOT_TYPING_EXTENSIONS[imported_object_name]}` "
-                            f"or `typing.{imported_object_name}` instead of `typing_extensions.{imported_object_name}`"
+                            f"Use `collections.{IMPORTED_FROM_COLLECTIONS_NOT_TYPING[imported_object_name]}` "
+                            f"instead of `typing_extensions.{imported_object_name}`"
                         )
                     elif imported_object_name in CONTEXT_MANAGER_ALIASES:
                         if python_2_support_required:
@@ -134,36 +131,38 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
                                 f"instead of `typing_extensions.{imported_object_name}`"
                             )
 
-            elif not python_2_support_required and path not in CONTEXTLIB_ALIAS_ALLOWLIST and node.module == "typing":
-                for imported_class in node.names:
-                    imported_class_name = imported_class.name
-                    if imported_class_name in CONTEXT_MANAGER_ALIASES:
-                        add_contextlib_alias_error(node, imported_class_name)
+            elif node.module == "collections.abc":
+                for imported_object in node.names:
+                    if imported_object.name == "Set" and imported_object.asname != "AbstractSet":
+                        errors.append(
+                            f"{path}:{node.lineno}: "
+                            f"Use `from collections.abc import Set as AbstractSet` to avoid ambiguity with `builtins.set`"
+                        )
 
+            elif node.module == "typing" and path != Path("stdlib/typing_extensions.pyi"):
+                for imported_object in node.names:
+                    check_object_from_typing(node, imported_object.name)
+
+        def visit_Attribute(self, node: ast.Attribute) -> None:
+            if isinstance(node.value, ast.Name) and node.value.id == "typing" and path != Path("stdlib/typing_extensions.pyi"):
+                check_object_from_typing(node, node.attr)
             self.generic_visit(node)
 
-        if not python_2_support_required and path not in CONTEXTLIB_ALIAS_ALLOWLIST:
-
-            def visit_Attribute(self, node: ast.Attribute) -> None:
-                if isinstance(node.value, ast.Name) and node.value.id == "typing" and node.attr in CONTEXT_MANAGER_ALIASES:
-                    add_contextlib_alias_error(node, node.attr)
-                self.generic_visit(node)
-
         def visit_AnnAssign(self, node: ast.AnnAssign) -> None:
-            self.old_syntax_finder().visit(node.annotation)
+            UnionFinder().visit(node.annotation)
 
         def visit_arg(self, node: ast.arg) -> None:
             if node.annotation is not None:
-                self.old_syntax_finder().visit(node.annotation)
+                UnionFinder().visit(node.annotation)
 
         def visit_FunctionDef(self, node: ast.FunctionDef) -> None:
             if node.returns is not None:
-                self.old_syntax_finder().visit(node.returns)
+                UnionFinder().visit(node.returns)
             self.generic_visit(node)
 
         def visit_AsyncFunctionDef(self, node: ast.AsyncFunctionDef) -> None:
             if node.returns is not None:
-                self.old_syntax_finder().visit(node.returns)
+                UnionFinder().visit(node.returns)
             self.generic_visit(node)
 
     class IfFinder(ast.NodeVisitor):
@@ -176,7 +175,7 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
                 )
             self.generic_visit(node)
 
-    AnnotationFinder().visit(tree)
+    OldSyntaxFinder().visit(tree)
     IfFinder().visit(tree)
     return errors
 
