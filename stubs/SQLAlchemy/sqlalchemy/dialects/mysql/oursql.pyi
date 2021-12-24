@@ -9,7 +9,7 @@ class MySQLExecutionContext_oursql(MySQLExecutionContext):
     @property
     def plain_query(self): ...
 
-class MySQLDialect_oursql(MySQLDialect):
+class MySQLDialect_oursql(MySQLDialect):  # type: ignore[misc]
     driver: str
     supports_statement_cache: bool
     supports_unicode_binds: bool

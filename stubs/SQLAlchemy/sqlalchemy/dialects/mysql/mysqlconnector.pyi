@@ -13,7 +13,7 @@ class MySQLIdentifierPreparer_mysqlconnector(MySQLIdentifierPreparer): ...
 class _myconnpyBIT(BIT):
     def result_processor(self, dialect, coltype) -> None: ...
 
-class MySQLDialect_mysqlconnector(MySQLDialect):
+class MySQLDialect_mysqlconnector(MySQLDialect):  # type: ignore[misc]
     driver: str
     supports_statement_cache: bool
     supports_unicode_binds: bool

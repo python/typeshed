@@ -165,7 +165,7 @@ class AsyncAdapt_asyncpg_dbapi:
     DATETIME: Any
     BINARY: Any
 
-class PGDialect_asyncpg(PGDialect):
+class PGDialect_asyncpg(PGDialect):  # type: ignore[misc]
     driver: str
     supports_statement_cache: bool
     supports_unicode_statements: bool

@@ -10,7 +10,7 @@ class _pyodbcTIME(TIME):
 class MySQLExecutionContext_pyodbc(MySQLExecutionContext):
     def get_lastrowid(self): ...
 
-class MySQLDialect_pyodbc(PyODBCConnector, MySQLDialect):
+class MySQLDialect_pyodbc(PyODBCConnector, MySQLDialect):  # type: ignore[misc]
     supports_statement_cache: bool
     colspecs: Any
     supports_unicode_statements: bool

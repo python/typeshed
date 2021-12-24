@@ -2,7 +2,7 @@ from collections.abc import Mapping
 from types import TracebackType
 from typing import Any, Callable, TypeVar, overload
 
-from .. import log
+from ..log import Identified, echo_property
 from ..dbapi import DBAPIConnection
 from ..pool import Pool
 from ..sql.compiler import Compiled
@@ -138,12 +138,12 @@ class TwoPhaseTransaction(RootTransaction):
     def __init__(self, connection: Connection, xid) -> None: ...
     def prepare(self) -> None: ...
 
-class Engine(Connectable, log.Identified):
+class Engine(Connectable, Identified):
     pool: Pool
     url: str
     dialect: Dialect
     logging_name: str  # only exists if not None during initialization
-    echo: bool | None
+    echo: echo_property
     hide_parameters: bool
     def __init__(
         self,

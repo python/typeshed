@@ -1,6 +1,6 @@
 from .kinterbasdb import FBDialect_kinterbasdb
 
-class FBDialect_fdb(FBDialect_kinterbasdb):
+class FBDialect_fdb(FBDialect_kinterbasdb):  # type: ignore[misc]
     supports_statement_cache: bool
     def __init__(self, enable_rowcount: bool = ..., retaining: bool = ..., **kwargs) -> None: ...
     @classmethod

@@ -46,7 +46,7 @@ EXECUTEMANY_BATCH: Any
 EXECUTEMANY_VALUES: Any
 EXECUTEMANY_VALUES_PLUS_BATCH: Any
 
-class PGDialect_psycopg2(PGDialect):
+class PGDialect_psycopg2(PGDialect):  # type: ignore[misc]
     driver: str
     supports_statement_cache: bool
     supports_unicode_statements: bool

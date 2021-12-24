@@ -1,6 +1,6 @@
 from abc import abstractmethod
 from collections.abc import Callable, Collection, Mapping
-from typing import Any, overload
+from typing import Any, ClassVar, overload
 
 from ..dbapi import DBAPIConnection, DBAPICursor
 from ..exc import StatementError
@@ -25,7 +25,7 @@ class Dialect:
     server_version_info: tuple[Any, ...]
     # Only available on supporting dialects:
     # default_schema_name: str
-    execution_ctx_cls: ExecutionContext
+    execution_ctx_cls: ClassVar[type[ExecutionContext]]
     execute_sequence_format: type[tuple[Any] | list[Any]]
     preparer: IdentifierPreparer
     supports_alter: bool

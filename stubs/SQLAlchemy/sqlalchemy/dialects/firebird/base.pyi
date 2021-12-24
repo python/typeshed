@@ -75,7 +75,7 @@ class FBIdentifierPreparer(sql.compiler.IdentifierPreparer):
 class FBExecutionContext(default.DefaultExecutionContext):
     def fire_sequence(self, seq, type_): ...
 
-class FBDialect(default.DefaultDialect):
+class FBDialect(default.DefaultDialect):  # type: ignore[misc]
     name: str
     supports_statement_cache: bool
     max_identifier_length: int

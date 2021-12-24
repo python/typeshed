@@ -230,7 +230,7 @@ class PGDeferrableConnectionCharacteristic(characteristics.ConnectionCharacteris
     def set_characteristic(self, dialect, dbapi_conn, value) -> None: ...
     def get_characteristic(self, dialect, dbapi_conn): ...
 
-class PGDialect(default.DefaultDialect):
+class PGDialect(default.DefaultDialect):  # type: ignore[misc]
     name: str
     supports_statement_cache: bool
     supports_alter: bool

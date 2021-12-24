@@ -2,7 +2,7 @@ from typing import Any
 
 from .pysqlite import SQLiteDialect_pysqlite
 
-class SQLiteDialect_pysqlcipher(SQLiteDialect_pysqlite):
+class SQLiteDialect_pysqlcipher(SQLiteDialect_pysqlite):  # type: ignore[misc]
     driver: str
     supports_statement_cache: bool
     pragmas: Any

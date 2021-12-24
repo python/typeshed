@@ -10,7 +10,7 @@ class MySQLExecutionContext_mariadbconnector(MySQLExecutionContext):
 
 class MySQLCompiler_mariadbconnector(MySQLCompiler): ...
 
-class MySQLDialect_mariadbconnector(MySQLDialect):
+class MySQLDialect_mariadbconnector(MySQLDialect):  # type: ignore[misc]
     driver: str
     supports_statement_cache: bool
     supports_unicode_statements: bool

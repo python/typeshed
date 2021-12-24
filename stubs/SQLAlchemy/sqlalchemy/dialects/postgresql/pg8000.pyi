@@ -98,7 +98,7 @@ class PGCompiler_pg8000(PGCompiler):
 class PGIdentifierPreparer_pg8000(PGIdentifierPreparer):
     def __init__(self, *args, **kwargs) -> None: ...
 
-class PGDialect_pg8000(PGDialect):
+class PGDialect_pg8000(PGDialect):  # type: ignore[misc]
     driver: str
     supports_statement_cache: bool
     supports_unicode_statements: bool

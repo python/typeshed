@@ -57,7 +57,7 @@ class AsyncAdapt_aiomysql_dbapi:
     def __init__(self, aiomysql, pymysql) -> None: ...
     def connect(self, *arg, **kw): ...
 
-class MySQLDialect_aiomysql(MySQLDialect_pymysql):
+class MySQLDialect_aiomysql(MySQLDialect_pymysql):  # type: ignore[misc]
     driver: str
     supports_statement_cache: bool
     supports_server_side_cursors: bool

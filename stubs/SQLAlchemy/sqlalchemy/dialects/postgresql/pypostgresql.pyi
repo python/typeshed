@@ -11,7 +11,7 @@ class PGNumeric(sqltypes.Numeric):
 
 class PGExecutionContext_pypostgresql(PGExecutionContext): ...
 
-class PGDialect_pypostgresql(PGDialect):
+class PGDialect_pypostgresql(PGDialect):  # type: ignore[misc]
     driver: str
     supports_statement_cache: bool
     supports_unicode_statements: bool
