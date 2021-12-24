@@ -19,7 +19,8 @@ IMPORTED_FROM_TYPING_NOT_TYPING_EXTENSIONS = frozenset(
 )
 
 # AbstractSet intentionally omitted from this list -- special-cased
-IMPORTED_FROM_COLLECTIONS_ABC_NOT_TYPING = frozenset({
+IMPORTED_FROM_COLLECTIONS_ABC_NOT_TYPING = frozenset(
+    {
         "ByteString",
         "Collection",
         "Container",
@@ -44,7 +45,8 @@ IMPORTED_FROM_COLLECTIONS_ABC_NOT_TYPING = frozenset({
         "AsyncIterator",
         "Awaitable",
         "Callable",
-    })
+    }
+)
 
 # The values in the mapping are what these are called in `collections`
 IMPORTED_FROM_COLLECTIONS_NOT_TYPING = {
@@ -69,7 +71,11 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
                 f"Use `collections.{IMPORTED_FROM_COLLECTIONS_NOT_TYPING[object_name]}` instead of `typing.{object_name}`"
             )
         elif object_name in IMPORTED_FROM_COLLECTIONS_ABC_NOT_TYPING:
-            if path not in {Path("stdlib/_collections_abc.pyi"), Path("stdlib/builtins.pyi")}:
+            if path not in {
+                Path("stdlib/_collections_abc.pyi"),
+                Path("stdlib/builtins.pyi"),
+                Path("stdlib/collections/__init__.pyi"),
+            }:
                 errors.append(f"{path}:{node.lineno}: Use `collections.abc.{object_name}` instead of `typing.{object_name}`")
         elif object_name == "AbstractSet":
             if path != Path("stdlib/_collections_abc.pyi"):
