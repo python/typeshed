@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Test typeshed's third party stubs using stubtest"""
 
+from __future__ import annotations
+
 import argparse
 import functools
 import subprocess
@@ -9,16 +11,9 @@ import tempfile
 import venv
 from glob import glob
 from pathlib import Path
+from typing import Any
 
 import tomli
-
-EXCLUDE_LIST = [
-    "pyaudio",  # install failure locally
-    "backports",  # errors on python version
-    "six",  # ???
-    "aiofiles",  # easily fixable, some platform specific difference between local and ci
-    "pycurl",  # install failure, missing libcurl
-]
 
 
 class StubtestFailed(Exception):
@@ -35,8 +30,8 @@ def run_stubtest(dist: Path) -> None:
     with open(dist / "METADATA.toml") as f:
         metadata = dict(tomli.loads(f.read()))
 
-    # Ignore stubs that don't support Python 3
-    if not has_py3_stubs(dist):
+    if not run_stubtest_for(metadata, dist):
+        print(f"Skipping stubtest for {dist.name}\n\n")
         return
 
     with tempfile.TemporaryDirectory() as tmp:
@@ -117,6 +112,10 @@ def run_stubtest(dist: Path) -> None:
         print("\n\n", file=sys.stderr)
 
 
+def run_stubtest_for(metadata: dict[str, Any], dist: Path) -> bool:
+    return has_py3_stubs(dist) and metadata.get("stubtest", True)
+
+
 # Keep this in sync with mypy_test.py
 def has_py3_stubs(dist: Path) -> bool:
     return len(glob(f"{dist}/*.pyi")) > 0 or len(glob(f"{dist}/[!@]*/__init__.pyi")) > 0
@@ -138,8 +137,6 @@ def main():
     try:
         for i, dist in enumerate(dists):
             if i % args.num_shards != args.shard_index:
-                continue
-            if dist.name in EXCLUDE_LIST:
                 continue
             run_stubtest(dist)
     except StubtestFailed:
