@@ -135,7 +135,8 @@ class Transaction(TransactionalContext):
 
 class MarkerTransaction(Transaction):
     connection: Connection
-    is_active: bool
+    @property
+    def is_active(self) -> bool: ...
 
 class RootTransaction(Transaction):
     connection: Connection
