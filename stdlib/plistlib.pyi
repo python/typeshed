@@ -1,7 +1,7 @@
 import sys
 from datetime import datetime
 from enum import Enum
-from typing import IO, Any, Dict as _Dict, Mapping, MutableMapping
+from typing import IO, Any, Mapping, MutableMapping
 
 class PlistFormat(Enum):
     FMT_XML: int
@@ -53,7 +53,7 @@ if sys.version_info < (3, 9):
     def writePlistToBytes(value: Mapping[str, Any]) -> bytes: ...
 
 if sys.version_info < (3, 7):
-    class Dict(_Dict[str, Any]):
+    class Dict(dict[str, Any]):
         def __getattr__(self, attr: str) -> Any: ...
         def __setattr__(self, attr: str, value: Any) -> None: ...
         def __delattr__(self, attr: str) -> None: ...
