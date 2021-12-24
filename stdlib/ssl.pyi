@@ -2,14 +2,14 @@ import enum
 import socket
 import sys
 from _typeshed import ReadableBuffer, Self, StrOrBytesPath, WriteableBuffer
-from typing import Any, Callable, ClassVar, Dict, Iterable, List, NamedTuple, Optional, Set, Tuple, Type, Union, overload
+from typing import Any, Callable, ClassVar, Iterable, NamedTuple, Optional, Union, overload
 from typing_extensions import Literal, TypedDict
 
-_PCTRTT = Tuple[Tuple[str, str], ...]
-_PCTRTTT = Tuple[_PCTRTT, ...]
-_PeerCertRetDictType = Dict[str, Union[str, _PCTRTTT, _PCTRTT]]
+_PCTRTT = tuple[tuple[str, str], ...]
+_PCTRTTT = tuple[_PCTRTT, ...]
+_PeerCertRetDictType = dict[str, Union[str, _PCTRTTT, _PCTRTT]]
 _PeerCertRetType = Union[_PeerCertRetDictType, bytes, None]
-_EnumRetType = List[Tuple[bytes, str, Union[Set[str], bool]]]
+_EnumRetType = list[tuple[bytes, str, Union[set[str], bool]]]
 _PasswordType = Union[Callable[[], Union[str, bytes]], str, bytes]
 
 _SrvnmeCbType = Callable[[Union[SSLSocket, SSLObject], Optional[str], SSLSocket], Optional[int]]
@@ -294,9 +294,9 @@ class _ASN1Object(NamedTuple):
     longname: str
     oid: str
     @classmethod
-    def fromnid(cls: Type[Self], nid: int) -> Self: ...
+    def fromnid(cls: type[Self], nid: int) -> Self: ...
     @classmethod
-    def fromname(cls: Type[Self], name: str) -> Self: ...
+    def fromname(cls: type[Self], name: str) -> Self: ...
 
 class Purpose(_ASN1Object, enum.Enum):
     SERVER_AUTH: _ASN1Object
@@ -391,8 +391,8 @@ class SSLContext:
         maximum_version: TLSVersion
         minimum_version: TLSVersion
         sni_callback: Callable[[SSLObject, str, SSLContext], None | int] | None
-        sslobject_class: ClassVar[Type[SSLObject]]
-        sslsocket_class: ClassVar[Type[SSLSocket]]
+        sslobject_class: ClassVar[type[SSLObject]]
+        sslsocket_class: ClassVar[type[SSLSocket]]
     if sys.version_info >= (3, 8):
         keylog_filename: str
         post_handshake_auth: bool

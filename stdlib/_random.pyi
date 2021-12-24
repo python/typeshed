@@ -1,7 +1,7 @@
-from typing import Tuple
+
 
 # Actually Tuple[(int,) * 625]
-_State = Tuple[int, ...]
+_State = tuple[int, ...]
 
 class Random(object):
     def __init__(self, seed: object = ...) -> None: ...

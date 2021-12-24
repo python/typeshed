@@ -1,6 +1,6 @@
 import sys
 from socket import socket
-from typing import Any, Mapping, Protocol, Type
+from typing import Any, Mapping, Protocol
 from typing_extensions import Literal
 
 from . import base_events, constants, events, futures, streams, transports
@@ -8,7 +8,7 @@ from . import base_events, constants, events, futures, streams, transports
 if sys.version_info >= (3, 8):
     class _WarnCallbackProtocol(Protocol):
         def __call__(
-            self, message: str, category: Type[Warning] | None = ..., stacklevel: int = ..., source: Any | None = ...
+            self, message: str, category: type[Warning] | None = ..., stacklevel: int = ..., source: Any | None = ...
         ) -> None: ...
 
 class _ProactorBasePipeTransport(transports._FlowControlMixin, transports.BaseTransport):

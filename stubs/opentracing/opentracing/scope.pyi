@@ -1,5 +1,5 @@
 from types import TracebackType
-from typing import Type
+
 
 from .scope_manager import ScopeManager
 from .span import Span
@@ -13,5 +13,5 @@ class Scope:
     def close(self) -> None: ...
     def __enter__(self) -> Scope: ...
     def __exit__(
-        self, exc_type: Type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
+        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> None: ...

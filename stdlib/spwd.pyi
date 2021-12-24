@@ -1,9 +1,9 @@
 from _typeshed import structseq
-from typing import Any, Tuple
+from typing import Any
 from typing_extensions import final
 
 @final
-class struct_spwd(structseq[Any], Tuple[str, str, int, int, int, int, int, int, int]):
+class struct_spwd(structseq[Any], tuple[str, str, int, int, int, int, int, int, int]):
     @property
     def sp_namp(self) -> str: ...
     @property

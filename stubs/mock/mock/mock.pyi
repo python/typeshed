@@ -1,9 +1,9 @@
 from collections.abc import Callable, Mapping, Sequence
-from typing import Any, Generic, List, Tuple, Type, TypeVar, overload
+from typing import Any, Generic, TypeVar, overload
 
 _F = TypeVar("_F", bound=Callable[..., Any])
 _T = TypeVar("_T")
-_TT = TypeVar("_TT", bound=Type[Any])
+_TT = TypeVar("_TT", bound=type[Any])
 _R = TypeVar("_R")
 
 __all__ = [
@@ -40,7 +40,7 @@ class _Sentinel:
 sentinel: Any
 DEFAULT: Any
 
-class _Call(Tuple[Any, ...]):
+class _Call(tuple[Any, ...]):
     def __new__(
         cls, value: Any = ..., name: Any | None = ..., parent: Any | None = ..., two: bool = ..., from_kall: bool = ...
     ) -> Any: ...
@@ -60,7 +60,7 @@ class _Call(Tuple[Any, ...]):
 
 call: _Call
 
-class _CallList(List[_Call]):
+class _CallList(list[_Call]):
     def __contains__(self, value: Any) -> bool: ...
 
 class _MockIter:
@@ -76,10 +76,10 @@ class NonCallableMock(Base, Any):
     def __new__(__cls, *args: Any, **kw: Any) -> NonCallableMock: ...
     def __init__(
         self,
-        spec: list[str] | object | Type[object] | None = ...,
+        spec: list[str] | object | type[object] | None = ...,
         wraps: Any | None = ...,
         name: str | None = ...,
-        spec_set: list[str] | object | Type[object] | None = ...,
+        spec_set: list[str] | object | type[object] | None = ...,
         parent: NonCallableMock | None = ...,
         _spec_state: Any | None = ...,
         _new_name: str = ...,
@@ -113,7 +113,7 @@ class NonCallableMock(Base, Any):
     call_args_list: _CallList
     mock_calls: _CallList
     def _format_mock_call_signature(self, args: Any, kwargs: Any) -> str: ...
-    def _call_matcher(self, _call: Tuple[_Call, ...]) -> _Call: ...
+    def _call_matcher(self, _call: tuple[_Call, ...]) -> _Call: ...
     def _get_child_mock(self, **kw: Any) -> NonCallableMock: ...
 
 class CallableMixin(Base):
@@ -205,7 +205,7 @@ class _patch_dict:
 
 class _patcher:
     TEST_PREFIX: str
-    dict: Type[_patch_dict]
+    dict: type[_patch_dict]
     @overload
     def __call__(  # type: ignore[misc]
         self,

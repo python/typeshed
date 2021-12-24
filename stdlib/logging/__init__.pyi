@@ -6,12 +6,12 @@ from io import TextIOWrapper
 from string import Template
 from time import struct_time
 from types import FrameType, TracebackType
-from typing import Any, ClassVar, Generic, Optional, Pattern, TextIO, Tuple, Type, TypeVar, Union, overload
+from typing import Any, ClassVar, Generic, Optional, Pattern, TextIO, TypeVar, Union, overload
 from typing_extensions import Literal
 
-_SysExcInfoType = Union[Tuple[Type[BaseException], BaseException, Optional[TracebackType]], Tuple[None, None, None]]
+_SysExcInfoType = Union[tuple[type[BaseException], BaseException, Optional[TracebackType]], tuple[None, None, None]]
 _ExcInfoType = Union[None, bool, _SysExcInfoType, BaseException]
-_ArgsType = Union[Tuple[object, ...], Mapping[str, object]]
+_ArgsType = Union[tuple[object, ...], Mapping[str, object]]
 _FilterType = Union[Filter, Callable[[LogRecord], int]]
 _Level = Union[int, str]
 _FormatStyle = Literal["%", "{", "$"]
@@ -39,11 +39,11 @@ class Manager(object):  # undocumented
     disable: int
     emittedNoHandlerWarning: bool
     loggerDict: dict[str, Logger | PlaceHolder]
-    loggerClass: Type[Logger] | None
+    loggerClass: type[Logger] | None
     logRecordFactory: Callable[..., LogRecord] | None
     def __init__(self, rootnode: RootLogger) -> None: ...
     def getLogger(self, name: str) -> Logger: ...
-    def setLoggerClass(self, klass: Type[Logger]) -> None: ...
+    def setLoggerClass(self, klass: type[Logger]) -> None: ...
     def setLogRecordFactory(self, factory: Callable[..., LogRecord]) -> None: ...
 
 class Logger(Filterer):
@@ -546,7 +546,7 @@ class LoggerAdapter(Generic[_L]):
     def name(self) -> str: ...  # undocumented
 
 def getLogger(name: str | None = ...) -> Logger: ...
-def getLoggerClass() -> Type[Logger]: ...
+def getLoggerClass() -> type[Logger]: ...
 def getLogRecordFactory() -> Callable[..., LogRecord]: ...
 
 if sys.version_info >= (3, 8):
@@ -703,7 +703,7 @@ else:
     ) -> None: ...
 
 def shutdown(handlerList: Sequence[Any] = ...) -> None: ...  # handlerList is undocumented
-def setLoggerClass(klass: Type[Logger]) -> None: ...
+def setLoggerClass(klass: type[Logger]) -> None: ...
 def captureWarnings(capture: bool) -> None: ...
 def setLogRecordFactory(factory: Callable[..., LogRecord]) -> None: ...
 

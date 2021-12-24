@@ -6,14 +6,14 @@ from typing import (
     Any,
     Callable,
     ClassVar,
-    Dict,
+    
     Generic,
     Iterable,
     Iterator,
     Mapping,
     Pattern,
     Sequence,
-    Type,
+    
     TypeVar,
     Union,
     overload,
@@ -36,7 +36,7 @@ _StrType = TypeVar("_StrType", bound=Union[str, bytes])
 _VT = TypeVar("_VT")
 _T = TypeVar("_T")
 
-class CaseInsensitiveDict(Dict[_StrType, _VT]):
+class CaseInsensitiveDict(dict[_StrType, _VT]):
     def __init__(self, data: SupportsItems[_StrType, _VT]) -> None: ...
     def update(self, data: SupportsItems[_StrType, _VT]) -> None: ...  # type: ignore[override]
     @overload
@@ -264,7 +264,7 @@ class Redis(RedisModuleCommands, CoreCommands[_StrType], SentinelCommands, Gener
         timeout: float | None,
         sleep: float,
         blocking_timeout: float | None,
-        lock_class: Type[_LockType],
+        lock_class: type[_LockType],
         thread_local: bool = ...,
     ) -> _LockType: ...
     @overload
@@ -275,7 +275,7 @@ class Redis(RedisModuleCommands, CoreCommands[_StrType], SentinelCommands, Gener
         sleep: float = ...,
         blocking_timeout: float | None = ...,
         *,
-        lock_class: Type[_LockType],
+        lock_class: type[_LockType],
         thread_local: bool = ...,
     ) -> _LockType: ...
     def pubsub(self, *, shard_hint: Any = ..., ignore_subscribe_messages: bool = ...) -> PubSub: ...

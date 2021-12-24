@@ -13,8 +13,8 @@ from typing import (
     Protocol,
     Sequence,
     TextIO,
-    Tuple,
-    Type,
+    
+    
     TypeVar,
     Union,
     overload,
@@ -24,8 +24,8 @@ from typing_extensions import Literal
 _T = TypeVar("_T")
 
 # The following type alias are stub-only and do not exist during runtime
-_ExcInfo = Tuple[Type[BaseException], BaseException, TracebackType]
-_OptExcInfo = Union[_ExcInfo, Tuple[None, None, None]]
+_ExcInfo = tuple[type[BaseException], BaseException, TracebackType]
+_OptExcInfo = Union[_ExcInfo, tuple[None, None, None]]
 
 # Intentionally omits one deprecated and one optional method of `importlib.abc.MetaPathFinder`
 class _MetaPathFinder(Protocol):
@@ -44,12 +44,12 @@ if sys.platform == "win32":
     dllhandle: int
 dont_write_bytecode: bool
 displayhook: Callable[[object], Any]
-excepthook: Callable[[Type[BaseException], BaseException, TracebackType | None], Any]
+excepthook: Callable[[type[BaseException], BaseException, TracebackType | None], Any]
 exec_prefix: str
 executable: str
 float_repr_style: str
 hexversion: int
-last_type: Type[BaseException] | None
+last_type: type[BaseException] | None
 last_value: BaseException | None
 last_traceback: TracebackType | None
 maxsize: int
@@ -146,7 +146,7 @@ class _int_info:
     bits_per_digit: int
     sizeof_digit: int
 
-class _version_info(Tuple[int, int, int, str, int]):
+class _version_info(tuple[int, int, int, str, int]):
     major: int
     minor: int
     micro: int
@@ -161,7 +161,7 @@ def _current_frames() -> dict[int, FrameType]: ...
 def _getframe(__depth: int = ...) -> FrameType: ...
 def _debugmallocstats() -> None: ...
 def __displayhook__(value: object) -> None: ...
-def __excepthook__(type_: Type[BaseException], value: BaseException, traceback: TracebackType | None) -> None: ...
+def __excepthook__(type_: type[BaseException], value: BaseException, traceback: TracebackType | None) -> None: ...
 def exc_info() -> _OptExcInfo: ...
 
 # sys.exit() accepts an optional argument of anything printable
@@ -192,7 +192,7 @@ _TraceFunc = Callable[[FrameType, str, Any], Optional[Callable[[FrameType, str, 
 def gettrace() -> _TraceFunc | None: ...
 def settrace(tracefunc: _TraceFunc | None) -> None: ...
 
-class _WinVersion(Tuple[int, int, int, int, str, int, int, int, int, Tuple[int, int, int]]):
+class _WinVersion(tuple[int, int, int, int, str, int, int, int, int, tuple[int, int, int]]):
     major: int
     minor: int
     build: int
@@ -228,18 +228,18 @@ if sys.version_info < (3, 9):
 if sys.version_info >= (3, 8):
     # not exported by sys
     class UnraisableHookArgs:
-        exc_type: Type[BaseException]
+        exc_type: type[BaseException]
         exc_value: BaseException | None
         exc_traceback: TracebackType | None
         err_msg: str | None
         object: _object | None
     unraisablehook: Callable[[UnraisableHookArgs], Any]
-    def addaudithook(hook: Callable[[str, Tuple[Any, ...]], Any]) -> None: ...
+    def addaudithook(hook: Callable[[str, tuple[Any, ...]], Any]) -> None: ...
     def audit(__event: str, *args: Any) -> None: ...
 
 _AsyncgenHook = Optional[Callable[[AsyncGenerator[Any, Any]], None]]
 
-class _asyncgen_hooks(Tuple[_AsyncgenHook, _AsyncgenHook]):
+class _asyncgen_hooks(tuple[_AsyncgenHook, _AsyncgenHook]):
     firstiter: _AsyncgenHook
     finalizer: _AsyncgenHook
 

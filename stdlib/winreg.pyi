@@ -1,6 +1,6 @@
 from _typeshed import Self
 from types import TracebackType
-from typing import Any, Type, Union
+from typing import Any, Union
 from typing_extensions import final
 
 _KeyType = Union[HKEYType, int]
@@ -95,7 +95,7 @@ class HKEYType:
     def __int__(self) -> int: ...
     def __enter__(self: Self) -> Self: ...
     def __exit__(
-        self, exc_type: Type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
+        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> bool | None: ...
     def Close(self) -> None: ...
     def Detach(self) -> int: ...

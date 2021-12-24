@@ -22,7 +22,7 @@ from typing import (
     NewType as NewType,
     NoReturn as NoReturn,
     Text as Text,
-    Tuple,
+    
     Type as Type,
     TypeVar,
     ValuesView,
@@ -87,7 +87,7 @@ if sys.version_info >= (3, 7):
         localns: dict[str, Any] | None = ...,
         include_extras: bool = ...,
     ) -> dict[str, Any]: ...
-    def get_args(tp: Any) -> Tuple[Any, ...]: ...
+    def get_args(tp: Any) -> tuple[Any, ...]: ...
     def get_origin(tp: Any) -> Any | None: ...
 
 Annotated: _SpecialForm = ...

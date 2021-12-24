@@ -5,7 +5,7 @@ import sys
 import types
 from _typeshed import Self, WriteableBuffer
 from socket import socket
-from typing import IO, Any, BinaryIO, Callable, Iterable, Iterator, Mapping, Protocol, Type, TypeVar, Union, overload
+from typing import IO, Any, BinaryIO, Callable, Iterable, Iterator, Mapping, Protocol, TypeVar, Union, overload
 
 _DataType = Union[bytes, IO[Any], Iterable[bytes], str]
 _T = TypeVar("_T")
@@ -107,7 +107,7 @@ class HTTPResponse(io.BufferedIOBase, BinaryIO):
     def __iter__(self) -> Iterator[bytes]: ...
     def __enter__(self: Self) -> Self: ...
     def __exit__(
-        self, exc_type: Type[BaseException] | None, exc_val: BaseException | None, exc_tb: types.TracebackType | None
+        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: types.TracebackType | None
     ) -> bool | None: ...
     def info(self) -> email.message.Message: ...
     def geturl(self) -> str: ...
@@ -135,7 +135,7 @@ class HTTPConnection:
     auto_open: int  # undocumented
     debuglevel: int
     default_port: int  # undocumented
-    response_class: Type[HTTPResponse]  # undocumented
+    response_class: type[HTTPResponse]  # undocumented
     timeout: float | None
     host: str
     port: int
