@@ -1,5 +1,5 @@
-from collections.abc import Callable, Iterable, Iterator
 import sys
+from collections.abc import Callable, Iterable, Iterator
 from contextlib import AbstractContextManager
 from typing import Any, TypeVar
 

@@ -1,5 +1,5 @@
-from collections.abc import Callable, Iterable, Mapping, MutableMapping
 from _typeshed import SupportsItems
+from collections.abc import Callable, Iterable, Mapping, MutableMapping
 from typing import IO, Any, Optional, Text, TypeVar, Union
 
 from . import adapters, auth as _auth, compat, cookies, exceptions, hooks, models, status_codes, structures, utils

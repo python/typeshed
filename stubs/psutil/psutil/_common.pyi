@@ -1,6 +1,6 @@
-from collections.abc import Callable
 import enum
 from _typeshed import StrOrBytesPath, SupportsWrite
+from collections.abc import Callable
 from socket import AddressFamily, SocketKind
 from typing import Any, NamedTuple, TypeVar, overload
 from typing_extensions import Literal

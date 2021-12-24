@@ -1,6 +1,6 @@
-from collections.abc import Sequence
 import decimal
 from _typeshed import ReadableBuffer
+from collections.abc import Sequence
 from datetime import date, datetime, time
 from typing import Any, Type, overload
 from typing_extensions import Literal

@@ -1,5 +1,5 @@
-from collections.abc import Iterable, Iterator, Mapping
 import collections
+from collections.abc import Iterable, Iterator, Mapping
 from typing import Any, Generic, Type, TypeVar, overload
 
 _S = TypeVar("_S")

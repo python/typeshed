@@ -1,6 +1,5 @@
 import sys
 
-
 from .connections import Connection as Connection
 from .constants import FIELD_TYPE as FIELD_TYPE
 from .converters import escape_dict as escape_dict, escape_sequence as escape_sequence, escape_string as escape_string

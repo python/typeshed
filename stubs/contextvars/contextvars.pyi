@@ -1,5 +1,5 @@
-from collections.abc import Callable, Iterator, Mapping
 import sys
+from collections.abc import Callable, Iterator, Mapping
 from typing import Any, ClassVar, Generic, TypeVar
 
 if sys.version_info >= (3, 9):

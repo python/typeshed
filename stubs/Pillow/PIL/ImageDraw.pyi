@@ -1,5 +1,4 @@
-from collections.abc import Sequence
-from collections.abc import Container
+from collections.abc import Container, Sequence
 from typing import Any, Union, overload
 from typing_extensions import Literal
 

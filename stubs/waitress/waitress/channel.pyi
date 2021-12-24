@@ -2,7 +2,6 @@ from collections.abc import Mapping, Sequence
 from socket import socket
 from threading import Condition, Lock
 
-
 from waitress.adjustments import Adjustments
 from waitress.buffers import OverflowableBuffer
 from waitress.parser import HTTPRequestParser

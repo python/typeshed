@@ -1,6 +1,6 @@
-from collections.abc import Generator
 import argparse
 import ast
+from collections.abc import Generator
 from typing import Any, ClassVar, Type
 
 class Plugin:

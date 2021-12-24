@@ -1,5 +1,5 @@
-from collections.abc import Callable, Sequence
 from _typeshed import IdentityFunction
+from collections.abc import Callable, Sequence
 from typing import TypeVar
 
 _T = TypeVar("_T")

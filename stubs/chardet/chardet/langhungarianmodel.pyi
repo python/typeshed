@@ -1,5 +1,3 @@
-
-
 from . import _LangModelType
 
 Latin2_HungarianCharToOrderMap: tuple[int, ...]

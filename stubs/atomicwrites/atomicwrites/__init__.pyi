@@ -1,5 +1,5 @@
-from collections.abc import Callable
 from _typeshed import StrOrBytesPath
+from collections.abc import Callable
 from typing import IO, Any, AnyStr, ContextManager, Text, Type
 
 def replace_atomic(src: AnyStr, dst: AnyStr) -> None: ...

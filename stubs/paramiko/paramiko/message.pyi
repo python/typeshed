@@ -1,5 +1,5 @@
-from collections.abc import Iterable
 import sys
+from collections.abc import Iterable
 from typing import Any, Text
 
 from .common import _LikeBytes

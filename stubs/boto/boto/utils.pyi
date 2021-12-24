@@ -1,9 +1,9 @@
-from collections.abc import Callable, Iterable, Mapping, Sequence
 import datetime
 import logging.handlers
 import subprocess
 import sys
 import time
+from collections.abc import Callable, Iterable, Mapping, Sequence
 from typing import IO, Any, ContextManager, Type, TypeVar
 
 import boto.connection

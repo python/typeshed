@@ -1,5 +1,5 @@
-from collections.abc import Callable, Iterator
 import datetime
+from collections.abc import Callable, Iterator
 from json import JSONDecoder
 from typing import Any, Text, Type
 

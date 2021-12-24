@@ -1,5 +1,5 @@
-from collections.abc import Callable, Iterable, Sequence
 from _typeshed import Self
+from collections.abc import Callable, Iterable, Sequence
 from typing import Any, Type
 from typing_extensions import Literal
 

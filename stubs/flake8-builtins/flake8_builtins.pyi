@@ -1,5 +1,5 @@
-from collections.abc import Generator
 import ast
+from collections.abc import Generator
 from typing import Any, ClassVar, Type
 
 class BuiltinsChecker:

@@ -1,5 +1,5 @@
-from collections.abc import Callable, Iterator
 import sys
+from collections.abc import Callable, Iterator
 from typing import Any, NamedTuple, Pattern, Text, TypeVar
 
 _C = TypeVar("_C", bound=Callable[..., Any])

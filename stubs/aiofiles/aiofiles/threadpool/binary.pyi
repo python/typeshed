@@ -1,7 +1,6 @@
-from collections.abc import Iterable
 from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
+from collections.abc import Iterable
 from io import FileIO
-
 
 from ..base import AsyncBase
 

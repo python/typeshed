@@ -1,6 +1,6 @@
-from collections.abc import Iterable, Iterator
 import argparse
 import ast
+from collections.abc import Iterable, Iterator
 from typing import Any, Generic, Type, TypeVar
 
 FLAKE8_ERROR = tuple[int, int, str, Type[Any]]

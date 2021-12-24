@@ -1,5 +1,5 @@
-from collections.abc import Callable, Iterable
 import time
+from collections.abc import Callable, Iterable
 from logging import Logger
 from typing import Any
 

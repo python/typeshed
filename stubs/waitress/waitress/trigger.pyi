@@ -1,8 +1,7 @@
-from collections.abc import Callable, Mapping
 import sys
+from collections.abc import Callable, Mapping
 from socket import socket
 from threading import Lock
-
 from typing_extensions import Literal
 
 from . import wasyncore as wasyncore

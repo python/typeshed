@@ -1,6 +1,5 @@
-from collections.abc import Iterable
 import datetime
-
+from collections.abc import Iterable
 
 from dateutil.relativedelta import relativedelta
 

@@ -2,8 +2,8 @@
 # This PEP does not support distributing typing information as part of module-only distributions or single-file modules within namespace packages.
 # Therefore typeshed is the best place.
 
-from collections.abc import Generator
 import ast
+from collections.abc import Generator
 from typing import Any, ClassVar, Type
 
 class Plugin:

@@ -1,5 +1,5 @@
-from collections.abc import Callable
 import textwrap
+from collections.abc import Callable
 from typing import IO, Any, Generic, Text, Type, TypeVar, overload
 from typing_extensions import SupportsIndex
 

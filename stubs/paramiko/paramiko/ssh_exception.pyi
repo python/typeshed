@@ -1,6 +1,5 @@
-from collections.abc import Mapping
 import socket
-
+from collections.abc import Mapping
 
 from paramiko.pkey import PKey
 

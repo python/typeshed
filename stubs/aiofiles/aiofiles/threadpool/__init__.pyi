@@ -1,4 +1,3 @@
-from collections.abc import Callable
 from _typeshed import (
     OpenBinaryMode,
     OpenBinaryModeReading,
@@ -8,6 +7,7 @@ from _typeshed import (
     StrOrBytesPath,
 )
 from asyncio import AbstractEventLoop
+from collections.abc import Callable
 from typing import Any, Union, overload
 from typing_extensions import Literal
 

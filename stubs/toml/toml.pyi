@@ -1,6 +1,6 @@
-from collections.abc import Mapping, MutableMapping
 import sys
 from _typeshed import StrPath, SupportsWrite
+from collections.abc import Mapping, MutableMapping
 from typing import IO, Any, Text, Type, Union
 
 if sys.version_info >= (3, 6):

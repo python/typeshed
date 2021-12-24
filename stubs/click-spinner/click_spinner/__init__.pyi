@@ -1,5 +1,5 @@
-from collections.abc import Iterator
 import threading
+from collections.abc import Iterator
 from types import TracebackType
 from typing import Protocol, Type
 from typing_extensions import Literal

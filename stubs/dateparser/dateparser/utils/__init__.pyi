@@ -1,5 +1,5 @@
-from collections.abc import Mapping
 from collections import OrderedDict
+from collections.abc import Mapping
 from typing import Any
 
 def strip_braces(date_string: str) -> str: ...
