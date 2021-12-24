@@ -193,6 +193,8 @@ def main() -> None:
             continue
         if Path("stubs/protobuf/google/protobuf") in path.parents:  # TODO: fix protobuf stubs
             continue
+        if path == Path("stdlib/typing_extensions.pyi"):
+            continue
 
         with open(path) as f:
             tree = ast.parse(f.read())
