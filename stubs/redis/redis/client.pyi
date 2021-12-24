@@ -655,6 +655,14 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def ttl(self, name: _Key) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def type(self, name) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def unlink(self, *names: _Key) -> Pipeline[_StrType]: ...  # type: ignore[override]
+    def blmove(
+        self,
+        first_list: _Key,
+        second_list: _Key,
+        timeout: float,
+        src: Literal["LEFT", "RIGHT"] = ...,
+        dest: Literal["LEFT", "RIGHT"] = ...,
+    ) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def blpop(self, keys: _Value | Iterable[_Value], timeout: float = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def brpop(self, keys: _Value | Iterable[_Value], timeout: float = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def brpoplpush(self, src, dst, timeout=...) -> Pipeline[_StrType]: ...  # type: ignore[override]
@@ -663,6 +671,9 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         self, name: _Key, where: Literal["BEFORE", "AFTER", "before", "after"], refvalue: _Value, value: _Value
     ) -> Pipeline[_StrType]: ...
     def llen(self, name: _Key) -> Pipeline[_StrType]: ...  # type: ignore[override]
+    def lmove(
+        self, first_list: _Key, second_list: _Key, src: Literal["LEFT", "RIGHT"] = ..., dest: Literal["LEFT", "RIGHT"] = ...
+    ) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def lpop(self, name, count: int | None = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def lpush(self, name: _Value, *values: _Value) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def lpushx(self, name, value) -> Pipeline[_StrType]: ...  # type: ignore[override]
