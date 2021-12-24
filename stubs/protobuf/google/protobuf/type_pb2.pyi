@@ -14,24 +14,25 @@ import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor = ...
 
+class _Syntax:
+    ValueType = typing.NewType('ValueType', builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+class _SyntaxEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Syntax.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
+    SYNTAX_PROTO2: Syntax.ValueType = ...  # 0
+    """Syntax `proto2`."""
+
+    SYNTAX_PROTO3: Syntax.ValueType = ...  # 1
+    """Syntax `proto3`."""
+
 class Syntax(_Syntax, metaclass=_SyntaxEnumTypeWrapper):
     """The syntax in which a protocol buffer element is defined."""
     pass
-class _Syntax:
-    V = typing.NewType('V', builtins.int)
-class _SyntaxEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Syntax.V], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-    SYNTAX_PROTO2 = Syntax.V(0)
-    """Syntax `proto2`."""
 
-    SYNTAX_PROTO3 = Syntax.V(1)
-    """Syntax `proto3`."""
-
-
-SYNTAX_PROTO2 = Syntax.V(0)
+SYNTAX_PROTO2: Syntax.ValueType = ...  # 0
 """Syntax `proto2`."""
 
-SYNTAX_PROTO3 = Syntax.V(1)
+SYNTAX_PROTO3: Syntax.ValueType = ...  # 1
 """Syntax `proto3`."""
 
 global___Syntax = Syntax
@@ -65,7 +66,7 @@ class Type(google.protobuf.message.Message):
     def source_context(self) -> google.protobuf.source_context_pb2.SourceContext:
         """The source context."""
         pass
-    syntax: global___Syntax.V = ...
+    syntax: global___Syntax.ValueType = ...
     """The source syntax."""
 
     def __init__(self,
@@ -75,7 +76,7 @@ class Type(google.protobuf.message.Message):
         oneofs : typing.Optional[typing.Iterable[typing.Text]] = ...,
         options : typing.Optional[typing.Iterable[global___Option]] = ...,
         source_context : typing.Optional[google.protobuf.source_context_pb2.SourceContext] = ...,
-        syntax : global___Syntax.V = ...,
+        syntax : global___Syntax.ValueType = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["source_context",b"source_context"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["fields",b"fields","name",b"name","oneofs",b"oneofs","options",b"options","source_context",b"source_context","syntax",b"syntax"]) -> None: ...
@@ -84,159 +85,161 @@ global___Type = Type
 class Field(google.protobuf.message.Message):
     """A single field of a message type."""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    class _Kind:
+        ValueType = typing.NewType('ValueType', builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+    class _KindEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Kind.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
+        TYPE_UNKNOWN: Field.Kind.ValueType = ...  # 0
+        """Field type unknown."""
+
+        TYPE_DOUBLE: Field.Kind.ValueType = ...  # 1
+        """Field type double."""
+
+        TYPE_FLOAT: Field.Kind.ValueType = ...  # 2
+        """Field type float."""
+
+        TYPE_INT64: Field.Kind.ValueType = ...  # 3
+        """Field type int64."""
+
+        TYPE_UINT64: Field.Kind.ValueType = ...  # 4
+        """Field type uint64."""
+
+        TYPE_INT32: Field.Kind.ValueType = ...  # 5
+        """Field type int32."""
+
+        TYPE_FIXED64: Field.Kind.ValueType = ...  # 6
+        """Field type fixed64."""
+
+        TYPE_FIXED32: Field.Kind.ValueType = ...  # 7
+        """Field type fixed32."""
+
+        TYPE_BOOL: Field.Kind.ValueType = ...  # 8
+        """Field type bool."""
+
+        TYPE_STRING: Field.Kind.ValueType = ...  # 9
+        """Field type string."""
+
+        TYPE_GROUP: Field.Kind.ValueType = ...  # 10
+        """Field type group. Proto2 syntax only, and deprecated."""
+
+        TYPE_MESSAGE: Field.Kind.ValueType = ...  # 11
+        """Field type message."""
+
+        TYPE_BYTES: Field.Kind.ValueType = ...  # 12
+        """Field type bytes."""
+
+        TYPE_UINT32: Field.Kind.ValueType = ...  # 13
+        """Field type uint32."""
+
+        TYPE_ENUM: Field.Kind.ValueType = ...  # 14
+        """Field type enum."""
+
+        TYPE_SFIXED32: Field.Kind.ValueType = ...  # 15
+        """Field type sfixed32."""
+
+        TYPE_SFIXED64: Field.Kind.ValueType = ...  # 16
+        """Field type sfixed64."""
+
+        TYPE_SINT32: Field.Kind.ValueType = ...  # 17
+        """Field type sint32."""
+
+        TYPE_SINT64: Field.Kind.ValueType = ...  # 18
+        """Field type sint64."""
+
     class Kind(_Kind, metaclass=_KindEnumTypeWrapper):
         """Basic field types."""
         pass
-    class _Kind:
-        V = typing.NewType('V', builtins.int)
-    class _KindEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Kind.V], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-        TYPE_UNKNOWN = Field.Kind.V(0)
-        """Field type unknown."""
 
-        TYPE_DOUBLE = Field.Kind.V(1)
-        """Field type double."""
-
-        TYPE_FLOAT = Field.Kind.V(2)
-        """Field type float."""
-
-        TYPE_INT64 = Field.Kind.V(3)
-        """Field type int64."""
-
-        TYPE_UINT64 = Field.Kind.V(4)
-        """Field type uint64."""
-
-        TYPE_INT32 = Field.Kind.V(5)
-        """Field type int32."""
-
-        TYPE_FIXED64 = Field.Kind.V(6)
-        """Field type fixed64."""
-
-        TYPE_FIXED32 = Field.Kind.V(7)
-        """Field type fixed32."""
-
-        TYPE_BOOL = Field.Kind.V(8)
-        """Field type bool."""
-
-        TYPE_STRING = Field.Kind.V(9)
-        """Field type string."""
-
-        TYPE_GROUP = Field.Kind.V(10)
-        """Field type group. Proto2 syntax only, and deprecated."""
-
-        TYPE_MESSAGE = Field.Kind.V(11)
-        """Field type message."""
-
-        TYPE_BYTES = Field.Kind.V(12)
-        """Field type bytes."""
-
-        TYPE_UINT32 = Field.Kind.V(13)
-        """Field type uint32."""
-
-        TYPE_ENUM = Field.Kind.V(14)
-        """Field type enum."""
-
-        TYPE_SFIXED32 = Field.Kind.V(15)
-        """Field type sfixed32."""
-
-        TYPE_SFIXED64 = Field.Kind.V(16)
-        """Field type sfixed64."""
-
-        TYPE_SINT32 = Field.Kind.V(17)
-        """Field type sint32."""
-
-        TYPE_SINT64 = Field.Kind.V(18)
-        """Field type sint64."""
-
-
-    TYPE_UNKNOWN = Field.Kind.V(0)
+    TYPE_UNKNOWN: Field.Kind.ValueType = ...  # 0
     """Field type unknown."""
 
-    TYPE_DOUBLE = Field.Kind.V(1)
+    TYPE_DOUBLE: Field.Kind.ValueType = ...  # 1
     """Field type double."""
 
-    TYPE_FLOAT = Field.Kind.V(2)
+    TYPE_FLOAT: Field.Kind.ValueType = ...  # 2
     """Field type float."""
 
-    TYPE_INT64 = Field.Kind.V(3)
+    TYPE_INT64: Field.Kind.ValueType = ...  # 3
     """Field type int64."""
 
-    TYPE_UINT64 = Field.Kind.V(4)
+    TYPE_UINT64: Field.Kind.ValueType = ...  # 4
     """Field type uint64."""
 
-    TYPE_INT32 = Field.Kind.V(5)
+    TYPE_INT32: Field.Kind.ValueType = ...  # 5
     """Field type int32."""
 
-    TYPE_FIXED64 = Field.Kind.V(6)
+    TYPE_FIXED64: Field.Kind.ValueType = ...  # 6
     """Field type fixed64."""
 
-    TYPE_FIXED32 = Field.Kind.V(7)
+    TYPE_FIXED32: Field.Kind.ValueType = ...  # 7
     """Field type fixed32."""
 
-    TYPE_BOOL = Field.Kind.V(8)
+    TYPE_BOOL: Field.Kind.ValueType = ...  # 8
     """Field type bool."""
 
-    TYPE_STRING = Field.Kind.V(9)
+    TYPE_STRING: Field.Kind.ValueType = ...  # 9
     """Field type string."""
 
-    TYPE_GROUP = Field.Kind.V(10)
+    TYPE_GROUP: Field.Kind.ValueType = ...  # 10
     """Field type group. Proto2 syntax only, and deprecated."""
 
-    TYPE_MESSAGE = Field.Kind.V(11)
+    TYPE_MESSAGE: Field.Kind.ValueType = ...  # 11
     """Field type message."""
 
-    TYPE_BYTES = Field.Kind.V(12)
+    TYPE_BYTES: Field.Kind.ValueType = ...  # 12
     """Field type bytes."""
 
-    TYPE_UINT32 = Field.Kind.V(13)
+    TYPE_UINT32: Field.Kind.ValueType = ...  # 13
     """Field type uint32."""
 
-    TYPE_ENUM = Field.Kind.V(14)
+    TYPE_ENUM: Field.Kind.ValueType = ...  # 14
     """Field type enum."""
 
-    TYPE_SFIXED32 = Field.Kind.V(15)
+    TYPE_SFIXED32: Field.Kind.ValueType = ...  # 15
     """Field type sfixed32."""
 
-    TYPE_SFIXED64 = Field.Kind.V(16)
+    TYPE_SFIXED64: Field.Kind.ValueType = ...  # 16
     """Field type sfixed64."""
 
-    TYPE_SINT32 = Field.Kind.V(17)
+    TYPE_SINT32: Field.Kind.ValueType = ...  # 17
     """Field type sint32."""
 
-    TYPE_SINT64 = Field.Kind.V(18)
+    TYPE_SINT64: Field.Kind.ValueType = ...  # 18
     """Field type sint64."""
 
+
+    class _Cardinality:
+        ValueType = typing.NewType('ValueType', builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+    class _CardinalityEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Cardinality.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
+        CARDINALITY_UNKNOWN: Field.Cardinality.ValueType = ...  # 0
+        """For fields with unknown cardinality."""
+
+        CARDINALITY_OPTIONAL: Field.Cardinality.ValueType = ...  # 1
+        """For optional fields."""
+
+        CARDINALITY_REQUIRED: Field.Cardinality.ValueType = ...  # 2
+        """For required fields. Proto2 syntax only."""
+
+        CARDINALITY_REPEATED: Field.Cardinality.ValueType = ...  # 3
+        """For repeated fields."""
 
     class Cardinality(_Cardinality, metaclass=_CardinalityEnumTypeWrapper):
         """Whether a field is optional, required, or repeated."""
         pass
-    class _Cardinality:
-        V = typing.NewType('V', builtins.int)
-    class _CardinalityEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Cardinality.V], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-        CARDINALITY_UNKNOWN = Field.Cardinality.V(0)
-        """For fields with unknown cardinality."""
 
-        CARDINALITY_OPTIONAL = Field.Cardinality.V(1)
-        """For optional fields."""
-
-        CARDINALITY_REQUIRED = Field.Cardinality.V(2)
-        """For required fields. Proto2 syntax only."""
-
-        CARDINALITY_REPEATED = Field.Cardinality.V(3)
-        """For repeated fields."""
-
-
-    CARDINALITY_UNKNOWN = Field.Cardinality.V(0)
+    CARDINALITY_UNKNOWN: Field.Cardinality.ValueType = ...  # 0
     """For fields with unknown cardinality."""
 
-    CARDINALITY_OPTIONAL = Field.Cardinality.V(1)
+    CARDINALITY_OPTIONAL: Field.Cardinality.ValueType = ...  # 1
     """For optional fields."""
 
-    CARDINALITY_REQUIRED = Field.Cardinality.V(2)
+    CARDINALITY_REQUIRED: Field.Cardinality.ValueType = ...  # 2
     """For required fields. Proto2 syntax only."""
 
-    CARDINALITY_REPEATED = Field.Cardinality.V(3)
+    CARDINALITY_REPEATED: Field.Cardinality.ValueType = ...  # 3
     """For repeated fields."""
 
 
@@ -250,10 +253,10 @@ class Field(google.protobuf.message.Message):
     OPTIONS_FIELD_NUMBER: builtins.int
     JSON_NAME_FIELD_NUMBER: builtins.int
     DEFAULT_VALUE_FIELD_NUMBER: builtins.int
-    kind: global___Field.Kind.V = ...
+    kind: global___Field.Kind.ValueType = ...
     """The field type."""
 
-    cardinality: global___Field.Cardinality.V = ...
+    cardinality: global___Field.Cardinality.ValueType = ...
     """The field cardinality."""
 
     number: builtins.int = ...
@@ -287,8 +290,8 @@ class Field(google.protobuf.message.Message):
 
     def __init__(self,
         *,
-        kind : global___Field.Kind.V = ...,
-        cardinality : global___Field.Cardinality.V = ...,
+        kind : global___Field.Kind.ValueType = ...,
+        cardinality : global___Field.Cardinality.ValueType = ...,
         number : builtins.int = ...,
         name : typing.Text = ...,
         type_url : typing.Text = ...,
@@ -324,7 +327,7 @@ class Enum(google.protobuf.message.Message):
     def source_context(self) -> google.protobuf.source_context_pb2.SourceContext:
         """The source context."""
         pass
-    syntax: global___Syntax.V = ...
+    syntax: global___Syntax.ValueType = ...
     """The source syntax."""
 
     def __init__(self,
@@ -333,7 +336,7 @@ class Enum(google.protobuf.message.Message):
         enumvalue : typing.Optional[typing.Iterable[global___EnumValue]] = ...,
         options : typing.Optional[typing.Iterable[global___Option]] = ...,
         source_context : typing.Optional[google.protobuf.source_context_pb2.SourceContext] = ...,
-        syntax : global___Syntax.V = ...,
+        syntax : global___Syntax.ValueType = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["source_context",b"source_context"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["enumvalue",b"enumvalue","name",b"name","options",b"options","source_context",b"source_context","syntax",b"syntax"]) -> None: ...

@@ -77,7 +77,7 @@ class Api(google.protobuf.message.Message):
     def mixins(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Mixin]:
         """Included interfaces. See [Mixin][]."""
         pass
-    syntax: google.protobuf.type_pb2.Syntax.V = ...
+    syntax: google.protobuf.type_pb2.Syntax.ValueType = ...
     """The source syntax of the service."""
 
     def __init__(self,
@@ -88,7 +88,7 @@ class Api(google.protobuf.message.Message):
         version : typing.Text = ...,
         source_context : typing.Optional[google.protobuf.source_context_pb2.SourceContext] = ...,
         mixins : typing.Optional[typing.Iterable[global___Mixin]] = ...,
-        syntax : google.protobuf.type_pb2.Syntax.V = ...,
+        syntax : google.protobuf.type_pb2.Syntax.ValueType = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["source_context",b"source_context"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["methods",b"methods","mixins",b"mixins","name",b"name","options",b"options","source_context",b"source_context","syntax",b"syntax","version",b"version"]) -> None: ...
@@ -123,7 +123,7 @@ class Method(google.protobuf.message.Message):
     def options(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[google.protobuf.type_pb2.Option]:
         """Any metadata attached to the method."""
         pass
-    syntax: google.protobuf.type_pb2.Syntax.V = ...
+    syntax: google.protobuf.type_pb2.Syntax.ValueType = ...
     """The source syntax of this method."""
 
     def __init__(self,
@@ -134,7 +134,7 @@ class Method(google.protobuf.message.Message):
         response_type_url : typing.Text = ...,
         response_streaming : builtins.bool = ...,
         options : typing.Optional[typing.Iterable[google.protobuf.type_pb2.Option]] = ...,
-        syntax : google.protobuf.type_pb2.Syntax.V = ...,
+        syntax : google.protobuf.type_pb2.Syntax.ValueType = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["name",b"name","options",b"options","request_streaming",b"request_streaming","request_type_url",b"request_type_url","response_streaming",b"response_streaming","response_type_url",b"response_type_url","syntax",b"syntax"]) -> None: ...
 global___Method = Method

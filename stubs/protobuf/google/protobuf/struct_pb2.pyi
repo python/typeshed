@@ -13,6 +13,14 @@ import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor = ...
 
+class _NullValue:
+    ValueType = typing.NewType('ValueType', builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+class _NullValueEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_NullValue.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
+    NULL_VALUE: NullValue.ValueType = ...  # 0
+    """Null value."""
+
 class NullValue(_NullValue, metaclass=_NullValueEnumTypeWrapper):
     """`NullValue` is a singleton enumeration to represent the null value for the
     `Value` type union.
@@ -20,15 +28,8 @@ class NullValue(_NullValue, metaclass=_NullValueEnumTypeWrapper):
      The JSON representation for `NullValue` is JSON `null`.
     """
     pass
-class _NullValue:
-    V = typing.NewType('V', builtins.int)
-class _NullValueEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_NullValue.V], builtins.type):
-    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-    NULL_VALUE = NullValue.V(0)
-    """Null value."""
 
-
-NULL_VALUE = NullValue.V(0)
+NULL_VALUE: NullValue.ValueType = ...  # 0
 """Null value."""
 
 global___NullValue = NullValue
@@ -75,8 +76,8 @@ global___Struct = Struct
 class Value(google.protobuf.message.Message):
     """`Value` represents a dynamically typed value which can be either
     null, a number, a string, a boolean, a recursive struct value, or a
-    list of values. A producer of value is expected to set one of that
-    variants, absence of any variant indicates an error.
+    list of values. A producer of value is expected to set one of these
+    variants. Absence of any variant indicates an error.
 
     The JSON representation for `Value` is JSON value.
     """
@@ -87,7 +88,7 @@ class Value(google.protobuf.message.Message):
     BOOL_VALUE_FIELD_NUMBER: builtins.int
     STRUCT_VALUE_FIELD_NUMBER: builtins.int
     LIST_VALUE_FIELD_NUMBER: builtins.int
-    null_value: global___NullValue.V = ...
+    null_value: global___NullValue.ValueType = ...
     """Represents a null value."""
 
     number_value: builtins.float = ...
@@ -109,7 +110,7 @@ class Value(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        null_value : global___NullValue.V = ...,
+        null_value : global___NullValue.ValueType = ...,
         number_value : builtins.float = ...,
         string_value : typing.Text = ...,
         bool_value : builtins.bool = ...,

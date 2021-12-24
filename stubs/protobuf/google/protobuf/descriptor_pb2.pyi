@@ -220,119 +220,121 @@ global___ExtensionRangeOptions = ExtensionRangeOptions
 class FieldDescriptorProto(google.protobuf.message.Message):
     """Describes a field within a message."""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
-    class Type(_Type, metaclass=_TypeEnumTypeWrapper):
-        pass
     class _Type:
-        V = typing.NewType('V', builtins.int)
-    class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Type.V], builtins.type):
+        ValueType = typing.NewType('ValueType', builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+    class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Type.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-        TYPE_DOUBLE = FieldDescriptorProto.Type.V(1)
+        TYPE_DOUBLE: FieldDescriptorProto.Type.ValueType = ...  # 1
         """0 is reserved for errors.
         Order is weird for historical reasons.
         """
 
-        TYPE_FLOAT = FieldDescriptorProto.Type.V(2)
-        TYPE_INT64 = FieldDescriptorProto.Type.V(3)
+        TYPE_FLOAT: FieldDescriptorProto.Type.ValueType = ...  # 2
+        TYPE_INT64: FieldDescriptorProto.Type.ValueType = ...  # 3
         """Not ZigZag encoded.  Negative numbers take 10 bytes.  Use TYPE_SINT64 if
         negative values are likely.
         """
 
-        TYPE_UINT64 = FieldDescriptorProto.Type.V(4)
-        TYPE_INT32 = FieldDescriptorProto.Type.V(5)
+        TYPE_UINT64: FieldDescriptorProto.Type.ValueType = ...  # 4
+        TYPE_INT32: FieldDescriptorProto.Type.ValueType = ...  # 5
         """Not ZigZag encoded.  Negative numbers take 10 bytes.  Use TYPE_SINT32 if
         negative values are likely.
         """
 
-        TYPE_FIXED64 = FieldDescriptorProto.Type.V(6)
-        TYPE_FIXED32 = FieldDescriptorProto.Type.V(7)
-        TYPE_BOOL = FieldDescriptorProto.Type.V(8)
-        TYPE_STRING = FieldDescriptorProto.Type.V(9)
-        TYPE_GROUP = FieldDescriptorProto.Type.V(10)
+        TYPE_FIXED64: FieldDescriptorProto.Type.ValueType = ...  # 6
+        TYPE_FIXED32: FieldDescriptorProto.Type.ValueType = ...  # 7
+        TYPE_BOOL: FieldDescriptorProto.Type.ValueType = ...  # 8
+        TYPE_STRING: FieldDescriptorProto.Type.ValueType = ...  # 9
+        TYPE_GROUP: FieldDescriptorProto.Type.ValueType = ...  # 10
         """Tag-delimited aggregate.
         Group type is deprecated and not supported in proto3. However, Proto3
         implementations should still be able to parse the group wire format and
         treat group fields as unknown fields.
         """
 
-        TYPE_MESSAGE = FieldDescriptorProto.Type.V(11)
+        TYPE_MESSAGE: FieldDescriptorProto.Type.ValueType = ...  # 11
         """Length-delimited aggregate."""
 
-        TYPE_BYTES = FieldDescriptorProto.Type.V(12)
+        TYPE_BYTES: FieldDescriptorProto.Type.ValueType = ...  # 12
         """New in version 2."""
 
-        TYPE_UINT32 = FieldDescriptorProto.Type.V(13)
-        TYPE_ENUM = FieldDescriptorProto.Type.V(14)
-        TYPE_SFIXED32 = FieldDescriptorProto.Type.V(15)
-        TYPE_SFIXED64 = FieldDescriptorProto.Type.V(16)
-        TYPE_SINT32 = FieldDescriptorProto.Type.V(17)
+        TYPE_UINT32: FieldDescriptorProto.Type.ValueType = ...  # 13
+        TYPE_ENUM: FieldDescriptorProto.Type.ValueType = ...  # 14
+        TYPE_SFIXED32: FieldDescriptorProto.Type.ValueType = ...  # 15
+        TYPE_SFIXED64: FieldDescriptorProto.Type.ValueType = ...  # 16
+        TYPE_SINT32: FieldDescriptorProto.Type.ValueType = ...  # 17
         """Uses ZigZag encoding."""
 
-        TYPE_SINT64 = FieldDescriptorProto.Type.V(18)
+        TYPE_SINT64: FieldDescriptorProto.Type.ValueType = ...  # 18
         """Uses ZigZag encoding."""
 
+    class Type(_Type, metaclass=_TypeEnumTypeWrapper):
+        pass
 
-    TYPE_DOUBLE = FieldDescriptorProto.Type.V(1)
+    TYPE_DOUBLE: FieldDescriptorProto.Type.ValueType = ...  # 1
     """0 is reserved for errors.
     Order is weird for historical reasons.
     """
 
-    TYPE_FLOAT = FieldDescriptorProto.Type.V(2)
-    TYPE_INT64 = FieldDescriptorProto.Type.V(3)
+    TYPE_FLOAT: FieldDescriptorProto.Type.ValueType = ...  # 2
+    TYPE_INT64: FieldDescriptorProto.Type.ValueType = ...  # 3
     """Not ZigZag encoded.  Negative numbers take 10 bytes.  Use TYPE_SINT64 if
     negative values are likely.
     """
 
-    TYPE_UINT64 = FieldDescriptorProto.Type.V(4)
-    TYPE_INT32 = FieldDescriptorProto.Type.V(5)
+    TYPE_UINT64: FieldDescriptorProto.Type.ValueType = ...  # 4
+    TYPE_INT32: FieldDescriptorProto.Type.ValueType = ...  # 5
     """Not ZigZag encoded.  Negative numbers take 10 bytes.  Use TYPE_SINT32 if
     negative values are likely.
     """
 
-    TYPE_FIXED64 = FieldDescriptorProto.Type.V(6)
-    TYPE_FIXED32 = FieldDescriptorProto.Type.V(7)
-    TYPE_BOOL = FieldDescriptorProto.Type.V(8)
-    TYPE_STRING = FieldDescriptorProto.Type.V(9)
-    TYPE_GROUP = FieldDescriptorProto.Type.V(10)
+    TYPE_FIXED64: FieldDescriptorProto.Type.ValueType = ...  # 6
+    TYPE_FIXED32: FieldDescriptorProto.Type.ValueType = ...  # 7
+    TYPE_BOOL: FieldDescriptorProto.Type.ValueType = ...  # 8
+    TYPE_STRING: FieldDescriptorProto.Type.ValueType = ...  # 9
+    TYPE_GROUP: FieldDescriptorProto.Type.ValueType = ...  # 10
     """Tag-delimited aggregate.
     Group type is deprecated and not supported in proto3. However, Proto3
     implementations should still be able to parse the group wire format and
     treat group fields as unknown fields.
     """
 
-    TYPE_MESSAGE = FieldDescriptorProto.Type.V(11)
+    TYPE_MESSAGE: FieldDescriptorProto.Type.ValueType = ...  # 11
     """Length-delimited aggregate."""
 
-    TYPE_BYTES = FieldDescriptorProto.Type.V(12)
+    TYPE_BYTES: FieldDescriptorProto.Type.ValueType = ...  # 12
     """New in version 2."""
 
-    TYPE_UINT32 = FieldDescriptorProto.Type.V(13)
-    TYPE_ENUM = FieldDescriptorProto.Type.V(14)
-    TYPE_SFIXED32 = FieldDescriptorProto.Type.V(15)
-    TYPE_SFIXED64 = FieldDescriptorProto.Type.V(16)
-    TYPE_SINT32 = FieldDescriptorProto.Type.V(17)
+    TYPE_UINT32: FieldDescriptorProto.Type.ValueType = ...  # 13
+    TYPE_ENUM: FieldDescriptorProto.Type.ValueType = ...  # 14
+    TYPE_SFIXED32: FieldDescriptorProto.Type.ValueType = ...  # 15
+    TYPE_SFIXED64: FieldDescriptorProto.Type.ValueType = ...  # 16
+    TYPE_SINT32: FieldDescriptorProto.Type.ValueType = ...  # 17
     """Uses ZigZag encoding."""
 
-    TYPE_SINT64 = FieldDescriptorProto.Type.V(18)
+    TYPE_SINT64: FieldDescriptorProto.Type.ValueType = ...  # 18
     """Uses ZigZag encoding."""
 
 
-    class Label(_Label, metaclass=_LabelEnumTypeWrapper):
-        pass
     class _Label:
-        V = typing.NewType('V', builtins.int)
-    class _LabelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Label.V], builtins.type):
+        ValueType = typing.NewType('ValueType', builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+    class _LabelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Label.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-        LABEL_OPTIONAL = FieldDescriptorProto.Label.V(1)
+        LABEL_OPTIONAL: FieldDescriptorProto.Label.ValueType = ...  # 1
         """0 is reserved for errors"""
 
-        LABEL_REQUIRED = FieldDescriptorProto.Label.V(2)
-        LABEL_REPEATED = FieldDescriptorProto.Label.V(3)
+        LABEL_REQUIRED: FieldDescriptorProto.Label.ValueType = ...  # 2
+        LABEL_REPEATED: FieldDescriptorProto.Label.ValueType = ...  # 3
+    class Label(_Label, metaclass=_LabelEnumTypeWrapper):
+        pass
 
-    LABEL_OPTIONAL = FieldDescriptorProto.Label.V(1)
+    LABEL_OPTIONAL: FieldDescriptorProto.Label.ValueType = ...  # 1
     """0 is reserved for errors"""
 
-    LABEL_REQUIRED = FieldDescriptorProto.Label.V(2)
-    LABEL_REPEATED = FieldDescriptorProto.Label.V(3)
+    LABEL_REQUIRED: FieldDescriptorProto.Label.ValueType = ...  # 2
+    LABEL_REPEATED: FieldDescriptorProto.Label.ValueType = ...  # 3
 
     NAME_FIELD_NUMBER: builtins.int
     NUMBER_FIELD_NUMBER: builtins.int
@@ -347,8 +349,8 @@ class FieldDescriptorProto(google.protobuf.message.Message):
     PROTO3_OPTIONAL_FIELD_NUMBER: builtins.int
     name: typing.Text = ...
     number: builtins.int = ...
-    label: global___FieldDescriptorProto.Label.V = ...
-    type: global___FieldDescriptorProto.Type.V = ...
+    label: global___FieldDescriptorProto.Label.ValueType = ...
+    type: global___FieldDescriptorProto.Type.ValueType = ...
     """If type_name is set, this need not be set.  If both this and type_name
     are set, this must be one of TYPE_ENUM, TYPE_MESSAGE or TYPE_GROUP.
     """
@@ -416,8 +418,8 @@ class FieldDescriptorProto(google.protobuf.message.Message):
         *,
         name : typing.Optional[typing.Text] = ...,
         number : typing.Optional[builtins.int] = ...,
-        label : typing.Optional[global___FieldDescriptorProto.Label.V] = ...,
-        type : typing.Optional[global___FieldDescriptorProto.Type.V] = ...,
+        label : typing.Optional[global___FieldDescriptorProto.Label.ValueType] = ...,
+        type : typing.Optional[global___FieldDescriptorProto.Type.ValueType] = ...,
         type_name : typing.Optional[typing.Text] = ...,
         extendee : typing.Optional[typing.Text] = ...,
         default_value : typing.Optional[typing.Text] = ...,
@@ -623,34 +625,35 @@ class FileOptions(google.protobuf.message.Message):
 
     """
     DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
-    class OptimizeMode(_OptimizeMode, metaclass=_OptimizeModeEnumTypeWrapper):
-        """Generated classes can be optimized for speed or code size."""
-        pass
     class _OptimizeMode:
-        V = typing.NewType('V', builtins.int)
-    class _OptimizeModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_OptimizeMode.V], builtins.type):
+        ValueType = typing.NewType('ValueType', builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+    class _OptimizeModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_OptimizeMode.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-        SPEED = FileOptions.OptimizeMode.V(1)
+        SPEED: FileOptions.OptimizeMode.ValueType = ...  # 1
         """Generate complete code for parsing, serialization,"""
 
-        CODE_SIZE = FileOptions.OptimizeMode.V(2)
+        CODE_SIZE: FileOptions.OptimizeMode.ValueType = ...  # 2
         """etc.
         Use ReflectionOps to implement these methods.
         """
 
-        LITE_RUNTIME = FileOptions.OptimizeMode.V(3)
+        LITE_RUNTIME: FileOptions.OptimizeMode.ValueType = ...  # 3
         """Generate code using MessageLite and the lite runtime."""
 
+    class OptimizeMode(_OptimizeMode, metaclass=_OptimizeModeEnumTypeWrapper):
+        """Generated classes can be optimized for speed or code size."""
+        pass
 
-    SPEED = FileOptions.OptimizeMode.V(1)
+    SPEED: FileOptions.OptimizeMode.ValueType = ...  # 1
     """Generate complete code for parsing, serialization,"""
 
-    CODE_SIZE = FileOptions.OptimizeMode.V(2)
+    CODE_SIZE: FileOptions.OptimizeMode.ValueType = ...  # 2
     """etc.
     Use ReflectionOps to implement these methods.
     """
 
-    LITE_RUNTIME = FileOptions.OptimizeMode.V(3)
+    LITE_RUNTIME: FileOptions.OptimizeMode.ValueType = ...  # 3
     """Generate code using MessageLite and the lite runtime."""
 
 
@@ -711,7 +714,7 @@ class FileOptions(google.protobuf.message.Message):
     This option has no effect on when used with the lite runtime.
     """
 
-    optimize_for: global___FileOptions.OptimizeMode.V = ...
+    optimize_for: global___FileOptions.OptimizeMode.ValueType = ...
     go_package: typing.Text = ...
     """Sets the Go package where structs generated from this .proto will be
     placed. If omitted, the Go package will be derived from the following:
@@ -799,7 +802,7 @@ class FileOptions(google.protobuf.message.Message):
         java_multiple_files : typing.Optional[builtins.bool] = ...,
         java_generate_equals_and_hash : typing.Optional[builtins.bool] = ...,
         java_string_check_utf8 : typing.Optional[builtins.bool] = ...,
-        optimize_for : typing.Optional[global___FileOptions.OptimizeMode.V] = ...,
+        optimize_for : typing.Optional[global___FileOptions.OptimizeMode.ValueType] = ...,
         go_package : typing.Optional[typing.Text] = ...,
         cc_generic_services : typing.Optional[builtins.bool] = ...,
         java_generic_services : typing.Optional[builtins.bool] = ...,
@@ -903,47 +906,49 @@ global___MessageOptions = MessageOptions
 
 class FieldOptions(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
-    class CType(_CType, metaclass=_CTypeEnumTypeWrapper):
-        pass
     class _CType:
-        V = typing.NewType('V', builtins.int)
-    class _CTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CType.V], builtins.type):
+        ValueType = typing.NewType('ValueType', builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+    class _CTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CType.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-        STRING = FieldOptions.CType.V(0)
+        STRING: FieldOptions.CType.ValueType = ...  # 0
         """Default mode."""
 
-        CORD = FieldOptions.CType.V(1)
-        STRING_PIECE = FieldOptions.CType.V(2)
+        CORD: FieldOptions.CType.ValueType = ...  # 1
+        STRING_PIECE: FieldOptions.CType.ValueType = ...  # 2
+    class CType(_CType, metaclass=_CTypeEnumTypeWrapper):
+        pass
 
-    STRING = FieldOptions.CType.V(0)
+    STRING: FieldOptions.CType.ValueType = ...  # 0
     """Default mode."""
 
-    CORD = FieldOptions.CType.V(1)
-    STRING_PIECE = FieldOptions.CType.V(2)
+    CORD: FieldOptions.CType.ValueType = ...  # 1
+    STRING_PIECE: FieldOptions.CType.ValueType = ...  # 2
+
+    class _JSType:
+        ValueType = typing.NewType('ValueType', builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+    class _JSTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_JSType.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
+        JS_NORMAL: FieldOptions.JSType.ValueType = ...  # 0
+        """Use the default type."""
+
+        JS_STRING: FieldOptions.JSType.ValueType = ...  # 1
+        """Use JavaScript strings."""
+
+        JS_NUMBER: FieldOptions.JSType.ValueType = ...  # 2
+        """Use JavaScript numbers."""
 
     class JSType(_JSType, metaclass=_JSTypeEnumTypeWrapper):
         pass
-    class _JSType:
-        V = typing.NewType('V', builtins.int)
-    class _JSTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_JSType.V], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-        JS_NORMAL = FieldOptions.JSType.V(0)
-        """Use the default type."""
 
-        JS_STRING = FieldOptions.JSType.V(1)
-        """Use JavaScript strings."""
-
-        JS_NUMBER = FieldOptions.JSType.V(2)
-        """Use JavaScript numbers."""
-
-
-    JS_NORMAL = FieldOptions.JSType.V(0)
+    JS_NORMAL: FieldOptions.JSType.ValueType = ...  # 0
     """Use the default type."""
 
-    JS_STRING = FieldOptions.JSType.V(1)
+    JS_STRING: FieldOptions.JSType.ValueType = ...  # 1
     """Use JavaScript strings."""
 
-    JS_NUMBER = FieldOptions.JSType.V(2)
+    JS_NUMBER: FieldOptions.JSType.ValueType = ...  # 2
     """Use JavaScript numbers."""
 
 
@@ -954,7 +959,7 @@ class FieldOptions(google.protobuf.message.Message):
     DEPRECATED_FIELD_NUMBER: builtins.int
     WEAK_FIELD_NUMBER: builtins.int
     UNINTERPRETED_OPTION_FIELD_NUMBER: builtins.int
-    ctype: global___FieldOptions.CType.V = ...
+    ctype: global___FieldOptions.CType.ValueType = ...
     """The ctype option instructs the C++ code generator to use a different
     representation of the field than it normally would.  See the specific
     options below.  This option is not yet implemented in the open source
@@ -969,7 +974,7 @@ class FieldOptions(google.protobuf.message.Message):
     false will avoid using packed encoding.
     """
 
-    jstype: global___FieldOptions.JSType.V = ...
+    jstype: global___FieldOptions.JSType.ValueType = ...
     """The jstype option determines the JavaScript type used for values of the
     field.  The option is permitted only for 64 bit integral and fixed types
     (int64, uint64, sint64, fixed64, sfixed64).  A field with jstype JS_STRING
@@ -1030,9 +1035,9 @@ class FieldOptions(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        ctype : typing.Optional[global___FieldOptions.CType.V] = ...,
+        ctype : typing.Optional[global___FieldOptions.CType.ValueType] = ...,
         packed : typing.Optional[builtins.bool] = ...,
-        jstype : typing.Optional[global___FieldOptions.JSType.V] = ...,
+        jstype : typing.Optional[global___FieldOptions.JSType.ValueType] = ...,
         lazy : typing.Optional[builtins.bool] = ...,
         deprecated : typing.Optional[builtins.bool] = ...,
         weak : typing.Optional[builtins.bool] = ...,
@@ -1142,29 +1147,30 @@ global___ServiceOptions = ServiceOptions
 
 class MethodOptions(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    class _IdempotencyLevel:
+        ValueType = typing.NewType('ValueType', builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+    class _IdempotencyLevelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_IdempotencyLevel.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
+        IDEMPOTENCY_UNKNOWN: MethodOptions.IdempotencyLevel.ValueType = ...  # 0
+        NO_SIDE_EFFECTS: MethodOptions.IdempotencyLevel.ValueType = ...  # 1
+        """implies idempotent"""
+
+        IDEMPOTENT: MethodOptions.IdempotencyLevel.ValueType = ...  # 2
+        """idempotent, but may have side effects"""
+
     class IdempotencyLevel(_IdempotencyLevel, metaclass=_IdempotencyLevelEnumTypeWrapper):
         """Is this method side-effect-free (or safe in HTTP parlance), or idempotent,
         or neither? HTTP based RPC implementation may choose GET verb for safe
         methods, and PUT verb for idempotent methods instead of the default POST.
         """
         pass
-    class _IdempotencyLevel:
-        V = typing.NewType('V', builtins.int)
-    class _IdempotencyLevelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_IdempotencyLevel.V], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-        IDEMPOTENCY_UNKNOWN = MethodOptions.IdempotencyLevel.V(0)
-        NO_SIDE_EFFECTS = MethodOptions.IdempotencyLevel.V(1)
-        """implies idempotent"""
 
-        IDEMPOTENT = MethodOptions.IdempotencyLevel.V(2)
-        """idempotent, but may have side effects"""
-
-
-    IDEMPOTENCY_UNKNOWN = MethodOptions.IdempotencyLevel.V(0)
-    NO_SIDE_EFFECTS = MethodOptions.IdempotencyLevel.V(1)
+    IDEMPOTENCY_UNKNOWN: MethodOptions.IdempotencyLevel.ValueType = ...  # 0
+    NO_SIDE_EFFECTS: MethodOptions.IdempotencyLevel.ValueType = ...  # 1
     """implies idempotent"""
 
-    IDEMPOTENT = MethodOptions.IdempotencyLevel.V(2)
+    IDEMPOTENT: MethodOptions.IdempotencyLevel.ValueType = ...  # 2
     """idempotent, but may have side effects"""
 
 
@@ -1183,7 +1189,7 @@ class MethodOptions(google.protobuf.message.Message):
     this is a formalization for deprecating methods.
     """
 
-    idempotency_level: global___MethodOptions.IdempotencyLevel.V = ...
+    idempotency_level: global___MethodOptions.IdempotencyLevel.ValueType = ...
     @property
     def uninterpreted_option(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___UninterpretedOption]:
         """The parser stores options it doesn't recognize here. See above."""
@@ -1191,7 +1197,7 @@ class MethodOptions(google.protobuf.message.Message):
     def __init__(self,
         *,
         deprecated : typing.Optional[builtins.bool] = ...,
-        idempotency_level : typing.Optional[global___MethodOptions.IdempotencyLevel.V] = ...,
+        idempotency_level : typing.Optional[global___MethodOptions.IdempotencyLevel.ValueType] = ...,
         uninterpreted_option : typing.Optional[typing.Iterable[global___UninterpretedOption]] = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["deprecated",b"deprecated","idempotency_level",b"idempotency_level"]) -> builtins.bool: ...

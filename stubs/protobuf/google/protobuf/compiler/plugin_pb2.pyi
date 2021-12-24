@@ -92,18 +92,19 @@ global___CodeGeneratorRequest = CodeGeneratorRequest
 class CodeGeneratorResponse(google.protobuf.message.Message):
     """The plugin writes an encoded CodeGeneratorResponse to stdout."""
     DESCRIPTOR: google.protobuf.descriptor.Descriptor = ...
+    class _Feature:
+        ValueType = typing.NewType('ValueType', builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+    class _FeatureEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Feature.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
+        FEATURE_NONE: CodeGeneratorResponse.Feature.ValueType = ...  # 0
+        FEATURE_PROTO3_OPTIONAL: CodeGeneratorResponse.Feature.ValueType = ...  # 1
     class Feature(_Feature, metaclass=_FeatureEnumTypeWrapper):
         """Sync with code_generator.h."""
         pass
-    class _Feature:
-        V = typing.NewType('V', builtins.int)
-    class _FeatureEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Feature.V], builtins.type):
-        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor = ...
-        FEATURE_NONE = CodeGeneratorResponse.Feature.V(0)
-        FEATURE_PROTO3_OPTIONAL = CodeGeneratorResponse.Feature.V(1)
 
-    FEATURE_NONE = CodeGeneratorResponse.Feature.V(0)
-    FEATURE_PROTO3_OPTIONAL = CodeGeneratorResponse.Feature.V(1)
+    FEATURE_NONE: CodeGeneratorResponse.Feature.ValueType = ...  # 0
+    FEATURE_PROTO3_OPTIONAL: CodeGeneratorResponse.Feature.ValueType = ...  # 1
 
     class File(google.protobuf.message.Message):
         """Represents a single generated file."""
