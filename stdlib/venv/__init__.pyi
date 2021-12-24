@@ -3,7 +3,6 @@ import sys
 from _typeshed import StrOrBytesPath
 from types import SimpleNamespace
 
-
 if sys.version_info >= (3, 9):
     CORE_VENV_DEPS: tuple[str, ...]
 
