@@ -1,5 +1,3 @@
-
-
 from . import _LangModelType
 
 KOI8R_char_to_order_map: tuple[int, ...]

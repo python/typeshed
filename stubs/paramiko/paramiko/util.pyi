@@ -1,5 +1,5 @@
-from collections.abc import Callable
 import sys
+from collections.abc import Callable
 from logging import Logger, LogRecord
 from types import TracebackType
 from typing import IO, AnyStr, Protocol, Type, TypeVar

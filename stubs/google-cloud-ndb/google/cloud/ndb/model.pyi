@@ -1,6 +1,5 @@
-from collections.abc import Callable
 import datetime
-from collections.abc import Iterable, Sequence
+from collections.abc import Callable, Iterable, Sequence
 from typing import NoReturn, Type
 from typing_extensions import Literal
 

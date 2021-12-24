@@ -1,6 +1,5 @@
-from collections.abc import Callable, Iterable, Mapping
 from _typeshed import Self
-from collections.abc import Iterator
+from collections.abc import Callable, Iterable, Iterator, Mapping
 from typing import Any, Generic, Pattern, Type, TypeVar, Union, overload
 
 from . import BeautifulSoup

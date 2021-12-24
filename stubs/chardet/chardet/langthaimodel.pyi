@@ -1,5 +1,3 @@
-
-
 from . import _LangModelType
 
 TIS620CharToOrderMap: tuple[int, ...]

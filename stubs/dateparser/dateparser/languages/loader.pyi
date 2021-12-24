@@ -1,5 +1,5 @@
-from collections.abc import Iterator
 from collections import OrderedDict
+from collections.abc import Iterator
 from typing import Any
 
 from .locale import Locale

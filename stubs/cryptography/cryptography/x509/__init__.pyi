@@ -1,6 +1,6 @@
-from collections.abc import Generator, Iterable, Sequence
 import datetime
 from abc import ABCMeta, abstractmethod
+from collections.abc import Generator, Iterable, Sequence
 from enum import Enum
 from ipaddress import IPv4Address, IPv4Network, IPv6Address, IPv6Network
 from typing import Any, ClassVar, Generic, Text, Type, TypeVar

@@ -1,6 +1,6 @@
-from collections.abc import Callable, Sequence
 import sys
 from _typeshed import SupportsWrite
+from collections.abc import Callable, Sequence
 from typing import Any, Optional, Pattern, TextIO, Union
 
 if sys.platform == "win32":

@@ -1,5 +1,5 @@
-from collections.abc import Iterable, Iterator
 from _typeshed import SupportsItems
+from collections.abc import Iterable, Iterator
 from typing import Any, Protocol, TypeVar
 
 _KT_co = TypeVar("_KT_co", covariant=True)

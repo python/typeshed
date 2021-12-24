@@ -1,6 +1,5 @@
 from collections.abc import Callable
 
-
 from .dammit import EntitySubstitution as EntitySubstitution
 
 _EntitySubstitution = Callable[[str], str]

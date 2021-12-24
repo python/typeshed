@@ -1,6 +1,5 @@
-from collections.abc import Callable, Sequence
 from _typeshed import SupportsRead, SupportsWrite
-from collections.abc import Iterable, Iterator, MutableMapping
+from collections.abc import Callable, Iterable, Iterator, MutableMapping, Sequence
 from pathlib import Path
 from typing import Any, Protocol, SupportsBytes, Union
 from typing_extensions import Literal

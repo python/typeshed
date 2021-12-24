@@ -1,5 +1,5 @@
-from collections.abc import Iterable
 from _typeshed import StrOrBytesPath
+from collections.abc import Iterable
 from typing import BinaryIO
 
 from ..base import AsyncBase

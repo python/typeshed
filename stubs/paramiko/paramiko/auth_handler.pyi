@@ -1,7 +1,6 @@
 from collections.abc import Callable
 from threading import Event
 
-
 from paramiko.pkey import PKey
 from paramiko.ssh_gss import _SSH_GSSAuth
 from paramiko.transport import Transport

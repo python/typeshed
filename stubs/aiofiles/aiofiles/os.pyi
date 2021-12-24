@@ -1,6 +1,6 @@
-from collections.abc import Sequence
 import sys
 from _typeshed import StrOrBytesPath
+from collections.abc import Sequence
 from os import stat_result
 from typing import Union, overload
 

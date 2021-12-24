@@ -1,5 +1,5 @@
-from collections.abc import Callable
 import sys
+from collections.abc import Callable
 from logging import Logger
 from socket import socket
 from typing import Any

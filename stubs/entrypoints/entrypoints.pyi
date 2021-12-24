@@ -1,6 +1,6 @@
-from collections.abc import Iterator, Sequence
 import sys
 from _typeshed import Self
+from collections.abc import Iterator, Sequence
 from typing import Any, Text, Type
 
 if sys.version_info >= (3, 0):

@@ -1,5 +1,3 @@
-
-
 from . import _LangModelType
 
 WIN1255_CHAR_TO_ORDER_MAP: tuple[int, ...]

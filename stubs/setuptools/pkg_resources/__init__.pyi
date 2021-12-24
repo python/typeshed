@@ -1,8 +1,8 @@
-from collections.abc import Callable, Generator, Iterable, Sequence
 import importlib.abc
 import types
 import zipimport
 from abc import ABCMeta
+from collections.abc import Callable, Generator, Iterable, Sequence
 from typing import IO, Any, Optional, TypeVar, Union, overload
 
 LegacyVersion = Any  # from packaging.version

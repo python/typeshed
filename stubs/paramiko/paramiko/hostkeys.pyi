@@ -1,6 +1,5 @@
 from collections.abc import Iterator, Mapping, MutableMapping
 
-
 from paramiko.pkey import PKey
 
 class _SubDict(MutableMapping[str, PKey]):

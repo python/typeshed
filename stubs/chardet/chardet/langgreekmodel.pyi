@@ -1,5 +1,3 @@
-
-
 from . import _LangModelType
 
 Latin7_char_to_order_map: tuple[int, ...]

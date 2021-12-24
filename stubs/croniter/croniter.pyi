@@ -1,5 +1,5 @@
-from collections.abc import Iterator
 import datetime
+from collections.abc import Iterator
 from typing import Any, Text, Type, TypeVar, Union
 from typing_extensions import Literal
 
