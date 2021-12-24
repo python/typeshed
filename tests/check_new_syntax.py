@@ -105,14 +105,14 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
                                 f"instead of `typing_extensions.{imported_object_name}`"
                             )
 
-            elif node.module == "typing":
+            elif node.module == "typing" and path != Path("stdlib/typing_extensions.pyi"):
                 for imported_object in node.names:
                     check_object_from_typing(node, imported_object.name)
 
             self.generic_visit(node)
 
         def visit_Attribute(self, node: ast.Attribute) -> None:
-            if isinstance(node.value, ast.Name) and node.value.id == "typing":
+            if isinstance(node.value, ast.Name) and node.value.id == "typing" and path != Path("stdlib/typing_extensions.pyi"):
                 check_object_from_typing(node, node.attr)
             self.generic_visit(node)
 
