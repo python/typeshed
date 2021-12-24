@@ -12,7 +12,6 @@ from typing import (
     Iterator,
     Optional,
     Protocol,
-    
     TypeVar,
     overload,
 )

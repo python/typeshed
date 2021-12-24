@@ -1,6 +1,5 @@
 from types import TracebackType
 
-
 from .scope_manager import ScopeManager
 from .span import Span
 

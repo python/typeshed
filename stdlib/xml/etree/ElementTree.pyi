@@ -4,7 +4,6 @@ from typing import (
     IO,
     Any,
     Callable,
-    
     Generator,
     ItemsView,
     Iterable,

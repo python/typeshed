@@ -9,8 +9,6 @@ from typing import (
     SupportsComplex,
     SupportsFloat,
     SupportsInt,
-    
-    
     TypeVar,
     Union,
     overload,

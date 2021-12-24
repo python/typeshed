@@ -1,5 +1,3 @@
-
-
 def assert_(condition: object) -> None: ...
 
 ERR_FRAGMENT: str

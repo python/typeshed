@@ -13,7 +13,6 @@ from typing import (
     Protocol,
     Sequence,
     SupportsAbs,
-    
     TypeVar,
     overload,
 )

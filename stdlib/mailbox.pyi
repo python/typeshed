@@ -2,22 +2,7 @@ import email.message
 import sys
 from _typeshed import Self, StrOrBytesPath
 from types import TracebackType
-from typing import (
-    IO,
-    Any,
-    AnyStr,
-    Callable,
-    Generic,
-    Iterable,
-    Iterator,
-    Mapping,
-    Protocol,
-    Sequence,
-    
-    TypeVar,
-    Union,
-    overload,
-)
+from typing import IO, Any, AnyStr, Callable, Generic, Iterable, Iterator, Mapping, Protocol, Sequence, TypeVar, Union, overload
 from typing_extensions import Literal
 
 if sys.version_info >= (3, 9):

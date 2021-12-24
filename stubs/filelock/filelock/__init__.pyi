@@ -1,7 +1,6 @@
 import sys
 from types import TracebackType
 
-
 class Timeout(TimeoutError):
     def __init__(self, lock_file: str) -> None: ...
     def __str__(self) -> str: ...

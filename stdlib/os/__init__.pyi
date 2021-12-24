@@ -24,13 +24,11 @@ from typing import (
     Generic,
     Iterable,
     Iterator,
-    
     Mapping,
     MutableMapping,
     NoReturn,
     Protocol,
     Sequence,
-    
     TypeVar,
     Union,
     overload,

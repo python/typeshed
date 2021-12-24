@@ -1,6 +1,5 @@
 import sys
 
-
 from .base_events import BaseEventLoop as BaseEventLoop
 from .coroutines import iscoroutine as iscoroutine, iscoroutinefunction as iscoroutinefunction
 from .events import (

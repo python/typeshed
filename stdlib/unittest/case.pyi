@@ -19,8 +19,6 @@ from typing import (
     NoReturn,
     Pattern,
     Sequence,
-    
-    
     TypeVar,
     overload,
 )

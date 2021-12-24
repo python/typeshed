@@ -1,5 +1,3 @@
-
-
 from . import _LangModelType
 
 Latin5_TurkishCharToOrderMap: tuple[int, ...]

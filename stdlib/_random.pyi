@@ -1,5 +1,3 @@
-
-
 # Actually Tuple[(int,) * 625]
 _State = tuple[int, ...]
 
