@@ -1,2 +1,3 @@
 version = "1.16.*"
 python2 = true
+stubtest = false  # TODO: figure out why this is needed
