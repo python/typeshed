@@ -26,9 +26,10 @@ _AnyCallable = Callable[..., Any]
 _T = TypeVar("_T")
 _S = TypeVar("_S")
 _P1 = ParamSpec("_P1")
-_R1 = TypeVar("_R1")
+_R = TypeVar("_R", covariant=True)
 _P2 = ParamSpec("_P2")
-_R2 = TypeVar("_R2")
+_R2 = TypeVar("_R2", contravariant=True)
+
 @overload
 def reduce(function: Callable[[_T, _S], _T], sequence: Iterable[_S], initial: _T) -> _T: ...
 @overload
