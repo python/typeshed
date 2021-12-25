@@ -16,10 +16,6 @@ from typing import Any, NoReturn
 import tomli
 
 
-class StubtestFailed(Exception):
-    pass
-
-
 @functools.lru_cache()
 def get_mypy_req():
     with open("requirements-tests.txt") as f:
