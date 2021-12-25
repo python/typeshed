@@ -1,21 +1,7 @@
 import sys
 import types
 from _typeshed import SupportsAllComparisons, SupportsItems
-from typing import (
-    Any,
-    Callable,
-    Generic,
-    Hashable,
-    Iterable,
-    NamedTuple,
-    Protocol,
-    Sequence,
-    Sized,
-    Tuple,
-    Type,
-    TypeVar,
-    overload,
-)
+from typing import Any, Callable, Generic, Hashable, Iterable, NamedTuple, Sequence, Sized, Tuple, Type, TypeVar, overload
 from typing_extensions import ParamSpec, final
 
 if sys.version_info >= (3, 9):
@@ -26,9 +12,9 @@ _AnyCallable = Callable[..., Any]
 _T = TypeVar("_T")
 _S = TypeVar("_S")
 _P1 = ParamSpec("_P1")
-_R1 = TypeVar("_R1", covariant=True)
+_R1 = TypeVar("_R1")
 _P2 = ParamSpec("_P2")
-_R2 = TypeVar("_R2", contravariant=True)
+_R2 = TypeVar("_R2")
 
 @overload
 def reduce(function: Callable[[_T, _S], _T], sequence: Iterable[_S], initial: _T) -> _T: ...
@@ -60,11 +46,11 @@ else:
 WRAPPER_ASSIGNMENTS: Sequence[str]
 WRAPPER_UPDATES: Sequence[str]
 
-class _Wrapped(Protocol[_P1, _R1, _P2, _R2]):
+class _Wrapped(Generic[_P1, _R1, _P2, _R2]):
     __wrapped__: Callable[_P2, _R2]
     def __call__(self, *args: _P1.args, **kwargs: _P1.kwargs) -> _R2: ...
 
-class _Wrapper(Protocol[_P1, _R1]):
+class _Wrapper(Generic[_P1, _R1]):
     def __call__(self, f: Callable[_P2, _R2]) -> _Wrapped[_P1, _R1, _P2, _R2]: ...
 
 def update_wrapper(
