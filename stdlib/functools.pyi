@@ -16,7 +16,7 @@ from typing import (
     TypeVar,
     overload,
 )
-from typing_extensions import final, ParamSpec
+from typing_extensions import ParamSpec, final
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
