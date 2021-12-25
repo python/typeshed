@@ -28,6 +28,7 @@ _S = TypeVar("_S")
 _P = ParamSpec("_P")
 _R = TypeVar("_R", covariant=True)
 _C = TypeVar("_C", bound=Callable[..., Any])
+
 @overload
 def reduce(function: Callable[[_T, _S], _T], sequence: Iterable[_S], initial: _T) -> _T: ...
 @overload
