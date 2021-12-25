@@ -1,7 +1,21 @@
 import sys
 import types
 from _typeshed import SupportsAllComparisons, SupportsItems
-from typing import Any, Callable, Generic, Hashable, Iterable, NamedTuple, Sequence, Sized, Tuple, Type, TypeVar, overload
+from typing import (
+    Any,
+    Callable,
+    Generic,
+    Hashable,
+    Iterable,
+    NamedTuple,
+    Protocol,
+    Sequence,
+    Sized,
+    Tuple,
+    Type,
+    TypeVar,
+    overload,
+)
 from typing_extensions import final, ParamSpec
 
 if sys.version_info >= (3, 9):
@@ -11,10 +25,9 @@ _AnyCallable = Callable[..., Any]
 
 _T = TypeVar("_T")
 _S = TypeVar("_S")
-_P1 = ParamSpec("_P1")
-_R1 = TypeVar("_R1")
-_P2 = ParamSpec("_P2")
-_R2 = TypeVar("_R2")
+_P = ParamSpec("_P")
+_R = TypeVar("_R", covariant=True)
+_C = TypeVar("_C", bound=Callable[..., Any])
 @overload
 def reduce(function: Callable[[_T, _S], _T], sequence: Iterable[_S], initial: _T) -> _T: ...
 @overload
@@ -45,17 +58,17 @@ else:
 WRAPPER_ASSIGNMENTS: Sequence[str]
 WRAPPER_UPDATES: Sequence[str]
 
-class _Wrapped(Generic[_P1, _R1, _P2, _R2]):
-    __wrapped__: Callable[_P2, _R2]
-    def __call__(self, *args: _P1.args, **kwargs: _P1.kwargs) -> _R1: ...
+class _Wrapped(Protocol[_P, _R, _C]):
+    __wrapped__: _C
+    def __call__(self, *args: _P.args, **kwargs: _P.kwargs) -> _R: ...
 
-class _Wrapper(Generic[_P1, _R1]):
-    def __call__(self, f: Callable[_P2, _R2]) -> _Wrapped[_P1, _R1, _P2, _R2]: ...
+class _Wrapper(Protocol[_P, _R]):
+    def __call__(self, f: _C) -> _Wrapped[_P, _R, _C]: ...
 
 def update_wrapper(
-    wrapper: Callable[_P2, _R2], wrapped: Callable[_P1, _R1], assigned: Sequence[str] = ..., updated: Sequence[str] = ...
-) -> _Wrapped[_P1, _R1, _P2, _R2]: ...
-def wraps(wrapped: Callable[_P1, _R1], assigned: Sequence[str] = ..., updated: Sequence[str] = ...) -> _Wrapper[_P1, _R1]: ...
+    wrapper: _C, wrapped: Callable[_P, _R], assigned: Sequence[str] = ..., updated: Sequence[str] = ...
+) -> _Wrapped[_P, _R, _C]: ...
+def wraps(wrapped: Callable[_P, _R], assigned: Sequence[str] = ..., updated: Sequence[str] = ...) -> _Wrapper[_P, _R]: ...
 def total_ordering(cls: Type[_T]) -> Type[_T]: ...
 def cmp_to_key(mycmp: Callable[[_T, _T], int]) -> Callable[[_T], SupportsAllComparisons]: ...
 
