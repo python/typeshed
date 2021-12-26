@@ -42,7 +42,7 @@ class _GeneratorContextManager(AbstractContextManager[_T_co], ContextDecorator, 
     # In Python <= 3.6, __init__ and all instance attributes are defined directly on this class.
     # In Python >= 3.7, __init__ and all instance attributes are inherited from _GeneratorContextManagerBase
     # _GeneratorContextManagerBase is more trouble than it's worth to include in the stub; see #6676
-    def __init__(self, func: Callable[_P, Iterator[_T_co]], args: _P.args, kwds: _P.kwds) -> None: ...  # type: ignore[name-defined]
+    def __init__(self, func: Callable[..., Iterator[_T_co]], args: tuple[Any, ...], kwds: dict[str, Any]) -> None: ...
     gen: Generator[_T_co, Any, Any]
     func: Callable[..., Generator[_T_co, Any, Any]]
     args: tuple[Any, ...]
@@ -57,7 +57,7 @@ if sys.version_info >= (3, 10):
     class _AsyncGeneratorContextManager(AbstractAsyncContextManager[_T_co], AsyncContextDecorator, Generic[_T_co]):
         # __init__ and these attributes are actually defined in the base class _GeneratorContextManagerBase,
         # which is more trouble than it's worth to include in the stub (see #6676)
-        def __init__(self, func: Callable[_P, AsyncIterator[_T_co]], args: _P.args, kwds: _P.kwds) -> None: ...  # type: ignore[name-defined]
+        def __init__(self, func: Callable[..., AsyncIterator[_T_co]], args: tuple[Any, ...], kwds: dict[str, Any]) -> None: ...
         gen: AsyncGenerator[_T_co, Any]
         func: Callable[..., AsyncGenerator[_T_co, Any]]
         args: tuple[Any, ...]
@@ -65,7 +65,7 @@ if sys.version_info >= (3, 10):
 
 elif sys.version_info >= (3, 7):
     class _AsyncGeneratorContextManager(AbstractAsyncContextManager[_T_co], Generic[_T_co]):
-        def __init__(self, func: Callable[_P, AsyncIterator[_T_co]], args: _P.args, kwds: _P.kwds) -> None: ...  # type: ignore[name-defined]
+        def __init__(self, func: Callable[..., AsyncIterator[_T_co]], args: tuple[Any, ...], kwds: dict[str, Any]) -> None: ...
         gen: AsyncGenerator[_T_co, Any]
         func: Callable[..., AsyncGenerator[_T_co, Any]]
         args: tuple[Any, ...]
