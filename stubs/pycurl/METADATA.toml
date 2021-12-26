@@ -1,2 +1,1 @@
 version = "7.44.*"
-stubtest = false  # install failure, missing libcurl
