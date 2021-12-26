@@ -1,4 +1,4 @@
-from collections.abc import Iterable, Iterator
+from collections.abc import Iterable, Iterator, Generator
 from typing import Any
 
 from pygments.filter import Filter
