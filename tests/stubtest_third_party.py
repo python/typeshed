@@ -125,7 +125,7 @@ def install_apt_packages(dist: Path, metadata: dict[str, Any], install: bool) ->
         print(f"Ensure the following apt packages are installed for {dist.name}: {', '.join(apt_packages)}", file=sys.stderr)
         return True
     try:
-        apt_cmd = ["apt", "install", *apt_packages]
+        apt_cmd = ["sudo", "apt", "install", *apt_packages]
         subprocess.run(apt_cmd, check=True, capture_output=True)
     except subprocess.CalledProcessError as e:
         print(f"Failed to install APT packages for {dist.name}: {', '.join(apt_packages)}", file=sys.stderr)
@@ -140,7 +140,7 @@ def main() -> NoReturn:
     parser = argparse.ArgumentParser()
     parser.add_argument("--num-shards", type=int, default=1)
     parser.add_argument("--shard-index", type=int, default=0)
-    parser.add_argument("--install-apt-packages", action="store_true")
+    parser.add_argument("--sudo-install-apt", action="store_true")
     parser.add_argument("dists", metavar="DISTRIBUTION", type=str, nargs=argparse.ZERO_OR_MORE)
     args = parser.parse_args()
 
@@ -154,7 +154,7 @@ def main() -> NoReturn:
     for i, dist in enumerate(dists):
         if i % args.num_shards != args.shard_index:
             continue
-        if not run_stubtest(dist, install_apt=args.install_apt_packages):
+        if not run_stubtest(dist, install_apt=args.sudo_install_apt):
             result = 1
     sys.exit(result)
 
