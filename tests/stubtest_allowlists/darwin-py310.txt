@@ -10,3 +10,19 @@ os.CLD_STOPPED
 os.POSIX_SPAWN_CLOSE
 os.POSIX_SPAWN_DUP2
 os.POSIX_SPAWN_OPEN
+
+# In CI, importing _tkinter fails with "Library not loaded: /usr/local/lib/libtk8.6.dylib"
+tkinter
+tkinter.colorchooser
+tkinter.commondialog
+tkinter.constants
+tkinter.dialog
+tkinter.dnd
+tkinter.filedialog
+tkinter.font
+tkinter.messagebox
+tkinter.scrolledtext
+tkinter.simpledialog
+tkinter.tix
+tkinter.ttk
+turtle
