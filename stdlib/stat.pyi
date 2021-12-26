@@ -1,5 +1,5 @@
 import sys
-from typing import Literal
+from typing_extensions import Literal
 
 def S_ISDIR(mode: int) -> bool: ...
 def S_ISCHR(mode: int) -> bool: ...
