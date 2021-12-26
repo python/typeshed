@@ -53,3 +53,10 @@ socket.AddressInfo.AI_DEFAULT
 socket.AddressInfo.AI_MASK
 socket.AddressInfo.AI_V4MAPPED_CFG
 socket.MsgFlag.MSG_EOF
+
+posix.NGROUPS_MAX
+posix.error.characters_written
+resource.error.characters_written
+select.POLLRDHUP
+webbrowser.MacOSX.__init__
+webbrowser.MacOSXOSAScript.__init__
