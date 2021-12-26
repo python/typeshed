@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Iterable, Generator
 from pygments.lexer import Lexer
 from pygments.style import Style
 from pygments.formatter import Formatter
