@@ -35,7 +35,9 @@ MAXSIZE: int
 callable = builtins.callable
 
 def get_unbound_function(unbound: types.FunctionType) -> types.FunctionType: ...
+
 create_bound_method = types.MethodType
+
 def create_unbound_method(func: types.FunctionType, cls: type) -> types.FunctionType: ...
 
 Iterator = object
