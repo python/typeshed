@@ -126,7 +126,7 @@ def install_apt_packages(dist: Path, metadata: dict[str, Any], install: bool) ->
         return True
     try:
         apt_cmd = ["sudo", "apt", "install", "-y", *apt_packages]
-        print(" ".join(apt_cmd))
+        print(" ".join(apt_cmd), file=sys.stderr)
         subprocess.run(apt_cmd, check=True, capture_output=True)
     except subprocess.CalledProcessError as e:
         print(f"Failed to install APT packages for {dist.name}: {', '.join(apt_packages)}", file=sys.stderr)
