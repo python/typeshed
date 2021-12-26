@@ -18,7 +18,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+        # macos-11 does not have tcl/tk installed, needed for stubtesting tkinter
+        os: ["ubuntu-latest", "windows-latest", "macos-10.15"]
         # Temporarily hard-coded 3.10.1 due to stubtest incompatibilities.
         python-version: ["3.6", "3.7", "3.8", "3.9", "3.10.1"]
       fail-fast: false
