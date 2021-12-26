@@ -1,9 +1,8 @@
+# The following problems are inherited from the standard library.
 six.BytesIO.readlines
 six.BytesIO.seek
-six.Iterator.__init__
 six.StringIO.seek
 six.StringIO.truncate
-six._LazyDescr.__get__
 six.byte2int
 six.callable
 six.create_bound_method
@@ -104,3 +103,6 @@ six.moves.urllib_parse.scheme_chars
 six.viewitems
 six.viewkeys
 six.viewvalues
+
+# Unclear problems
+six.Iterator.__init__
