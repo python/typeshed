@@ -177,6 +177,8 @@ supported:
   [removing obsolete third-party libraries](#third-party-library-removal-policy).
   It contains the first version of the corresponding library that ships
   its own `py.typed` file.
+* `stubtest` (default: `true`): Whether stubtest should be run against this
+  package. Please avoid setting this to `false`, and add a comment if you have to.
 
 The format of all `METADATA.toml` files can be checked by running
 `python3 ./tests/check_consistent.py`.
