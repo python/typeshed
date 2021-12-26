@@ -122,7 +122,7 @@ def install_apt_packages(dist: Path, metadata: dict[str, Any], install: bool) ->
     if not apt_packages:
         return True
     if not install:
-        print(f"Ensure the following packages are installed for {dist.name}: {', '.join(apt_packages)}", file=sys.stderr)
+        print(f"Ensure the following apt packages are installed for {dist.name}: {', '.join(apt_packages)}", file=sys.stderr)
         return True
     try:
         apt_cmd = ["apt", "install", *apt_packages]
