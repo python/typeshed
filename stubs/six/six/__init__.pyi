@@ -1,5 +1,6 @@
 from __future__ import print_function
 
+import builtins
 import types
 import unittest
 from builtins import next as next
@@ -31,9 +32,10 @@ binary_type = bytes
 
 MAXSIZE: int
 
-def callable(obj: object) -> bool: ...
+callable = builtins.callable
+
 def get_unbound_function(unbound: types.FunctionType) -> types.FunctionType: ...
-def create_bound_method(func: types.FunctionType, obj: object) -> types.MethodType: ...
+create_bound_method = types.MethodType
 def create_unbound_method(func: types.FunctionType, cls: type) -> types.FunctionType: ...
 
 Iterator = object
