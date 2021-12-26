@@ -1,8 +1,9 @@
-from typing import Any, Iterable, Generator
+from typing import Any, Generator, Iterable
+
+from pygments.filter import Filter
+from pygments.formatter import Formatter
 from pygments.lexer import Lexer
 from pygments.style import Style
-from pygments.formatter import Formatter
-from pygments.filter import Filter
 
 LEXER_ENTRY_POINT: str
 FORMATTER_ENTRY_POINT: str
