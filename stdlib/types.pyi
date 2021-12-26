@@ -408,9 +408,9 @@ _P = ParamSpec("_P")
 
 # it's not really an Awaitable, but can be used in an await expression. Real type: Generator & Awaitable
 @overload
-def coroutine(func: Callable[_P, Generator[_R, Any, Any]]) -> Callable[_P, Awaitable[_R]]: ...  # type: ignore[misc]
+def coroutine(func: Callable[_P, Generator[_R, Any, Any]]) -> Callable[_P, Awaitable[_R]]: ...
 @overload
-def coroutine(func: _Fn) -> _Fn: ...  # type: ignore[misc]
+def coroutine(func: _Fn) -> _Fn: ...
 
 if sys.version_info >= (3, 8):
     CellType = _Cell
