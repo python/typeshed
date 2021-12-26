@@ -36,7 +36,7 @@ def run_stubtest(dist: Path) -> bool:
             apt_cmd = ["apt", "install", *apt_packages]
             subprocess.run(apt_cmd, check=True, capture_output=True)
         except subprocess.CalledProcessError as e:
-            print(f"Failed to install APT packages for {dist.name}: {apt_packages.join(', ')}", file=sys.stderr)
+            print(f"Failed to install APT packages for {dist.name}: {', '.join(apt_packages)}", file=sys.stderr)
             print(e.stdout.decode(), file=sys.stderr)
             print(e.stderr.decode(), file=sys.stderr)
             return False
