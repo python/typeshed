@@ -34,9 +34,11 @@ S_IFBLK: Literal[0o060000]
 S_IFCHR: Literal[0o020000]
 S_IFDIR: Literal[0o040000]
 
-S_IFDOOR: Literal[0]
-S_IFPORT: Literal[0]
-S_IFWHT: Literal[0]
+# These are 0 on systems that don't support the specific kind of file.
+# Example: Linux doesn't support door files, so S_IFDOOR is 0 on linux.
+S_IFDOOR: int
+S_IFPORT: int
+S_IFWHT: int
 
 S_ISUID: Literal[0o4000]
 S_ISGID: Literal[0o2000]
