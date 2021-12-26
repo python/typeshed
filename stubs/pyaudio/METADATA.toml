@@ -1,3 +1,2 @@
 version = "0.2.*"
 python2 = true
-stubtest = false  # install fails locally
