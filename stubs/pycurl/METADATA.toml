@@ -1,2 +1,2 @@
 version = "7.44.*"
-stubtest = false  # install failure, missing libcurl
+stubtest_apt_dependencies = ["libcurl4-openssl-dev"]

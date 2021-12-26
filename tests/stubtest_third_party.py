@@ -26,9 +26,20 @@ def run_stubtest(dist: Path) -> bool:
     with open(dist / "METADATA.toml") as f:
         metadata = dict(tomli.loads(f.read()))
 
-    if not run_stubtest_for(metadata, dist):
+    if not has_py3_stubs(dist):
         print(f"Skipping stubtest for {dist.name}\n\n")
         return True
+
+    apt_packages = metadata.get("stubtest_apt_dependencies", [])
+    if apt_packages:
+        try:
+            apt_cmd = ["apt", "install", *apt_packages]
+            subprocess.run(apt_cmd, check=True, capture_output=True)
+        except subprocess.CalledProcessError as e:
+            print(f"Failed to install APT packages for {dist.name}: {apt_packages.join(', ')}", file=sys.stderr)
+            print(e.stdout.decode(), file=sys.stderr)
+            print(e.stderr.decode(), file=sys.stderr)
+            return False
 
     with tempfile.TemporaryDirectory() as tmp:
         venv_dir = Path(tmp)
@@ -107,10 +118,6 @@ def run_stubtest(dist: Path) -> bool:
             print(f"stubtest succeeded for {dist.name}", file=sys.stderr)
         print("\n\n", file=sys.stderr)
     return True
-
-
-def run_stubtest_for(metadata: dict[str, Any], dist: Path) -> bool:
-    return has_py3_stubs(dist) and metadata.get("stubtest", True)
 
 
 # Keep this in sync with mypy_test.py
