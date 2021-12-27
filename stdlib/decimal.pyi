@@ -1,16 +1,16 @@
 import numbers
 import sys
 from types import TracebackType
-from typing import Any, Container, NamedTuple, Sequence, Tuple, Type, TypeVar, Union, overload
+from typing import Any, Container, NamedTuple, Sequence, Type, TypeVar, Union, overload
 
 _Decimal = Union[Decimal, int]
-_DecimalNew = Union[Decimal, float, str, Tuple[int, Sequence[int], int]]
+_DecimalNew = Union[Decimal, float, str, tuple[int, Sequence[int], int]]
 _ComparableNum = Union[Decimal, float, numbers.Rational]
 _DecimalT = TypeVar("_DecimalT", bound=Decimal)
 
 class DecimalTuple(NamedTuple):
     sign: int
-    digits: Tuple[int, ...]
+    digits: tuple[int, ...]
     exponent: int
 
 ROUND_DOWN: str
@@ -184,7 +184,7 @@ class Context(object):
     # __setattr__() only allows to set a specific set of attributes,
     # already defined above.
     def __delattr__(self, __name: str) -> None: ...
-    def __reduce__(self) -> tuple[Type[Context], Tuple[Any, ...]]: ...
+    def __reduce__(self) -> tuple[Type[Context], tuple[Any, ...]]: ...
     def clear_flags(self) -> None: ...
     def clear_traps(self) -> None: ...
     def copy(self) -> Context: ...

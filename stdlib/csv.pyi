@@ -21,7 +21,7 @@ from collections.abc import Collection, Iterable, Iterator, Mapping, Sequence
 from typing import Any, Generic, Type, TypeVar, overload
 
 if sys.version_info >= (3, 8):
-    from typing import Dict as _DictReadMapping
+    from builtins import dict as _DictReadMapping
 else:
     from collections import OrderedDict as _DictReadMapping
 
