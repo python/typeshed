@@ -1,5 +1,6 @@
-from typing import Any
+from typing import Any, Generic
 
+from ..client import _StrType
 from .core import ACLCommands, DataAccessCommands, ManagementCommands, PubSubCommands
 
 class ClusterMultiKeyCommands:
@@ -30,7 +31,12 @@ class ClusterDataAccessCommands(DataAccessCommands):
     ): ...
 
 class RedisClusterCommands(
-    ClusterMultiKeyCommands, ClusterManagementCommands, ACLCommands, PubSubCommands, ClusterDataAccessCommands
+    ClusterMultiKeyCommands,
+    ClusterManagementCommands,
+    ACLCommands[_StrType],
+    PubSubCommands,
+    ClusterDataAccessCommands,
+    Generic[_StrType],
 ):
     def cluster_addslots(self, target_node, *slots): ...
     def cluster_countkeysinslot(self, slot_id): ...

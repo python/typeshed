@@ -1,4 +1,3 @@
-import builtins
 import threading
 from _typeshed import Self, SupportsItems
 from datetime import datetime, timedelta
