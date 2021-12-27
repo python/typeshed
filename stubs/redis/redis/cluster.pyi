@@ -1,6 +1,7 @@
-from typing import Any
+from typing import Any, Generic
 
 from redis.client import PubSub
+from redis.command.core import _StrType
 from redis.commands import RedisClusterCommands
 from redis.connection import DefaultParser
 
@@ -22,7 +23,7 @@ def cleanup_kwargs(**kwargs): ...
 class ClusterParser(DefaultParser):
     EXCEPTION_CLASSES: Any
 
-class RedisCluster(RedisClusterCommands):
+class RedisCluster(RedisClusterCommands[_StrType], Generic[_StrType]):
     RedisClusterRequestTTL: int
     PRIMARIES: str
     REPLICAS: str

@@ -1,7 +1,6 @@
 from typing import Any, Generic
 
-from ..client import _StrType
-from .core import ACLCommands, DataAccessCommands, ManagementCommands, PubSubCommands
+from .core import ACLCommands, DataAccessCommands, ManagementCommands, PubSubCommands, _StrType
 
 class ClusterMultiKeyCommands:
     def mget_nonatomic(self, keys, *args): ...
@@ -16,7 +15,7 @@ class ClusterManagementCommands(ManagementCommands):
     def replicaof(self, *args, **kwargs) -> None: ...
     def swapdb(self, *args, **kwargs) -> None: ...
 
-class ClusterDataAccessCommands(DataAccessCommands):
+class ClusterDataAccessCommands(DataAccessCommands[_StrType], Generic[_StrType]):
     def stralgo(
         self,
         algo,
@@ -35,7 +34,7 @@ class RedisClusterCommands(
     ClusterManagementCommands,
     ACLCommands[_StrType],
     PubSubCommands,
-    ClusterDataAccessCommands,
+    ClusterDataAccessCommands[_StrType],
     Generic[_StrType],
 ):
     def cluster_addslots(self, target_node, *slots): ...
