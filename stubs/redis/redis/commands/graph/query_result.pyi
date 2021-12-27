@@ -1,4 +1,5 @@
-from typing import Any
+from typing import Any, ClassVar
+from typing_extensions import Literal
 
 LABELS_ADDED: str
 NODES_CREATED: str
@@ -13,24 +14,24 @@ INTERNAL_EXECUTION_TIME: str
 STATS: Any
 
 class ResultSetColumnTypes:
-    COLUMN_UNKNOWN: int
-    COLUMN_SCALAR: int
-    COLUMN_NODE: int
-    COLUMN_RELATION: int
+    COLUMN_UNKNOWN: ClassVar[Literal[0]]
+    COLUMN_SCALAR: ClassVar[Literal[1]]
+    COLUMN_NODE: ClassVar[Literal[2]]
+    COLUMN_RELATION: ClassVar[Literal[3]]
 
 class ResultSetScalarTypes:
-    VALUE_UNKNOWN: int
-    VALUE_NULL: int
-    VALUE_STRING: int
-    VALUE_INTEGER: int
-    VALUE_BOOLEAN: int
-    VALUE_DOUBLE: int
-    VALUE_ARRAY: int
-    VALUE_EDGE: int
-    VALUE_NODE: int
-    VALUE_PATH: int
-    VALUE_MAP: int
-    VALUE_POINT: int
+    VALUE_UNKNOWN: ClassVar[Literal[0]]
+    VALUE_NULL: ClassVar[Literal[1]]
+    VALUE_STRING: ClassVar[Literal[2]]
+    VALUE_INTEGER: ClassVar[Literal[3]]
+    VALUE_BOOLEAN: ClassVar[Literal[4]]
+    VALUE_DOUBLE: ClassVar[Literal[5]]
+    VALUE_ARRAY: ClassVar[Literal[6]]
+    VALUE_EDGE: ClassVar[Literal[7]]
+    VALUE_NODE: ClassVar[Literal[8]]
+    VALUE_PATH: ClassVar[Literal[9]]
+    VALUE_MAP: ClassVar[Literal[10]]
+    VALUE_POINT: ClassVar[Literal[11]]
 
 class QueryResult:
     graph: Any
