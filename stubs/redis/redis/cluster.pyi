@@ -1,8 +1,8 @@
 from typing import Any, Generic
 
 from redis.client import PubSub
-from redis.command.core import _StrType
 from redis.commands import RedisClusterCommands
+from redis.commands.core import _StrType
 from redis.connection import DefaultParser
 
 def get_node_name(host, port): ...
