@@ -1,4 +1,4 @@
-from typing import Any, AnyStr, Callable, NoReturn, Tuple, _Alias, overload
+from typing import Any, AnyStr, Callable, NoReturn, Tuple, overload
 
 import regex._regex as _regex
 
