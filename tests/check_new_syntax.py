@@ -99,7 +99,11 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
         def visit_ImportFrom(self, node: ast.ImportFrom) -> None:
             if node.module == "collections.abc":
                 imported_classes = node.names
-                if any(cls.name == "Set" for cls in imported_classes):
+                if any(cls.name == "Set" and cls.asname != "AbstractSet" for cls in imported_classes):
+                    errors.append(
+                        f"{path}:{node.lineno}: "
+                        f"Use `from collections.abc import Set as AbstractSet` to avoid confusion with `builtins.set`"
+                    )
                     self.set_from_collections_abc = True
 
             elif node.module == "typing_extensions":
