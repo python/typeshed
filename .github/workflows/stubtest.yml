@@ -53,4 +53,4 @@ jobs:
       - name: Install dependencies
         run: pip install $(grep tomli== requirements-tests.txt)
       - name: Run stubtest
-        run: python tests/stubtest_third_party.py --num-shards 4 --shard-index ${{ matrix.shard-index }}
+        run: python tests/stubtest_third_party.py --num-shards 4 --shard-index ${{ matrix.shard-index }} --sudo-install-apt

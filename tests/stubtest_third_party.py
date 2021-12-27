@@ -22,13 +22,16 @@ def get_mypy_req():
         return next(line.strip() for line in f if "mypy" in line)
 
 
-def run_stubtest(dist: Path) -> bool:
+def run_stubtest(dist: Path, *, install_apt: bool = False) -> bool:
     with open(dist / "METADATA.toml") as f:
         metadata = dict(tomli.loads(f.read()))
 
-    if not run_stubtest_for(metadata, dist):
+    if not has_py3_stubs(dist):
         print(f"Skipping stubtest for {dist.name}\n\n")
         return True
+
+    if not install_apt_packages(dist, metadata, install_apt):
+        return False
 
     with tempfile.TemporaryDirectory() as tmp:
         venv_dir = Path(tmp)
@@ -109,19 +112,36 @@ def run_stubtest(dist: Path) -> bool:
     return True
 
 
-def run_stubtest_for(metadata: dict[str, Any], dist: Path) -> bool:
-    return has_py3_stubs(dist) and metadata.get("stubtest", True)
-
-
 # Keep this in sync with mypy_test.py
 def has_py3_stubs(dist: Path) -> bool:
     return len(glob(f"{dist}/*.pyi")) > 0 or len(glob(f"{dist}/[!@]*/__init__.pyi")) > 0
+
+
+def install_apt_packages(dist: Path, metadata: dict[str, Any], install: bool) -> bool:
+    apt_packages = metadata.get("stubtest_apt_dependencies", [])
+    if not apt_packages:
+        return True
+    if not install:
+        print(f"Ensure the following apt packages are installed for {dist.name}: {', '.join(apt_packages)}", file=sys.stderr)
+        return True
+    try:
+        apt_cmd = ["sudo", "apt", "install", "-y", *apt_packages]
+        print(" ".join(apt_cmd), file=sys.stderr)
+        subprocess.run(apt_cmd, check=True, capture_output=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Failed to install APT packages for {dist.name}: {', '.join(apt_packages)}", file=sys.stderr)
+        print(e.stdout.decode(), file=sys.stderr)
+        print(e.stderr.decode(), file=sys.stderr)
+        return False
+    else:
+        return True
 
 
 def main() -> NoReturn:
     parser = argparse.ArgumentParser()
     parser.add_argument("--num-shards", type=int, default=1)
     parser.add_argument("--shard-index", type=int, default=0)
+    parser.add_argument("--sudo-install-apt", action="store_true")
     parser.add_argument("dists", metavar="DISTRIBUTION", type=str, nargs=argparse.ZERO_OR_MORE)
     args = parser.parse_args()
 
@@ -135,7 +155,7 @@ def main() -> NoReturn:
     for i, dist in enumerate(dists):
         if i % args.num_shards != args.shard_index:
             continue
-        if not run_stubtest(dist):
+        if not run_stubtest(dist, install_apt=args.sudo_install_apt):
             result = 1
     sys.exit(result)
 
