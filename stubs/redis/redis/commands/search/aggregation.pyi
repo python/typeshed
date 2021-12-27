@@ -1,4 +1,5 @@
-from typing import Any
+from typing import Any, ClassVar
+from typing_extensions import Literal
 
 FIELDNAME: Any
 
@@ -16,15 +17,15 @@ class Reducer:
     def args(self): ...
 
 class SortDirection:
-    DIRSTRING: Any
+    DIRSTRING: ClassVar[str | None]
     field: Any
     def __init__(self, field) -> None: ...
 
 class Asc(SortDirection):
-    DIRSTRING: str
+    DIRSTRING: ClassVar[Literal["ASC"]]
 
 class Desc(SortDirection):
-    DIRSTRING: str
+    DIRSTRING: ClassVar[Literal["DESC"]]
 
 class AggregateRequest:
     def __init__(self, query: str = ...) -> None: ...
