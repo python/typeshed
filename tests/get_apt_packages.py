@@ -4,7 +4,6 @@ import sys
 
 import tomli
 
-
 distributions = sys.argv[1:]
 if not distributions:
     distributions = os.listdir("stubs")
