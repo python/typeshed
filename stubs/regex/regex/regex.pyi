@@ -347,7 +347,3 @@ def subfn(
 Pattern: _regex.Pattern
 Match: _regex.Match
 Regex = compile
-
-# Names in __all__ with no definition:
-#   Scanner
-#   error
