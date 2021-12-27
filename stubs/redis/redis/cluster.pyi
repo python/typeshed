@@ -1,9 +1,10 @@
-from typing import Any, Generic
+from typing import Any, ClassVar, Generic
 
 from redis.client import PubSub
 from redis.commands import RedisClusterCommands
 from redis.commands.core import _StrType
 from redis.connection import DefaultParser
+from redis.exceptions import RedisError
 
 def get_node_name(host, port): ...
 def get_connection(redis_node, *args, **options): ...
@@ -24,17 +25,17 @@ class ClusterParser(DefaultParser):
     EXCEPTION_CLASSES: Any
 
 class RedisCluster(RedisClusterCommands[_StrType], Generic[_StrType]):
-    RedisClusterRequestTTL: int
-    PRIMARIES: str
-    REPLICAS: str
-    ALL_NODES: str
-    RANDOM: str
-    DEFAULT_NODE: str
-    NODE_FLAGS: Any
-    COMMAND_FLAGS: Any
-    CLUSTER_COMMANDS_RESPONSE_CALLBACKS: Any
-    RESULT_CALLBACKS: Any
-    ERRORS_ALLOW_RETRY: Any
+    RedisClusterRequestTTL: ClassVar[int]
+    PRIMARIES: ClassVar[str]
+    REPLICAS: ClassVar[str]
+    ALL_NODES: ClassVar[str]
+    RANDOM: ClassVar[str]
+    DEFAULT_NODE: ClassVar[str]
+    NODE_FLAGS: ClassVar[set[str]]
+    COMMAND_FLAGS: ClassVar[Any]
+    CLUSTER_COMMANDS_RESPONSE_CALLBACKS: ClassVar[dict[str, Any]]
+    RESULT_CALLBACKS: ClassVar[Any]
+    ERRORS_ALLOW_RETRY: ClassVar[tuple[type[RedisError], ...]]
     user_on_connect_func: Any
     encoder: Any
     cluster_error_retry_attempts: Any
@@ -148,7 +149,6 @@ class ClusterPubSub(PubSub):
     def get_redis_connection(self): ...
 
 class ClusterPipeline(RedisCluster[_StrType], Generic[_StrType]):
-    ERRORS_ALLOW_RETRY: Any
     command_stack: Any
     nodes_manager: Any
     refresh_table_asap: bool
