@@ -416,7 +416,21 @@ class SortedSetCommands(Generic[_StrType]):
     @overload
     def bzpopmin(self, keys: _Key | Iterable[_Key], timeout: float) -> tuple[_StrType, _StrType, float] | None: ...
     @overload
-    def zrange(  # type: ignore[overload]
+    def zrange(
+        self,
+        name: _Key,
+        start: int,
+        end: int,
+        desc: bool,
+        withscores: Literal[True],
+        score_cast_func: Callable[[float], _ScoreCastFuncReturn] = ...,
+        byscore: bool = ...,
+        bylex: bool = ...,
+        offset: int | None = ...,
+        num: int | None = ...,
+    ) -> list[tuple[_StrType, _ScoreCastFuncReturn]]: ...
+    @overload
+    def zrange(
         self,
         name: _Key,
         start: int,
@@ -450,7 +464,6 @@ class SortedSetCommands(Generic[_StrType]):
         name: _Key,
         start: int,
         end: int,
-        *,
         withscores: Literal[True],
         score_cast_func: Callable[[float], _ScoreCastFuncReturn] = ...,
     ) -> list[tuple[_StrType, _ScoreCastFuncReturn]]: ...
