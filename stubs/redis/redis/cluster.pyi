@@ -147,7 +147,7 @@ class ClusterPubSub(PubSub):
     def execute_command(self, *args, **kwargs) -> None: ...
     def get_redis_connection(self): ...
 
-class ClusterPipeline(RedisCluster):
+class ClusterPipeline(RedisCluster[_StrType], Generic[_StrType]):
     ERRORS_ALLOW_RETRY: Any
     command_stack: Any
     nodes_manager: Any
