@@ -1,4 +1,5 @@
 import sys
+from _typeshed import SupportsKeysAndGetItem
 from importlib.abc import _LoaderProtocol
 from importlib.machinery import ModuleSpec
 from typing import (
@@ -173,7 +174,7 @@ class CodeType:
 @final
 class MappingProxyType(Mapping[_KT, _VT_co], Generic[_KT, _VT_co]):
     __hash__: None  # type: ignore[assignment]
-    def __init__(self, mapping: Mapping[_KT, _VT_co]) -> None: ...
+    def __init__(self, mapping: SupportsKeysAndGetItem[_KT, _VT_co]) -> None: ...
     def __getitem__(self, k: _KT) -> _VT_co: ...
     def __iter__(self) -> Iterator[_KT]: ...
     def __len__(self) -> int: ...
@@ -406,10 +407,11 @@ _R = TypeVar("_R")
 _P = ParamSpec("_P")
 
 # it's not really an Awaitable, but can be used in an await expression. Real type: Generator & Awaitable
+# The type: ignore is due to overlapping overloads, not the use of ParamSpec
 @overload
 def coroutine(func: Callable[_P, Generator[_R, Any, Any]]) -> Callable[_P, Awaitable[_R]]: ...  # type: ignore[misc]
 @overload
-def coroutine(func: _Fn) -> _Fn: ...  # type: ignore[misc]
+def coroutine(func: _Fn) -> _Fn: ...
 
 if sys.version_info >= (3, 8):
     CellType = _Cell

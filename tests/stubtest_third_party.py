@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Test typeshed's third party stubs using stubtest"""
 
+from __future__ import annotations
+
 import argparse
 import functools
 import subprocess
@@ -9,36 +11,24 @@ import tempfile
 import venv
 from glob import glob
 from pathlib import Path
+from typing import Any, NoReturn
 
 import tomli
-
-EXCLUDE_LIST = [
-    "Flask",  # fails when stubtest tries to stringify some object
-    "pyaudio",  # install failure locally
-    "backports",  # errors on python version
-    "six",  # ???
-    "aiofiles",  # easily fixable, some platform specific difference between local and ci
-    "pycurl",  # install failure, missing libcurl
-]
-
-
-class StubtestFailed(Exception):
-    pass
 
 
 @functools.lru_cache()
 def get_mypy_req():
-    with open("requirements-tests-py3.txt") as f:
+    with open("requirements-tests.txt") as f:
         return next(line.strip() for line in f if "mypy" in line)
 
 
-def run_stubtest(dist: Path) -> None:
+def run_stubtest(dist: Path) -> bool:
     with open(dist / "METADATA.toml") as f:
         metadata = dict(tomli.loads(f.read()))
 
-    # Ignore stubs that don't support Python 3
-    if not has_py3_stubs(dist):
-        return
+    if not run_stubtest_for(metadata, dist):
+        print(f"Skipping stubtest for {dist.name}\n\n")
+        return True
 
     with tempfile.TemporaryDirectory() as tmp:
         venv_dir = Path(tmp)
@@ -61,7 +51,7 @@ def run_stubtest(dist: Path) -> None:
                 print(f"Failed to install requirements for {dist.name}", file=sys.stderr)
                 print(e.stdout.decode(), file=sys.stderr)
                 print(e.stderr.decode(), file=sys.stderr)
-                raise
+                return False
 
         # We need stubtest to be able to import the package, so install mypy into the venv
         # Hopefully mypy continues to not need too many dependencies
@@ -76,7 +66,7 @@ def run_stubtest(dist: Path) -> None:
             print(f"Failed to install {dist.name}", file=sys.stderr)
             print(e.stdout.decode(), file=sys.stderr)
             print(e.stderr.decode(), file=sys.stderr)
-            raise
+            return False
 
         packages_to_check = [d.name for d in dist.iterdir() if d.is_dir() and d.name.isidentifier()]
         modules_to_check = [d.stem for d in dist.iterdir() if d.is_file() and d.suffix == ".pyi"]
@@ -112,10 +102,15 @@ def run_stubtest(dist: Path) -> None:
                 print(f"Re-running stubtest with --generate-allowlist.\nAdd the following to {allowlist_path}:", file=sys.stderr)
                 subprocess.run(cmd + ["--generate-allowlist"], env={"MYPYPATH": str(dist)})
                 print("\n\n", file=sys.stderr)
-            raise StubtestFailed from None
+            return False
         else:
             print(f"stubtest succeeded for {dist.name}", file=sys.stderr)
         print("\n\n", file=sys.stderr)
+    return True
+
+
+def run_stubtest_for(metadata: dict[str, Any], dist: Path) -> bool:
+    return has_py3_stubs(dist) and metadata.get("stubtest", True)
 
 
 # Keep this in sync with mypy_test.py
@@ -123,7 +118,7 @@ def has_py3_stubs(dist: Path) -> bool:
     return len(glob(f"{dist}/*.pyi")) > 0 or len(glob(f"{dist}/[!@]*/__init__.pyi")) > 0
 
 
-def main():
+def main() -> NoReturn:
     parser = argparse.ArgumentParser()
     parser.add_argument("--num-shards", type=int, default=1)
     parser.add_argument("--shard-index", type=int, default=0)
@@ -136,15 +131,13 @@ def main():
     else:
         dists = [typeshed_dir / "stubs" / d for d in args.dists]
 
-    try:
-        for i, dist in enumerate(dists):
-            if i % args.num_shards != args.shard_index:
-                continue
-            if dist.name in EXCLUDE_LIST:
-                continue
-            run_stubtest(dist)
-    except StubtestFailed:
-        sys.exit(1)
+    result = 0
+    for i, dist in enumerate(dists):
+        if i % args.num_shards != args.shard_index:
+            continue
+        if not run_stubtest(dist):
+            result = 1
+    sys.exit(result)
 
 
 if __name__ == "__main__":

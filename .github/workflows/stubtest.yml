@@ -1,6 +1,7 @@
 name: Run stubtest on all stubs
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: "0 0 * * *"
 
@@ -17,9 +18,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
-        # Python 3.9.7 is required due to changes to ForwardRef.
-        python-version: ["3.6", "3.7", "3.8", "3.9.7", "3.10"]
+        # macos-11 does not have tcl/tk installed, needed for stubtesting tkinter
+        os: ["ubuntu-latest", "windows-latest", "macos-10.15"]
+        # Temporarily hard-coded 3.10.1 due to stubtest incompatibilities.
+        python-version: ["3.6", "3.7", "3.8", "3.9", "3.10.1"]
       fail-fast: false
 
     steps:
@@ -31,7 +33,7 @@ jobs:
       - name: Update pip
         run: python -m pip install -U pip
       - name: Install dependencies
-        run: pip install $(grep tomli== requirements-tests-py3.txt) $(grep mypy== requirements-tests-py3.txt)
+        run: pip install $(grep tomli== requirements-tests.txt) $(grep mypy== requirements-tests.txt)
       - name: Run stubtest
         run: python tests/stubtest_stdlib.py
 
@@ -49,6 +51,6 @@ jobs:
         with:
           python-version: 3.9
       - name: Install dependencies
-        run: pip install $(grep tomli== requirements-tests-py3.txt)
+        run: pip install $(grep tomli== requirements-tests.txt)
       - name: Run stubtest
         run: python tests/stubtest_third_party.py --num-shards 4 --shard-index ${{ matrix.shard-index }}

@@ -55,7 +55,7 @@ terminal window:
 $ python3 -m venv .venv3
 $ source .venv3/bin/activate
 (.venv3)$ pip install -U pip
-(.venv3)$ pip install -r requirements-tests-py3.txt
+(.venv3)$ pip install -r requirements-tests.txt
 ```
 
 ### Windows
@@ -80,7 +80,7 @@ following commands from a Windows terminal:
 > python3 -m venv .venv3
 > ".venv3/Scripts/activate"
 (.venv3) > python -m pip install -U pip
-(.venv3) > python -m pip install -r requirements-tests-py3.txt
+(.venv3) > python -m pip install -r requirements-tests.txt
 ```
 
 ## Code formatting
@@ -177,6 +177,8 @@ supported:
   [removing obsolete third-party libraries](#third-party-library-removal-policy).
   It contains the first version of the corresponding library that ships
   its own `py.typed` file.
+* `stubtest` (default: `true`): Whether stubtest should be run against this
+  package. Please avoid setting this to `false`, and add a comment if you have to.
 
 The format of all `METADATA.toml` files can be checked by running
 `python3 ./tests/check_consistent.py`.
@@ -244,10 +246,13 @@ instead in typeshed stubs. This currently affects:
 - `Literal` (new in Python 3.8)
 - `SupportsIndex` (new in Python 3.8)
 - `TypedDict` (new in Python 3.8)
+- `Concatenate` (new in Python 3.10)
+- `ParamSpec` (new in Python 3.10)
 - `TypeGuard` (new in Python 3.10)
 
-An exception is `Protocol`: although it was added in Python 3.8, it
-can be used in stubs regardless of Python version.
+Two exceptions are `Protocol` and `runtime_checkable`: although
+these were added in Python 3.8, they can be used in stubs regardless
+of Python version.
 
 ### What to include
 
