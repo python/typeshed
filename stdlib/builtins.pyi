@@ -22,27 +22,29 @@ from _typeshed import (
     SupportsTrunc,
     SupportsWrite,
 )
-from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
-from types import CodeType, TracebackType
-from typing import (
-    IO,
-    AbstractSet,
-    Any,
-    BinaryIO,
+from collections.abc import (
     ByteString,
     Callable,
-    Generic,
     Iterable,
     Iterator,
     Mapping,
     MutableMapping,
-    MutableSequence,
     MutableSet,
+    Reversible,
+    Set as AbstractSet,
+    Sized,
+)
+from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
+from types import CodeType, TracebackType
+from typing import (
+    IO,
+    Any,
+    BinaryIO,
+    Generic,
+    MutableSequence,
     NoReturn,
     Protocol,
-    Reversible,
     Sequence,
-    Sized,
     SupportsAbs,
     SupportsBytes,
     SupportsComplex,
