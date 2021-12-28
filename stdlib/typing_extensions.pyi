@@ -1,5 +1,5 @@
 import abc
-import sys  
+import sys
 from typing import (
     TYPE_CHECKING as TYPE_CHECKING,
     Any,
