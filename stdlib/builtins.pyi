@@ -32,6 +32,7 @@ from collections.abc import (
     MutableSequence,
     MutableSet,
     Reversible,
+    Sequence,
     Set as AbstractSet,
     Sized,
 )
@@ -44,7 +45,6 @@ from typing import (
     Generic,
     NoReturn,
     Protocol,
-    Sequence,
     SupportsAbs,
     SupportsBytes,
     SupportsComplex,
