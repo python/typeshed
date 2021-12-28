@@ -1,7 +1,7 @@
-from typing import IO, Any, Callable, Iterator, MutableMapping, Tuple, Type
+from typing import IO, Any, Callable, Iterator, MutableMapping, Type
 
 _Reader = Callable[[IO[bytes]], Any]
-bytes_types: Tuple[Type[Any], ...]
+bytes_types: tuple[Type[Any], ...]
 
 UP_TO_NEWLINE: int
 TAKEN_FROM_ARGUMENT1: int
@@ -108,9 +108,9 @@ long4: ArgumentDescriptor
 
 class StackObject(object):
     name: str
-    obtype: Type[Any] | Tuple[Type[Any], ...]
+    obtype: Type[Any] | tuple[Type[Any], ...]
     doc: str
-    def __init__(self, name: str, obtype: Type[Any] | Tuple[Type[Any], ...], doc: str) -> None: ...
+    def __init__(self, name: str, obtype: Type[Any] | tuple[Type[Any], ...], doc: str) -> None: ...
 
 pyint: StackObject
 pylong: StackObject

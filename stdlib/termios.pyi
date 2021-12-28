@@ -1,7 +1,7 @@
 from _typeshed import FileDescriptorLike
-from typing import Any, List, Union
+from typing import Any, Union
 
-_Attr = List[Union[int, List[Union[bytes, int]]]]
+_Attr = list[Union[int, list[Union[bytes, int]]]]
 
 # TODO constants not really documented
 B0: int

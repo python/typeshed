@@ -4,28 +4,14 @@ from importlib.abc import PathEntryFinder
 from importlib.machinery import ModuleSpec
 from io import TextIOWrapper
 from types import FrameType, ModuleType, TracebackType
-from typing import (
-    Any,
-    AsyncGenerator,
-    Callable,
-    NoReturn,
-    Optional,
-    Protocol,
-    Sequence,
-    TextIO,
-    Tuple,
-    Type,
-    TypeVar,
-    Union,
-    overload,
-)
+from typing import Any, AsyncGenerator, Callable, NoReturn, Optional, Protocol, Sequence, TextIO, Type, TypeVar, Union, overload
 from typing_extensions import Literal
 
 _T = TypeVar("_T")
 
 # The following type alias are stub-only and do not exist during runtime
-_ExcInfo = Tuple[Type[BaseException], BaseException, TracebackType]
-_OptExcInfo = Union[_ExcInfo, Tuple[None, None, None]]
+_ExcInfo = tuple[Type[BaseException], BaseException, TracebackType]
+_OptExcInfo = Union[_ExcInfo, tuple[None, None, None]]
 
 # Intentionally omits one deprecated and one optional method of `importlib.abc.MetaPathFinder`
 class _MetaPathFinder(Protocol):
@@ -146,7 +132,7 @@ class _int_info:
     bits_per_digit: int
     sizeof_digit: int
 
-class _version_info(Tuple[int, int, int, str, int]):
+class _version_info(tuple[int, int, int, str, int]):
     major: int
     minor: int
     micro: int
@@ -192,7 +178,7 @@ _TraceFunc = Callable[[FrameType, str, Any], Optional[Callable[[FrameType, str, 
 def gettrace() -> _TraceFunc | None: ...
 def settrace(tracefunc: _TraceFunc | None) -> None: ...
 
-class _WinVersion(Tuple[int, int, int, int, str, int, int, int, int, Tuple[int, int, int]]):
+class _WinVersion(tuple[int, int, int, int, str, int, int, int, int, tuple[int, int, int]]):
     major: int
     minor: int
     build: int
@@ -234,12 +220,12 @@ if sys.version_info >= (3, 8):
         err_msg: str | None
         object: _object | None
     unraisablehook: Callable[[UnraisableHookArgs], Any]
-    def addaudithook(hook: Callable[[str, Tuple[Any, ...]], Any]) -> None: ...
+    def addaudithook(hook: Callable[[str, tuple[Any, ...]], Any]) -> None: ...
     def audit(__event: str, *args: Any) -> None: ...
 
 _AsyncgenHook = Optional[Callable[[AsyncGenerator[Any, Any]], None]]
 
-class _asyncgen_hooks(Tuple[_AsyncgenHook, _AsyncgenHook]):
+class _asyncgen_hooks(tuple[_AsyncgenHook, _AsyncgenHook]):
     firstiter: _AsyncgenHook
     finalizer: _AsyncgenHook
 

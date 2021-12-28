@@ -1,9 +1,9 @@
 from _typeshed import structseq
-from typing import Any, List, Optional, Tuple
+from typing import Any, Optional
 from typing_extensions import final
 
 @final
-class struct_group(structseq[Any], Tuple[str, Optional[str], int, List[str]]):
+class struct_group(structseq[Any], tuple[str, Optional[str], int, list[str]]):
     @property
     def gr_name(self) -> str: ...
     @property

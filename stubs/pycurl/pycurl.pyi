@@ -1,6 +1,6 @@
 # TODO(MichalPokorny): more precise types
 
-from typing import Any, Text, Tuple
+from typing import Any, Text
 
 GLOBAL_ACK_EINTR: int
 GLOBAL_ALL: int
@@ -14,7 +14,7 @@ def global_cleanup() -> None: ...
 
 version: str
 
-def version_info() -> tuple[int, str, int, str, int, str, int, str, Tuple[str, ...], Any, int, Any]: ...
+def version_info() -> tuple[int, str, int, str, int, str, int, str, tuple[str, ...], Any, int, Any]: ...
 
 class error(Exception): ...
 

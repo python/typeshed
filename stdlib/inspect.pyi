@@ -23,7 +23,7 @@ from types import (
 if sys.version_info >= (3, 7):
     from types import ClassMethodDescriptorType, WrapperDescriptorType, MemberDescriptorType, MethodDescriptorType
 
-from typing import Any, ClassVar, NamedTuple, Protocol, Tuple, Type, TypeVar, Union
+from typing import Any, ClassVar, NamedTuple, Protocol, Type, TypeVar, Union
 from typing_extensions import Literal, TypeGuard
 
 #
@@ -234,7 +234,7 @@ class Parameter:
 
 class BoundArguments:
     arguments: OrderedDict[str, Any]
-    args: Tuple[Any, ...]
+    args: tuple[Any, ...]
     kwargs: dict[str, Any]
     signature: Signature
     def __init__(self, signature: Signature, arguments: OrderedDict[str, Any]) -> None: ...
@@ -262,14 +262,14 @@ if sys.version_info < (3, 11):
         args: list[str]
         varargs: str | None
         keywords: str | None
-        defaults: Tuple[Any, ...]
+        defaults: tuple[Any, ...]
     def getargspec(func: object) -> ArgSpec: ...
 
 class FullArgSpec(NamedTuple):
     args: list[str]
     varargs: str | None
     varkw: str | None
-    defaults: Tuple[Any, ...] | None
+    defaults: tuple[Any, ...] | None
     kwonlyargs: list[str]
     kwonlydefaults: dict[str, Any] | None
     annotations: dict[str, Any]
@@ -291,7 +291,7 @@ if sys.version_info < (3, 11):
         args: list[str],
         varargs: str | None = ...,
         varkw: str | None = ...,
-        defaults: Tuple[Any, ...] | None = ...,
+        defaults: tuple[Any, ...] | None = ...,
         kwonlyargs: Sequence[str] | None = ...,
         kwonlydefaults: dict[str, Any] | None = ...,
         annotations: dict[str, Any] = ...,
@@ -313,7 +313,7 @@ def formatargvalues(
     formatvarkw: Callable[[str], str] | None = ...,
     formatvalue: Callable[[Any], str] | None = ...,
 ) -> str: ...
-def getmro(cls: type) -> Tuple[type, ...]: ...
+def getmro(cls: type) -> tuple[type, ...]: ...
 def getcallargs(__func: Callable[..., Any], *args: Any, **kwds: Any) -> dict[str, Any]: ...
 
 class ClosureVars(NamedTuple):
