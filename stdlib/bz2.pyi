@@ -90,7 +90,6 @@ def open(
     newline: str | None = ...,
 ) -> BZ2File | TextIO: ...
 
-
 class BZ2File(BaseStream, IO[bytes]):
     def __enter__(self: Self) -> Self: ...
     if sys.version_info >= (3, 9):
