@@ -52,5 +52,7 @@ jobs:
           python-version: 3.9
       - name: Install dependencies
         run: pip install $(grep tomli== requirements-tests.txt)
+      - name: Install apt packages
+        run: sudo apt install -y $(python tests/get_apt_packages.py)
       - name: Run stubtest
-        run: python tests/stubtest_third_party.py --num-shards 4 --shard-index ${{ matrix.shard-index }} --sudo-install-apt
+        run: python tests/stubtest_third_party.py --num-shards 4 --shard-index ${{ matrix.shard-index }}
