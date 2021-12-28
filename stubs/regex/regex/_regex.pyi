@@ -1,4 +1,4 @@
-from typing import AnyStr, Callable, FrozenSet, Generic, Iterator, NoReturn, TypeVar, overload
+from typing import AnyStr, Callable, Generic, Iterator, NoReturn, TypeVar, overload
 
 _T = TypeVar("_T")
 
@@ -8,7 +8,7 @@ class Pattern(Generic[AnyStr]):
     flags: int
     groups: int
     groupindex: dict[str, int]
-    named_lists: dict[str, FrozenSet[AnyStr]]
+    named_lists: dict[str, frozenset[AnyStr]]
     def search(
         self,
         string: AnyStr,
