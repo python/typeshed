@@ -19,7 +19,7 @@ from typing import (
 from typing_extensions import Literal
 
 from .commands import CoreCommands, RedisModuleCommands, SentinelCommands
-from .connection import ConnectionPool
+from .connection import ConnectionPool, _ConnectionPoolOptions
 from .lock import Lock
 from .retry import Retry
 
@@ -33,6 +33,11 @@ _StrType = TypeVar("_StrType", bound=Union[str, bytes])
 
 _VT = TypeVar("_VT")
 _T = TypeVar("_T")
+
+# Keyword arguments that are passed to Redis.parse_response().
+_ParseResponseOptions = Any
+# Keyword arguments that are passed to Redis.execute_command().
+_CommandOptions = _ConnectionPoolOptions | _ParseResponseOptions
 
 SYM_EMPTY: bytes
 EMPTY_RESPONSE: str
@@ -290,8 +295,8 @@ class Redis(RedisModuleCommands, CoreCommands[_StrType], SentinelCommands, Gener
         thread_local: bool = ...,
     ) -> _LockType: ...
     def pubsub(self, *, shard_hint: Any = ..., ignore_subscribe_messages: bool = ...) -> PubSub: ...
-    def execute_command(self, *args, **options): ...
-    def parse_response(self, connection, command_name, **options): ...
+    def execute_command(self, *args, **options: _CommandOptions): ...
+    def parse_response(self, connection, command_name, **options: _ParseResponseOptions): ...
     def monitor(self) -> Monitor: ...
     def cluster(self, cluster_arg: str, *args: Any) -> Any: ...
     def __enter__(self) -> Redis[_StrType]: ...
