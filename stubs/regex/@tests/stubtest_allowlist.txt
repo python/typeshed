@@ -1,0 +1,4 @@
+regex._regex.Match
+regex._regex.Pattern
+regex._regex.Scanner
+regex._regex.Splitter
