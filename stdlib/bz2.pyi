@@ -80,6 +80,16 @@ def open(
     errors: str | None = ...,
     newline: str | None = ...,
 ) -> TextIO: ...
+@overload
+def open(
+    filename: StrOrBytesPath | _ReadableFileobj | _WritableFileobj,
+    mode: str,
+    compresslevel: int = ...,
+    encoding: str | None = ...,
+    errors: str | None = ...,
+    newline: str | None = ...,
+) -> BZ2File | TextIO: ...
+
 
 class BZ2File(BaseStream, IO[bytes]):
     def __enter__(self: Self) -> Self: ...
