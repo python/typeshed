@@ -346,8 +346,8 @@ def template(pattern: AnyStr, flags: int = ...) -> _regex.Pattern[AnyStr]: ...
 @overload
 def template(pattern: _regex.Pattern[AnyStr], flags: int = ...) -> _regex.Pattern[AnyStr]: ...
 
-Pattern: type[_regex.Pattern]
-Match: type[_regex.Match]
+Pattern = _regex.Pattern
+Match = _regex.Match
 Regex = compile
 
 # TODO: Scanner, error
