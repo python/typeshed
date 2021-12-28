@@ -31,6 +31,7 @@ from collections.abc import (
     MutableMapping,
     MutableSet,
     Reversible,
+    Sequence,
     Set as AbstractSet,
     Sized,
 )
@@ -44,7 +45,6 @@ from typing import (
     MutableSequence,
     NoReturn,
     Protocol,
-    Sequence,
     SupportsAbs,
     SupportsBytes,
     SupportsComplex,
