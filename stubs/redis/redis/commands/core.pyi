@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from typing import Any, Generic, TypeVar, Union, overload
 from typing_extensions import Literal
 
-from ..client import _Key, _Value, _CommandOptions
+from ..client import _CommandOptions, _Key, _Value
 
 _ScoreCastFuncReturn = TypeVar("_ScoreCastFuncReturn")
 _StrType = TypeVar("_StrType", bound=Union[str, bytes])
@@ -54,7 +54,9 @@ class ManagementCommands:
         **kwargs: _CommandOptions,
     ): ...
     def client_info(self, **kwargs: _CommandOptions): ...
-    def client_list(self, _type: str | None = ..., client_id: list[str] = ..., **kwargs: _CommandOptions) -> list[dict[str, str]]: ...
+    def client_list(
+        self, _type: str | None = ..., client_id: list[str] = ..., **kwargs: _CommandOptions
+    ) -> list[dict[str, str]]: ...
     def client_getname(self, **kwargs: _CommandOptions) -> str | None: ...
     def client_getredir(self, **kwargs: _CommandOptions): ...
     def client_reply(self, reply, **kwargs: _CommandOptions): ...
@@ -103,7 +105,16 @@ class ManagementCommands:
     def lolwut(self, *version_numbers, **kwargs: _CommandOptions): ...
     def reset(self) -> None: ...
     def migrate(
-            self, host, port, keys, destination_db, timeout, copy: bool = ..., replace: bool = ..., auth: Any | None = ..., **kwargs: _CommandOptions
+        self,
+        host,
+        port,
+        keys,
+        destination_db,
+        timeout,
+        copy: bool = ...,
+        replace: bool = ...,
+        auth: Any | None = ...,
+        **kwargs: _CommandOptions,
     ): ...
     def object(self, infotype, key, **kwargs: _CommandOptions): ...
     def memory_doctor(self, **kwargs: _CommandOptions): ...
@@ -295,10 +306,15 @@ class ListCommands(Generic[_StrType]):
 
 class ScanCommands(Generic[_StrType]):
     def scan(
-            self, cursor: int = ..., match: _Key | None = ..., count: int | None = ..., _type: str | None = ..., **kwargs: _CommandOptions
+        self,
+        cursor: int = ...,
+        match: _Key | None = ...,
+        count: int | None = ...,
+        _type: str | None = ...,
+        **kwargs: _CommandOptions,
     ) -> tuple[int, list[_StrType]]: ...
     def scan_iter(
-            self, match: str | None = ..., count: int | None = ..., _type: str | None = ..., **kwargs: _CommandOptions
+        self, match: str | None = ..., count: int | None = ..., _type: str | None = ..., **kwargs: _CommandOptions
     ) -> Iterator[_StrType]: ...
     def sscan(
         self, name: _Key, cursor: int = ..., match: str | None = ..., count: int | None = ...
