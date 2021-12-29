@@ -391,6 +391,7 @@ email.contentmanager.get_text_content
 email.contentmanager.set_bytes_content
 email.contentmanager.set_message_content
 email.contentmanager.set_text_content
+email.iterators.walk
 
 # Side effects from module initialization
 _compat_pickle.excname
@@ -628,10 +629,7 @@ email.feedparser
 email.generator
 email.header
 email.iterators
-email.iterators.walk
 email.message
-email.message.Message.raw_items
-email.message.Message.set_raw
 email.mime
 email.parser
 email.quoprimime
