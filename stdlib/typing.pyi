@@ -682,8 +682,10 @@ def cast(typ: object, val: Any) -> Any: ...
 # Type constructors
 
 class NamedTuple(Tuple[Any, ...]):
-    if sys.version_info < (3, 9):
+    if sys.version_info < (3, 8):
         _field_types: collections.OrderedDict[str, Type[Any]]
+    elif sys.version_info < (3, 9):
+        _field_types: dict[str, Type[Any]]
     _field_defaults: dict[str, Any]
     _fields: Tuple[str, ...]
     _source: str
