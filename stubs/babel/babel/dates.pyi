@@ -76,14 +76,9 @@ class TimezoneTransition:
     activates: datetime
     from_tzinfo: tzinfo
     to_tzinfo: tzinfo
-    reference_date: datetime
+    reference_date: datetime | None
 
-    # Note: reference_date here differs from the implementation.
-    # While it has None as a default value in the constructor, it will in practice always
-    # have a value when you obtain an instance through get_next_timezone_transition().
-    # To avoid spurious errors about missing None checks when calling
-    # get_next_timezone_transition() and accessing reference_date, it is typed as required here.
-    def __init__(self, activates: datetime, from_tzinfo: tzinfo, to_tzinfo: tzinfo, reference_date: datetime) -> None: ...
+    def __init__(self, activates: datetime, from_tzinfo: tzinfo, to_tzinfo: tzinfo, reference_date: datetime | None = ...) -> None: ...
     @property
     def from_tz(self) -> str: ...
     @property
