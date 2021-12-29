@@ -1,6 +1,7 @@
 from datetime import date, datetime, time, tzinfo
-from typing import Any
+from typing import Any, overload
 from babel.core import Locale
+from pytz import BaseTzInfo
 
 # The module contents here are organized the same way they are in the API documentation at
 # http://babel.pocoo.org/en/latest/api/dates.html
@@ -29,8 +30,10 @@ def format_interval(
 
 # Timezone Functionality
 
-# Note: The tzinfo returned here will be a pytz implementation of tzinfo
-def get_timezone(zone: str | tzinfo | None = ...) -> tzinfo: ...
+@overload
+def get_timezone(zone: str | BaseTzInfo | None = ...) -> BaseTzInfo: ...
+@overload
+def get_timezone(zone: tzinfo) -> tzinfo: ...
 
 def get_timezone_gmt(
     datetime: datetime | None = ...,
@@ -49,8 +52,10 @@ def get_timezone_name(
 ) -> str: ...
 
 # Note: While Babel accepts any tzinfo for the most part, the get_next_timeout_transition()
-# function requires a tzinfo that is produced by get_timezone() or pytz.
-def get_next_timezone_transition(zone: tzinfo | None = ..., dt: datetime | date | None = ...) -> TimezoneTransition: ...
+# function requires a tzinfo that is produced by get_timezone()/pytz AND has DST info.
+# The typing here will help you with the first requirement, but will not protect against
+# pytz tzinfo's without DST info, like what you get from get_timezone("UTC") for instance.
+def get_next_timezone_transition(zone: BaseTzInfo | None = ..., dt: datetime | date | None = ...) -> TimezoneTransition: ...
 
 class TimezoneTransition:
     # This class itself is not included in the documentation, yet it is mentioned by name.
@@ -58,12 +63,14 @@ class TimezoneTransition:
     activates: datetime
     from_tzinfo: tzinfo
     to_tzinfo: tzinfo
+    reference_date: datetime
 
-    # None should never appear when going through get_next_timezone_transition(), but it is
-    # the default value when the constructor is called without a reference date.
-    reference_date: datetime | None  
-
-    def __init__(self, activates: datetime, from_tzinfo: tzinfo, to_tzinfo: tzinfo, reference_date: datetime | None = ...) -> None: ...
+    # Note: reference_date here differs from the implementation.
+    # While it has None as a default value in the constructor, it will in practice always
+    # have a value when you obtain an instance through get_next_timezone_transition().
+    # To avoid spurious errors about missing None checks when calling
+    # get_next_timezone_transition() and accessing reference_date, it is typed as required here.
+    def __init__(self, activates: datetime, from_tzinfo: tzinfo, to_tzinfo: tzinfo, reference_date: datetime) -> None: ...
     @property
     def from_tz(self) -> str: ...
     @property
@@ -73,8 +80,8 @@ class TimezoneTransition:
     @property
     def to_offset(self) -> int: ...
 
-UTC: tzinfo
-LOCALTZ: tzinfo
+UTC: BaseTzInfo
+LOCALTZ: BaseTzInfo
 
 # Data Access
 def get_period_names(width: str = ..., context: str = ..., locale=...): ...
