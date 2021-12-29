@@ -80,7 +80,6 @@ if sys.platform != "win32":
     LOCK_SH: int
     LOCK_UN: int
     LOCK_WRITE: int
-
     @overload
     def fcntl(__fd: FileDescriptorLike, __cmd: int, __arg: int = ...) -> int: ...
     @overload
