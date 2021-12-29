@@ -2,7 +2,6 @@ import sys
 
 if sys.platform != "win32":
     class _Method: ...
-
     METHOD_CRYPT: _Method
     METHOD_MD5: _Method
     METHOD_SHA256: _Method
@@ -14,8 +13,6 @@ if sys.platform != "win32":
 
     if sys.version_info >= (3, 7):
         def mksalt(method: _Method | None = ..., *, rounds: int | None = ...) -> str: ...
-
     else:
         def mksalt(method: _Method | None = ...) -> str: ...
-
     def crypt(word: str, salt: str | _Method | None = ...) -> str: ...
