@@ -313,5 +313,3 @@ def template(pattern: _regex.Pattern[AnyStr], flags: int = ...) -> _regex.Patter
 Pattern = _regex.Pattern
 Match = _regex.Match
 Regex = compile
-
-# TODO: Scanner
