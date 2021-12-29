@@ -1,6 +1,7 @@
 from datetime import date, datetime, time, timedelta, tzinfo
 from typing import Any, overload
 from typing_extensions import Literal
+
 from babel.core import Locale
 from pytz import BaseTzInfo
 
@@ -8,9 +9,13 @@ from pytz import BaseTzInfo
 # http://babel.pocoo.org/en/latest/api/dates.html
 
 # Date and Time Formatting
-def format_datetime(datetime: datetime | None = ..., format: str = ..., tzinfo: tzinfo | None = ..., locale: str | Locale = ...) -> str: ...
+def format_datetime(
+    datetime: datetime | None = ..., format: str = ..., tzinfo: tzinfo | None = ..., locale: str | Locale = ...
+) -> str: ...
 def format_date(date: date | datetime | None = ..., format: str = ..., locale: str | Locale = ...) -> str: ...
-def format_time(time: time | datetime | None = ..., format: str = ..., tzinfo: tzinfo | None = ..., locale: str | Locale = ...) -> str: ...
+def format_time(
+    time: time | datetime | None = ..., format: str = ..., tzinfo: tzinfo | None = ..., locale: str | Locale = ...
+) -> str: ...
 def format_timedelta(
     delta: timedelta | int,
     granularity: Literal["year", "month", "week", "day", "hour", "minute", "second"] = ...,
@@ -19,7 +24,13 @@ def format_timedelta(
     format: Literal["narrow", "short", "long"] = ...,
     locale: str | Locale = ...,
 ) -> str: ...
-def format_skeleton(skeleton: str, datetime: time | datetime | None = ..., tzinfo: tzinfo | None = ..., fuzzy: bool = ..., locale: str | Locale = ...) -> str: ...
+def format_skeleton(
+    skeleton: str,
+    datetime: time | datetime | None = ...,
+    tzinfo: tzinfo | None = ...,
+    fuzzy: bool = ...,
+    locale: str | Locale = ...,
+) -> str: ...
 def format_interval(
     start: datetime | date | time,
     end: datetime | date | time,
@@ -35,14 +46,15 @@ def format_interval(
 def get_timezone(zone: str | BaseTzInfo | None = ...) -> BaseTzInfo: ...
 @overload
 def get_timezone(zone: tzinfo) -> tzinfo: ...
-
 def get_timezone_gmt(
     datetime: datetime | None = ...,
     width: Literal["long", "short", "iso8601", "iso8601_short"] = ...,
     locale: str | Locale = ...,
-    return_z: bool = ...
+    return_z: bool = ...,
 ) -> str: ...
-def get_timezone_location(dt_or_tzinfo: datetime | tzinfo | None = ..., locale: str | Locale = ..., return_city: bool = ...) -> str: ...
+def get_timezone_location(
+    dt_or_tzinfo: datetime | tzinfo | None = ..., locale: str | Locale = ..., return_city: bool = ...
+) -> str: ...
 def get_timezone_name(
     dt_or_tzinfo: datetime | tzinfo | None = ...,
     width: Literal["long", "short"] = ...,
@@ -107,7 +119,6 @@ datetime_ = datetime
 time_ = time
 
 TIMEDELTA_UNITS: Any
-
 
 def get_period_id(time, tzinfo: Any | None = ..., type: Any | None = ..., locale=...): ...
 
