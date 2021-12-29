@@ -1,5 +1,6 @@
-from datetime import date, datetime, time, tzinfo
+from datetime import date, datetime, time, timedelta, tzinfo
 from typing import Any, overload
+from typing_extensions import Literal
 from babel.core import Locale
 from pytz import BaseTzInfo
 
@@ -16,7 +17,7 @@ def format_timedelta(
     threshold: float = ...,
     add_direction: bool = ...,
     format: Literal["narrow", "short", "long"] = ...,
-    locale: str | Locale =...,
+    locale: str | Locale = ...,
 ) -> str: ...
 def format_skeleton(skeleton: str, datetime: time | datetime | None = ..., tzinfo: tzinfo | None = ..., fuzzy: bool = ..., locale: str | Locale = ...) -> str: ...
 def format_interval(
@@ -25,7 +26,7 @@ def format_interval(
     skeleton: str | None = ...,
     tzinfo: tzinfo | None = ...,
     fuzzy: bool = ...,
-    locale: str | Locale =...,
+    locale: str | Locale = ...,
 ) -> str: ...
 
 # Timezone Functionality
@@ -41,7 +42,7 @@ def get_timezone_gmt(
     locale: str | Locale = ...,
     return_z: bool = ...
 ) -> str: ...
-def get_timezone_location(dt_or_tzinfo: datetime | tzinfo | None = ..., locale: str | Locale =..., return_city: bool = ...) -> str: ...
+def get_timezone_location(dt_or_tzinfo: datetime | tzinfo | None = ..., locale: str | Locale = ..., return_city: bool = ...) -> str: ...
 def get_timezone_name(
     dt_or_tzinfo: datetime | tzinfo | None = ...,
     width: Literal["long", "short"] = ...,
