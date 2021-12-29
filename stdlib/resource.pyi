@@ -25,9 +25,10 @@ if sys.platform != "win32":
         RLIMIT_RTTIME: int
         RLIMIT_SIGPENDING: int
         RUSAGE_THREAD: int
-
     @final
-    class struct_rusage(structseq[float], tuple[float, float, int, int, int, int, int, int, int, int, int, int, int, int, int, int]):
+    class struct_rusage(
+        structseq[float], tuple[float, float, int, int, int, int, int, int, int, int, int, int, int, int, int, int]
+    ):
         @property
         def ru_utime(self) -> float: ...
         @property
@@ -60,16 +61,13 @@ if sys.platform != "win32":
         def ru_nvcsw(self) -> int: ...
         @property
         def ru_nivcsw(self) -> int: ...
-
     def getpagesize() -> int: ...
     def getrlimit(__resource: int) -> tuple[int, int]: ...
     def getrusage(__who: int) -> struct_rusage: ...
     def setrlimit(__resource: int, __limits: tuple[int, int]) -> None: ...
-
     if sys.platform == "linux":
         @overload
         def prlimit(pid: int, resource: int, limits: tuple[int, int]) -> tuple[int, int]: ...
         @overload
         def prlimit(pid: int, resource: int) -> tuple[int, int]: ...
-
     error = OSError
