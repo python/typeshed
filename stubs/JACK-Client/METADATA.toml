@@ -1,1 +1,2 @@
 version = "0.5.*"
+apt_packages = ["libjack-dev"]
