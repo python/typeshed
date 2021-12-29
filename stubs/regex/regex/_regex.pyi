@@ -1,4 +1,4 @@
-from typing import AnyStr, Callable, Generic, Iterator, NoReturn, TypeVar, overload
+from typing import Any, AnyStr, Callable, Generic, Iterator, TypeVar, overload
 
 _T = TypeVar("_T")
 
@@ -47,7 +47,7 @@ class Pattern(Generic[AnyStr]):
         overlapped: bool = ...,
         concurrent: bool | None = ...,
         timeout: int | None = ...,
-    ) -> list[AnyStr] | list[tuple[AnyStr, ...]]: ...
+    ) -> list[Any]: ...
     def finditer(
         self,
         string: AnyStr,
@@ -166,7 +166,7 @@ class Match(Generic[AnyStr]):
     @overload
     def captures(self, __group1: int | str, __group2: int | str, *groups: int | str) -> tuple[list[AnyStr], ...]: ...
     def capturesdict(self) -> dict[str, list[AnyStr]]: ...
-    def detach_string(self) -> NoReturn: ...
+    def detach_string(self) -> None: ...
 
 class Splitter(Generic[AnyStr]):
 
