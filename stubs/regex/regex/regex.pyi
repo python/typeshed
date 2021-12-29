@@ -1,45 +1,9 @@
 from typing import Any, AnyStr, Callable, NoReturn, overload
 
 import regex._regex as _regex
+from regex._regex_core import *
 
 __version__: str
-
-A: int
-ASCII: int
-B: int
-BESTMATCH: int
-D: int
-DEBUG: int
-E: int
-ENHANCEMATCH: int
-F: int
-FULLCASE: int
-I: int
-IGNORECASE: int
-L: int
-LOCALE: int
-M: int
-MULTILINE: int
-P: int
-POSIX: int
-R: int
-REVERSE: int
-T: int
-TEMPLATE: int
-S: int
-DOTALL: int
-U: int
-UNICODE: int
-V0: int
-VERSION0: int
-V1: int
-VERSION1: int
-W: int
-WORD: int
-X: int
-VERBOSE: int
-
-DEFAULT_VERSION: int
 
 @overload
 def compile(pattern: AnyStr, flags: int = ..., ignore_unused: bool = ..., **kwargs: Any) -> _regex.Pattern[AnyStr]: ...
@@ -350,4 +314,4 @@ Pattern = _regex.Pattern
 Match = _regex.Match
 Regex = compile
 
-# TODO: Scanner, error
+# TODO: Scanner
