@@ -130,7 +130,12 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
 
     class IfFinder(ast.NodeVisitor):
         def visit_If(self, node: ast.If) -> None:
-            if isinstance(node.test, ast.Compare) and ast.unparse(node.test).startswith("sys.version_info < ") and node.orelse:
+            if (
+                isinstance(node.test, ast.Compare)
+                and ast.unparse(node.test).startswith("sys.version_info < ")
+                and node.orelse
+                and not (len(node.orelse) == 1 and isinstance(node.orelse[0], ast.If))  # elif statement (#6728)
+            ):
                 new_syntax = "if " + ast.unparse(node.test).replace("<", ">=", 1)
                 errors.append(
                     f"{path}:{node.lineno}: When using if/else with sys.version_info, "
