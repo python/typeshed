@@ -219,7 +219,6 @@ class Parameter:
     VAR_POSITIONAL: ClassVar[Literal[_ParameterKind.VAR_POSITIONAL]]
     KEYWORD_ONLY: ClassVar[Literal[_ParameterKind.KEYWORD_ONLY]]
     VAR_KEYWORD: ClassVar[Literal[_ParameterKind.VAR_KEYWORD]]
-
     @property
     def name(self) -> str: ...
     @property
