@@ -1,5 +1,5 @@
 from tkinter import Canvas, Frame, PhotoImage, Misc
-from typing import Any, Callable, ClassVar, Sequence, TypeVar, Union, overload
+from typing import Any, Callable, ClassVar, Sequence, TypeVar, Union, overload, Scrollbar
 
 # Note: '_Color' is the alias we use for arguments and _AnyColor is the
 # alias we use for return types. Really, these two aliases should be the
@@ -18,18 +18,15 @@ _PolygonCoords = Sequence[tuple[float, float]]
 # Vec2D is actually a custom subclass of 'tuple'.
 Vec2D = tuple[float, float]
 
-class ScrolledCanvas(Frame):
+# Does not actually inherit from Canvas, but dynamically gets all methods of Canvas
+class ScrolledCanvas(Canvas):
     bg: str
-    hscroll: Any
-    vscroll: Any
+    hscroll: Scrollbar
+    vscroll: Scrollbar
     def __init__(self, master: Misc | None, width: int = ..., height: int = ..., canvwidth: int = ..., canvheight: int = ...) -> None: ...
-    canvwidth: Any
-    canvheight: Any
-    def reset(self, canvwidth: Any | None = ..., canvheight: Any | None = ..., bg: Any | None = ...) -> None: ...
-    # bbox copied from tkinter.Canvas
-    def bbox(self, *args: str | int) -> tuple[int, int, int, int]: ...  # type: ignore[override]
-    # config() should match tkinter.Canvas.config, but copying would be a lot of copy/pasta
-    def config(self, *args: Any, **kwargs: Any) -> None: ...  # type: ignore[override]
+    canvwidth: int
+    canvheight: int
+    def reset(self, canvwidth: int | None = ..., canvheight: int | None = ..., bg: str | None = ...) -> None: ...
 
 class TurtleScreenBase(object):
     cv: Canvas
