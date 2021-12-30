@@ -1,5 +1,3 @@
-_stat.IO_REPARSE_TAG_[A-Z_]+
-
 _msi.CreateRecord
 _msi.FCICreate
 _msi.OpenDatabase

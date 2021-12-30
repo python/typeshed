@@ -1,4 +1,3 @@
-import sys
 from typing_extensions import Literal
 
 from _stat import *
@@ -20,8 +19,3 @@ FILE_ATTRIBUTE_SPARSE_FILE: Literal[512]
 FILE_ATTRIBUTE_SYSTEM: Literal[4]
 FILE_ATTRIBUTE_TEMPORARY: Literal[256]
 FILE_ATTRIBUTE_VIRTUAL: Literal[65536]
-
-if sys.platform == "win32" and sys.version_info >= (3, 8):
-    IO_REPARSE_TAG_SYMLINK: int
-    IO_REPARSE_TAG_MOUNT_POINT: int
-    IO_REPARSE_TAG_APPEXECLINK: int

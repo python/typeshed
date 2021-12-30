@@ -1,5 +1,3 @@
-_stat.IO_REPARSE_TAG_[A-Z_]+
-
 # Exists at runtime, but missing from stubs
 _winapi.CreateFileMapping
 _winapi.MapViewOfFile
