@@ -699,7 +699,6 @@ tkinter.tix.ScrolledText
 tkinter.tix.ScrolledWindow
 tkinter.tix.Shell
 tracemalloc.BaseFilter
-turtle.ScrolledCanvas\..+
 turtle.TNavigator.speed
 wave.Wave_read.initfp
 wave.Wave_write.initfp
