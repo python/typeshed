@@ -53,7 +53,7 @@ def split(
     timeout: int | None = ...,
     ignore_unused: bool = ...,
     **kwargs: Any,
-) -> list[AnyStr]: ...
+) -> list[AnyStr | Any]: ...
 def splititer(
     pattern: AnyStr | _regex.Pattern[AnyStr],
     string: AnyStr,
@@ -127,7 +127,7 @@ def subn(
     timeout: int | None = ...,
     ignore_unused: bool = ...,
     **kwargs: Any,
-) -> AnyStr: ...
+) -> tuple[AnyStr, int]: ...
 def subfn(
     pattern: AnyStr | _regex.Pattern[AnyStr],
     format: AnyStr | Callable[[_regex.Match[AnyStr]], AnyStr],
