@@ -41,17 +41,17 @@ class BlockFinder:
     last: int
     def tokeneater(self, type: int, token: str, srowcol: tuple[int, int], erowcol: tuple[int, int], line: str) -> None: ...
 
-CO_OPTIMIZED: Literal[1]
-CO_NEWLOCALS: Literal[2]
-CO_VARARGS: Literal[4]
-CO_VARKEYWORDS: Literal[8]
-CO_NESTED: Literal[16]
-CO_GENERATOR: Literal[32]
-CO_NOFREE: Literal[64]
-CO_COROUTINE: Literal[128]
-CO_ITERABLE_COROUTINE: Literal[256]
-CO_ASYNC_GENERATOR: Literal[512]
-TPFLAGS_IS_ABSTRACT: Literal[1048576]
+CO_OPTIMIZED: int
+CO_NEWLOCALS: int
+CO_VARARGS: int
+CO_VARKEYWORDS: int
+CO_NESTED: int
+CO_GENERATOR: int
+CO_NOFREE: int
+CO_COROUTINE: int
+CO_ITERABLE_COROUTINE: int
+CO_ASYNC_GENERATOR: int
+TPFLAGS_IS_ABSTRACT: int
 
 modulesbyfile: dict[str, Any]
 
@@ -213,16 +213,20 @@ class _ParameterKind(enum.IntEnum):
 class Parameter:
     def __init__(self, name: str, kind: _ParameterKind, *, default: Any = ..., annotation: Any = ...) -> None: ...
     empty = _empty
-    name: str
-    default: Any
-    annotation: Any
 
-    kind: _ParameterKind
     POSITIONAL_ONLY: ClassVar[Literal[_ParameterKind.POSITIONAL_ONLY]]
     POSITIONAL_OR_KEYWORD: ClassVar[Literal[_ParameterKind.POSITIONAL_OR_KEYWORD]]
     VAR_POSITIONAL: ClassVar[Literal[_ParameterKind.VAR_POSITIONAL]]
     KEYWORD_ONLY: ClassVar[Literal[_ParameterKind.KEYWORD_ONLY]]
     VAR_KEYWORD: ClassVar[Literal[_ParameterKind.VAR_KEYWORD]]
+    @property
+    def name(self) -> str: ...
+    @property
+    def default(self) -> Any: ...
+    @property
+    def kind(self) -> _ParameterKind: ...
+    @property
+    def annotation(self) -> Any: ...
     def replace(
         self: Self,
         *,
