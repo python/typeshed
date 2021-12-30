@@ -19,7 +19,7 @@ _PolygonCoords = Sequence[tuple[float, float]]
 Vec2D = tuple[float, float]
 
 # Does not actually inherit from Canvas, but dynamically gets all methods of Canvas
-class ScrolledCanvas(Canvas, Frame):
+class ScrolledCanvas(Canvas, Frame):  # type: ignore[misc]
     bg: str
     hscroll: Scrollbar
     vscroll: Scrollbar
