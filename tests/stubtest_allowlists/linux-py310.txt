@@ -34,8 +34,6 @@ os.eventfd_write
 os.pidfd_open
 os.splice
 posix.EFD_[A-Z]+
-posix.POSIX_SPAWN_[A-Z0-9]+
-posix.RWF_[A-Z]+
 posix.SPLICE_[A-Z_]+
 posix.copy_file_range
 posix.eventfd
