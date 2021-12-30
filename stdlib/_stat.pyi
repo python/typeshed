@@ -83,7 +83,7 @@ if sys.platform == "win32" and sys.version_info >= (3, 8):
     IO_REPARSE_TAG_MOUNT_POINT: int
     IO_REPARSE_TAG_APPEXECLINK: int
 
-if sys.platform != "win32":
+if sys.platform == "win32":
     FILE_ATTRIBUTE_ARCHIVE: Literal[32]
     FILE_ATTRIBUTE_COMPRESSED: Literal[2048]
     FILE_ATTRIBUTE_DEVICE: Literal[64]
