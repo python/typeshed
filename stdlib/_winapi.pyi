@@ -8,9 +8,9 @@ if sys.platform == "win32":
         BELOW_NORMAL_PRIORITY_CLASS: Literal[16384]
         CREATE_BREAKAWAY_FROM_JOB: Literal[16777216]
         CREATE_DEFAULT_ERROR_MODE: Literal[67108864]
-        CREATE_NEW_CONSOLE: Literal[16]
+        CREATE_NO_WINDOW: Literal[134217728]
+    CREATE_NEW_CONSOLE: Literal[16]
     CREATE_NEW_PROCESS_GROUP: Literal[512]
-    CREATE_NO_WINDOW: Literal[134217728]
     if sys.version_info >= (3, 7):
         DETACHED_PROCESS: Literal[8]
     DUPLICATE_CLOSE_SOURCE: Literal[1]
