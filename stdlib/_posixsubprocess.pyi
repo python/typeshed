@@ -1,5 +1,3 @@
-# NOTE: These are incomplete!
-
 import sys
 from typing import Callable, Sequence
 

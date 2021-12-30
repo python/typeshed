@@ -105,6 +105,7 @@ importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but e
 importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
 importlib.machinery.ExtensionFileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
 inspect.Parameter.empty  # set as private marker _empty
+# inspect.Parameter: the Literal[enum_member] annotations are too complex for stubtest to parse
 inspect.Parameter.KEYWORD_ONLY
 inspect.Parameter.POSITIONAL_ONLY
 inspect.Parameter.POSITIONAL_OR_KEYWORD
@@ -397,7 +398,14 @@ email.contentmanager.set_bytes_content
 email.contentmanager.set_message_content
 email.contentmanager.set_text_content
 email.iterators.walk
+pipes.Template.makepipeline
+pipes.Template.open_r
+pipes.Template.open_w
+sunau.Au_read.initfp
+sunau.Au_write.initfp
 turtle.ScrolledCanvas.onResize
+wave.Wave_read.initfp
+wave.Wave_write.initfp
 
 # Side effects from module initialization
 _compat_pickle.excname
@@ -675,13 +683,8 @@ multiprocessing.pool.Pool.Process
 multiprocessing.pool.ThreadPool.Process
 multiprocessing.reducer
 multiprocessing.synchronize.Semaphore.get_value
-pipes.Template.makepipeline
-pipes.Template.open_r
-pipes.Template.open_w
 rlcompleter.Completer.attr_matches
 rlcompleter.Completer.global_matches
-sunau.Au_read.initfp
-sunau.Au_write.initfp
 tkinter.Misc.config
 tkinter.font.Font.counter
 tkinter.simpledialog.Dialog.apply
@@ -706,8 +709,6 @@ tkinter.tix.ScrolledWindow
 tkinter.tix.Shell
 tracemalloc.BaseFilter
 turtle.TNavigator.speed
-wave.Wave_read.initfp
-wave.Wave_write.initfp
 xml.dom
 xml.etree
 xml.sax
