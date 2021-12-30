@@ -2,7 +2,5 @@ select.epoll.register
 
 # Exists at runtime, but missing from stubs
 os.copy_file_range
-posix.POSIX_SPAWN_[A-Z0-9]+
-posix.RWF_[A-Z]+
 posix.copy_file_range
 time.pthread_getcpuclockid
