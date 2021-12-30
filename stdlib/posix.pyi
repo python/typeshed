@@ -263,7 +263,7 @@ if sys.platform != "win32":
             waitid as waitid,
             waitid_result as waitid_result,
         )
-        
+
         if sys.version_info >= (3, 10):
             from os import RWF_APPEND as RWF_APPEND
 
