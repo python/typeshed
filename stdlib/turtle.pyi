@@ -1,5 +1,5 @@
-from tkinter import Canvas, Frame, PhotoImage, Misc
-from typing import Any, Callable, ClassVar, Sequence, TypeVar, Union, overload, Scrollbar
+from tkinter import Canvas, Frame, Misc, PhotoImage
+from typing import Any, Callable, ClassVar, Scrollbar, Sequence, TypeVar, Union, overload
 
 # Note: '_Color' is the alias we use for arguments and _AnyColor is the
 # alias we use for return types. Really, these two aliases should be the
@@ -23,7 +23,9 @@ class ScrolledCanvas(Canvas):
     bg: str
     hscroll: Scrollbar
     vscroll: Scrollbar
-    def __init__(self, master: Misc | None, width: int = ..., height: int = ..., canvwidth: int = ..., canvheight: int = ...) -> None: ...
+    def __init__(
+        self, master: Misc | None, width: int = ..., height: int = ..., canvwidth: int = ..., canvheight: int = ...
+    ) -> None: ...
     canvwidth: int
     canvheight: int
     def reset(self, canvwidth: int | None = ..., canvheight: int | None = ..., bg: str | None = ...) -> None: ...
