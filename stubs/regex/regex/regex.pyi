@@ -1,7 +1,7 @@
 from typing import Any, AnyStr, Callable, overload
 
-import regex._regex as _regex
-from regex._regex_core import *
+from . import _regex
+from ._regex_core import *
 
 __version__: str
 
