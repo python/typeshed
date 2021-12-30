@@ -41,17 +41,17 @@ class BlockFinder:
     last: int
     def tokeneater(self, type: int, token: str, srowcol: tuple[int, int], erowcol: tuple[int, int], line: str) -> None: ...
 
-CO_OPTIMIZED: int
-CO_NEWLOCALS: int
-CO_VARARGS: int
-CO_VARKEYWORDS: int
-CO_NESTED: int
-CO_GENERATOR: int
-CO_NOFREE: int
-CO_COROUTINE: int
-CO_ITERABLE_COROUTINE: int
-CO_ASYNC_GENERATOR: int
-TPFLAGS_IS_ABSTRACT: int
+CO_OPTIMIZED: Literal[1]
+CO_NEWLOCALS: Literal[2]
+CO_VARARGS: Literal[4]
+CO_VARKEYWORDS: Literal[8]
+CO_NESTED: Literal[16]
+CO_GENERATOR: Literal[32]
+CO_NOFREE: Literal[64]
+CO_COROUTINE: Literal[128]
+CO_ITERABLE_COROUTINE: Literal[256]
+CO_ASYNC_GENERATOR: Literal[512]
+TPFLAGS_IS_ABSTRACT: Literal[1048576]
 
 modulesbyfile: dict[str, Any]
 
