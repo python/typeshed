@@ -1,3 +1,4 @@
+import sys
 from typing_extensions import Literal
 
 SF_APPEND: Literal[0x00040000]
