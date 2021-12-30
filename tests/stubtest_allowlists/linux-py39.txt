@@ -6,7 +6,6 @@ asyncio.PidfdChildWatcher
 asyncio.unix_events.PidfdChildWatcher
 os.copy_file_range
 os.pidfd_open
-posix.RWF_[A-Z]+
 posix.copy_file_range
 posix.pidfd_open
 time.pthread_getcpuclockid
