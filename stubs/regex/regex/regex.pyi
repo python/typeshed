@@ -16,7 +16,7 @@ def search(
     endpos: int | None = ...,
     partial: bool = ...,
     concurrent: bool | None = ...,
-    timeout: int | None = ...,
+    timeout: float | None = ...,
     ignore_unused: bool = ...,
     **kwargs: Any,
 ) -> _regex.Match[AnyStr] | None: ...
@@ -28,7 +28,7 @@ def match(
     endpos: int | None = ...,
     partial: bool = ...,
     concurrent: bool | None = ...,
-    timeout: int | None = ...,
+    timeout: float | None = ...,
     ignore_unused: bool = ...,
     **kwargs: Any,
 ) -> _regex.Match[AnyStr] | None: ...
@@ -40,7 +40,7 @@ def fullmatch(
     endpos: int | None = ...,
     partial: bool = ...,
     concurrent: bool | None = ...,
-    timeout: int | None = ...,
+    timeout: float | None = ...,
     ignore_unused: bool = ...,
     **kwargs: Any,
 ) -> _regex.Match[AnyStr] | None: ...
@@ -50,7 +50,7 @@ def split(
     maxsplit: int = ...,
     flags: int = ...,
     concurrent: bool | None = ...,
-    timeout: int | None = ...,
+    timeout: float | None = ...,
     ignore_unused: bool = ...,
     **kwargs: Any,
 ) -> list[AnyStr | Any]: ...
@@ -60,7 +60,7 @@ def splititer(
     maxsplit: int = ...,
     flags: int = ...,
     concurrent: bool | None = ...,
-    timeout: int | None = ...,
+    timeout: float | None = ...,
     ignore_unused: bool = ...,
     **kwargs: Any,
 ) -> _regex.Splitter[AnyStr]: ...
@@ -72,7 +72,7 @@ def findall(
     endpos: int | None = ...,
     overlapped: bool = ...,
     concurrent: bool | None = ...,
-    timeout: int | None = ...,
+    timeout: float | None = ...,
     ignore_unused: bool = ...,
     **kwargs: Any,
 ) -> list[Any]: ...
@@ -85,7 +85,7 @@ def finditer(
     overlapped: bool = ...,
     partial: bool = ...,
     concurrent: bool | None = ...,
-    timeout: int | None = ...,
+    timeout: float | None = ...,
     ignore_unused: bool = ...,
     **kwargs: Any,
 ) -> _regex.Scanner[AnyStr]: ...
@@ -98,7 +98,7 @@ def sub(
     pos: int | None = ...,
     endpos: int | None = ...,
     concurrent: bool | None = ...,
-    timeout: int | None = ...,
+    timeout: float | None = ...,
     ignore_unused: bool = ...,
     **kwargs: Any,
 ) -> AnyStr: ...
@@ -111,7 +111,7 @@ def subf(
     pos: int | None = ...,
     endpos: int | None = ...,
     concurrent: bool | None = ...,
-    timeout: int | None = ...,
+    timeout: float | None = ...,
     ignore_unused: bool = ...,
     **kwargs: Any,
 ) -> AnyStr: ...
@@ -124,7 +124,7 @@ def subn(
     pos: int | None = ...,
     endpos: int | None = ...,
     concurrent: bool | None = ...,
-    timeout: int | None = ...,
+    timeout: float | None = ...,
     ignore_unused: bool = ...,
     **kwargs: Any,
 ) -> tuple[AnyStr, int]: ...
@@ -137,7 +137,7 @@ def subfn(
     pos: int | None = ...,
     endpos: int | None = ...,
     concurrent: bool | None = ...,
-    timeout: int | None = ...,
+    timeout: float | None = ...,
     ignore_unused: bool = ...,
     **kwargs: Any,
 ) -> tuple[AnyStr, int]: ...

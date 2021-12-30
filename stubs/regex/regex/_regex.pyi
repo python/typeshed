@@ -1,8 +1,9 @@
 from _typeshed import Self
-from typing import Any, AnyStr, Callable, Generic, Mapping, TypeVar, overload
+from typing import Any, AnyStr, Callable, Generic, Literal, Mapping, TypeVar, final, overload
 
 _T = TypeVar("_T")
 
+@final
 class Pattern(Generic[AnyStr]):
 
     pattern: AnyStr
@@ -16,7 +17,7 @@ class Pattern(Generic[AnyStr]):
         pos: int | None = ...,
         endpos: int | None = ...,
         concurrent: bool | None = ...,
-        timeout: int | None = ...,
+        timeout: float | None = ...,
     ) -> Match[AnyStr] | None: ...
     def match(
         self,
@@ -24,7 +25,7 @@ class Pattern(Generic[AnyStr]):
         pos: int | None = ...,
         endpos: int | None = ...,
         concurrent: bool | None = ...,
-        timeout: int | None = ...,
+        timeout: float | None = ...,
     ) -> Match[AnyStr] | None: ...
     def fullmatch(
         self,
@@ -32,13 +33,13 @@ class Pattern(Generic[AnyStr]):
         pos: int | None = ...,
         endpos: int | None = ...,
         concurrent: bool | None = ...,
-        timeout: int | None = ...,
+        timeout: float | None = ...,
     ) -> Match[AnyStr] | None: ...
     def split(
-        self, string: AnyStr, maxsplit: int = ..., concurrent: bool | None = ..., timeout: int | None = ...
+        self, string: AnyStr, maxsplit: int = ..., concurrent: bool | None = ..., timeout: float | None = ...
     ) -> list[AnyStr | Any]: ...
     def splititer(
-        self, string: AnyStr, maxsplit: int = ..., concurrent: bool | None = ..., timeout: int | None = ...
+        self, string: AnyStr, maxsplit: int = ..., concurrent: bool | None = ..., timeout: float | None = ...
     ) -> Splitter[AnyStr]: ...
     def findall(
         self,
@@ -47,7 +48,7 @@ class Pattern(Generic[AnyStr]):
         endpos: int | None = ...,
         overlapped: bool = ...,
         concurrent: bool | None = ...,
-        timeout: int | None = ...,
+        timeout: float | None = ...,
     ) -> list[Any]: ...
     def finditer(
         self,
@@ -56,7 +57,7 @@ class Pattern(Generic[AnyStr]):
         endpos: int | None = ...,
         overlapped: bool = ...,
         concurrent: bool | None = ...,
-        timeout: int | None = ...,
+        timeout: float | None = ...,
     ) -> Scanner[AnyStr]: ...
     def sub(
         self,
@@ -67,7 +68,7 @@ class Pattern(Generic[AnyStr]):
         pos: int | None = ...,
         endpos: int | None = ...,
         concurrent: bool | None = ...,
-        timeout: int | None = ...,
+        timeout: float | None = ...,
     ) -> AnyStr: ...
     def subf(
         self,
@@ -78,7 +79,7 @@ class Pattern(Generic[AnyStr]):
         pos: int | None = ...,
         endpos: int | None = ...,
         concurrent: bool | None = ...,
-        timeout: int | None = ...,
+        timeout: float | None = ...,
     ) -> AnyStr: ...
     def subn(
         self,
@@ -89,7 +90,7 @@ class Pattern(Generic[AnyStr]):
         pos: int | None = ...,
         endpos: int | None = ...,
         concurrent: bool | None = ...,
-        timeout: int | None = ...,
+        timeout: float | None = ...,
     ) -> tuple[AnyStr, int]: ...
     def subfn(
         self,
@@ -100,7 +101,7 @@ class Pattern(Generic[AnyStr]):
         pos: int | None = ...,
         endpos: int | None = ...,
         concurrent: bool | None = ...,
-        timeout: int | None = ...,
+        timeout: float | None = ...,
     ) -> tuple[AnyStr, int]: ...
     def scanner(
         self,
@@ -109,9 +110,10 @@ class Pattern(Generic[AnyStr]):
         endpos: int | None = ...,
         overlapped: bool = ...,
         concurrent: bool | None = ...,
-        timeout: int | None = ...,
+        timeout: float | None = ...,
     ) -> Scanner[AnyStr]: ...
 
+@final
 class Match(Generic[AnyStr]):
 
     re: Pattern[AnyStr]
@@ -124,6 +126,8 @@ class Match(Generic[AnyStr]):
     fuzzy_changes: tuple[list[int], list[int], list[int]]
     lastgroup: str | None
     lastindex: int | None
+    @overload
+    def group(self, __group: Literal[0] = ...) -> AnyStr: ...
     @overload
     def group(self, __group: int | str = ...) -> AnyStr | Any: ...
     @overload
@@ -169,6 +173,7 @@ class Match(Generic[AnyStr]):
     def capturesdict(self) -> dict[str, list[AnyStr]]: ...
     def detach_string(self) -> None: ...
 
+@final
 class Splitter(Generic[AnyStr]):
 
     pattern: Pattern[AnyStr]
@@ -176,6 +181,7 @@ class Splitter(Generic[AnyStr]):
     def __next__(self) -> AnyStr | Any: ...
     def split(self) -> AnyStr | Any: ...
 
+@final
 class Scanner(Generic[AnyStr]):
 
     pattern: Pattern[AnyStr]
