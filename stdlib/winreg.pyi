@@ -39,34 +39,34 @@ if sys.platform == "win32":
     HKEY_CURRENT_CONFIG: int
     HKEY_DYN_DATA: int
 
-    KEY_ALL_ACCESS: int
-    KEY_WRITE: int
-    KEY_READ: int
-    KEY_EXECUTE: int
-    KEY_QUERY_VALUE: int
-    KEY_SET_VALUE: int
-    KEY_CREATE_SUB_KEY: int
-    KEY_ENUMERATE_SUB_KEYS: int
-    KEY_NOTIFY: int
-    KEY_CREATE_LINK: int
+    KEY_ALL_ACCESS: Literal[983103]
+    KEY_WRITE: Literal[131078]
+    KEY_READ: Literal[131097]
+    KEY_EXECUTE: Literal[131097]
+    KEY_QUERY_VALUE: Literal[1]
+    KEY_SET_VALUE: Literal[2]
+    KEY_CREATE_SUB_KEY: Literal[4]
+    KEY_ENUMERATE_SUB_KEYS: Literal[8]
+    KEY_NOTIFY: Literal[16]
+    KEY_CREATE_LINK: Literal[32]
 
-    KEY_WOW64_64KEY: int
-    KEY_WOW64_32KEY: int
+    KEY_WOW64_64KEY: Literal[256]
+    KEY_WOW64_32KEY: Literal[512]
 
-    REG_BINARY: int
-    REG_DWORD: int
-    REG_DWORD_LITTLE_ENDIAN: int
-    REG_DWORD_BIG_ENDIAN: int
-    REG_EXPAND_SZ: int
-    REG_LINK: int
-    REG_MULTI_SZ: int
-    REG_NONE: int
-    REG_QWORD: int
-    REG_QWORD_LITTLE_ENDIAN: int
-    REG_RESOURCE_LIST: int
-    REG_FULL_RESOURCE_DESCRIPTOR: int
-    REG_RESOURCE_REQUIREMENTS_LIST: int
-    REG_SZ: int
+    REG_BINARY: Literal[3]
+    REG_DWORD: Literal[4]
+    REG_DWORD_LITTLE_ENDIAN: Literal[4]
+    REG_DWORD_BIG_ENDIAN: Literal[5]
+    REG_EXPAND_SZ: Literal[2]
+    REG_LINK: Literal[6]
+    REG_MULTI_SZ: Literal[7]
+    REG_NONE: Literal[0]
+    REG_QWORD: Literal[11]
+    REG_QWORD_LITTLE_ENDIAN: Literal[11]
+    REG_RESOURCE_LIST: Literal[8]
+    REG_FULL_RESOURCE_DESCRIPTOR: Literal[9]
+    REG_RESOURCE_REQUIREMENTS_LIST: Literal[10]
+    REG_SZ: Literal[1]
 
     REG_CREATED_NEW_KEY: int  # undocumented
     REG_LEGAL_CHANGE_FILTER: int  # undocumented
