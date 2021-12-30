@@ -290,6 +290,11 @@ codecs.StreamReaderWriter.\w+
 codecs.StreamRecoder.\w+
 urllib.response.addbase.\w+
 
+# Dynamically created, has unnecessary *args
+turtle.ScrolledCanvas.find_all
+turtle.ScrolledCanvas.select_clear
+turtle.ScrolledCanvas.select_item
+
 # Unnecessary re-exports
 asyncore\.E[A-Z]+  # re-exported from errno
 asyncore.errorcode  # re-exported from errno
@@ -392,6 +397,7 @@ email.contentmanager.set_bytes_content
 email.contentmanager.set_message_content
 email.contentmanager.set_text_content
 email.iterators.walk
+turtle.ScrolledCanvas.onResize
 
 # Side effects from module initialization
 _compat_pickle.excname
