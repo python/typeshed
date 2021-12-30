@@ -3,5 +3,4 @@ ftplib.FTP.trust_server_pasv_ipv4_address  # Dangerous to use, intentionally und
 pwd.getpwnam
 
 # Exists at runtime, but missing from stubs
-posix.RWF_[A-Z]+
 time.pthread_getcpuclockid
