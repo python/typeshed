@@ -70,6 +70,8 @@ if sys.platform != "win32":
         SCHED_SPORADIC as SCHED_SPORADIC,
         SEEK_DATA as SEEK_DATA,
         SEEK_HOLE as SEEK_HOLE,
+        ST_NOSUID as ST_NOSUID,
+        ST_RDONLY as ST_RDONLY,
         TMP_MAX as TMP_MAX,
         W_OK as W_OK,
         WCONTINUED as WCONTINUED,
