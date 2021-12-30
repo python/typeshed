@@ -3,7 +3,7 @@ import sys
 import types
 from _typeshed import Self
 from collections import OrderedDict
-from collections.abc import Awaitable, Callable, Generator, Mapping, Sequence, Set as AbstractSet
+from collections.abc import Awaitable, Callable, Coroutine, Generator, Mapping, Sequence, Set as AbstractSet
 from types import (
     AsyncGeneratorType,
     BuiltinFunctionType,
@@ -377,10 +377,10 @@ CORO_SUSPENDED: Literal["CORO_SUSPENDED"]
 CORO_CLOSED: Literal["CORO_CLOSED"]
 
 def getcoroutinestate(
-    coroutine: CoroutineType[Any, Any, Any]
+    coroutine: Coroutine[Any, Any, Any]
 ) -> Literal["CORO_CREATED", "CORO_RUNNING", "CORO_SUSPENDED", "CORO_CLOSED"]: ...
 def getgeneratorlocals(generator: Generator[Any, Any, Any]) -> dict[str, Any]: ...
-def getcoroutinelocals(coroutine: CoroutineType[Any, Any, Any]) -> dict[str, Any]: ...
+def getcoroutinelocals(coroutine: Coroutine[Any, Any, Any]) -> dict[str, Any]: ...
 
 # Create private type alias to avoid conflict with symbol of same
 # name created in Attribute class.
