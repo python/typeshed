@@ -263,6 +263,9 @@ if sys.platform != "win32":
             waitid as waitid,
             waitid_result as waitid_result,
         )
+        
+        if sys.version_info >= (3, 10):
+            from os import RWF_APPEND as RWF_APPEND
 
     if sys.version_info >= (3, 9):
         from os import CLD_KILLED as CLD_KILLED, CLD_STOPPED as CLD_STOPPED, waitstatus_to_exitcode as waitstatus_to_exitcode
@@ -304,7 +307,6 @@ if sys.platform != "win32":
 
         if sys.platform != "darwin":
             from os import (
-                RWF_APPEND as RWF_APPEND,
                 RWF_DSYNC as RWF_DSYNC,
                 RWF_HIPRI as RWF_HIPRI,
                 RWF_NOWAIT as RWF_NOWAIT,
