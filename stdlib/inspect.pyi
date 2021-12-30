@@ -367,7 +367,9 @@ GEN_RUNNING: Literal["GEN_RUNNING"]
 GEN_SUSPENDED: Literal["GEN_SUSPENDED"]
 GEN_CLOSED: Literal["GEN_CLOSED"]
 
-def getgeneratorstate(generator: Generator[Any, Any, Any]) -> Literal["GEN_CREATED", "GEN_RUNNING", "GEN_SUSPENDED", "GEN_CLOSED"]: ...
+def getgeneratorstate(
+    generator: Generator[Any, Any, Any]
+) -> Literal["GEN_CREATED", "GEN_RUNNING", "GEN_SUSPENDED", "GEN_CLOSED"]: ...
 
 CORO_CREATED: Literal["CORO_CREATED"]
 CORO_RUNNING: Literal["CORO_RUNNING"]
