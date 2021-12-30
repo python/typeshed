@@ -1,7 +1,7 @@
 import sys
 from _typeshed import Self
 from types import TracebackType
-from typing import Any, Type, Union
+from typing import Any, Type, Union, Literal
 from typing_extensions import final
 
 if sys.platform == "win32":
