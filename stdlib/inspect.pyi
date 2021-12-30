@@ -362,26 +362,21 @@ def getattr_static(obj: object, attr: str, default: Any | None = ...) -> Any: ..
 # Current State of Generators and Coroutines
 #
 
-# TODO In the next two blocks of code, can we be more specific regarding the
-# type of the "enums"?
+GEN_CREATED: Literal["GEN_CREATED"]
+GEN_RUNNING: Literal["GEN_RUNNING"]
+GEN_SUSPENDED: Literal["GEN_SUSPENDED"]
+GEN_CLOSED: Literal["GEN_CLOSED"]
 
-GEN_CREATED: str
-GEN_RUNNING: str
-GEN_SUSPENDED: str
-GEN_CLOSED: str
+def getgeneratorstate(generator: Generator[Any, Any, Any]) -> Literal["GEN_CREATED", "GEN_RUNNING", "GEN_SUSPENDED", "GEN_CLOSED"]: ...
 
-def getgeneratorstate(generator: Generator[Any, Any, Any]) -> str: ...
+CORO_CREATED: Literal["CORO_CREATED"]
+CORO_RUNNING: Literal["CORO_RUNNING"]
+CORO_SUSPENDED: Literal["CORO_SUSPENDED"]
+CORO_CLOSED: Literal["CORO_CLOSED"]
 
-CORO_CREATED: str
-CORO_RUNNING: str
-CORO_SUSPENDED: str
-CORO_CLOSED: str
-# TODO can we be more specific than "object"?
-def getcoroutinestate(coroutine: object) -> str: ...
+def getcoroutinestate(coroutine: CoroutineType) -> Literal["CORO_CREATED", "CORO_RUNNING", "CORO_SUSPENDED", "CORO_CLOSED"]: ...
 def getgeneratorlocals(generator: Generator[Any, Any, Any]) -> dict[str, Any]: ...
-
-# TODO can we be more specific than "object"?
-def getcoroutinelocals(coroutine: object) -> dict[str, Any]: ...
+def getcoroutinelocals(coroutine: CoroutineType) -> dict[str, Any]: ...
 
 # Create private type alias to avoid conflict with symbol of same
 # name created in Attribute class.
