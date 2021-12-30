@@ -1,8 +1,8 @@
 import sys
 from _typeshed import Self
 from types import TracebackType
-from typing import Any, Literal, Type, Union
-from typing_extensions import final
+from typing import Any, Type, Union
+from typing_extensions import Literal, final
 
 if sys.platform == "win32":
     _KeyType = Union[HKEYType, int]
