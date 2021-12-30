@@ -1,4 +1,4 @@
-from tkinter import Canvas, Misc, PhotoImage, Scrollbar
+from tkinter import Canvas, Frame, Misc, PhotoImage, Scrollbar
 from typing import Any, Callable, ClassVar, Sequence, TypeVar, Union, overload
 
 # Note: '_Color' is the alias we use for arguments and _AnyColor is the
