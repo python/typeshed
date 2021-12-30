@@ -90,6 +90,9 @@ if sys.platform != "win32":
     P_PGID: int
     P_ALL: int
 
+    if sys.platform == "linux" and sys.version_info >= (3, 9):
+        P_PIDFD: int
+
     WEXITED: int
     WSTOPPED: int
     WNOWAIT: int
@@ -98,6 +101,10 @@ if sys.platform != "win32":
     CLD_DUMPED: int
     CLD_TRAPPED: int
     CLD_CONTINUED: int
+
+    if sys.version_info >= (3, 9):
+        CLD_KILLED: int
+        CLD_STOPPED: int
 
     # TODO: SCHED_RESET_ON_FORK not available on darwin?
     # TODO: SCHED_BATCH and SCHED_IDLE are linux only?
@@ -173,14 +180,14 @@ if sys.platform != "win32" and sys.platform != "darwin":
     ST_NODEV: int
     ST_NODIRATIME: int
     ST_NOEXEC: int
-    ST_NOSUID: int
-    ST_RDONLY: int
     ST_RELATIME: int
     ST_SYNCHRONOUS: int
     ST_WRITE: int
 
 if sys.platform != "win32":
     NGROUPS_MAX: int
+    ST_NOSUID: int
+    ST_RDONLY: int
 
 curdir: str
 pardir: str
@@ -621,6 +628,16 @@ if sys.platform != "win32":
         def posix_fadvise(fd: int, offset: int, length: int, advice: int) -> None: ...
     def pread(__fd: int, __length: int, __offset: int) -> bytes: ...
     def pwrite(__fd: int, __buffer: bytes, __offset: int) -> int: ...
+    if sys.platform != "darwin":
+        if sys.version_info >= (3, 10):
+            RWF_APPEND: int  # docs say available on 3.7+, stubtest says otherwise
+        if sys.version_info >= (3, 7):
+            def preadv(__fd: int, __buffers: Iterable[bytes], __offset: int, __flags: int = ...) -> int: ...
+            def pwritev(__fd: int, __buffers: Iterable[bytes], __offset: int, __flags: int = ...) -> int: ...
+            RWF_DSYNC: int
+            RWF_SYNC: int
+            RWF_HIPRI: int
+            RWF_NOWAIT: int
     @overload
     def sendfile(out_fd: int, in_fd: int, offset: int | None, count: int) -> int: ...
     @overload
@@ -931,6 +948,9 @@ else:
             setsigdef: Iterable[int] = ...,
             scheduler: tuple[Any, sched_param] | None = ...,
         ) -> int: ...
+        POSIX_SPAWN_OPEN: int
+        POSIX_SPAWN_CLOSE: int
+        POSIX_SPAWN_DUP2: int
 
 if sys.platform != "win32":
     @final
