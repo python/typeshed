@@ -1,4 +1,4 @@
-from typing import Any, AnyStr, Callable
+from typing import AnyStr
 
 class error(Exception):
     def __init__(self, message: str, pattern: AnyStr | None = ..., pos: int | None = ...) -> None: ...
@@ -39,7 +39,3 @@ X: int
 VERBOSE: int
 
 DEFAULT_VERSION: int
-
-class Scanner:
-    def __init__(self, lexicon: list[tuple[AnyStr, Callable[[Scanner, AnyStr], Any] | Any | None]], flags: int = ...) -> None: ...
-    def scan(self, string: AnyStr) -> tuple[list[Any], AnyStr]: ...
