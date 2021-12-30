@@ -1,5 +1,3 @@
-# NOTE: These are incomplete!
-
 import queue
 import sys
 import threading
