@@ -46,8 +46,6 @@ distutils.msvccompiler.MSVCCompiler.get_msvc_paths
 distutils.msvccompiler.MSVCCompiler.set_path_env_var
 distutils.msvccompiler.MacroExpander
 mimetypes.MimeTypes.read_windows_registry
-os.ST_NOSUID
-os.ST_RDONLY
 selectors.DefaultSelector.fileno
 socket.AddressInfo.AI_DEFAULT
 socket.AddressInfo.AI_MASK

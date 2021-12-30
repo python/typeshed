@@ -265,9 +265,18 @@ if sys.platform != "win32":
         )
 
     if sys.version_info >= (3, 9):
-        from os import waitstatus_to_exitcode as waitstatus_to_exitcode
+        from os import CLD_KILLED as CLD_KILLED, CLD_STOPPED as CLD_STOPPED, waitstatus_to_exitcode as waitstatus_to_exitcode
+
+        if sys.platform == "linux":
+            from os import P_PIDFD as P_PIDFD
     if sys.version_info >= (3, 8):
-        from os import posix_spawn as posix_spawn, posix_spawnp as posix_spawnp
+        from os import (
+            POSIX_SPAWN_CLOSE as POSIX_SPAWN_CLOSE,
+            POSIX_SPAWN_DUP2 as POSIX_SPAWN_DUP2,
+            POSIX_SPAWN_OPEN as POSIX_SPAWN_OPEN,
+            posix_spawn as posix_spawn,
+            posix_spawnp as posix_spawnp,
+        )
 
         if sys.platform == "linux":
             from os import (
@@ -292,6 +301,17 @@ if sys.platform != "win32":
             )
     if sys.version_info >= (3, 7):
         from os import register_at_fork as register_at_fork
+
+        if sys.platform != "darwin":
+            from os import (
+                RWF_APPEND as RWF_APPEND,
+                RWF_DSYNC as RWF_DSYNC,
+                RWF_HIPRI as RWF_HIPRI,
+                RWF_NOWAIT as RWF_NOWAIT,
+                RWF_SYNC as RWF_SYNC,
+                preadv as preadv,
+                pwritev as pwritev,
+            )
 
     # Not same as os.environ or os.environb
     # Because of this variable, we can't do "from posix import *" in os/__init__.pyi
