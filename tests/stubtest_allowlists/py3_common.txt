@@ -311,6 +311,24 @@ _typeshed.*  # Utility types for typeshed, doesn't exist at runtime
 builtins.reveal_locals
 builtins.reveal_type
 
+# __all__-related weirdness (see #6523)
+email.base64mime
+email.charset
+email.encoders
+email.errors
+email.feedparser
+email.generator
+email.header
+email.iterators
+email.message
+email.mime
+email.parser
+email.quoprimime
+email.utils
+xml.dom
+xml.etree
+xml.sax
+
 # Platform differences that cannot be captured by the type system
 errno.[A-Z0-9]+
 os.O_[A-Z_]+
@@ -629,19 +647,6 @@ ctypes.ARRAY
 ctypes.SetPointerType
 ctypes.c_voidp
 ctypes.util.test
-email.base64mime
-email.charset
-email.encoders
-email.errors
-email.feedparser
-email.generator
-email.header
-email.iterators
-email.message
-email.mime
-email.parser
-email.quoprimime
-email.utils
 importlib.abc.Finder.find_module
 lib2to3.pgen2.grammar.Grammar.loads
 logging.config.BaseConfigurator
@@ -704,6 +709,3 @@ tkinter.tix.Shell
 tracemalloc.BaseFilter
 turtle.ScrolledCanvas\..+
 turtle.TNavigator.speed
-xml.dom
-xml.etree
-xml.sax
