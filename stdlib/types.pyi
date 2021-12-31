@@ -353,7 +353,7 @@ class FrameType:
     f_code: CodeType
     f_globals: dict[str, Any]
     f_lasti: int
-    f_lineno: int
+    f_lineno: int | None
     f_locals: dict[str, Any]
     f_trace: Callable[[FrameType, str, Any], Any] | None
     if sys.version_info >= (3, 7):
