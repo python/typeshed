@@ -689,7 +689,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def cluster(self, cluster_arg: str, *args: Any) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def client(self) -> Any: ...
 
-class Monitor(object):
+class Monitor:
     command_re: Pattern[str]
     monitor_re: Pattern[str]
     def __init__(self, connection_pool) -> None: ...

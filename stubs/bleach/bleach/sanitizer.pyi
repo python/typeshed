@@ -15,7 +15,7 @@ INVISIBLE_REPLACEMENT_CHAR: str
 # A html5lib Filter class
 _Filter = Any
 
-class Cleaner(object):
+class Cleaner:
     tags: Container[str]
     attributes: _Attributes
     styles: Container[str]
