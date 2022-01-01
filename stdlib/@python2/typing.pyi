@@ -395,8 +395,7 @@ class Match(Generic[AnyStr]):
     # string.
     re: Pattern[Any]
     # Can be None if there are no groups or if the last group was unnamed;
-    # otherwise matches the type of the pattern.
-    lastgroup: Any | None
+    lastgroup: str | None
     def expand(self, template: str | Text) -> Any: ...
     @overload
     def group(self, group1: int = ...) -> AnyStr: ...
@@ -422,7 +421,7 @@ _AnyStr2 = TypeVar("_AnyStr2", bytes, Text)
 
 class Pattern(Generic[AnyStr]):
     flags: int
-    groupindex: Dict[AnyStr, int]
+    groupindex: Mapping[str, int]
     groups: int
     pattern: AnyStr
     def search(self, string: _AnyStr2, pos: int = ..., endpos: int = ...) -> Match[_AnyStr2] | None: ...
