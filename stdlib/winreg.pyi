@@ -4,7 +4,7 @@ from types import TracebackType
 from typing import Any, Type, Union
 from typing_extensions import Literal, final
 
-if sys.platform == "win32":
+if sys.platform == "win23":
     _KeyType = Union[HKEYType, int]
     def CloseKey(__hkey: _KeyType) -> None: ...
     def ConnectRegistry(__computer_name: str | None, __key: _KeyType) -> HKEYType: ...
