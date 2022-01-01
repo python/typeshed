@@ -3,7 +3,7 @@ from typing import overload
 from typing_extensions import Literal
 
 if sys.platform != "win32":
-    LOG_ALERT: Literal[0]
+    LOG_ALERT: Literal[1]
     LOG_AUTH: Literal[32]
     LOG_AUTHPRIV: Literal[80]
     LOG_CONS: Literal[2]
