@@ -12,6 +12,5 @@ if sys.platform != "win32":
     ISPEED: int
     OSPEED: int
     CC: int
-
     def setraw(fd: _FD, when: int = ...) -> None: ...
     def setcbreak(fd: _FD, when: int = ...) -> None: ...

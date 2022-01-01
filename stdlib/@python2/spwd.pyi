@@ -12,6 +12,5 @@ if sys.platform != "win32":
         sp_inact: int
         sp_expire: int
         sp_flag: int
-
     def getspall() -> List[struct_spwd]: ...
     def getspnam(name: str) -> struct_spwd: ...

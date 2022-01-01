@@ -3,12 +3,9 @@ from typing import NamedTuple, Tuple
 
 if sys.platform != "win32":
     class error(Exception): ...
-
     RLIM_INFINITY: int
-
     def getrlimit(resource: int) -> Tuple[int, int]: ...
     def setrlimit(resource: int, limits: Tuple[int, int]) -> None: ...
-
     RLIMIT_CORE: int
     RLIMIT_CPU: int
     RLIMIT_FSIZE: int
@@ -21,7 +18,6 @@ if sys.platform != "win32":
     RLIMIT_MEMLOCK: int
     RLIMIT_VMEM: int
     RLIMIT_AS: int
-
     class _RUsage(NamedTuple):
         ru_utime: float
         ru_stime: float
@@ -39,10 +35,8 @@ if sys.platform != "win32":
         ru_nsignals: int
         ru_nvcsw: int
         ru_nivcsw: int
-
     def getrusage(who: int) -> _RUsage: ...
     def getpagesize() -> int: ...
-
     RUSAGE_SELF: int
     RUSAGE_CHILDREN: int
     RUSAGE_BOTH: int
