@@ -574,7 +574,7 @@ class Match(Generic[AnyStr]):
     pos: int
     endpos: int
     lastindex: int | None
-    lastgroup: AnyStr | None
+    lastgroup: str | None
     string: AnyStr
 
     # The regular expression object whose match() or search() method produced
