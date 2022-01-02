@@ -2,6 +2,7 @@ import socket
 import sys
 from _typeshed import WriteableBuffer
 from typing import IO, Any, Callable, ClassVar, NoReturn, Type
+from typing_extensions import Literal
 
 from . import events, futures, proactor_events, selector_events, streams, windows_utils
 
@@ -17,10 +18,10 @@ if sys.version_info >= (3, 7):
 else:
     __all__ = ["SelectorEventLoop", "ProactorEventLoop", "IocpProactor", "DefaultEventLoopPolicy"]
 
-NULL: int
-INFINITE: int
-ERROR_CONNECTION_REFUSED: int
-ERROR_CONNECTION_ABORTED: int
+NULL: Literal[0]
+INFINITE: Literal[0xffffffff]
+ERROR_CONNECTION_REFUSED: Literal[1225]
+ERROR_CONNECTION_ABORTED: Literal[1226]
 CONNECT_PIPE_INIT_DELAY: float
 CONNECT_PIPE_MAX_DELAY: float
 
