@@ -30,3 +30,14 @@ aiofiles.threadpool.text.AsyncTextIOWrapper.readable
 aiofiles.threadpool.text.AsyncTextIOWrapper.seekable
 aiofiles.threadpool.text.AsyncTextIOWrapper.tell
 aiofiles.threadpool.text.AsyncTextIOWrapper.writable
+
+# These functions wrap stdlib os functions in order
+# make them async, which can confuse the stubtest.
+aiofiles.os.stat
+aiofiles.os.rename
+aiofiles.os.replace
+aiofiles.os.remove
+aiofiles.os.mkdir
+aiofiles.os.makedirs
+aiofiles.os.rmdir
+aiofiles.os.removedirs
