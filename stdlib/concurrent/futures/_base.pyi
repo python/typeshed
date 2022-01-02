@@ -5,7 +5,7 @@ from abc import abstractmethod
 from collections.abc import Container, Iterable, Iterator, Sequence
 from logging import Logger
 from typing import Any, Callable, Generic, Protocol, TypeVar, overload
-from typing_extensions import Literal, SupportsIndex, ParamSpec
+from typing_extensions import Literal, ParamSpec, SupportsIndex
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
