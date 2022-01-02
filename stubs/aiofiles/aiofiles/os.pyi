@@ -9,7 +9,7 @@ from . import ospath as path
 _FdOrAnyPath = Union[int, StrOrBytesPath]
 
 async def stat(
-    path: _FdOrAnyPath,
+    path: _FdOrAnyPath,  # noqa: F811
     *,
     dir_fd: int | None = ...,
     follow_symlinks: bool = ...,
@@ -35,16 +35,21 @@ async def replace(
     executor: Any = ...,
 ) -> None: ...
 async def remove(
-    path: StrOrBytesPath, *, dir_fd: int | None = ..., loop: AbstractEventLoop | None = ..., executor: Any = ...
+    path: StrOrBytesPath, *, dir_fd: int | None = ..., loop: AbstractEventLoop | None = ..., executor: Any = ...  # noqa: F811
 ) -> None: ...
 async def mkdir(
-    path: StrOrBytesPath, mode: int = ..., *, dir_fd: int | None = ..., loop: AbstractEventLoop | None = ..., executor: Any = ...
+    path: StrOrBytesPath,
+    mode: int = ...,
+    *,
+    dir_fd: int | None = ...,
+    loop: AbstractEventLoop | None = ...,
+    executor: Any = ...,  # noqa: F811
 ) -> None: ...
 async def makedirs(
     name: StrOrBytesPath, mode: int = ..., exist_ok: bool = ..., *, loop: AbstractEventLoop | None = ..., executor: Any = ...
 ) -> None: ...
 async def rmdir(
-    path: StrOrBytesPath, *, dir_fd: int | None = ..., loop: AbstractEventLoop | None = ..., executor: Any = ...
+    path: StrOrBytesPath, *, dir_fd: int | None = ..., loop: AbstractEventLoop | None = ..., executor: Any = ...  # noqa: F811
 ) -> None: ...
 async def removedirs(name: StrOrBytesPath, *, loop: AbstractEventLoop | None = ..., executor: Any = ...) -> None: ...
 
