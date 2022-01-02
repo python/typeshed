@@ -21,9 +21,9 @@ _FT = TypeVar("_FT", bound=Future[Any])
 _FutureT = Union[Future[_T], Generator[Any, None, _T], Awaitable[_T]]
 _TaskYieldType = Optional[Future[object]]
 
-FIRST_EXCEPTION: str
-FIRST_COMPLETED: str
-ALL_COMPLETED: str
+FIRST_EXCEPTION: Literal["FIRST_EXCEPTION"]
+FIRST_COMPLETED: Literal["FIRST_COMPLETED"]
+ALL_COMPLETED: Literal["ALL_COMPLETED"]
 
 if sys.version_info >= (3, 10):
     def as_completed(fs: Iterable[_FutureT[_T]], *, timeout: float | None = ...) -> Iterator[Future[_T]]: ...
