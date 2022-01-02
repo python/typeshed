@@ -38,7 +38,7 @@ async def remove(
     path: StrOrBytesPath, *, dir_fd: int | None = ..., loop: AbstractEventLoop | None = ..., executor: Any = ...  # noqa: F811
 ) -> None: ...
 async def mkdir(
-    path: StrOrBytesPath,
+    path: StrOrBytesPath,  # noqa: F811
     mode: int = ...,
     *,
     dir_fd: int | None = ...,
