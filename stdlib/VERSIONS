@@ -62,6 +62,7 @@ array: 2.7-
 ast: 2.7-
 asynchat: 2.7-
 asyncio: 3.4-
+asyncio.mixins: 3.10-
 asyncore: 2.7-
 atexit: 2.7-
 audioop: 2.7-
