@@ -1,9 +1,8 @@
 import sys
 from _typeshed import StrOrBytesPath
 from asyncio.events import AbstractEventLoop
-from concurrent.futures._base import Executor
 from os import stat_result
-from typing import Sequence, Union, overload
+from typing import Any, Sequence, Union, overload
 
 _FdOrAnyPath = Union[int, StrOrBytesPath]
 
@@ -13,7 +12,7 @@ async def stat(
     dir_fd: int | None = ...,
     follow_symlinks: bool = ...,
     loop: AbstractEventLoop | None = ...,
-    executor: Executor | None = ...,
+    executor: Any = ...,
 ) -> stat_result: ...
 async def rename(
     src: StrOrBytesPath,
@@ -22,7 +21,7 @@ async def rename(
     src_dir_fd: int | None = ...,
     dst_dir_fd: int | None = ...,
     loop: AbstractEventLoop | None = ...,
-    executor: Executor | None = ...,
+    executor: Any = ...,
 ) -> None: ...
 async def replace(
     src: StrOrBytesPath,
@@ -31,43 +30,26 @@ async def replace(
     src_dir_fd: int | None = ...,
     dst_dir_fd: int | None = ...,
     loop: AbstractEventLoop | None = ...,
-    executor: Executor | None = ...,
+    executor: Any = ...,
 ) -> None: ...
 async def remove(
-    path: StrOrBytesPath, *, dir_fd: int | None = ..., loop: AbstractEventLoop | None = ..., executor: Executor | None = ...
+    path: StrOrBytesPath, *, dir_fd: int | None = ..., loop: AbstractEventLoop | None = ..., executor: Any = ...
 ) -> None: ...
 async def mkdir(
-    path: StrOrBytesPath,
-    mode: int = ...,
-    *,
-    dir_fd: int | None = ...,
-    loop: AbstractEventLoop | None = ...,
-    executor: Executor | None = ...,
+    path: StrOrBytesPath, mode: int = ..., *, dir_fd: int | None = ..., loop: AbstractEventLoop | None = ..., executor: Any = ...
 ) -> None: ...
 async def makedirs(
-    name: StrOrBytesPath,
-    mode: int = ...,
-    exist_ok: bool = ...,
-    *,
-    loop: AbstractEventLoop | None = ...,
-    executor: Executor | None = ...,
+    name: StrOrBytesPath, mode: int = ..., exist_ok: bool = ..., *, loop: AbstractEventLoop | None = ..., executor: Any = ...
 ) -> None: ...
 async def rmdir(
-    path: StrOrBytesPath, *, dir_fd: int | None = ..., loop: AbstractEventLoop | None = ..., executor: Executor | None = ...
+    path: StrOrBytesPath, *, dir_fd: int | None = ..., loop: AbstractEventLoop | None = ..., executor: Any = ...
 ) -> None: ...
-async def removedirs(name: StrOrBytesPath, *, loop: AbstractEventLoop | None = ..., executor: Executor | None = ...) -> None: ...
+async def removedirs(name: StrOrBytesPath, *, loop: AbstractEventLoop | None = ..., executor: Any = ...) -> None: ...
 
 if sys.platform != "win32":
     @overload
     async def sendfile(
-        out_fd: int,
-        in_fd: int,
-        offset: int | None,
-        count: int,
-        *,
-        *,
-        loop: AbstractEventLoop | None = ...,
-        executor: Executor | None = ...,
+        out_fd: int, in_fd: int, offset: int | None, count: int, *, loop: AbstractEventLoop | None = ..., executor: Any = ...
     ) -> int: ...
     @overload
     async def sendfile(
@@ -80,5 +62,5 @@ if sys.platform != "win32":
         flags: int = ...,
         *,
         loop: AbstractEventLoop | None = ...,
-        executor: Executor | None = ...,
+        executor: Any = ...,
     ) -> int: ...  # FreeBSD and Mac OS X only
