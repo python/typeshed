@@ -544,13 +544,15 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         groups: bool = ...,
     ) -> Pipeline[_StrType]: ...
     def scan(self, cursor: int = ..., match: _Key | None = ..., count: int | None = ..., _type: str | None = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
-    def scan_iter(self, match: str | None = ..., count: int | None = ..., _type: str | None = ...) -> Iterator[Any]: ...  # type: ignore[override]
-    def sscan(self, name: _Key, cursor: int = ..., match: str | None = ..., count: int | None = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
-    def sscan_iter(self, name: _Key, match: str | None = ..., count: int | None = ...) -> Iterator[Any]: ...
-    def hscan(self, name: _Key, cursor: int = ..., match: str | None = ..., count: int | None = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
-    def hscan_iter(self, name, match=..., count=...) -> Iterator[Any]: ...
-    def zscan(self, name, cursor=..., match=..., count=..., score_cast_func=...) -> Pipeline[_StrType]: ...  # type: ignore[override]
-    def zscan_iter(self, name, match=..., count=..., score_cast_func=...) -> Iterator[Any]: ...
+    def scan_iter(self, match: _Key | None = ..., count: int | None = ..., _type: str | None = ...) -> Iterator[Any]: ...  # type: ignore[override]
+    def sscan(self, name: _Key, cursor: int = ..., match: _Key | None = ..., count: int | None = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
+    def sscan_iter(self, name: _Key, match: _Key | None = ..., count: int | None = ...) -> Iterator[Any]: ...
+    def hscan(self, name: _Key, cursor: int = ..., match: _Key | None = ..., count: int | None = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
+    def hscan_iter(self, name, match: _Key | None = ..., count: int | None = ...) -> Iterator[Any]: ...
+    def zscan(self, name: _Key, cursor: int = ..., match: _Key | None = ..., count: int | None = ..., score_cast_func: Callable[[_StrType], _ScoreCastFuncReturn] = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
+    def zscan_iter(
+        self, name: _Key, match: _Key | None = ..., count: int | None = ..., score_cast_func: Callable[[_StrType], Any] = ...
+    ) -> Iterator[Any]: ...
     def sadd(self, name: _Key, *values: _Value) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def scard(self, name: _Key) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def sdiff(self, keys: _Key | Iterable[_Key], *args: _Key) -> Pipeline[_StrType]: ...  # type: ignore[override]
@@ -613,7 +615,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         end: int,
         desc: bool = ...,
         withscores: bool = ...,
-        score_cast_func: Callable[[Any], Any] = ...,
+        score_cast_func: Callable[[_StrType], Any] = ...,
         byscore: bool = ...,
         bylex: bool = ...,
         offset: int | None = ...,
@@ -628,7 +630,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         start: int | None = ...,
         num: int | None = ...,
         withscores: bool = ...,
-        score_cast_func: Callable[[Any], Any] = ...,
+        score_cast_func: Callable[[_StrType], Any] = ...,
     ) -> Pipeline[_StrType]: ...
     def zrank(self, name: _Key, value: _Value) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def zrem(self, name: _Key, *values: _Value) -> Pipeline[_StrType]: ...  # type: ignore[override]
@@ -636,7 +638,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def zremrangebyrank(self, name: _Key, min: _Value, max: _Value) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def zremrangebyscore(self, name: _Key, min: _Value, max: _Value) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def zrevrange(  # type: ignore[override]
-        self, name: _Key, start: int, end: int, withscores: bool = ..., score_cast_func: Callable[[Any], Any] = ...
+        self, name: _Key, start: int, end: int, withscores: bool = ..., score_cast_func: Callable[[_StrType], Any] = ...
     ) -> Pipeline[_StrType]: ...
     def zrevrangebyscore(  # type: ignore[override]
         self,
@@ -646,7 +648,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         start: int | None = ...,
         num: int | None = ...,
         withscores: bool = ...,
-        score_cast_func: Callable[[Any], Any] = ...,
+        score_cast_func: Callable[[_StrType], Any] = ...,
     ) -> Pipeline[_StrType]: ...
     def zrevrangebylex(  # type: ignore[override]
         self, name: _Key, max: _Value, min: _Value, start: int | None = ..., num: int | None = ...
