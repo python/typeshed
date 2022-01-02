@@ -5,7 +5,7 @@ from types import TracebackType
 from typing import Any, Callable, TypeVar, overload
 
 from ..dbapi import DBAPIConnection
-from ..log import Identified, _EchoFlag
+from ..log import Identified, _EchoFlag, echo_property
 from ..pool import Pool
 from ..sql.compiler import Compiled
 from ..sql.ddl import DDLElement
@@ -156,7 +156,7 @@ class Engine(Connectable, Identified):
     url: str
     dialect: Dialect
     logging_name: str  # only exists if not None during initialization
-    echo: _EchoFlag
+    echo: echo_property
     hide_parameters: bool
     def __init__(
         self,
