@@ -4,6 +4,8 @@ from asyncio.events import AbstractEventLoop
 from os import stat_result
 from typing import Any, Sequence, Union, overload
 
+from . import ospath as path
+
 _FdOrAnyPath = Union[int, StrOrBytesPath]
 
 async def stat(
