@@ -19,7 +19,7 @@ else:
     __all__ = ["SelectorEventLoop", "ProactorEventLoop", "IocpProactor", "DefaultEventLoopPolicy"]
 
 NULL: Literal[0]
-INFINITE: Literal[0xffffffff]
+INFINITE: Literal[0xFFFFFFFF]
 ERROR_CONNECTION_REFUSED: Literal[1225]
 ERROR_CONNECTION_ABORTED: Literal[1226]
 CONNECT_PIPE_INIT_DELAY: float
