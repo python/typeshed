@@ -30,7 +30,7 @@ DEF: Pattern[str]
 
 _dict = dict  # conflicts with attribute name
 
-class FunctionMaker(object):
+class FunctionMaker:
     args: list[Text]
     varargs: Text | None
     varkw: Text | None

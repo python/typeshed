@@ -7,7 +7,7 @@ families: list[None]
 
 _Address = Union[str, tuple[str, int]]
 
-class Connection(object):
+class Connection:
     _in: Any
     _out: Any
     recv: Any
@@ -22,7 +22,7 @@ class Connection(object):
     def close(self) -> None: ...
     def poll(self, timeout: float = ...) -> bool: ...
 
-class Listener(object):
+class Listener:
     _backlog_queue: Queue[Any] | None
     @property
     def address(self) -> Queue[Any] | None: ...

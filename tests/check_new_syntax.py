@@ -128,6 +128,15 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
                 UnionFinder().visit(node.returns)
             self.generic_visit(node)
 
+    class ObjectClassdefFinder(ast.NodeVisitor):
+        def visit_ClassDef(self, node: ast.ClassDef) -> None:
+            if any(isinstance(base, ast.Name) and base.id == "object" for base in node.bases):
+                errors.append(
+                    f"{path}:{node.lineno}: Do not inherit from `object` explicitly, "
+                    f"as all classes implicitly inherit from `object` in Python 3"
+                )
+            self.generic_visit(node)
+
     class IfFinder(ast.NodeVisitor):
         def visit_If(self, node: ast.If) -> None:
             if (
@@ -145,6 +154,9 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
 
     if path != Path("stdlib/typing_extensions.pyi"):
         OldSyntaxFinder().visit(tree)
+
+    if not python_2_support_required:
+        ObjectClassdefFinder().visit(tree)
 
     IfFinder().visit(tree)
     return errors

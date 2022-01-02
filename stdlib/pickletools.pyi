@@ -9,7 +9,7 @@ TAKEN_FROM_ARGUMENT4: int
 TAKEN_FROM_ARGUMENT4U: int
 TAKEN_FROM_ARGUMENT8U: int
 
-class ArgumentDescriptor(object):
+class ArgumentDescriptor:
     name: str
     n: int
     reader: _Reader
@@ -106,7 +106,7 @@ def read_long4(f: IO[bytes]) -> int: ...
 
 long4: ArgumentDescriptor
 
-class StackObject(object):
+class StackObject:
     name: str
     obtype: Type[Any] | tuple[Type[Any], ...]
     doc: str
@@ -131,7 +131,7 @@ anyobject: StackObject
 markobject: StackObject
 stackslice: StackObject
 
-class OpcodeInfo(object):
+class OpcodeInfo:
     name: str
     code: str
     arg: ArgumentDescriptor | None
