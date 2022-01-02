@@ -1,7 +1,7 @@
 import sys
 from _typeshed import SupportsWrite
 from collections.abc import Callable
-from typing import Any, Generic, Tuple, Type, TypeVar
+from typing import Any, Generic, Type, TypeVar
 from typing_extensions import Literal
 
 _T = TypeVar("_T")
@@ -11,7 +11,7 @@ _FuncT = TypeVar("_FuncT", bound=Callable[..., Any])
 # These definitions have special processing in mypy
 class ABCMeta(type):
     __abstractmethods__: frozenset[str]
-    def __init__(self, name: str, bases: Tuple[type, ...], namespace: dict[str, Any]) -> None: ...
+    def __init__(self, name: str, bases: tuple[type, ...], namespace: dict[str, Any]) -> None: ...
     def __instancecheck__(cls: ABCMeta, instance: Any) -> Any: ...
     def __subclasscheck__(cls: ABCMeta, subclass: Any) -> Any: ...
     def _dump_registry(cls: ABCMeta, file: SupportsWrite[str] | None = ...) -> None: ...

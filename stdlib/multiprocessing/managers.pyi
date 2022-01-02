@@ -1,10 +1,8 @@
-# NOTE: These are incomplete!
-
 import queue
 import sys
 import threading
 from contextlib import AbstractContextManager
-from typing import Any, AnyStr, Callable, Generic, Iterable, Mapping, Sequence, Tuple, TypeVar
+from typing import Any, AnyStr, Callable, Generic, Iterable, Mapping, Sequence, TypeVar
 
 from .connection import Connection
 from .context import BaseContext
@@ -52,7 +50,7 @@ class BaseProxy(object):
         manager_owned: bool = ...,
     ) -> None: ...
     def __deepcopy__(self, memo: Any | None) -> Any: ...
-    def _callmethod(self, methodname: str, args: Tuple[Any, ...] = ..., kwds: dict[Any, Any] = ...) -> None: ...
+    def _callmethod(self, methodname: str, args: tuple[Any, ...] = ..., kwds: dict[Any, Any] = ...) -> None: ...
     def _getvalue(self) -> Any: ...
     def __reduce__(self) -> tuple[Any, tuple[Any, Any, str, dict[Any, Any]]]: ...
 

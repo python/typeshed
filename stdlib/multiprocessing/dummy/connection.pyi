@@ -1,11 +1,11 @@
 from _typeshed import Self
 from queue import Queue
 from types import TracebackType
-from typing import Any, Tuple, Type, Union
+from typing import Any, Type, Union
 
 families: list[None]
 
-_Address = Union[str, Tuple[str, int]]
+_Address = Union[str, tuple[str, int]]
 
 class Connection(object):
     _in: Any
