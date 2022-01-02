@@ -77,6 +77,7 @@ if sys.platform != "win32":
         headers: Sequence[bytes] = ...,
         trailers: Sequence[bytes] = ...,
         flags: int = ...,
+        *,
         loop: AbstractEventLoop | None = ...,
         executor: Executor | None = ...,
     ) -> int: ...  # FreeBSD and Mac OS X only
