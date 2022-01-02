@@ -48,6 +48,7 @@ async def makedirs(
     name: StrOrBytesPath,
     mode: int = ...,
     exist_ok: bool = ...,
+    *,
     loop: AbstractEventLoop | None = ...,
     executor: Executor | None = ...,
 ) -> None: ...
