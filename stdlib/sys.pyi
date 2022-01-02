@@ -1,11 +1,12 @@
 import sys
+from _typeshed import structseq
 from builtins import object as _object
 from importlib.abc import PathEntryFinder
 from importlib.machinery import ModuleSpec
 from io import TextIOWrapper
 from types import FrameType, ModuleType, TracebackType
 from typing import Any, AsyncGenerator, Callable, NoReturn, Optional, Protocol, Sequence, TextIO, Type, TypeVar, Union, overload
-from typing_extensions import Literal
+from typing_extensions import Literal, final
 
 _T = TypeVar("_T")
 
@@ -132,12 +133,18 @@ class _int_info:
     bits_per_digit: int
     sizeof_digit: int
 
-class _version_info(tuple[int, int, int, str, int]):
-    major: int
-    minor: int
-    micro: int
-    releaselevel: str
-    serial: int
+@final
+class _version_info(structseq[Any | int], tuple[int, int, int, str, int]):
+    @property
+    def major(self) -> int: ...
+    @property
+    def minor(self) -> int: ...
+    @property
+    def micro(self) -> int: ...
+    @property
+    def releaselevel(self) -> str: ...
+    @property
+    def serial(self) -> int: ...
 
 version_info: _version_info
 
