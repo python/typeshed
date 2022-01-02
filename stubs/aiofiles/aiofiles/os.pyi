@@ -63,6 +63,7 @@ if sys.platform != "win32":
         in_fd: int,
         offset: int | None,
         count: int,
+        *,
         loop: AbstractEventLoop | None = ...,
         executor: Executor | None = ...,
     ) -> int: ...
