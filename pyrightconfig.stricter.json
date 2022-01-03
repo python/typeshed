@@ -41,6 +41,7 @@
         "stubs/mock",
         "stubs/mysqlclient",
         "stubs/oauthlib",
+        "stubs/openpyxl",
         "stubs/Pillow",
         "stubs/paramiko",
         "stubs/prettytable",
