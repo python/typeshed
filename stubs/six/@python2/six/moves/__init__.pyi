@@ -39,7 +39,7 @@ from . import (
     _dummy_thread,
     _thread,
     configparser,
-    copyreg,
+    copyreg as copyreg,
     cPickle,
     email_mime_text,
     html_entities,
