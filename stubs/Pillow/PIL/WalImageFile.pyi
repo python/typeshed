@@ -1,6 +1,5 @@
 from typing import ClassVar
-
-from typing_extension import Literal
+from typing_extensions import Literal
 
 from . import ImageFile
 
