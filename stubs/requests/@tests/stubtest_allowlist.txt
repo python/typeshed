@@ -55,7 +55,6 @@ requests.packages.urllib3.connectionpool.HTTPConnectionPool.urlopen
 requests.packages.urllib3.connectionpool.HTTPResponse.__init__
 requests.packages.urllib3.connectionpool.HTTPSConnection.__init__
 requests.packages.urllib3.connectionpool.HTTPSConnectionPool.__init__
-requests.packages.urllib3.connectionpool.ProxyError.__init__
 requests.packages.urllib3.connectionpool.RequestMethods.request_encode_url
 requests.packages.urllib3.connectionpool.Retry.is_forced_retry
 requests.packages.urllib3.connectionpool.Retry.sleep
