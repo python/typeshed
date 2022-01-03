@@ -61,7 +61,6 @@ requests.packages.urllib3.connectionpool.Retry.is_forced_retry
 requests.packages.urllib3.connectionpool.Retry.sleep
 requests.packages.urllib3.connectionpool.VerifiedHTTPSConnection.__init__
 requests.packages.urllib3.connectionpool.VerifiedHTTPSConnection.set_cert
-requests.packages.urllib3.exceptions.ProxyError.__init__
 requests.packages.urllib3.fields.RequestField.__init__
 requests.packages.urllib3.fields.RequestField.from_tuples
 requests.packages.urllib3.filepost.RequestField.__init__
