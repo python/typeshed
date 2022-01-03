@@ -13,7 +13,8 @@ class Serialisable(_Serialiasable):
     __namespaced__: Any
     idx_base: int
     @property
-    @abstractmethod
+    # TODO: needs overrides in many sub-classes
+    # @abstractmethod
     def tagname(self) -> str: ...
     namespace: Any
     @classmethod
