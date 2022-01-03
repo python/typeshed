@@ -764,6 +764,7 @@ class tuple(Sequence[_T_co], Generic[_T_co]):
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, __item: Any) -> GenericAlias: ...
 
+# Make sure this class definition stays roughly in line with `types.FunctionType`
 @final
 class function:
     # TODO not defined in builtins!
