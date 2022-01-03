@@ -778,7 +778,7 @@ class function:
     __annotations__: dict[str, Any]
     __kwdefaults__: dict[str, Any]
     __module__: str
-    def __get__(self, obj: object | None, type: type | None) -> MethodType: ...
+    def __get__(self, obj: object | None, type: type | None = ...) -> MethodType: ...
 
 class list(MutableSequence[_T], Generic[_T]):
     @overload
