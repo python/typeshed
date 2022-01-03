@@ -1,5 +1,5 @@
-import sys
 import subprocess
+import sys
 from _typeshed import Self
 from types import TracebackType
 from typing import Callable, Protocol, Type
