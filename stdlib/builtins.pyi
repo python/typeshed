@@ -764,7 +764,7 @@ class tuple(Sequence[_T_co], Generic[_T_co]):
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, __item: Any) -> GenericAlias: ...
 
-function = FunctionType
+function: Type[FunctionType] = FunctionType
 
 class list(MutableSequence[_T], Generic[_T]):
     @overload
