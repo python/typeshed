@@ -3,5 +3,4 @@ openpyxl.descriptors.slots.AutoSlotProperties.__new__
 
 # ArrayDescriptor is a buggy descriptor, which causes an exception to
 # be thrown when StyleArray is inspected.
-openpyxl.styles.cell_style.ArrayDescriptor
-openpyxl.styles.cell_style.StyleArray
+openpyxl.styles.cell_style
