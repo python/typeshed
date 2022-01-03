@@ -1,3 +1,4 @@
+from collections.abc import Generator
 from typing import Any
 
 from openpyxl.descriptors.serialisable import Serialisable

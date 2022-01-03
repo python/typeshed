@@ -1,5 +1,6 @@
 from typing import Any
 
+from openpyxl.descriptors import Float
 from openpyxl.descriptors.serialisable import Serialisable
 
 class ValueDescriptor(Float):
