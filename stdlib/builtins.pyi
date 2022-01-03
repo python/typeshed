@@ -23,7 +23,7 @@ from _typeshed import (
     SupportsWrite,
 )
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
-from types import CodeType, TracebackType
+from types import CodeType, TracebackType, _Cell
 from typing import (
     IO,
     AbstractSet,
@@ -766,11 +766,16 @@ class tuple(Sequence[_T_co], Generic[_T_co]):
 
 class function:
     # TODO not defined in builtins!
-    __name__: str
-    __module__: str
+    __closure__: tuple[_Cell, ...] | None
     __code__: CodeType
+    __defaults__: tuple[Any, ...] | None
+    __dict__: dict[str, Any]
+    __globals__: dict[str, Any]
+    __name__: str
     __qualname__: str
     __annotations__: dict[str, Any]
+    __kwdefaults__: dict[str, Any]
+    __module__: str
 
 class list(MutableSequence[_T], Generic[_T]):
     @overload
