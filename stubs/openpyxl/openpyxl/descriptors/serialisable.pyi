@@ -1,4 +1,3 @@
-from abc import abstractmethod
 from typing import Any
 
 from . import _Serialiasable
