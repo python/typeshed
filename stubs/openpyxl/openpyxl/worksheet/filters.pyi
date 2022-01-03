@@ -1,21 +1,6 @@
 from typing import Any
 
-from openpyxl.descriptors import (
-    Alias as Alias,
-    Bool as Bool,
-    DateTime as DateTime,
-    Float as Float,
-    Integer as Integer,
-    MinMax as MinMax,
-    NoneSet as NoneSet,
-    Sequence as Sequence,
-    Set as Set,
-    String as String,
-    Typed as Typed,
-)
-from openpyxl.descriptors.excel import CellRange as CellRange, ExtensionList as ExtensionList
-from openpyxl.descriptors.sequence import ValueSequence as ValueSequence
-from openpyxl.descriptors.serialisable import Serialisable as Serialisable
+from openpyxl.descriptors.serialisable import Serialisable
 
 class SortCondition(Serialisable):
     tagname: str

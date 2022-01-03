@@ -1,7 +1,6 @@
 from typing import Any
 
-from openpyxl.descriptors.excel import Relation as Relation
-from openpyxl.descriptors.serialisable import Serialisable as Serialisable
+from openpyxl.descriptors.serialisable import Serialisable
 
 class Drawing(Serialisable):
     tagname: str

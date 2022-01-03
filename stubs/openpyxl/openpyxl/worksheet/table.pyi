@@ -1,25 +1,7 @@
 from typing import Any
 
-from openpyxl.descriptors import (
-    Alias as Alias,
-    Bool as Bool,
-    Descriptor as Descriptor,
-    Integer as Integer,
-    NoneSet as NoneSet,
-    Sequence as Sequence,
-    String as String,
-    Typed as Typed,
-)
-from openpyxl.descriptors.excel import CellRange as CellRange, ExtensionList as ExtensionList
-from openpyxl.descriptors.sequence import NestedSequence as NestedSequence
-from openpyxl.descriptors.serialisable import Serialisable as Serialisable
-from openpyxl.utils import range_boundaries as range_boundaries
-from openpyxl.utils.escape import escape as escape, unescape as unescape
-from openpyxl.xml.constants import REL_NS as REL_NS, SHEET_MAIN_NS as SHEET_MAIN_NS
-from openpyxl.xml.functions import tostring as tostring
-
-from .filters import AutoFilter as AutoFilter, SortState as SortState
-from .related import Related as Related
+from openpyxl.descriptors import String
+from openpyxl.descriptors.serialisable import Serialisable
 
 TABLESTYLES: Any
 PIVOTSTYLES: Any
@@ -178,7 +160,8 @@ class Table(Serialisable):
 
 class TablePartList(Serialisable):
     tagname: str
-    count: Any
+    # Overwritten by property below
+    # count: Integer
     tablePart: Any
     __elements__: Any
     __attrs__: Any
@@ -188,7 +171,7 @@ class TablePartList(Serialisable):
     def count(self): ...
     def __bool__(self): ...
 
-class TableList(dict):
+class TableList(dict[Any, Any]):
     def add(self, table) -> None: ...
     def get(self, name: Any | None = ..., table_range: Any | None = ...): ...
     def items(self): ...

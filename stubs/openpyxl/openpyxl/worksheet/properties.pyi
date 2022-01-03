@@ -1,8 +1,6 @@
 from typing import Any
 
-from openpyxl.descriptors import Bool as Bool, String as String, Typed as Typed
-from openpyxl.descriptors.serialisable import Serialisable as Serialisable
-from openpyxl.styles.colors import ColorDescriptor as ColorDescriptor
+from openpyxl.descriptors.serialisable import Serialisable
 
 class Outline(Serialisable):
     tagname: str

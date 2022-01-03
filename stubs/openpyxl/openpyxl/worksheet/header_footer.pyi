@@ -1,17 +1,7 @@
 from typing import Any
 
-from openpyxl.descriptors import (
-    Alias as Alias,
-    Bool as Bool,
-    Integer as Integer,
-    MatchPattern as MatchPattern,
-    Strict as Strict,
-    String as String,
-    Typed as Typed,
-)
-from openpyxl.descriptors.serialisable import Serialisable as Serialisable
-from openpyxl.utils.escape import escape as escape, unescape as unescape
-from openpyxl.xml.functions import Element as Element
+from openpyxl.descriptors import Strict
+from openpyxl.descriptors.serialisable import Serialisable
 
 FONT_PATTERN: str
 COLOR_PATTERN: str

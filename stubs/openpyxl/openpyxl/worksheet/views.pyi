@@ -1,17 +1,6 @@
 from typing import Any
 
-from openpyxl.descriptors import (
-    Bool as Bool,
-    Float as Float,
-    Integer as Integer,
-    NoneSet as NoneSet,
-    Sequence as Sequence,
-    Set as Set,
-    String as String,
-    Typed as Typed,
-)
-from openpyxl.descriptors.excel import ExtensionList as ExtensionList
-from openpyxl.descriptors.serialisable import Serialisable as Serialisable
+from openpyxl.descriptors.serialisable import Serialisable
 
 class Pane(Serialisable):
     xSplit: Any

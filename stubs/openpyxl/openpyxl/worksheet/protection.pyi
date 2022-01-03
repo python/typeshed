@@ -1,9 +1,6 @@
 from typing import Any
 
-from openpyxl.descriptors import Alias as Alias, Bool as Bool, Integer as Integer, String as String
-from openpyxl.descriptors.excel import Base64Binary as Base64Binary
-from openpyxl.descriptors.serialisable import Serialisable as Serialisable
-from openpyxl.utils.protection import hash_password as hash_password
+from openpyxl.descriptors.serialisable import Serialisable
 
 class _Protected:
     def set_password(self, value: str = ..., already_hashed: bool = ...) -> None: ...

@@ -1,7 +1,6 @@
 from typing import Any
 
-from openpyxl.descriptors import Bool as Bool, Integer as Integer, Sequence as Sequence
-from openpyxl.descriptors.serialisable import Serialisable as Serialisable
+from openpyxl.descriptors.serialisable import Serialisable
 
 class Break(Serialisable):
     tagname: str
@@ -14,8 +13,9 @@ class Break(Serialisable):
 
 class RowBreak(Serialisable):
     tagname: str
-    count: Any
-    manualBreakCount: Any
+    # Overwritten by properties below
+    # count: Integer
+    # manualBreakCount: Integer
     brk: Any
     __elements__: Any
     __attrs__: Any

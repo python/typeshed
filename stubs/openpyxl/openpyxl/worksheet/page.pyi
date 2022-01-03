@@ -1,8 +1,6 @@
 from typing import Any
 
-from openpyxl.descriptors import Bool as Bool, Float as Float, Integer as Integer, NoneSet as NoneSet
-from openpyxl.descriptors.excel import Relation as Relation, UniversalMeasure as UniversalMeasure
-from openpyxl.descriptors.serialisable import Serialisable as Serialisable
+from openpyxl.descriptors.serialisable import Serialisable
 
 class PrintPageSetup(Serialisable):
     tagname: str

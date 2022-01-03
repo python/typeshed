@@ -1,7 +1,6 @@
 from typing import Any
 
-from openpyxl.descriptors import Bool as Bool, Integer as Integer, Sequence as Sequence, String as String
-from openpyxl.descriptors.serialisable import Serialisable as Serialisable
+from openpyxl.descriptors.serialisable import Serialisable
 
 class CellSmartTagPr(Serialisable):
     tagname: str

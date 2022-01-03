@@ -1,16 +1,6 @@
 from typing import Any
 
-from openpyxl.descriptors import (
-    Bool as Bool,
-    Integer as Integer,
-    Sequence as Sequence,
-    Set as Set,
-    String as String,
-    Typed as Typed,
-)
-from openpyxl.descriptors.serialisable import Serialisable as Serialisable
-from openpyxl.drawing.spreadsheet_drawing import AnchorMarker as AnchorMarker
-from openpyxl.xml.constants import SHEET_DRAWING_NS as SHEET_DRAWING_NS
+from openpyxl.descriptors.serialisable import Serialisable
 
 class ObjectAnchor(Serialisable):
     tagname: str

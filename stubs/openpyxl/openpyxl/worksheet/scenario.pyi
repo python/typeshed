@@ -1,15 +1,6 @@
 from typing import Any
 
-from openpyxl.descriptors import (
-    Bool as Bool,
-    Convertible as Convertible,
-    Integer as Integer,
-    Sequence as Sequence,
-    String as String,
-)
-from openpyxl.descriptors.serialisable import Serialisable as Serialisable
-
-from .cell_range import MultiCellRange as MultiCellRange
+from openpyxl.descriptors.serialisable import Serialisable
 
 class InputCells(Serialisable):
     tagname: str

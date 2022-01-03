@@ -1,7 +1,6 @@
 from typing import Any
 
-from openpyxl.descriptors import Sequence as Sequence, String as String
-from openpyxl.descriptors.serialisable import Serialisable as Serialisable
+from openpyxl.descriptors.serialisable import Serialisable
 
 class CellWatch(Serialisable):
     tagname: str

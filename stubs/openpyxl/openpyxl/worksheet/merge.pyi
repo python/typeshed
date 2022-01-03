@@ -1,11 +1,8 @@
 from typing import Any
 
-from openpyxl.cell.cell import MergedCell as MergedCell
-from openpyxl.descriptors import Integer as Integer, Sequence as Sequence
-from openpyxl.descriptors.serialisable import Serialisable as Serialisable
-from openpyxl.styles.borders import Border as Border
+from openpyxl.descriptors.serialisable import Serialisable
 
-from .cell_range import CellRange as CellRange
+from .cell_range import CellRange
 
 class MergeCell(CellRange):
     tagname: str
@@ -16,7 +13,8 @@ class MergeCell(CellRange):
 
 class MergeCells(Serialisable):
     tagname: str
-    count: Any
+    # Overwritten by property below
+    # count: Integer
     mergeCell: Any
     __elements__: Any
     __attrs__: Any

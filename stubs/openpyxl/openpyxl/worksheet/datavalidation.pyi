@@ -1,23 +1,6 @@
 from typing import Any
 
-from openpyxl.descriptors import (
-    Alias as Alias,
-    Bool as Bool,
-    Convertible as Convertible,
-    Integer as Integer,
-    NoneSet as NoneSet,
-    Sequence as Sequence,
-    String as String,
-)
-from openpyxl.descriptors.nested import NestedText as NestedText
-from openpyxl.descriptors.serialisable import Serialisable as Serialisable
-from openpyxl.utils import (
-    coordinate_to_tuple as coordinate_to_tuple,
-    get_column_letter as get_column_letter,
-    rows_from_range as rows_from_range,
-)
-
-from .cell_range import MultiCellRange as MultiCellRange
+from openpyxl.descriptors.serialisable import Serialisable
 
 def collapse_cell_addresses(cells, input_ranges=...): ...
 def expand_cell_ranges(range_string): ...

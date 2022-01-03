@@ -1,7 +1,5 @@
 from typing import Any
 
-from .worksheet import Worksheet as Worksheet
-
 class WorksheetCopy:
     source: Any
     target: Any

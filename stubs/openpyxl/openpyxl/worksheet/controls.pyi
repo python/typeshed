@@ -1,10 +1,6 @@
 from typing import Any
 
-from openpyxl.descriptors import Bool as Bool, Integer as Integer, Sequence as Sequence, String as String, Typed as Typed
-from openpyxl.descriptors.excel import Relation as Relation
-from openpyxl.descriptors.serialisable import Serialisable as Serialisable
-
-from .ole import ObjectAnchor as ObjectAnchor
+from openpyxl.descriptors.serialisable import Serialisable
 
 class ControlProperty(Serialisable):
     tagname: str
