@@ -1,5 +1,3 @@
-from typing import Any
-
 from openpyxl.compat.numbers import NUMPY as NUMPY
 from openpyxl.reader.excel import load_workbook as load_workbook
 from openpyxl.workbook import Workbook as Workbook

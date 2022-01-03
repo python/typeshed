@@ -1,6 +1,6 @@
 from typing import Any
 
-class IndexedList(list):
+class IndexedList(list[Any]):
     clean: bool
     def __init__(self, iterable: Any | None = ...) -> None: ...
     def __contains__(self, value): ...

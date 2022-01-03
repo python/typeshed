@@ -11,7 +11,8 @@ class NamedStyle(Serialisable):
     protection: Any
     builtinId: Any
     hidden: Any
-    xfId: Any
+    # Overwritten by property below
+    # xfId: Integer
     name: Any
     def __init__(
         self,
@@ -35,7 +36,7 @@ class NamedStyle(Serialisable):
     def as_xf(self): ...
     def as_name(self): ...
 
-class NamedStyleList(list):
+class NamedStyleList(list[Any]):
     @property
     def names(self): ...
     def __getitem__(self, key): ...
@@ -64,7 +65,8 @@ class _NamedCellStyle(Serialisable):
 
 class _NamedCellStyleList(Serialisable):
     tagname: str
-    count: Any
+    # Overwritten by property below
+    # count: Integer
     cellStyle: Any
     __attrs__: Any
     def __init__(self, count: Any | None = ..., cellStyle=...) -> None: ...

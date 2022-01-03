@@ -22,7 +22,8 @@ class WebPublishObject(Serialisable):
 
 class WebPublishObjectList(Serialisable):
     tagname: str
-    count: Any
+    # Overwritten by property below
+    # count: Integer
     webPublishObject: Any
     __elements__: Any
     def __init__(self, count: Any | None = ..., webPublishObject=...) -> None: ...

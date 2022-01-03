@@ -62,7 +62,8 @@ class NumberFormat(Serialisable):
     def __init__(self, numFmtId: Any | None = ..., formatCode: Any | None = ...) -> None: ...
 
 class NumberFormatList(Serialisable):
-    count: Any
+    # Overwritten by property below
+    # count: Integer
     numFmt: Any
     __elements__: Any
     __attrs__: Any

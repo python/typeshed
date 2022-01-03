@@ -9,7 +9,7 @@ class ArrayDescriptor:
     def __get__(self, instance, cls): ...
     def __set__(self, instance, value) -> None: ...
 
-class StyleArray(array):
+class StyleArray(array[Any]):
     tagname: str
     fontId: Any
     fillId: Any
@@ -38,8 +38,9 @@ class CellStyle(Serialisable):
     applyFont: Any
     applyFill: Any
     applyBorder: Any
-    applyAlignment: Any
-    applyProtection: Any
+    # Overwritten by properties below
+    # applyAlignment: Bool
+    # applyProtection: Bool
     alignment: Any
     protection: Any
     extLst: Any
@@ -75,7 +76,8 @@ class CellStyle(Serialisable):
 class CellStyleList(Serialisable):
     tagname: str
     __attrs__: Any
-    count: Any
+    # Overwritten by property below
+    # count: Integer
     xf: Any
     alignment: Any
     protection: Any

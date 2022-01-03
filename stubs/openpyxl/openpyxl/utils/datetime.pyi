@@ -2,10 +2,9 @@ from typing import Any
 
 MAC_EPOCH: Any
 WINDOWS_EPOCH: Any
-CALENDAR_WINDOWS_1900: float
-CALENDAR_MAC_1904: float
-CALENDAR_WINDOWS_1900 = WINDOWS_EPOCH  # noqa F821
-CALENDAR_MAC_1904 = MAC_EPOCH  # noqa F821
+# The following two constants are defined twice in the implementation.
+CALENDAR_WINDOWS_1900 = WINDOWS_EPOCH
+CALENDAR_MAC_1904 = MAC_EPOCH
 SECS_PER_DAY: int
 ISO_FORMAT: str
 ISO_REGEX: Any
