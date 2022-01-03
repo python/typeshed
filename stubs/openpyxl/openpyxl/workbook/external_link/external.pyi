@@ -2,32 +2,32 @@ from typing import Any
 
 from openpyxl.descriptors.serialisable import Serialisable
 
-class ExternalCell(Serialisable):
+class ExternalCell(Serialisable):  # type: ignore[misc]
     r: Any
     t: Any
     vm: Any
     v: Any
     def __init__(self, r: Any | None = ..., t: Any | None = ..., vm: Any | None = ..., v: Any | None = ...) -> None: ...
 
-class ExternalRow(Serialisable):
+class ExternalRow(Serialisable):  # type: ignore[misc]
     r: Any
     cell: Any
     __elements__: Any
     def __init__(self, r=..., cell: Any | None = ...) -> None: ...
 
-class ExternalSheetData(Serialisable):
+class ExternalSheetData(Serialisable):  # type: ignore[misc]
     sheetId: Any
     refreshError: Any
     row: Any
     __elements__: Any
     def __init__(self, sheetId: Any | None = ..., refreshError: Any | None = ..., row=...) -> None: ...
 
-class ExternalSheetDataSet(Serialisable):
+class ExternalSheetDataSet(Serialisable):  # type: ignore[misc]
     sheetData: Any
     __elements__: Any
     def __init__(self, sheetData: Any | None = ...) -> None: ...
 
-class ExternalSheetNames(Serialisable):
+class ExternalSheetNames(Serialisable):  # type: ignore[misc]
     sheetName: Any
     __elements__: Any
     def __init__(self, sheetName=...) -> None: ...

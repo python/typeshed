@@ -2,7 +2,7 @@ from typing import Any
 
 from openpyxl.descriptors.serialisable import Serialisable
 
-class Pane(Serialisable):
+class Pane(Serialisable):  # type: ignore[misc]
     xSplit: Any
     ySplit: Any
     topLeftCell: Any
@@ -17,7 +17,7 @@ class Pane(Serialisable):
         state: str = ...,
     ) -> None: ...
 
-class Selection(Serialisable):
+class Selection(Serialisable):  # type: ignore[misc]
     pane: Any
     activeCell: Any
     activeCellId: Any

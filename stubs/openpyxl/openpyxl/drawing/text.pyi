@@ -2,7 +2,7 @@ from typing import Any
 
 from openpyxl.descriptors.serialisable import Serialisable
 
-class EmbeddedWAVAudioFile(Serialisable):
+class EmbeddedWAVAudioFile(Serialisable):  # type: ignore[misc]
     name: Any
     def __init__(self, name: Any | None = ...) -> None: ...
 
@@ -135,12 +135,12 @@ class CharacterProperties(Serialisable):
         uFill: Any | None = ...,
     ) -> None: ...
 
-class TabStop(Serialisable):
+class TabStop(Serialisable):  # type: ignore[misc]
     pos: Any
     algn: Any
     def __init__(self, pos: Any | None = ..., algn: Any | None = ...) -> None: ...
 
-class TabStopList(Serialisable):
+class TabStopList(Serialisable):  # type: ignore[misc]
     tab: Any
     def __init__(self, tab: Any | None = ...) -> None: ...
 

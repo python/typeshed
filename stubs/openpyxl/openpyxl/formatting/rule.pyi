@@ -16,7 +16,7 @@ class FormatObject(Serialisable):
     __elements__: Any
     def __init__(self, type, val: Any | None = ..., gte: Any | None = ..., extLst: Any | None = ...) -> None: ...
 
-class RuleType(Serialisable):
+class RuleType(Serialisable):  # type: ignore[misc]
     cfvo: Any
 
 class IconSet(RuleType):

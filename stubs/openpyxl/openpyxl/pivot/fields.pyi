@@ -7,13 +7,13 @@ class Index(Serialisable):
     v: Any
     def __init__(self, v: int = ...) -> None: ...
 
-class Tuple(Serialisable):
+class Tuple(Serialisable):  # type: ignore[misc]
     fld: Any
     hier: Any
     item: Any
     def __init__(self, fld: Any | None = ..., hier: Any | None = ..., item: Any | None = ...) -> None: ...
 
-class TupleList(Serialisable):
+class TupleList(Serialisable):  # type: ignore[misc]
     c: Any
     tpl: Any
     __elements__: Any

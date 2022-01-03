@@ -56,12 +56,12 @@ def builtin_format_id(fmt): ...
 class NumberFormatDescriptor(String):
     def __set__(self, instance, value) -> None: ...
 
-class NumberFormat(Serialisable):
+class NumberFormat(Serialisable):  # type: ignore[misc]
     numFmtId: Any
     formatCode: Any
     def __init__(self, numFmtId: Any | None = ..., formatCode: Any | None = ...) -> None: ...
 
-class NumberFormatList(Serialisable):
+class NumberFormatList(Serialisable):  # type: ignore[misc]
     # Overwritten by property below
     # count: Integer
     numFmt: Any

@@ -108,7 +108,7 @@ class OLAPSet(Serialisable):
         sortByTuple: Any | None = ...,
     ) -> None: ...
 
-class OLAPSets(Serialisable):
+class OLAPSets(Serialisable):  # type: ignore[misc]
     count: Any
     set: Any
     __elements__: Any
@@ -177,7 +177,7 @@ class GroupMember(Serialisable):
     group: Any
     def __init__(self, uniqueName: Any | None = ..., group: Any | None = ...) -> None: ...
 
-class GroupMembers(Serialisable):
+class GroupMembers(Serialisable):  # type: ignore[misc]
     count: Any
     groupMember: Any
     __elements__: Any
@@ -228,7 +228,7 @@ class GroupLevel(Serialisable):
         extLst: Any | None = ...,
     ) -> None: ...
 
-class GroupLevels(Serialisable):
+class GroupLevels(Serialisable):  # type: ignore[misc]
     count: Any
     groupLevel: Any
     __elements__: Any
@@ -239,7 +239,7 @@ class FieldUsage(Serialisable):
     x: Any
     def __init__(self, x: Any | None = ...) -> None: ...
 
-class FieldsUsage(Serialisable):
+class FieldsUsage(Serialisable):  # type: ignore[misc]
     count: Any
     fieldUsage: Any
     __elements__: Any

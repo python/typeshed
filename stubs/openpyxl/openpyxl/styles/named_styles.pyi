@@ -2,7 +2,7 @@ from typing import Any
 
 from openpyxl.descriptors.serialisable import Serialisable
 
-class NamedStyle(Serialisable):
+class NamedStyle(Serialisable):  # type: ignore[misc]
     font: Any
     fill: Any
     border: Any

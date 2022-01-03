@@ -4,7 +4,7 @@ from typing import Any
 from openpyxl.descriptors import Strict
 from openpyxl.descriptors.serialisable import Serialisable
 
-class CellRange(Serialisable):
+class CellRange(Serialisable):  # type: ignore[misc]
     min_col: Any
     min_row: Any
     max_col: Any

@@ -17,7 +17,7 @@ BORDER_SLANTDASHDOT: str
 BORDER_THICK: str
 BORDER_THIN: str
 
-class Side(Serialisable):
+class Side(Serialisable):  # type: ignore[misc]
     __fields__: Any
     color: Any
     style: Any

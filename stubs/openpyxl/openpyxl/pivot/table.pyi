@@ -58,7 +58,7 @@ class PivotFilter(Serialisable):
         extLst: Any | None = ...,
     ) -> None: ...
 
-class PivotFilters(Serialisable):
+class PivotFilters(Serialisable):  # type: ignore[misc]
     count: Any
     filter: Any
     __elements__: Any
@@ -326,7 +326,7 @@ class RowColField(Serialisable):
     x: Any
     def __init__(self, x: Any | None = ...) -> None: ...
 
-class AutoSortScope(Serialisable):
+class AutoSortScope(Serialisable):  # type: ignore[misc]
     pivotArea: Any
     __elements__: Any
     def __init__(self, pivotArea: Any | None = ...) -> None: ...
