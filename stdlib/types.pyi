@@ -39,6 +39,7 @@ class _Cell:
     __hash__: None  # type: ignore[assignment]
     cell_contents: Any
 
+# Make sure this class definition stays roughly in line with `builtins.function`
 @final
 class FunctionType:
     __closure__: tuple[_Cell, ...] | None
@@ -59,7 +60,7 @@ class FunctionType:
         closure: tuple[_Cell, ...] | None = ...,
     ) -> None: ...
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
-    def __get__(self, obj: object | None, type: type | None) -> MethodType: ...
+    def __get__(self, obj: object | None, type: type | None = ...) -> MethodType: ...
 
 LambdaType = FunctionType
 
