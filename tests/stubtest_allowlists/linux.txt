@@ -36,7 +36,6 @@ posix.error.characters_written
 resource.error.characters_written
 
 # Platform differences that cannot be captured by the type system
-fcntl.[A-Z0-9_]+
 os.SCHED_[A-Z_]+
 posix.SCHED_[A-Z_]+
 
