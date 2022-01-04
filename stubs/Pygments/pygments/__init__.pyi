@@ -1,5 +1,5 @@
 from io import FileIO
-from typing import Any, overload
+from typing import overload
 
 def lex(code, lexer): ...
 @overload
