@@ -778,7 +778,8 @@ class function:
     __annotations__: dict[str, Any]
     __kwdefaults__: dict[str, Any]
     __module__: str
-    def __get__(self, obj: object | None, type: type | None = ...) -> MethodType: ...
+    # __get__ can return either a method or a property so type as Any.
+    def __get__(self, obj: object | None, type: type | None = ...) -> Any: ...
 
 class list(MutableSequence[_T], Generic[_T]):
     @overload
