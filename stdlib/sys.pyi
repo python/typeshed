@@ -233,6 +233,10 @@ class _implementation:
     version: _version_info
     hexversion: int
     cache_tag: str
+    # Define __getattr__, as the documentation states:
+    # > sys.implementation may contain additional attributes specific to the Python implementation.
+    # > These non-standard attributes must start with an underscore, and are not described here.
+    def __getattr__(self, name: str) -> Any: ...
 
 int_info: _int_info
 
