@@ -11,7 +11,8 @@ from .futures import Future
 from .protocols import BaseProtocol
 from .tasks import Task
 from .transports import BaseTransport
-from .unix_events import AbstractChildWatcher
+if sys.platform != "win32":
+    from .unix_events import AbstractChildWatcher
 
 if sys.version_info >= (3, 7):
     from contextvars import Context
