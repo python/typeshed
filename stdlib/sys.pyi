@@ -224,7 +224,7 @@ class _hash_info(_immutable_structseq[Any | int], tuple[int, int, int, int, int,
     @property
     def seed_bits(self) -> int: ...
     @property
-    def cutoff(self) -> int: ...
+    def cutoff(self) -> int: ...  # undocumented
 
 implementation: _implementation
 
