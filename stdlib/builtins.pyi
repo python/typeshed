@@ -778,7 +778,7 @@ class function:
     __annotations__: dict[str, Any]
     __kwdefaults__: dict[str, Any]
     __module__: str
-    # __get__ can return either a method or a property so type as Any.
+    # mypy uses `builtins.function.__get__` to represent methods, properties, and getset_descriptors so we type the return as Any.
     def __get__(self, obj: object | None, type: type | None = ...) -> Any: ...
 
 class list(MutableSequence[_T], Generic[_T]):
