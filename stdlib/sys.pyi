@@ -179,7 +179,7 @@ else:
 float_info: _float_info
 
 @final
-class _float_info(_immutable_structseq[float], tuple[float, int, int, float, int, int, float, int, int, int, int]):
+class _float_info(_immutable_structseq[float], tuple[float, int, int, float, int, int, int, int, float, int, int]):
     @property
     def max(self) -> float: ...  # DBL_MAX
     @property
