@@ -764,7 +764,7 @@ class tuple(Sequence[_T_co], Generic[_T_co]):
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, __item: Any) -> GenericAlias: ...
 
-# Doesn't exist at runtime, but deleting this breaks mypy.
+# Doesn't exist at runtime, but deleting this breaks mypy. See #2999
 @final
 class function:
     # Make sure this class definition stays roughly in line with `types.FunctionType`
