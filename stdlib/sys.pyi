@@ -5,7 +5,7 @@ from importlib.abc import PathEntryFinder
 from importlib.machinery import ModuleSpec
 from io import TextIOWrapper
 from types import FrameType, ModuleType, TracebackType
-from typing import Any, AsyncGenerator, Generic, NoReturn, Optional, Protocol, Sequence, TextIO, Type, TypeVar, Union, overload
+from typing import Any, AsyncGenerator, Callable, NoReturn, Optional, Protocol, Sequence, TextIO, Type, TypeVar, Union, overload
 from typing_extensions import Literal, final
 
 _T = TypeVar("_T")
