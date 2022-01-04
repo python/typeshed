@@ -49,7 +49,7 @@ displayhook: Callable[[object], Any]
 excepthook: Callable[[Type[BaseException], BaseException, TracebackType | None], Any]
 exec_prefix: str
 executable: str
-float_repr_style: str
+float_repr_style: Literal["short", "legacy"]
 hexversion: int
 last_type: Type[BaseException] | None
 last_value: BaseException | None
