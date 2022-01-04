@@ -270,6 +270,9 @@ pydoc.Helper.symbols_  # Loop variable in class https://github.com/python/typesh
 pydoc.Helper.topic  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
 # Dynamically specified by __getattr__, and thus don't exist on the class
 tempfile._TemporaryFileWrapper.[\w_]+
+# stubtest incorrectly highlights the type argument as not having a default value.
+types.FunctionType.__get__
+types.LambdaType.__get__
 # Various classes in typing aren't types at runtime. In addition, mypy thinks some special forms are tautologically defined.
 typing.[A-Z]\w+
 typing_extensions\..*

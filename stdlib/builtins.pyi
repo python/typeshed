@@ -23,7 +23,7 @@ from _typeshed import (
     SupportsWrite,
 )
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
-from types import CodeType, TracebackType
+from types import CodeType, TracebackType, _Cell
 from typing import (
     IO,
     AbstractSet,
@@ -764,13 +764,22 @@ class tuple(Sequence[_T_co], Generic[_T_co]):
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, __item: Any) -> GenericAlias: ...
 
+# Make sure this class definition stays roughly in line with `types.FunctionType`
+@final
 class function:
     # TODO not defined in builtins!
-    __name__: str
-    __module__: str
+    __closure__: tuple[_Cell, ...] | None
     __code__: CodeType
+    __defaults__: tuple[Any, ...] | None
+    __dict__: dict[str, Any]
+    __globals__: dict[str, Any]
+    __name__: str
     __qualname__: str
     __annotations__: dict[str, Any]
+    __kwdefaults__: dict[str, Any]
+    __module__: str
+    # mypy uses `builtins.function.__get__` to represent methods, properties, and getset_descriptors so we type the return as Any.
+    def __get__(self, obj: object | None, type: type | None = ...) -> Any: ...
 
 class list(MutableSequence[_T], Generic[_T]):
     @overload
