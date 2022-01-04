@@ -16,14 +16,15 @@ if sys.platform != "win32":
         DN_RENAME: int
     F_DUPFD: int
     F_DUPFD_CLOEXEC: int
-    F_FULLFSYNC: int
+    if sys.platform == "darwin":
+        F_FULLFSYNC: int
+        F_NOCACHE: int
+        if sys.version_info >= (3, 9):
+            F_GETPATH: int
     F_GETFD: int
     F_GETFL: int
     F_GETLK: int
-    if sys.version_info >= (3, 9) and sys.platform == "darwin":
-        F_GETPATH: int
     F_GETOWN: int
-    F_NOCACHE: int
     F_RDLCK: int
     F_SETFD: int
     F_SETFL: int
@@ -48,6 +49,18 @@ if sys.platform != "win32":
         F_GETLEASE: int
         F_GETLK64: int
 
+    LOCK_EX: int
+    LOCK_NB: int
+    LOCK_SH: int
+    LOCK_UN: int
+    if sys.platform == "linux":
+        LOCK_MAND: int
+        LOCK_READ: int
+        LOCK_RW: int
+        LOCK_WRITE: int
+
+    # These are highly problematic, they might be present or not, depends on the specific OS.
+    if sys.platform == "linux":
         I_ATMARK: int
         I_CANPUT: int
         I_CKBAND: int
@@ -77,15 +90,6 @@ if sys.platform != "win32":
         I_STR: int
         I_SWROPT: int
         I_UNLINK: int
-    LOCK_EX: int
-    LOCK_NB: int
-    LOCK_SH: int
-    LOCK_UN: int
-    if sys.platform == "linux":
-        LOCK_MAND: int
-        LOCK_READ: int
-        LOCK_RW: int
-        LOCK_WRITE: int
     @overload
     def fcntl(__fd: FileDescriptorLike, __cmd: int, __arg: int = ...) -> int: ...
     @overload
