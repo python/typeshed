@@ -23,7 +23,7 @@ from _typeshed import (
     SupportsWrite,
 )
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
-from types import CodeType, MethodType, TracebackType, _Cell
+from types import CodeType, TracebackType, _Cell
 from typing import (
     IO,
     AbstractSet,
