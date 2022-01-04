@@ -1,4 +1,4 @@
-from typing import Any, AnyStr, Callable, overload
+from typing import Any, AnyStr, Callable, Sequence, overload
 
 from . import _regex
 from ._regex_core import *
@@ -75,7 +75,7 @@ def findall(
     timeout: float | None = ...,
     ignore_unused: bool = ...,
     **kwargs: Any,
-) -> list[Any]: ...
+) -> list[Sequence[Any]]: ...  # Could return `list[AnyStr]` or `list[tuple[AnyStr, ...]]`
 def finditer(
     pattern: AnyStr | _regex.Pattern[AnyStr],
     string: AnyStr,
