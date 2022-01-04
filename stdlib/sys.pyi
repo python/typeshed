@@ -1,4 +1,5 @@
 import sys
+from _typeshed import structseq
 from builtins import object as _object
 from importlib.abc import PathEntryFinder
 from importlib.machinery import ModuleSpec
@@ -89,26 +90,13 @@ if sys.platform == "win32":
     winver: str
 _xoptions: dict[Any, Any]
 
-# Similar to _typeshed.structseq, but unlike most other `structseq` classes in the stdlib,
-# the `n_fields` ClassVar attributes in the sys-module structseq classes are read-only.
-class _sys_structseq:
-    @property
-    def n_fields(self) -> int: ...
-    @property
-    def n_sequence_fields(self) -> int: ...
-    @property
-    def n_unnamed_fields(self) -> int: ...
-
-class _immutable_structseq(_sys_structseq, Generic[_T_co]):
-    def __new__(cls: Type[_T], sequence: Iterable[_T_co], dict: dict[str, Any] = ...) -> _T: ...
-
-class _uninstantiable_structseq(_sys_structseq):
+class _uninstantiable_structseq(structseq[Any]):
     # type ignore because mypy doesn't like __new__ returning NoReturn
     def __new__(cls, *args: Any, **kwargs: Any) -> NoReturn: ...  # type: ignore[misc]
 
 flags: _flags
 
-if sys.version_info >= (3, 7):
+if sys.version_info >= (3, 10):
     @final
     class _flags(
         _uninstantiable_structseq, tuple[int, int, int, int, int, int, int, int, int, int, int, int, int, bool, int, int]
@@ -146,6 +134,40 @@ if sys.version_info >= (3, 7):
         @property
         def warn_default_encoding(self) -> int: ...  # undocumented
 
+elif sys.version_info >= (3, 7):
+    @final
+    class _flags(_uninstantiable_structseq, tuple[int, int, int, int, int, int, int, int, int, int, int, int, int, bool, int]):
+        @property
+        def debug(self) -> int: ...
+        @property
+        def inspect(self) -> int: ...
+        @property
+        def interactive(self) -> int: ...
+        @property
+        def optimize(self) -> int: ...
+        @property
+        def dont_write_bytecode(self) -> int: ...
+        @property
+        def no_user_site(self) -> int: ...
+        @property
+        def no_site(self) -> int: ...
+        @property
+        def ignore_environment(self) -> int: ...
+        @property
+        def verbose(self) -> int: ...
+        @property
+        def bytes_warning(self) -> int: ...
+        @property
+        def quiet(self) -> int: ...
+        @property
+        def hash_randomization(self) -> int: ...
+        @property
+        def isolated(self) -> int: ...
+        @property
+        def dev_mode(self) -> bool: ...
+        @property
+        def utf8_mode(self) -> int: ...
+
 else:
     @final
     class _flags(_uninstantiable_structseq, tuple[int, int, int, int, int, int, int, int, int, int, int, int, int]):
@@ -179,7 +201,7 @@ else:
 float_info: _float_info
 
 @final
-class _float_info(_immutable_structseq[float], tuple[float, int, int, float, int, int, int, int, float, int, int]):
+class _float_info(structseq[float], tuple[float, int, int, float, int, int, int, int, float, int, int]):
     @property
     def max(self) -> float: ...  # DBL_MAX
     @property
@@ -206,7 +228,7 @@ class _float_info(_immutable_structseq[float], tuple[float, int, int, float, int
 hash_info: _hash_info
 
 @final
-class _hash_info(_immutable_structseq[Any | int], tuple[int, int, int, int, int, str, int, int, int]):
+class _hash_info(structseq[Any | int], tuple[int, int, int, int, int, str, int, int, int]):
     @property
     def width(self) -> int: ...
     @property
@@ -241,7 +263,7 @@ class _implementation:
 int_info: _int_info
 
 @final
-class _int_info(_immutable_structseq[int], tuple[int, int]):
+class _int_info(structseq[int], tuple[int, int]):
     @property
     def bits_per_digit(self) -> int: ...
     @property
@@ -357,7 +379,7 @@ if sys.version_info >= (3, 8):
 _AsyncgenHook = Optional[Callable[[AsyncGenerator[Any, Any]], None]]
 
 @final
-class _asyncgen_hooks(_immutable_structseq[_AsyncgenHook], tuple[_AsyncgenHook, _AsyncgenHook]):
+class _asyncgen_hooks(structseq[_AsyncgenHook], tuple[_AsyncgenHook, _AsyncgenHook]):
     @property
     def firstiter(self) -> _AsyncgenHook: ...
     @property
