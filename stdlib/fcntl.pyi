@@ -20,7 +20,7 @@ if sys.platform != "win32":
     F_GETFD: int
     F_GETFL: int
     F_GETLK: int
-    if sys.platform == "darwin":
+    if sys.version_info >= (3, 9) and sys.platform == "darwin":
         F_GETPATH: int
     F_GETOWN: int
     F_NOCACHE: int
