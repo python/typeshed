@@ -1,14 +1,16 @@
 import sys
 from typing import Callable, Iterable
+from typing_extensions import Literal
 
 if sys.platform != "win32":
+    __all__ = ["openpty", "fork", "spawn"]
     _Reader = Callable[[int], bytes]
 
-    STDIN_FILENO: int
-    STDOUT_FILENO: int
-    STDERR_FILENO: int
+    STDIN_FILENO: Literal[0]
+    STDOUT_FILENO: Literal[1]
+    STDERR_FILENO: Literal[2]
 
-    CHILD: int
+    CHILD: Literal[0]
     def openpty() -> tuple[int, int]: ...
     def master_open() -> tuple[int, str]: ...
     def slave_open(tty_name: str) -> int: ...
