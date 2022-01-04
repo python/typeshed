@@ -47,7 +47,7 @@ if sys.platform != "win32":
             F_OFD_GETLK: int
             F_OFD_SETLK: int
             F_OFD_SETLKW: int
-         
+
         DN_ACCESS: int
         DN_ATTRIB: int
         DN_CREATE: int
