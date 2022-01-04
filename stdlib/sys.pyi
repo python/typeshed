@@ -9,7 +9,6 @@ from typing import Any, AsyncGenerator, Callable, NoReturn, Optional, Protocol, 
 from typing_extensions import Literal, final
 
 _T = TypeVar("_T")
-_T_co = TypeVar("_T_co", covariant=True)
 
 # The following type alias are stub-only and do not exist during runtime
 _ExcInfo = tuple[Type[BaseException], BaseException, TracebackType]
