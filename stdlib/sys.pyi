@@ -5,22 +5,7 @@ from importlib.abc import PathEntryFinder
 from importlib.machinery import ModuleSpec
 from io import TextIOWrapper
 from types import FrameType, ModuleType, TracebackType
-from typing import (
-    Any,
-    AsyncGenerator,
-    Callable,
-    Generic,
-    Iterable,
-    NoReturn,
-    Optional,
-    Protocol,
-    Sequence,
-    TextIO,
-    Type,
-    TypeVar,
-    Union,
-    overload,
-)
+from typing import Any, AsyncGenerator, Generic, NoReturn, Optional, Protocol, Sequence, TextIO, Type, TypeVar, Union, overload
 from typing_extensions import Literal, final
 
 _T = TypeVar("_T")
@@ -366,13 +351,14 @@ if sys.version_info < (3, 9):
     def setcheckinterval(__n: int) -> None: ...  # deprecated
 
 if sys.version_info >= (3, 8):
-    class _UnraisableHookArgs:
+    # Doesn't exist at runtime, but exported in the stubs so pytest etc. can annotate their code more easily.
+    class UnraisableHookArgs:
         exc_type: Type[BaseException]
         exc_value: BaseException | None
         exc_traceback: TracebackType | None
         err_msg: str | None
         object: _object | None
-    unraisablehook: Callable[[_UnraisableHookArgs], Any]
+    unraisablehook: Callable[[UnraisableHookArgs], Any]
     def addaudithook(hook: Callable[[str, tuple[Any, ...]], Any]) -> None: ...
     def audit(__event: str, *args: Any) -> None: ...
 
