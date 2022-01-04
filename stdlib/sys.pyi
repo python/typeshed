@@ -340,7 +340,6 @@ if sys.version_info < (3, 9):
     def setcheckinterval(__n: int) -> None: ...  # deprecated
 
 if sys.version_info >= (3, 8):
-    # not exported by sys
     class _UnraisableHookArgs:
         exc_type: Type[BaseException]
         exc_value: BaseException | None
