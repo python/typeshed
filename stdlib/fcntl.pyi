@@ -47,6 +47,9 @@ if sys.platform != "win32":
             F_OFD_GETLK: int
             F_OFD_SETLK: int
             F_OFD_SETLKW: int
+        if sys.version_inf >= (3, 10):
+            F_GETPIPE_SZ: int
+            F_SETPIPE_SZ: int
 
         DN_ACCESS: int
         DN_ATTRIB: int
