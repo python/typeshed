@@ -6,21 +6,8 @@ from typing_extensions import Literal
 if sys.platform != "win32":
     FASYNC: int
     FD_CLOEXEC: int
-    if sys.platform == "linux":
-        DN_ACCESS: int
-        DN_ATTRIB: int
-        DN_CREATE: int
-        DN_DELETE: int
-        DN_MODIFY: int
-        DN_MULTISHOT: int
-        DN_RENAME: int
     F_DUPFD: int
     F_DUPFD_CLOEXEC: int
-    if sys.platform == "darwin":
-        F_FULLFSYNC: int
-        F_NOCACHE: int
-        if sys.version_info >= (3, 9):
-            F_GETPATH: int
     F_GETFD: int
     F_GETFL: int
     F_GETLK: int
@@ -30,13 +17,14 @@ if sys.platform != "win32":
     F_SETFL: int
     F_SETLK: int
     F_SETLKW: int
-    if sys.version_info >= (3, 9) and sys.platform == "linux":
-        F_OFD_GETLK: int
-        F_OFD_SETLK: int
-        F_OFD_SETLKW: int
     F_SETOWN: int
     F_UNLCK: int
     F_WRLCK: int
+    if sys.platform == "darwin":
+        F_FULLFSYNC: int
+        F_NOCACHE: int
+        if sys.version_info >= (3, 9):
+            F_GETPATH: int
     if sys.platform == "linux":
         F_SETLKW64: int
         F_SETSIG: int
@@ -48,6 +36,25 @@ if sys.platform != "win32":
         F_EXLCK: int
         F_GETLEASE: int
         F_GETLK64: int
+        if sys.version_info >= (3, 8):
+            F_ADD_SEALS: int
+            F_GET_SEALS: int
+            F_SEAL_GROW: int
+            F_SEAL_SEAL: int
+            F_SEAL_SHRINK: int
+            F_SEAL_WRITE: int
+        if sys.version_info >= (3, 9):
+            F_OFD_GETLK: int
+            F_OFD_SETLK: int
+            F_OFD_SETLKW: int
+         
+        DN_ACCESS: int
+        DN_ATTRIB: int
+        DN_CREATE: int
+        DN_DELETE: int
+        DN_MODIFY: int
+        DN_MULTISHOT: int
+        DN_RENAME: int
 
     LOCK_EX: int
     LOCK_NB: int
