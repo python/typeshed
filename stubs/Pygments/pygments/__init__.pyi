@@ -1,13 +1,13 @@
 from io import FileIO
-from typing import TypeVar, overload
+from typing import Any, TypeVar, overload
 
 from pygments.formatters import Formatter
 
-_T = TypeVar("_T")
+_T = TypeVar("_T", str, bytes)
 
 def lex(code, lexer): ...
 @overload
-def format(tokens, formatter: Formatter, outfile: FileIO) -> None: ...
+def format(tokens, formatter: Formatter[Any], outfile: FileIO) -> None: ...
 @overload
 def format(tokens, formatter: Formatter[_T], outfile: None = ...) -> _T: ...
 @overload
