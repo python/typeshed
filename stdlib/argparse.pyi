@@ -1,5 +1,6 @@
 import sys
 from typing import IO, Any, Callable, Generator, Generic, Iterable, NoReturn, Pattern, Protocol, Sequence, Type, TypeVar, overload
+
 from typing_extension import Literal
 
 _T = TypeVar("_T")
