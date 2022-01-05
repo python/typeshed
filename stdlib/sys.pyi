@@ -74,9 +74,9 @@ if sys.platform == "win32":
     winver: str
 _xoptions: dict[Any, Any]
 
-class _uninstantiable_structseq(structseq[Any]):
-    # type ignore because mypy doesn't like __new__ returning NoReturn
-    def __new__(cls, *args: Any, **kwargs: Any) -> NoReturn: ...  # type: ignore[misc]
+# Type alias used as a mixin for structseq classes that cannot be instantiated at runtime
+# This can't be represented in the type system, so we just use `structseq[Any]`
+_uninstantiable_structseq = structseq[Any]
 
 flags: _flags
 
