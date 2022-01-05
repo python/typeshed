@@ -2,6 +2,7 @@ import datetime
 import sys
 from time import struct_time
 from typing import Any, Iterable, Optional, Sequence
+from typing_extensions import Literal
 
 _LocaleType = tuple[Optional[str], Optional[str]]
 
@@ -105,13 +106,10 @@ day_abbr: Sequence[str]
 month_name: Sequence[str]
 month_abbr: Sequence[str]
 
-# Below constants are not in docs or __all__, but enough people have used them
-# they are now effectively public.
-
-MONDAY: int
-TUESDAY: int
-WEDNESDAY: int
-THURSDAY: int
-FRIDAY: int
-SATURDAY: int
-SUNDAY: int
+MONDAY: Literal[0]
+TUESDAY: Literal[1]
+WEDNESDAY: Literal[2]
+THURSDAY: Literal[3]
+FRIDAY: Literal[4]
+SATURDAY: Literal[5]
+SUNDAY: Literal[6]
