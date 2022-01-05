@@ -49,11 +49,11 @@ def rmtree(path: bytes | StrPath, ignore_errors: bool = ..., onerror: Callable[[
 _CopyFn = Union[Callable[[str, str], None], Callable[[StrPath, StrPath], None]]
 
 if sys.version_info >= (3, 9):
-    def move(src: StrPath, dst: StrPath, copy_function: _CopyFn = ...) -> _PathReturn: ...
+    def move(src: StrOrBytesPath, dst: StrOrBytesPath, copy_function: _CopyFn = ...) -> _PathReturn: ...
 
 else:
     # See https://bugs.python.org/issue32689
-    def move(src: str, dst: StrPath, copy_function: _CopyFn = ...) -> _PathReturn: ...
+    def move(src: str | bytes, dst: StrOrBytesPath, copy_function: _CopyFn = ...) -> _PathReturn: ...
 
 class _ntuple_diskusage(NamedTuple):
     total: int
