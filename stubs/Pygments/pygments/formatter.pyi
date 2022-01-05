@@ -1,4 +1,4 @@
-from typing import Any, Generic, TypeVar
+from typing import Any, Generic, TypeVar, overload
 
 _T = TypeVar("_T", str, bytes)
 
