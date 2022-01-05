@@ -2,7 +2,6 @@
 
 import ast
 import sys
-from collections import defaultdict
 from itertools import chain
 from pathlib import Path
 
@@ -152,30 +151,6 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
                     f"put the code for new Python versions first, e.g. `{new_syntax}`"
                 )
             self.generic_visit(node)
-
-    if "_typeshed" not in path.parts:
-        typevar_defs: dict[str, int] = {}  # Mapping of TypeVar names to the linenos where they're defined
-        all_name_occurences: defaultdict[str, int] = defaultdict(int)  # Mapping of each name in the file to the no. of occurences
-
-        class UnusedTypeVarFinder(ast.NodeVisitor):
-            def visit_Assign(self, node: ast.Assign) -> None:
-                if (
-                    isinstance(node.targets[0], ast.Name)
-                    and isinstance(node.value, ast.Call)
-                    and isinstance(node.value.func, ast.Name)
-                    and node.value.func.id == "TypeVar"
-                ):
-                    typevar_defs[node.targets[0].id] = node.lineno
-                self.generic_visit(node)
-
-            def visit_Name(self, node: ast.Name) -> None:
-                all_name_occurences[node.id] += 1
-                self.generic_visit(node)
-
-        UnusedTypeVarFinder().visit(tree)
-        for typevar_name, lineno in typevar_defs.items():
-            if all_name_occurences[typevar_name] == 1:
-                errors.append(f"{path}:{lineno}: TypeVar '{typevar_name}' is not used")
 
     if path != Path("stdlib/typing_extensions.pyi"):
         OldSyntaxFinder().visit(tree)
