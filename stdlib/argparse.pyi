@@ -1,17 +1,18 @@
 import sys
 from typing import IO, Any, Callable, Generator, Generic, Iterable, NoReturn, Pattern, Protocol, Sequence, Type, TypeVar, overload
+from typing_extension import Literal
 
 _T = TypeVar("_T")
 _ActionT = TypeVar("_ActionT", bound=Action)
 _ArgumentParserT = TypeVar("_ArgumentParserT", bound=ArgumentParser)
 _N = TypeVar("_N")
 
-ONE_OR_MORE: str
-OPTIONAL: str
-PARSER: str
-REMAINDER: str
-SUPPRESS: str
-ZERO_OR_MORE: str
+ONE_OR_MORE: Literal["+"]
+OPTIONAL: Literal["?"]
+PARSER: Literal["A..."]
+REMAINDER: Literal["..."]
+SUPPRESS: Literal["==SUPPRESS=="]
+ZERO_OR_MORE: Literal["*"]
 _UNRECOGNIZED_ARGS_ATTR: str  # undocumented
 
 class ArgumentError(Exception):
