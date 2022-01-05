@@ -113,3 +113,5 @@ THURSDAY: Literal[3]
 FRIDAY: Literal[4]
 SATURDAY: Literal[5]
 SUNDAY: Literal[6]
+
+EPOCH: Literal[1970]
