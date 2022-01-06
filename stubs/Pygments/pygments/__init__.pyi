@@ -1,7 +1,7 @@
 from _typeshed import SupportsWrite
 from typing import Any, TypeVar, overload
 
-from pygments.formatters import Formatter
+from .formatters import Formatter
 
 _T = TypeVar("_T", str, bytes)
 
