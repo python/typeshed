@@ -130,7 +130,7 @@ class TextIOBase(IOBase):
     def read(self, __size: int | None = ...) -> str: ...
     def tell(self) -> int: ...
 
-class TextIOWrapper(TextIOBase, TextIO):  # type: ignore - argument disparities between the bases classes
+class TextIOWrapper(TextIOBase, TextIO):  # type: ignore # argument disparities between the bases classes
     def __init__(
         self,
         buffer: IO[bytes],

@@ -79,7 +79,7 @@ class NullTranslations(gettext.NullTranslations):
     ugettext: Any
     ungettext: Any
 
-class Translations(NullTranslations, gettext.GNUTranslations):  # type: ignore - argument disparities between the bases classes
+class Translations(NullTranslations, gettext.GNUTranslations):  # type: ignore # argument disparities between the bases classes
     DEFAULT_DOMAIN: str
     domain: Any
     def __init__(self, fp: Any | None = ..., domain: Any | None = ...) -> None: ...
