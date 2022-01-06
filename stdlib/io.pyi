@@ -89,7 +89,7 @@ class BytesIO(BufferedIOBase, BinaryIO):  # type: ignore - argument disparities 
     else:
         def read1(self, __size: int | None) -> bytes: ...  # type: ignore[override]
 
-class BufferedReader(BufferedIOBase, BinaryIO):  # type: ignore - argument disparities between the bases classes
+class BufferedReader(BufferedIOBase, BinaryIO):  # type: ignore - argument disparities between base classes
     def __enter__(self: Self) -> Self: ...
     def __init__(self, raw: RawIOBase, buffer_size: int = ...) -> None: ...
     def peek(self, __size: int = ...) -> bytes: ...
@@ -98,7 +98,7 @@ class BufferedReader(BufferedIOBase, BinaryIO):  # type: ignore - argument dispa
     else:
         def read1(self, __size: int) -> bytes: ...  # type: ignore[override]
 
-class BufferedWriter(BufferedIOBase, BinaryIO):  # type: ignore - argument disparities between the bases classes
+class BufferedWriter(BufferedIOBase, BinaryIO):  # type: ignore - argument disparities between base classes
     def __enter__(self: Self) -> Self: ...
     def __init__(self, raw: RawIOBase, buffer_size: int = ...) -> None: ...
     def write(self, __buffer: ReadableBuffer) -> int: ...
@@ -130,7 +130,7 @@ class TextIOBase(IOBase):
     def read(self, __size: int | None = ...) -> str: ...
     def tell(self) -> int: ...
 
-class TextIOWrapper(TextIOBase, TextIO):  # type: ignore # argument disparities between the bases classes
+class TextIOWrapper(TextIOBase, TextIO):  # type: ignore # argument disparities between base classes
     def __init__(
         self,
         buffer: IO[bytes],
