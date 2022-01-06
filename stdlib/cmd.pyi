@@ -3,7 +3,7 @@ from typing_extensions import Literal
 
 __all__ = ["Cmd"]
 
-PROMPT: Literal['(Cmd) ']
+PROMPT: Literal["(Cmd) "]
 IDENTCHARS: str  # Too big to be `Literal`
 
 class Cmd:
