@@ -1,5 +1,5 @@
-from typing import Any, TypeVar, overload
 from _typeshed import SupportsWrite
+from typing import Any, TypeVar, overload
 
 from pygments.formatters import Formatter
 
