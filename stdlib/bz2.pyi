@@ -88,7 +88,7 @@ def open(
     newline: str | None = ...,
 ) -> BZ2File | TextIO: ...
 
-class BZ2File(BaseStream, IO[bytes]):
+class BZ2File(BaseStream, IO[bytes]):  # type: ignore - base classes have incompatible argument names
     def __enter__(self: Self) -> Self: ...
     if sys.version_info >= (3, 9):
         @overload
