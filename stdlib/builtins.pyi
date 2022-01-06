@@ -207,11 +207,11 @@ class int:
     @classmethod
     def from_bytes(
         cls: Type[Self],
-        bytes: Iterable[SupportsIndex] | SupportsBytes,
+        bytes: Iterable[SupportsIndex] | SupportsBytes,  # TODO buffer object argument
         byteorder: Literal["little", "big"],
         *,
         signed: bool = ...,
-    ) -> Self: ...  # TODO buffer object argument
+    ) -> Self: ...
     def __add__(self, __x: int) -> int: ...
     def __sub__(self, __x: int) -> int: ...
     def __mul__(self, __x: int) -> int: ...
