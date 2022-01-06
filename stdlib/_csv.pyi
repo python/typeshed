@@ -1,9 +1,10 @@
-from typing import Any, Iterable, Iterator, List, Protocol, Type, Union
+from typing import Any, Iterable, Iterator, Protocol, Type, Union
+from typing_extensions import Literal
 
-QUOTE_ALL: int
-QUOTE_MINIMAL: int
-QUOTE_NONE: int
-QUOTE_NONNUMERIC: int
+QUOTE_ALL: Literal[1]
+QUOTE_MINIMAL: Literal[0]
+QUOTE_NONE: Literal[3]
+QUOTE_NONNUMERIC: Literal[2]
 
 class Error(Exception): ...
 
@@ -20,7 +21,7 @@ class Dialect:
 
 _DialectLike = Union[str, Dialect, Type[Dialect]]
 
-class _reader(Iterator[List[str]]):
+class _reader(Iterator[list[str]]):
     dialect: Dialect
     line_num: int
     def __next__(self) -> list[str]: ...
