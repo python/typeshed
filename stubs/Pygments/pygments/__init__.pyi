@@ -1,7 +1,7 @@
 from _typeshed import SupportsWrite
 from typing import Any, TypeVar, overload
 
-from .formatters import Formatter
+from .formatter import Formatter
 
 _T = TypeVar("_T", str, bytes)
 
