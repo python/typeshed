@@ -734,9 +734,12 @@ class bool(int):
 
 @final
 class slice:
-    start: Any
-    step: Any
-    stop: Any
+    @property
+    def start(self) -> Any: ...
+    @property
+    def step(self) -> Any: ...
+    @property
+    def stop(self) -> Any: ...
     @overload
     def __init__(self, __stop: Any) -> None: ...
     @overload
@@ -945,9 +948,12 @@ class enumerate(Iterator[tuple[int, _T]], Generic[_T]):
 
 @final
 class range(Sequence[int]):
-    start: int
-    stop: int
-    step: int
+    @property
+    def start(self) -> int: ...
+    @property
+    def stop(self) -> int: ...
+    @property
+    def step(self) -> int: ...
     @overload
     def __init__(self, __stop: SupportsIndex) -> None: ...
     @overload
