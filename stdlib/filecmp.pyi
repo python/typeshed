@@ -7,7 +7,7 @@ from typing_extensions import Literal
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
-__all__ = ['clear_cache', 'cmp', 'dircmp', 'cmpfiles', 'DEFAULT_IGNORES']
+__all__ = ["clear_cache", "cmp", "dircmp", "cmpfiles", "DEFAULT_IGNORES"]
 
 DEFAULT_IGNORES: list[str]
 BUFSIZE: Literal[8192]
