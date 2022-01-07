@@ -64,7 +64,7 @@ class LZMACompressor:
 
 class LZMAError(Exception): ...
 
-class LZMAFile(io.BufferedIOBase, IO[bytes]):  # type: ignore # argument disparities between base classes
+class LZMAFile(io.BufferedIOBase, IO[bytes]):
     def __init__(
         self,
         filename: _PathOrFile | None = ...,
