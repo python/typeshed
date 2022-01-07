@@ -307,6 +307,18 @@ xml.dom.minidom.EMPTY_PREFIX
 xml.dom.minidom.XMLNS_NAMESPACE
 xml.dom.minidom.StringTypes
 
+# typing.IO uses positional-or-keyword arguments, but in the stubs we prefer
+# to mark these as positional-only for compatibility with existing sub-classes.
+typing.BinaryIO.write
+typing.IO.__exit__
+typing.IO.read
+typing.IO.readline
+typing.IO.readlines
+typing.IO.seek
+typing.IO.truncate
+typing.IO.write
+typing.IO.writelines
+
 # Typing-related weirdness
 _collections_abc.Callable
 _typeshed.*  # Utility types for typeshed, doesn't exist at runtime
