@@ -3,37 +3,42 @@ from typing import Any, overload
 from typing_extensions import Literal
 
 from babel.core import Locale
+from babel.util import LOCALTZ as LOCALTZ, UTC as UTC
 from pytz import BaseTzInfo
 
 # The module contents here are organized the same way they are in the API documentation at
 # http://babel.pocoo.org/en/latest/api/dates.html
 
 # Date and Time Formatting
+_Instant = date | time | datetime | float | None
+_PredefinedTimeFormat = Literal["full", "long", "medium", "short"]
+
 def format_datetime(
-    datetime: datetime | None = ..., format: str = ..., tzinfo: tzinfo | None = ..., locale: str | Locale = ...
+    datetime: _Instant = ..., format: _PredefinedTimeFormat | str = ..., tzinfo: tzinfo | None = ..., locale: str | Locale = ...
 ) -> str: ...
-def format_date(date: date | datetime | None = ..., format: str = ..., locale: str | Locale = ...) -> str: ...
+def format_date(
+    date: date | datetime | None = ..., format: _PredefinedTimeFormat | str = ..., locale: str | Locale = ...
+) -> str: ...
 def format_time(
-    time: time | datetime | None = ..., format: str = ..., tzinfo: tzinfo | None = ..., locale: str | Locale = ...
+    time: time | datetime | float | None = ...,
+    format: _PredefinedTimeFormat | str = ...,
+    tzinfo: tzinfo | None = ...,
+    locale: str | Locale = ...,
 ) -> str: ...
 def format_timedelta(
     delta: timedelta | int,
     granularity: Literal["year", "month", "week", "day", "hour", "minute", "second"] = ...,
     threshold: float = ...,
     add_direction: bool = ...,
-    format: Literal["narrow", "short", "long"] = ...,
+    format: Literal["narrow", "short", "medium", "long"] = ...,
     locale: str | Locale = ...,
 ) -> str: ...
 def format_skeleton(
-    skeleton: str,
-    datetime: time | datetime | None = ...,
-    tzinfo: tzinfo | None = ...,
-    fuzzy: bool = ...,
-    locale: str | Locale = ...,
+    skeleton: str, datetime: _Instant = ..., tzinfo: tzinfo | None = ..., fuzzy: bool = ..., locale: str | Locale = ...
 ) -> str: ...
 def format_interval(
-    start: datetime | date | time,
-    end: datetime | date | time,
+    start: _Instant,
+    end: _Instant,
     skeleton: str | None = ...,
     tzinfo: tzinfo | None = ...,
     fuzzy: bool = ...,
@@ -41,22 +46,22 @@ def format_interval(
 ) -> str: ...
 
 # Timezone Functionality
-
 @overload
 def get_timezone(zone: str | BaseTzInfo | None = ...) -> BaseTzInfo: ...
 @overload
 def get_timezone(zone: tzinfo) -> tzinfo: ...
 def get_timezone_gmt(
-    datetime: datetime | None = ...,
+    datetime: _Instant = ...,
     width: Literal["long", "short", "iso8601", "iso8601_short"] = ...,
     locale: str | Locale = ...,
     return_z: bool = ...,
 ) -> str: ...
-def get_timezone_location(
-    dt_or_tzinfo: datetime | tzinfo | None = ..., locale: str | Locale = ..., return_city: bool = ...
-) -> str: ...
+
+_DtOrTzinfo = datetime | tzinfo | str | int | time | None
+
+def get_timezone_location(dt_or_tzinfo: _DtOrTzinfo = ..., locale: str | Locale = ..., return_city: bool = ...) -> str: ...
 def get_timezone_name(
-    dt_or_tzinfo: datetime | tzinfo | None = ...,
+    dt_or_tzinfo: _DtOrTzinfo = ...,
     width: Literal["long", "short"] = ...,
     uncommon: bool = ...,
     locale: str | Locale = ...,
@@ -68,7 +73,7 @@ def get_timezone_name(
 # function requires a tzinfo that is produced by get_timezone()/pytz AND has DST info.
 # The typing here will help you with the first requirement, but will not protect against
 # pytz tzinfo's without DST info, like what you get from get_timezone("UTC") for instance.
-def get_next_timezone_transition(zone: BaseTzInfo | None = ..., dt: datetime | date | None = ...) -> TimezoneTransition: ...
+def get_next_timezone_transition(zone: BaseTzInfo | None = ..., dt: _Instant = ...) -> TimezoneTransition: ...
 
 class TimezoneTransition:
     # This class itself is not included in the documentation, yet it is mentioned by name.
@@ -88,9 +93,6 @@ class TimezoneTransition:
     def from_offset(self) -> int: ...
     @property
     def to_offset(self) -> int: ...
-
-UTC: BaseTzInfo
-LOCALTZ: BaseTzInfo
 
 # Data Access
 def get_period_names(width: str = ..., context: str = ..., locale=...): ...

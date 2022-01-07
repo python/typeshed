@@ -5,6 +5,8 @@ from typing import Any
 
 from babel import localtime as localtime
 
+from stubs.pytz.pytz import BaseTzInfo
+
 missing: Any
 
 def distinct(iterable) -> None: ...
@@ -32,8 +34,8 @@ class FixedOffsetTimezone(tzinfo):
     def tzname(self, dt): ...
     def dst(self, dt): ...
 
-UTC: Any
-LOCALTZ: Any
+UTC: BaseTzInfo
+LOCALTZ: BaseTzInfo
 get_localzone = localtime.get_localzone
 STDOFFSET: Any
 DSTOFFSET: Any
