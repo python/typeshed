@@ -110,8 +110,8 @@ class Image:
     info: dict[Any, Any]
     readonly: int
     pyaccess: Any
-    is_animated: bool
-    n_frames: int
+    is_animated: bool  # not present on all Image objects
+    n_frames: int  # not present on all Image objects
     @property
     def width(self) -> int: ...
     @property
