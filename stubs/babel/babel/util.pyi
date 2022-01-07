@@ -4,8 +4,7 @@ from datetime import tzinfo
 from typing import Any
 
 from babel import localtime as localtime
-
-from stubs.pytz.pytz import BaseTzInfo
+from pytz import BaseTzInfo
 
 missing: Any
 
