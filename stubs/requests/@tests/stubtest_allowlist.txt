@@ -46,6 +46,3 @@ requests.structures.LookupDict.__getattr__
 requests.structures.LookupDict.get
 requests.utils.OrderedDict.fromkeys
 requests.utils.OrderedDict.setdefault
-
-# This package is imported from types-urllib3.
-requests\.packages\.urllib3.*
