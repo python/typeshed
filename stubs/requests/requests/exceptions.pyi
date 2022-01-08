@@ -1,6 +1,6 @@
 from typing import Any
 
-from .packages.urllib3.exceptions import HTTPError as BaseHTTPError
+from urllib3.exceptions import HTTPError as BaseHTTPError
 
 class RequestException(IOError):
     response: Any
