@@ -20,7 +20,7 @@ Vec2D = tuple[float, float]
 
 class ScrolledCanvas(Frame): ...
 
-class TurtleScreenBase(object):
+class TurtleScreenBase:
     cv: Canvas
     canvwidth: int
     canvheight: int
@@ -36,7 +36,7 @@ class TurtleScreenBase(object):
 class Terminator(Exception): ...
 class TurtleGraphicsError(Exception): ...
 
-class Shape(object):
+class Shape:
     def __init__(self, type_: str, data: _PolygonCoords | PhotoImage | None = ...) -> None: ...
     def addcomponent(self, poly: _PolygonCoords, fill: _Color, outline: _Color | None = ...) -> None: ...
 
@@ -94,7 +94,7 @@ class TurtleScreen(TurtleScreenBase):
     def onkeypress(self, fun: Callable[[], Any], key: str | None = ...) -> None: ...
     onkeyrelease = onkey
 
-class TNavigator(object):
+class TNavigator:
     START_ORIENTATION: dict[str, Vec2D]
     DEFAULT_MODE: str
     DEFAULT_ANGLEOFFSET: int
@@ -138,7 +138,7 @@ class TNavigator(object):
     setposition = goto
     seth = setheading
 
-class TPen(object):
+class TPen:
     def __init__(self, resizemode: str = ...) -> None: ...
     @overload
     def resizemode(self, rmode: None = ...) -> str: ...

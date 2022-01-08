@@ -49,7 +49,7 @@ def setcontext(__context: Context) -> None: ...
 def getcontext() -> Context: ...
 def localcontext(ctx: Context | None = ...) -> _ContextManager: ...
 
-class Decimal(object):
+class Decimal:
     def __new__(cls: Type[_DecimalT], value: _DecimalNew = ..., context: Context | None = ...) -> _DecimalT: ...
     @classmethod
     def from_float(cls, __f: float) -> Decimal: ...
@@ -151,7 +151,7 @@ class Decimal(object):
     def __deepcopy__(self, __memo: Any) -> Decimal: ...
     def __format__(self, __specifier: str, __context: Context | None = ...) -> str: ...
 
-class _ContextManager(object):
+class _ContextManager:
     new_context: Context
     saved_context: Context
     def __init__(self, new_context: Context) -> None: ...
@@ -160,7 +160,7 @@ class _ContextManager(object):
 
 _TrapType = Type[DecimalException]
 
-class Context(object):
+class Context:
     prec: int
     rounding: str
     Emin: int

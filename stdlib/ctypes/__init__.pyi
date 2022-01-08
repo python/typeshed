@@ -28,7 +28,7 @@ RTLD_GLOBAL: int
 RTLD_LOCAL: int
 DEFAULT_MODE: int
 
-class CDLL(object):
+class CDLL:
     _func_flags_: ClassVar[int]
     _func_restype_: ClassVar[_CData]
     _name: str

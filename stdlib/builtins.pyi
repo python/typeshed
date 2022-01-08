@@ -138,7 +138,7 @@ class classmethod(Generic[_R_co]):  # Special, only valid as a decorator.
         __qualname__: str
         __wrapped__: Callable[..., _R_co]
 
-class type(object):
+class type:
     __base__: type
     __bases__: tuple[type, ...]
     __basicsize__: int
@@ -173,7 +173,7 @@ class type(object):
         def __or__(self, __t: Any) -> types.UnionType: ...
         def __ror__(self, __t: Any) -> types.UnionType: ...
 
-class super(object):
+class super:
     @overload
     def __init__(self, __t: Any, __obj: Any) -> None: ...
     @overload
@@ -729,7 +729,7 @@ class bool(int):
     def __getnewargs__(self) -> tuple[int]: ...
 
 @final
-class slice(object):
+class slice:
     start: Any
     step: Any
     stop: Any
@@ -951,7 +951,7 @@ class range(Sequence[int]):
     def __repr__(self) -> str: ...
     def __reversed__(self) -> Iterator[int]: ...
 
-class property(object):
+class property:
     fget: Callable[[Any], Any] | None
     fset: Callable[[Any, Any], None] | None
     fdel: Callable[[Any], None] | None
@@ -1500,7 +1500,7 @@ class ellipsis: ...
 
 Ellipsis: ellipsis
 
-class BaseException(object):
+class BaseException:
     args: tuple[Any, ...]
     __cause__: BaseException | None
     __context__: BaseException | None

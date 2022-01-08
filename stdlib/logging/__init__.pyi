@@ -27,14 +27,14 @@ def currentframe() -> FrameType: ...
 _levelToName: dict[int, str]
 _nameToLevel: dict[str, int]
 
-class Filterer(object):
+class Filterer:
     filters: list[Filter]
     def __init__(self) -> None: ...
     def addFilter(self, filter: _FilterType) -> None: ...
     def removeFilter(self, filter: _FilterType) -> None: ...
     def filter(self, record: LogRecord) -> bool: ...
 
-class Manager(object):  # undocumented
+class Manager:  # undocumented
     root: RootLogger
     disable: int
     emittedNoHandlerWarning: bool
@@ -749,7 +749,7 @@ class RootLogger(Logger):
 
 root: RootLogger
 
-class PercentStyle(object):  # undocumented
+class PercentStyle:  # undocumented
     default_format: str
     asctime_format: str
     asctime_search: str
