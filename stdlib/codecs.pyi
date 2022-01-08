@@ -5,10 +5,10 @@ from abc import abstractmethod
 from typing import IO, Any, BinaryIO, Callable, Generator, Iterable, Iterator, Protocol, TextIO, Type, TypeVar, overload
 from typing_extensions import Literal
 
-BOM32_BE: Literal[b'\xfe\xff']
-BOM32_LE: Literal[b'\xff\xfe']
-BOM64_BE: Literal[b'\x00\x00\xfe\xff']
-BOM64_LE: Literal[b'\xff\xfe\x00\x00']
+BOM32_BE: Literal[b"\xfe\xff"]
+BOM32_LE: Literal[b"\xff\xfe"]
+BOM64_BE: Literal[b"\x00\x00\xfe\xff"]
+BOM64_LE: Literal[b"\xff\xfe\x00\x00"]
 
 # TODO: this only satisfies the most common interface, where
 # bytes is the raw form and str is the cooked form.
