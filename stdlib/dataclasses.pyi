@@ -1,5 +1,6 @@
 import sys
 import types
+from builtins import type as Type  # alias to avoid name clashes with fields named "type"
 from typing import Any, Callable, Generic, Iterable, Mapping, Protocol, TypeVar, overload
 
 if sys.version_info >= (3, 9):
@@ -70,7 +71,7 @@ class _DefaultFactory(Protocol[_T_co]):
 
 class Field(Generic[_T]):
     name: str
-    type: type[_T]
+    type: Type[_T]
     default: _T
     default_factory: _DefaultFactory[_T]
     repr: bool
@@ -178,11 +179,11 @@ def is_dataclass(obj: Any) -> bool: ...
 class FrozenInstanceError(AttributeError): ...
 
 class InitVar(Generic[_T]):
-    type: type[_T]
-    def __init__(self, type: type[_T]) -> None: ...
+    type: Type[_T]
+    def __init__(self, type: Type[_T]) -> None: ...
     if sys.version_info >= (3, 9):
         @overload
-        def __class_getitem__(cls, type: type[_T]) -> InitVar[_T]: ...
+        def __class_getitem__(cls, type: Type[_T]) -> InitVar[_T]: ...
         @overload
         def __class_getitem__(cls, type: Any) -> InitVar[Any]: ...
 
