@@ -103,12 +103,6 @@ importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but e
 importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
 importlib.machinery.ExtensionFileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
 inspect.Parameter.empty  # set as private marker _empty
-# inspect.Parameter: the Literal[enum_member] annotations are too complex for stubtest to parse
-inspect.Parameter.KEYWORD_ONLY
-inspect.Parameter.POSITIONAL_ONLY
-inspect.Parameter.POSITIONAL_OR_KEYWORD
-inspect.Parameter.VAR_KEYWORD
-inspect.Parameter.VAR_POSITIONAL
 inspect.Signature.empty  # set as private marker _empty
 inspect.Signature.from_builtin  # Removed in 3.11, can add if someone needs this
 inspect.Signature.from_function  # Removed in 3.11, can add if someone needs this
@@ -268,6 +262,9 @@ pydoc.Helper.symbols_  # Loop variable in class https://github.com/python/typesh
 pydoc.Helper.topic  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
 # Dynamically specified by __getattr__, and thus don't exist on the class
 tempfile._TemporaryFileWrapper.[\w_]+
+# stubtest incorrectly highlights the type argument as not having a default value.
+types.FunctionType.__get__
+types.LambdaType.__get__
 # Various classes in typing aren't types at runtime. In addition, mypy thinks some special forms are tautologically defined.
 typing.[A-Z]\w+
 typing_extensions\..*

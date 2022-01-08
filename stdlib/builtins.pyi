@@ -24,7 +24,7 @@ from _typeshed import (
 )
 from collections.abc import Callable
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
-from types import CodeType, TracebackType
+from types import CodeType, TracebackType, _Cell
 from typing import (
     IO,
     AbstractSet,
@@ -206,8 +206,12 @@ class int:
     def to_bytes(self, length: SupportsIndex, byteorder: Literal["little", "big"], *, signed: bool = ...) -> bytes: ...
     @classmethod
     def from_bytes(
-        cls, bytes: Iterable[SupportsIndex] | SupportsBytes, byteorder: Literal["little", "big"], *, signed: bool = ...
-    ) -> int: ...  # TODO buffer object argument
+        cls: Type[Self],
+        bytes: Iterable[SupportsIndex] | SupportsBytes,  # TODO buffer object argument
+        byteorder: Literal["little", "big"],
+        *,
+        signed: bool = ...,
+    ) -> Self: ...
     def __add__(self, __x: int) -> int: ...
     def __sub__(self, __x: int) -> int: ...
     def __mul__(self, __x: int) -> int: ...
@@ -273,7 +277,7 @@ class float:
     def hex(self) -> str: ...
     def is_integer(self) -> bool: ...
     @classmethod
-    def fromhex(cls, __s: str) -> float: ...
+    def fromhex(cls: Type[Self], __s: str) -> Self: ...
     @property
     def real(self) -> float: ...
     @property
@@ -518,7 +522,7 @@ class bytes(ByteString):
     def upper(self) -> bytes: ...
     def zfill(self, __width: SupportsIndex) -> bytes: ...
     @classmethod
-    def fromhex(cls: Type[_T], __s: str) -> _T: ...
+    def fromhex(cls: Type[Self], __s: str) -> Self: ...
     @staticmethod
     def maketrans(__frm: bytes, __to: bytes) -> bytes: ...
     def __len__(self) -> int: ...
@@ -622,7 +626,7 @@ class bytearray(MutableSequence[int], ByteString):
     def upper(self) -> bytearray: ...
     def zfill(self, __width: SupportsIndex) -> bytearray: ...
     @classmethod
-    def fromhex(cls, __string: str) -> bytearray: ...
+    def fromhex(cls: Type[Self], __string: str) -> Self: ...
     @staticmethod
     def maketrans(__frm: bytes, __to: bytes) -> bytes: ...
     def __len__(self) -> int: ...
@@ -730,9 +734,12 @@ class bool(int):
 
 @final
 class slice:
-    start: Any
-    step: Any
-    stop: Any
+    @property
+    def start(self) -> Any: ...
+    @property
+    def step(self) -> Any: ...
+    @property
+    def stop(self) -> Any: ...
     @overload
     def __init__(self, __stop: Any) -> None: ...
     @overload
@@ -764,13 +771,22 @@ class tuple(Sequence[_T_co], Generic[_T_co]):
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, __item: Any) -> GenericAlias: ...
 
+# Doesn't exist at runtime, but deleting this breaks mypy. See #2999
+@final
 class function:
-    # TODO not defined in builtins!
-    __name__: str
-    __module__: str
+    # Make sure this class definition stays roughly in line with `types.FunctionType`
+    __closure__: tuple[_Cell, ...] | None
     __code__: CodeType
+    __defaults__: tuple[Any, ...] | None
+    __dict__: dict[str, Any]
+    __globals__: dict[str, Any]
+    __name__: str
     __qualname__: str
     __annotations__: dict[str, Any]
+    __kwdefaults__: dict[str, Any]
+    __module__: str
+    # mypy uses `builtins.function.__get__` to represent methods, properties, and getset_descriptors so we type the return as Any.
+    def __get__(self, obj: object | None, type: type | None = ...) -> Any: ...
 
 class list(MutableSequence[_T], Generic[_T]):
     @overload
@@ -838,7 +854,7 @@ class dict(MutableMapping[_KT, _VT], Generic[_KT, _VT]):
     def values(self) -> dict_values[_KT, _VT]: ...
     def items(self) -> dict_items[_KT, _VT]: ...
     # Signature of `dict.fromkeys` should be kept identical to `fromkeys` methods of `OrderedDict`/`ChainMap`/`UserDict` in `collections`
-    # TODO: the true signature of `dict.fromkeys` is not expressable in the current type system.
+    # TODO: the true signature of `dict.fromkeys` is not expressible in the current type system.
     # See #3800 & https://github.com/python/typing/issues/548#issuecomment-683336963.
     @classmethod
     @overload
@@ -932,9 +948,12 @@ class enumerate(Iterator[tuple[int, _T]], Generic[_T]):
 
 @final
 class range(Sequence[int]):
-    start: int
-    stop: int
-    step: int
+    @property
+    def start(self) -> int: ...
+    @property
+    def stop(self) -> int: ...
+    @property
+    def step(self) -> int: ...
     @overload
     def __init__(self, __stop: SupportsIndex) -> None: ...
     @overload

@@ -6,7 +6,6 @@ _T = TypeVar("_T")
 
 @final
 class Pattern(Generic[AnyStr]):
-
     pattern: AnyStr
     flags: int
     groups: int
