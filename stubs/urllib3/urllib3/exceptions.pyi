@@ -51,6 +51,7 @@ class LocationParseError(LocationValueError):
     def __init__(self, location: str) -> None: ...
 
 class URLSchemeUnknown(LocationValueError):
+    scheme: str
     def __init__(self, scheme: str) -> None: ...
 
 class ResponseError(HTTPError):
