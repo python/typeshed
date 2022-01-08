@@ -1,5 +1,5 @@
 import collections
-from typing import Any, Generic, Iterable, Iterator, Mapping, Type, TypeVar, overload
+from typing import Any, Generic, Iterable, Iterator, Mapping, TypeVar, overload
 
 _S = TypeVar("_S")
 _KT = TypeVar("_KT")
@@ -7,7 +7,7 @@ _VT = TypeVar("_VT")
 
 class frozendict(Mapping[_KT, _VT], Generic[_KT, _VT]):
 
-    dict_cls: Type[dict[Any, Any]] = ...
+    dict_cls: type[dict[Any, Any]] = ...
     @overload
     def __init__(self, **kwargs: _VT) -> None: ...
     @overload
@@ -24,4 +24,4 @@ class frozendict(Mapping[_KT, _VT], Generic[_KT, _VT]):
 
 class FrozenOrderedDict(frozendict[_KT, _VT]):
 
-    dict_cls: Type[collections.OrderedDict[Any, Any]] = ...
+    dict_cls: type[collections.OrderedDict[Any, Any]] = ...

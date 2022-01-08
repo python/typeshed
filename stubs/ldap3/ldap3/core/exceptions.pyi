@@ -1,5 +1,5 @@
 import socket
-from typing import Any, Type, TypeVar
+from typing import Any, TypeVar
 
 _T = TypeVar("_T")
 
@@ -7,7 +7,7 @@ class LDAPException(Exception): ...
 
 class LDAPOperationResult(LDAPException):
     def __new__(
-        cls: Type[_T],
+        cls: type[_T],
         result: Any | None = ...,
         description: Any | None = ...,
         dn: Any | None = ...,

@@ -1,9 +1,10 @@
 from _typeshed import SupportsItems
 from typing import IO, Any, Callable, Iterable, Mapping, MutableMapping, Optional, Text, TypeVar, Union
 
+from urllib3 import _collections
+
 from . import adapters, auth as _auth, compat, cookies, exceptions, hooks, models, status_codes, structures, utils
 from .models import Response
-from .packages.urllib3 import _collections
 
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
