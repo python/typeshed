@@ -85,7 +85,7 @@ else:
 def make_archive(
     base_name: str,
     format: str,
-    root_dir: StrPath | None = ...,
+    root_dir: StrOrBytesPath | None = ...,
     base_dir: StrPath | None = ...,
     verbose: bool = ...,
     dry_run: bool = ...,
