@@ -118,6 +118,10 @@ sqlalchemy.engine.base.Transaction.is_active
 sqlalchemy.engine.Connection.engine
 sqlalchemy.engine.base.Connection.engine
 
+# uses @memoized_property at runtime, but we use @property for compatibility
+sqlalchemy.engine.URL.normalized_query
+sqlalchemy.engine.url.URL.normalized_query
+
 # unclear problems
 sqlalchemy.sql.elements.quoted_name.lower
 sqlalchemy.sql.elements.quoted_name.upper
