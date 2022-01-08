@@ -1,4 +1,4 @@
-import urllib3 as urllib3
+# requests also imports urllib3 as requests.packages.urllib3, the stubs don't reflect that.
 
 class VendorAlias:
     def __init__(self, package_names) -> None: ...
