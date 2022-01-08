@@ -366,6 +366,10 @@ if sys.platform == "linux" and sys.version_info >= (3, 9):
         SO_J1939_PROMISC as SO_J1939_PROMISC,
         SO_J1939_SEND_PRIO as SO_J1939_SEND_PRIO,
     )
+if sys.platform == "linux" and sys.version_info >= (3, 10):
+    from _socket import (
+        IPPROTO_MPTCP as IPPROTO_MPTCP,
+    )
 if sys.platform == "win32":
     from _socket import (
         RCVALL_IPLEVEL as RCVALL_IPLEVEL,
