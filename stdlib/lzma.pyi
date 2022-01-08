@@ -41,7 +41,7 @@ PRESET_EXTREME: int
 
 # from _lzma.c
 @final
-class LZMADecompressor(object):
+class LZMADecompressor:
     def __init__(self, format: int | None = ..., memlimit: int | None = ..., filters: _FilterChain | None = ...) -> None: ...
     def decompress(self, data: bytes, max_length: int = ...) -> bytes: ...
     @property
@@ -55,7 +55,7 @@ class LZMADecompressor(object):
 
 # from _lzma.c
 @final
-class LZMACompressor(object):
+class LZMACompressor:
     def __init__(
         self, format: int | None = ..., check: int = ..., preset: int | None = ..., filters: _FilterChain | None = ...
     ) -> None: ...
@@ -64,7 +64,7 @@ class LZMACompressor(object):
 
 class LZMAError(Exception): ...
 
-class LZMAFile(io.BufferedIOBase, IO[bytes]):
+class LZMAFile(io.BufferedIOBase, IO[bytes]):  # type: ignore # argument disparities between base classes
     def __init__(
         self,
         filename: _PathOrFile | None = ...,

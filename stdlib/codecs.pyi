@@ -2,13 +2,13 @@ import sys
 import types
 from _typeshed import Self
 from abc import abstractmethod
-from typing import IO, Any, BinaryIO, Callable, Generator, Iterable, Iterator, Protocol, TextIO, Tuple, Type, TypeVar, overload
+from typing import IO, Any, BinaryIO, Callable, Generator, Iterable, Iterator, Protocol, TextIO, Type, TypeVar, overload
 from typing_extensions import Literal
 
-BOM32_BE: bytes
-BOM32_LE: bytes
-BOM64_BE: bytes
-BOM64_LE: bytes
+BOM32_BE: Literal[b"\xfe\xff"]
+BOM32_LE: Literal[b"\xff\xfe"]
+BOM64_BE: Literal[b"\x00\x00\xfe\xff"]
+BOM64_LE: Literal[b"\xff\xfe\x00\x00"]
 
 # TODO: this only satisfies the most common interface, where
 # bytes is the raw form and str is the cooked form.
@@ -71,7 +71,7 @@ def lookup(__encoding: str) -> CodecInfo: ...
 def utf_16_be_decode(__data: bytes, __errors: str | None = ..., __final: bool = ...) -> tuple[str, int]: ...  # undocumented
 def utf_16_be_encode(__str: str, __errors: str | None = ...) -> tuple[bytes, int]: ...  # undocumented
 
-class CodecInfo(Tuple[_Encoder, _Decoder, _StreamReader, _StreamWriter]):
+class CodecInfo(tuple[_Encoder, _Decoder, _StreamReader, _StreamWriter]):
     @property
     def encode(self) -> _Encoder: ...
     @property

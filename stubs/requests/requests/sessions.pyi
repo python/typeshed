@@ -1,9 +1,12 @@
 from _typeshed import SupportsItems
-from typing import IO, Any, Callable, Iterable, List, Mapping, MutableMapping, Optional, Text, Tuple, TypeVar, Union
+from typing import IO, Any, Callable, Iterable, Mapping, MutableMapping, Optional, Text, TypeVar, Union
 
 from . import adapters, auth as _auth, compat, cookies, exceptions, hooks, models, status_codes, structures, utils
 from .models import Response
 from .packages.urllib3 import _collections
+
+_KT = TypeVar("_KT")
+_VT = TypeVar("_VT")
 
 _BaseAdapter = adapters.BaseAdapter
 OrderedDict = compat.OrderedDict
@@ -23,8 +26,8 @@ TooManyRedirects = exceptions.TooManyRedirects
 InvalidSchema = exceptions.InvalidSchema
 ChunkedEncodingError = exceptions.ChunkedEncodingError
 ContentDecodingError = exceptions.ContentDecodingError
-RecentlyUsedContainer = _collections.RecentlyUsedContainer
-CaseInsensitiveDict = structures.CaseInsensitiveDict
+RecentlyUsedContainer = _collections.RecentlyUsedContainer[_KT, _VT]
+CaseInsensitiveDict = structures.CaseInsensitiveDict[_VT]
 HTTPAdapter = adapters.HTTPAdapter
 requote_uri = utils.requote_uri
 get_environ_proxies = utils.get_environ_proxies
@@ -43,18 +46,18 @@ class SessionRedirectMixin:
     def rebuild_proxies(self, prepared_request, proxies): ...
     def should_strip_auth(self, old_url, new_url): ...
 
-_Data = Union[None, Text, bytes, Mapping[str, Any], Mapping[Text, Any], Iterable[Tuple[Text, Optional[Text]]], IO[Any]]
+_Data = Union[None, Text, bytes, Mapping[str, Any], Mapping[Text, Any], Iterable[tuple[Text, Optional[Text]]], IO[Any]]
 
 _Hook = Callable[[Response], Any]
-_Hooks = MutableMapping[Text, List[_Hook]]
+_Hooks = MutableMapping[Text, list[_Hook]]
 _HooksInput = MutableMapping[Text, Union[Iterable[_Hook], _Hook]]
 
 _ParamsMappingKeyType = Union[Text, bytes, int, float]
 _ParamsMappingValueType = Union[Text, bytes, int, float, Iterable[Union[Text, bytes, int, float]], None]
 _Params = Union[
     SupportsItems[_ParamsMappingKeyType, _ParamsMappingValueType],
-    Tuple[_ParamsMappingKeyType, _ParamsMappingValueType],
-    Iterable[Tuple[_ParamsMappingKeyType, _ParamsMappingValueType]],
+    tuple[_ParamsMappingKeyType, _ParamsMappingValueType],
+    Iterable[tuple[_ParamsMappingKeyType, _ParamsMappingValueType]],
     Union[Text, bytes],
 ]
 _TextMapping = MutableMapping[Text, Text]
