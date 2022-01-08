@@ -30,7 +30,7 @@ class ProtocolError(HTTPError): ...
 ConnectionError = ProtocolError
 
 class MaxRetryError(RequestError):
-    reason: Exception | Any
+    reason: Exception | None
     def __init__(self, pool: ConnectionPool, url: str, reason: Exception | None = ...) -> None: ...
 
 class HostChangedError(RequestError):
