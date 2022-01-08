@@ -12,12 +12,7 @@ NO_OPTIONS: Any
 def create_engine(url: URL | str, *, strategy: Literal["mock"], **kwargs) -> MockConnection: ...  # type: ignore[misc]
 @overload
 def create_engine(
-    url: URL | str,
-    *,
-    module: Any | None = ...,
-    enable_from_linting: bool = ...,
-    future: bool = ...,
-    **kwargs,
+    url: URL | str, *, module: Any | None = ..., enable_from_linting: bool = ..., future: bool = ..., **kwargs
 ) -> Engine: ...
 
 class Connection(_LegacyConnection):

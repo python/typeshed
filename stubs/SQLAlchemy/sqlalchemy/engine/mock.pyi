@@ -29,12 +29,7 @@ class MockConnection(Connectable):
     def drop(self, entity, **kwargs) -> None: ...
     @abstractmethod
     @overload
-    def execute(
-        self,
-        object_: _Executable,
-        *multiparams: Mapping[str, Any],
-        **params: Any,
-    ) -> CursorResult: ...
+    def execute(self, object_: _Executable, *multiparams: Mapping[str, Any], **params: Any) -> CursorResult: ...
     @abstractmethod
     @overload
     def execute(self, object_: str, *multiparams: Any | tuple[Any, ...] | Mapping[str, Any], **params: Any) -> CursorResult: ...
