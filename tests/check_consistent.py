@@ -179,7 +179,6 @@ def check_metadata():
             assert ";" not in dep, f"Semicolons in dependencies are not supported, got {dep}"
             stripped, relation, dep_version = _strip_dep_version(dep)
             if relation:
-                msg = f"Bad version in dependency {dep}"
                 assert relation in {"==", ">", ">=", "<", "<="}, f"Bad relation '{relation}' in dependency {dep}"
                 assert dep_version.count(".") <= 2, f"Bad version '{dep_version}' in dependency {dep}"
                 for part in dep_version.split("."):
