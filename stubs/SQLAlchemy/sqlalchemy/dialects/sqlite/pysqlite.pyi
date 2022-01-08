@@ -10,7 +10,7 @@ class _SQLite_pysqliteDate(DATE):
     def bind_processor(self, dialect): ...
     def result_processor(self, dialect, coltype): ...
 
-class SQLiteDialect_pysqlite(SQLiteDialect):  # type: ignore[misc]
+class SQLiteDialect_pysqlite(SQLiteDialect):
     default_paramstyle: str
     supports_statement_cache: bool
     colspecs: Any

@@ -13,7 +13,7 @@ class SybaseExecutionContext_pysybase(SybaseExecutionContext):
 class SybaseSQLCompiler_pysybase(SybaseSQLCompiler):
     def bindparam_string(self, name, **kw): ...
 
-class SybaseDialect_pysybase(SybaseDialect):  # type: ignore[misc]
+class SybaseDialect_pysybase(SybaseDialect):
     driver: str
     statement_compiler: Any
     supports_statement_cache: bool

@@ -9,7 +9,7 @@ class _MSNumeric_pymssql(Numeric):
 class MSIdentifierPreparer_pymssql(MSIdentifierPreparer):
     def __init__(self, dialect) -> None: ...
 
-class MSDialect_pymssql(MSDialect):  # type: ignore[misc]
+class MSDialect_pymssql(MSDialect):
     supports_statement_cache: bool
     supports_native_decimal: bool
     driver: str

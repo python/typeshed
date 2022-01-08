@@ -145,7 +145,7 @@ class OracleIdentifierPreparer(compiler.IdentifierPreparer):
 class OracleExecutionContext(default.DefaultExecutionContext):
     def fire_sequence(self, seq, type_): ...
 
-class OracleDialect(default.DefaultDialect):  # type: ignore[misc]
+class OracleDialect(default.DefaultDialect):
     name: str
     supports_statement_cache: bool
     supports_alter: bool

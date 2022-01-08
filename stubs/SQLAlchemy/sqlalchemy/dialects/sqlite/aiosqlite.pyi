@@ -57,7 +57,7 @@ class AsyncAdapt_aiosqlite_dbapi:
 class SQLiteExecutionContext_aiosqlite(SQLiteExecutionContext):
     def create_server_side_cursor(self): ...
 
-class SQLiteDialect_aiosqlite(SQLiteDialect_pysqlite):  # type: ignore[misc]
+class SQLiteDialect_aiosqlite(SQLiteDialect_pysqlite):
     driver: str
     supports_statement_cache: bool
     is_async: bool

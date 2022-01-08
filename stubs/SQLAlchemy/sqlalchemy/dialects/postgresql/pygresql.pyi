@@ -31,7 +31,7 @@ class _PGCompiler(PGCompiler):
 
 class _PGIdentifierPreparer(PGIdentifierPreparer): ...
 
-class PGDialect_pygresql(PGDialect):  # type: ignore[misc]
+class PGDialect_pygresql(PGDialect):
     driver: str
     supports_statement_cache: bool
     statement_compiler: Any

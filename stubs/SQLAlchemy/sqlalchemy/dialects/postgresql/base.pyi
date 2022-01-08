@@ -96,7 +96,7 @@ PGUuid = UUID
 class TSVECTOR(sqltypes.TypeEngine):
     __visit_name__: str
 
-class ENUM(sqltypes.NativeForEmulated, sqltypes.Enum):  # type: ignore[misc]
+class ENUM(sqltypes.NativeForEmulated, sqltypes.Enum):
     native_enum: bool
     create_type: Any
     def __init__(self, *enums, **kw) -> None: ...
@@ -230,7 +230,7 @@ class PGDeferrableConnectionCharacteristic(characteristics.ConnectionCharacteris
     def set_characteristic(self, dialect, dbapi_conn, value) -> None: ...
     def get_characteristic(self, dialect, dbapi_conn): ...
 
-class PGDialect(default.DefaultDialect):  # type: ignore[misc]
+class PGDialect(default.DefaultDialect):
     name: str
     supports_statement_cache: bool
     supports_alter: bool

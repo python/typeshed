@@ -17,7 +17,7 @@ class _VARBINARY_mxodbc(VARBINARY):
 
 class MSExecutionContext_mxodbc(MSExecutionContext_pyodbc): ...
 
-class MSDialect_mxodbc(MxODBCConnector, MSDialect):  # type: ignore[misc]
+class MSDialect_mxodbc(MxODBCConnector, MSDialect):
     supports_statement_cache: bool
     colspecs: Any
     description_encoding: Any

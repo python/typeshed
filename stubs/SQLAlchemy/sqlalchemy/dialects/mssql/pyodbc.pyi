@@ -29,7 +29,7 @@ class MSExecutionContext_pyodbc(MSExecutionContext):
     def pre_exec(self) -> None: ...
     def post_exec(self) -> None: ...
 
-class MSDialect_pyodbc(PyODBCConnector, MSDialect):  # type: ignore[misc]
+class MSDialect_pyodbc(PyODBCConnector, MSDialect):
     supports_statement_cache: bool
     supports_sane_rowcount_returning: bool
     colspecs: Any

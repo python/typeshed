@@ -9,7 +9,7 @@ class MySQLExecutionContext_mysqldb(MySQLExecutionContext):
 
 class MySQLCompiler_mysqldb(MySQLCompiler): ...
 
-class MySQLDialect_mysqldb(MySQLDialect):  # type: ignore[misc]
+class MySQLDialect_mysqldb(MySQLDialect):
     driver: str
     supports_statement_cache: bool
     supports_unicode_statements: bool

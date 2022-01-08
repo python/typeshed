@@ -6,7 +6,7 @@ from .mysqldb import MySQLDialect_mysqldb
 class _cymysqlBIT(BIT):
     def result_processor(self, dialect, coltype): ...
 
-class MySQLDialect_cymysql(MySQLDialect_mysqldb):  # type: ignore[misc]
+class MySQLDialect_cymysql(MySQLDialect_mysqldb):
     driver: str
     supports_statement_cache: bool
     description_encoding: Any

@@ -13,7 +13,7 @@ class FBExecutionContext_kinterbasdb(FBExecutionContext):
     @property
     def rowcount(self): ...
 
-class FBDialect_kinterbasdb(FBDialect):  # type: ignore[misc]
+class FBDialect_kinterbasdb(FBDialect):
     driver: str
     supports_statement_cache: bool
     supports_sane_rowcount: bool

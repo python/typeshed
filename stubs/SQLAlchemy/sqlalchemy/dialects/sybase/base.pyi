@@ -103,7 +103,7 @@ class SybaseDDLCompiler(compiler.DDLCompiler):
 class SybaseIdentifierPreparer(compiler.IdentifierPreparer):
     reserved_words: Any
 
-class SybaseDialect(default.DefaultDialect):  # type: ignore[misc]
+class SybaseDialect(default.DefaultDialect):
     name: str
     supports_unicode_statements: bool
     supports_sane_rowcount: bool

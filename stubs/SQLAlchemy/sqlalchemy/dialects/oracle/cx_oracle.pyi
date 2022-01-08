@@ -80,7 +80,7 @@ class OracleExecutionContext_cx_oracle(OracleExecutionContext):
     def create_cursor(self): ...
     def get_out_parameter_values(self, out_param_names): ...
 
-class OracleDialect_cx_oracle(OracleDialect):  # type: ignore[misc]
+class OracleDialect_cx_oracle(OracleDialect):
     supports_statement_cache: bool
     statement_compiler: Any
     supports_sane_rowcount: bool

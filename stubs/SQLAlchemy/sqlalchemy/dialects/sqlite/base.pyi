@@ -92,7 +92,7 @@ class SQLiteIdentifierPreparer(compiler.IdentifierPreparer):
 
 class SQLiteExecutionContext(default.DefaultExecutionContext): ...
 
-class SQLiteDialect(default.DefaultDialect):  # type: ignore[misc]
+class SQLiteDialect(default.DefaultDialect):
     name: str
     supports_alter: bool
     supports_unicode_statements: bool

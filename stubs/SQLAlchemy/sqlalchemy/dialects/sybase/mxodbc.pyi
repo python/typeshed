@@ -3,7 +3,7 @@ from sqlalchemy.dialects.sybase.base import SybaseDialect, SybaseExecutionContex
 
 class SybaseExecutionContext_mxodbc(SybaseExecutionContext): ...
 
-class SybaseDialect_mxodbc(MxODBCConnector, SybaseDialect):  # type: ignore[misc]
+class SybaseDialect_mxodbc(MxODBCConnector, SybaseDialect):
     supports_statement_cache: bool
 
 dialect = SybaseDialect_mxodbc

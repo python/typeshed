@@ -255,7 +255,7 @@ class MSIdentifierPreparer(compiler.IdentifierPreparer):
     def __init__(self, dialect) -> None: ...
     def quote_schema(self, schema, force: Any | None = ...): ...
 
-class MSDialect(default.DefaultDialect):  # type: ignore[misc]
+class MSDialect(default.DefaultDialect):
     name: str
     supports_statement_cache: bool
     supports_default_values: bool

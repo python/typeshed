@@ -3,7 +3,7 @@ from typing import Any
 from ...util import memoized_property
 from .mysqldb import MySQLDialect_mysqldb
 
-class MySQLDialect_pymysql(MySQLDialect_mysqldb):  # type: ignore[misc]
+class MySQLDialect_pymysql(MySQLDialect_mysqldb):
     driver: str
     supports_statement_cache: bool
     description_encoding: Any
