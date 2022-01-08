@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from typing import Any, Type as TypingType
+from typing import Any
 
 MypyFile = Any  # from mypy.nodes
 AttributeContext = Any  # from mypy.plugin

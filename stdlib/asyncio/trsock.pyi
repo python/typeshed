@@ -1,7 +1,7 @@
 import socket
 import sys
 from types import TracebackType
-from typing import Any, BinaryIO, Iterable, NoReturn, Type, Union, overload
+from typing import Any, BinaryIO, Iterable, NoReturn, Union, overload
 
 if sys.version_info >= (3, 8):
     # These are based in socket, maybe move them out into _typeshed.pyi or such
@@ -82,5 +82,5 @@ if sys.version_info >= (3, 8):
         def setblocking(self, flag: bool) -> None: ...
         def __enter__(self) -> socket.socket: ...
         def __exit__(
-            self, exc_type: Type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
+            self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
         ) -> None: ...

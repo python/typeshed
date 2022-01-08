@@ -1,5 +1,5 @@
 from collections.abc import Iterable, Iterator
-from typing import Any, Type as TypingType, TypeVar, overload
+from typing import Any, TypeVar, overload
 
 CallExpr = Any  # from mypy.nodes
 Context = Any  # from mypy.nodes

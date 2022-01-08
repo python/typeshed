@@ -1,6 +1,6 @@
 import datetime
 from json import JSONDecoder
-from typing import Any, Callable, Iterator, Text, Type, TypeVar
+from typing import Any, Callable, Iterator, Text, TypeVar
 
 from . import auth, cookies, exceptions, hooks, status_codes, structures, utils
 from .cookies import RequestsCookieJar
@@ -128,7 +128,7 @@ class Response:
     def json(
         self,
         *,
-        cls: Type[JSONDecoder] | None = ...,
+        cls: type[JSONDecoder] | None = ...,
         object_hook: Callable[[dict[Any, Any]], Any] | None = ...,
         parse_float: Callable[[str], Any] | None = ...,
         parse_int: Callable[[str], Any] | None = ...,

@@ -1,7 +1,7 @@
 import sys
 from email.errors import HeaderParseError, MessageDefect
 from email.policy import Policy
-from typing import Any, Iterable, Iterator, Pattern, Type, TypeVar, Union
+from typing import Any, Iterable, Iterator, Pattern, TypeVar, Union
 from typing_extensions import Final
 
 _T = TypeVar("_T")
@@ -327,7 +327,7 @@ class Terminal(str):
     syntactic_break: bool
     token_type: str
     defects: list[MessageDefect]
-    def __new__(cls: Type[_T], value: str, token_type: str) -> _T: ...
+    def __new__(cls: type[_T], value: str, token_type: str) -> _T: ...
     def pprint(self) -> None: ...
     @property
     def all_defects(self) -> list[MessageDefect]: ...
