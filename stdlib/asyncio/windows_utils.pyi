@@ -2,13 +2,13 @@ import subprocess
 import sys
 from _typeshed import Self
 from types import TracebackType
-from typing import Callable, Protocol, Type
+from typing import Callable, Protocol
 from typing_extensions import Literal
 
 if sys.platform == "win32":
     class _WarnFunction(Protocol):
         def __call__(
-            self, message: str, category: Type[Warning] = ..., stacklevel: int = ..., source: PipeHandle = ...
+            self, message: str, category: type[Warning] = ..., stacklevel: int = ..., source: PipeHandle = ...
         ) -> None: ...
     BUFSIZE: Literal[8192]
     PIPE = subprocess.PIPE

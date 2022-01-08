@@ -1,6 +1,6 @@
 import datetime
 from json import JSONDecoder
-from typing import Any, Callable, Iterator, Text, Type, TypeVar
+from typing import Any, Callable, Iterator, Text, TypeVar
 
 from urllib3 import exceptions as urllib3_exceptions, fields, filepost, util
 
@@ -129,7 +129,7 @@ class Response:
     def json(
         self,
         *,
-        cls: Type[JSONDecoder] | None = ...,
+        cls: type[JSONDecoder] | None = ...,
         object_hook: Callable[[dict[Any, Any]], Any] | None = ...,
         parse_float: Callable[[str], Any] | None = ...,
         parse_int: Callable[[str], Any] | None = ...,

@@ -1,7 +1,7 @@
 import socket
 import sys
 from _typeshed import WriteableBuffer
-from typing import IO, Any, Callable, ClassVar, NoReturn, Type
+from typing import IO, Any, Callable, ClassVar, NoReturn
 from typing_extensions import Literal
 
 from . import events, futures, proactor_events, selector_events, streams, windows_utils
@@ -61,17 +61,17 @@ if sys.platform == "win32":
 
     if sys.version_info >= (3, 7):
         class WindowsSelectorEventLoopPolicy(events.BaseDefaultEventLoopPolicy):
-            _loop_factory: ClassVar[Type[SelectorEventLoop]]
+            _loop_factory: ClassVar[type[SelectorEventLoop]]
             def get_child_watcher(self) -> NoReturn: ...
             def set_child_watcher(self, watcher: Any) -> NoReturn: ...
         class WindowsProactorEventLoopPolicy(events.BaseDefaultEventLoopPolicy):
-            _loop_factory: ClassVar[Type[ProactorEventLoop]]
+            _loop_factory: ClassVar[type[ProactorEventLoop]]
             def get_child_watcher(self) -> NoReturn: ...
             def set_child_watcher(self, watcher: Any) -> NoReturn: ...
         DefaultEventLoopPolicy = WindowsSelectorEventLoopPolicy
     else:
         class _WindowsDefaultEventLoopPolicy(events.BaseDefaultEventLoopPolicy):
-            _loop_factory: ClassVar[Type[SelectorEventLoop]]
+            _loop_factory: ClassVar[type[SelectorEventLoop]]
             def get_child_watcher(self) -> NoReturn: ...
             def set_child_watcher(self, watcher: Any) -> NoReturn: ...
         DefaultEventLoopPolicy = _WindowsDefaultEventLoopPolicy

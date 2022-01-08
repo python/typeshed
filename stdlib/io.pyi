@@ -4,7 +4,7 @@ import sys
 from _typeshed import ReadableBuffer, Self, StrOrBytesPath, WriteableBuffer
 from os import _Opener
 from types import TracebackType
-from typing import IO, Any, BinaryIO, Callable, Iterable, Iterator, TextIO, Type
+from typing import IO, Any, BinaryIO, Callable, Iterable, Iterator, TextIO
 
 DEFAULT_BUFFER_SIZE: int
 
@@ -26,7 +26,7 @@ class IOBase:
     def __next__(self) -> bytes: ...
     def __enter__(self: Self) -> Self: ...
     def __exit__(
-        self, exc_type: Type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
+        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> bool | None: ...
     def close(self) -> None: ...
     def fileno(self) -> int: ...
