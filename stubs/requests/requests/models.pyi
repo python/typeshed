@@ -2,9 +2,10 @@ import datetime
 from json import JSONDecoder
 from typing import Any, Callable, Iterator, Text, Type, TypeVar
 
+from urllib3 import exceptions as urllib3_exceptions, fields, filepost, util
+
 from . import auth, cookies, exceptions, hooks, status_codes, structures, utils
 from .cookies import RequestsCookieJar
-from .packages.urllib3 import exceptions as urllib3_exceptions, fields, filepost, util
 
 _VT = TypeVar("_VT")
 
