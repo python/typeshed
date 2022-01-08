@@ -180,10 +180,10 @@ def check_metadata():
             stripped, relation, dep_version = _strip_dep_version(dep)
             if relation:
                 msg = f"Bad version in dependency {dep}"
-                assert relation in {"==", ">", ">=", "<", "<="}, msg
-                assert version.count(".") <= 2, msg
-                for part in version.split("."):
-                    assert part.isnumeric(), msg
+                assert relation in {"==", ">", ">=", "<", "<="}, f"Bad relation '{relation}' in dependency {dep}"
+                assert dep_version.count(".") <= 2, f"Bad version '{dep_version}' in dependency {dep}"
+                for part in dep_version.split("."):
+                    assert part.isnumeric(), f"Bad version '{part}' in dependency {dep}"
 
 
 if __name__ == "__main__":
