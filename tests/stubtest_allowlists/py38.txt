@@ -54,6 +54,11 @@ ssl.RAND_egd  # Depends on openssl compilation
 sys.UnraisableHookArgs  # Not exported from sys
 types.ClassMethodDescriptorType.__get__
 types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
+# In the stub we lie and say DynamicClassAttribute is an alias for property
+# These three attributes are read-only for `property` but writable for `DynamicClassAttribute`
+types.DynamicClassAttribute.fget
+types.DynamicClassAttribute.fset
+types.DynamicClassAttribute.fdel
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__
 typing.NamedTuple.__new__

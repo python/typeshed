@@ -43,6 +43,11 @@ sched.Event.__doc__  # __slots__ is overridden
 ssl.PROTOCOL_SSLv3  # Depends on ssl compilation
 ssl.RAND_egd  # Depends on openssl compilation
 types.ClassMethodDescriptorType.__get__
+# In the stub we lie and say DynamicClassAttribute is an alias for property
+# These three attributes are read-only for `property` but writable for `DynamicClassAttribute`
+types.DynamicClassAttribute.fget
+types.DynamicClassAttribute.fset
+types.DynamicClassAttribute.fdel
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__
 typing.NamedTuple._asdict

@@ -44,6 +44,11 @@ random.randrange  # missing undocumented arg _int
 sched.Event.__doc__  # __slots__ is overridden
 stringprep.unicodedata  # re-exported from unicodedata
 sre_compile.dis
+# In the stub we lie and say DynamicClassAttribute is an alias for property
+# These three attributes are read-only for `property` but writable for `DynamicClassAttribute`
+types.DynamicClassAttribute.fget
+types.DynamicClassAttribute.fset
+types.DynamicClassAttribute.fdel
 typing.AsyncGenerator.ag_await
 typing.AsyncGenerator.ag_code
 typing.AsyncGenerator.ag_frame
