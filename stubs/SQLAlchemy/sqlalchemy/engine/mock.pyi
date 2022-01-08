@@ -3,11 +3,6 @@ from abc import abstractmethod
 from collections.abc import Mapping
 from typing import Any, overload
 
-from ..sql.compiler import Compiled
-from ..sql.ddl import DDLElement
-from ..sql.elements import ClauseElement
-from ..sql.functions import FunctionElement
-from ..sql.schema import DefaultGenerator
 from .base import _Executable
 from .cursor import CursorResult
 from .interfaces import Connectable, Dialect
