@@ -1,7 +1,8 @@
 import socket
 import sys
+from builtins import type as Type  # alias to avoid name clashes with property named "type"
 from types import TracebackType
-from typing import Any, BinaryIO, Iterable, NoReturn, Type, Union, overload
+from typing import Any, BinaryIO, Iterable, NoReturn, Union, overload
 
 if sys.version_info >= (3, 8):
     # These are based in socket, maybe move them out into _typeshed.pyi or such

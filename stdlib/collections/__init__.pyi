@@ -1,7 +1,7 @@
 import sys
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import Self, SupportsKeysAndGetItem, SupportsRichComparison, SupportsRichComparisonT
-from typing import Any, Generic, NoReturn, Type, TypeVar, overload
+from typing import Any, Generic, NoReturn, TypeVar, overload
 from typing_extensions import SupportsIndex, final
 
 if sys.version_info >= (3, 9):
@@ -28,12 +28,12 @@ if sys.version_info >= (3, 7):
         rename: bool = ...,
         module: str | None = ...,
         defaults: Iterable[Any] | None = ...,
-    ) -> Type[tuple[Any, ...]]: ...
+    ) -> type[tuple[Any, ...]]: ...
 
 else:
     def namedtuple(
         typename: str, field_names: str | Iterable[str], *, verbose: bool = ..., rename: bool = ..., module: str | None = ...
-    ) -> Type[tuple[Any, ...]]: ...
+    ) -> type[tuple[Any, ...]]: ...
 
 class UserDict(MutableMapping[_KT, _VT], Generic[_KT, _VT]):
     data: dict[_KT, _VT]
@@ -56,7 +56,7 @@ class UserDict(MutableMapping[_KT, _VT], Generic[_KT, _VT]):
     def __contains__(self, key: object) -> bool: ...
     def copy(self: Self) -> Self: ...
     # `UserDict.fromkeys` has the same semantics as `dict.fromkeys`, so should be kept in line with `dict.fromkeys`.
-    # TODO: Much like `dict.fromkeys`, the true signature of `UserDict.fromkeys` is inexpressable in the current type system.
+    # TODO: Much like `dict.fromkeys`, the true signature of `UserDict.fromkeys` is inexpressible in the current type system.
     # See #3800 & https://github.com/python/typing/issues/548#issuecomment-683336963.
     @classmethod
     @overload
@@ -206,7 +206,7 @@ class deque(MutableSequence[_T], Generic[_T]):
     def __setitem__(self, __i: SupportsIndex, __x: _T) -> None: ...  # type: ignore[override]
     def __delitem__(self, __i: SupportsIndex) -> None: ...  # type: ignore[override]
     def __contains__(self, __o: object) -> bool: ...
-    def __reduce__(self: Self) -> tuple[Type[Self], tuple[()], None, Iterator[_T]]: ...
+    def __reduce__(self: Self) -> tuple[type[Self], tuple[()], None, Iterator[_T]]: ...
     def __iadd__(self: _S, __iterable: Iterable[_T]) -> _S: ...
     def __add__(self: _S, __other: _S) -> _S: ...
     def __mul__(self: _S, __other: int) -> _S: ...
@@ -277,7 +277,7 @@ class OrderedDict(dict[_KT, _VT], Reversible[_KT], Generic[_KT, _VT]):
     def items(self) -> _OrderedDictItemsView[_KT, _VT]: ...
     def values(self) -> _OrderedDictValuesView[_KT, _VT]: ...
     # `fromkeys` is actually inherited from `dict` at runtime, so the signature should be kept in line with `dict.fromkeys`.
-    # Ideally we would not redefine it here, but the true signature of `dict.fromkeys` is not expressable in the current type system.
+    # Ideally we would not redefine it here, but the true signature of `dict.fromkeys` is not expressible in the current type system.
     # See #3800 & https://github.com/python/typing/issues/548#issuecomment-683336963.
     @classmethod
     @overload

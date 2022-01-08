@@ -1,5 +1,5 @@
 from _weakrefset import WeakSet as WeakSet
-from typing import Any, Callable, Generic, Iterable, Iterator, Mapping, MutableMapping, Type, TypeVar, overload
+from typing import Any, Callable, Generic, Iterable, Iterator, Mapping, MutableMapping, TypeVar, overload
 
 from _weakref import (
     CallableProxyType as CallableProxyType,
@@ -11,13 +11,12 @@ from _weakref import (
     ref as ref,
 )
 
-_S = TypeVar("_S")
 _T = TypeVar("_T")
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
 _CallableT = TypeVar("_CallableT", bound=Callable[..., Any])
 
-ProxyTypes: tuple[Type[Any], ...]
+ProxyTypes: tuple[type[Any], ...]
 
 class WeakMethod(ref[_CallableT], Generic[_CallableT]):
     def __new__(cls, meth: _CallableT, callback: Callable[[_CallableT], object] | None = ...) -> WeakMethod[_CallableT]: ...

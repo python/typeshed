@@ -1,7 +1,7 @@
 from _typeshed import SupportsRead, SupportsWrite
 from collections.abc import Iterable, Iterator, MutableMapping
 from pathlib import Path
-from typing import Any, Callable, Protocol, Sequence, SupportsBytes, Union
+from typing import Any, Callable, ClassVar, Protocol, Sequence, SupportsBytes, Union
 from typing_extensions import Literal
 
 from ._imaging import (
@@ -102,14 +102,16 @@ class _E:
 _ImageState = tuple[dict[str, Any], str, tuple[int, int], Any, bytes]
 
 class Image:
-    format: Any
-    format_description: Any
+    format: ClassVar[str | None]
+    format_description: ClassVar[str | None]
     im: Any
     mode: str
     palette: Any
     info: dict[Any, Any]
     readonly: int
     pyaccess: Any
+    is_animated: bool  # not present on all Image objects
+    n_frames: int  # not present on all Image objects
     @property
     def width(self) -> int: ...
     @property
@@ -196,7 +198,7 @@ class Image:
         **params: Any,
     ) -> None: ...
     def seek(self, frame: int) -> None: ...
-    def show(self, title: str | None = ..., command: str | None = ...) -> None: ...
+    def show(self, title: str | None = ...) -> None: ...
     def split(self) -> tuple[Image, ...]: ...
     def getchannel(self, channel: int | str) -> Image: ...
     def tell(self) -> int: ...
@@ -209,7 +211,7 @@ class Image:
         resample: _Resample = ...,
         fill: int = ...,
         fillcolor: _Color | int | None = ...,
-    ) -> None: ...
+    ) -> Image: ...
     def transpose(self, method: Literal[0, 1, 2, 3, 4, 5, 6]) -> Image: ...
     def effect_spread(self, distance: int) -> Image: ...
     def toqimage(self): ...
