@@ -48,6 +48,9 @@ def rmtree(path: StrOrBytesPath, ignore_errors: bool = ..., onerror: Callable[[A
 
 _CopyFn = Union[Callable[[str, str], None], Callable[[StrPath, StrPath], None]]
 
+# N.B. shutil.move appears to take bytes arguments, however,
+# this does not work when dst is (or is within) an existing directory.
+# (#6832)
 if sys.version_info >= (3, 9):
     def move(src: StrPath, dst: StrPath, copy_function: _CopyFn = ...) -> _PathReturn: ...
 
