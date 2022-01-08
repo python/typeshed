@@ -14,9 +14,12 @@ from ..sql.functions import FunctionElement
 from ..sql.schema import DefaultGenerator
 from .cursor import CursorResult
 from .interfaces import Connectable as Connectable, Dialect, ExceptionContext
+from .url import URL
 from .util import TransactionalContext
 
 _T = TypeVar("_T")
+
+_Executable = ClauseElement | FunctionElement | DDLElement | DefaultGenerator | Compiled
 
 class Connection(Connectable):
     engine: Engine
@@ -34,7 +37,7 @@ class Connection(Connectable):
         _has_events: Any | None = ...,
         _allow_revalidate: bool = ...,
     ) -> None: ...
-    def schema_for_object(self, obj) -> str: ...
+    def schema_for_object(self, obj) -> str | None: ...
     def __enter__(self: Self) -> Self: ...
     def __exit__(
         self, type_: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
@@ -69,7 +72,7 @@ class Connection(Connectable):
     @overload
     def scalar(
         self,
-        object_: ClauseElement | FunctionElement | DDLElement | DefaultGenerator | Compiled,
+        object_: _Executable,
         *multiparams: Mapping[str, Any],
         **params: Any,
     ) -> Any: ...
@@ -79,7 +82,7 @@ class Connection(Connectable):
     @overload  # type: ignore[override]
     def execute(
         self,
-        statement: ClauseElement | FunctionElement | DDLElement | DefaultGenerator | Compiled,
+        statement: _Executable,
         *multiparams: Mapping[str, Any],
         **params,
     ) -> CursorResult: ...
@@ -153,7 +156,7 @@ class TwoPhaseTransaction(RootTransaction):
 
 class Engine(Connectable, Identified):
     pool: Pool
-    url: str
+    url: URL
     dialect: Dialect
     logging_name: str  # only exists if not None during initialization
     echo: echo_property
@@ -162,7 +165,7 @@ class Engine(Connectable, Identified):
         self,
         pool: Pool,
         dialect: Dialect,
-        url: str,
+        url: str | URL,
         logging_name: str | None = ...,
         echo: _EchoFlag = ...,
         query_cache_size: int = ...,
@@ -199,7 +202,7 @@ class Engine(Connectable, Identified):
     @overload  # type: ignore[override]
     def execute(
         self,
-        statement: ClauseElement | FunctionElement | DDLElement | DefaultGenerator | Compiled,
+        statement: _Executable,
         *multiparams: Mapping[str, Any],
         **params: Any,
     ) -> CursorResult: ...
@@ -208,7 +211,7 @@ class Engine(Connectable, Identified):
     @overload  # type: ignore[override]
     def scalar(
         self,
-        statement: ClauseElement | FunctionElement | DDLElement | DefaultGenerator | Compiled,
+        statement: _Executable,
         *multiparams: Mapping[str, Any],
         **params: Any,
     ) -> Any: ...
@@ -220,9 +223,9 @@ class Engine(Connectable, Identified):
     def raw_connection(self, _connection: Connection | None = ...) -> DBAPIConnection: ...
 
 class OptionEngineMixin:
-    url: str
+    url: URL
     dialect: Dialect
-    logging_name: str | None
+    logging_name: str
     echo: bool
     hide_parameters: bool
     dispatch: Any

@@ -14,7 +14,6 @@ def create_engine(url: URL | str, *, strategy: Literal["mock"], **kwargs) -> Moc
 def create_engine(
     url: URL | str,
     *,
-    empty_in_strategy: object | None = ...,
     module: Any | None = ...,
     enable_from_linting: bool = ...,
     future: bool = ...,

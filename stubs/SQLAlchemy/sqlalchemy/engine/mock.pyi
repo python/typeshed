@@ -8,6 +8,7 @@ from ..sql.ddl import DDLElement
 from ..sql.elements import ClauseElement
 from ..sql.functions import FunctionElement
 from ..sql.schema import DefaultGenerator
+from .base import _Executable
 from .cursor import CursorResult
 from .interfaces import Connectable, Dialect
 from .url import URL
@@ -30,7 +31,7 @@ class MockConnection(Connectable):
     @overload
     def execute(
         self,
-        object_: ClauseElement | FunctionElement | DDLElement | DefaultGenerator | Compiled,
+        object_: _Executable,
         *multiparams: Mapping[str, Any],
         **params: Any,
     ) -> CursorResult: ...
