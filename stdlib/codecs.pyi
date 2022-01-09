@@ -115,16 +115,16 @@ def iterdecode(iterator: Iterable[bytes], encoding: str, errors: str = ...) -> G
 if sys.version_info >= (3, 10):
     def unregister(__search_function: Callable[[str], CodecInfo | None]) -> None: ...
 
-BOM: bytes
-BOM_BE: bytes
-BOM_LE: bytes
-BOM_UTF8: bytes
-BOM_UTF16: bytes
-BOM_UTF16_BE: bytes
-BOM_UTF16_LE: bytes
-BOM_UTF32: bytes
-BOM_UTF32_BE: bytes
-BOM_UTF32_LE: bytes
+BOM: Literal[b"\xff\xfe", b"\xfe\xff"]  # depends on `sys.byteorder`
+BOM_BE: Literal[b"\xfe\xff"]
+BOM_LE: Literal[b"\xff\xfe"]
+BOM_UTF8: Literal[b"\xef\xbb\xbf"]
+BOM_UTF16: Literal[b"\xff\xfe", b"\xfe\xff"]  # depends on `sys.byteorder`
+BOM_UTF16_BE: Literal[b"\xfe\xff"]
+BOM_UTF16_LE: Literal[b"\xff\xfe"]
+BOM_UTF32: Literal[b"\xff\xfe\x00\x00", b"\x00\x00\xfe\xff"]  # depends on `sys.byteorder`
+BOM_UTF32_BE: Literal[b"\x00\x00\xfe\xff"]
+BOM_UTF32_LE: Literal[b"\xff\xfe\x00\x00"]
 
 # It is expected that different actions be taken depending on which of the
 # three subclasses of `UnicodeError` is actually ...ed. However, the Union
