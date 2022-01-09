@@ -1,8 +1,8 @@
 import datetime
-from typing import Any, Iterator, Text, Type, TypeVar, Union
+from typing import Any, Iterator, Text, TypeVar, Union
 from typing_extensions import Literal
 
-_RetType = Union[Type[float], Type[datetime.datetime]]
+_RetType = Union[type[float], type[datetime.datetime]]
 _SelfT = TypeVar("_SelfT", bound=croniter)
 
 class CroniterError(ValueError): ...
@@ -74,5 +74,5 @@ def croniter_range(
     ret_type: _RetType | None = ...,
     day_or: bool = ...,
     exclude_ends: bool = ...,
-    _croniter: Type[croniter] | None = ...,
+    _croniter: type[croniter] | None = ...,
 ) -> Iterator[Any]: ...

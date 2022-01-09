@@ -1,7 +1,7 @@
 import sys
 from decimal import Decimal
 from numbers import Integral, Rational, Real
-from typing import Type, TypeVar, Union, overload
+from typing import TypeVar, Union, overload
 from typing_extensions import Literal
 
 _ComparableNum = Union[int, float, Decimal, Real]
@@ -20,10 +20,10 @@ if sys.version_info < (3, 9):
 class Fraction(Rational):
     @overload
     def __new__(
-        cls: Type[_T], numerator: int | Rational = ..., denominator: int | Rational | None = ..., *, _normalize: bool = ...
+        cls: type[_T], numerator: int | Rational = ..., denominator: int | Rational | None = ..., *, _normalize: bool = ...
     ) -> _T: ...
     @overload
-    def __new__(cls: Type[_T], __value: float | Decimal | str, *, _normalize: bool = ...) -> _T: ...
+    def __new__(cls: type[_T], __value: float | Decimal | str, *, _normalize: bool = ...) -> _T: ...
     @classmethod
     def from_float(cls, f: float) -> Fraction: ...
     @classmethod

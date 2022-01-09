@@ -1,4 +1,4 @@
-mypy==0.930
+mypy==0.931
 pytype==2022.01.05; platform_system != "Windows" and python_version < "3.10"
 # must match .pre-commit-config.yaml
 black==21.12b0

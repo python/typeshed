@@ -1,9 +1,13 @@
 from _typeshed import SupportsItems
 from typing import IO, Any, Callable, Iterable, Mapping, MutableMapping, Optional, Text, TypeVar, Union
 
+from urllib3 import _collections
+
 from . import adapters, auth as _auth, compat, cookies, exceptions, hooks, models, status_codes, structures, utils
 from .models import Response
-from .packages.urllib3 import _collections
+
+_KT = TypeVar("_KT")
+_VT = TypeVar("_VT")
 
 _BaseAdapter = adapters.BaseAdapter
 OrderedDict = compat.OrderedDict
@@ -23,8 +27,8 @@ TooManyRedirects = exceptions.TooManyRedirects
 InvalidSchema = exceptions.InvalidSchema
 ChunkedEncodingError = exceptions.ChunkedEncodingError
 ContentDecodingError = exceptions.ContentDecodingError
-RecentlyUsedContainer = _collections.RecentlyUsedContainer
-CaseInsensitiveDict = structures.CaseInsensitiveDict
+RecentlyUsedContainer = _collections.RecentlyUsedContainer[_KT, _VT]
+CaseInsensitiveDict = structures.CaseInsensitiveDict[_VT]
 HTTPAdapter = adapters.HTTPAdapter
 requote_uri = utils.requote_uri
 get_environ_proxies = utils.get_environ_proxies

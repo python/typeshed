@@ -63,6 +63,7 @@
         "stubs/SQLAlchemy",
         "stubs/stripe",
         "stubs/ttkthemes",
+        "stubs/urllib3",
         "stubs/vobject"
     ],
     "typeCheckingMode": "basic",

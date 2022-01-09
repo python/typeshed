@@ -16,6 +16,18 @@ _collections_abc.MutableMapping.__setitem__
 _collections_abc.MutableMapping.pop
 _collections_abc.MutableMapping.setdefault
 
+# typing.IO uses positional-or-keyword arguments, but in the stubs we prefer
+# to mark these as positional-only for compatibility with existing sub-classes.
+typing.BinaryIO.write
+typing.IO.__exit__
+typing.IO.read
+typing.IO.readline
+typing.IO.readlines
+typing.IO.seek
+typing.IO.truncate
+typing.IO.write
+typing.IO.writelines
+
 ast.Bytes.__new__
 ast.Ellipsis.__new__
 ast.ExtSlice.__new__
