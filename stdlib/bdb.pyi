@@ -1,5 +1,5 @@
 from types import CodeType, FrameType, TracebackType
-from typing import IO, Any, Callable, Iterable, Mapping, SupportsInt, Type, TypeVar
+from typing import IO, Any, Callable, Iterable, Mapping, SupportsInt, TypeVar
 from typing_extensions import Literal
 
 __all__ = ["BdbQuit", "Bdb", "Breakpoint"]
