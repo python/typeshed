@@ -69,7 +69,6 @@ _T2 = TypeVar("_T2")
 _T3 = TypeVar("_T3")
 _T4 = TypeVar("_T4")
 _T5 = TypeVar("_T5")
-_TT = TypeVar("_TT", bound="type")
 _R = TypeVar("_R")  # Return-type TypeVar
 _SupportsNextT = TypeVar("_SupportsNextT", bound=SupportsNext[Any], covariant=True)
 _SupportsAnextT = TypeVar("_SupportsAnextT", bound=SupportsAnext[Any], covariant=True)
@@ -86,7 +85,7 @@ class object:
     __module__: str
     __annotations__: dict[str, Any]
     @property
-    def __class__(self: _T) -> type[_T]: ...
+    def __class__(self: Self) -> type[Self]: ...
     # Ignore errors about type mismatch between property getter and setter
     @__class__.setter
     def __class__(self, __type: type[object]) -> None: ...  # type: ignore # noqa: F811
@@ -158,7 +157,7 @@ class type:
     @overload
     def __new__(cls: type[Self], __name: str, __bases: tuple[type, ...], __namespace: dict[str, Any], **kwds: Any) -> Self: ...
     def __call__(self, *args: Any, **kwds: Any) -> Any: ...
-    def __subclasses__(self: _TT) -> list[_TT]: ...
+    def __subclasses__(self: Self) -> list[Self]: ...
     # Note: the documentation doesn't specify what the return type is, the standard
     # implementation seems to be returning a list.
     def mro(self) -> list[type]: ...

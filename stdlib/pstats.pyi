@@ -2,10 +2,9 @@ import sys
 from _typeshed import Self, StrOrBytesPath
 from cProfile import Profile as _cProfile
 from profile import Profile
-from typing import IO, Any, Iterable, TypeVar, Union, overload
+from typing import IO, Any, Iterable, Union, overload
 
 _Selector = Union[str, float, int]
-_T = TypeVar("_T", bound=Stats)
 
 if sys.version_info >= (3, 7):
     from enum import Enum
@@ -23,9 +22,9 @@ if sys.version_info >= (3, 7):
 class Stats:
     sort_arg_dict_default: dict[str, tuple[Any, str]]
     def __init__(
-        self: _T,
+        self: Self,
         __arg: None | str | Profile | _cProfile = ...,
-        *args: None | str | Profile | _cProfile | _T,
+        *args: None | str | Profile | _cProfile | Self,
         stream: IO[Any] | None = ...,
     ) -> None: ...
     def init(self, arg: None | str | Profile | _cProfile) -> None: ...
