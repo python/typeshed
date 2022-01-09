@@ -4,7 +4,7 @@ from _typeshed import StrOrBytesPath, StrPath, SupportsRead, SupportsWrite
 from typing import Any, AnyStr, Callable, Iterable, NamedTuple, Sequence, TypeVar, Union, overload
 
 _StrOrBytesPathT = TypeVar("_StrOrBytesPathT", bound=StrOrBytesPath)
-_StrPathT = TypeVar("_StrPathT", str, os.PathLike[str])
+_StrPathT = TypeVar("_StrPathT", bound=StrPath)
 # Return value of some functions that may either return a path-like object that was passed in or
 # a string
 _PathReturn = Any
