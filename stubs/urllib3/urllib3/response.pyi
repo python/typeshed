@@ -14,9 +14,9 @@ class DeflateDecoder:
     def decompress(self, data: bytes) -> bytes: ...
 
 class GzipDecoderState:
-    FIRST_MEMBER: int
-    OTHER_MEMBERS: int
-    SWALLOW_DATA: int
+    FIRST_MEMBER: Literal[0]
+    OTHER_MEMBERS: Literal[1]
+    SWALLOW_DATA: Literal[2]
 
 class GzipDecoder:
     def __init__(self) -> None: ...
