@@ -1,6 +1,7 @@
 import io
 from http.client import HTTPMessage as _HttplibHTTPMessage, HTTPResponse as _HttplibHTTPResponse
 from typing import Any, Iterator, Mapping
+from typing_extensions import Literal
 
 from urllib3.connectionpool import HTTPConnection
 
