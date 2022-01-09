@@ -12,7 +12,7 @@ CACHING_DISABLED: Any
 NO_CACHE_KEY: Any
 NO_DIALECT_SUPPORT: Any
 
-class DefaultDialect(interfaces.Dialect):
+class DefaultDialect(interfaces.Dialect):  # type: ignore[misc]
     execution_ctx_cls: ClassVar[type[interfaces.ExecutionContext]]
     statement_compiler: Any
     ddl_compiler: Any
@@ -146,7 +146,7 @@ class _StrDateTime(_RendersLiteral, sqltypes.DateTime): ...
 class _StrDate(_RendersLiteral, sqltypes.Date): ...
 class _StrTime(_RendersLiteral, sqltypes.Time): ...
 
-class StrCompileDialect(DefaultDialect):
+class StrCompileDialect(DefaultDialect):  # type: ignore[misc]
     statement_compiler: Any
     ddl_compiler: Any
     type_compiler: Any
