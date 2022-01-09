@@ -17,6 +17,7 @@ _StrType = TypeVar("_StrType", bound=Union[str, bytes])
 
 _VT = TypeVar("_VT")
 _T = TypeVar("_T")
+_ScoreCastFuncReturn = TypeVar("_ScoreCastFuncReturn")
 
 SYM_EMPTY: bytes
 EMPTY_RESPONSE: str
