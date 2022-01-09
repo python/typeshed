@@ -1,4 +1,4 @@
-from tkinter import Canvas, Frame, PhotoImage
+from tkinter import Canvas, Frame, Misc, PhotoImage, Scrollbar
 from typing import Any, Callable, ClassVar, Sequence, TypeVar, Union, overload
 
 # Note: '_Color' is the alias we use for arguments and _AnyColor is the
@@ -18,7 +18,17 @@ _PolygonCoords = Sequence[tuple[float, float]]
 # Vec2D is actually a custom subclass of 'tuple'.
 Vec2D = tuple[float, float]
 
-class ScrolledCanvas(Frame): ...
+# Does not actually inherit from Canvas, but dynamically gets all methods of Canvas
+class ScrolledCanvas(Canvas, Frame):  # type: ignore[misc]
+    bg: str
+    hscroll: Scrollbar
+    vscroll: Scrollbar
+    def __init__(
+        self, master: Misc | None, width: int = ..., height: int = ..., canvwidth: int = ..., canvheight: int = ...
+    ) -> None: ...
+    canvwidth: int
+    canvheight: int
+    def reset(self, canvwidth: int | None = ..., canvheight: int | None = ..., bg: str | None = ...) -> None: ...
 
 class TurtleScreenBase:
     cv: Canvas
