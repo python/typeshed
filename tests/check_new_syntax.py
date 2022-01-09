@@ -11,10 +11,10 @@ STUBS_SUPPORTING_PYTHON_2 = frozenset(
 
 CONTEXT_MANAGER_ALIASES = {"ContextManager": "AbstractContextManager", "AsyncContextManager": "AbstractAsyncContextManager"}
 CONTEXTLIB_ALIAS_ALLOWLIST = frozenset({Path("stdlib/contextlib.pyi")})
-FORBIDDEN_BUILTIN_TYPING_IMPORTS = frozenset({"List", "FrozenSet", "Set", "Dict", "Tuple"})
+FORBIDDEN_BUILTIN_TYPING_IMPORTS = frozenset({"List", "FrozenSet", "Set", "Dict", "Tuple", "Type"})
 
 IMPORTED_FROM_TYPING_NOT_TYPING_EXTENSIONS = frozenset(
-    {"ClassVar", "Type", "NewType", "overload", "Text", "Protocol", "runtime_checkable", "NoReturn"}
+    {"ClassVar", "NewType", "overload", "Text", "Protocol", "runtime_checkable", "NoReturn"}
 )
 
 IMPORTED_FROM_COLLECTIONS_ABC_NOT_TYPING_EXTENSIONS = frozenset(
@@ -73,7 +73,12 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
             elif node.module == "typing_extensions":
                 for imported_object in node.names:
                     imported_object_name = imported_object.name
-                    if imported_object_name in IMPORTED_FROM_TYPING_NOT_TYPING_EXTENSIONS:
+                    if imported_object_name in FORBIDDEN_BUILTIN_TYPING_IMPORTS:
+                        errors.append(
+                            f"{path}:{node.lineno}: "
+                            f"Use `builtins.{imported_object_name.lower()}` instead of `typing_extensions.{imported_object_name}`"
+                        )
+                    elif imported_object_name in IMPORTED_FROM_TYPING_NOT_TYPING_EXTENSIONS:
                         errors.append(
                             f"{path}:{node.lineno}: "
                             f"Use `typing.{imported_object_name}` instead of `typing_extensions.{imported_object_name}`"

@@ -2,7 +2,7 @@ import builtins
 import ctypes
 import sys
 from types import TracebackType
-from typing import Any, Type, TypeVar
+from typing import Any, TypeVar
 
 if sys.platform == "win32":
 
@@ -37,7 +37,7 @@ if sys.platform == "win32":
         def write(self, msg: bytes) -> None: ...
         def read(self, n: int) -> bytes: ...
         def __exit__(
-            self, exc_type: Type[BaseException] | None, exc_val: BaseException | None, tb: TracebackType | None
+            self, exc_type: type[BaseException] | None, exc_val: BaseException | None, tb: TracebackType | None
         ) -> None: ...
     READ_CONTROL: int
     STANDARD_RIGHTS_REQUIRED: int
