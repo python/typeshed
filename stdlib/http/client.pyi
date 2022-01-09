@@ -78,7 +78,7 @@ class HTTPMessage(email.message.Message):
 
 def parse_headers(fp: io.BufferedIOBase, _class: Callable[[], email.message.Message] = ...) -> HTTPMessage: ...
 
-class HTTPResponse(io.BufferedIOBase, BinaryIO):  # type: ignore # argument disparities between base classes
+class HTTPResponse(io.BufferedIOBase, BinaryIO):
     msg: HTTPMessage
     headers: HTTPMessage
     version: int
