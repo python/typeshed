@@ -1,8 +1,9 @@
-from typing import Any, TypeVar, NewType
+from typing import Any, NewType, TypeVar
 
 _T = TypeVar("_T")
 
 _CacheToken = NewType("_CacheToken", int)
+
 def get_cache_token() -> _CacheToken: ...
 
 class ABCMeta(type):
