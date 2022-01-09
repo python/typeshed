@@ -1,5 +1,5 @@
 from types import TracebackType
-from typing import Any, ClassVar, Protocol, Type
+from typing import Any, ClassVar, Protocol
 
 from redis.client import Redis
 
@@ -27,7 +27,7 @@ class Lock:
     def register_scripts(self) -> None: ...
     def __enter__(self) -> Lock: ...
     def __exit__(
-        self, exc_type: Type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None
+        self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None
     ) -> bool | None: ...
     def acquire(
         self, blocking: bool | None = ..., blocking_timeout: None | int | float = ..., token: str | bytes | None = ...

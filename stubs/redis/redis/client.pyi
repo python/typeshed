@@ -1,21 +1,7 @@
 import threading
 from _typeshed import Self, SupportsItems
 from datetime import datetime, timedelta
-from typing import (
-    Any,
-    Callable,
-    ClassVar,
-    Generic,
-    Iterable,
-    Iterator,
-    Mapping,
-    Pattern,
-    Sequence,
-    Type,
-    TypeVar,
-    Union,
-    overload,
-)
+from typing import Any, Callable, ClassVar, Generic, Iterable, Iterator, Mapping, Pattern, Sequence, TypeVar, Union, overload
 from typing_extensions import Literal
 
 from .commands import CoreCommands, RedisModuleCommands, SentinelCommands
@@ -273,7 +259,7 @@ class Redis(RedisModuleCommands, CoreCommands[_StrType], SentinelCommands, Gener
         timeout: float | None,
         sleep: float,
         blocking_timeout: float | None,
-        lock_class: Type[_LockType],
+        lock_class: type[_LockType],
         thread_local: bool = ...,
     ) -> _LockType: ...
     @overload
@@ -284,7 +270,7 @@ class Redis(RedisModuleCommands, CoreCommands[_StrType], SentinelCommands, Gener
         sleep: float = ...,
         blocking_timeout: float | None = ...,
         *,
-        lock_class: Type[_LockType],
+        lock_class: type[_LockType],
         thread_local: bool = ...,
     ) -> _LockType: ...
     def pubsub(self, *, shard_hint: Any = ..., ignore_subscribe_messages: bool = ...) -> PubSub: ...
