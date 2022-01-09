@@ -1,6 +1,5 @@
 urllib3.HTTPConnectionPool.__init__
 urllib3.HTTPConnectionPool.urlopen
-urllib3.HTTPResponse.__init__
 urllib3.HTTPSConnectionPool.__init__
 urllib3.NullHandler
 urllib3.PoolManager.connection_from_host
@@ -22,7 +21,6 @@ urllib3.connectionpool.ConnectionError
 urllib3.connectionpool.HTTPConnection.request
 urllib3.connectionpool.HTTPConnectionPool.__init__
 urllib3.connectionpool.HTTPConnectionPool.urlopen
-urllib3.connectionpool.HTTPResponse.__init__
 urllib3.connectionpool.HTTPSConnection.__init__
 urllib3.connectionpool.HTTPSConnectionPool.__init__
 urllib3.connectionpool.ProxyError.__init__
@@ -45,10 +43,7 @@ urllib3.poolmanager.ProxyManager.__init__
 urllib3.poolmanager.ProxyManager.connection_from_host
 urllib3.poolmanager.ProxyManager.urlopen
 urllib3.request.RequestMethods.request_encode_url
-urllib3.response.HTTPHeaderDict.from_httplib
-urllib3.response.HTTPHeaderDict.getlist
-urllib3.response.HTTPResponse.__init__
-urllib3.response.PY3
+urllib3.response.BrotliDecoder
 urllib3.util.Retry.is_forced_retry
 urllib3.util.Retry.sleep
 urllib3.util.connection.poll
