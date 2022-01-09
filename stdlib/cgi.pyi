@@ -1,10 +1,8 @@
 import sys
-from _typeshed import SupportsGetItem, SupportsItemAccess
+from _typeshed import Self, SupportsGetItem, SupportsItemAccess
 from builtins import type as _type
 from collections.abc import Iterable, Iterator, Mapping
-from typing import IO, Any, Protocol, TypeVar
-
-_T = TypeVar("_T", bound=FieldStorage)
+from typing import IO, Any, Protocol
 
 def parse(
     fp: IO[Any] | None = ...,
@@ -93,7 +91,7 @@ class FieldStorage:
         max_num_fields: int | None = ...,
         separator: str = ...,
     ) -> None: ...
-    def __enter__(self: _T) -> _T: ...
+    def __enter__(self: Self) -> Self: ...
     def __exit__(self, *args: Any) -> None: ...
     def __iter__(self) -> Iterator[str]: ...
     def __getitem__(self, key: str) -> Any: ...

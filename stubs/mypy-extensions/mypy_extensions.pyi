@@ -1,5 +1,6 @@
 import abc
 import sys
+from _typeshed import Self
 from typing import Any, Callable, Generic, ItemsView, KeysView, Mapping, TypeVar, ValuesView
 
 _T = TypeVar("_T")
@@ -7,7 +8,7 @@ _U = TypeVar("_U")
 
 # Internal mypy fallback type for all typed dicts (does not exist at runtime)
 class _TypedDict(Mapping[str, object], metaclass=abc.ABCMeta):
-    def copy(self: _T) -> _T: ...
+    def copy(self: Self) -> Self: ...
     # Using NoReturn so that only calls using mypy plugin hook that specialize the signature
     # can go through.
     def setdefault(self, k: NoReturn, default: object) -> object: ...

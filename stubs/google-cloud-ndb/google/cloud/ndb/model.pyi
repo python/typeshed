@@ -1,4 +1,5 @@
 import datetime
+from _typeshed import Self
 from collections.abc import Iterable, Sequence
 from typing import Callable, NoReturn
 from typing_extensions import Literal
@@ -345,7 +346,7 @@ class Model(_NotEqualMixin, metaclass=MetaModel):
     ) -> Model | None: ...
     @classmethod
     def get_or_insert(
-        cls: type[Model],
+        cls: type[Self],
         name: str,
         parent: key_module.Key | None = ...,
         namespace: str | None = ...,
@@ -367,7 +368,7 @@ class Model(_NotEqualMixin, metaclass=MetaModel):
         force_writes: bool | None = ...,
         _options=...,
         **kw_model_args,
-    ) -> Model: ...
+    ) -> Self: ...
     @classmethod
     def get_or_insert_async(
         cls: type[Model],

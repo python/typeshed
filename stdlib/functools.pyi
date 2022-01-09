@@ -1,6 +1,6 @@
 import sys
 import types
-from _typeshed import SupportsAllComparisons, SupportsItems
+from _typeshed import Self, SupportsAllComparisons, SupportsItems
 from typing import Any, Callable, Generic, Hashable, Iterable, NamedTuple, Sequence, Sized, TypeVar, overload
 from typing_extensions import final
 
@@ -51,7 +51,7 @@ class partial(Generic[_T]):
     func: Callable[..., _T]
     args: tuple[Any, ...]
     keywords: dict[str, Any]
-    def __new__(cls: type[_S], __func: Callable[..., _T], *args: Any, **kwargs: Any) -> _S: ...
+    def __new__(cls: type[Self], __func: Callable[..., _T], *args: Any, **kwargs: Any) -> Self: ...
     def __call__(__self, *args: Any, **kwargs: Any) -> _T: ...
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...

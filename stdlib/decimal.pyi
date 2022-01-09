@@ -1,12 +1,12 @@
 import numbers
 import sys
+from _typeshed import Self
 from types import TracebackType
-from typing import Any, Container, NamedTuple, Sequence, TypeVar, Union, overload
+from typing import Any, Container, NamedTuple, Sequence, Union, overload
 
 _Decimal = Union[Decimal, int]
 _DecimalNew = Union[Decimal, float, str, tuple[int, Sequence[int], int]]
 _ComparableNum = Union[Decimal, float, numbers.Rational]
-_DecimalT = TypeVar("_DecimalT", bound=Decimal)
 
 class DecimalTuple(NamedTuple):
     sign: int
@@ -50,7 +50,7 @@ def getcontext() -> Context: ...
 def localcontext(ctx: Context | None = ...) -> _ContextManager: ...
 
 class Decimal:
-    def __new__(cls: type[_DecimalT], value: _DecimalNew = ..., context: Context | None = ...) -> _DecimalT: ...
+    def __new__(cls: type[Self], value: _DecimalNew = ..., context: Context | None = ...) -> Self: ...
     @classmethod
     def from_float(cls, __f: float) -> Decimal: ...
     def __bool__(self) -> bool: ...
