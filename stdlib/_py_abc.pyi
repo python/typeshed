@@ -1,9 +1,10 @@
-from typing import Any, TypeVar
+from typing import Any, NewType, TypeVar
 
 _T = TypeVar("_T")
 
-# TODO: Change the return into a NewType bound to int after pytype/#597
-def get_cache_token() -> object: ...
+_CacheToken = NewType("_CacheToken", int)
+
+def get_cache_token() -> _CacheToken: ...
 
 class ABCMeta(type):
     def __new__(__mcls, __name: str, __bases: tuple[type[Any], ...], __namespace: dict[str, Any]) -> ABCMeta: ...
