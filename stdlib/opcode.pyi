@@ -1,7 +1,11 @@
 import sys
 from typing_extensions import Literal
 
-cmp_op: tuple[Literal["<"], Literal["<="], Literal["=="], Literal["!="], Literal[">"], Literal[">="]]
+if sys.version_info >= (3, 9):
+    cmp_op: tuple[Literal["<"], Literal["<="], Literal["=="], Literal["!="], Literal[">"], Literal[">="]]
+else:
+    cmp_op: tuple[Literal["<"], Literal["<="], Literal["=="], Literal["!="], Literal[">"], Literal[">="],
+                  Literal['in'], Literal['not in'], Literal['is'], Literal['is not'], Literal['exception match'], Literal['BAD']]
 hasconst: list[int]
 hasname: list[int]
 hasjrel: list[int]
