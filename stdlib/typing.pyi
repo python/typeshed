@@ -2,7 +2,7 @@ import collections  # Needed by aliases like DefaultDict, see mypy issue 2986
 import sys
 from _typeshed import Self, SupportsKeysAndGetItem
 from abc import ABCMeta, abstractmethod
-from types import BuiltinFunctionType, CodeType, FrameType, FunctionType, MethodType, ModuleType, TracebackType
+from types import BuiltinFunctionType, CodeType, FrameType, FunctionType, MethodType, ModuleType,  MappingProxyType, TracebackType
 from typing_extensions import Literal as _Literal, ParamSpec as _ParamSpec, final as _final
 
 if sys.version_info >= (3, 7):
@@ -414,6 +414,8 @@ class ItemsView(MappingView, AbstractSet[Tuple[_KT_co, _VT_co]], Generic[_KT_co,
     def __rsub__(self, o: Iterable[_T]) -> set[_T]: ...
     def __xor__(self, o: Iterable[_T]) -> set[tuple[_KT_co, _VT_co] | _T]: ...
     def __rxor__(self, o: Iterable[_T]) -> set[tuple[_KT_co, _VT_co] | _T]: ...
+    if sys.version_info >= (3, 10):
+        mapping: MappingProxyType[_KT_co, _VT_co]
 
 class KeysView(MappingView, AbstractSet[_KT_co], Generic[_KT_co]):
     def __init__(self, mapping: Mapping[_KT_co, Any]) -> None: ...  # undocumented
@@ -429,6 +431,8 @@ class KeysView(MappingView, AbstractSet[_KT_co], Generic[_KT_co]):
     def __rsub__(self, o: Iterable[_T]) -> set[_T]: ...
     def __xor__(self, o: Iterable[_T]) -> set[_KT_co | _T]: ...
     def __rxor__(self, o: Iterable[_T]) -> set[_KT_co | _T]: ...
+    if sys.version_info >= (3, 10):
+        mapping: MappingProxyType[_KT_co, _VT_co]
 
 class ValuesView(MappingView, Iterable[_VT_co], Generic[_VT_co]):
     def __init__(self, mapping: Mapping[Any, _VT_co]) -> None: ...  # undocumented
@@ -436,6 +440,8 @@ class ValuesView(MappingView, Iterable[_VT_co], Generic[_VT_co]):
     def __iter__(self) -> Iterator[_VT_co]: ...
     if sys.version_info >= (3, 8):
         def __reversed__(self) -> Iterator[_VT_co]: ...
+    if sys.version_info >= (3, 10):
+        mapping: MappingProxyType[_KT_co, _VT_co]
 
 @runtime_checkable
 class ContextManager(Protocol[_T_co]):
