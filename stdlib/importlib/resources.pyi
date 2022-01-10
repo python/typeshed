@@ -1,11 +1,9 @@
-import sys
-from typing import Any
-
 import os
+import sys
 from contextlib import AbstractContextManager
 from pathlib import Path
 from types import ModuleType
-from typing import BinaryIO, Iterator, TextIO, Union
+from typing import Any, BinaryIO, Iterator, TextIO, Union
 
 Package = Union[str, ModuleType]
 Resource = Union[str, os.PathLike[Any]]
