@@ -1,7 +1,6 @@
 import sys
 import types
 from _ast import AST
-from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import (
     OpenBinaryMode,
     OpenBinaryModeReading,
@@ -32,8 +31,10 @@ from typing import (
     ByteString,
     Callable,
     Generic,
+    ItemsView,
     Iterable,
     Iterator,
+    KeysView,
     Mapping,
     MutableMapping,
     MutableSequence,
@@ -51,6 +52,7 @@ from typing import (
     SupportsRound,
     TypeVar,
     Union,
+    ValuesView,
     overload,
 )
 from typing_extensions import Literal, SupportsIndex, TypeGuard, final
@@ -847,9 +849,9 @@ class dict(MutableMapping[_KT, _VT], Generic[_KT, _VT]):
     def __init__(self: dict[str, str], __iterable: Iterable[list[str]]) -> None: ...
     def __new__(cls: type[Self], *args: Any, **kwargs: Any) -> Self: ...
     def copy(self) -> dict[_KT, _VT]: ...
-    def keys(self) -> dict_keys[_KT, _VT]: ...
-    def values(self) -> dict_values[_KT, _VT]: ...
-    def items(self) -> dict_items[_KT, _VT]: ...
+    def keys(self) -> KeysView[_KT]: ...
+    def values(self) -> ValuesView[_VT]: ...
+    def items(self) -> ItemsView[_KT, _VT]: ...
     # Signature of `dict.fromkeys` should be kept identical to `fromkeys` methods of `OrderedDict`/`ChainMap`/`UserDict` in `collections`
     # TODO: the true signature of `dict.fromkeys` is not expressible in the current type system.
     # See #3800 & https://github.com/python/typing/issues/548#issuecomment-683336963.
