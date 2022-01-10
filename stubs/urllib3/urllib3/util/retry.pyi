@@ -1,7 +1,7 @@
 from typing import Any
 
 from .. import exceptions
-from http.client import HTTPResponse
+from ..response import HTTPResponse
 
 ConnectTimeoutError = exceptions.ConnectTimeoutError
 MaxRetryError = exceptions.MaxRetryError
