@@ -3,7 +3,7 @@ from _typeshed import ReadableBuffer, Self, WriteableBuffer
 from collections.abc import Iterable
 from enum import IntEnum, IntFlag
 from io import RawIOBase
-from typing import Any, BinaryIO, TextIO, TypeVar, overload
+from typing import Any, BinaryIO, TextIO, overload
 from typing_extensions import Literal
 
 # Ideally, we'd just do "from _socket import *". Unfortunately, socket
@@ -380,8 +380,6 @@ if sys.platform == "win32":
         SIO_RCVALL as SIO_RCVALL,
     )
 
-_T = TypeVar("_T")
-
 # Re-exported from errno
 EBADF: int
 EAGAIN: int
@@ -546,7 +544,7 @@ class socket(_socket.socket):
     ) -> None: ...
     def __enter__(self: Self) -> Self: ...
     def __exit__(self, *args: object) -> None: ...
-    def dup(self: _T) -> _T: ...  # noqa: F811
+    def dup(self: Self) -> Self: ...  # noqa: F811
     def accept(self) -> tuple[socket, _RetAddress]: ...
     # Note that the makefile's documented windows-specific behavior is not represented
     # mode strings with duplicates are intentionally excluded

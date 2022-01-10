@@ -2,9 +2,7 @@ import sys
 from _typeshed import Self
 from email.message import Message
 from types import TracebackType
-from typing import IO, Any, BinaryIO, Callable, Iterable, TypeVar
-
-_AIUT = TypeVar("_AIUT", bound=addbase)
+from typing import IO, Any, BinaryIO, Callable, Iterable
 
 class addbase(BinaryIO):
     fp: IO[bytes]
@@ -13,7 +11,7 @@ class addbase(BinaryIO):
     def __exit__(
         self, type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
     ) -> None: ...
-    def __iter__(self: _AIUT) -> _AIUT: ...
+    def __iter__(self: Self) -> Self: ...
     def __next__(self) -> bytes: ...
     def close(self) -> None: ...
     # These methods don't actually exist, but the class inherits at runtime from

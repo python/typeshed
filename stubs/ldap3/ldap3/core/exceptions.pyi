@@ -1,20 +1,19 @@
 import socket
-from typing import Any, TypeVar
-
-_T = TypeVar("_T")
+from _typeshed import Self
+from typing import Any
 
 class LDAPException(Exception): ...
 
 class LDAPOperationResult(LDAPException):
     def __new__(
-        cls: type[_T],
+        cls: type[Self],
         result: Any | None = ...,
         description: Any | None = ...,
         dn: Any | None = ...,
         message: Any | None = ...,
         response_type: Any | None = ...,
         response: Any | None = ...,
-    ) -> _T: ...
+    ) -> Self: ...
     result: Any
     description: Any
     dn: Any
