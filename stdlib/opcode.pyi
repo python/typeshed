@@ -1,7 +1,7 @@
 import sys
 from typing_extensions import Literal
 
-cmp_op: tuple[Literal['<'], Literal['<='], Literal['=='], Literal['!='], Literal['>'], Literal['>=']]
+cmp_op: tuple[Literal["<"], Literal["<="], Literal["=="], Literal["!="], Literal[">"], Literal[">="]]
 hasconst: list[int]
 hasname: list[int]
 hasjrel: list[int]
