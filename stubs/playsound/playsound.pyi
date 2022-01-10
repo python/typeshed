@@ -1,7 +1,5 @@
-from typing import Any
-
-logger: Any
+import pathlib
 
 class PlaysoundException(Exception): ...
 
-playsound: Any
+def playsound(self, path: str | pathlib.Path) -> None: ...
