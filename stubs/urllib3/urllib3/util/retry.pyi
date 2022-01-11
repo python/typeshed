@@ -11,14 +11,12 @@ ResponseError = exceptions.ResponseError
 
 log: Any
 
-
 class RequestHistory:
     method: str | None
     url: str | None
     error: Exception | None
     status: int | None
     redirect_location: str | None
-
 
 class Retry:
     DEFAULT_ALLOWED_METHODS: ClassVar[frozenset[str]]
@@ -41,7 +39,6 @@ class Retry:
     history: tuple[RequestHistory, ...] | None
     respect_retry_after_header: bool
     remove_headers_on_redirect: Collection[str]
-
     def __init__(
         self,
         total=...,
