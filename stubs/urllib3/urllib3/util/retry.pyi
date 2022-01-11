@@ -19,7 +19,6 @@ class RequestHistory(NamedTuple):
     status: int | None
     redirect_location: str | None
 
-
 class Retry:
     DEFAULT_ALLOWED_METHODS: ClassVar[frozenset[str]]
     RETRY_AFTER_STATUS_CODES: ClassVar[frozenset[int]]
@@ -29,7 +28,7 @@ class Retry:
     total: bool | int | None
     connect: int | None
     read: int | None
-    redirect:  Literal[True] | int | None
+    redirect: Literal[True] | int | None
     status: int | None
     other: int | None
     allowed_methods: Collection[str] | None
