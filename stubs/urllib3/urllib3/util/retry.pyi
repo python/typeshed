@@ -12,7 +12,13 @@ ResponseError = exceptions.ResponseError
 
 log: Any
 
-RequestHistory = NamedTuple
+class RequestHistory(NamedTuple):
+    method: str | None
+    url: str | None
+    error: Exception | None
+    status: int | None
+    redirect_location: str | None
+
 
 class Retry:
     DEFAULT_ALLOWED_METHODS: ClassVar[frozenset[str]]
