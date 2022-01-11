@@ -1,4 +1,4 @@
-from typing import Any, ClassVar
+from typing import Any, ClassVar, Iterable
 
 from .. import exceptions
 from ..response import HTTPResponse
@@ -17,18 +17,20 @@ class Retry:
     DEFAULT_REMOVE_HEADERS_ON_REDIRECT: ClassVar[frozenset[str]]
     DEFAULT_BACKOFF_MAX: ClassVar[int]
 
-    # Deprecated constants
-    DEFAULT_METHOD_WHITELIST: ClassVar[Any]
-    BACKOFF_MAX: ClassVar[Any]
-
-    total: Any
-    connect: Any
-    read: Any
-    redirect: Any
-    status_forcelist: Any
-    method_whitelist: Any
-    backoff_factor: Any
-    raise_on_redirect: Any
+    total: int
+    connect: int
+    read: int
+    redirect: int
+    status: int
+    other: int
+    status_forcelist: Iterable
+    allowed_methods: Iterable
+    backoff_factor: float
+    raise_on_status: bool
+    raise_on_redirect: bool
+    history: tuple
+    respect_retry_after_header: bool
+    remove_headers_on_redirect: Iterable
     def __init__(
         self,
         total=...,
