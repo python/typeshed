@@ -12,8 +12,15 @@ ResponseError = exceptions.ResponseError
 log: Any
 
 class Retry:
+    DEFAULT_ALLOWED_METHODS: frozenset[str]
+    RETRY_AFTER_STATUS_CODES: frozenset[int]
+    DEFAULT_REMOVE_HEADERS_ON_REDIRECT: frozenset[list[str]]
+    DEFAULT_BACKOFF_MAX: int
+
+    # Deprecated constants
     DEFAULT_METHOD_WHITELIST: Any
     BACKOFF_MAX: Any
+
     total: Any
     connect: Any
     read: Any
