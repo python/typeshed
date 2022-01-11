@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, ClassVar
 
 from .. import exceptions
 from ..response import HTTPResponse
@@ -12,14 +12,14 @@ ResponseError = exceptions.ResponseError
 log: Any
 
 class Retry:
-    DEFAULT_ALLOWED_METHODS: frozenset[str]
-    RETRY_AFTER_STATUS_CODES: frozenset[int]
-    DEFAULT_REMOVE_HEADERS_ON_REDIRECT: frozenset[str]
-    DEFAULT_BACKOFF_MAX: int
+    DEFAULT_ALLOWED_METHODS: ClassVar[frozenset[str]]
+    RETRY_AFTER_STATUS_CODES: ClassVar[frozenset[int]]
+    DEFAULT_REMOVE_HEADERS_ON_REDIRECT: ClassVar[frozenset[str]]
+    DEFAULT_BACKOFF_MAX: ClassVar[int]
 
     # Deprecated constants
-    DEFAULT_METHOD_WHITELIST: Any
-    BACKOFF_MAX: Any
+    DEFAULT_METHOD_WHITELIST: ClassVar[Any]
+    BACKOFF_MAX: ClassVar[Any]
 
     total: Any
     connect: Any
