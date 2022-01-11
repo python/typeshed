@@ -3,21 +3,21 @@ from typing import overload
 from typing_extensions import Literal
 
 if sys.platform == "win32":
-    SND_FILENAME: int
-    SND_ALIAS: int
-    SND_LOOP: int
-    SND_MEMORY: int
-    SND_PURGE: int
-    SND_ASYNC: int
-    SND_NODEFAULT: int
-    SND_NOSTOP: int
-    SND_NOWAIT: int
+    SND_FILENAME: Literal[0]
+    SND_ALIAS: Literal[0]
+    SND_LOOP: Literal[0]
+    SND_MEMORY: Literal[0]
+    SND_PURGE: Literal[0]
+    SND_ASYNC: Literal[0]
+    SND_NODEFAULT: Literal[0]
+    SND_NOSTOP: Literal[0]
+    SND_NOWAIT: Literal[0]
 
-    MB_ICONASTERISK: int
-    MB_ICONEXCLAMATION: int
-    MB_ICONHAND: int
-    MB_ICONQUESTION: int
-    MB_OK: int
+    MB_ICONASTERISK: Literal[0]
+    MB_ICONEXCLAMATION: Literal[0]
+    MB_ICONHAND: Literal[0]
+    MB_ICONQUESTION: Literal[0]
+    MB_OK: Literal[0]
     def Beep(frequency: int, duration: int) -> None: ...
     # Can actually accept anything ORed with 4, and if not it's definitely str, but that's inexpressible
     @overload
