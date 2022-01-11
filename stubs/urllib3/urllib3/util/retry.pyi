@@ -1,4 +1,4 @@
-from typing import Any, ClassVar, Collection, Optional, Union
+from typing import Any, ClassVar, Collection
 
 from .. import exceptions
 from ..response import HTTPResponse
@@ -13,11 +13,11 @@ log: Any
 
 
 class RequestHistory:
-    method: Optional[str]
-    url: Optional[str]
-    error: Optional[Exception]
-    status: Optional[int]
-    redirect_location: Optional[str]
+    method: str | None
+    url: str | None
+    error: Exception | None
+    status: int | None
+    redirect_location: str | None
 
 
 class Retry:
@@ -26,19 +26,19 @@ class Retry:
     DEFAULT_REMOVE_HEADERS_ON_REDIRECT: ClassVar[frozenset[str]]
     DEFAULT_BACKOFF_MAX: ClassVar[int]
 
-    total: Optional[Union[bool, int]]
-    connect: Optional[int]
-    read: Optional[int]
-    redirect: Optional[Union[bool, int]]
-    status: Optional[int]
-    other: Optional[int]
-    allowed_methods: Optional[Collection[str]]
-    status_forcelist: Optional[Collection[int]]
+    total: bool | int | None
+    connect: int | None
+    read: int | None
+    redirect: bool | int | None
+    status: int | None
+    other: int | None
+    allowed_methods: Collection[str] | None
+    status_forcelist: Collection[int] | None
     backoff_factor: float
     backoff_max: float
     raise_on_redirect: bool
     raise_on_status: bool
-    history: Optional[tuple[RequestHistory, ...]]
+    history: tuple[RequestHistory, ...] | None
     respect_retry_after_header: bool
     remove_headers_on_redirect: Collection[str]
 
@@ -65,7 +65,7 @@ class Retry:
     def from_int(cls, retries, redirect=..., default=...) -> "Retry": ...
     def get_backoff_time(self) -> float: ...
     def parse_retry_after(self, retry_after: str) -> float: ...
-    def get_retry_after(self, response: HTTPResponse) -> Optional[float]: ...
+    def get_retry_after(self, response: HTTPResponse) -> float | None: ...
     def sleep_for_retry(self, response: HTTPResponse) -> bool: ...
     def sleep(self, response: HTTPResponse | None = ...) -> None: ...
     def is_retry(self, method: str, status_code: int, has_retry_after: bool) -> bool: ...
