@@ -1,7 +1,10 @@
+import logging
+from types import TracebackType
 from typing import Any, ClassVar, Collection, NamedTuple
 from typing_extensions import Literal
 
 from .. import exceptions
+from ..connectionpool import ConnectionPool
 from ..response import HTTPResponse
 
 ConnectTimeoutError = exceptions.ConnectTimeoutError
@@ -10,7 +13,7 @@ ProtocolError = exceptions.ProtocolError
 ReadTimeoutError = exceptions.ReadTimeoutError
 ResponseError = exceptions.ResponseError
 
-log: Any
+log: logging.Logger
 
 class RequestHistory(NamedTuple):
     method: str | None
@@ -36,35 +39,35 @@ class Retry:
     backoff_factor: float
     raise_on_redirect: bool
     raise_on_status: bool
-    history: tuple[RequestHistory, ...] | tuple[()]
+    history: tuple[RequestHistory, ...]
     respect_retry_after_header: bool
     remove_headers_on_redirect: frozenset[str]
     def __init__(
         self,
-        total=...,
-        connect=...,
-        read=...,
-        redirect=...,
-        status=...,
-        other=...,
-        allowed_methods=...,
-        status_forcelist=...,
-        backoff_factor=...,
-        raise_on_redirect=...,
-        raise_on_status=...,
-        history=...,
-        respect_retry_after_header=...,
-        remove_headers_on_redirect=...,
-        method_whitelist=...,
+        total: bool | int | None = ...,
+        connect: int | None = ...,
+        read: int | None = ...,
+        redirect: bool | int | None = ...,
+        status: int | None = ...,
+        other: int | None = ...,
+        allowed_methods: Collection[str] | None = ...,
+        status_forcelist: Collection[int] | None = ...,
+        backoff_factor: float = ...,
+        raise_on_redirect: bool = ...,
+        raise_on_status: bool = ...,
+        history: tuple[RequestHistory, ...] | None = ...,
+        respect_retry_after_header: bool = ...,
+        remove_headers_on_redirect: Collection[str] = ...,
+        method_whitelist: Collection[str] | None = ...
     ) -> None: ...
-    def new(self, **kw): ...
+    def new(self, **kw: Any) -> Retry: ...
     @classmethod
-    def from_int(cls, retries, redirect=..., default=...) -> Retry: ...
-    def get_backoff_time(self): ...
+    def from_int(cls, retries: Retry | bool | int | None, redirect: bool | int | None =..., default: Retry | bool | int | None =...) -> Retry: ...
+    def get_backoff_time(self) -> float: ...
     def parse_retry_after(self, retry_after: str) -> float: ...
     def get_retry_after(self, response: HTTPResponse) -> float | None: ...
     def sleep_for_retry(self, response: HTTPResponse | None = ...) -> bool: ...
     def sleep(self, response: HTTPResponse | None = ...) -> None: ...
     def is_retry(self, method: str, status_code: int, has_retry_after: bool = ...) -> bool: ...
     def is_exhausted(self) -> bool: ...
-    def increment(self, method=..., url=..., response=..., error=..., _pool=..., _stacktrace=...) -> Retry: ...
+    def increment(self, method: str | None =..., url: str | None =..., response: HTTPResponse | None =..., error: Exception | None =..., _pool: ConnectionPool | None =..., _stacktrace: TracebackType | None =...) -> Retry: ...
