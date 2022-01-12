@@ -16,7 +16,7 @@ if sys.version_info >= (3, 7):
 else:
     _Path = StrPath
 
-DEFAULTSECT: Literal["DEFAULTSECT"]
+DEFAULTSECT: Literal["DEFAULT"]
 MAX_INTERPOLATION_DEPTH: Literal[10]
 
 class Interpolation:
