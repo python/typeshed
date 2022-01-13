@@ -8,7 +8,6 @@ requests.Session.put
 requests.adapters.PoolManager.connection_from_host
 requests.adapters.PoolManager.connection_from_url
 requests.adapters.PoolManager.urlopen
-requests.adapters.Retry.is_forced_retry
 requests.api.delete
 requests.api.get
 requests.api.head
