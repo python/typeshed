@@ -17,7 +17,7 @@ from typing_extensions import Literal, final
 #    (<textindex object: '1.0'>, <textindex object: '2.0'>)
 @final
 class Tcl_Obj:
-    string: str  # str(tclobj) returns this
+    string: str | bytes
     typename: str
     __hash__: None  # type: ignore[assignment]
     def __eq__(self, other): ...
