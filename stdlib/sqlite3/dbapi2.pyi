@@ -1,7 +1,7 @@
 import sys
 from _typeshed import Self, StrOrBytesPath
 from datetime import date, datetime, time
-from typing import Any, Callable, Generator, Iterable, Iterator, Protocol, Type, TypeVar
+from typing import Any, Callable, Generator, Iterable, Iterator, Protocol, TypeVar
 
 _T = TypeVar("_T")
 
@@ -94,7 +94,7 @@ if sys.version_info >= (3, 7):
         detect_types: int = ...,
         isolation_level: str | None = ...,
         check_same_thread: bool = ...,
-        factory: Type[Connection] | None = ...,
+        factory: type[Connection] | None = ...,
         cached_statements: int = ...,
         uri: bool = ...,
     ) -> Connection: ...
@@ -106,18 +106,18 @@ else:
         detect_types: int = ...,
         isolation_level: str | None = ...,
         check_same_thread: bool = ...,
-        factory: Type[Connection] | None = ...,
+        factory: type[Connection] | None = ...,
         cached_statements: int = ...,
         uri: bool = ...,
     ) -> Connection: ...
 
 def enable_callback_tracebacks(__enable: bool) -> None: ...
 def enable_shared_cache(enable: int) -> None: ...
-def register_adapter(__type: Type[_T], __caster: Callable[[_T], int | float | str | bytes]) -> None: ...
+def register_adapter(__type: type[_T], __caster: Callable[[_T], int | float | str | bytes]) -> None: ...
 def register_converter(__name: str, __converter: Callable[[bytes], Any]) -> None: ...
 
 if sys.version_info < (3, 8):
-    class Cache(object):
+    class Cache:
         def __init__(self, *args, **kwargs) -> None: ...
         def display(self, *args, **kwargs) -> None: ...
         def get(self, *args, **kwargs) -> None: ...
@@ -126,7 +126,7 @@ class _AggregateProtocol(Protocol):
     def step(self, value: int) -> None: ...
     def finalize(self) -> int: ...
 
-class Connection(object):
+class Connection:
     DataError: Any
     DatabaseError: Any
     Error: Any
@@ -221,12 +221,12 @@ class OperationalError(DatabaseError): ...
 
 OptimizedUnicode = str
 
-class PrepareProtocol(object):
+class PrepareProtocol:
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
 
 class ProgrammingError(DatabaseError): ...
 
-class Row(object):
+class Row:
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
     def keys(self): ...
     def __eq__(self, other): ...
@@ -241,7 +241,7 @@ class Row(object):
     def __ne__(self, other): ...
 
 if sys.version_info < (3, 8):
-    class Statement(object):
+    class Statement:
         def __init__(self, *args, **kwargs): ...
 
 class Warning(Exception): ...

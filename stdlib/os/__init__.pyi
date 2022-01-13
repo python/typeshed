@@ -1,5 +1,6 @@
 import sys
 from _typeshed import (
+    BytesPath,
     FileDescriptorLike,
     OpenBinaryMode,
     OpenBinaryModeReading,
@@ -90,6 +91,9 @@ if sys.platform != "win32":
     P_PGID: int
     P_ALL: int
 
+    if sys.platform == "linux" and sys.version_info >= (3, 9):
+        P_PIDFD: int
+
     WEXITED: int
     WSTOPPED: int
     WNOWAIT: int
@@ -98,6 +102,10 @@ if sys.platform != "win32":
     CLD_DUMPED: int
     CLD_TRAPPED: int
     CLD_CONTINUED: int
+
+    if sys.version_info >= (3, 9):
+        CLD_KILLED: int
+        CLD_STOPPED: int
 
     # TODO: SCHED_RESET_ON_FORK not available on darwin?
     # TODO: SCHED_BATCH and SCHED_IDLE are linux only?
@@ -173,14 +181,14 @@ if sys.platform != "win32" and sys.platform != "darwin":
     ST_NODEV: int
     ST_NODIRATIME: int
     ST_NOEXEC: int
-    ST_NOSUID: int
-    ST_RDONLY: int
     ST_RELATIME: int
     ST_SYNCHRONOUS: int
     ST_WRITE: int
 
 if sys.platform != "win32":
     NGROUPS_MAX: int
+    ST_NOSUID: int
+    ST_RDONLY: int
 
 curdir: str
 pardir: str
@@ -345,7 +353,7 @@ class stat_result(structseq[float], tuple[int, int, int, int, int, int, int, flo
     if sys.platform == "darwin":
         @property
         def st_flags(self) -> int: ...  # user defined flags for file
-    # Atributes documented as sometimes appearing, but deliberately omitted from the stub: `st_creator`, `st_rsize`, `st_type`.
+    # Attributes documented as sometimes appearing, but deliberately omitted from the stub: `st_creator`, `st_rsize`, `st_type`.
     # See https://github.com/python/typeshed/pull/6560#issuecomment-991253327
 
 @runtime_checkable
@@ -353,13 +361,11 @@ class PathLike(Protocol[_AnyStr_co]):
     def __fspath__(self) -> _AnyStr_co: ...
 
 @overload
-def listdir(path: str | None = ...) -> list[str]: ...
+def listdir(path: StrPath | None = ...) -> list[str]: ...
 @overload
-def listdir(path: bytes) -> list[bytes]: ...
+def listdir(path: BytesPath) -> list[bytes]: ...
 @overload
 def listdir(path: int) -> list[str]: ...
-@overload
-def listdir(path: PathLike[str]) -> list[str]: ...
 
 _FdOrAnyPath = Union[int, StrOrBytesPath]
 
@@ -380,54 +386,35 @@ class DirEntry(Generic[AnyStr]):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 if sys.version_info >= (3, 7):
-    @final
-    class statvfs_result(structseq[int], tuple[int, int, int, int, int, int, int, int, int, int, int]):
-        @property
-        def f_bsize(self) -> int: ...
-        @property
-        def f_frsize(self) -> int: ...
-        @property
-        def f_blocks(self) -> int: ...
-        @property
-        def f_bfree(self) -> int: ...
-        @property
-        def f_bavail(self) -> int: ...
-        @property
-        def f_files(self) -> int: ...
-        @property
-        def f_ffree(self) -> int: ...
-        @property
-        def f_favail(self) -> int: ...
-        @property
-        def f_flag(self) -> int: ...
-        @property
-        def f_namemax(self) -> int: ...
+    _StatVfsTuple = tuple[int, int, int, int, int, int, int, int, int, int, int]
+else:
+    _StatVfsTuple = tuple[int, int, int, int, int, int, int, int, int, int]
+
+@final
+class statvfs_result(structseq[int], _StatVfsTuple):
+    @property
+    def f_bsize(self) -> int: ...
+    @property
+    def f_frsize(self) -> int: ...
+    @property
+    def f_blocks(self) -> int: ...
+    @property
+    def f_bfree(self) -> int: ...
+    @property
+    def f_bavail(self) -> int: ...
+    @property
+    def f_files(self) -> int: ...
+    @property
+    def f_ffree(self) -> int: ...
+    @property
+    def f_favail(self) -> int: ...
+    @property
+    def f_flag(self) -> int: ...
+    @property
+    def f_namemax(self) -> int: ...
+    if sys.version_info >= (3, 7):
         @property
         def f_fsid(self) -> int: ...
-
-else:
-    @final
-    class statvfs_result(structseq[int], tuple[int, int, int, int, int, int, int, int, int, int]):
-        @property
-        def f_bsize(self) -> int: ...
-        @property
-        def f_frsize(self) -> int: ...
-        @property
-        def f_blocks(self) -> int: ...
-        @property
-        def f_bfree(self) -> int: ...
-        @property
-        def f_bavail(self) -> int: ...
-        @property
-        def f_files(self) -> int: ...
-        @property
-        def f_ffree(self) -> int: ...
-        @property
-        def f_favail(self) -> int: ...
-        @property
-        def f_flag(self) -> int: ...
-        @property
-        def f_namemax(self) -> int: ...
 
 # ----- os function stubs -----
 def fsencode(filename: StrOrBytesPath) -> bytes: ...
@@ -621,6 +608,16 @@ if sys.platform != "win32":
         def posix_fadvise(fd: int, offset: int, length: int, advice: int) -> None: ...
     def pread(__fd: int, __length: int, __offset: int) -> bytes: ...
     def pwrite(__fd: int, __buffer: bytes, __offset: int) -> int: ...
+    if sys.platform != "darwin":
+        if sys.version_info >= (3, 10):
+            RWF_APPEND: int  # docs say available on 3.7+, stubtest says otherwise
+        if sys.version_info >= (3, 7):
+            def preadv(__fd: int, __buffers: Iterable[bytes], __offset: int, __flags: int = ...) -> int: ...
+            def pwritev(__fd: int, __buffers: Iterable[bytes], __offset: int, __flags: int = ...) -> int: ...
+            RWF_DSYNC: int
+            RWF_SYNC: int
+            RWF_HIPRI: int
+            RWF_NOWAIT: int
     @overload
     def sendfile(out_fd: int, in_fd: int, offset: int | None, count: int) -> int: ...
     @overload
@@ -931,6 +928,9 @@ else:
             setsigdef: Iterable[int] = ...,
             scheduler: tuple[Any, sched_param] | None = ...,
         ) -> int: ...
+        POSIX_SPAWN_OPEN: int
+        POSIX_SPAWN_CLOSE: int
+        POSIX_SPAWN_DUP2: int
 
 if sys.platform != "win32":
     @final

@@ -66,7 +66,6 @@ _TBE = TypeVar("_TBE", bound="BaseException")
 class object:
     __doc__: str | None
     __dict__: Dict[str, Any]
-    __slots__: Text | Iterable[Text]
     __module__: str
     @property
     def __class__(self: _T) -> Type[_T]: ...

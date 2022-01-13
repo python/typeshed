@@ -1,5 +1,6 @@
-from tkinter import Canvas, Frame, PhotoImage
-from typing import Any, Callable, ClassVar, Sequence, TypeVar, Union, overload
+from _typeshed import Self
+from tkinter import Canvas, Frame, Misc, PhotoImage, Scrollbar
+from typing import Any, Callable, ClassVar, Sequence, Union, overload
 
 # Note: '_Color' is the alias we use for arguments and _AnyColor is the
 # alias we use for return types. Really, these two aliases should be the
@@ -18,9 +19,19 @@ _PolygonCoords = Sequence[tuple[float, float]]
 # Vec2D is actually a custom subclass of 'tuple'.
 Vec2D = tuple[float, float]
 
-class ScrolledCanvas(Frame): ...
+# Does not actually inherit from Canvas, but dynamically gets all methods of Canvas
+class ScrolledCanvas(Canvas, Frame):  # type: ignore[misc]
+    bg: str
+    hscroll: Scrollbar
+    vscroll: Scrollbar
+    def __init__(
+        self, master: Misc | None, width: int = ..., height: int = ..., canvwidth: int = ..., canvheight: int = ...
+    ) -> None: ...
+    canvwidth: int
+    canvheight: int
+    def reset(self, canvwidth: int | None = ..., canvheight: int | None = ..., bg: str | None = ...) -> None: ...
 
-class TurtleScreenBase(object):
+class TurtleScreenBase:
     cv: Canvas
     canvwidth: int
     canvheight: int
@@ -36,7 +47,7 @@ class TurtleScreenBase(object):
 class Terminator(Exception): ...
 class TurtleGraphicsError(Exception): ...
 
-class Shape(object):
+class Shape:
     def __init__(self, type_: str, data: _PolygonCoords | PhotoImage | None = ...) -> None: ...
     def addcomponent(self, poly: _PolygonCoords, fill: _Color, outline: _Color | None = ...) -> None: ...
 
@@ -94,7 +105,7 @@ class TurtleScreen(TurtleScreenBase):
     def onkeypress(self, fun: Callable[[], Any], key: str | None = ...) -> None: ...
     onkeyrelease = onkey
 
-class TNavigator(object):
+class TNavigator:
     START_ORIENTATION: dict[str, Vec2D]
     DEFAULT_MODE: str
     DEFAULT_ANGLEOFFSET: int
@@ -138,7 +149,7 @@ class TNavigator(object):
     setposition = goto
     seth = setheading
 
-class TPen(object):
+class TPen:
     def __init__(self, resizemode: str = ...) -> None: ...
     @overload
     def resizemode(self, rmode: None = ...) -> str: ...
@@ -205,8 +216,6 @@ class TPen(object):
     st = showturtle
     ht = hideturtle
 
-_T = TypeVar("_T")
-
 class RawTurtle(TPen, TNavigator):
     screen: TurtleScreen
     screens: ClassVar[list[TurtleScreen]]
@@ -217,7 +226,7 @@ class RawTurtle(TPen, TNavigator):
     def setundobuffer(self, size: int | None) -> None: ...
     def undobufferentries(self) -> int: ...
     def clear(self) -> None: ...
-    def clone(self: _T) -> _T: ...
+    def clone(self: Self) -> Self: ...
     @overload
     def shape(self, name: None = ...) -> str: ...
     @overload
@@ -262,7 +271,7 @@ class RawTurtle(TPen, TNavigator):
     def end_poly(self) -> None: ...
     def get_poly(self) -> _PolygonCoords | None: ...
     def getscreen(self) -> TurtleScreen: ...
-    def getturtle(self: _T) -> _T: ...
+    def getturtle(self: Self) -> Self: ...
     getpen = getturtle
     def onclick(self, fun: Callable[[float, float], Any], btn: int = ..., add: bool | None = ...) -> None: ...
     def onrelease(self, fun: Callable[[float, float], Any], btn: int = ..., add: bool | None = ...) -> None: ...

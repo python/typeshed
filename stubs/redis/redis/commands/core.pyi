@@ -314,18 +314,33 @@ class ScanCommands(Generic[_StrType]):
         **kwargs: _CommandOptions,
     ) -> tuple[int, list[_StrType]]: ...
     def scan_iter(
-        self, match: str | None = ..., count: int | None = ..., _type: str | None = ..., **kwargs: _CommandOptions
+        self, match: _Key | None = ..., count: int | None = ..., _type: str | None = ..., **kwargs: _CommandOptions
     ) -> Iterator[_StrType]: ...
     def sscan(
-        self, name: _Key, cursor: int = ..., match: str | None = ..., count: int | None = ...
+        self, name: _Key, cursor: int = ..., match: _Key | None = ..., count: int | None = ...
     ) -> tuple[int, list[_StrType]]: ...
-    def sscan_iter(self, name: _Key, match: str | None = ..., count: int | None = ...): ...
+    def sscan_iter(self, name: _Key, match: _Key | None = ..., count: int | None = ...) -> Iterator[_StrType]: ...
     def hscan(
-        self, name: _Key, cursor: int = ..., match: str | None = ..., count: int | None = ...
+        self, name: _Key, cursor: int = ..., match: _Key | None = ..., count: int | None = ...
     ) -> tuple[int, dict[_StrType, _StrType]]: ...
-    def hscan_iter(self, name: _Key, match: str | None = ..., count: int | None = ...): ...
-    def zscan(self, name, cursor: int = ..., match: Any | None = ..., count: Any | None = ..., score_cast_func=...): ...
-    def zscan_iter(self, name, match: Any | None = ..., count: Any | None = ..., score_cast_func=...): ...
+    def hscan_iter(
+        self, name: _Key, match: _Key | None = ..., count: int | None = ...
+    ) -> Iterator[tuple[_StrType, _StrType]]: ...
+    def zscan(
+        self,
+        name: _Key,
+        cursor: int = ...,
+        match: _Key | None = ...,
+        count: int | None = ...,
+        score_cast_func: Callable[[_StrType], _ScoreCastFuncReturn] = ...,
+    ) -> tuple[int, list[tuple[_StrType, _ScoreCastFuncReturn]]]: ...
+    def zscan_iter(
+        self,
+        name: _Key,
+        match: _Key | None = ...,
+        count: int | None = ...,
+        score_cast_func: Callable[[_StrType], _ScoreCastFuncReturn] = ...,
+    ) -> Iterator[tuple[_StrType, _ScoreCastFuncReturn]]: ...
 
 class SetCommands(Generic[_StrType]):
     def sadd(self, name: _Key, *values: _Value) -> int: ...
@@ -439,7 +454,7 @@ class SortedSetCommands(Generic[_StrType]):
         end: int,
         desc: bool,
         withscores: Literal[True],
-        score_cast_func: Callable[[float], _ScoreCastFuncReturn] = ...,
+        score_cast_func: Callable[[_StrType], _ScoreCastFuncReturn] = ...,
         byscore: bool = ...,
         bylex: bool = ...,
         offset: int | None = ...,
@@ -454,7 +469,7 @@ class SortedSetCommands(Generic[_StrType]):
         desc: bool = ...,
         *,
         withscores: Literal[True],
-        score_cast_func: Callable[[float], _ScoreCastFuncReturn] = ...,
+        score_cast_func: Callable[[_StrType], _ScoreCastFuncReturn] = ...,
         byscore: bool = ...,
         bylex: bool = ...,
         offset: int | None = ...,
@@ -468,7 +483,7 @@ class SortedSetCommands(Generic[_StrType]):
         end: int,
         desc: bool = ...,
         withscores: bool = ...,
-        score_cast_func: Callable[[Any], Any] = ...,
+        score_cast_func: Callable[[_StrType], Any] = ...,
         byscore: bool = ...,
         bylex: bool = ...,
         offset: int | None = ...,
@@ -481,7 +496,7 @@ class SortedSetCommands(Generic[_StrType]):
         start: int,
         end: int,
         withscores: Literal[True],
-        score_cast_func: Callable[[float], _ScoreCastFuncReturn] = ...,
+        score_cast_func: Callable[[_StrType], _ScoreCastFuncReturn] = ...,
     ) -> list[tuple[_StrType, _ScoreCastFuncReturn]]: ...
     @overload
     def zrevrange(
@@ -515,7 +530,7 @@ class SortedSetCommands(Generic[_StrType]):
         num: int | None = ...,
         *,
         withscores: Literal[True],
-        score_cast_func: Callable[[float], _ScoreCastFuncReturn] = ...,
+        score_cast_func: Callable[[_StrType], _ScoreCastFuncReturn] = ...,
     ) -> list[tuple[_StrType, _ScoreCastFuncReturn]]: ...
     @overload
     def zrangebyscore(
@@ -526,7 +541,7 @@ class SortedSetCommands(Generic[_StrType]):
         start: int | None = ...,
         num: int | None = ...,
         withscores: bool = ...,
-        score_cast_func: Callable[[Any], Any] = ...,
+        score_cast_func: Callable[[_StrType], Any] = ...,
     ) -> list[_StrType]: ...
     @overload
     def zrevrangebyscore(
@@ -538,7 +553,7 @@ class SortedSetCommands(Generic[_StrType]):
         num: int | None = ...,
         *,
         withscores: Literal[True],
-        score_cast_func: Callable[[float], _ScoreCastFuncReturn] = ...,
+        score_cast_func: Callable[[_StrType], _ScoreCastFuncReturn] = ...,
     ) -> list[tuple[_StrType, _ScoreCastFuncReturn]]: ...
     @overload
     def zrevrangebyscore(
@@ -549,7 +564,7 @@ class SortedSetCommands(Generic[_StrType]):
         start: int | None = ...,
         num: int | None = ...,
         withscores: bool = ...,
-        score_cast_func: Callable[[Any], Any] = ...,
+        score_cast_func: Callable[[_StrType], Any] = ...,
     ) -> list[_StrType]: ...
     def zrank(self, name: _Key, value: _Value) -> int | None: ...
     def zrem(self, name: _Key, *values: _Value) -> int: ...

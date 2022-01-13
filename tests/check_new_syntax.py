@@ -11,10 +11,10 @@ STUBS_SUPPORTING_PYTHON_2 = frozenset(
 
 CONTEXT_MANAGER_ALIASES = {"ContextManager": "AbstractContextManager", "AsyncContextManager": "AbstractAsyncContextManager"}
 CONTEXTLIB_ALIAS_ALLOWLIST = frozenset({Path("stdlib/contextlib.pyi")})
-FORBIDDEN_BUILTIN_TYPING_IMPORTS = frozenset({"List", "FrozenSet", "Set", "Dict", "Tuple"})
+FORBIDDEN_BUILTIN_TYPING_IMPORTS = frozenset({"List", "FrozenSet", "Set", "Dict", "Tuple", "Type"})
 
 IMPORTED_FROM_TYPING_NOT_TYPING_EXTENSIONS = frozenset(
-    {"ClassVar", "Type", "NewType", "overload", "Text", "Protocol", "runtime_checkable", "NoReturn"}
+    {"ClassVar", "NewType", "overload", "Text", "Protocol", "runtime_checkable", "NoReturn"}
 )
 
 IMPORTED_FROM_COLLECTIONS_ABC_NOT_TYPING_EXTENSIONS = frozenset(
@@ -73,7 +73,12 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
             elif node.module == "typing_extensions":
                 for imported_object in node.names:
                     imported_object_name = imported_object.name
-                    if imported_object_name in IMPORTED_FROM_TYPING_NOT_TYPING_EXTENSIONS:
+                    if imported_object_name in FORBIDDEN_BUILTIN_TYPING_IMPORTS:
+                        errors.append(
+                            f"{path}:{node.lineno}: "
+                            f"Use `builtins.{imported_object_name.lower()}` instead of `typing_extensions.{imported_object_name}`"
+                        )
+                    elif imported_object_name in IMPORTED_FROM_TYPING_NOT_TYPING_EXTENSIONS:
                         errors.append(
                             f"{path}:{node.lineno}: "
                             f"Use `typing.{imported_object_name}` instead of `typing_extensions.{imported_object_name}`"
@@ -128,9 +133,23 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
                 UnionFinder().visit(node.returns)
             self.generic_visit(node)
 
+    class ObjectClassdefFinder(ast.NodeVisitor):
+        def visit_ClassDef(self, node: ast.ClassDef) -> None:
+            if any(isinstance(base, ast.Name) and base.id == "object" for base in node.bases):
+                errors.append(
+                    f"{path}:{node.lineno}: Do not inherit from `object` explicitly, "
+                    f"as all classes implicitly inherit from `object` in Python 3"
+                )
+            self.generic_visit(node)
+
     class IfFinder(ast.NodeVisitor):
         def visit_If(self, node: ast.If) -> None:
-            if isinstance(node.test, ast.Compare) and ast.unparse(node.test).startswith("sys.version_info < ") and node.orelse:
+            if (
+                isinstance(node.test, ast.Compare)
+                and ast.unparse(node.test).startswith("sys.version_info < ")
+                and node.orelse
+                and not (len(node.orelse) == 1 and isinstance(node.orelse[0], ast.If))  # elif statement (#6728)
+            ):
                 new_syntax = "if " + ast.unparse(node.test).replace("<", ">=", 1)
                 errors.append(
                     f"{path}:{node.lineno}: When using if/else with sys.version_info, "
@@ -140,6 +159,9 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
 
     if path != Path("stdlib/typing_extensions.pyi"):
         OldSyntaxFinder().visit(tree)
+
+    if not python_2_support_required:
+        ObjectClassdefFinder().visit(tree)
 
     IfFinder().visit(tree)
     return errors

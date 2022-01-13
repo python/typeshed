@@ -33,9 +33,11 @@ ossaudiodev
 spwd
 
 # Platform differences that cannot be captured by the type system
-fcntl.[A-Z0-9_]+
 os.SCHED_[A-Z_]+
 posix.SCHED_[A-Z_]+
+
+# Some of these exist on non-windows, but they are useless and this is not intended
+stat.FILE_ATTRIBUTE_[A-Z_]+
 
 # Loadable SQLite extensions are disabled on GitHub runners
 (sqlite3(.dbapi2)?.Connection.enable_load_extension)?
@@ -46,8 +48,6 @@ distutils.msvccompiler.MSVCCompiler.get_msvc_paths
 distutils.msvccompiler.MSVCCompiler.set_path_env_var
 distutils.msvccompiler.MacroExpander
 mimetypes.MimeTypes.read_windows_registry
-os.ST_NOSUID
-os.ST_RDONLY
 selectors.DefaultSelector.fileno
 socket.AddressInfo.AI_DEFAULT
 socket.AddressInfo.AI_MASK
