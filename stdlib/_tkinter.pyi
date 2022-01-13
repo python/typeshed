@@ -105,11 +105,11 @@ def create(
     __screenName: str | None = ...,
     __baseName: str = ...,
     __className: str = ...,
-    interactive: bool = ...,
-    wantobjects: bool = ...,
-    wantTk: bool = ...,
-    sync: bool = ...,
-    use: Any | None = ...,
+    __interactive: bool = ...,
+    __wantobjects: bool = ...,
+    __wantTk: bool = ...,
+    __sync: bool = ...,
+    __use: str | None = ...,
 ): ...
 def getbusywaitinterval(): ...
 def setbusywaitinterval(__new_val): ...
