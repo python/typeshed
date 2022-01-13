@@ -224,7 +224,7 @@ replacing `libraryname` with the name of the library below:
 When the script has finished running, it will print instructions telling you what to do next.
 
 If it has been a while since you set up the virtualenv, make sure you have
-the latest mypy (`pip install --upgrade mypy`) before running the script.
+the latest mypy (`pip install -r requirements-tests.txt`) before running the script.
 
 ### Supported type system features
 
