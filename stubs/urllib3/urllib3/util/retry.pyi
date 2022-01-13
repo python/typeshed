@@ -35,7 +35,7 @@ class Retry:
     redirect: Literal[True] | int | None
     status: int | None
     other: int | None
-    allowed_methods: Collection[str] | None
+    allowed_methods: Collection[str] | Literal[False] | None
     status_forcelist: Collection[int]
     backoff_factor: float
     raise_on_redirect: bool
@@ -51,7 +51,7 @@ class Retry:
         redirect: bool | int | None = ...,
         status: int | None = ...,
         other: int | None = ...,
-        allowed_methods: Collection[str] | None = ...,
+        allowed_methods: Collection[str] | Literal[False] | None = ...,
         status_forcelist: Collection[int] | None = ...,
         backoff_factor: float = ...,
         raise_on_redirect: bool = ...,
