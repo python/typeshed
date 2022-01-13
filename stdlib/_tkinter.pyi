@@ -1,5 +1,5 @@
 import sys
-from typing import Any, ClassVar
+from typing import Any
 from typing_extensions import Literal, final
 
 # _tkinter is meant to be only used internally by tkinter, but some tkinter
