@@ -376,7 +376,6 @@ tkinter.Tk.call
 tkinter.Tk.createcommand
 tkinter.Tk.createfilehandler
 tkinter.Tk.createtimerhandler
-tkinter.Tk.deletecommand
 tkinter.Tk.deletefilehandler
 tkinter.Tk.dooneevent
 tkinter.Tk.evalfile
@@ -393,7 +392,6 @@ tkinter.Tk.globalsetvar
 tkinter.Tk.globalunsetvar
 tkinter.Tk.interpaddr
 tkinter.Tk.mainloop
-tkinter.Tk.quit
 tkinter.Tk.record
 tkinter.Tk.setvar
 tkinter.Tk.split
