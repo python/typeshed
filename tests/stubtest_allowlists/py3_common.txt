@@ -374,9 +374,7 @@ tkinter.Place.slaves
 tkinter.Tk.adderrorinfo
 tkinter.Tk.call
 tkinter.Tk.createcommand
-tkinter.Tk.createfilehandler
 tkinter.Tk.createtimerhandler
-tkinter.Tk.deletefilehandler
 tkinter.Tk.dooneevent
 tkinter.Tk.evalfile
 tkinter.Tk.exprboolean

@@ -43,6 +43,10 @@ stat.FILE_ATTRIBUTE_[A-Z_]+
 (sqlite3(.dbapi2)?.Connection.enable_load_extension)?
 (sqlite3(.dbapi2)?.Connection.load_extension)?
 
+# Methods that come from __getattr__() at runtime
+tkinter.Tk.createfilehandler
+tkinter.Tk.deletefilehandler
+
 # Exists at runtime, but missing from stubs
 distutils.msvccompiler.MSVCCompiler.get_msvc_paths
 distutils.msvccompiler.MSVCCompiler.set_path_env_var
