@@ -212,7 +212,7 @@ It generates stubs automatically using a tool called
 [stubgen](https://mypy.readthedocs.io/en/latest/stubgen.html) that comes with mypy.
 
 To get started, fork typeshed, clone your fork, and then
-[create a virtualenv](#or-create-a-local-development-environment).
+[create a virtualenv](#-or-create-a-local-development-environment).
 You can then install the library with `pip` into the virtualenv and run the script,
 replacing `libraryname` with the name of the library below:
 
