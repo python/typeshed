@@ -101,8 +101,15 @@ TK_VERSION: str
 class TkttType:
     def deletetimerhandler(self): ...
 
-def create(__screenName: str | None =..., __baseName:str=..., __className:str=...,
-interactive:bool=..., wantobjects:bool=..., wantTk:bool=..., sync:bool=...,
-use: Any | None =...): ...
+def create(
+    __screenName: str | None = ...,
+    __baseName: str = ...,
+    __className: str = ...,
+    interactive: bool = ...,
+    wantobjects: bool = ...,
+    wantTk: bool = ...,
+    sync: bool = ...,
+    use: Any | None = ...,
+): ...
 def getbusywaitinterval(): ...
 def setbusywaitinterval(__new_val): ...
