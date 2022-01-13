@@ -217,8 +217,8 @@ You can then install the library with `pip` into the virtualenv and run the scri
 replacing `libraryname` with the name of the library below:
 
 ```
-$ pip install libraryname
-$ python3 scripts/create_baseline_stubs.py libraryname
+(.venv3)$ pip install libraryname
+(.venv3)$ python3 scripts/create_baseline_stubs.py libraryname
 ```
 
 When the script has finished running, it will print instructions telling you what to do next.
