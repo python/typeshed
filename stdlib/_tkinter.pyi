@@ -103,7 +103,7 @@ class TkttType:
 
 def create(
     __screenName: str | None = ...,
-    __baseName: str = ...,
+    __baseName: str | None = ...,
     __className: str = ...,
     __interactive: bool = ...,
     __wantobjects: bool = ...,
