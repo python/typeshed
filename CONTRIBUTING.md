@@ -36,6 +36,8 @@ need fixing.
 
 If you prefer to run the tests & formatting locally, it's
 possible too. Follow platform-specific instructions below.
+For more information about our available tests, see
+[tests/README.md](tests/README.md).
 
 Whichever platform you're using, you will need a
 virtual environment. If you're not familiar with what it is and how it works,
@@ -498,17 +500,6 @@ To format and check your stubs, run the following commands:
 (.venv3)$ isort stdlib stubs
 (.venv3)$ flake8
 ```
-
-
-## Running the tests
-
-The tests are automatically run on every PR and push to the repo.
-Therefore you don't need to run them locally, unless you want to run
-them before making a pull request or you want to debug some problem without
-creating several small commits.
-
-For more information about our available tests, see
-[tests/README.md](tests/README.md).
 
 
 ## Submitting Changes
