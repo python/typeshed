@@ -381,17 +381,11 @@ tkinter.Tk.exprboolean
 tkinter.Tk.exprdouble
 tkinter.Tk.exprlong
 tkinter.Tk.exprstring
-tkinter.Tk.getboolean
-tkinter.Tk.getdouble
-tkinter.Tk.getint
-tkinter.Tk.getvar
 tkinter.Tk.globalgetvar
 tkinter.Tk.globalsetvar
 tkinter.Tk.globalunsetvar
 tkinter.Tk.interpaddr
-tkinter.Tk.mainloop
 tkinter.Tk.record
-tkinter.Tk.setvar
 tkinter.Tk.split
 tkinter.Tk.splitlist
 tkinter.Tk.unsetvar
