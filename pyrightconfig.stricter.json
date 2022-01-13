@@ -10,7 +10,7 @@
         "stdlib/distutils/command",
         "stdlib/lib2to3/refactor.pyi",
         "stdlib/sqlite3/dbapi2.pyi",
-        "stdlib/_tkinter",
+        "stdlib/_tkinter.pyi",
         "stdlib/tkinter",
         "stdlib/unittest/mock.pyi",
         "stdlib/xml/dom/NodeFilter.pyi",
