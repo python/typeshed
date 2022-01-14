@@ -5,6 +5,7 @@ from . import connectionpool, filepost, poolmanager, response
 from .util import request as _request, retry, timeout, url
 
 __license__: Any
+__version__: str
 
 HTTPConnectionPool = connectionpool.HTTPConnectionPool
 HTTPSConnectionPool = connectionpool.HTTPSConnectionPool

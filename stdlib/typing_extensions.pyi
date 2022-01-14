@@ -22,7 +22,6 @@ from typing import (
     NewType as NewType,
     NoReturn as NoReturn,
     Text as Text,
-    Tuple,
     Type as Type,
     TypeVar,
     ValuesView,
@@ -32,7 +31,7 @@ from typing import (
 
 _T = TypeVar("_T")
 _F = TypeVar("_F", bound=Callable[..., Any])
-_TC = TypeVar("_TC", bound=Type[object])
+_TC = TypeVar("_TC", bound=type[object])
 
 class _SpecialForm:
     def __getitem__(self, typeargs: Any) -> Any: ...
@@ -87,7 +86,7 @@ if sys.version_info >= (3, 7):
         localns: dict[str, Any] | None = ...,
         include_extras: bool = ...,
     ) -> dict[str, Any]: ...
-    def get_args(tp: Any) -> Tuple[Any, ...]: ...
+    def get_args(tp: Any) -> tuple[Any, ...]: ...
     def get_origin(tp: Any) -> Any | None: ...
 
 Annotated: _SpecialForm = ...
@@ -110,11 +109,11 @@ else:
         def __init__(self, origin: ParamSpec) -> None: ...
     class ParamSpec:
         __name__: str
-        __bound__: Type[Any] | None
+        __bound__: type[Any] | None
         __covariant__: bool
         __contravariant__: bool
         def __init__(
-            self, name: str, *, bound: None | Type[Any] | str = ..., contravariant: bool = ..., covariant: bool = ...
+            self, name: str, *, bound: None | type[Any] | str = ..., contravariant: bool = ..., covariant: bool = ...
         ) -> None: ...
         @property
         def args(self) -> ParamSpecArgs: ...

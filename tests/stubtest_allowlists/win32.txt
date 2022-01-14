@@ -1,6 +1,5 @@
 _msi.MSI[A-Z_]+
 _msi.PID_[A-Z_]+
-_stat.FILE_ATTRIBUTE_[A-Z_]+
 ctypes.GetLastError  # Is actually a pointer
 distutils.archive_util.getgrnam
 distutils.archive_util.getpwnam

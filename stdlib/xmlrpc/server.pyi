@@ -3,11 +3,11 @@ import pydoc
 import socketserver
 import sys
 from datetime import datetime
-from typing import Any, Callable, Dict, Iterable, List, Mapping, Pattern, Protocol, Tuple, Type, Union
+from typing import Any, Callable, Iterable, Mapping, Pattern, Protocol, Union
 from xmlrpc.client import Fault
 
 # TODO: Recursive type on tuple, list, dict
-_Marshallable = Union[None, bool, int, float, str, bytes, Tuple[Any, ...], List[Any], Dict[Any, Any], datetime]
+_Marshallable = Union[None, bool, int, float, str, bytes, tuple[Any, ...], list[Any], dict[Any, Any], datetime]
 
 # The dispatch accepts anywhere from 0 to N arguments, no easy way to allow this in mypy
 class _DispatchArity0(Protocol):
@@ -53,7 +53,7 @@ class SimpleXMLRPCDispatcher:  # undocumented
     def _marshaled_dispatch(
         self,
         data: str,
-        dispatch_method: Callable[[str | None, Tuple[_Marshallable, ...]], Fault | Tuple[_Marshallable, ...]] | None = ...,
+        dispatch_method: Callable[[str | None, tuple[_Marshallable, ...]], Fault | tuple[_Marshallable, ...]] | None = ...,
         path: Any | None = ...,
     ) -> str: ...  # undocumented
     def system_listMethods(self) -> list[str]: ...  # undocumented
@@ -81,7 +81,7 @@ class SimpleXMLRPCServer(socketserver.TCPServer, SimpleXMLRPCDispatcher):
     def __init__(
         self,
         addr: tuple[str, int],
-        requestHandler: Type[SimpleXMLRPCRequestHandler] = ...,
+        requestHandler: type[SimpleXMLRPCRequestHandler] = ...,
         logRequests: bool = ...,
         allow_none: bool = ...,
         encoding: str | None = ...,
@@ -97,7 +97,7 @@ class MultiPathXMLRPCServer(SimpleXMLRPCServer):  # undocumented
     def __init__(
         self,
         addr: tuple[str, int],
-        requestHandler: Type[SimpleXMLRPCRequestHandler] = ...,
+        requestHandler: type[SimpleXMLRPCRequestHandler] = ...,
         logRequests: bool = ...,
         allow_none: bool = ...,
         encoding: str | None = ...,
@@ -109,7 +109,7 @@ class MultiPathXMLRPCServer(SimpleXMLRPCServer):  # undocumented
     def _marshaled_dispatch(
         self,
         data: str,
-        dispatch_method: Callable[[str | None, Tuple[_Marshallable, ...]], Fault | Tuple[_Marshallable, ...]] | None = ...,
+        dispatch_method: Callable[[str | None, tuple[_Marshallable, ...]], Fault | tuple[_Marshallable, ...]] | None = ...,
         path: Any | None = ...,
     ) -> str: ...
 
@@ -150,7 +150,7 @@ class DocXMLRPCServer(SimpleXMLRPCServer, XMLRPCDocGenerator):
     def __init__(
         self,
         addr: tuple[str, int],
-        requestHandler: Type[SimpleXMLRPCRequestHandler] = ...,
+        requestHandler: type[SimpleXMLRPCRequestHandler] = ...,
         logRequests: bool = ...,
         allow_none: bool = ...,
         encoding: str | None = ...,

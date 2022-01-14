@@ -10,6 +10,7 @@
         "stdlib/distutils/command",
         "stdlib/lib2to3/refactor.pyi",
         "stdlib/sqlite3/dbapi2.pyi",
+        "stdlib/_tkinter.pyi",
         "stdlib/tkinter",
         "stdlib/unittest/mock.pyi",
         "stdlib/xml/dom/NodeFilter.pyi",
@@ -46,6 +47,7 @@
         "stubs/prettytable",
         "stubs/protobuf",
         "stubs/google-cloud-ndb",
+        "stubs/playsound",
         "stubs/psutil",
         "stubs/psycopg2",
         "stubs/Pygments",
@@ -63,6 +65,7 @@
         "stubs/SQLAlchemy",
         "stubs/stripe",
         "stubs/ttkthemes",
+        "stubs/urllib3",
         "stubs/vobject"
     ],
     "typeCheckingMode": "basic",

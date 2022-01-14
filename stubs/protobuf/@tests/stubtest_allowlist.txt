@@ -99,13 +99,8 @@ google.protobuf.duration_pb2.Duration.__init__
 google.protobuf.empty_pb2.Empty.__init__
 google.protobuf.field_mask_pb2.FieldMask.__init__
 google.protobuf.internal.containers.BaseContainer.sort
-google.protobuf.internal.containers.Mapping
 google.protobuf.internal.containers.MessageMap.__init__
 google.protobuf.internal.containers.MessageMap.get
-google.protobuf.internal.containers.MutableMapping.__delitem__
-google.protobuf.internal.containers.MutableMapping.__setitem__
-google.protobuf.internal.containers.MutableMapping.pop
-google.protobuf.internal.containers.MutableMapping.setdefault
 google.protobuf.internal.containers.RepeatedCompositeFieldContainer.__init__
 google.protobuf.internal.containers.RepeatedScalarFieldContainer.__init__
 google.protobuf.internal.containers.ScalarMap.__init__
@@ -123,7 +118,6 @@ google.protobuf.internal.well_known_types.Error
 google.protobuf.internal.well_known_types.ParseError
 google.protobuf.message.Message.DESCRIPTOR
 google.protobuf.message.Message.Extensions
-google.protobuf.message.Message.FromString
 google.protobuf.message.Message.SerializePartialToString
 google.protobuf.message.Message.SerializeToString
 google.protobuf.message.Message.__init__
