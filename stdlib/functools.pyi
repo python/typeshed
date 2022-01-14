@@ -40,11 +40,7 @@ else:
     def lru_cache(maxsize: int | None = ..., typed: bool = ...) -> Callable[[Callable[..., _T]], _lru_cache_wrapper[_T]]: ...
 
 WRAPPER_ASSIGNMENTS: tuple[
-    Literal['__module__'], 
-    Literal['__name__'], 
-    Literal['__qualname__'], 
-    Literal['__doc__'],
-    Literal['__annotations__'],
+    Literal["__module__"], Literal["__name__"], Literal["__qualname__"], Literal["__doc__"], Literal["__annotations__"],
 ]
 WRAPPER_UPDATES: tuple[Literal["__dict__"]]
 
