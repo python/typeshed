@@ -1,8 +1,8 @@
 from _typeshed import WriteableBuffer
-from io import BufferedIOBase, RawIOBase
+from io import BufferedIOBase, RawIOBase, DEFAULT_BUFFER_SIZE
 from typing import Any, Callable, Protocol
 
-BUFFER_SIZE: Any
+BUFFER_SIZE = DEFAULT_BUFFER_SIZE
 
 class _Reader(Protocol):
     def read(self, __n: int) -> bytes: ...
