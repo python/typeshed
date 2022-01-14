@@ -1,5 +1,5 @@
 from _typeshed import WriteableBuffer
-from io import BufferedIOBase, RawIOBase, DEFAULT_BUFFER_SIZE
+from io import DEFAULT_BUFFER_SIZE, BufferedIOBase, RawIOBase
 from typing import Any, Callable, Protocol
 
 BUFFER_SIZE = DEFAULT_BUFFER_SIZE
