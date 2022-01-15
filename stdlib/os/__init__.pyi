@@ -30,7 +30,6 @@ from typing import (
     NoReturn,
     Protocol,
     Sequence,
-    Tuple,
     TypeVar,
     Union,
     overload,
@@ -252,7 +251,7 @@ class _Environ(MutableMapping[AnyStr, AnyStr], Generic[AnyStr]):
         @overload
         def __ior__(self: Self, __value: Mapping[AnyStr, AnyStr]) -> Self: ...
         @overload
-        def __ior__(self: Self, __value: Iterable[Tuple[AnyStr, AnyStr]]) -> Self: ...
+        def __ior__(self: Self, __value: Iterable[tuple[AnyStr, AnyStr]]) -> Self: ...
 
 environ: _Environ[str]
 if sys.platform != "win32":
