@@ -30,6 +30,7 @@ from typing import (
     NoReturn,
     Protocol,
     Sequence,
+    Tuple,
     TypeVar,
     Union,
     overload,
@@ -245,6 +246,13 @@ class _Environ(MutableMapping[AnyStr, AnyStr], Generic[AnyStr]):
     def __setitem__(self, key: AnyStr, value: AnyStr) -> None: ...
     def __iter__(self) -> Iterator[AnyStr]: ...
     def __len__(self) -> int: ...
+    if sys.version_info >= (3, 9):
+        # We use @overload instead of a Union for reasons similar to those given for
+        # overloading MutableMapping.update in stdlib/typing.pyi
+        @overload
+        def __ior__(self, __value: Mapping[AnyStr, AnyStr]) -> Self: ...
+        @overload
+        def __ior__(self, __value: Iterable[Tuple[AnyStr, AnyStr]]) -> Self: ...
 
 environ: _Environ[str]
 if sys.platform != "win32":
