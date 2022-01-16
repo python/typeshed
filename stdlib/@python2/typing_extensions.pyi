@@ -1,4 +1,5 @@
 import abc
+from _typeshed import Self
 from typing import (
     TYPE_CHECKING as TYPE_CHECKING,
     Any,
@@ -45,7 +46,7 @@ def IntVar(name: str) -> Any: ...  # returns a new TypeVar
 
 # Internal mypy fallback type for all typed dicts (does not exist at runtime)
 class _TypedDict(Mapping[str, object], metaclass=abc.ABCMeta):
-    def copy(self: _T) -> _T: ...
+    def copy(self: Self) -> Self: ...
     # Using NoReturn so that only calls using mypy plugin hook that specialize the signature
     # can go through.
     def setdefault(self, k: NoReturn, default: object) -> object: ...
