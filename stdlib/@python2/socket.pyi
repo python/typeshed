@@ -1,5 +1,5 @@
 import sys
-from typing import Any, BinaryIO, Iterable, List, Text, Tuple, TypeVar, Union, overload
+from typing import Any, BinaryIO, Iterable, List, Text, Tuple, Union, overload
 
 # ----- Constants -----
 # Some socket families are listed in the "Socket families" section of the docs,
@@ -380,7 +380,6 @@ _RetAddress = Any
 _WriteBuffer = Union[bytearray, memoryview]
 
 _CMSG = Tuple[int, int, bytes]
-_SelfT = TypeVar("_SelfT", bound=socket)
 
 class socket:
     family: int

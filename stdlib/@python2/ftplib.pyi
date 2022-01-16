@@ -1,10 +1,9 @@
 from _typeshed import SupportsRead, SupportsReadline
 from socket import socket
 from ssl import SSLContext
-from typing import Any, BinaryIO, Callable, List, Text, Tuple, Type, TypeVar, Union
+from typing import Any, BinaryIO, Callable, List, Text, Tuple, Type, Union
 from typing_extensions import Literal
 
-_T = TypeVar("_T")
 _IntOrStr = Union[int, Text]
 
 MSG_OOB: int
