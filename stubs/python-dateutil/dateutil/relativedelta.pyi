@@ -4,6 +4,8 @@ from typing import SupportsFloat, TypeVar, overload
 
 from ._common import weekday
 
+# We need the extra "Self" TypeVar to avoid overlapping __add__/__radd__ complaints from mypy
+_SelfT = TypeVar("_SelfT", bound=relativedelta)
 _DateT = TypeVar("_DateT", date, datetime)
 # Work around attribute and type having the same name.
 _weekday = weekday
@@ -65,15 +67,15 @@ class relativedelta(object):
     # TODO: use Union when mypy will handle it properly in overloaded operator
     # methods (#2129, #1442, #1264 in mypy)
     @overload
-    def __add__(self: Self, other: relativedelta) -> Self: ...
+    def __add__(self: _SelfT, other: relativedelta) -> _SelfT: ...  # noqa: Y019
     @overload
-    def __add__(self: Self, other: timedelta) -> Self: ...
+    def __add__(self: _SelfT, other: timedelta) -> _SelfT: ...  # noqa: Y019
     @overload
     def __add__(self, other: _DateT) -> _DateT: ...
     @overload
-    def __radd__(self: Self, other: relativedelta) -> Self: ...
+    def __radd__(self: _SelfT, other: relativedelta) -> _SelfT: ...  # noqa: Y019
     @overload
-    def __radd__(self: Self, other: timedelta) -> Self: ...
+    def __radd__(self: _SelfT, other: timedelta) -> _SelfT: ...  # noqa: Y019
     @overload
     def __radd__(self, other: _DateT) -> _DateT: ...
     @overload
