@@ -30,6 +30,7 @@ from typing import (
     overload as overload,
 )
 
+_T = TypeVar("_T")
 _F = TypeVar("_F", bound=Callable[..., Any])
 _TC = TypeVar("_TC", bound=type[object])
 
