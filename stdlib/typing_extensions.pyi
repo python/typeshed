@@ -62,7 +62,7 @@ class _TypedDict(Mapping[str, object], metaclass=abc.ABCMeta):
     __required_keys__: frozenset[str]
     __optional_keys__: frozenset[str]
     __total__: bool
-    def copy(self: _T) -> _T: ...
+    def copy(self: _T) -> _T: ...  # noqa: Y019
     # Using NoReturn so that only calls using mypy plugin hook that specialize the signature
     # can go through.
     def setdefault(self, k: NoReturn, default: object) -> object: ...
