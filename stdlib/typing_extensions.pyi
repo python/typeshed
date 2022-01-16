@@ -1,5 +1,6 @@
 import abc
 import sys
+from _typeshed import Self as TypeshedSelf  # see #6932 for why the alias cannot have a leading underscore
 from typing import (
     TYPE_CHECKING as TYPE_CHECKING,
     Any,
@@ -29,7 +30,6 @@ from typing import (
     overload as overload,
 )
 
-_T = TypeVar("_T")
 _F = TypeVar("_F", bound=Callable[..., Any])
 _TC = TypeVar("_TC", bound=type[object])
 
@@ -62,7 +62,7 @@ class _TypedDict(Mapping[str, object], metaclass=abc.ABCMeta):
     __required_keys__: frozenset[str]
     __optional_keys__: frozenset[str]
     __total__: bool
-    def copy(self: _T) -> _T: ...  # noqa: Y019
+    def copy(self: TypeshedSelf) -> TypeshedSelf: ...
     # Using NoReturn so that only calls using mypy plugin hook that specialize the signature
     # can go through.
     def setdefault(self, k: NoReturn, default: object) -> object: ...
