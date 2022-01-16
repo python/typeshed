@@ -12,7 +12,6 @@ from _weakref import (
 )
 from exceptions import ReferenceError as ReferenceError
 
-_S = TypeVar("_S")
 _T = TypeVar("_T")
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")

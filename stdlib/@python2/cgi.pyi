@@ -1,9 +1,7 @@
 from _typeshed import SupportsGetItem, SupportsItemAccess
 from builtins import type as _type
-from typing import IO, Any, AnyStr, Iterable, Iterator, List, Mapping, Protocol, TypeVar
+from typing import IO, Any, AnyStr, Iterable, Iterator, List, Mapping, Protocol
 from UserDict import UserDict
-
-_T = TypeVar("_T", bound=FieldStorage)
 
 def parse(
     fp: IO[Any] | None = ...,

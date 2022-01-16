@@ -1,11 +1,10 @@
 from types import FrameType, TracebackType
-from typing import Any, Callable, Iterable, List, Mapping, Optional, Text, Type, TypeVar
+from typing import Any, Callable, Iterable, List, Mapping, Optional, Text, Type
 
 # TODO recursive type
 _TF = Callable[[FrameType, str, Any], Optional[Callable[..., Any]]]
 
 _PF = Callable[[FrameType, str, Any], None]
-_T = TypeVar("_T")
 
 __all__: List[str]
 

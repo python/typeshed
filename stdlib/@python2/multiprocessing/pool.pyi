@@ -1,6 +1,4 @@
-from typing import Any, Callable, Dict, Iterable, Iterator, List, TypeVar
-
-_T = TypeVar("_T", bound=Pool)
+from typing import Any, Callable, Dict, Iterable, Iterator, List
 
 class AsyncResult:
     def get(self, timeout: float | None = ...) -> Any: ...
