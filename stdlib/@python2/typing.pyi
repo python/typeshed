@@ -77,7 +77,7 @@ Counter = _Alias()
 Deque = _Alias()
 
 # Predefined type variables.
-AnyStr = TypeVar("AnyStr", str, unicode)
+AnyStr = TypeVar("AnyStr", str, unicode)  # noqa: Y001
 
 # Abstract base classes.
 
