@@ -253,7 +253,7 @@ class _Environ(MutableMapping[AnyStr, AnyStr], Generic[AnyStr]):
         def __ror__(self, __value: Mapping[_T1, _T2]) -> dict[AnyStr | _T1, AnyStr | _T2]: ...
         # We use @overload instead of a Union for reasons similar to those given for
         # overloading MutableMapping.update in stdlib/typing.pyi
-        # type: ignore is needed due to incompatible __or__/__ior__ signatures
+        # The type: ignore is needed due to incompatible __or__/__ior__ signatures
         @overload  # type: ignore[misc]
         def __ior__(self: Self, value: Mapping[AnyStr, AnyStr]) -> Self: ...
         @overload
