@@ -6,7 +6,7 @@ from typing import Any, Dict, Optional, Tuple, overload
 # cyclic dependence with asynchat
 _maptype = Dict[int, Any]
 
-socket_map: _maptype = ...  # undocumented
+socket_map: _maptype  # undocumented
 
 class ExitNow(Exception): ...
 
