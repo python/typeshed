@@ -2,6 +2,7 @@ from stat import S_IMODE as S_IMODE
 from types import TracebackType
 from typing import IO, Any, Callable, ContextManager, Sequence, Text, Union
 from typing_extensions import Literal
+from _typeshed import Self
 
 import paramiko
 from paramiko import AuthenticationException as AuthenticationException
@@ -120,7 +121,7 @@ class Connection:
     @property
     def remote_server_key(self) -> paramiko.PKey: ...
     def __del__(self) -> None: ...
-    def __enter__(self) -> "Connection": ...
+    def __enter__(self: Self) -> Self: ...
     def __exit__(
         self, etype: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
     ) -> None: ...
