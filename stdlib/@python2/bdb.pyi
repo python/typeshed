@@ -5,7 +5,7 @@ _T = TypeVar("_T")
 _TraceDispatch = Callable[[FrameType, str, Any], Any]  # TODO: Recursive type
 _ExcInfo = Tuple[Type[BaseException], BaseException, FrameType]
 
-GENERATOR_AND_COROUTINE_FLAGS: int = ...
+GENERATOR_AND_COROUTINE_FLAGS: int
 
 class BdbQuit(Exception): ...
 
