@@ -11,7 +11,8 @@ _T = TypeVar("_T")
 class Random(_random.Random):
     VERSION: ClassVar[int]
     def __init__(self, x: Any = ...) -> None: ...
-    if sys.version_info >= (3, 11):
+    # Using other `seed` types is deprecated since 3.9 and removed in 3.11
+    if sys.version_info >= (3, 9):
         @overload
         def seed(self, a: str | bytes, version: Literal[1]) -> None: ...
         @overload
@@ -63,7 +64,7 @@ class SystemRandom(Random):
     def setstate(self, *args: Any, **kwds: Any) -> NoReturn: ...
 
 # ----- random function stubs -----
-if sys.version_info >= (3, 11):
+if sys.version_info >= (3, 9):
     @overload
     def seed(a: str | bytes, version: Literal[1]) -> None: ...
     @overload
