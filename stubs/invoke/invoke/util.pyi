@@ -1,7 +1,8 @@
 import threading
+from contextlib import AbstractContextManager
 from logging import Logger
 from types import TracebackType
-from typing import Any, Callable, ContextManager, NamedTuple, Type
+from typing import Any, Callable, NamedTuple
 
 LOG_FORMAT: str
 
@@ -10,7 +11,7 @@ def enable_logging() -> None: ...
 log: Logger
 
 def task_name_sort_key(name: str) -> tuple[list[str], str]: ...
-def cd(where: str) -> ContextManager[None]: ...
+def cd(where: str) -> AbstractContextManager[None]: ...
 def has_fileno(stream) -> bool: ...
 def isatty(stream) -> bool: ...
 def encode_output(string: str, encoding: str) -> str: ...
@@ -23,6 +24,6 @@ class ExceptionHandlingThread(threading.Thread):
 
 class ExceptionWrapper(NamedTuple):
     kwargs: Any
-    type: Type[BaseException]
+    type: type[BaseException]
     value: BaseException
     traceback: TracebackType

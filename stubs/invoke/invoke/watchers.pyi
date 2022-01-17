@@ -1,8 +1,8 @@
 import threading
-from typing import Iterable
+from typing import Iterable, NoReturn
 
 class StreamWatcher(threading.local):
-    def submit(self, stream) -> None: ...
+    def submit(self, stream) -> NoReturn: ...
 
 class Responder(StreamWatcher):
     pattern: str
