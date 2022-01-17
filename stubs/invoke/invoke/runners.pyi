@@ -59,7 +59,13 @@ class Result:
     env: Any
     exited: int
     pty: bool
-    hide: bool
+    hide: Union[
+        tuple[()],
+        tuple[Literal['stdout']],
+        tuple[Literal['stderr']],
+        tuple[Literal['stderr'], Literal['stdout']],
+        tuple[Literal['stdout'], Literal['stderr']],
+    ]
     def __init__(
         self,
         stdout: str = ...,
