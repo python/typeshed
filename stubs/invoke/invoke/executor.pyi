@@ -1,8 +1,9 @@
 from typing import Any, Iterable
+
 from .collection import Collection
 from .config import Config
-from .parser import ParseResult, ParserContext
-from .tasks import Task, Call
+from .parser import ParserContext, ParseResult
+from .tasks import Call, Task
 
 _TaskType = str | tuple[str, dict[str, Any]] | ParserContext
 

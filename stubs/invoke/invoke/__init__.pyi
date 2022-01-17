@@ -1,13 +1,15 @@
 from typing import Any
+
 from .collection import Collection as Collection
 from .config import Config as Config
-from .context import MockContext as MockContext, Context as Context
+from .context import Context as Context, MockContext as MockContext
 from .exceptions import (
     AmbiguousEnvVar as AmbiguousEnvVar,
     AuthFailure as AuthFailure,
     CollectionNotFound as CollectionNotFound,
     CommandTimedOut as CommandTimedOut,
     Exit as Exit,
+    Failure as Failure,
     ParseError as ParseError,
     PlatformError as PlatformError,
     ResponseNotAccepted as ResponseNotAccepted,
@@ -18,11 +20,10 @@ from .exceptions import (
     UnknownFileType as UnknownFileType,
     UnpicklableConfigMember as UnpicklableConfigMember,
     WatcherError as WatcherError,
-    Failure as Failure,
 )
 from .executor import Executor as Executor
 from .loader import FilesystemLoader as FilesystemLoader
-from .parser import Argument as Argument, ParseResult as ParseResult, Parser as Parser, ParserContext as ParserContext
+from .parser import Argument as Argument, Parser as Parser, ParserContext as ParserContext, ParseResult as ParseResult
 from .program import Program as Program
 from .runners import Local as Local, Promise as Promise, Result as Result, Runner as Runner
 from .tasks import Call as Call, Task as Task, call as call, task as task

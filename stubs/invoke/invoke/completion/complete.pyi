@@ -1,6 +1,7 @@
 from typing import NoReturn
+
 from ..collection import Collection
-from ..parser import ParseResult, ParserContext
+from ..parser import ParserContext, ParseResult
 
 def complete(names: list[str], core: ParseResult, initial_context: ParserContext, collection: Collection) -> NoReturn: ...
 def print_task_names(collection: Collection) -> None: ...

@@ -1,6 +1,7 @@
 from types import ModuleType
-from . import Config
 from typing import IO, Any
+
+from . import Config
 
 class Loader:
     config: Any

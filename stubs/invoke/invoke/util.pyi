@@ -1,7 +1,7 @@
 import threading
-from types import TracebackType
-from typing import Any, Callable, ContextManager,  NamedTuple, Type
 from logging import Logger
+from types import TracebackType
+from typing import Any, Callable, ContextManager, NamedTuple, Type
 
 LOG_FORMAT: str
 

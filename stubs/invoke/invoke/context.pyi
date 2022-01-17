@@ -1,5 +1,6 @@
 from typing import ContextManager
-from .config import DataProxy, Config
+
+from .config import Config, DataProxy
 
 class Context(DataProxy):
     def __init__(self, config: Config | None = ...) -> None: ...
