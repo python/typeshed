@@ -80,7 +80,7 @@ class Result:
     def ok(self) -> bool:
     @property
     def failed(self) -> bool:
-    def tail(self, stream, count: int = ...): ...
+    def tail(self, stream: Literal['stderr', 'stdout'], count: int = ...) -> str:
 
 class Promise(Result):
     runner: Any
