@@ -57,7 +57,7 @@ class Result:
     command: str
     shell: Any
     env: Any
-    exited: Any
+    exited: int
     pty: bool
     hide: bool
     def __init__(
