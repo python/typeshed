@@ -1,4 +1,5 @@
 from typing import Any
+from typing_extensions import Literal
 
 class Runner:
     read_chunk_size: int
@@ -59,12 +60,8 @@ class Result:
     env: Any
     exited: int
     pty: bool
-    hide: Union[
-        tuple[()],
-        tuple[Literal['stdout']],
-        tuple[Literal['stderr']],
-        tuple[Literal['stderr'], Literal['stdout']],
-        tuple[Literal['stdout'], Literal['stderr']],
+    hide: tuple[()] | tuple[Literal["stdout"]] | tuple[Literal["stderr"]] | tuple[Literal["stderr"], Literal["stdout"]] | tuple[
+        Literal["stdout"], Literal["stderr"]
     ]
     def __init__(
         self,
@@ -80,13 +77,13 @@ class Result:
     ) -> None: ...
     @property
     def return_code(self): ...
-    def __nonzero__(self) -> bool:
-    def __bool__(self) -> bool:
+    def __nonzero__(self) -> bool: ...
+    def __bool__(self) -> bool: ...
     @property
-    def ok(self) -> bool:
+    def ok(self) -> bool: ...
     @property
-    def failed(self) -> bool:
-    def tail(self, stream: Literal['stderr', 'stdout'], count: int = ...) -> str:
+    def failed(self) -> bool: ...
+    def tail(self, stream: Literal["stderr", "stdout"], count: int = ...) -> str: ...
 
 class Promise(Result):
     runner: Any
