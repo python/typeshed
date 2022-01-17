@@ -75,7 +75,7 @@ class Result:
     @property
     def return_code(self): ...
     def __nonzero__(self) -> bool:
-    def __bool__(self): ...
+    def __bool__(self) -> bool:
     @property
     def ok(self) -> bool:
     @property
