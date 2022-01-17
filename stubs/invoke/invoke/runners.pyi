@@ -64,10 +64,10 @@ class Result:
         self,
         stdout: str = ...,
         stderr: str = ...,
-        encoding = ...,
+        encoding=...,
         command: str = ...,
         shell: str = ...,
-        env = ...,
+        env=...,
         exited: int = ...,
         pty: bool = ...,
         hide=...,
@@ -89,5 +89,5 @@ class Promise(Result):
     def __enter__(self): ...
     def __exit__(self, exc_type, exc_value, traceback) -> None: ...
 
-def normalize_hide(val, out_stream = ..., err_stream = ...): ...
+def normalize_hide(val, out_stream=..., err_stream=...): ...
 def default_encoding() -> str: ...

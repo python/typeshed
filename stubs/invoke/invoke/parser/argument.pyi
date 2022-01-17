@@ -10,7 +10,18 @@ class Argument:
     optional: Any
     incrementable: Any
     attr_name: Any
-    def __init__(self, name = ..., names=..., kind=..., default = ..., help = ..., positional: bool = ..., optional: bool = ..., incrementable: bool = ..., attr_name = ...) -> None: ...
+    def __init__(
+        self,
+        name=...,
+        names=...,
+        kind=...,
+        default=...,
+        help=...,
+        positional: bool = ...,
+        optional: bool = ...,
+        incrementable: bool = ...,
+        attr_name=...,
+    ) -> None: ...
     @property
     def name(self): ...
     @property
