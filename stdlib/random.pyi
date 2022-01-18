@@ -4,7 +4,6 @@ from _typeshed import SupportsLenAndGetItem
 from collections.abc import Callable, Iterable, MutableSequence, Sequence, Set as AbstractSet
 from fractions import Fraction
 from typing import Any, ClassVar, NoReturn, TypeVar
-from typing_extensions import Literal
 
 _T = TypeVar("_T")
 
