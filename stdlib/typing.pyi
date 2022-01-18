@@ -20,12 +20,7 @@ class TypeVar:
     __covariant__: bool
     __contravariant__: bool
     def __init__(
-        self,
-        name: str,
-        *constraints: Any,
-        bound: Any | None = ...,
-        covariant: bool = ...,
-        contravariant: bool = ...,
+        self, name: str, *constraints: Any, bound: Any | None = ..., covariant: bool = ..., contravariant: bool = ...
     ) -> None: ...
     if sys.version_info >= (3, 10):
         def __or__(self, other: Any) -> _SpecialForm: ...
@@ -78,9 +73,7 @@ if sys.version_info >= (3, 10):
         __bound__: Any | None
         __covariant__: bool
         __contravariant__: bool
-        def __init__(
-            self, name: str, *, bound: Any | None = ..., contravariant: bool = ..., covariant: bool = ...
-        ) -> None: ...
+        def __init__(self, name: str, *, bound: Any | None = ..., contravariant: bool = ..., covariant: bool = ...) -> None: ...
         @property
         def args(self) -> ParamSpecArgs: ...
         @property
