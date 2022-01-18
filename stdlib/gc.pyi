@@ -13,7 +13,7 @@ class _CallbackInfo(TypedDict):
     collected: int
     uncollectable: int
 
-_CallbackType = Callable[[Literal["start" | "stop"], _CallbackInfo], Any]
+_CallbackType = Callable[[Literal["start", "stop"], _CallbackInfo], Any]
 
 callbacks: list[_CallbackType]
 garbage: list[Any]
