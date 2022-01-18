@@ -1,6 +1,6 @@
 import sys
-from typing import Any, Callable
-from typing_extensions import Literal, TypedDict
+from typing import Any, Callable, Mapping
+from typing_extensions import Literal
 
 DEBUG_COLLECTABLE: Literal[2]
 DEBUG_LEAK: Literal[38]
@@ -8,12 +8,7 @@ DEBUG_SAVEALL: Literal[32]
 DEBUG_STATS: Literal[1]
 DEBUG_UNCOLLECTABLE: Literal[4]
 
-class _CallbackInfo(TypedDict):
-    generation: int
-    collected: int
-    uncollectable: int
-
-_CallbackType = Callable[[Literal["start", "stop"], _CallbackInfo], Any]
+_CallbackType = Callable[[Literal["start", "stop"], Mapping[str, int]], Any]
 
 callbacks: list[_CallbackType]
 garbage: list[Any]
