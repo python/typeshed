@@ -43,6 +43,7 @@
         "stubs/mysqlclient",
         "stubs/oauthlib",
         "stubs/Pillow",
+        "stubs/paramiko",
         "stubs/prettytable",
         "stubs/protobuf",
         "stubs/google-cloud-ndb",
