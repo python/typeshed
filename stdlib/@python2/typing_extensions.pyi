@@ -1,21 +1,21 @@
 import abc
 from _typeshed import Self
-from typing import Counter as Counter  # noqa Y022
-from typing import DefaultDict as DefaultDict  # noqa Y022
-from typing import Deque as Deque  # noqa Y022
-from typing import Type as Type  # noqa Y022
-from typing import (
+from typing import (  # noqa Y022
     TYPE_CHECKING as TYPE_CHECKING,
     Any,
     Callable,
     ClassVar as ClassVar,
     ContextManager as ContextManager,
+    Counter as Counter,
+    DefaultDict as DefaultDict,
+    Deque as Deque,
     ItemsView,
     KeysView,
     Mapping,
     NewType as NewType,
     NoReturn as NoReturn,
     Text as Text,
+    Type as Type,
     TypeVar,
     ValuesView,
     _Alias,
