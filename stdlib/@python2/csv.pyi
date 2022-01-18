@@ -16,6 +16,7 @@ from _csv import (
     unregister_dialect as unregister_dialect,
     writer as writer,
 )
+from builtins import dict as _DictReadMapping
 from typing import Any, Generic, Iterable, Iterator, Mapping, Sequence, Text, TypeVar, overload
 
 _T = TypeVar("_T")

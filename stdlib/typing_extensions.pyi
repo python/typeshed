@@ -4,7 +4,7 @@ from _typeshed import Self as TypeshedSelf  # see #6932 for why the alias cannot
 from typing import (
     TYPE_CHECKING as TYPE_CHECKING,
     Any,
-    AsyncContextManager as AsyncContextManager  # noqa Y022
+    AsyncContextManager as AsyncContextManager,  # noqa Y022
     AsyncGenerator as AsyncGenerator,
     AsyncIterable as AsyncIterable,
     AsyncIterator as AsyncIterator,
