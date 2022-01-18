@@ -4,7 +4,31 @@ from opcode import *  # `dis` re-exports it as a part of public API
 from typing import IO, Any, Callable, Iterator, NamedTuple, Union
 
 __all__ = [
-    'code_info', 'dis', 'disassemble', 'distb', 'disco', 'findlinestarts', 'findlabels', 'show_code', 'get_instructions', 'Instruction', 'Bytecode', 'cmp_op', 'hasconst', 'hasname', 'hasjrel', 'hasjabs', 'haslocal', 'hascompare', 'hasfree', 'opname', 'opmap', 'HAVE_ARGUMENT', 'EXTENDED_ARG', 'hasnargs', 'stack_effect'
+    "code_info",
+    "dis",
+    "disassemble",
+    "distb",
+    "disco",
+    "findlinestarts",
+    "findlabels",
+    "show_code",
+    "get_instructions",
+    "Instruction",
+    "Bytecode",
+    "cmp_op",
+    "hasconst",
+    "hasname",
+    "hasjrel",
+    "hasjabs",
+    "haslocal",
+    "hascompare",
+    "hasfree",
+    "opname",
+    "opmap",
+    "HAVE_ARGUMENT",
+    "EXTENDED_ARG",
+    "hasnargs",
+    "stack_effect",
 ]
 
 # Strictly this should not have to include Callable, but mypy doesn't use FunctionType
