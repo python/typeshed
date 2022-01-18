@@ -1,6 +1,6 @@
 from _typeshed import Self
 from abc import abstractmethod
-from typing import Pattern, Text, Tuple, TypeVar
+from typing import Pattern, Text, TypeVar
 
 _T = TypeVar("_T", bound=Version)
 
@@ -17,8 +17,8 @@ class Version:
 
 class StrictVersion(Version):
     version_re: Pattern[str]
-    version: Tuple[int, int, int]
-    prerelease: Tuple[Text, int] | None
+    version: tuple[int, int, int]
+    prerelease: tuple[Text, int] | None
     def __init__(self, vstring: Text | None = ...) -> None: ...
     def parse(self: Self, vstring: Text) -> Self: ...
     def __str__(self) -> str: ...
@@ -27,7 +27,7 @@ class StrictVersion(Version):
 class LooseVersion(Version):
     component_re: Pattern[str]
     vstring: Text
-    version: Tuple[Text | int, ...]
+    version: tuple[Text | int, ...]
     def __init__(self, vstring: Text | None = ...) -> None: ...
     def parse(self: Self, vstring: Text) -> Self: ...
     def __str__(self) -> str: ...

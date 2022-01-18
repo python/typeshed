@@ -1,7 +1,7 @@
 from _typeshed import Self
-from typing import IO, Any, List, Text
+from typing import IO, Any, Text
 
-def split(s: str | None, comments: bool = ..., posix: bool = ...) -> List[str]: ...
+def split(s: str | None, comments: bool = ..., posix: bool = ...) -> list[str]: ...
 
 class shlex:
     def __init__(self, instream: IO[Any] | Text = ..., infile: IO[Any] = ..., posix: bool = ...) -> None: ...

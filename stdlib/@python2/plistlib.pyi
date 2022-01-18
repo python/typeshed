@@ -1,4 +1,4 @@
-from typing import IO, Any, Dict as DictT, Mapping, Text, Union
+from typing import IO, Any, Mapping, Text, Union
 
 _Path = Union[str, Text]
 

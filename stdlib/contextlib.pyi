@@ -21,7 +21,6 @@ from typing_extensions import ParamSpec
 
 AbstractContextManager = ContextManager
 if sys.version_info >= (3, 7):
-    from typing import AsyncContextManager
 
     AbstractAsyncContextManager = AsyncContextManager
 
