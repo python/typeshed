@@ -15,15 +15,15 @@ Any = object()
 
 class TypeVar:
     __name__: str
-    __bound__: Type[Any] | None
-    __constraints__: Tuple[Type[Any], ...]
+    __bound__: Any | None
+    __constraints__: Tuple[Any, ...]
     __covariant__: bool
     __contravariant__: bool
     def __init__(
         self,
         name: str,
-        *constraints: Type[Any],
-        bound: None | Type[Any] | str = ...,
+        *constraints: Any],
+        bound: Any | None = ...,
         covariant: bool = ...,
         contravariant: bool = ...,
     ) -> None: ...
@@ -75,11 +75,11 @@ if sys.version_info >= (3, 10):
         def __init__(self, origin: ParamSpec) -> None: ...
     class ParamSpec:
         __name__: str
-        __bound__: Type[Any] | None
+        __bound__: Any | None
         __covariant__: bool
         __contravariant__: bool
         def __init__(
-            self, name: str, *, bound: None | Type[Any] | str = ..., contravariant: bool = ..., covariant: bool = ...
+            self, name: str, *, bound: Any | None = ..., contravariant: bool = ..., covariant: bool = ...
         ) -> None: ...
         @property
         def args(self) -> ParamSpecArgs: ...
