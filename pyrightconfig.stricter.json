@@ -47,7 +47,6 @@
         "stubs/prettytable",
         "stubs/protobuf",
         "stubs/google-cloud-ndb",
-        "stubs/playsound",
         "stubs/psutil",
         "stubs/psycopg2",
         "stubs/Pygments",
