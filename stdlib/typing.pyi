@@ -22,7 +22,7 @@ class TypeVar:
     def __init__(
         self,
         name: str,
-        *constraints: Any],
+        *constraints: Any,
         bound: Any | None = ...,
         covariant: bool = ...,
         contravariant: bool = ...,
