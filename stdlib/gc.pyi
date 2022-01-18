@@ -11,7 +11,7 @@ DEBUG_UNCOLLECTABLE: Literal[4]
 class _CallbackInfo(TypedDict):
     generation: int
     collected: int
-    uncollectable: int    
+    uncollectable: int
 
 _CallbackType = Callable[[Literal["start" | "stop"], _CallbackInfo], Any]
 
