@@ -1,19 +1,19 @@
 from _typeshed import Self, StrPath
-from typing import Dict, List, Optional, Text, Tuple
+from typing import Optional, Text
 
-_Label = Tuple[int, Optional[Text]]
-_DFA = List[List[Tuple[int, int]]]
-_DFAS = Tuple[_DFA, Dict[int, int]]
+_Label = tuple[int, Optional[Text]]
+_DFA = list[list[tuple[int, int]]]
+_DFAS = tuple[_DFA, dict[int, int]]
 
 class Grammar:
-    symbol2number: Dict[Text, int]
-    number2symbol: Dict[int, Text]
-    states: List[_DFA]
-    dfas: Dict[int, _DFAS]
-    labels: List[_Label]
-    keywords: Dict[Text, int]
-    tokens: Dict[int, int]
-    symbol2label: Dict[Text, int]
+    symbol2number: dict[Text, int]
+    number2symbol: dict[int, Text]
+    states: list[_DFA]
+    dfas: dict[int, _DFAS]
+    labels: list[_Label]
+    keywords: dict[Text, int]
+    tokens: dict[int, int]
+    symbol2label: dict[Text, int]
     start: int
     def __init__(self) -> None: ...
     def dump(self, filename: StrPath) -> None: ...
@@ -22,4 +22,4 @@ class Grammar:
     def report(self) -> None: ...
 
 opmap_raw: Text
-opmap: Dict[Text, Text]
+opmap: dict[Text, Text]

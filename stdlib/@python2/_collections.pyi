@@ -1,12 +1,12 @@
 from _typeshed import Self
-from typing import Any, Callable, Dict, Generic, Iterator, TypeVar
+from typing import Any, Callable, Generic, Iterator, TypeVar
 
 _K = TypeVar("_K")
 _V = TypeVar("_V")
 _T = TypeVar("_T")
 _T2 = TypeVar("_T2")
 
-class defaultdict(Dict[_K, _V]):
+class defaultdict(dict[_K, _V]):
     default_factory: None
     def __init__(self, __default_factory: Callable[[], _V] = ..., init: Any = ...) -> None: ...
     def __missing__(self, key: _K) -> _V: ...
