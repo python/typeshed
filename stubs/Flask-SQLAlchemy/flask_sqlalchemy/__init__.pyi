@@ -1,4 +1,4 @@
-from typing import Any, NamedTuple
+from typing import Any
 
 from . import utils as utils
 from .model import DefaultMeta as DefaultMeta, Model as Model
@@ -11,7 +11,7 @@ class SignallingSession:
     def __init__(self, db, autocommit: bool = ..., autoflush: bool = ..., **options) -> None: ...
     def get_bind(self, mapper: Any | None = ..., clause: Any | None = ...): ...
 
-def get_debug_queries() -> list[NamedTuple]: ...
+def get_debug_queries(): ...
 
 class Pagination:
     query: Any

@@ -26,6 +26,7 @@
         "stubs/cryptography",
         "stubs/dateparser",
         "stubs/docutils",
+        "stubs/Flask-SQLAlchemy",
         "stubs/fpdf2",
         "stubs/html5lib",
         "stubs/httplib2",
