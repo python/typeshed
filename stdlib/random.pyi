@@ -3,7 +3,7 @@ import sys
 from _typeshed import SupportsLenAndGetItem
 from collections.abc import Callable, Iterable, MutableSequence, Sequence, Set as AbstractSet
 from fractions import Fraction
-from typing import Any, ClassVar, NoReturn, TypeVar, overload
+from typing import Any, ClassVar, NoReturn, TypeVar
 from typing_extensions import Literal
 
 _T = TypeVar("_T")
@@ -13,11 +13,6 @@ class Random(_random.Random):
     def __init__(self, x: Any = ...) -> None: ...
     # Using other `seed` types is deprecated since 3.9 and removed in 3.11
     if sys.version_info >= (3, 9):
-        @overload  # type: ignore[override]
-        def seed(self, a: str | bytes, version: Literal[1]) -> None: ...
-        @overload
-        def seed(self, a: str | bytes | bytearray, version: Literal[2]) -> None: ...
-        @overload
         def seed(self, a: int | float | str | bytes | bytearray | None = ..., version: int = ...) -> None: ...
     else:
         def seed(self, a: Any = ..., version: int = ...) -> None: ...
@@ -65,11 +60,6 @@ class SystemRandom(Random):
 
 # ----- random function stubs -----
 if sys.version_info >= (3, 9):
-    @overload
-    def seed(a: str | bytes, version: Literal[1]) -> None: ...
-    @overload
-    def seed(a: str | bytes | bytearray, version: Literal[2]) -> None: ...
-    @overload
     def seed(a: int | float | str | bytes | bytearray | None = ..., version: int = ...) -> None: ...
 
 else:
