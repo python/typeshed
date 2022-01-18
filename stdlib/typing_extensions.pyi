@@ -1,10 +1,11 @@
 import abc
 import sys
 from _typeshed import Self as TypeshedSelf  # see #6932 for why the alias cannot have a leading underscore
+from typing import AsyncContextManager as AsyncContextManager  # noqa Y022
+from typing import Type as Type  # noqa Y022
 from typing import (
     TYPE_CHECKING as TYPE_CHECKING,
     Any,
-    AsyncContextManager as AsyncContextManager,  # noqa Y022
     AsyncGenerator as AsyncGenerator,
     AsyncIterable as AsyncIterable,
     AsyncIterator as AsyncIterator,
@@ -23,7 +24,6 @@ from typing import (
     NewType as NewType,
     NoReturn as NoReturn,
     Text as Text,
-    Type as Type,  # noqa Y022
     TypeVar,
     ValuesView,
     _Alias,
