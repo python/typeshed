@@ -57,12 +57,10 @@ class Result:
     encoding: str
     command: str
     shell: Any
-    env: Any
+    env: dict[str, Any]
     exited: int
     pty: bool
-    hide: tuple[()] | tuple[Literal["stdout"]] | tuple[Literal["stderr"]] | tuple[Literal["stderr"], Literal["stdout"]] | tuple[
-        Literal["stdout"], Literal["stderr"]
-    ]
+    hide: tuple[Literal["stdout", "stderr"], ...]
     def __init__(
         self,
         stdout: str = ...,
