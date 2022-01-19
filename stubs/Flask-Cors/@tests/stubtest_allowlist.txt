@@ -1,3 +1,4 @@
+# signature is **kwargs, but for typing we need real arguments
 flask_cors.CORS.__init__
 flask_cors.CORS.init_app
 flask_cors.extension.CORS.__init__
