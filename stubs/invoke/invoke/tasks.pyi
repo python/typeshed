@@ -11,7 +11,7 @@ class Task:
     __name__: str
     __module__: Any
     aliases: Any
-    is_default: Any
+    is_default: bool
     positional: Any
     optional: Any
     iterable: Any
