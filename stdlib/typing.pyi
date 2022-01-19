@@ -481,6 +481,14 @@ class MutableMapping(Mapping[_KT, _VT], Generic[_KT, _VT]):
     # mypy will commit to using the first overload when the argument is
     # known to be a Mapping with unknown type parameters, which is closer
     # to the behavior we want. See mypy issue  #1430.
+    #
+    # Various mapping classes have __ior__ methods that should be kept roughly in line with .update():
+    # -- dict.__ior__
+    # -- os._Environ.__ior__
+    # -- collections.UserDict.__ior__
+    # -- collections.ChainMap.__ior__
+    # -- weakref.WeakValueDictionary.__ior__
+    # -- weakref.WeakKeyDictionary.__ior__
     @overload
     def update(self, __m: SupportsKeysAndGetItem[_KT, _VT], **kwargs: _VT) -> None: ...
     @overload
