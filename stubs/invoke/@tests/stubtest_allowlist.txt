@@ -1,4 +1,0 @@
-# These methods using **kwargs, but we need arguments for typing
-invoke.Context.sudo
-invoke.context.Context.sudo
-invoke.util.ExceptionHandlingThread.__init__
