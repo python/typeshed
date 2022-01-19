@@ -1,6 +1,6 @@
 from typing import Any, Pattern
 
-def should_set_tablename(cls: object) -> bool: ...
+def should_set_tablename(cls: type) -> bool: ...
 
 camelcase_re: Pattern[str]
 
