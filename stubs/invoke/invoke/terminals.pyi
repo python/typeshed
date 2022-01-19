@@ -1,5 +1,6 @@
+from contextlib import AbstractContextManager
 from io import TextIOWrapper
-from typing import Iterator
+from typing import Any
 
 WINDOWS: bool
 
