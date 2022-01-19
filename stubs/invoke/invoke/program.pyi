@@ -4,7 +4,7 @@ class Program:
     def core_args(self): ...
     def task_args(self): ...
     leading_indent_width: int
-    leading_indent: Any
+    leading_indent: str
     indent_width: int
     indent: Any
     col_padding: int
