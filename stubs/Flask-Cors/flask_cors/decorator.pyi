@@ -5,7 +5,7 @@ from typing import Any, Callable
 LOG: Logger
 
 def cross_origin(
-     *args: Any,
+    *args: Any,
     origins: str | list[str],
     methods: str | list[str],
     expose_headers: str | list[str],
