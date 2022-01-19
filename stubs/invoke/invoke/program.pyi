@@ -6,7 +6,7 @@ class Program:
     leading_indent_width: int
     leading_indent: str
     indent_width: int
-    indent: Any
+    indent: str
     col_padding: int
     version: Any
     namespace: Any
