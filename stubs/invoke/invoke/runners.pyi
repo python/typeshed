@@ -65,13 +65,13 @@ class Result:
         self,
         stdout: str = ...,
         stderr: str = ...,
-        encoding=...,
+        encoding: str | None = ...,
         command: str = ...,
         shell: str = ...,
         env=...,
         exited: int = ...,
         pty: bool = ...,
-        hide=...,
+        hide: tuple[Literal["stdout", "stderr"], ...] = ...,
     ) -> None: ...
     @property
     def return_code(self) -> int: ...
