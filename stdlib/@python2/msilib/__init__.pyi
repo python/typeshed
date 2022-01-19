@@ -94,7 +94,6 @@ if sys.platform == "win32":
 
         name: str
         def __init__(self, fname: str) -> None: ...
-        def __repr__(self) -> str: ...
     class Feature:
 
         id: str
