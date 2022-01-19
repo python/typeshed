@@ -19,6 +19,9 @@
 
 # Rules that we'd like to enable in the future:
 #       Y026 Use typing_extensions.TypeAlias for type aliases (blocked by #4913)
+#       Y027 Disallow importing typing.ContextManager, typing.OrderedDict &
+#            typing_extensions.OrderedDict (cannot be globally enabled while typeshed
+#            still contains stubs supporting Python 2).
 
 [flake8]
 per-file-ignores =

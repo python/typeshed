@@ -1,7 +1,7 @@
 import sys
 from _typeshed import Self, StrOrBytesPath
 from types import TracebackType
-from typing import (
+from typing import (  # noqa Y027
     IO,
     Any,
     AsyncGenerator,
