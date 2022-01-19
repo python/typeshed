@@ -58,7 +58,6 @@ class WeakValueDictionary(MutableMapping[_KT, _VT]):
         @overload
         def __ior__(self: Self, value: Iterable[tuple[_KT, _VT]]) -> Self: ...
 
-
 class KeyedRef(ref[_T], Generic[_KT, _T]):
     key: _KT
     # This __new__ method uses a non-standard name for the "cls" parameter
