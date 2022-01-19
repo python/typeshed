@@ -10,6 +10,7 @@ class CORS:
     def __init__(
         self,
         app: Any | None = ...,
+        *,
         resources: dict[str, dict[str, Any]] | list[str] | str = ...,
         origins: str | list[str] = ...,
         methods: str | list[str] = ...,
@@ -19,10 +20,12 @@ class CORS:
         max_age: timedelta | int | str | None = ...,
         send_wildcard: bool = ...,
         vary_header: bool = ...,
+        **kwargs: Any,
     ) -> None: ...
     def init_app(
         self,
         app: _App,
+        *,
         resources: dict[str, dict[str, Any]] | list[str] | str = ...,
         origins: str | list[str] = ...,
         methods: str | list[str] = ...,
@@ -32,6 +35,7 @@ class CORS:
         max_age: timedelta | int | str | None = ...,
         send_wildcard: bool = ...,
         vary_header: bool = ...,
+        **kwargs: Any,
     ) -> None: ...
 
 def make_after_request_function(resources: Iterable[tuple[str, dict[str, Any]]]) -> Callable[..., Any]: ...
