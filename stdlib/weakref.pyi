@@ -1,3 +1,5 @@
+import sys
+from _typeshed import Self, SupportsKeysAndGetItem
 from _weakrefset import WeakSet as WeakSet
 from typing import Any, Callable, Generic, Iterable, Iterator, Mapping, MutableMapping, TypeVar, overload
 
@@ -12,6 +14,8 @@ from _weakref import (
 )
 
 _T = TypeVar("_T")
+_T1 = TypeVar("_T1")
+_T2 = TypeVar("_T2")
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
 _CallableT = TypeVar("_CallableT", bound=Callable[..., Any])
@@ -45,6 +49,15 @@ class WeakValueDictionary(MutableMapping[_KT, _VT]):
     def pop(self, key: _KT) -> _VT: ...
     @overload
     def pop(self, key: _KT, default: _VT | _T = ...) -> _VT | _T: ...
+    if sys.version_info >= (3, 9):
+        def __or__(self, other: Mapping[_T1, _T2]) -> WeakValueDictionary[_KT | _T1, _VT | _T2]: ...
+        def __ror__(self, other: Mapping[_T1, _T2]) -> WeakValueDictionary[_KT | _T1, _VT | _T2]: ...
+        # WeakValueDictionary.__ior__ should be kept roughly in line with MutableMapping.update()
+        @overload  # type: ignore[misc]
+        def __ior__(self: Self, value: SupportsKeysAndGetItem[_KT, _VT]) -> Self: ...
+        @overload
+        def __ior__(self: Self, value: Iterable[tuple[_KT, _VT]]) -> Self: ...
+
 
 class KeyedRef(ref[_T], Generic[_KT, _T]):
     key: _KT
@@ -74,6 +87,14 @@ class WeakKeyDictionary(MutableMapping[_KT, _VT]):
     def pop(self, key: _KT) -> _VT: ...
     @overload
     def pop(self, key: _KT, default: _VT | _T = ...) -> _VT | _T: ...
+    if sys.version_info >= (3, 9):
+        def __or__(self, other: Mapping[_T1, _T2]) -> WeakKeyDictionary[_KT | _T1, _VT | _T2]: ...
+        def __ror__(self, other: Mapping[_T1, _T2]) -> WeakKeyDictionary[_KT | _T1, _VT | _T2]: ...
+        # WeakValueDictionary.__ior__ should be kept roughly in line with MutableMapping.update()
+        @overload  # type: ignore[misc]
+        def __ior__(self: Self, value: SupportsKeysAndGetItem[_KT, _VT]) -> Self: ...
+        @overload
+        def __ior__(self: Self, value: Iterable[tuple[_KT, _VT]]) -> Self: ...
 
 class finalize:
     def __init__(self, __obj: object, __func: Callable[..., Any], *args: Any, **kwargs: Any) -> None: ...
