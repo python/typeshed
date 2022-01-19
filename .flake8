@@ -28,7 +28,7 @@ per-file-ignores =
   # Unfortunately, flake8 does not allow to "noqa" just a specific error inside the file itself.
   # https://github.com/PyCQA/flake8/issues/1079
   #     F811 redefinition of unused '...'
-  typing.pyi: E301, E302, E305, E501, E701, E741, F401, F403, F405, F811, F822
+  typing.pyi: E301, E302, E305, E501, E701, E741, F401, F403, F405, F811, F822, Y026
 
 # We are checking with Python 3 but many of the stubs are Python 2 stubs.
 builtins = buffer,file,long,raw_input,unicode,xrange
