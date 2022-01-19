@@ -6,7 +6,7 @@ from .parser import ParserContext, ParseResult
 from .tasks import Call, Task
 
 class Executor:
-    collection: Collection | None
+    collection: Collection
     config: Config
     core: ParseResult | None
     def __init__(self, collection: Collection, config: Config | None = ..., core: ParseResult | None = ...) -> None: ...
