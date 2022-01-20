@@ -74,5 +74,5 @@ jobs:
               owner: "python",
               repo: "typeshed",
               title: `Stubtest failed on ${new Date().toDateString()}`,
-              body: `Stubtest runs are listed here: https://github.com/python/typeshed/actions/workflows/stubtest.yml`,
+              body: "Stubtest runs are listed here: https://github.com/python/typeshed/actions/workflows/stubtest.yml",
             })
