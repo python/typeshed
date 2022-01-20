@@ -5,6 +5,7 @@ on:
   schedule:
     - cron: "0 0 * * *"
 
+# Please keep the permissions minimal, as stubtest runs arbitrary code from pypi.
 permissions:
   contents: read
 
@@ -54,4 +55,23 @@ jobs:
       - name: Install apt packages
         run: sudo apt install -y $(python tests/get_apt_packages.py)
       - name: Run stubtest
-        run: python tests/stubtest_third_party.py --num-shards 4 --shard-index ${{ matrix.shard-index }}
+        run: python -u tests/stubtest_third_party.py --num-shards 4 --shard-index ${{ matrix.shard-index }} 2>&1 | tee output.txt
+      - name: If stubtest failed, create an issue
+        if: ${{ failure() }}
+        permissions:
+          issues: write
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            let forStub = ""
+            try {
+              forStub = "for " + /stubtest failed for (.*)/.exec(fs.readFileSync("output.txt", "utf-8"))[1]
+            } catch(e) { }
+
+            await github.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Stubtest failed ${forStub} on ${new Date().toDateString()}`,
+              body: "Stubtest runs are listed [here](https://github.com/python/typeshed/actions/workflows/stubtest.yml)."
+            })
