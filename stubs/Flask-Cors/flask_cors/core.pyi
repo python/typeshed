@@ -1,12 +1,28 @@
+from datetime import timedelta
 from logging import Logger
 from typing import Any, Iterable, Pattern, TypeVar, overload
+from typing_extensions import TypedDict
 
 _IterableT = TypeVar("_IterableT", bound=Iterable[Any])
 _T = TypeVar("_T")
 _App = Any  # flask is not part of typeshed
 _Response = Any  # flask is not part of typeshed
-_Options = dict[str, Any]
 _MultiDict = Any  # werkzeug is not part of typeshed
+_Options = TypedDict(
+    "_Options",
+    {
+        "resources": dict[str, dict[str, Any]] | list[str] | str,
+        "origins": str | list[str],
+        "methods": str | list[str],
+        "expose_headers": str | list[str],
+        "allow_headers": str | list[str],
+        "supports_credentials": bool,
+        "max_age": timedelta | int | str | None,
+        "send_wildcard": bool,
+        "vary_header": bool,
+    },
+    total=False,
+)
 
 LOG: Logger
 ACL_ORIGIN: str
