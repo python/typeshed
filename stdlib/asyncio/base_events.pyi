@@ -9,15 +9,26 @@ from asyncio.tasks import Task
 from asyncio.transports import BaseTransport
 from collections.abc import Iterable
 from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
-from typing import IO, Any, Awaitable, Callable, Generator, Sequence, TypeVar, Union, overload
-from typing_extensions import Literal
+from typing import IO, Any, AsyncGenerator, Awaitable, Callable, Generator, Sequence, TypeVar, Union, overload
+from typing_extensions import Literal, NotRequired, TypedDict
 
 if sys.version_info >= (3, 7):
     from contextvars import Context
 
 _T = TypeVar("_T")
 _ProtocolT = TypeVar("_ProtocolT", bound=BaseProtocol)
-_Context = dict[str, Any]
+
+class _Context(TypedDict):
+    message: str
+    exception: NotRequired[BaseException]
+    future: NotRequired[Future[Any]]
+    task: NotRequired[Task[Any]]
+    handle: NotRequired[Handle]
+    protocol: NotRequired[BaseProtocol]
+    transport: NotRequired[BaseTransport]
+    socket: NotRequired[socket]
+    asyncgen: NotRequired[AsyncGenerator[Any, Any]]
+
 _ExceptionHandler = Callable[[AbstractEventLoop, _Context], Any]
 _ProtocolFactory = Callable[[], BaseProtocol]
 _SSLContext = Union[bool, None, ssl.SSLContext]

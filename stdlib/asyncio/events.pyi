@@ -3,8 +3,8 @@ import sys
 from _typeshed import FileDescriptorLike, Self
 from abc import ABCMeta, abstractmethod
 from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
-from typing import IO, Any, Awaitable, Callable, Generator, Sequence, TypeVar, Union, overload
-from typing_extensions import Literal
+from typing import IO, Any, AsyncGenerator, Awaitable, Callable, Generator, Sequence, TypeVar, Union, overload
+from typing_extensions import Literal, NotRequired, TypedDict
 
 from .base_events import Server
 from .futures import Future
@@ -18,7 +18,18 @@ if sys.version_info >= (3, 7):
 
 _T = TypeVar("_T")
 _ProtocolT = TypeVar("_ProtocolT", bound=BaseProtocol)
-_Context = dict[str, Any]
+
+class _Context(TypedDict):
+    message: str
+    exception: NotRequired[BaseException]
+    future: NotRequired[Future[Any]]
+    task: NotRequired[Task[Any]]
+    handle: NotRequired[Handle]
+    protocol: NotRequired[BaseProtocol]
+    transport: NotRequired[BaseTransport]
+    socket: NotRequired[socket]
+    asyncgen: NotRequired[AsyncGenerator[Any, Any]]
+
 _ExceptionHandler = Callable[[AbstractEventLoop, _Context], Any]
 _ProtocolFactory = Callable[[], BaseProtocol]
 _SSLContext = Union[bool, None, ssl.SSLContext]
