@@ -15,7 +15,7 @@ env:
 jobs:
   stubtest-stdlib:
     name: Check stdlib with stubtest
-    if: github.repository == 'python/typeshed'
+    if: github.repository == 'Akuli/typeshed'
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -39,7 +39,7 @@ jobs:
 
   stubtest-third-party:
     name: Check third party stubs with stubtest
-    if: github.repository == 'python/typeshed'
+    if: github.repository == 'Akuli/typeshed'
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -62,7 +62,7 @@ jobs:
     name: Create an issue if stubtest failed
     runs-on: ubuntu-latest
     needs: [stubtest-stdlib, stubtest-third-party]
-    if: ${{ always() && github.repository == 'python/typeshed' && (needs.stubtest-stdlib.result=='failure' || needs.stubtest-third-party.result=='failure') }}
+    if: ${{ always() && github.repository == 'Akuli/typeshed' && (needs.stubtest-stdlib.result=='failure' || needs.stubtest-third-party.result=='failure') }}
     permissions:
       issues: write
     steps:
