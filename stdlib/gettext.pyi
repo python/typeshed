@@ -27,7 +27,14 @@ class GNUTranslations(NullTranslations):
     CONTEXT: str
     VERSIONS: Sequence[int]
 
-def find(domain: str, localedir: StrPath | None = ..., languages: Iterable[str] | None = ..., all: bool = ...) -> Any: ...
+@overload
+def find(domain: str, localedir: StrPath | None = ..., languages: Iterable[str] | None = ..., all: Literal[True]) -> list[str]: ...
+
+@overload
+def find(domain: str, localedir: StrPath | None = ..., languages: Iterable[str] | None = ..., all: Literal[False]) -> str | None: ...
+
+@overload
+def find(domain: str, localedir: StrPath | None = ..., languages: Iterable[str] | None = ..., all: bool = ...) -> list[str] | str | None: ...
 
 _T = TypeVar("_T")
 
