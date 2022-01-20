@@ -1,5 +1,7 @@
 from typing import Any, Pattern
 
+_DeclarativeMeta = Any  # SQLAlchemy is not part of typeshed
+
 def should_set_tablename(cls: type) -> bool: ...
 
 camelcase_re: Pattern[str]
@@ -13,7 +15,7 @@ class NameMetaMixin(type):
 class BindMetaMixin(type):
     def __init__(cls, name, bases, d) -> None: ...
 
-class DefaultMeta(NameMetaMixin, BindMetaMixin, Any): ...
+class DefaultMeta(NameMetaMixin, BindMetaMixin, _DeclarativeMeta): ...
 
 class Model:
     query_class: Any | None

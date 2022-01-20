@@ -1,12 +1,16 @@
 from typing import Any
 
+# SQLAlchemy is not part of typeshed
+_Query = Any
+_SessionBase = Any
+
 from . import utils as utils
 from .model import DefaultMeta as DefaultMeta, Model as Model
 
 models_committed: Any
 before_models_committed: Any
 
-class SignallingSession(Any):
+class SignallingSession(_SessionBase):
     app: Any
     def __init__(self, db, autocommit: bool = ..., autoflush: bool = ..., **options) -> None: ...
     def get_bind(self, mapper: Any | None = ..., clause: Any | None = ...): ...
@@ -36,7 +40,7 @@ class Pagination:
         self, left_edge: int = ..., left_current: int = ..., right_current: int = ..., right_edge: int = ...
     ) -> None: ...
 
-class BaseQuery(Any):
+class BaseQuery(_Query):
     def get_or_404(self, ident, description: Any | None = ...): ...
     def first_or_404(self, description: Any | None = ...): ...
     def paginate(
