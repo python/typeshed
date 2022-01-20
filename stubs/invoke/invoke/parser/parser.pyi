@@ -1,5 +1,7 @@
 from typing import Any
 
+from .context import ParserContext
+
 def is_flag(value: str) -> bool: ...
 def is_long_flag(value: str) -> bool: ...
 
@@ -34,7 +36,7 @@ class ParseMachine:
     def see_positional_arg(self, value) -> None: ...
     def error(self, msg) -> None: ...
 
-class ParseResult(list[ParseResult]):
+class ParseResult(list[ParserContext]):
     remainder: str
     unparsed: Any
     def __init__(self, *args, **kwargs) -> None: ...
