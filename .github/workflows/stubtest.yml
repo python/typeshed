@@ -60,18 +60,22 @@ jobs:
         if: ${{ failure() }}
         permissions:
           issues: write
-        uses: actions/github-script@v3
+
+  create-issue-on-failure:
+    name: Create an issue if stubtest failed
+    # https://github.community/t/run-github-actions-job-only-if-previous-job-has-failed/174786/2
+    needs: [stubtest-stdlib, stubtest-third-party]
+    if: ${{ always() && (needs.stubtest-stdlib.result=='failure' || needs.stubtest-third-party.result=='failure') }}
+    permissions:
+      issues: write
+    steps:
+      - uses: actions/github-script@v3
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            let forStub = ""
-            try {
-              forStub = "for " + /stubtest failed for (.*)/.exec(fs.readFileSync("output.txt", "utf-8"))[1]
-            } catch(e) { }
-
             await github.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `Stubtest failed ${forStub} on ${new Date().toDateString()}`,
-              body: "Stubtest runs are listed [here](https://github.com/python/typeshed/actions/workflows/stubtest.yml)."
+              title: `Stubtest failed on ${new Date().toDateString()}`,
+              body: `Stubtest runs are listed here: https://github.com/${context.repo.owner}/${context.repo.repo}/actions/workflows/stubtest.yml`,
             })
