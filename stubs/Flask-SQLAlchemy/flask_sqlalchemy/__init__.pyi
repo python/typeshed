@@ -1,11 +1,11 @@
 from typing import Any
 
+from . import utils as utils
+from .model import DefaultMeta as DefaultMeta, Model as Model
+
 # SQLAlchemy is not part of typeshed
 _Query = Any
 _SessionBase = Any
-
-from . import utils as utils
-from .model import DefaultMeta as DefaultMeta, Model as Model
 
 models_committed: Any
 before_models_committed: Any
