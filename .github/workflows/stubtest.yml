@@ -56,10 +56,6 @@ jobs:
         run: sudo apt install -y $(python tests/get_apt_packages.py)
       - name: Run stubtest
         run: python -u tests/stubtest_third_party.py --num-shards 4 --shard-index ${{ matrix.shard-index }} 2>&1 | tee output.txt
-      - name: If stubtest failed, create an issue
-        if: ${{ failure() }}
-        permissions:
-          issues: write
 
   create-issue-on-failure:
     name: Create an issue if stubtest failed
