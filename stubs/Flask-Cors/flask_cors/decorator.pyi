@@ -9,13 +9,13 @@ LOG: Logger
 
 def cross_origin(
     *args: Any,
-    origins: str | list[str],
-    methods: str | list[str],
-    expose_headers: str | list[str],
-    allow_headers: str | list[str],
-    supports_credentials: bool,
+    origins: str | list[str] | None,
+    methods: str | list[str] | None,
+    expose_headers: str | list[str] | None,
+    allow_headers: str | list[str] | None,
+    supports_credentials: bool | None,
     max_age: timedelta | int | str | None,
-    send_wildcard: bool,
-    vary_header: bool,
-    automatic_options: bool,
+    send_wildcard: bool | None,
+    vary_header: bool | None,
+    automatic_options: bool | None,
 ) -> Callable[[Callable[_P, Any]], Callable[_P, Any]]: ...
