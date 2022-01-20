@@ -1,4 +1,5 @@
-from typing import Any, Callable, Literal, Mapping
+from typing import Any, Callable, Mapping
+from typing_extensions import Literal
 
 def get_platform() -> str: ...
 def convert_path(pathname: str) -> str: ...

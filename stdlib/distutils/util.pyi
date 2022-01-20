@@ -1,6 +1,7 @@
 from _typeshed import StrPath
 from collections.abc import Callable, Container, Iterable, Mapping
-from typing import Any, Literal
+from typing import Any
+from typing_extensions import Literal
 
 def get_platform() -> str: ...
 def convert_path(pathname: str) -> str: ...
