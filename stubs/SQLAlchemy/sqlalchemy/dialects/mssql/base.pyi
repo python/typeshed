@@ -1,4 +1,5 @@
 from typing import Any, overload
+from typing_extensions import Literal
 
 import sqlalchemy.types as sqltypes
 
