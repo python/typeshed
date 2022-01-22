@@ -7,7 +7,3 @@ pygments.lexer.LexerMeta.analyse_text
 
 # Inheriting from tuple is weird
 pygments.token._TokenType.__init__
-pygments.token.Number
-pygments.token.String
-pygments.token.Token
-pygments.token.Whitespace
