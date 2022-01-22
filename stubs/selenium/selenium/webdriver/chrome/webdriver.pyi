@@ -2,8 +2,8 @@ from typing import Any
 
 from selenium.webdriver.remote.webdriver import WebDriver as RemoteWebDriver
 
-from .remote_connection import ChromeRemoteConnection as ChromeRemoteConnection
 from .options import Options
+from .remote_connection import ChromeRemoteConnection as ChromeRemoteConnection
 from .service import Service
 
 class WebDriver(RemoteWebDriver):
