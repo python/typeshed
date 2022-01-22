@@ -1002,11 +1002,7 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
     @overload
     def heading(self, column: _TreeviewColumnId, option: str) -> Any: ...
     @overload
-    def heading(  # type: ignore[misc]
-        self,
-        column: _TreeviewColumnId,
-        option: None = ...,
-    ) -> _TreeviewHeaderDict: ...
+    def heading(self, column: _TreeviewColumnId, option: None = ...) -> _TreeviewHeaderDict: ...  # type: ignore[misc]
     @overload
     def heading(
         self,
@@ -1050,11 +1046,7 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
     @overload
     def item(self, item: str, option: str) -> Any: ...
     @overload
-    def item(  # type: ignore[misc]
-        self,
-        item: str,
-        option: None = ...,
-    ) -> _TreeviewItemDict: ...
+    def item(self, item: str, option: None = ...) -> _TreeviewItemDict: ...  # type: ignore[misc]
     @overload
     def item(
         self,
