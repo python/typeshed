@@ -1,10 +1,10 @@
 import textwrap
-from typing import IO, Any, Callable, Generic, List, Text, Type, TypeVar, overload
+from typing import IO, Any, Callable, Generic, Text, TypeVar, overload
 from typing_extensions import SupportsIndex
 
-_TB = TypeVar("_TB", bound="_BaseEntry")
-_TP = TypeVar("_TP", bound="POFile")
-_TM = TypeVar("_TM", bound="MOFile")
+_TB = TypeVar("_TB", bound=_BaseEntry)
+_TP = TypeVar("_TP", bound=POFile)
+_TM = TypeVar("_TM", bound=MOFile)
 
 default_encoding: str
 
@@ -12,18 +12,18 @@ default_encoding: str
 # encoding: str
 # check_for_duplicates: bool
 @overload
-def pofile(pofile: Text, *, klass: Type[_TP], **kwargs: Any) -> _TP: ...
+def pofile(pofile: Text, *, klass: type[_TP], **kwargs: Any) -> _TP: ...
 @overload
 def pofile(pofile: Text, **kwargs: Any) -> POFile: ...
 @overload
-def mofile(mofile: Text, *, klass: Type[_TM], **kwargs: Any) -> _TM: ...
+def mofile(mofile: Text, *, klass: type[_TM], **kwargs: Any) -> _TM: ...
 @overload
 def mofile(mofile: Text, **kwargs: Any) -> MOFile: ...
 def detect_encoding(file: bytes | Text, binary_mode: bool = ...) -> str: ...
 def escape(st: Text) -> Text: ...
 def unescape(st: Text) -> Text: ...
 
-class _BaseFile(List[_TB]):
+class _BaseFile(list[_TB]):
     fpath: Text
     wrapwidth: int
     encoding: Text

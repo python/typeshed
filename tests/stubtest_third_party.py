@@ -11,7 +11,7 @@ import tempfile
 import venv
 from glob import glob
 from pathlib import Path
-from typing import Any, NoReturn
+from typing import NoReturn
 
 import tomli
 
@@ -26,7 +26,7 @@ def run_stubtest(dist: Path) -> bool:
     with open(dist / "METADATA.toml") as f:
         metadata = dict(tomli.loads(f.read()))
 
-    if not run_stubtest_for(metadata, dist):
+    if not has_py3_stubs(dist):
         print(f"Skipping stubtest for {dist.name}\n\n")
         return True
 
@@ -107,10 +107,6 @@ def run_stubtest(dist: Path) -> bool:
             print(f"stubtest succeeded for {dist.name}", file=sys.stderr)
         print("\n\n", file=sys.stderr)
     return True
-
-
-def run_stubtest_for(metadata: dict[str, Any], dist: Path) -> bool:
-    return has_py3_stubs(dist) and metadata.get("stubtest", True)
 
 
 # Keep this in sync with mypy_test.py

@@ -1,18 +1,19 @@
 import sys
 from _typeshed import Self, StrOrBytesPath
 from types import TracebackType
-from typing import (
+from typing import (  # noqa Y027
     IO,
     Any,
+    AsyncGenerator,
     AsyncIterator,
     Awaitable,
     Callable,
     ContextManager,
+    Generator,
     Generic,
     Iterator,
     Optional,
     Protocol,
-    Type,
     TypeVar,
     overload,
 )
@@ -20,7 +21,7 @@ from typing_extensions import ParamSpec
 
 AbstractContextManager = ContextManager
 if sys.version_info >= (3, 7):
-    from typing import AsyncContextManager
+    from typing import AsyncContextManager  # noqa Y022
 
     AbstractAsyncContextManager = AsyncContextManager
 
@@ -30,28 +31,47 @@ _T_io = TypeVar("_T_io", bound=Optional[IO[str]])
 _F = TypeVar("_F", bound=Callable[..., Any])
 _P = ParamSpec("_P")
 
-_ExitFunc = Callable[[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]], bool]
+_ExitFunc = Callable[[Optional[type[BaseException]], Optional[BaseException], Optional[TracebackType]], bool]
 _CM_EF = TypeVar("_CM_EF", AbstractContextManager[Any], _ExitFunc)
 
 class ContextDecorator:
     def __call__(self, func: _F) -> _F: ...
 
-class _GeneratorContextManager(AbstractContextManager[_T_co], ContextDecorator): ...
+class _GeneratorContextManager(AbstractContextManager[_T_co], ContextDecorator, Generic[_T_co]):
+    # In Python <= 3.6, __init__ and all instance attributes are defined directly on this class.
+    # In Python >= 3.7, __init__ and all instance attributes are inherited from _GeneratorContextManagerBase
+    # _GeneratorContextManagerBase is more trouble than it's worth to include in the stub; see #6676
+    def __init__(self, func: Callable[..., Iterator[_T_co]], args: tuple[Any, ...], kwds: dict[str, Any]) -> None: ...
+    gen: Generator[_T_co, Any, Any]
+    func: Callable[..., Generator[_T_co, Any, Any]]
+    args: tuple[Any, ...]
+    kwds: dict[str, Any]
 
-# type ignore to deal with incomplete ParamSpec support in mypy
-def contextmanager(func: Callable[_P, Iterator[_T]]) -> Callable[_P, _GeneratorContextManager[_T]]: ...  # type: ignore[misc]
+def contextmanager(func: Callable[_P, Iterator[_T_co]]) -> Callable[_P, _GeneratorContextManager[_T_co]]: ...
 
 if sys.version_info >= (3, 10):
     _AF = TypeVar("_AF", bound=Callable[..., Awaitable[Any]])
     class AsyncContextDecorator:
         def __call__(self, func: _AF) -> _AF: ...
-    class _AsyncGeneratorContextManager(AbstractAsyncContextManager[_T_co], AsyncContextDecorator): ...
+    class _AsyncGeneratorContextManager(AbstractAsyncContextManager[_T_co], AsyncContextDecorator, Generic[_T_co]):
+        # __init__ and these attributes are actually defined in the base class _GeneratorContextManagerBase,
+        # which is more trouble than it's worth to include in the stub (see #6676)
+        def __init__(self, func: Callable[..., AsyncIterator[_T_co]], args: tuple[Any, ...], kwds: dict[str, Any]) -> None: ...
+        gen: AsyncGenerator[_T_co, Any]
+        func: Callable[..., AsyncGenerator[_T_co, Any]]
+        args: tuple[Any, ...]
+        kwds: dict[str, Any]
 
 elif sys.version_info >= (3, 7):
-    class _AsyncGeneratorContextManager(AbstractAsyncContextManager[_T_co]): ...
+    class _AsyncGeneratorContextManager(AbstractAsyncContextManager[_T_co], Generic[_T_co]):
+        def __init__(self, func: Callable[..., AsyncIterator[_T_co]], args: tuple[Any, ...], kwds: dict[str, Any]) -> None: ...
+        gen: AsyncGenerator[_T_co, Any]
+        func: Callable[..., AsyncGenerator[_T_co, Any]]
+        args: tuple[Any, ...]
+        kwds: dict[str, Any]
 
 if sys.version_info >= (3, 7):
-    def asynccontextmanager(func: Callable[_P, AsyncIterator[_T]]) -> Callable[_P, _AsyncGeneratorContextManager[_T]]: ...  # type: ignore[misc]
+    def asynccontextmanager(func: Callable[_P, AsyncIterator[_T_co]]) -> Callable[_P, _AsyncGeneratorContextManager[_T_co]]: ...
 
 class _SupportsClose(Protocol):
     def close(self) -> object: ...
@@ -69,9 +89,9 @@ if sys.version_info >= (3, 10):
         def __init__(self, thing: _SupportsAcloseT) -> None: ...
 
 class suppress(AbstractContextManager[None]):
-    def __init__(self, *exceptions: Type[BaseException]) -> None: ...
+    def __init__(self, *exceptions: type[BaseException]) -> None: ...
     def __exit__(
-        self, exctype: Type[BaseException] | None, excinst: BaseException | None, exctb: TracebackType | None
+        self, exctype: type[BaseException] | None, excinst: BaseException | None, exctb: TracebackType | None
     ) -> bool: ...
 
 class redirect_stdout(AbstractContextManager[_T_io]):
@@ -89,11 +109,11 @@ class ExitStack(AbstractContextManager[ExitStack]):
     def close(self) -> None: ...
     def __enter__(self: Self) -> Self: ...
     def __exit__(
-        self, __exc_type: Type[BaseException] | None, __exc_value: BaseException | None, __traceback: TracebackType | None
+        self, __exc_type: type[BaseException] | None, __exc_value: BaseException | None, __traceback: TracebackType | None
     ) -> bool: ...
 
 if sys.version_info >= (3, 7):
-    _ExitCoroFunc = Callable[[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]], Awaitable[bool]]
+    _ExitCoroFunc = Callable[[Optional[type[BaseException]], Optional[BaseException], Optional[TracebackType]], Awaitable[bool]]
     _CallbackCoroFunc = Callable[..., Awaitable[Any]]
     _ACM_EF = TypeVar("_ACM_EF", AbstractAsyncContextManager[Any], _ExitCoroFunc)
     class AsyncExitStack(AbstractAsyncContextManager[AsyncExitStack]):
@@ -108,7 +128,7 @@ if sys.version_info >= (3, 7):
         def aclose(self) -> Awaitable[None]: ...
         def __aenter__(self: Self) -> Awaitable[Self]: ...
         def __aexit__(
-            self, __exc_type: Type[BaseException] | None, __exc_value: BaseException | None, __traceback: TracebackType | None
+            self, __exc_type: type[BaseException] | None, __exc_value: BaseException | None, __traceback: TracebackType | None
         ) -> Awaitable[bool]: ...
 
 if sys.version_info >= (3, 10):
