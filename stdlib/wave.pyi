@@ -1,5 +1,5 @@
 import sys
-from _typeshed import Self, ReadableBuffer
+from _typeshed import ReadableBuffer, Self
 from typing import IO, Any, BinaryIO, NamedTuple, NoReturn, Union
 from typing_extensions import Literal
 
