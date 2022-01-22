@@ -8,24 +8,20 @@ _T = TypeVar("_T")
 _App = Any  # flask is not part of typeshed
 _Response = Any  # flask is not part of typeshed
 _MultiDict = Any  # werkzeug is not part of typeshed
-_Options = TypedDict(
-    "_Options",
-    {
-        "resources": dict[str, dict[str, Any]] | list[str] | str | None,
-        "origins": str | list[str] | None,
-        "methods": str | list[str] | None,
-        "expose_headers": str | list[str] | None,
-        "allow_headers": str | list[str] | None,
-        "supports_credentials": bool | None,
-        "max_age": timedelta | int | str | None,
-        "send_wildcard": bool | None,
-        "vary_header": bool | None,
-        "automatic_options": bool | None,
-        "intercept_exceptions": bool | None,
-        "always_send": bool | None,
-    },
-    total=False,
-)
+
+class _Options(TypedDict, total=False):
+    resources: dict[str, dict[str, Any]] | list[str] | str | None
+    origins: str | list[str] | None
+    methods: str | list[str] | None
+    expose_headers: str | list[str] | None
+    allow_headers: str | list[str] | None
+    supports_credentials: bool | None
+    max_age: timedelta | int | str | None
+    send_wildcard: bool | None
+    vary_header: bool | None
+    automatic_options: bool | None
+    intercept_exceptions: bool | None
+    always_send: bool | None
 
 LOG: Logger
 ACL_ORIGIN: str
