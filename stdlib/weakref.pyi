@@ -2,6 +2,7 @@ import sys
 from _typeshed import Self, SupportsKeysAndGetItem
 from _weakrefset import WeakSet as WeakSet
 from typing import Any, Callable, Generic, Iterable, Iterator, Mapping, MutableMapping, TypeVar, overload
+from typing_extensions import ParamSpec
 
 from _weakref import (
     CallableProxyType as CallableProxyType,
@@ -19,6 +20,7 @@ _T2 = TypeVar("_T2")
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
 _CallableT = TypeVar("_CallableT", bound=Callable[..., Any])
+_P = ParamSpec("_P")
 
 ProxyTypes: tuple[type[Any], ...]
 
@@ -95,8 +97,8 @@ class WeakKeyDictionary(MutableMapping[_KT, _VT]):
         @overload
         def __ior__(self: Self, value: Iterable[tuple[_KT, _VT]]) -> Self: ...
 
-class finalize:
-    def __init__(self, __obj: object, __func: Callable[..., Any], *args: Any, **kwargs: Any) -> None: ...
+class finalize:  # TODO: This is a good candidate for to be a `Generic[_P, _T]` class
+    def __init__(self, __obj: object, __func: Callable[_P, Any], *args: _P.args, **kwargs: _P.kwargs) -> None: ...
     def __call__(self, _: Any = ...) -> Any | None: ...
     def detach(self) -> tuple[Any, Any, tuple[Any, ...], dict[str, Any]] | None: ...
     def peek(self) -> tuple[Any, Any, tuple[Any, ...], dict[str, Any]] | None: ...
