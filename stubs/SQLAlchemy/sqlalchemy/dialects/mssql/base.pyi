@@ -93,6 +93,7 @@ class NTEXT(sqltypes.UnicodeText):
 
 class VARBINARY(sqltypes.VARBINARY, sqltypes.LargeBinary):
     __visit_name__: str
+    filestream: bool
     def __init__(self, length: int | None = ..., filestream: bool = ...) -> None: ...
 
 class IMAGE(sqltypes.LargeBinary):
