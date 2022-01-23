@@ -1,6 +1,6 @@
 import sys
+from _typeshed import SupportsDunderGE, SupportsDunderGT, SupportsDunderLE, SupportsDunderLT
 from typing import Any
-from _typeshed import SupportsDunderLT, SupportsDunderGT, SupportsDunderLE, SupportsDunderGE
 
 # Because UUID has properties called int and bytes we need to rename these temporarily.
 _Int = int
