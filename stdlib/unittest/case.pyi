@@ -141,9 +141,9 @@ class TestCase:
     def assertWarns(  # type: ignore[misc]
         self,
         expected_warning: type[Warning] | tuple[type[Warning], ...],
-        callable: Callable[..., object],
-        *args: Any,
-        **kwargs: Any,
+        callable: Callable[_P, object],
+        *args: _P.args,
+        **kwargs: _P.kwargs,
     ) -> None: ...
     @overload
     def assertWarns(self, expected_warning: type[Warning] | tuple[type[Warning], ...], msg: Any = ...) -> _AssertWarnsContext: ...
