@@ -1,4 +1,4 @@
-from typing import Any, Awaitable, Callable
+from typing import Awaitable, Callable
 from typing_extensions import ParamSpec
 
 from .case import TestCase
