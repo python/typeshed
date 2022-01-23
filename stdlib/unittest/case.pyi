@@ -108,13 +108,16 @@ class TestCase:
     def assertGreaterEqual(self, a: Any, b: Any, msg: Any = ...) -> None: ...
     def assertLess(self, a: Any, b: Any, msg: Any = ...) -> None: ...
     def assertLessEqual(self, a: Any, b: Any, msg: Any = ...) -> None: ...
+    # `assertRaises`, `assertRaisesRegex`, and `assertRaisesRegexp` 
+    # are not using `ParamSpec` intentionally,
+    # because they might be used with explicitly wrong arg types to raise some error in tests.
     @overload
     def assertRaises(  # type: ignore[misc]
         self,
         expected_exception: type[BaseException] | tuple[type[BaseException], ...],
-        callable: Callable[_P, object],
-        *args: _P.args,
-        **kwargs: _P.kwargs,
+        callable: Callable[..., object],
+        *args: Any,
+        **kwargs: Any,
     ) -> None: ...
     @overload
     def assertRaises(self, expected_exception: type[_E] | tuple[type[_E], ...], msg: Any = ...) -> _AssertRaisesContext[_E]: ...
@@ -123,9 +126,9 @@ class TestCase:
         self,
         expected_exception: type[BaseException] | tuple[type[BaseException], ...],
         expected_regex: str | bytes | Pattern[str] | Pattern[bytes],
-        callable: Callable[_P, object],
-        *args: _P.args,
-        **kwargs: _P.kwargs,
+        callable: Callable[..., object],
+        *args: Any,
+        **kwargs: Any,
     ) -> None: ...
     @overload
     def assertRaisesRegex(
@@ -138,9 +141,9 @@ class TestCase:
     def assertWarns(  # type: ignore[misc]
         self,
         expected_warning: type[Warning] | tuple[type[Warning], ...],
-        callable: Callable[_P, object],
-        *args: _P.args,
-        **kwargs: _P.kwargs,
+        callable: Callable[..., object],
+        *args: Any,
+        **kwargs: Any,
     ) -> None: ...
     @overload
     def assertWarns(self, expected_warning: type[Warning] | tuple[type[Warning], ...], msg: Any = ...) -> _AssertWarnsContext: ...
@@ -257,9 +260,9 @@ class TestCase:
             self,
             exception: type[BaseException] | tuple[type[BaseException], ...],
             expected_regex: str | bytes | Pattern[str] | Pattern[bytes],
-            callable: Callable[_P, object],
-            *args: _P.args,
-            **kwargs: _P.kwargs,
+            callable: Callable[..., object],
+            *args: Any,
+            **kwargs: Any,
         ) -> None: ...
         @overload
         def assertRaisesRegexp(
