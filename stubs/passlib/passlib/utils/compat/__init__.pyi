@@ -1,4 +1,8 @@
-import logging
+from typing_extensions import Literal
 
-_LazyOverlayModule__attrmap: dict
-_LazyOverlayModule__log: logging.Logger
+PY2: Literal[False]
+PY3: Literal[True]
+PY26: Literal[False]
+JYTHON: bool
+PYPY: bool
+PYSTON: bool
