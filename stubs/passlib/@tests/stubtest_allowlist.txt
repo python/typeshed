@@ -1,2 +1,7 @@
 # django unsupported in stubs
 passlib.ext.django.models
+
+# uses @memoized_property at runtime, but @property in the stubs
+passlib.crypto.digest.HashInfo.supported
+passlib.crypto.digest.HashInfo.supported_by_fastpbkdf2
+passlib.crypto.digest.HashInfo.supported_by_hashlib_pbkdf2
