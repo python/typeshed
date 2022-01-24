@@ -94,8 +94,8 @@ class HasSalt(GenericHandler):
     min_salt_size: int
     max_salt_size: Any
     salt_chars: Any
-    def default_salt_size(cls): ...
-    def default_salt_chars(cls): ...
+    def default_salt_size(cls): ...  # type: ignore
+    def default_salt_chars(cls): ...  # type: ignore
     salt: Any
     @classmethod
     def using(cls, default_salt_size: Any | None = ..., salt_size: Any | None = ..., salt: Any | None = ..., **kwds): ...
@@ -148,7 +148,7 @@ class BackendMixin(PasswordHash, metaclass=abc.ABCMeta):
     def set_backend(cls, name: str = ..., dryrun: bool = ...): ...
 
 class SubclassBackendMixin(BackendMixin, metaclass=abc.ABCMeta): ...
-class HasManyBackends(BackendMixin, GenericHandler): ...
+class HasManyBackends(BackendMixin, GenericHandler): ...  # type: ignore
 
 class PrefixWrapper:
     name: Any

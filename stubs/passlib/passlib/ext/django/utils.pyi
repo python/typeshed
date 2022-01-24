@@ -1,7 +1,6 @@
 from typing import Any
 
-from django import VERSION as DJANGO_VERSION
-
+VERSION: tuple[Any, ...]
 MIN_DJANGO_VERSION: Any
 
 class quirks:

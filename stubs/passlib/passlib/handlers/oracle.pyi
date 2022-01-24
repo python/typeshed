@@ -2,12 +2,12 @@ from typing import Any
 
 import passlib.utils.handlers as uh
 
-class oracle10(uh.HasUserContext, uh.StaticHandler):
+class oracle10(uh.HasUserContext, uh.StaticHandler):  # type: ignore
     name: str
     checksum_chars: Any
     checksum_size: int
 
-class oracle11(uh.HasSalt, uh.GenericHandler):
+class oracle11(uh.HasSalt, uh.GenericHandler):  # type: ignore
     name: str
     setting_kwds: Any
     checksum_size: int

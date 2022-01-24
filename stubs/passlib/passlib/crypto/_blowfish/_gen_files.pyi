@@ -1,7 +1,5 @@
 from typing import Any
 
-from passlib.utils.compat import irange as irange
-
 def varlist(name, count): ...
 def indent_block(block, padding): ...
 
