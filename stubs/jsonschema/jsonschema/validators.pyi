@@ -1,5 +1,5 @@
 from _typeshed import SupportsKeysAndGetItem
-from collections.abc import Callable, Generator, Mapping
+from collections.abc import Callable, Generator, Iterable, Mapping
 from typing import Any, ClassVar
 
 # This class does not exist runtime. Compatible classes are created at
