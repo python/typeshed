@@ -2,6 +2,24 @@ from typing import Any
 
 import passlib.utils.handlers as uh
 from passlib.handlers.misc import plaintext
+from passlib.utils.handlers import PrefixWrapper
+
+__all__ = [
+    "ldap_plaintext",
+    "ldap_md5",
+    "ldap_sha1",
+    "ldap_salted_md5",
+    "ldap_salted_sha1",
+    "ldap_salted_sha256",
+    "ldap_salted_sha512",
+    "ldap_des_crypt",
+    "ldap_bsdi_crypt",
+    "ldap_md5_crypt",
+    "ldap_sha1_crypt",
+    "ldap_bcrypt",
+    "ldap_sha256_crypt",
+    "ldap_sha512_crypt",
+]
 
 class _Base64DigestHelper(uh.StaticHandler):
     ident: Any
@@ -55,11 +73,11 @@ class ldap_plaintext(plaintext):
     @classmethod
     def identify(cls, hash): ...
 
-# Names in __all__ with no definition:
-#   ldap_bcrypt
-#   ldap_bsdi_crypt
-#   ldap_des_crypt
-#   ldap_md5_crypt
-#   ldap_sha1_crypt
-#   ldap_sha256_crypt
-#   ldap_sha512_crypt
+# Dynamically created
+ldap_sha512_crypt: PrefixWrapper
+ldap_sha256_crypt: PrefixWrapper
+ldap_sha1_crypt: PrefixWrapper
+ldap_bcrypt: PrefixWrapper
+ldap_md5_crypt: PrefixWrapper
+ldap_bsdi_crypt: PrefixWrapper
+ldap_des_crypt: PrefixWrapper

@@ -1,6 +1,7 @@
 from typing import Any
 
 import passlib.utils.handlers as uh
+from passlib.utils.handlers import PrefixWrapper
 
 class Pbkdf2DigestHandler(uh.HasRounds, uh.HasRawSalt, uh.HasRawChecksum, uh.GenericHandler):  # type: ignore
     setting_kwds: Any
@@ -18,6 +19,10 @@ class Pbkdf2DigestHandler(uh.HasRounds, uh.HasRawSalt, uh.HasRawChecksum, uh.Gen
 pbkdf2_sha1: Any
 pbkdf2_sha256: Any
 pbkdf2_sha512: Any
+
+ldap_pbkdf2_sha1: PrefixWrapper
+ldap_pbkdf2_sha256: PrefixWrapper
+ldap_pbkdf2_sha512: PrefixWrapper
 
 class cta_pbkdf2_sha1(uh.HasRounds, uh.HasRawSalt, uh.HasRawChecksum, uh.GenericHandler):  # type: ignore
     name: str

@@ -34,7 +34,7 @@ __all__ = [
 ]
 
 sys_bits: Any
-unix_crypt_schemes: Any
+unix_crypt_schemes: list[str]
 rounds_cost_values: Any
 
 class SequenceMixin:
