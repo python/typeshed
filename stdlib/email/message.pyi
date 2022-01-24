@@ -2,6 +2,7 @@ from email.charset import Charset
 from email.contentmanager import ContentManager
 from email.errors import MessageDefect
 from email.policy import Policy
+
 # using a type alias ("_HeaderType = Any") breaks mypy, who knows why
 from typing import Any, Any as _HeaderType, Generator, Iterator, Optional, Sequence, TypeVar, Union
 
