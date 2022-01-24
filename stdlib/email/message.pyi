@@ -2,8 +2,16 @@ from email.charset import Charset
 from email.contentmanager import ContentManager
 from email.errors import MessageDefect
 from email.policy import Policy
-from typing import Any, Generator, Iterator, Optional, Sequence, TypeVar, Union
-from typing import Any as _HeaderType  # using a type alias ("_HeaderType = Any") breaks mypy, who knows why
+from typing import (  # using a type alias ("_HeaderType = Any") breaks mypy, who knows why
+    Any,
+    Any as _HeaderType,
+    Generator,
+    Iterator,
+    Optional,
+    Sequence,
+    TypeVar,
+    Union,
+)
 
 _T = TypeVar("_T")
 
