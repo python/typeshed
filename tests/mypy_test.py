@@ -12,6 +12,8 @@ Approach:
 5. Repeat steps 2-4 for other mypy runs (e.g. --py2)
 """
 
+from __future__ import annotations
+
 import argparse
 import os
 import re
