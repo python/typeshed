@@ -2,6 +2,8 @@ from _typeshed import SupportsKeysAndGetItem
 from collections.abc import Callable, Generator, Iterable, Mapping
 from typing import Any, ClassVar
 
+from ._utils import URIDict
+
 # This class does not exist runtime. Compatible classes are created at
 # runtime by create().
 class _Validator:
@@ -38,15 +40,15 @@ Draft202012Validator: type[_Validator]
 _Handler = Callable[[str], Any]
 
 class RefResolver:
-    referrer: Any
+    referrer: str
     cache_remote: Any
     handlers: dict[str, _Handler]
-    store: Any
+    store: URIDict
     def __init__(
         self,
         base_uri: str,
-        referrer: Any,
-        store: Mapping[str, Any] = ...,
+        referrer: str,
+        store: SupportsKeysAndGetItem[str, str] | Iterable[tuple[str, str]] = ...,
         cache_remote: bool = ...,
         handlers: SupportsKeysAndGetItem[str, _Handler] | Iterable[tuple[str, _Handler]] = ...,
         urljoin_cache: Any | None = ...,
