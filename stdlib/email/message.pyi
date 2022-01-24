@@ -3,6 +3,7 @@ from email.contentmanager import ContentManager
 from email.errors import MessageDefect
 from email.policy import Policy
 from typing import Any, Generator, Iterator, Optional, Sequence, TypeVar, Union
+from typing import Any as _HeaderType  # using a type alias ("_HeaderType = Any") breaks mypy, who knows why
 
 _T = TypeVar("_T")
 
@@ -10,7 +11,6 @@ _PayloadType = Union[list[Message], str, bytes]
 _CharsetType = Union[Charset, str, None]
 _ParamsType = Union[str, None, tuple[str, Optional[str], str]]
 _ParamType = Union[str, tuple[Optional[str], Optional[str], str]]
-_HeaderType = Any
 
 class Message:
     policy: Policy  # undocumented
