@@ -60,6 +60,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
+        with:
+          python-version: "3.10.1" # 3.10.2 introduced a regression with mypy
       - run: pip install $(grep tomli== requirements-tests.txt) $(grep mypy== requirements-tests.txt)
       - run: ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
 
