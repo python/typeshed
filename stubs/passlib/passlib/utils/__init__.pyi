@@ -4,6 +4,34 @@ from typing import Any
 
 from passlib.utils.compat import JYTHON as JYTHON
 
+__all__ = [
+    "JYTHON",
+    "sys_bits",
+    "unix_crypt_schemes",
+    "rounds_cost_values",
+    "consteq",
+    "saslprep",
+    "xor_bytes",
+    "render_bytes",
+    "is_same_codec",
+    "is_ascii_safe",
+    "to_bytes",
+    "to_unicode",
+    "to_native_str",
+    "has_crypt",
+    "test_crypt",
+    "safe_crypt",
+    "tick",
+    "rng",
+    "getrandbytes",
+    "getrandstr",
+    "generate_password",
+    "is_crypt_handler",
+    "is_crypt_context",
+    "has_rounds_info",
+    "has_salt_info",
+]
+
 sys_bits: Any
 unix_crypt_schemes: Any
 rounds_cost_values: Any
