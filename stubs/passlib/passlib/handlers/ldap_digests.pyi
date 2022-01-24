@@ -1,0 +1,65 @@
+from typing import Any
+
+import passlib.utils.handlers as uh
+from passlib.handlers.misc import plaintext
+
+class _Base64DigestHelper(uh.StaticHandler):
+    ident: Any
+    checksum_chars: Any
+
+class _SaltedBase64DigestHelper(uh.HasRawSalt, uh.HasRawChecksum, uh.GenericHandler):
+    setting_kwds: Any
+    checksum_chars: Any
+    ident: Any
+    min_salt_size: int
+    max_salt_size: int
+    default_salt_size: int
+    @classmethod
+    def from_string(cls, hash): ...
+    def to_string(self): ...
+
+class ldap_md5(_Base64DigestHelper):
+    name: str
+    ident: Any
+
+class ldap_sha1(_Base64DigestHelper):
+    name: str
+    ident: Any
+
+class ldap_salted_md5(_SaltedBase64DigestHelper):
+    name: str
+    ident: Any
+    checksum_size: int
+
+class ldap_salted_sha1(_SaltedBase64DigestHelper):
+    name: str
+    ident: Any
+    checksum_size: int
+
+class ldap_salted_sha256(_SaltedBase64DigestHelper):
+    name: str
+    ident: Any
+    checksum_size: int
+    default_salt_size: int
+
+class ldap_salted_sha512(_SaltedBase64DigestHelper):
+    name: str
+    ident: Any
+    checksum_size: int
+    default_salt_size: int
+
+class ldap_plaintext(plaintext):
+    name: str
+    @classmethod
+    def genconfig(cls): ...
+    @classmethod
+    def identify(cls, hash): ...
+
+# Names in __all__ with no definition:
+#   ldap_bcrypt
+#   ldap_bsdi_crypt
+#   ldap_des_crypt
+#   ldap_md5_crypt
+#   ldap_sha1_crypt
+#   ldap_sha256_crypt
+#   ldap_sha512_crypt
