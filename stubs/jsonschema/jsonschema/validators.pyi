@@ -4,7 +4,7 @@ from typing import Any, ClassVar
 
 from ._utils import URIDict
 
-# This class does not exist runtime. Compatible classes are created at
+# This class does not exist at runtime. Compatible classes are created at
 # runtime by create().
 class _Validator:
     VALIDATORS: ClassVar[dict[Any, Any]]
