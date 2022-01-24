@@ -9,6 +9,7 @@ STUBS_SUPPORTING_PYTHON_2 = frozenset(
     path.parent for path in Path("stubs").rglob("METADATA.toml") if "python2 = true" in path.read_text().splitlines()
 )
 
+
 def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
     errors = []
     python_2_support_required = any(directory in path.parents for directory in STUBS_SUPPORTING_PYTHON_2)
