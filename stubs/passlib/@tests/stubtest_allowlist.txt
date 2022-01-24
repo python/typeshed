@@ -1,0 +1,2 @@
+# django unsupported in stubs
+passlib.ext.django.models

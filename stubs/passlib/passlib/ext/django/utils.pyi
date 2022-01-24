@@ -1,7 +1,14 @@
 from typing import Any
 
-VERSION: tuple[Any, ...]
-MIN_DJANGO_VERSION: Any
+__all__ = [
+    "DJANGO_VERSION",
+    "MIN_DJANGO_VERSION",
+    "get_preset_config",
+    "quirks",
+]
+
+DJANGO_VERSION: tuple[Any, ...]
+MIN_DJANGO_VERSION: tuple[int, int]
 
 class quirks:
     none_causes_check_password_error: Any
