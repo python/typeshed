@@ -1,5 +1,5 @@
 from _typeshed import SupportsKeysAndGetItem
-from collections.abc import Callable, Generator, Iterable, Mapping
+from collections.abc import Callable, Generator, Iterable
 from typing import Any, ClassVar
 
 from ._utils import URIDict
