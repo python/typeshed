@@ -17,7 +17,7 @@ class scrypt(uh.ParallelismMixin, uh.HasRounds, uh.HasRawSalt, uh.HasRawChecksum
     parallelism: int
     block_size: int
     @classmethod
-    def using(cls, block_size: Any | None = ..., **kwds): ...
+    def using(cls, block_size: Any | None = ..., **kwds): ...  # type: ignore[override]
     @classmethod
     def from_string(cls, hash): ...
     @classmethod

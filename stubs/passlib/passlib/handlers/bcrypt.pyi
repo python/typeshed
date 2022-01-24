@@ -34,7 +34,7 @@ class _PyBcryptBackend(_BcryptCommon): ...
 class _OsCryptBackend(_BcryptCommon): ...
 class _BuiltinBackend(_BcryptCommon): ...
 
-class bcrypt(_NoBackend, _BcryptCommon):
+class bcrypt(_NoBackend, _BcryptCommon):  # type: ignore
     backends: Any
 
 class _wrapped_bcrypt(bcrypt):
@@ -48,7 +48,7 @@ class bcrypt_sha256(_wrapped_bcrypt):
     default_ident: Any
     version: int
     @classmethod
-    def using(cls, version: Any | None = ..., **kwds): ...
+    def using(cls, version: Any | None = ..., **kwds): ...  # type: ignore[override]
     prefix: Any
     @classmethod
     def identify(cls, hash): ...

@@ -21,7 +21,7 @@ class cisco_type7(uh.GenericHandler):
     min_salt_value: int
     max_salt_value: int
     @classmethod
-    def using(cls, salt: Any | None = ..., **kwds): ...
+    def using(cls, salt: Any | None = ..., **kwds): ...  # type: ignore[override]
     @classmethod
     def from_string(cls, hash): ...
     salt: Any

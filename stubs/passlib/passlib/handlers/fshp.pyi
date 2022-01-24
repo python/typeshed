@@ -15,7 +15,7 @@ class fshp(uh.HasRounds, uh.HasRawSalt, uh.HasRawChecksum, uh.GenericHandler):  
     rounds_cost: str
     default_variant: int
     @classmethod
-    def using(cls, variant: Any | None = ..., **kwds): ...
+    def using(cls, variant: Any | None = ..., **kwds): ...  # type: ignore[override]
     variant: Any
     use_defaults: Any
     def __init__(self, variant: Any | None = ..., **kwds) -> None: ...

@@ -17,13 +17,13 @@ def render_mc3(ident, rounds, salt, checksum, sep=..., rounds_base: int = ...): 
 
 class MinimalHandler(PasswordHash, metaclass=abc.ABCMeta):
     @classmethod
-    def using(cls, relaxed: bool = ...): ...
+    def using(cls, relaxed: bool = ...): ...  # type: ignore[override]
 
 class TruncateMixin(MinimalHandler, metaclass=abc.ABCMeta):
     truncate_error: bool
     truncate_verify_reject: bool
     @classmethod
-    def using(cls, truncate_error: Any | None = ..., **kwds): ...
+    def using(cls, truncate_error: Any | None = ..., **kwds): ...  # type: ignore[override]
 
 class GenericHandler(MinimalHandler):
     setting_kwds: Any
@@ -85,7 +85,7 @@ class HasManyIdents(GenericHandler):
     ident_aliases: Any
     ident: Any
     @classmethod
-    def using(cls, default_ident: Any | None = ..., ident: Any | None = ..., **kwds): ...
+    def using(cls, default_ident: Any | None = ..., ident: Any | None = ..., **kwds): ...  # type: ignore[override]
     def __init__(self, ident: Any | None = ..., **kwds) -> None: ...
     @classmethod
     def identify(cls, hash): ...
@@ -98,7 +98,7 @@ class HasSalt(GenericHandler):
     def default_salt_chars(cls): ...  # type: ignore
     salt: Any
     @classmethod
-    def using(cls, default_salt_size: Any | None = ..., salt_size: Any | None = ..., salt: Any | None = ..., **kwds): ...
+    def using(cls, default_salt_size: Any | None = ..., salt_size: Any | None = ..., salt: Any | None = ..., **kwds): ...  # type: ignore[override]
     def __init__(self, salt: Any | None = ..., **kwds) -> None: ...
     @classmethod
     def bitsize(cls, salt_size: Any | None = ..., **kwds): ...
@@ -117,7 +117,7 @@ class HasRounds(GenericHandler):
     vary_rounds: Any
     rounds: Any
     @classmethod
-    def using(
+    def using(  # type: ignore[override]
         cls,
         min_desired_rounds: Any | None = ...,
         max_desired_rounds: Any | None = ...,
@@ -135,7 +135,7 @@ class HasRounds(GenericHandler):
 class ParallelismMixin(GenericHandler):
     parallelism: int
     @classmethod
-    def using(cls, parallelism: Any | None = ..., **kwds): ...
+    def using(cls, parallelism: Any | None = ..., **kwds): ...  # type: ignore[override]
     def __init__(self, parallelism: Any | None = ..., **kwds) -> None: ...
 
 class BackendMixin(PasswordHash, metaclass=abc.ABCMeta):

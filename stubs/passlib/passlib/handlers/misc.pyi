@@ -11,7 +11,7 @@ class unix_fallback(DisabledHash, uh.StaticHandler):  # type: ignore
     enable_wildcard: Any
     def __init__(self, enable_wildcard: bool = ..., **kwds) -> None: ...
     @classmethod
-    def verify(cls, secret, hash, enable_wildcard: bool = ...): ...
+    def verify(cls, secret, hash, enable_wildcard: bool = ...): ...  # type: ignore[override]
 
 class unix_disabled(DisabledHash, uh.MinimalHandler):  # type: ignore
     name: str
@@ -19,7 +19,7 @@ class unix_disabled(DisabledHash, uh.MinimalHandler):  # type: ignore
     context_kwds: Any
     default_marker: Any
     @classmethod
-    def using(cls, marker: Any | None = ..., **kwds): ...
+    def using(cls, marker: Any | None = ..., **kwds): ...  # type: ignore[override]
     @classmethod
     def identify(cls, hash): ...
     @classmethod
@@ -27,7 +27,7 @@ class unix_disabled(DisabledHash, uh.MinimalHandler):  # type: ignore
     @classmethod
     def hash(cls, secret, **kwds): ...
     @classmethod
-    def genhash(cls, secret, config, marker: Any | None = ...): ...
+    def genhash(cls, secret, config, marker: Any | None = ...): ...  # type: ignore[override]
     @classmethod
     def disable(cls, hash: Any | None = ...): ...
     @classmethod
@@ -41,10 +41,10 @@ class plaintext(uh.MinimalHandler):
     @classmethod
     def identify(cls, hash): ...
     @classmethod
-    def hash(cls, secret, encoding: Any | None = ...): ...
+    def hash(cls, secret, encoding: Any | None = ...): ...  # type: ignore[override]
     @classmethod
-    def verify(cls, secret, hash, encoding: Any | None = ...): ...
+    def verify(cls, secret, hash, encoding: Any | None = ...): ...  # type: ignore[override]
     @classmethod
     def genconfig(cls): ...
     @classmethod
-    def genhash(cls, secret, config, encoding: Any | None = ...): ...
+    def genhash(cls, secret, config, encoding: Any | None = ...): ...  # type: ignore[override]

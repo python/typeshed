@@ -37,7 +37,7 @@ class _Argon2Common(  # type: ignore
     def type_d(self): ...
     data: Any
     @classmethod
-    def using(
+    def using(  # type: ignore[override]
         cls,
         type: Any | None = ...,
         memory_cost: Any | None = ...,
