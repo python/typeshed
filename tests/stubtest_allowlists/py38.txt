@@ -17,6 +17,7 @@ asyncio.Future._callbacks  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future._callbacks  # Usually initialized from c object
 asyncio.threads  # Added in Python 3.9
+asyncio.mixins  # Added in Python 3.10
 builtins.dict.get
 collections.AsyncGenerator.ag_await
 collections.AsyncGenerator.ag_code
