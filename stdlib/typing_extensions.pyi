@@ -34,7 +34,6 @@ from typing import (  # noqa Y022
 
 _T = TypeVar("_T")
 _F = TypeVar("_F", bound=Callable[..., Any])
-_TC = TypeVar("_TC", bound=type[object])
 
 class _SpecialForm:
     def __getitem__(self, typeargs: Any) -> Any: ...
