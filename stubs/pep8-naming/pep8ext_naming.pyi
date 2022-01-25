@@ -9,7 +9,6 @@ PY2: bool
 CLASS_METHODS: FrozenSet[str]
 METACLASS_BASES: FrozenSet[str]
 METHOD_CONTAINER_NODES: set[ast.AST]
-FUNC_NODES: tuple[ast.AST]
 
 class NamingChecker:
     name: str
