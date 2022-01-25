@@ -4,6 +4,8 @@ from typing import Any, ClassVar
 
 from ._utils import URIDict
 
+_Schema = Any
+
 # This class does not exist at runtime. Compatible classes are created at
 # runtime by create().
 class _Validator:
@@ -11,11 +13,12 @@ class _Validator:
     META_SCHEMA: ClassVar[dict[Any, Any]]
     TYPE_CHECKER: Any
     @staticmethod
-    def ID_OF(): ...
+    def ID_OF(schema: _Schema) -> str: ...
     schema: Any
     resolver: Any
     format_checker: Any
     evolve: Any
+    def __init__(self, schema, resolver=None, format_checker=None) -> None: ...
     @classmethod
     def check_schema(cls, schema) -> None: ...
     def iter_errors(self, instance, _schema: Any | None = ...) -> Generator[Any, None, None]: ...
