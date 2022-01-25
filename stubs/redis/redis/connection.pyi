@@ -1,4 +1,4 @@
-from typing import Any, Mapping, Type
+from typing import Any, Mapping
 
 from .retry import Retry
 
@@ -8,6 +8,9 @@ SYM_DOLLAR: Any
 SYM_CRLF: Any
 SYM_EMPTY: Any
 SERVER_CLOSED_CONNECTION_ERROR: Any
+
+# Options as passed to Pool.get_connection().
+_ConnectionPoolOptions = Any
 
 class BaseParser:
     EXCEPTION_CLASSES: Any
@@ -87,7 +90,7 @@ class Connection:
         encoding: str = ...,
         encoding_errors: str = ...,
         decode_responses: bool = ...,
-        parser_class: Type[BaseParser] = ...,
+        parser_class: type[BaseParser] = ...,
         socket_read_size: int = ...,
         health_check_interval: int = ...,
         client_name: str | None = ...,
@@ -121,6 +124,9 @@ class SSLConnection(Connection):
     check_hostname: bool
     certificate_password: Any | None
     ssl_validate_ocsp: bool
+    ssl_validate_ocsp_stapled: bool  # added in 4.1.1
+    ssl_ocsp_context: Any | None  # added in 4.1.1
+    ssl_ocsp_expected_cert: Any | None  # added in 4.1.1
     def __init__(
         self,
         ssl_keyfile=...,
@@ -131,6 +137,9 @@ class SSLConnection(Connection):
         ssl_ca_path: Any | None = ...,
         ssl_password: Any | None = ...,
         ssl_validate_ocsp: bool = ...,
+        ssl_validate_ocsp_stapled: bool = ...,  # added in 4.1.1
+        ssl_ocsp_context: Any | None = ...,  # added in 4.1.1
+        ssl_ocsp_expected_cert: Any | None = ...,  # added in 4.1.1
         **kwargs,
     ) -> None: ...
 
@@ -176,7 +185,7 @@ class ConnectionPool:
     def __init__(self, connection_class=..., max_connections=..., **connection_kwargs) -> None: ...
     pid: Any
     def reset(self): ...
-    def get_connection(self, command_name, *keys, **options): ...
+    def get_connection(self, command_name, *keys, **options: _ConnectionPoolOptions): ...
     def make_connection(self): ...
     def release(self, connection): ...
     def disconnect(self, inuse_connections: bool = ...): ...
@@ -191,7 +200,7 @@ class BlockingConnectionPool(ConnectionPool):
     pool: Any
     def reset(self): ...
     def make_connection(self): ...
-    def get_connection(self, command_name, *keys, **options): ...
+    def get_connection(self, command_name, *keys, **options: _ConnectionPoolOptions): ...
     def release(self, connection): ...
     def disconnect(self): ...
 

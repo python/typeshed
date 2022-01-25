@@ -16,7 +16,6 @@ from typing import (
     KeysView,
     Mapping,
     MutableSequence,
-    Type,
     TypeVar,
     ValuesView,
     overload,
@@ -25,7 +24,6 @@ from typing_extensions import Literal, ParamSpec, final
 
 # Note, all classes "defined" here require special handling.
 
-_T = TypeVar("_T")
 _T1 = TypeVar("_T1")
 _T2 = TypeVar("_T2")
 _T_co = TypeVar("_T_co", covariant=True)
@@ -39,6 +37,7 @@ class _Cell:
     __hash__: None  # type: ignore[assignment]
     cell_contents: Any
 
+# Make sure this class definition stays roughly in line with `builtins.function`
 @final
 class FunctionType:
     __closure__: tuple[_Cell, ...] | None
@@ -59,14 +58,15 @@ class FunctionType:
         closure: tuple[_Cell, ...] | None = ...,
     ) -> None: ...
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
-    def __get__(self, obj: object | None, type: type | None) -> MethodType: ...
+    @overload
+    def __get__(self, obj: None, type: type) -> FunctionType: ...
+    @overload
+    def __get__(self, obj: object, type: type | None = ...) -> MethodType: ...
 
 LambdaType = FunctionType
 
 @final
 class CodeType:
-    """Create a code object.  Not for the faint of heart."""
-
     co_argcount: int
     if sys.version_info >= (3, 8):
         co_posonlyargcount: int
@@ -220,7 +220,7 @@ class GeneratorType(Generator[_T_co, _T_contra, _V_co]):
     def send(self, __arg: _T_contra) -> _T_co: ...
     @overload
     def throw(
-        self, __typ: Type[BaseException], __val: BaseException | object = ..., __tb: TracebackType | None = ...
+        self, __typ: type[BaseException], __val: BaseException | object = ..., __tb: TracebackType | None = ...
     ) -> _T_co: ...
     @overload
     def throw(self, __typ: BaseException, __val: None = ..., __tb: TracebackType | None = ...) -> _T_co: ...
@@ -236,7 +236,7 @@ class AsyncGeneratorType(AsyncGenerator[_T_co, _T_contra]):
     def asend(self, __val: _T_contra) -> Awaitable[_T_co]: ...
     @overload
     def athrow(
-        self, __typ: Type[BaseException], __val: BaseException | object = ..., __tb: TracebackType | None = ...
+        self, __typ: type[BaseException], __val: BaseException | object = ..., __tb: TracebackType | None = ...
     ) -> Awaitable[_T_co]: ...
     @overload
     def athrow(self, __typ: BaseException, __val: None = ..., __tb: TracebackType | None = ...) -> Awaitable[_T_co]: ...
@@ -257,25 +257,21 @@ class CoroutineType(Coroutine[_T_co, _T_contra, _V_co]):
     def send(self, __arg: _T_contra) -> _T_co: ...
     @overload
     def throw(
-        self, __typ: Type[BaseException], __val: BaseException | object = ..., __tb: TracebackType | None = ...
+        self, __typ: type[BaseException], __val: BaseException | object = ..., __tb: TracebackType | None = ...
     ) -> _T_co: ...
     @overload
     def throw(self, __typ: BaseException, __val: None = ..., __tb: TracebackType | None = ...) -> _T_co: ...
 
 class _StaticFunctionType:
-    """Fictional type to correct the type of MethodType.__func__.
-
-    FunctionType is a descriptor, so mypy follows the descriptor protocol and
-    converts MethodType.__func__ back to MethodType (the return type of
-    FunctionType.__get__). But this is actually a special case; MethodType is
-    implemented in C and its attribute access doesn't go through
-    __getattribute__.
-
-    By wrapping FunctionType in _StaticFunctionType, we get the right result;
-    similar to wrapping a function in staticmethod() at runtime to prevent it
-    being bound as a method.
-    """
-
+    # Fictional type to correct the type of MethodType.__func__.
+    # FunctionType is a descriptor, so mypy follows the descriptor protocol and
+    # converts MethodType.__func__ back to MethodType (the return type of
+    # FunctionType.__get__). But this is actually a special case; MethodType is
+    # implemented in C and its attribute access doesn't go through
+    # __getattribute__.
+    # By wrapping FunctionType in _StaticFunctionType, we get the right result;
+    # similar to wrapping a function in staticmethod() at runtime to prevent it
+    # being bound as a method.
     def __get__(self, obj: object | None, type: type | None) -> FunctionType: ...
 
 @final
@@ -353,7 +349,10 @@ class FrameType:
     f_code: CodeType
     f_globals: dict[str, Any]
     f_lasti: int
-    f_lineno: int | None
+    # see discussion in #6769: f_lineno *can* sometimes be None,
+    # but you should probably file a bug report with CPython if you encounter it being None in the wild.
+    # An `int | None` annotation here causes too many false-positive errors.
+    f_lineno: int | Any
     f_locals: dict[str, Any]
     f_trace: Callable[[FrameType, str, Any], Any] | None
     if sys.version_info >= (3, 7):

@@ -2,11 +2,13 @@ import sys
 from _typeshed import Self
 from contextlib import AbstractContextManager
 from typing import Any, Callable, Generic, Iterable, Iterator, Mapping, TypeVar
+from typing_extensions import Literal
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
-_PT = TypeVar("_PT", bound=Pool)
+__all__ = ["Pool", "ThreadPool"]
+
 _S = TypeVar("_S")
 _T = TypeVar("_T")
 
@@ -57,7 +59,7 @@ class IMapIterator(Iterator[_T]):
         def __init__(self, pool: Pool) -> None: ...
     else:
         def __init__(self, cache: dict[int, IMapIterator[Any]]) -> None: ...
-    def __iter__(self: _S) -> _S: ...
+    def __iter__(self: Self) -> Self: ...
     def next(self, timeout: float | None = ...) -> _T: ...
     def __next__(self, timeout: float | None = ...) -> _T: ...
 
@@ -115,11 +117,11 @@ class ThreadPool(Pool, AbstractContextManager[ThreadPool]):
 
 # undocumented
 if sys.version_info >= (3, 8):
-    INIT: str
-    RUN: str
-    CLOSE: str
-    TERMINATE: str
+    INIT: Literal["INIT"]
+    RUN: Literal["RUN"]
+    CLOSE: Literal["CLOSE"]
+    TERMINATE: Literal["TERMINATE"]
 else:
-    RUN: int
-    CLOSE: int
-    TERMINATE: int
+    RUN: Literal[0]
+    CLOSE: Literal[1]
+    TERMINATE: Literal[2]

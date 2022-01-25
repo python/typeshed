@@ -1,7 +1,7 @@
 import sys
 from _typeshed import Self, StrOrBytesPath
 from types import TracebackType
-from typing import (
+from typing import (  # noqa Y027
     IO,
     Any,
     AsyncGenerator,
@@ -14,7 +14,6 @@ from typing import (
     Iterator,
     Optional,
     Protocol,
-    Type,
     TypeVar,
     overload,
 )
@@ -22,7 +21,7 @@ from typing_extensions import ParamSpec
 
 AbstractContextManager = ContextManager
 if sys.version_info >= (3, 7):
-    from typing import AsyncContextManager
+    from typing import AsyncContextManager  # noqa Y022
 
     AbstractAsyncContextManager = AsyncContextManager
 
@@ -32,7 +31,7 @@ _T_io = TypeVar("_T_io", bound=Optional[IO[str]])
 _F = TypeVar("_F", bound=Callable[..., Any])
 _P = ParamSpec("_P")
 
-_ExitFunc = Callable[[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]], bool]
+_ExitFunc = Callable[[Optional[type[BaseException]], Optional[BaseException], Optional[TracebackType]], bool]
 _CM_EF = TypeVar("_CM_EF", AbstractContextManager[Any], _ExitFunc)
 
 class ContextDecorator:
@@ -90,9 +89,9 @@ if sys.version_info >= (3, 10):
         def __init__(self, thing: _SupportsAcloseT) -> None: ...
 
 class suppress(AbstractContextManager[None]):
-    def __init__(self, *exceptions: Type[BaseException]) -> None: ...
+    def __init__(self, *exceptions: type[BaseException]) -> None: ...
     def __exit__(
-        self, exctype: Type[BaseException] | None, excinst: BaseException | None, exctb: TracebackType | None
+        self, exctype: type[BaseException] | None, excinst: BaseException | None, exctb: TracebackType | None
     ) -> bool: ...
 
 class redirect_stdout(AbstractContextManager[_T_io]):
@@ -105,17 +104,16 @@ class ExitStack(AbstractContextManager[ExitStack]):
     def __init__(self) -> None: ...
     def enter_context(self, cm: AbstractContextManager[_T]) -> _T: ...
     def push(self, exit: _CM_EF) -> _CM_EF: ...
-    def callback(self, __callback: Callable[..., Any], *args: Any, **kwds: Any) -> Callable[..., Any]: ...
+    def callback(self, __callback: Callable[_P, _T], *args: _P.args, **kwds: _P.kwargs) -> Callable[_P, _T]: ...
     def pop_all(self: Self) -> Self: ...
     def close(self) -> None: ...
     def __enter__(self: Self) -> Self: ...
     def __exit__(
-        self, __exc_type: Type[BaseException] | None, __exc_value: BaseException | None, __traceback: TracebackType | None
+        self, __exc_type: type[BaseException] | None, __exc_value: BaseException | None, __traceback: TracebackType | None
     ) -> bool: ...
 
 if sys.version_info >= (3, 7):
-    _ExitCoroFunc = Callable[[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]], Awaitable[bool]]
-    _CallbackCoroFunc = Callable[..., Awaitable[Any]]
+    _ExitCoroFunc = Callable[[Optional[type[BaseException]], Optional[BaseException], Optional[TracebackType]], Awaitable[bool]]
     _ACM_EF = TypeVar("_ACM_EF", AbstractAsyncContextManager[Any], _ExitCoroFunc)
     class AsyncExitStack(AbstractAsyncContextManager[AsyncExitStack]):
         def __init__(self) -> None: ...
@@ -123,13 +121,15 @@ if sys.version_info >= (3, 7):
         def enter_async_context(self, cm: AbstractAsyncContextManager[_T]) -> Awaitable[_T]: ...
         def push(self, exit: _CM_EF) -> _CM_EF: ...
         def push_async_exit(self, exit: _ACM_EF) -> _ACM_EF: ...
-        def callback(self, __callback: Callable[..., Any], *args: Any, **kwds: Any) -> Callable[..., Any]: ...
-        def push_async_callback(self, __callback: _CallbackCoroFunc, *args: Any, **kwds: Any) -> _CallbackCoroFunc: ...
+        def callback(self, __callback: Callable[_P, _T], *args: _P.args, **kwds: _P.kwargs) -> Callable[_P, _T]: ...
+        def push_async_callback(
+            self, __callback: Callable[_P, Awaitable[_T]], *args: _P.args, **kwds: _P.kwargs
+        ) -> Callable[_P, Awaitable[_T]]: ...
         def pop_all(self: Self) -> Self: ...
         def aclose(self) -> Awaitable[None]: ...
         def __aenter__(self: Self) -> Awaitable[Self]: ...
         def __aexit__(
-            self, __exc_type: Type[BaseException] | None, __exc_value: BaseException | None, __traceback: TracebackType | None
+            self, __exc_type: type[BaseException] | None, __exc_value: BaseException | None, __traceback: TracebackType | None
         ) -> Awaitable[bool]: ...
 
 if sys.version_info >= (3, 10):
