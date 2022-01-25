@@ -1,13 +1,13 @@
 import ast
 from argparse import Namespace
-from typing import Any, FrozenSet
+from typing import Any
 
 __version__: str
 
 PYTHON_VERSION: tuple[int, int, int]
 PY2: bool
-CLASS_METHODS: FrozenSet[str]
-METACLASS_BASES: FrozenSet[str]
+CLASS_METHODS: frozenset[str]
+METACLASS_BASES: frozenset[str]
 METHOD_CONTAINER_NODES: set[ast.AST]
 
 class NamingChecker:
@@ -15,7 +15,7 @@ class NamingChecker:
     version: str
     visitors: Any
     decorator_to_type: Any
-    ignore_names: FrozenSet[str]
+    ignore_names: frozenset[str]
     parents: Any
     def __init__(self, tree: ast.AST, filename: str) -> None: ...
     @classmethod
