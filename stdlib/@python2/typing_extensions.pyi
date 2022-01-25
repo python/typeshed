@@ -15,13 +15,13 @@ from typing import (  # noqa Y022
     NewType as NewType,
     NoReturn as NoReturn,
     Protocol as Protocol,
-    runtime_checkable as runtime_checkable,
     Text as Text,
     Type as Type,
     TypeVar,
     ValuesView,
     _Alias,
     overload as overload,
+    runtime_checkable as runtime_checkable,
 )
 
 _T = TypeVar("_T")
