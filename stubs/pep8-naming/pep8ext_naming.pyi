@@ -1,6 +1,6 @@
-from typing import Any, FrozenSet
 import ast
 from argparse import Namespace
+from typing import Any, FrozenSet
 
 __version__: str
 
