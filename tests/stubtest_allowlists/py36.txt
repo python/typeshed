@@ -12,6 +12,7 @@ asyncio.runners  # Added in Python 3.7
 asyncio.staggered  # Added in Python 3.8
 asyncio.threads  # Added in Python 3.9
 asyncio.trsock  # Added in Python 3.8
+asyncio.mixins  # Added in Python 3.10
 builtins.str.maketrans
 cmath.log
 collections.AsyncGenerator.ag_await
