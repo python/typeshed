@@ -1,5 +1,5 @@
 from _typeshed import Self
-from typing import Any, Optional, Sequence, TypeVar
+from typing import Any, Sequence, TypeVar
 
 from .descriptor import Descriptor, FieldDescriptor
 from .internal.extension_dict import _ExtensionFieldDescriptor

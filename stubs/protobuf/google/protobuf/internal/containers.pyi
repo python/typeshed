@@ -5,7 +5,7 @@ from typing_extensions import SupportsIndex
 from google.protobuf.descriptor import Descriptor
 from google.protobuf.internal.message_listener import MessageListener
 from google.protobuf.internal.python_message import GeneratedProtocolMessageType
-from google.protobuf.internal.type_checkers import TypeChecker
+from google.protobuf.internal.type_checkers import _ValueChecker
 from google.protobuf.message import Message
 
 _T = TypeVar("_T")
@@ -26,7 +26,7 @@ class BaseContainer(Sequence[_T]):
     def __getitem__(self, key: slice) -> list[_T]: ...
 
 class RepeatedScalarFieldContainer(BaseContainer[_ScalarV]):
-    def __init__(self, message_listener: MessageListener, type_checker: TypeChecker) -> None: ...
+    def __init__(self, message_listener: MessageListener, type_checker: _ValueChecker[_ScalarV]) -> None: ...
     def append(self, value: _ScalarV) -> None: ...
     def insert(self, key: int, value: _ScalarV) -> None: ...
     def extend(self, elem_seq: Optional[Iterable[_ScalarV]]) -> None: ...
@@ -61,8 +61,8 @@ class ScalarMap(MutableMapping[_K, _ScalarV]):
     def __init__(
         self,
         message_listener: MessageListener,
-        key_checker: TypeChecker,
-        value_checker: TypeChecker,
+        key_checker: _ValueChecker[_K],
+        value_checker: _ValueChecker[_ScalarV],
         entry_descriptor: Descriptor,
     ) -> None: ...
     def __setitem__(self, k: _K, v: _ScalarV) -> None: ...
@@ -84,7 +84,7 @@ class MessageMap(MutableMapping[_K, _MessageV]):
         self,
         message_listener: MessageListener,
         message_descriptor: Descriptor,
-        key_checker: TypeChecker,
+        key_checker: _ValueChecker[_K],
         entry_descriptor: Descriptor,
     ) -> None: ...
     def __setitem__(self, k: _K, v: _MessageV) -> None: ...
