@@ -1,6 +1,7 @@
 import ast
 from argparse import Namespace
-from typing import Any
+from collections.abc import Container
+from typing import Any, Generator
 
 rst_prefix: str
 rst_fail_load: int
@@ -11,7 +12,9 @@ code_mapping_error: dict[str, int]
 code_mapping_severe: dict[str, int]
 code_mappings_by_level: dict[int, dict[str, int]]
 
-def code_mapping(level: int, msg: str, extra_directives: list[str], extra_roles: list[str], default: int = ...) -> int: ...
+def code_mapping(
+    level: int, msg: str, extra_directives: Container[str], extra_roles: Container[str], default: int = ...
+) -> int: ...
 
 class reStructuredTextChecker:
     name: str
@@ -23,4 +26,4 @@ class reStructuredTextChecker:
     def add_options(cls, parser: Any) -> None: ...
     @classmethod
     def parse_options(cls, options: Namespace) -> None: ...
-    def run(self) -> None: ...
+    def run(self) -> Generator[tuple[int, int, str, type[reStructuredTextChecker]], None, None]: ...
