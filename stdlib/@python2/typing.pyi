@@ -23,12 +23,19 @@ _promote = object()
 class _SpecialForm(object):
     def __getitem__(self, typeargs: Any) -> object: ...
 
-Union: _SpecialForm = ...
-Optional: _SpecialForm
-Tuple: _SpecialForm
+# Unlike the vast majority module-level objects in stub files,
+# these `_SpecialForm` objects in typing need the default value `= ...`,
+# due to the fact that they are used elswhere in the same file.
+# Otherwise, flake8 erroneously flags them as undefined.
+# `_SpecialForm` objects in typing.py that are not used elswhere in the same file
+# do not need the default value assignment.
 Generic: _SpecialForm = ...
 Protocol: _SpecialForm = ...
 Callable: _SpecialForm = ...
+Union: _SpecialForm = ...
+
+Optional: _SpecialForm
+Tuple: _SpecialForm
 Type: _SpecialForm
 ClassVar: _SpecialForm
 Final: _SpecialForm

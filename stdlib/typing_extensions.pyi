@@ -22,6 +22,7 @@ from typing import (  # noqa Y022
     Mapping,
     NewType as NewType,
     NoReturn as NoReturn,
+    Protocol as _Protocol,
     Text as Text,
     Type as Type,
     TypeVar,
@@ -41,7 +42,7 @@ def runtime_checkable(cls: _TC) -> _TC: ...
 
 # This alias for above is kept here for backwards compatibility.
 runtime = runtime_checkable
-Protocol: _SpecialForm = ...
+Protocol: _SpecialForm
 Final: _SpecialForm
 Self: _SpecialForm
 Required: _SpecialForm
@@ -94,7 +95,7 @@ Annotated: _SpecialForm
 _AnnotatedAlias: Any  # undocumented
 
 @runtime_checkable
-class SupportsIndex(Protocol, metaclass=abc.ABCMeta):
+class SupportsIndex(_Protocol, metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def __index__(self) -> int: ...
 
