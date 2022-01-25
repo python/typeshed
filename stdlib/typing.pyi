@@ -41,7 +41,6 @@ _T = TypeVar("_T")
 
 def overload(func: _F) -> _F: ...
 
-
 # Unlike the vast majority module-level objects in stub files,
 # these `_SpecialForm` objects in typing need the default value `= ...`,
 # due to the fact that they are used elswhere in the same file.
