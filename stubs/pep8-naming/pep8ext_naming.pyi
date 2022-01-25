@@ -1,6 +1,6 @@
 import ast
 from argparse import Namespace
-from typing import Any
+from typing import Any, Generator
 
 __version__: str
 
@@ -22,7 +22,7 @@ class NamingChecker:
     def add_options(cls, parser: Any) -> None: ...
     @classmethod
     def parse_options(cls, option: Namespace) -> None: ...
-    def run(self): ...
+    def run(self) -> Generator[tuple[int, int, str, type[Any]], None, None]: ...
     def __getattr__(self, name: str) -> Any: ...  # incomplete (other attributes are normally not accessed)
 
 def __getattr__(name: str) -> Any: ...  # incomplete (other attributes are normally not accessed)
