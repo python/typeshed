@@ -1,6 +1,5 @@
 import sys
 from _typeshed import structseq
-from types import SimpleNamespace
 from typing import Any, Union
 from typing_extensions import Literal, Protocol, final
 
