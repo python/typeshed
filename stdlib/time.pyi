@@ -1,6 +1,6 @@
 import sys
 from _typeshed import structseq
-from typing import Any, Union, Protocol
+from typing import Any, Protocol, Union
 from typing_extensions import Literal, final
 
 _TimeTuple = tuple[int, int, int, int, int, int, int, int, int]
