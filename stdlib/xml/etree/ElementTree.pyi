@@ -27,7 +27,7 @@ class ParseError(SyntaxError):
     code: int
     position: tuple[int, int]
 
-# In reallity it works based on `.tag` attribute duck typing.
+# In reality it works based on `.tag` attribute duck typing.
 def iselement(element: object) -> TypeGuard[Element]: ...
 
 if sys.version_info >= (3, 8):
