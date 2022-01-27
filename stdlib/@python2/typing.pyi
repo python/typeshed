@@ -37,7 +37,7 @@ _F = TypeVar("_F", bound=Callable[..., Any])
 def final(f: _F) -> _F: ...
 def overload(f: _F) -> _F: ...
 
-Literal: _SpecialForm
+Literal: _SpecialForm = ...
 # TypedDict is a (non-subscriptable) special form.
 TypedDict: object
 
@@ -304,7 +304,7 @@ class MutableMapping(Mapping[_KT, _VT], Generic[_KT, _VT]):
 
 Text = unicode
 
-TYPE_CHECKING = True
+TYPE_CHECKING: Literal[True]
 
 class IO(Iterator[AnyStr], Generic[AnyStr]):
     # TODO detach
