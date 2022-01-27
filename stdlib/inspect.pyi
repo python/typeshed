@@ -23,12 +23,10 @@ from types import (
 if sys.version_info >= (3, 7):
     from types import ClassMethodDescriptorType, WrapperDescriptorType, MemberDescriptorType, MethodDescriptorType
 
-from typing import Any, ClassVar, Coroutine, Generic, NamedTuple, Protocol, TypeVar, Union
+from typing import Any, ClassVar, Coroutine, NamedTuple, Protocol, TypeVar, Union
 from typing_extensions import Literal, ParamSpec, TypeGuard
 
 _P = ParamSpec("_P")
-_R = TypeVar("_R")
-_T = TypeVar("_T")
 _T_cont = TypeVar("_T_cont", contravariant=True)
 _V_cont = TypeVar("_V_cont", contravariant=True)
 
@@ -148,49 +146,48 @@ def indentsize(line: str) -> int: ...
 #
 if sys.version_info >= (3, 10):
     def signature(
-        obj: Callable[..., _R],
+        obj: Callable[..., Any],
         *,
         follow_wrapped: bool = ...,
         globals: Mapping[str, Any] | None = ...,
         locals: Mapping[str, Any] | None = ...,
         eval_str: bool = ...,
-    ) -> Signature[_R]: ...
+    ) -> Signature: ...
 
 else:
-    def signature(obj: Callable[..., _R], *, follow_wrapped: bool = ...) -> Signature[_R]: ...
+    def signature(obj: Callable[..., Any], *, follow_wrapped: bool = ...) -> Signature: ...
 
 class _void: ...
 class _empty: ...
 
-# TODO make this class generic on a ParamSpec as well as the return-type
-class Signature(Generic[_R]):
+class Signature:
     def __init__(
-        self, parameters: Sequence[Parameter] | None = ..., *, return_annotation: _R = ..., __validate_parameters__: bool = ...
+        self, parameters: Sequence[Parameter] | None = ..., *, return_annotation: Any = ..., __validate_parameters__: bool = ...
     ) -> None: ...
     empty = _empty
     @property
     def parameters(self) -> types.MappingProxyType[str, Parameter]: ...
     @property
-    def return_annotation(self) -> _R: ...
+    def return_annotation(self) -> Any: ...
     def bind(self, *args: Any, **kwargs: Any) -> BoundArguments: ...
     def bind_partial(self, *args: Any, **kwargs: Any) -> BoundArguments: ...
     def replace(
-        self, *, parameters: Sequence[Parameter] | type[_void] | None = ..., return_annotation: _T = ...
-    ) -> Signature[_T]: ...
+        self: Self, *, parameters: Sequence[Parameter] | type[_void] | None = ..., return_annotation: _T = ...
+    ) -> Self: ...
     if sys.version_info >= (3, 10):
         @classmethod
         def from_callable(
-            cls,
-            obj: Callable[..., _R],
+            cls: type[Self],
+            obj: Callable[..., Any],
             *,
             follow_wrapped: bool = ...,
             globals: Mapping[str, Any] | None = ...,
             locals: Mapping[str, Any] | None = ...,
             eval_str: bool = ...,
-        ) -> Signature[_R]: ...
+        ) -> Self: ...
     else:
         @classmethod
-        def from_callable(cls, obj: Callable[..., _R], *, follow_wrapped: bool = ...) -> Signature[_R]: ...
+        def from_callable(cls: type[Self], obj: Callable[..., Any], *, follow_wrapped: bool = ...) -> Self: ...
 
 if sys.version_info >= (3, 10):
     def get_annotations(
@@ -243,8 +240,8 @@ class BoundArguments:
     arguments: OrderedDict[str, Any]
     args: tuple[Any, ...]
     kwargs: dict[str, Any]
-    signature: Signature[Any]
-    def __init__(self, signature: Signature[Any], arguments: OrderedDict[str, Any]) -> None: ...
+    signature: Signature
+    def __init__(self, signature: Signature, arguments: OrderedDict[str, Any]) -> None: ...
     def apply_defaults(self) -> None: ...
 
 #
