@@ -4,6 +4,7 @@ from abc import abstractmethod
 from logging import Logger
 from types import TracebackType
 from typing import Any, Callable, Container, Generic, Iterable, Iterator, Optional, Protocol, TypeVar
+from typing_extensions import ParamSpec
 
 FIRST_COMPLETED: str
 FIRST_EXCEPTION: str
@@ -20,8 +21,8 @@ class CancelledError(Error): ...
 class TimeoutError(Error): ...
 
 _T = TypeVar("_T")
-
 _T_co = TypeVar("_T_co", covariant=True)
+_P = ParamSpec("_P")
 
 # Copied over Collection implementation as it does not exist in Python 2 and <3.6.
 # Also to solve pytype issues with _Collection.
@@ -46,7 +47,7 @@ class Future(Generic[_T]):
     def set_exception_info(self, exception: Any, traceback: Optional[TracebackType]) -> None: ...
 
 class Executor:
-    def submit(self, fn: Callable[..., _T], *args: Any, **kwargs: Any) -> Future[_T]: ...
+    def submit(self, fn: Callable[_P, _T], *args: _P.args, **kwargs: _P.kwargs) -> Future[_T]: ...
     def map(self, func: Callable[..., _T], *iterables: Iterable[Any], timeout: Optional[float] = ...) -> Iterator[_T]: ...
     def shutdown(self, wait: bool = ...) -> None: ...
     def __enter__(self: Self) -> Self: ...
