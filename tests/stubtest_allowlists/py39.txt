@@ -124,8 +124,6 @@ _collections_abc.MappingView.__class_getitem__
 _imp.source_hash
 ast.Tuple.dims
 ast.main
-asyncio.BufferedProtocol.eof_received
-asyncio.protocols.BufferedProtocol.eof_received
 collections.AsyncIterable.__class_getitem__
 collections.Awaitable.__class_getitem__
 collections.Container.__class_getitem__
