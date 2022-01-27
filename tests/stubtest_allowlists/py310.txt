@@ -164,9 +164,7 @@ _imp.source_hash
 ast.Tuple.dims
 ast.main
 asyncio.AbstractEventLoop.connect_accepted_socket
-asyncio.BufferedProtocol.eof_received
 asyncio.events.AbstractEventLoop.connect_accepted_socket
-asyncio.protocols.BufferedProtocol.eof_received
 bdb.Breakpoint.clearBreakpoints
 distutils.dist.DistributionMetadata.set_classifiers
 distutils.dist.DistributionMetadata.set_keywords

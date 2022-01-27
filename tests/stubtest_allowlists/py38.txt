@@ -101,8 +101,6 @@ collections.Sequence.index  # Supporting None in end is not mandatory
 # Exists at runtime, but missing from stubs
 _dummy_thread.RLock
 _imp.source_hash
-asyncio.BufferedProtocol.eof_received
-asyncio.protocols.BufferedProtocol.eof_received
 contextvars.ContextVar.__class_getitem__
 datetime.datetime_CAPI
 distutils.command.bdist_wininst
