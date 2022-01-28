@@ -304,7 +304,7 @@ class MutableMapping(Mapping[_KT, _VT], Generic[_KT, _VT]):
 
 Text = unicode
 
-TYPE_CHECKING: Literal[True]
+TYPE_CHECKING: bool
 
 class IO(Iterator[AnyStr], Generic[AnyStr]):
     # TODO detach
