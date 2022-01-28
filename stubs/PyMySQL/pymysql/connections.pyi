@@ -1,5 +1,7 @@
+from _typeshed import Self
 from socket import socket as _socket
-from typing import Any, AnyStr, Generic, Mapping, TypeVar, overload
+from types import TracebackType
+from typing import Any, AnyStr, Generic, Mapping, Optional, Type, TypeVar, overload
 
 from .charset import charset_by_id as charset_by_id, charset_by_name as charset_by_name
 from .constants import CLIENT as CLIENT, COMMAND as COMMAND, FIELD_TYPE as FIELD_TYPE, SERVER_STATUS as SERVER_STATUS
@@ -195,6 +197,8 @@ class Connection(Generic[_C]):
     def get_proto_info(self): ...
     def get_server_info(self): ...
     def show_warnings(self): ...
+    def __enter__(self: Self) -> Self: ...
+    def __exit__(self, *exc_info: Any) -> None: ...
     Warning: Any
     Error: Any
     InterfaceError: Any
