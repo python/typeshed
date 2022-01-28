@@ -25,7 +25,7 @@ _P = ParamSpec("_P")
 ProxyTypes: tuple[type[Any], ...]
 
 class WeakMethod(ref[_CallableT], Generic[_CallableT]):
-    def __new__(cls, meth: _CallableT, callback: Callable[[_CallableT], object] | None = ...) -> WeakMethod[_CallableT]: ...
+    def __new__(cls: type[Self], meth: _CallableT, callback: Callable[[_CallableT], object] | None = ...) -> Self: ...
     def __call__(self) -> _CallableT | None: ...
 
 class WeakValueDictionary(MutableMapping[_KT, _VT]):
@@ -67,7 +67,7 @@ class WeakValueDictionary(MutableMapping[_KT, _VT]):
 class KeyedRef(ref[_T], Generic[_KT, _T]):
     key: _KT
     # This __new__ method uses a non-standard name for the "cls" parameter
-    def __new__(type, ob: _T, callback: Callable[[_T], Any], key: _KT) -> KeyedRef[_KT, _T]: ...  # type: ignore
+    def __new__(type: type[Self], ob: _T, callback: Callable[[_T], Any], key: _KT) -> Self: ...  # type: ignore
     def __init__(self, ob: _T, callback: Callable[[_T], Any], key: _KT) -> None: ...
 
 class WeakKeyDictionary(MutableMapping[_KT, _VT]):
