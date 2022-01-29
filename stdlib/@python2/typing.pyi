@@ -20,6 +20,7 @@ class TypeVar:
 
 _promote = object()
 
+# N.B. Keep this definition in sync with typing_extensions._SpecialForm
 class _SpecialForm(object):
     def __getitem__(self, typeargs: Any) -> object: ...
 
