@@ -9,14 +9,14 @@ _AddressType = Union[tuple[str, int], str]
 
 class BaseServer:
     address_family: int
-    RequestHandlerClass: Callable[..., BaseRequestHandler]
+    RequestHandlerClass: type[BaseRequestHandler]
     server_address: tuple[str, int]
     socket: _socket
     allow_reuse_address: bool
     request_queue_size: int
     socket_type: int
     timeout: float | None
-    def __init__(self, server_address: Any, RequestHandlerClass: Callable[..., BaseRequestHandler]) -> None: ...
+    def __init__(self, server_address: Any, RequestHandlerClass: type[BaseRequestHandler]) -> None: ...
     def fileno(self) -> int: ...
     def handle_request(self) -> None: ...
     def serve_forever(self, poll_interval: float = ...) -> None: ...
@@ -39,10 +39,13 @@ class BaseServer:
     def close_request(self, request: _RequestType) -> None: ...  # undocumented
 
 class TCPServer(BaseServer):
+    allow_reuse_port: bool
+    request_queue_size: int
+
     def __init__(
-        self,
+        self: Self,
         server_address: tuple[str, int],
-        RequestHandlerClass: Callable[..., BaseRequestHandler],
+        RequestHandlerClass: type[BaseRequestHandler],
         bind_and_activate: bool = ...,
     ) -> None: ...
     def get_request(self) -> tuple[_socket, Any]: ...
@@ -55,12 +58,6 @@ class TCPServer(BaseServer):
 
 class UDPServer(BaseServer):
     max_packet_size: ClassVar[int]
-    def __init__(
-        self,
-        server_address: tuple[str, int],
-        RequestHandlerClass: Callable[..., BaseRequestHandler],
-        bind_and_activate: bool = ...,
-    ) -> None: ...
     def get_request(self) -> tuple[tuple[bytes, _socket], Any]: ...
     def finish_request(self, request: _RequestType, client_address: _AddressType) -> None: ...
     def handle_error(self, request: _RequestType, client_address: _AddressType) -> None: ...
@@ -74,14 +71,14 @@ if sys.platform != "win32":
         def __init__(
             self,
             server_address: str | bytes,
-            RequestHandlerClass: Callable[..., BaseRequestHandler],
+            RequestHandlerClass: type[BaseRequestHandler],
             bind_and_activate: bool = ...,
         ) -> None: ...
     class UnixDatagramServer(BaseServer):
         def __init__(
             self,
             server_address: str | bytes,
-            RequestHandlerClass: Callable[..., BaseRequestHandler],
+            RequestHandlerClass: type[BaseRequestHandler],
             bind_and_activate: bool = ...,
         ) -> None: ...
 
