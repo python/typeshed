@@ -28,7 +28,7 @@ from typing import (  # noqa Y022
     TypeVar,
     ValuesView,
     _Alias,
-    _SpecialForm,
+    _SpecialForm as _SpecialForm,
     overload as overload,
     runtime_checkable as runtime_checkable,
 )
