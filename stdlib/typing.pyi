@@ -29,6 +29,7 @@ class TypeVar:
 # Used for an undocumented mypy feature. Does not exist at runtime.
 _promote = object()
 
+# N.B. Keep this definition in sync with typing_extensions._SpecialForm
 class _SpecialForm:
     def __getitem__(self, typeargs: Any) -> object: ...
     if sys.version_info >= (3, 10):
