@@ -22,7 +22,7 @@ class DoubleValue(google.protobuf.message.Message):
 
     def __init__(self,
         *,
-        value: builtins.float = ...,
+        value: typing.Optional[builtins.float] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["value",b"value"]) -> None: ...
 global___DoubleValue = DoubleValue
@@ -39,7 +39,7 @@ class FloatValue(google.protobuf.message.Message):
 
     def __init__(self,
         *,
-        value: builtins.float = ...,
+        value: typing.Optional[builtins.float] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["value",b"value"]) -> None: ...
 global___FloatValue = FloatValue
@@ -56,7 +56,7 @@ class Int64Value(google.protobuf.message.Message):
 
     def __init__(self,
         *,
-        value: builtins.int = ...,
+        value: typing.Optional[builtins.int] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["value",b"value"]) -> None: ...
 global___Int64Value = Int64Value
@@ -73,7 +73,7 @@ class UInt64Value(google.protobuf.message.Message):
 
     def __init__(self,
         *,
-        value: builtins.int = ...,
+        value: typing.Optional[builtins.int] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["value",b"value"]) -> None: ...
 global___UInt64Value = UInt64Value
@@ -90,7 +90,7 @@ class Int32Value(google.protobuf.message.Message):
 
     def __init__(self,
         *,
-        value: builtins.int = ...,
+        value: typing.Optional[builtins.int] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["value",b"value"]) -> None: ...
 global___Int32Value = Int32Value
@@ -107,7 +107,7 @@ class UInt32Value(google.protobuf.message.Message):
 
     def __init__(self,
         *,
-        value: builtins.int = ...,
+        value: typing.Optional[builtins.int] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["value",b"value"]) -> None: ...
 global___UInt32Value = UInt32Value
@@ -124,7 +124,7 @@ class BoolValue(google.protobuf.message.Message):
 
     def __init__(self,
         *,
-        value: builtins.bool = ...,
+        value: typing.Optional[builtins.bool] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["value",b"value"]) -> None: ...
 global___BoolValue = BoolValue
@@ -141,7 +141,7 @@ class StringValue(google.protobuf.message.Message):
 
     def __init__(self,
         *,
-        value: typing.Text = ...,
+        value: typing.Optional[typing.Text] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["value",b"value"]) -> None: ...
 global___StringValue = StringValue
@@ -158,7 +158,7 @@ class BytesValue(google.protobuf.message.Message):
 
     def __init__(self,
         *,
-        value: builtins.bytes = ...,
+        value: typing.Optional[builtins.bytes] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["value",b"value"]) -> None: ...
 global___BytesValue = BytesValue

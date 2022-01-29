@@ -133,8 +133,8 @@ class Any(google.protobuf.message.Message, google.protobuf.internal.well_known_t
 
     def __init__(self,
         *,
-        type_url: typing.Text = ...,
-        value: builtins.bytes = ...,
+        type_url: typing.Optional[typing.Text] = ...,
+        value: typing.Optional[builtins.bytes] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["type_url",b"type_url","value",b"value"]) -> None: ...
 global___Any = Any
