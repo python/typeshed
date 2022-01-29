@@ -2,21 +2,21 @@ import sys
 import types
 from _typeshed import Self
 from socket import socket as _socket
-from typing import Any, BinaryIO, ClassVar, Union
+from typing import Any, BinaryIO, Callable, ClassVar, Union
 
 _RequestType = Union[_socket, tuple[bytes, _socket]]
 _AddressType = Union[tuple[str, int], str]
 
 class BaseServer:
     address_family: int
-    RequestHandlerClass: type[BaseRequestHandler]
+    RequestHandlerClass: Callable[[_RequestType, _AddressType, BaseServer], BaseRequestHandler]
     server_address: tuple[str, int]
     socket: _socket
     allow_reuse_address: bool
     request_queue_size: int
     socket_type: int
     timeout: float | None
-    def __init__(self, server_address: Any, RequestHandlerClass: type[BaseRequestHandler]) -> None: ...
+    def __init__(self, server_address: Any, RequestHandlerClass: Callable[[_RequestType, _AddressType, BaseServer], BaseRequestHandler]) -> None: ...
     def fileno(self) -> int: ...
     def handle_request(self) -> None: ...
     def serve_forever(self, poll_interval: float = ...) -> None: ...
@@ -42,7 +42,7 @@ class TCPServer(BaseServer):
     allow_reuse_port: bool
     request_queue_size: int
     def __init__(
-        self, server_address: tuple[str, int], RequestHandlerClass: type[BaseRequestHandler], bind_and_activate: bool = ...
+        self, server_address: tuple[str, int], RequestHandlerClass: Callable[[_RequestType, _AddressType, BaseServer], BaseRequestHandler], bind_and_activate: bool = ...
     ) -> None: ...
     def get_request(self) -> tuple[_socket, Any]: ...
     def finish_request(self, request: _RequestType, client_address: _AddressType) -> None: ...
