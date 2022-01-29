@@ -1,6 +1,6 @@
 import sys
 from _typeshed import Self
-from typing import Any, Iterable, TextIO
+from typing import Iterable, TextIO
 
 def split(s: str, comments: bool = ..., posix: bool = ...) -> list[str]: ...
 
@@ -17,7 +17,7 @@ class shlex(Iterable[str]):
     quotes: str
     escapedquotes: str
     whitespace_split: bool
-    infile: str
+    infile: str | None
     instream: TextIO
     source: str
     debug: int
