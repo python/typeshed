@@ -5,7 +5,7 @@ from _typeshed import Self
 from socket import socket as _socket
 from ssl import SSLContext, SSLSocket
 from types import TracebackType
-from typing import IO, Any, Callable, Pattern, Type, Union
+from typing import IO, Any, Callable, Pattern, Union
 from typing_extensions import Literal
 
 # TODO: Commands should use their actual return types, not this type alias.
@@ -17,9 +17,9 @@ _AnyResponseData = Union[list[None], list[Union[bytes, tuple[bytes, bytes]]]]
 _list = list  # conflicts with a method named "list"
 
 class IMAP4:
-    error: Type[Exception]
-    abort: Type[Exception]
-    readonly: Type[Exception]
+    error: type[Exception]
+    abort: type[Exception]
+    readonly: type[Exception]
     mustquote: Pattern[str]
     debug: int
     state: str
@@ -32,7 +32,7 @@ class IMAP4:
     tagpre: str
     tagre: Pattern[str]
     welcome: bytes
-    capabilities: tuple[str]
+    capabilities: tuple[str, ...]
     PROTOCOL_VERSION: str
     if sys.version_info >= (3, 9):
         def __init__(self, host: str = ..., port: int = ..., timeout: float | None = ...) -> None: ...
@@ -63,7 +63,7 @@ class IMAP4:
     def deleteacl(self, mailbox: str, who: str) -> _CommandResults: ...
     def enable(self, capability: str) -> _CommandResults: ...
     def __enter__(self: Self) -> Self: ...
-    def __exit__(self, t: Type[BaseException] | None, v: BaseException | None, tb: TracebackType | None) -> None: ...
+    def __exit__(self, t: type[BaseException] | None, v: BaseException | None, tb: TracebackType | None) -> None: ...
     def expunge(self) -> _CommandResults: ...
     def fetch(self, message_set: str, message_parts: str) -> tuple[str, _AnyResponseData]: ...
     def getacl(self, mailbox: str) -> _CommandResults: ...
@@ -165,5 +165,5 @@ class _Authenticator:
 
 def Internaldate2tuple(resp: str) -> time.struct_time: ...
 def Int2AP(num: int) -> str: ...
-def ParseFlags(resp: str) -> tuple[str]: ...
+def ParseFlags(resp: str) -> tuple[str, ...]: ...
 def Time2Internaldate(date_time: float | time.struct_time | str) -> str: ...

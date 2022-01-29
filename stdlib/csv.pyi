@@ -17,8 +17,9 @@ from _csv import (
     unregister_dialect as unregister_dialect,
     writer as writer,
 )
+from _typeshed import Self
 from collections.abc import Collection, Iterable, Iterator, Mapping, Sequence
-from typing import Any, Generic, Type, TypeVar, overload
+from typing import Any, Generic, TypeVar, overload
 
 if sys.version_info >= (3, 8):
     from builtins import dict as _DictReadMapping
@@ -75,7 +76,7 @@ class DictReader(Generic[_T], Iterator[_DictReadMapping[_T, str]]):
         *args: Any,
         **kwds: Any,
     ) -> None: ...
-    def __iter__(self) -> DictReader[_T]: ...
+    def __iter__(self: Self) -> Self: ...
     def __next__(self) -> _DictReadMapping[_T, str]: ...
 
 class DictWriter(Generic[_T]):
@@ -103,5 +104,5 @@ class DictWriter(Generic[_T]):
 class Sniffer:
     preferred: list[str]
     def __init__(self) -> None: ...
-    def sniff(self, sample: str, delimiters: str | None = ...) -> Type[Dialect]: ...
+    def sniff(self, sample: str, delimiters: str | None = ...) -> type[Dialect]: ...
     def has_header(self, sample: str) -> bool: ...
