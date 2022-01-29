@@ -28,15 +28,13 @@ from typing import (  # noqa Y022
     TypeVar,
     ValuesView,
     _Alias,
+    _SpecialForm,
     overload as overload,
     runtime_checkable as runtime_checkable,
 )
 
 _T = TypeVar("_T")
 _F = TypeVar("_F", bound=Callable[..., Any])
-
-class _SpecialForm:
-    def __getitem__(self, typeargs: Any) -> Any: ...
 
 # This alias for above is kept here for backwards compatibility.
 runtime = runtime_checkable
@@ -50,11 +48,6 @@ def final(f: _F) -> _F: ...
 Literal: _SpecialForm
 
 def IntVar(name: str) -> Any: ...  # returns a new TypeVar
-
-if sys.version_info < (3, 8):
-    # Technically in 3.6 this inherited from GenericMeta. But let's not reflect that, since
-    # type checkers tend to assume that Protocols all have the ABCMeta metaclass.
-    class _ProtocolMeta(abc.ABCMeta): ...
 
 # Internal mypy fallback type for all typed dicts (does not exist at runtime)
 class _TypedDict(Mapping[str, object], metaclass=abc.ABCMeta):
