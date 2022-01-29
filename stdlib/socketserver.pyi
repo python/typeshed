@@ -2,7 +2,7 @@ import sys
 import types
 from _typeshed import Self
 from socket import socket as _socket
-from typing import Any, BinaryIO, Callable, ClassVar, Union
+from typing import Any, BinaryIO, ClassVar, Union
 
 _RequestType = Union[_socket, tuple[bytes, _socket]]
 _AddressType = Union[tuple[str, int], str]
