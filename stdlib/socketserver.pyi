@@ -6,8 +6,9 @@ from typing import Any, BinaryIO, Callable, ClassVar, Union
 
 _RequestType = Union[_socket, tuple[bytes, _socket]]
 _AddressType = Union[tuple[str, int], str]
-_RequestHandlerClassCallable = Callable[[_RequestType, _AddressType, BaseServer], BaseRequestHandler]
+_RequestHandlerClassCallable = Callable[[Any, Any, BaseServer], BaseRequestHandler]
 
+# This can possibly be generic at some point:
 class BaseServer:
     address_family: int
     RequestHandlerClass: _RequestHandlerClassCallable
