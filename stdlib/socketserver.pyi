@@ -41,12 +41,8 @@ class BaseServer:
 class TCPServer(BaseServer):
     allow_reuse_port: bool
     request_queue_size: int
-
     def __init__(
-        self,
-        server_address: tuple[str, int],
-        RequestHandlerClass: type[BaseRequestHandler],
-        bind_and_activate: bool = ...,
+        self, server_address: tuple[str, int], RequestHandlerClass: type[BaseRequestHandler], bind_and_activate: bool = ...
     ) -> None: ...
     def get_request(self) -> tuple[_socket, Any]: ...
     def finish_request(self, request: _RequestType, client_address: _AddressType) -> None: ...
@@ -69,17 +65,11 @@ class UDPServer(BaseServer):
 if sys.platform != "win32":
     class UnixStreamServer(BaseServer):
         def __init__(
-            self,
-            server_address: str | bytes,
-            RequestHandlerClass: type[BaseRequestHandler],
-            bind_and_activate: bool = ...,
+            self, server_address: str | bytes, RequestHandlerClass: type[BaseRequestHandler], bind_and_activate: bool = ...
         ) -> None: ...
     class UnixDatagramServer(BaseServer):
         def __init__(
-            self,
-            server_address: str | bytes,
-            RequestHandlerClass: type[BaseRequestHandler],
-            bind_and_activate: bool = ...,
+            self, server_address: str | bytes, RequestHandlerClass: type[BaseRequestHandler], bind_and_activate: bool = ...
         ) -> None: ...
 
 if sys.platform != "win32":
