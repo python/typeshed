@@ -20,15 +20,13 @@ from typing import (  # noqa Y022
     TypeVar,
     ValuesView,
     _Alias,
+    _SpecialForm,
     overload as overload,
     runtime_checkable as runtime_checkable,
 )
 
 _T = TypeVar("_T")
 _F = TypeVar("_F", bound=Callable[..., Any])
-
-class _SpecialForm:
-    def __getitem__(self, typeargs: Any) -> Any: ...
 
 # This alias for above is kept here for backwards compatibility.
 runtime = runtime_checkable
