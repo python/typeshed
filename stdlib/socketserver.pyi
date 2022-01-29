@@ -43,7 +43,7 @@ class TCPServer(BaseServer):
     request_queue_size: int
 
     def __init__(
-        self: Self,
+        self,
         server_address: tuple[str, int],
         RequestHandlerClass: type[BaseRequestHandler],
         bind_and_activate: bool = ...,
