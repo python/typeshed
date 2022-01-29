@@ -22,26 +22,24 @@ from typing import (  # noqa Y022
     Mapping,
     NewType as NewType,
     NoReturn as NoReturn,
+    Protocol as Protocol,
     Text as Text,
     Type as Type,
     TypeVar,
     ValuesView,
     _Alias,
     overload as overload,
+    runtime_checkable as runtime_checkable,
 )
 
 _T = TypeVar("_T")
 _F = TypeVar("_F", bound=Callable[..., Any])
-_TC = TypeVar("_TC", bound=type[object])
 
 class _SpecialForm:
     def __getitem__(self, typeargs: Any) -> Any: ...
 
-def runtime_checkable(cls: _TC) -> _TC: ...
-
 # This alias for above is kept here for backwards compatibility.
 runtime = runtime_checkable
-Protocol: _SpecialForm = ...
 Final: _SpecialForm
 Self: _SpecialForm
 Required: _SpecialForm
