@@ -20,6 +20,7 @@ class TypeVar:
 
 _promote = object()
 
+# N.B. Keep this definition in sync with typing_extensions._SpecialForm
 class _SpecialForm(object):
     def __getitem__(self, typeargs: Any) -> object: ...
 
@@ -44,7 +45,7 @@ _F = TypeVar("_F", bound=Callable[..., Any])
 def final(f: _F) -> _F: ...
 def overload(f: _F) -> _F: ...
 
-Literal: _SpecialForm = ...
+Literal: _SpecialForm
 # TypedDict is a (non-subscriptable) special form.
 TypedDict: object
 

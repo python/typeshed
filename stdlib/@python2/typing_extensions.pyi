@@ -27,8 +27,9 @@ from typing import (  # noqa Y022
 _T = TypeVar("_T")
 _F = TypeVar("_F", bound=Callable[..., Any])
 
+# unfortunately we have to duplicate this class definition from typing.pyi or we break pytype
 class _SpecialForm:
-    def __getitem__(self, typeargs: Any) -> Any: ...
+    def __getitem__(self, typeargs: Any) -> object: ...
 
 # This alias for above is kept here for backwards compatibility.
 runtime = runtime_checkable
