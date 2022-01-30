@@ -64,4 +64,10 @@ class KqueueSelector(BaseSelector):
     def select(self, timeout: float | None = ...) -> list[tuple[SelectorKey, _EventMask]]: ...
     def get_map(self) -> Mapping[FileDescriptorLike, SelectorKey]: ...
 
-DefaultSelector: type[KqueueSelector | EpollSelector | DevpollSelector | PollSelector | SelectSelector]
+_DefaultSelectors = type[KqueueSelector] | type[DevpollSelector] | type[SelectSelector]
+if sys.platform == "linux":
+    DefaultSelectors = _DefaultSelectors | type[PollSelector] | type[EpollSelector]
+elif sys.platform != "win32":
+    DefaultSelectors = _DefaultSelectors | type[PollSelector]
+else:
+    DefaultSelectors = _DefaultSelectors
