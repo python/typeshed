@@ -101,10 +101,18 @@ def make_archive(
     logger: Any | None = ...,
 ) -> str: ...
 def get_archive_formats() -> list[tuple[str, str]]: ...
+@overload
 def register_archive_format(
     name: str,
-    function: Callable[..., Any],
-    extra_args: Sequence[tuple[str, Any] | list[Any]] | None = ...,
+    function: Callable[..., object],
+    extra_args: Sequence[tuple[str, Any] | list[Any]],
+    description: str = ...,
+) -> None: ...
+@overload
+def register_archive_format(
+    name: str,
+    function: Callable[[str, str], object],
+    extra_args: None = ...,
     description: str = ...,
 ) -> None: ...
 def unregister_archive_format(name: str) -> None: ...
@@ -116,11 +124,20 @@ else:
     # See http://bugs.python.org/issue30218
     def unpack_archive(filename: str, extract_dir: StrPath | None = ..., format: str | None = ...) -> None: ...
 
+@overload
 def register_unpack_format(
     name: str,
     extensions: list[str],
     function: Callable[..., object],
-    extra_args: Sequence[tuple[str, Any]] | None = ...,
+    extra_args: Sequence[tuple[str, Any]],
+    description: str = ...,
+) -> None: ...
+@overload
+def register_unpack_format(
+    name: str,
+    extensions: list[str],
+    function: Callable[[str, str], object],
+    extra_args: None = ...,
     description: str = ...,
 ) -> None: ...
 def unregister_unpack_format(name: str) -> None: ...
