@@ -119,7 +119,7 @@ else:
 def register_unpack_format(
     name: str,
     extensions: list[str],
-    function: Callable[..., Any],
+    function: Callable[..., object],
     extra_args: Sequence[tuple[str, Any]] | None = ...,
     description: str = ...,
 ) -> None: ...
