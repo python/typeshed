@@ -1,8 +1,8 @@
 from _typeshed import Self
 from collections.abc import Iterator, MutableMapping
+from dbm import _TFlags
 from types import TracebackType
 from typing import TypeVar, overload
-from dbm import _TFlags
 
 _T = TypeVar("_T")
 _VT = TypeVar("_VT")
