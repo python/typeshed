@@ -1,12 +1,17 @@
+from _typeshed import SupportsWrite
 from email.message import Message
 from email.policy import Policy
-from _typeshed import SupportsWrite
 
 class Generator:
     def clone(self, fp: SupportsWrite[str]) -> Generator: ...
     def write(self, s: str) -> None: ...
     def __init__(
-        self, outfp: SupportsWrite[str], mangle_from_: bool | None = ..., maxheaderlen: int | None = ..., *, policy: Policy | None = ...
+        self,
+        outfp: SupportsWrite[str],
+        mangle_from_: bool | None = ...,
+        maxheaderlen: int | None = ...,
+        *,
+        policy: Policy | None = ...,
     ) -> None: ...
     def flatten(self, msg: Message, unixfrom: bool = ..., linesep: str | None = ...) -> None: ...
 
@@ -14,7 +19,12 @@ class BytesGenerator:
     def clone(self, fp: SupportsWrite[bytes]) -> BytesGenerator: ...
     def write(self, s: str) -> None: ...
     def __init__(
-        self, outfp: SupportsWrite[bytes], mangle_from_: bool | None = ..., maxheaderlen: int | None = ..., *, policy: Policy | None = ...
+        self,
+        outfp: SupportsWrite[bytes],
+        mangle_from_: bool | None = ...,
+        maxheaderlen: int | None = ...,
+        *,
+        policy: Policy | None = ...,
     ) -> None: ...
     def flatten(self, msg: Message, unixfrom: bool = ..., linesep: str | None = ...) -> None: ...
 
