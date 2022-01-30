@@ -15,6 +15,8 @@ class SelectorKey(NamedTuple):
     data: Any
 
 class BaseSelector(metaclass=ABCMeta):
+    # Technically `__init__` is defined in `_BaseSelectorImpl`, but we don't have this type:
+    def __init__(self) -> None: ...
     @abstractmethod
     def register(self, fileobj: FileDescriptorLike, events: _EventMask, data: Any = ...) -> SelectorKey: ...
     @abstractmethod
