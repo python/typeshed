@@ -65,7 +65,9 @@ class KqueueSelector(BaseSelector):
     def get_map(self) -> Mapping[FileDescriptorLike, SelectorKey]: ...
 
 if sys.platform == "linux":
-    DefaultSelector = type[KqueueSelector] | type[DevpollSelector] | type[SelectSelector] | type[PollSelector] | type[EpollSelector]
+    DefaultSelector = (
+        type[KqueueSelector] | type[DevpollSelector] | type[SelectSelector] | type[PollSelector] | type[EpollSelector]
+    )
 elif sys.platform != "win32":
     DefaultSelector = type[KqueueSelector] | type[DevpollSelector] | type[SelectSelector] | type[PollSelector]
 else:
