@@ -66,8 +66,8 @@ class KqueueSelector(BaseSelector):
 
 _DefaultSelectors = Union[type[KqueueSelector], type[DevpollSelector], type[SelectSelector]]
 if sys.platform == "linux":
-    DefaultSelectors = Union[_DefaultSelectors, type[PollSelector], type[EpollSelector]]
+    DefaultSelector = Union[_DefaultSelectors, type[PollSelector], type[EpollSelector]]
 elif sys.platform != "win32":
-    DefaultSelectors = Union[_DefaultSelectors, type[PollSelector]]
+    DefaultSelector = Union[_DefaultSelectors, type[PollSelector]]
 else:
-    DefaultSelectors = _DefaultSelectors
+    DefaultSelector = _DefaultSelectors
