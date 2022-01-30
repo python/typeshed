@@ -1,7 +1,7 @@
 import sys
 from _typeshed import FileDescriptor, FileDescriptorLike, Self
 from abc import ABCMeta, abstractmethod
-from typing import Any, Mapping, NamedTuple, Union
+from typing import Any, Mapping, NamedTuple
 
 _EventMask = int
 
@@ -64,10 +64,9 @@ class KqueueSelector(BaseSelector):
     def select(self, timeout: float | None = ...) -> list[tuple[SelectorKey, _EventMask]]: ...
     def get_map(self) -> Mapping[FileDescriptorLike, SelectorKey]: ...
 
-_DefaultSelectors = Union[type[KqueueSelector], type[DevpollSelector], type[SelectSelector]]
 if sys.platform == "linux":
-    DefaultSelector = Union[_DefaultSelectors, type[PollSelector], type[EpollSelector]]
+    DefaultSelector = type[KqueueSelector] | type[DevpollSelector] | type[SelectSelector] | type[PollSelector] | type[EpollSelector]]
 elif sys.platform != "win32":
-    DefaultSelector = Union[_DefaultSelectors, type[PollSelector]]
+    DefaultSelector = type[KqueueSelector] | type[DevpollSelector] | type[SelectSelector] | type[PollSelector]
 else:
-    DefaultSelector = _DefaultSelectors
+    DefaultSelector = type[KqueueSelector] | type[DevpollSelector] | type[SelectSelector] |
