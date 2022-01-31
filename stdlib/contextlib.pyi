@@ -31,7 +31,7 @@ _T_io = TypeVar("_T_io", bound=Optional[IO[str]])
 _F = TypeVar("_F", bound=Callable[..., Any])
 _P = ParamSpec("_P")
 
-_ExitFunc = Callable[[Optional[type[BaseException]], Optional[BaseException], Optional[TracebackType]], bool]
+_ExitFunc = Callable[[Optional[type[BaseException]], Optional[BaseException], Optional[TracebackType]], Optional[bool]]
 _CM_EF = TypeVar("_CM_EF", AbstractContextManager[Any], _ExitFunc)
 
 class ContextDecorator:
