@@ -302,6 +302,7 @@ if sys.version_info >= (3, 7):
         __objclass__: type
         def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
         def __get__(self, obj: Any, type: type = ...) -> Any: ...
+
     @final
     class MethodWrapperType:
         __self__: object
@@ -311,6 +312,7 @@ if sys.version_info >= (3, 7):
         def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
         def __eq__(self, other: object) -> bool: ...
         def __ne__(self, other: object) -> bool: ...
+
     @final
     class MethodDescriptorType:
         __name__: str
@@ -318,6 +320,7 @@ if sys.version_info >= (3, 7):
         __objclass__: type
         def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
         def __get__(self, obj: Any, type: type = ...) -> Any: ...
+
     @final
     class ClassMethodDescriptorType:
         __name__: str

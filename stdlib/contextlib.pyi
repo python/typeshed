@@ -51,8 +51,10 @@ def contextmanager(func: Callable[_P, Iterator[_T_co]]) -> Callable[_P, _Generat
 
 if sys.version_info >= (3, 10):
     _AF = TypeVar("_AF", bound=Callable[..., Awaitable[Any]])
+
     class AsyncContextDecorator:
         def __call__(self, func: _AF) -> _AF: ...
+
     class _AsyncGeneratorContextManager(AbstractAsyncContextManager[_T_co], AsyncContextDecorator, Generic[_T_co]):
         # __init__ and these attributes are actually defined in the base class _GeneratorContextManagerBase,
         # which is more trouble than it's worth to include in the stub (see #6676)
@@ -85,6 +87,7 @@ if sys.version_info >= (3, 10):
     class _SupportsAclose(Protocol):
         def aclose(self) -> Awaitable[object]: ...
     _SupportsAcloseT = TypeVar("_SupportsAcloseT", bound=_SupportsAclose)
+
     class aclosing(AbstractAsyncContextManager[_SupportsAcloseT]):
         def __init__(self, thing: _SupportsAcloseT) -> None: ...
 
@@ -115,6 +118,7 @@ class ExitStack(AbstractContextManager[ExitStack]):
 if sys.version_info >= (3, 7):
     _ExitCoroFunc = Callable[[Optional[type[BaseException]], Optional[BaseException], Optional[TracebackType]], Awaitable[bool]]
     _ACM_EF = TypeVar("_ACM_EF", AbstractAsyncContextManager[Any], _ExitCoroFunc)
+
     class AsyncExitStack(AbstractAsyncContextManager[AsyncExitStack]):
         def __init__(self) -> None: ...
         def enter_context(self, cm: AbstractContextManager[_T]) -> _T: ...
@@ -156,6 +160,7 @@ elif sys.version_info >= (3, 7):
 
 if sys.version_info >= (3, 11):
     _T_fd_or_any_path = TypeVar("_T_fd_or_any_path", bound=int | StrOrBytesPath)
+
     class chdir(AbstractContextManager[None], Generic[_T_fd_or_any_path]):
         path: _T_fd_or_any_path
         def __init__(self, path: _T_fd_or_any_path) -> None: ...

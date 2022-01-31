@@ -108,9 +108,11 @@ else:
     class ParamSpecArgs:
         __origin__: ParamSpec
         def __init__(self, origin: ParamSpec) -> None: ...
+
     class ParamSpecKwargs:
         __origin__: ParamSpec
         def __init__(self, origin: ParamSpec) -> None: ...
+
     class ParamSpec:
         __name__: str
         __bound__: type[Any] | None
