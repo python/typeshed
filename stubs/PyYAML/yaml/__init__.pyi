@@ -5,12 +5,12 @@ from . import resolver as resolver  # Help mypy a bit; this is implied by loader
 from .constructor import BaseConstructor
 from .cyaml import *
 from .dumper import *
-from .emitter import _Stream as _WriteStream
+from .emitter import _WriteStream
 from .error import *
 from .events import *
 from .loader import *
 from .nodes import *
-from .reader import _Stream as _ReadStream
+from .reader import _ReadStream
 from .representer import BaseRepresenter
 from .resolver import BaseResolver
 from .tokens import *

@@ -3,7 +3,7 @@ from typing import Any
 
 from yaml.error import YAMLError
 
-_Stream = str | bytes | SupportsRead[str] | SupportsRead[bytes]
+_ReadStream = str | bytes | SupportsRead[str] | SupportsRead[bytes]
 
 class ReaderError(YAMLError):
     name: Any
@@ -26,7 +26,7 @@ class Reader:
     index: Any
     line: Any
     column: Any
-    def __init__(self, stream: _Stream) -> None: ...
+    def __init__(self, stream: _ReadStream) -> None: ...
     def peek(self, index=...): ...
     def prefix(self, length=...): ...
     def forward(self, length=...): ...
