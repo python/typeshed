@@ -82,6 +82,7 @@ class FrozenImporter(importlib.abc.MetaPathFinder, importlib.abc.InspectLoader):
     else:
         @classmethod
         def create_module(cls, spec: ModuleSpec) -> types.ModuleType | None: ...
+
     @staticmethod
     def exec_module(module: types.ModuleType) -> None: ...
 
@@ -106,6 +107,7 @@ class PathFinder:
     elif sys.version_info >= (3, 8):
         @classmethod
         def find_distributions(cls, context: DistributionFinder.Context = ...) -> Iterable[PathDistribution]: ...
+
     @classmethod
     def find_spec(
         cls, fullname: str, path: Sequence[bytes | str] | None = ..., target: types.ModuleType | None = ...
