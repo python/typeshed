@@ -40,7 +40,7 @@ class _SupportsDunderLE(Protocol):
 class _SupportsDunderGE(Protocol):
     def __ge__(self, __other: Any) -> Any: ...
 
-_SupportsAnyComparison = Union[_SupportsDunderLE, _SupportsDunderGE, _SupportsDunderGT, _SupportsDunderLT]
+_SupportsAnyComparison = _SupportsDunderLE | _SupportsDunderGE | _SupportsDunderGT | _SupportsDunderLT
 
 class _SupportsInversion(Protocol[_T_co]):
     def __invert__(self) -> _T_co: ...
