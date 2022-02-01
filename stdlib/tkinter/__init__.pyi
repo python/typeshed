@@ -581,7 +581,12 @@ class _ExceptionReportingCallback(Protocol):
 class Tk(Misc, Wm):
     master: None
     def __init__(
-        # please update ttkthemes stub if you change this
+        # Make sure to keep in sync with other functions that use the same 
+        # args. 
+        # They are:
+        # * tkinter.Tcl()
+        # * tkinter.tix.Tk.__init__()
+        # * ttkthemes.ThemedTk.__init__()
         self,
         screenName: str | None = ...,
         baseName: str | None = ...,
