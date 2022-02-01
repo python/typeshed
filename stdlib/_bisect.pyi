@@ -43,7 +43,7 @@ if sys.version_info >= (3, 10):
     @overload
     def insort_right(
         a: MutableSequence[_T],
-        x: _SupportsRichComparisonT,
+        x: SupportsRichComparisonT,
         lo: int = ...,
         hi: int | None = ...,
         *,
