@@ -582,11 +582,8 @@ class Tk(Misc, Wm):
     master: None
     def __init__(
         # Make sure to keep in sync with other functions that use the same 
-        # args. 
-        # They are:
-        # * tkinter.Tcl()
-        # * tkinter.tix.Tk.__init__()
-        # * ttkthemes.ThemedTk.__init__()
+        # args.
+        # use `git grep screenName` to find them
         self,
         screenName: str | None = ...,
         baseName: str | None = ...,
