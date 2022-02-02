@@ -1,7 +1,7 @@
 import sys
 from collections import deque
 from types import TracebackType
-from typing import Any, Awaitable, Callable, Generator, TypeVar
+from typing import Any, Callable, Generator, TypeVar
 
 from .events import AbstractEventLoop
 from .futures import Future
