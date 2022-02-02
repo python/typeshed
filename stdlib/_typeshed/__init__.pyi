@@ -33,7 +33,7 @@ class SupportsNext(Protocol[_T_co]):
 
 # stable
 class SupportsAnext(Protocol[_T_co]):
-    def __anext__(self) -> Awaitable[_T_co]: ...
+    async def __anext__(self) -> _T_co: ...
 
 # Comparison protocols
 
