@@ -27,27 +27,21 @@ if sys.version_info >= (3, 10):
         *,
         key: Callable[[_T], SupportsRichComparisonT] = ...,
     ) -> int: ...
-    @overload
-    def insort_left(a: MutableSequence[_T], x: _T, lo: int = ..., hi: int | None = ..., *, key: None = ...) -> None: ...
-    @overload
     def insort_left(
         a: MutableSequence[_T],
-        x: SupportsRichComparisonT,
+        x: _T,
         lo: int = ...,
         hi: int | None = ...,
         *,
-        key: Callable[[_T], SupportsRichComparisonT] = ...,
+        key: Callable[[_T], SupportsRichComparison] | None = ...,
     ) -> None: ...
-    @overload
-    def insort_right(a: MutableSequence[_T], x: _T, lo: int = ..., hi: int | None = ..., *, key: None = ...) -> None: ...
-    @overload
     def insort_right(
         a: MutableSequence[_T],
-        x: SupportsRichComparisonT,
+        x: _T,
         lo: int = ...,
         hi: int | None = ...,
         *,
-        key: Callable[[_T], SupportsRichComparisonT] = ...,
+        key: Callable[[_T], SupportsRichComparison] | None = ...,
     ) -> None: ...
 
 else:
