@@ -1,5 +1,4 @@
 import sys
-from typing import FrozenSet, Tuple
 
 from .connections import Connection as Connection
 from .constants import FIELD_TYPE as FIELD_TYPE
@@ -30,7 +29,7 @@ threadsafety: int
 apilevel: str
 paramstyle: str
 
-class DBAPISet(FrozenSet[int]):
+class DBAPISet(frozenset[int]):
     def __ne__(self, other) -> bool: ...
     def __eq__(self, other) -> bool: ...
     def __hash__(self) -> int: ...
@@ -53,7 +52,7 @@ else:
 def get_client_info() -> str: ...
 
 __version__: str
-version_info: Tuple[int, int, int, str, int]
+version_info: tuple[int, int, int, str, int]
 NULL: str
 
 # pymysql/__init__.py says "Connect = connect = Connection = connections.Connection"

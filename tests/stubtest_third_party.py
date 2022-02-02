@@ -1,44 +1,34 @@
 #!/usr/bin/env python3
 """Test typeshed's third party stubs using stubtest"""
 
+from __future__ import annotations
+
 import argparse
 import functools
 import subprocess
 import sys
 import tempfile
-import toml
 import venv
 from glob import glob
 from pathlib import Path
+from typing import NoReturn
 
-
-EXCLUDE_LIST = [
-    "Flask",  # fails when stubtest tries to stringify some object
-    "pyaudio",  # install failure locally
-    "backports",  # errors on python version
-    "six",  # ???
-    "aiofiles",  # easily fixable, some platform specific difference between local and ci
-    "pycurl"  # install failure, missing libcurl
-]
-
-
-class StubtestFailed(Exception):
-    pass
+import tomli
 
 
 @functools.lru_cache()
 def get_mypy_req():
-    with open("requirements-tests-py3.txt") as f:
+    with open("requirements-tests.txt") as f:
         return next(line.strip() for line in f if "mypy" in line)
 
 
-def run_stubtest(dist: Path) -> None:
+def run_stubtest(dist: Path) -> bool:
     with open(dist / "METADATA.toml") as f:
-        metadata = dict(toml.loads(f.read()))
+        metadata = dict(tomli.loads(f.read()))
 
-    # Ignore stubs that don't support Python 3
     if not has_py3_stubs(dist):
-        return
+        print(f"Skipping stubtest for {dist.name}\n\n")
+        return True
 
     with tempfile.TemporaryDirectory() as tmp:
         venv_dir = Path(tmp)
@@ -47,11 +37,9 @@ def run_stubtest(dist: Path) -> None:
         pip_exe = str(venv_dir / "bin" / "pip")
         python_exe = str(venv_dir / "bin" / "python")
 
-        dist_version = metadata.get("version")
-        if dist_version is None or dist_version == "0.1":
-            dist_req = dist.name
-        else:
-            dist_req = f"{dist.name}=={dist_version}.*"
+        dist_version = metadata["version"]
+        assert isinstance(dist_version, str)
+        dist_req = f"{dist.name}=={dist_version}"
 
         # If @tests/requirements-stubtest.txt exists, run "pip install" on it.
         req_path = dist / "@tests" / "requirements-stubtest.txt"
@@ -63,7 +51,7 @@ def run_stubtest(dist: Path) -> None:
                 print(f"Failed to install requirements for {dist.name}", file=sys.stderr)
                 print(e.stdout.decode(), file=sys.stderr)
                 print(e.stderr.decode(), file=sys.stderr)
-                raise
+                return False
 
         # We need stubtest to be able to import the package, so install mypy into the venv
         # Hopefully mypy continues to not need too many dependencies
@@ -78,7 +66,7 @@ def run_stubtest(dist: Path) -> None:
             print(f"Failed to install {dist.name}", file=sys.stderr)
             print(e.stdout.decode(), file=sys.stderr)
             print(e.stderr.decode(), file=sys.stderr)
-            raise
+            return False
 
         packages_to_check = [d.name for d in dist.iterdir() if d.is_dir() and d.name.isidentifier()]
         modules_to_check = [d.stem for d in dist.iterdir() if d.is_file() and d.suffix == ".pyi"]
@@ -105,16 +93,20 @@ def run_stubtest(dist: Path) -> None:
             subprocess.run(cmd, env={"MYPYPATH": str(dist), "MYPY_FORCE_COLOR": "1"}, check=True)
         except subprocess.CalledProcessError:
             print(f"stubtest failed for {dist.name}", file=sys.stderr)
-            if not allowlist_path.exists():
+            print("\n\n", file=sys.stderr)
+            if allowlist_path.exists():
                 print(
-                    "\n\nRe-running stubtest with --generate-allowlist. "
-                    f"Add the following to {allowlist_path}:\n",
-                    file=sys.stderr,
+                    f'To fix "unused allowlist" errors, remove the corresponding entries from {allowlist_path}', file=sys.stderr
                 )
+            else:
+                print(f"Re-running stubtest with --generate-allowlist.\nAdd the following to {allowlist_path}:", file=sys.stderr)
                 subprocess.run(cmd + ["--generate-allowlist"], env={"MYPYPATH": str(dist)})
-            raise StubtestFailed from None
+                print("\n\n", file=sys.stderr)
+            return False
         else:
             print(f"stubtest succeeded for {dist.name}", file=sys.stderr)
+        print("\n\n", file=sys.stderr)
+    return True
 
 
 # Keep this in sync with mypy_test.py
@@ -122,7 +114,7 @@ def has_py3_stubs(dist: Path) -> bool:
     return len(glob(f"{dist}/*.pyi")) > 0 or len(glob(f"{dist}/[!@]*/__init__.pyi")) > 0
 
 
-def main():
+def main() -> NoReturn:
     parser = argparse.ArgumentParser()
     parser.add_argument("--num-shards", type=int, default=1)
     parser.add_argument("--shard-index", type=int, default=0)
@@ -135,12 +127,13 @@ def main():
     else:
         dists = [typeshed_dir / "stubs" / d for d in args.dists]
 
+    result = 0
     for i, dist in enumerate(dists):
         if i % args.num_shards != args.shard_index:
             continue
-        if dist.name in EXCLUDE_LIST:
-            continue
-        run_stubtest(dist)
+        if not run_stubtest(dist):
+            result = 1
+    sys.exit(result)
 
 
 if __name__ == "__main__":

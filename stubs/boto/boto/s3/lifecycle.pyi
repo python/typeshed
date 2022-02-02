@@ -1,4 +1,4 @@
-from typing import Any, List, Optional
+from typing import Any
 
 class Rule:
     id: Any
@@ -8,11 +8,11 @@ class Rule:
     transition: Any
     def __init__(
         self,
-        id: Optional[Any] = ...,
-        prefix: Optional[Any] = ...,
-        status: Optional[Any] = ...,
-        expiration: Optional[Any] = ...,
-        transition: Optional[Any] = ...,
+        id: Any | None = ...,
+        prefix: Any | None = ...,
+        status: Any | None = ...,
+        expiration: Any | None = ...,
+        transition: Any | None = ...,
     ) -> None: ...
     def startElement(self, name, attrs, connection): ...
     def endElement(self, name, value, connection): ...
@@ -21,7 +21,7 @@ class Rule:
 class Expiration:
     days: Any
     date: Any
-    def __init__(self, days: Optional[Any] = ..., date: Optional[Any] = ...) -> None: ...
+    def __init__(self, days: Any | None = ..., date: Any | None = ...) -> None: ...
     def startElement(self, name, attrs, connection): ...
     def endElement(self, name, value, connection): ...
     def to_xml(self): ...
@@ -30,10 +30,10 @@ class Transition:
     days: Any
     date: Any
     storage_class: Any
-    def __init__(self, days: Optional[Any] = ..., date: Optional[Any] = ..., storage_class: Optional[Any] = ...) -> None: ...
+    def __init__(self, days: Any | None = ..., date: Any | None = ..., storage_class: Any | None = ...) -> None: ...
     def to_xml(self): ...
 
-class Transitions(List[Transition]):
+class Transitions(list[Transition]):
     transition_properties: int
     current_transition_property: int
     temp_days: Any
@@ -43,7 +43,7 @@ class Transitions(List[Transition]):
     def startElement(self, name, attrs, connection): ...
     def endElement(self, name, value, connection): ...
     def to_xml(self): ...
-    def add_transition(self, days: Optional[Any] = ..., date: Optional[Any] = ..., storage_class: Optional[Any] = ...): ...
+    def add_transition(self, days: Any | None = ..., date: Any | None = ..., storage_class: Any | None = ...): ...
     @property
     def days(self): ...
     @property
@@ -51,15 +51,15 @@ class Transitions(List[Transition]):
     @property
     def storage_class(self): ...
 
-class Lifecycle(List[Rule]):
+class Lifecycle(list[Rule]):
     def startElement(self, name, attrs, connection): ...
     def endElement(self, name, value, connection): ...
     def to_xml(self): ...
     def add_rule(
         self,
-        id: Optional[Any] = ...,
+        id: Any | None = ...,
         prefix: str = ...,
         status: str = ...,
-        expiration: Optional[Any] = ...,
-        transition: Optional[Any] = ...,
+        expiration: Any | None = ...,
+        transition: Any | None = ...,
     ): ...

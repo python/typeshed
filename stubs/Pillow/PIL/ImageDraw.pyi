@@ -1,12 +1,12 @@
 from collections.abc import Container
-from typing import Any, Sequence, Tuple, Union, overload
+from typing import Any, Sequence, Union, overload
 from typing_extensions import Literal
 
 from .Image import Image
+from .ImageColor import _Ink
 from .ImageFont import _Font
 
-_Ink = Union[str, int, Tuple[int, int, int]]
-_XY = Sequence[Union[float, Tuple[float, float]]]
+_XY = Sequence[Union[float, tuple[float, float]]]
 _Outline = Any
 
 class ImageDraw:
@@ -30,7 +30,7 @@ class ImageDraw:
         width: float = ...,
     ) -> None: ...
     def point(self, xy: _XY, fill: _Ink | None = ...) -> None: ...
-    def polygon(self, xy: _XY, fill: _Ink | None = ..., outline: _Ink | None = ...) -> None: ...
+    def polygon(self, xy: _XY, fill: _Ink | None = ..., outline: _Ink | None = ..., width: float = ...) -> None: ...
     def regular_polygon(
         self,
         bounding_circle: tuple[float, float] | tuple[float, float, float] | list[int],
@@ -66,7 +66,7 @@ class ImageDraw:
         direction: Literal["rtl", "ltr", "ttb"] | None = ...,
         features: Sequence[str] | None = ...,
         language: str | None = ...,
-        stroke_width: float = ...,
+        stroke_width: int = ...,
         stroke_fill: _Ink | None = ...,
         embedded_color: bool = ...,
         *args,
@@ -84,7 +84,7 @@ class ImageDraw:
         direction: Literal["rtl", "ltr", "ttb"] | None = ...,
         features: Any | None = ...,
         language: str | None = ...,
-        stroke_width: float = ...,
+        stroke_width: int = ...,
         stroke_fill: _Ink | None = ...,
         embedded_color: bool = ...,
     ) -> None: ...
@@ -96,7 +96,7 @@ class ImageDraw:
         direction: Literal["rtl", "ltr", "ttb"] | None = ...,
         features: Sequence[str] | None = ...,
         language: str | None = ...,
-        stroke_width: float = ...,
+        stroke_width: int = ...,
     ) -> tuple[int, int]: ...
     def multiline_textsize(
         self,
@@ -106,7 +106,7 @@ class ImageDraw:
         direction: Literal["rtl", "ltr", "ttb"] | None = ...,
         features: Sequence[str] | None = ...,
         language: str | None = ...,
-        stroke_width: float = ...,
+        stroke_width: int = ...,
     ) -> tuple[int, int]: ...
     def textlength(
         self,
@@ -128,7 +128,7 @@ class ImageDraw:
         direction: Literal["rtl", "ltr", "ttb"] | None = ...,
         features: Any | None = ...,
         language: str | None = ...,
-        stroke_width: float = ...,
+        stroke_width: int = ...,
         embedded_color: bool = ...,
     ) -> tuple[int, int, int, int]: ...
     def multiline_textbbox(
@@ -142,7 +142,7 @@ class ImageDraw:
         direction: Literal["rtl", "ltr", "ttb"] | None = ...,
         features: Any | None = ...,
         language: str | None = ...,
-        stroke_width: float = ...,
+        stroke_width: int = ...,
         embedded_color: bool = ...,
     ) -> tuple[int, int, int, int]: ...
 
