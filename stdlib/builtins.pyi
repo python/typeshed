@@ -112,7 +112,7 @@ class object:
     def __dir__(self) -> Iterable[str]: ...
     def __init_subclass__(cls) -> None: ...
 
-class staticmethod(Generic[_R_co]):  # Special, only valid as a decorator.
+class staticmethod(Generic[_R_co]):
     __func__: Callable[..., _R_co]
     __isabstractmethod__: bool
     def __init__(self: staticmethod[_R_co], __f: Callable[..., _R_co]) -> None: ...
@@ -123,7 +123,7 @@ class staticmethod(Generic[_R_co]):  # Special, only valid as a decorator.
         __wrapped__: Callable[..., _R_co]
         def __call__(self, *args: Any, **kwargs: Any) -> _R_co: ...
 
-class classmethod(Generic[_R_co]):  # Special, only valid as a decorator.
+class classmethod(Generic[_R_co]):
     __func__: Callable[..., _R_co]
     __isabstractmethod__: bool
     def __init__(self: classmethod[_R_co], __f: Callable[..., _R_co]) -> None: ...
