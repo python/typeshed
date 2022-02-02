@@ -58,14 +58,15 @@ class FunctionType:
         closure: tuple[_Cell, ...] | None = ...,
     ) -> None: ...
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
-    def __get__(self, obj: object | None, type: type | None = ...) -> MethodType: ...
+    @overload
+    def __get__(self, obj: None, type: type) -> FunctionType: ...
+    @overload
+    def __get__(self, obj: object, type: type | None = ...) -> MethodType: ...
 
 LambdaType = FunctionType
 
 @final
 class CodeType:
-    """Create a code object.  Not for the faint of heart."""
-
     co_argcount: int
     if sys.version_info >= (3, 8):
         co_posonlyargcount: int
@@ -262,19 +263,15 @@ class CoroutineType(Coroutine[_T_co, _T_contra, _V_co]):
     def throw(self, __typ: BaseException, __val: None = ..., __tb: TracebackType | None = ...) -> _T_co: ...
 
 class _StaticFunctionType:
-    """Fictional type to correct the type of MethodType.__func__.
-
-    FunctionType is a descriptor, so mypy follows the descriptor protocol and
-    converts MethodType.__func__ back to MethodType (the return type of
-    FunctionType.__get__). But this is actually a special case; MethodType is
-    implemented in C and its attribute access doesn't go through
-    __getattribute__.
-
-    By wrapping FunctionType in _StaticFunctionType, we get the right result;
-    similar to wrapping a function in staticmethod() at runtime to prevent it
-    being bound as a method.
-    """
-
+    # Fictional type to correct the type of MethodType.__func__.
+    # FunctionType is a descriptor, so mypy follows the descriptor protocol and
+    # converts MethodType.__func__ back to MethodType (the return type of
+    # FunctionType.__get__). But this is actually a special case; MethodType is
+    # implemented in C and its attribute access doesn't go through
+    # __getattribute__.
+    # By wrapping FunctionType in _StaticFunctionType, we get the right result;
+    # similar to wrapping a function in staticmethod() at runtime to prevent it
+    # being bound as a method.
     def __get__(self, obj: object | None, type: type | None) -> FunctionType: ...
 
 @final
@@ -305,6 +302,7 @@ if sys.version_info >= (3, 7):
         __objclass__: type
         def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
         def __get__(self, obj: Any, type: type = ...) -> Any: ...
+
     @final
     class MethodWrapperType:
         __self__: object
@@ -312,8 +310,9 @@ if sys.version_info >= (3, 7):
         __qualname__: str
         __objclass__: type
         def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
-        def __eq__(self, other: Any) -> bool: ...
-        def __ne__(self, other: Any) -> bool: ...
+        def __eq__(self, other: object) -> bool: ...
+        def __ne__(self, other: object) -> bool: ...
+
     @final
     class MethodDescriptorType:
         __name__: str
@@ -321,6 +320,7 @@ if sys.version_info >= (3, 7):
         __objclass__: type
         def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
         def __get__(self, obj: Any, type: type = ...) -> Any: ...
+
     @final
     class ClassMethodDescriptorType:
         __name__: str
@@ -352,7 +352,10 @@ class FrameType:
     f_code: CodeType
     f_globals: dict[str, Any]
     f_lasti: int
-    f_lineno: int | None
+    # see discussion in #6769: f_lineno *can* sometimes be None,
+    # but you should probably file a bug report with CPython if you encounter it being None in the wild.
+    # An `int | None` annotation here causes too many false-positive errors.
+    f_lineno: int | Any
     f_locals: dict[str, Any]
     f_trace: Callable[[FrameType, str, Any], Any] | None
     if sys.version_info >= (3, 7):

@@ -104,7 +104,7 @@ class Connection:
     def set_parser(self, parser_class): ...
     def connect(self): ...
     def on_connect(self): ...
-    def disconnect(self): ...
+    def disconnect(self, *args: object) -> None: ...  # 'args' added in redis 4.1.2
     def check_health(self) -> None: ...
     def send_packed_command(self, command, check_health: bool = ...): ...
     def send_command(self, *args): ...
@@ -124,6 +124,9 @@ class SSLConnection(Connection):
     check_hostname: bool
     certificate_password: Any | None
     ssl_validate_ocsp: bool
+    ssl_validate_ocsp_stapled: bool  # added in 4.1.1
+    ssl_ocsp_context: Any | None  # added in 4.1.1
+    ssl_ocsp_expected_cert: Any | None  # added in 4.1.1
     def __init__(
         self,
         ssl_keyfile=...,
@@ -134,6 +137,9 @@ class SSLConnection(Connection):
         ssl_ca_path: Any | None = ...,
         ssl_password: Any | None = ...,
         ssl_validate_ocsp: bool = ...,
+        ssl_validate_ocsp_stapled: bool = ...,  # added in 4.1.1
+        ssl_ocsp_context: Any | None = ...,  # added in 4.1.1
+        ssl_ocsp_expected_cert: Any | None = ...,  # added in 4.1.1
         **kwargs,
     ) -> None: ...
 

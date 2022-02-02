@@ -132,6 +132,7 @@ class ContentTransferEncodingHeader:
 
 if sys.version_info >= (3, 8):
     from email._header_value_parser import MessageID
+
     class MessageIDHeader:
         max_count: ClassVar[Literal[1]]
         @classmethod

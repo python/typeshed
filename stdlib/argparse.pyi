@@ -193,6 +193,7 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
             help: str | None = ...,
             metavar: str | None = ...,
         ) -> _SubParsersAction[_ArgumentParserT]: ...
+
     def print_usage(self, file: IO[str] | None = ...) -> None: ...
     def print_help(self, file: IO[str] | None = ...) -> None: ...
     def format_usage(self) -> str: ...
@@ -292,7 +293,7 @@ class Action(_AttributeHolder):
         nargs: int | str | None = ...,
         const: _T | None = ...,
         default: _T | str | None = ...,
-        type: Callable[[str], _T] | Callable[[str], _T] | FileType | None = ...,
+        type: Callable[[str], _T] | FileType | None = ...,
         choices: Iterable[_T] | None = ...,
         required: bool = ...,
         help: str | None = ...,
@@ -311,7 +312,7 @@ if sys.version_info >= (3, 9):
             option_strings: Sequence[str],
             dest: str,
             default: _T | str | None = ...,
-            type: Callable[[str], _T] | Callable[[str], _T] | FileType | None = ...,
+            type: Callable[[str], _T] | FileType | None = ...,
             choices: Iterable[_T] | None = ...,
             required: bool = ...,
             help: str | None = ...,

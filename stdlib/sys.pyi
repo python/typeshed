@@ -46,7 +46,7 @@ modules: dict[str, ModuleType]
 if sys.version_info >= (3, 10):
     orig_argv: list[str]
 path: list[str]
-path_hooks: list[Any]  # TODO precise type; function, path to finder
+path_hooks: list[Callable[[str], PathEntryFinder]]
 path_importer_cache: dict[str, PathEntryFinder | None]
 platform: str
 if sys.version_info >= (3, 9):
@@ -271,6 +271,7 @@ if sys.platform == "win32":
         def product_type(self) -> int: ...
         @property
         def platform_version(self) -> tuple[int, int, int]: ...
+
     def getwindowsversion() -> _WinVersion: ...
 
 def intern(__string: str) -> str: ...

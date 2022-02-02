@@ -22,6 +22,7 @@ from typing import (
     TypeVar,
     overload,
 )
+from typing_extensions import ParamSpec
 from warnings import WarningMessage
 
 if sys.version_info >= (3, 9):
@@ -29,6 +30,7 @@ if sys.version_info >= (3, 9):
 
 _E = TypeVar("_E", bound=BaseException)
 _FT = TypeVar("_FT", bound=Callable[..., Any])
+_P = ParamSpec("_P")
 
 DIFF_OMITTED: str
 
@@ -42,9 +44,11 @@ else:
     # this is generic over the logging watcher, but in lower versions
     # the watcher is hard-coded.
     _L = TypeVar("_L")
+
     class _LoggingWatcher(NamedTuple):
         records: list[logging.LogRecord]
         output: list[str]
+
     class _AssertLogsContext(_BaseTestCaseContext, Generic[_L]):
         LOGGING_FORMAT: ClassVar[str]
         test_case: TestCase
@@ -58,7 +62,7 @@ else:
         ) -> bool | None: ...
 
 if sys.version_info >= (3, 8):
-    def addModuleCleanup(__function: Callable[..., Any], *args: Any, **kwargs: Any) -> None: ...
+    def addModuleCleanup(__function: Callable[_P, object], *args: _P.args, **kwargs: _P.kwargs) -> None: ...
     def doModuleCleanups() -> None: ...
 
 def expectedFailure(test_item: _FT) -> _FT: ...
@@ -106,11 +110,14 @@ class TestCase:
     def assertGreaterEqual(self, a: Any, b: Any, msg: Any = ...) -> None: ...
     def assertLess(self, a: Any, b: Any, msg: Any = ...) -> None: ...
     def assertLessEqual(self, a: Any, b: Any, msg: Any = ...) -> None: ...
+    # `assertRaises`, `assertRaisesRegex`, and `assertRaisesRegexp`
+    # are not using `ParamSpec` intentionally,
+    # because they might be used with explicitly wrong arg types to raise some error in tests.
     @overload
     def assertRaises(  # type: ignore[misc]
         self,
         expected_exception: type[BaseException] | tuple[type[BaseException], ...],
-        callable: Callable[..., Any],
+        callable: Callable[..., object],
         *args: Any,
         **kwargs: Any,
     ) -> None: ...
@@ -121,7 +128,7 @@ class TestCase:
         self,
         expected_exception: type[BaseException] | tuple[type[BaseException], ...],
         expected_regex: str | bytes | Pattern[str] | Pattern[bytes],
-        callable: Callable[..., Any],
+        callable: Callable[..., object],
         *args: Any,
         **kwargs: Any,
     ) -> None: ...
@@ -134,7 +141,11 @@ class TestCase:
     ) -> _AssertRaisesContext[_E]: ...
     @overload
     def assertWarns(  # type: ignore[misc]
-        self, expected_warning: type[Warning] | tuple[type[Warning], ...], callable: Callable[..., Any], *args: Any, **kwargs: Any
+        self,
+        expected_warning: type[Warning] | tuple[type[Warning], ...],
+        callable: Callable[_P, object],
+        *args: _P.args,
+        **kwargs: _P.kwargs,
     ) -> None: ...
     @overload
     def assertWarns(self, expected_warning: type[Warning] | tuple[type[Warning], ...], msg: Any = ...) -> _AssertWarnsContext: ...
@@ -143,9 +154,9 @@ class TestCase:
         self,
         expected_warning: type[Warning] | tuple[type[Warning], ...],
         expected_regex: str | bytes | Pattern[str] | Pattern[bytes],
-        callable: Callable[..., Any],
-        *args: Any,
-        **kwargs: Any,
+        callable: Callable[_P, object],
+        *args: _P.args,
+        **kwargs: _P.kwargs,
     ) -> None: ...
     @overload
     def assertWarnsRegex(
@@ -161,6 +172,7 @@ class TestCase:
         def assertNoLogs(
             self, logger: str | logging.Logger | None = ..., level: int | str | None = ...
         ) -> _AssertLogsContext[None]: ...
+
     @overload
     def assertAlmostEqual(
         self, first: float, second: float, places: int | None = ..., msg: Any = ..., delta: float | None = ...
@@ -207,15 +219,17 @@ class TestCase:
     def id(self) -> str: ...
     def shortDescription(self) -> str | None: ...
     if sys.version_info >= (3, 8):
-        def addCleanup(self, __function: Callable[..., Any], *args: Any, **kwargs: Any) -> None: ...
+        def addCleanup(self, __function: Callable[_P, object], *args: _P.args, **kwargs: _P.kwargs) -> None: ...
     else:
-        def addCleanup(self, function: Callable[..., Any], *args: Any, **kwargs: Any) -> None: ...
+        def addCleanup(self, function: Callable[_P, object], *args: _P.args, **kwargs: _P.kwargs) -> None: ...
+
     def doCleanups(self) -> None: ...
     if sys.version_info >= (3, 8):
         @classmethod
-        def addClassCleanup(cls, __function: Callable[..., Any], *args: Any, **kwargs: Any) -> None: ...
+        def addClassCleanup(cls, __function: Callable[_P, object], *args: _P.args, **kwargs: _P.kwargs) -> None: ...
         @classmethod
         def doClassCleanups(cls) -> None: ...
+
     def _formatMessage(self, msg: str | None, standardMsg: str) -> str: ...  # undocumented
     def _getAssertEqualityFunc(self, first: Any, second: Any) -> Callable[..., None]: ...  # undocumented
     if sys.version_info < (3, 11):
@@ -230,9 +244,9 @@ class TestCase:
         def failUnlessRaises(  # type: ignore[misc]
             self,
             exception: type[BaseException] | tuple[type[BaseException], ...],
-            callable: Callable[..., Any] = ...,
-            *args: Any,
-            **kwargs: Any,
+            callable: Callable[_P, object] = ...,
+            *args: _P.args,
+            **kwargs: _P.kwargs,
         ) -> None: ...
         @overload
         def failUnlessRaises(self, exception: type[_E] | tuple[type[_E], ...], msg: Any = ...) -> _AssertRaisesContext[_E]: ...
@@ -251,7 +265,7 @@ class TestCase:
             self,
             exception: type[BaseException] | tuple[type[BaseException], ...],
             expected_regex: str | bytes | Pattern[str] | Pattern[bytes],
-            callable: Callable[..., Any],
+            callable: Callable[..., object],
             *args: Any,
             **kwargs: Any,
         ) -> None: ...
