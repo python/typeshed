@@ -1,4 +1,5 @@
 import sys
+from _typeshed import Self
 from typing import Any, Awaitable, Callable, Generic, Iterable, Mapping, Sequence, TypeVar, overload
 from typing_extensions import Literal
 
@@ -76,8 +77,13 @@ DEFAULT: Any
 
 class _Call(tuple[Any, ...]):
     def __new__(
-        cls, value: Any = ..., name: Any | None = ..., parent: Any | None = ..., two: bool = ..., from_kall: bool = ...
-    ) -> Any: ...
+        cls: type[Self],
+        value: Any = ...,
+        name: Any | None = ...,
+        parent: Any | None = ...,
+        two: bool = ...,
+        from_kall: bool = ...,
+    ) -> Self: ...
     name: Any
     parent: Any
     from_kall: Any
@@ -105,7 +111,7 @@ class Base:
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
 
 class NonCallableMock(Base, Any):
-    def __new__(__cls, *args: Any, **kw: Any) -> NonCallableMock: ...
+    def __new__(__cls: type[Self], *args: Any, **kw: Any) -> Self: ...
     def __init__(
         self,
         spec: list[str] | object | type[object] | None = ...,
