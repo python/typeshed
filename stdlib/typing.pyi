@@ -448,10 +448,10 @@ class ContextManager(Protocol[_T_co]):
 
 @runtime_checkable
 class AsyncContextManager(Protocol[_T_co]):
-    def __aenter__(self) -> Awaitable[_T_co]: ...
-    def __aexit__(
+    async def __aenter__(self) -> _T_co: ...
+    async def __aexit__(
         self, __exc_type: Type[BaseException] | None, __exc_value: BaseException | None, __traceback: TracebackType | None
-    ) -> Awaitable[bool | None]: ...
+    ) -> bool | None: ...
 
 class Mapping(Collection[_KT], Generic[_KT, _VT_co]):
     # TODO: We wish the key type could also be covariant, but that doesn't work,

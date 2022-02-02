@@ -7,7 +7,7 @@ import ctypes
 import mmap
 import sys
 from os import PathLike
-from typing import AbstractSet, Any, Awaitable, Container, Generic, Iterable, Protocol, TypeVar, Union
+from typing import AbstractSet, Any, Container, Generic, Iterable, Protocol, TypeVar, Union
 from typing_extensions import Final, Literal, final
 
 _KT = TypeVar("_KT")
@@ -33,7 +33,7 @@ class SupportsNext(Protocol[_T_co]):
 
 # stable
 class SupportsAnext(Protocol[_T_co]):
-    def __anext__(self) -> Awaitable[_T_co]: ...
+    async def __anext__(self) -> _T_co: ...
 
 # Comparison protocols
 
