@@ -60,7 +60,7 @@ _StrToStrEncoding = Literal["rot13", "rot_13"]
 @overload
 def encode(obj: bytes, encoding: _BytesToBytesEncoding, errors: str = ...) -> bytes: ...
 @overload
-def encode(obj: str, encoding: _StrToStrEncoding = ..., errors: str = ...) -> str: ...  # type: ignore[misc]
+def encode(obj: str, encoding: _StrToStrEncoding, errors: str = ...) -> str: ...  # type: ignore[misc]
 @overload
 def encode(obj: str, encoding: str = ..., errors: str = ...) -> bytes: ...
 @overload
