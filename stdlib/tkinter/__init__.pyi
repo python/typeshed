@@ -581,7 +581,7 @@ class _ExceptionReportingCallback(Protocol):
 class Tk(Misc, Wm):
     master: None
     def __init__(
-        # Make sure to keep in sync with other functions that use the same 
+        # Make sure to keep in sync with other functions that use the same
         # args.
         # use `git grep screenName` to find them
         self,
