@@ -77,7 +77,12 @@ DEFAULT: Any
 
 class _Call(tuple[Any, ...]):
     def __new__(
-        cls: type[Self], value: Any = ..., name: Any | None = ..., parent: Any | None = ..., two: bool = ..., from_kall: bool = ...
+        cls: type[Self],
+        value: Any = ...,
+        name: Any | None = ...,
+        parent: Any | None = ...,
+        two: bool = ...,
+        from_kall: bool = ...,
     ) -> Self: ...
     name: Any
     parent: Any
