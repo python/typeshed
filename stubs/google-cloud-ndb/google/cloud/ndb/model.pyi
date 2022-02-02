@@ -320,7 +320,7 @@ class Model(_NotEqualMixin, metaclass=MetaModel):
         max_memcache_items: int | None = ...,
         force_writes: bool | None = ...,
         _options=...,
-    ) -> tasklets_module.Future: ...
+    ) -> Model | None: ...
     @classmethod
     def get_by_id_async(
         cls: type[Model],
@@ -344,7 +344,7 @@ class Model(_NotEqualMixin, metaclass=MetaModel):
         max_memcache_items: int | None = ...,
         force_writes: bool | None = ...,
         _options=...,
-    ) -> Model | None: ...
+    ) -> tasklets_module.Future: ...
     @classmethod
     def get_or_insert(
         cls: type[Model],
