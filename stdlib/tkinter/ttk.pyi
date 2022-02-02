@@ -666,7 +666,8 @@ class Radiobutton(Widget):
     config = configure
     def invoke(self) -> Any: ...
 
-class Scale(Widget, tkinter.Scale):
+# type ignore, because identify() methods of Widget and tkinter.Scale are incompatible
+class Scale(Widget, tkinter.Scale):  # type: ignore[misc]
     def __init__(
         self,
         master: tkinter.Misc | None = ...,
@@ -726,7 +727,8 @@ class Scale(Widget, tkinter.Scale):
     def config(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
     def get(self, x: int | None = ..., y: int | None = ...) -> float: ...
 
-class Scrollbar(Widget, tkinter.Scrollbar):
+# type ignore, because identify() methods of Widget and tkinter.Scale are incompatible
+class Scrollbar(Widget, tkinter.Scrollbar):  # type: ignore[misc]
     def __init__(
         self,
         master: tkinter.Misc | None = ...,
