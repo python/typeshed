@@ -1,10 +1,10 @@
 from _typeshed import SupportsWrite
 from reprlib import Repr
 from types import MethodType, ModuleType, TracebackType
-from typing import IO, Any, AnyStr, Callable, Container, Mapping, MutableMapping, NoReturn, Optional, Type
+from typing import IO, Any, AnyStr, Callable, Container, Mapping, MutableMapping, NoReturn, Optional
 
 # the return type of sys.exc_info(), used by ErrorDuringImport.__init__
-_Exc_Info = tuple[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]]
+_Exc_Info = tuple[Optional[type[BaseException]], Optional[BaseException], Optional[TracebackType]]
 
 __author__: str
 __date__: str
@@ -28,7 +28,7 @@ def synopsis(filename: str, cache: MutableMapping[str, tuple[int, str]] = ...) -
 
 class ErrorDuringImport(Exception):
     filename: str
-    exc: Type[BaseException] | None
+    exc: type[BaseException] | None
     value: BaseException | None
     tb: TracebackType | None
     def __init__(self, filename: str, exc_info: _Exc_Info) -> None: ...
@@ -205,15 +205,6 @@ class Helper:
     def listmodules(self, key: str = ...) -> None: ...
 
 help: Helper
-
-# See Python issue #11182: "remove the unused and undocumented pydoc.Scanner class"
-# class Scanner:
-#     roots = ...  # type: Any
-#     state = ...  # type: Any
-#     children = ...  # type: Any
-#     descendp = ...  # type: Any
-#     def __init__(self, roots, children, descendp) -> None: ...
-#     def next(self): ...
 
 class ModuleScanner:
     quit: bool

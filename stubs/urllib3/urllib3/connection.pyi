@@ -1,6 +1,6 @@
 import ssl
 import sys
-from typing import Any
+from typing import IO, Any, Iterable
 
 from . import exceptions, util
 from .packages import ssl_match_hostname
@@ -11,7 +11,10 @@ if sys.version_info >= (3, 0):
     from http.client import HTTPConnection as _HTTPConnection, HTTPException as HTTPException
 else:
     from httplib import HTTPConnection as _HTTPConnection, HTTPException as HTTPException
+
     class ConnectionError(Exception): ...
+
+_TYPE_BODY = bytes | IO[Any] | Iterable[bytes] | str
 
 class DummyConnection: ...
 

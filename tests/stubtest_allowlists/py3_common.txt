@@ -105,12 +105,6 @@ importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but e
 importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
 importlib.machinery.ExtensionFileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
 inspect.Parameter.empty  # set as private marker _empty
-# inspect.Parameter: the Literal[enum_member] annotations are too complex for stubtest to parse
-inspect.Parameter.KEYWORD_ONLY
-inspect.Parameter.POSITIONAL_ONLY
-inspect.Parameter.POSITIONAL_OR_KEYWORD
-inspect.Parameter.VAR_KEYWORD
-inspect.Parameter.VAR_POSITIONAL
 inspect.Signature.empty  # set as private marker _empty
 inspect.Signature.from_builtin  # Removed in 3.11, can add if someone needs this
 inspect.Signature.from_function  # Removed in 3.11, can add if someone needs this
@@ -270,6 +264,9 @@ pydoc.Helper.symbols_  # Loop variable in class https://github.com/python/typesh
 pydoc.Helper.topic  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
 # Dynamically specified by __getattr__, and thus don't exist on the class
 tempfile._TemporaryFileWrapper.[\w_]+
+# stubtest incorrectly highlights the type argument as not having a default value.
+types.FunctionType.__get__
+types.LambdaType.__get__
 # Various classes in typing aren't types at runtime. In addition, mypy thinks some special forms are tautologically defined.
 typing.[A-Z]\w+
 typing_extensions\..*
@@ -290,6 +287,11 @@ sys.tracebacklimit
 codecs.StreamReaderWriter.\w+
 codecs.StreamRecoder.\w+
 urllib.response.addbase.\w+
+
+# Dynamically created, has unnecessary *args
+turtle.ScrolledCanvas.find_all
+turtle.ScrolledCanvas.select_clear
+turtle.ScrolledCanvas.select_item
 
 # Unnecessary re-exports
 asyncore\.E[A-Z]+  # re-exported from errno
@@ -368,6 +370,28 @@ tkinter.Place.forget
 tkinter.Place.place_slaves
 tkinter.Place.slaves
 
+# Methods that come from __getattr__() at runtime
+tkinter.Tk.adderrorinfo
+tkinter.Tk.call
+tkinter.Tk.createcommand
+tkinter.Tk.createtimerhandler
+tkinter.Tk.dooneevent
+tkinter.Tk.evalfile
+tkinter.Tk.exprboolean
+tkinter.Tk.exprdouble
+tkinter.Tk.exprlong
+tkinter.Tk.exprstring
+tkinter.Tk.globalgetvar
+tkinter.Tk.globalsetvar
+tkinter.Tk.globalunsetvar
+tkinter.Tk.interpaddr
+tkinter.Tk.record
+tkinter.Tk.split
+tkinter.Tk.splitlist
+tkinter.Tk.unsetvar
+tkinter.Tk.wantobjects
+tkinter.Tk.willdispatch
+
 # Undocumented and have a comment in the source code saying "State variables (don't mess with these)"
 wsgiref.handlers.BaseHandler.bytes_sent
 wsgiref.handlers.BaseHandler.headers
@@ -416,6 +440,8 @@ pipes.Template.open_r
 pipes.Template.open_w
 sunau.Au_read.initfp
 sunau.Au_write.initfp
+turtle.ScrolledCanvas.adjustScrolls
+turtle.ScrolledCanvas.onResize
 wave.Wave_read.initfp
 wave.Wave_write.initfp
 
@@ -707,5 +733,4 @@ tkinter.tix.ScrolledText
 tkinter.tix.ScrolledWindow
 tkinter.tix.Shell
 tracemalloc.BaseFilter
-turtle.ScrolledCanvas\..+
 turtle.TNavigator.speed

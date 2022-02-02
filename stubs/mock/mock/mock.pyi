@@ -1,9 +1,10 @@
 from collections.abc import Callable, Mapping, Sequence
-from typing import Any, Generic, Type, TypeVar, overload
+from typing import Any, Generic, TypeVar, overload
+from typing_extensions import Literal
 
 _F = TypeVar("_F", bound=Callable[..., Any])
 _T = TypeVar("_T")
-_TT = TypeVar("_TT", bound=Type[Any])
+_TT = TypeVar("_TT", bound=type[Any])
 _R = TypeVar("_R")
 
 __all__ = (
@@ -40,8 +41,8 @@ class _Call(tuple[Any, ...]):
     def __init__(
         self, value: Any = ..., name: Any | None = ..., parent: Any | None = ..., two: bool = ..., from_kall: bool = ...
     ) -> None: ...
-    def __eq__(self, other: Any) -> bool: ...
-    __ne__: Any
+    def __eq__(self, other: object) -> bool: ...
+    def __ne__(self, other: object) -> bool: ...
     def __call__(self, *args: Any, **kwargs: Any) -> _Call: ...
     def __getattr__(self, attr: str) -> Any: ...
     @property
@@ -62,10 +63,10 @@ class NonCallableMock(Base, Any):
     def __new__(__cls, *args: Any, **kw: Any) -> NonCallableMock: ...
     def __init__(
         self,
-        spec: list[str] | object | Type[object] | None = ...,
+        spec: list[str] | object | type[object] | None = ...,
         wraps: Any | None = ...,
         name: str | None = ...,
-        spec_set: list[str] | object | Type[object] | None = ...,
+        spec_set: list[str] | object | type[object] | None = ...,
         parent: NonCallableMock | None = ...,
         _spec_state: Any | None = ...,
         _new_name: str = ...,
@@ -174,7 +175,7 @@ class _patch_dict:
 
 class _patcher:
     TEST_PREFIX: str
-    dict: Type[_patch_dict]
+    dict: type[_patch_dict]
     @overload
     def __call__(  # type: ignore[misc]
         self,
@@ -268,7 +269,7 @@ class AsyncMockMixin(Base):
 class AsyncMagicMixin(MagicMixin):
     def __init__(self, *args: Any, **kw: Any) -> None: ...
 
-class AsyncMock(AsyncMockMixin, AsyncMagicMixin, Mock): ...
+class AsyncMock(AsyncMockMixin, AsyncMagicMixin, Mock): ...  # type: ignore # argument disparities between base classes
 
 class MagicProxy(Base):
     name: str
@@ -278,8 +279,8 @@ class MagicProxy(Base):
     def __get__(self, obj: Any, _type: Any | None = ...) -> Any: ...
 
 class _ANY:
-    def __eq__(self, other: Any) -> bool: ...
-    def __ne__(self, other: Any) -> bool: ...
+    def __eq__(self, other: object) -> Literal[True]: ...
+    def __ne__(self, other: object) -> Literal[False]: ...
 
 ANY: Any
 

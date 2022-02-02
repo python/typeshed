@@ -23,8 +23,12 @@ from types import (
 if sys.version_info >= (3, 7):
     from types import ClassMethodDescriptorType, WrapperDescriptorType, MemberDescriptorType, MethodDescriptorType
 
-from typing import Any, ClassVar, Coroutine, NamedTuple, Protocol, Type, TypeVar, Union
-from typing_extensions import Literal, TypeGuard
+from typing import Any, ClassVar, Coroutine, NamedTuple, Protocol, TypeVar, Union
+from typing_extensions import Literal, ParamSpec, TypeGuard
+
+_P = ParamSpec("_P")
+_T_cont = TypeVar("_T_cont", contravariant=True)
+_V_cont = TypeVar("_V_cont", contravariant=True)
 
 #
 # Types and members
@@ -58,7 +62,7 @@ modulesbyfile: dict[str, Any]
 def getmembers(object: object, predicate: Callable[[Any], bool] | None = ...) -> list[tuple[str, Any]]: ...
 def getmodulename(path: str) -> str | None: ...
 def ismodule(object: object) -> TypeGuard[ModuleType]: ...
-def isclass(object: object) -> TypeGuard[Type[Any]]: ...
+def isclass(object: object) -> TypeGuard[type[Any]]: ...
 def ismethod(object: object) -> TypeGuard[MethodType]: ...
 def isfunction(object: object) -> TypeGuard[FunctionType]: ...
 
@@ -79,9 +83,6 @@ if sys.version_info >= (3, 8):
 
 else:
     def isasyncgenfunction(object: object) -> bool: ...
-
-_T_cont = TypeVar("_T_cont", contravariant=True)
-_V_cont = TypeVar("_V_cont", contravariant=True)
 
 class _SupportsSet(Protocol[_T_cont, _V_cont]):
     def __set__(self, __instance: _T_cont, __value: _V_cont) -> None: ...
@@ -125,7 +126,7 @@ def isdatadescriptor(object: object) -> TypeGuard[_SupportsSet[Any, Any] | _Supp
 #
 # Retrieving source code
 #
-_SourceObjectType = Union[ModuleType, Type[Any], MethodType, FunctionType, TracebackType, FrameType, CodeType, Callable[..., Any]]
+_SourceObjectType = Union[ModuleType, type[Any], MethodType, FunctionType, TracebackType, FrameType, CodeType, Callable[..., Any]]
 
 def findsource(object: _SourceObjectType) -> tuple[list[str], int]: ...
 def getabsfile(object: _SourceObjectType, _filename: str | None = ...) -> str: ...
@@ -166,32 +167,31 @@ class Signature:
     empty = _empty
     @property
     def parameters(self) -> types.MappingProxyType[str, Parameter]: ...
-    # TODO: can we be more specific here?
     @property
     def return_annotation(self) -> Any: ...
     def bind(self, *args: Any, **kwargs: Any) -> BoundArguments: ...
     def bind_partial(self, *args: Any, **kwargs: Any) -> BoundArguments: ...
     def replace(
-        self: Self, *, parameters: Sequence[Parameter] | Type[_void] | None = ..., return_annotation: Any = ...
+        self: Self, *, parameters: Sequence[Parameter] | type[_void] | None = ..., return_annotation: Any = ...
     ) -> Self: ...
     if sys.version_info >= (3, 10):
         @classmethod
         def from_callable(
-            cls,
+            cls: type[Self],
             obj: Callable[..., Any],
             *,
             follow_wrapped: bool = ...,
             globals: Mapping[str, Any] | None = ...,
             locals: Mapping[str, Any] | None = ...,
             eval_str: bool = ...,
-        ) -> Signature: ...
+        ) -> Self: ...
     else:
         @classmethod
-        def from_callable(cls, obj: Callable[..., Any], *, follow_wrapped: bool = ...) -> Signature: ...
+        def from_callable(cls: type[Self], obj: Callable[..., Any], *, follow_wrapped: bool = ...) -> Self: ...
 
 if sys.version_info >= (3, 10):
     def get_annotations(
-        obj: Callable[..., Any] | Type[Any] | ModuleType,
+        obj: Callable[..., Any] | type[Any] | ModuleType,
         *,
         globals: Mapping[str, Any] | None = ...,
         locals: Mapping[str, Any] | None = ...,
@@ -230,8 +230,8 @@ class Parameter:
     def replace(
         self: Self,
         *,
-        name: str | Type[_void] = ...,
-        kind: _ParameterKind | Type[_void] = ...,
+        name: str | type[_void] = ...,
+        kind: _ParameterKind | type[_void] = ...,
         default: Any = ...,
         annotation: Any = ...,
     ) -> Self: ...
@@ -252,7 +252,7 @@ class BoundArguments:
 # seem to be supporting this at the moment:
 # _ClassTreeItem = list[_ClassTreeItem] | Tuple[type, Tuple[type, ...]]
 def getclasstree(classes: list[type], unique: bool = ...) -> list[Any]: ...
-def walktree(classes: list[type], children: dict[Type[Any], list[type]], parent: Type[Any] | None) -> list[Any]: ...
+def walktree(classes: list[type], children: dict[type[Any], list[type]], parent: type[Any] | None) -> list[Any]: ...
 
 class Arguments(NamedTuple):
     args: list[str]
@@ -318,7 +318,7 @@ def formatargvalues(
     formatvalue: Callable[[Any], str] | None = ...,
 ) -> str: ...
 def getmro(cls: type) -> tuple[type, ...]: ...
-def getcallargs(__func: Callable[..., Any], *args: Any, **kwds: Any) -> dict[str, Any]: ...
+def getcallargs(__func: Callable[_P, Any], *args: _P.args, **kwds: _P.kwargs) -> dict[str, Any]: ...
 
 class ClosureVars(NamedTuple):
     nonlocals: Mapping[str, Any]
