@@ -2,6 +2,7 @@ import bz2
 import io
 import sys
 from _typeshed import Self, StrOrBytesPath, StrPath
+from builtins import type as Type  # alias to avoid name clashes with fields named "type"
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from gzip import _ReadableFileobj as _GzipReadableFileobj, _WritableFileobj as _GzipWritableFileobj
 from types import TracebackType
@@ -339,9 +340,9 @@ class TarInfo:
     pax_headers: Mapping[str, str]
     def __init__(self, name: str = ...) -> None: ...
     @classmethod
-    def frombuf(cls: type[Self], buf: bytes, encoding: str, errors: str) -> Self: ...
+    def frombuf(cls: Type[Self], buf: bytes, encoding: str, errors: str) -> Self: ...
     @classmethod
-    def fromtarfile(cls: type[Self], tarfile: TarFile) -> Self: ...
+    def fromtarfile(cls: Type[Self], tarfile: TarFile) -> Self: ...
     @property
     def linkpath(self) -> str: ...
     @linkpath.setter
