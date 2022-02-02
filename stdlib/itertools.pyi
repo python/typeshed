@@ -1,5 +1,5 @@
 import sys
-from _typeshed import _T_co, Self
+from _typeshed import Self, _T_co
 from typing import (
     Any,
     Callable,
