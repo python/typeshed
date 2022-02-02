@@ -3,7 +3,7 @@ import sys
 from _typeshed import FileDescriptorLike, Self
 from abc import ABCMeta, abstractmethod
 from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
-from typing import IO, Any, Awaitable, Callable, Generator, Sequence, TypeVar, Union, overload
+from typing import IO, Any, Awaitable, Callable, Coroutine, Generator, Sequence, TypeVar, Union, overload
 from typing_extensions import Literal
 
 from .base_events import Server
@@ -103,10 +103,12 @@ class AbstractEventLoop(metaclass=ABCMeta):
     # Tasks methods
     if sys.version_info >= (3, 8):
         @abstractmethod
-        def create_task(self, coro: Awaitable[_T] | Generator[Any, None, _T], *, name: str | None = ...) -> Task[_T]: ...
+        def create_task(
+            self, coro: Coroutine[Any, Any, _T] | Generator[Any, None, _T], *, name: str | None = ...
+        ) -> Task[_T]: ...
     else:
         @abstractmethod
-        def create_task(self, coro: Awaitable[_T] | Generator[Any, None, _T]) -> Task[_T]: ...
+        def create_task(self, coro: Coroutine[Any, Any, _T] | Generator[Any, None, _T]) -> Task[_T]: ...
 
     @abstractmethod
     def set_task_factory(self, factory: Callable[[AbstractEventLoop, Generator[Any, None, _T]], Future[_T]] | None) -> None: ...
