@@ -17,6 +17,7 @@ asyncio.Future._callbacks  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future._callbacks  # Usually initialized from c object
 asyncio.threads  # Added in Python 3.9
+asyncio.mixins  # Added in Python 3.10
 builtins.dict.get
 collections.AsyncGenerator.ag_await
 collections.AsyncGenerator.ag_code
@@ -100,8 +101,6 @@ collections.Sequence.index  # Supporting None in end is not mandatory
 # Exists at runtime, but missing from stubs
 _dummy_thread.RLock
 _imp.source_hash
-asyncio.BufferedProtocol.eof_received
-asyncio.protocols.BufferedProtocol.eof_received
 contextvars.ContextVar.__class_getitem__
 datetime.datetime_CAPI
 distutils.command.bdist_wininst

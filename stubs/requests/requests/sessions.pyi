@@ -1,4 +1,4 @@
-from _typeshed import SupportsItems
+from _typeshed import Self, SupportsItems
 from typing import IO, Any, Callable, Iterable, Mapping, MutableMapping, Optional, Text, TypeVar, Union
 
 from urllib3 import _collections
@@ -50,7 +50,7 @@ class SessionRedirectMixin:
 _Data = Union[None, Text, bytes, Mapping[str, Any], Mapping[Text, Any], Iterable[tuple[Text, Optional[Text]]], IO[Any]]
 
 _Hook = Callable[[Response], Any]
-_Hooks = MutableMapping[Text, list[_Hook]]
+_Hooks = MutableMapping[Text, _Hook | list[_Hook]]
 _HooksInput = MutableMapping[Text, Union[Iterable[_Hook], _Hook]]
 
 _ParamsMappingKeyType = Union[Text, bytes, int, float]
@@ -62,7 +62,6 @@ _Params = Union[
     Union[Text, bytes],
 ]
 _TextMapping = MutableMapping[Text, Text]
-_SessionT = TypeVar("_SessionT", bound=Session)
 
 class Session(SessionRedirectMixin):
     __attrs__: Any
@@ -80,7 +79,7 @@ class Session(SessionRedirectMixin):
     adapters: MutableMapping[Any, Any]
     redirect_cache: RecentlyUsedContainer[Any, Any]
     def __init__(self) -> None: ...
-    def __enter__(self: _SessionT) -> _SessionT: ...
+    def __enter__(self: Self) -> Self: ...
     def __exit__(self, *args) -> None: ...
     def prepare_request(self, request: Request) -> PreparedRequest: ...
     def request(

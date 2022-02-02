@@ -5,10 +5,8 @@ from _typeshed import Self, StrOrBytesPath, StrPath
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from gzip import _ReadableFileobj as _GzipReadableFileobj, _WritableFileobj as _GzipWritableFileobj
 from types import TracebackType
-from typing import IO, Protocol, TypeVar, overload
+from typing import IO, Protocol, overload
 from typing_extensions import Literal
-
-_TF = TypeVar("_TF", bound=TarFile)
 
 class _Fileobj(Protocol):
     def read(self, __size: int) -> bytes: ...
@@ -133,7 +131,7 @@ class TarFile:
     def __iter__(self) -> Iterator[TarInfo]: ...
     @classmethod
     def open(
-        cls: type[_TF],
+        cls: type[Self],
         name: StrOrBytesPath | None = ...,
         mode: str = ...,
         fileobj: IO[bytes] | None = ...,  # depends on mode
@@ -148,10 +146,10 @@ class TarFile:
         pax_headers: Mapping[str, str] | None = ...,
         debug: int | None = ...,
         errorlevel: int | None = ...,
-    ) -> _TF: ...
+    ) -> Self: ...
     @classmethod
     def taropen(
-        cls: type[_TF],
+        cls: type[Self],
         name: StrOrBytesPath | None,
         mode: Literal["r", "a", "w", "x"] = ...,
         fileobj: _Fileobj | None = ...,
@@ -165,11 +163,11 @@ class TarFile:
         pax_headers: Mapping[str, str] | None = ...,
         debug: int | None = ...,
         errorlevel: int | None = ...,
-    ) -> _TF: ...
+    ) -> Self: ...
     @overload
     @classmethod
     def gzopen(
-        cls: type[_TF],
+        cls: type[Self],
         name: StrOrBytesPath | None,
         mode: Literal["r"] = ...,
         fileobj: _GzipReadableFileobj | None = ...,
@@ -183,11 +181,11 @@ class TarFile:
         pax_headers: Mapping[str, str] | None = ...,
         debug: int | None = ...,
         errorlevel: int | None = ...,
-    ) -> _TF: ...
+    ) -> Self: ...
     @overload
     @classmethod
     def gzopen(
-        cls: type[_TF],
+        cls: type[Self],
         name: StrOrBytesPath | None,
         mode: Literal["w", "x"],
         fileobj: _GzipWritableFileobj | None = ...,
@@ -201,11 +199,11 @@ class TarFile:
         pax_headers: Mapping[str, str] | None = ...,
         debug: int | None = ...,
         errorlevel: int | None = ...,
-    ) -> _TF: ...
+    ) -> Self: ...
     @overload
     @classmethod
     def bz2open(
-        cls: type[_TF],
+        cls: type[Self],
         name: StrOrBytesPath | None,
         mode: Literal["w", "x"],
         fileobj: _Bz2WritableFileobj | None = ...,
@@ -219,11 +217,11 @@ class TarFile:
         pax_headers: Mapping[str, str] | None = ...,
         debug: int | None = ...,
         errorlevel: int | None = ...,
-    ) -> _TF: ...
+    ) -> Self: ...
     @overload
     @classmethod
     def bz2open(
-        cls: type[_TF],
+        cls: type[Self],
         name: StrOrBytesPath | None,
         mode: Literal["r"] = ...,
         fileobj: _Bz2ReadableFileobj | None = ...,
@@ -237,10 +235,10 @@ class TarFile:
         pax_headers: Mapping[str, str] | None = ...,
         debug: int | None = ...,
         errorlevel: int | None = ...,
-    ) -> _TF: ...
+    ) -> Self: ...
     @classmethod
     def xzopen(
-        cls: type[_TF],
+        cls: type[Self],
         name: StrOrBytesPath | None,
         mode: Literal["r", "w", "x"] = ...,
         fileobj: IO[bytes] | None = ...,
@@ -254,7 +252,7 @@ class TarFile:
         pax_headers: Mapping[str, str] | None = ...,
         debug: int | None = ...,
         errorlevel: int | None = ...,
-    ) -> _TF: ...
+    ) -> Self: ...
     def getmember(self, name: str) -> TarInfo: ...
     def getmembers(self) -> _list[TarInfo]: ...
     def getnames(self) -> _list[str]: ...
@@ -298,6 +296,7 @@ class TarFile:
             *,
             filter: Callable[[TarInfo], TarInfo | None] | None = ...,
         ) -> None: ...
+
     def addfile(self, tarinfo: TarInfo, fileobj: IO[bytes] | None = ...) -> None: ...
     def gettarinfo(self, name: str | None = ..., arcname: str | None = ..., fileobj: IO[bytes] | None = ...) -> TarInfo: ...
     def close(self) -> None: ...

@@ -132,6 +132,7 @@ class ContentTransferEncodingHeader:
 
 if sys.version_info >= (3, 8):
     from email._header_value_parser import MessageID
+
     class MessageIDHeader:
         max_count: ClassVar[Literal[1]]
         @classmethod
@@ -159,7 +160,6 @@ class Address:
     def __init__(
         self, display_name: str = ..., username: str | None = ..., domain: str | None = ..., addr_spec: str | None = ...
     ) -> None: ...
-    def __str__(self) -> str: ...
 
 class Group:
     @property
@@ -167,4 +167,3 @@ class Group:
     @property
     def addresses(self) -> tuple[Address, ...]: ...
     def __init__(self, display_name: str | None = ..., addresses: Iterable[Address] | None = ...) -> None: ...
-    def __str__(self) -> str: ...

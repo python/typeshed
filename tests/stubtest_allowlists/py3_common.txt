@@ -286,6 +286,11 @@ codecs.StreamReaderWriter.\w+
 codecs.StreamRecoder.\w+
 urllib.response.addbase.\w+
 
+# Dynamically created, has unnecessary *args
+turtle.ScrolledCanvas.find_all
+turtle.ScrolledCanvas.select_clear
+turtle.ScrolledCanvas.select_item
+
 # Unnecessary re-exports
 asyncore\.E[A-Z]+  # re-exported from errno
 asyncore.errorcode  # re-exported from errno
@@ -363,6 +368,28 @@ tkinter.Place.forget
 tkinter.Place.place_slaves
 tkinter.Place.slaves
 
+# Methods that come from __getattr__() at runtime
+tkinter.Tk.adderrorinfo
+tkinter.Tk.call
+tkinter.Tk.createcommand
+tkinter.Tk.createtimerhandler
+tkinter.Tk.dooneevent
+tkinter.Tk.evalfile
+tkinter.Tk.exprboolean
+tkinter.Tk.exprdouble
+tkinter.Tk.exprlong
+tkinter.Tk.exprstring
+tkinter.Tk.globalgetvar
+tkinter.Tk.globalsetvar
+tkinter.Tk.globalunsetvar
+tkinter.Tk.interpaddr
+tkinter.Tk.record
+tkinter.Tk.split
+tkinter.Tk.splitlist
+tkinter.Tk.unsetvar
+tkinter.Tk.wantobjects
+tkinter.Tk.willdispatch
+
 # Undocumented and have a comment in the source code saying "State variables (don't mess with these)"
 wsgiref.handlers.BaseHandler.bytes_sent
 wsgiref.handlers.BaseHandler.headers
@@ -411,6 +438,8 @@ pipes.Template.open_r
 pipes.Template.open_w
 sunau.Au_read.initfp
 sunau.Au_write.initfp
+turtle.ScrolledCanvas.adjustScrolls
+turtle.ScrolledCanvas.onResize
 wave.Wave_read.initfp
 wave.Wave_write.initfp
 
@@ -702,5 +731,4 @@ tkinter.tix.ScrolledText
 tkinter.tix.ScrolledWindow
 tkinter.tix.Shell
 tracemalloc.BaseFilter
-turtle.ScrolledCanvas\..+
 turtle.TNavigator.speed
