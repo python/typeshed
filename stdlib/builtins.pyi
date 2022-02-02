@@ -22,6 +22,7 @@ from _typeshed import (
     SupportsTrunc,
     SupportsWrite,
 )
+from collections.abc import Callable
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from types import CodeType, TracebackType, _Cell
 from typing import (
@@ -30,7 +31,6 @@ from typing import (
     Any,
     BinaryIO,
     ByteString,
-    Callable,
     Generic,
     Iterable,
     Iterator,
@@ -61,6 +61,7 @@ if sys.version_info >= (3, 9):
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
 _T_contra = TypeVar("_T_contra", contravariant=True)
+_R_co = TypeVar("_R_co", covariant=True)
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
 _S = TypeVar("_S")
@@ -69,7 +70,6 @@ _T2 = TypeVar("_T2")
 _T3 = TypeVar("_T3")
 _T4 = TypeVar("_T4")
 _T5 = TypeVar("_T5")
-_R = TypeVar("_R")  # Return-type TypeVar
 _SupportsNextT = TypeVar("_SupportsNextT", bound=SupportsNext[Any], covariant=True)
 _SupportsAnextT = TypeVar("_SupportsAnextT", bound=SupportsAnext[Any], covariant=True)
 
@@ -112,26 +112,26 @@ class object:
     def __dir__(self) -> Iterable[str]: ...
     def __init_subclass__(cls) -> None: ...
 
-class staticmethod(Generic[_R]):
-    __func__: Callable[..., _R]
+class staticmethod(Generic[_R_co]):
+    __func__: Callable[..., _R_co]
     __isabstractmethod__: bool
-    def __init__(self: staticmethod[_R], __f: Callable[..., _R]) -> None: ...
-    def __get__(self, __obj: _T, __type: type[_T] | None = ...) -> Callable[..., _R]: ...
+    def __init__(self: staticmethod[_R_co], __f: Callable[..., _R_co]) -> None: ...
+    def __get__(self, __obj: _T, __type: type[_T] | None = ...) -> Callable[..., _R_co]: ...
     if sys.version_info >= (3, 10):
         __name__: str
         __qualname__: str
-        __wrapped__: Callable[..., _R]
-        def __call__(self, *args: Any, **kwargs: Any) -> _R: ...
+        __wrapped__: Callable[..., _R_co]
+        def __call__(self, *args: Any, **kwargs: Any) -> _R_co: ...
 
-class classmethod(Generic[_R]):
-    __func__: Callable[..., _R]
+class classmethod(Generic[_R_co]):
+    __func__: Callable[..., _R_co]
     __isabstractmethod__: bool
-    def __init__(self: classmethod[_R], __f: Callable[..., _R]) -> None: ...
-    def __get__(self, __obj: _T, __type: type[_T] | None = ...) -> Callable[..., _R]: ...
+    def __init__(self: classmethod[_R_co], __f: Callable[..., _R_co]) -> None: ...
+    def __get__(self, __obj: _T, __type: type[_T] | None = ...) -> Callable[..., _R_co]: ...
     if sys.version_info >= (3, 10):
         __name__: str
         __qualname__: str
-        __wrapped__: Callable[..., _R]
+        __wrapped__: Callable[..., _R_co]
 
 class type:
     __base__: type

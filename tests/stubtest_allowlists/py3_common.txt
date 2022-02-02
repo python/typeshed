@@ -19,8 +19,6 @@ _csv.Dialect.__init__  # C __init__ signature is inaccurate
 _socket.*
 _threading_local.local.__new__
 _weakref.ref.__call__
-abc.abstractclassmethod  # Deprecated, unsupported by mypy, hard to fix. #6552
-abc.abstractstaticmethod  # Deprecated, unsupported by mypy, hard to fix. #6552
 abc.ABCMeta.__new__  # pytype wants the parameter named cls and not mcls
 _weakref.CallableProxyType.__getattr__  # Should have all attributes of proxy
 _weakref.ProxyType.__getattr__  # Should have all attributes of proxy
