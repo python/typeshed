@@ -10,39 +10,19 @@ if sys.version_info >= (3, 10):
     def bisect_left(a: Sequence[_T], x: _T, lo: int = ..., hi: int | None = ..., *, key: None = ...) -> int: ...
     @overload
     def bisect_left(
-        a: Sequence[_T],
-        x: _KeyReturnT,
-        lo: int = ...,
-        hi: int | None = ...,
-        *,
-        key: Callable[[_T], _KeyReturnT] = ...,
+        a: Sequence[_T], x: _KeyReturnT, lo: int = ..., hi: int | None = ..., *, key: Callable[[_T], _KeyReturnT] = ...
     ) -> int: ...
     @overload
     def bisect_right(a: Sequence[_T], x: _T, lo: int = ..., hi: int | None = ..., *, key: None = ...) -> int: ...
     @overload
     def bisect_right(
-        a: Sequence[_T],
-        x: _KeyReturnT,
-        lo: int = ...,
-        hi: int | None = ...,
-        *,
-        key: Callable[[_T], _KeyReturnT] = ...,
+        a: Sequence[_T], x: _KeyReturnT, lo: int = ..., hi: int | None = ..., *, key: Callable[[_T], _KeyReturnT] = ...
     ) -> int: ...
     def insort_left(
-        a: MutableSequence[_T],
-        x: _T,
-        lo: int = ...,
-        hi: int | None = ...,
-        *,
-        key: Callable[[_T], _KeyReturnT] | None = ...,
+        a: MutableSequence[_T], x: _T, lo: int = ..., hi: int | None = ..., *, key: Callable[[_T], _KeyReturnT] | None = ...
     ) -> None: ...
     def insort_right(
-        a: MutableSequence[_T],
-        x: _T,
-        lo: int = ...,
-        hi: int | None = ...,
-        *,
-        key: Callable[[_T], _KeyReturnT] | None = ...,
+        a: MutableSequence[_T], x: _T, lo: int = ..., hi: int | None = ..., *, key: Callable[[_T], _KeyReturnT] | None = ...
     ) -> None: ...
 
 else:
