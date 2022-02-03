@@ -3,6 +3,8 @@
 google.protobuf\..*_pb2\..*
 
 google.protobuf.internal.containers.BaseContainer.sort
+google.protobuf.internal.enum_type_wrapper.EnumTypeWrapper.DESCRIPTOR
+google.protobuf.message.Message.DESCRIPTOR
 google.protobuf.message.Message.SerializePartialToString
 google.protobuf.message.Message.SerializeToString
 google.protobuf.service.Service.GetDescriptor
