@@ -1,6 +1,6 @@
 import sys
 from _typeshed import Self
-from typing import Any, Container, Generic, Iterable, Iterator, SupportsInt, TypeVar, overload
+from typing import Any, Container, Generic, Iterable, Iterator, SupportsInt, TypeVar, overload, Union
 from typing_extensions import Literal
 
 # Undocumented length constants
@@ -10,9 +10,12 @@ IPV6LENGTH: Literal[128]
 _A = TypeVar("_A", IPv4Address, IPv6Address)
 _N = TypeVar("_N", IPv4Network, IPv6Network)
 
-def ip_address(address: int | str | bytes) -> IPv4Address | IPv6Address: ...
-def ip_network(address: int | str | bytes, strict: bool = ...) -> IPv4Network | IPv6Network: ...
-def ip_interface(address: int | str | bytes) -> IPv4Interface | IPv6Interface: ...
+_RawIPAddress = int | str | bytes | IPv4Address | IPv6Address
+_RawNetworkPart = IPv4Network | IPv6Network | IPv4Interface | IPv6Interface
+
+def ip_address(address: _RawIPAddress) -> IPv4Address | IPv6Address: ...
+def ip_network(address: _RawIPAddress | _RawNetworkPart, strict: bool = ...) -> IPv4Network | IPv6Network: ...
+def ip_interface(address: _RawIPAddress | _RawNetworkPart) -> IPv4Interface | IPv6Interface: ...
 
 class _IPAddressBase:
     def __eq__(self, other: object) -> bool: ...
