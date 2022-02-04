@@ -1,5 +1,6 @@
 import datetime
 import types
+from _typeshed import Self
 from abc import ABCMeta, abstractmethod
 from typing import Any, Callable, Iterable, Iterator, Mapping, NoReturn, Pattern, Sequence, Text, TextIO, TypeVar, Union, overload
 from typing_extensions import ParamSpec
@@ -54,7 +55,7 @@ class _AssertRaisesBaseContext:
 
 class _AssertRaisesContext(_AssertRaisesBaseContext):
     exception: Any
-    def __enter__(self) -> _AssertRaisesContext: ...
+    def __enter__(self: Self) -> Self: ...
     def __exit__(self, exc_type, exc_value, tb) -> bool: ...
 
 class TestCase(Testable):
