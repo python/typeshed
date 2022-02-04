@@ -1,5 +1,6 @@
 import sys
 from typing import Any, NamedTuple
+from typing_extensions import final
 
 _TimeTuple = tuple[int, int, int, int, int, int, int, int, int]
 
@@ -26,6 +27,7 @@ class _struct_time(NamedTuple):
     @property
     def n_unnamed_fields(self) -> int: ...
 
+@final
 class struct_time(_struct_time):
     def __init__(self, o: _TimeTuple, _arg: Any = ...) -> None: ...
     def __new__(cls, o: _TimeTuple, _arg: Any = ...) -> struct_time: ...

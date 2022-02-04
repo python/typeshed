@@ -1,4 +1,5 @@
 import io
+from _typeshed import Self
 from types import TracebackType
 from typing import IO, Callable, Iterable, Iterator, Mapping, Text
 
@@ -103,7 +104,7 @@ class TarFile(Iterable[TarInfo]):
         errorlevel: int | None = ...,
         copybufsize: int | None = ...,  # undocumented
     ) -> None: ...
-    def __enter__(self) -> TarFile: ...
+    def __enter__(self: Self) -> Self: ...
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> None: ...
