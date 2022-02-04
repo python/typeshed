@@ -4,8 +4,8 @@ google.protobuf\..*_pb2\..*
 
 google.protobuf.internal.containers.BaseContainer.sort
 # While Message and Descriptor are both defined with a null DESCRIPTOR,
-# sublcasses of Message and instances of EnumTypeWrapper require this value to
-# be set, and since These type stubs are intended for use with protoc generated
+# subclasses of Message and instances of EnumTypeWrapper require this value to
+# be set, and since these type stubs are intended for use with protoc-generated
 # python it's more accurate to make them non-nullable.
 google.protobuf.internal.enum_type_wrapper.EnumTypeWrapper.DESCRIPTOR
 google.protobuf.message.Message.DESCRIPTOR
