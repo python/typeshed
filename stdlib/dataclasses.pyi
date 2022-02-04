@@ -72,15 +72,15 @@ class _DefaultFactory(Protocol[_T_co]):
 class Field(Generic[_T]):
     name: str
     type: Type[_T]
-    default: _T
-    default_factory: _DefaultFactory[_T]
+    default: _T | _MISSING_TYPE
+    default_factory: _DefaultFactory[_T] | _MISSING_TYPE
     repr: bool
     hash: bool | None
     init: bool
     compare: bool
     metadata: types.MappingProxyType[Any, Any]
     if sys.version_info >= (3, 10):
-        kw_only: bool
+        kw_only: bool | _MISSING_TYPE
         def __init__(
             self,
             default: _T,
