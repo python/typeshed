@@ -1,5 +1,5 @@
-from datetime import date, datetime, time
 from _typeshed import Self
+from datetime import date, datetime, time
 from typing import Any, Callable, Generator, Iterable, Iterator, Protocol, Text, TypeVar
 
 _T = TypeVar("_T")

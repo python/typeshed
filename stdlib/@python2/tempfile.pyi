@@ -1,6 +1,6 @@
+from _typeshed import Self
 from random import Random
 from thread import LockType
-from _typeshed import Self
 from typing import IO, Any, AnyStr, Iterable, Iterator, Text, overload
 
 TMP_MAX: int
