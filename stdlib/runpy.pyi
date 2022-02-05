@@ -1,4 +1,3 @@
-
 from _typeshed import Self
 from types import ModuleType
 from typing import Any
