@@ -2,12 +2,12 @@ from _typeshed import Self
 from abc import ABCMeta, abstractmethod
 from typing import ClassVar
 
+from cryptography.hazmat._oid import ObjectIdentifier
 from cryptography.hazmat.backends.interfaces import EllipticCurveBackend
 from cryptography.hazmat.primitives.asymmetric import AsymmetricVerificationContext
 from cryptography.hazmat.primitives.asymmetric.utils import Prehashed
 from cryptography.hazmat.primitives.hashes import HashAlgorithm
 from cryptography.hazmat.primitives.serialization import Encoding, KeySerializationEncryption, PrivateFormat, PublicFormat
-from cryptography.hazmat._oid import ObjectIdentifier
 
 class EllipticCurve(metaclass=ABCMeta):
     @property

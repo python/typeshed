@@ -1,5 +1,5 @@
-from cryptography.hazmat.primitives.hashes import HashAlgorithm
 from cryptography.hazmat._oid import ObjectIdentifier
+from cryptography.hazmat.primitives.hashes import HashAlgorithm
 
 class ExtensionOID:
     SUBJECT_DIRECTORY_ATTRIBUTES: ObjectIdentifier = ...
