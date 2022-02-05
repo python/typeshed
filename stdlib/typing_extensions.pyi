@@ -22,7 +22,6 @@ from typing import (  # noqa Y022
     Mapping,
     NewType as NewType,
     NoReturn as NoReturn,
-    Protocol as Protocol,
     Text as Text,
     Type as Type,
     TypeVar,
@@ -48,6 +47,13 @@ Final: _SpecialForm
 Self: _SpecialForm
 Required: _SpecialForm
 NotRequired: _SpecialForm
+
+# Do not import (and re-export) Protocol from typing module because
+# type checkers need to be able to distinguish typing.Protocol and
+# typing_extensions.Protocol so they can properly warn users about
+# potential runtime exceptions when using typing.Protocol on older
+# versions of Python.
+Protocol: _SpecialForm
 
 def final(f: _F) -> _F: ...
 
