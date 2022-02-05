@@ -1,8 +1,8 @@
 from abc import ABCMeta, abstractmethod
 from typing import Any
 
-from cryptography.hazmat.primitives._asymmetric import AsymmetricPadding
-from cryptography.hazmat.primitives._cipheralgorithm import CipherAlgorithm
+from cryptography.hazmat.primitives.asymmetric.padding import AsymmetricPadding
+from cryptography.hazmat.primitives.ciphers import CipherAlgorithm
 from cryptography.hazmat.primitives.asymmetric.dh import (
     DHParameterNumbers,
     DHParameters,

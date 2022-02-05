@@ -1,7 +1,6 @@
 from typing import Any, Iterator
 
-from cryptography.hazmat._oid import ObjectIdentifier
-from cryptography.x509 import GeneralName
+from cryptography.x509 import GeneralName, ObjectIdentifier
 
 class Extension:
     value: Any = ...

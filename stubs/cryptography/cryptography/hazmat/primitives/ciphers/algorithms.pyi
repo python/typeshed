@@ -1,4 +1,4 @@
-from cryptography.hazmat.primitives._cipheralgorithm import BlockCipherAlgorithm, CipherAlgorithm
+from cryptography.hazmat.primitives.ciphers import BlockCipherAlgorithm, CipherAlgorithm
 from cryptography.hazmat.primitives.ciphers.modes import ModeWithNonce
 
 class AES(BlockCipherAlgorithm, CipherAlgorithm):
