@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-from cryptography.hazmat.primitives.ciphers import CipherAlgorithm
+from cryptography.hazmat.primitives._cipheralgorithm import CipherAlgorithm
 
 class Mode(metaclass=ABCMeta):
     @property

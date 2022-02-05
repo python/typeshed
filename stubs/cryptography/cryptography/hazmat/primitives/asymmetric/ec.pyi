@@ -7,7 +7,7 @@ from cryptography.hazmat.primitives.asymmetric import AsymmetricVerificationCont
 from cryptography.hazmat.primitives.asymmetric.utils import Prehashed
 from cryptography.hazmat.primitives.hashes import HashAlgorithm
 from cryptography.hazmat.primitives.serialization import Encoding, KeySerializationEncryption, PrivateFormat, PublicFormat
-from cryptography.x509 import ObjectIdentifier
+from cryptography.hazmat._oid import ObjectIdentifier
 
 class EllipticCurve(metaclass=ABCMeta):
     @property
