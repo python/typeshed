@@ -25,6 +25,10 @@ collections.UserString.maketrans
 contextvars.Context.__init__  # Default C __init__ signature is wrong
 contextvars.ContextVar.get
 dataclasses.field
+dummy_threading.Condition.acquire
+dummy_threading.Condition.release
+dummy_threading.Event.isSet
+dummy_threading.local.__new__
 enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 hmac.HMAC.__init__
