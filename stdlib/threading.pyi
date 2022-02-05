@@ -8,7 +8,26 @@ _TF = Callable[[FrameType, str, Any], Optional[Callable[..., Any]]]
 _PF = Callable[[FrameType, str, Any], None]
 _T = TypeVar("_T")
 
-__all__: list[str]
+if sys.version_info >= (3, 10):
+    __all__ = ['get_ident', 'active_count', 'Condition', 'current_thread',
+               'enumerate', 'main_thread', 'TIMEOUT_MAX',
+               'Event', 'Lock', 'RLock', 'Semaphore', 'BoundedSemaphore', 'Thread',
+               'Barrier', 'BrokenBarrierError', 'Timer', 'ThreadError',
+               'setprofile', 'settrace', 'local', 'stack_size',
+               'excepthook', 'ExceptHookArgs', 'gettrace', 'getprofile']
+elif sys.version_info >= (3, 8):
+    __all__ = ['get_ident', 'active_count', 'Condition', 'current_thread',
+               'enumerate', 'main_thread', 'TIMEOUT_MAX',
+               'Event', 'Lock', 'RLock', 'Semaphore', 'BoundedSemaphore', 'Thread',
+               'Barrier', 'BrokenBarrierError', 'Timer', 'ThreadError',
+               'setprofile', 'settrace', 'local', 'stack_size',
+               'excepthook', 'ExceptHookArgs']
+else:
+    __all__ = ['get_ident', 'active_count', 'Condition', 'current_thread',
+               'enumerate', 'main_thread', 'TIMEOUT_MAX',
+               'Event', 'Lock', 'RLock', 'Semaphore', 'BoundedSemaphore', 'Thread',
+               'Barrier', 'BrokenBarrierError', 'Timer', 'ThreadError',
+               'setprofile', 'settrace', 'local', 'stack_size']
 
 def active_count() -> int: ...
 def activeCount() -> int: ...  # deprecated alias for active_count()
