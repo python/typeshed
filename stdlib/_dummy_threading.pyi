@@ -33,7 +33,6 @@ if sys.version_info >= (3, 8):
         "stack_size",
         "excepthook",
         "ExceptHookArgs",
-        "get_native_id",
     ]
 else:
     __all__ = [
