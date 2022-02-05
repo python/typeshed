@@ -53,7 +53,7 @@ NotRequired: _SpecialForm
 # typing_extensions.Protocol so they can properly warn users about
 # potential runtime exceptions when using typing.Protocol on older
 # versions of Python.
-Protocol: _SpecialForm
+Protocol: _SpecialForm = ...
 
 def final(f: _F) -> _F: ...
 
