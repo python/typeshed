@@ -12,6 +12,6 @@ def render(
     padding: str = ...,
     def_ldel: str | None = ...,
     def_rdel: str | None = ...,
-    scopes: MutableSequence[int] = ...,
+    scopes: MutableSequence[int] | None = ...,
     warn: bool = ...,
 ) -> str: ...
