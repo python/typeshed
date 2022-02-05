@@ -1,8 +1,6 @@
 from _typeshed import StrPath, SupportsRead
 from typing import Any, MutableSequence, Sequence
 
-from .tokenizer import tokenize as tokenize
-
 g_token_cache: dict[str, list[tuple[str, str]]]  # undocumented
 
 def render(
