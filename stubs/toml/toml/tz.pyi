@@ -2,7 +2,6 @@ from _typeshed import Self
 from datetime import datetime, timedelta, tzinfo
 from typing import Any
 
-
 class TomlTz(tzinfo):
     def __init__(self, toml_offset: str) -> None: ...
     def __deepcopy__(self: Self, memo: Any) -> Self: ...
