@@ -3,9 +3,8 @@ from _typeshed import StrPath
 from typing import IO, Callable, Generic, MutableMapping, Pattern, Protocol, Text, TypeVar
 
 _T = TypeVar("_T")
-_KT = TypeVar("_KT")
-_VT = TypeVar("_VT")
 _KT_contra = TypeVar("_KT_contra", contravariant=True)
+_VT = TypeVar("_VT")
 
 if sys.version_info >= (3, 3):
     FNFError = FileNotFoundError
