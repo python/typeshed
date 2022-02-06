@@ -1,6 +1,6 @@
 from _typeshed import Self
-from typing import Any
 from collections.abc import Mapping
+from typing import Any
 
 class _TokenType(tuple[str, ...]):
     parent: _TokenType | None
