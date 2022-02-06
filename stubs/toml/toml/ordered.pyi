@@ -8,5 +8,5 @@ _T = TypeVar("_T")
 class TomlOrderedDecoder(TomlDecoder[_T]):
     def __init__(self) -> None: ...
 
-class TomlOrderedEncoder(TomlEncoder):
+class TomlOrderedEncoder(TomlEncoder[_T]):
     def __init__(self) -> None: ...

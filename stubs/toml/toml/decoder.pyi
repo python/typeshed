@@ -1,28 +1,13 @@
 import sys
-from _typeshed import StrPath
-from typing import IO, Callable, Generic, MutableMapping, Pattern, Protocol, Text, TypeVar
+from _typeshed import StrPath, SupportsRead
+from typing import Any, Callable, Generic, MutableMapping, Pattern, Text, TypeVar
 
 _T = TypeVar("_T")
-_KT_contra = TypeVar("_KT_contra", contravariant=True)
-_VT = TypeVar("_VT")
 
 if sys.version_info >= (3, 3):
     FNFError = FileNotFoundError
 else:
     FNFError = IOError
-
-if sys.version_info >= (3, 6):
-    _PathLike = StrPath
-elif sys.version_info >= (3, 4):
-    import pathlib
-
-    _PathLike = StrPath | pathlib.PurePath
-else:
-    _PathLike = StrPath
-
-class _SupportsGetSetItem(Protocol[_KT_contra, _VT]):
-    def __getitem__(self, __k: _KT_contra) -> _VT: ...
-    def __setitem__(self, __k: _KT_contra, __v: _VT) -> None: ...
 
 TIME_RE: Pattern[str]
 
@@ -34,22 +19,22 @@ class TomlDecodeError(ValueError):
     colno: int
     def __init__(self, msg: str, doc: str, pos: int) -> None: ...
 
-class CommentValue(_SupportsGetSetItem[_KT_contra, _VT]):
-    val: _SupportsGetSetItem[_KT_contra, _VT]
+class CommentValue(Generic[_T]):
+    val: _T
     comment: str
     def __init__(
         self,
-        val: _SupportsGetSetItem[_KT_contra, _VT],
+        val: _T,
         comment: str,
         beginline: bool,
-        _dict: type[MutableMapping[_KT_contra, _VT]],
+        _dict: type[MutableMapping[str, _T]],
     ) -> None: ...
-    def __getitem__(self, key: _KT_contra) -> _VT: ...
-    def __setitem__(self, key: _KT_contra, value: _VT) -> None: ...
-    def dump(self, dump_value_func: Callable[[_SupportsGetSetItem[_KT_contra, _VT]], str]) -> str: ...
+    def __getitem__(self, key: _T) -> _T: ...
+    def __setitem__(self, key: _T, value: _T) -> None: ...
+    def dump(self, dump_value_func: Callable[[_T], str]) -> str: ...
 
 def load(
-    f: _PathLike | list[Text] | IO[str], _dict: type[MutableMapping[str, _T]] = ..., decoder: TomlDecoder[_T] | None = ...
+    f: StrPath | list[Text] | SupportsRead[str], _dict: type[MutableMapping[str, _T]] = ..., decoder: TomlDecoder[_T] | None = ...
 ) -> MutableMapping[str, _T]: ...
 def loads(
     s: Text, _dict: type[MutableMapping[str, _T]] = ..., decoder: TomlDecoder[_T] | None = ...
