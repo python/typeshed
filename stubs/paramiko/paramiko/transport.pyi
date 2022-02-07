@@ -15,6 +15,7 @@ from paramiko.ssh_gss import _SSH_GSSAuth
 from paramiko.util import ClosingContextManager
 
 _Addr = tuple[str, int]
+_SocketLike = str | _Addr | socket | Channel
 
 class _KexEngine(Protocol):
     def start_kex(self) -> None: ...
@@ -71,7 +72,7 @@ class Transport(Thread, ClosingContextManager):
     sys: ModuleType
     def __init__(
         self,
-        sock: str | tuple[str, int] | socket | Channel,
+        sock: _SocketLike,
         default_window_size: int = ...,
         default_max_packet_size: int = ...,
         gss_kex: bool = ...,

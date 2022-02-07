@@ -8,6 +8,8 @@ from paramiko.sftp_client import SFTPClient
 from paramiko.transport import Transport
 from paramiko.util import ClosingContextManager
 
+from .transport import _SocketLike
+
 class SSHClient(ClosingContextManager):
     def __init__(self) -> None: ...
     def load_system_host_keys(self, filename: str | None = ...) -> None: ...
@@ -28,7 +30,7 @@ class SSHClient(ClosingContextManager):
         allow_agent: bool = ...,
         look_for_keys: bool = ...,
         compress: bool = ...,
-        sock: socket | Channel | None = ...,
+        sock: _SocketLike | None = ...,
         gss_auth: bool = ...,
         gss_kex: bool = ...,
         gss_deleg_creds: bool = ...,
