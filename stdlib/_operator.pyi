@@ -17,7 +17,6 @@ from typing import (
 )
 from typing_extensions import ParamSpec, SupportsIndex, final
 
-X = int  # TODO: test and remove
 _R = TypeVar("_R")
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
