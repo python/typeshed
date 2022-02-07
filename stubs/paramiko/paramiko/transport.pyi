@@ -71,7 +71,7 @@ class Transport(Thread, ClosingContextManager):
     sys: ModuleType
     def __init__(
         self,
-        sock: str | tuple[str, int] | socket,
+        sock: str | tuple[str, int] | socket | Channel,
         default_window_size: int = ...,
         default_max_packet_size: int = ...,
         gss_kex: bool = ...,
