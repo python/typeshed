@@ -1,6 +1,6 @@
 import sys
 from threading import Condition, Lock
-from typing import Any, Generic, TypeVar, MutableSequence
+from typing import Any, Generic, MutableSequence, TypeVar
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
