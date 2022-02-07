@@ -1,4 +1,3 @@
-from socket import socket
 from typing import Iterable, Mapping, NoReturn
 
 from paramiko.channel import Channel, ChannelFile, ChannelStderrFile, ChannelStdinFile
