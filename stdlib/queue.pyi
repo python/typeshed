@@ -1,6 +1,6 @@
 import sys
 from threading import Condition, Lock
-from typing import Any, Generic, List, TypeVar
+from typing import Any, Generic, TypeVar
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -39,10 +39,10 @@ class Queue(Generic[_T]):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 class PriorityQueue(Queue[_T]):
-    queue: List[_T]
+    queue: list[_T]
 
 class LifoQueue(Queue[_T]):
-    queue: List[_T]
+    queue: list[_T]
 
 if sys.version_info >= (3, 7):
     class SimpleQueue(Generic[_T]):
