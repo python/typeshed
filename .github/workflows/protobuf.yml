@@ -1,0 +1,30 @@
+name: Run mypy-protobuf against stubs/protobuf
+
+on:
+  pull_request:
+    paths:
+      - 'stubs/protobuf/**'
+      - '.github/workflows/protobuf.yml'
+      - 'scripts/generate_proto_stubs.sh'
+
+jobs:
+  mypy_protobuf:
+    name: Run Mypy Protobuf tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout typeshed
+        uses: actions/checkout@v2
+        with:
+          path: typeshed
+      - name: Checkout mypy-protobuf
+        uses: actions/checkout@v2
+        with:
+          repository: nipunn1313/mypy-protobuf
+          path: mypy-protobuf
+
+      - name: Run Mypy Protobuf Tests (./run_test.sh)
+        env:
+          VALIDATE: 1
+          CUSTOM_TYPESHED_DIR: ${{env.GITHUB_WORKSPACE}}/typeshed
+        working-directory: mypy-protobuf
+        run: ./run_test.sh
