@@ -28,7 +28,7 @@ class SSHClient(ClosingContextManager):
         allow_agent: bool = ...,
         look_for_keys: bool = ...,
         compress: bool = ...,
-        sock: socket | None = ...,
+        sock: socket | Channel | None = ...,
         gss_auth: bool = ...,
         gss_kex: bool = ...,
         gss_deleg_creds: bool = ...,

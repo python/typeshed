@@ -23,7 +23,7 @@ class _KexEngine(Protocol):
 class Transport(Thread, ClosingContextManager):
     active: bool
     hostname: str | None
-    sock: socket
+    sock: socket | Channel
     packetizer: Packetizer
     local_version: str
     remote_version: str
