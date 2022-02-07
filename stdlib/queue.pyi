@@ -1,6 +1,6 @@
 import sys
 from threading import Condition, Lock
-from typing import Any, Generic, TypeVar
+from typing import Any, Generic, TypeVar, MutableSequence
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -18,7 +18,7 @@ class Queue(Generic[_T]):
     not_full: Condition  # undocumented
     all_tasks_done: Condition  # undocumented
     unfinished_tasks: int  # undocumented
-    queue: Any  # undocumented
+    queue: MutableSequence[_T]  # undocumented
     def __init__(self, maxsize: int = ...) -> None: ...
     def _init(self, maxsize: int) -> None: ...
     def empty(self) -> bool: ...
