@@ -1,7 +1,12 @@
 import sys
 from _typeshed import ReadOnlyBuffer, ReadableBuffer
 from contextlib import AbstractContextManager
-from typing import Iterable, Iterator, NoReturn, Sized, overload
+from typing import Iterable, Iterator, NoReturn, Sized, overload, ByteString
+
+if sys.version_info >= (3, 9):
+    from collections.abc import ByteString
+else:
+    from typing import ByteString
 
 ACCESS_DEFAULT: int
 ACCESS_READ: int
@@ -27,7 +32,7 @@ if sys.platform != "win32":
 
     PAGESIZE: int
 
-class mmap(AbstractContextManager[mmap], ReadOnlyBuffer, Iterable[int], Sized):
+class mmap(AbstractContextManager[mmap], ByteString, Iterable[int], Sized):
     if sys.platform == "win32":
         def __init__(self, fileno: int, length: int, tagname: str | None = ..., access: int = ..., offset: int = ...) -> None: ...
     else:

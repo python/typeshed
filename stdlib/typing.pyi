@@ -140,7 +140,7 @@ if sys.version_info >= (3, 9):
     Annotated: _SpecialForm
 
 # Predefined type variables.
-AnyStr = TypeVar("AnyStr", str, bytes)  # noqa: Y001
+AnyStr = TypeVar("AnyStr", str, ByteString)  # noqa: Y001
 
 # Technically in 3.7 this inherited from GenericMeta. But let's not reflect that, since
 # type checkers tend to assume that Protocols all have the ABCMeta metaclass.
