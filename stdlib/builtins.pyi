@@ -1387,7 +1387,7 @@ else:
     @overload
     def pow(__base: int, __exp: int, __mod: int) -> int: ...
     @overload
-    def pow(base: int, exp: Literal[0], mod: None = ...) -> Literal[1]: ...  # type: ignore[misc]
+    def pow(__base: int, __exp: Literal[0], __mod: None = ...) -> Literal[1]: ...  # type: ignore[misc]
     @overload
     def pow(__base: int, __exp: _PositiveInteger, __mod: None = ...) -> int: ...  # type: ignore[misc]
     @overload
