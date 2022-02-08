@@ -1352,6 +1352,8 @@ if sys.version_info >= (3, 8):
     @overload
     def pow(base: int, exp: int, mod: int) -> int: ...
     @overload
+    def pow(base: int, exp: Literal[0], mod: None = ...) -> Literal[1]: ...  # type: ignore[misc]
+    @overload
     def pow(base: int, exp: _PositiveInteger, mod: None = ...) -> int: ...  # type: ignore[misc]
     @overload
     def pow(base: int, exp: _NegativeInteger, mod: None = ...) -> float: ...  # type: ignore[misc]
@@ -1384,6 +1386,8 @@ else:
     def pow(__base: int, __exp: int, __mod: Literal[0]) -> NoReturn: ...
     @overload
     def pow(__base: int, __exp: int, __mod: int) -> int: ...
+    @overload
+    def pow(base: int, exp: Literal[0], mod: None = ...) -> Literal[1]: ...  # type: ignore[misc]
     @overload
     def pow(__base: int, __exp: _PositiveInteger, __mod: None = ...) -> int: ...  # type: ignore[misc]
     @overload
