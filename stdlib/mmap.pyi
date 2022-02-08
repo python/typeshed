@@ -1,7 +1,7 @@
 import sys
 from _typeshed import ReadableBuffer, ReadOnlyBuffer
 from contextlib import AbstractContextManager
-from typing import Iterable, Iterator, NoReturn, Sized, overload, ByteString
+from typing import ByteString, Iterable, Iterator, NoReturn, Sized, overload
 
 if sys.version_info >= (3, 9):
     from collections.abc import ByteString
