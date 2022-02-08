@@ -1,5 +1,5 @@
 import sys
-from _typeshed import ReadOnlyBuffer, ReadableBuffer
+from _typeshed import ReadableBuffer, ReadOnlyBuffer
 from contextlib import AbstractContextManager
 from typing import Iterable, Iterator, NoReturn, Sized, overload
 
