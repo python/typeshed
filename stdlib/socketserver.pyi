@@ -16,7 +16,9 @@ class BaseServer:
     request_queue_size: int
     socket_type: int
     timeout: float | None
-    def __init__(self: Self, server_address: Any, RequestHandlerClass: Callable[[Any, Any, Self], BaseRequestHandler]) -> None: ...
+    def __init__(
+        self: Self, server_address: Any, RequestHandlerClass: Callable[[Any, Any, Self], BaseRequestHandler]
+    ) -> None: ...
     # It is not actually a `@property`, but we need a `Self` type:
     @property
     def RequestHandlerClass(self: Self) -> Callable[[Any, Any, Self], BaseRequestHandler]: ...
@@ -47,7 +49,10 @@ class TCPServer(BaseServer):
     allow_reuse_port: bool
     request_queue_size: int
     def __init__(
-        self: Self, server_address: tuple[str, int], RequestHandlerClass: Callable[[Any, Any, Self], BaseRequestHandler], bind_and_activate: bool = ...
+        self: Self,
+        server_address: tuple[str, int],
+        RequestHandlerClass: Callable[[Any, Any, Self], BaseRequestHandler],
+        bind_and_activate: bool = ...,
     ) -> None: ...
     def get_request(self) -> tuple[_socket, Any]: ...
 
@@ -58,11 +63,17 @@ class UDPServer(BaseServer):
 if sys.platform != "win32":
     class UnixStreamServer(BaseServer):
         def __init__(
-            self: Self, server_address: str | bytes, RequestHandlerClass: Callable[[Any, Any, Self], BaseRequestHandler], bind_and_activate: bool = ...
+            self: Self,
+            server_address: str | bytes,
+            RequestHandlerClass: Callable[[Any, Any, Self], BaseRequestHandler],
+            bind_and_activate: bool = ...,
         ) -> None: ...
     class UnixDatagramServer(BaseServer):
         def __init__(
-            self: Self, server_address: str | bytes, RequestHandlerClass: Callable[[Any, Any, Self], BaseRequestHandler], bind_and_activate: bool = ...
+            self: Self,
+            server_address: str | bytes,
+            RequestHandlerClass: Callable[[Any, Any, Self], BaseRequestHandler],
+            bind_and_activate: bool = ...,
         ) -> None: ...
 
 if sys.platform != "win32":
