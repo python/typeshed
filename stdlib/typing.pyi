@@ -68,7 +68,7 @@ if sys.version_info >= (3, 8):
 
 if sys.version_info >= (3, 11):
     Self: _SpecialForm
-    Never: _SpecialForm
+    Never: _SpecialForm = ...
 
 if sys.version_info < (3, 7):
     class GenericMeta(type): ...
