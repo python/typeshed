@@ -1,5 +1,5 @@
 from _typeshed import StrPath, SupportsWrite
-from typing import IO, Any, Mapping, MutableMapping, Text, Union
+from typing import IO, Any, Mapping, MutableMapping, Text
 
 class TomlDecodeError(Exception): ...
 
