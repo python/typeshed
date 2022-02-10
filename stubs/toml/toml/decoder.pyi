@@ -13,7 +13,7 @@ if sys.version_info >= (3, 0):
     _PathLike = str | bytes | PurePath
 else:
     FNFError = IOError
-    _PathLike = str | bytes
+    _PathLike = Text
 
 class _SupportsGetSetItem(Protocol[_KT_contra, _VT]):
     def __getitem__(self, __k: _KT_contra) -> _VT: ...
@@ -30,10 +30,10 @@ class TomlDecodeError(ValueError):
     def __init__(self, msg: str, doc: str, pos: int) -> None: ...
 
 class CommentValue(_SupportsGetSetItem[_KT_contra, _VT]):
-    val: _SupportsGetSetItem[_KT_contra, _VT]
+    val: Any
     comment: str
     def __init__(
-        self, val: _SupportsGetSetItem[_KT_contra, _VT], comment: str, beginline: bool, _dict: type[_MutableMappingT]
+        self, val: Any, comment: str, beginline: bool, _dict: type[MutableMapping[str, Any]]
     ) -> None: ...
     def __getitem__(self, key: _KT_contra) -> _VT: ...
     def __setitem__(self, key: _KT_contra, value: _VT) -> None: ...
@@ -60,7 +60,10 @@ class InlineTableDict: ...
 
 class TomlDecoder(Generic[_MutableMappingT]):
     _dict: type[_MutableMappingT]
-    def __init__(self, _dict: type[_MutableMappingT] = ...) -> None: ...
+    @overload
+    def __init__(self: TomlDecoder[dict[str, Any]], _dict: type[dict[str, Any]] = ...) -> None: ...
+    @overload
+    def __init__(self, _dict: type[_MutableMappingT]) -> None: ...
     def get_empty_table(self) -> _MutableMappingT: ...
     def get_empty_inline_table(self) -> InlineTableDict: ...  # incomplete python/typing#213
     def load_inline_object(
