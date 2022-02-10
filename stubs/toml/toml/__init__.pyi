@@ -1,16 +1,18 @@
 from . import decoder as decoder, encoder as encoder
-
-load = decoder.load
-loads = decoder.loads
-TomlDecoder = decoder.TomlDecoder
-TomlDecodeError = decoder.TomlDecodeError
-TomlPreserveCommentDecoder = decoder.TomlPreserveCommentDecoder
-
-dump = encoder.dump
-dumps = encoder.dumps
-TomlEncoder = encoder.TomlEncoder
-TomlArraySeparatorEncoder = encoder.TomlArraySeparatorEncoder
-TomlPreserveInlineDictEncoder = encoder.TomlPreserveInlineDictEncoder
-TomlNumpyEncoder = encoder.TomlNumpyEncoder
-TomlPreserveCommentEncoder = encoder.TomlPreserveCommentEncoder
-TomlPathlibEncoder = encoder.TomlPathlibEncoder
+from .decoder import (
+    TomlDecodeError as TomlDecodeError,
+    TomlDecoder as TomlDecoder,
+    TomlPreserveCommentDecoder as TomlPreserveCommentDecoder,
+    load as load,
+    loads as loads,
+)
+from .encoder import (
+    TomlArraySeparatorEncoder as TomlArraySeparatorEncoder,
+    TomlEncoder as TomlEncoder,
+    TomlNumpyEncoder as TomlNumpyEncoder,
+    TomlPathlibEncoder as TomlPathlibEncoder,
+    TomlPreserveCommentEncoder as TomlPreserveCommentEncoder,
+    TomlPreserveInlineDictEncoder as TomlPreserveInlineDictEncoder,
+    dump as dump,
+    dumps as dumps,
+)
