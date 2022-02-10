@@ -71,4 +71,4 @@ class TomlDecoder(Generic[_MutableMappingT]):
     def embed_comments(self, idx: int, currentlevel: _MutableMappingT) -> None: ...
 
 class TomlPreserveCommentDecoder(TomlDecoder[_MutableMappingT]):
-    saved_comments: MutableMapping[int, tuple[str, str, bool]]
+    saved_comments: dict[int, tuple[str, str, bool]]
