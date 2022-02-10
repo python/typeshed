@@ -1,13 +1,10 @@
-from typing import Any, Mapping, MutableMapping, TypeVar
+from typing import Any, OrderedDict
 
 from .decoder import TomlDecoder
 from .encoder import TomlEncoder
 
-_MutableMappingT = TypeVar("_MutableMappingT", bound=MutableMapping[str, Any])
-_MappingT = TypeVar("_MappingT", bound=Mapping[str, Any])
-
-class TomlOrderedDecoder(TomlDecoder[_MutableMappingT]):
+class TomlOrderedDecoder(TomlDecoder[OrderedDict[str, Any]]):
     def __init__(self) -> None: ...
 
-class TomlOrderedEncoder(TomlEncoder[_MappingT]):
+class TomlOrderedEncoder(TomlEncoder[OrderedDict[str, Any]]):
     def __init__(self) -> None: ...
