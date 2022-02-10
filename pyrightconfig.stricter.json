@@ -68,7 +68,8 @@
         "stubs/stripe",
         "stubs/ttkthemes",
         "stubs/urllib3",
-        "stubs/vobject"
+        "stubs/vobject",
+        "stubs\pyflakes"
     ],
     "typeCheckingMode": "basic",
     "strictListInference": true,
