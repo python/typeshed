@@ -29,7 +29,7 @@ if sys.version_info >= (3, 7):
 
 if sys.version_info >= (3, 9):
     from dataclasses import dataclass
-    
+
     @dataclass(unsafe_hash=True)
     class FunctionProfile:
         ncalls: int
@@ -39,11 +39,10 @@ if sys.version_info >= (3, 9):
         percall_cumtime: float
         file_name: str
         line_number: int
-
     @dataclass(unsafe_hash=True)
     class StatsProfile:
         total_tt: float
-        func_profiles: dict[str, FunctionProfile]            
+        func_profiles: dict[str, FunctionProfile]
 
 _SortArgDict = dict[str, tuple[tuple[tuple[int, int], ...], str]]
 
@@ -71,6 +70,7 @@ class Stats:
     def eval_print_amount(self, sel: _Selector, list: list[str], msg: str) -> tuple[list[str], str]: ...
     if sys.version_info >= (3, 9):
         def get_stats_profile(self) -> StatsProfile: ...
+
     def get_print_list(self, sel_list: Iterable[_Selector]) -> tuple[int, list[str]]: ...
     def print_stats(self: Self, *amount: _Selector) -> Self: ...
     def print_callees(self: Self, *amount: _Selector) -> Self: ...
