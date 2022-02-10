@@ -1,211 +1,149 @@
-from typing import Any
+import ast
+from typing import Any, ClassVar
 
 class Message:
-    message: str
-    message_args: Any
+    message: ClassVar[str]
+    message_args: tuple[Any, ...]
     filename: Any
-    lineno: Any
-    col: Any
-    def __init__(self, filename, loc) -> None: ...
+    lineno: int
+    col: int
+    def __init__(self, filename, loc: ast.AST) -> None: ...
 
 class UnusedImport(Message):
-    message: str
-    message_args: Any
-    def __init__(self, filename, loc, name) -> None: ...
+    message_args: tuple[Any]
+    def __init__(self, filename, loc: ast.AST, name) -> None: ...
 
 class RedefinedWhileUnused(Message):
-    message: str
-    message_args: Any
-    def __init__(self, filename, loc, name, orig_loc) -> None: ...
+    message_args: tuple[Any, int]
+    def __init__(self, filename, loc: ast.AST, name, orig_loc: ast.AST) -> None: ...
 
 class RedefinedInListComp(Message):
-    message: str
-    message_args: Any
-    def __init__(self, filename, loc, name, orig_loc) -> None: ...
+    message_args: tuple[Any, int]
+    def __init__(self, filename, loc: ast.AST, name, orig_loc: ast.AST) -> None: ...
 
 class ImportShadowedByLoopVar(Message):
-    message: str
-    message_args: Any
-    def __init__(self, filename, loc, name, orig_loc) -> None: ...
+    message_args: tuple[Any, int]
+    def __init__(self, filename, loc: ast.AST, name, orig_loc: ast.AST) -> None: ...
 
 class ImportStarNotPermitted(Message):
-    message: str
     message_args: Any
     def __init__(self, filename, loc, modname) -> None: ...
 
 class ImportStarUsed(Message):
-    message: str
-    message_args: Any
-    def __init__(self, filename, loc, modname) -> None: ...
+    message_args: tuple[Any]
+    def __init__(self, filename, loc: ast.AST, modname) -> None: ...
 
 class ImportStarUsage(Message):
-    message: str
-    message_args: Any
-    def __init__(self, filename, loc, name, from_list) -> None: ...
+    message_args: tuple[Any, Any]
+    def __init__(self, filename, loc: ast.AST, name, from_list) -> None: ...
 
 class UndefinedName(Message):
-    message: str
-    message_args: Any
-    def __init__(self, filename, loc, name) -> None: ...
+    message_args: tuple[Any]
+    def __init__(self, filename, loc: ast.AST, name) -> None: ...
 
 class DoctestSyntaxError(Message):
-    message: str
-    message_args: Any
-    def __init__(self, filename, loc, position: Any | None = ...) -> None: ...
+    message_args: tuple[()]
+    def __init__(self, filename, loc: ast.AST, position: tuple[int, int] | None = ...) -> None: ...
 
 class UndefinedExport(Message):
-    message: str
-    message_args: Any
-    def __init__(self, filename, loc, name) -> None: ...
+    message_args: tuple[Any]
+    def __init__(self, filename, loc: ast.AST, name) -> None: ...
 
 class UndefinedLocal(Message):
-    message: str
-    default: str
-    builtin: str
-    message_args: Any
-    def __init__(self, filename, loc, name, orig_loc) -> None: ...
+    default: ClassVar[str]
+    builtin: ClassVar[str]
+    message_args: tuple[Any, int]
+    def __init__(self, filename, loc: ast.AST, name, orig_loc: ast.AST) -> None: ...
 
 class DuplicateArgument(Message):
-    message: str
-    message_args: Any
-    def __init__(self, filename, loc, name) -> None: ...
+    message_args: tuple[Any]
+    def __init__(self, filename, loc: ast.AST, name) -> None: ...
 
 class MultiValueRepeatedKeyLiteral(Message):
-    message: str
-    message_args: Any
-    def __init__(self, filename, loc, key) -> None: ...
+    message_args: tuple[Any]
+    def __init__(self, filename, loc: ast.AST, key) -> None: ...
 
 class MultiValueRepeatedKeyVariable(Message):
-    message: str
-    message_args: Any
-    def __init__(self, filename, loc, key) -> None: ...
+    message_args: tuple[Any]
+    def __init__(self, filename, loc: ast.AST, key) -> None: ...
 
 class LateFutureImport(Message):
-    message: str
-    message_args: Any
-    def __init__(self, filename, loc, names) -> None: ...
+    message_args: tuple[()]
+    def __init__(self, filename, loc: ast.AST, names) -> None: ...
 
 class FutureFeatureNotDefined(Message):
-    message: str
-    message_args: Any
-    def __init__(self, filename, loc, name) -> None: ...
+    message_args: tuple[Any]
+    def __init__(self, filename, loc: ast.AST, name) -> None: ...
 
 class UnusedVariable(Message):
-    message: str
-    message_args: Any
-    def __init__(self, filename, loc, names) -> None: ...
+    message_args: tuple[Any]
+    def __init__(self, filename, loc: ast.AST, names) -> None: ...
 
-class ReturnWithArgsInsideGenerator(Message):
-    message: str
-
-class ReturnOutsideFunction(Message):
-    message: str
-
-class YieldOutsideFunction(Message):
-    message: str
-
-class ContinueOutsideLoop(Message):
-    message: str
-
-class BreakOutsideLoop(Message):
-    message: str
-
-class ContinueInFinally(Message):
-    message: str
-
-class DefaultExceptNotLast(Message):
-    message: str
-
-class TwoStarredExpressions(Message):
-    message: str
-
-class TooManyExpressionsInStarredAssignment(Message):
-    message: str
-
-class IfTuple(Message):
-    message: str
-
-class AssertTuple(Message):
-    message: str
+class ReturnWithArgsInsideGenerator(Message): ...
+class ReturnOutsideFunction(Message): ...
+class YieldOutsideFunction(Message): ...
+class ContinueOutsideLoop(Message): ...
+class BreakOutsideLoop(Message): ...
+class ContinueInFinally(Message): ...
+class DefaultExceptNotLast(Message): ...
+class TwoStarredExpressions(Message): ...
+class TooManyExpressionsInStarredAssignment(Message): ...
+class IfTuple(Message): ...
+class AssertTuple(Message): ...
 
 class ForwardAnnotationSyntaxError(Message):
-    message: str
-    message_args: Any
-    def __init__(self, filename, loc, annotation) -> None: ...
+    message_args: tuple[Any]
+    def __init__(self, filename, loc: ast.AST, annotation) -> None: ...
 
 class CommentAnnotationSyntaxError(Message):
-    message: str
-    message_args: Any
-    def __init__(self, filename, loc, annotation) -> None: ...
+    message_args: tuple[Any]
+    def __init__(self, filename, loc: ast.AST, annotation) -> None: ...
 
-class RaiseNotImplemented(Message):
-    message: str
-
-class InvalidPrintSyntax(Message):
-    message: str
-
-class IsLiteral(Message):
-    message: str
-
-class FStringMissingPlaceholders(Message):
-    message: str
+class RaiseNotImplemented(Message): ...
+class InvalidPrintSyntax(Message): ...
+class IsLiteral(Message): ...
+class FStringMissingPlaceholders(Message): ...
 
 class StringDotFormatExtraPositionalArguments(Message):
-    message: str
-    message_args: Any
-    def __init__(self, filename, loc, extra_positions) -> None: ...
+    message_args: tuple[Any]
+    def __init__(self, filename, loc: ast.AST, extra_positions) -> None: ...
 
 class StringDotFormatExtraNamedArguments(Message):
-    message: str
-    message_args: Any
-    def __init__(self, filename, loc, extra_keywords) -> None: ...
+    message_args: tuple[Any]
+    def __init__(self, filename, loc: ast.AST, extra_keywords) -> None: ...
 
 class StringDotFormatMissingArgument(Message):
-    message: str
-    message_args: Any
-    def __init__(self, filename, loc, missing_arguments) -> None: ...
+    message_args: tuple[Any]
+    def __init__(self, filename, loc: ast.AST, missing_arguments) -> None: ...
 
-class StringDotFormatMixingAutomatic(Message):
-    message: str
+class StringDotFormatMixingAutomatic(Message): ...
 
 class StringDotFormatInvalidFormat(Message):
-    message: str
-    message_args: Any
-    def __init__(self, filename, loc, error) -> None: ...
+    message_args: tuple[Any]
+    def __init__(self, filename, loc: ast.AST, error) -> None: ...
 
 class PercentFormatInvalidFormat(Message):
-    message: str
-    message_args: Any
-    def __init__(self, filename, loc, error) -> None: ...
+    message_args: tuple[Any]
+    def __init__(self, filename, loc: ast.AST, error) -> None: ...
 
-class PercentFormatMixedPositionalAndNamed(Message):
-    message: str
+class PercentFormatMixedPositionalAndNamed(Message): ...
 
 class PercentFormatUnsupportedFormatCharacter(Message):
-    message: str
-    message_args: Any
-    def __init__(self, filename, loc, c) -> None: ...
+    message_args: tuple[Any]
+    def __init__(self, filename, loc: ast.AST, c) -> None: ...
 
 class PercentFormatPositionalCountMismatch(Message):
-    message: str
-    message_args: Any
-    def __init__(self, filename, loc, n_placeholders, n_substitutions) -> None: ...
+    message_args: tuple[int, int]
+    def __init__(self, filename, loc: ast.AST, n_placeholders: int, n_substitutions: int) -> None: ...
 
 class PercentFormatExtraNamedArguments(Message):
-    message: str
-    message_args: Any
-    def __init__(self, filename, loc, extra_keywords) -> None: ...
+    message_args: tuple[Any]
+    def __init__(self, filename, loc: ast.AST, extra_keywords) -> None: ...
 
 class PercentFormatMissingArgument(Message):
-    message: str
-    message_args: Any
-    def __init__(self, filename, loc, missing_arguments) -> None: ...
+    message_args: tuple[Any]
+    def __init__(self, filename, loc: ast.AST, missing_arguments) -> None: ...
 
-class PercentFormatExpectedMapping(Message):
-    message: str
-
-class PercentFormatExpectedSequence(Message):
-    message: str
-
-class PercentFormatStarRequiresSequence(Message):
-    message: str
+class PercentFormatExpectedMapping(Message): ...
+class PercentFormatExpectedSequence(Message): ...
+class PercentFormatStarRequiresSequence(Message): ...
