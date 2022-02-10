@@ -6,4 +6,4 @@ from pyflakes.api import (
     main as main,
 )
 
-__all__ = ['check', 'checkPath', 'checkRecursive', 'iterSourceCode', 'main']
+__all__ = ["check", "checkPath", "checkRecursive", "iterSourceCode", "main"]

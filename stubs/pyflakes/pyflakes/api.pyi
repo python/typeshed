@@ -3,7 +3,7 @@ from typing import Any, Pattern
 
 from pyflakes.reporter import Reporter
 
-__all__ = ['check', 'checkPath', 'checkRecursive', 'iterSourceCode', 'main']
+__all__ = ["check", "checkPath", "checkRecursive", "iterSourceCode", "main"]
 
 PYTHON_SHEBANG_REGEX: Pattern[bytes]
 
