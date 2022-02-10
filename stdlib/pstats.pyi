@@ -39,7 +39,6 @@ if sys.version_info >= (3, 9):
         percall_cumtime: float
         file_name: str
         line_number: int
-        def __init__(self, ) ->
 
     @dataclass(unsafe_hash=True)
     class StatsProfile:
