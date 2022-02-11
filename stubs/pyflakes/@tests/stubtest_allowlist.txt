@@ -1,6 +1,3 @@
-# Function that acts like an alternative constructor for collections.Counter, we just alias collections.Counter in the stub
-pyflakes.checker.counter
-
 # These all have class-level defaults that differ from the instance attributes 
 pyflakes.messages.CommentAnnotationSyntaxError.message_args
 pyflakes.messages.DuplicateArgument.message_args

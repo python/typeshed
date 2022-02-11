@@ -1,6 +1,5 @@
 import ast
 import sys
-from collections import Counter
 from collections.abc import Callable, Iterable, Iterator
 from tokenize import TokenInfo
 from typing import Any, ClassVar, Pattern, TypeVar, overload
@@ -11,6 +10,7 @@ from pyflakes.messages import Message
 _AnyFunction = Callable[..., Any]
 _F = TypeVar("_F", bound=_AnyFunction)
 _P = ParamSpec("_P")
+_T = TypeVar("_T")
 
 PY2: bool
 PY35_PLUS: bool
@@ -45,7 +45,8 @@ def parse_percent_format(s: str) -> tuple[_PercentFormat, ...]: ...
 class _FieldsOrder(dict[type[ast.AST], tuple[str, ...]]):
     def __missing__(self, node_class: type[ast.AST]) -> tuple[str, ...]: ...
 
-counter = Counter  # Not strictly true, but close enough
+def counter(items: Iterable[_T]) -> dict[_T, int]: ...
+
 _OmitType = str | tuple[str, ...] | None
 
 def iter_child_nodes(node: ast.AST, omit: _OmitType = ..., _fields_order: _FieldsOrder = ...) -> Iterator[ast.AST]: ...
