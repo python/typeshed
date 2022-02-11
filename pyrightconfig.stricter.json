@@ -52,6 +52,7 @@
         "stubs/pep8-naming",
         "stubs/psutil",
         "stubs/psycopg2",
+        "stubs/pyflakes",
         "stubs/Pygments",
         "stubs/PyMySQL",
         "stubs/python-dateutil",
@@ -68,8 +69,7 @@
         "stubs/stripe",
         "stubs/ttkthemes",
         "stubs/urllib3",
-        "stubs/vobject",
-        "stubs/pyflakes"
+        "stubs/vobject"
     ],
     "typeCheckingMode": "basic",
     "strictListInference": true,
