@@ -52,6 +52,7 @@
         "stubs/pep8-naming",
         "stubs/psutil",
         "stubs/psycopg2",
+        "stubs/pyflakes",
         "stubs/Pygments",
         "stubs/PyMySQL",
         "stubs/python-dateutil",
