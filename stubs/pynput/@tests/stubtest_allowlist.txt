@@ -1,0 +1,9 @@
+pynput
+pynput._info
+pynput._util.RESOLUTIONS
+pynput.keyboard
+pynput.keyboard._base
+pynput.keyboard._dummy
+pynput.mouse
+pynput.mouse._base
+pynput.mouse._dummy
