@@ -4,7 +4,7 @@ from _typeshed import FileDescriptorLike, Self
 from abc import ABCMeta, abstractmethod
 from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
 from typing import IO, Any, Awaitable, Callable, Coroutine, Generator, Sequence, TypeVar, Union, overload
-from typing_extensions import Literal, TypedDict
+from typing_extensions import Literal
 
 from .base_events import Server, _Context
 from .futures import Future
