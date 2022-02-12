@@ -20,14 +20,14 @@ _ProtocolT = TypeVar("_ProtocolT", bound=BaseProtocol)
 class _BaseContext(TypedDict):
     message: str
 class _Context(_BaseContext, total=False):
-    exception: NotRequired[BaseException]
-    future: NotRequired[Future[Any]]
-    task: NotRequired[Task[Any]]
-    handle: NotRequired[Handle]
-    protocol: NotRequired[BaseProtocol]
-    transport: NotRequired[BaseTransport]
-    socket: NotRequired[socket]
-    asyncgen: NotRequired[AsyncGenerator[Any, Any]]
+    exception: BaseException
+    future: Future[Any]
+    task: Task[Any]
+    handle: Handle
+    protocol: BaseProtocol
+    transport: BaseTransport
+    socket: socket
+    asyncgen: AsyncGenerator[Any, Any]
 
 _ExceptionHandler = Callable[[AbstractEventLoop, _Context], Any]
 _ProtocolFactory = Callable[[], BaseProtocol]
