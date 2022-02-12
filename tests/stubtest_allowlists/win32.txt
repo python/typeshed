@@ -58,9 +58,7 @@ tty
 
 # pathlib functions that rely on modules that don't exist on Windows
 pathlib.Path.owner
-pathlib.WindowsPath.owner
 pathlib.Path.group
-pathlib.WindowsPath.group
 
 # Exists at runtime, but missing from stubs
 _msi.MSIError
