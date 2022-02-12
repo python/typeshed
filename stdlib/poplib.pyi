@@ -9,9 +9,9 @@ class error_proto(Exception): ...
 
 POP3_PORT: Literal[110]
 POP3_SSL_PORT: Literal[995]
-CR: Literal[b'\r']
-LF: Literal[b'\n']
-CRLF: Literal[b'\r\n']
+CR: Literal[b"\r"]
+LF: Literal[b"\n"]
+CRLF: Literal[b"\r\n"]
 HAVE_SSL: bool
 
 _list = list  # conflicts with a method named "list"
