@@ -23,7 +23,7 @@ jobs:
         os: ["ubuntu-latest", "windows-latest", "macos-10.15"]
         # Python 3.9 and 3.10 temporarily pinned due to incompatibilities
         # between micro versions.
-        python-version: ["3.6", "3.7", "3.8", "3.9.9", "3.10.1"]
+        python-version: ["3.6", "3.7", "3.8", "3.9.10", "3.10.2"]
       fail-fast: false
 
     steps:
