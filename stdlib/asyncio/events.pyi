@@ -6,7 +6,7 @@ from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
 from typing import IO, Any, Awaitable, Callable, Coroutine, Generator, Sequence, TypeVar, Union, overload
 from typing_extensions import Literal, NotRequired, TypedDict
 
-from .base_events import Server
+from .base_events import Server, _Context
 from .futures import Future
 from .protocols import BaseProtocol
 from .tasks import Task
