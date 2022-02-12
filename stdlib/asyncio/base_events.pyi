@@ -17,9 +17,9 @@ if sys.version_info >= (3, 7):
 
 _T = TypeVar("_T")
 _ProtocolT = TypeVar("_ProtocolT", bound=BaseProtocol)
-
-class _Context(TypedDict):
+class _BaseContext(TypedDict):
     message: str
+class _Context(_BaseContext, total=False):
     exception: NotRequired[BaseException]
     future: NotRequired[Future[Any]]
     task: NotRequired[Task[Any]]
