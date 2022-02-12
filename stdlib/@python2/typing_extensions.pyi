@@ -14,31 +14,30 @@ from typing import (  # noqa Y022
     Mapping,
     NewType as NewType,
     NoReturn as NoReturn,
+    Protocol as Protocol,
     Text as Text,
     Type as Type,
     TypeVar,
     ValuesView,
     _Alias,
     overload as overload,
+    runtime_checkable as runtime_checkable,
 )
 
 _T = TypeVar("_T")
 _F = TypeVar("_F", bound=Callable[..., Any])
-_TC = TypeVar("_TC", bound=type[object])
 
+# unfortunately we have to duplicate this class definition from typing.pyi or we break pytype
 class _SpecialForm:
-    def __getitem__(self, typeargs: Any) -> Any: ...
-
-def runtime_checkable(cls: _TC) -> _TC: ...
+    def __getitem__(self, typeargs: Any) -> object: ...
 
 # This alias for above is kept here for backwards compatibility.
 runtime = runtime_checkable
-Protocol: _SpecialForm = ...
-Final: _SpecialForm = ...
+Final: _SpecialForm
 
 def final(f: _F) -> _F: ...
 
-Literal: _SpecialForm = ...
+Literal: _SpecialForm
 
 def IntVar(name: str) -> Any: ...  # returns a new TypeVar
 
@@ -58,7 +57,7 @@ class _TypedDict(Mapping[str, object], metaclass=abc.ABCMeta):
     def __delitem__(self, k: NoReturn) -> None: ...
 
 # TypedDict is a (non-subscriptable) special form.
-TypedDict: object = ...
+TypedDict: object
 
 OrderedDict = _Alias()
 
@@ -69,8 +68,8 @@ def get_type_hints(
     include_extras: bool = ...,
 ) -> dict[str, Any]: ...
 
-Annotated: _SpecialForm = ...
-_AnnotatedAlias: Any = ...  # undocumented
+Annotated: _SpecialForm
+_AnnotatedAlias: Any  # undocumented
 
 @runtime_checkable
 class SupportsIndex(Protocol, metaclass=abc.ABCMeta):
@@ -99,6 +98,6 @@ class ParamSpec:
     @property
     def kwargs(self) -> ParamSpecKwargs: ...
 
-Concatenate: _SpecialForm = ...
-TypeAlias: _SpecialForm = ...
-TypeGuard: _SpecialForm = ...
+Concatenate: _SpecialForm
+TypeAlias: _SpecialForm
+TypeGuard: _SpecialForm

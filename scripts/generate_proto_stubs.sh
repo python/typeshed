@@ -11,8 +11,8 @@ set -ex -o pipefail
 # followed by committing the changes to typeshed
 #
 # Update these two variables when rerunning script
-PROTOBUF_VERSION=3.19.2
-MYPY_PROTOBUF_VERSION=v3.0.0
+PROTOBUF_VERSION=3.19.3
+MYPY_PROTOBUF_VERSION=v3.2.0
 
 if uname -a | grep Darwin; then
     # brew install coreutils wget
@@ -69,7 +69,7 @@ PROTO_FILES=$(grep "generate_proto.*google" $PYTHON_PROTOBUF_DIR/python/setup.py
 )
 
 # And regenerate!
-protoc_install/bin/protoc --proto_path="$PYTHON_PROTOBUF_DIR/src" --mypy_out="$REPO_ROOT/stubs/protobuf" $PROTO_FILES
+protoc_install/bin/protoc --proto_path="$PYTHON_PROTOBUF_DIR/src" --mypy_out="relax_strict_optional_primitives:$REPO_ROOT/stubs/protobuf" $PROTO_FILES
 
 isort "$REPO_ROOT/stubs/protobuf"
 black "$REPO_ROOT/stubs/protobuf"
