@@ -18,18 +18,6 @@ if sys.version_info >= (3, 7):
 
 _T = TypeVar("_T")
 _ProtocolT = TypeVar("_ProtocolT", bound=BaseProtocol)
-
-class _Context(TypedDict):
-    message: str
-    exception: NotRequired[BaseException]
-    future: NotRequired[Future[Any]]
-    task: NotRequired[Task[Any]]
-    handle: NotRequired[Handle]
-    protocol: NotRequired[BaseProtocol]
-    transport: NotRequired[BaseTransport]
-    socket: NotRequired[socket]
-    asyncgen: NotRequired[AsyncGenerator[Any, Any]]
-
 _ExceptionHandler = Callable[[AbstractEventLoop, _Context], Any]
 _ProtocolFactory = Callable[[], BaseProtocol]
 _SSLContext = Union[bool, None, ssl.SSLContext]
