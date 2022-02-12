@@ -10,7 +10,7 @@ from asyncio.transports import BaseTransport, ReadTransport, SubprocessTransport
 from collections.abc import Iterable
 from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
 from typing import IO, Any, AsyncGenerator, Awaitable, Callable, Coroutine, Generator, Sequence, TypeVar, Union, overload
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing_extensions import Literal, TypedDict
 
 if sys.version_info >= (3, 7):
     from contextvars import Context
