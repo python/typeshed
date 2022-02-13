@@ -37,7 +37,7 @@ class GenericBrowser(BaseBrowser):
 class BackgroundBrowser(GenericBrowser): ...
 
 class UnixBrowser(BaseBrowser):
-    def open(self, url: str, new: Literal[0, 1, 2] = ..., autoraise: bool = ...) -> bool: ...
+    def open(self, url: str, new: Literal[0, 1, 2] = ..., autoraise: bool = ...) -> bool: ...  # type: ignore[override]
     raise_opts: list[str] | None
     background: bool
     redirect_stdout: bool
