@@ -1,6 +1,7 @@
 import subprocess
 import sys
 from _typeshed import StrOrBytesPath
+from abc import ABCMeta
 from asyncio import events, protocols, streams, transports
 from typing import IO, Any, Callable, Union
 from typing_extensions import Literal
@@ -14,7 +15,7 @@ PIPE: int
 STDOUT: int
 DEVNULL: int
 
-class SubprocessStreamProtocol(streams.FlowControlMixin, protocols.SubprocessProtocol):
+class SubprocessStreamProtocol(streams.FlowControlMixin, protocols.SubprocessProtocol, metaclass=ABCMeta):
     stdin: streams.StreamWriter | None
     stdout: streams.StreamReader | None
     stderr: streams.StreamReader | None
