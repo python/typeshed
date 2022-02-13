@@ -1,6 +1,6 @@
 import _tkinter
 import sys
-from _typeshed import Self, StrOrBytesPath
+from _typeshed import StrOrBytesPath
 from enum import Enum
 from tkinter.constants import *
 from tkinter.font import _FontDescription
@@ -782,9 +782,9 @@ class Widget(BaseWidget, Pack, Place, Grid):
     # widgets don't.
     @overload
     def bind(
-        self: Self,
+        self: _W,
         sequence: str | None = ...,
-        func: Callable[[Event[Self]], Any] | None = ...,
+        func: Callable[[Event[_W]], Any] | None = ...,
         add: Literal["", "+"] | bool | None = ...,
     ) -> str: ...
     @overload
