@@ -1,5 +1,4 @@
 import sys
-from abc import abstractmethod
 from asyncio import transports
 from typing import Protocol as TypingProtocol
 
