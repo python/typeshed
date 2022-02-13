@@ -1,6 +1,6 @@
 import sys
 from _typeshed import Self, StrPath
-from typing import Any, AsyncIterator, Awaitable, Callable, Iterable, Optional, Protocol as TypingProtocol
+from typing import Any, AsyncIterator, Awaitable, Callable, Iterable, Optional
 
 from . import events, protocols, transports
 from .base_events import Server
@@ -82,11 +82,8 @@ if sys.platform != "win32":
             **kwds: Any,
         ) -> Server: ...
 
-class FlowControlMixin(protocols.Protocol, TypingProtocol):
+class FlowControlMixin(protocols.Protocol):
     def __init__(self, loop: events.AbstractEventLoop | None = ...) -> None: ...
-    def pause_writing(self) -> None: ...
-    def resume_writing(self) -> None: ...
-    def connection_lost(self, exc: Exception | None) -> None: ...
 
 class StreamReaderProtocol(FlowControlMixin, protocols.Protocol):
     def __init__(
