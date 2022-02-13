@@ -1,7 +1,6 @@
 import ssl
 import sys
 from _typeshed import FileDescriptorLike
-from abc import ABCMeta
 from asyncio.events import AbstractEventLoop, AbstractServer, Handle, TimerHandle
 from asyncio.futures import Future
 from asyncio.protocols import BaseProtocol
