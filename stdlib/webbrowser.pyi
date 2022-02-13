@@ -69,5 +69,5 @@ if sys.platform == "darwin":
     class MacOSX(BaseBrowser):
         def open(self, url: str, new: int = ..., autoraise: bool = ...) -> bool: ...
 
-    class MacOSXOSAScript(BaseBrowser): ...  # In runtime this class does not have `name` and `basename`
+    class MacOSXOSAScript(BaseBrowser):  # In runtime this class does not have `name` and `basename`
         def open(self, url: str, new: int = ..., autoraise: bool = ...) -> bool: ...
