@@ -73,7 +73,7 @@ class AbstractServer:
     @abstractmethod
     async def wait_closed(self) -> None: ...
 
-class AbstractEventLoop(metaclass=ABCMeta):
+class AbstractEventLoop:
     slow_callback_duration: float
     @abstractmethod
     def run_forever(self) -> None: ...
@@ -497,7 +497,7 @@ class AbstractEventLoop(metaclass=ABCMeta):
         @abstractmethod
         async def shutdown_default_executor(self) -> None: ...
 
-class AbstractEventLoopPolicy(metaclass=ABCMeta):
+class AbstractEventLoopPolicy:
     @abstractmethod
     def get_event_loop(self) -> AbstractEventLoop: ...
     @abstractmethod
