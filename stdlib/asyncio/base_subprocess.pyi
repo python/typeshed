@@ -1,7 +1,6 @@
 import subprocess
-from abc import ABCMeta
 from collections import deque
-from typing import IO, Any, Callable, Optional, Sequence, Union
+from typing import IO, Any, Callable, Optional, Protocol as TypingProtocol, Sequence, Union
 
 from . import events, futures, protocols, transports
 
@@ -70,5 +69,5 @@ class WriteSubprocessPipeProto(protocols.BaseProtocol):  # undocumented
     def pause_writing(self) -> None: ...
     def resume_writing(self) -> None: ...
 
-class ReadSubprocessPipeProto(WriteSubprocessPipeProto, protocols.Protocol, metaclass=ABCMeta):  # undocumented
+class ReadSubprocessPipeProto(WriteSubprocessPipeProto, protocols.Protocol, TypingProtocol):  # undocumented
     def data_received(self, data: bytes) -> None: ...
