@@ -11,7 +11,7 @@ if sys.version_info >= (3, 8):
             self, message: str, category: type[Warning] | None = ..., stacklevel: int = ..., source: Any | None = ...
         ) -> None: ...
 
-class _ProactorBasePipeTransport(transports._FlowControlMixin, transports.BaseTransport):
+class _ProactorBasePipeTransport(transports._FlowControlMixin, transports.BaseTransport[streams.StreamReaderProtocol]):
     def __init__(
         self,
         loop: events.AbstractEventLoop,
@@ -28,7 +28,7 @@ class _ProactorBasePipeTransport(transports._FlowControlMixin, transports.BaseTr
 
     def get_write_buffer_size(self) -> int: ...
 
-class _ProactorReadPipeTransport(_ProactorBasePipeTransport, transports.ReadTransport):
+class _ProactorReadPipeTransport(_ProactorBasePipeTransport, transports.ReadTransport[streams.StreamReaderProtocol]):
     def __init__(
         self,
         loop: events.AbstractEventLoop,
@@ -39,7 +39,7 @@ class _ProactorReadPipeTransport(_ProactorBasePipeTransport, transports.ReadTran
         server: events.AbstractServer | None = ...,
     ) -> None: ...
 
-class _ProactorBaseWritePipeTransport(_ProactorBasePipeTransport, transports.WriteTransport):
+class _ProactorBaseWritePipeTransport(_ProactorBasePipeTransport, transports.WriteTransport[streams.StreamReaderProtocol]):
     def __init__(
         self,
         loop: events.AbstractEventLoop,
@@ -61,9 +61,13 @@ class _ProactorWritePipeTransport(_ProactorBaseWritePipeTransport):
         server: events.AbstractServer | None = ...,
     ) -> None: ...
 
-class _ProactorDuplexPipeTransport(_ProactorReadPipeTransport, _ProactorBaseWritePipeTransport, transports.Transport): ...
+class _ProactorDuplexPipeTransport(
+    _ProactorReadPipeTransport, _ProactorBaseWritePipeTransport, transports.Transport[streams.StreamReaderProtocol]
+): ...
 
-class _ProactorSocketTransport(_ProactorReadPipeTransport, _ProactorBaseWritePipeTransport, transports.Transport):
+class _ProactorSocketTransport(
+    _ProactorReadPipeTransport, _ProactorBaseWritePipeTransport, transports.Transport[streams.StreamReaderProtocol]
+):
 
     _sendfile_compatible: constants._SendfileMode
     def __init__(
