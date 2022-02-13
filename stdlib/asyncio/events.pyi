@@ -55,7 +55,7 @@ class TimerHandle(Handle):
     if sys.version_info >= (3, 7):
         def when(self) -> float: ...
 
-class AbstractServer(metaclass=ABCMeta):
+class AbstractServer:
     @abstractmethod
     def close(self) -> None: ...
     if sys.version_info >= (3, 7):
