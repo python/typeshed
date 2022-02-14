@@ -1,6 +1,7 @@
 import sys
 from _typeshed import ReadableBuffer, Self
 from typing import AbstractSet
+from typing_extensions import final
 
 class _Hash:
     @property
@@ -76,7 +77,7 @@ def scrypt(
     maxmem: int = ...,
     dklen: int = ...,
 ) -> bytes: ...
-
+@final
 class _BlakeHash(_Hash):
     MAX_DIGEST_SIZE: int
     MAX_KEY_SIZE: int
