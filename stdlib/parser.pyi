@@ -1,6 +1,7 @@
 from _typeshed import StrOrBytesPath
 from types import CodeType
-from typing import Any, Sequence, final
+from typing import Any, Sequence
+from typing_extensions import final
 
 def expr(source: str) -> STType: ...
 def suite(source: str) -> STType: ...
