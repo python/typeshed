@@ -27,7 +27,6 @@ from typing import (  # noqa Y022
     TypeVar,
     ValuesView,
     _Alias,
-    final as _final,
     overload as overload,
 )
 
@@ -151,7 +150,7 @@ NotRequired: _SpecialForm
 LiteralString: _SpecialForm
 Unpack: _SpecialForm
 
-@_final
+@final
 class TypeVarTuple:
     __name__: str
     def __init__(self, name: str) -> None: ...
