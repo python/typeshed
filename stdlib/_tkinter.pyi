@@ -101,6 +101,7 @@ WRITABLE: Literal[4]
 TCL_VERSION: str
 TK_VERSION: str
 
+@final
 class TkttType:
     def deletetimerhandler(self): ...
 

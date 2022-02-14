@@ -1,5 +1,6 @@
 import sys
 from typing import Any, TypeVar
+from typing_extensions import final
 
 ucd_3_2_0: UCD
 ucnhash_CAPI: Any
@@ -24,6 +25,7 @@ def name(__chr: str, __default: _T = ...) -> str | _T: ...
 def normalize(__form: str, __unistr: str) -> str: ...
 def numeric(__chr: str, __default: _T = ...) -> float | _T: ...
 
+@final
 class UCD:
     # The methods below are constructed from the same array in C
     # (unicodedata_functions) and hence identical to the methods above.
