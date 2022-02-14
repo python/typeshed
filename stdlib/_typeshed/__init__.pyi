@@ -190,6 +190,8 @@ WriteableBuffer = Union[bytearray, memoryview, array.array[Any], mmap.mmap, ctyp
 # Same as _WriteableBuffer, but also includes read-only buffer types (like bytes).
 ReadableBuffer = Union[ReadOnlyBuffer, WriteableBuffer]  # stable
 
+StrOrBuffer = TypeVar("StrOrBuffer", str, ReadOnlyBuffer, WriteableBuffer)
+
 # stable
 if sys.version_info >= (3, 10):
     from types import NoneType as NoneType
