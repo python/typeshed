@@ -147,6 +147,13 @@ else:
 # Experimental (hopefully these will be in 3.11)
 Required: _SpecialForm
 NotRequired: _SpecialForm
+LiteralString: _SpecialForm
+Unpack: _SpecialForm
+
+class TypeVarTuple:
+    __name__: str
+    def __init__(self, name: str) -> None: ...
+    def __iter__(self) -> Any: ...  # Unpack[Self]
 
 def dataclass_transform(
     *,
