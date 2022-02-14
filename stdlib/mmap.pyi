@@ -1,12 +1,7 @@
 import sys
-from _typeshed import ReadableBuffer, ReadOnlyBuffer
+from _typeshed import ReadableBuffer
 from contextlib import AbstractContextManager
-from typing import ByteString, Iterable, Iterator, NoReturn, Sized, overload
-
-if sys.version_info >= (3, 9):
-    from collections.abc import ByteString
-else:
-    from typing import ByteString
+from typing import Iterable, Iterator, NoReturn, Sized, overload
 
 ACCESS_DEFAULT: int
 ACCESS_READ: int
