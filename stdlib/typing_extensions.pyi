@@ -36,7 +36,6 @@ _F = TypeVar("_F", bound=Callable[..., Any])
 _TC = TypeVar("_TC", bound=Type[object])
 
 # unfortunately we have to duplicate this class definition from typing.pyi or we break pytype
-@_final
 class _SpecialForm:
     def __getitem__(self, typeargs: Any) -> object: ...
     if sys.version_info >= (3, 10):
