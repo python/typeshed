@@ -1,7 +1,7 @@
 import enum
 import sys
 from sre_constants import error as error
-from typing import Any, AnyStr, Callable, Iterator, Union, overload, RegexString
+from typing import Any, Callable, Iterator, Union, overload, RegexString
 
 # ----- re variables and constants -----
 if sys.version_info >= (3, 7):
