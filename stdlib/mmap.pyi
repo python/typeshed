@@ -1,7 +1,7 @@
 import sys
 from _typeshed import ReadableBuffer
 from contextlib import AbstractContextManager
-from typing import Iterator, NoReturn, Sized, overload, ByteString
+from typing import ByteString, Iterator, NoReturn, Sized, overload
 
 ACCESS_DEFAULT: int
 ACCESS_READ: int
