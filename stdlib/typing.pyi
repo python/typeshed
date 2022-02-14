@@ -13,6 +13,7 @@ if sys.version_info >= (3, 9):
 
 Any = object()
 
+@_final
 class TypeVar:
     __name__: str
     __bound__: Any | None
@@ -30,6 +31,7 @@ class TypeVar:
 _promote = object()
 
 # N.B. Keep this definition in sync with typing_extensions._SpecialForm
+@_final
 class _SpecialForm:
     def __getitem__(self, typeargs: Any) -> object: ...
     if sys.version_info >= (3, 10):
@@ -748,6 +750,7 @@ class _TypedDict(Mapping[str, object], metaclass=ABCMeta):
 def type_check_only(func_or_cls: _F) -> _F: ...
 
 if sys.version_info >= (3, 7):
+    @_final
     class ForwardRef:
         __forward_arg__: str
         __forward_code__: CodeType

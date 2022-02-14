@@ -2,6 +2,7 @@ import sys
 from _typeshed import FileDescriptorLike, Self
 from types import TracebackType
 from typing import Any, Iterable
+from typing_extensions import final
 
 if sys.platform != "win32":
     PIPE_BUF: int
@@ -33,6 +34,7 @@ error = OSError
 
 if sys.platform != "linux" and sys.platform != "win32":
     # BSD only
+    @final
     class kevent:
         data: Any
         fflags: int
@@ -50,6 +52,7 @@ if sys.platform != "linux" and sys.platform != "win32":
             udata: Any = ...,
         ) -> None: ...
     # BSD only
+    @final
     class kqueue:
         closed: bool
         def __init__(self) -> None: ...
