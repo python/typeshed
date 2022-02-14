@@ -1,6 +1,6 @@
 import collections  # Needed by aliases like DefaultDict, see mypy issue 2986
 import sys
-from _typeshed import ReadableBuffer, Self, SupportsKeysAndGetItem
+from _typeshed import ReadableBuffer, Self, SupportsKeysAndGetItem, ReadOnlyBuffer, WriteableBuffer
 from abc import ABCMeta, abstractmethod
 from types import BuiltinFunctionType, CodeType, FrameType, FunctionType, MethodType, ModuleType, TracebackType
 from typing_extensions import Literal as _Literal, ParamSpec as _ParamSpec, final as _final
@@ -586,7 +586,7 @@ class TextIO(IO[str]):
 
 class ByteString(Sequence[int], metaclass=ABCMeta): ...
 
-RegexString = TypeVar("RegexString", str, ReadableBuffer)
+RegexString = TypeVar("RegexString", str, ReadOnlyBuffer, WriteableBuffer)
 
 @_final
 class Match(Generic[RegexString]):
