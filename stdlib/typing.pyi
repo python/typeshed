@@ -1,6 +1,6 @@
 import collections  # Needed by aliases like DefaultDict, see mypy issue 2986
 import sys
-from _typeshed import Self, SupportsKeysAndGetItem, ReadableBuffer
+from _typeshed import ReadableBuffer, Self, SupportsKeysAndGetItem
 from abc import ABCMeta, abstractmethod
 from types import BuiltinFunctionType, CodeType, FrameType, FunctionType, MethodType, ModuleType, TracebackType
 from typing_extensions import Literal as _Literal, ParamSpec as _ParamSpec, final as _final
@@ -651,7 +651,9 @@ class Pattern(Generic[AnyStr]):
     @overload
     def subn(self, repl: AnyStr, string: RegexString, count: int = ...) -> tuple[RegexString, int]: ...
     @overload
-    def subn(self, repl: Callable[[Match[RegexString]], RegexString], string: RegexString, count: int = ...) -> tuple[RegexString, int]: ...
+    def subn(
+        self, repl: Callable[[Match[RegexString]], RegexString], string: RegexString, count: int = ...
+    ) -> tuple[RegexString, int]: ...
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
