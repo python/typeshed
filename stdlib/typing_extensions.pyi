@@ -149,7 +149,7 @@ Required: _SpecialForm
 NotRequired: _SpecialForm
 LiteralString: _SpecialForm
 Unpack: _SpecialForm
-    
+
 class TypeVarTuple:
     __name__: str
     def __init__(self, name: str) -> None: ...
