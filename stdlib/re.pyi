@@ -1,8 +1,8 @@
 import enum
 import sys
+from _typeshed import StrOrBuffer
 from sre_constants import error as error
 from typing import Any, Callable, Iterator, Union, overload
-from _typeshed import StrOrBuffer
 
 # ----- re variables and constants -----
 if sys.version_info >= (3, 7):
