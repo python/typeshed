@@ -37,7 +37,6 @@ dummy_threading.local.__new__
 enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 ftplib.FTP.trust_server_pasv_ipv4_address  # Dangerous to use, intentionally undocumented, intentionally missing from typeshed. #6154
-functools.partialmethod.__get__
 gettext.install  # codeset default value is ['unspecified'] so can't be specified
 gettext.translation  # codeset default value is ['unspecified'] so can't be specified
 hmac.new  # Stub is a white lie; see comments in the stub

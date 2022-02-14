@@ -50,7 +50,6 @@ dataclasses.KW_ONLY
 enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 ftplib.FTP.trust_server_pasv_ipv4_address  # Dangerous to use, intentionally undocumented, intentionally missing from typeshed. #6154
-functools.partialmethod.__get__
 gettext.install
 gettext.translation
 hashlib.sha3_\d+  # Can be a class or a built-in function
