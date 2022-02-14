@@ -214,6 +214,8 @@ class GeneratorType(Generator[_T_co, _T_contra, _V_co]):
     gi_frame: FrameType
     gi_running: bool
     gi_yieldfrom: GeneratorType[_T_co, _T_contra, Any] | None
+    __name__: str
+    __qualname__: str
     def __iter__(self) -> GeneratorType[_T_co, _T_contra, _V_co]: ...
     def __next__(self) -> _T_co: ...
     def close(self) -> None: ...
@@ -231,6 +233,8 @@ class AsyncGeneratorType(AsyncGenerator[_T_co, _T_contra]):
     ag_frame: FrameType
     ag_running: bool
     ag_code: CodeType
+    __name__: str
+    __qualname__: str
     def __aiter__(self) -> AsyncGeneratorType[_T_co, _T_contra]: ...
     async def __anext__(self) -> _T_co: ...
     async def asend(self, __val: _T_contra) -> _T_co: ...
@@ -366,6 +370,7 @@ class FrameType:
 @final
 class GetSetDescriptorType:
     __name__: str
+    __qualname__: str
     __objclass__: type
     def __get__(self, __obj: Any, __type: type = ...) -> Any: ...
     def __set__(self, __instance: Any, __value: Any) -> None: ...
@@ -374,6 +379,7 @@ class GetSetDescriptorType:
 @final
 class MemberDescriptorType:
     __name__: str
+    __qualname__: str
     __objclass__: type
     def __get__(self, __obj: Any, __type: type = ...) -> Any: ...
     def __set__(self, __instance: Any, __value: Any) -> None: ...
