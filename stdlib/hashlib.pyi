@@ -77,7 +77,6 @@ def scrypt(
     maxmem: int = ...,
     dklen: int = ...,
 ) -> bytes: ...
-
 @final
 class _BlakeHash(_Hash):
     MAX_DIGEST_SIZE: int
