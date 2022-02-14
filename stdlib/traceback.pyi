@@ -132,7 +132,7 @@ class FrameSummary(Iterable[Any]):
         def __init__(
             self,
             filename: str,
-            lineno: int,
+            lineno: int | None,
             name: str,
             *,
             lookup_line: bool = ...,
@@ -149,7 +149,7 @@ class FrameSummary(Iterable[Any]):
         def __init__(
             self,
             filename: str,
-            lineno: int,
+            lineno: int | None,
             name: str,
             *,
             lookup_line: bool = ...,
@@ -157,7 +157,7 @@ class FrameSummary(Iterable[Any]):
             line: str | None = ...,
         ) -> None: ...
     filename: str
-    lineno: int
+    lineno: int | None
     name: str
     locals: dict[str, str] | None
     @property
