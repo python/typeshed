@@ -5,6 +5,7 @@ from abc import ABCMeta
 from builtins import property as _builtins_property
 from collections.abc import Iterable, Iterator, Mapping
 from typing import Any, TypeVar, Union, overload
+from typing_extensions import Literal
 
 _T = TypeVar("_T")
 _S = TypeVar("_S", bound=type[Enum])
@@ -54,6 +55,7 @@ class EnumMeta(ABCMeta):
     @_builtins_property
     def __members__(self: type[_T]) -> types.MappingProxyType[str, _T]: ...
     def __len__(self) -> int: ...
+    def __bool__(self) -> Literal[True]: ...
     if sys.version_info >= (3, 11):
         # Simple value lookup
         @overload  # type: ignore[override]
