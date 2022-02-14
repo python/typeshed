@@ -630,7 +630,7 @@ class Match(Generic[AnyStr]):
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
-RegexString = TypeVar("RegexString", Union[AnyStr, ReadableBuffer])
+RegexString = TypeVar("RegexString", AnyStr, ReadableBuffer)
 
 @_final
 class Pattern(Generic[RegexString]):
