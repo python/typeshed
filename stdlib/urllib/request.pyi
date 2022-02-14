@@ -10,7 +10,7 @@ from urllib.response import addclosehook, addinfourl
 
 _T = TypeVar("_T")
 _UrlopenRet = Any
-_DataType = bytes | SupportsRead[bytes] | Iterable[bytes]
+_DataType = bytes | SupportsRead[bytes] | Iterable[bytes] | None
 
 def urlopen(
     url: str | Request,
@@ -52,7 +52,7 @@ class Request:
     host: str
     origin_req_host: str
     selector: str
-    data: _DataType | None
+    data: _DataType
     headers: MutableMapping[str, str]
     unredirected_hdrs: dict[str, str]
     unverifiable: bool
@@ -61,7 +61,7 @@ class Request:
     def __init__(
         self,
         url: str,
-        data: _DataType | None = ...,
+        data: _DataType = ...,
         headers: MutableMapping[str, str] = ...,
         origin_req_host: str | None = ...,
         unverifiable: bool = ...,
@@ -84,7 +84,7 @@ class Request:
 class OpenerDirector:
     addheaders: list[tuple[str, str]]
     def add_handler(self, handler: BaseHandler) -> None: ...
-    def open(self, fullurl: str | Request, data: bytes | None = ..., timeout: float | None = ...) -> _UrlopenRet: ...
+    def open(self, fullurl: str | Request, data: _DataType = ..., timeout: float | None = ...) -> _UrlopenRet: ...
     def error(self, proto: str, *args: Any) -> _UrlopenRet: ...
     def close(self) -> None: ...
 
@@ -242,7 +242,7 @@ def urlretrieve(
     url: str,
     filename: StrOrBytesPath | None = ...,
     reporthook: Callable[[int, int, int], None] | None = ...,
-    data: _DataType | None = ...,
+    data: _DataType = ...,
 ) -> tuple[str, HTTPMessage]: ...
 def urlcleanup() -> None: ...
 
