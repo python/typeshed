@@ -586,7 +586,7 @@ class TextIO(IO[str]):
 
 class ByteString(Sequence[int], metaclass=ABCMeta): ...
 
-RegexString = TypeVar("RegexString", AnyStr, ReadableBuffer)
+RegexString = TypeVar("RegexString", str, ReadableBuffer)
 
 @_final
 class Match(Generic[RegexString]):
