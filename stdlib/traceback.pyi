@@ -140,7 +140,7 @@ class FrameSummary(Iterable[Any]):
             line: str | None = ...,
             end_lineno: int | None = ...,
             colno: int | None = ...,
-            end_colno: int | None = ...
+            end_colno: int | None = ...,
         ) -> None: ...
         end_lineno: int | None
         colno: int | None
@@ -154,7 +154,7 @@ class FrameSummary(Iterable[Any]):
             *,
             lookup_line: bool = ...,
             locals: Mapping[str, str] | None = ...,
-            line: str | None = ...
+            line: str | None = ...,
         ) -> None: ...
     filename: str
     lineno: int
