@@ -633,7 +633,7 @@ class Match(Generic[AnyStr]):
 RegexString = TypeVar("RegexString", Union[AnyStr, ReadableBuffer])
 
 @_final
-class Pattern(Generic[AnyStr]):
+class Pattern(Generic[RegexString]):
     flags: int
     groupindex: Mapping[str, int]
     groups: int
