@@ -46,6 +46,9 @@ class _GeneratorContextManager(AbstractContextManager[_T_co], ContextDecorator, 
     func: Callable[..., Generator[_T_co, Any, Any]]
     args: tuple[Any, ...]
     kwds: dict[str, Any]
+    def __exit__(
+        self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
+    ) -> bool | None: ...
 
 def contextmanager(func: Callable[_P, Iterator[_T_co]]) -> Callable[_P, _GeneratorContextManager[_T_co]]: ...
 
@@ -63,6 +66,9 @@ if sys.version_info >= (3, 10):
         func: Callable[..., AsyncGenerator[_T_co, Any]]
         args: tuple[Any, ...]
         kwds: dict[str, Any]
+        async def __aexit__(
+            self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
+        ) -> bool | None: ...
 
 elif sys.version_info >= (3, 7):
     class _AsyncGeneratorContextManager(AbstractAsyncContextManager[_T_co], Generic[_T_co]):

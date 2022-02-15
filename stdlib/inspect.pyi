@@ -188,6 +188,7 @@ class Signature:
     else:
         @classmethod
         def from_callable(cls: type[Self], obj: Callable[..., Any], *, follow_wrapped: bool = ...) -> Self: ...
+    def __eq__(self, other: object) -> bool: ...
 
 if sys.version_info >= (3, 10):
     def get_annotations(
@@ -235,6 +236,7 @@ class Parameter:
         default: Any = ...,
         annotation: Any = ...,
     ) -> Self: ...
+    def __eq__(self, other: object) -> bool: ...
 
 class BoundArguments:
     arguments: OrderedDict[str, Any]
@@ -243,6 +245,7 @@ class BoundArguments:
     signature: Signature
     def __init__(self, signature: Signature, arguments: OrderedDict[str, Any]) -> None: ...
     def apply_defaults(self) -> None: ...
+    def __eq__(self, other: object) -> bool: ...
 
 #
 # Classes and functions
