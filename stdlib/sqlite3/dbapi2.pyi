@@ -2,7 +2,7 @@ import sys
 from _typeshed import Self, StrOrBytesPath
 from datetime import date, datetime, time
 from typing import Any, Callable, Generator, Iterable, Iterator, Protocol, TypeVar
-from typing_extensions import final, Literal
+from typing_extensions import Literal, final
 
 _T = TypeVar("_T")
 
