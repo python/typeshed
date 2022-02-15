@@ -134,19 +134,13 @@ os.path.join
 pstats.SortKey.__new__
 tkinter.EventType.__new__
 
-# Rest of these errors are new in Python 3.10:
-asyncio.proactor_events._ProactorReadPipeTransport.__init__
-distutils.command.bdist_wininst
-py_compile.main
-pyclbr.Class.__init__
-pyclbr.Function.__init__
-sched.Event.__new__
-sched.Event._fields
-signal.default_int_handler
+distutils.command.bdist_wininst # removed in 3.10
+
+# stubtest complains that in 3.10 the default argument is inconsistent with the annotation,
+# but in 3.10+ calling the function without the default argument is in fact deprecated,
+# so it's better to ignore stubtest
 ssl.SSLContext.__new__
 ssl._create_unverified_context
-unicodedata.ucnhash_CAPI
-unittest.mock.create_autospec
 
 # Exists at runtime, but missing from stubs
 _ast.Tuple.dims
@@ -176,7 +170,6 @@ multiprocessing.managers.SharedMemoryServer.shutdown
 multiprocessing.managers.SharedMemoryServer.track_segment
 pyexpat.XMLParserType.SkippedEntityHandler
 pyexpat.XMLParserType.intern
-sched.Event.sequence
 types.CoroutineType.cr_origin
 typing._SpecialForm.__call__
 unicodedata.UCD.is_normalized

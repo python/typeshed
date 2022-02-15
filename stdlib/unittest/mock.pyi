@@ -440,9 +440,22 @@ class _ANY:
 
 ANY: Any
 
-def create_autospec(
-    spec: Any, spec_set: Any = ..., instance: Any = ..., _parent: Any | None = ..., _name: Any | None = ..., **kwargs: Any
-) -> Any: ...
+if sys.version_info >= (3, 10):
+    def create_autospec(
+        spec: Any,
+        spec_set: Any = ...,
+        instance: Any = ...,
+        _parent: Any | None = ...,
+        _name: Any | None = ...,
+        *,
+        unsafe: bool = ...,
+        **kwargs: Any,
+    ) -> Any: ...
+
+else:
+    def create_autospec(
+        spec: Any, spec_set: Any = ..., instance: Any = ..., _parent: Any | None = ..., _name: Any | None = ..., **kwargs: Any
+    ) -> Any: ...
 
 class _SpecState:
     spec: Any
