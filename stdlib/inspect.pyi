@@ -188,6 +188,7 @@ class Signature:
     else:
         @classmethod
         def from_callable(cls: type[Self], obj: Callable[..., Any], *, follow_wrapped: bool = ...) -> Self: ...
+
     def __eq__(self, other: object) -> bool: ...
 
 if sys.version_info >= (3, 10):
