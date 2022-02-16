@@ -1,10 +1,10 @@
 import sys
 from _typeshed import SupportsRead, _T_co
-from typing import Any, Iterable, NoReturn
+from typing import Any, Iterable, NoReturn, Protocol
 from xml.sax.handler import ContentHandler, ErrorHandler
 from xml.sax.xmlreader import Locator, XMLReader
 
-class _SupportsReadClose(SupportsRead[_T_co]):
+class _SupportsReadClose(SupportsRead[_T_co], Protocol[_T_co]):
     def close(self) -> None: ...
 
 class SAXException(Exception):
