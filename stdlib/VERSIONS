@@ -68,6 +68,7 @@ asyncio.exceptions: 3.8-
 asyncio.format_helpers: 3.7-
 asyncio.runners: 3.7-
 asyncio.staggered: 3.8-
+asyncio.taskgroups: 3.11-
 asyncio.threads: 3.9-
 asyncio.trsock: 3.8-
 asyncore: 2.7-
