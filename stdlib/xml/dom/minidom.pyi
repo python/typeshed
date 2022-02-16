@@ -1,11 +1,11 @@
 import sys
 import xml.dom
-from _typeshed import Self
-from typing import IO, Any
+from _typeshed import Self, SupportsRead
+from typing import Any
 from xml.dom.xmlbuilder import DocumentLS, DOMImplementationLS
 from xml.sax.xmlreader import XMLReader
 
-def parse(file: str | IO[Any], parser: XMLReader | None = ..., bufsize: int | None = ...): ...
+def parse(file: str | SupportsRead[bytes] | SupportsRead[str], parser: XMLReader | None = ..., bufsize: int | None = ...): ...
 def parseString(string: str | bytes, parser: XMLReader | None = ...): ...
 def getDOMImplementation(features=...) -> DOMImplementation | None: ...
 

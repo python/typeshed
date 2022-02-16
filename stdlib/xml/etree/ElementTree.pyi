@@ -1,7 +1,6 @@
 import sys
-from _typeshed import FileDescriptor, StrOrBytesPath, SupportsWrite
+from _typeshed import FileDescriptor, StrOrBytesPath, SupportsRead, SupportsWrite
 from typing import (
-    IO,
     Any,
     Callable,
     Generator,
@@ -19,7 +18,9 @@ from typing import (
 from typing_extensions import Literal, SupportsIndex, TypeGuard
 
 _T = TypeVar("_T")
-_File = Union[StrOrBytesPath, FileDescriptor, IO[Any]]
+_FileRead = Union[StrOrBytesPath, FileDescriptor, SupportsRead[bytes], SupportsRead[str]]
+_FileWriteC14N = Union[StrOrBytesPath, FileDescriptor, SupportsWrite[bytes]]
+_FileWrite = Union[_FileWriteC14N, SupportsWrite[str]]
 
 VERSION: str
 
@@ -36,7 +37,7 @@ if sys.version_info >= (3, 8):
         xml_data: str | bytes | None = ...,
         *,
         out: None = ...,
-        from_file: _File | None = ...,
+        from_file: _FileRead | None = ...,
         with_comments: bool = ...,
         strip_text: bool = ...,
         rewrite_prefixes: bool = ...,
@@ -50,7 +51,7 @@ if sys.version_info >= (3, 8):
         xml_data: str | bytes | None = ...,
         *,
         out: SupportsWrite[str],
-        from_file: _File | None = ...,
+        from_file: _FileRead | None = ...,
         with_comments: bool = ...,
         strip_text: bool = ...,
         rewrite_prefixes: bool = ...,
@@ -118,9 +119,9 @@ class QName:
     def __eq__(self, other: object) -> bool: ...
 
 class ElementTree:
-    def __init__(self, element: Element | None = ..., file: _File | None = ...) -> None: ...
+    def __init__(self, element: Element | None = ..., file: _FileRead | None = ...) -> None: ...
     def getroot(self) -> Element: ...
-    def parse(self, source: _File, parser: XMLParser | None = ...) -> Element: ...
+    def parse(self, source: _FileRead, parser: XMLParser | None = ...) -> Element: ...
     def iter(self, tag: str | None = ...) -> Generator[Element, None, None]: ...
     if sys.version_info < (3, 9):
         def getiterator(self, tag: str | None = ...) -> list[Element]: ...
@@ -134,7 +135,7 @@ class ElementTree:
     def iterfind(self, path: str, namespaces: dict[str, str] | None = ...) -> Generator[Element, None, None]: ...
     def write(
         self,
-        file_or_filename: _File,
+        file_or_filename: _FileWrite,
         encoding: str | None = ...,
         xml_declaration: bool | None = ...,
         default_namespace: str | None = ...,
@@ -142,7 +143,7 @@ class ElementTree:
         *,
         short_empty_elements: bool = ...,
     ) -> None: ...
-    def write_c14n(self, file: _File) -> None: ...
+    def write_c14n(self, file: _FileWriteC14N) -> None: ...
 
 def register_namespace(prefix: str, uri: str) -> None: ...
 
@@ -237,8 +238,10 @@ def dump(elem: Element) -> None: ...
 if sys.version_info >= (3, 9):
     def indent(tree: Element | ElementTree, space: str = ..., level: int = ...) -> None: ...
 
-def parse(source: _File, parser: XMLParser | None = ...) -> ElementTree: ...
-def iterparse(source: _File, events: Sequence[str] | None = ..., parser: XMLParser | None = ...) -> Iterator[tuple[str, Any]]: ...
+def parse(source: _FileRead, parser: XMLParser | None = ...) -> ElementTree: ...
+def iterparse(
+    source: _FileRead, events: Sequence[str] | None = ..., parser: XMLParser | None = ...
+) -> Iterator[tuple[str, Any]]: ...
 
 class XMLPullParser:
     def __init__(self, events: Sequence[str] | None = ..., *, _parser: XMLParser | None = ...) -> None: ...

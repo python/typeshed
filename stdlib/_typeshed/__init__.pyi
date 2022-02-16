@@ -170,6 +170,9 @@ FileDescriptorLike = Union[int, HasFileno]  # stable
 class SupportsRead(Protocol[_T_co]):
     def read(self, __length: int = ...) -> _T_co: ...
 
+class SupportsReadClose(SupportsRead[_T_co]):
+    def close(self) -> None: ...
+
 # stable
 class SupportsReadline(Protocol[_T_co]):
     def readline(self, __length: int = ...) -> _T_co: ...
