@@ -3,8 +3,10 @@ from typing import Any, TypeVar
 from typing_extensions import final
 
 ucd_3_2_0: UCD
-ucnhash_CAPI: Any
 unidata_version: str
+
+if sys.version_info < (3, 10):
+    ucnhash_CAPI: Any
 
 _T = TypeVar("_T")
 
