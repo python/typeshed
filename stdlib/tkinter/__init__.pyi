@@ -142,6 +142,7 @@ class Variable:
     def trace_vdelete(self, mode, cbname) -> None: ...  # deprecated
     def trace_vinfo(self): ...  # deprecated
     trace = trace_variable  # deprecated
+    def __eq__(self, other: object) -> bool: ...
 
 class StringVar(Variable):
     def __init__(self, master: Misc | None = ..., value: str | None = ..., name: str | None = ...) -> None: ...
