@@ -133,8 +133,6 @@ tkinter.EventType.__new__
 asyncio.proactor_events._ProactorReadPipeTransport.__init__
 distutils.command.bdist_wininst
 py_compile.main
-pyclbr.Class.__init__
-pyclbr.Function.__init__
 sched.Event.__new__
 sched.Event._fields
 signal.default_int_handler
