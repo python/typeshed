@@ -1,8 +1,8 @@
 # This only exists in 3.11+. See VERSIONS.
 
+from _typeshed import Self
 from types import TracebackType
 from typing import Any, Coroutine, Generator, TypeVar
-from _typeshed import Self
 
 from .tasks import Task
 
