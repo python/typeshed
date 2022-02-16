@@ -108,7 +108,7 @@ if sys.version_info >= (3, 7):
     )
 
 if sys.version_info >= (3, 11):
-    from .taskgroups import TaskGroup
+    from .taskgroups import TaskGroup as TaskGroup
 
 DefaultEventLoopPolicy: type[AbstractEventLoopPolicy]
 
