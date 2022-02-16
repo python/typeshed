@@ -106,11 +106,7 @@ weakref.WeakValueDictionary.update
 xml.etree.ElementTree.XMLParser.__init__  # Defined in C so has general signature
 xml.etree.cElementTree.XMLParser.__init__  # Defined in C so has general signature
 
-# positional-only complaints
-builtins.bytearray.pop
-builtins.bytearray.remove
-collections.OrderedDict.fromkeys
-collections.OrderedDict.setdefault
+# positional-only complaints caused by differences between typing aliases and the "real" classes in the stdlib
 _collections_abc.AsyncGenerator.asend
 _collections_abc.AsyncGenerator.athrow
 _collections_abc.Container.__contains__
@@ -118,13 +114,12 @@ _collections_abc.Coroutine.send
 _collections_abc.Coroutine.throw
 _collections_abc.Generator.send
 _collections_abc.Generator.throw
-contextvars.ContextVar.reset
-contextvars.ContextVar.set
 contextlib.AbstractAsyncContextManager.__aexit__
 contextlib.AbstractContextManager.__exit__
-io.IncrementalNewlineDecoder.setstate
-typing.SupportsRound.__round__
+
+typing.SupportsRound.__round__  # pos-or-kw at runtime, but we pretend it's pos-only in the stub so that e.g. float.__round__ satisfies the interface
 types.DynamicClassAttribute..*  # In the stub we pretend it's an alias for property, but it has positional-only differences
+
 # These three have a pos-or-keyword first parameter at runtime, but deliberately have a pos-only first parameter in the stub. #6812
 posixpath.join
 ntpath.join
