@@ -205,6 +205,8 @@ def get_mypy_flags(args, major: int, minor: int, temp_name: str, *, custom_types
         "--no-site-packages",
         "--show-traceback",
         "--no-implicit-optional",
+        "--no-implicit-reexport",
+        "--disallow-untyped-decorators",
         "--disallow-any-generics",
         "--warn-incomplete-stub",
         "--show-error-codes",
