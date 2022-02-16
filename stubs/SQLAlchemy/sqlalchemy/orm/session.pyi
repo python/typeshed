@@ -1,5 +1,7 @@
+from collections.abc import Mapping
 from typing import Any
 
+from ..engine.base import Connection
 from ..engine.util import TransactionalContext
 from ..util import MemoizedSlots, memoized_property
 
@@ -111,9 +113,14 @@ class Session(_SessionClassMethods):
     def rollback(self) -> None: ...
     def commit(self) -> None: ...
     def prepare(self) -> None: ...
+    # TODO: bind_arguments could use a TypedDict
     def connection(
-        self, bind_arguments: Any | None = ..., close_with_result: bool = ..., execution_options: Any | None = ..., **kw
-    ): ...
+        self,
+        bind_arguments: Mapping[str, Any] | None = ...,
+        close_with_result: bool = ...,
+        execution_options: Mapping[str, Any] | None = ...,
+        **kw: Any,
+    ) -> Connection: ...
     def execute(
         self,
         statement,
