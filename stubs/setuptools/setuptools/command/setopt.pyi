@@ -1,3 +1,4 @@
+from abc import abstractmethod
 from typing import Any
 
 from setuptools import Command
@@ -13,6 +14,8 @@ class option_base(Command):
     filename: Any
     def initialize_options(self) -> None: ...
     def finalize_options(self) -> None: ...
+    @abstractmethod
+    def run(self) -> None: ...
 
 class setopt(option_base):
     description: str
