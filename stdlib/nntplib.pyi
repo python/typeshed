@@ -36,8 +36,8 @@ def decode_header(header_str: str) -> str: ...
 _list = list  # conflicts with a method named "list"
 
 class NNTP:
-    encoding: ClassVar[str]
-    errors: ClassVar[str]
+    encoding: str
+    errors: str
 
     host: str
     port: int
@@ -99,6 +99,7 @@ class NNTP:
 
 class NNTP_SSL(NNTP):
     ssl_context: ssl.SSLContext | None
+    sock: ssl.SSLSocket
     def __init__(
         self,
         host: str,
