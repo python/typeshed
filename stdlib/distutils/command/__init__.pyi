@@ -18,8 +18,7 @@ from . import (
     sdist as sdist,
     upload as upload,
 )
-
-if sys.platform == "win32" and sys.version_info < (3, 10):
+if sys.version_info < (3, 10):
     from . import bdist_wininst as bdist_wininst
 
 __all__ = [

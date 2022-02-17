@@ -2,7 +2,7 @@ import sys
 from _typeshed import StrOrBytesPath
 from typing import Any, ClassVar
 
-if sys.platform == "win32" and sys.version_info < (3, 10):
+if sys.version_info < (3, 10):
     from ..cmd import Command
 
     class bdist_wininst(Command):
