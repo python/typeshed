@@ -35,7 +35,7 @@ def decode_header(header_str: str) -> str: ...
 
 _list = list  # conflicts with a method named "list"
 
-class NNTP:     
+class NNTP:
     encoding: ClassVar[str]
     errors: ClassVar[str]
 
