@@ -1,9 +1,14 @@
 from collections.abc import Mapping
-from typing import Any
+from typing import Any, TypeVar, overload
 
 from ..engine.base import Connection
 from ..engine.util import TransactionalContext
+from ..sql.elements import ColumnElement
+from ..sql.schema import Table
 from ..util import MemoizedSlots, memoized_property
+from .query import Query
+
+_T = TypeVar("_T")
 
 class _SessionClassMethods:
     @classmethod
@@ -146,7 +151,14 @@ class Session(_SessionClassMethods):
         _sa_skip_events: Any | None = ...,
         _sa_skip_for_implicit_returning: bool = ...,
     ): ...
-    def query(self, *entities, **kwargs): ...
+    @overload
+    def query(self, entities: Table, **kwargs: Any) -> Query[Any]: ...
+    @overload
+    def query(self, entities: ColumnElement[_T], **kwargs: Any) -> Query[tuple[_T]]: ...  # type: ignore[misc]
+    @overload
+    def query(self, *entities: ColumnElement[_T], **kwargs: Any) -> Query[tuple[_T, ...]]: ...
+    @overload
+    def query(self, *entities: type[_T], **kwargs: Any) -> Query[_T]: ...
     @property
     def no_autoflush(self) -> None: ...
     def refresh(self, instance, attribute_names: Any | None = ..., with_for_update: Any | None = ...) -> None: ...
