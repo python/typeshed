@@ -98,7 +98,7 @@ class NNTP:
     def starttls(self, context: ssl.SSLContext | None = ...) -> None: ...
 
 class NNTP_SSL(NNTP):
-    sock: socket.socket
+    ssl_context: ssl.SSLContext | None
     def __init__(
         self,
         host: str,
