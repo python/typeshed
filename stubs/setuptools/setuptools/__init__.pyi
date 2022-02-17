@@ -1,4 +1,3 @@
-from abc import abstractmethod
 from collections.abc import Iterable, Mapping
 from distutils.core import Command as _Command
 from typing import Any
