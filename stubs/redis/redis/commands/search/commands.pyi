@@ -2,7 +2,7 @@ from collections.abc import Mapping
 from typing import Any
 from typing_extensions import Literal
 
-from .aggregate import AggregateRequest, AggregateResult, Cursor
+from .aggregation import AggregateRequest, AggregateResult, Cursor
 from .query import Query
 from .result import Result
 
