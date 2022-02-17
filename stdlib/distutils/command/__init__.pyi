@@ -19,6 +19,9 @@ from . import (
     upload as upload,
 )
 
+if sys.version_info < (3, 10):
+    from . import bdist_wininst as bdist_wininst
+
 __all__ = [
     "build",
     "build_py",
