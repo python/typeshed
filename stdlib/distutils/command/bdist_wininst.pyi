@@ -1,6 +1,6 @@
 import sys
-from typing import Any, ClassVar
 from _typeshed import StrOrBytesPath
+from typing import Any, ClassVar
 
 if sys.version_info < (3, 10):
     from ..cmd import Command
