@@ -3,11 +3,11 @@ from typing_extensions import Literal
 
 # This module is only available on Windows
 if sys.platform == "win32":
-    LK_LOCK: Literal[0]
-    LK_NBLCK: Literal[0]
-    LK_NBRLCK: Literal[0]
-    LK_RLCK: Literal[0]
     LK_UNLCK: Literal[0]
+    LK_LOCK: Literal[1]
+    LK_NBLCK: Literal[2]
+    LK_RLCK: Literal[3]
+    LK_NBRLCK: Literal[4]
     def locking(__fd: int, __mode: int, __nbytes: int) -> None: ...
     def setmode(__fd: int, __mode: int) -> int: ...
     def open_osfhandle(__handle: int, __flags: int) -> int: ...
