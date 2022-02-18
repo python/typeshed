@@ -1,12 +1,13 @@
 import sys
+from typing_extensions import Literal
 
 # This module is only available on Windows
 if sys.platform == "win32":
-    LK_LOCK: int
-    LK_NBLCK: int
-    LK_NBRLCK: int
-    LK_RLCK: int
-    LK_UNLCK: int
+    LK_LOCK: Literal[0]
+    LK_NBLCK: Literal[0]
+    LK_NBRLCK: Literal[0]
+    LK_RLCK: Literal[0]
+    LK_UNLCK: Literal[0]
     def locking(__fd: int, __mode: int, __nbytes: int) -> None: ...
     def setmode(__fd: int, __mode: int) -> int: ...
     def open_osfhandle(__handle: int, __flags: int) -> int: ...
