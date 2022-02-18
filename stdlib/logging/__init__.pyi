@@ -245,14 +245,14 @@ class Logger(Filterer):
     def hasHandlers(self) -> bool: ...
     def callHandlers(self, record: LogRecord) -> None: ...  # undocumented
 
-CRITICAL: Literal[50]
-FATAL: Literal[50]
-ERROR: Literal[40]
-WARNING: Literal[30]
-WARN: Literal[30]
-INFO: Literal[20]
-DEBUG: Literal[10]
-NOTSET: Literal[0]
+CRITICAL: Final = 50
+FATAL: Final = 50
+ERROR: Final = 40
+WARNING: Final = 30
+WARN: Final = 30
+INFO: Final = 20
+DEBUG: Final = 10
+NOTSET: Final = 0
 
 class Handler(Filterer):
     level: int  # undocumented
