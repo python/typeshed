@@ -5,6 +5,8 @@ from typing_extensions import ParamSpec, final
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
+__all__ = ("Context", "ContextVar", "Token", "copy_context")
+
 _T = TypeVar("_T")
 _D = TypeVar("_D")
 _P = ParamSpec("_P")
