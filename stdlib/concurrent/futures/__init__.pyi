@@ -2,18 +2,18 @@ import sys
 
 if sys.version_info >= (3, 7):
     __all__ = (
-        'FIRST_COMPLETED',
-        'FIRST_EXCEPTION',
-        'ALL_COMPLETED',
-        'CancelledError',
-        'TimeoutError',
-        'BrokenExecutor',
-        'Future',
-        'Executor',
-        'wait',
-        'as_completed',
-        'ProcessPoolExecutor',
-        'ThreadPoolExecutor',
+        "FIRST_COMPLETED",
+        "FIRST_EXCEPTION",
+        "ALL_COMPLETED",
+        "CancelledError",
+        "TimeoutError",
+        "BrokenExecutor",
+        "Future",
+        "Executor",
+        "wait",
+        "as_completed",
+        "ProcessPoolExecutor",
+        "ThreadPoolExecutor",
     )
 
 from ._base import (
