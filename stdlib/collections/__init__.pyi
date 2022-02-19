@@ -12,6 +12,18 @@ if sys.version_info >= (3, 10):
 else:
     from _collections_abc import *
 
+__all__ = [
+    'ChainMap',
+    'Counter',
+    'OrderedDict',
+    'UserDict',
+    'UserList',
+    'UserString',
+    'defaultdict',
+    'deque',
+    'namedtuple'
+]
+
 _S = TypeVar("_S")
 _T = TypeVar("_T")
 _T1 = TypeVar("_T1")
