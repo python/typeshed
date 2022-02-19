@@ -433,7 +433,6 @@ email.contentmanager.get_text_content
 email.contentmanager.set_bytes_content
 email.contentmanager.set_message_content
 email.contentmanager.set_text_content
-email.iterators.walk
 pipes.Template.makepipeline
 pipes.Template.open_r
 pipes.Template.open_w

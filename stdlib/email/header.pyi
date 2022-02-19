@@ -1,5 +1,7 @@
 from email.charset import Charset
 
+__all__ = ["Header", "decode_header", "make_header"]
+
 class Header:
     def __init__(
         self,
