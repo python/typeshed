@@ -1,6 +1,48 @@
 import sys
 from typing import IO, Any, Callable, Generator, Generic, Iterable, NoReturn, Pattern, Protocol, Sequence, TypeVar, overload
 
+if sys.version_info >= (3, 9):
+    __all__ = [
+        "ArgumentParser",
+        "ArgumentError",
+        "ArgumentTypeError",
+        "BooleanOptionalAction",
+        "FileType",
+        "HelpFormatter",
+        "ArgumentDefaultsHelpFormatter",
+        "RawDescriptionHelpFormatter",
+        "RawTextHelpFormatter",
+        "MetavarTypeHelpFormatter",
+        "Namespace",
+        "Action",
+        "ONE_OR_MORE",
+        "OPTIONAL",
+        "PARSER",
+        "REMAINDER",
+        "SUPPRESS",
+        "ZERO_OR_MORE",
+    ]
+else:
+    __all__ = [
+        "ArgumentParser",
+        "ArgumentError",
+        "ArgumentTypeError",
+        "FileType",
+        "HelpFormatter",
+        "ArgumentDefaultsHelpFormatter",
+        "RawDescriptionHelpFormatter",
+        "RawTextHelpFormatter",
+        "MetavarTypeHelpFormatter",
+        "Namespace",
+        "Action",
+        "ONE_OR_MORE",
+        "OPTIONAL",
+        "PARSER",
+        "REMAINDER",
+        "SUPPRESS",
+        "ZERO_OR_MORE",
+    ]
+
 _T = TypeVar("_T")
 _ActionT = TypeVar("_ActionT", bound=Action)
 _ArgumentParserT = TypeVar("_ArgumentParserT", bound=ArgumentParser)
