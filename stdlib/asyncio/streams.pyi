@@ -5,6 +5,13 @@ from typing import Any, AsyncIterator, Awaitable, Callable, Iterable, Optional
 from . import events, protocols, transports
 from .base_events import Server
 
+if sys.version_info >= (3, 8):
+    __all__ = ('StreamReader', 'StreamWriter', 'StreamReaderProtocol', 'open_connection', 'start_server')
+elif sys.version_info >= (3, 7):
+    __all__ = ('StreamReader', 'StreamWriter', 'StreamReaderProtocol', 'open_connection', 'start_server', 'IncompleteReadError', 'LimitOverrunError')
+else:
+    __all__ = ['StreamReader', 'StreamWriter', 'StreamReaderProtocol', 'open_connection', 'start_server', 'IncompleteReadError', 'LimitOverrunError']
+
 _ClientConnectedCallback = Callable[[StreamReader, StreamWriter], Optional[Awaitable[None]]]
 
 if sys.version_info < (3, 8):
