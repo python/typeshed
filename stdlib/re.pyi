@@ -1,8 +1,9 @@
 import enum
 import sys
 from sre_constants import error as error
-from stdlib._typeshed import MatchString
 from typing import Any, AnyStr, Callable, Iterator, Union, overload
+
+from stdlib._typeshed import MatchString
 
 # ----- re variables and constants -----
 if sys.version_info >= (3, 7):

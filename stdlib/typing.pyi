@@ -1,6 +1,6 @@
 import collections  # Needed by aliases like DefaultDict, see mypy issue 2986
 import sys
-from _typeshed import Self, SupportsKeysAndGetItem, ReadableBuffer, T_ReadableBuffer, MatchString
+from _typeshed import MatchString, ReadableBuffer, Self, SupportsKeysAndGetItem, T_ReadableBuffer
 from abc import ABCMeta, abstractmethod
 from types import BuiltinFunctionType, CodeType, FrameType, FunctionType, MethodType, ModuleType, TracebackType
 from typing_extensions import Literal as _Literal, ParamSpec as _ParamSpec, final as _final
