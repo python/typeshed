@@ -13,8 +13,9 @@ from typing_extensions import Literal
 
 if sys.version_info >= (3, 7):
     from contextvars import Context
-
-__all__ = ("BaseEventLoop",)
+    __all__ = ("BaseEventLoop",)
+else:
+    __all__ = ["BaseEventLoop"]
 
 _T = TypeVar("_T")
 _ProtocolT = TypeVar("_ProtocolT", bound=BaseProtocol)
