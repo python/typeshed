@@ -7,13 +7,7 @@ from .base_events import Server
 
 if sys.platform == "win32":
     if sys.version_info >= (3, 8):
-        __all__ = (
-            "StreamReader",
-            "StreamWriter",
-            "StreamReaderProtocol",
-            "open_connection",
-            "start_server",
-        )
+        __all__ = ("StreamReader", "StreamWriter", "StreamReaderProtocol", "open_connection", "start_server")
     elif sys.version_info >= (3, 7):
         __all__ = (
             "StreamReader",
