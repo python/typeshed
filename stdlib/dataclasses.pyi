@@ -11,6 +11,38 @@ if sys.version_info >= (3, 9):
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
 
+if sys.version_info >= (3, 10):
+    __all__ = [
+        "dataclass",
+        "field",
+        "Field",
+        "FrozenInstanceError",
+        "InitVar",
+        "KW_ONLY",
+        "MISSING",
+        "fields",
+        "asdict",
+        "astuple",
+        "make_dataclass",
+        "replace",
+        "is_dataclass",
+    ]
+else:
+    __all__ = [
+        "dataclass",
+        "field",
+        "Field",
+        "FrozenInstanceError",
+        "InitVar",
+        "MISSING",
+        "fields",
+        "asdict",
+        "astuple",
+        "make_dataclass",
+        "replace",
+        "is_dataclass",
+    ]
+
 # define _MISSING_TYPE as an enum within the type stubs,
 # even though that is not really its type at runtime
 # this allows us to use Literal[_MISSING_TYPE.MISSING]
