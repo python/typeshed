@@ -5,6 +5,53 @@ from abc import abstractmethod
 from typing import IO, Any, BinaryIO, Callable, Generator, Iterable, Iterator, Protocol, TextIO, overload
 from typing_extensions import Literal
 
+__all__ = [
+    'register',
+    'lookup',
+    'open',
+    'EncodedFile',
+    'BOM', 
+    'BOM_BE',
+    'BOM_LE',
+    'BOM32_BE',
+    'BOM32_LE',
+    'BOM64_BE',
+    'BOM64_LE',
+    'BOM_UTF8',
+    'BOM_UTF16',
+    'BOM_UTF16_LE',
+    'BOM_UTF16_BE',
+    'BOM_UTF32', 
+    'BOM_UTF32_LE', 
+    'BOM_UTF32_BE', 
+    'CodecInfo', 
+    'Codec', 
+    'IncrementalEncoder', 
+    'IncrementalDecoder', 
+    'StreamReader', 
+    'StreamWriter', 
+    'StreamReaderWriter', 
+    'StreamRecoder', 
+    'getencoder', 
+    'getdecoder', 
+    'getincrementalencoder', 
+    'getincrementaldecoder', 
+    'getreader', 
+    'getwriter', 
+    'encode', 
+    'decode', 
+    'iterencode', 
+    'iterdecode', 
+    'strict_errors', 
+    'ignore_errors', 
+    'replace_errors', 
+    'xmlcharrefreplace_errors', 
+    'backslashreplace_errors', 
+    'namereplace_errors', 
+    'register_error',
+    'lookup_error'
+]
+
 BOM32_BE: Literal[b"\xfe\xff"]
 BOM32_LE: Literal[b"\xff\xfe"]
 BOM64_BE: Literal[b"\x00\x00\xfe\xff"]
