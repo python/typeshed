@@ -36,12 +36,10 @@ ast.Index.__new__
 ast.NameConstant.__new__
 ast.Num.__new__
 ast.Str.__new__
-asyncio.compat  # module removed in 3.7
 asyncio.Future.__init__  # Usually initialized from c object
 asyncio.Future._callbacks  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future._callbacks  # Usually initialized from c object
-asyncio.taskgroups  # Added in Python 3.11
 builtins.dict.get
 contextvars.Context.__init__  # Default C __init__ signature is wrong
 contextlib.AbstractAsyncContextManager.__class_getitem__
@@ -129,8 +127,6 @@ os.path.join
 # These enums derive from (str, Enum). See comment in py3_common.txt
 pstats.SortKey.__new__
 tkinter.EventType.__new__
-
-distutils.command.bdist_wininst # removed in 3.10
 
 # stubtest complains that in 3.10 the default argument is inconsistent with the annotation,
 # but in 3.10+ calling the function without the default argument is in fact deprecated,
