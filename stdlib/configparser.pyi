@@ -4,6 +4,30 @@ from collections.abc import Callable, ItemsView, Iterable, Iterator, Mapping, Mu
 from typing import Any, ClassVar, Optional, Pattern, TypeVar, overload
 from typing_extensions import Literal
 
+__all__ = [
+    'NoSectionError',
+    'DuplicateOptionError',
+    'DuplicateSectionError',
+    'NoOptionError', 
+    'InterpolationError',
+    'InterpolationDepthError', 
+    'InterpolationMissingOptionError',
+    'InterpolationSyntaxError', 
+    'ParsingError', 
+    'MissingSectionHeaderError', 
+    'ConfigParser', 
+    'SafeConfigParser',
+    'RawConfigParser',
+    'Interpolation',
+    'BasicInterpolation',
+    'ExtendedInterpolation', 
+    'LegacyInterpolation', 
+    'SectionProxy', 
+    'ConverterMapping',
+    'DEFAULTSECT',
+    'MAX_INTERPOLATION_DEPTH'
+]
+
 # Internal type aliases
 _section = Mapping[str, str]
 _parser = MutableMapping[str, _section]
