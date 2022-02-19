@@ -3,17 +3,10 @@ _collections_abc.AsyncGenerator.ag_code
 _collections_abc.AsyncGenerator.ag_frame
 _collections_abc.AsyncGenerator.ag_running
 _dummy_threading
-asyncio.compat  # Removed in 3.7
 asyncio.Future.__init__  # Usually initialized from c object
 asyncio.Future._callbacks  # Usually initialized from c object
-asyncio.exceptions  # Added in Python 3.8
 asyncio.futures.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future._callbacks  # Usually initialized from c object
-asyncio.staggered  # Added in Python 3.8
-asyncio.threads  # Added in Python 3.9
-asyncio.trsock  # Added in Python 3.8
-asyncio.mixins  # Added in Python 3.10
-asyncio.taskgroups  # Added in Python 3.11
 builtins.dict.get
 builtins.str.maketrans
 cmath.log
@@ -34,8 +27,6 @@ enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 hmac.HMAC.__init__
 http.server.SimpleHTTPRequestHandler.__init__  # *args is expanded
-importlib.metadata  # Added in 3.8
-importlib.metadata._meta  # Added in 3.10
 ipaddress._BaseNetwork.__init__
 json.loads
 multiprocessing.shared_memory
@@ -58,8 +49,6 @@ typing._SpecialForm.__init__
 typing._SpecialForm.__new__
 typing.runtime_checkable
 typing.Text.maketrans
-unittest._log  # New in Python 3.9
-unittest.async_case  # Added in Python 3.8
 uuid.UUID.int
 uuid.UUID.is_safe
 uuid.getnode  # undocumented, unused parameter getters that was later removed

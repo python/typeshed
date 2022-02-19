@@ -18,6 +18,12 @@ import tomli
 
 @functools.lru_cache()
 def get_mypy_req():
+    # Use pre-release stubtest. Keep the following in sync:
+    # - get_mypy_req in tests/stubtest_third_party.py
+    # - stubtest-stdlib in .github/workflows/stubtest.yml
+    # - stubtest-stdlib in .github/workflows/tests.yml
+    return "git+git://github.com/python/mypy@b36d8cf5d4d0bb77c5a8cf783ba4def16cd9846a"
+
     with open("requirements-tests.txt") as f:
         return next(line.strip() for line in f if "mypy" in line)
 
