@@ -4,10 +4,13 @@ from collections.abc import Coroutine
 from typing import Any
 from typing_extensions import TypeGuard
 
-if sys.version_info < (3, 11):
+if sys.version_info >= (3, 11):
+    __all__ = ("iscoroutinefunction", "iscoroutine")
+else:
     from collections.abc import Callable
     from typing import TypeVar
 
+    __all__ = ("coroutine", "iscoroutinefunction", "iscoroutine")
     _F = TypeVar("_F", bound=Callable[..., Any])
     def coroutine(func: _F) -> _F: ...
 
