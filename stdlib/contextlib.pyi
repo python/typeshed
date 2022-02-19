@@ -23,7 +23,7 @@ if sys.version_info >= (3, 11):
     __all__ = [
         "asynccontextmanager",
         "contextmanager",
-        "closing", 
+        "closing",
         "nullcontext",
         "AbstractContextManager",
         "AbstractAsyncContextManager",
@@ -32,15 +32,15 @@ if sys.version_info >= (3, 11):
         "ExitStack",
         "redirect_stdout",
         "redirect_stderr",
-        "suppress", 
+        "suppress",
         "aclosing",
-        "chdir"
+        "chdir",
     ]
 elif sys.version_info >= (3, 10):
     __all__ = [
         "asynccontextmanager",
         "contextmanager",
-        "closing", 
+        "closing",
         "nullcontext",
         "AbstractContextManager",
         "AbstractAsyncContextManager",
@@ -49,14 +49,14 @@ elif sys.version_info >= (3, 10):
         "ExitStack",
         "redirect_stdout",
         "redirect_stderr",
-        "suppress", 
-        "aclosing"
+        "suppress",
+        "aclosing",
     ]
 elif sys.version_info >= (3, 7):
     __all__ = [
         "asynccontextmanager",
         "contextmanager",
-        "closing", 
+        "closing",
         "nullcontext",
         "AbstractContextManager",
         "AbstractAsyncContextManager",
@@ -65,7 +65,7 @@ elif sys.version_info >= (3, 7):
         "ExitStack",
         "redirect_stdout",
         "redirect_stderr",
-        "suppress", 
+        "suppress",
     ]
 else:
     __all__ = [
@@ -76,9 +76,8 @@ else:
         "ExitStack",
         "redirect_stdout",
         "redirect_stderr",
-        "suppress"
+        "suppress",
     ]
-
 
 AbstractContextManager = ContextManager
 if sys.version_info >= (3, 7):
