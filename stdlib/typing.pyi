@@ -1,6 +1,6 @@
 import collections  # Needed by aliases like DefaultDict, see mypy issue 2986
 import sys
-from _typeshed import Self, SupportsKeysAndGetItem
+from _typeshed import Self, SupportsKeysAndGetItem, ReadableBuffer, T_ReadableBuffer
 from abc import ABCMeta, abstractmethod
 from types import BuiltinFunctionType, CodeType, FrameType, FunctionType, MethodType, ModuleType, TracebackType
 from typing_extensions import Literal as _Literal, ParamSpec as _ParamSpec, final as _final
@@ -586,13 +586,15 @@ class TextIO(IO[str]):
 
 class ByteString(Sequence[int], metaclass=ABCMeta): ...
 
+MatchString = TypeVar("MatchString", bound=str | bytes | ReadableBuffer)
+
 @_final
-class Match(Generic[AnyStr]):
+class Match(Generic[AnyStr, MatchString]):
     pos: int
     endpos: int
     lastindex: int | None
     lastgroup: str | None
-    string: AnyStr
+    string: MatchString
 
     # The regular expression object whose match() or search() method produced
     # this match instance.
@@ -636,8 +638,9 @@ class Pattern(Generic[AnyStr]):
     groupindex: Mapping[str, int]
     groups: int
     pattern: AnyStr
-    def search(self, string: AnyStr, pos: int = ..., endpos: int = ...) -> Match[AnyStr] | None: ...
-    def match(self, string: AnyStr, pos: int = ..., endpos: int = ...) -> Match[AnyStr] | None: ...
+
+    def search(self, string: AnyStr, pos: int = ..., endpos: int = ...) -> Match[AnyStr, AnyStr] | None: ...
+    def match(self, string: MatchString, pos: int = ..., endpos: int = ...) -> Match[AnyStr, MatchString] | None: ...
     def fullmatch(self, string: AnyStr, pos: int = ..., endpos: int = ...) -> Match[AnyStr] | None: ...
     def split(self, string: AnyStr, maxsplit: int = ...) -> list[AnyStr | Any]: ...
     def findall(self, string: AnyStr, pos: int = ..., endpos: int = ...) -> list[Any]: ...
