@@ -1,6 +1,7 @@
 import enum
 import sys
 from sre_constants import error as error
+from stdlib._typeshed import MatchString
 from typing import Any, AnyStr, Callable, Iterator, Union, overload
 
 # ----- re variables and constants -----
@@ -60,9 +61,9 @@ def search(pattern: AnyStr, string: AnyStr, flags: _FlagsType = ...) -> Match[An
 @overload
 def search(pattern: Pattern[AnyStr], string: AnyStr, flags: _FlagsType = ...) -> Match[AnyStr] | None: ...
 @overload
-def match(pattern: AnyStr, string: AnyStr, flags: _FlagsType = ...) -> Match[AnyStr] | None: ...
+def match(pattern: AnyStr, string: MatchString, flags: _FlagsType = ...) -> Match[AnyStr, MatchString] | None: ...
 @overload
-def match(pattern: Pattern[AnyStr], string: AnyStr, flags: _FlagsType = ...) -> Match[AnyStr] | None: ...
+def match(pattern: Pattern[AnyStr], string: MatchString, flags: _FlagsType = ...) -> Match[AnyStr, MatchString] | None: ...
 
 # New in Python 3.4
 @overload
