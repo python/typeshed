@@ -1,4 +1,4 @@
-name: Check stubs
+name: Test
 
 on:
   workflow_dispatch:
@@ -110,7 +110,11 @@ jobs:
       - name: Update pip
         run: python -m pip install -U pip
       - name: Install dependencies
-        run: pip install $(grep tomli== requirements-tests.txt) $(grep mypy== requirements-tests.txt)
+        # Use pre-release stubtest. Keep the following in sync:
+        # - get_mypy_req in tests/stubtest_third_party.py
+        # - stubtest-stdlib in .github/workflows/stubtest.yml
+        # - stubtest-stdlib in .github/workflows/tests.yml
+        run: pip install $(grep tomli== requirements-tests.txt) git+git://github.com/python/mypy@b36d8cf5d4d0bb77c5a8cf783ba4def16cd9846a
       - name: Run stubtest
         run: python tests/stubtest_stdlib.py
 
