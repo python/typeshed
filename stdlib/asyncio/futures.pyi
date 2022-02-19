@@ -19,14 +19,10 @@ if sys.version_info >= (3, 9):
 if sys.version_info >= (3, 8):
     __all__ = ("Future", "wrap_future", "isfuture")
 elif sys.version_info >= (3, 7):
-    __all__ = (
-    'CancelledError', 'TimeoutError', 'InvalidStateError',
-    'Future', 'wrap_future', 'isfuture',
-)
-   
+    __all__ = ("CancelledError", "TimeoutError", "InvalidStateError", "Future", "wrap_future", "isfuture")
+
 else:
-    __all__ = ['CancelledError', 'TimeoutError', 'InvalidStateError',
-           'Future', 'wrap_future', 'isfuture']
+    __all__ = ["CancelledError", "TimeoutError", "InvalidStateError", "Future", "wrap_future", "isfuture"]
 
 _T = TypeVar("_T")
 
