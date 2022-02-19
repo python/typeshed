@@ -6,7 +6,15 @@ from . import events, protocols, transports
 from .base_events import Server
 
 if sys.version_info >= (3, 8):
-    __all__ = ("StreamReader", "StreamWriter", "StreamReaderProtocol", "open_connection", "start_server", "open_unix_connection", "start_unix_server")
+    __all__ = (
+        "StreamReader",
+        "StreamWriter",
+        "StreamReaderProtocol",
+        "open_connection",
+        "start_server",
+        "open_unix_connection",
+        "start_unix_server",
+    )
 elif sys.version_info >= (3, 7):
     __all__ = (
         "StreamReader",
@@ -16,8 +24,8 @@ elif sys.version_info >= (3, 7):
         "start_server",
         "IncompleteReadError",
         "LimitOverrunError",
-        "open_unix_connection", 
-        "start_unix_server"
+        "open_unix_connection",
+        "start_unix_server",
     )
 else:
     __all__ = [
@@ -29,7 +37,7 @@ else:
         "IncompleteReadError",
         "LimitOverrunError",
         "open_unix_connection",
-        "start_unix_server"
+        "start_unix_server",
     ]
 
 _ClientConnectedCallback = Callable[[StreamReader, StreamWriter], Optional[Awaitable[None]]]
