@@ -5,6 +5,11 @@ from typing_extensions import Literal
 
 from . import base_events, constants, events, futures, streams, transports
 
+if sys.version_info >= (3, 7):
+    __all__ = ("BaseProactorEventLoop",)
+else:
+    __all__ = ["BaseProactorEventLoop"]
+
 if sys.version_info >= (3, 8):
     class _WarnCallbackProtocol(Protocol):
         def __call__(
