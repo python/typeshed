@@ -137,6 +137,9 @@ def main() -> NoReturn:
     for i, dist in enumerate(dists):
         if i % args.num_shards != args.shard_index:
             continue
+        if dist.name == "SQLAlchemy":
+            # See https://github.com/python/typeshed/issues/7307
+            continue
         if not run_stubtest(dist):
             result = 1
     sys.exit(result)
