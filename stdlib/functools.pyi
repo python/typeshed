@@ -7,6 +7,53 @@ from typing_extensions import Literal, final
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
+    __all__ = [
+        "update_wrapper",
+        "wraps",
+        "WRAPPER_ASSIGNMENTS",
+        "WRAPPER_UPDATES",
+        "total_ordering",
+        "cache",
+        "cmp_to_key",
+        "lru_cache",
+        "reduce",
+        "partial",
+        "partialmethod",
+        "singledispatch",
+        "singledispatchmethod",
+        "cached_property",
+    ]
+elif sys.version_info >= (3, 8):
+    __all__ = [
+        "update_wrapper",
+        "wraps",
+        "WRAPPER_ASSIGNMENTS",
+        "WRAPPER_UPDATES",
+        "total_ordering",
+        "cmp_to_key",
+        "lru_cache",
+        "reduce",
+        "partial",
+        "partialmethod",
+        "singledispatch",
+        "singledispatchmethod",
+        "cached_property",
+    ]
+else:
+    __all__ = [
+        "update_wrapper",
+        "wraps",
+        "WRAPPER_ASSIGNMENTS",
+        "WRAPPER_UPDATES",
+        "total_ordering",
+        "cmp_to_key",
+        "lru_cache",
+        "reduce",
+        "partial",
+        "partialmethod",
+        "singledispatch",
+    ]
+
 _AnyCallable = Callable[..., Any]
 
 _T = TypeVar("_T")

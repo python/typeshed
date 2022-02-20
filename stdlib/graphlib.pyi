@@ -1,6 +1,8 @@
 from _typeshed import SupportsItems
 from typing import Generic, Iterable, TypeVar
 
+__all__ = ["TopologicalSorter", "CycleError"]
+
 _T = TypeVar("_T")
 
 class TopologicalSorter(Generic[_T]):

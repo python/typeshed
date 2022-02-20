@@ -7,6 +7,37 @@ from collections.abc import Iterable, Iterator, Mapping
 from typing import Any, TypeVar, Union, overload
 from typing_extensions import Literal
 
+if sys.version_info >= (3, 11):
+    __all__ = [
+        "EnumType",
+        "EnumMeta",
+        "Enum",
+        "IntEnum",
+        "StrEnum",
+        "Flag",
+        "IntFlag",
+        "ReprEnum",
+        "auto",
+        "unique",
+        "property",
+        "verify",
+        "FlagBoundary",
+        "STRICT",
+        "CONFORM",
+        "EJECT",
+        "KEEP",
+        "global_flag_repr",
+        "global_enum_repr",
+        "global_str",
+        "global_enum",
+        "EnumCheck",
+        "CONTINUOUS",
+        "NAMED_FLAGS",
+        "UNIQUE",
+    ]
+else:
+    __all__ = ["EnumMeta", "Enum", "IntEnum", "Flag", "IntFlag", "auto", "unique"]
+
 _T = TypeVar("_T")
 _S = TypeVar("_S", bound=type[Enum])
 
