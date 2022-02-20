@@ -1548,6 +1548,8 @@ def __import__(
     level: int = ...,
 ) -> types.ModuleType: ...
 
+def __build_class__(__func: Callable[[], Any], __name: str, *bases: type, metaclass: type = ..., **kwds: Any): ...
+
 # Actually the type of Ellipsis is <type 'ellipsis'>, but since it's
 # not exposed anywhere under that name, we make it private here.
 @final
