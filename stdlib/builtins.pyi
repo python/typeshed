@@ -1547,7 +1547,6 @@ def __import__(
     fromlist: Sequence[str] = ...,
     level: int = ...,
 ) -> types.ModuleType: ...
-
 def __build_class__(__func: Callable[[], Any], __name: str, *bases: type, metaclass: type = ..., **kwds: Any) -> type: ...
 
 # Actually the type of Ellipsis is <type 'ellipsis'>, but since it's
