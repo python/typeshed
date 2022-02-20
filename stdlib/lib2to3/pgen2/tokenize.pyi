@@ -2,7 +2,6 @@ import sys
 from lib2to3.pgen2.token import *
 from typing import Callable, Iterable, Iterator
 
-# fmt: off
 if sys.version_info >= (3, 8):
     __all__ = [
         "AMPER", "AMPEREQUAL", "ASYNC", "AT", "ATEQUAL", "AWAIT", "BACKQUOTE",
@@ -33,7 +32,6 @@ else:
         "SLASHEQUAL", "STAR", "STAREQUAL", "STRING", "TILDE", "VBAR", "VBAREQUAL",
         "tok_name", "tokenize", "generate_tokens", "untokenize"
     ]
-# fmt: on
 
 _Coord = tuple[int, int]
 _TokenEater = Callable[[int, str, _Coord, _Coord, str], None]
