@@ -4,6 +4,25 @@ import weakref
 from queue import Queue as Queue
 from typing import Any, Callable, Iterable, Mapping, Sequence
 
+__all__ = [
+    "Process",
+    "current_process",
+    "active_children",
+    "freeze_support",
+    "Lock",
+    "RLock",
+    "Semaphore",
+    "BoundedSemaphore",
+    "Condition",
+    "Event",
+    "Barrier",
+    "Queue",
+    "Manager",
+    "Pipe",
+    "Pool",
+    "JoinableQueue",
+]
+
 JoinableQueue = Queue
 Barrier = threading.Barrier
 BoundedSemaphore = threading.BoundedSemaphore

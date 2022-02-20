@@ -11,8 +11,12 @@ from .context import BaseContext
 if sys.version_info >= (3, 8):
     from .shared_memory import _SLT, ShareableList, SharedMemory
 
+    __all__ = ["BaseManager", "SyncManager", "BaseProxy", "Token", "SharedMemoryManager"]
+
     _SharedMemory = SharedMemory
     _ShareableList = ShareableList
+else:
+    __all__ = ["BaseManager", "SyncManager", "BaseProxy", "Token"]
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

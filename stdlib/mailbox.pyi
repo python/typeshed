@@ -9,6 +9,26 @@ from typing_extensions import Literal
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
+__all__ = [
+    "Mailbox",
+    "Maildir",
+    "mbox",
+    "MH",
+    "Babyl",
+    "MMDF",
+    "Message",
+    "MaildirMessage",
+    "mboxMessage",
+    "MHMessage",
+    "BabylMessage",
+    "MMDFMessage",
+    "Error",
+    "NoSuchMailboxError",
+    "NotEmptyError",
+    "ExternalClashError",
+    "FormatError",
+]
+
 _T = TypeVar("_T")
 _MessageT = TypeVar("_MessageT", bound=Message)
 _MessageData = Union[email.message.Message, bytes, str, IO[str], IO[bytes]]
