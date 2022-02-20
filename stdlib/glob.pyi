@@ -2,6 +2,8 @@ import sys
 from _typeshed import StrOrBytesPath
 from typing import AnyStr, Iterator
 
+__all__ = ["escape", "glob", "iglob"]
+
 def glob0(dirname: AnyStr, pattern: AnyStr) -> list[AnyStr]: ...
 def glob1(dirname: AnyStr, pattern: AnyStr) -> list[AnyStr]: ...
 
