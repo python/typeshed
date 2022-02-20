@@ -451,21 +451,37 @@ class AbstractEventLoop:
             ssl: _SSLContext = ...,
         ) -> Server: ...
 
-    @abstractmethod
-    async def create_datagram_endpoint(
-        self,
-        protocol_factory: Callable[[], _ProtocolT],
-        local_addr: tuple[str, int] | None = ...,
-        remote_addr: tuple[str, int] | None = ...,
-        *,
-        family: int = ...,
-        proto: int = ...,
-        flags: int = ...,
-        reuse_address: bool | None = ...,
-        reuse_port: bool | None = ...,
-        allow_broadcast: bool | None = ...,
-        sock: socket | None = ...,
-    ) -> tuple[BaseTransport, _ProtocolT]: ...
+    if sys.version_info >= (3, 11):
+        @abstractmethod
+        async def create_datagram_endpoint(
+            self,
+            protocol_factory: Callable[[], _ProtocolT],
+            local_addr: tuple[str, int] | None = ...,
+            remote_addr: tuple[str, int] | None = ...,
+            *,
+            family: int = ...,
+            proto: int = ...,
+            flags: int = ...,
+            reuse_port: bool | None = ...,
+            allow_broadcast: bool | None = ...,
+            sock: socket | None = ...,
+        ) -> tuple[BaseTransport, _ProtocolT]: ...
+    else:
+        @abstractmethod
+        async def create_datagram_endpoint(
+            self,
+            protocol_factory: Callable[[], _ProtocolT],
+            local_addr: tuple[str, int] | None = ...,
+            remote_addr: tuple[str, int] | None = ...,
+            *,
+            family: int = ...,
+            proto: int = ...,
+            flags: int = ...,
+            reuse_address: bool | None = ...,
+            reuse_port: bool | None = ...,
+            allow_broadcast: bool | None = ...,
+            sock: socket | None = ...,
+        ) -> tuple[BaseTransport, _ProtocolT]: ...
     # Pipes and subprocesses.
     @abstractmethod
     async def connect_read_pipe(
