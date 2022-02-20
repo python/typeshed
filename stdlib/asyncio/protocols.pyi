@@ -1,6 +1,11 @@
 import sys
 from asyncio import transports
 
+if sys.version_info >= (3, 7):
+    __all__ = ("BaseProtocol", "Protocol", "DatagramProtocol", "SubprocessProtocol", "BufferedProtocol")
+else:
+    __all__ = ["BaseProtocol", "Protocol", "DatagramProtocol", "SubprocessProtocol"]
+
 class BaseProtocol:
     def connection_made(self, transport: transports.BaseTransport) -> None: ...
     def connection_lost(self, exc: Exception | None) -> None: ...
@@ -15,9 +20,10 @@ if sys.version_info >= (3, 7):
     class BufferedProtocol(BaseProtocol):
         def get_buffer(self, sizehint: int) -> bytearray: ...
         def buffer_updated(self, nbytes: int) -> None: ...
+        def eof_received(self) -> bool | None: ...
 
 class DatagramProtocol(BaseProtocol):
-    def connection_made(self, transport: transports.DatagramTransport) -> None: ...  # type: ignore
+    def connection_made(self, transport: transports.DatagramTransport) -> None: ...  # type: ignore[override]
     def datagram_received(self, data: bytes, addr: tuple[str, int]) -> None: ...
     def error_received(self, exc: Exception) -> None: ...
 

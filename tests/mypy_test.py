@@ -196,19 +196,21 @@ def run_mypy(args, configurations, major, minor, files, *, custom_typeshed=False
         return 0
 
 
-def get_mypy_flags(args, major: int, minor: int, temp_name: str, *, custom_typeshed: bool) -> list[str]:
+def get_mypy_flags(args, major: int, minor: int, temp_name: str, *, custom_typeshed: bool = False) -> list[str]:
     flags = [
-            "--python-version",
-            "%d.%d" % (major, minor),
-            "--config-file",
-            temp_name,
-            "--no-site-packages",
-            "--show-traceback",
-            "--no-implicit-optional",
-            "--disallow-any-generics",
-            "--warn-incomplete-stub",
-            "--no-error-summary",
-        ]
+        "--python-version",
+        "%d.%d" % (major, minor),
+        "--config-file",
+        temp_name,
+        "--no-site-packages",
+        "--show-traceback",
+        "--no-implicit-optional",
+        "--disallow-untyped-decorators",
+        "--disallow-any-generics",
+        "--warn-incomplete-stub",
+        "--show-error-codes",
+        "--no-error-summary",
+    ]
     if custom_typeshed:
         # Setting custom typeshed dir prevents mypy from falling back to its bundled
         # typeshed in case of stub deletions
@@ -234,12 +236,7 @@ def read_dependencies(distribution: str) -> list[str]:
 
 
 def add_third_party_files(
-    distribution: str,
-    major: int,
-    files: list[str],
-    args,
-    configurations: list[MypyDistConf],
-    seen_dists: set[str],
+    distribution: str, major: int, files: list[str], args, configurations: list[MypyDistConf], seen_dists: set[str]
 ) -> None:
     if distribution in seen_dists:
         return
@@ -263,9 +260,7 @@ def add_third_party_files(
         add_configuration(configurations, distribution)
 
 
-def test_third_party_distribution(
-    distribution: str, major: int, minor: int, args
-) -> tuple[int, int]:
+def test_third_party_distribution(distribution: str, major: int, minor: int, args) -> tuple[int, int]:
     """Test the stubs of a third-party distribution.
 
     Return a tuple, where the first element indicates mypy's return code
@@ -283,8 +278,7 @@ def test_third_party_distribution(
         print("--- no files found ---")
         sys.exit(1)
 
-    # TODO: remove custom_typeshed after mypy 0.920 is released
-    code = run_mypy(args, configurations, major, minor, files, custom_typeshed=True)
+    code = run_mypy(args, configurations, major, minor, files)
     return code, len(files)
 
 
@@ -332,8 +326,7 @@ def main():
             files_checked += len(files)
 
         # Test files of all third party distributions.
-        # TODO: remove custom_typeshed after mypy 0.920 is released
-        print("Running mypy " + " ".join(get_mypy_flags(args, major, minor, "/tmp/...", custom_typeshed=True)))
+        print("Running mypy " + " ".join(get_mypy_flags(args, major, minor, "/tmp/...")))
         for distribution in sorted(os.listdir("stubs")):
             if not is_supported(distribution, major):
                 continue
