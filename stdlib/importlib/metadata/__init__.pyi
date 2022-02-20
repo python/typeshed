@@ -36,7 +36,14 @@ if sys.version_info >= (3, 8):
             def matches(self, **params: Any) -> bool: ...  # undocumented
 
     if sys.version_info >= (3, 10):
-        class SelectableGroups(dict):  # use as list is deprecated since 3.10
+        class EntryPoints(list[EntryPoint]):  # use as list is deprecated since 3.10
+            def select(self, **params: Any) -> EntryPoints: ...
+            @property
+            def names(self) -> set[str]: ...
+            @property
+            def groups(self) -> set[str]: ...
+
+        class SelectableGroups(dict[str, EntryPoints]):  # use as list is deprecated since 3.10
             @classmethod
             def load(cls, eps: SelectableGroups) -> SelectableGroups: ...
             @property
