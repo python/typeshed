@@ -1,6 +1,5 @@
 import sys
 from _typeshed import SupportsItems
-from types import GenericAlias
 from typing import Generic, Iterable, TypeVar
 
 _T = TypeVar("_T")
@@ -15,6 +14,7 @@ class TopologicalSorter(Generic[_T]):
     def get_ready(self) -> tuple[_T, ...]: ...
     def static_order(self) -> Iterable[_T]: ...
     if sys.version_info >= (3, 11):
+        from types import GenericAlias
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 class CycleError(ValueError): ...
