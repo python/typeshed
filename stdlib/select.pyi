@@ -103,6 +103,7 @@ if sys.platform != "linux" and sys.platform != "win32":
     KQ_NOTE_WRITE: int
 
 if sys.platform == "linux":
+    @final
     class epoll:
         def __init__(self, sizehint: int = ..., flags: int = ...) -> None: ...
         def __enter__(self: Self) -> Self: ...

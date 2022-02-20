@@ -36,8 +36,6 @@ fractions.Fraction.__new__  # overload is too complicated for stubtest to resolv
 ftplib.FTP.trust_server_pasv_ipv4_address  # Dangerous to use, intentionally undocumented, intentionally missing from typeshed. #6154
 gettext.install
 gettext.translation
-hashlib.sha3_\d+
-hashlib.shake_\d+
 hmac.new  # Stub is a white lie; see comments in the stub
 http.server.SimpleHTTPRequestHandler.__init__  # *args is expanded
 importlib.abc.Traversable.__init__  # Inherits __init__ from typing.Protocol
