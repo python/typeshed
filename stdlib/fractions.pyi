@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 _ComparableNum = Union[int, float, Decimal, Real]
 
-if sys.version_info >= (3, 10):
+if sys.version_info >= (3, 9):
     __all__ = ["Fraction"]
 else:
     __all__ = ["Fraction", "gcd"]
