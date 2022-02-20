@@ -2,6 +2,8 @@ from _heapq import *
 from _typeshed import SupportsRichComparison
 from typing import Any, Callable, Iterable, TypeVar
 
+__all__ = ["heappush", "heappop", "heapify", "heapreplace", "merge", "nlargest", "nsmallest", "heappushpop"]
+
 _S = TypeVar("_S")
 
 __about__: str
