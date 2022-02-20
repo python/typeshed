@@ -1,2 +1,2 @@
-__libmpdec_version__: str
 from decimal import *
+__libmpdec_version__: str
