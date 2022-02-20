@@ -13,8 +13,13 @@ _HashableT = TypeVar("_HashableT", bound=Hashable)
 
 class StatisticsError(ValueError): ...
 
-if sys.version_info >= (3, 8):
+if sys.version_info >= (3, 11):
+    def fmean(data: Iterable[SupportsFloat], weights: Iterable[SupportsFloat] | None = ...) -> float: ...
+
+elif sys.version_info >= (3, 8):
     def fmean(data: Iterable[SupportsFloat]) -> float: ...
+
+if sys.version_info >= (3, 8):
     def geometric_mean(data: Iterable[SupportsFloat]) -> float: ...
 
 def mean(data: Iterable[_NumberT]) -> _NumberT: ...
@@ -86,4 +91,11 @@ if sys.version_info >= (3, 10):
     class LinearRegression(NamedTuple):
         slope: float
         intercept: float
+
+if sys.version_info >= (3, 11):
+    def linear_regression(
+        __regressor: Sequence[_Number], __dependent_variable: Sequence[_Number], *, proportional: bool = ...
+    ) -> LinearRegression: ...
+
+elif sys.version_info >= (3, 10):
     def linear_regression(__regressor: Sequence[_Number], __dependent_variable: Sequence[_Number]) -> LinearRegression: ...
