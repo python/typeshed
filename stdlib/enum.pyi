@@ -80,6 +80,13 @@ class EnumMeta(ABCMeta):
     else:
         def __new__(metacls: type[Self], cls: str, bases: tuple[type, ...], classdict: _EnumDict) -> Self: ...  # type: ignore
 
+    if sys.version_info >= (3, 9):
+        @classmethod
+        def __prepare__(metacls, cls: str, bases: tuple[type, ...], **kwds: Any) -> _EnumDict: ...  # type: ignore[override]
+    else:
+        @classmethod
+        def __prepare__(metacls, cls: str, bases: tuple[type, ...]) -> _EnumDict: ...  # type: ignore[override]
+
     def __iter__(self: type[_T]) -> Iterator[_T]: ...
     def __reversed__(self: type[_T]) -> Iterator[_T]: ...
     def __contains__(self: type[Any], member: object) -> bool: ...
