@@ -26,6 +26,30 @@ if sys.version_info >= (3, 8):
 else:
     from collections import OrderedDict as _DictReadMapping
 
+__all__ = [
+    "QUOTE_MINIMAL",
+    "QUOTE_ALL",
+    "QUOTE_NONNUMERIC",
+    "QUOTE_NONE",
+    "Error",
+    "Dialect",
+    "__doc__",
+    "excel",
+    "excel_tab",
+    "field_size_limit",
+    "reader",
+    "writer",
+    "register_dialect",
+    "get_dialect",
+    "list_dialects",
+    "Sniffer",
+    "unregister_dialect",
+    "__version__",
+    "DictReader",
+    "DictWriter",
+    "unix_dialect",
+]
+
 _T = TypeVar("_T")
 
 class excel(Dialect):
