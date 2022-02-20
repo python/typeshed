@@ -245,6 +245,7 @@ class Row:
     def __ne__(self, __other): ...
 
 if sys.version_info < (3, 8):
+    @final
     class Statement:
         def __init__(self, *args, **kwargs): ...
 
