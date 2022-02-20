@@ -3,7 +3,7 @@ from typing import TypeVar, overload
 
 from stripe.api_resources.abstract.api_resource import APIResource as APIResource
 
-_T = TypeVar("_T", bound="DeletableAPIResource")
+_T = TypeVar("_T", bound=DeletableAPIResource)
 
 class DeletableAPIResource(APIResource):
     @overload
