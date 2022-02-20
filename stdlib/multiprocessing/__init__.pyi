@@ -29,7 +29,6 @@ if sys.version_info >= (3, 8):
 if sys.platform != "win32":
     from multiprocessing.context import ForkContext, ForkServerContext
 
-# fmt: off
 if sys.version_info >= (3, 8):
     __all__ = [
         "Array", "AuthenticationError", "Barrier", "BoundedSemaphore",
@@ -54,7 +53,6 @@ else:
         "parent_process", "reducer", "set_executable", "set_forkserver_preload",
         "set_start_method"
     ]
-# fmt: on
 
 # The following type aliases can be used to annotate the return values of
 # the corresponding functions. They are not defined at runtime.
