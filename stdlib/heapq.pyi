@@ -1,7 +1,6 @@
+from _heapq import *
 from _typeshed import SupportsRichComparison
 from typing import Any, Callable, Iterable, TypeVar
-
-from _heapq import *
 
 _T = TypeVar("_T")
 
