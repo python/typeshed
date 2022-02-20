@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Any, ClassVar, Iterable, NamedTuple, Pattern, overload
 
 if sys.version_info >= (3, 10):
-    from importlib.metadata._meta import PackageMetadata
+    from importlib.metadata._meta import PackageMetadata as PackageMetadata
     def packages_distributions() -> Mapping[str, list[str]]: ...
 
 if sys.version_info >= (3, 8):
