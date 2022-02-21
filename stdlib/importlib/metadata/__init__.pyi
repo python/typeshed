@@ -1,7 +1,7 @@
 import abc
 import pathlib
 import sys
-from _typeshed import StrPath, Self
+from _typeshed import Self, StrPath
 from collections.abc import Mapping
 from email.message import Message
 from importlib.abc import MetaPathFinder
@@ -167,6 +167,7 @@ if sys.version_info >= (3, 10):
     def entry_points() -> SelectableGroups: ...
     @overload
     def entry_points(**params: Any) -> EntryPoints: ...
+
 else:
     def metadata(distribution_name: str) -> Message: ...
     def entry_points() -> dict[str, list[EntryPoint]]: ...
