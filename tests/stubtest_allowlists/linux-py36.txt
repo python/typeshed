@@ -12,14 +12,10 @@ ssl.Options.OP_ENABLE_MIDDLEBOX_COMPAT
 uuid.lib
 
 # Not "async defs" at runtime
-asyncio.AbstractEventLoop.create_unix_connection
-asyncio.AbstractEventLoop.create_unix_server
 asyncio.SelectorEventLoop.create_unix_connection
 asyncio.SelectorEventLoop.create_unix_server
 asyncio.open_unix_connection
 asyncio.start_unix_server
-asyncio.events.AbstractEventLoop.create_unix_connection
-asyncio.events.AbstractEventLoop.create_unix_server
 asyncio.streams.open_unix_connection
 asyncio.streams.start_unix_server
 asyncio.unix_events.SelectorEventLoop.create_unix_connection

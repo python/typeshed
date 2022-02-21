@@ -107,6 +107,8 @@ collections.Sequence.index  # Supporting None in end is not mandatory
 asyncio.AbstractEventLoop.connect_read_pipe
 asyncio.AbstractEventLoop.connect_write_pipe
 asyncio.AbstractEventLoop.create_datagram_endpoint
+asyncio.AbstractEventLoop.create_unix_connection
+asyncio.AbstractEventLoop.create_unix_server
 asyncio.AbstractEventLoop.getaddrinfo
 asyncio.AbstractEventLoop.getnameinfo
 asyncio.AbstractEventLoop.shutdown_asyncgens
@@ -155,6 +157,8 @@ asyncio.base_subprocess.BaseSubprocessTransport._wait
 asyncio.events.AbstractEventLoop.connect_read_pipe
 asyncio.events.AbstractEventLoop.connect_write_pipe
 asyncio.events.AbstractEventLoop.create_datagram_endpoint
+asyncio.events.AbstractEventLoop.create_unix_connection
+asyncio.events.AbstractEventLoop.create_unix_server
 asyncio.events.AbstractEventLoop.getaddrinfo
 asyncio.events.AbstractEventLoop.getnameinfo
 asyncio.events.AbstractEventLoop.shutdown_asyncgens
