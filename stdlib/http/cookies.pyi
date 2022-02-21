@@ -4,6 +4,8 @@ from typing import Any, Generic, Iterable, Mapping, TypeVar, Union, overload
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
+__all__ = ["CookieError", "BaseCookie", "SimpleCookie"]
+
 _DataType = Union[str, Mapping[str, Union[str, Morsel[Any]]]]
 _T = TypeVar("_T")
 

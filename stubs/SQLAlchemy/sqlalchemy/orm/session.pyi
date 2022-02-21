@@ -2,6 +2,7 @@ from collections.abc import Mapping
 from typing import Any, TypeVar, overload
 
 from ..engine.base import Connection
+from ..engine.result import Result
 from ..engine.util import TransactionalContext
 from ..sql.elements import ColumnElement
 from ..sql.schema import Table
@@ -135,7 +136,7 @@ class Session(_SessionClassMethods):
         _parent_execute_state: Any | None = ...,
         _add_event: Any | None = ...,
         **kw,
-    ): ...
+    ) -> Result: ...
     def scalar(self, statement, params: Any | None = ..., execution_options=..., bind_arguments: Any | None = ..., **kw): ...
     def scalars(self, statement, params: Any | None = ..., execution_options=..., bind_arguments: Any | None = ..., **kw): ...
     def close(self) -> None: ...

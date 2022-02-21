@@ -103,14 +103,15 @@ if sys.platform != "linux" and sys.platform != "win32":
     KQ_NOTE_WRITE: int
 
 if sys.platform == "linux":
+    @final
     class epoll:
         def __init__(self, sizehint: int = ..., flags: int = ...) -> None: ...
         def __enter__(self: Self) -> Self: ...
         def __exit__(
             self,
-            exc_type: type[BaseException] | None = ...,
-            exc_val: BaseException | None = ...,
-            exc_tb: TracebackType | None = ...,
+            __exc_type: type[BaseException] | None = ...,
+            __exc_val: BaseException | None = ...,
+            __exc_tb: TracebackType | None = ...,
         ) -> None: ...
         def close(self) -> None: ...
         closed: bool

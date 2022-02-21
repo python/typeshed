@@ -92,6 +92,8 @@ enum.Enum.value
 enum.Flag.name
 enum.Flag.value
 enum.IntEnum.value
+hashlib.sha3_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
+hashlib.shake_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
 http.HTTPStatus.description  # set in __new__
 http.HTTPStatus.phrase  # set in __new__
 http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
@@ -201,8 +203,6 @@ multiprocessing.dummy.Lock  # Similar to above
 multiprocessing.dummy.RLock  # Similar to above
 tkinter.Misc.grid_propagate  # The noarg placeholder is a set value list
 tkinter.Misc.pack_propagate  # The noarg placeholder is a set value list
-tkinter.Misc.grid_columnconfigure  # an empty dict literal is actually a valid default for a TypedDict(total=False) parameter
-tkinter.Misc.grid_rowconfigure  # an empty dict literal is actually a valid default for a TypedDict(total=False) parameter
 tkinter.Tk.eval  # from __getattr__
 tkinter.Tk.report_callback_exception  # A bit of a lie, since it's actually a method, but typing it as an attribute allows it to be assigned to
 tkinter.Wm.wm_iconphoto  # Default value of argument can't be used without runtime error
@@ -433,7 +433,6 @@ email.contentmanager.get_text_content
 email.contentmanager.set_bytes_content
 email.contentmanager.set_message_content
 email.contentmanager.set_text_content
-email.iterators.walk
 pipes.Template.makepipeline
 pipes.Template.open_r
 pipes.Template.open_w

@@ -1,6 +1,11 @@
 import sys
 from asyncio import transports
 
+if sys.version_info >= (3, 7):
+    __all__ = ("BaseProtocol", "Protocol", "DatagramProtocol", "SubprocessProtocol", "BufferedProtocol")
+else:
+    __all__ = ["BaseProtocol", "Protocol", "DatagramProtocol", "SubprocessProtocol"]
+
 class BaseProtocol:
     def connection_made(self, transport: transports.BaseTransport) -> None: ...
     def connection_lost(self, exc: Exception | None) -> None: ...

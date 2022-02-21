@@ -18,6 +18,12 @@ import tomli
 
 @functools.lru_cache()
 def get_mypy_req():
+    # Use pre-release stubtest. Keep the following in sync:
+    # - get_mypy_req in tests/stubtest_third_party.py
+    # - stubtest-stdlib in .github/workflows/stubtest.yml
+    # - stubtest-stdlib in .github/workflows/tests.yml
+    return "git+git://github.com/python/mypy@080bb0e04e9d5c4d2513621d1fb62f1d61a573e9"
+
     with open("requirements-tests.txt") as f:
         return next(line.strip() for line in f if "mypy" in line)
 
@@ -130,6 +136,9 @@ def main() -> NoReturn:
     result = 0
     for i, dist in enumerate(dists):
         if i % args.num_shards != args.shard_index:
+            continue
+        if dist.name == "SQLAlchemy":
+            # See https://github.com/python/typeshed/issues/7307
             continue
         if not run_stubtest(dist):
             result = 1

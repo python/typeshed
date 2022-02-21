@@ -14,13 +14,10 @@ ast.Index.__new__
 ast.NameConstant.__new__
 ast.Num.__new__
 ast.Str.__new__
-asyncio.compat  # module removed in 3.7
 asyncio.Future.__init__  # Usually initialized from c object
 asyncio.Future._callbacks  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future._callbacks  # Usually initialized from c object
-asyncio.mixins  # Added in Python 3.10
-asyncio.taskgroups  # Added in Python 3.11
 builtins.dict.get
 collections.AsyncGenerator.ag_await
 collections.AsyncGenerator.ag_code
@@ -39,12 +36,9 @@ fractions.Fraction.__new__  # overload is too complicated for stubtest to resolv
 ftplib.FTP.trust_server_pasv_ipv4_address  # Dangerous to use, intentionally undocumented, intentionally missing from typeshed. #6154
 gettext.install
 gettext.translation
-hashlib.sha3_\d+
-hashlib.shake_\d+
 hmac.new  # Stub is a white lie; see comments in the stub
 http.server.SimpleHTTPRequestHandler.__init__  # *args is expanded
 importlib.abc.Traversable.__init__  # Inherits __init__ from typing.Protocol
-importlib.metadata._meta  # Added in 3.10
 ipaddress.IPv4Interface.hostmask
 ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address

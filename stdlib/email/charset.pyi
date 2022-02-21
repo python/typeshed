@@ -1,5 +1,7 @@
 from typing import Iterator
 
+__all__ = ["Charset", "add_alias", "add_charset", "add_codec"]
+
 QP: int  # undocumented
 BASE64: int  # undocumented
 SHORTEST: int  # undocumented
