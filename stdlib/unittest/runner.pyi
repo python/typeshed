@@ -11,7 +11,6 @@ class TextTestResult(unittest.result.TestResult):
     separator1: str
     separator2: str
     showAll: bool  # undocumented
-    dots: bool  # undocumented
     stream: TextIO  # undocumented
     def __init__(self, stream: TextIO, descriptions: bool, verbosity: int) -> None: ...
     def getDescription(self, test: unittest.case.TestCase) -> str: ...
