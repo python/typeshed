@@ -10,7 +10,8 @@ class TextTestResult(unittest.result.TestResult):
     dots: bool  # undocumented
     separator1: str
     separator2: str
-    showall: bool  # undocumented
+    showAll: bool  # undocumented
+    dots: bool  # undocumented
     stream: TextIO  # undocumented
     def __init__(self, stream: TextIO, descriptions: bool, verbosity: int) -> None: ...
     def getDescription(self, test: unittest.case.TestCase) -> str: ...
