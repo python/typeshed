@@ -6,6 +6,8 @@ from multiprocessing.synchronize import _LockLike
 from typing import Any, Generic, Protocol, TypeVar, overload
 from typing_extensions import Literal
 
+__all__ = ["RawValue", "RawArray", "Value", "Array", "copy", "synchronized"]
+
 _T = TypeVar("_T")
 _CT = TypeVar("_CT", bound=_CData)
 

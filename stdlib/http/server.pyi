@@ -5,6 +5,8 @@ import sys
 from _typeshed import StrPath, SupportsRead, SupportsWrite
 from typing import Any, AnyStr, BinaryIO, ClassVar, Mapping, Sequence
 
+__all__ = ["HTTPServer", "ThreadingHTTPServer", "BaseHTTPRequestHandler", "SimpleHTTPRequestHandler", "CGIHTTPRequestHandler"]
+
 class HTTPServer(socketserver.TCPServer):
     server_name: str
     server_port: int

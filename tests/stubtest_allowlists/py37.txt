@@ -29,7 +29,6 @@ hmac.HMAC.__init__
 http.server.SimpleHTTPRequestHandler.__init__  # *args is expanded
 ipaddress._BaseNetwork.__init__
 json.loads
-multiprocessing.shared_memory
 (os|posix).utime
 pyexpat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args
 queue.SimpleQueue.__init__  # Default C __init__ signature is wrong
@@ -85,8 +84,6 @@ _dummy_thread.RLock
 _imp.source_hash
 contextvars.ContextVar.__class_getitem__
 datetime.datetime_CAPI
-distutils.command.bdist_wininst
-distutils.command.bdist_wininst.bdist_wininst
 distutils.dist.DistributionMetadata.set_classifiers
 distutils.dist.DistributionMetadata.set_keywords
 distutils.dist.DistributionMetadata.set_platforms

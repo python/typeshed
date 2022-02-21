@@ -7,6 +7,37 @@ from collections.abc import Iterable, Iterator, Mapping
 from typing import Any, TypeVar, Union, overload
 from typing_extensions import Literal
 
+if sys.version_info >= (3, 11):
+    __all__ = [
+        "EnumType",
+        "EnumMeta",
+        "Enum",
+        "IntEnum",
+        "StrEnum",
+        "Flag",
+        "IntFlag",
+        "ReprEnum",
+        "auto",
+        "unique",
+        "property",
+        "verify",
+        "FlagBoundary",
+        "STRICT",
+        "CONFORM",
+        "EJECT",
+        "KEEP",
+        "global_flag_repr",
+        "global_enum_repr",
+        "global_str",
+        "global_enum",
+        "EnumCheck",
+        "CONTINUOUS",
+        "NAMED_FLAGS",
+        "UNIQUE",
+    ]
+else:
+    __all__ = ["EnumMeta", "Enum", "IntEnum", "Flag", "IntFlag", "auto", "unique"]
+
 _T = TypeVar("_T")
 _S = TypeVar("_S", bound=type[Enum])
 
@@ -48,6 +79,13 @@ class EnumMeta(ABCMeta):
         def __new__(metacls: type[Self], cls: str, bases: tuple[type, ...], classdict: _EnumDict, **kwds: Any) -> Self: ...  # type: ignore
     else:
         def __new__(metacls: type[Self], cls: str, bases: tuple[type, ...], classdict: _EnumDict) -> Self: ...  # type: ignore
+
+    if sys.version_info >= (3, 9):
+        @classmethod
+        def __prepare__(metacls, cls: str, bases: tuple[type, ...], **kwds: Any) -> _EnumDict: ...  # type: ignore[override]
+    else:
+        @classmethod
+        def __prepare__(metacls, cls: str, bases: tuple[type, ...]) -> _EnumDict: ...  # type: ignore[override]
 
     def __iter__(self: type[_T]) -> Iterator[_T]: ...
     def __reversed__(self: type[_T]) -> Iterator[_T]: ...
