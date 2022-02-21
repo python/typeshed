@@ -1,8 +1,8 @@
 import sys
 
 # As at runtime, this depends on all submodules defining __all__ accurately.
-from .base_events *
-from .coroutines *
+from .base_events import *
+from .coroutines import *
 from .events import *
 from .futures import *
 from .locks import *
