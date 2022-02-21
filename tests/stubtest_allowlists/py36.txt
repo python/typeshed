@@ -107,8 +107,6 @@ collections.Sequence.index  # Supporting None in end is not mandatory
 asyncio.AbstractEventLoop.connect_read_pipe
 asyncio.AbstractEventLoop.connect_write_pipe
 asyncio.AbstractEventLoop.create_datagram_endpoint
-asyncio.AbstractEventLoop.create_unix_connection
-asyncio.AbstractEventLoop.create_unix_server
 asyncio.AbstractEventLoop.getaddrinfo
 asyncio.AbstractEventLoop.getnameinfo
 asyncio.AbstractEventLoop.shutdown_asyncgens
@@ -130,8 +128,6 @@ asyncio.Lock.acquire
 asyncio.Queue.get
 asyncio.Queue.join
 asyncio.Queue.put
-asyncio.SelectorEventLoop.create_unix_connection
-asyncio.SelectorEventLoop.create_unix_server
 asyncio.Semaphore.acquire
 asyncio.StreamReader.__anext__
 asyncio.StreamReader.read
@@ -142,10 +138,8 @@ asyncio.StreamWriter.drain
 asyncio.create_subprocess_exec
 asyncio.create_subprocess_shell
 asyncio.open_connection
-asyncio.open_unix_connection
 asyncio.sleep
 asyncio.start_server
-asyncio.start_unix_server
 asyncio.wait_for
 asyncio.base_events.BaseEventLoop.connect_accepted_socket
 asyncio.base_events.BaseEventLoop.connect_read_pipe
@@ -161,8 +155,6 @@ asyncio.base_subprocess.BaseSubprocessTransport._wait
 asyncio.events.AbstractEventLoop.connect_read_pipe
 asyncio.events.AbstractEventLoop.connect_write_pipe
 asyncio.events.AbstractEventLoop.create_datagram_endpoint
-asyncio.events.AbstractEventLoop.create_unix_connection
-asyncio.events.AbstractEventLoop.create_unix_server
 asyncio.events.AbstractEventLoop.getaddrinfo
 asyncio.events.AbstractEventLoop.getnameinfo
 asyncio.events.AbstractEventLoop.shutdown_asyncgens
@@ -186,19 +178,13 @@ asyncio.streams.StreamReader.readline
 asyncio.streams.StreamReader.readuntil
 asyncio.streams.StreamWriter.drain
 asyncio.streams.open_connection
-asyncio.streams.open_unix_connection
 asyncio.streams.start_server
-asyncio.streams.start_unix_server
 asyncio.subprocess.Process.communicate
 asyncio.subprocess.Process.wait
 asyncio.subprocess.create_subprocess_exec
 asyncio.subprocess.create_subprocess_shell
 asyncio.tasks.sleep
 asyncio.tasks.wait_for
-asyncio.unix_events.SelectorEventLoop.create_unix_connection
-asyncio.unix_events.SelectorEventLoop.create_unix_server
-asyncio.unix_events._UnixSelectorEventLoop.create_unix_connection
-asyncio.unix_events._UnixSelectorEventLoop.create_unix_server
 
 # Exists at runtime, but missing from stubs
 _bisect.bisect
