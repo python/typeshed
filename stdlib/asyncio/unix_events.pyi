@@ -22,6 +22,32 @@ class AbstractChildWatcher:
         def is_active(self) -> bool: ...
 
 if sys.platform != "win32":
+    if sys.version_info >= (3, 9):
+        __all__ = (
+            "SelectorEventLoop",
+            "AbstractChildWatcher",
+            "SafeChildWatcher",
+            "FastChildWatcher",
+            "PidfdChildWatcher",
+            "MultiLoopChildWatcher",
+            "ThreadedChildWatcher",
+            "DefaultEventLoopPolicy",
+        )
+    elif sys.version_info >= (3, 8):
+        __all__ = (
+            "SelectorEventLoop",
+            "AbstractChildWatcher",
+            "SafeChildWatcher",
+            "FastChildWatcher",
+            "MultiLoopChildWatcher",
+            "ThreadedChildWatcher",
+            "DefaultEventLoopPolicy",
+        )
+    elif sys.version_info >= (3, 7):
+        __all__ = ("SelectorEventLoop", "AbstractChildWatcher", "SafeChildWatcher", "FastChildWatcher", "DefaultEventLoopPolicy")
+    else:
+        __all__ = ["SelectorEventLoop", "AbstractChildWatcher", "SafeChildWatcher", "FastChildWatcher", "DefaultEventLoopPolicy"]
+
     class BaseChildWatcher(AbstractChildWatcher):
         def __init__(self) -> None: ...
 
