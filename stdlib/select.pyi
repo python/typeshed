@@ -109,9 +109,9 @@ if sys.platform == "linux":
         def __enter__(self: Self) -> Self: ...
         def __exit__(
             self,
-            exc_type: type[BaseException] | None = ...,
-            exc_val: BaseException | None = ...,
-            exc_tb: TracebackType | None = ...,
+            __exc_type: type[BaseException] | None = ...,
+            __exc_val: BaseException | None = ...,
+            __exc_tb: TracebackType | None = ...,
         ) -> None: ...
         def close(self) -> None: ...
         closed: bool
