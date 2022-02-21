@@ -112,8 +112,6 @@ asyncio.futures._TracebackLogger.source_traceback
 asyncio.tasks.async
 calendar.HTMLCalendar.cssclasses
 distutils.cmd.install_misc
-distutils.command.bdist_wininst
-distutils.command.bdist_wininst.bdist_wininst
 distutils.sysconfig.expand_makefile_vars
 distutils.sysconfig.get_python_version
 dummy_threading.Lock

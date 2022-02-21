@@ -122,8 +122,6 @@ collections.Awaitable.__class_getitem__
 collections.Container.__class_getitem__
 collections.Iterable.__class_getitem__
 collections.MappingView.__class_getitem__
-distutils.command.bdist_wininst
-distutils.command.bdist_wininst.bdist_wininst
 distutils.dist.DistributionMetadata.set_classifiers
 distutils.dist.DistributionMetadata.set_keywords
 distutils.dist.DistributionMetadata.set_platforms
