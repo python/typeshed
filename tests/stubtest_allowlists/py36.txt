@@ -103,7 +103,7 @@ collections.Generator.gi_yieldfrom
 collections.Mapping.get  # Adding None to the Union messed up mypy
 collections.Sequence.index  # Supporting None in end is not mandatory
 
-# Not "async defs" at runtime
+# Not "async def"s at runtime
 asyncio.AbstractEventLoop.connect_read_pipe
 asyncio.AbstractEventLoop.connect_write_pipe
 asyncio.AbstractEventLoop.create_datagram_endpoint
