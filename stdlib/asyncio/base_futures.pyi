@@ -7,6 +7,11 @@ if sys.version_info >= (3, 7):
 
 from . import futures
 
+if sys.version_info >= (3, 7):
+    __all__ = ()
+else:
+    __all__: list[str] = []
+
 _PENDING: Literal["PENDING"]  # undocumented
 _CANCELLED: Literal["CANCELLED"]  # undocumented
 _FINISHED: Literal["FINISHED"]  # undocumented
