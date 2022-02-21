@@ -21,7 +21,13 @@ from types import (
 )
 
 if sys.version_info >= (3, 7):
-    from types import ClassMethodDescriptorType, WrapperDescriptorType, MemberDescriptorType, MethodDescriptorType, MethodWrapperType
+    from types import (
+        ClassMethodDescriptorType,
+        WrapperDescriptorType,
+        MemberDescriptorType,
+        MethodDescriptorType,
+        MethodWrapperType,
+    )
 
 from typing import Any, ClassVar, Coroutine, NamedTuple, Protocol, TypeVar, Union
 from typing_extensions import Literal, ParamSpec, TypeGuard
