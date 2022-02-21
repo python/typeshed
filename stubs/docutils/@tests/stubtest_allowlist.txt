@@ -15,4 +15,6 @@ docutils.parsers.rst.Directive.__getattr__
 docutils.transforms.Transform.__getattr__
 docutils.transforms.Transformer.__getattr__
 docutils.utils.Reporter.__getattr__
+
+# the constructor appears to be mostly internal API, public API users are meant to use docutils.utils.new_reporter instead
 docutils.utils.Reporter.__init__

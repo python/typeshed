@@ -1,8 +1,8 @@
-from typing import Any
+from typing import Any, Protocol
 
 from docutils.utils import Reporter
 
-class _LanguageModule:
+class _LanguageModule(Protocol):
     labels: dict[str, str]
     author_separators: list[str]
     bibliographic_fields: list[str]
