@@ -1,7 +1,7 @@
 import abc
 import pathlib
 import sys
-from _typeshed import StrPath
+from _typeshed import StrPath, Self
 from collections.abc import Mapping
 from email.message import Message
 from importlib.abc import MetaPathFinder
@@ -43,9 +43,9 @@ if sys.version_info >= (3, 8):
             @property
             def groups(self) -> set[str]: ...
 
-        class SelectableGroups(dict[str, EntryPoints]):  # use as list is deprecated since 3.10
+        class SelectableGroups(dict[str, EntryPoints]):  # use as dict is deprecated since 3.10
             @classmethod
-            def load(cls, eps: SelectableGroups) -> SelectableGroups: ...
+            def load(cls: type[Self], eps: Iterable[EntryPoint]) -> Self: ...
             @property
             def groups(self) -> set[str]: ...
             @property
@@ -137,7 +137,10 @@ if sys.version_info >= (3, 8):
 
     if sys.version_info >= (3, 10):
         def metadata(distribution_name: str) -> PackageMetadata: ...
+        @overload
         def entry_points() -> SelectableGroups: ...
+        @overload
+        def entry_points(**params: Any) -> EntryPoints: ...
     else:
         def metadata(distribution_name: str) -> Message: ...
         def entry_points() -> dict[str, list[EntryPoint]]: ...
