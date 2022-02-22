@@ -662,7 +662,6 @@ bz2.BZ2File.peek
 codecs.StreamReader.charbuffertype
 codecs.StreamReader.seek
 codecs.StreamWriter.seek
-codecs.namereplace_errors
 configparser.ParsingError.filename
 configparser.RawConfigParser.converters
 ctypes.ARRAY
@@ -680,7 +679,6 @@ logging.config.DictConfigurator
 logging.config.dictConfigClass
 mimetypes.MimeTypes.add_type
 modulefinder.test
-multiprocessing.dummy.Pipe
 multiprocessing.managers.Server.accepter
 multiprocessing.managers.Server.create
 multiprocessing.managers.Server.debug_info
