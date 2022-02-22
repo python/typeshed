@@ -1,9 +1,8 @@
 import sys
 from _typeshed import Self
 from concurrent.futures._base import Error, Future as _ConcurrentFuture
-from typing import Any, Awaitable, Callable, Generator, Iterable, TypeVar
+from typing import Any, Awaitable, Callable, Generator, Iterable, TypeGuard, TypeVar
 
-from .base_futures import isfuture as isfuture
 from .events import AbstractEventLoop
 
 if sys.version_info < (3, 8):
@@ -25,6 +24,13 @@ else:
     __all__ = ["CancelledError", "TimeoutError", "InvalidStateError", "Future", "wrap_future", "isfuture"]
 
 _T = TypeVar("_T")
+
+
+# asyncio defines 'isfuture()' in base_futures.py and re-imports it in futures.py
+# but it leads to circular import error in pytype tool.
+# That's why the import order is reversed.
+def isfuture(obj: object) -> TypeGuard[futures.Future[Any]]: ...
+
 
 if sys.version_info < (3, 7):
     class _TracebackLogger:
