@@ -1,8 +1,9 @@
-from typing import Any
+from typing import Any, ClassVar
 
 import passlib.utils.handlers as uh
 
 class scrypt(uh.ParallelismMixin, uh.HasRounds, uh.HasRawSalt, uh.HasRawChecksum, uh.HasManyIdents, uh.GenericHandler):  # type: ignore
+    backends: ClassVar[tuple[str, ...]]
     name: str
     setting_kwds: Any
     checksum_size: int
@@ -24,7 +25,6 @@ class scrypt(uh.ParallelismMixin, uh.HasRounds, uh.HasRawSalt, uh.HasRawChecksum
     def parse(cls, hash): ...
     def to_string(self): ...
     def __init__(self, block_size: Any | None = ..., **kwds) -> None: ...
-    def backends(cls): ...  # type: ignore
     @classmethod
     def get_backend(cls): ...
     @classmethod

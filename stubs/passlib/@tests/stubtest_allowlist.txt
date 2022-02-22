@@ -1,3 +1,6 @@
+# proxy module that uses some import magic incompatible with stubtest
+passlib.hash
+
 # django unsupported in stubs
 passlib.ext.django.models
 
@@ -5,3 +8,9 @@ passlib.ext.django.models
 passlib.crypto.digest.HashInfo.supported
 passlib.crypto.digest.HashInfo.supported_by_fastpbkdf2
 passlib.crypto.digest.HashInfo.supported_by_hashlib_pbkdf2
+
+# "hybrid" method that can be called on an instance or class
+passlib.totp.TOTP.normalize_token
+
+# import problem
+passlib.utils.compat._ordered_dict
