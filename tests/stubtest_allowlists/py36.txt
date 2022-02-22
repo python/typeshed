@@ -121,7 +121,6 @@ html.parser.HTMLParser.unescape
 platform.popen
 plistlib.Data.asBase64
 plistlib.Data.fromBase64
-plistlib.Plist
 ssl.SSLObject.verify_client_post_handshake
 ssl.SSLSocket.verify_client_post_handshake
 sys.callstats
