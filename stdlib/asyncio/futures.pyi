@@ -1,7 +1,8 @@
 import sys
 from _typeshed import Self
 from concurrent.futures._base import Error, Future as _ConcurrentFuture
-from typing import Any, Awaitable, Callable, Generator, Iterable, TypeGuard, TypeVar
+from typing import Any, Awaitable, Callable, Generator, Iterable, TypeVar
+from typing_extensions import TypeGuard
 
 from .events import AbstractEventLoop
 
