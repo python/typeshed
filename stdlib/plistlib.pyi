@@ -1,5 +1,5 @@
 import sys
-from _typeshed import BytesPath, Self
+from _typeshed import Self
 from datetime import datetime
 from enum import Enum
 from typing import IO, Any, Mapping, MutableMapping
@@ -116,8 +116,8 @@ if sys.version_info < (3, 7):
     class Plist(_InternalDict):  # deprecated
         def __init__(self, **kwargs: Any) -> None: ...
         @classmethod
-        def fromFile(cls: type[Self], pathOrFile: BytesPath | IO[bytes]) -> Self: ...
-        def wrife(self, pathOrFile: BytesPath | IO[bytes]) -> None: ...
+        def fromFile(cls: type[Self], pathOrFile: str | IO[bytes]) -> Self: ...
+        def write(self, pathOrFile: str | IO[bytes]) -> None: ...
 
 if sys.version_info < (3, 9):
     class Data:
