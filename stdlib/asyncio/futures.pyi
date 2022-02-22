@@ -29,7 +29,7 @@ _T = TypeVar("_T")
 # asyncio defines 'isfuture()' in base_futures.py and re-imports it in futures.py
 # but it leads to circular import error in pytype tool.
 # That's why the import order is reversed.
-def isfuture(obj: object) -> TypeGuard[futures.Future[Any]]: ...
+def isfuture(obj: object) -> TypeGuard[Future[Any]]: ...
 
 if sys.version_info < (3, 7):
     class _TracebackLogger:
