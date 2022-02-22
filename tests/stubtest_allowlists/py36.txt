@@ -31,7 +31,6 @@ ipaddress._BaseNetwork.__init__
 json.loads
 mmap.ACCESS_DEFAULT
 (os|posix).utime
-plistlib.Dict.__init__
 pyexpat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args
 random.Random.randrange  # missing undocumented arg _int
 random.randrange  # missing undocumented arg _int
