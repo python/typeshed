@@ -65,7 +65,6 @@ configparser.SectionProxy.getboolean
 configparser.SectionProxy.getfloat
 configparser.SectionProxy.getint
 copy.PyStringMap  # defined only in Jython
-csv.__version__  # Always "1.0". Using this is likely a bug. #6398
 # The Dialect properties are initialized as None in Dialect but their values are enforced in _Dialect
 csv.Dialect.delimiter
 csv.Dialect.doublequote

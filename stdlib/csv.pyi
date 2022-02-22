@@ -16,6 +16,7 @@ from _csv import (
     register_dialect as register_dialect,
     unregister_dialect as unregister_dialect,
     writer as writer,
+    __version__ as __version__
 )
 from _typeshed import Self
 from collections.abc import Collection, Iterable, Iterator, Mapping, Sequence
