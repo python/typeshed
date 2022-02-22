@@ -424,8 +424,6 @@ cgi.FieldStorage.read_multi
 cgi.FieldStorage.read_single
 cgi.FieldStorage.read_urlencoded
 cgi.FieldStorage.skip_lines
-cgi.print_arguments  # internal testing/debugging helper
-cgi.print_exception  # internal testing/debugging helper
 email.contentmanager.get_and_fixup_unknown_message_content
 email.contentmanager.get_message_content
 email.contentmanager.get_non_text_content
