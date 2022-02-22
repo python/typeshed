@@ -2,6 +2,7 @@ import sys
 from _typeshed import Self, SupportsGetItem, SupportsItemAccess
 from builtins import type as _type
 from collections.abc import Iterable, Iterator, Mapping
+from types import TracebackType
 from typing import IO, Any, Protocol
 
 if sys.version_info >= (3, 8):
@@ -138,3 +139,11 @@ class FieldStorage:
     def __bool__(self) -> bool: ...
     # In Python 3 it returns bytes or str IO depending on an internal flag
     def make_file(self) -> IO[Any]: ...
+
+def print_exception(
+    type: type[BaseException] | None = ...,
+    value: BaseException | None = ...,
+    tb: TracebackType | None = ...,
+    limit: int | None = ...,
+) -> None: ...
+def print_arguments() -> None: ...
