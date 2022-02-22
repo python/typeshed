@@ -6,6 +6,7 @@ from _csv import (
     QUOTE_NONNUMERIC as QUOTE_NONNUMERIC,
     Dialect as Dialect,
     Error as Error,
+    __version__ as __version__,
     _DialectLike,
     _reader,
     _writer,
