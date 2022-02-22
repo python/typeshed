@@ -11,7 +11,7 @@ import tempfile
 import venv
 from glob import glob
 from pathlib import Path
-from typing import NoReturn
+from typing import Any, NoReturn
 
 import tomli
 
