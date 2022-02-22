@@ -11,9 +11,8 @@ class HTTPServer(socketserver.TCPServer):
     server_name: str
     server_port: int
 
-if sys.version_info >= (3, 7):
-    class ThreadingHTTPServer(socketserver.ThreadingMixIn, HTTPServer):
-        daemon_threads: bool  # undocumented
+class ThreadingHTTPServer(socketserver.ThreadingMixIn, HTTPServer):
+    daemon_threads: bool  # undocumented
 
 class BaseHTTPRequestHandler(socketserver.StreamRequestHandler):
     client_address: tuple[str, int]
