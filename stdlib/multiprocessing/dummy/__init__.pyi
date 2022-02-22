@@ -3,6 +3,7 @@ import threading
 import weakref
 from queue import Queue as Queue
 from typing import Any, Callable, Iterable, Mapping, Sequence
+from .connection import Pipe as Pipe
 
 __all__ = [
     "Process",

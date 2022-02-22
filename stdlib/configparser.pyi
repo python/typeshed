@@ -163,8 +163,8 @@ class RawConfigParser(_parser):
 
 class ConfigParser(RawConfigParser): ...
 
-if sys.version_info < (3, 11):
-    class SafeConfigParser(ConfigParser): ...
+if sys.version_info < (3, 12):
+    class SafeConfigParser(ConfigParser): ...  # deprecated alias
 
 class SectionProxy(MutableMapping[str, str]):
     def __init__(self, parser: RawConfigParser, name: str) -> None: ...
