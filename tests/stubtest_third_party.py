@@ -32,7 +32,7 @@ def run_stubtest(dist: Path) -> bool:
     with open(dist / "METADATA.toml") as f:
         metadata = dict(tomli.loads(f.read()))
 
-    if not has_py3_stubs(dist):
+    if not run_stubtest_for(metadata, dist):
         print(f"Skipping stubtest for {dist.name}\n\n")
         return True
 
@@ -115,6 +115,10 @@ def run_stubtest(dist: Path) -> bool:
     return True
 
 
+def run_stubtest_for(metadata: dict[str, Any], dist: Path) -> bool:
+    return has_py3_stubs(dist) and metadata.get("stubtest", True)
+
+
 # Keep this in sync with mypy_test.py
 def has_py3_stubs(dist: Path) -> bool:
     return len(glob(f"{dist}/*.pyi")) > 0 or len(glob(f"{dist}/[!@]*/__init__.pyi")) > 0
@@ -136,9 +140,6 @@ def main() -> NoReturn:
     result = 0
     for i, dist in enumerate(dists):
         if i % args.num_shards != args.shard_index:
-            continue
-        if dist.name == "SQLAlchemy":
-            # See https://github.com/python/typeshed/issues/7307
             continue
         if not run_stubtest(dist):
             result = 1
