@@ -3,6 +3,7 @@ from _typeshed import Self
 from concurrent.futures._base import Error, Future as _ConcurrentFuture
 from typing import Any, Awaitable, Callable, Generator, Iterable, TypeVar
 
+from .base_futures import isfuture
 from .events import AbstractEventLoop
 
 if sys.version_info < (3, 8):
@@ -33,8 +34,6 @@ if sys.version_info < (3, 7):
         def activate(self) -> None: ...
         def clear(self) -> None: ...
         def __del__(self) -> None: ...
-
-def isfuture(obj: object) -> bool: ...
 
 class Future(Awaitable[_T], Iterable[_T]):
     _state: str
