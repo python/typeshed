@@ -1,5 +1,5 @@
 import abc
-from typing import Any
+from typing import Any, ClassVar
 
 from passlib.ifc import PasswordHash
 from passlib.utils.binary import BASE64_CHARS, HASH64_CHARS, LOWER_HEX_CHARS, PADDED_BASE64_CHARS, UPPER_HEX_CHARS
