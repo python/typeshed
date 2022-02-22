@@ -45,18 +45,36 @@ else:
     def sendfds(sock, fds) -> None: ...
     def DupFd(fd): ...
 
+# These aliases are to work around pyright complaints.
+# Pyright doesn't like it when a class object is defined as an alias
+# of a global object with the same name.
+_ForkingPickler = ForkingPickler
+_register = register
+_dump = dump
+_send_handle = send_handle
+_recv_handle = recv_handle
+
+if sys.platform == "win32":
+    _steal_handle = steal_handle
+    _duplicate = duplicate
+    _DupHandle = DupHandle
+else:
+    _sendfds = sendfds
+    _recvfds = recvfds
+    _DupFd = DupFd
+
 class AbstractReducer(metaclass=ABCMeta):
-    ForkingPickler = ForkingPickler
-    register = register
-    dump = dump
-    send_handle = send_handle
-    recv_handle = recv_handle
+    ForkingPickler = _ForkingPickler
+    register = _register
+    dump = _dump
+    send_handle = _send_handle
+    recv_handle = _recv_handle
     if sys.platform == "win32":
-        steal_handle = steal_handle
-        duplicate = duplicate
-        DupHandle = DupHandle
+        steal_handle = _steal_handle
+        duplicate = _duplicate
+        DupHandle = _DupHandle
     else:
-        sendfds = sendfds
-        recvfds = recvfds
-        DupFd = DupFd
+        sendfds = _sendfds
+        recvfds = _recvfds
+        DupFd = _DupFd
     def __init__(self, *args) -> None: ...
