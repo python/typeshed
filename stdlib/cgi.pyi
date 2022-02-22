@@ -2,6 +2,7 @@ import sys
 from _typeshed import Self, SupportsGetItem, SupportsItemAccess
 from builtins import type as _type
 from collections.abc import Iterable, Iterator, Mapping
+from types import TracebackType
 from typing import IO, Any, Protocol
 
 if sys.version_info >= (3, 8):
