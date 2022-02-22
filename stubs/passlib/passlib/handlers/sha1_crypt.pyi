@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, ClassVar
 
 import passlib.utils.handlers as uh
 
@@ -10,7 +10,7 @@ class sha1_crypt(uh.HasManyBackends, uh.HasRounds, uh.HasSalt, uh.GenericHandler
     ident: Any
     checksum_size: int
     checksum_chars: Any
-    default_salt_size: int
+    default_salt_size: ClassVar[int]
     max_salt_size: int
     salt_chars: Any
     default_rounds: int

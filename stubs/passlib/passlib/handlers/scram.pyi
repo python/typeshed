@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, ClassVar
 
 import passlib.utils.handlers as uh
 
@@ -6,7 +6,7 @@ class scram(uh.HasRounds, uh.HasRawSalt, uh.HasRawChecksum, uh.GenericHandler): 
     name: str
     setting_kwds: Any
     ident: Any
-    default_salt_size: int
+    default_salt_size: ClassVar[int]
     max_salt_size: int
     default_rounds: int
     min_rounds: int

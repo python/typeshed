@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, ClassVar
 
 import passlib.utils.handlers as uh
 from passlib.utils.handlers import PrefixWrapper
@@ -6,7 +6,7 @@ from passlib.utils.handlers import PrefixWrapper
 class Pbkdf2DigestHandler(uh.HasRounds, uh.HasRawSalt, uh.HasRawChecksum, uh.GenericHandler):  # type: ignore
     setting_kwds: Any
     checksum_chars: Any
-    default_salt_size: int
+    default_salt_size: ClassVar[int]
     max_salt_size: int
     default_rounds: Any
     min_rounds: int
@@ -29,7 +29,7 @@ class cta_pbkdf2_sha1(uh.HasRounds, uh.HasRawSalt, uh.HasRawChecksum, uh.Generic
     setting_kwds: Any
     ident: Any
     checksum_size: int
-    default_salt_size: int
+    default_salt_size: ClassVar[int]
     max_salt_size: int
     default_rounds: Any
     min_rounds: int
@@ -43,7 +43,7 @@ class dlitz_pbkdf2_sha1(uh.HasRounds, uh.HasSalt, uh.GenericHandler):  # type: i
     name: str
     setting_kwds: Any
     ident: Any
-    default_salt_size: int
+    default_salt_size: ClassVar[int]
     max_salt_size: int
     salt_chars: Any
     default_rounds: Any
@@ -70,7 +70,7 @@ class grub_pbkdf2_sha512(uh.HasRounds, uh.HasRawSalt, uh.HasRawChecksum, uh.Gene
     setting_kwds: Any
     ident: Any
     checksum_size: int
-    default_salt_size: int
+    default_salt_size: ClassVar[int]
     max_salt_size: int
     default_rounds: Any
     min_rounds: int

@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, ClassVar
 
 import passlib.utils.handlers as uh
 
@@ -15,7 +15,7 @@ class _Argon2Common(  # type: ignore
     name: str
     setting_kwds: Any
     checksum_size: Any
-    default_salt_size: Any
+    default_salt_size: ClassVar[int]
     min_salt_size: int
     max_salt_size: Any
     default_rounds: Any

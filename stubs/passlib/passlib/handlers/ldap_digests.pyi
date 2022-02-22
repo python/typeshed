@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, ClassVar
 
 import passlib.utils.handlers as uh
 from passlib.handlers.misc import plaintext
@@ -31,7 +31,7 @@ class _SaltedBase64DigestHelper(uh.HasRawSalt, uh.HasRawChecksum, uh.GenericHand
     ident: Any
     min_salt_size: int
     max_salt_size: int
-    default_salt_size: int
+    default_salt_size: ClassVar[int]
     @classmethod
     def from_string(cls, hash): ...
     def to_string(self): ...
@@ -58,13 +58,13 @@ class ldap_salted_sha256(_SaltedBase64DigestHelper):
     name: str
     ident: Any
     checksum_size: int
-    default_salt_size: int
+    default_salt_size: ClassVar[int]
 
 class ldap_salted_sha512(_SaltedBase64DigestHelper):
     name: str
     ident: Any
     checksum_size: int
-    default_salt_size: int
+    default_salt_size: ClassVar[int]
 
 class ldap_plaintext(plaintext):
     name: str

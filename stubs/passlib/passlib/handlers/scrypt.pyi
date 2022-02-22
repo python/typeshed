@@ -9,7 +9,7 @@ class scrypt(uh.ParallelismMixin, uh.HasRounds, uh.HasRawSalt, uh.HasRawChecksum
     checksum_size: int
     default_ident: Any
     ident_values: Any
-    default_salt_size: int
+    default_salt_size: ClassVar[int]
     max_salt_size: int
     default_rounds: int
     min_rounds: int

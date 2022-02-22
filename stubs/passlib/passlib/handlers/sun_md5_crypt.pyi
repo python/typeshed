@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, ClassVar
 
 import passlib.utils.handlers as uh
 
@@ -7,7 +7,7 @@ class sun_md5_crypt(uh.HasRounds, uh.HasSalt, uh.GenericHandler):  # type: ignor
     setting_kwds: Any
     checksum_chars: Any
     checksum_size: int
-    default_salt_size: int
+    default_salt_size: ClassVar[int]
     max_salt_size: Any
     salt_chars: Any
     default_rounds: int

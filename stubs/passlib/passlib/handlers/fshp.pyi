@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, ClassVar
 
 import passlib.utils.handlers as uh
 
@@ -7,7 +7,7 @@ class fshp(uh.HasRounds, uh.HasRawSalt, uh.HasRawChecksum, uh.GenericHandler):  
     setting_kwds: Any
     checksum_chars: Any
     ident: Any
-    default_salt_size: int
+    default_salt_size: ClassVar[int]
     max_salt_size: Any
     default_rounds: int
     min_rounds: int

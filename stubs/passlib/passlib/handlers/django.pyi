@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, ClassVar
 
 import passlib.utils.handlers as uh
 from passlib.handlers.bcrypt import _wrapped_bcrypt
@@ -6,7 +6,7 @@ from passlib.ifc import DisabledHash
 
 class DjangoSaltedHash(uh.HasSalt, uh.GenericHandler):  # type: ignore
     setting_kwds: Any
-    default_salt_size: int
+    default_salt_size: ClassVar[int]
     max_salt_size: Any
     salt_chars: Any
     checksum_chars: Any
@@ -73,7 +73,7 @@ class django_des_crypt(uh.TruncateMixin, uh.HasSalt, uh.GenericHandler):  # type
     salt_chars: Any
     checksum_size: int
     min_salt_size: int
-    default_salt_size: int
+    default_salt_size: ClassVar[int]
     truncate_size: int
     use_duplicate_salt: bool
     @classmethod
