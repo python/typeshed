@@ -61,15 +61,29 @@ class EntryPoint(_EntryPointBase):
         def attr(self) -> str: ...
     if sys.version_info >= (3, 10):
         dist: ClassVar[Distribution | None]
-        def matches(self, __name: str = ..., __value: str = ..., __group: str = ..., __module: str = ...,
-                    __attr: str = ..., __extras: list[str] = ...) -> bool: ...  # undocumented
+        def matches(
+            self,
+            __name: str = ...,
+            __value: str = ...,
+            __group: str = ...,
+            __module: str = ...,
+            __attr: str = ...,
+            __extras: list[str] = ...,
+        ) -> bool: ...  # undocumented
 
 if sys.version_info >= (3, 10):
     class EntryPoints(list[EntryPoint]):  # use as list is deprecated since 3.10
         # int argument is deprecated since 3.10
         def __getitem__(self, item: int | str) -> EntryPoint: ...  # type: ignore[override]
-        def select(self, __name: str = ..., __value: str = ..., __group: str = ..., __module: str = ...,
-                   __attr: str = ..., __extras: list[str] = ...) -> EntryPoints: ...
+        def select(
+            self,
+            __name: str = ...,
+            __value: str = ...,
+            __group: str = ...,
+            __module: str = ...,
+            __attr: str = ...,
+            __extras: list[str] = ...,
+        ) -> EntryPoints: ...
         @property
         def names(self) -> set[str]: ...
         @property
@@ -85,8 +99,15 @@ if sys.version_info >= (3, 10):
         @overload
         def select(self: Self) -> Self: ...  # type: ignore[misc]
         @overload
-        def select(self, __name: str = ..., __value: str = ..., __group: str = ..., __module: str = ...,
-                   __attr: str = ..., __extras: list[str] = ...) -> EntryPoints: ...
+        def select(
+            self,
+            __name: str = ...,
+            __value: str = ...,
+            __group: str = ...,
+            __module: str = ...,
+            __attr: str = ...,
+            __extras: list[str] = ...,
+        ) -> EntryPoints: ...
 
 class PackagePath(pathlib.PurePosixPath):
     def read_text(self, encoding: str = ...) -> str: ...
@@ -176,8 +197,14 @@ if sys.version_info >= (3, 10):
     @overload
     def entry_points() -> SelectableGroups: ...  # type: ignore[misc]
     @overload
-    def entry_points(__name: str = ..., __value: str = ..., __group: str = ..., __module: str = ...,
-                     __attr: str = ..., __extras: list[str] = ...) -> EntryPoints: ...
+    def entry_points(
+        __name: str = ...,
+        __value: str = ...,
+        __group: str = ...,
+        __module: str = ...,
+        __attr: str = ...,
+        __extras: list[str] = ...,
+    ) -> EntryPoints: ...
 
 else:
     def metadata(distribution_name: str) -> Message: ...
