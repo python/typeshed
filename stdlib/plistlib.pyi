@@ -111,12 +111,11 @@ if sys.version_info < (3, 7):
         def __delattr__(self, attr: str) -> None: ...
 
     class Dict(_InternalDict): ...  # deprecated
-    
+
     class Plist(_InternalDict):  # deprecated
         @classmethod
         def fromFile(cls: type[Self], pathOrFile: BytesPath | IO[bytes]) -> Self: ...
         def wrife(self, pathOrFile: BytesPath | IO[bytes]) -> None: ...
-        
 
 if sys.version_info < (3, 9):
     class Data:
