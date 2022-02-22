@@ -51,6 +51,11 @@ if sys.version_info < (3, 7):
     # undocumented
     _pattern_type: type
 
+# Type-wise these overloads are unnecessary, they could also be modeled using
+# unions in the parameter types. However mypy has a bug regarding TypeVar
+# constraints (https://github.com/python/mypy/issues/11880),
+# which limits us here because AnyStr is a constrained TypeVar.
+
 @overload
 def compile(pattern: AnyStr, flags: _FlagsType = ...) -> Pattern[AnyStr]: ...
 @overload
