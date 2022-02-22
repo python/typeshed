@@ -4,15 +4,8 @@ _collections_abc.AsyncGenerator.ag_frame
 _collections_abc.AsyncGenerator.ag_running
 _dummy_threading
 asyncio.Future.__init__  # Usually initialized from c object
-asyncio.exceptions  # Added in Python 3.8
-asyncio.format_helpers  # Added in Python 3.7
 asyncio.futures.Future.__init__  # Usually initialized from c object
 asyncio.futures._TracebackLogger.__init__
-asyncio.runners  # Added in Python 3.7
-asyncio.staggered  # Added in Python 3.8
-asyncio.threads  # Added in Python 3.9
-asyncio.trsock  # Added in Python 3.8
-asyncio.mixins  # Added in Python 3.10
 builtins.str.maketrans
 cmath.log
 collections.AsyncGenerator.ag_await
@@ -33,14 +26,10 @@ dummy_threading.local.__new__
 enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 hmac.HMAC.__init__
-importlib.metadata  # Added in 3.8
-importlib.metadata._meta  # Added in 3.10
-importlib.resources  # Added in 3.7
 io.StringIO.readline
 ipaddress._BaseNetwork.__init__
 json.loads
 mmap.ACCESS_DEFAULT
-multiprocessing.shared_memory
 (os|posix).utime
 plistlib.Dict.__init__
 pyexpat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args
@@ -71,8 +60,6 @@ typing.Sequence.index
 typing.Text.maketrans
 typing.runtime_checkable
 typing\.\w+\.__new__
-unittest._log  # New in Python 3.9
-unittest.async_case  # Added in Python 3.8
 uuid.UUID.int
 uuid.libname
 xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495
@@ -125,8 +112,6 @@ asyncio.futures._TracebackLogger.source_traceback
 asyncio.tasks.async
 calendar.HTMLCalendar.cssclasses
 distutils.cmd.install_misc
-distutils.command.bdist_wininst
-distutils.command.bdist_wininst.bdist_wininst
 distutils.sysconfig.expand_makefile_vars
 distutils.sysconfig.get_python_version
 dummy_threading.Lock

@@ -65,7 +65,6 @@ configparser.SectionProxy.getboolean
 configparser.SectionProxy.getfloat
 configparser.SectionProxy.getint
 copy.PyStringMap  # defined only in Jython
-csv.__version__  # Always "1.0". Using this is likely a bug. #6398
 # The Dialect properties are initialized as None in Dialect but their values are enforced in _Dialect
 csv.Dialect.delimiter
 csv.Dialect.doublequote
@@ -92,6 +91,8 @@ enum.Enum.value
 enum.Flag.name
 enum.Flag.value
 enum.IntEnum.value
+hashlib.sha3_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
+hashlib.shake_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
 http.HTTPStatus.description  # set in __new__
 http.HTTPStatus.phrase  # set in __new__
 http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
@@ -167,6 +168,7 @@ poplib.POP3_SSL.stls  # bad declaration of inherited function. See poplib.pyi
 pyexpat.expat_CAPI
 select.poll  # Depends on configuration
 selectors.DevpollSelector  # Depends on configuration
+socketserver.BaseServer.RequestHandlerClass  # is defined as a property, because we need `Self` type
 socketserver.BaseServer.fileno  # implemented in derived classes
 socketserver.BaseServer.get_request  # implemented in derived classes
 socketserver.BaseServer.server_bind  # implemented in derived classes
@@ -200,8 +202,6 @@ multiprocessing.dummy.Lock  # Similar to above
 multiprocessing.dummy.RLock  # Similar to above
 tkinter.Misc.grid_propagate  # The noarg placeholder is a set value list
 tkinter.Misc.pack_propagate  # The noarg placeholder is a set value list
-tkinter.Misc.grid_columnconfigure  # an empty dict literal is actually a valid default for a TypedDict(total=False) parameter
-tkinter.Misc.grid_rowconfigure  # an empty dict literal is actually a valid default for a TypedDict(total=False) parameter
 tkinter.Tk.eval  # from __getattr__
 tkinter.Tk.report_callback_exception  # A bit of a lie, since it's actually a method, but typing it as an attribute allows it to be assigned to
 tkinter.Wm.wm_iconphoto  # Default value of argument can't be used without runtime error
@@ -423,8 +423,6 @@ cgi.FieldStorage.read_multi
 cgi.FieldStorage.read_single
 cgi.FieldStorage.read_urlencoded
 cgi.FieldStorage.skip_lines
-cgi.print_arguments  # internal testing/debugging helper
-cgi.print_exception  # internal testing/debugging helper
 email.contentmanager.get_and_fixup_unknown_message_content
 email.contentmanager.get_message_content
 email.contentmanager.get_non_text_content
@@ -432,7 +430,6 @@ email.contentmanager.get_text_content
 email.contentmanager.set_bytes_content
 email.contentmanager.set_message_content
 email.contentmanager.set_text_content
-email.iterators.walk
 pipes.Template.makepipeline
 pipes.Template.open_r
 pipes.Template.open_w
@@ -664,7 +661,6 @@ bz2.BZ2File.peek
 codecs.StreamReader.charbuffertype
 codecs.StreamReader.seek
 codecs.StreamWriter.seek
-codecs.namereplace_errors
 configparser.ParsingError.filename
 configparser.RawConfigParser.converters
 ctypes.ARRAY
@@ -682,7 +678,6 @@ logging.config.DictConfigurator
 logging.config.dictConfigClass
 mimetypes.MimeTypes.add_type
 modulefinder.test
-multiprocessing.dummy.Pipe
 multiprocessing.managers.Server.accepter
 multiprocessing.managers.Server.create
 multiprocessing.managers.Server.debug_info
