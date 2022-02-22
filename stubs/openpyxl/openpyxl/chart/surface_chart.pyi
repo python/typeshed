@@ -30,7 +30,7 @@ class _SurfaceChartBase(ChartBase):
     @abstractmethod
     def tagname(self) -> str: ...
 
-class SurfaceChart3D(_SurfaceChartBase, _3DBase):
+class SurfaceChart3D(_SurfaceChartBase, _3DBase):  # type: ignore  # incompatible base classes
     tagname: str
     wireframe: Any
     ser: Any
