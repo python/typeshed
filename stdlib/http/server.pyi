@@ -5,14 +5,18 @@ import sys
 from _typeshed import StrPath, SupportsRead, SupportsWrite
 from typing import Any, AnyStr, BinaryIO, ClassVar, Mapping, Sequence
 
-__all__ = ["HTTPServer", "ThreadingHTTPServer", "BaseHTTPRequestHandler", "SimpleHTTPRequestHandler", "CGIHTTPRequestHandler"]
+if sys.version_info >= (3, 7):
+    __all__ = ["HTTPServer", "ThreadingHTTPServer", "BaseHTTPRequestHandler", "SimpleHTTPRequestHandler", "CGIHTTPRequestHandler"]
+else:
+    __all__ = ["HTTPServer", "BaseHTTPRequestHandler", "SimpleHTTPRequestHandler", "CGIHTTPRequestHandler"]
 
 class HTTPServer(socketserver.TCPServer):
     server_name: str
     server_port: int
 
-class ThreadingHTTPServer(socketserver.ThreadingMixIn, HTTPServer):
-    daemon_threads: bool  # undocumented
+if sys.version_info >= (3, 7):
+    class ThreadingHTTPServer(socketserver.ThreadingMixIn, HTTPServer):
+        daemon_threads: bool  # undocumented
 
 class BaseHTTPRequestHandler(socketserver.StreamRequestHandler):
     client_address: tuple[str, int]
