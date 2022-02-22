@@ -725,6 +725,8 @@ class memoryview(Sized, Sequence[int]):
 @final
 class bool(int):
     def __new__(cls: type[Self], __o: object = ...) -> Self: ...
+    # The following overloads could be represented more elegantly with a TypeVar("_B", bool, int),
+    # however mypy has a bug regarding TypeVar constraints (https://github.com/python/mypy/issues/11880).
     @overload
     def __and__(self, __x: bool) -> bool: ...
     @overload
