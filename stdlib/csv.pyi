@@ -6,6 +6,7 @@ from _csv import (
     QUOTE_NONNUMERIC as QUOTE_NONNUMERIC,
     Dialect as Dialect,
     Error as Error,
+    __version__ as __version__,
     _DialectLike,
     _reader,
     _writer,
@@ -16,7 +17,6 @@ from _csv import (
     register_dialect as register_dialect,
     unregister_dialect as unregister_dialect,
     writer as writer,
-    __version__ as __version__
 )
 from _typeshed import Self
 from collections.abc import Collection, Iterable, Iterator, Mapping, Sequence
