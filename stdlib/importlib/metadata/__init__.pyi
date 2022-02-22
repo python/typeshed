@@ -65,7 +65,8 @@ class EntryPoint(_EntryPointBase):
 
 if sys.version_info >= (3, 10):
     class EntryPoints(list[EntryPoint]):  # use as list is deprecated since 3.10
-        def __getitem__(self, item: int | str) -> EntryPoint: ...  # int argument is deprecated since 3.10
+        # int argument is deprecated since 3.10
+        def __getitem__(self, item: int | str) -> EntryPoint: ...  # type: ignore[override]
         def select(self, **params: Any) -> EntryPoints: ...
         @property
         def names(self) -> set[str]: ...
@@ -170,7 +171,7 @@ def distributions(
 if sys.version_info >= (3, 10):
     def metadata(distribution_name: str) -> PackageMetadata: ...
     @overload
-    def entry_points() -> SelectableGroups: ...
+    def entry_points() -> SelectableGroups: ...  # type: ignore[misc]
     @overload
     def entry_points(**params: Any) -> EntryPoints: ...
 
