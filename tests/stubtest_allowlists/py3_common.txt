@@ -704,7 +704,6 @@ multiprocessing.managers.SyncManager.JoinableQueue
 multiprocessing.managers.SyncManager.Pool
 multiprocessing.pool.Pool.Process
 multiprocessing.pool.ThreadPool.Process
-multiprocessing.reducer
 multiprocessing.synchronize.Semaphore.get_value
 rlcompleter.Completer.attr_matches
 rlcompleter.Completer.global_matches
