@@ -1,6 +1,11 @@
 import sys
 from typing import AnyStr
 
+if sys.version_info >= (3, 7):
+    __all__ = ["compile", "main", "PyCompileError", "PycInvalidationMode"]
+else:
+    __all__ = ["compile", "main", "PyCompileError"]
+
 class PyCompileError(Exception):
     exc_type_name: str
     exc_value: BaseException

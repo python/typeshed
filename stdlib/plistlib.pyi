@@ -4,6 +4,57 @@ from datetime import datetime
 from enum import Enum
 from typing import IO, Any, Mapping, MutableMapping
 
+if sys.version_info >= (3, 9):
+    __all__ = ["InvalidFileException", "FMT_XML", "FMT_BINARY", "load", "dump", "loads", "dumps", "UID"]
+elif sys.version_info >= (3, 8):
+    __all__ = [
+        "readPlist",
+        "writePlist",
+        "readPlistFromBytes",
+        "writePlistToBytes",
+        "Data",
+        "InvalidFileException",
+        "FMT_XML",
+        "FMT_BINARY",
+        "load",
+        "dump",
+        "loads",
+        "dumps",
+        "UID",
+    ]
+elif sys.version_info >= (3, 7):
+    __all__ = [
+        "readPlist",
+        "writePlist",
+        "readPlistFromBytes",
+        "writePlistToBytes",
+        "Data",
+        "InvalidFileException",
+        "FMT_XML",
+        "FMT_BINARY",
+        "load",
+        "dump",
+        "loads",
+        "dumps",
+    ]
+else:
+    __all__ = [
+        "readPlist",
+        "writePlist",
+        "readPlistFromBytes",
+        "writePlistToBytes",
+        "Plist",
+        "Data",
+        "Dict",
+        "InvalidFileException",
+        "FMT_XML",
+        "FMT_BINARY",
+        "load",
+        "dump",
+        "loads",
+        "dumps",
+    ]
+
 class PlistFormat(Enum):
     FMT_XML: int
     FMT_BINARY: int
