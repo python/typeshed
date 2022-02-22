@@ -1,6 +1,7 @@
 from _typeshed import Self
 from types import CodeType
 from typing import Any, Callable, Text, TypeVar
+from typing_extensions import ParamSpec
 
 def run(statement: str, filename: str | None = ..., sort: str | int = ...) -> None: ...
 def runctx(
@@ -8,6 +9,7 @@ def runctx(
 ) -> None: ...
 
 _T = TypeVar("_T")
+_P = ParamSpec("_P")
 _Label = tuple[str, int, str]
 
 class Profile:
@@ -23,6 +25,6 @@ class Profile:
     def snapshot_stats(self) -> None: ...
     def run(self: Self, cmd: str) -> Self: ...
     def runctx(self: Self, cmd: str, globals: dict[str, Any], locals: dict[str, Any]) -> Self: ...
-    def runcall(self, __func: Callable[..., _T], *args: Any, **kw: Any) -> _T: ...
+    def runcall(self, __func: Callable[_P, _T], *args: _P.args, **kw: _P.kwargs) -> _T: ...
 
 def label(code: str | CodeType) -> _Label: ...  # undocumented

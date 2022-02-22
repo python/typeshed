@@ -16,7 +16,7 @@ are important to the project's success.
     * Create your stubs, considering [what to include](#what-to-include) and
       conforming to the [coding style](#stub-file-coding-style).
 4. [Format and check your stubs](#formatting-stubs).
-5. Optionally [run the tests](#running-the-tests).
+5. Optionally [run the tests](tests/README.md).
 6. [Submit your changes](#submitting-changes) by opening a pull request.
 
 You can expect a reply within a few days, but please be patient when

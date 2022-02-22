@@ -5,6 +5,38 @@ from abc import ABCMeta
 from builtins import property as _builtins_property
 from collections.abc import Iterable, Iterator, Mapping
 from typing import Any, TypeVar, Union, overload
+from typing_extensions import Literal
+
+if sys.version_info >= (3, 11):
+    __all__ = [
+        "EnumType",
+        "EnumMeta",
+        "Enum",
+        "IntEnum",
+        "StrEnum",
+        "Flag",
+        "IntFlag",
+        "ReprEnum",
+        "auto",
+        "unique",
+        "property",
+        "verify",
+        "FlagBoundary",
+        "STRICT",
+        "CONFORM",
+        "EJECT",
+        "KEEP",
+        "global_flag_repr",
+        "global_enum_repr",
+        "global_str",
+        "global_enum",
+        "EnumCheck",
+        "CONTINUOUS",
+        "NAMED_FLAGS",
+        "UNIQUE",
+    ]
+else:
+    __all__ = ["EnumMeta", "Enum", "IntEnum", "Flag", "IntFlag", "auto", "unique"]
 
 _T = TypeVar("_T")
 _S = TypeVar("_S", bound=type[Enum])
@@ -24,6 +56,7 @@ _EnumNames = Union[str, Iterable[str], Iterable[Iterable[Union[str, Any]]], Mapp
 
 class _EnumDict(dict[str, Any]):
     def __init__(self) -> None: ...
+    def __setitem__(self, key: str, value: Any) -> None: ...
 
 # Note: EnumMeta actually subclasses type directly, not ABCMeta.
 # This is a temporary workaround to allow multiple creation of enums with builtins
@@ -46,6 +79,14 @@ class EnumMeta(ABCMeta):
         def __new__(metacls: type[Self], cls: str, bases: tuple[type, ...], classdict: _EnumDict, **kwds: Any) -> Self: ...  # type: ignore
     else:
         def __new__(metacls: type[Self], cls: str, bases: tuple[type, ...], classdict: _EnumDict) -> Self: ...  # type: ignore
+
+    if sys.version_info >= (3, 9):
+        @classmethod
+        def __prepare__(metacls, cls: str, bases: tuple[type, ...], **kwds: Any) -> _EnumDict: ...  # type: ignore[override]
+    else:
+        @classmethod
+        def __prepare__(metacls, cls: str, bases: tuple[type, ...]) -> _EnumDict: ...  # type: ignore[override]
+
     def __iter__(self: type[_T]) -> Iterator[_T]: ...
     def __reversed__(self: type[_T]) -> Iterator[_T]: ...
     def __contains__(self: type[Any], member: object) -> bool: ...
@@ -53,6 +94,9 @@ class EnumMeta(ABCMeta):
     @_builtins_property
     def __members__(self: type[_T]) -> types.MappingProxyType[str, _T]: ...
     def __len__(self) -> int: ...
+    def __bool__(self) -> Literal[True]: ...
+    def __setattr__(self, name: str, value: Any) -> None: ...
+    def __delattr__(self, name: str) -> None: ...
     if sys.version_info >= (3, 11):
         # Simple value lookup
         @overload  # type: ignore[override]
@@ -127,6 +171,7 @@ class IntEnum(int, Enum):
     else:
         @types.DynamicClassAttribute
         def value(self) -> int: ...
+
     def __new__(cls: type[Self], value: int | Self) -> Self: ...
 
 def unique(enumeration: _S) -> _S: ...
@@ -142,6 +187,7 @@ class auto(IntFlag):
     else:
         @types.DynamicClassAttribute
         def value(self) -> Any: ...
+
     def __new__(cls: type[Self]) -> Self: ...
 
 class Flag(Enum):
@@ -157,6 +203,7 @@ class Flag(Enum):
         def name(self) -> str | None: ...  # type: ignore[override]
         @types.DynamicClassAttribute
         def value(self) -> int: ...
+
     def __contains__(self: _T, other: _T) -> bool: ...
     def __bool__(self) -> bool: ...
     def __or__(self: Self, other: Self) -> Self: ...
@@ -179,6 +226,7 @@ if sys.version_info >= (3, 11):
         _value_: str
         @property
         def value(self) -> str: ...
+
     class FlagBoundary(StrEnum):
         STRICT: str
         CONFORM: str
@@ -188,6 +236,7 @@ if sys.version_info >= (3, 11):
     CONFORM = FlagBoundary.CONFORM
     EJECT = FlagBoundary.EJECT
     KEEP = FlagBoundary.KEEP
+
     class property(types.DynamicClassAttribute):
         def __set_name__(self, ownerclass: type[Enum], name: str) -> None: ...
         name: str

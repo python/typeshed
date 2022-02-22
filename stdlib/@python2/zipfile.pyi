@@ -1,5 +1,5 @@
 import io
-from _typeshed import StrPath
+from _typeshed import Self, StrPath
 from types import TracebackType
 from typing import IO, Any, Callable, Iterable, Pattern, Protocol, Sequence, Text, Union
 
@@ -46,7 +46,7 @@ class ZipFile:
     NameToInfo: dict[Text, ZipInfo]
     start_dir: int  # undocumented
     def __init__(self, file: StrPath | IO[bytes], mode: Text = ..., compression: int = ..., allowZip64: bool = ...) -> None: ...
-    def __enter__(self) -> ZipFile: ...
+    def __enter__(self: Self) -> Self: ...
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> None: ...

@@ -1,6 +1,6 @@
 import socket
 import sys
-from _typeshed import StrPath
+from _typeshed import Self, StrPath
 from typing import Any, Callable, ClassVar, Iterable, NamedTuple, Optional, Text, Union, overload
 from typing_extensions import Literal
 
@@ -213,7 +213,7 @@ class SSLSocket(socket.socket):
 class SSLContext:
     check_hostname: bool
     options: int
-    def __new__(cls, protocol: int, *args: Any, **kwargs: Any) -> SSLContext: ...
+    def __new__(cls: type[Self], protocol: int, *args: Any, **kwargs: Any) -> Self: ...
     @property
     def protocol(self) -> int: ...
     verify_flags: int

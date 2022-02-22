@@ -6,6 +6,7 @@ import builtins
 import google.protobuf.descriptor
 import google.protobuf.internal.well_known_types
 import google.protobuf.message
+import typing
 import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
@@ -90,8 +91,8 @@ class Duration(google.protobuf.message.Message, google.protobuf.internal.well_kn
 
     def __init__(self,
         *,
-        seconds: builtins.int = ...,
-        nanos: builtins.int = ...,
+        seconds: typing.Optional[builtins.int] = ...,
+        nanos: typing.Optional[builtins.int] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["nanos",b"nanos","seconds",b"seconds"]) -> None: ...
 global___Duration = Duration

@@ -1,4 +1,4 @@
-name: Run stubtest on all stubs
+name: Daily test
 
 on:
   workflow_dispatch:
@@ -23,7 +23,7 @@ jobs:
         os: ["ubuntu-latest", "windows-latest", "macos-10.15"]
         # Python 3.9 and 3.10 temporarily pinned due to incompatibilities
         # between micro versions.
-        python-version: ["3.6", "3.7", "3.8", "3.9.9", "3.10.1"]
+        python-version: ["3.6", "3.7", "3.8", "3.9.10", "3.10.2"]
       fail-fast: false
 
     steps:
@@ -35,7 +35,11 @@ jobs:
       - name: Update pip
         run: python -m pip install -U pip
       - name: Install dependencies
-        run: pip install $(grep tomli== requirements-tests.txt) $(grep mypy== requirements-tests.txt)
+        # Use pre-release stubtest. Keep the following in sync:
+        # - get_mypy_req in tests/stubtest_third_party.py
+        # - stubtest-stdlib in .github/workflows/stubtest.yml
+        # - stubtest-stdlib in .github/workflows/tests.yml
+        run: pip install $(grep tomli== requirements-tests.txt) git+git://github.com/python/mypy@080bb0e04e9d5c4d2513621d1fb62f1d61a573e9
       - name: Run stubtest
         run: python tests/stubtest_stdlib.py
 
@@ -68,11 +72,11 @@ jobs:
     permissions:
       issues: write
     steps:
-      - uses: actions/github-script@v3
+      - uses: actions/github-script@v5
         with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            await github.issues.create({
+            await github.rest.issues.create({
               owner: "python",
               repo: "typeshed",
               title: `Stubtest failed on ${new Date().toDateString()}`,

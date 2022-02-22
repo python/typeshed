@@ -55,7 +55,7 @@ class Struct(google.protobuf.message.Message, google.protobuf.internal.well_know
         def value(self) -> global___Value: ...
         def __init__(self,
             *,
-            key: typing.Text = ...,
+            key: typing.Optional[typing.Text] = ...,
             value: typing.Optional[global___Value] = ...,
             ) -> None: ...
         def HasField(self, field_name: typing_extensions.Literal["value",b"value"]) -> builtins.bool: ...
@@ -110,10 +110,10 @@ class Value(google.protobuf.message.Message):
         pass
     def __init__(self,
         *,
-        null_value: global___NullValue.ValueType = ...,
-        number_value: builtins.float = ...,
-        string_value: typing.Text = ...,
-        bool_value: builtins.bool = ...,
+        null_value: typing.Optional[global___NullValue.ValueType] = ...,
+        number_value: typing.Optional[builtins.float] = ...,
+        string_value: typing.Optional[typing.Text] = ...,
+        bool_value: typing.Optional[builtins.bool] = ...,
         struct_value: typing.Optional[global___Struct] = ...,
         list_value: typing.Optional[global___ListValue] = ...,
         ) -> None: ...

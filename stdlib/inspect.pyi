@@ -21,10 +21,120 @@ from types import (
 )
 
 if sys.version_info >= (3, 7):
-    from types import ClassMethodDescriptorType, WrapperDescriptorType, MemberDescriptorType, MethodDescriptorType
+    from types import (
+        ClassMethodDescriptorType,
+        WrapperDescriptorType,
+        MemberDescriptorType,
+        MethodDescriptorType,
+        MethodWrapperType,
+    )
 
 from typing import Any, ClassVar, Coroutine, NamedTuple, Protocol, TypeVar, Union
-from typing_extensions import Literal, TypeGuard
+from typing_extensions import Literal, ParamSpec, TypeGuard
+
+if sys.version_info >= (3, 11):
+    __all__ = [
+        "ArgInfo",
+        "Arguments",
+        "Attribute",
+        "BlockFinder",
+        "BoundArguments",
+        "CORO_CLOSED",
+        "CORO_CREATED",
+        "CORO_RUNNING",
+        "CORO_SUSPENDED",
+        "CO_ASYNC_GENERATOR",
+        "CO_COROUTINE",
+        "CO_GENERATOR",
+        "CO_ITERABLE_COROUTINE",
+        "CO_NESTED",
+        "CO_NEWLOCALS",
+        "CO_NOFREE",
+        "CO_OPTIMIZED",
+        "CO_VARARGS",
+        "CO_VARKEYWORDS",
+        "ClassFoundException",
+        "ClosureVars",
+        "EndOfBlock",
+        "FrameInfo",
+        "FullArgSpec",
+        "GEN_CLOSED",
+        "GEN_CREATED",
+        "GEN_RUNNING",
+        "GEN_SUSPENDED",
+        "Parameter",
+        "Signature",
+        "TPFLAGS_IS_ABSTRACT",
+        "Traceback",
+        "classify_class_attrs",
+        "cleandoc",
+        "currentframe",
+        "findsource",
+        "formatannotation",
+        "formatannotationrelativeto",
+        "formatargvalues",
+        "get_annotations",
+        "getabsfile",
+        "getargs",
+        "getargvalues",
+        "getattr_static",
+        "getblock",
+        "getcallargs",
+        "getclasstree",
+        "getclosurevars",
+        "getcomments",
+        "getcoroutinelocals",
+        "getcoroutinestate",
+        "getdoc",
+        "getfile",
+        "getframeinfo",
+        "getfullargspec",
+        "getgeneratorlocals",
+        "getgeneratorstate",
+        "getinnerframes",
+        "getlineno",
+        "getmembers",
+        "getmembers_static",
+        "getmodule",
+        "getmodulename",
+        "getmro",
+        "getouterframes",
+        "getsource",
+        "getsourcefile",
+        "getsourcelines",
+        "indentsize",
+        "isabstract",
+        "isasyncgen",
+        "isasyncgenfunction",
+        "isawaitable",
+        "isbuiltin",
+        "isclass",
+        "iscode",
+        "iscoroutine",
+        "iscoroutinefunction",
+        "isdatadescriptor",
+        "isframe",
+        "isfunction",
+        "isgenerator",
+        "isgeneratorfunction",
+        "isgetsetdescriptor",
+        "ismemberdescriptor",
+        "ismethod",
+        "ismethoddescriptor",
+        "ismethodwrapper",
+        "ismodule",
+        "isroutine",
+        "istraceback",
+        "signature",
+        "stack",
+        "trace",
+        "unwrap",
+        "walktree",
+    ]
+
+_P = ParamSpec("_P")
+_T_cont = TypeVar("_T_cont", contravariant=True)
+_V_cont = TypeVar("_V_cont", contravariant=True)
 
 #
 # Types and members
@@ -55,7 +165,14 @@ TPFLAGS_IS_ABSTRACT: Literal[1048576]
 
 modulesbyfile: dict[str, Any]
 
-def getmembers(object: object, predicate: Callable[[Any], bool] | None = ...) -> list[tuple[str, Any]]: ...
+_GetMembersPredicate = Callable[[Any], bool]
+_GetMembersReturn = list[tuple[str, Any]]
+
+def getmembers(object: object, predicate: _GetMembersPredicate | None = ...) -> _GetMembersReturn: ...
+
+if sys.version_info >= (3, 11):
+    def getmembers_static(object: object, predicate: _GetMembersPredicate | None = ...) -> _GetMembersReturn: ...
+
 def getmodulename(path: str) -> str | None: ...
 def ismodule(object: object) -> TypeGuard[ModuleType]: ...
 def isclass(object: object) -> TypeGuard[type[Any]]: ...
@@ -80,9 +197,6 @@ if sys.version_info >= (3, 8):
 else:
     def isasyncgenfunction(object: object) -> bool: ...
 
-_T_cont = TypeVar("_T_cont", contravariant=True)
-_V_cont = TypeVar("_V_cont", contravariant=True)
-
 class _SupportsSet(Protocol[_T_cont, _V_cont]):
     def __set__(self, __instance: _T_cont, __value: _V_cont) -> None: ...
 
@@ -94,6 +208,9 @@ def istraceback(object: object) -> TypeGuard[TracebackType]: ...
 def isframe(object: object) -> TypeGuard[FrameType]: ...
 def iscode(object: object) -> TypeGuard[CodeType]: ...
 def isbuiltin(object: object) -> TypeGuard[BuiltinFunctionType]: ...
+
+if sys.version_info >= (3, 11):
+    def ismethodwrapper(object: object) -> TypeGuard[MethodWrapperType]: ...
 
 if sys.version_info >= (3, 7):
     def isroutine(
@@ -166,7 +283,6 @@ class Signature:
     empty = _empty
     @property
     def parameters(self) -> types.MappingProxyType[str, Parameter]: ...
-    # TODO: can we be more specific here?
     @property
     def return_annotation(self) -> Any: ...
     def bind(self, *args: Any, **kwargs: Any) -> BoundArguments: ...
@@ -177,17 +293,19 @@ class Signature:
     if sys.version_info >= (3, 10):
         @classmethod
         def from_callable(
-            cls,
+            cls: type[Self],
             obj: Callable[..., Any],
             *,
             follow_wrapped: bool = ...,
             globals: Mapping[str, Any] | None = ...,
             locals: Mapping[str, Any] | None = ...,
             eval_str: bool = ...,
-        ) -> Signature: ...
+        ) -> Self: ...
     else:
         @classmethod
-        def from_callable(cls, obj: Callable[..., Any], *, follow_wrapped: bool = ...) -> Signature: ...
+        def from_callable(cls: type[Self], obj: Callable[..., Any], *, follow_wrapped: bool = ...) -> Self: ...
+
+    def __eq__(self, other: object) -> bool: ...
 
 if sys.version_info >= (3, 10):
     def get_annotations(
@@ -235,6 +353,7 @@ class Parameter:
         default: Any = ...,
         annotation: Any = ...,
     ) -> Self: ...
+    def __eq__(self, other: object) -> bool: ...
 
 class BoundArguments:
     arguments: OrderedDict[str, Any]
@@ -243,6 +362,7 @@ class BoundArguments:
     signature: Signature
     def __init__(self, signature: Signature, arguments: OrderedDict[str, Any]) -> None: ...
     def apply_defaults(self) -> None: ...
+    def __eq__(self, other: object) -> bool: ...
 
 #
 # Classes and functions
@@ -318,7 +438,7 @@ def formatargvalues(
     formatvalue: Callable[[Any], str] | None = ...,
 ) -> str: ...
 def getmro(cls: type) -> tuple[type, ...]: ...
-def getcallargs(__func: Callable[..., Any], *args: Any, **kwds: Any) -> dict[str, Any]: ...
+def getcallargs(__func: Callable[_P, Any], *args: _P.args, **kwds: _P.kwargs) -> dict[str, Any]: ...
 
 class ClosureVars(NamedTuple):
     nonlocals: Mapping[str, Any]

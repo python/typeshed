@@ -82,13 +82,13 @@ class Api(google.protobuf.message.Message):
 
     def __init__(self,
         *,
-        name: typing.Text = ...,
+        name: typing.Optional[typing.Text] = ...,
         methods: typing.Optional[typing.Iterable[global___Method]] = ...,
         options: typing.Optional[typing.Iterable[google.protobuf.type_pb2.Option]] = ...,
-        version: typing.Text = ...,
+        version: typing.Optional[typing.Text] = ...,
         source_context: typing.Optional[google.protobuf.source_context_pb2.SourceContext] = ...,
         mixins: typing.Optional[typing.Iterable[global___Mixin]] = ...,
-        syntax: google.protobuf.type_pb2.Syntax.ValueType = ...,
+        syntax: typing.Optional[google.protobuf.type_pb2.Syntax.ValueType] = ...,
         ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["source_context",b"source_context"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["methods",b"methods","mixins",b"mixins","name",b"name","options",b"options","source_context",b"source_context","syntax",b"syntax","version",b"version"]) -> None: ...
@@ -128,13 +128,13 @@ class Method(google.protobuf.message.Message):
 
     def __init__(self,
         *,
-        name: typing.Text = ...,
-        request_type_url: typing.Text = ...,
-        request_streaming: builtins.bool = ...,
-        response_type_url: typing.Text = ...,
-        response_streaming: builtins.bool = ...,
+        name: typing.Optional[typing.Text] = ...,
+        request_type_url: typing.Optional[typing.Text] = ...,
+        request_streaming: typing.Optional[builtins.bool] = ...,
+        response_type_url: typing.Optional[typing.Text] = ...,
+        response_streaming: typing.Optional[builtins.bool] = ...,
         options: typing.Optional[typing.Iterable[google.protobuf.type_pb2.Option]] = ...,
-        syntax: google.protobuf.type_pb2.Syntax.ValueType = ...,
+        syntax: typing.Optional[google.protobuf.type_pb2.Syntax.ValueType] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["name",b"name","options",b"options","request_streaming",b"request_streaming","request_type_url",b"request_type_url","response_streaming",b"response_streaming","response_type_url",b"response_type_url","syntax",b"syntax"]) -> None: ...
 global___Method = Method
@@ -232,8 +232,8 @@ class Mixin(google.protobuf.message.Message):
 
     def __init__(self,
         *,
-        name: typing.Text = ...,
-        root: typing.Text = ...,
+        name: typing.Optional[typing.Text] = ...,
+        root: typing.Optional[typing.Text] = ...,
         ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["name",b"name","root",b"root"]) -> None: ...
 global___Mixin = Mixin

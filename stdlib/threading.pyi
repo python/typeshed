@@ -8,7 +8,86 @@ _TF = Callable[[FrameType, str, Any], Optional[Callable[..., Any]]]
 _PF = Callable[[FrameType, str, Any], None]
 _T = TypeVar("_T")
 
-__all__: list[str]
+if sys.version_info >= (3, 10):
+    __all__ = [
+        "get_ident",
+        "active_count",
+        "Condition",
+        "current_thread",
+        "enumerate",
+        "main_thread",
+        "TIMEOUT_MAX",
+        "Event",
+        "Lock",
+        "RLock",
+        "Semaphore",
+        "BoundedSemaphore",
+        "Thread",
+        "Barrier",
+        "BrokenBarrierError",
+        "Timer",
+        "ThreadError",
+        "setprofile",
+        "settrace",
+        "local",
+        "stack_size",
+        "excepthook",
+        "ExceptHookArgs",
+        "gettrace",
+        "getprofile",
+        "get_native_id",
+    ]
+elif sys.version_info >= (3, 8):
+    __all__ = [
+        "get_ident",
+        "active_count",
+        "Condition",
+        "current_thread",
+        "enumerate",
+        "main_thread",
+        "TIMEOUT_MAX",
+        "Event",
+        "Lock",
+        "RLock",
+        "Semaphore",
+        "BoundedSemaphore",
+        "Thread",
+        "Barrier",
+        "BrokenBarrierError",
+        "Timer",
+        "ThreadError",
+        "setprofile",
+        "settrace",
+        "local",
+        "stack_size",
+        "excepthook",
+        "ExceptHookArgs",
+        "get_native_id",
+    ]
+else:
+    __all__ = [
+        "get_ident",
+        "active_count",
+        "Condition",
+        "current_thread",
+        "enumerate",
+        "main_thread",
+        "TIMEOUT_MAX",
+        "Event",
+        "Lock",
+        "RLock",
+        "Semaphore",
+        "BoundedSemaphore",
+        "Thread",
+        "Barrier",
+        "BrokenBarrierError",
+        "Timer",
+        "ThreadError",
+        "setprofile",
+        "settrace",
+        "local",
+        "stack_size",
+    ]
 
 def active_count() -> int: ...
 def activeCount() -> int: ...  # deprecated alias for active_count()
@@ -35,9 +114,9 @@ TIMEOUT_MAX: float
 class ThreadError(Exception): ...
 
 class local:
-    def __getattribute__(self, name: str) -> Any: ...
-    def __setattr__(self, name: str, value: Any) -> None: ...
-    def __delattr__(self, name: str) -> None: ...
+    def __getattribute__(self, __name: str) -> Any: ...
+    def __setattr__(self, __name: str, __value: Any) -> None: ...
+    def __delattr__(self, __name: str) -> None: ...
 
 class Thread:
     name: str
@@ -59,6 +138,7 @@ class Thread:
     if sys.version_info >= (3, 8):
         @property
         def native_id(self) -> int | None: ...  # only available on some platforms
+
     def is_alive(self) -> bool: ...
     if sys.version_info < (3, 9):
         def isAlive(self) -> bool: ...
@@ -88,7 +168,7 @@ class _RLock:
     __enter__ = acquire
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
-    ) -> bool | None: ...
+    ) -> None: ...
 
 RLock = _RLock
 
@@ -110,7 +190,7 @@ class Semaphore:
     def __init__(self, value: int = ...) -> None: ...
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
-    ) -> bool | None: ...
+    ) -> None: ...
     def acquire(self, blocking: bool = ..., timeout: float | None = ...) -> bool: ...
     def __enter__(self, blocking: bool = ..., timeout: float | None = ...) -> bool: ...
     if sys.version_info >= (3, 9):

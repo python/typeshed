@@ -6,7 +6,25 @@ _TF = Callable[[FrameType, str, Any], Optional[Callable[..., Any]]]
 
 _PF = Callable[[FrameType, str, Any], None]
 
-__all__: list[str]
+__all__ = [
+    "activeCount",
+    "active_count",
+    "Condition",
+    "currentThread",
+    "current_thread",
+    "enumerate",
+    "Event",
+    "Lock",
+    "RLock",
+    "Semaphore",
+    "BoundedSemaphore",
+    "Thread",
+    "Timer",
+    "setprofile",
+    "settrace",
+    "local",
+    "stack_size",
+]
 
 def active_count() -> int: ...
 def activeCount() -> int: ...

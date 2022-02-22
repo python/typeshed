@@ -18,6 +18,7 @@ if sys.platform != "win32":
     RLIMIT_MEMLOCK: int
     RLIMIT_VMEM: int
     RLIMIT_AS: int
+
     class _RUsage(NamedTuple):
         ru_utime: float
         ru_stime: float

@@ -85,7 +85,7 @@ class CodecInfo(tuple[_Encoder, _Decoder, _StreamReader, _StreamWriter]):
     def incrementaldecoder(self) -> _IncrementalDecoder: ...
     name: str
     def __new__(
-        cls,
+        cls: type[Self],
         encode: _Encoder,
         decode: _Decoder,
         streamreader: _StreamReader | None = ...,
@@ -95,7 +95,7 @@ class CodecInfo(tuple[_Encoder, _Decoder, _StreamReader, _StreamWriter]):
         name: str | None = ...,
         *,
         _is_text_encoding: bool | None = ...,
-    ) -> CodecInfo: ...
+    ) -> Self: ...
 
 def getencoder(encoding: str) -> _Encoder: ...
 def getdecoder(encoding: str) -> _Decoder: ...

@@ -5,6 +5,53 @@ from abc import abstractmethod
 from typing import IO, Any, BinaryIO, Callable, Generator, Iterable, Iterator, Protocol, TextIO, overload
 from typing_extensions import Literal
 
+__all__ = [
+    "register",
+    "lookup",
+    "open",
+    "EncodedFile",
+    "BOM",
+    "BOM_BE",
+    "BOM_LE",
+    "BOM32_BE",
+    "BOM32_LE",
+    "BOM64_BE",
+    "BOM64_LE",
+    "BOM_UTF8",
+    "BOM_UTF16",
+    "BOM_UTF16_LE",
+    "BOM_UTF16_BE",
+    "BOM_UTF32",
+    "BOM_UTF32_LE",
+    "BOM_UTF32_BE",
+    "CodecInfo",
+    "Codec",
+    "IncrementalEncoder",
+    "IncrementalDecoder",
+    "StreamReader",
+    "StreamWriter",
+    "StreamReaderWriter",
+    "StreamRecoder",
+    "getencoder",
+    "getdecoder",
+    "getincrementalencoder",
+    "getincrementaldecoder",
+    "getreader",
+    "getwriter",
+    "encode",
+    "decode",
+    "iterencode",
+    "iterdecode",
+    "strict_errors",
+    "ignore_errors",
+    "replace_errors",
+    "xmlcharrefreplace_errors",
+    "backslashreplace_errors",
+    "namereplace_errors",
+    "register_error",
+    "lookup_error",
+]
+
 BOM32_BE: Literal[b"\xfe\xff"]
 BOM32_LE: Literal[b"\xff\xfe"]
 BOM64_BE: Literal[b"\x00\x00\xfe\xff"]
@@ -35,8 +82,8 @@ class _IncrementalDecoder(Protocol):
     def __call__(self, errors: str = ...) -> IncrementalDecoder: ...
 
 # The type ignore on `encode` and `decode` is to avoid issues with overlapping overloads, for more details, see #300
-# mypy and pytype disagree about where the type ignore can and cannot go, so alias the long type
-_BytesToBytesEncodingT = Literal[
+# https://docs.python.org/3/library/codecs.html#binary-transforms
+_BytesToBytesEncoding = Literal[
     "base64",
     "base_64",
     "base64_codec",
@@ -54,17 +101,23 @@ _BytesToBytesEncodingT = Literal[
     "zlib",
     "zlib_codec",
 ]
+# https://docs.python.org/3/library/codecs.html#text-transforms
+_StrToStrEncoding = Literal["rot13", "rot_13"]
 
 @overload
-def encode(obj: bytes, encoding: _BytesToBytesEncodingT, errors: str = ...) -> bytes: ...
+def encode(obj: bytes, encoding: _BytesToBytesEncoding, errors: str = ...) -> bytes: ...
 @overload
-def encode(obj: str, encoding: Literal["rot13", "rot_13"] = ..., errors: str = ...) -> str: ...  # type: ignore[misc]
+def encode(obj: str, encoding: _StrToStrEncoding, errors: str = ...) -> str: ...  # type: ignore[misc]
 @overload
 def encode(obj: str, encoding: str = ..., errors: str = ...) -> bytes: ...
 @overload
-def decode(obj: bytes, encoding: _BytesToBytesEncodingT, errors: str = ...) -> bytes: ...  # type: ignore[misc]
+def decode(obj: bytes, encoding: _BytesToBytesEncoding, errors: str = ...) -> bytes: ...  # type: ignore[misc]
 @overload
-def decode(obj: str, encoding: Literal["rot13", "rot_13"] = ..., errors: str = ...) -> str: ...
+def decode(obj: str, encoding: _StrToStrEncoding, errors: str = ...) -> str: ...
+
+# hex is officially documented as a bytes to bytes encoding, but it appears to also work with str
+@overload
+def decode(obj: str, encoding: Literal["hex", "hex_codec"], errors: str = ...) -> bytes: ...
 @overload
 def decode(obj: bytes, encoding: str = ..., errors: str = ...) -> str: ...
 def lookup(__encoding: str) -> CodecInfo: ...
@@ -86,7 +139,7 @@ class CodecInfo(tuple[_Encoder, _Decoder, _StreamReader, _StreamWriter]):
     def incrementaldecoder(self) -> _IncrementalDecoder: ...
     name: str
     def __new__(
-        cls,
+        cls: type[Self],
         encode: _Encoder,
         decode: _Decoder,
         streamreader: _StreamReader | None = ...,
@@ -96,7 +149,7 @@ class CodecInfo(tuple[_Encoder, _Decoder, _StreamReader, _StreamWriter]):
         name: str | None = ...,
         *,
         _is_text_encoding: bool | None = ...,
-    ) -> CodecInfo: ...
+    ) -> Self: ...
 
 def getencoder(encoding: str) -> _Encoder: ...
 def getdecoder(encoding: str) -> _Decoder: ...
@@ -189,7 +242,7 @@ class StreamWriter(Codec):
     def __exit__(self, typ: type[BaseException] | None, exc: BaseException | None, tb: types.TracebackType | None) -> None: ...
     def __getattr__(self, name: str, getattr: Callable[[str], Any] = ...) -> Any: ...
 
-class StreamReader(Codec):
+class StreamReader(Codec, Iterator[str]):
     errors: str
     def __init__(self, stream: IO[bytes], errors: str = ...) -> None: ...
     def read(self, size: int = ..., chars: int = ..., firstline: bool = ...) -> str: ...
@@ -198,7 +251,8 @@ class StreamReader(Codec):
     def reset(self) -> None: ...
     def __enter__(self: Self) -> Self: ...
     def __exit__(self, typ: type[BaseException] | None, exc: BaseException | None, tb: types.TracebackType | None) -> None: ...
-    def __iter__(self) -> Iterator[str]: ...
+    def __iter__(self: Self) -> Self: ...
+    def __next__(self) -> str: ...
     def __getattr__(self, name: str, getattr: Callable[[str], Any] = ...) -> Any: ...
 
 # Doesn't actually inherit from TextIO, but wraps a BinaryIO to provide text reading and writing
@@ -210,12 +264,10 @@ class StreamReaderWriter(TextIO):
     def readlines(self, sizehint: int | None = ...) -> list[str]: ...
     def __next__(self) -> str: ...
     def __iter__(self: Self) -> Self: ...
-    # This actually returns None, but that's incompatible with the supertype
-    def write(self, data: str) -> int: ...
+    def write(self, data: str) -> None: ...  # type: ignore[override]
     def writelines(self, list: Iterable[str]) -> None: ...
     def reset(self) -> None: ...
-    # Same as write()
-    def seek(self, offset: int, whence: int = ...) -> int: ...
+    def seek(self, offset: int, whence: int = ...) -> None: ...  # type: ignore[override]
     def __enter__(self: Self) -> Self: ...
     def __exit__(self, typ: type[BaseException] | None, exc: BaseException | None, tb: types.TracebackType | None) -> None: ...
     def __getattr__(self, name: str) -> Any: ...
@@ -246,15 +298,15 @@ class StreamRecoder(BinaryIO):
     def readlines(self, sizehint: int | None = ...) -> list[bytes]: ...
     def __next__(self) -> bytes: ...
     def __iter__(self: Self) -> Self: ...
-    def write(self, data: bytes) -> int: ...
-    def writelines(self, list: Iterable[bytes]) -> int: ...  # type: ignore  # it's supposed to return None
+    def write(self, data: bytes) -> None: ...  # type: ignore[override]
+    def writelines(self, list: Iterable[bytes]) -> None: ...
     def reset(self) -> None: ...
     def __getattr__(self, name: str) -> Any: ...
     def __enter__(self: Self) -> Self: ...
     def __exit__(self, type: type[BaseException] | None, value: BaseException | None, tb: types.TracebackType | None) -> None: ...
+    def seek(self, offset: int, whence: int = ...) -> None: ...  # type: ignore[override]
     # These methods don't actually exist directly, but they are needed to satisfy the BinaryIO
     # interface. At runtime, they are delegated through __getattr__.
-    def seek(self, offset: int, whence: int = ...) -> int: ...
     def close(self) -> None: ...
     def fileno(self) -> int: ...
     def flush(self) -> None: ...

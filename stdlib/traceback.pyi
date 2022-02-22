@@ -1,7 +1,8 @@
 import sys
-from _typeshed import SupportsWrite
+from _typeshed import Self, SupportsWrite
 from types import FrameType, TracebackType
 from typing import IO, Any, Generator, Iterable, Iterator, Mapping, Optional, overload
+from typing_extensions import Literal
 
 _PT = tuple[str, int, str, Optional[str]]
 
@@ -98,14 +99,14 @@ class TracebackException:
         ) -> None: ...
         @classmethod
         def from_exception(
-            cls,
+            cls: type[Self],
             exc: BaseException,
             *,
             limit: int | None = ...,
             lookup_lines: bool = ...,
             capture_locals: bool = ...,
             compact: bool = ...,
-        ) -> TracebackException: ...
+        ) -> Self: ...
     else:
         def __init__(
             self,
@@ -120,31 +121,62 @@ class TracebackException:
         ) -> None: ...
         @classmethod
         def from_exception(
-            cls, exc: BaseException, *, limit: int | None = ..., lookup_lines: bool = ..., capture_locals: bool = ...
-        ) -> TracebackException: ...
+            cls: type[Self], exc: BaseException, *, limit: int | None = ..., lookup_lines: bool = ..., capture_locals: bool = ...
+        ) -> Self: ...
+
+    def __eq__(self, other: object) -> bool: ...
     def format(self, *, chain: bool = ...) -> Generator[str, None, None]: ...
     def format_exception_only(self) -> Generator[str, None, None]: ...
 
 class FrameSummary(Iterable[Any]):
+    if sys.version_info >= (3, 11):
+        def __init__(
+            self,
+            filename: str,
+            lineno: int | None,
+            name: str,
+            *,
+            lookup_line: bool = ...,
+            locals: Mapping[str, str] | None = ...,
+            line: str | None = ...,
+            end_lineno: int | None = ...,
+            colno: int | None = ...,
+            end_colno: int | None = ...,
+        ) -> None: ...
+        end_lineno: int | None
+        colno: int | None
+        end_colno: int | None
+    else:
+        def __init__(
+            self,
+            filename: str,
+            lineno: int | None,
+            name: str,
+            *,
+            lookup_line: bool = ...,
+            locals: Mapping[str, str] | None = ...,
+            line: str | None = ...,
+        ) -> None: ...
     filename: str
-    lineno: int
+    lineno: int | None
     name: str
-    line: str
     locals: dict[str, str] | None
-    def __init__(
-        self,
-        filename: str,
-        lineno: int,
-        name: str,
-        *,
-        lookup_line: bool = ...,
-        locals: Mapping[str, str] | None = ...,
-        line: str | None = ...,
-    ) -> None: ...
-    # TODO: more precise typing for __getitem__ and __iter__,
-    # for a namedtuple-like view on (filename, lineno, name, str).
+    @property
+    def line(self) -> str | None: ...
+    @overload
+    def __getitem__(self, i: Literal[0]) -> str: ...
+    @overload
+    def __getitem__(self, i: Literal[1]) -> int: ...
+    @overload
+    def __getitem__(self, i: Literal[2]) -> str: ...
+    @overload
+    def __getitem__(self, i: Literal[3]) -> str | None: ...
+    @overload
     def __getitem__(self, i: int) -> Any: ...
     def __iter__(self) -> Iterator[Any]: ...
+    def __eq__(self, other: object) -> bool: ...
+    if sys.version_info >= (3, 8):
+        def __len__(self) -> Literal[4]: ...
 
 class StackSummary(list[FrameSummary]):
     @classmethod

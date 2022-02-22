@@ -1,7 +1,9 @@
+import enum
 import sys
 import types
 from builtins import type as Type  # alias to avoid name clashes with fields named "type"
 from typing import Any, Callable, Generic, Iterable, Mapping, Protocol, TypeVar, overload
+from typing_extensions import Literal
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -9,9 +11,47 @@ if sys.version_info >= (3, 9):
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
 
-class _MISSING_TYPE: ...
+if sys.version_info >= (3, 10):
+    __all__ = [
+        "dataclass",
+        "field",
+        "Field",
+        "FrozenInstanceError",
+        "InitVar",
+        "KW_ONLY",
+        "MISSING",
+        "fields",
+        "asdict",
+        "astuple",
+        "make_dataclass",
+        "replace",
+        "is_dataclass",
+    ]
+else:
+    __all__ = [
+        "dataclass",
+        "field",
+        "Field",
+        "FrozenInstanceError",
+        "InitVar",
+        "MISSING",
+        "fields",
+        "asdict",
+        "astuple",
+        "make_dataclass",
+        "replace",
+        "is_dataclass",
+    ]
 
-MISSING: _MISSING_TYPE
+# define _MISSING_TYPE as an enum within the type stubs,
+# even though that is not really its type at runtime
+# this allows us to use Literal[_MISSING_TYPE.MISSING]
+# for background, see:
+#   https://github.com/python/typeshed/pull/5900#issuecomment-895513797
+class _MISSING_TYPE(enum.Enum):
+    MISSING = enum.auto()
+
+MISSING = _MISSING_TYPE.MISSING
 
 if sys.version_info >= (3, 10):
     class KW_ONLY: ...
@@ -72,15 +112,15 @@ class _DefaultFactory(Protocol[_T_co]):
 class Field(Generic[_T]):
     name: str
     type: Type[_T]
-    default: _T
-    default_factory: _DefaultFactory[_T]
+    default: _T | Literal[_MISSING_TYPE.MISSING]
+    default_factory: _DefaultFactory[_T] | Literal[_MISSING_TYPE.MISSING]
     repr: bool
     hash: bool | None
     init: bool
     compare: bool
     metadata: types.MappingProxyType[Any, Any]
     if sys.version_info >= (3, 10):
-        kw_only: bool
+        kw_only: bool | Literal[_MISSING_TYPE.MISSING]
         def __init__(
             self,
             default: _T,
@@ -103,6 +143,8 @@ class Field(Generic[_T]):
             compare: bool,
             metadata: Mapping[Any, Any],
         ) -> None: ...
+
+    def __set_name__(self, owner: Type[Any], name: str) -> None: ...
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 

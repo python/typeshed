@@ -1,11 +1,14 @@
 import signal
 import sys
+from _typeshed import Self
 from bdb import Bdb
 from cmd import Cmd
 from inspect import _SourceObjectType
 from types import CodeType, FrameType, TracebackType
 from typing import IO, Any, Callable, ClassVar, Iterable, Mapping, Sequence, TypeVar
 from typing_extensions import ParamSpec
+
+__all__ = ["run", "pm", "Pdb", "runeval", "runctx", "runcall", "set_trace", "post_mortem", "help"]
 
 _T = TypeVar("_T")
 _P = ParamSpec("_P")
@@ -173,4 +176,4 @@ def getsourcelines(obj: _SourceObjectType) -> tuple[list[str], int]: ...
 def lasti2lineno(code: CodeType, lasti: int) -> int: ...
 
 class _rstr(str):
-    def __repr__(self) -> _rstr: ...
+    def __repr__(self: Self) -> Self: ...
