@@ -10,15 +10,3 @@ posix.stat_float_times
 ssl.OP_ENABLE_MIDDLEBOX_COMPAT
 ssl.Options.OP_ENABLE_MIDDLEBOX_COMPAT
 uuid.lib
-
-# Not "async defs" at runtime
-asyncio.SelectorEventLoop.create_unix_connection
-asyncio.SelectorEventLoop.create_unix_server
-asyncio.open_unix_connection
-asyncio.start_unix_server
-asyncio.streams.open_unix_connection
-asyncio.streams.start_unix_server
-asyncio.unix_events.SelectorEventLoop.create_unix_connection
-asyncio.unix_events.SelectorEventLoop.create_unix_server
-asyncio.unix_events._UnixSelectorEventLoop.create_unix_connection
-asyncio.unix_events._UnixSelectorEventLoop.create_unix_server
