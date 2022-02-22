@@ -201,6 +201,8 @@ threading.Lock  # A factory function that returns 'most efficient lock'. Marking
 threading.RLock  # Similar to above
 multiprocessing.dummy.Lock  # Similar to above
 multiprocessing.dummy.RLock  # Similar to above
+# alias for a class defined elsewhere, mypy infers the variable has type `(*args) -> ForkingPickler` but stubtest infers the runtime type as <class ForkingPickler>
+multiprocessing.reduction.AbstractReducer.ForkingPickler
 tkinter.Misc.grid_propagate  # The noarg placeholder is a set value list
 tkinter.Misc.pack_propagate  # The noarg placeholder is a set value list
 tkinter.Tk.eval  # from __getattr__
