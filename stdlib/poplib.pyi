@@ -1,7 +1,13 @@
 import socket
 import ssl
+import sys
 from typing import Any, BinaryIO, NoReturn, Pattern, overload
 from typing_extensions import Literal
+
+if sys.version_info >= (3, 10):
+    __all__ = ["POP3", "error_proto", "POP3_SSL"]
+else:
+    __all__ = ["POP3", "error_proto"]
 
 _LongResp = tuple[bytes, list[bytes], int]
 

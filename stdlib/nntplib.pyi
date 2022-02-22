@@ -6,6 +6,18 @@ from _typeshed import Self
 from typing import IO, Any, Iterable, NamedTuple, Union
 from typing_extensions import Literal
 
+__all__ = [
+    "NNTP",
+    "NNTPError",
+    "NNTPReplyError",
+    "NNTPTemporaryError",
+    "NNTPPermanentError",
+    "NNTPProtocolError",
+    "NNTPDataError",
+    "decode_header",
+    "NNTP_SSL",
+]
+
 _File = Union[IO[bytes], bytes, str, None]
 
 class NNTPError(Exception):
