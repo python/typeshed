@@ -3,7 +3,7 @@ from _typeshed import Self
 from concurrent.futures._base import Error, Future as _ConcurrentFuture
 from typing import Any, Awaitable, Callable, Generator, Iterable, TypeVar
 
-from .base_futures import isfuture
+from .base_futures import isfuture as isfuture
 from .events import AbstractEventLoop
 
 if sys.version_info < (3, 8):
