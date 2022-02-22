@@ -172,6 +172,7 @@ if sys.version_info >= (3, 11):
         @property
         def value(self) -> int: ...
         def __new__(cls: type[Self], value: int | Self) -> Self: ...
+
 else:
     class IntEnum(int, Enum):
         _value_: int
