@@ -18,11 +18,3 @@ os.startfile
 # Exists at runtime, but missing from stubs
 asyncio.windows_utils.socketpair
 venv.EnvBuilder.include_binary
-
-# Not "async defs" at runtime
-asyncio.IocpProactor.connect_pipe
-asyncio.ProactorEventLoop.create_pipe_connection
-asyncio.ProactorEventLoop.start_serving_pipe
-asyncio.windows_events.IocpProactor.connect_pipe
-asyncio.windows_events.ProactorEventLoop.create_pipe_connection
-asyncio.windows_events.ProactorEventLoop.start_serving_pipe

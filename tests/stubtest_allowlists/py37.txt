@@ -3,8 +3,6 @@ _collections_abc.AsyncGenerator.ag_code
 _collections_abc.AsyncGenerator.ag_frame
 _collections_abc.AsyncGenerator.ag_running
 _dummy_threading
-asyncio.AbstractEventLoop.run_in_executor  # allowed to return a Future, changed in 3.8
-asyncio.events.AbstractEventLoop.run_in_executor
 asyncio.Future.__init__  # Usually initialized from c object
 asyncio.Future._callbacks  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
