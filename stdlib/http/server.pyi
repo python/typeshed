@@ -5,6 +5,8 @@ import sys
 from _typeshed import StrPath, SupportsRead, SupportsWrite
 from typing import Any, AnyStr, BinaryIO, ClassVar, Mapping, Sequence
 
+__all__ = ["HTTPServer", "ThreadingHTTPServer", "BaseHTTPRequestHandler", "SimpleHTTPRequestHandler", "CGIHTTPRequestHandler"]
+
 class HTTPServer(socketserver.TCPServer):
     server_name: str
     server_port: int
@@ -60,6 +62,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         ) -> None: ...
     else:
         def __init__(self, request: bytes, client_address: tuple[str, int], server: socketserver.BaseServer) -> None: ...
+
     def do_GET(self) -> None: ...
     def do_HEAD(self) -> None: ...
     def send_head(self) -> io.BytesIO | BinaryIO | None: ...  # undocumented

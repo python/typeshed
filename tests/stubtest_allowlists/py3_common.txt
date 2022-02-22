@@ -19,8 +19,6 @@ _csv.Dialect.__init__  # C __init__ signature is inaccurate
 _socket.*
 _threading_local.local.__new__
 _weakref.ref.__call__
-abc.abstractclassmethod  # Deprecated, unsupported by mypy, hard to fix. #6552
-abc.abstractstaticmethod  # Deprecated, unsupported by mypy, hard to fix. #6552
 abc.ABCMeta.__new__  # pytype wants the parameter named cls and not mcls
 _weakref.CallableProxyType.__getattr__  # Should have all attributes of proxy
 _weakref.ProxyType.__getattr__  # Should have all attributes of proxy
@@ -94,6 +92,8 @@ enum.Enum.value
 enum.Flag.name
 enum.Flag.value
 enum.IntEnum.value
+hashlib.sha3_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
+hashlib.shake_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
 http.HTTPStatus.description  # set in __new__
 http.HTTPStatus.phrase  # set in __new__
 http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
@@ -105,12 +105,6 @@ importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but e
 importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
 importlib.machinery.ExtensionFileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
 inspect.Parameter.empty  # set as private marker _empty
-# inspect.Parameter: the Literal[enum_member] annotations are too complex for stubtest to parse
-inspect.Parameter.KEYWORD_ONLY
-inspect.Parameter.POSITIONAL_ONLY
-inspect.Parameter.POSITIONAL_OR_KEYWORD
-inspect.Parameter.VAR_KEYWORD
-inspect.Parameter.VAR_POSITIONAL
 inspect.Signature.empty  # set as private marker _empty
 inspect.Signature.from_builtin  # Removed in 3.11, can add if someone needs this
 inspect.Signature.from_function  # Removed in 3.11, can add if someone needs this
@@ -175,6 +169,7 @@ poplib.POP3_SSL.stls  # bad declaration of inherited function. See poplib.pyi
 pyexpat.expat_CAPI
 select.poll  # Depends on configuration
 selectors.DevpollSelector  # Depends on configuration
+socketserver.BaseServer.RequestHandlerClass  # is defined as a property, because we need `Self` type
 socketserver.BaseServer.fileno  # implemented in derived classes
 socketserver.BaseServer.get_request  # implemented in derived classes
 socketserver.BaseServer.server_bind  # implemented in derived classes
@@ -208,8 +203,6 @@ multiprocessing.dummy.Lock  # Similar to above
 multiprocessing.dummy.RLock  # Similar to above
 tkinter.Misc.grid_propagate  # The noarg placeholder is a set value list
 tkinter.Misc.pack_propagate  # The noarg placeholder is a set value list
-tkinter.Misc.grid_columnconfigure  # an empty dict literal is actually a valid default for a TypedDict(total=False) parameter
-tkinter.Misc.grid_rowconfigure  # an empty dict literal is actually a valid default for a TypedDict(total=False) parameter
 tkinter.Tk.eval  # from __getattr__
 tkinter.Tk.report_callback_exception  # A bit of a lie, since it's actually a method, but typing it as an attribute allows it to be assigned to
 tkinter.Wm.wm_iconphoto  # Default value of argument can't be used without runtime error
@@ -270,6 +263,9 @@ pydoc.Helper.symbols_  # Loop variable in class https://github.com/python/typesh
 pydoc.Helper.topic  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
 # Dynamically specified by __getattr__, and thus don't exist on the class
 tempfile._TemporaryFileWrapper.[\w_]+
+# stubtest incorrectly highlights the type argument as not having a default value.
+types.FunctionType.__get__
+types.LambdaType.__get__
 # Various classes in typing aren't types at runtime. In addition, mypy thinks some special forms are tautologically defined.
 typing.[A-Z]\w+
 typing_extensions\..*
@@ -290,6 +286,11 @@ sys.tracebacklimit
 codecs.StreamReaderWriter.\w+
 codecs.StreamRecoder.\w+
 urllib.response.addbase.\w+
+
+# Dynamically created, has unnecessary *args
+turtle.ScrolledCanvas.find_all
+turtle.ScrolledCanvas.select_clear
+turtle.ScrolledCanvas.select_item
 
 # Unnecessary re-exports
 asyncore\.E[A-Z]+  # re-exported from errno
@@ -368,6 +369,28 @@ tkinter.Place.forget
 tkinter.Place.place_slaves
 tkinter.Place.slaves
 
+# Methods that come from __getattr__() at runtime
+tkinter.Tk.adderrorinfo
+tkinter.Tk.call
+tkinter.Tk.createcommand
+tkinter.Tk.createtimerhandler
+tkinter.Tk.dooneevent
+tkinter.Tk.evalfile
+tkinter.Tk.exprboolean
+tkinter.Tk.exprdouble
+tkinter.Tk.exprlong
+tkinter.Tk.exprstring
+tkinter.Tk.globalgetvar
+tkinter.Tk.globalsetvar
+tkinter.Tk.globalunsetvar
+tkinter.Tk.interpaddr
+tkinter.Tk.record
+tkinter.Tk.split
+tkinter.Tk.splitlist
+tkinter.Tk.unsetvar
+tkinter.Tk.wantobjects
+tkinter.Tk.willdispatch
+
 # Undocumented and have a comment in the source code saying "State variables (don't mess with these)"
 wsgiref.handlers.BaseHandler.bytes_sent
 wsgiref.handlers.BaseHandler.headers
@@ -410,12 +433,13 @@ email.contentmanager.get_text_content
 email.contentmanager.set_bytes_content
 email.contentmanager.set_message_content
 email.contentmanager.set_text_content
-email.iterators.walk
 pipes.Template.makepipeline
 pipes.Template.open_r
 pipes.Template.open_w
 sunau.Au_read.initfp
 sunau.Au_write.initfp
+turtle.ScrolledCanvas.adjustScrolls
+turtle.ScrolledCanvas.onResize
 wave.Wave_read.initfp
 wave.Wave_write.initfp
 
@@ -707,5 +731,4 @@ tkinter.tix.ScrolledText
 tkinter.tix.ScrolledWindow
 tkinter.tix.Shell
 tracemalloc.BaseFilter
-turtle.ScrolledCanvas\..+
 turtle.TNavigator.speed

@@ -40,3 +40,12 @@ aiofiles.os.mkdir
 aiofiles.os.makedirs
 aiofiles.os.rmdir
 aiofiles.os.removedirs
+aiofiles.ospath.exists
+aiofiles.ospath.isfile
+aiofiles.ospath.isdir
+aiofiles.ospath.getsize
+aiofiles.ospath.getmtime
+aiofiles.ospath.getatime
+aiofiles.ospath.getctime
+aiofiles.ospath.samefile
+aiofiles.ospath.sameopenfile
