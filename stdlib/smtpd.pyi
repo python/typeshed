@@ -4,6 +4,8 @@ import socket
 from collections import defaultdict
 from typing import Any
 
+__all__ = ["SMTPChannel", "SMTPServer", "DebuggingServer", "PureProxy", "MailmanProxy"]
+
 _Address = tuple[str, int]  # (host, port)
 
 class SMTPChannel(asynchat.async_chat):

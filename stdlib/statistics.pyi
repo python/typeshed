@@ -4,6 +4,65 @@ from decimal import Decimal
 from fractions import Fraction
 from typing import Any, Hashable, Iterable, NamedTuple, Sequence, SupportsFloat, TypeVar, Union
 
+if sys.version_info >= (3, 10):
+    __all__ = [
+        "NormalDist",
+        "StatisticsError",
+        "correlation",
+        "covariance",
+        "fmean",
+        "geometric_mean",
+        "harmonic_mean",
+        "linear_regression",
+        "mean",
+        "median",
+        "median_grouped",
+        "median_high",
+        "median_low",
+        "mode",
+        "multimode",
+        "pstdev",
+        "pvariance",
+        "quantiles",
+        "stdev",
+        "variance",
+    ]
+elif sys.version_info >= (3, 8):
+    __all__ = [
+        "NormalDist",
+        "StatisticsError",
+        "fmean",
+        "geometric_mean",
+        "harmonic_mean",
+        "mean",
+        "median",
+        "median_grouped",
+        "median_high",
+        "median_low",
+        "mode",
+        "multimode",
+        "pstdev",
+        "pvariance",
+        "quantiles",
+        "stdev",
+        "variance",
+    ]
+else:
+    __all__ = [
+        "StatisticsError",
+        "pstdev",
+        "pvariance",
+        "stdev",
+        "variance",
+        "median",
+        "median_low",
+        "median_high",
+        "median_grouped",
+        "mean",
+        "mode",
+        "harmonic_mean",
+    ]
+
 # Most functions in this module accept homogeneous collections of one of these types
 _Number = Union[float, Decimal, Fraction]
 _NumberT = TypeVar("_NumberT", float, Decimal, Fraction)
