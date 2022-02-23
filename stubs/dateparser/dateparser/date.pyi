@@ -1,5 +1,4 @@
 import collections
-import sys
 from _typeshed import Self as Self
 from collections.abc import Callable, Iterable, Iterator
 from datetime import datetime

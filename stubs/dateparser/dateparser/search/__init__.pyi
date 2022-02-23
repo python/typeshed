@@ -1,4 +1,3 @@
-import sys
 from collections.abc import Mapping, Set as AbstractSet
 from datetime import datetime
 from typing import Any, overload

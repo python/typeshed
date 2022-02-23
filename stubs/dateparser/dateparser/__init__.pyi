@@ -1,5 +1,4 @@
 import datetime
-from collections.abc import Callable
 from typing_extensions import Literal, TypedDict
 
 from .date import DateDataParser, _DetectLanguagesFunction
