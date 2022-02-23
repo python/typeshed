@@ -108,22 +108,24 @@ else:
 
 class RegexFlag(enum.IntFlag):
     A: int
-    ASCII: int
+    ASCII = A
     DEBUG: int
     I: int
-    IGNORECASE: int
+    IGNORECASE = I
     L: int
-    LOCALE: int
+    LOCALE = L
     M: int
-    MULTILINE: int
+    MULTILINE = M
     S: int
-    DOTALL: int
+    DOTALL = S
     X: int
-    VERBOSE: int
+    VERBOSE = X
     U: int
-    UNICODE: int
+    UNICODE = U
     T: int
-    TEMPLATE: int
+    TEMPLATE = T
+    if sys.version_info >= (3, 11):
+        NO_FLAG: int
 
 A = RegexFlag.A
 ASCII = RegexFlag.ASCII
@@ -142,6 +144,8 @@ U = RegexFlag.U
 UNICODE = RegexFlag.UNICODE
 T = RegexFlag.T
 TEMPLATE = RegexFlag.TEMPLATE
+if sys.version_info >= (3, 11):
+    NO_FLAG = RegexFlag.NO_FLAG
 _FlagsType = Union[int, RegexFlag]
 
 if sys.version_info < (3, 7):
@@ -165,8 +169,6 @@ def search(pattern: Pattern[AnyStr], string: AnyStr, flags: _FlagsType = ...) ->
 def match(pattern: AnyStr, string: AnyStr, flags: _FlagsType = ...) -> Match[AnyStr] | None: ...
 @overload
 def match(pattern: Pattern[AnyStr], string: AnyStr, flags: _FlagsType = ...) -> Match[AnyStr] | None: ...
-
-# New in Python 3.4
 @overload
 def fullmatch(pattern: AnyStr, string: AnyStr, flags: _FlagsType = ...) -> Match[AnyStr] | None: ...
 @overload
