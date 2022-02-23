@@ -1,7 +1,7 @@
 import sys
 from collections.abc import Callable, Iterable
 from logging import Logger
-from multiprocessing import connection, context, pool, synchronize
+from multiprocessing import connection, context, pool, reduction as reducer, synchronize
 from multiprocessing.context import (
     AuthenticationError as AuthenticationError,
     BaseContext,
