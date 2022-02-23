@@ -22,9 +22,16 @@ if sys.version_info >= (3, 7):
         def buffer_updated(self, nbytes: int) -> None: ...
         def eof_received(self) -> bool | None: ...
 
+class __AnyStrOrInt(str, int):
+    pass
+
 class DatagramProtocol(BaseProtocol):
     def connection_made(self, transport: transports.DatagramTransport) -> None: ...  # type: ignore[override]
-    def datagram_received(self, data: bytes, addr: tuple[str | int, int]) -> None: ...
+    # addr can be a tuple[int, int] for some unusual protocols like socket.AF_NETLINK.
+    # Use tuple[str | Any, int] to not cause typechecking issues on most usual cases.
+    # This could be improved by using tuple[AnyOf[str, int], int] if the AnyOF feature is accepted.
+    # See https://github.com/python/typing/issues/566
+    def datagram_received(self, data: bytes, addr: tuple[str | Any, int]) -> None: ...
     def error_received(self, exc: Exception) -> None: ...
 
 class SubprocessProtocol(BaseProtocol):
