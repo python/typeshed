@@ -8,6 +8,43 @@ from typing import IO, Any, Callable, ClassVar, Iterable, Mapping, MutableMappin
 from urllib.error import HTTPError
 from urllib.response import addclosehook, addinfourl
 
+__all__ = [
+    "Request",
+    "OpenerDirector",
+    "BaseHandler",
+    "HTTPDefaultErrorHandler",
+    "HTTPRedirectHandler",
+    "HTTPCookieProcessor",
+    "ProxyHandler",
+    "HTTPPasswordMgr",
+    "HTTPPasswordMgrWithDefaultRealm",
+    "HTTPPasswordMgrWithPriorAuth",
+    "AbstractBasicAuthHandler",
+    "HTTPBasicAuthHandler",
+    "ProxyBasicAuthHandler",
+    "AbstractDigestAuthHandler",
+    "HTTPDigestAuthHandler",
+    "ProxyDigestAuthHandler",
+    "HTTPHandler",
+    "FileHandler",
+    "FTPHandler",
+    "CacheFTPHandler",
+    "DataHandler",
+    "UnknownHandler",
+    "HTTPErrorProcessor",
+    "urlopen",
+    "install_opener",
+    "build_opener",
+    "pathname2url",
+    "url2pathname",
+    "getproxies",
+    "urlretrieve",
+    "urlcleanup",
+    "URLopener",
+    "FancyURLopener",
+    "HTTPSHandler",
+]
+
 _T = TypeVar("_T")
 _UrlopenRet = Any
 _DataType = bytes | SupportsRead[bytes] | Iterable[bytes] | None

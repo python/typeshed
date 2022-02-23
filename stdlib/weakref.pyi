@@ -14,6 +14,22 @@ from _weakref import (
     ref as ref,
 )
 
+__all__ = [
+    "ref",
+    "proxy",
+    "getweakrefcount",
+    "getweakrefs",
+    "WeakKeyDictionary",
+    "ReferenceType",
+    "ProxyType",
+    "CallableProxyType",
+    "ProxyTypes",
+    "WeakValueDictionary",
+    "WeakSet",
+    "WeakMethod",
+    "finalize",
+]
+
 _T = TypeVar("_T")
 _T1 = TypeVar("_T1")
 _T2 = TypeVar("_T2")
