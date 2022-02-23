@@ -43,7 +43,6 @@ else:
         "wait_for",
         "as_completed",
         "sleep",
-        "async",
         "gather",
         "shield",
         "ensure_future",
