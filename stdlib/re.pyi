@@ -107,25 +107,25 @@ else:
     ]
 
 class RegexFlag(enum.IntFlag):
-    A: int
+    A: int = ...
     ASCII = A
-    DEBUG: int
-    I: int
+    DEBUG: int = ...
+    I: int = ...
     IGNORECASE = I
-    L: int
+    L: int = ...
     LOCALE = L
-    M: int
+    M: int = ...
     MULTILINE = M
-    S: int
+    S: int = ...
     DOTALL = S
-    X: int
+    X: int = ...
     VERBOSE = X
-    U: int
+    U: int = ...
     UNICODE = U
-    T: int
+    T: int = ...
     TEMPLATE = T
     if sys.version_info >= (3, 11):
-        NO_FLAG: int
+        NO_FLAG: int = ...
 
 A = RegexFlag.A
 ASCII = RegexFlag.ASCII
