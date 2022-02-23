@@ -63,12 +63,13 @@ class EntryPoint(_EntryPointBase):
         dist: ClassVar[Distribution | None]
         def matches(
             self,
-            __name: str = ...,
-            __value: str = ...,
-            __group: str = ...,
-            __module: str = ...,
-            __attr: str = ...,
-            __extras: list[str] = ...,
+            *,
+            name: str = ...,
+            value: str = ...,
+            group: str = ...,
+            module: str = ...,
+            attr: str = ...,
+            extras: list[str] = ...,
         ) -> bool: ...  # undocumented
 
 if sys.version_info >= (3, 10):
@@ -77,12 +78,13 @@ if sys.version_info >= (3, 10):
         def __getitem__(self, item: int | str) -> EntryPoint: ...  # type: ignore[override]
         def select(
             self,
-            __name: str = ...,
-            __value: str = ...,
-            __group: str = ...,
-            __module: str = ...,
-            __attr: str = ...,
-            __extras: list[str] = ...,
+            *,
+            name: str = ...,
+            value: str = ...,
+            group: str = ...,
+            module: str = ...,
+            attr: str = ...,
+            extras: list[str] = ...,
         ) -> EntryPoints: ...
         @property
         def names(self) -> set[str]: ...
@@ -101,12 +103,13 @@ if sys.version_info >= (3, 10):
         @overload
         def select(
             self,
-            __name: str = ...,
-            __value: str = ...,
-            __group: str = ...,
-            __module: str = ...,
-            __attr: str = ...,
-            __extras: list[str] = ...,
+            *,
+            name: str = ...,
+            value: str = ...,
+            group: str = ...,
+            module: str = ...,
+            attr: str = ...,
+            extras: list[str] = ...,
         ) -> EntryPoints: ...
 
 class PackagePath(pathlib.PurePosixPath):
@@ -198,12 +201,13 @@ if sys.version_info >= (3, 10):
     def entry_points() -> SelectableGroups: ...  # type: ignore[misc]
     @overload
     def entry_points(
-        __name: str = ...,
-        __value: str = ...,
-        __group: str = ...,
-        __module: str = ...,
-        __attr: str = ...,
-        __extras: list[str] = ...,
+        *,
+        name: str = ...,
+        value: str = ...,
+        group: str = ...,
+        module: str = ...,
+        attr: str = ...,
+        extras: list[str] = ...,
     ) -> EntryPoints: ...
 
 else:
