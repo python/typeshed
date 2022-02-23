@@ -1,4 +1,5 @@
 import enum
+import sre_compile
 import sys
 from sre_constants import error as error
 from typing import Any, AnyStr, Callable, Iterator, Union, overload
@@ -107,25 +108,25 @@ else:
     ]
 
 class RegexFlag(enum.IntFlag):
-    A: int = ...
+    A = sre_compile.SRE_FLAG_ASCII
     ASCII = A
-    DEBUG: int = ...
-    I: int = ...
+    DEBUG = sre_compile.SRE_FLAG_DEBUG
+    I = sre_compile.SRE_FLAG_IGNORECASE
     IGNORECASE = I
-    L: int = ...
+    L = sre_compile.SRE_FLAG_LOCALE
     LOCALE = L
-    M: int = ...
+    M = sre_compile.SRE_FLAG_MULTILINE
     MULTILINE = M
-    S: int = ...
+    S = sre_compile.SRE_FLAG_DOTALL
     DOTALL = S
-    X: int = ...
+    X = sre_compile.SRE_FLAG_VERBOSE
     VERBOSE = X
-    U: int = ...
+    U = sre_compile.SRE_FLAG_UNICODE
     UNICODE = U
-    T: int = ...
+    T = sre_compile.SRE_FLAG_TEMPLATE
     TEMPLATE = T
     if sys.version_info >= (3, 11):
-        NO_FLAG: int = ...
+        NO_FLAG: int
 
 A = RegexFlag.A
 ASCII = RegexFlag.ASCII
