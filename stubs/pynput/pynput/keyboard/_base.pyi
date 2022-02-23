@@ -1,8 +1,8 @@
 import contextlib
 import enum
 from _typeshed import Self
-from collections.abc import Iterable, Iterator
-from typing import Any, Callable, ClassVar
+from collections.abc import Callable, Iterable, Iterator
+from typing import Any, ClassVar
 
 from pynput._util import AbstractListener
 

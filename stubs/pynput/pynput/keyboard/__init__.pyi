@@ -1,5 +1,6 @@
 from _typeshed import SupportsItems
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 
 from pynput import _util
 

@@ -1,9 +1,10 @@
 import sys
 import threading
 from _typeshed import Self
+from collections.abc import Callable
 from queue import Queue
 from types import ModuleType, TracebackType
-from typing import Any, Callable, ClassVar, Generic, TypeVar
+from typing import Any, ClassVar, Generic, TypeVar
 from typing_extensions import ParamSpec, TypedDict
 
 _T = TypeVar("_T")
