@@ -1,5 +1,6 @@
 import sys
 from asyncio import transports
+from typing import Any
 
 if sys.version_info >= (3, 7):
     __all__ = ("BaseProtocol", "Protocol", "DatagramProtocol", "SubprocessProtocol", "BufferedProtocol")
