@@ -102,7 +102,6 @@ else:
         "get_logger",
         "get_start_method",
         "log_to_stderr",
-        "parent_process",
         "reducer",
         "set_executable",
         "set_forkserver_preload",

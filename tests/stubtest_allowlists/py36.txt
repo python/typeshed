@@ -31,7 +31,6 @@ ipaddress._BaseNetwork.__init__
 json.loads
 mmap.ACCESS_DEFAULT
 (os|posix).utime
-plistlib.Dict.__init__
 pyexpat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args
 random.Random.randrange  # missing undocumented arg _int
 random.randrange  # missing undocumented arg _int
@@ -121,7 +120,6 @@ html.parser.HTMLParser.unescape
 platform.popen
 plistlib.Data.asBase64
 plistlib.Data.fromBase64
-plistlib.Plist
 ssl.SSLObject.verify_client_post_handshake
 ssl.SSLSocket.verify_client_post_handshake
 sys.callstats
