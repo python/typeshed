@@ -1,6 +1,7 @@
 import asynchat
 import asyncore
 import socket
+import sys
 from collections import defaultdict
 from typing import Any
 
