@@ -1,4 +1,5 @@
 import enum
+import sre_compile
 import sys
 from sre_constants import error as error
 from typing import Any, AnyStr, Callable, Iterator, Union, overload
@@ -107,23 +108,25 @@ else:
     ]
 
 class RegexFlag(enum.IntFlag):
-    A: int
-    ASCII: int
-    DEBUG: int
-    I: int
-    IGNORECASE: int
-    L: int
-    LOCALE: int
-    M: int
-    MULTILINE: int
-    S: int
-    DOTALL: int
-    X: int
-    VERBOSE: int
-    U: int
-    UNICODE: int
-    T: int
-    TEMPLATE: int
+    A = sre_compile.SRE_FLAG_ASCII
+    ASCII = A
+    DEBUG = sre_compile.SRE_FLAG_DEBUG
+    I = sre_compile.SRE_FLAG_IGNORECASE
+    IGNORECASE = I
+    L = sre_compile.SRE_FLAG_LOCALE
+    LOCALE = L
+    M = sre_compile.SRE_FLAG_MULTILINE
+    MULTILINE = M
+    S = sre_compile.SRE_FLAG_DOTALL
+    DOTALL = S
+    X = sre_compile.SRE_FLAG_VERBOSE
+    VERBOSE = X
+    U = sre_compile.SRE_FLAG_UNICODE
+    UNICODE = U
+    T = sre_compile.SRE_FLAG_TEMPLATE
+    TEMPLATE = T
+    if sys.version_info >= (3, 11):
+        NO_FLAG: int
 
 A = RegexFlag.A
 ASCII = RegexFlag.ASCII
@@ -142,6 +145,8 @@ U = RegexFlag.U
 UNICODE = RegexFlag.UNICODE
 T = RegexFlag.T
 TEMPLATE = RegexFlag.TEMPLATE
+if sys.version_info >= (3, 11):
+    NO_FLAG = RegexFlag.NO_FLAG
 _FlagsType = Union[int, RegexFlag]
 
 if sys.version_info < (3, 7):
@@ -165,8 +170,6 @@ def search(pattern: Pattern[AnyStr], string: AnyStr, flags: _FlagsType = ...) ->
 def match(pattern: AnyStr, string: AnyStr, flags: _FlagsType = ...) -> Match[AnyStr] | None: ...
 @overload
 def match(pattern: Pattern[AnyStr], string: AnyStr, flags: _FlagsType = ...) -> Match[AnyStr] | None: ...
-
-# New in Python 3.4
 @overload
 def fullmatch(pattern: AnyStr, string: AnyStr, flags: _FlagsType = ...) -> Match[AnyStr] | None: ...
 @overload
