@@ -126,7 +126,7 @@ class RegexFlag(enum.IntFlag):
     T = sre_compile.SRE_FLAG_TEMPLATE
     TEMPLATE = T
     if sys.version_info >= (3, 11):
-        NO_FLAG: int
+        NOFLAG: int
 
 A = RegexFlag.A
 ASCII = RegexFlag.ASCII
@@ -146,7 +146,7 @@ UNICODE = RegexFlag.UNICODE
 T = RegexFlag.T
 TEMPLATE = RegexFlag.TEMPLATE
 if sys.version_info >= (3, 11):
-    NO_FLAG = RegexFlag.NO_FLAG
+    NOFLAG = RegexFlag.NOFLAG
 _FlagsType = Union[int, RegexFlag]
 
 if sys.version_info < (3, 7):
