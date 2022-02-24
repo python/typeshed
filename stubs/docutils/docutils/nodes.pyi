@@ -1,6 +1,6 @@
 from _typeshed import Self
-from typing import Any, overload
 from collections.abc import Iterable
+from typing import Any, overload
 
 from docutils.transforms import Transformer
 
