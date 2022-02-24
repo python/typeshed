@@ -4,6 +4,9 @@ import tkinter
 from typing import Any, Union, overload
 from typing_extensions import Literal, TypedDict
 
+if sys.version_info >= (3, 9):
+    __all__ = ["NORMAL", "ROMAN", "BOLD", "ITALIC", "nametofont", "Font", "families", "names"]
+
 NORMAL: Literal["normal"]
 ROMAN: Literal["roman"]
 BOLD: Literal["bold"]

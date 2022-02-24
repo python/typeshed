@@ -8,6 +8,22 @@ from typing_extensions import Literal
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
+__all__ = [
+    "NamedTemporaryFile",
+    "TemporaryFile",
+    "SpooledTemporaryFile",
+    "TemporaryDirectory",
+    "mkstemp",
+    "mkdtemp",
+    "mktemp",
+    "TMP_MAX",
+    "gettempprefix",
+    "tempdir",
+    "gettempdir",
+    "gettempprefixb",
+    "gettempdirb",
+]
+
 # global variables
 TMP_MAX: int
 tempdir: str | None
