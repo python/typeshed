@@ -11,6 +11,7 @@ if sys.platform == "win32":
     else:
         __all__ = ["socketpair", "pipe", "Popen", "PIPE", "PipeHandle"]
         import socket
+
         socketpair = socket.socketpair
 
     class _WarnFunction(Protocol):
