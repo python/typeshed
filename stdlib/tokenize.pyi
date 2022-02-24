@@ -2,6 +2,7 @@ import sys
 from _typeshed import StrOrBytesPath
 from builtins import open as _builtin_open
 from token import *
+from token import EXACT_TOKEN_TYPES as EXACT_TOKEN_TYPES
 from typing import Any, Callable, Generator, Iterable, NamedTuple, Pattern, Sequence, TextIO, Union
 
 if sys.version_info < (3, 7):
