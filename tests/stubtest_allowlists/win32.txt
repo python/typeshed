@@ -78,3 +78,6 @@ ssl.SSLSocket.recvmsg
 ssl.SSLSocket.recvmsg_into
 ssl.SSLSocket.sendmsg
 winreg.HKEYType.handle
+
+# exist but do not work on Windows
+shutil.chown
