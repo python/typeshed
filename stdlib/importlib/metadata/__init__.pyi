@@ -1,7 +1,7 @@
 import abc
 import pathlib
 import sys
-from _typeshed import StrPath
+from _typeshed import Self, StrPath
 from collections.abc import Mapping
 from email.message import Message
 from importlib.abc import MetaPathFinder
@@ -61,7 +61,56 @@ class EntryPoint(_EntryPointBase):
         def attr(self) -> str: ...
     if sys.version_info >= (3, 10):
         dist: ClassVar[Distribution | None]
-        def matches(self, **params: Any) -> bool: ...  # undocumented
+        def matches(
+            self,
+            *,
+            name: str = ...,
+            value: str = ...,
+            group: str = ...,
+            module: str = ...,
+            attr: str = ...,
+            extras: list[str] = ...,
+        ) -> bool: ...  # undocumented
+
+if sys.version_info >= (3, 10):
+    class EntryPoints(list[EntryPoint]):  # use as list is deprecated since 3.10
+        # int argument is deprecated since 3.10
+        def __getitem__(self, item: int | str) -> EntryPoint: ...  # type: ignore[override]
+        def select(
+            self,
+            *,
+            name: str = ...,
+            value: str = ...,
+            group: str = ...,
+            module: str = ...,
+            attr: str = ...,
+            extras: list[str] = ...,
+        ) -> EntryPoints: ...
+        @property
+        def names(self) -> set[str]: ...
+        @property
+        def groups(self) -> set[str]: ...
+
+    class SelectableGroups(dict[str, EntryPoints]):  # use as dict is deprecated since 3.10
+        @classmethod
+        def load(cls: type[Self], eps: Iterable[EntryPoint]) -> Self: ...
+        @property
+        def groups(self) -> set[str]: ...
+        @property
+        def names(self) -> set[str]: ...
+        @overload
+        def select(self: Self) -> Self: ...  # type: ignore[misc]
+        @overload
+        def select(
+            self,
+            *,
+            name: str = ...,
+            value: str = ...,
+            group: str = ...,
+            module: str = ...,
+            attr: str = ...,
+            extras: list[str] = ...,
+        ) -> EntryPoints: ...
 
 class PackagePath(pathlib.PurePosixPath):
     def read_text(self, encoding: str = ...) -> str: ...
@@ -94,12 +143,20 @@ class Distribution:
     ) -> Iterable[Distribution]: ...
     @staticmethod
     def at(path: StrPath) -> PathDistribution: ...
-    @property
-    def metadata(self) -> Message: ...
+
+    if sys.version_info >= (3, 10):
+        @property
+        def metadata(self) -> PackageMetadata: ...
+        @property
+        def entry_points(self) -> EntryPoints: ...
+    else:
+        @property
+        def metadata(self) -> Message: ...
+        @property
+        def entry_points(self) -> list[EntryPoint]: ...
+
     @property
     def version(self) -> str: ...
-    @property
-    def entry_points(self) -> list[EntryPoint]: ...
     @property
     def files(self) -> list[PackagePath] | None: ...
     @property
@@ -137,8 +194,20 @@ def distributions(*, context: DistributionFinder.Context) -> Iterable[Distributi
 def distributions(
     *, context: None = ..., name: str | None = ..., path: list[str] = ..., **kwargs: Any
 ) -> Iterable[Distribution]: ...
-def metadata(distribution_name: str) -> Message: ...
+
+if sys.version_info >= (3, 10):
+    def metadata(distribution_name: str) -> PackageMetadata: ...
+    @overload
+    def entry_points() -> SelectableGroups: ...  # type: ignore[misc]
+    @overload
+    def entry_points(
+        *, name: str = ..., value: str = ..., group: str = ..., module: str = ..., attr: str = ..., extras: list[str] = ...
+    ) -> EntryPoints: ...
+
+else:
+    def metadata(distribution_name: str) -> Message: ...
+    def entry_points() -> dict[str, list[EntryPoint]]: ...
+
 def version(distribution_name: str) -> str: ...
-def entry_points() -> dict[str, tuple[EntryPoint, ...]]: ...
 def files(distribution_name: str) -> list[PackagePath] | None: ...
 def requires(distribution_name: str) -> list[str] | None: ...
