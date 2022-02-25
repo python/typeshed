@@ -1,15 +1,73 @@
+import xml.dom.minidom
 from _typeshed import Self
 from collections.abc import Iterable
-from typing import Any, overload
+from types import ModuleType
+from typing import Any, Callable, Generator, TypeVar, overload
+from typing_extensions import Literal
 
 from docutils.transforms import Transformer
+
+class NodeVisitor:
+    def __init__(self, document: document): ...
+    def __getattr__(self, __name: str) -> Any: ...  # incomplete
+
+_N = TypeVar("_N", bound=Node)
 
 class Node:
     parent: Node | None
     source: str | None
     line: int | None
     document: document | None
-    def __getattr__(self, __name: str) -> Any: ...  # incomplete
+    def __bool__(self) -> Literal[True]: ...
+    def asdom(self, dom: ModuleType | None = ...) -> xml.dom.minidom.Element: ...
+    # ModuleType is inaccurate, you cannot pass any module, but it's the best we can express
+    def pformat(self, indent: str = ..., level: int = ...) -> str: ...
+    def copy(self: Self) -> Self: ...
+    def deepcopy(self: Self) -> Self: ...
+    def astext(self) -> str: ...
+    def setup_child(self, child: Node) -> None: ...
+    def walk(self, visitor: NodeVisitor) -> bool: ...
+    def walkabout(self, visitor: NodeVisitor) -> bool: ...
+    @overload
+    def findall(
+        self, condition: type[_N], include_self: bool = ..., descend: bool = ..., siblings: bool = ..., ascend: bool = ...
+    ) -> Generator[_N, None, None]: ...
+    @overload
+    def findall(
+        self,
+        condition: Callable[[Node], bool] = ...,
+        include_self: bool = ...,
+        descend: bool = ...,
+        siblings: bool = ...,
+        ascend: bool = ...,
+    ) -> Generator[Node, None, None]: ...
+    @overload
+    def traverse(
+        self, condition: type[_N], include_self: bool = ..., descend: bool = ..., siblings: bool = ..., ascend: bool = ...
+    ) -> list[_N]: ...
+    @overload
+    def traverse(
+        self,
+        condition: Callable[[Node], bool] = ...,
+        include_self: bool = ...,
+        descend: bool = ...,
+        siblings: bool = ...,
+        ascend: bool = ...,
+    ) -> list[Node]: ...
+    @overload
+    def next_node(
+        self, condition: type[_N], include_self: bool = ..., descend: bool = ..., siblings: bool = ..., ascend: bool = ...
+    ) -> _N: ...
+    @overload
+    def next_node(
+        self,
+        condition: Callable[[Node], bool] = ...,
+        include_self: bool = ...,
+        descend: bool = ...,
+        siblings: bool = ...,
+        ascend: bool = ...,
+    ) -> Node: ...
+    def previous_sibling(self) -> Node | None: ...
 
 class Element(Node):
     children: list[Node]
