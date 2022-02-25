@@ -62,6 +62,7 @@ if sys.version_info >= (3, 8):
         "get_context",
         "get_logger",
         "get_start_method",
+        "parent_process",
         "log_to_stderr",
         "reducer",
         "set_executable",
