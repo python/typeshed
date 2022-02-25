@@ -1,8 +1,7 @@
 import xml.dom.minidom
 from _typeshed import Self
 from collections.abc import Iterable
-from types import ModuleType
-from typing import Any, Callable, Generator, TypeVar, overload
+from typing import Any, Callable, Generator, Protocol, TypeVar, overload
 from typing_extensions import Literal
 
 from docutils.transforms import Transformer
@@ -13,14 +12,16 @@ class NodeVisitor:
 
 _N = TypeVar("_N", bound=Node)
 
+class _DomModule(Protocol):
+    Document: type[xml.dom.minidom.Document]
+
 class Node:
     parent: Node | None
     source: str | None
     line: int | None
     document: document | None
     def __bool__(self) -> Literal[True]: ...
-    def asdom(self, dom: ModuleType | None = ...) -> xml.dom.minidom.Element: ...
-    # ModuleType is inaccurate, you cannot pass any module, but it's the best we can express
+    def asdom(self, dom: _DomModule | None = ...) -> xml.dom.minidom.Element: ...
     def pformat(self, indent: str = ..., level: int = ...) -> str: ...
     def copy(self: Self) -> Self: ...
     def deepcopy(self: Self) -> Self: ...
