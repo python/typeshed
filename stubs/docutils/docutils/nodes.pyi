@@ -35,7 +35,7 @@ class Node:
     @overload
     def findall(
         self,
-        condition: Callable[[Node], bool] = ...,
+        condition: Callable[[Node], bool] | None = ...,
         include_self: bool = ...,
         descend: bool = ...,
         siblings: bool = ...,
@@ -48,7 +48,7 @@ class Node:
     @overload
     def traverse(
         self,
-        condition: Callable[[Node], bool] = ...,
+        condition: Callable[[Node], bool] | None = ...,
         include_self: bool = ...,
         descend: bool = ...,
         siblings: bool = ...,
@@ -61,7 +61,7 @@ class Node:
     @overload
     def next_node(
         self,
-        condition: Callable[[Node], bool] = ...,
+        condition: Callable[[Node], bool] | None = ...,
         include_self: bool = ...,
         descend: bool = ...,
         siblings: bool = ...,
