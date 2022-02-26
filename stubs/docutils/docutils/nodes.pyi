@@ -1,6 +1,6 @@
 import xml.dom.minidom
 from _typeshed import Self
-from collections.abc import Iterable
+from collections.abc import Iterable, Sequence
 from typing import Any, Callable, Generator, Protocol, TypeVar, overload
 from typing_extensions import Literal
 
@@ -16,6 +16,7 @@ class _DomModule(Protocol):
     Document: type[xml.dom.minidom.Document]
 
 class Node:
+    children: Sequence[Node]
     parent: Node | None
     source: str | None
     line: int | None
