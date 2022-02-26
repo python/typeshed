@@ -1710,7 +1710,7 @@ if sys.version_info >= (3, 10):
     class EncodingWarning(Warning): ...
 
 if sys.version_info >= (3, 11):
-    _SplitCondition = type[BaseException] | tuple[type[BaseException], ...] | Callable[[BaseException], bool]
+    _SplitCondition = Union[type[BaseException], tuple[type[BaseException], ...], Callable[[BaseException], bool]]
 
     class BaseExceptionGroup(BaseException):
         def __new__(cls: type[Self], __message: str, __exceptions: Sequence[BaseException]) -> Self: ...
