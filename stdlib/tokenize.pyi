@@ -79,8 +79,8 @@ if sys.version_info >= (3, 10):
         "tokenize",
         "generate_tokens",
         "detect_encoding",
-        "untokenize", 
-        "TokenInfo"
+        "untokenize",
+        "TokenInfo",
     ]
 elif sys.version_info >= (3, 8):
     __all__ = [
@@ -153,11 +153,11 @@ elif sys.version_info >= (3, 8):
         "ENCODING",
         "N_TOKENS",
         "NT_OFFSET",
-        "tokenize", 
+        "tokenize",
         "generate_tokens",
         "detect_encoding",
-        "untokenize", 
-        "TokenInfo"
+        "untokenize",
+        "TokenInfo",
     ]
 elif sys.version_info >= (3, 7):
     __all__ = [
@@ -225,10 +225,10 @@ elif sys.version_info >= (3, 7):
         "ENCODING",
         "N_TOKENS",
         "NT_OFFSET",
-        "tokenize", 
+        "tokenize",
         "detect_encoding",
-        "untokenize", 
-        "TokenInfo"
+        "untokenize",
+        "TokenInfo",
     ]
 else:
     __all__ = [
@@ -296,12 +296,12 @@ else:
         "N_TOKENS",
         "NT_OFFSET",
         "COMMENT",
-        "tokenize", 
+        "tokenize",
         "detect_encoding",
         "NL",
         "untokenize",
-        "ENCODING", 
-        "TokenInfo"
+        "ENCODING",
+        "TokenInfo",
     ]
 
 if sys.version_info >= (3, 8):
