@@ -140,7 +140,6 @@ if sys.version_info >= (3, 11):
         def __set_name__(self, ownerclass: type[Enum], name: str) -> None: ...
         name: str
         clsname: str
-
     _magic_enum_attr = property
 else:
     _magic_enum_attr = types.DynamicClassAttribute
