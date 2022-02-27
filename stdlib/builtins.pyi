@@ -809,8 +809,10 @@ class function:
     __qualname__: str
     __annotations__: dict[str, Any]
     __kwdefaults__: dict[str, Any]
-    @property
-    def __builtins__(self) -> dict[str, Any]: ...
+    if sys.version_info >= (3,10):
+        @property
+        def __builtins__(self) -> dict[str, Any]: ...
+
     __module__: str
     # mypy uses `builtins.function.__get__` to represent methods, properties, and getset_descriptors so we type the return as Any.
     def __get__(self, obj: object | None, type: type | None = ...) -> Any: ...
