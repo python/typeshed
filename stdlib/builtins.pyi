@@ -798,15 +798,19 @@ class tuple(Sequence[_T_co], Generic[_T_co]):
 @final
 class function:
     # Make sure this class definition stays roughly in line with `types.FunctionType`
-    __closure__: tuple[_Cell, ...] | None
+    @property
+    def __closure__(self) -> tuple[_Cell, ...] | None: ...
     __code__: CodeType
     __defaults__: tuple[Any, ...] | None
     __dict__: dict[str, Any]
-    __globals__: dict[str, Any]
+    @property
+    def __globals__(self) -> dict[str, Any]: ...
     __name__: str
     __qualname__: str
     __annotations__: dict[str, Any]
     __kwdefaults__: dict[str, Any]
+    @property
+    def __builtins__(self) -> dict[str, Any]: ...
     __module__: str
     # mypy uses `builtins.function.__get__` to represent methods, properties, and getset_descriptors so we type the return as Any.
     def __get__(self, obj: object | None, type: type | None = ...) -> Any: ...
