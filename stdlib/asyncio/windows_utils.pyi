@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 if sys.platform == "win32":
     if sys.version_info >= (3, 7):
-        __all__ = ("pipe", "PIPE", "PipeHandle")
+        __all__ = ("pipe", "Popen", "PIPE", "PipeHandle")
     else:
         __all__ = ["socketpair", "pipe", "Popen", "PIPE", "PipeHandle"]
         import socket

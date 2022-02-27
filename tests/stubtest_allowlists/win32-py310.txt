@@ -6,9 +6,6 @@ sqlite3.Connection.load_extension
 sqlite3.dbapi2.Connection.enable_load_extension
 sqlite3.dbapi2.Connection.load_extension
 
-# Module is currently missing the Popen class
-asyncio.windows_utils.__all__
-
 # pathlib methods that exist on Windows, but always raise NotImplementedError,
 # so are omitted from the stub
 pathlib.WindowsPath.is_mount

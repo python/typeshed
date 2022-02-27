@@ -15,9 +15,6 @@ pathlib.WindowsPath.owner
 pathlib.Path.is_mount
 pathlib.WindowsPath.is_mount
 
-# Module is currently missing the Popen class
-asyncio.windows_utils.__all__
-
 os.startfile
 
 # Exists at runtime, but missing from stubs
