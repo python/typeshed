@@ -809,7 +809,7 @@ class function:
     __qualname__: str
     __annotations__: dict[str, Any]
     __kwdefaults__: dict[str, Any]
-    if sys.version_info >= (3,10):
+    if sys.version_info >= (3, 10):
         @property
         def __builtins__(self) -> dict[str, Any]: ...
 
