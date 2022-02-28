@@ -38,4 +38,3 @@ posix.eventfd_read
 posix.eventfd_write
 posix.pidfd_open
 posix.splice
-time.pthread_getcpuclockid

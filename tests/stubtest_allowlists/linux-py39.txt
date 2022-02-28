@@ -6,4 +6,3 @@ os.copy_file_range
 os.pidfd_open
 posix.copy_file_range
 posix.pidfd_open
-time.pthread_getcpuclockid
