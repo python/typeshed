@@ -726,5 +726,4 @@ tkinter.tix.ScrolledTList
 tkinter.tix.ScrolledText
 tkinter.tix.ScrolledWindow
 tkinter.tix.Shell
-tracemalloc.BaseFilter
 turtle.TNavigator.speed
