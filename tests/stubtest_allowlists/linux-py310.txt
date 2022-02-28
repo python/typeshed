@@ -24,14 +24,12 @@ os.EFD_SEMAPHORE
 os.SPLICE_F_MORE
 os.SPLICE_F_MOVE
 os.SPLICE_F_NONBLOCK
-os.copy_file_range
 os.eventfd
 os.eventfd_read
 os.eventfd_write
 os.splice
 posix.EFD_[A-Z]+
 posix.SPLICE_[A-Z_]+
-posix.copy_file_range
 posix.eventfd
 posix.eventfd_read
 posix.eventfd_write
