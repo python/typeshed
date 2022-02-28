@@ -303,6 +303,7 @@ if sys.platform != "win32":
                 MFD_HUGE_MASK as MFD_HUGE_MASK,
                 MFD_HUGE_SHIFT as MFD_HUGE_SHIFT,
                 MFD_HUGETLB as MFD_HUGETLB,
+                copy_file_range as copy_file_range,
                 memfd_create as memfd_create,
             )
     if sys.version_info >= (3, 7):
