@@ -29,7 +29,8 @@ class shlex(Iterable[str]):
     lineno: int
     token: str
     eof: str
-    punctuation_chars: str
+    @property
+    def punctuation_chars(self) -> str: ...
     def __init__(
         self,
         instream: str | TextIO | None = ...,
