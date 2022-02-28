@@ -65,7 +65,6 @@ pathlib.Path.group
 
 # Exists at runtime, but missing from stubs
 _msi.MSIError
-asyncio.windows_utils.Popen
 distutils.msvccompiler.MSVCCompiler.manifest_get_embed_info
 distutils.msvccompiler.MSVCCompiler.manifest_setup_ldargs
 distutils.msvccompiler.OldMSVCCompiler
