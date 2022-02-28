@@ -56,3 +56,11 @@ if sys.platform == "win32":
             stderr: subprocess._FILE | None = ...,
             **kwds: Any,
         ) -> Self: ...
+        def __init__(
+            self,
+            args: subprocess._CMD,
+            stdin: subprocess._FILE | None = ...,
+            stdout: subprocess._FILE | None = ...,
+            stderr: subprocess._FILE | None = ...,
+            **kwds: Any,
+        ) -> None: ...
