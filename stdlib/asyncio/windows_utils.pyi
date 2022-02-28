@@ -41,9 +41,9 @@ if sys.platform == "win32":
         # The docstring says "The stdin, stdout, stderr are None or instances of PipeHandle."
         # but that is incorrect: if you pass in a file object, that will still be
         # put in the stdin/stdout/stderr attributes.
-        stdin: PipeHandle | IO[AnyStr] | None  # type: ignore[override]
-        stdout: PipeHandle | IO[AnyStr] | None  # type: ignore[override]
-        stderr: PipeHandle | IO[AnyStr] | None  # type: ignore[override]
+        stdin: PipeHandle | IO[AnyStr] | None  # type: ignore[assignment]
+        stdout: PipeHandle | IO[AnyStr] | None  # type: ignore[assignment]
+        stderr: PipeHandle | IO[AnyStr] | None  # type: ignore[assignment]
         # For simplicity we omit the full overloaded __new__ signature of
         # subprocess.Popen. The arguments are mostly the same, but
         # subprocess.Popen takes other positional-or-keyword arguments before
