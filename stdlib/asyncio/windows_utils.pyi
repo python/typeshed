@@ -2,7 +2,7 @@ import subprocess
 import sys
 from _typeshed import Self
 from types import TracebackType
-from typing import Callable, Protocol
+from typing import Any, AnyStr, Callable, Protocol
 from typing_extensions import Literal
 
 if sys.platform == "win32":
@@ -36,3 +36,23 @@ if sys.platform == "win32":
         def handle(self) -> int: ...
         def fileno(self) -> int: ...
         def close(self, *, CloseHandle: Callable[[int], None] = ...) -> None: ...
+
+    class Popen(subprocess.Popen[AnyStr]):
+        # The docstring says "The stdin, stdout, stderr are None or instances of PipeHandle."
+        # but that is incorrect: if you pass in a file object, that will still be
+        # put in the stdin/stdout/stderr attributes.
+        stdin: PipeHandle | IO[AnyStr] | None
+        stdout: PipeHandle | IO[AnyStr] | None
+        stderr: PipeHandle | IO[AnyStr] | None
+        # For simplicity we omit the full overloaded __new__ signature of
+        # subprocess.Popen. The arguments are mostly the same, but
+        # subprocess.Popen takes other positional-or-keyword arguments before
+        # stdin.
+        def __new__(
+            cls: type[Self],
+            args: subprocess._CMD,
+            stdin: subprocess._FILE | None = ...,
+            stdout: subprocess._FILE | None = ...,
+            stderr: subprocess._FILE | None = ...,
+            **kwds: Any,
+        ) -> Self: ...
