@@ -1024,3 +1024,6 @@ if sys.version_info >= (3, 8):
 
 if sys.version_info >= (3, 9):
     def waitstatus_to_exitcode(status: int) -> int: ...
+
+    if sys.platform == "linux":
+        def pidfd_open(pid: int, flags: int = ...) -> int: ...

@@ -29,7 +29,6 @@ os.copy_file_range
 os.eventfd
 os.eventfd_read
 os.eventfd_write
-os.pidfd_open
 os.splice
 posix.EFD_[A-Z]+
 posix.SPLICE_[A-Z_]+
@@ -37,5 +36,4 @@ posix.copy_file_range
 posix.eventfd
 posix.eventfd_read
 posix.eventfd_write
-posix.pidfd_open
 posix.splice
