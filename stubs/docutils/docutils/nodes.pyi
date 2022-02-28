@@ -1,14 +1,10 @@
 import xml.dom.minidom
 from _typeshed import Self
-from collections.abc import Iterable, Sequence
-from typing import Any, Callable, Generator, Protocol, TypeVar, overload
+from collections.abc import Callable, Generator, Iterable, Sequence
+from typing import Any, ClassVar, Protocol, TypeVar, overload
 from typing_extensions import Literal
 
 from docutils.transforms import Transformer
-
-class NodeVisitor:
-    def __init__(self, document: document): ...
-    def __getattr__(self, __name: str) -> Any: ...  # incomplete
 
 _N = TypeVar("_N", bound=Node)
 
@@ -16,6 +12,7 @@ class _DomModule(Protocol):
     Document: type[xml.dom.minidom.Document]
 
 class Node:
+    # children is initialized by the subclasses
     children: Sequence[Node]
     parent: Node | None
     source: str | None
@@ -95,7 +92,7 @@ class Element(Node):
     def __getattr__(self, __name: str) -> Any: ...  # incomplete
 
 class Text(Node, str):
-    tagname: str
+    tagname: ClassVar[str]
     children: tuple[()]
 
     # we omit the rawsource parameter because it has been deprecated and is ignored
@@ -110,6 +107,10 @@ class Root: ...
 
 class document(Root, Structural, Element):
     transformer: Transformer
+    def __getattr__(self, __name: str) -> Any: ...  # incomplete
+
+class NodeVisitor:
+    def __init__(self, document: document): ...
     def __getattr__(self, __name: str) -> Any: ...  # incomplete
 
 def __getattr__(name: str) -> Any: ...  # incomplete
