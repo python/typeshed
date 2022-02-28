@@ -19,6 +19,7 @@ collections.UserString.maketrans
 contextvars.Context.__init__  # Default C __init__ signature is wrong
 contextvars.ContextVar.get
 dataclasses.field
+distutils.command.bdist_wininst  # see #6523
 dummy_threading.Condition.acquire
 dummy_threading.Condition.release
 dummy_threading.Event.isSet

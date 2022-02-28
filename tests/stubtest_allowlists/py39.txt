@@ -31,6 +31,7 @@ contextvars.Context.__init__  # Default C __init__ signature is wrong
 contextlib.AbstractAsyncContextManager.__class_getitem__
 contextlib.AbstractContextManager.__class_getitem__
 dataclasses.field
+distutils.command.bdist_wininst  # see #6523
 enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 ftplib.FTP.trust_server_pasv_ipv4_address  # Dangerous to use, intentionally undocumented, intentionally missing from typeshed. #6154

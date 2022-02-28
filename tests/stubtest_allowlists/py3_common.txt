@@ -314,6 +314,24 @@ builtins.reveal_locals
 builtins.reveal_type
 
 # __all__-related weirdness (see #6523)
+distutils.command.build
+distutils.command.build_py
+distutils.command.build_ext
+distutils.command.build_clib
+distutils.command.build_scripts
+distutils.command.clean
+distutils.command.install
+distutils.command.install_lib
+distutils.command.install_headers
+distutils.command.install_scripts
+distutils.command.install_data
+distutils.command.sdist
+distutils.command.register
+distutils.command.bdist
+distutils.command.bdist_dumb
+distutils.command.bdist_rpm
+distutils.command.check
+distutils.command.upload
 email.base64mime
 email.charset
 email.encoders
