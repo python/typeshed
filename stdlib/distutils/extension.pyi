@@ -13,7 +13,7 @@ class Extension:
         extra_compile_args: list[str] | None = ...,
         extra_link_args: list[str] | None = ...,
         export_symbols: list[str] | None = ...,
-        swig_opts: str | None = ...,  # undocumented
+        swig_opts: list[str] | None = ...,
         depends: list[str] | None = ...,
         language: str | None = ...,
         optional: bool | None = ...,
