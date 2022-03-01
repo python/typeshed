@@ -61,7 +61,7 @@ if sys.platform != "win32":
     # mypy assumes the class is meant to be concrete unless we specify `metaclass=ABCMeta`
     # (which we don't want to do, as it doesn't match the runtime implementation),
     # so raises an error warning us that some abstractmethods from the superclass do not have concrete implementations.
-    class BaseChildWatcher(AbstractChildWatcher):  # type: ignore[misc]
+    class BaseChildWatcher(AbstractChildWatcher):  # type: ignore
         def __init__(self) -> None: ...
         def close(self) -> None: ...
         if sys.version_info >= (3, 8):
