@@ -57,6 +57,8 @@ if sys.platform != "win32":
     else:
         __all__ = ["SelectorEventLoop", "AbstractChildWatcher", "SafeChildWatcher", "FastChildWatcher", "DefaultEventLoopPolicy"]
 
+    # Doesn't actually have ABCMeta metaclass at runtime, but mypy complains if we don't have it in the stub.
+    # See discussion in #7412
     class BaseChildWatcher(AbstractChildWatcher, metaclass=ABCMeta):
         def __init__(self) -> None: ...
         def close(self) -> None: ...
