@@ -34,7 +34,6 @@ mmap.ACCESS_DEFAULT
 (os|posix).utime
 pyexpat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args
 random.Random.randrange  # missing undocumented arg _int
-random.randrange  # missing undocumented arg _int
 sched.Event.__doc__  # __slots__ is overridden
 stringprep.unicodedata  # re-exported from unicodedata
 sre_compile.dis
