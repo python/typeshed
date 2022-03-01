@@ -1,7 +1,7 @@
 import sys
 import types
 from _typeshed import Self
-from abc import abstractmethod
+from abc import ABCMeta, abstractmethod
 from socket import socket
 from typing import Any, Callable
 from typing_extensions import Literal
@@ -57,11 +57,7 @@ if sys.platform != "win32":
     else:
         __all__ = ["SelectorEventLoop", "AbstractChildWatcher", "SafeChildWatcher", "FastChildWatcher", "DefaultEventLoopPolicy"]
 
-    # `type: ignore[misc]` because the class is still abstract, but does not define any new abstractmethods in the class body.
-    # mypy assumes the class is meant to be concrete unless we specify `metaclass=ABCMeta`
-    # (which we don't want to do, as it doesn't match the runtime implementation),
-    # so raises an error warning us that some abstractmethods from the superclass do not have concrete implementations.
-    class BaseChildWatcher(AbstractChildWatcher):  # type: ignore
+    class BaseChildWatcher(AbstractChildWatcher, metaclass=ABCMeta):
         def __init__(self) -> None: ...
         def close(self) -> None: ...
         if sys.version_info >= (3, 8):
