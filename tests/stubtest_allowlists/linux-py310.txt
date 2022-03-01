@@ -18,8 +18,6 @@ signal.sigwaitinfo
 select.epoll.register
 
 # Exists at runtime, but missing from stubs
-asyncio.PidfdChildWatcher
-asyncio.unix_events.PidfdChildWatcher
 os.EFD_CLOEXEC
 os.EFD_NONBLOCK
 os.EFD_SEMAPHORE
