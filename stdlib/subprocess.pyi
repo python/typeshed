@@ -633,7 +633,7 @@ if sys.version_info >= (3, 7):
         encoding: str | None = ...,
         errors: str | None = ...,
         text: bool | None = ...,
-    ) -> Any: ...  # morally: -> _TXT
+    ) -> _TXT: ...  # morally: -> _TXT
 
 else:
     @overload
@@ -755,7 +755,7 @@ else:
         input: _TXT | None = ...,
         encoding: str | None = ...,
         errors: str | None = ...,
-    ) -> Any: ...  # morally: -> _TXT
+    ) -> _TXT: ...  # morally: -> _TXT
 
 PIPE: int
 STDOUT: int
