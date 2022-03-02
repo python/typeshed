@@ -89,6 +89,8 @@ else:
         "stack_size",
     ]
 
+_profile_hook: _PF | None
+
 def active_count() -> int: ...
 def activeCount() -> int: ...  # deprecated alias for active_count()
 def current_thread() -> Thread: ...
