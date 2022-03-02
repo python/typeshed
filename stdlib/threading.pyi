@@ -8,8 +8,6 @@ _TF = Callable[[FrameType, str, Any], Optional[Callable[..., Any]]]
 _PF = Callable[[FrameType, str, Any], None]
 _T = TypeVar("_T")
 
-_profile_hook: _PF | None
-
 if sys.version_info >= (3, 10):
     __all__ = [
         "get_ident",
@@ -90,6 +88,8 @@ else:
         "local",
         "stack_size",
     ]
+
+_profile_hook: _PF | None
 
 def active_count() -> int: ...
 def activeCount() -> int: ...  # deprecated alias for active_count()
