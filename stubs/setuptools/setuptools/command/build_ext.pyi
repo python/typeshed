@@ -1,6 +1,8 @@
 from distutils.command.build_ext import build_ext as _build_ext
 from typing import Any
 
+from setuptools import Command
+
 have_rtld: bool
 use_stubs: bool
 libtype: str
@@ -8,7 +10,7 @@ libtype: str
 def if_dl(s): ...
 def get_abi3_suffix(): ...
 
-class build_ext(_build_ext):
+class build_ext(_build_ext, Command):
     inplace: Any
     def run(self) -> None: ...
     def copy_extensions_to_source(self) -> None: ...
