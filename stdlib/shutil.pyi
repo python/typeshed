@@ -32,11 +32,10 @@ __all__ = [
     "disk_usage",
 ]
 
+# these type variables are used by the functions that return the passed destination
+# which can be either a path-like object or a string/bytes
 _StrOrBytesPathT = TypeVar("_StrOrBytesPathT", bound=StrOrBytesPath)
 _StrPathT = TypeVar("_StrPathT", bound=StrPath)
-# Return value of some functions that may either return a path-like object that was passed in or
-# a string
-_PathReturn = Any
 
 class Error(OSError): ...
 class SameFileError(Error): ...
@@ -56,23 +55,23 @@ def ignore_patterns(*patterns: StrPath) -> Callable[[Any, list[str]], set[str]]:
 if sys.version_info >= (3, 8):
     def copytree(
         src: StrPath,
-        dst: StrPath,
+        dst: _StrPathT,
         symlinks: bool = ...,
         ignore: None | Callable[[str, list[str]], Iterable[str]] | Callable[[StrPath, list[str]], Iterable[str]] = ...,
         copy_function: Callable[[str, str], None] = ...,
         ignore_dangling_symlinks: bool = ...,
         dirs_exist_ok: bool = ...,
-    ) -> _PathReturn: ...
+    ) -> _StrPathT: ...
 
 else:
     def copytree(
         src: StrPath,
-        dst: StrPath,
+        dst: _StrPathT,
         symlinks: bool = ...,
         ignore: None | Callable[[str, list[str]], Iterable[str]] | Callable[[StrPath, list[str]], Iterable[str]] = ...,
         copy_function: Callable[[str, str], None] = ...,
         ignore_dangling_symlinks: bool = ...,
-    ) -> _PathReturn: ...
+    ) -> _StrPathT: ...
 
 def rmtree(path: StrOrBytesPath, ignore_errors: bool = ..., onerror: Callable[[Any, Any, Any], Any] | None = ...) -> None: ...
 
@@ -82,11 +81,11 @@ _CopyFn = Union[Callable[[str, str], None], Callable[[StrPath, StrPath], None]]
 # this does not work when dst is (or is within) an existing directory.
 # (#6832)
 if sys.version_info >= (3, 9):
-    def move(src: StrPath, dst: StrPath, copy_function: _CopyFn = ...) -> _PathReturn: ...
+    def move(src: StrPath, dst: _StrPathT, copy_function: _CopyFn = ...) -> _StrPathT: ...
 
 else:
     # See https://bugs.python.org/issue32689
-    def move(src: str, dst: StrPath, copy_function: _CopyFn = ...) -> _PathReturn: ...
+    def move(src: str, dst: _StrPathT, copy_function: _CopyFn = ...) -> _StrPathT: ...
 
 class _ntuple_diskusage(NamedTuple):
     total: int
