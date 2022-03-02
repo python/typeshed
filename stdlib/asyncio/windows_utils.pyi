@@ -2,7 +2,7 @@ import subprocess
 import sys
 from _typeshed import Self
 from types import TracebackType
-from typing import IO, Any, AnyStr, Callable, Protocol
+from typing import Any, AnyStr, Callable, Protocol
 from typing_extensions import Literal
 
 if sys.platform == "win32":
