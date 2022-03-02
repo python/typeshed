@@ -8,7 +8,7 @@ _TF = Callable[[FrameType, str, Any], Optional[Callable[..., Any]]]
 _PF = Callable[[FrameType, str, Any], None]
 _T = TypeVar("_T")
 
-_profile_hook = Optional[_TF]
+_profile_hook: _TF | None
 
 if sys.version_info >= (3, 10):
     __all__ = [
