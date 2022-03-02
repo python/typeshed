@@ -568,7 +568,7 @@ def fdopen(
 def fdopen(
     fd: int,
     mode: OpenBinaryMode,
-    buffering: int,
+    buffering: int = ...,
     encoding: None = ...,
     errors: None = ...,
     newline: None = ...,

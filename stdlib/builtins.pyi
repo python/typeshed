@@ -1308,7 +1308,7 @@ def open(
 def open(
     file: _OpenFile,
     mode: OpenBinaryMode,
-    buffering: int,
+    buffering: int = ...,
     encoding: None = ...,
     errors: None = ...,
     newline: None = ...,
