@@ -538,7 +538,7 @@ if it consisted of several smaller commits.
 Third-party packages are generally removed from typeshed when one of the
 following criteria is met:
 
-* The upstream package ships a `py.typed` file for at least 6-12 months, or
+* The upstream package ships a `py.typed` file for at least six months, or
 * the package does not support any of the Python versions supported by
   typeshed.
 
