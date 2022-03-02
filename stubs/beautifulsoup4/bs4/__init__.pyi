@@ -12,8 +12,8 @@ from .element import (
     ProcessingInstruction as ProcessingInstruction,
     ResultSet as ResultSet,
     Script as Script,
-    Stylesheet as Stylesheet,
     SoupStrainer as SoupStrainer,
+    Stylesheet as Stylesheet,
     Tag as Tag,
     TemplateString as TemplateString,
 )
