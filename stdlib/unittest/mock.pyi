@@ -1,6 +1,6 @@
 import sys
 from _typeshed import Self
-from contextlib import AbstractContextManager
+from contextlib import _GeneratorContextManager
 from typing import Any, Awaitable, Callable, Generic, Iterable, Mapping, Sequence, TypeVar, overload
 from typing_extensions import Literal
 
@@ -78,12 +78,12 @@ DEFAULT: Any
 
 _ArgsKwargs = tuple[tuple[Any, ...], Mapping[str, Any]]
 _NameArgsKwargs = tuple[str, tuple[Any, ...], Mapping[str, Any]]
-_ValueArgument = str | tuple[Any, ...] | Mapping[str, Any] | _ArgsKwargs | _NameArgsKwargs
+_CallValue = str | tuple[Any, ...] | Mapping[str, Any] | _ArgsKwargs | _NameArgsKwargs
 
 class _Call(tuple[Any, ...]):
     def __new__(
         cls: type[Self],
-        value: _ValueArgument = ...,
+        value: _CallValue = ...,
         name: str | None = ...,
         parent: Any | None = ...,
         two: bool = ...,
@@ -94,7 +94,7 @@ class _Call(tuple[Any, ...]):
     from_kall: Any
     def __init__(
         self,
-        value: _ValueArgument = ...,
+        value: _CallValue = ...,
         name: str | None = ...,
         parent: Any | None = ...,
         two: bool = ...,
@@ -256,7 +256,7 @@ class _patch(Generic[_T]):
     if sys.version_info >= (3, 8):
         def decoration_helper(
             self, patched: _patch[Any], args: Sequence[Any], keywargs: Any
-        ) -> AbstractContextManager[tuple[Sequence[Any], Any]]: ...
+        ) -> _GeneratorContextManager[tuple[Sequence[Any], Any]]: ...
 
     def decorate_class(self, klass: _TT) -> _TT: ...
     def decorate_callable(self, func: Callable[..., _R]) -> Callable[..., _R]: ...
