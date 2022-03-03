@@ -93,12 +93,7 @@ class _Call(tuple[Any, ...]):
     parent: Any
     from_kall: Any
     def __init__(
-        self,
-        value: _CallValue = ...,
-        name: str | None = ...,
-        parent: Any | None = ...,
-        two: bool = ...,
-        from_kall: bool = ...,
+        self, value: _CallValue = ..., name: str | None = ..., parent: Any | None = ..., two: bool = ..., from_kall: bool = ...
     ) -> None: ...
     def __eq__(self, other: object) -> bool: ...
     def __ne__(self, __other: object) -> bool: ...
