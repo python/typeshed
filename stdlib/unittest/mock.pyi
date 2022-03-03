@@ -1,6 +1,7 @@
 import sys
 from _typeshed import Self
-from typing import Any, Awaitable, Callable, ContextManager, Generic, Iterable, Mapping, Sequence, TypeVar, overload
+from contextlib import AbstractContextManager
+from typing import Any, Awaitable, Callable, Generic, Iterable, Mapping, Sequence, TypeVar, overload
 from typing_extensions import Literal
 
 _T = TypeVar("_T")
@@ -255,7 +256,7 @@ class _patch(Generic[_T]):
     if sys.version_info >= (3, 8):
         def decoration_helper(
             self, patched: _patch[Any], args: Sequence[Any], keywargs: Any
-        ) -> ContextManager[tuple[Sequence[Any], Any]]: ...
+        ) -> AbstractContextManager[tuple[Sequence[Any], Any]]: ...
 
     def decorate_class(self, klass: _TT) -> _TT: ...
     def decorate_callable(self, func: Callable[..., _R]) -> Callable[..., _R]: ...
