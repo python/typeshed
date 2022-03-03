@@ -1,6 +1,6 @@
 import sys
 from _typeshed import Self
-from typing import Any, Awaitable, Callable, Generic, Iterable, Mapping, Sequence, TypeVar, overload, ContextManager
+from typing import Any, Awaitable, Callable, ContextManager, Generic, Iterable, Mapping, Sequence, TypeVar, overload
 from typing_extensions import Literal
 
 _T = TypeVar("_T")
@@ -77,7 +77,7 @@ DEFAULT: Any
 _ArgsKwargs = tuple[tuple[Any, ...], Mapping[str, Any]]
 _NameArgsKwargs = tuple[str, tuple[Any, ...], Mapping[str, Any]]
 _ValueArgument = str | tuple[Any, ...] | Mapping[str, Any] | _ArgsKwargs | _NameArgsKwargs
-_CallValues = TypeVar('_CallValues', _ArgsKwargs, _NameArgsKwargs)
+_CallValues = TypeVar("_CallValues", _ArgsKwargs, _NameArgsKwargs)
 
 class _Call(Generic[_CallValues]):
     @overload
@@ -102,7 +102,12 @@ class _Call(Generic[_CallValues]):
     parent: Any
     from_kall: Any
     def __init__(
-        self, value: _ValueArgument = ..., name: str | None = ..., parent: Any | None = ..., two: bool = ..., from_kall: bool = ...
+        self,
+        value: _ValueArgument = ...,
+        name: str | None = ...,
+        parent: Any | None = ...,
+        two: bool = ...,
+        from_kall: bool = ...,
     ) -> None: ...
     def __eq__(self, other: object) -> bool: ...
     def __ne__(self, __other: object) -> bool: ...
@@ -258,7 +263,9 @@ class _patch(Generic[_T]):
     @overload
     def __call__(self, func: Callable[..., _R]) -> Callable[..., _R]: ...
     if sys.version_info >= (3, 8):
-        def decoration_helper(self, patched: _patch[Any], args: Sequence[Any], keywargs: Any) -> ContextManager[tuple[Sequence[Any], Any]]: ...
+        def decoration_helper(
+            self, patched: _patch[Any], args: Sequence[Any], keywargs: Any
+        ) -> ContextManager[tuple[Sequence[Any], Any]]: ...
 
     def decorate_class(self, klass: _TT) -> _TT: ...
     def decorate_callable(self, func: Callable[..., _R]) -> Callable[..., _R]: ...
