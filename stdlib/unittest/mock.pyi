@@ -1,6 +1,6 @@
 import sys
 from _typeshed import Self
-from typing import Any, Awaitable, Callable, Generic, Iterable, Mapping, Sequence, TypeVar, overload
+from typing import Any, Awaitable, Callable, Generic, Iterable, Mapping, Sequence, TypeVar, overload, ContextManager
 from typing_extensions import Literal
 
 _T = TypeVar("_T")
@@ -74,21 +74,35 @@ class _Sentinel:
 
 sentinel: Any
 DEFAULT: Any
+_ArgsKwargs = tuple[tuple[Any, ...], Mapping[str, Any]]
+_NameArgsKwargs = tuple[str, tuple[Any, ...], Mapping[str, Any]]
+_ValueArgument = str | tuple[Any, ...] | Mapping[str, Any] | _ArgsKwargs | _NameArgsKwargs
+_CallValues = TypeVar('_CallValues', _ArgsKwargs, _NameArgsKwargs)
 
-class _Call(tuple[Any, ...]):
+class _Call(Generic[_CallValues]):
+    @overload
     def __new__(
         cls: type[Self],
-        value: Any = ...,
-        name: Any | None = ...,
+        value: _ValueArgument = ...,
+        name: str | None = ...,
         parent: Any | None = ...,
-        two: bool = ...,
+        two: Literal[True] = ...,
         from_kall: bool = ...,
-    ) -> Self: ...
+    ) -> Self[_ArgsKwargs]: ...
+    @overload
+    def __new__(
+        cls: type[Self],
+        value: _ValueArgument = ...,
+        name: str | None = ...,
+        parent: Any | None = ...,
+        two: Literal[False] = ...,
+        from_kall: bool = ...,
+    ) -> Self[_NameArgsKwargs]: ...
     name: Any
     parent: Any
     from_kall: Any
     def __init__(
-        self, value: Any = ..., name: Any | None = ..., parent: Any | None = ..., two: bool = ..., from_kall: bool = ...
+        self, value: _ValueArgument = ..., name: str | None = ..., parent: Any | None = ..., two: bool = ..., from_kall: bool = ...
     ) -> None: ...
     def __eq__(self, other: object) -> bool: ...
     def __ne__(self, __other: object) -> bool: ...
@@ -97,9 +111,9 @@ class _Call(tuple[Any, ...]):
     def __getattribute__(self, attr: str) -> Any: ...
     if sys.version_info >= (3, 8):
         @property
-        def args(self): ...
+        def args(self) -> tuple[Any, ...]: ...
         @property
-        def kwargs(self): ...
+        def kwargs(self) -> Mapping[str, Any]: ...
 
     def call_list(self) -> Any: ...
 
@@ -244,7 +258,7 @@ class _patch(Generic[_T]):
     @overload
     def __call__(self, func: Callable[..., _R]) -> Callable[..., _R]: ...
     if sys.version_info >= (3, 8):
-        def decoration_helper(self, patched, args, keywargs): ...
+        def decoration_helper(self, patched: _patch[Any], args: Sequence[Any], keywargs: Any) -> ContextManager[tuple[Sequence[Any], Any]]: ...
 
     def decorate_class(self, klass: _TT) -> _TT: ...
     def decorate_callable(self, func: Callable[..., _R]) -> Callable[..., _R]: ...
