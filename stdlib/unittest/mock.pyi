@@ -74,30 +74,20 @@ class _Sentinel:
 
 sentinel: Any
 DEFAULT: Any
+
 _ArgsKwargs = tuple[tuple[Any, ...], Mapping[str, Any]]
 _NameArgsKwargs = tuple[str, tuple[Any, ...], Mapping[str, Any]]
 _ValueArgument = str | tuple[Any, ...] | Mapping[str, Any] | _ArgsKwargs | _NameArgsKwargs
-_CallValues = TypeVar("_CallValues", _ArgsKwargs, _NameArgsKwargs)
 
-class _Call(Generic[_CallValues]):
-    @overload
+class _Call(tuple[Any, ...]):
     def __new__(
         cls: type[Self],
         value: _ValueArgument = ...,
         name: str | None = ...,
         parent: Any | None = ...,
-        two: Literal[True] = ...,
+        two: bool = ...,
         from_kall: bool = ...,
-    ) -> Self[_ArgsKwargs]: ...
-    @overload
-    def __new__(
-        cls: type[Self],
-        value: _ValueArgument = ...,
-        name: str | None = ...,
-        parent: Any | None = ...,
-        two: Literal[False] = ...,
-        from_kall: bool = ...,
-    ) -> Self[_NameArgsKwargs]: ...
+    ) -> Self: ...
     name: Any
     parent: Any
     from_kall: Any
