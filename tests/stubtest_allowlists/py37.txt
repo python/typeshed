@@ -8,6 +8,7 @@ asyncio.Future._callbacks  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future._callbacks  # Usually initialized from c object
 builtins.dict.get
+builtins.float.__set_format__  # Internal method for CPython test suite
 builtins.str.maketrans
 cmath.log
 collections.AsyncGenerator.ag_await

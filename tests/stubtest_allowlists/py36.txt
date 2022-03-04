@@ -6,6 +6,7 @@ _dummy_threading
 asyncio.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
 asyncio.futures._TracebackLogger.__init__
+builtins.float.__setformat__  # Internal method for CPython test suite
 builtins.str.maketrans
 cmath.log
 collections.AsyncGenerator.ag_await
@@ -129,4 +130,5 @@ tempfile.SpooledTemporaryFile.softspace
 tkinter.dnd.Icon
 tkinter.dnd.Tester
 tkinter.dnd.test
+typing.[A-Z]\w*.__.*__  # many missing typing dunders in py36
 xml.dom.xmlbuilder.DocumentLS.async

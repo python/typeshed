@@ -33,7 +33,6 @@ argparse.Namespace.__getattr__  # The whole point of this class is its attribute
 asynchat.async_chat.encoding  # Removal planned for 3.12, can add if someone needs this
 asynchat.async_chat.use_encoding  # Removal planned for 3.12, can add if someone needs this
 asynchat.find_prefix_at_end  # Removal planned for 3.12, can add if someone needs this
-asynchat.__warningregistry__  # Removal planned for 3.12, can add if someone needs this
 asyncio.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 # Condition functions are exported in __init__
 asyncio.Condition.acquire
@@ -248,7 +247,6 @@ xml.parsers.expat.expat_CAPI
 # ==========
 _pydecimal.*  # See comments in file
 _weakref.ProxyType.__bytes__  # Doesn't really exist
-_weakref.ProxyType.__reversed__  # Doesn't really exist
 ast.NodeVisitor.visit_\w+  # Methods are discovered dynamically, see #3796
 # Weird special builtins that are typed as functions, but aren't functions
 builtins.copyright
@@ -258,7 +256,6 @@ builtins.float.__getformat__  # Internal method for CPython test suite
 builtins.float.__set_format__ # Internal method for CPython test suite
 builtins.help
 builtins.license
-builtins.property.__set_name__  # Doesn't actually exist
 builtins.quit
 # These super() dunders don't seem to be particularly useful,
 # and having them pop up on autocomplete suggestions would be annoying
@@ -308,7 +305,6 @@ codecs.StreamReaderWriter.\w+
 codecs.StreamRecoder.\w+
 urllib.response.addbase.\w+
 weakref.ProxyType.__bytes__  # Doesn't actually exist
-weakref.ProxyType.__reversed__  # Doesn't actually exist
 
 # Dynamically created, has unnecessary *args
 turtle.ScrolledCanvas.find_all
@@ -472,7 +468,6 @@ email.contentmanager.get_text_content
 email.contentmanager.set_bytes_content
 email.contentmanager.set_message_content
 email.contentmanager.set_text_content
-functools.partial.__vectorcalloffset__
 pipes.Template.makepipeline
 pipes.Template.open_r
 pipes.Template.open_w
@@ -534,7 +529,6 @@ distutils.cmd.Command.dump_options
 distutils.cmd.Command.ensure_finalized
 distutils.command.bdist
 distutils.command.bdist_rpm.DEBUG
-distutils.command.build_ext.__warningregistry__
 distutils.command.build_ext.USER_BASE
 distutils.command.build_scripts.ST_MODE
 distutils.command.install.*
@@ -710,7 +704,6 @@ ctypes.ARRAY
 ctypes.SetPointerType
 ctypes.c_voidp
 ctypes.util.test
-dbm.dumb._Database.__contains__
 importlib.abc.Finder.find_module
 lib2to3.pgen2.grammar.Grammar.loads
 logging.config.BaseConfigurator
@@ -769,5 +762,3 @@ tkinter.tix.ScrolledText
 tkinter.tix.ScrolledWindow
 tkinter.tix.Shell
 turtle.TNavigator.speed
-types.GenericAlias.__mro_entries__
-typing._SpecialForm.__mro_entries__
