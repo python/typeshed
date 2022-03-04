@@ -178,7 +178,6 @@ asyncio.AbstractEventLoop.connect_accepted_socket
 asyncio.events.AbstractEventLoop.connect_accepted_socket
 bdb.Breakpoint.clearBreakpoints
 dbm.dumb._Database.__contains__
-distutils.command.build_ext.__warningregistry__
 distutils.dist.DistributionMetadata.set_classifiers
 distutils.dist.DistributionMetadata.set_keywords
 distutils.dist.DistributionMetadata.set_platforms
