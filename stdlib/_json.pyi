@@ -3,14 +3,22 @@ from typing_extensions import final
 
 @final
 class make_encoder:
-    sort_keys: Any
-    skipkeys: Any
-    key_separator: Any
-    indent: Any
-    markers: Any
-    default: Any
-    encoder: Any
-    item_separator: Any
+    @property
+    def sort_keys(self) -> Any: ...
+    @property
+    def skipkeys(self) -> Any: ...
+    @property
+    def key_separator(self) -> Any: ...
+    @property
+    def indent(self) -> Any: ...
+    @property
+    def markers(self) -> Any: ...
+    @property
+    def default(self) -> Any: ...
+    @property
+    def encoder(self) -> Any: ...
+    @property
+    def item_separator(self) -> Any: ...
     def __init__(
         self,
         markers: dict[int, Any] | None,
