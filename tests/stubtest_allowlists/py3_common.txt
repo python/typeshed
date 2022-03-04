@@ -253,7 +253,6 @@ builtins.copyright
 builtins.credits
 builtins.exit
 builtins.float.__getformat__  # Internal method for CPython test suite
-builtins.float.__set_format__ # Internal method for CPython test suite
 builtins.help
 builtins.license
 builtins.quit
