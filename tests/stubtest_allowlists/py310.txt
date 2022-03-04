@@ -16,6 +16,25 @@ _collections_abc.MutableMapping.__setitem__
 _collections_abc.MutableMapping.pop
 _collections_abc.MutableMapping.setdefault
 
+# Many positional-only differences with KeysView/ItemsView
+_collections_abc.dict_keys.__.*__
+_collections_abc.dict_items.__.*__
+
+# Pos-only differences with object.__setattr__/object.__delattr__
+# Adding these to the stub has bad consequences (see #7385, #7347)
+enum.EnumMeta.__setattr__
+enum.EnumMeta.__delattr__
+uuid.UUID.__setattr__
+
+# Pos-only differences with the normal NamedTuple __getitem__
+platform.uname_result.__getitem__
+
+# mypy does not autogenerate __eq__ methods for dataclasses,
+# so wrongly infers that these have positional-only parameters.
+# https://github.com/python/mypy/issues/12186
+pstats.FunctionProfile.__eq__
+pstats.StatsProfile.__eq__
+
 # typing.IO uses positional-or-keyword arguments, but in the stubs we prefer
 # to mark these as positional-only for compatibility with existing sub-classes.
 typing.BinaryIO.write
@@ -112,6 +131,8 @@ _collections_abc.Coroutine.send
 _collections_abc.Coroutine.throw
 _collections_abc.Generator.send
 _collections_abc.Generator.throw
+_collections_abc.Mapping.__eq__
+_collections_abc.Set.__eq__
 contextlib.AbstractAsyncContextManager.__aexit__
 contextlib.AbstractContextManager.__exit__
 
