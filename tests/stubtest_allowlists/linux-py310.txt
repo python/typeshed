@@ -18,6 +18,7 @@ signal.sigwaitinfo
 select.epoll.register
 
 # Exists at runtime, but missing from stubs
+distutils.command.build_ext.__warningregistry__
 os.EFD_CLOEXEC
 os.EFD_NONBLOCK
 os.EFD_SEMAPHORE

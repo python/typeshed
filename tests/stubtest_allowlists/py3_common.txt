@@ -13,8 +13,14 @@ _collections_abc.Generator.gi_code
 _collections_abc.Generator.gi_frame
 _collections_abc.Generator.gi_running
 _collections_abc.Generator.gi_yieldfrom
+_collections_abc.Mapping.__reversed__  # set to None at runtime for a better error message
 _collections_abc.Mapping.get  # Adding None to the Union messed up mypy
 _collections_abc.Sequence.index  # Supporting None in end is not mandatory
+# Adding these reflected dunders to `typing.AbstractSet` causes a large number of false-positives. See #7414.
+_collections_abc.Set.__rand__
+_collections_abc.Set.__ror__
+_collections_abc.Set.__rsub__
+_collections_abc.Set.__rxor__
 _csv.Dialect.__init__  # C __init__ signature is inaccurate
 _socket.*
 _threading_local.local.__new__
@@ -240,14 +246,21 @@ xml.parsers.expat.expat_CAPI
 # Allowlist entries that cannot or should not be fixed
 # ==========
 _pydecimal.*  # See comments in file
+_weakref.ProxyType.__bytes__  # Doesn't really exist
 ast.NodeVisitor.visit_\w+  # Methods are discovered dynamically, see #3796
 # Weird special builtins that are typed as functions, but aren't functions
 builtins.copyright
 builtins.credits
 builtins.exit
+builtins.float.__getformat__  # Internal method for CPython test suite
 builtins.help
 builtins.license
 builtins.quit
+# These super() dunders don't seem to be particularly useful,
+# and having them pop up on autocomplete suggestions would be annoying
+builtins.super.__self__
+builtins.super.__self_class__
+builtins.super.__thisclass__
 # GetSetDescriptor that always raises AttributeError
 builtins.OSError.characters_written
 # Aliases for OSError
@@ -290,6 +303,7 @@ sys.tracebacklimit
 codecs.StreamReaderWriter.\w+
 codecs.StreamRecoder.\w+
 urllib.response.addbase.\w+
+weakref.ProxyType.__bytes__  # Doesn't actually exist
 
 # Dynamically created, has unnecessary *args
 turtle.ScrolledCanvas.find_all
@@ -668,7 +682,6 @@ pkgutil.ImpLoader.source
 # ==========
 # Exists at runtime, but missing from stubs
 # ==========
-__main__.\w+
 _json.encode_basestring
 _thread.LockType.acquire_lock
 _thread.LockType.locked_lock

@@ -16,6 +16,25 @@ _collections_abc.MutableMapping.__setitem__
 _collections_abc.MutableMapping.pop
 _collections_abc.MutableMapping.setdefault
 
+# Many positional-only differences with KeysView/ItemsView
+_collections_abc.dict_keys.__.*__
+_collections_abc.dict_items.__.*__
+
+# Pos-only differences with object.__setattr__/object.__delattr__
+# Adding these to the stub has bad consequences (see #7385, #7347)
+enum.EnumMeta.__setattr__
+enum.EnumMeta.__delattr__
+uuid.UUID.__setattr__
+
+# Pos-only differences with the normal NamedTuple __getitem__
+platform.uname_result.__getitem__
+
+# mypy does not autogenerate __eq__ methods for dataclasses,
+# so wrongly infers that these have positional-only parameters.
+# https://github.com/python/mypy/issues/12186
+pstats.FunctionProfile.__eq__
+pstats.StatsProfile.__eq__
+
 # typing.IO uses positional-or-keyword arguments, but in the stubs we prefer
 # to mark these as positional-only for compatibility with existing sub-classes.
 typing.BinaryIO.write
@@ -28,6 +47,7 @@ typing.IO.truncate
 typing.IO.write
 typing.IO.writelines
 
+_weakref.ProxyType.__reversed__  # Doesn't really exist
 ast.Bytes.__new__
 ast.Ellipsis.__new__
 ast.ExtSlice.__new__
@@ -41,6 +61,8 @@ asyncio.Future._callbacks  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future._callbacks  # Usually initialized from c object
 builtins.dict.get
+builtins.float.__set_format__  # Internal method for CPython test suite
+builtins.property.__set_name__  # Doesn't actually exist
 contextvars.Context.__init__  # Default C __init__ signature is wrong
 contextlib.AbstractAsyncContextManager.__class_getitem__
 contextlib.AbstractContextManager.__class_getitem__
@@ -78,9 +100,11 @@ sys.UnraisableHookArgs  # Not exported from sys
 types.ClassMethodDescriptorType.__get__
 types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
 types.GenericAlias.__getattr__
+types.GenericAlias.__mro_entries__
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__
+typing._SpecialForm.__mro_entries__
 typing.ForwardRef._evaluate
 typing.SupportsAbs.__init__
 typing.SupportsBytes.__init__
@@ -100,6 +124,7 @@ typing._TypedDict.pop
 typing._TypedDict.setdefault
 typing._TypedDict.update
 typing._TypedDict.values
+weakref.ProxyType.__reversed__  # Doesn't really exist
 weakref.WeakValueDictionary.update
 xml.etree.ElementTree.XMLParser.__init__  # Defined in C so has general signature
 xml.etree.cElementTree.XMLParser.__init__  # Defined in C so has general signature
@@ -112,6 +137,8 @@ _collections_abc.Coroutine.send
 _collections_abc.Coroutine.throw
 _collections_abc.Generator.send
 _collections_abc.Generator.throw
+_collections_abc.Mapping.__eq__
+_collections_abc.Set.__eq__
 contextlib.AbstractAsyncContextManager.__aexit__
 contextlib.AbstractContextManager.__exit__
 
@@ -146,13 +173,16 @@ _csv.Writer
 _imp.source_hash
 ast.Tuple.dims
 ast.main
+asynchat.__warningregistry__  # Removal planned for 3.12, can add if someone needs this
 asyncio.AbstractEventLoop.connect_accepted_socket
 asyncio.events.AbstractEventLoop.connect_accepted_socket
 bdb.Breakpoint.clearBreakpoints
+dbm.dumb._Database.__contains__
 distutils.dist.DistributionMetadata.set_classifiers
 distutils.dist.DistributionMetadata.set_keywords
 distutils.dist.DistributionMetadata.set_platforms
 distutils.util.get_host_platform
+functools.partial.__vectorcalloffset__  # undocumented implementation detail
 multiprocessing.managers.SharedMemoryServer.create
 multiprocessing.managers.SharedMemoryServer.list_segments
 multiprocessing.managers.SharedMemoryServer.public
