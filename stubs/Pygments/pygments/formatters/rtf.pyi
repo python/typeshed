@@ -1,10 +1,10 @@
 from typing import Any, TypeVar
 
-from pygments.formatter import Formatter
+from pygments.formatter import _TextFormatter
 
 _T = TypeVar("_T", str, bytes)
 
-class RtfFormatter(Formatter[_T]):
+class RtfFormatter(_TextFormatter[_T]):
     name: str
     aliases: Any
     filenames: Any

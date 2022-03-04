@@ -1,11 +1,11 @@
 from typing import Any, TypeVar
 
-from pygments.formatter import Formatter
+from pygments.formatter import _TextFormatter
 from pygments.lexer import Lexer
 
 _T = TypeVar("_T", str, bytes)
 
-class LatexFormatter(Formatter[_T]):
+class LatexFormatter(_TextFormatter[_T]):
     name: str
     aliases: Any
     filenames: Any

@@ -1,8 +1,6 @@
-from typing import Any, TypeVar
+from typing import Any
 
-from pygments.formatter import Formatter
-
-_T = TypeVar("_T", str, bytes)
+from pygments.formatter import _BinaryFormatter
 
 class PilNotAvailable(ImportError): ...
 class FontNotFound(Exception): ...
@@ -17,7 +15,7 @@ class FontManager:
     def get_text_size(self, text): ...
     def get_font(self, bold, oblique): ...
 
-class ImageFormatter(Formatter[_T]):
+class ImageFormatter(_BinaryFormatter):
     name: str
     aliases: Any
     filenames: Any
@@ -47,19 +45,19 @@ class ImageFormatter(Formatter[_T]):
     def get_style_defs(self, arg: str = ...) -> None: ...
     def format(self, tokensource, outfile) -> None: ...
 
-class GifImageFormatter(ImageFormatter[_T]):
+class GifImageFormatter(ImageFormatter):
     name: str
     aliases: Any
     filenames: Any
     default_image_format: str
 
-class JpgImageFormatter(ImageFormatter[_T]):
+class JpgImageFormatter(ImageFormatter):
     name: str
     aliases: Any
     filenames: Any
     default_image_format: str
 
-class BmpImageFormatter(ImageFormatter[_T]):
+class BmpImageFormatter(ImageFormatter):
     name: str
     aliases: Any
     filenames: Any

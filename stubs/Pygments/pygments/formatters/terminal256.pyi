@@ -1,6 +1,6 @@
 from typing import Any, TypeVar
 
-from pygments.formatter import Formatter
+from pygments.formatter import _TextFormatter
 
 _T = TypeVar("_T", str, bytes)
 
@@ -18,7 +18,7 @@ class EscapeSequence:
     def true_color_string(self): ...
     def reset_string(self): ...
 
-class Terminal256Formatter(Formatter[_T]):
+class Terminal256Formatter(_TextFormatter[_T]):
     name: str
     aliases: Any
     filenames: Any

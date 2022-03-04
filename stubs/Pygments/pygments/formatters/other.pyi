@@ -1,16 +1,16 @@
 from typing import Any, TypeVar
 
-from pygments.formatter import Formatter
+from pygments.formatter import _TextFormatter
 
 _T = TypeVar("_T", str, bytes)
 
-class NullFormatter(Formatter[_T]):
+class NullFormatter(_TextFormatter[_T]):
     name: str
     aliases: Any
     filenames: Any
     def format(self, tokensource, outfile) -> None: ...
 
-class RawTokenFormatter(Formatter[_T]):
+class RawTokenFormatter(_TextFormatter[_T]):
     name: str
     aliases: Any
     filenames: Any
@@ -20,7 +20,7 @@ class RawTokenFormatter(Formatter[_T]):
     error_color: Any
     def format(self, tokensource, outfile) -> None: ...
 
-class TestcaseFormatter(Formatter[_T]):
+class TestcaseFormatter(_TextFormatter[_T]):
     name: str
     aliases: Any
     def format(self, tokensource, outfile) -> None: ...
