@@ -21,12 +21,12 @@ from _typeshed import (
     SupportsRichComparisonT,
     SupportsTrunc,
     SupportsWrite,
+    WeakUnion,
 )
 from collections.abc import Callable
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from types import CodeType, TracebackType, _Cell
 from typing import (
-    IO,
     AbstractSet,
     Any,
     BinaryIO,
@@ -49,6 +49,7 @@ from typing import (
     SupportsFloat,
     SupportsInt,
     SupportsRound,
+    TextIO,
     TypeVar,
     Union,
     overload,
@@ -1327,7 +1328,7 @@ def open(
     newline: str | None = ...,
     closefd: bool = ...,
     opener: _Opener | None = ...,
-) -> IO[Any]: ...
+) -> WeakUnion[TextIO | BinaryIO]: ...
 def ord(__c: str | bytes) -> int: ...
 
 class _SupportsWriteAndFlush(SupportsWrite[_T_contra], Protocol[_T_contra]):

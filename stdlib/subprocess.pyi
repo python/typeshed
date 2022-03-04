@@ -1,5 +1,5 @@
 import sys
-from _typeshed import Self, StrOrBytesPath
+from _typeshed import Self, StrOrBytesPath, WeakUnion
 from types import TracebackType
 from typing import IO, Any, AnyStr, Callable, Generic, Iterable, Mapping, Sequence, TypeVar, Union, overload
 from typing_extensions import Literal
@@ -633,7 +633,7 @@ if sys.version_info >= (3, 7):
         encoding: str | None = ...,
         errors: str | None = ...,
         text: bool | None = ...,
-    ) -> Any: ...  # morally: -> _TXT
+    ) -> WeakUnion[str | bytes]: ...
 
 else:
     @overload
@@ -755,7 +755,7 @@ else:
         input: _TXT | None = ...,
         encoding: str | None = ...,
         errors: str | None = ...,
-    ) -> Any: ...  # morally: -> _TXT
+    ) -> WeakUnion[str | bytes]: ...
 
 PIPE: int
 STDOUT: int

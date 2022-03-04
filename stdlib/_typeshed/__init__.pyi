@@ -10,6 +10,31 @@ from os import PathLike
 from typing import AbstractSet, Any, Container, Generic, Iterable, Protocol, TypeVar, Union
 from typing_extensions import Final, Literal, final
 
+_WU = TypeVar("_WU")
+
+class WeakUnion(Generic[_WU], Any):
+    """
+    Some functions can return different types depending on passed arguments. e.g.
+
+    * `builtins.open(name, 'rb')` returns `io.BufferedReader`, whereas
+    * `builtins.open(name, 'wb')` returns `io.BufferedWriter`.
+
+    Typeshed attempts to model such scenarios accurately via `@typing.overload`,
+    however with with such overloaded functions there is always the case
+    that the return type cannot be determined statically, e.g:
+
+        def my_open(name: str, mode: str):
+            return open(name, mode)
+
+    In such cases typeshed currently returns Any. While a Union return would be
+    more accurate that would require all existing code that depends on the Any
+    (and asserts the type safety in some other way) to be updated. WeakUnion lets
+    typeshed annotate the semantic return type of such overloads in a backwards
+    compatible manner. Type checkers that do not know about this typeshed-specific
+    type will just treat it as Any, whereas tooling that knows about it can use
+    the additional information to provide more type safety or better autocompletion.
+    """
+
 _KT = TypeVar("_KT")
 _KT_co = TypeVar("_KT_co", covariant=True)
 _KT_contra = TypeVar("_KT_contra", contravariant=True)
