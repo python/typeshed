@@ -4,3 +4,4 @@ cachetools.cache.Cache.get
 # it looks like cachetools stubs are really out of date, so none of the modules
 # referenced exist anymore
 cachetools\..*\.__(get|set|del)item__  # has extra argument
+cachetools\..*TTLCache.__repr__
