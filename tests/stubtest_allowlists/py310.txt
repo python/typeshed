@@ -19,7 +19,7 @@ _collections_abc.MutableMapping.setdefault
 # typing.IO uses positional-or-keyword arguments, but in the stubs we prefer
 # to mark these as positional-only for compatibility with existing sub-classes.
 typing.BinaryIO.write
-typing.IO.__exit__
+# typing.IO.__exit__
 typing.IO.read
 typing.IO.readline
 typing.IO.readlines
