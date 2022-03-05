@@ -134,8 +134,9 @@ jobs:
       - name: Run stubtest
         run: |
           STUBS=$(
-            # git diff --name-only origin/${{ github.base_ref }} HEAD |
-            git ls-files |
+            git diff --name-only origin/${{ github.base_ref }} HEAD |
+            # Uncomment the following to (very slowly) run on all third party stubs:
+            # git ls-files |
             egrep ^stubs/ | cut -d "/" -f 2 | sort -u | (while read stub; do [ -d stubs/$stub ] && echo $stub || true; done)
           )
           if test -n "$STUBS"; then

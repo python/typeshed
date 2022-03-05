@@ -100,7 +100,7 @@ def run_stubtest(dist: Path) -> bool:
         except subprocess.CalledProcessError:
             print(f"stubtest failed for {dist.name}", file=sys.stderr)
             print("\n\n", file=sys.stderr)
-            if allowlist_path.exists() and False:
+            if allowlist_path.exists():
                 print(
                     f'To fix "unused allowlist" errors, remove the corresponding entries from {allowlist_path}', file=sys.stderr
                 )
