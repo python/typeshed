@@ -9,27 +9,12 @@ _collections_abc.ValuesView.__reversed__
 
 # These are not positional-only at runtime, but we treat them
 # as positional-only to match dict.
-_collections_abc.Mapping.__getitem__
-_collections_abc.Mapping.__contains__
-_collections_abc.MutableMapping.__delitem__
-_collections_abc.MutableMapping.__setitem__
+# _collections_abc.Mapping.__getitem__
+# _collections_abc.Mapping.__contains__
+# _collections_abc.MutableMapping.__delitem__
+# _collections_abc.MutableMapping.__setitem__
 _collections_abc.MutableMapping.pop
 _collections_abc.MutableMapping.setdefault
-
-# Pos-only differences with object.__setattr__/object.__delattr__
-# Adding these to the stub has bad consequences (see #7385, #7347)
-enum.EnumMeta.__setattr__
-enum.EnumMeta.__delattr__
-uuid.UUID.__setattr__
-
-# Pos-only differences with the normal NamedTuple __getitem__
-platform.uname_result.__getitem__
-
-# mypy does not autogenerate __eq__ methods for dataclasses,
-# so wrongly infers that these have positional-only parameters.
-# https://github.com/python/mypy/issues/12186
-pstats.FunctionProfile.__eq__
-pstats.StatsProfile.__eq__
 
 # typing.IO uses positional-or-keyword arguments, but in the stubs we prefer
 # to mark these as positional-only for compatibility with existing sub-classes.
@@ -128,17 +113,17 @@ xml.etree.cElementTree.XMLParser.__init__  # Defined in C so has general signatu
 # positional-only complaints caused by differences between typing aliases and the "real" classes in the stdlib
 _collections_abc.AsyncGenerator.asend
 _collections_abc.AsyncGenerator.athrow
-_collections_abc.Container.__contains__
+# _collections_abc.Container.__contains__
 _collections_abc.Coroutine.send
 _collections_abc.Coroutine.throw
 _collections_abc.Generator.send
 _collections_abc.Generator.throw
-_collections_abc.Mapping.__eq__
-_collections_abc.Set.__eq__
-contextlib.AbstractAsyncContextManager.__aexit__
-contextlib.AbstractContextManager.__exit__
+# _collections_abc.Mapping.__eq__
+# _collections_abc.Set.__eq__
+# contextlib.AbstractAsyncContextManager.__aexit__
+# contextlib.AbstractContextManager.__exit__
 
-typing.SupportsRound.__round__  # pos-or-kw at runtime, but we pretend it's pos-only in the stub so that e.g. float.__round__ satisfies the interface
+# typing.SupportsRound.__round__  # pos-or-kw at runtime, but we pretend it's pos-only in the stub so that e.g. float.__round__ satisfies the interface
 types.DynamicClassAttribute..*  # In the stub we pretend it's an alias for property, but it has positional-only differences
 
 # These three have a pos-or-keyword first parameter at runtime, but deliberately have a pos-only first parameter in the stub. #6812
@@ -173,7 +158,6 @@ asynchat.__warningregistry__  # Removal planned for 3.12, can add if someone nee
 asyncio.AbstractEventLoop.connect_accepted_socket
 asyncio.events.AbstractEventLoop.connect_accepted_socket
 bdb.Breakpoint.clearBreakpoints
-dbm.dumb._Database.__contains__
 distutils.dist.DistributionMetadata.set_classifiers
 distutils.dist.DistributionMetadata.set_keywords
 distutils.dist.DistributionMetadata.set_platforms
