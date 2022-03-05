@@ -12,10 +12,12 @@ from _typeshed import (
     StrPath,
     structseq,
 )
+from abc import abstractmethod
 from builtins import OSError
 from contextlib import AbstractContextManager
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper as _TextIOWrapper
 from subprocess import Popen
+from types import TracebackType
 from typing import (
     IO,
     Any,
@@ -371,6 +373,7 @@ class stat_result(structseq[float], tuple[int, int, int, int, int, int, int, flo
 
 @runtime_checkable
 class PathLike(Protocol[_AnyStr_co]):
+    @abstractmethod
     def __fspath__(self) -> _AnyStr_co: ...
 
 @overload
@@ -722,6 +725,9 @@ def rmdir(path: StrOrBytesPath, *, dir_fd: int | None = ...) -> None: ...
 
 class _ScandirIterator(Iterator[DirEntry[AnyStr]], AbstractContextManager[_ScandirIterator[AnyStr]]):
     def __next__(self) -> DirEntry[AnyStr]: ...
+    def __exit__(
+        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
+    ) -> bool | None: ...
     def close(self) -> None: ...
 
 if sys.version_info >= (3, 7):
