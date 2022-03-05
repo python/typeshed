@@ -117,7 +117,7 @@ if sys.version_info >= (3, 10):
 
     class AsyncContextDecorator:
         def __call__(self, func: _AF) -> _AF: ...
-            
+
     _AsyncGeneratorContextManagerBase = AsyncContextDecorator
 
 elif sys.version_info >= (3, 7):
