@@ -16,10 +16,6 @@ _collections_abc.MutableMapping.__setitem__
 _collections_abc.MutableMapping.pop
 _collections_abc.MutableMapping.setdefault
 
-# Many positional-only differences with KeysView/ItemsView
-_collections_abc.dict_keys.__.*__
-_collections_abc.dict_items.__.*__
-
 # Pos-only differences with object.__setattr__/object.__delattr__
 # Adding these to the stub has bad consequences (see #7385, #7347)
 enum.EnumMeta.__setattr__
