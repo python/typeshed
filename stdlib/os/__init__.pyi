@@ -17,7 +17,6 @@ from builtins import OSError
 from contextlib import AbstractContextManager
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper as _TextIOWrapper
 from subprocess import Popen
-from types import TracebackType
 from typing import (
     IO,
     Any,
