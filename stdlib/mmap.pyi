@@ -72,7 +72,7 @@ class mmap(AbstractContextManager[mmap], Iterable[int], Sized):
     # __len__, so we claim that there is also an __iter__ to help type checkers.
     def __iter__(self) -> Iterator[int]: ...
     def __exit__(
-        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
+        self, *args: object
     ) -> bool | None: ...
 
 if sys.version_info >= (3, 8) and sys.platform != "win32":
