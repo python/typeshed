@@ -13,7 +13,6 @@
         "stdlib/sqlite3/dbapi2.pyi",
         "stdlib/_tkinter.pyi",
         "stdlib/tkinter",
-        "stdlib/unittest/mock.pyi",
         "stdlib/xml/dom/NodeFilter.pyi",
         "stdlib/xml/dom/expatbuilder.pyi",
         "stdlib/xml/dom/minidom.pyi",
