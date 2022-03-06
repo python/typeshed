@@ -22,7 +22,7 @@ def get_mypy_req():
     # - get_mypy_req in tests/stubtest_third_party.py
     # - stubtest-stdlib in .github/workflows/stubtest.yml
     # - stubtest-stdlib in .github/workflows/tests.yml
-    return "git+git://github.com/python/mypy@a562f0aac287b1069a8267b3812fb6813eaefec3"
+    return "git+git://github.com/python/mypy@c7a81620bef7585cca6905861bb7ef34ec12da2f"
 
     with open("requirements-tests.txt") as f:
         return next(line.strip() for line in f if "mypy" in line)
