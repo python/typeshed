@@ -128,7 +128,7 @@ if sys.version_info >= (3, 10):
         kwds: dict[str, Any]
         async def __aexit__(
             self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
-        ) -> bool | None: ...
+        ) -> bool: ...
 
 elif sys.version_info >= (3, 7):
     class _AsyncGeneratorContextManager(AbstractAsyncContextManager[_T_co], Generic[_T_co]):
@@ -139,7 +139,7 @@ elif sys.version_info >= (3, 7):
         kwds: dict[str, Any]
         async def __aexit__(
             self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
-        ) -> bool | None: ...
+        ) -> bool: ...
 
 if sys.version_info >= (3, 7):
     def asynccontextmanager(func: Callable[_P, AsyncIterator[_T_co]]) -> Callable[_P, _AsyncGeneratorContextManager[_T_co]]: ...
