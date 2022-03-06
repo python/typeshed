@@ -1,7 +1,6 @@
 import sys
 from _typeshed import ReadableBuffer
 from contextlib import AbstractContextManager
-from types import TracebackType
 from typing import Iterable, Iterator, NoReturn, Sized, overload
 
 ACCESS_DEFAULT: int
