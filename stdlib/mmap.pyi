@@ -71,9 +71,7 @@ class mmap(AbstractContextManager[mmap], Iterable[int], Sized):
     # Doesn't actually exist, but the object is actually iterable because it has __getitem__ and
     # __len__, so we claim that there is also an __iter__ to help type checkers.
     def __iter__(self) -> Iterator[int]: ...
-    def __exit__(
-        self, *args: object
-    ) -> None: ...
+    def __exit__(self, *args: object) -> None: ...
 
 if sys.version_info >= (3, 8) and sys.platform != "win32":
     MADV_NORMAL: int
