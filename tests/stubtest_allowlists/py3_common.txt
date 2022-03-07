@@ -737,8 +737,6 @@ multiprocessing.managers.SyncManager.Pool
 multiprocessing.pool.Pool.Process
 multiprocessing.pool.ThreadPool.Process
 multiprocessing.synchronize.Semaphore.get_value
-rlcompleter.Completer.attr_matches
-rlcompleter.Completer.global_matches
 tkinter.Misc.config
 tkinter.font.Font.counter
 tkinter.simpledialog.Dialog.apply
