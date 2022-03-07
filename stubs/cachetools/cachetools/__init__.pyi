@@ -3,13 +3,12 @@ from collections.abc import Iterator, Sequence
 from contextlib import AbstractContextManager
 from typing import Any, Callable, Generic, MutableMapping, TypeVar, overload
 
+__all__ = ("Cache", "FIFOCache", "LFUCache", "LRUCache", "MRUCache", "RRCache", "TLRUCache", "TTLCache", "cached", "cachedmethod")
+__version__: str
+
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
 _T = TypeVar("_T")
-
-__all__ = ("Cache", "FIFOCache", "LFUCache", "LRUCache", "MRUCache", "RRCache", "TLRUCache", "TTLCache", "cached", "cachedmethod")
-
-__version__: str
 
 class Cache(MutableMapping[_KT, _VT], Generic[_KT, _VT]):
     def __init__(self, maxsize: float, getsizeof: Callable[[_VT], float] | None = ...) -> None: ...
