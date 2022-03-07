@@ -7,18 +7,7 @@ _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
 _T = TypeVar("_T")
 
-__all__ = (
-    "Cache",
-    "FIFOCache",
-    "LFUCache",
-    "LRUCache",
-    "MRUCache",
-    "RRCache",
-    "TLRUCache",
-    "TTLCache",
-    "cached",
-    "cachedmethod",
-)
+__all__ = ("Cache", "FIFOCache", "LFUCache", "LRUCache", "MRUCache", "RRCache", "TLRUCache", "TTLCache", "cached", "cachedmethod")
 
 __version__: str
 
@@ -80,7 +69,11 @@ class TTLCache(_TimedCache[_KT, _VT]):
 
 class TLRUCache(_TimedCache[_KT, _VT]):
     def __init__(
-        self, maxsize: float, ttu: Callable[[_KT, _VT, float], float], timer: Callable[[], float] = ..., getsizeof: Callable[[_VT], float] | None = ...
+        self,
+        maxsize: float,
+        ttu: Callable[[_KT, _VT, float], float],
+        timer: Callable[[], float] = ...,
+        getsizeof: Callable[[_VT], float] | None = ...,
     ) -> None: ...
     @property
     def ttu(self) -> Callable[[_KT, _VT, float], float]: ...
