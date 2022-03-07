@@ -307,7 +307,7 @@ if sys.version_info < (3, 9):
 
 if sys.version_info < (3, 9):
     # An 11-tuple or None
-    def callstats(self) -> tuple[int, int, int, int, int, int, int, int, int, int, int] | None: ...
+    def callstats() -> tuple[int, int, int, int, int, int, int, int, int, int, int] | None: ...
 
 if sys.version_info >= (3, 8):
     # Doesn't exist at runtime, but exported in the stubs so pytest etc. can annotate their code more easily.
