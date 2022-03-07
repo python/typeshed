@@ -7,6 +7,21 @@ _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
 _T = TypeVar("_T")
 
+__all__ = (
+    "Cache",
+    "FIFOCache",
+    "LFUCache",
+    "LRUCache",
+    "MRUCache",
+    "RRCache",
+    "TLRUCache",
+    "TTLCache",
+    "cached",
+    "cachedmethod",
+)
+
+__version__: str
+
 class Cache(MutableMapping[_KT, _VT], Generic[_KT, _VT]):
     def __init__(self, maxsize: float, getsizeof: Callable[[_VT], float] | None = ...) -> None: ...
     def __getitem__(self, key: _KT) -> _VT: ...
@@ -45,16 +60,29 @@ class RRCache(Cache[_KT, _VT]):
     @property
     def choice(self) -> Callable[[Sequence[_KT]], _KT]: ...
 
-class TTLCache(Cache[_KT, _VT]):
+class _TimedCache(Cache[_KT, _VT])
     def __init__(
-        self, maxsize: float, ttl: float, timer: Callable[[], float] = ..., getsizeof: Callable[[_VT], float] | None = ...
+        self, maxsize: float, timer: Callable[[], float] = ..., getsizeof: Callable[[_VT], float] | None = ...
     ) -> None: ...
     @property
     def currsize(self) -> float: ...
     @property
-    def timer(self) -> Callable[[], float]: ...
+    def timer(self) -> Callable[[], float]: ...  # TODO: this is a callable but also a context manager
+
+class TTLCache(_TimedCache[_KT, _VT]):
+    def __init__(
+        self, maxsize: float, ttl: float, timer: Callable[[], float] = ..., getsizeof: Callable[[_VT], float] | None = ...
+    ) -> None: ...
     @property
     def ttl(self) -> float: ...
+    def expire(self, time: float | None = ...) -> None: ...
+
+class TLRUCache(_TimedCache[_KT, _VT]):
+    def __init__(
+        self, maxsize: float, ttu: Callable[[_KT, _VT, float], float], timer: Callable[[], float] = ..., getsizeof: Callable[[_VT], float] | None = ...
+    ) -> None: ...
+    @property
+    def ttu(self) -> Callable[[_KT, _VT, float], float]: ...
     def expire(self, time: float | None = ...) -> None: ...
 
 def cached(
