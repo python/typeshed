@@ -112,7 +112,7 @@ jobs:
       - name: Install dependencies
         # Use pre-release stubtest. Keep the following in sync:
         # - get_mypy_req in tests/stubtest_third_party.py
-        # - stubtest-stdlib in .github/workflows/stubtest.yml
+        # - stubtest-stdlib in .github/workflows/daily.yml
         # - stubtest-stdlib in .github/workflows/tests.yml
         run: pip install $(grep tomli== requirements-tests.txt) git+git://github.com/python/mypy@c7a81620bef7585cca6905861bb7ef34ec12da2f
       - name: Run stubtest
