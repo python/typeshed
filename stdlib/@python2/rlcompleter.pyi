@@ -1,4 +1,4 @@
-from typing import Any, Union, TypeVar
+from typing import Any, TypeVar, Union
 
 _Text = Union[str, unicode]
 
