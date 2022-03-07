@@ -111,13 +111,15 @@ collections.Generator.gi_yieldfrom
 collections.Mapping.get  # Adding None to the Union messed up mypy
 collections.Sequence.index  # Supporting None in end is not mandatory
 
+# Intentionally omitted because of syntax issues
+asyncio.async
+asyncio.tasks.async
+
 # Exists at runtime, but missing from stubs
 _bisect.bisect
 _bisect.insort
-asyncio.async
 asyncio.futures._TracebackLogger.loop
 asyncio.futures._TracebackLogger.source_traceback
-asyncio.tasks.async
 calendar.HTMLCalendar.cssclasses
 distutils.cmd.install_misc
 distutils.sysconfig.expand_makefile_vars
@@ -131,9 +133,6 @@ plistlib.Data.asBase64
 plistlib.Data.fromBase64
 ssl.SSLObject.verify_client_post_handshake
 ssl.SSLSocket.verify_client_post_handshake
-sys.callstats
-sys.get_coroutine_wrapper
-sys.set_coroutine_wrapper
 tempfile.SpooledTemporaryFile.softspace
 tkinter.dnd.Icon
 tkinter.dnd.Tester

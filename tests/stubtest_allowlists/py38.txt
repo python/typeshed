@@ -136,7 +136,6 @@ plistlib.Data.fromBase64
 pyexpat.XMLParserType.SkippedEntityHandler
 pyexpat.XMLParserType.intern
 stringprep.unicodedata  # re-exported from unicodedata
-sys.callstats
 tempfile.SpooledTemporaryFile.softspace
 tkinter.commondialog.[A-Z_]+
 tkinter.commondialog.TclVersion
@@ -155,7 +154,6 @@ tkinter.filedialog.TkVersion
 tkinter.filedialog.wantobjects
 tkinter.simpledialog.wantobjects
 tkinter.tix.wantobjects
-types.CoroutineType.cr_origin
 typing._SpecialForm.__call__
 unicodedata.UCD.is_normalized
 xml.parsers.expat.XMLParserType.SkippedEntityHandler
