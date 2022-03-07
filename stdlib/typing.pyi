@@ -902,6 +902,7 @@ class ValuesView(MappingView, Iterable[_VT_co], Generic[_VT_co]):
 @runtime_checkable
 class ContextManager(Protocol[_T_co]):
     def __enter__(self) -> _T_co: ...
+    @abstractmethod
     def __exit__(
         self, __exc_type: Type[BaseException] | None, __exc_value: BaseException | None, __traceback: TracebackType | None
     ) -> bool | None: ...
@@ -909,6 +910,7 @@ class ContextManager(Protocol[_T_co]):
 @runtime_checkable
 class AsyncContextManager(Protocol[_T_co]):
     async def __aenter__(self) -> _T_co: ...
+    @abstractmethod
     async def __aexit__(
         self, __exc_type: Type[BaseException] | None, __exc_value: BaseException | None, __traceback: TracebackType | None
     ) -> bool | None: ...
