@@ -154,7 +154,6 @@ multiprocessing.managers.SharedMemoryServer.track_segment
 pyexpat.XMLParserType.SkippedEntityHandler
 pyexpat.XMLParserType.intern
 stringprep.unicodedata  # re-exported from unicodedata
-types.CoroutineType.cr_origin
 types.GenericAlias.__mro_entries__
 typing._SpecialForm.__call__
 typing._SpecialForm.__mro_entries__
