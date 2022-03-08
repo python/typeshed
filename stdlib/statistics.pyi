@@ -3,6 +3,7 @@ from _typeshed import Self, SupportsRichComparisonT
 from decimal import Decimal
 from fractions import Fraction
 from typing import Any, Hashable, Iterable, NamedTuple, Sequence, SupportsFloat, TypeVar, Union
+from typing_extensions import Literal
 
 if sys.version_info >= (3, 10):
     __all__ = [
