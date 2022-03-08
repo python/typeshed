@@ -56,7 +56,7 @@ class _TimedCache(Cache[_KT, _VT]):
     @property
     def currsize(self) -> float: ...
     @property
-    def timer(self) -> Callable[[], float]: ...  # TODO: this is a callable but also a context manager
+    def timer(self) -> _Timer: ...
 
 class TTLCache(_TimedCache[_KT, _VT]):
     def __init__(
