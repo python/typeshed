@@ -12,7 +12,7 @@ from typing_extensions import Final, Literal, final
 
 _WU = TypeVar("_WU")
 
-class WeakUnion(Generic[_WU], Any):
+class WeakUnion(Any, Generic[_WU]):
     """
     Some functions can return different types depending on passed arguments. e.g.
 
