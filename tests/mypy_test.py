@@ -101,7 +101,7 @@ def is_supported(distribution, major):
         data = dict(tomli.loads(f.read()))
     if major == 2:
         # Python 2 is not supported by default.
-        return bool(data.get("python2", False)) or (dist_path / "@python2").exists()
+        return bool(data.get("python2", False))
     # Python 3 is supported by default.
     return has_py3_stubs(dist_path)
 
@@ -246,13 +246,8 @@ def add_third_party_files(
     for dependency in dependencies:
         add_third_party_files(dependency, major, files, args, configurations, seen_dists)
 
-    if major == 2 and os.path.isdir(os.path.join("stubs", distribution, "@python2")):
-        root = os.path.join("stubs", distribution, "@python2")
-    else:
-        root = os.path.join("stubs", distribution)
+    root = os.path.join("stubs", distribution)
     for name in os.listdir(root):
-        if name == "@python2":
-            continue
         mod, _ = os.path.splitext(name)
         if mod.startswith("."):
             continue

@@ -126,10 +126,6 @@ contains the following:
 * `METADATA.toml`, describing the package. See below for details.
 * Stubs (i.e. `*.pyi` files) for packages and modules that are shipped in the
   source distribution.
-* If the stubs are either Python 2-only, or if the Python 2 and Python 3 stubs
-  are separate, the Python 2 stubs are put in a `@python2` subdirectory.
-  Stubs outside `@python2` are always used with Python 3,
-  and also with Python 2 if `python2 = true` is set in `METADATA.toml` (see below).
 * (Rarely) some docs specific to a given type stub package in `README` file.
 
 When a third party stub is added or

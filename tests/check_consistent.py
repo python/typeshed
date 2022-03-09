@@ -68,17 +68,9 @@ def check_stubs():
                 else:
                     assert name.isidentifier(), f"Bad file name '{entry}' in stubs"
             else:
-                if entry in ("@python2", "@tests"):
+                if entry == "@tests":
                     continue
                 assert_stubs_only(os.path.join("stubs", distribution, entry))
-        if os.path.isdir(os.path.join("stubs", distribution, "@python2")):
-            for entry in os.listdir(os.path.join("stubs", distribution, "@python2")):
-                if os.path.isfile(os.path.join("stubs", distribution, "@python2", entry)):
-                    name, ext = os.path.splitext(entry)
-                    assert name.isidentifier(), f"Bad file name '{entry}' in stubs"
-                    assert ext == ".pyi", f"Unexpected file {entry} in @python2 stubs"
-                else:
-                    assert_stubs_only(os.path.join("stubs", distribution, "@python2", entry))
 
 
 def check_same_files():
