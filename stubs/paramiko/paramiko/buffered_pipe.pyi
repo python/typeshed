@@ -1,7 +1,7 @@
 from threading import Event
-from typing import Generic, Text, TypeVar
+from typing import Generic, TypeVar
 
-_T = TypeVar("_T", Text, bytes)
+_T = TypeVar("_T", str, bytes)
 
 class PipeTimeout(IOError): ...
 

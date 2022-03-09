@@ -3,7 +3,7 @@ from _typeshed import Self
 from abc import ABCMeta, abstractmethod
 from enum import Enum
 from ipaddress import IPv4Address, IPv4Network, IPv6Address, IPv6Network
-from typing import Any, ClassVar, Generator, Generic, Iterable, Sequence, Text, TypeVar
+from typing import Any, ClassVar, Generator, Generic, Iterable, Sequence, TypeVar
 
 from cryptography.hazmat.backends.interfaces import X509Backend
 from cryptography.hazmat.primitives.asymmetric.dsa import DSAPrivateKey, DSAPublicKey
@@ -108,8 +108,8 @@ class ExtendedKeyUsageOID:
 
 class NameAttribute:
     oid: ObjectIdentifier
-    value: Text
-    def __init__(self, oid: ObjectIdentifier, value: Text) -> None: ...
+    value: str
+    def __init__(self, oid: ObjectIdentifier, value: str) -> None: ...
     def rfc4514_string(self) -> str: ...
 
 class RelativeDistinguishedName:
@@ -254,8 +254,8 @@ class DirectoryName(GeneralName):
     def __init__(self, value: Name) -> None: ...
 
 class DNSName(GeneralName):
-    value: Text
-    def __init__(self, value: Text) -> None: ...
+    value: str
+    def __init__(self, value: str) -> None: ...
 
 class IPAddress(GeneralName):
     value: IPv4Address | IPv6Address | IPv4Network | IPv6Network
@@ -271,12 +271,12 @@ class RegisteredID(GeneralName):
     def __init__(self, value: ObjectIdentifier) -> None: ...
 
 class RFC822Name(GeneralName):
-    value: Text
-    def __init__(self, value: Text) -> None: ...
+    value: str
+    def __init__(self, value: str) -> None: ...
 
 class UniformResourceIdentifier(GeneralName):
-    value: Text
-    def __init__(self, value: Text) -> None: ...
+    value: str
+    def __init__(self, value: str) -> None: ...
 
 # X.509 Extensions
 

@@ -1,7 +1,7 @@
 from _typeshed import Self
 from stat import S_IMODE as S_IMODE
 from types import TracebackType
-from typing import IO, Any, Callable, ContextManager, Sequence, Text, Union
+from typing import IO, Any, Callable, ContextManager, Sequence, Union
 from typing_extensions import Literal
 
 import paramiko
@@ -32,7 +32,7 @@ class CnOpts:
     def get_hostkey(self, host: str) -> paramiko.PKey: ...
 
 _Callback = Callable[[int, int], Any]
-_Path = Union[Text, bytes]
+_Path = Union[str, bytes]
 
 class Connection:
     def __init__(
