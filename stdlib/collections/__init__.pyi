@@ -266,12 +266,14 @@ class Counter(dict[_T, int], Generic[_T]):
     def subtract(self, __mapping: Mapping[_T, int]) -> None: ...
     @overload
     def subtract(self, __iterable: Iterable[_T]) -> None: ...
-    # The second overload is deliberately different to dict.update()
+    # Unlike dict.update(), use Mapping instead of SupportsKeysAndGetItem for the first overload
+    # (source code does an `isinstance(other, Mapping)` check)
+    #
+    # The second overload is also deliberately different to dict.update()
     # (if it were `Iterable[_T] | Iterable[tuple[_T, int]]`,
-    # the tuples would be added as keys, breaking type safety),
-    # hence the type: ignore[override]
+    # the tuples would be added as keys, breaking type safety)
     @overload  # type: ignore[override]
-    def update(self, __m: SupportsKeysAndGetItem[_T, int], **kwargs: int) -> None: ...
+    def update(self, __m: Mapping[_T, int], **kwargs: int) -> None: ...
     @overload
     def update(self, __m: Iterable[_T], **kwargs: int) -> None: ...
     @overload
