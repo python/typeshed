@@ -23,5 +23,5 @@ For security reasons, maintainers who haven't been active for twelve months
 issues or on typing-sig) will have their access rights removed. They will
 also be moved to the "inactive maintainers" section here.
 
-Inactive maintainers that want their access rights restored should open
+Inactive maintainers who want their access rights restored should open
 an issue or mail one of the active maintainers.
