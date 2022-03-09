@@ -393,8 +393,8 @@ class SSLContext:
         maximum_version: TLSVersion
         minimum_version: TLSVersion
         sni_callback: Callable[[SSLObject, str, SSLContext], None | int] | None
-        sslobject_class: ClassVar[type[SSLObject]]
-        sslsocket_class: ClassVar[type[SSLSocket]]
+        sslobject_class: type[SSLObject]
+        sslsocket_class: type[SSLSocket]
     if sys.version_info >= (3, 8):
         keylog_filename: str
         post_handshake_auth: bool
