@@ -46,13 +46,11 @@ def check_new_syntax(tree: ast.AST, path: Path) -> list[str]:
 
     class ObjectClassdefFinder(ast.NodeVisitor):
         def visit_ClassDef(self, node: ast.ClassDef) -> None:
-            # Temporarily disable this check for two ex-Python 2 stubs.
-            if "paramiko" not in str(path) and "cryptography" not in str(path):
-                if any(isinstance(base, ast.Name) and base.id == "object" for base in node.bases):
-                    errors.append(
-                        f"{path}:{node.lineno}: Do not inherit from `object` explicitly, "
-                        f"as all classes implicitly inherit from `object` in Python 3"
-                    )
+            if any(isinstance(base, ast.Name) and base.id == "object" for base in node.bases):
+                errors.append(
+                    f"{path}:{node.lineno}: Do not inherit from `object` explicitly, "
+                    f"as all classes implicitly inherit from `object` in Python 3"
+                )
             self.generic_visit(node)
 
     class IfFinder(ast.NodeVisitor):
