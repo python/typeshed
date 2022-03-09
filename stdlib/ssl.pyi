@@ -393,6 +393,9 @@ class SSLContext:
         maximum_version: TLSVersion
         minimum_version: TLSVersion
         sni_callback: Callable[[SSLObject, str, SSLContext], None | int] | None
+        # The following two attributes have class-level defaults.
+        # However, the docs explicitly state that it's OK to override these attributes on instances,
+        # so making these ClassVars wouldn't be appropriate
         sslobject_class: type[SSLObject]
         sslsocket_class: type[SSLSocket]
     if sys.version_info >= (3, 8):
