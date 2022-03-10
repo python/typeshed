@@ -1026,7 +1026,7 @@ class IO(Iterator[AnyStr], Generic[AnyStr]):
     @abstractmethod
     def __exit__(
         self, __t: Type[BaseException] | None, __value: BaseException | None, __traceback: TracebackType | None
-    ) -> bool | None: ...
+    ) -> None: ...
 
 class BinaryIO(IO[bytes]):
     @abstractmethod
