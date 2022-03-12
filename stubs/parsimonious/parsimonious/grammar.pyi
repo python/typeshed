@@ -23,7 +23,7 @@ from parsimonious.nodes import Node as Node, NodeVisitor as NodeVisitor
 from parsimonious.utils import evaluate_string as evaluate_string
 from six import text_type
 
-class Grammar(OrderedDict):
+class Grammar(OrderedDict[str, Expression]):
     default_rule: Expression | Any
     def __init__(self, rules: str = ..., **more_rules: Expression | _CALLABLE_TYPE) -> None: ...
     def default(self, rule_name: str) -> Grammar: ...
