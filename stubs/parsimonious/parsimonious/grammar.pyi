@@ -2,25 +2,25 @@ from collections import OrderedDict
 from typing import Any, Callable, Mapping, NoReturn
 from typing_extensions import Self
 
-from parsimonious.exceptions import BadGrammar, UndefinedLabel
+from parsimonious.exceptions import BadGrammar as BadGrammar, UndefinedLabel as UndefinedLabel
 from parsimonious.expressions import (
-    _CALLABLE_TYPE,
-    Expression,
-    Literal,
-    Lookahead,
-    Not,
-    OneOf,
-    OneOrMore,
-    Optional,
-    Regex,
-    Sequence,
-    TokenMatcher,
-    ZeroOrMore,
-    expression,
-    is_callable,
+    _CALLABLE_TYPE as _CALLABLE_TYPE,
+    Expression as Expression,
+    Literal as Literal,
+    Lookahead as Lookahead,
+    Not as Not,
+    OneOf as OneOf,
+    OneOrMore as OneOrMore,
+    Optional as Optional,
+    Regex as Regex,
+    Sequence as Sequence,
+    TokenMatcher as TokenMatcher,
+    ZeroOrMore as ZeroOrMore,
+    expression as expression,
+    is_callable as is_callable,
 )
-from parsimonious.nodes import Node, NodeVisitor
-from parsimonious.utils import evaluate_string
+from parsimonious.nodes import Node as Node, NodeVisitor as NodeVisitor
+from parsimonious.utils import evaluate_string as evaluate_string
 from six import text_type
 
 class Grammar(OrderedDict):

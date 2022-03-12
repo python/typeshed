@@ -2,9 +2,9 @@ from re import Match
 from typing import Any, Callable, Iterator, NoReturn, TypeVar
 from typing_extensions import Self
 
-from parsimonious.exceptions import UndefinedLabel, VisitationError
-from parsimonious.expressions import Expression
-from parsimonious.grammar import Grammar
+from parsimonious.exceptions import UndefinedLabel as UndefinedLabel, VisitationError as VisitationError
+from parsimonious.expressions import Expression as Expression
+from parsimonious.grammar import Grammar as Grammar
 
 class Node:
     expr: Expression
