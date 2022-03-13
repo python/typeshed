@@ -1,10 +1,10 @@
 import typing
 from typing import Any, Callable, Pattern
 
-from parsimonious.exceptions import IncompleteParseError as IncompleteParseError, ParseError as ParseError
-from parsimonious.grammar import Grammar as Grammar
-from parsimonious.nodes import Node as Node, RegexNode as RegexNode
-from parsimonious.utils import StrAndRepr as StrAndRepr
+from parsimonious.exceptions import ParseError
+from parsimonious.grammar import Grammar
+from parsimonious.nodes import Node
+from parsimonious.utils import StrAndRepr
 
 MARKER: Any
 
