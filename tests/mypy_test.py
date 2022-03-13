@@ -190,7 +190,7 @@ def run_mypy(args, configurations, major, minor, files, *, custom_typeshed=False
             print("running", " ".join(sys.argv))
         if not args.dry_run:
             try:
-                mypy_main("", sys.stdout, sys.stderr)
+                mypy_main("", sys.stdout, sys.stderr, clean_exit=True)
             except SystemExit as err:
                 return err.code
         return 0
@@ -231,7 +231,7 @@ def read_dependencies(distribution: str) -> list[str]:
     for dependency in requires:
         assert isinstance(dependency, str)
         assert dependency.startswith("types-")
-        dependencies.append(dependency[6:])
+        dependencies.append(dependency[6:].split("<")[0])
     return dependencies
 
 
@@ -323,6 +323,9 @@ def main():
         # Test files of all third party distributions.
         print("Running mypy " + " ".join(get_mypy_flags(args, major, minor, "/tmp/...")))
         for distribution in sorted(os.listdir("stubs")):
+            if distribution == "SQLAlchemy":
+                continue  # Crashes
+
             if not is_supported(distribution, major):
                 continue
 
