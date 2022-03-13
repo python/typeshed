@@ -7,6 +7,7 @@ from typing import (
     AsyncGenerator,
     Awaitable,
     Callable,
+    ClassVar,
     Coroutine,
     Generator,
     Generic,
