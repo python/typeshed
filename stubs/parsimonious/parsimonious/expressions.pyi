@@ -1,5 +1,5 @@
 import typing
-from typing import Any, Callable, Mapping, Pattern, Tuple, Union
+from typing import Any, Callable, Mapping, Pattern, Union
 
 from parsimonious.exceptions import ParseError
 from parsimonious.grammar import Grammar
@@ -8,14 +8,10 @@ from parsimonious.utils import StrAndRepr
 
 MARKER: Any
 
-def is_callable(value: Any) -> bool: ...
-
-_CALLABLE_RETURN_TYPE = Union[int, Tuple[int, list[Node]], Node, None]
+_CALLABLE_RETURN_TYPE = Union[int, tuple[int, list[Node]], Node, None]
 _CALLABLE_TYPE = (
     Callable[[str, int], _CALLABLE_RETURN_TYPE]
     | Callable[[str, int, Mapping[tuple[int, int], Node], ParseError, Grammar], _CALLABLE_RETURN_TYPE]
-    | Callable[[Any, str, int], _CALLABLE_RETURN_TYPE]
-    | Callable[[Any, str, int, Mapping[tuple[int, int], Node], ParseError, Grammar], _CALLABLE_RETURN_TYPE]
 )
 
 def expression(callable: _CALLABLE_TYPE, rule_name: str, grammar: Grammar) -> Expression: ...
@@ -49,7 +45,6 @@ class Regex(Expression):
         dot_all: bool = ...,
         unicode: bool = ...,
         verbose: bool = ...,
-        ascii: bool = ...,
     ) -> None: ...
 
 class Compound(Expression):

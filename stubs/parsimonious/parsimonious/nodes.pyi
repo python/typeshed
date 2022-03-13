@@ -1,9 +1,8 @@
 from re import Match
 from typing import Any, Callable, Iterator, NoReturn, Sequence, TypeVar
 
-from parsimonious.exceptions import UndefinedLabel as UndefinedLabel, VisitationError as VisitationError
-from parsimonious.expressions import Expression as Expression
-from parsimonious.grammar import Grammar as Grammar
+from parsimonious.expressions import Expression
+from parsimonious.grammar import Grammar
 
 class Node:
     expr: Expression
