@@ -1,5 +1,5 @@
 import typing
-from typing import Any, Callable, Pattern
+from typing import Any, Callable, Mapping, Pattern, Tuple, Union
 
 from parsimonious.exceptions import ParseError
 from parsimonious.grammar import Grammar
@@ -10,12 +10,12 @@ MARKER: Any
 
 def is_callable(value: Any) -> bool: ...
 
-_CALLABLE_RETURN_TYPE = int | tuple[int, list[Node]] | Node | None
+_CALLABLE_RETURN_TYPE = Union[int, Tuple[int, list[Node]], Node, None]
 _CALLABLE_TYPE = (
     Callable[[str, int], _CALLABLE_RETURN_TYPE]
-    | Callable[[str, int, dict[tuple[int, int], Node], ParseError, Grammar], _CALLABLE_RETURN_TYPE]
+    | Callable[[str, int, Mapping[tuple[int, int], Node], ParseError, Grammar], _CALLABLE_RETURN_TYPE]
     | Callable[[Any, str, int], _CALLABLE_RETURN_TYPE]
-    | Callable[[Any, str, int, dict[tuple[int, int], Node], ParseError, Grammar], _CALLABLE_RETURN_TYPE]
+    | Callable[[Any, str, int, Mapping[tuple[int, int], Node], ParseError, Grammar], _CALLABLE_RETURN_TYPE]
 )
 
 def expression(callable: _CALLABLE_TYPE, rule_name: str, grammar: Grammar) -> Expression: ...
@@ -26,19 +26,19 @@ class Expression(StrAndRepr):
     def __init__(self, name: str = ...) -> None: ...
     def parse(self, text: str, pos: int = ...) -> Node: ...
     def match(self, text: str, pos: int = ...) -> Node: ...
-    def match_core(self, text: str, pos: int, cache: dict[tuple[int, int], Node], error: ParseError) -> Node: ...
+    def match_core(self, text: str, pos: int, cache: Mapping[tuple[int, int], Node], error: ParseError) -> Node: ...
     def as_rule(self) -> str: ...
 
 class Literal(Expression):
     literal: str
-    identity_tuple: tuple[str, str]
+    identity_tuple: tuple[str, str]  # type: ignore
     def __init__(self, literal: str, name: str = ...) -> None: ...
 
 class TokenMatcher(Literal): ...
 
 class Regex(Expression):
     re: Pattern[str]
-    identity_tuple: tuple[str, Pattern[str]]
+    identity_tuple: tuple[str, Pattern[str]]  # type: ignore
     def __init__(
         self,
         pattern: str,
