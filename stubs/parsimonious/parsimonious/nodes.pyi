@@ -26,7 +26,7 @@ class RegexNode(Node):
 class RuleDecoratorMeta(type):
     def __new__(metaclass: type[Self], name: str, bases: tuple[type, ...], namespace: dict[str, Any]) -> Self: ...
 
-class NodeVisitor(type):
+class NodeVisitor(metaclass=RuleDecoratorMeta):
     grammar: Grammar | Any
     unwrapped_exceptions: tuple[type[Exception], ...]
     def visit(self, node: Node) -> Any: ...
