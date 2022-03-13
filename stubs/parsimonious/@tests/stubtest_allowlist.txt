@@ -1,1 +1,3 @@
-parsimonious.nodes.RuleDecoratorMeta.__new__
+parsimonious.expressions.Grammar.generic_visit
+parsimonious.expressions.Literal.identity_tuple
+parsimonious.expressions.Regex.identity_tuple

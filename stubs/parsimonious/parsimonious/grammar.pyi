@@ -1,7 +1,6 @@
 import typing
 from collections import OrderedDict
 from typing import Any, Callable, Mapping, NoReturn
-from typing_extensions import Self
 
 from parsimonious.expressions import _CALLABLE_TYPE, Expression, Literal, Lookahead, Not, OneOf, Regex, Sequence, TokenMatcher
 from parsimonious.nodes import Node, NodeVisitor
@@ -23,9 +22,9 @@ class LazyReference(str):
 
 class RuleVisitor(NodeVisitor):
     quantifier_classes: dict[str, type[Expression]]
-    visit_expression: Callable[[Self, Node, typing.Sequence[Any]], Any]
-    visit_term: Callable[[Self, Node, typing.Sequence[Any]], Any]
-    visit_atom: Callable[[Self, Node, typing.Sequence[Any]], Any]
+    visit_expression: Callable[[RuleVisitor, Node, typing.Sequence[Any]], Any]
+    visit_term: Callable[[RuleVisitor, Node, typing.Sequence[Any]], Any]
+    visit_atom: Callable[[RuleVisitor, Node, typing.Sequence[Any]], Any]
     custom_rules: dict[str, Expression]
     def __init__(self, custom_rules: Mapping[str, Expression] | None = ...) -> None: ...
     def visit_rules(
