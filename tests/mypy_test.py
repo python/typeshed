@@ -7,9 +7,7 @@ Approach:
 
 1. Parse sys.argv
 2. Compute appropriate arguments for mypy
-3. Stuff those arguments into sys.argv
-4. Run mypy.main('')
-5. Repeat steps 2-4 for other mypy runs (e.g. --py2)
+3. Pass those arguments to mypy.api.run()
 """
 
 import argparse
@@ -95,15 +93,13 @@ def parse_version(v_str):
     return int(m.group(1)), int(m.group(2))
 
 
-def is_supported(distribution, major):
-    dist_path = Path("stubs", distribution)
-    with open(dist_path / "METADATA.toml") as f:
-        data = dict(tomli.loads(f.read()))
+def is_supported(distribution_path: Path, major: int) -> bool:
+    data = dict(tomli.loads((distribution_path / "METADATA.toml").read_text()))
     if major == 2:
         # Python 2 is not supported by default.
         return bool(data.get("python2", False))
     # Python 3 is supported by default.
-    return has_py3_stubs(dist_path)
+    return has_py3_stubs(distribution_path)
 
 
 # Keep this in sync with stubtest_third_party.py
@@ -278,10 +274,15 @@ def test_third_party_distribution(distribution: str, major: int, minor: int, arg
     return code, len(files)
 
 
+def is_probably_stubs_folder(dist_path: Path) -> bool:
+    """Validate that `dist_path` is a folder containing stubs"""
+    return (dist_path / "METADATA.toml").exists()
+
+
 def main():
     args = parser.parse_args()
 
-    versions = [(3, 10), (3, 9), (3, 8), (3, 7), (3, 6), (2, 7)]
+    versions = [(3, 11), (3, 10), (3, 9), (3, 8), (3, 7), (3, 6), (2, 7)]
     if args.python_version:
         versions = [v for v in versions if any(("%d.%d" % v).startswith(av) for av in args.python_version)]
         if not versions:
@@ -327,7 +328,12 @@ def main():
             if distribution == "SQLAlchemy":
                 continue  # Crashes
 
-            if not is_supported(distribution, major):
+            distribution_path = Path("stubs", distribution)
+
+            if not is_probably_stubs_folder(distribution_path):
+                continue
+
+            if not is_supported(distribution_path, major):
                 continue
 
             this_code, checked = test_third_party_distribution(distribution, major, minor, args)
