@@ -274,9 +274,9 @@ def test_third_party_distribution(distribution: str, major: int, minor: int, arg
     return code, len(files)
 
 
-def is_probably_stubs_folder(dist_path: Path) -> bool:
+def is_probably_stubs_folder(distribution: str, distribution_path: Path) -> bool:
     """Validate that `dist_path` is a folder containing stubs"""
-    return (dist_path / "METADATA.toml").exists()
+    return distribution != ".mypy_cache" and distribution_path.is_dir()
 
 
 def main():
@@ -330,7 +330,7 @@ def main():
 
             distribution_path = Path("stubs", distribution)
 
-            if not is_probably_stubs_folder(distribution_path):
+            if not is_probably_stubs_folder(distribution, distribution_path):
                 continue
 
             if not is_supported(distribution_path, major):
