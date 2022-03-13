@@ -171,7 +171,7 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
 
 def run_mypy(args, configurations, major, minor, files, *, custom_typeshed=False):
     try:
-        from mypy.main import main as mypy_main
+        from mypy.api import run as mypy_run
     except ImportError:
         print("Cannot import mypy. Did you install it?")
         sys.exit(1)
@@ -185,15 +185,16 @@ def run_mypy(args, configurations, major, minor, files, *, custom_typeshed=False
         temp.flush()
 
         flags = get_mypy_flags(args, major, minor, temp.name, custom_typeshed=custom_typeshed)
-        sys.argv = ["mypy"] + flags + files
+        mypy_args = [*flags, *files]
         if args.verbose:
-            print("running", " ".join(sys.argv))
-        if not args.dry_run:
-            try:
-                mypy_main("", sys.stdout, sys.stderr, clean_exit=True)
-            except SystemExit as err:
-                return err.code
-        return 0
+            print("running mypy", " ".join(mypy_args))
+        if args.dry_run:
+            exit_code = 0
+        else:
+            stdout, stderr, exit_code = mypy_run(mypy_args)
+            print(stdout, end="")
+            print(stderr, file=sys.stderr, end="")
+        return exit_code
 
 
 def get_mypy_flags(args, major: int, minor: int, temp_name: str, *, custom_typeshed: bool = False) -> list[str]:
