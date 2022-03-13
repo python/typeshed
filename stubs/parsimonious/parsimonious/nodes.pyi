@@ -1,6 +1,7 @@
 from re import Match
 from typing import Any, Callable, Iterator, NoReturn, Sequence, TypeVar
 
+from parsimonious.exceptions import VisitationError as VisitationError
 from parsimonious.expressions import Expression
 from parsimonious.grammar import Grammar
 
