@@ -39,7 +39,7 @@ class LazyReference(text_type):
     name: str
 
 class RuleVisitor(NodeVisitor):
-    quantifier_classes: dict[str, Expression]
+    quantifier_classes: dict[str, type[Expression]]
     visit_expression: Callable[[Self, Node, list[Any]], Any]
     visit_term: Callable[[Self, Node, list[Any]], Any]
     visit_atom: Callable[[Self, Node, list[Any]], Any]
