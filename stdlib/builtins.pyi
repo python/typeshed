@@ -29,6 +29,7 @@ from typing import (
     IO,
     AbstractSet,
     Any,
+    Awaitable,
     BinaryIO,
     ByteString,
     Generic,
@@ -72,6 +73,8 @@ _T4 = TypeVar("_T4")
 _T5 = TypeVar("_T5")
 _SupportsNextT = TypeVar("_SupportsNextT", bound=SupportsNext[Any], covariant=True)
 _SupportsAnextT = TypeVar("_SupportsAnextT", bound=SupportsAnext[Any], covariant=True)
+_AwaitableT = TypeVar("_AwaitableT", bound=Awaitable[Any])
+_AwaitableT_co = TypeVar("_AwaitableT_co", bound=Awaitable[Any], covariant=True)
 
 class _SupportsIter(Protocol[_T_co]):
     def __iter__(self) -> _T_co: ...
@@ -1068,10 +1071,17 @@ class _PathLike(Protocol[_AnyStr_co]):
 
 if sys.version_info >= (3, 10):
     def aiter(__async_iterable: _SupportsAiter[_SupportsAnextT]) -> _SupportsAnextT: ...
+
+    class _SupportsSynchronousAnext(Protocol[_AwaitableT_co]):
+        def __anext__(self) -> _AwaitableT_co: ...
+
+    class _SupportsAwaitableAnext(Protocol[_T_co]):
+        def __anext__(self) -> Awaitable[_T_co]: ...
+
     @overload
-    async def anext(__i: SupportsAnext[_T]) -> _T: ...
+    def anext(__i: _SupportsSynchronousAnext[_AwaitableT]) -> _AwaitableT: ...
     @overload
-    async def anext(__i: SupportsAnext[_T], default: _VT) -> _T | _VT: ...
+    async def anext(__i: _SupportsAwaitableAnext[_T], default: _VT) -> _T | _VT: ...
 
 # TODO: `compile` has a more precise return type in reality; work on a way of expressing that?
 if sys.version_info >= (3, 8):
