@@ -106,8 +106,6 @@ xml.etree.ElementTree.XMLParser.__init__  # Defined in C so has general signatur
 xml.etree.cElementTree.XMLParser.__init__  # Defined in C so has general signature
 
 # positional-only complaints caused by differences between typing aliases and the "real" classes in the stdlib
-_collections_abc.AsyncGenerator.asend  # is also "async def" at runtime, but sync in the stub (see discussion in #7475)
-_collections_abc.AsyncGenerator.athrow  # is also "async def" at runtime, but sync in the stub (see discussion in #7475)
 _collections_abc.Coroutine.send
 _collections_abc.Coroutine.throw
 _collections_abc.Generator.send
