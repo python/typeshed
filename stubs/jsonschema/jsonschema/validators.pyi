@@ -44,14 +44,14 @@ class Draft202012Validator(_Validator): ...
 _Handler = Callable[[str], Any]
 
 class RefResolver:
-    referrer: str
+    referrer: dict[str, Any]
     cache_remote: Any
     handlers: dict[str, _Handler]
     store: URIDict
     def __init__(
         self,
         base_uri: str,
-        referrer: str,
+        referrer: dict[str, Any],
         store: SupportsKeysAndGetItem[str, str] | Iterable[tuple[str, str]] = ...,
         cache_remote: bool = ...,
         handlers: SupportsKeysAndGetItem[str, _Handler] | Iterable[tuple[str, _Handler]] = ...,
