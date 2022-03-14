@@ -7,9 +7,7 @@ Approach:
 
 1. Parse sys.argv
 2. Compute appropriate arguments for mypy
-3. Stuff those arguments into sys.argv
-4. Run mypy.main('')
-5. Repeat steps 2-4 for other mypy runs (e.g. --py2)
+3. Pass those arguments to mypy.api.run()
 """
 
 import argparse
@@ -95,15 +93,13 @@ def parse_version(v_str):
     return int(m.group(1)), int(m.group(2))
 
 
-def is_supported(distribution, major):
-    dist_path = Path("stubs", distribution)
-    with open(dist_path / "METADATA.toml") as f:
-        data = dict(tomli.loads(f.read()))
+def is_supported(distribution_path: Path, major: int) -> bool:
+    data = dict(tomli.loads((distribution_path / "METADATA.toml").read_text()))
     if major == 2:
         # Python 2 is not supported by default.
         return bool(data.get("python2", False))
     # Python 3 is supported by default.
-    return has_py3_stubs(dist_path)
+    return has_py3_stubs(distribution_path)
 
 
 # Keep this in sync with stubtest_third_party.py
@@ -171,7 +167,7 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
 
 def run_mypy(args, configurations, major, minor, files, *, custom_typeshed=False):
     try:
-        from mypy.main import main as mypy_main
+        from mypy.api import run as mypy_run
     except ImportError:
         print("Cannot import mypy. Did you install it?")
         sys.exit(1)
@@ -185,15 +181,16 @@ def run_mypy(args, configurations, major, minor, files, *, custom_typeshed=False
         temp.flush()
 
         flags = get_mypy_flags(args, major, minor, temp.name, custom_typeshed=custom_typeshed)
-        sys.argv = ["mypy"] + flags + files
+        mypy_args = [*flags, *files]
         if args.verbose:
-            print("running", " ".join(sys.argv))
-        if not args.dry_run:
-            try:
-                mypy_main("", sys.stdout, sys.stderr)
-            except SystemExit as err:
-                return err.code
-        return 0
+            print("running mypy", " ".join(mypy_args))
+        if args.dry_run:
+            exit_code = 0
+        else:
+            stdout, stderr, exit_code = mypy_run(mypy_args)
+            print(stdout, end="")
+            print(stderr, file=sys.stderr, end="")
+        return exit_code
 
 
 def get_mypy_flags(args, major: int, minor: int, temp_name: str, *, custom_typeshed: bool = False) -> list[str]:
@@ -231,7 +228,7 @@ def read_dependencies(distribution: str) -> list[str]:
     for dependency in requires:
         assert isinstance(dependency, str)
         assert dependency.startswith("types-")
-        dependencies.append(dependency[6:])
+        dependencies.append(dependency[6:].split("<")[0])
     return dependencies
 
 
@@ -277,10 +274,15 @@ def test_third_party_distribution(distribution: str, major: int, minor: int, arg
     return code, len(files)
 
 
+def is_probably_stubs_folder(distribution: str, distribution_path: Path) -> bool:
+    """Validate that `dist_path` is a folder containing stubs"""
+    return distribution != ".mypy_cache" and distribution_path.is_dir()
+
+
 def main():
     args = parser.parse_args()
 
-    versions = [(3, 10), (3, 9), (3, 8), (3, 7), (3, 6), (2, 7)]
+    versions = [(3, 11), (3, 10), (3, 9), (3, 8), (3, 7), (3, 6), (2, 7)]
     if args.python_version:
         versions = [v for v in versions if any(("%d.%d" % v).startswith(av) for av in args.python_version)]
         if not versions:
@@ -323,7 +325,15 @@ def main():
         # Test files of all third party distributions.
         print("Running mypy " + " ".join(get_mypy_flags(args, major, minor, "/tmp/...")))
         for distribution in sorted(os.listdir("stubs")):
-            if not is_supported(distribution, major):
+            if distribution == "SQLAlchemy":
+                continue  # Crashes
+
+            distribution_path = Path("stubs", distribution)
+
+            if not is_probably_stubs_folder(distribution, distribution_path):
+                continue
+
+            if not is_supported(distribution_path, major):
                 continue
 
             this_code, checked = test_third_party_distribution(distribution, major, minor, args)
