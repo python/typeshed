@@ -17,15 +17,25 @@ class Pbkdf2DigestHandler(uh.HasRounds, uh.HasRawSalt, uh.HasRawChecksum, uh.Gen
     def to_string(self): ...
 
 # dynamically created by create_pbkdf2_hash()
-class _DynamicPbkdf2DigestHandler(Pbkdf2DigestHandler):
+class pbkdf2_sha1(Pbkdf2DigestHandler):
     name: str
     ident: str
     checksum_size: int
     encoded_checksum_size: int
 
-pbkdf2_sha1: type[_DynamicPbkdf2DigestHandler]
-pbkdf2_sha256: type[_DynamicPbkdf2DigestHandler]
-pbkdf2_sha512: type[_DynamicPbkdf2DigestHandler]
+# dynamically created by create_pbkdf2_hash()
+class pbkdf2_sha256(Pbkdf2DigestHandler):
+    name: str
+    ident: str
+    checksum_size: int
+    encoded_checksum_size: int
+
+# dynamically created by create_pbkdf2_hash()
+class pbkdf2_sha512(Pbkdf2DigestHandler):
+    name: str
+    ident: str
+    checksum_size: int
+    encoded_checksum_size: int
 
 ldap_pbkdf2_sha1: PrefixWrapper
 ldap_pbkdf2_sha256: PrefixWrapper
