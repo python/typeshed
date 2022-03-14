@@ -247,7 +247,6 @@ xml.parsers.expat.expat_CAPI
 # Allowlist entries that cannot or should not be fixed
 # ==========
 _collections_abc.AsyncGenerator.asend  # async at runtime, deliberately not in the stub, see #7475. Pos-only differences also.
-_collections_abc.AsyncGenerator.athrow  # async at runtime, deliberately not in the stub, see #7475. Pos-only differences also.
 _collections_abc.AsyncGenerator.__anext__  # async at runtime, deliberately not in the stub, see #7475
 _collections_abc.AsyncGenerator.aclose  # async at runtime, deliberately not in the stub, see #7475
 _collections_abc.AsyncIterator.__anext__  # async at runtime, deliberately not in the stub, see #7475

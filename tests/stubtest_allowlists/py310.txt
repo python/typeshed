@@ -23,6 +23,7 @@ typing.IO.truncate
 typing.IO.write
 typing.IO.writelines
 
+_collections_abc.AsyncGenerator.athrow  # async at runtime, deliberately not in the stub, see #7475. Pos-only differences also.
 _weakref.ProxyType.__reversed__  # Doesn't really exist
 ast.Bytes.__new__
 ast.Ellipsis.__new__
