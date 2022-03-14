@@ -16,9 +16,9 @@ class Pbkdf2DigestHandler(uh.HasRounds, uh.HasRawSalt, uh.HasRawChecksum, uh.Gen
     def from_string(cls, hash): ...
     def to_string(self): ...
 
-pbkdf2_sha1: Any
-pbkdf2_sha256: Any
-pbkdf2_sha512: Any
+pbkdf2_sha1: Pbkdf2DigestHandler
+pbkdf2_sha256: Pbkdf2DigestHandler
+pbkdf2_sha512: Pbkdf2DigestHandler
 
 ldap_pbkdf2_sha1: PrefixWrapper
 ldap_pbkdf2_sha256: PrefixWrapper
