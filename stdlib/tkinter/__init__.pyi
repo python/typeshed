@@ -193,7 +193,7 @@ _Padding = Union[
 _Relief = Literal["raised", "sunken", "flat", "ridge", "solid", "groove"]  # manual page: Tk_GetRelief
 _ScreenUnits = str | float  # Often the right type instead of int. Manual page: Tk_GetPixels
 _XYScrollCommand = str | Callable[[float, float], Any]  # -xscrollcommand and -yscrollcommand in 'options' manual page
-_TakeFocusValue = int | Literal[""] | Callable[[str], bool | None]  # -takefocus in manual page named 'options'
+_TakeFocusValue = Union[int, Literal[""], Callable[[str], bool | None]]  # -takefocus in manual page named 'options'
 
 class EventType(str, Enum):
     Activate: str
