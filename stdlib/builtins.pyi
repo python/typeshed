@@ -1075,13 +1075,13 @@ if sys.version_info >= (3, 10):
     class _SupportsSynchronousAnext(Protocol[_AwaitableT_co]):
         def __anext__(self) -> _AwaitableT_co: ...
 
-    class _SupportsAwaitableAnext(Protocol[_T_co]):
-        def __anext__(self) -> Awaitable[_T_co]: ...
-
     @overload
+    # `anext` is not, in fact, an async function. When default is not provided
+    # `anext` is just a passthrough for `obj.__anext__`
+    # See discussion in #7491 and pure-Python implementation of `anext` at https://github.com/python/cpython/blob/ea786a882b9ed4261eafabad6011bc7ef3b5bf94/Lib/test/test_asyncgen.py#L52-L80
     def anext(__i: _SupportsSynchronousAnext[_AwaitableT]) -> _AwaitableT: ...
     @overload
-    async def anext(__i: _SupportsAwaitableAnext[_T], default: _VT) -> _T | _VT: ...
+    async def anext(__i: SupportsAnext[_T], default: _VT) -> _T | _VT: ...
 
 # TODO: `compile` has a more precise return type in reality; work on a way of expressing that?
 if sys.version_info >= (3, 8):
