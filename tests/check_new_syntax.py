@@ -32,6 +32,7 @@ def check_new_syntax(tree: ast.AST, path: Path, stub: str) -> list[str]:
             if isinstance(node.value, ast.Name):
                 nodelines = sourcelines[(node.lineno - 1) : node.end_lineno]
                 for line in nodelines:
+                    # A hack to workaround various PEP 604 bugs in mypy
                     if any(x in line for x in {"tuple[", "Callable[", "type["}):
                         return None
                 if node.value.id == "Union" and isinstance(node.slice, ast.Tuple):
