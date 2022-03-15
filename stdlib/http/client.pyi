@@ -5,7 +5,7 @@ import sys
 import types
 from _typeshed import Self, WriteableBuffer
 from socket import socket
-from typing import IO, Any, BinaryIO, Callable, Iterable, Iterator, Mapping, Protocol, TypeVar, Union, overload
+from typing import IO, Any, BinaryIO, Callable, Iterable, Iterator, Mapping, Protocol, TypeVar, overload
 
 __all__ = [
     "HTTPResponse",
@@ -29,7 +29,7 @@ __all__ = [
     "HTTPSConnection",
 ]
 
-_DataType = Union[bytes, IO[Any], Iterable[bytes], str]
+_DataType = bytes | IO[Any] | Iterable[bytes] | str
 _T = TypeVar("_T")
 
 HTTP_PORT: int

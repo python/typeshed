@@ -1,9 +1,9 @@
 import sys
-from typing import Callable, Optional, Sequence, Text
+from typing import Callable, Sequence, Text
 
 if sys.platform != "win32":
-    _CompleterT = Optional[Callable[[str, int], Optional[str]]]
-    _CompDispT = Optional[Callable[[str, Sequence[str], int], None]]
+    _CompleterT = Callable[[str, int], str | None] | None
+    _CompDispT = Callable[[str, Sequence[str], int], None] | None
     def parse_and_bind(__string: str) -> None: ...
     def read_init_file(__filename: Text | None = ...) -> None: ...
     def get_line_buffer() -> str: ...

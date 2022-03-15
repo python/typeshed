@@ -382,7 +382,7 @@ def listdir(path: BytesPath) -> list[bytes]: ...
 @overload
 def listdir(path: int) -> list[str]: ...
 
-_FdOrAnyPath = Union[int, StrOrBytesPath]
+_FdOrAnyPath = int | StrOrBytesPath
 
 @final
 class DirEntry(Generic[AnyStr]):
@@ -837,12 +837,12 @@ _ExecVArgs = Union[
     list[bytes],
     list[str],
     list[PathLike[Any]],
-    list[Union[bytes, str]],
-    list[Union[bytes, PathLike[Any]]],
-    list[Union[str, PathLike[Any]]],
-    list[Union[bytes, str, PathLike[Any]]],
+    list[bytes | str],
+    list[bytes | PathLike[Any]],
+    list[str | PathLike[Any]],
+    list[bytes | str | PathLike[Any]],
 ]
-_ExecEnv = Union[Mapping[bytes, Union[bytes, str]], Mapping[str, Union[bytes, str]]]
+_ExecEnv = Mapping[bytes, bytes | str] | Mapping[str, bytes | str]
 
 def execv(__path: StrOrBytesPath, __argv: _ExecVArgs) -> NoReturn: ...
 def execve(path: _FdOrAnyPath, argv: _ExecVArgs, env: _ExecEnv) -> NoReturn: ...

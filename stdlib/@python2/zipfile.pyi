@@ -1,9 +1,9 @@
 import io
 from _typeshed import Self, StrPath
 from types import TracebackType
-from typing import IO, Any, Callable, Iterable, Pattern, Protocol, Sequence, Text, Union
+from typing import IO, Any, Callable, Iterable, Pattern, Protocol, Sequence, Text
 
-_SZI = Union[Text, ZipInfo]
+_SZI = Text | ZipInfo
 _DT = tuple[int, int, int, int, int, int]
 
 class BadZipfile(Exception): ...

@@ -377,7 +377,7 @@ _Address = Union[tuple[Any, ...], str]
 _RetAddress = Any
 # TODO Most methods allow bytes as address objects
 
-_WriteBuffer = Union[bytearray, memoryview]
+_WriteBuffer = bytearray | memoryview
 
 _CMSG = tuple[int, int, bytes]
 

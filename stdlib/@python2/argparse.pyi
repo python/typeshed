@@ -1,10 +1,10 @@
-from typing import IO, Any, Callable, Generator, Iterable, NoReturn, Pattern, Protocol, Sequence, Text, TypeVar, Union, overload
+from typing import IO, Any, Callable, Generator, Iterable, NoReturn, Pattern, Protocol, Sequence, Text, TypeVar, overload
 
 _T = TypeVar("_T")
 _ActionT = TypeVar("_ActionT", bound=Action)
 _N = TypeVar("_N")
 
-_Text = Union[str, unicode]
+_Text = str | unicode
 
 ONE_OR_MORE: str
 OPTIONAL: str

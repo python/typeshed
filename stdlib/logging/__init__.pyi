@@ -55,10 +55,10 @@ __all__ = [
 ]
 
 _SysExcInfoType = Union[tuple[type[BaseException], BaseException, Optional[TracebackType]], tuple[None, None, None]]
-_ExcInfoType = Union[None, bool, _SysExcInfoType, BaseException]
+_ExcInfoType = None | bool | _SysExcInfoType | BaseException
 _ArgsType = Union[tuple[object, ...], Mapping[str, object]]
-_FilterType = Union[Filter, Callable[[LogRecord], int]]
-_Level = Union[int, str]
+_FilterType = Filter | Callable[[LogRecord], int]
+_Level = int | str
 _FormatStyle = Literal["%", "{", "$"]
 
 raiseExceptions: bool

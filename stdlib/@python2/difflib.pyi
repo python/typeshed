@@ -1,11 +1,11 @@
-from typing import Any, AnyStr, Callable, Generic, Iterable, Iterator, NamedTuple, Sequence, Text, TypeVar, Union, overload
+from typing import Any, AnyStr, Callable, Generic, Iterable, Iterator, NamedTuple, Sequence, Text, TypeVar, overload
 
 _T = TypeVar("_T")
 
 # Aliases can't point to type vars, so we need to redeclare AnyStr
 _StrType = TypeVar("_StrType", Text, bytes)
 
-_JunkCallback = Union[Callable[[Text], bool], Callable[[str], bool]]
+_JunkCallback = Callable[[Text], bool] | Callable[[str], bool]
 
 class Match(NamedTuple):
     a: int
