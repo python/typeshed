@@ -3,7 +3,7 @@ from _typeshed import Self
 from typing import Any, Iterator, Text
 from typing_extensions import Literal
 
-_RetType = type[float] | type[datetime.datetime]
+_RetType = type[float | datetime.datetime]
 
 class CroniterError(ValueError): ...
 class CroniterBadCronError(CroniterError): ...

@@ -1,4 +1,4 @@
-from typing import Any, Iterable, Iterator, Protocol
+from typing import Any, Iterable, Iterator, Protocol, Union
 from typing_extensions import Literal
 
 __version__: str
@@ -21,7 +21,7 @@ class Dialect:
     strict: int
     def __init__(self) -> None: ...
 
-_DialectLike = str | Dialect | type[Dialect]
+_DialectLike =  Union[str, Dialect, type[Dialect]]
 
 class _reader(Iterator[list[str]]):
     dialect: Dialect

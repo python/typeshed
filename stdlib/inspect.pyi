@@ -29,7 +29,7 @@ if sys.version_info >= (3, 7):
         MethodWrapperType,
     )
 
-from typing import Any, ClassVar, Coroutine, NamedTuple, Protocol, TypeVar
+from typing import Any, ClassVar, Coroutine, NamedTuple, Protocol, TypeVar, Union
 from typing_extensions import Literal, ParamSpec, TypeGuard
 
 if sys.version_info >= (3, 11):
@@ -242,7 +242,7 @@ def isdatadescriptor(object: object) -> TypeGuard[_SupportsSet[Any, Any] | _Supp
 #
 # Retrieving source code
 #
-_SourceObjectType = ModuleType | type[Any] | MethodType | FunctionType | TracebackType | FrameType | CodeType | Callable[..., Any]
+_SourceObjectType = Union[ModuleType, type[Any], MethodType, FunctionType, TracebackType, FrameType, CodeType, Callable[..., Any]]
 
 def findsource(object: _SourceObjectType) -> tuple[list[str], int]: ...
 def getabsfile(object: _SourceObjectType, _filename: str | None = ...) -> str: ...
