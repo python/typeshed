@@ -10,7 +10,9 @@ class _pyodbcTIME(TIME):
 class MySQLExecutionContext_pyodbc(MySQLExecutionContext):
     def get_lastrowid(self): ...
 
-class MySQLDialect_pyodbc(PyODBCConnector, MySQLDialect):
+# pyright complains about incompatible definitions of "supports_sane_rowcount_returning" variable in the base classes,
+# hence the type: ignore
+class MySQLDialect_pyodbc(PyODBCConnector, MySQLDialect):  # type: ignore
     supports_statement_cache: bool
     colspecs: Any
     supports_unicode_statements: bool
