@@ -1,5 +1,3 @@
-from typing import Any
-
 class WhatThePatchException(Exception): ...
 
 class HunkException(WhatThePatchException):
