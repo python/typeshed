@@ -1,7 +1,3 @@
-# pyright complains that several classes in this file
-# have incompatible definitions of the "Comparator" variable in their bases,
-# meaning there are several type: ignores
-
 from typing import Any
 
 from .base import SchemaEventTarget
@@ -28,7 +24,7 @@ class Indexable:
         def __getitem__(self, index): ...
     comparator_factory: Any
 
-class String(Concatenable, TypeEngine):  # type: ignore
+class String(Concatenable, TypeEngine):
     __visit_name__: str
     RETURNS_UNICODE: Any
     RETURNS_BYTES: Any
@@ -63,7 +59,7 @@ class UnicodeText(Text):
     __visit_name__: str
     def __init__(self, length: Any | None = ..., **kwargs) -> None: ...
 
-class Integer(_LookupExpressionAdapter, TypeEngine):  # type: ignore
+class Integer(_LookupExpressionAdapter, TypeEngine):
     __visit_name__: str
     def get_dbapi_type(self, dbapi): ...
     @property
@@ -76,7 +72,7 @@ class SmallInteger(Integer):
 class BigInteger(Integer):
     __visit_name__: str
 
-class Numeric(_LookupExpressionAdapter, TypeEngine):  # type: ignore
+class Numeric(_LookupExpressionAdapter, TypeEngine):
     __visit_name__: str
     precision: Any
     scale: Any
@@ -101,7 +97,7 @@ class Float(Numeric):
     def __init__(self, precision: Any | None = ..., asdecimal: bool = ..., decimal_return_scale: Any | None = ...) -> None: ...
     def result_processor(self, dialect, coltype): ...
 
-class DateTime(_LookupExpressionAdapter, TypeEngine):  # type: ignore
+class DateTime(_LookupExpressionAdapter, TypeEngine):
     __visit_name__: str
     timezone: Any
     def __init__(self, timezone: bool = ...) -> None: ...
@@ -109,13 +105,13 @@ class DateTime(_LookupExpressionAdapter, TypeEngine):  # type: ignore
     @property
     def python_type(self): ...
 
-class Date(_LookupExpressionAdapter, TypeEngine):  # type: ignore
+class Date(_LookupExpressionAdapter, TypeEngine):
     __visit_name__: str
     def get_dbapi_type(self, dbapi): ...
     @property
     def python_type(self): ...
 
-class Time(_LookupExpressionAdapter, TypeEngine):  # type: ignore
+class Time(_LookupExpressionAdapter, TypeEngine):
     __visit_name__: str
     timezone: Any
     def __init__(self, timezone: bool = ...) -> None: ...
@@ -203,7 +199,7 @@ class Boolean(Emulated, TypeEngine, SchemaType):  # type: ignore[misc]
     def bind_processor(self, dialect): ...
     def result_processor(self, dialect, coltype): ...
 
-class _AbstractInterval(_LookupExpressionAdapter, TypeEngine):  # type: ignore
+class _AbstractInterval(_LookupExpressionAdapter, TypeEngine):
     def coerce_compared_value(self, op, value): ...
 
 class Interval(Emulated, _AbstractInterval, TypeDecorator):  # type: ignore[misc]
@@ -220,7 +216,7 @@ class Interval(Emulated, _AbstractInterval, TypeDecorator):  # type: ignore[misc
     def bind_processor(self, dialect): ...
     def result_processor(self, dialect, coltype): ...
 
-class JSON(Indexable, TypeEngine):  # type: ignore
+class JSON(Indexable, TypeEngine):
     __visit_name__: str
     hashable: bool
     NULL: Any
@@ -255,7 +251,7 @@ class JSON(Indexable, TypeEngine):  # type: ignore
     def bind_processor(self, dialect): ...
     def result_processor(self, dialect, coltype): ...
 
-class ARRAY(SchemaEventTarget, Indexable, Concatenable, TypeEngine):  # type: ignore
+class ARRAY(SchemaEventTarget, Indexable, Concatenable, TypeEngine):
     __visit_name__: str
     zero_indexes: bool
 
