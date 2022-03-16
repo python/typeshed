@@ -1,9 +1,9 @@
 import io
 from _typeshed import ReadableBuffer, Self, WriteableBuffer
-from typing import IO, Any, Iterable, Text, Union
+from typing import IO, Any, Iterable, Text
 from typing_extensions import SupportsIndex
 
-_PathOrFile = Union[Text, IO[bytes]]
+_PathOrFile = Text | IO[bytes]
 
 def compress(data: bytes, compresslevel: int = ...) -> bytes: ...
 def decompress(data: bytes) -> bytes: ...

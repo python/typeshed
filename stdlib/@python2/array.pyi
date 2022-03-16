@@ -1,11 +1,11 @@
 from _typeshed import Self
-from typing import Any, BinaryIO, Generic, Iterable, MutableSequence, Text, TypeVar, Union, overload
+from typing import Any, BinaryIO, Generic, Iterable, MutableSequence, Text, TypeVar, overload
 from typing_extensions import Literal
 
 _IntTypeCode = Literal["b", "B", "h", "H", "i", "I", "l", "L", "q", "Q"]
 _FloatTypeCode = Literal["f", "d"]
 _UnicodeTypeCode = Literal["u"]
-_TypeCode = Union[_IntTypeCode, _FloatTypeCode, _UnicodeTypeCode]
+_TypeCode = _IntTypeCode | _FloatTypeCode | _UnicodeTypeCode
 
 _T = TypeVar("_T", int, float, Text)
 

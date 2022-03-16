@@ -1,5 +1,5 @@
 from _typeshed import SupportsLessThanT
-from typing import Sequence, Text, Union, overload
+from typing import Sequence, Text, overload
 from typing_extensions import Literal
 
 # All overloads can return empty string. Ideally, Literal[""] would be a valid

@@ -8,7 +8,7 @@ from asyncio.tasks import Task
 from asyncio.transports import BaseTransport, ReadTransport, SubprocessTransport, WriteTransport
 from collections.abc import Iterable
 from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
-from typing import IO, Any, Awaitable, Callable, Coroutine, Generator, Sequence, TypeVar, Union, overload
+from typing import IO, Any, Awaitable, Callable, Coroutine, Generator, Sequence, TypeVar, overload
 from typing_extensions import Literal
 
 if sys.version_info >= (3, 7):
@@ -23,7 +23,7 @@ _ProtocolT = TypeVar("_ProtocolT", bound=BaseProtocol)
 _Context = dict[str, Any]
 _ExceptionHandler = Callable[[AbstractEventLoop, _Context], Any]
 _ProtocolFactory = Callable[[], BaseProtocol]
-_SSLContext = Union[bool, None, ssl.SSLContext]
+_SSLContext = bool | None | ssl.SSLContext
 
 class Server(AbstractServer):
     if sys.version_info >= (3, 7):

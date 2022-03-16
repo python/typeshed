@@ -1,8 +1,8 @@
 from _typeshed import Self
 from time import struct_time
-from typing import AnyStr, ClassVar, SupportsAbs, Union, overload
+from typing import AnyStr, ClassVar, SupportsAbs, overload
 
-_Text = Union[str, unicode]
+_Text = str | unicode
 
 MINYEAR: int
 MAXYEAR: int

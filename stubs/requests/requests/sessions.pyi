@@ -51,15 +51,15 @@ _Data = Union[None, Text, bytes, Mapping[str, Any], Mapping[Text, Any], Iterable
 
 _Hook = Callable[[Response], Any]
 _Hooks = MutableMapping[Text, _Hook | list[_Hook]]
-_HooksInput = MutableMapping[Text, Union[Iterable[_Hook], _Hook]]
+_HooksInput = MutableMapping[Text, Iterable[_Hook] | _Hook]
 
-_ParamsMappingKeyType = Union[Text, bytes, int, float]
-_ParamsMappingValueType = Union[Text, bytes, int, float, Iterable[Union[Text, bytes, int, float]], None]
+_ParamsMappingKeyType = Text | bytes | int | float
+_ParamsMappingValueType = Text | bytes | int | float | Iterable[Text | bytes | int | float] | None
 _Params = Union[
     SupportsItems[_ParamsMappingKeyType, _ParamsMappingValueType],
     tuple[_ParamsMappingKeyType, _ParamsMappingValueType],
     Iterable[tuple[_ParamsMappingKeyType, _ParamsMappingValueType]],
-    Union[Text, bytes],
+    Text | bytes,
 ]
 _TextMapping = MutableMapping[Text, Text]
 
