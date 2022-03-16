@@ -4,9 +4,7 @@ import sqlalchemy.types as sqltypes
 
 from ...sql import functions as sqlfunc
 
-# pyright complains that "Comparator" is defined incompatibly in the base classes,
-# hence the type: ignore
-class HSTORE(sqltypes.Indexable, sqltypes.Concatenable, sqltypes.TypeEngine):  # type: ignore
+class HSTORE(sqltypes.Indexable, sqltypes.Concatenable, sqltypes.TypeEngine):
     __visit_name__: str
     hashable: bool
     text_type: Any
