@@ -9,7 +9,7 @@ class _DummyCffiHasher:
     salt_len: int
     hash_len: int
 
-class _Argon2Common(  # type: ignore
+class _Argon2Common(
     uh.SubclassBackendMixin, uh.ParallelismMixin, uh.HasRounds, uh.HasRawSalt, uh.HasRawChecksum, uh.GenericHandler
 ):
     name: str
@@ -28,7 +28,7 @@ class _Argon2Common(  # type: ignore
     min_memory_cost: int
     max_threads: int
     pure_use_threads: bool
-    def type_values(cls): ...  # type: ignore
+    def type_values(cls): ...
     type: Any
     parallelism: Any
     version: Any
@@ -82,5 +82,5 @@ class _CffiBackend(_Argon2Common):
 
 class _PureBackend(_Argon2Common): ...
 
-class argon2(_NoBackend, _Argon2Common):  # type: ignore
+class argon2(_NoBackend, _Argon2Common):
     backends: Any

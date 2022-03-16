@@ -66,7 +66,7 @@ class _EnumDict(dict[str, Any]):
 class EnumMeta(ABCMeta):
     if sys.version_info >= (3, 11):
         def __new__(
-            metacls: type[Self],  # type: ignore
+            metacls: type[Self],
             cls: str,
             bases: tuple[type, ...],
             classdict: _EnumDict,
@@ -76,9 +76,9 @@ class EnumMeta(ABCMeta):
             **kwds: Any,
         ) -> Self: ...
     elif sys.version_info >= (3, 9):
-        def __new__(metacls: type[Self], cls: str, bases: tuple[type, ...], classdict: _EnumDict, **kwds: Any) -> Self: ...  # type: ignore
+        def __new__(metacls: type[Self], cls: str, bases: tuple[type, ...], classdict: _EnumDict, **kwds: Any) -> Self: ...
     else:
-        def __new__(metacls: type[Self], cls: str, bases: tuple[type, ...], classdict: _EnumDict) -> Self: ...  # type: ignore
+        def __new__(metacls: type[Self], cls: str, bases: tuple[type, ...], classdict: _EnumDict) -> Self: ...
 
     if sys.version_info >= (3, 9):
         @classmethod

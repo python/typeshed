@@ -19,12 +19,12 @@ class AttributeValueWithCharsetSubstitution(str): ...
 
 class CharsetMetaAttributeValue(AttributeValueWithCharsetSubstitution):
     def __new__(cls, original_value): ...
-    def encode(self, encoding: str) -> str: ...  # type: ignore  # incompatible with str
+    def encode(self, encoding: str) -> str: ...  # incompatible with str
 
 class ContentMetaAttributeValue(AttributeValueWithCharsetSubstitution):
     CHARSET_RE: Pattern[str]
     def __new__(cls, original_value): ...
-    def encode(self, encoding: str) -> str: ...  # type: ignore  # incompatible with str
+    def encode(self, encoding: str) -> str: ...  # incompatible with str
 
 _PageElementT = TypeVar("_PageElementT", bound=PageElement)
 # The wrapping Union[] can be removed once mypy fully supports | in type aliases.

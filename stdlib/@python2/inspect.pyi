@@ -104,7 +104,7 @@ class Traceback(NamedTuple):
     lineno: int
     function: str
     code_context: list[str] | None
-    index: int | None  # type: ignore
+    index: int | None
 
 _FrameInfo = tuple[FrameType, str, int, str, Optional[list[str]], Optional[int]]
 

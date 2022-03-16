@@ -6,9 +6,9 @@ from typing_extensions import Literal
 # Iterable[T], so that Union[List[T], Literal[""]] could be used as a return
 # type. But because this only works when T is str, we need Sequence[T] instead.
 @overload
-def commonprefix(m: Sequence[str]) -> str | Literal[""]: ...  # type: ignore
+def commonprefix(m: Sequence[str]) -> str | Literal[""]: ...
 @overload
-def commonprefix(m: Sequence[Text]) -> Text: ...  # type: ignore
+def commonprefix(m: Sequence[Text]) -> Text: ...
 @overload
 def commonprefix(m: Sequence[list[SupportsLessThanT]]) -> Sequence[SupportsLessThanT]: ...
 @overload
