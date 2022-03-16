@@ -1,7 +1,7 @@
 import sys
 from sre_constants import *
 from sre_constants import _NamedIntConstant as _NIC, error as _Error
-from typing import Any, Iterable, Match, Optional, Pattern as _Pattern, Union, overload
+from typing import Any, Iterable, Match, Optional, Pattern as _Pattern, overload
 
 SPECIAL_CHARS: str
 REPEAT_CHARS: str
@@ -41,7 +41,7 @@ _OpSubpatternType = tuple[Optional[int], int, int, SubPattern]
 _OpGroupRefExistsType = tuple[int, SubPattern, SubPattern]
 _OpInType = list[tuple[_NIC, int]]
 _OpBranchType = tuple[None, list[SubPattern]]
-_AvType = Union[_OpInType, _OpBranchType, Iterable[SubPattern], _OpGroupRefExistsType, _OpSubpatternType]
+_AvType = _OpInType | _OpBranchType | Iterable[SubPattern] | _OpGroupRefExistsType | _OpSubpatternType
 _CodeType = tuple[_NIC, _AvType]
 
 class SubPattern:

@@ -1,7 +1,7 @@
 import types
 from _typeshed import Self
 from abc import abstractmethod
-from typing import IO, Any, BinaryIO, Callable, Generator, Iterable, Iterator, Protocol, Text, TextIO, Union, overload
+from typing import IO, Any, BinaryIO, Callable, Generator, Iterable, Iterator, Protocol, Text, TextIO, overload
 from typing_extensions import Literal
 
 # TODO: this only satisfies the most common interface, where

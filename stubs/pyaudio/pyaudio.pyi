@@ -1,4 +1,4 @@
-from typing import Callable, Mapping, Optional, Sequence, Union
+from typing import Callable, Mapping, Optional, Sequence
 from typing_extensions import Final
 
 paFloat32: Final[int]
@@ -68,8 +68,8 @@ paMacCoreStreamInfo: PaMacCoreStreamInfo
 
 # Auxiliary types
 _ChannelMap = Sequence[int]
-_PaHostApiInfo = Mapping[str, Union[str, int]]
-_PaDeviceInfo = Mapping[str, Union[str, int, float]]
+_PaHostApiInfo = Mapping[str, str | int]
+_PaDeviceInfo = Mapping[str, str | int | float]
 _StreamCallback = Callable[[Optional[bytes], int, Mapping[str, float], int], tuple[Optional[bytes], int]]
 
 def get_format_from_width(width: int, unsigned: bool = ...) -> int: ...
