@@ -1,5 +1,5 @@
-from collections.abc import Callable, Iterable, Mapping
 import sys
+from collections.abc import Callable, Iterable, Mapping
 from typing import Any
 
 if sys.version_info >= (3, 8):
