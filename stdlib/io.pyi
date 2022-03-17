@@ -108,7 +108,7 @@ class BufferedIOBase(IOBase):
     def read(self, __size: int | None = ...) -> bytes: ...
     def read1(self, __size: int = ...) -> bytes: ...
 
-class FileIO(RawIOBase, BinaryIO):  # argument disparities between the base classes
+class FileIO(RawIOBase, BinaryIO):
     mode: str
     name: StrOrBytesPath | int  # type: ignore[assignment]
     def __init__(
@@ -120,7 +120,7 @@ class FileIO(RawIOBase, BinaryIO):  # argument disparities between the base clas
     def read(self, __size: int = ...) -> bytes: ...
     def __enter__(self: Self) -> Self: ...
 
-class BytesIO(BufferedIOBase, BinaryIO):  # argument disparities between the base classes
+class BytesIO(BufferedIOBase, BinaryIO):
     def __init__(self, initial_bytes: bytes = ...) -> None: ...
     # BytesIO does not contain a "name" field. This workaround is necessary
     # to allow BytesIO sub-classes to add this field, as it is defined
@@ -134,7 +134,7 @@ class BytesIO(BufferedIOBase, BinaryIO):  # argument disparities between the bas
     else:
         def read1(self, __size: int | None) -> bytes: ...  # type: ignore[override]
 
-class BufferedReader(BufferedIOBase, BinaryIO):  # argument disparities between base classes
+class BufferedReader(BufferedIOBase, BinaryIO):
     def __enter__(self: Self) -> Self: ...
     def __init__(self, raw: RawIOBase, buffer_size: int = ...) -> None: ...
     def peek(self, __size: int = ...) -> bytes: ...
@@ -143,7 +143,7 @@ class BufferedReader(BufferedIOBase, BinaryIO):  # argument disparities between 
     else:
         def read1(self, __size: int) -> bytes: ...  # type: ignore[override]
 
-class BufferedWriter(BufferedIOBase, BinaryIO):  # argument disparities between base classes
+class BufferedWriter(BufferedIOBase, BinaryIO):
     def __enter__(self: Self) -> Self: ...
     def __init__(self, raw: RawIOBase, buffer_size: int = ...) -> None: ...
     def write(self, __buffer: ReadableBuffer) -> int: ...
@@ -175,7 +175,7 @@ class TextIOBase(IOBase):
     def read(self, __size: int | None = ...) -> str: ...
     def tell(self) -> int: ...
 
-class TextIOWrapper(TextIOBase, TextIO):  # argument disparities between base classes
+class TextIOWrapper(TextIOBase, TextIO):
     def __init__(
         self,
         buffer: IO[bytes],

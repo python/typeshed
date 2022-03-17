@@ -32,7 +32,7 @@ class _StringType(sqltypes.String):
         **kw,
     ) -> None: ...
 
-class _MatchType(sqltypes.Float, sqltypes.MatchType):  # incompatible with base class
+class _MatchType(sqltypes.Float, sqltypes.MatchType):
     def __init__(self, **kw) -> None: ...
 
 class NUMERIC(_NumericType, sqltypes.NUMERIC):
