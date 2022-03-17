@@ -52,6 +52,7 @@ from typing import (
     TypeVar,
     Union,
     overload,
+    _UnionSpecialForm,
 )
 from typing_extensions import Literal, SupportsIndex, TypeGuard, final
 
@@ -1161,10 +1162,10 @@ def iter(__function: Callable[[], _T], __sentinel: object) -> Iterator[_T]: ...
 # We need recursive types to express the type of the second argument to `isinstance` properly, hence the use of `Any`
 if sys.version_info >= (3, 10):
     def isinstance(
-        __obj: object, __class_or_tuple: type | types.UnionType | tuple[type | types.UnionType | tuple[Any, ...], ...]
+        __obj: object, __class_or_tuple: type | types.UnionType | _UnionSpecialForm | tuple[type | types.UnionType | _UnionSpecialForm | tuple[Any, ...], ...]
     ) -> bool: ...
     def issubclass(
-        __cls: type, __class_or_tuple: type | types.UnionType | tuple[type | types.UnionType | tuple[Any, ...], ...]
+        __cls: type, __class_or_tuple: type | types.UnionType | _UnionSpecialForm | tuple[type | types.UnionType | _UnionSpecialForm | tuple[Any, ...], ...]
     ) -> bool: ...
 
 else:
