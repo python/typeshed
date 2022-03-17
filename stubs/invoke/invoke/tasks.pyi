@@ -1,5 +1,6 @@
 from _typeshed import Self
-from typing import Any, Callable, Iterable, TypeVar
+from collections.abc import Callable, Iterable
+from typing import Any, TypeVar
 
 from .config import Config
 from .context import Context
