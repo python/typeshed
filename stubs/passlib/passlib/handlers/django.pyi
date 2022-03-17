@@ -14,7 +14,7 @@ class DjangoSaltedHash(uh.HasSalt, uh.GenericHandler):
     def from_string(cls, hash): ...
     def to_string(self): ...
 
-class DjangoVariableHash(uh.HasRounds, DjangoSaltedHash):
+class DjangoVariableHash(uh.HasRounds, DjangoSaltedHash):  # type: ignore[misc]
     setting_kwds: Any
     min_rounds: int
     @classmethod
@@ -64,7 +64,7 @@ class django_pbkdf2_sha1(django_pbkdf2_sha256):
 
 django_argon2: Any
 
-class django_des_crypt(uh.TruncateMixin, uh.HasSalt, uh.GenericHandler):
+class django_des_crypt(uh.TruncateMixin, uh.HasSalt, uh.GenericHandler):  # type: ignore[misc]
     name: str
     django_name: str
     setting_kwds: Any

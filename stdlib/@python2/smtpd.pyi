@@ -35,7 +35,7 @@ class SMTPServer(asyncore.dispatcher):
 class DebuggingServer(SMTPServer): ...
 
 class PureProxy(SMTPServer):
-    def process_message(self, peer: _Address, mailfrom: str, rcpttos: list[Text], data: bytes | str) -> str | None: ...
+    def process_message(self, peer: _Address, mailfrom: str, rcpttos: list[Text], data: bytes | str) -> str | None: ...  # type: ignore[override]
 
 class MailmanProxy(PureProxy):
-    def process_message(self, peer: _Address, mailfrom: str, rcpttos: list[Text], data: bytes | str) -> str | None: ...
+    def process_message(self, peer: _Address, mailfrom: str, rcpttos: list[Text], data: bytes | str) -> str | None: ...  # type: ignore[override]
