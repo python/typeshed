@@ -11,7 +11,7 @@ class Task:
     body: Callable[..., Any]
     __doc__: str | None
     __name__: str
-    __module__: str | None
+    __module__: str
     aliases: tuple[str]
     is_default: bool
     positional: Iterable[str]
@@ -52,7 +52,7 @@ class Task:
     def arg_opts(self, name: str, default: Any, taken_names: Iterable[str]) -> dict[str, Any]: ...
     def get_arguments(self) -> list[Argument]: ...
 
-TASK = TypeVar("TASK", bound=Task)
+_TASK = TypeVar("_TASK", bound=Task)
 
 def task(
     *args: Task,
@@ -68,8 +68,8 @@ def task(
     autoprint: bool = ...,
     iterable: Iterable[str] | None = ...,
     incrementable: Iterable[str] | None = ...,
-    klass: type[TASK] = ...,
-) -> TASK: ...
+    klass: type[_TASK] = ...,
+) -> _TASK: ...
 
 class Call:
     task: Task
