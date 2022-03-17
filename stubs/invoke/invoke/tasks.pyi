@@ -12,7 +12,7 @@ class Task:
     __doc__: str | None
     __name__: str
     __module__: str
-    aliases: tuple[str]
+    aliases: tuple[str, ...]
     is_default: bool
     positional: Iterable[str]
     optional: Iterable[str]
@@ -28,7 +28,7 @@ class Task:
         self,
         body: Callable[..., Any],
         name: str | None = ...,
-        aliases: tuple[str] = ...,
+        aliases: tuple[str, ...] = ...,
         positional: Iterable[str] | None = ...,
         optional: Iterable[str] = ...,
         default: bool = ...,
@@ -57,7 +57,7 @@ _TASK = TypeVar("_TASK", bound=Task)
 def task(
     *args: Task,
     name: str | None = ...,
-    aliases: tuple[str] = ...,
+    aliases: tuple[str, ...] = ...,
     positional: Iterable[str] | None = ...,
     optional: Iterable[str] = ...,
     default: bool = ...,
