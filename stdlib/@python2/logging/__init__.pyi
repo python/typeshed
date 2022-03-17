@@ -5,10 +5,10 @@ from types import FrameType, TracebackType
 from typing import IO, Any, Callable, Generic, Mapping, MutableMapping, Optional, Sequence, Text, TypeVar, Union, overload
 
 _SysExcInfoType = Union[tuple[type, BaseException, Optional[TracebackType]], tuple[None, None, None]]
-_ExcInfoType = Union[None, bool, _SysExcInfoType]
+_ExcInfoType = None | bool | _SysExcInfoType
 _ArgsType = Union[tuple[Any, ...], Mapping[str, Any]]
-_FilterType = Union[Filter, Callable[[LogRecord], int]]
-_Level = Union[int, Text]
+_FilterType = Filter | Callable[[LogRecord], int]
+_Level = int | Text
 
 raiseExceptions: bool
 logThreads: bool

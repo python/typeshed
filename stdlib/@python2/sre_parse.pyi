@@ -1,4 +1,4 @@
-from typing import Any, Iterable, Match, Optional, Pattern as _Pattern, Union
+from typing import Any, Iterable, Match, Optional, Pattern as _Pattern
 
 SPECIAL_CHARS: str
 REPEAT_CHARS: str
@@ -25,8 +25,8 @@ _OpSubpatternType = tuple[Optional[int], int, int, SubPattern]
 _OpGroupRefExistsType = tuple[int, SubPattern, SubPattern]
 _OpInType = list[tuple[str, int]]
 _OpBranchType = tuple[None, list[SubPattern]]
-_AvType = Union[_OpInType, _OpBranchType, Iterable[SubPattern], _OpGroupRefExistsType, _OpSubpatternType]
-_CodeType = Union[str, _AvType]
+_AvType = _OpInType | _OpBranchType | Iterable[SubPattern] | _OpGroupRefExistsType | _OpSubpatternType
+_CodeType = str | _AvType
 
 class SubPattern:
     pattern: str
