@@ -6,6 +6,8 @@ from .config import Config
 from .context import Context
 from .parser import Argument
 
+_TaskT = TypeVar("_TaskT", bound=Task)
+
 NO_DEFAULT: object
 
 class Task:
@@ -53,8 +55,6 @@ class Task:
     def arg_opts(self, name: str, default: Any, taken_names: Iterable[str]) -> dict[str, Any]: ...
     def get_arguments(self) -> list[Argument]: ...
 
-_TASK = TypeVar("_TASK", bound=Task)
-
 def task(
     *args: Task,
     name: str | None = ...,
@@ -69,8 +69,8 @@ def task(
     autoprint: bool = ...,
     iterable: Iterable[str] | None = ...,
     incrementable: Iterable[str] | None = ...,
-    klass: type[_TASK] = ...,
-) -> _TASK: ...
+    klass: type[_TaskT] = ...,
+) -> _TaskT: ...
 
 class Call:
     task: Task
