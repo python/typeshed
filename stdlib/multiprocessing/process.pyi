@@ -1,5 +1,6 @@
+from collections.abc import Callable, Iterable, Mapping
 import sys
-from typing import Any, Callable, Mapping
+from typing import Any
 
 if sys.version_info >= (3, 8):
     __all__ = ["BaseProcess", "current_process", "active_children", "parent_process"]
