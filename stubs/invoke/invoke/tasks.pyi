@@ -1,6 +1,6 @@
 from _typeshed import Self
 from collections.abc import Callable, Iterable
-from typing import Any, TypeVar
+from typing import Any, TypeVar, overload
 
 from .config import Config
 from .context import Context
@@ -55,6 +55,9 @@ class Task:
     def arg_opts(self, name: str, default: Any, taken_names: Iterable[str]) -> dict[str, Any]: ...
     def get_arguments(self) -> list[Argument]: ...
 
+@overload
+def task(__func: Callable[..., Any]) -> Task: ...
+@overload
 def task(
     *args: Task,
     name: str | None = ...,
