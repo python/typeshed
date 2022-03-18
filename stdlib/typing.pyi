@@ -28,7 +28,9 @@ if sys.version_info >= (3, 11):
         "Tuple",
         "Type",
         "TypeVar",
+        "TypeVarTuple",
         "Union",
+        "Unpack",
         "AbstractSet",
         "ByteString",
         "Container",
@@ -80,6 +82,7 @@ if sys.version_info >= (3, 11):
         "TextIO",
         "AnyStr",
         "assert_never",
+        "assert_type",
         "cast",
         "final",
         "get_args",
@@ -524,6 +527,12 @@ if sys.version_info >= (3, 8):
 if sys.version_info >= (3, 11):
     Self: _SpecialForm
     Never: _SpecialForm = ...
+    Unpack: _SpecialForm
+
+    class TypeVarTuple:
+        __name__: str
+        def __init__(self, name: str) -> None: ...
+        def __iter__(self) -> Any: ...
 
 if sys.version_info < (3, 7):
     class GenericMeta(type): ...
@@ -1176,6 +1185,7 @@ def cast(typ: object, val: Any) -> Any: ...
 if sys.version_info >= (3, 11):
     def reveal_type(__obj: _T) -> _T: ...
     def assert_never(__arg: Never) -> Never: ...
+    def assert_type(__val: _T, __typ: Any) -> _T: ...
 
 # Type constructors
 
