@@ -11,7 +11,7 @@ At present the active maintainers are (alphabetically):
 * Alex Waygood (@AlexWaygood)
 * Jelle Zijlstra (@JelleZijlstra)
 
-Former and inactive maintainers include:
+Former maintainers include:
 
 * David Fisher (@ddfisher)
 * Łukasz Langa (@ambv)
@@ -21,7 +21,7 @@ Former and inactive maintainers include:
 For security reasons, maintainers who haven't been active for twelve months
 (no PR reviews or merges, no opened PRs, no significant participation in
 issues or on typing-sig) will have their access rights removed. They will
-also be moved to the "inactive maintainers" section here.
+also be moved to the "former maintainers" section here.
 
-Inactive maintainers who want their access rights restored should open
+Former maintainers who want their access rights restored should open
 an issue or mail one of the active maintainers.
