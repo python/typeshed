@@ -136,4 +136,4 @@ class S3Connection(AWSAuthConnection):
         retry_handler: Any | None = ...,
         *args,
         **kwargs,
-    ): ...  # https://github.com/python/mypy/issues/1237
+    ): ...
