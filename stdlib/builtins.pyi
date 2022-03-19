@@ -29,6 +29,7 @@ from typing import (
     IO,
     AbstractSet,
     Any,
+    Awaitable,
     BinaryIO,
     ByteString,
     Generic,
@@ -72,6 +73,8 @@ _T4 = TypeVar("_T4")
 _T5 = TypeVar("_T5")
 _SupportsNextT = TypeVar("_SupportsNextT", bound=SupportsNext[Any], covariant=True)
 _SupportsAnextT = TypeVar("_SupportsAnextT", bound=SupportsAnext[Any], covariant=True)
+_AwaitableT = TypeVar("_AwaitableT", bound=Awaitable[Any])
+_AwaitableT_co = TypeVar("_AwaitableT_co", bound=Awaitable[Any], covariant=True)
 
 class _SupportsIter(Protocol[_T_co]):
     def __iter__(self) -> _T_co: ...
@@ -1068,8 +1071,15 @@ class _PathLike(Protocol[_AnyStr_co]):
 
 if sys.version_info >= (3, 10):
     def aiter(__async_iterable: _SupportsAiter[_SupportsAnextT]) -> _SupportsAnextT: ...
+
+    class _SupportsSynchronousAnext(Protocol[_AwaitableT_co]):
+        def __anext__(self) -> _AwaitableT_co: ...
+
     @overload
-    async def anext(__i: SupportsAnext[_T]) -> _T: ...
+    # `anext` is not, in fact, an async function. When default is not provided
+    # `anext` is just a passthrough for `obj.__anext__`
+    # See discussion in #7491 and pure-Python implementation of `anext` at https://github.com/python/cpython/blob/ea786a882b9ed4261eafabad6011bc7ef3b5bf94/Lib/test/test_asyncgen.py#L52-L80
+    def anext(__i: _SupportsSynchronousAnext[_AwaitableT]) -> _AwaitableT: ...
     @overload
     async def anext(__i: SupportsAnext[_T], default: _VT) -> _T | _VT: ...
 
