@@ -11,6 +11,10 @@ asyncio.locks._ContextManagerMixin.__exit__  # Always raises; deliberately omitt
 builtins.float.__setformat__  # Internal method for CPython test suite
 builtins.str.maketrans
 cmath.log
+collections.AsyncGenerator.asend  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
+collections.AsyncGenerator.__anext__  # async at runtime, deliberately not in the stub, see #7491
+collections.AsyncGenerator.aclose  # async at runtime, deliberately not in the stub, see #7491
+collections.AsyncIterator.__anext__  # async at runtime, deliberately not in the stub, see #7491
 collections.AsyncGenerator.ag_await
 collections.AsyncGenerator.ag_code
 collections.AsyncGenerator.ag_frame
@@ -89,6 +93,8 @@ tkinter.filedialog.TkVersion
 tkinter.filedialog.wantobjects
 tkinter.simpledialog.wantobjects
 tkinter.tix.wantobjects
+typing.AsyncGenerator.aclose  # async at runtime, deliberately not in the stub, see #7491
+typing.AsyncGenerator.asend  # async at runtime, deliberately not in the stub, see #7491
 
 builtins.memoryview.__iter__  # C type that implements __getitem__
 builtins.memoryview.cast  # inspect.signature is incorrect about shape being kw-only
