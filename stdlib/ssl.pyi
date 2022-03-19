@@ -9,7 +9,7 @@ _PCTRTT = tuple[tuple[str, str], ...]
 _PCTRTTT = tuple[_PCTRTT, ...]
 _PeerCertRetDictType = dict[str, str | _PCTRTTT | _PCTRTT]
 _PeerCertRetType = _PeerCertRetDictType | bytes | None
-_EnumRetType = list[tuple[bytes, str, Union[set[str], bool]]]
+_EnumRetType = list[tuple[bytes, str, set[str] | bool]]
 _PasswordType = Union[Callable[[], str | bytes], str, bytes]
 
 _SrvnmeCbType = Callable[[SSLSocket | SSLObject, str | None, SSLSocket], int | None]

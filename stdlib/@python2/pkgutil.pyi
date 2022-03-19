@@ -1,12 +1,12 @@
 from _typeshed import SupportsRead
-from typing import IO, Any, Callable, Iterable, Iterator, TypeVar, Union
+from typing import IO, Any, Callable, Iterable, Iterator, TypeVar
 
 Loader = Any
 MetaPathFinder = Any
 PathEntryFinder = Any
 
 _PathT = TypeVar("_PathT", bound=Iterable[str])
-_ModuleInfoLike = tuple[Union[MetaPathFinder, PathEntryFinder], str, bool]
+_ModuleInfoLike = tuple[MetaPathFinder | PathEntryFinder, str, bool]
 
 def extend_path(path: _PathT, name: str) -> _PathT: ...
 

@@ -1,20 +1,7 @@
 import sys
 from _typeshed import ReadableBuffer, Self, WriteableBuffer
 from abc import abstractmethod
-from typing import (
-    Any,
-    Callable,
-    ClassVar,
-    Generic,
-    Iterable,
-    Iterator,
-    Mapping,
-    Optional,
-    Sequence,
-    TypeVar,
-    Union as _UnionT,
-    overload,
-)
+from typing import Any, Callable, ClassVar, Generic, Iterable, Iterator, Mapping, Sequence, TypeVar, Union as _UnionT, overload
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -97,7 +84,7 @@ class _CData(metaclass=_CDataMeta):
 class _CanCastTo(_CData): ...
 class _PointerLike(_CanCastTo): ...
 
-_ECT = Callable[[Optional[type[_CData]], _FuncPointer, tuple[_CData, ...]], _CData]
+_ECT = Callable[[type[_CData] | None, _FuncPointer, tuple[_CData, ...]], _CData]
 _PF = _UnionT[tuple[int], tuple[int, str], tuple[int, str, Any]]
 
 class _FuncPointer(_PointerLike, _CData):
