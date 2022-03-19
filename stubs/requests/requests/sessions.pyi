@@ -1,5 +1,5 @@
 from _typeshed import Self, SupportsItems
-from typing import IO, Any, Callable, Iterable, Mapping, MutableMapping, Optional, Text, TypeVar, Union
+from typing import IO, Any, Callable, Iterable, Mapping, MutableMapping, Text, TypeVar, Union
 
 from urllib3 import _collections
 
@@ -47,7 +47,7 @@ class SessionRedirectMixin:
     def rebuild_proxies(self, prepared_request, proxies): ...
     def should_strip_auth(self, old_url, new_url): ...
 
-_Data = Text | bytes | Mapping[str, Any] | Mapping[Text, Any] | Iterable[tuple[Text, Optional[Text]]] | IO[Any] | None
+_Data = Text | bytes | Mapping[str, Any] | Mapping[Text, Any] | Iterable[tuple[Text, Text | None]] | IO[Any] | None
 
 _Hook = Callable[[Response], Any]
 _Hooks = MutableMapping[Text, _Hook | list[_Hook]]
