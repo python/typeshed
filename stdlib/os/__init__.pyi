@@ -387,6 +387,7 @@ _FdOrAnyPath = int | StrOrBytesPath
 class DirEntry(Generic[AnyStr]):
     # This is what the scandir iterator yields
     # The constructor is hidden
+
     @property
     def name(self) -> AnyStr: ...
     @property
@@ -1032,5 +1033,6 @@ if sys.version_info >= (3, 8):
 
 if sys.version_info >= (3, 9):
     def waitstatus_to_exitcode(status: int) -> int: ...
+
     if sys.platform == "linux":
         def pidfd_open(pid: int, flags: int = ...) -> int: ...
