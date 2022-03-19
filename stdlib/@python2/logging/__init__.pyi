@@ -4,7 +4,7 @@ from time import struct_time
 from types import FrameType, TracebackType
 from typing import IO, Any, Callable, Generic, Mapping, MutableMapping, Sequence, Text, TypeVar, Union, overload
 
-_SysExcInfoType = Union[tuple[type, BaseException, TracebackType] | None, tuple[None, None, None]]
+_SysExcInfoType = Union[tuple[type, BaseException, TracebackType | None], tuple[None, None, None]]
 _ExcInfoType = None | bool | _SysExcInfoType
 _ArgsType = Union[tuple[Any, ...], Mapping[str, Any]]
 _FilterType = Filter | Callable[[LogRecord], int]
