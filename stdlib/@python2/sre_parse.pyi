@@ -1,4 +1,4 @@
-from typing import Any, Iterable, Match, Optional, Pattern as _Pattern
+from typing import Any, Iterable, Match, Pattern as _Pattern
 
 SPECIAL_CHARS: str
 REPEAT_CHARS: str
@@ -21,7 +21,7 @@ class Pattern:
     def closegroup(self, gid: int) -> None: ...
     def checkgroup(self, gid: int) -> bool: ...
 
-_OpSubpatternType = tuple[Optional[int], int, int, SubPattern]
+_OpSubpatternType = tuple[int | None, int, int, SubPattern]
 _OpGroupRefExistsType = tuple[int, SubPattern, SubPattern]
 _OpInType = list[tuple[str, int]]
 _OpBranchType = tuple[None, list[SubPattern]]
@@ -56,7 +56,7 @@ def isdigit(char: str) -> bool: ...
 def isname(name: str) -> bool: ...
 def parse(str: str, flags: int = ..., pattern: Pattern = ...) -> SubPattern: ...
 
-_Template = tuple[list[tuple[int, int]], list[Optional[int]]]
+_Template = tuple[list[tuple[int, int]], list[int | None]]
 
 def parse_template(source: str, pattern: _Pattern[Any]) -> _Template: ...
 def expand_template(template: _Template, match: Match[Any]) -> str: ...

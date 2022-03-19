@@ -9,7 +9,6 @@ from typing import (
     Iterable,
     Iterator,
     Mapping,
-    Optional,
     Sequence,
     Text,
     TypeVar,
@@ -88,7 +87,7 @@ class _CData(metaclass=_CDataMeta):
 class _CanCastTo(_CData): ...
 class _PointerLike(_CanCastTo): ...
 
-_ECT = Callable[[Optional[type[_CData]], _FuncPointer, tuple[_CData, ...]], _CData]
+_ECT = Callable[[type[_CData] | None, _FuncPointer, tuple[_CData, ...]], _CData]
 _PF = _UnionT[tuple[int], tuple[int, str], tuple[int, str, Any]]
 
 class _FuncPointer(_PointerLike, _CData):

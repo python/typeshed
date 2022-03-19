@@ -4,7 +4,7 @@ from email.errors import MessageDefect
 from email.policy import Policy
 
 # using a type alias ("_HeaderType = Any") breaks mypy, who knows why
-from typing import Any, Any as _HeaderType, Generator, Iterator, Optional, Sequence, TypeVar, Union
+from typing import Any, Any as _HeaderType, Generator, Iterator, Sequence, TypeVar, Union
 
 __all__ = ["Message", "EmailMessage"]
 
@@ -12,8 +12,8 @@ _T = TypeVar("_T")
 
 _PayloadType = list[Message] | str | bytes
 _CharsetType = Charset | str | None
-_ParamsType = Union[str, None, tuple[str, Optional[str], str]]
-_ParamType = Union[str, tuple[Optional[str], Optional[str], str]]
+_ParamsType = Union[str, None, tuple[str, str | None, str]]
+_ParamType = Union[str, tuple[str | None, str | None, str]]
 
 class Message:
     policy: Policy  # undocumented
