@@ -107,11 +107,11 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     @overload
     def parse_args(self, args: Sequence[Text] | None = ...) -> Namespace: ...
     @overload
-    def parse_args(self, args: Sequence[Text] | None, namespace: None) -> Namespace: ...  # type: ignore
+    def parse_args(self, args: Sequence[Text] | None, namespace: None) -> Namespace: ...  # type: ignore[misc]
     @overload
     def parse_args(self, args: Sequence[Text] | None, namespace: _N) -> _N: ...
     @overload
-    def parse_args(self, *, namespace: None) -> Namespace: ...  # type: ignore
+    def parse_args(self, *, namespace: None) -> Namespace: ...  # type: ignore[misc]
     @overload
     def parse_args(self, *, namespace: _N) -> _N: ...
     def add_subparsers(
