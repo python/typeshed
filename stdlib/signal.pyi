@@ -2,7 +2,7 @@ import sys
 from _typeshed import structseq
 from enum import IntEnum
 from types import FrameType
-from typing import Any, Callable, Iterable, Union
+from typing import Any, Callable, Iterable
 from typing_extensions import final
 
 NSIG: int
@@ -61,7 +61,7 @@ SIG_DFL: Handlers
 SIG_IGN: Handlers
 
 _SIGNUM = int | Signals
-_HANDLER = Union[Callable[[int, FrameType | None], Any], int, Handlers, None]
+_HANDLER = Callable[[int, FrameType | None], Any] | int | Handlers | None
 
 def default_int_handler(__signalnum: int, __frame: FrameType | None) -> None: ...
 

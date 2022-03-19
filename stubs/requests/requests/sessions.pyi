@@ -47,7 +47,7 @@ class SessionRedirectMixin:
     def rebuild_proxies(self, prepared_request, proxies): ...
     def should_strip_auth(self, old_url, new_url): ...
 
-_Data = Union[None, Text, bytes, Mapping[str, Any], Mapping[Text, Any], Iterable[tuple[Text, Optional[Text]]], IO[Any]]
+_Data = Text | bytes | Mapping[str, Any] | Mapping[Text, Any] | Iterable[tuple[Text, Optional[Text]]] | IO[Any] | None
 
 _Hook = Callable[[Response], Any]
 _Hooks = MutableMapping[Text, _Hook | list[_Hook]]

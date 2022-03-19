@@ -32,7 +32,6 @@ from typing import (
     Protocol,
     Sequence,
     TypeVar,
-    Union,
     overload,
     runtime_checkable,
 )
@@ -388,7 +387,6 @@ _FdOrAnyPath = int | StrOrBytesPath
 class DirEntry(Generic[AnyStr]):
     # This is what the scandir iterator yields
     # The constructor is hidden
-
     @property
     def name(self) -> AnyStr: ...
     @property
@@ -832,16 +830,16 @@ def execlpe(file: StrOrBytesPath, __arg0: StrOrBytesPath, *args: Any) -> NoRetur
 # Not separating out PathLike[str] and PathLike[bytes] here because it doesn't make much difference
 # in practice, and doing so would explode the number of combinations in this already long union.
 # All these combinations are necessary due to list being invariant.
-_ExecVArgs = Union[
-    tuple[StrOrBytesPath, ...],
-    list[bytes],
-    list[str],
-    list[PathLike[Any]],
-    list[bytes | str],
-    list[bytes | PathLike[Any]],
-    list[str | PathLike[Any]],
-    list[bytes | str | PathLike[Any]],
-]
+_ExecVArgs = (
+    tuple[StrOrBytesPath, ...]
+    | list[bytes]
+    | list[str]
+    | list[PathLike[Any]]
+    | list[bytes | str]
+    | list[bytes | PathLike[Any]]
+    | list[str | PathLike[Any]]
+    | list[bytes | str | PathLike[Any]]
+)
 _ExecEnv = Mapping[bytes, bytes | str] | Mapping[str, bytes | str]
 
 def execv(__path: StrOrBytesPath, __argv: _ExecVArgs) -> NoReturn: ...
@@ -1034,6 +1032,5 @@ if sys.version_info >= (3, 8):
 
 if sys.version_info >= (3, 9):
     def waitstatus_to_exitcode(status: int) -> int: ...
-
     if sys.platform == "linux":
         def pidfd_open(pid: int, flags: int = ...) -> int: ...
