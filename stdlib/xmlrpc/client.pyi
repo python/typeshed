@@ -13,8 +13,10 @@ class _SupportsTimeTuple(Protocol):
     def timetuple(self) -> time.struct_time: ...
 
 _DateTimeComparable = DateTime | datetime | str | _SupportsTimeTuple
-_Marshallable = Union[None, bool, int, float, str, bytes, tuple[Any, ...], list[Any], dict[Any, Any], datetime, DateTime, Binary]
-_XMLDate = Union[int, datetime, tuple[int, ...], time.struct_time]
+_Marshallable = (
+    bool | int | float | str | bytes | None | tuple[Any, ...] | list[Any] | dict[Any, Any] | datetime | DateTime | Binary
+)
+_XMLDate = int | datetime | tuple[int, ...] | time.struct_time
 _HostType = Union[tuple[str, dict[str, str]], str]
 
 def escape(s: str) -> str: ...  # undocumented
