@@ -619,7 +619,7 @@ if sys.version_info >= (3, 8):
 
 # the 5th tuple item is an address
 def getaddrinfo(
-    host: bytearray | bytes | str | None,
+    host: bytes | str | None,
     port: str | int | None,
     family: int = ...,
     type: int = ...,
