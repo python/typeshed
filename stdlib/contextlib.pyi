@@ -12,12 +12,71 @@ from typing import (  # noqa Y027
     Generator,
     Generic,
     Iterator,
-    Optional,
     Protocol,
     TypeVar,
     overload,
 )
 from typing_extensions import ParamSpec
+
+if sys.version_info >= (3, 11):
+    __all__ = [
+        "asynccontextmanager",
+        "contextmanager",
+        "closing",
+        "nullcontext",
+        "AbstractContextManager",
+        "AbstractAsyncContextManager",
+        "AsyncExitStack",
+        "ContextDecorator",
+        "ExitStack",
+        "redirect_stdout",
+        "redirect_stderr",
+        "suppress",
+        "aclosing",
+        "chdir",
+    ]
+elif sys.version_info >= (3, 10):
+    __all__ = [
+        "asynccontextmanager",
+        "contextmanager",
+        "closing",
+        "nullcontext",
+        "AbstractContextManager",
+        "AbstractAsyncContextManager",
+        "AsyncExitStack",
+        "ContextDecorator",
+        "ExitStack",
+        "redirect_stdout",
+        "redirect_stderr",
+        "suppress",
+        "aclosing",
+    ]
+elif sys.version_info >= (3, 7):
+    __all__ = [
+        "asynccontextmanager",
+        "contextmanager",
+        "closing",
+        "nullcontext",
+        "AbstractContextManager",
+        "AbstractAsyncContextManager",
+        "AsyncExitStack",
+        "ContextDecorator",
+        "ExitStack",
+        "redirect_stdout",
+        "redirect_stderr",
+        "suppress",
+    ]
+else:
+    __all__ = [
+        "contextmanager",
+        "closing",
+        "AbstractContextManager",
+        "ContextDecorator",
+        "ExitStack",
+        "redirect_stdout",
+        "redirect_stderr",
+        "suppress",
+    ]
 
 AbstractContextManager = ContextManager
 if sys.version_info >= (3, 7):
@@ -27,11 +86,11 @@ if sys.version_info >= (3, 7):
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
-_T_io = TypeVar("_T_io", bound=Optional[IO[str]])
+_T_io = TypeVar("_T_io", bound=IO[str] | None)
 _F = TypeVar("_F", bound=Callable[..., Any])
 _P = ParamSpec("_P")
 
-_ExitFunc = Callable[[Optional[type[BaseException]], Optional[BaseException], Optional[TracebackType]], Optional[bool]]
+_ExitFunc = Callable[[type[BaseException] | None, BaseException | None, TracebackType | None], bool | None]
 _CM_EF = TypeVar("_CM_EF", AbstractContextManager[Any], _ExitFunc)
 
 class ContextDecorator:
@@ -46,6 +105,9 @@ class _GeneratorContextManager(AbstractContextManager[_T_co], ContextDecorator, 
     func: Callable[..., Generator[_T_co, Any, Any]]
     args: tuple[Any, ...]
     kwds: dict[str, Any]
+    def __exit__(
+        self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
+    ) -> bool | None: ...
 
 def contextmanager(func: Callable[_P, Iterator[_T_co]]) -> Callable[_P, _GeneratorContextManager[_T_co]]: ...
 
@@ -63,6 +125,9 @@ if sys.version_info >= (3, 10):
         func: Callable[..., AsyncGenerator[_T_co, Any]]
         args: tuple[Any, ...]
         kwds: dict[str, Any]
+        async def __aexit__(
+            self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
+        ) -> bool | None: ...
 
 elif sys.version_info >= (3, 7):
     class _AsyncGeneratorContextManager(AbstractAsyncContextManager[_T_co], Generic[_T_co]):
@@ -71,6 +136,9 @@ elif sys.version_info >= (3, 7):
         func: Callable[..., AsyncGenerator[_T_co, Any]]
         args: tuple[Any, ...]
         kwds: dict[str, Any]
+        async def __aexit__(
+            self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
+        ) -> bool | None: ...
 
 if sys.version_info >= (3, 7):
     def asynccontextmanager(func: Callable[_P, AsyncIterator[_T_co]]) -> Callable[_P, _AsyncGeneratorContextManager[_T_co]]: ...
@@ -82,14 +150,16 @@ _SupportsCloseT = TypeVar("_SupportsCloseT", bound=_SupportsClose)
 
 class closing(AbstractContextManager[_SupportsCloseT]):
     def __init__(self, thing: _SupportsCloseT) -> None: ...
+    def __exit__(self, *exc_info: object) -> None: ...
 
 if sys.version_info >= (3, 10):
     class _SupportsAclose(Protocol):
-        async def aclose(self) -> object: ...
+        def aclose(self) -> Awaitable[object]: ...
     _SupportsAcloseT = TypeVar("_SupportsAcloseT", bound=_SupportsAclose)
 
     class aclosing(AbstractAsyncContextManager[_SupportsAcloseT]):
         def __init__(self, thing: _SupportsAcloseT) -> None: ...
+        async def __aexit__(self, *exc_info: object) -> None: ...
 
 class suppress(AbstractContextManager[None]):
     def __init__(self, *exceptions: type[BaseException]) -> None: ...
@@ -97,11 +167,14 @@ class suppress(AbstractContextManager[None]):
         self, exctype: type[BaseException] | None, excinst: BaseException | None, exctb: TracebackType | None
     ) -> bool: ...
 
-class redirect_stdout(AbstractContextManager[_T_io]):
+class _RedirectStream(AbstractContextManager[_T_io]):
     def __init__(self, new_target: _T_io) -> None: ...
+    def __exit__(
+        self, exctype: type[BaseException] | None, excinst: BaseException | None, exctb: TracebackType | None
+    ) -> None: ...
 
-class redirect_stderr(AbstractContextManager[_T_io]):
-    def __init__(self, new_target: _T_io) -> None: ...
+class redirect_stdout(_RedirectStream[_T_io]): ...
+class redirect_stderr(_RedirectStream[_T_io]): ...
 
 class ExitStack(AbstractContextManager[ExitStack]):
     def __init__(self) -> None: ...
@@ -116,7 +189,7 @@ class ExitStack(AbstractContextManager[ExitStack]):
     ) -> bool: ...
 
 if sys.version_info >= (3, 7):
-    _ExitCoroFunc = Callable[[Optional[type[BaseException]], Optional[BaseException], Optional[TracebackType]], Awaitable[bool]]
+    _ExitCoroFunc = Callable[[type[BaseException] | None, BaseException | None, TracebackType | None], Awaitable[bool]]
     _ACM_EF = TypeVar("_ACM_EF", AbstractAsyncContextManager[Any], _ExitCoroFunc)
 
     class AsyncExitStack(AbstractAsyncContextManager[AsyncExitStack]):

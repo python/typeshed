@@ -3,7 +3,7 @@ import sys
 from _typeshed import FileDescriptorLike, Self
 from abc import ABCMeta, abstractmethod
 from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
-from typing import IO, Any, Awaitable, Callable, Coroutine, Generator, Sequence, TypeVar, Union, overload
+from typing import IO, Any, Awaitable, Callable, Coroutine, Generator, Sequence, TypeVar, overload
 from typing_extensions import Literal
 
 from .base_events import Server, _Context
@@ -16,11 +16,68 @@ from .unix_events import AbstractChildWatcher
 if sys.version_info >= (3, 7):
     from contextvars import Context
 
+if sys.version_info >= (3, 8):
+    __all__ = (
+        "AbstractEventLoopPolicy",
+        "AbstractEventLoop",
+        "AbstractServer",
+        "Handle",
+        "TimerHandle",
+        "get_event_loop_policy",
+        "set_event_loop_policy",
+        "get_event_loop",
+        "set_event_loop",
+        "new_event_loop",
+        "get_child_watcher",
+        "set_child_watcher",
+        "_set_running_loop",
+        "get_running_loop",
+        "_get_running_loop",
+    )
+
+elif sys.version_info >= (3, 7):
+    __all__ = (
+        "AbstractEventLoopPolicy",
+        "AbstractEventLoop",
+        "AbstractServer",
+        "Handle",
+        "TimerHandle",
+        "SendfileNotAvailableError",
+        "get_event_loop_policy",
+        "set_event_loop_policy",
+        "get_event_loop",
+        "set_event_loop",
+        "new_event_loop",
+        "get_child_watcher",
+        "set_child_watcher",
+        "_set_running_loop",
+        "get_running_loop",
+        "_get_running_loop",
+    )
+
+else:
+    __all__ = [
+        "AbstractEventLoopPolicy",
+        "AbstractEventLoop",
+        "AbstractServer",
+        "Handle",
+        "TimerHandle",
+        "get_event_loop_policy",
+        "set_event_loop_policy",
+        "get_event_loop",
+        "set_event_loop",
+        "new_event_loop",
+        "get_child_watcher",
+        "set_child_watcher",
+        "_set_running_loop",
+        "_get_running_loop",
+    ]
+
 _T = TypeVar("_T")
 _ProtocolT = TypeVar("_ProtocolT", bound=BaseProtocol)
 _ExceptionHandler = Callable[[AbstractEventLoop, _Context], Any]
 _ProtocolFactory = Callable[[], BaseProtocol]
-_SSLContext = Union[bool, None, ssl.SSLContext]
+_SSLContext = bool | None | ssl.SSLContext
 
 class Handle:
     _cancelled: bool
@@ -54,19 +111,31 @@ class TimerHandle(Handle):
     if sys.version_info >= (3, 7):
         def when(self) -> float: ...
 
+    def __lt__(self, other: TimerHandle) -> bool: ...
+    def __le__(self, other: TimerHandle) -> bool: ...
+    def __gt__(self, other: TimerHandle) -> bool: ...
+    def __ge__(self, other: TimerHandle) -> bool: ...
+    def __eq__(self, other: object) -> bool: ...
+
 class AbstractServer:
+    @abstractmethod
     def close(self) -> None: ...
     if sys.version_info >= (3, 7):
         async def __aenter__(self: Self) -> Self: ...
         async def __aexit__(self, *exc: Any) -> None: ...
+        @abstractmethod
         def get_loop(self) -> AbstractEventLoop: ...
+        @abstractmethod
         def is_serving(self) -> bool: ...
+        @abstractmethod
         async def start_serving(self) -> None: ...
+        @abstractmethod
         async def serve_forever(self) -> None: ...
 
+    @abstractmethod
     async def wait_closed(self) -> None: ...
 
-class AbstractEventLoop(metaclass=ABCMeta):
+class AbstractEventLoop:
     slow_callback_duration: float
     @abstractmethod
     def run_forever(self) -> None: ...
@@ -141,7 +210,14 @@ class AbstractEventLoop(metaclass=ABCMeta):
     # Network I/O methods returning Futures.
     @abstractmethod
     async def getaddrinfo(
-        self, host: str | None, port: str | int | None, *, family: int = ..., type: int = ..., proto: int = ..., flags: int = ...
+        self,
+        host: bytes | str | None,
+        port: str | int | None,
+        *,
+        family: int = ...,
+        type: int = ...,
+        proto: int = ...,
+        flags: int = ...,
     ) -> list[tuple[AddressFamily, SocketKind, int, str, tuple[str, int] | tuple[str, int, int, int]]]: ...
     @abstractmethod
     async def getnameinfo(self, sockaddr: tuple[str, int] | tuple[str, int, int, int], flags: int = ...) -> tuple[str, str]: ...
@@ -490,7 +566,7 @@ class AbstractEventLoop(metaclass=ABCMeta):
         @abstractmethod
         async def shutdown_default_executor(self) -> None: ...
 
-class AbstractEventLoopPolicy(metaclass=ABCMeta):
+class AbstractEventLoopPolicy:
     @abstractmethod
     def get_event_loop(self) -> AbstractEventLoop: ...
     @abstractmethod

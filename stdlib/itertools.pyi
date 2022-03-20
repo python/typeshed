@@ -1,18 +1,6 @@
 import sys
 from _typeshed import Self, _T_co
-from typing import (
-    Any,
-    Callable,
-    Generic,
-    Iterable,
-    Iterator,
-    SupportsComplex,
-    SupportsFloat,
-    SupportsInt,
-    TypeVar,
-    Union,
-    overload,
-)
+from typing import Any, Callable, Generic, Iterable, Iterator, SupportsComplex, SupportsFloat, SupportsInt, TypeVar, overload
 from typing_extensions import Literal, SupportsIndex
 
 if sys.version_info >= (3, 9):
@@ -21,7 +9,7 @@ if sys.version_info >= (3, 9):
 _T = TypeVar("_T")
 _S = TypeVar("_S")
 _N = TypeVar("_N", int, float, SupportsFloat, SupportsInt, SupportsIndex, SupportsComplex)
-_Step = Union[int, float, SupportsFloat, SupportsInt, SupportsIndex, SupportsComplex]
+_Step = int | float | SupportsFloat | SupportsInt | SupportsIndex | SupportsComplex
 
 Predicate = Callable[[_T], object]
 
@@ -49,6 +37,7 @@ class repeat(Iterator[_T], Generic[_T]):
     def __init__(self, object: _T, times: int) -> None: ...
     def __next__(self) -> _T: ...
     def __iter__(self: Self) -> Self: ...
+    def __length_hint__(self) -> int: ...
 
 class accumulate(Iterator[_T], Generic[_T]):
     if sys.version_info >= (3, 8):

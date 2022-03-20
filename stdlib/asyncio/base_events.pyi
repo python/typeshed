@@ -1,7 +1,6 @@
 import ssl
 import sys
 from _typeshed import FileDescriptorLike
-from abc import ABCMeta
 from asyncio.events import AbstractEventLoop, AbstractServer, Handle, TimerHandle
 from asyncio.futures import Future
 from asyncio.protocols import BaseProtocol
@@ -9,11 +8,15 @@ from asyncio.tasks import Task
 from asyncio.transports import BaseTransport, ReadTransport, SubprocessTransport, WriteTransport
 from collections.abc import Iterable
 from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
-from typing import IO, Any, AsyncGenerator, Awaitable, Callable, Coroutine, Generator, Sequence, TypeVar, Union, overload
+from typing import IO, Any, AsyncGenerator, Awaitable, Callable, Coroutine, Generator, Sequence, TypeVar, overload
 from typing_extensions import Literal, TypedDict
 
 if sys.version_info >= (3, 7):
     from contextvars import Context
+
+    __all__ = ("BaseEventLoop",)
+else:
+    __all__ = ["BaseEventLoop"]
 
 _T = TypeVar("_T")
 _ProtocolT = TypeVar("_ProtocolT", bound=BaseProtocol)
@@ -33,7 +36,7 @@ class _Context(_BaseContext, total=False):
 
 _ExceptionHandler = Callable[[AbstractEventLoop, _Context], Any]
 _ProtocolFactory = Callable[[], BaseProtocol]
-_SSLContext = Union[bool, None, ssl.SSLContext]
+_SSLContext = bool | None | ssl.SSLContext
 
 class Server(AbstractServer):
     if sys.version_info >= (3, 7):
@@ -46,6 +49,10 @@ class Server(AbstractServer):
             backlog: int,
             ssl_handshake_timeout: float | None,
         ) -> None: ...
+        def get_loop(self) -> AbstractEventLoop: ...
+        def is_serving(self) -> bool: ...
+        async def start_serving(self) -> None: ...
+        async def serve_forever(self) -> None: ...
     else:
         def __init__(self, loop: AbstractEventLoop, sockets: list[socket]) -> None: ...
     if sys.version_info >= (3, 8):
@@ -56,8 +63,10 @@ class Server(AbstractServer):
         def sockets(self) -> list[socket]: ...
     else:
         sockets: list[socket] | None
+    def close(self) -> None: ...
+    async def wait_closed(self) -> None: ...
 
-class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
+class BaseEventLoop(AbstractEventLoop):
     def run_forever(self) -> None: ...
     # Can't use a union, see mypy issue  # 1873.
     @overload
@@ -104,7 +113,14 @@ class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
     def set_default_executor(self, executor: Any) -> None: ...
     # Network I/O methods returning Futures.
     async def getaddrinfo(
-        self, host: str | None, port: str | int | None, *, family: int = ..., type: int = ..., proto: int = ..., flags: int = ...
+        self,
+        host: bytes | str | None,
+        port: str | int | None,
+        *,
+        family: int = ...,
+        type: int = ...,
+        proto: int = ...,
+        flags: int = ...,
     ) -> list[tuple[AddressFamily, SocketKind, int, str, tuple[str, int] | tuple[str, int, int, int]]]: ...
     async def getnameinfo(self, sockaddr: tuple[str, int] | tuple[str, int, int, int], flags: int = ...) -> tuple[str, str]: ...
     if sys.version_info >= (3, 8):
@@ -302,7 +318,7 @@ class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
             self, protocol_factory: Callable[[], _ProtocolT], sock: socket, *, ssl: _SSLContext = ...
         ) -> tuple[BaseTransport, _ProtocolT]: ...
     if sys.version_info >= (3, 11):
-        async def create_datagram_endpoint(
+        async def create_datagram_endpoint(  # type: ignore[override]
             self,
             protocol_factory: Callable[[], _ProtocolT],
             local_addr: tuple[str, int] | None = ...,

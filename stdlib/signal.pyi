@@ -2,7 +2,7 @@ import sys
 from _typeshed import structseq
 from enum import IntEnum
 from types import FrameType
-from typing import Any, Callable, Iterable, Optional, Union
+from typing import Any, Callable, Iterable, Union
 from typing_extensions import final
 
 NSIG: int
@@ -60,10 +60,10 @@ class Handlers(IntEnum):
 SIG_DFL: Handlers
 SIG_IGN: Handlers
 
-_SIGNUM = Union[int, Signals]
-_HANDLER = Union[Callable[[int, Optional[FrameType]], Any], int, Handlers, None]
+_SIGNUM = int | Signals
+_HANDLER = Union[Callable[[int, FrameType | None], Any], int, Handlers, None]
 
-def default_int_handler(signum: int, frame: FrameType | None) -> None: ...
+def default_int_handler(__signalnum: int, __frame: FrameType | None) -> None: ...
 
 if sys.version_info >= (3, 10):  # arguments changed in 3.10.2
     def getsignal(signalnum: _SIGNUM) -> _HANDLER: ...
@@ -176,3 +176,7 @@ if sys.version_info >= (3, 7):
 
 else:
     def set_wakeup_fd(fd: int) -> int: ...
+
+if sys.version_info >= (3, 9):
+    if sys.platform == "linux":
+        def pidfd_send_signal(__pidfd: int, __sig: int, __siginfo: None = ..., __flags: int = ...) -> None: ...

@@ -1,4 +1,4 @@
-name: Check stubs
+name: Test
 
 on:
   workflow_dispatch:
@@ -55,7 +55,7 @@ jobs:
     strategy:
       matrix:
         platform: ["linux", "win32", "darwin"]
-        python-version: ["2.7", "3.6", "3.7", "3.8", "3.9", "3.10"]
+        python-version: ["2.7", "3.6", "3.7", "3.8", "3.9", "3.10", "3.11"]
       fail-fast: false
     steps:
       - uses: actions/checkout@v2
@@ -72,7 +72,7 @@ jobs:
         python-version: ["3.6", "3.7", "3.8", "3.9", "3.10", "3.11"]
       fail-fast: false
     env:
-      PYRIGHT_VERSION: 1.1.218 # Must match pyright_test.py.
+      PYRIGHT_VERSION: 1.1.230 # Must match pyright_test.py.
     steps:
       - uses: actions/checkout@v2
       - uses: jakebailey/pyright-action@v1
@@ -129,7 +129,12 @@ jobs:
         run: pip install $(grep tomli== requirements-tests.txt)
       - name: Run stubtest
         run: |
-          STUBS=$(git diff --name-only origin/${{ github.base_ref }} HEAD | egrep ^stubs/ | cut -d "/" -f 2 | sort -u | (while read stub; do [ -d stubs/$stub ] && echo $stub || true; done))
+          STUBS=$(
+            git diff --name-only origin/${{ github.base_ref }} HEAD |
+            # Uncomment the following to (very slowly) run on all third party stubs:
+            # git ls-files |
+            egrep ^stubs/ | cut -d "/" -f 2 | sort -u | (while read stub; do [ -d stubs/$stub ] && echo $stub || true; done)
+          )
           if test -n "$STUBS"; then
             echo "Testing $STUBS..."
             APT_PACKAGES=$(python tests/get_apt_packages.py $STUBS)

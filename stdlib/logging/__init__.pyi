@@ -6,14 +6,59 @@ from io import TextIOWrapper
 from string import Template
 from time import struct_time
 from types import FrameType, TracebackType
-from typing import Any, ClassVar, Generic, Optional, Pattern, TextIO, TypeVar, Union, overload
+from typing import Any, ClassVar, Generic, Pattern, TextIO, TypeVar, Union, overload
 from typing_extensions import Literal
 
-_SysExcInfoType = Union[tuple[type[BaseException], BaseException, Optional[TracebackType]], tuple[None, None, None]]
-_ExcInfoType = Union[None, bool, _SysExcInfoType, BaseException]
-_ArgsType = Union[tuple[object, ...], Mapping[str, object]]
-_FilterType = Union[Filter, Callable[[LogRecord], int]]
-_Level = Union[int, str]
+__all__ = [
+    "BASIC_FORMAT",
+    "BufferingFormatter",
+    "CRITICAL",
+    "DEBUG",
+    "ERROR",
+    "FATAL",
+    "FileHandler",
+    "Filter",
+    "Formatter",
+    "Handler",
+    "INFO",
+    "LogRecord",
+    "Logger",
+    "LoggerAdapter",
+    "NOTSET",
+    "NullHandler",
+    "StreamHandler",
+    "WARN",
+    "WARNING",
+    "addLevelName",
+    "basicConfig",
+    "captureWarnings",
+    "critical",
+    "debug",
+    "disable",
+    "error",
+    "exception",
+    "fatal",
+    "getLevelName",
+    "getLogger",
+    "getLoggerClass",
+    "info",
+    "log",
+    "makeLogRecord",
+    "setLoggerClass",
+    "shutdown",
+    "warn",
+    "warning",
+    "getLogRecordFactory",
+    "setLogRecordFactory",
+    "lastResort",
+    "raiseExceptions",
+]
+
+_SysExcInfoType = Union[tuple[type[BaseException], BaseException, TracebackType | None], tuple[None, None, None]]
+_ExcInfoType = None | bool | _SysExcInfoType | BaseException
+_ArgsType = tuple[object, ...] | Mapping[str, object]
+_FilterType = Filter | Callable[[LogRecord], int]
+_Level = int | str
 _FormatStyle = Literal["%", "{", "$"]
 
 raiseExceptions: bool
@@ -245,14 +290,14 @@ class Logger(Filterer):
     def hasHandlers(self) -> bool: ...
     def callHandlers(self, record: LogRecord) -> None: ...  # undocumented
 
-CRITICAL: Literal[50]
-FATAL: Literal[50]
-ERROR: Literal[40]
-WARNING: Literal[30]
-WARN: Literal[30]
-INFO: Literal[20]
-DEBUG: Literal[10]
-NOTSET: Literal[0]
+CRITICAL: int
+FATAL: int
+ERROR: int
+WARNING: int
+WARN: int
+INFO: int
+DEBUG: int
+NOTSET: int
 
 class Handler(Filterer):
     level: int  # undocumented

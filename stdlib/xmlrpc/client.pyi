@@ -12,9 +12,11 @@ from typing_extensions import Literal
 class _SupportsTimeTuple(Protocol):
     def timetuple(self) -> time.struct_time: ...
 
-_DateTimeComparable = Union[DateTime, datetime, str, _SupportsTimeTuple]
-_Marshallable = Union[None, bool, int, float, str, bytes, tuple[Any, ...], list[Any], dict[Any, Any], datetime, DateTime, Binary]
-_XMLDate = Union[int, datetime, tuple[int, ...], time.struct_time]
+_DateTimeComparable = DateTime | datetime | str | _SupportsTimeTuple
+_Marshallable = (
+    bool | int | float | str | bytes | None | tuple[Any, ...] | list[Any] | dict[Any, Any] | datetime | DateTime | Binary
+)
+_XMLDate = int | datetime | tuple[int, ...] | time.struct_time
 _HostType = Union[tuple[str, dict[str, str]], str]
 
 def escape(s: str) -> str: ...  # undocumented
@@ -83,6 +85,7 @@ class Binary:
     def __init__(self, data: bytes | None = ...) -> None: ...
     def decode(self, data: bytes) -> None: ...
     def encode(self, out: SupportsWrite[str]) -> None: ...
+    def __eq__(self, other: object) -> bool: ...
 
 def _binary(data: bytes) -> Binary: ...  # undocumented
 
@@ -176,7 +179,7 @@ class MultiCall:
     __server: ServerProxy
     __call_list: list[tuple[str, tuple[_Marshallable, ...]]]
     def __init__(self, server: ServerProxy) -> None: ...
-    def __getattr__(self, item: str) -> _MultiCallMethod: ...
+    def __getattr__(self, name: str) -> _MultiCallMethod: ...
     def __call__(self) -> MultiCallIterator: ...
 
 # A little white lie

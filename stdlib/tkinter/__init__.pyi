@@ -5,8 +5,143 @@ from enum import Enum
 from tkinter.constants import *
 from tkinter.font import _FontDescription
 from types import TracebackType
-from typing import Any, Callable, Generic, Mapping, Optional, Protocol, Sequence, TypeVar, Union, overload
+from typing import Any, Callable, Generic, Mapping, Protocol, Sequence, TypeVar, Union, overload
 from typing_extensions import Literal, TypedDict
+
+if sys.version_info >= (3, 9):
+    __all__ = [
+        "TclError",
+        "NO",
+        "FALSE",
+        "OFF",
+        "YES",
+        "TRUE",
+        "ON",
+        "N",
+        "S",
+        "W",
+        "E",
+        "NW",
+        "SW",
+        "NE",
+        "SE",
+        "NS",
+        "EW",
+        "NSEW",
+        "CENTER",
+        "NONE",
+        "X",
+        "Y",
+        "BOTH",
+        "LEFT",
+        "TOP",
+        "RIGHT",
+        "BOTTOM",
+        "RAISED",
+        "SUNKEN",
+        "FLAT",
+        "RIDGE",
+        "GROOVE",
+        "SOLID",
+        "HORIZONTAL",
+        "VERTICAL",
+        "NUMERIC",
+        "CHAR",
+        "WORD",
+        "BASELINE",
+        "INSIDE",
+        "OUTSIDE",
+        "SEL",
+        "SEL_FIRST",
+        "SEL_LAST",
+        "END",
+        "INSERT",
+        "CURRENT",
+        "ANCHOR",
+        "ALL",
+        "NORMAL",
+        "DISABLED",
+        "ACTIVE",
+        "HIDDEN",
+        "CASCADE",
+        "CHECKBUTTON",
+        "COMMAND",
+        "RADIOBUTTON",
+        "SEPARATOR",
+        "SINGLE",
+        "BROWSE",
+        "MULTIPLE",
+        "EXTENDED",
+        "DOTBOX",
+        "UNDERLINE",
+        "PIESLICE",
+        "CHORD",
+        "ARC",
+        "FIRST",
+        "LAST",
+        "BUTT",
+        "PROJECTING",
+        "ROUND",
+        "BEVEL",
+        "MITER",
+        "MOVETO",
+        "SCROLL",
+        "UNITS",
+        "PAGES",
+        "TkVersion",
+        "TclVersion",
+        "READABLE",
+        "WRITABLE",
+        "EXCEPTION",
+        "EventType",
+        "Event",
+        "NoDefaultRoot",
+        "Variable",
+        "StringVar",
+        "IntVar",
+        "DoubleVar",
+        "BooleanVar",
+        "mainloop",
+        "getint",
+        "getdouble",
+        "getboolean",
+        "Misc",
+        "CallWrapper",
+        "XView",
+        "YView",
+        "Wm",
+        "Tk",
+        "Tcl",
+        "Pack",
+        "Place",
+        "Grid",
+        "BaseWidget",
+        "Widget",
+        "Toplevel",
+        "Button",
+        "Canvas",
+        "Checkbutton",
+        "Entry",
+        "Frame",
+        "Label",
+        "Listbox",
+        "Menu",
+        "Menubutton",
+        "Message",
+        "Radiobutton",
+        "Scale",
+        "Scrollbar",
+        "Text",
+        "OptionMenu",
+        "Image",
+        "PhotoImage",
+        "BitmapImage",
+        "image_names",
+        "image_types",
+        "Spinbox",
+        "LabelFrame",
+        "PanedWindow",
+    ]
 
 # Using anything from tkinter.font in this file means that 'import tkinter'
 # seems to also load tkinter.font. That's not how it actually works, but
@@ -38,7 +173,7 @@ EXCEPTION = _tkinter.EXCEPTION
 # than the _Compound defined here. Many other options have similar things.
 _Anchor = Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"]  # manual page: Tk_GetAnchor
 _Bitmap = str  # manual page: Tk_GetBitmap
-_ButtonCommand = Union[str, Callable[[], Any]]  # accepts string of tcl code, return value is returned from Button.invoke()
+_ButtonCommand = str | Callable[[], Any]  # accepts string of tcl code, return value is returned from Button.invoke()
 _CanvasItemId = int
 _Color = str  # typically '#rrggbb', '#rgb' or color names.
 _Compound = Literal["top", "left", "center", "right", "bottom", "none"]  # -compound in manual page named 'options'
@@ -46,8 +181,8 @@ _Cursor = Union[str, tuple[str], tuple[str, str], tuple[str, str, str], tuple[st
 _EntryValidateCommand = Union[
     Callable[[], bool], str, list[str], tuple[str, ...]
 ]  # example when it's sequence:  entry['invalidcommand'] = [entry.register(print), '%P']
-_GridIndex = Union[int, str, Literal["all"]]
-_ImageSpec = Union[_Image, str]  # str can be from e.g. tkinter.image_names()
+_GridIndex = int | str | Literal["all"]
+_ImageSpec = _Image | str  # str can be from e.g. tkinter.image_names()
 _Padding = Union[
     _ScreenUnits,
     tuple[_ScreenUnits],
@@ -56,9 +191,9 @@ _Padding = Union[
     tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits, _ScreenUnits],
 ]
 _Relief = Literal["raised", "sunken", "flat", "ridge", "solid", "groove"]  # manual page: Tk_GetRelief
-_ScreenUnits = Union[str, float]  # Often the right type instead of int. Manual page: Tk_GetPixels
-_XYScrollCommand = Union[str, Callable[[float, float], Any]]  # -xscrollcommand and -yscrollcommand in 'options' manual page
-_TakeFocusValue = Union[int, Literal[""], Callable[[str], Optional[bool]]]  # -takefocus in manual page named 'options'
+_ScreenUnits = str | float  # Often the right type instead of int. Manual page: Tk_GetPixels
+_XYScrollCommand = str | Callable[[float, float], Any]  # -xscrollcommand and -yscrollcommand in 'options' manual page
+_TakeFocusValue = Union[int, Literal[""], Callable[[str], bool | None]]  # -takefocus in manual page named 'options'
 
 class EventType(str, Enum):
     Activate: str
@@ -142,6 +277,7 @@ class Variable:
     def trace_vdelete(self, mode, cbname) -> None: ...  # deprecated
     def trace_vinfo(self): ...  # deprecated
     trace = trace_variable  # deprecated
+    def __eq__(self, other: object) -> bool: ...
 
 class StringVar(Variable):
     def __init__(self, master: Misc | None = ..., value: str | None = ..., name: str | None = ...) -> None: ...
@@ -1062,7 +1198,7 @@ class Canvas(Widget, XView, YView):
     @overload
     def tag_bind(
         self,
-        tagOrId: str | int,
+        tagOrId: str | _CanvasItemId,
         sequence: str | None = ...,
         func: Callable[[Event[Canvas]], Any] | None = ...,
         add: Literal["", "+"] | bool | None = ...,
@@ -1072,16 +1208,16 @@ class Canvas(Widget, XView, YView):
         self, tagOrId: str | int, sequence: str | None, func: str, add: Literal["", "+"] | bool | None = ...
     ) -> None: ...
     @overload
-    def tag_bind(self, tagOrId: str | int, *, func: str, add: Literal["", "+"] | bool | None = ...) -> None: ...
-    def tag_unbind(self, tagOrId: str | int, sequence: str, funcid: str | None = ...) -> None: ...
+    def tag_bind(self, tagOrId: str | _CanvasItemId, *, func: str, add: Literal["", "+"] | bool | None = ...) -> None: ...
+    def tag_unbind(self, tagOrId: str | _CanvasItemId, sequence: str, funcid: str | None = ...) -> None: ...
     def canvasx(self, screenx, gridspacing: Any | None = ...): ...
     def canvasy(self, screeny, gridspacing: Any | None = ...): ...
     @overload
-    def coords(self) -> list[float]: ...
+    def coords(self, __tagOrId: str | _CanvasItemId) -> list[float]: ...
     @overload
-    def coords(self, __args: list[int] | list[float] | tuple[float, ...]) -> None: ...
+    def coords(self, __tagOrId: str | _CanvasItemId, __args: list[int] | list[float] | tuple[float, ...]) -> None: ...
     @overload
-    def coords(self, __x1: float, __y1: float, *args: float) -> None: ...
+    def coords(self, __tagOrId: str | _CanvasItemId, __x1: float, __y1: float, *args: float) -> None: ...
     # create_foo() methods accept coords as a list, a tuple, or as separate arguments.
     # Keyword arguments should be the same in each pair of overloads.
     def create_arc(self, *args, **kw) -> _CanvasItemId: ...
@@ -1560,7 +1696,7 @@ class Checkbutton(Widget):
     def select(self) -> None: ...
     def toggle(self) -> None: ...
 
-_EntryIndex = Union[str, int]  # "INDICES" in manual page
+_EntryIndex = str | int  # "INDICES" in manual page
 
 class Entry(Widget, XView):
     def __init__(
@@ -1918,7 +2054,7 @@ class Listbox(Widget, XView, YView):
     def itemconfigure(self, index, cnf: Any | None = ..., **kw): ...
     itemconfig: Any
 
-_MenuIndex = Union[str, int]
+_MenuIndex = str | int
 
 class Menu(Widget):
     def __init__(
@@ -2604,7 +2740,7 @@ class Scrollbar(Widget):
     def get(self) -> tuple[float, float, float, float] | tuple[float, float]: ...
     def set(self, first: float, last: float) -> None: ...
 
-_TextIndex = Union[_tkinter.Tcl_Obj, str, float, Misc]
+_TextIndex = _tkinter.Tcl_Obj | str | float | Misc
 
 class Text(Widget, XView, YView):
     def __init__(

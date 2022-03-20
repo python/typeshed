@@ -1,8 +1,13 @@
 import sys
 from _typeshed import Self
 from types import TracebackType
-from typing import IO, Any, NamedTuple, Union, overload
+from typing import IO, Any, NamedTuple, overload
 from typing_extensions import Literal
+
+if sys.version_info >= (3, 9):
+    __all__ = ["Error", "open"]
+else:
+    __all__ = ["Error", "open", "openfp"]
 
 class Error(Exception): ...
 
@@ -14,7 +19,7 @@ class _aifc_params(NamedTuple):
     comptype: bytes
     compname: bytes
 
-_File = Union[str, IO[bytes]]
+_File = str | IO[bytes]
 _Marker = tuple[int, int, bytes]
 
 class Aifc_read:

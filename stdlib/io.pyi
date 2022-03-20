@@ -7,6 +7,50 @@ from types import TracebackType
 from typing import IO, Any, BinaryIO, Callable, Iterable, Iterator, TextIO
 from typing_extensions import Literal
 
+if sys.version_info >= (3, 8):
+    __all__ = [
+        "BlockingIOError",
+        "open",
+        "open_code",
+        "IOBase",
+        "RawIOBase",
+        "FileIO",
+        "BytesIO",
+        "StringIO",
+        "BufferedIOBase",
+        "BufferedReader",
+        "BufferedWriter",
+        "BufferedRWPair",
+        "BufferedRandom",
+        "TextIOBase",
+        "TextIOWrapper",
+        "UnsupportedOperation",
+        "SEEK_SET",
+        "SEEK_CUR",
+        "SEEK_END",
+    ]
+else:
+    __all__ = [
+        "BlockingIOError",
+        "open",
+        "IOBase",
+        "RawIOBase",
+        "FileIO",
+        "BytesIO",
+        "StringIO",
+        "BufferedIOBase",
+        "BufferedReader",
+        "BufferedWriter",
+        "BufferedRWPair",
+        "BufferedRandom",
+        "TextIOBase",
+        "TextIOWrapper",
+        "UnsupportedOperation",
+        "SEEK_SET",
+        "SEEK_CUR",
+        "SEEK_END",
+    ]
+
 DEFAULT_BUFFER_SIZE: Literal[8192]
 
 SEEK_SET: Literal[0]
@@ -28,7 +72,7 @@ class IOBase:
     def __enter__(self: Self) -> Self: ...
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
-    ) -> bool | None: ...
+    ) -> None: ...
     def close(self) -> None: ...
     def fileno(self) -> int: ...
     def flush(self) -> None: ...
@@ -64,7 +108,7 @@ class BufferedIOBase(IOBase):
     def read(self, __size: int | None = ...) -> bytes: ...
     def read1(self, __size: int = ...) -> bytes: ...
 
-class FileIO(RawIOBase, BinaryIO):  # type: ignore # argument disparities between the base classes
+class FileIO(RawIOBase, BinaryIO):
     mode: str
     name: StrOrBytesPath | int  # type: ignore[assignment]
     def __init__(
@@ -76,7 +120,7 @@ class FileIO(RawIOBase, BinaryIO):  # type: ignore # argument disparities betwee
     def read(self, __size: int = ...) -> bytes: ...
     def __enter__(self: Self) -> Self: ...
 
-class BytesIO(BufferedIOBase, BinaryIO):  # type: ignore # argument disparities between the base classes
+class BytesIO(BufferedIOBase, BinaryIO):
     def __init__(self, initial_bytes: bytes = ...) -> None: ...
     # BytesIO does not contain a "name" field. This workaround is necessary
     # to allow BytesIO sub-classes to add this field, as it is defined
@@ -90,7 +134,7 @@ class BytesIO(BufferedIOBase, BinaryIO):  # type: ignore # argument disparities 
     else:
         def read1(self, __size: int | None) -> bytes: ...  # type: ignore[override]
 
-class BufferedReader(BufferedIOBase, BinaryIO):  # type: ignore # argument disparities between base classes
+class BufferedReader(BufferedIOBase, BinaryIO):
     def __enter__(self: Self) -> Self: ...
     def __init__(self, raw: RawIOBase, buffer_size: int = ...) -> None: ...
     def peek(self, __size: int = ...) -> bytes: ...
@@ -99,7 +143,7 @@ class BufferedReader(BufferedIOBase, BinaryIO):  # type: ignore # argument dispa
     else:
         def read1(self, __size: int) -> bytes: ...  # type: ignore[override]
 
-class BufferedWriter(BufferedIOBase, BinaryIO):  # type: ignore # argument disparities between base classes
+class BufferedWriter(BufferedIOBase, BinaryIO):
     def __enter__(self: Self) -> Self: ...
     def __init__(self, raw: RawIOBase, buffer_size: int = ...) -> None: ...
     def write(self, __buffer: ReadableBuffer) -> int: ...
@@ -131,7 +175,7 @@ class TextIOBase(IOBase):
     def read(self, __size: int | None = ...) -> str: ...
     def tell(self) -> int: ...
 
-class TextIOWrapper(TextIOBase, TextIO):  # type: ignore # argument disparities between base classes
+class TextIOWrapper(TextIOBase, TextIO):
     def __init__(
         self,
         buffer: IO[bytes],
@@ -181,3 +225,4 @@ class IncrementalNewlineDecoder(codecs.IncrementalDecoder):
     def decode(self, input: bytes | str, final: bool = ...) -> str: ...
     @property
     def newlines(self) -> str | tuple[str, ...] | None: ...
+    def setstate(self, __state: tuple[bytes, int]) -> None: ...
