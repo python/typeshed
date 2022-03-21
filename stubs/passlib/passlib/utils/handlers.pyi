@@ -88,12 +88,8 @@ class HasSalt(GenericHandler):
     min_salt_size: ClassVar[int]
     max_salt_size: ClassVar[int | None]
     salt_chars: ClassVar[str | None]
-    @classmethod
-    @property
-    def default_salt_size(cls) -> int | None: ...
-    @classmethod
-    @property
-    def default_salt_chars(cls) -> str | None: ...
+    default_salt_size: ClassVar[int | None]
+    default_salt_chars: ClassVar[str | None]
     salt: str | bytes | None
     @classmethod
     def using(cls, default_salt_size: int | None = ..., salt_size: int | None = ..., salt: str | bytes | None = ..., **kwds): ...  # type: ignore[override]
