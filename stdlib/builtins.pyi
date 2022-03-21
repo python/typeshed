@@ -1021,9 +1021,9 @@ class range(Sequence[int]):
     def __reversed__(self) -> Iterator[int]: ...
 
 class property:
-    fget: Callable[[Any], Any] | None
-    fset: Callable[[Any, Any], None] | None
-    fdel: Callable[[Any], None] | None
+    fget: Callable[[property, Any], Any] | None
+    fset: Callable[[property, Any, Any], None] | None
+    fdel: Callable[[property, Any], None] | None
     __isabstractmethod__: bool
     def __init__(
         self,
