@@ -131,7 +131,8 @@ def read_typeshed_stubs() -> Iterator[tuple[str, str]]:
 
 
 async def fetch_pypi_stubs(distributions: Iterable[str]) -> tuple[tuple[str, datetime.datetime], ...]:
-    async with aiohttp.ClientSession() as session:
+    conn = aiohttp.TCPConnector(limit_per_host=10)
+    async with aiohttp.ClientSession(connector=conn) as session:
         tasks: list[Task[tuple[str, datetime.datetime]]] = []
         for distribution in distributions:
             tasks.append(asyncio.create_task(fetch_pypi_info(session, distribution)))
