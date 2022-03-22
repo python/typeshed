@@ -23,8 +23,8 @@ class Task:
     incrementable: Iterable[str]
     auto_shortflags: bool
     help: dict[str, str]
-    pre: list[Task]
-    post: list[Task]
+    pre: Iterable[Task]
+    post: Iterable[Task]
     times_called: int
     autoprint: bool
     def __init__(
