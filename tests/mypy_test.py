@@ -197,7 +197,6 @@ def get_mypy_flags(args, major: int, minor: int, temp_name: str, *, custom_types
     flags = [
         "--python-version",
         "%d.%d" % (major, minor),
-        "--no-incremental",
         "--config-file",
         temp_name,
         "--no-site-packages",
