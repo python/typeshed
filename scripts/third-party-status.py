@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import asyncio
 import datetime
+import sys
 from argparse import ArgumentParser
 from asyncio.tasks import Task
 from dataclasses import dataclass
@@ -157,16 +158,23 @@ def print_stubs_text(stubs: Iterable[StubInfo]) -> None:
     stub_v_len = max(len(st.stub_version) for st in stubs) + 2
     pypi_v_len = max(len(st.pypi_version) for st in stubs) + 2
     for stub in stubs:
-        distribution_text = colored(stub.distribution, "red") if stub.obsolete else stub.distribution
+        distribution_text = color(stub.distribution, "red") if stub.obsolete else stub.distribution
         version_color = VERSION_FRESHNESS_COLORS[stub.version_freshness]
         date_color = DATE_FRESHNESS_COLORS[stub.date_freshness]
         print(distribution_text, end="")
         print(" " * (dist_len - len(stub.distribution)), end="")
-        print(colored(stub.stub_version, version_color), end="")
+        print(color(stub.stub_version, version_color), end="")
         print(" " * (stub_v_len - len(stub.stub_version)), end="")
         print(stub.pypi_version, end="")
         print(" " * (pypi_v_len - len(stub.pypi_version)), end="")
-        print(colored(stub.pypi_date.date().isoformat(), date_color))
+        print(color(stub.pypi_date.date().isoformat(), date_color))
+
+
+def color(s: str, color: str) -> str:
+    if sys.stdout.isatty():
+        return colored(s, color)
+    else:
+        return s
 
 
 HTML_HEADER = f"""<!DOCTYPE html>
