@@ -48,6 +48,7 @@ class StubInfo:
     stub_version: str
     pypi_version: str
     pypi_date: datetime.datetime
+    obsolete: bool = False
 
     @property
     def version_freshness(self) -> VersionFreshness:
@@ -104,8 +105,8 @@ def main() -> None:
     ts_stubs = list(read_typeshed_stubs())
     pypi_stubs = asyncio.run(fetch_pypi_stubs(t[0] for t in ts_stubs))
     stubs = [
-        StubInfo(distribution, stub_version, pypi_version, pypi_date)
-        for (distribution, stub_version), (pypi_version, pypi_date) in zip(ts_stubs, pypi_stubs)
+        StubInfo(distribution, stub_version, pypi_version, pypi_date, obsolete)
+        for (distribution, stub_version, obsolete), (pypi_version, pypi_date) in zip(ts_stubs, pypi_stubs)
     ]
     stubs.sort(key=lambda si: si.distribution)
     if format == OutputFormat.HTML:
@@ -122,12 +123,13 @@ def parse_args() -> OutputFormat:
     return OutputFormat(args.output_format)
 
 
-def read_typeshed_stubs() -> Iterator[tuple[str, str]]:
-    """Yield (distribution, version) tuples for all third-party stubs in typeshed."""
+def read_typeshed_stubs() -> Iterator[tuple[str, str, bool]]:
+    """Yield (distribution, version, obsolete) tuples for all third-party stubs in typeshed."""
     for stub_path in Path("stubs").iterdir():
         with (stub_path / "METADATA.toml").open("rb") as f:
             meta = tomli.load(f)
-        yield stub_path.name, meta["version"]
+        obsolete = meta.get("obsolete_since") is not None
+        yield stub_path.name, meta["version"], obsolete
 
 
 async def fetch_pypi_stubs(distributions: Iterable[str]) -> tuple[tuple[str, datetime.datetime], ...]:
@@ -155,9 +157,10 @@ def print_stubs_text(stubs: Iterable[StubInfo]) -> None:
     stub_v_len = max(len(st.stub_version) for st in stubs) + 2
     pypi_v_len = max(len(st.pypi_version) for st in stubs) + 2
     for stub in stubs:
+        distribution_text = colored(stub.distribution, "red") if stub.obsolete else stub.distribution
         version_color = VERSION_FRESHNESS_COLORS[stub.version_freshness]
         date_color = DATE_FRESHNESS_COLORS[stub.date_freshness]
-        print(stub.distribution, end="")
+        print(distribution_text, end="")
         print(" " * (dist_len - len(stub.distribution)), end="")
         print(colored(stub.stub_version, version_color), end="")
         print(" " * (stub_v_len - len(stub.stub_version)), end="")
@@ -176,6 +179,7 @@ HTML_HEADER = f"""<!DOCTYPE html>
             .fresh {{ color: green; }}
             .old, .new-minor {{ color: orange; }}
             .ancient, .new-major {{ color: red; }}
+            .obsolete {{ text-decoration: line-through; }}
         </style>
     </head>
     <body>
@@ -196,7 +200,7 @@ def print_stubs_html(stubs: Iterable[StubInfo]) -> None:
         print(
             f"""
         <tr>
-            <td>{html_escape(stub.distribution)}</td>
+            <td class="{'obsolete' if stub.obsolete else ''}">{html_escape(stub.distribution)}</td>
             <td class="{stub.version_freshness.value}">{html_escape(stub.stub_version)}</td>
             <td>{html_escape(stub.pypi_version)}</td>
             <td class="{stub.date_freshness.value}">{stub.pypi_date.date().isoformat()}</td>
