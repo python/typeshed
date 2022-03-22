@@ -170,7 +170,7 @@ HTML_HEADER = f"""<!DOCTYPE html>
 <html>
     <head>
         <title>typeshed Third-Party Stub Status</title>
-        <style> 
+        <style>
             body {{ font-family: Sans; }}
             th {{ text-align: left; }}
             .fresh {{ color: green; }}
