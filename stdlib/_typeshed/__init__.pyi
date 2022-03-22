@@ -8,7 +8,7 @@ import mmap
 import sys
 from os import PathLike
 from typing import AbstractSet, Any, Awaitable, Container, Generic, Iterable, Protocol, TypeVar
-from typing_extensions import Final, Literal, final
+from typing_extensions import Final, Literal, TypeAlias, final
 
 _KT = TypeVar("_KT")
 _KT_co = TypeVar("_KT_co", covariant=True)
@@ -28,7 +28,7 @@ Self = TypeVar("Self")  # noqa Y001
 # isn't possible or a type is already partially known. In cases like these,
 # use Incomplete instead of Any as a marker. For example, use
 # "Incomplete | None" instead of "Any | None".
-Incomplete = Any
+Incomplete: TypeAlias = Any
 
 # stable
 class IdentityFunction(Protocol):
