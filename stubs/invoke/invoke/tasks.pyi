@@ -73,7 +73,7 @@ def task(
     iterable: Iterable[str] | None = ...,
     incrementable: Iterable[str] | None = ...,
     klass: type[_TaskT] = ...,
-) -> _TaskT: ...
+) -> Callable[[Callable[..., Any]], _TaskT]: ...
 
 class Call:
     task: Task
