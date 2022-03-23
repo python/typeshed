@@ -71,6 +71,7 @@ if sys.version_info >= (3, 8):
     def dataclass(__cls: type[_T]) -> type[_T]: ...
     @overload
     def dataclass(__cls: None) -> Callable[[type[_T]], type[_T]]: ...
+
 else:
     @overload
     def dataclass(_cls: type[_T]) -> type[_T]: ...
@@ -91,6 +92,7 @@ if sys.version_info >= (3, 10):
         kw_only: bool = ...,
         slots: bool = ...,
     ) -> Callable[[type[_T]], type[_T]]: ...
+
 else:
     @overload
     def dataclass(

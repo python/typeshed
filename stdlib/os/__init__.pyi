@@ -734,12 +734,13 @@ class _ScandirIterator(Iterator[DirEntry[AnyStr]], AbstractContextManager[_Scand
 
 @overload
 def scandir(path: None = ...) -> _ScandirIterator[str]: ...
+
 if sys.version_info >= (3, 7):
     @overload
     def scandir(path: int) -> _ScandirIterator[str]: ...
+
 @overload
 def scandir(path: AnyStr | PathLike[AnyStr]) -> _ScandirIterator[AnyStr]: ...
-
 def stat(path: _FdOrAnyPath, *, dir_fd: int | None = ..., follow_symlinks: bool = ...) -> stat_result: ...
 
 if sys.version_info < (3, 7):
