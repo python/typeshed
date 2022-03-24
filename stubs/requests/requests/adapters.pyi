@@ -1,4 +1,4 @@
-from typing import Any, Container, Mapping, Text
+from typing import Any, Mapping, Text
 
 from urllib3 import exceptions as urllib3_exceptions, poolmanager, response
 from urllib3.util import retry
