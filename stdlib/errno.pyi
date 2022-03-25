@@ -37,7 +37,7 @@ EPIPE: int
 EDOM: int
 ERANGE: int
 EDEADLK: int
-EDEADLCK: int
+EDEADLOCK: int
 ENAMETOOLONG: int
 ENOLCK: int
 ENOSYS: int
