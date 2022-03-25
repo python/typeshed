@@ -11,13 +11,12 @@ from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
 from typing import IO, Any, Awaitable, Callable, Coroutine, Generator, Sequence, TypeVar, overload
 from typing_extensions import Literal
 
-if sys.version_info >= (3, 10):
+if sys.version_info >= (3, 7):
     from contextvars import Context
 
+if sys.version_info >= (3, 9):
     __all__ = ("BaseEventLoop", "Server")
 elif sys.version_info >= (3, 7):
-    from contextvars import Context
-
     __all__ = ("BaseEventLoop",)
 else:
     __all__ = ["BaseEventLoop"]
