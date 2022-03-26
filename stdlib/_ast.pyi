@@ -202,7 +202,7 @@ class Nonlocal(stmt):
 
 class Expr(stmt):
     if sys.version_info >= (3, 10):
-        __match_args__ = ("body",)
+        __match_args__ = ("value",)
     value: expr
 
 class Pass(stmt): ...
