@@ -1,10 +1,9 @@
+from _typeshed.email import ParamsType
+from collections.abc import Callable
 from email.mime.nonmultipart import MIMENonMultipart
 from email.policy import Policy
-from typing import Callable, Union
 
 __all__ = ["MIMEImage"]
-
-_ParamsType = Union[str, None, tuple[str, str | None, str]]
 
 class MIMEImage(MIMENonMultipart):
     def __init__(
@@ -14,5 +13,5 @@ class MIMEImage(MIMENonMultipart):
         _encoder: Callable[[MIMEImage], None] = ...,
         *,
         policy: Policy | None = ...,
-        **_params: _ParamsType,
+        **_params: ParamsType,
     ) -> None: ...

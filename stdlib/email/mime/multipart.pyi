@@ -1,11 +1,10 @@
+from _typeshed.email import ParamsType
+from collections.abc import Sequence
 from email.message import Message
 from email.mime.base import MIMEBase
 from email.policy import Policy
-from typing import Sequence, Union
 
 __all__ = ["MIMEMultipart"]
-
-_ParamsType = Union[str, None, tuple[str, str | None, str]]
 
 class MIMEMultipart(MIMEBase):
     def __init__(
@@ -15,5 +14,5 @@ class MIMEMultipart(MIMEBase):
         _subparts: Sequence[Message] | None = ...,
         *,
         policy: Policy | None = ...,
-        **_params: _ParamsType,
+        **_params: ParamsType,
     ) -> None: ...
