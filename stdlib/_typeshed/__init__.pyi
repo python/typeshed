@@ -21,7 +21,7 @@ _T_contra = TypeVar("_T_contra", contravariant=True)
 
 # Use for "self" annotations:
 #   def __enter__(self: Self) -> Self: ...
-Self = TypeVar("Self")  # noqa Y001
+Self = TypeVar("Self")  # noqa: Y001
 
 # For partially known annotations. Usually, fields where type annotations
 # haven't been added are left unannotated, but in some situations this
