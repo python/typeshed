@@ -207,6 +207,9 @@ def get_mypy_flags(args, major: int, minor: int, temp_name: str, *, custom_types
         "--warn-incomplete-stub",
         "--show-error-codes",
         "--no-error-summary",
+        "--enable-error-code",
+        "ignore-without-code",
+        "--strict-equality"
     ]
     if custom_typeshed:
         # Setting custom typeshed dir prevents mypy from falling back to its bundled
