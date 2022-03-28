@@ -32,7 +32,7 @@ __all__ = [
 # as a type annotation or type alias.
 from builtins import str as _str
 from decimal import Decimal
-from typing import Any, Callable, Iterable, Mapping, Sequence
+from typing import Any, Callable, Iterable, Mapping
 
 CODESET: int
 D_T_FMT: int
