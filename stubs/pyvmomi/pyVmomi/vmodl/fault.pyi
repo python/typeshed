@@ -1,6 +1,6 @@
 from typing import Any
 
-from stubs.pyvmomi.pyVmomi.vmodl import ManagedObject
+from pyVmomi.vmodl import ManagedObject
 
 def __getattr__(name: str) -> Any: ...  # incomplete
 
