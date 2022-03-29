@@ -1,8 +1,5 @@
 from typing import Any
 
-from fault import *
-from query import *
-
 class DynamicProperty:
     def __init__(self, *, name: str = ..., val: Any = ...) -> None: ...
     name: str
