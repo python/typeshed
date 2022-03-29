@@ -1,7 +1,7 @@
 from typing import Any
 
-from .query import *
 from .fault import *
+from .query import *
 
 class DynamicProperty:
     def __init__(self, *, name: str = ..., val: Any = ...) -> None: ...
