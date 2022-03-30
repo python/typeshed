@@ -15,10 +15,12 @@ ast.Index.__new__
 ast.NameConstant.__new__
 ast.Num.__new__
 ast.Str.__new__
+asyncio.base_events.__all__  # Fixed in 3.9.11
 asyncio.Future.__init__  # Usually initialized from c object
 asyncio.Future._callbacks  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future._callbacks  # Usually initialized from c object
+asyncio.Server  # Fixed in 3.9.11
 builtins.dict.get
 builtins.float.__set_format__  # Internal method for CPython test suite
 collections.AsyncGenerator.asend  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
