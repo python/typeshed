@@ -4,6 +4,7 @@ from _typeshed import Self
 from abc import abstractmethod
 from collections.abc import Container, Iterable, Iterator, Sequence
 from logging import Logger
+from types import TracebackType
 from typing import Any, Callable, Generic, Protocol, TypeVar, overload
 from typing_extensions import Literal, ParamSpec, SupportsIndex
 
@@ -73,7 +74,7 @@ class Executor:
         def shutdown(self, wait: bool = ...) -> None: ...
 
     def __enter__(self: Self) -> Self: ...
-    def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> bool | None: ...
+    def __exit__(self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None) -> bool | None: ...
 
 def as_completed(fs: Iterable[Future[_T]], timeout: float | None = ...) -> Iterator[Future[_T]]: ...
 
