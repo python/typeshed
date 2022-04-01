@@ -15,7 +15,12 @@ class CallableTimedOut(Exception): ...
 
 class ContextManager:
     def __enter__(self): ...
-    def __exit__(self, exc_type: type[BaseException] | None = ..., exc_value: BaseException | None = ..., traceback: TracebackType | None = ...) -> None: ...
+    def __exit__(
+        self,
+        exc_type: type[BaseException] | None = ...,
+        exc_value: BaseException | None = ...,
+        traceback: TracebackType | None = ...,
+    ) -> None: ...
 
 class PatchedAttribute(ContextManager):
     object_to_patch: Any
