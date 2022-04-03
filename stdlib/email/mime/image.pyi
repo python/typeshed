@@ -1,5 +1,5 @@
-from _typeshed.email import ParamsType
 from collections.abc import Callable
+from email import _ParamsType
 from email.mime.nonmultipart import MIMENonMultipart
 from email.policy import Policy
 
@@ -13,5 +13,5 @@ class MIMEImage(MIMENonMultipart):
         _encoder: Callable[[MIMEImage], None] = ...,
         *,
         policy: Policy | None = ...,
-        **_params: ParamsType,
+        **_params: _ParamsType,
     ) -> None: ...

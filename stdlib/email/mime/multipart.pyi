@@ -1,5 +1,5 @@
-from _typeshed.email import ParamsType
 from collections.abc import Sequence
+from email import _ParamsType
 from email.message import Message
 from email.mime.base import MIMEBase
 from email.policy import Policy
@@ -14,5 +14,5 @@ class MIMEMultipart(MIMEBase):
         _subparts: Sequence[Message] | None = ...,
         *,
         policy: Policy | None = ...,
-        **_params: ParamsType,
+        **_params: _ParamsType,
     ) -> None: ...
