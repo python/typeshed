@@ -3,9 +3,6 @@ _collections_abc.AsyncGenerator.ag_await
 _collections_abc.AsyncGenerator.ag_code
 _collections_abc.AsyncGenerator.ag_frame
 _collections_abc.AsyncGenerator.ag_running
-_collections_abc.ItemsView.__reversed__
-_collections_abc.KeysView.__reversed__
-_collections_abc.ValuesView.__reversed__
 
 # These are not positional-only at runtime, but we treat them
 # as positional-only to match dict.
