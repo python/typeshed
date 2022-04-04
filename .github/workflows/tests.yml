@@ -110,7 +110,7 @@ jobs:
       - name: Update pip
         run: python -m pip install -U pip
       - name: Install dependencies
-        run: pip install $(grep tomli== requirements-tests.txt) $(grep mypy== requirements-tests.txt)
+        run: pip install $(grep tomli== requirements-tests.txt) git+git://github.com/python/mypy@ee0638f3c3b68f5970cf8c2c643156c370017ee4
       - name: Run stubtest
         run: python tests/stubtest_stdlib.py
 
