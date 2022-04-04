@@ -2,6 +2,7 @@ import sys
 from types import MappingProxyType
 from typing import (
     AbstractSet as Set,
+    Any,
     AsyncGenerator as AsyncGenerator,
     AsyncIterable as AsyncIterable,
     AsyncIterator as AsyncIterator,
@@ -28,7 +29,6 @@ from typing import (
     Sized as Sized,
     TypeVar,
     ValuesView as _ValuesView,
-    Any,
 )
 from typing_extensions import final
 
