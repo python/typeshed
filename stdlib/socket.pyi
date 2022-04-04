@@ -608,7 +608,7 @@ def getfqdn(name: str = ...) -> str: ...
 def create_connection(
     address: tuple[str | None, int],
     timeout: float | None = ...,  # noqa: F811
-    source_address: tuple[bytearray | bytes | str, int] | None = ...,
+    source_address: tuple[bytes | str, int] | None = ...,
 ) -> socket: ...
 
 if sys.version_info >= (3, 8):

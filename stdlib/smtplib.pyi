@@ -43,7 +43,7 @@ else:
 _Reply = tuple[int, bytes]
 _SendErrs = dict[str, _Reply]
 # Should match source_address for socket.create_connection
-_SourceAddress = tuple[bytearray | bytes | str, int]
+_SourceAddress = tuple[bytes | str, int]
 
 SMTP_PORT: int
 SMTP_SSL_PORT: int
