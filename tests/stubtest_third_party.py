@@ -18,8 +18,7 @@ import tomli
 
 @functools.lru_cache()
 def get_mypy_req():
-    with open("requirements-tests.txt") as f:
-        return next(line.strip() for line in f if "mypy" in line)
+    return "git+https://github.com/python/mypy@ee0638f3c3b68f5970cf8c2c643156c370017ee4"
 
 
 def run_stubtest(dist: Path) -> bool:
@@ -85,7 +84,7 @@ def run_stubtest(dist: Path) -> bool:
             *modules_to_check,
         ]
         allowlist_path = dist / "@tests/stubtest_allowlist.txt"
-        if allowlist_path.exists():
+        if allowlist_path.exists() and False:
             cmd.extend(["--allowlist", str(allowlist_path)])
 
         try:
