@@ -28,7 +28,7 @@ from typing import (
     Sized as Sized,
     TypeVar,
     ValuesView as _ValuesView,
-    Any as _Any,
+    Any,
 )
 from typing_extensions import final
 
@@ -82,13 +82,13 @@ class dict_items(_ItemsView[_KT_co, _VT_co], Generic[_KT_co, _VT_co]):  # undocu
         def mapping(self) -> MappingProxyType[_KT_co, _VT_co]: ...
 
 class MappingView(_MappingView):
-    _mapping: Mapping[_Any, _Any]  # undocumented
+    _mapping: Mapping[Any, Any]  # undocumented
 
-class KeysView(_KeysView[_KT_co], Generic[_KT_co, _VT_co]):
-    _mapping: Mapping[_KT_co, _VT_co]  # undocumented
+class KeysView(_KeysView[_KT_co], Generic[_KT_co]):
+    _mapping: Mapping[_KT_co, Any]  # undocumented
 
-class ValuesView(_KeysView[_VT_co], Generic[_KT_co, _VT_co]):
-    _mapping: Mapping[_KT_co, _VT_co]  # undocumented
+class ValuesView(_ValuesView[_VT_co], Generic[_VT_co]):
+    _mapping: Mapping[Any, _VT_co]  # undocumented
 
 class ItemsView(_ItemsView[_KT_co, _VT_co], Generic[_KT_co, _VT_co]):
     _mapping: Mapping[_KT_co, _VT_co]  # undocumented
