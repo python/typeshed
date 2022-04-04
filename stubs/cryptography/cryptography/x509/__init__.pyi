@@ -108,8 +108,7 @@ class ExtendedKeyUsageOID:
     ANY_EXTENDED_KEY_USAGE: ClassVar[ObjectIdentifier]
 
 class NameAttribute:
-    @property
-    def oid(self) -> ObjectIdentifier: ...
+    oid: ObjectIdentifier
     @property
     def value(self) -> str: ...
     def __init__(self, oid: ObjectIdentifier, value: str) -> None: ...
@@ -325,16 +324,14 @@ class UniformResourceIdentifier(GeneralName):
 # X.509 Extensions
 
 class ExtensionType(metaclass=ABCMeta):
-    @property
-    def oid(self) -> ObjectIdentifier: ...
+    oid: ObjectIdentifier
 
 _T = TypeVar("_T", bound=ExtensionType)
 
 class Extension(Generic[_T]):
     @property
     def critical(self) -> bool: ...
-    @property
-    def oid(self) -> ObjectIdentifier: ...
+    oid: ObjectIdentifier
     @property
     def value(self) -> _T: ...
 
