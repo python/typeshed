@@ -14,12 +14,12 @@ from typing import (
     Generator as Generator,
     Generic,
     Hashable as Hashable,
-    ItemsView as ItemsView,
+    ItemsView as _ItemsView,
     Iterable as Iterable,
     Iterator as Iterator,
-    KeysView as KeysView,
+    KeysView as _KeysView,
     Mapping as Mapping,
-    MappingView as MappingView,
+    MappingView as _MappingView,
     MutableMapping as MutableMapping,
     MutableSequence as MutableSequence,
     MutableSet as MutableSet,
@@ -27,7 +27,8 @@ from typing import (
     Sequence as Sequence,
     Sized as Sized,
     TypeVar,
-    ValuesView as ValuesView,
+    ValuesView as _ValuesView,
+    Any as _Any,
 )
 from typing_extensions import final
 
@@ -63,19 +64,31 @@ _KT_co = TypeVar("_KT_co", covariant=True)  # Key type covariant containers.
 _VT_co = TypeVar("_VT_co", covariant=True)  # Value type covariant containers.
 
 @final
-class dict_keys(KeysView[_KT_co], Generic[_KT_co, _VT_co]):  # undocumented
+class dict_keys(_KeysView[_KT_co], Generic[_KT_co, _VT_co]):  # undocumented
     if sys.version_info >= (3, 10):
         @property
         def mapping(self) -> MappingProxyType[_KT_co, _VT_co]: ...
 
 @final
-class dict_values(ValuesView[_VT_co], Generic[_KT_co, _VT_co]):  # undocumented
+class dict_values(_ValuesView[_VT_co], Generic[_KT_co, _VT_co]):  # undocumented
     if sys.version_info >= (3, 10):
         @property
         def mapping(self) -> MappingProxyType[_KT_co, _VT_co]: ...
 
 @final
-class dict_items(ItemsView[_KT_co, _VT_co], Generic[_KT_co, _VT_co]):  # undocumented
+class dict_items(_ItemsView[_KT_co, _VT_co], Generic[_KT_co, _VT_co]):  # undocumented
     if sys.version_info >= (3, 10):
         @property
         def mapping(self) -> MappingProxyType[_KT_co, _VT_co]: ...
+
+class MappingView(_MappingView):
+    _mapping: Mapping[_Any, _Any]  # undocumented
+
+class KeysView(_KeysView[_KT_co], Generic[_KT_co, _VT_co]):
+    _mapping: Mapping[_KT_co, _VT_co]  # undocumented
+
+class ValuesView(_KeysView[_VT_co], Generic[_KT_co, _VT_co]):
+    _mapping: Mapping[_KT_co, _VT_co]  # undocumented
+
+class ItemsView(_ItemsView[_KT_co, _VT_co], Generic[_KT_co, _VT_co]):
+    _mapping: Mapping[_KT_co, _VT_co]  # undocumented
