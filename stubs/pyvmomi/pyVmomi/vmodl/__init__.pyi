@@ -19,7 +19,7 @@ class LocalizableMessage:
     arg: list[KeyAnyValue] | None
     message: str | None
 
-class MethodFault:
+class MethodFault(Exception):
     msg: str | None
     faultCause: MethodFault | None
     faultMessage: list[LocalizableMessage] | None
