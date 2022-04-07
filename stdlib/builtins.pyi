@@ -1487,6 +1487,7 @@ _SumS = TypeVar("_SumS", bound=_SupportsSum)
 if sys.version_info >= (3, 8):
     @overload
     def sum(__iterable: Iterable[str], start: _SupportsSum = ...) -> NoReturn: ...
+
 else:
     @overload
     def sum(__iterable: Iterable[str], __start: _SupportsSum = ...) -> NoReturn: ...
