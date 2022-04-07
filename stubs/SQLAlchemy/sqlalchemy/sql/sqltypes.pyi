@@ -1,6 +1,7 @@
 from typing import Any
 
 from .base import SchemaEventTarget
+from .operators import ColumnOperators
 from .traversals import HasCacheKey
 from .type_api import (
     Emulated as Emulated,
@@ -21,7 +22,7 @@ class Concatenable:
 
 class Indexable:
     class Comparator(TypeEngine.Comparator):
-        def __getitem__(self, index): ...
+        def __getitem__(self, index) -> ColumnOperators: ...
     comparator_factory: Any
 
 class String(Concatenable, TypeEngine):
@@ -256,7 +257,7 @@ class ARRAY(SchemaEventTarget, Indexable, Concatenable, TypeEngine):
     zero_indexes: bool
 
     class Comparator(Indexable.Comparator, Concatenable.Comparator):
-        def contains(self, *arg, **kw) -> ARRAY.Comparator: ...
+        def contains(self, *arg, **kw) -> ColumnOperators: ...
         def any(self, other, operator: Any | None = ...): ...
         def all(self, other, operator: Any | None = ...): ...
     comparator_factory: Any
