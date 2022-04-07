@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Generic, TypeVar
 
 from .base import SchemaEventTarget
 from .operators import ColumnOperators
@@ -12,17 +12,19 @@ from .type_api import (
     to_instance as to_instance,
 )
 
+_T = TypeVar("_T")
+
 class _LookupExpressionAdapter:
-    class Comparator(TypeEngine.Comparator): ...
+    class Comparator(TypeEngine.Comparator[Any]): ...
     comparator_factory: Any
 
 class Concatenable:
-    class Comparator(TypeEngine.Comparator): ...
+    class Comparator(TypeEngine.Comparator[Any]): ...
     comparator_factory: Any
 
 class Indexable:
-    class Comparator(TypeEngine.Comparator):
-        def __getitem__(self, index) -> ColumnOperators: ...
+    class Comparator(TypeEngine.Comparator[_T], Generic[_T]):
+        def __getitem__(self, index) -> ColumnOperators[_T]: ...
     comparator_factory: Any
 
 class String(Concatenable, TypeEngine):
@@ -257,7 +259,7 @@ class ARRAY(SchemaEventTarget, Indexable, Concatenable, TypeEngine):
     zero_indexes: bool
 
     class Comparator(Indexable.Comparator, Concatenable.Comparator):
-        def contains(self, *arg, **kw) -> ColumnOperators: ...
+        def contains(self, *arg, **kw) -> ColumnOperators[_T]: ...
         def any(self, other, operator: Any | None = ...): ...
         def all(self, other, operator: Any | None = ...): ...
     comparator_factory: Any
@@ -347,7 +349,7 @@ class NullType(TypeEngine):
     __visit_name__: str
     def literal_processor(self, dialect): ...
 
-    class Comparator(TypeEngine.Comparator): ...
+    class Comparator(TypeEngine.Comparator[Any]): ...
     comparator_factory: Any
 
 class TableValueType(HasCacheKey, TypeEngine):

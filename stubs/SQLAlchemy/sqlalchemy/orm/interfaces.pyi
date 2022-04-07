@@ -57,7 +57,7 @@ class MapperProperty(HasCacheKey, _MappedAttribute, InspectionAttr, util.Memoize
         self, session, source_state, source_dict, dest_state, dest_dict, load, _recursive, _resolve_conflict_map
     ) -> None: ...
 
-class PropComparator(operators.ColumnOperators):
+class PropComparator(operators.ColumnOperators[Any]):
     __visit_name__: str
     prop: Any
     property: Any

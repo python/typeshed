@@ -14,7 +14,7 @@ INDEXABLE: Any
 TABLEVALUE: Any
 
 class TypeEngine(Traversible):
-    class Comparator(operators.ColumnOperators):
+    class Comparator(operators.ColumnOperators[Any]):
         default_comparator: Any
         def __clause_element__(self): ...
         expr: Any
