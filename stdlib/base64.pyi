@@ -1,6 +1,6 @@
 import sys
-from typing import IO
 from _typeshed import ReadableBuffer
+from typing import IO
 
 if sys.version_info >= (3, 10):
     __all__ = [
