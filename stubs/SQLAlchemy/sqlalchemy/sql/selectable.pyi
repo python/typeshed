@@ -1,6 +1,6 @@
+from _typeshed import Self
 from typing import Any
 
-from _typeshed import Self
 from .. import util
 from ..util import HasMemoized, memoized_property
 from . import roles, traversals, visitors
