@@ -1484,6 +1484,13 @@ class _SupportsSum(Protocol):
 _SumT = TypeVar("_SumT", bound=_SupportsSum)
 _SumS = TypeVar("_SumS", bound=_SupportsSum)
 
+if sys.version_info >= (3, 8):
+    @overload
+    def sum(__iterable: Iterable[str], start: _SupportsSum = ...) -> NoReturn: ...
+else:
+    @overload
+    def sum(__iterable: Iterable[str], __start: _SupportsSum = ...) -> NoReturn: ...
+
 @overload
 def sum(__iterable: Iterable[_SumT]) -> _SumT | Literal[0]: ...
 
