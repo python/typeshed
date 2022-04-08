@@ -200,6 +200,7 @@ class FunctionType:
         @property
         def __builtins__(self) -> dict[str, Any]: ...
 
+    __module__: str
     def __init__(
         self,
         code: CodeType,
@@ -659,10 +660,10 @@ if sys.version_info >= (3, 10):
     @final
     class NoneType:
         def __bool__(self) -> Literal[False]: ...
-    EllipsisType = ellipsis  # noqa F811 from builtins
+    EllipsisType = ellipsis  # noqa: F821 from builtins
     from builtins import _NotImplementedType
 
-    NotImplementedType = _NotImplementedType  # noqa F811 from builtins
+    NotImplementedType = _NotImplementedType
     @final
     class UnionType:
         @property

@@ -83,7 +83,7 @@ def _get_relative(filename: str) -> str:
     top = 0
     for d in TYPESHED_SUBDIRS:
         try:
-            top = filename.index(d)
+            top = filename.index(d + os.path.sep)
         except ValueError:
             continue
         else:

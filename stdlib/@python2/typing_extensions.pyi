@@ -1,6 +1,6 @@
 import abc
 from _typeshed import Self
-from typing import (  # noqa Y022
+from typing import (  # noqa: Y022
     TYPE_CHECKING as TYPE_CHECKING,
     Any,
     Callable,
