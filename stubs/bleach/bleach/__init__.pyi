@@ -1,5 +1,4 @@
 from collections.abc import Container, Iterable
-from typing import Any
 
 from .css_sanitizer import CSSSanitizer
 from .linkifier import DEFAULT_CALLBACKS as DEFAULT_CALLBACKS, Linker as Linker, _Callback
