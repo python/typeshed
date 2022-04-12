@@ -1,4 +1,4 @@
-from typing import Any, Literal
+from typing import Any
 
 from . import jwk as jwk
 from .backends import get_random_bytes as get_random_bytes
