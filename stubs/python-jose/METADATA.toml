@@ -1,1 +1,2 @@
 version = "3.3.*"
+requires = ["types-cryptography"] # excluding pyasn1 until typing is available

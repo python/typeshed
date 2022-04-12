@@ -38,24 +38,24 @@ class Algorithms:
     PBES2_HS384_A192KW: str
     PBES2_HS512_A256KW: str
     DEF: str
-    HMAC: Any
-    RSA_DS: Any
-    RSA_KW: Any
-    RSA: Any
-    EC_DS: Any
-    EC_KW: Any
-    EC: Any
-    AES_PSEUDO: Any
-    AES_JWE_ENC: Any
-    AES_ENC: Any
-    AES_KW: Any
-    AEC_GCM_KW: Any
-    AES: Any
-    PBES2_KW: Any
-    HMAC_AUTH_TAG: Any
-    GCM: Any
-    SUPPORTED: Any
-    ALL: Any
+    HMAC: set[str]
+    RSA_DS: set[str]
+    RSA_KW: set[str]
+    RSA: set[str]
+    EC_DS: set[str]
+    EC_KW: set[str]
+    EC: set[str]
+    AES_PSEUDO: set[str]
+    AES_JWE_ENC: set[str]
+    AES_ENC: set[str]
+    AES_KW: set[str]
+    AEC_GCM_KW: set[str]
+    AES: set[str]
+    PBES2_KW: set[str]
+    HMAC_AUTH_TAG: set[str]
+    GCM: set[str]
+    SUPPORTED: set[str]
+    ALL: set[str]
     HASHES: Any
     KEYS: Any
 
