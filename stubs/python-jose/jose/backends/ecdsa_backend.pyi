@@ -1,0 +1,23 @@
+from typing import Any
+
+from ..constants import ALGORITHMS as ALGORITHMS
+from ..exceptions import JWKError as JWKError
+from ..utils import base64_to_long as base64_to_long, long_to_base64 as long_to_base64
+from .base import Key as Key
+
+class ECDSAECKey(Key):
+    SHA256: Any
+    SHA384: Any
+    SHA512: Any
+    CURVE_MAP: Any
+    CURVE_NAMES: Any
+    hash_alg: Any
+    curve: Any
+    prepared_key: Any
+    def __init__(self, key, algorithm) -> None: ...
+    def sign(self, msg): ...
+    def verify(self, msg, sig): ...
+    def is_public(self): ...
+    def public_key(self): ...
+    def to_pem(self): ...
+    def to_dict(self): ...
