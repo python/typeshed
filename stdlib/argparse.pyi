@@ -106,11 +106,8 @@ class _ActionsContainer:
     def add_argument(
         self,
         *name_or_flags: str,
-        action: Literal[
-            "store", "store_const", "store_true", "store_false", "append", "append_const", "count", "help", "version", "extend"
-        ]
-        | type[Action] = ...,
-        nargs: int | Literal["?", "*", "+", "...", "A...", "==SUPPRESS=="] | _SUPPRESS_T = ...,
+        action: str | type[Action] = ...,
+        nargs: int | str | _SUPPRESS_T = ...,
         const: Any = ...,
         default: Any = ...,
         type: Callable[[str], _T] | FileType = ...,
