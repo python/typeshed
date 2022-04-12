@@ -1,1 +1,10 @@
 jose.backends.cryptography_backend
+jose.backends.AESKey
+jose.backends.CryptographyAESKey
+jose.backends.CryptographyECKey
+jose.backends.CryptographyHMACKey
+jose.backends.CryptographyRSAKey
+jose.backends.ECDSAECKey
+jose.backends.ECKey
+jose.backends.HMACKey
+jose.backends.RSAKey

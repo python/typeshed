@@ -1,7 +1,5 @@
 from typing import Any
 
-from ..utils import base64url_encode as base64url_encode, ensure_binary as ensure_binary
-
 class Key:
     def __init__(self, key, algorithm) -> None: ...
     def sign(self, msg) -> None: ...
