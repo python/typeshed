@@ -1,4 +1,4 @@
-from typing import Any, Callable
+from collections.abc import Callable
 
 from .base import DIRKey as DIRKey
 
