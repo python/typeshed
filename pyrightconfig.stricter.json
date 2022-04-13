@@ -57,6 +57,7 @@
         "stubs/Pygments",
         "stubs/PyMySQL",
         "stubs/python-dateutil",
+        "stubs/python-jose",
         "stubs/pyvmomi",
         "stubs/PyYAML",
         "stubs/redis",
