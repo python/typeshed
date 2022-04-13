@@ -33,14 +33,12 @@ ast.Index.__new__
 ast.NameConstant.__new__
 ast.Num.__new__
 ast.Str.__new__
-asyncio.base_events.__all__  # Fixed in 3.10.3
 asyncio.Future.__init__  # Usually initialized from c object
 asyncio.Future._callbacks  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future._callbacks  # Usually initialized from c object
-asyncio.Server  # Fixed in 3.10.3
 builtins.dict.get
-builtins.float.__set_format__  # Internal method for CPython test suite
+builtins.float.__setformat__  # Internal method for CPython test suite
 builtins.property.__set_name__  # Doesn't actually exist
 contextvars.Context.__init__  # Default C __init__ signature is wrong
 contextlib.AbstractAsyncContextManager.__class_getitem__
