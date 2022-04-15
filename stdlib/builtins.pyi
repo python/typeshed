@@ -52,7 +52,6 @@ from typing import (
     SupportsInt,
     SupportsRound,
     TypeVar,
-    Union,
     overload,
 )
 from typing_extensions import Literal, SupportsIndex, TypeGuard, final
