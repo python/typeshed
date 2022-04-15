@@ -1776,13 +1776,14 @@ if sys.version_info >= (3, 11):
         def __new__(cls: type[Self], __message: str, __exceptions: Sequence[_ExceptionT_co]) -> Self: ...
         @property
         def exceptions(self) -> tuple[_ExceptionT_co | ExceptionGroup[_ExceptionT_co], ...]: ...
-        @overload
+        # We accept a narrower type, but that's OK.
+        @overload  # type: ignore[override]
         def subgroup(
             self, __condition: type[_ExceptionT] | tuple[type[_ExceptionT], ...]
         ) -> ExceptionGroup[_ExceptionT] | None: ...
         @overload
         def subgroup(self: Self, __condition: Callable[[_ExceptionT_co], bool]) -> Self | None: ...
-        @overload
+        @overload  # type: ignore[override]
         def split(
             self: Self, __condition: type[_ExceptionT] | tuple[type[_ExceptionT], ...]
         ) -> tuple[ExceptionGroup[_ExceptionT] | None, Self | None]: ...
