@@ -56,6 +56,7 @@ __all__ = [
     "SupportsIndex",
     "Annotated",
     "assert_never",
+    "assert_type",
     "dataclass_transform",
     "final",
     "IntVar",
