@@ -186,7 +186,13 @@ else:
 
 # New things in 3.11
 if sys.version_info >= (3, 11):
-    from typing import Never as Never, Self as Self, assert_never as assert_never, assert_type as assert_type, reveal_type as reveal_type
+    from typing import (
+        Never as Never,
+        Self as Self,
+        assert_never as assert_never,
+        assert_type as assert_type,
+        reveal_type as reveal_type,
+    )
 else:
     Self: _SpecialForm
     Never: _SpecialForm
