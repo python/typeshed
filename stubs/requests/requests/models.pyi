@@ -71,8 +71,8 @@ class Request(RequestHooksMixin):
     def prepare(self) -> PreparedRequest: ...
 
 class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
-    method: str | str | None
-    url: str | str | None
+    method: str | None
+    url: str | None
     headers: CaseInsensitiveDict[str]
     body: bytes | str | None
     hooks: Any
