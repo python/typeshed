@@ -1,9 +1,9 @@
 from _typeshed import OptExcInfo
+from _typeshed.wsgi import ErrorStream, InputStream, StartResponse, WSGIApplication, WSGIEnvironment
 from abc import abstractmethod
 from typing import IO, Callable, MutableMapping
 
 from .headers import Headers
-from .types import ErrorStream, InputStream, StartResponse, WSGIApplication, WSGIEnvironment
 from .util import FileWrapper
 
 __all__ = ["BaseHandler", "SimpleHandler", "BaseCGIHandler", "CGIHandler", "IISCGIHandler", "read_environ"]
