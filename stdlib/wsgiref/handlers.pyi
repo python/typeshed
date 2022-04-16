@@ -1,8 +1,6 @@
 from _typeshed import OptExcInfo
 from abc import abstractmethod
-from types import TracebackType
 from typing import IO, Callable, MutableMapping
-from typing_extensions import TypeAlias
 
 from .headers import Headers
 from .types import ErrorStream, InputStream, StartResponse, WSGIApplication, WSGIEnvironment
