@@ -1,5 +1,6 @@
 import typing
 from typing import Any, Callable, Mapping, Pattern, Union
+from typing_extensions import TypeAlias
 
 from parsimonious.exceptions import ParseError
 from parsimonious.grammar import Grammar
@@ -8,8 +9,8 @@ from parsimonious.utils import StrAndRepr
 
 MARKER: Any
 
-_CALLABLE_RETURN_TYPE = Union[int, tuple[int, list[Node]], Node, None]
-_CALLABLE_TYPE = (
+_CALLABLE_RETURN_TYPE: TypeAlias = Union[int, tuple[int, list[Node]], Node, None]
+_CALLABLE_TYPE: TypeAlias = (
     Callable[[str, int], _CALLABLE_RETURN_TYPE]
     | Callable[[str, int, Mapping[tuple[int, int], Node], ParseError, Grammar], _CALLABLE_RETURN_TYPE]
 )

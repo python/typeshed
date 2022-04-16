@@ -3,6 +3,7 @@ from socket import socket
 from threading import Condition, Event, Lock, Thread
 from types import ModuleType
 from typing import Any, Callable, Iterable, Protocol, Sequence
+from typing_extensions import TypeAlias
 
 from paramiko.auth_handler import AuthHandler, _InteractiveCallback
 from paramiko.channel import Channel
@@ -14,8 +15,8 @@ from paramiko.sftp_client import SFTPClient
 from paramiko.ssh_gss import _SSH_GSSAuth
 from paramiko.util import ClosingContextManager
 
-_Addr = tuple[str, int]
-_SocketLike = str | _Addr | socket | Channel
+_Addr: TypeAlias = tuple[str, int]
+_SocketLike: TypeAlias = str | _Addr | socket | Channel
 
 class _KexEngine(Protocol):
     def start_kex(self) -> None: ...

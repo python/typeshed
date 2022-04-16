@@ -54,7 +54,7 @@ from typing import (
     TypeVar,
     overload,
 )
-from typing_extensions import Literal, SupportsIndex, TypeGuard, final
+from typing_extensions import Literal, SupportsIndex, TypeAlias, TypeGuard, final
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -194,8 +194,8 @@ class super:
     @overload
     def __init__(self) -> None: ...
 
-_PositiveInteger = Literal[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
-_NegativeInteger = Literal[-1, -2, -3, -4, -5, -6, -7, -8, -9, -10, -11, -12, -13, -14, -15, -16, -17, -18, -19, -20]
+_PositiveInteger: TypeAlias = Literal[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+_NegativeInteger: TypeAlias = Literal[-1, -2, -3, -4, -5, -6, -7, -8, -9, -10, -11, -12, -13, -14, -15, -16, -17, -18, -19, -20]
 
 class int:
     @overload
@@ -1263,7 +1263,7 @@ def next(__i: SupportsNext[_T], __default: _VT) -> _T | _VT: ...
 def oct(__number: int | SupportsIndex) -> str: ...
 
 _OpenFile = StrOrBytesPath | int
-_Opener = Callable[[str, int], int]
+_Opener: TypeAlias = Callable[[str, int], int]
 
 # Text mode: always returns a TextIOWrapper
 @overload

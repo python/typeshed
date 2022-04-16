@@ -1,5 +1,6 @@
 from _typeshed import Self, SupportsItems
 from typing import IO, Any, Callable, Iterable, Mapping, MutableMapping, TypeVar, Union
+from typing_extensions import TypeAlias
 
 from urllib3 import _collections
 
@@ -27,8 +28,8 @@ TooManyRedirects = exceptions.TooManyRedirects
 InvalidSchema = exceptions.InvalidSchema
 ChunkedEncodingError = exceptions.ChunkedEncodingError
 ContentDecodingError = exceptions.ContentDecodingError
-RecentlyUsedContainer = _collections.RecentlyUsedContainer[_KT, _VT]
-CaseInsensitiveDict = structures.CaseInsensitiveDict[_VT]
+RecentlyUsedContainer: TypeAlias = _collections.RecentlyUsedContainer[_KT, _VT]
+CaseInsensitiveDict: TypeAlias = structures.CaseInsensitiveDict[_VT]
 HTTPAdapter = adapters.HTTPAdapter
 requote_uri = utils.requote_uri
 get_environ_proxies = utils.get_environ_proxies
@@ -47,21 +48,21 @@ class SessionRedirectMixin:
     def rebuild_proxies(self, prepared_request, proxies): ...
     def should_strip_auth(self, old_url, new_url): ...
 
-_Data = str | bytes | Mapping[str, Any] | Iterable[tuple[str, str | None]] | IO[Any] | None
+_Data: TypeAlias = str | bytes | Mapping[str, Any] | Iterable[tuple[str, str | None]] | IO[Any] | None
 
-_Hook = Callable[[Response], Any]
-_Hooks = MutableMapping[str, _Hook | list[_Hook]]
-_HooksInput = MutableMapping[str, Iterable[_Hook] | _Hook]
+_Hook: TypeAlias = Callable[[Response], Any]
+_Hooks: TypeAlias = MutableMapping[str, _Hook | list[_Hook]]
+_HooksInput: TypeAlias = MutableMapping[str, Iterable[_Hook] | _Hook]
 
-_ParamsMappingKeyType = str | bytes | int | float
-_ParamsMappingValueType = str | bytes | int | float | Iterable[str | bytes | int | float] | None
-_Params = Union[
+_ParamsMappingKeyType: TypeAlias = str | bytes | int | float
+_ParamsMappingValueType: TypeAlias = str | bytes | int | float | Iterable[str | bytes | int | float] | None
+_Params: TypeAlias = Union[
     SupportsItems[_ParamsMappingKeyType, _ParamsMappingValueType],
     tuple[_ParamsMappingKeyType, _ParamsMappingValueType],
     Iterable[tuple[_ParamsMappingKeyType, _ParamsMappingValueType]],
     str | bytes,
 ]
-_TextMapping = MutableMapping[str, str]
+_TextMapping: TypeAlias = MutableMapping[str, str]
 
 class Session(SessionRedirectMixin):
     __attrs__: Any

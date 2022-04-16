@@ -1,5 +1,6 @@
 from collections.abc import Callable, Container, Iterable
 from typing import Any, Pattern
+from typing_extensions import TypeAlias
 
 from .css_sanitizer import CSSSanitizer
 from .html5lib_shim import BleachHTMLParser, BleachHTMLSerializer, SanitizerFilter
@@ -38,9 +39,9 @@ class Cleaner:
     ) -> None: ...
     def clean(self, text: str) -> str: ...
 
-_AttributeFilter = Callable[[str, str, str], bool]
-_AttributeDict = dict[str, list[str] | _AttributeFilter] | dict[str, list[str]] | dict[str, _AttributeFilter]
-_Attributes = _AttributeFilter | _AttributeDict | list[str]
+_AttributeFilter: TypeAlias = Callable[[str, str, str], bool]
+_AttributeDict: TypeAlias = dict[str, list[str] | _AttributeFilter] | dict[str, list[str]] | dict[str, _AttributeFilter]
+_Attributes: TypeAlias = _AttributeFilter | _AttributeDict | list[str]
 
 def attribute_filter_factory(attributes: _Attributes) -> _AttributeFilter: ...
 
