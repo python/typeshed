@@ -1,7 +1,6 @@
 from collections.abc import Callable, Iterable
 from sys import _OptExcInfo
-from types import TracebackType
-from typing import Any, Protocol, Tuple
+from typing import Any, Protocol
 from typing_extensions import TypeAlias
 
 __all__ = ["StartResponse", "WSGIEnvironment", "WSGIApplication", "InputStream", "ErrorStream", "FileWrapper"]
