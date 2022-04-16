@@ -1,4 +1,5 @@
-from typing import Any, Mapping
+from collections.abc import Mapping
+from typing import Any
 
 from urllib3 import exceptions as urllib3_exceptions, poolmanager, response
 from urllib3.util import retry

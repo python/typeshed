@@ -1,5 +1,5 @@
+from collections.abc import Callable
 from threading import Event
-from typing import Callable
 from typing_extensions import TypeAlias
 
 from paramiko.pkey import PKey

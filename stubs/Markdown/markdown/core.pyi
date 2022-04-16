@@ -1,5 +1,6 @@
 from _typeshed import Self
-from typing import Any, BinaryIO, Callable, ClassVar, Mapping, Sequence, Text, TextIO
+from collections.abc import Callable, Mapping, Sequence
+from typing import Any, BinaryIO, ClassVar, Text, TextIO
 from typing_extensions import Literal
 from xml.etree.ElementTree import Element
 

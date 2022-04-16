@@ -1,6 +1,7 @@
 from _typeshed import StrOrBytesPath
+from collections.abc import Callable, Iterable, Sequence
 from datetime import datetime
-from typing import Any, Callable, Iterable, Sequence
+from typing import Any
 from typing_extensions import TypeAlias
 
 from cryptography.hazmat.primitives.asymmetric.dsa import DSAPrivateKey, DSAPublicKey

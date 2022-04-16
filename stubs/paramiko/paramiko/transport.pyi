@@ -1,8 +1,9 @@
+from collections.abc import Callable, Iterable, Sequence
 from logging import Logger
 from socket import socket
 from threading import Condition, Event, Lock, Thread
 from types import ModuleType
-from typing import Any, Callable, Iterable, Protocol, Sequence
+from typing import Any, Protocol
 from typing_extensions import TypeAlias
 
 from paramiko.auth_handler import AuthHandler, _InteractiveCallback

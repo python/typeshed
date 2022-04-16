@@ -3,7 +3,8 @@ import types
 import zipimport
 from _typeshed import Self
 from abc import ABCMeta
-from typing import IO, Any, Callable, Generator, Iterable, Sequence, TypeVar, overload
+from collections.abc import Callable, Generator, Iterable, Sequence
+from typing import IO, Any, TypeVar, overload
 from typing_extensions import TypeAlias
 
 LegacyVersion: TypeAlias = Any  # from packaging.version

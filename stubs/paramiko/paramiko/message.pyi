@@ -1,5 +1,6 @@
 import sys
-from typing import Any, Iterable
+from collections.abc import Iterable
+from typing import Any
 from typing_extensions import TypeAlias
 
 from .common import _LikeBytes

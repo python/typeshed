@@ -1,5 +1,6 @@
 import typing
-from typing import Any, Callable, Mapping, Pattern, Union
+from collections.abc import Callable, Mapping
+from typing import Any, Pattern, Union
 from typing_extensions import TypeAlias
 
 from parsimonious.exceptions import ParseError

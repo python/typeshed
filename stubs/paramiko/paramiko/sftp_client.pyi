@@ -1,6 +1,7 @@
 from _typeshed import Self
+from collections.abc import Callable, Iterator
 from logging import Logger
-from typing import IO, Any, Callable, Iterator
+from typing import IO, Any
 from typing_extensions import TypeAlias
 
 from paramiko.channel import Channel

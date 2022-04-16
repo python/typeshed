@@ -1,8 +1,8 @@
 from _typeshed import Self
 from abc import abstractmethod
-from collections.abc import Mapping
+from collections.abc import Callable, Mapping
 from types import TracebackType
-from typing import Any, Callable, TypeVar, overload
+from typing import Any, TypeVar, overload
 from typing_extensions import TypeAlias
 
 from ..dbapi import DBAPIConnection
