@@ -1,4 +1,4 @@
-from _typeshed.wsgiref import ErrorStream, InputStream, StartResponse, WSGIApplication, WSGIEnvironment
+from _typeshed.wsgi import ErrorStream, InputStream, StartResponse, WSGIApplication, WSGIEnvironment
 from abc import abstractmethod
 from types import TracebackType
 from typing import IO, Callable, MutableMapping
