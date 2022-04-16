@@ -197,6 +197,9 @@ WriteableBuffer: TypeAlias = bytearray | memoryview | array.array[Any] | mmap.mm
 # Same as _WriteableBuffer, but also includes read-only buffer types (like bytes).
 ReadableBuffer: TypeAlias = ReadOnlyBuffer | WriteableBuffer  # stable
 
+ExcInfo: TypeAlias = tuple[type[BaseException], BaseException, TracebackType]
+OptExcInfo: TypeAlias = Union[_ExcInfo, tuple[None, None, None]]
+
 # stable
 if sys.version_info >= (3, 10):
     from types import NoneType as NoneType

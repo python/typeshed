@@ -29,7 +29,7 @@ class AbstractListener(threading.Thread):
     _thread: threading.Thread  # undocumented
     _condition: threading.Condition  # undocumented
     _ready: bool  # undocumented
-    _queue: Queue[sys._OptExcInfo | None]  # undocumented
+    _queue: Queue[sys._OptExcInfo | None]  # undocumented  # TODO: use _typeshed.OptExcInfo after release of mypy 0.950
     daemon: bool
     def __init__(self, suppress: bool = ..., **kwargs: Callable[..., bool | None] | None) -> None: ...
     @property

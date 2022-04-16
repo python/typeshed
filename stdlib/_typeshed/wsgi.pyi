@@ -2,14 +2,14 @@
 #
 # See the README.md file in this directory for more information.
 
-from sys import _OptExcInfo
+from _typeshed import OptExcInfo
 from typing import Any, Callable, Iterable, Protocol
 from typing_extensions import TypeAlias
 
 # stable
 class StartResponse(Protocol):
     def __call__(
-        self, status: str, headers: list[tuple[str, str]], exc_info: _OptExcInfo | None = ...
+        self, status: str, headers: list[tuple[str, str]], exc_info: OptExcInfo | None = ...
     ) -> Callable[[bytes], Any]: ...
 
 WSGIEnvironment: TypeAlias = dict[str, Any]  # stable
