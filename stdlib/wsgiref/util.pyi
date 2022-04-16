@@ -1,7 +1,6 @@
 import sys
-from typing import IO, Any, Callable
-
 from _typeshed.wsgi import WSGIEnvironment
+from typing import IO, Any, Callable
 
 __all__ = ["FileWrapper", "guess_scheme", "application_uri", "request_uri", "shift_path_info", "setup_testing_defaults"]
 
