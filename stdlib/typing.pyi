@@ -22,9 +22,12 @@ if sys.version_info >= (3, 11):
         "ForwardRef",
         "Generic",
         "Literal",
+        "LiteralString",
+        "NotRequired",
         "Optional",
         "ParamSpec",
         "Protocol",
+        "Required",
         "Tuple",
         "Type",
         "TypeVar",
@@ -530,6 +533,9 @@ if sys.version_info >= (3, 11):
     Self: _SpecialForm
     Never: _SpecialForm = ...
     Unpack: _SpecialForm
+    Required: _SpecialForm
+    NotRequired: _SpecialForm
+    LiteralString: _SpecialForm
 
     class TypeVarTuple:
         __name__: str
