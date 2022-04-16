@@ -8,14 +8,14 @@ from _typeshed import (
 )
 from asyncio import AbstractEventLoop
 from typing import Any, Callable, overload
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from ..base import AiofilesContextManager
 from .binary import AsyncBufferedIOBase, AsyncBufferedReader, AsyncFileIO, _UnknownAsyncBinaryIO
 from .text import AsyncTextIOWrapper
 
-_OpenFile = StrOrBytesPath | int
-_Opener = Callable[[str, int], int]
+_OpenFile: TypeAlias = StrOrBytesPath | int
+_Opener: TypeAlias = Callable[[str, int], int]
 
 # Text mode: always returns AsyncTextIOWrapper
 @overload

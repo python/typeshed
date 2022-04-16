@@ -3,10 +3,11 @@ import sys
 from _typeshed import Self
 from types import TracebackType
 from typing import Any, Container, NamedTuple, Sequence, Union, overload
+from typing_extensions import TypeAlias
 
-_Decimal = Decimal | int
-_DecimalNew = Union[Decimal, float, str, tuple[int, Sequence[int], int]]
-_ComparableNum = Decimal | float | numbers.Rational
+_Decimal: TypeAlias = Decimal | int
+_DecimalNew: TypeAlias = Union[Decimal, float, str, tuple[int, Sequence[int], int]]
+_ComparableNum: TypeAlias = Decimal | float | numbers.Rational
 
 __libmpdec_version__: str
 
@@ -159,7 +160,7 @@ class _ContextManager:
     def __enter__(self) -> Context: ...
     def __exit__(self, t: type[BaseException] | None, v: BaseException | None, tb: TracebackType | None) -> None: ...
 
-_TrapType = type[DecimalException]
+_TrapType: TypeAlias = type[DecimalException]
 
 class Context:
     prec: int

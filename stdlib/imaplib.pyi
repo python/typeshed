@@ -5,18 +5,19 @@ from _typeshed import Self
 from socket import socket as _socket
 from ssl import SSLContext, SSLSocket
 from types import TracebackType
-from typing import IO, Any, Callable, Pattern
-from typing_extensions import Literal
+from typing import IO, Any, Callable, Pattern, TypeVar
+from typing_extensions import Literal, TypeAlias
 
 __all__ = ["IMAP4", "IMAP4_stream", "Internaldate2tuple", "Int2AP", "ParseFlags", "Time2Internaldate", "IMAP4_SSL"]
 
 # TODO: Commands should use their actual return types, not this type alias.
 #       E.g. Tuple[Literal["OK"], List[bytes]]
-_CommandResults = tuple[str, list[Any]]
+_CommandResults: TypeAlias = tuple[str, list[Any]]
 
-_AnyResponseData = list[None] | list[bytes | tuple[bytes, bytes]]
+_AnyResponseData: TypeAlias = list[None] | list[bytes | tuple[bytes, bytes]]
 
-_list = list  # conflicts with a method named "list"
+_T = TypeVar("_T")
+_list: TypeAlias = list[_T]  # conflicts with a method named "list"
 
 class IMAP4:
     error: type[Exception]
