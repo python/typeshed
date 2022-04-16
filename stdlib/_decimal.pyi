@@ -9,7 +9,6 @@ _Decimal: TypeAlias = Decimal | int
 _DecimalNew: TypeAlias = Union[Decimal, float, str, tuple[int, Sequence[int], int]]
 _ComparableNum: TypeAlias = Decimal | float | numbers.Rational
 
-__doc__: str
 __version__: str
 __libmpdec_version__: str
 
