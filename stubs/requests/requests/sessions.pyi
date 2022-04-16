@@ -1,14 +1,12 @@
 from _typeshed import Self, SupportsItems
-from typing import IO, Any, Callable, Iterable, Mapping, MutableMapping, TypeVar, Union
+from typing import IO, Any, Callable, Iterable, Mapping, MutableMapping, Union
 from typing_extensions import TypeAlias
 
-from urllib3 import _collections
+from urllib3._collections import _collections import RecentlyUsedContainer as RecentlyUsedContainer
 
-from . import adapters, auth as _auth, compat, cookies, exceptions, hooks, models, status_codes, structures, utils
+from . import adapters, auth as _auth, compat, cookies, exceptions, hooks, models, status_codes, utils
 from .models import Response
-
-_KT = TypeVar("_KT")
-_VT = TypeVar("_VT")
+from .structures import CaseInsensitiveDict as CaseInsensitiveDict
 
 _BaseAdapter = adapters.BaseAdapter
 OrderedDict = compat.OrderedDict
@@ -28,8 +26,6 @@ TooManyRedirects = exceptions.TooManyRedirects
 InvalidSchema = exceptions.InvalidSchema
 ChunkedEncodingError = exceptions.ChunkedEncodingError
 ContentDecodingError = exceptions.ContentDecodingError
-RecentlyUsedContainer: TypeAlias = _collections.RecentlyUsedContainer[_KT, _VT]
-CaseInsensitiveDict: TypeAlias = structures.CaseInsensitiveDict[_VT]
 HTTPAdapter = adapters.HTTPAdapter
 requote_uri = utils.requote_uri
 get_environ_proxies = utils.get_environ_proxies
