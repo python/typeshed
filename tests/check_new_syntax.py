@@ -79,6 +79,15 @@ def check_new_syntax(tree: ast.AST, path: Path, stub: str) -> list[str]:
                 )
             self.generic_visit(node)
 
+    class TextFinder(ast.NodeVisitor):
+        def visit_ImportFrom(self, node: ast.ImportFrom) -> None:
+            if node.module == "typing" and any(thing.name == "Text" for thing in node.names):
+                errors.append(f"{path}:{node.lineno}: Use `str` instead of `typing.Text` in a Python-3-only stub.")
+
+        def visit_Attribute(self, node: ast.Attribute) -> None:
+            if isinstance(node.value, ast.Name) and node.value.id == "typing" and node.attr == "Text":
+                errors.append(f"{path}:{node.lineno}: Use `str` instead of `typing.Text` in a Python-3-only stub.")
+
     class IfFinder(ast.NodeVisitor):
         def visit_If(self, node: ast.If) -> None:
             if (
@@ -96,6 +105,8 @@ def check_new_syntax(tree: ast.AST, path: Path, stub: str) -> list[str]:
 
     if not python_2_support_required:
         ObjectClassdefFinder().visit(tree)
+        if path != Path("stdlib/typing_extensions.pyi"):
+            TextFinder().visit(tree)
 
     OldSyntaxFinder().visit(tree)
     IfFinder().visit(tree)
