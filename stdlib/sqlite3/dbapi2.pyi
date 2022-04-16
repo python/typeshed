@@ -1,7 +1,7 @@
 import sqlite3
 import sys
 from _typeshed import ReadableBuffer, Self, StrOrBytesPath, SupportsLenAndGetItem
-from collections.abc import Callable, Generator, Iterable, Iterator
+from collections.abc import Callable, Generator, Iterable, Iterator, Mapping
 from datetime import date, datetime, time
 from types import TracebackType
 from typing import Any, Generic, Protocol, TypeVar, overload
@@ -13,7 +13,8 @@ _CursorT = TypeVar("_CursorT", bound=Cursor)
 _SqliteData: TypeAlias = str | ReadableBuffer | int | float | None
 # Data that is passed through adapters can be of any type accepted by an adapter.
 _AdaptedInputData: TypeAlias = _SqliteData | Any
-_Parameters: TypeAlias = SupportsLenAndGetItem[_AdaptedInputData] | dict[str, _AdaptedInputData]
+# The Mapping must really be a dict, but making it invariant is too annoying.
+_Parameters: TypeAlias = SupportsLenAndGetItem[_AdaptedInputData] | Mapping[str, _AdaptedInputData]
 _SqliteOutputData: TypeAlias = str | bytes | int | float | None
 _Adapter: TypeAlias = Callable[[_T], _SqliteData]
 _Converter: TypeAlias = Callable[[bytes], Any]
@@ -223,7 +224,10 @@ class Connection:
     else:
         def create_function(self, name: str, num_params: int, func: Any) -> None: ...
 
-    def cursor(self, cursorClass: Callable[[], _CursorT] | None = ...) -> _CursorT: ...
+    @overload
+    def cursor(self, cursorClass: None = ...) -> Cursor: ...
+    @overload
+    def cursor(self, cursorClass: Callable[[], _CursorT]) -> _CursorT: ...
     def execute(self, sql: str, parameters: _Parameters = ...) -> Cursor: ...
     def executemany(self, __sql: str, __parameters: Iterable[_Parameters]) -> Cursor: ...
     def executescript(self, __sql_script: str) -> Cursor: ...
