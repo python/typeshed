@@ -1,7 +1,7 @@
 import datetime
 from _typeshed import Self
-from collections.abc import Iterable, Sequence
-from typing import Any, Callable, NoReturn
+from collections.abc import Callable, Iterable, Sequence
+from typing import Any, NoReturn
 from typing_extensions import Literal, TypeAlias
 
 from google.cloud.ndb import exceptions, key as key_module, query as query_module, tasklets as tasklets_module

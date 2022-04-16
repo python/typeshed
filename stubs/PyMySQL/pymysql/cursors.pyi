@@ -1,5 +1,6 @@
 from _typeshed import Self
-from typing import Any, Iterable, Iterator, Text
+from collections.abc import Iterable, Iterator
+from typing import Any, Text
 
 from .connections import Connection
 

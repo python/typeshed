@@ -1,6 +1,7 @@
+from collections.abc import Iterable
 from datetime import timedelta
 from logging import Logger
-from typing import Any, Iterable, Pattern, TypeVar, overload
+from typing import Any, Pattern, TypeVar, overload
 from typing_extensions import TypeAlias, TypedDict
 
 _IterableT = TypeVar("_IterableT", bound=Iterable[Any])

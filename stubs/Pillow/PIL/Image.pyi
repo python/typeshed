@@ -1,7 +1,7 @@
 from _typeshed import Self, SupportsRead, SupportsWrite
-from collections.abc import Iterable, Iterator, MutableMapping
+from collections.abc import Callable, Iterable, Iterator, MutableMapping, Sequence
 from pathlib import Path
-from typing import Any, Callable, ClassVar, Protocol, Sequence, SupportsBytes, Union
+from typing import Any, ClassVar, Protocol, SupportsBytes, Union
 from typing_extensions import Literal, TypeAlias
 
 from ._imaging import (

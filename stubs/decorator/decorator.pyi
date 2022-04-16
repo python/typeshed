@@ -1,5 +1,6 @@
 import sys
-from typing import Any, Callable, Iterator, NamedTuple, Pattern, Text, TypeVar
+from collections.abc import Callable, Iterator
+from typing import Any, NamedTuple, Pattern, Text, TypeVar
 from typing_extensions import ParamSpec
 
 _C = TypeVar("_C", bound=Callable[..., Any])

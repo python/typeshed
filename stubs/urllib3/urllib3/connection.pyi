@@ -1,6 +1,7 @@
 import ssl
 import sys
-from typing import IO, Any, Iterable
+from collections.abc import Iterable
+from typing import IO, Any
 from typing_extensions import TypeAlias
 
 from . import exceptions, util
