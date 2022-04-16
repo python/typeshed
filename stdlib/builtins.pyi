@@ -218,15 +218,29 @@ class int:
     if sys.version_info >= (3, 10):
         def bit_count(self) -> int: ...
 
-    def to_bytes(self, length: SupportsIndex, byteorder: Literal["little", "big"], *, signed: bool = ...) -> bytes: ...
-    @classmethod
-    def from_bytes(
-        cls: type[Self],
-        bytes: Iterable[SupportsIndex] | SupportsBytes | ReadableBuffer,
-        byteorder: Literal["little", "big"],
-        *,
-        signed: bool = ...,
-    ) -> Self: ...
+    if sys.version_info >= (3, 11):
+        def to_bytes(
+            self, length: SupportsIndex = ..., byteorder: Literal["little", "big"] = ..., *, signed: bool = ...
+        ) -> bytes: ...
+        @classmethod
+        def from_bytes(
+            cls: type[Self],
+            bytes: Iterable[SupportsIndex] | SupportsBytes | ReadableBuffer,
+            byteorder: Literal["little", "big"] = ...,
+            *,
+            signed: bool = ...,
+        ) -> Self: ...
+    else:
+        def to_bytes(self, length: SupportsIndex, byteorder: Literal["little", "big"], *, signed: bool = ...) -> bytes: ...
+        @classmethod
+        def from_bytes(
+            cls: type[Self],
+            bytes: Iterable[SupportsIndex] | SupportsBytes | ReadableBuffer,
+            byteorder: Literal["little", "big"],
+            *,
+            signed: bool = ...,
+        ) -> Self: ...
+
     def __add__(self, __x: int) -> int: ...
     def __sub__(self, __x: int) -> int: ...
     def __mul__(self, __x: int) -> int: ...
