@@ -5,7 +5,7 @@ from collections.abc import Callable, Generator, Iterable, Iterator, Mapping
 from datetime import date, datetime, time
 from types import TracebackType
 from typing import Any, Generic, Protocol, TypeVar, overload
-from typing_extensions import Literal, TypeAlias, final
+from typing_extensions import Literal, SupportsIndex, TypeAlias, final
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
