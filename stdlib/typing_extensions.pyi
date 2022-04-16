@@ -191,8 +191,13 @@ else:
 # New things in 3.11
 if sys.version_info >= (3, 11):
     from typing import (
+        LiteralString as LiteralString,
         Never as Never,
+        NotRequired as NotRequired,
+        Required as Required,
         Self as Self,
+        TypeVarTuple as TypeVarTuple,
+        Unpack as Unpack,
         assert_never as assert_never,
         assert_type as assert_type,
         clear_overloads as clear_overloads,
@@ -208,18 +213,18 @@ else:
     def clear_overloads() -> None: ...
     def get_overloads(func: Callable[..., object]) -> Sequence[Callable[..., object]]: ...
 
+    Required: _SpecialForm
+    NotRequired: _SpecialForm
+    LiteralString: _SpecialForm
+    Unpack: _SpecialForm
+
+    @final
+    class TypeVarTuple:
+        __name__: str
+        def __init__(self, name: str) -> None: ...
+        def __iter__(self) -> Any: ...  # Unpack[Self]
+
 # Experimental (hopefully these will be in 3.11)
-Required: _SpecialForm
-NotRequired: _SpecialForm
-LiteralString: _SpecialForm
-Unpack: _SpecialForm
-
-@final
-class TypeVarTuple:
-    __name__: str
-    def __init__(self, name: str) -> None: ...
-    def __iter__(self) -> Any: ...  # Unpack[Self]
-
 def dataclass_transform(
     *,
     eq_default: bool = ...,
