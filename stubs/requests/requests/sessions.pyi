@@ -2,7 +2,7 @@ from _typeshed import Self, SupportsItems
 from typing import IO, Any, Callable, Iterable, Mapping, MutableMapping, Union
 from typing_extensions import TypeAlias
 
-from urllib3._collections import RecentlyUsedContainer as RecentlyUsedContainer
+from urllib3._collections import RecentlyUsedContainer
 
 from . import adapters, auth as _auth, compat, cookies, exceptions, hooks, models, status_codes, utils
 from .models import Response
