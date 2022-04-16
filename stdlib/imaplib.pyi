@@ -2,7 +2,7 @@ import subprocess
 import sys
 import time
 from _typeshed import Self
-from builtins import list as _list # conflicts with a method named "list"
+from builtins import list as _list  # conflicts with a method named "list"
 from socket import socket as _socket
 from ssl import SSLContext, SSLSocket
 from types import TracebackType
