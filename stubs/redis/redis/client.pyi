@@ -1,8 +1,9 @@
 import threading
 from _typeshed import Self, SupportsItems
+from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from datetime import datetime, timedelta
 from types import TracebackType
-from typing import Any, Callable, ClassVar, Generic, Iterable, Iterator, Mapping, Pattern, Sequence, TypeVar, overload
+from typing import Any, ClassVar, Generic, Pattern, TypeVar, overload
 from typing_extensions import Literal, TypeAlias
 
 from .commands import CoreCommands, RedisModuleCommands, SentinelCommands

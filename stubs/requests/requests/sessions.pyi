@@ -1,5 +1,6 @@
 from _typeshed import Self, SupportsItems
-from typing import IO, Any, Callable, Iterable, Mapping, MutableMapping, Union
+from collections.abc import Callable, Iterable, Mapping, MutableMapping
+from typing import IO, Any, Union
 from typing_extensions import TypeAlias
 
 from urllib3._collections import RecentlyUsedContainer

@@ -1,7 +1,8 @@
 import decimal
 from _typeshed import ReadableBuffer
+from collections.abc import Sequence
 from datetime import date, datetime, time
-from typing import Any, Sequence, overload
+from typing import Any, overload
 from typing_extensions import Literal, TypeAlias
 
 from .resultrow import ResultRow

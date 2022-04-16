@@ -1,8 +1,9 @@
 from _typeshed import Self
+from collections.abc import Callable, Sequence
 from contextlib import AbstractContextManager
 from stat import S_IMODE as S_IMODE
 from types import TracebackType
-from typing import IO, Any, Callable, Sequence
+from typing import IO, Any
 from typing_extensions import Literal, TypeAlias
 
 import paramiko
