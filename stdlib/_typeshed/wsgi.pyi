@@ -4,6 +4,7 @@
 #
 # See the README.md file in this directory for more information.
 
+import sys
 from sys import _OptExcInfo
 from typing import Any, Callable, Iterable, Protocol
 from typing_extensions import TypeAlias
