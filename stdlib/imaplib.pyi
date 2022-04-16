@@ -5,7 +5,7 @@ from _typeshed import Self
 from socket import socket as _socket
 from ssl import SSLContext, SSLSocket
 from types import TracebackType
-from typing import IO, Any, Callable, Pattern
+from typing import IO, Any, Callable, Pattern, TypeVar
 from typing_extensions import Literal, TypeAlias
 
 __all__ = ["IMAP4", "IMAP4_stream", "Internaldate2tuple", "Int2AP", "ParseFlags", "Time2Internaldate", "IMAP4_SSL"]
@@ -16,7 +16,8 @@ _CommandResults: TypeAlias = tuple[str, list[Any]]
 
 _AnyResponseData: TypeAlias = list[None] | list[bytes | tuple[bytes, bytes]]
 
-_list: TypeAlias = list  # conflicts with a method named "list"
+_T = TypeVar("_T")
+_list: TypeAlias = list[_T]  # conflicts with a method named "list"
 
 class IMAP4:
     error: type[Exception]

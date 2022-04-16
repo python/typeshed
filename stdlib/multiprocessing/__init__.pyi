@@ -20,7 +20,7 @@ from multiprocessing.process import active_children as active_children, current_
 # multiprocessing.queues or the aliases defined below. See #4266 for discussion.
 from multiprocessing.queues import JoinableQueue as JoinableQueue, Queue as Queue, SimpleQueue as SimpleQueue
 from multiprocessing.spawn import freeze_support as freeze_support
-from typing import Any, overload
+from typing import Any, overload, TypeVar
 from typing_extensions import Literal, TypeAlias
 
 if sys.version_info >= (3, 8):
@@ -118,9 +118,10 @@ else:
 #     from multiprocessing import _LockType
 # lock: _LockType = Lock()
 
-_QueueType: TypeAlias = Queue
-_SimpleQueueType: TypeAlias = SimpleQueue
-_JoinableQueueType: TypeAlias = JoinableQueue
+_T = TypeVar("_T")
+_QueueType: TypeAlias = Queue[_T]
+_SimpleQueueType: TypeAlias = SimpleQueue[_T]
+_JoinableQueueType: TypeAlias = JoinableQueue[_T]
 _BarrierType: TypeAlias = synchronize.Barrier
 _BoundedSemaphoreType: TypeAlias = synchronize.BoundedSemaphore
 _ConditionType: TypeAlias = synchronize.Condition
