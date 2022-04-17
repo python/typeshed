@@ -1,5 +1,5 @@
 import sys
-from _typeshed import Self, _T_co
+from _typeshed import Self
 from typing import Any, Callable, Generic, Iterable, Iterator, SupportsComplex, SupportsFloat, SupportsInt, TypeVar, overload
 from typing_extensions import Literal, SupportsIndex, TypeAlias
 
@@ -9,6 +9,14 @@ if sys.version_info >= (3, 9):
 _T = TypeVar("_T")
 _S = TypeVar("_S")
 _N = TypeVar("_N", int, float, SupportsFloat, SupportsInt, SupportsIndex, SupportsComplex)
+_T_co = TypeVar("_T_co", covariant=True)
+_T1 = TypeVar("_T1")
+_T2 = TypeVar("_T2")
+_T3 = TypeVar("_T3")
+_T4 = TypeVar("_T4")
+_T5 = TypeVar("_T5")
+_T6 = TypeVar("_T6")
+
 _Step: TypeAlias = int | float | SupportsFloat | SupportsInt | SupportsIndex | SupportsComplex
 
 Predicate: TypeAlias = Callable[[_T], object]
@@ -76,9 +84,6 @@ class filterfalse(Iterator[_T], Generic[_T]):
     def __iter__(self: Self) -> Self: ...
     def __next__(self) -> _T: ...
 
-_T1 = TypeVar("_T1")
-_T2 = TypeVar("_T2")
-
 class groupby(Iterator[tuple[_T, Iterator[_S]]], Generic[_T, _S]):
     @overload
     def __new__(cls, iterable: Iterable[_T1], key: None = ...) -> groupby[_T1, _T1]: ...
@@ -107,15 +112,85 @@ class takewhile(Iterator[_T], Generic[_T]):
 
 def tee(__iterable: Iterable[_T], __n: int = ...) -> tuple[Iterator[_T], ...]: ...
 
-class zip_longest(Iterator[Any]):
-    def __init__(self, *p: Iterable[Any], fillvalue: Any = ...) -> None: ...
+class zip_longest(Iterator[_T_co], Generic[_T_co]):
+    # one iterable (fillvalue doesn't matter)
+    @overload
+    def __new__(cls, __iter1: Iterable[_T1], *, fillvalue: object = ...) -> zip_longest[tuple[_T1]]: ...
+    # two iterables
+    @overload
+    # In the overloads without fillvalue, all of the tuple members could theoretically be None,
+    # but we return Any instead to avoid false positives for code where we know one of the iterables
+    # is longer.
+    def __new__(cls, __iter1: Iterable[_T1], __iter2: Iterable[_T2]) -> zip_longest[tuple[_T1 | Any, _T2 | Any]]: ...
+    @overload
+    def __new__(
+        cls, __iter1: Iterable[_T1], __iter2: Iterable[_T2], *, fillvalue: _T
+    ) -> zip_longest[tuple[_T1 | _T, _T2 | _T]]: ...
+    # three iterables
+    @overload
+    def __new__(
+        cls, __iter1: Iterable[_T1], __iter2: Iterable[_T2], __iter3: Iterable[_T3]
+    ) -> zip_longest[tuple[_T1 | Any, _T2 | Any, _T3 | Any]]: ...
+    @overload
+    def __new__(
+        cls, __iter1: Iterable[_T1], __iter2: Iterable[_T2], __iter3: Iterable[_T3], *, fillvalue: _T
+    ) -> zip_longest[tuple[_T1 | _T, _T2 | _T, _T3 | _T]]: ...
+    # four iterables
+    @overload
+    def __new__(
+        cls, __iter1: Iterable[_T1], __iter2: Iterable[_T2], __iter3: Iterable[_T3], __iter4: Iterable[_T4]
+    ) -> zip_longest[tuple[_T1 | Any, _T2 | Any, _T3 | Any, _T4 | Any]]: ...
+    @overload
+    def __new__(
+        cls, __iter1: Iterable[_T1], __iter2: Iterable[_T2], __iter3: Iterable[_T3], __iter4: Iterable[_T4], *, fillvalue: _T
+    ) -> zip_longest[tuple[_T1 | _T, _T2 | _T, _T3 | _T, _T4 | _T]]: ...
+    # five iterables
+    @overload
+    def __new__(
+        cls,
+        __iter1: Iterable[_T1],
+        __iter2: Iterable[_T2],
+        __iter3: Iterable[_T3],
+        __iter4: Iterable[_T4],
+        __iter5: Iterable[_T5],
+    ) -> zip_longest[tuple[_T1 | Any, _T2 | Any, _T3 | Any, _T4 | Any, _T5 | Any]]: ...
+    @overload
+    def __new__(
+        cls,
+        __iter1: Iterable[_T1],
+        __iter2: Iterable[_T2],
+        __iter3: Iterable[_T3],
+        __iter4: Iterable[_T4],
+        __iter5: Iterable[_T5],
+        *,
+        fillvalue: _T,
+    ) -> zip_longest[tuple[_T1 | _T, _T2 | _T, _T3 | _T, _T4 | _T, _T5 | _T]]: ...
+    # six or more iterables
+    @overload
+    def __new__(
+        cls,
+        __iter1: Iterable[_T],
+        __iter2: Iterable[_T],
+        __iter3: Iterable[_T],
+        __iter4: Iterable[_T],
+        __iter5: Iterable[_T],
+        __iter6: Iterable[_T],
+        *iterables: Iterable[_T],
+    ) -> zip_longest[tuple[_T | Any, ...]]: ...
+    @overload
+    def __new__(
+        cls,
+        __iter1: Iterable[_T],
+        __iter2: Iterable[_T],
+        __iter3: Iterable[_T],
+        __iter4: Iterable[_T],
+        __iter5: Iterable[_T],
+        __iter6: Iterable[_T],
+        *iterables: Iterable[_T],
+        fillvalue: _T,
+    ) -> zip_longest[tuple[_T, ...]]: ...
     def __iter__(self: Self) -> Self: ...
-    def __next__(self) -> Any: ...
-
-_T3 = TypeVar("_T3")
-_T4 = TypeVar("_T4")
-_T5 = TypeVar("_T5")
-_T6 = TypeVar("_T6")
+    def __next__(self) -> _T_co: ...
 
 class product(Iterator[_T_co], Generic[_T_co]):
     @overload
