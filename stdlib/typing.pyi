@@ -1146,7 +1146,7 @@ class Pattern(Generic[AnyStr]):
 # Functions
 
 if sys.version_info >= (3, 7):
-    _get_type_hints_obj_allowed_types = (
+    _get_type_hints_obj_allowed_types = (  # noqa: Y026  # TODO: Use TypeAlias once mypy bugs are fixed
         object
         | Callable[..., Any]
         | FunctionType
@@ -1158,7 +1158,9 @@ if sys.version_info >= (3, 7):
         | MethodDescriptorType
     )
 else:
-    _get_type_hints_obj_allowed_types = object | Callable[..., Any] | FunctionType | BuiltinFunctionType | MethodType | ModuleType
+    _get_type_hints_obj_allowed_types = (  # noqa: Y026  # TODO: Use TypeAlias once mypy bugs are fixed
+        object | Callable[..., Any] | FunctionType | BuiltinFunctionType | MethodType | ModuleType
+    )
 
 if sys.version_info >= (3, 9):
     def get_type_hints(
