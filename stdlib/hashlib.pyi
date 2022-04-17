@@ -1,6 +1,6 @@
 import sys
 from _typeshed import ReadableBuffer, Self
-from typing import AbstractSet, BinaryIO, Callable
+from typing import AbstractSet, Callable, Protocol
 from typing_extensions import final
 
 if sys.version_info >= (3, 11):
@@ -168,4 +168,13 @@ blake2b = _BlakeHash
 blake2s = _BlakeHash
 
 if sys.version_info >= (3, 11):
-    def file_digest(__fileobj: BinaryIO, __digest: str | Callable[[], _Hash], *, _bufsize: int = ...) -> _Hash: ...
+    class _BytesIOLike(Protocol):
+        def getbuffer(self) -> ReadableBuffer: ...
+
+    class _FileDigestFileObj(Protocol):
+        def readinto(self, __buf: bytearray) -> int: ...
+        def readable(self) -> bool: ...
+
+    def file_digest(
+        __fileobj: _BytesIOLike | _FileDigestFileObj, __digest: str | Callable[[], _Hash], *, _bufsize: int = ...
+    ) -> _Hash: ...
