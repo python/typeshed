@@ -118,7 +118,10 @@ class zip_longest(Iterator[_T_co], Generic[_T_co]):
     def __new__(cls, __iter1: Iterable[_T1], *, fillvalue: object = ...) -> zip_longest[tuple[_T1]]: ...
     # two iterables
     @overload
-    def __new__(cls, __iter1: Iterable[_T1], __iter2: Iterable[_T2]) -> zip_longest[tuple[_T1 | None, _T2 | None]]: ...
+    # In the overloads without fillvalue, all of the tuple members could theoretically be None,
+    # but we return Any instead to avoid false positives for code where we know one of the iterables
+    # is longer.
+    def __new__(cls, __iter1: Iterable[_T1], __iter2: Iterable[_T2]) -> zip_longest[tuple[_T1 | Any, _T2 | Any]]: ...
     @overload
     def __new__(
         cls, __iter1: Iterable[_T1], __iter2: Iterable[_T2], *, fillvalue: _T
@@ -127,7 +130,7 @@ class zip_longest(Iterator[_T_co], Generic[_T_co]):
     @overload
     def __new__(
         cls, __iter1: Iterable[_T1], __iter2: Iterable[_T2], __iter3: Iterable[_T3]
-    ) -> zip_longest[tuple[_T1 | None, _T2 | None, _T3 | None]]: ...
+    ) -> zip_longest[tuple[_T1 | Any, _T2 | Any, _T3 | Any]]: ...
     @overload
     def __new__(
         cls, __iter1: Iterable[_T1], __iter2: Iterable[_T2], __iter3: Iterable[_T3], *, fillvalue: _T
@@ -136,7 +139,7 @@ class zip_longest(Iterator[_T_co], Generic[_T_co]):
     @overload
     def __new__(
         cls, __iter1: Iterable[_T1], __iter2: Iterable[_T2], __iter3: Iterable[_T3], __iter4: Iterable[_T4]
-    ) -> zip_longest[tuple[_T1 | None, _T2 | None, _T3 | None, _T4 | None]]: ...
+    ) -> zip_longest[tuple[_T1 | Any, _T2 | Any, _T3 | Any, _T4 | Any]]: ...
     @overload
     def __new__(
         cls, __iter1: Iterable[_T1], __iter2: Iterable[_T2], __iter3: Iterable[_T3], __iter4: Iterable[_T4], *, fillvalue: _T
@@ -150,7 +153,7 @@ class zip_longest(Iterator[_T_co], Generic[_T_co]):
         __iter3: Iterable[_T3],
         __iter4: Iterable[_T4],
         __iter5: Iterable[_T5],
-    ) -> zip_longest[tuple[_T1 | None, _T2 | None, _T3 | None, _T4 | None, _T5 | None]]: ...
+    ) -> zip_longest[tuple[_T1 | Any, _T2 | Any, _T3 | Any, _T4 | Any, _T5 | Any]]: ...
     @overload
     def __new__(
         cls,
@@ -173,7 +176,7 @@ class zip_longest(Iterator[_T_co], Generic[_T_co]):
         __iter5: Iterable[_T],
         __iter6: Iterable[_T],
         *iterables: Iterable[_T],
-    ) -> zip_longest[tuple[_T | None, ...]]: ...
+    ) -> zip_longest[tuple[_T | Any, ...]]: ...
     @overload
     def __new__(
         cls,
