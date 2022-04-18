@@ -1,6 +1,7 @@
 from _typeshed import ExcInfo
+from collections.abc import Callable, Iterable, Mapping
 from types import CodeType, FrameType, TracebackType
-from typing import IO, Any, Callable, Iterable, Mapping, SupportsInt, TypeVar
+from typing import IO, Any, SupportsInt, TypeVar
 from typing_extensions import Literal, ParamSpec, TypeAlias
 
 __all__ = ["BdbQuit", "Bdb", "Breakpoint"]

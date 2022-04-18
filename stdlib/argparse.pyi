@@ -1,19 +1,6 @@
 import sys
-from typing import (
-    IO,
-    Any,
-    Callable,
-    Generator,
-    Generic,
-    Iterable,
-    NewType,
-    NoReturn,
-    Pattern,
-    Protocol,
-    Sequence,
-    TypeVar,
-    overload,
-)
+from collections.abc import Callable, Generator, Iterable, Sequence
+from typing import IO, Any, Generic, NewType, NoReturn, Pattern, Protocol, TypeVar, overload
 from typing_extensions import Literal
 
 if sys.version_info >= (3, 9):

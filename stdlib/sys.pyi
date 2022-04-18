@@ -1,11 +1,12 @@
 import sys
 from _typeshed import OptExcInfo, structseq
 from builtins import object as _object
+from collections.abc import AsyncGenerator, Callable, Coroutine, Sequence
 from importlib.abc import PathEntryFinder
 from importlib.machinery import ModuleSpec
 from io import TextIOWrapper
 from types import FrameType, ModuleType, TracebackType
-from typing import Any, AsyncGenerator, Callable, Coroutine, NoReturn, Protocol, Sequence, TextIO, TypeVar, overload
+from typing import Any, NoReturn, Protocol, TextIO, TypeVar, overload
 from typing_extensions import Literal, TypeAlias, final
 
 _T = TypeVar("_T")

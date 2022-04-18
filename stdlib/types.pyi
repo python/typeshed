@@ -1,26 +1,22 @@
 import sys
 from _typeshed import SupportsKeysAndGetItem
-from importlib.abc import _LoaderProtocol
-from importlib.machinery import ModuleSpec
-from typing import (
-    Any,
+from collections.abc import (
     AsyncGenerator,
     Awaitable,
     Callable,
-    ClassVar,
     Coroutine,
     Generator,
-    Generic,
     ItemsView,
     Iterable,
     Iterator,
     KeysView,
     Mapping,
     MutableSequence,
-    TypeVar,
     ValuesView,
-    overload,
 )
+from importlib.abc import _LoaderProtocol
+from importlib.machinery import ModuleSpec
+from typing import Any, ClassVar, Generic, TypeVar, overload
 from typing_extensions import Literal, ParamSpec, final
 
 if sys.version_info >= (3, 10):

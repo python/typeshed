@@ -1,6 +1,7 @@
 import sys
 from _typeshed import Self
-from typing import Any, Callable, Generic, Iterable, Iterator, SupportsComplex, SupportsFloat, SupportsInt, TypeVar, overload
+from collections.abc import Callable, Iterable, Iterator
+from typing import Any, Generic, SupportsComplex, SupportsFloat, SupportsInt, TypeVar, overload
 from typing_extensions import Literal, SupportsIndex, TypeAlias
 
 if sys.version_info >= (3, 9):

@@ -1,19 +1,7 @@
 import sys
 from _typeshed import FileDescriptor, StrOrBytesPath, SupportsRead, SupportsWrite
-from typing import (
-    Any,
-    Callable,
-    Generator,
-    ItemsView,
-    Iterable,
-    Iterator,
-    KeysView,
-    Mapping,
-    MutableSequence,
-    Sequence,
-    TypeVar,
-    overload,
-)
+from collections.abc import Callable, Generator, ItemsView, Iterable, Iterator, KeysView, Mapping, MutableSequence, Sequence
+from typing import Any, TypeVar, overload
 from typing_extensions import Literal, SupportsIndex, TypeAlias, TypeGuard
 
 if sys.version_info >= (3, 9):

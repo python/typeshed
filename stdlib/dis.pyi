@@ -1,8 +1,9 @@
 import sys
 import types
 from _typeshed import Self
+from collections.abc import Callable, Iterator
 from opcode import *  # `dis` re-exports it as a part of public API
-from typing import IO, Any, Callable, Iterator, NamedTuple
+from typing import IO, Any, NamedTuple
 from typing_extensions import TypeAlias
 
 __all__ = [

@@ -1,8 +1,9 @@
 import email.feedparser
+from collections.abc import Callable
 from email import _MessageT
 from email.message import Message
 from email.policy import Policy
-from typing import BinaryIO, Callable, TextIO
+from typing import BinaryIO, TextIO
 from typing_extensions import TypeAlias
 
 __all__ = ["Parser", "HeaderParser", "BytesParser", "BytesHeaderParser", "FeedParser", "BytesFeedParser"]

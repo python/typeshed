@@ -3,7 +3,8 @@ import socket
 import ssl
 import sys
 from _typeshed import Self
-from typing import IO, Any, Iterable, NamedTuple
+from collections.abc import Iterable
+from typing import IO, Any, NamedTuple
 from typing_extensions import Literal, TypeAlias
 
 __all__ = [

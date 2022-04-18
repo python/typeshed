@@ -1,7 +1,8 @@
 import types
 import unittest
 from _typeshed import ExcInfo
-from typing import Any, Callable, NamedTuple
+from collections.abc import Callable
+from typing import Any, NamedTuple
 from typing_extensions import TypeAlias
 
 __all__ = [

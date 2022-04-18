@@ -1,6 +1,7 @@
 from _typeshed import OptExcInfo, StrOrBytesPath
+from collections.abc import Callable
 from types import FrameType, TracebackType
-from typing import IO, Any, Callable
+from typing import IO, Any
 
 __UNDEF__: object  # undocumented sentinel
 
