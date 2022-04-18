@@ -36,7 +36,9 @@ from collections.abc import (
 )
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from types import CodeType, TracebackType, _Cell
-from typing import (
+
+# mypy crashes if any of {ByteString, Sequence, MutableSequence} are imported from collections.abc in builtins.pyi
+from typing import (  # noqa: Y027
     IO,
     Any,
     BinaryIO,
