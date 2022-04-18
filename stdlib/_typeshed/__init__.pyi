@@ -6,10 +6,10 @@ import array
 import ctypes
 import mmap
 import sys
-from collections.abc import Awaitable, Container, Iterable
+from collections.abc import Awaitable, Container, Iterable, Set as AbstractSet
 from os import PathLike
 from types import TracebackType
-from typing import AbstractSet, Any, Generic, Protocol, TypeVar, Union
+from typing import Any, Generic, Protocol, TypeVar, Union
 from typing_extensions import Final, Literal, TypeAlias, final
 
 _KT = TypeVar("_KT")

@@ -22,12 +22,11 @@ from _typeshed import (
     SupportsTrunc,
     SupportsWrite,
 )
-from collections.abc import Callable
+from collections.abc import Callable, Set as AbstractSet
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from types import CodeType, TracebackType, _Cell
 from typing import (
     IO,
-    AbstractSet,
     Any,
     Awaitable,
     BinaryIO,
