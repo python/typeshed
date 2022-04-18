@@ -1,26 +1,23 @@
 import sys
 from _typeshed import SupportsKeysAndGetItem
-from importlib.abc import _LoaderProtocol
-from importlib.machinery import ModuleSpec
-from typing import (
-    Any,
+from collections.abc import (
     AsyncGenerator,
     Awaitable,
     Callable,
-    ClassVar,
     Coroutine,
     Generator,
-    Generic,
     ItemsView,
     Iterable,
     Iterator,
     KeysView,
-    Mapping,
     MutableSequence,
-    TypeVar,
     ValuesView,
-    overload,
 )
+from importlib.abc import _LoaderProtocol
+from importlib.machinery import ModuleSpec
+
+# pytype crashes if types.MappingProxyType inherits from collections.abc.Mapping instead of typing.Mapping
+from typing import Any, ClassVar, Generic, Mapping, TypeVar, overload  # noqa: Y027
 from typing_extensions import Literal, ParamSpec, final
 
 if sys.version_info >= (3, 10):
@@ -200,6 +197,7 @@ class FunctionType:
         @property
         def __builtins__(self) -> dict[str, Any]: ...
 
+    __module__: str
     def __init__(
         self,
         code: CodeType,
@@ -659,10 +657,10 @@ if sys.version_info >= (3, 10):
     @final
     class NoneType:
         def __bool__(self) -> Literal[False]: ...
-    EllipsisType = ellipsis  # noqa F811 from builtins
+    EllipsisType = ellipsis  # noqa: F821 from builtins
     from builtins import _NotImplementedType
 
-    NotImplementedType = _NotImplementedType  # noqa F811 from builtins
+    NotImplementedType = _NotImplementedType
     @final
     class UnionType:
         @property

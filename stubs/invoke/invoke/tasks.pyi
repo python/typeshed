@@ -1,6 +1,6 @@
 from _typeshed import Self
 from collections.abc import Callable, Iterable
-from typing import Any, TypeVar
+from typing import Any, TypeVar, overload
 
 from .config import Config
 from .context import Context
@@ -23,8 +23,8 @@ class Task:
     incrementable: Iterable[str]
     auto_shortflags: bool
     help: dict[str, str]
-    pre: list[Task]
-    post: list[Task]
+    pre: Iterable[Task]
+    post: Iterable[Task]
     times_called: int
     autoprint: bool
     def __init__(
@@ -37,8 +37,8 @@ class Task:
         default: bool = ...,
         auto_shortflags: bool = ...,
         help: dict[str, str] | None = ...,
-        pre: list[Task] | None = ...,
-        post: list[Task] | None = ...,
+        pre: Iterable[Task] | None = ...,
+        post: Iterable[Task] | None = ...,
         autoprint: bool = ...,
         iterable: Iterable[str] | None = ...,
         incrementable: Iterable[str] | None = ...,
@@ -55,6 +55,9 @@ class Task:
     def arg_opts(self, name: str, default: Any, taken_names: Iterable[str]) -> dict[str, Any]: ...
     def get_arguments(self) -> list[Argument]: ...
 
+@overload
+def task(__func: Callable[..., Any]) -> Task: ...
+@overload
 def task(
     *args: Task,
     name: str | None = ...,
@@ -70,7 +73,7 @@ def task(
     iterable: Iterable[str] | None = ...,
     incrementable: Iterable[str] | None = ...,
     klass: type[_TaskT] = ...,
-) -> _TaskT: ...
+) -> Callable[[Callable[..., Any]], _TaskT]: ...
 
 class Call:
     task: Task

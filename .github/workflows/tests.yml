@@ -47,7 +47,7 @@ jobs:
         with:
           python-version: 3.9
       - run: pip install -r requirements-tests.txt
-      - run: ./tests/pytype_test.py
+      - run: ./tests/pytype_test.py --print-stderr
 
   mypy:
     name: Run mypy against the stubs
@@ -96,9 +96,7 @@ jobs:
       matrix:
         # macos-11 does not have tcl/tk installed, needed for stubtesting tkinter
         os: ["ubuntu-latest", "windows-latest", "macos-10.15"]
-        # Python 3.9 and 3.10 temporarily pinned due to incompatibilities
-        # between micro versions.
-        python-version: ["3.6", "3.7", "3.8", "3.9.10", "3.10.2"]
+        python-version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
       fail-fast: false
 
     steps:

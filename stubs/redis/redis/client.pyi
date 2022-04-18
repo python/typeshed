@@ -1,16 +1,18 @@
 import threading
 from _typeshed import Self, SupportsItems
+from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from datetime import datetime, timedelta
-from typing import Any, Callable, ClassVar, Generic, Iterable, Iterator, Mapping, Pattern, Sequence, TypeVar, overload
-from typing_extensions import Literal
+from types import TracebackType
+from typing import Any, ClassVar, Generic, Pattern, TypeVar, overload
+from typing_extensions import Literal, TypeAlias
 
 from .commands import CoreCommands, RedisModuleCommands, SentinelCommands
 from .connection import ConnectionPool, _ConnectionPoolOptions
 from .lock import Lock
 from .retry import Retry
 
-_Value = bytes | float | int | str
-_Key = str | bytes
+_Value: TypeAlias = bytes | float | int | str
+_Key: TypeAlias = str | bytes
 
 # Lib returns str or bytes depending on value of decode_responses
 _StrType = TypeVar("_StrType", bound=str | bytes)
@@ -20,9 +22,9 @@ _T = TypeVar("_T")
 _ScoreCastFuncReturn = TypeVar("_ScoreCastFuncReturn")
 
 # Keyword arguments that are passed to Redis.parse_response().
-_ParseResponseOptions = Any
+_ParseResponseOptions: TypeAlias = Any
 # Keyword arguments that are passed to Redis.execute_command().
-_CommandOptions = _ConnectionPoolOptions | _ParseResponseOptions
+_CommandOptions: TypeAlias = _ConnectionPoolOptions | _ParseResponseOptions
 
 SYM_EMPTY: bytes
 EMPTY_RESPONSE: str
@@ -320,7 +322,9 @@ class PubSub:
         self, connection_pool, shard_hint: Any | None = ..., ignore_subscribe_messages: bool = ..., encoder: Any | None = ...
     ) -> None: ...
     def __enter__(self: Self) -> Self: ...
-    def __exit__(self, exc_type: object, exc_value: object, traceback: object) -> None: ...
+    def __exit__(
+        self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None
+    ) -> None: ...
     def __del__(self): ...
     channels: Any
     patterns: Any
@@ -698,6 +702,6 @@ class Monitor:
     monitor_re: Pattern[str]
     def __init__(self, connection_pool) -> None: ...
     def __enter__(self: Self) -> Self: ...
-    def __exit__(self, *args: Any) -> None: ...
+    def __exit__(self, *args: object) -> None: ...
     def next_command(self) -> dict[str, Any]: ...
     def listen(self) -> Iterable[dict[str, Any]]: ...

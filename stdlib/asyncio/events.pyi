@@ -2,9 +2,10 @@ import ssl
 import sys
 from _typeshed import FileDescriptorLike, Self
 from abc import ABCMeta, abstractmethod
+from collections.abc import Awaitable, Callable, Coroutine, Generator, Sequence
 from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
-from typing import IO, Any, Awaitable, Callable, Coroutine, Generator, Sequence, TypeVar, overload
-from typing_extensions import Literal
+from typing import IO, Any, TypeVar, overload
+from typing_extensions import Literal, TypeAlias
 
 from .base_events import Server, _Context
 from .futures import Future
@@ -75,9 +76,8 @@ else:
 
 _T = TypeVar("_T")
 _ProtocolT = TypeVar("_ProtocolT", bound=BaseProtocol)
-_ExceptionHandler = Callable[[AbstractEventLoop, _Context], Any]
-_ProtocolFactory = Callable[[], BaseProtocol]
-_SSLContext = bool | None | ssl.SSLContext
+_ExceptionHandler: TypeAlias = Callable[[AbstractEventLoop, _Context], Any]
+_ProtocolFactory: TypeAlias = Callable[[], BaseProtocol]
 
 class Handle:
     _cancelled: bool
@@ -122,7 +122,7 @@ class AbstractServer:
     def close(self) -> None: ...
     if sys.version_info >= (3, 7):
         async def __aenter__(self: Self) -> Self: ...
-        async def __aexit__(self, *exc: Any) -> None: ...
+        async def __aexit__(self, *exc: object) -> None: ...
         @abstractmethod
         def get_loop(self) -> AbstractEventLoop: ...
         @abstractmethod

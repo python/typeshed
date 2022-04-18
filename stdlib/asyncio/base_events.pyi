@@ -6,14 +6,17 @@ from asyncio.futures import Future
 from asyncio.protocols import BaseProtocol
 from asyncio.tasks import Task
 from asyncio.transports import BaseTransport, ReadTransport, SubprocessTransport, WriteTransport
-from collections.abc import Iterable
+from collections.abc import Awaitable, AsyncGenerator, Callable, Coroutine, Generator, Iterable, Sequence
 from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
-from typing import IO, Any, AsyncGenerator, Awaitable, Callable, Coroutine, Generator, Sequence, TypeVar, overload
-from typing_extensions import Literal, TypedDict
+from typing import IO, Any, TypeVar, overload
+from typing_extensions import Literal, TypeAlias, TypedDict
 
 if sys.version_info >= (3, 7):
     from contextvars import Context
 
+if sys.version_info >= (3, 9):
+    __all__ = ("BaseEventLoop", "Server")
+elif sys.version_info >= (3, 7):
     __all__ = ("BaseEventLoop",)
 else:
     __all__ = ["BaseEventLoop"]
@@ -34,9 +37,9 @@ class _Context(_BaseContext, total=False):
     socket: socket
     asyncgen: AsyncGenerator[Any, Any]
 
-_ExceptionHandler = Callable[[AbstractEventLoop, _Context], Any]
-_ProtocolFactory = Callable[[], BaseProtocol]
-_SSLContext = bool | None | ssl.SSLContext
+_ExceptionHandler: TypeAlias = Callable[[AbstractEventLoop, _Context], Any]
+_ProtocolFactory: TypeAlias = Callable[[], BaseProtocol]
+_SSLContext: TypeAlias = bool | None | ssl.SSLContext
 
 class Server(AbstractServer):
     if sys.version_info >= (3, 7):

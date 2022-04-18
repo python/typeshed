@@ -2,8 +2,9 @@ import queue
 import sys
 import threading
 from _typeshed import Self
+from collections.abc import Callable, Iterable, Mapping, Sequence
 from types import TracebackType
-from typing import Any, AnyStr, Callable, Generic, Iterable, Mapping, Sequence, TypeVar
+from typing import Any, AnyStr, Generic, TypeVar
 
 from .connection import Connection
 from .context import BaseContext
@@ -96,7 +97,9 @@ class BaseManager:
         create_method: bool = ...,
     ) -> None: ...
     def __enter__(self: Self) -> Self: ...
-    def __exit__(self, exc_type: type[BaseException], exc_val: BaseException, exc_tb: TracebackType) -> None: ...
+    def __exit__(
+        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
+    ) -> None: ...
 
 # Conflicts with method names
 _dict = dict

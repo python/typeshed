@@ -1,6 +1,13 @@
+from collections.abc import Callable
 from email.message import Message
 from email.policy import Policy
-from typing import IO, Callable
+from typing import IO, TypeVar, Union
+from typing_extensions import TypeAlias
+
+# Definitions imported by multiple submodules in typeshed
+_MessageT = TypeVar("_MessageT", bound=Message)  # noqa: Y018
+_ParamType: TypeAlias = Union[str, tuple[str | None, str | None, str]]
+_ParamsType: TypeAlias = Union[str, None, tuple[str, str | None, str]]
 
 def message_from_string(s: str, _class: Callable[[], Message] = ..., *, policy: Policy = ...) -> Message: ...
 def message_from_bytes(s: bytes, _class: Callable[[], Message] = ..., *, policy: Policy = ...) -> Message: ...
