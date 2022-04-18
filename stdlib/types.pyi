@@ -10,13 +10,12 @@ from collections.abc import (
     Iterable,
     Iterator,
     KeysView,
-    Mapping,
     MutableSequence,
     ValuesView,
 )
 from importlib.abc import _LoaderProtocol
 from importlib.machinery import ModuleSpec
-from typing import Any, ClassVar, Generic, TypeVar, overload
+from typing import Any, ClassVar, Generic, Mapping, TypeVar, overload
 from typing_extensions import Literal, ParamSpec, final
 
 if sys.version_info >= (3, 10):
