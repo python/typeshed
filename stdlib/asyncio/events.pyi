@@ -78,6 +78,7 @@ _T = TypeVar("_T")
 _ProtocolT = TypeVar("_ProtocolT", bound=BaseProtocol)
 _ExceptionHandler: TypeAlias = Callable[[AbstractEventLoop, _Context], Any]
 _ProtocolFactory: TypeAlias = Callable[[], BaseProtocol]
+_SSLContext: TypeAlias = bool | None | ssl.SSLContext
 
 class Handle:
     _cancelled: bool
