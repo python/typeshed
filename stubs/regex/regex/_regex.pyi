@@ -1,5 +1,6 @@
 from _typeshed import Self
-from typing import Any, AnyStr, Callable, Generic, Mapping, TypeVar, overload
+from collections.abc import Callable, Mapping
+from typing import Any, AnyStr, Generic, TypeVar, overload
 from typing_extensions import Literal, final
 
 _T = TypeVar("_T")
@@ -172,6 +173,10 @@ class Match(Generic[AnyStr]):
     def captures(self, __group1: int | str, __group2: int | str, *groups: int | str) -> tuple[list[AnyStr], ...]: ...
     def capturesdict(self) -> dict[str, list[AnyStr]]: ...
     def detach_string(self) -> None: ...
+    @overload
+    def __getitem__(self, __key: Literal[0]) -> AnyStr: ...
+    @overload
+    def __getitem__(self, __key: int | str) -> AnyStr | Any: ...
 
 @final
 class Splitter(Generic[AnyStr]):

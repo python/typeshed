@@ -1,5 +1,5 @@
 import sys
-from typing import Any, BinaryIO, Iterable, Text, Union, overload
+from typing import Any, BinaryIO, Iterable, Text, overload
 
 # ----- Constants -----
 # Some socket families are listed in the "Socket families" section of the docs,
@@ -373,11 +373,11 @@ class timeout(error):
 
 # Addresses can be either tuples of varying lengths (AF_INET, AF_INET6,
 # AF_NETLINK, AF_TIPC) or strings (AF_UNIX).
-_Address = Union[tuple[Any, ...], str]
+_Address = tuple[Any, ...] | str
 _RetAddress = Any
 # TODO Most methods allow bytes as address objects
 
-_WriteBuffer = Union[bytearray, memoryview]
+_WriteBuffer = bytearray | memoryview
 
 _CMSG = tuple[int, int, bytes]
 
@@ -404,6 +404,7 @@ class socket:
     def gettimeout(self) -> float | None: ...
     if sys.platform == "win32":
         def ioctl(self, control: int, option: int | tuple[int, int, int]) -> None: ...
+
     def listen(self, __backlog: int) -> None: ...
     # Note that the makefile's documented windows-specific behavior is not represented
     def makefile(self, mode: unicode = ..., buffering: int = ...) -> BinaryIO: ...
@@ -422,6 +423,7 @@ class socket:
     def setsockopt(self, level: int, optname: int, value: int | bytes) -> None: ...
     if sys.platform == "win32":
         def share(self, process_id: int) -> bytes: ...
+
     def shutdown(self, how: int) -> None: ...
 
 # ----- Functions -----

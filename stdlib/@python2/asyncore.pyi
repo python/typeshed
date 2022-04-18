@@ -1,7 +1,7 @@
 import sys
 from _typeshed import FileDescriptorLike
 from socket import SocketType
-from typing import Any, Optional, overload
+from typing import Any, overload
 
 # cyclic dependence with asynchat
 _maptype = dict[int, Any]
@@ -113,6 +113,7 @@ if sys.platform != "win32":
         def write(self, data: bytes, flags: int = ...) -> int: ...
         def close(self) -> None: ...
         def fileno(self) -> int: ...
+
     class file_dispatcher(dispatcher):
         def __init__(self, fd: FileDescriptorLike, map: _maptype | None = ...) -> None: ...
         def set_file(self, fd: int) -> None: ...

@@ -21,7 +21,8 @@ class _AssertLogsContext(Generic[_L]):
         no_logs: bool
     else:
         def __init__(self, test_case: TestCase, logger_name: str, level: int) -> None: ...
+
     def __enter__(self) -> _L: ...
     def __exit__(
-        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
+        self, exc_type: type[BaseException] | None, exc_value: BaseException | None, tb: TracebackType | None
     ) -> bool | None: ...

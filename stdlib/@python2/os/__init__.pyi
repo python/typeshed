@@ -16,7 +16,6 @@ from typing import (
     Sequence,
     Text,
     TypeVar,
-    Union,
     overload,
 )
 
@@ -235,6 +234,7 @@ if sys.platform != "win32":
     def fchown(fd: int, uid: int, gid: int) -> None: ...
     if sys.platform != "darwin":
         def fdatasync(fd: FileDescriptorLike) -> None: ...  # Unix only, not Mac
+
     def fpathconf(fd: int, name: str | int) -> int: ...
     def fstatvfs(fd: int) -> _StatVFS: ...
     def ftruncate(fd: int, length: int) -> None: ...
@@ -268,7 +268,7 @@ def execlpe(file: Text, __arg0: bytes | Text, *args: Any) -> NoReturn: ...
 
 # The docs say `args: tuple or list of strings`
 # The implementation enforces tuple or list so we can't use Sequence.
-_ExecVArgs = Union[tuple[Union[bytes, Text], ...], list[bytes], list[Text], list[Union[bytes, Text]]]
+_ExecVArgs = tuple[bytes | Text, ...] | list[bytes] | list[Text] | list[bytes | Text]
 
 def execv(path: Text, args: _ExecVArgs) -> NoReturn: ...
 def execve(path: Text, args: _ExecVArgs, env: Mapping[str, str]) -> NoReturn: ...

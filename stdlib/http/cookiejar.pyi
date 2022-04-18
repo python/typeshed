@@ -1,8 +1,20 @@
 import sys
 from _typeshed import StrPath
+from collections.abc import Iterable, Iterator, Sequence
 from http.client import HTTPResponse
-from typing import ClassVar, Iterable, Iterator, Pattern, Sequence, TypeVar, overload
+from typing import ClassVar, Pattern, TypeVar, overload
 from urllib.request import Request
+
+__all__ = [
+    "Cookie",
+    "CookieJar",
+    "CookiePolicy",
+    "DefaultCookiePolicy",
+    "FileCookieJar",
+    "LWPCookieJar",
+    "LoadError",
+    "MozillaCookieJar",
+]
 
 _T = TypeVar("_T")
 
@@ -35,6 +47,7 @@ class FileCookieJar(CookieJar):
         def __init__(self, filename: StrPath | None = ..., delayload: bool = ..., policy: CookiePolicy | None = ...) -> None: ...
     else:
         def __init__(self, filename: str | None = ..., delayload: bool = ..., policy: CookiePolicy | None = ...) -> None: ...
+
     def save(self, filename: str | None = ..., ignore_discard: bool = ..., ignore_expires: bool = ...) -> None: ...
     def load(self, filename: str | None = ..., ignore_discard: bool = ..., ignore_expires: bool = ...) -> None: ...
     def revert(self, filename: str | None = ..., ignore_discard: bool = ..., ignore_expires: bool = ...) -> None: ...
@@ -100,6 +113,7 @@ class DefaultCookiePolicy(CookiePolicy):
             strict_ns_set_initial_dollar: bool = ...,
             strict_ns_set_path: bool = ...,
         ) -> None: ...
+
     def blocked_domains(self) -> tuple[str, ...]: ...
     def set_blocked_domains(self, blocked_domains: Sequence[str]) -> None: ...
     def is_blocked(self, domain: str) -> bool: ...

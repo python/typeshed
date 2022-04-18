@@ -1,8 +1,11 @@
-from typing import Any
+from typing import Any, Generic, TypeVar
 
+from ..sql.operators import ColumnOperators
 from ..util import memoized_property
 from . import util as orm_util
 from .interfaces import MapperProperty, PropComparator
+
+_T = TypeVar("_T")
 
 class DescriptorProperty(MapperProperty):
     doc: Any
@@ -27,19 +30,21 @@ class CompositeProperty(DescriptorProperty):
     @property
     def columns(self): ...
     def get_history(self, state, dict_, passive=...): ...
+
     class CompositeBundle(orm_util.Bundle):
         property: Any
         def __init__(self, property_, expr) -> None: ...
         def create_row_processor(self, query, procs, labels): ...
-    class Comparator(PropComparator):
+
+    class Comparator(PropComparator[_T], Generic[_T]):
         __hash__: Any
         @memoized_property
         def clauses(self): ...
         def __clause_element__(self): ...
         @memoized_property
         def expression(self): ...
-        def __eq__(self, other): ...
-        def __ne__(self, other): ...
+        def __eq__(self, other) -> ColumnOperators[_T]: ...  # type: ignore[override]
+        def __ne__(self, other) -> ColumnOperators[_T]: ...  # type: ignore[override]
 
 class ConcreteInheritedProperty(DescriptorProperty):
     descriptor: Any

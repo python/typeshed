@@ -1,5 +1,6 @@
 import datetime
 import types
+from _typeshed import Self
 from abc import ABCMeta, abstractmethod
 from typing import Any, Callable, Iterable, Iterator, Mapping, NoReturn, Pattern, Sequence, Text, TextIO, TypeVar, Union, overload
 from typing_extensions import ParamSpec
@@ -9,7 +10,7 @@ _FT = TypeVar("_FT")
 _P = ParamSpec("_P")
 
 _ExceptionType = Union[type[BaseException], tuple[type[BaseException], ...]]
-_Regexp = Union[Text, Pattern[Text]]
+_Regexp = Text | Pattern[Text]
 
 _SysExcInfoType = Union[tuple[type[BaseException], BaseException, types.TracebackType], tuple[None, None, None]]
 
@@ -54,7 +55,7 @@ class _AssertRaisesBaseContext:
 
 class _AssertRaisesContext(_AssertRaisesBaseContext):
     exception: Any
-    def __enter__(self) -> _AssertRaisesContext: ...
+    def __enter__(self: Self) -> Self: ...
     def __exit__(self, exc_type, exc_value, tb) -> bool: ...
 
 class TestCase(Testable):

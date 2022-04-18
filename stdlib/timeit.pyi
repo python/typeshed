@@ -1,7 +1,11 @@
-from typing import IO, Any, Callable, Sequence, Union
+from collections.abc import Callable, Sequence
+from typing import IO, Any
+from typing_extensions import TypeAlias
 
-_Timer = Callable[[], float]
-_Stmt = Union[str, Callable[[], Any]]
+__all__ = ["Timer", "timeit", "repeat", "default_timer"]
+
+_Timer: TypeAlias = Callable[[], float]
+_Stmt: TypeAlias = str | Callable[[], Any]
 
 default_timer: _Timer
 

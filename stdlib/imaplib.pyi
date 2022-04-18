@@ -2,19 +2,21 @@ import subprocess
 import sys
 import time
 from _typeshed import Self
+from builtins import list as _list  # conflicts with a method named "list"
+from collections.abc import Callable
 from socket import socket as _socket
 from ssl import SSLContext, SSLSocket
 from types import TracebackType
-from typing import IO, Any, Callable, Pattern, Union
-from typing_extensions import Literal
+from typing import IO, Any, Pattern
+from typing_extensions import Literal, TypeAlias
+
+__all__ = ["IMAP4", "IMAP4_stream", "Internaldate2tuple", "Int2AP", "ParseFlags", "Time2Internaldate", "IMAP4_SSL"]
 
 # TODO: Commands should use their actual return types, not this type alias.
 #       E.g. Tuple[Literal["OK"], List[bytes]]
-_CommandResults = tuple[str, list[Any]]
+_CommandResults: TypeAlias = tuple[str, list[Any]]
 
-_AnyResponseData = Union[list[None], list[Union[bytes, tuple[bytes, bytes]]]]
-
-_list = list  # conflicts with a method named "list"
+_AnyResponseData: TypeAlias = list[None] | list[bytes | tuple[bytes, bytes]]
 
 class IMAP4:
     error: type[Exception]
@@ -40,6 +42,7 @@ class IMAP4:
     else:
         def __init__(self, host: str = ..., port: int = ...) -> None: ...
         def open(self, host: str = ..., port: int = ...) -> None: ...
+
     def __getattr__(self, attr: str) -> Any: ...
     host: str
     port: int
@@ -96,6 +99,7 @@ class IMAP4:
     def unsubscribe(self, mailbox: str) -> _CommandResults: ...
     if sys.version_info >= (3, 9):
         def unselect(self) -> _CommandResults: ...
+
     def xatom(self, name: str, *args: str) -> _CommandResults: ...
     def print_log(self) -> None: ...
 
@@ -130,6 +134,7 @@ class IMAP4_SSL(IMAP4):
         def open(self, host: str = ..., port: int | None = ..., timeout: float | None = ...) -> None: ...
     else:
         def open(self, host: str = ..., port: int | None = ...) -> None: ...
+
     def read(self, size: int) -> bytes: ...
     def readline(self) -> bytes: ...
     def send(self, data: bytes) -> None: ...
@@ -151,6 +156,7 @@ class IMAP4_stream(IMAP4):
         def open(self, host: str | None = ..., port: int | None = ..., timeout: float | None = ...) -> None: ...
     else:
         def open(self, host: str | None = ..., port: int | None = ...) -> None: ...
+
     def read(self, size: int) -> bytes: ...
     def readline(self) -> bytes: ...
     def send(self, data: bytes) -> None: ...

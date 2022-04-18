@@ -6,6 +6,7 @@ from _csv import (
     QUOTE_NONNUMERIC as QUOTE_NONNUMERIC,
     Dialect as Dialect,
     Error as Error,
+    __version__ as __version__,
     _DialectLike,
     _reader,
     _writer,
@@ -25,6 +26,30 @@ if sys.version_info >= (3, 8):
     from builtins import dict as _DictReadMapping
 else:
     from collections import OrderedDict as _DictReadMapping
+
+__all__ = [
+    "QUOTE_MINIMAL",
+    "QUOTE_ALL",
+    "QUOTE_NONNUMERIC",
+    "QUOTE_NONE",
+    "Error",
+    "Dialect",
+    "__doc__",
+    "excel",
+    "excel_tab",
+    "field_size_limit",
+    "reader",
+    "writer",
+    "register_dialect",
+    "get_dialect",
+    "list_dialects",
+    "Sniffer",
+    "unregister_dialect",
+    "__version__",
+    "DictReader",
+    "DictWriter",
+    "unix_dialect",
+]
 
 _T = TypeVar("_T")
 
@@ -98,6 +123,7 @@ class DictWriter(Generic[_T]):
         def writeheader(self) -> Any: ...
     else:
         def writeheader(self) -> None: ...
+
     def writerow(self, rowdict: Mapping[_T, Any]) -> Any: ...
     def writerows(self, rowdicts: Iterable[Mapping[_T, Any]]) -> None: ...
 

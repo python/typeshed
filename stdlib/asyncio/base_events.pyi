@@ -1,26 +1,32 @@
 import ssl
 import sys
 from _typeshed import FileDescriptorLike
-from abc import ABCMeta
 from asyncio.events import AbstractEventLoop, AbstractServer, Handle, TimerHandle
 from asyncio.futures import Future
 from asyncio.protocols import BaseProtocol
 from asyncio.tasks import Task
 from asyncio.transports import BaseTransport, ReadTransport, SubprocessTransport, WriteTransport
-from collections.abc import Iterable
+from collections.abc import Awaitable, Callable, Coroutine, Generator, Iterable, Sequence
 from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
-from typing import IO, Any, Awaitable, Callable, Generator, Sequence, TypeVar, Union, overload
-from typing_extensions import Literal
+from typing import IO, Any, TypeVar, overload
+from typing_extensions import Literal, TypeAlias
 
 if sys.version_info >= (3, 7):
     from contextvars import Context
 
+if sys.version_info >= (3, 9):
+    __all__ = ("BaseEventLoop", "Server")
+elif sys.version_info >= (3, 7):
+    __all__ = ("BaseEventLoop",)
+else:
+    __all__ = ["BaseEventLoop"]
+
 _T = TypeVar("_T")
 _ProtocolT = TypeVar("_ProtocolT", bound=BaseProtocol)
-_Context = dict[str, Any]
-_ExceptionHandler = Callable[[AbstractEventLoop, _Context], Any]
-_ProtocolFactory = Callable[[], BaseProtocol]
-_SSLContext = Union[bool, None, ssl.SSLContext]
+_Context: TypeAlias = dict[str, Any]
+_ExceptionHandler: TypeAlias = Callable[[AbstractEventLoop, _Context], Any]
+_ProtocolFactory: TypeAlias = Callable[[], BaseProtocol]
+_SSLContext: TypeAlias = bool | None | ssl.SSLContext
 
 class Server(AbstractServer):
     if sys.version_info >= (3, 7):
@@ -33,6 +39,10 @@ class Server(AbstractServer):
             backlog: int,
             ssl_handshake_timeout: float | None,
         ) -> None: ...
+        def get_loop(self) -> AbstractEventLoop: ...
+        def is_serving(self) -> bool: ...
+        async def start_serving(self) -> None: ...
+        async def serve_forever(self) -> None: ...
     else:
         def __init__(self, loop: AbstractEventLoop, sockets: list[socket]) -> None: ...
     if sys.version_info >= (3, 8):
@@ -43,8 +53,10 @@ class Server(AbstractServer):
         def sockets(self) -> list[socket]: ...
     else:
         sockets: list[socket] | None
+    def close(self) -> None: ...
+    async def wait_closed(self) -> None: ...
 
-class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
+class BaseEventLoop(AbstractEventLoop):
     def run_forever(self) -> None: ...
     # Can't use a union, see mypy issue  # 1873.
     @overload
@@ -69,14 +81,16 @@ class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
         def call_soon(self, callback: Callable[..., Any], *args: Any) -> Handle: ...
         def call_later(self, delay: float, callback: Callable[..., Any], *args: Any) -> TimerHandle: ...
         def call_at(self, when: float, callback: Callable[..., Any], *args: Any) -> TimerHandle: ...
+
     def time(self) -> float: ...
     # Future methods
     def create_future(self) -> Future[Any]: ...
     # Tasks methods
     if sys.version_info >= (3, 8):
-        def create_task(self, coro: Awaitable[_T] | Generator[Any, None, _T], *, name: object = ...) -> Task[_T]: ...
+        def create_task(self, coro: Coroutine[Any, Any, _T] | Generator[Any, None, _T], *, name: object = ...) -> Task[_T]: ...
     else:
-        def create_task(self, coro: Awaitable[_T] | Generator[Any, None, _T]) -> Task[_T]: ...
+        def create_task(self, coro: Coroutine[Any, Any, _T] | Generator[Any, None, _T]) -> Task[_T]: ...
+
     def set_task_factory(self, factory: Callable[[AbstractEventLoop, Generator[Any, None, _T]], Future[_T]] | None) -> None: ...
     def get_task_factory(self) -> Callable[[AbstractEventLoop, Generator[Any, None, _T]], Future[_T]] | None: ...
     # Methods for interacting with threads
@@ -84,11 +98,19 @@ class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
         def call_soon_threadsafe(self, callback: Callable[..., Any], *args: Any, context: Context | None = ...) -> Handle: ...
     else:
         def call_soon_threadsafe(self, callback: Callable[..., Any], *args: Any) -> Handle: ...
+
     def run_in_executor(self, executor: Any, func: Callable[..., _T], *args: Any) -> Future[_T]: ...
     def set_default_executor(self, executor: Any) -> None: ...
     # Network I/O methods returning Futures.
     async def getaddrinfo(
-        self, host: str | None, port: str | int | None, *, family: int = ..., type: int = ..., proto: int = ..., flags: int = ...
+        self,
+        host: bytes | str | None,
+        port: str | int | None,
+        *,
+        family: int = ...,
+        type: int = ...,
+        proto: int = ...,
+        flags: int = ...,
     ) -> list[tuple[AddressFamily, SocketKind, int, str, tuple[str, int] | tuple[str, int, int, int]]]: ...
     async def getnameinfo(self, sockaddr: tuple[str, int] | tuple[str, int, int, int], flags: int = ...) -> tuple[str, str]: ...
     if sys.version_info >= (3, 8):
@@ -286,7 +308,7 @@ class BaseEventLoop(AbstractEventLoop, metaclass=ABCMeta):
             self, protocol_factory: Callable[[], _ProtocolT], sock: socket, *, ssl: _SSLContext = ...
         ) -> tuple[BaseTransport, _ProtocolT]: ...
     if sys.version_info >= (3, 11):
-        async def create_datagram_endpoint(
+        async def create_datagram_endpoint(  # type: ignore[override]
             self,
             protocol_factory: Callable[[], _ProtocolT],
             local_addr: tuple[str, int] | None = ...,

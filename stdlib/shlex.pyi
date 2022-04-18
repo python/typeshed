@@ -1,6 +1,12 @@
 import sys
 from _typeshed import Self
-from typing import Any, Iterable, TextIO
+from collections.abc import Iterable
+from typing import TextIO
+
+if sys.version_info >= (3, 8):
+    __all__ = ["shlex", "split", "quote", "join"]
+else:
+    __all__ = ["shlex", "split", "quote"]
 
 def split(s: str, comments: bool = ..., posix: bool = ...) -> list[str]: ...
 
@@ -17,14 +23,18 @@ class shlex(Iterable[str]):
     quotes: str
     escapedquotes: str
     whitespace_split: bool
-    infile: str
+    infile: str | None
     instream: TextIO
     source: str
     debug: int
     lineno: int
     token: str
     eof: str
-    punctuation_chars: str
+    if sys.version_info >= (3, 7):
+        @property
+        def punctuation_chars(self) -> str: ...
+    else:
+        punctuation_chars: str
     def __init__(
         self,
         instream: str | TextIO | None = ...,
@@ -36,8 +46,7 @@ class shlex(Iterable[str]):
     def push_token(self, tok: str) -> None: ...
     def read_token(self) -> str: ...
     def sourcehook(self, newfile: str) -> tuple[str, TextIO]: ...
-    # TODO argument types
-    def push_source(self, newstream: Any, newfile: Any = ...) -> None: ...
+    def push_source(self, newstream: str | TextIO, newfile: str | None = ...) -> None: ...
     def pop_source(self) -> None: ...
     def error_leader(self, infile: str | None = ..., lineno: int | None = ...) -> None: ...
     def __iter__(self: Self) -> Self: ...

@@ -1,8 +1,11 @@
 from _typeshed import SupportsRead
-from typing import IO, Any, Callable
+from collections.abc import Callable
+from typing import IO, Any
 
 from .decoder import JSONDecodeError as JSONDecodeError, JSONDecoder as JSONDecoder
 from .encoder import JSONEncoder as JSONEncoder
+
+__all__ = ["dump", "dumps", "load", "loads", "JSONDecoder", "JSONDecodeError", "JSONEncoder"]
 
 def dumps(
     obj: Any,

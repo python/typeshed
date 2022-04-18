@@ -1,6 +1,6 @@
 import sys
 from socket import SocketType
-from typing import Any, BinaryIO, Callable, ClassVar, Text, Union
+from typing import Any, BinaryIO, Callable, ClassVar, Text
 
 class BaseServer:
     address_family: int
@@ -50,6 +50,7 @@ if sys.platform != "win32":
             RequestHandlerClass: Callable[..., BaseRequestHandler],
             bind_and_activate: bool = ...,
         ) -> None: ...
+
     class UnixDatagramServer(BaseServer):
         def __init__(
             self,

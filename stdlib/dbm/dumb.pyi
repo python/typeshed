@@ -1,9 +1,12 @@
 from _typeshed import Self
+from collections.abc import Iterator, MutableMapping
 from types import TracebackType
-from typing import Iterator, MutableMapping, Union
+from typing_extensions import TypeAlias
 
-_KeyType = Union[str, bytes]
-_ValueType = Union[str, bytes]
+__all__ = ["error", "open"]
+
+_KeyType: TypeAlias = str | bytes
+_ValueType: TypeAlias = str | bytes
 
 error = OSError
 
@@ -13,7 +16,7 @@ class _Database(MutableMapping[_KeyType, bytes]):
     def iterkeys(self) -> Iterator[bytes]: ...  # undocumented
     def close(self) -> None: ...
     def __getitem__(self, key: _KeyType) -> bytes: ...
-    def __setitem__(self, key: _KeyType, value: _ValueType) -> None: ...
+    def __setitem__(self, key: _KeyType, val: _ValueType) -> None: ...
     def __delitem__(self, key: _KeyType) -> None: ...
     def __iter__(self) -> Iterator[bytes]: ...
     def __len__(self) -> int: ...

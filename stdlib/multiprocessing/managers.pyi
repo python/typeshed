@@ -1,8 +1,10 @@
 import queue
 import sys
 import threading
-from contextlib import AbstractContextManager
-from typing import Any, AnyStr, Callable, Generic, Iterable, Mapping, Sequence, TypeVar
+from _typeshed import Self
+from collections.abc import Callable, Iterable, Mapping, Sequence
+from types import TracebackType
+from typing import Any, AnyStr, Generic, TypeVar
 
 from .connection import Connection
 from .context import BaseContext
@@ -10,8 +12,12 @@ from .context import BaseContext
 if sys.version_info >= (3, 8):
     from .shared_memory import _SLT, ShareableList, SharedMemory
 
+    __all__ = ["BaseManager", "SyncManager", "BaseProxy", "Token", "SharedMemoryManager"]
+
     _SharedMemory = SharedMemory
     _ShareableList = ShareableList
+else:
+    __all__ = ["BaseManager", "SyncManager", "BaseProxy", "Token"]
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -69,7 +75,7 @@ class Server:
     def serve_forever(self) -> None: ...
     def accept_connection(self, c: Connection, name: str) -> None: ...
 
-class BaseManager(AbstractContextManager[BaseManager]):
+class BaseManager:
     def __init__(
         self, address: Any | None = ..., authkey: bytes | None = ..., serializer: str = ..., ctx: BaseContext | None = ...
     ) -> None: ...
@@ -90,12 +96,16 @@ class BaseManager(AbstractContextManager[BaseManager]):
         method_to_typeid: Mapping[str, str] | None = ...,
         create_method: bool = ...,
     ) -> None: ...
+    def __enter__(self: Self) -> Self: ...
+    def __exit__(
+        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
+    ) -> None: ...
 
 # Conflicts with method names
 _dict = dict
 _list = list
 
-class SyncManager(BaseManager, AbstractContextManager[SyncManager]):
+class SyncManager(BaseManager):
     def BoundedSemaphore(self, value: Any = ...) -> threading.BoundedSemaphore: ...
     def Condition(self, lock: Any = ...) -> threading.Condition: ...
     def Event(self) -> threading.Event: ...
@@ -113,6 +123,7 @@ class RemoteError(Exception): ...
 
 if sys.version_info >= (3, 8):
     class SharedMemoryServer(Server): ...
+
     class SharedMemoryManager(BaseManager):
         def get_server(self) -> SharedMemoryServer: ...
         def SharedMemory(self, size: int) -> _SharedMemory: ...

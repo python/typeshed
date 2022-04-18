@@ -1,7 +1,38 @@
 import os
 import sys
 from _typeshed import BytesPath, StrOrBytesPath, StrPath, SupportsRead, SupportsWrite
-from typing import Any, AnyStr, Callable, Iterable, NamedTuple, Sequence, TypeVar, Union, overload
+from collections.abc import Callable, Iterable, Sequence
+from typing import Any, AnyStr, NamedTuple, TypeVar, overload
+from typing_extensions import TypeAlias
+
+__all__ = [
+    "copyfileobj",
+    "copyfile",
+    "copymode",
+    "copystat",
+    "copy",
+    "copy2",
+    "copytree",
+    "move",
+    "rmtree",
+    "Error",
+    "SpecialFileError",
+    "ExecError",
+    "make_archive",
+    "get_archive_formats",
+    "register_archive_format",
+    "unregister_archive_format",
+    "get_unpack_formats",
+    "register_unpack_format",
+    "unregister_unpack_format",
+    "unpack_archive",
+    "ignore_patterns",
+    "chown",
+    "which",
+    "get_terminal_size",
+    "SameFileError",
+    "disk_usage",
+]
 
 _StrOrBytesPathT = TypeVar("_StrOrBytesPathT", bound=StrOrBytesPath)
 _StrPathT = TypeVar("_StrPathT", bound=StrPath)
@@ -53,7 +84,7 @@ else:
 
 def rmtree(path: StrOrBytesPath, ignore_errors: bool = ..., onerror: Callable[[Any, Any, Any], Any] | None = ...) -> None: ...
 
-_CopyFn = Union[Callable[[str, str], None], Callable[[StrPath, StrPath], None]]
+_CopyFn: TypeAlias = Callable[[str, str], None] | Callable[[StrPath, StrPath], None]
 
 # N.B. shutil.move appears to take bytes arguments, however,
 # this does not work when dst is (or is within) an existing directory.
@@ -71,6 +102,10 @@ class _ntuple_diskusage(NamedTuple):
     free: int
 
 def disk_usage(path: int | StrOrBytesPath) -> _ntuple_diskusage: ...
+
+# While chown can be imported on Windows, it doesn't actually work;
+# see https://bugs.python.org/issue33140. We keep it here because it's
+# in __all__.
 @overload
 def chown(path: StrOrBytesPath, user: str | int, group: None = ...) -> None: ...
 @overload
@@ -101,11 +136,13 @@ def make_archive(
     logger: Any | None = ...,
 ) -> str: ...
 def get_archive_formats() -> list[tuple[str, str]]: ...
+@overload
 def register_archive_format(
-    name: str,
-    function: Callable[..., Any],
-    extra_args: Sequence[tuple[str, Any] | list[Any]] | None = ...,
-    description: str = ...,
+    name: str, function: Callable[..., object], extra_args: Sequence[tuple[str, Any] | list[Any]], description: str = ...
+) -> None: ...
+@overload
+def register_archive_format(
+    name: str, function: Callable[[str, str], object], extra_args: None = ..., description: str = ...
 ) -> None: ...
 def unregister_archive_format(name: str) -> None: ...
 
@@ -116,8 +153,17 @@ else:
     # See http://bugs.python.org/issue30218
     def unpack_archive(filename: str, extract_dir: StrPath | None = ..., format: str | None = ...) -> None: ...
 
+@overload
 def register_unpack_format(
-    name: str, extensions: list[str], function: Any, extra_args: Sequence[tuple[str, Any]] | None = ..., description: str = ...
+    name: str,
+    extensions: list[str],
+    function: Callable[..., object],
+    extra_args: Sequence[tuple[str, Any]],
+    description: str = ...,
+) -> None: ...
+@overload
+def register_unpack_format(
+    name: str, extensions: list[str], function: Callable[[str, str], object], extra_args: None = ..., description: str = ...
 ) -> None: ...
 def unregister_unpack_format(name: str) -> None: ...
 def get_unpack_formats() -> list[tuple[str, list[str], str]]: ...

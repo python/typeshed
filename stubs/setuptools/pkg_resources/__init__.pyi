@@ -1,20 +1,23 @@
 import importlib.abc
 import types
 import zipimport
+from _typeshed import Self
 from abc import ABCMeta
-from typing import IO, Any, Callable, Generator, Iterable, Optional, Sequence, TypeVar, Union, overload
+from collections.abc import Callable, Generator, Iterable, Sequence
+from typing import IO, Any, TypeVar, overload
+from typing_extensions import TypeAlias
 
-LegacyVersion = Any  # from packaging.version
-Version = Any  # from packaging.version
+LegacyVersion: TypeAlias = Any  # from packaging.version
+Version: TypeAlias = Any  # from packaging.version
 
 _T = TypeVar("_T")
-_NestedStr = Union[str, Iterable[Union[str, Iterable[Any]]]]
-_InstallerType = Callable[[Requirement], Optional[Distribution]]
-_EPDistType = Union[Distribution, Requirement, str]
-_MetadataType = Optional[IResourceProvider]
-_PkgReqType = Union[str, Requirement]
-_DistFinderType = Callable[[_Importer, str, bool], Generator[Distribution, None, None]]
-_NSHandlerType = Callable[[_Importer, str, str, types.ModuleType], str]
+_NestedStr: TypeAlias = str | Iterable[str | Iterable[Any]]
+_InstallerType: TypeAlias = Callable[[Requirement], Distribution | None]
+_EPDistType: TypeAlias = Distribution | Requirement | str
+_MetadataType: TypeAlias = IResourceProvider | None
+_PkgReqType: TypeAlias = str | Requirement
+_DistFinderType: TypeAlias = Callable[[_Importer, str, bool], Generator[Distribution, None, None]]
+_NSHandlerType: TypeAlias = Callable[[_Importer, str, str, types.ModuleType], str]
 
 def declare_namespace(name: str) -> None: ...
 def fixup_namespace_packages(path_item: str) -> None: ...
@@ -53,7 +56,7 @@ class Environment:
     def remove(self, dist: Distribution) -> None: ...
     def can_add(self, dist: Distribution) -> bool: ...
     def __add__(self, other: Distribution | Environment) -> Environment: ...
-    def __iadd__(self, other: Distribution | Environment) -> Environment: ...
+    def __iadd__(self: Self, other: Distribution | Environment) -> Self: ...
     @overload
     def best_match(self, req: Requirement, working_set: WorkingSet) -> Distribution: ...
     @overload
@@ -78,7 +81,7 @@ class Requirement:
     @staticmethod
     def parse(s: str | Iterable[str]) -> Requirement: ...
     def __contains__(self, item: Distribution | str | tuple[str, ...]) -> bool: ...
-    def __eq__(self, other_requirement: Any) -> bool: ...
+    def __eq__(self, other_requirement: object) -> bool: ...
 
 def load_entry_point(dist: _EPDistType, group: str, name: str) -> Any: ...
 def get_entry_info(dist: _EPDistType, group: str, name: str) -> EntryPoint | None: ...
@@ -120,10 +123,14 @@ class Distribution(IResourceProvider, IMetadataProvider):
     PKG_INFO: str
     location: str
     project_name: str
-    key: str
-    extras: list[str]
-    version: str
-    parsed_version: tuple[str, ...]
+    @property
+    def key(self) -> str: ...
+    @property
+    def extras(self) -> list[str]: ...
+    @property
+    def version(self) -> str: ...
+    @property
+    def parsed_version(self) -> tuple[str, ...]: ...
     py_version: str
     platform: str | None
     precedence: int

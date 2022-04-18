@@ -1,8 +1,11 @@
 import sys
 from _typeshed import Self
+from collections.abc import Callable, Iterable
 from email.message import Message
 from types import TracebackType
-from typing import IO, Any, BinaryIO, Callable, Iterable
+from typing import IO, Any, BinaryIO
+
+__all__ = ["addbase", "addclosehook", "addinfo", "addinfourl"]
 
 class addbase(BinaryIO):
     fp: IO[bytes]
@@ -49,6 +52,7 @@ class addinfourl(addinfo):
     if sys.version_info >= (3, 9):
         @property
         def status(self) -> int | None: ...
+
     def __init__(self, fp: IO[bytes], headers: Message, url: str, code: int | None = ...) -> None: ...
     def geturl(self) -> str: ...
     def getcode(self) -> int | None: ...

@@ -1,12 +1,14 @@
 import sys
+from typing_extensions import TypeAlias
 
 # Because UUID has properties called int and bytes we need to rename these temporarily.
-_Int = int
-_Bytes = bytes
-_FieldsType = tuple[int, int, int, int, int, int]
+_Int: TypeAlias = int
+_Bytes: TypeAlias = bytes
+_FieldsType: TypeAlias = tuple[int, int, int, int, int, int]
 
 if sys.version_info >= (3, 7):
     from enum import Enum
+
     class SafeUUID(Enum):
         safe: int
         unsafe: int
@@ -37,6 +39,7 @@ class UUID:
             int: _Int | None = ...,
             version: _Int | None = ...,
         ) -> None: ...
+
     @property
     def bytes(self) -> _Bytes: ...
     @property

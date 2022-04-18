@@ -8,10 +8,15 @@ from multiprocessing import queues, synchronize
 from multiprocessing.pool import Pool as _Pool
 from multiprocessing.process import BaseProcess
 from multiprocessing.sharedctypes import SynchronizedArray, SynchronizedBase
-from typing import Any, TypeVar, Union, overload
-from typing_extensions import Literal
+from typing import Any, ClassVar, TypeVar, overload
+from typing_extensions import Literal, TypeAlias
 
-_LockLike = Union[synchronize.Lock, synchronize.RLock]
+if sys.version_info >= (3, 8):
+    __all__ = ()
+else:
+    __all__: list[str] = []
+
+_LockLike: TypeAlias = synchronize.Lock | synchronize.RLock
 _CT = TypeVar("_CT", bound=_CData)
 
 class ProcessError(Exception): ...
@@ -33,6 +38,7 @@ class BaseContext:
     if sys.version_info >= (3, 8):
         @staticmethod
         def parent_process() -> BaseProcess | None: ...
+
     @staticmethod
     def active_children() -> list[BaseProcess]: ...
     def cpu_count(self) -> int: ...
@@ -113,6 +119,7 @@ class BaseContext:
         def get_context(self, method: Literal["spawn"]) -> SpawnContext: ...
         @overload
         def get_context(self, method: str) -> BaseContext: ...
+
     def get_start_method(self, allow_none: bool = ...) -> str: ...
     def set_start_method(self, method: str | None, force: bool = ...) -> None: ...
     @property
@@ -132,6 +139,8 @@ class DefaultContext(BaseContext):
     def set_start_method(self, method: str | None, force: bool = ...) -> None: ...
     def get_start_method(self, allow_none: bool = ...) -> str: ...
     def get_all_start_methods(self) -> list[str]: ...
+    if sys.version_info < (3, 8):
+        __all__: ClassVar[list[str]]
 
 _default_context: DefaultContext
 
@@ -140,20 +149,25 @@ if sys.platform != "win32":
         _start_method: str
         @staticmethod
         def _Popen(process_obj: BaseProcess) -> Any: ...
+
     class SpawnProcess(BaseProcess):
         _start_method: str
         @staticmethod
         def _Popen(process_obj: BaseProcess) -> SpawnProcess: ...
+
     class ForkServerProcess(BaseProcess):
         _start_method: str
         @staticmethod
         def _Popen(process_obj: BaseProcess) -> Any: ...
+
     class ForkContext(BaseContext):
         _name: str
         Process: type[ForkProcess]
+
     class SpawnContext(BaseContext):
         _name: str
         Process: type[SpawnProcess]
+
     class ForkServerContext(BaseContext):
         _name: str
         Process: type[ForkServerProcess]
@@ -163,6 +177,7 @@ else:
         _start_method: str
         @staticmethod
         def _Popen(process_obj: BaseProcess) -> Any: ...
+
     class SpawnContext(BaseContext):
         _name: str
         Process: type[SpawnProcess]
