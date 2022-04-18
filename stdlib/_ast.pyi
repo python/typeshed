@@ -172,6 +172,14 @@ class Try(stmt):
     orelse: list[stmt]
     finalbody: list[stmt]
 
+if sys.version_info >= (3, 11):
+    class TryStar(stmt):
+        __match_args__ = ("body", "handlers", "orelse", "finalbody")
+        body: list[stmt]
+        handlers: list[ExceptHandler]
+        orelse: list[stmt]
+        finalbody: list[stmt]
+
 class Assert(stmt):
     if sys.version_info >= (3, 10):
         __match_args__ = ("test", "msg")

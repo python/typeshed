@@ -1,7 +1,8 @@
+from collections.abc import Callable
 from email import _MessageT
 from email.message import Message
 from email.policy import Policy
-from typing import Callable, Generic, overload
+from typing import Generic, overload
 
 __all__ = ["FeedParser", "BytesFeedParser"]
 

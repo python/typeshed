@@ -47,7 +47,7 @@ jobs:
         with:
           python-version: 3.9
       - run: pip install -r requirements-tests.txt
-      - run: ./tests/pytype_test.py
+      - run: ./tests/pytype_test.py --print-stderr
 
   mypy:
     name: Run mypy against the stubs

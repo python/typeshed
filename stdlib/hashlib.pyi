@@ -1,6 +1,7 @@
 import sys
 from _typeshed import ReadableBuffer, Self
-from typing import AbstractSet, Callable, Protocol
+from typing import Protocol
+from collections.abc import Callable, Set as AbstractSet
 from typing_extensions import final
 
 if sys.version_info >= (3, 11):

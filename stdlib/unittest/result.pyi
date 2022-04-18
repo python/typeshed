@@ -1,6 +1,7 @@
 import unittest.case
+from collections.abc import Callable
 from types import TracebackType
-from typing import Any, Callable, TextIO, TypeVar, Union
+from typing import Any, TextIO, TypeVar, Union
 from typing_extensions import TypeAlias
 
 _SysExcInfoType: TypeAlias = Union[tuple[type[BaseException], BaseException, TracebackType], tuple[None, None, None]]

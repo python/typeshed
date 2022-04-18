@@ -1,6 +1,7 @@
 import sys
 from _typeshed import Self, StrPath
-from typing import Any, AsyncIterator, Awaitable, Callable, Iterable, Sequence
+from collections.abc import AsyncIterator, Awaitable, Callable, Iterable, Sequence
+from typing import Any
 from typing_extensions import TypeAlias
 
 from . import events, protocols, transports

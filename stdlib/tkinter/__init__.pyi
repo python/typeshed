@@ -1,11 +1,12 @@
 import _tkinter
 import sys
 from _typeshed import StrOrBytesPath
+from collections.abc import Callable, Mapping, Sequence
 from enum import Enum
 from tkinter.constants import *
 from tkinter.font import _FontDescription
 from types import TracebackType
-from typing import Any, Callable, Generic, Mapping, Protocol, Sequence, TypeVar, Union, overload
+from typing import Any, Generic, Protocol, TypeVar, Union, overload
 from typing_extensions import Literal, TypeAlias, TypedDict
 
 if sys.version_info >= (3, 9):

@@ -1,5 +1,6 @@
 import sys
-from typing import Any, Callable, ClassVar, Iterable, Iterator, Mapping, Protocol, Union
+from collections.abc import Callable, Iterable, Iterator, Mapping
+from typing import Any, ClassVar, Protocol, Union
 from typing_extensions import TypeAlias, final
 
 if sys.version_info >= (3, 8):
