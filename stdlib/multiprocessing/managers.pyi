@@ -2,8 +2,9 @@ import queue
 import sys
 import threading
 from _typeshed import Self
+from collections.abc import Callable, Iterable, Mapping, Sequence
 from types import TracebackType
-from typing import Any, AnyStr, Callable, Generic, Iterable, Mapping, Sequence, TypeVar
+from typing import Any, AnyStr, Generic, TypeVar
 
 from .connection import Connection
 from .context import BaseContext

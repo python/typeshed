@@ -6,7 +6,8 @@
 
 import sys
 from _typeshed import OptExcInfo
-from typing import Any, Callable, Iterable, Protocol
+from collections.abc import Callable, Iterable
+from typing import Any, Protocol
 from typing_extensions import TypeAlias
 
 class _Readable(Protocol):

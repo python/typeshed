@@ -1,6 +1,7 @@
 from _typeshed import Self
+from collections.abc import Callable, Sequence
 from tkinter import Canvas, Frame, Misc, PhotoImage, Scrollbar
-from typing import Any, Callable, ClassVar, Sequence, Union, overload
+from typing import Any, ClassVar, Union, overload
 from typing_extensions import TypeAlias
 
 __all__ = [

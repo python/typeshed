@@ -1,8 +1,9 @@
 import enum
 import sre_compile
 import sys
+from collections.abc import Callable, Iterator
 from sre_constants import error as error
-from typing import Any, AnyStr, Callable, Iterator, overload
+from typing import Any, AnyStr, overload
 from typing_extensions import TypeAlias
 
 # ----- re variables and constants -----

@@ -1,6 +1,7 @@
 import sys
 from _typeshed import SupportsTrunc
-from typing import Iterable, SupportsFloat, overload
+from collections.abc import Iterable
+from typing import SupportsFloat, overload
 from typing_extensions import SupportsIndex, TypeAlias
 
 if sys.version_info >= (3, 8):

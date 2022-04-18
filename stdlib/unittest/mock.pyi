@@ -1,8 +1,9 @@
 import sys
 from _typeshed import Self
+from collections.abc import Awaitable, Callable, Iterable, Mapping, Sequence
 from contextlib import _GeneratorContextManager
 from types import TracebackType
-from typing import Any, Awaitable, Callable, Generic, Iterable, Mapping, Sequence, TypeVar, overload
+from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Literal, TypeAlias
 
 _T = TypeVar("_T")

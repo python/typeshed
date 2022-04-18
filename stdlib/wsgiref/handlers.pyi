@@ -1,7 +1,8 @@
 from _typeshed import OptExcInfo
 from _typeshed.wsgi import ErrorStream, InputStream, StartResponse, WSGIApplication, WSGIEnvironment
 from abc import abstractmethod
-from typing import IO, Callable, MutableMapping
+from collections.abc import Callable, MutableMapping
+from typing import IO
 
 from .headers import Headers
 from .util import FileWrapper

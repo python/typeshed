@@ -1,5 +1,6 @@
 import sys
-from typing import Any, Callable, Generic, TypeVar, overload
+from collections.abc import Callable
+from typing import Any, Generic, TypeVar, overload
 from typing_extensions import final
 
 if sys.version_info >= (3, 9):
