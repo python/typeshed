@@ -1,11 +1,13 @@
-from typing import Any, Dict, Tuple
+from typing import Any
+from typing_extensions import TypeAlias
 from weakref import ReferenceType
 
-localdict = Dict[Any, Any]
+__all__ = ["local"]
+localdict: TypeAlias = dict[Any, Any]
 
 class _localimpl:
     key: str
-    dicts: Dict[int, Tuple[ReferenceType[Any], localdict]]
+    dicts: dict[int, tuple[ReferenceType[Any], localdict]]
     def __init__(self) -> None: ...
     def get_dict(self) -> localdict: ...
     def create_dict(self) -> localdict: ...

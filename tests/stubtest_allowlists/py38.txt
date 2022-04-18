@@ -5,18 +5,24 @@ _collections_abc.AsyncGenerator.ag_running
 _collections_abc.ItemsView.__reversed__
 _collections_abc.KeysView.__reversed__
 _collections_abc.ValuesView.__reversed__
+_dummy_threading
 ast.Bytes.__new__
 ast.Ellipsis.__new__
 ast.NameConstant.__new__
 ast.Num.__new__
 ast.Str.__new__
-asyncio.compat  # removed in 3.7
 asyncio.Future.__init__  # Usually initialized from c object
 asyncio.Future._callbacks  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future._callbacks  # Usually initialized from c object
-asyncio.threads  # Added in Python 3.9
+asyncio.locks._ContextManagerMixin.__enter__  # Always raises; deliberately omitted from the stub
+asyncio.locks._ContextManagerMixin.__exit__  # Always raises; deliberately omitted from the stub
 builtins.dict.get
+builtins.float.__set_format__  # Internal method for CPython test suite
+collections.AsyncGenerator.asend  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
+collections.AsyncGenerator.__anext__  # async at runtime, deliberately not in the stub, see #7491
+collections.AsyncGenerator.aclose  # async at runtime, deliberately not in the stub, see #7491
+collections.AsyncIterator.__anext__  # async at runtime, deliberately not in the stub, see #7491
 collections.AsyncGenerator.ag_await
 collections.AsyncGenerator.ag_code
 collections.AsyncGenerator.ag_frame
@@ -25,19 +31,23 @@ collections.Callable
 collections.ItemsView.__reversed__
 collections.KeysView.__reversed__
 collections.ValuesView.__reversed__
-collections.abc.AsyncGenerator.ag_await
-collections.abc.AsyncGenerator.ag_code
-collections.abc.AsyncGenerator.ag_frame
-collections.abc.AsyncGenerator.ag_running
-collections.abc.ItemsView.__reversed__
-collections.abc.KeysView.__reversed__
-collections.abc.ValuesView.__reversed__
+collections.Mapping.__reversed__  # Set to None at runtime for a better error message
+# Adding these reflected dunders to `typing.AbstractSet` causes a large number of false-positives. See #7414.
+collections.Set.__rand__
+collections.Set.__ror__
+collections.Set.__rsub__
+collections.Set.__rxor__
 contextvars.Context.__init__  # Default C __init__ signature is wrong
 dataclasses.field
+distutils.command.bdist_wininst  # see #6523
+dummy_threading.Condition.acquire
+dummy_threading.Condition.release
+dummy_threading.Event.isSet
+dummy_threading.Thread.native_id
+dummy_threading.local.__new__
 enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
-functools.partialmethod.__get__
-functools.singledispatchmethod.__call__  # A lie to reflect that the descriptor get returns a callable
+ftplib.FTP.trust_server_pasv_ipv4_address  # Dangerous to use, intentionally undocumented, intentionally missing from typeshed. #6154
 gettext.install  # codeset default value is ['unspecified'] so can't be specified
 gettext.translation  # codeset default value is ['unspecified'] so can't be specified
 hmac.new  # Stub is a white lie; see comments in the stub
@@ -50,13 +60,13 @@ multiprocessing.spawn._main
 pickle.Pickler.reducer_override  # implemented in C pickler
 queue.SimpleQueue.__init__  # Default C __init__ signature is wrong
 random.Random.randrange  # missing undocumented arg _int
-random.randrange  # missing undocumented arg _int
+re.Pattern.scanner  # Undocumented and not useful. #6405
 sched.Event.__doc__  # __slots__ is overridden
 ssl.PROTOCOL_SSLv3  # Depends on ssl compilation
 ssl.RAND_egd  # Depends on openssl compilation
 sys.UnraisableHookArgs  # Not exported from sys
 types.ClassMethodDescriptorType.__get__
-types.CodeType.replace
+types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__
 typing.NamedTuple.__new__
@@ -84,6 +94,10 @@ tkinter.EventType.__new__
 
 builtins.memoryview.__iter__  # C type that implements __getitem__
 builtins.memoryview.cast  # inspect.signature is incorrect about shape being kw-only
+sqlite3.dbapi2.Binary.__iter__  # C type that implements __getitem__
+sqlite3.dbapi2.Binary.cast  # inspect.signature is incorrect about shape being kw-only
+sqlite3.Binary.__iter__  # C type that implements __getitem__
+sqlite3.Binary.cast  # inspect.signature is incorrect about shape being kw-only
 collections.Coroutine.cr_await
 collections.Coroutine.cr_code
 collections.Coroutine.cr_frame
@@ -94,3 +108,57 @@ collections.Generator.gi_running
 collections.Generator.gi_yieldfrom
 collections.Mapping.get  # Adding None to the Union messed up mypy
 collections.Sequence.index  # Supporting None in end is not mandatory
+
+# Exists at runtime, but missing from stubs
+_dummy_thread.RLock
+_imp.source_hash
+contextvars.ContextVar.__class_getitem__
+datetime.datetime_CAPI
+distutils.dist.DistributionMetadata.set_classifiers
+distutils.dist.DistributionMetadata.set_keywords
+distutils.dist.DistributionMetadata.set_platforms
+distutils.sysconfig.expand_makefile_vars
+distutils.sysconfig.get_python_version
+distutils.util.get_host_platform
+distutils.cygwinccompiler.RE_VERSION
+distutils.dist.command_re
+distutils.fancy_getopt.longopt_re
+distutils.fancy_getopt.neg_alias_re
+dummy_threading.ExceptHookArgs
+dummy_threading.Lock
+dummy_threading.RLock
+dummy_threading.stack_size
+html.parser.HTMLParser.unescape
+multiprocessing.managers.SharedMemoryServer.create
+multiprocessing.managers.SharedMemoryServer.list_segments
+multiprocessing.managers.SharedMemoryServer.public
+multiprocessing.managers.SharedMemoryServer.release_segment
+multiprocessing.managers.SharedMemoryServer.shutdown
+multiprocessing.managers.SharedMemoryServer.track_segment
+plistlib.Data.asBase64
+plistlib.Data.fromBase64
+pyexpat.XMLParserType.SkippedEntityHandler
+pyexpat.XMLParserType.intern
+stringprep.unicodedata  # re-exported from unicodedata
+tempfile.SpooledTemporaryFile.softspace
+tkinter.commondialog.[A-Z_]+
+tkinter.commondialog.TclVersion
+tkinter.commondialog.TkVersion
+tkinter.commondialog.wantobjects
+tkinter.dialog.[A-Z_]+
+tkinter.dialog.TclVersion
+tkinter.dialog.TkVersion
+tkinter.dialog.wantobjects
+tkinter.dnd.Icon
+tkinter.dnd.Tester
+tkinter.dnd.test
+tkinter.filedialog.[A-Z_]+
+tkinter.filedialog.TclVersion
+tkinter.filedialog.TkVersion
+tkinter.filedialog.wantobjects
+tkinter.simpledialog.wantobjects
+tkinter.tix.wantobjects
+typing._SpecialForm.__call__
+unicodedata.UCD.is_normalized
+xml.parsers.expat.XMLParserType.SkippedEntityHandler
+xml.parsers.expat.XMLParserType.intern

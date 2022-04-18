@@ -1,12 +1,13 @@
 import sys
 from collections import OrderedDict
-from typing import Any, Dict
+from typing import Any
+from typing_extensions import TypeAlias
 
 entitiesTrie: Any
 if sys.version_info >= (3, 7):
-    attributeMap = Dict[Any, Any]
+    attributeMap: TypeAlias = dict[Any, Any]
 else:
-    attributeMap = OrderedDict[Any, Any]
+    attributeMap: TypeAlias = OrderedDict[Any, Any]
 
 class HTMLTokenizer:
     stream: Any

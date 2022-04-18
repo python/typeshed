@@ -1,8 +1,12 @@
-from typing import Any, Callable, Container, Dict, Iterable, List, Mapping, NamedTuple, Optional, Sequence, Union
+from typing import Any, Callable, Container, Iterable, Mapping, NamedTuple, Sequence
+from typing_extensions import TypeAlias
 
+LATEX_ESCAPE_RULES: dict[str, str]
+MIN_PADDING: int
 PRESERVE_WHITESPACE: bool
 WIDE_CHARS_MODE: bool
-tabulate_formats: List[str]
+multiline_formats: dict[str, str]
+tabulate_formats: list[str]
 
 class Line(NamedTuple):
     begin: str
@@ -15,8 +19,8 @@ class DataRow(NamedTuple):
     sep: str
     end: str
 
-_TableFormatLine = Union[None, Line, Callable[[List[int], List[str]], str]]
-_TableFormatRow = Union[None, DataRow, Callable[[List[Any], List[int], List[str]], str]]
+_TableFormatLine: TypeAlias = None | Line | Callable[[list[int], list[str]], str]
+_TableFormatRow: TypeAlias = None | DataRow | Callable[[list[Any], list[int], list[str]], str]
 
 class TableFormat(NamedTuple):
     lineabove: _TableFormatLine
@@ -26,18 +30,18 @@ class TableFormat(NamedTuple):
     headerrow: _TableFormatRow
     datarow: _TableFormatRow
     padding: int
-    with_header_hide: Optional[Container[str]]
+    with_header_hide: Container[str] | None
 
 def simple_separated_format(separator: str) -> TableFormat: ...
 def tabulate(
-    tabular_data: Union[Mapping[str, Iterable[Any]], Iterable[Iterable[Any]]],
-    headers: Union[str, Dict[str, str], Sequence[str]] = ...,
-    tablefmt: Union[str, TableFormat] = ...,
-    floatfmt: Union[str, Iterable[str]] = ...,
-    numalign: Optional[str] = ...,
-    stralign: Optional[str] = ...,
-    missingval: Union[str, Iterable[str]] = ...,
-    showindex: Union[str, bool, Iterable[Any]] = ...,
-    disable_numparse: Union[bool, Iterable[int]] = ...,
-    colalign: Optional[Iterable[Optional[str]]] = ...,
+    tabular_data: Mapping[str, Iterable[Any]] | Iterable[Iterable[Any]],
+    headers: str | dict[str, str] | Sequence[str] = ...,
+    tablefmt: str | TableFormat = ...,
+    floatfmt: str | Iterable[str] = ...,
+    numalign: str | None = ...,
+    stralign: str | None = ...,
+    missingval: str | Iterable[str] = ...,
+    showindex: str | bool | Iterable[Any] = ...,
+    disable_numparse: bool | Iterable[int] = ...,
+    colalign: Iterable[str | None] | None = ...,
 ) -> str: ...

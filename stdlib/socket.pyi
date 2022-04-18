@@ -3,7 +3,7 @@ from _typeshed import ReadableBuffer, Self, WriteableBuffer
 from collections.abc import Iterable
 from enum import IntEnum, IntFlag
 from io import RawIOBase
-from typing import Any, BinaryIO, Optional, TextIO, TypeVar, Union, overload
+from typing import Any, BinaryIO, TextIO, overload
 from typing_extensions import Literal
 
 # Ideally, we'd just do "from _socket import *". Unfortunately, socket
@@ -12,8 +12,6 @@ from typing_extensions import Literal
 import _socket
 from _socket import (
     _FD,
-    CMSG_LEN as CMSG_LEN,
-    CMSG_SPACE as CMSG_SPACE,
     EAI_ADDRFAMILY as EAI_ADDRFAMILY,
     EAI_AGAIN as EAI_AGAIN,
     EAI_BADFLAGS as EAI_BADFLAGS,
@@ -213,7 +211,7 @@ from _socket import (
 if sys.version_info >= (3, 7):
     from _socket import close as close
 if sys.platform != "win32":
-    from _socket import sethostname as sethostname
+    from _socket import CMSG_LEN as CMSG_LEN, CMSG_SPACE as CMSG_SPACE, sethostname as sethostname
 if sys.platform != "win32" or sys.version_info >= (3, 8):
     from _socket import if_indextoname as if_indextoname, if_nameindex as if_nameindex, if_nametoindex as if_nametoindex
 if sys.platform == "linux":
@@ -341,6 +339,7 @@ if sys.platform == "linux" and sys.version_info >= (3, 8):
 if sys.platform == "linux" and sys.version_info >= (3, 9):
     from _socket import (
         CAN_J1939 as CAN_J1939,
+        CAN_RAW_JOIN_FILTERS as CAN_RAW_JOIN_FILTERS,
         J1939_EE_INFO_NONE as J1939_EE_INFO_NONE,
         J1939_EE_INFO_TX_ABORT as J1939_EE_INFO_TX_ABORT,
         J1939_FILTER_MAX as J1939_FILTER_MAX,
@@ -365,6 +364,8 @@ if sys.platform == "linux" and sys.version_info >= (3, 9):
         SO_J1939_PROMISC as SO_J1939_PROMISC,
         SO_J1939_SEND_PRIO as SO_J1939_SEND_PRIO,
     )
+if sys.platform == "linux" and sys.version_info >= (3, 10):
+    from _socket import IPPROTO_MPTCP as IPPROTO_MPTCP
 if sys.platform == "win32":
     from _socket import (
         RCVALL_IPLEVEL as RCVALL_IPLEVEL,
@@ -376,8 +377,6 @@ if sys.platform == "win32":
         SIO_LOOPBACK_FAST_PATH as SIO_LOOPBACK_FAST_PATH,
         SIO_RCVALL as SIO_RCVALL,
     )
-
-_T = TypeVar("_T")
 
 # Re-exported from errno
 EBADF: int
@@ -539,15 +538,11 @@ if sys.platform == "win32":
 
 class socket(_socket.socket):
     def __init__(
-        self,
-        family: Union[AddressFamily, int] = ...,
-        type: Union[SocketKind, int] = ...,
-        proto: int = ...,
-        fileno: Optional[int] = ...,
+        self, family: AddressFamily | int = ..., type: SocketKind | int = ..., proto: int = ..., fileno: int | None = ...
     ) -> None: ...
     def __enter__(self: Self) -> Self: ...
     def __exit__(self, *args: object) -> None: ...
-    def dup(self: _T) -> _T: ...  # noqa: F811
+    def dup(self: Self) -> Self: ...  # noqa: F811
     def accept(self) -> tuple[socket, _RetAddress]: ...
     # Note that the makefile's documented windows-specific behavior is not represented
     # mode strings with duplicates are intentionally excluded
@@ -555,27 +550,27 @@ class socket(_socket.socket):
     def makefile(
         self,
         mode: Literal["r", "w", "rw", "wr", ""] = ...,
-        buffering: Optional[int] = ...,
+        buffering: int | None = ...,
         *,
-        encoding: Optional[str] = ...,
-        errors: Optional[str] = ...,
-        newline: Optional[str] = ...,
+        encoding: str | None = ...,
+        errors: str | None = ...,
+        newline: str | None = ...,
     ) -> TextIO: ...
     @overload
     def makefile(
         self,
         mode: Literal["b", "rb", "br", "wb", "bw", "rwb", "rbw", "wrb", "wbr", "brw", "bwr"],
-        buffering: Optional[int] = ...,
+        buffering: int | None = ...,
         *,
-        encoding: Optional[str] = ...,
-        errors: Optional[str] = ...,
-        newline: Optional[str] = ...,
+        encoding: str | None = ...,
+        errors: str | None = ...,
+        newline: str | None = ...,
     ) -> BinaryIO: ...
-    def sendfile(self, file: BinaryIO, offset: int = ..., count: Optional[int] = ...) -> int: ...
+    def sendfile(self, file: BinaryIO, offset: int = ..., count: int | None = ...) -> int: ...
     @property
-    def family(self) -> AddressFamily: ...  # type: ignore
+    def family(self) -> AddressFamily: ...  # type: ignore[override]
     @property
-    def type(self) -> SocketKind: ...  # type: ignore
+    def type(self) -> SocketKind: ...  # type: ignore[override]
     def get_inheritable(self) -> bool: ...
     def set_inheritable(self, inheritable: bool) -> None: ...
 
@@ -585,7 +580,7 @@ if sys.platform != "win32":
     if sys.version_info >= (3, 9):
         # flags and address appear to be unused in send_fds and recv_fds
         def send_fds(
-            sock: socket, buffers: Iterable[bytes], fds: Union[bytes, Iterable[int]], flags: int = ..., address: None = ...
+            sock: socket, buffers: Iterable[bytes], fds: bytes | Iterable[int], flags: int = ..., address: None = ...
         ) -> int: ...
         def recv_fds(sock: socket, bufsize: int, maxfds: int, flags: int = ...) -> tuple[bytes, list[int], int, Any]: ...
 
@@ -596,14 +591,14 @@ if sys.platform == "win32":
     def socketpair(family: int = ..., type: int = ..., proto: int = ...) -> tuple[socket, socket]: ...
 
 else:
-    def socketpair(  # type: ignore
-        family: Union[int, AddressFamily, None] = ..., type: Union[SocketType, int] = ..., proto: int = ...
+    def socketpair(
+        family: int | AddressFamily | None = ..., type: SocketType | int = ..., proto: int = ...
     ) -> tuple[socket, socket]: ...
 
 class SocketIO(RawIOBase):
     def __init__(self, sock: socket, mode: Literal["r", "w", "rw", "rb", "wb", "rwb"]) -> None: ...
-    def readinto(self, b: WriteableBuffer) -> Optional[int]: ...
-    def write(self, b: ReadableBuffer) -> Optional[int]: ...
+    def readinto(self, b: WriteableBuffer) -> int | None: ...
+    def write(self, b: ReadableBuffer) -> int | None: ...
     @property
     def name(self) -> int: ...  # return value is really "int"
     @property
@@ -611,23 +606,18 @@ class SocketIO(RawIOBase):
 
 def getfqdn(name: str = ...) -> str: ...
 def create_connection(
-    address: tuple[Optional[str], int],
-    timeout: Optional[float] = ...,  # noqa: F811
-    source_address: Optional[tuple[Union[bytearray, bytes, str], int]] = ...,
+    address: tuple[str | None, int],
+    timeout: float | None = ...,  # noqa: F811
+    source_address: tuple[bytearray | bytes | str, int] | None = ...,
 ) -> socket: ...
 
 if sys.version_info >= (3, 8):
     def has_dualstack_ipv6() -> bool: ...
     def create_server(
-        address: _Address, *, family: int = ..., backlog: Optional[int] = ..., reuse_port: bool = ..., dualstack_ipv6: bool = ...
+        address: _Address, *, family: int = ..., backlog: int | None = ..., reuse_port: bool = ..., dualstack_ipv6: bool = ...
     ) -> socket: ...
 
 # the 5th tuple item is an address
 def getaddrinfo(
-    host: Optional[Union[bytearray, bytes, str]],
-    port: Union[str, int, None],
-    family: int = ...,
-    type: int = ...,
-    proto: int = ...,
-    flags: int = ...,
-) -> list[tuple[AddressFamily, SocketKind, int, str, Union[tuple[str, int], tuple[str, int, int, int]]]]: ...
+    host: bytes | str | None, port: str | int | None, family: int = ..., type: int = ..., proto: int = ..., flags: int = ...
+) -> list[tuple[AddressFamily, SocketKind, int, str, tuple[str, int] | tuple[str, int, int, int]]]: ...

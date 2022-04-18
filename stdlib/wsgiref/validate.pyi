@@ -1,5 +1,8 @@
 from _typeshed.wsgi import ErrorStream, InputStream, WSGIApplication
-from typing import Any, Callable, Iterable, Iterator, NoReturn, Optional
+from collections.abc import Callable, Iterable, Iterator
+from typing import Any, NoReturn
+
+__all__ = ["validator"]
 
 class WSGIWarning(Warning): ...
 
@@ -36,8 +39,8 @@ class IteratorWrapper:
     original_iterator: Iterator[bytes]
     iterator: Iterator[bytes]
     closed: bool
-    check_start_response: Optional[bool]
-    def __init__(self, wsgi_iterator: Iterator[bytes], check_start_response: Optional[bool]) -> None: ...
+    check_start_response: bool | None
+    def __init__(self, wsgi_iterator: Iterator[bytes], check_start_response: bool | None) -> None: ...
     def __iter__(self) -> IteratorWrapper: ...
     def __next__(self) -> bytes: ...
     def close(self) -> None: ...

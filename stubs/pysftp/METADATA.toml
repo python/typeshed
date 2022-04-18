@@ -1,3 +1,2 @@
-version = "0.2"
-python2 = true
+version = "0.2.*"
 requires = ["types-paramiko"]

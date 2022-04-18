@@ -1,33 +1,32 @@
-from _typeshed import StrOrBytesPath
+from _typeshed import OptExcInfo, StrOrBytesPath
+from collections.abc import Callable
 from types import FrameType, TracebackType
-from typing import IO, Any, Callable, Dict, List, Optional, Tuple, Type
+from typing import IO, Any
 
-_ExcInfo = Tuple[Optional[Type[BaseException]], Optional[BaseException], Optional[TracebackType]]
+__UNDEF__: object  # undocumented sentinel
 
 def reset() -> str: ...  # undocumented
 def small(text: str) -> str: ...  # undocumented
 def strong(text: str) -> str: ...  # undocumented
 def grey(text: str) -> str: ...  # undocumented
-def lookup(name: str, frame: FrameType, locals: Dict[str, Any]) -> Tuple[Optional[str], Any]: ...  # undocumented
+def lookup(name: str, frame: FrameType, locals: dict[str, Any]) -> tuple[str | None, Any]: ...  # undocumented
 def scanvars(
-    reader: Callable[[], bytes], frame: FrameType, locals: Dict[str, Any]
-) -> List[Tuple[str, Optional[str], Any]]: ...  # undocumented
-def html(einfo: _ExcInfo, context: int = ...) -> str: ...
-def text(einfo: _ExcInfo, context: int = ...) -> str: ...
+    reader: Callable[[], bytes], frame: FrameType, locals: dict[str, Any]
+) -> list[tuple[str, str | None, Any]]: ...  # undocumented
+def html(einfo: OptExcInfo, context: int = ...) -> str: ...
+def text(einfo: OptExcInfo, context: int = ...) -> str: ...
 
 class Hook:  # undocumented
     def __init__(
         self,
         display: int = ...,
-        logdir: Optional[StrOrBytesPath] = ...,
+        logdir: StrOrBytesPath | None = ...,
         context: int = ...,
-        file: Optional[IO[str]] = ...,
+        file: IO[str] | None = ...,
         format: str = ...,
     ) -> None: ...
-    def __call__(
-        self, etype: Optional[Type[BaseException]], evalue: Optional[BaseException], etb: Optional[TracebackType]
-    ) -> None: ...
-    def handle(self, info: Optional[_ExcInfo] = ...) -> None: ...
+    def __call__(self, etype: type[BaseException] | None, evalue: BaseException | None, etb: TracebackType | None) -> None: ...
+    def handle(self, info: OptExcInfo | None = ...) -> None: ...
 
-def handler(info: Optional[_ExcInfo] = ...) -> None: ...
-def enable(display: int = ..., logdir: Optional[StrOrBytesPath] = ..., context: int = ..., format: str = ...) -> None: ...
+def handler(info: OptExcInfo | None = ...) -> None: ...
+def enable(display: int = ..., logdir: StrOrBytesPath | None = ..., context: int = ..., format: str = ...) -> None: ...

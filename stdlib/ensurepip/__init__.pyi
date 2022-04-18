@@ -1,9 +1,9 @@
-from typing import Optional
+__all__ = ["version", "bootstrap"]
 
 def version() -> str: ...
 def bootstrap(
     *,
-    root: Optional[str] = ...,
+    root: str | None = ...,
     upgrade: bool = ...,
     user: bool = ...,
     altinstall: bool = ...,

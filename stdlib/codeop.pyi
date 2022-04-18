@@ -1,7 +1,8 @@
 from types import CodeType
-from typing import Optional
 
-def compile_command(source: str, filename: str = ..., symbol: str = ...) -> Optional[CodeType]: ...
+__all__ = ["compile_command", "Compile", "CommandCompiler"]
+
+def compile_command(source: str, filename: str = ..., symbol: str = ...) -> CodeType | None: ...
 
 class Compile:
     flags: int
@@ -11,4 +12,4 @@ class Compile:
 class CommandCompiler:
     compiler: Compile
     def __init__(self) -> None: ...
-    def __call__(self, source: str, filename: str = ..., symbol: str = ...) -> Optional[CodeType]: ...
+    def __call__(self, source: str, filename: str = ..., symbol: str = ...) -> CodeType | None: ...

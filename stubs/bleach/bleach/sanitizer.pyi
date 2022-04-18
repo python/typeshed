@@ -1,45 +1,47 @@
-from typing import Any, Callable, Container, Dict, Iterable, List, Optional, Pattern, Text, Union
+from collections.abc import Callable, Container, Iterable
+from typing import Any, Pattern
+from typing_extensions import TypeAlias
 
+from .css_sanitizer import CSSSanitizer
 from .html5lib_shim import BleachHTMLParser, BleachHTMLSerializer, SanitizerFilter
 
-ALLOWED_TAGS: List[Text]
-ALLOWED_ATTRIBUTES: Dict[Text, List[Text]]
-ALLOWED_STYLES: List[Text]
-ALLOWED_PROTOCOLS: List[Text]
+ALLOWED_TAGS: list[str]
+ALLOWED_ATTRIBUTES: dict[str, list[str]]
+ALLOWED_PROTOCOLS: list[str]
 
-INVISIBLE_CHARACTERS: Text
-INVISIBLE_CHARACTERS_RE: Pattern[Text]
-INVISIBLE_REPLACEMENT_CHAR: Text
+INVISIBLE_CHARACTERS: str
+INVISIBLE_CHARACTERS_RE: Pattern[str]
+INVISIBLE_REPLACEMENT_CHAR: str
 
 # A html5lib Filter class
 _Filter = Any
 
-class Cleaner(object):
-    tags: Container[Text]
+class Cleaner:
+    tags: Container[str]
     attributes: _Attributes
-    styles: Container[Text]
-    protocols: Container[Text]
+    protocols: Container[str]
     strip: bool
     strip_comments: bool
     filters: Iterable[_Filter]
+    css_sanitizer: CSSSanitizer | None
     parser: BleachHTMLParser
     walker: Any
     serializer: BleachHTMLSerializer
     def __init__(
         self,
-        tags: Container[Text] = ...,
+        tags: Container[str] = ...,
         attributes: _Attributes = ...,
-        styles: Container[Text] = ...,
-        protocols: Container[Text] = ...,
+        protocols: Container[str] = ...,
         strip: bool = ...,
         strip_comments: bool = ...,
-        filters: Optional[Iterable[_Filter]] = ...,
+        filters: Iterable[_Filter] | None = ...,
+        css_sanitizer: CSSSanitizer | None = ...,
     ) -> None: ...
-    def clean(self, text: Text) -> Text: ...
+    def clean(self, text: str) -> str: ...
 
-_AttributeFilter = Callable[[Text, Text, Text], bool]
-_AttributeDict = Union[Dict[Text, Union[List[Text], _AttributeFilter]], Dict[Text, List[Text]], Dict[Text, _AttributeFilter]]
-_Attributes = Union[_AttributeFilter, _AttributeDict, List[Text]]
+_AttributeFilter: TypeAlias = Callable[[str, str, str], bool]
+_AttributeDict: TypeAlias = dict[str, list[str] | _AttributeFilter] | dict[str, list[str]] | dict[str, _AttributeFilter]
+_Attributes: TypeAlias = _AttributeFilter | _AttributeDict | list[str]
 
 def attribute_filter_factory(attributes: _Attributes) -> _AttributeFilter: ...
 
@@ -50,9 +52,12 @@ class BleachSanitizerFilter(SanitizerFilter):
     def __init__(
         self,
         source,
+        allowed_elements: Container[str] = ...,
         attributes: _Attributes = ...,
+        allowed_protocols: Container[str] = ...,
         strip_disallowed_elements: bool = ...,
         strip_html_comments: bool = ...,
+        css_sanitizer: CSSSanitizer | None = ...,
         **kwargs,
     ) -> None: ...
     def sanitize_stream(self, token_iterator): ...

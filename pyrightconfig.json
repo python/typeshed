@@ -5,18 +5,7 @@
         "stubs"
     ],
     "exclude": [
-        // Python 2 only modules.
-        "**/@python2",
-        "stubs/enum34",
-        "stubs/fb303",
-        "stubs/futures",
-        "stubs/ipaddress",
-        "stubs/kazoo",
-        "stubs/openssl-python",
-        "stubs/pathlib2",
-        "stubs/pymssql",
-        "stubs/scribe",
-        "stubs/tornado"
+        "**/@python2"
     ],
     "typeCheckingMode": "basic",
     "strictListInference": true,
@@ -40,10 +29,8 @@
     "reportUntypedClassDecorator": "error",
     "reportUntypedBaseClass": "error",
     "reportUntypedNamedTuple": "error",
-    "reportPrivateUsage": "error",
+    "reportPrivateUsage": "none",
     "reportConstantRedefinition": "error",
-    "reportIncompatibleMethodOverride": "error",
-    "reportIncompatibleVariableOverride": "error",
     "reportInvalidStringEscapeSequence": "error",
     "reportUnknownArgumentType": "error",
     "reportUnknownLambdaType": "error",
@@ -51,13 +38,17 @@
     "reportUndefinedVariable": "error",
     "reportUnboundVariable": "error",
     "reportInvalidStubStatement": "error",
-    "reportUnsupportedDunderAll": "error",
     "reportInvalidTypeVarUse": "error",
     "reportPropertyTypeMismatch": "error",
     "reportSelfClsParameterName": "error",
+    "reportUnsupportedDunderAll": "error",
+    // Incompatible overrides are out of typeshed's control as they are
+    // inherited from the implementation.
+    "reportIncompatibleMethodOverride": "none",
+    "reportIncompatibleVariableOverride": "none",
     // Overlapping overloads cannot be enabled at this time because
-    // of the "factions.Fraction.__pow__" method and "tasks.gather" function.
+    // of the "fractions.Fraction.__pow__" method and "tasks.gather" function.
     // Mypy's overlapping overload logic misses these issues (see mypy
     // issue #10143 and #10157).
-    "reportOverlappingOverload": "none"
+    "reportOverlappingOverload": "none",
 }

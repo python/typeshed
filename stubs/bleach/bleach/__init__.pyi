@@ -1,10 +1,10 @@
-from typing import Any, Container, Iterable, Optional, Text
+from collections.abc import Container, Iterable
 
-from bleach.linkifier import DEFAULT_CALLBACKS as DEFAULT_CALLBACKS, Linker as Linker, _Callback
-from bleach.sanitizer import (
+from .css_sanitizer import CSSSanitizer
+from .linkifier import DEFAULT_CALLBACKS as DEFAULT_CALLBACKS, Linker as Linker, _Callback
+from .sanitizer import (
     ALLOWED_ATTRIBUTES as ALLOWED_ATTRIBUTES,
     ALLOWED_PROTOCOLS as ALLOWED_PROTOCOLS,
-    ALLOWED_STYLES as ALLOWED_STYLES,
     ALLOWED_TAGS as ALLOWED_TAGS,
     Cleaner as Cleaner,
     _Attributes,
@@ -12,19 +12,18 @@ from bleach.sanitizer import (
 
 __all__ = ["clean", "linkify"]
 
-__releasedate__: Text
-__version__: Text
-VERSION: Any  # packaging.version.Version
+__releasedate__: str
+__version__: str
 
 def clean(
-    text: Text,
-    tags: Container[Text] = ...,
+    text: str,
+    tags: Container[str] = ...,
     attributes: _Attributes = ...,
-    styles: Container[Text] = ...,
-    protocols: Container[Text] = ...,
+    protocols: Container[str] = ...,
     strip: bool = ...,
     strip_comments: bool = ...,
-) -> Text: ...
+    css_sanitizer: CSSSanitizer | None = ...,
+) -> str: ...
 def linkify(
-    text: Text, callbacks: Iterable[_Callback] = ..., skip_tags: Optional[Container[Text]] = ..., parse_email: bool = ...
-) -> Text: ...
+    text: str, callbacks: Iterable[_Callback] = ..., skip_tags: Container[str] | None = ..., parse_email: bool = ...
+) -> str: ...
