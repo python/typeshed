@@ -46,6 +46,7 @@
         "stubs/openpyxl",
         "stubs/Pillow",
         "stubs/paramiko",
+        "stubs/peewee",
         "stubs/prettytable",
         "stubs/protobuf",
         "stubs/google-cloud-ndb",
