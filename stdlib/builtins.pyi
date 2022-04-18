@@ -22,28 +22,31 @@ from _typeshed import (
     SupportsTrunc,
     SupportsWrite,
 )
-from collections.abc import Callable, Set as AbstractSet
+from collections.abc import (
+    Awaitable,
+    Callable,
+    Iterable,
+    Iterator,
+    Mapping,
+    MutableMapping,
+    MutableSet,
+    Reversible,
+    Set as AbstractSet,
+    Sized,
+)
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from types import CodeType, TracebackType, _Cell
 from typing import (
     IO,
     Any,
-    Awaitable,
     BinaryIO,
     ByteString,
     ClassVar,
     Generic,
-    Iterable,
-    Iterator,
-    Mapping,
-    MutableMapping,
     MutableSequence,
-    MutableSet,
     NoReturn,
     Protocol,
-    Reversible,
     Sequence,
-    Sized,
     SupportsAbs,
     SupportsBytes,
     SupportsComplex,
