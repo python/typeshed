@@ -12,8 +12,6 @@ from typing_extensions import Literal
 import _socket
 from _socket import (
     _FD,
-    CMSG_LEN as CMSG_LEN,
-    CMSG_SPACE as CMSG_SPACE,
     EAI_ADDRFAMILY as EAI_ADDRFAMILY,
     EAI_AGAIN as EAI_AGAIN,
     EAI_BADFLAGS as EAI_BADFLAGS,
@@ -213,7 +211,7 @@ from _socket import (
 if sys.version_info >= (3, 7):
     from _socket import close as close
 if sys.platform != "win32":
-    from _socket import sethostname as sethostname
+    from _socket import CMSG_LEN as CMSG_LEN, CMSG_SPACE as CMSG_SPACE, sethostname as sethostname
 if sys.platform != "win32" or sys.version_info >= (3, 8):
     from _socket import if_indextoname as if_indextoname, if_nameindex as if_nameindex, if_nametoindex as if_nametoindex
 if sys.platform == "linux":
@@ -621,10 +619,5 @@ if sys.version_info >= (3, 8):
 
 # the 5th tuple item is an address
 def getaddrinfo(
-    host: bytearray | bytes | str | None,
-    port: str | int | None,
-    family: int = ...,
-    type: int = ...,
-    proto: int = ...,
-    flags: int = ...,
+    host: bytes | str | None, port: str | int | None, family: int = ..., type: int = ..., proto: int = ..., flags: int = ...
 ) -> list[tuple[AddressFamily, SocketKind, int, str, tuple[str, int] | tuple[str, int, int, int]]]: ...

@@ -1,7 +1,9 @@
 import sys
-from typing import IO, Any, Callable
+from _typeshed.wsgi import WSGIEnvironment
+from collections.abc import Callable
+from typing import IO, Any
 
-from .types import WSGIEnvironment
+__all__ = ["FileWrapper", "guess_scheme", "application_uri", "request_uri", "shift_path_info", "setup_testing_defaults"]
 
 class FileWrapper:
     filelike: IO[bytes]

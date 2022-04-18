@@ -1,8 +1,23 @@
 from _typeshed import Self, SupportsRead
-from typing import Any, Sequence
+from collections.abc import Sequence
+from typing import Any
 
 from .builder import TreeBuilder
-from .element import PageElement, SoupStrainer as SoupStrainer, Tag as Tag
+from .element import (
+    CData as CData,
+    Comment as Comment,
+    Declaration as Declaration,
+    Doctype as Doctype,
+    NavigableString as NavigableString,
+    PageElement as PageElement,
+    ProcessingInstruction as ProcessingInstruction,
+    ResultSet as ResultSet,
+    Script as Script,
+    SoupStrainer as SoupStrainer,
+    Stylesheet as Stylesheet,
+    Tag as Tag,
+    TemplateString as TemplateString,
+)
 from .formatter import Formatter
 
 class GuessedAtParserWarning(UserWarning): ...
@@ -60,7 +75,9 @@ class BeautifulSoup(Tag):
     def handle_starttag(self, name, namespace, nsprefix, attrs, sourceline: Any | None = ..., sourcepos: Any | None = ...): ...
     def handle_endtag(self, name, nsprefix: Any | None = ...) -> None: ...
     def handle_data(self, data) -> None: ...
-    def decode(self, pretty_print: bool = ..., eventual_encoding: str = ..., formatter: str | Formatter = ...): ...  # type: ignore  # missing some arguments
+    def decode(  # type: ignore[override]
+        self, pretty_print: bool = ..., eventual_encoding: str = ..., formatter: str | Formatter = ...
+    ): ...  # missing some arguments
 
 class BeautifulStoneSoup(BeautifulSoup): ...
 class StopParsing(Exception): ...

@@ -1,7 +1,8 @@
 import sys
 from _typeshed import Self
+from collections.abc import Callable, Iterable, Iterator, Mapping
 from types import TracebackType
-from typing import Any, Callable, Generic, Iterable, Iterator, Mapping, TypeVar
+from typing import Any, Generic, TypeVar
 from typing_extensions import Literal
 
 if sys.version_info >= (3, 9):
@@ -111,7 +112,9 @@ class Pool:
     def terminate(self) -> None: ...
     def join(self) -> None: ...
     def __enter__(self: Self) -> Self: ...
-    def __exit__(self, exc_type: type[BaseException], exc_val: BaseException, exc_tb: TracebackType) -> None: ...
+    def __exit__(
+        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
+    ) -> None: ...
 
 class ThreadPool(Pool):
     def __init__(

@@ -1,7 +1,8 @@
 import sys
 from _typeshed import FileDescriptor, FileDescriptorLike, Self
 from abc import ABCMeta, abstractmethod
-from typing import Any, Mapping, NamedTuple
+from collections.abc import Mapping
+from typing import Any, NamedTuple
 
 _EventMask = int
 
@@ -27,7 +28,7 @@ class BaseSelector(metaclass=ABCMeta):
     @abstractmethod
     def get_map(self) -> Mapping[FileDescriptorLike, SelectorKey]: ...
     def __enter__(self: Self) -> Self: ...
-    def __exit__(self, *args: Any) -> None: ...
+    def __exit__(self, *args: object) -> None: ...
 
 class SelectSelector(BaseSelector):
     def register(self, fileobj: FileDescriptorLike, events: _EventMask, data: Any = ...) -> SelectorKey: ...

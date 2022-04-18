@@ -1,10 +1,33 @@
 import sys
 from _typeshed import Self, SupportsWrite
+from collections.abc import Generator, Iterable, Iterator, Mapping
 from types import FrameType, TracebackType
-from typing import IO, Any, Generator, Iterable, Iterator, Mapping, Optional, overload
-from typing_extensions import Literal
+from typing import IO, Any, overload
+from typing_extensions import Literal, TypeAlias
 
-_PT = tuple[str, int, str, Optional[str]]
+__all__ = [
+    "extract_stack",
+    "extract_tb",
+    "format_exception",
+    "format_exception_only",
+    "format_list",
+    "format_stack",
+    "format_tb",
+    "print_exc",
+    "format_exc",
+    "print_exception",
+    "print_last",
+    "print_stack",
+    "print_tb",
+    "clear_frames",
+    "FrameSummary",
+    "StackSummary",
+    "TracebackException",
+    "walk_stack",
+    "walk_tb",
+]
+
+_PT: TypeAlias = tuple[str, int, str, str | None]
 
 def print_tb(tb: TracebackType | None, limit: int | None = ..., file: IO[str] | None = ...) -> None: ...
 
@@ -164,15 +187,15 @@ class FrameSummary(Iterable[Any]):
     @property
     def line(self) -> str | None: ...
     @overload
-    def __getitem__(self, i: Literal[0]) -> str: ...
+    def __getitem__(self, pos: Literal[0]) -> str: ...
     @overload
-    def __getitem__(self, i: Literal[1]) -> int: ...
+    def __getitem__(self, pos: Literal[1]) -> int: ...
     @overload
-    def __getitem__(self, i: Literal[2]) -> str: ...
+    def __getitem__(self, pos: Literal[2]) -> str: ...
     @overload
-    def __getitem__(self, i: Literal[3]) -> str | None: ...
+    def __getitem__(self, pos: Literal[3]) -> str | None: ...
     @overload
-    def __getitem__(self, i: int) -> Any: ...
+    def __getitem__(self, pos: int) -> Any: ...
     def __iter__(self) -> Iterator[Any]: ...
     def __eq__(self, other: object) -> bool: ...
     if sys.version_info >= (3, 8):

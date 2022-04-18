@@ -1,20 +1,25 @@
 import sys
 from _typeshed import Self
-from typing import Any, BinaryIO, Generic, Iterable, MutableSequence, TypeVar, Union, overload
-from typing_extensions import Literal, SupportsIndex
+from collections.abc import Iterable
 
-_IntTypeCode = Literal["b", "B", "h", "H", "i", "I", "l", "L", "q", "Q"]
-_FloatTypeCode = Literal["f", "d"]
-_UnicodeTypeCode = Literal["u"]
-_TypeCode = Union[_IntTypeCode, _FloatTypeCode, _UnicodeTypeCode]
+# pytype crashes if array inherits from collections.abc.MutableSequence instead of typing.MutableSequence
+from typing import Any, BinaryIO, Generic, MutableSequence, TypeVar, overload  # noqa: Y027
+from typing_extensions import Literal, SupportsIndex, TypeAlias
+
+_IntTypeCode: TypeAlias = Literal["b", "B", "h", "H", "i", "I", "l", "L", "q", "Q"]
+_FloatTypeCode: TypeAlias = Literal["f", "d"]
+_UnicodeTypeCode: TypeAlias = Literal["u"]
+_TypeCode: TypeAlias = _IntTypeCode | _FloatTypeCode | _UnicodeTypeCode
 
 _T = TypeVar("_T", int, float, str)
 
 typecodes: str
 
 class array(MutableSequence[_T], Generic[_T]):
-    typecode: _TypeCode
-    itemsize: int
+    @property
+    def typecode(self) -> _TypeCode: ...
+    @property
+    def itemsize(self) -> int: ...
     @overload
     def __init__(self: array[int], __typecode: _IntTypeCode, __initializer: bytes | Iterable[_T] = ...) -> None: ...
     @overload

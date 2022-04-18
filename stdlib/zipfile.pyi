@@ -1,15 +1,48 @@
 import io
 import sys
 from _typeshed import Self, StrOrBytesPath, StrPath
+from collections.abc import Callable, Iterable, Iterator, Sequence
 from os import PathLike
 from types import TracebackType
-from typing import IO, Any, Callable, Iterable, Iterator, Protocol, Sequence, overload
-from typing_extensions import Literal
+from typing import IO, Any, Protocol, overload
+from typing_extensions import Literal, TypeAlias
 
-_DateTuple = tuple[int, int, int, int, int, int]
-_ReadWriteMode = Literal["r", "w"]
-_ReadWriteBinaryMode = Literal["r", "w", "rb", "wb"]
-_ZipFileMode = Literal["r", "w", "x", "a"]
+if sys.version_info >= (3, 8):
+    __all__ = [
+        "BadZipFile",
+        "BadZipfile",
+        "error",
+        "ZIP_STORED",
+        "ZIP_DEFLATED",
+        "ZIP_BZIP2",
+        "ZIP_LZMA",
+        "is_zipfile",
+        "ZipInfo",
+        "ZipFile",
+        "PyZipFile",
+        "LargeZipFile",
+        "Path",
+    ]
+else:
+    __all__ = [
+        "BadZipFile",
+        "BadZipfile",
+        "error",
+        "ZIP_STORED",
+        "ZIP_DEFLATED",
+        "ZIP_BZIP2",
+        "ZIP_LZMA",
+        "is_zipfile",
+        "ZipInfo",
+        "ZipFile",
+        "PyZipFile",
+        "LargeZipFile",
+    ]
+
+_DateTuple: TypeAlias = tuple[int, int, int, int, int, int]
+_ReadWriteMode: TypeAlias = Literal["r", "w"]
+_ReadWriteBinaryMode: TypeAlias = Literal["r", "w", "rb", "wb"]
+_ZipFileMode: TypeAlias = Literal["r", "w", "x", "a"]
 
 class BadZipFile(Exception): ...
 
@@ -152,7 +185,7 @@ class ZipFile:
 
     def __enter__(self: Self) -> Self: ...
     def __exit__(
-        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
+        self, type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
     ) -> None: ...
     def close(self) -> None: ...
     def getinfo(self, name: str) -> ZipInfo: ...

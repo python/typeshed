@@ -3,22 +3,38 @@ _collections_abc.AsyncGenerator.ag_code
 _collections_abc.AsyncGenerator.ag_frame
 _collections_abc.AsyncGenerator.ag_running
 _dummy_threading
+asyncio.AbstractEventLoop.run_in_executor  # allowed to return a Future, changed in 3.8
+asyncio.events.AbstractEventLoop.run_in_executor  # allowed to return a Future, changed in 3.8
 asyncio.Future.__init__  # Usually initialized from c object
 asyncio.Future._callbacks  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future._callbacks  # Usually initialized from c object
+asyncio.locks._ContextManagerMixin.__enter__  # Always raises; deliberately omitted from the stub
+asyncio.locks._ContextManagerMixin.__exit__  # Always raises; deliberately omitted from the stub
 builtins.dict.get
+builtins.float.__set_format__  # Internal method for CPython test suite
 builtins.str.maketrans
 cmath.log
+collections.AsyncGenerator.asend  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
+collections.AsyncGenerator.__anext__  # async at runtime, deliberately not in the stub, see #7491
+collections.AsyncGenerator.aclose  # async at runtime, deliberately not in the stub, see #7491
+collections.AsyncIterator.__anext__  # async at runtime, deliberately not in the stub, see #7491
 collections.AsyncGenerator.ag_await
 collections.AsyncGenerator.ag_code
 collections.AsyncGenerator.ag_frame
 collections.AsyncGenerator.ag_running
 collections.Callable
+collections.Mapping.__reversed__  # Set to None at runtime for a better error message
+# Adding these reflected dunders to `typing.AbstractSet` causes a large number of false-positives. See #7414.
+collections.Set.__rand__
+collections.Set.__ror__
+collections.Set.__rsub__
+collections.Set.__rxor__
 collections.UserString.maketrans
 contextvars.Context.__init__  # Default C __init__ signature is wrong
 contextvars.ContextVar.get
 dataclasses.field
+distutils.command.bdist_wininst  # see #6523
 dummy_threading.Condition.acquire
 dummy_threading.Condition.release
 dummy_threading.Event.isSet
@@ -29,12 +45,10 @@ hmac.HMAC.__init__
 http.server.SimpleHTTPRequestHandler.__init__  # *args is expanded
 ipaddress._BaseNetwork.__init__
 json.loads
-multiprocessing.shared_memory
 (os|posix).utime
 pyexpat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args
 queue.SimpleQueue.__init__  # Default C __init__ signature is wrong
 random.Random.randrange  # missing undocumented arg _int
-random.randrange  # missing undocumented arg _int
 re.Pattern.scanner  # Undocumented and not useful. #6405
 sched.Event.__doc__  # __slots__ is overridden
 ssl.PROTOCOL_SSLv3  # Depends on ssl compilation
@@ -85,8 +99,6 @@ _dummy_thread.RLock
 _imp.source_hash
 contextvars.ContextVar.__class_getitem__
 datetime.datetime_CAPI
-distutils.command.bdist_wininst
-distutils.command.bdist_wininst.bdist_wininst
 distutils.dist.DistributionMetadata.set_classifiers
 distutils.dist.DistributionMetadata.set_keywords
 distutils.dist.DistributionMetadata.set_platforms
@@ -108,9 +120,6 @@ ssl.Options.OP_ENABLE_MIDDLEBOX_COMPAT
 ssl.SSLObject.verify_client_post_handshake
 ssl.SSLSocket.verify_client_post_handshake
 stringprep.unicodedata  # re-exported from unicodedata
-sys.callstats
-sys.get_coroutine_wrapper
-sys.set_coroutine_wrapper
 tempfile.SpooledTemporaryFile.softspace
 tkinter.commondialog.[A-Z_]+
 tkinter.commondialog.TclVersion
@@ -129,5 +138,4 @@ tkinter.filedialog.TkVersion
 tkinter.filedialog.wantobjects
 tkinter.simpledialog.wantobjects
 tkinter.tix.wantobjects
-types.CoroutineType.cr_origin
 typing._SpecialForm.__call__

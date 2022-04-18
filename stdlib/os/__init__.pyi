@@ -12,30 +12,14 @@ from _typeshed import (
     StrPath,
     structseq,
 )
+from abc import abstractmethod
 from builtins import OSError
+from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping, Sequence
 from contextlib import AbstractContextManager
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper as _TextIOWrapper
 from subprocess import Popen
-from typing import (
-    IO,
-    Any,
-    AnyStr,
-    BinaryIO,
-    Callable,
-    Generic,
-    Iterable,
-    Iterator,
-    Mapping,
-    MutableMapping,
-    NoReturn,
-    Protocol,
-    Sequence,
-    TypeVar,
-    Union,
-    overload,
-    runtime_checkable,
-)
-from typing_extensions import Literal, final
+from typing import IO, Any, AnyStr, BinaryIO, Generic, NoReturn, Protocol, TypeVar, overload, runtime_checkable
+from typing_extensions import Final, Literal, TypeAlias, final
 
 from . import path as _path
 
@@ -211,7 +195,7 @@ R_OK: int
 W_OK: int
 X_OK: int
 
-_EnvironCodeFunc = Callable[[AnyStr], AnyStr]
+_EnvironCodeFunc: TypeAlias = Callable[[AnyStr], AnyStr]
 
 class _Environ(MutableMapping[AnyStr, AnyStr], Generic[AnyStr]):
     encodekey: _EnvironCodeFunc[AnyStr]
@@ -249,15 +233,15 @@ class _Environ(MutableMapping[AnyStr, AnyStr], Generic[AnyStr]):
     def __iter__(self) -> Iterator[AnyStr]: ...
     def __len__(self) -> int: ...
     if sys.version_info >= (3, 9):
-        def __or__(self, value: Mapping[_T1, _T2]) -> dict[AnyStr | _T1, AnyStr | _T2]: ...
-        def __ror__(self, value: Mapping[_T1, _T2]) -> dict[AnyStr | _T1, AnyStr | _T2]: ...
+        def __or__(self, other: Mapping[_T1, _T2]) -> dict[AnyStr | _T1, AnyStr | _T2]: ...
+        def __ror__(self, other: Mapping[_T1, _T2]) -> dict[AnyStr | _T1, AnyStr | _T2]: ...
         # We use @overload instead of a Union for reasons similar to those given for
         # overloading MutableMapping.update in stdlib/typing.pyi
         # The type: ignore is needed due to incompatible __or__/__ior__ signatures
         @overload  # type: ignore[misc]
-        def __ior__(self: Self, value: Mapping[AnyStr, AnyStr]) -> Self: ...
+        def __ior__(self: Self, other: Mapping[AnyStr, AnyStr]) -> Self: ...
         @overload
-        def __ior__(self: Self, value: Iterable[tuple[AnyStr, AnyStr]]) -> Self: ...
+        def __ior__(self: Self, other: Iterable[tuple[AnyStr, AnyStr]]) -> Self: ...
 
 environ: _Environ[str]
 if sys.platform != "win32":
@@ -314,6 +298,8 @@ class stat_result(structseq[float], tuple[int, int, int, int, int, int, int, flo
     # st_uid, st_gid, st_size, st_atime, st_mtime, st_ctime.
     #
     # More items may be added at the end by some implementations.
+    if sys.version_info >= (3, 10):
+        __match_args__: Final = ("st_mode", "st_ino", "st_dev", "st_nlink", "st_uid", "st_gid", "st_size")
     @property
     def st_mode(self) -> int: ...  # protection bits,
     @property
@@ -371,6 +357,7 @@ class stat_result(structseq[float], tuple[int, int, int, int, int, int, int, flo
 
 @runtime_checkable
 class PathLike(Protocol[_AnyStr_co]):
+    @abstractmethod
     def __fspath__(self) -> _AnyStr_co: ...
 
 @overload
@@ -380,15 +367,17 @@ def listdir(path: BytesPath) -> list[bytes]: ...
 @overload
 def listdir(path: int) -> list[str]: ...
 
-_FdOrAnyPath = Union[int, StrOrBytesPath]
+_FdOrAnyPath: TypeAlias = int | StrOrBytesPath
 
 @final
 class DirEntry(Generic[AnyStr]):
     # This is what the scandir iterator yields
     # The constructor is hidden
 
-    name: AnyStr
-    path: AnyStr
+    @property
+    def name(self) -> AnyStr: ...
+    @property
+    def path(self) -> AnyStr: ...
     def inode(self) -> int: ...
     def is_dir(self, *, follow_symlinks: bool = ...) -> bool: ...
     def is_file(self, *, follow_symlinks: bool = ...) -> bool: ...
@@ -399,12 +388,25 @@ class DirEntry(Generic[AnyStr]):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 if sys.version_info >= (3, 7):
-    _StatVfsTuple = tuple[int, int, int, int, int, int, int, int, int, int, int]
+    _StatVfsTuple: TypeAlias = tuple[int, int, int, int, int, int, int, int, int, int, int]
 else:
-    _StatVfsTuple = tuple[int, int, int, int, int, int, int, int, int, int]
+    _StatVfsTuple: TypeAlias = tuple[int, int, int, int, int, int, int, int, int, int]
 
 @final
 class statvfs_result(structseq[int], _StatVfsTuple):
+    if sys.version_info >= (3, 10):
+        __match_args__: Final = (
+            "f_bsize",
+            "f_frsize",
+            "f_blocks",
+            "f_bfree",
+            "f_bavail",
+            "f_files",
+            "f_ffree",
+            "f_favail",
+            "f_flag",
+            "f_namemax",
+        )
     @property
     def f_bsize(self) -> int: ...
     @property
@@ -446,6 +448,8 @@ def strerror(__code: int) -> str: ...
 def umask(__mask: int) -> int: ...
 @final
 class uname_result(structseq[str], tuple[str, str, str, str, str]):
+    if sys.version_info >= (3, 10):
+        __match_args__: Final = ("sysname", "nodename", "release", "version", "machine")
     @property
     def sysname(self) -> str: ...
     @property
@@ -507,7 +511,7 @@ def putenv(__name: bytes | str, __value: bytes | str) -> None: ...
 if sys.platform != "win32" or sys.version_info >= (3, 9):
     def unsetenv(__name: bytes | str) -> None: ...
 
-_Opener = Callable[[str, int], int]
+_Opener: TypeAlias = Callable[[str, int], int]
 
 @overload
 def fdopen(
@@ -568,7 +572,7 @@ def fdopen(
 def fdopen(
     fd: int,
     mode: OpenBinaryMode,
-    buffering: int,
+    buffering: int = ...,
     encoding: None = ...,
     errors: None = ...,
     newline: None = ...,
@@ -651,6 +655,8 @@ if sys.platform != "win32":
 
 @final
 class terminal_size(structseq[int], tuple[int, int]):
+    if sys.version_info >= (3, 10):
+        __match_args__: Final = ("columns", "lines")
     @property
     def columns(self) -> int: ...
     @property
@@ -659,6 +665,10 @@ class terminal_size(structseq[int], tuple[int, int]):
 def get_terminal_size(fd: int = ...) -> terminal_size: ...
 def get_inheritable(__fd: int) -> bool: ...
 def set_inheritable(__fd: int, __inheritable: bool) -> None: ...
+
+if sys.platform == "win32":
+    def get_handle_inheritable(__handle: int) -> bool: ...
+    def set_handle_inheritable(__handle: int, __inheritable: bool) -> None: ...
 
 if sys.platform != "win32":
     # Unix only
@@ -722,22 +732,18 @@ def rmdir(path: StrOrBytesPath, *, dir_fd: int | None = ...) -> None: ...
 
 class _ScandirIterator(Iterator[DirEntry[AnyStr]], AbstractContextManager[_ScandirIterator[AnyStr]]):
     def __next__(self) -> DirEntry[AnyStr]: ...
+    def __exit__(self, *args: object) -> None: ...
     def close(self) -> None: ...
+
+@overload
+def scandir(path: None = ...) -> _ScandirIterator[str]: ...
 
 if sys.version_info >= (3, 7):
     @overload
-    def scandir(path: None = ...) -> _ScandirIterator[str]: ...
-    @overload
     def scandir(path: int) -> _ScandirIterator[str]: ...
-    @overload
-    def scandir(path: AnyStr | PathLike[AnyStr]) -> _ScandirIterator[AnyStr]: ...
 
-else:
-    @overload
-    def scandir(path: None = ...) -> _ScandirIterator[str]: ...
-    @overload
-    def scandir(path: AnyStr | PathLike[AnyStr]) -> _ScandirIterator[AnyStr]: ...
-
+@overload
+def scandir(path: AnyStr | PathLike[AnyStr]) -> _ScandirIterator[AnyStr]: ...
 def stat(path: _FdOrAnyPath, *, dir_fd: int | None = ..., follow_symlinks: bool = ...) -> stat_result: ...
 
 if sys.version_info < (3, 7):
@@ -765,7 +771,7 @@ def utime(
     follow_symlinks: bool = ...,
 ) -> None: ...
 
-_OnError = Callable[[OSError], Any]
+_OnError: TypeAlias = Callable[[OSError], Any]
 
 def walk(
     top: AnyStr | PathLike[AnyStr], topdown: bool = ..., onerror: _OnError | None = ..., followlinks: bool = ...
@@ -823,17 +829,17 @@ def execlpe(file: StrOrBytesPath, __arg0: StrOrBytesPath, *args: Any) -> NoRetur
 # Not separating out PathLike[str] and PathLike[bytes] here because it doesn't make much difference
 # in practice, and doing so would explode the number of combinations in this already long union.
 # All these combinations are necessary due to list being invariant.
-_ExecVArgs = Union[
-    tuple[StrOrBytesPath, ...],
-    list[bytes],
-    list[str],
-    list[PathLike[Any]],
-    list[Union[bytes, str]],
-    list[Union[bytes, PathLike[Any]]],
-    list[Union[str, PathLike[Any]]],
-    list[Union[bytes, str, PathLike[Any]]],
-]
-_ExecEnv = Union[Mapping[bytes, Union[bytes, str]], Mapping[str, Union[bytes, str]]]
+_ExecVArgs: TypeAlias = (
+    tuple[StrOrBytesPath, ...]
+    | list[bytes]
+    | list[str]
+    | list[PathLike[Any]]
+    | list[bytes | str]
+    | list[bytes | PathLike[Any]]
+    | list[str | PathLike[Any]]
+    | list[bytes | str | PathLike[Any]]
+)
+_ExecEnv: TypeAlias = Mapping[bytes, bytes | str] | Mapping[str, bytes | str]
 
 def execv(__path: StrOrBytesPath, __argv: _ExecVArgs) -> NoReturn: ...
 def execve(path: _FdOrAnyPath, argv: _ExecVArgs, env: _ExecEnv) -> NoReturn: ...
@@ -870,6 +876,8 @@ else:
 def system(command: StrOrBytesPath) -> int: ...
 @final
 class times_result(structseq[float], tuple[float, float, float, float, float]):
+    if sys.version_info >= (3, 10):
+        __match_args__: Final = ("user", "system", "children_user", "children_system", "elapsed")
     @property
     def user(self) -> float: ...
     @property
@@ -896,6 +904,8 @@ else:
     if sys.platform != "darwin":
         @final
         class waitid_result(structseq[int], tuple[int, int, int, int, int]):
+            if sys.version_info >= (3, 10):
+                __match_args__: Final = ("si_pid", "si_uid", "si_signo", "si_status", "si_code")
             @property
             def si_pid(self) -> int: ...
             @property
@@ -953,6 +963,8 @@ else:
 if sys.platform != "win32":
     @final
     class sched_param(structseq[int], tuple[int]):
+        if sys.version_info >= (3, 10):
+            __match_args__: Final = ("sched_priority",)
         def __new__(cls: type[Self], sched_priority: int) -> Self: ...
         @property
         def sched_priority(self) -> int: ...
@@ -997,7 +1009,7 @@ if sys.version_info >= (3, 8):
             def __init__(self, path: str | None, cookie: _T, remove_dll_directory: Callable[[_T], Any]) -> None: ...
             def close(self) -> None: ...
             def __enter__(self: Self) -> Self: ...
-            def __exit__(self, *args: Any) -> None: ...
+            def __exit__(self, *args: object) -> None: ...
 
         def add_dll_directory(path: str) -> _AddedDllDirectory: ...
     if sys.platform == "linux":
@@ -1019,6 +1031,12 @@ if sys.version_info >= (3, 8):
         MFD_HUGE_2GB: int
         MFD_HUGE_16GB: int
         def memfd_create(name: str, flags: int = ...) -> int: ...
+        def copy_file_range(
+            src: int, dst: int, count: int, offset_src: int | None = ..., offset_dst: int | None = ...
+        ) -> int: ...
 
 if sys.version_info >= (3, 9):
     def waitstatus_to_exitcode(status: int) -> int: ...
+
+    if sys.platform == "linux":
+        def pidfd_open(pid: int, flags: int = ...) -> int: ...

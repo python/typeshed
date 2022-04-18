@@ -1,16 +1,55 @@
 import ssl
 import sys
 from _typeshed import StrOrBytesPath, SupportsRead
+from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequence
 from email.message import Message
 from http.client import HTTPMessage, HTTPResponse, _HTTPConnectionProtocol
 from http.cookiejar import CookieJar
-from typing import IO, Any, Callable, ClassVar, Iterable, Mapping, MutableMapping, NoReturn, Pattern, Sequence, TypeVar, overload
+from typing import IO, Any, ClassVar, NoReturn, Pattern, TypeVar, overload
+from typing_extensions import TypeAlias
 from urllib.error import HTTPError
 from urllib.response import addclosehook, addinfourl
 
+__all__ = [
+    "Request",
+    "OpenerDirector",
+    "BaseHandler",
+    "HTTPDefaultErrorHandler",
+    "HTTPRedirectHandler",
+    "HTTPCookieProcessor",
+    "ProxyHandler",
+    "HTTPPasswordMgr",
+    "HTTPPasswordMgrWithDefaultRealm",
+    "HTTPPasswordMgrWithPriorAuth",
+    "AbstractBasicAuthHandler",
+    "HTTPBasicAuthHandler",
+    "ProxyBasicAuthHandler",
+    "AbstractDigestAuthHandler",
+    "HTTPDigestAuthHandler",
+    "ProxyDigestAuthHandler",
+    "HTTPHandler",
+    "FileHandler",
+    "FTPHandler",
+    "CacheFTPHandler",
+    "DataHandler",
+    "UnknownHandler",
+    "HTTPErrorProcessor",
+    "urlopen",
+    "install_opener",
+    "build_opener",
+    "pathname2url",
+    "url2pathname",
+    "getproxies",
+    "urlretrieve",
+    "urlcleanup",
+    "URLopener",
+    "FancyURLopener",
+    "HTTPSHandler",
+]
+
 _T = TypeVar("_T")
-_UrlopenRet = Any
-_DataType = bytes | SupportsRead[bytes] | Iterable[bytes] | None
+_UrlopenRet: TypeAlias = Any
+_DataType: TypeAlias = bytes | SupportsRead[bytes] | Iterable[bytes] | None
 
 def urlopen(
     url: str | Request,

@@ -1,9 +1,11 @@
 import socket
 import ssl
 from typing import Any, BinaryIO, NoReturn, Pattern, overload
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
-_LongResp = tuple[bytes, list[bytes], int]
+__all__ = ["POP3", "error_proto", "POP3_SSL"]
+
+_LongResp: TypeAlias = tuple[bytes, list[bytes], int]
 
 class error_proto(Exception): ...
 

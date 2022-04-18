@@ -1,9 +1,9 @@
 import concurrent.futures
 import sys
-from collections.abc import Awaitable, Generator, Iterable, Iterator
+from collections.abc import Awaitable, Coroutine, Generator, Iterable, Iterator
 from types import FrameType
-from typing import Any, Coroutine, Generic, Optional, TextIO, TypeVar, Union, overload
-from typing_extensions import Literal
+from typing import Any, Generic, TextIO, TypeVar, overload
+from typing_extensions import Literal, TypeAlias
 
 from .events import AbstractEventLoop
 from .futures import Future
@@ -43,7 +43,6 @@ else:
         "wait_for",
         "as_completed",
         "sleep",
-        "async",
         "gather",
         "shield",
         "ensure_future",
@@ -57,8 +56,8 @@ _T3 = TypeVar("_T3")
 _T4 = TypeVar("_T4")
 _T5 = TypeVar("_T5")
 _FT = TypeVar("_FT", bound=Future[Any])
-_FutureT = Union[Future[_T], Generator[Any, None, _T], Awaitable[_T]]
-_TaskYieldType = Optional[Future[object]]
+_FutureT: TypeAlias = Future[_T] | Generator[Any, None, _T] | Awaitable[_T]
+_TaskYieldType: TypeAlias = Future[object] | None
 
 FIRST_COMPLETED = concurrent.futures.FIRST_COMPLETED
 FIRST_EXCEPTION = concurrent.futures.FIRST_EXCEPTION
@@ -316,8 +315,8 @@ class Task(Future[_T], Generic[_T]):
     else:
         def cancel(self) -> bool: ...
     if sys.version_info >= (3, 11):
-        def cancelling(self) -> bool: ...
-        def uncancel(self) -> bool: ...
+        def cancelling(self) -> int: ...
+        def uncancel(self) -> int: ...
     if sys.version_info < (3, 9):
         @classmethod
         def current_task(cls, loop: AbstractEventLoop | None = ...) -> Task[Any] | None: ...

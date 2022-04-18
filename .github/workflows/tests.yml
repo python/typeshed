@@ -47,7 +47,7 @@ jobs:
         with:
           python-version: 3.9
       - run: pip install -r requirements-tests.txt
-      - run: ./tests/pytype_test.py
+      - run: ./tests/pytype_test.py --print-stderr
 
   mypy:
     name: Run mypy against the stubs
@@ -55,7 +55,7 @@ jobs:
     strategy:
       matrix:
         platform: ["linux", "win32", "darwin"]
-        python-version: ["2.7", "3.6", "3.7", "3.8", "3.9", "3.10"]
+        python-version: ["2.7", "3.6", "3.7", "3.8", "3.9", "3.10", "3.11"]
       fail-fast: false
     steps:
       - uses: actions/checkout@v2
@@ -72,7 +72,7 @@ jobs:
         python-version: ["3.6", "3.7", "3.8", "3.9", "3.10", "3.11"]
       fail-fast: false
     env:
-      PYRIGHT_VERSION: 1.1.218 # Must match pyright_test.py.
+      PYRIGHT_VERSION: 1.1.230 # Must match pyright_test.py.
     steps:
       - uses: actions/checkout@v2
       - uses: jakebailey/pyright-action@v1
@@ -96,9 +96,7 @@ jobs:
       matrix:
         # macos-11 does not have tcl/tk installed, needed for stubtesting tkinter
         os: ["ubuntu-latest", "windows-latest", "macos-10.15"]
-        # Python 3.9 and 3.10 temporarily pinned due to incompatibilities
-        # between micro versions.
-        python-version: ["3.6", "3.7", "3.8", "3.9.10", "3.10.2"]
+        python-version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
       fail-fast: false
 
     steps:
@@ -110,11 +108,7 @@ jobs:
       - name: Update pip
         run: python -m pip install -U pip
       - name: Install dependencies
-        # Use pre-release stubtest. Keep the following in sync:
-        # - get_mypy_req in tests/stubtest_third_party.py
-        # - stubtest-stdlib in .github/workflows/stubtest.yml
-        # - stubtest-stdlib in .github/workflows/tests.yml
-        run: pip install $(grep tomli== requirements-tests.txt) git+git://github.com/python/mypy@080bb0e04e9d5c4d2513621d1fb62f1d61a573e9
+        run: pip install $(grep tomli== requirements-tests.txt) $(grep mypy== requirements-tests.txt)
       - name: Run stubtest
         run: python tests/stubtest_stdlib.py
 
@@ -133,7 +127,12 @@ jobs:
         run: pip install $(grep tomli== requirements-tests.txt)
       - name: Run stubtest
         run: |
-          STUBS=$(git diff --name-only origin/${{ github.base_ref }} HEAD | egrep ^stubs/ | cut -d "/" -f 2 | sort -u | (while read stub; do [ -d stubs/$stub ] && echo $stub || true; done))
+          STUBS=$(
+            git diff --name-only origin/${{ github.base_ref }} HEAD |
+            # Uncomment the following to (very slowly) run on all third party stubs:
+            # git ls-files |
+            egrep ^stubs/ | cut -d "/" -f 2 | sort -u | (while read stub; do [ -d stubs/$stub ] && echo $stub || true; done)
+          )
           if test -n "$STUBS"; then
             echo "Testing $STUBS..."
             APT_PACKAGES=$(python tests/get_apt_packages.py $STUBS)

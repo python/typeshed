@@ -1,7 +1,8 @@
 import sys
 from _typeshed import FileDescriptorLike, Self
+from collections.abc import Iterable
 from types import TracebackType
-from typing import Any, Iterable
+from typing import Any
 from typing_extensions import final
 
 if sys.platform != "win32":
@@ -109,9 +110,9 @@ if sys.platform == "linux":
         def __enter__(self: Self) -> Self: ...
         def __exit__(
             self,
-            exc_type: type[BaseException] | None = ...,
-            exc_val: BaseException | None = ...,
-            exc_tb: TracebackType | None = ...,
+            __exc_type: type[BaseException] | None = ...,
+            __exc_val: BaseException | None = ...,
+            __exc_tb: TracebackType | None = ...,
         ) -> None: ...
         def close(self) -> None: ...
         closed: bool

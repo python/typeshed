@@ -1,13 +1,61 @@
 import sys
 import types
 from _typeshed import Self, SupportsAllComparisons, SupportsItems
-from typing import Any, Callable, Generic, Hashable, Iterable, NamedTuple, Sequence, Sized, TypeVar, overload
-from typing_extensions import Literal, final
+from collections.abc import Callable, Hashable, Iterable, Sequence, Sized
+from typing import Any, Generic, NamedTuple, TypeVar, overload
+from typing_extensions import Literal, TypeAlias, final
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
-_AnyCallable = Callable[..., Any]
+    __all__ = [
+        "update_wrapper",
+        "wraps",
+        "WRAPPER_ASSIGNMENTS",
+        "WRAPPER_UPDATES",
+        "total_ordering",
+        "cache",
+        "cmp_to_key",
+        "lru_cache",
+        "reduce",
+        "partial",
+        "partialmethod",
+        "singledispatch",
+        "singledispatchmethod",
+        "cached_property",
+    ]
+elif sys.version_info >= (3, 8):
+    __all__ = [
+        "update_wrapper",
+        "wraps",
+        "WRAPPER_ASSIGNMENTS",
+        "WRAPPER_UPDATES",
+        "total_ordering",
+        "cmp_to_key",
+        "lru_cache",
+        "reduce",
+        "partial",
+        "partialmethod",
+        "singledispatch",
+        "singledispatchmethod",
+        "cached_property",
+    ]
+else:
+    __all__ = [
+        "update_wrapper",
+        "wraps",
+        "WRAPPER_ASSIGNMENTS",
+        "WRAPPER_UPDATES",
+        "total_ordering",
+        "cmp_to_key",
+        "lru_cache",
+        "reduce",
+        "partial",
+        "partialmethod",
+        "singledispatch",
+    ]
+
+_AnyCallable: TypeAlias = Callable[..., Any]
 
 _T = TypeVar("_T")
 _S = TypeVar("_S")
@@ -52,9 +100,12 @@ def total_ordering(cls: type[_T]) -> type[_T]: ...
 def cmp_to_key(mycmp: Callable[[_T, _T], int]) -> Callable[[_T], SupportsAllComparisons]: ...
 
 class partial(Generic[_T]):
-    func: Callable[..., _T]
-    args: tuple[Any, ...]
-    keywords: dict[str, Any]
+    @property
+    def func(self) -> Callable[..., _T]: ...
+    @property
+    def args(self) -> tuple[Any, ...]: ...
+    @property
+    def keywords(self) -> dict[str, Any]: ...
     def __new__(cls: type[Self], __func: Callable[..., _T], *args: Any, **kwargs: Any) -> Self: ...
     def __call__(__self, *args: Any, **kwargs: Any) -> _T: ...
     if sys.version_info >= (3, 9):

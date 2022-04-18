@@ -1,11 +1,13 @@
 import sys
+from collections.abc import Callable, Iterable, Mapping
 from types import FrameType, TracebackType
-from typing import Any, Callable, Iterable, Mapping, Optional, TypeVar
+from typing import Any, TypeVar
+from typing_extensions import TypeAlias
 
 # TODO recursive type
-_TF = Callable[[FrameType, str, Any], Optional[Callable[..., Any]]]
+_TF: TypeAlias = Callable[[FrameType, str, Any], Callable[..., Any] | None]
 
-_PF = Callable[[FrameType, str, Any], None]
+_PF: TypeAlias = Callable[[FrameType, str, Any], None]
 _T = TypeVar("_T")
 
 if sys.version_info >= (3, 10):
@@ -89,6 +91,8 @@ else:
         "stack_size",
     ]
 
+_profile_hook: _PF | None
+
 def active_count() -> int: ...
 def activeCount() -> int: ...  # deprecated alias for active_count()
 def current_thread() -> Thread: ...
@@ -120,7 +124,8 @@ class local:
 
 class Thread:
     name: str
-    ident: int | None
+    @property
+    def ident(self) -> int | None: ...
     daemon: bool
     def __init__(
         self,
@@ -166,9 +171,7 @@ class _RLock:
     def acquire(self, blocking: bool = ..., timeout: float = ...) -> bool: ...
     def release(self) -> None: ...
     __enter__ = acquire
-    def __exit__(
-        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
-    ) -> None: ...
+    def __exit__(self, t: type[BaseException] | None, v: BaseException | None, tb: TracebackType | None) -> None: ...
 
 RLock = _RLock
 
@@ -188,9 +191,7 @@ class Condition:
 
 class Semaphore:
     def __init__(self, value: int = ...) -> None: ...
-    def __exit__(
-        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
-    ) -> None: ...
+    def __exit__(self, t: type[BaseException] | None, v: BaseException | None, tb: TracebackType | None) -> None: ...
     def acquire(self, blocking: bool = ..., timeout: float | None = ...) -> bool: ...
     def __enter__(self, blocking: bool = ..., timeout: float | None = ...) -> bool: ...
     if sys.version_info >= (3, 9):
@@ -225,9 +226,12 @@ class Timer(Thread):
     def cancel(self) -> None: ...
 
 class Barrier:
-    parties: int
-    n_waiting: int
-    broken: bool
+    @property
+    def parties(self) -> int: ...
+    @property
+    def n_waiting(self) -> int: ...
+    @property
+    def broken(self) -> bool: ...
     def __init__(self, parties: int, action: Callable[[], None] | None = ..., timeout: float | None = ...) -> None: ...
     def wait(self, timeout: float | None = ...) -> int: ...
     def reset(self) -> None: ...

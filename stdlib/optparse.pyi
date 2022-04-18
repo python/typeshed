@@ -1,5 +1,26 @@
 from abc import abstractmethod
-from typing import IO, Any, AnyStr, Callable, Iterable, Mapping, Sequence, overload
+from collections.abc import Callable, Iterable, Mapping, Sequence
+from typing import IO, Any, AnyStr, overload
+
+__all__ = [
+    "Option",
+    "make_option",
+    "SUPPRESS_HELP",
+    "SUPPRESS_USAGE",
+    "Values",
+    "OptionContainer",
+    "OptionGroup",
+    "OptionParser",
+    "HelpFormatter",
+    "IndentedHelpFormatter",
+    "TitledHelpFormatter",
+    "OptParseError",
+    "OptionError",
+    "OptionConflictError",
+    "OptionValueError",
+    "BadOptionError",
+    "check_choice",
+]
 
 NO_DEFAULT: tuple[str, ...]
 SUPPRESS_HELP: str

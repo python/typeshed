@@ -1,23 +1,9 @@
 import sys
 from _typeshed import Self, StrOrBytesPath
+from collections.abc import AsyncGenerator, AsyncIterator, Awaitable, Callable, Generator, Iterator
 from types import TracebackType
-from typing import (  # noqa Y027
-    IO,
-    Any,
-    AsyncGenerator,
-    AsyncIterator,
-    Awaitable,
-    Callable,
-    ContextManager,
-    Generator,
-    Generic,
-    Iterator,
-    Optional,
-    Protocol,
-    TypeVar,
-    overload,
-)
-from typing_extensions import ParamSpec
+from typing import IO, Any, ContextManager, Generic, Protocol, TypeVar, overload  # noqa: Y027
+from typing_extensions import ParamSpec, TypeAlias
 
 if sys.version_info >= (3, 11):
     __all__ = [
@@ -81,17 +67,17 @@ else:
 
 AbstractContextManager = ContextManager
 if sys.version_info >= (3, 7):
-    from typing import AsyncContextManager  # noqa Y022
+    from typing import AsyncContextManager  # noqa: Y022
 
     AbstractAsyncContextManager = AsyncContextManager
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
-_T_io = TypeVar("_T_io", bound=Optional[IO[str]])
+_T_io = TypeVar("_T_io", bound=IO[str] | None)
 _F = TypeVar("_F", bound=Callable[..., Any])
 _P = ParamSpec("_P")
 
-_ExitFunc = Callable[[Optional[type[BaseException]], Optional[BaseException], Optional[TracebackType]], Optional[bool]]
+_ExitFunc: TypeAlias = Callable[[type[BaseException] | None, BaseException | None, TracebackType | None], bool | None]
 _CM_EF = TypeVar("_CM_EF", AbstractContextManager[Any], _ExitFunc)
 
 class ContextDecorator:
@@ -137,6 +123,9 @@ elif sys.version_info >= (3, 7):
         func: Callable[..., AsyncGenerator[_T_co, Any]]
         args: tuple[Any, ...]
         kwds: dict[str, Any]
+        async def __aexit__(
+            self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
+        ) -> bool | None: ...
 
 if sys.version_info >= (3, 7):
     def asynccontextmanager(func: Callable[_P, AsyncIterator[_T_co]]) -> Callable[_P, _AsyncGeneratorContextManager[_T_co]]: ...
@@ -148,14 +137,16 @@ _SupportsCloseT = TypeVar("_SupportsCloseT", bound=_SupportsClose)
 
 class closing(AbstractContextManager[_SupportsCloseT]):
     def __init__(self, thing: _SupportsCloseT) -> None: ...
+    def __exit__(self, *exc_info: object) -> None: ...
 
 if sys.version_info >= (3, 10):
     class _SupportsAclose(Protocol):
-        async def aclose(self) -> object: ...
+        def aclose(self) -> Awaitable[object]: ...
     _SupportsAcloseT = TypeVar("_SupportsAcloseT", bound=_SupportsAclose)
 
     class aclosing(AbstractAsyncContextManager[_SupportsAcloseT]):
         def __init__(self, thing: _SupportsAcloseT) -> None: ...
+        async def __aexit__(self, *exc_info: object) -> None: ...
 
 class suppress(AbstractContextManager[None]):
     def __init__(self, *exceptions: type[BaseException]) -> None: ...
@@ -163,11 +154,14 @@ class suppress(AbstractContextManager[None]):
         self, exctype: type[BaseException] | None, excinst: BaseException | None, exctb: TracebackType | None
     ) -> bool: ...
 
-class redirect_stdout(AbstractContextManager[_T_io]):
+class _RedirectStream(AbstractContextManager[_T_io]):
     def __init__(self, new_target: _T_io) -> None: ...
+    def __exit__(
+        self, exctype: type[BaseException] | None, excinst: BaseException | None, exctb: TracebackType | None
+    ) -> None: ...
 
-class redirect_stderr(AbstractContextManager[_T_io]):
-    def __init__(self, new_target: _T_io) -> None: ...
+class redirect_stdout(_RedirectStream[_T_io]): ...
+class redirect_stderr(_RedirectStream[_T_io]): ...
 
 class ExitStack(AbstractContextManager[ExitStack]):
     def __init__(self) -> None: ...
@@ -182,7 +176,7 @@ class ExitStack(AbstractContextManager[ExitStack]):
     ) -> bool: ...
 
 if sys.version_info >= (3, 7):
-    _ExitCoroFunc = Callable[[Optional[type[BaseException]], Optional[BaseException], Optional[TracebackType]], Awaitable[bool]]
+    _ExitCoroFunc: TypeAlias = Callable[[type[BaseException] | None, BaseException | None, TracebackType | None], Awaitable[bool]]
     _ACM_EF = TypeVar("_ACM_EF", AbstractAsyncContextManager[Any], _ExitCoroFunc)
 
     class AsyncExitStack(AbstractAsyncContextManager[AsyncExitStack]):
@@ -210,9 +204,9 @@ if sys.version_info >= (3, 10):
         @overload
         def __init__(self: nullcontext[_T], enter_result: _T) -> None: ...
         def __enter__(self) -> _T: ...
-        def __exit__(self, *exctype: Any) -> None: ...
+        def __exit__(self, *exctype: object) -> None: ...
         async def __aenter__(self) -> _T: ...
-        async def __aexit__(self, *exctype: Any) -> None: ...
+        async def __aexit__(self, *exctype: object) -> None: ...
 
 elif sys.version_info >= (3, 7):
     class nullcontext(AbstractContextManager[_T]):
@@ -222,7 +216,7 @@ elif sys.version_info >= (3, 7):
         @overload
         def __init__(self: nullcontext[_T], enter_result: _T) -> None: ...
         def __enter__(self) -> _T: ...
-        def __exit__(self, *exctype: Any) -> None: ...
+        def __exit__(self, *exctype: object) -> None: ...
 
 if sys.version_info >= (3, 11):
     _T_fd_or_any_path = TypeVar("_T_fd_or_any_path", bound=int | StrOrBytesPath)

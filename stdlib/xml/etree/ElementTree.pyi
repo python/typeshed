@@ -1,26 +1,97 @@
 import sys
 from _typeshed import FileDescriptor, StrOrBytesPath, SupportsRead, SupportsWrite
-from typing import (
-    Any,
-    Callable,
-    Generator,
-    ItemsView,
-    Iterable,
-    Iterator,
-    KeysView,
-    Mapping,
-    MutableSequence,
-    Sequence,
-    TypeVar,
-    Union,
-    overload,
-)
-from typing_extensions import Literal, SupportsIndex, TypeGuard
+from collections.abc import Callable, Generator, ItemsView, Iterable, Iterator, KeysView, Mapping, MutableSequence, Sequence
+from typing import Any, TypeVar, overload
+from typing_extensions import Literal, SupportsIndex, TypeAlias, TypeGuard
+
+if sys.version_info >= (3, 9):
+    __all__ = [
+        "Comment",
+        "dump",
+        "Element",
+        "ElementTree",
+        "fromstring",
+        "fromstringlist",
+        "indent",
+        "iselement",
+        "iterparse",
+        "parse",
+        "ParseError",
+        "PI",
+        "ProcessingInstruction",
+        "QName",
+        "SubElement",
+        "tostring",
+        "tostringlist",
+        "TreeBuilder",
+        "VERSION",
+        "XML",
+        "XMLID",
+        "XMLParser",
+        "XMLPullParser",
+        "register_namespace",
+        "canonicalize",
+        "C14NWriterTarget",
+    ]
+elif sys.version_info >= (3, 8):
+    __all__ = [
+        "Comment",
+        "dump",
+        "Element",
+        "ElementTree",
+        "fromstring",
+        "fromstringlist",
+        "iselement",
+        "iterparse",
+        "parse",
+        "ParseError",
+        "PI",
+        "ProcessingInstruction",
+        "QName",
+        "SubElement",
+        "tostring",
+        "tostringlist",
+        "TreeBuilder",
+        "VERSION",
+        "XML",
+        "XMLID",
+        "XMLParser",
+        "XMLPullParser",
+        "register_namespace",
+        "canonicalize",
+        "C14NWriterTarget",
+    ]
+else:
+    __all__ = [
+        "Comment",
+        "dump",
+        "Element",
+        "ElementTree",
+        "fromstring",
+        "fromstringlist",
+        "iselement",
+        "iterparse",
+        "parse",
+        "ParseError",
+        "PI",
+        "ProcessingInstruction",
+        "QName",
+        "SubElement",
+        "tostring",
+        "tostringlist",
+        "TreeBuilder",
+        "VERSION",
+        "XML",
+        "XMLID",
+        "XMLParser",
+        "XMLPullParser",
+        "register_namespace",
+    ]
 
 _T = TypeVar("_T")
-_FileRead = Union[StrOrBytesPath, FileDescriptor, SupportsRead[bytes], SupportsRead[str]]
-_FileWriteC14N = Union[StrOrBytesPath, FileDescriptor, SupportsWrite[bytes]]
-_FileWrite = Union[_FileWriteC14N, SupportsWrite[str]]
+_FileRead: TypeAlias = StrOrBytesPath | FileDescriptor | SupportsRead[bytes] | SupportsRead[str]
+_FileWriteC14N: TypeAlias = StrOrBytesPath | FileDescriptor | SupportsWrite[bytes]
+_FileWrite: TypeAlias = _FileWriteC14N | SupportsWrite[str]
 
 VERSION: str
 
@@ -269,7 +340,7 @@ def fromstringlist(sequence: Sequence[str | bytes], parser: XMLParser | None = .
 # TreeBuilder is called by client code (they could pass strs, bytes or whatever);
 # but we don't want to use a too-broad type, or it would be too hard to write
 # elementfactories.
-_ElementFactory = Callable[[Any, dict[Any, Any]], Element]
+_ElementFactory: TypeAlias = Callable[[Any, dict[Any, Any]], Element]
 
 class TreeBuilder:
     if sys.version_info >= (3, 8):

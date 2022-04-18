@@ -1,6 +1,8 @@
 import sys
 from collections.abc import Sequence
 
+__all__ = ["readmodule", "readmodule_ex", "Class", "Function"]
+
 class Class:
     module: str
     name: str

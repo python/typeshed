@@ -4,6 +4,8 @@ from dbm import _TFlags
 from types import TracebackType
 from typing import TypeVar, overload
 
+__all__ = ["Shelf", "BsdDbShelf", "DbfilenameShelf", "open"]
+
 _T = TypeVar("_T")
 _VT = TypeVar("_VT")
 

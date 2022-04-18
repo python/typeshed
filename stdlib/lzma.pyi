@@ -1,14 +1,54 @@
 import io
 from _typeshed import ReadableBuffer, Self, StrOrBytesPath
-from typing import IO, Any, Mapping, Sequence, TextIO, Union, overload
-from typing_extensions import Literal, final
+from collections.abc import Mapping, Sequence
+from typing import IO, Any, TextIO, overload
+from typing_extensions import Literal, TypeAlias, final
 
-_OpenBinaryWritingMode = Literal["w", "wb", "x", "xb", "a", "ab"]
-_OpenTextWritingMode = Literal["wt", "xt", "at"]
+__all__ = [
+    "CHECK_NONE",
+    "CHECK_CRC32",
+    "CHECK_CRC64",
+    "CHECK_SHA256",
+    "CHECK_ID_MAX",
+    "CHECK_UNKNOWN",
+    "FILTER_LZMA1",
+    "FILTER_LZMA2",
+    "FILTER_DELTA",
+    "FILTER_X86",
+    "FILTER_IA64",
+    "FILTER_ARM",
+    "FILTER_ARMTHUMB",
+    "FILTER_POWERPC",
+    "FILTER_SPARC",
+    "FORMAT_AUTO",
+    "FORMAT_XZ",
+    "FORMAT_ALONE",
+    "FORMAT_RAW",
+    "MF_HC3",
+    "MF_HC4",
+    "MF_BT2",
+    "MF_BT3",
+    "MF_BT4",
+    "MODE_FAST",
+    "MODE_NORMAL",
+    "PRESET_DEFAULT",
+    "PRESET_EXTREME",
+    "LZMACompressor",
+    "LZMADecompressor",
+    "LZMAFile",
+    "LZMAError",
+    "open",
+    "compress",
+    "decompress",
+    "is_check_supported",
+]
 
-_PathOrFile = Union[StrOrBytesPath, IO[bytes]]
+_OpenBinaryWritingMode: TypeAlias = Literal["w", "wb", "x", "xb", "a", "ab"]
+_OpenTextWritingMode: TypeAlias = Literal["wt", "xt", "at"]
 
-_FilterChain = Sequence[Mapping[str, Any]]
+_PathOrFile: TypeAlias = StrOrBytesPath | IO[bytes]
+
+_FilterChain: TypeAlias = Sequence[Mapping[str, Any]]
 
 FORMAT_AUTO: Literal[0]
 FORMAT_XZ: Literal[1]

@@ -1,11 +1,39 @@
 import sys
 from _typeshed import StrPath
+from collections.abc import Callable, Iterable, Mapping
+
+__all__ = [
+    "getlocale",
+    "getdefaultlocale",
+    "getpreferredencoding",
+    "Error",
+    "setlocale",
+    "resetlocale",
+    "localeconv",
+    "strcoll",
+    "strxfrm",
+    "str",
+    "atof",
+    "atoi",
+    "format",
+    "format_string",
+    "currency",
+    "normalize",
+    "LC_CTYPE",
+    "LC_COLLATE",
+    "LC_MESSAGES",
+    "LC_TIME",
+    "LC_MONETARY",
+    "LC_NUMERIC",
+    "LC_ALL",
+    "CHAR_MAX",
+]
 
 # This module defines a function "str()", which is why "str" can't be used
 # as a type annotation or type alias.
 from builtins import str as _str
 from decimal import Decimal
-from typing import Any, Callable, Iterable, Mapping, Sequence
+from typing import Any
 
 CODESET: int
 D_T_FMT: int
@@ -80,11 +108,11 @@ CHAR_MAX: int
 
 class Error(Exception): ...
 
-def setlocale(category: int, locale: _str | Iterable[_str] | None = ...) -> _str: ...
+def setlocale(category: int, locale: _str | Iterable[_str | None] | None = ...) -> _str: ...
 def localeconv() -> Mapping[_str, int | _str | list[int]]: ...
 def nl_langinfo(__key: int) -> _str: ...
 def getdefaultlocale(envvars: tuple[_str, ...] = ...) -> tuple[_str | None, _str | None]: ...
-def getlocale(category: int = ...) -> Sequence[_str]: ...
+def getlocale(category: int = ...) -> tuple[_str | None, _str | None]: ...
 def getpreferredencoding(do_setlocale: bool = ...) -> _str: ...
 def normalize(localename: _str) -> _str: ...
 def resetlocale(category: int = ...) -> None: ...
