@@ -6,7 +6,7 @@ from asyncio.futures import Future
 from asyncio.protocols import BaseProtocol
 from asyncio.tasks import Task
 from asyncio.transports import BaseTransport, ReadTransport, SubprocessTransport, WriteTransport
-from collections.abc import Awaitable, AsyncGenerator, Callable, Coroutine, Generator, Iterable, Sequence
+from collections.abc import AsyncGenerator, Awaitable, Callable, Coroutine, Generator, Iterable, Sequence
 from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
 from typing import IO, Any, TypeVar, overload
 from typing_extensions import Literal, TypeAlias, TypedDict
