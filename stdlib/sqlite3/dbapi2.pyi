@@ -410,7 +410,8 @@ class InternalError(DatabaseError): ...
 class NotSupportedError(DatabaseError): ...
 class OperationalError(DatabaseError): ...
 
-OptimizedUnicode = str
+if sys.version_info < (3, 10):
+    OptimizedUnicode = str
 
 @final
 class PrepareProtocol:
