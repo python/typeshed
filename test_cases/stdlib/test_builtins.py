@@ -3,6 +3,7 @@ from fractions import Fraction
 from typing import Any, NoReturn
 from typing_extensions import Literal, assert_type
 
+
 #
 # REGRESSION TESTS FOR OBJECT.__REDUCE__
 #
@@ -14,6 +15,7 @@ class Diagnostic:
             res[2]["_info"] = 42
 
         return res
+
 
 #
 # REGRESSION TESTS FOR POW()
