@@ -1,25 +1,8 @@
 from decimal import Decimal
 from fractions import Fraction
-from typing import Any, NoReturn, Tuple, Union
+from typing import Any, NoReturn
 from typing_extensions import Literal, assert_type
 
-
-#
-# REGRESSION TESTS FOR OBJECT.__REDUCE__
-#
-# The following should pass without error (see #6661):
-class Diagnostic:
-    def __reduce__(self) -> Union[str, Tuple[Any, ...]]:
-        res = super().__reduce__()
-        if isinstance(res, tuple) and len(res) >= 3:
-            res[2]["_info"] = 42
-
-        return res
-
-
-#
-# REGRESSION TESTS FOR POW()
-#
 assert_type(pow(1, 0), Literal[1])  # See #7163
 assert_type(pow(1, 0, None), Literal[1])  # See #7163
 assert_type(pow(2, 4, 0), NoReturn)
