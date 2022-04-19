@@ -10,18 +10,15 @@ get right.** 100% test coverage for typeshed is neither necessary nor
 desirable, as it would lead to code duplication. Moreover, typeshed has
 multiple other mechanisms for spotting errors in the stubs.
 
-The internal structure of this directory should mimic typeshed as a whole.
-However, unlike the rest of typeshed, this directory largely contains `.py`
-files. This is because the purpose of this folder is to test the implications
-of typeshed changes for end users. For example, the stub for `builtins.pow` is
-found in `stdlib/builtins.pyi`, and the regression tests for `pow` are found in
-`test_cases/stdlib/test_builtins.py`.
+Unlike the rest of typeshed, this directory largely contains `.py` files. This
+is because the purpose of this folder is to test the implications of typeshed
+changes for end users.
 
-Note that, unlike elsewhere in typeshed, the test cases in this directory
-cannot always use modern syntax for type hints. For example, PEP 604 syntax
-(unions with a pipe `|` operator) is new in Python 3.10. While this syntax can
-be used on older Python versions in a `.pyi` file, code using this syntax will
-fail at runtime on Python <=3.9. Since the test cases all use `.py` extensions,
-and since the tests need to pass on all Python versions >=3.6, PEP 604 syntax
-cannot be used in a test case. Use `typing.Union` and `typing.Optional`
-instead.
+Another difference to the rest of typeshed is that the test cases in this
+directory cannot always use modern syntax for type hints. For example, PEP 604
+syntax (unions with a pipe `|` operator) is new in Python 3.10. While this
+syntax can be used on older Python versions in a `.pyi` file, code using this
+syntax will fail at runtime on Python <=3.9. Since the test cases all use `.py`
+extensions, and since the tests need to pass on all Python versions >=3.6, PEP
+604 syntax cannot be used in a test case. Use `typing.Union` and
+`typing.Optional` instead.
