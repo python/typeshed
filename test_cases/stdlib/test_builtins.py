@@ -47,9 +47,14 @@ assert_type(Decimal("2.6").__pow__(5, None), Decimal)
 #
 # int for positive 2nd-arg, float otherwise
 assert_type(pow(4, 65), Any)
+assert_type(pow(2, -45), Any)
 assert_type(pow(3, 57, None), Any)
-# float for positive 2nd-arg, complex otherwise
+# pow(<pos-float>, <pos-or-neg-float>) -> float
+# pow(<neg-float>, <pos-or-neg-float>) -> complex
 assert_type(pow(4.7, 7.4), Any)
+assert_type(pow(-9.8, 8.3), Any)
+assert_type(pow(-9.3, -88.2), Any)
+assert_type(pow(8.2, -9.8), Any)
 assert_type(pow(4.7, 9.2, None), Any)
 assert_type((6.2).__pow__(5.2, None), Any)
 # See #7046 -- float for a positive 1st arg, complex otherwise
