@@ -12,12 +12,10 @@ from .connection import Connection
 from .context import BaseContext
 
 if sys.version_info >= (3, 8):
-    from .shared_memory import _SLT, ShareableList, SharedMemory
+    from .shared_memory import _SLT, ShareableList as _ShareableList, SharedMemory as _SharedMemory
 
     __all__ = ["BaseManager", "SyncManager", "BaseProxy", "Token", "SharedMemoryManager"]
 
-    _SharedMemory: TypeAlias = SharedMemory
-    _ShareableList: TypeAlias = ShareableList
 else:
     __all__ = ["BaseManager", "SyncManager", "BaseProxy", "Token"]
 
