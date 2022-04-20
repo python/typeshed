@@ -1,7 +1,6 @@
 import unittest.case
 from _typeshed import OptExcInfo
 from collections.abc import Callable
-from types import TracebackType
 from typing import Any, TextIO, TypeVar
 
 _F = TypeVar("_F", bound=Callable[..., Any])
