@@ -13,7 +13,7 @@ _T = TypeVar("_T")
 
 _PayloadType: TypeAlias = list[Message] | str | bytes
 _CharsetType: TypeAlias = Charset | str | None
-_HeaderType = Any
+_HeaderType: TypeAlias = Any
 
 class Message:
     policy: Policy  # undocumented

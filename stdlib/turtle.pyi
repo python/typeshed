@@ -134,7 +134,7 @@ __all__ = [
 # same, but as per the "no union returns" typeshed policy, we'll return
 # Any instead.
 _Color: TypeAlias = Union[str, tuple[float, float, float]]
-_AnyColor = Any
+_AnyColor: TypeAlias = Any
 
 # TODO: Replace this with a TypedDict once it becomes standardized.
 _PenState: TypeAlias = dict[str, Any]

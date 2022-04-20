@@ -17,7 +17,7 @@ _CMSGArg: TypeAlias = tuple[int, int, ReadableBuffer]
 # Addresses can be either tuples of varying lengths (AF_INET, AF_INET6,
 # AF_NETLINK, AF_TIPC) or strings (AF_UNIX).
 _Address: TypeAlias = tuple[Any, ...] | str
-_RetAddress = Any
+_RetAddress: TypeAlias = Any
 # TODO Most methods allow bytes as address objects
 
 # ----- Constants -----

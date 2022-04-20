@@ -2,9 +2,11 @@ import queue
 import sys
 import threading
 from _typeshed import Self
+from builtins import dict as _dict, list as _list  # Conflicts with method names
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from types import TracebackType
 from typing import Any, AnyStr, Generic, TypeVar
+from typing_extensions import TypeAlias
 
 from .connection import Connection
 from .context import BaseContext
@@ -14,8 +16,8 @@ if sys.version_info >= (3, 8):
 
     __all__ = ["BaseManager", "SyncManager", "BaseProxy", "Token", "SharedMemoryManager"]
 
-    _SharedMemory = SharedMemory
-    _ShareableList = ShareableList
+    _SharedMemory: TypeAlias = SharedMemory
+    _ShareableList: TypeAlias = ShareableList
 else:
     __all__ = ["BaseManager", "SyncManager", "BaseProxy", "Token"]
 
@@ -31,7 +33,7 @@ class Namespace:
     def __getattr__(self, __name: str) -> Any: ...
     def __setattr__(self, __name: str, __value: Any) -> None: ...
 
-_Namespace = Namespace
+_Namespace: TypeAlias = Namespace
 
 class Token:
     typeid: str | bytes | None
@@ -100,10 +102,6 @@ class BaseManager:
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> None: ...
-
-# Conflicts with method names
-_dict = dict
-_list = list
 
 class SyncManager(BaseManager):
     def BoundedSemaphore(self, value: Any = ...) -> threading.BoundedSemaphore: ...

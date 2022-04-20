@@ -120,9 +120,9 @@ else:
 
 if sys.platform != "win32":
     if sys.version_info >= (3, 7):
-        _PathType = StrPath
+        _PathType: TypeAlias = StrPath
     else:
-        _PathType = str
+        _PathType: TypeAlias = str
     if sys.version_info >= (3, 10):
         async def open_unix_connection(
             path: _PathType | None = ..., *, limit: int = ..., **kwds: Any

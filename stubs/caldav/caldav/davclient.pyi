@@ -1,5 +1,6 @@
 from collections.abc import Iterable, Mapping
 from typing import Any
+from typing_extensions import TypeAlias
 from urllib.parse import ParseResult, SplitResult
 
 from requests.auth import AuthBase
@@ -9,7 +10,7 @@ from requests.structures import CaseInsensitiveDict
 from .lib.url import URL
 from .objects import Calendar, DAVObject, Principal
 
-_Element = Any  # actually lxml.etree._Element
+_Element: TypeAlias = Any  # actually lxml.etree._Element
 
 class DAVResponse:
     reason: str

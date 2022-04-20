@@ -1,13 +1,14 @@
 import optparse
+from builtins import list as _list  # alias to avoid name clashes with fields named list
 from collections.abc import Iterable
 from typing import Any
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal
 
 from docutils import ApplicationError
 from docutils.io import FileOutput
 from docutils.nodes import document
 
-_list = list
+_list: TypeAlias = list
 
 class DependencyList:
     list: _list[str]

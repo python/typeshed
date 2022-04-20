@@ -514,7 +514,7 @@ def getcoroutinelocals(coroutine: Coroutine[Any, Any, Any]) -> dict[str, Any]: .
 
 # Create private type alias to avoid conflict with symbol of same
 # name created in Attribute class.
-_Object = object
+_Object: TypeAlias = object
 
 class Attribute(NamedTuple):
     name: str
