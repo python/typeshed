@@ -1,16 +1,12 @@
-from _typeshed import SupportsWrite
+from _typeshed import ExcInfo, SupportsWrite
 from abc import abstractmethod
 from builtins import list as _list  # "list" conflicts with method name
 from collections.abc import Callable, Container, Mapping, MutableMapping
 from reprlib import Repr
 from types import MethodType, ModuleType, TracebackType
 from typing import IO, Any, AnyStr, NoReturn, TypeVar
-from typing_extensions import TypeAlias
 
 __all__ = ["help"]
-
-# the return type of sys.exc_info(), used by ErrorDuringImport.__init__
-_Exc_Info: TypeAlias = tuple[type[BaseException] | None, BaseException | None, TracebackType | None]
 
 _T = TypeVar("_T")
 
@@ -39,7 +35,7 @@ class ErrorDuringImport(Exception):
     exc: type[BaseException] | None
     value: BaseException | None
     tb: TracebackType | None
-    def __init__(self, filename: str, exc_info: _Exc_Info) -> None: ...
+    def __init__(self, filename: str, exc_info: ExcInfo) -> None: ...
 
 def importfile(path: str) -> ModuleType: ...
 def safeimport(path: str, forceload: bool = ..., cache: MutableMapping[str, ModuleType] = ...) -> ModuleType: ...
