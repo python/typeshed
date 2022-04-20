@@ -1,4 +1,4 @@
-from _typeshed import ExcInfo, SupportsWrite
+from _typeshed import OptExcInfo, SupportsWrite
 from abc import abstractmethod
 from builtins import list as _list  # "list" conflicts with method name
 from collections.abc import Callable, Container, Mapping, MutableMapping
@@ -35,7 +35,7 @@ class ErrorDuringImport(Exception):
     exc: type[BaseException] | None
     value: BaseException | None
     tb: TracebackType | None
-    def __init__(self, filename: str, exc_info: ExcInfo) -> None: ...
+    def __init__(self, filename: str, exc_info: OptExcInfo) -> None: ...
 
 def importfile(path: str) -> ModuleType: ...
 def safeimport(path: str, forceload: bool = ..., cache: MutableMapping[str, ModuleType] = ...) -> ModuleType: ...
