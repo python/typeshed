@@ -1,4 +1,5 @@
 import sys
+from builtins import dict as _dict  # alias to avoid conflicts with attribute name
 from collections.abc import Callable, Iterator
 from typing import Any, NamedTuple, Pattern, TypeVar
 from typing_extensions import ParamSpec
@@ -30,8 +31,6 @@ else:
     from contextlib import GeneratorContextManager as _GeneratorContextManager
 
 DEF: Pattern[str]
-
-_dict = dict  # conflicts with attribute name
 
 class FunctionMaker:
     args: list[str]

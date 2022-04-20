@@ -1,8 +1,9 @@
 from _typeshed import Self
 from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from typing import Any, overload
+from typing_extensions import TypeAlias
 
-_NDArray = Any  # FIXME: no typings for numpy arrays
+_NDArray: TypeAlias = Any  # FIXME: no typings for numpy arrays
 
 class _JackPositionT: ...
 

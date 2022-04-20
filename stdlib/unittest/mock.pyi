@@ -286,7 +286,7 @@ class _patch_dict:
 if sys.version_info >= (3, 8):
     _Mock: TypeAlias = MagicMock | AsyncMock
 else:
-    _Mock = MagicMock
+    _Mock: TypeAlias = MagicMock
 
 class _patcher:
     TEST_PREFIX: str

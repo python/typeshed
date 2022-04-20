@@ -38,7 +38,7 @@ _StrOrBytesPathT = TypeVar("_StrOrBytesPathT", bound=StrOrBytesPath)
 _StrPathT = TypeVar("_StrPathT", bound=StrPath)
 # Return value of some functions that may either return a path-like object that was passed in or
 # a string
-_PathReturn = Any
+_PathReturn: TypeAlias = Any
 
 class Error(OSError): ...
 class SameFileError(Error): ...

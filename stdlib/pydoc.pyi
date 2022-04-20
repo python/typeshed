@@ -1,5 +1,6 @@
 from _typeshed import SupportsWrite
 from abc import abstractmethod
+from builtins import list as _list  # "list" conflicts with method name
 from collections.abc import Callable, Container, Mapping, MutableMapping
 from reprlib import Repr
 from types import MethodType, ModuleType, TracebackType
@@ -196,8 +197,6 @@ def render_doc(thing: str | object, title: str = ..., forceload: bool = ..., ren
 def doc(thing: str | object, title: str = ..., forceload: bool = ..., output: SupportsWrite[str] | None = ...) -> None: ...
 def writedoc(thing: str | object, forceload: bool = ...) -> None: ...
 def writedocs(dir: str, pkgpath: str = ..., done: Any | None = ...) -> None: ...
-
-_list = list  # "list" conflicts with method name
 
 class Helper:
     keywords: dict[str, str | tuple[str, str]]

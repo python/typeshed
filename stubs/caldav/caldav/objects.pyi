@@ -2,7 +2,7 @@ import datetime
 from _typeshed import Self
 from collections.abc import Iterable, Iterator, Mapping
 from typing import Any, TypeVar, overload
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 from urllib.parse import ParseResult, SplitResult
 
 from vobject.base import VBase
@@ -13,7 +13,7 @@ from .lib.url import URL
 
 _CC = TypeVar("_CC", bound=CalendarObjectResource)
 
-_vCalAddress = Any  # actually icalendar.vCalAddress
+_vCalAddress: TypeAlias = Any  # actually icalendar.vCalAddress
 
 class DAVObject:
     id: str | None

@@ -275,7 +275,7 @@ class Xid:
     def __getitem__(self, __index): ...
     def __len__(self): ...
 
-_cursor = cursor
+_cursor: TypeAlias = cursor
 _T_cur = TypeVar("_T_cur", bound=_cursor)
 
 class connection:

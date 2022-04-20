@@ -3,6 +3,7 @@ import socket
 import ssl
 import sys
 from _typeshed import Self
+from builtins import list as _list  # conflicts with a method named "list"
 from collections.abc import Iterable
 from typing import IO, Any, NamedTuple
 from typing_extensions import Literal, TypeAlias
@@ -45,8 +46,6 @@ class ArticleInfo(NamedTuple):
     lines: list[bytes]
 
 def decode_header(header_str: str) -> str: ...
-
-_list = list  # conflicts with a method named "list"
 
 class NNTP:
     encoding: str
