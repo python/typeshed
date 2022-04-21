@@ -3,7 +3,7 @@ import sys
 import types
 from _typeshed import Self
 from collections import OrderedDict
-from collections.abc import Awaitable, Callable, Generator, Mapping, Sequence, Set as AbstractSet
+from collections.abc import Awaitable, Callable, Coroutine, Generator, Mapping, Sequence, Set as AbstractSet
 from types import (
     AsyncGeneratorType,
     BuiltinFunctionType,
@@ -30,7 +30,7 @@ if sys.version_info >= (3, 7):
         MethodWrapperType,
     )
 
-from typing import Any, ClassVar, Coroutine, NamedTuple, Protocol, TypeVar, Union
+from typing import Any, ClassVar, NamedTuple, Protocol, TypeVar, Union
 from typing_extensions import Literal, ParamSpec, TypeGuard
 
 if sys.version_info >= (3, 11):
@@ -514,7 +514,7 @@ def getcoroutinelocals(coroutine: Coroutine[Any, Any, Any]) -> dict[str, Any]: .
 
 # Create private type alias to avoid conflict with symbol of same
 # name created in Attribute class.
-_Object = object
+_Object: TypeAlias = object
 
 class Attribute(NamedTuple):
     name: str

@@ -9,7 +9,7 @@ from . import adapters, auth as _auth, compat, cookies, exceptions, hooks, model
 from .models import Response
 from .structures import CaseInsensitiveDict as CaseInsensitiveDict
 
-_BaseAdapter = adapters.BaseAdapter
+_BaseAdapter: TypeAlias = adapters.BaseAdapter
 OrderedDict = compat.OrderedDict
 cookiejar_from_dict = cookies.cookiejar_from_dict
 extract_cookies_to_jar = cookies.extract_cookies_to_jar

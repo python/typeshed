@@ -1,8 +1,9 @@
 import numbers
 import sys
 from _typeshed import Self
+from collections.abc import Container, Sequence
 from types import TracebackType
-from typing import Any, Container, NamedTuple, Sequence, Union, overload
+from typing import Any, NamedTuple, Union, overload
 from typing_extensions import TypeAlias
 
 _Decimal: TypeAlias = Decimal | int

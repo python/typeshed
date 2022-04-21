@@ -22,29 +22,24 @@ from _typeshed import (
     SupportsTrunc,
     SupportsWrite,
 )
-from collections.abc import Callable
+from collections.abc import Awaitable, Callable, Iterable, Iterator, MutableSet, Reversible, Set as AbstractSet, Sized
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from types import CodeType, TracebackType, _Cell
-from typing import (
+
+# mypy crashes if any of {ByteString, Sequence, MutableSequence, Mapping, MutableMapping} are imported from collections.abc in builtins.pyi
+from typing import (  # noqa: Y027
     IO,
-    AbstractSet,
     Any,
-    Awaitable,
     BinaryIO,
     ByteString,
     ClassVar,
     Generic,
-    Iterable,
-    Iterator,
     Mapping,
     MutableMapping,
     MutableSequence,
-    MutableSet,
     NoReturn,
     Protocol,
-    Reversible,
     Sequence,
-    Sized,
     SupportsAbs,
     SupportsBytes,
     SupportsComplex,
@@ -218,15 +213,29 @@ class int:
     if sys.version_info >= (3, 10):
         def bit_count(self) -> int: ...
 
-    def to_bytes(self, length: SupportsIndex, byteorder: Literal["little", "big"], *, signed: bool = ...) -> bytes: ...
-    @classmethod
-    def from_bytes(
-        cls: type[Self],
-        bytes: Iterable[SupportsIndex] | SupportsBytes | ReadableBuffer,
-        byteorder: Literal["little", "big"],
-        *,
-        signed: bool = ...,
-    ) -> Self: ...
+    if sys.version_info >= (3, 11):
+        def to_bytes(
+            self, length: SupportsIndex = ..., byteorder: Literal["little", "big"] = ..., *, signed: bool = ...
+        ) -> bytes: ...
+        @classmethod
+        def from_bytes(
+            cls: type[Self],
+            bytes: Iterable[SupportsIndex] | SupportsBytes | ReadableBuffer,
+            byteorder: Literal["little", "big"] = ...,
+            *,
+            signed: bool = ...,
+        ) -> Self: ...
+    else:
+        def to_bytes(self, length: SupportsIndex, byteorder: Literal["little", "big"], *, signed: bool = ...) -> bytes: ...
+        @classmethod
+        def from_bytes(
+            cls: type[Self],
+            bytes: Iterable[SupportsIndex] | SupportsBytes | ReadableBuffer,
+            byteorder: Literal["little", "big"],
+            *,
+            signed: bool = ...,
+        ) -> Self: ...
+
     def __add__(self, __x: int) -> int: ...
     def __sub__(self, __x: int) -> int: ...
     def __mul__(self, __x: int) -> int: ...
@@ -1275,7 +1284,7 @@ def next(__i: SupportsNext[_T]) -> _T: ...
 def next(__i: SupportsNext[_T], __default: _VT) -> _T | _VT: ...
 def oct(__number: int | SupportsIndex) -> str: ...
 
-_OpenFile = StrOrBytesPath | int
+_OpenFile = StrOrBytesPath | int  # noqa: Y026  # TODO: Use TypeAlias once mypy bugs are fixed
 _Opener: TypeAlias = Callable[[str, int], int]
 
 # Text mode: always returns a TextIOWrapper
@@ -1394,7 +1403,9 @@ class _SupportsPow3NoneOnly(Protocol[_E, _T_co]):
 class _SupportsPow3(Protocol[_E, _M, _T_co]):
     def __pow__(self, __other: _E, __modulo: _M) -> _T_co: ...
 
-_SupportsSomeKindOfPow = _SupportsPow2[Any, Any] | _SupportsPow3NoneOnly[Any, Any] | _SupportsPow3[Any, Any, Any]
+_SupportsSomeKindOfPow = (  # noqa: Y026  # TODO: Use TypeAlias once mypy bugs are fixed
+    _SupportsPow2[Any, Any] | _SupportsPow3NoneOnly[Any, Any] | _SupportsPow3[Any, Any, Any]
+)
 
 if sys.version_info >= (3, 8):
     @overload
@@ -1783,6 +1794,7 @@ if sys.version_info >= (3, 11):
         @overload
         def split(self: Self, __condition: Callable[[_BaseExceptionT_co], bool]) -> tuple[Self | None, Self | None]: ...
         def derive(self: Self, __excs: Sequence[_BaseExceptionT_co]) -> Self: ...
+        def __class_getitem__(cls, __item: Any) -> GenericAlias: ...
 
     class ExceptionGroup(BaseExceptionGroup[_ExceptionT_co], Exception):
         def __new__(cls: type[Self], __message: str, __exceptions: Sequence[_ExceptionT_co]) -> Self: ...

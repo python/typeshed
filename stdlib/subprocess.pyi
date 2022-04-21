@@ -1,7 +1,8 @@
 import sys
 from _typeshed import Self, StrOrBytesPath
+from collections.abc import Callable, Iterable, Mapping, Sequence
 from types import TracebackType
-from typing import IO, Any, AnyStr, Callable, Generic, Iterable, Mapping, Sequence, TypeVar, overload
+from typing import IO, Any, AnyStr, Generic, TypeVar, overload
 from typing_extensions import Literal, TypeAlias
 
 if sys.version_info >= (3, 9):

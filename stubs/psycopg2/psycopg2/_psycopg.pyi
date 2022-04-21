@@ -112,7 +112,7 @@ class cursor:
     def __iter__(self: Self) -> Self: ...
     def __next__(self) -> tuple[Any, ...]: ...
 
-_cursor = cursor
+_cursor: TypeAlias = cursor
 
 class AsIs:
     adapted: Any
