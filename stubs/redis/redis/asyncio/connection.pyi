@@ -2,8 +2,8 @@ import asyncio
 import enum
 import ssl
 from collections.abc import Callable, Iterable, Mapping
-from typing import Any, Protocol, TypedDict, TypeVar
-from typing_extensions import TypeAlias
+from typing import Any, Protocol, TypeVar
+from typing_extensions import TypeAlias, TypedDict
 
 from redis.asyncio.retry import Retry
 from redis.exceptions import ResponseError
