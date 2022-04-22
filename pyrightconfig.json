@@ -2,7 +2,8 @@
     "typeshedPath": ".",
     "include": [
         "stdlib",
-        "stubs"
+        "stubs",
+        "test_cases"
     ],
     "exclude": [
         "**/@python2"
