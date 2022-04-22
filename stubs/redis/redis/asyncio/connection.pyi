@@ -2,7 +2,7 @@ import asyncio
 import enum
 import ssl
 from collections.abc import Callable, Iterable, Mapping
-from typing import Any, Protocol, TypeVar
+from typing import Any, Protocol
 from typing_extensions import TypeAlias, TypedDict
 
 from redis.asyncio.retry import Retry
@@ -257,11 +257,9 @@ class ConnectKwargs(TypedDict):
 
 def parse_url(url: str) -> ConnectKwargs: ...
 
-_CP = TypeVar("_CP", bound=ConnectionPool)
-
 class ConnectionPool:
     @classmethod
-    def from_url(cls, url: str, **kwargs) -> _CP: ...
+    def from_url(cls, url: str, **kwargs) -> ConnectionPool: ...
     connection_class: Any
     connection_kwargs: Any
     max_connections: Any

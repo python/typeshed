@@ -253,7 +253,7 @@ class BasicKeyCommands(Generic[_StrType]):
     def unwatch(self): ...
     def unlink(self, *names: _Key) -> int: ...
 
-class AsyncBasicKeyCommands(BasicKeyCommands):
+class AsyncBasicKeyCommands(BasicKeyCommands[_StrType], Generic[_StrType]):
     def __delitem__(self, name: KeyT): ...
     def __contains__(self, name: KeyT): ...  # type: ignore[override]
     def __getitem__(self, name: KeyT): ...
@@ -392,7 +392,7 @@ class SetCommands(Generic[_StrType]):
     def sunion(self, keys: _Key | Iterable[_Key], *args: _Key) -> builtins.set[_Value]: ...
     def sunionstore(self, dest: _Key, keys: _Key | Iterable[_Key], *args: _Key) -> int: ...
 
-class AsyncScanCommands(ScanCommands):
+class AsyncScanCommands(ScanCommands[_StrType], Generic[_StrType]):
     async def scan_iter(  # type: ignore[override]
         self, match: PatternT | None = ..., count: int | None = ..., _type: str | None = ..., **kwargs
     ) -> AsyncIterator[Any]: ...
@@ -675,7 +675,7 @@ class ScriptCommands(Generic[_StrType]):
     def script_load(self, script): ...
     def register_script(self, script: str | _StrType) -> Script: ...
 
-class AsyncScriptCommands(ScriptCommands):
+class AsyncScriptCommands(ScriptCommands[_StrType], Generic[_StrType]):
     async def script_debug(self, *args) -> None: ...
     def register_script(self, script: ScriptTextT) -> AsyncScript: ...  # type: ignore[override]
 
@@ -816,13 +816,14 @@ class DataAccessCommands(
 class AsyncDataAccessCommands(
     AsyncBasicKeyCommands,
     AsyncHyperlogCommands,
-    AsyncHashCommands,
+    AsyncHashCommands[_StrType],
     AsyncGeoCommands,
-    AsyncListCommands,
+    AsyncListCommands[_StrType],
     AsyncScanCommands,
-    AsyncSetCommands,
+    AsyncSetCommands[_StrType],
     AsyncStreamCommands,
-    AsyncSortedSetCommands,
+    AsyncSortedSetCommands[_StrType],
+    Generic[_StrType],
 ): ...
 class CoreCommands(
     ACLCommands[_StrType],
@@ -835,12 +836,13 @@ class CoreCommands(
     Generic[_StrType],
 ): ...
 class AsyncCoreCommands(
-    AsyncACLCommands,
+    AsyncACLCommands[_StrType],
     AsyncClusterCommands,
     AsyncDataAccessCommands,
     AsyncManagementCommands,
     AsyncModuleCommands,
     AsyncPubSubCommands,
-    AsyncScriptCommands,
+    AsyncScriptCommands[_StrType],
     AsyncFunctionCommands,
+    Generic[_StrType],
 ): ...
