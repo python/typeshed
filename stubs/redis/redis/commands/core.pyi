@@ -652,9 +652,9 @@ class HashCommands(Generic[_StrType]):
 AsyncHashCommands = HashCommands
 
 class AsyncScript:
-    def __init__(self, registered_client: AsyncRedis, script: ScriptTextT) -> None: ...
+    def __init__(self, registered_client: AsyncRedis[Any], script: ScriptTextT) -> None: ...
     async def __call__(
-        self, keys: Sequence[KeyT] | None = ..., args: Iterable[EncodableT] | None = ..., client: AsyncRedis | None = ...
+        self, keys: Sequence[KeyT] | None = ..., args: Iterable[EncodableT] | None = ..., client: AsyncRedis[Any] | None = ...
     ): ...
 
 class PubSubCommands:
@@ -814,12 +814,12 @@ class DataAccessCommands(
     Generic[_StrType],
 ): ...
 class AsyncDataAccessCommands(
-    AsyncBasicKeyCommands,
+    AsyncBasicKeyCommands[_StrType],
     AsyncHyperlogCommands,
     AsyncHashCommands[_StrType],
     AsyncGeoCommands,
     AsyncListCommands[_StrType],
-    AsyncScanCommands,
+    AsyncScanCommands[_StrType],
     AsyncSetCommands[_StrType],
     AsyncStreamCommands,
     AsyncSortedSetCommands[_StrType],
@@ -838,7 +838,7 @@ class CoreCommands(
 class AsyncCoreCommands(
     AsyncACLCommands[_StrType],
     AsyncClusterCommands,
-    AsyncDataAccessCommands,
+    AsyncDataAccessCommands[_StrType],
     AsyncManagementCommands,
     AsyncModuleCommands,
     AsyncPubSubCommands,

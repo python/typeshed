@@ -48,14 +48,14 @@ class Sentinel(AsyncSentinelCommands):
     def master_for(
         self,
         service_name: str,
-        redis_class: type[Redis] = ...,
+        redis_class: type[Redis[Any]] = ...,
         connection_pool_class: type[SentinelConnectionPool] = ...,
         **kwargs,
     ): ...
     def slave_for(
         self,
         service_name: str,
-        redis_class: type[Redis] = ...,
+        redis_class: type[Redis[Any]] = ...,
         connection_pool_class: type[SentinelConnectionPool] = ...,
         **kwargs,
     ): ...

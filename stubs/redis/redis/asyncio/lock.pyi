@@ -19,7 +19,7 @@ class Lock:
     local: Any
     def __init__(
         self,
-        redis: Redis,
+        redis: Redis[Any],
         name: str | bytes | memoryview,
         timeout: float | None = ...,
         sleep: float = ...,
