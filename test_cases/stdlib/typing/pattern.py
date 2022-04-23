@@ -1,5 +1,6 @@
-from typing import Pattern, Match, Optional
+from typing import Match, Optional, Pattern
 from typing_extensions import assert_type
+
 
 def test_search(str_pat: Pattern[str], bytes_pat: Pattern[bytes]) -> None:
     assert_type(str_pat.search("x"), Optional[Match[str]])
