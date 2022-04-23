@@ -23,7 +23,7 @@ ResponseCallbackT: TypeAlias = ResponseCallbackProtocol | AsyncResponseCallbackP
 class Redis(AbstractRedis, RedisModuleCommands, AsyncCoreCommands[_StrType], AsyncSentinelCommands, Generic[_StrType]):
     response_callbacks: MutableMapping[str | bytes, ResponseCallbackT]
     @classmethod
-    def from_url(cls, url: str, **kwargs): ...
+    def from_url(cls, url: str, **kwargs) -> Redis[Any]: ...
     auto_close_connection_pool: Any
     connection_pool: Any
     single_connection_client: Any
