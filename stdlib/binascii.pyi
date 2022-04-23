@@ -1,9 +1,10 @@
 import sys
 from _typeshed import ReadableBuffer
+from typing_extensions import TypeAlias
 
 # Many functions in binascii accept buffer objects
 # or ASCII-only strings.
-_AsciiBuffer = str | ReadableBuffer
+_AsciiBuffer: TypeAlias = str | ReadableBuffer
 
 def a2b_uu(__data: _AsciiBuffer) -> bytes: ...
 
