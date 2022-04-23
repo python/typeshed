@@ -1,7 +1,7 @@
-from _typeshed import ReadableBuffer
 import sys
+from _typeshed import ReadableBuffer
 from collections.abc import Callable, Iterable, Iterator, Mapping
-from typing import Any, ClassVar, Protocol, Union, SupportsBytes, SupportsIndex
+from typing import Any, ClassVar, Protocol, SupportsBytes, SupportsIndex, Union
 from typing_extensions import TypeAlias, final
 
 if sys.version_info >= (3, 8):
@@ -210,7 +210,12 @@ if sys.version_info >= (3, 8):
         buffers: Iterable[Any] | None = ...,
     ) -> Any: ...
     def loads(
-        __data: ReadableBuffer, *, fix_imports: bool = ..., encoding: str = ..., errors: str = ..., buffers: Iterable[Any] | None = ...
+        __data: ReadableBuffer,
+        *,
+        fix_imports: bool = ...,
+        encoding: str = ...,
+        errors: str = ...,
+        buffers: Iterable[Any] | None = ...,
     ) -> Any: ...
 
 else:
