@@ -85,8 +85,6 @@ class HiredisParser(BaseParser):
     async def read_response(self, disable_decoding: bool = ...) -> EncodableT | list[EncodableT]: ...
 
 DefaultParser: type[PythonParser | HiredisParser]
-DefaultParser = HiredisParser
-DefaultParser = PythonParser
 
 class ConnectCallbackProtocol(Protocol):
     def __call__(self, connection: Connection): ...
