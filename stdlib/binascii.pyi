@@ -1,5 +1,5 @@
-from _typeshed import ReadableBuffer
 import sys
+from _typeshed import ReadableBuffer
 
 # Many functions in binascii accept buffer objects
 # or ASCII-only strings.
