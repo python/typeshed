@@ -1,8 +1,8 @@
 import sys
 from _typeshed import ReadableBuffer
 from collections.abc import Callable, Iterable, Iterator, Mapping
-from typing import Any, ClassVar, Protocol, SupportsBytes, SupportsIndex, Union
-from typing_extensions import TypeAlias, final
+from typing import Any, ClassVar, Protocol, SupportsBytes, Union
+from typing_extensions import SupportsIndex, TypeAlias, final
 
 if sys.version_info >= (3, 8):
     __all__ = [
