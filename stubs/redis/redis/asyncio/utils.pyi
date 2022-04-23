@@ -1,7 +1,7 @@
 from typing import Any, Generic
 
-from redis.client import _StrType
 from redis.asyncio.client import Pipeline, Redis
+from redis.client import _StrType
 
 def from_url(url: str, **kwargs) -> Redis[Any]: ...
 
