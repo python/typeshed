@@ -1,7 +1,6 @@
 import datetime
 import decimal
 import enum
-import re
 import threading
 import uuid
 from _typeshed import Self
@@ -21,6 +20,7 @@ from typing import (
     MutableSet,
     NamedTuple,
     NoReturn,
+    Pattern,
     Protocol,
     Sequence,
     Text,
@@ -180,8 +180,8 @@ CSQ_PARENTHESES_NEVER: int
 CSQ_PARENTHESES_ALWAYS: int
 CSQ_PARENTHESES_UNNESTED: int
 
-SNAKE_CASE_STEP1: re.Pattern
-SNAKE_CASE_STEP2: re.Pattern
+SNAKE_CASE_STEP1: Pattern
+SNAKE_CASE_STEP2: Pattern
 
 MODEL_BASE: str
 
@@ -349,7 +349,8 @@ class _BoundTableContext(_callable_context_manager):
 
 class Table(_HashableSource, BaseTable):
     __name__: str
-    c: _ExplicitColumn
+    # mypy doesn't seem to understand very well how descriptors work
+    c: _ExplicitColumn  # type: ignore[misc, assignment]
     primary_key: Field | CompositeKey | None
     def __init__(
         self,
@@ -440,8 +441,8 @@ class ColumnBase(Node):
     def __rand__(self, other: object) -> Expression: ...
     def __ror__(self, other: object) -> Expression: ...
     def __rxor__(self, other: object) -> Expression: ...
-    def __eq__(self, rhs: object) -> Expression: ...
-    def __ne__(self, rhs: object) -> Expression: ...
+    def __eq__(self, rhs: object) -> Expression: ...  # type: ignore[override]
+    def __ne__(self, rhs: object) -> Expression: ...  # type: ignore[override]
     def __lt__(self, other: object) -> Expression: ...
     def __le__(self, other: object) -> Expression: ...
     def __gt__(self, other: object) -> Expression: ...
@@ -538,7 +539,7 @@ class Ordering(WrappedNode):
     collation: str | None
     nulls: str | None
     def __init__(self, node: Node, direction: str, collation: str | None = ..., nulls: str | None = ...): ...
-    def collate(self, collation: str | None = ...) -> Ordering: ...
+    def collate(self, collation: str | None = ...) -> Ordering: ...  # type: ignore[override]
     def __sql__(self, ctx: Context) -> Context: ...
 
 class _SupportsSQLOrdering(Protocol):
@@ -1038,7 +1039,7 @@ class Database(_callable_context_manager):
         autoconnect: bool = ...,
         **kwargs: object,
     ): ...
-    def init(self, database: __IConnection, **kwargs: object) -> None: ...
+    def init(self, database: __IConnection, **kwargs: Any) -> None: ...
     def __enter__(self: Self) -> Self: ...
     def __exit__(self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: object) -> None: ...
     def connection_context(self) -> ConnectionContext: ...
@@ -1184,7 +1185,7 @@ class PostgresqlDatabase(Database):
     sequences: ClassVar[bool]
     # Instance variables
     server_version: int
-    def init(
+    def init(  # type: ignore[override]
         self,
         database: __IConnection,
         register_unicode: bool = ...,
