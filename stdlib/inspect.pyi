@@ -460,13 +460,13 @@ def unwrap(func: Callable[..., Any], *, stop: Callable[[Any], Any] | None = ...)
 # The interpreter stack
 #
 
-class Traceback(NamedTuple):
-    filename: str
-    lineno: int
-    function: str
-    code_context: list[str] | None
-    index: int | None  # type: ignore[assignment]
-    if sys.version_info >= (3, 11):
+if sys.version_info >= (3, 11):
+    class Traceback(NamedTuple):
+        filename: str
+        lineno: int
+        function: str
+        code_context: list[str] | None
+        index: int | None  # type: ignore[assignment]
         @property
         def positions(self) -> dis.Positions | None: ...
         def __new__(
@@ -479,15 +479,13 @@ class Traceback(NamedTuple):
             *,
             positions: dis.Positions | None = ...,
         ) -> Self: ...
-
-class FrameInfo(NamedTuple):
-    frame: FrameType
-    filename: str
-    lineno: int
-    function: str
-    code_context: list[str] | None
-    index: int | None  # type: ignore[assignment]
-    if sys.version_info >= (3, 11):
+    class FrameInfo(NamedTuple):
+        frame: FrameType
+        filename: str
+        lineno: int
+        function: str
+        code_context: list[str] | None
+        index: int | None  # type: ignore[assignment]
         @property
         def positions(self) -> dis.Positions | None: ...
         def __new__(
@@ -501,6 +499,20 @@ class FrameInfo(NamedTuple):
             *,
             positions: dis.Positions | None = ...,
         ) -> Self: ...
+else:
+    class Traceback(NamedTuple):
+        filename: str
+        lineno: int
+        function: str
+        code_context: list[str] | None
+        index: int | None  # type: ignore[assignment]
+    class FrameInfo(NamedTuple):
+        frame: FrameType
+        filename: str
+        lineno: int
+        function: str
+        code_context: list[str] | None
+        index: int | None  # type: ignore[assignment]
 
 def getframeinfo(frame: FrameType | TracebackType, context: int = ...) -> Traceback: ...
 def getouterframes(frame: Any, context: int = ...) -> list[FrameInfo]: ...
