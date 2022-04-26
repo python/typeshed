@@ -1231,7 +1231,7 @@ if sys.version_info >= (3, 11):
         kw_only_default: bool = False,
         field_specifiers: tuple[type[Any] | Callable[..., Any], ...] = (),
         **kwargs: Any,
-    ) -> Callable[[T], T]: ...
+    ) -> Callable[[_T], _T]: ...
 
 # Type constructors
 
