@@ -88,6 +88,7 @@ if sys.version_info >= (3, 11):
         "assert_type",
         "cast",
         "clear_overloads",
+        "dataclass_transform",
         "final",
         "get_args",
         "get_origin",
@@ -1226,10 +1227,10 @@ if sys.version_info >= (3, 11):
     def get_overloads(func: Callable[..., object]) -> Sequence[Callable[..., object]]: ...
     def dataclass_transform(
         *,
-        eq_default: bool = True,
-        order_default: bool = False,
-        kw_only_default: bool = False,
-        field_specifiers: tuple[type[Any] | Callable[..., Any], ...] = (),
+        eq_default: bool = ...,
+        order_default: bool = ...,
+        kw_only_default: bool = ...,
+        field_specifiers: tuple[type[Any] | Callable[..., Any], ...] = ...,
         **kwargs: Any,
     ) -> Callable[[_T], _T]: ...
 
