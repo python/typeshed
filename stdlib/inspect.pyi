@@ -477,7 +477,7 @@ class Traceback(NamedTuple):
             code_context: list[str] | None,
             index: int | None,
             *,
-            positions=None,
+            positions: dis.Positions | None = ...,
         ) -> Self: ...
 
 class FrameInfo(NamedTuple):
@@ -499,7 +499,7 @@ class FrameInfo(NamedTuple):
             code_context: list[str] | None,
             index: int | None,
             *,
-            positions=None,
+            positions: dis.Positions | None = ...,
         ) -> Self: ...
 
 def getframeinfo(frame: FrameType | TracebackType, context: int = ...) -> Traceback: ...
