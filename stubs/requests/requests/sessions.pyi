@@ -1,6 +1,6 @@
 from _typeshed import Self, SupportsItems
 from collections.abc import Callable, Iterable, Mapping, MutableMapping
-from typing import IO, Any, Union
+from typing import IO, Any, Tuple, Union
 from typing_extensions import TypeAlias
 
 from urllib3._collections import RecentlyUsedContainer
@@ -45,6 +45,7 @@ class SessionRedirectMixin:
     def rebuild_proxies(self, prepared_request, proxies): ...
     def should_strip_auth(self, old_url, new_url): ...
 
+_Cert: TypeAlias = str | Tuple[str, str]
 _Data: TypeAlias = str | bytes | Mapping[str, Any] | Iterable[tuple[str, str | None]] | IO[Any] | None
 
 _Hook: TypeAlias = Callable[[Response], Any]
@@ -60,6 +61,8 @@ _Params: TypeAlias = Union[
     str | bytes,
 ]
 _TextMapping: TypeAlias = MutableMapping[str, str]
+_Timeout: TypeAlias = float | Tuple[float, float] | Tuple[float, None]
+_Verify: TypeAlias = bool | str
 
 class Session(SessionRedirectMixin):
     __attrs__: Any
@@ -94,13 +97,13 @@ class Session(SessionRedirectMixin):
         | MutableMapping[str, tuple[str, IO[Any], str, _TextMapping]]
         | None = ...,
         auth: None | tuple[str, str] | _auth.AuthBase | Callable[[PreparedRequest], PreparedRequest] = ...,
-        timeout: None | float | tuple[float, float] | tuple[float, None] = ...,
-        allow_redirects: bool | None = ...,
+        timeout: _Timeout | None = ...,
+        allow_redirects: bool = ...,
         proxies: _TextMapping | None = ...,
         hooks: _HooksInput | None = ...,
         stream: bool | None = ...,
-        verify: None | bool | str = ...,
-        cert: str | tuple[str, str] | None = ...,
+        verify: _Verify | None = ...,
+        cert: _Cert | None = ...,
         json: Any | None = ...,
     ) -> Response: ...
     def get(
@@ -112,13 +115,13 @@ class Session(SessionRedirectMixin):
         cookies: Any | None = ...,
         files: Any | None = ...,
         auth: Any | None = ...,
-        timeout: Any | None = ...,
+        timeout: _Timeout | None = ...,
         allow_redirects: bool = ...,
-        proxies: Any | None = ...,
+        proxies: _TextMapping | None = ...,
         hooks: Any | None = ...,
-        stream: Any | None = ...,
-        verify: Any | None = ...,
-        cert: Any | None = ...,
+        stream: bool | None = ...,
+        verify: _Verify | None = ...,
+        cert: _Cert | None = ...,
         json: Any | None = ...,
     ) -> Response: ...
     def options(
@@ -130,13 +133,13 @@ class Session(SessionRedirectMixin):
         cookies: Any | None = ...,
         files: Any | None = ...,
         auth: Any | None = ...,
-        timeout: Any | None = ...,
+        timeout: _Timeout | None = ...,
         allow_redirects: bool = ...,
-        proxies: Any | None = ...,
+        proxies: _TextMapping | None = ...,
         hooks: Any | None = ...,
         stream: Any | None = ...,
-        verify: Any | None = ...,
-        cert: Any | None = ...,
+        verify: _Verify | None = ...,
+        cert: _Cert | None = ...,
         json: Any | None = ...,
     ) -> Response: ...
     def head(
@@ -148,13 +151,13 @@ class Session(SessionRedirectMixin):
         cookies: Any | None = ...,
         files: Any | None = ...,
         auth: Any | None = ...,
-        timeout: Any | None = ...,
+        timeout: _Timeout | None = ...,
         allow_redirects: bool = ...,
-        proxies: Any | None = ...,
+        proxies: _TextMapping | None = ...,
         hooks: Any | None = ...,
-        stream: Any | None = ...,
-        verify: Any | None = ...,
-        cert: Any | None = ...,
+        stream: bool | None = ...,
+        verify: _Verify | None = ...,
+        cert: _Cert | None = ...,
         json: Any | None = ...,
     ) -> Response: ...
     def post(
@@ -167,13 +170,13 @@ class Session(SessionRedirectMixin):
         cookies: Any | None = ...,
         files: Any | None = ...,
         auth: Any | None = ...,
-        timeout: Any | None = ...,
+        timeout: _Timeout | None = ...,
         allow_redirects: bool = ...,
-        proxies: Any | None = ...,
+        proxies: _TextMapping | None = ...,
         hooks: Any | None = ...,
         stream: Any | None = ...,
-        verify: Any | None = ...,
-        cert: Any | None = ...,
+        verify: _Verify | None = ...,
+        cert: _Cert | None = ...,
     ) -> Response: ...
     def put(
         self,
@@ -184,12 +187,12 @@ class Session(SessionRedirectMixin):
         cookies: Any | None = ...,
         files: Any | None = ...,
         auth: Any | None = ...,
-        timeout: Any | None = ...,
+        timeout: _Timeout | None = ...,
         allow_redirects: bool = ...,
-        proxies: Any | None = ...,
+        proxies: _TextMapping | None = ...,
         hooks: Any | None = ...,
-        stream: Any | None = ...,
-        verify: Any | None = ...,
+        stream: bool | None = ...,
+        verify: _Verify | None = ...,
         cert: Any | None = ...,
         json: Any | None = ...,
     ) -> Response: ...
@@ -202,13 +205,13 @@ class Session(SessionRedirectMixin):
         cookies: Any | None = ...,
         files: Any | None = ...,
         auth: Any | None = ...,
-        timeout: Any | None = ...,
+        timeout: _Timeout | None = ...,
         allow_redirects: bool = ...,
-        proxies: Any | None = ...,
+        proxies: _TextMapping | None = ...,
         hooks: Any | None = ...,
-        stream: Any | None = ...,
-        verify: Any | None = ...,
-        cert: Any | None = ...,
+        stream: bool | None = ...,
+        verify: _Verify | None = ...,
+        cert: _Cert | None = ...,
         json: Any | None = ...,
     ) -> Response: ...
     def delete(
@@ -220,17 +223,26 @@ class Session(SessionRedirectMixin):
         cookies: Any | None = ...,
         files: Any | None = ...,
         auth: Any | None = ...,
-        timeout: Any | None = ...,
+        timeout: _Timeout | None = ...,
         allow_redirects: bool = ...,
-        proxies: Any | None = ...,
+        proxies: _TextMapping | None = ...,
         hooks: Any | None = ...,
-        stream: Any | None = ...,
-        verify: Any | None = ...,
+        stream: bool | None = ...,
+        verify: _Verify | None = ...,
         cert: Any | None = ...,
         json: Any | None = ...,
     ) -> Response: ...
     def send(
-        self, request: PreparedRequest, *, stream=..., verify=..., cert=..., proxies=..., allow_redirects: bool = ..., **kwargs
+        self,
+        request: PreparedRequest,
+        *,
+        stream: bool | None = ...,
+        verify: _Verify | None = ...,
+        proxies: _TextMapping | None = ...,
+        cert: _Cert | None = ...,
+        timeout: _Timeout | None = ...,
+        allow_redirects: bool = ...,
+        **kwargs: Any,
     ) -> Response: ...
     def merge_environment_settings(self, url, proxies, stream, verify, cert): ...
     def get_adapter(self, url: str) -> _BaseAdapter: ...
