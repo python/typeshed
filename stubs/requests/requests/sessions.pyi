@@ -96,7 +96,7 @@ class Session(SessionRedirectMixin):
         params: _Params | None = ...,
         data: _Data | None = ...,
         headers: _TextMapping | None = ...,
-        cookies: RequestsCookieJar | _TextMapping | None = ...,
+        cookies: None | RequestsCookieJar | _TextMapping = ...,
         files: _Files | None = ...,
         auth: _Auth | None = ...,
         timeout: _Timeout | None = ...,
