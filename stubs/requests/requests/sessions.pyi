@@ -1,6 +1,6 @@
 from _typeshed import Self, SupportsItems
 from collections.abc import Callable, Iterable, Mapping, MutableMapping
-from typing import IO, Any, Tuple, Union
+from typing import IO, Any, Union
 from typing_extensions import TypeAlias
 
 from urllib3._collections import RecentlyUsedContainer
@@ -45,14 +45,14 @@ class SessionRedirectMixin:
     def rebuild_proxies(self, prepared_request, proxies): ...
     def should_strip_auth(self, old_url, new_url): ...
 
-_Auth: TypeAlias = Tuple[str, str] | _auth.AuthBase | Callable[[PreparedRequest], PreparedRequest]
-_Cert: TypeAlias = str | Tuple[str, str]
+_Auth: TypeAlias = Union[tuple[str, str], _auth.AuthBase, Callable[[PreparedRequest], PreparedRequest]]
+_Cert: TypeAlias = Union[str, tuple[str, str]]
 _Data: TypeAlias = str | bytes | Mapping[str, Any] | Iterable[tuple[str, str | None]] | IO[Any]
 _Files: TypeAlias = (
     MutableMapping[str, IO[Any]]
     | MutableMapping[str, tuple[str, IO[Any]]]
     | MutableMapping[str, tuple[str, IO[Any], str]]
-    | MutableMapping[str, tuple[str, IO[Any], str, "_TextMapping"]]
+    | MutableMapping[str, tuple[str, IO[Any], str, _TextMapping]]
 )
 _Hook: TypeAlias = Callable[[Response], Any]
 _Hooks: TypeAlias = MutableMapping[str, _Hook | list[_Hook]]
@@ -67,7 +67,7 @@ _Params: TypeAlias = Union[
     str | bytes,
 ]
 _TextMapping: TypeAlias = MutableMapping[str, str]
-_Timeout: TypeAlias = float | Tuple[float, float] | Tuple[float, None]
+_Timeout: TypeAlias = Union[float, tuple[float, float], tuple[float, None]]
 _Verify: TypeAlias = bool | str
 
 class Session(SessionRedirectMixin):
