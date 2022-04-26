@@ -201,6 +201,7 @@ if sys.version_info >= (3, 11):
         assert_never as assert_never,
         assert_type as assert_type,
         clear_overloads as clear_overloads,
+        dataclass_transform as dataclass_transform,
         get_overloads as get_overloads,
         reveal_type as reveal_type,
     )
@@ -224,12 +225,11 @@ else:
         def __init__(self, name: str) -> None: ...
         def __iter__(self) -> Any: ...  # Unpack[Self]
 
-# Experimental (hopefully these will be in 3.11)
-def dataclass_transform(
-    *,
-    eq_default: bool = ...,
-    order_default: bool = ...,
-    kw_only_default: bool = ...,
-    field_specifiers: tuple[type[Any] | Callable[..., Any], ...] = ...,
-    **kwargs: object,
-) -> Callable[[_T], _T]: ...
+    def dataclass_transform(
+        *,
+        eq_default: bool = ...,
+        order_default: bool = ...,
+        kw_only_default: bool = ...,
+        field_specifiers: tuple[type[Any] | Callable[..., Any], ...] = ...,
+        **kwargs: object,
+    ) -> Callable[[_T], _T]: ...

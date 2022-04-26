@@ -136,6 +136,7 @@ class SSLConnection(Connection):
         ssl_certfile=...,
         ssl_cert_reqs=...,
         ssl_ca_certs=...,
+        ssl_ca_data: Any | None = ...,
         ssl_check_hostname: bool = ...,
         ssl_ca_path: Any | None = ...,
         ssl_password: Any | None = ...,
