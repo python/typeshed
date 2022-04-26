@@ -45,9 +45,9 @@ class SessionRedirectMixin:
     def rebuild_proxies(self, prepared_request, proxies): ...
     def should_strip_auth(self, old_url, new_url): ...
 
+_Data: TypeAlias = str | bytes | Mapping[str, Any] | Iterable[tuple[str, str | None]] | IO[Any]
 _Auth: TypeAlias = Union[tuple[str, str], _auth.AuthBase, Callable[[PreparedRequest], PreparedRequest]]
 _Cert: TypeAlias = Union[str, tuple[str, str]]
-_Data: TypeAlias = str | bytes | Mapping[str, Any] | Iterable[tuple[str, str | None]] | IO[Any]
 _Files: TypeAlias = (
     MutableMapping[str, IO[Any]]
     | MutableMapping[str, tuple[str, IO[Any]]]
