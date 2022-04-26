@@ -605,6 +605,7 @@ class SocketIO(RawIOBase):
     def mode(self) -> Literal["rb", "wb", "rwb"]: ...
 
 def getfqdn(name: str = ...) -> str: ...
+
 if sys.version_info >= (3, 11):
     def create_connection(
         address: tuple[str | None, int],
@@ -613,13 +614,14 @@ if sys.version_info >= (3, 11):
         *,
         all_errors: bool = ...,
     ) -> socket: ...
+
 else:
     def create_connection(
         address: tuple[str | None, int],
         timeout: float | None = ...,  # noqa: F811
         source_address: tuple[bytearray | bytes | str, int] | None = ...,
     ) -> socket: ...
-        
+
 if sys.version_info >= (3, 8):
     def has_dualstack_ipv6() -> bool: ...
     def create_server(
