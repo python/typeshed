@@ -78,10 +78,6 @@ class Server:
 class BaseManager:
     if sys.version_info >= (3, 11):
         def __init__(
-            self, address: Any | None = ..., authkey: bytes | None = ..., serializer: str = ..., ctx: BaseContext | None = ...
-        ) -> None: ...
-    else:
-        def __init__(
             self,
             address: Any | None = ...,
             authkey: bytes | None = ...,
@@ -89,6 +85,10 @@ class BaseManager:
             ctx: BaseContext | None = ...,
             *,
             shutdown_timeout: float = ...,
+        ) -> None: ...
+    else:
+        def __init__(
+            self, address: Any | None = ..., authkey: bytes | None = ..., serializer: str = ..., ctx: BaseContext | None = ...
         ) -> None: ...
 
     def get_server(self) -> Server: ...
