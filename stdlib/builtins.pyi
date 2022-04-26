@@ -122,7 +122,8 @@ class staticmethod(Generic[_R_co]):
     if sys.version_info >= (3, 10):
         __name__: str
         __qualname__: str
-        __wrapped__: Callable[..., _R_co]
+        @property
+        def __wrapped__(self) -> Callable[..., _R_co]: ...
         def __call__(self, *args: Any, **kwargs: Any) -> _R_co: ...
 
 class classmethod(Generic[_R_co]):
@@ -135,7 +136,8 @@ class classmethod(Generic[_R_co]):
     if sys.version_info >= (3, 10):
         __name__: str
         __qualname__: str
-        __wrapped__: Callable[..., _R_co]
+        @property
+        def __wrapped__(self) -> Callable[..., _R_co]: ...
 
 class type:
     @property
