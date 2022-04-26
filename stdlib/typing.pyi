@@ -1224,6 +1224,14 @@ if sys.version_info >= (3, 11):
     def assert_type(__val: _T, __typ: Any) -> _T: ...
     def clear_overloads() -> None: ...
     def get_overloads(func: Callable[..., object]) -> Sequence[Callable[..., object]]: ...
+    def dataclass_transform(
+        *,
+        eq_default: bool = True,
+        order_default: bool = False,
+        kw_only_default: bool = False,
+        field_specifiers: tuple[type[Any] | Callable[..., Any], ...] = (),
+        **kwargs: Any,
+    ) -> Callable[[T], T]: ...
 
 # Type constructors
 
