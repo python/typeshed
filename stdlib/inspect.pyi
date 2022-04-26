@@ -479,6 +479,7 @@ if sys.version_info >= (3, 11):
             *,
             positions: dis.Positions | None = ...,
         ) -> Self: ...
+
     class FrameInfo(NamedTuple):
         frame: FrameType
         filename: str
@@ -499,6 +500,7 @@ if sys.version_info >= (3, 11):
             *,
             positions: dis.Positions | None = ...,
         ) -> Self: ...
+
 else:
     class Traceback(NamedTuple):
         filename: str
@@ -506,6 +508,7 @@ else:
         function: str
         code_context: list[str] | None
         index: int | None  # type: ignore[assignment]
+
     class FrameInfo(NamedTuple):
         frame: FrameType
         filename: str
