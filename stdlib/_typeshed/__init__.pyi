@@ -5,6 +5,7 @@
 import array
 import ctypes
 import mmap
+import pickle
 import sys
 from collections.abc import Awaitable, Container, Iterable, Set as AbstractSet
 from os import PathLike
@@ -194,8 +195,11 @@ class SupportsWrite(Protocol[_T_contra]):
 ReadOnlyBuffer: TypeAlias = bytes  # stable
 # Anything that implements the read-write buffer interface.
 # The buffer interface is defined purely on the C level, so we cannot define a normal Protocol
-# for it. Instead we have to list the most common stdlib buffer classes in a Union.
-WriteableBuffer: TypeAlias = bytearray | memoryview | array.array[Any] | mmap.mmap | ctypes._CData  # stable
+# for it (until PEP 688 is implementedd). Instead we have to list the most common stdlib buffer classes in a Union.
+if sys.version_info >= (3, 8):
+    WriteableBuffer: TypeAlias = bytearray | memoryview | array.array[Any] | mmap.mmap | ctypes._CData | pickle.PickleBuffer  # stable
+else:
+    WriteableBuffer: TypeAlias = bytearray | memoryview | array.array[Any] | mmap.mmap | ctypes._CData  # stable
 # Same as _WriteableBuffer, but also includes read-only buffer types (like bytes).
 ReadableBuffer: TypeAlias = ReadOnlyBuffer | WriteableBuffer  # stable
 
