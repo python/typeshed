@@ -45,9 +45,15 @@ class SessionRedirectMixin:
     def rebuild_proxies(self, prepared_request, proxies): ...
     def should_strip_auth(self, old_url, new_url): ...
 
+_Auth: TypeAlias = Tuple[str, str] | _auth.AuthBase | Callable[[PreparedRequest], PreparedRequest]
 _Cert: TypeAlias = str | Tuple[str, str]
-_Data: TypeAlias = str | bytes | Mapping[str, Any] | Iterable[tuple[str, str | None]] | IO[Any] | None
-
+_Data: TypeAlias = str | bytes | Mapping[str, Any] | Iterable[tuple[str, str | None]] | IO[Any]
+_Files: TypeAlias = (
+    MutableMapping[str, IO[Any]]
+    | MutableMapping[str, tuple[str, IO[Any]]]
+    | MutableMapping[str, tuple[str, IO[Any], str]]
+    | MutableMapping[str, tuple[str, IO[Any], str, "_TextMapping"]]
+)
 _Hook: TypeAlias = Callable[[Response], Any]
 _Hooks: TypeAlias = MutableMapping[str, _Hook | list[_Hook]]
 _HooksInput: TypeAlias = MutableMapping[str, Iterable[_Hook] | _Hook]
@@ -67,7 +73,7 @@ _Verify: TypeAlias = bool | str
 class Session(SessionRedirectMixin):
     __attrs__: Any
     headers: CaseInsensitiveDict[str]
-    auth: None | tuple[str, str] | _auth.AuthBase | Callable[[PreparedRequest], PreparedRequest]
+    auth: _Auth | None
     proxies: _TextMapping
     hooks: _Hooks
     params: _Params
@@ -88,15 +94,11 @@ class Session(SessionRedirectMixin):
         method: str,
         url: str | bytes,
         params: _Params | None = ...,
-        data: _Data = ...,
+        data: _Data | None = ...,
         headers: _TextMapping | None = ...,
-        cookies: None | RequestsCookieJar | _TextMapping = ...,
-        files: MutableMapping[str, IO[Any]]
-        | MutableMapping[str, tuple[str, IO[Any]]]
-        | MutableMapping[str, tuple[str, IO[Any], str]]
-        | MutableMapping[str, tuple[str, IO[Any], str, _TextMapping]]
-        | None = ...,
-        auth: None | tuple[str, str] | _auth.AuthBase | Callable[[PreparedRequest], PreparedRequest] = ...,
+        cookies: RequestsCookieJar | _TextMapping | None = ...,
+        files: _Files | None = ...,
+        auth: _Auth | None = ...,
         timeout: _Timeout | None = ...,
         allow_redirects: bool = ...,
         proxies: _TextMapping | None = ...,
@@ -109,16 +111,17 @@ class Session(SessionRedirectMixin):
     def get(
         self,
         url: str | bytes,
+        *,
         params: _Params | None = ...,
-        data: Any | None = ...,
-        headers: Any | None = ...,
-        cookies: Any | None = ...,
-        files: Any | None = ...,
-        auth: Any | None = ...,
+        data: _Data | None = ...,
+        headers: _TextMapping | None = ...,
+        cookies: RequestsCookieJar | _TextMapping | None = ...,
+        files: _Files | None = ...,
+        auth: _Auth | None = ...,
         timeout: _Timeout | None = ...,
         allow_redirects: bool = ...,
         proxies: _TextMapping | None = ...,
-        hooks: Any | None = ...,
+        hooks: _HooksInput | None = ...,
         stream: bool | None = ...,
         verify: _Verify | None = ...,
         cert: _Cert | None = ...,
@@ -127,17 +130,18 @@ class Session(SessionRedirectMixin):
     def options(
         self,
         url: str | bytes,
+        *,
         params: _Params | None = ...,
-        data: Any | None = ...,
-        headers: Any | None = ...,
-        cookies: Any | None = ...,
-        files: Any | None = ...,
-        auth: Any | None = ...,
+        data: _Data | None = ...,
+        headers: _TextMapping | None = ...,
+        cookies: RequestsCookieJar | _TextMapping | None = ...,
+        files: _Files | None = ...,
+        auth: _Auth | None = ...,
         timeout: _Timeout | None = ...,
         allow_redirects: bool = ...,
         proxies: _TextMapping | None = ...,
-        hooks: Any | None = ...,
-        stream: Any | None = ...,
+        hooks: _HooksInput | None = ...,
+        stream: bool | None = ...,
         verify: _Verify | None = ...,
         cert: _Cert | None = ...,
         json: Any | None = ...,
@@ -145,16 +149,17 @@ class Session(SessionRedirectMixin):
     def head(
         self,
         url: str | bytes,
+        *,
         params: _Params | None = ...,
-        data: Any | None = ...,
-        headers: Any | None = ...,
-        cookies: Any | None = ...,
-        files: Any | None = ...,
-        auth: Any | None = ...,
+        data: _Data | None = ...,
+        headers: _TextMapping | None = ...,
+        cookies: RequestsCookieJar | _TextMapping | None = ...,
+        files: _Files | None = ...,
+        auth: _Auth | None = ...,
         timeout: _Timeout | None = ...,
         allow_redirects: bool = ...,
         proxies: _TextMapping | None = ...,
-        hooks: Any | None = ...,
+        hooks: _HooksInput | None = ...,
         stream: bool | None = ...,
         verify: _Verify | None = ...,
         cert: _Cert | None = ...,
@@ -163,52 +168,55 @@ class Session(SessionRedirectMixin):
     def post(
         self,
         url: str | bytes,
-        data: _Data = ...,
+        data: _Data | None = ...,
         json: Any | None = ...,
+        *,
         params: _Params | None = ...,
-        headers: Any | None = ...,
-        cookies: Any | None = ...,
-        files: Any | None = ...,
-        auth: Any | None = ...,
+        headers: _TextMapping | None = ...,
+        cookies: RequestsCookieJar | _TextMapping | None = ...,
+        files: _Files | None = ...,
+        auth: _Auth | None = ...,
         timeout: _Timeout | None = ...,
         allow_redirects: bool = ...,
         proxies: _TextMapping | None = ...,
-        hooks: Any | None = ...,
-        stream: Any | None = ...,
+        hooks: _HooksInput | None = ...,
+        stream: bool | None = ...,
         verify: _Verify | None = ...,
         cert: _Cert | None = ...,
     ) -> Response: ...
     def put(
         self,
         url: str | bytes,
-        data: _Data = ...,
+        data: _Data | None = ...,
+        *,
         params: _Params | None = ...,
-        headers: Any | None = ...,
-        cookies: Any | None = ...,
-        files: Any | None = ...,
-        auth: Any | None = ...,
+        headers: _TextMapping | None = ...,
+        cookies: RequestsCookieJar | _TextMapping | None = ...,
+        files: _Files | None = ...,
+        auth: _Auth | None = ...,
         timeout: _Timeout | None = ...,
         allow_redirects: bool = ...,
         proxies: _TextMapping | None = ...,
-        hooks: Any | None = ...,
+        hooks: _HooksInput | None = ...,
         stream: bool | None = ...,
         verify: _Verify | None = ...,
-        cert: Any | None = ...,
+        cert: _Cert | None = ...,
         json: Any | None = ...,
     ) -> Response: ...
     def patch(
         self,
         url: str | bytes,
-        data: _Data = ...,
+        data: _Data | None = ...,
+        *,
         params: _Params | None = ...,
-        headers: Any | None = ...,
-        cookies: Any | None = ...,
-        files: Any | None = ...,
-        auth: Any | None = ...,
+        headers: _TextMapping | None = ...,
+        cookies: RequestsCookieJar | _TextMapping | None = ...,
+        files: _Files | None = ...,
+        auth: _Auth | None = ...,
         timeout: _Timeout | None = ...,
         allow_redirects: bool = ...,
         proxies: _TextMapping | None = ...,
-        hooks: Any | None = ...,
+        hooks: _HooksInput | None = ...,
         stream: bool | None = ...,
         verify: _Verify | None = ...,
         cert: _Cert | None = ...,
@@ -217,19 +225,20 @@ class Session(SessionRedirectMixin):
     def delete(
         self,
         url: str | bytes,
+        *,
         params: _Params | None = ...,
-        data: Any | None = ...,
-        headers: Any | None = ...,
-        cookies: Any | None = ...,
-        files: Any | None = ...,
-        auth: Any | None = ...,
+        data: _Data | None = ...,
+        headers: _TextMapping | None = ...,
+        cookies: RequestsCookieJar | _TextMapping | None = ...,
+        files: _Files | None = ...,
+        auth: _Auth | None = ...,
         timeout: _Timeout | None = ...,
         allow_redirects: bool = ...,
         proxies: _TextMapping | None = ...,
-        hooks: Any | None = ...,
+        hooks: _HooksInput | None = ...,
         stream: bool | None = ...,
         verify: _Verify | None = ...,
-        cert: Any | None = ...,
+        cert: _Cert | None = ...,
         json: Any | None = ...,
     ) -> Response: ...
     def send(
