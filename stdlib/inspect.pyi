@@ -469,7 +469,7 @@ if sys.version_info >= (3, 11):
         index: int | None  # type: ignore[assignment]
         @property
         def positions(self) -> dis.Positions | None: ...
-        def __new__(
+        def __new__(  # type: ignore[misc]
             cls: type[Self],
             filename: str,
             lineno: int,
@@ -489,7 +489,7 @@ if sys.version_info >= (3, 11):
         index: int | None  # type: ignore[assignment]
         @property
         def positions(self) -> dis.Positions | None: ...
-        def __new__(
+        def __new__(  # type: ignore[misc]
             cls: type[Self],
             frame: FrameType,
             filename: str,
