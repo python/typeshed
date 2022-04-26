@@ -195,7 +195,7 @@ class SupportsWrite(Protocol[_T_contra]):
 ReadOnlyBuffer: TypeAlias = bytes  # stable
 # Anything that implements the read-write buffer interface.
 # The buffer interface is defined purely on the C level, so we cannot define a normal Protocol
-# for it (until PEP 688 is implementedd). Instead we have to list the most common stdlib buffer classes in a Union.
+# for it (until PEP 688 is implemented). Instead we have to list the most common stdlib buffer classes in a Union.
 if sys.version_info >= (3, 8):
     WriteableBuffer: TypeAlias = (
         bytearray | memoryview | array.array[Any] | mmap.mmap | ctypes._CData | pickle.PickleBuffer
