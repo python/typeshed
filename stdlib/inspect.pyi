@@ -1,3 +1,4 @@
+import dis
 import enum
 import sys
 import types
@@ -465,6 +466,10 @@ class Traceback(NamedTuple):
     function: str
     code_context: list[str] | None
     index: int | None  # type: ignore[assignment]
+    if sys.version_info >= (3, 11):
+        @property
+        def positions(self) -> dis.Positions | None: ...
+        def __new__(cls: type[Self], filename: str, lineno: int, function: str, code_context: list[str] | None, index: int | None, *, positions=None) -> Self: ...
 
 class FrameInfo(NamedTuple):
     frame: FrameType
@@ -473,6 +478,10 @@ class FrameInfo(NamedTuple):
     function: str
     code_context: list[str] | None
     index: int | None  # type: ignore[assignment]
+    if sys.version_info >= (3, 11):
+        @property
+        def positions(self) -> dis.Positions | None: ...
+        def __new__(cls: type[Self], frame: FrameType, filename: str, lineno: int, function: str, code_context: list[str] | None, index: int | None, *, positions=None) -> Self: ...
 
 def getframeinfo(frame: FrameType | TracebackType, context: int = ...) -> Traceback: ...
 def getouterframes(frame: Any, context: int = ...) -> list[FrameInfo]: ...
