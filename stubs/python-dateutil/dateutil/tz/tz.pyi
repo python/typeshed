@@ -5,7 +5,9 @@ from typing_extensions import TypeAlias
 from ..relativedelta import relativedelta
 from ._common import _tzinfo as _tzinfo, enfold as enfold, tzname_in_python2 as tzname_in_python2, tzrangebase as tzrangebase
 
-_FileObj: TypeAlias = str | IO[str]
+# TODO: _FileObj is used differently in classes below. Some need a byte stream,
+# some a str stream.
+_FileObj: TypeAlias = str | IO[Any]
 _DT = TypeVar("_DT", bound=datetime.datetime)
 
 ZERO: datetime.timedelta
