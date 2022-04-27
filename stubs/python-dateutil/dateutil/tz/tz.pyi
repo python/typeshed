@@ -1,6 +1,4 @@
 import datetime
-from _typeshed import Self
-from types import TracebackType
 from typing import Any, Protocol, TypeVar
 from typing_extensions import Literal
 
@@ -58,10 +56,6 @@ class _ttinfo:
 class _TZFileReader(Protocol):
     # optional attribute:
     # name: str
-    def __enter__(self: Self) -> Self: ...
-    def __exit__(
-        self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None
-    ) -> bool | None: ...
     def read(self, __size: int) -> bytes: ...
     def seek(self, __target: int, __whence: Literal[1]) -> object: ...
 
@@ -100,10 +94,6 @@ class tzstr(tzrange):
 class _ICalReader(Protocol):
     # optional attribute:
     # name: str
-    def __enter__(self: Self) -> Self: ...
-    def __exit__(
-        self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None
-    ) -> bool | None: ...
     def read(self) -> str: ...
 
 class tzical:
