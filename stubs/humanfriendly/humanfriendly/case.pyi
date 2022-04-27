@@ -1,9 +1,9 @@
-import collections
+from collections import OrderedDict
 from typing import Any
 
 from humanfriendly.compat import unicode
 
-class CaseInsensitiveDict(collections.OrderedDict):
+class CaseInsensitiveDict(OrderedDict[Any, Any]):
     def __init__(self, other: Any | None = ..., **kw) -> None: ...
     def coerce_key(self, key): ...
     @classmethod
