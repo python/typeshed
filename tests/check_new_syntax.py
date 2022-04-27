@@ -5,15 +5,10 @@ import sys
 from itertools import chain
 from pathlib import Path
 
-STUBS_SUPPORTING_PYTHON_2 = frozenset(
-    path.parent for path in Path("stubs").rglob("METADATA.toml") if "python2 = true" in path.read_text().splitlines()
-)
-
 
 def check_new_syntax(tree: ast.AST, path: Path, stub: str) -> list[str]:
     errors = []
     sourcelines = stub.splitlines()
-    python_2_support_required = any(directory in path.parents for directory in STUBS_SUPPORTING_PYTHON_2)
 
     class AnnotationUnionFinder(ast.NodeVisitor):
         def visit_Subscript(self, node: ast.Subscript) -> None:
@@ -103,10 +98,9 @@ def check_new_syntax(tree: ast.AST, path: Path, stub: str) -> list[str]:
                 )
             self.generic_visit(node)
 
-    if not python_2_support_required:
-        ObjectClassdefFinder().visit(tree)
-        if path != Path("stdlib/typing_extensions.pyi"):
-            TextFinder().visit(tree)
+    ObjectClassdefFinder().visit(tree)
+    if path != Path("stdlib/typing_extensions.pyi"):
+        TextFinder().visit(tree)
 
     OldSyntaxFinder().visit(tree)
     IfFinder().visit(tree)

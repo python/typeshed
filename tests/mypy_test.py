@@ -93,20 +93,6 @@ def parse_version(v_str):
     return int(m.group(1)), int(m.group(2))
 
 
-def is_supported(distribution_path: Path, major: int) -> bool:
-    data = dict(tomli.loads((distribution_path / "METADATA.toml").read_text()))
-    if major == 2:
-        # Python 2 is not supported by default.
-        return bool(data.get("python2", False))
-    # Python 3 is supported by default.
-    return has_py3_stubs(distribution_path)
-
-
-# Keep this in sync with stubtest_third_party.py
-def has_py3_stubs(dist: Path) -> bool:
-    return len(glob(f"{dist}/*.pyi")) > 0 or len(glob(f"{dist}/[!@]*/__init__.pyi")) > 0
-
-
 def add_files(files, seen, root, name, args):
     """Add all files in package or module represented by 'name' located in 'root'."""
     full = os.path.join(root, name)
@@ -336,7 +322,7 @@ def main():
             if not is_probably_stubs_folder(distribution, distribution_path):
                 continue
 
-            if not is_supported(distribution_path, major):
+            if major == 2:
                 continue
 
             this_code, checked = test_third_party_distribution(distribution, major, minor, args)

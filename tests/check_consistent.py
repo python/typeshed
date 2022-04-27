@@ -18,7 +18,7 @@ import re
 import tomli
 
 consistent_files = [{"stdlib/@python2/builtins.pyi", "stdlib/@python2/__builtin__.pyi"}]
-metadata_keys = {"version", "python2", "requires", "extra_description", "obsolete_since", "stubtest", "stubtest_apt_dependencies"}
+metadata_keys = {"version", "requires", "extra_description", "obsolete_since", "stubtest", "stubtest_apt_dependencies"}
 allowed_files = {"README.md"}
 
 
@@ -162,7 +162,6 @@ def check_metadata():
         assert re.fullmatch(r"\d+(\.\d+)+|\d+(\.\d+)*\.\*", version), msg
         for key in data:
             assert key in metadata_keys, f"Unexpected key {key} for {distribution}"
-        assert isinstance(data.get("python2", False), bool), f"Invalid python2 value for {distribution}"
         assert isinstance(data.get("requires", []), list), f"Invalid requires value for {distribution}"
         for dep in data.get("requires", []):
             assert isinstance(dep, str), f"Invalid dependency {dep} for {distribution}"
