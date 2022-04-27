@@ -49,10 +49,10 @@ _Data: TypeAlias = str | bytes | Mapping[str, Any] | Iterable[tuple[str, str | N
 _Auth: TypeAlias = Union[tuple[str, str], _auth.AuthBase, Callable[[PreparedRequest], PreparedRequest]]
 _Cert: TypeAlias = Union[str, tuple[str, str]]
 _Files: TypeAlias = (
-    MutableMapping[str, IO[Any]]
-    | MutableMapping[str, tuple[str | None, IO[Any]]]
-    | MutableMapping[str, tuple[str | None, IO[Any], str]]
-    | MutableMapping[str, tuple[str | None, IO[Any], str, _TextMapping]]
+    MutableMapping[str, IO[Any] | str | bytes]
+    | MutableMapping[str, tuple[str | None, IO[Any] | str | bytes]]
+    | MutableMapping[str, tuple[str | None, IO[Any] | str | bytes, str]]
+    | MutableMapping[str, tuple[str | None, IO[Any] | str | bytes, str, _TextMapping]]
 )
 _Hook: TypeAlias = Callable[[Response], Any]
 _Hooks: TypeAlias = MutableMapping[str, _Hook | list[_Hook]]
