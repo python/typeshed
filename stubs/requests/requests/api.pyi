@@ -4,7 +4,7 @@ from .models import Response
 from .sessions import RequestsCookieJar, _Auth, _Cert, _Data, _Files, _HooksInput, _Params, _TextMapping, _Timeout, _Verify
 
 def request(
-    method: str,
+    method: str | bytes,
     url: str | bytes,
     *,
     params: _Params | None = ...,
