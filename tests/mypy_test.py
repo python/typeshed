@@ -311,22 +311,20 @@ def main():
             files_checked += len(files)
 
         # Test files of all third party distributions.
-        print("Running mypy " + " ".join(get_mypy_flags(args, major, minor, "/tmp/...")))
-        for distribution in sorted(os.listdir("stubs")):
-            if distribution == "SQLAlchemy":
-                continue  # Crashes
+        if major != 2:
+            print("Running mypy " + " ".join(get_mypy_flags(args, major, minor, "/tmp/...")))
+            for distribution in sorted(os.listdir("stubs")):
+                if distribution == "SQLAlchemy":
+                    continue  # Crashes
 
-            distribution_path = Path("stubs", distribution)
+                distribution_path = Path("stubs", distribution)
 
-            if not is_probably_stubs_folder(distribution, distribution_path):
-                continue
+                if not is_probably_stubs_folder(distribution, distribution_path):
+                    continue
 
-            if major == 2:
-                continue
-
-            this_code, checked = test_third_party_distribution(distribution, major, minor, args)
-            code = max(code, this_code)
-            files_checked += checked
+                this_code, checked = test_third_party_distribution(distribution, major, minor, args)
+                code = max(code, this_code)
+                files_checked += checked
 
         print()
 
