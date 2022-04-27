@@ -99,7 +99,7 @@ class tzstr(tzrange):
 
 class _ICalReader(Protocol):
     # optional attribute:
-    # read: str
+    # name: str
     def __enter__(self: Self) -> Self: ...
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None
