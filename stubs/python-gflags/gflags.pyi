@@ -1,5 +1,6 @@
+from collections.abc import Callable, Iterable, Sequence
 from types import ModuleType
-from typing import IO, Any, Callable, Iterable, Sequence, Text
+from typing import IO, Any
 
 class Error(Exception): ...
 
@@ -133,7 +134,7 @@ class ArgumentParser(object):
     def WriteCustomInfoInXMLFormat(self, outfile: IO[str], indent: str) -> None: ...
 
 class ArgumentSerializer:
-    def Serialize(self, value: Any) -> Text: ...
+    def Serialize(self, value: Any) -> str: ...
 
 class ListSerializer(ArgumentSerializer):
     def __init__(self, list_sep: str) -> None: ...
