@@ -15,7 +15,6 @@ import os
 import re
 import sys
 import tempfile
-from glob import glob
 from pathlib import Path
 from typing import Dict, NamedTuple
 
