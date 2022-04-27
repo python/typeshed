@@ -1,11 +1,11 @@
 import datetime
-from typing import IO, Any, Text, TypeVar
+from typing import IO, Any, TypeVar
 from typing_extensions import TypeAlias
 
 from ..relativedelta import relativedelta
 from ._common import _tzinfo as _tzinfo, enfold as enfold, tzname_in_python2 as tzname_in_python2, tzrangebase as tzrangebase
 
-_FileObj: TypeAlias = str | Text | IO[str] | IO[Text]
+_FileObj: TypeAlias = str | IO[str]
 _DT = TypeVar("_DT", bound=datetime.datetime)
 
 ZERO: datetime.timedelta
@@ -55,7 +55,7 @@ class _ttinfo:
     def __ne__(self, other): ...
 
 class tzfile(_tzinfo):
-    def __init__(self, fileobj: _FileObj, filename: Text | None = ...) -> None: ...
+    def __init__(self, fileobj: _FileObj, filename: str | None = ...) -> None: ...
     def is_ambiguous(self, dt: datetime.datetime | None, idx: int | None = ...) -> bool: ...
     def utcoffset(self, dt: datetime.datetime | None) -> datetime.timedelta | None: ...
     def dst(self, dt: datetime.datetime | None) -> datetime.timedelta | None: ...
@@ -70,9 +70,9 @@ class tzrange(tzrangebase):
     hasdst: bool
     def __init__(
         self,
-        stdabbr: Text,
+        stdabbr: str,
         stdoffset: int | datetime.timedelta | None = ...,
-        dstabbr: Text | None = ...,
+        dstabbr: str | None = ...,
         dstoffset: int | datetime.timedelta | None = ...,
         start: relativedelta | None = ...,
         end: relativedelta | None = ...,
@@ -99,7 +99,7 @@ def datetime_ambiguous(dt: datetime.datetime, tz: datetime.tzinfo | None = ...) 
 def resolve_imaginary(dt: datetime.datetime) -> datetime.datetime: ...
 
 class _GetTZ:
-    def __call__(self, name: Text | None = ...) -> datetime.tzinfo | None: ...
-    def nocache(self, name: Text | None) -> datetime.tzinfo | None: ...
+    def __call__(self, name: str | None = ...) -> datetime.tzinfo | None: ...
+    def nocache(self, name: str | None) -> datetime.tzinfo | None: ...
 
 gettz: _GetTZ
