@@ -1,7 +1,7 @@
 import datetime
 from types import TracebackType
 from typing import Any, Protocol, TypeVar
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal
 
 from ..relativedelta import relativedelta
 from ._common import _tzinfo as _tzinfo, enfold as enfold, tzname_in_python2 as tzname_in_python2, tzrangebase as tzrangebase
