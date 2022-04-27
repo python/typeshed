@@ -34,12 +34,7 @@ class EntryPoint:
     extras: Sequence[str] | None
     distro: Distribution | None
     def __init__(
-        self,
-        name: str,
-        module_name: str,
-        object_name: str,
-        extras: Sequence[str] | None = ...,
-        distro: Distribution | None = ...,
+        self, name: str, module_name: str, object_name: str, extras: Sequence[str] | None = ..., distro: Distribution | None = ...
     ) -> None: ...
     def load(self) -> Any: ...
     @classmethod
