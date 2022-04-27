@@ -91,7 +91,7 @@ class Session(SessionRedirectMixin):
     def prepare_request(self, request: Request) -> PreparedRequest: ...
     def request(
         self,
-        method: str,
+        method: str | bytes,
         url: str | bytes,
         params: _Params | None = ...,
         data: _Data | None = ...,
