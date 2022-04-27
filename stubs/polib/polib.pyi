@@ -68,7 +68,7 @@ class MOFile(_BaseFile[MOEntry]):
     def fuzzy_entries(self) -> list[MOEntry]: ...
     def obsolete_entries(self) -> list[MOEntry]: ...
 
-class _BaseEntry(object):
+class _BaseEntry:
     msgid: str
     msgstr: str
     msgid_plural: str
