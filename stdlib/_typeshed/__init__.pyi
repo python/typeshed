@@ -11,7 +11,7 @@ from collections.abc import Awaitable, Container, Iterable, Set as AbstractSet
 from os import PathLike
 from types import TracebackType
 from typing import Any, Generic, Protocol, TypeVar, Union
-from typing_extensions import Final, Literal, TypeAlias, final
+from typing_extensions import Final, Literal, LiteralString, TypeAlias, final
 
 _KT = TypeVar("_KT")
 _KT_co = TypeVar("_KT_co", covariant=True)
@@ -233,3 +233,6 @@ class structseq(Generic[_T_co]):
     # but only has any meaning if you supply it a dict where the keys are strings.
     # https://github.com/python/typeshed/pull/6560#discussion_r767149830
     def __new__(cls: type[Self], sequence: Iterable[_T_co], dict: dict[str, Any] = ...) -> Self: ...
+
+# Superset of typing.AnyStr that also inclues LiteralString
+AnyOrLiteralStr = TypeVar("AnyOrLiteralStr", str, bytes, LiteralString)
