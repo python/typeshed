@@ -11,6 +11,7 @@ asyncio.futures.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future._callbacks  # Usually initialized from c object
 asyncio.locks._ContextManagerMixin.__enter__  # Always raises; deliberately omitted from the stub
 asyncio.locks._ContextManagerMixin.__exit__  # Always raises; deliberately omitted from the stub
+asyncio.transports.WriteTransport.get_write_buffer_limits  # Documented, but doesn't exist on the class itself
 builtins.dict.get
 builtins.float.__set_format__  # Internal method for CPython test suite
 builtins.str.maketrans
