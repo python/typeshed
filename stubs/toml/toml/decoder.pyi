@@ -1,4 +1,3 @@
-import sys
 from _typeshed import SupportsRead
 from collections.abc import Callable, MutableMapping
 from pathlib import PurePath
