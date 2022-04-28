@@ -326,8 +326,7 @@ class UniformResourceIdentifier(GeneralName):
 # X.509 Extensions
 
 class ExtensionType(metaclass=ABCMeta):
-    @property
-    def oid(self) -> ObjectIdentifier: ...
+    oid: ObjectIdentifier
 
 _T = TypeVar("_T", bound=ExtensionType)
 
@@ -456,6 +455,8 @@ class ExtendedKeyUsage(ExtensionType):
 class UnrecognizedExtension(ExtensionType):
     @property
     def value(self) -> bytes: ...
+    @property
+    def oid(self) -> ObjectIdentifier: ...
     def __init__(self, oid: ObjectIdentifier, value: bytes) -> None: ...
 
 def load_der_x509_certificate(data: bytes, backend: X509Backend | None = ...) -> Certificate: ...
