@@ -49,14 +49,14 @@ _Data: TypeAlias = str | bytes | Mapping[str, Any] | Iterable[tuple[str, str | N
 _Auth: TypeAlias = Union[tuple[str, str], _auth.AuthBase, Callable[[PreparedRequest], PreparedRequest]]
 _Cert: TypeAlias = Union[str, tuple[str, str]]
 _Files: TypeAlias = (
-    MutableMapping[str, SupportsRead[str | bytes] | str | bytes]
-    | MutableMapping[str, tuple[str | None, SupportsRead[str | bytes] | str | bytes]]
-    | MutableMapping[str, tuple[str | None, SupportsRead[str | bytes] | str | bytes, str]]
-    | MutableMapping[str, tuple[str | None, SupportsRead[str | bytes] | str | bytes, str, _TextMapping]]
+    Mapping[str, SupportsRead[str | bytes] | str | bytes]
+    | Mapping[str, tuple[str | None, SupportsRead[str | bytes] | str | bytes]]
+    | Mapping[str, tuple[str | None, SupportsRead[str | bytes] | str | bytes, str]]
+    | Mapping[str, tuple[str | None, SupportsRead[str | bytes] | str | bytes, str, _TextMapping]]
 )
 _Hook: TypeAlias = Callable[[Response], Any]
-_Hooks: TypeAlias = MutableMapping[str, _Hook | list[_Hook]]
-_HooksInput: TypeAlias = MutableMapping[str, Iterable[_Hook] | _Hook]
+_Hooks: TypeAlias = Mapping[str, _Hook | list[_Hook]]
+_HooksInput: TypeAlias = Mapping[str, Iterable[_Hook] | _Hook]
 
 _ParamsMappingKeyType: TypeAlias = str | bytes | int | float
 _ParamsMappingValueType: TypeAlias = str | bytes | int | float | Iterable[str | bytes | int | float] | None
