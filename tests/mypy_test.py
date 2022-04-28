@@ -16,7 +16,12 @@ import re
 import sys
 import tempfile
 from pathlib import Path
-from typing import Dict, NamedTuple
+from typing import TYPE_CHECKING, Dict, List, NamedTuple, Set, Tuple
+
+if TYPE_CHECKING:
+    from _typeshed import StrPath
+
+from typing_extensions import TypeAlias
 
 import tomli
 
@@ -26,23 +31,15 @@ parser.add_argument("-n", "--dry-run", action="store_true", help="Don't actually
 parser.add_argument("-x", "--exclude", type=str, nargs="*", help="Exclude pattern")
 parser.add_argument("-p", "--python-version", type=str, nargs="*", help="These versions only (major[.minor])")
 parser.add_argument("--platform", help="Run mypy for a certain OS platform (defaults to sys.platform)")
-parser.add_argument(
-    "--warn-unused-ignores",
-    action="store_true",
-    help="Run mypy with --warn-unused-ignores "
-    "(hint: only get rid of warnings that are "
-    "unused for all platforms and Python versions)",
-)
-
 parser.add_argument("filter", type=str, nargs="*", help="Include pattern (default all)")
 
 
-def log(args, *varargs):
+def log(args: argparse.Namespace, *varargs: object) -> None:
     if args.verbose >= 2:
         print(*varargs)
 
 
-def match(fn, args):
+def match(fn: str, args: argparse.Namespace) -> bool:
     if not args.filter and not args.exclude:
         log(args, fn, "accept by default")
         return True
@@ -64,9 +61,10 @@ def match(fn, args):
 
 
 _VERSION_LINE_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_.]*): ([23]\.\d{1,2})-([23]\.\d{1,2})?$")
+VersionsTuple: TypeAlias = Tuple[int, int]
 
 
-def parse_versions(fname):
+def parse_versions(fname: "StrPath") -> Dict[str, Tuple[VersionsTuple, VersionsTuple]]:
     result = {}
     with open(fname) as f:
         for line in f:
@@ -76,7 +74,7 @@ def parse_versions(fname):
                 continue
             m = _VERSION_LINE_RE.match(line)
             assert m, "invalid VERSIONS line: " + line
-            mod = m.group(1)
+            mod: str = m.group(1)
             min_version = parse_version(m.group(2))
             max_version = parse_version(m.group(3)) if m.group(3) else (99, 99)
             result[mod] = min_version, max_version
@@ -86,13 +84,13 @@ def parse_versions(fname):
 _VERSION_RE = re.compile(r"^([23])\.(\d+)$")
 
 
-def parse_version(v_str):
+def parse_version(v_str: str) -> Tuple[int, int]:
     m = _VERSION_RE.match(v_str)
     assert m, "invalid version: " + v_str
     return int(m.group(1)), int(m.group(2))
 
 
-def add_files(files, seen, root, name, args):
+def add_files(files: List[str], seen: Set[str], root: str, name: str, args: argparse.Namespace) -> None:
     """Add all files in package or module represented by 'name' located in 'root'."""
     full = os.path.join(root, name)
     mod, ext = os.path.splitext(name)
@@ -127,7 +125,7 @@ class MypyDistConf(NamedTuple):
 # disallow_untyped_defs = true
 
 
-def add_configuration(configurations: list[MypyDistConf], distribution: str) -> None:
+def add_configuration(configurations: List[MypyDistConf], distribution: str) -> None:
     with open(os.path.join("stubs", distribution, "METADATA.toml")) as f:
         data = dict(tomli.loads(f.read()))
 
@@ -150,7 +148,15 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
         configurations.append(MypyDistConf(module_name, values.copy()))
 
 
-def run_mypy(args, configurations, major, minor, files, *, custom_typeshed=False):
+def run_mypy(
+    args: argparse.Namespace,
+    configurations: List[MypyDistConf],
+    major: int,
+    minor: int,
+    files: List[str],
+    *,
+    custom_typeshed: bool = False,
+) -> int:
     try:
         from mypy.api import run as mypy_run
     except ImportError:
@@ -178,7 +184,9 @@ def run_mypy(args, configurations, major, minor, files, *, custom_typeshed=False
         return exit_code
 
 
-def get_mypy_flags(args, major: int, minor: int, temp_name: str, *, custom_typeshed: bool = False) -> list[str]:
+def get_mypy_flags(
+    args: argparse.Namespace, major: int, minor: int, temp_name: str, *, custom_typeshed: bool = False
+) -> List[str]:
     flags = [
         "--python-version",
         "%d.%d" % (major, minor),
@@ -200,14 +208,12 @@ def get_mypy_flags(args, major: int, minor: int, temp_name: str, *, custom_types
         # Setting custom typeshed dir prevents mypy from falling back to its bundled
         # typeshed in case of stub deletions
         flags.extend(["--custom-typeshed-dir", os.path.dirname(os.path.dirname(__file__))])
-    if args.warn_unused_ignores:
-        flags.append("--warn-unused-ignores")
     if args.platform:
         flags.extend(["--platform", args.platform])
     return flags
 
 
-def read_dependencies(distribution: str) -> list[str]:
+def read_dependencies(distribution: str) -> List[str]:
     with open(os.path.join("stubs", distribution, "METADATA.toml")) as f:
         data = dict(tomli.loads(f.read()))
     requires = data.get("requires", [])
@@ -221,7 +227,12 @@ def read_dependencies(distribution: str) -> list[str]:
 
 
 def add_third_party_files(
-    distribution: str, major: int, files: list[str], args, configurations: list[MypyDistConf], seen_dists: set[str]
+    distribution: str,
+    major: int,
+    files: List[str],
+    args: argparse.Namespace,
+    configurations: List[MypyDistConf],
+    seen_dists: Set[str],
 ) -> None:
     if distribution in seen_dists:
         return
@@ -240,16 +251,16 @@ def add_third_party_files(
         add_configuration(configurations, distribution)
 
 
-def test_third_party_distribution(distribution: str, major: int, minor: int, args) -> tuple[int, int]:
+def test_third_party_distribution(distribution: str, major: int, minor: int, args: argparse.Namespace) -> Tuple[int, int]:
     """Test the stubs of a third-party distribution.
 
     Return a tuple, where the first element indicates mypy's return code
     and the second element is the number of checked files.
     """
 
-    files: list[str] = []
-    configurations: list[MypyDistConf] = []
-    seen_dists: set[str] = set()
+    files: List[str] = []
+    configurations: List[MypyDistConf] = []
+    seen_dists: Set[str] = set()
     add_third_party_files(distribution, major, files, args, configurations, seen_dists)
 
     print(f"testing {distribution} ({len(files)} files)...")
@@ -267,7 +278,7 @@ def is_probably_stubs_folder(distribution: str, distribution_path: Path) -> bool
     return distribution != ".mypy_cache" and distribution_path.is_dir()
 
 
-def main():
+def main() -> None:
     args = parser.parse_args()
 
     versions = [(3, 11), (3, 10), (3, 9), (3, 8), (3, 7), (3, 6), (2, 7)]
@@ -285,7 +296,7 @@ def main():
         seen = {"__builtin__", "builtins", "typing"}  # Always ignore these.
 
         # Test standard library files.
-        files = []
+        files: List[str] = []
         if major == 2:
             root = os.path.join("stdlib", "@python2")
             for name in os.listdir(root):
