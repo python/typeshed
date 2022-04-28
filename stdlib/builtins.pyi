@@ -11,6 +11,8 @@ from _typeshed import (
     ReadableBuffer,
     Self,
     StrOrBytesPath,
+    SupportsAdd,
+    SupportsAiter,
     SupportsAnext,
     SupportsDivMod,
     SupportsKeysAndGetItem,
@@ -34,6 +36,7 @@ from typing import (  # noqa: Y027
     ByteString,
     ClassVar,
     Generic,
+    Iterable,
     Mapping,
     MutableMapping,
     MutableSequence,
@@ -70,12 +73,6 @@ _SupportsNextT = TypeVar("_SupportsNextT", bound=SupportsNext[Any], covariant=Tr
 _SupportsAnextT = TypeVar("_SupportsAnextT", bound=SupportsAnext[Any], covariant=True)
 _AwaitableT = TypeVar("_AwaitableT", bound=Awaitable[Any])
 _AwaitableT_co = TypeVar("_AwaitableT_co", bound=Awaitable[Any], covariant=True)
-
-class _SupportsIter(Protocol[_T_co]):
-    def __iter__(self) -> _T_co: ...
-
-class _SupportsAiter(Protocol[_T_co]):
-    def __aiter__(self) -> _T_co: ...
 
 class object:
     __doc__: str | None
@@ -1094,7 +1091,7 @@ class _PathLike(Protocol[_AnyStr_co]):
     def __fspath__(self) -> _AnyStr_co: ...
 
 if sys.version_info >= (3, 10):
-    def aiter(__async_iterable: _SupportsAiter[_SupportsAnextT]) -> _SupportsAnextT: ...
+    def aiter(__async_iterable: SupportsAiter[_SupportsAnextT]) -> _SupportsAnextT: ...
 
     class _SupportsSynchronousAnext(Protocol[_AwaitableT_co]):
         def __anext__(self) -> _AwaitableT_co: ...
@@ -1186,7 +1183,7 @@ def hex(__number: int | SupportsIndex) -> str: ...
 def id(__obj: object) -> int: ...
 def input(__prompt: object = ...) -> str: ...
 @overload
-def iter(__iterable: _SupportsIter[_SupportsNextT]) -> _SupportsNextT: ...
+def iter(__iterable: SupportsIter[_SupportsNextT]) -> _SupportsNextT: ...
 @overload
 def iter(__function: Callable[[], _T | None], __sentinel: None) -> Iterator[_T]: ...
 @overload
@@ -1503,11 +1500,8 @@ def sorted(
 @overload
 def sorted(__iterable: Iterable[_T], *, key: Callable[[_T], SupportsRichComparison], reverse: bool = ...) -> list[_T]: ...
 
-class _SupportsSum(Protocol):
-    def __add__(self, __x: Any) -> Any: ...
-
-_SumT = TypeVar("_SumT", bound=_SupportsSum)
-_SumS = TypeVar("_SumS", bound=_SupportsSum)
+_SumT = TypeVar("_SumT", bound=SupportsAdd)
+_SumS = TypeVar("_SumS", bound=SupportsAdd)
 
 @overload
 def sum(__iterable: Iterable[_SumT]) -> _SumT | Literal[0]: ...
