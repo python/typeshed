@@ -461,7 +461,6 @@ def unwrap(func: Callable[..., Any], *, stop: Callable[[Any], Any] | None = ...)
 #
 
 if sys.version_info >= (3, 11):
-if sys.version_info >= (3, 11):
     class _Traceback(NamedTuple):
         filename: str
         lineno: int
