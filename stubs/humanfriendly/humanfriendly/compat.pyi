@@ -1,6 +1,6 @@
+import sys
 from html.parser import HTMLParser as HTMLParser
 from io import StringIO as StringIO
-import sys
 
 unicode = str
 unichr = chr
