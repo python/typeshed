@@ -1,4 +1,3 @@
-import sys
 from collections.abc import Callable
 from hashlib import _Hash
 from logging import Logger

@@ -1,5 +1,4 @@
 import ssl
-import sys
 from builtins import ConnectionError as ConnectionError
 from collections.abc import Iterable
 from http.client import HTTPConnection as _HTTPConnection, HTTPException as HTTPException

@@ -1,5 +1,4 @@
 import builtins as builtins
-import sys
 from collections.abc import Iterable, Sequence
 from io import BytesIO as BytesIO, StringIO as StringIO
 from typing import Any, TypeVar

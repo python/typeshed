@@ -1,4 +1,3 @@
-import sys
 from _typeshed import Self
 from collections.abc import Callable
 from hashlib import _Hash

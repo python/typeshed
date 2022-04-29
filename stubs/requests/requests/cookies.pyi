@@ -1,4 +1,3 @@
-import sys
 from collections.abc import MutableMapping
 from http.cookiejar import CookieJar
 from typing import Any
