@@ -461,15 +461,17 @@ def unwrap(func: Callable[..., Any], *, stop: Callable[[Any], Any] | None = ...)
 #
 
 if sys.version_info >= (3, 11):
-    class Traceback(NamedTuple):
+if sys.version_info >= (3, 11):
+    class _Traceback(NamedTuple):
         filename: str
         lineno: int
         function: str
         code_context: list[str] | None
         index: int | None  # type: ignore[assignment]
-        @property
-        def positions(self) -> dis.Positions | None: ...
-        def __new__(  # type: ignore[misc]
+
+    class Traceback(_Traceback):
+        positions: dis.Positions | None
+        def __new__(
             cls: type[Self],
             filename: str,
             lineno: int,
@@ -480,16 +482,17 @@ if sys.version_info >= (3, 11):
             positions: dis.Positions | None = ...,
         ) -> Self: ...
 
-    class FrameInfo(NamedTuple):
+    class _FrameInfo(NamedTuple):
         frame: FrameType
         filename: str
         lineno: int
         function: str
         code_context: list[str] | None
         index: int | None  # type: ignore[assignment]
-        @property
-        def positions(self) -> dis.Positions | None: ...
-        def __new__(  # type: ignore[misc]
+
+    class FrameInfo(_FrameInfo):
+        positions: dis.Positions | None
+        def __new__(
             cls: type[Self],
             frame: FrameType,
             filename: str,
