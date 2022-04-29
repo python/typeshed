@@ -1,9 +1,8 @@
-import sys
 from builtins import dict as _dict  # alias to avoid conflicts with attribute name
 from collections.abc import Callable, Iterator
 from contextlib import _GeneratorContextManager
 from inspect import getfullargspec as getfullargspec, iscoroutinefunction as iscoroutinefunction
-from typing import Any, NamedTuple, Pattern, TypeVar
+from typing import Any, Pattern, TypeVar
 from typing_extensions import ParamSpec
 
 _C = TypeVar("_C", bound=Callable[..., Any])

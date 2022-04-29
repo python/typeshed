@@ -1,4 +1,3 @@
-import sys
 from _typeshed import ReadableBuffer
 from hashlib import _Hash
 from typing_extensions import SupportsIndex, final
