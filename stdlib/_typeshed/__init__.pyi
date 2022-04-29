@@ -235,4 +235,4 @@ class structseq(Generic[_T_co]):
     def __new__(cls: type[Self], sequence: Iterable[_T_co], dict: dict[str, Any] = ...) -> Self: ...
 
 # Superset of typing.AnyStr that also inclues LiteralString
-AnyOrLiteralStr = TypeVar("AnyOrLiteralStr", str, bytes, LiteralString)
+AnyOrLiteralStr = TypeVar("AnyOrLiteralStr", str, bytes, LiteralString)  # noqa: Y001
