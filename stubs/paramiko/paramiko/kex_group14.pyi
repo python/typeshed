@@ -1,10 +1,9 @@
 import sys
 from _typeshed import ReadableBuffer
 from collections.abc import Callable
+from hashlib import _Hash
 
 from paramiko.kex_group1 import KexGroup1 as KexGroup1
-
-from hashlib import _Hash
 
 class KexGroup14(KexGroup1):
     P: int

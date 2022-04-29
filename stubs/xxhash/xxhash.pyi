@@ -1,8 +1,7 @@
 import sys
 from _typeshed import ReadableBuffer
-from typing_extensions import SupportsIndex, final
-
 from hashlib import _Hash
+from typing_extensions import SupportsIndex, final
 
 VERSION: str
 XXHASH_VERSION: str

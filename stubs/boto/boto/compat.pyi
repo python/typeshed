@@ -1,7 +1,6 @@
 import sys
-from typing import Any
-
 from base64 import encodebytes as encodebytes
+from typing import Any
 
 expanduser: Any
 StandardError = Exception

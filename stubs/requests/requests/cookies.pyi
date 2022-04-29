@@ -1,8 +1,7 @@
 import sys
 from collections.abc import MutableMapping
-from typing import Any
-
 from http.cookiejar import CookieJar
+from typing import Any
 
 class MockRequest:
     type: Any

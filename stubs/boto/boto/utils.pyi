@@ -1,20 +1,20 @@
 import datetime
+import io
 import logging.handlers
 import subprocess
 import sys
 import time
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from contextlib import AbstractContextManager
+from email.message import Message
+from hashlib import _Hash
 from typing import IO, Any, TypeVar
 from typing_extensions import TypeAlias
-import io
-from hashlib import _Hash
-from email.message import Message
+
 import boto.connection
 
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
-
 
 _Provider: TypeAlias = Any  # TODO replace this with boto.provider.Provider once stubs exist
 _LockType: TypeAlias = Any  # TODO replace this with _thread.LockType once stubs exist

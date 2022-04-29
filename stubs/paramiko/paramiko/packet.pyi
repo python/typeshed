@@ -1,5 +1,6 @@
 import sys
 from collections.abc import Callable
+from hashlib import _Hash
 from logging import Logger
 from socket import socket
 from typing import Any
@@ -7,8 +8,6 @@ from typing import Any
 from cryptography.hazmat.primitives.ciphers import Cipher
 from paramiko.compress import ZlibCompressor, ZlibDecompressor
 from paramiko.message import Message
-
-from hashlib import _Hash
 
 def compute_hmac(key: bytes, message: bytes, digest_class: _Hash) -> bytes: ...
 

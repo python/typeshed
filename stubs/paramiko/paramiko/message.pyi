@@ -1,11 +1,10 @@
 import sys
 from collections.abc import Iterable
+from io import BytesIO
 from typing import Any
 from typing_extensions import TypeAlias
 
 from .common import _LikeBytes
-
-from io import BytesIO
 
 class Message:
     big_int: int

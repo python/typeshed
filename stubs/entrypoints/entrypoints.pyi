@@ -1,8 +1,8 @@
 import sys
 from _typeshed import Self
 from collections.abc import Iterator, Sequence
-from typing import Any
 from configparser import ConfigParser
+from typing import Any
 
 if sys.version_info >= (3, 8):
     from re import Pattern

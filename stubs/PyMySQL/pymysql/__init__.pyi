@@ -44,7 +44,6 @@ DATETIME: DBAPISet
 ROWID: DBAPISet
 
 def Binary(x) -> bytes: ...
-
 def get_client_info() -> str: ...
 
 __version__: str

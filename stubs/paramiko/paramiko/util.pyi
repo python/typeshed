@@ -1,14 +1,13 @@
 import sys
 from _typeshed import Self
 from collections.abc import Callable
+from hashlib import _Hash
 from logging import Logger, LogRecord
 from types import TracebackType
 from typing import IO, AnyStr, Protocol, TypeVar
 
 from paramiko.config import SSHConfig, SSHConfigDict
 from paramiko.hostkeys import HostKeys
-
-from hashlib import _Hash
 
 class SupportsClose(Protocol):
     def close(self) -> None: ...

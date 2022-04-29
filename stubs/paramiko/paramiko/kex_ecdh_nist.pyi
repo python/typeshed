@@ -1,12 +1,11 @@
 import sys
 from _typeshed import ReadableBuffer
 from collections.abc import Callable
+from hashlib import _Hash
 
 from cryptography.hazmat.primitives.asymmetric.ec import EllipticCurve, EllipticCurvePrivateKey, EllipticCurvePublicKey
 from paramiko.message import Message
 from paramiko.transport import Transport
-
-from hashlib import _Hash
 
 c_MSG_KEXECDH_INIT: bytes
 c_MSG_KEXECDH_REPLY: bytes
