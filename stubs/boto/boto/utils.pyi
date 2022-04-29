@@ -2,7 +2,6 @@ import datetime
 import io
 import logging.handlers
 import subprocess
-import sys
 import time
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from contextlib import AbstractContextManager

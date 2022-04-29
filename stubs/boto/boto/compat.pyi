@@ -1,4 +1,3 @@
-import sys
 from base64 import encodebytes as encodebytes
 from typing import Any
 
