@@ -16,7 +16,6 @@ from genericpath import (
 )
 from os import PathLike
 from typing import AnyStr, overload
-
 from typing_extensions import LiteralString
 
 __all__ = [

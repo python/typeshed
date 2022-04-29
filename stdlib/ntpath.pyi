@@ -43,7 +43,6 @@ from posixpath import (
     supports_unicode_filenames as supports_unicode_filenames,
 )
 from typing import AnyStr, overload
-
 from typing_extensions import LiteralString
 
 if sys.version_info >= (3, 7) or sys.platform != "win32":
