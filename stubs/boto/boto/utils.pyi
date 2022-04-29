@@ -9,7 +9,7 @@ from typing import IO, Any, TypeVar
 from typing_extensions import TypeAlias
 import io
 from hashlib import _Hash
-from email.message import Message as _Message
+from email.message import Message
 import boto.connection
 
 _KT = TypeVar("_KT")
@@ -112,7 +112,7 @@ def notify(
     body: str | None = ...,
     html_body: Sequence[str] | str | None = ...,
     to_string: str | None = ...,
-    attachments: Iterable[_Message] | None = ...,
+    attachments: Iterable[Message] | None = ...,
     append_instance_id: bool = ...,
 ) -> None: ...
 def get_utf8_value(value: str) -> bytes: ...
