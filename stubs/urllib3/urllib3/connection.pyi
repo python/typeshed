@@ -8,13 +8,8 @@ from . import exceptions, util
 from .packages import ssl_match_hostname
 from .util import ssl_
 
-if sys.version_info >= (3, 0):
-    from builtins import ConnectionError as ConnectionError
-    from http.client import HTTPConnection as _HTTPConnection, HTTPException as HTTPException
-else:
-    from httplib import HTTPConnection as _HTTPConnection, HTTPException as HTTPException
-
-    class ConnectionError(Exception): ...
+from builtins import ConnectionError as ConnectionError
+from http.client import HTTPConnection as _HTTPConnection, HTTPException as HTTPException
 
 _TYPE_BODY: TypeAlias = bytes | IO[Any] | Iterable[bytes] | str
 

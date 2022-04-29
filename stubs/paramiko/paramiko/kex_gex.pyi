@@ -5,10 +5,8 @@ from collections.abc import Callable
 from paramiko.message import Message
 from paramiko.transport import Transport
 
-if sys.version_info >= (3, 0):
-    from hashlib import _Hash
-else:
-    from hashlib import _hash as _Hash
+
+from hashlib import _Hash
 
 c_MSG_KEXDH_GEX_REQUEST_OLD: bytes
 c_MSG_KEXDH_GEX_GROUP: bytes

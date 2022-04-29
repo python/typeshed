@@ -2,6 +2,9 @@ import sys
 from collections.abc import Iterable, Sequence
 from typing import Any, TypeVar
 
+import builtins as builtins
+from io import StringIO as StringIO, BytesIO as BytesIO
+
 _T = TypeVar("_T")
 
 PY2: bool
@@ -15,19 +18,6 @@ long = int
 def input(prompt: Any) -> str: ...
 def decodebytes(s: bytes) -> bytes: ...
 def encodebytes(s: bytes) -> bytes: ...
-
-if sys.version_info >= (3, 0):
-    import builtins as builtins
-    import io
-
-    StringIO = io.StringIO
-    BytesIO = io.BytesIO
-else:
-    import __builtin__ as builtins
-    import cStringIO
-
-    StringIO = cStringIO.StringIO
-    BytesIO = StringIO
 
 bytes = builtins.bytes
 

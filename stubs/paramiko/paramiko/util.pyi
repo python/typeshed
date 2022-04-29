@@ -8,10 +8,7 @@ from typing import IO, AnyStr, Protocol, TypeVar
 from paramiko.config import SSHConfig, SSHConfigDict
 from paramiko.hostkeys import HostKeys
 
-if sys.version_info >= (3, 0):
-    from hashlib import _Hash
-else:
-    from hashlib import _hash as _Hash
+from hashlib import _Hash
 
 class SupportsClose(Protocol):
     def close(self) -> None: ...

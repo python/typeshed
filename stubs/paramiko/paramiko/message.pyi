@@ -5,12 +5,7 @@ from typing_extensions import TypeAlias
 
 from .common import _LikeBytes
 
-if sys.version_info >= (3, 0):
-    from io import BytesIO
-else:
-    from StringIO import StringIO
-
-    BytesIO: TypeAlias = StringIO[bytes]
+from io import BytesIO
 
 class Message:
     big_int: int

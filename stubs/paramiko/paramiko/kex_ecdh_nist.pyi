@@ -6,10 +6,7 @@ from cryptography.hazmat.primitives.asymmetric.ec import EllipticCurve, Elliptic
 from paramiko.message import Message
 from paramiko.transport import Transport
 
-if sys.version_info >= (3, 0):
-    from hashlib import _Hash
-else:
-    from hashlib import _hash as _Hash
+from hashlib import _Hash
 
 c_MSG_KEXECDH_INIT: bytes
 c_MSG_KEXECDH_REPLY: bytes
