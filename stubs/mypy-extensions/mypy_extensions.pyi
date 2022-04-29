@@ -1,5 +1,4 @@
 import abc
-import sys
 from _typeshed import Self
 from typing import Any, Callable, Generic, ItemsView, KeysView, Mapping, TypeVar, ValuesView
 
