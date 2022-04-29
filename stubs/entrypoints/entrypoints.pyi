@@ -3,7 +3,11 @@ from _typeshed import Self
 from collections.abc import Iterator, Sequence
 from typing import Any
 from configparser import ConfigParser
-from re import Pattern
+
+if sys.version_info >= (3, 8):
+    from re import Pattern
+else:
+    from typing import Pattern
 
 entry_point_pattern: Pattern[str]
 file_in_zip_pattern: Pattern[str]
