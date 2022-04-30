@@ -16,7 +16,7 @@ import tomli
 
 
 @functools.lru_cache()
-def get_mypy_req():
+def get_mypy_req() -> str:
     with open("requirements-tests.txt") as f:
         return next(line.strip() for line in f if "mypy" in line)
 
