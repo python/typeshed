@@ -10,6 +10,7 @@
 # symlinks but that doesn't always work on Windows, so now you must
 # manually update both files, and this test verifies that they are
 # identical.  The list below indicates which sets of files must match.
+from __future__ import annotations
 
 import filecmp
 import os
