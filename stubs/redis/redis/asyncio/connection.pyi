@@ -282,7 +282,7 @@ class BlockingConnectionPool(ConnectionPool):
         max_connections: int = ...,
         timeout: int | None = ...,
         connection_class: type[Connection] = ...,
-        queue_class: type[asyncio.Queue] = ...,
+        queue_class: type[asyncio.Queue[Any]] = ...,
         **connection_kwargs,
     ) -> None: ...
     pool: Any
