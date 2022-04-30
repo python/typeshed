@@ -222,7 +222,7 @@ def get_mypy_flags(
     if strict:
         flags.append("--strict")
     if test_suite_run:
-        if sys.platform == "win32":
+        if sys.platform == "win32" or args.platform == "win32":
             flags.extend(["--exclude", "tests/pytype_test.py"])
     else:
         flags.append("--no-site-packages")
