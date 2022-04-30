@@ -53,7 +53,7 @@ jobs:
       - name: Install dependencies
         run: pip install $(grep tomli== requirements-tests.txt)
       - name: Install apt packages
-        run:
+        run: |
           sudo apt update
           sudo apt install -y $(python tests/get_apt_packages.py)
       - name: Run stubtest
