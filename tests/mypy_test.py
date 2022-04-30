@@ -302,7 +302,6 @@ class TestResults(NamedTuple):
 def test_stdlib(code: int, major: int, minor: int, args: argparse.Namespace) -> TestResults:
     seen = {"__builtin__", "builtins", "typing"}  # Always ignore these.
 
-    # Test standard library files.
     files: list[str] = []
     if major == 2:
         root = os.path.join("stdlib", "@python2")
