@@ -12,7 +12,8 @@ _T = TypeVar("_T")
 _DLLT = TypeVar("_DLLT", bound=CDLL)
 _CT = TypeVar("_CT", bound=_CData)
 
-class _Pointer(Generic[_T], _CData): ...
+class _Pointer(Generic[_T], _CData):
+    def __init__(self, *args: Any, **kwargs: Any) -> None: ...
 
 RTLD_GLOBAL: int
 RTLD_LOCAL: int
