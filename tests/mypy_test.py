@@ -358,7 +358,10 @@ def test_the_test_scripts(code: int, major: int, minor: int, args: argparse.Name
     flags = get_mypy_flags(args, major, minor, None, strict=True, test_suite_run=True)
     print(f"Testing the test suite ({num_test_files_to_test} files)...")
     print("Running mypy " + " ".join(flags))
-    this_code = subprocess.run([sys.executable, "-m", "mypy", "tests", *flags]).returncode
+    if args.dry_run:
+        this_code = 0
+    else:
+        this_code = subprocess.run([sys.executable, "-m", "mypy", "tests", *flags]).returncode
     code = max(code, this_code)
     return TestResults(code, num_test_files_to_test)
 
@@ -369,7 +372,10 @@ def test_the_test_cases(code: int, major: int, minor: int, args: argparse.Namesp
     flags = get_mypy_flags(args, major, minor, None, strict=True, custom_typeshed=True)
     print(f"Running mypy on the test_cases directory ({num_test_case_files} files)...")
     print("Running mypy " + " ".join(flags))
-    this_code = subprocess.run([sys.executable, "-m", "mypy", "test_cases", *flags]).returncode
+    if args.dry_run:
+        this_code = 0
+    else:
+        this_code = subprocess.run([sys.executable, "-m", "mypy", "test_cases", *flags]).returncode
     code = max(code, this_code)
     return TestResults(code, num_test_case_files)
 
