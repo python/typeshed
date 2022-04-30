@@ -12,9 +12,8 @@ _T = TypeVar("_T")
 _DLLT = TypeVar("_DLLT", bound=CDLL)
 _CT = TypeVar("_CT", bound=_CData)
 
-
 class _Pointer(Generic[_T], _CData): ...
-        
+
 RTLD_GLOBAL: int
 RTLD_LOCAL: int
 DEFAULT_MODE: int
