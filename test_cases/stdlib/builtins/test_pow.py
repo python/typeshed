@@ -71,3 +71,11 @@ assert_type(pow(8.2, -9.8), Any)
 assert_type(pow(4.7, 9.2, None), Any)
 # See #7046 -- float for a positive 1st arg, complex otherwise
 assert_type((-95) ** 8.42, Any)
+
+# All of these should fail a type-checker
+# mypy will emit an error if any of them do not fail,
+# since we use --warn-unused-ignores when checking this subdirectory
+pow(1.9, 4, 6)  # type: ignore[misc]
+pow(complex(6), 6.2, 7)  # type: ignore[misc]
+pow(Fraction(), 5, 8)  # type: ignore[call-overload]
+Decimal("8.7") ** 3.14  # type: ignore[operator]
