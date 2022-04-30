@@ -9,6 +9,7 @@ Approach:
 2. Compute appropriate arguments for mypy
 3. Pass those arguments to mypy.api.run()
 """
+from __future__ import annotations
 
 import argparse
 import os
@@ -16,7 +17,7 @@ import re
 import sys
 import tempfile
 from pathlib import Path
-from typing import TYPE_CHECKING, Dict, List, NamedTuple, Set, Tuple
+from typing import TYPE_CHECKING, NamedTuple
 
 if TYPE_CHECKING:
     from _typeshed import StrPath
@@ -61,10 +62,11 @@ def match(fn: str, args: argparse.Namespace) -> bool:
 
 
 _VERSION_LINE_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_.]*): ([23]\.\d{1,2})-([23]\.\d{1,2})?$")
-VersionsTuple: TypeAlias = Tuple[int, int]
+MinVersion: TypeAlias = tuple[int, int]
+MaxVersion: TypeAlias = tuple[int, int]
 
 
-def parse_versions(fname: "StrPath") -> Dict[str, Tuple[VersionsTuple, VersionsTuple]]:
+def parse_versions(fname: StrPath) -> dict[str, tuple[MinVersion, MaxVersion]]:
     result = {}
     with open(fname) as f:
         for line in f:
@@ -84,13 +86,13 @@ def parse_versions(fname: "StrPath") -> Dict[str, Tuple[VersionsTuple, VersionsT
 _VERSION_RE = re.compile(r"^([23])\.(\d+)$")
 
 
-def parse_version(v_str: str) -> Tuple[int, int]:
+def parse_version(v_str: str) -> tuple[int, int]:
     m = _VERSION_RE.match(v_str)
     assert m, "invalid version: " + v_str
     return int(m.group(1)), int(m.group(2))
 
 
-def add_files(files: List[str], seen: Set[str], root: str, name: str, args: argparse.Namespace) -> None:
+def add_files(files: list[str], seen: set[str], root: str, name: str, args: argparse.Namespace) -> None:
     """Add all files in package or module represented by 'name' located in 'root'."""
     full = os.path.join(root, name)
     mod, ext = os.path.splitext(name)
@@ -113,7 +115,7 @@ def add_files(files: List[str], seen: Set[str], root: str, name: str, args: argp
 
 class MypyDistConf(NamedTuple):
     module_name: str
-    values: Dict
+    values: dict
 
 
 # The configuration section in the metadata file looks like the following, with multiple module sections possible
@@ -125,7 +127,7 @@ class MypyDistConf(NamedTuple):
 # disallow_untyped_defs = true
 
 
-def add_configuration(configurations: List[MypyDistConf], distribution: str) -> None:
+def add_configuration(configurations: list[MypyDistConf], distribution: str) -> None:
     with open(os.path.join("stubs", distribution, "METADATA.toml")) as f:
         data = dict(tomli.loads(f.read()))
 
@@ -150,10 +152,10 @@ def add_configuration(configurations: List[MypyDistConf], distribution: str) -> 
 
 def run_mypy(
     args: argparse.Namespace,
-    configurations: List[MypyDistConf],
+    configurations: list[MypyDistConf],
     major: int,
     minor: int,
-    files: List[str],
+    files: list[str],
     *,
     custom_typeshed: bool = False,
 ) -> int:
@@ -186,7 +188,7 @@ def run_mypy(
 
 def get_mypy_flags(
     args: argparse.Namespace, major: int, minor: int, temp_name: str, *, custom_typeshed: bool = False
-) -> List[str]:
+) -> list[str]:
     flags = [
         "--python-version",
         "%d.%d" % (major, minor),
@@ -213,7 +215,7 @@ def get_mypy_flags(
     return flags
 
 
-def read_dependencies(distribution: str) -> List[str]:
+def read_dependencies(distribution: str) -> list[str]:
     with open(os.path.join("stubs", distribution, "METADATA.toml")) as f:
         data = dict(tomli.loads(f.read()))
     requires = data.get("requires", [])
@@ -229,10 +231,10 @@ def read_dependencies(distribution: str) -> List[str]:
 def add_third_party_files(
     distribution: str,
     major: int,
-    files: List[str],
+    files: list[str],
     args: argparse.Namespace,
-    configurations: List[MypyDistConf],
-    seen_dists: Set[str],
+    configurations: list[MypyDistConf],
+    seen_dists: set[str],
 ) -> None:
     if distribution in seen_dists:
         return
@@ -251,16 +253,16 @@ def add_third_party_files(
         add_configuration(configurations, distribution)
 
 
-def test_third_party_distribution(distribution: str, major: int, minor: int, args: argparse.Namespace) -> Tuple[int, int]:
+def test_third_party_distribution(distribution: str, major: int, minor: int, args: argparse.Namespace) -> tuple[int, int]:
     """Test the stubs of a third-party distribution.
 
     Return a tuple, where the first element indicates mypy's return code
     and the second element is the number of checked files.
     """
 
-    files: List[str] = []
-    configurations: List[MypyDistConf] = []
-    seen_dists: Set[str] = set()
+    files: list[str] = []
+    configurations: list[MypyDistConf] = []
+    seen_dists: set[str] = set()
     add_third_party_files(distribution, major, files, args, configurations, seen_dists)
 
     print(f"testing {distribution} ({len(files)} files)...")
@@ -296,7 +298,7 @@ def main() -> None:
         seen = {"__builtin__", "builtins", "typing"}  # Always ignore these.
 
         # Test standard library files.
-        files: List[str] = []
+        files: list[str] = []
         if major == 2:
             root = os.path.join("stdlib", "@python2")
             for name in os.listdir(root):

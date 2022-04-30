@@ -22,7 +22,7 @@ metadata_keys = {"version", "requires", "extra_description", "obsolete_since", "
 allowed_files = {"README.md"}
 
 
-def assert_stubs_only(directory):
+def assert_stubs_only(directory: str) -> None:
     """Check that given directory contains only valid stub files."""
     top = directory.split(os.sep)[-1]
     assert top.isidentifier(), f"Bad directory name: {top}"
@@ -37,7 +37,7 @@ def assert_stubs_only(directory):
             assert subdir.isidentifier(), f"Directories must be valid packages, got: {subdir}"
 
 
-def check_stdlib():
+def check_stdlib() -> None:
     for entry in os.listdir("stdlib"):
         if os.path.isfile(os.path.join("stdlib", entry)):
             name, ext = os.path.splitext(entry)
@@ -57,7 +57,7 @@ def check_stdlib():
             assert_stubs_only(os.path.join("stdlib/@python2", entry))
 
 
-def check_stubs():
+def check_stubs() -> None:
     for distribution in os.listdir("stubs"):
         assert not os.path.isfile(distribution), f"Only directories allowed in stubs, got {distribution}"
         for entry in os.listdir(os.path.join("stubs", distribution)):
@@ -73,7 +73,7 @@ def check_stubs():
                 assert_stubs_only(os.path.join("stubs", distribution, entry))
 
 
-def check_same_files():
+def check_same_files() -> None:
     files = [os.path.join(root, file) for root, dir, files in os.walk(".") for file in files]
     no_symlink = "You cannot use symlinks in typeshed, please copy {} to its link."
     for file in files:
@@ -94,7 +94,7 @@ def check_same_files():
 _VERSIONS_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_.]*): [23]\.\d{1,2}-(?:[23]\.\d{1,2})?$")
 
 
-def check_versions():
+def check_versions() -> None:
     versions = set()
     with open("stdlib/VERSIONS") as f:
         data = f.read().splitlines()
@@ -131,7 +131,7 @@ def _find_stdlib_modules() -> set[str]:
     return modules
 
 
-def _strip_dep_version(dependency):
+def _strip_dep_version(dependency: str) -> tuple[str, str, str]:
     dep_version_pos = len(dependency)
     for pos, c in enumerate(dependency):
         if c in "=<>":
@@ -151,7 +151,7 @@ def _strip_dep_version(dependency):
     return stripped, relation, version
 
 
-def check_metadata():
+def check_metadata() -> None:
     for distribution in os.listdir("stubs"):
         with open(os.path.join("stubs", distribution, "METADATA.toml")) as f:
             data = tomli.loads(f.read())
