@@ -299,9 +299,7 @@ class TestResults(NamedTuple):
     files_checked: int
 
 
-def test_typeshed(code: int, major: int, minor: int, args: argparse.Namespace) -> TestResults:
-    print(f"*** Testing Python {major}.{minor}")
-    files_checked = 0
+def test_stdlib(code: int, major: int, minor: int, args: argparse.Namespace) -> TestResults:
     seen = {"__builtin__", "builtins", "typing"}  # Always ignore these.
 
     # Test standard library files.
@@ -328,15 +326,15 @@ def test_typeshed(code: int, major: int, minor: int, args: argparse.Namespace) -
         print("Running mypy " + " ".join(get_mypy_flags(args, major, minor, "/tmp/...", custom_typeshed=True)))
         this_code = run_mypy(args, [], major, minor, files, custom_typeshed=True)
         code = max(code, this_code)
-        files_checked += len(files)
 
-    if major == 2:
-        return TestResults(code, files_checked)
+    return TestResults(code, len(files))
 
-    # Test files of all third party distributions.
-    print()
+
+def test_third_party_stubs(code: int, major: int, minor: int, args: argparse.Namespace) -> TestResults:
     print("Testing third-party packages...")
     print("Running mypy " + " ".join(get_mypy_flags(args, major, minor, "/tmp/...")))
+    files_checked = 0
+
     for distribution in sorted(os.listdir("stubs")):
         if distribution == "SQLAlchemy":
             continue  # Crashes
@@ -350,36 +348,62 @@ def test_typeshed(code: int, major: int, minor: int, args: argparse.Namespace) -
         code = max(code, this_code)
         files_checked += checked
 
+    return TestResults(code, files_checked)
+
+
+def test_the_test_scripts(code: int, major: int, minor: int, args: argparse.Namespace) -> TestResults:
+    files_to_test = list(Path("tests").rglob("*.py"))
+    if sys.platform == "win32":
+        files_to_test.remove(Path("tests/pytype_test.py"))
+    num_test_files_to_test = len(files_to_test)
+    flags = get_mypy_flags(args, major, minor, None, strict=True, test_suite_run=True)
+    print()
+    print(f"Testing the test suite ({num_test_files_to_test} files)...")
+    print("Running mypy " + " ".join(flags))
+    this_code = subprocess.run([sys.executable, "-m", "mypy", "tests", *flags]).returncode
+    code = max(code, this_code)
+    return TestResults(code, num_test_files_to_test)
+
+
+def test_the_test_cases(code: int, major: int, minor: int, args: argparse.Namespace) -> TestResults:
+    test_case_files = list(map(str, Path("test_cases").rglob("*.py")))
+    num_test_case_files = len(test_case_files)
+    flags = get_mypy_flags(args, major, minor, None, strict=True, custom_typeshed=True)
+    print(f"Running mypy on the test_cases directory ({num_test_case_files} files)...")
+    print("Running mypy " + " ".join(flags))
+    this_code = subprocess.run([sys.executable, "-m", "mypy", "test_cases", *flags]).returncode
+    code = max(code, this_code)
+    return TestResults(code, num_test_case_files)
+
+
+def test_typeshed(code: int, major: int, minor: int, args: argparse.Namespace) -> TestResults:
+    print(f"*** Testing Python {major}.{minor}")
+    files_checked_this_version = 0
+    code, stdlib_files_checked = test_stdlib(code, major, minor, args)
+    files_checked_this_version += stdlib_files_checked
+    print()
+
+    if major == 2:
+        return TestResults(code, files_checked_this_version)
+
+    code, third_party_files_checked = test_third_party_stubs(code, major, minor, args)
+    files_checked_this_version += third_party_files_checked
+    print()
+
     if minor >= 9:
         # Run mypy against our own test suite
         #
         # Skip this on earlier Python versions,
         # as we're using new syntax and new functions in some test files
-        files_to_test = list(Path("tests").rglob("*.py"))
-        if sys.platform == "win32":
-            files_to_test.remove(Path("tests/pytype_test.py"))
-        num_test_files_to_test = len(files_to_test)
-        flags = get_mypy_flags(args, major, minor, None, strict=True, test_suite_run=True)
+        code, test_script_files_checked = test_the_test_scripts(code, major, minor, args)
+        files_checked_this_version += test_script_files_checked
         print()
-        print(f"Testing the test suite ({num_test_files_to_test} files)...")
-        print("Running mypy " + " ".join(flags))
-        this_code = subprocess.run([sys.executable, "-m", "mypy", "tests", *flags]).returncode
-        code = max(code, this_code)
-        files_checked += num_test_files_to_test
 
-    # Run mypy against the test cases
-    test_case_files = list(map(str, Path("test_cases").rglob("*.py")))
-    num_test_case_files = len(test_case_files)
-    flags = get_mypy_flags(args, major, minor, None, strict=True, custom_typeshed=True)
-    print()
-    print(f"Running mypy on the test_cases directory ({num_test_case_files} files)...")
-    print("Running mypy " + " ".join(flags))
-    this_code = subprocess.run([sys.executable, "-m", "mypy", "test_cases", *flags]).returncode
-    code = max(code, this_code)
-    files_checked += num_test_case_files
+    code, test_case_files_checked = test_the_test_cases(code, major, minor, args)
+    files_checked_this_version += test_case_files_checked
     print()
 
-    return TestResults(code, files_checked)
+    return TestResults(code, files_checked_this_version)
 
 
 def main() -> None:
@@ -395,9 +419,8 @@ def main() -> None:
     code = 0
     total_files_checked = 0
     for major, minor in versions:
-        results = test_typeshed(code, major, minor, args)
-        code = results.exit_code
-        total_files_checked += results.files_checked
+        code, files_checked_this_version = test_typeshed(code, major, minor, args)
+        total_files_checked += files_checked_this_version
     if code:
         print(f"--- exit status {code}, {total_files_checked} files checked ---")
         sys.exit(code)
