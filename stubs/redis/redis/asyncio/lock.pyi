@@ -1,4 +1,4 @@
-from typing import Any, Awaitable, NoReturn
+from typing import Any, Awaitable
 
 from redis.asyncio import Redis
 
