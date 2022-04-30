@@ -40,7 +40,7 @@ jobs:
   stubtest-third-party:
     name: Check third party stubs with stubtest
     if: github.repository == 'python/typeshed'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         shard-index: [0, 1, 2, 3]
