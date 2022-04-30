@@ -40,7 +40,7 @@ jobs:
   stubtest-third-party:
     name: Check third party stubs with stubtest
     if: github.repository == 'python/typeshed'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         shard-index: [0, 1, 2, 3]
@@ -53,7 +53,9 @@ jobs:
       - name: Install dependencies
         run: pip install $(grep tomli== requirements-tests.txt)
       - name: Install apt packages
-        run: sudo apt install -y $(python tests/get_apt_packages.py)
+        run: |
+          sudo apt update
+          sudo apt install -y $(python tests/get_apt_packages.py)
       - name: Run stubtest
         run: python tests/stubtest_third_party.py --num-shards 4 --shard-index ${{ matrix.shard-index }}
 
