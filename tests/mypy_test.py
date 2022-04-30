@@ -356,7 +356,6 @@ def test_the_test_scripts(code: int, major: int, minor: int, args: argparse.Name
         files_to_test.remove(Path("tests/pytype_test.py"))
     num_test_files_to_test = len(files_to_test)
     flags = get_mypy_flags(args, major, minor, None, strict=True, test_suite_run=True)
-    print()
     print(f"Testing the test suite ({num_test_files_to_test} files)...")
     print("Running mypy " + " ".join(flags))
     this_code = subprocess.run([sys.executable, "-m", "mypy", "tests", *flags]).returncode
