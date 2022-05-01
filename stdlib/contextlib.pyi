@@ -177,7 +177,7 @@ class ExitStack(AbstractContextManager[ExitStack]):
 
 if sys.version_info >= (3, 7):
     _ExitCoroFunc: TypeAlias = Callable[[type[BaseException] | None, BaseException | None, TracebackType | None], Awaitable[bool]]
-    _ACM_EF = TypeVar("_ACM_EF", AbstractAsyncContextManager[Any], _ExitCoroFunc)
+    _ACM_EF = TypeVar("_ACM_EF", bound=AbstractAsyncContextManager[Any] | _ExitCoroFunc)
 
     class AsyncExitStack(AbstractAsyncContextManager[AsyncExitStack]):
         def __init__(self) -> None: ...
