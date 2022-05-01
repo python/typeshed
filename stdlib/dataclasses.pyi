@@ -227,7 +227,7 @@ class InitVar(Generic[_T]):
 if sys.version_info >= (3, 10):
     def make_dataclass(
         cls_name: str,
-        fields: Iterable[str | tuple[str, type] | tuple[str, type, Field[Any]]],
+        fields: Iterable[str | tuple[str, type] | tuple[str, type, Any]],
         *,
         bases: tuple[type, ...] = ...,
         namespace: dict[str, Any] | None = ...,
@@ -245,7 +245,7 @@ if sys.version_info >= (3, 10):
 else:
     def make_dataclass(
         cls_name: str,
-        fields: Iterable[str | tuple[str, type] | tuple[str, type, Field[Any]]],
+        fields: Iterable[str | tuple[str, type] | tuple[str, type, Any]],
         *,
         bases: tuple[type, ...] = ...,
         namespace: dict[str, Any] | None = ...,
