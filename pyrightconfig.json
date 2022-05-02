@@ -3,7 +3,7 @@
     "include": [
         "stdlib",
         "stubs",
-        "test_cases",
+        "test_cases"
     ],
     "exclude": [
         "**/@python2"
