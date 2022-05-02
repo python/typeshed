@@ -88,6 +88,13 @@ jobs:
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
           no-comments: ${{ matrix.python-version != '3.9' || matrix.python-platform != 'Linux' }}  # Having each job create the same comment is too noisy.
+          project: ./pyrightconfig.tescases.json
+      - uses: jakebailey/pyright-action@v1
+        with:
+          version: ${{ env.PYRIGHT_VERSION }}
+          python-platform: ${{ matrix.python-platform }}
+          python-version: ${{ matrix.python-version }}
+          no-comments: ${{ matrix.python-version != '3.9' || matrix.python-platform != 'Linux' }}  # Having each job create the same comment is too noisy.
 
   stubtest-stdlib:
     name: Check stdlib with stubtest
