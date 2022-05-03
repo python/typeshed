@@ -1,3 +1,5 @@
+# pyright: reportUnnecessaryTypeIgnoreComment=true
+
 from decimal import Decimal
 from fractions import Fraction
 from typing import Any, NoReturn
