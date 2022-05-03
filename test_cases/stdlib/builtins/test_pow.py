@@ -7,8 +7,8 @@ from typing_extensions import Literal, assert_type
 
 # See #7163
 assert_type(pow(1, 0), Literal[1])
-assert_type(1**0, Literal[1])
-assert_type(pow(1, 0, None), Literal[1])
+assert_type(1**0, Literal[1])  # type: ignore[misc]
+assert_type(pow(1, 0, None), Literal[1])  # type: ignore
 
 assert_type(pow(2, 4, 0), NoReturn)
 
