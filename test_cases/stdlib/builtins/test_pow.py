@@ -56,7 +56,8 @@ assert_type(pow(Decimal("4.6"), 7, None), Decimal)
 assert_type(Decimal("4.6") ** 7, Decimal)
 
 # These would ideally be more precise, but `Any` is acceptable
-# They have to be `Any` due to the fact that type-checkers can't distinguish between positive and negative numbers for the second argument to `pow()`
+# They have to be `Any` due to the fact that type-checkers can't distinguish
+# between positive and negative numbers for the second argument to `pow()`
 #
 # int for positive 2nd-arg, float otherwise
 assert_type(pow(4, 65), Any)
@@ -74,9 +75,11 @@ assert_type(pow(4.7, 9.2, None), Any)
 # See #7046 -- float for a positive 1st arg, complex otherwise
 assert_type((-95) ** 8.42, Any)
 
-# All of these should fail a type-checker
-# mypy will emit an error if any of them do not fail,
-# since we use --warn-unused-ignores when checking this subdirectory
+# All of the following cases should fail a type-checker.
+#
+# mypy/pyright will emit errors if any of them do not fail:
+# - We use --warn-unused-ignores for mypy when checking this subdirectory;
+# - For pyright, we have reportUnnecessaryTypeIgnoreComment=true at the top of this file
 pow(1.9, 4, 6)  # type: ignore[misc]
 pow(complex(6), 6.2, 7)  # type: ignore[misc]
 pow(Fraction(), 5, 8)  # type: ignore[call-overload]
