@@ -81,6 +81,11 @@ assert_type((-95) ** 8.42, Any)
 # - We use --warn-unused-ignores for mypy when checking this subdirectory;
 # - For pyright, we have reportUnnecessaryTypeIgnoreComment=true at the top of this file
 pow(1.9, 4, 6)  # type: ignore[misc]
+pow(4, 7, 4.32)  # type: ignore[misc]
+pow(6.2, 5.9, 73)  # type: ignore[misc]
 pow(complex(6), 6.2, 7)  # type: ignore[misc]
 pow(Fraction(), 5, 8)  # type: ignore[call-overload]
 Decimal("8.7") ** 3.14  # type: ignore[operator]
+
+# TODO: This fails at runtime, but currently passes mypy and pyright:
+pow(Decimal("8.5"), 3.21)
