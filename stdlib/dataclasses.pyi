@@ -100,6 +100,22 @@ else:
         *, init: bool = ..., repr: bool = ..., eq: bool = ..., order: bool = ..., unsafe_hash: bool = ..., frozen: bool = ...
     ) -> Callable[[type[_T]], type[_T]]: ...
 
+if sys.version_info >= (3, 11):
+    @overload
+    def dataclass(
+        *,
+        init: bool = ...,
+        repr: bool = ...,
+        eq: bool = ...,
+        order: bool = ...,
+        unsafe_hash: bool = ...,
+        frozen: bool = ...,
+        match_args: bool = ...,
+        kw_only: bool = ...,
+        slots: bool = ...,
+        weakref_slot: bool = ...,
+    ) -> Callable[[type[_T]], type[_T]]: ...
+
 # See https://github.com/python/mypy/issues/10750
 class _DefaultFactory(Protocol[_T_co]):
     def __call__(self) -> _T_co: ...
