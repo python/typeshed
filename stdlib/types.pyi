@@ -654,6 +654,7 @@ if sys.version_info >= (3, 9):
         if sys.version_info >= (3, 11):
             @property
             def __unpacked__(self) -> bool: ...
+
         def __getattr__(self, name: str) -> Any: ...  # incomplete
 
 if sys.version_info >= (3, 10):
