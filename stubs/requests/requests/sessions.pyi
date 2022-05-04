@@ -67,7 +67,7 @@ _Params: TypeAlias = Union[
     str | bytes,
 ]
 _TextMapping: TypeAlias = MutableMapping[str, str]
-_HeadersMapping = TypeAlias = MutableMapping[str, str | bytes]
+_HeadersMapping: TypeAlias = MutableMapping[str, str | bytes]
 _HeadersUpdateMapping: TypeAlias = _HeadersMapping | MutableMapping[str, None]
 _Timeout: TypeAlias = Union[float, tuple[float, float], tuple[float, None]]
 _Verify: TypeAlias = bool | str
