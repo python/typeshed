@@ -6,6 +6,7 @@ from typing_extensions import TypeAlias
 from redis.asyncio.connection import ConnectionPool as AsyncConnectionPool
 from redis.connection import ConnectionPool
 
+# The following type aliases exist at runtime.
 EncodedT: TypeAlias = bytes | memoryview
 DecodedT: TypeAlias = str | int | float
 EncodableT: TypeAlias = EncodedT | DecodedT
