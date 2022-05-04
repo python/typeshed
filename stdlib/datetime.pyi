@@ -31,7 +31,8 @@ class timezone(tzinfo):
     def __init__(self, offset: timedelta, name: str = ...) -> None: ...
     def __hash__(self) -> int: ...
 
-UTC: timezone
+if sys.version_info >= (3, 11):
+    UTC: timezone
 
 if sys.version_info >= (3, 9):
     class _IsoCalendarDate(NamedTuple):
