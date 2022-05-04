@@ -68,6 +68,7 @@ _Params: TypeAlias = Union[
 ]
 _TextMapping: TypeAlias = MutableMapping[str, str]
 _HeadersMapping = TypeAlias = MutableMapping[str, str | bytes]
+_HeadersUpdateMapping: TypeAlias = _HeadersMapping | MutableMapping[str, None]
 _Timeout: TypeAlias = Union[float, tuple[float, float], tuple[float, None]]
 _Verify: TypeAlias = bool | str
 
@@ -96,7 +97,7 @@ class Session(SessionRedirectMixin):
         url: str | bytes,
         params: _Params | None = ...,
         data: _Data | None = ...,
-        headers: _TextMapping | None = ...,
+        headers: _HeadersUpdateMapping | None = ...,
         cookies: None | RequestsCookieJar | _TextMapping = ...,
         files: _Files | None = ...,
         auth: _Auth | None = ...,
@@ -115,7 +116,7 @@ class Session(SessionRedirectMixin):
         *,
         params: _Params | None = ...,
         data: _Data | None = ...,
-        headers: _TextMapping | None = ...,
+        headers: _HeadersUpdateMapping | None = ...,
         cookies: RequestsCookieJar | _TextMapping | None = ...,
         files: _Files | None = ...,
         auth: _Auth | None = ...,
@@ -134,7 +135,7 @@ class Session(SessionRedirectMixin):
         *,
         params: _Params | None = ...,
         data: _Data | None = ...,
-        headers: _TextMapping | None = ...,
+        headers: _HeadersUpdateMapping | None = ...,
         cookies: RequestsCookieJar | _TextMapping | None = ...,
         files: _Files | None = ...,
         auth: _Auth | None = ...,
@@ -153,7 +154,7 @@ class Session(SessionRedirectMixin):
         *,
         params: _Params | None = ...,
         data: _Data | None = ...,
-        headers: _TextMapping | None = ...,
+        headers: _HeadersUpdateMapping | None = ...,
         cookies: RequestsCookieJar | _TextMapping | None = ...,
         files: _Files | None = ...,
         auth: _Auth | None = ...,
@@ -173,7 +174,7 @@ class Session(SessionRedirectMixin):
         json: Any | None = ...,
         *,
         params: _Params | None = ...,
-        headers: _TextMapping | None = ...,
+        headers: _HeadersUpdateMapping | None = ...,
         cookies: RequestsCookieJar | _TextMapping | None = ...,
         files: _Files | None = ...,
         auth: _Auth | None = ...,
@@ -191,7 +192,7 @@ class Session(SessionRedirectMixin):
         data: _Data | None = ...,
         *,
         params: _Params | None = ...,
-        headers: _TextMapping | None = ...,
+        headers: _HeadersUpdateMapping | None = ...,
         cookies: RequestsCookieJar | _TextMapping | None = ...,
         files: _Files | None = ...,
         auth: _Auth | None = ...,
@@ -210,7 +211,7 @@ class Session(SessionRedirectMixin):
         data: _Data | None = ...,
         *,
         params: _Params | None = ...,
-        headers: _TextMapping | None = ...,
+        headers: _HeadersUpdateMapping | None = ...,
         cookies: RequestsCookieJar | _TextMapping | None = ...,
         files: _Files | None = ...,
         auth: _Auth | None = ...,
@@ -229,7 +230,7 @@ class Session(SessionRedirectMixin):
         *,
         params: _Params | None = ...,
         data: _Data | None = ...,
-        headers: _TextMapping | None = ...,
+        headers: _HeadersUpdateMapping | None = ...,
         cookies: RequestsCookieJar | _TextMapping | None = ...,
         files: _Files | None = ...,
         auth: _Auth | None = ...,
