@@ -4,12 +4,10 @@ from time import struct_time
 from typing import ClassVar, NamedTuple, NoReturn, SupportsAbs, TypeVar, overload
 from typing_extensions import Literal, TypeAlias, final
 
-
-if sys.version_info >= (3,11):
+if sys.version_info >= (3, 11):
     __all__ = ("date", "datetime", "time", "timedelta", "timezone", "tzinfo", "MINYEAR", "MAXYEAR", "UTC")
 elif sys.version_info >= (3, 9):
     __all__ = ("date", "datetime", "time", "timedelta", "timezone", "tzinfo", "MINYEAR", "MAXYEAR")
-
 
 _D = TypeVar("_D", bound=date)
 
