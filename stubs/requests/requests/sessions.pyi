@@ -72,7 +72,7 @@ _Verify: TypeAlias = bool | str
 
 class Session(SessionRedirectMixin):
     __attrs__: Any
-    headers: CaseInsensitiveDict[str | None]
+    headers: CaseInsensitiveDict[str]
     auth: _Auth | None
     proxies: _TextMapping
     hooks: _Hooks
