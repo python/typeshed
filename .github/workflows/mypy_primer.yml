@@ -30,6 +30,8 @@ jobs:
           echo "MYPYPATH=$(echo $PWD/typeshed_to_test/stubs/* | sed s/' '/:/g)" | tee -a $GITHUB_ENV
       - run: |
           python -c 'import os; print(os.environ.get("MYPYPATH"))'
+          echo 'import requests; print(requests.get("http://www.google.com/"))' > asd.py
+          mypy --custom-typeshed-dir typeshed_to_test asd.py
       - name: Run mypy_primer
         shell: bash
         run: |
