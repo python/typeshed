@@ -48,7 +48,9 @@ class RuleVisitor(NodeVisitor):
     def generic_visit(self, node: Node, visited_children: collections.abc.Sequence[Any]) -> collections.abc.Sequence[Any] | Node: ...  # type: ignore[override]
 
 class TokenRuleVisitor(RuleVisitor):
-    def visit_spaceless_literal(self, spaceless_literal: Node, visited_children: collections.abc.Sequence[Any]) -> TokenMatcher: ...
+    def visit_spaceless_literal(
+        self, spaceless_literal: Node, visited_children: collections.abc.Sequence[Any]
+    ) -> TokenMatcher: ...
     def visit_regex(self, node: Node, regex: collections.abc.Sequence[Any]) -> NoReturn: ...
 
 rule_grammar: Grammar
