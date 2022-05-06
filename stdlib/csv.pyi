@@ -23,6 +23,7 @@ from _csv import (
 from _typeshed import Self, SupportsWrite
 from collections.abc import Collection, Iterable, Iterator, Mapping, Sequence
 from typing import Any, Generic, TypeVar, overload
+from typing_extensions import Literal
 
 if sys.version_info >= (3, 8):
     from builtins import dict as _DictReadMapping
@@ -120,14 +121,14 @@ class DictReader(Generic[_T], Iterator[_DictReadMapping[_T, str]]):
 class DictWriter(Generic[_T]):
     fieldnames: Collection[_T]
     restval: Any | None
-    extrasaction: str
+    extrasaction: Literal["raise", "ignore"]
     writer: _writer
     def __init__(
         self,
         f: SupportsWrite[str],
         fieldnames: Collection[_T],
         restval: Any | None = ...,
-        extrasaction: str = ...,
+        extrasaction: Literal["raise", "ignore"] = ...,
         dialect: _DialectLike = ...,
         *,
         quotechar: str | None = ...,
