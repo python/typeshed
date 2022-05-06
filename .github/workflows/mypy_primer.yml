@@ -31,6 +31,7 @@ jobs:
       - run: |
           python -c 'import os; print(os.environ.get("MYPYPATH"))'
           echo 'import requests; print(requests.get("http://www.google.com/"))' > asd.py
+          pip install mypy==0.950
           mypy --custom-typeshed-dir typeshed_to_test asd.py
       - name: Run mypy_primer
         shell: bash
