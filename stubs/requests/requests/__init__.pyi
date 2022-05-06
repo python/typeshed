@@ -1,15 +1,7 @@
 import logging
 from typing import Any
 
-from .api import (
-    delete as delete,
-    head as head,
-    options as options,
-    patch as patch,
-    post as post,
-    put as put,
-    request as request,
-)
+from .api import delete as delete, head as head, options as options, patch as patch, post as post, put as put, request as request
 from .exceptions import (
     ConnectionError as ConnectionError,
     ConnectTimeout as ConnectTimeout,
