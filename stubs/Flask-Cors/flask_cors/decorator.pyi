@@ -1,7 +1,7 @@
-from collections.abc import Callable
+from collections.abc import Callable, Iterable
 from datetime import timedelta
 from logging import Logger
-from typing import Any, Iterable, Pattern
+from typing import Any, Pattern
 from typing_extensions import ParamSpec
 
 _P = ParamSpec("_P")
