@@ -47,7 +47,7 @@ def writer(
     skipinitialspace: bool = ...,
     lineterminator: str = ...,
     quoting: int = ...,
-    strict: int = ...
+    strict: int = ...,
 ) -> _writer: ...
 def reader(
     csvfile: Iterable[str],
@@ -59,7 +59,7 @@ def reader(
     skipinitialspace: bool = ...,
     lineterminator: str = ...,
     quoting: int = ...,
-    strict: int = ...
+    strict: int = ...,
 ) -> _reader: ...
 def register_dialect(
     name: str,
@@ -71,7 +71,7 @@ def register_dialect(
     skipinitialspace: bool = ...,
     lineterminator: str = ...,
     quoting: int = ...,
-    strict: int = ...
+    strict: int = ...,
 ) -> None: ...
 def unregister_dialect(name: str) -> None: ...
 def get_dialect(name: str) -> Dialect: ...

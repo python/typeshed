@@ -1,11 +1,9 @@
 import sys
-from _csv import (
+from _csv import (  # actually csv.Dialect is a different class to _csv.Dialect at runtime,; but for typing purposes, they're identical
     QUOTE_ALL as QUOTE_ALL,
     QUOTE_MINIMAL as QUOTE_MINIMAL,
     QUOTE_NONE as QUOTE_NONE,
     QUOTE_NONNUMERIC as QUOTE_NONNUMERIC,
-    # actually csv.Dialect is a different class to _csv.Dialect at runtime,
-    # but for typing purposes, they're identical
     Dialect as Dialect,
     Error as Error,
     __version__ as __version__,
@@ -96,7 +94,7 @@ class DictReader(Generic[_T], Iterator[_DictReadMapping[_T, str]]):
         skipinitialspace: bool = ...,
         lineterminator: str = ...,
         quoting: int = ...,
-        strict: int = ...
+        strict: int = ...,
     ) -> None: ...
     @overload
     def __init__(
@@ -112,7 +110,7 @@ class DictReader(Generic[_T], Iterator[_DictReadMapping[_T, str]]):
         skipinitialspace: bool = ...,
         lineterminator: str = ...,
         quoting: int = ...,
-        strict: int = ...
+        strict: int = ...,
     ) -> None: ...
     def __iter__(self: Self) -> Self: ...
     def __next__(self) -> _DictReadMapping[_T, str]: ...
@@ -135,7 +133,7 @@ class DictWriter(Generic[_T]):
         skipinitialspace: bool = ...,
         lineterminator: str = ...,
         quoting: int = ...,
-        strict: int = ...
+        strict: int = ...,
     ) -> None: ...
     if sys.version_info >= (3, 8):
         def writeheader(self) -> Any: ...
