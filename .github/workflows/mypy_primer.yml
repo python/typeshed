@@ -28,6 +28,8 @@ jobs:
       - name: Add third-party stubs to MYPYPATH
         run: |
           echo "MYPYPATH=$(echo $PWD/typeshed_to_test/stubs/* | sed s/' '/:/g)" | tee -a $GITHUB_ENV
+      - run: |
+          python -c 'import os; print(os.environ.get("MYPYPATH"))'
       - name: Run mypy_primer
         shell: bash
         run: |
