@@ -27,7 +27,7 @@ jobs:
         run: pip install git+https://github.com/hauntsaninja/mypy_primer.git
       - name: Add third-party stubs to MYPYPATH
         run: |
-          echo "MYPYPATH=$(echo $PWD/stubs/* | sed s/' '/:/g)" >> $GITHUB_ENV
+          echo "MYPYPATH=$(echo $PWD/typeshed_to_test/stubs/* | sed s/' '/:/g)" >> $GITHUB_ENV
       - name: Run mypy_primer
         shell: bash
         run: |
