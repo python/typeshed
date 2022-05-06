@@ -8,6 +8,7 @@ from _csv import (
     Error as Error,
     __version__ as __version__,
     _DialectLike,
+    _QuotingType,
     _reader,
     _writer,
     field_size_limit as field_size_limit,
@@ -59,7 +60,7 @@ class excel(Dialect):
     doublequote: bool
     skipinitialspace: bool
     lineterminator: str
-    quoting: int
+    quoting: _QuotingType
 
 class excel_tab(excel):
     delimiter: str
@@ -70,7 +71,7 @@ class unix_dialect(Dialect):
     doublequote: bool
     skipinitialspace: bool
     lineterminator: str
-    quoting: int
+    quoting: _QuotingType
 
 class DictReader(Generic[_T], Iterator[_DictReadMapping[_T, str]]):
     fieldnames: Sequence[_T] | None
