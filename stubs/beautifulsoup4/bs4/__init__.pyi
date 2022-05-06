@@ -2,7 +2,7 @@ from _typeshed import Self, SupportsRead
 from collections.abc import Sequence
 from typing import Any
 
-from .builder import TreeBuilder
+from .builder import ParserRejectedMarkup as ParserRejectedMarkup, TreeBuilder, XMLParsedAsHTMLWarning as XMLParsedAsHTMLWarning
 from .element import (
     CData as CData,
     Comment as Comment,
