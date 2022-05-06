@@ -4,6 +4,8 @@ from _csv import (
     QUOTE_MINIMAL as QUOTE_MINIMAL,
     QUOTE_NONE as QUOTE_NONE,
     QUOTE_NONNUMERIC as QUOTE_NONNUMERIC,
+    # actually csv.Dialect is a different class to _csv.Dialect at runtime,
+    # but for typing purposes, they're identical
     Dialect as Dialect,
     Error as Error,
     __version__ as __version__,
@@ -18,7 +20,7 @@ from _csv import (
     unregister_dialect as unregister_dialect,
     writer as writer,
 )
-from _typeshed import Self
+from _typeshed import Self, SupportsWrite
 from collections.abc import Collection, Iterable, Iterator, Mapping, Sequence
 from typing import Any, Generic, TypeVar, overload
 
@@ -87,8 +89,14 @@ class DictReader(Generic[_T], Iterator[_DictReadMapping[_T, str]]):
         restkey: str | None = ...,
         restval: str | None = ...,
         dialect: _DialectLike = ...,
-        *args: Any,
-        **kwds: Any,
+        *,
+        delimiter: str = ...,
+        quotechar: str | None = ...,
+        escapechar: str | None = ...,
+        skipinitialspace: bool = ...,
+        lineterminator: str = ...,
+        quoting: int = ...,
+        strict: int = ...
     ) -> None: ...
     @overload
     def __init__(
@@ -98,8 +106,13 @@ class DictReader(Generic[_T], Iterator[_DictReadMapping[_T, str]]):
         restkey: str | None = ...,
         restval: str | None = ...,
         dialect: _DialectLike = ...,
-        *args: Any,
-        **kwds: Any,
+        *,
+        quotechar: str | None = ...,
+        escapechar: str | None = ...,
+        skipinitialspace: bool = ...,
+        lineterminator: str = ...,
+        quoting: int = ...,
+        strict: int = ...
     ) -> None: ...
     def __iter__(self: Self) -> Self: ...
     def __next__(self) -> _DictReadMapping[_T, str]: ...
@@ -111,13 +124,18 @@ class DictWriter(Generic[_T]):
     writer: _writer
     def __init__(
         self,
-        f: Any,
+        f: SupportsWrite[str],
         fieldnames: Collection[_T],
         restval: Any | None = ...,
         extrasaction: str = ...,
         dialect: _DialectLike = ...,
-        *args: Any,
-        **kwds: Any,
+        *,
+        quotechar: str | None = ...,
+        escapechar: str | None = ...,
+        skipinitialspace: bool = ...,
+        lineterminator: str = ...,
+        quoting: int = ...,
+        strict: int = ...
     ) -> None: ...
     if sys.version_info >= (3, 8):
         def writeheader(self) -> Any: ...
