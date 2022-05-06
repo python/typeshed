@@ -24,15 +24,7 @@ jobs:
         with:
           python-version: "3.10"
       - name: Install dependencies
-        run: pip install git+https://github.com/hauntsaninja/mypy_primer.git
-      - name: Add third-party stubs to MYPYPATH
-        run: |
-          echo "MYPYPATH=$(echo $PWD/typeshed_to_test/stubs/* | sed s/' '/:/g)" | tee -a $GITHUB_ENV
-      - run: |
-          python -c 'import os; print(os.environ.get("MYPYPATH"))'
-          echo 'import requests; print(requests.get("http://www.google.com/"))' > asd.py
-          pip install mypy==0.950
-          mypy --custom-typeshed-dir typeshed_to_test asd.py
+        run: pip install git+https://github.com/Akuli/mypy_primer.git
       - name: Run mypy_primer
         shell: bash
         run: |
