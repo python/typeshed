@@ -3,7 +3,6 @@ from typing import Any
 
 from .api import (
     delete as delete,
-    get as get,
     head as head,
     options as options,
     patch as patch,
