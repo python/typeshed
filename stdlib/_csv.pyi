@@ -10,6 +10,10 @@ QUOTE_MINIMAL: Literal[0]
 QUOTE_NONE: Literal[3]
 QUOTE_NONNUMERIC: Literal[2]
 
+# Ideally this would be Union[QUOTE_ALL, QUOTE_MINIMAL, QUOTE_NONE, QUOTE_NONNUMERIC]
+# However, using literals in situations like these can cause false-positives (see #7258)
+_QuotingType: TypeAlias = int
+
 class Error(Exception): ...
 
 class Dialect:
@@ -19,7 +23,7 @@ class Dialect:
     doublequote: bool
     skipinitialspace: bool
     lineterminator: str
-    quoting: int
+    quoting: _QuotingType
     strict: int
     def __init__(self) -> None: ...
 
@@ -44,9 +48,10 @@ def writer(
     delimiter: str = ...,
     quotechar: str | None = ...,
     escapechar: str | None = ...,
+    doublequote: bool = ...,
     skipinitialspace: bool = ...,
     lineterminator: str = ...,
-    quoting: int = ...,
+    quoting: _QuotingType = ...,
     strict: int = ...,
 ) -> _writer: ...
 def reader(
@@ -56,9 +61,10 @@ def reader(
     delimiter: str = ...,
     quotechar: str | None = ...,
     escapechar: str | None = ...,
+    doublequote: bool = ...,
     skipinitialspace: bool = ...,
     lineterminator: str = ...,
-    quoting: int = ...,
+    quoting: _QuotingType = ...,
     strict: int = ...,
 ) -> _reader: ...
 def register_dialect(
@@ -68,9 +74,10 @@ def register_dialect(
     delimiter: str = ...,
     quotechar: str | None = ...,
     escapechar: str | None = ...,
+    doublequote: bool = ...,
     skipinitialspace: bool = ...,
     lineterminator: str = ...,
-    quoting: int = ...,
+    quoting: _QuotingType = ...,
     strict: int = ...,
 ) -> None: ...
 def unregister_dialect(name: str) -> None: ...

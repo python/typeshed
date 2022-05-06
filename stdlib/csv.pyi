@@ -10,6 +10,7 @@ from _csv import (
     Error as Error,
     __version__ as __version__,
     _DialectLike,
+    _QuotingType,
     _reader,
     _writer,
     field_size_limit as field_size_limit,
@@ -94,9 +95,10 @@ class DictReader(Generic[_T], Iterator[_DictReadMapping[_T, str]]):
         delimiter: str = ...,
         quotechar: str | None = ...,
         escapechar: str | None = ...,
+        doublequote: bool = ...,
         skipinitialspace: bool = ...,
         lineterminator: str = ...,
-        quoting: int = ...,
+        quoting: _QuotingType = ...,
         strict: int = ...,
     ) -> None: ...
     @overload
@@ -110,9 +112,10 @@ class DictReader(Generic[_T], Iterator[_DictReadMapping[_T, str]]):
         *,
         quotechar: str | None = ...,
         escapechar: str | None = ...,
+        doublequote: bool = ...,
         skipinitialspace: bool = ...,
         lineterminator: str = ...,
-        quoting: int = ...,
+        quoting: _QuotingType = ...,
         strict: int = ...,
     ) -> None: ...
     def __iter__(self: Self) -> Self: ...
@@ -133,9 +136,10 @@ class DictWriter(Generic[_T]):
         *,
         quotechar: str | None = ...,
         escapechar: str | None = ...,
+        doublequote: bool = ...,
         skipinitialspace: bool = ...,
         lineterminator: str = ...,
-        quoting: int = ...,
+        quoting: _QuotingType = ...,
         strict: int = ...,
     ) -> None: ...
     if sys.version_info >= (3, 8):
