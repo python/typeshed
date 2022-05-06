@@ -110,7 +110,7 @@ class DictReader(Generic[_T], Iterator[_DictReadMapping[_T, str]]):
         restval: str | None = ...,
         dialect: _DialectLike = ...,
         *,
-        delimiter: str = ...
+        delimiter: str = ...,
         quotechar: str | None = ...,
         escapechar: str | None = ...,
         doublequote: bool = ...,
