@@ -63,7 +63,7 @@ class excel(Dialect):
     doublequote: bool
     skipinitialspace: bool
     lineterminator: str
-    quoting: int
+    quoting: _QuotingType
 
 class excel_tab(excel):
     delimiter: str
@@ -74,7 +74,7 @@ class unix_dialect(Dialect):
     doublequote: bool
     skipinitialspace: bool
     lineterminator: str
-    quoting: int
+    quoting: _QuotingType
 
 class DictReader(Generic[_T], Iterator[_DictReadMapping[_T, str]]):
     fieldnames: Sequence[_T] | None
@@ -99,7 +99,7 @@ class DictReader(Generic[_T], Iterator[_DictReadMapping[_T, str]]):
         skipinitialspace: bool = ...,
         lineterminator: str = ...,
         quoting: _QuotingType = ...,
-        strict: int = ...,
+        strict: bool = ...,
     ) -> None: ...
     @overload
     def __init__(
@@ -110,13 +110,14 @@ class DictReader(Generic[_T], Iterator[_DictReadMapping[_T, str]]):
         restval: str | None = ...,
         dialect: _DialectLike = ...,
         *,
+        delimiter: str = ...
         quotechar: str | None = ...,
         escapechar: str | None = ...,
         doublequote: bool = ...,
         skipinitialspace: bool = ...,
         lineterminator: str = ...,
         quoting: _QuotingType = ...,
-        strict: int = ...,
+        strict: bool = ...,
     ) -> None: ...
     def __iter__(self: Self) -> Self: ...
     def __next__(self) -> _DictReadMapping[_T, str]: ...
@@ -134,13 +135,14 @@ class DictWriter(Generic[_T]):
         extrasaction: Literal["raise", "ignore"] = ...,
         dialect: _DialectLike = ...,
         *,
+        delimiter: str = ...,
         quotechar: str | None = ...,
         escapechar: str | None = ...,
         doublequote: bool = ...,
         skipinitialspace: bool = ...,
         lineterminator: str = ...,
         quoting: _QuotingType = ...,
-        strict: int = ...,
+        strict: bool = ...,
     ) -> None: ...
     if sys.version_info >= (3, 8):
         def writeheader(self) -> Any: ...

@@ -24,7 +24,7 @@ class Dialect:
     skipinitialspace: bool
     lineterminator: str
     quoting: _QuotingType
-    strict: int
+    strict: bool
     def __init__(self) -> None: ...
 
 _DialectLike: TypeAlias = Union[str, Dialect, type[Dialect]]
@@ -52,7 +52,7 @@ def writer(
     skipinitialspace: bool = ...,
     lineterminator: str = ...,
     quoting: _QuotingType = ...,
-    strict: int = ...,
+    strict: bool = ...,
 ) -> _writer: ...
 def reader(
     csvfile: Iterable[str],
@@ -65,7 +65,7 @@ def reader(
     skipinitialspace: bool = ...,
     lineterminator: str = ...,
     quoting: _QuotingType = ...,
-    strict: int = ...,
+    strict: bool = ...,
 ) -> _reader: ...
 def register_dialect(
     name: str,
@@ -78,7 +78,7 @@ def register_dialect(
     skipinitialspace: bool = ...,
     lineterminator: str = ...,
     quoting: _QuotingType = ...,
-    strict: int = ...,
+    strict: bool = ...,
 ) -> None: ...
 def unregister_dialect(name: str) -> None: ...
 def get_dialect(name: str) -> Dialect: ...
