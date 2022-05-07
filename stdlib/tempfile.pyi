@@ -1,7 +1,7 @@
 import io
 import os
 import sys
-from _typeshed import Self
+from _typeshed import Self, WriteableBuffer
 from collections.abc import Iterable, Iterator
 from types import TracebackType
 from typing import IO, Any, AnyStr, Generic, overload
