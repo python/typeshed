@@ -4,7 +4,7 @@ from _typeshed import Self
 from abc import ABCMeta
 from builtins import property as _builtins_property
 from collections.abc import Iterable, Iterator, Mapping
-from typing import Any, TypeVar, overload
+from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Literal, TypeAlias
 
 if sys.version_info >= (3, 11):
@@ -58,12 +58,12 @@ _EnumNames: TypeAlias = str | Iterable[str] | Iterable[Iterable[str | Any]] | Ma
 
 if sys.version_info >= (3, 11):
     class nonmember(Generic[_EnumMemberT]):
-        value: T
-        def __init__(self, value: T) -> None: ...
+        value: _EnumMemberT
+        def __init__(self, value: _EnumMemberT) -> None: ...
 
     class member(Generic[_EnumMemberT]):
-        value: T
-        def __init__(self, value: T) -> None: ...
+        value: _EnumMemberT
+        def __init__(self, value: _EnumMemberT) -> None: ...
 
 class _EnumDict(dict[str, Any]):
     def __init__(self) -> None: ...
