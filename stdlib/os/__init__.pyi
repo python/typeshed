@@ -863,8 +863,10 @@ class _wrap_close(_TextIOWrapper):
 
 if sys.version_info >= (3, 11):
     def popen(cmd: str, mode: str = ..., buffering: int = ..., encoding: str | None = ...) -> _wrap_close: ...
+
 else:
     def popen(cmd: str, mode: str = ..., buffering: int = ...) -> _wrap_close: ...
+
 def spawnl(mode: int, file: StrOrBytesPath, arg0: StrOrBytesPath, *args: StrOrBytesPath) -> int: ...
 def spawnle(mode: int, file: StrOrBytesPath, arg0: StrOrBytesPath, *args: Any) -> int: ...  # Imprecise sig
 
