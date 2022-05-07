@@ -7,12 +7,16 @@ from _typeshed import (
     StrOrBytesPath,
 )
 from asyncio import AbstractEventLoop
-from typing import Any, AnyStr, overload
+from typing import Any, AnyStr, overload, TypeVar
 from typing_extensions import Literal
 
 from ..base import AiofilesContextManager
 from ..threadpool.binary import AsyncBufferedIOBase, AsyncBufferedReader, AsyncFileIO
 from ..threadpool.text import AsyncTextIOWrapper
+
+_T_co = TypeVar("_T_co", covariant=True)
+_V_co = TypeVar("_V_co", covariant=True)
+_T_contra = TypeVar("_T_contra", contravariant=True)
 
 # Text mode: always returns AsyncTextIOWrapper
 @overload
@@ -197,5 +201,5 @@ def TemporaryDirectory(
     executor: Any | None = ...,
 ) -> StrOrBytesPath: ...
 
-class AiofilesContextManagerTempDir(AiofilesContextManager):
+class AiofilesContextManagerTempDir(AiofilesContextManager[_T_co, _T_contra, _V_co]):
     async def __aenter__(self): ...

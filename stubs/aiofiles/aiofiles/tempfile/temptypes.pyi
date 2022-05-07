@@ -1,6 +1,6 @@
 from asyncio import AbstractEventLoop
 from types import coroutine as coroutine
-from typing import Any, AnyStr
+from typing import Any, TypeVar
 
 from ..base import AsyncBase as AsyncBase
 from ..threadpool.utils import (
@@ -9,7 +9,9 @@ from ..threadpool.utils import (
     proxy_property_directly as proxy_property_directly,
 )
 
-class AsyncSpooledTemporaryFile(AsyncBase):
+_T = TypeVar("_T")
+
+class AsyncSpooledTemporaryFile(AsyncBase[_T]):
     async def write(self, s): ...
     async def writelines(self, iterable): ...
 
