@@ -224,6 +224,7 @@ if sys.version_info >= (3, 11):
     _STFBase = io.IOBase
 else:
     _STFBase = object
+
 class SpooledTemporaryFile(IO[AnyStr], _STFBase):
     @property
     def encoding(self) -> str: ...  # undocumented
