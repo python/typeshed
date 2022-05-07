@@ -205,7 +205,7 @@ if sys.version_info >= (3, 11):
         micro: int
         releaselevel: str
         serial: int
-    
+
 class EventType(str, Enum):
     Activate: str
     ButtonPress: str
@@ -387,6 +387,7 @@ class Misc:
     lift = tkraise
     if sys.version_info >= (3, 11):
         def info_patchlevel(self) -> VersionInfoType: ...
+
     def winfo_atom(self, name: str, displayof: Literal[0] | Misc | None = ...) -> int: ...
     def winfo_atomname(self, id: int, displayof: Literal[0] | Misc | None = ...) -> str: ...
     def winfo_cells(self) -> int: ...
