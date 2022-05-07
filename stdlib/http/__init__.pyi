@@ -2,7 +2,22 @@ import sys
 from enum import IntEnum
 from typing_extensions import Literal
 
-__all__ = ["HTTPStatus"]
+if sys.version_info >= (3, 11):
+    __all__ = ["HTTPStatus", "HTTPMethod"]
+else:
+    __all__ = ["HTTPStatus"]
+
+if sys.version_info >= (3, 11):
+    class HTTPMethod(StrEnum):
+        GET: str
+        HEAD: str
+        POST: str
+        PUT: str
+        DELETE: str
+        CONNECT: str
+        OPTIONS: str
+        TRACE: str
+        PATCH: str
 
 class HTTPStatus(IntEnum):
     @property
