@@ -7,7 +7,7 @@ from _typeshed import (
     StrOrBytesPath,
 )
 from asyncio import AbstractEventLoop
-from typing import Any, AnyStr, overload, TypeVar
+from typing import Any, AnyStr, TypeVar, overload
 from typing_extensions import Literal
 
 from ..base import AiofilesContextManager
