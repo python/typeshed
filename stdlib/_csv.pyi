@@ -10,7 +10,7 @@ QUOTE_MINIMAL: Literal[0]
 QUOTE_NONE: Literal[3]
 QUOTE_NONNUMERIC: Literal[2]
 
-# Ideally this would be Union[QUOTE_ALL, QUOTE_MINIMAL, QUOTE_NONE, QUOTE_NONNUMERIC]
+# Ideally this would be `QUOTE_ALL | QUOTE_MINIMAL | QUOTE_NONE | QUOTE_NONNUMERIC`
 # However, using literals in situations like these can cause false-positives (see #7258)
 _QuotingType: TypeAlias = int
 

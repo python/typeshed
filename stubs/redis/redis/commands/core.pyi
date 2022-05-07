@@ -1,7 +1,7 @@
 import builtins
-from collections.abc import AsyncIterator, Callable, Iterable, Iterator, Mapping, Sequence
+from collections.abc import AsyncIterator, Awaitable, Callable, Iterable, Iterator, Mapping, Sequence
 from datetime import datetime, timedelta
-from typing import Any, Awaitable, Generic, TypeVar, overload
+from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Literal
 
 from ..asyncio.client import Redis as AsyncRedis

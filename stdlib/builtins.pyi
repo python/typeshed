@@ -1150,9 +1150,22 @@ def eval(
 ) -> Any: ...
 
 # Comment above regarding `eval` applies to `exec` as well
-def exec(
-    __source: str | ReadableBuffer | CodeType, __globals: dict[str, Any] | None = ..., __locals: Mapping[str, object] | None = ...
-) -> None: ...
+if sys.version_info >= (3, 11):
+    def exec(
+        __source: str | ReadableBuffer | CodeType,
+        __globals: dict[str, Any] | None = ...,
+        __locals: Mapping[str, object] | None = ...,
+        *,
+        closure: tuple[_Cell, ...] | None = ...,
+    ) -> None: ...
+
+else:
+    def exec(
+        __source: str | ReadableBuffer | CodeType,
+        __globals: dict[str, Any] | None = ...,
+        __locals: Mapping[str, object] | None = ...,
+    ) -> None: ...
+
 def exit(code: object = ...) -> NoReturn: ...
 
 class filter(Iterator[_T], Generic[_T]):
