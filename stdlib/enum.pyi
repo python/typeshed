@@ -21,6 +21,8 @@ if sys.version_info >= (3, 11):
         "unique",
         "property",
         "verify",
+        "member",
+        "nonmember",
         "FlagBoundary",
         "STRICT",
         "CONFORM",
@@ -54,6 +56,14 @@ _EnumerationT = TypeVar("_EnumerationT", bound=type[Enum])
 # <enum 'Foo'>
 _EnumNames: TypeAlias = str | Iterable[str] | Iterable[Iterable[str | Any]] | Mapping[str, Any]
 
+if sys.version_info >= (3, 11):
+    class nonmember(Generic[_EnumMemberT]):
+        value: T
+        def __init__(self, value: T) -> None: ...
+    class member(Generic[_EnumMemberT]):
+        value: T
+        def __init__(self, value: T) -> None: ...
+    
 class _EnumDict(dict[str, Any]):
     def __init__(self) -> None: ...
     def __setitem__(self, key: str, value: Any) -> None: ...
