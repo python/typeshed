@@ -8,6 +8,8 @@ else:
     __all__ = ["HTTPStatus"]
 
 if sys.version_info >= (3, 11):
+    from enum import StrEnum
+
     class HTTPMethod(StrEnum):
         GET: str
         HEAD: str
