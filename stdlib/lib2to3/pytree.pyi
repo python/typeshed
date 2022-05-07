@@ -1,12 +1,14 @@
 from _typeshed import Self
+from collections.abc import Callable, Iterator
 from lib2to3.pgen2.grammar import Grammar
-from typing import Any, Callable, Iterator, Optional, Union
+from typing import Any
+from typing_extensions import TypeAlias
 
-_NL = Union[Node, Leaf]
-_Context = tuple[str, int, int]
-_Results = dict[str, _NL]
-_RawNode = tuple[int, str, _Context, Optional[list[_NL]]]
-_Convert = Callable[[Grammar, _RawNode], Any]
+_NL: TypeAlias = Node | Leaf
+_Context: TypeAlias = tuple[str, int, int]
+_Results: TypeAlias = dict[str, _NL]
+_RawNode: TypeAlias = tuple[int, str, _Context, list[_NL] | None]
+_Convert: TypeAlias = Callable[[Grammar, _RawNode], Any]
 
 HUGE: int
 
@@ -49,6 +51,7 @@ class Node(Base):
     def set_child(self, i: int, child: _NL) -> None: ...
     def insert_child(self, i: int, child: _NL) -> None: ...
     def append_child(self, child: _NL) -> None: ...
+    def __unicode__(self) -> str: ...
 
 class Leaf(Base):
     lineno: int
@@ -58,6 +61,7 @@ class Leaf(Base):
     def __init__(
         self, type: int, value: str, context: _Context | None = ..., prefix: str | None = ..., fixers_applied: list[Any] = ...
     ) -> None: ...
+    def __unicode__(self) -> str: ...
 
 def convert(gr: Grammar, raw_node: _RawNode) -> _NL: ...
 

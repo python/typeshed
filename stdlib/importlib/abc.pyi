@@ -10,12 +10,13 @@ from _typeshed import (
     StrPath,
 )
 from abc import ABCMeta, abstractmethod
+from collections.abc import Iterator, Mapping, Sequence
 from importlib.machinery import ModuleSpec
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
-from typing import IO, Any, BinaryIO, Iterator, Mapping, NoReturn, Protocol, Sequence, Union, overload, runtime_checkable
-from typing_extensions import Literal
+from typing import IO, Any, BinaryIO, NoReturn, Protocol, overload, runtime_checkable
+from typing_extensions import Literal, TypeAlias
 
-_Path = Union[bytes, str]
+_Path: TypeAlias = bytes | str
 
 class Finder(metaclass=ABCMeta): ...
 
@@ -158,7 +159,7 @@ if sys.version_info >= (3, 9):
         @overload
         @abstractmethod
         def open(
-            self, mode: OpenBinaryMode, buffering: int, encoding: None = ..., errors: None = ..., newline: None = ...
+            self, mode: OpenBinaryMode, buffering: int = ..., encoding: None = ..., errors: None = ..., newline: None = ...
         ) -> BinaryIO: ...
         # Fallback if mode is not specified
         @overload
@@ -169,7 +170,7 @@ if sys.version_info >= (3, 9):
         @property
         def name(self) -> str: ...
         @abstractmethod
-        def __truediv__(self, key: StrPath) -> Traversable: ...
+        def __truediv__(self, child: StrPath) -> Traversable: ...
         @abstractmethod
         def read_bytes(self) -> bytes: ...
         @abstractmethod

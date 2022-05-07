@@ -3,9 +3,24 @@ import socket
 import ssl
 import sys
 from _typeshed import Self
-from typing import IO, Any, Iterable, NamedTuple, Union
+from builtins import list as _list  # conflicts with a method named "list"
+from collections.abc import Iterable
+from typing import IO, Any, NamedTuple
+from typing_extensions import Literal, TypeAlias
 
-_File = Union[IO[bytes], bytes, str, None]
+__all__ = [
+    "NNTP",
+    "NNTPError",
+    "NNTPReplyError",
+    "NNTPTemporaryError",
+    "NNTPPermanentError",
+    "NNTPProtocolError",
+    "NNTPDataError",
+    "decode_header",
+    "NNTP_SSL",
+]
+
+_File: TypeAlias = IO[bytes] | bytes | str | None
 
 class NNTPError(Exception):
     response: str
@@ -16,8 +31,8 @@ class NNTPPermanentError(NNTPError): ...
 class NNTPProtocolError(NNTPError): ...
 class NNTPDataError(NNTPError): ...
 
-NNTP_PORT: int
-NNTP_SSL_PORT: int
+NNTP_PORT: Literal[119]
+NNTP_SSL_PORT: Literal[563]
 
 class GroupInfo(NamedTuple):
     group: str
@@ -32,13 +47,13 @@ class ArticleInfo(NamedTuple):
 
 def decode_header(header_str: str) -> str: ...
 
-_list = list  # conflicts with a method named "list"
-
-class _NNTPBase:
+class NNTP:
     encoding: str
     errors: str
 
     host: str
+    port: int
+    sock: socket.socket
     file: IO[bytes]
     debugging: int
     welcome: str
@@ -47,9 +62,18 @@ class _NNTPBase:
     authenticated: bool
     nntp_implementation: str
     nntp_version: int
-    def __init__(self, file: IO[bytes], host: str, readermode: bool | None = ..., timeout: float = ...) -> None: ...
+    def __init__(
+        self,
+        host: str,
+        port: int = ...,
+        user: str | None = ...,
+        password: str | None = ...,
+        readermode: bool | None = ...,
+        usenetrc: bool = ...,
+        timeout: float = ...,
+    ) -> None: ...
     def __enter__(self: Self) -> Self: ...
-    def __exit__(self, *args: Any) -> None: ...
+    def __exit__(self, *args: object) -> None: ...
     def getwelcome(self) -> str: ...
     def getcapabilities(self) -> dict[str, _list[str]]: ...
     def set_debuglevel(self, level: int) -> None: ...
@@ -85,22 +109,9 @@ class _NNTPBase:
     def login(self, user: str | None = ..., password: str | None = ..., usenetrc: bool = ...) -> None: ...
     def starttls(self, context: ssl.SSLContext | None = ...) -> None: ...
 
-class NNTP(_NNTPBase):
-    port: int
-    sock: socket.socket
-    def __init__(
-        self,
-        host: str,
-        port: int = ...,
-        user: str | None = ...,
-        password: str | None = ...,
-        readermode: bool | None = ...,
-        usenetrc: bool = ...,
-        timeout: float = ...,
-    ) -> None: ...
-
-class NNTP_SSL(_NNTPBase):
-    sock: socket.socket
+class NNTP_SSL(NNTP):
+    ssl_context: ssl.SSLContext | None
+    sock: ssl.SSLSocket
     def __init__(
         self,
         host: str,

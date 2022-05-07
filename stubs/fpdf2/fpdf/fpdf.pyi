@@ -1,23 +1,25 @@
 import datetime
 from _typeshed import StrPath
 from collections import defaultdict
-from collections.abc import Callable, Generator
+from collections.abc import Callable
+from contextlib import _GeneratorContextManager
 from enum import IntEnum
 from io import BytesIO
 from pathlib import Path
 from typing import Any, NamedTuple, overload
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from PIL import Image
 
 from .actions import Action
+from .recorder import FPDFRecorder
 from .syntax import DestinationXYZ
 from .util import _Unit
 
-_Orientation = Literal["", "portrait", "p", "P", "landscape", "l", "L"]
-_Format = Literal["", "a3", "A3", "a4", "A4", "a5", "A5", "letter", "Letter", "legal", "Legal"]
-_FontStyle = Literal["", "B", "I"]
-_FontStyles = Literal["", "B", "I", "U", "BU", "UB", "BI", "IB", "IU", "UI", "BIU", "BUI", "IBU", "IUB", "UBI", "UIB"]
+_Orientation: TypeAlias = Literal["", "portrait", "p", "P", "landscape", "l", "L"]
+_Format: TypeAlias = Literal["", "a3", "A3", "a4", "A4", "a5", "A5", "letter", "Letter", "legal", "Legal"]
+_FontStyle: TypeAlias = Literal["", "B", "I"]
+_FontStyles: TypeAlias = Literal["", "B", "I", "U", "BU", "UB", "BI", "IB", "IU", "UI", "BIU", "BUI", "IBU", "IUB", "UBI", "UIB"]
 PAGE_FORMATS: dict[_Format, tuple[float, float]]
 
 class DocumentState(IntEnum):
@@ -62,10 +64,10 @@ def get_page_format(format: _Format | tuple[float, float], k: float | None = ...
 def load_cache(filename: Path): ...
 
 # TODO: TypedDicts
-_Page = dict[str, Any]
-_Font = dict[str, Any]
-_FontFile = dict[str, Any]
-_Image = dict[str, Any]
+_Page: TypeAlias = dict[str, Any]
+_Font: TypeAlias = dict[str, Any]
+_FontFile: TypeAlias = dict[str, Any]
+_Image: TypeAlias = dict[str, Any]
 
 class FPDF:
     MARKDOWN_BOLD_MARKER: str
@@ -211,7 +213,7 @@ class FPDF:
     def add_action(self, action, x, y, w, h) -> None: ...
     def text(self, x, y, txt: str = ...) -> None: ...
     def rotate(self, angle, x: Any | None = ..., y: Any | None = ...) -> None: ...
-    def rotation(self, angle, x: Any | None = ..., y: Any | None = ...) -> Generator[None, None, None]: ...
+    def rotation(self, angle, x: Any | None = ..., y: Any | None = ...) -> _GeneratorContextManager[None]: ...
     @property
     def accept_page_break(self): ...
     def cell(
@@ -268,8 +270,8 @@ class FPDF:
     def normalize_text(self, txt): ...
     def interleaved2of5(self, txt, x, y, w: int = ..., h: int = ...) -> None: ...
     def code39(self, txt, x, y, w: float = ..., h: int = ...) -> None: ...
-    def rect_clip(self, x, y, w, h) -> Generator[None, None, None]: ...
-    def unbreakable(self) -> Generator[Any, None, None]: ...
+    def rect_clip(self, x, y, w, h) -> _GeneratorContextManager[None]: ...
+    def unbreakable(self) -> _GeneratorContextManager[FPDFRecorder]: ...
     def insert_toc_placeholder(self, render_toc_function, pages: int = ...) -> None: ...
     def set_section_title_styles(
         self,

@@ -3,25 +3,10 @@ import logging
 import sys
 import unittest.result
 from _typeshed import Self
-from collections.abc import Set as AbstractSet
+from collections.abc import Callable, Container, Iterable, Mapping, Sequence, Set as AbstractSet
 from contextlib import AbstractContextManager
 from types import TracebackType
-from typing import (
-    Any,
-    AnyStr,
-    Callable,
-    ClassVar,
-    Container,
-    Generic,
-    Iterable,
-    Mapping,
-    NamedTuple,
-    NoReturn,
-    Pattern,
-    Sequence,
-    TypeVar,
-    overload,
-)
+from typing import Any, AnyStr, ClassVar, Generic, NamedTuple, NoReturn, Pattern, TypeVar, overload
 from typing_extensions import ParamSpec
 from warnings import WarningMessage
 
@@ -82,6 +67,7 @@ class TestCase:
     # undocumented
     _testMethodDoc: str
     def __init__(self, methodName: str = ...) -> None: ...
+    def __eq__(self, other: object) -> bool: ...
     def setUp(self) -> None: ...
     def tearDown(self) -> None: ...
     @classmethod
@@ -232,7 +218,7 @@ class TestCase:
 
     def _formatMessage(self, msg: str | None, standardMsg: str) -> str: ...  # undocumented
     def _getAssertEqualityFunc(self, first: Any, second: Any) -> Callable[..., None]: ...  # undocumented
-    if sys.version_info < (3, 11):
+    if sys.version_info < (3, 12):
         def failUnlessEqual(self, first: Any, second: Any, msg: Any = ...) -> None: ...
         def assertEquals(self, first: Any, second: Any, msg: Any = ...) -> None: ...
         def failIfEqual(self, first: Any, second: Any, msg: Any = ...) -> None: ...
@@ -294,7 +280,7 @@ class _AssertRaisesContext(Generic[_E]):
     exception: _E
     def __enter__(self: Self) -> Self: ...
     def __exit__(
-        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
+        self, exc_type: type[BaseException] | None, exc_value: BaseException | None, tb: TracebackType | None
     ) -> bool: ...
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
@@ -306,5 +292,5 @@ class _AssertWarnsContext:
     warnings: list[WarningMessage]
     def __enter__(self: Self) -> Self: ...
     def __exit__(
-        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
+        self, exc_type: type[BaseException] | None, exc_value: BaseException | None, tb: TracebackType | None
     ) -> None: ...

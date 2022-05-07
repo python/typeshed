@@ -2,11 +2,30 @@ import bz2
 import io
 import sys
 from _typeshed import Self, StrOrBytesPath, StrPath
+from builtins import list as _list, type as Type  # aliases to avoid name clashes with fields named "type" or "list"
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from gzip import _ReadableFileobj as _GzipReadableFileobj, _WritableFileobj as _GzipWritableFileobj
 from types import TracebackType
 from typing import IO, Protocol, overload
 from typing_extensions import Literal
+
+__all__ = [
+    "TarFile",
+    "TarInfo",
+    "is_tarfile",
+    "TarError",
+    "ReadError",
+    "CompressionError",
+    "StreamError",
+    "ExtractError",
+    "HeaderError",
+    "ENCODING",
+    "USTAR_FORMAT",
+    "GNU_FORMAT",
+    "PAX_FORMAT",
+    "DEFAULT_FORMAT",
+    "open",
+]
 
 class _Fileobj(Protocol):
     def read(self, __size: int) -> bytes: ...
@@ -90,8 +109,6 @@ def open(
 class ExFileObject(io.BufferedReader):
     def __init__(self, tarfile: TarFile, tarinfo: TarInfo) -> None: ...
 
-_list = list  # conflicts with method name
-
 class TarFile:
     OPEN_METH: Mapping[str, str]
     name: StrOrBytesPath | None
@@ -126,7 +143,7 @@ class TarFile:
     ) -> None: ...
     def __enter__(self: Self) -> Self: ...
     def __exit__(
-        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
+        self, type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
     ) -> None: ...
     def __iter__(self) -> Iterator[TarInfo]: ...
     @classmethod
@@ -339,9 +356,9 @@ class TarInfo:
     pax_headers: Mapping[str, str]
     def __init__(self, name: str = ...) -> None: ...
     @classmethod
-    def frombuf(cls, buf: bytes, encoding: str, errors: str) -> TarInfo: ...
+    def frombuf(cls: Type[Self], buf: bytes, encoding: str, errors: str) -> Self: ...
     @classmethod
-    def fromtarfile(cls, tarfile: TarFile) -> TarInfo: ...
+    def fromtarfile(cls: Type[Self], tarfile: TarFile) -> Self: ...
     @property
     def linkpath(self) -> str: ...
     @linkpath.setter

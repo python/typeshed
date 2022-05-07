@@ -1,11 +1,72 @@
 import sys
 from _typeshed import Self, StrPath
-from typing import Any, AsyncIterator, Awaitable, Callable, Iterable, Optional
+from collections.abc import AsyncIterator, Awaitable, Callable, Iterable, Sequence
+from typing import Any
+from typing_extensions import TypeAlias
 
 from . import events, protocols, transports
 from .base_events import Server
 
-_ClientConnectedCallback = Callable[[StreamReader, StreamWriter], Optional[Awaitable[None]]]
+if sys.platform == "win32":
+    if sys.version_info >= (3, 8):
+        __all__ = ("StreamReader", "StreamWriter", "StreamReaderProtocol", "open_connection", "start_server")
+    elif sys.version_info >= (3, 7):
+        __all__ = (
+            "StreamReader",
+            "StreamWriter",
+            "StreamReaderProtocol",
+            "open_connection",
+            "start_server",
+            "IncompleteReadError",
+            "LimitOverrunError",
+        )
+    else:
+        __all__ = [
+            "StreamReader",
+            "StreamWriter",
+            "StreamReaderProtocol",
+            "open_connection",
+            "start_server",
+            "IncompleteReadError",
+            "LimitOverrunError",
+        ]
+else:
+    if sys.version_info >= (3, 8):
+        __all__ = (
+            "StreamReader",
+            "StreamWriter",
+            "StreamReaderProtocol",
+            "open_connection",
+            "start_server",
+            "open_unix_connection",
+            "start_unix_server",
+        )
+    elif sys.version_info >= (3, 7):
+        __all__ = (
+            "StreamReader",
+            "StreamWriter",
+            "StreamReaderProtocol",
+            "open_connection",
+            "start_server",
+            "IncompleteReadError",
+            "LimitOverrunError",
+            "open_unix_connection",
+            "start_unix_server",
+        )
+    else:
+        __all__ = [
+            "StreamReader",
+            "StreamWriter",
+            "StreamReaderProtocol",
+            "open_connection",
+            "start_server",
+            "IncompleteReadError",
+            "LimitOverrunError",
+            "open_unix_connection",
+            "start_unix_server",
+        ]
+
+_ClientConnectedCallback: TypeAlias = Callable[[StreamReader, StreamWriter], Awaitable[None] | None]
 
 if sys.version_info < (3, 8):
     class IncompleteReadError(EOFError):
@@ -28,7 +89,7 @@ if sys.version_info >= (3, 10):
     ) -> tuple[StreamReader, StreamWriter]: ...
     async def start_server(
         client_connected_cb: _ClientConnectedCallback,
-        host: str | None = ...,
+        host: str | Sequence[str] | None = ...,
         port: int | str | None = ...,
         *,
         limit: int = ...,
@@ -59,9 +120,9 @@ else:
 
 if sys.platform != "win32":
     if sys.version_info >= (3, 7):
-        _PathType = StrPath
+        _PathType: TypeAlias = StrPath
     else:
-        _PathType = str
+        _PathType: TypeAlias = str
     if sys.version_info >= (3, 10):
         async def open_unix_connection(
             path: _PathType | None = ..., *, limit: int = ..., **kwds: Any
@@ -100,13 +161,13 @@ class StreamReaderProtocol(FlowControlMixin, protocols.Protocol):
 class StreamWriter:
     def __init__(
         self,
-        transport: transports.BaseTransport,
+        transport: transports.WriteTransport,
         protocol: protocols.BaseProtocol,
         reader: StreamReader | None,
         loop: events.AbstractEventLoop,
     ) -> None: ...
     @property
-    def transport(self) -> transports.BaseTransport: ...
+    def transport(self) -> transports.WriteTransport: ...
     def write(self, data: bytes) -> None: ...
     def writelines(self, data: Iterable[bytes]) -> None: ...
     def write_eof(self) -> None: ...

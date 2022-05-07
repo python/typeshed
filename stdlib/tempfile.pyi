@@ -1,19 +1,36 @@
 import os
 import sys
 from _typeshed import Self
+from collections.abc import Iterable, Iterator
 from types import TracebackType
-from typing import IO, Any, AnyStr, Generic, Iterable, Iterator, Union, overload
-from typing_extensions import Literal
+from typing import IO, Any, AnyStr, Generic, overload
+from typing_extensions import Literal, TypeAlias
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
+
+__all__ = [
+    "NamedTemporaryFile",
+    "TemporaryFile",
+    "SpooledTemporaryFile",
+    "TemporaryDirectory",
+    "mkstemp",
+    "mkdtemp",
+    "mktemp",
+    "TMP_MAX",
+    "gettempprefix",
+    "tempdir",
+    "gettempdir",
+    "gettempprefixb",
+    "gettempdirb",
+]
 
 # global variables
 TMP_MAX: int
 tempdir: str | None
 template: str
 
-_DirT = Union[AnyStr, os.PathLike[AnyStr]]
+_DirT: TypeAlias = AnyStr | os.PathLike[AnyStr]
 
 if sys.version_info >= (3, 8):
     @overload
@@ -169,7 +186,7 @@ class _TemporaryFileWrapper(Generic[AnyStr], IO[AnyStr]):
     delete: bool
     def __init__(self, file: IO[AnyStr], name: str, delete: bool = ...) -> None: ...
     def __enter__(self: Self) -> Self: ...
-    def __exit__(self, exc: type[BaseException] | None, value: BaseException | None, tb: TracebackType | None) -> bool | None: ...
+    def __exit__(self, exc: type[BaseException] | None, value: BaseException | None, tb: TracebackType | None) -> None: ...
     def __getattr__(self, name: str) -> Any: ...
     def close(self) -> None: ...
     # These methods don't exist directly on this object, but
@@ -293,9 +310,7 @@ class SpooledTemporaryFile(IO[AnyStr]):
 
     def rollover(self) -> None: ...
     def __enter__(self: Self) -> Self: ...
-    def __exit__(
-        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
-    ) -> bool | None: ...
+    def __exit__(self, exc: type[BaseException] | None, value: BaseException | None, tb: TracebackType | None) -> None: ...
     # These methods are copied from the abstract methods of IO, because
     # SpooledTemporaryFile implements IO.
     # See also https://github.com/python/typeshed/pull/2452#issuecomment-420657918.
@@ -308,7 +323,7 @@ class SpooledTemporaryFile(IO[AnyStr]):
     def readlines(self, hint: int = ...) -> list[AnyStr]: ...
     def seek(self, offset: int, whence: int = ...) -> int: ...
     def tell(self) -> int: ...
-    def truncate(self, size: int | None = ...) -> int: ...
+    def truncate(self, size: int | None = ...) -> None: ...  # type: ignore[override]
     def write(self, s: AnyStr) -> int: ...
     def writelines(self, iterable: Iterable[AnyStr]) -> None: ...
     def __iter__(self) -> Iterator[AnyStr]: ...
@@ -347,9 +362,7 @@ class TemporaryDirectory(Generic[AnyStr]):
 
     def cleanup(self) -> None: ...
     def __enter__(self) -> AnyStr: ...
-    def __exit__(
-        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
-    ) -> None: ...
+    def __exit__(self, exc: type[BaseException] | None, value: BaseException | None, tb: TracebackType | None) -> None: ...
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 

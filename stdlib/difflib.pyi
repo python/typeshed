@@ -1,8 +1,24 @@
 import sys
-from typing import Any, AnyStr, Callable, Generic, Iterable, Iterator, NamedTuple, Sequence, TypeVar, overload
+from collections.abc import Callable, Iterable, Iterator, Sequence
+from typing import Any, AnyStr, Generic, NamedTuple, TypeVar, overload
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
+
+__all__ = [
+    "get_close_matches",
+    "ndiff",
+    "restore",
+    "SequenceMatcher",
+    "Differ",
+    "IS_CHARACTER_JUNK",
+    "IS_LINE_JUNK",
+    "context_diff",
+    "unified_diff",
+    "diff_bytes",
+    "HtmlDiff",
+    "Match",
+]
 
 _T = TypeVar("_T")
 

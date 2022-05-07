@@ -1,8 +1,20 @@
 import sys
 from _typeshed import StrPath
+from collections.abc import Iterable, Iterator, Sequence
 from http.client import HTTPResponse
-from typing import ClassVar, Iterable, Iterator, Pattern, Sequence, TypeVar, overload
+from typing import ClassVar, Pattern, TypeVar, overload
 from urllib.request import Request
+
+__all__ = [
+    "Cookie",
+    "CookieJar",
+    "CookiePolicy",
+    "DefaultCookiePolicy",
+    "FileCookieJar",
+    "LWPCookieJar",
+    "LoadError",
+    "MozillaCookieJar",
+]
 
 _T = TypeVar("_T")
 

@@ -1,12 +1,10 @@
-import email.feedparser
+from collections.abc import Callable
+from email.feedparser import BytesFeedParser as BytesFeedParser, FeedParser as FeedParser
 from email.message import Message
 from email.policy import Policy
-from typing import BinaryIO, Callable, TextIO, TypeVar
+from typing import BinaryIO, TextIO
 
-_M = TypeVar("_M", bound=Message)
-
-FeedParser = email.feedparser.FeedParser[_M]
-BytesFeedParser = email.feedparser.BytesFeedParser[_M]
+__all__ = ["Parser", "HeaderParser", "BytesParser", "BytesHeaderParser", "FeedParser", "BytesFeedParser"]
 
 class Parser:
     def __init__(self, _class: Callable[[], Message] | None = ..., *, policy: Policy = ...) -> None: ...

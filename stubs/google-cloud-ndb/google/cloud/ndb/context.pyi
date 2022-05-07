@@ -1,4 +1,5 @@
-from typing import Any, Callable, NamedTuple
+from collections.abc import Callable
+from typing import Any, NamedTuple
 
 from google.cloud.ndb import Key, exceptions as exceptions
 
@@ -17,6 +18,7 @@ def get_context(raise_context_error: bool = ...): ...
 def get_toplevel_context(raise_context_error: bool = ...): ...
 
 class _ContextTuple(NamedTuple):
+    id: Any
     client: Any
     namespace: Any
     eventloop: Any
@@ -26,12 +28,14 @@ class _ContextTuple(NamedTuple):
     cache: Any
     global_cache: Any
     on_commit_callbacks: Any
+    transaction_complete_callbacks: Any
     legacy_data: Any
 
 class _Context(_ContextTuple):
     def __new__(
         cls,
         client,
+        id: Any | None = ...,
         namespace=...,
         eventloop: Any | None = ...,
         batches: Any | None = ...,
@@ -40,11 +44,11 @@ class _Context(_ContextTuple):
         cache: Any | None = ...,
         cache_policy: Any | None = ...,
         global_cache: Any | None = ...,
-        global_cache_flush_keys: object | None = ...,
         global_cache_policy: Callable[[Key], bool] | None = ...,
         global_cache_timeout_policy: Any | None = ...,
         datastore_policy: Any | None = ...,
         on_commit_callbacks: Any | None = ...,
+        transaction_complete_callbacks: Any | None = ...,
         legacy_data: bool = ...,
         retry: Any | None = ...,
         rpc_time: Any | None = ...,

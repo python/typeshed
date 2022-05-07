@@ -1,7 +1,7 @@
 import types
 from _typeshed import Self
 from abc import abstractmethod
-from typing import IO, Any, BinaryIO, Callable, Generator, Iterable, Iterator, Protocol, Text, TextIO, Union, overload
+from typing import IO, Any, BinaryIO, Callable, Generator, Iterable, Iterator, Protocol, Text, TextIO, overload
 from typing_extensions import Literal
 
 # TODO: this only satisfies the most common interface, where
@@ -55,11 +55,11 @@ _BytesToBytesEncodingT = Literal[
 @overload
 def encode(obj: bytes, encoding: _BytesToBytesEncodingT, errors: str = ...) -> bytes: ...
 @overload
-def encode(obj: str, encoding: Literal["rot13", "rot_13"] = ..., errors: str = ...) -> str: ...  # type: ignore
+def encode(obj: str, encoding: Literal["rot13", "rot_13"] = ..., errors: str = ...) -> str: ...
 @overload
 def encode(obj: _Decoded, encoding: str = ..., errors: str = ...) -> _Encoded: ...
 @overload
-def decode(obj: bytes, encoding: _BytesToBytesEncodingT, errors: str = ...) -> bytes: ...  # type: ignore
+def decode(obj: bytes, encoding: _BytesToBytesEncodingT, errors: str = ...) -> bytes: ...  # type: ignore[misc]
 @overload
 def decode(obj: str, encoding: Literal["rot13", "rot_13"] = ..., errors: str = ...) -> Text: ...
 @overload
@@ -85,7 +85,7 @@ class CodecInfo(tuple[_Encoder, _Decoder, _StreamReader, _StreamWriter]):
     def incrementaldecoder(self) -> _IncrementalDecoder: ...
     name: str
     def __new__(
-        cls,
+        cls: type[Self],
         encode: _Encoder,
         decode: _Decoder,
         streamreader: _StreamReader | None = ...,
@@ -95,7 +95,7 @@ class CodecInfo(tuple[_Encoder, _Decoder, _StreamReader, _StreamWriter]):
         name: str | None = ...,
         *,
         _is_text_encoding: bool | None = ...,
-    ) -> CodecInfo: ...
+    ) -> Self: ...
 
 def getencoder(encoding: str) -> _Encoder: ...
 def getdecoder(encoding: str) -> _Decoder: ...
@@ -243,7 +243,7 @@ class StreamRecoder(BinaryIO):
     def next(self) -> bytes: ...
     def __iter__(self: Self) -> Self: ...
     def write(self, data: bytes) -> int: ...
-    def writelines(self, list: Iterable[bytes]) -> int: ...  # type: ignore  # it's supposed to return None
+    def writelines(self, list: Iterable[bytes]) -> int: ...  # type: ignore[override]  # it's supposed to return None
     def reset(self) -> None: ...
     def __getattr__(self, name: str) -> Any: ...
     def __enter__(self: Self) -> Self: ...
