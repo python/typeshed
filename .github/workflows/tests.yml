@@ -50,7 +50,7 @@ jobs:
       - run: ./tests/pytype_test.py --print-stderr
 
   mypy:
-    name: Run mypy against the stubs
+    name: Run mypy against typeshed
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -64,7 +64,7 @@ jobs:
       - run: ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
 
   pyright:
-    name: Run pyright against the stubs
+    name: Run pyright against typeshed
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -114,7 +114,7 @@ jobs:
 
   stubtest-third-party:
     name: Check third party stubs with stubtest
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     if: github.event_name == 'pull_request'
     steps:
       - uses: actions/checkout@v2
@@ -138,7 +138,7 @@ jobs:
             APT_PACKAGES=$(python tests/get_apt_packages.py $STUBS)
             if test -n "$APT_PACKAGES"; then
               echo "Installing apt packages: $APT_PACKAGES"
-              sudo apt install -y $APT_PACKAGES
+              sudo apt update && sudo apt install -y $APT_PACKAGES
             fi
             python tests/stubtest_third_party.py $STUBS
           else
