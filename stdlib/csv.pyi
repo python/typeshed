@@ -91,8 +91,15 @@ class DictReader(Generic[_T], Iterator[_DictReadMapping[_T, str]]):
         restkey: str | None = ...,
         restval: str | None = ...,
         dialect: _DialectLike = ...,
-        *args: Any,
-        **kwds: Any,
+        *,
+        delimiter: str = ...,
+        quotechar: str | None = ...,
+        escapechar: str | None = ...,
+        doublequote: bool = ...,
+        skipinitialspace: bool = ...,
+        lineterminator: str = ...,
+        quoting: _QuotingType = ...,
+        strict: bool = ...,
     ) -> None: ...
     @overload
     def __init__(
@@ -102,8 +109,15 @@ class DictReader(Generic[_T], Iterator[_DictReadMapping[_T, str]]):
         restkey: str | None = ...,
         restval: str | None = ...,
         dialect: _DialectLike = ...,
-        *args: Any,
-        **kwds: Any,
+        *,
+        delimiter: str = ...,
+        quotechar: str | None = ...,
+        escapechar: str | None = ...,
+        doublequote: bool = ...,
+        skipinitialspace: bool = ...,
+        lineterminator: str = ...,
+        quoting: _QuotingType = ...,
+        strict: bool = ...,
     ) -> None: ...
     def __iter__(self: Self) -> Self: ...
     def __next__(self) -> _DictReadMapping[_T, str]: ...
@@ -120,8 +134,15 @@ class DictWriter(Generic[_T]):
         restval: Any | None = ...,
         extrasaction: Literal["raise", "ignore"] = ...,
         dialect: _DialectLike = ...,
-        *args: Any,
-        **kwds: Any,
+        *,
+        delimiter: str = ...,
+        quotechar: str | None = ...,
+        escapechar: str | None = ...,
+        doublequote: bool = ...,
+        skipinitialspace: bool = ...,
+        lineterminator: str = ...,
+        quoting: _QuotingType = ...,
+        strict: bool = ...,
     ) -> None: ...
     if sys.version_info >= (3, 8):
         def writeheader(self) -> Any: ...
