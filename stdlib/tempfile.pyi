@@ -221,11 +221,11 @@ class _TemporaryFileWrapper(Generic[AnyStr], IO[AnyStr]):
 # It does not actually derive from IO[AnyStr], but it does mostly behave
 # like one.
 if sys.version_info >= (3, 11):
-    _STFBase = io.IOBase
+    _SpooledTemporaryFileBase = io.IOBase
 else:
-    _STFBase = object
+    _SpooledTemporaryFileBase = object
 
-class SpooledTemporaryFile(IO[AnyStr], _STFBase):
+class SpooledTemporaryFile(IO[AnyStr], _SpooledTemporaryFileBase):
     @property
     def encoding(self) -> str: ...  # undocumented
     @property
