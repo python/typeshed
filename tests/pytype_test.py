@@ -103,10 +103,6 @@ def _get_module_name(filename: str) -> str:
     return ".".join(module_parts).replace(".pyi", "").replace(".__init__", "")
 
 
-def _is_version(path: str, version: str) -> bool:
-    return any("{}{}{}".format(d, os.path.sep, version) in path for d in TYPESHED_SUBDIRS)
-
-
 def check_subdirs_discoverable(subdir_paths: list[str]) -> None:
     for p in subdir_paths:
         if not os.path.isdir(p):
@@ -119,7 +115,7 @@ def determine_files_to_test(*, typeshed_location: str, paths: Sequence[str]) -> 
     Returns a list of pairs of the file path and Python version as an int."""
     filenames = find_stubs_in_paths(paths)
     ts = typeshed.Typeshed()
-    skipped = set(ts.read_blacklist())
+    skipped = set(ts.read_blacklist())  # pyright: ignore[reportUnknownArgumentType]
     files = []
     for f in sorted(filenames):
         rel = _get_relative(f)
@@ -163,7 +159,7 @@ def run_all_tests(*, files_to_test: Sequence[str], typeshed_location: str, print
 
     print("Ran pytype with {:d} pyis, got {:d} errors.".format(total_tests, errors))
     for f, v, err in bad:
-        print("{} ({}): {}".format(f, v, err))
+        print(f"{f} ({v}): {err}")
     if errors:
         raise SystemExit("\nRun again with --print-stderr to get the full stacktrace.")
 

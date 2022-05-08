@@ -4,6 +4,7 @@
     "include": [
         "stdlib",
         "stubs",
+        "tests",
         "test_cases"
     ],
     "exclude": [

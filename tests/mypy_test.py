@@ -19,7 +19,7 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
-from typing import TYPE_CHECKING, NamedTuple
+from typing import TYPE_CHECKING, Any, NamedTuple
 
 if TYPE_CHECKING:
     from _typeshed import StrPath
@@ -107,7 +107,7 @@ def add_files(files: list[str], seen: set[str], root: str, name: str, args: argp
             ds.sort()
             fs.sort()
             for f in fs:
-                m, x = os.path.splitext(f)
+                _, x = os.path.splitext(f)
                 if x in [".pyi", ".py"]:
                     fn = os.path.join(r, f)
                     if match(fn, args):
@@ -117,7 +117,7 @@ def add_files(files: list[str], seen: set[str], root: str, name: str, args: argp
 
 class MypyDistConf(NamedTuple):
     module_name: str
-    values: dict
+    values: dict[str, Any]
 
 
 # The configuration section in the metadata file looks like the following, with multiple module sections possible
@@ -133,7 +133,7 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
     with open(os.path.join("stubs", distribution, "METADATA.toml")) as f:
         data = dict(tomli.loads(f.read()))
 
-    mypy_tests_conf = data.get("mypy-tests")
+    mypy_tests_conf: dict[str, Any] | None = data.get("mypy-tests")
     if not mypy_tests_conf:
         return
 
@@ -145,7 +145,7 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
         assert module_name is not None, "{} should have a module_name key".format(section_name)
         assert isinstance(module_name, str), "{} should be a key-value pair".format(section_name)
 
-        values = mypy_section.get("values")
+        values: dict[str, Any] | None = mypy_section.get("values")
         assert values is not None, "{} should have a values section".format(section_name)
         assert isinstance(values, dict), "values should be a section"
 

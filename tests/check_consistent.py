@@ -75,7 +75,7 @@ def check_stubs() -> None:
 
 
 def check_same_files() -> None:
-    files = [os.path.join(root, file) for root, dir, files in os.walk(".") for file in files]
+    files = [os.path.join(root, file) for root, _, files in os.walk(".") for file in files]
     no_symlink = "You cannot use symlinks in typeshed, please copy {} to its link."
     for file in files:
         _, ext = os.path.splitext(file)
@@ -169,7 +169,7 @@ def check_metadata() -> None:
             for space in " \t\n":
                 assert space not in dep, f"For consistency dependency should not have whitespace: {dep}"
             assert ";" not in dep, f"Semicolons in dependencies are not supported, got {dep}"
-            stripped, relation, dep_version = _strip_dep_version(dep)
+            _, relation, dep_version = _strip_dep_version(dep)
             if relation:
                 assert relation in {"==", ">", ">=", "<", "<="}, f"Bad relation '{relation}' in dependency {dep}"
                 assert dep_version.count(".") <= 2, f"Bad version '{dep_version}' in dependency {dep}"
