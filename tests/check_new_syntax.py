@@ -44,10 +44,12 @@ def check_new_syntax(tree: ast.AST, path: Path, stub: str) -> list[str]:
     class OldSyntaxFinder(ast.NodeVisitor):
         def visit_AnnAssign(self, node: ast.AnnAssign) -> None:
             AnnotationUnionFinder().visit(node.annotation)
+            self.generic_visit(node)
 
         def visit_arg(self, node: ast.arg) -> None:
             if node.annotation is not None:
                 AnnotationUnionFinder().visit(node.annotation)
+            self.generic_visit(node)
 
         def _visit_function(self, node: ast.FunctionDef | ast.AsyncFunctionDef) -> None:
             if node.returns is not None:
@@ -62,10 +64,12 @@ def check_new_syntax(tree: ast.AST, path: Path, stub: str) -> list[str]:
 
         def visit_Assign(self, node: ast.Assign) -> None:
             NonAnnotationUnionFinder().visit(node.value)
+            self.generic_visit(node)
 
         def visit_ClassDef(self, node: ast.ClassDef) -> None:
             for base in node.bases:
                 NonAnnotationUnionFinder().visit(base)
+            self.generic_visit(node)
 
     class ObjectClassdefFinder(ast.NodeVisitor):
         def visit_ClassDef(self, node: ast.ClassDef) -> None:
@@ -80,10 +84,12 @@ def check_new_syntax(tree: ast.AST, path: Path, stub: str) -> list[str]:
         def visit_ImportFrom(self, node: ast.ImportFrom) -> None:
             if node.module == "typing" and any(thing.name == "Text" for thing in node.names):
                 errors.append(f"{path}:{node.lineno}: Use `str` instead of `typing.Text` in a Python-3-only stub.")
+            self.generic_visit(node)
 
         def visit_Attribute(self, node: ast.Attribute) -> None:
             if isinstance(node.value, ast.Name) and node.value.id == "typing" and node.attr == "Text":
                 errors.append(f"{path}:{node.lineno}: Use `str` instead of `typing.Text` in a Python-3-only stub.")
+            self.generic_visit(node)
 
     class IfFinder(ast.NodeVisitor):
         def visit_If(self, node: ast.If) -> None:
