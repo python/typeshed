@@ -798,7 +798,7 @@ class Popen(Generic[AnyStr]):
     stdout: IO[AnyStr] | None
     stderr: IO[AnyStr] | None
     pid: int
-    returncode: int | None
+    returncode: int | Any
     universal_newlines: bool
 
     # Technically it is wrong that Popen provides __new__ instead of __init__
