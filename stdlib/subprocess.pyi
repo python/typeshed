@@ -2,7 +2,7 @@ import sys
 from _typeshed import Self, StrOrBytesPath
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from types import TracebackType
-from typing import IO, Any, AnyStr, Generic, TypeVar, overload
+from typing import IO, Any, AnyStr, Generic, Optional, TypeVar, overload
 from typing_extensions import Literal, TypeAlias
 
 if sys.version_info >= (3, 9):
@@ -798,7 +798,7 @@ class Popen(Generic[AnyStr]):
     stdout: IO[AnyStr] | None
     stderr: IO[AnyStr] | None
     pid: int
-    returncode: int
+    returncode: Optional[int]
     universal_newlines: bool
 
     # Technically it is wrong that Popen provides __new__ instead of __init__
