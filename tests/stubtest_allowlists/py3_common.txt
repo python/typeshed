@@ -687,6 +687,7 @@ pkgutil.ImpLoader.source
 
 # None on the class, but never None on instances
 ast.FormattedValue.conversion
+_ast.FormattedValue.conversion
 
 # ==========
 # Exists at runtime, but missing from stubs
