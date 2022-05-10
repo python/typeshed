@@ -164,3 +164,7 @@ typing._SpecialForm.__mro_entries__
 unicodedata.UCD.is_normalized
 xml.parsers.expat.XMLParserType.SkippedEntityHandler
 xml.parsers.expat.XMLParserType.intern
+
+# None on the class, but never None on instances
+ast.FormattedValue.conversion
+_ast.FormattedValue.conversion
