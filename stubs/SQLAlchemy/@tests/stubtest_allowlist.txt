@@ -122,6 +122,9 @@ sqlalchemy.engine.base.Connection.engine
 sqlalchemy.engine.URL.normalized_query
 sqlalchemy.engine.url.URL.normalized_query
 
+# runtime has extra internal arguments that are inconsistent across micro versions
+sqlalchemy.testing.engines.testing_engine
+
 # unclear problems
 sqlalchemy.sql.elements.quoted_name.lower
 sqlalchemy.sql.elements.quoted_name.upper
