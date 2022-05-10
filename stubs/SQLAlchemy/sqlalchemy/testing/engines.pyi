@@ -47,7 +47,7 @@ def reconnecting_engine(url: Any | None = ..., options: Any | None = ...): ...
 def testing_engine(  # type: ignore[misc]
     url: URL | str | None = ...,
     options: Mapping[str, Any] | None = ...,
-    future: Any | None = ...,
+    future: bool | None = ...,
     asyncio: Literal[False] = ...,
     transfer_staticpool: bool = ...,
 ) -> Engine: ...
@@ -55,7 +55,7 @@ def testing_engine(  # type: ignore[misc]
 def testing_engine(
     url: URL | str | None = ...,
     options: Mapping[str, Any] | None = ...,
-    future: Any | None = ...,
+    future: bool | None = ...,
     asyncio: Literal[True] = ...,
     transfer_staticpool: bool = ...,
 ) -> AsyncEngine: ...
