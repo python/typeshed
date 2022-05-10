@@ -6,7 +6,7 @@ from typing_extensions import Literal
 
 from ..asyncio.client import Redis as AsyncRedis
 from ..client import _CommandOptions, _Key, _Value
-from ..typing import EncodableT, KeyT, PatternT, ScriptTextT
+from ..typing import EncodableT, KeyT, ScriptTextT
 
 _ScoreCastFuncReturn = TypeVar("_ScoreCastFuncReturn")
 _StrType = TypeVar("_StrType", bound=str | bytes)
