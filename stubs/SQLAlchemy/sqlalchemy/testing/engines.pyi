@@ -45,7 +45,7 @@ class ReconnectFixture:
 def reconnecting_engine(url: Any | None = ..., options: Any | None = ...): ...
 @overload
 def testing_engine(  # type: ignore[misc]
-    url: URL | None = ...,
+    url: URL | str | None = ...,
     options: Mapping[str, Any] | None = ...,
     future: Any | None = ...,
     asyncio: Literal[False] = ...,
@@ -53,7 +53,7 @@ def testing_engine(  # type: ignore[misc]
 ) -> Engine: ...
 @overload
 def testing_engine(
-    url: URL | None = ...,
+    url: URL | str | None = ...,
     options: Mapping[str, Any] | None = ...,
     future: Any | None = ...,
     asyncio: Literal[True] = ...,
