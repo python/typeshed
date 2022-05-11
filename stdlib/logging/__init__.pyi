@@ -5,9 +5,12 @@ from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequenc
 from io import TextIOWrapper
 from string import Template
 from time import struct_time
-from types import FrameType, GenericAlias, TracebackType
+from types import FrameType, TracebackType
 from typing import Any, ClassVar, Generic, Pattern, TextIO, TypeVar, Union, overload
 from typing_extensions import Literal, TypeAlias
+
+if sys.version_info >= (3, 11):
+    from types import GenericAlias
 
 __all__ = [
     "BASIC_FORMAT",
