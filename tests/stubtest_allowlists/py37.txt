@@ -6,9 +6,7 @@ _dummy_threading
 asyncio.AbstractEventLoop.run_in_executor  # allowed to return a Future, changed in 3.8
 asyncio.events.AbstractEventLoop.run_in_executor  # allowed to return a Future, changed in 3.8
 asyncio.Future.__init__  # Usually initialized from c object
-asyncio.Future._callbacks  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
-asyncio.futures.Future._callbacks  # Usually initialized from c object
 asyncio.locks._ContextManagerMixin.__enter__  # Always raises; deliberately omitted from the stub
 asyncio.locks._ContextManagerMixin.__exit__  # Always raises; deliberately omitted from the stub
 asyncio.transports.WriteTransport.get_write_buffer_limits  # Documented. Exists in subclasses, but not in WriteTransport itself
