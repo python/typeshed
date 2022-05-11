@@ -5,7 +5,7 @@ from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequenc
 from io import TextIOWrapper
 from string import Template
 from time import struct_time
-from types import FrameType, TracebackType
+from types import FrameType, GenericAlias, TracebackType
 from typing import Any, ClassVar, Generic, Pattern, TextIO, TypeVar, Union, overload
 from typing_extensions import Literal, TypeAlias
 
@@ -593,6 +593,8 @@ class LoggerAdapter(Generic[_L]):
     ) -> None: ...  # undocumented
     @property
     def name(self) -> str: ...  # undocumented
+    if sys.version_info >= (3, 11):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 def getLogger(name: str | None = ...) -> Logger: ...
 def getLoggerClass() -> type[Logger]: ...
@@ -769,6 +771,8 @@ class StreamHandler(Handler, Generic[_StreamT]):
     def __init__(self: StreamHandler[_StreamT], stream: _StreamT) -> None: ...
     if sys.version_info >= (3, 7):
         def setStream(self, stream: _StreamT) -> _StreamT | None: ...
+    if sys.version_info >= (3, 11):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 class FileHandler(StreamHandler[TextIOWrapper]):
     baseFilename: str  # undocumented
