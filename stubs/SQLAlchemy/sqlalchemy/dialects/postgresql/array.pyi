@@ -7,7 +7,7 @@ from ...sql import expression
 def Any(other, arrexpr, operator=...): ...
 def All(other, arrexpr, operator=...): ...
 
-class array(expression.ClauseList, expression.ColumnElement):
+class array(expression.ClauseList, expression.ColumnElement[_Any]):
     __visit_name__: str
     stringify_dialect: str
     inherit_cache: bool
@@ -20,7 +20,7 @@ CONTAINED_BY: _Any
 OVERLAP: _Any
 
 class ARRAY(sqltypes.ARRAY):
-    class Comparator(sqltypes.ARRAY.Comparator):
+    class Comparator(sqltypes.ARRAY.Comparator[_Any]):
         def contains(self, other, **kwargs): ...
         def contained_by(self, other): ...
         def overlap(self, other): ...

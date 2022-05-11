@@ -1,15 +1,53 @@
 import concurrent.futures
 import sys
-from collections.abc import Awaitable, Generator, Iterable, Iterator
+from collections.abc import Awaitable, Coroutine, Generator, Iterable, Iterator
 from types import FrameType
-from typing import Any, Coroutine, Generic, Optional, TextIO, TypeVar, Union, overload
-from typing_extensions import Literal
+from typing import Any, Generic, TextIO, TypeVar, overload
+from typing_extensions import Literal, TypeAlias
 
 from .events import AbstractEventLoop
 from .futures import Future
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
+
+if sys.version_info >= (3, 7):
+    __all__ = (
+        "Task",
+        "create_task",
+        "FIRST_COMPLETED",
+        "FIRST_EXCEPTION",
+        "ALL_COMPLETED",
+        "wait",
+        "wait_for",
+        "as_completed",
+        "sleep",
+        "gather",
+        "shield",
+        "ensure_future",
+        "run_coroutine_threadsafe",
+        "current_task",
+        "all_tasks",
+        "_register_task",
+        "_unregister_task",
+        "_enter_task",
+        "_leave_task",
+    )
+else:
+    __all__ = [
+        "Task",
+        "FIRST_COMPLETED",
+        "FIRST_EXCEPTION",
+        "ALL_COMPLETED",
+        "wait",
+        "wait_for",
+        "as_completed",
+        "sleep",
+        "gather",
+        "shield",
+        "ensure_future",
+        "run_coroutine_threadsafe",
+    ]
 
 _T = TypeVar("_T")
 _T1 = TypeVar("_T1")
@@ -18,8 +56,8 @@ _T3 = TypeVar("_T3")
 _T4 = TypeVar("_T4")
 _T5 = TypeVar("_T5")
 _FT = TypeVar("_FT", bound=Future[Any])
-_FutureT = Union[Future[_T], Generator[Any, None, _T], Awaitable[_T]]
-_TaskYieldType = Optional[Future[object]]
+_FutureT: TypeAlias = Future[_T] | Generator[Any, None, _T] | Awaitable[_T]
+_TaskYieldType: TypeAlias = Future[object] | None
 
 FIRST_COMPLETED = concurrent.futures.FIRST_COMPLETED
 FIRST_EXCEPTION = concurrent.futures.FIRST_EXCEPTION
@@ -276,6 +314,9 @@ class Task(Future[_T], Generic[_T]):
         def cancel(self, msg: Any | None = ...) -> bool: ...
     else:
         def cancel(self) -> bool: ...
+    if sys.version_info >= (3, 11):
+        def cancelling(self) -> int: ...
+        def uncancel(self) -> int: ...
     if sys.version_info < (3, 9):
         @classmethod
         def current_task(cls, loop: AbstractEventLoop | None = ...) -> Task[Any] | None: ...

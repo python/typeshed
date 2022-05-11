@@ -1,13 +1,25 @@
-from typing import Any, Callable, NamedTuple
+import sys
+from collections.abc import Callable
+from typing import Any, NamedTuple
 
 __all__ = ["scheduler"]
 
-class Event(NamedTuple):
-    time: float
-    priority: Any
-    action: Callable[..., Any]
-    argument: tuple[Any, ...]
-    kwargs: dict[str, Any]
+if sys.version_info >= (3, 10):
+    class Event(NamedTuple):
+        time: float
+        priority: Any
+        sequence: int
+        action: Callable[..., Any]
+        argument: tuple[Any, ...]
+        kwargs: dict[str, Any]
+
+else:
+    class Event(NamedTuple):
+        time: float
+        priority: Any
+        action: Callable[..., Any]
+        argument: tuple[Any, ...]
+        kwargs: dict[str, Any]
 
 class scheduler:
     timefunc: Callable[[], float]

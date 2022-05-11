@@ -1,14 +1,32 @@
 import sys
 from _typeshed import SupportsRead
+from collections.abc import Callable, Iterable, Iterator
 from importlib.abc import Loader, MetaPathFinder, PathEntryFinder
-from typing import IO, Any, Callable, Iterable, Iterator, NamedTuple
+from typing import IO, Any, NamedTuple, TypeVar
+
+__all__ = [
+    "get_importer",
+    "iter_importers",
+    "get_loader",
+    "find_loader",
+    "walk_packages",
+    "iter_modules",
+    "get_data",
+    "ImpImporter",
+    "ImpLoader",
+    "read_code",
+    "extend_path",
+    "ModuleInfo",
+]
+
+_PathT = TypeVar("_PathT", bound=Iterable[str])
 
 class ModuleInfo(NamedTuple):
     module_finder: MetaPathFinder | PathEntryFinder
     name: str
     ispkg: bool
 
-def extend_path(path: list[str], name: str) -> list[str]: ...
+def extend_path(path: _PathT, name: str) -> _PathT: ...
 
 class ImpImporter:
     def __init__(self, path: str | None = ...) -> None: ...

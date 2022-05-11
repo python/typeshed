@@ -12,8 +12,6 @@ from typing_extensions import Literal
 import _socket
 from _socket import (
     _FD,
-    CMSG_LEN as CMSG_LEN,
-    CMSG_SPACE as CMSG_SPACE,
     EAI_ADDRFAMILY as EAI_ADDRFAMILY,
     EAI_AGAIN as EAI_AGAIN,
     EAI_BADFLAGS as EAI_BADFLAGS,
@@ -213,7 +211,7 @@ from _socket import (
 if sys.version_info >= (3, 7):
     from _socket import close as close
 if sys.platform != "win32":
-    from _socket import sethostname as sethostname
+    from _socket import CMSG_LEN as CMSG_LEN, CMSG_SPACE as CMSG_SPACE, sethostname as sethostname
 if sys.platform != "win32" or sys.version_info >= (3, 8):
     from _socket import if_indextoname as if_indextoname, if_nameindex as if_nameindex, if_nametoindex as if_nametoindex
 if sys.platform == "linux":
@@ -368,6 +366,8 @@ if sys.platform == "linux" and sys.version_info >= (3, 9):
     )
 if sys.platform == "linux" and sys.version_info >= (3, 10):
     from _socket import IPPROTO_MPTCP as IPPROTO_MPTCP
+if sys.platform == "linux" and sys.version_info >= (3, 11):
+    from _socket import SO_INCOMING_CPU as SO_INCOMING_CPU
 if sys.platform == "win32":
     from _socket import (
         RCVALL_IPLEVEL as RCVALL_IPLEVEL,
@@ -607,11 +607,22 @@ class SocketIO(RawIOBase):
     def mode(self) -> Literal["rb", "wb", "rwb"]: ...
 
 def getfqdn(name: str = ...) -> str: ...
-def create_connection(
-    address: tuple[str | None, int],
-    timeout: float | None = ...,  # noqa: F811
-    source_address: tuple[bytearray | bytes | str, int] | None = ...,
-) -> socket: ...
+
+if sys.version_info >= (3, 11):
+    def create_connection(
+        address: tuple[str | None, int],
+        timeout: float | None = ...,  # noqa: F811
+        source_address: tuple[bytearray | bytes | str, int] | None = ...,
+        *,
+        all_errors: bool = ...,
+    ) -> socket: ...
+
+else:
+    def create_connection(
+        address: tuple[str | None, int],
+        timeout: float | None = ...,  # noqa: F811
+        source_address: tuple[bytearray | bytes | str, int] | None = ...,
+    ) -> socket: ...
 
 if sys.version_info >= (3, 8):
     def has_dualstack_ipv6() -> bool: ...
@@ -621,10 +632,5 @@ if sys.version_info >= (3, 8):
 
 # the 5th tuple item is an address
 def getaddrinfo(
-    host: bytearray | bytes | str | None,
-    port: str | int | None,
-    family: int = ...,
-    type: int = ...,
-    proto: int = ...,
-    flags: int = ...,
+    host: bytes | str | None, port: str | int | None, family: int = ..., type: int = ..., proto: int = ..., flags: int = ...
 ) -> list[tuple[AddressFamily, SocketKind, int, str, tuple[str, int] | tuple[str, int, int, int]]]: ...

@@ -1,11 +1,17 @@
 import sys
 from collections import deque
+from collections.abc import Callable, Generator
 from types import TracebackType
-from typing import Any, Callable, Generator, TypeVar
+from typing import Any, TypeVar
 from typing_extensions import Literal
 
 from .events import AbstractEventLoop
 from .futures import Future
+
+if sys.version_info >= (3, 7):
+    __all__ = ("Lock", "Event", "Condition", "Semaphore", "BoundedSemaphore")
+else:
+    __all__ = ["Lock", "Event", "Condition", "Semaphore", "BoundedSemaphore"]
 
 _T = TypeVar("_T")
 
@@ -20,7 +26,7 @@ else:
     class _ContextManager:
         def __init__(self, lock: Lock | Semaphore) -> None: ...
         def __enter__(self) -> None: ...
-        def __exit__(self, *args: Any) -> None: ...
+        def __exit__(self, *args: object) -> None: ...
 
     class _ContextManagerMixin:
         # Apparently this exists to *prohibit* use as a context manager.

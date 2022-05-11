@@ -1,6 +1,23 @@
 import sys
 from _typeshed import Self, StrOrBytesPath
-from typing import IO, Any, AnyStr, Callable, Generic, Iterable, Iterator
+from collections.abc import Callable, Iterable, Iterator
+from types import TracebackType
+from typing import IO, Any, AnyStr, Generic
+
+__all__ = [
+    "input",
+    "close",
+    "nextfile",
+    "filename",
+    "lineno",
+    "filelineno",
+    "fileno",
+    "isfirstline",
+    "isstdin",
+    "FileInput",
+    "hook_compressed",
+    "hook_encoded",
+]
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -83,7 +100,9 @@ class FileInput(Iterator[AnyStr], Generic[AnyStr]):
     def __del__(self) -> None: ...
     def close(self) -> None: ...
     def __enter__(self: Self) -> Self: ...
-    def __exit__(self, type: Any, value: Any, traceback: Any) -> None: ...
+    def __exit__(
+        self, type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
+    ) -> None: ...
     def __iter__(self: Self) -> Self: ...
     def __next__(self) -> AnyStr: ...
     if sys.version_info < (3, 11):
