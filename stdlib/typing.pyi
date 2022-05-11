@@ -493,7 +493,6 @@ class TypeVar:
 _promote = object()
 
 # N.B. Keep this definition in sync with typing_extensions._SpecialForm
-@_final
 class _SpecialForm:
     def __getitem__(self, parameters: Any) -> object: ...
     if sys.version_info >= (3, 10):
@@ -514,6 +513,7 @@ def overload(func: _F) -> _F: ...
 # do not need the default value assignment.
 Union: _SpecialForm = ...
 
+@_final
 class _GenericSpecialForm(_SpecialForm):
     # More precisely this is tuple[TypeForm, ...]
     # https://github.com/python/mypy/issues/9773
