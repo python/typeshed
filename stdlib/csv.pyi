@@ -23,7 +23,6 @@ from _csv import (
 )
 from _typeshed import Self, SupportsWrite
 from collections.abc import Collection, Iterable, Iterator, Mapping, Sequence
-from types import GenericAlias
 from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Literal
 
@@ -31,6 +30,9 @@ if sys.version_info >= (3, 8):
     from builtins import dict as _DictReadMapping
 else:
     from collections import OrderedDict as _DictReadMapping
+
+if sys.version_info >= (3, 12):
+    from types import GenericAlias
 
 __all__ = [
     "QUOTE_MINIMAL",
