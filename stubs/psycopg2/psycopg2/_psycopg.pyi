@@ -157,27 +157,27 @@ class Column:
     def __setstate__(self, state): ...
 
 class ConnectionInfo:
-    backend_pid: Any
-    dbname: Any
-    dsn_parameters: Any
-    error_message: Any
-    host: Any
-    needs_password: Any
-    options: Any
-    password: Any
-    port: Any
-    protocol_version: Any
-    server_version: Any
-    socket: Any
-    ssl_attribute_names: Any
-    ssl_in_use: Any
-    status: Any
-    transaction_status: Any
-    used_password: Any
-    user: Any
+    backend_pid: int
+    dbname: str
+    dsn_parameters: dict[str, str]
+    error_message: str | None
+    host: str
+    needs_password: bool
+    options: str
+    password: str
+    port: int
+    protocol_version: int
+    server_version: int
+    socket: int
+    ssl_attribute_names: list[str]
+    ssl_in_use: bool
+    status: int
+    transaction_status: int
+    used_password: bool
+    user: str
     def __init__(self, *args, **kwargs) -> None: ...
-    def parameter_status(self, *args, **kwargs): ...
-    def ssl_attribute(self, *args, **kwargs): ...
+    def parameter_status(self, name: str) -> str | None: ...
+    def ssl_attribute(self, name: str) -> str | None: ...
 
 class DataError(psycopg2.DatabaseError): ...
 class DatabaseError(psycopg2.Error): ...
