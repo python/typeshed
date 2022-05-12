@@ -1,6 +1,6 @@
 from typing import Any, Pattern
 
-PY37: Any
+PY37: bool
 __deprecated__: Any
 BLOCK_LEVEL_ELEMENTS: Any
 STX: str
