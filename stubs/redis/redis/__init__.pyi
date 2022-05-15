@@ -61,4 +61,4 @@ TimeoutError = exceptions.TimeoutError
 WatchError = exceptions.WatchError
 
 __version__: str
-VERSION: tuple[int | str]
+VERSION: tuple[int | str, ...]
