@@ -95,7 +95,7 @@ class Response:
     __attrs__: Any
     _content: bytes | None  # undocumented
     status_code: int
-    headers: CaseInsensitiveDict[str | bytes]
+    headers: CaseInsensitiveDict[str]
     raw: Any
     url: str
     encoding: str | None
