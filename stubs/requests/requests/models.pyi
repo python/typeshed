@@ -74,7 +74,7 @@ class Request(RequestHooksMixin):
 class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
     method: str | None
     url: str | None
-    headers: CaseInsensitiveDict[str | bytes]
+    headers: CaseInsensitiveDict[str]
     body: bytes | str | None
     hooks: Any
     def __init__(self) -> None: ...
