@@ -2,6 +2,7 @@ import sys
 
 if sys.version_info >= (3, 11):
     __all__ = (
+        "BrokenBarrierError",
         "CancelledError",
         "InvalidStateError",
         "TimeoutError",
