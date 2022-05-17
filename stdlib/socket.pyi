@@ -559,7 +559,7 @@ class socket(_socket.socket):
     # Note that the makefile's documented windows-specific behavior is not represented
     # mode strings with duplicates are intentionally excluded
     @overload
-    def makefile(
+    def makefile(  # type: ignore[misc]
         self,
         mode: Literal["b", "rb", "br", "wb", "bw", "rwb", "rbw", "wrb", "wbr", "brw", "bwr"],
         buffering: Literal[0],
