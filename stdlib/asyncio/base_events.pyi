@@ -313,6 +313,15 @@ class BaseEventLoop(AbstractEventLoop):
             ssl_handshake_timeout: float | None = ...,
             ssl_shutdown_timeout: float | None = ...,
         ) -> BaseTransport: ...
+        async def connect_accepted_socket(
+            self,
+            protocol_factory: Callable[[], _ProtocolT],
+            sock: socket,
+            *,
+            ssl: _SSLContext = ...,
+            ssl_handshake_timeout: float | None = ...,
+            ssl_shutdown_timeout: float | None = ...,
+        ) -> tuple[BaseTransport, _ProtocolT]: ...
     elif sys.version_info >= (3, 7):
         @overload
         async def create_server(
@@ -358,6 +367,14 @@ class BaseEventLoop(AbstractEventLoop):
             server_hostname: str | None = ...,
             ssl_handshake_timeout: float | None = ...,
         ) -> BaseTransport: ...
+        async def connect_accepted_socket(
+            self,
+            protocol_factory: Callable[[], _ProtocolT],
+            sock: socket,
+            *,
+            ssl: _SSLContext = ...,
+            ssl_handshake_timeout: float | None = ...,
+        ) -> tuple[BaseTransport, _ProtocolT]: ...
     else:
         @overload
         async def create_server(
@@ -389,25 +406,16 @@ class BaseEventLoop(AbstractEventLoop):
             reuse_address: bool | None = ...,
             reuse_port: bool | None = ...,
         ) -> Server: ...
+        async def connect_accepted_socket(
+            self, protocol_factory: Callable[[], _ProtocolT], sock: socket, *, ssl: _SSLContext = ...
+        ) -> tuple[BaseTransport, _ProtocolT]: ...
     if sys.version_info >= (3, 7):
         async def sock_sendfile(
             self, sock: socket, file: IO[bytes], offset: int = ..., count: int | None = ..., *, fallback: bool | None = ...
         ) -> int: ...
-        async def connect_accepted_socket(
-            self,
-            protocol_factory: Callable[[], _ProtocolT],
-            sock: socket,
-            *,
-            ssl: _SSLContext = ...,
-            ssl_handshake_timeout: float | None = ...,
-        ) -> tuple[BaseTransport, _ProtocolT]: ...
         async def sendfile(
             self, transport: BaseTransport, file: IO[bytes], offset: int = ..., count: int | None = ..., *, fallback: bool = ...
         ) -> int: ...
-    else:
-        async def connect_accepted_socket(
-            self, protocol_factory: Callable[[], _ProtocolT], sock: socket, *, ssl: _SSLContext = ...
-        ) -> tuple[BaseTransport, _ProtocolT]: ...
     if sys.version_info >= (3, 11):
         async def create_datagram_endpoint(  # type: ignore[override]
             self,
