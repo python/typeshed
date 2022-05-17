@@ -10,7 +10,7 @@ import sys
 import tempfile
 import venv
 from pathlib import Path
-from typing import NoReturn, TYPE_CHECKING
+from typing import TYPE_CHECKING, NoReturn
 
 import tomli
 
