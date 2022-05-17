@@ -1,9 +1,10 @@
-from _typeshed import Self
-from contextvars import Context
-from .events import AbstractEventLoop
 import sys
+from _typeshed import Self
 from collections.abc import Coroutine
+from contextvars import Context
 from typing import Any, TypeVar
+
+from .events import AbstractEventLoop
 
 if sys.version_info >= (3, 11):
     __all__ = ("Runner", "run")

@@ -1,11 +1,11 @@
 import enum
 import sys
+from _typeshed import Self
 from collections import deque
 from collections.abc import Callable, Generator
 from types import TracebackType
 from typing import Any, TypeVar
 from typing_extensions import Literal
-from _typeshed import Self
 
 from .events import AbstractEventLoop
 from .futures import Future
