@@ -1,4 +1,7 @@
 _?curses.A_ITALIC
+webbrowser.MacOSXOSAScript.__init__
+
+distutils.command.bdist_msi  # msi is only available on windows
 
 # Exists at runtime, but missing from stubs
 mmap.MADV_FREE

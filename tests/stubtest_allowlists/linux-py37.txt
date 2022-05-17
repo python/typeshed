@@ -1,3 +1,5 @@
 ctypes.wintypes
 ftplib.FTP.trust_server_pasv_ipv4_address  # Dangerous to use, intentionally undocumented, intentionally missing from typeshed. #6154
 pwd.getpwnam
+
+distutils.command.bdist_msi  # msi is only available on windows

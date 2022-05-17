@@ -52,6 +52,8 @@ gettext.install  # codeset default value is ['unspecified'] so can't be specifie
 gettext.translation  # codeset default value is ['unspecified'] so can't be specified
 hmac.new  # Stub is a white lie; see comments in the stub
 http.server.SimpleHTTPRequestHandler.__init__  # *args is expanded
+inspect.Signature.from_builtin  # Removed in 3.11, can add if someone needs this
+inspect.Signature.from_function  # Removed in 3.11, can add if someone needs this
 ipaddress.IPv4Interface.hostmask
 ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
@@ -109,6 +111,13 @@ collections.Generator.gi_yieldfrom
 collections.Mapping.get  # Adding None to the Union messed up mypy
 collections.Sequence.index  # Supporting None in end is not mandatory
 
+# SpooledTemporaryFile implements IO except these methods before Python 3.11
+# See also https://github.com/python/typeshed/pull/2452#issuecomment-420657918
+tempfile.SpooledTemporaryFile.__next__
+tempfile.SpooledTemporaryFile.readable
+tempfile.SpooledTemporaryFile.seekable
+tempfile.SpooledTemporaryFile.writable
+
 # Exists at runtime, but missing from stubs
 _dummy_thread.RLock
 _imp.source_hash
@@ -141,6 +150,7 @@ pyexpat.XMLParserType.SkippedEntityHandler
 pyexpat.XMLParserType.intern
 stringprep.unicodedata  # re-exported from unicodedata
 tempfile.SpooledTemporaryFile.softspace
+tkinter.Tk.split
 tkinter.commondialog.[A-Z_]+
 tkinter.commondialog.TclVersion
 tkinter.commondialog.TkVersion
@@ -162,3 +172,18 @@ typing._SpecialForm.__call__
 unicodedata.UCD.is_normalized
 xml.parsers.expat.XMLParserType.SkippedEntityHandler
 xml.parsers.expat.XMLParserType.intern
+
+# Side effects from module initialization
+_compat_pickle.excname
+email.contentmanager.maintype
+email.contentmanager.subtype
+inspect.k
+inspect.mod_dict
+inspect.v
+json.encoder.i
+lib2to3.pgen2.grammar.line
+lib2to3.pgen2.grammar.name
+lib2to3.pgen2.grammar.op
+pydoc.Helper.symbol  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
+pydoc.Helper.symbols_  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
+pydoc.Helper.topic  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522

@@ -42,6 +42,8 @@ dummy_threading.local.__new__
 enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 hmac.HMAC.__init__
+inspect.Signature.from_builtin  # Removed in 3.11, can add if someone needs this
+inspect.Signature.from_function  # Removed in 3.11, can add if someone needs this
 io.StringIO.readline
 ipaddress._BaseNetwork.__init__
 json.loads
@@ -119,6 +121,13 @@ collections.Generator.gi_yieldfrom
 collections.Mapping.get  # Adding None to the Union messed up mypy
 collections.Sequence.index  # Supporting None in end is not mandatory
 
+# SpooledTemporaryFile implements IO except these methods before Python 3.11
+# See also https://github.com/python/typeshed/pull/2452#issuecomment-420657918
+tempfile.SpooledTemporaryFile.__next__
+tempfile.SpooledTemporaryFile.readable
+tempfile.SpooledTemporaryFile.seekable
+tempfile.SpooledTemporaryFile.writable
+
 # Intentionally omitted because of syntax issues
 asyncio.async
 asyncio.tasks.async
@@ -142,8 +151,24 @@ plistlib.Data.fromBase64
 ssl.SSLObject.verify_client_post_handshake
 ssl.SSLSocket.verify_client_post_handshake
 tempfile.SpooledTemporaryFile.softspace
+tkinter.Tk.split
 tkinter.dnd.Icon
 tkinter.dnd.Tester
 tkinter.dnd.test
 typing.[A-Z]\w*.__.*__  # many missing typing dunders in py36
 xml.dom.xmlbuilder.DocumentLS.async
+
+# Side effects from module initialization
+_compat_pickle.excname
+email.contentmanager.maintype
+email.contentmanager.subtype
+inspect.k
+inspect.mod_dict
+inspect.v
+json.encoder.i
+lib2to3.pgen2.grammar.line
+lib2to3.pgen2.grammar.name
+lib2to3.pgen2.grammar.op
+pydoc.Helper.symbol  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
+pydoc.Helper.symbols_  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
+pydoc.Helper.topic  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522

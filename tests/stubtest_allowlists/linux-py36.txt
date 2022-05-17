@@ -10,3 +10,5 @@ posix.stat_float_times
 ssl.OP_ENABLE_MIDDLEBOX_COMPAT
 ssl.Options.OP_ENABLE_MIDDLEBOX_COMPAT
 uuid.lib
+
+distutils.command.bdist_msi  # msi is only available on windows

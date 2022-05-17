@@ -1,6 +1,8 @@
 _?curses.A_ITALIC
-_curses.color_pair
-curses.color_pair
+_?curses.color_pair
+webbrowser.MacOSXOSAScript.__init__
+
+distutils.command.bdist_msi  # msi is only available on windows
 
 # Exists at runtime, but missing from stubs
 mmap.MADV_FREE
