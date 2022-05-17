@@ -1,11 +1,4 @@
-# pathlib methods that exist on Windows, but always raise NotImplementedError,
-# so are omitted from the stub
-pathlib.WindowsPath.is_mount
-pathlib.Path.is_mount
 
-os.EX_OK
-
-# Exists at runtime, but missing from stubs
 _winapi.CreateFileMapping
 _winapi.MapViewOfFile
 _winapi.OpenFileMapping
@@ -18,5 +11,15 @@ asyncio.windows_events.IocpProactor.recvfrom_into
 asyncio.windows_events.IocpProactor.sendto
 distutils.command.build_ext.__warningregistry__
 msvcrt.GetErrorMode
+os.EX_OK
 socket.MsgFlag.MSG_ERRQUEUE
 subprocess.STARTUPINFO.copy
+
+# ==========
+# Allowlist entries that cannot or should not be fixed
+# ==========
+
+# pathlib methods that exist on Windows, but always raise NotImplementedError,
+# so are omitted from the stub
+pathlib.Path.is_mount
+pathlib.WindowsPath.is_mount

@@ -25,13 +25,7 @@ collections.AsyncGenerator.ag_frame
 collections.AsyncGenerator.ag_running
 collections.Callable
 collections.Mapping.__reversed__  # Set to None at runtime for a better error message
-# Adding these reflected dunders to `typing.AbstractSet` causes a large number of false-positives. See #7414.
-collections.Set.__rand__
-collections.Set.__ror__
-collections.Set.__rsub__
-collections.Set.__rxor__
 collections.UserString.maketrans
-contextvars.Context.__init__  # Default C __init__ signature is wrong
 contextvars.ContextVar.get
 dataclasses.field
 distutils.command.bdist_wininst  # see #6523
@@ -48,8 +42,6 @@ inspect.Signature.from_function  # Removed in 3.11, can add if someone needs thi
 ipaddress._BaseNetwork.__init__
 json.loads
 (os|posix).utime
-pyexpat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args
-queue.SimpleQueue.__init__  # Default C __init__ signature is wrong
 random.Random.randrange  # missing undocumented arg _int
 re.Pattern.scanner  # Undocumented and not useful. #6405
 sched.Event.__doc__  # __slots__ is overridden
@@ -70,17 +62,9 @@ uuid.UUID.is_safe
 uuid.getnode  # undocumented, unused parameter getters that was later removed
 xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495
 xml.etree.cElementTree.TreeBuilder.start  # bpo-39495
-xml.parsers.expat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args
 # These enums derive from (int, IntEnum) or (str, Enum). See comment in py3_common.txt
 pstats.SortKey.__new__
 tkinter.EventType.__new__
-
-builtins.memoryview.__iter__  # C type that implements __getitem__
-builtins.memoryview.cast  # inspect.signature is incorrect about shape being kw-only
-sqlite3.dbapi2.Binary.__iter__  # C type that implements __getitem__
-sqlite3.dbapi2.Binary.cast  # inspect.signature is incorrect about shape being kw-only
-sqlite3.Binary.__iter__  # C type that implements __getitem__
-sqlite3.Binary.cast  # inspect.signature is incorrect about shape being kw-only
 
 sqlite3.OptimizedUnicode.maketrans
 sqlite3.dbapi2.OptimizedUnicode.maketrans
@@ -150,6 +134,10 @@ tkinter.simpledialog.wantobjects
 tkinter.tix.wantobjects
 typing._SpecialForm.__call__
 
+# ==========
+# Allowlist entries that cannot or should not be fixed
+# ==========
+
 # Side effects from module initialization
 _compat_pickle.excname
 email.contentmanager.maintype
@@ -164,3 +152,23 @@ lib2to3.pgen2.grammar.op
 pydoc.Helper.symbol  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
 pydoc.Helper.symbols_  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
 pydoc.Helper.topic  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
+
+# Adding these reflected dunders to `typing.AbstractSet` causes a large number of false-positives. See #7414.
+collections.Set.__rand__
+collections.Set.__ror__
+collections.Set.__rsub__
+collections.Set.__rxor__
+
+builtins.memoryview.__iter__  # C type that implements __getitem__
+builtins.memoryview.cast  # inspect.signature is incorrect about shape being kw-only
+sqlite3.dbapi2.Binary.__iter__  # C type that implements __getitem__
+sqlite3.dbapi2.Binary.cast  # inspect.signature is incorrect about shape being kw-only
+sqlite3.Binary.__iter__  # C type that implements __getitem__
+sqlite3.Binary.cast  # inspect.signature is incorrect about shape being kw-only
+
+# C signature is broader than what is actually accepted
+contextvars.Context.__init__
+queue.SimpleQueue.__init__
+
+pyexpat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args
+xml.parsers.expat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args
