@@ -1,6 +1,6 @@
+from _typeshed import Self
 from types import TracebackType
 from typing import final
-from _typeshed import Self
 
 __all__ = ("Timeout", "timeout", "timeout_at")
 
