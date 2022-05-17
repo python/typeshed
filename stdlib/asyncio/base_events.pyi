@@ -29,7 +29,18 @@ _ProtocolFactory: TypeAlias = Callable[[], BaseProtocol]
 _SSLContext: TypeAlias = bool | None | ssl.SSLContext
 
 class Server(AbstractServer):
-    if sys.version_info >= (3, 7):
+    if sys.version_info >= (3, 11):
+        def __init__(
+            self,
+            loop: AbstractEventLoop,
+            sockets: Iterable[socket],
+            protocol_factory: _ProtocolFactory,
+            ssl_context: _SSLContext,
+            backlog: int,
+            ssl_handshake_timeout: float | None,
+            ssl_shutdown_timeout: float | None = ...,
+        ) -> None: ...
+    elif sys.version_info >= (3, 7):
         def __init__(
             self,
             loop: AbstractEventLoop,
@@ -39,12 +50,13 @@ class Server(AbstractServer):
             backlog: int,
             ssl_handshake_timeout: float | None,
         ) -> None: ...
+    else:
+        def __init__(self, loop: AbstractEventLoop, sockets: list[socket]) -> None: ...
+    if sys.version_info >= (3, 7):
         def get_loop(self) -> AbstractEventLoop: ...
         def is_serving(self) -> bool: ...
         async def start_serving(self) -> None: ...
         async def serve_forever(self) -> None: ...
-    else:
-        def __init__(self, loop: AbstractEventLoop, sockets: list[socket]) -> None: ...
     if sys.version_info >= (3, 8):
         @property
         def sockets(self) -> tuple[socket, ...]: ...
@@ -113,7 +125,46 @@ class BaseEventLoop(AbstractEventLoop):
         flags: int = ...,
     ) -> list[tuple[AddressFamily, SocketKind, int, str, tuple[str, int] | tuple[str, int, int, int]]]: ...
     async def getnameinfo(self, sockaddr: tuple[str, int] | tuple[str, int, int, int], flags: int = ...) -> tuple[str, str]: ...
-    if sys.version_info >= (3, 8):
+    if sys.version_info >= (3, 11):
+        @overload
+        async def create_connection(
+            self,
+            protocol_factory: Callable[[], _ProtocolT],
+            host: str = ...,
+            port: int = ...,
+            *,
+            ssl: _SSLContext = ...,
+            family: int = ...,
+            proto: int = ...,
+            flags: int = ...,
+            sock: None = ...,
+            local_addr: tuple[str, int] | None = ...,
+            server_hostname: str | None = ...,
+            ssl_handshake_timeout: float | None = ...,
+            ssl_shutdown_timeout: float | None = ...,
+            happy_eyeballs_delay: float | None = ...,
+            interleave: int | None = ...,
+        ) -> tuple[BaseTransport, _ProtocolT]: ...
+        @overload
+        async def create_connection(
+            self,
+            protocol_factory: Callable[[], _ProtocolT],
+            host: None = ...,
+            port: None = ...,
+            *,
+            ssl: _SSLContext = ...,
+            family: int = ...,
+            proto: int = ...,
+            flags: int = ...,
+            sock: socket,
+            local_addr: None = ...,
+            server_hostname: str | None = ...,
+            ssl_handshake_timeout: float | None = ...,
+            ssl_shutdown_timeout: float | None = ...,
+            happy_eyeballs_delay: float | None = ...,
+            interleave: int | None = ...,
+        ) -> tuple[BaseTransport, _ProtocolT]: ...
+    elif sys.version_info >= (3, 8):
         @overload
         async def create_connection(
             self,
@@ -214,10 +265,55 @@ class BaseEventLoop(AbstractEventLoop):
             local_addr: None = ...,
             server_hostname: str | None = ...,
         ) -> tuple[BaseTransport, _ProtocolT]: ...
-    if sys.version_info >= (3, 7):
-        async def sock_sendfile(
-            self, sock: socket, file: IO[bytes], offset: int = ..., count: int | None = ..., *, fallback: bool | None = ...
-        ) -> int: ...
+    if sys.version_info >= (3, 11):
+        @overload
+        async def create_server(
+            self,
+            protocol_factory: _ProtocolFactory,
+            host: str | Sequence[str] | None = ...,
+            port: int = ...,
+            *,
+            family: int = ...,
+            flags: int = ...,
+            sock: None = ...,
+            backlog: int = ...,
+            ssl: _SSLContext = ...,
+            reuse_address: bool | None = ...,
+            reuse_port: bool | None = ...,
+            ssl_handshake_timeout: float | None = ...,
+            ssl_shutdown_timeout: float | None = ...,
+            start_serving: bool = ...,
+        ) -> Server: ...
+        @overload
+        async def create_server(
+            self,
+            protocol_factory: _ProtocolFactory,
+            host: None = ...,
+            port: None = ...,
+            *,
+            family: int = ...,
+            flags: int = ...,
+            sock: socket = ...,
+            backlog: int = ...,
+            ssl: _SSLContext = ...,
+            reuse_address: bool | None = ...,
+            reuse_port: bool | None = ...,
+            ssl_handshake_timeout: float | None = ...,
+            ssl_shutdown_timeout: float | None = ...,
+            start_serving: bool = ...,
+        ) -> Server: ...
+        async def start_tls(
+            self,
+            transport: BaseTransport,
+            protocol: BaseProtocol,
+            sslcontext: ssl.SSLContext,
+            *,
+            server_side: bool = ...,
+            server_hostname: str | None = ...,
+            ssl_handshake_timeout: float | None = ...,
+            ssl_shutdown_timeout: float | None = ...,
+        ) -> BaseTransport: ...        
+    elif sys.version_info >= (3, 7):
         @overload
         async def create_server(
             self,
@@ -252,17 +348,6 @@ class BaseEventLoop(AbstractEventLoop):
             ssl_handshake_timeout: float | None = ...,
             start_serving: bool = ...,
         ) -> Server: ...
-        async def connect_accepted_socket(
-            self,
-            protocol_factory: Callable[[], _ProtocolT],
-            sock: socket,
-            *,
-            ssl: _SSLContext = ...,
-            ssl_handshake_timeout: float | None = ...,
-        ) -> tuple[BaseTransport, _ProtocolT]: ...
-        async def sendfile(
-            self, transport: BaseTransport, file: IO[bytes], offset: int = ..., count: int | None = ..., *, fallback: bool = ...
-        ) -> int: ...
         async def start_tls(
             self,
             transport: BaseTransport,
@@ -304,6 +389,22 @@ class BaseEventLoop(AbstractEventLoop):
             reuse_address: bool | None = ...,
             reuse_port: bool | None = ...,
         ) -> Server: ...
+    if sys.version_info >= (3, 7):
+        async def sock_sendfile(
+            self, sock: socket, file: IO[bytes], offset: int = ..., count: int | None = ..., *, fallback: bool | None = ...
+        ) -> int: ...
+        async def connect_accepted_socket(
+            self,
+            protocol_factory: Callable[[], _ProtocolT],
+            sock: socket,
+            *,
+            ssl: _SSLContext = ...,
+            ssl_handshake_timeout: float | None = ...,
+        ) -> tuple[BaseTransport, _ProtocolT]: ...
+        async def sendfile(
+            self, transport: BaseTransport, file: IO[bytes], offset: int = ..., count: int | None = ..., *, fallback: bool = ...
+        ) -> int: ...
+    else:
         async def connect_accepted_socket(
             self, protocol_factory: Callable[[], _ProtocolT], sock: socket, *, ssl: _SSLContext = ...
         ) -> tuple[BaseTransport, _ProtocolT]: ...
