@@ -553,11 +553,7 @@ class AbstractEventLoop:
             ssl: _SSLContext = ...,
         ) -> Server: ...
         async def connect_accepted_socket(
-            self,
-            protocol_factory: _ProtocolFactory,
-            sock: socket,
-            *,
-            ssl: _SSLContext = ...,
+            self, protocol_factory: _ProtocolFactory, sock: socket, *, ssl: _SSLContext = ...
         ) -> tuple[BaseTransport, _ProtocolT]: ...
     if sys.version_info >= (3, 7):
         @abstractmethod
