@@ -169,6 +169,13 @@ xml.parsers.expat.XMLParserType.intern
 ast.FormattedValue.conversion
 _ast.FormattedValue.conversion
 
+# SpooledTemporaryFile implements IO except these methods before Python 3.11
+# See also https://github.com/python/typeshed/pull/2452#issuecomment-420657918
+tempfile.SpooledTemporaryFile.__next__
+tempfile.SpooledTemporaryFile.readable
+tempfile.SpooledTemporaryFile.seekable
+tempfile.SpooledTemporaryFile.writable
+
 # Side effects from module initialization
 _compat_pickle.excname
 email.contentmanager.maintype
@@ -180,3 +187,6 @@ json.encoder.i
 lib2to3.pgen2.grammar.line
 lib2to3.pgen2.grammar.name
 lib2to3.pgen2.grammar.op
+pydoc.Helper.symbol  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
+pydoc.Helper.symbols_  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
+pydoc.Helper.topic  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522

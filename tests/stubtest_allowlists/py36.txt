@@ -121,6 +121,13 @@ collections.Generator.gi_yieldfrom
 collections.Mapping.get  # Adding None to the Union messed up mypy
 collections.Sequence.index  # Supporting None in end is not mandatory
 
+# SpooledTemporaryFile implements IO except these methods before Python 3.11
+# See also https://github.com/python/typeshed/pull/2452#issuecomment-420657918
+tempfile.SpooledTemporaryFile.__next__
+tempfile.SpooledTemporaryFile.readable
+tempfile.SpooledTemporaryFile.seekable
+tempfile.SpooledTemporaryFile.writable
+
 # Intentionally omitted because of syntax issues
 asyncio.async
 asyncio.tasks.async
@@ -161,3 +168,6 @@ json.encoder.i
 lib2to3.pgen2.grammar.line
 lib2to3.pgen2.grammar.name
 lib2to3.pgen2.grammar.op
+pydoc.Helper.symbol  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
+pydoc.Helper.symbols_  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
+pydoc.Helper.topic  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522

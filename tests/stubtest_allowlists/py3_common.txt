@@ -187,12 +187,6 @@ sys.gettotalrefcount  # Available on python debug builds
 sys.implementation  # Actually SimpleNamespace but then you wouldn't have convenient attributes
 sys.thread_info
 tarfile.TarFile.errors  # errors is initialized for some reason as None even though it really only accepts str
-# SpooledTemporaryFile implements IO except these methods
-# See also https://github.com/python/typeshed/pull/2452#issuecomment-420657918
-tempfile.SpooledTemporaryFile.__next__
-tempfile.SpooledTemporaryFile.readable
-tempfile.SpooledTemporaryFile.seekable
-tempfile.SpooledTemporaryFile.writable
 threading.Condition.acquire  # Condition functions are exported in __init__
 threading.Condition.release  # Condition functions are exported in __init__
 tkinter.simpledialog.[A-Z_]+
@@ -279,9 +273,6 @@ distutils.command.check.SilentReporter  # only defined if docutils in installed
 hmac.HMAC.blocksize  # use block_size instead
 pickle.Pickler.memo  # undocumented implementation detail, has different type in C/Python implementations
 pickle.Unpickler.memo  # undocumented implementation detail, has different type in C/Python implementations
-pydoc.Helper.symbol  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
-pydoc.Helper.symbols_  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
-pydoc.Helper.topic  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
 # Dynamically specified by __getattr__, and thus don't exist on the class
 tempfile._TemporaryFileWrapper.[\w_]+
 # stubtest incorrectly highlights the type argument as not having a default value.
