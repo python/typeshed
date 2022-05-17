@@ -8,7 +8,6 @@ from .blockparser import BlockParser
 from .extensions import Extension
 from .util import HtmlStash, Registry
 
-
 # TODO: The following protocols can be replaced by their counterparts from
 # codecs, once they have been propagated to all type checkers.
 class _WritableStream(Protocol):
