@@ -303,13 +303,7 @@ class StreamReaderWriter(TextIO):
 
 class StreamRecoder(BinaryIO):
     def __init__(
-        self,
-        stream: _Stream,
-        encode: _Encoder,
-        decode: _Decoder,
-        Reader: _StreamReader,
-        Writer: _StreamWriter,
-        errors: str = ...,
+        self, stream: _Stream, encode: _Encoder, decode: _Decoder, Reader: _StreamReader, Writer: _StreamWriter, errors: str = ...
     ) -> None: ...
     def read(self, size: int = ...) -> bytes: ...
     def readline(self, size: int | None = ...) -> bytes: ...
