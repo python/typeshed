@@ -1,11 +1,23 @@
-__all__ = (
-    "CancelledError",
-    "InvalidStateError",
-    "TimeoutError",
-    "IncompleteReadError",
-    "LimitOverrunError",
-    "SendfileNotAvailableError",
-)
+import sys
+
+if sys.version_info >= (3, 11):
+    __all__ = (
+        "CancelledError",
+        "InvalidStateError",
+        "TimeoutError",
+        "IncompleteReadError",
+        "LimitOverrunError",
+        "SendfileNotAvailableError",
+    )
+else:
+    __all__ = (
+        "CancelledError",
+        "InvalidStateError",
+        "TimeoutError",
+        "IncompleteReadError",
+        "LimitOverrunError",
+        "SendfileNotAvailableError",
+    )
 
 class CancelledError(BaseException): ...
 class TimeoutError(Exception): ...
@@ -20,3 +32,6 @@ class IncompleteReadError(EOFError):
 class LimitOverrunError(Exception):
     consumed: int
     def __init__(self, message: str, consumed: int) -> None: ...
+
+if sys.version_info >= (3, 11):
+    class BrokenBarrierError(RuntimeError): ...

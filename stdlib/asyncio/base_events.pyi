@@ -98,7 +98,15 @@ class BaseEventLoop(AbstractEventLoop):
     # Future methods
     def create_future(self) -> Future[Any]: ...
     # Tasks methods
-    if sys.version_info >= (3, 8):
+    if sys.version_info >= (3, 11):
+        def create_task(
+            self,
+            coro: Coroutine[Any, Any, _T] | Generator[Any, None, _T],
+            *,
+            name: str | None = ...,
+            context: Context | None = ...,
+        ) -> Task[_T]: ...
+    elif sys.version_info >= (3, 8):
         def create_task(self, coro: Coroutine[Any, Any, _T] | Generator[Any, None, _T], *, name: object = ...) -> Task[_T]: ...
     else:
         def create_task(self, coro: Coroutine[Any, Any, _T] | Generator[Any, None, _T]) -> Task[_T]: ...

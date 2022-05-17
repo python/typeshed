@@ -184,7 +184,16 @@ class AbstractEventLoop:
     @abstractmethod
     def create_future(self) -> Future[Any]: ...
     # Tasks methods
-    if sys.version_info >= (3, 8):
+    if sys.version_info >= (3, 11):
+        @abstractmethod
+        def create_task(
+            self,
+            coro: Coroutine[Any, Any, _T] | Generator[Any, None, _T],
+            *,
+            name: str | None = ...,
+            context: Context | None = ...,
+        ) -> Task[_T]: ...
+    elif sys.version_info >= (3, 8):
         @abstractmethod
         def create_task(
             self, coro: Coroutine[Any, Any, _T] | Generator[Any, None, _T], *, name: str | None = ...
@@ -554,11 +563,19 @@ class AbstractEventLoop:
             ssl: _SSLContext = ...,
             ssl_handshake_timeout: float | None = ...,
         ) -> tuple[BaseTransport, _ProtocolT]: ...
-    if sys.version_info >= (3, 7):
-        @abstractmethod
-        async def sock_sendfile(
-            self, sock: socket, file: IO[bytes], offset: int = ..., count: int | None = ..., *, fallback: bool | None = ...
-        ) -> int: ...
+    if sys.version_info >= (3, 11):
+        async def create_unix_connection(
+            self,
+            protocol_factory: Callable[[], _ProtocolT],
+            path: str | None = ...,
+            *,
+            ssl: _SSLContext = ...,
+            sock: socket | None = ...,
+            server_hostname: str | None = ...,
+            ssl_handshake_timeout: float | None = ...,
+            ssl_shutdown_timeout: float | None = ...,
+        ) -> tuple[BaseTransport, _ProtocolT]: ...
+    elif sys.version_info >= (3, 7):
         async def create_unix_connection(
             self,
             protocol_factory: Callable[[], _ProtocolT],
@@ -569,10 +586,6 @@ class AbstractEventLoop:
             server_hostname: str | None = ...,
             ssl_handshake_timeout: float | None = ...,
         ) -> tuple[BaseTransport, _ProtocolT]: ...
-        @abstractmethod
-        async def sendfile(
-            self, transport: BaseTransport, file: IO[bytes], offset: int = ..., count: int | None = ..., *, fallback: bool = ...
-        ) -> int: ...
     else:
         async def create_unix_connection(
             self,
@@ -583,6 +596,15 @@ class AbstractEventLoop:
             sock: socket | None = ...,
             server_hostname: str | None = ...,
         ) -> tuple[BaseTransport, _ProtocolT]: ...
+    if sys.version_info >= (3, 7):
+        @abstractmethod
+        async def sock_sendfile(
+            self, sock: socket, file: IO[bytes], offset: int = ..., count: int | None = ..., *, fallback: bool | None = ...
+        ) -> int: ...
+        @abstractmethod
+        async def sendfile(
+            self, transport: BaseTransport, file: IO[bytes], offset: int = ..., count: int | None = ..., *, fallback: bool = ...
+        ) -> int: ...
 
     @abstractmethod
     async def create_datagram_endpoint(
@@ -670,6 +692,13 @@ class AbstractEventLoop:
         def sock_connect(self, sock: socket, address: _Address) -> Future[None]: ...
         @abstractmethod
         def sock_accept(self, sock: socket) -> Future[tuple[socket, _RetAddress]]: ...
+    if sys.version_info >= (3, 11):
+        @abstractmethod
+        async def sock_recvfrom(self, sock: socket, bufsize: int) -> bytes: ...
+        @abstractmethod
+        async def sock_recvfrom_into(self, sock: socket, buf: bytearray, nbytes: int = ...) -> int: ...
+        @abstractmethod
+        async def sock_sendto(self, sock: socket, data: bytes, address: _Address) -> None: ...
     # Signal handling.
     @abstractmethod
     def add_signal_handler(self, sig: int, callback: Callable[..., Any], *args: Any) -> None: ...

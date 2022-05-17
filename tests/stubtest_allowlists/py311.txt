@@ -292,6 +292,8 @@ ast.Index.__new__
 ast.NameConstant.__new__
 ast.Num.__new__
 ast.Str.__new__
+asyncio.futures.Future.__init__
+asyncio.Future.__init__
 contextvars.Context.__init__
 queue.SimpleQueue.__init__
 xml.etree.ElementTree.XMLParser.__init__
