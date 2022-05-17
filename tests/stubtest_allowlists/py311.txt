@@ -117,9 +117,6 @@ asyncio.selector_events.BaseSelectorEventLoop.sock_sendto
 asyncio.sslproto.AppProtocolState
 asyncio.sslproto.SSLAgainErrors
 asyncio.sslproto.SSLProtocol.__init__
-asyncio.sslproto.SSLProtocol._finalize
-asyncio.sslproto.SSLProtocol._process_write_backlog
-asyncio.sslproto.SSLProtocol._write_appdata
 asyncio.sslproto.SSLProtocol.buffer_updated
 asyncio.sslproto.SSLProtocol.data_received
 asyncio.sslproto.SSLProtocol.get_buffer
@@ -134,7 +131,6 @@ asyncio.taskgroups.TaskGroup.create_task
 asyncio.tasks.create_task
 asyncio.timeout
 asyncio.timeout_at
-asyncio.trsock.TransportSocket._na
 asyncio.unix_events.SelectorEventLoop.create_unix_connection
 asyncio.unix_events.SelectorEventLoop.create_unix_server
 asyncio.unix_events._UnixSelectorEventLoop.create_unix_connection
@@ -182,8 +178,6 @@ fractions.Fraction.__int__
 fractions.Fraction.__new__
 ftplib.FTP.trust_server_pasv_ipv4_address
 functools.partial.__vectorcalloffset__
-gettext.NullTranslations.lgettext
-gettext.NullTranslations.lngettext
 gettext.install
 hmac.new
 http.HTTPMethod.description
@@ -193,9 +187,7 @@ importlib.abc.Traversable.__init__
 importlib.metadata.EntryPoint.__init__
 importlib.metadata.PackageMetadata.__init__
 importlib.metadata._meta.PackageMetadata.__init__
-importlib.metadata._meta.SimplePath.__div__
 importlib.metadata._meta.SimplePath.__init__
-importlib.metadata._meta.SimplePath.__truediv__
 importlib.resources.Resource
 inspect._ParameterKind.description
 ipaddress.IPv4Interface.hostmask
@@ -207,13 +199,6 @@ logging.LoggerAdapter.__class_getitem__
 logging.StreamHandler.__class_getitem__
 logging.getLevelNamesMapping
 logging.handlers.SysLogHandler.createSocket
-mmap.MAP_STACK
-modulefinder.EXTENDED_ARG
-modulefinder.IMPORT_NAME
-modulefinder.LOAD_CONST
-modulefinder.STORE_GLOBAL
-modulefinder.STORE_NAME
-modulefinder.STORE_OPS
 multiprocessing.managers.SharedMemoryServer.create
 multiprocessing.managers.SharedMemoryServer.list_segments
 multiprocessing.managers.SharedMemoryServer.public
@@ -226,8 +211,7 @@ operator.attrgetter.__vectorcalloffset__
 operator.itemgetter.__vectorcalloffset__
 os.PathLike.__class_getitem__
 os.path.join
-pdb.Pdb._runmodule
-pdb.Pdb._runscript
+os.popen
 pickle.Pickler.reducer_override
 platform.uname_result.__match_args__
 platform.uname_result.__new__
@@ -339,7 +323,6 @@ unicodedata.UCD.is_normalized
 unittest.TestCase._addSkip
 unittest.case.TestCase._addSkip
 unittest.doModuleCleanups
-urllib.parse.MAX_CACHE_SIZE
 urllib.request.FancyURLopener.http_error_308
 urllib.request.HTTPRedirectHandler.http_error_308
 weakref.ProxyType.__reversed__

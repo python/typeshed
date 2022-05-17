@@ -1,5 +1,6 @@
 _curses.color_pair
 curses.color_pair
+mmap.MAP_STACK
 (os|posix).EFD_CLOEXEC
 (os|posix).EFD_NONBLOCK
 (os|posix).EFD_SEMAPHORE
