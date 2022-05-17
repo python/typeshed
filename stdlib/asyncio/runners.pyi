@@ -1,6 +1,6 @@
 import sys
 from _typeshed import Self
-from collections.abc import Coroutine
+from collections.abc import Callable, Coroutine
 from contextvars import Context
 from typing import Any, TypeVar
 
