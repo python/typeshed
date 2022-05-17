@@ -18,7 +18,7 @@ try:
     from termcolor import colored
 except ImportError:
 
-    def colored(s: str, _: str) -> str:
+    def colored(s: str, _: str) -> str:  # type: ignore[misc]
         return s
 
 
