@@ -225,10 +225,6 @@ subprocess.getstatusoutput
 symtable.SymbolTable.has_exec
 sys.UnraisableHookArgs  # Not exported from sys
 sys.exception
-tempfile.SpooledTemporaryFile.detach
-tempfile.SpooledTemporaryFile.read1
-tempfile.SpooledTemporaryFile.readinto
-tempfile.SpooledTemporaryFile.readinto1
 tkinter._VersionInfoType.__doc__
 traceback.StackSummary.format_frame_summary
 traceback.TracebackException.__init__
