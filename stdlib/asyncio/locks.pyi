@@ -9,7 +9,9 @@ from typing_extensions import Literal
 
 from .events import AbstractEventLoop
 from .futures import Future
-from .mixins import _LoopBoundMixin
+
+if sys.version_info >= (3, 11):
+    from .mixins import _LoopBoundMixin
 
 if sys.version_info >= (3, 11):
     __all__ = ("Lock", "Event", "Condition", "Semaphore", "BoundedSemaphore", "Barrier")
