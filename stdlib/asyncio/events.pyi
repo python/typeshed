@@ -223,7 +223,48 @@ class AbstractEventLoop:
     ) -> list[tuple[AddressFamily, SocketKind, int, str, tuple[str, int] | tuple[str, int, int, int]]]: ...
     @abstractmethod
     async def getnameinfo(self, sockaddr: tuple[str, int] | tuple[str, int, int, int], flags: int = ...) -> tuple[str, str]: ...
-    if sys.version_info >= (3, 8):
+    if sys.version_info >= (3, 11):
+        @overload
+        @abstractmethod
+        async def create_connection(
+            self,
+            protocol_factory: Callable[[], _ProtocolT],
+            host: str = ...,
+            port: int = ...,
+            *,
+            ssl: _SSLContext = ...,
+            family: int = ...,
+            proto: int = ...,
+            flags: int = ...,
+            sock: None = ...,
+            local_addr: tuple[str, int] | None = ...,
+            server_hostname: str | None = ...,
+            ssl_handshake_timeout: float | None = ...,
+            ssl_shutdown_timeout: float | None = ...,
+            happy_eyeballs_delay: float | None = ...,
+            interleave: int | None = ...,
+        ) -> tuple[BaseTransport, _ProtocolT]: ...
+        @overload
+        @abstractmethod
+        async def create_connection(
+            self,
+            protocol_factory: Callable[[], _ProtocolT],
+            host: None = ...,
+            port: None = ...,
+            *,
+            ssl: _SSLContext = ...,
+            family: int = ...,
+            proto: int = ...,
+            flags: int = ...,
+            sock: socket,
+            local_addr: None = ...,
+            server_hostname: str | None = ...,
+            ssl_handshake_timeout: float | None = ...,
+            ssl_shutdown_timeout: float | None = ...,
+            happy_eyeballs_delay: float | None = ...,
+            interleave: int | None = ...,
+        ) -> tuple[BaseTransport, _ProtocolT]: ...
+    elif sys.version_info >= (3, 8):
         @overload
         @abstractmethod
         async def create_connection(
@@ -330,11 +371,79 @@ class AbstractEventLoop:
             local_addr: None = ...,
             server_hostname: str | None = ...,
         ) -> tuple[BaseTransport, _ProtocolT]: ...
-    if sys.version_info >= (3, 7):
+    if sys.version_info >= (3, 11):
+        @overload
         @abstractmethod
-        async def sock_sendfile(
-            self, sock: socket, file: IO[bytes], offset: int = ..., count: int | None = ..., *, fallback: bool | None = ...
-        ) -> int: ...
+        async def create_server(
+            self,
+            protocol_factory: _ProtocolFactory,
+            host: str | Sequence[str] | None = ...,
+            port: int = ...,
+            *,
+            family: int = ...,
+            flags: int = ...,
+            sock: None = ...,
+            backlog: int = ...,
+            ssl: _SSLContext = ...,
+            reuse_address: bool | None = ...,
+            reuse_port: bool | None = ...,
+            ssl_handshake_timeout: float | None = ...,
+            ssl_shutdown_timeout: float | None = ...,
+            start_serving: bool = ...,
+        ) -> Server: ...
+        @overload
+        @abstractmethod
+        async def create_server(
+            self,
+            protocol_factory: _ProtocolFactory,
+            host: None = ...,
+            port: None = ...,
+            *,
+            family: int = ...,
+            flags: int = ...,
+            sock: socket = ...,
+            backlog: int = ...,
+            ssl: _SSLContext = ...,
+            reuse_address: bool | None = ...,
+            reuse_port: bool | None = ...,
+            ssl_handshake_timeout: float | None = ...,
+            ssl_shutdown_timeout: float | None = ...,
+            start_serving: bool = ...,
+        ) -> Server: ...
+        @abstractmethod
+        async def start_tls(
+            self,
+            transport: BaseTransport,
+            protocol: BaseProtocol,
+            sslcontext: ssl.SSLContext,
+            *,
+            server_side: bool = ...,
+            server_hostname: str | None = ...,
+            ssl_handshake_timeout: float | None = ...,
+            ssl_shutdown_timeout: float | None = ...,
+        ) -> BaseTransport: ...
+        async def create_unix_server(
+            self,
+            protocol_factory: _ProtocolFactory,
+            path: str | None = ...,
+            *,
+            sock: socket | None = ...,
+            backlog: int = ...,
+            ssl: _SSLContext = ...,
+            ssl_handshake_timeout: float | None = ...,
+            ssl_shutdown_timeout: float | None = ...,
+            start_serving: bool = ...,
+        ) -> Server: ...
+        async def connect_accepted_socket(
+            self,
+            protocol_factory: _ProtocolFactory,
+            sock: socket,
+            *,
+            ssl: _SSLContext = ...,
+            ssl_handshake_timeout: float | None = ...,
+            ssl_shutdown_timeout: float | None = ...,
+        ) -> tuple[BaseTransport, _ProtocolT]: ...
+    elif sys.version_info >= (3, 7):
         @overload
         @abstractmethod
         async def create_server(
@@ -371,31 +480,6 @@ class AbstractEventLoop:
             ssl_handshake_timeout: float | None = ...,
             start_serving: bool = ...,
         ) -> Server: ...
-        async def create_unix_connection(
-            self,
-            protocol_factory: Callable[[], _ProtocolT],
-            path: str | None = ...,
-            *,
-            ssl: _SSLContext = ...,
-            sock: socket | None = ...,
-            server_hostname: str | None = ...,
-            ssl_handshake_timeout: float | None = ...,
-        ) -> tuple[BaseTransport, _ProtocolT]: ...
-        async def create_unix_server(
-            self,
-            protocol_factory: _ProtocolFactory,
-            path: str | None = ...,
-            *,
-            sock: socket | None = ...,
-            backlog: int = ...,
-            ssl: _SSLContext = ...,
-            ssl_handshake_timeout: float | None = ...,
-            start_serving: bool = ...,
-        ) -> Server: ...
-        @abstractmethod
-        async def sendfile(
-            self, transport: BaseTransport, file: IO[bytes], offset: int = ..., count: int | None = ..., *, fallback: bool = ...
-        ) -> int: ...
         @abstractmethod
         async def start_tls(
             self,
@@ -407,6 +491,25 @@ class AbstractEventLoop:
             server_hostname: str | None = ...,
             ssl_handshake_timeout: float | None = ...,
         ) -> BaseTransport: ...
+        async def create_unix_server(
+            self,
+            protocol_factory: _ProtocolFactory,
+            path: str | None = ...,
+            *,
+            sock: socket | None = ...,
+            backlog: int = ...,
+            ssl: _SSLContext = ...,
+            ssl_handshake_timeout: float | None = ...,
+            start_serving: bool = ...,
+        ) -> Server: ...
+        async def connect_accepted_socket(
+            self,
+            protocol_factory: _ProtocolFactory,
+            sock: socket,
+            *,
+            ssl: _SSLContext = ...,
+            ssl_handshake_timeout: float | None = ...,
+        ) -> tuple[BaseTransport, _ProtocolT]: ...
     else:
         @overload
         @abstractmethod
@@ -440,15 +543,6 @@ class AbstractEventLoop:
             reuse_address: bool | None = ...,
             reuse_port: bool | None = ...,
         ) -> Server: ...
-        async def create_unix_connection(
-            self,
-            protocol_factory: Callable[[], _ProtocolT],
-            path: str,
-            *,
-            ssl: _SSLContext = ...,
-            sock: socket | None = ...,
-            server_hostname: str | None = ...,
-        ) -> tuple[BaseTransport, _ProtocolT]: ...
         async def create_unix_server(
             self,
             protocol_factory: _ProtocolFactory,
@@ -458,6 +552,42 @@ class AbstractEventLoop:
             backlog: int = ...,
             ssl: _SSLContext = ...,
         ) -> Server: ...
+        async def connect_accepted_socket(
+            self,
+            protocol_factory: _ProtocolFactory,
+            sock: socket,
+            *,
+            ssl: _SSLContext = ...,
+        ) -> tuple[BaseTransport, _ProtocolT]: ...
+    if sys.version_info >= (3, 7):
+        @abstractmethod
+        async def sock_sendfile(
+            self, sock: socket, file: IO[bytes], offset: int = ..., count: int | None = ..., *, fallback: bool | None = ...
+        ) -> int: ...
+        async def create_unix_connection(
+            self,
+            protocol_factory: Callable[[], _ProtocolT],
+            path: str | None = ...,
+            *,
+            ssl: _SSLContext = ...,
+            sock: socket | None = ...,
+            server_hostname: str | None = ...,
+            ssl_handshake_timeout: float | None = ...,
+        ) -> tuple[BaseTransport, _ProtocolT]: ...
+        @abstractmethod
+        async def sendfile(
+            self, transport: BaseTransport, file: IO[bytes], offset: int = ..., count: int | None = ..., *, fallback: bool = ...
+        ) -> int: ...
+    else:
+        async def create_unix_connection(
+            self,
+            protocol_factory: Callable[[], _ProtocolT],
+            path: str,
+            *,
+            ssl: _SSLContext = ...,
+            sock: socket | None = ...,
+            server_hostname: str | None = ...,
+        ) -> tuple[BaseTransport, _ProtocolT]: ...
 
     @abstractmethod
     async def create_datagram_endpoint(
