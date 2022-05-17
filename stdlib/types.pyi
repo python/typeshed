@@ -308,11 +308,11 @@ class CodeType:
             co_cellvars: tuple[str, ...] = ...,
             co_filename: str = ...,
             co_name: str = ...,
-            co_linetable: object = ...,
+            co_linetable: bytes = ...,
         ) -> CodeType: ...
         def co_lines(self) -> Iterator[tuple[int, int, int | None]]: ...
         @property
-        def co_linetable(self) -> object: ...
+        def co_linetable(self) -> bytes: ...
     elif sys.version_info >= (3, 8):
         def replace(
             self,
