@@ -1,2 +1,4 @@
 (os|posix).sendfile
 select.epoll.register
+
+distutils.command.bdist_msi  # msi is only available on windows

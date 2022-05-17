@@ -4,6 +4,8 @@ pwd.getpwnam
 ssl.PROTOCOL_SSLv3  # Depends on openssl compilation
 ssl.RAND_egd  # Depends on openssl compilation
 
+distutils.command.bdist_msi  # msi is only available on windows
+
 # Exists at runtime, but missing from stubs
 ntpath.splitunc
 posix.stat_float_times

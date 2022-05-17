@@ -22,7 +22,6 @@ _collections_abc.MutableMapping.setdefault
 _collections_abc.ValuesView.__reversed__
 _csv.Reader
 _csv.Writer
-_curses.color_pair
 _imp.find_frozen
 _imp.get_frozen_object
 _imp.source_hash
@@ -67,8 +66,6 @@ asyncio.Future.__init__
 asyncio.Lock.__init__
 asyncio.Queue.__init__
 asyncio.Runner
-asyncio.SelectorEventLoop.create_unix_connection
-asyncio.SelectorEventLoop.create_unix_server
 asyncio.Semaphore.__init__
 asyncio.Server.__init__
 asyncio.StreamWriter.start_tls
@@ -117,8 +114,8 @@ asyncio.selector_events.BaseSelectorEventLoop.sock_sendto
 asyncio.sslproto.AppProtocolState
 asyncio.sslproto.SSLAgainErrors
 asyncio.sslproto.SSLProtocol.__init__
+asyncio.sslproto.SSLProtocol._write_appdata
 asyncio.sslproto.SSLProtocol.buffer_updated
-asyncio.sslproto.SSLProtocol.data_received
 asyncio.sslproto.SSLProtocol.get_buffer
 asyncio.sslproto.SSLProtocol.max_size
 asyncio.sslproto.SSLProtocolState
@@ -131,10 +128,6 @@ asyncio.taskgroups.TaskGroup.create_task
 asyncio.tasks.create_task
 asyncio.timeout
 asyncio.timeout_at
-asyncio.unix_events.SelectorEventLoop.create_unix_connection
-asyncio.unix_events.SelectorEventLoop.create_unix_server
-asyncio.unix_events._UnixSelectorEventLoop.create_unix_connection
-asyncio.unix_events._UnixSelectorEventLoop.create_unix_server
 bdb.Breakpoint.clearBreakpoints
 binascii.a2b_base64
 builtins.BaseException.add_note
@@ -149,7 +142,6 @@ configparser.LegacyInterpolation.__init__
 contextlib.AbstractAsyncContextManager.__class_getitem__
 contextlib.AbstractContextManager.__class_getitem__
 contextvars.Context.__init__
-curses.color_pair
 dataclasses.KW_ONLY
 dataclasses.field
 dataclasses.make_dataclass
@@ -235,7 +227,6 @@ re.Pattern.scanner
 re.T
 re.TEMPLATE
 re.template
-select.epoll.register
 shutil.rmtree
 socketserver.UDPServer.allow_reuse_port
 sqlite3.Blob

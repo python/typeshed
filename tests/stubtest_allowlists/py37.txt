@@ -130,6 +130,7 @@ ssl.SSLObject.verify_client_post_handshake
 ssl.SSLSocket.verify_client_post_handshake
 stringprep.unicodedata  # re-exported from unicodedata
 tempfile.SpooledTemporaryFile.softspace
+tkinter.Tk.split
 tkinter.commondialog.[A-Z_]+
 tkinter.commondialog.TclVersion
 tkinter.commondialog.TkVersion

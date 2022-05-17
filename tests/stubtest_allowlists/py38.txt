@@ -150,6 +150,7 @@ pyexpat.XMLParserType.SkippedEntityHandler
 pyexpat.XMLParserType.intern
 stringprep.unicodedata  # re-exported from unicodedata
 tempfile.SpooledTemporaryFile.softspace
+tkinter.Tk.split
 tkinter.commondialog.[A-Z_]+
 tkinter.commondialog.TclVersion
 tkinter.commondialog.TkVersion

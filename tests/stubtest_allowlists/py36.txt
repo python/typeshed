@@ -151,6 +151,7 @@ plistlib.Data.fromBase64
 ssl.SSLObject.verify_client_post_handshake
 ssl.SSLSocket.verify_client_post_handshake
 tempfile.SpooledTemporaryFile.softspace
+tkinter.Tk.split
 tkinter.dnd.Icon
 tkinter.dnd.Tester
 tkinter.dnd.test
