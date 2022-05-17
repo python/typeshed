@@ -3,6 +3,8 @@
 pathlib.WindowsPath.is_mount
 pathlib.Path.is_mount
 
+os.EX_OK
+
 # Exists at runtime, but missing from stubs
 _winapi.CreateFileMapping
 _winapi.MapViewOfFile

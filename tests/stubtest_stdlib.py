@@ -31,7 +31,6 @@ def run_stubtest(typeshed_dir: Path) -> int:
         str(allowlist_dir / "py3_common.txt"),
         "--allowlist",
         str(allowlist_dir / version_allowlist),
-        "--generate-allowlist",
     ]
     if ignore_unused_allowlist:
         cmd += ["--ignore-unused-allowlist"]
