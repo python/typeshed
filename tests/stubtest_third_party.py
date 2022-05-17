@@ -10,16 +10,22 @@ import sys
 import tempfile
 import venv
 from pathlib import Path
-from typing import NoReturn
+from typing import NoReturn, TYPE_CHECKING
 
 import tomli
 
-try:
-    from termcolor import colored
-except ImportError:
+if TYPE_CHECKING:
 
-    def colored(s: str, _: str) -> str:  # type: ignore[misc]
-        return s
+    def colored(__str: str, __style: str) -> str:
+        ...
+
+else:
+    try:
+        from termcolor import colored
+    except ImportError:
+
+        def colored(s: str, _: str) -> str:
+            return s
 
 
 @functools.lru_cache()
