@@ -152,7 +152,6 @@ dis.disassemble
 dis.disco
 dis.distb
 dis.get_instructions
-distutils.command.build_ext.__warningregistry__
 distutils.dist.DistributionMetadata.set_classifiers
 distutils.dist.DistributionMetadata.set_keywords
 distutils.dist.DistributionMetadata.set_platforms

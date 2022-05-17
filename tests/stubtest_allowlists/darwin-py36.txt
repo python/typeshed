@@ -6,6 +6,8 @@ ssl.RAND_egd  # Depends on openssl compilation
 
 distutils.command.bdist_msi  # msi is only available on windows
 
+webbrowser.MacOSXOSAScript.__init__
+
 # Exists at runtime, but missing from stubs
 ntpath.splitunc
 posix.stat_float_times

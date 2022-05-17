@@ -1,4 +1,5 @@
 _?curses.A_ITALIC
+webbrowser.MacOSXOSAScript.__init__
 
 distutils.command.bdist_msi  # msi is only available on windows
 
