@@ -1,6 +1,6 @@
 from _typeshed import Self
-from collections.abc import AsyncIterator, Callable, Iterable, Mapping, MutableMapping
-from typing import Any, Awaitable, Generic, NoReturn, Protocol
+from collections.abc import AsyncIterator, Awaitable, Callable, Iterable, Mapping, MutableMapping
+from typing import Any, Generic, NoReturn, Protocol
 from typing_extensions import TypeAlias, TypedDict
 
 from redis.asyncio.connection import Connection, ConnectionPool

@@ -14,6 +14,7 @@ from __future__ import annotations
 import argparse
 import os
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -375,7 +376,11 @@ def test_the_test_cases(code: int, major: int, minor: int, args: argparse.Namesp
     if args.dry_run:
         this_code = 0
     else:
-        this_code = subprocess.run([sys.executable, "-m", "mypy", "test_cases", *flags]).returncode
+        # --warn-unused-ignores doesn't work for files inside typeshed.
+        # SO, to work around this, we copy the test_cases directory into a TemporaryDirectory.
+        with tempfile.TemporaryDirectory() as td:
+            shutil.copytree(Path("test_cases"), Path(td) / "test_cases")
+            this_code = subprocess.run([sys.executable, "-m", "mypy", td, *flags]).returncode
     code = max(code, this_code)
     return TestResults(code, num_test_case_files)
 

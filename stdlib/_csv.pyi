@@ -41,9 +41,45 @@ class _writer:
     def writerow(self, row: Iterable[Any]) -> Any: ...
     def writerows(self, rows: Iterable[Iterable[Any]]) -> None: ...
 
-def writer(csvfile: SupportsWrite[str], dialect: _DialectLike = ..., **fmtparams: Any) -> _writer: ...
-def reader(csvfile: Iterable[str], dialect: _DialectLike = ..., **fmtparams: Any) -> _reader: ...
-def register_dialect(name: str, dialect: Any = ..., **fmtparams: Any) -> None: ...
+def writer(
+    csvfile: SupportsWrite[str],
+    dialect: _DialectLike = ...,
+    *,
+    delimiter: str = ...,
+    quotechar: str | None = ...,
+    escapechar: str | None = ...,
+    doublequote: bool = ...,
+    skipinitialspace: bool = ...,
+    lineterminator: str = ...,
+    quoting: _QuotingType = ...,
+    strict: bool = ...,
+) -> _writer: ...
+def reader(
+    csvfile: Iterable[str],
+    dialect: _DialectLike = ...,
+    *,
+    delimiter: str = ...,
+    quotechar: str | None = ...,
+    escapechar: str | None = ...,
+    doublequote: bool = ...,
+    skipinitialspace: bool = ...,
+    lineterminator: str = ...,
+    quoting: _QuotingType = ...,
+    strict: bool = ...,
+) -> _reader: ...
+def register_dialect(
+    name: str,
+    dialect: Any = ...,
+    *,
+    delimiter: str = ...,
+    quotechar: str | None = ...,
+    escapechar: str | None = ...,
+    doublequote: bool = ...,
+    skipinitialspace: bool = ...,
+    lineterminator: str = ...,
+    quoting: _QuotingType = ...,
+    strict: bool = ...,
+) -> None: ...
 def unregister_dialect(name: str) -> None: ...
 def get_dialect(name: str) -> Dialect: ...
 def list_dialects() -> list[str]: ...
