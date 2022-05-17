@@ -434,15 +434,6 @@ class AbstractEventLoop:
             ssl_shutdown_timeout: float | None = ...,
             start_serving: bool = ...,
         ) -> Server: ...
-        async def connect_accepted_socket(
-            self,
-            protocol_factory: Callable[[], _ProtocolT],
-            sock: socket,
-            *,
-            ssl: _SSLContext = ...,
-            ssl_handshake_timeout: float | None = ...,
-            ssl_shutdown_timeout: float | None = ...,
-        ) -> tuple[BaseTransport, _ProtocolT]: ...
     elif sys.version_info >= (3, 7):
         @overload
         @abstractmethod
@@ -502,14 +493,6 @@ class AbstractEventLoop:
             ssl_handshake_timeout: float | None = ...,
             start_serving: bool = ...,
         ) -> Server: ...
-        async def connect_accepted_socket(
-            self,
-            protocol_factory: Callable[[], _ProtocolT],
-            sock: socket,
-            *,
-            ssl: _SSLContext = ...,
-            ssl_handshake_timeout: float | None = ...,
-        ) -> tuple[BaseTransport, _ProtocolT]: ...
     else:
         @overload
         @abstractmethod
@@ -552,8 +535,24 @@ class AbstractEventLoop:
             backlog: int = ...,
             ssl: _SSLContext = ...,
         ) -> Server: ...
+    if sys.version_info >= (3, 11):
         async def connect_accepted_socket(
-            self, protocol_factory: Callable[[], _ProtocolT], sock: socket, *, ssl: _SSLContext = ...
+            self,
+            protocol_factory: Callable[[], _ProtocolT],
+            sock: socket,
+            *,
+            ssl: _SSLContext = ...,
+            ssl_handshake_timeout: float | None = ...,
+            ssl_shutdown_timeout: float | None = ...,
+        ) -> tuple[BaseTransport, _ProtocolT]: ...
+    elif sys.version_info >= (3, 10):
+        async def connect_accepted_socket(
+            self,
+            protocol_factory: Callable[[], _ProtocolT],
+            sock: socket,
+            *,
+            ssl: _SSLContext = ...,
+            ssl_handshake_timeout: float | None = ...,
         ) -> tuple[BaseTransport, _ProtocolT]: ...
     if sys.version_info >= (3, 7):
         @abstractmethod
