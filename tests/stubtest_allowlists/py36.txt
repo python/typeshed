@@ -23,11 +23,6 @@ collections.AsyncGenerator.ag_frame
 collections.AsyncGenerator.ag_running
 collections.Callable
 collections.Mapping.__reversed__  # Set to None at runtime for a better error message
-# Adding these reflected dunders to `typing.AbstractSet` causes a large number of false-positives. See #7414.
-collections.Set.__rand__
-collections.Set.__ror__
-collections.Set.__rsub__
-collections.Set.__rxor__
 collections.UserString.maketrans
 datetime.datetime_CAPI
 distutils.command.bdist_wininst  # see #6523
@@ -100,13 +95,6 @@ tkinter.tix.wantobjects
 typing.AsyncGenerator.aclose  # async at runtime, deliberately not in the stub, see #7491
 typing.AsyncGenerator.asend  # async at runtime, deliberately not in the stub, see #7491
 
-builtins.memoryview.__iter__  # C type that implements __getitem__
-builtins.memoryview.cast  # inspect.signature is incorrect about shape being kw-only
-sqlite3.dbapi2.Binary.__iter__  # C type that implements __getitem__
-sqlite3.dbapi2.Binary.cast  # inspect.signature is incorrect about shape being kw-only
-sqlite3.Binary.__iter__  # C type that implements __getitem__
-sqlite3.Binary.cast  # inspect.signature is incorrect about shape being kw-only
-
 sqlite3.OptimizedUnicode.maketrans
 sqlite3.dbapi2.OptimizedUnicode.maketrans
 
@@ -127,10 +115,6 @@ tempfile.SpooledTemporaryFile.__next__
 tempfile.SpooledTemporaryFile.readable
 tempfile.SpooledTemporaryFile.seekable
 tempfile.SpooledTemporaryFile.writable
-
-# Intentionally omitted because of syntax issues
-asyncio.async
-asyncio.tasks.async
 
 # Exists at runtime, but missing from stubs
 _bisect.bisect
@@ -158,6 +142,14 @@ tkinter.dnd.test
 typing.[A-Z]\w*.__.*__  # many missing typing dunders in py36
 xml.dom.xmlbuilder.DocumentLS.async
 
+# ==========
+# Allowlist entries that cannot or should not be fixed
+# ==========
+
+# Intentionally omitted because of syntax issues
+asyncio.async
+asyncio.tasks.async
+
 # Side effects from module initialization
 _compat_pickle.excname
 email.contentmanager.maintype
@@ -172,3 +164,16 @@ lib2to3.pgen2.grammar.op
 pydoc.Helper.symbol  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
 pydoc.Helper.symbols_  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
 pydoc.Helper.topic  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
+
+# Adding these reflected dunders to `typing.AbstractSet` causes a large number of false-positives. See #7414.
+collections.Set.__rand__
+collections.Set.__ror__
+collections.Set.__rsub__
+collections.Set.__rxor__
+
+builtins.memoryview.__iter__  # C type that implements __getitem__
+builtins.memoryview.cast  # inspect.signature is incorrect about shape being kw-only
+sqlite3.dbapi2.Binary.__iter__  # C type that implements __getitem__
+sqlite3.dbapi2.Binary.cast  # inspect.signature is incorrect about shape being kw-only
+sqlite3.Binary.__iter__  # C type that implements __getitem__
+sqlite3.Binary.cast  # inspect.signature is incorrect about shape being kw-only

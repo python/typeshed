@@ -2,8 +2,12 @@ _?curses.A_ITALIC
 _?curses.color_pair
 webbrowser.MacOSXOSAScript.__init__
 
-distutils.command.bdist_msi  # msi is only available on windows
-
 # Exists at runtime, but missing from stubs
 mmap.MADV_FREE
 distutils.util.__warningregistry__
+
+# ==========
+# Allowlist entries that cannot or should not be fixed
+# ==========
+
+distutils.command.bdist_msi  # Only available on Windows and Python 3.10 and below
