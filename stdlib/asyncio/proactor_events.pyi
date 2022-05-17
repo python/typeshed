@@ -1,7 +1,6 @@
 import sys
-from _typeshed import WriteableBuffer
 from collections.abc import Mapping
-from socket import _Address, socket
+from socket import socket
 from typing import Any, Protocol
 from typing_extensions import Literal
 
@@ -100,7 +99,3 @@ class _ProactorSocketTransport(_ProactorReadPipeTransport, _ProactorBaseWritePip
 
 class BaseProactorEventLoop(base_events.BaseEventLoop):
     def __init__(self, proactor: Any) -> None: ...
-    if sys.version_info >= (3, 11):
-        async def sock_recvfrom(self, sock: socket, bufsize: int) -> bytes: ...
-        async def sock_recvfrom_into(self, sock: socket, buf: WriteableBuffer, nbytes: int = ...) -> int: ...
-        async def sock_sendto(self, sock: socket, data: bytes, address: _Address) -> None: ...
