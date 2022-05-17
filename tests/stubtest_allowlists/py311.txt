@@ -168,8 +168,6 @@ ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
 ipaddress._BaseNetwork.hostmask
 locale.getencoding
-logging.LoggerAdapter.__class_getitem__
-logging.StreamHandler.__class_getitem__
 logging.getLevelNamesMapping
 logging.handlers.SysLogHandler.createSocket
 multiprocessing.managers.SharedMemoryServer.create
