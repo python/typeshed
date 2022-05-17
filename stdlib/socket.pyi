@@ -2,8 +2,8 @@ import sys
 from _typeshed import ReadableBuffer, Self, WriteableBuffer
 from collections.abc import Iterable
 from enum import IntEnum, IntFlag
-from io import RawIOBase
-from typing import Any, BinaryIO, TextIO, overload
+from io import BufferedReader, BufferedRWPair, BufferedWriter, RawIOBase, TextIOWrapper
+from typing import Any, Protocol, overload
 from typing_extensions import Literal
 
 # Ideally, we'd just do "from _socket import *". Unfortunately, socket
@@ -538,6 +538,16 @@ AI_V4MAPPED_CFG: AddressInfo
 if sys.platform == "win32":
     errorTab: dict[int, str]  # undocumented
 
+class _SendableFile(Protocol):
+    def read(self, __size: int) -> bytes: ...
+
+    # optional fields:
+    #
+    # @property
+    # def mode(self) -> str: ...
+    # def fileno(self) -> int: ...
+    # def seek(self, __offset: int) -> object: ...
+
 class socket(_socket.socket):
     def __init__(
         self, family: AddressFamily | int = ..., type: SocketKind | int = ..., proto: int = ..., fileno: int | None = ...
@@ -551,24 +561,54 @@ class socket(_socket.socket):
     @overload
     def makefile(
         self,
+        mode: Literal["b", "rb", "br", "wb", "bw", "rwb", "rbw", "wrb", "wbr", "brw", "bwr"],
+        buffering: Literal[0],
+        *,
+        encoding: str | None = ...,
+        errors: str | None = ...,
+        newline: str | None = ...,
+    ) -> SocketIO: ...
+    @overload
+    def makefile(
+        self,
+        mode: Literal["rwb", "rbw", "wrb", "wbr", "brw", "bwr"],
+        buffering: int | None = ...,
+        *,
+        encoding: str | None = ...,
+        errors: str | None = ...,
+        newline: str | None = ...,
+    ) -> BufferedRWPair: ...
+    @overload
+    def makefile(
+        self,
+        mode: Literal["rb", "br"],
+        buffering: int | None = ...,
+        *,
+        encoding: str | None = ...,
+        errors: str | None = ...,
+        newline: str | None = ...,
+    ) -> BufferedReader: ...
+    @overload
+    def makefile(
+        self,
+        mode: Literal["wb", "bw"],
+        buffering: int | None = ...,
+        *,
+        encoding: str | None = ...,
+        errors: str | None = ...,
+        newline: str | None = ...,
+    ) -> BufferedWriter: ...
+    @overload
+    def makefile(
+        self,
         mode: Literal["r", "w", "rw", "wr", ""] = ...,
         buffering: int | None = ...,
         *,
         encoding: str | None = ...,
         errors: str | None = ...,
         newline: str | None = ...,
-    ) -> TextIO: ...
-    @overload
-    def makefile(
-        self,
-        mode: Literal["b", "rb", "br", "wb", "bw", "rwb", "rbw", "wrb", "wbr", "brw", "bwr"],
-        buffering: int | None = ...,
-        *,
-        encoding: str | None = ...,
-        errors: str | None = ...,
-        newline: str | None = ...,
-    ) -> BinaryIO: ...
-    def sendfile(self, file: BinaryIO, offset: int = ..., count: int | None = ...) -> int: ...
+    ) -> TextIOWrapper: ...
+    def sendfile(self, file: _SendableFile, offset: int = ..., count: int | None = ...) -> int: ...
     @property
     def family(self) -> AddressFamily: ...  # type: ignore[override]
     @property
