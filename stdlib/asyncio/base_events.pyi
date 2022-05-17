@@ -312,7 +312,7 @@ class BaseEventLoop(AbstractEventLoop):
             server_hostname: str | None = ...,
             ssl_handshake_timeout: float | None = ...,
             ssl_shutdown_timeout: float | None = ...,
-        ) -> BaseTransport: ...        
+        ) -> BaseTransport: ...
     elif sys.version_info >= (3, 7):
         @overload
         async def create_server(
