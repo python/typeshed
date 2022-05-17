@@ -2,7 +2,7 @@ import sys
 from _typeshed import ReadableBuffer, Self, WriteableBuffer
 from collections.abc import Iterable
 from enum import IntEnum, IntFlag
-from io import BufferedReader, BufferedRWPair, BufferedWriter, RawIOBase, TextIOWrapper
+from io import BufferedReader, BufferedRWPair, BufferedWriter, IOBase, RawIOBase, TextIOWrapper
 from typing import Any, Protocol, overload
 from typing_extensions import Literal
 
@@ -572,7 +572,7 @@ class socket(_socket.socket):
     def makefile(
         self,
         mode: Literal["rwb", "rbw", "wrb", "wbr", "brw", "bwr"],
-        buffering: int | None = ...,
+        buffering: Literal[-1, 1] | None = ...,
         *,
         encoding: str | None = ...,
         errors: str | None = ...,
@@ -582,7 +582,7 @@ class socket(_socket.socket):
     def makefile(
         self,
         mode: Literal["rb", "br"],
-        buffering: int | None = ...,
+        buffering: Literal[-1, 1] | None = ...,
         *,
         encoding: str | None = ...,
         errors: str | None = ...,
@@ -592,12 +592,22 @@ class socket(_socket.socket):
     def makefile(
         self,
         mode: Literal["wb", "bw"],
-        buffering: int | None = ...,
+        buffering: Literal[-1, 1] | None = ...,
         *,
         encoding: str | None = ...,
         errors: str | None = ...,
         newline: str | None = ...,
     ) -> BufferedWriter: ...
+    @overload
+    def makefile(
+        self,
+        mode: Literal["b", "rb", "br", "wb", "bw", "rwb", "rbw", "wrb", "wbr", "brw", "bwr"],
+        buffering: int,
+        *,
+        encoding: str | None = ...,
+        errors: str | None = ...,
+        newline: str | None = ...,
+    ) -> IOBase: ...
     @overload
     def makefile(
         self,
