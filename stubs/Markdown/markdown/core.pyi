@@ -8,7 +8,6 @@ from .blockparser import BlockParser
 from .extensions import Extension
 from .util import HtmlStash, Registry
 
-
 # TODO: The following protocols can be replaced by their counterparts from
 # codecs, once they have been propagated to all type checkers.
 class _WritableStream(Protocol):
@@ -50,10 +49,7 @@ class Markdown:
     def is_block_level(self, tag: str) -> bool: ...
     def convert(self, source: str) -> str: ...
     def convertFile(
-        self,
-        input: str | _ReadableStream | None = ...,
-        output: str | _WritableStream | None = ...,
-        encoding: str | None = ...,
+        self, input: str | _ReadableStream | None = ..., output: str | _WritableStream | None = ..., encoding: str | None = ...
     ) -> Markdown: ...
 
 def markdown(
