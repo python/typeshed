@@ -43,6 +43,8 @@ enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 hmac.HMAC.__init__
 http.server.SimpleHTTPRequestHandler.__init__  # *args is expanded
+inspect.Signature.from_builtin  # Removed in 3.11, can add if someone needs this
+inspect.Signature.from_function  # Removed in 3.11, can add if someone needs this
 ipaddress._BaseNetwork.__init__
 json.loads
 (os|posix).utime
@@ -139,3 +141,15 @@ tkinter.filedialog.wantobjects
 tkinter.simpledialog.wantobjects
 tkinter.tix.wantobjects
 typing._SpecialForm.__call__
+
+# Side effects from module initialization
+_compat_pickle.excname
+email.contentmanager.maintype
+email.contentmanager.subtype
+inspect.k
+inspect.mod_dict
+inspect.v
+json.encoder.i
+lib2to3.pgen2.grammar.line
+lib2to3.pgen2.grammar.name
+lib2to3.pgen2.grammar.op

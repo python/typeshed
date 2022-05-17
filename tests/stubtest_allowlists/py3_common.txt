@@ -114,8 +114,6 @@ importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but 
 importlib.machinery.ExtensionFileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
 inspect.Parameter.empty  # set as private marker _empty
 inspect.Signature.empty  # set as private marker _empty
-inspect.Signature.from_builtin  # Removed in 3.11, can add if someone needs this
-inspect.Signature.from_function  # Removed in 3.11, can add if someone needs this
 io.BufferedRandom.truncate
 io.BufferedReader.seek
 io.BufferedReader.truncate
@@ -482,18 +480,6 @@ turtle.ScrolledCanvas.adjustScrolls
 turtle.ScrolledCanvas.onResize
 wave.Wave_read.initfp
 wave.Wave_write.initfp
-
-# Side effects from module initialization
-_compat_pickle.excname
-email.contentmanager.maintype
-email.contentmanager.subtype
-inspect.k
-inspect.mod_dict
-inspect.v
-json.encoder.i
-lib2to3.pgen2.grammar.line
-lib2to3.pgen2.grammar.name
-lib2to3.pgen2.grammar.op
 
 # ==========
 # Missing from deprecated modules
