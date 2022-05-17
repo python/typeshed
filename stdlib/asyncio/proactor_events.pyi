@@ -1,7 +1,7 @@
 import sys
 from _typeshed import WriteableBuffer
 from collections.abc import Mapping
-from socket import socket
+from socket import _Address, socket
 from typing import Any, Protocol
 from typing_extensions import Literal
 

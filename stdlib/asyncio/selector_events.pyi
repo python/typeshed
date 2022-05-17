@@ -1,5 +1,7 @@
 import selectors
 import sys
+from _typeshed import WriteableBuffer
+from socket import _Address, socket
 
 from . import base_events
 
