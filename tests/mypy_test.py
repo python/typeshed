@@ -193,10 +193,7 @@ ReturnCode: TypeAlias = int
 
 
 def run_mypy_as_subprocess(directory: StrPath, flags: Iterable[str]) -> ReturnCode:
-    result = subprocess.run(
-        [sys.executable, "-m", "mypy", directory, *flags],
-        capture_output=True
-    )
+    result = subprocess.run([sys.executable, "-m", "mypy", directory, *flags], capture_output=True)
     print(result.stdout.decode())
     print(result.stderr.decode())
     return result.returncode
