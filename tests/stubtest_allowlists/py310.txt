@@ -88,8 +88,6 @@ _imp.source_hash
 ast.Tuple.dims
 ast.main
 asynchat.__warningregistry__  # Removal planned for 3.12, can add if someone needs this
-asyncio.AbstractEventLoop.connect_accepted_socket
-asyncio.events.AbstractEventLoop.connect_accepted_socket
 bdb.Breakpoint.clearBreakpoints
 distutils.dist.DistributionMetadata.set_classifiers
 distutils.dist.DistributionMetadata.set_keywords
