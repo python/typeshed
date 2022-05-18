@@ -1,6 +1,6 @@
 import _tkinter
 import sys
-from _typeshed import StrOrBytesPath
+from _typeshed import Maybe, StrOrBytesPath
 from collections.abc import Callable, Mapping, Sequence
 from enum import Enum
 from tkinter.constants import *
@@ -518,7 +518,7 @@ class Misc:
         pad: _ScreenUnits = ...,
         uniform: str = ...,
         weight: int = ...,
-    ) -> _GridIndexInfo | Any: ...  # can be None but annoying to check
+    ) -> Maybe[_GridIndexInfo]: ...
     def grid_rowconfigure(
         self,
         index: _GridIndex,
@@ -528,7 +528,7 @@ class Misc:
         pad: _ScreenUnits = ...,
         uniform: str = ...,
         weight: int = ...,
-    ) -> _GridIndexInfo | Any: ...  # can be None but annoying to check
+    ) -> Maybe[_GridIndexInfo]: ...
     columnconfigure = grid_columnconfigure
     rowconfigure = grid_rowconfigure
     def grid_location(self, x: _ScreenUnits, y: _ScreenUnits) -> tuple[int, int]: ...

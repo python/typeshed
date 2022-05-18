@@ -1,5 +1,5 @@
 import sys
-from _typeshed import SupportsKeysAndGetItem
+from _typeshed import Maybe, SupportsKeysAndGetItem
 from collections.abc import (
     AsyncGenerator,
     Awaitable,
@@ -571,7 +571,7 @@ class FrameType:
     # but you should probably file a bug report with CPython if you encounter it being None in the wild.
     # An `int | None` annotation here causes too many false-positive errors.
     @property
-    def f_lineno(self) -> int | Any: ...
+    def f_lineno(self) -> Maybe[int]: ...
     @property
     def f_locals(self) -> dict[str, Any]: ...
     f_trace: Callable[[FrameType, str, Any], Any] | None

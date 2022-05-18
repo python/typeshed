@@ -1,6 +1,6 @@
 import sqlite3
 import sys
-from _typeshed import ReadableBuffer, Self, StrOrBytesPath, SupportsLenAndGetItem
+from _typeshed import Maybe, ReadableBuffer, Self, StrOrBytesPath, SupportsLenAndGetItem
 from collections.abc import Callable, Generator, Iterable, Iterator, Mapping
 from datetime import date, datetime, time
 from types import TracebackType
@@ -374,9 +374,8 @@ class Cursor(Iterator[Any]):
     arraysize: int
     @property
     def connection(self) -> Connection: ...
-    # May be None, but using | Any instead to avoid slightly annoying false positives.
     @property
-    def description(self) -> tuple[tuple[str, None, None, None, None, None, None], ...] | Any: ...
+    def description(self) -> Maybe[tuple[tuple[str, None, None, None, None, None, None], ...]]: ...
     @property
     def lastrowid(self) -> int | None: ...
     row_factory: Callable[[Cursor, Row[Any]], object] | None

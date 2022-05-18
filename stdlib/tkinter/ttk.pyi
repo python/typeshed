@@ -1,6 +1,7 @@
 import _tkinter
 import sys
 import tkinter
+from _typeshed import Maybe
 from collections.abc import Callable
 from tkinter.font import _FontDescription
 from typing import Any, overload
@@ -1166,7 +1167,7 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         background: tkinter._Color = ...,
         font: _FontDescription = ...,
         image: tkinter._ImageSpec = ...,
-    ) -> _TreeviewTagDict | Any: ...  # can be None but annoying to check
+    ) -> Maybe[_TreeviewTagDict]: ...
     @overload
     def tag_has(self, tagname: str, item: None = ...) -> tuple[str, ...]: ...
     @overload

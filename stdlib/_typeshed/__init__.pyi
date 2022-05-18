@@ -33,6 +33,17 @@ Self = TypeVar("Self")  # noqa: Y001
 # "Incomplete | None" instead of "Any | None".
 Incomplete: TypeAlias = Any
 
+# Annotation for return types that can return a value or None, but where the
+# caller should not be forced to check for None. For example:
+#
+#   if m := re.match(r"(a)(b)?"):
+#       m.group(1)  # will never be None
+#       m.group(2)  # can be None
+#
+# match's return type is annotated as "Maybe[str]". In cases, where the caller
+# should check for None, use "_T | None".
+Maybe: TypeAlias = _T | Any
+
 # stable
 class IdentityFunction(Protocol):
     def __call__(self, __x: _T) -> _T: ...
