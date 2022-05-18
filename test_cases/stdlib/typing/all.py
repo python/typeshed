@@ -1,3 +1,5 @@
+# pyright: reportWildcardImportFromLibrary=false
+
 """
 This tests that star imports work when using "all += " syntax.
 """
