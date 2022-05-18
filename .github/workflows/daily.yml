@@ -51,7 +51,7 @@ jobs:
         with:
           python-version: 3.9
       - name: Install dependencies
-        run: pip install $(grep tomli== requirements-tests.txt)
+        run: pip install $(grep tomli== requirements-tests.txt) termcolor
       - name: Install apt packages
         run: |
           sudo apt update

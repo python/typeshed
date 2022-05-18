@@ -1,11 +1,5 @@
 _?curses.A_ITALIC
 _?curses.color_pair
-asyncio.SelectorEventLoop.create_unix_connection
-asyncio.SelectorEventLoop.create_unix_server
-asyncio.unix_events.SelectorEventLoop.create_unix_connection
-asyncio.unix_events.SelectorEventLoop.create_unix_server
-asyncio.unix_events._UnixSelectorEventLoop.create_unix_connection
-asyncio.unix_events._UnixSelectorEventLoop.create_unix_server
 termios.tcgetwinsize
 termios.tcsetwinsize
 xxlimited.Xxo.x_exports

@@ -1,10 +1,4 @@
 _?curses.color_pair
-asyncio.SelectorEventLoop.create_unix_connection
-asyncio.SelectorEventLoop.create_unix_server
-asyncio.unix_events.SelectorEventLoop.create_unix_connection
-asyncio.unix_events.SelectorEventLoop.create_unix_server
-asyncio.unix_events._UnixSelectorEventLoop.create_unix_connection
-asyncio.unix_events._UnixSelectorEventLoop.create_unix_server
 distutils.command.build_ext.__warningregistry__
 mmap.MAP_STACK
 (os|posix).EFD_CLOEXEC
