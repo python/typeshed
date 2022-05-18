@@ -42,7 +42,6 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
 
     if not metadata.get("stubtest", True):
         print(colored(" skipping", "yellow"))
-        print()
         return True
 
     with tempfile.TemporaryDirectory() as tmp:
