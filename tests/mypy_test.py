@@ -30,7 +30,6 @@ if TYPE_CHECKING:
 from typing_extensions import TypeAlias
 
 import tomli
-
 from colors import colored, print_error, print_success_msg
 
 parser = argparse.ArgumentParser(description="Test runner for typeshed. Patterns are unanchored regexps on the full path.")

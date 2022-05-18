@@ -20,7 +20,7 @@ else:
             return s
 
 
-def print_error(error: str, end: str = '\n') -> None:
+def print_error(error: str, end: str = "\n") -> None:
     print(colored(error, "red"), end=end)
 
 
