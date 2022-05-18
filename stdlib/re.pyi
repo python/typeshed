@@ -25,7 +25,6 @@ if sys.version_info >= (3, 11):
         "finditer",
         "compile",
         "purge",
-        "template",
         "escape",
         "error",
         "Pattern",
