@@ -70,20 +70,14 @@ distutils.dist.DistributionMetadata.set_platforms
 distutils.util.get_host_platform
 enum.Enum.__init__
 enum.Enum._generate_next_value_
-enum.Flag.__iter__
-enum.Flag.__len__
-enum.Flag.__rand__
-enum.Flag.__ror__
-enum.Flag.__rxor__
-enum.StrEnum.value
-enum._EnumDict.update
+enum.StrEnum.value  # read-only property at runtime but too magical for stubtest
 fractions.Fraction.__int__
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 ftplib.FTP.trust_server_pasv_ipv4_address
 functools.partial.__vectorcalloffset__
 gettext.install
 hmac.new  # Stub is a white lie; see comments in the stub
-http.HTTPMethod.description
+http.HTTPMethod.description  # mutable instance attribute at runtime but we pretend it's a property
 http.server.SimpleHTTPRequestHandler.__init__  # *args is expanded
 imp.get_frozen_object
 importlib.resources.Resource
