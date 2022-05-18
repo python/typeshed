@@ -25,18 +25,7 @@ from _typeshed import (
     SupportsTrunc,
     SupportsWrite,
 )
-from collections.abc import (
-    Awaitable,
-    Callable,
-    Iterable,
-    Iterator,
-    MutableSequence,
-    MutableSet,
-    Reversible,
-    Sequence,
-    Set as AbstractSet,
-    Sized,
-)
+from collections.abc import Awaitable, Callable, Iterable, Iterator, MutableSet, Reversible, Set as AbstractSet, Sized
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from types import CodeType, TracebackType, _Cell
 
@@ -50,8 +39,10 @@ from typing import (  # noqa: Y027
     Generic,
     Mapping,
     MutableMapping,
+    MutableSequence,
     NoReturn,
     Protocol,
+    Sequence,
     SupportsAbs,
     SupportsBytes,
     SupportsComplex,
@@ -109,7 +100,7 @@ class object:
     def __sizeof__(self) -> int: ...
     # return type of pickle methods is rather hard to express in the current type system
     # see #6661 and https://docs.python.org/3/library/pickle.html#object.__reduce__
-    def __reduce__(self) -> str | tuple[object, ...]: ...
+    def __reduce__(self) -> str | tuple[Any, ...]: ...
     if sys.version_info >= (3, 8):
         def __reduce_ex__(self, __protocol: SupportsIndex) -> str | tuple[Any, ...]: ...
     else:
