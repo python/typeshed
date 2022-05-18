@@ -11,6 +11,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import termcolor
+
 
 def run_stubtest(typeshed_dir: Path) -> int:
     allowlist_dir = typeshed_dir / "tests" / "stubtest_allowlists"
