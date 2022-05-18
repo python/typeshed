@@ -36,7 +36,7 @@ Incomplete: TypeAlias = Any
 # Annotation for return types that can return a value or None, but where the
 # caller should not be forced to check for None. For example:
 #
-#   if m := re.match(r"(a)(b)?"):
+#   if m := re.match(r"(a)(b)?", string):
 #       m.group(1)  # will never be None
 #       m.group(2)  # can be None
 #
