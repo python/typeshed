@@ -19,6 +19,8 @@ import subprocess
 import sys
 import tempfile
 from collections.abc import Iterable
+from contextlib import redirect_stdout
+from io import StringIO
 from pathlib import Path
 from typing import TYPE_CHECKING, NamedTuple
 
@@ -185,12 +187,14 @@ def run_mypy(
         if args.dry_run:
             exit_code = 0
         else:
-            stdout, stderr, exit_code = mypy_run(mypy_args)
+            stdout_file = StringIO()
+            with redirect_stdout(stdout_file):
+                stdout, stderr, exit_code = mypy_run(mypy_args)
             if exit_code:
                 if stderr:
                     print_error(stderr)
                 if stdout:
-                    print_error(stdout, end="")
+                    print_error(stdout_file.getvalue(), end="")
         return exit_code
 
 
