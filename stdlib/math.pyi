@@ -7,7 +7,7 @@ from typing_extensions import SupportsIndex, TypeAlias
 if sys.version_info >= (3, 8):
     _SupportsFloatOrIndex: TypeAlias = SupportsFloat | SupportsIndex
 else:
-    _SupportsFloatOrIndex = SupportsFloat
+    _SupportsFloatOrIndex: TypeAlias = SupportsFloat
 
 e: float
 pi: float

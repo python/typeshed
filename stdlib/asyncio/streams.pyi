@@ -1,3 +1,4 @@
+import ssl
 import sys
 from _typeshed import Self, StrPath
 from collections.abc import AsyncIterator, Awaitable, Callable, Iterable, Sequence
@@ -120,9 +121,9 @@ else:
 
 if sys.platform != "win32":
     if sys.version_info >= (3, 7):
-        _PathType = StrPath
+        _PathType: TypeAlias = StrPath
     else:
-        _PathType = str
+        _PathType: TypeAlias = str
     if sys.version_info >= (3, 10):
         async def open_unix_connection(
             path: _PathType | None = ..., *, limit: int = ..., **kwds: Any
@@ -179,6 +180,10 @@ class StreamWriter:
 
     def get_extra_info(self, name: str, default: Any = ...) -> Any: ...
     async def drain(self) -> None: ...
+    if sys.version_info >= (3, 11):
+        async def start_tls(
+            self, sslcontext: ssl.SSLContext, *, server_hostname: str | None = ..., ssl_handshake_timeout: float | None = ...
+        ) -> None: ...
 
 class StreamReader(AsyncIterator[bytes]):
     def __init__(self, limit: int = ..., loop: events.AbstractEventLoop | None = ...) -> None: ...
