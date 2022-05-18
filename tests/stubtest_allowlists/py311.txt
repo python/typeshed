@@ -130,10 +130,6 @@ re.TEMPLATE
 re.template
 shutil.rmtree
 socketserver.UDPServer.allow_reuse_port
-sqlite3.Blob
-sqlite3.Blob.seek
-sqlite3.dbapi2.Blob
-sqlite3.dbapi2.Blob.seek
 sre_compile.CALL
 sre_compile.SRE_FLAG_TEMPLATE
 sre_constants.CALL
