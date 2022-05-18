@@ -127,10 +127,6 @@ queue.SimpleQueue.__init__
 re.Pattern.scanner  # Undocumented and not useful. #6405
 shutil.rmtree
 socketserver.UDPServer.allow_reuse_port
-sqlite3.Blob
-sqlite3.Blob.seek
-sqlite3.dbapi2.Blob
-sqlite3.dbapi2.Blob.seek
 string.Template.get_identifiers
 string.Template.is_valid
 subprocess.getoutput
@@ -138,10 +134,6 @@ subprocess.getstatusoutput
 symtable.SymbolTable.has_exec
 sys.UnraisableHookArgs  # Not exported from sys
 sys.exception
-tempfile.SpooledTemporaryFile.detach
-tempfile.SpooledTemporaryFile.read1
-tempfile.SpooledTemporaryFile.readinto
-tempfile.SpooledTemporaryFile.readinto1
 tkinter._VersionInfoType.__doc__
 traceback.StackSummary.format_frame_summary
 traceback.TracebackException.__init__
