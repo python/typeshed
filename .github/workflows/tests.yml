@@ -60,7 +60,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - run: pip install $(grep tomli== requirements-tests.txt) $(grep mypy== requirements-tests.txt) termcolor
+      - run: pip install $(grep tomli== requirements-tests.txt) $(grep mypy== requirements-tests.txt)
       - run: ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
 
   pyright:
