@@ -25,18 +25,7 @@ from _typeshed import (
     SupportsTrunc,
     SupportsWrite,
 )
-from collections.abc import (
-    Awaitable,
-    Callable,
-    Iterable,
-    Iterator,
-    MutableSequence,
-    MutableSet,
-    Reversible,
-    Sequence,
-    Set as AbstractSet,
-    Sized,
-)
+from collections.abc import Awaitable, Callable, Iterable, Iterator, MutableSet, Reversible, Set as AbstractSet, Sized
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from types import CodeType, TracebackType, _Cell
 
@@ -50,8 +39,10 @@ from typing import (  # noqa: Y027
     Generic,
     Mapping,
     MutableMapping,
+    MutableSequence,
     NoReturn,
     Protocol,
+    Sequence,
     SupportsAbs,
     SupportsBytes,
     SupportsComplex,
