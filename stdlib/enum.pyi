@@ -4,7 +4,7 @@ from _typeshed import Self
 from abc import ABCMeta
 from builtins import property as _builtins_property
 from collections.abc import Iterable, Iterator, Mapping
-from typing import Any, TypeVar, overload
+from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Literal, TypeAlias
 
 if sys.version_info >= (3, 11):
@@ -21,6 +21,8 @@ if sys.version_info >= (3, 11):
         "unique",
         "property",
         "verify",
+        "member",
+        "nonmember",
         "FlagBoundary",
         "STRICT",
         "CONFORM",
@@ -53,6 +55,15 @@ _EnumerationT = TypeVar("_EnumerationT", bound=type[Enum])
 # >>> Enum('Foo', names={'RED': 1, 'YELLOW': 2})
 # <enum 'Foo'>
 _EnumNames: TypeAlias = str | Iterable[str] | Iterable[Iterable[str | Any]] | Mapping[str, Any]
+
+if sys.version_info >= (3, 11):
+    class nonmember(Generic[_EnumMemberT]):
+        value: _EnumMemberT
+        def __init__(self, value: _EnumMemberT) -> None: ...
+
+    class member(Generic[_EnumMemberT]):
+        value: _EnumMemberT
+        def __init__(self, value: _EnumMemberT) -> None: ...
 
 class _EnumDict(dict[str, Any]):
     def __init__(self) -> None: ...

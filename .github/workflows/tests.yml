@@ -60,7 +60,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - run: pip install $(grep tomli== requirements-tests.txt) $(grep mypy== requirements-tests.txt)
+      - run: pip install $(grep tomli== requirements-tests.txt) $(grep mypy== requirements-tests.txt) termcolor
       - run: ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
 
   pyright:
@@ -72,7 +72,7 @@ jobs:
         python-version: ["3.6", "3.7", "3.8", "3.9", "3.10", "3.11"]
       fail-fast: false
     env:
-      PYRIGHT_VERSION: 1.1.240 # Must match pyright_test.py.
+      PYRIGHT_VERSION: 1.1.247 # Must match pyright_test.py.
     steps:
       - uses: actions/checkout@v2
       - uses: jakebailey/pyright-action@v1
@@ -80,14 +80,14 @@ jobs:
           version: ${{ env.PYRIGHT_VERSION }}
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
-          no-comments: ${{ matrix.python-version != '3.9' || matrix.python-platform != 'Linux' }}  # Having each job create the same comment is too noisy.
+          no-comments: ${{ matrix.python-version != '3.9' || matrix.python-platform != 'Linux' }} # Having each job create the same comment is too noisy.
           project: ./pyrightconfig.stricter.json
       - uses: jakebailey/pyright-action@v1
         with:
           version: ${{ env.PYRIGHT_VERSION }}
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
-          no-comments: ${{ matrix.python-version != '3.9' || matrix.python-platform != 'Linux' }}  # Having each job create the same comment is too noisy.
+          no-comments: ${{ matrix.python-version != '3.9' || matrix.python-platform != 'Linux' }} # Having each job create the same comment is too noisy.
 
   stubtest-stdlib:
     name: Check stdlib with stubtest
@@ -96,7 +96,7 @@ jobs:
       matrix:
         # macos-11 does not have tcl/tk installed, needed for stubtesting tkinter
         os: ["ubuntu-latest", "windows-latest", "macos-10.15"]
-        python-version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+        python-version: ["3.6", "3.7", "3.8", "3.9", "3.10", "3.11-dev"]
       fail-fast: false
 
     steps:
@@ -124,7 +124,7 @@ jobs:
         with:
           python-version: 3.9
       - name: Install dependencies
-        run: pip install $(grep tomli== requirements-tests.txt)
+        run: pip install $(grep tomli== requirements-tests.txt) termcolor
       - name: Run stubtest
         run: |
           STUBS=$(
