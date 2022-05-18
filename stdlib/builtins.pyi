@@ -30,12 +30,12 @@ from collections.abc import (
     Callable,
     Iterable,
     Iterator,
+    MutableSequence,
     MutableSet,
     Reversible,
+    Sequence,
     Set as AbstractSet,
     Sized,
-    Sequence,
-    MutableSequence,
 )
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from types import CodeType, TracebackType, _Cell
