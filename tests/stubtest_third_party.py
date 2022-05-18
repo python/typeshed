@@ -16,8 +16,7 @@ import tomli
 
 if TYPE_CHECKING:
 
-    def colored(__str: str, __style: str) -> str:
-        ...
+    from termcolor import colored
 
 else:
     try:
