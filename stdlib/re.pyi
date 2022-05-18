@@ -126,8 +126,9 @@ class RegexFlag(enum.IntFlag):
     VERBOSE = X
     U = sre_compile.SRE_FLAG_UNICODE
     UNICODE = U
-    T = sre_compile.SRE_FLAG_TEMPLATE
-    TEMPLATE = T
+    if sys.version_info < (3, 11):
+        T = sre_compile.SRE_FLAG_TEMPLATE
+        TEMPLATE = T
     if sys.version_info >= (3, 11):
         NOFLAG: int
 
@@ -219,4 +220,6 @@ def subn(
 ) -> tuple[bytes, int]: ...
 def escape(pattern: AnyStr) -> AnyStr: ...
 def purge() -> None: ...
-def template(pattern: AnyStr | Pattern[AnyStr], flags: _FlagsType = ...) -> Pattern[AnyStr]: ...
+
+if sys.version_info < (3, 11):
+    def template(pattern: AnyStr | Pattern[AnyStr], flags: _FlagsType = ...) -> Pattern[AnyStr]: ...

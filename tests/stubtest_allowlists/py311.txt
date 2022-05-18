@@ -125,23 +125,12 @@ pyexpat.errors.XML_ERROR_RESERVED_PREFIX_XML
 pyexpat.errors.XML_ERROR_RESERVED_PREFIX_XMLNS
 queue.SimpleQueue.__init__
 re.Pattern.scanner  # Undocumented and not useful. #6405
-re.T
-re.TEMPLATE
-re.template
 shutil.rmtree
 socketserver.UDPServer.allow_reuse_port
 sqlite3.Blob
 sqlite3.Blob.seek
 sqlite3.dbapi2.Blob
 sqlite3.dbapi2.Blob.seek
-sre_compile.CALL
-sre_compile.SRE_FLAG_TEMPLATE
-sre_constants.CALL
-sre_constants.SRE_FLAG_TEMPLATE
-sre_parse.CALL
-sre_parse.SRE_FLAG_TEMPLATE
-sre_parse.Tokenizer.checkgroupname
-sre_parse.Verbose
 string.Template.get_identifiers
 string.Template.is_valid
 subprocess.getoutput
