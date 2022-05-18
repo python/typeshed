@@ -10,22 +10,11 @@ import sys
 import tempfile
 import venv
 from pathlib import Path
-from typing import TYPE_CHECKING, NoReturn
+from typing import NoReturn
 
 import tomli
 
-if TYPE_CHECKING:
-
-    def colored(__str: str, __style: str) -> str:
-        ...
-
-else:
-    try:
-        from termcolor import colored
-    except ImportError:
-
-        def colored(s: str, _: str) -> str:
-            return s
+from colors import colored, print_error, print_success_msg
 
 
 @functools.lru_cache()
@@ -38,10 +27,10 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
     with open(dist / "METADATA.toml") as f:
         metadata = dict(tomli.loads(f.read()))
 
-    print(f"{dist.name}...", end="")
+    print(f"{dist.name}... ", end="")
 
     if not metadata.get("stubtest", True):
-        print(colored(" skipping", "yellow"))
+        print(colored("skipping", "yellow"))
         return True
 
     with tempfile.TemporaryDirectory() as tmp:
@@ -100,7 +89,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
         try:
             subprocess.run(stubtest_cmd, env={"MYPYPATH": str(dist), "MYPY_FORCE_COLOR": "1"}, check=True, capture_output=True)
         except subprocess.CalledProcessError as e:
-            print(colored(" fail", "red"))
+            print_error(" fail")
             print_commands(dist, pip_cmd, stubtest_cmd)
             print_command_output(e)
 
@@ -120,7 +109,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
 
             return False
         else:
-            print(colored(" success", "green"))
+            print_success_msg()
 
     if verbose:
         print_commands(dist, pip_cmd, stubtest_cmd)
@@ -136,7 +125,7 @@ def print_commands(dist: Path, pip_cmd: list[str], stubtest_cmd: list[str]) -> N
 
 
 def print_command_failure(message: str, e: subprocess.CalledProcessError) -> None:
-    print(colored(" fail", "red"))
+    print_error("fail")
     print(file=sys.stderr)
     print(message, file=sys.stderr)
     print_command_output(e)

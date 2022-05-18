@@ -29,6 +29,8 @@ from typing_extensions import TypeAlias
 
 import tomli
 
+from colors import colored, print_error, print_success_msg
+
 parser = argparse.ArgumentParser(description="Test runner for typeshed. Patterns are unanchored regexps on the full path.")
 parser.add_argument("-v", "--verbose", action="count", default=0, help="More output")
 parser.add_argument("-n", "--dry-run", action="store_true", help="Don't actually run mypy")
@@ -165,7 +167,7 @@ def run_mypy(
     try:
         from mypy.api import run as mypy_run
     except ImportError:
-        print("Cannot import mypy. Did you install it?")
+        print_error("Cannot import mypy. Did you install it?")
         sys.exit(1)
 
     with tempfile.NamedTemporaryFile("w+") as temp:
@@ -184,8 +186,11 @@ def run_mypy(
             exit_code = 0
         else:
             stdout, stderr, exit_code = mypy_run(mypy_args)
-            print(stdout, end="")
-            print(stderr, end="")
+            if exit_code:
+                if stderr:
+                    print_error(stderr)
+                if stdout:
+                    print_error(stdout, end="")
         return exit_code
 
 
@@ -194,8 +199,11 @@ ReturnCode: TypeAlias = int
 
 def run_mypy_as_subprocess(directory: StrPath, flags: Iterable[str]) -> ReturnCode:
     result = subprocess.run([sys.executable, "-m", "mypy", directory, *flags], capture_output=True)
-    print(result.stdout.decode())
-    print(result.stderr.decode())
+    stdout, stderr = result.stdout, result.stderr
+    if stderr:
+        print_error(stderr.decode())
+    if stdout:
+        print_error(stdout.decode())
     return result.returncode
 
 
@@ -234,6 +242,7 @@ def get_mypy_flags(
     if strict:
         flags.append("--strict")
     if test_suite_run:
+        flags.append("--namespace-packages")
         if sys.platform == "win32" or args.platform == "win32":
             flags.extend(["--exclude", "tests/pytype_test.py"])
     else:
@@ -291,13 +300,17 @@ def test_third_party_distribution(distribution: str, major: int, minor: int, arg
     seen_dists: set[str] = set()
     add_third_party_files(distribution, major, files, args, configurations, seen_dists)
 
-    print(f"testing {distribution} ({len(files)} files)...")
+    print(f"testing {distribution} ({len(files)} files)... ", end="")
 
     if not files:
-        print("--- no files found ---")
+        print_error("no files found")
         sys.exit(1)
 
     code = run_mypy(args, configurations, major, minor, files)
+
+    if not code:
+        print_success_msg()
+
     return code, len(files)
 
 
@@ -338,6 +351,9 @@ def test_stdlib(code: int, major: int, minor: int, args: argparse.Namespace) -> 
         this_code = run_mypy(args, [], major, minor, files, custom_typeshed=True)
         code = max(code, this_code)
 
+        if not code:
+            print_success_msg()
+
     return TestResults(code, len(files))
 
 
@@ -375,6 +391,8 @@ def test_the_test_scripts(code: int, major: int, minor: int, args: argparse.Name
     else:
         this_code = run_mypy_as_subprocess("tests", flags)
     code = max(code, this_code)
+    if not code:
+        print_success_msg()
     return TestResults(code, num_test_files_to_test)
 
 
@@ -393,6 +411,8 @@ def test_the_test_cases(code: int, major: int, minor: int, args: argparse.Namesp
             shutil.copytree(Path("test_cases"), Path(td) / "test_cases")
             this_code = run_mypy_as_subprocess(td, flags)
     code = max(code, this_code)
+    if not code:
+        print_success_msg()
     return TestResults(code, num_test_case_files)
 
 
@@ -433,7 +453,7 @@ def main() -> None:
     if args.python_version:
         versions = [v for v in versions if any(("%d.%d" % v).startswith(av) for av in args.python_version)]
         if not versions:
-            print("--- no versions selected ---")
+            print_error("--- no versions selected ---")
             sys.exit(1)
 
     code = 0
@@ -442,13 +462,17 @@ def main() -> None:
         code, files_checked_this_version = test_typeshed(code, major, minor, args)
         total_files_checked += files_checked_this_version
     if code:
-        print(f"--- exit status {code}, {total_files_checked} files checked ---")
+        print_error(f"--- exit status {code}, {total_files_checked} files checked ---")
         sys.exit(code)
     if not total_files_checked:
-        print("--- nothing to do; exit 1 ---")
+        print_error("--- nothing to do; exit 1 ---")
         sys.exit(1)
-    print(f"--- success, {total_files_checked} files checked ---")
+    print(colored(f"--- success, {total_files_checked} files checked ---", "green"))
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print_error("\n\n!!!\nTest aborted due to KeyboardInterrupt\n!!!")
+        sys.exit(1)
