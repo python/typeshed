@@ -218,13 +218,13 @@ class _TemporaryFileWrapper(Generic[AnyStr], IO[AnyStr]):
     def write(self, s: AnyStr) -> int: ...
     def writelines(self, lines: Iterable[AnyStr]) -> None: ...
 
-# It does not actually derive from IO[AnyStr], but it does mostly behave
-# like one.
 if sys.version_info >= (3, 11):
     _SpooledTemporaryFileBase = io.IOBase
 else:
     _SpooledTemporaryFileBase = object
 
+# It does not actually derive from IO[AnyStr], but it does mostly behave
+# like one.
 class SpooledTemporaryFile(IO[AnyStr], _SpooledTemporaryFileBase):
     @property
     def encoding(self) -> str: ...  # undocumented
@@ -325,6 +325,8 @@ class SpooledTemporaryFile(IO[AnyStr], _SpooledTemporaryFileBase):
     def flush(self) -> None: ...
     def isatty(self) -> bool: ...
     if sys.version_info >= (3, 11):
+        # These three work only if the SpooledTemporaryFile is opened in binary mode,
+        # because the underlying object in text mode does not have these methods.
         def read1(self, __size: int = ...) -> AnyStr: ...
         def readinto(self, b: WriteableBuffer) -> int: ...
         def readinto1(self, b: WriteableBuffer) -> int: ...
