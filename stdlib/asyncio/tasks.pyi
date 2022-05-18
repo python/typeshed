@@ -10,6 +10,8 @@ from .futures import Future
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
+if sys.version_info >= (3, 11):
+    from contextvars import Context
 
 if sys.version_info >= (3, 7):
     __all__ = (
@@ -329,7 +331,11 @@ class Task(Future[_T], Generic[_T]):
 
 if sys.version_info >= (3, 7):
     def all_tasks(loop: AbstractEventLoop | None = ...) -> set[Task[Any]]: ...
-    if sys.version_info >= (3, 8):
+    if sys.version_info >= (3, 11):
+        def create_task(
+            coro: Generator[Any, None, _T] | Coroutine[Any, Any, _T], *, name: str | None = ..., context: Context | None = ...
+        ) -> Task[_T]: ...
+    elif sys.version_info >= (3, 8):
         def create_task(coro: Generator[Any, None, _T] | Coroutine[Any, Any, _T], *, name: str | None = ...) -> Task[_T]: ...
     else:
         def create_task(coro: Generator[Any, None, _T] | Coroutine[Any, Any, _T]) -> Task[_T]: ...

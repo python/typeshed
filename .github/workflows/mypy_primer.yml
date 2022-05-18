@@ -3,6 +3,10 @@ name: Run mypy_primer
 on:
   # Only run on PR, since we diff against master
   pull_request:
+    paths:
+    - 'stdlib/**'
+    - 'stubs/**'
+    - '.github/workflows/**'
 
 jobs:
   mypy_primer:

@@ -1,4 +1,6 @@
 _?curses.color_pair
+distutils.command.build_ext.__warningregistry__
+mmap.MAP_STACK
 (os|posix).EFD_CLOEXEC
 (os|posix).EFD_NONBLOCK
 (os|posix).EFD_SEMAPHORE
@@ -22,15 +24,23 @@ _?curses.color_pair
 (os|posix).eventfd_read
 (os|posix).eventfd_write
 (os|posix).splice
+signal.SIGSTKFLT
+signal.Signals.SIGSTKFLT
 signal.sigtimedwait
 signal.sigwaitinfo
 select.epoll.register
-
-# Exists at runtime, but missing from stubs
-distutils.command.build_ext.__warningregistry__
-
-# ==========
-# Allowlist entries that cannot or should not be fixed
-# ==========
-
-distutils.command.bdist_msi  # Only available on Windows and Python 3.10 and below
+sqlite3.Connection.deserialize
+sqlite3.Connection.serialize
+sqlite3.SQLITE_BUSY_TIMEOUT
+sqlite3.SQLITE_CORRUPT_INDEX
+sqlite3.SQLITE_IOERR_CORRUPTFS
+sqlite3.SQLITE_IOERR_DATA
+sqlite3.dbapi2.Connection.deserialize
+sqlite3.dbapi2.Connection.serialize
+sqlite3.dbapi2.SQLITE_BUSY_TIMEOUT
+sqlite3.dbapi2.SQLITE_CORRUPT_INDEX
+sqlite3.dbapi2.SQLITE_IOERR_CORRUPTFS
+sqlite3.dbapi2.SQLITE_IOERR_DATA
+termios.tcgetwinsize
+termios.tcsetwinsize
+xxlimited.Xxo.x_exports
