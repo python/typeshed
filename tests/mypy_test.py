@@ -18,6 +18,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+from collections.abc import Iterable
 from pathlib import Path
 from typing import TYPE_CHECKING, NamedTuple
 
@@ -184,8 +185,18 @@ def run_mypy(
         else:
             stdout, stderr, exit_code = mypy_run(mypy_args)
             print(stdout, end="")
-            print(stderr, file=sys.stderr, end="")
+            print(stderr, end="")
         return exit_code
+
+
+ReturnCode: TypeAlias = int
+
+
+def run_mypy_as_subprocess(directory: StrPath, flags: Iterable[str]) -> ReturnCode:
+    result = subprocess.run([sys.executable, "-m", "mypy", directory, *flags], capture_output=True)
+    print(result.stdout.decode())
+    print(result.stderr.decode())
+    return result.returncode
 
 
 def get_mypy_flags(
@@ -362,7 +373,7 @@ def test_the_test_scripts(code: int, major: int, minor: int, args: argparse.Name
     if args.dry_run:
         this_code = 0
     else:
-        this_code = subprocess.run([sys.executable, "-m", "mypy", "tests", *flags]).returncode
+        this_code = run_mypy_as_subprocess("tests", flags)
     code = max(code, this_code)
     return TestResults(code, num_test_files_to_test)
 
@@ -380,7 +391,7 @@ def test_the_test_cases(code: int, major: int, minor: int, args: argparse.Namesp
         # SO, to work around this, we copy the test_cases directory into a TemporaryDirectory.
         with tempfile.TemporaryDirectory() as td:
             shutil.copytree(Path("test_cases"), Path(td) / "test_cases")
-            this_code = subprocess.run([sys.executable, "-m", "mypy", td, *flags]).returncode
+            this_code = run_mypy_as_subprocess(td, flags)
     code = max(code, this_code)
     return TestResults(code, num_test_case_files)
 
