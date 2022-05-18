@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, TypeVar
 
 from sqlalchemy.orm.query import Query
 from sqlalchemy.orm.session import Session
@@ -39,7 +39,9 @@ class Pagination:
         self, left_edge: int = ..., left_current: int = ..., right_current: int = ..., right_edge: int = ...
     ) -> None: ...
 
-class BaseQuery(Query):
+_T = TypeVar("_T")
+
+class BaseQuery(Query[_T]):
     def get_or_404(self, ident, description: Any | None = ...): ...
     def first_or_404(self, description: Any | None = ...): ...
     def paginate(
