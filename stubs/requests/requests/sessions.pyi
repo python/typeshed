@@ -55,7 +55,7 @@ _Files: TypeAlias = (
     | Mapping[str, tuple[str | None, SupportsRead[str | bytes] | str | bytes, str, _TextMapping]]
 )
 _Hook: TypeAlias = Callable[[Response], Any]
-_Hooks: TypeAlias = Mapping[str, _Hook | list[_Hook]]
+_Hooks: TypeAlias = dict[str, _Hook | list[_Hook]]
 _HooksInput: TypeAlias = Mapping[str, Iterable[_Hook] | _Hook]
 
 _ParamsMappingKeyType: TypeAlias = str | bytes | int | float
