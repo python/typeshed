@@ -147,8 +147,9 @@ X = RegexFlag.X
 VERBOSE = RegexFlag.VERBOSE
 U = RegexFlag.U
 UNICODE = RegexFlag.UNICODE
-T = RegexFlag.T
-TEMPLATE = RegexFlag.TEMPLATE
+if sys.version_info < (3, 11):
+    T = RegexFlag.T
+    TEMPLATE = RegexFlag.TEMPLATE
 if sys.version_info >= (3, 11):
     NOFLAG = RegexFlag.NOFLAG
 _FlagsType: TypeAlias = int | RegexFlag
