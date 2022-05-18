@@ -43,7 +43,6 @@ asyncio.sslproto._SSLProtocolTransport.set_read_buffer_limits
 asyncio.sslproto.add_flowcontrol_defaults
 bdb.Breakpoint.clearBreakpoints
 binascii.a2b_base64
-builtins.BaseException.add_note
 builtins.dict.get
 builtins.property.__set_name__  # Doesn't actually exist
 concurrent.futures.ProcessPoolExecutor.__init__
