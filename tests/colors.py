@@ -21,7 +21,10 @@ else:
 
 
 def print_error(error: str, end: str = "\n") -> None:
-    print(colored(error, "red"), end=end)
+    error_split = error.split("\n")
+    for line in error_split[:-1]:
+        print(colored(line, "red"))
+    print(colored(error_split[-1], "red"), end=end)
 
 
 def print_success_msg() -> None:
