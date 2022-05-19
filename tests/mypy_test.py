@@ -19,7 +19,7 @@ import subprocess
 import sys
 import tempfile
 from collections.abc import Iterable
-from contextlib import redirect_stdout
+from contextlib import redirect_stderr, redirect_stdout
 from io import StringIO
 from pathlib import Path
 from typing import TYPE_CHECKING, NamedTuple
@@ -186,14 +186,24 @@ def run_mypy(
         if args.dry_run:
             exit_code = 0
         else:
-            stdout_file = StringIO()
-            with redirect_stdout(stdout_file):
-                stdout, stderr, exit_code = mypy_run(mypy_args)
+            stdout_redirect, stderr_redirect = StringIO(), StringIO()
+            with redirect_stdout(stdout_redirect), redirect_stderr(stderr_redirect):
+                returned_stdout, returned_stderr, exit_code = mypy_run(mypy_args)
+
             if exit_code:
-                if stderr:
-                    print_error(stderr)
-                if stdout:
-                    print_error(stdout_file.getvalue(), end="")
+                print_error("failure\n")
+                captured_stdout = stdout_redirect.getvalue()
+                captured_stderr = stderr_redirect.getvalue()
+                if returned_stderr:
+                    print_error(returned_stderr)
+                if captured_stderr:
+                    print_error(captured_stderr)
+                if returned_stdout:
+                    print_error(returned_stdout)
+                if captured_stdout:
+                    print_error(captured_stdout, end="")
+            else:
+                print_success_msg()
         return exit_code
 
 
@@ -310,10 +320,6 @@ def test_third_party_distribution(distribution: str, major: int, minor: int, arg
         sys.exit(1)
 
     code = run_mypy(args, configurations, major, minor, files)
-
-    if not code:
-        print_success_msg()
-
     return code, len(files)
 
 
@@ -354,9 +360,6 @@ def test_stdlib(code: int, major: int, minor: int, args: argparse.Namespace) -> 
         this_code = run_mypy(args, [], major, minor, files, custom_typeshed=True)
         code = max(code, this_code)
 
-        if not code:
-            print_success_msg()
-
     return TestResults(code, len(files))
 
 
@@ -393,9 +396,9 @@ def test_the_test_scripts(code: int, major: int, minor: int, args: argparse.Name
         this_code = 0
     else:
         this_code = run_mypy_as_subprocess("tests", flags)
-    code = max(code, this_code)
-    if not code:
+    if not this_code:
         print_success_msg()
+    code = max(code, this_code)
     return TestResults(code, num_test_files_to_test)
 
 
@@ -413,9 +416,9 @@ def test_the_test_cases(code: int, major: int, minor: int, args: argparse.Namesp
         with tempfile.TemporaryDirectory() as td:
             shutil.copytree(Path("test_cases"), Path(td) / "test_cases")
             this_code = run_mypy_as_subprocess(td, flags)
-    code = max(code, this_code)
-    if not code:
+    if not this_code:
         print_success_msg()
+    code = max(code, this_code)
     return TestResults(code, num_test_case_files)
 
 

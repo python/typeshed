@@ -88,7 +88,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
         try:
             subprocess.run(stubtest_cmd, env={"MYPYPATH": str(dist), "MYPY_FORCE_COLOR": "1"}, check=True, capture_output=True)
         except subprocess.CalledProcessError as e:
-            print_error(" fail")
+            print_error("fail")
             print_commands(dist, pip_cmd, stubtest_cmd)
             print_command_output(e)
 
