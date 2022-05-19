@@ -1,11 +1,8 @@
-_ast.ImportFrom.level
-_ast.Tuple.dims
 _codecs.unregister
 _collections_abc.AsyncGenerator.ag_await
 _collections_abc.AsyncGenerator.ag_code
 _collections_abc.AsyncGenerator.ag_frame
 _collections_abc.AsyncGenerator.ag_running
-_collections_abc.AsyncGenerator.athrow  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
 _collections_abc.AsyncIterable.__class_getitem__
 _collections_abc.Awaitable.__class_getitem__
 _collections_abc.Container.__class_getitem__
@@ -16,18 +13,11 @@ _collections_abc.MappingView.__class_getitem__
 _collections_abc.ValuesView.__reversed__
 _csv.Reader
 _csv.Writer
-_imp.find_frozen
-_imp.get_frozen_object
-_imp.source_hash
 _operator.attrgetter.__vectorcalloffset__
 _operator.itemgetter.__vectorcalloffset__
-_weakref.ProxyType.__reversed__  # Doesn't really exist
 argparse._AppendConstAction.__init__
 argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group
 argparse._StoreConstAction.__init__
-ast.ImportFrom.level
-ast.Tuple.dims
-ast.main
 asynchat.__warningregistry__  # Removal planned for 3.12, can add if someone needs this
 asyncio.sslproto.AppProtocolState
 asyncio.sslproto.SSLAgainErrors
@@ -44,15 +34,12 @@ asyncio.sslproto.add_flowcontrol_defaults
 bdb.Breakpoint.clearBreakpoints
 binascii.a2b_base64
 builtins.dict.get
-builtins.property.__set_name__  # Doesn't actually exist
 concurrent.futures.ProcessPoolExecutor.__init__
 concurrent.futures.process.ProcessPoolExecutor.__init__
 concurrent.futures.process._ResultItem.__init__
 concurrent.futures.process._process_worker
 concurrent.futures.process._sendback_result
 configparser.LegacyInterpolation.__init__
-contextlib.AbstractAsyncContextManager.__class_getitem__
-contextlib.AbstractContextManager.__class_getitem__
 contextvars.Context.__init__
 dataclasses.KW_ONLY
 dataclasses.field
@@ -70,22 +57,11 @@ distutils.dist.DistributionMetadata.set_platforms
 distutils.util.get_host_platform
 enum.Enum.__init__
 enum.Enum._generate_next_value_
-enum.Flag.__iter__
-enum.Flag.__len__
-enum.Flag.__rand__
-enum.Flag.__ror__
-enum.Flag.__rxor__
-enum.StrEnum.value
-enum._EnumDict.update
 fractions.Fraction.__int__
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 ftplib.FTP.trust_server_pasv_ipv4_address
 functools.partial.__vectorcalloffset__
 gettext.install
-hmac.new  # Stub is a white lie; see comments in the stub
-http.HTTPMethod.description
-http.server.SimpleHTTPRequestHandler.__init__  # *args is expanded
-imp.get_frozen_object
 importlib.resources.Resource
 inspect._ParameterKind.description
 ipaddress.IPv4Interface.hostmask
@@ -105,7 +81,6 @@ multiprocessing.spawn._main
 operator.attrgetter.__vectorcalloffset__
 operator.itemgetter.__vectorcalloffset__
 os.popen
-pickle.Pickler.reducer_override  # implemented in C pickler
 # platform.uname_result's processor field is now dynamically made to exist
 platform.uname_result.__match_args__
 platform.uname_result.__new__
@@ -123,7 +98,6 @@ pyexpat.errors.XML_ERROR_RESERVED_NAMESPACE_URI
 pyexpat.errors.XML_ERROR_RESERVED_PREFIX_XML
 pyexpat.errors.XML_ERROR_RESERVED_PREFIX_XMLNS
 queue.SimpleQueue.__init__
-re.Pattern.scanner  # Undocumented and not useful. #6405
 shutil.rmtree
 socketserver.UDPServer.allow_reuse_port
 string.Template.get_identifiers
@@ -143,9 +117,6 @@ types.CodeType.co_exceptiontable
 types.CodeType.co_qualname
 types.CoroutineType.cr_suspended
 types.GeneratorType.gi_suspended
-types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
-types.GenericAlias.__getattr__
-types.GenericAlias.__mro_entries__
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__
 typing.ForwardRef._evaluate
@@ -154,26 +125,12 @@ typing.NewType.__mro_entries__
 typing.ParamSpec.__typing_subst__
 typing.TypeVar.__typing_subst__
 typing.TypeVarTuple.__typing_subst__
-typing._SpecialForm.__call__
-typing._SpecialForm.__init__
-typing._SpecialForm.__mro_entries__
-typing._TypedDict.__delitem__
-typing._TypedDict.__ior__
-typing._TypedDict.__or__
-typing._TypedDict.copy
-typing._TypedDict.items
-typing._TypedDict.keys
-typing._TypedDict.pop
-typing._TypedDict.setdefault
-typing._TypedDict.update
-typing._TypedDict.values
 unicodedata.UCD.is_normalized
 unittest.TestCase._addSkip
 unittest.case.TestCase._addSkip
 unittest.doModuleCleanups
 urllib.request.FancyURLopener.http_error_308
 urllib.request.HTTPRedirectHandler.http_error_308
-weakref.ProxyType.__reversed__  # Doesn't really exist
 weakref.WeakValueDictionary.update
 wsgiref.types.InputStream.read
 wsgiref.types.InputStream.readline
@@ -242,6 +199,20 @@ os.path.join
 # Allowlist entries that cannot or should not be fixed
 # ==========
 
+_collections_abc.AsyncGenerator.athrow  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
+_weakref.ProxyType.__reversed__  # Doesn't really exist
+builtins.property.__set_name__  # Doesn't actually exist
+enum.StrEnum.value  # read-only property at runtime but too magical for stubtest
+hmac.new  # Stub is a white lie; see comments in the stub
+http.HTTPMethod.description  # mutable instance attribute at runtime but we pretend it's a property
+http.server.SimpleHTTPRequestHandler.__init__  # *args is expanded
+pickle.Pickler.reducer_override  # implemented in C pickler
+re.Pattern.scanner  # Undocumented and not useful. #6405
+types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
+types.GenericAlias.__getattr__
+types.GenericAlias.__mro_entries__
+weakref.ProxyType.__reversed__  # Doesn't really exist
+
 # Inherits __init__ from typing.Protocol
 importlib.abc.Traversable.__init__
 importlib.metadata.EntryPoint.__init__
@@ -281,7 +252,29 @@ os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all Pat
 ssl.PROTOCOL_SSLv3  # Depends on ssl compilation
 ssl.RAND_egd  # Depends on openssl compilation
 types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
+_ast.ImportFrom.level  # None on the class, but never None on instances
+ast.ImportFrom.level  # None on the class, but never None on instances
 
 # These enums derive from (str, Enum). See comment in py3_common.txt
 pstats.SortKey.__new__
 tkinter.EventType.__new__
+
+# Treated an alias of a typing class in the stubs,
+# they are generic to type checkers anyway.
+contextlib.AbstractAsyncContextManager.__class_getitem__
+contextlib.AbstractContextManager.__class_getitem__
+
+# Super-special typing primitives
+typing._SpecialForm.__call__
+typing._SpecialForm.__init__
+typing._SpecialForm.__mro_entries__
+typing._TypedDict.__delitem__
+typing._TypedDict.__ior__
+typing._TypedDict.__or__
+typing._TypedDict.copy
+typing._TypedDict.items
+typing._TypedDict.keys
+typing._TypedDict.pop
+typing._TypedDict.setdefault
+typing._TypedDict.update
+typing._TypedDict.values

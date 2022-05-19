@@ -1,4 +1,3 @@
-_ast.ImportFrom.level
 _collections_abc.AsyncGenerator.ag_await
 _collections_abc.AsyncGenerator.ag_code
 _collections_abc.AsyncGenerator.ag_frame
@@ -10,7 +9,6 @@ _weakref.ProxyType.__reversed__  # Doesn't really exist
 ast.Bytes.__new__
 ast.Ellipsis.__new__
 ast.ExtSlice.__new__
-ast.ImportFrom.level
 ast.Index.__new__
 ast.NameConstant.__new__
 ast.Num.__new__
@@ -106,15 +104,11 @@ collections.Mapping.get  # Adding None to the Union messed up mypy
 collections.Sequence.index  # Supporting None in end is not mandatory
 
 # Exists at runtime, but missing from stubs
-_ast.Tuple.dims
 _collections_abc.AsyncIterable.__class_getitem__
 _collections_abc.Awaitable.__class_getitem__
 _collections_abc.Container.__class_getitem__
 _collections_abc.Iterable.__class_getitem__
 _collections_abc.MappingView.__class_getitem__
-_imp.source_hash
-ast.Tuple.dims
-ast.main
 collections.AsyncIterable.__class_getitem__
 collections.Awaitable.__class_getitem__
 collections.Container.__class_getitem__
@@ -196,6 +190,8 @@ xml.etree.cElementTree.XMLParser.__init__
 
 ast.FormattedValue.conversion  # None on the class, but never None on instances
 _ast.FormattedValue.conversion  # None on the class, but never None on instances
+_ast.ImportFrom.level  # None on the class, but never None on instances
+ast.ImportFrom.level  # None on the class, but never None on instances
 
 ftplib.FTP.trust_server_pasv_ipv4_address  # Dangerous to use, intentionally undocumented, intentionally missing from typeshed. #6154
 os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all PathLike classes to implement class_getitem
