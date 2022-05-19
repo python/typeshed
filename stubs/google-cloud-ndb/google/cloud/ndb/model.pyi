@@ -1,8 +1,8 @@
 import datetime
 from _typeshed import Self
-from collections.abc import Iterable, Sequence
-from typing import Any, Callable, NoReturn
-from typing_extensions import Literal
+from collections.abc import Callable, Iterable, Sequence
+from typing import Any, NoReturn
+from typing_extensions import Literal, TypeAlias
 
 from google.cloud.ndb import exceptions, key as key_module, query as query_module, tasklets as tasklets_module
 
@@ -24,7 +24,7 @@ class UserNotFoundError(exceptions.Error): ...
 class _NotEqualMixin:
     def __ne__(self, other: object) -> bool: ...
 
-DirectionT = Literal["asc", "desc"]
+DirectionT: TypeAlias = Literal["asc", "desc"]
 
 class IndexProperty(_NotEqualMixin):
     def __new__(cls: type[Self], name: str, direction: DirectionT) -> Self: ...
@@ -348,7 +348,7 @@ class Model(_NotEqualMixin, metaclass=MetaModel):
     @classmethod
     def get_or_insert(
         cls: type[Model],
-        name: str,
+        _name: str,
         parent: key_module.Key | None = ...,
         namespace: str | None = ...,
         project: str | None = ...,
@@ -373,7 +373,7 @@ class Model(_NotEqualMixin, metaclass=MetaModel):
     @classmethod
     def get_or_insert_async(
         cls: type[Model],
-        name: str,
+        _name: str,
         parent: key_module.Key | None = ...,
         namespace: str | None = ...,
         project: str | None = ...,

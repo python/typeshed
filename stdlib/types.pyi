@@ -1,26 +1,23 @@
 import sys
 from _typeshed import SupportsKeysAndGetItem
-from importlib.abc import _LoaderProtocol
-from importlib.machinery import ModuleSpec
-from typing import (
-    Any,
+from collections.abc import (
     AsyncGenerator,
     Awaitable,
     Callable,
-    ClassVar,
     Coroutine,
     Generator,
-    Generic,
     ItemsView,
     Iterable,
     Iterator,
     KeysView,
-    Mapping,
     MutableSequence,
-    TypeVar,
     ValuesView,
-    overload,
 )
+from importlib.abc import _LoaderProtocol
+from importlib.machinery import ModuleSpec
+
+# pytype crashes if types.MappingProxyType inherits from collections.abc.Mapping instead of typing.Mapping
+from typing import Any, ClassVar, Generic, Mapping, TypeVar, overload  # noqa: Y027
 from typing_extensions import Literal, ParamSpec, final
 
 if sys.version_info >= (3, 10):
@@ -200,6 +197,7 @@ class FunctionType:
         @property
         def __builtins__(self) -> dict[str, Any]: ...
 
+    __module__: str
     def __init__(
         self,
         code: CodeType,
@@ -310,11 +308,11 @@ class CodeType:
             co_cellvars: tuple[str, ...] = ...,
             co_filename: str = ...,
             co_name: str = ...,
-            co_linetable: object = ...,
+            co_linetable: bytes = ...,
         ) -> CodeType: ...
         def co_lines(self) -> Iterator[tuple[int, int, int | None]]: ...
         @property
-        def co_linetable(self) -> object: ...
+        def co_linetable(self) -> bytes: ...
     elif sys.version_info >= (3, 8):
         def replace(
             self,
@@ -653,16 +651,20 @@ if sys.version_info >= (3, 9):
         @property
         def __parameters__(self) -> tuple[Any, ...]: ...
         def __init__(self, origin: type, args: Any) -> None: ...
+        if sys.version_info >= (3, 11):
+            @property
+            def __unpacked__(self) -> bool: ...
+
         def __getattr__(self, name: str) -> Any: ...  # incomplete
 
 if sys.version_info >= (3, 10):
     @final
     class NoneType:
         def __bool__(self) -> Literal[False]: ...
-    EllipsisType = ellipsis  # noqa F811 from builtins
+    EllipsisType = ellipsis  # noqa: F821 from builtins
     from builtins import _NotImplementedType
 
-    NotImplementedType = _NotImplementedType  # noqa F811 from builtins
+    NotImplementedType = _NotImplementedType
     @final
     class UnionType:
         @property

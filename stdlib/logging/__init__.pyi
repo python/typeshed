@@ -7,7 +7,10 @@ from string import Template
 from time import struct_time
 from types import FrameType, TracebackType
 from typing import Any, ClassVar, Generic, Pattern, TextIO, TypeVar, Union, overload
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
+
+if sys.version_info >= (3, 11):
+    from types import GenericAlias
 
 __all__ = [
     "BASIC_FORMAT",
@@ -54,12 +57,12 @@ __all__ = [
     "raiseExceptions",
 ]
 
-_SysExcInfoType = Union[tuple[type[BaseException], BaseException, TracebackType | None], tuple[None, None, None]]
-_ExcInfoType = None | bool | _SysExcInfoType | BaseException
-_ArgsType = tuple[object, ...] | Mapping[str, object]
-_FilterType = Filter | Callable[[LogRecord], int]
-_Level = int | str
-_FormatStyle = Literal["%", "{", "$"]
+_SysExcInfoType: TypeAlias = Union[tuple[type[BaseException], BaseException, TracebackType | None], tuple[None, None, None]]
+_ExcInfoType: TypeAlias = None | bool | _SysExcInfoType | BaseException
+_ArgsType: TypeAlias = tuple[object, ...] | Mapping[str, object]
+_FilterType: TypeAlias = Filter | Callable[[LogRecord], int]
+_Level: TypeAlias = int | str
+_FormatStyle: TypeAlias = Literal["%", "{", "$"]
 
 raiseExceptions: bool
 logThreads: bool
@@ -408,7 +411,7 @@ class LogRecord:
     ) -> None: ...
     def getMessage(self) -> str: ...
 
-_L = TypeVar("_L", Logger, LoggerAdapter[Logger], LoggerAdapter[Any])
+_L = TypeVar("_L", bound=Logger | LoggerAdapter[Any])
 
 class LoggerAdapter(Generic[_L]):
     logger: _L
@@ -593,6 +596,8 @@ class LoggerAdapter(Generic[_L]):
     ) -> None: ...  # undocumented
     @property
     def name(self) -> str: ...  # undocumented
+    if sys.version_info >= (3, 11):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 def getLogger(name: str | None = ...) -> Logger: ...
 def getLoggerClass() -> type[Logger]: ...
@@ -769,6 +774,8 @@ class StreamHandler(Handler, Generic[_StreamT]):
     def __init__(self: StreamHandler[_StreamT], stream: _StreamT) -> None: ...
     if sys.version_info >= (3, 7):
         def setStream(self, stream: _StreamT) -> _StreamT | None: ...
+    if sys.version_info >= (3, 11):
+        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 class FileHandler(StreamHandler[TextIOWrapper]):
     baseFilename: str  # undocumented

@@ -70,6 +70,7 @@ asyncio.runners: 3.7-
 asyncio.staggered: 3.8-
 asyncio.taskgroups: 3.11-
 asyncio.threads: 3.9-
+asyncio.timeouts: 3.11-
 asyncio.trsock: 3.8-
 asyncore: 2.7-
 atexit: 2.7-
@@ -286,6 +287,7 @@ webbrowser: 2.7-
 winreg: 3.0-
 winsound: 2.7-
 wsgiref: 2.7-
+wsgiref.types: 3.11-
 xdrlib: 2.7-
 xml: 2.7-
 xmlrpc: 3.0-
