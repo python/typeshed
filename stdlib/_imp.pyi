@@ -1,6 +1,6 @@
-from _typeshed import ReadableBuffer
 import sys
 import types
+from _typeshed import ReadableBuffer
 from importlib.machinery import ModuleSpec
 from typing import Any
 
