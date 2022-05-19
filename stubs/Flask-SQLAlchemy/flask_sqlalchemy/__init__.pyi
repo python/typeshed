@@ -12,14 +12,7 @@ before_models_committed: Any
 class SignallingSession(Session):
     app: Any
     def __init__(self, db, autocommit: bool = ..., autoflush: bool = ..., **options) -> None: ...
-    def get_bind(
-        self,
-        mapper: Any | None = ...,
-        clause: Any | None = ...,
-        bind: Any | None = ...,
-        _sa_skip_events: Any | None = ...,
-        _sa_skip_for_implicit_returning: bool = ...,
-    ): ...
+    def get_bind(self, mapper: Any | None = ..., **kwargs): ...
 
 def get_debug_queries(): ...
 
