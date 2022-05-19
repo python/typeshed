@@ -1,4 +1,3 @@
-_ast.ImportFrom.level
 _collections_abc.AsyncGenerator.ag_await
 _collections_abc.AsyncGenerator.ag_code
 _collections_abc.AsyncGenerator.ag_frame
@@ -8,7 +7,6 @@ _collections_abc.ItemsView.__reversed__
 _collections_abc.KeysView.__reversed__
 _collections_abc.ValuesView.__reversed__
 _weakref.ProxyType.__reversed__  # Doesn't really exist
-ast.ImportFrom.level
 asyncio.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
 builtins.dict.get
@@ -75,7 +73,6 @@ tempfile.SpooledTemporaryFile.seekable
 tempfile.SpooledTemporaryFile.writable
 
 # Exists at runtime, but missing from stubs
-_ast.Tuple.dims
 _codecs.unregister
 _collections_abc.AsyncIterable.__class_getitem__
 _collections_abc.Awaitable.__class_getitem__
@@ -85,8 +82,6 @@ _collections_abc.MappingView.__class_getitem__
 _csv.Reader
 _csv.Writer
 _imp.source_hash
-ast.Tuple.dims
-ast.main
 asynchat.__warningregistry__  # Removal planned for 3.12, can add if someone needs this
 bdb.Breakpoint.clearBreakpoints
 distutils.dist.DistributionMetadata.set_classifiers
@@ -194,6 +189,8 @@ os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all Pat
 ssl.PROTOCOL_SSLv3  # Depends on ssl compilation
 ssl.RAND_egd  # Depends on openssl compilation
 types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
+_ast.ImportFrom.level  # None on the class, but never None on instances
+ast.ImportFrom.level  # None on the class, but never None on instances
 
 # These enums derive from (str, Enum). See comment in py3_common.txt
 pstats.SortKey.__new__
