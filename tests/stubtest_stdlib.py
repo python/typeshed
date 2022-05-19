@@ -14,9 +14,9 @@ from pathlib import Path
 
 def run_stubtest(typeshed_dir: Path) -> int:
     allowlist_dir = typeshed_dir / "tests" / "stubtest_allowlists"
-    version_allowlist = "py{}{}.txt".format(sys.version_info.major, sys.version_info.minor)
-    platform_allowlist = "{}.txt".format(sys.platform)
-    combined_allowlist = "{}-py{}{}.txt".format(sys.platform, sys.version_info.major, sys.version_info.minor)
+    version_allowlist = f"py{sys.version_info.major}{sys.version_info.minor}.txt"
+    platform_allowlist = f"{sys.platform}.txt"
+    combined_allowlist = f"{sys.platform}-py{sys.version_info.major}{sys.version_info.minor}.txt"
 
     cmd = [
         sys.executable,

@@ -140,14 +140,14 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
 
     assert isinstance(mypy_tests_conf, dict), "mypy-tests should be a section"
     for section_name, mypy_section in mypy_tests_conf.items():
-        assert isinstance(mypy_section, dict), "{} should be a section".format(section_name)
+        assert isinstance(mypy_section, dict), f"{section_name} should be a section"
         module_name = mypy_section.get("module_name")
 
-        assert module_name is not None, "{} should have a module_name key".format(section_name)
-        assert isinstance(module_name, str), "{} should be a key-value pair".format(section_name)
+        assert module_name is not None, f"{section_name} should have a module_name key"
+        assert isinstance(module_name, str), f"{section_name} should be a key-value pair"
 
         values = mypy_section.get("values")
-        assert values is not None, "{} should have a values section".format(section_name)
+        assert values is not None, f"{section_name} should have a values section"
         assert isinstance(values, dict), "values should be a section"
 
         configurations.append(MypyDistConf(module_name, values.copy()))
@@ -173,7 +173,7 @@ def run_mypy(
         for dist_conf in configurations:
             temp.write("[mypy-%s]\n" % dist_conf.module_name)
             for k, v in dist_conf.values.items():
-                temp.write("{} = {}\n".format(k, v))
+                temp.write(f"{k} = {v}\n")
         temp.flush()
 
         flags = get_mypy_flags(args, major, minor, temp.name, custom_typeshed=custom_typeshed)
