@@ -55,7 +55,6 @@ _Files: TypeAlias = (
     | Mapping[str, tuple[str | None, SupportsRead[str | bytes] | str | bytes, str, _TextMapping]]
 )
 _Hook: TypeAlias = Callable[[Response], Any]
-_Hooks: TypeAlias = Mapping[str, _Hook | list[_Hook]]
 _HooksInput: TypeAlias = Mapping[str, Iterable[_Hook] | _Hook]
 
 _ParamsMappingKeyType: TypeAlias = str | bytes | int | float
@@ -85,7 +84,10 @@ class Session(SessionRedirectMixin):
     headers: CaseInsensitiveDict[str | bytes]
     auth: _Auth | None
     proxies: _TextMapping
-    hooks: _Hooks
+    # Don't complain if:
+    #   - value is assumed to be a list (which it is by default)
+    #   - a _Hook is assigned directly, without wrapping it in a list (also works)
+    hooks: dict[str, list[_Hook] | Any]
     params: _Params
     stream: bool
     verify: None | bool | str
