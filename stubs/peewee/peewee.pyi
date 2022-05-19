@@ -4,30 +4,9 @@ import enum
 import threading
 import uuid
 from _typeshed import Self
-from typing import (
-    Any,
-    AnyStr,
-    Callable,
-    ClassVar,
-    Container,
-    ContextManager,
-    Generic,
-    Hashable,
-    Iterable,
-    Iterator,
-    Mapping,
-    MutableMapping,
-    MutableSet,
-    NamedTuple,
-    NoReturn,
-    Pattern,
-    Protocol,
-    Sequence,
-    Text,
-    TypeVar,
-    Union,
-    overload,
-)
+from collections.abc import Callable, Container, Hashable, Iterable, Iterator, Mapping, MutableMapping, MutableSet, Sequence
+from contextlib import AbstractContextManager
+from typing import Any, AnyStr, ClassVar, Generic, NamedTuple, NoReturn, Pattern, Protocol, TypeVar, Union, overload
 from typing_extensions import Literal, TypeAlias
 
 _T = TypeVar("_T")
@@ -247,11 +226,11 @@ class Context:
     @property
     def subquery(self) -> Any: ...  # TODO (dargueta): Figure out type of "self.state.subquery"
     def __call__(self: Self, **overrides: object) -> Self: ...
-    def scope_normal(self) -> ContextManager[Context]: ...
-    def scope_source(self) -> ContextManager[Context]: ...
-    def scope_values(self) -> ContextManager[Context]: ...
-    def scope_cte(self) -> ContextManager[Context]: ...
-    def scope_column(self) -> ContextManager[Context]: ...
+    def scope_normal(self) -> AbstractContextManager[Context]: ...
+    def scope_source(self) -> AbstractContextManager[Context]: ...
+    def scope_values(self) -> AbstractContextManager[Context]: ...
+    def scope_cte(self) -> AbstractContextManager[Context]: ...
+    def scope_column(self) -> AbstractContextManager[Context]: ...
     def __enter__(self: Self) -> Self: ...
     def __exit__(self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: object) -> None: ...
     # @contextmanager
@@ -1892,7 +1871,7 @@ class Model(Node, metaclass=ModelBase):
     @classmethod
     def insert_many(cls, rows: Iterable[tuple], fields: Sequence[Field]) -> ModelInsert: ...
     @classmethod
-    def insert_from(cls, query: SelectQuery, fields: Iterable[Field | Text]) -> ModelInsert: ...
+    def insert_from(cls, query: SelectQuery, fields: Iterable[Field | str]) -> ModelInsert: ...
     @classmethod
     def replace(cls, __data: Iterable[str | Field] | None = ..., **insert: object) -> OnConflict: ...
     @classmethod
