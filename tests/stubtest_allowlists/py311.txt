@@ -16,9 +16,6 @@ _collections_abc.MappingView.__class_getitem__
 _collections_abc.ValuesView.__reversed__
 _csv.Reader
 _csv.Writer
-_imp.find_frozen
-_imp.get_frozen_object
-_imp.source_hash
 _operator.attrgetter.__vectorcalloffset__
 _operator.itemgetter.__vectorcalloffset__
 _weakref.ProxyType.__reversed__  # Doesn't really exist
@@ -79,7 +76,6 @@ gettext.install
 hmac.new  # Stub is a white lie; see comments in the stub
 http.HTTPMethod.description  # mutable instance attribute at runtime but we pretend it's a property
 http.server.SimpleHTTPRequestHandler.__init__  # *args is expanded
-imp.get_frozen_object
 importlib.resources.Resource
 inspect._ParameterKind.description
 ipaddress.IPv4Interface.hostmask

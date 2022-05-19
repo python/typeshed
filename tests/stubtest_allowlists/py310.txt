@@ -84,7 +84,6 @@ _collections_abc.Iterable.__class_getitem__
 _collections_abc.MappingView.__class_getitem__
 _csv.Reader
 _csv.Writer
-_imp.source_hash
 ast.Tuple.dims
 ast.main
 asynchat.__warningregistry__  # Removal planned for 3.12, can add if someone needs this
