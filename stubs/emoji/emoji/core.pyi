@@ -1,4 +1,5 @@
-from typing import Callable, Pattern
+from collections.abc import Callable
+from typing import Pattern
 from typing_extensions import Literal
 
 _DEFAULT_DELIMITER: str

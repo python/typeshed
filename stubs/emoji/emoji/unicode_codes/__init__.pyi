@@ -12,3 +12,5 @@ from .pt import EMOJI_UNICODE_PORTUGUESE as EMOJI_UNICODE_PORTUGUESE, UNICODE_EM
 
 EMOJI_UNICODE: dict[str, dict[str, str]]
 UNICODE_EMOJI: dict[str, dict[str, str]]
+
+EMOJI_DATA: dict[str, dict[str, str]]
