@@ -19,7 +19,7 @@ import subprocess
 import sys
 import tempfile
 from collections.abc import Iterable
-from contextlib import redirect_stdout, redirect_stderr
+from contextlib import redirect_stderr, redirect_stdout
 from io import StringIO
 from pathlib import Path
 from typing import TYPE_CHECKING, NamedTuple
