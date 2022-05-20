@@ -352,24 +352,35 @@ class connection:
     OperationalError: Any
     ProgrammingError: Any
     Warning: Any
-    async_: Any
+    @property
+    def async_(self) -> Any: ...
     autocommit: Any
-    binary_types: Any
-    closed: Any
+    @property
+    def binary_types(self) -> Any: ...
+    @property
+    def closed(self) -> Any: ...
     cursor_factory: Callable[..., _cursor]
     deferrable: Any
-    dsn: Any
-    encoding: Any
-    info: ConnectionInfo
+    @property
+    def dsn(self) -> Any: ...
+    @property
+    def encoding(self) -> Any: ...
+    @property
+    def info(self) -> ConnectionInfo: ...
     isolation_level: Any
     notices: Any
     notifies: Any
-    pgconn_ptr: Any
-    protocol_version: int
+    @property
+    def pgconn_ptr(self) -> Any: ...
+    @property
+    def protocol_version(self) -> int: ...
     readonly: Any
-    server_version: int
-    status: Any
-    string_types: Any
+    @property
+    def server_version(self) -> int: ...
+    @property
+    def status(self) -> Any: ...
+    @property
+    def string_types(self) -> Any: ...
     def __init__(self, *args, **kwargs) -> None: ...
     def cancel(self, *args, **kwargs): ...
     def close(self, *args, **kwargs): ...
