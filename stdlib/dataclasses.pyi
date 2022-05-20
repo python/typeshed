@@ -240,7 +240,7 @@ class InitVar(Generic[_T]):
         @overload
         def __class_getitem__(cls, type: Any) -> InitVar[Any]: ...
 
-if sys.version_info >= (3, 10):
+if sys.version_info >= (3, 11):
     def make_dataclass(
         cls_name: str,
         fields: Iterable[str | tuple[str, type] | tuple[str, type, Any]],
