@@ -157,6 +157,24 @@ class Column:
     def __setstate__(self, state): ...
 
 class ConnectionInfo:
+    # Note: the following properties can be None if their corresponding libpq function
+    # returns NULL. They're not annotated as such, because this is very unlikely in
+    # practice---the psycopg2 docs [1] don't even mention this as a possibility!
+    #
+    # - db_name
+    # - user
+    # - password
+    # - host
+    # - port
+    # - options
+    #
+    # (To prove this, one needs to inspect the psycopg2 source code [2], plus the
+    # documentation [3] and source code [4] of the corresponding libpq calls.)
+    #
+    # [1]: https://www.psycopg.org/docs/extensions.html#psycopg2.extensions.ConnectionInfo
+    # [2]: https://github.com/psycopg/psycopg2/blob/1d3a89a0bba621dc1cc9b32db6d241bd2da85ad1/psycopg/conninfo_type.c#L52 and below
+    # [3]: https://www.postgresql.org/docs/current/libpq-status.html
+    # [4]: https://github.com/postgres/postgres/blob/b39838889e76274b107935fa8e8951baf0e8b31b/src/interfaces/libpq/fe-connect.c#L6754 and below
     @property
     def backend_pid(self) -> int: ...
     @property
