@@ -75,7 +75,7 @@ _AwaitableT = TypeVar("_AwaitableT", bound=Awaitable[Any])
 _AwaitableT_co = TypeVar("_AwaitableT_co", bound=Awaitable[Any], covariant=True)
 
 class object:
-    __doc__: str | None
+    __doc__: str
     __dict__: dict[str, Any]
     __module__: str
     __annotations__: dict[str, Any]
