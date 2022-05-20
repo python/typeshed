@@ -59,9 +59,6 @@ sched.Event.__doc__  # __slots__ is overridden
 ssl.PROTOCOL_SSLv3  # Depends on ssl compilation
 ssl.RAND_egd  # Depends on openssl compilation
 sys.UnraisableHookArgs  # Not exported from sys
-types.ClassMethodDescriptorType.__get__
-types.MethodDescriptorType.__get__
-types.WrapperDescriptorType.__get__
 typing.NamedTuple.__new__
 typing.NamedTuple._asdict
 typing.NamedTuple._make
@@ -193,3 +190,8 @@ types.CodeType.replace  # stubtest thinks default values are None but None doesn
 
 # White lies around defaults
 dataclasses.field
+
+# Runtime signature is incorrect (https://github.com/python/cpython/issues/93021)
+types.ClassMethodDescriptorType.__get__
+types.MethodDescriptorType.__get__
+types.WrapperDescriptorType.__get__

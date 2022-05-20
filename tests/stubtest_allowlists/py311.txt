@@ -89,13 +89,10 @@ symtable.SymbolTable.has_exec
 sys.UnraisableHookArgs  # Not exported from sys
 sys.exception
 tkinter._VersionInfoType.__doc__
-types.ClassMethodDescriptorType.__get__
 types.CodeType.co_exceptiontable
 types.CodeType.co_qualname
 types.CoroutineType.cr_suspended
 types.GeneratorType.gi_suspended
-types.MethodDescriptorType.__get__
-types.WrapperDescriptorType.__get__
 typing.ForwardRef._evaluate
 typing.NewType.__call__
 typing.NewType.__mro_entries__
@@ -256,3 +253,8 @@ wsgiref.types.WSGIApplication
 
 # Really it's mad about dict.get
 wsgiref.types.WSGIEnvironment.get
+
+# Runtime signature is incorrect (https://github.com/python/cpython/issues/93021)
+types.ClassMethodDescriptorType.__get__
+types.MethodDescriptorType.__get__
+types.WrapperDescriptorType.__get__

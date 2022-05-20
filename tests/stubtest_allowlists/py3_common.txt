@@ -47,15 +47,12 @@ asyncio.locks.Condition.locked
 asyncio.locks.Condition.release
 asyncio.proactor_events.BaseProactorEventLoop.sock_recv # nbytes parameter has different name 'n' in implementation
 asyncio.selector_events.BaseSelectorEventLoop.sock_recv # nbytes parameter has different name 'n' in implementation
-builtins.classmethod.__get__  # this function can accept no value for the type parameter.
 builtins.ellipsis  # type is not exposed anywhere
 builtins.function
 builtins.memoryview.__contains__  # C type that implements __getitem__
 sqlite3.dbapi2.Binary.__contains__  # C type that implements __getitem__
 sqlite3.Binary.__contains__  # C type that implements __getitem__
 builtins.object.__init__  # default C signature is incorrect
-builtins.property.__get__  # this function can accept no value for the type parameter.
-builtins.staticmethod.__get__  # this function can accept no value for the type parameter.
 builtins.type.__dict__  # read-only but not actually a property; stubtest thinks it's a mutable attribute.
 bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
 # The following CodecInfo properties are added in __new__
@@ -211,8 +208,6 @@ tkinter.Tk.report_callback_exception  # A bit of a lie, since it's actually a me
 tkinter.Wm.wm_iconphoto  # Default value of argument can't be used without runtime error
 tkinter.font.Font.__getitem__  # Argument name differs (doesn't matter for __dunder__ methods)
 traceback.TracebackException.from_exception  # explicitly expanding arguments going into TracebackException __init__
-types.GetSetDescriptorType.__get__  # this function can accept no value for the type parameter.
-types.MemberDescriptorType.__get__  # this function can accept no value for the type parameter.
 types.MethodType.__closure__  # read-only but not actually a property; stubtest thinks it doesn't exist.
 types.MethodType.__defaults__  # read-only but not actually a property; stubtest thinks it doesn't exist.
 types.ModuleType.__dict__  # read-only but not actually a property; stubtest thinks it's a mutable attribute.
@@ -406,9 +401,14 @@ pickle.Pickler.memo  # undocumented implementation detail, has different type in
 pickle.Unpickler.memo  # undocumented implementation detail, has different type in C/Python implementations
 tempfile._TemporaryFileWrapper.[\w_]+  # Dynamically specified by __getattr__, and thus don't exist on the class
 
-# stubtest incorrectly highlights the type argument as not having a default value.
+# Runtime signature is incorrect (https://github.com/python/cpython/issues/93021)
 types.FunctionType.__get__
 types.LambdaType.__get__
+builtins.classmethod.__get__
+builtins.property.__get__
+builtins.staticmethod.__get__
+types.GetSetDescriptorType.__get__
+types.MemberDescriptorType.__get__
 
 # Various classes in typing aren't types at runtime. In addition, mypy thinks some special forms are tautologically defined.
 typing.[A-Z]\w+
