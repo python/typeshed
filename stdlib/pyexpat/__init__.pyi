@@ -1,6 +1,5 @@
 import pyexpat.errors as errors
 import pyexpat.model as model
-import sys
 from _typeshed import SupportsRead
 from collections.abc import Callable
 from typing import Any
