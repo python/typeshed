@@ -90,10 +90,6 @@ sys.UnraisableHookArgs  # Not exported from sys
 sys.exception
 tkinter._VersionInfoType.__doc__
 types.ClassMethodDescriptorType.__get__
-types.CodeType.co_exceptiontable
-types.CodeType.co_qualname
-types.CoroutineType.cr_suspended
-types.GeneratorType.gi_suspended
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__
 typing.ForwardRef._evaluate
