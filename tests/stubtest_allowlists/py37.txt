@@ -171,3 +171,5 @@ queue.SimpleQueue.__init__
 
 pyexpat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args
 xml.parsers.expat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args
+pyexpat.XMLParserType.intern  # does exist but stubtest can't see it (https://github.com/python/cpython/blob/3.7/Modules/pyexpat.c#L1322)
+xml.parsers.expat.XMLParserType.intern  # does exist but stubtest can't see it (https://github.com/python/cpython/blob/3.7/Modules/pyexpat.c#L1322)
