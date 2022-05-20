@@ -32,7 +32,6 @@ collections.KeysView.__reversed__
 collections.ValuesView.__reversed__
 contextlib.AbstractAsyncContextManager.__class_getitem__
 contextlib.AbstractContextManager.__class_getitem__
-dataclasses.field
 distutils.command.bdist_wininst  # see #6523
 enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
@@ -191,3 +190,6 @@ ast.ImportFrom.level  # None on the class, but never None on instances
 
 ftplib.FTP.trust_server_pasv_ipv4_address  # Dangerous to use, intentionally undocumented, intentionally missing from typeshed. #6154
 os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all PathLike classes to implement class_getitem
+
+# White lies around defaults
+dataclasses.field

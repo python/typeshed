@@ -27,7 +27,6 @@ collections.Callable
 collections.Mapping.__reversed__  # Set to None at runtime for a better error message
 collections.UserString.maketrans
 contextvars.ContextVar.get
-dataclasses.field
 distutils.command.bdist_wininst  # see #6523
 dummy_threading.Condition.acquire
 dummy_threading.Condition.release
@@ -173,3 +172,6 @@ pyexpat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - funct
 xml.parsers.expat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args
 pyexpat.XMLParserType.intern  # does exist but stubtest can't see it (https://github.com/python/cpython/blob/3.7/Modules/pyexpat.c#L1322)
 xml.parsers.expat.XMLParserType.intern  # does exist but stubtest can't see it (https://github.com/python/cpython/blob/3.7/Modules/pyexpat.c#L1322)
+
+# White lies around defaults
+dataclasses.field

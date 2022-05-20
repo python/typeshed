@@ -41,16 +41,6 @@ concurrent.futures.process._process_worker
 concurrent.futures.process._sendback_result
 configparser.LegacyInterpolation.__init__
 contextvars.Context.__init__
-dataclasses.KW_ONLY
-dataclasses.field
-dataclasses.make_dataclass
-dis.Bytecode.__init__
-dis.Bytecode.from_traceback
-dis.dis
-dis.disassemble
-dis.disco
-dis.distb
-dis.get_instructions
 distutils.dist.DistributionMetadata.set_classifiers
 distutils.dist.DistributionMetadata.set_keywords
 distutils.dist.DistributionMetadata.set_platforms
@@ -99,10 +89,6 @@ symtable.SymbolTable.has_exec
 sys.UnraisableHookArgs  # Not exported from sys
 sys.exception
 tkinter._VersionInfoType.__doc__
-traceback.StackSummary.format_frame_summary
-traceback.TracebackException.__init__
-traceback.TracebackException.format
-traceback.TracebackException.print
 types.ClassMethodDescriptorType.__get__
 types.CodeType.co_exceptiontable
 types.CodeType.co_qualname
@@ -253,6 +239,10 @@ typing._TypedDict.pop
 typing._TypedDict.setdefault
 typing._TypedDict.update
 typing._TypedDict.values
+
+# White lies around defaults
+dataclasses.KW_ONLY
+dataclasses.field
 
 # https://github.com/python/mypy/issues/12819 (... in runtime default)
 wsgiref.types.InputStream.read
