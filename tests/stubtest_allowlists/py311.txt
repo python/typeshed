@@ -110,11 +110,6 @@ urllib.request.FancyURLopener.http_error_308
 urllib.request.HTTPRedirectHandler.http_error_308
 weakref.WeakValueDictionary.update
 xmlrpc.server.SimpleXMLRPCRequestHandler.rpc_paths
-zipfile.Path.stem
-zipfile.Path.suffix
-zipfile.Path.suffixes
-zipfile.ZipFile.__init__
-zipfile.ZipFile.mkdir
 
 # stubtest complains that in 3.10 the default argument is inconsistent with the annotation,
 # but in 3.10+ calling the function without the default argument is in fact deprecated,
