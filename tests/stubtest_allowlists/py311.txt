@@ -44,13 +44,6 @@ contextvars.Context.__init__
 dataclasses.KW_ONLY
 dataclasses.field
 dataclasses.make_dataclass
-dis.Bytecode.__init__
-dis.Bytecode.from_traceback
-dis.dis
-dis.disassemble
-dis.disco
-dis.distb
-dis.get_instructions
 distutils.dist.DistributionMetadata.set_classifiers
 distutils.dist.DistributionMetadata.set_keywords
 distutils.dist.DistributionMetadata.set_platforms
