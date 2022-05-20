@@ -130,8 +130,6 @@ multiprocessing.managers.SharedMemoryServer.shutdown
 multiprocessing.managers.SharedMemoryServer.track_segment
 plistlib.Data.asBase64
 plistlib.Data.fromBase64
-pyexpat.XMLParserType.SkippedEntityHandler
-pyexpat.XMLParserType.intern
 stringprep.unicodedata  # re-exported from unicodedata
 tempfile.SpooledTemporaryFile.softspace
 tkinter.Tk.split
@@ -154,8 +152,6 @@ tkinter.simpledialog.wantobjects
 tkinter.tix.wantobjects
 typing._SpecialForm.__call__
 unicodedata.UCD.is_normalized
-xml.parsers.expat.XMLParserType.SkippedEntityHandler
-xml.parsers.expat.XMLParserType.intern
 
 # ==========
 # Allowlist entries that cannot or should not be fixed
