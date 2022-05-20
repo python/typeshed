@@ -1,4 +1,4 @@
-name: Run stubtest on the stdlib
+name: Run stubtest
 
 on:
   workflow_dispatch:
