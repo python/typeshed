@@ -10,7 +10,7 @@ on:
     paths:
       - 'stdlib/**'
       - '.github/workflows/stubtest_stdlib.yml'
-      - 'tests/stubtest_stdlib.py'
+      - 'tests/**'
 
 permissions:
   contents: read
