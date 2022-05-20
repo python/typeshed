@@ -256,6 +256,25 @@ if sys.version_info >= (3, 10):
         match_args: bool = ...,
         kw_only: bool = ...,
         slots: bool = ...,
+        weakref_slot: bool = ...,
+    ) -> type: ...
+
+elif sys.version_info >= (3, 10):
+    def make_dataclass(
+        cls_name: str,
+        fields: Iterable[str | tuple[str, type] | tuple[str, type, Any]],
+        *,
+        bases: tuple[type, ...] = ...,
+        namespace: dict[str, Any] | None = ...,
+        init: bool = ...,
+        repr: bool = ...,
+        eq: bool = ...,
+        order: bool = ...,
+        unsafe_hash: bool = ...,
+        frozen: bool = ...,
+        match_args: bool = ...,
+        kw_only: bool = ...,
+        slots: bool = ...,
     ) -> type: ...
 
 else:
