@@ -41,9 +41,6 @@ concurrent.futures.process._process_worker
 concurrent.futures.process._sendback_result
 configparser.LegacyInterpolation.__init__
 contextvars.Context.__init__
-dataclasses.KW_ONLY
-dataclasses.field
-dataclasses.make_dataclass
 distutils.dist.DistributionMetadata.set_classifiers
 distutils.dist.DistributionMetadata.set_keywords
 distutils.dist.DistributionMetadata.set_platforms
@@ -263,6 +260,10 @@ typing._TypedDict.pop
 typing._TypedDict.setdefault
 typing._TypedDict.update
 typing._TypedDict.values
+
+# White lies around defaults
+dataclasses.KW_ONLY
+dataclasses.field
 
 # https://github.com/python/mypy/issues/12819 (... in runtime default)
 wsgiref.types.InputStream.read
