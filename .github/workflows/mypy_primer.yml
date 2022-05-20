@@ -6,8 +6,7 @@ on:
     paths:
     - 'stdlib/**'
     - 'stubs/**'
-    - '.github/workflows/mypy_primer.yml'
-    - '.github/workflows/mypy_primer_comment.yml'
+    - '.github/workflows/**'
 
 jobs:
   mypy_primer:

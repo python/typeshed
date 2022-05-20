@@ -9,8 +9,8 @@ on:
     pull_request:
       paths:
         - 'stdlib/**'
-        - '.github/workflows/stubtest_stdlib.yml'
-        - 'tests/stubtest_stdlib.py'
+        - '.github/workflows/**'
+        - 'tests/**'
 
 permissions:
   contents: read
