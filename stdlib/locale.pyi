@@ -143,6 +143,9 @@ if sys.platform == "linux" or sys.platform == "darwin":
     def bindtextdomain(__domain: _str, __dir: StrPath | None) -> _str: ...
     def bind_textdomain_codeset(__domain: _str, __codeset: _str | None) -> _str | None: ...
 
+if sys.version_info >= (3, 11):
+    def getencoding() -> _str: ...
+
 locale_alias: dict[_str, _str]  # undocumented
 locale_encoding_alias: dict[_str, _str]  # undocumented
 windows_locale: dict[int, _str]  # undocumented
