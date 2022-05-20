@@ -132,13 +132,6 @@ unittest.doModuleCleanups
 urllib.request.FancyURLopener.http_error_308
 urllib.request.HTTPRedirectHandler.http_error_308
 weakref.WeakValueDictionary.update
-wsgiref.types.InputStream.read
-wsgiref.types.InputStream.readline
-wsgiref.types.InputStream.readlines
-wsgiref.types.StartResponse.__call__
-wsgiref.types.WSGIApplication
-wsgiref.types.WSGIEnvironment.get
-wsgiref.types._Readable.read
 xml.parsers.expat.XMLParserType.SkippedEntityHandler
 xml.parsers.expat.XMLParserType.intern
 xml.parsers.expat.errors.XML_ERROR_AMPLIFICATION_LIMIT_BREACH
@@ -213,7 +206,7 @@ types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
 weakref.ProxyType.__reversed__  # Doesn't really exist
 
-# Inherits __init__ from typing.Protocol
+# Inherits __init__ from typing.Protocol (https://github.com/python/mypy/issues/12820)
 importlib.abc.Traversable.__init__
 importlib.metadata.EntryPoint.__init__
 importlib.metadata.PackageMetadata.__init__
@@ -278,3 +271,16 @@ typing._TypedDict.pop
 typing._TypedDict.setdefault
 typing._TypedDict.update
 typing._TypedDict.values
+
+# https://github.com/python/mypy/issues/12819 (... in runtime default)
+wsgiref.types.InputStream.read
+wsgiref.types.InputStream.readline
+wsgiref.types.InputStream.readlines
+wsgiref.types.StartResponse.__call__
+wsgiref.types._Readable.read
+
+# https://github.com/python/mypy/issues/12821 (stubtest bug with Callable type alias)
+wsgiref.types.WSGIApplication
+
+# Really it's mad about dict.get
+wsgiref.types.WSGIEnvironment.get
