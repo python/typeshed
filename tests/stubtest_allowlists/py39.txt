@@ -132,15 +132,11 @@ multiprocessing.managers.SharedMemoryServer.public
 multiprocessing.managers.SharedMemoryServer.release_segment
 multiprocessing.managers.SharedMemoryServer.shutdown
 multiprocessing.managers.SharedMemoryServer.track_segment
-pyexpat.XMLParserType.SkippedEntityHandler
-pyexpat.XMLParserType.intern
 stringprep.unicodedata  # re-exported from unicodedata
 types.GenericAlias.__mro_entries__
 typing._SpecialForm.__call__
 typing._SpecialForm.__mro_entries__
 unicodedata.UCD.is_normalized
-xml.parsers.expat.XMLParserType.SkippedEntityHandler
-xml.parsers.expat.XMLParserType.intern
 
 # SpooledTemporaryFile implements IO except these methods before Python 3.11
 # See also https://github.com/python/typeshed/pull/2452#issuecomment-420657918
