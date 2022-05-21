@@ -1,4 +1,5 @@
-from typing import Any, Iterable
+from collections.abc import Iterator
+from typing import Any
 
 from pkg_resources import Environment
 from setuptools import Command, SetuptoolsDeprecationWarning
@@ -131,7 +132,7 @@ class ScriptWriter:
     @classmethod
     def get_script_header(cls, script_text, executable: Any | None = ..., wininst: bool = ...) -> str: ...
     @classmethod
-    def get_args(cls, dist, header: Any | None = ...) -> Iterable[tuple[str, str]]: ...
+    def get_args(cls, dist, header: Any | None = ...) -> Iterator[tuple[str, str]]: ...
     @classmethod
     def get_writer(cls, force_windows: bool) -> type[ScriptWriter]: ...
     @classmethod
