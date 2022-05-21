@@ -1,9 +1,9 @@
+import sys
 from _typeshed import OptExcInfo, SupportsWrite
 from abc import abstractmethod
 from builtins import list as _list  # "list" conflicts with method name
 from collections.abc import Callable, Container, Mapping, MutableMapping
 from reprlib import Repr
-import sys
 from types import MethodType, ModuleType, TracebackType
 from typing import IO, Any, AnyStr, NoReturn, TypeVar
 
