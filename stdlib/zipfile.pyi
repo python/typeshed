@@ -159,6 +159,19 @@ class ZipFile:
     mode: _ZipFileMode  # undocumented
     pwd: str | None  # undocumented
     if sys.version_info >= (3, 11):
+        @overload
+        def __init__(
+            self,
+            file: StrPath | IO[bytes],
+            mode: Literal["r"] = ...,
+            compression: int = ...,
+            allowZip64: bool = ...,
+            compresslevel: int | None = ...,
+            *,
+            strict_timestamps: bool = ...,
+            metadata_encoding: str | None,
+        ) -> None: ...
+        @overload
         def __init__(
             self,
             file: StrPath | IO[bytes],
@@ -168,7 +181,7 @@ class ZipFile:
             compresslevel: int | None = ...,
             *,
             strict_timestamps: bool = ...,
-            metadata_encoding: str | None = ...,
+            metadata_encoding: None = ...,
         ) -> None: ...
     elif sys.version_info >= (3, 8):
         def __init__(
