@@ -221,13 +221,18 @@ When the script has finished running, it will print instructions telling you wha
 If it has been a while since you set up the virtualenv, make sure you have
 the latest mypy (`pip install -r requirements-tests.txt`) before running the script.
 
-## Stub Content
+### Stub Content
 
 Please see [the typing documentation](https://typing.readthedocs.io/en/latest/source/stubs.html)
 for type system features supported in stubs, best practices, and our
 style guide.
 
-## Formatting stubs
+As typing is constantly evolving, not all type checkers support all features
+that would be useful in stub files. See our
+["feature-tracker" issue label](/python/typeshed/issues?q=is%3Aissue+is%3Aopen+label%3Afeature-tracker)
+for details on which features can't be used at the moment.
+
+### Formatting stubs
 
 Stubs should be reformatted with the formatters
 [black](https://github.com/psf/black) and
