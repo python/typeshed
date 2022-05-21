@@ -32,7 +32,6 @@ platform.uname_result.__new__
 platform.uname_result._fields
 platform.uname_result.processor
 re.Pattern.scanner  # Undocumented and not useful. #6405
-symtable.SymbolTable.has_exec
 sys.UnraisableHookArgs  # Not exported from sys
 tkinter.Tk.split
 types.GenericAlias.__getattr__
