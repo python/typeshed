@@ -3,7 +3,12 @@ name: Test
 on:
   workflow_dispatch:
   push:
+    branches:
+      - main
+      - master
   pull_request:
+    paths-ignore:
+      - '**/*.md'
 
 permissions:
   contents: read
@@ -72,7 +77,7 @@ jobs:
         python-version: ["3.6", "3.7", "3.8", "3.9", "3.10", "3.11"]
       fail-fast: false
     env:
-      PYRIGHT_VERSION: 1.1.247 # Must match pyright_test.py.
+      PYRIGHT_VERSION: 1.1.248 # Must match pyright_test.py.
     steps:
       - uses: actions/checkout@v2
       - uses: jakebailey/pyright-action@v1
@@ -88,29 +93,6 @@ jobs:
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
           no-comments: ${{ matrix.python-version != '3.9' || matrix.python-platform != 'Linux' }} # Having each job create the same comment is too noisy.
-
-  stubtest-stdlib:
-    name: Check stdlib with stubtest
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        # macos-11 does not have tcl/tk installed, needed for stubtesting tkinter
-        os: ["ubuntu-latest", "windows-latest", "macos-10.15"]
-        python-version: ["3.6", "3.7", "3.8", "3.9", "3.10", "3.11-dev"]
-      fail-fast: false
-
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python ${{ matrix.python-version }} on ${{ matrix.os }}
-        uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Update pip
-        run: python -m pip install -U pip
-      - name: Install dependencies
-        run: pip install $(grep tomli== requirements-tests.txt) $(grep mypy== requirements-tests.txt)
-      - name: Run stubtest
-        run: python tests/stubtest_stdlib.py
 
   stubtest-third-party:
     name: Check third party stubs with stubtest

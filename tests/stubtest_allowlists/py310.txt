@@ -14,8 +14,6 @@ builtins.float.__setformat__  # Internal method for CPython test suite
 builtins.property.__set_name__  # Doesn't actually exist
 contextlib.AbstractAsyncContextManager.__class_getitem__
 contextlib.AbstractContextManager.__class_getitem__
-dataclasses.field
-dataclasses.KW_ONLY
 enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 gettext.install
@@ -34,15 +32,11 @@ platform.uname_result.__new__
 platform.uname_result._fields
 platform.uname_result.processor
 re.Pattern.scanner  # Undocumented and not useful. #6405
-symtable.SymbolTable.has_exec
 sys.UnraisableHookArgs  # Not exported from sys
 tkinter.Tk.split
-types.ClassMethodDescriptorType.__get__
 types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
-types.MethodDescriptorType.__get__
-types.WrapperDescriptorType.__get__
 typing._SpecialForm.__mro_entries__
 typing.ForwardRef._evaluate
 typing._SpecialForm.__init__
@@ -96,13 +90,8 @@ multiprocessing.managers.SharedMemoryServer.public
 multiprocessing.managers.SharedMemoryServer.release_segment
 multiprocessing.managers.SharedMemoryServer.shutdown
 multiprocessing.managers.SharedMemoryServer.track_segment
-pyexpat.XMLParserType.SkippedEntityHandler
-pyexpat.XMLParserType.intern
 typing._SpecialForm.__call__
 unicodedata.UCD.is_normalized
-xml.parsers.expat.XMLParserType.SkippedEntityHandler
-xml.parsers.expat.XMLParserType.intern
-xml.sax.handler.LexicalHandler
 
 # ==========
 # Related to positional-only arguments
@@ -194,3 +183,12 @@ ast.ImportFrom.level  # None on the class, but never None on instances
 # These enums derive from (str, Enum). See comment in py3_common.txt
 pstats.SortKey.__new__
 tkinter.EventType.__new__
+
+# White lies around defaults
+dataclasses.field
+dataclasses.KW_ONLY
+
+# Runtime signature is incorrect (https://github.com/python/cpython/issues/93021)
+types.ClassMethodDescriptorType.__get__
+types.MethodDescriptorType.__get__
+types.WrapperDescriptorType.__get__
