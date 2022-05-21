@@ -83,8 +83,6 @@ shutil.rmtree
 socketserver.UDPServer.allow_reuse_port
 string.Template.get_identifiers
 string.Template.is_valid
-subprocess.getoutput
-subprocess.getstatusoutput
 symtable.SymbolTable.has_exec
 sys.UnraisableHookArgs  # Not exported from sys
 sys.exception
