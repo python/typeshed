@@ -147,7 +147,6 @@ tkinter.filedialog.wantobjects
 tkinter.simpledialog.wantobjects
 tkinter.tix.wantobjects
 typing._SpecialForm.__call__
-unicodedata.UCD.is_normalized
 
 # ==========
 # Allowlist entries that cannot or should not be fixed

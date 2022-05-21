@@ -87,7 +87,6 @@ typing.NewType.__mro_entries__
 typing.ParamSpec.__typing_subst__
 typing.TypeVar.__typing_subst__
 typing.TypeVarTuple.__typing_subst__
-unicodedata.UCD.is_normalized
 unittest.TestCase._addSkip
 unittest.case.TestCase._addSkip
 unittest.doModuleCleanups
