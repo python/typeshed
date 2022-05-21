@@ -1,8 +1,8 @@
 import codecs
 import sys
 from collections.abc import Callable
-from typing import Any
-from typing_extensions import TypeAlias
+from typing import overload
+from typing_extensions import Literal, TypeAlias
 
 # This type is not exposed; it is defined in unicodeobject.c
 class _EncodingMap:
@@ -18,10 +18,48 @@ if sys.version_info >= (3, 10):
     def unregister(__search_function: _SearchFunction) -> None: ...
 
 def register_error(__errors: str, __handler: _Handler) -> None: ...
-def lookup(__encoding: str) -> codecs.CodecInfo: ...
 def lookup_error(__name: str) -> _Handler: ...
-def decode(obj: Any, encoding: str = ..., errors: str | None = ...) -> Any: ...
-def encode(obj: Any, encoding: str = ..., errors: str | None = ...) -> Any: ...
+
+# The type ignore on `encode` and `decode` is to avoid issues with overlapping overloads, for more details, see #300
+# https://docs.python.org/3/library/codecs.html#binary-transforms
+_BytesToBytesEncoding: TypeAlias = Literal[
+    "base64",
+    "base_64",
+    "base64_codec",
+    "bz2",
+    "bz2_codec",
+    "hex",
+    "hex_codec",
+    "quopri",
+    "quotedprintable",
+    "quoted_printable",
+    "quopri_codec",
+    "uu",
+    "uu_codec",
+    "zip",
+    "zlib",
+    "zlib_codec",
+]
+# https://docs.python.org/3/library/codecs.html#text-transforms
+_StrToStrEncoding: TypeAlias = Literal["rot13", "rot_13"]
+
+@overload
+def encode(obj: bytes, encoding: _BytesToBytesEncoding, errors: str = ...) -> bytes: ...
+@overload
+def encode(obj: str, encoding: _StrToStrEncoding, errors: str = ...) -> str: ...  # type: ignore[misc]
+@overload
+def encode(obj: str, encoding: str = ..., errors: str = ...) -> bytes: ...
+@overload
+def decode(obj: bytes, encoding: _BytesToBytesEncoding, errors: str = ...) -> bytes: ...  # type: ignore[misc]
+@overload
+def decode(obj: str, encoding: _StrToStrEncoding, errors: str = ...) -> str: ...
+
+# hex is officially documented as a bytes to bytes encoding, but it appears to also work with str
+@overload
+def decode(obj: str, encoding: Literal["hex", "hex_codec"], errors: str = ...) -> bytes: ...
+@overload
+def decode(obj: bytes, encoding: str = ..., errors: str = ...) -> str: ...
+def lookup(__encoding: str) -> codecs.CodecInfo: ...
 def charmap_build(__map: str) -> _MapT: ...
 def ascii_decode(__data: bytes, __errors: str | None = ...) -> tuple[str, int]: ...
 def ascii_encode(__str: str, __errors: str | None = ...) -> tuple[bytes, int]: ...
