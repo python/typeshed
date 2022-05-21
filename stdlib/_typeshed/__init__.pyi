@@ -248,3 +248,15 @@ class structseq(Generic[_T_co]):
     # but only has any meaning if you supply it a dict where the keys are strings.
     # https://github.com/python/typeshed/pull/6560#discussion_r767149830
     def __new__(cls: type[Self], sequence: Iterable[_T_co], dict: dict[str, Any] = ...) -> Self: ...
+
+# Since not all type checkers support recursive type aliases yet
+# (https://github.com/python/typeshed/issues/7904), we nest this manually
+# for a few levels. The underscore prefixed aliases are considered
+# private and will go away when recursive type aliases are supported.
+# The JSON alias is considered stable.
+JSON: TypeAlias = str | int | bool | dict[str, _JSON1] | list[_JSON1] | None
+_JSON1: TypeAlias = str | int | bool | dict[str, _JSON2] | list[_JSON2] | None
+_JSON2: TypeAlias = str | int | bool | dict[str, _JSON3] | list[_JSON3] | None
+_JSON3: TypeAlias = str | int | bool | dict[str, _JSON4] | list[_JSON4] | None
+_JSON4: TypeAlias = str | int | bool | dict[str, _JSON5] | list[_JSON5] | None
+_JSON5: TypeAlias = str | int | bool | dict[str, Any] | list[Any] | None
