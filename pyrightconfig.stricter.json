@@ -3,7 +3,8 @@
     "typeshedPath": ".",
     "include": [
         "stdlib",
-        "stubs"
+        "stubs",
+        "test_cases"
     ],
     "exclude": [
         "**/@python2",
@@ -57,6 +58,7 @@
         "stubs/Pygments",
         "stubs/PyMySQL",
         "stubs/python-dateutil",
+        "stubs/python-jose",
         "stubs/pyvmomi",
         "stubs/PyYAML",
         "stubs/redis",

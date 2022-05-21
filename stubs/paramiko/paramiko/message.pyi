@@ -1,14 +1,8 @@
-import sys
-from typing import Any, Iterable
+from collections.abc import Iterable
+from io import BytesIO
+from typing import Any
 
 from .common import _LikeBytes
-
-if sys.version_info >= (3, 0):
-    from io import BytesIO
-else:
-    from StringIO import StringIO
-
-    BytesIO = StringIO[bytes]
 
 class Message:
     big_int: int
