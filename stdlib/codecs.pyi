@@ -1,10 +1,11 @@
 import types
-from _codecs import *
 from _typeshed import Self
 from abc import abstractmethod
 from collections.abc import Callable, Generator, Iterable
 from typing import Any, BinaryIO, Protocol, TextIO
 from typing_extensions import Literal
+
+from _codecs import *
 
 __all__ = [
     "register",
