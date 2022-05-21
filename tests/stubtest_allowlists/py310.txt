@@ -91,7 +91,6 @@ multiprocessing.managers.SharedMemoryServer.release_segment
 multiprocessing.managers.SharedMemoryServer.shutdown
 multiprocessing.managers.SharedMemoryServer.track_segment
 typing._SpecialForm.__call__
-unicodedata.UCD.is_normalized
 
 # ==========
 # Related to positional-only arguments

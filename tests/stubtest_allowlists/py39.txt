@@ -132,7 +132,6 @@ stringprep.unicodedata  # re-exported from unicodedata
 types.GenericAlias.__mro_entries__
 typing._SpecialForm.__call__
 typing._SpecialForm.__mro_entries__
-unicodedata.UCD.is_normalized
 
 # SpooledTemporaryFile implements IO except these methods before Python 3.11
 # See also https://github.com/python/typeshed/pull/2452#issuecomment-420657918
