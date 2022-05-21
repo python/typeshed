@@ -30,10 +30,10 @@ class Retry:
     DEFAULT_REMOVE_HEADERS_ON_REDIRECT: ClassVar[frozenset[str]]
     DEFAULT_BACKOFF_MAX: ClassVar[int]
 
-    total: int | None
+    total: bool | int | None
     connect: int | None
     read: int | None
-    redirect: int | None
+    redirect: Literal[True] | int | None
     status: int | None
     other: int | None
     allowed_methods: Collection[str] | Literal[False] | None
@@ -46,10 +46,10 @@ class Retry:
     remove_headers_on_redirect: frozenset[str]
     def __init__(
         self,
-        total: int | None = ...,
+        total: bool | int | None = ...,
         connect: int | None = ...,
         read: int | None = ...,
-        redirect: int | None = ...,
+        redirect: bool | int | None = ...,
         status: int | None = ...,
         other: int | None = ...,
         allowed_methods: Collection[str] | Literal[False] | None = ...,
@@ -64,7 +64,9 @@ class Retry:
     ) -> None: ...
     def new(self: Self, **kw: Any) -> Self: ...
     @classmethod
-    def from_int(cls, retries: Retry | int | None, redirect: int | None = ..., default: Retry | int | None = ...) -> Retry: ...
+    def from_int(
+        cls, retries: Retry | bool | int | None, redirect: bool | int | None = ..., default: Retry | bool | int | None = ...
+    ) -> Retry: ...
     def get_backoff_time(self) -> float: ...
     def parse_retry_after(self, retry_after: str) -> float: ...
     def get_retry_after(self, response: HTTPResponse) -> float | None: ...

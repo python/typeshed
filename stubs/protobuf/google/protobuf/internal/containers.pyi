@@ -9,8 +9,8 @@ from google.protobuf.internal.type_checkers import _ValueChecker
 from google.protobuf.message import Message
 
 _T = TypeVar("_T")
-_K = TypeVar("_K", bound=int | str)
-_ScalarV = TypeVar("_ScalarV", bound=float | str | bytes)
+_K = TypeVar("_K", bound=bool | int | str)
+_ScalarV = TypeVar("_ScalarV", bound=bool | float | str | bytes)
 _MessageV = TypeVar("_MessageV", bound=Message)
 _M = TypeVar("_M")
 
