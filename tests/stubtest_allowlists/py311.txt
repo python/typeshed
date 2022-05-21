@@ -90,8 +90,6 @@ typing.TypeVarTuple.__typing_subst__
 unittest.TestCase._addSkip
 unittest.case.TestCase._addSkip
 unittest.doModuleCleanups
-urllib.request.FancyURLopener.http_error_308
-urllib.request.HTTPRedirectHandler.http_error_308
 weakref.WeakValueDictionary.update
 xmlrpc.server.SimpleXMLRPCRequestHandler.rpc_paths
 
