@@ -89,10 +89,6 @@ symtable.SymbolTable.has_exec
 sys.UnraisableHookArgs  # Not exported from sys
 sys.exception
 tkinter._VersionInfoType.__doc__
-types.CodeType.co_exceptiontable
-types.CodeType.co_qualname
-types.CoroutineType.cr_suspended
-types.GeneratorType.gi_suspended
 typing.ForwardRef._evaluate
 typing.NewType.__call__
 typing.NewType.__mro_entries__
