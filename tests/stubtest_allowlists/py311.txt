@@ -51,7 +51,6 @@ fractions.Fraction.__int__
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 ftplib.FTP.trust_server_pasv_ipv4_address
 functools.partial.__vectorcalloffset__
-gettext.install
 importlib.resources.Resource
 inspect._ParameterKind.description
 ipaddress.IPv4Interface.hostmask
