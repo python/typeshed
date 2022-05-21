@@ -32,7 +32,6 @@ asyncio.sslproto._SSLProtocolTransport.get_read_buffer_size
 asyncio.sslproto._SSLProtocolTransport.set_read_buffer_limits
 asyncio.sslproto.add_flowcontrol_defaults
 bdb.Breakpoint.clearBreakpoints
-binascii.a2b_base64
 builtins.dict.get
 concurrent.futures.ProcessPoolExecutor.__init__
 concurrent.futures.process.ProcessPoolExecutor.__init__
