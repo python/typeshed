@@ -73,9 +73,6 @@ platform.uname_result.__match_args__
 platform.uname_result.__new__
 platform.uname_result._fields
 platform.uname_result.processor
-pydoc.HTMLDoc.heading
-pydoc.HTMLDoc.multicolumn
-pydoc.HTMLDoc.section
 queue.SimpleQueue.__init__
 shutil.rmtree
 socketserver.UDPServer.allow_reuse_port
