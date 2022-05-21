@@ -190,7 +190,7 @@ recommend starting by opening an issue laying out what you want to do.
 That lets a conversation happen early in case other contributors disagree
 with what you'd like to do or have ideas that will help you do it.
 
-### Format
+### What are stub files?
 
 Each Python module is represented by a `.pyi` "stub file".  This is a
 syntactically valid Python file, although it usually cannot be run by
@@ -199,10 +199,6 @@ the methods are empty.
 
 Python function annotations ([PEP 3107](https://www.python.org/dev/peps/pep-3107/))
 are used to describe the signature of each function or method.
-
-See [PEP 484](http://www.python.org/dev/peps/pep-0484/) for the exact
-syntax of the stub files and [below](#stub-file-coding-style) for the
-coding style used in typeshed.
 
 ### Auto-generating stub files
 
