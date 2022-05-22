@@ -33,11 +33,6 @@ asyncio.sslproto._SSLProtocolTransport.set_read_buffer_limits
 asyncio.sslproto.add_flowcontrol_defaults
 bdb.Breakpoint.clearBreakpoints
 builtins.dict.get
-concurrent.futures.ProcessPoolExecutor.__init__
-concurrent.futures.process.ProcessPoolExecutor.__init__
-concurrent.futures.process._ResultItem.__init__
-concurrent.futures.process._process_worker
-concurrent.futures.process._sendback_result
 configparser.LegacyInterpolation.__init__
 contextvars.Context.__init__
 distutils.dist.DistributionMetadata.set_classifiers
