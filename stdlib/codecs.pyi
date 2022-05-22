@@ -95,9 +95,6 @@ class _IncrementalEncoder(Protocol):
 class _IncrementalDecoder(Protocol):
     def __call__(self, errors: str = ...) -> IncrementalDecoder: ...
 
-def utf_16_be_decode(__data: bytes, __errors: str | None = ..., __final: bool = ...) -> tuple[str, int]: ...  # undocumented
-def utf_16_be_encode(__str: str, __errors: str | None = ...) -> tuple[bytes, int]: ...  # undocumented
-
 class CodecInfo(tuple[_Encoder, _Decoder, _StreamReader, _StreamWriter]):
     @property
     def encode(self) -> _Encoder: ...
