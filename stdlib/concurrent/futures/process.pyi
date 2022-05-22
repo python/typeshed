@@ -54,6 +54,7 @@ class _ResultItem:
     exception: Exception
     result: Any
     if sys.version_info >= (3, 11):
+        exit_pid: int | None
         def __init__(
             self, work_id: int, exception: Exception | None = ..., result: Any | None = ..., exit_pid: int | None = ...
         ) -> None: ...
