@@ -178,7 +178,7 @@ class ProcessPoolExecutor(Executor):
     _executor_manager_thread_wakeup: _ThreadWakeup
     _result_queue: SimpleQueue[Any]
     _work_ids: Queue[Any]
-    if sys.version_info >= (3, 7):
+    if sys.version_info >= (3, 11):
         def __init__(
             self,
             max_workers: int | None = ...,
