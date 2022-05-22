@@ -1,7 +1,5 @@
 _?curses.A_ITALIC
 _?curses.color_pair
-termios.tcgetwinsize
-termios.tcsetwinsize
 xxlimited.Xxo.x_exports
 
 # Exists at runtime, but missing from stubs
