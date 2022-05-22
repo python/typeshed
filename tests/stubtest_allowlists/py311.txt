@@ -51,7 +51,6 @@ fractions.Fraction.__new__  # overload is too complicated for stubtest to resolv
 ftplib.FTP.trust_server_pasv_ipv4_address
 functools.partial.__vectorcalloffset__
 importlib.resources.Resource
-inspect._ParameterKind.description
 ipaddress.IPv4Interface.hostmask
 ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
@@ -150,6 +149,7 @@ types.GenericAlias.__call__  # Would be complicated to fix properly, Any could s
 types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
 weakref.ProxyType.__reversed__  # Doesn't really exist
+inspect._ParameterKind.description  # Still exists, but stubtest can't see it
 
 # Inherits __init__ from typing.Protocol (https://github.com/python/mypy/issues/12820)
 importlib.abc.Traversable.__init__
