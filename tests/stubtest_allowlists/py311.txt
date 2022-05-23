@@ -30,7 +30,6 @@ asyncio.sslproto._SSLProtocolTransport.get_read_buffer_limits
 asyncio.sslproto._SSLProtocolTransport.get_read_buffer_size
 asyncio.sslproto._SSLProtocolTransport.set_read_buffer_limits
 asyncio.sslproto.add_flowcontrol_defaults
-bdb.Breakpoint.clearBreakpoints
 builtins.dict.get
 configparser.LegacyInterpolation.__init__
 contextvars.Context.__init__
