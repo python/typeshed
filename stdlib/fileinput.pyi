@@ -2,7 +2,7 @@ import sys
 from _typeshed import Self, StrOrBytesPath
 from collections.abc import Callable, Iterable, Iterator
 from types import TracebackType
-from typing import IO, Any, AnyStr, Generic, overload, TypeVar
+from typing import IO, Any, AnyStr, Generic, TypeVar, overload
 from typing_extensions import Literal, Protocol
 
 __all__ = [
