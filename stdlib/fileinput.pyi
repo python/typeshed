@@ -23,7 +23,7 @@ __all__ = [
     "hook_encoded",
 ]
 
-if sys.version_info <= (3, 11):
+if sys.version_info >= (3, 11):
     _TextMode = Literal["r"]
 else:
     _TextMode = Literal["r", "rU", "U"]
