@@ -20,7 +20,7 @@ __all__ = [
     "hook_encoded",
 ]
 
-_AnyStr_co = TypeVar("_AnyStr_co", str, bytes)
+_AnyStr_co = TypeVar("_AnyStr_co", str, bytes, covariant=True)
 
 class _HasReadlineAndFileno(Protocol[_AnyStr_co]):
     def readline(self) -> _AnyStr_co: ...
