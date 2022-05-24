@@ -2,8 +2,8 @@ import sys
 from _typeshed import Self, StrOrBytesPath
 from collections.abc import Callable, Iterable, Iterator
 from types import TracebackType
-from typing_extensions import Protocol
 from typing import IO, Any, AnyStr, Generic, Literal, overload
+from typing_extensions import Protocol
 
 __all__ = [
     "input",
