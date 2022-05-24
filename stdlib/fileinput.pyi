@@ -2,8 +2,8 @@ import sys
 from _typeshed import Self, StrOrBytesPath
 from collections.abc import Callable, Iterable, Iterator
 from types import TracebackType
-from typing import IO, Any, AnyStr, Generic, Literal, overload
-from typing_extensions import Protocol
+from typing import IO, Any, AnyStr, Generic, overload, TypeVar
+from typing_extensions import Literal, Protocol
 
 __all__ = [
     "input",
@@ -20,8 +20,10 @@ __all__ = [
     "hook_encoded",
 ]
 
-class _HasReadlineAndFileno(Protocol[AnyStr]):
-    def readline(self) -> AnyStr: ...
+_AnyStr_co = TypeVar("_AnyStr_co", str, bytes)
+
+class _HasReadlineAndFileno(Protocol[_AnyStr_co]):
+    def readline(self) -> _AnyStr_co: ...
     def fileno(self) -> int: ...
 
 if sys.version_info >= (3, 9):
