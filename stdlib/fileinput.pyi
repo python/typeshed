@@ -3,7 +3,7 @@ from _typeshed import Self, StrOrBytesPath
 from collections.abc import Callable, Iterable, Iterator
 from types import TracebackType
 from typing import IO, Any, AnyStr, Generic, Protocol, TypeVar, overload
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -24,9 +24,9 @@ __all__ = [
 ]
 
 if sys.version_info >= (3, 11):
-    _TextMode = Literal["r"]
+    _TextMode: TypeAlias = Literal["r"]
 else:
-    _TextMode = Literal["r", "rU", "U"]
+    _TextMode: TypeAlias = Literal["r", "rU", "U"]
 
 _AnyStr_co = TypeVar("_AnyStr_co", str, bytes, covariant=True)
 
