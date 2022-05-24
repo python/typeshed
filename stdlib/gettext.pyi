@@ -1,7 +1,8 @@
+import io
 import sys
 from _typeshed import StrPath
 from collections.abc import Container, Iterable, Sequence
-from typing import Any, Protocol, TypeVar, overload
+from typing import Any, Callable, Protocol, TypeVar, overload
 from typing_extensions import Final, Literal
 
 if sys.version_info >= (3, 11):
@@ -119,14 +120,44 @@ if sys.version_info >= (3, 11):
         localedir: StrPath | None = ...,
         languages: Iterable[str] | None = ...,
         class_: None = ...,
-        fallback: bool = ...,
-    ) -> NullTranslations: ...
+        fallback: Literal[False] = ...,
+    ) -> GNUTranslations: ...
     @overload
     def translation(
         domain: str,
         localedir: StrPath | None = ...,
         languages: Iterable[str] | None = ...,
-        class_: type[_T] = ...,
+        class_: None = ...,
+        *,
+        fallback: Literal[True],
+    ) -> GNUTranslations | NullTranslations: ...
+    @overload
+    def translation(
+        domain: str, localedir: StrPath | None, languages: Iterable[str] | None, class_: None, fallback: Literal[True]
+    ) -> GNUTranslations | NullTranslations: ...
+    @overload
+    def translation(
+        domain: str,
+        localedir: StrPath | None = ...,
+        languages: Iterable[str] | None = ...,
+        class_: None = ...,
+        fallback: bool = ...,
+    ) -> Any: ...
+    @overload
+    def translation(
+        domain: str,
+        localedir: StrPath | None = ...,
+        languages: Iterable[str] | None = ...,
+        *,
+        class_: Callable[[io.BufferedReader], _T],
+        fallback: Literal[False] = ...,
+    ) -> _T: ...
+    @overload
+    def translation(
+        domain: str,
+        localedir: StrPath | None,
+        languages: Iterable[str] | None,
+        class_: Callable[[io.BufferedReader], _T],
         fallback: Literal[False] = ...,
     ) -> _T: ...
     @overload
@@ -134,8 +165,8 @@ if sys.version_info >= (3, 11):
         domain: str,
         localedir: StrPath | None = ...,
         languages: Iterable[str] | None = ...,
-        class_: type[Any] = ...,
-        fallback: Literal[True] = ...,
+        class_: Callable[[io.BufferedReader], Any] = ...,
+        fallback: bool = ...,
     ) -> Any: ...
     def install(domain: str, localedir: StrPath | None = ..., *, names: Container[str] | None = ...) -> None: ...
 
@@ -146,15 +177,53 @@ else:
         localedir: StrPath | None = ...,
         languages: Iterable[str] | None = ...,
         class_: None = ...,
-        fallback: bool = ...,
+        fallback: Literal[False] = ...,
         codeset: str | None = ...,
-    ) -> NullTranslations: ...
+    ) -> GNUTranslations: ...
     @overload
     def translation(
         domain: str,
         localedir: StrPath | None = ...,
         languages: Iterable[str] | None = ...,
-        class_: type[_T] = ...,
+        class_: None = ...,
+        *,
+        fallback: Literal[True],
+        codeset: str | None = ...,
+    ) -> GNUTranslations | NullTranslations: ...
+    @overload
+    def translation(
+        domain: str,
+        localedir: StrPath | None,
+        languages: Iterable[str] | None,
+        class_: None,
+        fallback: Literal[True],
+        codeset: str | None = ...,
+    ) -> GNUTranslations | NullTranslations: ...
+    @overload
+    def translation(
+        domain: str,
+        localedir: StrPath | None = ...,
+        languages: Iterable[str] | None = ...,
+        class_: None = ...,
+        fallback: bool = ...,
+        codeset: str | None = ...,
+    ) -> Any: ...
+    @overload
+    def translation(
+        domain: str,
+        localedir: StrPath | None = ...,
+        languages: Iterable[str] | None = ...,
+        *,
+        class_: Callable[[io.BufferedReader], _T],
+        fallback: Literal[False] = ...,
+        codeset: str | None = ...,
+    ) -> _T: ...
+    @overload
+    def translation(
+        domain: str,
+        localedir: StrPath | None,
+        languages: Iterable[str] | None,
+        class_: Callable[[io.BufferedReader], _T],
         fallback: Literal[False] = ...,
         codeset: str | None = ...,
     ) -> _T: ...
@@ -163,8 +232,8 @@ else:
         domain: str,
         localedir: StrPath | None = ...,
         languages: Iterable[str] | None = ...,
-        class_: type[Any] = ...,
-        fallback: Literal[True] = ...,
+        class_: Callable[[io.BufferedReader], Any] = ...,
+        fallback: bool = ...,
         codeset: str | None = ...,
     ) -> Any: ...
     def install(
