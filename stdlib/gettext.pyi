@@ -1,8 +1,8 @@
 import io
 import sys
 from _typeshed import StrPath
-from collections.abc import Container, Iterable, Sequence
-from typing import Any, Callable, Protocol, TypeVar, overload
+from collections.abc import Callable, Container, Iterable, Sequence
+from typing import Any, Protocol, TypeVar, overload
 from typing_extensions import Final, Literal
 
 if sys.version_info >= (3, 11):
