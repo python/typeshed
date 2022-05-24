@@ -5,6 +5,9 @@ from types import TracebackType
 from typing import IO, Any, AnyStr, Generic, Protocol, TypeVar, overload
 from typing_extensions import Literal
 
+if sys.version_info >= (3, 9):
+    from types import GenericAlias
+
 __all__ = [
     "input",
     "close",
@@ -20,14 +23,16 @@ __all__ = [
     "hook_encoded",
 ]
 
+if sys.version_info <= (3, 11):
+    _TextMode = Literal["r"]
+else:
+    _TextMode = Literal["r", "rU", "U"]
+
 _AnyStr_co = TypeVar("_AnyStr_co", str, bytes, covariant=True)
 
 class _HasReadlineAndFileno(Protocol[_AnyStr_co]):
     def readline(self) -> _AnyStr_co: ...
     def fileno(self) -> int: ...
-
-if sys.version_info >= (3, 9):
-    from types import GenericAlias
 
 if sys.version_info >= (3, 10):
     # encoding and errors are added
@@ -37,7 +42,7 @@ if sys.version_info >= (3, 10):
         inplace: bool = ...,
         backup: str = ...,
         *,
-        mode: Literal["r"] = ...,
+        mode: _TextMode = ...,
         openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[str]] | None = ...,
         encoding: str | None = ...,
         errors: str | None = ...,
@@ -73,7 +78,7 @@ elif sys.version_info >= (3, 8):
         inplace: bool = ...,
         backup: str = ...,
         *,
-        mode: Literal["r"] = ...,
+        mode: _TextMode = ...,
         openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[str]] | None = ...,
     ) -> FileInput[str]: ...
     @overload
@@ -102,7 +107,7 @@ else:
         inplace: bool = ...,
         backup: str = ...,
         bufsize: int = ...,
-        mode: Literal["r"] = ...,
+        mode: _TextMode = ...,
         openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[str]] | None = ...,
     ) -> FileInput[str]: ...
     # Because mode isn't keyword-only here yet, we need two overloads each for
@@ -165,7 +170,7 @@ class FileInput(Iterator[AnyStr], Generic[AnyStr]):
             inplace: bool = ...,
             backup: str = ...,
             *,
-            mode: Literal["r"] = ...,
+            mode: _TextMode = ...,
             openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[str]] | None = ...,
             encoding: str | None = ...,
             errors: str | None = ...,
@@ -204,7 +209,7 @@ class FileInput(Iterator[AnyStr], Generic[AnyStr]):
             inplace: bool = ...,
             backup: str = ...,
             *,
-            mode: Literal["r"] = ...,
+            mode: _TextMode = ...,
             openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[str]] | None = ...,
         ) -> None: ...
         @overload
@@ -236,7 +241,7 @@ class FileInput(Iterator[AnyStr], Generic[AnyStr]):
             inplace: bool = ...,
             backup: str = ...,
             bufsize: int = ...,
-            mode: Literal["r"] = ...,
+            mode: _TextMode = ...,
             openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[str]] | None = ...,
         ) -> None: ...
         # Because mode isn't keyword-only here yet, we need two overloads each for
