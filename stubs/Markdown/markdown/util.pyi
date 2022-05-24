@@ -1,4 +1,4 @@
-from typing import Any, Pattern
+from typing import Any, Pattern, overload
 
 PY37: bool
 __deprecated__: Any
