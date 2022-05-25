@@ -11,6 +11,7 @@ on:
       - 'stdlib/**'
       - '.github/workflows/stubtest_stdlib.yml'
       - 'tests/**'
+      - 'requirements-tests.txt'
 
 permissions:
   contents: read
