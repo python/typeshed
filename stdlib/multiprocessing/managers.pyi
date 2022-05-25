@@ -1,7 +1,7 @@
 import queue
 import sys
 import threading
-from _typeshed import Self, SupportsKeysAndGetItem, SupportsRichComparisonT
+from _typeshed import Self, SupportsKeysAndGetItem, SupportsRichComparison, SupportsRichComparisonT
 from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping, MutableSequence, Sequence
 from types import TracebackType
 from typing import Any, AnyStr, ClassVar, Generic, TypeVar, overload
