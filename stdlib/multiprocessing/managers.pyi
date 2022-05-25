@@ -1,7 +1,7 @@
 import queue
 import sys
 import threading
-from _typeshed import Self, SupportsKeysAndGetItem, SupportsRichComparison
+from _typeshed import Self, SupportsKeysAndGetItem, SupportsRichComparisonT
 from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping, MutableSequence, Sequence
 from types import TracebackType
 from typing import Any, AnyStr, ClassVar, Generic, TypeVar, overload
@@ -110,8 +110,10 @@ class BaseListProxy(BaseProxy, MutableSequence[_T]):
     def count(self, __value: _T) -> int: ...
     def insert(self, __index: SupportsIndex, __object: _T) -> None: ...
     def remove(self, __value: _T) -> None: ...
+    # Use BaseListProxy[SupportsRichComparisonT] for the first overload rather than [SupportsRichComparison]
+    # to work around invariance
     @overload
-    def sort(self: BaseListProxy[SupportsRichComparison], *, key: None = ..., reverse: bool = ...) -> None: ...
+    def sort(self: BaseListProxy[SupportsRichComparisonT], *, key: None = ..., reverse: bool = ...) -> None: ...
     @overload
     def sort(self, *, key: Callable[[_T], SupportsRichComparison], reverse: bool = ...) -> None: ...
 
