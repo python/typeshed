@@ -134,7 +134,7 @@ __all__ = [
 # same, but as per the "no union returns" typeshed policy, we'll return
 # Any instead.
 _Color: TypeAlias = Union[str, tuple[float, float, float]]
-_AnyColor = Any
+_AnyColor: TypeAlias = Any
 
 # TODO: Replace this with a TypedDict once it becomes standardized.
 _PenState: TypeAlias = dict[str, Any]
@@ -410,7 +410,11 @@ class _Screen(TurtleScreen):
     def __init__(self) -> None: ...
     # Note int and float are interpreted differently, hence the Union instead of just float
     def setup(
-        self, width: int | float = ..., height: int | float = ..., startx: int | None = ..., starty: int | None = ...
+        self,
+        width: int | float = ...,  # noqa: Y041
+        height: int | float = ...,  # noqa: Y041
+        startx: int | None = ...,
+        starty: int | None = ...,
     ) -> None: ...
     def title(self, titlestring: str) -> None: ...
     def bye(self) -> None: ...

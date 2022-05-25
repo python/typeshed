@@ -130,7 +130,7 @@ class partial(Generic[_T]):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 # With protocols, this could change into a generic protocol that defines __get__ and returns _T
-_Descriptor = Any
+_Descriptor: TypeAlias = Any
 
 class partialmethod(Generic[_T]):
     func: Callable[..., _T] | _Descriptor

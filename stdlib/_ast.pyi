@@ -1,13 +1,13 @@
 import sys
 from typing import Any, ClassVar
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 PyCF_ONLY_AST: Literal[1024]
 if sys.version_info >= (3, 8):
     PyCF_TYPE_COMMENTS: Literal[4096]
     PyCF_ALLOW_TOP_LEVEL_AWAIT: Literal[8192]
 
-_identifier = str
+_identifier: TypeAlias = str
 
 class AST:
     if sys.version_info >= (3, 10):
@@ -319,7 +319,7 @@ class FormattedValue(expr):
     if sys.version_info >= (3, 10):
         __match_args__ = ("value", "conversion", "format_spec")
     value: expr
-    conversion: int | None
+    conversion: int
     format_spec: expr | None
 
 class JoinedStr(expr):
@@ -366,10 +366,10 @@ class Attribute(expr):
     ctx: expr_context
 
 if sys.version_info >= (3, 9):
-    _SliceT = expr
+    _SliceT: TypeAlias = expr
 else:
     class slice(AST): ...
-    _SliceT = slice
+    _SliceT: TypeAlias = slice
 
 class Slice(_SliceT):
     if sys.version_info >= (3, 10):
@@ -415,6 +415,8 @@ class Tuple(expr):
         __match_args__ = ("elts", "ctx")
     elts: list[expr]
     ctx: expr_context
+    if sys.version_info >= (3, 9):
+        dims: list[expr]
 
 class expr_context(AST): ...
 
@@ -524,7 +526,7 @@ if sys.version_info >= (3, 10):
 
     class pattern(AST): ...
     # Without the alias, Pyright complains variables named pattern are recursively defined
-    _pattern = pattern
+    _pattern: TypeAlias = pattern
 
     class match_case(AST):
         __match_args__ = ("pattern", "guard", "body")

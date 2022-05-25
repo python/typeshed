@@ -286,7 +286,7 @@ class _patch_dict:
 if sys.version_info >= (3, 8):
     _Mock: TypeAlias = MagicMock | AsyncMock
 else:
-    _Mock = MagicMock
+    _Mock: TypeAlias = MagicMock
 
 class _patcher:
     TEST_PREFIX: str
@@ -297,7 +297,7 @@ class _patcher:
     @overload
     def __call__(  # type: ignore[misc]
         self,
-        target: Any,
+        target: str,
         new: _T,
         spec: Any | None = ...,
         create: bool = ...,
@@ -309,7 +309,7 @@ class _patcher:
     @overload
     def __call__(
         self,
-        target: Any,
+        target: str,
         *,
         spec: Any | None = ...,
         create: bool = ...,

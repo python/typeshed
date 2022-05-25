@@ -4,6 +4,7 @@ from collections.abc import Callable, Sequence
 from configparser import RawConfigParser
 from threading import Thread
 from typing import IO, Any, Pattern
+from typing_extensions import TypeAlias
 
 from . import _Level
 
@@ -13,9 +14,9 @@ else:
     from typing_extensions import Literal, TypedDict
 
 if sys.version_info >= (3, 7):
-    _Path = StrOrBytesPath
+    _Path: TypeAlias = StrOrBytesPath
 else:
-    _Path = StrPath
+    _Path: TypeAlias = StrPath
 
 DEFAULT_LOGGING_CONFIG_PORT: int
 RESET_ERROR: int  # undocumented
