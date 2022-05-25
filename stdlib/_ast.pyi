@@ -319,7 +319,7 @@ class FormattedValue(expr):
     if sys.version_info >= (3, 10):
         __match_args__ = ("value", "conversion", "format_spec")
     value: expr
-    conversion: int | None
+    conversion: int
     format_spec: expr | None
 
 class JoinedStr(expr):
@@ -415,6 +415,8 @@ class Tuple(expr):
         __match_args__ = ("elts", "ctx")
     elts: list[expr]
     ctx: expr_context
+    if sys.version_info >= (3, 9):
+        dims: list[expr]
 
 class expr_context(AST): ...
 

@@ -1,7 +1,7 @@
 from _typeshed import Self
 from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from typing import Any, overload
-from typing_extensions import TypeAlias
+from typing_extensions import Literal, TypeAlias
 
 _NDArray: TypeAlias = Any  # FIXME: no typings for numpy arrays
 
@@ -180,8 +180,10 @@ class Port:
     def request_monitor(self, onoff: bool) -> None: ...
 
 class MidiPort(Port):
-    is_audio: bool = ...
-    is_midi: bool = ...
+    @property
+    def is_audio(self) -> Literal[False]: ...
+    @property
+    def is_midi(self) -> Literal[True]: ...
 
 class OwnPort(Port):
     @property
