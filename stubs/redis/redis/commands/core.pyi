@@ -635,7 +635,7 @@ class ScanCommands(Generic[_StrType]):
     def hscan_iter(
         self, name: _Key, match: _Key | None = ..., count: int | None = ...
     ) -> Iterator[tuple[_StrType, _StrType]]: ...
-    @overloadd
+    @overload
     def zscan(
         self,
         name: _Key,
@@ -643,7 +643,7 @@ class ScanCommands(Generic[_StrType]):
         match: _Key | None = ...,
         count: int | None = ...,
     ) -> tuple[int, list[tuple[_StrType, float]]]: ...
-    @overloadd
+    @overload
     def zscan(
         self,
         name: _Key,
@@ -709,7 +709,7 @@ class AsyncScanCommands(Generic[_StrType]):
     def hscan_iter(
         self, name: _Key, match: _Key | None = ..., count: int | None = ...
     ) -> AsyncIterator[tuple[_StrType, _StrType]]: ...
-    @overloadd
+    @overload
     async def zscan(
         self,
         name: _Key,
@@ -717,7 +717,7 @@ class AsyncScanCommands(Generic[_StrType]):
         match: _Key | None = ...,
         count: int | None = ...,
     ) -> tuple[int, list[tuple[_StrType, float]]]: ...
-    @overloadd
+    @overload
     async def zscan(
         self,
         name: _Key,
