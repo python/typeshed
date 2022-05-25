@@ -637,11 +637,7 @@ class ScanCommands(Generic[_StrType]):
     ) -> Iterator[tuple[_StrType, _StrType]]: ...
     @overload
     def zscan(
-        self,
-        name: _Key,
-        cursor: int = ...,
-        match: _Key | None = ...,
-        count: int | None = ...,
+        self, name: _Key, cursor: int = ..., match: _Key | None = ..., count: int | None = ...
     ) -> tuple[int, list[tuple[_StrType, float]]]: ...
     @overload
     def zscan(
@@ -663,12 +659,7 @@ class ScanCommands(Generic[_StrType]):
         score_cast_func: Callable[[_StrType], _ScoreCastFuncReturn],
     ) -> tuple[int, list[tuple[_StrType, _ScoreCastFuncReturn]]]: ...
     @overload
-    def zscan_iter(
-        self,
-        name: _Key,
-        match: _Key | None = ...,
-        count: int | None = ...,
-    ) -> Iterator[tuple[_StrType, float]]: ...
+    def zscan_iter(self, name: _Key, match: _Key | None = ..., count: int | None = ...) -> Iterator[tuple[_StrType, float]]: ...
     @overload
     def zscan_iter(
         self,
@@ -680,11 +671,7 @@ class ScanCommands(Generic[_StrType]):
     ) -> Iterator[tuple[_StrType, _ScoreCastFuncReturn]]: ...
     @overload
     def zscan_iter(
-        self,
-        name: _Key,
-        match: _Key | None,
-        count: int | None,
-        score_cast_func: Callable[[_StrType], _ScoreCastFuncReturn],
+        self, name: _Key, match: _Key | None, count: int | None, score_cast_func: Callable[[_StrType], _ScoreCastFuncReturn]
     ) -> Iterator[tuple[_StrType, _ScoreCastFuncReturn]]: ...
 
 class AsyncScanCommands(Generic[_StrType]):
@@ -711,11 +698,7 @@ class AsyncScanCommands(Generic[_StrType]):
     ) -> AsyncIterator[tuple[_StrType, _StrType]]: ...
     @overload
     async def zscan(
-        self,
-        name: _Key,
-        cursor: int = ...,
-        match: _Key | None = ...,
-        count: int | None = ...,
+        self, name: _Key, cursor: int = ..., match: _Key | None = ..., count: int | None = ...
     ) -> tuple[int, list[tuple[_StrType, float]]]: ...
     @overload
     async def zscan(
@@ -738,10 +721,7 @@ class AsyncScanCommands(Generic[_StrType]):
     ) -> tuple[int, list[tuple[_StrType, _ScoreCastFuncReturn]]]: ...
     @overload
     def zscan_iter(
-        self,
-        name: _Key,
-        match: _Key | None = ...,
-        count: int | None = ...,
+        self, name: _Key, match: _Key | None = ..., count: int | None = ...
     ) -> AsyncIterator[tuple[_StrType, float]]: ...
     @overload
     def zscan_iter(
@@ -754,11 +734,7 @@ class AsyncScanCommands(Generic[_StrType]):
     ) -> AsyncIterator[tuple[_StrType, _ScoreCastFuncReturn]]: ...
     @overload
     def zscan_iter(
-        self,
-        name: _Key,
-        match: _Key | None,
-        count: int | None,
-        score_cast_func: Callable[[_StrType], _ScoreCastFuncReturn],
+        self, name: _Key, match: _Key | None, count: int | None, score_cast_func: Callable[[_StrType], _ScoreCastFuncReturn]
     ) -> AsyncIterator[tuple[_StrType, _ScoreCastFuncReturn]]: ...
 
 class SetCommands(Generic[_StrType]):
