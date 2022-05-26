@@ -32,11 +32,13 @@ tempdir: str | None
 template: str
 
 _Dir: TypeAlias = AnyStr | os.PathLike[AnyStr]
+_StrMode: TypeAlias = Literal["r", "w", "a", "x", "r+", "w+", "a+", "x+", "rt", "wt", "at", "xt", "r+t", "w+t", "a+t", "x+t"]
+_BytesMode: TypeAlias = Literal["rb", "wb", "ab", "xb", "r+b", "w+b", "a+b", "x+b"]
 
 if sys.version_info >= (3, 8):
     @overload
     def NamedTemporaryFile(
-        mode: Literal["r", "w", "a", "x", "r+", "w+", "a+", "x+", "rt", "wt", "at", "xt", "r+t", "w+t", "a+t", "x+t"],
+        mode: _StrMode,
         buffering: int = ...,
         encoding: str | None = ...,
         newline: str | None = ...,
@@ -49,7 +51,7 @@ if sys.version_info >= (3, 8):
     ) -> _TemporaryFileWrapper[str]: ...
     @overload
     def NamedTemporaryFile(
-        mode: Literal["rb", "wb", "ab", "xb", "r+b", "w+b", "a+b", "x+b"] = ...,
+        mode: _BytesMode = ...,
         buffering: int = ...,
         encoding: str | None = ...,
         newline: str | None = ...,
@@ -77,7 +79,7 @@ if sys.version_info >= (3, 8):
 else:
     @overload
     def NamedTemporaryFile(
-        mode: Literal["r", "w", "a", "x", "r+", "w+", "a+", "x+", "rt", "wt", "at", "xt", "r+t", "w+t", "a+t", "x+t"],
+        mode: _StrMode,
         buffering: int = ...,
         encoding: str | None = ...,
         newline: str | None = ...,
@@ -88,7 +90,7 @@ else:
     ) -> _TemporaryFileWrapper[str]: ...
     @overload
     def NamedTemporaryFile(
-        mode: Literal["rb", "wb", "ab", "xb", "r+b", "w+b", "a+b", "x+b"] = ...,
+        mode: _BytesMode = ...,
         buffering: int = ...,
         encoding: str | None = ...,
         newline: str | None = ...,
@@ -115,7 +117,7 @@ else:
     if sys.version_info >= (3, 8):
         @overload
         def TemporaryFile(
-            mode: Literal["r", "w", "a", "x", "r+", "w+", "a+", "x+", "rt", "wt", "at", "xt", "r+t", "w+t", "a+t", "x+t"],
+            mode: _StrMode,
             buffering: int = ...,
             encoding: str | None = ...,
             newline: str | None = ...,
@@ -127,7 +129,7 @@ else:
         ) -> IO[str]: ...
         @overload
         def TemporaryFile(
-            mode: Literal["rb", "wb", "ab", "xb", "r+b", "w+b", "a+b", "x+b"] = ...,
+            mode: _BytesMode = ...,
             buffering: int = ...,
             encoding: str | None = ...,
             newline: str | None = ...,
@@ -152,7 +154,7 @@ else:
     else:
         @overload
         def TemporaryFile(
-            mode: Literal["r", "w", "a", "x", "r+", "w+", "a+", "x+", "rt", "wt", "at", "xt", "r+t", "w+t", "a+t", "x+t"],
+            mode: _StrMode,
             buffering: int = ...,
             encoding: str | None = ...,
             newline: str | None = ...,
@@ -162,7 +164,7 @@ else:
         ) -> IO[str]: ...
         @overload
         def TemporaryFile(
-            mode: Literal["rb", "wb", "ab", "xb", "r+b", "w+b", "a+b", "x+b"] = ...,
+            mode: _BytesMode = ...,
             buffering: int = ...,
             encoding: str | None = ...,
             newline: str | None = ...,
@@ -236,7 +238,7 @@ class SpooledTemporaryFile(IO[AnyStr], _SpooledTemporaryFileBase):
         def __init__(
             self: SpooledTemporaryFile[bytes],
             max_size: int = ...,
-            mode: Literal["rb", "wb", "ab", "xb", "r+b", "w+b", "a+b", "x+b"] = ...,
+            mode: _BytesMode = ...,
             buffering: int = ...,
             encoding: str | None = ...,
             newline: str | None = ...,
@@ -250,7 +252,7 @@ class SpooledTemporaryFile(IO[AnyStr], _SpooledTemporaryFileBase):
         def __init__(
             self: SpooledTemporaryFile[str],
             max_size: int = ...,
-            mode: Literal["r", "w", "a", "x", "r+", "w+", "a+", "x+", "rt", "wt", "at", "xt", "r+t", "w+t", "a+t", "x+t"] = ...,
+            mode: _StrMode = ...,
             buffering: int = ...,
             encoding: str | None = ...,
             newline: str | None = ...,
@@ -281,7 +283,7 @@ class SpooledTemporaryFile(IO[AnyStr], _SpooledTemporaryFileBase):
         def __init__(
             self: SpooledTemporaryFile[bytes],
             max_size: int = ...,
-            mode: Literal["rb", "wb", "ab", "xb", "r+b", "w+b", "a+b", "x+b"] = ...,
+            mode: _BytesMode = ...,
             buffering: int = ...,
             encoding: str | None = ...,
             newline: str | None = ...,
@@ -293,7 +295,7 @@ class SpooledTemporaryFile(IO[AnyStr], _SpooledTemporaryFileBase):
         def __init__(
             self: SpooledTemporaryFile[str],
             max_size: int = ...,
-            mode: Literal["r", "w", "a", "x", "r+", "w+", "a+", "x+", "rt", "wt", "at", "xt", "r+t", "w+t", "a+t", "x+t"] = ...,
+            mode: _StrMode = ...,
             buffering: int = ...,
             encoding: str | None = ...,
             newline: str | None = ...,
