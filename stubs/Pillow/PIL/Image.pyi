@@ -14,7 +14,32 @@ from ._imaging import (
 from .ImageFilter import Filter
 from .ImagePalette import ImagePalette
 
-_Mode: TypeAlias = Literal["1", "BGR;15", "BGR;16", "BGR;24", "BGR;32", "CMYK", "F", "HSV", "I", "I;16", "I;16B", "I;16L", "I;16N", "L", "LA", "LAB", "La", "P", "PA", "RGB", "RGBA", "RGBX", "RGBa", "YCbCr"]
+_Mode: TypeAlias = Literal[
+    "1",
+    "BGR;15",
+    "BGR;16",
+    "BGR;24",
+    "BGR;32",
+    "CMYK",
+    "F",
+    "HSV",
+    "I",
+    "I;16",
+    "I;16B",
+    "I;16L",
+    "I;16N",
+    "L",
+    "LA",
+    "LAB",
+    "La",
+    "P",
+    "PA",
+    "RGB",
+    "RGBA",
+    "RGBX",
+    "RGBa",
+    "YCbCr",
+]
 _Resample: TypeAlias = Literal[0, 1, 2, 3, 4, 5]
 _Size: TypeAlias = tuple[int, int]
 _Box: TypeAlias = tuple[int, int, int, int]
