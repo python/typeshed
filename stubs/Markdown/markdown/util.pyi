@@ -1,7 +1,7 @@
 from typing import Any, Pattern, overload
 
 PY37: bool
-__deprecated__: Any
+__deprecated__: dict[str, tuple[str, Any]]
 BLOCK_LEVEL_ELEMENTS: Any
 STX: str
 ETX: str
