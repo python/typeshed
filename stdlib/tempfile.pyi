@@ -31,7 +31,7 @@ TMP_MAX: int
 tempdir: str | None
 template: str
 
-_DirT: TypeAlias = AnyStr | os.PathLike[AnyStr]
+_Dir: TypeAlias = AnyStr | os.PathLike[AnyStr]
 
 if sys.version_info >= (3, 8):
     @overload
@@ -42,7 +42,7 @@ if sys.version_info >= (3, 8):
         newline: str | None = ...,
         suffix: AnyStr | None = ...,
         prefix: AnyStr | None = ...,
-        dir: _DirT[AnyStr] | None = ...,
+        dir: _Dir[AnyStr] | None = ...,
         delete: bool = ...,
         *,
         errors: str | None = ...,
@@ -55,7 +55,7 @@ if sys.version_info >= (3, 8):
         newline: str | None = ...,
         suffix: AnyStr | None = ...,
         prefix: AnyStr | None = ...,
-        dir: _DirT[AnyStr] | None = ...,
+        dir: _Dir[AnyStr] | None = ...,
         delete: bool = ...,
         *,
         errors: str | None = ...,
@@ -68,7 +68,7 @@ if sys.version_info >= (3, 8):
         newline: str | None = ...,
         suffix: AnyStr | None = ...,
         prefix: AnyStr | None = ...,
-        dir: _DirT[AnyStr] | None = ...,
+        dir: _Dir[AnyStr] | None = ...,
         delete: bool = ...,
         *,
         errors: str | None = ...,
@@ -83,7 +83,7 @@ else:
         newline: str | None = ...,
         suffix: AnyStr | None = ...,
         prefix: AnyStr | None = ...,
-        dir: _DirT[AnyStr] | None = ...,
+        dir: _Dir[AnyStr] | None = ...,
         delete: bool = ...,
     ) -> _TemporaryFileWrapper[str]: ...
     @overload
@@ -94,7 +94,7 @@ else:
         newline: str | None = ...,
         suffix: AnyStr | None = ...,
         prefix: AnyStr | None = ...,
-        dir: _DirT[AnyStr] | None = ...,
+        dir: _Dir[AnyStr] | None = ...,
         delete: bool = ...,
     ) -> _TemporaryFileWrapper[bytes]: ...
     @overload
@@ -105,7 +105,7 @@ else:
         newline: str | None = ...,
         suffix: AnyStr | None = ...,
         prefix: AnyStr | None = ...,
-        dir: _DirT[AnyStr] | None = ...,
+        dir: _Dir[AnyStr] | None = ...,
         delete: bool = ...,
     ) -> _TemporaryFileWrapper[Any]: ...
 
@@ -121,7 +121,7 @@ else:
             newline: str | None = ...,
             suffix: AnyStr | None = ...,
             prefix: AnyStr | None = ...,
-            dir: _DirT[AnyStr] | None = ...,
+            dir: _Dir[AnyStr] | None = ...,
             *,
             errors: str | None = ...,
         ) -> IO[str]: ...
@@ -133,7 +133,7 @@ else:
             newline: str | None = ...,
             suffix: AnyStr | None = ...,
             prefix: AnyStr | None = ...,
-            dir: _DirT[AnyStr] | None = ...,
+            dir: _Dir[AnyStr] | None = ...,
             *,
             errors: str | None = ...,
         ) -> IO[bytes]: ...
@@ -145,7 +145,7 @@ else:
             newline: str | None = ...,
             suffix: AnyStr | None = ...,
             prefix: AnyStr | None = ...,
-            dir: _DirT[AnyStr] | None = ...,
+            dir: _Dir[AnyStr] | None = ...,
             *,
             errors: str | None = ...,
         ) -> IO[Any]: ...
@@ -158,7 +158,7 @@ else:
             newline: str | None = ...,
             suffix: AnyStr | None = ...,
             prefix: AnyStr | None = ...,
-            dir: _DirT[AnyStr] | None = ...,
+            dir: _Dir[AnyStr] | None = ...,
         ) -> IO[str]: ...
         @overload
         def TemporaryFile(
@@ -168,7 +168,7 @@ else:
             newline: str | None = ...,
             suffix: AnyStr | None = ...,
             prefix: AnyStr | None = ...,
-            dir: _DirT[AnyStr] | None = ...,
+            dir: _Dir[AnyStr] | None = ...,
         ) -> IO[bytes]: ...
         @overload
         def TemporaryFile(
@@ -178,7 +178,7 @@ else:
             newline: str | None = ...,
             suffix: AnyStr | None = ...,
             prefix: AnyStr | None = ...,
-            dir: _DirT[AnyStr] | None = ...,
+            dir: _Dir[AnyStr] | None = ...,
         ) -> IO[Any]: ...
 
 class _TemporaryFileWrapper(Generic[AnyStr], IO[AnyStr]):
@@ -365,14 +365,14 @@ class TemporaryDirectory(Generic[AnyStr]):
             self,
             suffix: AnyStr | None = ...,
             prefix: AnyStr | None = ...,
-            dir: _DirT[AnyStr] | None = ...,
+            dir: _Dir[AnyStr] | None = ...,
             ignore_cleanup_errors: bool = ...,
         ) -> None: ...
     else:
         @overload
         def __init__(self: TemporaryDirectory[str], suffix: None = ..., prefix: None = ..., dir: None = ...) -> None: ...
         @overload
-        def __init__(self, suffix: AnyStr | None = ..., prefix: AnyStr | None = ..., dir: _DirT[AnyStr] | None = ...) -> None: ...
+        def __init__(self, suffix: AnyStr | None = ..., prefix: AnyStr | None = ..., dir: _Dir[AnyStr] | None = ...) -> None: ...
 
     def cleanup(self) -> None: ...
     def __enter__(self) -> AnyStr: ...
@@ -383,18 +383,18 @@ class TemporaryDirectory(Generic[AnyStr]):
 # The overloads overlap, but they should still work fine.
 @overload
 def mkstemp(  # type: ignore[misc]
-    suffix: str | None = ..., prefix: str | None = ..., dir: _DirT[str] | None = ..., text: bool = ...
+    suffix: str | None = ..., prefix: str | None = ..., dir: _Dir[str] | None = ..., text: bool = ...
 ) -> tuple[int, str]: ...
 @overload
 def mkstemp(
-    suffix: bytes | None = ..., prefix: bytes | None = ..., dir: _DirT[bytes] | None = ..., text: bool = ...
+    suffix: bytes | None = ..., prefix: bytes | None = ..., dir: _Dir[bytes] | None = ..., text: bool = ...
 ) -> tuple[int, bytes]: ...
 
 # The overloads overlap, but they should still work fine.
 @overload
-def mkdtemp(suffix: str | None = ..., prefix: str | None = ..., dir: _DirT[str] | None = ...) -> str: ...  # type: ignore[misc]
+def mkdtemp(suffix: str | None = ..., prefix: str | None = ..., dir: _Dir[str] | None = ...) -> str: ...  # type: ignore[misc]
 @overload
-def mkdtemp(suffix: bytes | None = ..., prefix: bytes | None = ..., dir: _DirT[bytes] | None = ...) -> bytes: ...
+def mkdtemp(suffix: bytes | None = ..., prefix: bytes | None = ..., dir: _Dir[bytes] | None = ...) -> bytes: ...
 def mktemp(suffix: str = ..., prefix: str = ..., dir: StrPath | None = ...) -> str: ...
 def gettempdirb() -> bytes: ...
 def gettempprefixb() -> bytes: ...
