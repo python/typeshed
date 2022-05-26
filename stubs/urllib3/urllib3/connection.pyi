@@ -16,7 +16,7 @@ class DummyConnection: ...
 BaseSSLError = ssl.SSLError
 
 ConnectTimeoutError = exceptions.ConnectTimeoutError
-SecurityWarning = exceptions.SecurityWarning
+SystemTimeWarning = exceptions.SystemTimeWarning
 match_hostname = ssl_match_hostname.match_hostname
 resolve_cert_reqs = ssl_.resolve_cert_reqs
 resolve_ssl_version = ssl_.resolve_ssl_version
