@@ -111,7 +111,7 @@ def find(
 @overload
 def find(domain: str, localedir: StrPath | None = ..., languages: Iterable[str] | None = ..., all: bool = ...) -> Any: ...
 
-_T = TypeVar("_T", bound=NullTranslations)
+_NullTranslationsT = TypeVar("_NullTranslationsT", bound=NullTranslations)
 
 if sys.version_info >= (3, 11):
     @overload
@@ -127,45 +127,24 @@ if sys.version_info >= (3, 11):
         domain: str,
         localedir: StrPath | None = ...,
         languages: Iterable[str] | None = ...,
-        class_: None = ...,
         *,
-        fallback: Literal[True],
-    ) -> NullTranslations: ...
-    @overload
-    def translation(
-        domain: str, localedir: StrPath | None, languages: Iterable[str] | None, class_: None, fallback: Literal[True]
-    ) -> NullTranslations: ...
-    @overload
-    def translation(
-        domain: str,
-        localedir: StrPath | None = ...,
-        languages: Iterable[str] | None = ...,
-        class_: None = ...,
-        fallback: bool = ...,
-    ) -> NullTranslations: ...
-    @overload
-    def translation(
-        domain: str,
-        localedir: StrPath | None = ...,
-        languages: Iterable[str] | None = ...,
-        *,
-        class_: Callable[[io.BufferedReader], _T],
+        class_: Callable[[io.BufferedReader], _NullTranslationsT],
         fallback: Literal[False] = ...,
-    ) -> _T: ...
+    ) -> _NullTranslationsT: ...
     @overload
     def translation(
         domain: str,
         localedir: StrPath | None,
         languages: Iterable[str] | None,
-        class_: Callable[[io.BufferedReader], _T],
+        class_: Callable[[io.BufferedReader], _NullTranslationsT],
         fallback: Literal[False] = ...,
-    ) -> _T: ...
+    ) -> _NullTranslationsT: ...
     @overload
     def translation(
         domain: str,
         localedir: StrPath | None = ...,
         languages: Iterable[str] | None = ...,
-        class_: Callable[[io.BufferedReader], NullTranslations] = ...,
+        class_: Callable[[io.BufferedReader], NullTranslations] | None = ...,
         fallback: bool = ...,
     ) -> NullTranslations: ...
     def install(domain: str, localedir: StrPath | None = ..., *, names: Container[str] | None = ...) -> None: ...
@@ -185,54 +164,26 @@ else:
         domain: str,
         localedir: StrPath | None = ...,
         languages: Iterable[str] | None = ...,
-        class_: None = ...,
         *,
-        fallback: Literal[True],
+        class_: Callable[[io.BufferedReader], _NullTranslationsT],
+        fallback: Literal[False] = ...,
         codeset: str | None = ...,
-    ) -> NullTranslations: ...
+    ) -> _NullTranslationsT: ...
     @overload
     def translation(
         domain: str,
         localedir: StrPath | None,
         languages: Iterable[str] | None,
-        class_: None,
-        fallback: Literal[True],
-        codeset: str | None = ...,
-    ) -> NullTranslations: ...
-    @overload
-    def translation(
-        domain: str,
-        localedir: StrPath | None = ...,
-        languages: Iterable[str] | None = ...,
-        class_: None = ...,
-        fallback: bool = ...,
-        codeset: str | None = ...,
-    ) -> NullTranslations: ...
-    @overload
-    def translation(
-        domain: str,
-        localedir: StrPath | None = ...,
-        languages: Iterable[str] | None = ...,
-        *,
-        class_: Callable[[io.BufferedReader], _T],
+        class_: Callable[[io.BufferedReader], _NullTranslationsT],
         fallback: Literal[False] = ...,
         codeset: str | None = ...,
-    ) -> _T: ...
-    @overload
-    def translation(
-        domain: str,
-        localedir: StrPath | None,
-        languages: Iterable[str] | None,
-        class_: Callable[[io.BufferedReader], _T],
-        fallback: Literal[False] = ...,
-        codeset: str | None = ...,
-    ) -> _T: ...
+    ) -> _NullTranslationsT: ...
     @overload
     def translation(
         domain: str,
         localedir: StrPath | None = ...,
         languages: Iterable[str] | None = ...,
-        class_: Callable[[io.BufferedReader], NullTranslations] = ...,
+        class_: Callable[[io.BufferedReader], NullTranslations] | None = ...,
         fallback: bool = ...,
         codeset: str | None = ...,
     ) -> NullTranslations: ...
