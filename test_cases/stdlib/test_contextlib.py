@@ -1,6 +1,7 @@
 from contextlib import ExitStack
 from typing_extensions import assert_type
 
+
 # See issue #7961
 class Thing(ExitStack):
     pass
