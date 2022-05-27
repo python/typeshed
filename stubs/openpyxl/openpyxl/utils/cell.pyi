@@ -1,5 +1,5 @@
 from collections.abc import Generator
-from typing import Any, Tuple, Union, List
+from typing import Any, List, Tuple, Union
 
 COORD_RE: Any
 COL_RANGE: str
