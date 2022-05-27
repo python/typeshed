@@ -115,7 +115,6 @@ class SupportsItemAccess(SupportsGetItem[_KT_contra, _VT], Protocol[_KT_contra, 
     def __setitem__(self, __k: _KT_contra, __v: _VT) -> None: ...
     def __delitem__(self, __v: _KT_contra) -> None: ...
 
-# These aliases are simple strings in Python 2.
 StrPath: TypeAlias = str | PathLike[str]  # stable
 BytesPath: TypeAlias = bytes | PathLike[bytes]  # stable
 GenericPath: TypeAlias = AnyStr | PathLike[AnyStr]
