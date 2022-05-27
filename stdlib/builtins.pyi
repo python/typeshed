@@ -1192,6 +1192,8 @@ class filter(Iterator[_T], Generic[_T]):
 
 def format(__value: object, __format_spec: str = ...) -> str: ...  # TODO unicode
 @overload
+def getattr(__o: BaseException, __name: Literal["__notes__"], __default: list[str] = ...) -> list[str]: ...
+@overload
 def getattr(__o: object, __name: str) -> Any: ...
 
 # While technically covered by the last overload, spelling out the types for None, bool
