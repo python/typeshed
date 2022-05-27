@@ -1,11 +1,11 @@
-from _typeshed import Self
+from _typeshed import Self, SupportsRichComparison
 from collections import deque
 from collections.abc import Callable, Container, Iterable, Sequence
 from typing import Any
 
 from jsonschema import _utils, protocols
 
-_RelevanceFuncType = Callable[[ValidationError], Any]
+_RelevanceFuncType = Callable[[ValidationError], SupportsRichComparison]
 
 WEAK_MATCHES: frozenset[str]
 STRONG_MATCHES: frozenset[str]
@@ -44,6 +44,8 @@ class _Error(Exception):
     def absolute_schema_path(self) -> Sequence[str]: ...
     @property
     def json_path(self) -> str: ...
+    # TODO: this type could be made more precise using TypedDict to
+    # enumerate the types of the members
     def _contents(self) -> dict[str, Any]: ...
 
 class ValidationError(_Error): ...
