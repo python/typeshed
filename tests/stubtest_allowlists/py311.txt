@@ -63,6 +63,7 @@ queue.SimpleQueue.__init__
 sys.UnraisableHookArgs  # Not exported from sys
 tkinter._VersionInfoType.__doc__
 typing.ForwardRef._evaluate
+typing.NewType.__call__
 typing.NewType.__mro_entries__
 typing.ParamSpec.__typing_subst__
 typing.TypeVar.__typing_subst__
