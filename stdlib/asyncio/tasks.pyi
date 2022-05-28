@@ -87,13 +87,13 @@ def ensure_future(coro_or_future: Awaitable[_T], *, loop: AbstractEventLoop | No
 # typing PR #1550 for discussion.
 if sys.version_info >= (3, 10):
     @overload
-    def gather(__coro_or_future1: _FutureT[_T1], *, return_exceptions: Literal[False] = ...) -> Future[tuple[_T1]]: ...
+    def gather(__coro_or_future1: _FutureT[_T1], *, return_exceptions: Literal[False] = ...) -> Future[tuple[_T1]]: ...  # type: ignore
     @overload
-    def gather(
+    def gather(  # type: ignore
         __coro_or_future1: _FutureT[_T1], __coro_or_future2: _FutureT[_T2], *, return_exceptions: Literal[False] = ...
     ) -> Future[tuple[_T1, _T2]]: ...
     @overload
-    def gather(
+    def gather(  # type: ignore
         __coro_or_future1: _FutureT[_T1],
         __coro_or_future2: _FutureT[_T2],
         __coro_or_future3: _FutureT[_T3],
@@ -101,7 +101,7 @@ if sys.version_info >= (3, 10):
         return_exceptions: Literal[False] = ...,
     ) -> Future[tuple[_T1, _T2, _T3]]: ...
     @overload
-    def gather(
+    def gather(  # type: ignore
         __coro_or_future1: _FutureT[_T1],
         __coro_or_future2: _FutureT[_T2],
         __coro_or_future3: _FutureT[_T3],
@@ -110,7 +110,7 @@ if sys.version_info >= (3, 10):
         return_exceptions: Literal[False] = ...,
     ) -> Future[tuple[_T1, _T2, _T3, _T4]]: ...
     @overload
-    def gather(
+    def gather(  # type: ignore
         __coro_or_future1: _FutureT[_T1],
         __coro_or_future2: _FutureT[_T2],
         __coro_or_future3: _FutureT[_T3],
