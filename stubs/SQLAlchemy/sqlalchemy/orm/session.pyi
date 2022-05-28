@@ -158,7 +158,7 @@ class Session(_SessionClassMethods):
     @overload
     def query(self, entities: ColumnElement[_T], **kwargs: Any) -> Query[tuple[_T]]: ...  # type: ignore[misc]
     @overload
-    def query(self, *entities: ColumnElement[_T], **kwargs: Any) -> Query[tuple[_T, ...]]: ...
+    def query(self, *entities: ColumnElement[_T], **kwargs: Any) -> Query[tuple[_T, ...]]: ...  # type: ignore
     @overload
     def query(self, *entities: type[_T], **kwargs: Any) -> Query[_T]: ...
     @property
