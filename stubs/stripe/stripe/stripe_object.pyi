@@ -1,7 +1,9 @@
 import json
-from typing import Any
+from typing import Any, Type, TypeVar
 
 from stripe import api_requestor as api_requestor
+
+_T = TypeVar("_T")
 
 class StripeObject(dict[Any, Any]):
     class ReprJSONEncoder(json.JSONEncoder):
@@ -28,14 +30,19 @@ class StripeObject(dict[Any, Any]):
     def __reduce__(self): ...
     @classmethod
     def construct_from(
-        cls, values, key, stripe_version: Any | None = ..., stripe_account: Any | None = ..., last_response: Any | None = ...
-    ): ...
+        cls: Type[_T],
+        values: Any,
+        key: str | None,
+        stripe_version: Any | None = ...,
+        stripe_account: Any | None = ...,
+        last_response: Any | None = ...,
+    ) -> _T: ...
     api_key: Any
     stripe_version: Any
     stripe_account: Any
     def refresh_from(
         self,
-        values,
+        values: Any,
         api_key: Any | None = ...,
         partial: bool = ...,
         stripe_version: Any | None = ...,
