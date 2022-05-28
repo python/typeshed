@@ -1,10 +1,9 @@
-from typing import Any, Type, TypeVar
+from _typeshed import Self
+from typing import Any, TypeVar
 
 from stripe.api_resources.abstract.api_resource import APIResource as APIResource
 
-_T = TypeVar("_T")
-
 class UpdateableAPIResource(APIResource):
     @classmethod
-    def modify(cls: Type[_T], sid, **params) -> _T: ...
+    def modify(cls: type[Self], sid, **params) -> Self: ...
     def save(self, idempotency_key: Any | None = ...): ...

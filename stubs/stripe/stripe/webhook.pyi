@@ -1,13 +1,13 @@
 from typing import Any
 
-from stripe import error as error
+from stripe import Event, error as error
 
 class Webhook:
     DEFAULT_TOLERANCE: int
     @staticmethod
     def construct_event(
         payload: bytes | str, sig_header: str, secret: str, tolerance: int = ..., api_key: str | None = ...
-    ) -> stripe.Event: ...
+    ) -> Event: ...
 
 class WebhookSignature:
     EXPECTED_SCHEME: str
