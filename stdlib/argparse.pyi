@@ -409,16 +409,28 @@ class _StoreAction(Action): ...
 
 # undocumented
 class _StoreConstAction(Action):
-    def __init__(
-        self,
-        option_strings: Sequence[str],
-        dest: str,
-        const: Any,
-        default: Any = ...,
-        required: bool = ...,
-        help: str | None = ...,
-        metavar: str | tuple[str, ...] | None = ...,
-    ) -> None: ...
+    if sys.version_info >= (3, 11):
+        def __init__(
+            self,
+            option_strings: Sequence[str],
+            dest: str,
+            const: Any = ...,
+            default: Any = ...,
+            required: bool = ...,
+            help: str | None = ...,
+            metavar: str | tuple[str, ...] | None = ...,
+        ) -> None: ...
+    else:
+        def __init__(
+            self,
+            option_strings: Sequence[str],
+            dest: str,
+            const: Any,
+            default: Any = ...,
+            required: bool = ...,
+            help: str | None = ...,
+            metavar: str | tuple[str, ...] | None = ...,
+        ) -> None: ...
 
 # undocumented
 class _StoreTrueAction(_StoreConstAction):
@@ -437,16 +449,28 @@ class _AppendAction(Action): ...
 
 # undocumented
 class _AppendConstAction(Action):
-    def __init__(
-        self,
-        option_strings: Sequence[str],
-        dest: str,
-        const: Any,
-        default: Any = ...,
-        required: bool = ...,
-        help: str | None = ...,
-        metavar: str | tuple[str, ...] | None = ...,
-    ) -> None: ...
+    if sys.version_info >= (3, 11):
+        def __init__(
+            self,
+            option_strings: Sequence[str],
+            dest: str,
+            const: Any = ...,
+            default: Any = ...,
+            required: bool = ...,
+            help: str | None = ...,
+            metavar: str | tuple[str, ...] | None = ...,
+        ) -> None: ...
+    else:
+        def __init__(
+            self,
+            option_strings: Sequence[str],
+            dest: str,
+            const: Any,
+            default: Any = ...,
+            required: bool = ...,
+            help: str | None = ...,
+            metavar: str | tuple[str, ...] | None = ...,
+        ) -> None: ...
 
 # undocumented
 class _CountAction(Action):
