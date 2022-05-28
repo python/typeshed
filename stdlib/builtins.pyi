@@ -1548,6 +1548,10 @@ def sorted(__iterable: Iterable[_T], *, key: Callable[[_T], SupportsRichComparis
 _SumT = TypeVar("_SumT", bound=SupportsAdd)
 _SumS = TypeVar("_SumS", bound=SupportsAdd)
 
+# In general, the return type of `x + x` is *not* guaranteed to be the same type as x.
+# However, we can't express that in the stub for `sum()`
+# without creating many false-positive errors (see #7578).
+# Instead, we special-case the most common example of this: bool.
 if sys.version_info >= (3, 8):
     @overload
     def sum(__iterable: Iterable[bool], start: int = ...) -> int: ...  # type: ignore[misc]
