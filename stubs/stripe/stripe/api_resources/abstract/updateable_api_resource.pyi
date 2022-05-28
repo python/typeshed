@@ -1,5 +1,4 @@
 from _typeshed import Self
-from typing import Any
 
 from stripe.api_resources.abstract.api_resource import APIResource as APIResource
 
