@@ -1550,11 +1550,11 @@ _SumS = TypeVar("_SumS", bound=SupportsAdd)
 
 if sys.version_info >= (3, 8):
     @overload
-    def sum(__iterable: Iterable[bool], start: int = ...) -> int: ...
+    def sum(__iterable: Iterable[bool], start: int = ...) -> int: ...  # type: ignore[misc]
 
 else:
     @overload
-    def sum(__iterable: Iterable[bool], __start: int = ...) -> int: ...
+    def sum(__iterable: Iterable[bool], __start: int = ...) -> int: ...  # type: ignore[misc]
 
 @overload
 def sum(__iterable: Iterable[_SumT]) -> _SumT | Literal[0]: ...
