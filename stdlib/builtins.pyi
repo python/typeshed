@@ -3,6 +3,7 @@ import types
 from _ast import AST
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import (
+    AnyStr_co,
     OpenBinaryMode,
     OpenBinaryModeReading,
     OpenBinaryModeUpdating,
@@ -1104,10 +1105,8 @@ def chr(__i: int) -> str: ...
 
 # We define this here instead of using os.PathLike to avoid import cycle issues.
 # See https://github.com/python/typeshed/pull/991#issuecomment-288160993
-_AnyStr_co = TypeVar("_AnyStr_co", str, bytes, covariant=True)
-
-class _PathLike(Protocol[_AnyStr_co]):
-    def __fspath__(self) -> _AnyStr_co: ...
+class _PathLike(Protocol[AnyStr_co]):
+    def __fspath__(self) -> AnyStr_co: ...
 
 if sys.version_info >= (3, 10):
     def aiter(__async_iterable: SupportsAiter[_SupportsAnextT]) -> _SupportsAnextT: ...
