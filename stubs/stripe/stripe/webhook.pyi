@@ -1,5 +1,3 @@
-from typing import Any
-
 from stripe import Event, error as error
 
 class Webhook:
