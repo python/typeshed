@@ -1548,6 +1548,14 @@ def sorted(__iterable: Iterable[_T], *, key: Callable[[_T], SupportsRichComparis
 _SumT = TypeVar("_SumT", bound=SupportsAdd)
 _SumS = TypeVar("_SumS", bound=SupportsAdd)
 
+if sys.version_info >= (3, 8):
+    @overload
+    def sum(__iterable: Iterable[bool], start: int = ...) -> int: ...
+
+else:
+    @overload
+    def sum(__iterable: Iterable[bool], __start: int = ...) -> int: ...
+
 @overload
 def sum(__iterable: Iterable[_SumT]) -> _SumT | Literal[0]: ...
 
