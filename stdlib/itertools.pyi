@@ -179,7 +179,7 @@ class zip_longest(Iterator[_T_co], Generic[_T_co]):
         *iterables: Iterable[_T],
     ) -> zip_longest[tuple[_T | Any, ...]]: ...
     @overload
-    def __new__(
+    def __new__(  # type: ignore
         cls,
         __iter1: Iterable[_T],
         __iter2: Iterable[_T],
