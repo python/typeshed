@@ -30,6 +30,7 @@
         "stubs/commonmark",
         "stubs/cryptography",
         "stubs/dateparser",
+        "stubs/dj-database-url",
         "stubs/docutils",
         "stubs/Flask-SQLAlchemy",
         "stubs/fpdf2",
