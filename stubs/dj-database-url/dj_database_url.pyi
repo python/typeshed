@@ -4,10 +4,8 @@ from typing_extensions import TypedDict
 DEFAULT_ENV: str
 SCHEMES: dict[str, str]
 
-class _DBConfigBase(TypedDict):
+class _DBConfig(TypedDict, total=False):
     ENGINE: str
-
-class _DBConfig(_DBConfigBase, total=False):
     NAME: str
     USER: str
     PASSWORD: str
