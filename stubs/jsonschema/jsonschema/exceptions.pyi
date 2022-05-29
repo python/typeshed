@@ -14,8 +14,8 @@ class _Error(Exception):
     message: str
     path: deque[str | int]
     relative_path: deque[str | int]
-    schema_path: deque[str]
-    relative_schema_path: deque[str]
+    schema_path: deque[str | int]
+    relative_schema_path: deque[str | int]
     context: list[ValidationError] | None
     cause: Exception | None
     validator: protocols.Validator | None
@@ -33,7 +33,7 @@ class _Error(Exception):
         validator_value=...,
         instance: Any = ...,
         schema: Any = ...,
-        schema_path: Sequence[str] = ...,
+        schema_path: Sequence[str | int] = ...,
         parent: _Error | None = ...,
     ) -> None: ...
     @classmethod
@@ -41,7 +41,7 @@ class _Error(Exception):
     @property
     def absolute_path(self) -> Sequence[str | int]: ...
     @property
-    def absolute_schema_path(self) -> Sequence[str]: ...
+    def absolute_schema_path(self) -> Sequence[str | int]: ...
     @property
     def json_path(self) -> str: ...
     # TODO: this type could be made more precise using TypedDict to
