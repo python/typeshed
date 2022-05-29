@@ -1,7 +1,7 @@
 from _typeshed import Self, SupportsRichComparison
 from collections import deque
 from collections.abc import Callable, Container, Iterable, Sequence
-from typing import Any, Union
+from typing import Any
 
 from jsonschema import _utils, protocols
 
@@ -39,7 +39,7 @@ class _Error(Exception):
     @classmethod
     def create_from(cls: type[Self], other: _Error) -> Self: ...
     @property
-    def absolute_path(self) -> Sequence[Union[str | int]]: ...
+    def absolute_path(self) -> Sequence[str | int]: ...
     @property
     def absolute_schema_path(self) -> Sequence[str]: ...
     @property
