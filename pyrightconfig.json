@@ -40,7 +40,7 @@
     "reportUnboundVariable": "error",
     "reportInvalidStubStatement": "error",
     "reportInvalidTypeVarUse": "error",
-    "reportPropertyTypeMismatch": "error",
+    "reportPropertyTypeMismatch": "none",
     "reportSelfClsParameterName": "error",
     "reportUnsupportedDunderAll": "error",
     // Incompatible overrides are out of typeshed's control as they are
