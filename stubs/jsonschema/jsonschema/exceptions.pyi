@@ -12,8 +12,8 @@ STRONG_MATCHES: frozenset[str]
 
 class _Error(Exception):
     message: str
-    path: deque[str]
-    relative_path: deque[str]
+    path: deque[str | int]
+    relative_path: deque[str | int]
     schema_path: deque[str]
     relative_schema_path: deque[str]
     context: list[ValidationError] | None
@@ -27,7 +27,7 @@ class _Error(Exception):
         self,
         message: str,
         validator: _utils.Unset | None | protocols.Validator = ...,
-        path: Sequence[str] = ...,
+        path: Sequence[str | int] = ...,
         cause: Any | None = ...,
         context: Sequence[ValidationError] = ...,
         validator_value=...,
@@ -39,7 +39,7 @@ class _Error(Exception):
     @classmethod
     def create_from(cls: type[Self], other: _Error) -> Self: ...
     @property
-    def absolute_path(self) -> Sequence[str]: ...
+    def absolute_path(self) -> Sequence[str | int]: ...
     @property
     def absolute_schema_path(self) -> Sequence[str]: ...
     @property
