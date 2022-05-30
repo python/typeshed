@@ -498,26 +498,6 @@ into any of those categories, use your best judgement.
 * Use `HasX` for protocols that have readable and/or writable attributes
   or getter/setter methods (e.g. `HasItems`, `HasFileno`).
 
-## Formatting stubs
-
-Stubs should be reformatted with the formatters
-[black](https://github.com/psf/black) and
-[isort](https://github.com/PyCQA/isort) before submission. They
-should also be checked for common problems by using
-[flake8](https://flake8.pycqa.org/en/latest/) and the flake8 plugins
-[flake8-pyi](https://github.com/ambv/flake8-pyi) and
-[flake8-bugbear](https://github.com/PyCQA/flake8-bugbear).
-All of these packages have been installed if you followed the
-[setup instructions above](#preparing-the-environment).
-
-To format and check your stubs, run the following commands:
-
-```
-(.venv3)$ black stdlib stubs
-(.venv3)$ isort stdlib stubs
-(.venv3)$ flake8
-```
-
 
 ## Submitting Changes
 
