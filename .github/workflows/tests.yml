@@ -3,7 +3,12 @@ name: Test
 on:
   workflow_dispatch:
   push:
+    branches:
+      - main
+      - master
   pull_request:
+    paths-ignore:
+      - '**/*.md'
 
 permissions:
   contents: read
@@ -50,7 +55,7 @@ jobs:
       - run: ./tests/pytype_test.py --print-stderr
 
   mypy:
-    name: Run mypy against the stubs
+    name: Run mypy against typeshed
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -60,11 +65,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - run: pip install $(grep tomli== requirements-tests.txt) $(grep mypy== requirements-tests.txt)
+      - run: pip install $(grep tomli== requirements-tests.txt) $(grep mypy== requirements-tests.txt) termcolor
       - run: ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
 
   pyright:
-    name: Run pyright against the stubs
+    name: Run pyright against typeshed
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -72,7 +77,7 @@ jobs:
         python-version: ["3.6", "3.7", "3.8", "3.9", "3.10", "3.11"]
       fail-fast: false
     env:
-      PYRIGHT_VERSION: 1.1.240 # Must match pyright_test.py.
+      PYRIGHT_VERSION: 1.1.248 # Must match pyright_test.py.
     steps:
       - uses: actions/checkout@v2
       - uses: jakebailey/pyright-action@v1
@@ -80,41 +85,18 @@ jobs:
           version: ${{ env.PYRIGHT_VERSION }}
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
-          no-comments: ${{ matrix.python-version != '3.9' || matrix.python-platform != 'Linux' }}  # Having each job create the same comment is too noisy.
+          no-comments: ${{ matrix.python-version != '3.9' || matrix.python-platform != 'Linux' }} # Having each job create the same comment is too noisy.
           project: ./pyrightconfig.stricter.json
       - uses: jakebailey/pyright-action@v1
         with:
           version: ${{ env.PYRIGHT_VERSION }}
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
-          no-comments: ${{ matrix.python-version != '3.9' || matrix.python-platform != 'Linux' }}  # Having each job create the same comment is too noisy.
-
-  stubtest-stdlib:
-    name: Check stdlib with stubtest
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        # macos-11 does not have tcl/tk installed, needed for stubtesting tkinter
-        os: ["ubuntu-latest", "windows-latest", "macos-10.15"]
-        python-version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
-      fail-fast: false
-
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python ${{ matrix.python-version }} on ${{ matrix.os }}
-        uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Update pip
-        run: python -m pip install -U pip
-      - name: Install dependencies
-        run: pip install $(grep tomli== requirements-tests.txt) $(grep mypy== requirements-tests.txt)
-      - name: Run stubtest
-        run: python tests/stubtest_stdlib.py
+          no-comments: ${{ matrix.python-version != '3.9' || matrix.python-platform != 'Linux' }} # Having each job create the same comment is too noisy.
 
   stubtest-third-party:
     name: Check third party stubs with stubtest
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     if: github.event_name == 'pull_request'
     steps:
       - uses: actions/checkout@v2
@@ -124,7 +106,7 @@ jobs:
         with:
           python-version: 3.9
       - name: Install dependencies
-        run: pip install $(grep tomli== requirements-tests.txt)
+        run: pip install $(grep tomli== requirements-tests.txt) termcolor
       - name: Run stubtest
         run: |
           STUBS=$(
@@ -138,7 +120,7 @@ jobs:
             APT_PACKAGES=$(python tests/get_apt_packages.py $STUBS)
             if test -n "$APT_PACKAGES"; then
               echo "Installing apt packages: $APT_PACKAGES"
-              sudo apt install -y $APT_PACKAGES
+              sudo apt update && sudo apt install -y $APT_PACKAGES
             fi
             python tests/stubtest_third_party.py $STUBS
           else
