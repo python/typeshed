@@ -110,7 +110,7 @@ black .
 ...Or install the pre-commit hooks: please refer to the
 [pre-commit](https://pre-commit.com/) documentation.
 
-Our code is also linted using `flake8`. As with our other checks, running
+Our code is also linted using `flake8`, with plugins `flake8-pyi` and `flake8-bugbear`. As with our other checks, running
 flake8 before filing a PR is not required. However, if you wish to run flake8
 locally, install the test dependencies as outlined above, and then run:
 
