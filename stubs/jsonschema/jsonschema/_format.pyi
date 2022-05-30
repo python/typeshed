@@ -1,8 +1,8 @@
 from collections.abc import Callable, Iterable
-from typing import Any, TypeVar, Union
+from typing import Any, TypeAlias, TypeVar, Union
 
 _F = TypeVar("_F", bound=Callable[..., Any])
-_RaisesType = Union[type[Exception], tuple[type[Exception], ...]]
+_RaisesType: TypeAlias = Union[type[Exception], tuple[type[Exception], ...]]
 
 class FormatChecker:
     checkers: dict[str, tuple[Callable[[Any], bool], _RaisesType]]
