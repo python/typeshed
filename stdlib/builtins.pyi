@@ -3,6 +3,7 @@ import types
 from _ast import AST
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import (
+    AnyStr_co,
     OpenBinaryMode,
     OpenBinaryModeReading,
     OpenBinaryModeUpdating,
@@ -1104,10 +1105,8 @@ def chr(__i: int) -> str: ...
 
 # We define this here instead of using os.PathLike to avoid import cycle issues.
 # See https://github.com/python/typeshed/pull/991#issuecomment-288160993
-_AnyStr_co = TypeVar("_AnyStr_co", str, bytes, covariant=True)
-
-class _PathLike(Protocol[_AnyStr_co]):
-    def __fspath__(self) -> _AnyStr_co: ...
+class _PathLike(Protocol[AnyStr_co]):
+    def __fspath__(self) -> AnyStr_co: ...
 
 if sys.version_info >= (3, 10):
     def aiter(__async_iterable: SupportsAiter[_SupportsAnextT]) -> _SupportsAnextT: ...
@@ -1549,6 +1548,18 @@ def sorted(__iterable: Iterable[_T], *, key: Callable[[_T], SupportsRichComparis
 _SumT = TypeVar("_SumT", bound=SupportsAdd)
 _SumS = TypeVar("_SumS", bound=SupportsAdd)
 
+# In general, the return type of `x + x` is *not* guaranteed to be the same type as x.
+# However, we can't express that in the stub for `sum()`
+# without creating many false-positive errors (see #7578).
+# Instead, we special-case the most common example of this: bool.
+if sys.version_info >= (3, 8):
+    @overload
+    def sum(__iterable: Iterable[bool], start: int = ...) -> int: ...  # type: ignore[misc]
+
+else:
+    @overload
+    def sum(__iterable: Iterable[bool], __start: int = ...) -> int: ...  # type: ignore[misc]
+
 @overload
 def sum(__iterable: Iterable[_SumT]) -> _SumT | Literal[0]: ...
 
@@ -1667,6 +1678,7 @@ class BaseException:
     __suppress_context__: bool
     __traceback__: TracebackType | None
     def __init__(self, *args: object) -> None: ...
+    def __setstate__(self, __state: dict[str, Any] | None) -> None: ...
     def with_traceback(self: Self, __tb: TracebackType | None) -> Self: ...
     if sys.version_info >= (3, 11):
         # only present after add_note() is called
