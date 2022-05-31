@@ -1,5 +1,5 @@
 from _typeshed import Self, SupportsItems, SupportsRead
-from collections.abc import Callable, Iterable, Mapping, MutableMapping
+from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequence
 from typing import IO, Any, Union
 from typing_extensions import TypeAlias
 
@@ -49,10 +49,10 @@ _Data: TypeAlias = str | bytes | Mapping[str, Any] | Iterable[tuple[str, str | N
 _Auth: TypeAlias = Union[tuple[str, str], _auth.AuthBase, Callable[[PreparedRequest], PreparedRequest]]
 _Cert: TypeAlias = Union[str, tuple[str, str]]
 # Files can be passed as either a mapping, or a list of tuples.
-_FileContent = SupportsRead[str | bytes] | str | bytes
-_FileName = str | None
-_FileContentType = str
-_FileCustomHeaders = _TextMapping
+_FileContent: TypeAlias = SupportsRead[str | bytes] | str | bytes
+_FileName: TypeAlias = str | None
+_FileContentType: TypeAlias = str
+_FileCustomHeaders: TypeAlias = _TextMapping
 _FileSpecTuple2 = tuple[_FileName, _FileContent]
 _FileSpecTuple3 = tuple[_FileName, _FileContent, _FileContentType]
 _FileSpecTuple4 = tuple[_FileName, _FileContent, _FileContentType, _FileCustomHeaders]
