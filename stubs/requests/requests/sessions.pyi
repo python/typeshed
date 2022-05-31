@@ -1,5 +1,5 @@
 from _typeshed import Self, SupportsItems, SupportsRead
-from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequence
+from collections.abc import Callable, Iterable, Mapping, MutableMapping
 from typing import IO, Any, Union
 from typing_extensions import TypeAlias
 
@@ -48,16 +48,16 @@ class SessionRedirectMixin:
 _Data: TypeAlias = str | bytes | Mapping[str, Any] | Iterable[tuple[str, str | None]] | IO[Any]
 _Auth: TypeAlias = Union[tuple[str, str], _auth.AuthBase, Callable[[PreparedRequest], PreparedRequest]]
 _Cert: TypeAlias = Union[str, tuple[str, str]]
-# Files can be passed as either a mapping, or a list of tuples.
-_FileContent: TypeAlias = SupportsRead[str | bytes] | str | bytes
+# Files is passed to requests.utils.to_key_val_list()
 _FileName: TypeAlias = str | None
+_FileContent: TypeAlias = SupportsRead[str | bytes] | str | bytes
 _FileContentType: TypeAlias = str
 _FileCustomHeaders: TypeAlias = _TextMapping
 _FileSpecTuple2: TypeAlias = tuple[_FileName, _FileContent]
 _FileSpecTuple3: TypeAlias = tuple[_FileName, _FileContent, _FileContentType]
 _FileSpecTuple4: TypeAlias = tuple[_FileName, _FileContent, _FileContentType, _FileCustomHeaders]
 _FileSpec: TypeAlias = _FileContent | _FileSpecTuple2 | _FileSpecTuple3 | _FileSpecTuple4
-_Files: TypeAlias = Mapping[str, _FileSpec] | Sequence[tuple[str, _FileSpec]]
+_Files: TypeAlias = Mapping[str, _FileSpec] | Iterable[tuple[str, _FileSpec]]
 _Hook: TypeAlias = Callable[[Response], Any]
 _HooksInput: TypeAlias = Mapping[str, Iterable[_Hook] | _Hook]
 
