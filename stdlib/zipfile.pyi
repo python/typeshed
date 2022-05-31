@@ -1,10 +1,11 @@
 import io
 import sys
 from _typeshed import Self, StrOrBytesPath, StrPath
+from collections.abc import Callable, Iterable, Iterator, Sequence
 from os import PathLike
 from types import TracebackType
-from typing import IO, Any, Callable, Iterable, Iterator, Protocol, Sequence, overload
-from typing_extensions import Literal
+from typing import IO, Any, Protocol, overload
+from typing_extensions import Literal, TypeAlias
 
 if sys.version_info >= (3, 8):
     __all__ = [
@@ -38,10 +39,10 @@ else:
         "LargeZipFile",
     ]
 
-_DateTuple = tuple[int, int, int, int, int, int]
-_ReadWriteMode = Literal["r", "w"]
-_ReadWriteBinaryMode = Literal["r", "w", "rb", "wb"]
-_ZipFileMode = Literal["r", "w", "x", "a"]
+_DateTuple: TypeAlias = tuple[int, int, int, int, int, int]
+_ReadWriteMode: TypeAlias = Literal["r", "w"]
+_ReadWriteBinaryMode: TypeAlias = Literal["r", "w", "rb", "wb"]
+_ZipFileMode: TypeAlias = Literal["r", "w", "x", "a"]
 
 class BadZipFile(Exception): ...
 
@@ -157,7 +158,32 @@ class ZipFile:
     compresslevel: int | None  # undocumented
     mode: _ZipFileMode  # undocumented
     pwd: str | None  # undocumented
-    if sys.version_info >= (3, 8):
+    if sys.version_info >= (3, 11):
+        @overload
+        def __init__(
+            self,
+            file: StrPath | IO[bytes],
+            mode: Literal["r"] = ...,
+            compression: int = ...,
+            allowZip64: bool = ...,
+            compresslevel: int | None = ...,
+            *,
+            strict_timestamps: bool = ...,
+            metadata_encoding: str | None,
+        ) -> None: ...
+        @overload
+        def __init__(
+            self,
+            file: StrPath | IO[bytes],
+            mode: _ZipFileMode = ...,
+            compression: int = ...,
+            allowZip64: bool = ...,
+            compresslevel: int | None = ...,
+            *,
+            strict_timestamps: bool = ...,
+            metadata_encoding: None = ...,
+        ) -> None: ...
+    elif sys.version_info >= (3, 8):
         def __init__(
             self,
             file: StrPath | IO[bytes],
@@ -221,6 +247,8 @@ class ZipFile:
         ) -> None: ...
     else:
         def writestr(self, zinfo_or_arcname: str | ZipInfo, data: bytes | str, compress_type: int | None = ...) -> None: ...
+    if sys.version_info >= (3, 11):
+        def mkdir(self, zinfo_or_directory_name: str | ZipInfo, mode: int = ...) -> None: ...
 
 class PyZipFile(ZipFile):
     def __init__(
@@ -272,6 +300,13 @@ if sys.version_info >= (3, 8):
         if sys.version_info >= (3, 10):
             @property
             def filename(self) -> PathLike[str]: ...  # undocumented
+        if sys.version_info >= (3, 11):
+            @property
+            def suffix(self) -> str: ...
+            @property
+            def suffixes(self) -> list[str]: ...
+            @property
+            def stem(self) -> str: ...
 
         def __init__(self, root: ZipFile | StrPath | IO[bytes], at: str = ...) -> None: ...
         if sys.version_info >= (3, 9):

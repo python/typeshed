@@ -1,7 +1,7 @@
 import sys
-from _typeshed import ReadableBuffer
-from contextlib import AbstractContextManager
-from typing import Iterable, Iterator, NoReturn, Sized, overload
+from _typeshed import ReadableBuffer, Self
+from collections.abc import Iterable, Iterator, Sized
+from typing import NoReturn, overload
 
 ACCESS_DEFAULT: int
 ACCESS_READ: int
@@ -27,7 +27,7 @@ if sys.platform != "win32":
 
     PAGESIZE: int
 
-class mmap(AbstractContextManager[mmap], Iterable[int], Sized):
+class mmap(Iterable[int], Sized):
     if sys.platform == "win32":
         def __init__(self, fileno: int, length: int, tagname: str | None = ..., access: int = ..., offset: int = ...) -> None: ...
     else:
@@ -70,6 +70,7 @@ class mmap(AbstractContextManager[mmap], Iterable[int], Sized):
     # Doesn't actually exist, but the object is actually iterable because it has __getitem__ and
     # __len__, so we claim that there is also an __iter__ to help type checkers.
     def __iter__(self) -> Iterator[int]: ...
+    def __enter__(self: Self) -> Self: ...
     def __exit__(self, *args: object) -> None: ...
 
 if sys.version_info >= (3, 8) and sys.platform != "win32":
@@ -78,6 +79,7 @@ if sys.version_info >= (3, 8) and sys.platform != "win32":
     MADV_SEQUENTIAL: int
     MADV_WILLNEED: int
     MADV_DONTNEED: int
+    MADV_FREE: int
 
     if sys.platform == "linux":
         MADV_REMOVE: int
@@ -93,7 +95,6 @@ if sys.version_info >= (3, 8) and sys.platform != "win32":
         MADV_NOHUGEPAGE: int
         MADV_DONTDUMP: int
         MADV_DODUMP: int
-        MADV_FREE: int
 
     # This Values are defined for FreeBSD but type checkers do not support conditions for these
     if sys.platform != "linux" and sys.platform != "darwin":

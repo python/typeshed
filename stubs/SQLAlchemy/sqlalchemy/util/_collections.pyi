@@ -3,6 +3,7 @@ import sys
 from _typeshed import Self, SupportsKeysAndGetItem
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from typing import Any, Generic, NoReturn, TypeVar, overload
+from typing_extensions import TypeAlias
 
 from ..cimmutabledict import immutabledict as immutabledict
 from ..sql.elements import ColumnElement
@@ -90,7 +91,10 @@ else:
 def sort_dictionary(d, key: Any | None = ...): ...
 
 class OrderedSet(set[_T], Generic[_T]):
-    def __init__(self, d: Iterable[_T] | None = ...) -> None: ...
+    @overload
+    def __init__(self, d: None = ...) -> None: ...
+    @overload
+    def __init__(self, d: Iterable[_T]) -> None: ...
     def add(self, element: _T) -> None: ...
     def remove(self, element: _T) -> None: ...
     def insert(self, pos: int, element: _T) -> None: ...
@@ -178,7 +182,7 @@ class WeakPopulateDict(dict[Any, Any]):
 
 column_set = set
 column_dict = dict
-ordered_column_set = OrderedSet[ColumnElement[Any]]
+ordered_column_set: TypeAlias = OrderedSet[ColumnElement[Any]]
 
 def unique_list(seq: Iterable[_T], hashfunc: Callable[[_T], Any] | None = ...) -> list[_T]: ...
 

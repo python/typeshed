@@ -1,7 +1,8 @@
 import sys
 from _typeshed import Self
+from collections.abc import Awaitable, Callable, Generator, Iterable
 from concurrent.futures._base import Error, Future as _ConcurrentFuture
-from typing import Any, Awaitable, Callable, Generator, Iterable, TypeVar
+from typing import Any, TypeVar
 from typing_extensions import Literal, TypeGuard
 
 from .events import AbstractEventLoop
@@ -54,6 +55,7 @@ class Future(Awaitable[_T], Iterable[_T]):
     def __del__(self) -> None: ...
     if sys.version_info >= (3, 7):
         def get_loop(self) -> AbstractEventLoop: ...
+        @property
         def _callbacks(self: Self) -> list[tuple[Callable[[Self], Any], Context]]: ...
         def add_done_callback(self: Self, __fn: Callable[[Self], Any], *, context: Context | None = ...) -> None: ...
     else:

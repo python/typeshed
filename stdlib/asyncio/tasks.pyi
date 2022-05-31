@@ -1,15 +1,17 @@
 import concurrent.futures
 import sys
-from collections.abc import Awaitable, Generator, Iterable, Iterator
+from collections.abc import Awaitable, Coroutine, Generator, Iterable, Iterator
 from types import FrameType
-from typing import Any, Coroutine, Generic, Optional, TextIO, TypeVar, Union, overload
-from typing_extensions import Literal
+from typing import Any, Generic, TextIO, TypeVar, overload
+from typing_extensions import Literal, TypeAlias
 
 from .events import AbstractEventLoop
 from .futures import Future
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
+if sys.version_info >= (3, 11):
+    from contextvars import Context
 
 if sys.version_info >= (3, 7):
     __all__ = (
@@ -56,8 +58,8 @@ _T3 = TypeVar("_T3")
 _T4 = TypeVar("_T4")
 _T5 = TypeVar("_T5")
 _FT = TypeVar("_FT", bound=Future[Any])
-_FutureT = Union[Future[_T], Generator[Any, None, _T], Awaitable[_T]]
-_TaskYieldType = Optional[Future[object]]
+_FutureT: TypeAlias = Future[_T] | Generator[Any, None, _T] | Awaitable[_T]
+_TaskYieldType: TypeAlias = Future[object] | None
 
 FIRST_COMPLETED = concurrent.futures.FIRST_COMPLETED
 FIRST_EXCEPTION = concurrent.futures.FIRST_EXCEPTION
@@ -268,7 +270,10 @@ def run_coroutine_threadsafe(coro: _FutureT[_T], loop: AbstractEventLoop) -> con
 
 if sys.version_info >= (3, 10):
     def shield(arg: _FutureT[_T]) -> Future[_T]: ...
-    async def sleep(delay: float, result: _T = ...) -> _T: ...
+    @overload
+    async def sleep(delay: float) -> None: ...
+    @overload
+    async def sleep(delay: float, result: _T) -> _T: ...
     @overload
     async def wait(fs: Iterable[_FT], *, timeout: float | None = ..., return_when: str = ...) -> tuple[set[_FT], set[_FT]]: ...  # type: ignore[misc]
     @overload
@@ -279,7 +284,10 @@ if sys.version_info >= (3, 10):
 
 else:
     def shield(arg: _FutureT[_T], *, loop: AbstractEventLoop | None = ...) -> Future[_T]: ...
-    async def sleep(delay: float, result: _T = ..., *, loop: AbstractEventLoop | None = ...) -> _T: ...
+    @overload
+    async def sleep(delay: float, *, loop: AbstractEventLoop | None = ...) -> None: ...
+    @overload
+    async def sleep(delay: float, result: _T, *, loop: AbstractEventLoop | None = ...) -> _T: ...
     @overload
     async def wait(  # type: ignore[misc]
         fs: Iterable[_FT], *, loop: AbstractEventLoop | None = ..., timeout: float | None = ..., return_when: str = ...
@@ -329,7 +337,11 @@ class Task(Future[_T], Generic[_T]):
 
 if sys.version_info >= (3, 7):
     def all_tasks(loop: AbstractEventLoop | None = ...) -> set[Task[Any]]: ...
-    if sys.version_info >= (3, 8):
+    if sys.version_info >= (3, 11):
+        def create_task(
+            coro: Generator[Any, None, _T] | Coroutine[Any, Any, _T], *, name: str | None = ..., context: Context | None = ...
+        ) -> Task[_T]: ...
+    elif sys.version_info >= (3, 8):
         def create_task(coro: Generator[Any, None, _T] | Coroutine[Any, Any, _T], *, name: str | None = ...) -> Task[_T]: ...
     else:
         def create_task(coro: Generator[Any, None, _T] | Coroutine[Any, Any, _T]) -> Task[_T]: ...

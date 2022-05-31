@@ -1,0 +1,4 @@
+_?curses.A_ITALIC
+_?curses.color_pair
+xxlimited.Xxo.x_exports
+distutils.util.__warningregistry__
