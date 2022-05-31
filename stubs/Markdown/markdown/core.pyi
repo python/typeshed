@@ -32,7 +32,7 @@ class Markdown:
     serializer: Callable[[Element], str]
     tab_length: int
     block_level_elements: list[str]
-    registeredExtensions: list[str | Extension]
+    registeredExtensions: list[Extension]
     def __init__(
         self,
         *,
