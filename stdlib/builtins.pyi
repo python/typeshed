@@ -12,8 +12,8 @@ from _typeshed import (
     ReadableBuffer,
     Self,
     StrOrBytesPath,
-    SupportsAddition,
-    SupportsAdditionWithInt,
+    SupportsAdd,
+    SupportsAddWithInt,
     SupportsAiter,
     SupportsAnext,
     SupportsDivMod,
@@ -1546,9 +1546,9 @@ def sorted(
 @overload
 def sorted(__iterable: Iterable[_T], *, key: Callable[[_T], SupportsRichComparison], reverse: bool = ...) -> list[_T]: ...
 
-_SupportsAdditionT_1 = TypeVar("_SupportsAdditionT_1", bound=SupportsAddition)
-_SupportsAdditionT_2 = TypeVar("_SupportsAdditionT_2", bound=SupportsAddition)
-_SupportsAdditionWithIntT = TypeVar("_SupportsAdditionWithIntT", bound=SupportsAdditionWithInt)
+_AddableT1 = TypeVar("_AddableT1", bound=SupportsAdd)
+_AddableT2 = TypeVar("_AddableT2", bound=SupportsAdd)
+_AddableWithIntT = TypeVar("_AddableWithIntT", bound=SupportsAddWithInt)
 
 # In general, the return type of `x + x` is *not* guaranteed to be the same type as x.
 # However, we can't express that in the stub for `sum()`
@@ -1563,19 +1563,15 @@ else:
     def sum(__iterable: Iterable[bool], __start: int = ...) -> int: ...  # type: ignore[misc]
 
 @overload
-def sum(__iterable: Iterable[_SupportsAdditionWithIntT]) -> _SupportsAdditionWithIntT | Literal[0]: ...
+def sum(__iterable: Iterable[_AddableWithIntT]) -> _AddableWithIntT | Literal[0]: ...
 
 if sys.version_info >= (3, 8):
     @overload
-    def sum(
-        __iterable: Iterable[_SupportsAdditionT_1], start: _SupportsAdditionT_2
-    ) -> _SupportsAdditionT_1 | _SupportsAdditionT_2: ...
+    def sum(__iterable: Iterable[_AddableT1], start: _AddableT2) -> _AddableT1 | _AddableT2: ...
 
 else:
     @overload
-    def sum(
-        __iterable: Iterable[_SupportsAdditionT_1], __start: _SupportsAdditionT_2
-    ) -> _SupportsAdditionT_1 | _SupportsAdditionT_2: ...
+    def sum(__iterable: Iterable[_AddableT1], __start: _AddableT2) -> _AddableT1 | _AddableT2: ...
 
 # The argument to `vars()` has to have a `__dict__` attribute, so can't be annotated with `object`
 # (A "SupportsDunderDict" protocol doesn't work)
