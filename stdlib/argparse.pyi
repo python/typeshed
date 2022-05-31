@@ -212,7 +212,7 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
             title: str = ...,
             description: str | None = ...,
             prog: str = ...,
-            parser_class: type[_ArgumentParserT] = ...,
+            parser_class: type[_ArgumentParserT],
             action: type[Action] = ...,
             option_string: str = ...,
             dest: str | None = ...,
@@ -241,7 +241,7 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
             title: str = ...,
             description: str | None = ...,
             prog: str = ...,
-            parser_class: type[_ArgumentParserT] = ...,
+            parser_class: type[_ArgumentParserT],
             action: type[Action] = ...,
             option_string: str = ...,
             dest: str | None = ...,
@@ -309,7 +309,7 @@ class HelpFormatter:
     def format_help(self) -> str: ...
     def _join_parts(self, part_strings: Iterable[str]) -> str: ...
     def _format_usage(
-        self, usage: str, actions: Iterable[Action], groups: Iterable[_ArgumentGroup], prefix: str | None
+        self, usage: str | None, actions: Iterable[Action], groups: Iterable[_ArgumentGroup], prefix: str | None
     ) -> str: ...
     def _format_actions_usage(self, actions: Iterable[Action], groups: Iterable[_ArgumentGroup]) -> str: ...
     def _format_text(self, text: str) -> str: ...
