@@ -59,7 +59,6 @@ multiprocessing.managers.SharedMemoryServer.track_segment
 multiprocessing.spawn._main
 operator.attrgetter.__vectorcalloffset__
 operator.itemgetter.__vectorcalloffset__
-os.popen
 # platform.uname_result's processor field is now dynamically made to exist
 platform.uname_result.__match_args__
 platform.uname_result.__new__
@@ -83,6 +82,21 @@ unittest.case.TestCase._addSkip
 unittest.doModuleCleanups
 weakref.WeakValueDictionary.update
 xmlrpc.server.SimpleXMLRPCRequestHandler.rpc_paths
+
+re.RegexFlag.T
+re.RegexFlag.TEMPLATE
+re.template
+sre_compile.SRE_FLAG_TEMPLATE
+sre_constants.SRE_FLAG_TEMPLATE
+sre_parse.SRE_FLAG_TEMPLATE
+unittest.IsolatedAsyncioTestCase.enterAsyncContext
+unittest.TestCase.enterClassContext
+unittest.TestCase.enterContext
+unittest.enterModuleContext
+unittest.async_case.IsolatedAsyncioTestCase.enterAsyncContext
+unittest.case.TestCase.enterClassContext
+unittest.case.TestCase.enterContext
+unittest.case.enterModuleContext
 
 # stubtest complains that in 3.10 the default argument is inconsistent with the annotation,
 # but in 3.10+ calling the function without the default argument is in fact deprecated,
