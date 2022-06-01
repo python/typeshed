@@ -3,7 +3,7 @@ from typing import Any, Pattern, TypeVar
 from typing_extensions import TypeAlias
 
 from yaml.error import MarkedYAMLError
-from yaml.loader import Loader, BaseLoader, FullLoader, SafeLoader, UnsafeLoader
+from yaml.loader import BaseLoader, FullLoader, Loader, SafeLoader, UnsafeLoader
 from yaml.nodes import Node, ScalarNode
 
 _L = TypeVar("_L", bound=Loader | BaseLoader | FullLoader | SafeLoader | UnsafeLoader)
