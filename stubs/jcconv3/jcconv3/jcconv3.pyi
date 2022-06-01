@@ -1,4 +1,3 @@
-from typing import Literal
 from typing_extensions import Literal, TypeAlias
 
 unicode = str
