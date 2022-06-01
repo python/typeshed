@@ -3,10 +3,10 @@ from typing import Any, Pattern, TypeVar
 from typing_extensions import TypeAlias
 
 from yaml.error import MarkedYAMLError
-from yaml.loader import Loader
+from yaml.loader import Loader, BaseLoader, FullLoader, SafeLoader, UnsafeLoader
 from yaml.nodes import Node, ScalarNode
 
-_L = TypeVar("_L", bound=Loader)
+_L = TypeVar("_L", bound=Loader | BaseLoader | FullLoader | SafeLoader | UnsafeLoader)
 _N = TypeVar("_N", bound=Node)
 
 _Scalar: TypeAlias = str | int | float | bool | None
