@@ -64,6 +64,7 @@
         "stubs/PyYAML",
         "stubs/redis",
         "stubs/requests",
+        "stubs/romkan",
         "stubs/selenium",
         "stubs/Send2Trash",
         "stubs/setuptools",
