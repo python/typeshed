@@ -2,10 +2,9 @@ from collections.abc import Callable
 from typing import Any, Pattern, TypeVar
 from typing_extensions import TypeAlias
 
-from yaml.loader import Loader
-from yaml.nodes import Node
 from yaml.error import MarkedYAMLError
-from yaml.nodes import ScalarNode
+from yaml.loader import Loader
+from yaml.nodes import Node, ScalarNode
 
 _L = TypeVar("_L", bound=Loader)
 _N = TypeVar("_N", bound=Node)
