@@ -1,11 +1,14 @@
 from collections.abc import Callable
-from typing import Any, Pattern
+from typing import Any, Pattern, TypeVar
 from typing_extensions import TypeAlias
 
 from yaml.loader import Loader
 from yaml.nodes import Node
 from yaml.error import MarkedYAMLError
 from yaml.nodes import ScalarNode
+
+_L = TypeVar("_L", bound=Loader)
+_N = TypeVar("_N", bound=Node)
 
 _Scalar: TypeAlias = str | int | float | bool | None
 
@@ -30,7 +33,7 @@ class BaseConstructor:
     def construct_mapping(self, node, deep=...): ...
     def construct_pairs(self, node, deep=...): ...
     @classmethod
-    def add_constructor(cls, tag: str, constructor: Callable[[Loader, Node], Any]) -> None: ...
+    def add_constructor(cls, tag: str, constructor: Callable[[_L, _N], Any]) -> None: ...
     @classmethod
     def add_multi_constructor(cls, tag_prefix, multi_constructor): ...
 
