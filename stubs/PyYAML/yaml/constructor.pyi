@@ -2,10 +2,9 @@ from collections.abc import Callable
 from typing import Any, Pattern
 from typing_extensions import TypeAlias
 
-from yaml.loader import Loader
-from yaml.nodes import Node
 from yaml.error import MarkedYAMLError
-from yaml.nodes import ScalarNode
+from yaml.loader import Loader
+from yaml.nodes import Node, ScalarNode
 
 _Scalar: TypeAlias = str | int | float | bool | None
 
