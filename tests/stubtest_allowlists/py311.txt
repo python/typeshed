@@ -83,12 +83,6 @@ unittest.doModuleCleanups
 weakref.WeakValueDictionary.update
 xmlrpc.server.SimpleXMLRPCRequestHandler.rpc_paths
 
-re.RegexFlag.T
-re.RegexFlag.TEMPLATE
-re.template
-sre_compile.SRE_FLAG_TEMPLATE
-sre_constants.SRE_FLAG_TEMPLATE
-sre_parse.SRE_FLAG_TEMPLATE
 unittest.IsolatedAsyncioTestCase.enterAsyncContext
 unittest.TestCase.enterClassContext
 unittest.TestCase.enterContext
