@@ -13,7 +13,7 @@ class _DBConfig(TypedDict, total=False):
     ENGINE: str
     HOST: str
     NAME: str
-    OPTIONS: dict[str, Any]
+    OPTIONS: dict[str, Any] | None
     PASSWORD: str
     PORT: str
     TEST: dict[str, Any]
