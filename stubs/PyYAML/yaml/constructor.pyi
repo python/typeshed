@@ -2,8 +2,8 @@ from collections.abc import Callable
 from typing import Any, Pattern
 from typing_extensions import TypeAlias
 
-from loader import Loader
-from nodes import Node
+from yaml.loader import Loader
+from yaml.nodes import Node
 from yaml.error import MarkedYAMLError
 from yaml.nodes import ScalarNode
 
