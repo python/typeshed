@@ -1,6 +1,6 @@
 import re
 from collections.abc import Generator, Iterable
-from typing import Any
+from typing import Any, Match, Pattern
 
 KUNREITAB: str
 KUNREITAB_H: str
