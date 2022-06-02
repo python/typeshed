@@ -1,0 +1,5 @@
+version = "12.1.*"
+extra_description = """\
+  Type hints for GDB's \
+  [Python API](https://sourceware.org/gdb/onlinedocs/gdb/Python-API.html).\
+"""
