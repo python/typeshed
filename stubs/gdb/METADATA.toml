@@ -3,3 +3,7 @@ extra_description = """\
   Type hints for GDB's \
   [Python API](https://sourceware.org/gdb/onlinedocs/gdb/Python-API.html).\
 """
+
+# Since the "gdb" Python package is available only inside GDB, it is not
+# possible to install it through pip, so stub tests cannot install it.
+stubtest = false
