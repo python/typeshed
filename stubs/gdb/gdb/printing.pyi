@@ -1,16 +1,8 @@
 from collections.abc import Callable, Iterable
-from typing import Protocol
 
 import gdb
 
 from gdb import _PrettyPrinterLookupFunction
-
-class PrettyPrinterProtocol(Protocol):
-
-    name: str
-    enabled: bool
-
-    def __call__(self, val: gdb.Value): ...
 
 class PrettyPrinter:
 
@@ -19,7 +11,7 @@ class PrettyPrinter:
     enabled: bool
 
     def __init__(self, name: str, subprinters: Iterable[SubPrettyPrinter] | None = ...) -> None: ...
-    def __call__(self, val: gdb.Value): ...
+    def __call__(self, val: gdb.Value) -> gdb._PrettyPrinter | None: ...
 
 class SubPrettyPrinter:
 
