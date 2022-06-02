@@ -2,11 +2,11 @@
 # reading the documentation
 # (https://sourceware.org/gdb/onlinedocs/gdb/Python-API.html).
 
-from contextlib import AbstractContextManager
+from _typeshed import Self
 from collections.abc import Callable, Iterator, Sequence
+from contextlib import AbstractContextManager
 from typing import Optional, Protocol, Union, overload
 from typing_extensions import TypeAlias
-from _typeshed import Self
 
 import gdb.types
 

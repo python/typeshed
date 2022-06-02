@@ -1,7 +1,6 @@
 from collections.abc import Callable, Iterable
 
 import gdb
-
 from gdb import _PrettyPrinterLookupFunction
 
 class PrettyPrinter:
