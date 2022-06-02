@@ -1,3 +1,4 @@
+from _typeshed import Self
 from typing import Any
 
 from stripe import api_requestor as api_requestor

@@ -1,3 +1,5 @@
+from typing_extensions import Literal
+
 from stripe import Event, error as error
 
 class Webhook:

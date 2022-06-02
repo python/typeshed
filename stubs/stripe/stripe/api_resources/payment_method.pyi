@@ -1,3 +1,5 @@
+from _typeshed import Self
+
 from stripe.api_resources.abstract import (
     CreateableAPIResource as CreateableAPIResource,
     ListableAPIResource as ListableAPIResource,
