@@ -69,11 +69,8 @@ SupportsRichComparisonT = TypeVar("SupportsRichComparisonT", bound=SupportsRichC
 
 # Dunder protocols
 
-class SupportsAdd(Protocol):
-    def __add__(self, __x: Any) -> Any: ...
-
-class SupportsAddWithInt(Protocol):
-    def __add__(self, __x: int) -> Any: ...
+class SupportsAdd(Protocol[_T_contra, _T_co]):
+    def __add__(self, __x: _T_contra) -> _T_co: ...
 
 class SupportsDivMod(Protocol[_T_contra, _T_co]):
     def __divmod__(self, __other: _T_contra) -> _T_co: ...

@@ -13,7 +13,6 @@ from _typeshed import (
     Self,
     StrOrBytesPath,
     SupportsAdd,
-    SupportsAddWithInt,
     SupportsAiter,
     SupportsAnext,
     SupportsDivMod,
@@ -1546,9 +1545,9 @@ def sorted(
 @overload
 def sorted(__iterable: Iterable[_T], *, key: Callable[[_T], SupportsRichComparison], reverse: bool = ...) -> list[_T]: ...
 
-_AddableT1 = TypeVar("_AddableT1", bound=SupportsAdd)
-_AddableT2 = TypeVar("_AddableT2", bound=SupportsAdd)
-_AddableWithIntT = TypeVar("_AddableWithIntT", bound=SupportsAddWithInt)
+_AddableT1 = TypeVar("_AddableT1", bound=SupportsAdd[Any, Any])
+_AddableT2 = TypeVar("_AddableT2", bound=SupportsAdd[Any, Any])
+_AddableWithIntT = TypeVar("_AddableWithIntT", bound=SupportsAdd[int, Any])
 
 # In general, the return type of `x + x` is *not* guaranteed to be the same type as x.
 # However, we can't express that in the stub for `sum()`
