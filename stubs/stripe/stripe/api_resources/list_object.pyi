@@ -1,4 +1,3 @@
-from _typeshed import Self
 from collections.abc import Iterator
 from typing import Any
 
@@ -11,13 +10,13 @@ class ListObject(StripeObject):
         self, api_key: Any | None = ..., stripe_version: Any | None = ..., stripe_account: Any | None = ..., **params
     ) -> ListObject: ...
     def create(
-        self: type[Self],
+        self,
         api_key: Any | None = ...,
         idempotency_key: Any | None = ...,
         stripe_version: Any | None = ...,
         stripe_account: Any | None = ...,
         **params,
-    ) -> Self: ...
+    ): ...
     def retrieve(
         self, id, api_key: Any | None = ..., stripe_version: Any | None = ..., stripe_account: Any | None = ..., **params
     ): ...
