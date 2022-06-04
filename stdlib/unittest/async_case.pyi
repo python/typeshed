@@ -1,10 +1,12 @@
 import sys
 from collections.abc import Awaitable, Callable
-from contextlib import AbstractAsyncContextManager
 from typing import TypeVar
 from typing_extensions import ParamSpec
 
 from .case import TestCase
+
+if sys.version_info >= (3, 11):
+    from contextlib import AbstractAsyncContextManager
 
 _T = TypeVar("_T")
 _P = ParamSpec("_P")
