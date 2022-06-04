@@ -2,7 +2,7 @@ from _typeshed import Self
 from collections.abc import Callable, Mapping, Sequence
 from types import TracebackType
 from typing import Any, Generic, TypeVar, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal
 
 _F = TypeVar("_F", bound=Callable[..., Any])
 _T = TypeVar("_T")
@@ -316,6 +316,8 @@ class _SpecState:
 
 def mock_open(mock: Any | None = ..., read_data: Any = ...) -> Any: ...
 
-PropertyMock: TypeAlias = Any
+class PropertyMock(Mock):
+    def __get__(self: Self, obj: _T, obj_type: type[_T] | None = ...) -> Self: ...
+    def __set__(self, obj: Any, value: Any) -> None: ...
 
 def seal(mock: Any) -> None: ...
