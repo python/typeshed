@@ -440,7 +440,7 @@ class _SpecState:
 
 def mock_open(mock: Any | None = ..., read_data: Any = ...) -> Any: ...
 
-PropertyMock = Any
+PropertyMock: TypeAlias = Any
 
 if sys.version_info >= (3, 7):
     def seal(mock: Any) -> None: ...
