@@ -33,7 +33,7 @@ if sys.version_info >= (3, 8):
     from .case import addModuleCleanup as addModuleCleanup
 
 if sys.version_info >= (3, 11):
-    from .case import doModuleCleanups as doModuleCleanups
+    from .case import doModuleCleanups as doModuleCleanups, enterModuleContext as enterModuleContext
 
 if sys.version_info >= (3, 11):
     __all__ = [
@@ -58,6 +58,7 @@ if sys.version_info >= (3, 11):
         "removeHandler",
         "addModuleCleanup",
         "doModuleCleanups",
+        "enterModuleContext",
         "getTestCaseNames",
         "makeSuite",
         "findTestCases",
