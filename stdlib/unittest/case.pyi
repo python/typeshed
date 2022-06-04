@@ -13,6 +13,7 @@ from warnings import WarningMessage
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
+_T = TypeVar("_T")
 _E = TypeVar("_E", bound=BaseException)
 _FT = TypeVar("_FT", bound=Callable[..., Any])
 _P = ParamSpec("_P")
@@ -49,6 +50,9 @@ else:
 if sys.version_info >= (3, 8):
     def addModuleCleanup(__function: Callable[_P, object], *args: _P.args, **kwargs: _P.kwargs) -> None: ...
     def doModuleCleanups() -> None: ...
+
+if sys.version_info >= (3, 11):
+    def enterModuleContext(cm: AbstractContextManager[_T]) -> _T: ...
 
 def expectedFailure(test_item: _FT) -> _FT: ...
 def skip(reason: str) -> Callable[[_FT], _FT]: ...
@@ -211,12 +215,19 @@ class TestCase:
     else:
         def addCleanup(self, function: Callable[_P, object], *args: _P.args, **kwargs: _P.kwargs) -> None: ...
 
+    if sys.version_info >= (3, 11):
+        def enterContext(self, cm: AbstractContextManager[_T]) -> _T: ...
+
     def doCleanups(self) -> None: ...
     if sys.version_info >= (3, 8):
         @classmethod
         def addClassCleanup(cls, __function: Callable[_P, object], *args: _P.args, **kwargs: _P.kwargs) -> None: ...
         @classmethod
         def doClassCleanups(cls) -> None: ...
+
+    if sys.version_info >= (3, 11):
+        @classmethod
+        def enterClassContext(cls, cm: AbstractContextManager[_T]) -> _T: ...
 
     def _formatMessage(self, msg: str | None, standardMsg: str) -> str: ...  # undocumented
     def _getAssertEqualityFunc(self, first: Any, second: Any) -> Callable[..., None]: ...  # undocumented
