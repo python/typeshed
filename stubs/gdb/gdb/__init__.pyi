@@ -2,7 +2,7 @@
 # reading the documentation
 # (https://sourceware.org/gdb/onlinedocs/gdb/Python-API.html).
 
-from _typeshed import Self
+import _typeshed
 from collections.abc import Callable, Iterator, Sequence
 from contextlib import AbstractContextManager
 from typing import Protocol, overload
@@ -563,7 +563,7 @@ class LineTableEntry:
     pc: int
 
 class LineTable(Iterator[LineTableEntry]):
-    def __iter__(self: Self) -> Self: ...
+    def __iter__(self: _typeshed.Self) -> _typeshed.Self: ...
     def __next__(self) -> LineTableEntry: ...
     def line(self, line: int) -> tuple[LineTableEntry, ...]: ...
     def has_line(self, line: int) -> bool: ...
