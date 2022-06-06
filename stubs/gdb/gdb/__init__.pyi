@@ -5,7 +5,7 @@
 from _typeshed import Self
 from collections.abc import Callable, Iterator, Sequence
 from contextlib import AbstractContextManager
-from typing import Optional, Protocol, Union, overload
+from typing import Protocol, overload
 from typing_extensions import TypeAlias
 
 import gdb.types
@@ -51,8 +51,8 @@ class GdbError(Exception): ...
 
 # Values
 
-_ValueOrNative: TypeAlias = Union[bool, float, str, Value]
-_ValueOrInt: TypeAlias = Union[Value, int]
+_ValueOrNative: TypeAlias = bool | float | str | Value
+_ValueOrInt: TypeAlias = Value | int
 
 class Value:
 
@@ -184,7 +184,7 @@ class _PrettyPrinter(Protocol):
     # def display_hint(self) -> str | None: ...
     def to_string(self) -> str | LazyString: ...
 
-_PrettyPrinterLookupFunction: TypeAlias = Callable[[Value], Optional[_PrettyPrinter]]
+_PrettyPrinterLookupFunction: TypeAlias = Callable[[Value], _PrettyPrinter | None]
 
 def default_visualizer(value: Value) -> _PrettyPrinter | None: ...
 
