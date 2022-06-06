@@ -4,7 +4,7 @@ from collections import deque
 from collections.abc import Callable
 from enum import Enum
 from typing import Any, ClassVar
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from . import constants, events, futures, protocols, transports
 
@@ -90,12 +90,17 @@ class _SSLProtocolTransport(transports._FlowControlMixin, transports.Transport):
     def can_write_eof(self) -> Literal[False]: ...
     def abort(self) -> None: ...
     if sys.version_info >= (3, 11):
-        def get_write_buffer_limits(self) -> tuple[int, int]:
+        def get_write_buffer_limits(self) -> tuple[int, int]: ...
         def get_read_buffer_limits(self) -> tuple[int, int]: ...
         def set_read_buffer_limits(self, high: int | None = ..., low: int | None = ...) -> None: ...
         def get_read_buffer_size(self) -> int: ...
 
-class SSLProtocol(protocols.Protocol):
+if sys.version_info >= (3, 11):
+    _SSLProtocolBase: TypeAlias = protocols.BufferedProtocol
+else:
+    _SSLProtocolBase: TypeAlias = protocols.Protocol
+
+class SSLProtocol(_SSLProtocolBase):
     if sys.version_info >= (3, 11):
         max_size: ClassVar[int]
 
