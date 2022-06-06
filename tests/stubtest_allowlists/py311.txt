@@ -16,18 +16,6 @@ _operator.attrgetter.__vectorcalloffset__
 _operator.itemgetter.__vectorcalloffset__
 argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group
 asynchat.__warningregistry__  # Removal planned for 3.12, can add if someone needs this
-asyncio.sslproto.AppProtocolState
-asyncio.sslproto.SSLAgainErrors
-asyncio.sslproto.SSLProtocol.__init__
-asyncio.sslproto.SSLProtocol._write_appdata
-asyncio.sslproto.SSLProtocol.buffer_updated
-asyncio.sslproto.SSLProtocol.get_buffer
-asyncio.sslproto.SSLProtocol.max_size
-asyncio.sslproto.SSLProtocolState
-asyncio.sslproto._SSLProtocolTransport.get_read_buffer_limits
-asyncio.sslproto._SSLProtocolTransport.get_read_buffer_size
-asyncio.sslproto._SSLProtocolTransport.set_read_buffer_limits
-asyncio.sslproto.add_flowcontrol_defaults
 builtins.dict.get
 configparser.LegacyInterpolation.__init__
 contextvars.Context.__init__
