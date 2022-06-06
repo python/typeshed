@@ -242,7 +242,7 @@ class Unwinder:
 def inferiors() -> tuple[Inferior, ...]: ...
 def selected_inferior() -> Inferior: ...
 
-BufferType: TypeAlias = Union[memoryview, bytes]
+BufferType: TypeAlias = _typeshed.ReadableBuffer
 
 class Inferior:
     num: int
