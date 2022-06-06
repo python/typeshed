@@ -876,8 +876,8 @@ class PercentStyle:  # undocumented
     def format(self, record: Any) -> str: ...
 
 class StrFormatStyle(PercentStyle):  # undocumented
-    fmt_spec = Any
-    field_spec = Any
+    fmt_spec: Pattern[str]
+    field_spec: Pattern[str]
 
 class StringTemplateStyle(PercentStyle):  # undocumented
     _tpl: Template
