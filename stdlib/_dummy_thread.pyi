@@ -28,6 +28,6 @@ class LockType:
 
 if sys.version_info >= (3, 7):
     class RLock(LockType):
-        def release(self) -> None: ...
+        def release(self) -> None: ...  # type: ignore[override]
 
 def interrupt_main() -> None: ...
