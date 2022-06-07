@@ -15,11 +15,19 @@ __all__ = [
     "AbstractSet",
     "Any",
     "AnyStr",
+    "AsyncContextManager",
+    "AsyncGenerator",
+    "AsyncIterable",
+    "AsyncIterator",
+    "Awaitable",
     "ByteString",
     "Callable",
+    "ChainMap",
     "ClassVar",
+    "Collection",
     "Container",
     "ContextManager",
+    "Coroutine",
     "Counter",
     "DefaultDict",
     "Deque",
@@ -69,19 +77,7 @@ if sys.version_info < (3, 7):
     __all__ += ["GenericMeta"]
 
 if sys.version_info >= (3, 7):
-    __all__ += [
-        "AsyncContextManager",
-        "AsyncGenerator",
-        "AsyncIterable",
-        "AsyncIterator",
-        "Awaitable",
-        "ChainMap",
-        "Collection",
-        "Coroutine",
-        "ForwardRef",
-        "NoReturn",
-        "OrderedDict",
-    ]
+    __all__ += ["ForwardRef", "NoReturn", "OrderedDict"]
 
 if sys.version_info >= (3, 8):
     __all__ += [
