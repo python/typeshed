@@ -1,4 +1,3 @@
-_codecs.unregister
 _collections_abc.AsyncGenerator.ag_await
 _collections_abc.AsyncGenerator.ag_code
 _collections_abc.AsyncGenerator.ag_frame
@@ -15,29 +14,9 @@ _csv.Reader
 _csv.Writer
 _operator.attrgetter.__vectorcalloffset__
 _operator.itemgetter.__vectorcalloffset__
-argparse._AppendConstAction.__init__
 argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group
-argparse._StoreConstAction.__init__
 asynchat.__warningregistry__  # Removal planned for 3.12, can add if someone needs this
-asyncio.sslproto.AppProtocolState
-asyncio.sslproto.SSLAgainErrors
-asyncio.sslproto.SSLProtocol.__init__
-asyncio.sslproto.SSLProtocol._write_appdata
-asyncio.sslproto.SSLProtocol.buffer_updated
-asyncio.sslproto.SSLProtocol.get_buffer
-asyncio.sslproto.SSLProtocol.max_size
-asyncio.sslproto.SSLProtocolState
-asyncio.sslproto._SSLProtocolTransport.get_read_buffer_limits
-asyncio.sslproto._SSLProtocolTransport.get_read_buffer_size
-asyncio.sslproto._SSLProtocolTransport.set_read_buffer_limits
-asyncio.sslproto.add_flowcontrol_defaults
-bdb.Breakpoint.clearBreakpoints
 builtins.dict.get
-concurrent.futures.ProcessPoolExecutor.__init__
-concurrent.futures.process.ProcessPoolExecutor.__init__
-concurrent.futures.process._ResultItem.__init__
-concurrent.futures.process._process_worker
-concurrent.futures.process._sendback_result
 configparser.LegacyInterpolation.__init__
 contextvars.Context.__init__
 distutils.dist.DistributionMetadata.set_classifiers
@@ -46,18 +25,13 @@ distutils.dist.DistributionMetadata.set_platforms
 distutils.util.get_host_platform
 enum.Enum.__init__
 enum.Enum._generate_next_value_
-fractions.Fraction.__int__
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 ftplib.FTP.trust_server_pasv_ipv4_address
 functools.partial.__vectorcalloffset__
-importlib.resources.Resource
-inspect._ParameterKind.description
 ipaddress.IPv4Interface.hostmask
 ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
 ipaddress._BaseNetwork.hostmask
-logging.getLevelNamesMapping
-logging.handlers.SysLogHandler.createSocket
 multiprocessing.managers.SharedMemoryServer.create
 multiprocessing.managers.SharedMemoryServer.list_segments
 multiprocessing.managers.SharedMemoryServer.public
@@ -67,19 +41,13 @@ multiprocessing.managers.SharedMemoryServer.track_segment
 multiprocessing.spawn._main
 operator.attrgetter.__vectorcalloffset__
 operator.itemgetter.__vectorcalloffset__
-os.popen
 # platform.uname_result's processor field is now dynamically made to exist
 platform.uname_result.__match_args__
 platform.uname_result.__new__
 platform.uname_result._fields
 platform.uname_result.processor
 queue.SimpleQueue.__init__
-shutil.rmtree
-socketserver.UDPServer.allow_reuse_port
-string.Template.get_identifiers
-string.Template.is_valid
 sys.UnraisableHookArgs  # Not exported from sys
-sys.exception
 tkinter._VersionInfoType.__doc__
 typing.ForwardRef._evaluate
 typing.NewType.__call__
@@ -87,14 +55,7 @@ typing.NewType.__mro_entries__
 typing.ParamSpec.__typing_subst__
 typing.TypeVar.__typing_subst__
 typing.TypeVarTuple.__typing_subst__
-unicodedata.UCD.is_normalized
-unittest.TestCase._addSkip
-unittest.case.TestCase._addSkip
-unittest.doModuleCleanups
-urllib.request.FancyURLopener.http_error_308
-urllib.request.HTTPRedirectHandler.http_error_308
 weakref.WeakValueDictionary.update
-xmlrpc.server.SimpleXMLRPCRequestHandler.rpc_paths
 
 # stubtest complains that in 3.10 the default argument is inconsistent with the annotation,
 # but in 3.10+ calling the function without the default argument is in fact deprecated,
@@ -153,6 +114,7 @@ types.GenericAlias.__call__  # Would be complicated to fix properly, Any could s
 types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
 weakref.ProxyType.__reversed__  # Doesn't really exist
+inspect._ParameterKind.description  # Still exists, but stubtest can't see it
 
 # Inherits __init__ from typing.Protocol (https://github.com/python/mypy/issues/12820)
 importlib.abc.Traversable.__init__

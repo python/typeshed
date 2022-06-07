@@ -41,6 +41,4 @@ sqlite3.dbapi2.SQLITE_BUSY_TIMEOUT
 sqlite3.dbapi2.SQLITE_CORRUPT_INDEX
 sqlite3.dbapi2.SQLITE_IOERR_CORRUPTFS
 sqlite3.dbapi2.SQLITE_IOERR_DATA
-termios.tcgetwinsize
-termios.tcsetwinsize
 xxlimited.Xxo.x_exports

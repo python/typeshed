@@ -384,6 +384,22 @@ builtins.super.__self__
 builtins.super.__self_class__
 builtins.super.__thisclass__
 
+# These multiprocessing proxy methods have *args, **kwargs signatures at runtime,
+# But have more precise (accurate) signatures in the stub
+multiprocessing.managers.BaseListProxy.__imul__
+multiprocessing.managers.BaseListProxy.__len__
+multiprocessing.managers.BaseListProxy.__reversed__
+multiprocessing.managers.BaseListProxy.reverse
+multiprocessing.managers.BaseListProxy.sort
+multiprocessing.managers.DictProxy.__iter__
+multiprocessing.managers.DictProxy.__len__
+multiprocessing.managers.DictProxy.clear
+multiprocessing.managers.DictProxy.copy
+multiprocessing.managers.DictProxy.items
+multiprocessing.managers.DictProxy.keys
+multiprocessing.managers.DictProxy.popitem
+multiprocessing.managers.DictProxy.values
+
 # GetSetDescriptor that always raises AttributeError
 builtins.OSError.characters_written
 # Aliases for OSError

@@ -1,9 +1,6 @@
 _?curses.A_ITALIC
 _?curses.color_pair
 webbrowser.MacOSXOSAScript.__init__
-
-# Exists at runtime, but missing from stubs
-mmap.MADV_FREE
 distutils.util.__warningregistry__
 
 # ==========
