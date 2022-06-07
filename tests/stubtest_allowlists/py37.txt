@@ -84,7 +84,6 @@ tempfile.SpooledTemporaryFile.seekable
 tempfile.SpooledTemporaryFile.writable
 
 # Exists at runtime, but missing from stubs
-_dummy_thread.RLock
 contextvars.ContextVar.__class_getitem__
 datetime.datetime_CAPI
 distutils.dist.DistributionMetadata.set_classifiers
