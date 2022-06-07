@@ -160,6 +160,8 @@ if sys.version_info >= (3, 10):
     from typing import (
         Concatenate as Concatenate,
         ParamSpec as ParamSpec,
+        ParamSpecArgs as ParamSpecArgs,
+        ParamSpecKwargs as ParamSpecKwargs,
         TypeAlias as TypeAlias,
         TypeGuard as TypeGuard,
         is_typeddict as is_typeddict,
