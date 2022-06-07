@@ -3,10 +3,8 @@ import sys
 __all__ = [
     "AMPER",
     "AMPEREQUAL",
-    "ASYNC",
     "AT",
     "ATEQUAL",
-    "AWAIT",
     "CIRCUMFLEX",
     "CIRCUMFLEXEQUAL",
     "COLON",
