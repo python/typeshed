@@ -40,11 +40,11 @@ __all__ = [
     "prepare_class",
     "DynamicClassAttribute",
     "coroutine",
+    "BuiltinMethodType",
 ]
 
 if sys.version_info >= (3, 7):
     __all__ += [
-        "BuiltinMethodType",
         "ClassMethodDescriptorType",
         "MethodDescriptorType",
         "MethodWrapperType",

@@ -74,7 +74,7 @@ __all__ = [
     "untokenize",
 ]
 
-if sys.version_info >= (3, 8):
+if sys.version_info >= (3, 7):
     __all__ += ["COLONEQUAL"]
 
 _Coord: TypeAlias = tuple[int, int]

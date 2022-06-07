@@ -37,6 +37,8 @@ __all__ = [
     "Final",
     "LiteralString",
     "ParamSpec",
+    "ParamSpecArgs",
+    "ParamSpecKwargs",
     "Self",
     "Type",
     "TypeVarTuple",

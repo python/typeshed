@@ -86,7 +86,7 @@ __all__ = [
     "commonpath",
 ]
 
-if sys.version_info < (3, 7) and sys.platform == "win32":
+if sys.version_info < (3, 7):
     __all__ += ["splitunc"]
 
     def splitunc(p: AnyStr) -> tuple[AnyStr, AnyStr]: ...  # deprecated
