@@ -8,86 +8,49 @@ from typing_extensions import Literal, TypeAlias
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
+__all__ = [
+    "Popen",
+    "PIPE",
+    "STDOUT",
+    "call",
+    "check_call",
+    "getstatusoutput",
+    "getoutput",
+    "check_output",
+    "run",
+    "CalledProcessError",
+    "DEVNULL",
+    "SubprocessError",
+    "TimeoutExpired",
+    "CompletedProcess",
+]
+
 if sys.platform == "win32":
+    __all__ += [
+        "CREATE_NEW_CONSOLE",
+        "CREATE_NEW_PROCESS_GROUP",
+        "STARTF_USESHOWWINDOW",
+        "STARTF_USESTDHANDLES",
+        "STARTUPINFO",
+        "STD_ERROR_HANDLE",
+        "STD_INPUT_HANDLE",
+        "STD_OUTPUT_HANDLE",
+        "SW_HIDE",
+    ]
+
     if sys.version_info >= (3, 7):
-        __all__ = [
-            "Popen",
-            "PIPE",
-            "STDOUT",
-            "call",
-            "check_call",
-            "getstatusoutput",
-            "getoutput",
-            "check_output",
-            "run",
-            "CalledProcessError",
-            "DEVNULL",
-            "SubprocessError",
-            "TimeoutExpired",
-            "CompletedProcess",
-            "CREATE_NEW_CONSOLE",
-            "CREATE_NEW_PROCESS_GROUP",
-            "STD_INPUT_HANDLE",
-            "STD_OUTPUT_HANDLE",
-            "STD_ERROR_HANDLE",
-            "SW_HIDE",
-            "STARTF_USESTDHANDLES",
-            "STARTF_USESHOWWINDOW",
-            "STARTUPINFO",
+        __all__ += [
             "ABOVE_NORMAL_PRIORITY_CLASS",
             "BELOW_NORMAL_PRIORITY_CLASS",
+            "CREATE_BREAKAWAY_FROM_JOB",
+            "CREATE_DEFAULT_ERROR_MODE",
+            "CREATE_NO_WINDOW",
+            "DETACHED_PROCESS",
             "HIGH_PRIORITY_CLASS",
             "IDLE_PRIORITY_CLASS",
             "NORMAL_PRIORITY_CLASS",
             "REALTIME_PRIORITY_CLASS",
-            "CREATE_NO_WINDOW",
-            "DETACHED_PROCESS",
-            "CREATE_DEFAULT_ERROR_MODE",
-            "CREATE_BREAKAWAY_FROM_JOB",
         ]
-    else:
-        __all__ = [
-            "Popen",
-            "PIPE",
-            "STDOUT",
-            "call",
-            "check_call",
-            "getstatusoutput",
-            "getoutput",
-            "check_output",
-            "run",
-            "CalledProcessError",
-            "DEVNULL",
-            "SubprocessError",
-            "TimeoutExpired",
-            "CompletedProcess",
-            "CREATE_NEW_CONSOLE",
-            "CREATE_NEW_PROCESS_GROUP",
-            "STD_INPUT_HANDLE",
-            "STD_OUTPUT_HANDLE",
-            "STD_ERROR_HANDLE",
-            "SW_HIDE",
-            "STARTF_USESTDHANDLES",
-            "STARTF_USESHOWWINDOW",
-            "STARTUPINFO",
-        ]
-else:
-    __all__ = [
-        "Popen",
-        "PIPE",
-        "STDOUT",
-        "call",
-        "check_call",
-        "getstatusoutput",
-        "getoutput",
-        "check_output",
-        "run",
-        "CalledProcessError",
-        "DEVNULL",
-        "SubprocessError",
-        "TimeoutExpired",
-        "CompletedProcess",
-    ]
 
 # We prefer to annotate inputs to methods (eg subprocess.check_call) with these
 # union types.
