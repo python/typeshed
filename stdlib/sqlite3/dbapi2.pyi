@@ -8,7 +8,6 @@ from typing import Any, Protocol, TypeVar, overload
 from typing_extensions import Literal, SupportsIndex, TypeAlias, final
 
 _T = TypeVar("_T")
-_T_co = TypeVar("_T_co", covariant=True)
 _CursorT = TypeVar("_CursorT", bound=Cursor)
 _SqliteData: TypeAlias = str | ReadableBuffer | int | float | None
 # Data that is passed through adapters can be of any type accepted by an adapter.
