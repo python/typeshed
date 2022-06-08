@@ -546,6 +546,7 @@ If a package ships its own `py.typed` file, please follow these steps:
    ["removal" label](https://github.com/python/typeshed/labels/removal).
 3. Open a PR that sets the `obsolete_since` field in the `METADATA.toml`
    file to the first version of the package that shipped `py.typed`.
+4. After at least six months, open a PR to remove the stubs.
 
 If third-party stubs should be removed for other reasons, please follow these
 steps:
@@ -555,6 +556,8 @@ steps:
    ["removal" label](https://github.com/python/typeshed/labels/removal).
 3. Open a PR that sets the `no_longer_updated` field in the `METADATA.toml`
    file to `true`.
+4. When a new version of the package was automatically uploaded to PyPI
+   (which usually takes up to 3 hours), open a PR to remove the stubs.
 
 ## Maintainer guidelines
 
