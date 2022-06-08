@@ -194,7 +194,7 @@ pretty_printers: list[_PrettyPrinterLookupFunction]
 
 # Filtering Frames
 
-class FrameFilter:
+class _FrameFilter(Protocol):
 
     name: str
     enabled: bool
@@ -398,7 +398,7 @@ class Progspace:
     filename: str
     pretty_printers: list[_PrettyPrinterLookupFunction]
     type_printers: list[gdb.types._TypePrinter]
-    frame_filters: list[FrameFilter]
+    frame_filters: list[_FrameFilter]
 
     def block_for_pc(self, __pc: int) -> Block | None: ...
     def find_pc_line(self, __pc: int) -> Symtab_and_line: ...
@@ -420,7 +420,7 @@ class Objfile:
     progspace: Progspace
     pretty_printers: list[_PrettyPrinterLookupFunction]
     type_printers: list[gdb.types._TypePrinter]
-    frame_filters: list[FrameFilter]
+    frame_filters: list[_FrameFilter]
 
     def is_valid(self) -> bool: ...
     def add_separate_debug_file(self, file: str) -> None: ...
