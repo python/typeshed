@@ -5,20 +5,20 @@ from typing_extensions import Literal, assert_type
 
 
 class Foo:
-    def __add__(self, other: Any) -> Foo:
+    def __add__(self, other: Any) -> "Foo":
         return Foo()
 
 
 class Bar:
-    def __radd__(self, other: Any) -> Bar:
+    def __radd__(self, other: Any) -> "Bar":
         return Bar()
 
 
 class Baz:
-    def __add__(self, other: Any) -> Baz:
+    def __add__(self, other: Any) -> "Baz":
         return Baz()
 
-    def __radd__(self, other: Any) -> Baz:
+    def __radd__(self, other: Any) -> "Baz":
         return Baz()
 
 
@@ -30,7 +30,7 @@ assert_type(sum([True, False], True), int)
 
 assert_type(sum([["foo"], ["bar"]], ["baz"]), List[str])
 
-assert_type(sum([Foo(), Foo()], start=Foo()), Foo)
+assert_type(sum([Foo(), Foo()], Foo()), Foo)
 assert_type(sum([Baz(), Baz()]), Union[Baz, Literal[0]])
 
 # mypy and pyright infer the types differently for these, so we can't use assert_type
@@ -44,7 +44,7 @@ sum("abcde")  # type: ignore[arg-type]
 sum([["foo"], ["bar"]])  # type: ignore[list-item]
 sum([("foo",), ("bar", "baz")])  # type: ignore[list-item]
 sum([Foo(), Foo()])  # type: ignore[list-item]
-sum([Bar(), Bar()], start=Bar())  # type: ignore[call-overload]
+sum([Bar(), Bar()], Bar())  # type: ignore[call-overload]
 sum([Bar(), Bar()])  # type: ignore[list-item]
 
 # TODO: these pass pyright with the current stubs, but mypy erroneously emits an error:
