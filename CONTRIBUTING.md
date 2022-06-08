@@ -190,6 +190,9 @@ supported:
   [removing obsolete third-party libraries](#third-party-library-removal-policy).
   It contains the first version of the corresponding library that ships
   its own `py.typed` file.
+* `no_longer_updated` (optional): This field is set to `true` before removing
+  stubs for other reasons than the upstream library shipping with type
+  information.
 * `stubtest` (default: `true`): Whether stubtest should be run against this
   package. Please avoid setting this to `false`, and add a comment if you have
   to.
@@ -529,7 +532,7 @@ if it consisted of several smaller commits.
 
 ## Third-party library removal policy
 
-Third-party packages are generally removed from typeshed when one of the
+Third-party stubs are generally removed from typeshed when one of the
 following criteria is met:
 
 * The upstream package ships a `py.typed` file for at least six months, or
@@ -543,6 +546,15 @@ If a package ships its own `py.typed` file, please follow these steps:
    ["removal" label](https://github.com/python/typeshed/labels/removal).
 3. Open a PR that sets the `obsolete_since` field in the `METADATA.toml`
    file to the first version of the package that shipped `py.typed`.
+
+If third-party stubs should be removed for other reasons, please follow these
+steps:
+
+1. Open an issue explaining why the stubs should be removed.
+2. A maintainer will add the
+   ["removal" label](https://github.com/python/typeshed/labels/removal).
+3. Open a PR that sets the `no_longer_updated` field in the `METADATA.toml`
+   file to `true`.
 
 ## Maintainer guidelines
 
