@@ -20,6 +20,7 @@ from _typeshed import (
     SupportsKeysAndGetItem,
     SupportsLenAndGetItem,
     SupportsNext,
+    SupportsRAdd,
     SupportsRDivMod,
     SupportsRichComparison,
     SupportsRichComparisonT,
@@ -1547,7 +1548,10 @@ def sorted(__iterable: Iterable[_T], *, key: Callable[[_T], SupportsRichComparis
 
 _AddableT1 = TypeVar("_AddableT1", bound=SupportsAdd[Any, Any])
 _AddableT2 = TypeVar("_AddableT2", bound=SupportsAdd[Any, Any])
-_AddableWithIntT = TypeVar("_AddableWithIntT", bound=SupportsAdd[int, Any])
+
+class _SupportsSumWithNoDefaultGiven(SupportsAdd[Any, Any], SupportsRAdd[int, Any], Protocol): ...
+
+_SupportsSumNoDefaultT = TypeVar("_SupportsSumNoDefaultT", bound=_SupportsSumWithNoDefaultGiven)
 
 # In general, the return type of `x + x` is *not* guaranteed to be the same type as x.
 # However, we can't express that in the stub for `sum()`
@@ -1562,7 +1566,7 @@ else:
     def sum(__iterable: Iterable[bool], __start: int = ...) -> int: ...  # type: ignore[misc]
 
 @overload
-def sum(__iterable: Iterable[_AddableWithIntT]) -> _AddableWithIntT | Literal[0]: ...
+def sum(__iterable: Iterable[_SupportsSumNoDefaultT]) -> _SupportsSumNoDefaultT | Literal[0]: ...
 
 if sys.version_info >= (3, 8):
     @overload
