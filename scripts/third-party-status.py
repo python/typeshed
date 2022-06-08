@@ -74,7 +74,7 @@ class StubInfo:
         days = (NOW - self.pypi_date).days
         if days > 365 * ANCIENT_YEARS:
             return DateFreshness.ANCIENT
-        elif days > 265 * OLD_YEARS:
+        elif days > 365 * OLD_YEARS:
             return DateFreshness.OLD
         else:
             return DateFreshness.FRESH
