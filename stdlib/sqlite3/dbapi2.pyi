@@ -4,7 +4,7 @@ from _typeshed import ReadableBuffer, Self, StrOrBytesPath, SupportsLenAndGetIte
 from collections.abc import Callable, Generator, Iterable, Iterator, Mapping
 from datetime import date, datetime, time
 from types import TracebackType
-from typing import Any, Generic, Protocol, TypeVar, overload
+from typing import Any, Protocol, TypeVar, overload
 from typing_extensions import Literal, SupportsIndex, TypeAlias, final
 
 _T = TypeVar("_T")
