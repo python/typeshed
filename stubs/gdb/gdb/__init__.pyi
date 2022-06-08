@@ -178,7 +178,7 @@ TYPE_CODE_INTERNAL_FUNCTION: int
 class _PrettyPrinter(Protocol):
     # TODO: The "children" and "display_hint" methods are optional for
     # pretty-printers. Unfortunately, there is no such thing as an optional
-    # method in Mypy at the moment.
+    # method in the type system at the moment.
     #
     # def children(self) -> Iterator[tuple[str, _ValueOrNative]]: ...
     # def display_hint(self) -> str | None: ...
