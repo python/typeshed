@@ -90,6 +90,7 @@ class Obsolete:
     distribution: str
     stub_path: Path
     obsolete_since_version: str
+    obsolete_since_date: datetime.datetime
 
     def __str__(self) -> str:
         return f"Marking {self.distribution} as obsolete since {self.obsolete_since_version!r}"
@@ -149,7 +150,12 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
         return NoUpdate(stub_info.distribution, "up to date")
 
     if await package_contains_py_typed(pypi_info.release_to_download, session):
-        return Obsolete(stub_info.distribution, stub_path, obsolete_since_version=str(pypi_info.version))
+        return Obsolete(
+            stub_info.distribution,
+            stub_path,
+            obsolete_since_version=str(pypi_info.version),
+            obsolete_since_date=pypi_info.upload_date,
+        )
 
     return Update(
         distribution=stub_info.distribution,
@@ -161,6 +167,7 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
 
 TYPESHED_OWNER = "python"
 FORK_OWNER = "hauntsaninja"
+BRANCH_PREFIX = "stubsabot"
 
 
 async def create_or_update_pull_request(title: str, branch_name: str, session: aiohttp.ClientSession):
@@ -214,7 +221,7 @@ async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession
         return
     title = f"[stubsabot] Bump {update.distribution} to {update.new_version_spec}"
     async with _repo_lock:
-        branch_name = f"stubsabot/{normalize(update.distribution)}"
+        branch_name = f"{BRANCH_PREFIX}/{normalize(update.distribution)}"
         subprocess.check_call(["git", "checkout", "-B", branch_name, "origin/master"])
         with open(update.stub_path / "METADATA.toml", "rb") as f:
             meta = tomlkit.load(f)
@@ -234,11 +241,13 @@ async def suggest_typeshed_obsolete(obsolete: Obsolete, session: aiohttp.ClientS
         return
     title = f"[stubsabot] Mark {obsolete.distribution} as obsolete since {obsolete.obsolete_since_version}"
     async with _repo_lock:
-        branch_name = f"stubsabot/{normalize(obsolete.distribution)}"
+        branch_name = f"{BRANCH_PREFIX}/{normalize(obsolete.distribution)}"
         subprocess.check_call(["git", "checkout", "-B", branch_name, "origin/master"])
         with open(obsolete.stub_path / "METADATA.toml", "rb") as f:
             meta = tomlkit.load(f)
-        meta["obsolete_since"] = obsolete.obsolete_since_version
+        obs_string = tomlkit.string(obsolete.obsolete_since_version)
+        obs_string.comment(f"Released on {obsolete.obsolete_since_date.date().isoformat()}")
+        meta["obsolete_since"] = obs_string
         with open(obsolete.stub_path / "METADATA.toml", "w") as f:
             tomlkit.dump(meta, f)
         subprocess.check_call(["git", "commit", "--all", "-m", title])
