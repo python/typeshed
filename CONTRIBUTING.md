@@ -559,6 +559,9 @@ steps:
 4. When a new version of the package was automatically uploaded to PyPI
    (which usually takes up to 3 hours), open a PR to remove the stubs.
 
+If feeling kindly, please update [mypy](https://github.com/python/mypy/blob/master/mypy/stubinfo.py)
+for any stub obsoletions or removals.
+
 ## Maintainer guidelines
 
 The process for preparing and submitting changes also applies to
