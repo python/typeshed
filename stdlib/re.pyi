@@ -13,101 +13,41 @@ if sys.version_info >= (3, 7):
 else:
     from typing import Match, Pattern
 
+__all__ = [
+    "match",
+    "fullmatch",
+    "search",
+    "sub",
+    "subn",
+    "split",
+    "findall",
+    "finditer",
+    "compile",
+    "purge",
+    "template",
+    "escape",
+    "error",
+    "A",
+    "I",
+    "L",
+    "M",
+    "S",
+    "X",
+    "U",
+    "ASCII",
+    "IGNORECASE",
+    "LOCALE",
+    "MULTILINE",
+    "DOTALL",
+    "VERBOSE",
+    "UNICODE",
+]
+
+if sys.version_info >= (3, 7):
+    __all__ += ["Match", "Pattern"]
+
 if sys.version_info >= (3, 11):
-    __all__ = [
-        "match",
-        "fullmatch",
-        "search",
-        "sub",
-        "subn",
-        "split",
-        "findall",
-        "finditer",
-        "compile",
-        "purge",
-        "escape",
-        "error",
-        "Pattern",
-        "Match",
-        "A",
-        "I",
-        "L",
-        "M",
-        "S",
-        "X",
-        "U",
-        "ASCII",
-        "IGNORECASE",
-        "LOCALE",
-        "MULTILINE",
-        "DOTALL",
-        "VERBOSE",
-        "UNICODE",
-        "RegexFlag",
-        "NOFLAG",
-    ]
-elif sys.version_info >= (3, 8):
-    __all__ = [
-        "match",
-        "fullmatch",
-        "search",
-        "sub",
-        "subn",
-        "split",
-        "findall",
-        "finditer",
-        "compile",
-        "purge",
-        "template",
-        "escape",
-        "error",
-        "Pattern",
-        "Match",
-        "A",
-        "I",
-        "L",
-        "M",
-        "S",
-        "X",
-        "U",
-        "ASCII",
-        "IGNORECASE",
-        "LOCALE",
-        "MULTILINE",
-        "DOTALL",
-        "VERBOSE",
-        "UNICODE",
-    ]
-else:
-    __all__ = [
-        "match",
-        "fullmatch",
-        "search",
-        "sub",
-        "subn",
-        "split",
-        "findall",
-        "finditer",
-        "compile",
-        "purge",
-        "template",
-        "escape",
-        "error",
-        "A",
-        "I",
-        "L",
-        "M",
-        "S",
-        "X",
-        "U",
-        "ASCII",
-        "IGNORECASE",
-        "LOCALE",
-        "MULTILINE",
-        "DOTALL",
-        "VERBOSE",
-        "UNICODE",
-    ]
+    __all__ += ["NOFLAG", "RegexFlag"]
 
 class RegexFlag(enum.IntFlag):
     A = sre_compile.SRE_FLAG_ASCII
@@ -125,9 +65,8 @@ class RegexFlag(enum.IntFlag):
     VERBOSE = X
     U = sre_compile.SRE_FLAG_UNICODE
     UNICODE = U
-    if sys.version_info < (3, 11):
-        T = sre_compile.SRE_FLAG_TEMPLATE
-        TEMPLATE = T
+    T = sre_compile.SRE_FLAG_TEMPLATE
+    TEMPLATE = T
     if sys.version_info >= (3, 11):
         NOFLAG: int
 
@@ -146,9 +85,8 @@ X = RegexFlag.X
 VERBOSE = RegexFlag.VERBOSE
 U = RegexFlag.U
 UNICODE = RegexFlag.UNICODE
-if sys.version_info < (3, 11):
-    T = RegexFlag.T
-    TEMPLATE = RegexFlag.TEMPLATE
+T = RegexFlag.T
+TEMPLATE = RegexFlag.TEMPLATE
 if sys.version_info >= (3, 11):
     NOFLAG = RegexFlag.NOFLAG
 _FlagsType: TypeAlias = int | RegexFlag
@@ -220,6 +158,4 @@ def subn(
 ) -> tuple[bytes, int]: ...
 def escape(pattern: AnyStr) -> AnyStr: ...
 def purge() -> None: ...
-
-if sys.version_info < (3, 11):
-    def template(pattern: AnyStr | Pattern[AnyStr], flags: _FlagsType = ...) -> Pattern[AnyStr]: ...
+def template(pattern: AnyStr | Pattern[AnyStr], flags: _FlagsType = ...) -> Pattern[AnyStr]: ...

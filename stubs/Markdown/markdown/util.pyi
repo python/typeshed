@@ -12,7 +12,6 @@ AMP_SUBSTITUTE: Any
 HTML_PLACEHOLDER: Any
 HTML_PLACEHOLDER_RE: Pattern[str]
 TAG_PLACEHOLDER: Any
-INSTALLED_EXTENSIONS: Any
 RTL_BIDI_RANGES: Any
 
 def deprecated(message: str, stacklevel: int = ...): ...
