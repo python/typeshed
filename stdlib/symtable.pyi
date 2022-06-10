@@ -1,6 +1,6 @@
 import sys
-from collections.abc import Sequence
 from _collections_abc import dict_keys
+from collections.abc import Sequence
 from typing import Any
 
 __all__ = ["symtable", "SymbolTable", "Class", "Function", "Symbol"]
