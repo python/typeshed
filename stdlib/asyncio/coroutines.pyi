@@ -1,7 +1,7 @@
 import sys
 import types
-from collections.abc import Coroutine
-from typing import Any, Callable, overload
+from collections.abc import Callable, Coroutine
+from typing import Any, overload
 from typing_extensions import ParamSpec, TypeGuard
 
 if sys.version_info >= (3, 11):
@@ -14,7 +14,6 @@ else:
 _P = ParamSpec("_P")
 
 if sys.version_info < (3, 11):
-    from collections.abc import Callable
     from typing import TypeVar
 
     _F = TypeVar("_F", bound=Callable[..., Any])
