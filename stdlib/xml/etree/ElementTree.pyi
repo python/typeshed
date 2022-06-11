@@ -80,7 +80,7 @@ if sys.version_info >= (3, 8):
         exclude_tags: Iterable[str] | None = ...,
     ) -> None: ...
 
-class Element(MutableSequence[Element]):
+class Element:
     tag: str
     attrib: dict[str, str]
     text: str | None
