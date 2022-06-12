@@ -1,6 +1,5 @@
 from _typeshed import Self
 from collections.abc import Callable, Sequence
-from math import _SupportsFloatOrIndex
 from tkinter import Canvas, Frame, Misc, PhotoImage, Scrollbar
 from typing import Any, ClassVar, Union, overload
 from typing_extensions import TypeAlias
