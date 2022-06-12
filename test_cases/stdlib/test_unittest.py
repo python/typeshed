@@ -1,7 +1,8 @@
-from unittest import TestCase
 from datetime import datetime
-from fractions import Fraction
 from decimal import Decimal
+from fractions import Fraction
+from unittest import TestCase
+
 
 def test_assertAlmostEqual(case: TestCase) -> None:
     case.assertAlmostEqual(2.4, 2.41)
