@@ -6,7 +6,7 @@ from _typeshed import Self
 from collections.abc import Callable, Container, Iterable, Mapping, Sequence, Set as AbstractSet
 from contextlib import AbstractContextManager
 from types import TracebackType
-from typing import Any, AnyStr, ClassVar, Generic, NamedTuple, NoReturn, Pattern, TypeVar, overload
+from typing import Any, AnyStr, ClassVar, Generic, NamedTuple, NoReturn, Pattern, Protocol, SupportsAbs, TypeVar, overload
 from typing_extensions import ParamSpec
 from warnings import WarningMessage
 
@@ -14,6 +14,7 @@ if sys.version_info >= (3, 9):
     from types import GenericAlias
 
 _T = TypeVar("_T")
+_T_contra = TypeVar("_T_contra", contravariant=True)
 _E = TypeVar("_E", bound=BaseException)
 _FT = TypeVar("_FT", bound=Callable[..., Any])
 _P = ParamSpec("_P")
@@ -61,6 +62,9 @@ def skipUnless(condition: object, reason: str) -> Callable[[_FT], _FT]: ...
 
 class SkipTest(Exception):
     def __init__(self, reason: str) -> None: ...
+
+class _SupportsAlmostEqualAssertions(Protocol[_T_contra]):
+    def __sub__(self, __other: _T_contra) -> SupportsAbs: ...
 
 class TestCase:
     failureException: type[BaseException]
@@ -167,31 +171,19 @@ class TestCase:
 
     @overload
     def assertAlmostEqual(
-        self, first: float, second: float, places: int | None = ..., msg: Any = ..., delta: float | None = ...
+        self, first: _SupportsAlmostEqualAssertions[_T], second: _T, places: None = ..., msg: Any = ..., delta: float | None = ...
     ) -> None: ...
     @overload
     def assertAlmostEqual(
-        self,
-        first: datetime.datetime,
-        second: datetime.datetime,
-        places: int | None = ...,
-        msg: Any = ...,
-        delta: datetime.timedelta | None = ...,
+        self, first: _SupportsAlmostEqualAssertions[_T], second: _T, places: int, msg: Any = ..., delta: None = ...
     ) -> None: ...
     @overload
-    def assertNotAlmostEqual(self, first: float, second: float, *, msg: Any = ...) -> None: ...
-    @overload
-    def assertNotAlmostEqual(self, first: float, second: float, places: int | None = ..., msg: Any = ...) -> None: ...
-    @overload
-    def assertNotAlmostEqual(self, first: float, second: float, *, msg: Any = ..., delta: float | None = ...) -> None: ...
+    def assertNotAlmostEqual(
+        self, first: _SupportsAlmostEqualAssertions[_T], second: _T, places: None = ..., msg: Any = ..., delta: float | None = ...
+    ) -> None: ...
     @overload
     def assertNotAlmostEqual(
-        self,
-        first: datetime.datetime,
-        second: datetime.datetime,
-        places: int | None = ...,
-        msg: Any = ...,
-        delta: datetime.timedelta | None = ...,
+        self, first: _SupportsAlmostEqualAssertions[_T], second: _T, places: int, msg: Any = ..., delta: None = ...
     ) -> None: ...
     def assertRegex(self, text: AnyStr, expected_regex: AnyStr | Pattern[AnyStr], msg: Any = ...) -> None: ...
     def assertNotRegex(self, text: AnyStr, unexpected_regex: AnyStr | Pattern[AnyStr], msg: Any = ...) -> None: ...
