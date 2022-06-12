@@ -1,4 +1,3 @@
-import datetime
 import logging
 import sys
 import unittest.result
@@ -63,8 +62,11 @@ def skipUnless(condition: object, reason: str) -> Callable[[_FT], _FT]: ...
 class SkipTest(Exception):
     def __init__(self, reason: str) -> None: ...
 
+class _SupportsDunderLeWithFloat(Protocol):
+    def __le__(self, __other: float) -> object: ...
+
 class _SupportsAlmostEqualAssertions(Protocol[_T_contra]):
-    def __sub__(self, __other: _T_contra) -> SupportsAbs: ...
+    def __sub__(self, __other: _T_contra) -> SupportsAbs[_SupportsDunderLeWithFloat]: ...
 
 class TestCase:
     failureException: type[BaseException]
