@@ -14,3 +14,4 @@ def test_assertAlmostEqual(case: TestCase) -> None:
     case.assertAlmostEqual(2.4, 2.41, places=8)
     case.assertAlmostEqual(2.4, 2.41, delta=0.02)
     case.assertAlmostEqual(2.4, 2.41, places=9, delta=0.02)  # type: ignore[call-overload]
+    case.assertAlmostEqual("foo", "bar")  # type: ignore[call-overload]
