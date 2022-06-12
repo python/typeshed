@@ -6,9 +6,11 @@ from typing import Any
 
 old_factory = logging.getLogRecordFactory()
 
+
 def record_factory(*args: Any, **kwargs: Any) -> logging.LogRecord:
     record = old_factory(*args, **kwargs)
-    record.custom_attribute = 0xdecafbad
+    record.custom_attribute = 0xDECAFBAD
     return record
+
 
 logging.setLogRecordFactory(record_factory)
