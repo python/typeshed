@@ -1,13 +1,13 @@
 from asyncio import iscoroutinefunction
 from collections.abc import Awaitable, Callable, Coroutine
-from typing import Any
+from typing import Any, Union
 from typing_extensions import assert_type
 
 
 def test_iscoroutinefunction(
     x: Callable[[str, int], Coroutine[str, int, bytes]],
     y: Callable[[str, int], Awaitable[bytes]],
-    z: Callable[[str, int], str | Awaitable[bytes]],
+    z: Callable[[str, int], Union[str, Awaitable[bytes]]],
     xx: object,
 ) -> None:
 
