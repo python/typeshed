@@ -1,7 +1,7 @@
 import sys
 import types
-from collections.abc import Callable, Coroutine
-from typing import Any, overload
+from collections.abc import Awaitable, Callable, Coroutine
+from typing import Any, TypeVar, overload
 from typing_extensions import ParamSpec, TypeGuard
 
 if sys.version_info >= (3, 11):
@@ -11,18 +11,19 @@ elif sys.version_info >= (3, 7):
 else:
     __all__ = ["coroutine", "iscoroutinefunction", "iscoroutine"]
 
+_T = TypeVar("_T")
+_FunctionT = TypeVar("_FunctionT", bound=Callable[..., Any])
 _P = ParamSpec("_P")
 
 if sys.version_info < (3, 11):
-    from typing import TypeVar
-
-    _F = TypeVar("_F", bound=Callable[..., Any])
-    def coroutine(func: _F) -> _F: ...
+    def coroutine(func: _FunctionT) -> _FunctionT: ...
 
 @overload
 def iscoroutinefunction(func: Callable[..., Coroutine[Any, Any, Any]]) -> bool: ...
 @overload
-def iscoroutinefunction(func: Callable[_P, Any]) -> TypeGuard[Callable[_P, Coroutine[Any, Any, Any]]]: ...
+def iscoroutinefunction(func: Callable[_P, Awaitable[_T]]) -> TypeGuard[Callable[_P, Coroutine[Any, Any, _T]]]: ...
+@overload
+def iscoroutinefunction(func: Callable[_P, object]) -> TypeGuard[Callable[_P, Coroutine[Any, Any, Any]]]: ...
 @overload
 def iscoroutinefunction(func: object) -> TypeGuard[Callable[..., Coroutine[Any, Any, Any]]]: ...
 
