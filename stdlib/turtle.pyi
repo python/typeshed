@@ -1,5 +1,6 @@
 from _typeshed import Self
 from collections.abc import Callable, Sequence
+from math import _SupportsFloatOrIndex
 from tkinter import Canvas, Frame, Misc, PhotoImage, Scrollbar
 from typing import Any, ClassVar, Union, overload
 from typing_extensions import TypeAlias
@@ -142,9 +143,18 @@ _PenState: TypeAlias = dict[str, Any]
 _Speed: TypeAlias = str | float
 _PolygonCoords: TypeAlias = Sequence[tuple[float, float]]
 
-# TODO: Type this more accurately
-# Vec2D is actually a custom subclass of 'tuple'.
-Vec2D: TypeAlias = tuple[float, float]
+class Vec2D(tuple[float, float]):
+    def __new__(cls: type[Self], x: float, y: float) -> Self: ...
+    def __add__(self, other: tuple[float, float]) -> Vec2D: ...  # type: ignore[override]
+    @overload  # type: ignore[override]
+    def __mul__(self, other: Vec2D) -> float: ...
+    @overload
+    def __mul__(self, other: float) -> Vec2D: ...
+    def __rmul__(self, other: float) -> Vec2D: ...  # type: ignore[override]
+    def __sub__(self, other: tuple[float, float]) -> Vec2D: ...
+    def __neg__(self) -> Vec2D: ...
+    def __abs__(self) -> float: ...
+    def rotate(self, angle: _SupportsFloatOrIndex) -> Vec2D: ...
 
 # Does not actually inherit from Canvas, but dynamically gets all methods of Canvas
 class ScrolledCanvas(Canvas, Frame):  # type: ignore[misc]
