@@ -1,6 +1,6 @@
 import abc
 from _typeshed import IdentityFunction, Self
-from collections.abc import Callable, ItemsView, KeysView, Mapping, ValuesView
+from collections.abc import ItemsView, KeysView, Mapping, ValuesView
 from typing import Any, Generic, TypeVar, overload
 
 _T = TypeVar("_T")
