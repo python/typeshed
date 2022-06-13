@@ -4,7 +4,6 @@ import unittest.result
 from _typeshed import Self, SupportsDunderGE, SupportsSub
 from collections.abc import Callable, Container, Iterable, Mapping, Sequence, Set as AbstractSet
 from contextlib import AbstractContextManager
-from datetime import datetime
 from types import TracebackType
 from typing import (
     Any,
