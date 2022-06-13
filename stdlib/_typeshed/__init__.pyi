@@ -50,21 +50,23 @@ class SupportsAnext(Protocol[_T_co]):
 
 # Comparison protocols
 
-class SupportsDunderLT(Protocol):
-    def __lt__(self, __other: Any) -> bool: ...
+class SupportsDunderLT(Protocol[_T_contra]):
+    def __lt__(self, __other: _T_contra) -> bool: ...
 
-class SupportsDunderGT(Protocol):
-    def __gt__(self, __other: Any) -> bool: ...
+class SupportsDunderGT(Protocol[_T_contra]):
+    def __gt__(self, __other: _T_contra) -> bool: ...
 
-class SupportsDunderLE(Protocol):
-    def __le__(self, __other: Any) -> bool: ...
+class SupportsDunderLE(Protocol[_T_contra]):
+    def __le__(self, __other: _T_contra) -> bool: ...
 
-class SupportsDunderGE(Protocol):
-    def __ge__(self, __other: Any) -> bool: ...
+class SupportsDunderGE(Protocol[_T_contra]):
+    def __ge__(self, __other: _T_contra) -> bool: ...
 
-class SupportsAllComparisons(SupportsDunderLT, SupportsDunderGT, SupportsDunderLE, SupportsDunderGE, Protocol): ...
+class SupportsAllComparisons(
+    SupportsDunderLT[Any], SupportsDunderGT[Any], SupportsDunderLE[Any], SupportsDunderGE[Any], Protocol
+): ...
 
-SupportsRichComparison: TypeAlias = SupportsDunderLT | SupportsDunderGT
+SupportsRichComparison: TypeAlias = SupportsDunderLT[Any] | SupportsDunderGT[Any]
 SupportsRichComparisonT = TypeVar("SupportsRichComparisonT", bound=SupportsRichComparison)  # noqa: Y001
 
 # Dunder protocols
@@ -74,6 +76,9 @@ class SupportsAdd(Protocol[_T_contra, _T_co]):
 
 class SupportsRAdd(Protocol[_T_contra, _T_co]):
     def __radd__(self, __x: _T_contra) -> _T_co: ...
+
+class SupportsSub(Protocol[_T_contra, _T_co]):
+    def __sub__(self, __x: _T_contra) -> _T_co: ...
 
 class SupportsDivMod(Protocol[_T_contra, _T_co]):
     def __divmod__(self, __other: _T_contra) -> _T_co: ...
