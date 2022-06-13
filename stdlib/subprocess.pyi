@@ -427,6 +427,7 @@ def call(
     pass_fds: Any = ...,
     *,
     timeout: float | None = ...,
+    text: bool | None = ...
 ) -> int: ...
 
 # Same args as Popen.__init__
@@ -449,6 +450,8 @@ def check_call(
     start_new_session: bool = ...,
     pass_fds: Any = ...,
     timeout: float | None = ...,
+    *,
+    text: bool | None = ...
 ) -> int: ...
 
 if sys.version_info >= (3, 7):
