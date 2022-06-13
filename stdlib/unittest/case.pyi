@@ -27,7 +27,7 @@ if sys.version_info >= (3, 9):
     from types import GenericAlias
 
 _T = TypeVar("_T")
-_T_contra = TypeVar("_T_contra", contravariant=True)
+_S = TypeVar("_S", bound=SupportsSub[Any, Any])
 _E = TypeVar("_E", bound=BaseException)
 _FT = TypeVar("_FT", bound=Callable[..., Any])
 _P = ParamSpec("_P")
@@ -76,9 +76,7 @@ def skipUnless(condition: object, reason: str) -> Callable[[_FT], _FT]: ...
 class SkipTest(Exception):
     def __init__(self, reason: str) -> None: ...
 
-class _SupportsAbsAndDunderGE(SupportsDunderGE[Any], SupportsAbs[Any], Protocol): ...
-
-_S = TypeVar("_S", bound=SupportsSub[Any, Any])
+class _SupportsAbsAndDunderGE(SupportsDunderGE, SupportsAbs[Any], Protocol): ...
 
 class TestCase:
     failureException: type[BaseException]
