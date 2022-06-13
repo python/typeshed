@@ -231,6 +231,8 @@ webbrowser.UnixBrowser.remote_action  # always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newtab  # always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newwin  # always overridden in inheriting class
 xml.parsers.expat.expat_CAPI
+xml.etree.ElementTree.Element.__iter__  # Doesn't exist at runtime, but instances are iterable due to __getitem__
+xml.etree.cElementTree.Element.__iter__  # Doesn't exist at runtime, but instances are iterable due to __getitem__
 
 # ==========
 # Exists at runtime, but missing from stubs
