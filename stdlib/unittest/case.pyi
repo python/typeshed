@@ -2,10 +2,9 @@ import logging
 import sys
 import unittest.result
 from _typeshed import Self, SupportsDunderGE, SupportsDunderLE, SupportsRichComparison, SupportsSub
-from builtins import _IsInstanceClassInfo
 from collections.abc import Callable, Container, Iterable, Mapping, Sequence, Set as AbstractSet
 from contextlib import AbstractContextManager
-from types import TracebackType
+from types import TracebackType, UnionType
 from typing import (
     Any,
     AnyStr,
@@ -18,6 +17,7 @@ from typing import (
     SupportsAbs,
     SupportsRound,
     TypeVar,
+    Union,
     overload,
 )
 from typing_extensions import ParamSpec, TypeAlias
@@ -79,6 +79,11 @@ class SkipTest(Exception):
 class _SupportsAbsAndDunderGE(SupportsDunderGE, SupportsAbs[Any], Protocol): ...
 
 _SupportsDunderLeOrDunderGe: TypeAlias = SupportsDunderGE | SupportsDunderLE
+
+if sys.version_info >= (3, 10):
+    _IsInstanceClassInfo: TypeAlias = Union[type, UnionType, tuple[type | UnionType | tuple[Any, ...], ...]]
+else:
+    _IsInstanceClassInfo: TypeAlias = Union[type, tuple[type | tuple[Any, ...], ...]]
 
 class TestCase:
     failureException: type[BaseException]
