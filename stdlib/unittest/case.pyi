@@ -4,7 +4,7 @@ import unittest.result
 from _typeshed import Self, SupportsDunderGE, SupportsDunderLE, SupportsRichComparison, SupportsSub
 from collections.abc import Callable, Container, Iterable, Mapping, Sequence, Set as AbstractSet
 from contextlib import AbstractContextManager
-from types import TracebackType, UnionType
+from types import TracebackType
 from typing import (
     Any,
     AnyStr,
@@ -25,6 +25,9 @@ from warnings import WarningMessage
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
+
+if sys.version_info >= (3, 10):
+    from types import UnionType
 
 _T = TypeVar("_T")
 _S = TypeVar("_S", bound=SupportsSub[Any, Any])
