@@ -178,7 +178,7 @@ def get_origin_owner():
     return match.group("owner")
 
 
-async def create_or_update_pull_request(title: str, branch_name: str, session: aiohttp.ClientSession):
+async def create_or_update_pull_request(*, title: str, body: str, branch_name: str, session: aiohttp.ClientSession):
     secret = os.environ["GITHUB_TOKEN"]
     if secret.startswith("ghp"):
         auth = f"token {secret}"
@@ -189,12 +189,12 @@ async def create_or_update_pull_request(title: str, branch_name: str, session: a
 
     async with session.post(
         f"https://api.github.com/repos/{TYPESHED_OWNER}/typeshed/pulls",
-        json={"title": title, "head": f"{fork_owner}:{branch_name}", "base": "master"},
+        json={"title": title, "body": body, "head": f"{fork_owner}:{branch_name}", "base": "master"},
         headers={"Accept": "application/vnd.github.v3+json", "Authorization": auth},
     ) as response:
-        body = await response.json()
+        resp_json = await response.json()
         if response.status == 422 and any(
-            "A pull request already exists" in e.get("message", "") for e in body.get("errors", [])
+            "A pull request already exists" in e.get("message", "") for e in resp_json.get("errors", [])
         ):
             # Find the existing PR
             async with session.get(
@@ -203,13 +203,13 @@ async def create_or_update_pull_request(title: str, branch_name: str, session: a
                 headers={"Accept": "application/vnd.github.v3+json", "Authorization": auth},
             ) as response:
                 response.raise_for_status()
-                body = await response.json()
-                assert len(body) >= 1
-                pr_number = body[0]["number"]
-            # Update the PR's title
+                resp_json = await response.json()
+                assert len(resp_json) >= 1
+                pr_number = resp_json[0]["number"]
+            # Update the PR's title and body
             async with session.patch(
                 f"https://api.github.com/repos/{TYPESHED_OWNER}/typeshed/pulls/{pr_number}",
-                json={"title": title},
+                json={"title": title, "body": body},
                 headers={"Accept": "application/vnd.github.v3+json", "Authorization": auth},
             ) as response:
                 response.raise_for_status()
@@ -245,7 +245,12 @@ async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession
             return
         subprocess.check_call(["git", "push", "origin", branch_name, "--force-with-lease"])
 
-    await create_or_update_pull_request(title, branch_name, session)
+    body = """\
+If stubtest fails for this PR:
+- Leave this PR open (as a reminder, and to prevent stubsabot from opening another PR)
+- Fix stubtest failures in another PR, then close this PR
+"""
+    await create_or_update_pull_request(title=title, body=body, branch_name=branch_name, session=session)
 
 
 async def suggest_typeshed_obsolete(obsolete: Obsolete, session: aiohttp.ClientSession, action_level: ActionLevel) -> None:
@@ -267,7 +272,7 @@ async def suggest_typeshed_obsolete(obsolete: Obsolete, session: aiohttp.ClientS
             return
         subprocess.check_call(["git", "push", "origin", branch_name, "--force-with-lease"])
 
-    await create_or_update_pull_request(title, branch_name, session)
+    await create_or_update_pull_request(title=title, body="", branch_name=branch_name, session=session)
 
 
 async def main() -> None:
