@@ -5,6 +5,7 @@ import argparse
 import asyncio
 import datetime
 import enum
+import functools
 import io
 import os
 import re
@@ -166,8 +167,15 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
 
 
 TYPESHED_OWNER = "python"
-FORK_OWNER = "hauntsaninja"
-BRANCH_PREFIX = "stubsabot"
+
+
+@functools.lru_cache()
+def get_origin_owner():
+    output = subprocess.check_output(["git", "remote", "get-url", "origin"], text=True)
+    match = re.search(r"(git@github.com:|https://github.com/)(?P<owner>[^/]+)/(?P<repo>[^/]+).git", output)
+    assert match is not None
+    assert match.group("repo") == "typeshed"
+    return match.group("owner")
 
 
 async def create_or_update_pull_request(title: str, branch_name: str, session: aiohttp.ClientSession):
@@ -177,9 +185,11 @@ async def create_or_update_pull_request(title: str, branch_name: str, session: a
     else:
         auth = f"Bearer {secret}"
 
+    fork_owner = get_origin_owner()
+
     async with session.post(
         f"https://api.github.com/repos/{TYPESHED_OWNER}/typeshed/pulls",
-        json={"title": title, "head": f"{FORK_OWNER}:{branch_name}", "base": "master"},
+        json={"title": title, "head": f"{fork_owner}:{branch_name}", "base": "master"},
         headers={"Accept": "application/vnd.github.v3+json", "Authorization": auth},
     ) as response:
         body = await response.json()
@@ -189,7 +199,7 @@ async def create_or_update_pull_request(title: str, branch_name: str, session: a
             # Find the existing PR
             async with session.get(
                 f"https://api.github.com/repos/{TYPESHED_OWNER}/typeshed/pulls",
-                params={"state": "open", "head": f"{FORK_OWNER}:{branch_name}", "base": "master"},
+                params={"state": "open", "head": f"{fork_owner}:{branch_name}", "base": "master"},
                 headers={"Accept": "application/vnd.github.v3+json", "Authorization": auth},
             ) as response:
                 response.raise_for_status()
@@ -214,6 +224,8 @@ def normalize(name: str) -> str:
 
 # lock should be unnecessary, but can't hurt to enforce mutual exclusion
 _repo_lock = asyncio.Lock()
+
+BRANCH_PREFIX = "stubsabot"
 
 
 async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession, action_level: ActionLevel) -> None:
@@ -268,17 +280,36 @@ async def main() -> None:
         default=ActionLevel.everything,
         help="Limit actions performed to achieve dry runs for different levels of dryness",
     )
+    parser.add_argument(
+        "--action-count-limit",
+        type=int,
+        default=None,
+        help="Limit number of actions performed and the remainder are logged. Useful for testing",
+    )
     args = parser.parse_args()
+
+    if args.action_level > ActionLevel.local:
+        if os.environ.get("GITHUB_TOKEN") is None:
+            raise ValueError("GITHUB_TOKEN environment variable must be set")
 
     try:
         conn = aiohttp.TCPConnector(limit_per_host=10)
         async with aiohttp.ClientSession(connector=conn) as session:
             tasks = [asyncio.create_task(determine_action(stubs_path, session)) for stubs_path in Path("stubs").iterdir()]
+
+            action_count = 0
             for task in asyncio.as_completed(tasks):
                 update = await task
                 print(update)
+
                 if isinstance(update, NoUpdate):
                     continue
+
+                if args.action_count_limit is not None and action_count >= args.action_count_limit:
+                    print("... but we've reached action count limit")
+                    continue
+                action_count += 1
+
                 if isinstance(update, Update):
                     await suggest_typeshed_update(update, session, action_level=args.action_level)
                     continue
