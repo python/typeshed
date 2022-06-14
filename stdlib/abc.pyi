@@ -11,8 +11,14 @@ _FuncT = TypeVar("_FuncT", bound=Callable[..., Any])
 # These definitions have special processing in mypy
 class ABCMeta(type):
     __abstractmethods__: frozenset[str]
-    # pyright doesn't like the first parameter being called mcls, hence the type: ignore
-    def __new__(mcls: type[Self], name: str, bases: tuple[type, ...], namespace: dict[str, Any]) -> Self: ...  # type: ignore
+    if sys.version_info >= (3, 11):
+        def __new__(
+            __mcls: type[Self], __name: str, __bases: tuple[type, ...], __namespace: dict[str, Any], **kwargs: Any
+        ) -> Self: ...
+    else:
+        # pyright doesn't like the first parameter being called mcls, hence the type: ignore
+        def __new__(mcls: type[Self], name: str, bases: tuple[type, ...], namespace: dict[str, Any], **kwargs: Any) -> Self: ...  # type: ignore
+
     def __instancecheck__(cls: ABCMeta, instance: Any) -> Any: ...
     def __subclasscheck__(cls: ABCMeta, subclass: Any) -> Any: ...
     def _dump_registry(cls: ABCMeta, file: SupportsWrite[str] | None = ...) -> None: ...
