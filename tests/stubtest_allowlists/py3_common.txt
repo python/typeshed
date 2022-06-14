@@ -26,8 +26,8 @@ _collections_abc.Set.__rxor__
 _csv.Dialect.__init__  # C __init__ signature is inaccurate
 _socket.*
 _threading_local.local.__new__
+_weakref.ref.__init__  # Runtime defines __new__ but stubtest thinks __init__ is also defined.
 _weakref.ref.__call__
-abc.ABCMeta.__new__  # pytype wants the parameter named cls and not mcls
 _weakref.CallableProxyType.__getattr__  # Should have all attributes of proxy
 _weakref.ProxyType.__getattr__  # Should have all attributes of proxy
 _weakref.ReferenceType.__call__  # C function default annotation is wrong
