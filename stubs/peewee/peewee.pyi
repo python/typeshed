@@ -3,7 +3,7 @@ import decimal
 import enum
 import threading
 import uuid
-from _typeshed import Self
+from _typeshed import Incomplete, Self
 from collections.abc import Callable, Container, Hashable, Iterable, Iterator, Mapping, MutableMapping, MutableSet, Sequence
 from contextlib import AbstractContextManager
 from typing import Any, AnyStr, ClassVar, Generic, NamedTuple, NoReturn, Pattern, Protocol, TypeVar, Union, overload
@@ -590,7 +590,7 @@ class Window(Node):
     order_by: tuple[Field | Expression, ...]
     start: str | SQL | None
     end: str | SQL | None
-    frame_type: Any | None  # incomplete
+    frame_type: Incomplete | None
     @overload
     def __init__(
         self,
@@ -648,14 +648,14 @@ def Case(predicate: Node | None, expression_tuples: Iterable[tuple[Expression, A
 
 class NodeList(ColumnBase):
     # TODO (dargueta): Narrow this type
-    nodes: Sequence[Any]  # incomplete
+    nodes: Sequence[Incomplete]
     glue: str
     parens: bool
-    def __init__(self, nodes: Sequence[Any], glue: str = ..., parens: bool = ...): ...  # incomplete
+    def __init__(self, nodes: Sequence[Incomplete], glue: str = ..., parens: bool = ...): ...
     def __sql__(self, ctx: Context) -> Context: ...
 
-def CommaNodeList(nodes: Sequence[Any]) -> NodeList: ...  # incomplete
-def EnclosedNodeList(nodes: Sequence[Any]) -> NodeList: ...  # incomplete
+def CommaNodeList(nodes: Sequence[Incomplete]) -> NodeList: ...
+def EnclosedNodeList(nodes: Sequence[Incomplete]) -> NodeList: ...
 
 class _Namespace(Node):
     def __init__(self, name: str): ...
@@ -2083,20 +2083,20 @@ class ModelObjectCursorWrapper(ModelDictCursorWrapper[_TModel]):
         self,
         cursor: __ICursor,
         model: _TModel,
-        select: Sequence[Any],  # incomplete
+        select: Sequence[Incomplete],
         constructor: type[_TModel] | Callable[[Any], _TModel],
     ): ...
     def process_row(self, row: tuple) -> _TModel: ...  # type: ignore
 
 class ModelCursorWrapper(BaseModelCursorWrapper[_TModel]):
     # TODO (dargueta) -- Iterable[Union[Join, ...]]
-    from_list: Iterable[Any]  # incomplete
+    from_list: Iterable[Incomplete]
     # TODO (dargueta) -- Mapping[<from list type>, tuple[?, ?, Callable[..., _TModel], int?]]
     joins: Mapping[Hashable, tuple[object, object, Callable[..., _TModel], int]]
     key_to_constructor: dict[type[_TModel], Callable[..., _TModel]]
     src_is_dest: dict[type[Model], bool]
     src_to_dest: list[tuple]  # TODO -- tuple[<from list type>, join_type[1], join_type[0], bool, join_type[3]]
-    column_keys: list  # incomplete
+    column_keys: list[Incomplete]
     def __init__(
         self,
         cursor: __ICursor,
