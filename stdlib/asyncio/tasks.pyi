@@ -12,6 +12,8 @@ if sys.version_info >= (3, 9):
     from types import GenericAlias
 if sys.version_info >= (3, 11):
     from contextvars import Context
+    from typing_extensions import TypeVarTuple, Unpack
+
 
 if sys.version_info >= (3, 7):
     __all__ = (
@@ -65,6 +67,9 @@ FIRST_COMPLETED = concurrent.futures.FIRST_COMPLETED
 FIRST_EXCEPTION = concurrent.futures.FIRST_EXCEPTION
 ALL_COMPLETED = concurrent.futures.ALL_COMPLETED
 
+if sys.version_info >= (3, 11):
+    _Ts = TypeVarTuple("_Ts")
+
 if sys.version_info >= (3, 10):
     def as_completed(fs: Iterable[_FutureT[_T]], *, timeout: float | None = ...) -> Iterator[Future[_T]]: ...
 
@@ -81,10 +86,13 @@ def ensure_future(coro_or_future: Awaitable[_T], *, loop: AbstractEventLoop | No
 # Prior to Python 3.7 'async' was an alias for 'ensure_future'.
 # It became a keyword in 3.7.
 
+if sys.version_info >= (3, 11):
+    def gather(
+        *__coro_or_future: Unpack[_Ts[_FutureT[_T]]], return_exceptions: Literal[False] = ...
+    ) -> Future[tuple[Unpack[_Ts[_T1]]]]: ...
 # `gather()` actually returns a list with length equal to the number
-# of tasks passed; however, Tuple is used similar to the annotation for
-# zip() because typing does not support variadic type variables.  See
-# typing PR #1550 for discussion.
+# of tasks passed; however, Variadic Generics (PEP 646) is only supported
+# in Python 3.11 and above, so a tuple is used similar to zip().
 if sys.version_info >= (3, 10):
     @overload
     def gather(__coro_or_future1: _FutureT[_T1], *, return_exceptions: Literal[False] = ...) -> Future[tuple[_T1]]: ...
