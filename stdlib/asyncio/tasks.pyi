@@ -3,7 +3,7 @@ import sys
 from collections.abc import Awaitable, Coroutine, Generator, Iterable, Iterator
 from types import FrameType
 from typing import Any, Generic, TextIO, TypeVar, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, TypeAlias, TypeVarTuple, Unpack
 
 from .events import AbstractEventLoop
 from .futures import Future
@@ -59,15 +59,13 @@ _T3 = TypeVar("_T3")
 _T4 = TypeVar("_T4")
 _T5 = TypeVar("_T5")
 _FT = TypeVar("_FT", bound=Future[Any])
+_Ts = TypeVarTuple("_Ts")
 _FutureT: TypeAlias = Future[_T] | Generator[Any, None, _T] | Awaitable[_T]
 _TaskYieldType: TypeAlias = Future[object] | None
 
 FIRST_COMPLETED = concurrent.futures.FIRST_COMPLETED
 FIRST_EXCEPTION = concurrent.futures.FIRST_EXCEPTION
 ALL_COMPLETED = concurrent.futures.ALL_COMPLETED
-
-if sys.version_info >= (3, 11):
-    _Ts = TypeVarTuple("_Ts")
 
 if sys.version_info >= (3, 10):
     def as_completed(fs: Iterable[_FutureT[_T]], *, timeout: float | None = ...) -> Iterator[Future[_T]]: ...
