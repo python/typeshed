@@ -297,10 +297,16 @@ async def main() -> None:
         if os.environ.get("GITHUB_TOKEN") is None:
             raise ValueError("GITHUB_TOKEN environment variable must be set")
 
+    denylist = {"gdb"}  # gdb is not a pypi distribution
+
     try:
         conn = aiohttp.TCPConnector(limit_per_host=10)
         async with aiohttp.ClientSession(connector=conn) as session:
-            tasks = [asyncio.create_task(determine_action(stubs_path, session)) for stubs_path in Path("stubs").iterdir()]
+            tasks = [
+                asyncio.create_task(determine_action(stubs_path, session))
+                for stubs_path in Path("stubs").iterdir()
+                if stubs_path.name not in denylist
+            ]
 
             action_count = 0
             for task in asyncio.as_completed(tasks):
