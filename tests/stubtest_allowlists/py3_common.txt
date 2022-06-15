@@ -88,7 +88,6 @@ ctypes.memset  # CFunctionType
 ctypes.pointer  # imported C function
 ctypes.string_at  # docstring argument name is wrong
 ctypes.wstring_at  # docstring argument name is wrong
-difflib.SequenceMatcher.__init__  # mypy default value for generic parameter issues. See https://github.com/python/mypy/issues/3737
 distutils.command.bdist_packager  # It exists in docs as package name but not in code except as a mention in a comment.
 distutils.version.Version._cmp  # class should have declared this
 distutils.version.Version.parse  # class should have declared this
@@ -231,6 +230,8 @@ webbrowser.UnixBrowser.remote_action  # always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newtab  # always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newwin  # always overridden in inheriting class
 xml.parsers.expat.expat_CAPI
+xml.etree.ElementTree.Element.__iter__  # Doesn't exist at runtime, but instances are iterable due to __getitem__
+xml.etree.cElementTree.Element.__iter__  # Doesn't exist at runtime, but instances are iterable due to __getitem__
 
 # ==========
 # Exists at runtime, but missing from stubs
