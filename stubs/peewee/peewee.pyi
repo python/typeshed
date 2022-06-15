@@ -7,16 +7,17 @@ from _typeshed import Incomplete, Self
 from collections.abc import Callable, Container, Hashable, Iterable, Iterator, Mapping, MutableMapping, MutableSet, Sequence
 from contextlib import AbstractContextManager
 from typing import Any, AnyStr, ClassVar, Generic, NamedTuple, NoReturn, Pattern, Protocol, TypeVar, Union, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Concatenate, Literal, ParamSpec, TypeAlias
 
 _T = TypeVar("_T")
 _TModel = TypeVar("_TModel", bound=Model)
 _TConvFunc = Callable[[Any], Any]
-_TFunc = TypeVar("_TFunc", bound=Callable)
+_TFunc = TypeVar("_TFunc", bound=Callable[..., Any])
 _TClass = TypeVar("_TClass", bound=type)
 _TContextClass = TypeVar("_TContextClass", bound=Context)
 _TField = TypeVar("_TField", bound=Field)
 _TNode = TypeVar("_TNode", bound=Node)
+_P = ParamSpec("_P")
 
 __version__: str
 
@@ -250,7 +251,7 @@ class Node:
     def __sql__(self, ctx: Context) -> Context: ...
     # FIXME (dargueta): Is there a way to make this a proper decorator?
     @staticmethod
-    def copy(method: _TFunc) -> _TFunc: ...
+    def copy(method: Callable[_P, Any]) -> Callable[Concatenate[_T, _P], _T]: ...
     def coerce(self: Self, _coerce: bool = ...) -> Self: ...
     def is_alias(self) -> bool: ...
     def unwrap(self: Self) -> Self: ...
