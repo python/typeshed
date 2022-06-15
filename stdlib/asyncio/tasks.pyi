@@ -14,7 +14,6 @@ if sys.version_info >= (3, 11):
     from contextvars import Context
     from typing_extensions import TypeVarTuple, Unpack
 
-
 if sys.version_info >= (3, 7):
     __all__ = (
         "Task",
@@ -90,6 +89,7 @@ if sys.version_info >= (3, 11):
     def gather(
         *__coro_or_future: Unpack[_Ts[_FutureT[_T]]], return_exceptions: Literal[False] = ...
     ) -> Future[tuple[Unpack[_Ts[_T1]]]]: ...
+
 # `gather()` actually returns a list with length equal to the number
 # of tasks passed; however, Variadic Generics (PEP 646) is only supported
 # in Python 3.11 and above, so a tuple is used similar to zip().
