@@ -129,6 +129,11 @@ sqlalchemy.testing.engines.testing_engine
 # so __new__ is deliberately omitted in the stub
 sqlalchemy.sql.annotation.Annotated.__new__
 
+# At runtime __new__ is defined, but we define __init__ in the stub
+# because otherwise all subclasses would be identified by pyright
+# as having conflicting __new__/__init__ methods
+sqlalchemy.sql.orm.unitofwork.PostSortRec.__new__
+
 # unclear problems
 sqlalchemy.sql.elements.quoted_name.lower
 sqlalchemy.sql.elements.quoted_name.upper
