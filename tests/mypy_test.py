@@ -229,6 +229,7 @@ def get_mypy_flags(
     custom_typeshed: bool = False,
     strict: bool = False,
     test_suite_run: bool = False,
+    enforce_error_codes: bool = True,
 ) -> list[str]:
     flags = [
         "--python-version",
@@ -240,8 +241,6 @@ def get_mypy_flags(
         "--warn-incomplete-stub",
         "--show-error-codes",
         "--no-error-summary",
-        "--enable-error-code",
-        "ignore-without-code",
         "--strict-equality",
     ]
     if temp_name is not None:
@@ -260,6 +259,8 @@ def get_mypy_flags(
             flags.extend(["--exclude", "tests/pytype_test.py"])
     else:
         flags.append("--no-site-packages")
+    if enforce_error_codes:
+        flags.extend(["--enable-error-code", "ignore-without-code"])
     return flags
 
 
@@ -406,7 +407,7 @@ def test_the_test_scripts(code: int, major: int, minor: int, args: argparse.Name
 def test_the_test_cases(code: int, major: int, minor: int, args: argparse.Namespace) -> TestResults:
     test_case_files = list(map(str, Path("test_cases").rglob("*.py")))
     num_test_case_files = len(test_case_files)
-    flags = get_mypy_flags(args, major, minor, None, strict=True, custom_typeshed=True)
+    flags = get_mypy_flags(args, major, minor, None, strict=True, custom_typeshed=True, enforce_error_codes=False)
     print(f"Running mypy on the test_cases directory ({num_test_case_files} files)...")
     print("Running mypy " + " ".join(flags))
     if args.dry_run:
