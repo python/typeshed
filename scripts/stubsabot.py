@@ -25,10 +25,16 @@ import tomli
 import tomlkit
 
 
-class ActionLevel(enum.IntEnum):
-    nothing = 0  # make no changes
-    local = 1  # make changes that affect local repo
-    everything = 2  # do everything, e.g. open PRs
+class ActionLevel(IntEnum):
+    def __new__(cls, value: int, doc: str):
+        member = int.__new__(cls, value)
+        member._value_ = value
+        member.__doc__ = doc
+        return member
+
+    nothing = 0, "make no changes"
+    local = 1, "make changes that affect local repo"
+    everything = 2, "do everything, e.g. open PRs"
 
 
 @dataclass
