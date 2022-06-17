@@ -116,16 +116,17 @@ async def package_contains_py_typed(release_to_download: dict[str, Any], session
     async with session.get(release_to_download["url"]) as response:
         body = io.BytesIO(await response.read())
 
-    if release_to_download["packagetype"] == "bdist_wheel":
+    packagetype = release_to_download["packagetype"]
+    if packagetype == "bdist_wheel":
         assert release_to_download["filename"].endswith(".whl")
         with zipfile.ZipFile(body) as zf:
             return any(Path(f).name == "py.typed" for f in zf.namelist())
-    elif release_to_download["packagetype"] == "sdist":
+    elif packagetype == "sdist":
         assert release_to_download["filename"].endswith(".tar.gz")
         with tarfile.open(fileobj=body, mode="r:gz") as zf:
             return any(Path(f).name == "py.typed" for f in zf.getnames())
     else:
-        raise AssertionError
+        raise AssertionError(f"Unknown package type: {packagetype}")
 
 
 def _check_spec(updated_spec: str, version: packaging.version.Version) -> str:
