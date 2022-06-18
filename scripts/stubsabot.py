@@ -25,7 +25,7 @@ import tomli
 import tomlkit
 
 
-class ActionLevel(IntEnum):
+class ActionLevel(enum.IntEnum):
     def __new__(cls, value: int, doc: str):
         member = int.__new__(cls, value)
         member._value_ = value
