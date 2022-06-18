@@ -25,8 +25,11 @@ metadata_keys = {
     "extra_description",
     "obsolete_since",
     "no_longer_updated",
-    "stubtest",
-    "stubtest_apt_dependencies",
+    "tool",
+}
+stubtest_keys = {
+    "skip",
+    "apt_dependencies",
 }
 allowed_files = {"README.md"}
 
@@ -183,6 +186,10 @@ def check_metadata() -> None:
                 assert dep_version.count(".") <= 2, f"Bad version '{dep_version}' in dependency {dep}"
                 for part in dep_version.split("."):
                     assert part.isnumeric(), f"Bad version '{part}' in dependency {dep}"
+
+        assert set(data.get("tool", [])).issubset({"stubtest"}), f"Unrecognised tool for {distribution}"
+        for key in data.get("tool", {}).get("stubtest", {}):
+            assert key in stubtest_keys, f"Unrecognised stubtest key {key} for {distribution}"
 
 
 if __name__ == "__main__":

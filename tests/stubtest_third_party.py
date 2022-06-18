@@ -28,7 +28,8 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
 
     print(f"{dist.name}... ", end="")
 
-    if not metadata.get("stubtest", True):
+    stubtest_meta = metadata.get("tool", {}).get("stubtest", {})
+    if stubtest_meta.get("skip", False):
         print(colored("skipping", "yellow"))
         return True
 
