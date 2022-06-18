@@ -61,6 +61,8 @@ class PypiInfo:
     distribution: str
     version: packaging.version.Version
     upload_date: datetime.datetime
+    # https://warehouse.pypa.io/api-reference/json.html#get--pypi--project_name--json
+    # Corresponds to a single entry from `releases` for the given version
     release_to_download: dict[str, Any]
 
 
