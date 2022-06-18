@@ -135,6 +135,18 @@ def _check_spec(updated_spec: str, version: packaging.version.Version) -> str:
 
 
 def get_updated_version_spec(spec: str, version: packaging.version.Version) -> str:
+    """
+    Given the old specifier and an updated version, returns an updated specifier that has the
+    specificity of the old specifier, but matches the updated version.
+
+    For example:
+    spec="1", version="1.2.3" -> "1.2.3"
+    spec="1.0.1", version="1.2.3" -> "1.2.3"
+    spec="1.*", version="1.2.3" -> "1.*"
+    spec="1.*", version="2.3.4" -> "2.*"
+    spec="1.1.*", version="1.2.3" -> "1.2.*"
+    spec="1.1.1.*", version="1.2.3" -> "1.2.3.*"
+    """
     if not spec.endswith(".*"):
         return _check_spec(version.base_version, version)
 
