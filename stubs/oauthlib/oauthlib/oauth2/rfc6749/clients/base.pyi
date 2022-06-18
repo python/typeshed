@@ -21,6 +21,9 @@ class Client:
     redirect_url: Any
     code: Any
     expires_in: Any
+    code_verifier: str
+    code_challenge: str
+    code_challenge_method: str
     def __init__(
         self,
         client_id,
@@ -35,6 +38,9 @@ class Client:
         state: Any | None = ...,
         redirect_url: Any | None = ...,
         state_generator=...,
+        code_verifier: str | None = ...,
+        code_challenge: str | None = ...,
+        code_challenge_method: str | None = ...,
         **kwargs,
     ) -> None: ...
     @property
