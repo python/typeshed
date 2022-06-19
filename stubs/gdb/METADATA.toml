@@ -7,6 +7,7 @@ extra_description = """\
   using `pip`.\
 """
 
+[tool.stubtest]
 # Since the "gdb" Python package is available only inside GDB, it is not
 # possible to install it through pip, so stub tests cannot install it.
-stubtest = false
+skip = true
