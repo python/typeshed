@@ -20,7 +20,7 @@ import tomli
 
 consistent_files = [{"stdlib/@python2/builtins.pyi", "stdlib/@python2/__builtin__.pyi"}]
 metadata_keys = {"version", "requires", "extra_description", "obsolete_since", "no_longer_updated", "tool"}
-stubtest_keys = {"skip", "apt_dependencies"}
+tool_keys = {"stubtest": {"skip", "apt_dependencies"}}
 allowed_files = {"README.md"}
 
 
@@ -177,9 +177,10 @@ def check_metadata() -> None:
                 for part in dep_version.split("."):
                     assert part.isnumeric(), f"Bad version '{part}' in dependency {dep}"
 
-        assert set(data.get("tool", [])).issubset({"stubtest"}), f"Unrecognised tool for {distribution}"
-        for key in data.get("tool", {}).get("stubtest", {}):
-            assert key in stubtest_keys, f"Unrecognised stubtest key {key} for {distribution}"
+        assert set(data.get("tool", [])).issubset(tool_keys.keys()), f"Unrecognised tool for {distribution}"
+        for tool, tk in tool_keys.items():
+            for key in data.get("tool", {}).get(tool, {}):
+                assert key in tk, f"Unrecognised {tool} key {key} for {distribution}"
 
 
 if __name__ == "__main__":
