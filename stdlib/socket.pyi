@@ -214,6 +214,8 @@ if sys.platform != "win32":
     from _socket import CMSG_LEN as CMSG_LEN, CMSG_SPACE as CMSG_SPACE, sethostname as sethostname
 if sys.platform != "win32" or sys.version_info >= (3, 8):
     from _socket import if_indextoname as if_indextoname, if_nameindex as if_nameindex, if_nametoindex as if_nametoindex
+if sys.platform == "darwin" and sys.version_info >= (3, 10):
+    from _socket import TCP_KEEPALIVE as TCP_KEEPALIVE
 if sys.platform == "linux":
     from _socket import (
         ALG_OP_DECRYPT as ALG_OP_DECRYPT,
