@@ -424,7 +424,7 @@ class AddressFamily(IntEnum):
             AF_VSOCK: int
         if sys.version_info >= (3, 8):
             AF_QIPCRTR: int
-    AF_LINK: AddressFamily  # availability: BSD, macOS
+    AF_LINK: int  # availability: BSD, macOS
     if sys.platform != "darwin":
         AF_BLUETOOTH: int
 
