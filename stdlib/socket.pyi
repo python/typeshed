@@ -261,6 +261,9 @@ if sys.platform != "darwin":
     if sys.platform != "win32" or sys.version_info >= (3, 9):
         from _socket import BDADDR_ANY as BDADDR_ANY, BDADDR_LOCAL as BDADDR_LOCAL, BTPROTO_RFCOMM as BTPROTO_RFCOMM
 
+if sys.platform == "darwin" and sys.version_info >= (3, 10):
+    from _socket import TCP_KEEPALIVE as TCP_KEEPALIVE
+
 if sys.platform == "linux":
     from _socket import (
         ALG_OP_DECRYPT as ALG_OP_DECRYPT,
