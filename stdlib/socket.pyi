@@ -425,7 +425,7 @@ class AddressFamily(IntEnum):
         if sys.version_info >= (3, 8):
             AF_QIPCRTR: AddressFamily
     AF_LINK: AddressFamily  # availability: BSD, macOS
-    if sys.platform != "win32" and sys.platform != "darwin":
+    if sys.platform != "darwin":
         AF_BLUETOOTH: AddressFamily
 
 AF_UNIX: AddressFamily
@@ -467,7 +467,7 @@ if sys.platform == "linux":
     if sys.version_info >= (3, 8):
         AF_QIPCRTR: AddressFamily
 AF_LINK: AddressFamily  # availability: BSD, macOS
-if sys.platform != "win32" and sys.platform != "darwin":
+if sys.platform != "darwin":
     AF_BLUETOOTH: AddressFamily
 
 class SocketKind(IntEnum):
