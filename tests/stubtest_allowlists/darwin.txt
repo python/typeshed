@@ -1,4 +1,5 @@
 _posixsubprocess.cloexec_pipe
+_socket.*
 os.EX_NOTFOUND
 os.SF_MNOWAIT
 os.SF_NODISKIO
@@ -9,6 +10,7 @@ readline.append_history_file  # not defined in macos
 select.KQ_FILTER_NETDEV  # system dependent
 select.kqueue.__init__  # default C signature is wrong
 select.POLLMSG   # system dependent
+socket.[A-Z0-9_]+
 
 # Exists at runtime, but missing from stubs
 distutils.msvccompiler.MSVCCompiler.get_msvc_paths

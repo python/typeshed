@@ -24,7 +24,6 @@ _collections_abc.Set.__rsub__
 _collections_abc.Set.__rxor__
 
 _csv.Dialect.__init__  # C __init__ signature is inaccurate
-_socket.*
 _threading_local.local.__new__
 _weakref.ref.*  # Alias for _weakref.ReferenceType, problems should be fixed there
 _weakref.CallableProxyType.__getattr__  # Should have all attributes of proxy
@@ -522,7 +521,6 @@ os.O_[A-Z_]+
 (posix.O_[A-Z_]+)?
 (posix.ST_[A-Z]+)?
 socket.AF_DECnet
-socket.[A-Z0-9_]+
 (termios.[A-Z0-9_]+)?
 
 # Loadable SQLite extensions are disabled on GitHub runners
