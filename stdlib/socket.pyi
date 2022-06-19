@@ -46,18 +46,12 @@ from _socket import (
     IPPROTO_TCP as IPPROTO_TCP,
     IPPROTO_UDP as IPPROTO_UDP,
     IPV6_CHECKSUM as IPV6_CHECKSUM,
-    IPV6_DONTFRAG as IPV6_DONTFRAG,
-    IPV6_HOPLIMIT as IPV6_HOPLIMIT,
-    IPV6_HOPOPTS as IPV6_HOPOPTS,
     IPV6_JOIN_GROUP as IPV6_JOIN_GROUP,
     IPV6_LEAVE_GROUP as IPV6_LEAVE_GROUP,
     IPV6_MULTICAST_HOPS as IPV6_MULTICAST_HOPS,
     IPV6_MULTICAST_IF as IPV6_MULTICAST_IF,
     IPV6_MULTICAST_LOOP as IPV6_MULTICAST_LOOP,
-    IPV6_PKTINFO as IPV6_PKTINFO,
-    IPV6_RECVRTHDR as IPV6_RECVRTHDR,
     IPV6_RECVTCLASS as IPV6_RECVTCLASS,
-    IPV6_RTHDR as IPV6_RTHDR,
     IPV6_TCLASS as IPV6_TCLASS,
     IPV6_UNICAST_HOPS as IPV6_UNICAST_HOPS,
     IPV6_V6ONLY as IPV6_V6ONLY,
@@ -76,7 +70,6 @@ from _socket import (
     SO_DEBUG as SO_DEBUG,
     SO_DONTROUTE as SO_DONTROUTE,
     SO_ERROR as SO_ERROR,
-    SO_EXCLUSIVEADDRUSE as SO_EXCLUSIVEADDRUSE,
     SO_KEEPALIVE as SO_KEEPALIVE,
     SO_LINGER as SO_LINGER,
     SO_OOBINLINE as SO_OOBINLINE,
@@ -127,43 +120,91 @@ from _socket import (
     timeout as timeout,
 )
 
-if sys.platform != "win32" or sys.version_info >= (3, 10):
+if sys.platform != "darwin" or sys.version_info >= (3, 9):
+    from _socket import (
+        IPV6_DONTFRAG as IPV6_DONTFRAG,
+        IPV6_HOPLIMIT as IPV6_HOPLIMIT,
+        IPV6_HOPOPTS as IPV6_HOPOPTS,
+        IPV6_PKTINFO as IPV6_PKTINFO,
+        IPV6_RECVRTHDR as IPV6_RECVRTHDR,
+        IPV6_RTHDR as IPV6_RTHDR,
+    )
+
+if sys.platform != "darwin":
+    from _socket import SO_EXCLUSIVEADDRUSE as SO_EXCLUSIVEADDRUSE
+
+if sys.version_info >= (3, 10) or (sys.platform != "darwin" and sys.platform != "win32"):
     from _socket import IP_RECVTOS as IP_RECVTOS
 
 if sys.version_info >= (3, 7):
     from _socket import close as close
 
 if sys.platform != "win32" or sys.version_info >= (3, 7):
-    from _socket import TCP_KEEPIDLE as TCP_KEEPIDLE, TCP_KEEPINTVL as TCP_KEEPINTVL
+    from _socket import TCP_KEEPINTVL as TCP_KEEPINTVL
+
+    if sys.platform != "darwin":
+        from _socket import TCP_KEEPIDLE as TCP_KEEPIDLE
 
 if sys.platform != "win32" or sys.version_info >= (3, 8):
     from _socket import (
         IPPROTO_AH as IPPROTO_AH,
-        IPPROTO_CBT as IPPROTO_CBT,
         IPPROTO_DSTOPTS as IPPROTO_DSTOPTS,
         IPPROTO_EGP as IPPROTO_EGP,
         IPPROTO_ESP as IPPROTO_ESP,
         IPPROTO_FRAGMENT as IPPROTO_FRAGMENT,
         IPPROTO_GGP as IPPROTO_GGP,
         IPPROTO_HOPOPTS as IPPROTO_HOPOPTS,
-        IPPROTO_ICLFXBM as IPPROTO_ICLFXBM,
         IPPROTO_ICMPV6 as IPPROTO_ICMPV6,
         IPPROTO_IDP as IPPROTO_IDP,
         IPPROTO_IGMP as IPPROTO_IGMP,
-        IPPROTO_IGP as IPPROTO_IGP,
         IPPROTO_IPV4 as IPPROTO_IPV4,
         IPPROTO_IPV6 as IPPROTO_IPV6,
-        IPPROTO_L2TP as IPPROTO_L2TP,
         IPPROTO_MAX as IPPROTO_MAX,
         IPPROTO_ND as IPPROTO_ND,
         IPPROTO_NONE as IPPROTO_NONE,
-        IPPROTO_PGM as IPPROTO_PGM,
         IPPROTO_PIM as IPPROTO_PIM,
         IPPROTO_PUP as IPPROTO_PUP,
-        IPPROTO_RDP as IPPROTO_RDP,
         IPPROTO_ROUTING as IPPROTO_ROUTING,
         IPPROTO_SCTP as IPPROTO_SCTP,
-        IPPROTO_ST as IPPROTO_ST,
+    )
+
+    if sys.platform != "darwin":
+        from _socket import (
+            IPPROTO_CBT as IPPROTO_CBT,
+            IPPROTO_ICLFXBM as IPPROTO_ICLFXBM,
+            IPPROTO_IGP as IPPROTO_IGP,
+            IPPROTO_L2TP as IPPROTO_L2TP,
+            IPPROTO_PGM as IPPROTO_PGM,
+            IPPROTO_RDP as IPPROTO_RDP,
+            IPPROTO_ST as IPPROTO_ST,
+        )
+if sys.platform != "win32" and sys.platform != "darwin":
+    from _socket import (
+        IP_TRANSPARENT as IP_TRANSPARENT,
+        IPPROTO_BIP as IPPROTO_BIP,
+        IPPROTO_MOBILE as IPPROTO_MOBILE,
+        IPPROTO_VRRP as IPPROTO_VRRP,
+        IPX_TYPE as IPX_TYPE,
+        SCM_CREDENTIALS as SCM_CREDENTIALS,
+        SO_BINDTODEVICE as SO_BINDTODEVICE,
+        SO_MARK as SO_MARK,
+        SO_PASSCRED as SO_PASSCRED,
+        SO_PEERCRED as SO_PEERCRED,
+        SO_PRIORITY as SO_PRIORITY,
+        SO_SETFIB as SO_SETFIB,
+        SOL_ATALK as SOL_ATALK,
+        SOL_AX25 as SOL_AX25,
+        SOL_HCI as SOL_HCI,
+        SOL_IPX as SOL_IPX,
+        SOL_NETROM as SOL_NETROM,
+        SOL_ROSE as SOL_ROSE,
+        TCP_CORK as TCP_CORK,
+        TCP_DEFER_ACCEPT as TCP_DEFER_ACCEPT,
+        TCP_INFO as TCP_INFO,
+        TCP_LINGER2 as TCP_LINGER2,
+        TCP_QUICKACK as TCP_QUICKACK,
+        TCP_SYNCNT as TCP_SYNCNT,
+        TCP_WINDOW_CLAMP as TCP_WINDOW_CLAMP,
     )
 if sys.platform != "win32":
     from _socket import (
@@ -181,56 +222,36 @@ if sys.platform != "win32":
         IP_RECVOPTS as IP_RECVOPTS,
         IP_RECVRETOPTS as IP_RECVRETOPTS,
         IP_RETOPTS as IP_RETOPTS,
-        IP_TRANSPARENT as IP_TRANSPARENT,
-        IPPROTO_BIP as IPPROTO_BIP,
         IPPROTO_EON as IPPROTO_EON,
         IPPROTO_GRE as IPPROTO_GRE,
         IPPROTO_HELLO as IPPROTO_HELLO,
         IPPROTO_IPCOMP as IPPROTO_IPCOMP,
         IPPROTO_IPIP as IPPROTO_IPIP,
-        IPPROTO_MOBILE as IPPROTO_MOBILE,
         IPPROTO_RSVP as IPPROTO_RSVP,
         IPPROTO_TP as IPPROTO_TP,
-        IPPROTO_VRRP as IPPROTO_VRRP,
         IPPROTO_XTP as IPPROTO_XTP,
-        IPV6_DSTOPTS as IPV6_DSTOPTS,
-        IPV6_NEXTHOP as IPV6_NEXTHOP,
-        IPV6_PATHMTU as IPV6_PATHMTU,
-        IPV6_RECVDSTOPTS as IPV6_RECVDSTOPTS,
-        IPV6_RECVHOPLIMIT as IPV6_RECVHOPLIMIT,
-        IPV6_RECVHOPOPTS as IPV6_RECVHOPOPTS,
-        IPV6_RECVPATHMTU as IPV6_RECVPATHMTU,
-        IPV6_RECVPKTINFO as IPV6_RECVPKTINFO,
         IPV6_RTHDR_TYPE_0 as IPV6_RTHDR_TYPE_0,
-        IPV6_RTHDRDSTOPTS as IPV6_RTHDRDSTOPTS,
-        IPV6_USE_MIN_MTU as IPV6_USE_MIN_MTU,
-        IPX_TYPE as IPX_TYPE,
         LOCAL_PEERCRED as LOCAL_PEERCRED,
-        SCM_CREDENTIALS as SCM_CREDENTIALS,
         SCM_CREDS as SCM_CREDS,
         SCM_RIGHTS as SCM_RIGHTS,
-        SO_BINDTODEVICE as SO_BINDTODEVICE,
-        SO_MARK as SO_MARK,
-        SO_PASSCRED as SO_PASSCRED,
-        SO_PEERCRED as SO_PEERCRED,
-        SO_PRIORITY as SO_PRIORITY,
         SO_REUSEPORT as SO_REUSEPORT,
-        SO_SETFIB as SO_SETFIB,
-        SOL_ATALK as SOL_ATALK,
-        SOL_AX25 as SOL_AX25,
-        SOL_HCI as SOL_HCI,
-        SOL_IPX as SOL_IPX,
-        SOL_NETROM as SOL_NETROM,
-        SOL_ROSE as SOL_ROSE,
-        TCP_CORK as TCP_CORK,
-        TCP_DEFER_ACCEPT as TCP_DEFER_ACCEPT,
-        TCP_INFO as TCP_INFO,
-        TCP_LINGER2 as TCP_LINGER2,
-        TCP_QUICKACK as TCP_QUICKACK,
-        TCP_SYNCNT as TCP_SYNCNT,
-        TCP_WINDOW_CLAMP as TCP_WINDOW_CLAMP,
         sethostname as sethostname,
     )
+
+    if sys.platform != "darwin" or sys.version_info >= (3, 9):
+        from _socket import (
+            IPV6_DSTOPTS as IPV6_DSTOPTS,
+            IPV6_NEXTHOP as IPV6_NEXTHOP,
+            IPV6_PATHMTU as IPV6_PATHMTU,
+            IPV6_RECVDSTOPTS as IPV6_RECVDSTOPTS,
+            IPV6_RECVHOPLIMIT as IPV6_RECVHOPLIMIT,
+            IPV6_RECVHOPOPTS as IPV6_RECVHOPOPTS,
+            IPV6_RECVPATHMTU as IPV6_RECVPATHMTU,
+            IPV6_RECVPKTINFO as IPV6_RECVPKTINFO,
+            IPV6_RTHDRDSTOPTS as IPV6_RTHDRDSTOPTS,
+            IPV6_USE_MIN_MTU as IPV6_USE_MIN_MTU,
+        )
+
 if sys.platform != "win32" or sys.version_info >= (3, 8):
     from _socket import if_indextoname as if_indextoname, if_nameindex as if_nameindex, if_nametoindex as if_nametoindex
 
@@ -337,12 +358,13 @@ if sys.platform == "linux" and sys.version_info >= (3, 7):
         SO_VM_SOCKETS_BUFFER_MAX_SIZE as SO_VM_SOCKETS_BUFFER_MAX_SIZE,
         SO_VM_SOCKETS_BUFFER_MIN_SIZE as SO_VM_SOCKETS_BUFFER_MIN_SIZE,
         SO_VM_SOCKETS_BUFFER_SIZE as SO_VM_SOCKETS_BUFFER_SIZE,
-        TCP_NOTSENT_LOWAT as TCP_NOTSENT_LOWAT,
         VM_SOCKETS_INVALID_VERSION as VM_SOCKETS_INVALID_VERSION,
         VMADDR_CID_ANY as VMADDR_CID_ANY,
         VMADDR_CID_HOST as VMADDR_CID_HOST,
         VMADDR_PORT_ANY as VMADDR_PORT_ANY,
     )
+if sys.platform != "win32" and sys.version_info >= (3, 7):
+    from _socket import TCP_NOTSENT_LOWAT as TCP_NOTSENT_LOWAT
 if sys.platform == "linux" and sys.version_info >= (3, 8):
     from _socket import (
         CAN_BCM_CAN_FD_FRAME as CAN_BCM_CAN_FD_FRAME,
@@ -412,11 +434,15 @@ class AddressFamily(IntEnum):
     AF_APPLETALK: int
     AF_DECnet: int
     AF_IPX: int
-    AF_IRDA: int
     AF_SNA: int
     AF_UNSPEC: int
+    if sys.platform != "darwin":
+        AF_IRDA: int
     if sys.platform != "win32":
+        AF_ROUTE: int
+        AF_SYSTEM: int
         AF_UNIX: int
+    if sys.platform != "darwin" and sys.platform != "win32":
         AF_AAL5: int
         AF_ASH: int
         AF_ATMPVC: int
@@ -430,9 +456,7 @@ class AddressFamily(IntEnum):
         AF_NETROM: int
         AF_PPPOX: int
         AF_ROSE: int
-        AF_ROUTE: int
         AF_SECURITY: int
-        AF_SYSTEM: int
         AF_WANPIPE: int
         AF_X25: int
     if sys.platform == "linux":
@@ -456,12 +480,18 @@ AF_INET6 = AddressFamily.AF_INET6
 AF_APPLETALK = AddressFamily.AF_APPLETALK
 AF_DECnet = AddressFamily.AF_DECnet
 AF_IPX = AddressFamily.AF_IPX
-AF_IRDA = AddressFamily.AF_IRDA
 AF_SNA = AddressFamily.AF_SNA
 AF_UNSPEC = AddressFamily.AF_UNSPEC
 
+if sys.platform != "darwin":
+    AF_IRDA = AddressFamily.AF_IRDA
+
 if sys.platform != "win32":
+    AF_ROUTE = AddressFamily.AF_ROUTE
+    AF_SYSTEM = AddressFamily.AF_SYSTEM
     AF_UNIX = AddressFamily.AF_UNIX
+
+if sys.platform != "win32" and sys.platform != "darwin":
     AF_AAL5 = AddressFamily.AF_AAL5
     AF_ASH = AddressFamily.AF_ASH
     AF_ATMPVC = AddressFamily.AF_ATMPVC
@@ -475,9 +505,7 @@ if sys.platform != "win32":
     AF_NETROM = AddressFamily.AF_NETROM
     AF_PPPOX = AddressFamily.AF_PPPOX
     AF_ROSE = AddressFamily.AF_ROSE
-    AF_ROUTE = AddressFamily.AF_ROUTE
     AF_SECURITY = AddressFamily.AF_SECURITY
-    AF_SYSTEM = AddressFamily.AF_SYSTEM
     AF_WANPIPE = AddressFamily.AF_WANPIPE
     AF_X25 = AddressFamily.AF_X25
 
@@ -518,54 +546,62 @@ if sys.platform == "linux":
     SOCK_NONBLOCK = SocketKind.SOCK_NONBLOCK
 
 class MsgFlag(IntFlag):
-    MSG_BCAST: int
     MSG_CTRUNC: int
     MSG_DONTROUTE: int
-    MSG_MCAST: int
     MSG_OOB: int
     MSG_PEEK: int
     MSG_TRUNC: int
     MSG_WAITALL: int
 
-    if sys.platform != "win32" or sys.version_info >= (3, 7):
+    if sys.platform != "darwin":
+        MSG_BCAST: int
+        MSG_MCAST: int
+
+    if sys.platform != "darwin" and (sys.platform != "win32" or sys.version_info >= (3, 7)):
         MSG_ERRQUEUE: int
 
-    if sys.platform != "win32":
+    if sys.platform != "win32" and sys.platform != "darwin":
         MSG_BTAG: int
         MSG_CMSG_CLOEXEC: int
         MSG_CONFIRM: int
-        MSG_DONTWAIT: int
-        MSG_EOF: int
-        MSG_EOR: int
         MSG_ETAG: int
         MSG_FASTOPEN: int
         MSG_MORE: int
-        MSG_NOSIGNAL: int
         MSG_NOTIFICATION: int
 
-MSG_BCAST = MsgFlag.MSG_BCAST
+    if sys.platform != "win32":
+        MSG_DONTWAIT: int
+        MSG_EOF: int
+        MSG_EOR: int
+        MSG_NOSIGNAL: int  # sometimes this exists on darwin, sometimes not
+
 MSG_CTRUNC = MsgFlag.MSG_CTRUNC
 MSG_DONTROUTE = MsgFlag.MSG_DONTROUTE
-MSG_MCAST = MsgFlag.MSG_MCAST
 MSG_OOB = MsgFlag.MSG_OOB
 MSG_PEEK = MsgFlag.MSG_PEEK
 MSG_TRUNC = MsgFlag.MSG_TRUNC
 MSG_WAITALL = MsgFlag.MSG_WAITALL
 
-if sys.platform != "win32" or sys.version_info >= (3, 7):
+if sys.platform != "darwin":
+    MSG_BCAST = MsgFlag.MSG_BCAST
+    MSG_MCAST = MsgFlag.MSG_MCAST
+
+if sys.platform != "darwin" and (sys.platform != "win32" or sys.version_info >= (3, 7)):
     MSG_ERRQUEUE = MsgFlag.MSG_ERRQUEUE
 
 if sys.platform != "win32":
-    MSG_BTAG = MsgFlag.MSG_BTAG
-    MSG_CMSG_CLOEXEC = MsgFlag.MSG_CMSG_CLOEXEC
-    MSG_CONFIRM = MsgFlag.MSG_CONFIRM
     MSG_DONTWAIT = MsgFlag.MSG_DONTWAIT
     MSG_EOF = MsgFlag.MSG_EOF
     MSG_EOR = MsgFlag.MSG_EOR
+    MSG_NOSIGNAL = MsgFlag.MSG_NOSIGNAL  # Sometimes this exists on darwin, sometimes not
+
+if sys.platform != "win32" and sys.platform != "darwin":
+    MSG_BTAG = MsgFlag.MSG_BTAG
+    MSG_CMSG_CLOEXEC = MsgFlag.MSG_CMSG_CLOEXEC
+    MSG_CONFIRM = MsgFlag.MSG_CONFIRM
     MSG_ETAG = MsgFlag.MSG_ETAG
     MSG_FASTOPEN = MsgFlag.MSG_FASTOPEN
     MSG_MORE = MsgFlag.MSG_MORE
-    MSG_NOSIGNAL = MsgFlag.MSG_NOSIGNAL
     MSG_NOTIFICATION = MsgFlag.MSG_NOTIFICATION
 
 class AddressInfo(IntFlag):

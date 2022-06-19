@@ -23,12 +23,10 @@ xmlrpc.server.fcntl
 
 # Exists at runtime, but missing from stubs
 _msi.MSIError
-_socket.CAPI
 distutils.msvccompiler.MSVCCompiler.manifest_get_embed_info
 distutils.msvccompiler.MSVCCompiler.manifest_setup_ldargs
 distutils.msvccompiler.OldMSVCCompiler
 msvcrt.SetErrorMode
-socket.CAPI
 ssl.SSLSocket.recvmsg
 ssl.SSLSocket.recvmsg_into
 ssl.SSLSocket.sendmsg
@@ -40,7 +38,6 @@ winreg.HKEYType.handle
 # ==========
 
 # Aliases for OSError
-_socket.error.characters_written
 builtins.WindowsError.characters_written
 winreg.error.characters_written
 

@@ -47,11 +47,18 @@ if sys.platform == "linux":
 AF_APPLETALK: int
 AF_DECnet: int
 AF_IPX: int
-AF_IRDA: int
 AF_SNA: int
 AF_UNSPEC: int
 
 if sys.platform != "win32":
+    AF_ROUTE: int
+    AF_SYSTEM: int
+    AF_UNIX: int
+
+if sys.platform != "darwin":
+    AF_IRDA: int
+
+if sys.platform != "darwin" and sys.platform != "win32":
     AF_AAL5: int
     AF_ASH: int
     AF_ATMPVC: int
@@ -65,10 +72,7 @@ if sys.platform != "win32":
     AF_NETROM: int
     AF_PPPOX: int
     AF_ROSE: int
-    AF_ROUTE: int
     AF_SECURITY: int
-    AF_SYSTEM: int
-    AF_UNIX: int
     AF_WANPIPE: int
     AF_X25: int
 
@@ -102,31 +106,33 @@ IPPORT_USERRESERVED: int
 
 if sys.platform != "win32" or sys.version_info >= (3, 8):
     IPPROTO_AH: int
-    IPPROTO_CBT: int
     IPPROTO_DSTOPTS: int
     IPPROTO_EGP: int
     IPPROTO_ESP: int
     IPPROTO_FRAGMENT: int
     IPPROTO_GGP: int
     IPPROTO_HOPOPTS: int
-    IPPROTO_ICLFXBM: int
     IPPROTO_ICMPV6: int
     IPPROTO_IDP: int
     IPPROTO_IGMP: int
-    IPPROTO_IGP: int
     IPPROTO_IPV4: int
     IPPROTO_IPV6: int
-    IPPROTO_L2TP: int
     IPPROTO_MAX: int
     IPPROTO_ND: int
     IPPROTO_NONE: int
-    IPPROTO_PGM: int
     IPPROTO_PIM: int
     IPPROTO_PUP: int
-    IPPROTO_RDP: int
     IPPROTO_ROUTING: int
     IPPROTO_SCTP: int
-    IPPROTO_ST: int
+
+    if sys.platform != "darwin":
+        IPPROTO_CBT: int
+        IPPROTO_ICLFXBM: int
+        IPPROTO_IGP: int
+        IPPROTO_L2TP: int
+        IPPROTO_PGM: int
+        IPPROTO_RDP: int
+        IPPROTO_ST: int
 
 IPPROTO_ICMP: int
 IPPROTO_IP: int
@@ -134,21 +140,24 @@ IPPROTO_RAW: int
 IPPROTO_TCP: int
 IPPROTO_UDP: int
 IPV6_CHECKSUM: int
-IPV6_DONTFRAG: int
-IPV6_HOPLIMIT: int
-IPV6_HOPOPTS: int
 IPV6_JOIN_GROUP: int
 IPV6_LEAVE_GROUP: int
 IPV6_MULTICAST_HOPS: int
 IPV6_MULTICAST_IF: int
 IPV6_MULTICAST_LOOP: int
-IPV6_PKTINFO: int
-IPV6_RECVRTHDR: int
 IPV6_RECVTCLASS: int
-IPV6_RTHDR: int
 IPV6_TCLASS: int
 IPV6_UNICAST_HOPS: int
 IPV6_V6ONLY: int
+
+if sys.platform != "darwin" or sys.version_info >= (3, 9):
+    IPV6_DONTFRAG: int
+    IPV6_HOPLIMIT: int
+    IPV6_HOPOPTS: int
+    IPV6_PKTINFO: int
+    IPV6_RECVRTHDR: int
+    IPV6_RTHDR: int
+
 IP_ADD_MEMBERSHIP: int
 IP_DROP_MEMBERSHIP: int
 IP_HDRINCL: int
@@ -157,18 +166,16 @@ IP_MULTICAST_LOOP: int
 IP_MULTICAST_TTL: int
 IP_OPTIONS: int
 IP_RECVDSTADDR: int
-if sys.platform != "win32" or sys.version_info >= (3, 10):
+if sys.version_info >= (3, 10) or (sys.platform != "win32" and sys.platform != "darwin"):
     IP_RECVTOS: int
 IP_TOS: int
 IP_TTL: int
-MSG_BCAST: int
 MSG_CTRUNC: int
 MSG_DONTROUTE: int
 
-if sys.platform != "win32" or sys.version_info >= (3, 7):
+if sys.platform != "darwin" and (sys.platform != "win32" or sys.version_info >= (3, 7)):
     MSG_ERRQUEUE: int
 
-MSG_MCAST: int
 MSG_OOB: int
 MSG_PEEK: int
 MSG_TRUNC: int
@@ -192,7 +199,6 @@ SO_BROADCAST: int
 SO_DEBUG: int
 SO_DONTROUTE: int
 SO_ERROR: int
-SO_EXCLUSIVEADDRUSE: int
 SO_KEEPALIVE: int
 SO_LINGER: int
 SO_OOBINLINE: int
@@ -211,8 +217,9 @@ TCP_FASTOPEN: int
 TCP_KEEPCNT: int
 
 if sys.platform != "win32" or sys.version_info >= (3, 7):
-    TCP_KEEPIDLE: int
     TCP_KEEPINTVL: int
+    if sys.platform != "darwin":
+        TCP_KEEPIDLE: int
 
 TCP_MAXSEG: int
 TCP_NODELAY: int
@@ -220,6 +227,11 @@ if sys.version_info >= (3, 7) and sys.platform != "win32":
     TCP_NOTSENT_LOWAT: int
 if sys.version_info >= (3, 11) and sys.platform == "darwin":
     TCP_CONNECTION_INFO: int
+
+if sys.platform != "darwin":
+    MSG_BCAST: int
+    MSG_MCAST: int
+    SO_EXCLUSIVEADDRUSE: int
 
 if sys.platform != "win32":
     AI_DEFAULT: int
@@ -231,17 +243,31 @@ if sys.platform != "win32":
     EAI_OVERFLOW: int
     EAI_PROTOCOL: int
     EAI_SYSTEM: int
-    IPPROTO_BIP: int
     IPPROTO_EON: int
     IPPROTO_GRE: int
     IPPROTO_HELLO: int
     IPPROTO_IPCOMP: int
     IPPROTO_IPIP: int
-    IPPROTO_MOBILE: int
     IPPROTO_RSVP: int
     IPPROTO_TP: int
-    IPPROTO_VRRP: int
     IPPROTO_XTP: int
+    IPV6_RTHDR_TYPE_0: int
+    IP_DEFAULT_MULTICAST_LOOP: int
+    IP_DEFAULT_MULTICAST_TTL: int
+    IP_MAX_MEMBERSHIPS: int
+    IP_RECVOPTS: int
+    IP_RECVRETOPTS: int
+    IP_RETOPTS: int
+    LOCAL_PEERCRED: int
+    MSG_DONTWAIT: int
+    MSG_EOF: int
+    MSG_EOR: int
+    MSG_NOSIGNAL: int  # Sometimes this exists on darwin, sometimes not
+    SCM_CREDS: int
+    SCM_RIGHTS: int
+    SO_REUSEPORT: int
+
+if sys.platform != "win32" and (sys.platform != "darwin" or sys.version_info >= (3, 9)):
     IPV6_DSTOPTS: int
     IPV6_NEXTHOP: int
     IPV6_PATHMTU: int
@@ -251,31 +277,22 @@ if sys.platform != "win32":
     IPV6_RECVPATHMTU: int
     IPV6_RECVPKTINFO: int
     IPV6_RTHDRDSTOPTS: int
-    IPV6_RTHDR_TYPE_0: int
     IPV6_USE_MIN_MTU: int
+
+if sys.platform != "win32" and sys.platform != "darwin":
+    IPPROTO_BIP: int
+    IPPROTO_MOBILE: int
+    IPPROTO_VRRP: int
     IPX_TYPE: int
-    IP_DEFAULT_MULTICAST_LOOP: int
-    IP_DEFAULT_MULTICAST_TTL: int
-    IP_MAX_MEMBERSHIPS: int
-    IP_RECVOPTS: int
-    IP_RECVRETOPTS: int
-    IP_RETOPTS: int
     IP_TRANSPARENT: int
-    LOCAL_PEERCRED: int
     MSG_BTAG: int
     MSG_CMSG_CLOEXEC: int
     MSG_CONFIRM: int
-    MSG_DONTWAIT: int
-    MSG_EOF: int
-    MSG_EOR: int
     MSG_ETAG: int
     MSG_FASTOPEN: int
     MSG_MORE: int
-    MSG_NOSIGNAL: int
     MSG_NOTIFICATION: int
     SCM_CREDENTIALS: int
-    SCM_CREDS: int
-    SCM_RIGHTS: int
     SOL_ATALK: int
     SOL_AX25: int
     SOL_HCI: int
@@ -287,7 +304,6 @@ if sys.platform != "win32":
     SO_PASSCRED: int
     SO_PEERCRED: int
     SO_PRIORITY: int
-    SO_REUSEPORT: int
     SO_SETFIB: int
     TCP_CORK: int
     TCP_DEFER_ACCEPT: int
@@ -485,7 +501,7 @@ if sys.platform != "win32" or sys.version_info >= (3, 9):
 
 # BDADDR_* and HCI_* listed with other bluetooth constants below
 
-if sys.platform != "win32":
+if sys.platform != "win32" and sys.platform != "darwin":
     SO_DOMAIN: int
     SO_PASSSEC: int
     SO_PEERSEC: int

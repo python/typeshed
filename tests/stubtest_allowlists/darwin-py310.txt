@@ -3,6 +3,10 @@ _?curses.color_pair
 webbrowser.MacOSXOSAScript.__init__
 distutils.util.__warningregistry__
 
+# Exists at runtime, missing from stub
+_socket.TCP_KEEPALIVE
+socket.TCP_KEEPALIVE
+
 # Github Actions on macOS with Python 3.10.5 claims these are missing, but they do exist locally
 (locale.bind_textdomain_codeset)?
 (locale.bindtextdomain)?
