@@ -390,39 +390,43 @@ class AddressFamily(IntEnum):
     AF_INET: int
     AF_INET6: int
     AF_AAL5: int
-    AF_ALG: int
     AF_APPLETALK: int
     AF_ASH: int
     AF_ATMPVC: int
     AF_ATMSVC: int
     AF_AX25: int
-    AF_BLUETOOTH: int
     AF_BRIDGE: int
-    AF_CAN: int
     AF_DECnet: int
     AF_ECONET: int
     AF_IPX: int
     AF_IRDA: int
     AF_KEY: int
-    AF_LINK: int
     AF_LLC: int
     AF_NETBEUI: int
-    AF_NETLINK: int
     AF_NETROM: int
-    AF_PACKET: int
     AF_PPPOX: int
-    AF_QIPCRTR: int
-    AF_RDS: int
     AF_ROSE: int
     AF_ROUTE: int
     AF_SECURITY: int
     AF_SNA: int
     AF_SYSTEM: int
-    AF_TIPC: int
     AF_UNSPEC: int
-    AF_VSOCK: int
     AF_WANPIPE: int
     AF_X25: int
+    if sys.platform == "linux":
+        AF_CAN: AddressFamily
+        AF_PACKET: AddressFamily
+        AF_RDS: AddressFamily
+        AF_TIPC: AddressFamily
+        AF_ALG: AddressFamily
+        AF_NETLINK: AddressFamily
+        if sys.version_info >= (3, 7):
+            AF_VSOCK: AddressFamily
+        if sys.version_info >= (3, 8):
+            AF_QIPCRTR: AddressFamily
+    AF_LINK: AddressFamily  # availability: BSD, macOS
+    if sys.platform != "win32" and sys.platform != "darwin":
+        AF_BLUETOOTH: AddressFamily
 
 AF_UNIX: AddressFamily
 AF_INET: AddressFamily
@@ -472,8 +476,9 @@ class SocketKind(IntEnum):
     SOCK_RAW: int
     SOCK_RDM: int
     SOCK_SEQPACKET: int
-    SOCK_CLOEXEC: int
-    SOCK_NONBLOCK: int
+    if sys.platform == "linux":
+        SOCK_CLOEXEC: int
+        SOCK_NONBLOCK: int
 
 SOCK_STREAM: SocketKind
 SOCK_DGRAM: SocketKind
@@ -485,10 +490,22 @@ if sys.platform == "linux":
     SOCK_NONBLOCK: SocketKind
 
 class MsgFlag(IntFlag):
+    MSG_BCAST: int
+    MSG_BTAG: int
+    MSG_CMSG_CLOEXEC: int
+    MSG_CONFIRM: int
     MSG_CTRUNC: int
     MSG_DONTROUTE: int
     MSG_DONTWAIT: int
+    MSG_EOF: int
     MSG_EOR: int
+    MSG_ERRQUEUE: int
+    MSG_ETAG: int
+    MSG_FASTOPEN: int
+    MSG_MCAST: int
+    MSG_MORE: int
+    MSG_NOSIGNAL: int
+    MSG_NOTIFICATION: int
     MSG_OOB: int
     MSG_PEEK: int
     MSG_TRUNC: int
@@ -519,10 +536,13 @@ class AddressInfo(IntFlag):
     AI_ADDRCONFIG: int
     AI_ALL: int
     AI_CANONNAME: int
+    AI_DEFAULT: int
+    AI_MASK: int
     AI_NUMERICHOST: int
     AI_NUMERICSERV: int
     AI_PASSIVE: int
     AI_V4MAPPED: int
+    AI_V4MAPPED_CFG: int
 
 AI_ADDRCONFIG: AddressInfo
 AI_ALL: AddressInfo
