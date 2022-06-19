@@ -166,15 +166,18 @@ IP_MULTICAST_LOOP: int
 IP_MULTICAST_TTL: int
 IP_OPTIONS: int
 IP_RECVDSTADDR: int
-if sys.version_info >= (3, 10) or (sys.platform != "win32" and sys.platform != "darwin"):
+if sys.version_info >= (3, 10):
+    IP_RECVTOS: int
+elif sys.platform != "win32" and sys.platform != "darwin":
     IP_RECVTOS: int
 IP_TOS: int
 IP_TTL: int
 MSG_CTRUNC: int
 MSG_DONTROUTE: int
 
-if sys.platform != "darwin" and (sys.platform != "win32" or sys.version_info >= (3, 7)):
-    MSG_ERRQUEUE: int
+if sys.platform != "darwin":
+    if sys.platform != "win32" or sys.version_info >= (3, 7):
+        MSG_ERRQUEUE: int
 
 MSG_OOB: int
 MSG_PEEK: int
@@ -267,17 +270,18 @@ if sys.platform != "win32":
     SCM_RIGHTS: int
     SO_REUSEPORT: int
 
-if sys.platform != "win32" and (sys.platform != "darwin" or sys.version_info >= (3, 9)):
-    IPV6_DSTOPTS: int
-    IPV6_NEXTHOP: int
-    IPV6_PATHMTU: int
-    IPV6_RECVDSTOPTS: int
-    IPV6_RECVHOPLIMIT: int
-    IPV6_RECVHOPOPTS: int
-    IPV6_RECVPATHMTU: int
-    IPV6_RECVPKTINFO: int
-    IPV6_RTHDRDSTOPTS: int
-    IPV6_USE_MIN_MTU: int
+if sys.platform != "win32":
+    if sys.platform != "darwin" or sys.version_info >= (3, 9):
+        IPV6_DSTOPTS: int
+        IPV6_NEXTHOP: int
+        IPV6_PATHMTU: int
+        IPV6_RECVDSTOPTS: int
+        IPV6_RECVHOPLIMIT: int
+        IPV6_RECVHOPOPTS: int
+        IPV6_RECVPATHMTU: int
+        IPV6_RECVPKTINFO: int
+        IPV6_RTHDRDSTOPTS: int
+        IPV6_USE_MIN_MTU: int
 
 if sys.platform != "win32" and sys.platform != "darwin":
     IPPROTO_BIP: int
@@ -533,11 +537,12 @@ if sys.platform == "linux":
     NETLINK_W1: int
     NETLINK_XFRM: int
 
-if sys.platform != "darwin" and (sys.platform != "win32" or sys.version_info >= (3, 9)):
-    AF_BLUETOOTH: int
-    BDADDR_ANY: str
-    BDADDR_LOCAL: str
-    BTPROTO_RFCOMM: int
+if sys.platform != "darwin":
+    if sys.platform != "win32" or sys.version_info >= (3, 9):
+        AF_BLUETOOTH: int
+        BDADDR_ANY: str
+        BDADDR_LOCAL: str
+        BTPROTO_RFCOMM: int
 
 if sys.platform != "win32" and sys.platform != "darwin":
     # Linux and some BSD support is explicit in the docs

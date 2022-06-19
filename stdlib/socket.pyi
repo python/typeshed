@@ -133,7 +133,9 @@ if sys.platform != "darwin" or sys.version_info >= (3, 9):
 if sys.platform != "darwin":
     from _socket import SO_EXCLUSIVEADDRUSE as SO_EXCLUSIVEADDRUSE
 
-if sys.version_info >= (3, 10) or (sys.platform != "darwin" and sys.platform != "win32"):
+if sys.version_info >= (3, 10):
+    from _socket import IP_RECVTOS as IP_RECVTOS
+elif sys.platform != "darwin" and sys.platform != "win32":
     from _socket import IP_RECVTOS as IP_RECVTOS
 
 if sys.version_info >= (3, 7):
@@ -255,8 +257,10 @@ if sys.platform != "win32":
 if sys.platform != "win32" or sys.version_info >= (3, 8):
     from _socket import if_indextoname as if_indextoname, if_nameindex as if_nameindex, if_nametoindex as if_nametoindex
 
-if sys.platform != "darwin" and (sys.platform != "win32" or sys.version_info >= (3, 9)):
-    from _socket import BDADDR_ANY as BDADDR_ANY, BDADDR_LOCAL as BDADDR_LOCAL, BTPROTO_RFCOMM as BTPROTO_RFCOMM
+if sys.platform != "darwin":
+    if sys.platform != "win32" or sys.version_info >= (3, 9):
+        from _socket import BDADDR_ANY as BDADDR_ANY, BDADDR_LOCAL as BDADDR_LOCAL, BTPROTO_RFCOMM as BTPROTO_RFCOMM
+
 if sys.platform == "linux":
     from _socket import (
         ALG_OP_DECRYPT as ALG_OP_DECRYPT,
@@ -557,8 +561,8 @@ class MsgFlag(IntFlag):
         MSG_BCAST: int
         MSG_MCAST: int
 
-    if sys.platform != "darwin" and (sys.platform != "win32" or sys.version_info >= (3, 7)):
-        MSG_ERRQUEUE: int
+        if sys.platform != "win32" or sys.version_info >= (3, 7):
+            MSG_ERRQUEUE: int
 
     if sys.platform != "win32" and sys.platform != "darwin":
         MSG_BTAG: int
@@ -586,8 +590,8 @@ if sys.platform != "darwin":
     MSG_BCAST = MsgFlag.MSG_BCAST
     MSG_MCAST = MsgFlag.MSG_MCAST
 
-if sys.platform != "darwin" and (sys.platform != "win32" or sys.version_info >= (3, 7)):
-    MSG_ERRQUEUE = MsgFlag.MSG_ERRQUEUE
+    if sys.platform != "win32" or sys.version_info >= (3, 7):
+        MSG_ERRQUEUE = MsgFlag.MSG_ERRQUEUE
 
 if sys.platform != "win32":
     MSG_DONTWAIT = MsgFlag.MSG_DONTWAIT
