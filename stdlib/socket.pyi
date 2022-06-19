@@ -414,19 +414,19 @@ class AddressFamily(IntEnum):
     AF_WANPIPE: int
     AF_X25: int
     if sys.platform == "linux":
-        AF_CAN: AddressFamily
-        AF_PACKET: AddressFamily
-        AF_RDS: AddressFamily
-        AF_TIPC: AddressFamily
-        AF_ALG: AddressFamily
-        AF_NETLINK: AddressFamily
+        AF_CAN: int
+        AF_PACKET: int
+        AF_RDS: int
+        AF_TIPC: int
+        AF_ALG: int
+        AF_NETLINK: int
         if sys.version_info >= (3, 7):
-            AF_VSOCK: AddressFamily
+            AF_VSOCK: int
         if sys.version_info >= (3, 8):
-            AF_QIPCRTR: AddressFamily
+            AF_QIPCRTR: int
     AF_LINK: AddressFamily  # availability: BSD, macOS
     if sys.platform != "darwin":
-        AF_BLUETOOTH: AddressFamily
+        AF_BLUETOOTH: int
 
 AF_UNIX: AddressFamily
 AF_INET: AddressFamily
