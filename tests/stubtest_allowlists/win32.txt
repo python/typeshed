@@ -27,8 +27,6 @@ distutils.msvccompiler.MSVCCompiler.manifest_get_embed_info
 distutils.msvccompiler.MSVCCompiler.manifest_setup_ldargs
 distutils.msvccompiler.OldMSVCCompiler
 msvcrt.SetErrorMode
-socket.MsgFlag.MSG_BCAST
-socket.MsgFlag.MSG_MCAST
 ssl.SSLSocket.recvmsg
 ssl.SSLSocket.recvmsg_into
 ssl.SSLSocket.sendmsg
