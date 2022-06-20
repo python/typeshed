@@ -16,10 +16,6 @@ distutils.msvccompiler.MSVCCompiler.set_path_env_var
 distutils.msvccompiler.MacroExpander
 mimetypes.MimeTypes.read_windows_registry
 selectors.DefaultSelector.fileno
-socket.AddressInfo.AI_DEFAULT
-socket.AddressInfo.AI_MASK
-socket.AddressInfo.AI_V4MAPPED_CFG
-socket.MsgFlag.MSG_EOF
 
 posix.NGROUPS_MAX
 posix.error.characters_written
