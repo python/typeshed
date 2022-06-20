@@ -5,7 +5,6 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 from .adjacency_graphs import _Graph
 
-
 class _Match(TypedDict):
     pattern: Literal["dictionary", "spatial", "repeat", "sequence", "regex", "date"]
     token: str
