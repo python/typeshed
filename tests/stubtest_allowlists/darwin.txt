@@ -10,12 +10,19 @@ select.KQ_FILTER_NETDEV  # system dependent
 select.kqueue.__init__  # default C signature is wrong
 select.POLLMSG   # system dependent
 
+# Sometimes this exists on darwin, sometimes not
+(_socket.MSG_NOSIGNAL)?
+(socket.MsgFlag.MSG_NOSIGNAL)?
+(socket.MSG_NOSIGNAL)?
+
 # Exists at runtime, but missing from stubs
 distutils.msvccompiler.MSVCCompiler.get_msvc_paths
 distutils.msvccompiler.MSVCCompiler.set_path_env_var
 distutils.msvccompiler.MacroExpander
 mimetypes.MimeTypes.read_windows_registry
 selectors.DefaultSelector.fileno
+socket.PF_SYSTEM
+socket.SYSPROTO_CONTROL
 
 posix.NGROUPS_MAX
 posix.error.characters_written

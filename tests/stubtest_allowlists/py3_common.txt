@@ -24,7 +24,6 @@ _collections_abc.Set.__rsub__
 _collections_abc.Set.__rxor__
 
 _csv.Dialect.__init__  # C __init__ signature is inaccurate
-_socket.*
 _threading_local.local.__new__
 _weakref.ref.*  # Alias for _weakref.ReferenceType, problems should be fixed there
 _weakref.CallableProxyType.__getattr__  # Should have all attributes of proxy
@@ -237,6 +236,7 @@ xml.etree.cElementTree.Element.__iter__  # Doesn't exist at runtime, but instanc
 # Exists at runtime, but missing from stubs
 # ==========
 _json.encode_basestring
+_socket.CAPI
 _thread.LockType.acquire_lock
 _thread.LockType.locked_lock
 _thread.LockType.release_lock
@@ -290,6 +290,7 @@ multiprocessing.managers.SyncManager.Pool
 multiprocessing.pool.Pool.Process
 multiprocessing.pool.ThreadPool.Process
 multiprocessing.synchronize.Semaphore.get_value
+socket.CAPI
 tkinter.Misc.config
 tkinter.font.Font.counter
 tkinter.simpledialog.Dialog.apply
@@ -404,6 +405,7 @@ multiprocessing.managers.DictProxy.values
 # GetSetDescriptor that always raises AttributeError
 builtins.OSError.characters_written
 # Aliases for OSError
+_socket.error.characters_written
 builtins.EnvironmentError.characters_written
 builtins.IOError.characters_written
 dbm.dumb.error.characters_written
@@ -522,7 +524,6 @@ os.O_[A-Z_]+
 (posix.O_[A-Z_]+)?
 (posix.ST_[A-Z]+)?
 socket.AF_DECnet
-socket.[A-Z0-9_]+
 (termios.[A-Z0-9_]+)?
 
 # Loadable SQLite extensions are disabled on GitHub runners
