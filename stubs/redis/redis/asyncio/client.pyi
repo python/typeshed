@@ -3,7 +3,7 @@ from collections.abc import AsyncIterator, Awaitable, Callable, Iterable, Mappin
 from typing import Any, Generic, NoReturn, Protocol
 from typing_extensions import TypeAlias, TypedDict
 
-from redis.asyncio.connection import Connection, ConnectionPool
+from redis.asyncio.connection import ConnectCallbackT, Connection, ConnectionPool
 from redis.asyncio.lock import Lock
 from redis.asyncio.retry import Retry
 from redis.client import AbstractRedis, _StrType
@@ -59,6 +59,7 @@ class Redis(AbstractRedis, RedisModuleCommands, AsyncCoreCommands[_StrType], Asy
         username: str | None = ...,
         retry: Retry | None = ...,
         auto_close_connection_pool: bool = ...,
+        redis_connect_func: ConnectCallbackT | None = ...,
     ) -> None: ...
     def __await__(self): ...
     async def initialize(self: Self) -> Self: ...
