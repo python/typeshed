@@ -193,10 +193,13 @@ supported:
 * `no_longer_updated` (optional): This field is set to `true` before removing
   stubs for other reasons than the upstream library shipping with type
   information.
-* `stubtest` (default: `true`): Whether stubtest should be run against this
-  package. Please avoid setting this to `false`, and add a comment if you have
+
+In addition, we specify configuration for stubtest in the `tool.stubtest` table.
+This has the following keys:
+* `skip` (default: `false`): Whether stubtest should be run against this
+  package. Please avoid setting this to `true`, and add a comment if you have
   to.
-* `stubtest_apt_dependencies` (default: `[]`): A list of Ubuntu APT packages
+* `apt_dependencies` (default: `[]`): A list of Ubuntu APT packages
   that need to be installed for stubtest to run successfully. These are
   usually packages needed to pip install the implementation distribution.
 

@@ -166,6 +166,12 @@ if sys.version_info >= (3, 8):
     ExceptHookArgs = _ExceptHookArgs
 
 class Timer(Thread):
+    args: Iterable[Any]  # undocumented
+    finished: Event  # undocumented
+    function: Callable[..., Any]  # undocumented
+    interval: float  # undocumented
+    kwargs: Mapping[str, Any]  # undocumented
+
     def __init__(
         self,
         interval: float,

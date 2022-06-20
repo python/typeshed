@@ -26,11 +26,11 @@ _collections_abc.Set.__rxor__
 _csv.Dialect.__init__  # C __init__ signature is inaccurate
 _socket.*
 _threading_local.local.__new__
-_weakref.ref.__call__
-abc.ABCMeta.__new__  # pytype wants the parameter named cls and not mcls
+_weakref.ref.*  # Alias for _weakref.ReferenceType, problems should be fixed there
 _weakref.CallableProxyType.__getattr__  # Should have all attributes of proxy
 _weakref.ProxyType.__getattr__  # Should have all attributes of proxy
 _weakref.ReferenceType.__call__  # C function default annotation is wrong
+_weakref.ReferenceType.__init__  # Runtime defines __new__ but stubtest thinks __init__ is also defined.
 argparse.Namespace.__getattr__  # The whole point of this class is its attributes are dynamic
 asynchat.async_chat.encoding  # Removal planned for 3.12, can add if someone needs this
 asynchat.async_chat.use_encoding  # Removal planned for 3.12, can add if someone needs this
@@ -88,7 +88,6 @@ ctypes.memset  # CFunctionType
 ctypes.pointer  # imported C function
 ctypes.string_at  # docstring argument name is wrong
 ctypes.wstring_at  # docstring argument name is wrong
-difflib.SequenceMatcher.__init__  # mypy default value for generic parameter issues. See https://github.com/python/mypy/issues/3737
 distutils.command.bdist_packager  # It exists in docs as package name but not in code except as a mention in a comment.
 distutils.version.Version._cmp  # class should have declared this
 distutils.version.Version.parse  # class should have declared this
@@ -222,15 +221,17 @@ urllib.request.HTTPPasswordMgrWithPriorAuth.__init__  # Args are passed as is to
 warnings.catch_warnings.__init__  # Defining this ruins the __new__ overrides
 weakref.CallableProxyType.__getattr__  # Should have all attributes of proxy
 weakref.ProxyType.__getattr__  # Should have all attributes of proxy
-weakref.ReferenceType.__call__  # C function default annotation is wrong
+weakref.ReferenceType.*  # Alias for _weakref.ReferenceType, problems should be fixed there
 weakref.WeakKeyDictionary.get
 weakref.WeakKeyDictionary.update
 weakref.WeakValueDictionary.get
-weakref.ref.__call__
+weakref.ref.*  # Alias for _weakref.ReferenceType, problems should be fixed there
 webbrowser.UnixBrowser.remote_action  # always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newtab  # always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newwin  # always overridden in inheriting class
 xml.parsers.expat.expat_CAPI
+xml.etree.ElementTree.Element.__iter__  # Doesn't exist at runtime, but instances are iterable due to __getitem__
+xml.etree.cElementTree.Element.__iter__  # Doesn't exist at runtime, but instances are iterable due to __getitem__
 
 # ==========
 # Exists at runtime, but missing from stubs

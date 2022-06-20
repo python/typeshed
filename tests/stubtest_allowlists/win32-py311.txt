@@ -12,7 +12,6 @@ asyncio.windows_events.IocpProactor.sendto
 distutils.command.build_ext.__warningregistry__
 msvcrt.GetErrorMode
 os.EX_OK
-socket.MsgFlag.MSG_ERRQUEUE
 subprocess.STARTUPINFO.copy
 
 # ==========

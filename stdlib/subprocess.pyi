@@ -95,7 +95,8 @@ class CompletedProcess(Generic[_T]):
     # and writing all the overloads would be horrific.
     stdout: _T
     stderr: _T
-    def __init__(self, args: _CMD, returncode: int, stdout: _T | None = ..., stderr: _T | None = ...) -> None: ...
+    # type ignore on __init__ because the TypeVar can technically be unsolved, but see comment above
+    def __init__(self, args: _CMD, returncode: int, stdout: _T | None = ..., stderr: _T | None = ...) -> None: ...  # type: ignore
     def check_returncode(self) -> None: ...
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
@@ -407,49 +408,99 @@ else:
     ) -> CompletedProcess[Any]: ...
 
 # Same args as Popen.__init__
-def call(
-    args: _CMD,
-    bufsize: int = ...,
-    executable: StrOrBytesPath | None = ...,
-    stdin: _FILE = ...,
-    stdout: _FILE = ...,
-    stderr: _FILE = ...,
-    preexec_fn: Callable[[], Any] | None = ...,
-    close_fds: bool = ...,
-    shell: bool = ...,
-    cwd: StrOrBytesPath | None = ...,
-    env: _ENV | None = ...,
-    universal_newlines: bool = ...,
-    startupinfo: Any = ...,
-    creationflags: int = ...,
-    restore_signals: bool = ...,
-    start_new_session: bool = ...,
-    pass_fds: Any = ...,
-    *,
-    timeout: float | None = ...,
-) -> int: ...
+if sys.version_info >= (3, 7):
+    def call(
+        args: _CMD,
+        bufsize: int = ...,
+        executable: StrOrBytesPath | None = ...,
+        stdin: _FILE = ...,
+        stdout: _FILE = ...,
+        stderr: _FILE = ...,
+        preexec_fn: Callable[[], Any] | None = ...,
+        close_fds: bool = ...,
+        shell: bool = ...,
+        cwd: StrOrBytesPath | None = ...,
+        env: _ENV | None = ...,
+        universal_newlines: bool = ...,
+        startupinfo: Any = ...,
+        creationflags: int = ...,
+        restore_signals: bool = ...,
+        start_new_session: bool = ...,
+        pass_fds: Any = ...,
+        *,
+        timeout: float | None = ...,
+        text: bool | None = ...,
+    ) -> int: ...
+
+else:
+    def call(
+        args: _CMD,
+        bufsize: int = ...,
+        executable: StrOrBytesPath | None = ...,
+        stdin: _FILE = ...,
+        stdout: _FILE = ...,
+        stderr: _FILE = ...,
+        preexec_fn: Callable[[], Any] | None = ...,
+        close_fds: bool = ...,
+        shell: bool = ...,
+        cwd: StrOrBytesPath | None = ...,
+        env: _ENV | None = ...,
+        universal_newlines: bool = ...,
+        startupinfo: Any = ...,
+        creationflags: int = ...,
+        restore_signals: bool = ...,
+        start_new_session: bool = ...,
+        pass_fds: Any = ...,
+        *,
+        timeout: float | None = ...,
+    ) -> int: ...
 
 # Same args as Popen.__init__
-def check_call(
-    args: _CMD,
-    bufsize: int = ...,
-    executable: StrOrBytesPath = ...,
-    stdin: _FILE = ...,
-    stdout: _FILE = ...,
-    stderr: _FILE = ...,
-    preexec_fn: Callable[[], Any] | None = ...,
-    close_fds: bool = ...,
-    shell: bool = ...,
-    cwd: StrOrBytesPath | None = ...,
-    env: _ENV | None = ...,
-    universal_newlines: bool = ...,
-    startupinfo: Any = ...,
-    creationflags: int = ...,
-    restore_signals: bool = ...,
-    start_new_session: bool = ...,
-    pass_fds: Any = ...,
-    timeout: float | None = ...,
-) -> int: ...
+if sys.version_info >= (3, 7):
+    def check_call(
+        args: _CMD,
+        bufsize: int = ...,
+        executable: StrOrBytesPath = ...,
+        stdin: _FILE = ...,
+        stdout: _FILE = ...,
+        stderr: _FILE = ...,
+        preexec_fn: Callable[[], Any] | None = ...,
+        close_fds: bool = ...,
+        shell: bool = ...,
+        cwd: StrOrBytesPath | None = ...,
+        env: _ENV | None = ...,
+        universal_newlines: bool = ...,
+        startupinfo: Any = ...,
+        creationflags: int = ...,
+        restore_signals: bool = ...,
+        start_new_session: bool = ...,
+        pass_fds: Any = ...,
+        timeout: float | None = ...,
+        *,
+        text: bool | None = ...,
+    ) -> int: ...
+
+else:
+    def check_call(
+        args: _CMD,
+        bufsize: int = ...,
+        executable: StrOrBytesPath = ...,
+        stdin: _FILE = ...,
+        stdout: _FILE = ...,
+        stderr: _FILE = ...,
+        preexec_fn: Callable[[], Any] | None = ...,
+        close_fds: bool = ...,
+        shell: bool = ...,
+        cwd: StrOrBytesPath | None = ...,
+        env: _ENV | None = ...,
+        universal_newlines: bool = ...,
+        startupinfo: Any = ...,
+        creationflags: int = ...,
+        restore_signals: bool = ...,
+        start_new_session: bool = ...,
+        pass_fds: Any = ...,
+        timeout: float | None = ...,
+    ) -> int: ...
 
 if sys.version_info >= (3, 7):
     # 3.7 added text
