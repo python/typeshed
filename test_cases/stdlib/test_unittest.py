@@ -40,13 +40,16 @@ case.assertNotAlmostEqual(datetime(1999, 1, 2), datetime(1999, 1, 2, microsecond
 # Tests for assertGreater
 ###
 
+
 class Spam:
     def __lt__(self, other: object) -> bool:
         return True
 
+
 class Eggs:
     def __gt__(self, other: object) -> bool:
         return True
+
 
 class Ham:
     def __lt__(self, other: "Ham") -> bool:
@@ -54,14 +57,16 @@ class Ham:
             return NotImplemented
         return True
 
+
 class Bacon:
     def __gt__(self, other: "Bacon") -> bool:
         if not isinstance(other, Bacon):
             return NotImplemented
         return True
 
+
 case.assertGreater(5.8, 3)
-case.assertGreater(Decimal('4.5'), Fraction(3, 2))
+case.assertGreater(Decimal("4.5"), Fraction(3, 2))
 case.assertGreater(Fraction(3, 2), 0.9)
 case.assertGreater(Eggs(), object())
 case.assertGreater(object(), Spam())

@@ -62,7 +62,9 @@ class SupportsDunderLE(Protocol[_T_contra]):
 class SupportsDunderGE(Protocol[_T_contra]):
     def __ge__(self, __other: _T_contra) -> bool: ...
 
-class SupportsAllComparisons(SupportsDunderLT[Any], SupportsDunderGT[Any], SupportsDunderLE[Any], SupportsDunderGE[Any], Protocol): ...
+class SupportsAllComparisons(
+    SupportsDunderLT[Any], SupportsDunderGT[Any], SupportsDunderLE[Any], SupportsDunderGE[Any], Protocol
+): ...
 
 SupportsRichComparison: TypeAlias = SupportsDunderLT[Any] | SupportsDunderGT[Any]
 SupportsRichComparisonT = TypeVar("SupportsRichComparisonT", bound=SupportsRichComparison)  # noqa: Y001
