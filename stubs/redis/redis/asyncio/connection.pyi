@@ -113,7 +113,7 @@ class Connection:
     next_health_check: int
     ssl_context: Any
     encoder: Any
-    redis_connect_func: Any
+    redis_connect_func: ConnectCallbackT | None
     def __init__(
         self,
         *,
@@ -214,7 +214,7 @@ class UnixDomainSocketConnection(Connection):
     retry: Any
     health_check_interval: Any
     next_health_check: int
-    redis_connect_func: Any
+    redis_connect_func: ConnectCallbackT | None
     encoder: Any
     def __init__(
         self,
@@ -234,7 +234,7 @@ class UnixDomainSocketConnection(Connection):
         health_check_interval: float = ...,
         client_name: str | None = ...,
         retry: Retry | None = ...,
-        redis_connect_func: Any | None = ...,
+        redis_connect_func: ConnectCallbackT | None = ...,
     ) -> None: ...
     def repr_pieces(self) -> Iterable[tuple[str, str | int]]: ...
 
