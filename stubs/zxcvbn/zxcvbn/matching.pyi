@@ -5,13 +5,20 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 from .adjacency_graphs import _Graph
 
+
 class _Match(TypedDict):
     pattern: Literal["dictionary", "spatial", "repeat", "sequence", "regex", "date"]
     token: str
     i: int
     j: int
-    guesses: int
-    guesses_log10: float
+    guesses: NotRequired[int]  # all patterns except 'date'
+    guesses_log10: NotRequired[float]  # all patterns except 'date'
+
+    # pattern == 'date'
+    separator: NotRequired[str]
+    year: NotRequired[int]
+    month: NotRequired[int]
+    day: NotRequired[int]
 
     # pattern == 'dictionary'
     matched_word: NotRequired[str]
