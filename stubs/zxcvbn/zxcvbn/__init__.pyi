@@ -5,17 +5,14 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 from .feedback import _Feedback
 from .matching import _Match
-from .time_estimates import _CrackTimesDisplay, _CrackTimeSeconds
+from .time_estimates import _TimeEstimate
 
-class _Result(TypedDict):
+class _Result(TypedDict, _TimeEstimate):
     password: str
     guesses: Decimal
     guesses_log10: float
     sequence: list[_Match]
-    calc_time: NotRequired[datetime.timedelta]
-    crack_times_seconds: NotRequired[_CrackTimeSeconds]
-    crack_times_display: NotRequired[_CrackTimesDisplay]
-    score: Literal[0, 1, 2, 3, 4]
+    calc_time: datetime.timedelta
     feedback: _Feedback
 
 def zxcvbn(password: str, user_inputs: Iterable[object] | None = ...) -> _Result: ...
