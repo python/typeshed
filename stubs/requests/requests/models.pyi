@@ -2,7 +2,7 @@ import datetime
 from _typeshed import Self
 from collections.abc import Callable, Iterator
 from json import JSONDecoder
-from typing import Any, TypeVar
+from typing import Any
 
 from urllib3 import exceptions as urllib3_exceptions, fields, filepost, util
 
