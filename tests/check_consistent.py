@@ -20,7 +20,7 @@ import tomli
 
 consistent_files = [{"stdlib/@python2/builtins.pyi", "stdlib/@python2/__builtin__.pyi"}]
 metadata_keys = {"version", "requires", "extra_description", "obsolete_since", "no_longer_updated", "tool"}
-tool_keys = {"stubtest": {"skip", "apt_dependencies"}}
+tool_keys = {"stubtest": {"skip", "apt_dependencies", "ignore_missing_stub"}}
 allowed_files = {"README.md"}
 
 
