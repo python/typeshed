@@ -10,8 +10,6 @@ from . import auth, cookies, exceptions, hooks, status_codes, utils
 from .cookies import RequestsCookieJar
 from .structures import CaseInsensitiveDict as CaseInsensitiveDict
 
-_VT = TypeVar("_VT")
-
 default_hooks = hooks.default_hooks
 HTTPBasicAuth = auth.HTTPBasicAuth
 cookiejar_from_dict = cookies.cookiejar_from_dict
