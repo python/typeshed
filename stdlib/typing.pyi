@@ -1,3 +1,5 @@
+from typing import type_check_only
+
 import collections  # Needed by aliases like DefaultDict, see mypy issue 2986
 import sys
 from _typeshed import IdentityFunction, ReadableBuffer, Self as TypeshedSelf, SupportsKeysAndGetItem
@@ -391,6 +393,7 @@ class Coroutine(Awaitable[_V_co], Generic[_T_co, _T_contra, _V_co]):
 
 # NOTE: This type does not exist in typing.py or PEP 484 but mypy needs it to exist.
 # The parameters correspond to Generator, but the 4th is the original type.
+@type_check_only
 class AwaitableGenerator(
     Awaitable[_V_co], Generator[_T_co, _T_contra, _V_co], Generic[_T_co, _T_contra, _V_co, _S], metaclass=ABCMeta
 ): ...
