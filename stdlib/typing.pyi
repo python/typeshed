@@ -1,10 +1,9 @@
-from typing import type_check_only
-
 import collections  # Needed by aliases like DefaultDict, see mypy issue 2986
 import sys
 from _typeshed import IdentityFunction, ReadableBuffer, Self as TypeshedSelf, SupportsKeysAndGetItem
 from abc import ABCMeta, abstractmethod
 from types import BuiltinFunctionType, CodeType, FrameType, FunctionType, MethodType, ModuleType, TracebackType
+from typing import type_check_only
 from typing_extensions import Literal as _Literal, ParamSpec as _ParamSpec, final as _final
 
 if sys.version_info >= (3, 7):
