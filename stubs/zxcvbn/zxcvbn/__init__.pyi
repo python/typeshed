@@ -1,13 +1,13 @@
 import datetime
 from collections.abc import Iterable
 from decimal import Decimal
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing_extensions import TypedDict
 
 from .feedback import _Feedback
 from .matching import _Match
 from .time_estimates import _TimeEstimate
 
-class _Result(TypedDict, _TimeEstimate):
+class _Result(_TimeEstimate, TypedDict):
     password: str
     guesses: Decimal
     guesses_log10: float
