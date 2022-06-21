@@ -3,6 +3,7 @@ from collections.abc import Callable
 from typing import Any, AnyStr, overload
 
 from . import _regex
+from ._regex import Match as Match, Pattern as Pattern
 from ._regex_core import *
 
 __version__: str
@@ -306,6 +307,4 @@ def cache_all(value: None) -> bool: ...
 def escape(pattern: AnyStr, special_only: bool = ..., literal_spaces: bool = ...) -> AnyStr: ...
 def template(pattern: AnyStr | _regex.Pattern[AnyStr], flags: int = ...) -> _regex.Pattern[AnyStr]: ...
 
-Pattern = _regex.Pattern[AnyStr]
-Match = _regex.Match[AnyStr]
 Regex = compile
