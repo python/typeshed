@@ -6,7 +6,7 @@ from typing import Any, TypeVar
 
 from urllib3 import exceptions as urllib3_exceptions, fields, filepost, util
 
-from . import auth, cookies, exceptions, hooks, status_codes, structures, utils
+from . import auth, cookies, exceptions, hooks, status_codes, utils
 from .cookies import RequestsCookieJar
 from .structures import CaseInsensitiveDict as CaseInsensitiveDict
 
