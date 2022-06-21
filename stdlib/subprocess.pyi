@@ -101,6 +101,7 @@ class CompletedProcess(Generic[_T]):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 if sys.version_info >= (3, 9):
+    # 3.9 adds arguments "user", "group", "extra_groups" and "umask"
     @overload
     def run(
         args: _CMD,
@@ -603,6 +604,7 @@ else:
 
 # Same args as Popen.__init__
 if sys.version_info >= (3, 9):
+    # 3.9 adds arguments "user", "group", "extra_groups" and "umask"
     def call(
         args: _CMD,
         bufsize: int = ...,
@@ -631,6 +633,7 @@ if sys.version_info >= (3, 9):
     ) -> int: ...
 
 elif sys.version_info >= (3, 7):
+    # 3.7 adds the "text" argument
     def call(
         args: _CMD,
         bufsize: int = ...,
@@ -679,6 +682,7 @@ else:
 
 # Same args as Popen.__init__
 if sys.version_info >= (3, 9):
+    # 3.9 adds arguments "user", "group", "extra_groups" and "umask"
     def check_call(
         args: _CMD,
         bufsize: int = ...,
@@ -707,6 +711,7 @@ if sys.version_info >= (3, 9):
     ) -> int: ...
 
 elif sys.version_info >= (3, 7):
+    # 3.7 adds the "text" argument
     def check_call(
         args: _CMD,
         bufsize: int = ...,
@@ -753,6 +758,7 @@ else:
     ) -> int: ...
 
 if sys.version_info >= (3, 9):
+    # 3.9 adds arguments "user", "group", "extra_groups" and "umask"
     @overload
     def check_output(
         args: _CMD,
