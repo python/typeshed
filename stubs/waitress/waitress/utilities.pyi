@@ -2,8 +2,6 @@ from collections.abc import Callable, Mapping, Sequence
 from logging import Logger
 from typing import Any, Match, Pattern
 
-from .rfc7230 import OBS_TEXT as OBS_TEXT, VCHAR as VCHAR
-
 logger: Logger
 queue_logger: Logger
 
@@ -36,15 +34,6 @@ monthname: Sequence[str]
 
 def build_http_date(when: int) -> str: ...
 def parse_http_date(d: str) -> int: ...
-
-vchar_re: str
-obs_text_re: str
-qdtext_re: str
-quoted_pair_re: str
-quoted_string_re: str
-quoted_string: Pattern[Any]
-quoted_pair: Pattern[Any]
-
 def undquote(value: str) -> str: ...
 def cleanup_unix_socket(path: str) -> None: ...
 

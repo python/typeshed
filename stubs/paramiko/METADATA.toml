@@ -1,2 +1,2 @@
-version = "2.8.*"
+version = "2.11.*"
 requires = ["types-cryptography"]

@@ -297,7 +297,7 @@ class _patcher:
     @overload
     def __call__(  # type: ignore[misc]
         self,
-        target: Any,
+        target: str,
         new: _T,
         spec: Any | None = ...,
         create: bool = ...,
@@ -309,7 +309,7 @@ class _patcher:
     @overload
     def __call__(
         self,
-        target: Any,
+        target: str,
         *,
         spec: Any | None = ...,
         create: bool = ...,
@@ -440,7 +440,13 @@ class _SpecState:
 
 def mock_open(mock: Any | None = ..., read_data: Any = ...) -> Any: ...
 
-PropertyMock = Any
+class PropertyMock(Mock):
+    if sys.version_info >= (3, 8):
+        def __get__(self: Self, obj: _T, obj_type: type[_T] | None = ...) -> Self: ...
+    else:
+        def __get__(self: Self, obj: _T, obj_type: type[_T] | None) -> Self: ...
+
+    def __set__(self, obj: Any, value: Any) -> None: ...
 
 if sys.version_info >= (3, 7):
     def seal(mock: Any) -> None: ...

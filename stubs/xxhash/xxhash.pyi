@@ -1,14 +1,12 @@
-import sys
 from _typeshed import ReadableBuffer
+from hashlib import _Hash
 from typing_extensions import SupportsIndex, final
-
-if sys.version_info >= (3, 0):
-    from hashlib import _Hash
-else:
-    from hashlib import _hash as _Hash
 
 VERSION: str
 XXHASH_VERSION: str
+VERSION_TUPLE: tuple[int, ...]
+
+algorithms_available: set[str]
 
 class _IntDigestHash(_Hash):
     @property

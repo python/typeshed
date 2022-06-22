@@ -19,7 +19,7 @@ FR: weekday
 SA: weekday
 SU: weekday
 
-class relativedelta(object):
+class relativedelta:
     years: int
     months: int
     days: int
