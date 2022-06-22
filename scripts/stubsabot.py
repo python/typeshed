@@ -24,7 +24,6 @@ import packaging.version
 import tomli
 import tomlkit
 
-
 ActionLevelSelf = TypeVar("ActionLevelSelf", bound="ActionLevel")
 
 
