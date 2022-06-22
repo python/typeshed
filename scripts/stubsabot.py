@@ -16,7 +16,7 @@ import urllib.parse
 import zipfile
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, TypeVar
 
 import aiohttp
 import packaging.specifiers
@@ -24,9 +24,11 @@ import packaging.version
 import tomli
 import tomlkit
 
+ActionLevelSelf = TypeVar("ActionLevelSelf", bound="ActionLevel")
+
 
 class ActionLevel(enum.IntEnum):
-    def __new__(cls, value: int, doc: str):
+    def __new__(cls: type[ActionLevelSelf], value: int, doc: str) -> ActionLevelSelf:
         member = int.__new__(cls, value)
         member._value_ = value
         member.__doc__ = doc
@@ -191,7 +193,7 @@ TYPESHED_OWNER = "python"
 
 
 @functools.lru_cache()
-def get_origin_owner():
+def get_origin_owner() -> str:
     output = subprocess.check_output(["git", "remote", "get-url", "origin"], text=True)
     match = re.search(r"(git@github.com:|https://github.com/)(?P<owner>[^/]+)/(?P<repo>[^/]+).git", output)
     assert match is not None
@@ -199,7 +201,7 @@ def get_origin_owner():
     return match.group("owner")
 
 
-async def create_or_update_pull_request(*, title: str, body: str, branch_name: str, session: aiohttp.ClientSession):
+async def create_or_update_pull_request(*, title: str, body: str, branch_name: str, session: aiohttp.ClientSession) -> None:
     secret = os.environ["GITHUB_TOKEN"]
     if secret.startswith("ghp"):
         auth = f"token {secret}"

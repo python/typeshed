@@ -174,7 +174,7 @@ def run_mypy(
     with tempfile.NamedTemporaryFile("w+") as temp:
         temp.write("[mypy]\n")
         for dist_conf in configurations:
-            temp.write("[mypy-%s]\n" % dist_conf.module_name)
+            temp.write(f"[mypy-{dist_conf.module_name}]\n")
             for k, v in dist_conf.values.items():
                 temp.write(f"{k} = {v}\n")
         temp.flush()
@@ -230,19 +230,20 @@ def get_mypy_flags(
     strict: bool = False,
     test_suite_run: bool = False,
     enforce_error_codes: bool = True,
+    ignore_missing_imports: bool = False,
 ) -> list[str]:
     flags = [
         "--python-version",
-        "%d.%d" % (major, minor),
+        f"{major}.{minor}",
         "--show-traceback",
-        "--no-implicit-optional",
-        "--disallow-untyped-decorators",
-        "--disallow-any-generics",
         "--warn-incomplete-stub",
         "--show-error-codes",
         "--no-error-summary",
-        "--strict-equality",
     ]
+    if strict:
+        flags.append("--strict")
+    else:
+        flags.extend(["--no-implicit-optional", "--disallow-untyped-decorators", "--disallow-any-generics", "--strict-equality"])
     if temp_name is not None:
         flags.extend(["--config-file", temp_name])
     if custom_typeshed:
@@ -251,8 +252,6 @@ def get_mypy_flags(
         flags.extend(["--custom-typeshed-dir", os.path.dirname(os.path.dirname(__file__))])
     if args.platform:
         flags.extend(["--platform", args.platform])
-    if strict:
-        flags.append("--strict")
     if test_suite_run:
         flags.append("--namespace-packages")
         if sys.platform == "win32" or args.platform == "win32":
@@ -261,6 +260,8 @@ def get_mypy_flags(
         flags.append("--no-site-packages")
     if enforce_error_codes:
         flags.extend(["--enable-error-code", "ignore-without-code"])
+    if ignore_missing_imports:
+        flags.append("--ignore-missing-imports")
     return flags
 
 
@@ -404,6 +405,22 @@ def test_the_test_scripts(code: int, major: int, minor: int, args: argparse.Name
     return TestResults(code, num_test_files_to_test)
 
 
+def test_scripts_directory(code: int, major: int, minor: int, args: argparse.Namespace) -> TestResults:
+    files_to_test = list(Path("scripts").rglob("*.py"))
+    num_test_files_to_test = len(files_to_test)
+    flags = get_mypy_flags(args, major, minor, None, strict=True, ignore_missing_imports=True)
+    print(f"Testing the scripts directory ({num_test_files_to_test} files)...")
+    print("Running mypy " + " ".join(flags))
+    if args.dry_run:
+        this_code = 0
+    else:
+        this_code = run_mypy_as_subprocess("scripts", flags)
+    if not this_code:
+        print_success_msg()
+    code = max(code, this_code)
+    return TestResults(code, num_test_files_to_test)
+
+
 def test_the_test_cases(code: int, major: int, minor: int, args: argparse.Namespace) -> TestResults:
     test_case_files = list(map(str, Path("test_cases").rglob("*.py")))
     num_test_case_files = len(test_case_files)
@@ -439,12 +456,16 @@ def test_typeshed(code: int, major: int, minor: int, args: argparse.Namespace) -
     print()
 
     if minor >= 9:
-        # Run mypy against our own test suite
+        # Run mypy against our own test suite and the scripts directory
         #
         # Skip this on earlier Python versions,
         # as we're using new syntax and new functions in some test files
         code, test_script_files_checked = test_the_test_scripts(code, major, minor, args)
         files_checked_this_version += test_script_files_checked
+        print()
+
+        code, script_files_checked = test_scripts_directory(code, major, minor, args)
+        files_checked_this_version += script_files_checked
         print()
 
     code, test_case_files_checked = test_the_test_cases(code, major, minor, args)
