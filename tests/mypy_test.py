@@ -50,8 +50,8 @@ def python_platform(platform: str) -> str:
 class CommandLineArgs(argparse.Namespace):
     verbose: int
     dry_run: bool
-    exclude: list[str]
-    python_version: list[tuple[MajorVersion, MinorVersion]]
+    exclude: list[str] | None
+    python_version: list[tuple[MajorVersion, MinorVersion]] | None
     platform: str
     filter: list[str]
 
