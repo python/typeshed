@@ -36,7 +36,7 @@ parser = argparse.ArgumentParser(description="Test runner for typeshed. Patterns
 parser.add_argument("-v", "--verbose", action="count", default=0, help="More output")
 parser.add_argument("-n", "--dry-run", action="store_true", help="Don't actually run mypy")
 parser.add_argument("-x", "--exclude", type=str, nargs="*", help="Exclude pattern")
-parser.add_argument("-p", "--python-version", type=str, nargs="*", help="These versions only (major[.minor])")
+parser.add_argument("-p", "--python-version", type=str, nargs="*", action="extend", help="These versions only (major[.minor])")
 parser.add_argument("--platform", help="Run mypy for a certain OS platform (defaults to sys.platform)")
 parser.add_argument("filter", type=str, nargs="*", help="Include pattern (default all)")
 
