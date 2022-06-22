@@ -505,7 +505,7 @@ def main() -> None:
     versions = args.python_version or SUPPORTED_VERSIONS
     code = 0
     total_files_checked = 0
-    for (major, minor) in versions:
+    for major, minor in versions:
         code, files_checked_this_version = test_typeshed(code, major, minor, args)
         total_files_checked += files_checked_this_version
     if code:
