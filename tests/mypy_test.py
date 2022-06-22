@@ -96,8 +96,8 @@ def match(fn: str, args: CommandLineArgs) -> bool:
 
 
 _VERSION_LINE_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_.]*): ([23]\.\d{1,2})-([23]\.\d{1,2})?$")
-MinVersion: TypeAlias = tuple[int, int]
-MaxVersion: TypeAlias = tuple[int, int]
+MinVersion: TypeAlias = tuple[MajorVersion, MinorVersion]
+MaxVersion: TypeAlias = tuple[MajorVersion, MinorVersion]
 
 
 def parse_versions(fname: StrPath) -> dict[str, tuple[MinVersion, MaxVersion]]:
