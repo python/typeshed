@@ -62,7 +62,7 @@ parser.add_argument("-v", "--verbose", action="count", default=0, help="More out
 parser.add_argument("-n", "--dry-run", action="store_true", help="Don't actually run mypy")
 parser.add_argument("-x", "--exclude", type=str, nargs="*", help="Exclude pattern")
 parser.add_argument("-p", "--python-version", type=python_version, nargs="*", action="extend", default=[], help="These versions only (major[.minor])")
-parser.add_argument("--platform", type=python_platform, default=sys.platform, help="Run mypy for certain OS platforms (defaults to sys.platform)")
+parser.add_argument("--platform", type=python_platform, default=sys.platform, help="Run mypy for a certain OS platform (defaults to sys.platform)")
 parser.add_argument("filter", type=str, nargs="*", help="Include pattern (default all)")
 
 
