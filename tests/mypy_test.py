@@ -26,7 +26,6 @@ from typing_extensions import TypeAlias
 import tomli
 from colors import colored, print_error, print_success_msg
 
-
 SUPPORTED_VERSIONS = [(3, 11), (3, 10), (3, 9), (3, 8), (3, 7), (3, 6), (2, 7)]
 SUPPORTED_PLATFORMS = frozenset({"linux", "win32", "darwin"})
 
@@ -61,8 +60,18 @@ parser = argparse.ArgumentParser(description="Test runner for typeshed. Patterns
 parser.add_argument("-v", "--verbose", action="count", default=0, help="More output")
 parser.add_argument("-n", "--dry-run", action="store_true", help="Don't actually run mypy")
 parser.add_argument("-x", "--exclude", type=str, nargs="*", help="Exclude pattern")
-parser.add_argument("-p", "--python-version", type=python_version, nargs="*", action="extend", default=[], help="These versions only (major[.minor])")
-parser.add_argument("--platform", type=python_platform, default=sys.platform, help="Run mypy for a certain OS platform (defaults to sys.platform)")
+parser.add_argument(
+    "-p",
+    "--python-version",
+    type=python_version,
+    nargs="*",
+    action="extend",
+    default=[],
+    help="These versions only (major[.minor])",
+)
+parser.add_argument(
+    "--platform", type=python_platform, default=sys.platform, help="Run mypy for a certain OS platform (defaults to sys.platform)"
+)
 parser.add_argument("filter", type=str, nargs="*", help="Include pattern (default all)")
 
 
