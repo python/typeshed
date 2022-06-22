@@ -1,13 +1,7 @@
 #!/usr/bin/env python3
-"""Test runner for typeshed.
+"""Run mypy on various typeshed directories, with varying command-line arguments.
 
 Depends on mypy being installed.
-
-Approach:
-
-1. Parse sys.argv
-2. Compute appropriate arguments for mypy
-3. Pass those arguments to mypy.api.run()
 """
 from __future__ import annotations
 
@@ -32,21 +26,52 @@ from typing_extensions import TypeAlias
 import tomli
 from colors import colored, print_error, print_success_msg
 
+
+SUPPORTED_VERSIONS = [(3, 11), (3, 10), (3, 9), (3, 8), (3, 7), (3, 6), (2, 7)]
+SUPPORTED_PLATFORMS = frozenset({"linux", "win32", "darwin"})
+
+MajorVersion: TypeAlias = int
+MinorVersion: TypeAlias = int
+
+
+def python_version(arg: str) -> tuple[MajorVersion, MinorVersion]:
+    version = tuple(map(int, arg.split(".")))  # This will naturally raise TypeError if it's not in the form "{major}.{minor}"
+    if version not in SUPPORTED_VERSIONS:
+        raise ValueError
+    # mypy infers the return type as tuple[int, ...]
+    return version  # type: ignore[return-value]
+
+
+def python_platform(platform: str) -> str:
+    if platform not in SUPPORTED_PLATFORMS:
+        raise ValueError
+    return platform
+
+
+class CommandLineArgs(argparse.Namespace):
+    verbose: int
+    dry_run: bool
+    exclude: list[str]
+    python_version: list[tuple[MajorVersion, MinorVersion]]
+    platform: str
+    filter: list[str]
+
+
 parser = argparse.ArgumentParser(description="Test runner for typeshed. Patterns are unanchored regexps on the full path.")
 parser.add_argument("-v", "--verbose", action="count", default=0, help="More output")
 parser.add_argument("-n", "--dry-run", action="store_true", help="Don't actually run mypy")
 parser.add_argument("-x", "--exclude", type=str, nargs="*", help="Exclude pattern")
-parser.add_argument("-p", "--python-version", type=str, nargs="*", action="extend", help="These versions only (major[.minor])")
-parser.add_argument("--platform", help="Run mypy for a certain OS platform (defaults to sys.platform)")
+parser.add_argument("-p", "--python-version", type=python_version, nargs="*", action="extend", default=[], help="These versions only (major[.minor])")
+parser.add_argument("--platform", type=python_platform, default=sys.platform, help="Run mypy for certain OS platforms (defaults to sys.platform)")
 parser.add_argument("filter", type=str, nargs="*", help="Include pattern (default all)")
 
 
-def log(args: argparse.Namespace, *varargs: object) -> None:
+def log(args: CommandLineArgs, *varargs: object) -> None:
     if args.verbose >= 2:
         print(*varargs)
 
 
-def match(fn: str, args: argparse.Namespace) -> bool:
+def match(fn: str, args: CommandLineArgs) -> bool:
     if not args.filter and not args.exclude:
         log(args, fn, "accept by default")
         return True
@@ -98,7 +123,7 @@ def parse_version(v_str: str) -> tuple[int, int]:
     return int(m.group(1)), int(m.group(2))
 
 
-def add_files(files: list[str], seen: set[str], root: str, name: str, args: argparse.Namespace) -> None:
+def add_files(files: list[str], seen: set[str], root: str, name: str, args: CommandLineArgs) -> None:
     """Add all files in package or module represented by 'name' located in 'root'."""
     full = os.path.join(root, name)
     mod, ext = os.path.splitext(name)
@@ -157,7 +182,7 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
 
 
 def run_mypy(
-    args: argparse.Namespace,
+    args: CommandLineArgs,
     configurations: list[MypyDistConf],
     major: int,
     minor: int,
@@ -221,7 +246,7 @@ def run_mypy_as_subprocess(directory: StrPath, flags: Iterable[str]) -> ReturnCo
 
 
 def get_mypy_flags(
-    args: argparse.Namespace,
+    args: CommandLineArgs,
     major: int,
     minor: int,
     temp_name: str | None,
@@ -239,6 +264,8 @@ def get_mypy_flags(
         "--warn-incomplete-stub",
         "--show-error-codes",
         "--no-error-summary",
+        "--platform",
+        args.platform,
     ]
     if strict:
         flags.append("--strict")
@@ -250,11 +277,9 @@ def get_mypy_flags(
         # Setting custom typeshed dir prevents mypy from falling back to its bundled
         # typeshed in case of stub deletions
         flags.extend(["--custom-typeshed-dir", os.path.dirname(os.path.dirname(__file__))])
-    if args.platform:
-        flags.extend(["--platform", args.platform])
     if test_suite_run:
         flags.append("--namespace-packages")
-        if sys.platform == "win32" or args.platform == "win32":
+        if args.platform == "win32":
             flags.extend(["--exclude", "tests/pytype_test.py"])
     else:
         flags.append("--no-site-packages")
@@ -282,7 +307,7 @@ def add_third_party_files(
     distribution: str,
     major: int,
     files: list[str],
-    args: argparse.Namespace,
+    args: CommandLineArgs,
     configurations: list[MypyDistConf],
     seen_dists: set[str],
 ) -> None:
@@ -303,7 +328,7 @@ def add_third_party_files(
         add_configuration(configurations, distribution)
 
 
-def test_third_party_distribution(distribution: str, major: int, minor: int, args: argparse.Namespace) -> tuple[int, int]:
+def test_third_party_distribution(distribution: str, major: int, minor: int, args: CommandLineArgs) -> tuple[int, int]:
     """Test the stubs of a third-party distribution.
 
     Return a tuple, where the first element indicates mypy's return code
@@ -335,7 +360,7 @@ class TestResults(NamedTuple):
     files_checked: int
 
 
-def test_stdlib(code: int, major: int, minor: int, args: argparse.Namespace) -> TestResults:
+def test_stdlib(code: int, major: int, minor: int, args: CommandLineArgs) -> TestResults:
     seen = {"__builtin__", "builtins", "typing"}  # Always ignore these.
 
     files: list[str] = []
@@ -365,7 +390,7 @@ def test_stdlib(code: int, major: int, minor: int, args: argparse.Namespace) -> 
     return TestResults(code, len(files))
 
 
-def test_third_party_stubs(code: int, major: int, minor: int, args: argparse.Namespace) -> TestResults:
+def test_third_party_stubs(code: int, major: int, minor: int, args: CommandLineArgs) -> TestResults:
     print("Testing third-party packages...")
     print("Running mypy " + " ".join(get_mypy_flags(args, major, minor, "/tmp/...")))
     files_checked = 0
@@ -387,7 +412,7 @@ def test_third_party_stubs(code: int, major: int, minor: int, args: argparse.Nam
     return TestResults(code, files_checked)
 
 
-def test_the_test_scripts(code: int, major: int, minor: int, args: argparse.Namespace) -> TestResults:
+def test_the_test_scripts(code: int, major: int, minor: int, args: CommandLineArgs) -> TestResults:
     files_to_test = list(Path("tests").rglob("*.py"))
     if sys.platform == "win32":
         files_to_test.remove(Path("tests/pytype_test.py"))
@@ -405,7 +430,7 @@ def test_the_test_scripts(code: int, major: int, minor: int, args: argparse.Name
     return TestResults(code, num_test_files_to_test)
 
 
-def test_scripts_directory(code: int, major: int, minor: int, args: argparse.Namespace) -> TestResults:
+def test_scripts_directory(code: int, major: int, minor: int, args: CommandLineArgs) -> TestResults:
     files_to_test = list(Path("scripts").rglob("*.py"))
     num_test_files_to_test = len(files_to_test)
     flags = get_mypy_flags(args, major, minor, None, strict=True, ignore_missing_imports=True)
@@ -421,7 +446,7 @@ def test_scripts_directory(code: int, major: int, minor: int, args: argparse.Nam
     return TestResults(code, num_test_files_to_test)
 
 
-def test_the_test_cases(code: int, major: int, minor: int, args: argparse.Namespace) -> TestResults:
+def test_the_test_cases(code: int, major: int, minor: int, args: CommandLineArgs) -> TestResults:
     test_case_files = list(map(str, Path("test_cases").rglob("*.py")))
     num_test_case_files = len(test_case_files)
     flags = get_mypy_flags(args, major, minor, None, strict=True, custom_typeshed=True, enforce_error_codes=False)
@@ -441,7 +466,7 @@ def test_the_test_cases(code: int, major: int, minor: int, args: argparse.Namesp
     return TestResults(code, num_test_case_files)
 
 
-def test_typeshed(code: int, major: int, minor: int, args: argparse.Namespace) -> TestResults:
+def test_typeshed(code: int, major: int, minor: int, args: CommandLineArgs) -> TestResults:
     print(f"*** Testing Python {major}.{minor}")
     files_checked_this_version = 0
     code, stdlib_files_checked = test_stdlib(code, major, minor, args)
@@ -476,18 +501,11 @@ def test_typeshed(code: int, major: int, minor: int, args: argparse.Namespace) -
 
 
 def main() -> None:
-    args = parser.parse_args()
-
-    versions = [(3, 11), (3, 10), (3, 9), (3, 8), (3, 7), (3, 6), (2, 7)]
-    if args.python_version:
-        versions = [v for v in versions if any(("%d.%d" % v).startswith(av) for av in args.python_version)]
-        if not versions:
-            print_error("--- no versions selected ---")
-            sys.exit(1)
-
+    args = parser.parse_args(namespace=CommandLineArgs())
+    versions = args.python_version or SUPPORTED_VERSIONS
     code = 0
     total_files_checked = 0
-    for major, minor in versions:
+    for (major, minor) in versions:
         code, files_checked_this_version = test_typeshed(code, major, minor, args)
         total_files_checked += files_checked_this_version
     if code:
