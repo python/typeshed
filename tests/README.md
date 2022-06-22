@@ -17,7 +17,7 @@ in the `CONTRIBUTING.md` document. In particular, we recommend running with Pyth
 
 ## mypy\_test.py
 
-This test requires Python 3.7+. Run using:
+This test requires Python 3.8+. Run using:
 ```
 (.venv3)$ python3 tests/mypy_test.py
 ```
