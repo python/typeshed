@@ -331,7 +331,12 @@ def add_third_party_files(
         add_configuration(configurations, distribution)
 
 
-def test_third_party_distribution(distribution: str, major: int, minor: int, args: CommandLineArgs) -> tuple[int, int]:
+class TestResults(NamedTuple):
+    exit_code: int
+    files_checked: int
+
+
+def test_third_party_distribution(distribution: str, major: int, minor: int, args: CommandLineArgs) -> TestResults:
     """Test the stubs of a third-party distribution.
 
     Return a tuple, where the first element indicates mypy's return code
@@ -350,17 +355,12 @@ def test_third_party_distribution(distribution: str, major: int, minor: int, arg
         sys.exit(1)
 
     code = run_mypy(args, configurations, major, minor, files)
-    return code, len(files)
+    return TestResults(code, len(files))
 
 
 def is_probably_stubs_folder(distribution: str, distribution_path: Path) -> bool:
     """Validate that `dist_path` is a folder containing stubs"""
     return distribution != ".mypy_cache" and distribution_path.is_dir()
-
-
-class TestResults(NamedTuple):
-    exit_code: int
-    files_checked: int
 
 
 def test_stdlib(code: int, major: int, minor: int, args: CommandLineArgs) -> TestResults:
