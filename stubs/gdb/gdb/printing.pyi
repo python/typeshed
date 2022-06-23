@@ -1,4 +1,4 @@
-from collections.abc import Callable, Iterable
+from collections.abc import Iterable
 
 import gdb
 from gdb import _PrettyPrinterLookupFunction
