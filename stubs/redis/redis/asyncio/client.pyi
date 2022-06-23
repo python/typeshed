@@ -1,5 +1,5 @@
 from _typeshed import Self
-from collections.abc import AsyncIterator, Awaitable, Callable, Iterable, Mapping, MutableMapping
+from collections.abc import AsyncIterator, Awaitable, Callable, Iterable, Mapping, MutableMapping, Tuple
 from typing import Any, Generic, NoReturn, Protocol
 from typing_extensions import TypeAlias, TypedDict
 
@@ -22,12 +22,12 @@ ResponseCallbackT: TypeAlias = ResponseCallbackProtocol | AsyncResponseCallbackP
 
 class Redis(AbstractRedis, RedisModuleCommands, AsyncCoreCommands[_StrType], AsyncSentinelCommands, Generic[_StrType]):
     response_callbacks: MutableMapping[str | bytes, ResponseCallbackT]
-    @classmethod
-    def from_url(cls, url: str, **kwargs) -> Redis[Any]: ...
-    auto_close_connection_pool: Any
+    auto_close_connection_pool: bool
     connection_pool: Any
     single_connection_client: Any
     connection: Any
+    @classmethod
+    def from_url(cls, url: str, **kwargs) -> Redis[Any]: ...
     def __init__(
         self,
         *,
@@ -116,15 +116,15 @@ class Monitor:
     async def listen(self) -> AsyncIterator[MonitorCommandInfo]: ...
 
 class PubSub:
-    PUBLISH_MESSAGE_TYPES: Any
-    UNSUBSCRIBE_MESSAGE_TYPES: Any
+    PUBLISH_MESSAGE_TYPES: Tuple[str, ...]
+    UNSUBSCRIBE_MESSAGE_TYPES: Tuple[str, ...]
     HEALTH_CHECK_MESSAGE: str
     connection_pool: Any
-    shard_hint: Any
-    ignore_subscribe_messages: Any
+    shard_hint: str | None
+    ignore_subscribe_messages: bool
     connection: Any
     encoder: Any
-    health_check_response: Any
+    health_check_response: Iterable[str | bytes]
     channels: Any
     pending_unsubscribe_channels: Any
     patterns: Any
@@ -143,7 +143,7 @@ class PubSub:
     def close(self) -> Awaitable[NoReturn]: ...
     async def on_connect(self, connection: Connection): ...
     @property
-    def subscribed(self): ...
+    def subscribed(self) -> bool: ...
     async def execute_command(self, *args: EncodableT): ...
     async def parse_response(self, block: bool = ..., timeout: float = ...): ...
     async def check_health(self) -> None: ...
@@ -168,12 +168,12 @@ CommandT: TypeAlias = tuple[tuple[str | bytes, ...], Mapping[str, Any]]
 CommandStackT: TypeAlias = list[CommandT]
 
 class Pipeline(Redis[_StrType], Generic[_StrType]):
-    UNWATCH_COMMANDS: Any
+    UNWATCH_COMMANDS: set[str]
     connection_pool: Any
     connection: Any
     response_callbacks: Any
-    is_transaction: Any
-    shard_hint: Any
+    is_transaction: bool
+    shard_hint: str  | None
     watching: bool
     command_stack: Any
     scripts: Any
@@ -188,8 +188,8 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     async def __aenter__(self: Self) -> Self: ...
     async def __aexit__(self, exc_type, exc_value, traceback) -> None: ...
     def __await__(self): ...
-    def __len__(self): ...
-    def __bool__(self): ...
+    def __len__(self) -> int: ...
+    def __bool__(self) -> bool: ...
     async def reset(self) -> None: ...  # type: ignore[override]
     def multi(self) -> None: ...
     def execute_command(self, *args, **kwargs) -> Pipeline[_StrType] | Awaitable[Pipeline[_StrType]]: ...
@@ -201,5 +201,5 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     async def load_scripts(self) -> None: ...
     async def execute(self, raise_on_error: bool = ...): ...
     async def discard(self) -> None: ...
-    async def watch(self, *names: KeyT): ...
-    async def unwatch(self): ...
+    async def watch(self, *names: KeyT) -> bool: ...
+    async def unwatch(self) -> bool: ...
