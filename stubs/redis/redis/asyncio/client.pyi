@@ -1,6 +1,6 @@
 from _typeshed import Self
 from collections.abc import AsyncIterator, Awaitable, Callable, Iterable, Mapping, MutableMapping
-from typing import Any, Generic, NoReturn, Protocol, Tuple
+from typing import Any, Generic, NoReturn, Protocol
 from typing_extensions import TypeAlias, TypedDict
 
 from redis.asyncio.connection import ConnectCallbackT, Connection, ConnectionPool
@@ -116,8 +116,8 @@ class Monitor:
     async def listen(self) -> AsyncIterator[MonitorCommandInfo]: ...
 
 class PubSub:
-    PUBLISH_MESSAGE_TYPES: Tuple[str, ...]
-    UNSUBSCRIBE_MESSAGE_TYPES: Tuple[str, ...]
+    PUBLISH_MESSAGE_TYPES: tuple[str, ...]
+    UNSUBSCRIBE_MESSAGE_TYPES: tuple[str, ...]
     HEALTH_CHECK_MESSAGE: str
     connection_pool: Any
     shard_hint: str | None
