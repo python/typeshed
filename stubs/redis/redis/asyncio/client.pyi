@@ -173,7 +173,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     connection: Any
     response_callbacks: Any
     is_transaction: bool
-    shard_hint: str  | None
+    shard_hint: str | None
     watching: bool
     command_stack: Any
     scripts: Any
