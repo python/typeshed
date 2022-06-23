@@ -30,10 +30,12 @@ from colors import colored, print_error, print_success_msg
 
 SUPPORTED_VERSIONS = [(3, 11), (3, 10), (3, 9), (3, 8), (3, 7), (3, 6), (2, 7)]
 SUPPORTED_PLATFORMS = frozenset({"linux", "win32", "darwin"})
+TYPESHED_DIRECTORIES = frozenset({"stdlib", "stubs", "tests", "test_cases", "scripts"})
 
 MajorVersion: TypeAlias = int
 MinorVersion: TypeAlias = int
 Platform: TypeAlias = Annotated[str, "Must be one of the entries in SUPPORTED_PLATFORMS"]
+Directory: TypeAlias = Annotated[str, "Must be one of the entries in TYPESHED_DIRECTORIES"]
 
 
 def python_version(arg: str) -> tuple[MajorVersion, MinorVersion]:
@@ -50,11 +52,18 @@ def python_platform(platform: str) -> str:
     return platform
 
 
+def typeshed_directory(directory: str) -> str:
+    if directory not in TYPESHED_DIRECTORIES:
+        raise ValueError
+    return directory
+
+
 class CommandLineArgs(argparse.Namespace):
     verbose: int
     dry_run: bool
     exclude: list[str] | None
     python_version: list[tuple[MajorVersion, MinorVersion]] | None
+    dir: list[Directory] | None
     platform: list[Platform] | None
     filter: list[str]
 
@@ -65,6 +74,14 @@ parser.add_argument("-n", "--dry-run", action="store_true", help="Don't actually
 parser.add_argument("-x", "--exclude", type=str, nargs="*", help="Exclude pattern")
 parser.add_argument(
     "-p", "--python-version", type=python_version, nargs="*", action="extend", help="These versions only (major[.minor])"
+)
+parser.add_argument(
+    "-d",
+    "--dir",
+    type=typeshed_directory,
+    nargs="*",
+    action="extend",
+    help="Test only these top-level typeshed directories (defaults to all typeshed directories)",
 )
 parser.add_argument(
     "--platform",
@@ -85,6 +102,7 @@ class TestConfig:
     exclude: list[str] | None
     major: MajorVersion
     minor: MinorVersion
+    directories: frozenset[Directory]
     platform: Platform
     filter: list[str]
 
@@ -477,33 +495,38 @@ def test_the_test_cases(code: int, args: TestConfig) -> TestResults:
 def test_typeshed(code: int, args: TestConfig) -> TestResults:
     print(f"*** Testing Python {args.major}.{args.minor} on {args.platform}")
     files_checked_this_version = 0
-    code, stdlib_files_checked = test_stdlib(code, args)
-    files_checked_this_version += stdlib_files_checked
-    print()
+    if "stdlib" in args.directories:
+        code, stdlib_files_checked = test_stdlib(code, args)
+        files_checked_this_version += stdlib_files_checked
+        print()
 
     if args.major == 2:
         return TestResults(code, files_checked_this_version)
 
-    code, third_party_files_checked = test_third_party_stubs(code, args)
-    files_checked_this_version += third_party_files_checked
-    print()
+    if "stubs" in args.directories:
+        code, third_party_files_checked = test_third_party_stubs(code, args)
+        files_checked_this_version += third_party_files_checked
+        print()
 
     if args.minor >= 9:
         # Run mypy against our own test suite and the scripts directory
         #
         # Skip this on earlier Python versions,
         # as we're using new syntax and new functions in some test files
-        code, test_script_files_checked = test_the_test_scripts(code, args)
-        files_checked_this_version += test_script_files_checked
-        print()
+        if "tests" in args.directories:
+            code, test_script_files_checked = test_the_test_scripts(code, args)
+            files_checked_this_version += test_script_files_checked
+            print()
 
-        code, script_files_checked = test_scripts_directory(code, args)
-        files_checked_this_version += script_files_checked
-        print()
+        if "scripts" in args.directories:
+            code, script_files_checked = test_scripts_directory(code, args)
+            files_checked_this_version += script_files_checked
+            print()
 
-    code, test_case_files_checked = test_the_test_cases(code, args)
-    files_checked_this_version += test_case_files_checked
-    print()
+    if "test_cases" in args.directories:
+        code, test_case_files_checked = test_the_test_cases(code, args)
+        files_checked_this_version += test_case_files_checked
+        print()
 
     return TestResults(code, files_checked_this_version)
 
@@ -512,6 +535,7 @@ def main() -> None:
     args = parser.parse_args(namespace=CommandLineArgs())
     versions = args.python_version or SUPPORTED_VERSIONS
     platforms = args.platform or [sys.platform]
+    tested_directories = frozenset(args.dir) if args.dir else TYPESHED_DIRECTORIES
     code = 0
     total_files_checked = 0
     for (major, minor), platform in product(versions, platforms):
@@ -521,6 +545,7 @@ def main() -> None:
             exclude=args.exclude,
             major=major,
             minor=minor,
+            directories=tested_directories,
             platform=platform,
             filter=args.filter,
         )
