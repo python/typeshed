@@ -25,6 +25,5 @@ class _SMModelType(TypedDict):
 
 VERSION: list[str]
 
-
 def detect(byte_str: bytes | bytearray) -> _FinalResultType: ...
 def detect_all(byte_str: bytes | bytearray, ignore_threshold: bool = ...) -> list[_IntermediateResultType]: ...
