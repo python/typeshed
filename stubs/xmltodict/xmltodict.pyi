@@ -3,6 +3,8 @@ from collections import OrderedDict
 from collections.abc import Mapping
 from typing import Any, overload
 
+__license__: str
+
 class ParsingInterrupted(Exception): ...
 
 def parse(
