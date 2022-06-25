@@ -66,6 +66,7 @@ class PypiInfo:
     # https://warehouse.pypa.io/api-reference/json.html#get--pypi--project_name--json
     # Corresponds to a single entry from `releases` for the given version
     release_to_download: dict[str, Any]
+    info: dict[str, Any]
 
 
 async def fetch_pypi_info(distribution: str, session: aiohttp.ClientSession) -> PypiInfo:
@@ -82,6 +83,7 @@ async def fetch_pypi_info(distribution: str, session: aiohttp.ClientSession) -> 
             version=packaging.version.Version(version),
             upload_date=date,
             release_to_download=release_to_download,
+            info=j["info"],
         )
 
 
@@ -91,6 +93,7 @@ class Update:
     stub_path: Path
     old_version_spec: str
     new_version_spec: str
+    links: dict[str, str]
 
     def __str__(self) -> str:
         return f"Updating {self.distribution} from {self.old_version_spec!r} to {self.new_version_spec!r}"
@@ -102,6 +105,7 @@ class Obsolete:
     stub_path: Path
     obsolete_since_version: str
     obsolete_since_date: datetime.datetime
+    links: dict[str, str]
 
     def __str__(self) -> str:
         return f"Marking {self.distribution} as obsolete since {self.obsolete_since_version!r}"
@@ -173,12 +177,21 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
     if pypi_info.version in spec:
         return NoUpdate(stub_info.distribution, "up to date")
 
+    project_urls = pypi_info.info["project_urls"] or {}
+    maybe_links: dict[str, str | None] = {
+        "Release": pypi_info.info["release_url"],
+        "Homepage": project_urls.get("Homepage"),
+        "Changelog": project_urls.get("Changelog") or project_urls.get("Changes") or project_urls.get("Change Log"),
+    }
+    links = {k: v for k, v in maybe_links.items() if v is not None}
+
     if await package_contains_py_typed(pypi_info.release_to_download, session):
         return Obsolete(
             stub_info.distribution,
             stub_path,
             obsolete_since_version=str(pypi_info.version),
             obsolete_since_date=pypi_info.upload_date,
+            links=links,
         )
 
     return Update(
@@ -186,6 +199,7 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
         stub_path=stub_path,
         old_version_spec=stub_info.version_spec,
         new_version_spec=get_updated_version_spec(stub_info.version_spec, pypi_info.version),
+        links=links,
     )
 
 
@@ -268,7 +282,9 @@ async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession
             return
         subprocess.check_call(["git", "push", "origin", branch_name, "--force-with-lease"])
 
-    body = """\
+    body = "\n".join(f"{k}: {v}" for k, v in update.links.items())
+    body += """
+
 If stubtest fails for this PR:
 - Leave this PR open (as a reminder, and to prevent stubsabot from opening another PR)
 - Fix stubtest failures in another PR, then close this PR
@@ -295,7 +311,8 @@ async def suggest_typeshed_obsolete(obsolete: Obsolete, session: aiohttp.ClientS
             return
         subprocess.check_call(["git", "push", "origin", branch_name, "--force-with-lease"])
 
-    await create_or_update_pull_request(title=title, body="", branch_name=branch_name, session=session)
+    body = "\n".join(f"{k}: {v}" for k, v in obsolete.links.items())
+    await create_or_update_pull_request(title=title, body=body, branch_name=branch_name, session=session)
 
 
 async def main() -> None:
