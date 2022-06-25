@@ -1,5 +1,4 @@
 import sys
-from typing import Any
 
 from .universaldetector import UniversalDetector as UniversalDetector, _FinalResultType, _IntermediateResultType
 
