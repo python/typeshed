@@ -17,8 +17,6 @@ EAGAIN: int
 ENOMEM: int
 EACCES: int
 EFAULT: int
-if sys.platform != "win32":
-    ENOTBLK: int
 EBUSY: int
 EEXIST: int
 EXDEV: int
@@ -47,58 +45,16 @@ ELOOP: int
 EWOULDBLOCK: int
 ENOMSG: int
 EIDRM: int
-if sys.platform != "win32" and sys.platform != "darwin":
-    ECHRNG: int
-    EL2NSYNC: int
-    EL3HLT: int
-    EL3RST: int
-    ELNRNG: int
-    EUNATCH: int
-    ENOCSI: int
-    EL2HLT: int
-    EBADE: int
-    EBADR: int
-    EXFULL: int
-    ENOANO: int
-    EBADRQC: int
-    EBADSLT: int
-if sys.platform != "darwin":
-    EDEADLOCK: int
-    if sys.platform != "win32":
-        EBFONT: int
 ENOSTR: int
 ENODATA: int
 ETIME: int
 ENOSR: int
-if sys.platform != "win32" and sys.platform != "darwin":
-    ENONET: int
-    ENOPKG: int
 EREMOTE: int
 ENOLINK: int
-if sys.platform != "win32" and sys.platform != "darwin":
-    EADV: int
-    ESRMNT: int
-    ECOMM: int
 EPROTO: int
-if sys.platform != "win32":
-    EMULTIHOP: int
-    if sys.platform != "darwin":
-        EDOTDOT: int
 EBADMSG: int
 EOVERFLOW: int
-if sys.platform != "win32" and sys.platform != "darwin":
-    ENOTUNIQ: int
-    EBADFD: int
-    EREMCHG: int
-    ELIBACC: int
-    ELIBBAD: int
-    ELIBSCN: int
-    ELIBMAX: int
-    ELIBEXEC: int
 EILSEQ: int
-if sys.platform != "win32" and sys.platform != "darwin":
-    ERESTART: int
-    ESTRPIPE: int
 EUSERS: int
 ENOTSOCK: int
 EDESTADDRREQ: int
@@ -130,50 +86,87 @@ EHOSTUNREACH: int
 EALREADY: int
 EINPROGRESS: int
 ESTALE: int
+EDQUOT: int
+ECANCELED: int  # undocumented
+ENOTRECOVERABLE: int  # undocumented
+EOWNERDEAD: int  # undocumented
+
+if sys.platform != "win32":
+    ENOTBLK: int
+    EMULTIHOP: int
+    # All of the below are undocumented
+    EAUTH: int
+    EBADARCH: int
+    EBADEXEC: int
+    EBADMACHO: int
+    EBADRPC: int
+    EDEVERR: int
+    EFTYPE: int
+    ENEEDAUTH: int
+    ENOATTR: int
+    ENOPOLICY: int
+    EPROCLIM: int
+    EPROCUNAVAIL: int
+    EPROGMISMATCH: int
+    EPROGUNAVAIL: int
+    EPWROFF: int
+    ERPCMISMATCH: int
+    ESHLIBVERS: int
+
+    if sys.platform != "darwin" or sys.version_info >= (3, 11):
+        EQFULL: int  # undocumented
+
+if sys.platform != "darwin":
+    EDEADLOCK: int
+
 if sys.platform != "win32" and sys.platform != "darwin":
+    ECHRNG: int
+    EL2NSYNC: int
+    EL3HLT: int
+    EL3RST: int
+    ELNRNG: int
+    EUNATCH: int
+    ENOCSI: int
+    EL2HLT: int
+    EBADE: int
+    EBADR: int
+    EXFULL: int
+    ENOANO: int
+    EBADRQC: int
+    EBADSLT: int
+    EBFONT: int
+    ENONET: int
+    ENOPKG: int
+    EADV: int
+    ESRMNT: int
+    ECOMM: int
+    EDOTDOT: int
+    ENOTUNIQ: int
+    EBADFD: int
+    EREMCHG: int
+    ELIBACC: int
+    ELIBBAD: int
+    ELIBSCN: int
+    ELIBMAX: int
+    ELIBEXEC: int
+    ERESTART: int
+    ESTRPIPE: int
     EUCLEAN: int
     ENOTNAM: int
     ENAVAIL: int
     EISNAM: int
     EREMOTEIO: int
-EDQUOT: int
-ECANCELED: int  # undocumented
-if sys.platform != "win32" and sys.platform != "darwin":
-    EKEYEXPIRED: int  # undocumented
-    EKEYREJECTED: int  # undocumented
-    EKEYREVOKED: int  # undocumented
-    EMEDIUMTYPE: int  # undocumented
-    ENOKEY: int  # undocumented
-    ENOMEDIUM: int  # undocumented
-ENOTRECOVERABLE: int  # undocumented
-EOWNERDEAD: int  # undocumented
-if sys.platform != "win32":
-    if sys.platform != "darwin":
-        ERFKILL: int  # undocumented
-    EAUTH: int  # undocumented
-    EBADARCH: int  # undocumented
-    EBADEXEC: int  # undocumented
-    EBADMACHO: int  # undocumented
-    EBADRPC: int  # undocumented
-    EDEVERR: int  # undocumented
-    EFTYPE: int  # undocumented
-    if sys.platform != "darwin":
-        EL: int  # undocumented
-        ELOCKUNMAPPED: int  # undocumented
-    ENEEDAUTH: int  # undocumented
-    ENOATTR: int  # undocumented
-    ENOPOLICY: int  # undocumented
-    if sys.platform != "darwin":
-        ENOTACTIVE: int  # undocumented
-    EPROCLIM: int  # undocumented
-    EPROCUNAVAIL: int  # undocumented
-    EPROGMISMATCH: int  # undocumented
-    EPROGUNAVAIL: int  # undocumented
-    EPWROFF: int  # undocumented
-    if sys.platform != "darwin" or sys.version_info >= (3, 11):
-        EQFULL: int  # undocumented
-    ERPCMISMATCH: int  # undocumented
-    ESHLIBVERS: int  # undocumented
+    # All of the below are undocumented
+    EKEYEXPIRED: int
+    EKEYREJECTED: int
+    EKEYREVOKED: int
+    EMEDIUMTYPE: int
+    ENOKEY: int
+    ENOMEDIUM: int
+    ERFKILL: int
+    EL: int
+    ELOCKUNMAPPED: int
+    ENOTACTIVE: int
 
 if sys.platform == "win32":
     # All of these are undocumented
