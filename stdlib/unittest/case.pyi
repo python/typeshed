@@ -292,9 +292,9 @@ class TestCase:
 class FunctionTestCase(TestCase):
     def __init__(
         self,
-        testFunc: Callable[[], None],
-        setUp: Callable[[], None] | None = ...,
-        tearDown: Callable[[], None] | None = ...,
+        testFunc: Callable[[], object],
+        setUp: Callable[[], object] | None = ...,
+        tearDown: Callable[[], object] | None = ...,
         description: str | None = ...,
     ) -> None: ...
     def runTest(self) -> None: ...
