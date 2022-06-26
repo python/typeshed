@@ -1,6 +1,7 @@
 import datetime
 from _typeshed import Self
 from collections.abc import Iterable
+from typing import ClassVar
 
 from dateutil.relativedelta import relativedelta
 
@@ -8,7 +9,7 @@ __license__: str
 __email__: str
 
 class DateTimeRange:
-    NOT_A_TIME_STR: str
+    NOT_A_TIME_STR: ClassVar[str]
     start_time_format: str
     end_time_format: str
     is_output_elapse: bool
