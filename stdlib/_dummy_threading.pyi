@@ -3,7 +3,6 @@ from _typeshed import ProfileFunction, TraceFunction
 from collections.abc import Callable, Iterable, Mapping
 from types import TracebackType
 from typing import Any, TypeVar
-from typing_extensions import TypeAlias
 
 _T = TypeVar("_T")
 
