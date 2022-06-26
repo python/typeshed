@@ -519,7 +519,6 @@ xml.etree
 xml.sax
 
 # Platform differences that cannot be captured by the type system
-errno.[A-Z0-9]+
 os.O_[A-Z_]+
 (posix.O_[A-Z_]+)?
 (posix.ST_[A-Z]+)?
