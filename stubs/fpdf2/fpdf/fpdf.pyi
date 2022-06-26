@@ -148,7 +148,7 @@ class FPDF:
     b_margin: float
     page_break_trigger: float
     def set_auto_page_break(self, auto: bool, margin: float = ...) -> None: ...
-    zoom_mode: str | float
+    zoom_mode: Literal["fullpage", "fullwidth", "real", "default"] | float
     def set_display_mode(
         self,
         zoom: Literal["fullpage", "fullwidth", "real", "default"] | float,
