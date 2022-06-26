@@ -706,6 +706,18 @@ class TextIO(IO[str]):
     def newlines(self) -> Any: ...  # None, str or tuple
     @abstractmethod
     def __enter__(self) -> TextIO: ...
+    if sys.version_info >= (3, 7):
+        @property
+        def write_through(self) -> bool: ...
+        def reconfigure(
+            self,
+            *,
+            encoding: str | None = ...,
+            errors: str | None = ...,
+            newline: str | None = ...,
+            line_buffering: bool | None = ...,
+            write_through: bool | None = ...,
+        ) -> None: ...
 
 class ByteString(Sequence[int], metaclass=ABCMeta): ...
 
