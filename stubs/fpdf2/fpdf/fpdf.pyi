@@ -11,7 +11,7 @@ from typing_extensions import Literal, TypeAlias
 from PIL import Image
 
 from .actions import Action
-from .enums import AnnotationFlag, AnnotationName, Corner, RenderStyle
+from .enums import Align, AnnotationFlag, AnnotationName, Corner, RenderStyle, XPos, YPos
 from .recorder import FPDFRecorder
 from .syntax import DestinationXYZ
 from .util import _Unit
@@ -138,7 +138,7 @@ class FPDF:
         orientation: _Orientation = ...,
         unit: _Unit | float = ...,
         format: _Format | tuple[float, float] = ...,
-        font_cache_dir: bool = ...,
+        font_cache_dir: bool | Literal["DEPRECATED"] = ...,
     ) -> None: ...
     @property
     def unifontsubset(self) -> bool: ...
@@ -205,15 +205,45 @@ class FPDF:
     def get_string_width(self, s: str, normalized: bool = ..., markdown: bool = ...) -> float: ...
     def set_line_width(self, width: float) -> None: ...
     def line(self, x1: float, y1: float, x2: float, y2: float) -> None: ...
-    def polyline(self, point_list: list[tuple[float, float]], fill: bool = ..., polygon: bool = ..., style: RenderStyle | str | None = ...) -> None: ...
+    def polyline(
+        self, point_list: list[tuple[float, float]], fill: bool = ..., polygon: bool = ..., style: RenderStyle | str | None = ...
+    ) -> None: ...
     def polygon(self, point_list: list[tuple[float, float]], fill: bool = ..., style: RenderStyle | str | None = ...) -> None: ...
     def dashed_line(self, x1, y1, x2, y2, dash_length: int = ..., space_length: int = ...) -> None: ...
-    def rect(self, x: float, y: float, w: float, h: float, style: RenderStyle | str | None = ..., round_corners: tuple[str, ...] | tuple[Corner, ...] | bool = ..., corner_radius: float = ...) -> None: ...
+    def rect(
+        self,
+        x: float,
+        y: float,
+        w: float,
+        h: float,
+        style: RenderStyle | str | None = ...,
+        round_corners: tuple[str, ...] | tuple[Corner, ...] | bool = ...,
+        corner_radius: float = ...,
+    ) -> None: ...
     def ellipse(self, x: float, y: float, w: float, h: float, style: RenderStyle | str | None = ...) -> None: ...
     def circle(self, x: float, y: float, r, style: RenderStyle | str | None = ...) -> None: ...
-    def regular_polygon(self, x: float, y: float, numSides: int, polyWidth: float, rotateDegrees: float, style: RenderStyle | str | None = ...): ...
-    def star(self, x: float, y: float, r_in: float, r_out: float, corners: int, rotate_degrees: float = ..., style: RenderStyle | str | None = ...): ...
-    def add_font(self, family: str, style: _FontStyle = ..., fname: str | None = ..., uni: bool = ...) -> None: ...
+    def regular_polygon(
+        self,
+        x: float,
+        y: float,
+        numSides: int,
+        polyWidth: float,
+        rotateDegrees: float = ...,
+        style: RenderStyle | str | None = ...,
+    ): ...
+    def star(
+        self,
+        x: float,
+        y: float,
+        r_in: float,
+        r_out: float,
+        corners: int,
+        rotate_degrees: float = ...,
+        style: RenderStyle | str | None = ...,
+    ): ...
+    def add_font(
+        self, family: str, style: _FontStyle = ..., fname: str | None = ..., uni: bool | Literal["DEPRECATED"] = ...
+    ) -> None: ...
     def set_font(self, family: str | None = ..., style: _FontStyles = ..., size: int = ...) -> None: ...
     def set_font_size(self, size: int) -> None: ...
     font_stretching: float
@@ -234,12 +264,14 @@ class FPDF:
         h: float | None = ...,
         txt: str = ...,
         border: bool | Literal[0, 1] | str = ...,
-        ln: int = ...,
-        align: str = ...,
+        ln: int | Literal["DEPRECATED"] = ...,
+        align: str | Align = ...,
         fill: bool = ...,
         link: str = ...,
-        center: bool = ...,
+        center: bool | Literal["DEPRECATED"] = ...,
         markdown: bool = ...,
+        new_x: XPos | str = ...,
+        new_y: YPos | str = ...,
     ) -> bool: ...
     def will_page_break(self, height: float) -> bool: ...
     def multi_cell(
@@ -248,13 +280,16 @@ class FPDF:
         h: float | None = ...,
         txt: str = ...,
         border: bool | Literal[0, 1] | str = ...,
-        align: str = ...,
+        align: str | Align = ...,
         fill: bool = ...,
         split_only: bool = ...,
-        link: str = ...,
-        ln: int = ...,
+        link: str | int = ...,
+        ln: int | Literal["DEPRECATED"] = ...,
         max_line_height: float | None = ...,
         markdown: bool = ...,
+        print_sh: bool = ...,
+        new_x: XPos | str = ...,
+        new_y: YPos | str = ...,
     ): ...
     def write(self, h: float | None = ..., txt: str = ..., link: str = ...) -> None: ...
     def image(

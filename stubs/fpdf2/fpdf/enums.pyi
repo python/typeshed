@@ -1,6 +1,7 @@
-from .syntax import Name
 from _typeshed import Incomplete, Self
 from enum import Enum, IntEnum
+
+from .syntax import Name
 
 class DocumentState(IntEnum):
     UNINITIALIZED: int
