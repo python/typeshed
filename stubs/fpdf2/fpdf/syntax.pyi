@@ -1,5 +1,6 @@
 from abc import ABC
 from typing import Any
+from typing_extensions import Literal
 
 def clear_empty_fields(d): ...
 def create_dictionary_string(
@@ -36,10 +37,12 @@ class Destination(ABC):
     def as_str(self, pdf: Any | None = ...) -> None: ...
 
 class DestinationXYZ(Destination):
-    page: Any
-    x: Any
-    y: Any
-    zoom: Any
-    page_as_obj_id: Any
-    def __init__(self, page, x: int = ..., y: int = ..., zoom: str = ..., page_as_obj_id: bool = ...) -> None: ...
+    page: int
+    x: float
+    y: float
+    zoom: float | Literal["null"]
+    page_as_obj_id: bool
+    def __init__(
+        self, page: int, x: float = ..., y: float = ..., zoom: float | Literal["null"] = ..., page_as_obj_id: bool = ...
+    ) -> None: ...
     def as_str(self, pdf: Any | None = ...): ...
