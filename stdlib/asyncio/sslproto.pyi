@@ -115,7 +115,7 @@ class SSLProtocol(_SSLProtocolBase):
     _ssl_handshake_timeout: int | None
     _app_protocol: protocols.BaseProtocol
     _app_protocol_is_buffer: bool
-    
+
     if sys.version_info >= (3, 11):
         max_size: ClassVar[int]
     else:
