@@ -1,5 +1,6 @@
-from abc import ABC
 from _typeshed import Incomplete
+from abc import ABC
+
 from .syntax import PDFObject
 
 class Action(ABC):
