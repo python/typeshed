@@ -14,6 +14,7 @@ def parse(
     process_namespaces: bool = ...,
     namespace_separator: str = ...,
     disable_entities: bool = ...,
+    process_comments: bool = ...,
     **kwargs: Any,
 ) -> OrderedDict[str, Any]: ...
 @overload
