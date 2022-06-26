@@ -1,5 +1,5 @@
 from _typeshed.wsgi import StartResponse
-from collections.abc import Callable, Iterator, Mapping, Sequence
+from collections.abc import Iterator, Mapping, Sequence
 from logging import Logger
 from typing import Any, Match, Pattern
 
