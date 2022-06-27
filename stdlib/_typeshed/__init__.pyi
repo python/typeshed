@@ -7,9 +7,9 @@ import ctypes
 import mmap
 import pickle
 import sys
-from collections.abc import Awaitable, Container, Iterable, Set as AbstractSet
+from collections.abc import Awaitable, Callable, Container, Iterable, Set as AbstractSet
 from os import PathLike
-from types import TracebackType
+from types import FrameType, TracebackType
 from typing import Any, AnyStr, Generic, Protocol, TypeVar, Union
 from typing_extensions import Final, Literal, LiteralString, TypeAlias, final
 
@@ -262,3 +262,10 @@ class structseq(Generic[_T_co]):
 
 # Superset of typing.AnyStr that also inclues LiteralString
 AnyOrLiteralStr = TypeVar("AnyOrLiteralStr", str, bytes, LiteralString)  # noqa: Y001
+
+# Objects suitable to be passed to sys.setprofile, threading.setprofile, and similar
+ProfileFunction: TypeAlias = Callable[[FrameType, str, Any], object]
+
+# Objects suitable to be passed to sys.settrace, threading.settrace, and similar
+# TODO: Ideally this would be a recursive type alias
+TraceFunction: TypeAlias = Callable[[FrameType, str, Any], Callable[[FrameType, str, Any], Any] | None]
