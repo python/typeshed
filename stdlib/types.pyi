@@ -18,7 +18,7 @@ from importlib.machinery import ModuleSpec
 
 # pytype crashes if types.MappingProxyType inherits from collections.abc.Mapping instead of typing.Mapping
 from typing import Any, ClassVar, Generic, Mapping, TypeVar, overload  # noqa: Y027
-from typing_extensions import Literal, ParamSpec, final
+from typing_extensions import Literal, ParamSpec, final, Final
 
 __all__ = [
     "FunctionType",
@@ -634,7 +634,8 @@ if sys.version_info >= (3, 9):
         def __getattr__(self, name: str) -> Any: ...  # incomplete
 
 if sys.version_info >= (3, 10):
-    NoneType = type(None)
+    # https://github.com/KotlinIsland/basedmypy/issues/334
+    NoneType: Final[type[None]] = type(None)
     EllipsisType = ellipsis  # noqa: F811 from builtins
     from builtins import _NotImplementedType
 
