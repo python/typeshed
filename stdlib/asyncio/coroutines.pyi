@@ -1,7 +1,7 @@
 import sys
 from collections.abc import Coroutine
-from typing import Any, AwaitableGenerator
-from typing_extensions import TypeGuard
+from typing import Any
+from typing_extensions import Annotated, TypeGuard
 
 if sys.version_info >= (3, 11):
     __all__ = ("iscoroutinefunction", "iscoroutine")
@@ -23,4 +23,4 @@ if sys.version_info >= (3, 8):
     def iscoroutine(obj: object) -> TypeGuard[Coroutine[Any, Any, Any]]: ...
 
 else:
-    def iscoroutine(obj: object) -> TypeGuard[AwaitableGenerator[Any, Any, Any, Any] | Coroutine[Any, Any, Any]]: ...
+    def iscoroutine(obj: object) -> Annotated[TypeGuard[Coroutine[Any, Any, Any]], "can actually be a generator-style coroutine"]: ...
