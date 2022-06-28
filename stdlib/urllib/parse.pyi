@@ -66,7 +66,7 @@ class _NetlocResultMixinBase(Generic[AnyStr]):
 class _NetlocResultMixinStr(_NetlocResultMixinBase[str], _ResultMixinStr): ...
 class _NetlocResultMixinBytes(_NetlocResultMixinBase[bytes], _ResultMixinBytes): ...
 
-class _DefragResultBase(tuple[Any, ...], Generic[AnyStr]):
+class _DefragResultBase(tuple[AnyStr, ...], Generic[AnyStr]):
     if sys.version_info >= (3, 10):
         __match_args__ = ("url", "fragment")
     @property
