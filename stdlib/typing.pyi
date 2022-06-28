@@ -118,7 +118,7 @@ if sys.version_info >= (3, 11):
 # This itself is only available during type checking
 def type_check_only(func_or_cls: _F) -> _F: ...
 
-Any = object()
+Any: _SpecialForm = ...
 
 @_final
 class TypeVar:
