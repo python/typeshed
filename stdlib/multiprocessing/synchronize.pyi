@@ -13,7 +13,7 @@ _LockLike: TypeAlias = Lock | RLock
 
 class Barrier(threading.Barrier):
     def __init__(
-        self, parties: int, action: Callable[..., Any] | None = ..., timeout: float | None = ..., *ctx: BaseContext
+        self, parties: int, action: Callable[[], object] | None = ..., timeout: float | None = ..., *ctx: BaseContext
     ) -> None: ...
 
 class BoundedSemaphore(Semaphore):
