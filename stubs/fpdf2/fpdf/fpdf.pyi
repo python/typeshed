@@ -137,7 +137,7 @@ class FPDF:
         orientation: _Orientation = ...,
         unit: _Unit | float = ...,
         format: _Format | tuple[float, float] = ...,
-        font_cache_dir: bool | Literal["DEPRECATED"] = ...,
+        font_cache_dir: str | Literal["DEPRECATED"] = ...,
     ) -> None: ...
     @property
     def font_size_pt(self) -> float: ...
