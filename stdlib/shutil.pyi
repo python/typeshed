@@ -1,6 +1,6 @@
 import os
 import sys
-from _typeshed import BytesPath, StrOrBytesPath, StrPath, SupportsRead, SupportsWrite
+from _typeshed import BytesPath, OptExcInfo, StrOrBytesPath, StrPath, SupportsRead, SupportsWrite
 from collections.abc import Callable, Iterable, Sequence
 from typing import Any, AnyStr, NamedTuple, TypeVar, overload
 from typing_extensions import TypeAlias
@@ -82,17 +82,15 @@ else:
         ignore_dangling_symlinks: bool = ...,
     ) -> _PathReturn: ...
 
+_OnErrorCallback: TypeAlias = Callable[[Callable[[StrOrBytesPath, OptExcInfo], object], StrOrBytesPath, OptExcInfo], object]
+
 if sys.version_info >= (3, 11):
     def rmtree(
-        path: StrOrBytesPath,
-        ignore_errors: bool = ...,
-        onerror: Callable[[Any, Any, Any], Any] | None = ...,
-        *,
-        dir_fd: int | None = ...,
+        path: StrOrBytesPath, ignore_errors: bool = ..., onerror: _OnErrorCallback | None = ..., *, dir_fd: int | None = ...
     ) -> None: ...
 
 else:
-    def rmtree(path: StrOrBytesPath, ignore_errors: bool = ..., onerror: Callable[[Any, Any, Any], Any] | None = ...) -> None: ...
+    def rmtree(path: StrOrBytesPath, ignore_errors: bool = ..., onerror: _OnErrorCallback | None = ...) -> None: ...
 
 _CopyFn: TypeAlias = Callable[[str, str], object] | Callable[[StrPath, StrPath], object]
 
