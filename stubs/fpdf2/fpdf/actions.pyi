@@ -4,6 +4,7 @@ from abc import ABC
 from .syntax import PDFObject
 
 class Action(ABC):
+    next: PDFObject | str | None
     def __init__(self, next_action: PDFObject | str | None = ...) -> None: ...
     def dict_as_string(self, key_values: dict[str, Incomplete] | None = ...) -> str: ...
 
