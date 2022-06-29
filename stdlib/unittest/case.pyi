@@ -1,7 +1,7 @@
 import logging
 import sys
 import unittest.result
-from _typeshed import Self, SupportsDunderGE, SupportsDunderGT, SupportsDunderLE, SupportsDunderLT, SupportsSub
+from _typeshed import Self, SupportsDunderGE, SupportsDunderGT, SupportsDunderLE, SupportsDunderLT, SupportsRSub, SupportsSub
 from collections.abc import Callable, Container, Iterable, Mapping, Sequence, Set as AbstractSet
 from contextlib import AbstractContextManager
 from types import TracebackType
@@ -217,6 +217,15 @@ class TestCase:
         delta: None = ...,
     ) -> None: ...
     @overload
+    def assertAlmostEqual(
+        self,
+        first: _T,
+        second: SupportsRSub[_T, SupportsAbs[SupportsRound[object]]],
+        places: int | None = ...,
+        msg: Any = ...,
+        delta: None = ...,
+    ) -> None: ...
+    @overload
     def assertNotAlmostEqual(self, first: _S, second: _S, places: None, msg: Any, delta: _SupportsAbsAndDunderGE) -> None: ...
     @overload
     def assertNotAlmostEqual(
@@ -227,6 +236,15 @@ class TestCase:
         self,
         first: SupportsSub[_T, SupportsAbs[SupportsRound[object]]],
         second: _T,
+        places: int | None = ...,
+        msg: Any = ...,
+        delta: None = ...,
+    ) -> None: ...
+    @overload
+    def assertNotAlmostEqual(
+        self,
+        first: _T,
+        second: SupportsRSub[_T, SupportsAbs[SupportsRound[object]]],
         places: int | None = ...,
         msg: Any = ...,
         delta: None = ...,
@@ -292,9 +310,9 @@ class TestCase:
 class FunctionTestCase(TestCase):
     def __init__(
         self,
-        testFunc: Callable[[], None],
-        setUp: Callable[[], None] | None = ...,
-        tearDown: Callable[[], None] | None = ...,
+        testFunc: Callable[[], object],
+        setUp: Callable[[], object] | None = ...,
+        tearDown: Callable[[], object] | None = ...,
         description: str | None = ...,
     ) -> None: ...
     def runTest(self) -> None: ...

@@ -53,14 +53,15 @@ class RedisCluster(RedisClusterCommands[_StrType], Generic[_StrType]):
     commands_parser: Any
     def __init__(
         self,
-        host: Any | None = ...,
+        host: Incomplete | None = ...,
         port: int = ...,
-        startup_nodes: Any | None = ...,
+        startup_nodes: Incomplete | None = ...,
         cluster_error_retry_attempts: int = ...,
         require_full_coverage: bool = ...,
         reinitialize_steps: int = ...,
         read_from_replicas: bool = ...,
-        url: Any | None = ...,
+        dynamic_startup_nodes: bool = ...,
+        url: Incomplete | None = ...,
         **kwargs,
     ) -> None: ...
     def __enter__(self): ...
@@ -125,7 +126,13 @@ class NodesManager:
     connection_kwargs: Any
     read_load_balancer: Any
     def __init__(
-        self, startup_nodes, from_url: bool = ..., require_full_coverage: bool = ..., lock: Any | None = ..., **kwargs
+        self,
+        startup_nodes,
+        from_url: bool = ...,
+        require_full_coverage: bool = ...,
+        lock: Incomplete | None = ...,
+        dynamic_startup_nodes: bool = ...,
+        **kwargs,
     ) -> None: ...
     def get_node(self, host: Any | None = ..., port: Any | None = ..., node_name: Any | None = ...): ...
     def update_moved_exception(self, exception) -> None: ...

@@ -3,6 +3,7 @@ from collections.abc import AsyncIterator, Awaitable, Callable, Iterable, Mappin
 from typing import Any, ClassVar, Generic, NoReturn, Protocol
 from typing_extensions import TypeAlias, TypedDict
 
+from redis import RedisError
 from redis.asyncio.connection import ConnectCallbackT, Connection, ConnectionPool
 from redis.asyncio.lock import Lock
 from redis.asyncio.retry import Retry
@@ -45,6 +46,7 @@ class Redis(AbstractRedis, RedisModuleCommands, AsyncCoreCommands[_StrType], Asy
         encoding_errors: str = ...,
         decode_responses: bool = ...,
         retry_on_timeout: bool = ...,
+        retry_on_error: list[type[RedisError]] | None = ...,
         ssl: bool = ...,
         ssl_keyfile: str | None = ...,
         ssl_certfile: str | None = ...,
