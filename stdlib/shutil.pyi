@@ -1,6 +1,6 @@
 import os
 import sys
-from _typeshed import BytesPath, OptExcInfo, StrOrBytesPath, StrPath, SupportsRead, SupportsWrite
+from _typeshed import BytesPath, StrOrBytesPath, StrPath, SupportsRead, SupportsWrite
 from collections.abc import Callable, Iterable, Sequence
 from typing import Any, AnyStr, NamedTuple, TypeVar, overload
 from typing_extensions import TypeAlias
