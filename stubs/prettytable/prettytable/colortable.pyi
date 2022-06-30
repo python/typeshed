@@ -28,8 +28,8 @@ class Theme:
     def format_code(s: str) -> str: ...  # type: ignore
 
 class Themes:
-    DEFAULT: Theme
-    OCEAN: Theme
+    DEFAULT: ClassVar[Theme]
+    OCEAN: ClassVar[Theme]
 
 class ColorTable(PrettyTable):
     def __init__(self, field_names: Incomplete | None = ..., **kwargs) -> None: ...
