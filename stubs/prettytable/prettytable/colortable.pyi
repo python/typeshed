@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Callable
 
-from .prettytable import PrettyTable as PrettyTable
+from .prettytable import PrettyTable
 
 RESET_CODE: str
 
