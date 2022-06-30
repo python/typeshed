@@ -22,7 +22,9 @@ _Box: TypeAlias = tuple[int, int, int, int]
 _ConversionMatrix: TypeAlias = Union[
     tuple[float, float, float, float], tuple[float, float, float, float, float, float, float, float, float, float, float, float],
 ]
-_Color: TypeAlias = int | tuple[int] | tuple[int, int, int] | tuple[int, int, int, int] | str
+_Color: TypeAlias = Union[
+    int, tuple[int], tuple[int, int, int], tuple[int, int, int, int], str
+]
 
 class _Writeable(SupportsWrite[bytes], Protocol):
     def seek(self, __offset: int) -> Any: ...
