@@ -167,6 +167,10 @@ if sys.version_info >= (3, 10):
         *coros_or_futures: _FutureLike[Any],
         return_exceptions: bool = ...,
     ) -> Future[list[Any]]: ...
+    @overload
+    def gather(*coros_or_futures: _FutureLike[_T], return_exceptions: Literal[False] = ...) -> Future[list[_T]]: ...
+    @overload
+    def gather(*coros_or_futures: _FutureLike[_T], return_exceptions: bool) -> Future[list[_T | BaseException]]: ...
 
 else:
     @overload
@@ -257,6 +261,14 @@ else:
     ) -> Future[
         tuple[_T1 | BaseException, _T2 | BaseException, _T3 | BaseException, _T4 | BaseException, _T5 | BaseException]
     ]: ...
+    @overload
+    def gather(
+        *coros_or_futures: _FutureLike[_T], loop: AbstractEventLoop | None = ..., return_exceptions: Literal[False] = ...
+    ) -> Future[list[_T]]: ...
+    @overload
+    def gather(
+        *coros_or_futures: _FutureLike[_T], loop: AbstractEventLoop | None = ..., return_exceptions: bool
+    ) -> Future[list[_T | BaseException]]: ...
     @overload
     def gather(
         __coro_or_future1: _FutureLike[Any],
