@@ -1,5 +1,3 @@
-from typing import Any
-
 from stripe import error as error
 from stripe.api_resources import Customer as Customer
 from stripe.api_resources.abstract import (

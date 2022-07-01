@@ -1,5 +1,3 @@
-from typing import Any
-
 from stripe.api_resources.abstract import (
     ListableAPIResource as ListableAPIResource,
     nested_resource_class_methods as nested_resource_class_methods,
