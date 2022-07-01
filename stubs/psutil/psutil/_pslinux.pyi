@@ -17,7 +17,6 @@ from ._common import (
 
 __extra__all__: Any
 POWER_SUPPLY_PATH: str
-HAS_SMAPS: Any
 HAS_PROC_IO_PRIORITY: Any
 HAS_CPU_AFFINITY: Any
 CLOCK_TICKS: Any
