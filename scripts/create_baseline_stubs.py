@@ -85,7 +85,14 @@ def create_metadata(stub_dir: str, version: str) -> None:
     assert not os.path.exists(fnam)
     print(f"Writing {fnam}")
     with open(fnam, "w") as f:
-        f.write(f'version = "{version}.*"\n')
+        f.write(
+            f"""\
+version = "{version}.*"
+
+[tool.stubtest]
+ignore_missing_stub = false
+"""
+        )
 
 
 def add_pyright_exclusion(stub_dir: str) -> None:
