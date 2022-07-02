@@ -1,16 +1,19 @@
 from _typeshed import (
+    BytesPath,
     OpenBinaryMode,
     OpenBinaryModeReading,
     OpenBinaryModeUpdating,
     OpenBinaryModeWriting,
     OpenTextMode,
     StrOrBytesPath,
+    StrPath,
 )
 from asyncio import AbstractEventLoop
 from typing import Any, AnyStr, TypeVar, overload
 from typing_extensions import Literal
 
 from ..base import AiofilesContextManager
+from .temptypes import AsyncTemporaryDirectory
 from ..threadpool.binary import AsyncBufferedIOBase, AsyncBufferedReader, AsyncFileIO
 from ..threadpool.text import AsyncTextIOWrapper
 
@@ -235,12 +238,21 @@ def SpooledTemporaryFile(
     loop: AbstractEventLoop | None = ...,
     executor: Any | None = ...,
 ) -> AiofilesContextManager[None, None, AsyncBufferedIOBase]: ...
+@overload
 def TemporaryDirectory(
-    suffix: StrOrBytesPath | None = ...,
-    prefix: StrOrBytesPath | None = ...,
-    dir: StrOrBytesPath | None = ...,
+    suffix: str | None = ...,
+    prefix: str | None = ...,
+    dir: StrPath | None = ...,
     loop: AbstractEventLoop | None = ...,
     executor: Any | None = ...,
-) -> StrOrBytesPath: ...
+) -> AiofilesContextManagerTempDir[None, None, AsyncTemporaryDirectory]: ...
+@overload
+def TemporaryDirectory(
+    suffix: bytes | None = ...,
+    prefix: bytes | None = ...,
+    dir: BytesPath | None = ...,
+    loop: AbstractEventLoop | None = ...,
+    executor: Any | None = ...,
+) -> AiofilesContextManagerTempDir[None, None, AsyncTemporaryDirectory]: ...
 
 class AiofilesContextManagerTempDir(AiofilesContextManager[_T_co, _T_contra, _V_co]): ...
