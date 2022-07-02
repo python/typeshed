@@ -27,7 +27,6 @@ collections.Callable
 collections.Mapping.__reversed__  # Set to None at runtime for a better error message
 collections.UserString.maketrans
 contextvars.ContextVar.get
-dataclasses.field
 distutils.command.bdist_wininst  # see #6523
 dummy_threading.Condition.acquire
 dummy_threading.Condition.release
@@ -47,9 +46,6 @@ re.Pattern.scanner  # Undocumented and not useful. #6405
 sched.Event.__doc__  # __slots__ is overridden
 ssl.PROTOCOL_SSLv3  # Depends on ssl compilation
 ssl.RAND_egd  # Depends on openssl compilation
-types.ClassMethodDescriptorType.__get__
-types.MethodDescriptorType.__get__
-types.WrapperDescriptorType.__get__
 typing.NamedTuple._asdict
 typing.NamedTuple._make
 typing.NamedTuple._replace
@@ -88,8 +84,6 @@ tempfile.SpooledTemporaryFile.seekable
 tempfile.SpooledTemporaryFile.writable
 
 # Exists at runtime, but missing from stubs
-_dummy_thread.RLock
-_imp.source_hash
 contextvars.ContextVar.__class_getitem__
 datetime.datetime_CAPI
 distutils.dist.DistributionMetadata.set_classifiers
@@ -172,3 +166,13 @@ queue.SimpleQueue.__init__
 
 pyexpat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args
 xml.parsers.expat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args
+pyexpat.XMLParserType.intern  # does exist but stubtest can't see it (https://github.com/python/cpython/blob/3.7/Modules/pyexpat.c#L1322)
+xml.parsers.expat.XMLParserType.intern  # does exist but stubtest can't see it (https://github.com/python/cpython/blob/3.7/Modules/pyexpat.c#L1322)
+
+# White lies around defaults
+dataclasses.field
+
+# Runtime signature is incorrect (https://github.com/python/cpython/issues/93021)
+types.ClassMethodDescriptorType.__get__
+types.MethodDescriptorType.__get__
+types.WrapperDescriptorType.__get__

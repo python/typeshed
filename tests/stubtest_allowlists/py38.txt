@@ -32,7 +32,6 @@ collections.ItemsView.__reversed__
 collections.KeysView.__reversed__
 collections.ValuesView.__reversed__
 collections.Mapping.__reversed__  # Set to None at runtime for a better error message
-dataclasses.field
 distutils.command.bdist_wininst  # see #6523
 dummy_threading.Condition.acquire
 dummy_threading.Condition.release
@@ -60,9 +59,6 @@ sched.Event.__doc__  # __slots__ is overridden
 ssl.PROTOCOL_SSLv3  # Depends on ssl compilation
 ssl.RAND_egd  # Depends on openssl compilation
 sys.UnraisableHookArgs  # Not exported from sys
-types.ClassMethodDescriptorType.__get__
-types.MethodDescriptorType.__get__
-types.WrapperDescriptorType.__get__
 typing.NamedTuple.__new__
 typing.NamedTuple._asdict
 typing.NamedTuple._make
@@ -104,8 +100,6 @@ tempfile.SpooledTemporaryFile.seekable
 tempfile.SpooledTemporaryFile.writable
 
 # Exists at runtime, but missing from stubs
-_dummy_thread.RLock
-_imp.source_hash
 contextvars.ContextVar.__class_getitem__
 datetime.datetime_CAPI
 distutils.dist.DistributionMetadata.set_classifiers
@@ -131,8 +125,6 @@ multiprocessing.managers.SharedMemoryServer.shutdown
 multiprocessing.managers.SharedMemoryServer.track_segment
 plistlib.Data.asBase64
 plistlib.Data.fromBase64
-pyexpat.XMLParserType.SkippedEntityHandler
-pyexpat.XMLParserType.intern
 stringprep.unicodedata  # re-exported from unicodedata
 tempfile.SpooledTemporaryFile.softspace
 tkinter.Tk.split
@@ -154,9 +146,6 @@ tkinter.filedialog.wantobjects
 tkinter.simpledialog.wantobjects
 tkinter.tix.wantobjects
 typing._SpecialForm.__call__
-unicodedata.UCD.is_normalized
-xml.parsers.expat.XMLParserType.SkippedEntityHandler
-xml.parsers.expat.XMLParserType.intern
 
 # ==========
 # Allowlist entries that cannot or should not be fixed
@@ -196,3 +185,11 @@ queue.SimpleQueue.__init__
 
 uuid.getnode  # undocumented, unused parameter getters that was later removed
 types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
+
+# White lies around defaults
+dataclasses.field
+
+# Runtime signature is incorrect (https://github.com/python/cpython/issues/93021)
+types.ClassMethodDescriptorType.__get__
+types.MethodDescriptorType.__get__
+types.WrapperDescriptorType.__get__
