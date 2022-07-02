@@ -66,7 +66,7 @@ def NamedTemporaryFile(
 # Buffered binary writing: AsyncBufferedIOBase
 @overload
 def NamedTemporaryFile(
-    mode: OpenBinaryModeWriting = ...,
+    mode: OpenBinaryModeWriting,
     buffering: Literal[-1, 1] = ...,
     encoding: None = ...,
     newline: None = ...,
@@ -123,7 +123,7 @@ def TemporaryFile(
 # Buffered binary writing: AsyncBufferedIOBase
 @overload
 def TemporaryFile(
-    mode: OpenBinaryModeWriting = ...,
+    mode: OpenBinaryModeWriting,
     buffering: Literal[-1, 1] = ...,
     encoding: None = ...,
     newline: None = ...,
@@ -138,7 +138,21 @@ def TemporaryFile(
 @overload
 def SpooledTemporaryFile(
     max_size: int = ...,
-    mode: OpenTextMode = ...,
+    *,
+    mode: OpenTextMode,
+    buffering: int = ...,
+    encoding: str | None = ...,
+    newline: str | None = ...,
+    suffix: AnyStr | None = ...,
+    prefix: AnyStr | None = ...,
+    dir: StrOrBytesPath | None = ...,
+    loop: AbstractEventLoop | None = ...,
+    executor: Any | None = ...,
+) -> AiofilesContextManager[None, None, AsyncTextIOWrapper]: ...
+@overload
+def SpooledTemporaryFile(
+    max_size: int,
+    mode: OpenTextMode,
     buffering: int = ...,
     encoding: str | None = ...,
     newline: str | None = ...,
@@ -154,7 +168,21 @@ def SpooledTemporaryFile(
 def SpooledTemporaryFile(
     max_size: int = ...,
     mode: OpenBinaryMode = ...,
-    buffering: Literal[0] = ...,
+    *,
+    buffering: Literal[0],
+    encoding: None = ...,
+    newline: None = ...,
+    suffix: AnyStr | None = ...,
+    prefix: AnyStr | None = ...,
+    dir: StrOrBytesPath | None = ...,
+    loop: AbstractEventLoop | None = ...,
+    executor: Any | None = ...,
+) -> AiofilesContextManager[None, None, AsyncFileIO]: ...
+@overload
+def SpooledTemporaryFile(
+    max_size: int,
+    mode: OpenBinaryMode,
+    buffering: Literal[0],
     encoding: None = ...,
     newline: None = ...,
     suffix: AnyStr | None = ...,
@@ -183,7 +211,21 @@ def SpooledTemporaryFile(
 @overload
 def SpooledTemporaryFile(
     max_size: int = ...,
-    mode: OpenBinaryModeWriting = ...,
+    *,
+    mode: OpenBinaryModeWriting,
+    buffering: Literal[-1, 1] = ...,
+    encoding: None = ...,
+    newline: None = ...,
+    suffix: AnyStr | None = ...,
+    prefix: AnyStr | None = ...,
+    dir: StrOrBytesPath | None = ...,
+    loop: AbstractEventLoop | None = ...,
+    executor: Any | None = ...,
+) -> AiofilesContextManager[None, None, AsyncBufferedIOBase]: ...
+@overload
+def SpooledTemporaryFile(
+    max_size: int,
+    mode: OpenBinaryModeWriting,
     buffering: Literal[-1, 1] = ...,
     encoding: None = ...,
     newline: None = ...,
