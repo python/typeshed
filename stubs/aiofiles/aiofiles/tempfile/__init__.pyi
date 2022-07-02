@@ -13,9 +13,9 @@ from typing import Any, AnyStr, TypeVar, overload
 from typing_extensions import Literal
 
 from ..base import AiofilesContextManager
-from .temptypes import AsyncTemporaryDirectory
 from ..threadpool.binary import AsyncBufferedIOBase, AsyncBufferedReader, AsyncFileIO
 from ..threadpool.text import AsyncTextIOWrapper
+from .temptypes import AsyncTemporaryDirectory
 
 _T_co = TypeVar("_T_co", covariant=True)
 _V_co = TypeVar("_V_co", covariant=True)
