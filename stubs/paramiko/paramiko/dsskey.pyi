@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from typing import IO, Any
+from typing import IO
 
 from paramiko.message import Message
 from paramiko.pkey import PKey
