@@ -4,7 +4,7 @@ from _typeshed import FileDescriptorLike, Self, WriteableBuffer
 from abc import ABCMeta, abstractmethod
 from collections.abc import Awaitable, Callable, Coroutine, Generator, Sequence
 from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
-from typing import IO, Any, TypeVar, overload
+from typing import IO, Any, Protocol, TypeVar, overload
 from typing_extensions import Literal, TypeAlias
 
 from .base_events import Server
