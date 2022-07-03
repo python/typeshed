@@ -179,7 +179,6 @@ socketserver.BaseServer.server_bind  # implemented in derived classes
 ssl.PROTOCOL_SSLv2  # Defined only if compiled with ssl v2
 ssl.Purpose.__new__  # You cannot override __new__ in NamedTuple and runtime uses namedtuple.
 ssl._ASN1Object.__new__  # You cannot override __new__ in NamedTuple and runtime uses namedtuple.
-subprocess.Popen.__init__
 sys.implementation  # Actually SimpleNamespace but then you wouldn't have convenient attributes
 sys.thread_info
 tarfile.TarFile.errors  # errors is initialized for some reason as None even though it really only accepts str

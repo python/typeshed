@@ -6,6 +6,8 @@ from types import TracebackType
 from typing import Any, ClassVar, Generic, Pattern, TypeVar, overload
 from typing_extensions import Literal, TypeAlias
 
+from redis import RedisError
+
 from .commands import CoreCommands, RedisModuleCommands, SentinelCommands
 from .connection import ConnectionPool, _ConnectFunc, _ConnectionPoolOptions
 from .lock import Lock
@@ -164,7 +166,7 @@ class Redis(AbstractRedis, RedisModuleCommands, CoreCommands[_StrType], Sentinel
         errors: str | None,
         decode_responses: Literal[True],
         retry_on_timeout: bool = ...,
-        retry_on_error=...,
+        retry_on_error: list[type[RedisError]] | None = ...,
         ssl: bool = ...,
         ssl_keyfile: str | None = ...,
         ssl_certfile: str | None = ...,

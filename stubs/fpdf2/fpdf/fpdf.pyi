@@ -1,7 +1,7 @@
 import datetime
 from _typeshed import Incomplete, StrPath
 from collections import defaultdict
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 from contextlib import _GeneratorContextManager
 from enum import IntEnum
 from io import BytesIO
@@ -11,6 +11,7 @@ from typing_extensions import Literal, TypeAlias
 from PIL import Image
 
 from .actions import Action
+from .enums import Align, AnnotationFlag, AnnotationName, Corner, PageLayout, RenderStyle, TextMarkupType, XPos, YPos
 from .recorder import FPDFRecorder
 from .syntax import DestinationXYZ
 from .util import _Unit
@@ -33,10 +34,19 @@ class Annotation(NamedTuple):
     y: int
     width: int
     height: int
+    flags: tuple[AnnotationFlag, ...] = ...
     contents: str | None = ...
     link: str | int | None = ...
     alt_text: str | None = ...
     action: Action | None = ...
+    color: int | None = ...
+    modification_time: datetime.datetime | None = ...
+    title: str | None = ...
+    quad_points: Sequence[int] | None = ...
+    page: int | None = ...
+    border_width: int = ...
+    name: AnnotationName | None = ...
+    ink_list: tuple[int, ...] = ...
 
 class TitleStyle(NamedTuple):
     font_family: str | None = ...
@@ -88,7 +98,6 @@ class FPDF:
     current_font: _Font
     font_family: str
     font_style: str
-    font_size_pt: int
     str_alias_nb_pages: str
     underline: int
     draw_color: str
@@ -128,8 +137,10 @@ class FPDF:
         orientation: _Orientation = ...,
         unit: _Unit | float = ...,
         format: _Format | tuple[float, float] = ...,
-        font_cache_dir: bool = ...,
+        font_cache_dir: str | Literal["DEPRECATED"] = ...,
     ) -> None: ...
+    @property
+    def font_size_pt(self) -> float: ...
     @property
     def unifontsubset(self) -> bool: ...
     @property
@@ -149,6 +160,7 @@ class FPDF:
     page_break_trigger: float
     def set_auto_page_break(self, auto: bool, margin: float = ...) -> None: ...
     zoom_mode: Literal["fullpage", "fullwidth", "real", "default"] | float
+    page_layout: PageLayout | None
     def set_display_mode(
         self,
         zoom: Literal["fullpage", "fullwidth", "real", "default"] | float,
@@ -195,22 +207,84 @@ class FPDF:
     def get_string_width(self, s: str, normalized: bool = ..., markdown: bool = ...) -> float: ...
     def set_line_width(self, width: float) -> None: ...
     def line(self, x1: float, y1: float, x2: float, y2: float) -> None: ...
-    def polyline(self, point_list: list[tuple[float, float]], fill: bool = ..., polygon: bool = ...) -> None: ...
-    def polygon(self, point_list: list[tuple[float, float]], fill: bool = ...) -> None: ...
+    def polyline(
+        self, point_list: list[tuple[float, float]], fill: bool = ..., polygon: bool = ..., style: RenderStyle | str | None = ...
+    ) -> None: ...
+    def polygon(self, point_list: list[tuple[float, float]], fill: bool = ..., style: RenderStyle | str | None = ...) -> None: ...
     def dashed_line(self, x1, y1, x2, y2, dash_length: int = ..., space_length: int = ...) -> None: ...
-    def rect(self, x: float, y: float, w: float, h: float, style: Incomplete | None = ...) -> None: ...
-    def ellipse(self, x: float, y: float, w: float, h: float, style: Incomplete | None = ...) -> None: ...
-    def circle(self, x: float, y: float, r, style: Incomplete | None = ...) -> None: ...
-    def add_font(self, family: str, style: _FontStyle = ..., fname: str | None = ..., uni: bool = ...) -> None: ...
+    def rect(
+        self,
+        x: float,
+        y: float,
+        w: float,
+        h: float,
+        style: RenderStyle | str | None = ...,
+        round_corners: tuple[str, ...] | tuple[Corner, ...] | bool = ...,
+        corner_radius: float = ...,
+    ) -> None: ...
+    def ellipse(self, x: float, y: float, w: float, h: float, style: RenderStyle | str | None = ...) -> None: ...
+    def circle(self, x: float, y: float, r, style: RenderStyle | str | None = ...) -> None: ...
+    def regular_polygon(
+        self,
+        x: float,
+        y: float,
+        numSides: int,
+        polyWidth: float,
+        rotateDegrees: float = ...,
+        style: RenderStyle | str | None = ...,
+    ): ...
+    def star(
+        self,
+        x: float,
+        y: float,
+        r_in: float,
+        r_out: float,
+        corners: int,
+        rotate_degrees: float = ...,
+        style: RenderStyle | str | None = ...,
+    ): ...
+    def add_font(
+        self, family: str, style: _FontStyle = ..., fname: str | None = ..., uni: bool | Literal["DEPRECATED"] = ...
+    ) -> None: ...
     def set_font(self, family: str | None = ..., style: _FontStyles = ..., size: int = ...) -> None: ...
     def set_font_size(self, size: int) -> None: ...
     font_stretching: float
     def set_stretching(self, stretching: float) -> None: ...
     def add_link(self) -> int: ...
     def set_link(self, link, y: int = ..., x: int = ..., page: int = ..., zoom: float | Literal["null"] = ...) -> None: ...
-    def link(self, x: float, y: float, w: float, h: float, link: str | int, alt_text: str | None = ...) -> Annotation: ...
-    def text_annotation(self, x: float, y: float, text: str) -> None: ...
+    def link(
+        self, x: float, y: float, w: float, h: float, link: str | int, alt_text: str | None = ..., border_width: int = ...
+    ) -> Annotation: ...
+    def text_annotation(
+        self,
+        x: float,
+        y: float,
+        text: str,
+        w: float = ...,
+        h: float = ...,
+        name: AnnotationName | str | None = ...,
+        flags: tuple[AnnotationFlag, ...] | tuple[str, ...] = ...,
+    ) -> None: ...
     def add_action(self, action, x: float, y: float, w: float, h: float) -> None: ...
+    def highlight(
+        self,
+        text: str,
+        title: str = ...,
+        type: TextMarkupType | str = ...,
+        color: tuple[float, float, float] = ...,
+        modification_time: datetime.datetime | None = ...,
+    ) -> _GeneratorContextManager[None]: ...
+    add_highlight = highlight
+    def add_text_markup_annotation(
+        self,
+        type: str,
+        text: str,
+        quad_points: Sequence[int],
+        title: str = ...,
+        color: tuple[float, float, float] = ...,
+        modification_time: datetime.datetime | None = ...,
+        page: int | None = ...,
+    ) -> Annotation: ...
     def text(self, x: float, y: float, txt: str = ...) -> None: ...
     def rotate(self, angle: float, x: float | None = ..., y: float | None = ...) -> None: ...
     def rotation(self, angle: float, x: float | None = ..., y: float | None = ...) -> _GeneratorContextManager[None]: ...
@@ -222,12 +296,14 @@ class FPDF:
         h: float | None = ...,
         txt: str = ...,
         border: bool | Literal[0, 1] | str = ...,
-        ln: int = ...,
-        align: str = ...,
+        ln: int | Literal["DEPRECATED"] = ...,
+        align: str | Align = ...,
         fill: bool = ...,
         link: str = ...,
-        center: bool = ...,
+        center: bool | Literal["DEPRECATED"] = ...,
         markdown: bool = ...,
+        new_x: XPos | str = ...,
+        new_y: YPos | str = ...,
     ) -> bool: ...
     def will_page_break(self, height: float) -> bool: ...
     def multi_cell(
@@ -236,15 +312,18 @@ class FPDF:
         h: float | None = ...,
         txt: str = ...,
         border: bool | Literal[0, 1] | str = ...,
-        align: str = ...,
+        align: str | Align = ...,
         fill: bool = ...,
         split_only: bool = ...,
-        link: str = ...,
-        ln: int = ...,
+        link: str | int = ...,
+        ln: int | Literal["DEPRECATED"] = ...,
         max_line_height: float | None = ...,
         markdown: bool = ...,
+        print_sh: bool = ...,
+        new_x: XPos | str = ...,
+        new_y: YPos | str = ...,
     ): ...
-    def write(self, h: float | None = ..., txt: str = ..., link: str = ...) -> None: ...
+    def write(self, h: float | None = ..., txt: str = ..., link: str = ..., print_sh: bool = ...) -> None: ...
     def image(
         self,
         name: str | Image.Image | BytesIO | StrPath,

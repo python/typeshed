@@ -2155,14 +2155,11 @@ class Popen(Generic[AnyStr]):
     returncode: int | Any
     universal_newlines: bool
 
-    # Technically it is wrong that Popen provides __new__ instead of __init__
-    # but this shouldn't come up hopefully?
-
     if sys.version_info >= (3, 11):
         # process_group is added in 3.11
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[str],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2190,10 +2187,10 @@ class Popen(Generic[AnyStr]):
             umask: int = ...,
             pipesize: int = ...,
             process_group: int | None = ...,
-        ) -> Popen[str]: ...
+        ) -> None: ...
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[str],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2221,10 +2218,10 @@ class Popen(Generic[AnyStr]):
             umask: int = ...,
             pipesize: int = ...,
             process_group: int | None = ...,
-        ) -> Popen[str]: ...
+        ) -> None: ...
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[str],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2253,10 +2250,10 @@ class Popen(Generic[AnyStr]):
             umask: int = ...,
             pipesize: int = ...,
             process_group: int | None = ...,
-        ) -> Popen[str]: ...
+        ) -> None: ...
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[str],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2284,10 +2281,10 @@ class Popen(Generic[AnyStr]):
             umask: int = ...,
             pipesize: int = ...,
             process_group: int | None = ...,
-        ) -> Popen[str]: ...
+        ) -> None: ...
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[bytes],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2315,10 +2312,10 @@ class Popen(Generic[AnyStr]):
             umask: int = ...,
             pipesize: int = ...,
             process_group: int | None = ...,
-        ) -> Popen[bytes]: ...
+        ) -> None: ...
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[Any],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2346,12 +2343,12 @@ class Popen(Generic[AnyStr]):
             umask: int = ...,
             pipesize: int = ...,
             process_group: int | None = ...,
-        ) -> Popen[Any]: ...
+        ) -> None: ...
     elif sys.version_info >= (3, 10):
         # pipesize is added in 3.10
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[str],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2378,10 +2375,10 @@ class Popen(Generic[AnyStr]):
             extra_groups: Iterable[str | int] | None = ...,
             umask: int = ...,
             pipesize: int = ...,
-        ) -> Popen[str]: ...
+        ) -> None: ...
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[str],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2408,10 +2405,10 @@ class Popen(Generic[AnyStr]):
             extra_groups: Iterable[str | int] | None = ...,
             umask: int = ...,
             pipesize: int = ...,
-        ) -> Popen[str]: ...
+        ) -> None: ...
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[str],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2439,10 +2436,10 @@ class Popen(Generic[AnyStr]):
             extra_groups: Iterable[str | int] | None = ...,
             umask: int = ...,
             pipesize: int = ...,
-        ) -> Popen[str]: ...
+        ) -> None: ...
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[str],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2469,10 +2466,10 @@ class Popen(Generic[AnyStr]):
             extra_groups: Iterable[str | int] | None = ...,
             umask: int = ...,
             pipesize: int = ...,
-        ) -> Popen[str]: ...
+        ) -> None: ...
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[bytes],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2499,10 +2496,10 @@ class Popen(Generic[AnyStr]):
             extra_groups: Iterable[str | int] | None = ...,
             umask: int = ...,
             pipesize: int = ...,
-        ) -> Popen[bytes]: ...
+        ) -> None: ...
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[Any],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2529,12 +2526,12 @@ class Popen(Generic[AnyStr]):
             extra_groups: Iterable[str | int] | None = ...,
             umask: int = ...,
             pipesize: int = ...,
-        ) -> Popen[Any]: ...
+        ) -> None: ...
     elif sys.version_info >= (3, 9):
         # user, group, extra_groups, umask were added in 3.9
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[str],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2560,10 +2557,10 @@ class Popen(Generic[AnyStr]):
             group: str | int | None = ...,
             extra_groups: Iterable[str | int] | None = ...,
             umask: int = ...,
-        ) -> Popen[str]: ...
+        ) -> None: ...
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[str],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2589,10 +2586,10 @@ class Popen(Generic[AnyStr]):
             group: str | int | None = ...,
             extra_groups: Iterable[str | int] | None = ...,
             umask: int = ...,
-        ) -> Popen[str]: ...
+        ) -> None: ...
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[str],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2619,10 +2616,10 @@ class Popen(Generic[AnyStr]):
             group: str | int | None = ...,
             extra_groups: Iterable[str | int] | None = ...,
             umask: int = ...,
-        ) -> Popen[str]: ...
+        ) -> None: ...
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[str],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2648,10 +2645,10 @@ class Popen(Generic[AnyStr]):
             group: str | int | None = ...,
             extra_groups: Iterable[str | int] | None = ...,
             umask: int = ...,
-        ) -> Popen[str]: ...
+        ) -> None: ...
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[bytes],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2677,10 +2674,10 @@ class Popen(Generic[AnyStr]):
             group: str | int | None = ...,
             extra_groups: Iterable[str | int] | None = ...,
             umask: int = ...,
-        ) -> Popen[bytes]: ...
+        ) -> None: ...
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[Any],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2706,12 +2703,12 @@ class Popen(Generic[AnyStr]):
             group: str | int | None = ...,
             extra_groups: Iterable[str | int] | None = ...,
             umask: int = ...,
-        ) -> Popen[Any]: ...
+        ) -> None: ...
     elif sys.version_info >= (3, 7):
         # text is added in 3.7
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[str],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2733,10 +2730,10 @@ class Popen(Generic[AnyStr]):
             text: bool | None = ...,
             encoding: str,
             errors: str | None = ...,
-        ) -> Popen[str]: ...
+        ) -> None: ...
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[str],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2758,10 +2755,10 @@ class Popen(Generic[AnyStr]):
             text: bool | None = ...,
             encoding: str | None = ...,
             errors: str,
-        ) -> Popen[str]: ...
+        ) -> None: ...
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[str],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2784,10 +2781,10 @@ class Popen(Generic[AnyStr]):
             text: bool | None = ...,
             encoding: str | None = ...,
             errors: str | None = ...,
-        ) -> Popen[str]: ...
+        ) -> None: ...
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[str],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2809,10 +2806,10 @@ class Popen(Generic[AnyStr]):
             text: Literal[True],
             encoding: str | None = ...,
             errors: str | None = ...,
-        ) -> Popen[str]: ...
+        ) -> None: ...
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[bytes],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2834,10 +2831,10 @@ class Popen(Generic[AnyStr]):
             text: Literal[None, False] = ...,
             encoding: None = ...,
             errors: None = ...,
-        ) -> Popen[bytes]: ...
+        ) -> None: ...
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[Any],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2859,11 +2856,11 @@ class Popen(Generic[AnyStr]):
             text: bool | None = ...,
             encoding: str | None = ...,
             errors: str | None = ...,
-        ) -> Popen[Any]: ...
+        ) -> None: ...
     else:
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[str],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2884,10 +2881,10 @@ class Popen(Generic[AnyStr]):
             *,
             encoding: str,
             errors: str | None = ...,
-        ) -> Popen[str]: ...
+        ) -> None: ...
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[str],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2908,10 +2905,10 @@ class Popen(Generic[AnyStr]):
             *,
             encoding: str | None = ...,
             errors: str,
-        ) -> Popen[str]: ...
+        ) -> None: ...
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[str],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2933,10 +2930,10 @@ class Popen(Generic[AnyStr]):
             # where the *real* keyword only args start
             encoding: str | None = ...,
             errors: str | None = ...,
-        ) -> Popen[str]: ...
+        ) -> None: ...
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[bytes],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2957,10 +2954,10 @@ class Popen(Generic[AnyStr]):
             *,
             encoding: None = ...,
             errors: None = ...,
-        ) -> Popen[bytes]: ...
+        ) -> None: ...
         @overload
-        def __new__(
-            cls,
+        def __init__(
+            self: Popen[Any],
             args: _CMD,
             bufsize: int = ...,
             executable: StrOrBytesPath | None = ...,
@@ -2981,7 +2978,7 @@ class Popen(Generic[AnyStr]):
             *,
             encoding: str | None = ...,
             errors: str | None = ...,
-        ) -> Popen[Any]: ...
+        ) -> None: ...
 
     def poll(self) -> int | None: ...
     if sys.version_info >= (3, 7):

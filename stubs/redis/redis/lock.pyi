@@ -32,7 +32,6 @@ class Lock:
     ) -> bool | None: ...
     def acquire(
         self,
-        *,
         sleep: float | None = ...,
         blocking: bool | None = ...,
         blocking_timeout: float | None = ...,
