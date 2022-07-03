@@ -80,7 +80,9 @@ _Context: TypeAlias = dict[str, Any]
 _ExceptionHandler: TypeAlias = Callable[[AbstractEventLoop, _Context], Any]
 _ProtocolFactory: TypeAlias = Callable[[], BaseProtocol]
 _SSLContext: TypeAlias = bool | None | ssl.SSLContext
-_TaskFactory: TypeAlias = Callable[[AbstractEventLoop, Coroutine[Any, Any, _T] | Generator[Any, None, _T]], Future[_T]]
+
+class _TaskFactory(Protocol):
+    def __call__(self, __loop: AbstractEventLoop, __factory: Coroutine[Any, Any, _T] | Generator[Any, None, _T]) -> Future[_T]: ...
 
 class Handle:
     _cancelled: bool
