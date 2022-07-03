@@ -82,7 +82,9 @@ _ProtocolFactory: TypeAlias = Callable[[], BaseProtocol]
 _SSLContext: TypeAlias = bool | None | ssl.SSLContext
 
 class _TaskFactory(Protocol):
-    def __call__(self, __loop: AbstractEventLoop, __factory: Coroutine[Any, Any, _T] | Generator[Any, None, _T]) -> Future[_T]: ...
+    def __call__(
+        self, __loop: AbstractEventLoop, __factory: Coroutine[Any, Any, _T] | Generator[Any, None, _T]
+    ) -> Future[_T]: ...
 
 class Handle:
     _cancelled: bool
