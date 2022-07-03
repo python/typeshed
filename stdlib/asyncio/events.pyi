@@ -80,6 +80,7 @@ _Context: TypeAlias = dict[str, Any]
 _ExceptionHandler: TypeAlias = Callable[[AbstractEventLoop, _Context], Any]
 _ProtocolFactory: TypeAlias = Callable[[], BaseProtocol]
 _SSLContext: TypeAlias = bool | None | ssl.SSLContext
+_TaskFactory: TypeAlias = Callable[[AbstractEventLoop, Coroutine[Any, Any, _T] | Generator[Any, None, _T]], Future[_T]]
 
 class Handle:
     _cancelled: bool
@@ -203,13 +204,9 @@ class AbstractEventLoop:
         def create_task(self, coro: Coroutine[Any, Any, _T] | Generator[Any, None, _T]) -> Task[_T]: ...
 
     @abstractmethod
-    def set_task_factory(
-        self, factory: Callable[[AbstractEventLoop, Coroutine[Any, Any, _T] | Generator[Any, None, _T]], Future[_T]] | None
-    ) -> None: ...
+    def set_task_factory(self, factory: _TaskFactory | None) -> None: ...
     @abstractmethod
-    def get_task_factory(
-        self,
-    ) -> Callable[[AbstractEventLoop, Coroutine[Any, Any, _T] | Generator[Any, None, _T]], Future[_T]] | None: ...
+    def get_task_factory(self) -> _TaskFactory | None: ...
     # Methods for interacting with threads
     if sys.version_info >= (3, 9):  # "context" added in 3.9.10/3.10.2
         @abstractmethod
