@@ -25,7 +25,7 @@ _ConversionMatrix: TypeAlias = Union[
 # `str` values are only accepted if mode="RGB" for an `Image` object
 # `float` values are only accepted for certain modes such as "F"
 # See https://pillow.readthedocs.io/en/stable/reference/Image.html#PIL.Image.new
-_Color: TypeAlias = Union[int, tuple[int], tuple[int, int, int], tuple[int, int, int, int], str, float]
+_Color: TypeAlias = Union[int, tuple[int], tuple[int, int, int], tuple[int, int, int, int], str, float, tuple[float]]
 
 class _Writeable(SupportsWrite[bytes], Protocol):
     def seek(self, __offset: int) -> Any: ...
