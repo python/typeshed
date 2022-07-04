@@ -78,7 +78,7 @@ class tqdm(Generic[_T], Iterable[_T], ContextManager["tqdm[None]"]):
         unit_scale: bool | float | None = ...,
         rate: float | None = ...,
         bar_format: str | None = ...,
-        postfix: str | Mapping | None = ...,
+        postfix: str | Mapping[object, object] | None = ...,
         unit_divisor: float | None = ...,
         initial: float | None = ...,
         colour: str | None = ...,
@@ -103,7 +103,7 @@ class tqdm(Generic[_T], Iterable[_T], ContextManager["tqdm[None]"]):
         bar_format: str | None = ...,
         initial: float = ...,
         position: int | None = ...,
-        postfix: Mapping | str | None = ...,
+        postfix: Mapping[object, object] | str | None = ...,
         unit_divisor: float = ...,
         write_bytes: bool | None = ...,
         lock_args: tuple[bool | None, float | None] | tuple[bool | None] | None = ...,
@@ -140,7 +140,7 @@ class tqdm(Generic[_T], Iterable[_T], ContextManager["tqdm[None]"]):
         bar_format: str | None = ...,
         initial: float = ...,
         position: int | None = ...,
-        postfix: Mapping | str | None = ...,
+        postfix: Mapping[object, object] | str | None = ...,
         unit_divisor: float = ...,
         write_bytes: bool | None = ...,
         lock_args: tuple[bool | None, float | None] | tuple[bool | None] | None = ...,
@@ -202,7 +202,7 @@ class tqdm(Generic[_T], Iterable[_T], ContextManager["tqdm[None]"]):
     def reset(self, total: float | None = ...) -> None: ...
     def set_description(self, desc: str | None = ..., refresh: bool | None = ...) -> None: ...
     def set_description_str(self, desc: str | None = ..., refresh: bool | None = ...) -> None: ...
-    def set_postfix(self, ordered_dict: Mapping | None = ..., refresh: bool | None = ..., **kwargs) -> None: ...
+    def set_postfix(self, ordered_dict: Mapping[object, object] | None = ..., refresh: bool | None = ..., **kwargs) -> None: ...
     def set_postfix_str(self, s: str = ..., refresh: bool = ...) -> None: ...
     def moveto(self, n) -> None: ...
     @property
@@ -236,7 +236,7 @@ def trange(
     bar_format: str | None = ...,
     initial: float = ...,
     position: int | None = ...,
-    postfix: Mapping | str | None = ...,
+    postfix: Mapping[object, object] | str | None = ...,
     unit_divisor: float = ...,
     write_bytes: bool | None = ...,
     lock_args: tuple[bool | None, float | None] | tuple[bool | None] | None = ...,
@@ -266,7 +266,7 @@ def trange(
     bar_format: str | None = ...,
     initial: float = ...,
     position: int | None = ...,
-    postfix: Mapping | str | None = ...,
+    postfix: Mapping[object, object] | str | None = ...,
     unit_divisor: float = ...,
     write_bytes: bool | None = ...,
     lock_args: tuple[bool | None, float | None] | tuple[bool | None] | None = ...,

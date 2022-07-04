@@ -18,7 +18,7 @@ class tqdm_asyncio(Generic[_T], std_tqdm[_T]):
     @classmethod
     def as_completed(
         cls,
-        fs: Iterable[Awaitable],
+        fs: Iterable[Awaitable[_T]],
         *,
         loop: bool | None = ...,
         timeout: float | None = ...,
@@ -39,7 +39,7 @@ class tqdm_asyncio(Generic[_T], std_tqdm[_T]):
         bar_format: str | None = ...,
         initial: float = ...,
         position: int | None = ...,
-        postfix: Mapping | str | None = ...,
+        postfix: Mapping[object, object] | str | None = ...,
         unit_divisor: float = ...,
         write_bytes: bool | None = ...,
         lock_args: tuple[bool | None, float | None] | tuple[bool | None] | None = ...,
@@ -51,7 +51,7 @@ class tqdm_asyncio(Generic[_T], std_tqdm[_T]):
     @classmethod
     async def gather(
         cls,
-        *fs: Awaitable,
+        *fs: Awaitable[_T],
         loop: bool | None = ...,
         timeout: float | None = ...,
         total: int | None = ...,
@@ -72,7 +72,7 @@ class tqdm_asyncio(Generic[_T], std_tqdm[_T]):
         bar_format: str | None = ...,
         initial: float = ...,
         position: int | None = ...,
-        postfix: Mapping | str | None = ...,
+        postfix: Mapping[object, object] | str | None = ...,
         unit_divisor: float = ...,
         write_bytes: bool | None = ...,
         lock_args: tuple[bool | None, float | None] | tuple[bool | None] | None = ...,
@@ -105,7 +105,7 @@ def tarange(
     bar_format: str | None = ...,
     initial: float = ...,
     position: int | None = ...,
-    postfix: Mapping | str | None = ...,
+    postfix: Mapping[object, object] | str | None = ...,
     unit_divisor: float = ...,
     write_bytes: bool | None = ...,
     lock_args: tuple[bool | None, float | None] | tuple[bool | None] | None = ...,
@@ -135,7 +135,7 @@ def tarange(
     bar_format: str | None = ...,
     initial: float = ...,
     position: int | None = ...,
-    postfix: Mapping | str | None = ...,
+    postfix: Mapping[object, object] | str | None = ...,
     unit_divisor: float = ...,
     write_bytes: bool | None = ...,
     lock_args: tuple[bool | None, float | None] | tuple[bool | None] | None = ...,
