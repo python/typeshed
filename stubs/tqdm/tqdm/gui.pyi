@@ -3,7 +3,8 @@ from typing import Generic, TypeVar
 
 from .std import tqdm as std_tqdm
 
-_T = TypeVar('_T')
+_T = TypeVar("_T")
+
 class tqdm_gui(Generic[_T], std_tqdm[_T]):
     mpl: Incomplete
     plt: Incomplete

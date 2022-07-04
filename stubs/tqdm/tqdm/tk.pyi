@@ -3,7 +3,8 @@ from typing import Generic, TypeVar
 
 from .std import tqdm as std_tqdm
 
-_T = TypeVar('_T')
+_T = TypeVar("_T")
+
 class tqdm_tk(Generic[_T], std_tqdm[_T]):
     def __init__(self, *args, **kwargs): ...
     disable: bool

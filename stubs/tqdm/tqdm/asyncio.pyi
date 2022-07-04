@@ -1,6 +1,6 @@
 import io
 from _typeshed import Incomplete
-from collections.abc import AsyncIterator, Iterable, Mapping, Awaitable
+from collections.abc import AsyncIterator, Awaitable, Iterable, Mapping
 from typing import Generic, TypeVar, overload
 
 from .std import tqdm as std_tqdm
@@ -46,7 +46,6 @@ class tqdm_asyncio(Generic[_T], std_tqdm[_T]):
         nrows: int | None = ...,
         colour: str | None = ...,
         delay: float | None = ...,
-        gui: bool = ...,
     ) -> None: ...
     @classmethod
     async def gather(
@@ -79,7 +78,6 @@ class tqdm_asyncio(Generic[_T], std_tqdm[_T]):
         nrows: int | None = ...,
         colour: str | None = ...,
         delay: float | None = ...,
-        gui: bool = ...,
     ): ...
 
 @overload
@@ -112,7 +110,6 @@ def tarange(
     nrows: int | None = ...,
     colour: str | None = ...,
     delay: float | None = ...,
-    gui: bool = ...,
 ) -> tqdm_asyncio[int]: ...
 @overload
 def tarange(
@@ -142,7 +139,6 @@ def tarange(
     nrows: int | None = ...,
     colour: str | None = ...,
     delay: float | None = ...,
-    gui: bool = ...,
 ) -> tqdm_asyncio[int]: ...
 
 tqdm = tqdm_asyncio

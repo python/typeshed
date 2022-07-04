@@ -1,13 +1,14 @@
 from _typeshed import Incomplete
-from typing import TypeVar, Generic
-
-from rich.progress import ProgressColumn  # type: ignore
+from typing import Generic, TypeVar
 
 from .std import tqdm as std_tqdm
+
+ProgressColumn = Incomplete  # Type is rich.progress.ProgressColumn
 
 class FractionColumn(ProgressColumn):
     unit_scale: Incomplete
     unit_divisor: Incomplete
+
     def __init__(self, unit_scale: bool = ..., unit_divisor: int = ...) -> None: ...
     def render(self, task): ...
 
@@ -15,10 +16,12 @@ class RateColumn(ProgressColumn):
     unit: Incomplete
     unit_scale: Incomplete
     unit_divisor: Incomplete
+
     def __init__(self, unit: str = ..., unit_scale: bool = ..., unit_divisor: int = ...) -> None: ...
     def render(self, task): ...
 
-_T = TypeVar('_T')
+_T = TypeVar("_T")
+
 class tqdm_rich(Generic[_T], std_tqdm[_T]):
     def __init__(self, *args, **kwargs) -> None: ...
     def close(self) -> None: ...

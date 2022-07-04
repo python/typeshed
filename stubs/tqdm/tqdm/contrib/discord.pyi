@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
-from typing import Generic
+from typing import Generic, TypeVar
 
-from stdlib.typing import TypeVar
 from ..auto import tqdm as tqdm_auto
 from .utils_worker import MonoWorker
 
@@ -11,7 +10,8 @@ class DiscordIO(MonoWorker):
     def __init__(self, token, channel_id) -> None: ...
     def write(self, s): ...
 
-_T = TypeVar('_T')
+_T = TypeVar("_T")
+
 class tqdm_discord(Generic[_T], tqdm_auto[_T]):
     dio: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...

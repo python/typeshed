@@ -1,8 +1,6 @@
 from _typeshed import Incomplete
 
-from tensorflow import keras  # type: ignore
-
-class TqdmCallback(keras.callbacks.Callback):
+class TqdmCallback(Incomplete):  # base class is tensorflow.keras.callbacks.Callback
     @staticmethod
     def bar2callback(bar, pop: Incomplete | None = ..., delta=...): ...
     tqdm_class: Incomplete
