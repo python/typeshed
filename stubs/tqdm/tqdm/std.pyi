@@ -1,7 +1,7 @@
 import io
 from _typeshed import Incomplete
 from collections.abc import Iterable, Iterator, Mapping
-from typing import ContextManager, Generic, Literal, TypeVar, overload
+from typing import ContextManager, Generic, TypeVar, overload
 
 class TqdmTypeError(TypeError): ...
 class TqdmKeyError(KeyError): ...
@@ -210,7 +210,7 @@ class tqdm(Generic[_T], Iterable[_T], ContextManager["tqdm[None]"]):
     def display(self, msg: str | None = ..., pos: int | None = ...): ...
     @classmethod
     def wrapattr(
-        cls, stream, method: Literal["read", "write"], total: float | None = ..., bytes: bool | None = ..., **tqdm_kwargs
+        cls, stream, method: str, total: float | None = ..., bytes: bool | None = ..., **tqdm_kwargs
     ) -> ContextManager[Incomplete]: ...
 
 @overload
