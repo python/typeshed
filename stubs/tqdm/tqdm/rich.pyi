@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from rich.progress import ProgressColumn # type: ignore
+from rich.progress import ProgressColumn  # type: ignore
 
 from .std import tqdm as std_tqdm
 
