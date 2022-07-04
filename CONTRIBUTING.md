@@ -56,7 +56,7 @@ terminal window:
 ```
 $ python3 -m venv .venv
 $ source .venv/bin/activate
-(.venv)$ pip install -U pip
+(.venv)$ python -m pip install -U pip
 (.venv)$ pip install -r requirements-tests.txt
 ```
 
@@ -76,7 +76,7 @@ terminal to install all non-pytype requirements:
 ```
 > python -m venv .venv
 > ".venv/scripts/activate"
-(.venv) > pip install -U pip
+(.venv) > python -m pip install -U pip
 (.venv) > pip install -r requirements-tests.txt
 ```
 
