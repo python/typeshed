@@ -1,7 +1,8 @@
 import io
 from _typeshed import Incomplete
 from collections.abc import Iterable, Iterator, Mapping
-from typing import ContextManager, Generic, TypeVar, overload
+from contextlib import AbstractContextManager
+from typing import Generic, TypeVar, overload
 
 class TqdmTypeError(TypeError): ...
 class TqdmKeyError(KeyError): ...
@@ -55,7 +56,7 @@ class EMA:
 
 _T = TypeVar("_T")
 
-class tqdm(Generic[_T], Iterable[_T], ContextManager["tqdm[None]"]):
+class tqdm(Generic[_T], Iterable[_T], AbstractContextManager[tqdm[None]]):
     monitor_interval: int
 
     @staticmethod
@@ -111,11 +112,11 @@ class tqdm(Generic[_T], Iterable[_T], ContextManager["tqdm[None]"]):
         colour: str | None = ...,
         delay: float | None = ...,
         gui: bool = ...,
-    ) -> "tqdm[_T]": ...
+    ) -> tqdm[_T]: ...
     @classmethod
     def write(cls, s: str, file: io.TextIOWrapper | io.StringIO | None = ..., end: str = ..., nolock: bool = ...) -> None: ...
     @classmethod
-    def external_write_mode(cls, file: io.TextIOWrapper | io.StringIO | None = ..., nolock: bool = ...) -> ContextManager: ...
+    def external_write_mode(cls, file: io.TextIOWrapper | io.StringIO | None = ..., nolock: bool = ...) -> AbstractContextManager[None]: ...
     @classmethod
     def set_lock(cls, lock) -> None: ...
     @classmethod
@@ -211,7 +212,7 @@ class tqdm(Generic[_T], Iterable[_T], ContextManager["tqdm[None]"]):
     @classmethod
     def wrapattr(
         cls, stream, method: str, total: float | None = ..., bytes: bool | None = ..., **tqdm_kwargs
-    ) -> ContextManager[Incomplete]: ...
+    ) -> AbstractContextManager[Incomplete]: ...
 
 @overload
 def trange(

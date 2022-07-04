@@ -1,7 +1,7 @@
 import io
 from _typeshed import Incomplete
-from collections.abc import AsyncIterator, Iterable, Mapping
-from typing import Awaitable, Generic, TypeVar, overload
+from collections.abc import AsyncIterator, Iterable, Mapping, Awaitable
+from typing import Generic, TypeVar, overload
 
 from .std import tqdm as std_tqdm
 
