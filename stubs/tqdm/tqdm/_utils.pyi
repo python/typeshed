@@ -7,5 +7,4 @@ from .utils import (
     Comparable as Comparable,
     FormatReplace as FormatReplace,
     SimpleTextIOWrapper as SimpleTextIOWrapper,
-    colorama as colorama,
 )

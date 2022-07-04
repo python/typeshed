@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from tensorflow import keras
+from tensorflow import keras # type: ignore
 
 class TqdmCallback(keras.callbacks.Callback):
     @staticmethod

@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from dask.callbacks import Callback
+from dask.callbacks import Callback # type: ignore
 
 class TqdmCallback(Callback):
     tqdm_class: Incomplete
