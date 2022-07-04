@@ -1,0 +1,3 @@
+from _typeshed import Incomplete
+
+def main(fp=..., argv: Incomplete | None = ...) -> None: ...

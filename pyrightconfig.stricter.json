@@ -71,6 +71,7 @@
         "stubs/slumber",
         "stubs/SQLAlchemy",
         "stubs/stripe",
+        "stubs/tqdm",
         "stubs/ttkthemes",
         "stubs/urllib3",
         "stubs/vobject"
