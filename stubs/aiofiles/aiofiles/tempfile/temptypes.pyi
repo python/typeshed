@@ -1,6 +1,7 @@
+from _typeshed import Incomplete
 from asyncio import AbstractEventLoop
 from types import coroutine as coroutine
-from typing import Any, TypeVar
+from typing import TypeVar
 
 from ..base import AsyncBase as AsyncBase
 from ..threadpool.utils import (
@@ -16,5 +17,5 @@ class AsyncSpooledTemporaryFile(AsyncBase[_T]):
     async def writelines(self, iterable): ...
 
 class AsyncTemporaryDirectory:
-    def __init__(self, file, loop: AbstractEventLoop | None, executor: Any | None) -> None: ...
+    def __init__(self, file, loop: AbstractEventLoop | None, executor: Incomplete | None) -> None: ...
     async def close(self) -> None: ...

@@ -1,5 +1,6 @@
 from _typeshed import (
     BytesPath,
+    Incomplete,
     OpenBinaryMode,
     OpenBinaryModeReading,
     OpenBinaryModeUpdating,
@@ -9,7 +10,7 @@ from _typeshed import (
     StrPath,
 )
 from asyncio import AbstractEventLoop
-from typing import Any, AnyStr, TypeVar, overload
+from typing import AnyStr, TypeVar, overload
 from typing_extensions import Literal
 
 from ..base import AiofilesContextManager
@@ -33,7 +34,7 @@ def NamedTemporaryFile(
     dir: StrOrBytesPath | None = ...,
     delete: bool = ...,
     loop: AbstractEventLoop | None = ...,
-    executor: Any | None = ...,
+    executor: Incomplete | None = ...,
 ) -> AiofilesContextManager[None, None, AsyncTextIOWrapper]: ...
 
 # Unbuffered binary: returns a FileIO
@@ -48,7 +49,7 @@ def NamedTemporaryFile(
     dir: StrOrBytesPath | None = ...,
     delete: bool = ...,
     loop: AbstractEventLoop | None = ...,
-    executor: Any | None = ...,
+    executor: Incomplete | None = ...,
 ) -> AiofilesContextManager[None, None, AsyncFileIO]: ...
 
 # Buffered binary reading/updating: AsyncBufferedReader
@@ -63,7 +64,7 @@ def NamedTemporaryFile(
     dir: StrOrBytesPath | None = ...,
     delete: bool = ...,
     loop: AbstractEventLoop | None = ...,
-    executor: Any | None = ...,
+    executor: Incomplete | None = ...,
 ) -> AiofilesContextManager[None, None, AsyncBufferedReader]: ...
 
 # Buffered binary writing: AsyncBufferedIOBase
@@ -78,7 +79,7 @@ def NamedTemporaryFile(
     dir: StrOrBytesPath | None = ...,
     delete: bool = ...,
     loop: AbstractEventLoop | None = ...,
-    executor: Any | None = ...,
+    executor: Incomplete | None = ...,
 ) -> AiofilesContextManager[None, None, AsyncBufferedIOBase]: ...
 
 # Text mode: always returns AsyncTextIOWrapper
@@ -92,7 +93,7 @@ def TemporaryFile(
     prefix: AnyStr | None = ...,
     dir: StrOrBytesPath | None = ...,
     loop: AbstractEventLoop | None = ...,
-    executor: Any | None = ...,
+    executor: Incomplete | None = ...,
 ) -> AiofilesContextManager[None, None, AsyncTextIOWrapper]: ...
 
 # Unbuffered binary: returns a FileIO
@@ -106,7 +107,7 @@ def TemporaryFile(
     prefix: AnyStr | None = ...,
     dir: StrOrBytesPath | None = ...,
     loop: AbstractEventLoop | None = ...,
-    executor: Any | None = ...,
+    executor: Incomplete | None = ...,
 ) -> AiofilesContextManager[None, None, AsyncFileIO]: ...
 
 # Buffered binary reading/updating: AsyncBufferedReader
@@ -120,7 +121,7 @@ def TemporaryFile(
     prefix: AnyStr | None = ...,
     dir: StrOrBytesPath | None = ...,
     loop: AbstractEventLoop | None = ...,
-    executor: Any | None = ...,
+    executor: Incomplete | None = ...,
 ) -> AiofilesContextManager[None, None, AsyncBufferedReader]: ...
 
 # Buffered binary writing: AsyncBufferedIOBase
@@ -134,7 +135,7 @@ def TemporaryFile(
     prefix: AnyStr | None = ...,
     dir: StrOrBytesPath | None = ...,
     loop: AbstractEventLoop | None = ...,
-    executor: Any | None = ...,
+    executor: Incomplete | None = ...,
 ) -> AiofilesContextManager[None, None, AsyncBufferedIOBase]: ...
 
 # Text mode: always returns AsyncTextIOWrapper
@@ -150,7 +151,7 @@ def SpooledTemporaryFile(
     prefix: AnyStr | None = ...,
     dir: StrOrBytesPath | None = ...,
     loop: AbstractEventLoop | None = ...,
-    executor: Any | None = ...,
+    executor: Incomplete | None = ...,
 ) -> AiofilesContextManager[None, None, AsyncTextIOWrapper]: ...
 @overload
 def SpooledTemporaryFile(
@@ -163,7 +164,7 @@ def SpooledTemporaryFile(
     prefix: AnyStr | None = ...,
     dir: StrOrBytesPath | None = ...,
     loop: AbstractEventLoop | None = ...,
-    executor: Any | None = ...,
+    executor: Incomplete | None = ...,
 ) -> AiofilesContextManager[None, None, AsyncTextIOWrapper]: ...
 
 # Unbuffered binary: returns a FileIO
@@ -179,7 +180,7 @@ def SpooledTemporaryFile(
     prefix: AnyStr | None = ...,
     dir: StrOrBytesPath | None = ...,
     loop: AbstractEventLoop | None = ...,
-    executor: Any | None = ...,
+    executor: Incomplete | None = ...,
 ) -> AiofilesContextManager[None, None, AsyncFileIO]: ...
 @overload
 def SpooledTemporaryFile(
@@ -192,7 +193,7 @@ def SpooledTemporaryFile(
     prefix: AnyStr | None = ...,
     dir: StrOrBytesPath | None = ...,
     loop: AbstractEventLoop | None = ...,
-    executor: Any | None = ...,
+    executor: Incomplete | None = ...,
 ) -> AiofilesContextManager[None, None, AsyncFileIO]: ...
 
 # Buffered binary reading/updating: AsyncBufferedReader
@@ -207,7 +208,7 @@ def SpooledTemporaryFile(
     prefix: AnyStr | None = ...,
     dir: StrOrBytesPath | None = ...,
     loop: AbstractEventLoop | None = ...,
-    executor: Any | None = ...,
+    executor: Incomplete | None = ...,
 ) -> AiofilesContextManager[None, None, AsyncBufferedReader]: ...
 
 # Buffered binary writing: AsyncBufferedIOBase
@@ -223,7 +224,7 @@ def SpooledTemporaryFile(
     prefix: AnyStr | None = ...,
     dir: StrOrBytesPath | None = ...,
     loop: AbstractEventLoop | None = ...,
-    executor: Any | None = ...,
+    executor: Incomplete | None = ...,
 ) -> AiofilesContextManager[None, None, AsyncBufferedIOBase]: ...
 @overload
 def SpooledTemporaryFile(
@@ -236,7 +237,7 @@ def SpooledTemporaryFile(
     prefix: AnyStr | None = ...,
     dir: StrOrBytesPath | None = ...,
     loop: AbstractEventLoop | None = ...,
-    executor: Any | None = ...,
+    executor: Incomplete | None = ...,
 ) -> AiofilesContextManager[None, None, AsyncBufferedIOBase]: ...
 @overload
 def TemporaryDirectory(
@@ -244,7 +245,7 @@ def TemporaryDirectory(
     prefix: str | None = ...,
     dir: StrPath | None = ...,
     loop: AbstractEventLoop | None = ...,
-    executor: Any | None = ...,
+    executor: Incomplete | None = ...,
 ) -> AiofilesContextManagerTempDir[None, None, AsyncTemporaryDirectory]: ...
 @overload
 def TemporaryDirectory(
@@ -252,7 +253,7 @@ def TemporaryDirectory(
     prefix: bytes | None = ...,
     dir: BytesPath | None = ...,
     loop: AbstractEventLoop | None = ...,
-    executor: Any | None = ...,
+    executor: Incomplete | None = ...,
 ) -> AiofilesContextManagerTempDir[None, None, AsyncTemporaryDirectory]: ...
 
 class AiofilesContextManagerTempDir(AiofilesContextManager[_T_co, _T_contra, _V_co]): ...
