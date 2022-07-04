@@ -111,7 +111,6 @@ class tqdm(Generic[_T], Iterable[_T], AbstractContextManager[tqdm[None]]):
         nrows: int | None = ...,
         colour: str | None = ...,
         delay: float | None = ...,
-        gui: bool = ...,
     ) -> tqdm[_T]: ...
     @classmethod
     def write(cls, s: str, file: io.TextIOWrapper | io.StringIO | None = ..., end: str = ..., nolock: bool = ...) -> None: ...
