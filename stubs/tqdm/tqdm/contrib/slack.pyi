@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 
+from stdlib.typing import TypeVar, Generic
 from ..auto import tqdm as tqdm_auto
 from .utils_worker import MonoWorker
 
@@ -10,7 +11,8 @@ class SlackIO(MonoWorker):
     def __init__(self, token, channel) -> None: ...
     def write(self, s): ...
 
-class tqdm_slack(tqdm_auto):
+_T = TypeVar('_T')
+class tqdm_slack(Generic[_T], tqdm_auto[_T]):
     sio: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...
     def display(self, msg: str | None = ..., pos: int | None = ...) -> None: ...

@@ -1,8 +1,10 @@
 from _typeshed import Incomplete
+from typing import Generic, TypeVar
 
 from .std import tqdm as std_tqdm
 
-class tqdm_gui(std_tqdm):
+_T = TypeVar('_T')
+class tqdm_gui(Generic[_T], std_tqdm[_T]):
     mpl: Incomplete
     plt: Incomplete
     toolbar: Incomplete

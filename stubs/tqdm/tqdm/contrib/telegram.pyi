@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import TypeVar, Generic
 
 from ..auto import tqdm as tqdm_auto
 from .utils_worker import MonoWorker
@@ -15,7 +16,8 @@ class TelegramIO(MonoWorker):
     def write(self, s): ...
     def delete(self): ...
 
-class tqdm_telegram(tqdm_auto):
+_T = TypeVar('_T')
+class tqdm_telegram(Generic[_T], tqdm_auto[_T]):
     tgio: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...
     def display(self, msg: str | None = ..., pos: int | None = ...) -> None: ...
