@@ -84,8 +84,8 @@ class tqdm(Generic[_T], Iterable[_T], AbstractContextManager[tqdm[None]]):
         initial: float | None = ...,
         colour: str | None = ...,
     ) -> str: ...
-    def __new__(
-        cls,
+    def __init__(
+        self,
         iterable: Iterable[_T] = ...,
         desc: str | None = ...,
         total: float | None = ...,
