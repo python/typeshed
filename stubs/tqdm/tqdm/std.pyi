@@ -27,8 +27,7 @@ class tqdm(Generic[_T], Iterable[_T], AbstractContextManager[tqdm[None]]):
     @staticmethod
     def format_num(n: int) -> str: ...
     @staticmethod
-    def status_printer(file: io.TextIOWrapper | io.StringIO | None): ...
-    # def status_printer(file: io.TextIOWrapper | io.StringIO | None, total: int | None = ..., desc: str | None = ..., ncols: int | None = ...): ...
+    def status_printer(file: str | io.TextIOWrapper | io.StringIO | None): ...
     @staticmethod
     def format_meter(
         n: float,
@@ -53,7 +52,7 @@ class tqdm(Generic[_T], Iterable[_T], AbstractContextManager[tqdm[None]]):
         desc: str | None = ...,
         total: float | None = ...,
         leave: bool = ...,
-        file: io.TextIOWrapper | io.StringIO | None = ...,
+        file: str | io.TextIOWrapper | io.StringIO | None = ...,
         ncols: int | None = ...,
         mininterval: float = ...,
         maxinterval: float = ...,
@@ -82,7 +81,7 @@ class tqdm(Generic[_T], Iterable[_T], AbstractContextManager[tqdm[None]]):
         desc: str | None = ...,
         total: float | None = ...,
         leave: bool = ...,
-        file: io.TextIOWrapper | io.StringIO | None = ...,
+        file: str | io.TextIOWrapper | io.StringIO | None = ...,
         ncols: int | None = ...,
         mininterval: float = ...,
         maxinterval: float = ...,
@@ -107,10 +106,12 @@ class tqdm(Generic[_T], Iterable[_T], AbstractContextManager[tqdm[None]]):
     ) -> None: ...
     def __new__(cls, *_, **__): ...
     @classmethod
-    def write(cls, s: str, file: io.TextIOWrapper | io.StringIO | None = ..., end: str = ..., nolock: bool = ...) -> None: ...
+    def write(
+        cls, s: str, file: str | io.TextIOWrapper | io.StringIO | None = ..., end: str = ..., nolock: bool = ...
+    ) -> None: ...
     @classmethod
     def external_write_mode(
-        cls, file: io.TextIOWrapper | io.StringIO | None = ..., nolock: bool = ...
+        cls, file: str | io.TextIOWrapper | io.StringIO | None = ..., nolock: bool = ...
     ) -> AbstractContextManager[None]: ...
     @classmethod
     def set_lock(cls, lock) -> None: ...
@@ -123,7 +124,7 @@ class tqdm(Generic[_T], Iterable[_T], AbstractContextManager[tqdm[None]]):
         desc: str | None = ...,
         total: float | None = ...,
         leave: bool = ...,
-        file: io.TextIOWrapper | io.StringIO | None = ...,
+        file: str | io.TextIOWrapper | io.StringIO | None = ...,
         ncols: int | None = ...,
         mininterval: float = ...,
         maxinterval: float = ...,
@@ -218,7 +219,7 @@ def trange(
     desc: str | None = ...,
     total: float | None = ...,
     leave: bool = ...,
-    file: io.TextIOWrapper | io.StringIO | None = ...,
+    file: str | io.TextIOWrapper | io.StringIO | None = ...,
     ncols: int | None = ...,
     mininterval: float = ...,
     maxinterval: float = ...,
@@ -247,7 +248,7 @@ def trange(
     desc: str | None = ...,
     total: float | None = ...,
     leave: bool = ...,
-    file: io.TextIOWrapper | io.StringIO | None = ...,
+    file: str | io.TextIOWrapper | io.StringIO | None = ...,
     ncols: int | None = ...,
     mininterval: float = ...,
     maxinterval: float = ...,
