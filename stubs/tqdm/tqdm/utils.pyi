@@ -1,9 +1,10 @@
 from _typeshed import Incomplete
+from typing import Pattern
 
-CUR_OS: Incomplete
-IS_WIN: Incomplete
-IS_NIX: Incomplete
-RE_ANSI: Incomplete
+CUR_OS: str
+IS_WIN: bool
+IS_NIX: bool
+RE_ANSI: Pattern[str]
 
 class FormatReplace:
     replace: Incomplete
