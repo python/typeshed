@@ -48,7 +48,7 @@ class tqdm(Generic[_T], Iterable[_T], AbstractContextManager[tqdm[None]]):
     @overload
     def __init__(
         self,
-        iterable: Iterable[_T],
+        iterable: Iterable[_T] | None,
         desc: str | None = ...,
         total: float | None = ...,
         leave: bool = ...,
