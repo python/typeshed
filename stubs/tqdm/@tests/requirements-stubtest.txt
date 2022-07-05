@@ -4,4 +4,3 @@ dask
 rich
 requests
 slack-sdk
-disco-py
