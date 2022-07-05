@@ -4,16 +4,16 @@ from typing_extensions import TypeAlias
 
 from .std import tqdm as std_tqdm
 
-ProgressColumn: TypeAlias = Any  # Actually rich.progress.ProgressColumn
+_ProgressColumn: TypeAlias = Any  # Actually rich.progress.ProgressColumn
 
-class FractionColumn(ProgressColumn):
+class FractionColumn(_ProgressColumn):
     unit_scale: Incomplete
     unit_divisor: Incomplete
 
     def __init__(self, unit_scale: bool = ..., unit_divisor: int = ...) -> None: ...
     def render(self, task): ...
 
-class RateColumn(ProgressColumn):
+class RateColumn(_ProgressColumn):
     unit: Incomplete
     unit_scale: Incomplete
     unit_divisor: Incomplete
