@@ -1,4 +1,5 @@
-from typing import Any, Iterable
+from collections import Iterable
+from typing import Any
 
 def encode(
     claims: dict[str, Any], key: str, algorithm: str = ..., headers: dict[str, Any] | None = ..., access_token: str | None = ...
