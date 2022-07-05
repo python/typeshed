@@ -1,11 +1,7 @@
 from typing import Any, Iterable
 
 def encode(
-    claims: dict[str, Any],
-    key: str,
-    algorithm: str = ...,
-    headers: dict[str, Any] | None = ...,
-    access_token: str | None = ...,
+    claims: dict[str, Any], key: str, algorithm: str = ..., headers: dict[str, Any] | None = ..., access_token: str | None = ...
 ) -> str: ...
 def decode(
     token: str,
