@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-
 from typing import Generic, TypeVar
 
 from ..auto import tqdm as tqdm_auto
