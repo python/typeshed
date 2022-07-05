@@ -27,7 +27,7 @@ class tqdm(Generic[_T], Iterable[_T], AbstractContextManager[tqdm[None]]):
     @staticmethod
     def format_num(n: int) -> str: ...
     @staticmethod
-    def status_printer(file: io.TextIOWrapper | io.StringIO | None): ...
+    def status_printer(_: io.TextIOWrapper | io.StringIO | None, total: int | None = ..., desc: str | None = ..., ncols: int | None = ...): ...
     @staticmethod
     def format_meter(
         n: float,
@@ -115,6 +115,7 @@ class tqdm(Generic[_T], Iterable[_T], AbstractContextManager[tqdm[None]]):
     @classmethod
     def pandas(
         cls,
+        *,
         desc: str | None = ...,
         total: float | None = ...,
         leave: bool = ...,
@@ -198,7 +199,7 @@ class tqdm(Generic[_T], Iterable[_T], AbstractContextManager[tqdm[None]]):
     def moveto(self, n) -> None: ...
     @property
     def format_dict(self): ...
-    def display(self, msg: str | None = ..., pos: int | None = ...): ...
+    def display(self, msg: str | None = ..., pos: int | None = ..., close: bool = ..., bar_style: Incomplete = ..., check_delay: bool = ...): ...
     @classmethod
     def wrapattr(
         cls, stream, method: Literal["read", "write"], total: float | None = ..., bytes: bool | None = ..., **tqdm_kwargs
