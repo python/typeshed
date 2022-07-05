@@ -1,3 +1,5 @@
+from _typeshed import Incomplete
+
 from ._monitor import TMonitor as TMonitor, TqdmSynchronisationWarning as TqdmSynchronisationWarning
 from ._tqdm_pandas import tqdm_pandas as tqdm_pandas
 from .cli import main as main
@@ -14,5 +16,5 @@ from .std import (
     trange as trange,
 )
 
-def tqdm_notebook(*args, **kwargs) -> tqdm_notebook_cls: ...
+def tqdm_notebook(*args, **kwargs) -> tqdm_notebook_cls[Incomplete]: ...
 def tnrange(*args, **kwargs) -> tqdm_notebook_cls[int]: ...
