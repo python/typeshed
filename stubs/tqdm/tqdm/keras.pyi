@@ -3,6 +3,7 @@ from typing import Any
 from typing_extensions import TypeAlias
 
 Callback: TypeAlias = Any  # Actually tensorflow.keras.callbacks.Callback
+
 class TqdmCallback(Callback):
     @staticmethod
     def bar2callback(bar, pop: Incomplete | None = ..., delta=...): ...

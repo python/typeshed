@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Generic, TypeVar, Any
+from typing import Any, Generic, TypeVar
 from typing_extensions import TypeAlias
 
 from .std import tqdm as std_tqdm

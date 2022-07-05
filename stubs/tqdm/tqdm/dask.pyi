@@ -3,6 +3,7 @@ from typing import Any
 from typing_extensions import TypeAlias
 
 Callback: TypeAlias = Any  # Actually dask.callbacks.Callback
+
 class TqdmCallback(Callback):
     tqdm_class: Incomplete
     def __init__(
