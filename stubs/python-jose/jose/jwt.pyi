@@ -1,4 +1,4 @@
-from collections import Iterable
+from collections.abc import Iterable
 from typing import Any
 
 def encode(
