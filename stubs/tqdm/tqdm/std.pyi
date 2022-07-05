@@ -75,6 +75,7 @@ class tqdm(Generic[_T], Iterable[_T], Comparable):
         colour: str | None = ...,
         delay: float | None = ...,
         gui: bool = ...,
+        **kwargs,
     ) -> None: ...
     @overload
     def __init__(
@@ -105,6 +106,7 @@ class tqdm(Generic[_T], Iterable[_T], Comparable):
         colour: str | None = ...,
         delay: float | None = ...,
         gui: bool = ...,
+        **kwargs,
     ) -> None: ...
     def __new__(cls: type[Self], *_, **__) -> Self: ...
     @classmethod
