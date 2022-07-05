@@ -3,7 +3,7 @@ from _typeshed import Incomplete
 from collections.abc import Iterable, Mapping
 from typing import Generic, TypeVar, overload
 
-from .std import tqdm as std_tqdm
+from .std import tqdm as std_tqdm, trange as trange
 
 _T = TypeVar("_T")
 
@@ -14,15 +14,15 @@ class tqdm_notebook(Generic[_T], std_tqdm[_T]):
     def display(
         self,
         msg: str | None = ...,
-        pos: Incomplete | None = ...,
+        pos: int | None = ...,
         close: bool = ...,
-        bar_style: Incomplete | None = ...,
+        bar_style: str | None = ...,
         check_delay: bool = ...,
     ) -> None: ...
     @property
     def colour(self): ...
     @colour.setter
-    def colour(self, bar_color) -> None: ...
+    def colour(self, bar_color: str) -> None: ...
     disp: Incomplete
     ncols: Incomplete
     container: Incomplete
@@ -87,9 +87,7 @@ class tqdm_notebook(Generic[_T], std_tqdm[_T]):
     def update(self, n: int = ...): ...  # type: ignore[override]
     def close(self) -> None: ...
     def clear(self, *_, **__) -> None: ...
-    def reset(self, total: Incomplete | None = ...): ...
-
-def tnrange(*args, **kwargs): ...
+    def reset(self, total: float | None = ...): ...
 
 tqdm = tqdm_notebook
-trange = tnrange
+tnrange = trange
