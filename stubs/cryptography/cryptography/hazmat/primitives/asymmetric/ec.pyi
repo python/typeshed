@@ -127,14 +127,14 @@ class EllipticCurvePrivateKey(metaclass=ABCMeta):
     def public_key(self) -> EllipticCurvePublicKey: ...
     @abstractmethod
     def sign(self, data: bytes, signature_algorithm: EllipticCurveSignatureAlgorithm) -> bytes: ...
-
-class EllipticCurvePrivateKeyWithSerialization(EllipticCurvePrivateKey):
     @abstractmethod
     def private_bytes(
         self, encoding: Encoding, format: PrivateFormat, encryption_algorithm: KeySerializationEncryption
     ) -> bytes: ...
     @abstractmethod
     def private_numbers(self) -> EllipticCurvePrivateNumbers: ...
+
+EllipticCurvePrivateKeyWithSerialization = EllipticCurvePrivateKey
 
 class EllipticCurvePrivateNumbers:
     @property

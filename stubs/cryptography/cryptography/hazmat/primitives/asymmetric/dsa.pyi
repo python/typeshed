@@ -34,14 +34,14 @@ class DSAPrivateKey(metaclass=ABCMeta):
     def public_key(self) -> DSAPublicKey: ...
     @abstractmethod
     def sign(self, data: bytes, algorithm: HashAlgorithm | Prehashed) -> bytes: ...
-
-class DSAPrivateKeyWithSerialization(DSAPrivateKey):
     @abstractmethod
     def private_bytes(
         self, encoding: Encoding, format: PrivateFormat, encryption_algorithm: KeySerializationEncryption
     ) -> bytes: ...
     @abstractmethod
     def private_numbers(self) -> DSAPrivateNumbers: ...
+
+DSAPrivateKeyWithSerialization = DSAPrivateKey
 
 class DSAPrivateNumbers:
     @property

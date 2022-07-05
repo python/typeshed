@@ -17,14 +17,14 @@ class RSAPrivateKey(metaclass=ABCMeta):
     def public_key(self) -> RSAPublicKey: ...
     @abstractmethod
     def sign(self, data: bytes, padding: AsymmetricPadding, algorithm: HashAlgorithm | Prehashed) -> bytes: ...
-
-class RSAPrivateKeyWithSerialization(RSAPrivateKey):
     @abstractmethod
     def private_bytes(
         self, encoding: Encoding, format: PrivateFormat, encryption_algorithm: KeySerializationEncryption
     ) -> bytes: ...
     @abstractmethod
     def private_numbers(self) -> RSAPrivateNumbers: ...
+
+RSAPrivateKeyWithSerialization = RSAPrivateKey
 
 class RSAPublicKey(metaclass=ABCMeta):
     @property
