@@ -21,14 +21,7 @@ _T = TypeVar("_T")
 class tqdm_telegram(Generic[_T], tqdm_auto[_T]):
     tgio: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...
-    def display(
-        self,
-        msg: str | None = ...,
-        pos: int | None = ...,
-        close: bool = ...,
-        bar_style: Incomplete = ...,
-        check_delay: bool = ...,
-    ) -> None: ...
+    def display(self, *, msg: str | None = ..., pos: int | None = ..., close: bool = ..., bar_style: Incomplete = ..., check_delay: bool = ...) -> None: ...  # type: ignore[override]
     def clear(self, *args, **kwargs) -> None: ...
     def close(self) -> None: ...
 
