@@ -1,6 +1,9 @@
 from _typeshed import Incomplete
+from typing import Any
+from typing_extensions import TypeAlias
 
-class TqdmCallback(Incomplete):  # base class is tensorflow.keras.callbacks.Callback
+Callback: TypeAlias = Any  # Actually tensorflow.keras.callbacks.Callback
+class TqdmCallback(Callback):
     @staticmethod
     def bar2callback(bar, pop: Incomplete | None = ..., delta=...): ...
     tqdm_class: Incomplete
