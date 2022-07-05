@@ -1,8 +1,10 @@
 import contextlib
 from _typeshed import Incomplete, Self, SupportsWrite
 from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping
-from typing import Any, ClassVar, Generic, TypeVar, overload
+from typing import Any, ClassVar, Generic, NoReturn, TypeVar, overload
 from typing_extensions import Literal
+
+from .utils import Comparable
 
 class TqdmTypeError(TypeError): ...
 class TqdmKeyError(KeyError): ...
@@ -16,7 +18,7 @@ class TqdmMonitorWarning(TqdmWarning, RuntimeWarning): ...
 
 _T = TypeVar("_T")
 
-class tqdm(Generic[_T], Iterable[_T]):
+class tqdm(Generic[_T], Iterable[_T], Comparable):
     monitor_interval: ClassVar[int]
 
     @staticmethod
@@ -47,7 +49,7 @@ class tqdm(Generic[_T], Iterable[_T]):
     @overload
     def __init__(
         self,
-        iterable: Iterable[_T] | None,
+        iterable: Iterable[_T],
         desc: str | None = ...,
         total: float | None = ...,
         leave: bool = ...,
@@ -76,7 +78,8 @@ class tqdm(Generic[_T], Iterable[_T]):
     ) -> None: ...
     @overload
     def __init__(
-        self,
+        self: tqdm[NoReturn],
+        iterable: None = ...,
         desc: str | None = ...,
         total: float | None = ...,
         leave: bool = ...,
