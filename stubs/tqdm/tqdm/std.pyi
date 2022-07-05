@@ -27,9 +27,8 @@ class tqdm(Generic[_T], Iterable[_T], AbstractContextManager[tqdm[None]]):
     @staticmethod
     def format_num(n: int) -> str: ...
     @staticmethod
-    def status_printer(
-        _: io.TextIOWrapper | io.StringIO | None, total: int | None = ..., desc: str | None = ..., ncols: int | None = ...
-    ): ...
+    def status_printer(file: io.TextIOWrapper | io.StringIO | None): ...
+    # def status_printer(file: io.TextIOWrapper | io.StringIO | None, total: int | None = ..., desc: str | None = ..., ncols: int | None = ...): ...
     @staticmethod
     def format_meter(
         n: float,
@@ -75,6 +74,7 @@ class tqdm(Generic[_T], Iterable[_T], AbstractContextManager[tqdm[None]]):
         nrows: int | None = ...,
         colour: str | None = ...,
         delay: float | None = ...,
+        gui: bool = ...,
     ) -> None: ...
     @overload
     def __init__(
@@ -103,7 +103,9 @@ class tqdm(Generic[_T], Iterable[_T], AbstractContextManager[tqdm[None]]):
         nrows: int | None = ...,
         colour: str | None = ...,
         delay: float | None = ...,
+        gui: bool = ...,
     ) -> None: ...
+    def __new__(cls, *_, **__): ...
     @classmethod
     def write(cls, s: str, file: io.TextIOWrapper | io.StringIO | None = ..., end: str = ..., nolock: bool = ...) -> None: ...
     @classmethod
@@ -201,14 +203,7 @@ class tqdm(Generic[_T], Iterable[_T], AbstractContextManager[tqdm[None]]):
     def moveto(self, n) -> None: ...
     @property
     def format_dict(self): ...
-    def display(
-        self,
-        msg: str | None = ...,
-        pos: int | None = ...,
-        close: bool = ...,
-        bar_style: Incomplete = ...,
-        check_delay: bool = ...,
-    ): ...
+    def display(self, msg: str | None = ..., pos: int | None = ...) -> None: ...
     @classmethod
     def wrapattr(
         cls, stream, method: Literal["read", "write"], total: float | None = ..., bytes: bool | None = ..., **tqdm_kwargs
