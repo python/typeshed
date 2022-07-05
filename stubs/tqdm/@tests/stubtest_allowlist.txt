@@ -1,7 +1,0 @@
-tqdm.contrib.bells
-tqdm.contrib.discord
-tqdm.contrib.slack
-tqdm.contrib.telegram
-tqdm.dask
-tqdm.keras
-tqdm.rich
