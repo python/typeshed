@@ -1,6 +1,5 @@
-import io
-from _typeshed import Incomplete
-from collections.abc import Iterable, Mapping
+from _typeshed import Incomplete, SupportsWrite
+from collections.abc import Iterable, Iterator, Mapping
 from typing import Generic, TypeVar, overload
 
 from .std import tqdm as std_tqdm, trange as trange
@@ -9,7 +8,9 @@ _T = TypeVar("_T")
 
 class tqdm_notebook(Generic[_T], std_tqdm[_T]):
     @staticmethod
-    def status_printer(_, total: float | None = ..., desc: str | None = ..., ncols: int | None = ...): ...
+    def status_printer(
+        _: SupportsWrite[str] | None, total: float | None = ..., desc: str | None = ..., ncols: int | None = ...
+    ): ...
     displayed: bool
     def display(
         self,
@@ -33,7 +34,7 @@ class tqdm_notebook(Generic[_T], std_tqdm[_T]):
         desc: str | None = ...,
         total: float | None = ...,
         leave: bool = ...,
-        file: str | io.TextIOWrapper | io.StringIO | None = ...,
+        file: SupportsWrite[str] | None = ...,
         ncols: int | None = ...,
         mininterval: float = ...,
         maxinterval: float = ...,
@@ -61,7 +62,7 @@ class tqdm_notebook(Generic[_T], std_tqdm[_T]):
         desc: str | None = ...,
         total: float | None = ...,
         leave: bool = ...,
-        file: str | io.TextIOWrapper | io.StringIO | None = ...,
+        file: SupportsWrite[str] | None = ...,
         ncols: int | None = ...,
         mininterval: float = ...,
         maxinterval: float = ...,
@@ -83,7 +84,7 @@ class tqdm_notebook(Generic[_T], std_tqdm[_T]):
         colour: str | None = ...,
         delay: float | None = ...,
     ) -> None: ...
-    def __iter__(self): ...
+    def __iter__(self) -> Iterator[_T]: ...
     def update(self, n: int = ...): ...  # type: ignore[override]
     def close(self) -> None: ...
     def clear(self, *_, **__) -> None: ...

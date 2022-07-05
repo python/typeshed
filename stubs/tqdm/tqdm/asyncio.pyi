@@ -1,6 +1,5 @@
-import io
-from _typeshed import Incomplete
-from collections.abc import AsyncIterator, Awaitable, Iterable, Mapping
+from _typeshed import Incomplete, Self, SupportsWrite
+from collections.abc import Awaitable, Iterable, Mapping
 from typing import Generic, TypeVar, overload
 
 from .std import tqdm as std_tqdm
@@ -12,7 +11,7 @@ class tqdm_asyncio(Generic[_T], std_tqdm[_T]):
     iterable_next: Incomplete
     iterable_iterator: Incomplete
 
-    def __aiter__(self) -> AsyncIterator[_T]: ...
+    def __aiter__(self: Self) -> Self: ...
     async def __anext__(self) -> Awaitable[_T]: ...
     def send(self, *args, **kwargs): ...
     @classmethod
@@ -25,7 +24,7 @@ class tqdm_asyncio(Generic[_T], std_tqdm[_T]):
         total: int | None = ...,
         desc: str | None = ...,
         leave: bool = ...,
-        file: str | io.TextIOWrapper | io.StringIO | None = ...,
+        file: SupportsWrite[str] | None = ...,
         ncols: int | None = ...,
         mininterval: float = ...,
         maxinterval: float = ...,
@@ -39,7 +38,7 @@ class tqdm_asyncio(Generic[_T], std_tqdm[_T]):
         bar_format: str | None = ...,
         initial: float = ...,
         position: int | None = ...,
-        postfix: Mapping[object, object] | str | None = ...,
+        postfix: Mapping[str, object] | str | None = ...,
         unit_divisor: float = ...,
         write_bytes: bool | None = ...,
         lock_args: tuple[bool | None, float | None] | tuple[bool | None] | None = ...,
@@ -57,7 +56,7 @@ class tqdm_asyncio(Generic[_T], std_tqdm[_T]):
         iterable: Iterable[_T] = ...,
         desc: str | None = ...,
         leave: bool = ...,
-        file: str | io.TextIOWrapper | io.StringIO | None = ...,
+        file: SupportsWrite[str] | None = ...,
         ncols: int | None = ...,
         mininterval: float = ...,
         maxinterval: float = ...,
@@ -71,7 +70,7 @@ class tqdm_asyncio(Generic[_T], std_tqdm[_T]):
         bar_format: str | None = ...,
         initial: float = ...,
         position: int | None = ...,
-        postfix: Mapping[object, object] | str | None = ...,
+        postfix: Mapping[str, object] | str | None = ...,
         unit_divisor: float = ...,
         write_bytes: bool | None = ...,
         lock_args: tuple[bool | None, float | None] | tuple[bool | None] | None = ...,
@@ -89,7 +88,7 @@ def tarange(
     desc: str | None = ...,
     total: float | None = ...,
     leave: bool = ...,
-    file: str | io.TextIOWrapper | io.StringIO | None = ...,
+    file: SupportsWrite[str] | None = ...,
     ncols: int | None = ...,
     mininterval: float = ...,
     maxinterval: float = ...,
@@ -103,7 +102,7 @@ def tarange(
     bar_format: str | None = ...,
     initial: float = ...,
     position: int | None = ...,
-    postfix: Mapping[object, object] | str | None = ...,
+    postfix: Mapping[str, object] | str | None = ...,
     unit_divisor: float = ...,
     write_bytes: bool | None = ...,
     lock_args: tuple[bool | None, float | None] | tuple[bool | None] | None = ...,
@@ -118,7 +117,7 @@ def tarange(
     desc: str | None = ...,
     total: float | None = ...,
     leave: bool = ...,
-    file: str | io.TextIOWrapper | io.StringIO | None = ...,
+    file: SupportsWrite[str] | None = ...,
     ncols: int | None = ...,
     mininterval: float = ...,
     maxinterval: float = ...,
@@ -132,7 +131,7 @@ def tarange(
     bar_format: str | None = ...,
     initial: float = ...,
     position: int | None = ...,
-    postfix: Mapping[object, object] | str | None = ...,
+    postfix: Mapping[str, object] | str | None = ...,
     unit_divisor: float = ...,
     write_bytes: bool | None = ...,
     lock_args: tuple[bool | None, float | None] | tuple[bool | None] | None = ...,

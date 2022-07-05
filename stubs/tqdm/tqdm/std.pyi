@@ -1,8 +1,8 @@
-import io
-from _typeshed import Incomplete
-from collections.abc import Iterable, Iterator, Mapping
+import contextlib
+from _typeshed import Incomplete, Self, SupportsWrite
+from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping
 from contextlib import AbstractContextManager
-from typing import Generic, TypeVar, overload
+from typing import Any, ClassVar, Generic, TypeVar, overload
 from typing_extensions import Literal
 
 class TqdmTypeError(TypeError): ...
@@ -17,8 +17,8 @@ class TqdmMonitorWarning(TqdmWarning, RuntimeWarning): ...
 
 _T = TypeVar("_T")
 
-class tqdm(Generic[_T], Iterable[_T], AbstractContextManager[tqdm[None]]):
-    monitor_interval: int
+class tqdm(Generic[_T], Iterable[_T]):
+    monitor_interval: ClassVar[int]
 
     @staticmethod
     def format_sizeof(num: float, suffix: str = ..., divisor: float = ...) -> str: ...
@@ -27,7 +27,7 @@ class tqdm(Generic[_T], Iterable[_T], AbstractContextManager[tqdm[None]]):
     @staticmethod
     def format_num(n: float) -> str: ...
     @staticmethod
-    def status_printer(file: str | io.TextIOWrapper | io.StringIO | None): ...
+    def status_printer(file: SupportsWrite[str]) -> Callable[[str], None]: ...
     @staticmethod
     def format_meter(
         n: float,
@@ -40,7 +40,7 @@ class tqdm(Generic[_T], Iterable[_T], AbstractContextManager[tqdm[None]]):
         unit_scale: bool | float | None = ...,
         rate: float | None = ...,
         bar_format: str | None = ...,
-        postfix: str | Mapping[object, object] | None = ...,
+        postfix: str | Mapping[str, object] | None = ...,
         unit_divisor: float | None = ...,
         initial: float | None = ...,
         colour: str | None = ...,
@@ -52,7 +52,7 @@ class tqdm(Generic[_T], Iterable[_T], AbstractContextManager[tqdm[None]]):
         desc: str | None = ...,
         total: float | None = ...,
         leave: bool = ...,
-        file: str | io.TextIOWrapper | io.StringIO | None = ...,
+        file: SupportsWrite[str] | None = ...,
         ncols: int | None = ...,
         mininterval: float = ...,
         maxinterval: float = ...,
@@ -66,7 +66,7 @@ class tqdm(Generic[_T], Iterable[_T], AbstractContextManager[tqdm[None]]):
         bar_format: str | None = ...,
         initial: float = ...,
         position: int | None = ...,
-        postfix: Mapping[object, object] | str | None = ...,
+        postfix: Mapping[str, object] | str | None = ...,
         unit_divisor: float = ...,
         write_bytes: bool | None = ...,
         lock_args: tuple[bool | None, float | None] | tuple[bool | None] | None = ...,
@@ -81,7 +81,7 @@ class tqdm(Generic[_T], Iterable[_T], AbstractContextManager[tqdm[None]]):
         desc: str | None = ...,
         total: float | None = ...,
         leave: bool = ...,
-        file: str | io.TextIOWrapper | io.StringIO | None = ...,
+        file: SupportsWrite[str] | None = ...,
         ncols: int | None = ...,
         mininterval: float = ...,
         maxinterval: float = ...,
@@ -95,7 +95,7 @@ class tqdm(Generic[_T], Iterable[_T], AbstractContextManager[tqdm[None]]):
         bar_format: str | None = ...,
         initial: float = ...,
         position: int | None = ...,
-        postfix: Mapping[object, object] | str | None = ...,
+        postfix: Mapping[str, object] | str | None = ...,
         unit_divisor: float = ...,
         write_bytes: bool | None = ...,
         lock_args: tuple[bool | None, float | None] | tuple[bool | None] | None = ...,
@@ -106,13 +106,11 @@ class tqdm(Generic[_T], Iterable[_T], AbstractContextManager[tqdm[None]]):
     ) -> None: ...
     def __new__(cls, *_, **__): ...
     @classmethod
-    def write(
-        cls, s: str, file: str | io.TextIOWrapper | io.StringIO | None = ..., end: str = ..., nolock: bool = ...
-    ) -> None: ...
+    def write(cls, s: str, file: SupportsWrite[str] | None = ..., end: str = ..., nolock: bool = ...) -> None: ...
     @classmethod
     def external_write_mode(
-        cls, file: str | io.TextIOWrapper | io.StringIO | None = ..., nolock: bool = ...
-    ) -> AbstractContextManager[None]: ...
+        cls, file: SupportsWrite[str] | None = ..., nolock: bool = ...
+    ) -> contextlib._GeneratorContextManager[None]: ...
     @classmethod
     def set_lock(cls, lock) -> None: ...
     @classmethod
@@ -124,7 +122,7 @@ class tqdm(Generic[_T], Iterable[_T], AbstractContextManager[tqdm[None]]):
         desc: str | None = ...,
         total: float | None = ...,
         leave: bool = ...,
-        file: str | io.TextIOWrapper | io.StringIO | None = ...,
+        file: SupportsWrite[str] | None = ...,
         ncols: int | None = ...,
         mininterval: float = ...,
         maxinterval: float = ...,
@@ -138,7 +136,7 @@ class tqdm(Generic[_T], Iterable[_T], AbstractContextManager[tqdm[None]]):
         bar_format: str | None = ...,
         initial: float = ...,
         position: int | None = ...,
-        postfix: Mapping[object, object] | str | None = ...,
+        postfix: Mapping[str, object] | str | None = ...,
         unit_divisor: float = ...,
         write_bytes: bool | None = ...,
         lock_args: tuple[bool | None, float | None] | tuple[bool | None] | None = ...,
@@ -199,11 +197,11 @@ class tqdm(Generic[_T], Iterable[_T], AbstractContextManager[tqdm[None]]):
     def reset(self, total: float | None = ...) -> None: ...
     def set_description(self, desc: str | None = ..., refresh: bool | None = ...) -> None: ...
     def set_description_str(self, desc: str | None = ..., refresh: bool | None = ...) -> None: ...
-    def set_postfix(self, ordered_dict: Mapping[object, object] | None = ..., refresh: bool | None = ..., **kwargs) -> None: ...
+    def set_postfix(self, ordered_dict: Mapping[str, object] | None = ..., refresh: bool | None = ..., **kwargs) -> None: ...
     def set_postfix_str(self, s: str = ..., refresh: bool = ...) -> None: ...
     def moveto(self, n) -> None: ...
     @property
-    def format_dict(self): ...
+    def format_dict(self) -> MutableMapping[str, Any]: ...
     def display(self, msg: str | None = ..., pos: int | None = ...) -> None: ...
     @classmethod
     def wrapattr(
@@ -219,7 +217,7 @@ def trange(
     desc: str | None = ...,
     total: float | None = ...,
     leave: bool = ...,
-    file: str | io.TextIOWrapper | io.StringIO | None = ...,
+    file: SupportsWrite[str] | None = ...,
     ncols: int | None = ...,
     mininterval: float = ...,
     maxinterval: float = ...,
@@ -233,7 +231,7 @@ def trange(
     bar_format: str | None = ...,
     initial: float = ...,
     position: int | None = ...,
-    postfix: Mapping[object, object] | str | None = ...,
+    postfix: Mapping[str, object] | str | None = ...,
     unit_divisor: float = ...,
     write_bytes: bool | None = ...,
     lock_args: tuple[bool | None, float | None] | tuple[bool | None] | None = ...,
@@ -248,7 +246,7 @@ def trange(
     desc: str | None = ...,
     total: float | None = ...,
     leave: bool = ...,
-    file: str | io.TextIOWrapper | io.StringIO | None = ...,
+    file: SupportsWrite[str] | None = ...,
     ncols: int | None = ...,
     mininterval: float = ...,
     maxinterval: float = ...,
@@ -262,7 +260,7 @@ def trange(
     bar_format: str | None = ...,
     initial: float = ...,
     position: int | None = ...,
-    postfix: Mapping[object, object] | str | None = ...,
+    postfix: Mapping[str, object] | str | None = ...,
     unit_divisor: float = ...,
     write_bytes: bool | None = ...,
     lock_args: tuple[bool | None, float | None] | tuple[bool | None] | None = ...,
