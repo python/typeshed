@@ -1,5 +1,5 @@
-from typing import Any
 from _typeshed import Self, StrOrBytesPath, SupportsItems
+from typing import Any
 
 class CryptPolicy:
     @classmethod
