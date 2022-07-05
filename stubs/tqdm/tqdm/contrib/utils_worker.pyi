@@ -1,7 +1,15 @@
 from _typeshed import Incomplete
+from collections import deque
+from collections.abc import Callable
+from concurrent.futures import Future, ThreadPoolExecutor
+from typing import TypeVar
+from typing_extensions import ParamSpec
+
+_P = ParamSpec("_P")
+_R = TypeVar("_R")
 
 class MonoWorker:
-    pool: Incomplete
-    futures: Incomplete
+    pool: ThreadPoolExecutor
+    futures: deque[Incomplete]
     def __init__(self) -> None: ...
-    def submit(self, func, *args, **kwargs): ...
+    def submit(self, func: Callable[_P, _R], *args: _P.args, **kwargs: _P.kwargs) -> Future[_R]: ...

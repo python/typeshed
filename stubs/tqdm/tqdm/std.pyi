@@ -1,7 +1,6 @@
 import contextlib
 from _typeshed import Incomplete, Self, SupportsWrite
 from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping
-from contextlib import AbstractContextManager
 from typing import Any, ClassVar, Generic, TypeVar, overload
 from typing_extensions import Literal
 
@@ -104,7 +103,7 @@ class tqdm(Generic[_T], Iterable[_T]):
         delay: float | None = ...,
         gui: bool = ...,
     ) -> None: ...
-    def __new__(cls, *_, **__): ...
+    def __new__(cls: type[Self], *_, **__) -> Self: ...
     @classmethod
     def write(cls, s: str, file: SupportsWrite[str] | None = ..., end: str = ..., nolock: bool = ...) -> None: ...
     @classmethod
@@ -143,7 +142,7 @@ class tqdm(Generic[_T], Iterable[_T]):
         nrows: int | None = ...,
         colour: str | None = ...,
         delay: float | None = ...,
-    ): ...
+    ) -> None: ...
 
     iterable: Incomplete
     disable: Incomplete
@@ -206,7 +205,7 @@ class tqdm(Generic[_T], Iterable[_T]):
     @classmethod
     def wrapattr(
         cls, stream, method: Literal["read", "write"], total: float | None = ..., bytes: bool | None = ..., **tqdm_kwargs
-    ) -> AbstractContextManager[Incomplete]: ...
+    ) -> contextlib._GeneratorContextManager[Incomplete]: ...
 
 @overload
 def trange(
