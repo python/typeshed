@@ -1,10 +1,11 @@
-from collections.abc import Container, Iterable, Mapping
+from collections.abc import Container, Iterable, Mapping, MutableMapping
 from typing import Any
 
 from .backends.base import Key
 
 def encode(
-    claims: Mapping[str, Any],
+    claims: MutableMapping[str, Any],
+    # Internally it calls jws.sign() that expects a key dict instance instead of Mapping
     key: str | dict[str, Any] | Key,
     algorithm: str = ...,
     headers: Mapping[str, Any] | None = ...,
@@ -12,7 +13,7 @@ def encode(
 ) -> str: ...
 def decode(
     token: str,
-    key: str | dict[str, Any] | Key,
+    key: str | Mapping[str, Any] | Key,
     algorithms: str | Container[str] | None = ...,
     options: Mapping[str, Any] | None = ...,
     audience: str | None = ...,
