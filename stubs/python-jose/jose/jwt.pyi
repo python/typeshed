@@ -1,14 +1,16 @@
-from collections.abc import Iterable
+from collections.abc import Container, Iterable, Mapping
 from typing import Any
 
+from .backends.base import Key
+
 def encode(
-    claims: dict[str, Any], key: str, algorithm: str = ..., headers: dict[str, Any] | None = ..., access_token: str | None = ...
+    claims: Mapping[str, Any], key: str | dict[str, Any] | Key, algorithm: str = ..., headers: Mapping[str, Any] | None = ..., access_token: str | None = ...
 ) -> str: ...
 def decode(
     token: str,
-    key: str | dict[str, Any],
-    algorithms: str | list[str] | None = ...,
-    options: dict[str, Any] | None = ...,
+    key: str | dict[str, Any] | Key,
+    algorithms: str | Container[str] | None = ...,
+    options: Mapping[str, Any] | None = ...,
     audience: str | None = ...,
     issuer: str | Iterable[str] | None = ...,
     subject: str | None = ...,
