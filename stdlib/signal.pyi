@@ -4,7 +4,7 @@ from collections.abc import Callable, Iterable
 from enum import IntEnum
 from types import FrameType
 from typing import Any, Union
-from typing_extensions import Final, TypeAlias, final, Never
+from typing_extensions import Final, Never, TypeAlias, final
 
 NSIG: int
 
