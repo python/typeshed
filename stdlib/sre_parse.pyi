@@ -36,9 +36,9 @@ class _State:
     def checklookbehindgroup(self, gid: int, source: Tokenizer) -> None: ...
 
 if sys.version_info >= (3, 8):
-    State: TypeAlias = _State
+    State = _State
 else:
-    Pattern: TypeAlias = _State
+    Pattern = _State
 
 _OpSubpatternType: TypeAlias = tuple[int | None, int, int, SubPattern]
 _OpGroupRefExistsType: TypeAlias = tuple[int, SubPattern, SubPattern]
