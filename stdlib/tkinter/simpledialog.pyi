@@ -1,5 +1,4 @@
 from tkinter import Event, Frame, Misc, Toplevel
-from typing import Any
 
 class Dialog(Toplevel):
     def __init__(self, parent: Misc | None, title: str | None = ...) -> None: ...
@@ -26,6 +25,30 @@ class SimpleDialog:
     def wm_delete_window(self) -> None: ...
     def done(self, num: int) -> None: ...
 
-def askfloat(title: str | None, prompt: str, **kwargs: Any) -> float | None: ...
-def askinteger(title: str | None, prompt: str, **kwargs: Any) -> int | None: ...
-def askstring(title: str | None, prompt: str, **kwargs: Any) -> str | None: ...
+def askfloat(
+    title: str | None,
+    prompt: str,
+    *,
+    initialvalue: float | None = ...,
+    minvalue: float | None = ...,
+    maxvalue: float | None = ...,
+    parent: Misc | None = ...,
+) -> float | None: ...
+def askinteger(
+    title: str | None,
+    prompt: str,
+    *,
+    initialvalue: int | None = ...,
+    minvalue: float | None = ...,  # Any object that can compare to int.
+    maxvalue: float | None = ...,
+    parent: Misc | None = ...,
+) -> int | None: ...
+def askstring(
+    title: str | None,
+    prompt: str,
+    *,
+    initialvalue: str | None = ...,
+    minvalue: str | None = ...,
+    maxvalue: str | None = ...,
+    parent: Misc | None = ...,
+) -> str | None: ...
