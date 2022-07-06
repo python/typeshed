@@ -407,7 +407,7 @@ multiprocessing.managers.DictProxy.values
 
 # Items that depend on the existence and flags of SSL
 imaplib.IMAP4_SSL.ssl
-ssl.PROTOCOL_SSLv2
+ssl.PROTOCOL_SSLv3
 ssl.RAND_egd
 
 # GetSetDescriptor that always raises AttributeError
