@@ -4,7 +4,11 @@ from typing import Any
 from .backends.base import Key
 
 def encode(
-    claims: Mapping[str, Any], key: str | dict[str, Any] | Key, algorithm: str = ..., headers: Mapping[str, Any] | None = ..., access_token: str | None = ...
+    claims: Mapping[str, Any],
+    key: str | dict[str, Any] | Key,
+    algorithm: str = ...,
+    headers: Mapping[str, Any] | None = ...,
+    access_token: str | None = ...,
 ) -> str: ...
 def decode(
     token: str,
