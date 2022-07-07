@@ -3,10 +3,8 @@ import sys
 from _typeshed import Self, SupportsKeysAndGetItem
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from typing import Any, Generic, NoReturn, TypeVar, overload
-from typing_extensions import TypeAlias
 
 from ..cimmutabledict import immutabledict as immutabledict
-from ..sql.elements import ColumnElement
 
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
