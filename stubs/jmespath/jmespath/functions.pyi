@@ -1,14 +1,15 @@
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 from typing_extensions import NotRequired, TypedDict
 
 TYPES_MAP: dict[str, str]
 REVERSE_TYPES_MAP: dict[str, str]
 
-class Signature(TypedDict):
+class _Signature(TypedDict):
     types: list[str]
     variadic: NotRequired[bool]
 
-def signature(*arguments: Signature) -> Callable[..., Callable[..., Any]]: ...
+def signature(*arguments: _Signature) -> Callable[..., Callable[..., Any]]: ...
 
 class FunctionRegistry(type):
     def __init__(cls, name, bases, attrs) -> None: ...
