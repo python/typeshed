@@ -109,6 +109,7 @@ elif sys.platform == "darwin":
 elif sys.platform == "win32":
     from ._pswindows import pfullmem, pmem
 else:
+    # ignore Y042, these exist at runtime
     pmem: TypeAlias = Any  # noqa: Y042
     pfullmem: TypeAlias = Any  # noqa: Y042
 

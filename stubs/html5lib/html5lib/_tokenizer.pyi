@@ -4,6 +4,7 @@ from typing import Any
 from typing_extensions import TypeAlias
 
 entitiesTrie: Any
+# ignore Y042, this exists at runtime
 if sys.version_info >= (3, 7):
     attributeMap: TypeAlias = dict[Any, Any]  # noqa: Y042
 else:
