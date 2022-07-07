@@ -1,5 +1,4 @@
 import sys
-import types
 from collections.abc import Awaitable, Callable, Coroutine
 from typing import Any, TypeVar, overload
 from typing_extensions import ParamSpec, TypeGuard
@@ -27,8 +26,5 @@ def iscoroutinefunction(func: Callable[_P, object]) -> TypeGuard[Callable[_P, Co
 @overload
 def iscoroutinefunction(func: object) -> TypeGuard[Callable[..., Coroutine[Any, Any, Any]]]: ...
 
-if sys.version_info >= (3, 8):
-    def iscoroutine(obj: object) -> TypeGuard[Coroutine[Any, Any, Any]]: ...
-
-else:
-    def iscoroutine(obj: object) -> TypeGuard[types.GeneratorType[Any, Any, Any] | Coroutine[Any, Any, Any]]: ...
+# Can actually be a generator-style coroutine on Python 3.7
+def iscoroutine(obj: object) -> TypeGuard[Coroutine[Any, Any, Any]]: ...

@@ -1,3 +1,4 @@
+_socket.*
 _posixsubprocess.cloexec_pipe
 os.EX_NOTFOUND
 os.SF_MNOWAIT
@@ -10,6 +11,8 @@ select.EPOLL_RDHUP
 selectors.KqueueSelector
 signal.SIGEMT
 signal.SIGINFO
+socket.[A-Z0-9_]+
+errno.[A-Z0-9]+
 
 # Exists at runtime, but missing from stubs
 distutils.msvccompiler.MSVCCompiler.get_msvc_paths

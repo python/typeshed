@@ -17,5 +17,3 @@ subprocess.STARTUPINFO.copy
 # so are omitted from the stub
 pathlib.WindowsPath.group
 pathlib.WindowsPath.owner
-pathlib.Path.is_mount
-pathlib.WindowsPath.is_mount

@@ -1,6 +1,3 @@
-# stub-only module
-sqlalchemy.dbapi
-
 # wrong argument name in implementation ("self" instead of "cls")
 sqlalchemy.engine.URL.__new__
 sqlalchemy.engine.url.URL.__new__

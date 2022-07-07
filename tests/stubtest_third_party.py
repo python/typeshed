@@ -66,19 +66,17 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
             print_command_failure("Failed to install", e)
             return False
 
+        ignore_missing_stub = ["--ignore-missing-stub"] if stubtest_meta.get("ignore_missing_stub", True) else []
         packages_to_check = [d.name for d in dist.iterdir() if d.is_dir() and d.name.isidentifier()]
         modules_to_check = [d.stem for d in dist.iterdir() if d.is_file() and d.suffix == ".pyi"]
         stubtest_cmd = [
             python_exe,
             "-m",
             "mypy.stubtest",
-            # Use --ignore-missing-stub, because if someone makes a correct addition, they'll need to
-            # also make a allowlist change and if someone makes an incorrect addition, they'll run into
-            # false negatives.
-            "--ignore-missing-stub",
             # Use --custom-typeshed-dir in case we make linked changes to stdlib or _typeshed
             "--custom-typeshed-dir",
             str(dist.parent.parent),
+            *ignore_missing_stub,
             *packages_to_check,
             *modules_to_check,
         ]
