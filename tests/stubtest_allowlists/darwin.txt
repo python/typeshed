@@ -1,3 +1,5 @@
+_?curses.A_ITALIC
+
 _posixsubprocess.cloexec_pipe
 os.EX_NOTFOUND
 os.SF_MNOWAIT
