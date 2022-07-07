@@ -109,8 +109,8 @@ elif sys.platform == "darwin":
 elif sys.platform == "win32":
     from ._pswindows import pfullmem, pmem
 else:
-    pmem: TypeAlias = Any
-    pfullmem: TypeAlias = Any
+    pmem: TypeAlias = Any  # noqa: Y042
+    pfullmem: TypeAlias = Any  # noqa: Y042
 
 if sys.platform == "linux":
     PROCFS_PATH: str

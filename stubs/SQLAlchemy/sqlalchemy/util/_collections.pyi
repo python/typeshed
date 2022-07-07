@@ -182,7 +182,7 @@ class WeakPopulateDict(dict[Any, Any]):
 
 column_set = set
 column_dict = dict
-ordered_column_set: TypeAlias = OrderedSet[ColumnElement[Any]]
+ordered_column_set = OrderedSet
 
 def unique_list(seq: Iterable[_T], hashfunc: Callable[[_T], Any] | None = ...) -> list[_T]: ...
 

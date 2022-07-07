@@ -5,9 +5,9 @@ from typing_extensions import TypeAlias
 
 entitiesTrie: Any
 if sys.version_info >= (3, 7):
-    attributeMap: TypeAlias = dict[Any, Any]
+    attributeMap: TypeAlias = dict[Any, Any]  # noqa: Y042
 else:
-    attributeMap: TypeAlias = OrderedDict[Any, Any]
+    attributeMap: TypeAlias = OrderedDict[Any, Any]  # noqa: Y042
 
 class HTMLTokenizer:
     stream: Any
