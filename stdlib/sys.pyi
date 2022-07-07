@@ -75,7 +75,7 @@ _xoptions: dict[Any, Any]
 
 # Type alias used as a mixin for structseq classes that cannot be instantiated at runtime
 # This can't be represented in the type system, so we just use `structseq[Any]`
-_uninstantiable_structseq: TypeAlias = structseq[Any]
+_UninstantiableStructseq: TypeAlias = structseq[Any]
 
 flags: _flags
 
@@ -87,7 +87,7 @@ else:
     _FlagTuple: TypeAlias = tuple[int, int, int, int, int, int, int, int, int, int, int, int, int]
 
 @final
-class _flags(_uninstantiable_structseq, _FlagTuple):
+class _flags(_UninstantiableStructseq, _FlagTuple):
     @property
     def debug(self) -> int: ...
     @property
@@ -198,7 +198,7 @@ class _int_info(structseq[int], tuple[int, int]):
     def sizeof_digit(self) -> int: ...
 
 @final
-class _version_info(_uninstantiable_structseq, tuple[int, int, int, str, int]):
+class _version_info(_UninstantiableStructseq, tuple[int, int, int, str, int]):
     @property
     def major(self) -> int: ...
     @property
@@ -249,7 +249,7 @@ def settrace(tracefunc: TraceFunction | None) -> None: ...
 if sys.platform == "win32":
     # A tuple of length 5, even though it has more than 5 attributes.
     @final
-    class _WinVersion(_uninstantiable_structseq, tuple[int, int, int, int, str]):
+    class _WinVersion(_UninstantiableStructseq, tuple[int, int, int, int, str]):
         @property
         def major(self) -> int: ...
         @property
