@@ -1,6 +1,6 @@
 import logging
 from _typeshed import Incomplete
-from collections.abc import Callable, Iterator, Sequence
+from collections.abc import Callable, Sequence
 from contextlib import _GeneratorContextManager
 from typing import Any, TypeVar, overload
 
