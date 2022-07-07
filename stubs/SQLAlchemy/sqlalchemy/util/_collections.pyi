@@ -182,8 +182,11 @@ class WeakPopulateDict(dict[Any, Any]):
 
 column_set = set
 column_dict = dict
-# Ignore Y042, this exists at runtime
-ordered_column_set: TypeAlias = OrderedSet[ColumnElement[Any]]  # noqa: Y042
+# Ignore Y026, this isn't a type alias.
+# We have to do `ordered_column_set = OrderedSet[_T]
+# instead of `ordered_column_set = OrderedSet`,
+# or pyright complains
+ordered_column_set = OrderedSet[_T]  # noqa: Y026
 
 def unique_list(seq: Iterable[_T], hashfunc: Callable[[_T], Any] | None = ...) -> list[_T]: ...
 

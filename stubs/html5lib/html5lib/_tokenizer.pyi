@@ -1,14 +1,12 @@
 import sys
 from collections import OrderedDict
 from typing import Any
-from typing_extensions import TypeAlias
 
 entitiesTrie: Any
-# ignore Y042, this exists at runtime
 if sys.version_info >= (3, 7):
-    attributeMap: TypeAlias = dict[Any, Any]  # noqa: Y042
+    attributeMap = dict
 else:
-    attributeMap: TypeAlias = OrderedDict[Any, Any]  # noqa: Y042
+    attributeMap = OrderedDict
 
 class HTMLTokenizer:
     stream: Any
