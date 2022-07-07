@@ -182,6 +182,7 @@ class WeakPopulateDict(dict[Any, Any]):
 
 column_set = set
 column_dict = dict
+# Ignore Y042, this exists at runtime
 ordered_column_set: TypeAlias = OrderedSet[ColumnElement[Any]]  # noqa: Y042
 
 def unique_list(seq: Iterable[_T], hashfunc: Callable[[_T], Any] | None = ...) -> list[_T]: ...
