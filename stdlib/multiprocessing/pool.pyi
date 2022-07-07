@@ -72,7 +72,7 @@ class Pool:
     def __init__(
         self,
         processes: int | None = ...,
-        initializer: Callable[..., None] | None = ...,
+        initializer: Callable[..., object] | None = ...,
         initargs: Iterable[Any] = ...,
         maxtasksperchild: int | None = ...,
         context: Any | None = ...,
@@ -118,7 +118,7 @@ class Pool:
 
 class ThreadPool(Pool):
     def __init__(
-        self, processes: int | None = ..., initializer: Callable[..., Any] | None = ..., initargs: Iterable[Any] = ...
+        self, processes: int | None = ..., initializer: Callable[..., object] | None = ..., initargs: Iterable[Any] = ...
     ) -> None: ...
 
 # undocumented

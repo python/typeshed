@@ -9,15 +9,15 @@ __all__ = ["Trace", "CoverageResults"]
 
 _T = TypeVar("_T")
 _P = ParamSpec("_P")
-_fileModuleFunction: TypeAlias = tuple[str, str | None, str]
+_FileModuleFunction: TypeAlias = tuple[str, str | None, str]
 
 class CoverageResults:
     def __init__(
         self,
         counts: dict[tuple[str, int], int] | None = ...,
-        calledfuncs: dict[_fileModuleFunction, int] | None = ...,
+        calledfuncs: dict[_FileModuleFunction, int] | None = ...,
         infile: StrPath | None = ...,
-        callers: dict[tuple[_fileModuleFunction, _fileModuleFunction], int] | None = ...,
+        callers: dict[tuple[_FileModuleFunction, _FileModuleFunction], int] | None = ...,
         outfile: StrPath | None = ...,
     ) -> None: ...  # undocumented
     def update(self, other: CoverageResults) -> None: ...
@@ -49,7 +49,7 @@ class Trace:
     else:
         def runfunc(self, func: Callable[_P, _T], *args: _P.args, **kw: _P.kwargs) -> _T: ...
 
-    def file_module_function_of(self, frame: types.FrameType) -> _fileModuleFunction: ...
+    def file_module_function_of(self, frame: types.FrameType) -> _FileModuleFunction: ...
     def globaltrace_trackcallers(self, frame: types.FrameType, why: str, arg: Any) -> None: ...
     def globaltrace_countfuncs(self, frame: types.FrameType, why: str, arg: Any) -> None: ...
     def globaltrace_lt(self, frame: types.FrameType, why: str, arg: Any) -> None: ...
