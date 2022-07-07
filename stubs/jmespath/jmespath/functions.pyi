@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from typing import Any
+from typing import Any, TypeVar
 from typing_extensions import NotRequired, TypedDict
 
 TYPES_MAP: dict[str, str]
@@ -9,7 +9,9 @@ class _Signature(TypedDict):
     types: list[str]
     variadic: NotRequired[bool]
 
-def signature(*arguments: _Signature) -> Callable[..., Callable[..., Any]]: ...
+_F = TypeVar("_F", bound=Callable[..., Any])
+
+def signature(*arguments: _Signature) -> Callable[[_F], _F]: ...
 
 class FunctionRegistry(type):
     def __init__(cls, name, bases, attrs) -> None: ...
