@@ -1,6 +1,5 @@
-from collections.abc import Mapping
+from collections.abc import Callable, Mapping
 from hashlib import _Hash
-from typing import Callable
 
 from .backends.base import Key
 

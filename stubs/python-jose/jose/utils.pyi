@@ -1,7 +1,7 @@
-from collections.abc import Iterable
+from collections.abc import Callable, Iterable
 from datetime import timedelta
 from hashlib import _Hash
-from typing import Any, Callable
+from typing import Any
 
 def long_to_bytes(n: int, blocksize: int | None = ...) -> None: ...
 def long_to_base64(data: int, size: int | None = ...) -> bytes: ...

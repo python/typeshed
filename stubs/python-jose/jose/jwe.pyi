@@ -1,3 +1,4 @@
+from collections.abc import Mapping
 from typing import Any
 
 from .backends.base import Key
