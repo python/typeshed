@@ -1,6 +1,7 @@
 from typing import Any
 
-from .backends.base import Key as Key
+from .backends import AESKey, ECKey, HMACKey, RSAKey
+from .backends.base import DIRKey, Key
 
 def get_key(algorithm: str) -> type[Key] | None: ...
 def register_key(algorithm: str, key_class: type[Key]) -> bool: ...
