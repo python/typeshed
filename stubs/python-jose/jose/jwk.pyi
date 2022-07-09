@@ -1,7 +1,7 @@
 from typing import Any
 
-from .backends import AESKey, ECKey, HMACKey, RSAKey
-from .backends.base import DIRKey, Key
+from .backends import AESKey as AESKey, ECKey as ECKey, HMACKey as HMACKey, RSAKey as RSAKey
+from .backends.base import DIRKey as DIRKey, Key
 
 def get_key(algorithm: str) -> type[Key] | None: ...
 def register_key(algorithm: str, key_class: type[Key]) -> bool: ...
