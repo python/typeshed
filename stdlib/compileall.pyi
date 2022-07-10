@@ -42,30 +42,6 @@ if sys.version_info >= (3, 9):
         hardlink_dupes: bool = ...,
     ) -> int: ...
 
-elif sys.version_info >= (3, 7):
-    def compile_dir(
-        dir: StrPath,
-        maxlevels: int = ...,
-        ddir: StrPath | None = ...,
-        force: bool = ...,
-        rx: _SupportsSearch | None = ...,
-        quiet: int = ...,
-        legacy: bool = ...,
-        optimize: int = ...,
-        workers: int = ...,
-        invalidation_mode: PycInvalidationMode | None = ...,
-    ) -> int: ...
-    def compile_file(
-        fullname: StrPath,
-        ddir: StrPath | None = ...,
-        force: bool = ...,
-        rx: _SupportsSearch | None = ...,
-        quiet: int = ...,
-        legacy: bool = ...,
-        optimize: int = ...,
-        invalidation_mode: PycInvalidationMode | None = ...,
-    ) -> int: ...
-
 else:
     def compile_dir(
         dir: StrPath,
@@ -77,6 +53,7 @@ else:
         legacy: bool = ...,
         optimize: int = ...,
         workers: int = ...,
+        invalidation_mode: PycInvalidationMode | None = ...,
     ) -> int: ...
     def compile_file(
         fullname: StrPath,
@@ -86,6 +63,7 @@ else:
         quiet: int = ...,
         legacy: bool = ...,
         optimize: int = ...,
+        invalidation_mode: PycInvalidationMode | None = ...,
     ) -> int: ...
 
 def compile_path(

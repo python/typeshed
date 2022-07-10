@@ -34,7 +34,7 @@ if sys.version_info >= (3, 8):
         "_get_running_loop",
     )
 
-elif sys.version_info >= (3, 7):
+else:
     __all__ = (
         "AbstractEventLoopPolicy",
         "AbstractEventLoop",
@@ -53,24 +53,6 @@ elif sys.version_info >= (3, 7):
         "get_running_loop",
         "_get_running_loop",
     )
-
-else:
-    __all__ = [
-        "AbstractEventLoopPolicy",
-        "AbstractEventLoop",
-        "AbstractServer",
-        "Handle",
-        "TimerHandle",
-        "get_event_loop_policy",
-        "set_event_loop_policy",
-        "get_event_loop",
-        "set_event_loop",
-        "new_event_loop",
-        "get_child_watcher",
-        "set_child_watcher",
-        "_set_running_loop",
-        "_get_running_loop",
-    ]
 
 _T = TypeVar("_T")
 _ProtocolT = TypeVar("_ProtocolT", bound=BaseProtocol)
@@ -302,7 +284,7 @@ class AbstractEventLoop:
             happy_eyeballs_delay: float | None = ...,
             interleave: int | None = ...,
         ) -> tuple[BaseTransport, _ProtocolT]: ...
-    elif sys.version_info >= (3, 7):
+    else:
         @overload
         @abstractmethod
         async def create_connection(
@@ -400,7 +382,7 @@ class AbstractEventLoop:
             ssl_shutdown_timeout: float | None = ...,
             start_serving: bool = ...,
         ) -> Server: ...
-    elif sys.version_info >= (3, 7):
+    else:
         @overload
         @abstractmethod
         async def create_server(
@@ -459,48 +441,6 @@ class AbstractEventLoop:
             ssl_handshake_timeout: float | None = ...,
             start_serving: bool = ...,
         ) -> Server: ...
-    else:
-        @overload
-        @abstractmethod
-        async def create_server(
-            self,
-            protocol_factory: _ProtocolFactory,
-            host: str | Sequence[str] | None = ...,
-            port: int = ...,
-            *,
-            family: int = ...,
-            flags: int = ...,
-            sock: None = ...,
-            backlog: int = ...,
-            ssl: _SSLContext = ...,
-            reuse_address: bool | None = ...,
-            reuse_port: bool | None = ...,
-        ) -> Server: ...
-        @overload
-        @abstractmethod
-        async def create_server(
-            self,
-            protocol_factory: _ProtocolFactory,
-            host: None = ...,
-            port: None = ...,
-            *,
-            family: int = ...,
-            flags: int = ...,
-            sock: socket,
-            backlog: int = ...,
-            ssl: _SSLContext = ...,
-            reuse_address: bool | None = ...,
-            reuse_port: bool | None = ...,
-        ) -> Server: ...
-        async def create_unix_server(
-            self,
-            protocol_factory: _ProtocolFactory,
-            path: str,
-            *,
-            sock: socket | None = ...,
-            backlog: int = ...,
-            ssl: _SSLContext = ...,
-        ) -> Server: ...
     if sys.version_info >= (3, 11):
         async def connect_accepted_socket(
             self,
@@ -532,7 +472,7 @@ class AbstractEventLoop:
             ssl_handshake_timeout: float | None = ...,
             ssl_shutdown_timeout: float | None = ...,
         ) -> tuple[BaseTransport, _ProtocolT]: ...
-    elif sys.version_info >= (3, 7):
+    else:
         async def create_unix_connection(
             self,
             protocol_factory: Callable[[], _ProtocolT],
@@ -542,16 +482,6 @@ class AbstractEventLoop:
             sock: socket | None = ...,
             server_hostname: str | None = ...,
             ssl_handshake_timeout: float | None = ...,
-        ) -> tuple[BaseTransport, _ProtocolT]: ...
-    else:
-        async def create_unix_connection(
-            self,
-            protocol_factory: Callable[[], _ProtocolT],
-            path: str,
-            *,
-            ssl: _SSLContext = ...,
-            sock: socket | None = ...,
-            server_hostname: str | None = ...,
         ) -> tuple[BaseTransport, _ProtocolT]: ...
 
     @abstractmethod

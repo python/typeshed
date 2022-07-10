@@ -56,9 +56,7 @@ class _ClosableZipStream(_ZipStream, Protocol):
 class ZipExtFile(io.BufferedIOBase):
     MAX_N: int
     MIN_READ_SIZE: int
-
     MAX_SEEK_READ: int
-
     newlines: list[bytes] | None
     mode: _ReadWriteMode
     name: str
@@ -142,7 +140,7 @@ class ZipFile:
             *,
             strict_timestamps: bool = ...,
         ) -> None: ...
-    elif sys.version_info >= (3, 7):
+    else:
         def __init__(
             self,
             file: StrPath | IO[bytes],

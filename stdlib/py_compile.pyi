@@ -1,3 +1,4 @@
+import enum
 import sys
 from typing import AnyStr
 
@@ -9,8 +10,6 @@ class PyCompileError(Exception):
     file: str
     msg: str
     def __init__(self, exc_type: type[BaseException], exc_value: BaseException, file: str, msg: str = ...) -> None: ...
-
-import enum
 
 class PycInvalidationMode(enum.Enum):
     TIMESTAMP: int
@@ -30,7 +29,7 @@ if sys.version_info >= (3, 8):
         quiet: int = ...,
     ) -> AnyStr | None: ...
 
-elif sys.version_info >= (3, 7):
+else:
     def compile(
         file: AnyStr,
         cfile: AnyStr | None = ...,
@@ -38,11 +37,6 @@ elif sys.version_info >= (3, 7):
         doraise: bool = ...,
         optimize: int = ...,
         invalidation_mode: PycInvalidationMode | None = ...,
-    ) -> AnyStr | None: ...
-
-else:
-    def compile(
-        file: AnyStr, cfile: AnyStr | None = ..., dfile: AnyStr | None = ..., doraise: bool = ..., optimize: int = ...
     ) -> AnyStr | None: ...
 
 if sys.version_info >= (3, 10):

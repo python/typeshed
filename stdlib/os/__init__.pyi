@@ -388,10 +388,8 @@ class DirEntry(Generic[AnyStr]):
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
-_StatVfsTuple: TypeAlias = tuple[int, int, int, int, int, int, int, int, int, int, int]
-
 @final
-class statvfs_result(structseq[int], _StatVfsTuple):
+class statvfs_result(structseq[int], tuple[int, int, int, int, int, int, int, int, int, int, int]):
     if sys.version_info >= (3, 10):
         __match_args__: Final = (
             "f_bsize",
@@ -964,7 +962,7 @@ if sys.platform == "linux":
 
 def urandom(__size: int) -> bytes: ...
 
-if sys.version_info >= (3, 7) and sys.platform != "win32":
+if sys.platform != "win32":
     def register_at_fork(
         *,
         before: Callable[..., Any] | None = ...,

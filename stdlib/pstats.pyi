@@ -2,20 +2,17 @@ import sys
 from _typeshed import Self, StrOrBytesPath
 from collections.abc import Iterable
 from cProfile import Profile as _cProfile
+from enum import Enum
 from profile import Profile
 from typing import IO, Any, overload
 from typing_extensions import Literal, TypeAlias
 
 if sys.version_info >= (3, 9):
     __all__ = ["Stats", "SortKey", "FunctionProfile", "StatsProfile"]
-elif sys.version_info >= (3, 7):
-    __all__ = ["Stats", "SortKey"]
 else:
-    __all__ = ["Stats"]
+    __all__ = ["Stats", "SortKey"]
 
 _Selector: TypeAlias = str | float | int
-
-from enum import Enum
 
 class SortKey(str, Enum):
     CALLS: str

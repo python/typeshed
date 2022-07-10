@@ -53,7 +53,7 @@ if sys.platform != "win32":
             "ThreadedChildWatcher",
             "DefaultEventLoopPolicy",
         )
-    elif sys.version_info >= (3, 7):
+    else:
         __all__ = ("SelectorEventLoop", "AbstractChildWatcher", "SafeChildWatcher", "FastChildWatcher", "DefaultEventLoopPolicy")
 
     # Doesn't actually have ABCMeta metaclass at runtime, but mypy complains if we don't have it in the stub.

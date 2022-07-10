@@ -16,9 +16,7 @@ class TestLoader:
     errors: list[type[BaseException]]
     testMethodPrefix: str
     sortTestMethodsUsing: _SortComparisonMethod
-
     testNamePatterns: list[str] | None
-
     suiteClass: _SuiteClass
     def loadTestsFromTestCase(self, testCaseClass: type[unittest.case.TestCase]) -> unittest.suite.TestSuite: ...
     def loadTestsFromModule(self, module: ModuleType, *args: Any, pattern: Any = ...) -> unittest.suite.TestSuite: ...

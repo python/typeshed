@@ -1,3 +1,5 @@
+import sys
+
 single_input: int
 file_input: int
 eval_input: int

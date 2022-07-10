@@ -156,9 +156,6 @@ def register_archive_format(
 ) -> None: ...
 def unregister_archive_format(name: str) -> None: ...
 def unpack_archive(filename: StrPath, extract_dir: StrPath | None = ..., format: str | None = ...) -> None: ...
-
-# See http://bugs.python.org/issue30218
-
 @overload
 def register_unpack_format(
     name: str,

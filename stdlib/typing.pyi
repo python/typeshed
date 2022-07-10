@@ -79,9 +79,10 @@ __all__ = [
     "no_type_check",
     "no_type_check_decorator",
     "overload",
+    "ForwardRef",
+    "NoReturn",
+    "OrderedDict",
 ]
-
-__all__ += ["ForwardRef", "NoReturn", "OrderedDict"]
 
 if sys.version_info >= (3, 8):
     __all__ += [

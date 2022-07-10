@@ -138,13 +138,10 @@ if sys.version_info >= (3, 10):
 elif sys.platform != "darwin" and sys.platform != "win32":
     from _socket import IP_RECVTOS as IP_RECVTOS
 
-from _socket import close as close
+from _socket import close as close, TCP_KEEPINTVL as TCP_KEEPINTVL
 
-if sys.platform != "win32" or sys.version_info >= (3, 7):
-    from _socket import TCP_KEEPINTVL as TCP_KEEPINTVL
-
-    if sys.platform != "darwin":
-        from _socket import TCP_KEEPIDLE as TCP_KEEPIDLE
+if sys.platform != "darwin":
+    from _socket import TCP_KEEPIDLE as TCP_KEEPIDLE
 
 if sys.platform != "win32" or sys.version_info >= (3, 8):
     from _socket import (
@@ -357,7 +354,7 @@ if sys.platform == "linux":
         TIPC_WITHDRAWN as TIPC_WITHDRAWN,
         TIPC_ZONE_SCOPE as TIPC_ZONE_SCOPE,
     )
-if sys.platform == "linux" and sys.version_info >= (3, 7):
+if sys.platform == "linux":
     from _socket import (
         CAN_ISOTP as CAN_ISOTP,
         IOCTL_VM_SOCKETS_GET_LOCAL_CID as IOCTL_VM_SOCKETS_GET_LOCAL_CID,
@@ -369,7 +366,7 @@ if sys.platform == "linux" and sys.version_info >= (3, 7):
         VMADDR_CID_HOST as VMADDR_CID_HOST,
         VMADDR_PORT_ANY as VMADDR_PORT_ANY,
     )
-if sys.platform != "win32" and sys.version_info >= (3, 7):
+if sys.platform != "win32":
     from _socket import TCP_NOTSENT_LOWAT as TCP_NOTSENT_LOWAT
 if sys.platform == "linux" and sys.version_info >= (3, 8):
     from _socket import (
@@ -560,9 +557,7 @@ class MsgFlag(IntFlag):
     if sys.platform != "darwin":
         MSG_BCAST: int
         MSG_MCAST: int
-
-        if sys.platform != "win32" or sys.version_info >= (3, 7):
-            MSG_ERRQUEUE: int
+        MSG_ERRQUEUE: int
 
     if sys.platform != "win32" and sys.platform != "darwin":
         MSG_BTAG: int
@@ -589,9 +584,7 @@ MSG_WAITALL = MsgFlag.MSG_WAITALL
 if sys.platform != "darwin":
     MSG_BCAST = MsgFlag.MSG_BCAST
     MSG_MCAST = MsgFlag.MSG_MCAST
-
-    if sys.platform != "win32" or sys.version_info >= (3, 7):
-        MSG_ERRQUEUE = MsgFlag.MSG_ERRQUEUE
+    MSG_ERRQUEUE = MsgFlag.MSG_ERRQUEUE
 
 if sys.platform != "win32":
     MSG_DONTWAIT = MsgFlag.MSG_DONTWAIT

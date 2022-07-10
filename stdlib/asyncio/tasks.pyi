@@ -62,9 +62,6 @@ def ensure_future(coro_or_future: _FT, *, loop: AbstractEventLoop | None = ...) 
 @overload
 def ensure_future(coro_or_future: Awaitable[_T], *, loop: AbstractEventLoop | None = ...) -> Task[_T]: ...
 
-# Prior to Python 3.7 'async' was an alias for 'ensure_future'.
-# It became a keyword in 3.7.
-
 # `gather()` actually returns a list with length equal to the number
 # of tasks passed; however, Tuple is used similar to the annotation for
 # zip() because typing does not support variadic type variables.  See

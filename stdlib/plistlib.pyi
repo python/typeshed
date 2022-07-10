@@ -23,7 +23,7 @@ elif sys.version_info >= (3, 8):
         "dumps",
         "UID",
     ]
-elif sys.version_info >= (3, 7):
+else:
     __all__ = [
         "readPlist",
         "writePlist",

@@ -176,8 +176,7 @@ MSG_CTRUNC: int
 MSG_DONTROUTE: int
 
 if sys.platform != "darwin":
-    if sys.platform != "win32" or sys.version_info >= (3, 7):
-        MSG_ERRQUEUE: int
+    MSG_ERRQUEUE: int
 
 MSG_OOB: int
 MSG_PEEK: int
@@ -218,15 +217,14 @@ if sys.platform == "linux" and sys.version_info >= (3, 11):
     SO_INCOMING_CPU: int
 TCP_FASTOPEN: int
 TCP_KEEPCNT: int
+TCP_KEEPINTVL: int
 
-if sys.platform != "win32" or sys.version_info >= (3, 7):
-    TCP_KEEPINTVL: int
-    if sys.platform != "darwin":
-        TCP_KEEPIDLE: int
+if sys.platform != "darwin":
+    TCP_KEEPIDLE: int
 
 TCP_MAXSEG: int
 TCP_NODELAY: int
-if sys.version_info >= (3, 7) and sys.platform != "win32":
+if sys.platform != "win32":
     TCP_NOTSENT_LOWAT: int
 if sys.version_info >= (3, 10) and sys.platform == "darwin":
     TCP_KEEPALIVE: int
@@ -368,7 +366,7 @@ if sys.platform == "linux" and sys.version_info >= (3, 8):
     CAN_BCM_RX_RTR_FRAME: int
     CAN_BCM_CAN_FD_FRAME: int
 
-if sys.platform == "linux" and sys.version_info >= (3, 7):
+if sys.platform == "linux":
     CAN_ISOTP: int
 
 if sys.platform == "linux" and sys.version_info >= (3, 9):
@@ -491,7 +489,7 @@ if sys.platform == "linux":
     ALG_SET_OP: int
     ALG_SET_PUBKEY: int
 
-if sys.platform == "linux" and sys.version_info >= (3, 7):
+if sys.platform == "linux":
     AF_VSOCK: int
     IOCTL_VM_SOCKETS_GET_LOCAL_CID: int
     VMADDR_CID_ANY: int

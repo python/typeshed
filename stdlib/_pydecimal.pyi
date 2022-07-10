@@ -41,6 +41,5 @@ __all__ = [
     "MIN_EMIN",
     "MIN_ETINY",
     "HAVE_THREADS",
+    "HAVE_CONTEXTVAR",
 ]
-
-__all__ += ["HAVE_CONTEXTVAR"]

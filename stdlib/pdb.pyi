@@ -161,7 +161,7 @@ class Pdb(Bdb, Cmd):
     complete_whatis = _complete_expression
     complete_display = _complete_expression
 
-    if sys.version_info >= (3, 7) and sys.version_info < (3, 11):
+    if sys.version_info < (3, 11):
         def _runmodule(self, module_name: str) -> None: ...
 
 # undocumented

@@ -1,3 +1,4 @@
+import sys
 from _typeshed import Self
 from typing import Any
 

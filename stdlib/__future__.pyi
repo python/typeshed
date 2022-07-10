@@ -18,7 +18,6 @@ unicode_literals: _Feature
 with_statement: _Feature
 barry_as_FLUFL: _Feature
 generator_stop: _Feature
-
 annotations: _Feature
 
 all_feature_names: list[str]  # undocumented
@@ -34,6 +33,5 @@ __all__ = [
     "with_statement",
     "barry_as_FLUFL",
     "generator_stop",
+    "annotations",
 ]
-
-__all__ += ["annotations"]

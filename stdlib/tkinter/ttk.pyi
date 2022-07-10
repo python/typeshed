@@ -1,4 +1,5 @@
 import _tkinter
+import sys
 import tkinter
 from collections.abc import Callable
 from tkinter.font import _FontDescription
@@ -30,9 +31,8 @@ __all__ = [
     "OptionMenu",
     "tclobjs_to_py",
     "setup_master",
+    "Spinbox",
 ]
-
-__all__ += ["Spinbox"]
 
 def tclobjs_to_py(adict: dict[Any, Any]) -> dict[Any, Any]: ...
 def setup_master(master: Any | None = ...): ...

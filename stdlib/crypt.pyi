@@ -1,3 +1,5 @@
+import sys
+
 if sys.platform != "win32":
     class _Method: ...
     METHOD_CRYPT: _Method
@@ -5,8 +7,6 @@ if sys.platform != "win32":
     METHOD_SHA256: _Method
     METHOD_SHA512: _Method
     METHOD_BLOWFISH: _Method
-
     methods: list[_Method]
-
     def mksalt(method: _Method | None = ..., *, rounds: int | None = ...) -> str: ...
     def crypt(word: str, salt: str | _Method | None = ...) -> str: ...

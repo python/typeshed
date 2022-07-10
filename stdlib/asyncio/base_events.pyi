@@ -14,10 +14,8 @@ from typing_extensions import Literal, TypeAlias
 
 if sys.version_info >= (3, 9):
     __all__ = ("BaseEventLoop", "Server")
-elif sys.version_info >= (3, 7):
-    __all__ = ("BaseEventLoop",)
 else:
-    __all__ = ["BaseEventLoop"]
+    __all__ = ("BaseEventLoop",)
 
 _T = TypeVar("_T")
 _ProtocolT = TypeVar("_ProtocolT", bound=BaseProtocol)
@@ -38,7 +36,7 @@ class Server(AbstractServer):
             ssl_handshake_timeout: float | None,
             ssl_shutdown_timeout: float | None = ...,
         ) -> None: ...
-    elif sys.version_info >= (3, 7):
+    else:
         def __init__(
             self,
             loop: AbstractEventLoop,
@@ -48,8 +46,6 @@ class Server(AbstractServer):
             backlog: int,
             ssl_handshake_timeout: float | None,
         ) -> None: ...
-    else:
-        def __init__(self, loop: AbstractEventLoop, sockets: list[socket]) -> None: ...
 
     def get_loop(self) -> AbstractEventLoop: ...
     def is_serving(self) -> bool: ...
@@ -58,11 +54,10 @@ class Server(AbstractServer):
     if sys.version_info >= (3, 8):
         @property
         def sockets(self) -> tuple[socket, ...]: ...
-    elif sys.version_info >= (3, 7):
+    else:
         @property
         def sockets(self) -> list[socket]: ...
-    else:
-        sockets: list[socket] | None
+
     def close(self) -> None: ...
     async def wait_closed(self) -> None: ...
 
@@ -191,7 +186,7 @@ class BaseEventLoop(AbstractEventLoop):
             happy_eyeballs_delay: float | None = ...,
             interleave: int | None = ...,
         ) -> tuple[BaseTransport, _ProtocolT]: ...
-    elif sys.version_info >= (3, 7):
+    else:
         @overload
         async def create_connection(
             self,
@@ -281,7 +276,7 @@ class BaseEventLoop(AbstractEventLoop):
             ssl_handshake_timeout: float | None = ...,
             ssl_shutdown_timeout: float | None = ...,
         ) -> tuple[BaseTransport, _ProtocolT]: ...
-    elif sys.version_info >= (3, 7):
+    else:
         @overload
         async def create_server(
             self,
@@ -333,40 +328,6 @@ class BaseEventLoop(AbstractEventLoop):
             *,
             ssl: _SSLContext = ...,
             ssl_handshake_timeout: float | None = ...,
-        ) -> tuple[BaseTransport, _ProtocolT]: ...
-    else:
-        @overload
-        async def create_server(
-            self,
-            protocol_factory: _ProtocolFactory,
-            host: str | Sequence[str] | None = ...,
-            port: int = ...,
-            *,
-            family: int = ...,
-            flags: int = ...,
-            sock: None = ...,
-            backlog: int = ...,
-            ssl: _SSLContext = ...,
-            reuse_address: bool | None = ...,
-            reuse_port: bool | None = ...,
-        ) -> Server: ...
-        @overload
-        async def create_server(
-            self,
-            protocol_factory: _ProtocolFactory,
-            host: None = ...,
-            port: None = ...,
-            *,
-            family: int = ...,
-            flags: int = ...,
-            sock: socket,
-            backlog: int = ...,
-            ssl: _SSLContext = ...,
-            reuse_address: bool | None = ...,
-            reuse_port: bool | None = ...,
-        ) -> Server: ...
-        async def connect_accepted_socket(
-            self, protocol_factory: Callable[[], _ProtocolT], sock: socket, *, ssl: _SSLContext = ...
         ) -> tuple[BaseTransport, _ProtocolT]: ...
 
     async def sock_sendfile(
@@ -448,7 +409,6 @@ class BaseEventLoop(AbstractEventLoop):
     def remove_writer(self, fd: FileDescriptorLike) -> bool: ...
     # The sock_* methods (and probably some others) are not actually implemented on
     # BaseEventLoop, only on subclasses. We list them here for now for convenience.
-    # Completion based I/O methods returning Futures prior to 3.7
     async def sock_recv(self, sock: socket, nbytes: int) -> bytes: ...
     async def sock_recv_into(self, sock: socket, buf: WriteableBuffer) -> int: ...
     async def sock_sendall(self, sock: socket, data: bytes) -> None: ...

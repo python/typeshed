@@ -41,9 +41,12 @@ __all__ = [
     "DynamicClassAttribute",
     "coroutine",
     "BuiltinMethodType",
+    "ClassMethodDescriptorType",
+    "MethodDescriptorType",
+    "MethodWrapperType",
+    "WrapperDescriptorType",
+    "resolve_bases",
 ]
-
-__all__ += ["ClassMethodDescriptorType", "MethodDescriptorType", "MethodWrapperType", "WrapperDescriptorType", "resolve_bases"]
 
 if sys.version_info >= (3, 8):
     __all__ += ["CellType"]

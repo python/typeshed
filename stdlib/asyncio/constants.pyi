@@ -1,4 +1,5 @@
 import enum
+import sys
 from typing_extensions import Literal
 
 LOG_THRESHOLD_FOR_CONNLOST_WRITES: Literal[5]

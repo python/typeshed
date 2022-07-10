@@ -28,7 +28,7 @@ if sys.version_info >= (3, 8):
         "PropertyMock",
         "seal",
     )
-elif sys.version_info >= (3, 7):
+else:
     __all__ = (
         "Mock",
         "MagicMock",
@@ -45,22 +45,7 @@ elif sys.version_info >= (3, 7):
         "PropertyMock",
         "seal",
     )
-else:
-    __all__ = (
-        "Mock",
-        "MagicMock",
-        "patch",
-        "sentinel",
-        "DEFAULT",
-        "ANY",
-        "call",
-        "create_autospec",
-        "FILTER_DIR",
-        "NonCallableMock",
-        "NonCallableMagicMock",
-        "mock_open",
-        "PropertyMock",
-    )
+
 __version__: str
 
 FILTER_DIR: Any

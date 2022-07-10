@@ -77,11 +77,8 @@ __all__ = [
     "untokenize",
 ]
 
-if sys.version_info < (3, 7) or sys.version_info >= (3, 8):
-    __all__ += ["ASYNC", "AWAIT"]
-
 if sys.version_info >= (3, 8):
-    __all__ += ["COLONEQUAL", "generate_tokens", "TYPE_COMMENT", "TYPE_IGNORE"]
+    __all__ += ["ASYNC", "AWAIT", "COLONEQUAL", "generate_tokens", "TYPE_COMMENT", "TYPE_IGNORE"]
 
 if sys.version_info >= (3, 10):
     __all__ += ["SOFT_KEYWORD"]

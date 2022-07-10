@@ -29,12 +29,10 @@ class Class:
             *,
             end_lineno: int | None = ...,
         ) -> None: ...
-    elif sys.version_info >= (3, 7):
+    else:
         def __init__(
             self, module: str, name: str, super: list[Class | str] | None, file: str, lineno: int, parent: Class | None = ...
         ) -> None: ...
-    else:
-        def __init__(self, module: str, name: str, super: list[Class | str] | None, file: str, lineno: int) -> None: ...
 
 class Function:
     module: str

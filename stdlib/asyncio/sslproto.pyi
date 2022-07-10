@@ -134,18 +134,6 @@ class SSLProtocol(_SSLProtocolBase):
             ssl_handshake_timeout: int | None = ...,
             ssl_shutdown_timeout: float | None = ...,
         ) -> None: ...
-    elif sys.version_info >= (3, 7):
-        def __init__(
-            self,
-            loop: events.AbstractEventLoop,
-            app_protocol: protocols.BaseProtocol,
-            sslcontext: ssl.SSLContext,
-            waiter: futures.Future[Any],
-            server_side: bool = ...,
-            server_hostname: str | None = ...,
-            call_connection_made: bool = ...,
-            ssl_handshake_timeout: int | None = ...,
-        ) -> None: ...
     else:
         def __init__(
             self,
@@ -156,6 +144,7 @@ class SSLProtocol(_SSLProtocolBase):
             server_side: bool = ...,
             server_hostname: str | None = ...,
             call_connection_made: bool = ...,
+            ssl_handshake_timeout: int | None = ...,
         ) -> None: ...
 
     def _set_app_protocol(self, app_protocol: protocols.BaseProtocol) -> None: ...

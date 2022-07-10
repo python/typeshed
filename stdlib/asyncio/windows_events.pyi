@@ -1,4 +1,5 @@
 import socket
+import sys
 from _typeshed import WriteableBuffer
 from collections.abc import Callable
 from typing import IO, Any, ClassVar, NoReturn

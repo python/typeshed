@@ -203,11 +203,8 @@ def adapt(__obj: Any, __proto: Any) -> Any: ...
 @overload
 def adapt(__obj: Any, __proto: Any, __alt: _T) -> Any | _T: ...
 def complete_statement(statement: str) -> bool: ...
-
-_DatabaseArg: TypeAlias = StrOrBytesPath
-
 def connect(
-    database: _DatabaseArg,
+    database: StrOrBytesPath,
     timeout: float = ...,
     detect_types: int = ...,
     isolation_level: str | None = ...,
@@ -281,7 +278,7 @@ class Connection:
     text_factory: Any
     def __init__(
         self,
-        database: _DatabaseArg,
+        database: StrOrBytesPath,
         timeout: float = ...,
         detect_types: int = ...,
         isolation_level: str | None = ...,

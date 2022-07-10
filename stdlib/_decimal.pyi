@@ -1,4 +1,5 @@
 import numbers
+import sys
 from _typeshed import Self
 from collections.abc import Container, Sequence
 from types import TracebackType
@@ -25,7 +26,6 @@ ROUND_FLOOR: str
 ROUND_UP: str
 ROUND_HALF_DOWN: str
 ROUND_05UP: str
-
 HAVE_CONTEXTVAR: bool
 HAVE_THREADS: bool
 MAX_EMAX: int

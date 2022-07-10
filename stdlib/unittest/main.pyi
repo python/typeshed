@@ -23,7 +23,6 @@ class TestProgram:
     buffer: bool | None
     progName: str | None
     warnings: str | None
-
     testNamePatterns: list[str] | None
     def __init__(
         self,

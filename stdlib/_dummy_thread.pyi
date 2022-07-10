@@ -3,9 +3,7 @@ from collections.abc import Callable
 from types import TracebackType
 from typing import Any, NoReturn
 
-__all__ = ["error", "start_new_thread", "exit", "get_ident", "allocate_lock", "interrupt_main", "LockType"]
-
-__all__ += ["RLock"]
+__all__ = ["error", "start_new_thread", "exit", "get_ident", "allocate_lock", "interrupt_main", "LockType", "RLock"]
 
 TIMEOUT_MAX: int
 error = RuntimeError

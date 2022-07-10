@@ -1,3 +1,4 @@
+import sys
 import types
 from _typeshed import ReadableBuffer
 from importlib.machinery import ModuleSpec

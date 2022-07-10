@@ -4,8 +4,6 @@ import sys
 from _typeshed import ReadableBuffer
 from collections.abc import Callable, Iterator
 from sre_constants import error as error
-
-# ----- re variables and constants -----
 from typing import Any, AnyStr, Match as Match, Pattern as Pattern, overload
 from typing_extensions import TypeAlias
 
@@ -37,12 +35,12 @@ __all__ = [
     "DOTALL",
     "VERBOSE",
     "UNICODE",
-]
-
-__all__ += ["Match", "Pattern"]
+    "Match", "Pattern"]
 
 if sys.version_info >= (3, 11):
     __all__ += ["NOFLAG", "RegexFlag"]
+
+# ----- re variables and constants -----
 
 class RegexFlag(enum.IntFlag):
     A = sre_compile.SRE_FLAG_ASCII

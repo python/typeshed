@@ -1,3 +1,4 @@
+import sys
 from _typeshed import Self
 from collections.abc import Sequence
 from email.message import Message as _Message
@@ -21,9 +22,8 @@ __all__ = [
     "quotedata",
     "SMTP",
     "SMTP_SSL",
+    "SMTPNotSupportedError",
 ]
-
-__all__ += ["SMTPNotSupportedError"]
 
 _Reply: TypeAlias = tuple[int, bytes]
 _SendErrs: TypeAlias = dict[str, _Reply]

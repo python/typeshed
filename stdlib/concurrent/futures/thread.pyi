@@ -5,7 +5,7 @@ from threading import Lock, Semaphore, Thread
 from typing import Any, Generic, TypeVar
 from weakref import ref
 
-from ._base import Executor, Future
+from ._base import BrokenExecutor, Executor, Future
 
 _threads_queues: Mapping[Any, Any]
 _shutdown: bool
@@ -34,8 +34,6 @@ def _worker(
     initializer: Callable[..., object],
     initargs: tuple[Any, ...],
 ) -> None: ...
-
-from ._base import BrokenExecutor
 
 class BrokenThreadPool(BrokenExecutor): ...
 
