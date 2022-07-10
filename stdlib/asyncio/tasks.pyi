@@ -13,43 +13,27 @@ if sys.version_info >= (3, 9):
 if sys.version_info >= (3, 11):
     from contextvars import Context
 
-if sys.version_info >= (3, 7):
-    __all__ = (
-        "Task",
-        "create_task",
-        "FIRST_COMPLETED",
-        "FIRST_EXCEPTION",
-        "ALL_COMPLETED",
-        "wait",
-        "wait_for",
-        "as_completed",
-        "sleep",
-        "gather",
-        "shield",
-        "ensure_future",
-        "run_coroutine_threadsafe",
-        "current_task",
-        "all_tasks",
-        "_register_task",
-        "_unregister_task",
-        "_enter_task",
-        "_leave_task",
-    )
-else:
-    __all__ = [
-        "Task",
-        "FIRST_COMPLETED",
-        "FIRST_EXCEPTION",
-        "ALL_COMPLETED",
-        "wait",
-        "wait_for",
-        "as_completed",
-        "sleep",
-        "gather",
-        "shield",
-        "ensure_future",
-        "run_coroutine_threadsafe",
-    ]
+__all__ = (
+    "Task",
+    "create_task",
+    "FIRST_COMPLETED",
+    "FIRST_EXCEPTION",
+    "ALL_COMPLETED",
+    "wait",
+    "wait_for",
+    "as_completed",
+    "sleep",
+    "gather",
+    "shield",
+    "ensure_future",
+    "run_coroutine_threadsafe",
+    "current_task",
+    "all_tasks",
+    "_register_task",
+    "_unregister_task",
+    "_enter_task",
+    "_leave_task",
+)
 
 _T = TypeVar("_T")
 _T1 = TypeVar("_T1")
@@ -334,24 +318,24 @@ class Task(Future[_T], Generic[_T]):
         def current_task(cls, loop: AbstractEventLoop | None = ...) -> Task[Any] | None: ...
         @classmethod
         def all_tasks(cls, loop: AbstractEventLoop | None = ...) -> set[Task[Any]]: ...
-    if sys.version_info < (3, 7):
-        def _wakeup(self, fut: Future[Any]) -> None: ...
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
-if sys.version_info >= (3, 7):
-    def all_tasks(loop: AbstractEventLoop | None = ...) -> set[Task[Any]]: ...
-    if sys.version_info >= (3, 11):
-        def create_task(
-            coro: Generator[Any, None, _T] | Coroutine[Any, Any, _T], *, name: str | None = ..., context: Context | None = ...
-        ) -> Task[_T]: ...
-    elif sys.version_info >= (3, 8):
-        def create_task(coro: Generator[Any, None, _T] | Coroutine[Any, Any, _T], *, name: str | None = ...) -> Task[_T]: ...
-    else:
-        def create_task(coro: Generator[Any, None, _T] | Coroutine[Any, Any, _T]) -> Task[_T]: ...
+def all_tasks(loop: AbstractEventLoop | None = ...) -> set[Task[Any]]: ...
 
-    def current_task(loop: AbstractEventLoop | None = ...) -> Task[Any] | None: ...
-    def _enter_task(loop: AbstractEventLoop, task: Task[Any]) -> None: ...
-    def _leave_task(loop: AbstractEventLoop, task: Task[Any]) -> None: ...
-    def _register_task(task: Task[Any]) -> None: ...
-    def _unregister_task(task: Task[Any]) -> None: ...
+if sys.version_info >= (3, 11):
+    def create_task(
+        coro: Generator[Any, None, _T] | Coroutine[Any, Any, _T], *, name: str | None = ..., context: Context | None = ...
+    ) -> Task[_T]: ...
+
+elif sys.version_info >= (3, 8):
+    def create_task(coro: Generator[Any, None, _T] | Coroutine[Any, Any, _T], *, name: str | None = ...) -> Task[_T]: ...
+
+else:
+    def create_task(coro: Generator[Any, None, _T] | Coroutine[Any, Any, _T]) -> Task[_T]: ...
+
+def current_task(loop: AbstractEventLoop | None = ...) -> Task[Any] | None: ...
+def _enter_task(loop: AbstractEventLoop, task: Task[Any]) -> None: ...
+def _leave_task(loop: AbstractEventLoop, task: Task[Any]) -> None: ...
+def _register_task(task: Task[Any]) -> None: ...
+def _unregister_task(task: Task[Any]) -> None: ...

@@ -19,8 +19,7 @@ with_statement: _Feature
 barry_as_FLUFL: _Feature
 generator_stop: _Feature
 
-if sys.version_info >= (3, 7):
-    annotations: _Feature
+annotations: _Feature
 
 all_feature_names: list[str]  # undocumented
 
@@ -37,5 +36,4 @@ __all__ = [
     "generator_stop",
 ]
 
-if sys.version_info >= (3, 7):
-    __all__ += ["annotations"]
+__all__ += ["annotations"]

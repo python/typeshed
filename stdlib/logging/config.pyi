@@ -13,10 +13,7 @@ if sys.version_info >= (3, 8):
 else:
     from typing_extensions import Literal, TypedDict
 
-if sys.version_info >= (3, 7):
-    _Path: TypeAlias = StrOrBytesPath
-else:
-    _Path: TypeAlias = StrPath
+_Path: TypeAlias = StrOrBytesPath
 
 DEFAULT_LOGGING_CONFIG_PORT: int
 RESET_ERROR: int  # undocumented

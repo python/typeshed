@@ -38,19 +38,18 @@ if sys.platform == "win32":
         "SW_HIDE",
     ]
 
-    if sys.version_info >= (3, 7):
-        __all__ += [
-            "ABOVE_NORMAL_PRIORITY_CLASS",
-            "BELOW_NORMAL_PRIORITY_CLASS",
-            "CREATE_BREAKAWAY_FROM_JOB",
-            "CREATE_DEFAULT_ERROR_MODE",
-            "CREATE_NO_WINDOW",
-            "DETACHED_PROCESS",
-            "HIGH_PRIORITY_CLASS",
-            "IDLE_PRIORITY_CLASS",
-            "NORMAL_PRIORITY_CLASS",
-            "REALTIME_PRIORITY_CLASS",
-        ]
+    __all__ += [
+        "ABOVE_NORMAL_PRIORITY_CLASS",
+        "BELOW_NORMAL_PRIORITY_CLASS",
+        "CREATE_BREAKAWAY_FROM_JOB",
+        "CREATE_DEFAULT_ERROR_MODE",
+        "CREATE_NO_WINDOW",
+        "DETACHED_PROCESS",
+        "HIGH_PRIORITY_CLASS",
+        "IDLE_PRIORITY_CLASS",
+        "NORMAL_PRIORITY_CLASS",
+        "REALTIME_PRIORITY_CLASS",
+    ]
 
 # We prefer to annotate inputs to methods (eg subprocess.check_call) with these
 # union types.
@@ -2981,10 +2980,7 @@ class Popen(Generic[AnyStr]):
         ) -> None: ...
 
     def poll(self) -> int | None: ...
-    if sys.version_info >= (3, 7):
-        def wait(self, timeout: float | None = ...) -> int: ...
-    else:
-        def wait(self, timeout: float | None = ..., endtime: float | None = ...) -> int: ...
+    def wait(self, timeout: float | None = ...) -> int: ...
     # Return str/bytes
     def communicate(
         self,
@@ -3019,27 +3015,35 @@ else:
 
 if sys.platform == "win32":
     class STARTUPINFO:
-        if sys.version_info >= (3, 7):
-            def __init__(
-                self,
-                *,
-                dwFlags: int = ...,
-                hStdInput: Any | None = ...,
-                hStdOutput: Any | None = ...,
-                hStdError: Any | None = ...,
-                wShowWindow: int = ...,
-                lpAttributeList: Mapping[str, Any] | None = ...,
-            ) -> None: ...
+        def __init__(
+            self,
+            *,
+            dwFlags: int = ...,
+            hStdInput: Any | None = ...,
+            hStdOutput: Any | None = ...,
+            hStdError: Any | None = ...,
+            wShowWindow: int = ...,
+            lpAttributeList: Mapping[str, Any] | None = ...,
+        ) -> None: ...
         dwFlags: int
         hStdInput: Any | None
         hStdOutput: Any | None
         hStdError: Any | None
         wShowWindow: int
-        if sys.version_info >= (3, 7):
-            lpAttributeList: Mapping[str, Any]
+        lpAttributeList: Mapping[str, Any]
     from _winapi import (
+        ABOVE_NORMAL_PRIORITY_CLASS as ABOVE_NORMAL_PRIORITY_CLASS,
+        BELOW_NORMAL_PRIORITY_CLASS as BELOW_NORMAL_PRIORITY_CLASS,
+        CREATE_BREAKAWAY_FROM_JOB as CREATE_BREAKAWAY_FROM_JOB,
+        CREATE_DEFAULT_ERROR_MODE as CREATE_DEFAULT_ERROR_MODE,
         CREATE_NEW_CONSOLE as CREATE_NEW_CONSOLE,
         CREATE_NEW_PROCESS_GROUP as CREATE_NEW_PROCESS_GROUP,
+        CREATE_NO_WINDOW as CREATE_NO_WINDOW,
+        DETACHED_PROCESS as DETACHED_PROCESS,
+        HIGH_PRIORITY_CLASS as HIGH_PRIORITY_CLASS,
+        IDLE_PRIORITY_CLASS as IDLE_PRIORITY_CLASS,
+        NORMAL_PRIORITY_CLASS as NORMAL_PRIORITY_CLASS,
+        REALTIME_PRIORITY_CLASS as REALTIME_PRIORITY_CLASS,
         STARTF_USESHOWWINDOW as STARTF_USESHOWWINDOW,
         STARTF_USESTDHANDLES as STARTF_USESTDHANDLES,
         STD_ERROR_HANDLE as STD_ERROR_HANDLE,
@@ -3047,17 +3051,3 @@ if sys.platform == "win32":
         STD_OUTPUT_HANDLE as STD_OUTPUT_HANDLE,
         SW_HIDE as SW_HIDE,
     )
-
-    if sys.version_info >= (3, 7):
-        from _winapi import (
-            ABOVE_NORMAL_PRIORITY_CLASS as ABOVE_NORMAL_PRIORITY_CLASS,
-            BELOW_NORMAL_PRIORITY_CLASS as BELOW_NORMAL_PRIORITY_CLASS,
-            CREATE_BREAKAWAY_FROM_JOB as CREATE_BREAKAWAY_FROM_JOB,
-            CREATE_DEFAULT_ERROR_MODE as CREATE_DEFAULT_ERROR_MODE,
-            CREATE_NO_WINDOW as CREATE_NO_WINDOW,
-            DETACHED_PROCESS as DETACHED_PROCESS,
-            HIGH_PRIORITY_CLASS as HIGH_PRIORITY_CLASS,
-            IDLE_PRIORITY_CLASS as IDLE_PRIORITY_CLASS,
-            NORMAL_PRIORITY_CLASS as NORMAL_PRIORITY_CLASS,
-            REALTIME_PRIORITY_CLASS as REALTIME_PRIORITY_CLASS,
-        )

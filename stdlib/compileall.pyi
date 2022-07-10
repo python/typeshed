@@ -1,9 +1,7 @@
 import sys
 from _typeshed import StrPath
+from py_compile import PycInvalidationMode
 from typing import Any, Protocol
-
-if sys.version_info >= (3, 7):
-    from py_compile import PycInvalidationMode
 
 __all__ = ["compile_dir", "compile_file", "compile_path"]
 
@@ -90,23 +88,12 @@ else:
         optimize: int = ...,
     ) -> int: ...
 
-if sys.version_info >= (3, 7):
-    def compile_path(
-        skip_curdir: bool = ...,
-        maxlevels: int = ...,
-        force: bool = ...,
-        quiet: int = ...,
-        legacy: bool = ...,
-        optimize: int = ...,
-        invalidation_mode: PycInvalidationMode | None = ...,
-    ) -> int: ...
-
-else:
-    def compile_path(
-        skip_curdir: bool = ...,
-        maxlevels: int = ...,
-        force: bool = ...,
-        quiet: int = ...,
-        legacy: bool = ...,
-        optimize: int = ...,
-    ) -> int: ...
+def compile_path(
+    skip_curdir: bool = ...,
+    maxlevels: int = ...,
+    force: bool = ...,
+    quiet: int = ...,
+    legacy: bool = ...,
+    optimize: int = ...,
+    invalidation_mode: PycInvalidationMode | None = ...,
+) -> int: ...

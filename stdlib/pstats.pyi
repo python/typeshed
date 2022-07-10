@@ -15,19 +15,18 @@ else:
 
 _Selector: TypeAlias = str | float | int
 
-if sys.version_info >= (3, 7):
-    from enum import Enum
+from enum import Enum
 
-    class SortKey(str, Enum):
-        CALLS: str
-        CUMULATIVE: str
-        FILENAME: str
-        LINE: str
-        NAME: str
-        NFL: str
-        PCALLS: str
-        STDNAME: str
-        TIME: str
+class SortKey(str, Enum):
+    CALLS: str
+    CUMULATIVE: str
+    FILENAME: str
+    LINE: str
+    NAME: str
+    NFL: str
+    PCALLS: str
+    STDNAME: str
+    TIME: str
 
 if sys.version_info >= (3, 9):
     from dataclasses import dataclass

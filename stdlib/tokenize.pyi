@@ -91,11 +91,6 @@ if sys.version_info >= (3, 8):
 else:
     EXACT_TOKEN_TYPES: dict[str, int]
 
-if sys.version_info < (3, 7):
-    COMMENT: int
-    NL: int
-    ENCODING: int
-
 cookie_re: Pattern[str]
 blank_re: Pattern[bytes]
 
@@ -166,10 +161,6 @@ Single3: str  # undocumented
 Double3: str  # undocumented
 Triple: str  # undocumented
 String: str  # undocumented
-
-if sys.version_info < (3, 7):
-    Operator: str  # undocumented
-    Bracket: str  # undocumented
 
 Special: str  # undocumented
 Funny: str  # undocumented

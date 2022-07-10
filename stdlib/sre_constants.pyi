@@ -1,4 +1,3 @@
-import sys
 from _typeshed import Self
 from typing import Any
 
@@ -23,9 +22,8 @@ OPCODES: list[_NamedIntConstant]
 ATCODES: list[_NamedIntConstant]
 CHCODES: list[_NamedIntConstant]
 OP_IGNORE: dict[_NamedIntConstant, _NamedIntConstant]
-if sys.version_info >= (3, 7):
-    OP_LOCALE_IGNORE: dict[_NamedIntConstant, _NamedIntConstant]
-    OP_UNICODE_IGNORE: dict[_NamedIntConstant, _NamedIntConstant]
+OP_LOCALE_IGNORE: dict[_NamedIntConstant, _NamedIntConstant]
+OP_UNICODE_IGNORE: dict[_NamedIntConstant, _NamedIntConstant]
 AT_MULTILINE: dict[_NamedIntConstant, _NamedIntConstant]
 AT_LOCALE: dict[_NamedIntConstant, _NamedIntConstant]
 AT_UNICODE: dict[_NamedIntConstant, _NamedIntConstant]
@@ -80,18 +78,15 @@ REPEAT: _NamedIntConstant
 REPEAT_ONE: _NamedIntConstant
 SUBPATTERN: _NamedIntConstant
 MIN_REPEAT_ONE: _NamedIntConstant
-if sys.version_info >= (3, 7):
-    RANGE_UNI_IGNORE: _NamedIntConstant
-    GROUPREF_LOC_IGNORE: _NamedIntConstant
-    GROUPREF_UNI_IGNORE: _NamedIntConstant
-    IN_LOC_IGNORE: _NamedIntConstant
-    IN_UNI_IGNORE: _NamedIntConstant
-    LITERAL_LOC_IGNORE: _NamedIntConstant
-    LITERAL_UNI_IGNORE: _NamedIntConstant
-    NOT_LITERAL_LOC_IGNORE: _NamedIntConstant
-    NOT_LITERAL_UNI_IGNORE: _NamedIntConstant
-else:
-    RANGE_IGNORE: _NamedIntConstant
+RANGE_UNI_IGNORE: _NamedIntConstant
+GROUPREF_LOC_IGNORE: _NamedIntConstant
+GROUPREF_UNI_IGNORE: _NamedIntConstant
+IN_LOC_IGNORE: _NamedIntConstant
+IN_UNI_IGNORE: _NamedIntConstant
+LITERAL_LOC_IGNORE: _NamedIntConstant
+LITERAL_UNI_IGNORE: _NamedIntConstant
+NOT_LITERAL_LOC_IGNORE: _NamedIntConstant
+NOT_LITERAL_UNI_IGNORE: _NamedIntConstant
 MIN_REPEAT: _NamedIntConstant
 MAX_REPEAT: _NamedIntConstant
 

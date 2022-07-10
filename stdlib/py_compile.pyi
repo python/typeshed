@@ -1,10 +1,7 @@
 import sys
 from typing import AnyStr
 
-if sys.version_info >= (3, 7):
-    __all__ = ["compile", "main", "PyCompileError", "PycInvalidationMode"]
-else:
-    __all__ = ["compile", "main", "PyCompileError"]
+__all__ = ["compile", "main", "PyCompileError", "PycInvalidationMode"]
 
 class PyCompileError(Exception):
     exc_type_name: str
@@ -13,14 +10,14 @@ class PyCompileError(Exception):
     msg: str
     def __init__(self, exc_type: type[BaseException], exc_value: BaseException, file: str, msg: str = ...) -> None: ...
 
-if sys.version_info >= (3, 7):
-    import enum
+import enum
 
-    class PycInvalidationMode(enum.Enum):
-        TIMESTAMP: int
-        CHECKED_HASH: int
-        UNCHECKED_HASH: int
-    def _get_default_invalidation_mode() -> PycInvalidationMode: ...
+class PycInvalidationMode(enum.Enum):
+    TIMESTAMP: int
+    CHECKED_HASH: int
+    UNCHECKED_HASH: int
+
+def _get_default_invalidation_mode() -> PycInvalidationMode: ...
 
 if sys.version_info >= (3, 8):
     def compile(

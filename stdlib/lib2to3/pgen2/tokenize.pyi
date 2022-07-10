@@ -74,8 +74,7 @@ __all__ = [
     "untokenize",
 ]
 
-if sys.version_info >= (3, 7):
-    __all__ += ["COLONEQUAL"]
+__all__ += ["COLONEQUAL"]
 
 _Coord: TypeAlias = tuple[int, int]
 _TokenEater: TypeAlias = Callable[[int, str, _Coord, _Coord, str], object]

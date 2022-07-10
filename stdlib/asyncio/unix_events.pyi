@@ -55,8 +55,6 @@ if sys.platform != "win32":
         )
     elif sys.version_info >= (3, 7):
         __all__ = ("SelectorEventLoop", "AbstractChildWatcher", "SafeChildWatcher", "FastChildWatcher", "DefaultEventLoopPolicy")
-    else:
-        __all__ = ["SelectorEventLoop", "AbstractChildWatcher", "SafeChildWatcher", "FastChildWatcher", "DefaultEventLoopPolicy"]
 
     # Doesn't actually have ABCMeta metaclass at runtime, but mypy complains if we don't have it in the stub.
     # See discussion in #7412
@@ -80,17 +78,7 @@ if sys.platform != "win32":
         def add_child_handler(self, pid: int, callback: Callable[..., Any], *args: Any) -> None: ...
         def remove_child_handler(self, pid: int) -> bool: ...
 
-    class _UnixSelectorEventLoop(BaseSelectorEventLoop):
-        if sys.version_info < (3, 7):
-            async def create_unix_server(
-                self,
-                protocol_factory: _ProtocolFactory,
-                path: str | None = ...,
-                *,
-                sock: socket | None = ...,
-                backlog: int = ...,
-                ssl: _SSLContext = ...,
-            ) -> Server: ...
+    class _UnixSelectorEventLoop(BaseSelectorEventLoop): ...
 
     class _UnixDefaultEventLoopPolicy(BaseDefaultEventLoopPolicy):
         def get_child_watcher(self) -> AbstractChildWatcher: ...

@@ -67,8 +67,7 @@ __all__ = [
 if sys.version_info < (3, 7) or sys.version_info >= (3, 8):
     __all__ += ["ASYNC", "AWAIT"]
 
-if sys.version_info >= (3, 7):
-    __all__ += ["ENCODING", "NL", "COMMENT"]
+__all__ += ["ENCODING", "NL", "COMMENT"]
 
 if sys.version_info >= (3, 8):
     __all__ += ["COLONEQUAL", "TYPE_COMMENT", "TYPE_IGNORE"]
@@ -138,10 +137,9 @@ ERRORTOKEN: int
 N_TOKENS: int
 NT_OFFSET: int
 tok_name: dict[int, str]
-if sys.version_info >= (3, 7):
-    COMMENT: int
-    NL: int
-    ENCODING: int
+COMMENT: int
+NL: int
+ENCODING: int
 if sys.version_info >= (3, 8):
     TYPE_COMMENT: int
     TYPE_IGNORE: int

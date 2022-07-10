@@ -1,20 +1,17 @@
-import sys
-
-if sys.version_info >= (3, 7):
-    __all__ = (
-        "FIRST_COMPLETED",
-        "FIRST_EXCEPTION",
-        "ALL_COMPLETED",
-        "CancelledError",
-        "TimeoutError",
-        "BrokenExecutor",
-        "Future",
-        "Executor",
-        "wait",
-        "as_completed",
-        "ProcessPoolExecutor",
-        "ThreadPoolExecutor",
-    )
+__all__ = (
+    "FIRST_COMPLETED",
+    "FIRST_EXCEPTION",
+    "ALL_COMPLETED",
+    "CancelledError",
+    "TimeoutError",
+    "BrokenExecutor",
+    "Future",
+    "Executor",
+    "wait",
+    "as_completed",
+    "ProcessPoolExecutor",
+    "ThreadPoolExecutor",
+)
 
 from ._base import (
     ALL_COMPLETED as ALL_COMPLETED,
@@ -32,5 +29,4 @@ from .thread import ThreadPoolExecutor as ThreadPoolExecutor
 
 if sys.version_info >= (3, 8):
     from ._base import InvalidStateError as InvalidStateError
-if sys.version_info >= (3, 7):
-    from ._base import BrokenExecutor as BrokenExecutor
+from ._base import BrokenExecutor as BrokenExecutor

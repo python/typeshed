@@ -1,4 +1,3 @@
-import sys
 from _typeshed import StrOrBytesPath, StrPath, SupportsWrite
 from collections.abc import Callable, ItemsView, Iterable, Iterator, Mapping, MutableMapping, Sequence
 from typing import Any, ClassVar, Pattern, TypeVar, overload
@@ -34,10 +33,7 @@ _ConverterCallback: TypeAlias = Callable[[str], Any]
 _ConvertersMap: TypeAlias = dict[str, _ConverterCallback]
 _T = TypeVar("_T")
 
-if sys.version_info >= (3, 7):
-    _Path: TypeAlias = StrOrBytesPath
-else:
-    _Path: TypeAlias = StrPath
+_Path: TypeAlias = StrOrBytesPath
 
 DEFAULTSECT: Literal["DEFAULT"]
 MAX_INTERPOLATION_DEPTH: Literal[10]

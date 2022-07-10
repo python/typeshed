@@ -1,4 +1,3 @@
-import sys
 from _typeshed import Self
 from collections.abc import Sequence
 from email.message import Message as _Message
@@ -24,8 +23,7 @@ __all__ = [
     "SMTP_SSL",
 ]
 
-if sys.version_info >= (3, 7):
-    __all__ += ["SMTPNotSupportedError"]
+__all__ += ["SMTPNotSupportedError"]
 
 _Reply: TypeAlias = tuple[int, bytes]
 _SendErrs: TypeAlias = dict[str, _Reply]

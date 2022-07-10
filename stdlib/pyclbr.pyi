@@ -14,9 +14,8 @@ class Class:
     if sys.version_info >= (3, 10):
         end_lineno: int | None
 
-    if sys.version_info >= (3, 7):
-        parent: Class | None
-        children: dict[str, Class | Function]
+    parent: Class | None
+    children: dict[str, Class | Function]
 
     if sys.version_info >= (3, 10):
         def __init__(
@@ -47,9 +46,8 @@ class Function:
         end_lineno: int | None
         is_async: bool
 
-    if sys.version_info >= (3, 7):
-        parent: Function | Class | None
-        children: dict[str, Class | Function]
+    parent: Function | Class | None
+    children: dict[str, Class | Function]
 
     if sys.version_info >= (3, 10):
         def __init__(

@@ -138,8 +138,7 @@ if sys.version_info >= (3, 10):
 elif sys.platform != "darwin" and sys.platform != "win32":
     from _socket import IP_RECVTOS as IP_RECVTOS
 
-if sys.version_info >= (3, 7):
-    from _socket import close as close
+from _socket import close as close
 
 if sys.platform != "win32" or sys.version_info >= (3, 7):
     from _socket import TCP_KEEPINTVL as TCP_KEEPINTVL
@@ -473,8 +472,7 @@ class AddressFamily(IntEnum):
         AF_TIPC: int
         AF_ALG: int
         AF_NETLINK: int
-        if sys.version_info >= (3, 7):
-            AF_VSOCK: int
+        AF_VSOCK: int
         if sys.version_info >= (3, 8):
             AF_QIPCRTR: int
     if sys.platform != "win32" or sys.version_info >= (3, 9):
@@ -523,8 +521,7 @@ if sys.platform == "linux":
     AF_TIPC = AddressFamily.AF_TIPC
     AF_ALG = AddressFamily.AF_ALG
     AF_NETLINK = AddressFamily.AF_NETLINK
-    if sys.version_info >= (3, 7):
-        AF_VSOCK = AddressFamily.AF_VSOCK
+    AF_VSOCK = AddressFamily.AF_VSOCK
     if sys.version_info >= (3, 8):
         AF_QIPCRTR = AddressFamily.AF_QIPCRTR
 

@@ -43,5 +43,4 @@ __all__ = [
     "HAVE_THREADS",
 ]
 
-if sys.version_info >= (3, 7):
-    __all__ += ["HAVE_CONTEXTVAR"]
+__all__ += ["HAVE_CONTEXTVAR"]

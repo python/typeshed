@@ -1,4 +1,3 @@
-import sys
 from collections.abc import Container, Iterable, Sequence
 from types import ModuleType
 from typing import Any
@@ -14,8 +13,6 @@ if sys.platform == "win32":
     )
 
     AMD64: bool
-    if sys.version_info < (3, 7):
-        Itanium: bool
     Win64: bool
 
     datasizemask: Literal[0x00FF]

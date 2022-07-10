@@ -24,8 +24,7 @@ class TestProgram:
     progName: str | None
     warnings: str | None
 
-    if sys.version_info >= (3, 7):
-        testNamePatterns: list[str] | None
+    testNamePatterns: list[str] | None
     def __init__(
         self,
         module: None | str | ModuleType = ...,
@@ -44,11 +43,7 @@ class TestProgram:
     ) -> None: ...
     def usageExit(self, msg: Any = ...) -> None: ...
     def parseArgs(self, argv: list[str]) -> None: ...
-    if sys.version_info >= (3, 7):
-        def createTests(self, from_discovery: bool = ..., Loader: unittest.loader.TestLoader | None = ...) -> None: ...
-    else:
-        def createTests(self) -> None: ...
-
+    def createTests(self, from_discovery: bool = ..., Loader: unittest.loader.TestLoader | None = ...) -> None: ...
     def runTests(self) -> None: ...  # undocumented
 
 main = TestProgram
