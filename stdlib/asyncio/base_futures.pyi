@@ -1,4 +1,3 @@
-import sys
 from collections.abc import Callable, Sequence
 from contextvars import Context
 from typing import Any

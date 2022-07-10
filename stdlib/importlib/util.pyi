@@ -1,6 +1,5 @@
 import importlib.abc
 import importlib.machinery
-import sys
 import types
 from _typeshed import StrOrBytesPath
 from collections.abc import Callable

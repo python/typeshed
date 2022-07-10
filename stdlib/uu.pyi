@@ -1,4 +1,3 @@
-import sys
 from typing import BinaryIO
 from typing_extensions import TypeAlias
 

@@ -1,5 +1,5 @@
 import sys
-from _typeshed import StrOrBytesPath, StrPath
+from _typeshed import StrOrBytesPath
 from collections.abc import Callable, Sequence
 from configparser import RawConfigParser
 from threading import Thread

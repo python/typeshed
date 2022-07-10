@@ -3,12 +3,10 @@ import types
 from _typeshed import Self
 from abc import ABCMeta, abstractmethod
 from collections.abc import Callable
-from socket import socket
 from typing import Any
 from typing_extensions import Literal
 
-from .base_events import Server
-from .events import AbstractEventLoop, BaseDefaultEventLoopPolicy, _ProtocolFactory, _SSLContext
+from .events import AbstractEventLoop, BaseDefaultEventLoopPolicy
 from .selector_events import BaseSelectorEventLoop
 
 # This is also technically not available on Win,

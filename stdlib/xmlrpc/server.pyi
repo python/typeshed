@@ -1,7 +1,6 @@
 import http.server
 import pydoc
 import socketserver
-import sys
 from collections.abc import Callable, Iterable, Mapping
 from datetime import datetime
 from typing import Any, ClassVar, Pattern, Protocol

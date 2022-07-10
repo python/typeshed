@@ -1,5 +1,4 @@
 import collections.abc
-import sys
 from _typeshed import Self, SupportsKeysAndGetItem
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from typing import Any, Generic, NoReturn, TypeVar, overload

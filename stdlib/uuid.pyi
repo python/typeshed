@@ -1,4 +1,3 @@
-import sys
 from enum import Enum
 from typing_extensions import TypeAlias
 

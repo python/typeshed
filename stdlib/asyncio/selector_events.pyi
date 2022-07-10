@@ -1,5 +1,4 @@
 import selectors
-import sys
 
 from . import base_events
 

@@ -1,4 +1,3 @@
-import sys
 from typing_extensions import TypeAlias
 
 _VersionInfo: TypeAlias = tuple[int, int, int, str, int]

@@ -1,4 +1,3 @@
-import sys
 from collections.abc import Callable, Iterable, Iterator
 from lib2to3.pgen2.token import *
 from typing_extensions import TypeAlias

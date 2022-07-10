@@ -1,3 +1,1 @@
-import sys
-
 class sdist_add_defaults: ...

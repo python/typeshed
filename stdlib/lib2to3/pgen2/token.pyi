@@ -1,5 +1,3 @@
-import sys
-
 ENDMARKER: int
 NAME: int
 NUMBER: int

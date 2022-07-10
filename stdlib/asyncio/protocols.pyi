@@ -1,4 +1,3 @@
-import sys
 from _typeshed import ReadableBuffer
 from asyncio import transports
 from typing import Any
