@@ -268,7 +268,7 @@ AnyOrLiteralStr = TypeVar("AnyOrLiteralStr", str, bytes, LiteralString)  # noqa:
 
 # Represents when str or LiteralStr is acceptable. Useful for string processing
 # APIs where literalness of return value depends on literalness of inputs
-StrOrLiteralStr = TypeVar("StrOrLiteralStr", str, LiteralString)  # noqa: Y001
+StrOrLiteralStr = TypeVar("StrOrLiteralStr", LiteralString, str)  # noqa: Y001
 
 # Objects suitable to be passed to sys.setprofile, threading.setprofile, and similar
 ProfileFunction: TypeAlias = Callable[[FrameType, str, Any], object]
