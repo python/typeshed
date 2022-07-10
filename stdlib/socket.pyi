@@ -138,7 +138,7 @@ if sys.version_info >= (3, 10):
 elif sys.platform != "darwin" and sys.platform != "win32":
     from _socket import IP_RECVTOS as IP_RECVTOS
 
-from _socket import close as close, TCP_KEEPINTVL as TCP_KEEPINTVL
+from _socket import TCP_KEEPINTVL as TCP_KEEPINTVL, close as close
 
 if sys.platform != "darwin":
     from _socket import TCP_KEEPIDLE as TCP_KEEPIDLE

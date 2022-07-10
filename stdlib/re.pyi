@@ -35,7 +35,9 @@ __all__ = [
     "DOTALL",
     "VERBOSE",
     "UNICODE",
-    "Match", "Pattern"]
+    "Match",
+    "Pattern",
+]
 
 if sys.version_info >= (3, 11):
     __all__ += ["NOFLAG", "RegexFlag"]
