@@ -1,7 +1,7 @@
 import sys
 from collections.abc import Iterable, Mapping, Sequence
 from re import RegexFlag
-from typing import Any
+from typing import Any, overload
 from typing_extensions import LiteralString
 
 from _typeshed import StrOrLiteralStr
