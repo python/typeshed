@@ -39,8 +39,8 @@ def askinteger(
     prompt: str,
     *,
     initialvalue: int | None = ...,
-    minvalue: float | None = ...,  # Any object that can compare to int.
-    maxvalue: float | None = ...,
+    minvalue: int | None = ...,
+    maxvalue: int | None = ...,
     parent: Misc | None = ...,
 ) -> int | None: ...
 def askstring(
@@ -48,7 +48,7 @@ def askstring(
     prompt: str,
     *,
     initialvalue: str | None = ...,
-    minvalue: str | None = ...,
-    maxvalue: str | None = ...,
+    show: str | None = ...,
+    # minvalue/maxvalue is accepted but not useful.
     parent: Misc | None = ...,
 ) -> str | None: ...
