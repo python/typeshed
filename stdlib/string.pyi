@@ -2,6 +2,9 @@ import sys
 from collections.abc import Iterable, Mapping, Sequence
 from re import RegexFlag
 from typing import Any
+from typing_extensions import LiteralString
+
+from _typeshed import StrOrLiteralStr
 
 if sys.version_info >= (3, 8):
     from re import Pattern
@@ -23,17 +26,17 @@ __all__ = [
     "Template",
 ]
 
-ascii_letters: str
-ascii_lowercase: str
-ascii_uppercase: str
-digits: str
-hexdigits: str
-octdigits: str
-punctuation: str
-printable: str
-whitespace: str
+ascii_letters: LiteralString
+ascii_lowercase: LiteralString
+ascii_uppercase: LiteralString
+digits: LiteralString
+hexdigits: LiteralString
+octdigits: LiteralString
+punctuation: LiteralString
+printable: LiteralString
+whitespace: LiteralString
 
-def capwords(s: str, sep: str | None = ...) -> str: ...
+def capwords(s: StrOrLiteralStr, sep: StrOrLiteralStr | None = ...) -> StrOrLiteralStr: ...
 
 class Template:
     template: str
