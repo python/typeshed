@@ -68,8 +68,6 @@ def ensure_future(coro_or_future: Awaitable[_T], *, loop: AbstractEventLoop | No
 # typing PR #1550 for discussion.
 if sys.version_info >= (3, 10):
     @overload
-    def gather(*, return_exceptions: bool = ...) -> Future[tuple[()]]: ...
-    @overload
     def gather(__coro_or_future1: _FutureLike[_T1], *, return_exceptions: Literal[False] = ...) -> Future[tuple[_T1]]: ...
     @overload
     def gather(
@@ -148,10 +146,10 @@ if sys.version_info >= (3, 10):
         *coros_or_futures: _FutureLike[Any],
         return_exceptions: bool = ...,
     ) -> Future[list[Any]]: ...
+    @overload
+    def gather(*, return_exceptions: bool = ...) -> Future[tuple[()]]: ...
 
 else:
-    @overload
-    def gather(*, loop: AbstractEventLoop | None = ..., return_exceptions: bool = ...) -> Future[tuple[()]]: ...
     @overload
     def gather(
         __coro_or_future1: _FutureLike[_T1], *, loop: AbstractEventLoop | None = ..., return_exceptions: Literal[False] = ...
@@ -250,6 +248,8 @@ else:
         loop: AbstractEventLoop | None = ...,
         return_exceptions: bool = ...,
     ) -> Future[list[Any]]: ...
+    @overload
+    def gather(*, loop: AbstractEventLoop | None = ..., return_exceptions: bool = ...) -> Future[tuple[()]]: ...
 
 def run_coroutine_threadsafe(coro: _FutureLike[_T], loop: AbstractEventLoop) -> concurrent.futures.Future[_T]: ...
 
