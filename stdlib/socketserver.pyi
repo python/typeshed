@@ -3,6 +3,7 @@ import types
 from _typeshed import Self
 from collections.abc import Callable
 from socket import socket as _socket
+from ssl import SSLSocket
 from typing import Any, BinaryIO, ClassVar, Union
 from typing_extensions import TypeAlias
 
@@ -153,7 +154,7 @@ class StreamRequestHandler(BaseRequestHandler):
     wbufsize: ClassVar[int]  # undocumented
     timeout: ClassVar[float | None]  # undocumented
     disable_nagle_algorithm: ClassVar[bool]  # undocumented
-    connection: _socket  # undocumented
+    connection: SSLSocket  # undocumented
     rfile: BinaryIO
     wfile: BinaryIO
 
