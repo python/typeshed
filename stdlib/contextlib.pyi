@@ -2,16 +2,7 @@ import sys
 from _typeshed import Self, StrOrBytesPath
 from collections.abc import AsyncGenerator, AsyncIterator, Awaitable, Callable, Generator, Iterator
 from types import TracebackType
-from typing import (  # noqa: Y022,Y027
-    IO,
-    Any,
-    AsyncContextManager,
-    ContextManager,
-    Generic,
-    Protocol,
-    TypeVar,
-    overload,
-)
+from typing import IO, Any, AsyncContextManager, ContextManager, Generic, Protocol, TypeVar, overload  # noqa: Y022,Y027
 from typing_extensions import ParamSpec, TypeAlias
 
 __all__ = [
