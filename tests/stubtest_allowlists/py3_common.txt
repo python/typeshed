@@ -284,10 +284,6 @@ multiprocessing.synchronize.Semaphore.get_value
 socket.CAPI
 tkinter.Misc.config
 tkinter.font.Font.counter
-tkinter.simpledialog.Dialog.apply
-tkinter.simpledialog.Dialog.cancel
-tkinter.simpledialog.Dialog.ok
-tkinter.simpledialog.Dialog.validate
 tkinter.tix.CObjView
 tkinter.tix.DialogShell
 tkinter.tix.ExFileSelectDialog

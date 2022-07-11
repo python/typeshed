@@ -5,10 +5,8 @@ from typing_extensions import ParamSpec, TypeGuard
 
 if sys.version_info >= (3, 11):
     __all__ = ("iscoroutinefunction", "iscoroutine")
-elif sys.version_info >= (3, 7):
-    __all__ = ("coroutine", "iscoroutinefunction", "iscoroutine")
 else:
-    __all__ = ["coroutine", "iscoroutinefunction", "iscoroutine"]
+    __all__ = ("coroutine", "iscoroutinefunction", "iscoroutine")
 
 _T = TypeVar("_T")
 _FunctionT = TypeVar("_FunctionT", bound=Callable[..., Any])
