@@ -19,6 +19,8 @@
         "stdlib/xml/dom/minidom.pyi",
         "stdlib/xml/dom/pulldom.pyi",
         "stdlib/xml/sax",
+        "stubs/aiofiles/aiofiles/tempfile/temptypes.pyi",
+        "stubs/aiofiles/aiofiles/threadpool/utils.pyi",
         "stubs/aws-xray-sdk",
         "stubs/babel",
         "stubs/backports.ssl_match_hostname",
@@ -71,6 +73,7 @@
         "stubs/slumber",
         "stubs/SQLAlchemy",
         "stubs/stripe",
+        "stubs/tqdm",
         "stubs/ttkthemes",
         "stubs/urllib3",
         "stubs/vobject"

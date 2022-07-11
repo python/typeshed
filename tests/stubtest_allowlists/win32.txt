@@ -74,3 +74,7 @@ tty
 # pathlib functions that rely on modules that don't exist on Windows
 pathlib.Path.owner
 pathlib.Path.group
+# pathlib methods that exist on Windows, but always raise NotImplementedError,
+# so are omitted from the stub
+pathlib.Path.is_mount
+pathlib.WindowsPath.is_mount

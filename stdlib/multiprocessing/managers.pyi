@@ -84,8 +84,6 @@ class DictProxy(BaseProxy, MutableMapping[_KT, _VT]):
     def keys(self) -> list[_KT]: ...  # type: ignore[override]
     def values(self) -> list[tuple[_KT, _VT]]: ...  # type: ignore[override]
     def items(self) -> list[_VT]: ...  # type: ignore[override]
-    if sys.version_info < (3, 7):
-        def has_key(self, k: _KT) -> bool: ...
 
 class BaseListProxy(BaseProxy, MutableSequence[_T]):
     __builtins__: ClassVar[dict[str, Any]]
@@ -148,7 +146,7 @@ class BaseManager:
 
     def get_server(self) -> Server: ...
     def connect(self) -> None: ...
-    def start(self, initializer: Callable[..., Any] | None = ..., initargs: Iterable[Any] = ...) -> None: ...
+    def start(self, initializer: Callable[..., object] | None = ..., initargs: Iterable[Any] = ...) -> None: ...
     def shutdown(self) -> None: ...  # only available after start() was called
     def join(self, timeout: float | None = ...) -> None: ...  # undocumented
     @property
@@ -157,7 +155,7 @@ class BaseManager:
     def register(
         cls,
         typeid: str,
-        callable: Callable[..., Any] | None = ...,
+        callable: Callable[..., object] | None = ...,
         proxytype: Any = ...,
         exposed: Sequence[str] | None = ...,
         method_to_typeid: Mapping[str, str] | None = ...,

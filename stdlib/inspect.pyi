@@ -9,6 +9,7 @@ from types import (
     AsyncGeneratorType,
     BuiltinFunctionType,
     BuiltinMethodType,
+    ClassMethodDescriptorType,
     CodeType,
     CoroutineType,
     FrameType,
@@ -16,23 +17,16 @@ from types import (
     GeneratorType,
     GetSetDescriptorType,
     LambdaType,
+    MemberDescriptorType,
+    MethodDescriptorType,
     MethodType,
+    MethodWrapperType,
     ModuleType,
     TracebackType,
+    WrapperDescriptorType,
 )
-from typing_extensions import TypeAlias
-
-if sys.version_info >= (3, 7):
-    from types import (
-        ClassMethodDescriptorType,
-        WrapperDescriptorType,
-        MemberDescriptorType,
-        MethodDescriptorType,
-        MethodWrapperType,
-    )
-
 from typing import Any, ClassVar, NamedTuple, Protocol, TypeVar, Union
-from typing_extensions import Literal, ParamSpec, TypeGuard
+from typing_extensions import Literal, ParamSpec, TypeAlias, TypeGuard
 
 if sys.version_info >= (3, 11):
     __all__ = [
@@ -214,29 +208,20 @@ def isbuiltin(object: object) -> TypeGuard[BuiltinFunctionType]: ...
 if sys.version_info >= (3, 11):
     def ismethodwrapper(object: object) -> TypeGuard[MethodWrapperType]: ...
 
-if sys.version_info >= (3, 7):
-    def isroutine(
-        object: object,
-    ) -> TypeGuard[
-        FunctionType
-        | LambdaType
-        | MethodType
-        | BuiltinFunctionType
-        | BuiltinMethodType
-        | WrapperDescriptorType
-        | MethodDescriptorType
-        | ClassMethodDescriptorType
-    ]: ...
-    def ismethoddescriptor(object: object) -> TypeGuard[MethodDescriptorType]: ...
-    def ismemberdescriptor(object: object) -> TypeGuard[MemberDescriptorType]: ...
-
-else:
-    def isroutine(
-        object: object,
-    ) -> TypeGuard[FunctionType | LambdaType | MethodType | BuiltinFunctionType | BuiltinMethodType]: ...
-    def ismethoddescriptor(object: object) -> bool: ...
-    def ismemberdescriptor(object: object) -> bool: ...
-
+def isroutine(
+    object: object,
+) -> TypeGuard[
+    FunctionType
+    | LambdaType
+    | MethodType
+    | BuiltinFunctionType
+    | BuiltinMethodType
+    | WrapperDescriptorType
+    | MethodDescriptorType
+    | ClassMethodDescriptorType
+]: ...
+def ismethoddescriptor(object: object) -> TypeGuard[MethodDescriptorType]: ...
+def ismemberdescriptor(object: object) -> TypeGuard[MemberDescriptorType]: ...
 def isabstract(object: object) -> bool: ...
 def isgetsetdescriptor(object: object) -> TypeGuard[GetSetDescriptorType]: ...
 def isdatadescriptor(object: object) -> TypeGuard[_SupportsSet[Any, Any] | _SupportsDelete[Any]]: ...
@@ -261,12 +246,14 @@ def getsource(object: _SourceObjectType) -> str: ...
 def cleandoc(doc: str) -> str: ...
 def indentsize(line: str) -> int: ...
 
+_IntrospectableCallable: TypeAlias = Callable[..., Any]
+
 #
 # Introspecting callables with the Signature object
 #
 if sys.version_info >= (3, 10):
     def signature(
-        obj: Callable[..., Any],
+        obj: _IntrospectableCallable,
         *,
         follow_wrapped: bool = ...,
         globals: Mapping[str, Any] | None = ...,
@@ -275,7 +262,7 @@ if sys.version_info >= (3, 10):
     ) -> Signature: ...
 
 else:
-    def signature(obj: Callable[..., Any], *, follow_wrapped: bool = ...) -> Signature: ...
+    def signature(obj: _IntrospectableCallable, *, follow_wrapped: bool = ...) -> Signature: ...
 
 class _void: ...
 class _empty: ...
@@ -298,7 +285,7 @@ class Signature:
         @classmethod
         def from_callable(
             cls: type[Self],
-            obj: Callable[..., Any],
+            obj: _IntrospectableCallable,
             *,
             follow_wrapped: bool = ...,
             globals: Mapping[str, Any] | None = ...,
@@ -307,13 +294,13 @@ class Signature:
         ) -> Self: ...
     else:
         @classmethod
-        def from_callable(cls: type[Self], obj: Callable[..., Any], *, follow_wrapped: bool = ...) -> Self: ...
+        def from_callable(cls: type[Self], obj: _IntrospectableCallable, *, follow_wrapped: bool = ...) -> Self: ...
 
     def __eq__(self, other: object) -> bool: ...
 
 if sys.version_info >= (3, 10):
     def get_annotations(
-        obj: Callable[..., Any] | type[Any] | ModuleType,
+        obj: Callable[..., object] | type[Any] | ModuleType,
         *,
         globals: Mapping[str, Any] | None = ...,
         locals: Mapping[str, Any] | None = ...,
@@ -453,8 +440,8 @@ class ClosureVars(NamedTuple):
     builtins: Mapping[str, Any]
     unbound: AbstractSet[str]
 
-def getclosurevars(func: Callable[..., Any]) -> ClosureVars: ...
-def unwrap(func: Callable[..., Any], *, stop: Callable[[Any], Any] | None = ...) -> Any: ...
+def getclosurevars(func: _IntrospectableCallable) -> ClosureVars: ...
+def unwrap(func: Callable[..., Any], *, stop: Callable[[Callable[..., Any]], Any] | None = ...) -> Any: ...
 
 #
 # The interpreter stack
