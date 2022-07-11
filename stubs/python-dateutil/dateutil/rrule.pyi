@@ -15,6 +15,7 @@ SECONDLY: int
 
 class weekday(weekdaybase): ...
 
+weekdays: tuple[weekday, weekday, weekday, weekday, weekday, weekday, weekday]
 MO: weekday
 TU: weekday
 WE: weekday
@@ -105,6 +106,6 @@ class rruleset(rrulebase):
     def exdate(self, exdate): ...
 
 class _rrulestr:
-    def __call__(self, s, **kwargs): ...
+    def __call__(self, s, **kwargs) -> rrule | rruleset: ...
 
 rrulestr: _rrulestr

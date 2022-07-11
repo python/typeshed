@@ -48,14 +48,17 @@ class SessionRedirectMixin:
 _Data: TypeAlias = str | bytes | Mapping[str, Any] | Iterable[tuple[str, str | None]] | IO[Any]
 _Auth: TypeAlias = Union[tuple[str, str], _auth.AuthBase, Callable[[PreparedRequest], PreparedRequest]]
 _Cert: TypeAlias = Union[str, tuple[str, str]]
-_Files: TypeAlias = (
-    Mapping[str, SupportsRead[str | bytes] | str | bytes]
-    | Mapping[str, tuple[str | None, SupportsRead[str | bytes] | str | bytes]]
-    | Mapping[str, tuple[str | None, SupportsRead[str | bytes] | str | bytes, str]]
-    | Mapping[str, tuple[str | None, SupportsRead[str | bytes] | str | bytes, str, _TextMapping]]
-)
+# Files is passed to requests.utils.to_key_val_list()
+_FileName: TypeAlias = str | None
+_FileContent: TypeAlias = SupportsRead[str | bytes] | str | bytes
+_FileContentType: TypeAlias = str
+_FileCustomHeaders: TypeAlias = Mapping[str, str]
+_FileSpecTuple2: TypeAlias = tuple[_FileName, _FileContent]
+_FileSpecTuple3: TypeAlias = tuple[_FileName, _FileContent, _FileContentType]
+_FileSpecTuple4: TypeAlias = tuple[_FileName, _FileContent, _FileContentType, _FileCustomHeaders]
+_FileSpec: TypeAlias = _FileContent | _FileSpecTuple2 | _FileSpecTuple3 | _FileSpecTuple4
+_Files: TypeAlias = Mapping[str, _FileSpec] | Iterable[tuple[str, _FileSpec]]
 _Hook: TypeAlias = Callable[[Response], Any]
-_Hooks: TypeAlias = Mapping[str, _Hook | list[_Hook]]
 _HooksInput: TypeAlias = Mapping[str, Iterable[_Hook] | _Hook]
 
 _ParamsMappingKeyType: TypeAlias = str | bytes | int | float
@@ -67,15 +70,20 @@ _Params: TypeAlias = Union[
     str | bytes,
 ]
 _TextMapping: TypeAlias = MutableMapping[str, str]
+_HeadersMapping: TypeAlias = Mapping[str, str | bytes]
+_HeadersUpdateMapping: TypeAlias = Mapping[str, str | bytes | None]
 _Timeout: TypeAlias = Union[float, tuple[float, float], tuple[float, None]]
 _Verify: TypeAlias = bool | str
 
 class Session(SessionRedirectMixin):
     __attrs__: Any
-    headers: CaseInsensitiveDict[str]
+    headers: CaseInsensitiveDict[str | bytes]
     auth: _Auth | None
     proxies: _TextMapping
-    hooks: _Hooks
+    # Don't complain if:
+    #   - value is assumed to be a list (which it is by default)
+    #   - a _Hook is assigned directly, without wrapping it in a list (also works)
+    hooks: dict[str, list[_Hook] | Any]
     params: _Params
     stream: bool
     verify: None | bool | str
@@ -95,7 +103,7 @@ class Session(SessionRedirectMixin):
         url: str | bytes,
         params: _Params | None = ...,
         data: _Data | None = ...,
-        headers: _TextMapping | None = ...,
+        headers: _HeadersUpdateMapping | None = ...,
         cookies: None | RequestsCookieJar | _TextMapping = ...,
         files: _Files | None = ...,
         auth: _Auth | None = ...,
@@ -114,7 +122,7 @@ class Session(SessionRedirectMixin):
         *,
         params: _Params | None = ...,
         data: _Data | None = ...,
-        headers: _TextMapping | None = ...,
+        headers: _HeadersUpdateMapping | None = ...,
         cookies: RequestsCookieJar | _TextMapping | None = ...,
         files: _Files | None = ...,
         auth: _Auth | None = ...,
@@ -133,7 +141,7 @@ class Session(SessionRedirectMixin):
         *,
         params: _Params | None = ...,
         data: _Data | None = ...,
-        headers: _TextMapping | None = ...,
+        headers: _HeadersUpdateMapping | None = ...,
         cookies: RequestsCookieJar | _TextMapping | None = ...,
         files: _Files | None = ...,
         auth: _Auth | None = ...,
@@ -152,7 +160,7 @@ class Session(SessionRedirectMixin):
         *,
         params: _Params | None = ...,
         data: _Data | None = ...,
-        headers: _TextMapping | None = ...,
+        headers: _HeadersUpdateMapping | None = ...,
         cookies: RequestsCookieJar | _TextMapping | None = ...,
         files: _Files | None = ...,
         auth: _Auth | None = ...,
@@ -172,7 +180,7 @@ class Session(SessionRedirectMixin):
         json: Any | None = ...,
         *,
         params: _Params | None = ...,
-        headers: _TextMapping | None = ...,
+        headers: _HeadersUpdateMapping | None = ...,
         cookies: RequestsCookieJar | _TextMapping | None = ...,
         files: _Files | None = ...,
         auth: _Auth | None = ...,
@@ -190,7 +198,7 @@ class Session(SessionRedirectMixin):
         data: _Data | None = ...,
         *,
         params: _Params | None = ...,
-        headers: _TextMapping | None = ...,
+        headers: _HeadersUpdateMapping | None = ...,
         cookies: RequestsCookieJar | _TextMapping | None = ...,
         files: _Files | None = ...,
         auth: _Auth | None = ...,
@@ -209,7 +217,7 @@ class Session(SessionRedirectMixin):
         data: _Data | None = ...,
         *,
         params: _Params | None = ...,
-        headers: _TextMapping | None = ...,
+        headers: _HeadersUpdateMapping | None = ...,
         cookies: RequestsCookieJar | _TextMapping | None = ...,
         files: _Files | None = ...,
         auth: _Auth | None = ...,
@@ -228,7 +236,7 @@ class Session(SessionRedirectMixin):
         *,
         params: _Params | None = ...,
         data: _Data | None = ...,
-        headers: _TextMapping | None = ...,
+        headers: _HeadersUpdateMapping | None = ...,
         cookies: RequestsCookieJar | _TextMapping | None = ...,
         files: _Files | None = ...,
         auth: _Auth | None = ...,
