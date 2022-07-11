@@ -5,8 +5,8 @@ from types import TracebackType
 from typing import (  # noqa: Y022,Y027
     IO,
     Any,
-    AsyncContextManager as AbstractAsyncContextManager,
-    ContextManager as AbstractContextManager,
+    AsyncContextManager,
+    ContextManager,
     Generic,
     Protocol,
     TypeVar,
@@ -43,6 +43,9 @@ _P = ParamSpec("_P")
 
 _ExitFunc: TypeAlias = Callable[[type[BaseException] | None, BaseException | None, TracebackType | None], bool | None]
 _CM_EF = TypeVar("_CM_EF", bound=AbstractContextManager[Any] | _ExitFunc)
+
+AbstractContextManager = ContextManager
+AbstractAsyncContextManager = AsyncContextManager
 
 class ContextDecorator:
     def __call__(self, func: _F) -> _F: ...
