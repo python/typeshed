@@ -393,7 +393,7 @@ def test_stdlib(code: int, args: TestConfig) -> TestResults:
     supported_versions = parse_versions(os.path.join("stdlib", "VERSIONS"))
     root = "stdlib"
     for name in os.listdir(root):
-        if name == "@python2" or name == "VERSIONS" or name.startswith("."):
+        if name == "VERSIONS" or name.startswith("."):
             continue
         mod, _ = os.path.splitext(name)
         if supported_versions[mod][0] <= (args.major, args.minor) <= supported_versions[mod][1]:

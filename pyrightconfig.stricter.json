@@ -7,7 +7,6 @@
         "test_cases"
     ],
     "exclude": [
-        "**/@python2",
         "stdlib/distutils/command",
         "stdlib/lib2to3/refactor.pyi",
         "stdlib/multiprocessing/reduction.pyi",
