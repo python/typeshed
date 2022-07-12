@@ -28,7 +28,7 @@ from typing_extensions import Annotated, TypeAlias
 import tomli
 from colors import colored, print_error, print_success_msg
 
-SUPPORTED_VERSIONS = [(3, 11), (3, 10), (3, 9), (3, 8), (3, 7), (2, 7)]
+SUPPORTED_VERSIONS = [(3, 11), (3, 10), (3, 9), (3, 8), (3, 7)]
 SUPPORTED_PLATFORMS = frozenset({"linux", "win32", "darwin"})
 TYPESHED_DIRECTORIES = frozenset({"stdlib", "stubs", "tests", "test_cases", "scripts"})
 
@@ -390,22 +390,14 @@ def test_stdlib(code: int, args: TestConfig) -> TestResults:
     seen = {"__builtin__", "builtins", "typing"}  # Always ignore these.
 
     files: list[str] = []
-    if args.major == 2:
-        root = os.path.join("stdlib", "@python2")
-        for name in os.listdir(root):
-            mod, _ = os.path.splitext(name)
-            if mod in seen or mod.startswith("."):
-                continue
+    supported_versions = parse_versions(os.path.join("stdlib", "VERSIONS"))
+    root = "stdlib"
+    for name in os.listdir(root):
+        if name == "VERSIONS" or name.startswith("."):
+            continue
+        mod, _ = os.path.splitext(name)
+        if supported_versions[mod][0] <= (args.major, args.minor) <= supported_versions[mod][1]:
             add_files(files, seen, root, name, args)
-    else:
-        supported_versions = parse_versions(os.path.join("stdlib", "VERSIONS"))
-        root = "stdlib"
-        for name in os.listdir(root):
-            if name == "@python2" or name == "VERSIONS" or name.startswith("."):
-                continue
-            mod, _ = os.path.splitext(name)
-            if supported_versions[mod][0] <= (args.major, args.minor) <= supported_versions[mod][1]:
-                add_files(files, seen, root, name, args)
 
     if files:
         print(f"Testing stdlib ({len(files)} files)...")
@@ -499,9 +491,6 @@ def test_typeshed(code: int, args: TestConfig) -> TestResults:
         code, stdlib_files_checked = test_stdlib(code, args)
         files_checked_this_version += stdlib_files_checked
         print()
-
-    if args.major == 2:
-        return TestResults(code, files_checked_this_version)
 
     if "stubs" in args.directories:
         code, third_party_files_checked = test_third_party_stubs(code, args)

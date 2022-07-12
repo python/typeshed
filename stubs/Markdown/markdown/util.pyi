@@ -1,4 +1,5 @@
-from typing import Any, Pattern, overload
+from re import Pattern
+from typing import Any, overload
 
 PY37: bool
 __deprecated__: dict[str, tuple[str, Any]]

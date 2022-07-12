@@ -1,14 +1,9 @@
 import sys
 from _typeshed import StrOrLiteralStr
 from collections.abc import Iterable, Mapping, Sequence
-from re import RegexFlag
+from re import Pattern, RegexFlag
 from typing import Any, overload
 from typing_extensions import LiteralString
-
-if sys.version_info >= (3, 8):
-    from re import Pattern
-else:
-    from typing import Pattern
 
 __all__ = [
     "ascii_letters",

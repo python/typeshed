@@ -93,9 +93,7 @@ def _get_relative(filename: str) -> str:
 def _get_module_name(filename: str) -> str:
     """Converts a filename {subdir}/m.n/module/foo to module.foo."""
     parts = _get_relative(filename).split(os.path.sep)
-    if "@python2" in parts:
-        module_parts = parts[parts.index("@python2") + 1 :]
-    elif parts[0] == "stdlib":
+    if parts[0] == "stdlib":
         module_parts = parts[1:]
     else:
         assert parts[0] == "stubs"
@@ -123,7 +121,7 @@ def determine_files_to_test(*, typeshed_location: str, paths: Sequence[str]) -> 
     files = []
     for f in sorted(filenames):
         rel = _get_relative(f)
-        if rel in skipped or "@python2" in f:
+        if rel in skipped:
             continue
         files.append(f)
     return files
