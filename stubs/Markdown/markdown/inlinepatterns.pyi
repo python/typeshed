@@ -1,4 +1,4 @@
-import typing
+import re
 from re import Match
 from typing import Any, ClassVar
 from xml.etree.ElementTree import Element
@@ -95,7 +95,7 @@ class LinkInlineProcessor(InlineProcessor):
 class ImageInlineProcessor(LinkInlineProcessor): ...
 
 class ReferenceInlineProcessor(LinkInlineProcessor):
-    NEWLINE_CLEANUP_RE: ClassVar[typing.Pattern[str]]
+    NEWLINE_CLEANUP_RE: ClassVar[re.Pattern[str]]
     def evalId(self, data, index, text): ...
     def makeTag(self, href, title, text): ...
 
