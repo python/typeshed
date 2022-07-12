@@ -1,0 +1,3 @@
+# method only takes kwargs, but the stubs define all possible arguments
+invoke.Runner.run
+invoke.runners.Runner.run

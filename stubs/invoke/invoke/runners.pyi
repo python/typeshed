@@ -12,6 +12,7 @@ class Runner:
     warned_about_pty_fallback: bool
     watchers: Any
     def __init__(self, context) -> None: ...
+    # TODO use overload
     def run(
         self,
         command: str,
