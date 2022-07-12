@@ -67,7 +67,7 @@ _TXT: TypeAlias = bytes | str
 if sys.version_info >= (3, 8):
     _CMD: TypeAlias = StrOrBytesPath | Sequence[StrOrBytesPath]
 else:
-    # Python 3.6 doesn't support _CMD being a single PathLike.
+    # Python 3.7 doesn't support _CMD being a single PathLike.
     # See: https://bugs.python.org/issue31961
     _CMD: TypeAlias = _TXT | Sequence[StrOrBytesPath]
 if sys.platform == "win32":
@@ -704,7 +704,6 @@ elif sys.version_info >= (3, 9):
     ) -> CompletedProcess[Any]: ...
 
 else:
-    # Nearly the same args as for 3.6, except for capture_output and text
     @overload
     def run(
         args: _CMD,
