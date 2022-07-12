@@ -136,19 +136,7 @@ if sys.version_info >= (3, 10):
         tuple[_T1 | BaseException, _T2 | BaseException, _T3 | BaseException, _T4 | BaseException, _T5 | BaseException]
     ]: ...
     @overload
-    def gather(
-        __coro_or_future1: _FutureLike[Any],
-        __coro_or_future2: _FutureLike[Any],
-        __coro_or_future3: _FutureLike[Any],
-        __coro_or_future4: _FutureLike[Any],
-        __coro_or_future5: _FutureLike[Any],
-        __coro_or_future6: _FutureLike[Any],
-        *coros_or_futures: _FutureLike[Any],
-        return_exceptions: bool = ...,
-    ) -> Future[list[Any]]: ...
-    @overload
-    def gather(*, return_exceptions: bool = ...) -> Future[tuple[()]]: ...
-
+    def gather(*coros_or_futures: _FutureLike[Any], return_exceptions: bool = ...) -> Future[list[Any]]: ...
 else:
     @overload
     def gather(
@@ -237,19 +225,7 @@ else:
         tuple[_T1 | BaseException, _T2 | BaseException, _T3 | BaseException, _T4 | BaseException, _T5 | BaseException]
     ]: ...
     @overload
-    def gather(
-        __coro_or_future1: _FutureLike[Any],
-        __coro_or_future2: _FutureLike[Any],
-        __coro_or_future3: _FutureLike[Any],
-        __coro_or_future4: _FutureLike[Any],
-        __coro_or_future5: _FutureLike[Any],
-        __coro_or_future6: _FutureLike[Any],
-        *coros_or_futures: _FutureLike[Any],
-        loop: AbstractEventLoop | None = ...,
-        return_exceptions: bool = ...,
-    ) -> Future[list[Any]]: ...
-    @overload
-    def gather(*, loop: AbstractEventLoop | None = ..., return_exceptions: bool = ...) -> Future[tuple[()]]: ...
+    def gather(*coros_or_futures: _FutureLike[Any], loop: AbstractEventLoop | None = ..., return_exceptions: bool = ...) -> Future[list[Any]]: ...
 
 def run_coroutine_threadsafe(coro: _FutureLike[_T], loop: AbstractEventLoop) -> concurrent.futures.Future[_T]: ...
 

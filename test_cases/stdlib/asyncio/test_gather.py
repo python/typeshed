@@ -49,7 +49,7 @@ async def test_gather(
     assert_type(d, List[Any])
 
     e = await asyncio.gather()
-    assert_type(e, Tuple[()])
+    assert_type(e, List[Any])
 
 
 asyncio.run(test_gather(coro1(), coro2(), coro3(), coro4(), coro5(), coro6()))
