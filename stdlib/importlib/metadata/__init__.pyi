@@ -7,7 +7,8 @@ from email.message import Message
 from importlib.abc import MetaPathFinder
 from os import PathLike
 from pathlib import Path
-from typing import Any, ClassVar, NamedTuple, Pattern, overload
+from re import Pattern
+from typing import Any, ClassVar, NamedTuple, overload
 
 __all__ = [
     "Distribution",
