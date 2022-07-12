@@ -123,13 +123,10 @@ flake8 .
 ### Standard library stubs
 
 The `stdlib` directory contains stubs for modules in the
-Python 3 standard library — which
+Python standard library — which
 includes pure Python modules, dynamically loaded extension modules,
 hard-linked extension modules, and the builtins. The `VERSIONS` file lists
 the versions of Python where the module is available.
-
-Stubs for Python 2 are available in the `stdlib/@python2` subdirectory.
-Modules that are only available for Python 2 are not listed in `VERSIONS`.
 
 ### Third-party library stubs
 

@@ -3,7 +3,7 @@
 
 stubtest is a script in the mypy project that compares stubs to the actual objects at runtime.
 Note that therefore the output of stubtest depends on which Python version it is run with.
-In typeshed CI, we run stubtest with each currently supported Python minor version, except 2.7.
+In typeshed CI, we run stubtest with each currently supported Python minor version.
 
 """
 

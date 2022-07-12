@@ -5,9 +5,6 @@
         "stubs",
         "test_cases"
     ],
-    "exclude": [
-        "**/@python2"
-    ],
     "typeCheckingMode": "basic",
     "strictListInference": true,
     "strictDictionaryInference": true,
