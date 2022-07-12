@@ -5,8 +5,6 @@ _?curses.color_pair
 (os|posix).SPLICE_F_MORE
 (os|posix).SPLICE_F_MOVE
 (os|posix).SPLICE_F_NONBLOCK
-(os|posix).posix_fadvise
-(os|posix).posix_fallocate
 (os|posix).sched_getaffinity
 (os|posix).sched_getparam
 (os|posix).sched_getscheduler
