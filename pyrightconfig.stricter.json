@@ -113,7 +113,8 @@
     "reportUnboundVariable": "error",
     "reportInvalidStubStatement": "error",
     "reportInvalidTypeVarUse": "error",
-    "reportSelfClsParameterName": "error",
+    // The name of the self/cls parameter is out of typeshed's control.
+    "reportSelfClsParameterName": "none",
     "reportUnsupportedDunderAll": "error",
     "reportInconsistentConstructor": "error",
     "reportTypeCommentUsage": "error",
