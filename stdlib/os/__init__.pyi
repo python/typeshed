@@ -941,13 +941,13 @@ if sys.platform != "win32":
     def sched_get_priority_max(policy: int) -> int: ...  # some flavors of Unix
     def sched_yield() -> None: ...  # some flavors of Unix
     if sys.platform != "darwin":
-        def sched_setscheduler(pid: int, policy: int, param: sched_param) -> None: ...  # some flavors of Unix
-        def sched_getscheduler(pid: int) -> int: ...  # some flavors of Unix
-        def sched_rr_get_interval(pid: int) -> float: ...  # some flavors of Unix
-        def sched_setparam(pid: int, param: sched_param) -> None: ...  # some flavors of Unix
-        def sched_getparam(pid: int) -> sched_param: ...  # some flavors of Unix
-        def sched_setaffinity(pid: int, mask: Iterable[int]) -> None: ...  # some flavors of Unix
-        def sched_getaffinity(pid: int) -> set[int]: ...  # some flavors of Unix
+        def sched_setscheduler(__pid: int, __policy: int, __param: sched_param) -> None: ...  # some flavors of Unix
+        def sched_getscheduler(__pid: int) -> int: ...  # some flavors of Unix
+        def sched_rr_get_interval(__pid: int) -> float: ...  # some flavors of Unix
+        def sched_setparam(__pid: int, __param: sched_param) -> None: ...  # some flavors of Unix
+        def sched_getparam(__pid: int) -> sched_param: ...  # some flavors of Unix
+        def sched_setaffinity(__pid: int, __mask: Iterable[int]) -> None: ...  # some flavors of Unix
+        def sched_getaffinity(__pid: int) -> set[int]: ...  # some flavors of Unix
 
 def cpu_count() -> int | None: ...
 
