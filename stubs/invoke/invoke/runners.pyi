@@ -1,5 +1,8 @@
+from io import FileIO
 from typing import Any
 from typing_extensions import Literal
+
+from .watchers import StreamWatcher
 
 class Runner:
     read_chunk_size: int
@@ -9,7 +12,29 @@ class Runner:
     warned_about_pty_fallback: bool
     watchers: Any
     def __init__(self, context) -> None: ...
-    def run(self, command, **kwargs): ...
+    def run(
+        self,
+        command: str,
+        asynchronous: bool = ...,
+        disown: bool = ...,
+        dry: bool = ...,
+        echo: bool = ...,
+        echo_format: str = ...,
+        echo_stdin: bool | None = ...,
+        encoding: str = ...,
+        err_stream=...,
+        env: dict[str, str] = ...,
+        fallback: bool = ...,
+        hide: tuple[Literal["stdout", "stderr"], ...] = ...,
+        in_stream: FileIO | None | bool = ...,
+        out_stream: FileIO | None = ...,
+        pty: bool = ...,
+        replace_env: bool = ...,
+        shell: str = ...,
+        timeout: float | None = ...,
+        warn: bool = ...,
+        watchers: list[StreamWatcher] = ...,
+    ) -> Promise | Result | None: ...
     def echo(self, command) -> None: ...
     def make_promise(self): ...
     def create_io_threads(self): ...
