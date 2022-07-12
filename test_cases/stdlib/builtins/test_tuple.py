@@ -1,5 +1,5 @@
-from typing_extensions import assert_type
 from typing import Tuple
+from typing_extensions import assert_type
 
 
 # Empty tuples, see #8275
