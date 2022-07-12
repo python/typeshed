@@ -1,5 +1,6 @@
 import typing
-from typing import Any, ClassVar, Match
+from re import Match
+from typing import Any, ClassVar
 from xml.etree.ElementTree import Element
 
 def build_inlinepatterns(md, **kwargs): ...
