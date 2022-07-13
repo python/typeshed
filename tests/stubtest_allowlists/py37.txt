@@ -160,3 +160,6 @@ builtins.property.__get__
 builtins.staticmethod.__get__
 types.FunctionType.__get__
 types.LambdaType.__get__
+
+# Never in stubs, object at runtime
+enum.auto.value

@@ -373,7 +373,6 @@ builtins.super.__self__
 builtins.super.__self_class__
 builtins.super.__thisclass__
 
-enum.auto.value  # Never in stubs, object at runtime
 # Enum `name` and `value` are special properties that exists at runtime, but stubtest can't detect
 # https://github.com/python/typeshed/pull/6576#issuecomment-992538677
 enum.Enum.name
