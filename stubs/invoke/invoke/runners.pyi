@@ -1,5 +1,5 @@
-from io import FileIO
-from typing import Any
+from io import TextIO
+from typing import Any, Mapping, overload
 from typing_extensions import Literal
 
 from .watchers import StreamWatcher
@@ -12,7 +12,55 @@ class Runner:
     warned_about_pty_fallback: bool
     watchers: Any
     def __init__(self, context) -> None: ...
-    # TODO use overload
+    @overload
+    def run(
+        self,
+        command: str,
+        asynchronous: Literal[True] | Literal[False] = ...,
+        disown: Literal[True] = ...,
+        dry: bool = ...,
+        echo: bool = ...,
+        echo_format: str = ...,
+        echo_stdin: bool | None = ...,
+        encoding: str = ...,
+        err_stream: TextIO | None = ...,
+        env: Mapping[str, str] = ...,
+        fallback: bool = ...,
+        hide: tuple[Literal["stdout", "stderr"], ...] = ...,
+        in_stream: TextIO | None | bool = ...,
+        out_stream: TextIO | None = ...,
+        pty: bool = ...,
+        replace_env: bool = ...,
+        shell: str = ...,
+        timeout: float | None = ...,
+        warn: bool = ...,
+        watchers: list[StreamWatcher] = ...,
+    ) -> None: ...
+    @overload
+    def run(
+        self,
+        command: str,
+        asynchronous: Literal[True] = ...,
+        disown: bool = ...,
+        dry: bool = ...,
+        echo: bool = ...,
+        echo_format: str = ...,
+        echo_stdin: bool | None = ...,
+        encoding: str = ...,
+        err_stream: TextIO | None = ...,
+        env: Mapping[str, str] = ...,
+        fallback: bool = ...,
+        hide: tuple[Literal["stdout", "stderr"], ...] = ...,
+        in_stream: TextIO | None | bool = ...,
+        out_stream: TextIO | None = ...,
+        pty: bool = ...,
+        replace_env: bool = ...,
+        shell: str = ...,
+        timeout: float | None = ...,
+        warn: bool = ...,
+        watchers: list[StreamWatcher] = ...,
+    ) -> Promise: ...
+    @overload
     def run(
         self,
         command: str,
@@ -23,19 +71,19 @@ class Runner:
         echo_format: str = ...,
         echo_stdin: bool | None = ...,
         encoding: str = ...,
-        err_stream=...,
-        env: dict[str, str] = ...,
+        err_stream: TextIO | None = ...,
+        env: Mapping[str, str] = ...,
         fallback: bool = ...,
         hide: tuple[Literal["stdout", "stderr"], ...] = ...,
-        in_stream: FileIO | None | bool = ...,
-        out_stream: FileIO | None = ...,
+        in_stream: TextIO | None | bool = ...,
+        out_stream: TextIO | None = ...,
         pty: bool = ...,
         replace_env: bool = ...,
         shell: str = ...,
         timeout: float | None = ...,
         warn: bool = ...,
         watchers: list[StreamWatcher] = ...,
-    ) -> Promise | Result | None: ...
+    ) -> Result: ...
     def echo(self, command) -> None: ...
     def make_promise(self): ...
     def create_io_threads(self): ...
