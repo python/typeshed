@@ -380,6 +380,9 @@ enum.Enum.value
 enum.Flag.name
 enum.Flag.value
 enum.IntEnum.value
+# The implementation does not override __init__, but we need it to override
+# IntFlag.__init__. See the stub for more information.
+enum.auto.__init__
 
 # These enums derive from (int, IntEnum) or (str, Enum).
 pstats.SortKey.__new__
