@@ -195,9 +195,10 @@ def unique(enumeration: _EnumerationT) -> _EnumerationT: ...
 
 class auto:
     value: Never
-    # auto instances get replaced with Enum instances at runtime when used
-    # inside Enums.
-    def __new__(cls: type[Self]) -> Enum: ...
+    # This is a lie, auto() returns an auto instance. But auto instances
+    # are solely intended to be used inside the body of Enum sub-classes
+    # and get replaced with Enum instances at runtime.
+    def __new__(cls: type[Self]) -> Enum: ...  # type: ignore[misc]
 
 class Flag(Enum):
     _name_: str | None  # type: ignore[assignment]
