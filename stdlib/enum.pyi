@@ -193,6 +193,8 @@ class IntEnum(int, _IntEnumBase):
 
 def unique(enumeration: _EnumerationT) -> _EnumerationT: ...
 
+# auto instances get replaced with Enum instances at runtime when used
+# inside Enums.
 class auto:
     value: Never
 
