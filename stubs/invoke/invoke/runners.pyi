@@ -1,8 +1,11 @@
+from collections.abc import Iterable, Mapping
 from io import TextIO
-from typing import Any, Mapping, overload
-from typing_extensions import Literal
+from typing import Any, overload
+from typing_extensions import Literal, TypeAlias
 
 from .watchers import StreamWatcher
+
+_Hide: TypeAlias = Literal[None, True, False, "out", "stdout", "err", "stderr", "both"]
 
 class Runner:
     read_chunk_size: int
@@ -16,6 +19,7 @@ class Runner:
     def run(
         self,
         command: str,
+        *,
         asynchronous: Literal[True] | Literal[False] = ...,
         disown: Literal[True] = ...,
         dry: bool = ...,
@@ -26,7 +30,7 @@ class Runner:
         err_stream: TextIO | None = ...,
         env: Mapping[str, str] = ...,
         fallback: bool = ...,
-        hide: tuple[Literal["stdout", "stderr"], ...] = ...,
+        hide: _Hide = ...,
         in_stream: TextIO | None | bool = ...,
         out_stream: TextIO | None = ...,
         pty: bool = ...,
@@ -34,12 +38,13 @@ class Runner:
         shell: str = ...,
         timeout: float | None = ...,
         warn: bool = ...,
-        watchers: list[StreamWatcher] = ...,
+        watchers: Iterable[StreamWatcher] = ...,
     ) -> None: ...
     @overload
     def run(
         self,
         command: str,
+        *,
         asynchronous: Literal[True] = ...,
         disown: bool = ...,
         dry: bool = ...,
@@ -50,7 +55,7 @@ class Runner:
         err_stream: TextIO | None = ...,
         env: Mapping[str, str] = ...,
         fallback: bool = ...,
-        hide: tuple[Literal["stdout", "stderr"], ...] = ...,
+        hide: _Hide = ...,
         in_stream: TextIO | None | bool = ...,
         out_stream: TextIO | None = ...,
         pty: bool = ...,
@@ -58,12 +63,13 @@ class Runner:
         shell: str = ...,
         timeout: float | None = ...,
         warn: bool = ...,
-        watchers: list[StreamWatcher] = ...,
+        watchers: Iterable[StreamWatcher] = ...,
     ) -> Promise: ...
     @overload
     def run(
         self,
         command: str,
+        *,
         asynchronous: bool = ...,
         disown: bool = ...,
         dry: bool = ...,
@@ -74,7 +80,7 @@ class Runner:
         err_stream: TextIO | None = ...,
         env: Mapping[str, str] = ...,
         fallback: bool = ...,
-        hide: tuple[Literal["stdout", "stderr"], ...] = ...,
+        hide: _Hide = ...,
         in_stream: TextIO | None | bool = ...,
         out_stream: TextIO | None = ...,
         pty: bool = ...,
@@ -82,7 +88,7 @@ class Runner:
         shell: str = ...,
         timeout: float | None = ...,
         warn: bool = ...,
-        watchers: list[StreamWatcher] = ...,
+        watchers: Iterable[StreamWatcher] = ...,
     ) -> Result: ...
     def echo(self, command) -> None: ...
     def make_promise(self): ...
