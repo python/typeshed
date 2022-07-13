@@ -13,4 +13,4 @@ class Bar:
 
 
 combined = [Foo()] + [Bar()]
-assert_type(combined, list[Foo | Bar])
+assert_type(combined, List[Union[Foo, Bar]])
