@@ -1,6 +1,5 @@
 from collections.abc import Iterable, Mapping
-from io import TextIO
-from typing import Any, overload
+from typing import Any, TextIO, overload
 from typing_extensions import Literal, TypeAlias
 
 from .watchers import StreamWatcher
