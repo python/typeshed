@@ -153,3 +153,10 @@ pyexpat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - funct
 xml.parsers.expat.XMLParserType.ExternalEntityParserCreate  # C signature is wrong - function gets only positional args
 pyexpat.XMLParserType.intern  # does exist but stubtest can't see it (https://github.com/python/cpython/blob/3.7/Modules/pyexpat.c#L1322)
 xml.parsers.expat.XMLParserType.intern  # does exist but stubtest can't see it (https://github.com/python/cpython/blob/3.7/Modules/pyexpat.c#L1322)
+
+# Runtime signature is incorrect (https://github.com/python/cpython/issues/93021)
+builtins.classmethod.__get__
+builtins.property.__get__
+builtins.staticmethod.__get__
+types.FunctionType.__get__
+types.LambdaType.__get__

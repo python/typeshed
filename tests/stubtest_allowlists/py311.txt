@@ -178,6 +178,3 @@ wsgiref.types.WSGIEnvironment
 
 # https://github.com/python/mypy/issues/12821 (stubtest bug with Callable type alias)
 wsgiref.types.WSGIApplication
-
-# Really it's mad about dict.get
-wsgiref.types.WSGIEnvironment.get

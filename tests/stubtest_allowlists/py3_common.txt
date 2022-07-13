@@ -428,13 +428,8 @@ re.Pattern.scanner  # Undocumented and not useful. #6405
 tempfile._TemporaryFileWrapper.[\w_]+  # Dynamically specified by __getattr__, and thus don't exist on the class
 
 # Runtime signature is incorrect (https://github.com/python/cpython/issues/93021)
-builtins.classmethod.__get__
-builtins.property.__get__
-builtins.staticmethod.__get__
 types.ClassMethodDescriptorType.__get__
-types.FunctionType.__get__
 types.GetSetDescriptorType.__get__
-types.LambdaType.__get__
 types.MemberDescriptorType.__get__
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__

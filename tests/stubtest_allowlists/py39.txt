@@ -169,3 +169,10 @@ ast.ImportFrom.level  # None on the class, but never None on instances
 
 ftplib.FTP.trust_server_pasv_ipv4_address  # Dangerous to use, intentionally undocumented, intentionally missing from typeshed. #6154
 os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all PathLike classes to implement class_getitem
+
+# Runtime signature is incorrect (https://github.com/python/cpython/issues/93021)
+builtins.classmethod.__get__
+builtins.property.__get__
+builtins.staticmethod.__get__
+types.FunctionType.__get__
+types.LambdaType.__get__
