@@ -198,7 +198,7 @@ class auto:
     # This is a lie, auto() returns an auto instance. But auto instances
     # are solely intended to be used inside the body of Enum sub-classes
     # and get replaced with Enum instances at runtime.
-    def __new__(cls: type[Self]) -> Enum: ...  # type: ignore[misc]
+    def __new__(cls: type[Self]) -> IntFlag: ...  # type: ignore[misc]
 
 class Flag(Enum):
     _name_: str | None  # type: ignore[assignment]
