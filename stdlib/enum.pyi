@@ -5,7 +5,7 @@ from abc import ABCMeta
 from builtins import property as _builtins_property
 from collections.abc import Iterable, Iterator, Mapping
 from typing import Any, Generic, TypeVar, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Never, TypeAlias
 
 __all__ = ["EnumMeta", "Enum", "IntEnum", "Flag", "IntFlag", "auto", "unique"]
 
@@ -193,14 +193,8 @@ class IntEnum(int, _IntEnumBase):
 
 def unique(enumeration: _EnumerationT) -> _EnumerationT: ...
 
-_auto_null: Any
-
-# subclassing IntFlag so it picks up all implemented base functions, best modeling behavior of enum.auto()
-class auto(IntFlag):
-    _value_: Any
-    @_magic_enum_attr
-    def value(self) -> Any: ...
-    def __new__(cls: type[Self]) -> Self: ...
+class auto:
+    value: Never
 
 class Flag(Enum):
     _name_: str | None  # type: ignore[assignment]
