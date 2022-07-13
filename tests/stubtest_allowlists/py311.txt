@@ -173,6 +173,9 @@ wsgiref.types.InputStream.readlines
 wsgiref.types.StartResponse.__call__
 wsgiref.types._Readable.read
 
+# https://github.com/python/mypy/issues/13114
+wsgiref.types.WSGIEnvironment
+
 # https://github.com/python/mypy/issues/12821 (stubtest bug with Callable type alias)
 wsgiref.types.WSGIApplication
 
