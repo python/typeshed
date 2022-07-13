@@ -5,7 +5,7 @@ from abc import ABCMeta
 from builtins import property as _builtins_property
 from collections.abc import Iterable, Iterator, Mapping
 from typing import Any, Generic, TypeVar, overload
-from typing_extensions import Literal, Never, TypeAlias
+from typing_extensions import Literal, TypeAlias
 
 __all__ = ["EnumMeta", "Enum", "IntEnum", "Flag", "IntFlag", "auto", "unique"]
 
