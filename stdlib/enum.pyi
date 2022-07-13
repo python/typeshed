@@ -193,10 +193,11 @@ class IntEnum(int, _IntEnumBase):
 
 def unique(enumeration: _EnumerationT) -> _EnumerationT: ...
 
-# auto instances get replaced with Enum instances at runtime when used
-# inside Enums.
 class auto:
     value: Never
+    # auto instances get replaced with Enum instances at runtime when used
+    # inside Enums.
+    def __new__(cls: type[Self]) -> Enum: ...
 
 class Flag(Enum):
     _name_: str | None  # type: ignore[assignment]
