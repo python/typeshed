@@ -2,7 +2,7 @@ import abc
 import collections
 import sys
 from _typeshed import IdentityFunction, Self as TypeshedSelf  # see #6932 for why the Self alias cannot have a leading underscore
-from collections.abc import Iterable, 
+from collections.abc import Iterable
 from typing import (  # noqa: Y022,Y027,Y039
     TYPE_CHECKING as TYPE_CHECKING,
     Any,
@@ -197,9 +197,9 @@ else:
 
 # New things in 3.11
 if sys.version_info >= (3, 11):
+    from typing import NamedTuple as NamedTuple  # Ability to create generic NamedTuples is new in 3.11
     from typing import (
         LiteralString as LiteralString,
-        NamedTuple as NamedTuple,  # Ability to create generic NamedTuples is new in 3.11
         Never as Never,
         NotRequired as NotRequired,
         Required as Required,
