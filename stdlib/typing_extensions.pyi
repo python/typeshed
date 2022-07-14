@@ -196,8 +196,9 @@ else:
     def is_typeddict(tp: object) -> bool: ...
 
 # New things in 3.11
+# NamedTuples are not new, but the ability to create generic NamedTuples is new in 3.11
 if sys.version_info >= (3, 11):
-    from typing import (  # Ability to create generic NamedTuples is new in 3.11
+    from typing import (
         LiteralString as LiteralString,
         NamedTuple as NamedTuple,
         Never as Never,
