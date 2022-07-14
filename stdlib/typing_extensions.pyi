@@ -197,9 +197,8 @@ else:
 
 # New things in 3.11
 if sys.version_info >= (3, 11):
-    from typing import (
+    from typing import (  # Ability to create generic NamedTuples is new in 3.11
         LiteralString as LiteralString,
-        # Ability to create generic NamedTuples is new in 3.11
         NamedTuple as NamedTuple,
         Never as Never,
         NotRequired as NotRequired,
