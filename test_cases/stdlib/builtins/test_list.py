@@ -16,4 +16,4 @@ class Bar:
 combined = [Foo()] + [Bar()]
 assert_type(combined, List[Union[Foo, Bar]])
 for item in combined:
-    assert_type(item, int)
+    assert_type(item.asd(), int)
