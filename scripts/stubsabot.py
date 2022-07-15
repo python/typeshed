@@ -210,7 +210,7 @@ TYPESHED_OWNER = "python"
 def get_origin_owner() -> str:
     output = subprocess.check_output(["git", "remote", "get-url", "origin"], text=True)
     match = re.search(r"(git@github.com:|https://github.com/)(?P<owner>[^/]+)/(?P<repo>[^/]+).git", output)
-    assert match is not None
+    assert match is not None, f"Couldn't identify origin's owner: {output}"
     assert match.group("repo") == "typeshed"
     return match.group("owner")
 
