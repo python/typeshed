@@ -1,3 +1,4 @@
+from re import Pattern
 from typing import Any
 
 from . import util
@@ -11,3 +12,7 @@ class RawHtmlPostprocessor(Postprocessor):
     def isblocklevel(self, html): ...
 
 class AndSubstitutePostprocessor(Postprocessor): ...
+
+class UnescapePostprocessor(Postprocessor):  # deprecated
+     RE: Pattern[str]
+     def unescape(self, m): ...
