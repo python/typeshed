@@ -209,9 +209,9 @@ TYPESHED_OWNER = "python"
 @functools.lru_cache()
 def get_origin_owner() -> str:
     output = subprocess.check_output(["git", "remote", "get-url", "origin"], text=True)
-    match = re.search(r"(git@github.com:|https://github.com/)(?P<owner>[^/]+)/(?P<repo>[^/]+).git", output)
-    assert match is not None
-    assert match.group("repo") == "typeshed"
+    match = re.search(r"(git@github.com:|https://github.com/)(?P<owner>[^/]+)/(?P<repo>[^/]+)(\.git)?", output)
+    assert match is not None, f"Couldn't identify origin's owner: {output!r}"
+    assert match.group("repo").strip() == "typeshed", f'Unexpected repo: {match.group("repo")!r}'
     return match.group("owner")
 
 
@@ -280,7 +280,7 @@ async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession
         subprocess.check_call(["git", "commit", "--all", "-m", title])
         if action_level <= ActionLevel.local:
             return
-        subprocess.check_call(["git", "push", "origin", branch_name, "--force-with-lease"])
+        subprocess.check_call(["git", "push", "origin", branch_name, "--force"])
 
     body = "\n".join(f"{k}: {v}" for k, v in update.links.items())
     body += """
@@ -288,6 +288,7 @@ async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession
 If stubtest fails for this PR:
 - Leave this PR open (as a reminder, and to prevent stubsabot from opening another PR)
 - Fix stubtest failures in another PR, then close this PR
+- Note that the stubsabot action may force push to this PR
 """
     await create_or_update_pull_request(title=title, body=body, branch_name=branch_name, session=session)
 
@@ -309,7 +310,7 @@ async def suggest_typeshed_obsolete(obsolete: Obsolete, session: aiohttp.ClientS
         subprocess.check_call(["git", "commit", "--all", "-m", title])
         if action_level <= ActionLevel.local:
             return
-        subprocess.check_call(["git", "push", "origin", branch_name, "--force-with-lease"])
+        subprocess.check_call(["git", "push", "origin", branch_name, "--force"])
 
     body = "\n".join(f"{k}: {v}" for k, v in obsolete.links.items())
     await create_or_update_pull_request(title=title, body=body, branch_name=branch_name, session=session)
