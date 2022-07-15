@@ -46,9 +46,6 @@ tkinter._VersionInfoType.__doc__
 typing.ForwardRef._evaluate
 typing.NewType.__call__
 typing.NewType.__mro_entries__
-typing.ParamSpec.__typing_subst__
-typing.TypeVar.__typing_subst__
-typing.TypeVarTuple.__typing_subst__
 weakref.WeakValueDictionary.update
 
 # stubtest complains that in 3.10 the default argument is inconsistent with the annotation,
@@ -153,6 +150,12 @@ ast.ImportFrom.level  # None on the class, but never None on instances
 contextlib.AbstractAsyncContextManager.__class_getitem__
 contextlib.AbstractContextManager.__class_getitem__
 
+# The argument to is_python_build() is deprecated since Python 3.11 and
+# has a default value of None to check for its existence and warn if it's
+# supplied. None is not supposed to be passed by user code and therefore
+# not included in the stubs.
+sysconfig.is_python_build
+
 # Super-special typing primitives
 typing._SpecialForm.__mro_entries__
 typing._TypedDict.__delitem__
@@ -176,8 +179,8 @@ wsgiref.types.InputStream.readlines
 wsgiref.types.StartResponse.__call__
 wsgiref.types._Readable.read
 
+# https://github.com/python/mypy/issues/13114
+wsgiref.types.WSGIEnvironment
+
 # https://github.com/python/mypy/issues/12821 (stubtest bug with Callable type alias)
 wsgiref.types.WSGIApplication
-
-# Really it's mad about dict.get
-wsgiref.types.WSGIEnvironment.get

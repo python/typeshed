@@ -67,7 +67,7 @@ _TXT: TypeAlias = bytes | str
 if sys.version_info >= (3, 8):
     _CMD: TypeAlias = StrOrBytesPath | Sequence[StrOrBytesPath]
 else:
-    # Python 3.6 doesn't support _CMD being a single PathLike.
+    # Python 3.7 doesn't support _CMD being a single PathLike.
     # See: https://bugs.python.org/issue31961
     _CMD: TypeAlias = _TXT | Sequence[StrOrBytesPath]
 if sys.platform == "win32":
@@ -91,8 +91,14 @@ class CompletedProcess(Generic[_T]):
     # and writing all the overloads would be horrific.
     stdout: _T
     stderr: _T
-    # type ignore on __init__ because the TypeVar can technically be unsolved, but see comment above
-    def __init__(self, args: _CMD, returncode: int, stdout: _T | None = ..., stderr: _T | None = ...) -> None: ...  # type: ignore
+    # pyright ignore on __init__ because the TypeVar can technically be unsolved, but see comment above
+    def __init__(
+        self,
+        args: _CMD,
+        returncode: int,
+        stdout: _T | None = ...,  # pyright: ignore[reportInvalidTypeVarUse]
+        stderr: _T | None = ...,  # pyright: ignore[reportInvalidTypeVarUse]
+    ) -> None: ...
     def check_returncode(self) -> None: ...
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
@@ -704,7 +710,6 @@ elif sys.version_info >= (3, 9):
     ) -> CompletedProcess[Any]: ...
 
 else:
-    # Nearly the same args as for 3.6, except for capture_output and text
     @overload
     def run(
         args: _CMD,
