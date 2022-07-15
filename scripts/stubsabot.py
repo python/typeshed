@@ -288,6 +288,7 @@ async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession
 If stubtest fails for this PR:
 - Leave this PR open (as a reminder, and to prevent stubsabot from opening another PR)
 - Fix stubtest failures in another PR, then close this PR
+- Note that the stubsabot action may force push to this PR
 """
     await create_or_update_pull_request(title=title, body=body, branch_name=branch_name, session=session)
 
