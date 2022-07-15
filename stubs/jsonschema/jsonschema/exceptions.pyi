@@ -37,7 +37,7 @@ class _Error(Exception):
         schema: Any = ...,
         schema_path: Sequence[str | int] = ...,
         parent: _Error | None = ...,
-        type_checker: TypeChecker = ...,
+        type_checker: _utils.Unset | TypeChecker = ...,
     ) -> None: ...
     @classmethod
     def create_from(cls: type[Self], other: _Error) -> Self: ...
