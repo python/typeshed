@@ -15,6 +15,7 @@ from .std import (
     tqdm as tqdm,
     trange as trange,
 )
+from .version import __version__ as __version__
 
 __all__ = [
     "tqdm",
