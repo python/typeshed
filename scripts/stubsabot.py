@@ -16,7 +16,7 @@ import urllib.parse
 import zipfile
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, TypeVar, TYPE_CHECKING
+from typing import TYPE_CHECKING, Any, TypeVar
 
 import aiohttp
 import packaging.specifiers
@@ -218,10 +218,10 @@ TYPESHED_OWNER = "python"
 
 @functools.lru_cache()
 def get_origin_owner() -> str:
-    output = subprocess.check_output(["git", "remote", "get-url", "origin"], text=True)
-    match = re.search(r"(git@github.com:|https://github.com/)(?P<owner>[^/]+)/(?P<repo>[^/]+)(\.git)?", output)
+    output = subprocess.check_output(["git", "remote", "get-url", "origin"], text=True).strip()
+    match = re.match(r"(git@github.com:|https://github.com/)(?P<owner>[^/]+)/(?P<repo>[^/\s]+)", output)
     assert match is not None, f"Couldn't identify origin's owner: {output!r}"
-    assert match.group("repo").strip() == "typeshed", f'Unexpected repo: {match.group("repo")!r}'
+    assert match.group("repo").removesuffix(".git") == "typeshed", f'Unexpected repo: {match.group("repo")!r}'
     return match.group("owner")
 
 
