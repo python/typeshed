@@ -280,7 +280,7 @@ async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession
         subprocess.check_call(["git", "commit", "--all", "-m", title])
         if action_level <= ActionLevel.local:
             return
-        subprocess.check_call(["git", "push", "origin", branch_name, "--force-with-lease"])
+        subprocess.check_call(["git", "push", "origin", branch_name, "--force"])
 
     body = "\n".join(f"{k}: {v}" for k, v in update.links.items())
     body += """
@@ -310,7 +310,7 @@ async def suggest_typeshed_obsolete(obsolete: Obsolete, session: aiohttp.ClientS
         subprocess.check_call(["git", "commit", "--all", "-m", title])
         if action_level <= ActionLevel.local:
             return
-        subprocess.check_call(["git", "push", "origin", branch_name, "--force-with-lease"])
+        subprocess.check_call(["git", "push", "origin", branch_name, "--force"])
 
     body = "\n".join(f"{k}: {v}" for k, v in obsolete.links.items())
     await create_or_update_pull_request(title=title, body=body, branch_name=branch_name, session=session)
