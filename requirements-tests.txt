@@ -9,3 +9,5 @@ flake8-pyi==22.5.1
 # must match .pre-commit-config.yaml
 isort==5.10.1
 tomli==1.2.2
+packaging==21.3
+termcolor
