@@ -1,6 +1,5 @@
 import pytz_deprecation_shim as pds
 from backports import zoneinfo
-from tzlocal import windows_tz as windows_tz
 
 class ZoneInfoNotFoundError(pds.UnknownTimeZoneError, zoneinfo.ZoneInfoNotFoundError): ...
 

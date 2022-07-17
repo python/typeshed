@@ -1,4 +1,3 @@
-from . import base_dir as base_dir, get_canonical_version as get_canonical_version, list_dir as list_dir, short_versions as short_versions
 from _typeshed import Incomplete
 
 class DummyConfig:
