@@ -1,0 +1,3 @@
+from pytz.tzinfo import DstTzInfo as DstTzInfo, StaticTzInfo as StaticTzInfo, memorized_datetime as memorized_datetime, memorized_timedelta as memorized_timedelta, memorized_ttinfo as memorized_ttinfo
+
+def build_tzinfo(zone, fp): ...
