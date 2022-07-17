@@ -1,3 +1,4 @@
+import datetime
 from _typeshed import Incomplete
 from datetime import tzinfo
 
@@ -9,7 +10,8 @@ class FixedOffset(tzinfo):
     def tzname(self, dt): ...
     def dst(self, dt): ...
 
-DSTOFFSET = STDOFFSET
+STDOFFSET: datetime.timedelta
+DSTOFFSET: datetime.timedelta
 
 class LocalTimezone(tzinfo):
     def utcoffset(self, dt): ...
