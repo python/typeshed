@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Mapping as DictMixin
 
-class LazyDict(DictMixin):
+class LazyDict(DictMixin[Incomplete, Incomplete]):
     data: Incomplete
     def __getitem__(self, key): ...
     def __contains__(self, key): ...
@@ -9,8 +9,8 @@ class LazyDict(DictMixin):
     def __len__(self): ...
     def keys(self): ...
 
-class LazyList(list):
+class LazyList(list[Incomplete]):
     def __new__(cls, fill_iter: Incomplete | None = ...): ...
 
-class LazySet(set):
+class LazySet(set[Incomplete]):
     def __new__(cls, fill_iter: Incomplete | None = ...): ...
