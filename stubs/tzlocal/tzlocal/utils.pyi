@@ -1,3 +1,5 @@
+import sys
+
 import pytz
 
 if sys.version_info >= (3, 9):

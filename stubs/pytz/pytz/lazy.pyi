@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections import Mapping as DictMixin
+from collections.abc import Mapping as DictMixin
 
 class LazyDict(DictMixin):
     data: Incomplete
