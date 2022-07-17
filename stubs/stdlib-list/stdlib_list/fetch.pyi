@@ -6,7 +6,12 @@ class DummyConfig:
     intersphinx_timeout: Incomplete
     user_agent: str
     tls_verify: bool
-    def __init__(self, intersphinx_mapping: Incomplete | None = ..., intersphinx_cache_limit: int = ..., intersphinx_timeout: Incomplete | None = ...) -> None: ...
+    def __init__(
+        self,
+        intersphinx_mapping: Incomplete | None = ...,
+        intersphinx_cache_limit: int = ...,
+        intersphinx_timeout: Incomplete | None = ...,
+    ) -> None: ...
 
 class DummyApp:
     srcdir: Incomplete

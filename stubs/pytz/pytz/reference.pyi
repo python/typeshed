@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from datetime import tzinfo
+
 from pytz import UTC as UTC
 
 class FixedOffset(tzinfo):
@@ -7,6 +8,7 @@ class FixedOffset(tzinfo):
     def utcoffset(self, dt): ...
     def tzname(self, dt): ...
     def dst(self, dt): ...
+
 DSTOFFSET = STDOFFSET
 
 class LocalTimezone(tzinfo):
