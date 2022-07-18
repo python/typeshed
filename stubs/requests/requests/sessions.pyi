@@ -268,7 +268,12 @@ class Session(SessionRedirectMixin):
         **kwargs: Any,
     ) -> Response: ...
     def merge_environment_settings(
-        self, url: str | bytes | None, proxies: _TextMapping | None, stream: bool | None, verify: _Verify | None, cert: _Cert | None
+        self,
+        url: str | bytes | None,
+        proxies: _TextMapping | None,
+        stream: bool | None,
+        verify: _Verify | None,
+        cert: _Cert | None,
     ) -> _Settings: ...
     def get_adapter(self, url: str) -> _BaseAdapter: ...
     def close(self) -> None: ...
