@@ -80,16 +80,6 @@ terminal to install all non-pytype requirements:
 (.venv) > pip install -r requirements-tests.txt
 ```
 
-### Optional dependencies
-
-Several tests also have `termcolor` as an optional dependency. Installing this
-is not essential to run the tests, but can make the output of some of the tests
-slightly prettier and easier to read. To install `termcolor`, run:
-
-```
-pip install termcolor
-```
-
 ## Code formatting
 
 The code is formatted using `black` and `isort`. Unused imports are also
