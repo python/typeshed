@@ -69,7 +69,7 @@ class _lru_cache_wrapper(Generic[_S, _P, _R]):
 
 class _LRUCacheDecorator(Protocol):
     @overload
-    def __call__(self, func: Callable[Concatenate[_S, _P], _R]) -> _lru_cache_wrapper[_S, _P, _R]: ...
+    def __call__(self, func: Callable[Concatenate[_S, _P], _R]) -> _lru_cache_wrapper[_S, _P, _R]: ...  # type: ignore[misc]
     @overload
     def __call__(self, func: Callable[_P, _R]) -> _lru_cache_wrapper_0[_P, _R]: ...
 
@@ -77,7 +77,7 @@ if sys.version_info >= (3, 8):
     @overload
     def lru_cache(maxsize: int | None = ..., typed: bool = ...) -> _LRUCacheDecorator: ...
     @overload
-    def lru_cache(maxsize: Callable[Concatenate[_S, _P], _R], typed: bool = ...) -> _lru_cache_wrapper[_S, _P, _R]: ...
+    def lru_cache(maxsize: Callable[Concatenate[_S, _P], _R], typed: bool = ...) -> _lru_cache_wrapper[_S, _P, _R]: ...  # type: ignore[misc]
     @overload
     def lru_cache(maxsize: Callable[_P, _R], typed: bool = ...) -> _lru_cache_wrapper_0[_P, _R]: ...
 
