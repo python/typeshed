@@ -19,15 +19,15 @@ redis.typing.CommandsProtocol.__init__
 # unclear problems
 redis.Sentinel.master_for
 redis.Sentinel.slave_for
+redis.asyncio.client.Pipeline.command_info
+redis.asyncio.client.Pipeline.debug_segfault
+redis.asyncio.client.Pipeline.memory_doctor
+redis.asyncio.client.Pipeline.memory_help
+redis.asyncio.client.Pipeline.script_debug
+redis.asyncio.client.Pipeline.shutdown
 redis.asyncio.Sentinel.master_for
 redis.asyncio.Sentinel.slave_for
 redis.asyncio.sentinel.Sentinel.master_for
 redis.asyncio.sentinel.Sentinel.slave_for
 redis.sentinel.Sentinel.master_for
 redis.sentinel.Sentinel.slave_for
-redis.asyncio.Pipeline.command_info
-redis.asyncio.Pipeline.debug_segfault
-redis.asyncio.Pipeline.memory_doctor
-redis.asyncio.Pipeline.memory_help
-redis.asyncio.Pipeline.script_debug
-redis.asyncio.Pipeline.shutdown
