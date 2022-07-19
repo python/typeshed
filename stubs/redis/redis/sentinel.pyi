@@ -1,5 +1,5 @@
-from collections.abc import Iterator
-from typing import Any, Iterable, TypeVar, overload
+from collections.abc import Iterable, Iterator
+from typing import Any, TypeVar, overload
 from typing_extensions import Literal, TypeAlias
 
 from redis.client import Redis
