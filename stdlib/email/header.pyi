@@ -1,4 +1,5 @@
 from email.charset import Charset
+from typing import Any
 
 __all__ = ["Header", "decode_header", "make_header"]
 
