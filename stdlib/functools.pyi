@@ -86,7 +86,7 @@ else:
 
 if sys.version_info >= (3, 9):
     @overload
-    def cache(__user_function: Callable[Concatenate[_S, _P], _R]) -> _lru_cache_wrapper[_S, _P, _R]: ...
+    def cache(__user_function: Callable[Concatenate[_S, _P], _R]) -> _lru_cache_wrapper[_S, _P, _R]: ...  # type: ignore[misc]
     @overload
     def cache(__user_function: Callable[_P, _R]) -> _lru_cache_wrapper_0[_P, _R]: ...
 
