@@ -10,8 +10,7 @@ from weakref import ref
 
 from ._base import Executor, Future
 
-_R = TypeVar("_R")
-_S = TypeVar("_S")
+_T = TypeVar("_T")
 
 _threads_wakeups: MutableMapping[Any, Any]
 _global_shutdown: bool
@@ -43,12 +42,12 @@ class _ExceptionWithTraceback:
 
 def _rebuild_exc(exc: Exception, tb: str) -> Exception: ...
 
-class _WorkItem(Generic[_S]):
-    future: Future[_S]
-    fn: Callable[..., _S]
+class _WorkItem(Generic[_T]):
+    future: Future[_T]
+    fn: Callable[..., _T]
     args: Iterable[Any]
     kwargs: Mapping[str, Any]
-    def __init__(self, future: Future[_S], fn: Callable[..., _S], args: Iterable[Any], kwargs: Mapping[str, Any]) -> None: ...
+    def __init__(self, future: Future[_T], fn: Callable[..., _T], args: Iterable[Any], kwargs: Mapping[str, Any]) -> None: ...
 
 class _ResultItem:
     work_id: int
@@ -92,7 +91,7 @@ if sys.version_info >= (3, 7):
         def _on_queue_feeder_error(self, e: Exception, obj: _CallItem) -> None: ...
 
 def _get_chunks(*iterables: Any, chunksize: int) -> Generator[tuple[Any, ...], None, None]: ...
-def _process_chunk(fn: Callable[..., _R], chunk: Iterable[tuple[Any, ...]]) -> list[_R]: ...
+def _process_chunk(fn: Callable[..., _T], chunk: Iterable[tuple[Any, ...]]) -> list[_T]: ...
 
 if sys.version_info >= (3, 11):
     def _sendback_result(
