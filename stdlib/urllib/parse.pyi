@@ -66,6 +66,8 @@ class _NetlocResultMixinBase(Generic[AnyStr]):
 class _NetlocResultMixinStr(_NetlocResultMixinBase[str], _ResultMixinStr): ...
 class _NetlocResultMixinBytes(_NetlocResultMixinBase[bytes], _ResultMixinBytes): ...
 
+# Ideally this would be a generic fixed-length tuple,
+# but mypy doesn't support that yet: https://github.com/python/mypy/issues/685#issuecomment-992014179
 class _DefragResultBase(tuple[AnyStr, ...], Generic[AnyStr]):
     if sys.version_info >= (3, 10):
         __match_args__ = ("url", "fragment")
