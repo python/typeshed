@@ -28,7 +28,7 @@ class USTimeZone(tzinfo):
     def utcoffset(self, dt): ...
     def dst(self, dt): ...
 
-Eastern: Incomplete
-Central: Incomplete
-Mountain: Incomplete
-Pacific: Incomplete
+Eastern: USTimeZone
+Central: USTimeZone
+Mountain: USTimeZone
+Pacific: USTimeZone
