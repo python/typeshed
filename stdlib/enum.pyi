@@ -7,38 +7,31 @@ from collections.abc import Iterable, Iterator, Mapping
 from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Literal, TypeAlias
 
+__all__ = ["EnumMeta", "Enum", "IntEnum", "Flag", "IntFlag", "auto", "unique"]
+
 if sys.version_info >= (3, 11):
-    __all__ = [
+    __all__ += [
+        "CONFORM",
+        "CONTINUOUS",
+        "EJECT",
+        "EnumCheck",
         "EnumType",
-        "EnumMeta",
-        "Enum",
-        "IntEnum",
-        "StrEnum",
-        "Flag",
-        "IntFlag",
+        "FlagBoundary",
+        "KEEP",
+        "NAMED_FLAGS",
         "ReprEnum",
-        "auto",
-        "unique",
-        "property",
-        "verify",
+        "STRICT",
+        "StrEnum",
+        "UNIQUE",
+        "global_enum",
+        "global_enum_repr",
+        "global_flag_repr",
+        "global_str",
         "member",
         "nonmember",
-        "FlagBoundary",
-        "STRICT",
-        "CONFORM",
-        "EJECT",
-        "KEEP",
-        "global_flag_repr",
-        "global_enum_repr",
-        "global_str",
-        "global_enum",
-        "EnumCheck",
-        "CONTINUOUS",
-        "NAMED_FLAGS",
-        "UNIQUE",
+        "property",
+        "verify",
     ]
-else:
-    __all__ = ["EnumMeta", "Enum", "IntEnum", "Flag", "IntFlag", "auto", "unique"]
 
 _EnumMemberT = TypeVar("_EnumMemberT")
 _EnumerationT = TypeVar("_EnumerationT", bound=type[Enum])
@@ -87,7 +80,7 @@ class _EnumDict(dict[str, Any]):
 class EnumMeta(ABCMeta):
     if sys.version_info >= (3, 11):
         def __new__(
-            metacls: type[Self],  # type: ignore
+            metacls: type[Self],
             cls: str,
             bases: tuple[type, ...],
             classdict: _EnumDict,
@@ -97,9 +90,9 @@ class EnumMeta(ABCMeta):
             **kwds: Any,
         ) -> Self: ...
     elif sys.version_info >= (3, 9):
-        def __new__(metacls: type[Self], cls: str, bases: tuple[type, ...], classdict: _EnumDict, **kwds: Any) -> Self: ...  # type: ignore
+        def __new__(metacls: type[Self], cls: str, bases: tuple[type, ...], classdict: _EnumDict, **kwds: Any) -> Self: ...
     else:
-        def __new__(metacls: type[Self], cls: str, bases: tuple[type, ...], classdict: _EnumDict) -> Self: ...  # type: ignore
+        def __new__(metacls: type[Self], cls: str, bases: tuple[type, ...], classdict: _EnumDict) -> Self: ...
 
     if sys.version_info >= (3, 9):
         @classmethod
@@ -168,8 +161,7 @@ class Enum(metaclass=EnumMeta):
     def value(self) -> Any: ...
     _name_: str
     _value_: Any
-    if sys.version_info >= (3, 7):
-        _ignore_: str | list[str]
+    _ignore_: str | list[str]
     _order_: str
     __order__: str
     @classmethod
