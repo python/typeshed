@@ -16,6 +16,14 @@ redis.asyncio.connection.AsyncConnectCallbackProtocol.__init__
 redis.asyncio.connection.ConnectCallbackProtocol.__init__
 redis.typing.CommandsProtocol.__init__
 
+# async def mismatch problems
+redis.asyncio.client.Pipeline.command_info
+redis.asyncio.client.Pipeline.debug_segfault
+redis.asyncio.client.Pipeline.memory_doctor
+redis.asyncio.client.Pipeline.memory_help
+redis.asyncio.client.Pipeline.script_debug
+redis.asyncio.client.Pipeline.shutdown
+
 # unclear problems
 redis.Sentinel.master_for
 redis.Sentinel.slave_for

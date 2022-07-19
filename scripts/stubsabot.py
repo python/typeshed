@@ -16,13 +16,22 @@ import urllib.parse
 import zipfile
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar
 
 import aiohttp
 import packaging.specifiers
 import packaging.version
 import tomli
 import tomlkit
+
+if TYPE_CHECKING:
+
+    def colored(__str: str, __style: str) -> str:
+        ...
+
+else:
+    from termcolor import colored
+
 
 ActionLevelSelf = TypeVar("ActionLevelSelf", bound="ActionLevel")
 
@@ -36,7 +45,8 @@ class ActionLevel(enum.IntEnum):
 
     nothing = 0, "make no changes"
     local = 1, "make changes that affect local repo"
-    everything = 2, "do everything, e.g. open PRs"
+    fork = 2, "make changes that affect remote repo, but won't open PRs against upstream"
+    everything = 3, "do everything, e.g. open PRs"
 
 
 @dataclass
@@ -208,10 +218,10 @@ TYPESHED_OWNER = "python"
 
 @functools.lru_cache()
 def get_origin_owner() -> str:
-    output = subprocess.check_output(["git", "remote", "get-url", "origin"], text=True)
-    match = re.search(r"(git@github.com:|https://github.com/)(?P<owner>[^/]+)/(?P<repo>[^/]+).git", output)
-    assert match is not None
-    assert match.group("repo") == "typeshed"
+    output = subprocess.check_output(["git", "remote", "get-url", "origin"], text=True).strip()
+    match = re.match(r"(git@github.com:|https://github.com/)(?P<owner>[^/]+)/(?P<repo>[^/\s]+)", output)
+    assert match is not None, f"Couldn't identify origin's owner: {output!r}"
+    assert match.group("repo").removesuffix(".git") == "typeshed", f'Unexpected repo: {match.group("repo")!r}'
     return match.group("owner")
 
 
@@ -254,6 +264,31 @@ async def create_or_update_pull_request(*, title: str, body: str, branch_name: s
         response.raise_for_status()
 
 
+def origin_branch_has_changes(branch: str) -> bool:
+    assert not branch.startswith("origin/")
+    try:
+        # number of commits on origin/branch that are not on branch or are
+        # patch equivalent to a commit on branch
+        output = subprocess.check_output(
+            ["git", "rev-list", "--right-only", "--cherry-pick", "--count", f"{branch}...origin/{branch}"],
+            stderr=subprocess.DEVNULL,
+        )
+    except subprocess.CalledProcessError:
+        # origin/branch does not exist
+        return False
+    return int(output) > 0
+
+
+class RemoteConflict(Exception):
+    pass
+
+
+def somewhat_safe_force_push(branch: str) -> None:
+    if origin_branch_has_changes(branch):
+        raise RemoteConflict(f"origin/{branch} has changes not on {branch}!")
+    subprocess.check_call(["git", "push", "origin", branch, "--force"])
+
+
 def normalize(name: str) -> str:
     # PEP 503 normalization
     return re.sub(r"[-_.]+", "-", name).lower()
@@ -280,7 +315,9 @@ async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession
         subprocess.check_call(["git", "commit", "--all", "-m", title])
         if action_level <= ActionLevel.local:
             return
-        subprocess.check_call(["git", "push", "origin", branch_name, "--force-with-lease"])
+        somewhat_safe_force_push(branch_name)
+        if action_level <= ActionLevel.fork:
+            return
 
     body = "\n".join(f"{k}: {v}" for k, v in update.links.items())
     body += """
@@ -309,7 +346,9 @@ async def suggest_typeshed_obsolete(obsolete: Obsolete, session: aiohttp.ClientS
         subprocess.check_call(["git", "commit", "--all", "-m", title])
         if action_level <= ActionLevel.local:
             return
-        subprocess.check_call(["git", "push", "origin", branch_name, "--force-with-lease"])
+        somewhat_safe_force_push(branch_name)
+        if action_level <= ActionLevel.fork:
+            return
 
     body = "\n".join(f"{k}: {v}" for k, v in obsolete.links.items())
     await create_or_update_pull_request(title=title, body=body, branch_name=branch_name, session=session)
@@ -333,11 +372,14 @@ async def main() -> None:
     )
     args = parser.parse_args()
 
-    if args.action_level > ActionLevel.local:
+    if args.action_level > ActionLevel.fork:
         if os.environ.get("GITHUB_TOKEN") is None:
             raise ValueError("GITHUB_TOKEN environment variable must be set")
 
     denylist = {"gdb"}  # gdb is not a pypi distribution
+
+    if args.action_level >= ActionLevel.fork:
+        subprocess.check_call(["git", "fetch", "--prune", "--all"])
 
     try:
         conn = aiohttp.TCPConnector(limit_per_host=10)
@@ -357,15 +399,19 @@ async def main() -> None:
                     continue
 
                 if args.action_count_limit is not None and action_count >= args.action_count_limit:
-                    print("... but we've reached action count limit")
+                    print(colored("... but we've reached action count limit", "red"))
                     continue
                 action_count += 1
 
-                if isinstance(update, Update):
-                    await suggest_typeshed_update(update, session, action_level=args.action_level)
-                    continue
-                if isinstance(update, Obsolete):
-                    await suggest_typeshed_obsolete(update, session, action_level=args.action_level)
+                try:
+                    if isinstance(update, Update):
+                        await suggest_typeshed_update(update, session, action_level=args.action_level)
+                        continue
+                    if isinstance(update, Obsolete):
+                        await suggest_typeshed_obsolete(update, session, action_level=args.action_level)
+                        continue
+                except RemoteConflict as e:
+                    print(colored(f"... but ran into {type(e).__qualname__}: {e}", "red"))
                     continue
                 raise AssertionError
     finally:
