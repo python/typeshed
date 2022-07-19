@@ -217,7 +217,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def acl_log_reset(self, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def acl_load(self, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def acl_save(self, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
-    def acl_setuser(
+    def acl_setuser(  # type: ignore[override]
         self,
         username: str,
         enabled: bool = ...,
@@ -233,7 +233,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         reset_keys: bool = ...,
         reset_passwords: bool = ...,
         **kwargs: _CommandOptions,
-    ) -> Pipeline[_StrType]: ...  # type: ignore[override]
+    ) -> Pipeline[_StrType]: ...
     def acl_users(self, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def acl_whoami(self, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     # endregion
