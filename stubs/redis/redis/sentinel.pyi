@@ -42,7 +42,11 @@ class Sentinel(SentinelCommands):
     min_other_sentinels: int
     connection_kwargs: Any
     def __init__(
-        self, sentinels: Iterable[_AddressAndPort], min_other_sentinels: int = ..., sentinel_kwargs: Any | None = ..., **connection_kwargs
+        self,
+        sentinels: Iterable[_AddressAndPort],
+        min_other_sentinels: int = ...,
+        sentinel_kwargs: Any | None = ...,
+        **connection_kwargs,
     ) -> None: ...
     def check_master_state(self, state: _SentinelState, service_name: str) -> bool: ...
     def discover_master(self, service_name: str) -> _AddressAndPort: ...
