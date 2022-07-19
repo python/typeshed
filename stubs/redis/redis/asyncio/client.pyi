@@ -245,10 +245,10 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     # region BasicKey commands
     def append(self, key, value) -> Any: ...  # type: ignore[override]
     def bitcount(self, key: _Key, start: int | None = ..., end: int | None = ..., mode: str | None = ...) -> Any: ...  # type: ignore[override]
-    def bitfield(self, key, default_overflow: Any | None = ...) -> Any: ...  # type: ignore[override]
+    def bitfield(self, key, default_overflow: Incomplete | None = ...) -> Any: ...  # type: ignore[override]
     def bitop(self, operation, dest, *keys) -> Any: ...  # type: ignore[override]
     def bitpos(self, key: _Key, bit: int, start: int | None = ..., end: int | None = ..., mode: str | None = ...) -> Any: ...  # type: ignore[override]
-    def copy(self, source, destination, destination_db: Any | None = ..., replace: bool = ...) -> Any: ...  # type: ignore[override]
+    def copy(self, source, destination, destination_db: Incomplete | None = ..., replace: bool = ...) -> Any: ...  # type: ignore[override]
     def decr(self, name, amount: int = ...) -> Any: ...  # type: ignore[override]
     def decrby(self, name, amount: int = ...) -> Any: ...  # type: ignore[override]
     def delete(self, *names: _Key) -> Any: ...  # type: ignore[override]
@@ -263,10 +263,10 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def getex(  # type: ignore[override]
         self,
         name,
-        ex: Any | None = ...,
-        px: Any | None = ...,
-        exat: Any | None = ...,
-        pxat: Any | None = ...,
+        ex: Incomplete | None = ...,
+        px: Incomplete | None = ...,
+        exat: Incomplete | None = ...,
+        pxat: Incomplete | None = ...,
         persist: bool = ...,
     ) -> Any: ...
     def getbit(self, name: _Key, offset: int) -> Any: ...  # type: ignore[override]
@@ -300,12 +300,12 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     ) -> Any: ...
     def psetex(self, name, time_ms, value) -> Any: ...  # type: ignore[override]
     def pttl(self, name: _Key) -> Any: ...  # type: ignore[override]
-    def hrandfield(self, key, count: Any | None = ..., withvalues: bool = ...) -> Any: ...  # type: ignore[override]
+    def hrandfield(self, key, count: Incomplete | None = ..., withvalues: bool = ...) -> Any: ...  # type: ignore[override]
     def randomkey(self, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def rename(self, src, dst) -> Any: ...  # type: ignore[override]
     def renamenx(self, src, dst) -> Any: ...  # type: ignore[override]
     def restore(  # type: ignore[override]
-        self, name, ttl, value, replace: bool = ..., absttl: bool = ..., idletime: Any | None = ..., frequency: Any | None = ...
+        self, name, ttl, value, replace: bool = ..., absttl: bool = ..., idletime: Incomplete | None = ..., frequency: Incomplete | None = ...
     ) -> Any: ...
     def set(  # type: ignore[override]
         self,
@@ -317,8 +317,8 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         xx: bool = ...,
         keepttl: bool = ...,
         get: bool = ...,
-        exat: Any | None = ...,
-        pxat: Any | None = ...,
+        exat: Incomplete | None = ...,
+        pxat: Incomplete | None = ...,
     ) -> Any: ...
     def setbit(self, name: _Key, offset: int, value: int) -> Any: ...  # type: ignore[override]
     def setex(self, name: _Key, time: int | timedelta, value: _Value) -> Any: ...  # type: ignore[override]
@@ -332,7 +332,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         specific_argument: str = ...,
         len: bool = ...,
         idx: bool = ...,
-        minmatchlen: Any | None = ...,
+        minmatchlen: Incomplete | None = ...,
         withmatchlen: bool = ...,
         **kwargs: _CommandOptions,
     ) -> Any: ...
@@ -359,12 +359,12 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def hlen(self, name: _Key) -> Any: ...  # type: ignore[override]
     @overload
     def hset(  # type: ignore[override]
-        self, name: _Key, key: _Key, value: _Value, mapping: Mapping[_Key, _Value] | None = ..., items: Any | None = ...
+        self, name: _Key, key: _Key, value: _Value, mapping: Mapping[_Key, _Value] | None = ..., items: Incomplete | None = ...
     ) -> Any: ...
     @overload
-    def hset(self, name: _Key, key: None, value: None, mapping: Mapping[_Key, _Value], items: Any | None = ...) -> Any: ...  # type: ignore[override]
+    def hset(self, name: _Key, key: None, value: None, mapping: Mapping[_Key, _Value], items: Incomplete | None = ...) -> Any: ...  # type: ignore[override]
     @overload
-    def hset(self, name: _Key, *, mapping: Mapping[_Key, _Value], items: Any | None = ...) -> Any: ...  # type: ignore[override]
+    def hset(self, name: _Key, *, mapping: Mapping[_Key, _Value], items: Incomplete | None = ...) -> Any: ...  # type: ignore[override]
     def hsetnx(self, name: _Key, key: _Key, value: _Value) -> Any: ...  # type: ignore[override]
     def hmset(self, name: _Key, mapping: Mapping[_Key, _Value]) -> Any: ...  # type: ignore[override]
     def hmget(self, name: _Key, keys: _Key | Iterable[_Key], *args: _Key) -> Any: ...  # type: ignore[override]
@@ -373,7 +373,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     # endregion
     # region geo commands
     def geoadd(self, name, values, nx: bool = ..., xx: bool = ..., ch: bool = ...) -> Any: ...  # type: ignore[override]
-    def geodist(self, name, place1, place2, unit: Any | None = ...) -> Any: ...  # type: ignore[override]
+    def geodist(self, name, place1, place2, unit: Incomplete | None = ...) -> Any: ...  # type: ignore[override]
     def geohash(self, name, *values) -> Any: ...  # type: ignore[override]
     def geopos(self, name, *values) -> Any: ...  # type: ignore[override]
     def georadius(  # type: ignore[override]
@@ -382,14 +382,14 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         longitude,
         latitude,
         radius,
-        unit: Any | None = ...,
+        unit: Incomplete | None = ...,
         withdist: bool = ...,
         withcoord: bool = ...,
         withhash: bool = ...,
-        count: Any | None = ...,
-        sort: Any | None = ...,
-        store: Any | None = ...,
-        store_dist: Any | None = ...,
+        count: Incomplete | None = ...,
+        sort: Incomplete | None = ...,
+        store: Incomplete | None = ...,
+        store_dist: Incomplete | None = ...,
         any: bool = ...,
     ) -> Any: ...
     def georadiusbymember(  # type: ignore[override]
@@ -397,28 +397,28 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         name,
         member,
         radius,
-        unit: Any | None = ...,
+        unit: Incomplete | None = ...,
         withdist: bool = ...,
         withcoord: bool = ...,
         withhash: bool = ...,
-        count: Any | None = ...,
-        sort: Any | None = ...,
-        store: Any | None = ...,
-        store_dist: Any | None = ...,
+        count: Incomplete | None = ...,
+        sort: Incomplete | None = ...,
+        store: Incomplete | None = ...,
+        store_dist: Incomplete | None = ...,
         any: bool = ...,
     ) -> Any: ...
     def geosearch(  # type: ignore[override]
         self,
         name,
-        member: Any | None = ...,
-        longitude: Any | None = ...,
-        latitude: Any | None = ...,
+        member: Incomplete | None = ...,
+        longitude: Incomplete | None = ...,
+        latitude: Incomplete | None = ...,
         unit: str = ...,
-        radius: Any | None = ...,
-        width: Any | None = ...,
-        height: Any | None = ...,
-        sort: Any | None = ...,
-        count: Any | None = ...,
+        radius: Incomplete | None = ...,
+        width: Incomplete | None = ...,
+        height: Incomplete | None = ...,
+        sort: Incomplete | None = ...,
+        count: Incomplete | None = ...,
         any: bool = ...,
         withcoord: bool = ...,
         withdist: bool = ...,
@@ -428,15 +428,15 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         self,
         dest,
         name,
-        member: Any | None = ...,
-        longitude: Any | None = ...,
-        latitude: Any | None = ...,
+        member: Incomplete | None = ...,
+        longitude: Incomplete | None = ...,
+        latitude: Incomplete | None = ...,
         unit: str = ...,
-        radius: Any | None = ...,
-        width: Any | None = ...,
-        height: Any | None = ...,
-        sort: Any | None = ...,
-        count: Any | None = ...,
+        radius: Incomplete | None = ...,
+        width: Incomplete | None = ...,
+        height: Incomplete | None = ...,
+        sort: Incomplete | None = ...,
+        count: Incomplete | None = ...,
         any: bool = ...,
         storedist: bool = ...,
     ) -> Any: ...
@@ -467,7 +467,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def rpoplpush(self, src, dst) -> Any: ...  # type: ignore[override]
     def rpush(self, name: _Value, *values: _Value) -> Any: ...  # type: ignore[override]
     def rpushx(self, name, value) -> Any: ...  # type: ignore[override]
-    def lpos(self, name, value, rank: Any | None = ..., count: Any | None = ..., maxlen: Any | None = ...) -> Any: ...  # type: ignore[override]
+    def lpos(self, name, value, rank: Incomplete | None = ..., count: Incomplete | None = ..., maxlen: Incomplete | None = ...) -> Any: ...  # type: ignore[override]
     @overload  # type: ignore[override]
     def sort(
         self,
@@ -570,11 +570,11 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         maxlen=...,
         approximate: bool = ...,
         nomkstream: bool = ...,
-        minid: Any | None = ...,
-        limit: Any | None = ...,
+        minid: Incomplete | None = ...,
+        limit: Incomplete | None = ...,
     ) -> Any: ...
     def xautoclaim(  # type: ignore[override]
-        self, name, groupname, consumername, min_idle_time, start_id: int = ..., count: Any | None = ..., justid: bool = ...
+        self, name, groupname, consumername, min_idle_time, start_id: int = ..., count: Incomplete | None = ..., justid: bool = ...
     ) -> Any: ...
     def xclaim(  # type: ignore[override]
         self, name, groupname, consumername, min_idle_time, message_ids, idle=..., time=..., retrycount=..., force=..., justid=...
@@ -591,14 +591,14 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def xlen(self, name: _Key) -> Any: ...  # type: ignore[override]
     def xpending(self, name, groupname) -> Any: ...  # type: ignore[override]
     def xpending_range(  # type: ignore[override]
-        self, name: _Key, groupname, min, max, count: int, consumername: Any | None = ..., idle: int | None = ...
+        self, name: _Key, groupname, min, max, count: int, consumername: Incomplete | None = ..., idle: int | None = ...
     ) -> Any: ...
-    def xrange(self, name, min: str = ..., max: str = ..., count: Any | None = ...) -> Any: ...  # type: ignore[override]
-    def xread(self, streams, count: Any | None = ..., block: Any | None = ...) -> Any: ...  # type: ignore[override]
+    def xrange(self, name, min: str = ..., max: str = ..., count: Incomplete | None = ...) -> Any: ...  # type: ignore[override]
+    def xread(self, streams, count: Incomplete | None = ..., block: Incomplete | None = ...) -> Any: ...  # type: ignore[override]
     def xreadgroup(  # type: ignore[override]
-        self, groupname, consumername, streams, count: Any | None = ..., block: Any | None = ..., noack: bool = ...
+        self, groupname, consumername, streams, count: Incomplete | None = ..., block: Incomplete | None = ..., noack: bool = ...
     ) -> Any: ...
-    def xrevrange(self, name, max: str = ..., min: str = ..., count: Any | None = ...) -> Any: ...  # type: ignore[override]
+    def xrevrange(self, name, max: str = ..., min: str = ..., count: Incomplete | None = ...) -> Any: ...  # type: ignore[override]
     def xtrim(  # type: ignore[override]
         self, name, maxlen: int | None = ..., approximate: bool = ..., minid: Incomplete | None = ..., limit: int | None = ...
     ) -> Any: ...
@@ -612,20 +612,20 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         xx: bool = ...,
         ch: bool = ...,
         incr: bool = ...,
-        gt: Any | None = ...,
-        lt: Any | None = ...,
+        gt: Incomplete | None = ...,
+        lt: Incomplete | None = ...,
     ) -> Any: ...
     def zcard(self, name: _Key) -> Any: ...  # type: ignore[override]
     def zcount(self, name: _Key, min: _Value, max: _Value) -> Any: ...  # type: ignore[override]
     def zdiff(self, keys, withscores: bool = ...) -> Any: ...  # type: ignore[override]
     def zdiffstore(self, dest, keys) -> Any: ...  # type: ignore[override]
     def zincrby(self, name: _Key, amount: float, value: _Value) -> Any: ...  # type: ignore[override]
-    def zinter(self, keys, aggregate: Any | None = ..., withscores: bool = ...) -> Any: ...  # type: ignore[override]
+    def zinter(self, keys, aggregate: Incomplete | None = ..., withscores: bool = ...) -> Any: ...  # type: ignore[override]
     def zinterstore(self, dest: _Key, keys: Iterable[_Key], aggregate: Literal["SUM", "MIN", "MAX"] | None = ...) -> Any: ...  # type: ignore[override]
     def zlexcount(self, name: _Key, min: _Value, max: _Value) -> Any: ...  # type: ignore[override]
     def zpopmax(self, name: _Key, count: int | None = ...) -> Any: ...  # type: ignore[override]
     def zpopmin(self, name: _Key, count: int | None = ...) -> Any: ...  # type: ignore[override]
-    def zrandmember(self, key, count: Any | None = ..., withscores: bool = ...) -> Any: ...  # type: ignore[override]
+    def zrandmember(self, key, count: Incomplete | None = ..., withscores: bool = ...) -> Any: ...  # type: ignore[override]
     @overload  # type: ignore[override]
     def bzpopmax(self, keys: _Key | Iterable[_Key], timeout: Literal[0] = ...) -> Any: ...
     @overload  # type: ignore[override]
@@ -723,8 +723,8 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         byscore: bool = ...,
         bylex: bool = ...,
         desc: bool = ...,
-        offset: Any | None = ...,
-        num: Any | None = ...,
+        offset: Incomplete | None = ...,
+        num: Incomplete | None = ...,
     ) -> Any: ...
     def zrangebylex(self, name: _Key, min: _Value, max: _Value, start: int | None = ..., num: int | None = ...) -> Any: ...  # type: ignore[override]
     def zrevrangebylex(self, name: _Key, max: _Value, min: _Value, start: int | None = ..., num: int | None = ...) -> Any: ...  # type: ignore[override]
@@ -789,7 +789,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def zremrangebyscore(self, name: _Key, min: _Value, max: _Value) -> Any: ...  # type: ignore[override]
     def zrevrank(self, name: _Key, value: _Value) -> Any: ...  # type: ignore[override]
     def zscore(self, name: _Key, value: _Value) -> Any: ...  # type: ignore[override]
-    def zunion(self, keys, aggregate: Any | None = ..., withscores: bool = ...) -> Any: ...  # type: ignore[override]
+    def zunion(self, keys, aggregate: Incomplete | None = ..., withscores: bool = ...) -> Any: ...  # type: ignore[override]
     def zunionstore(self, dest: _Key, keys: Iterable[_Key], aggregate: Literal["SUM", "MIN", "MAX"] | None = ...) -> Any: ...  # type: ignore[override]
     def zmscore(self, key, members) -> Any: ...  # type: ignore[override]
     # endregion
@@ -800,12 +800,12 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def client_kill(self, address: str, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def client_kill_filter(  # type: ignore[override]
         self,
-        _id: Any | None = ...,
-        _type: Any | None = ...,
-        addr: Any | None = ...,
-        skipme: Any | None = ...,
-        laddr: Any | None = ...,
-        user: Any | None = ...,
+        _id: Incomplete | None = ...,
+        _type: Incomplete | None = ...,
+        addr: Incomplete | None = ...,
+        skipme: Incomplete | None = ...,
+        laddr: Incomplete | None = ...,
+        user: Incomplete | None = ...,
         **kwargs: _CommandOptions,
     ) -> Any: ...
     def client_info(self, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
@@ -815,15 +815,15 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def client_reply(self, reply, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def client_id(self, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def client_tracking_on(  # type: ignore[override]
-        self, clientid: Any | None = ..., prefix=..., bcast: bool = ..., optin: bool = ..., optout: bool = ..., noloop: bool = ...
+        self, clientid: Incomplete | None = ..., prefix=..., bcast: bool = ..., optin: bool = ..., optout: bool = ..., noloop: bool = ...
     ) -> Any: ...
     def client_tracking_off(  # type: ignore[override]
-        self, clientid: Any | None = ..., prefix=..., bcast: bool = ..., optin: bool = ..., optout: bool = ..., noloop: bool = ...
+        self, clientid: Incomplete | None = ..., prefix=..., bcast: bool = ..., optin: bool = ..., optout: bool = ..., noloop: bool = ...
     ) -> Any: ...
     def client_tracking(  # type: ignore[override]
         self,
         on: bool = ...,
-        clientid: Any | None = ...,
+        clientid: Incomplete | None = ...,
         prefix=...,
         bcast: bool = ...,
         optin: bool = ...,
@@ -865,7 +865,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         timeout,
         copy: bool = ...,
         replace: bool = ...,
-        auth: Any | None = ...,
+        auth: Incomplete | None = ...,
         **kwargs: _CommandOptions,
     ) -> Any: ...
     def object(self, infotype, key, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
@@ -873,7 +873,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def memory_help(self, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def memory_stats(self, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def memory_malloc_stats(self, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
-    def memory_usage(self, key, samples: Any | None = ..., **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
+    def memory_usage(self, key, samples: Incomplete | None = ..., **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def memory_purge(self, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def ping(self, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def quit(self, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
@@ -888,8 +888,8 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         abort: bool = ...,
         **kwargs: _CommandOptions,
     ) -> Any: ...
-    def slaveof(self, host: Any | None = ..., port: Any | None = ..., **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
-    def slowlog_get(self, num: Any | None = ..., **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
+    def slaveof(self, host: Incomplete | None = ..., port: Incomplete | None = ..., **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
+    def slowlog_get(self, num: Incomplete | None = ..., **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def slowlog_len(self, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def slowlog_reset(self, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def time(self, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
@@ -912,7 +912,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def evalsha(self, sha, numkeys, *keys_and_args) -> Any: ...  # type: ignore[override]
     def script_exists(self, *args) -> Any: ...  # type: ignore[override]
     def script_debug(self, *args) -> Any: ...  # type: ignore[override]
-    def script_flush(self, sync_type: Any | None = ...) -> Any: ...  # type: ignore[override]
+    def script_flush(self, sync_type: Incomplete | None = ...) -> Any: ...  # type: ignore[override]
     def script_kill(self) -> Any: ...  # type: ignore[override]
     def script_load(self, script) -> Any: ...  # type: ignore[override]
     def register_script(self, script: str | _StrType) -> Any: ...  # type: ignore[override]
