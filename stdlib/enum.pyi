@@ -183,9 +183,9 @@ if sys.version_info >= (3, 11):
     class ReprEnum(Enum): ...
 
 if sys.version_info >= (3, 11):
-    _IntEnumBase: TypeAlias = ReprEnum
+    _IntEnumBase = ReprEnum
 else:
-    _IntEnumBase: TypeAlias = Enum
+    _IntEnumBase = Enum
 
 class IntEnum(int, _IntEnumBase):
     _value_: int
