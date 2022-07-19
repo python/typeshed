@@ -414,10 +414,6 @@ def test_third_party_stubs(code: int, args: TestConfig) -> TestResults:
     files_checked = 0
 
     for distribution in sorted(os.listdir("stubs")):
-        if distribution in {"SQLAlchemy", "Flask-SQLAlchemy"}:
-            print(colored(f"Skipping {distribution} due to mypy crashes", "yellow"))
-            continue
-
         distribution_path = Path("stubs", distribution)
 
         if not is_probably_stubs_folder(distribution, distribution_path):
