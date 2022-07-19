@@ -82,7 +82,7 @@ else:
         ignore_dangling_symlinks: bool = ...,
     ) -> _PathReturn: ...
 
-_OnErrorCallback: TypeAlias = Callable[[Callable[..., object], Any, Any], object]
+_OnErrorCallback: TypeAlias = Callable[[Callable[..., Any], Any, Any], object]
 
 if sys.version_info >= (3, 11):
     def rmtree(
