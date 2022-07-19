@@ -357,7 +357,7 @@ class Xid:
     def __getitem__(self, __index): ...
     def __len__(self): ...
 
-_T_cur = TypeVar("_T_cur", bound=_Cursor)
+_T_cur = TypeVar("_T_cur", bound=cursor)
 
 class connection:
     DataError: Any
