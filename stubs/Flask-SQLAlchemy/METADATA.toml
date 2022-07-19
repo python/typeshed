@@ -1,2 +1,2 @@
 version = "2.5.*"
-requires = ["SQLAlchemy"]
+requires = ["sqlalchemy2-stubs"]
