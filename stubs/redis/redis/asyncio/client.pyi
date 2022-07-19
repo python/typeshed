@@ -647,7 +647,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         bylex: bool = ...,
         offset: int | None = ...,
         num: int | None = ...,
-    ) -> Any: ... 
+    ) -> Any: ...
     @overload  # type: ignore[override]
     def zrange(
         self,
