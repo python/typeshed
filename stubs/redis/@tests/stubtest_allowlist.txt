@@ -25,3 +25,9 @@ redis.asyncio.sentinel.Sentinel.master_for
 redis.asyncio.sentinel.Sentinel.slave_for
 redis.sentinel.Sentinel.master_for
 redis.sentinel.Sentinel.slave_for
+redis.asyncio.Pipeline.command_info
+redis.asyncio.Pipeline.debug_segfault
+redis.asyncio.Pipeline.memory_doctor
+redis.asyncio.Pipeline.memory_help
+redis.asyncio.Pipeline.script_debug
+redis.asyncio.Pipeline.shutdown
