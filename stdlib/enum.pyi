@@ -141,6 +141,8 @@ class EnumMeta(ABCMeta):
     _member_names_: list[str]  # undocumented
     _member_map_: dict[str, Enum]  # undocumented
     _value2member_map_: dict[Any, Enum]  # undocumented
+    if sys.version_info >= (3, 11):
+        _boundary_: FlagBoundary  # undocumented, only exists on Flag subclasses
 
 if sys.version_info >= (3, 11):
     # In 3.11 `EnumMeta` metaclass is renamed to `EnumType`, but old name also exists.
@@ -181,9 +183,11 @@ class Enum(metaclass=EnumMeta):
 
 if sys.version_info >= (3, 11):
     class ReprEnum(Enum): ...
-    _IntEnumBase = ReprEnum
+
+if sys.version_info >= (3, 11):
+    _IntEnumBase: TypeAlias = ReprEnum
 else:
-    _IntEnumBase = Enum
+    _IntEnumBase: TypeAlias = Enum
 
 class IntEnum(int, _IntEnumBase):
     _value_: int
@@ -222,14 +226,26 @@ class Flag(Enum):
         __rand__ = __and__
         __rxor__ = __xor__
 
-class IntFlag(int, Flag):
-    def __new__(cls: type[Self], value: int) -> Self: ...
-    def __or__(self: Self, other: int) -> Self: ...
-    def __and__(self: Self, other: int) -> Self: ...
-    def __xor__(self: Self, other: int) -> Self: ...
-    __ror__ = __or__
-    __rand__ = __and__
-    __rxor__ = __xor__
+if sys.version_info >= (3, 11):
+    # The body of the class is the same, but the base classes are different.
+    class IntFlag(int, ReprEnum, Flag, boundary=KEEP):
+        def __new__(cls: type[Self], value: int) -> Self: ...
+        def __or__(self: Self, other: int) -> Self: ...
+        def __and__(self: Self, other: int) -> Self: ...
+        def __xor__(self: Self, other: int) -> Self: ...
+        __ror__ = __or__
+        __rand__ = __and__
+        __rxor__ = __xor__
+
+else:
+    class IntFlag(int, Flag):
+        def __new__(cls: type[Self], value: int) -> Self: ...
+        def __or__(self: Self, other: int) -> Self: ...
+        def __and__(self: Self, other: int) -> Self: ...
+        def __xor__(self: Self, other: int) -> Self: ...
+        __ror__ = __or__
+        __rand__ = __and__
+        __rxor__ = __xor__
 
 if sys.version_info >= (3, 11):
     class StrEnum(str, ReprEnum):
