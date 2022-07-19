@@ -119,7 +119,6 @@ typing.SupportsIndex.__init__
 typing.SupportsInt.__init__
 typing.SupportsRound.__init__
 wsgiref.types.ErrorStream.__init__
-wsgiref.types.FileWrapper.__call__
 wsgiref.types.FileWrapper.__init__
 wsgiref.types.InputStream.__init__
 wsgiref.types.StartResponse.__init__
@@ -171,13 +170,6 @@ typing._TypedDict.values
 
 # White lies around defaults
 dataclasses.KW_ONLY
-
-# https://github.com/python/mypy/issues/12819 (... in runtime default)
-wsgiref.types.InputStream.read
-wsgiref.types.InputStream.readline
-wsgiref.types.InputStream.readlines
-wsgiref.types.StartResponse.__call__
-wsgiref.types._Readable.read
 
 # https://github.com/python/mypy/issues/13114
 wsgiref.types.WSGIEnvironment
