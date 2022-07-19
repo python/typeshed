@@ -305,7 +305,14 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def rename(self, src, dst) -> Any: ...  # type: ignore[override]
     def renamenx(self, src, dst) -> Any: ...  # type: ignore[override]
     def restore(  # type: ignore[override]
-        self, name, ttl, value, replace: bool = ..., absttl: bool = ..., idletime: Incomplete | None = ..., frequency: Incomplete | None = ...
+        self,
+        name,
+        ttl,
+        value,
+        replace: bool = ...,
+        absttl: bool = ...,
+        idletime: Incomplete | None = ...,
+        frequency: Incomplete | None = ...,
     ) -> Any: ...
     def set(  # type: ignore[override]
         self,
@@ -574,7 +581,14 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         limit: Incomplete | None = ...,
     ) -> Any: ...
     def xautoclaim(  # type: ignore[override]
-        self, name, groupname, consumername, min_idle_time, start_id: int = ..., count: Incomplete | None = ..., justid: bool = ...
+        self,
+        name,
+        groupname,
+        consumername,
+        min_idle_time,
+        start_id: int = ...,
+        count: Incomplete | None = ...,
+        justid: bool = ...,
     ) -> Any: ...
     def xclaim(  # type: ignore[override]
         self, name, groupname, consumername, min_idle_time, message_ids, idle=..., time=..., retrycount=..., force=..., justid=...
@@ -815,10 +829,22 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def client_reply(self, reply, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def client_id(self, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def client_tracking_on(  # type: ignore[override]
-        self, clientid: Incomplete | None = ..., prefix=..., bcast: bool = ..., optin: bool = ..., optout: bool = ..., noloop: bool = ...
+        self,
+        clientid: Incomplete | None = ...,
+        prefix=...,
+        bcast: bool = ...,
+        optin: bool = ...,
+        optout: bool = ...,
+        noloop: bool = ...,
     ) -> Any: ...
     def client_tracking_off(  # type: ignore[override]
-        self, clientid: Incomplete | None = ..., prefix=..., bcast: bool = ..., optin: bool = ..., optout: bool = ..., noloop: bool = ...
+        self,
+        clientid: Incomplete | None = ...,
+        prefix=...,
+        bcast: bool = ...,
+        optin: bool = ...,
+        optout: bool = ...,
+        noloop: bool = ...,
     ) -> Any: ...
     def client_tracking(  # type: ignore[override]
         self,
