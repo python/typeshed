@@ -92,6 +92,7 @@ distutils.command.bdist_packager  # It exists in docs as package name but not in
 distutils.version.Version._cmp  # class should have declared this
 distutils.version.Version.parse  # class should have declared this
 enum.Enum._generate_next_value_
+functools._lru_cache_wrapper.__wrapped__  # Exists at runtime but stubtest can't see it
 hashlib.sha3_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
 hashlib.shake_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
 http.HTTPStatus.description  # set in __new__
