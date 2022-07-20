@@ -64,7 +64,7 @@ class HiredisParser(BaseParser):
     def read_from_socket(self, timeout: float | None = ..., raise_on_timeout: bool = ...) -> bool: ...
     def read_response(self, disable_decoding: bool = ...) -> Any: ...  # `str | bytes` or `list[str | bytes]`
 
-DefaultParser: BaseParser  # Hiredis or PythonParser
+DefaultParser: type[BaseParser]  # Hiredis or PythonParser
 
 class Encoder:
     def __init__(self, encoding: str, encoding_errors: str, decode_responses: bool) -> None: ...
