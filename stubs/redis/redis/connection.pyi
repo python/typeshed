@@ -13,8 +13,8 @@ SYM_DOLLAR: bytes
 SYM_CRLF: bytes
 SYM_EMPTY: bytes
 SERVER_CLOSED_CONNECTION_ERROR: str
-NONBLOCKING_EXCEPTIONS: tuple[Exception, ...]
-NONBLOCKING_EXCEPTION_ERROR_NUMBERS: dict[Exception, int]
+NONBLOCKING_EXCEPTIONS: tuple[type[Exception], ...]
+NONBLOCKING_EXCEPTION_ERROR_NUMBERS: dict[type[Exception], int]
 SENTINEL: object
 MODULE_LOAD_ERROR: str
 NO_SUCH_MODULE_ERROR: str
@@ -28,7 +28,7 @@ _ConnectionPoolOptions: TypeAlias = Any
 _ConnectFunc: TypeAlias = Callable[[Connection], object]
 
 class BaseParser:
-    EXCEPTION_CLASSES: dict[str, Exception | dict[str, Exception]]
+    EXCEPTION_CLASSES: dict[str, type[Exception] | dict[str, type[Exception]]]
     def parse_error(self, response: str) -> Exception: ...
 
 class SocketBuffer:
@@ -85,7 +85,7 @@ class Connection:
     socket_keepalive_options: Mapping[str, int | str] | None
     socket_type: int
     retry_on_timeout: bool
-    retry_on_error: list[Exception]
+    retry_on_error: list[type[Exception]]
     encoding: str
     encoding_errors: str
     decode_responses: bool
@@ -106,7 +106,7 @@ class Connection:
         socket_keepalive_options: Mapping[str, int | str] | None = ...,
         socket_type: int = ...,
         retry_on_timeout: bool = ...,
-        retry_on_error: list[Exception] = ...,
+        retry_on_error: list[type[Exception]] = ...,
         encoding: str = ...,
         encoding_errors: str = ...,
         decode_responses: bool = ...,
@@ -176,7 +176,7 @@ class UnixDomainSocketConnection(Connection):
         encoding_errors: str = ...,
         decode_responses: bool = ...,
         retry_on_timeout: bool = ...,
-        retry_on_error: list[Exception] = ...,
+        retry_on_error: list[type[Exception]] = ...,
         parser_class: type[BaseParser] = ...,
         socket_read_size: int = ...,
         health_check_interval: int = ...,
