@@ -92,7 +92,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
             print_command_output(e)
 
             print("Ran with the following environment:", file=sys.stderr)
-            ret = subprocess.run([pip_exe, "freeze"], capture_output=True)
+            ret = subprocess.run([pip_exe, "freeze", "--all"], capture_output=True)
             print_command_output(ret)
 
             if allowlist_path.exists():
