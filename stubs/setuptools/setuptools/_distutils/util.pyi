@@ -1,5 +1,4 @@
-from _typeshed import StrPath
-from collections.abc import Callable, Container, Iterable, Mapping
+from collections.abc import Callable, Mapping
 from typing import Any
 from typing_extensions import Literal
 
