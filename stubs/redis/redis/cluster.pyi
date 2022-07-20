@@ -25,8 +25,7 @@ READ_COMMANDS: Any
 def cleanup_kwargs(**kwargs): ...
 
 # It uses `DefaultParser` in real life, but it is a dynamic base class.
-class ClusterParser(BaseParser):
-    EXCEPTION_CLASSES: ClassVar[Any]
+class ClusterParser(BaseParser): ...
 
 class RedisCluster(RedisClusterCommands[_StrType], Generic[_StrType]):
     RedisClusterRequestTTL: ClassVar[int]
