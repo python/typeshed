@@ -176,3 +176,4 @@ builtins.property.__get__
 builtins.staticmethod.__get__
 types.FunctionType.__get__
 types.LambdaType.__get__
+functools._lru_cache_wrapper.__get__
