@@ -1,4 +1,4 @@
-from _typeshed import Self
+from _typeshed import Self, Incomplete
 from collections.abc import Callable, Iterable, Mapping
 from queue import Queue
 from socket import socket
