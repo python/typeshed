@@ -2,7 +2,7 @@ from _typeshed import Incomplete, Self
 from collections.abc import Callable, Iterable, Mapping
 from queue import Queue
 from socket import socket
-from typing import Any
+from typing import Any, ClassVar
 from typing_extensions import TypeAlias
 
 from .retry import Retry
