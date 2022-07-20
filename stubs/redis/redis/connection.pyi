@@ -207,13 +207,13 @@ class ConnectionPool:
 class BlockingConnectionPool(ConnectionPool):
     queue_class: type[Queue]
     timeout: float
-    pool: Any
+    pool: Queue[Connection | None]  # might not be defined
     def __init__(
         self,
         max_connections: int = ...,
         timeout: float = ...,
         connection_class: type[Connection] = ...,
-        queue_class: type[Queue] = ...,
+        queue_class: type[Queue[Any]] = ...,
         **connection_kwargs,
     ) -> None: ...
     def disconnect(self) -> None: ...  # type: ignore[override]
