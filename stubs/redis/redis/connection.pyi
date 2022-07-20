@@ -205,7 +205,7 @@ class ConnectionPool:
     def owns_connection(self, connection: Connection) -> bool: ...
 
 class BlockingConnectionPool(ConnectionPool):
-    queue_class: type[Queue]
+    queue_class: type[Queue[Any]]
     timeout: float
     pool: Queue[Connection | None]  # might not be defined
     def __init__(
