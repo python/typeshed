@@ -21,7 +21,7 @@ NO_SUCH_MODULE_ERROR: str
 MODULE_UNLOAD_NOT_POSSIBLE_ERROR: str
 MODULE_EXPORTS_DATA_TYPES_ERROR: str
 FALSE_STRINGS: tuple[str, ...]
-URL_QUERY_ARGUMENT_PARSERS: dict[str, type]
+URL_QUERY_ARGUMENT_PARSERS: dict[str, Callable[[Any], Any]]
 
 # Options as passed to Pool.get_connection().
 _ConnectionPoolOptions: TypeAlias = Any
