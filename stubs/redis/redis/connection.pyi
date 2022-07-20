@@ -1,5 +1,5 @@
 from _typeshed import Self
-from collections.abc import Callable, Mapping, Iterable
+from collections.abc import Callable, Iterable, Mapping
 from queue import Queue
 from socket import socket
 from typing import Any
@@ -193,7 +193,9 @@ class ConnectionPool:
     pid: int
     @classmethod
     def from_url(cls: type[Self], url: str, *, db: int = ..., decode_components: bool = ..., **kwargs) -> Self: ...
-    def __init__(self, connection_class: type[Connection] = ..., max_connections: int | None =..., **connection_kwargs) -> None: ...
+    def __init__(
+        self, connection_class: type[Connection] = ..., max_connections: int | None = ..., **connection_kwargs
+    ) -> None: ...
     def reset(self) -> None: ...
     def get_connection(self, command_name: Any, *keys, **options: _ConnectionPoolOptions) -> Connection: ...
     def make_connection(self) -> Connection: ...
@@ -206,7 +208,14 @@ class BlockingConnectionPool(ConnectionPool):
     queue_class: type[Queue]
     timeout: float
     pool: Any
-    def __init__(self, max_connections: int = ..., timeout: float = ..., connection_class: type[Connection] = ..., queue_class: type[Queue] = ..., **connection_kwargs) -> None: ...
+    def __init__(
+        self,
+        max_connections: int = ...,
+        timeout: float = ...,
+        connection_class: type[Connection] = ...,
+        queue_class: type[Queue] = ...,
+        **connection_kwargs,
+    ) -> None: ...
     def disconnect(self) -> None: ...
 
 def to_bool(value: object) -> bool: ...
