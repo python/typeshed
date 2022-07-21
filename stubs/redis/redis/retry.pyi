@@ -1,5 +1,5 @@
-from collections.abc import Iterable
-from typing import Callable, TypeVar
+from collections.abc import Callable, Iterable
+from typing import TypeVar
 
 from redis.backoff import AbstractBackoff
 
