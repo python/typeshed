@@ -331,7 +331,7 @@ project's tracker to fix their documentation.
 You can use checks
 like `if sys.version_info >= (3, 8):` to denote new functionality introduced
 in a given Python version or solve type differences.  When doing so, only use
-one-tuples or two-tuples. Because of this, if a given functionality was
+two-tuples. Because of this, if a given functionality was
 introduced in, say, Python 3.7.4, your check:
 
 * should be expressed as `if sys.version_info >= (3, 7):`
