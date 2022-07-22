@@ -79,7 +79,6 @@ csv.Dialect.quoting
 csv.Dialect.skipinitialspace
 csv.DictReader.__init__  # runtime sig has *args but will error if more than 5 positional args are supplied
 csv.DictWriter.__init__  # runtime sig has *args but will error if more than 5 positional args are supplied
-ctypes.Array.__iter__  # mypy doesn't support using __getitem__ instead of __iter__ so this is here https://github.com/python/mypy/issues/2220
 ctypes.Array._type_  # _type_ and _length_ are abstract, https://github.com/python/typeshed/pull/6361
 ctypes.Array._length_
 ctypes.CDLL._FuncPtr  # None at class level but initialized in __init__ to this value
@@ -135,7 +134,6 @@ lib2to3.pytree.BasePattern.__new__
 lib2to3.pytree.BasePattern.type
 lib2to3.pytree.NegatedPattern.match
 lib2to3.pytree.NegatedPattern.match_seq
-mmap.mmap.__iter__  # has __getitem__ but mypy doesn't derive __iter__ from it: https://github.com/python/mypy/issues/2220
 multiprocessing.JoinableQueue
 multiprocessing.Queue
 multiprocessing.SimpleQueue
@@ -203,7 +201,6 @@ types.MethodType.__defaults__  # read-only but not actually a property; stubtest
 types.ModuleType.__dict__  # read-only but not actually a property; stubtest thinks it's a mutable attribute.
 types.ModuleType.__getattr__  # this doesn't exist at runtime
 types.SimpleNamespace.__init__  # class doesn't accept positional arguments but has default C signature
-typing.IO.__iter__  # Added because IO streams are iterable. See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
 typing.IO.__next__  # Added because IO streams are iterable. See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
 typing.type_check_only  # typing decorator that is not available at runtime
 unittest.mock.patch  # It's a complicated overload and I haven't been able to figure out why stubtest doesn't like it
@@ -220,8 +217,6 @@ webbrowser.UnixBrowser.remote_action  # always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newtab  # always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newwin  # always overridden in inheriting class
 xml.parsers.expat.expat_CAPI
-xml.etree.ElementTree.Element.__iter__  # Doesn't exist at runtime, but instances are iterable due to __getitem__
-xml.etree.cElementTree.Element.__iter__  # Doesn't exist at runtime, but instances are iterable due to __getitem__
 
 # ==========
 # Exists at runtime, but missing from stubs
@@ -599,6 +594,14 @@ wsgiref.handlers.BaseHandler.headers
 wsgiref.handlers.BaseHandler.headers_sent
 wsgiref.handlers.BaseHandler.result
 wsgiref.handlers.BaseHandler.status
+
+# Iterable classes that don't define __iter__ at runtime (usually iterable via __getitem__)
+# These would ideally be special-cased by type checkers; see https://github.com/python/mypy/issues/2220
+ctypes.Array.__iter__
+mmap.mmap.__iter__
+xml.etree.ElementTree.Element.__iter__
+xml.etree.cElementTree.Element.__iter__
+typing.IO.__iter__  # See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
 
 # ==========
 # Missing from deprecated modules
