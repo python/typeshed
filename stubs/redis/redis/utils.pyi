@@ -1,5 +1,5 @@
 from contextlib import AbstractContextManager
-from contextlib.abc import Mapping, Iterable
+from contextlib.abc import Iterable, Mapping
 from typing import Any, TypeVar, overload
 from typing_extensions import Literal
 
