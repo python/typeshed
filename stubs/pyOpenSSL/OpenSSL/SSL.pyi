@@ -1,7 +1,6 @@
 import socket
 from collections.abc import Callable, Sequence
-from typing import Any
-from typing_extensions import Protocol
+from typing import Any, Protocol
 
 from OpenSSL.crypto import X509, PKey
 
