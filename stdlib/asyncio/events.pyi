@@ -4,6 +4,7 @@ from _typeshed import FileDescriptorLike, Self, WriteableBuffer
 from abc import ABCMeta, abstractmethod
 from collections.abc import Awaitable, Callable, Coroutine, Generator, Sequence
 from contextvars import Context
+from pathlib import Path
 from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
 from typing import IO, Any, Protocol, TypeVar, overload
 from typing_extensions import Literal, TypeAlias
@@ -373,7 +374,7 @@ class AbstractEventLoop:
         async def create_unix_server(
             self,
             protocol_factory: _ProtocolFactory,
-            path: str | None = ...,
+            path: str | Path | None = ...,
             *,
             sock: socket | None = ...,
             backlog: int = ...,
@@ -433,7 +434,7 @@ class AbstractEventLoop:
         async def create_unix_server(
             self,
             protocol_factory: _ProtocolFactory,
-            path: str | None = ...,
+            path: str | Path | None = ...,
             *,
             sock: socket | None = ...,
             backlog: int = ...,
