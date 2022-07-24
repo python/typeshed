@@ -1,6 +1,6 @@
 import socket
 from _typeshed import ReadableBuffer
-from collections.abc import Callable, Sequence, MutableSequence
+from collections.abc import Callable, MutableSequence, Sequence
 from typing import Any, TypeVar
 
 from _socket import _Address, _RetAddress
