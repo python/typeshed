@@ -1,5 +1,5 @@
-from typing import Any
 from _typeshed import Self
+from typing import Any
 
 from . import _mysql, cursors as cursors
 from ._exceptions import (
