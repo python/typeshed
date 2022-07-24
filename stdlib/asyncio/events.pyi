@@ -1,6 +1,6 @@
 import ssl
 import sys
-from _typeshed import FileDescriptorLike, Self, WriteableBuffer
+from _typeshed import FileDescriptorLike, Self, StrPath, WriteableBuffer
 from abc import ABCMeta, abstractmethod
 from collections.abc import Awaitable, Callable, Coroutine, Generator, Sequence
 from contextvars import Context
@@ -374,7 +374,7 @@ class AbstractEventLoop:
         async def create_unix_server(
             self,
             protocol_factory: _ProtocolFactory,
-            path: str | Path | None = ...,
+            path: StrPath | None = ...,
             *,
             sock: socket | None = ...,
             backlog: int = ...,
@@ -434,7 +434,7 @@ class AbstractEventLoop:
         async def create_unix_server(
             self,
             protocol_factory: _ProtocolFactory,
-            path: str | Path | None = ...,
+            path: StrPath | None = ...,
             *,
             sock: socket | None = ...,
             backlog: int = ...,
