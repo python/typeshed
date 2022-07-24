@@ -1,15 +1,14 @@
 from _typeshed import Incomplete, Self
 from collections.abc import Callable
 from threading import Lock
-from typing import Any, ClassVar, Generic, overload
 from types import TracebackType
+from typing import Any, ClassVar, Generic, overload
 
 from redis.client import PubSub, Redis
-from redis.commands import RedisClusterCommands, CommandsParser
+from redis.commands import CommandsParser, RedisClusterCommands
 from redis.commands.core import _StrType
-from redis.connection import BaseParser, Encoder
+from redis.connection import BaseParser, Connection, Encoder
 from redis.exceptions import RedisError
-from redis.connection import Connection, Encoder
 
 def get_node_name(host: str, port: int) -> str: ...
 def get_connection(redis_node: Redis, *args, **options) -> Connection: ...
@@ -83,7 +82,9 @@ class RedisCluster(AbstractRedisCluster, RedisClusterCommands[_StrType], Generic
         **kwargs,
     ) -> None: ...
     def __enter__(self: Self) -> Self: ...
-    def __exit__(self, type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None) -> None: ...
+    def __exit__(
+        self, type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
+    ) -> None: ...
     def __del__(self) -> None: ...
     def disconnect_connection_pools(self) -> None: ...
     @classmethod
