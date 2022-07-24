@@ -36,13 +36,13 @@ class Connection(_mysql.connection):
     def set_character_set(self, charset) -> None: ...
     def set_sql_mode(self, sql_mode) -> None: ...
     def show_warnings(self): ...
-    Warning: Exception
-    Error: Exception
-    InterfaceError: Exception
-    DatabaseError: Exception
-    DataError: Exception
-    OperationalError: Exception
-    IntegrityError: Exception
-    InternalError: Exception
-    ProgrammingError: Exception
-    NotSupportedError: Exception
+    Warning: type[BaseException]
+    Error: type[BaseException]
+    InterfaceError: type[BaseException]
+    DatabaseError: type[BaseException]
+    DataError: type[BaseException]
+    OperationalError: type[BaseException]
+    IntegrityError: type[BaseException]
+    InternalError: type[BaseException]
+    ProgrammingError: type[BaseException]
+    NotSupportedError: type[BaseException]
