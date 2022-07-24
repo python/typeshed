@@ -2,7 +2,7 @@ from _typeshed import Incomplete, Self
 from collections.abc import Callable
 from threading import Lock
 from types import TracebackType
-from typing import Any, ClassVar, Generic, overload
+from typing import Any, ClassVar, Generic
 
 from redis.client import PubSub, Redis
 from redis.commands import CommandsParser, RedisClusterCommands
@@ -53,32 +53,17 @@ class RedisCluster(AbstractRedisCluster, RedisClusterCommands[_StrType], Generic
     cluster_response_callbacks: dict[str, Any]
     result_callbacks: dict[str, Any]
     commands_parser: CommandsParser
-    @overload
-    def __init__(
+    def __init__(  # TODO: make @overloads, either `url` or `host:port` can be passed
         self,
-        url: str,
-        host: None = ...,
-        port: None = ...,
+        host: str | None = ...,
+        port: int | None = ...,
         startup_nodes: list[ClusterNode] | None = ...,
         cluster_error_retry_attempts: int = ...,
         require_full_coverage: bool = ...,
         reinitialize_steps: int = ...,
         read_from_replicas: bool = ...,
         dynamic_startup_nodes: bool = ...,
-        **kwargs,
-    ) -> None: ...
-    @overload
-    def __init__(
-        self,
-        host: str,
-        port: int = ...,
-        startup_nodes: list[ClusterNode] | None = ...,
-        cluster_error_retry_attempts: int = ...,
-        require_full_coverage: bool = ...,
-        reinitialize_steps: int = ...,
-        read_from_replicas: bool = ...,
-        dynamic_startup_nodes: bool = ...,
-        url: None = ...,
+        url: str | None = ...,
         **kwargs,
     ) -> None: ...
     def __enter__(self: Self) -> Self: ...
