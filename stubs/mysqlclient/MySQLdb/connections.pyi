@@ -21,7 +21,7 @@ re_numeric_part: Any
 def numeric_part(s): ...
 
 class Connection(_mysql.connection):
-    default_cursor = cursors.Cursor
+    default_cursor: type[cursors.Cursor]
     cursorclass: type[cursors.BaseCursor]
     encoders: Any
     encoding: str
