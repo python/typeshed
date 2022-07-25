@@ -4,7 +4,6 @@ import urllib.parse
 import urllib.request
 
 _ver = sys.version_info
-ispy2: bool
 
 is_py2: bool
 is_py3: bool
