@@ -1,7 +1,7 @@
 import sys
 
 from .universaldetector import UniversalDetector as UniversalDetector, _FinalResultType, _IntermediateResultType
-from .version import __version__ as __version__, VERSION as VERSION
+from .version import VERSION as VERSION, __version__ as __version__
 
 if sys.version_info >= (3, 8):
     from typing import TypedDict
