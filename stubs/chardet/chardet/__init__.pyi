@@ -1,6 +1,7 @@
 import sys
 
 from .universaldetector import UniversalDetector as UniversalDetector, _FinalResultType, _IntermediateResultType
+from .version import __version__ as __version__, VERSION as VERSION
 
 if sys.version_info >= (3, 8):
     from typing import TypedDict
@@ -21,9 +22,6 @@ class _SMModelType(TypedDict):
     state_table: tuple[int, ...]
     char_len_table: tuple[int, ...]
     name: str
-
-__version__: str
-VERSION: list[str]
 
 def detect(byte_str: bytes | bytearray) -> _FinalResultType: ...
 def detect_all(byte_str: bytes | bytearray, ignore_threshold: bool = ...) -> list[_IntermediateResultType]: ...
