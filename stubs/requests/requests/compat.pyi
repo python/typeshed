@@ -22,7 +22,6 @@ urlparse = urllib.parse.urlparse
 urlsplit = urllib.parse.urlsplit
 urlunparse = urllib.parse.urlunparse
 
-# urllib.request
 getproxies = urllib.request.getproxies
 parse_http_list = urllib.request.parse_http_list
 proxy_bypass = urllib.request.proxy_bypass
