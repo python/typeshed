@@ -22,6 +22,7 @@ class _SMModelType(TypedDict):
     char_len_table: tuple[int, ...]
     name: str
 
+__version__: str
 VERSION: list[str]
 
 def detect(byte_str: bytes | bytearray) -> _FinalResultType: ...
