@@ -1,5 +1,6 @@
 from collections.abc import Generator, Iterable, Mapping
-from typing import Any, AnyStr, FrozenSet, TypeAlias
+from typing import Any, AnyStr, FrozenSet
+from typing_extensions import TypeAlias
 
 from . import compat, cookies, exceptions, structures
 from .models import PreparedRequest
