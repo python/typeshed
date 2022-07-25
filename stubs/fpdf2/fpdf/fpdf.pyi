@@ -59,7 +59,7 @@ class TitleStyle(NamedTuple):
     b_margin: int | None = ...
 
 class ToCPlaceholder(NamedTuple):
-    render_function: Callable[[FPDF, Any], Any]
+    render_function: Callable[[FPDF, Any], object]
     start_page: int
     y: int
     pages: int = ...

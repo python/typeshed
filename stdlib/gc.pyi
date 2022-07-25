@@ -9,7 +9,7 @@ DEBUG_SAVEALL: Literal[32]
 DEBUG_STATS: Literal[1]
 DEBUG_UNCOLLECTABLE: Literal[4]
 
-_CallbackType: TypeAlias = Callable[[Literal["start", "stop"], dict[str, int]], Any]
+_CallbackType: TypeAlias = Callable[[Literal["start", "stop"], dict[str, int]], object]
 
 callbacks: list[_CallbackType]
 garbage: list[Any]

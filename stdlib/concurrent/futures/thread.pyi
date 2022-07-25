@@ -29,7 +29,10 @@ class _WorkItem(Generic[_S]):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 def _worker(
-    executor_reference: ref[Any], work_queue: queue.SimpleQueue[Any], initializer: Callable[..., Any], initargs: tuple[Any, ...]
+    executor_reference: ref[Any],
+    work_queue: queue.SimpleQueue[Any],
+    initializer: Callable[..., object],
+    initargs: tuple[Any, ...],
 ) -> None: ...
 
 class BrokenThreadPool(BrokenExecutor): ...
@@ -49,7 +52,7 @@ class ThreadPoolExecutor(Executor):
         self,
         max_workers: int | None = ...,
         thread_name_prefix: str = ...,
-        initializer: Callable[..., Any] | None = ...,
+        initializer: Callable[..., object] | None = ...,
         initargs: tuple[Any, ...] = ...,
     ) -> None: ...
     def _adjust_thread_count(self) -> None: ...

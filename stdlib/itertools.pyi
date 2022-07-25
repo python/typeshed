@@ -20,7 +20,7 @@ _T6 = TypeVar("_T6")
 
 _Step: TypeAlias = SupportsFloat | SupportsInt | SupportsIndex | SupportsComplex
 
-_Predicate: TypeAlias = Callable[[_T], Any]
+_Predicate: TypeAlias = Callable[[_T], object]
 
 # Technically count can take anything that implements a number protocol and has an add method
 # but we can't enforce the add method

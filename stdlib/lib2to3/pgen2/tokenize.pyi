@@ -75,7 +75,7 @@ __all__ = [
 ]
 
 _Coord: TypeAlias = tuple[int, int]
-_TokenEater: TypeAlias = Callable[[int, str, _Coord, _Coord, str], Any]
+_TokenEater: TypeAlias = Callable[[int, str, _Coord, _Coord, str], object]
 _TokenInfo: TypeAlias = tuple[int, str, _Coord, _Coord, str]
 
 class TokenError(Exception): ...

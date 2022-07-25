@@ -48,7 +48,7 @@ class DummyProcess(threading.Thread):
     def __init__(
         self,
         group: Any = ...,
-        target: Callable[..., Any] | None = ...,
+        target: Callable[..., object] | None = ...,
         name: str | None = ...,
         args: Iterable[Any] = ...,
         kwargs: Mapping[str, Any] = ...,
@@ -69,7 +69,7 @@ class Value:
 
 def Array(typecode: Any, sequence: Sequence[Any], lock: Any = ...) -> array.array[Any]: ...
 def Manager() -> Any: ...
-def Pool(processes: int | None = ..., initializer: Callable[..., Any] | None = ..., initargs: Iterable[Any] = ...) -> Any: ...
+def Pool(processes: int | None = ..., initializer: Callable[..., object] | None = ..., initargs: Iterable[Any] = ...) -> Any: ...
 def active_children() -> list[Any]: ...
 
 current_process = threading.current_thread

@@ -188,7 +188,7 @@ if sys.version_info >= (3, 8):
     @overload
     def iscoroutinefunction(obj: Callable[_P, Awaitable[_T]]) -> TypeGuard[Callable[_P, CoroutineType[Any, Any, _T]]]: ...
     @overload
-    def iscoroutinefunction(obj: Callable[_P, Any]) -> TypeGuard[Callable[_P, CoroutineType[Any, Any, Any]]]: ...
+    def iscoroutinefunction(obj: Callable[_P, object]) -> TypeGuard[Callable[_P, CoroutineType[Any, Any, Any]]]: ...
     @overload
     def iscoroutinefunction(obj: object) -> TypeGuard[Callable[..., CoroutineType[Any, Any, Any]]]: ...
 
@@ -335,7 +335,7 @@ class Signature:
 
 if sys.version_info >= (3, 10):
     def get_annotations(
-        obj: Callable[..., Any] | type[Any] | ModuleType,
+        obj: Callable[..., object] | type[Any] | ModuleType,
         *,
         globals: Mapping[str, Any] | None = ...,
         locals: Mapping[str, Any] | None = ...,

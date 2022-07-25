@@ -213,8 +213,8 @@ class _Environ(MutableMapping[AnyStr, AnyStr], Generic[AnyStr]):
             decodevalue: _EnvironCodeFunc[AnyStr],
         ) -> None: ...
     else:
-        putenv: Callable[[AnyStr, AnyStr], Any]
-        unsetenv: Callable[[AnyStr, AnyStr], Any]
+        putenv: Callable[[AnyStr, AnyStr], object]
+        unsetenv: Callable[[AnyStr, AnyStr], object]
         def __init__(
             self,
             data: MutableMapping[AnyStr, AnyStr],
@@ -222,8 +222,8 @@ class _Environ(MutableMapping[AnyStr, AnyStr], Generic[AnyStr]):
             decodekey: _EnvironCodeFunc[AnyStr],
             encodevalue: _EnvironCodeFunc[AnyStr],
             decodevalue: _EnvironCodeFunc[AnyStr],
-            putenv: Callable[[AnyStr, AnyStr], Any],
-            unsetenv: Callable[[AnyStr, AnyStr], Any],
+            putenv: Callable[[AnyStr, AnyStr], object],
+            unsetenv: Callable[[AnyStr, AnyStr], object],
         ) -> None: ...
 
     def setdefault(self, key: AnyStr, value: AnyStr) -> AnyStr: ...  # type: ignore[override]
@@ -754,7 +754,7 @@ def utime(
     follow_symlinks: bool = ...,
 ) -> None: ...
 
-_OnError: TypeAlias = Callable[[OSError], Any]
+_OnError: TypeAlias = Callable[[OSError], object]
 
 def walk(
     top: GenericPath[AnyStr], topdown: bool = ..., onerror: _OnError | None = ..., followlinks: bool = ...
@@ -974,7 +974,7 @@ if sys.version_info >= (3, 8):
     if sys.platform == "win32":
         class _AddedDllDirectory:
             path: str | None
-            def __init__(self, path: str | None, cookie: _T, remove_dll_directory: Callable[[_T], Any]) -> None: ...
+            def __init__(self, path: str | None, cookie: _T, remove_dll_directory: Callable[[_T], object]) -> None: ...
             def close(self) -> None: ...
             def __enter__(self: Self) -> Self: ...
             def __exit__(self, *args: object) -> None: ...
