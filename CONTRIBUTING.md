@@ -251,8 +251,6 @@ Accepted features that *cannot* yet be used in typeshed include:
 - [PEP 570](https://www.python.org/dev/peps/pep-0570/) (positional-only
   arguments): see [#4972](https://github.com/python/typeshed/issues/4972),
   use argument names prefixed with `__` instead
-- [PEP 613](https://www.python.org/dev/peps/pep-0613/) (TypeAlias):
-  see [#4913](https://github.com/python/typeshed/issues/4913)
 
 The following features are partially supported:
 - [PEP 585](https://www.python.org/dev/peps/pep-0585/) (builtin
