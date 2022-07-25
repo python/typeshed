@@ -1,9 +1,9 @@
 from re import Pattern
 from typing import Any, Generic, TypeVar
-from sqlalchemy import Table
-from sqlalchemy.orm import Query
 
+from sqlalchemy import Table
 from sqlalchemy.ext.declarative import DeclarativeMeta
+from sqlalchemy.orm import Query
 
 _Model = TypeVar("_Model")
 
