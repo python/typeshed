@@ -1,10 +1,10 @@
+from _typeshed import Self
 from collections.abc import Generator, Iterator, Sequence
 from email import _ParamsType, _ParamType
 from email.charset import Charset
 from email.contentmanager import ContentManager
 from email.errors import MessageDefect
 from email.policy import Policy
-from _typeshed import Self
 from typing import Any, TypeVar
 from typing_extensions import TypeAlias
 
