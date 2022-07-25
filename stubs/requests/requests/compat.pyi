@@ -1,5 +1,4 @@
 from collections import OrderedDict as OrderedDict
-from sys import version_info as _ver
 from urllib.parse import (
     quote as quote,
     quote_plus as quote_plus,
