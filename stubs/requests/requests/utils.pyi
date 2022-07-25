@@ -1,5 +1,5 @@
-from collections.abc import Generator, Iterable, Mapping
-from typing import Any, AnyStr, FrozenSet
+from collections.abc import Iterable, Generator, Mapping
+from typing import Any, AnyStr
 from typing_extensions import TypeAlias
 
 from . import compat, cookies, exceptions, structures
@@ -34,7 +34,7 @@ def stream_decode_response_unicode(iterator, r): ...
 def iter_slices(string: str, slice_length: int | None) -> Generator[str, None, None]: ...
 def get_unicode_from_response(r): ...
 
-UNRESERVED_SET: FrozenSet[str]
+UNRESERVED_SET: frozenset[str]
 
 def unquote_unreserved(uri: _Uri) -> str: ...
 def requote_uri(uri: _Uri) -> str: ...
