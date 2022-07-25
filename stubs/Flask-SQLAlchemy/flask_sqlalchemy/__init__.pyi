@@ -1,5 +1,6 @@
 from _typeshed import Self
-from typing import Any, TypeVar, Generic, Generator
+from typing import Any, TypeVar, Generic
+from collections.abc import Generator
 
 from sqlalchemy.orm.query import Query
 from sqlalchemy.orm.session import Session
