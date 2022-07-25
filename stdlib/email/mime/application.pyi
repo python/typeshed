@@ -10,7 +10,7 @@ class MIMEApplication(MIMENonMultipart):
         self,
         _data: str | bytes,
         _subtype: str = ...,
-        _encoder: Callable[[MIMEApplication], object] = ...,
+        _encoder: Callable[[MIMEApplication], Any] = ...,
         *,
         policy: Policy | None = ...,
         **_params: _ParamsType,

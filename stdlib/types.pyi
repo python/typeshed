@@ -571,7 +571,7 @@ def new_class(
     name: str,
     bases: Iterable[object] = ...,
     kwds: dict[str, Any] | None = ...,
-    exec_body: Callable[[dict[str, Any]], object] | None = ...,
+    exec_body: Callable[[dict[str, Any]], Any] | None = ...,
 ) -> type: ...
 def resolve_bases(bases: Iterable[object]) -> tuple[Any, ...]: ...
 def prepare_class(
@@ -581,7 +581,7 @@ def prepare_class(
 # Actually a different type, but `property` is special and we want that too.
 DynamicClassAttribute = property
 
-_Fn = TypeVar("_Fn", bound=Callable[..., object])
+_Fn = TypeVar("_Fn", bound=Callable[..., Any])
 _R = TypeVar("_R")
 _P = ParamSpec("_P")
 

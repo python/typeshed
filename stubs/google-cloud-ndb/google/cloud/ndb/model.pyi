@@ -80,7 +80,7 @@ class Property(ModelAttribute):
         required: bool | None = ...,
         default: object | None = ...,
         choices: Iterable[object] | None = ...,
-        validator: Callable[[Property, Any], object] | None = ...,
+        validator: Callable[[Property, Any], Any] | None = ...,
         verbose_name: str | None = ...,
         write_empty_list: bool | None = ...,
     ) -> None: ...
@@ -125,7 +125,7 @@ class BlobProperty(Property):
         required: bool | None = ...,
         default: bytes | None = ...,
         choices: Iterable[bytes] | None = ...,
-        validator: Callable[[Property, Any], object] | None = ...,
+        validator: Callable[[Property, Any], Any] | None = ...,
         verbose_name: str | None = ...,
         write_empty_list: bool | None = ...,
     ) -> None: ...
@@ -156,7 +156,7 @@ class JsonProperty(BlobProperty):
         required: bool | None = ...,
         default: object | None = ...,
         choices: Iterable[object] | None = ...,
-        validator: Callable[[Property, Any], object] | None = ...,
+        validator: Callable[[Property, Any], Any] | None = ...,
         verbose_name: str | None = ...,
         write_empty_list: bool | None = ...,
     ) -> None: ...
@@ -182,7 +182,7 @@ class UserProperty(Property):
         required: bool | None = ...,
         default: bytes | None = ...,
         choices: Iterable[bytes] | None = ...,
-        validator: Callable[[Property, Any], object] | None = ...,
+        validator: Callable[[Property, Any], Any] | None = ...,
         verbose_name: str | None = ...,
         write_empty_list: bool | None = ...,
     ) -> None: ...
@@ -216,7 +216,7 @@ class DateTimeProperty(Property):
         required: bool | None = ...,
         default: datetime.datetime | None = ...,
         choices: Iterable[datetime.datetime] | None = ...,
-        validator: Callable[[Property, Any], object] | None = ...,
+        validator: Callable[[Property, Any], Any] | None = ...,
         verbose_name: str | None = ...,
         write_empty_list: bool | None = ...,
     ) -> None: ...
@@ -238,7 +238,7 @@ class GenericProperty(Property):
 class ComputedProperty(GenericProperty):
     def __init__(
         self,
-        func: Callable[[Model], object],
+        func: Callable[[Model], Any],
         name: str | None = ...,
         indexed: bool | None = ...,
         repeated: bool | None = ...,
@@ -399,8 +399,8 @@ class Model(_NotEqualMixin, metaclass=MetaModel):
     def has_complete_key(self) -> bool: ...
     def to_dict(
         self,
-        include: list[object] | tuple[object, object] | set[object] | None = ...,
-        exclude: list[object] | tuple[object, object] | set[object] | None = ...,
+        include: list[object] | tuple[object, Any] | set[object] | None = ...,
+        exclude: list[object] | tuple[object, Any] | set[object] | None = ...,
     ): ...
 
 class Expando(Model):

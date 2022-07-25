@@ -6,7 +6,7 @@ from .prettytable import PrettyTable
 
 RESET_CODE: str
 
-init: Callable[[], object]
+init: Callable[[], Any]
 
 class Theme:
     default_color: str

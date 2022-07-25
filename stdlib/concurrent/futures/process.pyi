@@ -110,7 +110,7 @@ if sys.version_info >= (3, 11):
     def _process_worker(
         call_queue: Queue[_CallItem],
         result_queue: SimpleQueue[_ResultItem],
-        initializer: Callable[..., object] | None,
+        initializer: Callable[..., Any] | None,
         initargs: tuple[Any, ...],
         max_tasks: int | None = ...,
     ) -> None: ...
@@ -119,7 +119,7 @@ else:
     def _process_worker(
         call_queue: Queue[_CallItem],
         result_queue: SimpleQueue[_ResultItem],
-        initializer: Callable[..., object] | None,
+        initializer: Callable[..., Any] | None,
         initargs: tuple[Any, ...],
     ) -> None: ...
 
@@ -174,7 +174,7 @@ class ProcessPoolExecutor(Executor):
             self,
             max_workers: int | None = ...,
             mp_context: BaseContext | None = ...,
-            initializer: Callable[..., object] | None = ...,
+            initializer: Callable[..., Any] | None = ...,
             initargs: tuple[Any, ...] = ...,
             *,
             max_tasks_per_child: int | None = ...,
@@ -184,7 +184,7 @@ class ProcessPoolExecutor(Executor):
             self,
             max_workers: int | None = ...,
             mp_context: BaseContext | None = ...,
-            initializer: Callable[..., object] | None = ...,
+            initializer: Callable[..., Any] | None = ...,
             initargs: tuple[Any, ...] = ...,
         ) -> None: ...
     if sys.version_info >= (3, 9):

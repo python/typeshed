@@ -247,7 +247,7 @@ FALSE_STRINGS: Any
 
 def to_bool(value) -> bool | None: ...
 
-URL_QUERY_ARGUMENT_PARSERS: Mapping[str, Callable[..., object]]
+URL_QUERY_ARGUMENT_PARSERS: Mapping[str, Callable[..., Any]]
 
 class ConnectKwargs(TypedDict):
     username: str

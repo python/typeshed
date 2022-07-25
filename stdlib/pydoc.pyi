@@ -236,10 +236,10 @@ class ModuleScanner:
     quit: bool
     def run(
         self,
-        callback: Callable[[str | None, str, str], object],
+        callback: Callable[[str | None, str, str], Any],
         key: str | None = ...,
-        completer: Callable[[], object] | None = ...,
-        onerror: Callable[[str], object] | None = ...,
+        completer: Callable[[], Any] | None = ...,
+        onerror: Callable[[str], Any] | None = ...,
     ) -> None: ...
 
 def apropos(key: str) -> None: ...

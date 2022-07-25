@@ -11,7 +11,7 @@ from paramiko.sftp_file import SFTPFile
 from paramiko.transport import Transport
 from paramiko.util import ClosingContextManager
 
-_Callback: TypeAlias = Callable[[int, int], object]
+_Callback: TypeAlias = Callable[[int, int], Any]
 
 b_slash: bytes
 

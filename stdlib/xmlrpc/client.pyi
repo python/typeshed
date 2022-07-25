@@ -97,7 +97,7 @@ class ExpatParser:  # undocumented
     def feed(self, data: str | bytes) -> None: ...
     def close(self) -> None: ...
 
-_WriteCallback: TypeAlias = Callable[[str], object]
+_WriteCallback: TypeAlias = Callable[[str], Any]
 
 class Marshaller:
     # TODO: Replace 'Any' with some kind of binding

@@ -33,7 +33,7 @@ class CnOpts:
     def __init__(self, knownhosts: str | None = ...) -> None: ...
     def get_hostkey(self, host: str) -> paramiko.PKey: ...
 
-_Callback: TypeAlias = Callable[[int, int], object]
+_Callback: TypeAlias = Callable[[int, int], Any]
 _Path: TypeAlias = str | bytes
 
 class Connection:

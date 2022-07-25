@@ -3,7 +3,7 @@ from typing import Any, TypeVar
 from typing_extensions import TypeAlias, TypedDict
 
 _T = TypeVar("_T")
-_Callback: TypeAlias = Callable[[str, _Result], object]
+_Callback: TypeAlias = Callable[[str, _Result], Any]
 
 class _Result(TypedDict):
     nmap: _ResultNmap

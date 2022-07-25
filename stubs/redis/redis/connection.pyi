@@ -25,7 +25,7 @@ URL_QUERY_ARGUMENT_PARSERS: dict[str, Callable[[Any], Any]]
 
 # Options as passed to Pool.get_connection().
 _ConnectionPoolOptions: TypeAlias = Any
-_ConnectFunc: TypeAlias = Callable[[Connection], object]
+_ConnectFunc: TypeAlias = Callable[[Connection], Any]
 
 class BaseParser:
     EXCEPTION_CLASSES: ClassVar[dict[str, type[Exception] | dict[str, type[Exception]]]]

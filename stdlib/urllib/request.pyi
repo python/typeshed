@@ -286,7 +286,7 @@ class HTTPErrorProcessor(BaseHandler):
 def urlretrieve(
     url: str,
     filename: StrOrBytesPath | None = ...,
-    reporthook: Callable[[int, int, int], object] | None = ...,
+    reporthook: Callable[[int, int, int], Any] | None = ...,
     data: _DataType = ...,
 ) -> tuple[str, HTTPMessage]: ...
 def urlcleanup() -> None: ...
@@ -300,7 +300,7 @@ class URLopener:
         self,
         url: str,
         filename: str | None = ...,
-        reporthook: Callable[[int, int, int], object] | None = ...,
+        reporthook: Callable[[int, int, int], Any] | None = ...,
         data: bytes | None = ...,
     ) -> tuple[str, Message | None]: ...
     def addheader(self, *args: tuple[str, str]) -> None: ...  # undocumented

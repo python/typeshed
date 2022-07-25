@@ -126,7 +126,7 @@ class DocTestFinder:
         extraglobs: dict[str, Any] | None = ...,
     ) -> list[DocTest]: ...
 
-_Out: TypeAlias = Callable[[str], object]
+_Out: TypeAlias = Callable[[str], Any]
 
 class DocTestRunner:
     DIVIDER: str
@@ -201,8 +201,8 @@ class DocTestCase(unittest.TestCase):
         self,
         test: DocTest,
         optionflags: int = ...,
-        setUp: Callable[[DocTest], object] | None = ...,
-        tearDown: Callable[[DocTest], object] | None = ...,
+        setUp: Callable[[DocTest], Any] | None = ...,
+        tearDown: Callable[[DocTest], Any] | None = ...,
         checker: OutputChecker | None = ...,
     ) -> None: ...
     def setUp(self) -> None: ...
