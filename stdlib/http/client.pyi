@@ -157,7 +157,7 @@ class HTTPConnection:
     timeout: float | None
     host: str
     port: int
-    sock: socket | None
+    sock: socket | Any  # can be `None` if `.connect()` was not called
     def __init__(
         self,
         host: str,
