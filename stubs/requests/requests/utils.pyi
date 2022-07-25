@@ -1,7 +1,8 @@
-from collections.abc import Iterable, Generator, Mapping
+from collections.abc import Generator, Iterable, Mapping
 from typing import Any, AnyStr, FrozenSet, TypeAlias
-from .models import PreparedRequest
+
 from . import compat, cookies, exceptions, structures
+from .models import PreparedRequest
 
 _Uri: TypeAlias = str | bytes
 OrderedDict = compat.OrderedDict
