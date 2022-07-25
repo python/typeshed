@@ -1,6 +1,6 @@
 from _typeshed import Self
-from typing import Any
 from types import TracebackType
+from typing import Any
 
 from . import _mysql, cursors
 from ._exceptions import (
