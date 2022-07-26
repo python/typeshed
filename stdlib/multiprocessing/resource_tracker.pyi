@@ -1,8 +1,8 @@
 from _typeshed import StrOrBytesPath
-from typing import Any, Sized
-from signal import Signals
 from collections.abc import Callable
+from signal import Signals
 from threading import Lock
+from typing import Any, Sized
 
 __all__ = ["ensure_running", "register", "unregister"]
 
