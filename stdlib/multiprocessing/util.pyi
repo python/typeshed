@@ -1,12 +1,3 @@
-#
-# Module providing various facilities to other parts of the package
-#
-# multiprocessing/util.py
-#
-# Copyright (c) 2006-2008, R Oudkerk
-# Licensed to PSF under a Contributor Agreement.
-#
-
 from _typeshed import Self, StrOrBytesPath
 from collections.abc import Iterable, Sequence
 import threading
