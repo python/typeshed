@@ -1,7 +1,7 @@
 __all__ = ["version", "bootstrap"]
 
-from collections.abc import Sequence
 from _typeshed import StrOrBytesPath
+from collections.abc import Sequence
 from typing import NamedTuple
 
 _PACKAGE_NAMES: tuple[str, str] = ...
