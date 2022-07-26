@@ -73,7 +73,7 @@ class Finalize(object):
         obj: object | None,
         callback: Callable[[Any], Any],
         args: Any = ...,
-        kwargs: dict[Any, Any] = ...,
+        kwargs: dict[Any, Any] | None = ...,
         exitpriority: int | None = ...,
     ) -> None: ...
     def __call__(
@@ -107,7 +107,6 @@ class ForkAwareThreadLock(object):
     acquire: Callable[[bool, float], bool]
     release: Callable[[], None]
     def __init__(self) -> None: ...
-    def _at_fork_reinit(self) -> None: ...
     def __enter__(self) -> bool: ...
     def __exit__(self, *args) -> None: ...
 
