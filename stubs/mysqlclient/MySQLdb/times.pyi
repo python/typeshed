@@ -1,5 +1,4 @@
 from datetime import date, datetime, time, timedelta
-from typing import Any
 
 from MySQLdb._mysql import string_literal as string_literal
 
