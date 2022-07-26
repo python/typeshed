@@ -1,11 +1,11 @@
-from _typeshed import Self, StrOrBytesPath
-from collections.abc import Iterable, Sequence
 import threading
+from _typeshed import Self, StrOrBytesPath
+from collections.abc import Callable, Iterable, Sequence
+from itertools import count
+from logging import Logger
 from typing import Any
 from weakref import WeakValueDictionary
-from logging import Logger
-from itertools import count
-from collections.abc import Callable
+
 from . import process
 
 __all__ = [
