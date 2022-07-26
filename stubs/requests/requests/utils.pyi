@@ -1,4 +1,4 @@
-from collections.abc import Iterable, Generator, Mapping
+from collections.abc import Generator, Iterable, Mapping
 from contextlib import AbstractContextManager
 from typing import Any, AnyStr
 from typing_extensions import TypeAlias
