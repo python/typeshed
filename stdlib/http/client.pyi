@@ -180,6 +180,8 @@ class HTTPConnection:
     def send(self, data: _DataType) -> None: ...
 
 class HTTPSConnection(HTTPConnection):
+    # Can be `None` if `.connect()` was not called:
+    sock: ssl.SSLSocket | Any  # type: ignore[override]
     def __init__(
         self,
         host: str,
