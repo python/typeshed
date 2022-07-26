@@ -189,7 +189,7 @@ class SectionProxy(MutableMapping[str, str]):
         vars: _Section | None = ...,
         _impl: Any | None = ...,
         **kwargs: Any,
-    ) -> str | Any: ...
+    ) -> str | Any: ...  # can be None in RawConfigParser's sections
     # These are partially-applied version of the methods with the same names in
     # RawConfigParser; the stubs should be kept updated together
     @overload
