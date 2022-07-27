@@ -2,7 +2,8 @@ import threading
 from _typeshed import Incomplete, ReadableBuffer, SupportsTrunc
 from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequence
 from logging import Logger
-from typing import Any, SupportsIndex, SupportsInt
+from typing import Any, SupportsInt
+from typing_extensions import SupportsIndex
 
 __all__ = [
     "sub_debug",
