@@ -1,6 +1,5 @@
 import sys
 from collections.abc import Callable
-
 from socket import socket
 from typing import Union
 from typing_extensions import TypeAlias
