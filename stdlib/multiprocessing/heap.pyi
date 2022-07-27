@@ -1,8 +1,8 @@
-import sys
 from _typeshed import Incomplete
 from collections.abc import Callable
 from mmap import mmap
-from typing import TypeAlias
+from typing_extensions import TypeAlias
+import sys
 
 _Block: TypeAlias = tuple[Arena, int, int]
 
