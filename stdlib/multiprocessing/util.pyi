@@ -1,5 +1,5 @@
 import threading
-from _typeshed import Self, StrOrBytesPath
+from _typeshed import StrOrBytesPath
 from collections.abc import Callable, Iterable, Sequence
 from itertools import count
 from logging import Logger
