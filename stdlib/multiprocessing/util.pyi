@@ -47,7 +47,7 @@ def register_after_fork(obj: Incomplete, func: Callable[[Incomplete], object]) -
 class Finalize:
     def __init__(
         self,
-        obj: Incomplete | None,  # TODO: consider overload instead with exitpriority
+        obj: Incomplete | None,
         callback: Callable[..., Any],
         args: Any = ...,
         kwargs: dict[Any, Any] | None = ...,
