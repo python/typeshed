@@ -1,12 +1,12 @@
+import socket
+import sys
+import threading
 from _typeshed import Incomplete
 from collections.abc import Callable
-import socket
-import threading
-import sys
-
-from .connection import Connection, Listener
 from typing import Union
 from typing_extensions import TypeAlias
+
+from .connection import Connection, Listener
 
 __all__ = ["stop"]
 
