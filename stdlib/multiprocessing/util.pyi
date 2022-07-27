@@ -1,11 +1,8 @@
 import threading
-from collections.abc import Callable, Iterable, Sequence
-from itertools import count
+from _typeshed import Incomplete
+from collections.abc import Callable, Iterable, MutableMapping, Sequence
 from logging import Logger
 from typing import Any
-from weakref import WeakValueDictionary
-
-from . import process
 
 __all__ = [
     "sub_debug",
@@ -45,52 +42,28 @@ def is_abstract_socket_namespace(address: str | bytes | None) -> bool: ...
 abstract_sockets_supported: bool
 
 def get_temp_dir() -> str: ...
-
-_afterfork_registry: WeakValueDictionary[tuple[int, int, Callable[[Any], Any]], object]
-_afterfork_counter: count[int]
-
-def _run_after_forkers() -> None: ...
-def register_after_fork(obj: object, func: Callable[[Any], Any]) -> None: ...
-
-_finalizer_registry: dict[tuple[int | None, int], Finalize] = ...
-_finalizer_counter: count[int] = ...
+def register_after_fork(obj: object, func: Callable[[Incomplete], object]) -> None: ...
 
 class Finalize:
-    _args: Any
-    _kwargs: dict[Any, Any]
-    _callback: Callable[[Any], Any]
-    _key: tuple[int | None, int]
-    _pid: int
-
     def __init__(
         self,
-        obj: object | None,
-        callback: Callable[[Any], Any],
+        obj: Incomplete | None,  # TODO: consider overload instead with exitpriority
+        callback: Callable[..., Any],
         args: Any = ...,
         kwargs: dict[Any, Any] | None = ...,
         exitpriority: int | None = ...,
     ) -> None: ...
     def __call__(
         self,
-        wr: Any = ...,
-        # Need to bind these locally because the globals can have
-        # been cleared at shutdown
-        _finalizer_registry: dict[Any, Any] = ...,
-        sub_debug=...,
+        wr: object = ...,
+        _finalizer_registry: MutableMapping[Incomplete, Incomplete] = ...,
+        sub_debug: Callable[..., object] = ...,
         getpid: Callable[[], int] = ...,
     ) -> Any: ...
     def cancel(self) -> None: ...
     def still_active(self) -> bool: ...
 
-def _run_finalizers(minpriority: Finalize | None = ...) -> None: ...
 def is_exiting() -> bool: ...
-def _exit_function(
-    info: Callable[[object, object], None] = ...,
-    debug: Callable[[object, object], None] = ...,
-    _run_finalizers: Callable[[Finalize | None], None] = ...,
-    active_children: Callable[[], list[process.BaseProcess]] = ...,
-    current_process: Callable[[], process.BaseProcess] = ...,
-) -> None: ...
 
 class ForkAwareThreadLock:
     acquire: Callable[[bool, float], bool]
