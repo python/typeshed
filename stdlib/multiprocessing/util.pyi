@@ -1,6 +1,6 @@
 import threading
 from _typeshed import Incomplete
-from collections.abc import Callable, Iterable, MutableMapping, Sequence
+from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequence
 from logging import Logger
 from typing import Any
 
@@ -49,8 +49,8 @@ class Finalize:
         self,
         obj: Incomplete | None,
         callback: Callable[..., Any],
-        args: Any = ...,
-        kwargs: dict[Any, Any] | None = ...,
+        args: Sequence[Any] = ...,
+        kwargs: Mapping[str, Any] | None = ...,
         exitpriority: int | None = ...,
     ) -> None: ...
     def __call__(
