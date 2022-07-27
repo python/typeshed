@@ -1,8 +1,7 @@
-from _typeshed import FileDescriptorLike, StrOrBytesPath
+from _typeshed import FileDescriptorLike
 from collections.abc import Iterable, Mapping, Sequence
 from signal import _HANDLER, _SIGNUM
 from struct import Struct
-from threading import Lock
 from typing import Any
 
 __all__ = ["ensure_running", "get_inherited_fds", "connect_to_new_process", "set_forkserver_preload"]
