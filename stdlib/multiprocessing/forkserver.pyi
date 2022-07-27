@@ -1,6 +1,5 @@
 from _typeshed import FileDescriptorLike
-from collections.abc import Iterable, Mapping, Sequence
-from signal import _HANDLER, _SIGNUM
+from collections.abc import Sequence
 from struct import Struct
 from typing import Any
 
