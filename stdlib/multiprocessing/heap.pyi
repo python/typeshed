@@ -2,9 +2,7 @@ import sys
 from _typeshed import Incomplete
 from collections.abc import Callable
 from mmap import mmap
-from typing_extensions import TypeAlias
-
-_Block: TypeAlias = tuple[Arena, int, int]
+from typing_extensions import Protocol, TypeAlias
 
 __all__ = ["BufferWrapper"]
 
@@ -18,7 +16,12 @@ class Arena:
         fd: int
         def __init__(self, size: int, fd: int = ...) -> None: ...
 
+_Block: TypeAlias = tuple[Arena, int, int]
+
 if sys.platform != "win32":
+    class _SupportsDetach(Protocol):
+        def detach(self) -> int: ...
+
     def reduce_arena(a: Arena) -> tuple[Callable[[int, Incomplete], Arena], tuple[int, Incomplete]]: ...
     def rebuild_arena(size: int, dupfd: Incomplete) -> Arena: ...
 
