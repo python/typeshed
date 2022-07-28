@@ -1,0 +1,26 @@
+import sys
+
+from multiprocessing.process import BaseProcess
+from typing import ClassVar
+
+from .util import Finalize
+from . import popen_fork
+
+if sys.platform != "win32":
+    __all__ = ["Popen"]
+
+    class _DupFd:
+        fd: int
+
+        def __init__(self, fd: int) -> None: ...
+        def detach(self) -> int: ...
+
+    class Popen(popen_fork.Popen):
+        DupFd: type[_DupFd]
+        finalizer: Finalize
+        method: ClassVar[str]
+        pid: int  # may not exist if _launch raises in second try / except
+        sentinel: int  # may not exist if _launch raises in second try / except
+
+        def __init__(self, process_obj: BaseProcess) -> None: ...
+        def duplicate_for_child(self, fd: int) -> int: ...
