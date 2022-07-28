@@ -1,5 +1,6 @@
 import sys
 
+from typing_extensions import ClassVar
 from .process import BaseProcess
 from .util import Finalize
 
@@ -8,10 +9,10 @@ if sys.platform != "win32":
 
     class Popen:
         finalizer: Finalize | None
-        method: str
-        pid: int | None
+        method: ClassVar[str]
+        pid: int
         returncode: int | None
-        sentinel: int | None
+        sentinel: int
 
         def __init__(self, process_obj: BaseProcess) -> None: ...
         def duplicate_for_child(self, fd: int) -> int: ...
