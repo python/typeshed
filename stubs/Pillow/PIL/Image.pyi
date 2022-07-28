@@ -217,7 +217,7 @@ class Image:
     def resize(
         self,
         size: tuple[int, int],
-        resample: Resampling | _Resample | None = ...,
+        resample: _Resample | None = ...,
         box: tuple[float, float, float, float] | None = ...,
         reducing_gap: float | None = ...,
     ) -> Image: ...
@@ -225,7 +225,7 @@ class Image:
     def rotate(
         self,
         angle: float,
-        resample: Resampling | _Resample = ...,
+        resample: _Resample = ...,
         expand: bool = ...,
         center: tuple[float, float] | None = ...,
         translate: tuple[float, float] | None = ...,
@@ -245,13 +245,13 @@ class Image:
     def split(self) -> tuple[Image, ...]: ...
     def getchannel(self, channel: int | str) -> Image: ...
     def tell(self) -> int: ...
-    def thumbnail(self, size: tuple[int, int], resample: Resampling | _Resample = ..., reducing_gap: float = ...) -> None: ...
+    def thumbnail(self, size: tuple[int, int], resample: _Resample = ..., reducing_gap: float = ...) -> None: ...
     def transform(
         self,
         size: _Size,
         method: Literal[0, 1, 2, 3, 4],
         data=...,
-        resample: Resampling | _Resample = ...,
+        resample: _Resample = ...,
         fill: int = ...,
         fillcolor: _Color | int | None = ...,
     ) -> Image: ...
