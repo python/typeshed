@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from re import Match, Pattern
+from re import Pattern
 from typing_extensions import Literal, TypedDict
 
 _DEFAULT_DELIMITER: str
@@ -21,7 +21,6 @@ def emojize(
     version: float | None = ...,
     handle_version: str | Callable[[str, dict[str, str]], str] | None = ...,
 ) -> str: ...
-def replace(match: Match[str]) -> str: ...
 def demojize(
     string: str,
     delimiters: tuple[str, str] = ...,
