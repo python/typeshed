@@ -1,40 +1,39 @@
-import sys
 from multiprocessing.process import BaseProcess
 from typing import ClassVar
 from .util import Finalize
 
 
-if sys.platform == "win32":
-    __all__ = ["Popen"]
+__all__ = ["Popen"]
 
-    TERMINATE: int
-    WINEXE: bool
-    WINSERVICE: bool
-    WINENV: bool
+TERMINATE: int
+WINEXE: bool
+WINSERVICE: bool
+WINENV: bool
 
-    class Popen:
-        finalizer: Finalize
-        method: ClassVar[str]
-        pid: int
-        returncode: int | None
-        sentinel: int
 
-        def __init__(self, process_obj: BaseProcess) -> None:
-            ...
+class Popen:
+    finalizer: Finalize
+    method: ClassVar[str]
+    pid: int
+    returncode: int | None
+    sentinel: int
 
-        def duplicate_for_child(self, handle: int) -> int:
-            ...
+    def __init__(self, process_obj: BaseProcess) -> None:
+        ...
 
-        def wait(self, timeout: float | None = ...) -> int | None:
-            ...
+    def duplicate_for_child(self, handle: int) -> int:
+        ...
 
-        def poll(self) -> int | None:
-            ...
+    def wait(self, timeout: float | None = ...) -> int | None:
+        ...
 
-        def terminate(self) -> None:
-            ...
+    def poll(self) -> int | None:
+        ...
 
-        kill = terminate
+    def terminate(self) -> None:
+        ...
 
-        def close(self) -> None:
-            ...
+    kill = terminate
+
+    def close(self) -> None:
+        ...
