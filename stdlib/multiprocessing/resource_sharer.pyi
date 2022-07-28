@@ -1,12 +1,7 @@
 import sys
 from socket import socket
-from typing import Union
-from typing_extensions import TypeAlias
 
 __all__ = ["stop"]
-
-# https://docs.python.org/3/library/multiprocessing.html#address-formats
-_Address: TypeAlias = Union[str, tuple[str, int]]
 
 if sys.platform == "win32":
     __all__ += ["DupSocket"]
