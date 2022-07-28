@@ -11,7 +11,6 @@ from emoji.core import (
 from emoji.unicode_codes import EMOJI_DATA, LANGUAGES, STATUS
 
 __all__ = [
-    # emoji.core
     "emojize",
     "demojize",
     "emoji_count",
@@ -20,7 +19,6 @@ __all__ = [
     "replace_emoji",
     "version",
     "is_emoji",
-    # emoji.unicode_codes
     "EMOJI_DATA",
     "STATUS",
     "LANGUAGES",
