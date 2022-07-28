@@ -1,14 +1,14 @@
 from emoji.core import (
-    emojize as emojize,
     demojize as demojize,
+    distinct_emoji_list as distinct_emoji_list,
     emoji_count as emoji_count,
     emoji_list as emoji_list,
-    distinct_emoji_list as distinct_emoji_list,
+    emojize as emojize,
+    is_emoji as is_emoji,
     replace_emoji as replace_emoji,
     version as version,
-    is_emoji as is_emoji,
 )
-from emoji.unicode_codes import EMOJI_DATA, STATUS, LANGUAGES
+from emoji.unicode_codes import EMOJI_DATA, LANGUAGES, STATUS
 
 __all__ = [
     # emoji.core

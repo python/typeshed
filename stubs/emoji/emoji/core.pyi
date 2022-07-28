@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from re import Pattern, Match
+from re import Match, Pattern
 from typing_extensions import Literal, TypedDict
 
 _DEFAULT_DELIMITER: str
