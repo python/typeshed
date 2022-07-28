@@ -1,16 +1,17 @@
 from multiprocessing.process import BaseProcess
-from typing import ClassVar, Protocol
+from typing import ClassVar
 
 from . import popen_fork
 from .util import Finalize
 
 __all__ = ["Popen"]
 
-class _SupportsDetach(Protocol):
+class _DupFd:
+    def __init__(self, ind: int) -> None: ...
     def detach(self) -> int: ...
 
 class Popen(popen_fork.Popen):
-    DupFd: ClassVar[_SupportsDetach]
+    DupFd: ClassVar[type[_DupFd]]
     finalizer: Finalize
     sentinel: int
 
