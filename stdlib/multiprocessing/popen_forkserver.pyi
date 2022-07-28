@@ -12,8 +12,6 @@ class _SupportsDetach(Protocol):
 class Popen(popen_fork.Popen):
     DupFd: ClassVar[_SupportsDetach]
     finalizer: Finalize
-    method: ClassVar[str]
-    pid: int
     sentinel: int
 
     def __init__(self, process_obj: BaseProcess) -> None: ...
