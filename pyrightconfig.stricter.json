@@ -62,6 +62,7 @@
         "stubs/pytz/pytz/reference.pyi",
         "stubs/pytz/pytz/tzfile.pyi",
         "stubs/google-cloud-ndb",
+        "stubs/lief",
         "stubs/passlib",
         "stubs/pep8-naming",
         "stubs/psutil",
