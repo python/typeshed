@@ -1,4 +1,4 @@
-from emoji.core import (
+from .core import (
     demojize as demojize,
     distinct_emoji_list as distinct_emoji_list,
     emoji_count as emoji_count,
@@ -8,7 +8,7 @@ from emoji.core import (
     replace_emoji as replace_emoji,
     version as version,
 )
-from emoji.unicode_codes import EMOJI_DATA, LANGUAGES, STATUS
+from .unicode_codes import EMOJI_DATA, LANGUAGES, STATUS
 
 __all__ = [
     "emojize",
