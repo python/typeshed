@@ -249,7 +249,7 @@ class Image:
     def transform(
         self,
         size: _Size,
-        method: Literal[0, 1, 2, 3, 4],
+        method: Transform | Literal[0, 1, 2, 3, 4],
         data=...,
         resample: Resampling | _Resample = ...,
         fill: int = ...,
