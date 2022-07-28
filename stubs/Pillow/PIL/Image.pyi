@@ -80,44 +80,44 @@ FASTOCTREE: Literal[2]
 LIBIMAGEQUANT: Literal[3]
 
 class Transpose(IntEnum):
-    FLIP_LEFT_RIGHT: int
-    FLIP_TOP_BOTTOM: int
-    ROTATE_90: int
-    ROTATE_180: int
-    ROTATE_270: int
-    TRANSPOSE: int
-    TRANSVERSE: int
+    FLIP_LEFT_RIGHT: Literal[0]
+    FLIP_TOP_BOTTOM: Literal[1]
+    ROTATE_90: Literal[2]
+    ROTATE_180: Literal[3]
+    ROTATE_270: Literal[4]
+    TRANSPOSE: Literal[5]
+    TRANSVERSE: Literal[6]
 
 class Transform(IntEnum):
-    AFFINE: int
-    EXTENT: int
-    PERSPECTIVE: int
-    QUAD: int
-    MESH: int
+    AFFINE: Literal[0]
+    EXTENT: Literal[1]
+    PERSPECTIVE: Literal[2]
+    QUAD: Literal[3]
+    MESH: Literal[4]
 
 class Resampling(IntEnum):
-    NEAREST: int
-    LANCZOS: int
-    BILINEAR: int
-    BICUBIC: int
-    BOX: int
-    HAMMING: int
+    NEAREST: Literal[0]
+    LANCZOS: Literal[1]
+    BILINEAR: Literal[2]
+    BICUBIC: Literal[3]
+    BOX: Literal[4]
+    HAMMING: Literal[5]
 
 class Dither(IntEnum):
-    NONE: int
-    ORDERED: int
-    RASTERIZE: int
-    FLOYDSTEINBERG: int
+    NONE: Literal[0]
+    ORDERED: Literal[1]
+    RASTERIZE: Literal[2]
+    FLOYDSTEINBERG: Literal[3]
 
 class Palette(IntEnum):
-    WEB: int
-    ADAPTIVE: int
+    WEB: Literal[0]
+    ADAPTIVE: Literal[1]
 
 class Quantize(IntEnum):
-    MEDIANCUT: int
-    MAXCOVERAGE: int
-    FASTOCTREE: int
-    LIBIMAGEQUANT: int
+    MEDIANCUT: Literal[0]
+    MAXCOVERAGE: Literal[1]
+    FASTOCTREE: Literal[2]
+    LIBIMAGEQUANT: Literal[3]
 
 ID: list[str]
 OPEN: dict[str, Any]
@@ -217,7 +217,7 @@ class Image:
     def resize(
         self,
         size: tuple[int, int],
-        resample: _Resample | None = ...,
+        resample: Resampling | _Resample | None = ...,
         box: tuple[float, float, float, float] | None = ...,
         reducing_gap: float | None = ...,
     ) -> Image: ...
@@ -225,7 +225,7 @@ class Image:
     def rotate(
         self,
         angle: float,
-        resample: _Resample = ...,
+        resample: Resampling | _Resample = ...,
         expand: bool = ...,
         center: tuple[float, float] | None = ...,
         translate: tuple[float, float] | None = ...,
@@ -245,13 +245,13 @@ class Image:
     def split(self) -> tuple[Image, ...]: ...
     def getchannel(self, channel: int | str) -> Image: ...
     def tell(self) -> int: ...
-    def thumbnail(self, size: tuple[int, int], resample: _Resample = ..., reducing_gap: float = ...) -> None: ...
+    def thumbnail(self, size: tuple[int, int], resample: Resampling | _Resample = ..., reducing_gap: float = ...) -> None: ...
     def transform(
         self,
         size: _Size,
         method: Literal[0, 1, 2, 3, 4],
         data=...,
-        resample: _Resample = ...,
+        resample: Resampling | _Resample = ...,
         fill: int = ...,
         fillcolor: _Color | int | None = ...,
     ) -> Image: ...
