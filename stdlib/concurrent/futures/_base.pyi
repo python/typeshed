@@ -32,7 +32,6 @@ if sys.version_info >= (3, 8):
 class BrokenExecutor(RuntimeError): ...
 
 _T = TypeVar("_T")
-_T_co = TypeVar("_T_co", covariant=True)
 _P = ParamSpec("_P")
 
 class Future(Generic[_T]):
