@@ -8,6 +8,8 @@ mmap.PAGESIZE
 # alias for a class defined elsewhere,
 # mypy infers the variable has type `(*args) -> DupHandle` but stubtest infers the runtime type as <class DupHandle>
 multiprocessing.reduction.AbstractReducer.DupHandle
+# Multiprocessing.popen_fork exists on Windows but fails to import
+multiprocessing.popen_fork
 msilib.text.dirname
 msvcrt.CRT_ASSEMBLY_VERSION
 selectors.KqueueSelector
