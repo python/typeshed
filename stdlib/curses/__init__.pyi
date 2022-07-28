@@ -1,6 +1,6 @@
 import sys
 from collections.abc import Callable
-from typing import Any, TypeVar
+from typing import TypeVar
 from typing_extensions import Concatenate, ParamSpec
 
 if sys.platform != "win32":
