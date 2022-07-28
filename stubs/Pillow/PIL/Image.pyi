@@ -42,6 +42,7 @@ MAX_IMAGE_PIXELS: int
 
 NONE: Literal[0]
 
+FLIP_LEFT_RIGHT: Literal[0]
 FLIP_TOP_BOTTOM: Literal[1]
 ROTATE_90: Literal[2]
 ROTATE_180: Literal[3]
@@ -175,7 +176,7 @@ class Image:
         mode: _Mode | None = ...,
         matrix: _ConversionMatrix | None = ...,
         dither: int | None = ...,
-        palette: Literal[0, 1] = ...,
+        palette: Literal[Palette.WEB] = ...,
         colors: int = ...,
     ) -> Image: ...
     def quantize(
