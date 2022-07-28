@@ -1,5 +1,5 @@
-from .util import Finalize
 from .process import BaseProcess
+from .util import Finalize
 
 __all__ = ["Popen"]
 
