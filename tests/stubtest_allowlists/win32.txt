@@ -56,6 +56,9 @@ syslog
 termios
 xxlimited
 
+# Multiprocessing.popen_fork exists on Windows but fails to import
+multiprocessing.popen_fork
+
 # Modules that rely on _curses
 curses
 curses.ascii
