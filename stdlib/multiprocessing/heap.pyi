@@ -8,23 +8,17 @@ _Block: TypeAlias = tuple[Arena, int, int]
 
 __all__ = ["BufferWrapper"]
 
-if sys.platform == "win32":
-    class Arena:
-        buffer: mmap
+class Arena:
+    size: int
+    buffer: mmap
+    if sys.platform == "win32":
         name: str
-        size: int
-
         def __init__(self, size: int) -> None: ...
-        def __getstate__(self) -> tuple[int, str]: ...
-        def __setstate__(self, state: tuple[int, str]) -> None: ...
-
-else:
-    class Arena:
-        size: int
+    else:
         fd: int
-        buffer: mmap
         def __init__(self, size: int, fd: int = ...) -> None: ...
 
+if not sys.platform == "win32":
     def reduce_arena(a: Arena) -> tuple[Callable[[int, Incomplete], Arena], tuple[int, Incomplete]]: ...
     def rebuild_arena(size: int, dupfd: Incomplete) -> Arena: ...
 
