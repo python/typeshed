@@ -59,6 +59,7 @@ xxlimited
 # Modules that rely on _curses
 curses
 curses.ascii
+curses.has_key
 curses.panel
 curses.textpad
 
