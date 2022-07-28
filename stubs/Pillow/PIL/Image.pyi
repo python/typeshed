@@ -42,44 +42,79 @@ MAX_IMAGE_PIXELS: int
 
 NONE: Literal[0]
 
+FLIP_TOP_BOTTOM: Literal[1]
+ROTATE_90: Literal[2]
+ROTATE_180: Literal[3]
+ROTATE_270: Literal[4]
+TRANSPOSE: Literal[5]
+TRANSVERSE: Literal[6]
+
+AFFINE: Literal[0]
+EXTENT: Literal[1]
+PERSPECTIVE: Literal[2]
+QUAD: Literal[3]
+MESH: Literal[4]
+
+NEAREST: Literal[0]
+BOX: Literal[4]
+BILINEAR: Literal[2]
+LINEAR: Literal[2]
+HAMMING: Literal[5]
+BICUBIC: Literal[3]
+CUBIC: Literal[3]
+LANCZOS: Literal[1]
+ANTIALIAS: Literal[1]
+
+ORDERED: Literal[1]
+RASTERIZE: Literal[2]
+FLOYDSTEINBERG: Literal[3]
+
+WEB: Literal[0]
+ADAPTIVE: Literal[1]
+
+MEDIANCUT: Literal[0]
+MAXCOVERAGE: Literal[1]
+FASTOCTREE: Literal[2]
+LIBIMAGEQUANT: Literal[3]
+
 class Transpose(IntEnum):
-    FLIP_TOP_BOTTOM: Literal[0]
-    ROTATE_90: Literal[1]
-    ROTATE_180: Literal[2]
-    ROTATE_270: Literal[3]
-    TRANSPOSE: Literal[4]
-    TRANSVERSE: Literal[5]
+    FLIP_TOP_BOTTOM: int
+    ROTATE_90: int
+    ROTATE_180: int
+    ROTATE_270: int
+    TRANSPOSE: int
+    TRANSVERSE: int
 
 class Transform(IntEnum):
-    AFFINE: Literal[0]
-    EXTENT: Literal[1]
-    PERSPECTIVE: Literal[2]
-    QUAD: Literal[3]
-    MESH: Literal[4]
+    AFFINE: int
+    EXTENT: int
+    PERSPECTIVE: int
+    QUAD: int
+    MESH: int
 
 class Resampling(IntEnum):
-    NEAREST: Literal[0]
-    LANCZOS: Literal[1]
-    BILINEAR: Literal[2]
-    BICUBIC: Literal[3]
-    BOX: Literal[4]
-    HAMMING: Literal[5]
+    NEAREST: int
+    LANCZOS: int
+    BILINEAR: int
+    BICUBIC: int
+    BOX: int
+    HAMMING: int
 
 class Dither(IntEnum):
-    NONE: Literal[0]
-    ORDERED: Literal[1]
-    RASTERIZE: Literal[2]
-    FLOYDSTEINBERG: Literal[3]
+    NONE: int
+    ORDERED: int
+    RASTERIZE: int
+    FLOYDSTEINBERG: int
 
 class Palette(IntEnum):
-    WEB: Literal[0]
-    ADAPTIVE: Literal[1]
+    WEB: int
+    ADAPTIVE: int
 
 class Quantize(IntEnum):
-    MEDIANCUT: Literal[0]
-    MAXCOVERAGE: Literal[1]
-    FASTOCTREE: Literal[2]
-    LIBIMAGEQUANT: Literal[3]
+    MEDIANCUT: int
+    MAXCOVERAGE: int
+    FASTOCTREE: int
+    LIBIMAGEQUANT: int
 
 ID: list[str]
 OPEN: dict[str, Any]
