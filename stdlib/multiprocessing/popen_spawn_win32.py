@@ -13,12 +13,11 @@ if sys.platform == "win32":
     WINENV: bool
 
     class Popen:
+        finalizer: Finalize
         method: ClassVar[str]
         pid: int
         returncode: int | None
-        _handle: int
         sentinel: int
-        finalizer: Finalize
 
         def __init__(self, process_obj: BaseProcess) -> None:
             ...
