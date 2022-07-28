@@ -1,5 +1,6 @@
 from _typeshed import Self, SupportsRead, SupportsWrite
 from collections.abc import Callable, Iterable, Iterator, MutableMapping, Sequence
+from enum import IntEnum
 from pathlib import Path
 from typing import Any, ClassVar, Protocol, SupportsBytes, Union
 from typing_extensions import Literal, TypeAlias
@@ -56,6 +57,15 @@ PERSPECTIVE: Literal[2]
 QUAD: Literal[3]
 MESH: Literal[4]
 
+class Resampling(IntEnum):
+    NEAREST: Literal[0]
+    BOX: Literal[4]
+    BILINEAR: Literal[2]
+    HAMMING: Literal[5]
+    BICUBIC: Literal[3]
+    LANCZOS: Literal[1]
+
+# deprecated, removed in Pillow 10
 NEAREST: Literal[0]
 BOX: Literal[4]
 BILINEAR: Literal[2]
