@@ -1,6 +1,6 @@
 import sys
-from typing_extensions import ClassVar
 
+from typing_extensions import ClassVar
 from .process import BaseProcess
 from .util import Finalize
 
@@ -12,7 +12,7 @@ if sys.platform != "win32":
         method: ClassVar[str]
         pid: int
         returncode: int | None
-        sentinel: int
+        sentinel: int  # doesn't exist if os.fork in _launch returns 0
 
         def __init__(self, process_obj: BaseProcess) -> None: ...
         def duplicate_for_child(self, fd: int) -> int: ...
