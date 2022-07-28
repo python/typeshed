@@ -251,8 +251,6 @@ Accepted features that *cannot* yet be used in typeshed include:
 - [PEP 570](https://www.python.org/dev/peps/pep-0570/) (positional-only
   arguments): see [#4972](https://github.com/python/typeshed/issues/4972),
   use argument names prefixed with `__` instead
-- [PEP 613](https://www.python.org/dev/peps/pep-0613/) (TypeAlias):
-  see [#4913](https://github.com/python/typeshed/issues/4913)
 
 The following features are partially supported:
 - [PEP 585](https://www.python.org/dev/peps/pep-0585/) (builtin
@@ -331,7 +329,7 @@ project's tracker to fix their documentation.
 You can use checks
 like `if sys.version_info >= (3, 8):` to denote new functionality introduced
 in a given Python version or solve type differences.  When doing so, only use
-one-tuples or two-tuples. Because of this, if a given functionality was
+two-tuples. Because of this, if a given functionality was
 introduced in, say, Python 3.7.4, your check:
 
 * should be expressed as `if sys.version_info >= (3, 7):`
