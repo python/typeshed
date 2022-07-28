@@ -16,6 +16,7 @@ from .ImageFilter import Filter
 from .ImagePalette import ImagePalette
 
 _Mode: TypeAlias = str
+_Resample: TypeAlias = Literal[0, 1, 2, 3, 4, 5]
 _Size: TypeAlias = tuple[int, int]
 _Box: TypeAlias = tuple[int, int, int, int]
 
@@ -79,6 +80,7 @@ FASTOCTREE: Literal[2]
 LIBIMAGEQUANT: Literal[3]
 
 class Transpose(IntEnum):
+    FLIP_LEFT_RIGHT: int
     FLIP_TOP_BOTTOM: int
     ROTATE_90: int
     ROTATE_180: int
@@ -215,7 +217,7 @@ class Image:
     def resize(
         self,
         size: tuple[int, int],
-        resample: Resampling | None = ...,
+        resample: Resampling | _Resample | None = ...,
         box: tuple[float, float, float, float] | None = ...,
         reducing_gap: float | None = ...,
     ) -> Image: ...
@@ -223,7 +225,7 @@ class Image:
     def rotate(
         self,
         angle: float,
-        resample: Resampling = ...,
+        resample: Resampling | _Resample = ...,
         expand: bool = ...,
         center: tuple[float, float] | None = ...,
         translate: tuple[float, float] | None = ...,
@@ -243,13 +245,13 @@ class Image:
     def split(self) -> tuple[Image, ...]: ...
     def getchannel(self, channel: int | str) -> Image: ...
     def tell(self) -> int: ...
-    def thumbnail(self, size: tuple[int, int], resample: Resampling = ..., reducing_gap: float = ...) -> None: ...
+    def thumbnail(self, size: tuple[int, int], resample: Resampling | _Resample = ..., reducing_gap: float = ...) -> None: ...
     def transform(
         self,
         size: _Size,
         method: Literal[0, 1, 2, 3, 4],
         data=...,
-        resample: Resampling = ...,
+        resample: Resampling | _Resample = ...,
         fill: int = ...,
         fillcolor: _Color | int | None = ...,
     ) -> Image: ...
