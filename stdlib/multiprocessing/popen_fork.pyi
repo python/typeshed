@@ -3,7 +3,7 @@ from .util import Finalize
 
 __all__ = ["Popen"]
 
-class Popen(object):
+class Popen:
     finalizer: Finalize | None
     method: str
     pid: int | None
