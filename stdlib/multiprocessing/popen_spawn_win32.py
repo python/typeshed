@@ -1,7 +1,7 @@
 from multiprocessing.process import BaseProcess
 from typing import ClassVar
-from .util import Finalize
 
+from .util import Finalize
 
 __all__ = ["Popen"]
 
