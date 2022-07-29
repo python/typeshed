@@ -1,5 +1,5 @@
 from collections import OrderedDict as OrderedDict
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 from urllib.parse import (
     quote as quote,
     quote_plus as quote_plus,
