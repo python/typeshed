@@ -15,9 +15,8 @@ if sys.platform != "win32":
         def detach(self) -> int: ...
 
     class Popen(popen_fork.Popen):
-        DupFd: type[_DupFd]
+        DupFd: ClassVar[type[_DupFd]]
         finalizer: Finalize
-        method: ClassVar[str]
         pid: int  # may not exist if _launch raises in second try / except
         sentinel: int  # may not exist if _launch raises in second try / except
 
