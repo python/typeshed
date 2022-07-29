@@ -1,9 +1,9 @@
 from collections.abc import Generator, Iterable, Mapping
 from contextlib import AbstractContextManager
 from io import BufferedWriter
+from os import PathLike
 from typing import Any, AnyStr
 from typing_extensions import TypeAlias
-from os import PathLike
 
 from . import compat, cookies, exceptions, structures
 from .models import PreparedRequest
