@@ -18,4 +18,4 @@ def callback(x: int, y: int) -> int:
 final = finalize(TObj, callback, 1, y=2)
 assert_type(final.peek(), _ResultStructure)
 assert_type(final.detach(), _ResultStructure)
-assert_type(final1(), int | None)
+assert_type(final(), int | None)
