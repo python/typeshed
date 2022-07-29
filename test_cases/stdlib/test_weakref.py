@@ -1,5 +1,4 @@
-from collections.abc import Callable
-from typing import Any, Optional, Tuple, Dict
+from typing import Any, Optional, Tuple, Dict, Callable
 from typing_extensions import TypeAlias, assert_type
 from weakref import finalize
 
