@@ -8,6 +8,7 @@ from urllib3._collections import RecentlyUsedContainer
 from . import adapters, auth as _auth, compat, cookies, exceptions, hooks, models, status_codes, utils
 from .models import Response
 from .structures import CaseInsensitiveDict as CaseInsensitiveDict
+from .utils import DEFAULT_PORTS as DEFAULT_PORTS
 
 _BaseAdapter: TypeAlias = adapters.BaseAdapter
 OrderedDict = compat.OrderedDict
@@ -40,10 +41,23 @@ def merge_setting(request_setting, session_setting, dict_class=...): ...
 def merge_hooks(request_hooks, session_hooks, dict_class=...): ...
 
 class SessionRedirectMixin:
-    def resolve_redirects(self, resp, req, stream=..., timeout=..., verify=..., cert=..., proxies=...): ...
+    def resolve_redirects(
+        self,
+        resp,
+        req,
+        stream: bool = ...,
+        timeout=...,
+        verify=...,
+        cert=...,
+        proxies=...,
+        yield_requests: bool = ...,
+        **adapter_kwargs,
+    ): ...
     def rebuild_auth(self, prepared_request, response): ...
     def rebuild_proxies(self, prepared_request, proxies): ...
     def should_strip_auth(self, old_url, new_url): ...
+    def rebuild_method(self, prepared_request: PreparedRequest, response: Response) -> None: ...
+    def get_redirect_target(self, resp: Response) -> str | None: ...
 
 _Data: TypeAlias = str | bytes | Mapping[str, Any] | Iterable[tuple[str, str | None]] | IO[Any]
 _Auth: TypeAlias = Union[tuple[str, str], _auth.AuthBase, Callable[[PreparedRequest], PreparedRequest]]

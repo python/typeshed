@@ -6,7 +6,9 @@ from typing import Any, AnyStr
 from typing_extensions import TypeAlias
 
 from . import compat, cookies, exceptions, structures
+from .compat import integer_types as integer_types, basestring as basestring
 from .models import PreparedRequest, Request
+from ._internal_utils import HEADER_VALIDATORS as HEADER_VALIDATORS
 
 _Uri: TypeAlias = str | bytes
 OrderedDict = compat.OrderedDict

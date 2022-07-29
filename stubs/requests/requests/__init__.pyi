@@ -7,7 +7,7 @@ from .__version__ import (
     __cake__ as __cake__,
     __copyright__ as __copyright__,
     __description__ as __description__,
-    __license__ as __license___,
+    __license__ as __license__,
     __title__ as __title__,
     __url__ as __url__,
     __version__ as __version__,

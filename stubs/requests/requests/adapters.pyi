@@ -5,6 +5,7 @@ from urllib3 import exceptions as urllib3_exceptions, poolmanager, response
 from urllib3.util import retry
 
 from . import cookies, exceptions, models, structures, utils
+from .compat import basestring as basestring
 
 Response = models.Response
 PoolManager = poolmanager.PoolManager

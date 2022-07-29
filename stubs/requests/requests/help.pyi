@@ -1,4 +1,12 @@
 from typing_extensions import TypedDict
+from types import ModuleType
+from . import __version__ as requests_version
+
+chardet: ModuleType | None
+charset_normalizer: ModuleType | None
+cryptography: ModuleType | None
+pyopenssl: ModuleType | None
+OpenSSL: ModuleType | None
 
 class _VersionDict(TypedDict):
     version: str
