@@ -15,8 +15,9 @@ def callback(x: int, y: int) -> int:
     return x + y
 
 
-final = finalize(TObj, callback, 1, y=2)
-final2 = finalize(TObj, callback, 1, y=2)
+final1 = finalize(TObj, callback, 1, y=2)
+final2 = finalize(TObj, callback, 1, y=2)  # detaching will make final1 return None
 assert_type(final1.peek(), _ResultStructure)
 assert_type(final1.detach(), _ResultStructure)
+assert_type(final1(), None)
 assert_type(final2(), int)
