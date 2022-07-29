@@ -1,35 +1,35 @@
 from typing_extensions import TypedDict
 
-class VersionDict(TypedDict):
+class _VersionDict(TypedDict):
     version: str
 
-class OptionalVersionDict(TypedDict):
+class _OptionalVersionDict(TypedDict):
     version: str | None
 
-class PlatformDict(TypedDict):
+class _PlatformDict(TypedDict):
     system: str
     release: str
 
-class ImplementationDict(VersionDict):
+class _ImplementationDict(_VersionDict):
     name: str
 
-class PyOpenSSLDict(OptionalVersionDict):
+class _PyOpenSSLDict(_OptionalVersionDict):
     openssl_version: str
 
-class InfoDict(TypedDict):
-    platform: PlatformDict
-    implementation: ImplementationDict
-    system_ssl: VersionDict
+class _InfoDict(TypedDict):
+    platform: _PlatformDict
+    implementation: _ImplementationDict
+    system_ssl: _VersionDict
     using_pyopenssl: bool
     using_charset_normalizer: bool
-    pyOpenSSL: PyOpenSSLDict
-    urllib3: VersionDict
-    chardet: OptionalVersionDict
-    charset_normalizer: OptionalVersionDict
-    cryptography: VersionDict
-    idna: VersionDict
-    requests: VersionDict
+    pyOpenSSL: _PyOpenSSLDict
+    urllib3: _VersionDict
+    chardet: _OptionalVersionDict
+    charset_normalizer: _OptionalVersionDict
+    cryptography: _VersionDict
+    idna: _VersionDict
+    requests: _VersionDict
 
 def _implementation() -> dict[str, str]: ...
-def info() -> InfoDict: ...
+def info() -> _InfoDict: ...
 def main() -> None: ...
