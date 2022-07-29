@@ -1,4 +1,5 @@
 from collections import OrderedDict as OrderedDict
+from typing import TypeAlias
 from urllib.parse import (
     quote as quote,
     quote_plus as quote_plus,
@@ -16,3 +17,10 @@ from urllib.request import getproxies as getproxies, parse_http_list as parse_ht
 is_py2: bool
 is_py3: bool
 has_simplejson: bool
+
+builtin_str: TypeAlias = str
+# str = str omitted
+# bytes = bytes omitted
+basestring: tuple[type, type]
+numeric_types: tuple[type, type]
+integer_types: tuple[type]
