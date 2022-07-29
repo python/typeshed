@@ -18,7 +18,7 @@ is_py2: bool
 is_py3: bool
 has_simplejson: bool
 
-builtin_str: TypeAlias = str
+builtin_str: TypeAlias = str  # noqa: Y042
 # str = str omitted
 # bytes = bytes omitted
 basestring: tuple[type, type]
