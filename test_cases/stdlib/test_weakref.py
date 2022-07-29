@@ -1,4 +1,4 @@
-from typing import Any, Optional, Tuple, Dict, Callable
+from typing import Any, Callable, Dict, Optional, Tuple
 from typing_extensions import TypeAlias, assert_type
 from weakref import finalize
 
