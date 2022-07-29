@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+
 from braintree.attribute_getter import AttributeGetter as AttributeGetter
 
 class RiskData(AttributeGetter):
