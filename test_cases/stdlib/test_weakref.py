@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from typing_extensions import assert_type, TypeAlias
+from typing_extensions import TypeAlias, assert_type
 from weakref import finalize
 
 _ResultStructure: TypeAlias = tuple[str, Callable[[int, int], int], tuple[int], dict[str, int]]
