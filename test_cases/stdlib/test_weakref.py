@@ -1,8 +1,9 @@
 from collections.abc import Callable
+from typing import Any, Optional, Tuple, Dict
 from typing_extensions import TypeAlias, assert_type
 from weakref import finalize
 
-_ResultStructure: TypeAlias = tuple[str, Callable[[int, int], int], tuple[int], dict[str, int]]
+_ResultStructure: TypeAlias = Optional[Tuple[str, Callable[[int, int], int], Tuple[Any, ...], Dict[str, Any]]]
 
 
 class TObj:
@@ -15,9 +16,7 @@ def callback(x: int, y: int) -> int:
     return x + y
 
 
-final1 = finalize(TObj, callback, 1, y=2)
-final2 = finalize(TObj, callback, 1, y=2)  # detaching will make final1 return None
-assert_type(final1.peek(), _ResultStructure)
-assert_type(final1.detach(), _ResultStructure)
-assert_type(final1(), None)
-assert_type(final2(), int)
+final = finalize(TObj, callback, 1, y=2)
+assert_type(final.peek(), _ResultStructure)
+assert_type(final.detach(), _ResultStructure)
+assert_type(final1(), int | None)
