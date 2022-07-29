@@ -48,6 +48,9 @@ winsound
 ossaudiodev
 spwd
 
+# multiprocessing.popen_spawn_win32 exists on Darwin but fail to import
+multiprocessing.popen_spawn_win32
+
 # Platform differences that cannot be captured by the type system
 os.SCHED_[A-Z_]+
 posix.SCHED_[A-Z_]+
