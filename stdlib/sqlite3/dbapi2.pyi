@@ -14,7 +14,6 @@ _SqliteData: TypeAlias = str | ReadableBuffer | int | float | None
 _AdaptedInputData: TypeAlias = _SqliteData | Any
 # The Mapping must really be a dict, but making it invariant is too annoying.
 _Parameters: TypeAlias = SupportsLenAndGetItem[_AdaptedInputData] | Mapping[str, _AdaptedInputData]
-_SqliteOutputData: TypeAlias = str | bytes | int | float | None
 _Adapter: TypeAlias = Callable[[_T], _SqliteData]
 _Converter: TypeAlias = Callable[[bytes], Any]
 
