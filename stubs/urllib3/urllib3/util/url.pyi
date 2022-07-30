@@ -1,29 +1,27 @@
-from typing import Any, List, Optional
+from typing import Any
 
 from .. import exceptions
 
 LocationParseError = exceptions.LocationParseError
 
-url_attrs: List[str]
+url_attrs: list[str]
 
 class Url:
     slots: Any
-    def __new__(
-        cls,
-        scheme: Optional[str] = ...,
-        auth: Optional[str] = ...,
-        host: Optional[str] = ...,
-        port: Optional[str] = ...,
-        path: Optional[str] = ...,
-        query: Optional[str] = ...,
-        fragment: Optional[str] = ...,
-    ): ...
+    def __new__(cls,
+        scheme: str | None = ...,
+        auth: str | None = ...,
+        host: str | None = ...,
+        port: str | None = ...,
+        path: str | None = ...,
+        query: str | None = ...,
+        fragment: str | None = ...): ...
     @property
-    def hostname(self) -> Optional[str]: ...
+    def hostname(self) -> str | None: ...
     @property
     def request_uri(self) -> str: ...
     @property
-    def netloc(self) -> Optional[str]: ...
+    def netloc(self) -> str | None: ...
     @property
     def url(self) -> str: ...
 
