@@ -8,14 +8,16 @@ url_attrs: List[str]
 
 class Url:
     slots: Any
-    def __new__(cls,
+    def __new__(
+        cls,
         scheme: Optional[str] = ...,
         auth: Optional[str] = ...,
         host: Optional[str] = ...,
         port: Optional[str] = ...,
         path: Optional[str] = ...,
         query: Optional[str] = ...,
-        fragment: Optional[str] = ...): ...
+        fragment: Optional[str] = ...,
+    ): ...
     @property
     def hostname(self) -> Optional[str]: ...
     @property
