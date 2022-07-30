@@ -38,7 +38,7 @@ class AbstractRedisCluster:
     NODE_FLAGS: ClassVar[set[str]]
     COMMAND_FLAGS: ClassVar[dict[str, str]]
     CLUSTER_COMMANDS_RESPONSE_CALLBACKS: ClassVar[dict[str, Any]]
-    RESULT_CALLBACKS: ClassVar[dict[str, Callable[[Incomplete, Incomplete], Incomplete]]]]
+    RESULT_CALLBACKS: ClassVar[dict[str, Callable[[Incomplete, Incomplete], Incomplete]]]
     ERRORS_ALLOW_RETRY: ClassVar[tuple[type[RedisError], ...]]
 
 class RedisCluster(AbstractRedisCluster, RedisClusterCommands[_StrType], Generic[_StrType]):
