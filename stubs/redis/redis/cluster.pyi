@@ -3,8 +3,9 @@ from collections.abc import Callable
 from threading import Lock
 from types import TracebackType
 from typing import Any, ClassVar, Generic
+from typing_extensions import Literal
 
-from redis.client import PubSub, Redis
+from redis.client import PubSub, Redis, CaseInsensitiveDict
 from redis.commands import CommandsParser, RedisClusterCommands
 from redis.commands.core import _StrType
 from redis.connection import BaseParser, Connection, Encoder
@@ -37,11 +38,11 @@ class AbstractRedisCluster:
     NODE_FLAGS: ClassVar[set[str]]
     COMMAND_FLAGS: ClassVar[dict[str, str]]
     CLUSTER_COMMANDS_RESPONSE_CALLBACKS: ClassVar[dict[str, Any]]
-    RESULT_CALLBACKS: ClassVar[dict[str, Any]]
+    RESULT_CALLBACKS: ClassVar[dict[str, Callable[[Incomplete, Incomplete], Incomplete]]]]
     ERRORS_ALLOW_RETRY: ClassVar[tuple[type[RedisError], ...]]
 
 class RedisCluster(AbstractRedisCluster, RedisClusterCommands[_StrType], Generic[_StrType]):
-    user_on_connect_func: Callable[[Connection], object]
+    user_on_connect_func: Callable[[Connection], object] | None
     encoder: Encoder
     cluster_error_retry_attempts: int
     command_flags: dict[str, str]
@@ -50,7 +51,7 @@ class RedisCluster(AbstractRedisCluster, RedisClusterCommands[_StrType], Generic
     reinitialize_counter: int
     reinitialize_steps: int
     nodes_manager: NodesManager
-    cluster_response_callbacks: dict[str, Any]
+    cluster_response_callbacks: CaseInsensitiveDict[str, Callable[..., Incomplete]]
     result_callbacks: dict[str, Any]
     commands_parser: CommandsParser
     def __init__(  # TODO: make @overloads, either `url` or `host:port` can be passed
@@ -188,14 +189,9 @@ class ClusterPipeline(RedisCluster[_StrType], Generic[_StrType]):
         lock: Lock | None = ...,
         **kwargs,
     ) -> None: ...
-    def __enter__(self: Self) -> Self: ...
-    def __exit__(
-        self, type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
-    ) -> None: ...
-    def __del__(self) -> None: ...
     def __len__(self) -> int: ...
-    def __nonzero__(self) -> bool: ...
-    def __bool__(self) -> bool: ...
+    def __nonzero__(self) -> Literal[True]: ...
+    def __bool__(self) -> Literal[True]: ...
     def execute_command(self, *args, **kwargs): ...
     def pipeline_execute_command(self, *args, **options): ...
     def raise_first_error(self, stack) -> None: ...
