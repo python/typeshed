@@ -3,6 +3,7 @@ from _typeshed import Self
 from collections.abc import Callable, Iterable, Iterator
 from contextlib import AbstractContextManager
 from typing import Any
+from typing_extensions import Literal, TypeAlias
 
 from ._common import (
     AIX as AIX,
@@ -50,7 +51,6 @@ from ._common import (
     NoSuchProcess as NoSuchProcess,
     TimeoutExpired as TimeoutExpired,
     ZombieProcess as ZombieProcess,
-    _Status,
     pconn,
     pcputimes,
     pctxsw,
@@ -117,6 +117,23 @@ AF_LINK: int
 version_info: tuple[int, int, int]
 __version__: str
 __author__: str
+
+_Status: TypeAlias = Literal[
+    "running",
+    "sleeping",
+    "disk-sleep",
+    "stopped",
+    "tracing-stop",
+    "zombie",
+    "dead",
+    "wake-kill",
+    "waking",
+    "idle",
+    "locked",
+    "waiting",
+    "suspended",
+    "parked",
+]
 
 class Process:
     def __init__(self, pid: int | None = ...) -> None: ...
