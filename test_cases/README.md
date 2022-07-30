@@ -36,18 +36,18 @@ expression is what we'd like it be.
 
 Finally, some stubs make use of `# type: ignore` comments (in combination with
 mypy's
-[`--warn-unused-ignore`](https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-warn-unused-ignores)
+[`--warn-unused-ignores`](https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-warn-unused-ignores)
 setting and pyright's
 [`reportUnnecessaryTypeIgnoreComment`](https://github.com/microsoft/pyright/blob/main/docs/configuration.md#type-check-diagnostics-settings)
 setting) to test instances where a type checker *should* emit some kind of
-error, if the stubs are correct. Note that mypy's `--warn-unused-ignore`
+error, if the stubs are correct. Note that mypy's `--warn-unused-ignores`
 setting is enabled for the entire subdirectory; however, the pyright setting
 must be enabled on a per-file basis with
 `# pyright: reportUnnecessaryTypeIgnoreComment=true` at the the top of the
 file.
 
 For more information on using `assert_type` and
-`--warn-unused-ignore`/`reportUnnecessaryTypeIgnoreComment` to test type
+`--warn-unused-ignores`/`reportUnnecessaryTypeIgnoreComment` to test type
 annotations,
 [this page](https://typing.readthedocs.io/en/latest/source/quality.html#testing-using-assert-type-and-warn-unused-ignores)
 provides a useful guide.
