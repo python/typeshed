@@ -52,7 +52,7 @@ class RedisCluster(AbstractRedisCluster, RedisClusterCommands[_StrType], Generic
     reinitialize_steps: int
     nodes_manager: NodesManager
     cluster_response_callbacks: CaseInsensitiveDict[str, Callable[..., Incomplete]]
-    result_callbacks: dict[str, Any]
+    result_callbacks: CaseInsensitiveDict[str, Callable[[Incomplete, Incomplete], Incomplete]]
     commands_parser: CommandsParser
     def __init__(  # TODO: make @overloads, either `url` or `host:port` can be passed
         self,
