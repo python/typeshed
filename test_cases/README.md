@@ -36,8 +36,8 @@ expression is what we'd like it be.
 
 Finally, some stubs make use of `# type: ignore` comments (in combination with
 mypy's
-[`--warn-unused-ignore` setting](https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-warn-unused-ignores)
-and pyright's
+[`--warn-unused-ignore`](https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-warn-unused-ignores)
+setting and pyright's
 [`reportUnnecessaryTypeIgnoreComment`](https://github.com/microsoft/pyright/blob/main/docs/configuration.md#type-check-diagnostics-settings)
 setting) to test instances where a type checker *should* emit some kind of
 error, if the stubs are correct. Note that mypy's `--warn-unused-ignore`
