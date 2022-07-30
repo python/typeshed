@@ -1,8 +1,7 @@
 ## Regression tests for typeshed
 
 This directory contains regression tests for the stubs found elsewhere in the
-typeshed repo. Each file contains a number of test cases, all of which should
-pass a type checker without error.
+typeshed repo.
 
 **This directory should *only* contain tests for functions and classes which
 are known to have caused problems in the past, where the stubs are difficult to
@@ -24,6 +23,34 @@ stubs where the annotations are particularly complex, but they *do* relate to
 stubs where decisions have been taken that might be slightly unusual. These
 tests serve a different purpose: to check that type checkers do not emit
 false-positive errors for idiomatic usage of these classes.
+
+### How the tests work
+
+Some files in this directory simply contain samples of idiomatic Python, which
+should not (if the stubs are correct) cause a type checker to emit any errors.
+
+Many test cases also make use of
+[`assert_type`](https://docs.python.org/3.11/library/typing.html#typing.assert_type),
+a function which allows us to test whether a type checker's inferred type of an
+expression is what we'd like it be.
+
+Finally, some stubs make use of `# type: ignore` comments (in combination with
+mypy's
+[`--warn-unused-ignore` setting](https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-warn-unused-ignores)
+and pyright's
+[`reportUnnecessaryTypeIgnoreComment`](https://github.com/microsoft/pyright/blob/main/docs/configuration.md#type-check-diagnostics-settings)
+setting) to test instances where a type checker *should* emit some kind of
+error, if the stubs are correct. Note that mypy's `--warn-unused-ignore`
+setting is enabled for the entire subdirectory; however, the pyright setting
+must be enabled on a per-file basis with
+`# pyright: reportUnnecessaryTypeIgnoreComment=true` at the the top of the
+file.
+
+For more information on using `assert_type` and
+`--warn-unused-ignore`/`reportUnnecessaryTypeIgnoreComment` to test type
+annotations,
+[this page](https://typing.readthedocs.io/en/latest/source/quality.html#testing-using-assert-type-and-warn-unused-ignores)
+provides a useful guide.
 
 ### Differences to the rest of typeshed
 
