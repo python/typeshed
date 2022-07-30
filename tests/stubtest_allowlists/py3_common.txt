@@ -84,7 +84,6 @@ ctypes.Array._length_
 ctypes.CDLL._FuncPtr  # None at class level but initialized in __init__ to this value
 ctypes.memmove  # CFunctionType
 ctypes.memset  # CFunctionType
-ctypes.pointer  # imported C function
 ctypes.string_at  # docstring argument name is wrong
 ctypes.wstring_at  # docstring argument name is wrong
 distutils.command.bdist_packager  # It exists in docs as package name but not in code except as a mention in a comment.
