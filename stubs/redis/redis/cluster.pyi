@@ -5,7 +5,7 @@ from types import TracebackType
 from typing import Any, ClassVar, Generic
 from typing_extensions import Literal
 
-from redis.client import PubSub, Redis, CaseInsensitiveDict
+from redis.client import CaseInsensitiveDict, PubSub, Redis
 from redis.commands import CommandsParser, RedisClusterCommands
 from redis.commands.core import _StrType
 from redis.connection import BaseParser, Connection, Encoder
