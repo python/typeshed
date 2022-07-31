@@ -5,7 +5,7 @@ from sqlalchemy import Table
 from sqlalchemy.ext.declarative import DeclarativeMeta
 from sqlalchemy.orm import Query
 
-_Model = TypeVar("_Model")
+_ModelT = TypeVar("_Model")
 
 def should_set_tablename(cls: type) -> bool: ...
 
@@ -22,6 +22,6 @@ class BindMetaMixin(type):
 
 class DefaultMeta(NameMetaMixin, BindMetaMixin, DeclarativeMeta): ...
 
-class Model(Generic[_Model]):
-    query_class: type[Query[_Model]] | None
-    query: Query[_Model] | None
+class Model(Generic[_ModelT]):
+    query_class: type[Query[_ModelT]] | None
+    query: Query[_ModelT] | None
