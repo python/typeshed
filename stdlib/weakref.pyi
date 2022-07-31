@@ -31,14 +31,13 @@ __all__ = [
     "finalize",
 ]
 
-_CallableT = TypeVar("_CallableT", bound=Callable[..., Any])
-_KT = TypeVar("_KT")
-_P = ParamSpec("_P")
-_R = TypeVar("_R")
 _T = TypeVar("_T")
 _T1 = TypeVar("_T1")
 _T2 = TypeVar("_T2")
+_KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
+_CallableT = TypeVar("_CallableT", bound=Callable[..., Any])
+_P = ParamSpec("_P")
 
 ProxyTypes: tuple[type[Any], ...]
 
@@ -125,11 +124,11 @@ class WeakKeyDictionary(MutableMapping[_KT, _VT]):
         @overload
         def __ior__(self: Self, other: Iterable[tuple[_KT, _VT]]) -> Self: ...
 
-class finalize(Generic[_P, _T, _R]):
-    def __init__(self, __obj: _T, __func: Callable[_P, _R], *args: _P.args, **kwargs: _P.kwargs) -> None: ...
-    def __call__(self, _: object = ...) -> _R | None: ...
-    def detach(self) -> tuple[_T, Callable[_P, _R], tuple[Any, ...], dict[str, Any]] | None: ...
-    def peek(self) -> tuple[_T, Callable[_P, _R], tuple[Any, ...], dict[str, Any]] | None: ...
+class finalize:
+    def __init__(self, __obj: object, __func: Callable[_P, Any], *args: _P.args, **kwargs: _P.kwargs) -> None: ...
+    def __call__(self, _: Any = ...) -> Any | None: ...
+    def detach(self) -> tuple[Any, Any, tuple[Any, ...], dict[str, Any]] | None: ...
+    def peek(self) -> tuple[Any, Any, tuple[Any, ...], dict[str, Any]] | None: ...
     @property
     def alive(self) -> bool: ...
     atexit: bool
