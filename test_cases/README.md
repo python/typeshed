@@ -34,7 +34,7 @@ Many test cases also make use of
 a function which allows us to test whether a type checker's inferred type of an
 expression is what we'd like it be.
 
-Finally, some stubs make use of `# type: ignore` comments (in combination with
+Finally, some tests make use of `# type: ignore` comments (in combination with
 mypy's
 [`--warn-unused-ignores`](https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-warn-unused-ignores)
 setting and pyright's
@@ -71,4 +71,4 @@ extensions, and since the tests need to pass on all Python versions >=3.7, PEP
 
 PEP 585 syntax can also not be used in the `test_cases` directory. Use
 `typing.Tuple` instead of `tuple`, `typing.Callable` instead of
-`collections.abc.Callable`, and `re.Match` instead of `typing.Match` (etc.).
+`collections.abc.Callable`, and `typing.Match` instead of `re.Match` (etc.).
