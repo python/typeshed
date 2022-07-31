@@ -186,13 +186,6 @@ _EntryValidateCommand: TypeAlias = (
 )  # example when it's sequence:  entry['invalidcommand'] = [entry.register(print), '%P']
 _GridIndex: TypeAlias = int | str | Literal["all"]
 _ImageSpec: TypeAlias = _Image | str  # str can be from e.g. tkinter.image_names()
-_Padding: TypeAlias = Union[
-    _ScreenUnits,
-    tuple[_ScreenUnits],
-    tuple[_ScreenUnits, _ScreenUnits],
-    tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits],
-    tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits, _ScreenUnits],
-]
 _Relief: TypeAlias = Literal["raised", "sunken", "flat", "ridge", "solid", "groove"]  # manual page: Tk_GetRelief
 _ScreenUnits: TypeAlias = str | float  # Often the right type instead of int. Manual page: Tk_GetPixels
 _XYScrollCommand: TypeAlias = str | Callable[[float, float], Any]  # -xscrollcommand and -yscrollcommand in 'options' manual page
