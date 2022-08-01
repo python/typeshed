@@ -1,5 +1,7 @@
+from _typeshed import Self
+
 from re import Pattern
-from typing import Any, Self
+from typing import Any
 
 from sqlalchemy import Table
 from sqlalchemy.ext.declarative import DeclarativeMeta
@@ -21,5 +23,13 @@ class BindMetaMixin(type):
 class DefaultMeta(NameMetaMixin, BindMetaMixin, DeclarativeMeta): ...
 
 class Model:
-    query_class: type[Query[Self]] | None
-    query: Query[Self] | None
+    # These aren't actually properties at runtime, but we treat them as such so we can use `self` types
+    # without using typing.Self
+    @property
+    def query_class(self: Self) -> type[Query[Self]] | None: ...
+    @query_class.setter
+    def query_class(self: Self, value: type[Query[Self]] | None) -> None: ...
+    @property
+    def query(self: Self) -> Query[Self] | None: ...
+    @query.setter
+    def query(self: Self, value: Query[Self] | None) -> None: ...
