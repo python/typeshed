@@ -1,7 +1,7 @@
-from _typeshed import Incomplete
 import _tkinter
 import sys
 import tkinter
+from _typeshed import Incomplete
 from collections.abc import Callable
 from tkinter.font import _FontDescription
 from typing import Any, overload

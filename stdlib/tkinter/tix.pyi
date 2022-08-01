@@ -1,5 +1,5 @@
-from _typeshed import Incomplete
 import tkinter
+from _typeshed import Incomplete
 from typing import Any
 from typing_extensions import Literal
 

@@ -1,5 +1,5 @@
-from _typeshed import Incomplete
 import sys
+from _typeshed import Incomplete
 from collections.abc import Mapping
 from tkinter import Widget
 from typing import Any

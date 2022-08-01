@@ -1,6 +1,4 @@
-from _typeshed import Incomplete
 from tkinter import Frame, Misc, Scrollbar, Text
-from typing import Any
 
 __all__ = ["ScrolledText"]
 

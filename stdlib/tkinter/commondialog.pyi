@@ -1,7 +1,7 @@
-from _typeshed import Incomplete
 import sys
+from _typeshed import Incomplete
 from collections.abc import Mapping
-from typing import Any, ClassVar
+from typing import ClassVar
 
 if sys.version_info >= (3, 9):
     __all__ = ["Dialog"]
