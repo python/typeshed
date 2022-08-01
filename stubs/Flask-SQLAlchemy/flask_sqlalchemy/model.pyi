@@ -1,5 +1,6 @@
 from _typeshed import Self
 from re import Pattern
+from typing import Any
 
 from sqlalchemy import Table
 from sqlalchemy.ext.declarative import DeclarativeMeta
