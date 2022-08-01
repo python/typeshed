@@ -17,6 +17,7 @@ fractions.Fraction.__new__  # overload is too complicated for stubtest to resolv
 gettext.install
 gettext.translation
 hmac.new  # Stub is a white lie; see comments in the stub
+importlib.metadata._meta.SimplePath  # There was a bug in `SimplePath` definition in cpython, see #8451
 ipaddress.IPv4Interface.hostmask
 ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
