@@ -102,6 +102,7 @@ importlib.abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined 
 importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but expected to exist.
 importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
 importlib.machinery.ExtensionFileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
+importlib.metadata._meta.SimplePath  # There was a bug in `SimplePath` definition in cpython, see #8451
 inspect.Parameter.empty  # set as private marker _empty
 inspect.Signature.empty  # set as private marker _empty
 io.BufferedRandom.truncate
