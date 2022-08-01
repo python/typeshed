@@ -1,5 +1,6 @@
 from collections.abc import Callable, Mapping
-from typing import Any, Union, TypeAlias
+from typing import Any, Union
+from typing_extensions import TypeAlias
 
 _FieldValue: TypeAlias = str | bytes
 _FieldValueTuple: TypeAlias = Union[_FieldValue, tuple[str, _FieldValue], tuple[str, _FieldValue, str]]
