@@ -39,12 +39,11 @@ with the proxy:
 """
 
 from typing import Any, ClassVar, Mapping, Optional
+from typing_extensions import TypedDict
 
 from ..connection import HTTPConnection, HTTPSConnection
 from ..connectionpool import HTTPConnectionPool, HTTPSConnectionPool
 from ..poolmanager import PoolManager
-
-from typing_extensions import TypedDict
 
 class _SockOptions(TypedDict):
     socks_version: int
