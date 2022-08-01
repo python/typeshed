@@ -1,5 +1,6 @@
 from types import ModuleType
 from typing_extensions import TypedDict
+
 from .__version__ import __version__ as requests_version
 
 chardet: ModuleType | None
