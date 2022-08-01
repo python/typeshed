@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from collections.abc import Mapping
 from typing import Any, ClassVar
 from typing_extensions import TypedDict
@@ -6,7 +7,7 @@ from ..connection import HTTPConnection, HTTPSConnection
 from ..connectionpool import HTTPConnectionPool, HTTPSConnectionPool
 from ..poolmanager import PoolManager
 
-class _SockOptions(TypedDict):
+class _TYPE_SOCKS_OPTIONS(TypedDict):
     socks_version: int
     proxy_host: str | None
     proxy_port: str | None
@@ -15,7 +16,7 @@ class _SockOptions(TypedDict):
     rdns: bool
 
 class SOCKSConnection(HTTPConnection):
-    def __init__(self, _socks_options: _SockOptions, *args: Any, **kwargs: Any) -> None: ...
+    def __init__(self, _socks_options: _TYPE_SOCKS_OPTIONS, *args, **kwargs) -> None: ...
     def _new_conn(self) -> Any: ...  # "socks.socksocket":
 
 class SOCKSHTTPSConnection(SOCKSConnection, HTTPSConnection): ...
@@ -37,5 +38,5 @@ class SOCKSProxyManager(PoolManager):
         password: str | None = ...,
         num_pools: int = ...,
         headers: Mapping[str, str] | None = ...,
-        **connection_pool_kw: Any,
+        **connection_pool_kw,
     ) -> None: ...
