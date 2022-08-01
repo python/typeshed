@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from tkinter import Event, Frame, Misc, Toplevel
 
 class Dialog(Toplevel):

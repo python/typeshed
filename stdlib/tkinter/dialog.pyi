@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 import sys
 from collections.abc import Mapping
 from tkinter import Widget

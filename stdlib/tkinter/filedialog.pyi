@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 import sys
 from _typeshed import StrOrBytesPath
 from collections.abc import Iterable

@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 import sys
 from tkinter import Event, Misc, Tk, Widget
 from typing import ClassVar, Protocol
