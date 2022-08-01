@@ -1138,7 +1138,7 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         background: tkinter._Color = ...,
         font: _FontDescription = ...,
         image: tkinter._ImageSpec = ...,
-    ) -> _TreeviewTagDict | Incomplete: ...  # can be None but annoying to check
+    ) -> _TreeviewTagDict | Any: ...  # can be None but annoying to check
     @overload
     def tag_has(self, tagname: str, item: None = ...) -> tuple[str, ...]: ...
     @overload
