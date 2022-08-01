@@ -1,6 +1,8 @@
 from types import ModuleType
 from typing_extensions import TypedDict
 
+from . import __version__ as requests_version
+
 chardet: ModuleType | None
 charset_normalizer: ModuleType | None
 cryptography: ModuleType | None
