@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from typing_extensions import Literal
 
 # These are not actually bools. See #4669

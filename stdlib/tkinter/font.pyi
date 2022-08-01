@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 import _tkinter
 import sys
 import tkinter

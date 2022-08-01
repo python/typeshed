@@ -1,7 +1,6 @@
-from _typeshed import Incomplete
 import _tkinter
 import sys
-from _typeshed import StrOrBytesPath
+from _typeshed import Incomplete, StrOrBytesPath
 from collections.abc import Callable, Mapping, Sequence
 from enum import Enum
 from tkinter.constants import *
@@ -196,7 +195,9 @@ _Padding: TypeAlias = Union[
 ]
 _Relief: TypeAlias = Literal["raised", "sunken", "flat", "ridge", "solid", "groove"]  # manual page: Tk_GetRelief
 _ScreenUnits: TypeAlias = str | float  # Often the right type instead of int. Manual page: Tk_GetPixels
-_XYScrollCommand: TypeAlias = str | Callable[[float, float], object]  # -xscrollcommand and -yscrollcommand in 'options' manual page
+_XYScrollCommand: TypeAlias = (
+    str | Callable[[float, float], object]
+)  # -xscrollcommand and -yscrollcommand in 'options' manual page
 _TakeFocusValue: TypeAlias = Union[int, Literal[""], Callable[[str], bool | None]]  # -takefocus in manual page named 'options'
 
 if sys.version_info >= (3, 11):
@@ -658,7 +659,11 @@ class Wm:
     def wm_geometry(self, newGeometry: str) -> None: ...
     geometry = wm_geometry
     def wm_grid(
-        self, baseWidth: Incomplete | None = ..., baseHeight: Incomplete | None = ..., widthInc: Incomplete | None = ..., heightInc: Incomplete | None = ...
+        self,
+        baseWidth: Incomplete | None = ...,
+        baseHeight: Incomplete | None = ...,
+        widthInc: Incomplete | None = ...,
+        heightInc: Incomplete | None = ...,
     ): ...
     grid = wm_grid
     def wm_group(self, pathName: Incomplete | None = ...): ...

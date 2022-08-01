@@ -1,7 +1,6 @@
-from _typeshed import Incomplete
 import sys
 from tkinter.commondialog import Dialog
-from typing import Any, ClassVar
+from typing import ClassVar
 
 if sys.version_info >= (3, 9):
     __all__ = ["Chooser", "askcolor"]
