@@ -1,5 +1,4 @@
 from _typeshed import Self
-
 from re import Pattern
 
 from sqlalchemy import Table
