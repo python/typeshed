@@ -1,5 +1,3 @@
-from typing import Any
-
 from .. import exceptions
 
 LocationParseError = exceptions.LocationParseError
@@ -7,7 +5,13 @@ LocationParseError = exceptions.LocationParseError
 url_attrs: list[str]
 
 class Url:
-    slots: Any
+    auth: str | None
+    fragment: str | None
+    host: str | None
+    path: str | None
+    port: str | None
+    query: str | None
+    scheme: str | None
     def __new__(
         cls,
         scheme: str | None = ...,
