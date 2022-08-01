@@ -1,6 +1,6 @@
 from collections.abc import Mapping
-from typing_extensions import TypedDict
 from typing import Any, ClassVar
+from typing_extensions import TypedDict
 
 from ..connection import HTTPConnection, HTTPSConnection
 from ..connectionpool import HTTPConnectionPool, HTTPSConnectionPool
