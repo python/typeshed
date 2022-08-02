@@ -26,7 +26,8 @@ class _ConnectionPoolClasses(TypedDict):
     https: type[SOCKSHTTPSConnectionPool]
 
 class SOCKSProxyManager(PoolManager):
-    pool_classes_by_scheme: ClassVar[_ConnectionPoolClasses]
+   # has a class-level default, but is overridden on instances, so not a ClassVar
+    pool_classes_by_scheme: _ConnectionPoolClasses
     proxy_url: str
 
     def __init__(
