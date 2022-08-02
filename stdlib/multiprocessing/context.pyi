@@ -6,6 +6,7 @@ from logging import Logger
 from multiprocessing import popen_fork, popen_forkserver, popen_spawn_posix, popen_spawn_win32, queues, synchronize
 from multiprocessing.connection import _ConnectionBase
 from multiprocessing.managers import SyncManager
+from multiprocessing.pool import Pool as _Pool
 from multiprocessing.process import BaseProcess
 from multiprocessing.sharedctypes import SynchronizedArray, SynchronizedBase
 from typing import Any, ClassVar, TypeVar, overload
