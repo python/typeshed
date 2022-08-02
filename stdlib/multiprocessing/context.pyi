@@ -3,10 +3,9 @@ import sys
 from collections.abc import Callable, Iterable, Sequence
 from ctypes import _CData
 from logging import Logger
-from multiprocessing import queues, synchronize, popen_spawn_win32, popen_forkserver, popen_spawn_posix, popen_fork
+from multiprocessing import popen_fork, popen_forkserver, popen_spawn_posix, popen_spawn_win32, queues, synchronize
 from multiprocessing.connection import _ConnectionBase
 from multiprocessing.managers import SyncManager
-from multiprocessing.popen import Popen
 from multiprocessing.process import BaseProcess
 from multiprocessing.sharedctypes import SynchronizedArray, SynchronizedBase
 from typing import Any, ClassVar, TypeVar, overload
@@ -172,6 +171,7 @@ if sys.platform != "win32":
     class ForkServerContext(BaseContext):
         _name: str
         Process: ClassVar[type[ForkServerProcess]]
+
 else:
     class SpawnProcess(BaseProcess):
         _start_method: str
@@ -181,7 +181,6 @@ else:
     class SpawnContext(BaseContext):
         _name: str
         Process: ClassVar[type[SpawnProcess]]
-
 
 def _force_start_method(method: str) -> None: ...
 def get_spawning_popen() -> Any | None: ...
