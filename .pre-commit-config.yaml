@@ -21,7 +21,7 @@ repos:
         additional_dependencies:
           # must match requirements-tests.txt
           - 'flake8-bugbear==21.11.29'
-          - 'flake8-pyi==22.7.0'
+          - 'flake8-pyi==22.8.0'
 
 ci:
     autofix_commit_msg: '[pre-commit.ci] auto fixes from pre-commit.com hooks'
