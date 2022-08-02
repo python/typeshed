@@ -3,7 +3,7 @@ pytype==2022.6.23; platform_system != "Windows"
 # must match .pre-commit-config.yaml
 black==22.6.0
 # must match .pre-commit-config.yaml
-flake8==4.0.1
+flake8==5.0.2
 flake8-bugbear==21.11.29
 flake8-pyi==22.8.0
 # must match .pre-commit-config.yaml
