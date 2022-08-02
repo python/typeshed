@@ -27,7 +27,7 @@ def main() -> None:
         print("error running npx; is Node.js installed?", file=sys.stderr)
         sys.exit(1)
 
-    command = [npx, "-p", "pyright@" + _PYRIGHT_VERSION, "pyright"] + sys.argv[1:]
+    command = [npx, "-p", f"pyright@{_PYRIGHT_VERSION}", "pyright"] + sys.argv[1:]
 
     ret = subprocess.run(command).returncode
     sys.exit(ret)
