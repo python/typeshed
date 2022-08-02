@@ -1,5 +1,4 @@
 from collections.abc import Mapping
-from typing import Any, ClassVar
 from typing_extensions import TypedDict
 
 from ..connection import HTTPConnection, HTTPSConnection
@@ -26,7 +25,7 @@ class _ConnectionPoolClasses(TypedDict):
     https: type[SOCKSHTTPSConnectionPool]
 
 class SOCKSProxyManager(PoolManager):
-   # has a class-level default, but is overridden on instances, so not a ClassVar
+    # has a class-level default, but is overridden on instances, so not a ClassVar
     pool_classes_by_scheme: _ConnectionPoolClasses
     proxy_url: str
 
