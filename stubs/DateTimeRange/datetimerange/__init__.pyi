@@ -4,6 +4,7 @@ from collections.abc import Iterable
 from typing import ClassVar
 
 from dateutil.relativedelta import relativedelta
+
 from .__version__ import (
     __author__ as __author__,
     __copyright__ as __copyright__,
