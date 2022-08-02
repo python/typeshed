@@ -22,7 +22,7 @@ class SOCKSHTTPConnectionPool(HTTPConnectionPool): ...
 class SOCKSHTTPSConnectionPool(HTTPSConnectionPool): ...
 
 class _ConnectionPoolClasses(TypedDict):
-    http: type[SOCKSHTTPSConnectionPool]
+    http: type[SOCKSHTTPConnectionPool]
     https: type[SOCKSHTTPSConnectionPool]
 
 class SOCKSProxyManager(PoolManager):
