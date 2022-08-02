@@ -1,9 +1,9 @@
+from _typeshed import Self
 from collections.abc import Mapping
+from logging import Logger
 from queue import LifoQueue
 from typing import Any
 from typing_extensions import ClassVar, TypeAlias
-from logging import Logger
-from _typeshed import Self
 
 from . import connection, exceptions, request, response
 from .connection import BaseSSLError as BaseSSLError, ConnectionError as ConnectionError, HTTPException as HTTPException
