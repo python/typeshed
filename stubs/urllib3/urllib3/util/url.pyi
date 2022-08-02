@@ -1,10 +1,12 @@
+from typing import NamedTuple
+
 from .. import exceptions
 
 LocationParseError = exceptions.LocationParseError
 
 url_attrs: list[str]
 
-class Url:
+class _UrlBase(NamedTuple):
     auth: str | None
     fragment: str | None
     host: str | None
@@ -12,6 +14,8 @@ class Url:
     port: str | None
     query: str | None
     scheme: str | None
+
+class Url(_UrlBase):
     def __new__(
         cls,
         scheme: str | None = ...,
