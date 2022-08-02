@@ -1,5 +1,4 @@
 import ctypes
-import multiprocessing
 import sys
 from collections.abc import Callable, Iterable, Sequence
 from ctypes import _CData
@@ -27,11 +26,10 @@ class TimeoutError(ProcessError): ...
 class AuthenticationError(ProcessError): ...
 
 class BaseContext:
-    Process: type[BaseProcess]
-    ProcessError: type[Exception]
-    BufferTooShort: type[Exception]
-    TimeoutError: type[Exception]
-    AuthenticationError: type[Exception]
+    ProcessError = ProcessError
+    BufferTooShort = BufferTooShort
+    TimeoutError = TimeoutError
+    AuthenticationError = AuthenticationError
 
     # N.B. The methods below are applied at runtime to generate
     # multiprocessing.*, so the signatures should be identical (modulo self).
@@ -137,7 +135,6 @@ class Process(BaseProcess):
     def _Popen(process_obj: BaseProcess) -> DefaultContext: ...
 
 class DefaultContext(BaseContext):
-    Process: type[multiprocessing.Process]
     def __init__(self, context: BaseContext) -> None: ...
     def set_start_method(self, method: str | None, force: bool = ...) -> None: ...
     def get_start_method(self, allow_none: bool = ...) -> str: ...
@@ -147,16 +144,20 @@ class DefaultContext(BaseContext):
 
 _default_context: DefaultContext
 
+class SpawnProcess(BaseProcess):
+    _start_method: str
+    @staticmethod
+    def _Popen(process_obj: BaseProcess) -> SpawnProcess: ...
+
+class SpawnContext(BaseContext):
+    _name: str
+    Process = SpawnProcess
+
 if sys.platform != "win32":
     class ForkProcess(BaseProcess):
         _start_method: str
         @staticmethod
         def _Popen(process_obj: BaseProcess) -> Any: ...
-
-    class SpawnProcess(BaseProcess):
-        _start_method: str
-        @staticmethod
-        def _Popen(process_obj: BaseProcess) -> SpawnProcess: ...
 
     class ForkServerProcess(BaseProcess):
         _start_method: str
@@ -165,25 +166,11 @@ if sys.platform != "win32":
 
     class ForkContext(BaseContext):
         _name: str
-        Process: type[ForkProcess]
-
-    class SpawnContext(BaseContext):
-        _name: str
-        Process: type[SpawnProcess]
+        Process = ForkProcess
 
     class ForkServerContext(BaseContext):
         _name: str
-        Process: type[ForkServerProcess]
-
-else:
-    class SpawnProcess(BaseProcess):
-        _start_method: str
-        @staticmethod
-        def _Popen(process_obj: BaseProcess) -> Any: ...
-
-    class SpawnContext(BaseContext):
-        _name: str
-        Process: type[SpawnProcess]
+        Process = ForkServerProcess
 
 def _force_start_method(method: str) -> None: ...
 def get_spawning_popen() -> Any | None: ...
