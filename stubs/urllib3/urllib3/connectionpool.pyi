@@ -1,9 +1,14 @@
+from collections.abc import Mapping
+from queue import LifoQueue
 from typing import Any
+from typing_extensions import ClassVar, TypeAlias
+from logging import Logger
+from _typeshed import Self
 
 from . import connection, exceptions, request, response
 from .connection import BaseSSLError as BaseSSLError, ConnectionError as ConnectionError, HTTPException as HTTPException
 from .packages import ssl_match_hostname
-from .util import connection as _connection, retry, timeout, url
+from .util import Url, connection as _connection, retry, timeout, url
 
 ClosedPoolError = exceptions.ClosedPoolError
 ProtocolError = exceptions.ProtocolError
@@ -29,48 +34,52 @@ Retry = retry.Retry
 Timeout = timeout.Timeout
 get_host = url.get_host
 
+_Timeout: TypeAlias = Timeout | float
+_Retries: TypeAlias = Retry | bool | int
+
 xrange: Any
-log: Any
+log: Logger
 
 class ConnectionPool:
-    scheme: Any
-    QueueCls: Any
-    host: Any
-    port: Any
-    def __init__(self, host, port=...) -> None: ...
-    def __enter__(self): ...
-    def __exit__(self, exc_type, exc_val, exc_tb): ...
-    def close(self): ...
+    scheme: ClassVar[str | None]
+    QueueCls: ClassVar[Any]
+    host: str
+    port: int | None
+    def __init__(self, host: str, port: int | None = ...) -> None: ...
+    def __enter__(self: Self) -> Self: ...
+    def __exit__(self, exc_type, exc_val, exc_tb) -> bool: ...
+    def close(self) -> None: ...
 
 class HTTPConnectionPool(ConnectionPool, RequestMethods):
-    scheme: Any
-    ConnectionCls: Any
-    strict: Any
-    timeout: Any
-    retries: Any
-    pool: Any
-    block: Any
-    proxy: Any
-    proxy_headers: Any
-    num_connections: Any
-    num_requests: Any
+    scheme: ClassVar[str]
+    ConnectionCls: ClassVar[type[HTTPConnection]]
+    ResponseCls: ClassVar[type[HTTPResponse]]
+    strict: bool
+    timeout: _Timeout
+    retries: _Retries | None
+    pool: LifoQueue[Any] | None
+    block: bool
+    proxy: Url | None
+    proxy_headers: Mapping[str, str] | None
+    num_connections: int
+    num_requests: int
     conn_kw: Any
     def __init__(
         self,
-        host,
-        port=...,
-        strict=...,
-        timeout=...,
-        maxsize=...,
-        block=...,
-        headers=...,
-        retries=...,
-        _proxy=...,
-        _proxy_headers=...,
+        host: str,
+        port: int | None = ...,
+        strict: bool = ...,
+        timeout: _Timeout = ...,
+        maxsize: int = ...,
+        block: bool = ...,
+        headers: Mapping[str, str] | None = ...,
+        retries: _Retries | None = ...,
+        _proxy: Url | None = ...,
+        _proxy_headers: Mapping[str, str] | None = ...,
         **conn_kw,
     ) -> None: ...
-    def close(self): ...
-    def is_same_host(self, url): ...
+    def close(self) -> None: ...
+    def is_same_host(self, url: str) -> bool: ...
     def urlopen(
         self,
         method,
@@ -87,35 +96,33 @@ class HTTPConnectionPool(ConnectionPool, RequestMethods):
     ): ...
 
 class HTTPSConnectionPool(HTTPConnectionPool):
-    scheme: Any
-    ConnectionCls: Any
-    key_file: Any
-    cert_file: Any
-    cert_reqs: Any
-    ca_certs: Any
-    ssl_version: Any
-    assert_hostname: Any
-    assert_fingerprint: Any
+    key_file: str | None
+    cert_file: str | None
+    cert_reqs: int | str | None
+    ca_certs: str | None
+    ssl_version: int | str | None
+    assert_hostname: str | bool | None
+    assert_fingerprint: str | None
     def __init__(
         self,
-        host,
-        port=...,
-        strict=...,
-        timeout=...,
-        maxsize=...,
-        block=...,
-        headers=...,
-        retries=...,
-        _proxy=...,
-        _proxy_headers=...,
-        key_file=...,
-        cert_file=...,
-        cert_reqs=...,
-        ca_certs=...,
-        ssl_version=...,
-        assert_hostname=...,
-        assert_fingerprint=...,
+        host: str,
+        port: int | None = ...,
+        strict: bool = ...,
+        timeout: _Timeout = ...,
+        maxsize: int = ...,
+        block: bool = ...,
+        headers: Mapping[str, str] | None = ...,
+        retries: _Retries | None = ...,
+        _proxy: Url | None = ...,
+        _proxy_headers: Mapping[str, str] | None = ...,
+        key_file: str | None = ...,
+        cert_file: str | None = ...,
+        cert_reqs: int | str | None = ...,
+        ca_certs: str | None = ...,
+        ssl_version: int | str | None = ...,
+        assert_hostname: str | bool | None = ...,
+        assert_fingerprint: str | None = ...,
         **conn_kw,
     ) -> None: ...
 
-def connection_from_url(url, **kw): ...
+def connection_from_url(url: str, **kw) -> HTTPConnectionPool: ...
