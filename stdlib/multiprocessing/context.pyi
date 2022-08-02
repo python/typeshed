@@ -26,10 +26,11 @@ class TimeoutError(ProcessError): ...
 class AuthenticationError(ProcessError): ...
 
 class BaseContext:
-    ProcessError = ProcessError
-    BufferTooShort = BufferTooShort
-    TimeoutError = TimeoutError
-    AuthenticationError = AuthenticationError
+    Process: ClassVar[type[BaseProcess]]
+    ProcessError: ClassVar[type[Exception]]
+    BufferTooShort: ClassVar[type[Exception]]
+    TimeoutError: ClassVar[type[Exception]]
+    AuthenticationError: ClassVar[type[Exception]]
 
     # N.B. The methods below are applied at runtime to generate
     # multiprocessing.*, so the signatures should be identical (modulo self).
@@ -135,6 +136,7 @@ class Process(BaseProcess):
     def _Popen(process_obj: BaseProcess) -> DefaultContext: ...
 
 class DefaultContext(BaseContext):
+    Process: ClassVar[type[Process]]
     def __init__(self, context: BaseContext) -> None: ...
     def set_start_method(self, method: str | None, force: bool = ...) -> None: ...
     def get_start_method(self, allow_none: bool = ...) -> str: ...
@@ -151,7 +153,7 @@ class SpawnProcess(BaseProcess):
 
 class SpawnContext(BaseContext):
     _name: str
-    Process = SpawnProcess
+    Process: ClassVar[type[SpawnProcess]]
 
 if sys.platform != "win32":
     class ForkProcess(BaseProcess):
@@ -166,11 +168,11 @@ if sys.platform != "win32":
 
     class ForkContext(BaseContext):
         _name: str
-        Process = ForkProcess
+        Process: ClassVar[type[ForkProcess]]
 
     class ForkServerContext(BaseContext):
         _name: str
-        Process = ForkServerProcess
+        Process: ClassVar[type[ForkServerProcess]]
 
 def _force_start_method(method: str) -> None: ...
 def get_spawning_popen() -> Any | None: ...
