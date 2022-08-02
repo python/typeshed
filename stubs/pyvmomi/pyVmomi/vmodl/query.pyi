@@ -39,7 +39,7 @@ class PropertyCollector:
             *,
             propSet: list[PropertyCollector.PropertySpec] = ...,
             objectSet: list[PropertyCollector.ObjectSpec] = ...,
-            **kwargs: Incomplete,
+            **kwargs,
         ) -> None: ...
         propSet: list[PropertyCollector.PropertySpec]
         objectSet: list[PropertyCollector.ObjectSpec]
