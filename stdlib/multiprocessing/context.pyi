@@ -3,10 +3,10 @@ import sys
 from collections.abc import Callable, Iterable, Sequence
 from ctypes import _CData
 from logging import Logger
-from multiprocessing import queues, synchronize
+from multiprocessing import queues, synchronize, popen_spawn_win32, popen_forkserver, popen_spawn_posix, popen_fork
 from multiprocessing.connection import _ConnectionBase
 from multiprocessing.managers import SyncManager
-from multiprocessing.pool import Pool as _Pool
+from multiprocessing.popen import Popen
 from multiprocessing.process import BaseProcess
 from multiprocessing.sharedctypes import SynchronizedArray, SynchronizedBase
 from typing import Any, ClassVar, TypeVar, overload
@@ -26,11 +26,10 @@ class TimeoutError(ProcessError): ...
 class AuthenticationError(ProcessError): ...
 
 class BaseContext:
-    Process: ClassVar[type[BaseProcess]]
-    ProcessError: ClassVar[type[Exception]]
-    BufferTooShort: ClassVar[type[Exception]]
-    TimeoutError: ClassVar[type[Exception]]
-    AuthenticationError: ClassVar[type[Exception]]
+    ProcessError: ClassVar[type[ProcessError]]
+    BufferTooShort: ClassVar[type[BufferTooShort]]
+    TimeoutError: ClassVar[type[TimeoutError]]
+    AuthenticationError: ClassVar[type[AuthenticationError]]
 
     # N.B. The methods below are applied at runtime to generate
     # multiprocessing.*, so the signatures should be identical (modulo self).
@@ -146,33 +145,43 @@ class DefaultContext(BaseContext):
 
 _default_context: DefaultContext
 
-class SpawnProcess(BaseProcess):
-    _start_method: str
-    @staticmethod
-    def _Popen(process_obj: BaseProcess) -> SpawnProcess: ...
-
-class SpawnContext(BaseContext):
-    _name: str
-    Process: ClassVar[type[SpawnProcess]]
-
 if sys.platform != "win32":
     class ForkProcess(BaseProcess):
         _start_method: str
         @staticmethod
-        def _Popen(process_obj: BaseProcess) -> Any: ...
+        def _Popen(process_obj: BaseProcess) -> popen_fork.Popen: ...
+
+    class SpawnProcess(BaseProcess):
+        _start_method: str
+        @staticmethod
+        def _Popen(process_obj: BaseProcess) -> popen_spawn_posix.Popen: ...
 
     class ForkServerProcess(BaseProcess):
         _start_method: str
         @staticmethod
-        def _Popen(process_obj: BaseProcess) -> Any: ...
+        def _Popen(process_obj: BaseProcess) -> popen_forkserver.Popen: ...
 
     class ForkContext(BaseContext):
         _name: str
         Process: ClassVar[type[ForkProcess]]
 
+    class SpawnContext(BaseContext):
+        _name: str
+        Process: ClassVar[type[SpawnProcess]]
+
     class ForkServerContext(BaseContext):
         _name: str
         Process: ClassVar[type[ForkServerProcess]]
+else:
+    class SpawnProcess(BaseProcess):
+        _start_method: str
+        @staticmethod
+        def _Popen(process_obj: BaseProcess) -> popen_spawn_win32.Popen: ...
+
+    class SpawnContext(BaseContext):
+        _name: str
+        Process: ClassVar[type[SpawnProcess]]
+
 
 def _force_start_method(method: str) -> None: ...
 def get_spawning_popen() -> Any | None: ...
