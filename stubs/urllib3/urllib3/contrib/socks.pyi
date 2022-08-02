@@ -1,5 +1,5 @@
 from collections.abc import Mapping
-from typing_extensions import TypedDict
+from typing_extensions import TypedDict, ClassVar
 
 from ..connection import HTTPConnection, HTTPSConnection
 from ..connectionpool import HTTPConnectionPool, HTTPSConnectionPool
@@ -17,8 +17,12 @@ class SOCKSConnection(HTTPConnection):
     def __init__(self, _socks_options: _TYPE_SOCKS_OPTIONS, *args, **kwargs) -> None: ...
 
 class SOCKSHTTPSConnection(SOCKSConnection, HTTPSConnection): ...
-class SOCKSHTTPConnectionPool(HTTPConnectionPool): ...
-class SOCKSHTTPSConnectionPool(HTTPSConnectionPool): ...
+
+class SOCKSHTTPConnectionPool(HTTPConnectionPool):
+    ConnectionCls: ClassVar[type[SOCKSConnection]]
+
+class SOCKSHTTPSConnectionPool(HTTPSConnectionPool):
+    ConnectionCls: ClassVar[type[SOCKSConnection]]
 
 class _ConnectionPoolClasses(TypedDict):
     http: type[SOCKSHTTPConnectionPool]
