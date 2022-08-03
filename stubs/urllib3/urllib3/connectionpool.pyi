@@ -10,6 +10,7 @@ from .connection import BaseSSLError as BaseSSLError, ConnectionError as Connect
 from .packages import ssl_match_hostname
 from .util import Url, connection as _connection, retry, timeout, url
 from .util.queue import LifoQueue
+from queue import Queue
 
 ClosedPoolError = exceptions.ClosedPoolError
 ProtocolError = exceptions.ProtocolError
@@ -43,7 +44,7 @@ log: Logger
 
 class ConnectionPool:
     scheme: ClassVar[str | None]
-    QueueCls: ClassVar[Any]
+    QueueCls: ClassVar[Queue[Any]]
     host: str
     port: int | None
     def __init__(self, host: str, port: int | None = ...) -> None: ...
@@ -55,15 +56,15 @@ class ConnectionPool:
 
 class HTTPConnectionPool(ConnectionPool, RequestMethods):
     scheme: ClassVar[str]
-    ConnectionCls: ClassVar[type[HTTPConnection]]
+    ConnectionCls: ClassVar[type[HTTPConnection | HTTPSConnection]]
     ResponseCls: ClassVar[type[HTTPResponse]]
     strict: bool
     timeout: _Timeout
     retries: _Retries | None
-    pool: LifoQueue[Any] | None
+    pool: LifoQueue | None
     block: bool
     proxy: Url | None
-    proxy_headers: Mapping[str, str] | None
+    proxy_headers: Mapping[str, str]
     num_connections: int
     num_requests: int
     conn_kw: Any
@@ -104,7 +105,7 @@ class HTTPSConnectionPool(HTTPConnectionPool):
     cert_reqs: int | str | None
     ca_certs: str | None
     ssl_version: int | str | None
-    assert_hostname: str | bool | None
+    assert_hostname: str | Literal[False] | None
     assert_fingerprint: str | None
     def __init__(
         self,
@@ -123,7 +124,7 @@ class HTTPSConnectionPool(HTTPConnectionPool):
         cert_reqs: int | str | None = ...,
         ca_certs: str | None = ...,
         ssl_version: int | str | None = ...,
-        assert_hostname: str | bool | None = ...,
+        assert_hostname: str | Literal[False] | None = ...,
         assert_fingerprint: str | None = ...,
         **conn_kw,
     ) -> None: ...
