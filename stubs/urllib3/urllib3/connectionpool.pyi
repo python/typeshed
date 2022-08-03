@@ -1,4 +1,7 @@
 from _typeshed import Self
+
+import queue
+
 from collections.abc import Mapping
 from logging import Logger
 from types import TracebackType
@@ -43,7 +46,7 @@ log: Logger
 
 class ConnectionPool:
     scheme: ClassVar[str | None]
-    QueueCls: ClassVar[type[LifoQueue]]
+    QueueCls: ClassVar[type[queue.Queue[Any]]]
     host: str
     port: int | None
     def __init__(self, host: str, port: int | None = ...) -> None: ...
