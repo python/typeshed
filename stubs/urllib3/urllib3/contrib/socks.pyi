@@ -23,7 +23,7 @@ class SOCKSHTTPConnectionPool(HTTPConnectionPool):
     ConnectionCls: ClassVar[type[SOCKSConnection]]
 
 class SOCKSHTTPSConnectionPool(HTTPSConnectionPool):
-    ConnectionCls: ClassVar[type[SOCKSConnection]]
+    ConnectionCls: ClassVar[type[SOCKSHTTPSConnection]]
 
 class _ConnectionPoolClasses(TypedDict):
     http: type[SOCKSHTTPConnectionPool]
