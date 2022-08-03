@@ -44,7 +44,7 @@ log: Logger
 
 class ConnectionPool:
     scheme: ClassVar[str | None]
-    QueueCls: ClassVar[Queue[Any]]
+    QueueCls: ClassVar[LifoQueue]
     host: str
     port: int | None
     def __init__(self, host: str, port: int | None = ...) -> None: ...
