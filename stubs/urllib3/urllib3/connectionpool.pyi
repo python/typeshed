@@ -9,8 +9,7 @@ from typing_extensions import Literal, TypeAlias
 from . import connection, exceptions, request, response
 from .connection import BaseSSLError as BaseSSLError, ConnectionError as ConnectionError, HTTPException as HTTPException
 from .packages import ssl_match_hostname
-from .util import Url, connection as _connection, retry, timeout, url
-from .util.queue import LifoQueue
+from .util import Url, connection as _connection, retry, timeout, url, queue as urllib3queue
 
 ClosedPoolError = exceptions.ClosedPoolError
 ProtocolError = exceptions.ProtocolError
@@ -61,7 +60,7 @@ class HTTPConnectionPool(ConnectionPool, RequestMethods):
     strict: bool
     timeout: _Timeout
     retries: _Retries | None
-    pool: LifoQueue | None
+    pool: urllib3queue.LifoQueue | None
     block: bool
     proxy: Url | None
     proxy_headers: Mapping[str, str]
