@@ -1,4 +1,5 @@
-
+# TODO: remove ResponseCls ignore when https://github.com/python/mypy/issues/13316 is closed
+urllib3.HTTPConnectionPool.ResponseCls
 urllib3.HTTPConnectionPool.__init__
 urllib3.HTTPConnectionPool.urlopen
 urllib3.HTTPSConnectionPool.__init__
