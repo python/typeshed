@@ -1,3 +1,4 @@
+
 urllib3.HTTPConnectionPool.__init__
 urllib3.HTTPConnectionPool.urlopen
 urllib3.HTTPSConnectionPool.__init__
@@ -17,6 +18,8 @@ urllib3.connection.VerifiedHTTPSConnection.__init__
 urllib3.connection.VerifiedHTTPSConnection.set_cert
 urllib3.connectionpool.ConnectionError
 urllib3.connectionpool.HTTPConnection.request
+# TODO: remove ResponseCls ignore when https://github.com/python/mypy/issues/13316 is closed
+urllib3.connectionpool.HTTPConnectionPool.ResponseCls
 urllib3.connectionpool.HTTPConnectionPool.__init__
 urllib3.connectionpool.HTTPConnectionPool.urlopen
 urllib3.connectionpool.HTTPSConnection.__init__
