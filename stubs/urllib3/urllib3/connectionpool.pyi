@@ -2,7 +2,8 @@ from _typeshed import Self
 from collections.abc import Mapping
 from logging import Logger
 from queue import LifoQueue
-from typing import Any, ClassVar
+from types import TracebackType
+from typing import Any, ClassVar, Literal
 from typing_extensions import TypeAlias
 
 from . import connection, exceptions, request, response
@@ -47,7 +48,9 @@ class ConnectionPool:
     port: int | None
     def __init__(self, host: str, port: int | None = ...) -> None: ...
     def __enter__(self: Self) -> Self: ...
-    def __exit__(self, exc_type, exc_val, exc_tb) -> bool: ...
+    def __exit__(
+        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
+    ) -> Literal[False]: ...
     def close(self) -> None: ...
 
 class HTTPConnectionPool(ConnectionPool, RequestMethods):
