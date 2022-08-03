@@ -148,7 +148,7 @@ async def package_contains_py_typed(release_to_download: dict[str, Any], session
 
 
 def _check_spec(updated_spec: str, version: packaging.version.Version) -> str:
-    assert version in packaging.specifiers.SpecifierSet("==" + updated_spec), f"{version} not in {updated_spec}"
+    assert version in packaging.specifiers.SpecifierSet(f"=={updated_spec}"), f"{version} not in {updated_spec}"
     return updated_spec
 
 
@@ -183,7 +183,7 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
         return NoUpdate(stub_info.distribution, "no longer updated")
 
     pypi_info = await fetch_pypi_info(stub_info.distribution, session)
-    spec = packaging.specifiers.SpecifierSet("==" + stub_info.version_spec)
+    spec = packaging.specifiers.SpecifierSet(f"=={stub_info.version_spec}")
     if pypi_info.version in spec:
         return NoUpdate(stub_info.distribution, "up to date")
 
