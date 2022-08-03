@@ -1,7 +1,5 @@
-from _typeshed import Self
-
 import queue
-
+from _typeshed import Self
 from collections.abc import Mapping
 from logging import Logger
 from types import TracebackType
