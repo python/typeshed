@@ -1,10 +1,9 @@
 from _typeshed import Self
 from collections.abc import Mapping
 from logging import Logger
-from queue import Queue
 from types import TracebackType
-from typing import Any, ClassVar, Literal
-from typing_extensions import TypeAlias
+from typing import Any, ClassVar
+from typing_extensions import TypeAlias, Literal
 
 from . import connection, exceptions, request, response
 from .connection import BaseSSLError as BaseSSLError, ConnectionError as ConnectionError, HTTPException as HTTPException
