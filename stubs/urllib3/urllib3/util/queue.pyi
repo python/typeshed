@@ -1,4 +1,4 @@
-from typing import Any
 from queue import Queue
+from typing import Any
 
 class LifoQueue(Queue[Any]): ...

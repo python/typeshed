@@ -1,6 +1,7 @@
 from _typeshed import Self
 from collections.abc import Mapping
 from logging import Logger
+from queue import Queue
 from types import TracebackType
 from typing import Any, ClassVar, Literal
 from typing_extensions import TypeAlias
@@ -10,7 +11,6 @@ from .connection import BaseSSLError as BaseSSLError, ConnectionError as Connect
 from .packages import ssl_match_hostname
 from .util import Url, connection as _connection, retry, timeout, url
 from .util.queue import LifoQueue
-from queue import Queue
 
 ClosedPoolError = exceptions.ClosedPoolError
 ProtocolError = exceptions.ProtocolError
