@@ -3,7 +3,7 @@ from collections.abc import Mapping
 from logging import Logger
 from types import TracebackType
 from typing import Any, ClassVar
-from typing_extensions import TypeAlias, Literal
+from typing_extensions import Literal, TypeAlias
 
 from . import connection, exceptions, request, response
 from .connection import BaseSSLError as BaseSSLError, ConnectionError as ConnectionError, HTTPException as HTTPException
