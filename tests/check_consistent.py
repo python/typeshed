@@ -14,7 +14,7 @@ from packaging.requirements import Requirement
 from packaging.version import Version
 
 metadata_keys = {"version", "requires", "extra_description", "obsolete_since", "no_longer_updated", "tool"}
-tool_keys = {"stubtest": {"skip", "apt_dependencies", "extras_dependencies", "ignore_missing_stub"}}
+tool_keys = {"stubtest": {"skip", "apt_dependencies", "extras", "ignore_missing_stub"}}
 allowed_files = {"README.md"}
 
 

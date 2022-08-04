@@ -41,10 +41,10 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
         python_exe = str(venv_dir / "bin" / "python")
 
         dist_version = metadata["version"]
-        extras_dependencies = stubtest_meta.get("extras_dependencies", [])
+        extras = stubtest_meta.get("extras", [])
         assert isinstance(dist_version, str)
-        assert isinstance(extras_dependencies, list)
-        dist_extras = ", ".join(extras_dependencies)
+        assert isinstance(extras, list)
+        dist_extras = ", ".join(extras)
         dist_req = f"{dist.name}[{dist_extras}]=={dist_version}"
 
         # If @tests/requirements-stubtest.txt exists, run "pip install" on it.
