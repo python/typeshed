@@ -3,6 +3,7 @@ from typing import Any
 
 from urllib3 import exceptions as urllib3_exceptions, poolmanager, response
 from urllib3.util import retry
+from urllib3.contrib import socks
 
 from . import cookies, exceptions, models, structures, utils
 from .compat import basestring as basestring
@@ -26,6 +27,7 @@ ResponseError = urllib3_exceptions.ResponseError
 extract_cookies_to_jar = cookies.extract_cookies_to_jar
 ConnectionError = exceptions.ConnectionError
 ConnectTimeout = exceptions.ConnectTimeout
+SOCKSProxyManager = socks.SOCKSProxyManager
 ReadTimeout = exceptions.ReadTimeout
 SSLError = exceptions.SSLError
 ProxyError = exceptions.ProxyError
