@@ -59,6 +59,15 @@ class _ProactorDuplexPipeTransport(_ProactorReadPipeTransport, _ProactorBaseWrit
 class _ProactorSocketTransport(_ProactorReadPipeTransport, _ProactorBaseWritePipeTransport, transports.Transport):
 
     _sendfile_compatible: constants._SendfileMode
+    def __init__(
+        self,
+        loop: events.AbstractEventLoop,
+        sock: socket,
+        protocol: streams.StreamReaderProtocol,
+        waiter: futures.Future[Any] | None = ...,
+        extra: Mapping[Any, Any] | None = ...,
+        server: events.AbstractServer | None = ...,
+    ) -> None: ...
     def _set_extra(self, sock: socket) -> None: ...
     def can_write_eof(self) -> Literal[True]: ...
 
