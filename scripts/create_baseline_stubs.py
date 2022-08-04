@@ -59,7 +59,7 @@ def copy_stubs(src_base_dir: str, package: str, stub_dir: str) -> None:
     if os.path.isdir(src_dir):
         shutil.copytree(src_dir, os.path.join(stub_dir, package))
     else:
-        src_file = os.path.join("out", package + ".pyi")
+        src_file = os.path.join("out", f"{package}.pyi")
         if not os.path.isfile(src_file):
             sys.exit("Error: Cannot find generated stubs")
         shutil.copy(src_file, stub_dir)
