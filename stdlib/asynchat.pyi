@@ -1,5 +1,4 @@
 import asyncore
-import socket
 from abc import abstractmethod
 
 class simple_producer:
