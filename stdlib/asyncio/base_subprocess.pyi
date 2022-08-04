@@ -61,4 +61,3 @@ class WriteSubprocessPipeProto(protocols.BaseProtocol):  # undocumented
     def __init__(self, proc: BaseSubprocessTransport, fd: int) -> None: ...
 
 class ReadSubprocessPipeProto(WriteSubprocessPipeProto, protocols.Protocol): ...  # undocumented
-
