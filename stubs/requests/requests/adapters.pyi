@@ -1,6 +1,7 @@
 from collections.abc import Mapping
 from typing import Any
 
+from urllib3.contrib.socks import SOCKSProxyManager as SOCKSProxyManager
 from urllib3.exceptions import (
     ConnectTimeoutError as ConnectTimeoutError,
     MaxRetryError as MaxRetryError,
@@ -8,30 +9,28 @@ from urllib3.exceptions import (
     ReadTimeoutError as ReadTimeoutError,
     ResponseError as ResponseError,
 )
+from urllib3.poolmanager import PoolManager as PoolManager, proxy_from_url as proxy_from_url
+from urllib3.response import HTTPResponse as HTTPResponse
+from urllib3.util.retry import Retry as Retry
+
+from .cookies import extract_cookies_to_jar as extract_cookies_to_jar
 from .exceptions import (
     ConnectionError as ConnectionError,
     ConnectTimeout as ConnectTimeout,
-    ReadTimeout as ReadTimeout,
-    SSLError as SSLError,
     ProxyError as ProxyError,
+    ReadTimeout as ReadTimeout,
     RetryError as RetryError,
+    SSLError as SSLError,
 )
-from urllib3.response import HTTPResponse as HTTPResponse
-from urllib3.poolmanager import PoolManager as PoolManager, proxy_from_url as proxy_from_url
-from urllib3.util.retry import Retry as Retry
+from .models import PreparedRequest, Response as Response
+from .structures import CaseInsensitiveDict as CaseInsensitiveDict
 from .utils import (
     DEFAULT_CA_BUNDLE_PATH as DEFAULT_CA_BUNDLE_PATH,
+    get_auth_from_url as get_auth_from_url,
     get_encoding_from_headers as get_encoding_from_headers,
     prepend_scheme_if_needed as prepend_scheme_if_needed,
-    get_auth_from_url as get_auth_from_url,
     urldefragauth as urldefragauth,
 )
-from urllib3.contrib.socks import SOCKSProxyManager as SOCKSProxyManager
-from .structures import CaseInsensitiveDict as CaseInsensitiveDict
-from .models import Response as Response, PreparedRequest
-from .cookies import extract_cookies_to_jar as extract_cookies_to_jar
-
-from . import models
 
 DEFAULT_POOLBLOCK: bool
 DEFAULT_POOLSIZE: int
