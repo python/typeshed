@@ -10,8 +10,12 @@ from multiprocessing.context import (
 from multiprocessing.process import active_children as active_children, current_process as current_process
 
 # These are technically functions that return instances of these Queue classes.
-# Using them as annotations is deprecated. Use imports from multiprocessing.queues instead.
-# See #4266 for discussion.
+# The stub here doesn't reflect reality exactly --
+# while e.g. `multiprocessing.queues.Queue` is a class,
+# `multiprocessing.Queue` is actually a function at runtime.
+# Avoid using `multiprocessing.Queue` as a type annotation; 
+# use imports from multiprocessing.queues instead.
+# See #4266 and #8450 for discussion.
 from multiprocessing.queues import JoinableQueue as JoinableQueue, Queue as Queue, SimpleQueue as SimpleQueue
 from multiprocessing.spawn import freeze_support as freeze_support
 
