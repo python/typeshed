@@ -13,7 +13,7 @@ from multiprocessing.process import active_children as active_children, current_
 # The stub here doesn't reflect reality exactly --
 # while e.g. `multiprocessing.queues.Queue` is a class,
 # `multiprocessing.Queue` is actually a function at runtime.
-# Avoid using `multiprocessing.Queue` as a type annotation; 
+# Avoid using `multiprocessing.Queue` as a type annotation;
 # use imports from multiprocessing.queues instead.
 # See #4266 and #8450 for discussion.
 from multiprocessing.queues import JoinableQueue as JoinableQueue, Queue as Queue, SimpleQueue as SimpleQueue
