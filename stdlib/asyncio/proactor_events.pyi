@@ -1,7 +1,7 @@
 import sys
 from collections.abc import Mapping
 from socket import socket
-from typing import Any, Protocol
+from typing import Any, ClassVar, Protocol
 from typing_extensions import Literal
 
 from . import base_events, constants, events, futures, streams, transports
@@ -58,7 +58,7 @@ class _ProactorDuplexPipeTransport(_ProactorReadPipeTransport, _ProactorBaseWrit
 
 class _ProactorSocketTransport(_ProactorReadPipeTransport, _ProactorBaseWritePipeTransport, transports.Transport):
 
-    _sendfile_compatible: constants._SendfileMode
+    _sendfile_compatible: ClassVar[constants._SendfileMode]
     def __init__(
         self,
         loop: events.AbstractEventLoop,
