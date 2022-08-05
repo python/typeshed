@@ -1,3 +1,4 @@
+import abc
 import sys
 from _typeshed import Self, StrOrBytesPath
 from abc import abstractmethod
