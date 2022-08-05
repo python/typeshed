@@ -1,8 +1,5 @@
 from typing_extensions import TypedDict
 
-# TODO: remove if python/typeshed#8484 is merged
-# from .__version__ import __version__ as requests_version
-
 class _VersionDict(TypedDict):
     version: str
 
