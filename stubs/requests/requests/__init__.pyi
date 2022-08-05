@@ -1,4 +1,3 @@
-from logging import NullHandler as NullHandler
 
 from .__version__ import (
     __author__ as __author__,
