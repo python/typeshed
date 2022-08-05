@@ -2,7 +2,7 @@ import sys
 from _typeshed import StrOrLiteralStr
 from collections.abc import Iterable, Mapping, Sequence
 from re import Pattern, RegexFlag
-from typing import Any, overload
+from typing import Any, ClassVar, overload
 from typing_extensions import LiteralString
 
 __all__ = [
@@ -32,7 +32,14 @@ whitespace: LiteralString
 
 def capwords(s: StrOrLiteralStr, sep: StrOrLiteralStr | None = ...) -> StrOrLiteralStr: ...
 
-class Template:
+if sys.version_info >= (3, 9):
+    _TemplateMetaclass = type
+else:
+    class _TemplateMetaclass(type):
+        pattern: ClassVar[str]
+        def __init__(cls, name: str, bases: tuple[type, ...], d: dict[str, Any]) -> None: ...
+
+class Template(metaclass=_TemplateMetaclass):
     template: str
     delimiter: str
     idpattern: str
