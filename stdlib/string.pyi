@@ -37,7 +37,7 @@ if sys.version_info >= (3, 9):
 else:
     class _TemplateMetaclass(type):
         pattern: ClassVar[str]
-        def __init__(cls, name: str, bases: tuple[type, ...], d: dict[str, Any]) -> None: ...
+        def __init__(cls, name: str, bases: tuple[type, ...], dct: dict[str, Any]) -> None: ...
 
 class Template(metaclass=_TemplateMetaclass):
     template: str
