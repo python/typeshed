@@ -32,14 +32,7 @@ whitespace: LiteralString
 
 def capwords(s: StrOrLiteralStr, sep: StrOrLiteralStr | None = ...) -> StrOrLiteralStr: ...
 
-if sys.version_info >= (3, 9):
-    _TemplateMetaclass = type
-else:
-    class _TemplateMetaclass(type):
-        pattern: ClassVar[str]
-        def __init__(cls, name: str, bases: tuple[type, ...], dct: dict[str, Any]) -> None: ...
-
-class Template(metaclass=_TemplateMetaclass):
+class Template:
     template: str
     delimiter: str
     idpattern: str

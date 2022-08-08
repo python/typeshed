@@ -217,13 +217,7 @@ def is_dataclass(obj: Any) -> bool: ...
 
 class FrozenInstanceError(AttributeError): ...
 
-if sys.version_info >= (3, 9):
-    _InitVarMeta = type
-else:
-    class _InitVarMeta(type):
-        def __getitem__(self, params: _T) -> InitVar[_T]: ...
-
-class InitVar(Generic[_T], metaclass=_InitVarMeta):
+class InitVar(Generic[_T]):
     type: Type[_T]
     def __init__(self, type: Type[_T]) -> None: ...
     if sys.version_info >= (3, 9):
