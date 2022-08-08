@@ -2,7 +2,7 @@ import sys
 from _typeshed import StrOrLiteralStr
 from collections.abc import Iterable, Mapping, Sequence
 from re import Pattern, RegexFlag
-from typing import Any, ClassVar, overload
+from typing import Any, overload
 from typing_extensions import LiteralString
 
 __all__ = [
