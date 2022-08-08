@@ -7,7 +7,7 @@ from typing_extensions import Literal
 if sys.version_info >= (3, 8):
     class _ABC(type):
         if sys.version_info >= (3, 9):
-            def __init__(cls, *args: Any) -> None: ...
+            def __init__(cls, *args: object) -> None: ...
 
     class Num(Constant, metaclass=_ABC):
         value: complex
