@@ -31,6 +31,7 @@ from typing import (  # noqa: Y022,Y027,Y039
     ValuesView,
     _Alias,
     overload as overload,
+    type_check_only
 )
 
 __all__ = [
@@ -120,6 +121,7 @@ Literal: _SpecialForm
 def IntVar(name: str) -> Any: ...  # returns a new TypeVar
 
 # Internal mypy fallback type for all typed dicts (does not exist at runtime)
+@type_check_only
 class _TypedDict(Mapping[str, object], metaclass=abc.ABCMeta):
     __required_keys__: ClassVar[frozenset[str]]
     __optional_keys__: ClassVar[frozenset[str]]
