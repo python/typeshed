@@ -781,6 +781,7 @@ class NamedTuple(tuple[Any, ...]):
     def _replace(self: TypeshedSelf, **kwargs: Any) -> TypeshedSelf: ...
 
 # Internal mypy fallback type for all typed dicts (does not exist at runtime)
+@type_check_only
 class _TypedDict(Mapping[str, object], metaclass=ABCMeta):
     __total__: ClassVar[bool]
     __required_keys__: ClassVar[frozenset[str]]
