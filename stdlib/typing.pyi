@@ -784,8 +784,9 @@ class NamedTuple(tuple[Any, ...]):
 @type_check_only
 class _TypedDict(Mapping[str, object], metaclass=ABCMeta):
     __total__: ClassVar[bool]
-    __required_keys__: ClassVar[frozenset[str]]
-    __optional_keys__: ClassVar[frozenset[str]]
+    if sys.version_info >= (3, 9):
+        __required_keys__: ClassVar[frozenset[str]]
+        __optional_keys__: ClassVar[frozenset[str]]
     def copy(self: TypeshedSelf) -> TypeshedSelf: ...
     # Using NoReturn so that only calls using mypy plugin hook that specialize the signature
     # can go through.
