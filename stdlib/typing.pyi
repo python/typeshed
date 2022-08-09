@@ -782,6 +782,9 @@ class NamedTuple(tuple[Any, ...]):
 
 # Internal mypy fallback type for all typed dicts (does not exist at runtime)
 class _TypedDict(Mapping[str, object], metaclass=ABCMeta):
+    __total__: ClassVar[bool]
+    __required_keys__: ClassVar[frozenset[str]]
+    __optional_keys__: ClassVar[frozenset[str]]
     def copy(self: TypeshedSelf) -> TypeshedSelf: ...
     # Using NoReturn so that only calls using mypy plugin hook that specialize the signature
     # can go through.
