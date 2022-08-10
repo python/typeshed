@@ -122,6 +122,7 @@ Literal: _SpecialForm
 def IntVar(name: str) -> Any: ...  # returns a new TypeVar
 
 # Internal mypy fallback type for all typed dicts (does not exist at runtime)
+# N.B. Keep this mostly in sync with typing._TypedDict/mypy_extensions._TypedDict
 @type_check_only
 class _TypedDict(Mapping[str, object], metaclass=abc.ABCMeta):
     __required_keys__: ClassVar[frozenset[str]]
