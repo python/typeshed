@@ -303,7 +303,7 @@ class MSDialect(default.DefaultDialect):
         json_serializer: Any | None = ...,
         json_deserializer: Any | None = ...,
         legacy_schema_aliasing: Any | None = ...,
-        ignore_no_transactions_on_rollback: bool = ...,
+        ignore_no_transaction_on_rollback: bool = ...,
         **opts,
     ) -> None: ...
     def do_savepoint(self, connection, name) -> None: ...
