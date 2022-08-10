@@ -52,6 +52,15 @@ annotations,
 [this page](https://typing.readthedocs.io/en/latest/source/quality.html#testing-using-assert-type-and-warn-unused-ignores)
 provides a useful guide.
 
+### Naming convention
+
+Use the same top-level name for the module / package you would like to test.
+Use `test_${thing}.py` naming pattern for individual test files.
+For example:
+- Tests for `gather` defined in `stdlib/asyncio/tasks.pyi` will go into `stdlib/asyncio/test_gather.py`
+- Tests for `ExitStack` defined in `stdlib/contextlib.pyi` will go into `stdlib/test_contextlib.py`
+- Tests for `dict` defined in `stdlib/builtins.pyi` will go into `stdlib/stdlib/test_dict.py`
+
 ### Differences to the rest of typeshed
 
 Unlike the rest of typeshed, this directory largely contains `.py` files. This
