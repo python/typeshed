@@ -20,5 +20,5 @@ class BindMetaMixin(type):
 class DefaultMeta(NameMetaMixin, BindMetaMixin, DeclarativeMeta): ...
 
 class Model:
-    query_class: Any | None
-    query: Any | None
+    query_class: type[Query[Any]] | None
+    query: Query[Any] | None
