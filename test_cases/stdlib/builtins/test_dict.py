@@ -19,19 +19,19 @@ class KeysAndGetItem(Generic[_KT, _VT]):
         ...
 
 
-kt1: KeysAndGetItem[int, str] = ...
+kt1: KeysAndGetItem[int, str] = KeysAndGetItem()
 assert_type(dict(kt1), Dict[int, str])
 dict(kt1, arg="a")  # type: ignore
 
-kt2: KeysAndGetItem[str, int] = ...
+kt2: KeysAndGetItem[str, int] = KeysAndGetItem()
 assert_type(dict(kt2, arg=1), Dict[str, int])
 
-i1: Iterable[Tuple[int, str]] = ...
+i1: Iterable[Tuple[int, str]] = [(1, 'a')]
 assert_type(dict(i1), Dict[int, str])
 dict(i1, arg="a")  # type: ignore
 
-i2: Iterable[Tuple[str, int]] = ...
+i2: Iterable[Tuple[str, int]] = [('a', 1)]
 assert_type(dict(i2, arg=1), Dict[str, int])
 
-i3: Iterable[str] = ...
+i3: Iterable[str] = ['a']
 assert_type(dict(string.split(".") for string in i3), Dict[str, str])
