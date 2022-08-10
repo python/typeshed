@@ -32,18 +32,17 @@ dict(kt1, arg="a")  # type: ignore
 kt2: KeysAndGetItem[str, int] = KeysAndGetItem()
 assert_type(dict(kt2, arg=1), Dict[str, int])
 
+def test_iterable_tuple_overload(x: Iterable[Tuple[int, str]]) -> Dict[int, str]:
+    return dict(x)
+
+
 i1: Iterable[Tuple[int, str]] = [(1, "a"), (2, "b")]
-# We have to skip this one because of `pyright`. It was failing like:
-# expected "Dict[int, str]" but received "dict[Literal[1, 2], Literal['a', 'b']]"
-# See https://github.com/python/typeshed/pull/8517
-# It was:
-# assert_type(dict(i1), Dict[int, str])
-# So, we only check that it does not fail:
-dict(i1)
+test_iterable_tuple_overload(i1)
 dict(i1, arg="a")  # type: ignore
 
 i2: Iterable[Tuple[str, int]] = [("a", 1), ("b", 2)]
 assert_type(dict(i2, arg=1), Dict[str, int])
 
-i3: Iterable[str] = ["a"]
+i3: Iterable[str] = ["a.b"]
 assert_type(dict(string.split(".") for string in i3), Dict[str, str])
+dict(["foo", "bar", "baz"])  # type: ignore
