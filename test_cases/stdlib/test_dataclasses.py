@@ -4,8 +4,11 @@ import dataclasses
 from typing import Any
 from typing_extensions import assert_type
 
+
 @dataclassses.dataclass
-class D: ...
+class D:
+    ...
+
 
 assert_type(dataclasses.astuple(D()), tuple[Any, ...])
 assert_type(dataclasses.astuple(D(), tuple_factory=tuple), tuple[Any, ...])
