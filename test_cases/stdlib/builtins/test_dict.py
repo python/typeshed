@@ -1,7 +1,7 @@
 # pyright: reportUnnecessaryTypeIgnoreComment=true
 
 from typing import Dict, Generic, Iterable, Tuple, TypeVar
-from typing_extensions import assert_type, Final
+from typing_extensions import Final, assert_type
 
 # Hack, so some checks will only work in mypy.
 MYPY: Final = False
