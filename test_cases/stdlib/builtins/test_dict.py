@@ -34,4 +34,4 @@ i2: Iterable[Tuple[str, int]]
 assert_type(dict(i2, arg=1), Dict[str, int])
 
 i3: Iterable[str]
-assert_type(dict(string.split('.') for string in i3), Dict[str, str])
+assert_type(dict(string.split(".") for string in i3), Dict[str, str])
