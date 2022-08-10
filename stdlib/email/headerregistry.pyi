@@ -142,9 +142,9 @@ if sys.version_info >= (3, 8):
         def value_parser(value: str) -> MessageID: ...
 
 class _HeaderParser(Protocol):
-    max_count: int | None
+    max_count: ClassVar[Literal[1] | None]
     @staticmethod
-    def value_parser(value: str) -> Any: ...
+    def value_parser(value: str) -> TokenList: ...
     @classmethod
     def parse(cls, value: str, kwds: dict[str, Any]) -> None: ...
 
@@ -152,7 +152,6 @@ class HeaderRegistry:
     registry: dict[str, type[_HeaderParser]]
     base_class: type[BaseHeader]
     default_class: type[_HeaderParser]
-    use_default_map: bool
     def __init__(
         self, base_class: type[BaseHeader] = ..., default_class: type[_HeaderParser] = ..., use_default_map: bool = ...
     ) -> None: ...
