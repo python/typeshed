@@ -4,7 +4,10 @@ from typing import Dict, Generic, Iterable, Tuple, TypeVar
 from typing_extensions import assert_type
 
 # These do follow `__init__` overloads order:
-bad = dict()  # type: ignore
+# mypy and pyright have different opinions about this one:
+# mypy raises: 'Need type annotation for "bad"'
+# pyright is fine with it.
+# bad = dict()
 good: Dict[str, str] = dict()
 assert_type(good, Dict[str, str])
 
