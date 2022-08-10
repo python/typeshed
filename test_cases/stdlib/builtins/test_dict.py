@@ -33,7 +33,7 @@ i1: Iterable[Tuple[int, str]] = [(1, "a"), (2, "b")]
 assert_type(dict(i1), Dict[int, str])
 dict(i1, arg="a")  # type: ignore
 
-i2: Iterable[Tuple[str, int]] = [("a", 1), (2, "b")]
+i2: Iterable[Tuple[str, int]] = [("a", 1), ("b", 2)]
 assert_type(dict(i2, arg=1), Dict[str, int])
 
 i3: Iterable[str] = ["a"]
