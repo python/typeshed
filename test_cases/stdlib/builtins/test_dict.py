@@ -32,6 +32,7 @@ dict(kt1, arg="a")  # type: ignore
 kt2: KeysAndGetItem[str, int] = KeysAndGetItem()
 assert_type(dict(kt2, arg=1), Dict[str, int])
 
+
 def test_iterable_tuple_overload(x: Iterable[Tuple[int, str]]) -> Dict[int, str]:
     return dict(x)
 
