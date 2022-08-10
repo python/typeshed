@@ -26,12 +26,12 @@ dict(kt1, arg="a")  # type: ignore
 kt2: KeysAndGetItem[str, int] = KeysAndGetItem()
 assert_type(dict(kt2, arg=1), Dict[str, int])
 
-i1: Iterable[Tuple[int, str]] = [(1, 'a')]
+i1: Iterable[Tuple[int, str]] = [(1, "a")]
 assert_type(dict(i1), Dict[int, str])
 dict(i1, arg="a")  # type: ignore
 
-i2: Iterable[Tuple[str, int]] = [('a', 1)]
+i2: Iterable[Tuple[str, int]] = [("a", 1)]
 assert_type(dict(i2, arg=1), Dict[str, int])
 
-i3: Iterable[str] = ['a']
+i3: Iterable[str] = ["a"]
 assert_type(dict(string.split(".") for string in i3), Dict[str, str])
