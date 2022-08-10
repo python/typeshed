@@ -1,6 +1,6 @@
 # pyright: reportUnnecessaryTypeIgnoreComment=true
 
-from typing import Dict, Generic, Iterable, NoReturn, Tuple, TypeVar
+from typing import Dict, Generic, Iterable, Tuple, TypeVar
 from typing_extensions import assert_type
 
 # These do follow `__init__` overloads order:
