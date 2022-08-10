@@ -5,7 +5,7 @@ from typing import Any
 from typing_extensions import assert_type
 
 
-@dataclassses.dataclass
+@dataclasses.dataclass
 class D:
     ...
 
