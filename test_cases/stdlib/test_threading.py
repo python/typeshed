@@ -1,6 +1,5 @@
-import threading
-
 import _threading_local
+import threading
 
 loc = threading.local()
 loc.foo = 42
