@@ -15,7 +15,7 @@ from email._header_value_parser import (
 from email.errors import MessageDefect
 from email.policy import Policy
 from typing import Any, ClassVar
-from typing_extensions import Literal
+from typing_extensions import Literal, Protocol
 
 class BaseHeader(str):
     # max_count is actually more of an abstract ClassVar (not defined on the base class, but expected to be defined in subclasses)
@@ -141,9 +141,21 @@ if sys.version_info >= (3, 8):
         @staticmethod
         def value_parser(value: str) -> MessageID: ...
 
+class _HeaderParser(Protocol):
+    max_count: int | None
+    @staticmethod
+    def value_parser(value: str) -> Any: ...
+    @classmethod
+    @classmethod
+    def parse(cls, value: str, kwds: dict[str, Any]) -> None:
+
 class HeaderRegistry:
+    registry: dict[str, 
+    base_class: type[BaseHeader]
+    default_class: type[_HeaderParser]
+    use_default_map: bool
     def __init__(
-        self, base_class: type[BaseHeader] = ..., default_class: type[BaseHeader] = ..., use_default_map: bool = ...
+        self, base_class: type[BaseHeader] = ..., default_class: type[_HeaderParser] = ..., use_default_map: bool = ...
     ) -> None: ...
     def map_to_type(self, name: str, cls: type[BaseHeader]) -> None: ...
     def __getitem__(self, name: str) -> type[BaseHeader]: ...
