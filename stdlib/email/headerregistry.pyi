@@ -149,7 +149,7 @@ class _HeaderParser(Protocol):
     def parse(cls, value: str, kwds: dict[str, Any]) -> None: ...
 
 class HeaderRegistry:
-    registry: dict[str, 
+    registry: dict[str, type[_HeaderParser]]
     base_class: type[BaseHeader]
     default_class: type[_HeaderParser]
     use_default_map: bool
