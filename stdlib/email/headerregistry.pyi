@@ -146,7 +146,7 @@ class _HeaderParser(Protocol):
     @staticmethod
     def value_parser(value: str) -> Any: ...
     @classmethod
-    def parse(cls, value: str, kwds: dict[str, Any]) -> None:
+    def parse(cls, value: str, kwds: dict[str, Any]) -> None: ...
 
 class HeaderRegistry:
     registry: dict[str, 
