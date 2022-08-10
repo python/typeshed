@@ -3,6 +3,7 @@ from typing import Any
 
 from sqlalchemy import Table
 from sqlalchemy.ext.declarative import DeclarativeMeta
+from sqlalchemy.orm import Query
 
 def should_set_tablename(cls: type) -> bool: ...
 
