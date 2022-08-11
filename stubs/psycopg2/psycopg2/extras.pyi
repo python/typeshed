@@ -1,5 +1,6 @@
 from collections import OrderedDict
-from typing import Any, Iterator, NamedTuple
+from collections.abc import Iterator
+from typing import Any, NamedTuple
 
 from psycopg2._ipaddress import register_ipaddress as register_ipaddress
 from psycopg2._json import (
