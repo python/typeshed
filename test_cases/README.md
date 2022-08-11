@@ -56,10 +56,12 @@ provides a useful guide.
 
 Use the same top-level name for the module / package you would like to test.
 Use `test_${thing}.py` naming pattern for individual test files.
-For example:
-- Tests for `gather` defined in `stdlib/asyncio/tasks.pyi` will go into `stdlib/asyncio/test_gather.py`
-- Tests for `ExitStack` defined in `stdlib/contextlib.pyi` will go into `stdlib/test_contextlib.py`
-- Tests for `dict` defined in `stdlib/builtins.pyi` will go into `stdlib/builtins/test_dict.py`
+
+By default, tests go into a test file with the same name as the stub file, prefixed with `test_`.
+For example: `stdlib/test_contextlib.py`.
+
+If that file becomes too big, we instead create a directory with files named after individual objects being tested.
+For example: `stdlib/builtins/test_dict.py`.
 
 ### Differences to the rest of typeshed
 
