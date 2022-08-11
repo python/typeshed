@@ -1,5 +1,5 @@
 from _typeshed import Incomplete, StrPath
-from typing import Any
+from typing import Sequence
 
 from tree_sitter.binding import Node as Node, Parser as Parser, Tree as Tree, TreeCursor as TreeCursor
 
