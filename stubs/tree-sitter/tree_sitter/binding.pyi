@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
-from typing import ClassVar, final
+from typing import ClassVar
+from typing_extensions import final
 
 from tree_sitter import Language
 
