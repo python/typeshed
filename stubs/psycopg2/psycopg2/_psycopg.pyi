@@ -1,5 +1,5 @@
 from _typeshed import Self
-from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
+from collections.abc import Callable, Iterable, Mapping, Sequence
 from types import TracebackType
 from typing import Any, TypeVar, overload
 from typing_extensions import Literal, TypeAlias
@@ -109,7 +109,7 @@ class cursor:
     def __exit__(
         self, type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
     ) -> None: ...
-    def __iter__(self) -> Iterator[tuple[Any, ...]]: ...
+    def __iter__(self: Self) -> Self: ...
     def __next__(self) -> tuple[Any, ...]: ...
 
 _Cursor: TypeAlias = cursor
