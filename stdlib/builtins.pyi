@@ -53,6 +53,7 @@ from typing import (  # noqa: Y027
     SupportsRound,
     TypeVar,
     overload,
+    type_check_only,
 )
 from typing_extensions import Literal, LiteralString, SupportsIndex, TypeAlias, TypeGuard, final
 
@@ -938,6 +939,7 @@ class tuple(Sequence[_T_co], Generic[_T_co]):
 
 # Doesn't exist at runtime, but deleting this breaks mypy. See #2999
 @final
+@type_check_only
 class function:
     # Make sure this class definition stays roughly in line with `types.FunctionType`
     @property
@@ -1773,6 +1775,7 @@ def __build_class__(__func: Callable[[], _Cell | Any], __name: str, *bases: Any,
 # Actually the type of Ellipsis is <type 'ellipsis'>, but since it's
 # not exposed anywhere under that name, we make it private here.
 @final
+@type_check_only
 class ellipsis: ...
 
 Ellipsis: ellipsis
