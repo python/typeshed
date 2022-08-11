@@ -1,6 +1,7 @@
 from _typeshed import Incomplete, StrPath
 from collections.abc import Sequence
 
+# Query is missing at runtime for some reason
 from tree_sitter.binding import Node as Node, Parser as Parser, Tree as Tree, TreeCursor as TreeCursor
 
 class Language:

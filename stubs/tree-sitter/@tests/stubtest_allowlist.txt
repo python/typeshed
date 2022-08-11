@@ -17,7 +17,6 @@ tree_sitter.binding.Node.sexp
 tree_sitter.binding.Node.walk
 tree_sitter.binding.Parser.parse
 tree_sitter.binding.Parser.set_language
-tree_sitter.binding.Query
 tree_sitter.binding.Query.captures
 tree_sitter.binding.Query.matches
 tree_sitter.binding.Tree.edit
@@ -30,13 +29,3 @@ tree_sitter.binding.TreeCursor.goto_parent
 # Runtime takes *args and **kwargs and ignores them. Passing arguments is most likely a mistake.
 tree_sitter.Parser.__init__
 tree_sitter.binding.Parser.__init__
-
-# TODO
-tree_sitter.Node
-tree_sitter.Parser
-tree_sitter.Tree
-tree_sitter.TreeCursor
-tree_sitter.binding.Node
-tree_sitter.binding.Parser
-tree_sitter.binding.Tree
-tree_sitter.binding.TreeCursor
