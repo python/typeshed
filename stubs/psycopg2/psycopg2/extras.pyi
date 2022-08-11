@@ -1,5 +1,6 @@
 from collections import OrderedDict
-from typing import Any, Callable, NamedTuple, TypeVar, overload
+from collections.abc import Callable
+from typing import Any, NamedTuple, TypeVar, overload
 
 from psycopg2._ipaddress import register_ipaddress as register_ipaddress
 from psycopg2._json import (
