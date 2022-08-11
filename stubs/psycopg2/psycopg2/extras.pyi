@@ -1,5 +1,5 @@
 from collections import OrderedDict
-from typing import Any, NamedTuple
+from typing import Any, Callable, NamedTuple, TypeVar, overload
 
 from psycopg2._ipaddress import register_ipaddress as register_ipaddress
 from psycopg2._json import (
@@ -28,6 +28,8 @@ from psycopg2._range import (
 
 from .extensions import connection as _connection, cursor as _cursor, quote_ident as quote_ident
 
+_T_cur = TypeVar("_T_cur", bound=_cursor)
+
 class DictCursorBase(_cursor):
     row_factory: Any
     def __init__(self, *args, **kwargs) -> None: ...
@@ -37,7 +39,21 @@ class DictCursorBase(_cursor):
     def __next__(self) -> tuple[Any, ...]: ...
 
 class DictConnection(_connection):
-    def cursor(self, *args, **kwargs) -> DictCursor: ...
+    @overload
+    def cursor(self, name: str | bytes | None = ..., *, withhold: bool = ..., scrollable: bool | None = ...) -> DictCursor: ...
+    @overload
+    def cursor(
+        self,
+        name: str | bytes | None = ...,
+        *,
+        cursor_factory: Callable[..., _T_cur],
+        withhold: bool = ...,
+        scrollable: bool | None = ...,
+    ) -> _T_cur: ...
+    @overload
+    def cursor(
+        self, name: str | bytes | None, cursor_factory: Callable[..., _T_cur], withhold: bool = ..., scrollable: bool | None = ...
+    ) -> _T_cur: ...
 
 class DictCursor(DictCursorBase):
     def __init__(self, *args, **kwargs) -> None: ...
@@ -62,7 +78,23 @@ class DictRow(list[Any]):
     def __reduce__(self): ...
 
 class RealDictConnection(_connection):
-    def cursor(self, *args, **kwargs) -> RealDictCursor: ...
+    @overload
+    def cursor(
+        self, name: str | bytes | None = ..., *, withhold: bool = ..., scrollable: bool | None = ...
+    ) -> RealDictCursor: ...
+    @overload
+    def cursor(
+        self,
+        name: str | bytes | None = ...,
+        *,
+        cursor_factory: Callable[..., _T_cur],
+        withhold: bool = ...,
+        scrollable: bool | None = ...,
+    ) -> _T_cur: ...
+    @overload
+    def cursor(
+        self, name: str | bytes | None, cursor_factory: Callable[..., _T_cur], withhold: bool = ..., scrollable: bool | None = ...
+    ) -> _T_cur: ...
 
 class RealDictCursor(DictCursorBase):
     def __init__(self, *args, **kwargs) -> None: ...
@@ -79,7 +111,23 @@ class RealDictRow(OrderedDict[Any, Any]):
     def __setitem__(self, key, value) -> None: ...
 
 class NamedTupleConnection(_connection):
-    def cursor(self, *args, **kwargs) -> NamedTupleCursor: ...
+    @overload
+    def cursor(
+        self, name: str | bytes | None = ..., *, withhold: bool = ..., scrollable: bool | None = ...
+    ) -> NamedTupleCursor: ...
+    @overload
+    def cursor(
+        self,
+        name: str | bytes | None = ...,
+        *,
+        cursor_factory: Callable[..., _T_cur],
+        withhold: bool = ...,
+        scrollable: bool | None = ...,
+    ) -> _T_cur: ...
+    @overload
+    def cursor(
+        self, name: str | bytes | None, cursor_factory: Callable[..., _T_cur], withhold: bool = ..., scrollable: bool | None = ...
+    ) -> _T_cur: ...
 
 class NamedTupleCursor(_cursor):
     Record: Any
