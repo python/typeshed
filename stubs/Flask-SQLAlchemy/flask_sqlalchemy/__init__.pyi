@@ -60,7 +60,7 @@ class SQLAlchemy:
     Query: Any
     use_native_unicode: Any
     session: Any
-    Model: Any
+    Model: Model
     app: Any
     def __init__(
         self,
