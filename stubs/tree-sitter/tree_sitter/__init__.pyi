@@ -1,5 +1,5 @@
 import ctypes
-from _typeshed import Incomplete, StrPath
+from _typeshed import StrPath
 from collections.abc import Sequence
 
 # Query is missing at runtime for some reason
