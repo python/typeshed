@@ -1,3 +1,4 @@
+import ctypes
 from _typeshed import Incomplete, StrPath
 from collections.abc import Sequence
 
