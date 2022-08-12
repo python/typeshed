@@ -6,7 +6,7 @@ from tree_sitter.binding import Node as Node, Parser as Parser, Tree as Tree, Tr
 
 class Language:
     @staticmethod
-    def build_library(output_path: str, repo_paths: Sequence[StrPath]): ...
+    def build_library(output_path: str, repo_paths: Sequence[StrPath]) -> bool: ...
     name: str
     lib: ctypes.CDLL
     language_id: int
