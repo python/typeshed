@@ -8,7 +8,7 @@ class Language:
     @staticmethod
     def build_library(output_path: str, repo_paths: Sequence[StrPath]): ...
     name: str
-    lib: Incomplete
+    lib: ctypes.CDLL
     language_id: int
     # library_path is passed into ctypes LoadLibrary
     def __init__(self, library_path: str, name: str) -> None: ...
