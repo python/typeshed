@@ -2,6 +2,7 @@ import _typeshed
 import abc
 import collections
 import sys
+from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import IdentityFunction
 from collections.abc import Iterable
 from typing import (  # noqa: Y022,Y027,Y039
@@ -20,8 +21,6 @@ from typing import (  # noqa: Y022,Y027,Y039
     Counter as Counter,
     DefaultDict as DefaultDict,
     Deque as Deque,
-    ItemsView,
-    KeysView,
     Mapping,
     NewType as NewType,
     NoReturn as NoReturn,
@@ -29,7 +28,6 @@ from typing import (  # noqa: Y022,Y027,Y039
     Text as Text,
     Type as Type,
     TypeVar,
-    ValuesView,
     _Alias,
     overload as overload,
     type_check_only,
@@ -135,9 +133,9 @@ class _TypedDict(Mapping[str, object], metaclass=abc.ABCMeta):
     # Mypy plugin hook for 'pop' expects that 'default' has a type variable type.
     def pop(self, k: NoReturn, default: _T = ...) -> object: ...  # pyright: ignore[reportInvalidTypeVarUse]
     def update(self: _T, __m: _T) -> None: ...
-    def items(self) -> ItemsView[str, object]: ...
-    def keys(self) -> KeysView[str]: ...
-    def values(self) -> ValuesView[object]: ...
+    def items(self) -> dict_items[str, object]: ...
+    def keys(self) -> dict_keys[str, object]: ...
+    def values(self) -> dict_values[str, object]: ...
     def __delitem__(self, k: NoReturn) -> None: ...
     if sys.version_info >= (3, 9):
         def __or__(self: _typeshed.Self, __value: _typeshed.Self) -> _typeshed.Self: ...
