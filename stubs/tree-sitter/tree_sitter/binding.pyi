@@ -72,7 +72,7 @@ class Tree:
     @property
     def root_node(self) -> Node: ...
     @property
-    def text(self) -> bytes: ...
+    def text(self) -> bytes | Any: ...  # technically ReadableBuffer | Any
     def edit(
         self,
         start_byte: int,
