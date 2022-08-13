@@ -65,7 +65,6 @@ class Parser:
 @final
 class Query:
     def captures(self, *args, **kwargs): ...
-    def matches(self, *args, **kwargs): ...
 
 @final
 class Tree:
