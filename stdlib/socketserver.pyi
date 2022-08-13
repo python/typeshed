@@ -70,7 +70,8 @@ class BaseServer:
     def close_request(self, request: _RequestType) -> None: ...  # undocumented
 
 class TCPServer(BaseServer):
-    allow_reuse_port: bool
+    if sys.version_info >= (3, 11):
+        allow_reuse_port: bool
     request_queue_size: int
     def __init__(
         self: Self,
