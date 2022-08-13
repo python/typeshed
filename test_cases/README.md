@@ -52,6 +52,17 @@ annotations,
 [this page](https://typing.readthedocs.io/en/latest/source/quality.html#testing-using-assert-type-and-warn-unused-ignores)
 provides a useful guide.
 
+### Naming convention
+
+Use the same top-level name for the module / package you would like to test.
+Use `test_${thing}.py` naming pattern for individual test files.
+
+By default, tests go into a test file with the same name as the stub file, prefixed with `test_`.
+For example: `stdlib/test_contextlib.py`.
+
+If that file becomes too big, we instead create a directory with files named after individual objects being tested.
+For example: `stdlib/builtins/test_dict.py`.
+
 ### Differences to the rest of typeshed
 
 Unlike the rest of typeshed, this directory largely contains `.py` files. This
