@@ -64,7 +64,8 @@ class Parser:
 
 @final
 class Query:
-    def captures(self, *args, **kwargs): ...
+    # start_point and end_point arguments don't seem to do anything
+    def captures(self) -> list[tuple[Node, str]]: ...
 
 @final
 class Tree:
