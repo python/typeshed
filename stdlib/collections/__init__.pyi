@@ -2,7 +2,7 @@ import sys
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import Self, SupportsKeysAndGetItem, SupportsRichComparison, SupportsRichComparisonT
 from typing import Any, Generic, NoReturn, TypeVar, overload
-from typing_extensions import SupportsIndex, final
+from typing_extensions import SupportsIndex
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
