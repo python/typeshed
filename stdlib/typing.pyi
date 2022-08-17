@@ -188,7 +188,7 @@ if sys.version_info >= (3, 8):
 
 if sys.version_info >= (3, 11):
     Self: _SpecialForm
-    Never: _SpecialForm
+    Never: _SpecialForm = ...
     Unpack: _SpecialForm
     Required: _SpecialForm
     NotRequired: _SpecialForm
