@@ -59,7 +59,7 @@ def get_state(app): ...
 class SQLAlchemy:
     Query: Any
     use_native_unicode: Any
-    session: Any
+    session: Session
     Model: Model
     app: Any
     def __init__(
