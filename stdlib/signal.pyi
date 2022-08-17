@@ -3,8 +3,8 @@ from _typeshed import structseq
 from collections.abc import Callable, Iterable
 from enum import IntEnum
 from types import FrameType
-from typing import Any, Union
-from typing_extensions import Final, Never, TypeAlias, final
+from typing import Any, NoReturn, Union
+from typing_extensions import Final, TypeAlias, final
 
 NSIG: int
 
@@ -64,7 +64,7 @@ SIG_IGN: Handlers
 _SIGNUM: TypeAlias = int | Signals
 _HANDLER: TypeAlias = Union[Callable[[int, FrameType | None], Any], int, Handlers, None]
 
-def default_int_handler(__signalnum: int, __frame: FrameType | None) -> Never: ...
+def default_int_handler(__signalnum: int, __frame: FrameType | None) -> NoReturn: ...
 
 if sys.version_info >= (3, 10):  # arguments changed in 3.10.2
     def getsignal(signalnum: _SIGNUM) -> _HANDLER: ...
