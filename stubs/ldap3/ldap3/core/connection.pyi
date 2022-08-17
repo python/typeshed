@@ -11,7 +11,11 @@ SASL_AVAILABLE_MECHANISMS: Any
 CLIENT_STRATEGIES: Any
 
 _ServerSequence: TypeAlias = (
-    set[Server] | list[Server] | tuple[Server, ...] | Generator[Server, None, None] | dict_keys[Server, Any]
+    set[Server]
+    | list[Server]
+    | tuple[Server, ...]
+    | Generator[Server, None, None]
+    | dict_keys[Server, Any]
 )
 
 class Connection:
@@ -68,11 +72,22 @@ class Connection:
         server: Server | str | _ServerSequence | ServerPool,
         user: str | None = ...,
         password: str | None = ...,
-        auto_bind: Literal["DEFAULT", "NONE", "NO_TLS", "TLS_BEFORE_BIND", "TLS_AFTER_BIND"] = ...,
+        auto_bind: Literal[
+            "DEFAULT", "NONE", "NO_TLS", "TLS_BEFORE_BIND", "TLS_AFTER_BIND"
+        ] = ...,
         version: int = ...,
         authentication: Literal["ANONYMOUS", "SIMPLE", "SASL", "NTLM"] | None = ...,
         client_strategy: Literal[
-            "SYNC", "SAFE_SYNC", "ASYNC", "LDIF", "RESTARTABLE", "REUSABLE", "MOCK_SYNC", "MOCK_ASYNC", "ASYNC_STREAM"
+            "SYNC",
+            "SAFE_RESTARTABLE",
+            "SAFE_SYNC",
+            "ASYNC",
+            "LDIF",
+            "RESTARTABLE",
+            "REUSABLE",
+            "MOCK_SYNC",
+            "MOCK_ASYNC",
+            "ASYNC_STREAM",
         ] = ...,
         auto_referrals: bool = ...,
         auto_range: bool = ...,
@@ -107,7 +122,10 @@ class Connection:
     def usage(self): ...
     def __enter__(self: Self) -> Self: ...
     def __exit__(
-        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
+        self,
+        exc_type: type[BaseException] | None,
+        exc_val: BaseException | None,
+        exc_tb: TracebackType | None,
     ) -> Literal[False] | None: ...
     def bind(self, read_server_info: bool = ..., controls: Any | None = ...): ...
     def rebind(
@@ -139,15 +157,30 @@ class Connection:
         auto_escape: bool | None = ...,
     ): ...
     def compare(self, dn, attribute, value, controls: Any | None = ...): ...
-    def add(self, dn, object_class: Any | None = ..., attributes: Any | None = ..., controls: Any | None = ...): ...
+    def add(
+        self,
+        dn,
+        object_class: Any | None = ...,
+        attributes: Any | None = ...,
+        controls: Any | None = ...,
+    ): ...
     def delete(self, dn, controls: Any | None = ...): ...
     def modify(self, dn, changes, controls: Any | None = ...): ...
     def modify_dn(
-        self, dn, relative_dn, delete_old_dn: bool = ..., new_superior: Any | None = ..., controls: Any | None = ...
+        self,
+        dn,
+        relative_dn,
+        delete_old_dn: bool = ...,
+        new_superior: Any | None = ...,
+        controls: Any | None = ...,
     ): ...
     def abandon(self, message_id, controls: Any | None = ...): ...
     def extended(
-        self, request_name, request_value: Any | None = ..., controls: Any | None = ..., no_encode: Any | None = ...
+        self,
+        request_name,
+        request_value: Any | None = ...,
+        controls: Any | None = ...,
+        no_encode: Any | None = ...,
     ): ...
     def start_tls(self, read_server_info: bool = ...): ...
     def do_sasl_bind(self, controls): ...
@@ -171,6 +204,8 @@ class Connection:
         checked_attributes: bool = ...,
         include_empty: bool = ...,
     ): ...
-    def response_to_file(self, target, raw: bool = ..., indent: int = ..., sort: bool = ...) -> None: ...
+    def response_to_file(
+        self, target, raw: bool = ..., indent: int = ..., sort: bool = ...
+    ) -> None: ...
     @property
     def entries(self): ...
