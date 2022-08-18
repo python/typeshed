@@ -262,7 +262,6 @@ if sys.platform == "darwin" and sys.version_info >= (3, 10):
 
 if sys.platform == "linux":
     from _socket import (
-        AF_NETLINK as AF_NETLINK,
         ALG_OP_DECRYPT as ALG_OP_DECRYPT,
         ALG_OP_ENCRYPT as ALG_OP_ENCRYPT,
         ALG_OP_SIGN as ALG_OP_SIGN,
@@ -299,7 +298,6 @@ if sys.platform == "linux":
         CAN_RTR_FLAG as CAN_RTR_FLAG,
         CAN_SFF_MASK as CAN_SFF_MASK,
         NETLINK_ARPD as NETLINK_ARPD,
-        NETLINK_CRYPT as NETLINK_CRYPT,
         NETLINK_DNRTMSG as NETLINK_DNRTMSG,
         NETLINK_FIREWALL as NETLINK_FIREWALL,
         NETLINK_IP6_FW as NETLINK_IP6_FW,
