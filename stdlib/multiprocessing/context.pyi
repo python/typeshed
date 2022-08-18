@@ -145,16 +145,24 @@ class DefaultContext(BaseContext):
 
 _default_context: DefaultContext
 
+class SpawnProcess(BaseProcess):
+    _start_method: str
+    if sys.platform != "win32":
+        @staticmethod
+        def _Popen(process_obj: BaseProcess) -> popen_spawn_posix.Popen: ...
+    else:
+        @staticmethod
+        def _Popen(process_obj: BaseProcess) -> popen_spawn_win32.Popen: ...
+
+class SpawnContext(BaseContext):
+    _name: str
+    Process: ClassVar[type[SpawnProcess]]
+
 if sys.platform != "win32":
     class ForkProcess(BaseProcess):
         _start_method: str
         @staticmethod
         def _Popen(process_obj: BaseProcess) -> popen_fork.Popen: ...
-
-    class SpawnProcess(BaseProcess):
-        _start_method: str
-        @staticmethod
-        def _Popen(process_obj: BaseProcess) -> popen_spawn_posix.Popen: ...
 
     class ForkServerProcess(BaseProcess):
         _start_method: str
@@ -165,23 +173,9 @@ if sys.platform != "win32":
         _name: str
         Process: ClassVar[type[ForkProcess]]
 
-    class SpawnContext(BaseContext):
-        _name: str
-        Process: ClassVar[type[SpawnProcess]]
-
     class ForkServerContext(BaseContext):
         _name: str
         Process: ClassVar[type[ForkServerProcess]]
-
-else:
-    class SpawnProcess(BaseProcess):
-        _start_method: str
-        @staticmethod
-        def _Popen(process_obj: BaseProcess) -> popen_spawn_win32.Popen: ...
-
-    class SpawnContext(BaseContext):
-        _name: str
-        Process: ClassVar[type[SpawnProcess]]
 
 def _force_start_method(method: str) -> None: ...
 def get_spawning_popen() -> Any | None: ...

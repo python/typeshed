@@ -1,9 +1,9 @@
 mypy==0.971
-pytype==2022.8.3; platform_system != "Windows"
+pytype==2022.8.17; platform_system != "Windows"
 # must match .pre-commit-config.yaml
 black==22.6.0
 # must match .pre-commit-config.yaml
-flake8==5.0.2
+flake8==5.0.4
 flake8-bugbear==22.7.1
 flake8-pyi==22.8.1
 # must match .pre-commit-config.yaml

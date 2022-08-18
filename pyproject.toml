@@ -21,6 +21,7 @@ extra_standard_library = [
     "_heapq",
     "_markupbase",
     "_random",
+    "_threading_local",
     "_tkinter",
     "_tracemalloc",
     "_warnings",
