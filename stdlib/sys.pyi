@@ -11,6 +11,7 @@ from typing_extensions import Literal, TypeAlias, final
 
 _T = TypeVar("_T")
 
+# see https://github.com/python/typeshed/issues/8513#issue-1333671093 for the rationale behind this alias
 _ExitCode: TypeAlias = str | int | None
 _OptExcInfo: TypeAlias = OptExcInfo  # noqa: Y047  # TODO: obsolete, remove fall 2022 or later
 
