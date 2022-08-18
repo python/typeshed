@@ -11,6 +11,7 @@ from typing_extensions import Literal, TypeAlias, final
 
 _T = TypeVar("_T")
 
+_ExitCode: TypeAlias = str | int | None
 _OptExcInfo: TypeAlias = OptExcInfo  # noqa: Y047  # TODO: obsolete, remove fall 2022 or later
 
 # Intentionally omits one deprecated and one optional method of `importlib.abc.MetaPathFinder`
@@ -222,7 +223,7 @@ if sys.version_info >= (3, 11):
     def exception() -> BaseException | None: ...
 
 # sys.exit() accepts an optional argument of anything printable
-def exit(__status: str | int | None = ...) -> NoReturn: ...
+def exit(__status: _ExitCode = ...) -> NoReturn: ...
 def getallocatedblocks() -> int: ...
 def getdefaultencoding() -> str: ...
 
