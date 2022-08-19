@@ -465,6 +465,8 @@ class _SubParsersAction(Action, Generic[_ArgumentParserT]):
     if sys.version_info >= (3, 9):
         def add_parser(
             self,
+            name: str,
+            *,
             prog: str | None = ...,
             usage: str | None = ...,
             description: str | None = ...,
@@ -482,6 +484,8 @@ class _SubParsersAction(Action, Generic[_ArgumentParserT]):
     else:
         def add_parser(
             self,
+            name: str,
+            *,
             prog: str | None = ...,
             usage: str | None = ...,
             description: str | None = ...,
