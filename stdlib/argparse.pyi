@@ -483,7 +483,7 @@ class _SubParsersAction(Action, Generic[_ArgumentParserT]):
             add_help: bool = ...,
             allow_abbrev: bool = ...,
             exit_on_error: bool = ...,
-        ) -> None: ...
+        ) -> _ArgumentParserT: ...
     else:
         def add_parser(
             self,
