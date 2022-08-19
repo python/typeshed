@@ -460,13 +460,16 @@ class _SubParsersAction(Action, Generic[_ArgumentParserT]):
         metavar: str | tuple[str, ...] | None = ...,
     ) -> None: ...
 
-    # The signature of add_parser matches that of ArgumentParser.__init__, except
-    # add_parser returns an ArgumentParser.
+    # Note: `add_parser` accepts all kwargs of `ArgumentParser.__init__`. It also
+    # accepts its own `help` and `aliases` kwargs.
     if sys.version_info >= (3, 9):
         def add_parser(
             self,
             name: str,
             *,
+            help: str | None = ...,
+            aliases: Sequence[str] = ...,
+            # Kwargs from ArgumentParser constructor
             prog: str | None = ...,
             usage: str | None = ...,
             description: str | None = ...,
@@ -486,6 +489,9 @@ class _SubParsersAction(Action, Generic[_ArgumentParserT]):
             self,
             name: str,
             *,
+            help: str | None = ...,
+            aliases: Sequence[str] = ...,
+            # Kwargs from ArgumentParser constructor
             prog: str | None = ...,
             usage: str | None = ...,
             description: str | None = ...,
