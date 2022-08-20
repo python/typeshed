@@ -1,15 +1,16 @@
 from _typeshed import Incomplete, Self
-from collections.abc import Callable, Iterable
+from collections.abc import Callable, Iterable, Sequence
 from threading import Lock
 from types import TracebackType
-from typing import Any, ClassVar, Generic
-from typing_extensions import Literal
+from typing import Any, ClassVar, Generic, NoReturn
+from typing_extensions import Literal, TypeAlias
 
-from redis.client import CaseInsensitiveDict, PubSub, Redis
+from redis.client import CaseInsensitiveDict, PubSub, Redis, _ParseResponseOptions
 from redis.commands import CommandsParser, RedisClusterCommands
 from redis.commands.core import _StrType
-from redis.connection import BaseParser, Connection, Encoder
+from redis.connection import BaseParser, Connection, Encoder, ConnectionPool
 from redis.exceptions import MovedError, RedisError
+from redis.typing import EncodableT
 
 def get_node_name(host: str, port: str | int) -> str: ...
 def get_connection(redis_node: Redis[Any], *args, **options) -> Connection: ...
@@ -22,6 +23,7 @@ REPLICA: str
 SLOT_ID: str
 REDIS_ALLOWED_KEYS: tuple[str, ...]
 KWARGS_DISABLED_KEYS: tuple[str, ...]
+PIPELINE_BLOCKED_COMMANDS: tuple[str, ...]
 
 def cleanup_kwargs(**kwargs: Any) -> dict[str, Any]: ...
 
@@ -180,6 +182,9 @@ class ClusterPipeline(RedisCluster[_StrType], Generic[_StrType]):
     reinitialize_steps: int
     encoder: Encoder
     commands_parser: Incomplete
+    scripts: Any
+    watching: bool
+    explicit_transaction: bool
     def __init__(
         self,
         nodes_manager,
@@ -201,9 +206,6 @@ class ClusterPipeline(RedisCluster[_StrType], Generic[_StrType]):
     def raise_first_error(self, stack) -> None: ...
     def annotate_exception(self, exception, number, command) -> None: ...
     def execute(self, raise_on_error: bool = ...): ...
-    scripts: Any
-    watching: bool
-    explicit_transaction: bool
     def reset(self) -> None: ...
     def send_cluster_commands(self, stack, raise_on_error: bool = ..., allow_redirections: bool = ...): ...
     def eval(self) -> None: ...
@@ -215,23 +217,25 @@ class ClusterPipeline(RedisCluster[_StrType], Generic[_StrType]):
     def script_load_for_pipeline(self, *args, **kwargs) -> None: ...
     def delete(self, *names): ...
 
-def block_pipeline_command(name: str) -> Callable[..., Any]: ...
+def block_pipeline_command(name: str) -> Callable[..., NoReturn]: ...
 
 class PipelineCommand:
-    args: Any
-    options: Any
-    position: Any
-    result: Any
-    node: Any
+    args: Sequence[EncodableT]
+    options: _ParseResponseOptions
+    position: int | None
+    result: Any | None
+    node: Any | None
     asking: bool
-    def __init__(self, args, options: Any | None = ..., position: Any | None = ...) -> None: ...
+    def __init__(self, args: Sequence[EncodableT], options: Any | None = ..., position: int | None = ...) -> None: ...
+
+_ParseResponseCallback: TypeAlias = Callable[[Connection, EncodableT, _ParseResponseOptions], Any]        
 
 class NodeCommands:
-    parse_response: Any
-    connection_pool: Any
-    connection: Any
-    commands: Any
-    def __init__(self, parse_response, connection_pool, connection) -> None: ...
+    parse_response: _ParseResponseCallback
+    connection_pool: ConnectionPool
+    connection: Connection
+    commands: list[PipelineCommand]
+    def __init__(self, parse_response: _ParseResponseCallback, connection_pool: ConnectionPool, connection: Connection) -> None: ...
     def append(self, c) -> None: ...
     def write(self) -> None: ...
     def read(self) -> None: ...
