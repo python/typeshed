@@ -46,18 +46,6 @@ def python_version(arg: str) -> tuple[MajorVersion, MinorVersion]:
     return version  # type: ignore[return-value]
 
 
-def python_platform(platform: str) -> str:
-    if platform not in SUPPORTED_PLATFORMS:
-        raise ValueError
-    return platform
-
-
-def typeshed_directory(directory: str) -> str:
-    if directory not in TYPESHED_DIRECTORIES:
-        raise ValueError
-    return directory
-
-
 class CommandLineArgs(argparse.Namespace):
     verbose: int
     dry_run: bool
@@ -78,14 +66,14 @@ parser.add_argument(
 parser.add_argument(
     "-d",
     "--dir",
-    type=typeshed_directory,
+    choices=TYPESHED_DIRECTORIES,
     nargs="*",
     action="extend",
     help="Test only these top-level typeshed directories (defaults to all typeshed directories)",
 )
 parser.add_argument(
     "--platform",
-    type=python_platform,
+    choices=SUPPORTED_PLATFORMS,
     nargs="*",
     action="extend",
     help="Run mypy for certain OS platforms (defaults to sys.platform only)",
