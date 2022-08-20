@@ -1,6 +1,6 @@
 import sys
 import xml.dom
-from _typeshed import Incomplete, Self, SupportsRead
+from _typeshed import Self, SupportsRead
 from typing import Any
 from typing_extensions import Literal
 from xml.dom.xmlbuilder import DocumentLS, DOMImplementationLS
