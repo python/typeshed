@@ -1,7 +1,6 @@
 import sys
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import Self, SupportsKeysAndGetItem, SupportsRichComparison, SupportsRichComparisonT
-from collections.abc import ItemsView, KeysView, ValuesView
 from typing import Any, Generic, NoReturn, TypeVar, overload
 from typing_extensions import SupportsIndex, final
 
@@ -9,7 +8,7 @@ if sys.version_info >= (3, 9):
     from types import GenericAlias
 
 if sys.version_info >= (3, 10):
-    from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping, MutableSequence, Reversible, Sequence
+    from collections.abc import Callable, ItemsView, Iterable, Iterator, KeysView, Mapping, MutableMapping, MutableSequence, Reversible, Sequence, ValuesView
 else:
     from _collections_abc import *
 
