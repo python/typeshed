@@ -8,7 +8,7 @@ from typing_extensions import Literal, TypeAlias
 from redis.client import CaseInsensitiveDict, PubSub, Redis, _ParseResponseOptions
 from redis.commands import CommandsParser, RedisClusterCommands
 from redis.commands.core import _StrType
-from redis.connection import BaseParser, Connection, Encoder, ConnectionPool
+from redis.connection import BaseParser, Connection, ConnectionPool, Encoder
 from redis.exceptions import MovedError, RedisError
 from redis.typing import EncodableT
 
@@ -228,14 +228,16 @@ class PipelineCommand:
     asking: bool
     def __init__(self, args: Sequence[EncodableT], options: Any | None = ..., position: int | None = ...) -> None: ...
 
-_ParseResponseCallback: TypeAlias = Callable[[Connection, EncodableT, _ParseResponseOptions], Any]        
+_ParseResponseCallback: TypeAlias = Callable[[Connection, EncodableT, _ParseResponseOptions], Any]
 
 class NodeCommands:
     parse_response: _ParseResponseCallback
     connection_pool: ConnectionPool
     connection: Connection
     commands: list[PipelineCommand]
-    def __init__(self, parse_response: _ParseResponseCallback, connection_pool: ConnectionPool, connection: Connection) -> None: ...
+    def __init__(
+        self, parse_response: _ParseResponseCallback, connection_pool: ConnectionPool, connection: Connection
+    ) -> None: ...
     def append(self, c) -> None: ...
     def write(self) -> None: ...
     def read(self) -> None: ...
