@@ -46,6 +46,7 @@ def check_stdlib() -> None:
 
 def check_stubs() -> None:
     for distribution in os.listdir("stubs"):
+        assert not distribution.startswith("types-"), f"Distribution not allowed to start with 'types-': {distribution}"
         assert not os.path.isfile(distribution), f"Only directories allowed in stubs, got {distribution}"
         for entry in os.listdir(os.path.join("stubs", distribution)):
             if os.path.isfile(os.path.join("stubs", distribution, entry)):
@@ -61,7 +62,7 @@ def check_stubs() -> None:
 
 
 def check_same_files() -> None:
-    files = [os.path.join(root, file) for root, dir, files in os.walk(".") for file in files]
+    files = [os.path.join(root, file) for root, _, files in os.walk(".") for file in files]
     no_symlink = "You cannot use symlinks in typeshed, please copy {} to its link."
     for file in files:
         _, ext = os.path.splitext(file)
