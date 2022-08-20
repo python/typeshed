@@ -1,6 +1,7 @@
 import sys
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import Self, SupportsKeysAndGetItem, SupportsRichComparison, SupportsRichComparisonT
+from collections.abc import KeysView, ItemsView, ValuesView
 from typing import Any, Generic, NoReturn, TypeVar, overload
 from typing_extensions import SupportsIndex, final
 
@@ -301,19 +302,20 @@ class Counter(dict[_T, int], Generic[_T]):
         def __ge__(self, other: Counter[Any]) -> bool: ...
         def __gt__(self, other: Counter[Any]) -> bool: ...
 
-######
-# These three classes (`_odict_keys`, `_odict_items`, `_odict_values`)
-# represent the types returned by `OrderedDict.keys()`, `OrderedDict.items()` and `OrderedDict.values()`.
-# At runtime these classes are `odict_keys`, `odict_items` and `odict_values`,
-# but they are not exposed anywhere (they are implemented in C).
-#
-# These classes are similar to the pure-Python equivalents exposed at runtime
-# (`collections._OrderedDictKeysView`, `collections._OrderedDictItemsView`, `collections._OrderedDictValuesView`),
-# but they have two differences:
-# - They inherit from `dict_keys`, `dict_items` and `dict_values`.
-# - They cannot be subclassed.
-######
+# The pure-Python implementations of the "views" classes
+# These are exposed at runtime in `collections/__init__.py`
+class _OrderedDictKeysView(KeysView[_KT_co], Reversible[_KT_co]):
+    def __reversed__(self) -> Iterator[_KT_co]: ...
 
+class _OrderedDictItemsView(ItemsView[_KT_co, _VT_co], Reversible[tuple[_KT_co, _VT_co]]):
+    def __reversed__(self) -> Iterator[tuple[_KT_co, _VT_co]]: ...
+
+class _OrderedDictValuesView(ValuesView[_VT_co], Reversible[_VT_co]):
+    def __reversed__(self) -> Iterator[_VT_co]: ...
+
+# The C implementations of the "views" classes
+# (At runtime, these are called `odict_keys`, `odict_items` and `odict_values`,
+# but they are not exposed anywhere)
 @final
 class _odict_keys(dict_keys[_KT_co, _VT_co], Reversible[_KT_co]):  # type: ignore[misc]
     def __reversed__(self) -> Iterator[_KT_co]: ...
