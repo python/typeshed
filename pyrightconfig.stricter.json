@@ -83,6 +83,7 @@
         "stubs/setuptools",
         "stubs/simplejson",
         "stubs/slumber",
+        "stubs/sortedcontainers",
         "stubs/SQLAlchemy",
         "stubs/stripe",
         "stubs/tqdm",
