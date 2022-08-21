@@ -8,16 +8,12 @@ if sys.platform == "win32":
     _COMError_Details: TypeAlias = tuple[str | None, str | None, str | None, int | None, int | None]
 
     class COMError(Exception):
-        """Raised when a COM method call failed."""
-
         hresult: int
         text: str | None
         details: _COMError_Details
 
         def __init__(self, hresult: int, text: str | None, details: _COMError_Details) -> None: ...
 
-    def CopyComPointer(src: _PointerLike, dst: _PointerLike | _CArgObject) -> int:
-        """CopyComPointer(src, dst) -> HRESULT value"""
-        ...
+    def CopyComPointer(src: _PointerLike, dst: _PointerLike | _CArgObject) -> int: ...
 
 def __getattr__(name: str) -> Any: ...  # incomplete
