@@ -25,6 +25,7 @@ def assert_stubs_only(directory: Path, allowed: set[str]) -> None:
     while contents:
         entry = contents.pop()
         if entry.relative_to(directory) in allowed_paths:
+            # Note if a subdirectory is allowed, we will not check its contents
             continue
         if entry.is_file():
             assert entry.stem.isidentifier(), f"Files must be valid modules, got: {entry}"
@@ -46,7 +47,7 @@ def check_stubs() -> None:
         assert re.fullmatch(
             valid_dist_name, dist.name, re.IGNORECASE
         ), f"Directory name must have valid distribution name: {dist}"
-        assert not dist.name.startswith("types-"), f"Directory not allowed to start with 'types-': {dist}"
+        assert not dist.name.startswith("types-"), f"Directory name not allowed to start with 'types-': {dist}"
 
         allowed = {"METADATA.toml", "README", "README.md", "README.rst", "@tests"}
         assert_stubs_only(dist, allowed)
