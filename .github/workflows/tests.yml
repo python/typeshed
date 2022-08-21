@@ -61,7 +61,7 @@ jobs:
       - run: ./tests/pytype_test.py --print-stderr
 
   mypy:
-    name: Run mypy against typeshed
+    name: Test the stubs with mypy
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -77,7 +77,7 @@ jobs:
       - run: ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
 
   pyright:
-    name: Run pyright against typeshed
+    name: Test the stubs with pyright
     runs-on: ubuntu-latest
     strategy:
       matrix:
