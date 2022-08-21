@@ -10,7 +10,7 @@ on:
     paths:
       - 'scripts/**'
       - 'tests/**'
-      - '.github/workflows/mypy_primer_comment.yml'
+      - '.github/workflows/mypy_selfcheck.yml'
 
 permissions:
   contents: read
