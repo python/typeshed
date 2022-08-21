@@ -8,8 +8,9 @@ on:
       - master
   pull_request:
     paths:
-      - scripts
-      - tests
+      - 'scripts/**'
+      - 'tests/**'
+      - '.github/workflows/mypy_primer_comment.yml'
 
 permissions:
   contents: read
