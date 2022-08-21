@@ -3,7 +3,7 @@ from collections.abc import Callable, Iterable, Sequence
 from threading import Lock
 from types import TracebackType
 from typing import Any, ClassVar, Generic, NoReturn
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Protocol
 
 from redis.client import CaseInsensitiveDict, PubSub, Redis, _ParseResponseOptions
 from redis.commands import CommandsParser, RedisClusterCommands
@@ -182,9 +182,6 @@ class ClusterPipeline(RedisCluster[_StrType], Generic[_StrType]):
     reinitialize_steps: int
     encoder: Encoder
     commands_parser: Incomplete
-    scripts: Any
-    watching: bool
-    explicit_transaction: bool
     def __init__(
         self,
         nodes_manager,
@@ -206,6 +203,9 @@ class ClusterPipeline(RedisCluster[_StrType], Generic[_StrType]):
     def raise_first_error(self, stack) -> None: ...
     def annotate_exception(self, exception, number, command) -> None: ...
     def execute(self, raise_on_error: bool = ...): ...
+    scripts: set[Any]  # is only set in `reset()`
+    watching: bool  # is only set in `reset()`
+    explicit_transaction: bool  # is only set in `reset()`
     def reset(self) -> None: ...
     def send_cluster_commands(self, stack, raise_on_error: bool = ..., allow_redirections: bool = ...): ...
     def eval(self) -> None: ...
@@ -223,12 +223,13 @@ class PipelineCommand:
     args: Sequence[EncodableT]
     options: _ParseResponseOptions
     position: int | None
-    result: Any | None
-    node: Any | None
+    result: Any | Exception | None
+    node: Incomplete | None
     asking: bool
-    def __init__(self, args: Sequence[EncodableT], options: Any | None = ..., position: int | None = ...) -> None: ...
+    def __init__(self, args: Sequence[EncodableT], options: _ParseResponseOptions | None = ..., position: int | None = ...) -> None: ...
 
-_ParseResponseCallback: TypeAlias = Callable[[Connection, EncodableT, _ParseResponseOptions], Any]
+class _ParseResponseCallback(Protocol):
+    def __call__(self, __connection: Connection, __command: EncodableT, **kwargs: Incomplete) -> Any: ...
 
 class NodeCommands:
     parse_response: _ParseResponseCallback
@@ -238,6 +239,6 @@ class NodeCommands:
     def __init__(
         self, parse_response: _ParseResponseCallback, connection_pool: ConnectionPool, connection: Connection
     ) -> None: ...
-    def append(self, c) -> None: ...
+    def append(self, c: PipelineCommand) -> None: ...
     def write(self) -> None: ...
     def read(self) -> None: ...
