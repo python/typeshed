@@ -1,6 +1,5 @@
 import sys
 from ctypes import _CArgObject, _PointerLike
-from typing import Any
 from typing_extensions import TypeAlias
 
 if sys.platform == "win32":
