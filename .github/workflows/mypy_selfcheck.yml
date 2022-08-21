@@ -33,4 +33,4 @@ jobs:
         with:
           python-version: 3.x
       - run: pip install -r requirements-tests.txt
-      - run: ./tests/test_the_tests.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
+      - run: python ./tests/test_the_tests.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
