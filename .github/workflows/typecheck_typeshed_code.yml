@@ -1,4 +1,4 @@
-name: Test-the-tests
+name: Typecheck-typeshed-code
 
 on:
   workflow_dispatch:
@@ -24,13 +24,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        platform: ["linux", "win32", "darwin"]
-        python-version: ["3.9", "3.10", "3.11"]
+        platform: ["linux", "win32"]
       fail-fast: false
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
-          python-version: 3.x
+          python-version: 3.9
       - run: pip install -r requirements-tests.txt
-      - run: python ./tests/test_the_tests.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
+      - run: python ./tests/test_the_tests.py --platform=${{ matrix.platform }}
