@@ -342,14 +342,9 @@ wave.Wave_write.initfp
 _ctypes.Array
 _ctypes.CFuncPtr
 _ctypes.FUNCFLAG_CDECL
-_ctypes.FUNCFLAG_HRESULT
 _ctypes.FUNCFLAG_PYTHONAPI
-_ctypes.FUNCFLAG_STDCALL
 _ctypes.FUNCFLAG_USE_ERRNO
 _ctypes.FUNCFLAG_USE_LASTERROR
-_ctypes.FormatError
-_ctypes.FreeLibrary
-_ctypes.LoadLibrary
 _ctypes.POINTER
 _ctypes.PyObj_FromPtr
 _ctypes.Py_DECREF
@@ -365,11 +360,9 @@ _ctypes.byref
 _ctypes.call_cdeclfunction
 _ctypes.call_function
 _ctypes.get_errno
-_ctypes.get_last_error
 _ctypes.pointer
 _ctypes.resize
 _ctypes.set_errno
-_ctypes.set_last_error
 _ctypes.sizeof
 
 # ==========
