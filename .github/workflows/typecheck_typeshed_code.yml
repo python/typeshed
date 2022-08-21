@@ -10,7 +10,7 @@ on:
     paths:
       - 'scripts/**'
       - 'tests/**'
-      - '.github/workflows/mypy_selfcheck.yml'
+      - '.github/workflows/typecheck_typeshed_code.yml'
 
 permissions:
   contents: read
