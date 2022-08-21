@@ -2,8 +2,8 @@ from _typeshed import Incomplete, Self
 from collections.abc import Callable, Iterable, Sequence
 from threading import Lock
 from types import TracebackType
-from typing import Any, ClassVar, Generic, NoReturn
-from typing_extensions import Literal, Protocol
+from typing import Any, ClassVar, Generic, NoReturn, Protocol
+from typing_extensions import Literal
 
 from redis.client import CaseInsensitiveDict, PubSub, Redis, _ParseResponseOptions
 from redis.commands import CommandsParser, RedisClusterCommands
