@@ -1,9 +1,8 @@
-from email.message import Message
-
 import sys
 from _typeshed import Self, SupportsGetItem, SupportsItemAccess
 from builtins import list as _list, type as _type
 from collections.abc import Iterable, Iterator, Mapping
+from email.message import Message
 from types import TracebackType
 from typing import IO, Any, Protocol
 
