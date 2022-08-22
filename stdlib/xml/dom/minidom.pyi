@@ -1,7 +1,6 @@
 import sys
 import xml.dom
 from _typeshed import Incomplete, Self, SupportsRead, SupportsWrite
-from typing import Any
 from typing_extensions import Literal
 from xml.dom.xmlbuilder import DocumentLS, DOMImplementationLS
 from xml.sax.xmlreader import XMLReader
@@ -12,11 +11,11 @@ def getDOMImplementation(features=...) -> DOMImplementation | None: ...
 
 class Node(xml.dom.Node):
     namespaceURI: str | None
-    parentNode: Any
-    ownerDocument: Any
-    nextSibling: Any
-    previousSibling: Any
-    prefix: Any
+    parentNode: Incomplete
+    ownerDocument: Incomplete
+    nextSibling: Incomplete
+    previousSibling: Incomplete
+    prefix: Incomplete
     @property
     def firstChild(self) -> Node | None: ...
     @property
@@ -43,7 +42,7 @@ class Node(xml.dom.Node):
     def getInterface(self, feature): ...
     def getUserData(self, key): ...
     def setUserData(self, key, data, handler): ...
-    childNodes: Any
+    childNodes: Incomplete
     def unlink(self) -> None: ...
     def __enter__(self: Self) -> Self: ...
     def __exit__(self, et, ev, tb) -> None: ...
@@ -51,32 +50,32 @@ class Node(xml.dom.Node):
 class DocumentFragment(Node):
     nodeType: int
     nodeName: str
-    nodeValue: Any
-    attributes: Any
-    parentNode: Any
-    childNodes: Any
+    nodeValue: Incomplete
+    attributes: Incomplete
+    parentNode: Incomplete
+    childNodes: Incomplete
     def __init__(self) -> None: ...
 
 class Attr(Node):
     name: str
     nodeType: int
-    attributes: Any
+    attributes: Incomplete
     specified: bool
-    ownerElement: Any
+    ownerElement: Incomplete
     namespaceURI: str | None
-    childNodes: Any
-    nodeName: Any
+    childNodes: Incomplete
+    nodeName: Incomplete
     nodeValue: str
     value: str
-    prefix: Any
+    prefix: Incomplete
     def __init__(
-        self, qName: str, namespaceURI: str | None = ..., localName: str | None = ..., prefix: Any | None = ...
+        self, qName: str, namespaceURI: str | None = ..., localName: str | None = ..., prefix: Incomplete | None = ...
     ) -> None: ...
     def unlink(self) -> None: ...
     @property
     def isId(self) -> bool: ...
     @property
-    def schemaType(self) -> Any: ...
+    def schemaType(self): ...
 
 class NamedNodeMap:
     def __init__(self, attrs, attrsNS, ownerElement) -> None: ...
@@ -87,7 +86,7 @@ class NamedNodeMap:
     def keys(self): ...
     def keysNS(self): ...
     def values(self): ...
-    def get(self, name: str, value: Any | None = ...): ...
+    def get(self, name: str, value: Incomplete | None = ...): ...
     def __len__(self) -> int: ...
     def __eq__(self, other: object) -> bool: ...
     def __ge__(self, other: NamedNodeMap) -> bool: ...
@@ -115,17 +114,17 @@ class TypeInfo:
 
 class Element(Node):
     nodeType: int
-    nodeValue: Any
-    schemaType: Any
-    parentNode: Any
+    nodeValue: Incomplete
+    schemaType: Incomplete
+    parentNode: Incomplete
     tagName: str
     nodeName: str
-    prefix: Any
+    prefix: Incomplete
     namespaceURI: str | None
-    childNodes: Any
-    nextSibling: Any
+    childNodes: Incomplete
+    nextSibling: Incomplete
     def __init__(
-        self, tagName, namespaceURI: str | None = ..., prefix: Any | None = ..., localName: Any | None = ...
+        self, tagName, namespaceURI: str | None = ..., prefix: Incomplete | None = ..., localName: Incomplete | None = ...
     ) -> None: ...
     def unlink(self) -> None: ...
     def getAttribute(self, attname: str) -> str: ...
@@ -135,11 +134,11 @@ class Element(Node):
     def getAttributeNode(self, attrname: str): ...
     def getAttributeNodeNS(self, namespaceURI: str, localName): ...
     def setAttributeNode(self, attr): ...
-    setAttributeNodeNS: Any
+    setAttributeNodeNS: Incomplete
     def removeAttribute(self, name: str) -> None: ...
     def removeAttributeNS(self, namespaceURI: str, localName) -> None: ...
     def removeAttributeNode(self, node): ...
-    removeAttributeNodeNS: Any
+    removeAttributeNodeNS: Incomplete
     def hasAttribute(self, name: str) -> bool: ...
     def hasAttributeNS(self, namespaceURI: str, localName) -> bool: ...
     def getElementsByTagName(self, name: str): ...
@@ -153,10 +152,10 @@ class Element(Node):
     def attributes(self) -> NamedNodeMap: ...
 
 class Childless:
-    attributes: Any
-    childNodes: Any
-    firstChild: Any
-    lastChild: Any
+    attributes: Incomplete
+    childNodes: Incomplete
+    firstChild: Incomplete
+    lastChild: Incomplete
     def appendChild(self, node) -> None: ...
     def hasChildNodes(self) -> bool: ...
     def insertBefore(self, newChild, refChild) -> None: ...
@@ -166,20 +165,20 @@ class Childless:
 
 class ProcessingInstruction(Childless, Node):
     nodeType: int
-    target: Any
-    data: Any
+    target: Incomplete
+    data: Incomplete
     def __init__(self, target, data) -> None: ...
-    nodeValue: Any
-    nodeName: Any
+    nodeValue: Incomplete
+    nodeName: Incomplete
     def writexml(self, writer: SupportsWrite[str], indent: str = ..., addindent: str = ..., newl: str = ...) -> None: ...
 
 class CharacterData(Childless, Node):
-    ownerDocument: Any
-    previousSibling: Any
+    ownerDocument: Incomplete
+    previousSibling: Incomplete
     def __init__(self) -> None: ...
     def __len__(self) -> int: ...
     data: str
-    nodeValue: Any
+    nodeValue: Incomplete
     def substringData(self, offset: int, count: int) -> str: ...
     def appendData(self, arg: str) -> None: ...
     def insertData(self, offset: int, arg: str) -> None: ...
@@ -191,8 +190,8 @@ class CharacterData(Childless, Node):
 class Text(CharacterData):
     nodeType: int
     nodeName: str
-    attributes: Any
-    data: Any
+    attributes: Incomplete
+    data: Incomplete
     def splitText(self, offset): ...
     def writexml(self, writer: SupportsWrite[str], indent: str = ..., addindent: str = ..., newl: str = ...) -> None: ...
     def replaceWholeText(self, content): ...
@@ -227,31 +226,31 @@ class ReadOnlySequentialNamedNodeMap:
     def length(self) -> int: ...
 
 class Identified:
-    publicId: Any
-    systemId: Any
+    publicId: Incomplete
+    systemId: Incomplete
 
 class DocumentType(Identified, Childless, Node):
     nodeType: int
-    nodeValue: Any
-    name: Any
-    internalSubset: Any
-    entities: Any
-    notations: Any
-    nodeName: Any
+    nodeValue: Incomplete
+    name: Incomplete
+    internalSubset: Incomplete
+    entities: Incomplete
+    notations: Incomplete
+    nodeName: Incomplete
     def __init__(self, qualifiedName: str) -> None: ...
     def cloneNode(self, deep): ...
     def writexml(self, writer: SupportsWrite[str], indent: str = ..., addindent: str = ..., newl: str = ...) -> None: ...
 
 class Entity(Identified, Node):
-    attributes: Any
+    attributes: Incomplete
     nodeType: int
-    nodeValue: Any
-    actualEncoding: Any
-    encoding: Any
-    version: Any
-    nodeName: Any
-    notationName: Any
-    childNodes: Any
+    nodeValue: Incomplete
+    actualEncoding: Incomplete
+    encoding: Incomplete
+    version: Incomplete
+    nodeName: Incomplete
+    notationName: Incomplete
+    childNodes: Incomplete
     def __init__(self, name, publicId, systemId, notation) -> None: ...
     def appendChild(self, newChild) -> None: ...
     def insertBefore(self, newChild, refChild) -> None: ...
@@ -260,8 +259,8 @@ class Entity(Identified, Node):
 
 class Notation(Identified, Childless, Node):
     nodeType: int
-    nodeValue: Any
-    nodeName: Any
+    nodeValue: Incomplete
+    nodeName: Incomplete
     def __init__(self, name, publicId, systemId) -> None: ...
 
 class DOMImplementation(DOMImplementationLS):
@@ -271,7 +270,7 @@ class DOMImplementation(DOMImplementationLS):
     def getInterface(self: Self, feature: str) -> Self | None: ...
 
 class ElementInfo:
-    tagName: Any
+    tagName: Incomplete
     def __init__(self, name) -> None: ...
     def getAttributeType(self, aname): ...
     def getAttributeTypeNS(self, namespaceURI: str, localName): ...
@@ -281,26 +280,26 @@ class ElementInfo:
     def isIdNS(self, namespaceURI: str, localName): ...
 
 class Document(Node, DocumentLS):
-    implementation: Any
+    implementation: Incomplete
     nodeType: int
     nodeName: str
-    nodeValue: Any
-    attributes: Any
-    parentNode: Any
-    previousSibling: Any
-    nextSibling: Any
-    actualEncoding: Any
+    nodeValue: Incomplete
+    attributes: Incomplete
+    parentNode: Incomplete
+    previousSibling: Incomplete
+    nextSibling: Incomplete
+    actualEncoding: Incomplete
     encoding: str | None
     standalone: bool | None
-    version: Any
+    version: Incomplete
     strictErrorChecking: bool
-    errorHandler: Any
-    documentURI: Any
+    errorHandler: Incomplete
+    documentURI: Incomplete
     doctype: DocumentType | None
-    childNodes: Any
+    childNodes: Incomplete
     def __init__(self) -> None: ...
     def appendChild(self, node): ...
-    documentElement: Any
+    documentElement: Incomplete
     def removeChild(self, oldChild): ...
     def unlink(self) -> None: ...
     def cloneNode(self, deep): ...
@@ -330,7 +329,12 @@ class Document(Node, DocumentLS):
         ) -> None: ...
     else:
         def writexml(
-            self, writer: SupportsWrite[str], indent: str = ..., addindent: str = ..., newl: str = ..., encoding: Any | None = ...
+            self,
+            writer: SupportsWrite[str],
+            indent: str = ...,
+            addindent: str = ...,
+            newl: str = ...,
+            encoding: Incomplete | None = ...,
         ) -> None: ...
 
     def renameNode(self, n, namespaceURI: str, name): ...
