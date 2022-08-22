@@ -2,8 +2,8 @@ import sys
 import xml.dom
 from _typeshed import Incomplete, Self, SupportsRead
 from io import StringIO, TextIOWrapper
-from typing import Any, TypeAlias
-from typing_extensions import Literal
+from typing import Any
+from typing_extensions import Literal, TypeAlias
 from xml.dom.xmlbuilder import DocumentLS, DOMImplementationLS
 from xml.sax.xmlreader import XMLReader
 
