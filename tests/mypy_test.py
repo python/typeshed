@@ -29,11 +29,14 @@ import tomli
 from colors import colored, print_error, print_success_msg
 
 SUPPORTED_VERSIONS = [(3, 11), (3, 10), (3, 9), (3, 8), (3, 7)]
-SUPPORTED_PLATFORMS = frozenset({"linux", "win32", "darwin"})
-TYPESHED_DIRECTORIES = frozenset({"stdlib", "stubs", "tests", "test_cases", "scripts"})
+SUPPORTED_PLATFORMS = ("linux", "win32", "darwin")
+TYPESHED_DIRECTORIES = frozenset({"stdlib", "stubs", "test_cases"})
 
+ReturnCode: TypeAlias = int
 MajorVersion: TypeAlias = int
 MinorVersion: TypeAlias = int
+MinVersion: TypeAlias = tuple[MajorVersion, MinorVersion]
+MaxVersion: TypeAlias = tuple[MajorVersion, MinorVersion]
 Platform: TypeAlias = Annotated[str, "Must be one of the entries in SUPPORTED_PLATFORMS"]
 Directory: TypeAlias = Annotated[str, "Must be one of the entries in TYPESHED_DIRECTORIES"]
 
@@ -122,8 +125,6 @@ def match(fn: str, args: TestConfig) -> bool:
 
 
 _VERSION_LINE_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_.]*): ([23]\.\d{1,2})-([23]\.\d{1,2})?$")
-MinVersion: TypeAlias = tuple[MajorVersion, MinorVersion]
-MaxVersion: TypeAlias = tuple[MajorVersion, MinorVersion]
 
 
 def parse_versions(fname: StrPath) -> dict[str, tuple[MinVersion, MaxVersion]]:
@@ -210,7 +211,7 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
         configurations.append(MypyDistConf(module_name, values.copy()))
 
 
-def run_mypy(args: TestConfig, configurations: list[MypyDistConf], files: list[str], *, custom_typeshed: bool = False) -> int:
+def run_mypy(args: TestConfig, configurations: list[MypyDistConf], files: list[str]) -> ReturnCode:
     try:
         from mypy.api import run as mypy_run
     except ImportError:
@@ -225,7 +226,7 @@ def run_mypy(args: TestConfig, configurations: list[MypyDistConf], files: list[s
                 temp.write(f"{k} = {v}\n")
         temp.flush()
 
-        flags = get_mypy_flags(args, temp.name, custom_typeshed=custom_typeshed)
+        flags = get_mypy_flags(args, temp.name)
         mypy_args = [*flags, *files]
         if args.verbose:
             print("running mypy", " ".join(mypy_args))
@@ -253,9 +254,6 @@ def run_mypy(args: TestConfig, configurations: list[MypyDistConf], files: list[s
         return exit_code
 
 
-ReturnCode: TypeAlias = int
-
-
 def run_mypy_as_subprocess(directory: StrPath, flags: Iterable[str]) -> ReturnCode:
     result = subprocess.run([sys.executable, "-m", "mypy", directory, *flags], capture_output=True)
     stdout, stderr = result.stdout, result.stderr
@@ -267,14 +265,7 @@ def run_mypy_as_subprocess(directory: StrPath, flags: Iterable[str]) -> ReturnCo
 
 
 def get_mypy_flags(
-    args: TestConfig,
-    temp_name: str | None,
-    *,
-    custom_typeshed: bool = False,
-    strict: bool = False,
-    test_suite_run: bool = False,
-    enforce_error_codes: bool = True,
-    ignore_missing_imports: bool = False,
+    args: TestConfig, temp_name: str | None, *, strict: bool = False, enforce_error_codes: bool = True
 ) -> list[str]:
     flags = [
         "--python-version",
@@ -285,6 +276,9 @@ def get_mypy_flags(
         "--no-error-summary",
         "--platform",
         args.platform,
+        "--no-site-packages",
+        "--custom-typeshed-dir",
+        os.path.dirname(os.path.dirname(__file__)),
     ]
     if strict:
         flags.append("--strict")
@@ -292,20 +286,8 @@ def get_mypy_flags(
         flags.extend(["--no-implicit-optional", "--disallow-untyped-decorators", "--disallow-any-generics", "--strict-equality"])
     if temp_name is not None:
         flags.extend(["--config-file", temp_name])
-    if custom_typeshed:
-        # Setting custom typeshed dir prevents mypy from falling back to its bundled
-        # typeshed in case of stub deletions
-        flags.extend(["--custom-typeshed-dir", os.path.dirname(os.path.dirname(__file__))])
-    if test_suite_run:
-        flags.append("--namespace-packages")
-        if args.platform == "win32":
-            flags.extend(["--exclude", "tests/pytype_test.py"])
-    else:
-        flags.append("--no-site-packages")
     if enforce_error_codes:
         flags.extend(["--enable-error-code", "ignore-without-code"])
-    if ignore_missing_imports:
-        flags.append("--ignore-missing-imports")
     return flags
 
 
@@ -389,8 +371,8 @@ def test_stdlib(code: int, args: TestConfig) -> TestResults:
 
     if files:
         print(f"Testing stdlib ({len(files)} files)...")
-        print("Running mypy " + " ".join(get_mypy_flags(args, "/tmp/...", custom_typeshed=True)))
-        this_code = run_mypy(args, [], files, custom_typeshed=True)
+        print("Running mypy " + " ".join(get_mypy_flags(args, "/tmp/...")))
+        this_code = run_mypy(args, [], files)
         code = max(code, this_code)
 
     return TestResults(code, len(files))
@@ -414,44 +396,10 @@ def test_third_party_stubs(code: int, args: TestConfig) -> TestResults:
     return TestResults(code, files_checked)
 
 
-def test_the_test_scripts(code: int, args: TestConfig) -> TestResults:
-    files_to_test = list(Path("tests").rglob("*.py"))
-    if args.platform == "win32":
-        files_to_test.remove(Path("tests/pytype_test.py"))
-    num_test_files_to_test = len(files_to_test)
-    flags = get_mypy_flags(args, None, strict=True, test_suite_run=True)
-    print(f"Testing the test suite ({num_test_files_to_test} files)...")
-    print("Running mypy " + " ".join(flags))
-    if args.dry_run:
-        this_code = 0
-    else:
-        this_code = run_mypy_as_subprocess("tests", flags)
-    if not this_code:
-        print_success_msg()
-    code = max(code, this_code)
-    return TestResults(code, num_test_files_to_test)
-
-
-def test_scripts_directory(code: int, args: TestConfig) -> TestResults:
-    files_to_test = list(Path("scripts").rglob("*.py"))
-    num_test_files_to_test = len(files_to_test)
-    flags = get_mypy_flags(args, None, strict=True, ignore_missing_imports=True)
-    print(f"Testing the scripts directory ({num_test_files_to_test} files)...")
-    print("Running mypy " + " ".join(flags))
-    if args.dry_run:
-        this_code = 0
-    else:
-        this_code = run_mypy_as_subprocess("scripts", flags)
-    if not this_code:
-        print_success_msg()
-    code = max(code, this_code)
-    return TestResults(code, num_test_files_to_test)
-
-
 def test_the_test_cases(code: int, args: TestConfig) -> TestResults:
     test_case_files = list(map(str, Path("test_cases").rglob("*.py")))
     num_test_case_files = len(test_case_files)
-    flags = get_mypy_flags(args, None, strict=True, custom_typeshed=True, enforce_error_codes=False)
+    flags = get_mypy_flags(args, None, strict=True, enforce_error_codes=False)
     print(f"Running mypy on the test_cases directory ({num_test_case_files} files)...")
     print("Running mypy " + " ".join(flags))
     if args.dry_run:
@@ -480,21 +428,6 @@ def test_typeshed(code: int, args: TestConfig) -> TestResults:
         code, third_party_files_checked = test_third_party_stubs(code, args)
         files_checked_this_version += third_party_files_checked
         print()
-
-    if args.minor >= 9:
-        # Run mypy against our own test suite and the scripts directory
-        #
-        # Skip this on earlier Python versions,
-        # as we're using new syntax and new functions in some test files
-        if "tests" in args.directories:
-            code, test_script_files_checked = test_the_test_scripts(code, args)
-            files_checked_this_version += test_script_files_checked
-            print()
-
-        if "scripts" in args.directories:
-            code, script_files_checked = test_scripts_directory(code, args)
-            files_checked_this_version += script_files_checked
-            print()
 
     if "test_cases" in args.directories:
         code, test_case_files_checked = test_the_test_cases(code, args)

@@ -1,9 +1,9 @@
 This directory contains several tests:
 - `tests/mypy_test.py`
-tests typeshed with [mypy](https://github.com/python/mypy/)
-- `tests/pytype_test.py` tests typeshed with
+tests the stubs with [mypy](https://github.com/python/mypy/)
+- `tests/pytype_test.py` tests the stubs with
 [pytype](https://github.com/google/pytype/).
-- `tests/pyright_test.py` tests typeshed with
+- `tests/pyright_test.py` tests the stubs with
 [pyright](https://github.com/microsoft/pyright).
 - `tests/check_consistent.py` checks certain files in typeshed remain
 consistent with each other.
@@ -11,6 +11,8 @@ consistent with each other.
 objects at runtime.
 - `tests/stubtest_third_party.py` checks third-party stubs against the
 objects at runtime.
+- `tests/typecheck_typeshed.py` runs mypy against typeshed's own code
+in the `tests` and `scripts` directories.
 
 To run the tests, follow the [setup instructions](../CONTRIBUTING.md#preparing-the-environment)
 in the `CONTRIBUTING.md` document. In particular, we recommend running with Python 3.9+.
@@ -22,10 +24,9 @@ Run using:
 (.venv3)$ python3 tests/mypy_test.py
 ```
 
-The test has four parts. Each part uses mypy with slightly different configuration options:
+The test has three parts. Each part uses mypy with slightly different configuration options:
 - Running mypy on the stdlib stubs
 - Running mypy on the third-party stubs
-- Running mypy `--strict` on the scripts in the `tests` directory
 - Running mypy `--strict` on the regression tests in the `test_cases` directory.
 
 When running mypy on the stubs, this test is shallow — it verifies that all stubs can be
@@ -118,3 +119,14 @@ check on the command line:
 For each distribution, stubtest ignores definitions listed in a `@tests/stubtest_allowlist.txt` file,
 relative to the distribution. Additional packages that are needed to run stubtest for a
 distribution can be added to `@tests/requirements-stubtest.txt`.
+
+## typecheck\_typeshed.py
+
+Run using
+```
+(.venv3)$ python3 tests/typecheck_typeshed.py
+```
+
+This is a small wrapper script that uses mypy to typecheck typeshed's own code in the
+`scripts` and `tests` directories. Run `python tests/typecheck_typeshed.py --help` for
+information on the various configuration options.
