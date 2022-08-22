@@ -2,8 +2,8 @@ from _typeshed import Incomplete
 from collections.abc import Generator
 from typing import Any, Generic, TypeVar
 
+from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm.query import Query
-from sqlalchemy.orm.session import Session
 
 from . import utils as utils
 from .model import DefaultMeta as DefaultMeta, Model as Model
@@ -59,7 +59,7 @@ def get_state(app): ...
 class SQLAlchemy:
     Query: Any
     use_native_unicode: Any
-    session: Session
+    session: scoped_session
     Model: Model
     app: Any
     def __init__(
