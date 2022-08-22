@@ -13,7 +13,6 @@
         "stdlib/sqlite3/dbapi2.pyi",
         "stdlib/_tkinter.pyi",
         "stdlib/tkinter/__init__.pyi",
-        "stdlib/tkinter/colorchooser.pyi",
         "stdlib/tkinter/commondialog.pyi",
         "stdlib/tkinter/dialog.pyi",
         "stdlib/tkinter/dnd.pyi",
