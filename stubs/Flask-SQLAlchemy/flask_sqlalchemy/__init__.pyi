@@ -4,6 +4,7 @@ from typing import Any, Generic, TypeVar
 
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm.query import Query
+from sqlalchemy.orm.session import Session
 
 from . import utils as utils
 from .model import DefaultMeta as DefaultMeta, Model as Model
