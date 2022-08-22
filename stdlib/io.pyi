@@ -125,6 +125,7 @@ class BufferedWriter(BufferedIOBase, BinaryIO):
 
 class BufferedRandom(BufferedReader, BufferedWriter):
     def __enter__(self: Self) -> Self: ...
+    def seek(self, __target: int, __whence: int = ...) -> int: ...  # stubtest needs this
 
 class BufferedRWPair(BufferedIOBase):
     def __init__(self, reader: RawIOBase, writer: RawIOBase, buffer_size: int = ...) -> None: ...
@@ -177,6 +178,7 @@ class TextIOWrapper(TextIOBase, TextIO):
     def writelines(self, __lines: Iterable[str]) -> None: ...  # type: ignore[override]
     def readline(self, __size: int = ...) -> str: ...  # type: ignore[override]
     def readlines(self, __hint: int = ...) -> list[str]: ...  # type: ignore[override]
+    def seek(self, __target: int, __whence: int = ...) -> int: ...  # stubtest needs this
 
 class StringIO(TextIOWrapper):
     def __init__(self, initial_value: str | None = ..., newline: str | None = ...) -> None: ...
