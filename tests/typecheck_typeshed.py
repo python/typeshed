@@ -58,7 +58,7 @@ def run_mypy_as_subprocess(directory: str, platform: str, version: str) -> Retur
         "--no-error-summary",
         "--enable-error-code",
         "ignore-without-code",
-        "--namespace-packages"
+        "--namespace-packages",
     ]
     if directory == "tests":
         if platform == "win32":

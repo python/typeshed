@@ -10,7 +10,8 @@ on:
     paths:
       - 'scripts/**'
       - 'tests/**'
-      - '.github/workflows/mypy_selfcheck.yml'
+      - '.github/workflows/typecheck_typeshed_code.yml'
+      - 'requirements-tests.txt'
 
 permissions:
   contents: read
@@ -32,4 +33,4 @@ jobs:
         with:
           python-version: 3.9
       - run: pip install -r requirements-tests.txt
-      - run: python ./tests/test_the_tests.py --platform=${{ matrix.platform }}
+      - run: python ./tests/typecheck_typeshed.py --platform=${{ matrix.platform }}
