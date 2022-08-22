@@ -16,7 +16,7 @@ SUPPORTED_PLATFORMS = ("linux", "darwin", "win32")
 SUPPORTED_VERSIONS = ("3.11", "3.10", "3.9")
 DIRECTORIES_TO_TEST = ("scripts", "tests")
 
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(description="Run mypy on typeshed's own code in the `scripts` and `tests` directories.")
 parser.add_argument(
     "--platform",
     choices=SUPPORTED_PLATFORMS,
@@ -95,7 +95,8 @@ def main() -> ReturnCode:
 
 if __name__ == "__main__":
     try:
-        raise SystemExit(main())
+        code = main()
     except KeyboardInterrupt:
         print_error("\n\n!!!\nTest aborted due to KeyboardInterrupt\n!!!")
-        raise SystemExit(1)
+        code = 1
+    raise SystemExit(code)
