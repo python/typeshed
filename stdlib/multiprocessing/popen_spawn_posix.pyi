@@ -1,5 +1,4 @@
 import sys
-from multiprocessing.process import BaseProcess
 from typing import ClassVar
 
 from . import popen_fork

@@ -204,7 +204,6 @@ class GzipDecodedResponse(gzip.GzipFile):  # undocumented
     io: BytesIO
     def __init__(self, response: SupportsRead[bytes]) -> None: ...
 
-
 class _Method:  # undocumented
 
     __send: Callable[[str, tuple[_Marshallable, ...]], _Marshallable]
