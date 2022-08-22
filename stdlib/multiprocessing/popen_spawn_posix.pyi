@@ -19,6 +19,3 @@ if sys.platform != "win32":
         finalizer: Finalize
         pid: int  # may not exist if _launch raises in second try / except
         sentinel: int  # may not exist if _launch raises in second try / except
-
-        def __init__(self, process_obj: BaseProcess) -> None: ...
-        def duplicate_for_child(self, fd: int) -> int: ...
