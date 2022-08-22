@@ -329,7 +329,12 @@ class Document(Node, DocumentLS):
         ) -> None: ...
     else:
         def writexml(
-            self, writer: SupportsWrite[str], indent: str = ..., addindent: str = ..., newl: str = ..., encoding: Incomplete | None = ...
+            self,
+            writer: SupportsWrite[str],
+            indent: str = ...,
+            addindent: str = ...,
+            newl: str = ...,
+            encoding: Incomplete | None = ...,
         ) -> None: ...
 
     def renameNode(self, n, namespaceURI: str, name): ...
