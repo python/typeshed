@@ -23,6 +23,10 @@ selectors.DefaultSelector.fileno
 spwd.struct_spwd.sp_nam
 spwd.struct_spwd.sp_pwd
 
+_ctypes.dlclose
+_ctypes.dlopen
+_ctypes.dlsym
+
 # ==========
 # Allowlist entries that cannot or should not be fixed
 # ==========
