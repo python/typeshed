@@ -2,9 +2,6 @@
 
 # pytype has its own version of these files, and thus doesn't mind if it
 # can't parse the typeshed version:
-stdlib/@python2/__builtin__.pyi
-stdlib/@python2/builtins.pyi
-stdlib/@python2/typing.pyi
 stdlib/builtins.pyi
 stdlib/typing.pyi
 
@@ -12,10 +9,6 @@ stdlib/typing.pyi
 stubs/mysqlclient/MySQLdb/__init__.pyi
 stubs/mysqlclient/MySQLdb/connections.pyi
 stubs/mysqlclient/MySQLdb/cursors.pyi
-
-# third_party stubs with constructs that pytype doesn't yet support:
-stubs/paramiko/paramiko/_winapi.pyi
-stubs/paramiko/paramiko/win_pageant.pyi
 
 # _pb2.pyi have some constructs that break pytype
 # Eg
@@ -112,3 +105,6 @@ stubs/SQLAlchemy/sqlalchemy/sql/functions.pyi
 stubs/SQLAlchemy/sqlalchemy/sql/lambdas.pyi
 stubs/SQLAlchemy/sqlalchemy/sql/schema.pyi
 stubs/SQLAlchemy/sqlalchemy/sql/selectable.pyi
+stubs/Flask-SQLAlchemy/flask_sqlalchemy/__init__.pyi
+stubs/Flask-SQLAlchemy/flask_sqlalchemy/model.pyi
+stubs/Flask-SQLAlchemy/flask_sqlalchemy/utils.pyi

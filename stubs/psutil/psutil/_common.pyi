@@ -1,7 +1,8 @@
 import enum
 from _typeshed import StrOrBytesPath, SupportsWrite
+from collections.abc import Callable
 from socket import AddressFamily, SocketKind
-from typing import Any, Callable, NamedTuple, TypeVar, overload
+from typing import Any, NamedTuple, TypeVar, overload
 from typing_extensions import Literal
 
 POSIX: bool
@@ -30,23 +31,6 @@ STATUS_LOCKED: Literal["locked"]
 STATUS_WAITING: Literal["waiting"]
 STATUS_SUSPENDED: Literal["suspended"]
 STATUS_PARKED: Literal["parked"]
-
-_Status = Literal[
-    "running",
-    "sleeping",
-    "disk-sleep",
-    "stopped",
-    "tracing-stop",
-    "zombie",
-    "dead",
-    "wake-kill",
-    "waking",
-    "idle",
-    "locked",
-    "waiting",
-    "suspended",
-    "parked",
-]
 
 CONN_ESTABLISHED: str
 CONN_SYN_SENT: str

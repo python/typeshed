@@ -1,7 +1,9 @@
 import datetime
 import sys
+from email import _ParamType
 from email.charset import Charset
-from typing import Union, overload
+from typing import overload
+from typing_extensions import TypeAlias
 
 __all__ = [
     "collapse_rfc2231_value",
@@ -21,8 +23,7 @@ __all__ = [
     "unquote",
 ]
 
-_ParamType = Union[str, tuple[str | None, str | None, str]]
-_PDTZ = tuple[int, int, int, int, int, int, int, int, int, int | None]
+_PDTZ: TypeAlias = tuple[int, int, int, int, int, int, int, int, int, int | None]
 
 def quote(str: str) -> str: ...
 def unquote(str: str) -> str: ...

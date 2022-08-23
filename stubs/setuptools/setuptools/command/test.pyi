@@ -1,6 +1,7 @@
 from _typeshed import Self
+from collections.abc import Callable
 from types import ModuleType
-from typing import Any, Callable, Generic, TypeVar, overload
+from typing import Any, Generic, TypeVar, overload
 from unittest import TestLoader, TestSuite
 
 from setuptools import Command
@@ -28,8 +29,8 @@ class test(Command):
     test_runner: Any
     def initialize_options(self) -> None: ...
     def finalize_options(self) -> None: ...
-    # TODO: uncomment once https://github.com/python/mypy/pull/10884 is released
-    # def test_args(self): ...
+    @NonDataProperty
+    def test_args(self) -> list[str]: ...
     def with_project_on_sys_path(self, func) -> None: ...
     def project_on_sys_path(self, include_dists=...): ...
     @staticmethod

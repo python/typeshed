@@ -1,12 +1,13 @@
 import _tkinter
 import sys
-from _typeshed import StrOrBytesPath
+from _typeshed import Incomplete, StrOrBytesPath
+from collections.abc import Callable, Mapping, Sequence
 from enum import Enum
 from tkinter.constants import *
 from tkinter.font import _FontDescription
 from types import TracebackType
-from typing import Any, Callable, Generic, Mapping, Protocol, Sequence, TypeVar, Union, overload
-from typing_extensions import Literal, TypedDict
+from typing import Any, Generic, NamedTuple, Protocol, TypeVar, Union, overload
+from typing_extensions import Literal, TypeAlias, TypedDict
 
 if sys.version_info >= (3, 9):
     __all__ = [
@@ -171,29 +172,33 @@ EXCEPTION = _tkinter.EXCEPTION
 
 # Some widgets have an option named -compound that accepts different values
 # than the _Compound defined here. Many other options have similar things.
-_Anchor = Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"]  # manual page: Tk_GetAnchor
-_Bitmap = str  # manual page: Tk_GetBitmap
-_ButtonCommand = str | Callable[[], Any]  # accepts string of tcl code, return value is returned from Button.invoke()
-_CanvasItemId = int
-_Color = str  # typically '#rrggbb', '#rgb' or color names.
-_Compound = Literal["top", "left", "center", "right", "bottom", "none"]  # -compound in manual page named 'options'
-_Cursor = Union[str, tuple[str], tuple[str, str], tuple[str, str, str], tuple[str, str, str, str]]  # manual page: Tk_GetCursor
-_EntryValidateCommand = Union[
-    Callable[[], bool], str, list[str], tuple[str, ...]
-]  # example when it's sequence:  entry['invalidcommand'] = [entry.register(print), '%P']
-_GridIndex = int | str | Literal["all"]
-_ImageSpec = _Image | str  # str can be from e.g. tkinter.image_names()
-_Padding = Union[
-    _ScreenUnits,
-    tuple[_ScreenUnits],
-    tuple[_ScreenUnits, _ScreenUnits],
-    tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits],
-    tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits, _ScreenUnits],
-]
-_Relief = Literal["raised", "sunken", "flat", "ridge", "solid", "groove"]  # manual page: Tk_GetRelief
-_ScreenUnits = str | float  # Often the right type instead of int. Manual page: Tk_GetPixels
-_XYScrollCommand = str | Callable[[float, float], Any]  # -xscrollcommand and -yscrollcommand in 'options' manual page
-_TakeFocusValue = Union[int, Literal[""], Callable[[str], bool | None]]  # -takefocus in manual page named 'options'
+_Anchor: TypeAlias = Literal["nw", "n", "ne", "w", "center", "e", "sw", "s", "se"]  # manual page: Tk_GetAnchor
+_Bitmap: TypeAlias = str  # manual page: Tk_GetBitmap
+_ButtonCommand: TypeAlias = str | Callable[[], Any]  # accepts string of tcl code, return value is returned from Button.invoke()
+_CanvasItemId: TypeAlias = int
+_Color: TypeAlias = str  # typically '#rrggbb', '#rgb' or color names.
+_Compound: TypeAlias = Literal["top", "left", "center", "right", "bottom", "none"]  # -compound in manual page named 'options'
+_Cursor: TypeAlias = Union[
+    str, tuple[str], tuple[str, str], tuple[str, str, str], tuple[str, str, str, str]
+]  # manual page: Tk_GetCursor
+_EntryValidateCommand: TypeAlias = (
+    str | list[str] | tuple[str, ...] | Callable[[], bool]
+)  # example when it's sequence:  entry['invalidcommand'] = [entry.register(print), '%P']
+_GridIndex: TypeAlias = int | str | Literal["all"]
+_ImageSpec: TypeAlias = _Image | str  # str can be from e.g. tkinter.image_names()
+_Relief: TypeAlias = Literal["raised", "sunken", "flat", "ridge", "solid", "groove"]  # manual page: Tk_GetRelief
+_ScreenUnits: TypeAlias = str | float  # Often the right type instead of int. Manual page: Tk_GetPixels
+# -xscrollcommand and -yscrollcommand in 'options' manual page
+_XYScrollCommand: TypeAlias = str | Callable[[float, float], object]
+_TakeFocusValue: TypeAlias = Union[int, Literal[""], Callable[[str], bool | None]]  # -takefocus in manual page named 'options'
+
+if sys.version_info >= (3, 11):
+    class _VersionInfoType(NamedTuple):
+        major: int
+        minor: int
+        micro: int
+        releaselevel: str
+        serial: int
 
 class EventType(str, Enum):
     Activate: str
@@ -263,14 +268,14 @@ class Event(Generic[_W_co]):
 
 def NoDefaultRoot() -> None: ...
 
-_TraceMode = Literal["array", "read", "write", "unset"]
+_TraceMode: TypeAlias = Literal["array", "read", "write", "unset"]
 
 class Variable:
-    def __init__(self, master: Misc | None = ..., value: Any | None = ..., name: str | None = ...) -> None: ...
-    def set(self, value: Any) -> None: ...
+    def __init__(self, master: Misc | None = ..., value: Incomplete | None = ..., name: str | None = ...) -> None: ...
+    def set(self, value) -> None: ...
     initialize = set
-    def get(self) -> Any: ...
-    def trace_add(self, mode: _TraceMode, callback: Callable[[str, str, str], Any]) -> str: ...
+    def get(self): ...
+    def trace_add(self, mode: _TraceMode, callback: Callable[[str, str, str], object]) -> str: ...
     def trace_remove(self, mode: _TraceMode, cbname: str) -> None: ...
     def trace_info(self) -> list[tuple[tuple[_TraceMode, ...], str]]: ...
     def trace_variable(self, mode, callback): ...  # deprecated
@@ -305,8 +310,8 @@ class BooleanVar(Variable):
 
 def mainloop(n: int = ...) -> None: ...
 
-getint: Any
-getdouble: Any
+getint: Incomplete
+getdouble: Incomplete
 
 def getboolean(s): ...
 
@@ -322,7 +327,7 @@ class Misc:
     children: dict[str, Widget]
     def destroy(self) -> None: ...
     def deletecommand(self, name: str) -> None: ...
-    def tk_strictMotif(self, boolean: Any | None = ...): ...
+    def tk_strictMotif(self, boolean: Incomplete | None = ...): ...
     def tk_bisque(self) -> None: ...
     def tk_setPalette(self, *args, **kw) -> None: ...
     def wait_variable(self, name: str | Variable = ...) -> None: ...
@@ -346,9 +351,9 @@ class Misc:
     @overload
     def after(self, ms: int, func: None = ...) -> None: ...
     @overload
-    def after(self, ms: int | Literal["idle"], func: Callable[..., Any], *args: Any) -> str: ...
+    def after(self, ms: int | Literal["idle"], func: Callable[..., object], *args: Any) -> str: ...
     # after_idle is essentially partialmethod(after, "idle")
-    def after_idle(self, func: Callable[..., Any], *args: Any) -> str: ...
+    def after_idle(self, func: Callable[..., object], *args: Any) -> str: ...
     def after_cancel(self, id: str) -> None: ...
     def bell(self, displayof: Literal[0] | Misc | None = ...) -> None: ...
     def clipboard_get(self, *, displayof: Misc = ..., type: str = ...) -> str: ...
@@ -364,16 +369,19 @@ class Misc:
     ) -> None: ...
     def option_clear(self) -> None: ...
     def option_get(self, name, className): ...
-    def option_readfile(self, fileName, priority: Any | None = ...) -> None: ...
+    def option_readfile(self, fileName, priority: Incomplete | None = ...) -> None: ...
     def selection_clear(self, **kw) -> None: ...
     def selection_get(self, **kw): ...
     def selection_handle(self, command, **kw) -> None: ...
     def selection_own(self, **kw) -> None: ...
     def selection_own_get(self, **kw): ...
     def send(self, interp, cmd, *args): ...
-    def lower(self, belowThis: Any | None = ...) -> None: ...
-    def tkraise(self, aboveThis: Any | None = ...) -> None: ...
+    def lower(self, belowThis: Incomplete | None = ...) -> None: ...
+    def tkraise(self, aboveThis: Incomplete | None = ...) -> None: ...
     lift = tkraise
+    if sys.version_info >= (3, 11):
+        def info_patchlevel(self) -> _VersionInfoType: ...
+
     def winfo_atom(self, name: str, displayof: Literal[0] | Misc | None = ...) -> int: ...
     def winfo_atomname(self, id: int, displayof: Literal[0] | Misc | None = ...) -> str: ...
     def winfo_cells(self) -> int: ...
@@ -435,7 +443,7 @@ class Misc:
     def bind(
         self,
         sequence: str | None = ...,
-        func: Callable[[Event[Misc]], Any] | None = ...,
+        func: Callable[[Event[Misc]], object] | None = ...,
         add: Literal["", "+"] | bool | None = ...,
     ) -> str: ...
     @overload
@@ -448,7 +456,7 @@ class Misc:
     def bind_all(
         self,
         sequence: str | None = ...,
-        func: Callable[[Event[Misc]], Any] | None = ...,
+        func: Callable[[Event[Misc]], object] | None = ...,
         add: Literal["", "+"] | bool | None = ...,
     ) -> str: ...
     @overload
@@ -460,7 +468,7 @@ class Misc:
         self,
         className: str,
         sequence: str | None = ...,
-        func: Callable[[Event[Misc]], Any] | None = ...,
+        func: Callable[[Event[Misc]], object] | None = ...,
         add: Literal["", "+"] | bool | None = ...,
     ) -> str: ...
     @overload
@@ -472,9 +480,11 @@ class Misc:
     def unbind_class(self, className: str, sequence: str) -> None: ...
     def mainloop(self, n: int = ...) -> None: ...
     def quit(self) -> None: ...
+    @property
+    def _windowingsystem(self) -> Literal["win32", "aqua", "x11"]: ...
     def nametowidget(self, name: str | Misc | _tkinter.Tcl_Obj) -> Any: ...
     def register(
-        self, func: Callable[..., Any], subst: Callable[..., Sequence[Any]] | None = ..., needcleanup: int = ...
+        self, func: Callable[..., object], subst: Callable[..., Sequence[Any]] | None = ..., needcleanup: int = ...
     ) -> str: ...
     def keys(self) -> list[str]: ...
     @overload
@@ -572,9 +582,9 @@ class Misc:
     # TODO: config is an alias of configure, but adding that here creates lots of mypy errors
 
 class CallWrapper:
-    func: Any
-    subst: Any
-    widget: Any
+    func: Incomplete
+    subst: Incomplete
+    widget: Incomplete
     def __init__(self, func, subst, widget) -> None: ...
     def __call__(self, *args): ...
 
@@ -582,7 +592,7 @@ class XView:
     @overload
     def xview(self) -> tuple[float, float]: ...
     @overload
-    def xview(self, *args: Any) -> Any: ...
+    def xview(self, *args): ...
     def xview_moveto(self, fraction: float) -> None: ...
     @overload
     def xview_scroll(self, number: int, what: Literal["units", "pages"]) -> None: ...
@@ -593,7 +603,7 @@ class YView:
     @overload
     def yview(self) -> tuple[float, float]: ...
     @overload
-    def yview(self, *args: Any) -> Any: ...
+    def yview(self, *args): ...
     def yview_moveto(self, fraction: float) -> None: ...
     @overload
     def yview_scroll(self, number: int, what: Literal["units", "pages"]) -> None: ...
@@ -611,9 +621,9 @@ class Wm:
     @overload
     def wm_attributes(self) -> tuple[Any, ...]: ...
     @overload
-    def wm_attributes(self, __option: str) -> Any: ...
+    def wm_attributes(self, __option: str): ...
     @overload
-    def wm_attributes(self, __option: str, __value: Any, *__other_option_value_pairs: Any) -> None: ...
+    def wm_attributes(self, __option: str, __value, *__other_option_value_pairs: Any) -> None: ...
     attributes = wm_attributes
     def wm_client(self, name: str | None = ...) -> str: ...
     client = wm_client
@@ -641,24 +651,28 @@ class Wm:
     def wm_geometry(self, newGeometry: str) -> None: ...
     geometry = wm_geometry
     def wm_grid(
-        self, baseWidth: Any | None = ..., baseHeight: Any | None = ..., widthInc: Any | None = ..., heightInc: Any | None = ...
+        self,
+        baseWidth: Incomplete | None = ...,
+        baseHeight: Incomplete | None = ...,
+        widthInc: Incomplete | None = ...,
+        heightInc: Incomplete | None = ...,
     ): ...
     grid = wm_grid
-    def wm_group(self, pathName: Any | None = ...): ...
+    def wm_group(self, pathName: Incomplete | None = ...): ...
     group = wm_group
-    def wm_iconbitmap(self, bitmap: Any | None = ..., default: Any | None = ...): ...
+    def wm_iconbitmap(self, bitmap: Incomplete | None = ..., default: Incomplete | None = ...): ...
     iconbitmap = wm_iconbitmap
     def wm_iconify(self) -> None: ...
     iconify = wm_iconify
-    def wm_iconmask(self, bitmap: Any | None = ...): ...
+    def wm_iconmask(self, bitmap: Incomplete | None = ...): ...
     iconmask = wm_iconmask
-    def wm_iconname(self, newName: Any | None = ...) -> str: ...
+    def wm_iconname(self, newName: Incomplete | None = ...) -> str: ...
     iconname = wm_iconname
     def wm_iconphoto(self, default: bool, __image1: Image, *args: Image) -> None: ...
     iconphoto = wm_iconphoto
     def wm_iconposition(self, x: int | None = ..., y: int | None = ...) -> tuple[int, int] | None: ...
     iconposition = wm_iconposition
-    def wm_iconwindow(self, pathName: Any | None = ...): ...
+    def wm_iconwindow(self, pathName: Incomplete | None = ...): ...
     iconwindow = wm_iconwindow
     def wm_manage(self, widget) -> None: ...
     manage = wm_manage
@@ -680,7 +694,7 @@ class Wm:
     def wm_positionfrom(self, who: Literal["program", "user"] | None = ...) -> Literal["", "program", "user"]: ...
     positionfrom = wm_positionfrom
     @overload
-    def wm_protocol(self, name: str, func: Callable[[], Any] | str) -> None: ...
+    def wm_protocol(self, name: str, func: Callable[[], object] | str) -> None: ...
     @overload
     def wm_protocol(self, name: str, func: None = ...) -> str: ...
     @overload
@@ -712,7 +726,7 @@ class Wm:
     withdraw = wm_withdraw
 
 class _ExceptionReportingCallback(Protocol):
-    def __call__(self, __exc: type[BaseException], __val: BaseException, __tb: TracebackType | None) -> Any: ...
+    def __call__(self, __exc: type[BaseException], __val: BaseException, __tb: TracebackType | None) -> object: ...
 
 class Tk(Misc, Wm):
     master: None
@@ -907,7 +921,7 @@ class Grid:
 
 class BaseWidget(Misc):
     master: Misc
-    widgetName: Any
+    widgetName: Incomplete
     def __init__(self, master, widgetName, cnf=..., kw=..., extra=...) -> None: ...
     def destroy(self) -> None: ...
 
@@ -920,7 +934,7 @@ class Widget(BaseWidget, Pack, Place, Grid):
     def bind(
         self: _W,
         sequence: str | None = ...,
-        func: Callable[[Event[_W]], Any] | None = ...,
+        func: Callable[[Event[_W]], object] | None = ...,
         add: Literal["", "+"] | bool | None = ...,
     ) -> str: ...
     @overload
@@ -1110,7 +1124,7 @@ class Canvas(Widget, XView, YView):
         insertontime: int = ...,
         insertwidth: _ScreenUnits = ...,
         name: str = ...,
-        offset: Any = ...,  # undocumented
+        offset=...,  # undocumented
         relief: _Relief = ...,
         # Setting scrollregion to None doesn't reset it back to empty,
         # but setting it to () does.
@@ -1149,7 +1163,7 @@ class Canvas(Widget, XView, YView):
         insertofftime: int = ...,
         insertontime: int = ...,
         insertwidth: _ScreenUnits = ...,
-        offset: Any = ...,  # undocumented
+        offset=...,  # undocumented
         relief: _Relief = ...,
         scrollregion: tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits, _ScreenUnits] | tuple[()] = ...,
         selectbackground: _Color = ...,
@@ -1200,7 +1214,7 @@ class Canvas(Widget, XView, YView):
         self,
         tagOrId: str | _CanvasItemId,
         sequence: str | None = ...,
-        func: Callable[[Event[Canvas]], Any] | None = ...,
+        func: Callable[[Event[Canvas]], object] | None = ...,
         add: Literal["", "+"] | bool | None = ...,
     ) -> str: ...
     @overload
@@ -1210,16 +1224,17 @@ class Canvas(Widget, XView, YView):
     @overload
     def tag_bind(self, tagOrId: str | _CanvasItemId, *, func: str, add: Literal["", "+"] | bool | None = ...) -> None: ...
     def tag_unbind(self, tagOrId: str | _CanvasItemId, sequence: str, funcid: str | None = ...) -> None: ...
-    def canvasx(self, screenx, gridspacing: Any | None = ...): ...
-    def canvasy(self, screeny, gridspacing: Any | None = ...): ...
+    def canvasx(self, screenx, gridspacing: Incomplete | None = ...): ...
+    def canvasy(self, screeny, gridspacing: Incomplete | None = ...): ...
     @overload
     def coords(self, __tagOrId: str | _CanvasItemId) -> list[float]: ...
     @overload
     def coords(self, __tagOrId: str | _CanvasItemId, __args: list[int] | list[float] | tuple[float, ...]) -> None: ...
     @overload
     def coords(self, __tagOrId: str | _CanvasItemId, __x1: float, __y1: float, *args: float) -> None: ...
-    # create_foo() methods accept coords as a list, a tuple, or as separate arguments.
-    # Keyword arguments should be the same in each pair of overloads.
+    # create_foo() methods accept coords as a list or tuple, or as separate arguments.
+    # Lists and tuples can be flat as in [1, 2, 3, 4], or nested as in [(1, 2), (3, 4)].
+    # Keyword arguments should be the same in all overloads of each method.
     def create_arc(self, *args, **kw) -> _CanvasItemId: ...
     def create_bitmap(self, *args, **kw) -> _CanvasItemId: ...
     def create_image(self, *args, **kw) -> _CanvasItemId: ...
@@ -1257,7 +1272,43 @@ class Canvas(Widget, XView, YView):
     @overload
     def create_line(
         self,
-        __coords: tuple[float, float, float, float] | list[int] | list[float],
+        __xy_pair_0: tuple[float, float],
+        __xy_pair_1: tuple[float, float],
+        *,
+        activedash: str | list[int] | tuple[int, ...] = ...,
+        activefill: _Color = ...,
+        activestipple: str = ...,
+        activewidth: _ScreenUnits = ...,
+        arrow: Literal["first", "last", "both"] = ...,
+        arrowshape: tuple[float, float, float] = ...,
+        capstyle: Literal["round", "projecting", "butt"] = ...,
+        dash: str | list[int] | tuple[int, ...] = ...,
+        dashoffset: _ScreenUnits = ...,
+        disableddash: str | list[int] | tuple[int, ...] = ...,
+        disabledfill: _Color = ...,
+        disabledstipple: _Bitmap = ...,
+        disabledwidth: _ScreenUnits = ...,
+        fill: _Color = ...,
+        joinstyle: Literal["round", "bevel", "miter"] = ...,
+        offset: _ScreenUnits = ...,
+        smooth: bool = ...,
+        splinesteps: float = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        stipple: _Bitmap = ...,
+        tags: str | list[str] | tuple[str, ...] = ...,
+        width: _ScreenUnits = ...,
+    ) -> _CanvasItemId: ...
+    @overload
+    def create_line(
+        self,
+        __coords: (
+            tuple[float, float, float, float]
+            | tuple[tuple[float, float], tuple[float, float]]
+            | list[int]
+            | list[float]
+            | list[tuple[int, int]]
+            | list[tuple[float, float]]
+        ),
         *,
         activedash: str | list[int] | tuple[int, ...] = ...,
         activefill: _Color = ...,
@@ -1317,7 +1368,44 @@ class Canvas(Widget, XView, YView):
     @overload
     def create_oval(
         self,
-        __coords: tuple[float, float, float, float] | list[int] | list[float],
+        __xy_pair_0: tuple[float, float],
+        __xy_pair_1: tuple[float, float],
+        *,
+        activedash: str | list[int] | tuple[int, ...] = ...,
+        activefill: _Color = ...,
+        activeoutline: _Color = ...,
+        activeoutlinestipple: _Color = ...,
+        activestipple: str = ...,
+        activewidth: _ScreenUnits = ...,
+        dash: str | list[int] | tuple[int, ...] = ...,
+        dashoffset: _ScreenUnits = ...,
+        disableddash: str | list[int] | tuple[int, ...] = ...,
+        disabledfill: _Color = ...,
+        disabledoutline: _Color = ...,
+        disabledoutlinestipple: _Color = ...,
+        disabledstipple: _Bitmap = ...,
+        disabledwidth: _ScreenUnits = ...,
+        fill: _Color = ...,
+        offset: _ScreenUnits = ...,
+        outline: _Color = ...,
+        outlineoffset: _ScreenUnits = ...,
+        outlinestipple: _Bitmap = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        stipple: _Bitmap = ...,
+        tags: str | list[str] | tuple[str, ...] = ...,
+        width: _ScreenUnits = ...,
+    ) -> _CanvasItemId: ...
+    @overload
+    def create_oval(
+        self,
+        __coords: (
+            tuple[float, float, float, float]
+            | tuple[tuple[float, float], tuple[float, float]]
+            | list[int]
+            | list[float]
+            | list[tuple[int, int]]
+            | list[tuple[float, float]]
+        ),
         *,
         activedash: str | list[int] | tuple[int, ...] = ...,
         activefill: _Color = ...,
@@ -1381,7 +1469,47 @@ class Canvas(Widget, XView, YView):
     @overload
     def create_polygon(
         self,
-        __coords: tuple[float, ...] | list[int] | list[float],
+        __xy_pair_0: tuple[float, float],
+        __xy_pair_1: tuple[float, float],
+        *xy_pairs: tuple[float, float],
+        activedash: str | list[int] | tuple[int, ...] = ...,
+        activefill: _Color = ...,
+        activeoutline: _Color = ...,
+        activeoutlinestipple: _Color = ...,
+        activestipple: str = ...,
+        activewidth: _ScreenUnits = ...,
+        dash: str | list[int] | tuple[int, ...] = ...,
+        dashoffset: _ScreenUnits = ...,
+        disableddash: str | list[int] | tuple[int, ...] = ...,
+        disabledfill: _Color = ...,
+        disabledoutline: _Color = ...,
+        disabledoutlinestipple: _Color = ...,
+        disabledstipple: _Bitmap = ...,
+        disabledwidth: _ScreenUnits = ...,
+        fill: _Color = ...,
+        joinstyle: Literal["round", "bevel", "miter"] = ...,
+        offset: _ScreenUnits = ...,
+        outline: _Color = ...,
+        outlineoffset: _ScreenUnits = ...,
+        outlinestipple: _Bitmap = ...,
+        smooth: bool = ...,
+        splinesteps: float = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        stipple: _Bitmap = ...,
+        tags: str | list[str] | tuple[str, ...] = ...,
+        width: _ScreenUnits = ...,
+    ) -> _CanvasItemId: ...
+    @overload
+    def create_polygon(
+        self,
+        __coords: (
+            tuple[float, ...]
+            | tuple[tuple[float, float], ...]
+            | list[int]
+            | list[float]
+            | list[tuple[int, int]]
+            | list[tuple[float, float]]
+        ),
         *,
         activedash: str | list[int] | tuple[int, ...] = ...,
         activefill: _Color = ...,
@@ -1445,7 +1573,44 @@ class Canvas(Widget, XView, YView):
     @overload
     def create_rectangle(
         self,
-        __coords: tuple[float, float, float, float] | list[int] | list[float],
+        __xy_pair_0: tuple[float, float],
+        __xy_pair_1: tuple[float, float],
+        *,
+        activedash: str | list[int] | tuple[int, ...] = ...,
+        activefill: _Color = ...,
+        activeoutline: _Color = ...,
+        activeoutlinestipple: _Color = ...,
+        activestipple: str = ...,
+        activewidth: _ScreenUnits = ...,
+        dash: str | list[int] | tuple[int, ...] = ...,
+        dashoffset: _ScreenUnits = ...,
+        disableddash: str | list[int] | tuple[int, ...] = ...,
+        disabledfill: _Color = ...,
+        disabledoutline: _Color = ...,
+        disabledoutlinestipple: _Color = ...,
+        disabledstipple: _Bitmap = ...,
+        disabledwidth: _ScreenUnits = ...,
+        fill: _Color = ...,
+        offset: _ScreenUnits = ...,
+        outline: _Color = ...,
+        outlineoffset: _ScreenUnits = ...,
+        outlinestipple: _Bitmap = ...,
+        state: Literal["normal", "active", "disabled"] = ...,
+        stipple: _Bitmap = ...,
+        tags: str | list[str] | tuple[str, ...] = ...,
+        width: _ScreenUnits = ...,
+    ) -> _CanvasItemId: ...
+    @overload
+    def create_rectangle(
+        self,
+        __coords: (
+            tuple[float, float, float, float]
+            | tuple[tuple[float, float], tuple[float, float]]
+            | list[int]
+            | list[float]
+            | list[tuple[int, int]]
+            | list[tuple[float, float]]
+        ),
         *,
         activedash: str | list[int] | tuple[int, ...] = ...,
         activefill: _Color = ...,
@@ -1696,7 +1861,7 @@ class Checkbutton(Widget):
     def select(self) -> None: ...
     def toggle(self) -> None: ...
 
-_EntryIndex = str | int  # "INDICES" in manual page
+_EntryIndex: TypeAlias = str | int  # "INDICES" in manual page
 
 class Entry(Widget, XView):
     def __init__(
@@ -2030,31 +2195,29 @@ class Listbox(Widget, XView, YView):
     @overload
     def configure(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
     config = configure
-    def activate(self, index) -> None: ...
-    def bbox(self, index) -> tuple[int, int, int, int] | None: ...  # type: ignore[override]
+    def activate(self, index: str | int) -> None: ...
+    def bbox(self, index: str | int) -> tuple[int, int, int, int] | None: ...  # type: ignore[override]
     def curselection(self): ...
-    def delete(self, first, last: Any | None = ...) -> None: ...
-    def get(self, first, last: Any | None = ...): ...
-    def index(self, index): ...
-    def insert(self, index, *elements) -> None: ...
+    def delete(self, first: str | int, last: str | int | None = ...) -> None: ...
+    def get(self, first: str | int, last: str | int | None = ...): ...
+    def index(self, index: str | int) -> int: ...
+    def insert(self, index: str | int, *elements: str | float) -> None: ...
     def nearest(self, y): ...
     def scan_mark(self, x, y) -> None: ...
     def scan_dragto(self, x, y) -> None: ...
-    def see(self, index) -> None: ...
-    def selection_anchor(self, index) -> None: ...
-    select_anchor: Any
-    def selection_clear(self, first, last: Any | None = ...) -> None: ...  # type: ignore[override]
-    select_clear: Any
-    def selection_includes(self, index): ...
-    select_includes: Any
-    def selection_set(self, first, last: Any | None = ...) -> None: ...
-    select_set: Any
+    def see(self, index: str | int) -> None: ...
+    def selection_anchor(self, index: str | int) -> None: ...
+    select_anchor = selection_anchor
+    def selection_clear(self, first: str | int, last: str | int | None = ...) -> None: ...  # type: ignore[override]
+    select_clear = selection_clear
+    def selection_includes(self, index: str | int): ...
+    select_includes = selection_includes
+    def selection_set(self, first: str | int, last: str | int | None = ...) -> None: ...
+    select_set = selection_set
     def size(self) -> int: ...  # type: ignore[override]
-    def itemcget(self, index, option): ...
-    def itemconfigure(self, index, cnf: Any | None = ..., **kw): ...
-    itemconfig: Any
-
-_MenuIndex = str | int
+    def itemcget(self, index: str | int, option): ...
+    def itemconfigure(self, index: str | int, cnf: Incomplete | None = ..., **kw): ...
+    itemconfig = itemconfigure
 
 class Menu(Widget):
     def __init__(
@@ -2076,7 +2239,7 @@ class Menu(Widget):
         font: _FontDescription = ...,
         foreground: _Color = ...,
         name: str = ...,
-        postcommand: Callable[[], Any] | str = ...,
+        postcommand: Callable[[], object] | str = ...,
         relief: _Relief = ...,
         selectcolor: _Color = ...,
         takefocus: _TakeFocusValue = ...,
@@ -2084,7 +2247,7 @@ class Menu(Widget):
         # I guess tearoffcommand arguments are supposed to be widget objects,
         # but they are widget name strings. Use nametowidget() to handle the
         # arguments of tearoffcommand.
-        tearoffcommand: Callable[[str, str], Any] | str = ...,
+        tearoffcommand: Callable[[str, str], object] | str = ...,
         title: str = ...,
         type: Literal["menubar", "tearoff", "normal"] = ...,
     ) -> None: ...
@@ -2106,20 +2269,20 @@ class Menu(Widget):
         fg: _Color = ...,
         font: _FontDescription = ...,
         foreground: _Color = ...,
-        postcommand: Callable[[], Any] | str = ...,
+        postcommand: Callable[[], object] | str = ...,
         relief: _Relief = ...,
         selectcolor: _Color = ...,
         takefocus: _TakeFocusValue = ...,
         tearoff: bool = ...,
-        tearoffcommand: Callable[[str, str], Any] | str = ...,
+        tearoffcommand: Callable[[str, str], object] | str = ...,
         title: str = ...,
         type: Literal["menubar", "tearoff", "normal"] = ...,
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def configure(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
     config = configure
-    def tk_popup(self, x: int, y: int, entry: _MenuIndex = ...) -> None: ...
-    def activate(self, index: _MenuIndex) -> None: ...
+    def tk_popup(self, x: int, y: int, entry: str | int = ...) -> None: ...
+    def activate(self, index: str | int) -> None: ...
     def add(self, itemType, cnf=..., **kw): ...  # docstring says "Internal function."
     def insert(self, index, itemType, cnf=..., **kw): ...  # docstring says "Internal function."
     def add_cascade(
@@ -2132,7 +2295,7 @@ class Menu(Widget):
         background: _Color = ...,
         bitmap: _Bitmap = ...,
         columnbreak: int = ...,
-        command: Callable[[], Any] | str = ...,
+        command: Callable[[], object] | str = ...,
         compound: _Compound = ...,
         font: _FontDescription = ...,
         foreground: _Color = ...,
@@ -2153,7 +2316,7 @@ class Menu(Widget):
         background: _Color = ...,
         bitmap: _Bitmap = ...,
         columnbreak: int = ...,
-        command: Callable[[], Any] | str = ...,
+        command: Callable[[], object] | str = ...,
         compound: _Compound = ...,
         font: _FontDescription = ...,
         foreground: _Color = ...,
@@ -2179,7 +2342,7 @@ class Menu(Widget):
         background: _Color = ...,
         bitmap: _Bitmap = ...,
         columnbreak: int = ...,
-        command: Callable[[], Any] | str = ...,
+        command: Callable[[], object] | str = ...,
         compound: _Compound = ...,
         font: _FontDescription = ...,
         foreground: _Color = ...,
@@ -2199,7 +2362,7 @@ class Menu(Widget):
         background: _Color = ...,
         bitmap: _Bitmap = ...,
         columnbreak: int = ...,
-        command: Callable[[], Any] | str = ...,
+        command: Callable[[], object] | str = ...,
         compound: _Compound = ...,
         font: _FontDescription = ...,
         foreground: _Color = ...,
@@ -2217,7 +2380,7 @@ class Menu(Widget):
     def add_separator(self, cnf: dict[str, Any] | None = ..., *, background: _Color = ...) -> None: ...
     def insert_cascade(
         self,
-        index: _MenuIndex,
+        index: str | int,
         cnf: dict[str, Any] | None = ...,
         *,
         accelerator: str = ...,
@@ -2226,7 +2389,7 @@ class Menu(Widget):
         background: _Color = ...,
         bitmap: _Bitmap = ...,
         columnbreak: int = ...,
-        command: Callable[[], Any] | str = ...,
+        command: Callable[[], object] | str = ...,
         compound: _Compound = ...,
         font: _FontDescription = ...,
         foreground: _Color = ...,
@@ -2239,7 +2402,7 @@ class Menu(Widget):
     ) -> None: ...
     def insert_checkbutton(
         self,
-        index: _MenuIndex,
+        index: str | int,
         cnf: dict[str, Any] | None = ...,
         *,
         accelerator: str = ...,
@@ -2248,7 +2411,7 @@ class Menu(Widget):
         background: _Color = ...,
         bitmap: _Bitmap = ...,
         columnbreak: int = ...,
-        command: Callable[[], Any] | str = ...,
+        command: Callable[[], object] | str = ...,
         compound: _Compound = ...,
         font: _FontDescription = ...,
         foreground: _Color = ...,
@@ -2266,7 +2429,7 @@ class Menu(Widget):
     ) -> None: ...
     def insert_command(
         self,
-        index: _MenuIndex,
+        index: str | int,
         cnf: dict[str, Any] | None = ...,
         *,
         accelerator: str = ...,
@@ -2275,7 +2438,7 @@ class Menu(Widget):
         background: _Color = ...,
         bitmap: _Bitmap = ...,
         columnbreak: int = ...,
-        command: Callable[[], Any] | str = ...,
+        command: Callable[[], object] | str = ...,
         compound: _Compound = ...,
         font: _FontDescription = ...,
         foreground: _Color = ...,
@@ -2287,7 +2450,7 @@ class Menu(Widget):
     ) -> None: ...
     def insert_radiobutton(
         self,
-        index: _MenuIndex,
+        index: str | int,
         cnf: dict[str, Any] | None = ...,
         *,
         accelerator: str = ...,
@@ -2296,7 +2459,7 @@ class Menu(Widget):
         background: _Color = ...,
         bitmap: _Bitmap = ...,
         columnbreak: int = ...,
-        command: Callable[[], Any] | str = ...,
+        command: Callable[[], object] | str = ...,
         compound: _Compound = ...,
         font: _FontDescription = ...,
         foreground: _Color = ...,
@@ -2311,20 +2474,20 @@ class Menu(Widget):
         value: Any = ...,
         variable: Variable = ...,
     ) -> None: ...
-    def insert_separator(self, index: _MenuIndex, cnf: dict[str, Any] | None = ..., *, background: _Color = ...) -> None: ...
-    def delete(self, index1: _MenuIndex, index2: _MenuIndex | None = ...) -> None: ...
-    def entrycget(self, index: _MenuIndex, option: str) -> Any: ...
+    def insert_separator(self, index: str | int, cnf: dict[str, Any] | None = ..., *, background: _Color = ...) -> None: ...
+    def delete(self, index1: str | int, index2: str | int | None = ...) -> None: ...
+    def entrycget(self, index: str | int, option: str) -> Any: ...
     def entryconfigure(
-        self, index: _MenuIndex, cnf: dict[str, Any] | None = ..., **kw: Any
+        self, index: str | int, cnf: dict[str, Any] | None = ..., **kw: Any
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     entryconfig = entryconfigure
-    def index(self, index: _MenuIndex) -> int | None: ...
-    def invoke(self, index: _MenuIndex) -> Any: ...
+    def index(self, index: str | int) -> int | None: ...
+    def invoke(self, index: str | int) -> Any: ...
     def post(self, x: int, y: int) -> None: ...
-    def type(self, index: _MenuIndex) -> Literal["cascade", "checkbutton", "command", "radiobutton", "separator"]: ...
+    def type(self, index: str | int) -> Literal["cascade", "checkbutton", "command", "radiobutton", "separator"]: ...
     def unpost(self) -> None: ...
-    def xposition(self, index: _MenuIndex) -> int: ...
-    def yposition(self, index: _MenuIndex) -> int: ...
+    def xposition(self, index: str | int) -> int: ...
+    def yposition(self, index: str | int) -> int: ...
 
 class Menubutton(Widget):
     def __init__(
@@ -2593,7 +2756,7 @@ class Scale(Widget):
         border: _ScreenUnits = ...,
         borderwidth: _ScreenUnits = ...,
         # don't know why the callback gets string instead of float
-        command: str | Callable[[str], Any] = ...,
+        command: str | Callable[[str], object] = ...,
         cursor: _Cursor = ...,
         digits: int = ...,
         fg: _Color = ...,
@@ -2634,7 +2797,7 @@ class Scale(Widget):
         bigincrement: float = ...,
         border: _ScreenUnits = ...,
         borderwidth: _ScreenUnits = ...,
-        command: str | Callable[[str], Any] = ...,
+        command: str | Callable[[str], object] = ...,
         cursor: _Cursor = ...,
         digits: int = ...,
         fg: _Color = ...,
@@ -2733,14 +2896,14 @@ class Scrollbar(Widget):
     @overload
     def configure(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
     config = configure
-    def activate(self, index: Any | None = ...): ...
+    def activate(self, index: Incomplete | None = ...): ...
     def delta(self, deltax: int, deltay: int) -> float: ...
     def fraction(self, x: int, y: int) -> float: ...
     def identify(self, x: int, y: int) -> Literal["arrow1", "arrow2", "slider", "trough1", "trough2", ""]: ...
     def get(self) -> tuple[float, float, float, float] | tuple[float, float]: ...
     def set(self, first: float, last: float) -> None: ...
 
-_TextIndex = _tkinter.Tcl_Obj | str | float | Misc
+_TextIndex: TypeAlias = _tkinter.Tcl_Obj | str | float | Misc
 
 class Text(Widget, XView, YView):
     def __init__(
@@ -2881,7 +3044,7 @@ class Text(Widget, XView, YView):
         self,
         index1: _TextIndex,
         index2: _TextIndex | None,
-        command: Callable[[str, str, str], Any] | str,
+        command: Callable[[str, str, str], object] | str,
         *,
         all: bool = ...,
         image: bool = ...,
@@ -2896,7 +3059,7 @@ class Text(Widget, XView, YView):
         index1: _TextIndex,
         index2: _TextIndex | None = ...,
         *,
-        command: Callable[[str, str, str], Any] | str,
+        command: Callable[[str, str, str], object] | str,
         all: bool = ...,
         image: bool = ...,
         mark: bool = ...,
@@ -2916,7 +3079,7 @@ class Text(Widget, XView, YView):
     def get(self, index1: _TextIndex, index2: _TextIndex | None = ...) -> str: ...
     # TODO: image_* methods
     def image_cget(self, index, option): ...
-    def image_configure(self, index, cnf: Any | None = ..., **kw): ...
+    def image_configure(self, index, cnf: Incomplete | None = ..., **kw): ...
     def image_create(self, index, cnf=..., **kw): ...
     def image_names(self): ...
     def index(self, index: _TextIndex) -> str: ...
@@ -2931,7 +3094,7 @@ class Text(Widget, XView, YView):
     def mark_next(self, index: _TextIndex) -> str | None: ...
     def mark_previous(self, index: _TextIndex) -> str | None: ...
     # **kw of peer_create is same as the kwargs of Text.__init__
-    def peer_create(self, newPathName: str | Text, cnf: dict[str, Any] = ..., **kw: Any) -> None: ...
+    def peer_create(self, newPathName: str | Text, cnf: dict[str, Any] = ..., **kw) -> None: ...
     def peer_names(self) -> tuple[_tkinter.Tcl_Obj, ...]: ...
     def replace(self, index1: _TextIndex, index2: _TextIndex, chars: str, *args: str | list[str] | tuple[str, ...]) -> None: ...
     def scan_mark(self, x: int, y: int) -> None: ...
@@ -2957,14 +3120,14 @@ class Text(Widget, XView, YView):
         self,
         tagName: str,
         sequence: str | None,
-        func: Callable[[Event[Text]], Any] | None,
+        func: Callable[[Event[Text]], object] | None,
         add: Literal["", "+"] | bool | None = ...,
     ) -> str: ...
     @overload
     def tag_bind(self, tagName: str, sequence: str | None, func: str, add: Literal["", "+"] | bool | None = ...) -> None: ...
     def tag_unbind(self, tagName: str, sequence: str, funcid: str | None = ...) -> None: ...
     # allowing any string for cget instead of just Literals because there's no other way to look up tag options
-    def tag_cget(self, tagName: str, option: str) -> Any: ...
+    def tag_cget(self, tagName: str, option: str): ...
     @overload
     def tag_configure(
         self,
@@ -3014,20 +3177,20 @@ class Text(Widget, XView, YView):
     def tag_remove(self, tagName: str, index1: _TextIndex, index2: _TextIndex | None = ...) -> None: ...
     # TODO: window_* methods
     def window_cget(self, index, option): ...
-    def window_configure(self, index, cnf: Any | None = ..., **kw): ...
+    def window_configure(self, index, cnf: Incomplete | None = ..., **kw): ...
     window_config = window_configure
     def window_create(self, index, cnf=..., **kw) -> None: ...
     def window_names(self): ...
     def yview_pickplace(self, *what): ...  # deprecated
 
 class _setit:
-    def __init__(self, var, value, callback: Any | None = ...) -> None: ...
+    def __init__(self, var, value, callback: Incomplete | None = ...) -> None: ...
     def __call__(self, *args) -> None: ...
 
 # manual page: tk_optionMenu
 class OptionMenu(Menubutton):
-    widgetName: Any
-    menuname: Any
+    widgetName: Incomplete
+    menuname: Incomplete
     def __init__(
         # differs from other widgets
         self,
@@ -3036,7 +3199,7 @@ class OptionMenu(Menubutton):
         value: str,
         *values: str,
         # kwarg only from now on
-        command: Callable[[StringVar], Any] | None = ...,
+        command: Callable[[StringVar], object] | None = ...,
     ) -> None: ...
     # configure, config, cget are inherited from Menubutton
     # destroy and __getitem__ are overridden, signature does not change
@@ -3047,16 +3210,16 @@ class _Image(Protocol):
     def width(self) -> int: ...
 
 class Image:
-    name: Any
+    name: Incomplete
     tk: _tkinter.TkappType
     def __init__(
-        self, imgtype, name: Any | None = ..., cnf=..., master: Misc | _tkinter.TkappType | None = ..., **kw
+        self, imgtype, name: Incomplete | None = ..., cnf=..., master: Misc | _tkinter.TkappType | None = ..., **kw
     ) -> None: ...
     def __del__(self) -> None: ...
     def __setitem__(self, key, value) -> None: ...
     def __getitem__(self, key): ...
-    configure: Any
-    config: Any
+    configure: Incomplete
+    config: Incomplete
     def height(self) -> int: ...
     def type(self): ...
     def width(self) -> int: ...
@@ -3116,7 +3279,7 @@ class PhotoImage(Image):
 class BitmapImage(Image):
     def __init__(
         self,
-        name: Any | None = ...,
+        name: Incomplete | None = ...,
         cnf: dict[str, Any] = ...,
         master: Misc | _tkinter.TkappType | None = ...,
         *,
@@ -3148,7 +3311,7 @@ class Spinbox(Widget, XView):
         buttondownrelief: _Relief = ...,
         buttonuprelief: _Relief = ...,
         # percent substitutions don't seem to be supported, it's similar to Entry's validation stuff
-        command: Callable[[], Any] | str | list[str] | tuple[str, ...] = ...,
+        command: Callable[[], object] | str | list[str] | tuple[str, ...] = ...,
         cursor: _Cursor = ...,
         disabledbackground: _Color = ...,
         disabledforeground: _Color = ...,
@@ -3205,7 +3368,7 @@ class Spinbox(Widget, XView):
         buttoncursor: _Cursor = ...,
         buttondownrelief: _Relief = ...,
         buttonuprelief: _Relief = ...,
-        command: Callable[[], Any] | str | list[str] | tuple[str, ...] = ...,
+        command: Callable[[], object] | str | list[str] | tuple[str, ...] = ...,
         cursor: _Cursor = ...,
         disabledbackground: _Color = ...,
         disabledforeground: _Color = ...,
@@ -3250,7 +3413,7 @@ class Spinbox(Widget, XView):
     def configure(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
     config = configure
     def bbox(self, index) -> tuple[int, int, int, int] | None: ...  # type: ignore[override]
-    def delete(self, first, last: Any | None = ...) -> Literal[""]: ...
+    def delete(self, first, last: Incomplete | None = ...) -> Literal[""]: ...
     def get(self) -> str: ...
     def icursor(self, index): ...
     def identify(self, x: int, y: int) -> Literal["", "buttondown", "buttonup", "entry"]: ...
@@ -3261,10 +3424,10 @@ class Spinbox(Widget, XView):
     def scan(self, *args): ...
     def scan_mark(self, x): ...
     def scan_dragto(self, x): ...
-    def selection(self, *args: Any) -> tuple[int, ...]: ...
+    def selection(self, *args) -> tuple[int, ...]: ...
     def selection_adjust(self, index): ...
     def selection_clear(self): ...
-    def selection_element(self, element: Any | None = ...): ...
+    def selection_element(self, element: Incomplete | None = ...): ...
     if sys.version_info >= (3, 8):
         def selection_from(self, index: int) -> None: ...
         def selection_present(self) -> None: ...
@@ -3397,7 +3560,7 @@ class PanedWindow(Widget):
     config = configure
     def add(self, child: Widget, **kw) -> None: ...
     def remove(self, child) -> None: ...
-    forget: Any
+    forget: Incomplete
     def identify(self, x: int, y: int): ...
     def proxy(self, *args): ...
     def proxy_coord(self): ...
@@ -3408,6 +3571,8 @@ class PanedWindow(Widget):
     def sash_mark(self, index): ...
     def sash_place(self, index, x, y): ...
     def panecget(self, child, option): ...
-    def paneconfigure(self, tagOrId, cnf: Any | None = ..., **kw): ...
-    paneconfig: Any
+    def paneconfigure(self, tagOrId, cnf: Incomplete | None = ..., **kw): ...
+    paneconfig: Incomplete
     def panes(self): ...
+
+def _test() -> None: ...

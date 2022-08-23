@@ -1,16 +1,14 @@
 import sys
 from _typeshed import structseq
+from collections.abc import Callable
 from threading import Thread
 from types import TracebackType
-from typing import Any, Callable, NoReturn
+from typing import Any, NoReturn
 from typing_extensions import Final, final
 
 error = RuntimeError
 
 def _count() -> int: ...
-
-_dangling: Any
-
 @final
 class LockType:
     def acquire(self, blocking: bool = ..., timeout: float = ...) -> bool: ...
@@ -21,7 +19,7 @@ class LockType:
         self, type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
     ) -> None: ...
 
-def start_new_thread(function: Callable[..., Any], args: tuple[Any, ...], kwargs: dict[str, Any] = ...) -> int: ...
+def start_new_thread(function: Callable[..., object], args: tuple[Any, ...], kwargs: dict[str, Any] = ...) -> int: ...
 def interrupt_main() -> None: ...
 def exit() -> NoReturn: ...
 def allocate_lock() -> LockType: ...

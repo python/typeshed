@@ -1,4 +1,5 @@
-from typing import Any, Callable, overload
+from collections.abc import Callable
+from typing import Any, overload
 
 class Key:
     DefaultContentType: str
@@ -107,7 +108,7 @@ class Key:
         self,
         fp,
         headers: dict[str, str] | None = ...,
-        cb: Callable[[int, int], Any] | None = ...,
+        cb: Callable[[int, int], object] | None = ...,
         num_cb: int = ...,
         query_args: Any | None = ...,
         chunked_transfer: bool = ...,
@@ -120,7 +121,7 @@ class Key:
         fp,
         headers: dict[str, str] | None = ...,
         replace: bool = ...,
-        cb: Callable[[int, int], Any] | None = ...,
+        cb: Callable[[int, int], object] | None = ...,
         num_cb: int = ...,
         policy: Any | None = ...,
         reduced_redundancy: bool = ...,
@@ -132,7 +133,7 @@ class Key:
         fp,
         headers: dict[str, str] | None = ...,
         replace: bool = ...,
-        cb: Callable[[int, int], Any] | None = ...,
+        cb: Callable[[int, int], object] | None = ...,
         num_cb: int = ...,
         policy: Any | None = ...,
         md5: Any | None = ...,
@@ -147,7 +148,7 @@ class Key:
         filename,
         headers: dict[str, str] | None = ...,
         replace: bool = ...,
-        cb: Callable[[int, int], Any] | None = ...,
+        cb: Callable[[int, int], object] | None = ...,
         num_cb: int = ...,
         policy: Any | None = ...,
         md5: Any | None = ...,
@@ -159,7 +160,7 @@ class Key:
         string_data: str | bytes,
         headers: dict[str, str] | None = ...,
         replace: bool = ...,
-        cb: Callable[[int, int], Any] | None = ...,
+        cb: Callable[[int, int], object] | None = ...,
         num_cb: int = ...,
         policy: Any | None = ...,
         md5: Any | None = ...,
@@ -170,7 +171,7 @@ class Key:
         self,
         fp,
         headers: dict[str, str] | None = ...,
-        cb: Callable[[int, int], Any] | None = ...,
+        cb: Callable[[int, int], object] | None = ...,
         num_cb: int = ...,
         torrent: bool = ...,
         version_id: Any | None = ...,
@@ -178,13 +179,13 @@ class Key:
         response_headers: dict[str, str] | None = ...,
     ): ...
     def get_torrent_file(
-        self, fp, headers: dict[str, str] | None = ..., cb: Callable[[int, int], Any] | None = ..., num_cb: int = ...
+        self, fp, headers: dict[str, str] | None = ..., cb: Callable[[int, int], object] | None = ..., num_cb: int = ...
     ): ...
     def get_contents_to_file(
         self,
         fp,
         headers: dict[str, str] | None = ...,
-        cb: Callable[[int, int], Any] | None = ...,
+        cb: Callable[[int, int], object] | None = ...,
         num_cb: int = ...,
         torrent: bool = ...,
         version_id: Any | None = ...,
@@ -195,7 +196,7 @@ class Key:
         self,
         filename,
         headers: dict[str, str] | None = ...,
-        cb: Callable[[int, int], Any] | None = ...,
+        cb: Callable[[int, int], object] | None = ...,
         num_cb: int = ...,
         torrent: bool = ...,
         version_id: Any | None = ...,
@@ -206,7 +207,7 @@ class Key:
     def get_contents_as_string(
         self,
         headers: dict[str, str] | None = ...,
-        cb: Callable[[int, int], Any] | None = ...,
+        cb: Callable[[int, int], object] | None = ...,
         num_cb: int = ...,
         torrent: bool = ...,
         version_id: Any | None = ...,
@@ -217,7 +218,7 @@ class Key:
     def get_contents_as_string(
         self,
         headers: dict[str, str] | None = ...,
-        cb: Callable[[int, int], Any] | None = ...,
+        cb: Callable[[int, int], object] | None = ...,
         num_cb: int = ...,
         torrent: bool = ...,
         version_id: Any | None = ...,

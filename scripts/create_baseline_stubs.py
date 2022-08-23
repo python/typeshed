@@ -59,7 +59,7 @@ def copy_stubs(src_base_dir: str, package: str, stub_dir: str) -> None:
     if os.path.isdir(src_dir):
         shutil.copytree(src_dir, os.path.join(stub_dir, package))
     else:
-        src_file = os.path.join("out", package + ".pyi")
+        src_file = os.path.join("out", f"{package}.pyi")
         if not os.path.isfile(src_file):
             sys.exit("Error: Cannot find generated stubs")
         shutil.copy(src_file, stub_dir)
@@ -85,7 +85,14 @@ def create_metadata(stub_dir: str, version: str) -> None:
     assert not os.path.exists(fnam)
     print(f"Writing {fnam}")
     with open(fnam, "w") as f:
-        f.write(f'version = "{version}.*"\n')
+        f.write(
+            f"""\
+version = "{version}.*"
+
+[tool.stubtest]
+ignore_missing_stub = false
+"""
+        )
 
 
 def add_pyright_exclusion(stub_dir: str) -> None:
@@ -139,9 +146,11 @@ def main() -> None:
         # The importlib.metadata module is used for projects whose name is different
         # from the runtime Python package name (example: PyYAML/yaml)
         if sys.version_info >= (3, 8):
-            packages = [name for name in distribution(project).read_text("top_level.txt").split() if not name.startswith("_")]
-            if len(packages) == 1:
-                package = packages[0]
+            dist = distribution(project).read_text("top_level.txt")
+            if dist is not None:
+                packages = [name for name in dist.split() if not name.startswith("_")]
+                if len(packages) == 1:
+                    package = packages[0]
         print(f'Using detected package "{package}" for project "{project}"', file=sys.stderr)
         print("Suggestion: Try again with --package argument if that's not what you wanted", file=sys.stderr)
 

@@ -1,7 +1,9 @@
 import sys
 from _typeshed import ReadableBuffer, Self, WriteableBuffer
 from abc import abstractmethod
-from typing import Any, Callable, ClassVar, Generic, Iterable, Iterator, Mapping, Sequence, TypeVar, Union as _UnionT, overload
+from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
+from typing import Any, ClassVar, Generic, TypeVar, Union as _UnionT, overload
+from typing_extensions import TypeAlias
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -84,8 +86,8 @@ class _CData(metaclass=_CDataMeta):
 class _CanCastTo(_CData): ...
 class _PointerLike(_CanCastTo): ...
 
-_ECT = Callable[[type[_CData] | None, _FuncPointer, tuple[_CData, ...]], _CData]
-_PF = _UnionT[tuple[int], tuple[int, str], tuple[int, str, Any]]
+_ECT: TypeAlias = Callable[[type[_CData] | None, _FuncPointer, tuple[_CData, ...]], _CData]
+_PF: TypeAlias = _UnionT[tuple[int], tuple[int, str], tuple[int, str, Any]]
 
 class _FuncPointer(_PointerLike, _CData):
     restype: type[_CData] | Callable[[int], Any] | None
@@ -98,7 +100,7 @@ class _FuncPointer(_PointerLike, _CData):
     @overload
     def __init__(self, func_spec: tuple[str | int, CDLL], paramflags: tuple[_PF, ...] = ...) -> None: ...
     @overload
-    def __init__(self, vtlb_index: int, name: str, paramflags: tuple[_PF, ...] = ..., iid: pointer[c_int] = ...) -> None: ...
+    def __init__(self, vtlb_index: int, name: str, paramflags: tuple[_PF, ...] = ..., iid: _Pointer[c_int] = ...) -> None: ...
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 
 class _NamedFuncPointer(_FuncPointer):
@@ -121,12 +123,12 @@ class _CArgObject: ...
 
 # Any type that can be implicitly converted to c_void_p when passed as a C function argument.
 # (bytes is not included here, see below.)
-_CVoidPLike = _PointerLike | Array[Any] | _CArgObject | int
+_CVoidPLike: TypeAlias = _PointerLike | Array[Any] | _CArgObject | int
 # Same as above, but including types known to be read-only (i. e. bytes).
 # This distinction is not strictly necessary (ctypes doesn't differentiate between const
 # and non-const pointers), but it catches errors like memmove(b'foo', buf, 4)
 # when memmove(buf, b'foo', 4) was intended.
-_CVoidConstPLike = _CVoidPLike | bytes
+_CVoidConstPLike: TypeAlias = _CVoidPLike | bytes
 
 def addressof(obj: _CData) -> int: ...
 def alignment(obj_or_type: _CData | type[_CData]) -> int: ...
@@ -154,15 +156,15 @@ if sys.platform == "win32":
 
 def memmove(dst: _CVoidPLike, src: _CVoidConstPLike, count: int) -> int: ...
 def memset(dst: _CVoidPLike, c: int, count: int) -> int: ...
-def POINTER(type: type[_CT]) -> type[pointer[_CT]]: ...
+def POINTER(type: type[_CT]) -> type[_Pointer[_CT]]: ...
 
-# The real ctypes.pointer is a function, not a class. The stub version of pointer behaves like
-# ctypes._Pointer in that it is the base class for all pointer types. Unlike the real _Pointer,
-# it can be instantiated directly (to mimic the behavior of the real pointer function).
-class pointer(Generic[_CT], _PointerLike, _CData):
+class _Pointer(Generic[_CT], _PointerLike, _CData):
     _type_: type[_CT]
     contents: _CT
-    def __init__(self, arg: _CT = ...) -> None: ...
+    @overload
+    def __init__(self) -> None: ...
+    @overload
+    def __init__(self, arg: _CT) -> None: ...
     @overload
     def __getitem__(self, __i: int) -> _CT: ...
     @overload
@@ -172,6 +174,7 @@ class pointer(Generic[_CT], _PointerLike, _CData):
     @overload
     def __setitem__(self, __s: slice, __o: Iterable[_CT]) -> None: ...
 
+def pointer(__arg: _CT) -> _Pointer[_CT]: ...
 def resize(obj: _CData, size: int) -> None: ...
 def set_errno(value: int) -> int: ...
 
@@ -188,7 +191,9 @@ def wstring_at(address: _CVoidConstPLike, size: int = ...) -> str: ...
 
 class _SimpleCData(Generic[_T], _CData):
     value: _T
-    def __init__(self, value: _T = ...) -> None: ...
+    # The TypeVar can be unsolved here,
+    # but we can't use overloads without creating many, many mypy false-positive errors
+    def __init__(self, value: _T = ...) -> None: ...  # pyright: ignore[reportInvalidTypeVarUse]
 
 class c_byte(_SimpleCData[int]): ...
 

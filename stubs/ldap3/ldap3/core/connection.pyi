@@ -2,7 +2,7 @@ from _collections_abc import Generator, dict_keys
 from _typeshed import Self
 from types import TracebackType
 from typing import Any
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from .pooling import ServerPool
 from .server import Server
@@ -10,7 +10,9 @@ from .server import Server
 SASL_AVAILABLE_MECHANISMS: Any
 CLIENT_STRATEGIES: Any
 
-_ServerSequence = set[Server] | list[Server] | tuple[Server, ...] | Generator[Server, None, None] | dict_keys[Server, Any]
+_ServerSequence: TypeAlias = (
+    set[Server] | list[Server] | tuple[Server, ...] | Generator[Server, None, None] | dict_keys[Server, Any]
+)
 
 class Connection:
     connection_lock: Any
@@ -70,7 +72,16 @@ class Connection:
         version: int = ...,
         authentication: Literal["ANONYMOUS", "SIMPLE", "SASL", "NTLM"] | None = ...,
         client_strategy: Literal[
-            "SYNC", "SAFE_SYNC", "ASYNC", "LDIF", "RESTARTABLE", "REUSABLE", "MOCK_SYNC", "MOCK_ASYNC", "ASYNC_STREAM"
+            "SYNC",
+            "SAFE_RESTARTABLE",
+            "SAFE_SYNC",
+            "ASYNC",
+            "LDIF",
+            "RESTARTABLE",
+            "REUSABLE",
+            "MOCK_SYNC",
+            "MOCK_ASYNC",
+            "ASYNC_STREAM",
         ] = ...,
         auto_referrals: bool = ...,
         auto_range: bool = ...,

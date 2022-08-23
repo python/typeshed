@@ -1,10 +1,11 @@
 from _typeshed import Self
+from _typeshed.dbapi import DBAPIConnection
 from abc import abstractmethod
-from collections.abc import Mapping
+from collections.abc import Callable, Mapping
 from types import TracebackType
-from typing import Any, Callable, TypeVar, overload
+from typing import Any, TypeVar, overload
+from typing_extensions import Concatenate, ParamSpec, TypeAlias
 
-from ..dbapi import DBAPIConnection
 from ..log import Identified, _EchoFlag, echo_property
 from ..pool import Pool
 from ..sql.compiler import Compiled
@@ -18,8 +19,9 @@ from .url import URL
 from .util import TransactionalContext
 
 _T = TypeVar("_T")
+_P = ParamSpec("_P")
 
-_Executable = ClauseElement | FunctionElement | DDLElement | DefaultGenerator | Compiled
+_Executable: TypeAlias = ClauseElement | FunctionElement | DDLElement | DefaultGenerator | Compiled
 
 class Connection(Connectable):
     engine: Engine
@@ -79,12 +81,8 @@ class Connection(Connectable):
     @overload
     def execute(self, statement: str, *multiparams: Any | tuple[Any, ...] | Mapping[str, Any], **params) -> CursorResult: ...
     def exec_driver_sql(self, statement: str, parameters: Any | None = ..., execution_options: Any | None = ...): ...
-    # TODO:
-    # def transaction(self, callable_: Callable[Concatenate[Connection, _P], _T], *args: _P.args, **kwargs: _P.kwargs) -> _T: ...
-    def transaction(self, callable_: Callable[..., _T], *args: Any, **kwargs: Any) -> _T: ...
-    # TODO:
-    # def run_callable(self, callable_: Callable[Concatenate[Connection, _P], _T], *args: _P.args, **kwargs: _P.kwargs) -> _T: ...
-    def run_callable(self, callable_: Callable[..., _T], *args: Any, **kwargs: Any) -> _T: ...
+    def transaction(self, callable_: Callable[Concatenate[Connection, _P], _T], *args: _P.args, **kwargs: _P.kwargs) -> _T: ...
+    def run_callable(self, callable_: Callable[Concatenate[Connection, _P], _T], *args: _P.args, **kwargs: _P.kwargs) -> _T: ...
 
 class ExceptionContextImpl(ExceptionContext):
     engine: Any
@@ -172,7 +170,7 @@ class Engine(Connectable, Identified):
     def name(self) -> str: ...
     @property
     def driver(self): ...
-    def dispose(self) -> None: ...
+    def dispose(self, close: bool = ...) -> None: ...
 
     class _trans_ctx:
         conn: Connection

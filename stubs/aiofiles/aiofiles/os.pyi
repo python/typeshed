@@ -1,12 +1,16 @@
 import sys
 from _typeshed import StrOrBytesPath
 from asyncio.events import AbstractEventLoop
+from collections.abc import Sequence
 from os import stat_result
-from typing import Any, Sequence, overload
+from typing import Any, overload
+from typing_extensions import TypeAlias
 
-from . import ospath as path
+from . import ospath
 
-_FdOrAnyPath = int | StrOrBytesPath
+path = ospath
+
+_FdOrAnyPath: TypeAlias = int | StrOrBytesPath
 
 async def stat(
     path: _FdOrAnyPath,  # noqa: F811

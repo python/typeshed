@@ -1,0 +1,5 @@
+_?curses.color_pair
+xxlimited.Xxo.x_exports
+
+# Exists at runtime, missing from stub
+socket.TCP_CONNECTION_INFO

@@ -1,5 +1,10 @@
-from typing import Any
+from _typeshed import Incomplete
 
-def __getattr__(name: str) -> Any: ...  # incomplete
+from pyVmomi.vmodl import ManagedObject
+
+def __getattr__(name: str) -> Incomplete: ...
 
 class InvalidArgument(Exception): ...
+
+class ManagedObjectNotFound(Exception):
+    obj: ManagedObject

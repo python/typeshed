@@ -1,6 +1,9 @@
 from _typeshed import SupportsRead, SupportsWrite
 from collections import OrderedDict
-from typing import Any, Mapping, overload
+from collections.abc import Mapping
+from typing import Any, overload
+
+__license__: str
 
 class ParsingInterrupted(Exception): ...
 
@@ -11,6 +14,7 @@ def parse(
     process_namespaces: bool = ...,
     namespace_separator: str = ...,
     disable_entities: bool = ...,
+    process_comments: bool = ...,
     **kwargs: Any,
 ) -> OrderedDict[str, Any]: ...
 @overload

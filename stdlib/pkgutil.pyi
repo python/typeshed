@@ -1,7 +1,8 @@
 import sys
 from _typeshed import SupportsRead
+from collections.abc import Callable, Iterable, Iterator
 from importlib.abc import Loader, MetaPathFinder, PathEntryFinder
-from typing import IO, Any, Callable, Iterable, Iterator, NamedTuple, TypeVar
+from typing import IO, Any, NamedTuple, TypeVar
 
 __all__ = [
     "get_importer",
@@ -40,7 +41,7 @@ def iter_importers(fullname: str = ...) -> Iterator[MetaPathFinder | PathEntryFi
 def iter_modules(path: Iterable[str] | None = ..., prefix: str = ...) -> Iterator[ModuleInfo]: ...
 def read_code(stream: SupportsRead[bytes]) -> Any: ...  # undocumented
 def walk_packages(
-    path: Iterable[str] | None = ..., prefix: str = ..., onerror: Callable[[str], None] | None = ...
+    path: Iterable[str] | None = ..., prefix: str = ..., onerror: Callable[[str], object] | None = ...
 ) -> Iterator[ModuleInfo]: ...
 def get_data(package: str, resource: str) -> bytes | None: ...
 
