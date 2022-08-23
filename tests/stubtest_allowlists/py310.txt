@@ -36,7 +36,6 @@ types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
 typing._SpecialForm.__mro_entries__
-typing.ForwardRef._evaluate
 typing._TypedDict.__delitem__
 typing._TypedDict.__ior__
 typing._TypedDict.__or__
