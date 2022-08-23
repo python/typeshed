@@ -99,9 +99,11 @@ class SupportsIter(Protocol[_T_co]):
 class SupportsAiter(Protocol[_T_co]):
     def __aiter__(self) -> _T_co: ...
 
-class SupportsLenAndGetItem(Protocol[_T_co]):
-    def __len__(self) -> int: ...
+class SupportsIntGetItem(Protocol[_T_co]):
     def __getitem__(self, __k: int) -> _T_co: ...
+
+class SupportsLenAndGetItem(SupportsIntGetItem[_T_co]):
+    def __len__(self) -> int: ...
 
 class SupportsTrunc(Protocol):
     def __trunc__(self) -> int: ...
@@ -276,3 +278,5 @@ ProfileFunction: TypeAlias = Callable[[FrameType, str, Any], object]
 # Objects suitable to be passed to sys.settrace, threading.settrace, and similar
 # TODO: Ideally this would be a recursive type alias
 TraceFunction: TypeAlias = Callable[[FrameType, str, Any], Callable[[FrameType, str, Any], Any] | None]
+
+IterableOrSupportsIntGetItem: TypeAlias = Iterable[_T] | SupportsIntGetItem[_T]
