@@ -12,7 +12,6 @@ _collections_abc.MappingView.__class_getitem__
 _collections_abc.ValuesView.__reversed__
 _csv.Reader
 _csv.Writer
-_ctypes.CTYPES_MAX_ARGCOUNT
 _operator.attrgetter.__vectorcalloffset__
 _operator.itemgetter.__vectorcalloffset__
 argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group
