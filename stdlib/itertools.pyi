@@ -51,27 +51,13 @@ class repeat(Iterator[_T], Generic[_T]):
 class accumulate(Iterator[_T], Generic[_T]):
     if sys.version_info >= (3, 8):
         @overload
-        def __init__(
-            self,
-            iterable: IterableOrSupportsIntGetItem[_T],
-            func: None = ...,
-            *,
-            initial: _T | None = ...,
-        ) -> None: ...
+        def __init__(self, iterable: IterableOrSupportsIntGetItem[_T], func: None = ..., *, initial: _T | None = ...) -> None: ...
         @overload
         def __init__(
-            self,
-            iterable: IterableOrSupportsIntGetItem[_S],
-            func: Callable[[_T, _S], _T],
-            *,
-            initial: _T | None = ...,
+            self, iterable: IterableOrSupportsIntGetItem[_S], func: Callable[[_T, _S], _T], *, initial: _T | None = ...
         ) -> None: ...
     else:
-        def __init__(
-            self,
-            iterable: IterableOrSupportsIntGetItem[_T],
-            func: Callable[[_T, _T], _T] | None = ...,
-        ) -> None: ...
+        def __init__(self, iterable: IterableOrSupportsIntGetItem[_T], func: Callable[[_T, _T], _T] | None = ...) -> None: ...
 
     def __iter__(self: Self) -> Self: ...
     def __next__(self) -> _T: ...
@@ -83,18 +69,13 @@ class chain(Iterator[_T], Generic[_T]):
     @classmethod
     # We use type[Any] and not type[_S] to not lose the type inference from __iterable
     def from_iterable(
-        cls: type[Any],
-        __iterable: IterableOrSupportsIntGetItem[IterableOrSupportsIntGetItem[_S]],
+        cls: type[Any], __iterable: IterableOrSupportsIntGetItem[IterableOrSupportsIntGetItem[_S]]
     ) -> chain[_S]: ...
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, __item: Any) -> GenericAlias: ...
 
 class compress(Iterator[_T], Generic[_T]):
-    def __init__(
-        self,
-        data: IterableOrSupportsIntGetItem[_T],
-        selectors: IterableOrSupportsIntGetItem[Any],
-    ) -> None: ...
+    def __init__(self, data: IterableOrSupportsIntGetItem[_T], selectors: IterableOrSupportsIntGetItem[Any]) -> None: ...
     def __iter__(self: Self) -> Self: ...
     def __next__(self) -> _T: ...
 
@@ -121,20 +102,14 @@ class islice(Iterator[_T], Generic[_T]):
     def __init__(self, __iterable: IterableOrSupportsIntGetItem[_T], __stop: int | None) -> None: ...
     @overload
     def __init__(
-        self,
-        __iterable: IterableOrSupportsIntGetItem[_T],
-        __start: int | None,
-        __stop: int | None,
-        __step: int | None = ...,
+        self, __iterable: IterableOrSupportsIntGetItem[_T], __start: int | None, __stop: int | None, __step: int | None = ...
     ) -> None: ...
     def __iter__(self: Self) -> Self: ...
     def __next__(self) -> _T: ...
 
 class starmap(Iterator[_T], Generic[_T]):
     def __init__(
-        self,
-        __function: Callable[..., _T],
-        __iterable: IterableOrSupportsIntGetItem[IterableOrSupportsIntGetItem[Any]],
+        self, __function: Callable[..., _T], __iterable: IterableOrSupportsIntGetItem[IterableOrSupportsIntGetItem[Any]]
     ) -> None: ...
     def __iter__(self: Self) -> Self: ...
     def __next__(self) -> _T: ...
@@ -156,17 +131,11 @@ class zip_longest(Iterator[_T_co], Generic[_T_co]):
     # but we return Any instead to avoid false positives for code where we know one of the iterables
     # is longer.
     def __new__(
-        cls,
-        __iter1: IterableOrSupportsIntGetItem[_T1],
-        __iter2: IterableOrSupportsIntGetItem[_T2],
+        cls, __iter1: IterableOrSupportsIntGetItem[_T1], __iter2: IterableOrSupportsIntGetItem[_T2]
     ) -> zip_longest[tuple[_T1 | Any, _T2 | Any]]: ...
     @overload
     def __new__(
-        cls,
-        __iter1: IterableOrSupportsIntGetItem[_T1],
-        __iter2: IterableOrSupportsIntGetItem[_T2],
-        *,
-        fillvalue: _T,
+        cls, __iter1: IterableOrSupportsIntGetItem[_T1], __iter2: IterableOrSupportsIntGetItem[_T2], *, fillvalue: _T
     ) -> zip_longest[tuple[_T1 | _T, _T2 | _T]]: ...
     # three iterables
     @overload
@@ -257,9 +226,7 @@ class product(Iterator[_T_co], Generic[_T_co]):
     def __new__(cls, __iter1: IterableOrSupportsIntGetItem[_T1]) -> product[tuple[_T1]]: ...
     @overload
     def __new__(
-        cls,
-        __iter1: IterableOrSupportsIntGetItem[_T1],
-        __iter2: IterableOrSupportsIntGetItem[_T2],
+        cls, __iter1: IterableOrSupportsIntGetItem[_T1], __iter2: IterableOrSupportsIntGetItem[_T2]
     ) -> product[tuple[_T1, _T2]]: ...
     @overload
     def __new__(

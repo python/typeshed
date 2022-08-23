@@ -381,7 +381,9 @@ class defaultdict(dict[_KT, _VT], Generic[_KT, _VT]):
         **kwargs: _VT,
     ) -> None: ...
     @overload
-    def __init__(self, __default_factory: Callable[[], _VT] | None, __iterable: IterableOrSupportsIntGetItem[tuple[_KT, _VT]]) -> None: ...
+    def __init__(
+        self, __default_factory: Callable[[], _VT] | None, __iterable: IterableOrSupportsIntGetItem[tuple[_KT, _VT]]
+    ) -> None: ...
     @overload
     def __init__(
         self: defaultdict[str, _VT],
