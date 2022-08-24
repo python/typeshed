@@ -60,11 +60,8 @@ def run_mypy_as_subprocess(directory: str, platform: str, version: str) -> Retur
         "ignore-without-code",
         "--namespace-packages",
     ]
-    if directory == "tests":
-        if platform == "win32":
-            command.extend(["--exclude", "tests/pytype_test.py"])
-    else:
-        command.append("--ignore-missing-imports")
+    if directory == "tests" and platform == "win32":
+        command.extend(["--exclude", "tests/pytype_test.py"])
     result = subprocess.run(command, capture_output=True)
     stdout, stderr = result.stdout, result.stderr
     if stderr:
