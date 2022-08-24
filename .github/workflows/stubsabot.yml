@@ -25,7 +25,7 @@ jobs:
           git config --global user.name stubsabot
           git config --global user.email '<>'
       - name: Install dependencies
-        run: pip install aiohttp packaging termcolor tomli tomlkit
+        run: pip install -r requiremements-tests.txt
       - name: Run stubsabot
         run: GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} python scripts/stubsabot.py --action-level everything
 
