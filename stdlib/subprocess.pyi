@@ -102,6 +102,7 @@ if sys.version_info >= (3, 9):
         ) -> None: ...
         def check_returncode(self) -> None: ...
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
+
 else:
     class CompletedProcess:
         # morally: _CMD
@@ -120,7 +121,7 @@ else:
             stderr: _T | None = ...,  # pyright: ignore[reportInvalidTypeVarUse]
         ) -> None: ...
         def check_returncode(self) -> None: ...
-            
+
 if sys.version_info >= (3, 11):
     # 3.11 adds "process_group" argument
     @overload
