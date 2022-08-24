@@ -11,15 +11,18 @@ import sys
 from pathlib import Path
 
 import tomli
+import yaml
 from packaging.requirements import Requirement
+from packaging.specifiers import SpecifierSet
 from packaging.version import Version
 
 metadata_keys = {"version", "requires", "extra_description", "obsolete_since", "no_longer_updated", "tool"}
 tool_keys = {"stubtest": {"skip", "apt_dependencies", "extras", "ignore_missing_stub"}}
+extension_descriptions = {".pyi": "stub", ".py": ".py"}
 
 
-def assert_stubs_only(directory: Path, allowed: set[str]) -> None:
-    """Check that given directory contains only valid stub files."""
+def assert_consistent_filetypes(directory: Path, *, kind: str, allowed: set[str]) -> None:
+    """Check that given directory contains only valid Python files of a certain kind."""
     allowed_paths = {Path(f) for f in allowed}
     contents = list(directory.iterdir())
     while contents:
@@ -29,14 +32,17 @@ def assert_stubs_only(directory: Path, allowed: set[str]) -> None:
             continue
         if entry.is_file():
             assert entry.stem.isidentifier(), f"Files must be valid modules, got: {entry}"
-            assert entry.suffix == ".pyi", f"Only stub files allowed, got: {entry}"
+            bad_filetype = (
+                f'Only {extension_descriptions[kind]} files allowed in the "{directory}" directory; ' f"got: {entry.suffix!r}"
+            )
+            assert entry.suffix == kind, bad_filetype
         else:
             assert entry.name.isidentifier(), f"Directories must be valid packages, got: {entry}"
             contents.extend(entry.iterdir())
 
 
 def check_stdlib() -> None:
-    assert_stubs_only(Path("stdlib"), allowed={"_typeshed/README.md", "VERSIONS"})
+    assert_consistent_filetypes(Path("stdlib"), kind=".pyi", allowed={"_typeshed/README.md", "VERSIONS"})
 
 
 def check_stubs() -> None:
@@ -50,10 +56,17 @@ def check_stubs() -> None:
         assert not dist.name.startswith("types-"), f"Directory name not allowed to start with 'types-': {dist}"
 
         allowed = {"METADATA.toml", "README", "README.md", "README.rst", "@tests"}
-        assert_stubs_only(dist, allowed)
+        assert_consistent_filetypes(dist, kind=".pyi", allowed=allowed)
 
 
-def check_same_files() -> None:
+def check_test_cases() -> None:
+    assert_consistent_filetypes(Path("test_cases"), kind=".py", allowed={"README.md"})
+    bad_test_case_filename = 'Files in the `test_cases` directory must have names starting with "test_"'
+    for file in Path("test_cases").rglob("*.py"):
+        assert file.stem.startswith("test_"), bad_test_case_filename
+
+
+def check_no_symlinks() -> None:
     files = [os.path.join(root, file) for root, _, files in os.walk(".") for file in files]
     no_symlink = "You cannot use symlinks in typeshed, please copy {} to its link."
     for file in files:
@@ -65,12 +78,16 @@ def check_same_files() -> None:
 _VERSIONS_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_.]*): [23]\.\d{1,2}-(?:[23]\.\d{1,2})?$")
 
 
+def strip_comments(text: str) -> str:
+    return text.split("#")[0].strip()
+
+
 def check_versions() -> None:
     versions = set()
     with open("stdlib/VERSIONS") as f:
         data = f.read().splitlines()
     for line in data:
-        line = line.split("#")[0].strip()
+        line = strip_comments(line)
         if line == "":
             continue
         m = _VERSIONS_RE.match(line)
@@ -126,10 +143,48 @@ def check_metadata() -> None:
                 assert key in tk, f"Unrecognised {tool} key {key} for {distribution}"
 
 
+def get_txt_requirements() -> dict[str, SpecifierSet]:
+    with open("requirements-tests.txt") as requirements_file:
+        stripped_lines = map(strip_comments, requirements_file)
+        reqs = [Requirement(stripped_line) for stripped_line in stripped_lines if stripped_line != ""]
+    return {req.name: req.specifier for req in reqs}
+
+
+def get_precommit_requirements() -> dict[str, SpecifierSet]:
+    with open(".pre-commit-config.yaml") as precommit_file:
+        precommit = precommit_file.read()
+    yam = yaml.load(precommit, Loader=yaml.Loader)
+    precommit_requirements = {}
+    for repo in yam["repos"]:
+        hook = repo["hooks"][0]
+        package_name, package_rev = hook["id"], repo["rev"]
+        package_specifier = SpecifierSet(f"=={package_rev.removeprefix('v')}")
+        precommit_requirements[package_name] = package_specifier
+        for additional_req in hook.get("additional_dependencies", []):
+            req = Requirement(additional_req)
+            precommit_requirements[req.name] = req.specifier
+    return precommit_requirements
+
+
+def check_requirements() -> None:
+    requirements_txt_requirements = get_txt_requirements()
+    precommit_requirements = get_precommit_requirements()
+    for requirement, specifier in precommit_requirements.items():
+        no_txt_entry_msg = "All pre-commit requirements must also be listed in `requirements-tests.txt`"
+        assert requirement in requirements_txt_requirements, no_txt_entry_msg
+        specifier_mismatch = (
+            f"Specifier for {requirement!r} in `.pre-commit-config.yaml` "
+            "does not match the specifier in `requirements-tests.txt`"
+        )
+        assert specifier == requirements_txt_requirements[requirement], specifier_mismatch
+
+
 if __name__ == "__main__":
     assert sys.version_info >= (3, 9), "Python 3.9+ is required to run this test"
     check_stdlib()
     check_versions()
     check_stubs()
     check_metadata()
-    check_same_files()
+    check_no_symlinks()
+    check_test_cases()
+    check_requirements()
