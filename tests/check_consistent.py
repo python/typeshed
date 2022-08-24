@@ -8,6 +8,7 @@ from __future__ import annotations
 import os
 import re
 import sys
+from pathlib import Path
 
 import tomli
 from packaging.requirements import Requirement
@@ -15,50 +16,41 @@ from packaging.version import Version
 
 metadata_keys = {"version", "requires", "extra_description", "obsolete_since", "no_longer_updated", "tool"}
 tool_keys = {"stubtest": {"skip", "apt_dependencies", "extras", "ignore_missing_stub"}}
-allowed_files = {"README.md"}
 
 
-def assert_stubs_only(directory: str) -> None:
+def assert_stubs_only(directory: Path, allowed: set[str]) -> None:
     """Check that given directory contains only valid stub files."""
-    top = directory.split(os.sep)[-1]
-    assert top.isidentifier(), f"Bad directory name: {top}"
-    for _, dirs, files in os.walk(directory):
-        for file in files:
-            if file in allowed_files:
-                continue
-            name, ext = os.path.splitext(file)
-            assert name.isidentifier(), f"Files must be valid modules, got: {name}"
-            assert ext == ".pyi", f"Only stub flies allowed. Got: {file} in {directory}"
-        for subdir in dirs:
-            assert subdir.isidentifier(), f"Directories must be valid packages, got: {subdir}"
+    allowed_paths = {Path(f) for f in allowed}
+    contents = list(directory.iterdir())
+    while contents:
+        entry = contents.pop()
+        if entry.relative_to(directory) in allowed_paths:
+            # Note if a subdirectory is allowed, we will not check its contents
+            continue
+        if entry.is_file():
+            assert entry.stem.isidentifier(), f"Files must be valid modules, got: {entry}"
+            assert entry.suffix == ".pyi", f"Only stub files allowed, got: {entry}"
+        else:
+            assert entry.name.isidentifier(), f"Directories must be valid packages, got: {entry}"
+            contents.extend(entry.iterdir())
 
 
 def check_stdlib() -> None:
-    for entry in os.listdir("stdlib"):
-        if os.path.isfile(os.path.join("stdlib", entry)):
-            name, ext = os.path.splitext(entry)
-            if ext != ".pyi":
-                assert entry == "VERSIONS", f"Unexpected file in stdlib root: {entry}"
-            assert name.isidentifier(), "Bad file name in stdlib"
-        else:
-            assert_stubs_only(os.path.join("stdlib", entry))
+    assert_stubs_only(Path("stdlib"), allowed={"_typeshed/README.md", "VERSIONS"})
 
 
 def check_stubs() -> None:
-    for distribution in os.listdir("stubs"):
-        assert not distribution.startswith("types-"), f"Distribution not allowed to start with 'types-': {distribution}"
-        assert not os.path.isfile(distribution), f"Only directories allowed in stubs, got {distribution}"
-        for entry in os.listdir(os.path.join("stubs", distribution)):
-            if os.path.isfile(os.path.join("stubs", distribution, entry)):
-                name, ext = os.path.splitext(entry)
-                if ext != ".pyi":
-                    assert entry in {"METADATA.toml", "README", "README.md", "README.rst"}, entry
-                else:
-                    assert name.isidentifier(), f"Bad file name '{entry}' in stubs"
-            else:
-                if entry == "@tests":
-                    continue
-                assert_stubs_only(os.path.join("stubs", distribution, entry))
+    for dist in Path("stubs").iterdir():
+        assert dist.is_dir(), f"Only directories allowed in stubs, got {dist}"
+
+        valid_dist_name = "^([A-Z0-9]|[A-Z0-9][A-Z0-9._-]*[A-Z0-9])$"  # courtesy of PEP 426
+        assert re.fullmatch(
+            valid_dist_name, dist.name, re.IGNORECASE
+        ), f"Directory name must have valid distribution name: {dist}"
+        assert not dist.name.startswith("types-"), f"Directory name not allowed to start with 'types-': {dist}"
+
+        allowed = {"METADATA.toml", "README", "README.md", "README.rst", "@tests"}
+        assert_stubs_only(dist, allowed)
 
 
 def check_same_files() -> None:
