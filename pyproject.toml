@@ -8,6 +8,7 @@ skip_magic_trailing_comma = true
 profile = "black"
 combine_as_imports = true
 line_length = 130
+skip = [".git", ".github", ".venv"]
 skip_glob = "*_pb2.pyi"
 extra_standard_library = [
     "typing_extensions",
