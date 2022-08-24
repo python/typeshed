@@ -83,26 +83,44 @@ if sys.version_info >= (3, 11):
 if sys.version_info >= (3, 8):
     _USE_POSIX_SPAWN: bool
 
-class CompletedProcess(Generic[_T]):
-    # morally: _CMD
-    args: Any
-    returncode: int
-    # These can both be None, but requiring checks for None would be tedious
-    # and writing all the overloads would be horrific.
-    stdout: _T
-    stderr: _T
-    # pyright ignore on __init__ because the TypeVar can technically be unsolved, but see comment above
-    def __init__(
-        self,
-        args: _CMD,
-        returncode: int,
-        stdout: _T | None = ...,  # pyright: ignore[reportInvalidTypeVarUse]
-        stderr: _T | None = ...,  # pyright: ignore[reportInvalidTypeVarUse]
-    ) -> None: ...
-    def check_returncode(self) -> None: ...
-    if sys.version_info >= (3, 9):
+if sys.version_info >= (3, 9):
+    class CompletedProcess(Generic[_T]):
+        # morally: _CMD
+        args: Any
+        returncode: int
+        # These can both be None, but requiring checks for None would be tedious
+        # and writing all the overloads would be horrific.
+        stdout: _T
+        stderr: _T
+        # pyright ignore on __init__ because the TypeVar can technically be unsolved, but see comment above
+        def __init__(
+            self,
+            args: _CMD,
+            returncode: int,
+            stdout: _T | None = ...,  # pyright: ignore[reportInvalidTypeVarUse]
+            stderr: _T | None = ...,  # pyright: ignore[reportInvalidTypeVarUse]
+        ) -> None: ...
+        def check_returncode(self) -> None: ...
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
-
+else:
+    class CompletedProcess:
+        # morally: _CMD
+        args: Any
+        returncode: int
+        # These can both be None, but requiring checks for None would be tedious
+        # and writing all the overloads would be horrific.
+        stdout: _T
+        stderr: _T
+        # pyright ignore on __init__ because the TypeVar can technically be unsolved, but see comment above
+        def __init__(
+            self,
+            args: _CMD,
+            returncode: int,
+            stdout: _T | None = ...,  # pyright: ignore[reportInvalidTypeVarUse]
+            stderr: _T | None = ...,  # pyright: ignore[reportInvalidTypeVarUse]
+        ) -> None: ...
+        def check_returncode(self) -> None: ...
+            
 if sys.version_info >= (3, 11):
     # 3.11 adds "process_group" argument
     @overload
