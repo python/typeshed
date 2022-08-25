@@ -85,6 +85,7 @@ parser.add_argument("filter", type=str, nargs="*", help="Include pattern (defaul
 @dataclass
 class TestConfig:
     """Configuration settings for a single run of the `test_typeshed` function."""
+
     verbose: int
     exclude: list[str] | None
     major: MajorVersion
