@@ -9,9 +9,9 @@ from ._utils import URIDict
 from .exceptions import ValidationError
 
 # these type aliases do not exist at runtime, they're only defined here in the stub
-_JSON_OBJECT: TypeAlias = Mapping[str, Any]
-_JSON_VALUE: TypeAlias = _JSON_OBJECT | list[Any] | str | int | float | bool | None
-_ValidatorCallback: TypeAlias = Callable[[Any, Any, _JSON_VALUE, _JSON_OBJECT], Iterator[ValidationError]]
+_JsonObject: TypeAlias = Mapping[str, Any]
+_JsonValue: TypeAlias = _JsonObject | list[Any] | str | int | float | bool | None
+_ValidatorCallback: TypeAlias = Callable[[Any, Any, _JsonValue, _JsonObject], Iterator[ValidationError]]
 
 _Schema: TypeAlias = Mapping[str, Any]
 
@@ -41,13 +41,13 @@ class _Validator:
 
 def validates(version: str) -> Callable[..., Any]: ...
 def create(
-    meta_schema: Mapping[str, Any],
+    meta_schema: _Schema,
     validators: Mapping[str, _ValidatorCallback] | tuple[()] = ...,
     version: Any | None = ...,
     type_checker: TypeChecker = ...,
     format_checker: FormatChecker = ...,
-    id_of: Callable[[bool | _JSON_OBJECT], str] = ...,
-    applicable_validators: Callable[[_JSON_OBJECT], Iterable[tuple[str, _ValidatorCallback]]] = ...,
+    id_of: Callable[[_Schema], str] = ...,
+    applicable_validators: Callable[[_Schema], Iterable[tuple[str, _ValidatorCallback]]] = ...,
 ) -> type[_Validator]: ...
 def extend(
     validator, validators=..., version: Any | None = ..., type_checker: Any | None = ..., format_checker: Any | None = ...
