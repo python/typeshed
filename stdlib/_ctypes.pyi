@@ -17,3 +17,6 @@ if sys.platform == "win32":
         def __init__(self, hresult: int, text: str | None, details: _COMError_Details) -> None: ...
 
     def CopyComPointer(src: _PointerLike, dst: _PointerLike | _CArgObject) -> int: ...
+
+    FUNCFLAG_HRESULT: int
+    FUNCFLAG_STDCALL: int
