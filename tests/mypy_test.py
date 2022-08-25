@@ -51,7 +51,6 @@ def python_version(arg: str) -> tuple[MajorVersion, MinorVersion]:
 
 class CommandLineArgs(argparse.Namespace):
     verbose: int
-    dry_run: bool
     exclude: list[str] | None
     python_version: list[tuple[MajorVersion, MinorVersion]] | None
     dir: list[Directory] | None
@@ -61,7 +60,6 @@ class CommandLineArgs(argparse.Namespace):
 
 parser = argparse.ArgumentParser(description="Test runner for typeshed. Patterns are unanchored regexps on the full path.")
 parser.add_argument("-v", "--verbose", action="count", default=0, help="More output")
-parser.add_argument("-n", "--dry-run", action="store_true", help="Don't actually run mypy")
 parser.add_argument("-x", "--exclude", type=str, nargs="*", help="Exclude pattern")
 parser.add_argument(
     "-p", "--python-version", type=python_version, nargs="*", action="extend", help="These versions only (major[.minor])"
@@ -89,7 +87,6 @@ class TestConfig:
     """Configuration settings for a single run of the `test_typeshed` function."""
 
     verbose: int
-    dry_run: bool
     exclude: list[str] | None
     major: MajorVersion
     minor: MinorVersion
@@ -230,27 +227,24 @@ def run_mypy(args: TestConfig, configurations: list[MypyDistConf], files: list[s
         mypy_args = [*flags, *files]
         if args.verbose:
             print("running mypy", " ".join(mypy_args))
-        if args.dry_run:
-            exit_code = 0
-        else:
-            stdout_redirect, stderr_redirect = StringIO(), StringIO()
-            with redirect_stdout(stdout_redirect), redirect_stderr(stderr_redirect):
-                returned_stdout, returned_stderr, exit_code = mypy_run(mypy_args)
+        stdout_redirect, stderr_redirect = StringIO(), StringIO()
+        with redirect_stdout(stdout_redirect), redirect_stderr(stderr_redirect):
+            returned_stdout, returned_stderr, exit_code = mypy_run(mypy_args)
 
-            if exit_code:
-                print_error("failure\n")
-                captured_stdout = stdout_redirect.getvalue()
-                captured_stderr = stderr_redirect.getvalue()
-                if returned_stderr:
-                    print_error(returned_stderr)
-                if captured_stderr:
-                    print_error(captured_stderr)
-                if returned_stdout:
-                    print_error(returned_stdout)
-                if captured_stdout:
-                    print_error(captured_stdout, end="")
-            else:
-                print_success_msg()
+        if exit_code:
+            print_error("failure\n")
+            captured_stdout = stdout_redirect.getvalue()
+            captured_stderr = stderr_redirect.getvalue()
+            if returned_stderr:
+                print_error(returned_stderr)
+            if captured_stderr:
+                print_error(captured_stderr)
+            if returned_stdout:
+                print_error(returned_stdout)
+            if captured_stdout:
+                print_error(captured_stdout, end="")
+        else:
+            print_success_msg()
         return exit_code
 
 
@@ -405,14 +399,11 @@ def test_the_test_cases(code: int, args: TestConfig) -> TestResults:
     flags = get_mypy_flags(args, None, strict=True, enforce_error_codes=False)
     print(f"Running mypy on the test_cases directory ({num_test_case_files} files)...")
     print("Running mypy " + " ".join(flags))
-    if args.dry_run:
-        this_code = 0
-    else:
-        # --warn-unused-ignores doesn't work for files inside typeshed.
-        # SO, to work around this, we copy the test_cases directory into a TemporaryDirectory.
-        with tempfile.TemporaryDirectory() as td:
-            shutil.copytree(Path("test_cases"), Path(td) / "test_cases")
-            this_code = run_mypy_as_subprocess(td, flags)
+    # --warn-unused-ignores doesn't work for files inside typeshed.
+    # SO, to work around this, we copy the test_cases directory into a TemporaryDirectory.
+    with tempfile.TemporaryDirectory() as td:
+        shutil.copytree(Path("test_cases"), Path(td) / "test_cases")
+        this_code = run_mypy_as_subprocess(td, flags)
     if not this_code:
         print_success_msg()
     code = max(code, this_code)
@@ -450,7 +441,6 @@ def main() -> None:
     for (major, minor), platform in product(versions, platforms):
         config = TestConfig(
             verbose=args.verbose,
-            dry_run=args.dry_run,
             exclude=args.exclude,
             major=major,
             minor=minor,
