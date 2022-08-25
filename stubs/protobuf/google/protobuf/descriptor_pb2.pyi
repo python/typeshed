@@ -373,7 +373,6 @@ class FieldDescriptorProto(google.protobuf.message.Message):
     For booleans, "true" or "false".
     For strings, contains the default text contents (not escaped in any way).
     For bytes, contains the C escaped value.  All bytes >= 128 are escaped.
-    TODO(kenton):  Base-64 encode?
     """
 
     oneof_index: builtins.int
@@ -956,6 +955,7 @@ class FieldOptions(google.protobuf.message.Message):
     PACKED_FIELD_NUMBER: builtins.int
     JSTYPE_FIELD_NUMBER: builtins.int
     LAZY_FIELD_NUMBER: builtins.int
+    UNVERIFIED_LAZY_FIELD_NUMBER: builtins.int
     DEPRECATED_FIELD_NUMBER: builtins.int
     WEAK_FIELD_NUMBER: builtins.int
     UNINTERPRETED_OPTION_FIELD_NUMBER: builtins.int
@@ -1017,6 +1017,18 @@ class FieldOptions(google.protobuf.message.Message):
     implementation must either *always* check its required fields, or *never*
     check its required fields, regardless of whether or not the message has
     been parsed.
+
+    As of 2021, lazy does no correctness checks on the byte stream during
+    parsing.  This may lead to crashes if and when an invalid byte stream is
+    finally parsed upon access.
+
+    TODO(b/211906113):  Enable validation on lazy fields.
+    """
+
+    unverified_lazy: builtins.bool
+    """unverified_lazy does no correctness checks on the byte stream. This should
+    only be used where lazy with verification is prohibitive for performance
+    reasons.
     """
 
     deprecated: builtins.bool
@@ -1039,12 +1051,13 @@ class FieldOptions(google.protobuf.message.Message):
         packed: typing.Optional[builtins.bool] = ...,
         jstype: typing.Optional[global___FieldOptions.JSType.ValueType] = ...,
         lazy: typing.Optional[builtins.bool] = ...,
+        unverified_lazy: typing.Optional[builtins.bool] = ...,
         deprecated: typing.Optional[builtins.bool] = ...,
         weak: typing.Optional[builtins.bool] = ...,
         uninterpreted_option: typing.Optional[typing.Iterable[global___UninterpretedOption]] = ...,
         ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["ctype",b"ctype","deprecated",b"deprecated","jstype",b"jstype","lazy",b"lazy","packed",b"packed","weak",b"weak"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["ctype",b"ctype","deprecated",b"deprecated","jstype",b"jstype","lazy",b"lazy","packed",b"packed","uninterpreted_option",b"uninterpreted_option","weak",b"weak"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["ctype",b"ctype","deprecated",b"deprecated","jstype",b"jstype","lazy",b"lazy","packed",b"packed","unverified_lazy",b"unverified_lazy","weak",b"weak"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["ctype",b"ctype","deprecated",b"deprecated","jstype",b"jstype","lazy",b"lazy","packed",b"packed","uninterpreted_option",b"uninterpreted_option","unverified_lazy",b"unverified_lazy","weak",b"weak"]) -> None: ...
 global___FieldOptions = FieldOptions
 
 class OneofOptions(google.protobuf.message.Message):
@@ -1287,8 +1300,8 @@ class SourceCodeInfo(google.protobuf.message.Message):
             location.
 
             Each element is a field number or an index.  They form a path from
-            the root FileDescriptorProto to the place where the definition.  For
-            example, this path:
+            the root FileDescriptorProto to the place where the definition occurs.
+            For example, this path:
               [ 4, 3, 2, 7, 1 ]
             refers to:
               file.message_type(3)  // 4, 3
