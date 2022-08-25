@@ -33,7 +33,7 @@ def assert_consistent_filetypes(directory: Path, *, kind: str, allowed: set[str]
         if entry.is_file():
             assert entry.stem.isidentifier(), f"Files must be valid modules, got: {entry}"
             bad_filetype = (
-                f'Only {extension_descriptions[kind]} files allowed in the "{directory}" directory; ' f"got: {entry.suffix!r}"
+                f'Only {extension_descriptions[kind]} files allowed in the "{directory}" directory; got: {entry.suffix!r}'
             )
             assert entry.suffix == kind, bad_filetype
         else:
