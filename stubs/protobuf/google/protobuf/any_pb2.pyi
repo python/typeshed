@@ -37,7 +37,7 @@ class Any(google.protobuf.message.Message, google.protobuf.internal.well_known_t
           foo = any.unpack(Foo.class);
         }
 
-     Example 3: Pack and unpack a message in Python.
+    Example 3: Pack and unpack a message in Python.
 
         foo = Foo(...)
         any = Any()
@@ -47,7 +47,7 @@ class Any(google.protobuf.message.Message, google.protobuf.internal.well_known_t
           any.Unpack(foo)
           ...
 
-     Example 4: Pack and unpack a message in Go
+    Example 4: Pack and unpack a message in Go
 
          foo := &pb.Foo{...}
          any, err := anypb.New(foo)
@@ -68,7 +68,7 @@ class Any(google.protobuf.message.Message, google.protobuf.internal.well_known_t
 
 
     JSON
-    ====
+
     The JSON representation of an `Any` value uses the regular
     representation of the deserialized, embedded message, with an
     additional field `@type` which contains the type URL. Example:
