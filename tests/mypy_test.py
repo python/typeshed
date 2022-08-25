@@ -341,6 +341,9 @@ def test_third_party_distribution(distribution: str, args: TestConfig) -> TestRe
     seen_dists: set[str] = set()
     add_third_party_files(distribution, files, args, configurations, seen_dists)
 
+    if not files and args.filter:
+        return TestResults(0, 0)
+
     print(f"testing {distribution} ({len(files)} files)... ", end="")
 
     if not files:
