@@ -26,8 +26,6 @@ ssl.SSLSocket.recvmsg
 ssl.SSLSocket.recvmsg_into
 ssl.SSLSocket.sendmsg
 winreg.HKEYType.handle
-_ctypes.FUNCFLAG_HRESULT
-_ctypes.FUNCFLAG_STDCALL
 _ctypes.FormatError
 _ctypes.FreeLibrary
 _ctypes.LoadLibrary
