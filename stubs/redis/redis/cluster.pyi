@@ -164,7 +164,12 @@ class ClusterPubSub(PubSub):
     node: ClusterNode | None
     cluster: RedisCluster
     def __init__(
-        self, redis_cluster: RedisCluster, node: ClusterNode | None = ..., host: str | None = ..., port: int | None = ..., **kwargs
+        self,
+        redis_cluster: RedisCluster,
+        node: ClusterNode | None = ...,
+        host: str | None = ...,
+        port: int | None = ...,
+        **kwargs,
     ) -> None: ...
     def set_pubsub_node(self, node: ClusterNode | None = ..., host: str | None = ..., port: int | None = ...) -> None: ...
     def get_pubsub_node(self) -> ClusterNode | None: ...
