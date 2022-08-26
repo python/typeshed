@@ -31,9 +31,9 @@ def assert_consistent_filetypes(directory: Path, *, kind: str, allowed: set[str]
             # Note if a subdirectory is allowed, we will not check its contents
             continue
         if entry.is_file():
-            assert entry.stem.isidentifier(), f"Files must be valid modules, got: {entry}"
+            assert entry.stem.isidentifier(), f'Files must be valid modules, got: "{entry}"'
             bad_filetype = (
-                f'Only {extension_descriptions[kind]} files allowed in the "{directory}" directory; got: {entry.suffix!r}'
+                f'Only {extension_descriptions[kind]!r} files allowed in the "{directory}" directory; got: {entry}'
             )
             assert entry.suffix == kind, bad_filetype
         else:
@@ -52,7 +52,7 @@ def check_stubs() -> None:
         valid_dist_name = "^([A-Z0-9]|[A-Z0-9][A-Z0-9._-]*[A-Z0-9])$"  # courtesy of PEP 426
         assert re.fullmatch(
             valid_dist_name, dist.name, re.IGNORECASE
-        ), f"Directory name must have valid distribution name: {dist}"
+        ), f"Directory name must be a valid distribution name: {dist}"
         assert not dist.name.startswith("types-"), f"Directory name not allowed to start with 'types-': {dist}"
 
         allowed = {"METADATA.toml", "README", "README.md", "README.rst", "@tests"}
@@ -61,9 +61,9 @@ def check_stubs() -> None:
 
 def check_test_cases() -> None:
     assert_consistent_filetypes(Path("test_cases"), kind=".py", allowed={"README.md"})
-    bad_test_case_filename = 'Files in the `test_cases` directory must have names starting with "test_"'
+    bad_test_case_filename = 'Files in the `test_cases` directory must have names starting with "test_"; got "{}"'
     for file in Path("test_cases").rglob("*.py"):
-        assert file.stem.startswith("test_"), bad_test_case_filename
+        assert file.stem.startswith("test_"), bad_test_case_filename.format(file)
 
 
 def check_no_symlinks() -> None:
@@ -146,8 +146,8 @@ def check_metadata() -> None:
 def get_txt_requirements() -> dict[str, SpecifierSet]:
     with open("requirements-tests.txt") as requirements_file:
         stripped_lines = map(strip_comments, requirements_file)
-        reqs = [Requirement(stripped_line) for stripped_line in stripped_lines if stripped_line != ""]
-    return {req.name: req.specifier for req in reqs}
+        requirements = map(Requirement, filter(None, stripped_lines))
+        return {requirement.name: requirement.specifier for requirement in requirements}
 
 
 def get_precommit_requirements() -> dict[str, SpecifierSet]:
@@ -170,11 +170,13 @@ def check_requirements() -> None:
     requirements_txt_requirements = get_txt_requirements()
     precommit_requirements = get_precommit_requirements()
     for requirement, specifier in precommit_requirements.items():
-        no_txt_entry_msg = "All pre-commit requirements must also be listed in `requirements-tests.txt`"
+        no_txt_entry_msg = (
+            f"All pre-commit requirements must also be listed in `requirements-tests.txt` (missing {requirement!r})"
+        )
         assert requirement in requirements_txt_requirements, no_txt_entry_msg
         specifier_mismatch = (
-            f"Specifier for {requirement!r} in `.pre-commit-config.yaml` "
-            "does not match the specifier in `requirements-tests.txt`"
+            f'Specifier "{specifier}" for {requirement!r} in `.pre-commit-config.yaml` '
+            f'does not match specifier "{requirements_txt_requirements[requirement]}" in `requirements-tests.txt`'
         )
         assert specifier == requirements_txt_requirements[requirement], specifier_mismatch
 
