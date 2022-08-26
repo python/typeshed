@@ -162,10 +162,10 @@ class NodesManager:
 
 class ClusterPubSub(PubSub):
     node: ClusterNode | None
-    cluster: RedisCluster
+    cluster: RedisCluster[Any]
     def __init__(
         self,
-        redis_cluster: RedisCluster,
+        redis_cluster: RedisCluster[Any],
         node: ClusterNode | None = ...,
         host: str | None = ...,
         port: int | None = ...,
