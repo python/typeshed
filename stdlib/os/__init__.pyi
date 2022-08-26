@@ -9,7 +9,7 @@ from _typeshed import (
     OpenBinaryModeUpdating,
     OpenBinaryModeWriting,
     OpenTextMode,
-    ReadOnlyBuffer,
+    ReadableBuffer,
     Self,
     StrOrBytesPath,
     StrPath,
@@ -628,7 +628,7 @@ if sys.platform != "win32":
         if sys.version_info >= (3, 10):
             RWF_APPEND: int  # docs say available on 3.7+, stubtest says otherwise
         def preadv(__fd: int, __buffers: SupportsLenAndGetItem[WriteableBuffer], __offset: int, __flags: int = ...) -> int: ...
-        def pwritev(__fd: int, __buffers: SupportsLenAndGetItem[ReadOnlyBuffer], __offset: int, __flags: int = ...) -> int: ...
+        def pwritev(__fd: int, __buffers: SupportsLenAndGetItem[ReadableBuffer], __offset: int, __flags: int = ...) -> int: ...
         RWF_DSYNC: int
         RWF_SYNC: int
         RWF_HIPRI: int
@@ -646,7 +646,7 @@ if sys.platform != "win32":
         flags: int = ...,
     ) -> int: ...  # FreeBSD and Mac OS X only
     def readv(__fd: int, __buffers: SupportsLenAndGetItem[WriteableBuffer]) -> int: ...
-    def writev(__fd: int, __buffers: SupportsLenAndGetItem[ReadOnlyBuffer]) -> int: ...
+    def writev(__fd: int, __buffers: SupportsLenAndGetItem[ReadableBuffer]) -> int: ...
 
 @final
 class terminal_size(structseq[int], tuple[int, int]):
