@@ -1,5 +1,6 @@
 from enum import Enum
 from typing import Any, ClassVar, Iterator, List, Set, overload
+
 from . import ELF
 
 class Binary(Object):
@@ -7,6 +8,7 @@ class Binary(Object):
         AUTO = 0  # Try to guess if it's relative or not    rthomas, 28/01/22 01:50 • This commit cleans a
         RVA = 1  # Relative
         VA = 2  # Absolute
+
     class it_relocations:
         def __init__(self, *args, **kwargs) -> None: ...
         def __getitem__(self, index) -> Any: ...
