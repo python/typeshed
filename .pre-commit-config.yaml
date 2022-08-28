@@ -19,9 +19,8 @@ repos:
     hooks:
       - id: flake8
         additional_dependencies:
-          # must match requirements-tests.txt
-          - 'flake8-bugbear==22.7.1'
-          - 'flake8-pyi==22.8.1'
+          - 'flake8-bugbear==22.7.1'  # must match requirements-tests.txt
+          - 'flake8-pyi==22.8.1'      # must match requirements-tests.txt
 
 ci:
     autofix_commit_msg: '[pre-commit.ci] auto fixes from pre-commit.com hooks'
