@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from html.parser import HTMLParser
 from typing import Any
-from typing_extensions import Literal
+from typing_extensions import Literal, TypedDict
 
 FRAME: int
 ALL: int
@@ -16,6 +16,8 @@ RANDOM: int
 SINGLE_BORDER: int
 DOUBLE_BORDER: int
 BASE_ALIGN_VALUE: str
+
+class _EmptyDictionary(TypedDict): ...
 
 class PrettyTable:
     encoding: Any
@@ -203,7 +205,7 @@ class PrettyTable:
     @property
     def header_align(self) -> dict[str, str]: ...
     @header_align.setter
-    def header_align(self, val: Literal["l", "c", "r"] | dict[str, str] | None) -> None: ...
+    def header_align(self, val: Literal["l", "c", "r"] | _EmptyDictionary | None) -> None: ...
     def add_autoindex(self, fieldname: str = ...): ...
     def get_latex_string(self, **kwargs) -> str: ...
     def set_style(self, style) -> None: ...
