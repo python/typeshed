@@ -1,4 +1,5 @@
 from typing import Any, ClassVar, Iterator, List, overload
+from typing_extensions import Annotated
 
 import lief
 import lief.ELF
@@ -169,7 +170,7 @@ class Header(lief.Object):
     @property
     def keys(self) -> List[HEADER_KEYS]: ...
     @property
-    def magic(self) -> Magic number: ...
+    def magic(self) -> Annotated[bytearray, 4]: ...
     @property
     def nb_dex_files(self) -> int: ...
     @property
