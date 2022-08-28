@@ -4,58 +4,64 @@ from typing import Any, ClassVar, Iterator, List, Tuple, overload
 import lief
 
 class ARM64_RELOCATION(Enum):
-    ARM64_RELOC_UNSIGNED            = 0  # For pointers. 
-    ARM64_RELOC_SUBTRACTOR          = 1  # Must be followed by an ARM64_RELOCATION::ARM64_RELOC_UNSIGNED 
-    ARM64_RELOC_BRANCH26            = 2  # A B/BL instruction with 26-bit displacement. 
-    ARM64_RELOC_PAGE21              = 3  # PC-rel distance to page of target. 
-    ARM64_RELOC_PAGEOFF12           = 4  # Offset within page, scaled by MachO::Relocation::size. 
-    ARM64_RELOC_GOT_LOAD_PAGE21     = 5  # PC-rel distance to page of GOT slot 
-    ARM64_RELOC_GOT_LOAD_PAGEOFF12  = 6  # Offset within page of GOT slot, scaled by MachO::Relocation::size. 
-    ARM64_RELOC_POINTER_TO_GOT      = 7  # For pointers to GOT slots. 
-    ARM64_RELOC_TLVP_LOAD_PAGE21    = 8  # PC-rel distance to page of TLVP slot. 
+    ARM64_RELOC_UNSIGNED = 0  # For pointers.
+    ARM64_RELOC_SUBTRACTOR = 1  # Must be followed by an ARM64_RELOCATION::ARM64_RELOC_UNSIGNED
+    ARM64_RELOC_BRANCH26 = 2  # A B/BL instruction with 26-bit displacement.
+    ARM64_RELOC_PAGE21 = 3  # PC-rel distance to page of target.
+    ARM64_RELOC_PAGEOFF12 = 4  # Offset within page, scaled by MachO::Relocation::size.
+    ARM64_RELOC_GOT_LOAD_PAGE21 = 5  # PC-rel distance to page of GOT slot
+    ARM64_RELOC_GOT_LOAD_PAGEOFF12 = 6  # Offset within page of GOT slot, scaled by MachO::Relocation::size.
+    ARM64_RELOC_POINTER_TO_GOT = 7  # For pointers to GOT slots.
+    ARM64_RELOC_TLVP_LOAD_PAGE21 = 8  # PC-rel distance to page of TLVP slot.
     ARM64_RELOC_TLVP_LOAD_PAGEOFF12 = 9  # Offset within page of TLVP slot, scaled by MachO::Relocation::size.
-    ARM64_RELOC_ADDEND              = 10  # Must be followed by ARM64_RELOCATION::ARM64_RELOC_PAGE21 or ARM64_RELOCATION::ARM64_RELOC_PAGEOFF12. 
+    ARM64_RELOC_ADDEND = (
+        10  # Must be followed by ARM64_RELOCATION::ARM64_RELOC_PAGE21 or ARM64_RELOCATION::ARM64_RELOC_PAGEOFF12.
+    )
 
 class ARM_RELOCATION(Enum):
-    ARM_RELOC_VANILLA            = 0
-    ARM_RELOC_PAIR               = 1
-    ARM_RELOC_SECTDIFF           = 2
-    ARM_RELOC_LOCAL_SECTDIFF     = 3
-    ARM_RELOC_PB_LA_PTR          = 4
-    ARM_RELOC_BR24               = 5
-    ARM_THUMB_RELOC_BR22         = 6
-    ARM_THUMB_32BIT_BRANCH       = 7   # obsolete
-    ARM_RELOC_HALF               = 8
+    ARM_RELOC_VANILLA = 0
+    ARM_RELOC_PAIR = 1
+    ARM_RELOC_SECTDIFF = 2
+    ARM_RELOC_LOCAL_SECTDIFF = 3
+    ARM_RELOC_PB_LA_PTR = 4
+    ARM_RELOC_BR24 = 5
+    ARM_THUMB_RELOC_BR22 = 6
+    ARM_THUMB_32BIT_BRANCH = 7  # obsolete
+    ARM_RELOC_HALF = 8
 
 class BINDING_CLASS(Enum):
-    BIND_CLASS_WEAK     = 1
-    BIND_CLASS_LAZY     = 2
+    BIND_CLASS_WEAK = 1
+    BIND_CLASS_LAZY = 2
     BIND_CLASS_STANDARD = 3
     BIND_CLASS_THREADED = 100
 
 class BIND_OPCODES(Enum):
-    BIND_OPCODE_DONE                             = 0x00  # It's finished
-    BIND_OPCODE_SET_DYLIB_ORDINAL_IMM            = 0x10  # Set ordinal to immediate (lower 4-bits). Used for ordinal numbers from 0-15
-    BIND_OPCODE_SET_DYLIB_ORDINAL_ULEB           = 0x20  # Set ordinal to following ULEB128 encoding. Used for ordinal numbers from 16+
-    BIND_OPCODE_SET_DYLIB_SPECIAL_IMM            = 0x30  # Set ordinal, with 0 or negative number as immediate. the value is sign extended.
-    BIND_OPCODE_SET_SYMBOL_TRAILING_FLAGS_IMM    = 0x40  # Set the following symbol (NULL-terminated char*).
-    BIND_OPCODE_SET_TYPE_IMM                     = 0x50  # Set the type to immediate (lower 4-bits). See BIND_TYPES
-    BIND_OPCODE_SET_ADDEND_SLEB                  = 0x60  # Set the addend field to the following SLEB128 encoding.
-    BIND_OPCODE_SET_SEGMENT_AND_OFFSET_ULEB      = 0x70  # Set Segment to immediate value, and address to the following SLEB128 encoding
-    BIND_OPCODE_ADD_ADDR_ULEB                    = 0x80  # Set the address field to the following SLEB128 encoding.
-    BIND_OPCODE_DO_BIND                          = 0x90  # Perform binding of current table row
-    BIND_OPCODE_DO_BIND_ADD_ADDR_ULEB            = 0xA0  # Perform binding, also add following ULEB128 as address
-    BIND_OPCODE_DO_BIND_ADD_ADDR_IMM_SCALED      = 0xB0  # Perform binding, also add immediate (lower 4-bits) using scaling
-    BIND_OPCODE_DO_BIND_ULEB_TIMES_SKIPPING_ULEB = 0xC0  # Perform binding for several symbols (as following ULEB128), and skip several bytes.
-    BIND_OPCODE_THREADED                         = 0xD0
+    BIND_OPCODE_DONE = 0x00  # It's finished
+    BIND_OPCODE_SET_DYLIB_ORDINAL_IMM = 0x10  # Set ordinal to immediate (lower 4-bits). Used for ordinal numbers from 0-15
+    BIND_OPCODE_SET_DYLIB_ORDINAL_ULEB = 0x20  # Set ordinal to following ULEB128 encoding. Used for ordinal numbers from 16+
+    BIND_OPCODE_SET_DYLIB_SPECIAL_IMM = 0x30  # Set ordinal, with 0 or negative number as immediate. the value is sign extended.
+    BIND_OPCODE_SET_SYMBOL_TRAILING_FLAGS_IMM = 0x40  # Set the following symbol (NULL-terminated char*).
+    BIND_OPCODE_SET_TYPE_IMM = 0x50  # Set the type to immediate (lower 4-bits). See BIND_TYPES
+    BIND_OPCODE_SET_ADDEND_SLEB = 0x60  # Set the addend field to the following SLEB128 encoding.
+    BIND_OPCODE_SET_SEGMENT_AND_OFFSET_ULEB = (
+        0x70  # Set Segment to immediate value, and address to the following SLEB128 encoding
+    )
+    BIND_OPCODE_ADD_ADDR_ULEB = 0x80  # Set the address field to the following SLEB128 encoding.
+    BIND_OPCODE_DO_BIND = 0x90  # Perform binding of current table row
+    BIND_OPCODE_DO_BIND_ADD_ADDR_ULEB = 0xA0  # Perform binding, also add following ULEB128 as address
+    BIND_OPCODE_DO_BIND_ADD_ADDR_IMM_SCALED = 0xB0  # Perform binding, also add immediate (lower 4-bits) using scaling
+    BIND_OPCODE_DO_BIND_ULEB_TIMES_SKIPPING_ULEB = (
+        0xC0  # Perform binding for several symbols (as following ULEB128), and skip several bytes.
+    )
+    BIND_OPCODE_THREADED = 0xD0
 
-    BIND_OPCODE_THREADED_APPLY                            = 0xD0 | 0x01
+    BIND_OPCODE_THREADED_APPLY = 0xD0 | 0x01
     BIND_OPCODE_THREADED_SET_BIND_ORDINAL_TABLE_SIZE_ULEB = 0xD0 | 0x00
 
 class BIND_TYPES(Enum):
-    BIND_TYPE_POINTER         = 1
+    BIND_TYPE_POINTER = 1
     BIND_TYPE_TEXT_ABSOLUTE32 = 2
-    BIND_TYPE_TEXT_PCREL32    = 3
+    BIND_TYPE_TEXT_PCREL32 = 3
 
 class Binary(lief.Binary):
     class it_commands:
@@ -64,42 +70,36 @@ class Binary(lief.Binary):
         def __iter__(self) -> Iterator: ...
         def __len__(self) -> int: ...
         def __next__(self) -> Any: ...
-
     class it_filter_symbols:
         def __init__(self, *args, **kwargs) -> None: ...
         def __getitem__(self, index) -> Any: ...
         def __iter__(self) -> Iterator: ...
         def __len__(self) -> int: ...
         def __next__(self) -> Any: ...
-
     class it_libraries:
         def __init__(self, *args, **kwargs) -> None: ...
         def __getitem__(self, index) -> Any: ...
         def __iter__(self) -> Iterator: ...
         def __len__(self) -> int: ...
         def __next__(self) -> Any: ...
-
     class it_relocations:
         def __init__(self, *args, **kwargs) -> None: ...
         def __getitem__(self, index) -> Any: ...
         def __iter__(self) -> Iterator: ...
         def __len__(self) -> int: ...
         def __next__(self) -> Any: ...
-
     class it_sections:
         def __init__(self, *args, **kwargs) -> None: ...
         def __getitem__(self, index) -> Any: ...
         def __iter__(self) -> Iterator: ...
         def __len__(self) -> int: ...
         def __next__(self) -> Any: ...
-
     class it_segments:
         def __init__(self, *args, **kwargs) -> None: ...
         def __getitem__(self, index) -> Any: ...
         def __iter__(self) -> Iterator: ...
         def __len__(self) -> int: ...
         def __next__(self) -> Any: ...
-
     class it_symbols:
         def __init__(self, *args, **kwargs) -> None: ...
         def __getitem__(self, index) -> Any: ...
@@ -227,7 +227,7 @@ class Binary(lief.Binary):
     @property
     def main_command(self) -> Any: ...
     @property
-    def off_ranges(self) -> Tuple[int,int]: ...
+    def off_ranges(self) -> Tuple[int, int]: ...
     @property
     def relocations(self) -> Binary.it_relocations: ...
     @property
@@ -253,7 +253,7 @@ class Binary(lief.Binary):
     @property
     def uuid(self) -> Any: ...
     @property
-    def va_ranges(self) -> Tuple[int,int]: ...
+    def va_ranges(self) -> Tuple[int, int]: ...
     @property
     def version_min(self) -> Any: ...
     @property
@@ -458,22 +458,21 @@ class DyldInfo(LoadCommand):
         def __iter__(self) -> Iterator: ...
         def __len__(self) -> int: ...
         def __next__(self) -> Any: ...
-
     class it_export_info:
         def __init__(self, *args, **kwargs) -> None: ...
         def __getitem__(self, index) -> Any: ...
         def __iter__(self) -> Iterator: ...
         def __len__(self) -> int: ...
         def __next__(self) -> Any: ...
-    bind: Tuple[int,int]
+    bind: Tuple[int, int]
     bind_opcodes: memoryview
-    export_info: Tuple[int,int]
+    export_info: Tuple[int, int]
     export_trie: memoryview
-    lazy_bind: Tuple[int,int]
+    lazy_bind: Tuple[int, int]
     lazy_bind_opcodes: memoryview
-    rebase: Tuple[int,int]
+    rebase: Tuple[int, int]
     rebase_opcodes: memoryview
-    weak_bind: Tuple[int,int]
+    weak_bind: Tuple[int, int]
     weak_bind_opcodes: memoryview
     def __init__(self, *args, **kwargs) -> None: ...
     def set_bind_offset(self, offset: int) -> None: ...
@@ -1212,7 +1211,6 @@ class SegmentCommand(LoadCommand):
         def __iter__(self) -> Iterator: ...
         def __len__(self) -> int: ...
         def __next__(self) -> Any: ...
-
     class it_sections:
         def __init__(self, *args, **kwargs) -> None: ...
         def __getitem__(self, index) -> Any: ...
@@ -1420,7 +1418,7 @@ class it_data_in_code_entries:
     def __len__(self) -> int: ...
     def __next__(self) -> Any: ...
 
-def check_layout(file: Binary) -> Tuple[bool,str]: ...
+def check_layout(file: Binary) -> Tuple[bool, str]: ...
 def is_64(file: str) -> bool: ...
 def is_fat(file: str) -> bool: ...
 @overload
