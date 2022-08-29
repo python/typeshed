@@ -8,13 +8,14 @@ $ python3 scripts/create_baseline_stubs.py <project on PyPI>
 Run with -h for more help.
 """
 
+from __future__ import annotations
+
 import argparse
 import os
 import re
 import shutil
 import subprocess
 import sys
-from typing import Optional, Tuple
 
 if sys.version_info >= (3, 8):
     from importlib.metadata import distribution
@@ -22,7 +23,7 @@ if sys.version_info >= (3, 8):
 PYRIGHT_CONFIG = "pyrightconfig.stricter.json"
 
 
-def search_pip_freeze_output(project: str, output: str) -> Optional[Tuple[str, str]]:
+def search_pip_freeze_output(project: str, output: str) -> tuple[str, str] | None:
     # Look for lines such as "typed-ast==1.4.2".  '-' matches '_' and
     # '_' matches '-' in project name, so that "typed_ast" matches
     # "typed-ast", and vice versa.
@@ -33,7 +34,7 @@ def search_pip_freeze_output(project: str, output: str) -> Optional[Tuple[str, s
     return m.group(1), m.group(2)
 
 
-def get_installed_package_info(project: str) -> Optional[Tuple[str, str]]:
+def get_installed_package_info(project: str) -> tuple[str, str] | None:
     """Find package information from pip freeze output.
 
     Match project name somewhat fuzzily (case sensitive; '-' matches '_', and
