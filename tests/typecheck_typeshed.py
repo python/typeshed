@@ -18,6 +18,13 @@ DIRECTORIES_TO_TEST = ("scripts", "tests")
 
 parser = argparse.ArgumentParser(description="Run mypy on typeshed's own code in the `scripts` and `tests` directories.")
 parser.add_argument(
+    "dir",
+    choices=DIRECTORIES_TO_TEST,
+    nargs="*",
+    action="extend",
+    help=f"Test only these top-level typeshed directories (defaults to {DIRECTORIES_TO_TEST!r})",
+)
+parser.add_argument(
     "--platform",
     choices=SUPPORTED_PLATFORMS,
     nargs="*",
@@ -31,14 +38,6 @@ parser.add_argument(
     nargs="*",
     action="extend",
     help="Run mypy for certain Python versions (defaults to sys.version_info[:2])",
-)
-parser.add_argument(
-    "-d",
-    "--dir",
-    choices=DIRECTORIES_TO_TEST,
-    nargs="*",
-    action="extend",
-    help=f"Test only these top-level typeshed directories (defaults to {DIRECTORIES_TO_TEST!r})",
 )
 
 
