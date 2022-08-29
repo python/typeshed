@@ -12,6 +12,8 @@ stubs/mysqlclient/MySQLdb/cursors.pyi
 
 # errors about circular imports
 stdlib/ctypes/__init__.pyi
+stdlib/ctypes/util.pyi
+stdlib/ctypes/wintypes.pyi
 stdlib/_ctypes.pyi
 
 # _pb2.pyi have some constructs that break pytype
