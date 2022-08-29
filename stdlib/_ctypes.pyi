@@ -2,6 +2,13 @@ import sys
 from ctypes import _CArgObject, _PointerLike
 from typing_extensions import TypeAlias
 
+FUNCFLAG_CDECL: int
+FUNCFLAG_PYTHONAPI: int
+FUNCFLAG_USE_ERRNO: int
+FUNCFLAG_USE_LASTERROR: int
+RTLD_GLOBAL: int
+RTLD_LOCAL: int
+
 if sys.version_info >= (3, 11):
     CTYPES_MAX_ARGCOUNT: int
 
