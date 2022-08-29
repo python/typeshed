@@ -5,7 +5,9 @@ from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from typing import Any, ClassVar, Generic, TypeVar, Union as _UnionT, overload
 from typing_extensions import TypeAlias
 
-from _ctypes import RTLD_GLOBAL as RTLD_GLOBAL, RTLD_LOCAL as RTLD_LOCAL
+# TODO: import these from _ctypes once it no longer breaks pytype
+RTLD_GLOBAL: int
+RTLD_LOCAL: int
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
