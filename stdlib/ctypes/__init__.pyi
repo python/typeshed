@@ -5,6 +5,10 @@ from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from typing import Any, ClassVar, Generic, TypeVar, Union as _UnionT, overload
 from typing_extensions import TypeAlias
 
+# TODO: import these from _ctypes once it no longer breaks pytype
+RTLD_GLOBAL: int
+RTLD_LOCAL: int
+
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
@@ -12,8 +16,6 @@ _T = TypeVar("_T")
 _DLLT = TypeVar("_DLLT", bound=CDLL)
 _CT = TypeVar("_CT", bound=_CData)
 
-RTLD_GLOBAL: int
-RTLD_LOCAL: int
 DEFAULT_MODE: int
 
 class CDLL:

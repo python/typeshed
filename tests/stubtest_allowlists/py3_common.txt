@@ -341,16 +341,10 @@ wave.Wave_write.initfp
 
 _ctypes.Array
 _ctypes.CFuncPtr
-_ctypes.FUNCFLAG_CDECL
-_ctypes.FUNCFLAG_PYTHONAPI
-_ctypes.FUNCFLAG_USE_ERRNO
-_ctypes.FUNCFLAG_USE_LASTERROR
 _ctypes.POINTER
 _ctypes.PyObj_FromPtr
 _ctypes.Py_DECREF
 _ctypes.Py_INCREF
-_ctypes.RTLD_GLOBAL
-_ctypes.RTLD_LOCAL
 _ctypes.Structure
 _ctypes.Union
 _ctypes.addressof
