@@ -10,12 +10,6 @@ stubs/mysqlclient/MySQLdb/__init__.pyi
 stubs/mysqlclient/MySQLdb/connections.pyi
 stubs/mysqlclient/MySQLdb/cursors.pyi
 
-# errors about circular imports
-stdlib/ctypes/__init__.pyi
-stdlib/ctypes/util.pyi
-stdlib/ctypes/wintypes.pyi
-stdlib/_ctypes.pyi
-
 # _pb2.pyi have some constructs that break pytype
 # Eg
 # pytype.pyi.parser.ParseError:   File: "/Users/nipunn/src/typeshed/third_party/2and3/google/protobuf/descriptor_pb2.pyi", line 195
