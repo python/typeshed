@@ -1,19 +1,11 @@
 from _typeshed import Incomplete
 from collections.abc import Callable
-from typing import Literal
+from typing import Any, Literal
 from typing_extensions import TypeAlias
 
-import numpy as np
-import numpy.typing as npt
-from d3dshot import pytorch_is_available
-from PIL.Image import Image
 
-if pytorch_is_available:
-    import torch
-
-    Frame: TypeAlias = Image | npt.NDArray[np.int32] | npt.NDArray[np.float32] | torch.Tensor
-else:
-    Frame: TypeAlias = Image | npt.NDArray[np.int32] | npt.NDArray[np.float32]
+Frame: TypeAlias = Any
+# Frame: TypeAlias = Image | npt.NDArray[np.int32] | npt.NDArray[np.float32] | torch.Tensor
 Pointer: TypeAlias = Incomplete
 
 class Display:

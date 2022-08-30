@@ -1,26 +1,19 @@
 import ctypes
 from _typeshed import Incomplete
 from collections.abc import Callable
+from typing import Any
 from typing_extensions import TypeAlias
 
 import comtypes
-import numpy as np
-import numpy.typing as npt
-from d3dshot import pytorch_is_available
 from d3dshot.dll.d3d import (
     ID3D11Device as ID3D11Device,
     ID3D11DeviceContext as ID3D11DeviceContext,
     ID3D11Texture2D as ID3D11Texture2D,
     prepare_d3d11_texture_2d_for_cpu as prepare_d3d11_texture_2d_for_cpu,
 )
-from PIL.Image import Image
 
-if pytorch_is_available:
-    import torch
-
-    Frame: TypeAlias = Image | npt.NDArray[np.int32] | npt.NDArray[np.float32] | torch.Tensor
-else:
-    Frame: TypeAlias = Image | npt.NDArray[np.int32] | npt.NDArray[np.float32]
+Frame: TypeAlias = Any
+# Frame: TypeAlias = Image | npt.NDArray[np.int32] | npt.NDArray[np.float32] | torch.Tensor
 Pointer: TypeAlias = Incomplete
 
 class LUID(ctypes.Structure): ...

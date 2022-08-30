@@ -1,20 +1,12 @@
-from _typeshed import Incomplete
 from collections import deque
+from typing import Any
 from typing_extensions import TypeAlias
 
-import numpy as np
-import numpy.typing as npt
-from d3dshot import pytorch_is_available
 from d3dshot.capture_output import CaptureOutput as CaptureOutput, CaptureOutputs as CaptureOutputs
 from d3dshot.display import Display as Display
-from PIL.Image import Image
 
-if pytorch_is_available:
-    import torch
-
-    Frame: TypeAlias = Image | npt.NDArray[np.int32] | npt.NDArray[np.float32] | torch.Tensor
-else:
-    Frame: TypeAlias = Image | npt.NDArray[np.int32] | npt.NDArray[np.float32]
+Frame: TypeAlias = Any
+# Frame: TypeAlias = Image | npt.NDArray[np.int32] | npt.NDArray[np.float32] | torch.Tensor
 
 class D3DShot:
     displays: list[Display]
