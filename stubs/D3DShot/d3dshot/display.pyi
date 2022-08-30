@@ -3,7 +3,6 @@ from collections.abc import Callable
 from typing import Any, Literal
 from typing_extensions import TypeAlias
 
-
 Frame: TypeAlias = Any
 # Frame: TypeAlias = Image | npt.NDArray[np.int32] | npt.NDArray[np.float32] | torch.Tensor
 Pointer: TypeAlias = Incomplete
