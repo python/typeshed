@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from collections import deque
 from typing_extensions import TypeAlias
 
