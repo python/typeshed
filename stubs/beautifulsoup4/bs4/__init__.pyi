@@ -1,4 +1,4 @@
-from _typeshed import Self, SupportsRead
+from _typeshed import Incomplete, Self, SupportsRead
 from collections.abc import Sequence
 from typing import Any
 
@@ -43,7 +43,7 @@ class BeautifulSoup(Tag):
         from_encoding: str | None = ...,
         exclude_encodings: Sequence[str] | None = ...,
         element_classes: dict[type[PageElement], type[Any]] | None = ...,
-        **kwargs,
+        **kwargs: Incomplete,
     ) -> None: ...
     def __copy__(self: Self) -> Self: ...
     hidden: bool
@@ -62,7 +62,7 @@ class BeautifulSoup(Tag):
         attrs=...,
         sourceline: Any | None = ...,
         sourcepos: Any | None = ...,
-        **kwattrs,
+        **kwattrs: Incomplete,
     ) -> Tag: ...
     def string_container(self, base_class: Any | None = ...): ...
     def new_string(self, s, subclass: Any | None = ...): ...
