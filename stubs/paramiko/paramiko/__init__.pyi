@@ -8,7 +8,7 @@ from paramiko.client import (
     WarningPolicy as WarningPolicy,
 )
 from paramiko.common import io_sleep as io_sleep
-from paramiko.config import SSHConfig as SSHConfig
+from paramiko.config import SSHConfig as SSHConfig, SSHConfigDict as SSHConfigDict
 from paramiko.dsskey import DSSKey as DSSKey
 from paramiko.ecdsakey import ECDSAKey as ECDSAKey
 from paramiko.ed25519key import Ed25519Key as Ed25519Key
@@ -30,12 +30,17 @@ from paramiko.ssh_exception import (
     AuthenticationException as AuthenticationException,
     BadAuthenticationType as BadAuthenticationType,
     BadHostKeyException as BadHostKeyException,
+    ConfigParseError as ConfigParseError,
+    CouldNotCanonicalize as CouldNotCanonicalize,
     ChannelException as ChannelException,
     PasswordRequiredException as PasswordRequiredException,
     ProxyCommandFailure as ProxyCommandFailure,
     SSHException as SSHException,
 )
 from paramiko.transport import SecurityOptions as SecurityOptions, Transport as Transport
+
+__author__: str
+__license__: str
 
 # Names in __all__ with no definition:
 #   util
