@@ -167,7 +167,7 @@ def main() -> None:
         sys.exit(1)
     project, version = info
 
-    stub_dir = os.path.join("stubs", project)
+    stub_dir = os.path.join("stubs", project).replace("\\", "/")
     if os.path.exists(stub_dir):
         sys.exit(f"Error: {stub_dir} already exists (delete it first)")
 

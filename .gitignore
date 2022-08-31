@@ -56,6 +56,7 @@ target/
 
 # Local utility scripts
 analyze.py
+/out/
 
 # Editor backup files
 *~
