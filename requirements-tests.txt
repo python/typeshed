@@ -9,7 +9,7 @@ mypy==0.971
 packaging==21.3
 pycln==2.1.1            # must match .pre-commit-config.yaml
 pyyaml==6.0
-pytype==2022.8.23; platform_system != "Windows"
+pytype==2022.8.30; platform_system != "Windows"
 termcolor
 tomli==1.2.2
 tomlkit==0.11.4
