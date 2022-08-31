@@ -1,11 +1,11 @@
-from _typeshed import Incomplete
 import ctypes
 import ctypes.wintypes
+from _typeshed import Incomplete
 from typing_extensions import TypeAlias
+
 from pyautogui import LEFT as LEFT, MIDDLE as MIDDLE, RIGHT as RIGHT
 
 _Pointer: TypeAlias = Incomplete
-
 
 MOUSEEVENTF_MOVE: int
 MOUSEEVENTF_LEFTDOWN: int
@@ -25,7 +25,6 @@ KEYEVENTF_KEYUP: int
 INPUT_MOUSE: int
 INPUT_KEYBOARD: int
 
-
 class MOUSEINPUT(ctypes.Structure):
     dx: ctypes.wintypes.LONG
     dy: ctypes.wintypes.LONG
@@ -34,7 +33,6 @@ class MOUSEINPUT(ctypes.Structure):
     time: ctypes.wintypes.DWORD
     dwExtraInfo: _Pointer
 
-
 class KEYBDINPUT(ctypes.Structure):
     wVk: ctypes.wintypes.WORD
     wScan: ctypes.wintypes.WORD
@@ -42,24 +40,20 @@ class KEYBDINPUT(ctypes.Structure):
     time: ctypes.wintypes.DWORD
     dwExtraInfo: _Pointer
 
-
 class HARDWAREINPUT(ctypes.Structure):
     uMsg: ctypes.wintypes.DWORD
     wParamL: ctypes.wintypes.WORD
     wParamH: ctypes.wintypes.DWORD
-
 
 class INPUT(ctypes.Structure):
     class _I(ctypes.Union):
         mi: MOUSEINPUT
         ki: KEYBDINPUT
         hi: HARDWAREINPUT
-
     mi: MOUSEINPUT
     ki: KEYBDINPUT
     hi: HARDWAREINPUT
     type: ctypes.wintypes.DWORD
     i: _I
-
 
 keyboardMapping: dict[str, int]
