@@ -1,0 +1,7 @@
+# pyautogui requires a display, resulting in the following error on the CI:
+# failed to import, KeyError: 'DISPLAY'
+pyautogui
+pyautogui._pyautogui_java
+pyautogui._pyautogui_osx
+pyautogui._pyautogui_win
+pyautogui._pyautogui_x11
