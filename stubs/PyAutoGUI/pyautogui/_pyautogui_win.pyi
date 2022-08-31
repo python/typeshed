@@ -1,0 +1,28 @@
+import ctypes
+
+MOUSEEVENTF_MOVE: int
+MOUSEEVENTF_LEFTDOWN: int
+MOUSEEVENTF_LEFTUP: int
+MOUSEEVENTF_LEFTCLICK: int
+MOUSEEVENTF_RIGHTDOWN: int
+MOUSEEVENTF_RIGHTUP: int
+MOUSEEVENTF_RIGHTCLICK: int
+MOUSEEVENTF_MIDDLEDOWN: int
+MOUSEEVENTF_MIDDLEUP: int
+MOUSEEVENTF_MIDDLECLICK: int
+MOUSEEVENTF_ABSOLUTE: int
+MOUSEEVENTF_WHEEL: int
+MOUSEEVENTF_HWHEEL: int
+KEYEVENTF_KEYDOWN: int
+KEYEVENTF_KEYUP: int
+INPUT_MOUSE: int
+INPUT_KEYBOARD: int
+
+class MOUSEINPUT(ctypes.Structure): ...
+class KEYBDINPUT(ctypes.Structure): ...
+class HARDWAREINPUT(ctypes.Structure): ...
+
+class INPUT(ctypes.Structure):
+    class _I(ctypes.Union): ...
+
+keyboardMapping: dict[str, int]

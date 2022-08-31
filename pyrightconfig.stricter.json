@@ -90,7 +90,8 @@
         "stubs/tzlocal/tzlocal/utils.pyi",
         "stubs/ttkthemes",
         "stubs/urllib3",
-        "stubs/vobject"
+        "stubs/vobject",
+        "stubs/PyAutoGUI"
     ],
     "typeCheckingMode": "basic",
     "strictListInference": true,
