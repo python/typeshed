@@ -2,6 +2,8 @@
 # failed to import, KeyError: 'DISPLAY'
 pyautogui
 pyautogui._pyautogui_java
-pyautogui._pyautogui_osx
+pyautogui._pyautogui_osx # AssertionError: You must first install pyobjc-core and pyobjc
 pyautogui._pyautogui_win
 pyautogui._pyautogui_x11
+# overload
+pyautogui.onScreen

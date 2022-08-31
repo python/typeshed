@@ -1,6 +1,4 @@
-import collections.abc
-from _typeshed import Incomplete
-from collections.abc import Callable, Generator
+from collections.abc import Callable, Generator, Sequence
 from datetime import datetime
 from typing import NamedTuple, TypeVar, overload
 from typing_extensions import ParamSpec
@@ -11,13 +9,12 @@ class PyAutoGUIException(Exception): ...
 class FailSafeException(PyAutoGUIException): ...
 class ImageNotFoundException(PyAutoGUIException): ...
 
-collectionsSequence = collections.abc.Sequence
-
 _P = ParamSpec("_P")
 _R = TypeVar("_R")
 
-# TODO: Complete types with pyscreeze once we can import non-types dependencies
-# See: https://github.com/python/typeshed/issues/5768
+# TODO: Complete types with pyscreeze once we can import it as a type dependency
+# Actually `pyscreeze.Box`, but typeshed doesn't currently have stubs for pyscreeze
+# (and the library doesn't have type annotations either)
 
 class _Box(NamedTuple):
     left: int
@@ -26,12 +23,12 @@ class _Box(NamedTuple):
     height: int
 
 def raisePyAutoGUIImageNotFoundException(wrappedFunction: Callable[_P, _R]) -> Callable[_P, _R]: ...
-def locate(*args: Incomplete, **kwargs: Incomplete) -> _Box | None: ...
-def locateAll(*args: Incomplete, **kwargs: Incomplete) -> Generator[_Box, None, None]: ...
-def locateAllOnScreen(*args: Incomplete, **kwargs: Incomplete) -> Generator[_Box, None, None]: ...
-def locateCenterOnScreen(*args: Incomplete, **kwargs: Incomplete) -> Point | None: ...
-def locateOnScreen(*args: Incomplete, **kwargs: Incomplete) -> _Box | None: ...
-def locateOnWindow(*args: Incomplete, **kwargs: Incomplete) -> _Box | None: ...
+def locate(*args, **kwargs) -> _Box | None: ...
+def locateAll(*args, **kwargs) -> Generator[_Box, None, None]: ...
+def locateAllOnScreen(*args, **kwargs) -> Generator[_Box, None, None]: ...
+def locateCenterOnScreen(*args, **kwargs) -> Point | None: ...
+def locateOnScreen(*args, **kwargs) -> _Box | None: ...
+def locateOnWindow(*args, **kwargs) -> _Box | None: ...
 def mouseInfo() -> None: ...
 def useImageNotFoundException(value: bool | None = ...) -> None: ...
 
@@ -70,12 +67,12 @@ def linear(n: float) -> float: ...
 def position(x: int | None = ..., y: int | None = ...) -> Point: ...
 def size() -> Size: ...
 @overload
-def onScreen(xy: tuple[float, float]) -> bool: ...
+def onScreen(point: tuple[float, float], _: None = ...) -> bool: ...
 @overload
 def onScreen(x: float, y: float) -> bool: ...
 def mouseDown(
-    x: float | collectionsSequence[int] | None = ...,
-    y: float | collectionsSequence[int] | None = ...,
+    x: float | Sequence[int] | None = ...,
+    y: float | Sequence[int] | None = ...,
     button: str = ...,
     duration: float = ...,
     tween: Callable[[float], float] = ...,
@@ -83,8 +80,8 @@ def mouseDown(
     _pause: bool = ...,
 ) -> None: ...
 def mouseUp(
-    x: float | collectionsSequence[int] | None = ...,
-    y: float | collectionsSequence[int] | None = ...,
+    x: float | Sequence[int] | None = ...,
+    y: float | Sequence[int] | None = ...,
     button: str = ...,
     duration: float = ...,
     tween: Callable[[float], float] = ...,
@@ -92,8 +89,8 @@ def mouseUp(
     _pause: bool = ...,
 ) -> None: ...
 def click(
-    x: float | collectionsSequence[int] | None = ...,
-    y: float | collectionsSequence[int] | None = ...,
+    x: float | Sequence[int] | None = ...,
+    y: float | Sequence[int] | None = ...,
     clicks: int = ...,
     interval: float = ...,
     button: str = ...,
@@ -103,8 +100,8 @@ def click(
     _pause: bool = ...,
 ) -> None: ...
 def leftClick(
-    x: float | collectionsSequence[int] | None = ...,
-    y: float | collectionsSequence[int] | None = ...,
+    x: float | Sequence[int] | None = ...,
+    y: float | Sequence[int] | None = ...,
     interval: float = ...,
     duration: float = ...,
     tween: Callable[[float], float] = ...,
@@ -112,8 +109,8 @@ def leftClick(
     _pause: bool = ...,
 ) -> None: ...
 def rightClick(
-    x: float | collectionsSequence[int] | None = ...,
-    y: float | collectionsSequence[int] | None = ...,
+    x: float | Sequence[int] | None = ...,
+    y: float | Sequence[int] | None = ...,
     interval: float = ...,
     duration: float = ...,
     tween: Callable[[float], float] = ...,
@@ -121,8 +118,8 @@ def rightClick(
     _pause: bool = ...,
 ) -> None: ...
 def middleClick(
-    x: float | collectionsSequence[int] | None = ...,
-    y: float | collectionsSequence[int] | None = ...,
+    x: float | Sequence[int] | None = ...,
+    y: float | Sequence[int] | None = ...,
     interval: float = ...,
     duration: float = ...,
     tween: Callable[[float], float] = ...,
@@ -130,8 +127,8 @@ def middleClick(
     _pause: bool = ...,
 ) -> None: ...
 def doubleClick(
-    x: float | collectionsSequence[int] | None = ...,
-    y: float | collectionsSequence[int] | None = ...,
+    x: float | Sequence[int] | None = ...,
+    y: float | Sequence[int] | None = ...,
     interval: float = ...,
     button: str = ...,
     duration: float = ...,
@@ -140,8 +137,8 @@ def doubleClick(
     _pause: bool = ...,
 ) -> None: ...
 def tripleClick(
-    x: float | collectionsSequence[int] | None = ...,
-    y: float | collectionsSequence[int] | None = ...,
+    x: float | Sequence[int] | None = ...,
+    y: float | Sequence[int] | None = ...,
     interval: float = ...,
     button: str = ...,
     duration: float = ...,
@@ -151,36 +148,36 @@ def tripleClick(
 ) -> None: ...
 def scroll(
     clicks: float,
-    x: float | collectionsSequence[int] | None = ...,
-    y: float | collectionsSequence[int] | None = ...,
+    x: float | Sequence[int] | None = ...,
+    y: float | Sequence[int] | None = ...,
     logScreenshot: bool | None = ...,
     _pause: bool = ...,
 ) -> None: ...
 def hscroll(
     clicks: float,
-    x: float | collectionsSequence[int] | None = ...,
-    y: float | collectionsSequence[int] | None = ...,
+    x: float | Sequence[int] | None = ...,
+    y: float | Sequence[int] | None = ...,
     logScreenshot: bool | None = ...,
     _pause: bool = ...,
 ) -> None: ...
 def vscroll(
     clicks: float,
-    x: float | collectionsSequence[int] | None = ...,
-    y: float | collectionsSequence[int] | None = ...,
+    x: float | Sequence[int] | None = ...,
+    y: float | Sequence[int] | None = ...,
     logScreenshot: bool | None = ...,
     _pause: bool = ...,
 ) -> None: ...
 def moveTo(
-    x: float | collectionsSequence[int] | None = ...,
-    y: float | collectionsSequence[int] | None = ...,
+    x: float | Sequence[int] | None = ...,
+    y: float | Sequence[int] | None = ...,
     duration: float = ...,
     tween: Callable[[float], float] = ...,
     logScreenshot: bool = ...,
     _pause: bool = ...,
 ) -> None: ...
 def moveRel(
-    xOffset: float | collectionsSequence[int] | None = ...,
-    yOffset: float | collectionsSequence[int] | None = ...,
+    xOffset: float | Sequence[int] | None = ...,
+    yOffset: float | Sequence[int] | None = ...,
     duration: float = ...,
     tween: Callable[[float], float] = ...,
     logScreenshot: bool = ...,
@@ -190,8 +187,8 @@ def moveRel(
 move = moveRel
 
 def dragTo(
-    x: float | collectionsSequence[int] | None = ...,
-    y: float | collectionsSequence[int] | None = ...,
+    x: float | Sequence[int] | None = ...,
+    y: float | Sequence[int] | None = ...,
     duration: float = ...,
     tween: Callable[[float], float] = ...,
     button: str = ...,
@@ -200,8 +197,8 @@ def dragTo(
     mouseDownUp: bool = ...,
 ) -> None: ...
 def dragRel(
-    xOffset: float | collectionsSequence[int] = ...,
-    yOffset: float | collectionsSequence[int] = ...,
+    xOffset: float | Sequence[int] = ...,
+    yOffset: float | Sequence[int] = ...,
     duration: float = ...,
     tween: Callable[[float], float] = ...,
     button: str = ...,

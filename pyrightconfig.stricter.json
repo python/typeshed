@@ -69,6 +69,7 @@
         "stubs/pep8-naming",
         "stubs/psutil",
         "stubs/psycopg2",
+        "stubs/PyAutoGUI",
         "stubs/pyflakes",
         "stubs/Pygments",
         "stubs/PyMySQL",
@@ -90,8 +91,7 @@
         "stubs/tzlocal/tzlocal/utils.pyi",
         "stubs/ttkthemes",
         "stubs/urllib3",
-        "stubs/vobject",
-        "stubs/PyAutoGUI"
+        "stubs/vobject"
     ],
     "typeCheckingMode": "basic",
     "strictListInference": true,
