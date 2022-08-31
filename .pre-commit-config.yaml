@@ -5,7 +5,7 @@ repos:
       - id: pycln
         args: [--all, stubs, stdlib, tests, scripts]
   - repo: https://github.com/psf/black
-    rev: 22.6.0 # must match requirements-tests.txt
+    rev: 22.8.0 # must match requirements-tests.txt
     hooks:
       - id: black
         language_version: python3.9
