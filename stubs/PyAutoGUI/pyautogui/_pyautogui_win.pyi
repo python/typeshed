@@ -1,11 +1,7 @@
 import ctypes
 import ctypes.wintypes
-from _typeshed import Incomplete
-from typing_extensions import TypeAlias
 
 from pyautogui import LEFT as LEFT, MIDDLE as MIDDLE, RIGHT as RIGHT
-
-_Pointer: TypeAlias = Incomplete
 
 MOUSEEVENTF_MOVE: int
 MOUSEEVENTF_LEFTDOWN: int
@@ -31,14 +27,14 @@ class MOUSEINPUT(ctypes.Structure):
     mouseData: ctypes.wintypes.DWORD
     dwFlags: ctypes.wintypes.DWORD
     time: ctypes.wintypes.DWORD
-    dwExtraInfo: _Pointer
+    dwExtraInfo: ctypes.wintypes.PULONG
 
 class KEYBDINPUT(ctypes.Structure):
     wVk: ctypes.wintypes.WORD
     wScan: ctypes.wintypes.WORD
     dwFlags: ctypes.wintypes.DWORD
     time: ctypes.wintypes.DWORD
-    dwExtraInfo: _Pointer
+    dwExtraInfo: ctypes.wintypes.PULONG
 
 class HARDWAREINPUT(ctypes.Structure):
     uMsg: ctypes.wintypes.DWORD
