@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from typing_extensions import TypeAlias
 
 from d3dshot.capture_output import CaptureOutput as CaptureOutput
-from PIL.Image import Image
+from PIL import Image
 
 # TODO: Complete types once we can import non-types dependencies
 # See: https://github.com/python/typeshed/issues/5768
@@ -17,5 +17,5 @@ class NumpyCaptureOutput(CaptureOutput):
     def process(
         self, pointer: _Pointer, size: int, width: int, height: int, region: tuple[int, int, int, int], rotation: int
     ) -> NDArray: ...
-    def to_pil(self, frame: NDArray) -> Image: ...
+    def to_pil(self, frame: NDArray) -> Image.Image: ...
     def stack(self, frames: list[NDArray] | NDArray, stack_dimension: int) -> NDArray: ...

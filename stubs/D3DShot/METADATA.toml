@@ -1,5 +1,5 @@
 version = "0.1.*"
-requires = ["numpy", "torch", "comtypes"]
+requires = ["types-Pillow"]
 
 [tool.stubtest]
 ignore_missing_stub = false

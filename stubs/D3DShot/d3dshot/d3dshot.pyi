@@ -6,7 +6,7 @@ from d3dshot.capture_output import CaptureOutput as CaptureOutput, CaptureOutput
 from d3dshot.display import Display as Display
 
 _Frame: TypeAlias = Incomplete
-# _Frame: TypeAlias = Image | npt.NDArray[np.int32] | npt.NDArray[np.float32] | _Tensor
+# _Frame: TypeAlias = Image.Image | npt.NDArray[np.int32] | npt.NDArray[np.float32] | _Tensor
 
 class D3DShot:
     displays: list[Display]

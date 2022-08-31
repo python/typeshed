@@ -1,10 +1,9 @@
 from _typeshed import Incomplete
 from collections.abc import Callable
-from typing import Literal
-from typing_extensions import TypeAlias
+from typing_extensions import Literal, TypeAlias
 
 _Frame: TypeAlias = Incomplete
-# _Frame: TypeAlias = Image | npt.NDArray[np.int32] | npt.NDArray[np.float32] | _Tensor
+# _Frame: TypeAlias = Image.Image | npt.NDArray[np.int32] | npt.NDArray[np.float32] | _Tensor
 _Pointer: TypeAlias = Incomplete
 
 class Display:

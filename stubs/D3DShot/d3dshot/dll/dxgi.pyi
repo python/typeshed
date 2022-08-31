@@ -10,7 +10,7 @@ from typing_extensions import TypeAlias
 _IUnknown: TypeAlias = Incomplete
 
 _Frame: TypeAlias = Incomplete
-# _Frame: TypeAlias = Image | npt.NDArray[np.int32] | npt.NDArray[np.float32] | Tensor
+# _Frame: TypeAlias = Image.Image | npt.NDArray[np.int32] | npt.NDArray[np.float32] | Tensor
 _Pointer: TypeAlias = Incomplete
 
 class LUID(ctypes.Structure): ...
