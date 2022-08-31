@@ -13,7 +13,6 @@ from __future__ import annotations
 import argparse
 import os
 import re
-import shutil
 import subprocess
 import sys
 
@@ -48,7 +47,7 @@ def get_installed_package_info(project: str) -> tuple[str, str] | None:
 
 def run_stubgen(package: str, output: str) -> None:
     print(f"Running stubgen: stubgen -o {output} -p {package}")
-    subprocess.run(["stubgen", "-o", output ,"-p", package], check=True)
+    subprocess.run(["stubgen", "-o", output, "-p", package], check=True)
 
 
 def run_black(stub_dir: str) -> None:
