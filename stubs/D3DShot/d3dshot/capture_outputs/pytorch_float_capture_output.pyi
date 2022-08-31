@@ -1,16 +1,19 @@
 from _typeshed import Incomplete
 from typing_extensions import TypeAlias
 
-import torch
 from d3dshot.capture_output import CaptureOutput as CaptureOutput
 from PIL.Image import Image
 
-Pointer: TypeAlias = Incomplete
+# TODO: Complete types once we can import non-types dependencies
+# See: https://github.com/python/typeshed/issues/5768
+# from torch import Tensor
+_Tensor: TypeAlias = Incomplete
+_Pointer: TypeAlias = Incomplete
 
 class PytorchFloatCaptureOutput(CaptureOutput):
     def __init__(self) -> None: ...
     def process(
-        self, pointer: Pointer, size: int, width: int, height: int, region: tuple[int, int, int, int], rotation: int
-    ) -> torch.Tensor: ...
-    def to_pil(self, frame: torch.Tensor) -> Image: ...
-    def stack(self, frames: list[torch.Tensor], stack_dimension: int) -> torch.Tensor: ...
+        self, pointer: _Pointer, size: int, width: int, height: int, region: tuple[int, int, int, int], rotation: int
+    ) -> _Tensor: ...
+    def to_pil(self, frame: _Tensor) -> Image: ...
+    def stack(self, frames: list[_Tensor], stack_dimension: int) -> _Tensor: ...

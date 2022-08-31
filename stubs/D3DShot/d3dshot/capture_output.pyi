@@ -1,13 +1,12 @@
 import enum
 from _typeshed import Incomplete
-from typing import Any
 from typing_extensions import TypeAlias
 
 from PIL.Image import Image
 
-Frame: TypeAlias = Any
-# Frame: TypeAlias = Image | npt.NDArray[np.int32] | npt.NDArray[np.float32] | torch.Tensor
-Pointer: TypeAlias = Incomplete
+_Frame: TypeAlias = Incomplete
+# _Frame: TypeAlias = Image | npt.NDArray[np.int32] | npt.NDArray[np.float32] | _Tensor
+_Pointer: TypeAlias = Incomplete
 
 class CaptureOutputs(enum.Enum):
     PIL: int
@@ -24,7 +23,7 @@ class CaptureOutput:
     backend: CaptureOutput
     def __init__(self, backend: CaptureOutputs = ...) -> None: ...
     def process(
-        self, pointer: Pointer, size: int, width: int, height: int, region: tuple[int, int, int, int], rotation: int
-    ) -> Frame: ...
-    def to_pil(self, frame: Frame) -> Image: ...
-    def stack(self, frames: list[Frame], stack_dimension) -> Frame: ...
+        self, pointer: _Pointer, size: int, width: int, height: int, region: tuple[int, int, int, int], rotation: int
+    ) -> _Frame: ...
+    def to_pil(self, frame: _Frame) -> Image: ...
+    def stack(self, frames: list[_Frame], stack_dimension) -> _Frame: ...

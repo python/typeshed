@@ -1,11 +1,11 @@
 from _typeshed import Incomplete
 from collections.abc import Callable
-from typing import Any, Literal
+from typing import Literal
 from typing_extensions import TypeAlias
 
-Frame: TypeAlias = Any
-# Frame: TypeAlias = Image | npt.NDArray[np.int32] | npt.NDArray[np.float32] | torch.Tensor
-Pointer: TypeAlias = Incomplete
+_Frame: TypeAlias = Incomplete
+# _Frame: TypeAlias = Image | npt.NDArray[np.int32] | npt.NDArray[np.float32] | _Tensor
+_Pointer: TypeAlias = Incomplete
 
 class Display:
     name: str
@@ -38,8 +38,8 @@ class Display:
     def capture(
         self,
         # Incomplete: dxgi_mapped_rect.pBits
-        process_func: Callable[[Pointer, int, int, int, tuple[int, int, int, int], int], Frame | None] | None,
+        process_func: Callable[[_Pointer, int, int, int, tuple[int, int, int, int], int], _Frame | None] | None,
         region: tuple[int, int, int, int] = ...,
-    ) -> Frame: ...
+    ) -> _Frame: ...
     @classmethod
     def discover_displays(cls) -> list[Display]: ...
