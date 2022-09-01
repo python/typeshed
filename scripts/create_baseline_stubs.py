@@ -90,7 +90,8 @@ def add_pyright_exclusion(stub_dir: str) -> None:
     assert i < len(lines), f"Error parsing {PYRIGHT_CONFIG}"
     while not lines[i].strip().startswith("]"):
         i += 1
-    line_to_add = f'        "{stub_dir}",'
+    # Must use forward slash in the .json file
+    line_to_add = f'        "{stub_dir}",'.replace("\\", "/")
     initial = i - 1
     while lines[i].lower() > line_to_add.lower():
         i -= 1
@@ -151,7 +152,7 @@ def main() -> None:
         sys.exit(1)
     project, version = info
 
-    stub_dir = f"stubs/{project}"  # Must use forward slash in the .json file
+    stub_dir = os.path.join("stubs", project)
     if os.path.exists(stub_dir):
         sys.exit(f"Error: {stub_dir} already exists (delete it first)")
 
