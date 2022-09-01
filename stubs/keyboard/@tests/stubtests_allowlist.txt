@@ -1,0 +1,8 @@
+# MacOs: ModuleNotFoundError: No module named 'Quartz'
+keyboard._darwinkeyboard
+keyboard._darwinmouse
+# Exposing CFunctionType as a Callable
+keyboard._winkeyboard.LowLevelKeyboardProc
+keyboard._winmouse.LowLevelMouseProc
+# Defaults don't align with possible values
+keyboard.mouse.wait
