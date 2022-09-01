@@ -27,7 +27,6 @@ class SentinelManagedSSLConnection(SentinelManagedConnection, SSLConnection): ..
 class SentinelConnectionPool(ConnectionPool):
     is_master: bool
     check_connection: bool
-    connection_kwargs: Any
     service_name: str
     sentinel_manager: Sentinel
     def __init__(self, service_name: str, sentinel_manager: Sentinel, **kwargs) -> None: ...
@@ -37,10 +36,10 @@ class SentinelConnectionPool(ConnectionPool):
     def rotate_slaves(self) -> Iterator[_AddressAndPort]: ...
 
 class Sentinel(SentinelCommands):
-    sentinel_kwargs: Any
+    sentinel_kwargs: dict[str, Any | None]
     sentinels: list[Redis[Any]]
     min_other_sentinels: int
-    connection_kwargs: Any
+    connection_kwargs: dict[str, Any]
     def __init__(
         self,
         sentinels: Iterable[_AddressAndPort],
