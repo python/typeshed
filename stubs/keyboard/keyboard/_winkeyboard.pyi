@@ -32,7 +32,6 @@ from ctypes.wintypes import (
     WPARAM,
 )
 from threading import Lock
-from typing import Tuple  # noqa: Y022 # Arbitrary length Tuple
 from typing_extensions import Literal, TypeAlias
 
 from ._canonical_names import normalize_name as normalize_name
@@ -188,8 +187,8 @@ official_virtual_keys: dict[
     | tuple[Literal["p"], Literal[False]],
 ]
 tables_lock: Lock
-to_name: defaultdict[tuple[int, int, int, str | int | Tuple[str, ...]] | tuple[int, int, int, int, int], list[str]]
-from_name: defaultdict[str, list[tuple[int, Tuple[str | int | Tuple[str, ...], ...]]]]
+to_name: defaultdict[tuple[int, int, int, str | int | tuple[str, ...]] | tuple[int, int, int, int, int], list[str]]
+from_name: defaultdict[str, list[tuple[int, tuple[str | int | tuple[str, ...], ...]]]]
 scan_code_to_vk: dict[int, int]
 distinct_modifiers: list[
     tuple[()]
@@ -248,7 +247,7 @@ shift_vks: set[int]
 
 def prepare_intercept(callback: Callable[[KeyboardEvent], bool]) -> None: ...
 def listen(callback: Callable[[KeyboardEvent], bool]) -> None: ...
-def map_name(name: str) -> Generator[tuple[int, str | int | Tuple[str, ...]], None, None]: ...
+def map_name(name: str) -> Generator[tuple[int, str | int | tuple[str, ...]], None, None]: ...
 def press(code: int) -> None: ...
 def release(code: int) -> None: ...
 def type_unicode(character: str) -> None: ...

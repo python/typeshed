@@ -2,7 +2,7 @@ from collections import Counter, defaultdict, deque
 from collections.abc import Callable, Generator, Sequence
 from queue import Queue
 from threading import Event as _UninterruptibleEvent
-from typing import Optional, Tuple  # noqa: Y022 # Arbitrary length Tuple
+from typing import Optional
 from typing_extensions import Literal, ParamSpec, TypeAlias
 
 from ._canonical_names import all_modifiers as all_modifiers, sided_modifiers as sided_modifiers
@@ -10,8 +10,8 @@ from ._generic import GenericListener as _GenericListener
 from ._keyboard_event import KEY_DOWN as KEY_DOWN, KEY_UP as KEY_UP, KeyboardEvent as KeyboardEvent
 
 _Key: TypeAlias = int | str
-_ScanCodeList: TypeAlias = list[int] | Tuple[int, ...]
-_ParseableHotkey: TypeAlias = _Key | list[int | _ScanCodeList] | Tuple[int | _ScanCodeList, ...]
+_ScanCodeList: TypeAlias = list[int] | tuple[int, ...]
+_ParseableHotkey: TypeAlias = _Key | list[int | _ScanCodeList] | tuple[int | _ScanCodeList, ...]
 _Callback: TypeAlias = Callable[[KeyboardEvent], Optional[bool]] | Callable[[], Optional[bool]]
 _P = ParamSpec("_P")
 
@@ -64,8 +64,8 @@ class _KeyboardListener(_GenericListener):
     blocking_hooks: list[_Callback]
     blocking_keys: defaultdict[int, list[_Callback]]
     nonblocking_keys: defaultdict[int, list[_Callback]]
-    blocking_hotkeys: defaultdict[Tuple[int, ...], list[_Callback]]
-    nonblocking_hotkeys: defaultdict[Tuple[int, ...], list[_Callback]]
+    blocking_hotkeys: defaultdict[tuple[int, ...], list[_Callback]]
+    nonblocking_hotkeys: defaultdict[tuple[int, ...], list[_Callback]]
     filtered_modifiers: Counter[int]
     is_replaying: bool
     modifier_states: dict[_Key, str]
@@ -74,8 +74,8 @@ class _KeyboardListener(_GenericListener):
     def direct_callback(self, event): ...
     def listen(self) -> None: ...
 
-def key_to_scan_codes(key: _Key, error_if_missing: bool = ...) -> Tuple[int, ...]: ...
-def parse_hotkey(hotkey: _ParseableHotkey) -> Tuple[Tuple[Tuple[int, ...], ...], ...]: ...
+def key_to_scan_codes(key: _Key, error_if_missing: bool = ...) -> tuple[int, ...]: ...
+def parse_hotkey(hotkey: _ParseableHotkey) -> tuple[tuple[tuple[int, ...], ...], ...]: ...
 def send(hotkey: _ParseableHotkey, do_press: bool = ..., do_release: bool = ...) -> None: ...
 
 press_and_release = send
@@ -110,7 +110,7 @@ def remap_key(src: _Key, dst: _ParseableHotkey) -> Callable[[], None]: ...
 
 unremap_key = unhook_key
 
-def parse_hotkey_combinations(hotkey: _ParseableHotkey) -> Tuple[Tuple[Tuple[int, ...], ...], ...]: ...
+def parse_hotkey_combinations(hotkey: _ParseableHotkey) -> tuple[tuple[tuple[int, ...], ...], ...]: ...
 
 # TODO: how to make args: _P.args ?
 

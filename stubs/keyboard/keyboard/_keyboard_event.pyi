@@ -1,4 +1,3 @@
-from typing import Tuple  # noqa: Y022 # Arbitrary length Tuple
 from typing_extensions import Literal
 
 from ._canonical_names import canonical_names as canonical_names, normalize_name as normalize_name
@@ -13,7 +12,7 @@ class KeyboardEvent:
     name: str | None
     time: float | None
     device: str | None
-    modifiers: Tuple[str, ...] | None
+    modifiers: tuple[str, ...] | None
     is_keypad: bool | None
 
     def __init__(
@@ -23,7 +22,7 @@ class KeyboardEvent:
         name: str | None = ...,
         time: float | None = ...,
         device: str | None = ...,
-        modifiers: Tuple[str, ...] | None = ...,
+        modifiers: tuple[str, ...] | None = ...,
         is_keypad: bool | None = ...,
     ) -> None: ...
     def to_json(self, ensure_ascii: bool = ...) -> str: ...
