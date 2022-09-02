@@ -1,5 +1,5 @@
 from collections.abc import Callable, Iterable
-from typing import Any, TypeVar, Union
+from typing import TypeVar, Union
 from typing_extensions import TypeAlias
 
 _FormatCheckCallable = typing.Callable[[object], bool]
