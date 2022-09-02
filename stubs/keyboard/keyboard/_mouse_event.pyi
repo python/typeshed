@@ -2,6 +2,8 @@ import sys
 from typing import NamedTuple
 from typing_extensions import Literal, TypeAlias
 
+_MouseEvent: TypeAlias = ButtonEvent | WheelEvent | MoveEvent
+
 LEFT: Literal["left"]
 RIGHT: Literal["right"]
 MIDDLE: Literal["middle"]
@@ -22,12 +24,12 @@ else:
     _MouseButton: TypeAlias = Literal["left", "right", "middle"]
 
 if sys.platform == "win32":
-    _MouseEvent: TypeAlias = Literal["up", "down", "double", "wheel"]
+    _MouseEventType: TypeAlias = Literal["up", "down", "double", "wheel"]
 else:
-    _MouseEvent: TypeAlias = Literal["up", "down"]
+    _MouseEventType: TypeAlias = Literal["up", "down"]
 
 class ButtonEvent(NamedTuple):
-    event_type: _MouseEvent
+    event_type: _MouseEventType
     button: _MouseButton
     time: float
 

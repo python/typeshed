@@ -4,9 +4,9 @@ from threading import Lock, Thread
 from typing_extensions import Literal, TypeAlias
 
 from ._keyboard_event import KeyboardEvent
-from ._mouse_event import ButtonEvent, MoveEvent, WheelEvent
+from ._mouse_event import _MouseEvent
 
-_Event: TypeAlias = KeyboardEvent | ButtonEvent | WheelEvent | MoveEvent
+_Event: TypeAlias = KeyboardEvent | _MouseEvent
 
 class GenericListener:
     lock: Lock
