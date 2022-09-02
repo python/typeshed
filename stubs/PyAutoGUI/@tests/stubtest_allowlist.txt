@@ -1,7 +1,3 @@
 # pyautogui requires a display, resulting in the following error on the CI:
 # failed to import, KeyError: 'DISPLAY'
 pyautogui
-pyautogui._pyautogui_java
-pyautogui._pyautogui_osx # AssertionError: You must first install pyobjc-core and pyobjc
-pyautogui._pyautogui_win
-pyautogui._pyautogui_x11
