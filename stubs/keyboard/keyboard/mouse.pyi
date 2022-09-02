@@ -1,7 +1,7 @@
 import sys
 from collections.abc import Callable, Sequence
 from ctypes import c_long
-from typing import Tuple
+from typing import Tuple  # noqa: Y022 # Arbitrary length Tuple
 from typing_extensions import Literal, ParamSpec, TypeAlias
 
 from ._generic import GenericListener as _GenericListener

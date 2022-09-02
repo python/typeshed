@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import Tuple  # noqa: Y022 # Arbitrary length Tuple
 from typing_extensions import Literal
 
 from ._canonical_names import canonical_names as canonical_names, normalize_name as normalize_name

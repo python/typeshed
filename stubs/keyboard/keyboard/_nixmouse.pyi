@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from ctypes import CDLL
 from queue import Queue
 from subprocess import check_output as check_output
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal
 
 from ._mouse_event import (
     DOWN as DOWN,
@@ -30,8 +30,8 @@ from ._nixcommon import (
 )
 
 x11: CDLL | None
-display: TypeAlias = Incomplete  # x11.XOpenDisplay(None)
-window: TypeAlias = Incomplete  # x11.XDefaultRootWindow(display)
+display: Incomplete  # x11.XOpenDisplay(None)
+window: Incomplete  # x11.XDefaultRootWindow(display)
 
 def build_display() -> None: ...
 def get_position() -> tuple[int, int]: ...

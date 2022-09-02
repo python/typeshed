@@ -1,3 +1,4 @@
+import sys
 from _typeshed import Incomplete
 from collections import defaultdict
 from collections.abc import Callable, Generator, Sequence
@@ -5,7 +6,6 @@ from ctypes import (
     Array,
     Structure,
     Union,
-    WinDLL,
     c_char as c_char,
     c_int,
     c_int32 as c_int32,
@@ -32,16 +32,20 @@ from ctypes.wintypes import (
     WPARAM,
 )
 from threading import Lock
-from typing import Tuple
+from typing import Tuple  # noqa: Y022 # Arbitrary length Tuple
 from typing_extensions import Literal, TypeAlias
 
 from ._canonical_names import normalize_name as normalize_name
 from ._keyboard_event import KEY_DOWN as KEY_DOWN, KEY_UP as KEY_UP, KeyboardEvent as KeyboardEvent
 
+if sys.platform == "win32":
+    from ctypes import WinDLL
+
+    kernel32: WinDLL
+    user32: WinDLL
+
 ULONG_PTR: TypeAlias = LPDWORD
-kernel32: WinDLL
 GetModuleHandleW: Callable[[LPCWSTR | None], HMODULE]
-user32: WinDLL
 VK_PACKET: Literal[231]
 INPUT_MOUSE: Literal[0]
 INPUT_KEYBOARD: Literal[1]
@@ -96,12 +100,12 @@ UnhookWindowsHookEx: Callable[[HHOOK], BOOL]
 GetMessage: Callable[[LPMSG, c_int, c_int, c_int], BOOL]
 TranslateMessage: Callable[[LPMSG], BOOL]
 DispatchMessage: Callable[[LPMSG], _LRESULT]
-_keyboard_state_type: TypeAlias = Array[c_uint8]
-keyboard_state_type: _keyboard_state_type
-GetKeyboardState: Callable[[_keyboard_state_type], BOOL]
+_KeyboardStateType: TypeAlias = Array[c_uint8]
+keyboard_state_type: _KeyboardStateType
+GetKeyboardState: Callable[[_KeyboardStateType], BOOL]
 GetKeyNameText: Callable[[c_long, LPWSTR, c_int], c_int]
 MapVirtualKey: Callable[[c_uint, c_uint], c_uint]
-ToUnicode: Callable[[c_uint, c_uint, _keyboard_state_type, LPWSTR, c_int, c_uint], c_int]
+ToUnicode: Callable[[c_uint, c_uint, _KeyboardStateType, LPWSTR, c_int, c_uint], c_int]
 SendInput: Callable[[c_uint, _POINTER_INPUT, c_int], c_uint]
 MAPVK_VK_TO_CHAR: Literal[2]
 MAPVK_VK_TO_VSC: Literal[0]
@@ -199,7 +203,7 @@ distinct_modifiers: list[
 ]
 name_buffer: Array[c_wchar]
 unicode_buffer: Array[c_wchar]
-keyboard_state: _keyboard_state_type
+keyboard_state: _KeyboardStateType
 
 def get_event_names(
     scan_code: int, vk: int, is_extended: Literal[0, 1], modifiers: Sequence[str]

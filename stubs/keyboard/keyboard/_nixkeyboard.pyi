@@ -1,6 +1,6 @@
-from collections import defaultdict, namedtuple as namedtuple
+from collections import defaultdict
 from collections.abc import Callable, Generator
-from typing import Tuple
+from typing import Tuple  # noqa: Y022 # Arbitrary length Tuple
 
 from ._canonical_names import all_modifiers as all_modifiers, normalize_name as normalize_name
 from ._keyboard_event import KEY_DOWN as KEY_DOWN, KEY_UP as KEY_UP, KeyboardEvent as KeyboardEvent

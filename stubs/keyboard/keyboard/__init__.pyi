@@ -2,7 +2,7 @@ from collections import Counter, defaultdict, deque
 from collections.abc import Callable, Generator, Sequence
 from queue import Queue
 from threading import Event as _UninterruptibleEvent
-from typing import Optional, Tuple, Union
+from typing import Optional, Tuple  # noqa: Y022 # Arbitrary length Tuple
 from typing_extensions import Literal, ParamSpec, TypeAlias
 
 from ._canonical_names import all_modifiers as all_modifiers, sided_modifiers as sided_modifiers
@@ -11,7 +11,7 @@ from ._keyboard_event import KEY_DOWN as KEY_DOWN, KEY_UP as KEY_UP, KeyboardEve
 
 _Key: TypeAlias = int | str
 _ScanCodeList: TypeAlias = list[int] | Tuple[int, ...]
-_ParseableHotkey: TypeAlias = _Key | list[Union[int, _ScanCodeList]] | Tuple[Union[int, _ScanCodeList], ...]
+_ParseableHotkey: TypeAlias = _Key | list[int | _ScanCodeList] | Tuple[int | _ScanCodeList, ...]
 _Callback: TypeAlias = Callable[[KeyboardEvent], Optional[bool]] | Callable[[], Optional[bool]]
 _P = ParamSpec("_P")
 

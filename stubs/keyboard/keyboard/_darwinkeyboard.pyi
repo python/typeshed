@@ -11,7 +11,7 @@ _Unused: TypeAlias = object
 
 # https://github.com/ronaldoussoren/pyobjc/milestone/3
 _CGEventTap: TypeAlias = Incomplete  # Quartz.CGEventTap
-_kCGEvent: TypeAlias = Incomplete  # Quartz.kCGEvent
+_KCGEvent: TypeAlias = Incomplete  # Quartz.kCGEvent
 _T = TypeVar("_T")
 
 unichr = chr
@@ -39,7 +39,7 @@ class KeyEventListener:
     tap: _CGEventTap
     def __init__(self, callback: Callable[[KeyboardEvent], None], blocking: bool = ...) -> None: ...
     def run(self) -> None: ...
-    def handler(self, proxy: _Unused, e_type: _kCGEvent, event: _T, refcon: _Unused) -> _T: ...
+    def handler(self, proxy: _Unused, e_type: _KCGEvent, event: _T, refcon: _Unused) -> _T: ...
 
 key_controller: KeyController
 

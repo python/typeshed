@@ -1,8 +1,8 @@
+import sys
 from _typeshed import Incomplete
 from collections.abc import Callable
 from ctypes import (
     Structure,
-    WinDLL,
     c_char as c_char,
     c_int,
     c_int32,
@@ -34,7 +34,10 @@ from ._mouse_event import (
     _MouseButton,
 )
 
-user32: WinDLL
+if sys.platform == "win32":
+    from ctypes import WinDLL
+
+    user32: WinDLL
 
 class MSLLHOOKSTRUCT(Structure):
     x: c_long

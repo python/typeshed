@@ -1,6 +1,8 @@
 # MacOs: ModuleNotFoundError: No module named 'Quartz'
 keyboard._darwinkeyboard
 keyboard._darwinmouse
+# Exposing a standard type that conflicts with Y024
+keyboard._nixkeyboard.namedtuple
 # Exposing CFunctionType as a Callable
 keyboard._winkeyboard.LowLevelKeyboardProc
 keyboard._winmouse.LowLevelMouseProc
