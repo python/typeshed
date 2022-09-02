@@ -1,5 +1,5 @@
 import sys
-from collections.abc import Callable, Sequence
+from collections.abc import Callable, Iterable
 from ctypes import c_long
 from typing_extensions import Literal, TypeAlias
 
@@ -65,7 +65,7 @@ def unhook(callback: _Callback) -> None: ...
 def unhook_all() -> None: ...
 def record(button: _MouseButton = ..., target_types: tuple[_MouseEventType] = ...) -> _MouseEvent: ...
 def play(
-    events: Sequence[_MouseEvent],
+    events: Iterable[_MouseEvent],
     speed_factor: float = ...,
     include_clicks: bool = ...,
     include_moves: bool = ...,
