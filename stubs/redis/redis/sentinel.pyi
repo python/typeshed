@@ -36,7 +36,7 @@ class SentinelConnectionPool(ConnectionPool):
     def rotate_slaves(self) -> Iterator[_AddressAndPort]: ...
 
 class Sentinel(SentinelCommands):
-    sentinel_kwargs: dict[str, Any | None]
+    sentinel_kwargs: dict[str, Any]
     sentinels: list[Redis[Any]]
     min_other_sentinels: int
     connection_kwargs: dict[str, Any]
@@ -44,7 +44,7 @@ class Sentinel(SentinelCommands):
         self,
         sentinels: Iterable[_AddressAndPort],
         min_other_sentinels: int = ...,
-        sentinel_kwargs: Any | None = ...,
+        sentinel_kwargs: dict[str, Any] | None = ...,
         **connection_kwargs,
     ) -> None: ...
     def check_master_state(self, state: _SentinelState, service_name: str) -> bool: ...
