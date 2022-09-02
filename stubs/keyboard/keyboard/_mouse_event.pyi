@@ -2,7 +2,7 @@ import sys
 from typing import NamedTuple
 from typing_extensions import Literal, TypeAlias
 
-_MouseEvent: TypeAlias = ButtonEvent | WheelEvent | MoveEvent
+_MouseEvent: TypeAlias = ButtonEvent | WheelEvent | MoveEvent  # noqa: Y047  # Used outside
 
 LEFT: Literal["left"]
 RIGHT: Literal["right"]
