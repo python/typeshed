@@ -427,8 +427,7 @@ checker, and leave out unnecessary detail:
 
 Some further tips for good type hints:
 * use built-in generics (`list`, `dict`, `tuple`, `set`), instead
-  of importing them from `typing`, **except** in type aliases, in base classes, and for
-  arbitrary length tuples (`Tuple[int, ...]`);
+  of importing them from `typing`.
 * use `X | Y` instead of `Union[X, Y]` and `X | None`, instead of
   `Optional[X]`, **except** when it is not possible due to mypy bugs (type aliases and base classes);
 * in Python 3 stubs, import collections (`Mapping`, `Iterable`, etc.)
