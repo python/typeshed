@@ -1,7 +1,7 @@
 import sys
 from collections.abc import Callable, Sequence
 from ctypes import c_long
-from typing_extensions import Literal, ParamSpec, TypeAlias
+from typing_extensions import Literal, TypeAlias
 
 from ._generic import GenericListener as _GenericListener
 from ._mouse_event import (
@@ -20,7 +20,9 @@ from ._mouse_event import (
     _MouseEvent,
 )
 
-_P = ParamSpec("_P")
+# Can't use ParamSpecArgs on `args`, only on `*args`
+# _P = ParamSpec("_P")
+_P: TypeAlias = tuple[object, ...]
 _Callback: TypeAlias = Callable[[ButtonEvent | WheelEvent | MoveEvent], bool | None]
 
 class _MouseListener(_GenericListener):
@@ -39,20 +41,16 @@ def right_click() -> None: ...
 def wheel(delta: int = ...) -> None: ...
 def move(x: int | c_long, y: int | c_long, absolute: bool = ..., duration: float = ...) -> None: ...
 def drag(start_x: int, start_y: int, end_x: int, end_y: int, absolute: bool = ..., duration: float = ...) -> None: ...
-
-# TODO: how to make args: _P.args ?
-_P_args: TypeAlias = tuple[object, ...]
-
 def on_button(
-    callback: Callable[_P, None],
-    args: _P_args = ...,
+    callback: Callable[..., None],
+    args: _P = ...,
     buttons: list[_MouseButton] | tuple[_MouseButton, ...] | _MouseButton = ...,
     types: list[_MouseEvent] | tuple[_MouseEvent, ...] | _MouseEvent = ...,
 ) -> _Callback: ...
-def on_click(callback: Callable[_P, None], args: _P_args = ...) -> _Callback: ...
-def on_double_click(callback: Callable[_P, None], args: _P_args = ...) -> _Callback: ...
-def on_right_click(callback: Callable[_P, None], args: _P_args = ...) -> _Callback: ...
-def on_middle_click(callback: Callable[_P, None], args: _P_args = ...) -> _Callback: ...
+def on_click(callback: Callable[..., None], args: _P = ...) -> _Callback: ...
+def on_double_click(callback: Callable[..., None], args: _P = ...) -> _Callback: ...
+def on_right_click(callback: Callable[..., None], args: _P = ...) -> _Callback: ...
+def on_middle_click(callback: Callable[..., None], args: _P = ...) -> _Callback: ...
 def wait(button: _MouseButton = ..., target_types: tuple[_MouseEvent] = ...) -> None: ...
 
 if sys.platform == "win32":
