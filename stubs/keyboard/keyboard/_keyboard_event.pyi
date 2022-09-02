@@ -8,7 +8,7 @@ KEY_UP: Literal["up"]
 
 class KeyboardEvent:
     event_type: Literal["down", "up"] | None
-    scan_code: int | None
+    scan_code: int
     name: str | None
     time: float | None
     device: str | None
@@ -18,7 +18,7 @@ class KeyboardEvent:
     def __init__(
         self,
         event_type: Literal["down", "up"] | None,
-        scan_code: int | None,
+        scan_code: int,
         name: str | None = ...,
         time: float | None = ...,
         device: str | None = ...,
