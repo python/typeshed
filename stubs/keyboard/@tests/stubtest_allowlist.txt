@@ -11,4 +11,5 @@ keyboard._nixkeyboard.namedtuple
 keyboard._winkeyboard
 keyboard._winmouse
 # Defaults don't align with possible values
+keyboard.mouse.on_button
 keyboard.mouse.wait
