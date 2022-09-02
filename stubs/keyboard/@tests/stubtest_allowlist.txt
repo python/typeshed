@@ -5,8 +5,6 @@ keyboard._mouse_tests
 # MacOs: ModuleNotFoundError: No module named 'Quartz'
 keyboard._darwinkeyboard
 keyboard._darwinmouse
-# Exposing a standard type that conflicts with Y024
-keyboard._nixkeyboard.namedtuple
 # Windows: AttributeError: module 'ctypes' has no attribute 'WinDLL'
 keyboard._winkeyboard
 keyboard._winmouse
