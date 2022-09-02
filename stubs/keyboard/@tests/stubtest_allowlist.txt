@@ -1,3 +1,7 @@
+# Tests and __main__
+keyboard.__main__
+keyboard._keyboard_tests
+keyboard._mouse_tests
 # MacOs: ModuleNotFoundError: No module named 'Quartz'
 keyboard._darwinkeyboard
 keyboard._darwinmouse
