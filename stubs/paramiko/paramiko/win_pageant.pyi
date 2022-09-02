@@ -5,7 +5,7 @@ if sys.platform == "win32":
     win32con_WM_COPYDATA: int
     def can_talk_to_agent() -> bool: ...
 
-    ULONG_PTR: ctypes.c_uint64 | ctypes.c_unit32
+    ULONG_PTR: ctypes.c_uint64 | ctypes.c_uint32
 
     class COPYDATASTRUCT(ctypes.Structure): ...
 
