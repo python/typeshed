@@ -2,7 +2,7 @@ from collections.abc import Callable, Iterable
 from typing import TypeVar, Union
 from typing_extensions import TypeAlias
 
-_FormatCheckCallable = typing.Callable[[object], bool]
+_FormatCheckCallable: TypeAlias = Callable[[object], bool]
 _F = TypeVar("_F", bound=_FormatCheckCallable)
 _RaisesType: TypeAlias = Union[type[Exception], tuple[type[Exception], ...]]
 
