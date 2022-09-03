@@ -15,8 +15,15 @@ _ReadBinaryMode: TypeAlias = Literal["r", "rb"]
 _WriteBinaryMode: TypeAlias = Literal["a", "ab", "w", "wb", "x", "xb"]
 _OpenTextMode: TypeAlias = Literal["rt", "at", "wt", "xt"]
 
-READ: Literal[1]
-WRITE: Literal[2]
+READ: Literal[1]  # undocumented
+WRITE: Literal[2]  # undocumented
+
+FTEXT: Literal[1]  # undocumented
+FHCRC: Literal[2]  # undocumented
+FEXTRA: Literal[4]  # undocumented
+FNAME: Literal[8]  # undocumented
+FCOMMENT: Literal[16]  # undocumented
+
 
 class _ReadableFileobj(Protocol):
     def read(self, __n: int) -> bytes: ...
