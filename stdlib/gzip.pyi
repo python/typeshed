@@ -24,7 +24,6 @@ FEXTRA: Literal[4]  # undocumented
 FNAME: Literal[8]  # undocumented
 FCOMMENT: Literal[16]  # undocumented
 
-
 class _ReadableFileobj(Protocol):
     def read(self, __n: int) -> bytes: ...
     def seek(self, __n: int) -> Any: ...
