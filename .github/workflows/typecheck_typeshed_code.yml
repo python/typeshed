@@ -19,6 +19,10 @@ permissions:
 env:
   PIP_DISABLE_PIP_VERSION_CHECK: 1
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
   mypy:
     name: Run mypy against the scripts and tests directories
