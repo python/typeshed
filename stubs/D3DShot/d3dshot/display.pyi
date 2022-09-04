@@ -2,6 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Callable
 from ctypes.wintypes import PFLOAT
 from typing_extensions import Literal, TypeAlias
+
 from PIL import Image
 
 _Frame: TypeAlias = Image.Image | Incomplete

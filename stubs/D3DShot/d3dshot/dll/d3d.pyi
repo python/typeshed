@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
-from ctypes import HRESULT, _CArgObject, Structure, c_int32, c_uint, c_void_p, wintypes
-from typing_extensions import TypeAlias
 from collections.abc import Callable
+from ctypes import HRESULT, Structure, _CArgObject, c_int32, c_uint, c_void_p, wintypes
+from typing_extensions import TypeAlias
 
 from d3dshot.dll.dxgi import IDXGIAdapter
 
