@@ -2,7 +2,6 @@ from typing_extensions import Literal
 
 from ._canonical_names import canonical_names as canonical_names, normalize_name as normalize_name
 
-basestring = str
 KEY_DOWN: Literal["down"]
 KEY_UP: Literal["up"]
 

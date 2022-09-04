@@ -1,6 +1,7 @@
 from collections.abc import Callable
 from queue import Queue
 from threading import Lock, Thread
+from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
 from ._keyboard_event import KeyboardEvent
@@ -9,7 +10,7 @@ from ._mouse_event import _MouseEvent
 _Event: TypeAlias = KeyboardEvent | _MouseEvent
 
 class GenericListener:
-    lock: Lock
+    lock: ClassVar[Lock]
     handlers: list[Callable[[_Event], bool | None]]
     listening: bool
     queue: Queue[_Event]
