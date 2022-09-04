@@ -12,7 +12,6 @@ from d3dshot.dll.d3d import ID3D11Device
 # import comtypes
 # import numpy.typing as npt
 # _IUnknown: TypeAlias = Incomplete
-_STDMETHOD: TypeAlias = Callable[[Callable[[_CData, int], _CArgObject]], None]
 _Frame: TypeAlias = Image.Image | Incomplete
 # _Frame: TypeAlias = Image.Image | npt.NDArray[np.int32] | npt.NDArray[np.float32] | Tensor
 
