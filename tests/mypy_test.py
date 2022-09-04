@@ -151,25 +151,15 @@ def parse_version(v_str: str) -> tuple[int, int]:
     return int(m.group(1)), int(m.group(2))
 
 
-def add_files(files: list[Path], seen: set[str], root: StrPath, name: str, args: TestConfig) -> None:
+def add_files(files: list[Path], seen: set[str], module: Path, args: TestConfig) -> None:
     """Add all files in package or module represented by 'name' located in 'root'."""
-    full = Path(root, name)
-    mod, ext = full.stem, full.suffix
-    if ext in [".pyi", ".py"]:
-        if match(full, args):
-            seen.add(mod)
-            files.append(full)
-    elif (full / "__init__.pyi").is_file() or (full / "__init__.py").is_file():
-        for r, ds, fs in os.walk(full):
-            ds.sort()
-            fs.sort()
-            for f in fs:
-                m, x = os.path.splitext(f)
-                if x in [".pyi", ".py"]:
-                    fn = Path(r, f)
-                    if match(fn, args):
-                        seen.add(mod)
-                        files.append(fn)
+    if module.is_file() and module.suffix == ".pyi":
+        files.append(module)
+        seen.add(module.stem)
+    else:
+        to_add = sorted(module.rglob("*.pyi"))
+        files.extend(to_add)
+        seen.update(to_add)
 
 
 class MypyDistConf(NamedTuple):
@@ -312,10 +302,9 @@ def add_third_party_files(
 
     root = Path("stubs", distribution)
     for name in os.listdir(root):
-        mod = Path(name).stem
-        if mod.startswith("."):
+        if name.startswith("."):
             continue
-        add_files(files, set(), root, name, args)
+        add_files(files, set(), (root / name), args)
         add_configuration(configurations, distribution)
 
 
@@ -363,9 +352,9 @@ def test_stdlib(code: int, args: TestConfig) -> TestResults:
     for name in os.listdir(stdlib):
         if name == "VERSIONS" or name.startswith("."):
             continue
-        mod = Path(name).stem
-        if supported_versions[mod][0] <= (args.major, args.minor) <= supported_versions[mod][1]:
-            add_files(files, seen, stdlib, name, args)
+        module = Path(name).stem
+        if supported_versions[module][0] <= (args.major, args.minor) <= supported_versions[module][1]:
+            add_files(files, seen, (stdlib / name), args)
 
     if files:
         print(f"Testing stdlib ({len(files)} files)...")
