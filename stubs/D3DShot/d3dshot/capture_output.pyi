@@ -1,6 +1,6 @@
-from ctypes import _CVoidConstPLike
 import enum
 from _typeshed import Incomplete
+from ctypes import _CVoidConstPLike
 from typing_extensions import TypeAlias
 
 from PIL import Image

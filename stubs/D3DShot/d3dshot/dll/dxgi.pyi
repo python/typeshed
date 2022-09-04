@@ -1,10 +1,11 @@
 from _typeshed import Incomplete
 from collections.abc import Callable
-from ctypes import HRESULT, _CArgObject, _CData, Array, Structure, c_uint, c_ulong, wintypes
+from ctypes import HRESULT, Array, Structure, _CArgObject, _CData, c_uint, c_ulong, wintypes
 from typing import TypedDict
 from typing_extensions import TypeAlias
-from PIL import Image
+
 from d3dshot.dll.d3d import ID3D11Device
+from PIL import Image
 
 # TODO: Complete types once we can import non-types dependencies
 # See: https://github.com/python/typeshed/issues/5768
