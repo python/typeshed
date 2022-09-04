@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from collections import deque
+from typing import Any
 from typing_extensions import TypeAlias
 
 from d3dshot.capture_output import CaptureOutput as CaptureOutput, CaptureOutputs as CaptureOutputs
@@ -7,6 +8,9 @@ from d3dshot.display import Display as Display
 
 _Frame: TypeAlias = Incomplete
 # _Frame: TypeAlias = Image.Image | npt.NDArray[np.int32] | npt.NDArray[np.float32] | _Tensor
+
+class Singleton(type):
+    def __call__(cls, *args: Any, **kwargs: Any) -> Any: ...
 
 class D3DShot:
     displays: list[Display]

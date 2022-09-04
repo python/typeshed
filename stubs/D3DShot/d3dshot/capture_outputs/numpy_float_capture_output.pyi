@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import TypeAlias
 
-from d3dshot.capture_output import CaptureOutput as CaptureOutput
+from d3dshot.capture_output import CaptureOutput
 from PIL import Image
 
 # TODO: Complete types once we can import non-types dependencies
@@ -9,13 +9,13 @@ from PIL import Image
 # import numpy as np
 # import numpy.typing as npt
 # NDArray: TypeAlias = npt.NDArray[np.float32]
-NDArray: TypeAlias = Incomplete
+_NDArray: TypeAlias = Incomplete
 _Pointer: TypeAlias = Incomplete
 
 class NumpyFloatCaptureOutput(CaptureOutput):
     def __init__(self) -> None: ...
     def process(
-        self, pointer: _Pointer, size: int, width: int, height: int, region: tuple[int, int, int, int], rotation: int
-    ) -> NDArray: ...
-    def to_pil(self, frame: NDArray) -> Image.Image: ...
-    def stack(self, frames: list[NDArray] | NDArray, stack_dimension: int) -> NDArray: ...
+        self, pointer: _Pointer, pitch: int, size: int, width: int, height: int, region: tuple[int, int, int, int], rotation: int
+    ) -> _NDArray: ...
+    def to_pil(self, frame: _NDArray) -> Image.Image: ...
+    def stack(self, frames: list[_NDArray] | _NDArray, stack_dimension: int) -> _NDArray: ...

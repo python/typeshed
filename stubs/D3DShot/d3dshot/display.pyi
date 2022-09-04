@@ -36,9 +36,8 @@ class Display:
     ) -> None: ...
     def capture(
         self,
-        # Incomplete: dxgi_mapped_rect.pBits
         process_func: Callable[[_Pointer, int, int, int, tuple[int, int, int, int], int], _Frame | None] | None,
-        region: tuple[int, int, int, int] = ...,
+        region: tuple[int, int, int, int] | None = ...,
     ) -> _Frame: ...
     @classmethod
     def discover_displays(cls) -> list[Display]: ...
