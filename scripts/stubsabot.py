@@ -330,13 +330,15 @@ async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession
             If stubtest fails for this PR:
             - Leave this PR open (as a reminder, and to prevent stubsabot from opening another PR)
             - Fix stubtest failures in another PR, then close this PR
+            
+            Note that you will need to close and re-open the PR in order to trigger CI
             """
         )
     else:
         body += textwrap.dedent(
             f"""
 
-            :warning: Review this PR carefully, as stubtest is SKIPPED in CI for {update.distribution}! :warning:
+            :warning: Review this PR manually, as stubtest is skipped in CI for {update.distribution}! :warning:
             """
         )
 
