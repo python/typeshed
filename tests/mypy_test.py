@@ -159,7 +159,7 @@ def add_files(files: list[Path], seen: set[str], module: Path, args: TestConfig)
     else:
         to_add = sorted(module.rglob("*.pyi"))
         files.extend(to_add)
-        seen.update(to_add)
+        seen.update(path.stem for path in to_add)
 
 
 class MypyDistConf(NamedTuple):
@@ -344,8 +344,7 @@ def is_probably_stubs_folder(distribution: str, distribution_path: Path) -> bool
 
 
 def test_stdlib(code: int, args: TestConfig) -> TestResults:
-    seen = {"__builtin__", "builtins", "typing"}  # Always ignore these.
-
+    seen = {"builtins", "typing"}  # Always ignore these.
     files: list[Path] = []
     stdlib = Path("stdlib")
     supported_versions = parse_versions(stdlib / "VERSIONS")
