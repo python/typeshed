@@ -20,6 +20,7 @@ extra_standard_library = [
     "_collections_abc",
     "_compression",
     "_csv",
+    "_ctypes",
     "_curses",
     "_heapq",
     "_markupbase",

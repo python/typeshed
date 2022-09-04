@@ -102,7 +102,8 @@ black .
 ...Or install the pre-commit hooks: please refer to the
 [pre-commit](https://pre-commit.com/) documentation.
 
-Our code is also linted using `flake8`, with plugins `flake8-pyi` and `flake8-bugbear`. As with our other checks, running
+Our code is also linted using `flake8`, with plugins `flake8-pyi`,
+`flake8-bugbear`, and `flake8-noqa`. As with our other checks, running
 flake8 before filing a PR is not required. However, if you wish to run flake8
 locally, install the test dependencies as outlined above, and then run:
 
@@ -426,8 +427,7 @@ checker, and leave out unnecessary detail:
 
 Some further tips for good type hints:
 * use built-in generics (`list`, `dict`, `tuple`, `set`), instead
-  of importing them from `typing`, **except** in type aliases, in base classes, and for
-  arbitrary length tuples (`Tuple[int, ...]`);
+  of importing them from `typing`.
 * use `X | Y` instead of `Union[X, Y]` and `X | None`, instead of
   `Optional[X]`, **except** when it is not possible due to mypy bugs (type aliases and base classes);
 * in Python 3 stubs, import collections (`Mapping`, `Iterable`, etc.)
