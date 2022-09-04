@@ -44,6 +44,13 @@ class ActionLevel(enum.IntEnum):
         member.__doc__ = doc
         return member
 
+    @classmethod
+    def from_cmd_arg(cls, cmd_arg: str) -> ActionLevel:
+        try:
+            return cls[cmd_arg]
+        except KeyError:
+            raise argparse.ArgumentTypeError(f'Argument must be one of "{list(cls.__members__)}"')
+
     nothing = 0, "make no changes"
     local = 1, "make changes that affect local repo"
     fork = 2, "make changes that affect remote repo, but won't open PRs against upstream"
@@ -376,7 +383,7 @@ async def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--action-level",
-        type=lambda x: getattr(ActionLevel, x),  # type: ignore[no-any-return]
+        type=ActionLevel.from_cmd_arg,
         default=ActionLevel.everything,
         help="Limit actions performed to achieve dry runs for different levels of dryness",
     )
