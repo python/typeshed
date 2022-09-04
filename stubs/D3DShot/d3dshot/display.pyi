@@ -1,10 +1,11 @@
 from _typeshed import Incomplete
 from collections.abc import Callable
+from ctypes.wintypes import PFLOAT
 from typing_extensions import Literal, TypeAlias
+from PIL import Image
 
-_Frame: TypeAlias = Incomplete
+_Frame: TypeAlias = Image.Image | Incomplete
 # _Frame: TypeAlias = Image.Image | npt.NDArray[np.int32] | npt.NDArray[np.float32] | _Tensor
-_Pointer: TypeAlias = Incomplete
 
 class Display:
     name: str
@@ -17,9 +18,9 @@ class Display:
     hmonitor: int
     dxgi_output: Incomplete | None
     dxgi_adapter: Incomplete | None
-    d3d_device: Incomplete  # ctypes.POINTER(ID3D11Device)()
-    d3d_device_context: Incomplete  # ctypes.POINTER(ID3D11DeviceContext)()
-    dxgi_output_duplication: Incomplete  # ctypes.POINTER(IDXGIOutputDuplication)()
+    d3d_device: Incomplete
+    d3d_device_context: Incomplete
+    dxgi_output_duplication: Incomplete
 
     def __init__(
         self,
@@ -36,7 +37,7 @@ class Display:
     ) -> None: ...
     def capture(
         self,
-        process_func: Callable[[_Pointer, int, int, int, tuple[int, int, int, int], int], _Frame | None] | None,
+        process_func: Callable[[PFLOAT, int, int, int, tuple[int, int, int, int], int], _Frame | None] | None,
         region: tuple[int, int, int, int] | None = ...,
     ) -> _Frame: ...
     @classmethod

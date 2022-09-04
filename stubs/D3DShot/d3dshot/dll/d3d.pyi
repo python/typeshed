@@ -1,14 +1,14 @@
 from _typeshed import Incomplete
-from ctypes import HRESULT, Structure, c_int32, c_uint, wintypes
+from ctypes import HRESULT, _CArgObject, Structure, c_int32, c_uint, c_void_p, wintypes
 from typing_extensions import TypeAlias
 from collections.abc import Callable
+
+from d3dshot.dll.dxgi import IDXGIAdapter
 
 # TODO: Complete types once we can import non-types dependencies
 # See: https://github.com/python/typeshed/issues/5768
 # import comtypes
 _IUnknown: TypeAlias = Incomplete
-
-_Pointer: TypeAlias = Incomplete
 
 class DXGI_SAMPLE_DESC(Structure):
     Count: wintypes.UINT
@@ -46,7 +46,7 @@ class ID3D11Resource(ID3D11DeviceChild):
     GetEvictionPriority: Callable[[], wintypes.UINT]
 
 class ID3D11Texture2D(ID3D11Resource):
-    GetDesc: Callable[[_Pointer], None]
+    GetDesc: Callable[[D3D11_TEXTURE2D_DESC], None]
 
 class ID3D11DeviceContext(ID3D11DeviceChild):
     VSSetConstantBuffers: Callable[[], None]
@@ -89,9 +89,10 @@ class ID3D11DeviceContext(ID3D11DeviceChild):
     RSSetViewports: Callable[[], None]
     RSSetScissorRects: Callable[[], None]
     CopySubresourceRegion: Callable[
-        [_Pointer, wintypes.UINT, wintypes.UINT, wintypes.UINT, wintypes.UINT, _Pointer, wintypes.UINT, _Pointer], None
+        [ID3D11Resource, wintypes.UINT, wintypes.UINT, wintypes.UINT, wintypes.UINT, ID3D11Resource, wintypes.UINT, D3D11_BOX],
+        None,
     ]
-    CopyResource: Callable[[_Pointer, _Pointer], None]
+    CopyResource: Callable[[ID3D11Resource, ID3D11Resource], None]
     UpdateSubresource: Callable[[], None]
     CopyStructureCount: Callable[[], None]
     ClearRenderTargetView: Callable[[], None]
@@ -163,7 +164,7 @@ class ID3D11DeviceContext(ID3D11DeviceChild):
 class ID3D11Device(_IUnknown):
     CreateBuffer: Callable[[], HRESULT]
     CreateTexture1D: Callable[[], HRESULT]
-    CreateTexture2D: Callable[[_Pointer, _Pointer, _Pointer], HRESULT]
+    CreateTexture2D: Callable[[D3D11_TEXTURE2D_DESC, c_void_p, _CArgObject], HRESULT]
     CreateTexture3D: Callable[[], HRESULT]
     CreateShaderResourceView: Callable[[], HRESULT]
     CreateUnorderedAccessView: Callable[[], HRESULT]
@@ -198,10 +199,10 @@ class ID3D11Device(_IUnknown):
     GetFeatureLevel: Callable[[], c_int32]
     GetCreationFlags: Callable[[], c_uint]
     GetDeviceRemovedReason: Callable[[], HRESULT]
-    GetImmediateContext: Callable[[_Pointer], None]
+    GetImmediateContext: Callable[[_CArgObject], None]
     SetExceptionMode: Callable[[], HRESULT]
     GetExceptionMode: Callable[[], c_uint]
 
-def initialize_d3d_device(dxgi_adapter: _Pointer) -> tuple[_Pointer, _Pointer]: ...
-def describe_d3d11_texture_2d(d3d11_texture_2d: _Pointer) -> D3D11_TEXTURE2D_DESC: ...
-def prepare_d3d11_texture_2d_for_cpu(d3d11_texture_2d: _Pointer, d3d_device: _Pointer) -> _Pointer: ...
+def initialize_d3d_device(dxgi_adapter: IDXGIAdapter) -> tuple[ID3D11Device, ID3D11DeviceContext]: ...
+def describe_d3d11_texture_2d(d3d11_texture_2d: ID3D11Texture2D) -> D3D11_TEXTURE2D_DESC: ...
+def prepare_d3d11_texture_2d_for_cpu(d3d11_texture_2d: ID3D11Texture2D, d3d_device: ID3D11Device) -> ID3D11Texture2D: ...
