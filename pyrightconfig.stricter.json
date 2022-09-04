@@ -3,8 +3,7 @@
     "typeshedPath": ".",
     "include": [
         "stdlib",
-        "stubs",
-        "test_cases"
+        "stubs"
     ],
     "exclude": [
         "stdlib/distutils/command",

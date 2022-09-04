@@ -40,11 +40,8 @@ mypy's
 setting and pyright's
 [`reportUnnecessaryTypeIgnoreComment`](https://github.com/microsoft/pyright/blob/main/docs/configuration.md#type-check-diagnostics-settings)
 setting) to test instances where a type checker *should* emit some kind of
-error, if the stubs are correct. Note that mypy's `--warn-unused-ignores`
-setting is enabled for the entire subdirectory; however, the pyright setting
-must be enabled on a per-file basis with
-`# pyright: reportUnnecessaryTypeIgnoreComment=true` at the the top of the
-file.
+error, if the stubs are correct. Both settings are enabled by default for the entire
+subdirectory.
 
 For more information on using `assert_type` and
 `--warn-unused-ignores`/`reportUnnecessaryTypeIgnoreComment` to test type
