@@ -1,7 +1,7 @@
 ## Regression tests for typeshed
 
 This directory contains code samples that act as a regression test for the
-standard-library stubs found elsewhere in the typeshed repo.
+standard library stubs found elsewhere in the typeshed repo.
 
 **This directory should *only* contain test cases for functions and classes which
 are known to have caused problems in the past, where the stubs are difficult to
