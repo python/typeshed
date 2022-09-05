@@ -1,0 +1,6 @@
+version = "5.3.*"
+requires = ["types-setuptools"]
+
+[tool.stubtest]
+# Most modules are not meant to be used, yet are not marked as private
+ignore_missing_stub = true
