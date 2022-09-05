@@ -26,7 +26,7 @@ false-positive errors for idiomatic usage of these classes.
 
 ### How the tests work
 
-The code in this directory are not intended to be directly executed. Instead,
+The code in this directory is not intended to be directly executed. Instead,
 type checkers are run on the code, in order to check whether typing errors are
 emitted at the places where we want them to be.
 
