@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from ctypes import _CVoidConstPLike
-from typing_extensions import TypeAlias, Literal
+from typing_extensions import Literal, TypeAlias
 
 from d3dshot.capture_output import CaptureOutput
 from PIL import Image
