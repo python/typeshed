@@ -50,6 +50,7 @@
         "stubs/invoke",
         "stubs/jmespath",
         "stubs/jsonschema",
+        "stubs/keyboard",
         "stubs/ldap3",
         "stubs/Markdown",
         "stubs/mock",
