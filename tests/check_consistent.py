@@ -59,9 +59,9 @@ def check_stubs() -> None:
 
 def check_test_cases() -> None:
     assert_consistent_filetypes(Path("test_cases"), kind=".py", allowed={"README.md"})
-    bad_test_case_filename = 'Files in the `test_cases` directory must have names starting with "test_"; got "{}"'
+    bad_test_case_filename = 'Files in the `test_cases` directory must have names starting with "check_"; got "{}"'
     for file in Path("test_cases").rglob("*.py"):
-        assert file.stem.startswith("test_"), bad_test_case_filename.format(file)
+        assert file.stem.startswith("check_"), bad_test_case_filename.format(file)
 
 
 def check_no_symlinks() -> None:
