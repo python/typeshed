@@ -41,54 +41,6 @@ def locate(
     step: int = ...,
     confidence: SupportsFloat = ...,
 ) -> _Box | None: ...
-@overload
-def locateAll(
-    needleImage: str | _Mat,
-    haystackImage: str | _Mat,
-    grayscale: bool | None = ...,
-    limit: int = ...,
-    region: _Box | None = ...,
-    step: int = ...,
-    confidence: SupportsFloat = ...,
-) -> Generator[_Box, None, None]: ...
-@overload
-def locateAllOnScreen(
-    image: str | _Mat,
-    grayscale: bool | None = ...,
-    limit: int = ...,
-    region: _Box | None = ...,
-    step: int = ...,
-    confidence: SupportsFloat = ...,
-) -> Generator[_Box, None, None]: ...
-@overload
-def locateCenterOnScreen(
-    image: str | _Mat,
-    minSearchTime: float,
-    grayscale: bool | None = ...,
-    limit: object | None = ...,
-    region: _Box | None = ...,
-    step: int = ...,
-    confidence: SupportsFloat = ...,
-) -> Point | None: ...
-@overload
-def locateOnScreen(
-    image: str | _Mat,
-    minSearchTime: float,
-    grayscale: bool | None = ...,
-    limit: object | None = ...,
-    region: _Box | None = ...,
-    step: int = ...,
-    confidence: SupportsFloat = ...,
-) -> _Box | None: ...
-@overload
-def locateOnWindow(
-    image: str | _Mat,
-    title: str,
-    grayscale: bool | None = ...,
-    limit: object | None = ...,
-    step: int = ...,
-    confidence: SupportsFloat = ...,
-) -> _Box | None: ...
 
 # _locateAll_python / _locateAll_pillow
 @overload
@@ -101,6 +53,20 @@ def locate(
     step: int = ...,
     confidence: None = ...,
 ) -> _Box | None: ...
+
+# _locateAll_opencv
+@overload
+def locateAll(
+    needleImage: str | _Mat,
+    haystackImage: str | _Mat,
+    grayscale: bool | None = ...,
+    limit: int = ...,
+    region: _Box | None = ...,
+    step: int = ...,
+    confidence: SupportsFloat = ...,
+) -> Generator[_Box, None, None]: ...
+
+# _locateAll_python / _locateAll_pillow
 @overload
 def locateAll(
     needleImage: str | Image.Image,
@@ -111,6 +77,19 @@ def locateAll(
     step: int = ...,
     confidence: None = ...,
 ) -> Generator[_Box, None, None]: ...
+
+# _locateAll_opencv
+@overload
+def locateAllOnScreen(
+    image: str | _Mat,
+    grayscale: bool | None = ...,
+    limit: int = ...,
+    region: _Box | None = ...,
+    step: int = ...,
+    confidence: SupportsFloat = ...,
+) -> Generator[_Box, None, None]: ...
+
+# _locateAll_python / _locateAll_pillow
 @overload
 def locateAllOnScreen(
     image: str | Image.Image,
@@ -120,6 +99,20 @@ def locateAllOnScreen(
     step: int = ...,
     confidence: None = ...,
 ) -> Generator[_Box, None, None]: ...
+
+# _locateAll_opencv
+@overload
+def locateCenterOnScreen(
+    image: str | _Mat,
+    minSearchTime: float,
+    grayscale: bool | None = ...,
+    limit: object | None = ...,
+    region: _Box | None = ...,
+    step: int = ...,
+    confidence: SupportsFloat = ...,
+) -> Point | None: ...
+
+# _locateAll_python / _locateAll_pillow
 @overload
 def locateCenterOnScreen(
     image: str | Image.Image,
@@ -130,6 +123,20 @@ def locateCenterOnScreen(
     step: int = ...,
     confidence: None = ...,
 ) -> Point | None: ...
+
+# _locateAll_opencv
+@overload
+def locateOnScreen(
+    image: str | _Mat,
+    minSearchTime: float,
+    grayscale: bool | None = ...,
+    limit: object | None = ...,
+    region: _Box | None = ...,
+    step: int = ...,
+    confidence: SupportsFloat = ...,
+) -> _Box | None: ...
+
+# _locateAll_python / _locateAll_pillow
 @overload
 def locateOnScreen(
     image: str | Image.Image,
@@ -140,6 +147,19 @@ def locateOnScreen(
     step: int = ...,
     confidence: None = ...,
 ) -> _Box | None: ...
+
+# _locateAll_opencv
+@overload
+def locateOnWindow(
+    image: str | _Mat,
+    title: str,
+    grayscale: bool | None = ...,
+    limit: object | None = ...,
+    step: int = ...,
+    confidence: SupportsFloat = ...,
+) -> _Box | None: ...
+
+# _locateAll_python / _locateAll_pillow
 @overload
 def locateOnWindow(
     image: str | Image.Image,
