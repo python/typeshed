@@ -33,8 +33,8 @@ def raisePyAutoGUIImageNotFoundException(wrappedFunction: Callable[_P, _R]) -> C
 # _locateAll_opencv
 @overload
 def locate(
-    needleImage,
-    haystackImage,
+    needleImage: str | _Mat,
+    haystackImage: str | _Mat,
     grayscale: bool | None = ...,
     limit: object | None = ...,
     region: _Box | None = ...,
@@ -45,8 +45,8 @@ def locate(
 # _locateAll_python / _locateAll_pillow
 @overload
 def locate(
-    needleImage,
-    haystackImage,
+    needleImage: str | Image.Image,
+    haystackImage: str | Image.Image,
     grayscale: bool | None = ...,
     limit: object | None = ...,
     region: _Box | None = ...,
