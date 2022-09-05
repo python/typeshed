@@ -1,9 +1,20 @@
+import sys
 from _typeshed import Incomplete
 from collections.abc import Callable
-from ctypes import HRESULT, Structure, _CArgObject, c_int32, c_uint, c_void_p, wintypes
+from ctypes import Structure, _CArgObject, c_int32, c_uint, c_void_p, wintypes
 from typing_extensions import TypeAlias
 
 from d3dshot.dll.dxgi import IDXGIAdapter
+
+# mypy does not support os.name checks, while pyright does https://github.com/python/mypy/issues/13002
+# import os
+# if os.name == "nt":  # noqa: Y002
+if sys.platform == "win32":
+    from ctypes import HRESULT
+
+    _HRESULT: TypeAlias = HRESULT
+else:
+    _HRESULT: TypeAlias = Incomplete
 
 # TODO: Complete types once we can import non-types dependencies
 # See: https://github.com/python/typeshed/issues/5768
@@ -36,9 +47,9 @@ class D3D11_TEXTURE2D_DESC(Structure):
 
 class ID3D11DeviceChild(_IUnknown):
     GetDevice: Callable[[], None]
-    GetPrivateData: Callable[[], HRESULT]
-    SetPrivateData: Callable[[], HRESULT]
-    SetPrivateDataInterface: Callable[[], HRESULT]
+    GetPrivateData: Callable[[], _HRESULT]
+    SetPrivateData: Callable[[], _HRESULT]
+    SetPrivateDataInterface: Callable[[], _HRESULT]
 
 class ID3D11Resource(ID3D11DeviceChild):
     GetType: Callable[[], None]
@@ -56,7 +67,7 @@ class ID3D11DeviceContext(ID3D11DeviceChild):
     VSSetShader: Callable[[], None]
     DrawIndexed: Callable[[], None]
     Draw: Callable[[], None]
-    Map: Callable[[], HRESULT]
+    Map: Callable[[], _HRESULT]
     Unmap: Callable[[], None]
     PSSetConstantBuffers: Callable[[], None]
     IASetInputLayout: Callable[[], None]
@@ -71,7 +82,7 @@ class ID3D11DeviceContext(ID3D11DeviceChild):
     VSSetSamplers: Callable[[], None]
     Begin: Callable[[], None]
     End: Callable[[], None]
-    GetData: Callable[[], HRESULT]
+    GetData: Callable[[], _HRESULT]
     SetPredication: Callable[[], None]
     GSSetShaderResources: Callable[[], None]
     GSSetSamplers: Callable[[], None]
@@ -159,48 +170,48 @@ class ID3D11DeviceContext(ID3D11DeviceChild):
     Flush: Callable[[], None]
     GetType: Callable[[], None]
     GetContextFlags: Callable[[], wintypes.UINT]
-    FinishCommandList: Callable[[], HRESULT]
+    FinishCommandList: Callable[[], _HRESULT]
 
 class ID3D11Device(_IUnknown):
-    CreateBuffer: Callable[[], HRESULT]
-    CreateTexture1D: Callable[[], HRESULT]
-    CreateTexture2D: Callable[[D3D11_TEXTURE2D_DESC, c_void_p, _CArgObject], HRESULT]
-    CreateTexture3D: Callable[[], HRESULT]
-    CreateShaderResourceView: Callable[[], HRESULT]
-    CreateUnorderedAccessView: Callable[[], HRESULT]
-    CreateRenderTargetView: Callable[[], HRESULT]
-    CreateDepthStencilView: Callable[[], HRESULT]
-    CreateInputLayout: Callable[[], HRESULT]
-    CreateVertexShader: Callable[[], HRESULT]
-    CreateGeometryShader: Callable[[], HRESULT]
-    CreateGeometryShaderWithStreamOutput: Callable[[], HRESULT]
-    CreatePixelShader: Callable[[], HRESULT]
-    CreateHullShader: Callable[[], HRESULT]
-    CreateDomainShader: Callable[[], HRESULT]
-    CreateComputeShader: Callable[[], HRESULT]
-    CreateClassLinkage: Callable[[], HRESULT]
-    CreateBlendState: Callable[[], HRESULT]
-    CreateDepthStencilState: Callable[[], HRESULT]
-    CreateRasterizerState: Callable[[], HRESULT]
-    CreateSamplerState: Callable[[], HRESULT]
-    CreateQuery: Callable[[], HRESULT]
-    CreatePredicate: Callable[[], HRESULT]
-    CreateCounter: Callable[[], HRESULT]
-    CreateDeferredContext: Callable[[], HRESULT]
-    OpenSharedResource: Callable[[], HRESULT]
-    CheckFormatSupport: Callable[[], HRESULT]
-    CheckMultisampleQualityLevels: Callable[[], HRESULT]
-    CheckCounterInfo: Callable[[], HRESULT]
-    CheckCounter: Callable[[], HRESULT]
-    CheckFeatureSupport: Callable[[], HRESULT]
-    GetPrivateData: Callable[[], HRESULT]
-    SetPrivateData: Callable[[], HRESULT]
-    SetPrivateDataInterface: Callable[[], HRESULT]
+    CreateBuffer: Callable[[], _HRESULT]
+    CreateTexture1D: Callable[[], _HRESULT]
+    CreateTexture2D: Callable[[D3D11_TEXTURE2D_DESC, c_void_p, _CArgObject], _HRESULT]
+    CreateTexture3D: Callable[[], _HRESULT]
+    CreateShaderResourceView: Callable[[], _HRESULT]
+    CreateUnorderedAccessView: Callable[[], _HRESULT]
+    CreateRenderTargetView: Callable[[], _HRESULT]
+    CreateDepthStencilView: Callable[[], _HRESULT]
+    CreateInputLayout: Callable[[], _HRESULT]
+    CreateVertexShader: Callable[[], _HRESULT]
+    CreateGeometryShader: Callable[[], _HRESULT]
+    CreateGeometryShaderWithStreamOutput: Callable[[], _HRESULT]
+    CreatePixelShader: Callable[[], _HRESULT]
+    CreateHullShader: Callable[[], _HRESULT]
+    CreateDomainShader: Callable[[], _HRESULT]
+    CreateComputeShader: Callable[[], _HRESULT]
+    CreateClassLinkage: Callable[[], _HRESULT]
+    CreateBlendState: Callable[[], _HRESULT]
+    CreateDepthStencilState: Callable[[], _HRESULT]
+    CreateRasterizerState: Callable[[], _HRESULT]
+    CreateSamplerState: Callable[[], _HRESULT]
+    CreateQuery: Callable[[], _HRESULT]
+    CreatePredicate: Callable[[], _HRESULT]
+    CreateCounter: Callable[[], _HRESULT]
+    CreateDeferredContext: Callable[[], _HRESULT]
+    OpenSharedResource: Callable[[], _HRESULT]
+    CheckFormatSupport: Callable[[], _HRESULT]
+    CheckMultisampleQualityLevels: Callable[[], _HRESULT]
+    CheckCounterInfo: Callable[[], _HRESULT]
+    CheckCounter: Callable[[], _HRESULT]
+    CheckFeatureSupport: Callable[[], _HRESULT]
+    GetPrivateData: Callable[[], _HRESULT]
+    SetPrivateData: Callable[[], _HRESULT]
+    SetPrivateDataInterface: Callable[[], _HRESULT]
     GetFeatureLevel: Callable[[], c_int32]
     GetCreationFlags: Callable[[], c_uint]
-    GetDeviceRemovedReason: Callable[[], HRESULT]
+    GetDeviceRemovedReason: Callable[[], _HRESULT]
     GetImmediateContext: Callable[[_CArgObject], None]
-    SetExceptionMode: Callable[[], HRESULT]
+    SetExceptionMode: Callable[[], _HRESULT]
     GetExceptionMode: Callable[[], c_uint]
 
 def initialize_d3d_device(dxgi_adapter: IDXGIAdapter) -> tuple[ID3D11Device, ID3D11DeviceContext]: ...

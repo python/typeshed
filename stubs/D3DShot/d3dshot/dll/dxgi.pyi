@@ -1,6 +1,7 @@
+import sys
 from _typeshed import Incomplete
 from collections.abc import Callable
-from ctypes import HRESULT, Array, Structure, _CArgObject, _CData, c_uint, c_ulong, wintypes
+from ctypes import Array, Structure, _CArgObject, _CData, c_uint, c_ulong, wintypes
 from typing import TypedDict
 from typing_extensions import TypeAlias
 
@@ -16,8 +17,18 @@ from PIL import Image
 _Frame: TypeAlias = Image.Image | Incomplete
 # _Frame: TypeAlias = Image.Image | npt.NDArray[np.int32] | npt.NDArray[np.float32] | Tensor
 
+# mypy does not support os.name checks, while pyright does https://github.com/python/mypy/issues/13002
+# import os
+# if os.name == "nt":  # noqa: Y002
+if sys.platform == "win32":
+    from ctypes import HRESULT
+
+    _HRESULT: TypeAlias = HRESULT
+else:
+    _HRESULT: TypeAlias = Incomplete
+
 class _IUnknown:  # From comtypes.IUnknown
-    def QueryInterface(self, interface: type, iid: _CData | None = ...) -> HRESULT: ...
+    def QueryInterface(self, interface: type, iid: _CData | None = ...) -> _HRESULT: ...
     def AddRef(self) -> c_ulong: ...
     def Release(self) -> c_ulong: ...
 
@@ -76,72 +87,72 @@ class DXGI_MAPPED_RECT(Structure):
     pBits: wintypes.PFLOAT
 
 class IDXGIObject(_IUnknown):
-    SetPrivateData: Callable[[], HRESULT]
-    SetPrivateDataInterface: Callable[[], HRESULT]
-    GetPrivateData: Callable[[], HRESULT]
-    GetParent: Callable[[], HRESULT]
+    SetPrivateData: Callable[[], _HRESULT]
+    SetPrivateDataInterface: Callable[[], _HRESULT]
+    GetPrivateData: Callable[[], _HRESULT]
+    GetParent: Callable[[], _HRESULT]
 
 class IDXGIDeviceSubObject(IDXGIObject):
-    GetDevice: Callable[[], HRESULT]
+    GetDevice: Callable[[], _HRESULT]
 
 class IDXGIResource(IDXGIDeviceSubObject):
-    GetSharedHandle: Callable[[], HRESULT]
-    GetUsage: Callable[[], HRESULT]
-    SetEvictionPriority: Callable[[], HRESULT]
-    GetEvictionPriority: Callable[[], HRESULT]
+    GetSharedHandle: Callable[[], _HRESULT]
+    GetUsage: Callable[[], _HRESULT]
+    SetEvictionPriority: Callable[[], _HRESULT]
+    GetEvictionPriority: Callable[[], _HRESULT]
 
 class IDXGISurface(IDXGIDeviceSubObject):
-    GetDesc: Callable[[], HRESULT]
-    Map: Callable[[DXGI_MAPPED_RECT, wintypes.UINT], HRESULT]
-    Unmap: Callable[[], HRESULT]
+    GetDesc: Callable[[], _HRESULT]
+    Map: Callable[[DXGI_MAPPED_RECT, wintypes.UINT], _HRESULT]
+    Unmap: Callable[[], _HRESULT]
 
 class IDXGIOutputDuplication(IDXGIObject):
     GetDesc: Callable[[], None]
-    AcquireNextFrame: Callable[[wintypes.UINT, DXGI_OUTDUPL_FRAME_INFO, _CArgObject], HRESULT]
-    GetFrameDirtyRects: Callable[[], HRESULT]
-    GetFrameMoveRects: Callable[[], HRESULT]
-    GetFramePointerShape: Callable[[], HRESULT]
-    MapDesktopSurface: Callable[[], HRESULT]
-    UnMapDesktopSurface: Callable[[], HRESULT]
-    ReleaseFrame: Callable[[], HRESULT]
+    AcquireNextFrame: Callable[[wintypes.UINT, DXGI_OUTDUPL_FRAME_INFO, _CArgObject], _HRESULT]
+    GetFrameDirtyRects: Callable[[], _HRESULT]
+    GetFrameMoveRects: Callable[[], _HRESULT]
+    GetFramePointerShape: Callable[[], _HRESULT]
+    MapDesktopSurface: Callable[[], _HRESULT]
+    UnMapDesktopSurface: Callable[[], _HRESULT]
+    ReleaseFrame: Callable[[], _HRESULT]
 
 class IDXGIOutput(IDXGIObject):
-    GetDesc: Callable[[DXGI_OUTPUT_DESC], HRESULT]
-    GetDisplayModeList: Callable[[], HRESULT]
-    FindClosestMatchingMode: Callable[[], HRESULT]
-    WaitForVBlank: Callable[[], HRESULT]
-    TakeOwnership: Callable[[], HRESULT]
+    GetDesc: Callable[[DXGI_OUTPUT_DESC], _HRESULT]
+    GetDisplayModeList: Callable[[], _HRESULT]
+    FindClosestMatchingMode: Callable[[], _HRESULT]
+    WaitForVBlank: Callable[[], _HRESULT]
+    TakeOwnership: Callable[[], _HRESULT]
     ReleaseOwnership: Callable[[], None]
-    GetGammaControlCapabilities: Callable[[], HRESULT]
-    SetGammaControl: Callable[[], HRESULT]
-    GetGammaControl: Callable[[], HRESULT]
-    SetDisplaySurface: Callable[[], HRESULT]
-    GetDisplaySurfaceData: Callable[[], HRESULT]
-    GetFrameStatistics: Callable[[], HRESULT]
+    GetGammaControlCapabilities: Callable[[], _HRESULT]
+    SetGammaControl: Callable[[], _HRESULT]
+    GetGammaControl: Callable[[], _HRESULT]
+    SetDisplaySurface: Callable[[], _HRESULT]
+    GetDisplaySurfaceData: Callable[[], _HRESULT]
+    GetFrameStatistics: Callable[[], _HRESULT]
 
 class IDXGIOutput1(IDXGIOutput):
-    GetDisplayModeList1: Callable[[], HRESULT]
-    FindClosestMatchingMode1: Callable[[], HRESULT]
-    GetDisplaySurfaceData1: Callable[[], HRESULT]
-    DuplicateOutput: Callable[[ID3D11Device, _CArgObject], HRESULT]
+    GetDisplayModeList1: Callable[[], _HRESULT]
+    FindClosestMatchingMode1: Callable[[], _HRESULT]
+    GetDisplaySurfaceData1: Callable[[], _HRESULT]
+    DuplicateOutput: Callable[[ID3D11Device, _CArgObject], _HRESULT]
 
 class IDXGIAdapter(IDXGIObject):
-    EnumOutputs: Callable[[wintypes.UINT, _CArgObject], HRESULT]
-    GetDesc: Callable[[], HRESULT]
-    CheckInterfaceSupport: Callable[[], HRESULT]
+    EnumOutputs: Callable[[wintypes.UINT, _CArgObject], _HRESULT]
+    GetDesc: Callable[[], _HRESULT]
+    CheckInterfaceSupport: Callable[[], _HRESULT]
 
 class IDXGIAdapter1(IDXGIAdapter):
-    GetDesc1: Callable[[DXGI_ADAPTER_DESC1], HRESULT]
+    GetDesc1: Callable[[DXGI_ADAPTER_DESC1], _HRESULT]
 
 class IDXGIFactory(IDXGIObject):
-    EnumAdapters: Callable[[], HRESULT]
-    MakeWindowAssociation: Callable[[], HRESULT]
-    GetWindowAssociation: Callable[[], HRESULT]
-    CreateSwapChain: Callable[[], HRESULT]
-    CreateSoftwareAdapter: Callable[[], HRESULT]
+    EnumAdapters: Callable[[], _HRESULT]
+    MakeWindowAssociation: Callable[[], _HRESULT]
+    GetWindowAssociation: Callable[[], _HRESULT]
+    CreateSwapChain: Callable[[], _HRESULT]
+    CreateSoftwareAdapter: Callable[[], _HRESULT]
 
 class IDXGIFactory1(IDXGIFactory):
-    EnumAdapters1: Callable[[c_uint, _CArgObject], HRESULT]
+    EnumAdapters1: Callable[[c_uint, _CArgObject], _HRESULT]
     IsCurrent: Callable[[], wintypes.BOOL]
 
 def initialize_dxgi_factory() -> IDXGIFactory1: ...
