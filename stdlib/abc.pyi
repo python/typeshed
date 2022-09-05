@@ -1,7 +1,7 @@
 import sys
 from _typeshed import Self, SupportsWrite
 from collections.abc import Callable
-from typing import Any, Generic, TypeVar
+from typing import Any, ClassVar, Generic, TypeVar
 from typing_extensions import Literal
 
 _T = TypeVar("_T")
@@ -29,15 +29,15 @@ class ABCMeta(type):
 def abstractmethod(funcobj: _FuncT) -> _FuncT: ...
 
 class abstractclassmethod(classmethod[_R_co], Generic[_R_co]):
-    __isabstractmethod__: Literal[True]
+    __isabstractmethod__: ClassVar[Literal[True]]
     def __init__(self: abstractclassmethod[_R_co], callable: Callable[..., _R_co]) -> None: ...
 
 class abstractstaticmethod(staticmethod[_R_co], Generic[_R_co]):
-    __isabstractmethod__: Literal[True]
+    __isabstractmethod__: ClassVar[Literal[True]]
     def __init__(self, callable: Callable[..., _R_co]) -> None: ...
 
 class abstractproperty(property):
-    __isabstractmethod__: Literal[True]
+    __isabstractmethod__: ClassVar[Literal[True]]
 
 class ABC(metaclass=ABCMeta): ...
 
