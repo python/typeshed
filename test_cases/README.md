@@ -15,10 +15,10 @@ Different test cases in this directory serve different purposes. For some stubs 
 typeshed, the type annotations are complex enough that it's useful to have
 basic sanity checks that test whether a type checker understands the intent of
 the annotations correctly. Examples of tests like these are
-`stdlib/builtins/test_pow.py` and `stdlib/asyncio/test_gather.py`.
+`stdlib/builtins/check_pow.py` and `stdlib/asyncio/check_gather.py`.
 
-Other test cases, such as the samples for `ExitStack` in `stdlib/test_contextlib.py`
-and the samples for `LogRecord` in `stdlib/test_logging.py`, do not relate to
+Other test cases, such as the samples for `ExitStack` in `stdlib/check_contextlib.py`
+and the samples for `LogRecord` in `stdlib/check_logging.py`, do not relate to
 stubs where the annotations are particularly complex, but they *do* relate to
 stubs where decisions have been taken that might be slightly unusual. These
 test cases serve a different purpose: to check that type checkers do not emit
@@ -26,9 +26,9 @@ false-positive errors for idiomatic usage of these classes.
 
 ### How the tests work
 
-None of the code in this directory is actually executed in typeshed's CI.
-Instead, type checkers are run on the test cases, in order to check whether
-typing errors are emitted at the places where we want them to be.
+The code in this directory are not intended to be directly executed. Instead,
+type checkers are run on the code, in order to check whether typing errors are
+emitted at the places where we want them to be.
 
 Some files in this directory simply contain samples of idiomatic Python, which
 should not (if the stubs are correct) cause a type checker to emit any errors.
