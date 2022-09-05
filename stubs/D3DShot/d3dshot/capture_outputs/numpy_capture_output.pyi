@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from ctypes import _CVoidConstPLike
-from typing_extensions import TypeAlias
+from typing_extensions import TypeAlias, Literal
 
 from d3dshot.capture_output import CaptureOutput
 from PIL import Image
@@ -25,4 +25,4 @@ class NumpyCaptureOutput(CaptureOutput):
         rotation: int,
     ) -> _NDArray: ...
     def to_pil(self, frame: _NDArray) -> Image.Image: ...
-    def stack(self, frames: list[_NDArray] | _NDArray, stack_dimension: int) -> _NDArray: ...
+    def stack(self, frames: list[_NDArray] | _NDArray, stack_dimension: Literal["first", "last"]) -> _NDArray: ...

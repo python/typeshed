@@ -1,7 +1,7 @@
 import enum
 from _typeshed import Incomplete
 from ctypes import _CVoidConstPLike
-from typing_extensions import TypeAlias
+from typing_extensions import Literal, TypeAlias
 
 from PIL import Image
 
@@ -33,4 +33,4 @@ class CaptureOutput:
         rotation: int,
     ) -> _Frame: ...
     def to_pil(self, frame: _Frame) -> Image.Image: ...
-    def stack(self, frames: list[_Frame], stack_dimension) -> _Frame: ...
+    def stack(self, frames: list[_Frame], stack_dimension: Literal["first", "last"]) -> _Frame: ...

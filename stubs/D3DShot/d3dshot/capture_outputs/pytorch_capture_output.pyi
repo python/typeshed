@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from ctypes import _CVoidConstPLike
-from typing_extensions import TypeAlias
+from typing_extensions import TypeAlias, Literal
 
 from d3dshot.capture_output import CaptureOutput
 from PIL import Image
@@ -23,4 +23,4 @@ class PytorchCaptureOutput(CaptureOutput):
         rotation: int,
     ) -> _Tensor: ...
     def to_pil(self, frame: _Tensor) -> Image.Image: ...
-    def stack(self, frames: list[_Tensor], stack_dimension: int) -> _Tensor: ...
+    def stack(self, frames: list[_Tensor], stack_dimension: Literal["first", "last"]) -> _Tensor: ...

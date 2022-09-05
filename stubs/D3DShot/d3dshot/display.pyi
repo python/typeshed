@@ -14,7 +14,7 @@ class Display:
     resolution: tuple[int, int]
     position: dict[Literal["left", "top", "right", "bottom"], int]
     rotation: int
-    scale_factor: int
+    scale_factor: float
     is_primary: bool
     hmonitor: int
     dxgi_output: Incomplete | None
@@ -30,7 +30,7 @@ class Display:
         resolution: tuple[int, int] | None = ...,
         position: dict[Literal["left", "top", "right", "bottom"], int] | None = ...,
         rotation: int | None = ...,
-        scale_factor: int | None = ...,
+        scale_factor: float | None = ...,
         is_primary: bool = ...,
         hmonitor: int | None = ...,
         dxgi_output: Incomplete | None = ...,
