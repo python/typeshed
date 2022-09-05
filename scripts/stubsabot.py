@@ -12,6 +12,7 @@ import re
 import subprocess
 import sys
 import tarfile
+import textwrap
 import urllib.parse
 import zipfile
 from dataclasses import dataclass
@@ -42,6 +43,13 @@ class ActionLevel(enum.IntEnum):
         member._value_ = value
         member.__doc__ = doc
         return member
+
+    @classmethod
+    def from_cmd_arg(cls, cmd_arg: str) -> ActionLevel:
+        try:
+            return cls[cmd_arg]
+        except KeyError:
+            raise argparse.ArgumentTypeError(f'Argument must be one of "{list(cls.__members__)}"')
 
     nothing = 0, "make no changes"
     local = 1, "make changes that affect local repo"
@@ -320,12 +328,27 @@ async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession
             return
 
     body = "\n".join(f"{k}: {v}" for k, v in update.links.items())
-    body += """
 
-If stubtest fails for this PR:
-- Leave this PR open (as a reminder, and to prevent stubsabot from opening another PR)
-- Fix stubtest failures in another PR, then close this PR
-"""
+    stubtest_will_run = not meta.get("stubtest", {}).get("skip", False)
+    if stubtest_will_run:
+        body += textwrap.dedent(
+            """
+
+            If stubtest fails for this PR:
+            - Leave this PR open (as a reminder, and to prevent stubsabot from opening another PR)
+            - Fix stubtest failures in another PR, then close this PR
+
+            Note that you will need to close and re-open the PR in order to trigger CI
+            """
+        )
+    else:
+        body += textwrap.dedent(
+            f"""
+
+            :warning: Review this PR manually, as stubtest is skipped in CI for {update.distribution}! :warning:
+            """
+        )
+
     await create_or_update_pull_request(title=title, body=body, branch_name=branch_name, session=session)
 
 
@@ -360,7 +383,7 @@ async def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--action-level",
-        type=lambda x: getattr(ActionLevel, x),  # type: ignore[no-any-return]
+        type=ActionLevel.from_cmd_arg,
         default=ActionLevel.everything,
         help="Limit actions performed to achieve dry runs for different levels of dryness",
     )

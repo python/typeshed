@@ -19,7 +19,7 @@ import traceback
 from collections.abc import Sequence
 
 from pytype import config as pytype_config, load_pytd  # type: ignore[import]
-from pytype.pytd import typeshed  # type: ignore[import]
+from pytype.imports import typeshed  # type: ignore[import]
 
 TYPESHED_SUBDIRS = ["stdlib", "stubs"]
 TYPESHED_HOME = "TYPESHED_HOME"

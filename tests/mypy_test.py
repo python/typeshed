@@ -29,11 +29,14 @@ import tomli
 from colors import colored, print_error, print_success_msg
 
 SUPPORTED_VERSIONS = [(3, 11), (3, 10), (3, 9), (3, 8), (3, 7)]
-SUPPORTED_PLATFORMS = frozenset({"linux", "win32", "darwin"})
-TYPESHED_DIRECTORIES = frozenset({"stdlib", "stubs", "tests", "test_cases", "scripts"})
+SUPPORTED_PLATFORMS = ("linux", "win32", "darwin")
+TYPESHED_DIRECTORIES = frozenset({"stdlib", "stubs", "test_cases"})
 
+ReturnCode: TypeAlias = int
 MajorVersion: TypeAlias = int
 MinorVersion: TypeAlias = int
+MinVersion: TypeAlias = tuple[MajorVersion, MinorVersion]
+MaxVersion: TypeAlias = tuple[MajorVersion, MinorVersion]
 Platform: TypeAlias = Annotated[str, "Must be one of the entries in SUPPORTED_PLATFORMS"]
 Directory: TypeAlias = Annotated[str, "Must be one of the entries in TYPESHED_DIRECTORIES"]
 
@@ -46,21 +49,8 @@ def python_version(arg: str) -> tuple[MajorVersion, MinorVersion]:
     return version  # type: ignore[return-value]
 
 
-def python_platform(platform: str) -> str:
-    if platform not in SUPPORTED_PLATFORMS:
-        raise ValueError
-    return platform
-
-
-def typeshed_directory(directory: str) -> str:
-    if directory not in TYPESHED_DIRECTORIES:
-        raise ValueError
-    return directory
-
-
 class CommandLineArgs(argparse.Namespace):
     verbose: int
-    dry_run: bool
     exclude: list[str] | None
     python_version: list[tuple[MajorVersion, MinorVersion]] | None
     dir: list[Directory] | None
@@ -70,7 +60,6 @@ class CommandLineArgs(argparse.Namespace):
 
 parser = argparse.ArgumentParser(description="Test runner for typeshed. Patterns are unanchored regexps on the full path.")
 parser.add_argument("-v", "--verbose", action="count", default=0, help="More output")
-parser.add_argument("-n", "--dry-run", action="store_true", help="Don't actually run mypy")
 parser.add_argument("-x", "--exclude", type=str, nargs="*", help="Exclude pattern")
 parser.add_argument(
     "-p", "--python-version", type=python_version, nargs="*", action="extend", help="These versions only (major[.minor])"
@@ -78,14 +67,14 @@ parser.add_argument(
 parser.add_argument(
     "-d",
     "--dir",
-    type=typeshed_directory,
+    choices=TYPESHED_DIRECTORIES,
     nargs="*",
     action="extend",
     help="Test only these top-level typeshed directories (defaults to all typeshed directories)",
 )
 parser.add_argument(
     "--platform",
-    type=python_platform,
+    choices=SUPPORTED_PLATFORMS,
     nargs="*",
     action="extend",
     help="Run mypy for certain OS platforms (defaults to sys.platform only)",
@@ -98,7 +87,6 @@ class TestConfig:
     """Configuration settings for a single run of the `test_typeshed` function."""
 
     verbose: int
-    dry_run: bool
     exclude: list[str] | None
     major: MajorVersion
     minor: MinorVersion
@@ -112,7 +100,8 @@ def log(args: TestConfig, *varargs: object) -> None:
         print(*varargs)
 
 
-def match(fn: str, args: TestConfig) -> bool:
+def match(path: Path, args: TestConfig) -> bool:
+    fn = str(path)
     if not args.filter and not args.exclude:
         log(args, fn, "accept by default")
         return True
@@ -134,8 +123,6 @@ def match(fn: str, args: TestConfig) -> bool:
 
 
 _VERSION_LINE_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_.]*): ([23]\.\d{1,2})-([23]\.\d{1,2})?$")
-MinVersion: TypeAlias = tuple[MajorVersion, MinorVersion]
-MaxVersion: TypeAlias = tuple[MajorVersion, MinorVersion]
 
 
 def parse_versions(fname: StrPath) -> dict[str, tuple[MinVersion, MaxVersion]]:
@@ -164,25 +151,15 @@ def parse_version(v_str: str) -> tuple[int, int]:
     return int(m.group(1)), int(m.group(2))
 
 
-def add_files(files: list[str], seen: set[str], root: str, name: str, args: TestConfig) -> None:
+def add_files(files: list[Path], seen: set[str], module: Path, args: TestConfig) -> None:
     """Add all files in package or module represented by 'name' located in 'root'."""
-    full = os.path.join(root, name)
-    mod, ext = os.path.splitext(name)
-    if ext in [".pyi", ".py"]:
-        if match(full, args):
-            seen.add(mod)
-            files.append(full)
-    elif os.path.isfile(os.path.join(full, "__init__.pyi")) or os.path.isfile(os.path.join(full, "__init__.py")):
-        for r, ds, fs in os.walk(full):
-            ds.sort()
-            fs.sort()
-            for f in fs:
-                m, x = os.path.splitext(f)
-                if x in [".pyi", ".py"]:
-                    fn = os.path.join(r, f)
-                    if match(fn, args):
-                        seen.add(mod)
-                        files.append(fn)
+    if module.is_file() and module.suffix == ".pyi":
+        files.append(module)
+        seen.add(module.stem)
+    else:
+        to_add = sorted(module.rglob("*.pyi"))
+        files.extend(to_add)
+        seen.update(path.stem for path in to_add)
 
 
 class MypyDistConf(NamedTuple):
@@ -200,8 +177,8 @@ class MypyDistConf(NamedTuple):
 
 
 def add_configuration(configurations: list[MypyDistConf], distribution: str) -> None:
-    with open(os.path.join("stubs", distribution, "METADATA.toml")) as f:
-        data = dict(tomli.loads(f.read()))
+    with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
+        data = tomli.load(f)
 
     mypy_tests_conf = data.get("mypy-tests")
     if not mypy_tests_conf:
@@ -222,7 +199,7 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
         configurations.append(MypyDistConf(module_name, values.copy()))
 
 
-def run_mypy(args: TestConfig, configurations: list[MypyDistConf], files: list[str], *, custom_typeshed: bool = False) -> int:
+def run_mypy(args: TestConfig, configurations: list[MypyDistConf], files: list[Path]) -> ReturnCode:
     try:
         from mypy.api import run as mypy_run
     except ImportError:
@@ -237,35 +214,29 @@ def run_mypy(args: TestConfig, configurations: list[MypyDistConf], files: list[s
                 temp.write(f"{k} = {v}\n")
         temp.flush()
 
-        flags = get_mypy_flags(args, temp.name, custom_typeshed=custom_typeshed)
-        mypy_args = [*flags, *files]
+        flags = get_mypy_flags(args, temp.name)
+        mypy_args = [*flags, *map(str, files)]
         if args.verbose:
             print("running mypy", " ".join(mypy_args))
-        if args.dry_run:
-            exit_code = 0
+        stdout_redirect, stderr_redirect = StringIO(), StringIO()
+        with redirect_stdout(stdout_redirect), redirect_stderr(stderr_redirect):
+            returned_stdout, returned_stderr, exit_code = mypy_run(mypy_args)
+
+        if exit_code:
+            print_error("failure\n")
+            captured_stdout = stdout_redirect.getvalue()
+            captured_stderr = stderr_redirect.getvalue()
+            if returned_stderr:
+                print_error(returned_stderr)
+            if captured_stderr:
+                print_error(captured_stderr)
+            if returned_stdout:
+                print_error(returned_stdout)
+            if captured_stdout:
+                print_error(captured_stdout, end="")
         else:
-            stdout_redirect, stderr_redirect = StringIO(), StringIO()
-            with redirect_stdout(stdout_redirect), redirect_stderr(stderr_redirect):
-                returned_stdout, returned_stderr, exit_code = mypy_run(mypy_args)
-
-            if exit_code:
-                print_error("failure\n")
-                captured_stdout = stdout_redirect.getvalue()
-                captured_stderr = stderr_redirect.getvalue()
-                if returned_stderr:
-                    print_error(returned_stderr)
-                if captured_stderr:
-                    print_error(captured_stderr)
-                if returned_stdout:
-                    print_error(returned_stdout)
-                if captured_stdout:
-                    print_error(captured_stdout, end="")
-            else:
-                print_success_msg()
+            print_success_msg()
         return exit_code
-
-
-ReturnCode: TypeAlias = int
 
 
 def run_mypy_as_subprocess(directory: StrPath, flags: Iterable[str]) -> ReturnCode:
@@ -279,14 +250,7 @@ def run_mypy_as_subprocess(directory: StrPath, flags: Iterable[str]) -> ReturnCo
 
 
 def get_mypy_flags(
-    args: TestConfig,
-    temp_name: str | None,
-    *,
-    custom_typeshed: bool = False,
-    strict: bool = False,
-    test_suite_run: bool = False,
-    enforce_error_codes: bool = True,
-    ignore_missing_imports: bool = False,
+    args: TestConfig, temp_name: str | None, *, strict: bool = False, enforce_error_codes: bool = True
 ) -> list[str]:
     flags = [
         "--python-version",
@@ -297,6 +261,9 @@ def get_mypy_flags(
         "--no-error-summary",
         "--platform",
         args.platform,
+        "--no-site-packages",
+        "--custom-typeshed-dir",
+        str(Path(__file__).parent.parent),
     ]
     if strict:
         flags.append("--strict")
@@ -304,26 +271,14 @@ def get_mypy_flags(
         flags.extend(["--no-implicit-optional", "--disallow-untyped-decorators", "--disallow-any-generics", "--strict-equality"])
     if temp_name is not None:
         flags.extend(["--config-file", temp_name])
-    if custom_typeshed:
-        # Setting custom typeshed dir prevents mypy from falling back to its bundled
-        # typeshed in case of stub deletions
-        flags.extend(["--custom-typeshed-dir", os.path.dirname(os.path.dirname(__file__))])
-    if test_suite_run:
-        flags.append("--namespace-packages")
-        if args.platform == "win32":
-            flags.extend(["--exclude", "tests/pytype_test.py"])
-    else:
-        flags.append("--no-site-packages")
     if enforce_error_codes:
         flags.extend(["--enable-error-code", "ignore-without-code"])
-    if ignore_missing_imports:
-        flags.append("--ignore-missing-imports")
     return flags
 
 
 def read_dependencies(distribution: str) -> list[str]:
-    with open(os.path.join("stubs", distribution, "METADATA.toml")) as f:
-        data = dict(tomli.loads(f.read()))
+    with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
+        data = tomli.load(f)
     requires = data.get("requires", [])
     assert isinstance(requires, list)
     dependencies = []
@@ -335,7 +290,7 @@ def read_dependencies(distribution: str) -> list[str]:
 
 
 def add_third_party_files(
-    distribution: str, files: list[str], args: TestConfig, configurations: list[MypyDistConf], seen_dists: set[str]
+    distribution: str, files: list[Path], args: TestConfig, configurations: list[MypyDistConf], seen_dists: set[str]
 ) -> None:
     if distribution in seen_dists:
         return
@@ -345,12 +300,11 @@ def add_third_party_files(
     for dependency in dependencies:
         add_third_party_files(dependency, files, args, configurations, seen_dists)
 
-    root = os.path.join("stubs", distribution)
+    root = Path("stubs", distribution)
     for name in os.listdir(root):
-        mod, _ = os.path.splitext(name)
-        if mod.startswith("."):
+        if name.startswith("."):
             continue
-        add_files(files, set(), root, name, args)
+        add_files(files, set(), (root / name), args)
         add_configuration(configurations, distribution)
 
 
@@ -366,10 +320,13 @@ def test_third_party_distribution(distribution: str, args: TestConfig) -> TestRe
     and the second element is the number of checked files.
     """
 
-    files: list[str] = []
+    files: list[Path] = []
     configurations: list[MypyDistConf] = []
     seen_dists: set[str] = set()
     add_third_party_files(distribution, files, args, configurations, seen_dists)
+
+    if not files and args.filter:
+        return TestResults(0, 0)
 
     print(f"testing {distribution} ({len(files)} files)... ", end="")
 
@@ -387,22 +344,21 @@ def is_probably_stubs_folder(distribution: str, distribution_path: Path) -> bool
 
 
 def test_stdlib(code: int, args: TestConfig) -> TestResults:
-    seen = {"__builtin__", "builtins", "typing"}  # Always ignore these.
-
-    files: list[str] = []
-    supported_versions = parse_versions(os.path.join("stdlib", "VERSIONS"))
-    root = "stdlib"
-    for name in os.listdir(root):
+    seen = {"builtins", "typing"}  # Always ignore these.
+    files: list[Path] = []
+    stdlib = Path("stdlib")
+    supported_versions = parse_versions(stdlib / "VERSIONS")
+    for name in os.listdir(stdlib):
         if name == "VERSIONS" or name.startswith("."):
             continue
-        mod, _ = os.path.splitext(name)
-        if supported_versions[mod][0] <= (args.major, args.minor) <= supported_versions[mod][1]:
-            add_files(files, seen, root, name, args)
+        module = Path(name).stem
+        if supported_versions[module][0] <= (args.major, args.minor) <= supported_versions[module][1]:
+            add_files(files, seen, (stdlib / name), args)
 
     if files:
         print(f"Testing stdlib ({len(files)} files)...")
-        print("Running mypy " + " ".join(get_mypy_flags(args, "/tmp/...", custom_typeshed=True)))
-        this_code = run_mypy(args, [], files, custom_typeshed=True)
+        print("Running mypy " + " ".join(get_mypy_flags(args, "/tmp/...")))
+        this_code = run_mypy(args, [], files)
         code = max(code, this_code)
 
     return TestResults(code, len(files))
@@ -426,54 +382,17 @@ def test_third_party_stubs(code: int, args: TestConfig) -> TestResults:
     return TestResults(code, files_checked)
 
 
-def test_the_test_scripts(code: int, args: TestConfig) -> TestResults:
-    files_to_test = list(Path("tests").rglob("*.py"))
-    if args.platform == "win32":
-        files_to_test.remove(Path("tests/pytype_test.py"))
-    num_test_files_to_test = len(files_to_test)
-    flags = get_mypy_flags(args, None, strict=True, test_suite_run=True)
-    print(f"Testing the test suite ({num_test_files_to_test} files)...")
-    print("Running mypy " + " ".join(flags))
-    if args.dry_run:
-        this_code = 0
-    else:
-        this_code = run_mypy_as_subprocess("tests", flags)
-    if not this_code:
-        print_success_msg()
-    code = max(code, this_code)
-    return TestResults(code, num_test_files_to_test)
-
-
-def test_scripts_directory(code: int, args: TestConfig) -> TestResults:
-    files_to_test = list(Path("scripts").rglob("*.py"))
-    num_test_files_to_test = len(files_to_test)
-    flags = get_mypy_flags(args, None, strict=True, ignore_missing_imports=True)
-    print(f"Testing the scripts directory ({num_test_files_to_test} files)...")
-    print("Running mypy " + " ".join(flags))
-    if args.dry_run:
-        this_code = 0
-    else:
-        this_code = run_mypy_as_subprocess("scripts", flags)
-    if not this_code:
-        print_success_msg()
-    code = max(code, this_code)
-    return TestResults(code, num_test_files_to_test)
-
-
 def test_the_test_cases(code: int, args: TestConfig) -> TestResults:
     test_case_files = list(map(str, Path("test_cases").rglob("*.py")))
     num_test_case_files = len(test_case_files)
-    flags = get_mypy_flags(args, None, strict=True, custom_typeshed=True, enforce_error_codes=False)
+    flags = get_mypy_flags(args, None, strict=True, enforce_error_codes=False)
     print(f"Running mypy on the test_cases directory ({num_test_case_files} files)...")
     print("Running mypy " + " ".join(flags))
-    if args.dry_run:
-        this_code = 0
-    else:
-        # --warn-unused-ignores doesn't work for files inside typeshed.
-        # SO, to work around this, we copy the test_cases directory into a TemporaryDirectory.
-        with tempfile.TemporaryDirectory() as td:
-            shutil.copytree(Path("test_cases"), Path(td) / "test_cases")
-            this_code = run_mypy_as_subprocess(td, flags)
+    # --warn-unused-ignores doesn't work for files inside typeshed.
+    # SO, to work around this, we copy the test_cases directory into a TemporaryDirectory.
+    with tempfile.TemporaryDirectory() as td:
+        shutil.copytree(Path("test_cases"), Path(td) / "test_cases")
+        this_code = run_mypy_as_subprocess(td, flags)
     if not this_code:
         print_success_msg()
     code = max(code, this_code)
@@ -493,21 +412,6 @@ def test_typeshed(code: int, args: TestConfig) -> TestResults:
         files_checked_this_version += third_party_files_checked
         print()
 
-    if args.minor >= 9:
-        # Run mypy against our own test suite and the scripts directory
-        #
-        # Skip this on earlier Python versions,
-        # as we're using new syntax and new functions in some test files
-        if "tests" in args.directories:
-            code, test_script_files_checked = test_the_test_scripts(code, args)
-            files_checked_this_version += test_script_files_checked
-            print()
-
-        if "scripts" in args.directories:
-            code, script_files_checked = test_scripts_directory(code, args)
-            files_checked_this_version += script_files_checked
-            print()
-
     if "test_cases" in args.directories:
         code, test_case_files_checked = test_the_test_cases(code, args)
         files_checked_this_version += test_case_files_checked
@@ -526,7 +430,6 @@ def main() -> None:
     for (major, minor), platform in product(versions, platforms):
         config = TestConfig(
             verbose=args.verbose,
-            dry_run=args.dry_run,
             exclude=args.exclude,
             major=major,
             minor=minor,

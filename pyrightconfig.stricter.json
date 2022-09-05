@@ -3,8 +3,7 @@
     "typeshedPath": ".",
     "include": [
         "stdlib",
-        "stubs",
-        "test_cases"
+        "stubs"
     ],
     "exclude": [
         "stdlib/distutils/command",
@@ -13,7 +12,6 @@
         "stdlib/sqlite3/dbapi2.pyi",
         "stdlib/_tkinter.pyi",
         "stdlib/tkinter/__init__.pyi",
-        "stdlib/tkinter/colorchooser.pyi",
         "stdlib/tkinter/commondialog.pyi",
         "stdlib/tkinter/dialog.pyi",
         "stdlib/tkinter/dnd.pyi",
@@ -52,6 +50,7 @@
         "stubs/invoke",
         "stubs/jmespath",
         "stubs/jsonschema",
+        "stubs/keyboard",
         "stubs/ldap3",
         "stubs/Markdown",
         "stubs/mock",
@@ -70,6 +69,7 @@
         "stubs/pep8-naming",
         "stubs/psutil",
         "stubs/psycopg2",
+        "stubs/PyAutoGUI",
         "stubs/pyflakes",
         "stubs/Pygments",
         "stubs/PyMySQL",
@@ -87,6 +87,7 @@
         "stubs/SQLAlchemy",
         "stubs/stripe",
         "stubs/tqdm",
+        "stubs/tree-sitter",
         "stubs/tzlocal/tzlocal/utils.pyi",
         "stubs/ttkthemes",
         "stubs/urllib3",

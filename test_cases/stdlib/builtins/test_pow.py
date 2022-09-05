@@ -1,8 +1,6 @@
-# pyright: reportUnnecessaryTypeIgnoreComment=true
-
 from decimal import Decimal
 from fractions import Fraction
-from typing import Any, NoReturn
+from typing import Any
 from typing_extensions import Literal, assert_type
 
 # See #7163
@@ -10,7 +8,11 @@ assert_type(pow(1, 0), Literal[1])
 assert_type(1**0, Literal[1])
 assert_type(pow(1, 0, None), Literal[1])
 
-assert_type(pow(2, 4, 0), NoReturn)
+# TODO: We don't have a good way of expressing the fact
+# that passing 0 for the third argument will lead to an exception being raised
+# (see discussion in #8566)
+#
+# assert_type(pow(2, 4, 0), NoReturn)
 
 assert_type(pow(2, 4), int)
 assert_type(2**4, int)
