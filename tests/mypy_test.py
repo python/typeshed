@@ -100,7 +100,8 @@ def log(args: TestConfig, *varargs: object) -> None:
         print(*varargs)
 
 
-def match(fn: str, args: TestConfig) -> bool:
+def match(path: Path, args: TestConfig) -> bool:
+    fn = str(path)
     if not args.filter and not args.exclude:
         log(args, fn, "accept by default")
         return True
@@ -150,25 +151,15 @@ def parse_version(v_str: str) -> tuple[int, int]:
     return int(m.group(1)), int(m.group(2))
 
 
-def add_files(files: list[str], seen: set[str], root: str, name: str, args: TestConfig) -> None:
+def add_files(files: list[Path], seen: set[str], module: Path, args: TestConfig) -> None:
     """Add all files in package or module represented by 'name' located in 'root'."""
-    full = os.path.join(root, name)
-    mod, ext = os.path.splitext(name)
-    if ext in [".pyi", ".py"]:
-        if match(full, args):
-            seen.add(mod)
-            files.append(full)
-    elif os.path.isfile(os.path.join(full, "__init__.pyi")) or os.path.isfile(os.path.join(full, "__init__.py")):
-        for r, ds, fs in os.walk(full):
-            ds.sort()
-            fs.sort()
-            for f in fs:
-                m, x = os.path.splitext(f)
-                if x in [".pyi", ".py"]:
-                    fn = os.path.join(r, f)
-                    if match(fn, args):
-                        seen.add(mod)
-                        files.append(fn)
+    if module.is_file() and module.suffix == ".pyi":
+        files.append(module)
+        seen.add(module.stem)
+    else:
+        to_add = sorted(module.rglob("*.pyi"))
+        files.extend(to_add)
+        seen.update(path.stem for path in to_add)
 
 
 class MypyDistConf(NamedTuple):
@@ -186,8 +177,8 @@ class MypyDistConf(NamedTuple):
 
 
 def add_configuration(configurations: list[MypyDistConf], distribution: str) -> None:
-    with open(os.path.join("stubs", distribution, "METADATA.toml")) as f:
-        data = dict(tomli.loads(f.read()))
+    with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
+        data = tomli.load(f)
 
     mypy_tests_conf = data.get("mypy-tests")
     if not mypy_tests_conf:
@@ -208,7 +199,7 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
         configurations.append(MypyDistConf(module_name, values.copy()))
 
 
-def run_mypy(args: TestConfig, configurations: list[MypyDistConf], files: list[str]) -> ReturnCode:
+def run_mypy(args: TestConfig, configurations: list[MypyDistConf], files: list[Path]) -> ReturnCode:
     try:
         from mypy.api import run as mypy_run
     except ImportError:
@@ -224,7 +215,7 @@ def run_mypy(args: TestConfig, configurations: list[MypyDistConf], files: list[s
         temp.flush()
 
         flags = get_mypy_flags(args, temp.name)
-        mypy_args = [*flags, *files]
+        mypy_args = [*flags, *map(str, files)]
         if args.verbose:
             print("running mypy", " ".join(mypy_args))
         stdout_redirect, stderr_redirect = StringIO(), StringIO()
@@ -272,7 +263,7 @@ def get_mypy_flags(
         args.platform,
         "--no-site-packages",
         "--custom-typeshed-dir",
-        os.path.dirname(os.path.dirname(__file__)),
+        str(Path(__file__).parent.parent),
     ]
     if strict:
         flags.append("--strict")
@@ -286,8 +277,8 @@ def get_mypy_flags(
 
 
 def read_dependencies(distribution: str) -> list[str]:
-    with open(os.path.join("stubs", distribution, "METADATA.toml")) as f:
-        data = dict(tomli.loads(f.read()))
+    with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
+        data = tomli.load(f)
     requires = data.get("requires", [])
     assert isinstance(requires, list)
     dependencies = []
@@ -299,7 +290,7 @@ def read_dependencies(distribution: str) -> list[str]:
 
 
 def add_third_party_files(
-    distribution: str, files: list[str], args: TestConfig, configurations: list[MypyDistConf], seen_dists: set[str]
+    distribution: str, files: list[Path], args: TestConfig, configurations: list[MypyDistConf], seen_dists: set[str]
 ) -> None:
     if distribution in seen_dists:
         return
@@ -309,12 +300,11 @@ def add_third_party_files(
     for dependency in dependencies:
         add_third_party_files(dependency, files, args, configurations, seen_dists)
 
-    root = os.path.join("stubs", distribution)
+    root = Path("stubs", distribution)
     for name in os.listdir(root):
-        mod, _ = os.path.splitext(name)
-        if mod.startswith("."):
+        if name.startswith("."):
             continue
-        add_files(files, set(), root, name, args)
+        add_files(files, set(), (root / name), args)
         add_configuration(configurations, distribution)
 
 
@@ -330,7 +320,7 @@ def test_third_party_distribution(distribution: str, args: TestConfig) -> TestRe
     and the second element is the number of checked files.
     """
 
-    files: list[str] = []
+    files: list[Path] = []
     configurations: list[MypyDistConf] = []
     seen_dists: set[str] = set()
     add_third_party_files(distribution, files, args, configurations, seen_dists)
@@ -354,17 +344,16 @@ def is_probably_stubs_folder(distribution: str, distribution_path: Path) -> bool
 
 
 def test_stdlib(code: int, args: TestConfig) -> TestResults:
-    seen = {"__builtin__", "builtins", "typing"}  # Always ignore these.
-
-    files: list[str] = []
-    supported_versions = parse_versions(os.path.join("stdlib", "VERSIONS"))
-    root = "stdlib"
-    for name in os.listdir(root):
+    seen = {"builtins", "typing"}  # Always ignore these.
+    files: list[Path] = []
+    stdlib = Path("stdlib")
+    supported_versions = parse_versions(stdlib / "VERSIONS")
+    for name in os.listdir(stdlib):
         if name == "VERSIONS" or name.startswith("."):
             continue
-        mod, _ = os.path.splitext(name)
-        if supported_versions[mod][0] <= (args.major, args.minor) <= supported_versions[mod][1]:
-            add_files(files, seen, root, name, args)
+        module = Path(name).stem
+        if supported_versions[module][0] <= (args.major, args.minor) <= supported_versions[module][1]:
+            add_files(files, seen, (stdlib / name), args)
 
     if files:
         print(f"Testing stdlib ({len(files)} files)...")
