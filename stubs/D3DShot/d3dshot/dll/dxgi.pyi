@@ -2,8 +2,7 @@ import sys
 from _typeshed import Incomplete
 from collections.abc import Callable
 from ctypes import Array, Structure, _CArgObject, _CData, c_uint, c_ulong, wintypes
-from typing import TypedDict
-from typing_extensions import TypeAlias
+from typing_extensions import TypeAlias, TypedDict
 
 from d3dshot.dll.d3d import ID3D11Device
 from PIL import Image
