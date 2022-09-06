@@ -1,13 +1,13 @@
 from _typeshed import Self
 from collections.abc import Iterator
-from typing import Any, Generic, TypeVar
+from typing import Any, Generic, Literal, TypeVar
 
 from stripe.stripe_object import StripeObject
 
 _T = TypeVar("_T")
 
 class SearchResultObject(StripeObject, Generic[_T]):
-    OBJECT_NAME = ...
+    OBJECT_NAME: Literal["search_result"] = ...
     url: str
     has_more: bool
     data: list[_T]
