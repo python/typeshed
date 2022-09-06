@@ -14,6 +14,7 @@ class ImageNotFoundException(PyAutoGUIException): ...
 _P = ParamSpec("_P")
 _R = TypeVar("_R")
 _NormalizeableXArg: TypeAlias = SupportsInt | Sequence[SupportsInt]
+_Unused: TypeAlias = object
 
 # TODO: cv2.Mat is not available as a type yet: https://github.com/microsoft/python-type-stubs/issues/211
 # cv2.Mat is just an alias for a numpy NDArray, but can't import that either.
@@ -36,7 +37,7 @@ def locate(
     needleImage: str | _Mat,
     haystackImage: str | _Mat,
     grayscale: bool | None = ...,
-    limit: object | None = ...,
+    limit: _Unused = ...,
     region: _Box | None = ...,
     step: int = ...,
     confidence: SupportsFloat = ...,
@@ -48,7 +49,7 @@ def locate(
     needleImage: str | Image.Image,
     haystackImage: str | Image.Image,
     grayscale: bool | None = ...,
-    limit: object | None = ...,
+    limit: _Unused = ...,
     region: _Box | None = ...,
     step: int = ...,
     confidence: None = ...,
@@ -106,7 +107,7 @@ def locateCenterOnScreen(
     image: str | _Mat,
     minSearchTime: float,
     grayscale: bool | None = ...,
-    limit: object | None = ...,
+    limit: _Unused = ...,
     region: _Box | None = ...,
     step: int = ...,
     confidence: SupportsFloat = ...,
@@ -118,7 +119,7 @@ def locateCenterOnScreen(
     image: str | Image.Image,
     minSearchTime: float,
     grayscale: bool | None = ...,
-    limit: object | None = ...,
+    limit: _Unused = ...,
     region: _Box | None = ...,
     step: int = ...,
     confidence: None = ...,
@@ -130,7 +131,7 @@ def locateOnScreen(
     image: str | _Mat,
     minSearchTime: float,
     grayscale: bool | None = ...,
-    limit: object | None = ...,
+    limit: _Unused = ...,
     region: _Box | None = ...,
     step: int = ...,
     confidence: SupportsFloat = ...,
@@ -142,7 +143,7 @@ def locateOnScreen(
     image: str | Image.Image,
     minSearchTime: float,
     grayscale: bool | None = ...,
-    limit: object | None = ...,
+    limit: _Unused = ...,
     region: _Box | None = ...,
     step: int = ...,
     confidence: None = ...,
@@ -154,7 +155,7 @@ def locateOnWindow(
     image: str | _Mat,
     title: str,
     grayscale: bool | None = ...,
-    limit: object | None = ...,
+    limit: _Unused = ...,
     step: int = ...,
     confidence: SupportsFloat = ...,
 ) -> _Box | None: ...
@@ -165,7 +166,7 @@ def locateOnWindow(
     image: str | Image.Image,
     title: str,
     grayscale: bool | None = ...,
-    limit: object | None = ...,
+    limit: _Unused = ...,
     step: int = ...,
     confidence: None = ...,
 ) -> _Box | None: ...
