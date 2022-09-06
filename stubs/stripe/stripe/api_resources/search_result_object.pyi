@@ -1,6 +1,7 @@
 from _typeshed import Self
 from collections.abc import Iterator
-from typing import Any, Generic, Literal, TypeVar
+from typing import Any, Generic, TypeVar
+from typing_extensions import Literal
 
 from stripe.stripe_object import StripeObject
 
