@@ -14,10 +14,7 @@ class SearchableAPIResource(APIResource):
         stripe_account: str | None = ...,
         **params,
     ) -> SearchResultObject[Self]: ...
-
     @classmethod
     def search(cls: type[Self], *args: str | None, **kwargs) -> SearchResultObject[Self]: ...
-
     @classmethod
     def search_auto_paging_iter(cls: type[Self], *args: str | None, **kwargs) -> Iterator[Self]: ...
-

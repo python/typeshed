@@ -5,5 +5,5 @@ from stripe.api_resources.abstract import (
     UpdateableAPIResource as UpdateableAPIResource,
 )
 
-class Price(CreateableAPIResource, ListableAPIResource, SearchableAPIResource,UpdateableAPIResource):
+class Price(CreateableAPIResource, ListableAPIResource, SearchableAPIResource, UpdateableAPIResource):
     OBJECT_NAME: str

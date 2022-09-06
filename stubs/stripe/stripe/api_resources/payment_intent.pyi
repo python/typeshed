@@ -8,7 +8,7 @@ from stripe.api_resources.abstract import (
     custom_method as custom_method,
 )
 
-class PaymentIntent(CreateableAPIResource, ListableAPIResource,SearchableAPIResource, UpdateableAPIResource):
+class PaymentIntent(CreateableAPIResource, ListableAPIResource, SearchableAPIResource, UpdateableAPIResource):
     OBJECT_NAME: str
     def cancel(self, idempotency_key: str | None = ..., **params): ...
     def capture(self, idempotency_key: str | None = ..., **params): ...

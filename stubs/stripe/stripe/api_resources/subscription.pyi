@@ -8,6 +8,8 @@ from stripe.api_resources.abstract import (
     custom_method as custom_method,
 )
 
-class Subscription(CreateableAPIResource, DeletableAPIResource, ListableAPIResource,SearchableAPIResource, UpdateableAPIResource):
+class Subscription(
+    CreateableAPIResource, DeletableAPIResource, ListableAPIResource, SearchableAPIResource, UpdateableAPIResource
+):
     OBJECT_NAME: str
     def delete_discount(self, **params) -> None: ...

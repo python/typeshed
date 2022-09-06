@@ -29,4 +29,3 @@ class SearchResultObject(StripeObject, Generic[_T]):
     def next_search_result_page(
         self: Self, api_key: str | None = ..., stripe_version: str | None = ..., stripe_account: str | None = ..., **params
     ) -> Self: ...
-

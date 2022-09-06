@@ -11,7 +11,7 @@ from stripe.api_resources.abstract import (
     custom_method as custom_method,
 )
 
-class Invoice(CreateableAPIResource, DeletableAPIResource, ListableAPIResource, SearchableAPIResource,UpdateableAPIResource):
+class Invoice(CreateableAPIResource, DeletableAPIResource, ListableAPIResource, SearchableAPIResource, UpdateableAPIResource):
     OBJECT_NAME: str
     def finalize_invoice(self: Self, idempotency_key: str | None = ..., **params) -> Self: ...
     def mark_uncollectible(self: Self, idempotency_key: str | None = ..., **params) -> Self: ...

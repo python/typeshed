@@ -9,7 +9,7 @@ from stripe.api_resources.abstract import (
     nested_resource_class_methods as nested_resource_class_methods,
 )
 
-class Customer(CreateableAPIResource, DeletableAPIResource, ListableAPIResource,SearchableAPIResource, UpdateableAPIResource):
+class Customer(CreateableAPIResource, DeletableAPIResource, ListableAPIResource, SearchableAPIResource, UpdateableAPIResource):
     OBJECT_NAME: str
     def delete_discount(self, **params) -> None: ...
     @classmethod
