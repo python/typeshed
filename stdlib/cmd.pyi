@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from typing import IO, Any
+from typing import IO, Any, ClassVar
 from typing_extensions import Literal
 
 __all__ = ["Cmd"]
@@ -8,23 +8,23 @@ PROMPT: Literal["(Cmd) "]
 IDENTCHARS: str  # Too big to be `Literal`
 
 class Cmd:
-    prompt: str
-    identchars: str
-    ruler: str
-    lastcmd: str
-    intro: Any | None
-    doc_leader: str
-    doc_header: str
-    misc_header: str
-    undoc_header: str
-    nohelp: str
-    use_rawinput: bool
+    prompt: ClassVar[str]
+    identchars: ClassVar[str]
+    ruler: ClassVar[str]
+    lastcmd: ClassVar[str]
+    intro: ClassVar[Any | None]
+    doc_leader: ClassVar[str]
+    doc_header: ClassVar[str]
+    misc_header: ClassVar[str]
+    undoc_header: ClassVar[str]
+    nohelp: ClassVar[str]
+    use_rawinput: ClassVar[bool]
     stdin: IO[str]
     stdout: IO[str]
     cmdqueue: list[str]
     completekey: str
     def __init__(self, completekey: str = ..., stdin: IO[str] | None = ..., stdout: IO[str] | None = ...) -> None: ...
-    old_completer: Callable[[str, int], str | None] | None
+    old_completer: Callable[[str, int], str | None] | None  # only defined after `cmdloop` call
     def cmdloop(self, intro: Any | None = ...) -> None: ...
     def precmd(self, line: str) -> str: ...
     def postcmd(self, stop: bool, line: str) -> bool: ...
@@ -36,7 +36,7 @@ class Cmd:
     def default(self, line: str) -> None: ...
     def completedefault(self, *ignored: Any) -> list[str]: ...
     def completenames(self, text: str, *ignored: Any) -> list[str]: ...
-    completion_matches: list[str] | None
+    completion_matches: list[str] | None  # only defined after `complete` call
     def complete(self, text: str, state: int) -> list[str] | None: ...
     def get_names(self) -> list[str]: ...
     # Only the first element of args matters.
