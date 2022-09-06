@@ -12,7 +12,7 @@ class Cmd:
     identchars: ClassVar[str]
     ruler: ClassVar[str]
     lastcmd: ClassVar[str]
-    intro: ClassVar[Any | None]
+    intro: Any | None
     doc_leader: ClassVar[str]
     doc_header: ClassVar[str]
     misc_header: ClassVar[str]
