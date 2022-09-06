@@ -13,7 +13,7 @@ multiple other mechanisms for spotting errors in the stubs.
 
 Different test cases in this directory serve different purposes. For some stubs in
 typeshed, the type annotations are complex enough that it's useful to have
-basic sanity checks that test whether a type checker understands the intent of
+sanity checks that test whether a type checker understands the intent of
 the annotations correctly. Examples of tests like these are
 `stdlib/builtins/check_pow.py` and `stdlib/asyncio/check_gather.py`.
 
@@ -27,8 +27,8 @@ false-positive errors for idiomatic usage of these classes.
 ### How the tests work
 
 The code in this directory is not intended to be directly executed. Instead,
-type checkers are run on the code, in order to check whether typing errors are
-emitted at the places where we want them to be.
+type checkers are run on the code, to check that typing errors are
+emitted at the correct places.
 
 Some files in this directory simply contain samples of idiomatic Python, which
 should not (if the stubs are correct) cause a type checker to emit any errors.
