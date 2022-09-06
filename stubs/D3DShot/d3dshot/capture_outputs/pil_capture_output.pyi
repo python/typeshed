@@ -1,12 +1,12 @@
 from ctypes import _CVoidConstPLike
-from typing import Any, TypeVar
+from typing import TypeVar
 from typing_extensions import TypeAlias
 
 from d3dshot.capture_output import CaptureOutput
 from PIL import Image
 
 _T = TypeVar("_T")
-_Unused: TypeAlias = Any
+_Unused: TypeAlias = object
 
 class PILCaptureOutput(CaptureOutput):
     def __init__(self) -> None: ...

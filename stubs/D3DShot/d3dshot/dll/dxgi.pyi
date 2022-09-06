@@ -1,7 +1,8 @@
 import sys
 from _typeshed import Incomplete
 from collections.abc import Callable
-from ctypes import Array, Structure, _CArgObject, _CData, c_uint, c_ulong, wintypes
+from ctypes import Array, Structure, _CArgObject, _CData, c_uint, c_ulong
+from ctypes.wintypes import BOOL, DWORD, HMONITOR, INT, LARGE_INTEGER, LONG, PFLOAT, POINT, RECT, UINT, ULARGE_INTEGER, WCHAR
 from typing_extensions import TypeAlias, TypedDict
 
 from d3dshot.dll.d3d import ID3D11Device
@@ -32,138 +33,140 @@ class _IUnknown:  # From comtypes.IUnknown
     def Release(self) -> c_ulong: ...
 
 class _DXGIOutputPosition(TypedDict):
-    left: wintypes.LONG
-    top: wintypes.LONG
-    right: wintypes.LONG
-    bottom: wintypes.LONG
+    left: LONG
+    top: LONG
+    right: LONG
+    bottom: LONG
 
 class _DXGIOutput(TypedDict):
     name: str
     position: _DXGIOutputPosition
-    resolution: tuple[tuple[wintypes.LONG, wintypes.LONG], tuple[wintypes.LONG, wintypes.LONG]]
+    resolution: tuple[tuple[LONG, LONG], tuple[LONG, LONG]]
     rotation: int
     is_attached_to_desktop: bool
 
 class LUID(Structure):
-    LowPart: wintypes.DWORD
-    HighPart: wintypes.LONG
+    LowPart: DWORD
+    HighPart: LONG
 
 class DXGI_ADAPTER_DESC1(Structure):
-    Description: Array[wintypes.WCHAR]
-    VendorId: wintypes.UINT
-    DeviceId: wintypes.UINT
-    SubSysId: wintypes.UINT
-    Revision: wintypes.UINT
-    DedicatedVideoMemory: wintypes.ULARGE_INTEGER
-    DedicatedSystemMemory: wintypes.ULARGE_INTEGER
-    SharedSystemMemory: wintypes.ULARGE_INTEGER
+    Description: Array[WCHAR]
+    VendorId: UINT
+    DeviceId: UINT
+    SubSysId: UINT
+    Revision: UINT
+    DedicatedVideoMemory: ULARGE_INTEGER
+    DedicatedSystemMemory: ULARGE_INTEGER
+    SharedSystemMemory: ULARGE_INTEGER
     AdapterLuid: LUID
-    Flags: wintypes.UINT
+    Flags: UINT
 
 class DXGI_OUTPUT_DESC(Structure):
-    DeviceName: Array[wintypes.WCHAR]
-    DesktopCoordinates: wintypes.RECT
-    AttachedToDesktop: wintypes.BOOL
-    Rotation: wintypes.UINT
-    Monitor: wintypes.HMONITOR
+    DeviceName: Array[WCHAR]
+    DesktopCoordinates: RECT
+    AttachedToDesktop: BOOL
+    Rotation: UINT
+    Monitor: HMONITOR
 
 class DXGI_OUTDUPL_POINTER_POSITION(Structure):
-    Position: wintypes.POINT
-    Visible: wintypes.BOOL
+    Position: POINT
+    Visible: BOOL
 
 class DXGI_OUTDUPL_FRAME_INFO(Structure):
-    LastPresentTime: wintypes.LARGE_INTEGER
-    LastMouseUpdateTime: wintypes.LARGE_INTEGER
-    AccumulatedFrames: wintypes.UINT
-    RectsCoalesced: wintypes.BOOL
-    ProtectedContentMaskedOut: wintypes.BOOL
+    LastPresentTime: LARGE_INTEGER
+    LastMouseUpdateTime: LARGE_INTEGER
+    AccumulatedFrames: UINT
+    RectsCoalesced: BOOL
+    ProtectedContentMaskedOut: BOOL
     PointerPosition: DXGI_OUTDUPL_POINTER_POSITION
-    TotalMetadataBufferSize: wintypes.UINT
-    PointerShapeBufferSize: wintypes.UINT
+    TotalMetadataBufferSize: UINT
+    PointerShapeBufferSize: UINT
 
 class DXGI_MAPPED_RECT(Structure):
-    Pitch: wintypes.INT
-    pBits: wintypes.PFLOAT
+    Pitch: INT
+    pBits: PFLOAT
 
 class IDXGIObject(_IUnknown):
-    SetPrivateData: Callable[[], _HRESULT]
-    SetPrivateDataInterface: Callable[[], _HRESULT]
-    GetPrivateData: Callable[[], _HRESULT]
-    GetParent: Callable[[], _HRESULT]
+    def SetPrivateData(self) -> _HRESULT: ...
+    def SetPrivateDataInterface(self) -> _HRESULT: ...
+    def GetPrivateData(self) -> _HRESULT: ...
+    def GetParent(self) -> _HRESULT: ...
 
 class IDXGIDeviceSubObject(IDXGIObject):
-    GetDevice: Callable[[], _HRESULT]
+    def GetDevice(self) -> _HRESULT: ...
 
 class IDXGIResource(IDXGIDeviceSubObject):
-    GetSharedHandle: Callable[[], _HRESULT]
-    GetUsage: Callable[[], _HRESULT]
-    SetEvictionPriority: Callable[[], _HRESULT]
-    GetEvictionPriority: Callable[[], _HRESULT]
+    def GetSharedHandle(self) -> _HRESULT: ...
+    def GetUsage(self) -> _HRESULT: ...
+    def SetEvictionPriority(self) -> _HRESULT: ...
+    def GetEvictionPriority(self) -> _HRESULT: ...
 
 class IDXGISurface(IDXGIDeviceSubObject):
-    GetDesc: Callable[[], _HRESULT]
-    Map: Callable[[DXGI_MAPPED_RECT, wintypes.UINT], _HRESULT]
-    Unmap: Callable[[], _HRESULT]
+    def GetDesc(self) -> _HRESULT: ...
+    def Map(self, pLockedRect: DXGI_MAPPED_RECT, MapFlags: UINT) -> _HRESULT: ...
+    def Unmap(self) -> _HRESULT: ...
 
 class IDXGIOutputDuplication(IDXGIObject):
-    GetDesc: Callable[[], None]
-    AcquireNextFrame: Callable[[wintypes.UINT, DXGI_OUTDUPL_FRAME_INFO, _CArgObject], _HRESULT]
-    GetFrameDirtyRects: Callable[[], _HRESULT]
-    GetFrameMoveRects: Callable[[], _HRESULT]
-    GetFramePointerShape: Callable[[], _HRESULT]
-    MapDesktopSurface: Callable[[], _HRESULT]
-    UnMapDesktopSurface: Callable[[], _HRESULT]
-    ReleaseFrame: Callable[[], _HRESULT]
+    def GetDesc(self) -> None: ...
+    def AcquireNextFrame(
+        self, TimeoutInMilliseconds: UINT, pFrameInfo: DXGI_OUTDUPL_FRAME_INFO, ppDesktopResource: _CArgObject
+    ) -> _HRESULT: ...
+    def GetFrameDirtyRects(self) -> _HRESULT: ...
+    def GetFrameMoveRects(self) -> _HRESULT: ...
+    def GetFramePointerShape(self) -> _HRESULT: ...
+    def MapDesktopSurface(self) -> _HRESULT: ...
+    def UnMapDesktopSurface(self) -> _HRESULT: ...
+    def ReleaseFrame(self) -> _HRESULT: ...
 
 class IDXGIOutput(IDXGIObject):
-    GetDesc: Callable[[DXGI_OUTPUT_DESC], _HRESULT]
-    GetDisplayModeList: Callable[[], _HRESULT]
-    FindClosestMatchingMode: Callable[[], _HRESULT]
-    WaitForVBlank: Callable[[], _HRESULT]
-    TakeOwnership: Callable[[], _HRESULT]
-    ReleaseOwnership: Callable[[], None]
-    GetGammaControlCapabilities: Callable[[], _HRESULT]
-    SetGammaControl: Callable[[], _HRESULT]
-    GetGammaControl: Callable[[], _HRESULT]
-    SetDisplaySurface: Callable[[], _HRESULT]
-    GetDisplaySurfaceData: Callable[[], _HRESULT]
-    GetFrameStatistics: Callable[[], _HRESULT]
+    def GetDesc(self, pDesc: DXGI_OUTPUT_DESC) -> _HRESULT: ...
+    def GetDisplayModeList(self) -> _HRESULT: ...
+    def FindClosestMatchingMode(self) -> _HRESULT: ...
+    def WaitForVBlank(self) -> _HRESULT: ...
+    def TakeOwnership(self) -> _HRESULT: ...
+    def ReleaseOwnership(self) -> None: ...
+    def GetGammaControlCapabilities(self) -> _HRESULT: ...
+    def SetGammaControl(self) -> _HRESULT: ...
+    def GetGammaControl(self) -> _HRESULT: ...
+    def SetDisplaySurface(self) -> _HRESULT: ...
+    def GetDisplaySurfaceData(self) -> _HRESULT: ...
+    def GetFrameStatistics(self) -> _HRESULT: ...
 
 class IDXGIOutput1(IDXGIOutput):
-    GetDisplayModeList1: Callable[[], _HRESULT]
-    FindClosestMatchingMode1: Callable[[], _HRESULT]
-    GetDisplaySurfaceData1: Callable[[], _HRESULT]
-    DuplicateOutput: Callable[[ID3D11Device, _CArgObject], _HRESULT]
+    def GetDisplayModeList1(self) -> _HRESULT: ...
+    def FindClosestMatchingMode1(self) -> _HRESULT: ...
+    def GetDisplaySurfaceData1(self) -> _HRESULT: ...
+    def DuplicateOutput(self, pDevice: ID3D11Device, ppOutputDuplication: _CArgObject) -> _HRESULT: ...
 
 class IDXGIAdapter(IDXGIObject):
-    EnumOutputs: Callable[[wintypes.UINT, _CArgObject], _HRESULT]
-    GetDesc: Callable[[], _HRESULT]
-    CheckInterfaceSupport: Callable[[], _HRESULT]
+    def EnumOutputs(self, Output: UINT, ppOutput: _CArgObject) -> _HRESULT: ...
+    def GetDesc(self) -> _HRESULT: ...
+    def CheckInterfaceSupport(self) -> _HRESULT: ...
 
 class IDXGIAdapter1(IDXGIAdapter):
-    GetDesc1: Callable[[DXGI_ADAPTER_DESC1], _HRESULT]
+    def GetDesc1(self, pDesc: DXGI_ADAPTER_DESC1) -> _HRESULT: ...
 
 class IDXGIFactory(IDXGIObject):
-    EnumAdapters: Callable[[], _HRESULT]
-    MakeWindowAssociation: Callable[[], _HRESULT]
-    GetWindowAssociation: Callable[[], _HRESULT]
-    CreateSwapChain: Callable[[], _HRESULT]
-    CreateSoftwareAdapter: Callable[[], _HRESULT]
+    def EnumAdapters(self) -> _HRESULT: ...
+    def MakeWindowAssociation(self) -> _HRESULT: ...
+    def GetWindowAssociation(self) -> _HRESULT: ...
+    def CreateSwapChain(self) -> _HRESULT: ...
+    def CreateSoftwareAdapter(self) -> _HRESULT: ...
 
 class IDXGIFactory1(IDXGIFactory):
-    EnumAdapters1: Callable[[c_uint, _CArgObject], _HRESULT]
-    IsCurrent: Callable[[], wintypes.BOOL]
+    def EnumAdapters1(self, Adapter: c_uint, ppAdapter: _CArgObject) -> _HRESULT: ...
+    def IsCurrent(self) -> BOOL: ...
 
 def initialize_dxgi_factory() -> IDXGIFactory1: ...
 def discover_dxgi_adapters(dxgi_factory: IDXGIFactory1) -> list[IDXGIAdapter1]: ...
-def describe_dxgi_adapter(dxgi_adapter: IDXGIAdapter1) -> Array[wintypes.WCHAR]: ...
+def describe_dxgi_adapter(dxgi_adapter: IDXGIAdapter1) -> Array[WCHAR]: ...
 def discover_dxgi_outputs(dxgi_adapter: IDXGIAdapter) -> list[IDXGIOutput1]: ...
 def describe_dxgi_output(dxgi_output: IDXGIOutput) -> _DXGIOutput: ...
 def initialize_dxgi_output_duplication(dxgi_output: IDXGIOutput1, d3d_device: ID3D11Device) -> IDXGIOutputDuplication: ...
 def get_dxgi_output_duplication_frame(
     dxgi_output_duplication: IDXGIOutputDuplication,
     d3d_device: ID3D11Device,
-    process_func: Callable[[wintypes.PFLOAT, int, int, int, tuple[int, int, int, int], int], _Frame | None] | None = ...,
+    process_func: Callable[[PFLOAT, int, int, int, tuple[int, int, int, int], int], _Frame | None] | None = ...,
     width: int = ...,
     height: int = ...,
     region: tuple[int, int, int, int] | None = ...,
