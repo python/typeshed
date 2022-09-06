@@ -11,14 +11,14 @@ class Cmd:
     prompt: ClassVar[str]
     identchars: ClassVar[str]
     ruler: ClassVar[str]
-    lastcmd: ClassVar[str]
-    intro: Any | None
     doc_leader: ClassVar[str]
     doc_header: ClassVar[str]
     misc_header: ClassVar[str]
     undoc_header: ClassVar[str]
     nohelp: ClassVar[str]
     use_rawinput: ClassVar[bool]
+    lastcmd: str
+    intro: Any | None
     stdin: IO[str]
     stdout: IO[str]
     cmdqueue: list[str]
