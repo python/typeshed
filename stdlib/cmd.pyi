@@ -8,7 +8,6 @@ PROMPT: Literal["(Cmd) "]
 IDENTCHARS: str  # Too big to be `Literal`
 
 class Cmd:
-    prompt: ClassVar[str]
     identchars: ClassVar[str]
     ruler: ClassVar[str]
     doc_leader: ClassVar[str]
@@ -17,6 +16,7 @@ class Cmd:
     undoc_header: ClassVar[str]
     nohelp: ClassVar[str]
     use_rawinput: ClassVar[bool]
+    prompt: str
     lastcmd: str
     intro: Any | None
     stdin: IO[str]
