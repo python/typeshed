@@ -16,6 +16,8 @@ class Cmd:
     undoc_header: ClassVar[str]
     nohelp: ClassVar[str]
     use_rawinput: ClassVar[bool]
+    # "prompt", "lastcmd" and "intro" all have class-level default values,
+    # but are commonly overridden on instances, so shouldn't be ClassVars
     prompt: str
     lastcmd: str
     intro: Any | None
