@@ -400,6 +400,9 @@ class _StoreFalseAction(_StoreConstAction):
 class _AppendAction(Action): ...
 
 # undocumented
+class _ExtendAction(_AppendAction): ...
+
+# undocumented
 class _AppendConstAction(Action):
     if sys.version_info >= (3, 11):
         def __init__(
