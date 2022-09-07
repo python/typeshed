@@ -10,5 +10,4 @@ multiple_files = [
     ("images", ("foo.png", open("foo.png", "rb"), "image/png")),
     ("images", ("bar.png", open("bar.png", "rb"), "image/png")),
 ]
-r = requests.post(url, files=multiple_files)  # type: ignore
-foo: bar
+r = requests.post(url, files=multiple_files)
