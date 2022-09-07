@@ -51,7 +51,7 @@ def read_dependencies(distribution: str) -> tuple[str, ...]:
     dependencies = []
     for dependency in requires:
         assert isinstance(dependency, str)
-        assert dependency.startswith("types-")
+        assert dependency.startswith("types-"), f"unrecognized dependency {dependency}"
         dependencies.append(dependency[6:].split("<")[0])
     return tuple(dependencies)
 

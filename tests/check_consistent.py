@@ -72,7 +72,7 @@ def check_test_cases() -> None:
                     f'"# pyright: reportUnnecessaryTypeIgnoreComment=true" '
                     f"at the top of the file"
                 )
-                has_pyright_setting_enabled = any(line == "# pyright: reportUnnecessaryTypeIgnoreComment=true" for line in lines)
+                has_pyright_setting_enabled = "# pyright: reportUnnecessaryTypeIgnoreComment=true" in lines
                 assert has_pyright_setting_enabled, pyright_setting_not_enabled_msg
 
 
