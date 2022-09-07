@@ -400,7 +400,8 @@ class _StoreFalseAction(_StoreConstAction):
 class _AppendAction(Action): ...
 
 # undocumented
-class _ExtendAction(_AppendAction): ...
+if sys.version_info >= (3, 8):
+    class _ExtendAction(_AppendAction): ...
 
 # undocumented
 class _AppendConstAction(Action):
