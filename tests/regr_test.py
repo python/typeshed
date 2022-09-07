@@ -118,6 +118,14 @@ def test_testcase_directory(package: PackageInfo, version: str, platform: str) -
         if IS_STDLIB:
             flags.extend(["--custom-typeshed-dir", str(Path(__file__).parent.parent)])
         else:
+            # HACK: we want to run these test cases in an isolated environment --
+            # we want mypy to see all stub packages listed in the "requires" field of METADATA.toml
+            # (and all stub packages required by those stub packages, etc. etc.),
+            # but none of the other stubs in typeshed.
+            #
+            # The best way of doing that without stopping --warn-unused-ignore from working
+            # seems to be to create a "new typeshed" directory in a tempdir
+            # that has only the required stubs copied over.
             new_typeshed = td_path / "typeshed"
             os.mkdir(new_typeshed)
             shutil.copytree(Path("stdlib"), new_typeshed / "stdlib")
