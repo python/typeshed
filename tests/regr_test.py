@@ -90,10 +90,10 @@ def get_recursive_requirements(package_name: str, seen: set[str] | None = None) 
 
 def test_testcase_directory(package: PackageInfo, version: str, platform: str) -> ReturnCode:
     package_name, test_case_directory = package
-    IS_STDLIB = package_name == "stdlib"
+    is_stdlib = package_name == "stdlib"
 
     msg = f"Running mypy --platform {platform} --python-version {version} on the "
-    msg += "standard library test cases..." if IS_STDLIB else f"test cases for {package_name!r}..."
+    msg += "standard library test cases..." if is_stdlib else f"test cases for {package_name!r}..."
     print(msg, end=" ")
 
     flags = [
@@ -115,7 +115,7 @@ def test_testcase_directory(package: PackageInfo, version: str, platform: str) -
         new_test_case_dir = td_path / "test_cases"
         shutil.copytree(test_case_directory, new_test_case_dir)
         env_vars = dict(os.environ)
-        if IS_STDLIB:
+        if is_stdlib:
             flags.extend(["--custom-typeshed-dir", str(Path(__file__).parent.parent)])
         else:
             # HACK: we want to run these test cases in an isolated environment --
@@ -132,19 +132,17 @@ def test_testcase_directory(package: PackageInfo, version: str, platform: str) -
             requirements = get_recursive_requirements(package_name)
             for requirement in requirements:
                 shutil.copytree(Path("stubs", requirement), new_typeshed / "stubs" / requirement)
-            sep = ";" if sys.platform == "win32" else ":"
-            env_vars["MYPYPATH"] = sep.join(map(str, new_typeshed.glob("stubs/*")))
+            env_vars["MYPYPATH"] = os.pathsep.join(map(str, new_typeshed.glob("stubs/*")))
             flags.extend(["--custom-typeshed-dir", str(td_path / "typeshed")])
         result = subprocess.run([sys.executable, "-m", "mypy", new_test_case_dir, *flags], capture_output=True, env=env_vars)
 
-    stdout, stderr, returncode = result.stdout, result.stderr, result.returncode
-    if returncode:
+    if result.returncode:
         print_error("failure\n")
         replacements = (str(new_test_case_dir), str(test_case_directory))
-        if stderr:
-            print_error(stderr.decode(), fix_path=replacements)
-        if stdout:
-            print_error(stdout.decode(), fix_path=replacements)
+        if result.stderr:
+            print_error(result.stderr.decode(), fix_path=replacements)
+        if result.stdout:
+            print_error(result.stdout.decode(), fix_path=replacements)
     else:
         print_success_msg()
     return result.returncode
