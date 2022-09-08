@@ -1,11 +1,17 @@
 """Utilities that are imported by multiple scripts in the tests directory."""
 
 import os
+import re
 from functools import cache
 from pathlib import Path
 from typing import TYPE_CHECKING, NamedTuple
 
 import tomli
+
+
+def strip_comments(text: str) -> str:
+    return text.split("#")[0].strip()
+
 
 # ====================================================================
 # Some simple hacks so we don't have to install types-termcolor in CI,
@@ -56,6 +62,14 @@ def read_dependencies(distribution: str) -> tuple[str, ...]:
         assert dependency.startswith("types-"), f"unrecognized dependency {dependency!r}"
         dependencies.append(dependency[6:].split("<")[0])
     return tuple(dependencies)
+
+
+# ====================================================================
+# Parsing the stdlib/VERSIONS file
+# ====================================================================
+
+
+VERSIONS_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_.]*): ([23]\.\d{1,2})-([23]\.\d{1,2})?$")
 
 
 # ====================================================================
