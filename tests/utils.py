@@ -1,7 +1,7 @@
 """Utilities that are imported by multiple scripts in the tests directory."""
 
 import os
-from functools import lru_cache
+from functools import cache
 from pathlib import Path
 from typing import TYPE_CHECKING, NamedTuple
 
@@ -44,7 +44,7 @@ def print_success_msg() -> None:
 # ====================================================================
 
 
-@lru_cache()
+@cache
 def read_dependencies(distribution: str) -> tuple[str, ...]:
     with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
         data = tomli.load(f)
