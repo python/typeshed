@@ -1,13 +1,21 @@
 ## Regression tests for typeshed
 
-This directory contains code samples that act as a regression test for the
-standard library stubs found elsewhere in the typeshed repo.
+This directory contains code samples that act as a regression test for
+typeshed's stdlib stubs.
 
 **This directory should *only* contain test cases for functions and classes which
 are known to have caused problems in the past, where the stubs are difficult to
 get right.** 100% test coverage for typeshed is neither necessary nor
 desirable, as it would lead to code duplication. Moreover, typeshed has
 multiple other mechanisms for spotting errors in the stubs.
+
+### Where are the third-party test cases?
+
+Not all third-party stubs packages in typeshed have test cases, and not all of
+them need test cases. For those that do have test cases, however, the samples
+can be found in `@tests/test_cases` subdirectories for each stubs package. For
+example, the test cases for `requests` can be found in the
+`stubs/requests/@tests/test_cases` directory.
 
 ### The purpose of these tests
 

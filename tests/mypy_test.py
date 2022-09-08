@@ -1,18 +1,13 @@
 #!/usr/bin/env python3
-"""Run mypy on various typeshed directories, with varying command-line arguments.
+"""Run mypy on typeshed's stdlib and third-party stubs."""
 
-Depends on mypy being installed.
-"""
 from __future__ import annotations
 
 import argparse
 import os
 import re
-import shutil
-import subprocess
 import sys
 import tempfile
-from collections.abc import Iterable
 from contextlib import redirect_stderr, redirect_stdout
 from dataclasses import dataclass
 from io import StringIO
@@ -26,11 +21,11 @@ if TYPE_CHECKING:
 from typing_extensions import Annotated, TypeAlias
 
 import tomli
-from colors import colored, print_error, print_success_msg
+from utils import colored, print_error, print_success_msg, read_dependencies
 
 SUPPORTED_VERSIONS = [(3, 11), (3, 10), (3, 9), (3, 8), (3, 7)]
 SUPPORTED_PLATFORMS = ("linux", "win32", "darwin")
-TYPESHED_DIRECTORIES = frozenset({"stdlib", "stubs", "test_cases"})
+TYPESHED_DIRECTORIES = frozenset({"stdlib", "stubs"})
 
 ReturnCode: TypeAlias = int
 MajorVersion: TypeAlias = int
@@ -58,7 +53,9 @@ class CommandLineArgs(argparse.Namespace):
     filter: list[str]
 
 
-parser = argparse.ArgumentParser(description="Test runner for typeshed. Patterns are unanchored regexps on the full path.")
+parser = argparse.ArgumentParser(
+    description="Typecheck typeshed's stubs with mypy. Patterns are unanchored regexps on the full path."
+)
 parser.add_argument("-v", "--verbose", action="count", default=0, help="More output")
 parser.add_argument("-x", "--exclude", type=str, nargs="*", help="Exclude pattern")
 parser.add_argument(
@@ -239,20 +236,8 @@ def run_mypy(args: TestConfig, configurations: list[MypyDistConf], files: list[P
         return exit_code
 
 
-def run_mypy_as_subprocess(directory: StrPath, flags: Iterable[str]) -> ReturnCode:
-    result = subprocess.run([sys.executable, "-m", "mypy", directory, *flags], capture_output=True)
-    stdout, stderr = result.stdout, result.stderr
-    if stderr:
-        print_error(stderr.decode())
-    if stdout:
-        print_error(stdout.decode())
-    return result.returncode
-
-
-def get_mypy_flags(
-    args: TestConfig, temp_name: str | None, *, strict: bool = False, enforce_error_codes: bool = True
-) -> list[str]:
-    flags = [
+def get_mypy_flags(args: TestConfig, temp_name: str) -> list[str]:
+    return [
         "--python-version",
         f"{args.major}.{args.minor}",
         "--show-traceback",
@@ -264,29 +249,15 @@ def get_mypy_flags(
         "--no-site-packages",
         "--custom-typeshed-dir",
         str(Path(__file__).parent.parent),
+        "--no-implicit-optional",
+        "--disallow-untyped-decorators",
+        "--disallow-any-generics",
+        "--strict-equality",
+        "--enable-error-code",
+        "ignore-without-code",
+        "--config-file",
+        temp_name,
     ]
-    if strict:
-        flags.append("--strict")
-    else:
-        flags.extend(["--no-implicit-optional", "--disallow-untyped-decorators", "--disallow-any-generics", "--strict-equality"])
-    if temp_name is not None:
-        flags.extend(["--config-file", temp_name])
-    if enforce_error_codes:
-        flags.extend(["--enable-error-code", "ignore-without-code"])
-    return flags
-
-
-def read_dependencies(distribution: str) -> list[str]:
-    with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
-        data = tomli.load(f)
-    requires = data.get("requires", [])
-    assert isinstance(requires, list)
-    dependencies = []
-    for dependency in requires:
-        assert isinstance(dependency, str)
-        assert dependency.startswith("types-")
-        dependencies.append(dependency[6:].split("<")[0])
-    return dependencies
 
 
 def add_third_party_files(
@@ -382,23 +353,6 @@ def test_third_party_stubs(code: int, args: TestConfig) -> TestResults:
     return TestResults(code, files_checked)
 
 
-def test_the_test_cases(code: int, args: TestConfig) -> TestResults:
-    test_case_files = list(map(str, Path("test_cases").rglob("*.py")))
-    num_test_case_files = len(test_case_files)
-    flags = get_mypy_flags(args, None, strict=True, enforce_error_codes=False)
-    print(f"Running mypy on the test_cases directory ({num_test_case_files} files)...")
-    print("Running mypy " + " ".join(flags))
-    # --warn-unused-ignores doesn't work for files inside typeshed.
-    # SO, to work around this, we copy the test_cases directory into a TemporaryDirectory.
-    with tempfile.TemporaryDirectory() as td:
-        shutil.copytree(Path("test_cases"), Path(td) / "test_cases")
-        this_code = run_mypy_as_subprocess(td, flags)
-    if not this_code:
-        print_success_msg()
-    code = max(code, this_code)
-    return TestResults(code, num_test_case_files)
-
-
 def test_typeshed(code: int, args: TestConfig) -> TestResults:
     print(f"*** Testing Python {args.major}.{args.minor} on {args.platform}")
     files_checked_this_version = 0
@@ -410,11 +364,6 @@ def test_typeshed(code: int, args: TestConfig) -> TestResults:
     if "stubs" in args.directories:
         code, third_party_files_checked = test_third_party_stubs(code, args)
         files_checked_this_version += third_party_files_checked
-        print()
-
-    if "test_cases" in args.directories:
-        code, test_case_files_checked = test_the_test_cases(code, args)
-        files_checked_this_version += test_case_files_checked
         print()
 
     return TestResults(code, files_checked_this_version)
