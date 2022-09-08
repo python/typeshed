@@ -49,7 +49,7 @@ class BaseContext:
     def Manager(self) -> SyncManager: ...
 
     # N.B. Keep this in sync with multiprocessing.connection.Pipe.
-    # _BaseConnection is the common base class of Connection and PipeConnection
+    # _ConnectionBase is the common base class of Connection and PipeConnection
     # and can be used in cross-platform code.
     if sys.platform != "win32":
         def Pipe(self, duplex: bool = ...) -> tuple[Connection, Connection]: ...

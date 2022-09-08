@@ -60,7 +60,7 @@ def wait(
 def Client(address: _Address, family: str | None = ..., authkey: bytes | None = ...) -> Connection: ...
 
 # N.B. Keep this in sync with multiprocessing.context.BaseContext.Pipe.
-# _BaseConnection is the common base class of Connection and PipeConnection
+# _ConnectionBase is the common base class of Connection and PipeConnection
 # and can be used in cross-platform code.
 if sys.platform != "win32":
     def Pipe(duplex: bool = ...) -> tuple[Connection, Connection]: ...
