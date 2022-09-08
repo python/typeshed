@@ -1,6 +1,6 @@
 ## Regression tests for typeshed
 
-This directory contains code samples that act as a regression test for the
+This directory contains code samples that act as a regression test for
 typeshed's stdlib stubs.
 
 **This directory should *only* contain test cases for functions and classes which
