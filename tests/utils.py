@@ -8,7 +8,9 @@ from typing import TYPE_CHECKING, NamedTuple
 import tomli
 
 # ====================================================================
-# Some simple hacks so we don't have to install types-termcolor in CI
+# Some simple hacks so we don't have to install types-termcolor in CI,
+# and so that tests can be run locally without termcolor installed,
+# if desired
 # ====================================================================
 
 if TYPE_CHECKING:
