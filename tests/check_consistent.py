@@ -66,7 +66,7 @@ def check_test_cases() -> None:
             assert file.stem.startswith("check_"), bad_test_case_filename.format(file)
             if package_name != "stdlib":
                 with open(file) as f:
-                    lines = [line.strip() for line in f]
+                    lines = {line.strip() for line in f}
                 pyright_setting_not_enabled_msg = (
                     f'Third-party test-case file "{file}" must have '
                     f'"# pyright: reportUnnecessaryTypeIgnoreComment=true" '
