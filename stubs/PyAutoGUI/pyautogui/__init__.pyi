@@ -13,7 +13,7 @@ class ImageNotFoundException(PyAutoGUIException): ...
 
 _P = ParamSpec("_P")
 _R = TypeVar("_R")
-_NormalizeableXArg: TypeAlias = SupportsInt | Sequence[SupportsInt]
+_NormalizeableXArg: TypeAlias = str | SupportsInt | Sequence[SupportsInt]
 _Unused: TypeAlias = object
 
 # TODO: cv2.Mat is not available as a type yet: https://github.com/microsoft/python-type-stubs/issues/211
@@ -34,8 +34,8 @@ def raisePyAutoGUIImageNotFoundException(wrappedFunction: Callable[_P, _R]) -> C
 # _locateAll_opencv
 @overload
 def locate(
-    needleImage: str | _Mat,
-    haystackImage: str | _Mat,
+    needleImage: str | Image.Image | _Mat,
+    haystackImage: str | Image.Image | _Mat,
     grayscale: bool | None = ...,
     limit: _Unused = ...,
     region: _Box | None = ...,
@@ -58,8 +58,8 @@ def locate(
 # _locateAll_opencv
 @overload
 def locateAll(
-    needleImage: str | _Mat,
-    haystackImage: str | _Mat,
+    needleImage: str | Image.Image | _Mat,
+    haystackImage: str | Image.Image | _Mat,
     grayscale: bool | None = ...,
     limit: int = ...,
     region: _Box | None = ...,
@@ -82,7 +82,7 @@ def locateAll(
 # _locateAll_opencv
 @overload
 def locateAllOnScreen(
-    image: str | _Mat,
+    image: str | Image.Image | _Mat,
     grayscale: bool | None = ...,
     limit: int = ...,
     region: _Box | None = ...,
@@ -104,7 +104,7 @@ def locateAllOnScreen(
 # _locateAll_opencv
 @overload
 def locateCenterOnScreen(
-    image: str | _Mat,
+    image: str | Image.Image | _Mat,
     minSearchTime: float,
     grayscale: bool | None = ...,
     limit: _Unused = ...,
@@ -128,7 +128,7 @@ def locateCenterOnScreen(
 # _locateAll_opencv
 @overload
 def locateOnScreen(
-    image: str | _Mat,
+    image: str | Image.Image | _Mat,
     minSearchTime: float,
     grayscale: bool | None = ...,
     limit: _Unused = ...,
@@ -152,7 +152,7 @@ def locateOnScreen(
 # _locateAll_opencv
 @overload
 def locateOnWindow(
-    image: str | _Mat,
+    image: str | Image.Image | _Mat,
     title: str,
     grayscale: bool | None = ...,
     limit: _Unused = ...,
@@ -209,9 +209,6 @@ def getPointOnLine(x1: float, y1: float, x2: float, y2: float, n: float) -> tupl
 def linear(n: float) -> float: ...
 def position(x: int | None = ..., y: int | None = ...) -> Point: ...
 def size() -> Size: ...
-@overload
-def onScreen(x: tuple[float, float], y: None = ...) -> bool: ...
-@overload
 def onScreen(x: _NormalizeableXArg | None, y: SupportsInt | None) -> bool: ...
 def mouseDown(
     x: _NormalizeableXArg | None = ...,
