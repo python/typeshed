@@ -13,7 +13,6 @@ from __future__ import annotations
 import argparse
 import os
 import re
-import shutil
 import subprocess
 import sys
 
@@ -46,24 +45,9 @@ def get_installed_package_info(project: str) -> tuple[str, str] | None:
     return search_pip_freeze_output(project, r.stdout)
 
 
-def run_stubgen(package: str) -> None:
-    print(f"Running stubgen: stubgen -p {package}")
-    subprocess.run(["stubgen", "-p", package], check=True)
-
-
-def copy_stubs(src_base_dir: str, package: str, stub_dir: str) -> None:
-    """Copy generated stubs to the target directory under stub_dir/."""
-    print(f"Copying stubs to {stub_dir}")
-    if not os.path.isdir(stub_dir):
-        os.mkdir(stub_dir)
-    src_dir = os.path.join(src_base_dir, package)
-    if os.path.isdir(src_dir):
-        shutil.copytree(src_dir, os.path.join(stub_dir, package))
-    else:
-        src_file = os.path.join("out", f"{package}.pyi")
-        if not os.path.isfile(src_file):
-            sys.exit("Error: Cannot find generated stubs")
-        shutil.copy(src_file, stub_dir)
+def run_stubgen(package: str, output: str) -> None:
+    print(f"Running stubgen: stubgen -o {output} -p {package}")
+    subprocess.run(["stubgen", "-o", output, "-p", package], check=True)
 
 
 def run_black(stub_dir: str) -> None:
@@ -106,7 +90,8 @@ def add_pyright_exclusion(stub_dir: str) -> None:
     assert i < len(lines), f"Error parsing {PYRIGHT_CONFIG}"
     while not lines[i].strip().startswith("]"):
         i += 1
-    line_to_add = f'        "{stub_dir}",'
+    # Must use forward slash in the .json file
+    line_to_add = f'        "{stub_dir}",'.replace("\\", "/")
     initial = i - 1
     while lines[i].lower() > line_to_add.lower():
         i -= 1
@@ -171,10 +156,7 @@ def main() -> None:
     if os.path.exists(stub_dir):
         sys.exit(f"Error: {stub_dir} already exists (delete it first)")
 
-    run_stubgen(package)
-
-    # Stubs were generated under out/. Copy them to stubs/.
-    copy_stubs("out", package, stub_dir)
+    run_stubgen(package, stub_dir)
 
     run_isort(stub_dir)
     run_black(stub_dir)

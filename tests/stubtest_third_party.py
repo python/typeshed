@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import NoReturn
 
 import tomli
-from colors import colored, print_error, print_success_msg
+from utils import colored, print_error, print_success_msg
 
 
 @functools.lru_cache()
