@@ -1,4 +1,1 @@
 version = "1.7.*"
-
-[tool.stubtest]
-apt_dependencies = ["xvfb"]
