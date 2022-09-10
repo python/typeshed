@@ -90,6 +90,8 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
 
         stubtest_env = {"MYPYPATH": str(dist), "MYPY_FORCE_COLOR": "1"}
         if "DISPLAY" in os.environ:
+            # Set by xvfb-run. Needed for packages that fail to import when
+            # they think the system doesn't have a screen attached to it.
             stubtest_env["DISPLAY"] = os.environ["DISPLAY"]
 
         try:
