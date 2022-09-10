@@ -88,11 +88,9 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
         if allowlist_path.exists():
             stubtest_cmd.extend(["--allowlist", str(allowlist_path)])
 
-        stubtest_env = {"MYPYPATH": str(dist), "MYPY_FORCE_COLOR": "1"}
-        if "DISPLAY" in os.environ:
-            # Set by xvfb-run. Needed for packages that fail to import when
-            # they think the system doesn't have a screen attached to it.
-            stubtest_env["DISPLAY"] = os.environ["DISPLAY"]
+        stubtest_env = dict(os.environ)
+        stubtest_env["MYPYPATH"] = str(dist)
+        stubtest_env["MYPY_FORCE_COLOR"] = "1"
 
         try:
             subprocess.run(stubtest_cmd, env=stubtest_env, check=True, capture_output=True)
