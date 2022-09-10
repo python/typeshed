@@ -30,6 +30,7 @@ if sys.version_info >= (3, 9):
 
     @dataclass(unsafe_hash=True)
     class FunctionProfile:
+        # Note: the annotation in the CPython codebase is "int", but the annotation in CPython is wrong! See #8712
         ncalls: str
         tottime: float
         percall_tottime: float
