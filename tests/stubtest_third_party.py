@@ -84,13 +84,11 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
             *packages_to_check,
             *modules_to_check,
         ]
+        stubtest_env = os.environ | {"MYPYPATH": str(dist), "MYPY_FORCE_COLOR": "1"}
+
         allowlist_path = dist / "@tests/stubtest_allowlist.txt"
         if allowlist_path.exists():
             stubtest_cmd.extend(["--allowlist", str(allowlist_path)])
-
-        stubtest_env = dict(os.environ)
-        stubtest_env["MYPYPATH"] = str(dist)
-        stubtest_env["MYPY_FORCE_COLOR"] = "1"
 
         try:
             subprocess.run(stubtest_cmd, env=stubtest_env, check=True, capture_output=True)
