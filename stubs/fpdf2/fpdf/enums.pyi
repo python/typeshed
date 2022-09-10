@@ -178,7 +178,7 @@ class Corner(CoerciveEnum):
     BOTTOM_RIGHT: str
     BOTTOM_LEFT: str
 
-class FontDescriptorFlag(Flag):
+class FontDescriptorFlags(Flag):
     FIXED_PITCH: int
     SYMBOLIC: int
     ITALIC: int
