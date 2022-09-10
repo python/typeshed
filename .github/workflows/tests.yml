@@ -140,6 +140,7 @@ jobs:
         run: pip install $(grep tomli== requirements-tests.txt) termcolor
       - name: Run stubtest
         run: |
+          set -x
           STUBS=$(
             git diff --name-only origin/${{ github.base_ref }} HEAD |
             # Uncomment the following to (very slowly) run on all third party stubs:
