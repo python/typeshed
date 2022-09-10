@@ -84,6 +84,13 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
             *packages_to_check,
             *modules_to_check,
         ]
+
+        # For packages that need a display, we need to pass at least $DISPLAY
+        # to stubtest. $DISPLAY is set by xvfb-run in CI.
+        #
+        # It seems that some other environment variables are needed too,
+        # because the CI fails if we pass only os.environ["DISPLAY"]. I didn't
+        # "bisect" to see which variables are actually needed.
         stubtest_env = os.environ | {"MYPYPATH": str(dist), "MYPY_FORCE_COLOR": "1"}
 
         allowlist_path = dist / "@tests/stubtest_allowlist.txt"
