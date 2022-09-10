@@ -153,8 +153,9 @@ jobs:
               echo "Installing apt packages: $APT_PACKAGES"
               sudo apt update && sudo apt install -y $APT_PACKAGES
             fi
-            sudo apt update && sudo apt install -y x11-xserver-utils && xhost +  # Work around a bug in python-xlib https://stackoverflow.com/q/31902846
-            xvfb-run python tests/stubtest_third_party.py $STUBS
+            # Work around a bug in python-xlib https://stackoverflow.com/q/31902846
+            sudo apt update && sudo apt install -y x11-xserver-utils
+            xvfb-run bash -c "xhost + && python tests/stubtest_third_party.py $STUBS"
           else
             echo "Nothing to test"
           fi
