@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import functools
+import os
 import subprocess
 import sys
 import tempfile
@@ -87,8 +88,12 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
         if allowlist_path.exists():
             stubtest_cmd.extend(["--allowlist", str(allowlist_path)])
 
+        stubtest_env = {"MYPYPATH": str(dist), "MYPY_FORCE_COLOR": "1"}
+        if "DISPLAY" in os.environ:
+            stubtest_env["DISPLAY"] = os.environ["DISPLAY"]
+
         try:
-            subprocess.run(stubtest_cmd, env={"MYPYPATH": str(dist), "MYPY_FORCE_COLOR": "1"}, check=True, capture_output=True)
+            subprocess.run(stubtest_cmd, env=stubtest_env, check=True, capture_output=True)
         except subprocess.CalledProcessError as e:
             print_error("fail")
             print_commands(dist, pip_cmd, stubtest_cmd)
