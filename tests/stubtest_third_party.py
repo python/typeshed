@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import functools
+import os
 import subprocess
 import sys
 import tempfile
@@ -83,12 +84,21 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
             *packages_to_check,
             *modules_to_check,
         ]
+
+        # For packages that need a display, we need to pass at least $DISPLAY
+        # to stubtest. $DISPLAY is set by xvfb-run in CI.
+        #
+        # It seems that some other environment variables are needed too,
+        # because the CI fails if we pass only os.environ["DISPLAY"]. I didn't
+        # "bisect" to see which variables are actually needed.
+        stubtest_env = os.environ | {"MYPYPATH": str(dist), "MYPY_FORCE_COLOR": "1"}
+
         allowlist_path = dist / "@tests/stubtest_allowlist.txt"
         if allowlist_path.exists():
             stubtest_cmd.extend(["--allowlist", str(allowlist_path)])
 
         try:
-            subprocess.run(stubtest_cmd, env={"MYPYPATH": str(dist), "MYPY_FORCE_COLOR": "1"}, check=True, capture_output=True)
+            subprocess.run(stubtest_cmd, env=stubtest_env, check=True, capture_output=True)
         except subprocess.CalledProcessError as e:
             print_error("fail")
             print_commands(dist, pip_cmd, stubtest_cmd)
@@ -105,7 +115,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
                 print(file=sys.stderr)
             else:
                 print(f"Re-running stubtest with --generate-allowlist.\nAdd the following to {allowlist_path}:", file=sys.stderr)
-                ret = subprocess.run(stubtest_cmd + ["--generate-allowlist"], env={"MYPYPATH": str(dist)}, capture_output=True)
+                ret = subprocess.run(stubtest_cmd + ["--generate-allowlist"], env=stubtest_env, capture_output=True)
                 print_command_output(ret)
 
             return False
