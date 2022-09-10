@@ -58,7 +58,7 @@ jobs:
           sudo apt install -y $(python tests/get_apt_packages.py)
       - name: Run stubtest
         run: |
-          $(which xvfb-run || echo python) tests/stubtest_third_party.py --num-shards 4 --shard-index ${{ matrix.shard-index }}
+          $(which xvfb-run || true) python tests/stubtest_third_party.py --num-shards 4 --shard-index ${{ matrix.shard-index }}
 
   # https://github.community/t/run-github-actions-job-only-if-previous-job-has-failed/174786/2
   create-issue-on-failure:
