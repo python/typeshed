@@ -38,8 +38,14 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
         venv_dir = Path(tmp)
         venv.create(venv_dir, with_pip=True, clear=True)
 
-        pip_exe = str(venv_dir / "bin" / "pip")
-        python_exe = str(venv_dir / "bin" / "python")
+        if sys.platform == "win32":
+            pip = venv_dir / "Scripts" / "pip.exe"
+            python = venv_dir / "Scripts" / "python.exe"
+        else:
+            pip = venv_dir / "bin" / "pip"
+            python = venv_dir / "bin" / "python"
+
+        pip_exe, python_exe = str(pip), str(python)
 
         dist_version = metadata["version"]
         extras = stubtest_meta.get("extras", [])
