@@ -1,2 +1,3 @@
-# DeletableAPIResource.delete is has a custom classmethod overload
+# The following methods have custom classmethod decorators
 stripe\..*\.delete
+stripe\..*PaymentIntent\.confirm

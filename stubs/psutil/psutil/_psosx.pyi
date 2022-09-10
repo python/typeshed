@@ -1,4 +1,3 @@
-from contextlib import AbstractContextManager
 from typing import Any, NamedTuple
 
 from ._common import (
@@ -27,14 +26,14 @@ class scputimes(NamedTuple):
     idle: Any
 
 class svmem(NamedTuple):
-    total: Any
-    available: Any
-    percent: Any
-    used: Any
-    free: Any
-    active: Any
-    inactive: Any
-    wired: Any
+    total: int
+    available: int
+    percent: float
+    used: int
+    free: int
+    active: int
+    inactive: int
+    wired: int
 
 class pmem(NamedTuple):
     rss: Any
@@ -44,12 +43,12 @@ class pmem(NamedTuple):
 
 pfullmem: Any
 
-def virtual_memory(): ...
+def virtual_memory() -> svmem: ...
 def swap_memory(): ...
 def cpu_times(): ...
 def per_cpu_times(): ...
 def cpu_count_logical(): ...
-def cpu_count_physical(): ...
+def cpu_count_cores() -> int | None: ...
 def cpu_stats(): ...
 def cpu_freq(): ...
 
@@ -72,7 +71,6 @@ pid_exists: Any
 
 def is_zombie(pid): ...
 def wrap_exceptions(fun): ...
-def catch_zombie(proc) -> AbstractContextManager[None]: ...
 
 class Process:
     pid: Any

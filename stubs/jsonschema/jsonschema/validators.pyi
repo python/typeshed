@@ -1,9 +1,17 @@
 from _typeshed import SupportsKeysAndGetItem
-from collections.abc import Callable, Generator, Iterable, Mapping
+from collections.abc import Callable, Generator, Iterable, Iterator, Mapping
 from typing import Any, ClassVar
 from typing_extensions import TypeAlias
 
+from ._format import FormatChecker
+from ._types import TypeChecker
 from ._utils import URIDict
+from .exceptions import ValidationError
+
+# these type aliases do not exist at runtime, they're only defined here in the stub
+_JsonObject: TypeAlias = Mapping[str, Any]
+_JsonValue: TypeAlias = _JsonObject | list[Any] | str | int | float | bool | None
+_ValidatorCallback: TypeAlias = Callable[[Any, Any, _JsonValue, _JsonObject], Iterator[ValidationError]]
 
 _Schema: TypeAlias = Mapping[str, Any]
 
@@ -12,7 +20,8 @@ _Schema: TypeAlias = Mapping[str, Any]
 class _Validator:
     VALIDATORS: ClassVar[dict[Any, Any]]
     META_SCHEMA: ClassVar[dict[Any, Any]]
-    TYPE_CHECKER: Any
+    TYPE_CHECKER: ClassVar[Any]
+    FORMAT_CHECKER: ClassVar[Any]
     @staticmethod
     def ID_OF(schema: _Schema) -> str: ...
     schema: _Schema
@@ -32,9 +41,17 @@ class _Validator:
 
 def validates(version: str) -> Callable[..., Any]: ...
 def create(
-    meta_schema, validators=..., version: Any | None = ..., type_checker=..., id_of=..., applicable_validators=...
+    meta_schema: _Schema,
+    validators: Mapping[str, _ValidatorCallback] | tuple[()] = ...,
+    version: Any | None = ...,
+    type_checker: TypeChecker = ...,
+    format_checker: FormatChecker = ...,
+    id_of: Callable[[_Schema], str] = ...,
+    applicable_validators: Callable[[_Schema], Iterable[tuple[str, _ValidatorCallback]]] = ...,
 ) -> type[_Validator]: ...
-def extend(validator, validators=..., version: Any | None = ..., type_checker: Any | None = ...): ...
+def extend(
+    validator, validators=..., version: Any | None = ..., type_checker: Any | None = ..., format_checker: Any | None = ...
+): ...
 
 # At runtime these are fields that are assigned the return values of create() calls.
 class Draft3Validator(_Validator): ...

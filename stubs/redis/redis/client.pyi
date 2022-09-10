@@ -1,15 +1,19 @@
 import threading
-from _typeshed import Self, SupportsItems
+from _typeshed import Incomplete, Self, SupportsItems
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from datetime import datetime, timedelta
+from re import Pattern
 from types import TracebackType
-from typing import Any, ClassVar, Generic, Pattern, TypeVar, overload
+from typing import Any, ClassVar, Generic, TypeVar, overload
 from typing_extensions import Literal, TypeAlias
 
+from redis import RedisError
+
 from .commands import CoreCommands, RedisModuleCommands, SentinelCommands
-from .connection import ConnectionPool, _ConnectionPoolOptions
+from .connection import ConnectionPool, _ConnectFunc, _ConnectionPoolOptions
 from .lock import Lock
 from .retry import Retry
+from .typing import ChannelT, EncodableT, KeyT, PatternT
 
 _Value: TypeAlias = bytes | float | int | str
 _Key: TypeAlias = str | bytes
@@ -69,8 +73,10 @@ def parse_slowlog_get(response, **options): ...
 
 _LockType = TypeVar("_LockType")
 
-class Redis(RedisModuleCommands, CoreCommands[_StrType], SentinelCommands, Generic[_StrType]):
-    RESPONSE_CALLBACKS: Any
+class AbstractRedis:
+    RESPONSE_CALLBACKS: dict[str, Any]
+
+class Redis(AbstractRedis, RedisModuleCommands, CoreCommands[_StrType], SentinelCommands, Generic[_StrType]):
     @overload
     @classmethod
     def from_url(
@@ -160,7 +166,7 @@ class Redis(RedisModuleCommands, CoreCommands[_StrType], SentinelCommands, Gener
         errors: str | None,
         decode_responses: Literal[True],
         retry_on_timeout: bool = ...,
-        retry_on_error=...,
+        retry_on_error: list[type[RedisError]] | None = ...,
         ssl: bool = ...,
         ssl_keyfile: str | None = ...,
         ssl_certfile: str | None = ...,
@@ -180,7 +186,7 @@ class Redis(RedisModuleCommands, CoreCommands[_StrType], SentinelCommands, Gener
         client_name: str | None = ...,
         username: str | None = ...,
         retry: Retry | None = ...,
-        redis_connect_func: Any | None = ...,
+        redis_connect_func: _ConnectFunc | None = ...,
     ) -> None: ...
     @overload
     def __init__(
@@ -220,7 +226,7 @@ class Redis(RedisModuleCommands, CoreCommands[_StrType], SentinelCommands, Gener
         client_name: str | None = ...,
         username: str | None = ...,
         retry: Retry | None = ...,
-        redis_connect_func: Any | None = ...,
+        redis_connect_func: _ConnectFunc | None = ...,
     ) -> None: ...
     @overload
     def __init__(
@@ -259,7 +265,7 @@ class Redis(RedisModuleCommands, CoreCommands[_StrType], SentinelCommands, Gener
         client_name: str | None = ...,
         username: str | None = ...,
         retry: Retry | None = ...,
-        redis_connect_func: Any | None = ...,
+        redis_connect_func: _ConnectFunc | None = ...,
     ) -> None: ...
     def get_encoder(self): ...
     def get_connection_kwargs(self): ...
@@ -272,6 +278,7 @@ class Redis(RedisModuleCommands, CoreCommands[_StrType], SentinelCommands, Gener
         name: _Key,
         timeout: float | None = ...,
         sleep: float = ...,
+        blocking: bool = ...,
         blocking_timeout: float | None = ...,
         lock_class: None = ...,
         thread_local: bool = ...,
@@ -282,6 +289,7 @@ class Redis(RedisModuleCommands, CoreCommands[_StrType], SentinelCommands, Gener
         name: _Key,
         timeout: float | None,
         sleep: float,
+        blocking: bool,
         blocking_timeout: float | None,
         lock_class: type[_LockType],
         thread_local: bool = ...,
@@ -292,6 +300,7 @@ class Redis(RedisModuleCommands, CoreCommands[_StrType], SentinelCommands, Gener
         name: _Key,
         timeout: float | None = ...,
         sleep: float = ...,
+        blocking: bool = ...,
         blocking_timeout: float | None = ...,
         *,
         lock_class: type[_LockType],
@@ -394,7 +403,6 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     # in the Redis implementation, the following methods are inherited from client.
     def set_response_callback(self, command, callback): ...
     def pipeline(self, transaction: bool = ..., shard_hint: Any = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
-    def lock(self, name, timeout=..., sleep=..., blocking_timeout=..., lock_class=..., thread_local=...): ...
     def acl_cat(self, category: str | None = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def acl_deluser(self, username: str) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def acl_genpass(self, bits: int | None = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
@@ -411,6 +419,8 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         categories: Sequence[str] | None = ...,
         commands: Sequence[str] | None = ...,
         keys: Sequence[str] | None = ...,
+        channels: Iterable[ChannelT] | None = ...,
+        selectors: Iterable[tuple[str, KeyT]] | None = ...,
         reset: bool = ...,
         reset_keys: bool = ...,
         reset_passwords: bool = ...,
@@ -426,8 +436,8 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def client_setname(self, name: str) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def readwrite(self) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def readonly(self) -> Pipeline[_StrType]: ...  # type: ignore[override]
-    def config_get(self, pattern=...) -> Pipeline[_StrType]: ...  # type: ignore[override]
-    def config_set(self, name, value) -> Pipeline[_StrType]: ...  # type: ignore[override]
+    def config_get(self, pattern: PatternT = ..., *args: PatternT, **kwargs: _CommandOptions) -> Pipeline[_StrType]: ...  # type: ignore[override]
+    def config_set(self, name: KeyT, value: EncodableT, *args: KeyT | EncodableT, **kwargs: _CommandOptions) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def config_resetstat(self) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def config_rewrite(self) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def dbsize(self) -> Pipeline[_StrType]: ...  # type: ignore[override]
@@ -435,7 +445,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def echo(self, value) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def flushall(self, asynchronous: bool = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def flushdb(self, asynchronous: bool = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
-    def info(self, section: _Key | None = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
+    def info(self, section: _Key | None = ..., *args: _Key, **kwargs: _CommandOptions) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def lastsave(self) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def object(self, infotype, key) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def ping(self) -> Pipeline[_StrType]: ...  # type: ignore[override]
@@ -582,10 +592,10 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         self, name, groupname, consumername, min_idle_time, message_ids, idle=..., time=..., retrycount=..., force=..., justid=...
     ) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def xdel(self, name, *ids) -> Pipeline[_StrType]: ...  # type: ignore[override]
-    def xgroup_create(self, name, groupname, id=..., mkstream=...) -> Pipeline[_StrType]: ...  # type: ignore[override]
+    def xgroup_create(self, name, groupname, id=..., mkstream=..., entries_read: int | None = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def xgroup_delconsumer(self, name, groupname, consumername) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def xgroup_destroy(self, name, groupname) -> Pipeline[_StrType]: ...  # type: ignore[override]
-    def xgroup_setid(self, name, groupname, id) -> Pipeline[_StrType]: ...  # type: ignore[override]
+    def xgroup_setid(self, name, groupname, id, entries_read: int | None = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def xinfo_consumers(self, name, groupname) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def xinfo_groups(self, name) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def xinfo_stream(self, name, full: bool = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
@@ -596,7 +606,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def xread(self, streams, count=..., block=...) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def xreadgroup(self, groupname, consumername, streams, count=..., block=..., noack=...) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def xrevrange(self, name, max=..., min=..., count=...) -> Pipeline[_StrType]: ...  # type: ignore[override]
-    def xtrim(self, name, maxlen: int, approximate: bool = ..., minid: Any | None = ..., limit: int | None = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
+    def xtrim(self, name, maxlen: int | None = ..., approximate: bool = ..., minid: Incomplete | None = ..., limit: int | None = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def zadd(  # type: ignore[override]
         self,
         name: _Key,

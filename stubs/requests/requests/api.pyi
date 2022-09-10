@@ -1,7 +1,11 @@
+from collections.abc import Mapping
 from typing import Any
+from typing_extensions import TypeAlias
 
 from .models import Response
 from .sessions import RequestsCookieJar, _Auth, _Cert, _Data, _Files, _HooksInput, _Params, _TextMapping, _Timeout, _Verify
+
+_HeadersMapping: TypeAlias = Mapping[str, str | bytes]
 
 def request(
     method: str | bytes,
@@ -9,7 +13,7 @@ def request(
     *,
     params: _Params | None = ...,
     data: _Data | None = ...,
-    headers: _TextMapping | None = ...,
+    headers: _HeadersMapping | None = ...,
     cookies: RequestsCookieJar | _TextMapping | None = ...,
     files: _Files | None = ...,
     auth: _Auth | None = ...,
@@ -27,7 +31,7 @@ def get(
     params: _Params | None = ...,
     *,
     data: _Data | None = ...,
-    headers: _TextMapping | None = ...,
+    headers: _HeadersMapping | None = ...,
     cookies: RequestsCookieJar | _TextMapping | None = ...,
     files: _Files | None = ...,
     auth: _Auth | None = ...,
@@ -45,7 +49,7 @@ def options(
     *,
     params: _Params | None = ...,
     data: _Data | None = ...,
-    headers: _TextMapping | None = ...,
+    headers: _HeadersMapping | None = ...,
     cookies: RequestsCookieJar | _TextMapping | None = ...,
     files: _Files | None = ...,
     auth: _Auth | None = ...,
@@ -63,7 +67,7 @@ def head(
     *,
     params: _Params | None = ...,
     data: _Data | None = ...,
-    headers: _TextMapping | None = ...,
+    headers: _HeadersMapping | None = ...,
     cookies: RequestsCookieJar | _TextMapping | None = ...,
     files: _Files | None = ...,
     auth: _Auth | None = ...,
@@ -82,7 +86,7 @@ def post(
     json: Any | None = ...,
     *,
     params: _Params | None = ...,
-    headers: _TextMapping | None = ...,
+    headers: _HeadersMapping | None = ...,
     cookies: RequestsCookieJar | _TextMapping | None = ...,
     files: _Files | None = ...,
     auth: _Auth | None = ...,
@@ -99,7 +103,7 @@ def put(
     data: _Data | None = ...,
     *,
     params: _Params | None = ...,
-    headers: _TextMapping | None = ...,
+    headers: _HeadersMapping | None = ...,
     cookies: RequestsCookieJar | _TextMapping | None = ...,
     files: _Files | None = ...,
     auth: _Auth | None = ...,
@@ -117,7 +121,7 @@ def patch(
     data: _Data | None = ...,
     *,
     params: _Params | None = ...,
-    headers: _TextMapping | None = ...,
+    headers: _HeadersMapping | None = ...,
     cookies: RequestsCookieJar | _TextMapping | None = ...,
     files: _Files | None = ...,
     auth: _Auth | None = ...,
@@ -135,7 +139,7 @@ def delete(
     *,
     params: _Params | None = ...,
     data: _Data | None = ...,
-    headers: _TextMapping | None = ...,
+    headers: _HeadersMapping | None = ...,
     cookies: RequestsCookieJar | _TextMapping | None = ...,
     files: _Files | None = ...,
     auth: _Auth | None = ...,
