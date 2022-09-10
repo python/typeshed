@@ -2,7 +2,6 @@
 pynput.keyboard.Controller.__init__
 pynput.mouse.Controller.__init__
 # stubtest issues with non-`type` metaclasses, see https://github.com/python/mypy/issues/13316
+pynput.keyboard.Controller._Key
 pynput.keyboard._base.Controller._Key
-pynput.keyboard._base.Controller._KeyCode
 pynput.keyboard._dummy.Controller._Key
-pynput.keyboard._dummy.Controller._KeyCode
