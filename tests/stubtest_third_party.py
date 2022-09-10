@@ -110,7 +110,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
                 print(file=sys.stderr)
             else:
                 print(f"Re-running stubtest with --generate-allowlist.\nAdd the following to {allowlist_path}:", file=sys.stderr)
-                ret = subprocess.run(stubtest_cmd + ["--generate-allowlist"], env={"MYPYPATH": str(dist)}, capture_output=True)
+                ret = subprocess.run(stubtest_cmd + ["--generate-allowlist"], env=stubtest_env, capture_output=True)
                 print_command_output(ret)
 
             return False
