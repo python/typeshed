@@ -1,0 +1,9 @@
+# TODO: go through this allowlist, figure out which of them are false positives
+pynput.keyboard.Controller._Key
+pynput.keyboard.Controller._KeyCode
+pynput.keyboard.Controller.__init__
+pynput.keyboard._base.Controller._Key
+pynput.keyboard._base.Controller._KeyCode
+pynput.keyboard._dummy.Controller._Key
+pynput.keyboard._dummy.Controller._KeyCode
+pynput.mouse.Controller.__init__
