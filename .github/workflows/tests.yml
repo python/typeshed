@@ -153,7 +153,7 @@ jobs:
               echo "Installing apt packages: $APT_PACKAGES"
               sudo apt update && sudo apt install -y $APT_PACKAGES
             fi
-            python tests/stubtest_third_party.py $STUBS
+            xvfb-run python tests/stubtest_third_party.py $STUBS
           else
             echo "Nothing to test"
           fi
