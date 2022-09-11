@@ -6,7 +6,7 @@ from builtins import list as _list, type as Type  # aliases to avoid name clashe
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from gzip import _ReadableFileobj as _GzipReadableFileobj, _WritableFileobj as _GzipWritableFileobj
 from types import TracebackType
-from typing import ClassVar, IO, Protocol, overload
+from typing import IO, ClassVar, Protocol, overload
 from typing_extensions import Literal
 
 __all__ = [
