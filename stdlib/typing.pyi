@@ -637,14 +637,16 @@ TYPE_CHECKING: bool
 # This differs from runtime, but better reflects the fact that in reality
 # classes deriving from IO use different names for the arguments.
 class IO(Iterator[AnyStr], Generic[AnyStr]):
-    # TODO use abstract properties
     @property
+    @abstractmethod
     def mode(self) -> str: ...
     @property
+    @abstractmethod
     def name(self) -> str: ...
     @abstractmethod
     def close(self) -> None: ...
     @property
+    @abstractmethod
     def closed(self) -> bool: ...
     @abstractmethod
     def fileno(self) -> int: ...
@@ -690,16 +692,20 @@ class BinaryIO(IO[bytes]):
     def __enter__(self) -> BinaryIO: ...
 
 class TextIO(IO[str]):
-    # TODO use abstractproperty
     @property
+    @abstractmethod
     def buffer(self) -> BinaryIO: ...
     @property
+    @abstractmethod
     def encoding(self) -> str: ...
     @property
+    @abstractmethod
     def errors(self) -> str | None: ...
     @property
+    @abstractmethod
     def line_buffering(self) -> int: ...  # int on PyPy, bool on CPython
     @property
+    @abstractmethod
     def newlines(self) -> Any: ...  # None, str or tuple
     @abstractmethod
     def __enter__(self) -> TextIO: ...
