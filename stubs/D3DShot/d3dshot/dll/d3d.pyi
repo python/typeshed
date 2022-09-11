@@ -1,6 +1,6 @@
 import sys
 from _typeshed import Incomplete
-from ctypes import Structure, _CArgObject, c_int32, c_uint, c_void_p
+from ctypes import Structure, _CArgObject, _CData, c_int32, c_uint, c_ulong, c_void_p
 from ctypes.wintypes import FLOAT, UINT
 from typing_extensions import TypeAlias
 
@@ -18,8 +18,11 @@ else:
 
 # TODO: Complete types once we can import non-types dependencies
 # See: https://github.com/python/typeshed/issues/5768
-# import comtypes
-_IUnknown: TypeAlias = Incomplete
+# from comtypes import IUnknown
+class _IUnknown:  # From comtypes.IUnknown
+    def QueryInterface(self, interface: type, iid: _CData | None = ...) -> _HRESULT: ...
+    def AddRef(self) -> c_ulong: ...
+    def Release(self) -> c_ulong: ...
 
 class DXGI_SAMPLE_DESC(Structure):
     Count: UINT

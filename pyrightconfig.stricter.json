@@ -38,6 +38,7 @@
         "stubs/caldav",
         "stubs/commonmark",
         "stubs/cryptography",
+        "stubs/D3DShot",
         "stubs/dateparser",
         "stubs/dj-database-url",
         "stubs/docutils",
@@ -90,8 +91,7 @@
         "stubs/tzlocal/tzlocal/utils.pyi",
         "stubs/ttkthemes",
         "stubs/urllib3",
-        "stubs/vobject",
-        "stubs/D3DShot"
+        "stubs/vobject"
     ],
     "typeCheckingMode": "basic",
     "strictListInference": true,

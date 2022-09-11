@@ -9,13 +9,16 @@ from d3dshot.dll.d3d import ID3D11Device
 from PIL import Image
 
 # TODO: Complete types once we can import non-types dependencies
-# See: https://github.com/python/typeshed/issues/5768
+# See: #5768
 # from torch import Tensor
-# import comtypes
+# from comtypes import IUnknown
 # import numpy.typing as npt
-# _IUnknown: TypeAlias = Incomplete
 _Frame: TypeAlias = Image.Image | Incomplete
 # _Frame: TypeAlias = Image.Image | npt.NDArray[np.int32] | npt.NDArray[np.float32] | Tensor
+class _IUnknown:  # From comtypes.IUnknown
+    def QueryInterface(self, interface: type, iid: _CData | None = ...) -> _HRESULT: ...
+    def AddRef(self) -> c_ulong: ...
+    def Release(self) -> c_ulong: ...
 
 # mypy does not support os.name checks, while pyright does https://github.com/python/mypy/issues/13002
 # import os
@@ -26,11 +29,6 @@ if sys.platform == "win32":
     _HRESULT: TypeAlias = HRESULT
 else:
     _HRESULT: TypeAlias = Incomplete
-
-class _IUnknown:  # From comtypes.IUnknown
-    def QueryInterface(self, interface: type, iid: _CData | None = ...) -> _HRESULT: ...
-    def AddRef(self) -> c_ulong: ...
-    def Release(self) -> c_ulong: ...
 
 class _DXGIOutputPosition(TypedDict):
     left: LONG

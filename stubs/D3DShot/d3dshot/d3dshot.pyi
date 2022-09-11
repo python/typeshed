@@ -8,6 +8,7 @@ from d3dshot.display import Display as Display
 from PIL import Image
 
 _Frame: TypeAlias = Image.Image | Incomplete
+# FIXME: When #5768 is resolved:
 # _Frame: TypeAlias = Image.Image | npt.NDArray[np.int32] | npt.NDArray[np.float32] | _Tensor
 
 class Singleton(type):
