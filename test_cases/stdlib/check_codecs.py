@@ -1,5 +1,3 @@
-# pyright: reportUnnecessaryTypeIgnoreComment=true
-
 import codecs
 from typing_extensions import assert_type
 
