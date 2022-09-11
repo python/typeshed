@@ -6,9 +6,6 @@ from typing_extensions import TypeAlias
 
 from d3dshot.dll.dxgi import IDXGIAdapter
 
-# mypy does not support os.name checks, while pyright does https://github.com/python/mypy/issues/13002
-# import os
-# if os.name == "nt":  # noqa: Y002
 if sys.platform == "win32":
     from ctypes import HRESULT
 
