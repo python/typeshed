@@ -1,5 +1,6 @@
 from _typeshed import OpenBinaryModeReading, OpenBinaryModeWriting, OpenTextModeReading, OpenTextModeWriting, SupportsWrite
-from typing import Any, ClassVar, Pattern
+from re import Pattern
+from typing import Any, ClassVar
 from typing_extensions import Literal
 
 from docutils import TransformSpec
@@ -19,7 +20,7 @@ class Input(TransformSpec):
     def decode(self, data: str | bytes) -> str: ...
     coding_slug: ClassVar[Pattern[bytes]]
     byte_order_marks: ClassVar[tuple[tuple[bytes, str], ...]]
-    def determine_encoding_from_data(self, data: str | bytes) -> str: ...
+    def determine_encoding_from_data(self, data: str | bytes) -> str | None: ...
     def isatty(self) -> bool: ...
 
 class Output(TransformSpec):
