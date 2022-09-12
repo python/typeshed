@@ -10,6 +10,7 @@ def encode(
     escape_forward_slashes: bool = ...,
     sort_keys: bool = ...,
     indent: int = ...,
+    default: Any = ...,
 ) -> str: ...
 def dumps(
     obj: Any,
@@ -19,6 +20,7 @@ def dumps(
     escape_forward_slashes: bool = ...,
     sort_keys: bool = ...,
     indent: int = ...,
+    default: Any = ...,
 ) -> str: ...
 def dump(
     obj: Any,
