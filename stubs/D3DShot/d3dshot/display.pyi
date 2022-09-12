@@ -11,6 +11,9 @@ class _PositionDict(TypedDict):
     right: int
     bottom: int
 
+# Note that Display.d3d_device and Display.d3d_device_context can never be None.
+# Despite initially being set to None in __init__,
+# they're always immediatly set in _initialize_dxgi_output_duplication()
 class Display:
     name: str
     adapter_name: str
