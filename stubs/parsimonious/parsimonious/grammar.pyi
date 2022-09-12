@@ -3,7 +3,7 @@ from collections import OrderedDict
 from collections.abc import Callable, Mapping
 from typing import Any, NoReturn
 
-from parsimonious.expressions import _CALLABLE_TYPE, Expression, Literal, Lookahead, Not, OneOf, Regex, Sequence, TokenMatcher
+from parsimonious.expressions import _CALLABLE_TYPE, Expression, Literal, Lookahead, OneOf, Regex, Sequence, TokenMatcher
 from parsimonious.nodes import Node, NodeVisitor
 
 class Grammar(OrderedDict[str, Expression]):
