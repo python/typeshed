@@ -1,13 +1,13 @@
-from collections.abc import Callable, Mapping
 import collections.abc
+from collections.abc import Callable, Mapping
 from re import Pattern
+from typing import Any, Union
+from typing_extensions import Self, TypeAlias
 
 from parsimonious.exceptions import ParseError
-from parsimonious.nodes import Node
 from parsimonious.grammar import Grammar
+from parsimonious.nodes import Node
 from parsimonious.utils import StrAndRepr
-from typing import Any, Union
-from typing_extensions import TypeAlias, Self
 
 _CALLABLE_RETURN_TYPE: TypeAlias = Union[int, tuple[int, list[Node]], Node, None]
 _CALLABLE_TYPE: TypeAlias = (

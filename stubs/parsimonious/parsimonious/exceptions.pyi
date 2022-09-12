@@ -1,6 +1,6 @@
+from parsimonious.expressions import Expression
 from parsimonious.grammar import LazyReference
 from parsimonious.nodes import Node
-from parsimonious.expressions import Expression
 from parsimonious.utils import StrAndRepr
 
 class ParseError(StrAndRepr, Exception):
