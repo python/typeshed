@@ -2,7 +2,6 @@ import collections.abc
 from collections import OrderedDict
 from collections.abc import Callable, Mapping
 from typing import Any, NoReturn
-from _typeshed import Self
 
 from parsimonious.expressions import _CALLABLE_TYPE, Expression, Literal, Lookahead, Not, OneOf, Regex, Sequence, TokenMatcher
 from parsimonious.nodes import Node, NodeVisitor
@@ -21,7 +20,7 @@ rule_syntax: str
 
 class LazyReference(str):
     name: str
-    def resolve_refs(self: Self, rule_map: Mapping[str, Expression]) -> Expression: ...
+    def resolve_refs(self, rule_map: Mapping[str, Expression]) -> Expression: ...
 
 class RuleVisitor(NodeVisitor):
     quantifier_classes: dict[str, type[Expression]]
