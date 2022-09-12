@@ -1,13 +1,20 @@
 import enum
 from _typeshed import Incomplete
+from collections.abc import Sequence
 from ctypes import _CVoidConstPLike
 from typing_extensions import Literal, TypeAlias
 
 from PIL import Image
 
 _Frame: TypeAlias = Image.Image | Incomplete
-# FIXME: When #5768 is resolved:
-# _Frame: TypeAlias = Image.Image | npt.NDArray[np.int32] | npt.NDArray[np.float32] | _Tensor
+_Frames: TypeAlias = Image.Image | Sequence[Incomplete]
+# TODO: Complete types once we can import non-types dependencies
+# See: #5768
+# from torch import Tensor
+# from comtypes import IUnknown
+# import numpy.typing as npt
+# _Frame: TypeAlias = Image.Image | npt.NDArray[np.int32] | npt.NDArray[np.float32] | Tensor
+# _Frames: TypeAlias = Image.Image | Sequence[npt.NDArray[np.int32]] | Sequence[npt.NDArray[np.float32]] | Sequence[_Tensor]
 
 class CaptureOutputs(enum.Enum):
     PIL: int
@@ -34,4 +41,4 @@ class CaptureOutput:
         rotation: int,
     ) -> _Frame: ...
     def to_pil(self, frame: _Frame) -> Image.Image: ...
-    def stack(self, frames: list[_Frame], stack_dimension: Literal["first", "last"]) -> _Frame: ...
+    def stack(self, frames: _Frames, stack_dimension: Literal["first", "last"]) -> _Frame: ...

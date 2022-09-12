@@ -38,7 +38,6 @@
         "stubs/caldav",
         "stubs/commonmark",
         "stubs/cryptography",
-        "stubs/D3DShot",
         "stubs/dateparser",
         "stubs/dj-database-url",
         "stubs/docutils",

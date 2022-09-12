@@ -1,21 +1,13 @@
 import sys
 from _typeshed import Incomplete
-from collections.abc import Callable
 from ctypes import Array, Structure, _CData, _Pointer, c_uint, c_ulong
 from ctypes.wintypes import BOOL, DWORD, HMONITOR, INT, LARGE_INTEGER, LONG, PFLOAT, POINT, RECT, UINT, ULARGE_INTEGER, WCHAR
-from typing import TypeVar
 from typing_extensions import TypeAlias, TypedDict
 
+from d3dshot.dll import _ProcessFunc, _ProcessFuncRegionArg, _ProcessFuncReturn
 from d3dshot.dll.d3d import ID3D11Device
-from PIL import Image
 
-# TODO: Complete types once we can import non-types dependencies
-# See: #5768
-# from torch import Tensor
-# from comtypes import IUnknown
-# import numpy.typing as npt
-_Frame: TypeAlias = Image.Image | Incomplete
-# _Frame: TypeAlias = Image.Image | npt.NDArray[np.int32] | npt.NDArray[np.float32] | Tensor
+
 class _IUnknown(_CData):  # From comtypes.IUnknown
     def QueryInterface(self, interface: type, iid: _CData | None = ...) -> _HRESULT: ...
     def AddRef(self) -> c_ulong: ...
@@ -40,9 +32,6 @@ class _DXGIOutput(TypedDict):
     resolution: tuple[tuple[LONG, LONG], tuple[LONG, LONG]]
     rotation: int
     is_attached_to_desktop: bool
-
-_ProcessFuncRegionArg = TypeVar("_ProcessFuncRegionArg", tuple[int, int, int, int], None)
-_ProcessFuncReturn = TypeVar("_ProcessFuncReturn", _Frame, None)
 
 class LUID(Structure):
     LowPart: DWORD
@@ -172,7 +161,7 @@ def initialize_dxgi_output_duplication(
 def get_dxgi_output_duplication_frame(
     dxgi_output_duplication: IDXGIOutputDuplication,
     d3d_device: ID3D11Device,
-    process_func: Callable[[PFLOAT, int, int, int, _ProcessFuncRegionArg, int], _ProcessFuncReturn] | None = ...,
+    process_func: _ProcessFunc[_ProcessFuncRegionArg, _ProcessFuncReturn] | None = ...,
     width: int = ...,
     height: int = ...,
     region: _ProcessFuncRegionArg = ...,
