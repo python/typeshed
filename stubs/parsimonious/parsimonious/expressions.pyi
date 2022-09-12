@@ -2,7 +2,8 @@ import collections.abc
 from collections.abc import Callable, Mapping
 from re import Pattern
 from typing import Any, Union
-from typing_extensions import Self, TypeAlias
+from _typeshed import Self
+from typing_extensions import TypeAlias
 
 from parsimonious.exceptions import ParseError
 from parsimonious.grammar import Grammar

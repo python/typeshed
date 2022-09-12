@@ -2,7 +2,7 @@ import collections.abc
 from collections import OrderedDict
 from collections.abc import Callable, Mapping
 from typing import Any, NoReturn
-from typing_extensions import Self
+from _typeshed import Self
 
 from parsimonious.expressions import _CALLABLE_TYPE, Expression, Literal, Lookahead, Not, OneOf, Regex, Sequence, TokenMatcher
 from parsimonious.nodes import Node, NodeVisitor
