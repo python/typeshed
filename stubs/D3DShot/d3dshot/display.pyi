@@ -24,7 +24,7 @@ class Display:
     dxgi_adapter: _Pointer[IDXGIAdapter] | None
     # Note that Display.d3d_device and Display.d3d_device_context can never be None.
     # Despite initially being set to None in __init__,
-    # they're always immediatley set in _initialize_dxgi_output_duplication()
+    # they're always immediately set in _initialize_dxgi_output_duplication()
     d3d_device: ID3D11Device
     d3d_device_context: ID3D11DeviceContext
     dxgi_output_duplication: _Pointer[IDXGIOutputDuplication]
