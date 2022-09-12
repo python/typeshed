@@ -7,7 +7,6 @@ from typing_extensions import TypeAlias, TypedDict
 from d3dshot.dll import _ProcessFunc, _ProcessFuncRegionArg, _ProcessFuncReturn
 from d3dshot.dll.d3d import ID3D11Device
 
-
 class _IUnknown(_CData):  # From comtypes.IUnknown
     def QueryInterface(self, interface: type, iid: _CData | None = ...) -> _HRESULT: ...
     def AddRef(self) -> c_ulong: ...
