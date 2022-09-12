@@ -1,5 +1,4 @@
 import collections.abc
-from _typeshed import Self
 from collections import OrderedDict
 from collections.abc import Callable, Mapping
 from typing import Any, NoReturn
