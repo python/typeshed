@@ -1,14 +1,13 @@
 {
+    "$schema": "https://raw.githubusercontent.com/microsoft/pyright/main/packages/vscode-pyright/schemas/pyrightconfig.schema.json",
     "typeshedPath": ".",
     "include": [
-        "stdlib",
-        "stubs"
+        "test_cases"
     ],
     "typeCheckingMode": "basic",
     "strictListInference": true,
     "strictDictionaryInference": true,
     "strictParameterNoneValue": true,
-    "strictSetInference": true,
     "reportFunctionMemberAccess": "error",
     "reportMissingModuleSource": "none",
     "reportMissingTypeStubs": "error",
@@ -30,26 +29,23 @@
     "reportPrivateUsage": "none",
     "reportConstantRedefinition": "error",
     "reportInvalidStringEscapeSequence": "error",
+    "reportUnknownParameterType": "error",
     "reportUnknownArgumentType": "error",
     "reportUnknownLambdaType": "error",
+    "reportUnknownVariableType": "error",
+    "reportUnknownMemberType": "error",
     "reportMissingTypeArgument": "error",
     "reportUndefinedVariable": "error",
     "reportUnboundVariable": "error",
     "reportInvalidStubStatement": "error",
     "reportInvalidTypeVarUse": "error",
+    "reportPropertyTypeMismatch": "error",
+    "reportSelfClsParameterName": "error",
     "reportUnsupportedDunderAll": "error",
-    "reportInconsistentConstructor": "error",
-    "reportTypeCommentUsage": "error",
-    "reportUnnecessaryComparison": "error",
-    // Incompatible overrides and property type mismatches are out of typeshed's control
-    // as they are inherited from the implementation.
-    "reportPropertyTypeMismatch": "none",
-    "reportIncompatibleMethodOverride": "none",
-    "reportIncompatibleVariableOverride": "none",
-    // Overlapping overloads are often necessary in a stub, meaning pyright's check
-    // (which is stricter than mypy's; see mypy issue #10143 and #10157)
-    // would cause many false positives and catch few bugs.
-    "reportOverlappingOverload": "none",
-    // The name of the self/cls parameter is out of typeshed's control.
-    "reportSelfClsParameterName": "none",
+    "reportIncompatibleMethodOverride": "error",
+    "reportIncompatibleVariableOverride": "error",
+    "reportOverlappingOverload": "error",
+    "reportUnnecessaryTypeIgnoreComment": "error",
+    "reportMissingTypeStubs": "error",
+    "reportMatchNotExhaustive": "error"
 }

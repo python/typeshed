@@ -1,5 +1,3 @@
-# pyright: reportUnnecessaryTypeIgnoreComment=true
-
 from typing import Dict, Generic, Iterable, Tuple, TypeVar
 from typing_extensions import assert_type
 

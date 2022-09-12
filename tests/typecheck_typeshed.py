@@ -8,7 +8,7 @@ import sys
 from itertools import product
 from typing_extensions import TypeAlias
 
-from colors import colored, print_error
+from utils import colored, print_error
 
 ReturnCode: TypeAlias = int
 

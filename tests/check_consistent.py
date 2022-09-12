@@ -15,6 +15,7 @@ import yaml
 from packaging.requirements import Requirement
 from packaging.specifiers import SpecifierSet
 from packaging.version import Version
+from utils import get_all_testcase_directories
 
 metadata_keys = {"version", "requires", "extra_description", "obsolete_since", "no_longer_updated", "tool"}
 tool_keys = {"stubtest": {"skip", "apt_dependencies", "extras", "ignore_missing_stub"}}
@@ -58,10 +59,21 @@ def check_stubs() -> None:
 
 
 def check_test_cases() -> None:
-    assert_consistent_filetypes(Path("test_cases"), kind=".py", allowed={"README.md"})
-    bad_test_case_filename = 'Files in the `test_cases` directory must have names starting with "test_"; got "{}"'
-    for file in Path("test_cases").rglob("*.py"):
-        assert file.stem.startswith("test_"), bad_test_case_filename.format(file)
+    for package_name, testcase_dir in get_all_testcase_directories():
+        assert_consistent_filetypes(testcase_dir, kind=".py", allowed={"README.md"})
+        bad_test_case_filename = 'Files in a `test_cases` directory must have names starting with "check_"; got "{}"'
+        for file in testcase_dir.rglob("*.py"):
+            assert file.stem.startswith("check_"), bad_test_case_filename.format(file)
+            if package_name != "stdlib":
+                with open(file) as f:
+                    lines = {line.strip() for line in f}
+                pyright_setting_not_enabled_msg = (
+                    f'Third-party test-case file "{file}" must have '
+                    f'"# pyright: reportUnnecessaryTypeIgnoreComment=true" '
+                    f"at the top of the file"
+                )
+                has_pyright_setting_enabled = "# pyright: reportUnnecessaryTypeIgnoreComment=true" in lines
+                assert has_pyright_setting_enabled, pyright_setting_not_enabled_msg
 
 
 def check_no_symlinks() -> None:

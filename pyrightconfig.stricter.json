@@ -3,8 +3,7 @@
     "typeshedPath": ".",
     "include": [
         "stdlib",
-        "stubs",
-        "test_cases"
+        "stubs"
     ],
     "exclude": [
         "stdlib/distutils/command",
@@ -51,6 +50,7 @@
         "stubs/invoke",
         "stubs/jmespath",
         "stubs/jsonschema",
+        "stubs/keyboard",
         "stubs/ldap3",
         "stubs/Markdown",
         "stubs/mock",
@@ -69,7 +69,6 @@
         "stubs/pep8-naming",
         "stubs/psutil",
         "stubs/psycopg2",
-        "stubs/PyAutoGUI",
         "stubs/pyflakes",
         "stubs/Pygments",
         "stubs/PyMySQL",
