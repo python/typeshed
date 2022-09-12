@@ -1,8 +1,8 @@
 import collections.abc
+from _typeshed import Self
 from collections.abc import Callable, Mapping
 from re import Pattern
 from typing import Any, Union
-from _typeshed import Self
 from typing_extensions import TypeAlias
 
 from parsimonious.exceptions import ParseError
