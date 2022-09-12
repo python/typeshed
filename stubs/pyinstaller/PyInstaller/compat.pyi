@@ -34,6 +34,7 @@ is_macos_11: tuple[int, ...] | bool | None
 PYDYLIB_NAMES: set[str]
 base_prefix: str
 is_venv: bool
+is_virtualenv: bool
 is_conda: bool
 is_pure_conda: bool
 python_executable: str

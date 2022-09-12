@@ -35,6 +35,10 @@ class Distribution:
     @classmethod
     def from_package_name(cls, name: str) -> Distribution: ...
 
+# distribution and package_distribution are meant to be used and are not internal helpers
+distribution = Distribution.from_name
+package_distribution = Distribution.from_package_name
+
 class PackagePath(_PackagePath):
     def locate(self) -> Path: ...
 
