@@ -3,7 +3,6 @@ from parsimonious.exceptions import (
     IncompleteParseError as IncompleteParseError,
     ParseError as ParseError,
     UndefinedLabel as UndefinedLabel,
-    VisitationError as VisitationError,
 )
 from parsimonious.grammar import Grammar as Grammar, TokenGrammar as TokenGrammer
 from parsimonious.nodes import NodeVisitor as NodeVisitor, VisitationError as VisitationError, rule as rule
