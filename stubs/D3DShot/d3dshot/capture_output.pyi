@@ -25,7 +25,9 @@ class CaptureOutputs(enum.Enum):
 
 class CaptureOutputError(BaseException): ...
 
+# All CaptureOutput methods just reference the backend. Making this both a base class and a wrapper.
 class CaptureOutput:
+    # `backend` is a subclass of CaptureOutput based on the CaptureOutputs enum passed to __init__
     backend: CaptureOutput
     def __init__(self, backend: CaptureOutputs = ...) -> None: ...
     def process(
