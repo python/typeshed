@@ -1,7 +1,6 @@
 from _typeshed import Self, SupportsDunderGT, SupportsDunderLT, SupportsRichComparison
 from collections.abc import Callable, Hashable, ItemsView, Iterable, Iterator, KeysView, Mapping, Sequence, ValuesView
 from typing import Any, Generic, Protocol, TypeVar, overload
-from typing_extensions import TypeAlias
 
 from .sortedlist import SortedList as SortedList, recursive_repr as recursive_repr
 from .sortedset import SortedSet as SortedSet
@@ -12,7 +11,6 @@ _SupportsRichComparisonAndHashableT = TypeVar("_SupportsRichComparisonAndHashabl
 _SupportsRichComparisonAndHashableS = TypeVar("_SupportsRichComparisonAndHashableS", bound=_SupportsRichComparisonAndHashable)
 _HashableT = TypeVar("_HashableT")
 _KeyT = TypeVar("_KeyT", bound=SupportsRichComparison)
-_KeyFunction: TypeAlias = Callable[[_HashableT], _KeyT]
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
 _VT2 = TypeVar("_VT2")
@@ -38,12 +36,12 @@ class SortedDict(dict[_SupportsRichComparisonAndHashableT, _VT], Generic[_Suppor
     ) -> Self: ...
     @overload
     def __new__(
-        cls, __key: _KeyFunction, *args: Mapping[_HashableT, _VT], **kwargs: _VT
+        cls, __key: Callable[[_HashableT], _KeyT], *args: Mapping[_HashableT, _VT], **kwargs: _VT
     ) -> _SortedKeyDict[_HashableT, _VT, _KeyT]: ...
     @overload
     def __init__(self, __key: None = ..., *args: Mapping[_SupportsRichComparisonAndHashableT, _VT], **kwargs: _VT) -> None: ...
     @overload
-    def __init__(self, __key: _KeyFunction, *args: Mapping[_HashableT, _VT], **kwargs: _VT) -> None: ...
+    def __init__(self, __key: Callable[[_HashableT], _KeyT], *args: Mapping[_HashableT, _VT], **kwargs: _VT) -> None: ...
     @property
     def key(self) -> None: ...
     @property
@@ -73,7 +71,7 @@ class _SortedKeyDict(SortedDict[_HashableT, _VT], Generic[_HashableT, _VT, _KeyT
         self, min_key: object = ..., max_key: object = ..., inclusive: tuple[bool, bool] = ..., reverse: bool = ...
     ) -> Iterator[_HashableT]: ...
     @property
-    def key(self) -> _KeyFunction: ...  # type: ignore[override]
+    def key(self) -> Callable[[_HashableT], _KeyT]: ...  # type: ignore[override]
 
 class SortedKeysView(KeysView[_KT], Sequence[_KT], Generic[_KT]):
     @overload
