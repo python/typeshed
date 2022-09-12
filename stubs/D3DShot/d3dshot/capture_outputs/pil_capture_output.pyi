@@ -1,3 +1,4 @@
+from collections.abc import Sequence
 from ctypes import _CVoidConstPLike
 from typing import TypeVar
 from typing_extensions import TypeAlias
@@ -21,4 +22,4 @@ class PILCaptureOutput(CaptureOutput):
         rotation: int,
     ) -> Image.Image: ...
     def to_pil(self, frame: _ImageT) -> _ImageT: ...
-    def stack(self, frames: _ImageT, stack_dimension: _Unused) -> _ImageT: ...  # type: ignore[override]
+    def stack(self, frames: Sequence[_ImageT], stack_dimension: _Unused) -> Sequence[_ImageT]: ...
