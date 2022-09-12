@@ -19,7 +19,7 @@ class Target:
 class Tree(Target, TOC):
     root: str | None
     prefix: str | None
-    excludes: list[str] | None
+    excludes: Sequence[str]
     typecode: _TypeCode
     def __init__(
         self, root: str | None = ..., prefix: str | None = ..., excludes: Sequence[str] | None = ..., typecode: _TypeCode = ...

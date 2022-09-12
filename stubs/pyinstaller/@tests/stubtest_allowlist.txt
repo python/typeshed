@@ -1,4 +1,2 @@
 # fake module, only exists once the app is frozen
 pyi_splash
-# New, not yet published
-PyInstaller.utils.hooks.include_or_exclude_file
