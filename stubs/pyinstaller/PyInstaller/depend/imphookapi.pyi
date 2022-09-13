@@ -3,7 +3,7 @@
 from _typeshed import StrOrBytesPath
 from collections.abc import Iterable
 
-from PyInstaller.building.build_main import Analysis  # type: ignore[import]
+from PyInstaller.building.build_main import Analysis
 
 class PostGraphAPI:
     @property

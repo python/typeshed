@@ -4,7 +4,7 @@
 from _typeshed import StrOrBytesPath
 from collections.abc import Iterable
 
-from PyInstaller.building.datastruct import Target  # type: ignore[import]
+from PyInstaller.building.datastruct import Target
 
 class Analysis(Target):
     # https://pyinstaller.org/en/stable/hooks-config.html#hook-configuration-options
