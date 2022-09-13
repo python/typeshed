@@ -28,8 +28,6 @@ if sys.version_info >= (3, 8):
 if sys.version_info >= (3, 9):
     __all__ += ["cache"]
 
-_AnyCallable: TypeAlias = Callable[..., object]
-
 _T = TypeVar("_T")
 _S = TypeVar("_S")
 _PWrapped = ParamSpec("_PWrapped")
