@@ -1,6 +1,6 @@
 import sys
 import types
-from _typeshed import IdentityFunction, Self, SupportsAllComparisons, SupportsItems
+from _typeshed import Self, SupportsAllComparisons, SupportsItems
 from collections.abc import Callable, Hashable, Iterable, Sequence, Sized
 from typing import Any, Generic, NamedTuple, TypeVar, overload
 from typing_extensions import Literal, ParamSpec, TypeAlias, final
