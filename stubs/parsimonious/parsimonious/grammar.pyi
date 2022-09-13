@@ -20,7 +20,7 @@ rule_syntax: str
 
 class LazyReference(str):
     name: str
-    def resolve_refs(self, rule_map: Mapping[str, Expression]) -> Expression: ...
+    def resolve_refs(self, rule_map: Mapping[str, Expression | LazyReference]) -> Expression: ...
 
 class RuleVisitor(NodeVisitor):
     quantifier_classes: dict[str, type[Expression]]
