@@ -8,7 +8,7 @@ from stripe.stripe_object import StripeObject
 _T = TypeVar("_T")
 
 class SearchResultObject(StripeObject, Generic[_T]):
-    OBJECT_NAME: ClassVar[Literal["search_result"]] = ...
+    OBJECT_NAME: ClassVar[Literal["search_result"]]
     url: str
     has_more: bool
     data: list[_T]
