@@ -5,61 +5,35 @@ from collections.abc import Callable, Iterable, MutableSequence, Sequence, Set a
 from fractions import Fraction
 from typing import Any, ClassVar, NoReturn, TypeVar
 
+__all__ = [
+    "Random",
+    "seed",
+    "random",
+    "uniform",
+    "randint",
+    "choice",
+    "sample",
+    "randrange",
+    "shuffle",
+    "normalvariate",
+    "lognormvariate",
+    "expovariate",
+    "vonmisesvariate",
+    "gammavariate",
+    "triangular",
+    "gauss",
+    "betavariate",
+    "paretovariate",
+    "weibullvariate",
+    "getstate",
+    "setstate",
+    "getrandbits",
+    "choices",
+    "SystemRandom",
+]
+
 if sys.version_info >= (3, 9):
-    __all__ = [
-        "Random",
-        "SystemRandom",
-        "betavariate",
-        "choice",
-        "choices",
-        "expovariate",
-        "gammavariate",
-        "gauss",
-        "getrandbits",
-        "getstate",
-        "lognormvariate",
-        "normalvariate",
-        "paretovariate",
-        "randbytes",
-        "randint",
-        "random",
-        "randrange",
-        "sample",
-        "seed",
-        "setstate",
-        "shuffle",
-        "triangular",
-        "uniform",
-        "vonmisesvariate",
-        "weibullvariate",
-    ]
-else:
-    __all__ = [
-        "Random",
-        "seed",
-        "random",
-        "uniform",
-        "randint",
-        "choice",
-        "sample",
-        "randrange",
-        "shuffle",
-        "normalvariate",
-        "lognormvariate",
-        "expovariate",
-        "vonmisesvariate",
-        "gammavariate",
-        "triangular",
-        "gauss",
-        "betavariate",
-        "paretovariate",
-        "weibullvariate",
-        "getstate",
-        "setstate",
-        "getrandbits",
-        "choices",
-        "SystemRandom",
-    ]
+    __all__ += ["randbytes"]
 
 _T = TypeVar("_T")
 
@@ -76,7 +50,6 @@ class Random(_random.Random):
 
     def getstate(self) -> tuple[Any, ...]: ...
     def setstate(self, state: tuple[Any, ...]) -> None: ...
-    def getrandbits(self, __k: int) -> int: ...
     def randrange(self, start: int, stop: int | None = ..., step: int = ...) -> int: ...
     def randint(self, a: int, b: int) -> int: ...
     if sys.version_info >= (3, 9):
@@ -104,7 +77,6 @@ class Random(_random.Random):
     else:
         def sample(self, population: Sequence[_T] | AbstractSet[_T], k: int) -> list[_T]: ...
 
-    def random(self) -> float: ...
     def uniform(self, a: float, b: float) -> float: ...
     def triangular(self, low: float = ..., high: float = ..., mode: float | None = ...) -> float: ...
     def betavariate(self, alpha: float, beta: float) -> float: ...

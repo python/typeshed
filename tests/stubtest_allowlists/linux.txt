@@ -1,3 +1,4 @@
+_socket.*
 _posixsubprocess.cloexec_pipe
 os.EX_NOTFOUND
 os.SF_MNOWAIT
@@ -10,6 +11,8 @@ select.EPOLL_RDHUP
 selectors.KqueueSelector
 signal.SIGEMT
 signal.SIGINFO
+socket.[A-Z0-9_]+
+errno.[A-Z0-9]+
 
 # Exists at runtime, but missing from stubs
 distutils.msvccompiler.MSVCCompiler.get_msvc_paths
@@ -17,14 +20,12 @@ distutils.msvccompiler.MSVCCompiler.set_path_env_var
 distutils.msvccompiler.MacroExpander
 mimetypes.MimeTypes.read_windows_registry
 selectors.DefaultSelector.fileno
-socket.MsgFlag.MSG_CMSG_CLOEXEC
-socket.MsgFlag.MSG_CONFIRM
-socket.MsgFlag.MSG_ERRQUEUE
-socket.MsgFlag.MSG_FASTOPEN
-socket.MsgFlag.MSG_MORE
-socket.MsgFlag.MSG_NOSIGNAL
 spwd.struct_spwd.sp_nam
 spwd.struct_spwd.sp_pwd
+
+_ctypes.dlclose
+_ctypes.dlopen
+_ctypes.dlsym
 
 # ==========
 # Allowlist entries that cannot or should not be fixed
@@ -39,6 +40,9 @@ msilib(.[a-z]+)?
 msvcrt
 winreg
 winsound
+
+# multiprocessing.popen_spawn_win32 exists on Linux but fail to import
+multiprocessing.popen_spawn_win32
 
 # Aliases for OSError
 posix.error.characters_written

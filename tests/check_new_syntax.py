@@ -44,6 +44,8 @@ def check_new_syntax(tree: ast.AST, path: Path, stub: str) -> list[str]:
     class OldSyntaxFinder(ast.NodeVisitor):
         def visit_AnnAssign(self, node: ast.AnnAssign) -> None:
             AnnotationUnionFinder().visit(node.annotation)
+            if node.value is not None:
+                NonAnnotationUnionFinder().visit(node.value)
             self.generic_visit(node)
 
         def visit_arg(self, node: ast.arg) -> None:
@@ -94,11 +96,6 @@ def check_new_syntax(tree: ast.AST, path: Path, stub: str) -> list[str]:
 def main() -> None:
     errors = []
     for path in chain(Path("stdlib").rglob("*.pyi"), Path("stubs").rglob("*.pyi")):
-        if "@python2" in path.parts:
-            continue
-        if Path("stubs/protobuf/google/protobuf") in path.parents:  # TODO: fix protobuf stubs
-            continue
-
         with open(path) as f:
             stub = f.read()
             tree = ast.parse(stub)

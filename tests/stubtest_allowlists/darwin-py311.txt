@@ -1,4 +1,5 @@
-_?curses.A_ITALIC
 _?curses.color_pair
 xxlimited.Xxo.x_exports
-distutils.util.__warningregistry__
+
+# Exists at runtime, missing from stub
+socket.TCP_CONNECTION_INFO

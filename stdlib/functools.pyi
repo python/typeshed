@@ -1,6 +1,6 @@
 import sys
 import types
-from _typeshed import Self, SupportsAllComparisons, SupportsItems
+from _typeshed import IdentityFunction, Self, SupportsAllComparisons, SupportsItems
 from collections.abc import Callable, Hashable, Iterable, Sequence, Sized
 from typing import Any, Generic, NamedTuple, TypeVar, overload
 from typing_extensions import Literal, ParamSpec, TypeAlias, final
@@ -8,54 +8,27 @@ from typing_extensions import Literal, ParamSpec, TypeAlias, final
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
-    __all__ = [
-        "update_wrapper",
-        "wraps",
-        "WRAPPER_ASSIGNMENTS",
-        "WRAPPER_UPDATES",
-        "total_ordering",
-        "cache",
-        "cmp_to_key",
-        "lru_cache",
-        "reduce",
-        "partial",
-        "partialmethod",
-        "singledispatch",
-        "singledispatchmethod",
-        "cached_property",
-    ]
-elif sys.version_info >= (3, 8):
-    __all__ = [
-        "update_wrapper",
-        "wraps",
-        "WRAPPER_ASSIGNMENTS",
-        "WRAPPER_UPDATES",
-        "total_ordering",
-        "cmp_to_key",
-        "lru_cache",
-        "reduce",
-        "partial",
-        "partialmethod",
-        "singledispatch",
-        "singledispatchmethod",
-        "cached_property",
-    ]
-else:
-    __all__ = [
-        "update_wrapper",
-        "wraps",
-        "WRAPPER_ASSIGNMENTS",
-        "WRAPPER_UPDATES",
-        "total_ordering",
-        "cmp_to_key",
-        "lru_cache",
-        "reduce",
-        "partial",
-        "partialmethod",
-        "singledispatch",
-    ]
+__all__ = [
+    "update_wrapper",
+    "wraps",
+    "WRAPPER_ASSIGNMENTS",
+    "WRAPPER_UPDATES",
+    "total_ordering",
+    "cmp_to_key",
+    "lru_cache",
+    "reduce",
+    "partial",
+    "partialmethod",
+    "singledispatch",
+]
 
-_AnyCallable: TypeAlias = Callable[..., Any]
+if sys.version_info >= (3, 8):
+    __all__ += ["cached_property", "singledispatchmethod"]
+
+if sys.version_info >= (3, 9):
+    __all__ += ["cache"]
+
+_AnyCallable: TypeAlias = Callable[..., object]
 
 _T = TypeVar("_T")
 _S = TypeVar("_S")

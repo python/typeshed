@@ -1,43 +1,29 @@
 import io
 import sys
 from _typeshed import Self, StrOrBytesPath, StrPath
-from collections.abc import Callable, Iterable, Iterator, Sequence
+from collections.abc import Callable, Iterable, Iterator
 from os import PathLike
 from types import TracebackType
 from typing import IO, Any, Protocol, overload
 from typing_extensions import Literal, TypeAlias
 
+__all__ = [
+    "BadZipFile",
+    "BadZipfile",
+    "error",
+    "ZIP_STORED",
+    "ZIP_DEFLATED",
+    "ZIP_BZIP2",
+    "ZIP_LZMA",
+    "is_zipfile",
+    "ZipInfo",
+    "ZipFile",
+    "PyZipFile",
+    "LargeZipFile",
+]
+
 if sys.version_info >= (3, 8):
-    __all__ = [
-        "BadZipFile",
-        "BadZipfile",
-        "error",
-        "ZIP_STORED",
-        "ZIP_DEFLATED",
-        "ZIP_BZIP2",
-        "ZIP_LZMA",
-        "is_zipfile",
-        "ZipInfo",
-        "ZipFile",
-        "PyZipFile",
-        "LargeZipFile",
-        "Path",
-    ]
-else:
-    __all__ = [
-        "BadZipFile",
-        "BadZipfile",
-        "error",
-        "ZIP_STORED",
-        "ZIP_DEFLATED",
-        "ZIP_BZIP2",
-        "ZIP_LZMA",
-        "is_zipfile",
-        "ZipInfo",
-        "ZipFile",
-        "PyZipFile",
-        "LargeZipFile",
-    ]
+    __all__ += ["Path"]
 
 _DateTuple: TypeAlias = tuple[int, int, int, int, int, int]
 _ReadWriteMode: TypeAlias = Literal["r", "w"]
@@ -70,78 +56,38 @@ class _ClosableZipStream(_ZipStream, Protocol):
 class ZipExtFile(io.BufferedIOBase):
     MAX_N: int
     MIN_READ_SIZE: int
-
-    if sys.version_info >= (3, 7):
-        MAX_SEEK_READ: int
-
+    MAX_SEEK_READ: int
     newlines: list[bytes] | None
     mode: _ReadWriteMode
     name: str
-    if sys.version_info >= (3, 7):
-        @overload
-        def __init__(
-            self,
-            fileobj: _ClosableZipStream,
-            mode: _ReadWriteMode,
-            zipinfo: ZipInfo,
-            pwd: bytes | None,
-            close_fileobj: Literal[True],
-        ) -> None: ...
-        @overload
-        def __init__(
-            self,
-            fileobj: _ClosableZipStream,
-            mode: _ReadWriteMode,
-            zipinfo: ZipInfo,
-            pwd: bytes | None = ...,
-            *,
-            close_fileobj: Literal[True],
-        ) -> None: ...
-        @overload
-        def __init__(
-            self,
-            fileobj: _ZipStream,
-            mode: _ReadWriteMode,
-            zipinfo: ZipInfo,
-            pwd: bytes | None = ...,
-            close_fileobj: Literal[False] = ...,
-        ) -> None: ...
-    else:
-        @overload
-        def __init__(
-            self,
-            fileobj: _ClosableZipStream,
-            mode: _ReadWriteMode,
-            zipinfo: ZipInfo,
-            decrypter: Callable[[Sequence[int]], bytes] | None,
-            close_fileobj: Literal[True],
-        ) -> None: ...
-        @overload
-        def __init__(
-            self,
-            fileobj: _ClosableZipStream,
-            mode: _ReadWriteMode,
-            zipinfo: ZipInfo,
-            decrypter: Callable[[Sequence[int]], bytes] | None = ...,
-            *,
-            close_fileobj: Literal[True],
-        ) -> None: ...
-        @overload
-        def __init__(
-            self,
-            fileobj: _ZipStream,
-            mode: _ReadWriteMode,
-            zipinfo: ZipInfo,
-            decrypter: Callable[[Sequence[int]], bytes] | None = ...,
-            close_fileobj: Literal[False] = ...,
-        ) -> None: ...
-
+    @overload
+    def __init__(
+        self, fileobj: _ClosableZipStream, mode: _ReadWriteMode, zipinfo: ZipInfo, pwd: bytes | None, close_fileobj: Literal[True]
+    ) -> None: ...
+    @overload
+    def __init__(
+        self,
+        fileobj: _ClosableZipStream,
+        mode: _ReadWriteMode,
+        zipinfo: ZipInfo,
+        pwd: bytes | None = ...,
+        *,
+        close_fileobj: Literal[True],
+    ) -> None: ...
+    @overload
+    def __init__(
+        self,
+        fileobj: _ZipStream,
+        mode: _ReadWriteMode,
+        zipinfo: ZipInfo,
+        pwd: bytes | None = ...,
+        close_fileobj: Literal[False] = ...,
+    ) -> None: ...
     def read(self, n: int | None = ...) -> bytes: ...
     def readline(self, limit: int = ...) -> bytes: ...  # type: ignore[override]
     def peek(self, n: int = ...) -> bytes: ...
     def read1(self, n: int | None) -> bytes: ...  # type: ignore[override]
-    if sys.version_info >= (3, 7):
-        def seek(self, offset: int, whence: int = ...) -> int: ...
+    def seek(self, offset: int, whence: int = ...) -> int: ...
 
 class _Writer(Protocol):
     def write(self, __s: str) -> object: ...
@@ -194,7 +140,7 @@ class ZipFile:
             *,
             strict_timestamps: bool = ...,
         ) -> None: ...
-    elif sys.version_info >= (3, 7):
+    else:
         def __init__(
             self,
             file: StrPath | IO[bytes],
@@ -202,10 +148,6 @@ class ZipFile:
             compression: int = ...,
             allowZip64: bool = ...,
             compresslevel: int | None = ...,
-        ) -> None: ...
-    else:
-        def __init__(
-            self, file: StrPath | IO[bytes], mode: _ZipFileMode = ..., compression: int = ..., allowZip64: bool = ...
         ) -> None: ...
 
     def __enter__(self: Self) -> Self: ...
@@ -227,26 +169,12 @@ class ZipFile:
     def setpassword(self, pwd: bytes) -> None: ...
     def read(self, name: str | ZipInfo, pwd: bytes | None = ...) -> bytes: ...
     def testzip(self) -> str | None: ...
-    if sys.version_info >= (3, 7):
-        def write(
-            self,
-            filename: StrPath,
-            arcname: StrPath | None = ...,
-            compress_type: int | None = ...,
-            compresslevel: int | None = ...,
-        ) -> None: ...
-    else:
-        def write(self, filename: StrPath, arcname: StrPath | None = ..., compress_type: int | None = ...) -> None: ...
-    if sys.version_info >= (3, 7):
-        def writestr(
-            self,
-            zinfo_or_arcname: str | ZipInfo,
-            data: bytes | str,
-            compress_type: int | None = ...,
-            compresslevel: int | None = ...,
-        ) -> None: ...
-    else:
-        def writestr(self, zinfo_or_arcname: str | ZipInfo, data: bytes | str, compress_type: int | None = ...) -> None: ...
+    def write(
+        self, filename: StrPath, arcname: StrPath | None = ..., compress_type: int | None = ..., compresslevel: int | None = ...
+    ) -> None: ...
+    def writestr(
+        self, zinfo_or_arcname: str | ZipInfo, data: bytes | str, compress_type: int | None = ..., compresslevel: int | None = ...
+    ) -> None: ...
     if sys.version_info >= (3, 11):
         def mkdir(self, zinfo_or_directory_name: str | ZipInfo, mode: int = ...) -> None: ...
 

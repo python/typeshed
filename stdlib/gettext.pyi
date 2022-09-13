@@ -1,72 +1,30 @@
+import io
 import sys
 from _typeshed import StrPath
-from collections.abc import Container, Iterable, Sequence
+from collections.abc import Callable, Container, Iterable, Sequence
 from typing import Any, Protocol, TypeVar, overload
 from typing_extensions import Final, Literal
 
-if sys.version_info >= (3, 11):
-    __all__ = [
-        "NullTranslations",
-        "GNUTranslations",
-        "Catalog",
-        "bindtextdomain",
-        "find",
-        "translation",
-        "install",
-        "textdomain",
-        "dgettext",
-        "dngettext",
-        "gettext",
-        "ngettext",
-        "pgettext",
-        "dpgettext",
-        "npgettext",
-        "dnpgettext",
-    ]
-elif sys.version_info >= (3, 8):
-    __all__ = [
-        "NullTranslations",
-        "GNUTranslations",
-        "Catalog",
-        "find",
-        "translation",
-        "install",
-        "textdomain",
-        "bindtextdomain",
-        "bind_textdomain_codeset",
-        "dgettext",
-        "dngettext",
-        "gettext",
-        "lgettext",
-        "ldgettext",
-        "ldngettext",
-        "lngettext",
-        "ngettext",
-        "pgettext",
-        "dpgettext",
-        "npgettext",
-        "dnpgettext",
-    ]
-else:
-    __all__ = [
-        "NullTranslations",
-        "GNUTranslations",
-        "Catalog",
-        "find",
-        "translation",
-        "install",
-        "textdomain",
-        "bindtextdomain",
-        "bind_textdomain_codeset",
-        "dgettext",
-        "dngettext",
-        "gettext",
-        "lgettext",
-        "ldgettext",
-        "ldngettext",
-        "lngettext",
-        "ngettext",
-    ]
+__all__ = [
+    "NullTranslations",
+    "GNUTranslations",
+    "Catalog",
+    "find",
+    "translation",
+    "install",
+    "textdomain",
+    "bindtextdomain",
+    "dgettext",
+    "dngettext",
+    "gettext",
+    "ngettext",
+]
+
+if sys.version_info < (3, 11):
+    __all__ += ["bind_textdomain_codeset", "ldgettext", "ldngettext", "lgettext", "lngettext"]
+
+if sys.version_info >= (3, 8):
+    __all__ += ["dnpgettext", "dpgettext", "npgettext", "pgettext"]
 
 class _TranslationsReader(Protocol):
     def read(self) -> bytes: ...
@@ -110,7 +68,7 @@ def find(
 @overload
 def find(domain: str, localedir: StrPath | None = ..., languages: Iterable[str] | None = ..., all: bool = ...) -> Any: ...
 
-_T = TypeVar("_T")
+_NullTranslationsT = TypeVar("_NullTranslationsT", bound=NullTranslations)
 
 if sys.version_info >= (3, 11):
     @overload
@@ -119,24 +77,33 @@ if sys.version_info >= (3, 11):
         localedir: StrPath | None = ...,
         languages: Iterable[str] | None = ...,
         class_: None = ...,
+        fallback: Literal[False] = ...,
+    ) -> GNUTranslations: ...
+    @overload
+    def translation(
+        domain: str,
+        localedir: StrPath | None = ...,
+        languages: Iterable[str] | None = ...,
+        *,
+        class_: Callable[[io.BufferedReader], _NullTranslationsT],
+        fallback: Literal[False] = ...,
+    ) -> _NullTranslationsT: ...
+    @overload
+    def translation(
+        domain: str,
+        localedir: StrPath | None,
+        languages: Iterable[str] | None,
+        class_: Callable[[io.BufferedReader], _NullTranslationsT],
+        fallback: Literal[False] = ...,
+    ) -> _NullTranslationsT: ...
+    @overload
+    def translation(
+        domain: str,
+        localedir: StrPath | None = ...,
+        languages: Iterable[str] | None = ...,
+        class_: Callable[[io.BufferedReader], NullTranslations] | None = ...,
         fallback: bool = ...,
     ) -> NullTranslations: ...
-    @overload
-    def translation(
-        domain: str,
-        localedir: StrPath | None = ...,
-        languages: Iterable[str] | None = ...,
-        class_: type[_T] = ...,
-        fallback: Literal[False] = ...,
-    ) -> _T: ...
-    @overload
-    def translation(
-        domain: str,
-        localedir: StrPath | None = ...,
-        languages: Iterable[str] | None = ...,
-        class_: type[Any] = ...,
-        fallback: Literal[True] = ...,
-    ) -> Any: ...
     def install(domain: str, localedir: StrPath | None = ..., *, names: Container[str] | None = ...) -> None: ...
 
 else:
@@ -146,27 +113,37 @@ else:
         localedir: StrPath | None = ...,
         languages: Iterable[str] | None = ...,
         class_: None = ...,
+        fallback: Literal[False] = ...,
+        codeset: str | None = ...,
+    ) -> GNUTranslations: ...
+    @overload
+    def translation(
+        domain: str,
+        localedir: StrPath | None = ...,
+        languages: Iterable[str] | None = ...,
+        *,
+        class_: Callable[[io.BufferedReader], _NullTranslationsT],
+        fallback: Literal[False] = ...,
+        codeset: str | None = ...,
+    ) -> _NullTranslationsT: ...
+    @overload
+    def translation(
+        domain: str,
+        localedir: StrPath | None,
+        languages: Iterable[str] | None,
+        class_: Callable[[io.BufferedReader], _NullTranslationsT],
+        fallback: Literal[False] = ...,
+        codeset: str | None = ...,
+    ) -> _NullTranslationsT: ...
+    @overload
+    def translation(
+        domain: str,
+        localedir: StrPath | None = ...,
+        languages: Iterable[str] | None = ...,
+        class_: Callable[[io.BufferedReader], NullTranslations] | None = ...,
         fallback: bool = ...,
         codeset: str | None = ...,
     ) -> NullTranslations: ...
-    @overload
-    def translation(
-        domain: str,
-        localedir: StrPath | None = ...,
-        languages: Iterable[str] | None = ...,
-        class_: type[_T] = ...,
-        fallback: Literal[False] = ...,
-        codeset: str | None = ...,
-    ) -> _T: ...
-    @overload
-    def translation(
-        domain: str,
-        localedir: StrPath | None = ...,
-        languages: Iterable[str] | None = ...,
-        class_: type[Any] = ...,
-        fallback: Literal[True] = ...,
-        codeset: str | None = ...,
-    ) -> Any: ...
     def install(
         domain: str, localedir: StrPath | None = ..., codeset: str | None = ..., names: Container[str] | None = ...
     ) -> None: ...

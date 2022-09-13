@@ -10,9 +10,6 @@ urllib.parse.parse_qsl
 
 os.startfile
 
-# Exists at runtime, but missing from stubs
-socket.MsgFlag.MSG_ERRQUEUE
-
 # ==========
 # Allowlist entries that cannot or should not be fixed
 # ==========
@@ -21,5 +18,3 @@ socket.MsgFlag.MSG_ERRQUEUE
 # so are omitted from the stub
 pathlib.WindowsPath.group
 pathlib.WindowsPath.owner
-pathlib.Path.is_mount
-pathlib.WindowsPath.is_mount

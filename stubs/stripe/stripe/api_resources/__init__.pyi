@@ -44,7 +44,6 @@ from stripe.api_resources.list_object import ListObject as ListObject
 from stripe.api_resources.login_link import LoginLink as LoginLink
 from stripe.api_resources.mandate import Mandate as Mandate
 from stripe.api_resources.order import Order as Order
-from stripe.api_resources.order_return import OrderReturn as OrderReturn
 from stripe.api_resources.payment_intent import PaymentIntent as PaymentIntent
 from stripe.api_resources.payment_method import PaymentMethod as PaymentMethod
 from stripe.api_resources.payout import Payout as Payout
@@ -59,6 +58,7 @@ from stripe.api_resources.recipient_transfer import RecipientTransfer as Recipie
 from stripe.api_resources.refund import Refund as Refund
 from stripe.api_resources.reversal import Reversal as Reversal
 from stripe.api_resources.review import Review as Review
+from stripe.api_resources.search_result_object import SearchResultObject as SearchResultObject
 from stripe.api_resources.setup_attempt import SetupAttempt as SetupAttempt
 from stripe.api_resources.setup_intent import SetupIntent as SetupIntent
 from stripe.api_resources.sku import SKU as SKU
