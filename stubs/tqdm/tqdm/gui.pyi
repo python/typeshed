@@ -4,6 +4,8 @@ from typing import Generic, NoReturn, TypeVar, overload
 
 from .std import tqdm as std_tqdm
 
+__all__ = ["tqdm_gui", "tgrange", "tqdm", "trange"]
+
 _T = TypeVar("_T")
 
 class tqdm_gui(Generic[_T], std_tqdm[_T]):
@@ -27,7 +29,7 @@ class tqdm_gui(Generic[_T], std_tqdm[_T]):
         iterable: Iterable[_T],
         desc: str | None = ...,
         total: float | None = ...,
-        leave: bool = ...,
+        leave: bool | None = ...,
         file: SupportsWrite[str] | None = ...,
         ncols: int | None = ...,
         mininterval: float = ...,
@@ -58,7 +60,7 @@ class tqdm_gui(Generic[_T], std_tqdm[_T]):
         iterable: None = ...,
         desc: str | None = ...,
         total: float | None = ...,
-        leave: bool = ...,
+        leave: bool | None = ...,
         file: SupportsWrite[str] | None = ...,
         ncols: int | None = ...,
         mininterval: float = ...,

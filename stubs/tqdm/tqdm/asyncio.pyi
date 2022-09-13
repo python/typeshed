@@ -4,6 +4,8 @@ from typing import Generic, NoReturn, TypeVar, overload
 
 from .std import tqdm as std_tqdm
 
+__all__ = ["tqdm_asyncio", "tarange", "tqdm", "trange"]
+
 _T = TypeVar("_T")
 
 class tqdm_asyncio(Generic[_T], std_tqdm[_T]):
@@ -23,7 +25,7 @@ class tqdm_asyncio(Generic[_T], std_tqdm[_T]):
         timeout: float | None = ...,
         total: int | None = ...,
         desc: str | None = ...,
-        leave: bool = ...,
+        leave: bool | None = ...,
         file: SupportsWrite[str] | None = ...,
         ncols: int | None = ...,
         mininterval: float = ...,
@@ -55,7 +57,7 @@ class tqdm_asyncio(Generic[_T], std_tqdm[_T]):
         total: int | None = ...,
         iterable: Iterable[_T] = ...,
         desc: str | None = ...,
-        leave: bool = ...,
+        leave: bool | None = ...,
         file: SupportsWrite[str] | None = ...,
         ncols: int | None = ...,
         mininterval: float = ...,
@@ -84,7 +86,7 @@ class tqdm_asyncio(Generic[_T], std_tqdm[_T]):
         iterable: Iterable[_T],
         desc: str | None = ...,
         total: float | None = ...,
-        leave: bool = ...,
+        leave: bool | None = ...,
         file: SupportsWrite[str] | None = ...,
         ncols: int | None = ...,
         mininterval: float = ...,
@@ -115,7 +117,7 @@ class tqdm_asyncio(Generic[_T], std_tqdm[_T]):
         iterable: None = ...,
         desc: str | None = ...,
         total: float | None = ...,
-        leave: bool = ...,
+        leave: bool | None = ...,
         file: SupportsWrite[str] | None = ...,
         ncols: int | None = ...,
         mininterval: float = ...,
@@ -149,7 +151,7 @@ def tarange(
     *,
     desc: str | None = ...,
     total: float | None = ...,
-    leave: bool = ...,
+    leave: bool | None = ...,
     file: SupportsWrite[str] | None = ...,
     ncols: int | None = ...,
     mininterval: float = ...,
@@ -178,7 +180,7 @@ def tarange(
     *,
     desc: str | None = ...,
     total: float | None = ...,
-    leave: bool = ...,
+    leave: bool | None = ...,
     file: SupportsWrite[str] | None = ...,
     ncols: int | None = ...,
     mininterval: float = ...,

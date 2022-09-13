@@ -1,5 +1,4 @@
 import unittest.case
-import unittest.result
 import unittest.suite
 from collections.abc import Callable, Sequence
 from re import Pattern
@@ -24,6 +23,7 @@ class TestLoader:
     def loadTestsFromNames(self, names: Sequence[str], module: ModuleType | None = ...) -> unittest.suite.TestSuite: ...
     def getTestCaseNames(self, testCaseClass: type[unittest.case.TestCase]) -> Sequence[str]: ...
     def discover(self, start_dir: str, pattern: str = ..., top_level_dir: str | None = ...) -> unittest.suite.TestSuite: ...
+    def _match_path(self, path: str, full_path: str, pattern: str) -> bool: ...
 
 defaultTestLoader: TestLoader
 

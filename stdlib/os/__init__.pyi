@@ -9,9 +9,12 @@ from _typeshed import (
     OpenBinaryModeUpdating,
     OpenBinaryModeWriting,
     OpenTextMode,
+    ReadableBuffer,
     Self,
     StrOrBytesPath,
     StrPath,
+    SupportsLenAndGetItem,
+    WriteableBuffer,
     structseq,
 )
 from abc import abstractmethod
@@ -624,8 +627,8 @@ if sys.platform != "win32":
     if sys.platform != "darwin":
         if sys.version_info >= (3, 10):
             RWF_APPEND: int  # docs say available on 3.7+, stubtest says otherwise
-        def preadv(__fd: int, __buffers: Iterable[bytes], __offset: int, __flags: int = ...) -> int: ...
-        def pwritev(__fd: int, __buffers: Iterable[bytes], __offset: int, __flags: int = ...) -> int: ...
+        def preadv(__fd: int, __buffers: SupportsLenAndGetItem[WriteableBuffer], __offset: int, __flags: int = ...) -> int: ...
+        def pwritev(__fd: int, __buffers: SupportsLenAndGetItem[ReadableBuffer], __offset: int, __flags: int = ...) -> int: ...
         RWF_DSYNC: int
         RWF_SYNC: int
         RWF_HIPRI: int
@@ -642,8 +645,8 @@ if sys.platform != "win32":
         trailers: Sequence[bytes] = ...,
         flags: int = ...,
     ) -> int: ...  # FreeBSD and Mac OS X only
-    def readv(__fd: int, __buffers: Sequence[bytearray]) -> int: ...
-    def writev(__fd: int, __buffers: Sequence[bytes]) -> int: ...
+    def readv(__fd: int, __buffers: SupportsLenAndGetItem[WriteableBuffer]) -> int: ...
+    def writev(__fd: int, __buffers: SupportsLenAndGetItem[ReadableBuffer]) -> int: ...
 
 @final
 class terminal_size(structseq[int], tuple[int, int]):
@@ -754,7 +757,7 @@ def utime(
     follow_symlinks: bool = ...,
 ) -> None: ...
 
-_OnError: TypeAlias = Callable[[OSError], Any]
+_OnError: TypeAlias = Callable[[OSError], object]
 
 def walk(
     top: GenericPath[AnyStr], topdown: bool = ..., onerror: _OnError | None = ..., followlinks: bool = ...
@@ -974,7 +977,7 @@ if sys.version_info >= (3, 8):
     if sys.platform == "win32":
         class _AddedDllDirectory:
             path: str | None
-            def __init__(self, path: str | None, cookie: _T, remove_dll_directory: Callable[[_T], Any]) -> None: ...
+            def __init__(self, path: str | None, cookie: _T, remove_dll_directory: Callable[[_T], object]) -> None: ...
             def close(self) -> None: ...
             def __enter__(self: Self) -> Self: ...
             def __exit__(self, *args: object) -> None: ...

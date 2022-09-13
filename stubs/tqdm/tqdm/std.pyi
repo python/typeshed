@@ -6,6 +6,17 @@ from typing_extensions import Literal
 
 from .utils import Comparable
 
+__all__ = [
+    "tqdm",
+    "trange",
+    "TqdmTypeError",
+    "TqdmKeyError",
+    "TqdmWarning",
+    "TqdmExperimentalWarning",
+    "TqdmDeprecationWarning",
+    "TqdmMonitorWarning",
+]
+
 class TqdmTypeError(TypeError): ...
 class TqdmKeyError(KeyError): ...
 
@@ -52,7 +63,7 @@ class tqdm(Generic[_T], Iterable[_T], Comparable):
         iterable: Iterable[_T],
         desc: str | None = ...,
         total: float | None = ...,
-        leave: bool = ...,
+        leave: bool | None = ...,
         file: SupportsWrite[str] | None = ...,
         ncols: int | None = ...,
         mininterval: float = ...,
@@ -83,7 +94,7 @@ class tqdm(Generic[_T], Iterable[_T], Comparable):
         iterable: None = ...,
         desc: str | None = ...,
         total: float | None = ...,
-        leave: bool = ...,
+        leave: bool | None = ...,
         file: SupportsWrite[str] | None = ...,
         ncols: int | None = ...,
         mininterval: float = ...,
@@ -125,7 +136,7 @@ class tqdm(Generic[_T], Iterable[_T], Comparable):
         *,
         desc: str | None = ...,
         total: float | None = ...,
-        leave: bool = ...,
+        leave: bool | None = ...,
         file: SupportsWrite[str] | None = ...,
         ncols: int | None = ...,
         mininterval: float = ...,
@@ -220,7 +231,7 @@ def trange(
     *,
     desc: str | None = ...,
     total: float | None = ...,
-    leave: bool = ...,
+    leave: bool | None = ...,
     file: SupportsWrite[str] | None = ...,
     ncols: int | None = ...,
     mininterval: float = ...,
@@ -249,7 +260,7 @@ def trange(
     *,
     desc: str | None = ...,
     total: float | None = ...,
-    leave: bool = ...,
+    leave: bool | None = ...,
     file: SupportsWrite[str] | None = ...,
     ncols: int | None = ...,
     mininterval: float = ...,
