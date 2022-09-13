@@ -42,7 +42,6 @@ platform.uname_result.processor
 queue.SimpleQueue.__init__
 sys.UnraisableHookArgs  # Not exported from sys
 tkinter._VersionInfoType.__doc__
-typing.ForwardRef._evaluate
 typing.NewType.__call__
 typing.NewType.__mro_entries__
 weakref.WeakValueDictionary.update

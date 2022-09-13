@@ -3,8 +3,7 @@
     "typeshedPath": ".",
     "include": [
         "stdlib",
-        "stubs",
-        "test_cases"
+        "stubs"
     ],
     "exclude": [
         "stdlib/distutils/command",
@@ -17,6 +16,9 @@
         "stdlib/tkinter/dialog.pyi",
         "stdlib/tkinter/dnd.pyi",
         "stdlib/tkinter/filedialog.pyi",
+        "stdlib/tkinter/messagebox.pyi",
+        "stdlib/tkinter/scrolledtext.pyi",
+        "stdlib/tkinter/tix.pyi",
         "stdlib/tkinter/ttk.pyi",
         "stdlib/xml/dom/NodeFilter.pyi",
         "stdlib/xml/dom/expatbuilder.pyi",
@@ -48,6 +50,7 @@
         "stubs/invoke",
         "stubs/jmespath",
         "stubs/jsonschema",
+        "stubs/keyboard",
         "stubs/ldap3",
         "stubs/Markdown",
         "stubs/mock",
@@ -83,6 +86,7 @@
         "stubs/SQLAlchemy",
         "stubs/stripe",
         "stubs/tqdm",
+        "stubs/tree-sitter",
         "stubs/tzlocal/tzlocal/utils.pyi",
         "stubs/ttkthemes",
         "stubs/urllib3",

@@ -84,7 +84,6 @@ ctypes.Array._length_
 ctypes.CDLL._FuncPtr  # None at class level but initialized in __init__ to this value
 ctypes.memmove  # CFunctionType
 ctypes.memset  # CFunctionType
-ctypes.pointer  # imported C function
 ctypes.string_at  # docstring argument name is wrong
 ctypes.wstring_at  # docstring argument name is wrong
 distutils.command.bdist_packager  # It exists in docs as package name but not in code except as a mention in a comment.
@@ -171,7 +170,9 @@ socketserver.BaseServer.get_request  # implemented in derived classes
 socketserver.BaseServer.server_bind  # implemented in derived classes
 ssl.Purpose.__new__  # You cannot override __new__ in NamedTuple and runtime uses namedtuple.
 ssl._ASN1Object.__new__  # You cannot override __new__ in NamedTuple and runtime uses namedtuple.
+(sys.get_int_max_str_digits)?  # Added in a patch release, backported to all security branches, but has yet to find its way to all GitHub Actions images
 sys.implementation  # Actually SimpleNamespace but then you wouldn't have convenient attributes
+(sys.set_int_max_str_digits)?  # Added in a patch release, backported to all security branches, but has yet to find its way to all GitHub Actions images
 sys.thread_info
 tarfile.TarFile.errors  # errors is initialized for some reason as None even though it really only accepts str
 threading.Condition.acquire  # Condition functions are exported in __init__
@@ -340,6 +341,26 @@ turtle.ScrolledCanvas.adjustScrolls
 turtle.ScrolledCanvas.onResize
 wave.Wave_read.initfp
 wave.Wave_write.initfp
+
+_ctypes.Array
+_ctypes.CFuncPtr
+_ctypes.POINTER
+_ctypes.PyObj_FromPtr
+_ctypes.Py_DECREF
+_ctypes.Py_INCREF
+_ctypes.Structure
+_ctypes.Union
+_ctypes.addressof
+_ctypes.alignment
+_ctypes.buffer_info
+_ctypes.byref
+_ctypes.call_cdeclfunction
+_ctypes.call_function
+_ctypes.get_errno
+_ctypes.pointer
+_ctypes.resize
+_ctypes.set_errno
+_ctypes.sizeof
 
 # ==========
 # Allowlist entries that cannot or should not be fixed

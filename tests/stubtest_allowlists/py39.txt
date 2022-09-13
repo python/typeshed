@@ -55,7 +55,6 @@ tkinter.Tk.split
 types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
 types.GenericAlias.__getattr__
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
-typing.ForwardRef._evaluate
 typing.SupportsAbs.__init__
 typing.SupportsBytes.__init__
 typing.SupportsComplex.__init__
