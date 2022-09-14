@@ -1,9 +1,5 @@
 from _typeshed import Incomplete
 
-from . import model as model
-from .commontypes import COMMON_TYPES as COMMON_TYPES, resolve_common_type as resolve_common_type
-from .error import CDefError as CDefError, FFIError as FFIError
-
 lock: Incomplete
 CDEF_SOURCE_STRING: str
 

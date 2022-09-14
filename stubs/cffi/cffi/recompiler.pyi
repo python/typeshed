@@ -2,9 +2,7 @@ import io
 from _typeshed import Incomplete
 from typing_extensions import TypeAlias
 
-from . import ffiplatform as ffiplatform, model as model
 from .cffi_opcode import *
-from .error import VerificationError as VerificationError
 
 VERSION_BASE: int
 VERSION_EMBEDDED: int

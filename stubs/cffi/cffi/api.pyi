@@ -8,10 +8,6 @@ from typing_extensions import Literal, TypeAlias
 
 import _cffi_backend
 
-from . import model as model
-from .error import CDefError as CDefError
-from .lock import allocate_lock as allocate_lock
-
 _T = TypeVar("_T")
 
 basestring: TypeAlias = str  # noqa: Y042

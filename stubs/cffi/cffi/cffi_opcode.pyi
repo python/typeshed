@@ -1,7 +1,5 @@
 from _typeshed import Incomplete
 
-from .error import VerificationError as VerificationError
-
 class CffiOp:
     op: Incomplete
     arg: Incomplete

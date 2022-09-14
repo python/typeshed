@@ -1,7 +1,5 @@
 from _typeshed import Incomplete
 
-from .error import VerificationError as VerificationError
-
 LIST_OF_FILE_NAMES: Incomplete
 
 def get_extension(srcfilename, modname, sources=..., **kwds): ...

@@ -14,3 +14,7 @@ cffi.recompiler.NativeIO.seek
 cffi.recompiler.NativeIO.truncate
 cffi.verifier.NativeIO.seek
 cffi.verifier.NativeIO.truncate
+
+# Unnecessary re-exports
+cffi.cparser.COMMON_TYPES
+cffi.verifier.__version_verifier_modules__

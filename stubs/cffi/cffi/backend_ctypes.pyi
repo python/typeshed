@@ -1,7 +1,5 @@
 from _typeshed import Incomplete
 
-from . import model as model
-
 unicode = str
 long = int
 xrange = range

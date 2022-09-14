@@ -1,8 +1,5 @@
 from _typeshed import Incomplete
 
-from . import model as model
-from .error import VerificationError as VerificationError
-
 class VGenericEngine:
     verifier: Incomplete
     ffi: Incomplete
