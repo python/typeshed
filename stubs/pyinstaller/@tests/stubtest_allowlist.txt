@@ -1,2 +1,4 @@
 # fake module, only exists once the app is frozen
 pyi_splash
+# kwargs
+PyInstaller.depend.analysis.PyiModuleGraph.__init__
