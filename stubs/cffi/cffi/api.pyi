@@ -14,12 +14,12 @@ from .lock import allocate_lock as allocate_lock
 
 _T = TypeVar("_T")
 
-basestring: TypeAlias = str
+basestring: TypeAlias = str  # noqa: Y042
 
 class FFI:
     CData: TypeAlias = _cffi_backend._CDataBase
     CType: TypeAlias = _cffi_backend.CType
-    buffer: TypeAlias = _cffi_backend.buffer
+    buffer: TypeAlias = _cffi_backend.buffer  # noqa: Y042
 
     BVoidP: CType
     BCharA: CType

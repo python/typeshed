@@ -129,7 +129,7 @@ class buffer:
 class FFI:
     CData: TypeAlias = _CDataBase
     CType: TypeAlias = CType
-    buffer: TypeAlias = buffer
+    buffer: TypeAlias = buffer  # noqa: Y042
 
     class error(Exception): ...
     NULL: ClassVar[CData] = ...
