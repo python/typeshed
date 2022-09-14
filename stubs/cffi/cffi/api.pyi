@@ -57,17 +57,17 @@ class FFI:
     def callback(
         self,
         cdecl: str | CType,
-        python_callable: None = None,
-        error: Any = None,
-        onerror: Callable[[Exception, Any, Any], None] | None = None,
+        python_callable: None = ...,
+        error: Any = ...,
+        onerror: Callable[[Exception, Any, Any], None] | None = ...,
     ) -> Callable[[Callable[..., _T]], Callable[..., _T]]: ...
     @overload
     def callback(
         self,
         cdecl: str | CType,
         python_callable: Callable[..., _T],
-        error: Any = None,
-        onerror: Callable[[Exception, Any, Any], None] | None = None,
+        error: Any = ...,
+        onerror: Callable[[Exception, Any, Any], None] | None = ...,
     ) -> Callable[..., _T]: ...
     def getctype(self, cdecl: str | CType, replace_with: str = ...) -> str: ...
     @overload
