@@ -1,11 +1,11 @@
 from _typeshed import Incomplete
+from typing import TypeAlias
 
 from . import model as model
 from .error import CDefError as CDefError
 from .lock import allocate_lock as allocate_lock
 
-callable: Incomplete
-basestring = str
+basestring: TypeAlias = str
 
 class FFI:
     BVoidP: Incomplete

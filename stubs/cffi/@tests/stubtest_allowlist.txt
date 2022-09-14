@@ -1,0 +1,8 @@
+# Exists at runtime, but missing from stubs
+cffi.vengine_cpy.__warningregistry__
+
+# Alias to io.StringIO, which has the same allowlist
+cffi.recompiler.NativeIO.seek
+cffi.recompiler.NativeIO.truncate
+cffi.verifier.NativeIO.seek
+cffi.verifier.NativeIO.truncate

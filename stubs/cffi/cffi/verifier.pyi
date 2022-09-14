@@ -1,10 +1,11 @@
 import io
 from _typeshed import Incomplete
+from typing import TypeAlias
 
 from . import __version_verifier_modules__ as __version_verifier_modules__, ffiplatform as ffiplatform
 from .error import VerificationError as VerificationError
 
-NativeIO = io.StringIO
+NativeIO: TypeAlias = io.StringIO
 
 class Verifier:
     ffi: Incomplete

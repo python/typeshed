@@ -1,5 +1,6 @@
 import io
 from _typeshed import Incomplete
+from typing import TypeAlias
 
 from . import ffiplatform as ffiplatform, model as model
 from .cffi_opcode import *
@@ -75,7 +76,7 @@ class Recompiler:
     def write_c_source_to_f(self, f, preamble) -> None: ...
     def write_py_source_to_f(self, f) -> None: ...
 
-NativeIO = io.StringIO
+NativeIO: TypeAlias = io.StringIO
 
 def make_c_source(ffi, module_name, preamble, target_c_file, verbose: bool = ...): ...
 def make_py_source(ffi, module_name, target_py_file, verbose: bool = ...): ...
