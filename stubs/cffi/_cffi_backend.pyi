@@ -126,10 +126,16 @@ class buffer:
     def __ne__(self, other): ...
     def __setitem__(self, index, object): ...
 
+# These aliases are to work around pyright complaints.
+# Pyright doesn't like it when a class object is defined as an alias
+# of a global object with the same name.
+_tmp_CType = CType
+_tmp_buffer = buffer
+
 class FFI:
     CData: TypeAlias = _CDataBase
-    CType: TypeAlias = CType
-    buffer: TypeAlias = buffer  # noqa: Y042
+    CType: TypeAlias = _tmp_CType
+    buffer: TypeAlias = _tmp_buffer  # noqa: Y042
 
     class error(Exception): ...
     NULL: ClassVar[CData] = ...
