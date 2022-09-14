@@ -86,22 +86,22 @@ class _CDataBase:
     def __setitem__(self, index, object): ...
     def __sub__(self, other): ...
 
-@final  # type: ignore[misc]
-class __CDataFromBuf(_CDataBase): ...
+@final
+class __CDataFromBuf(_CDataBase): ...  # type: ignore[misc]
 
-@final  # type: ignore[misc]
-class __CDataGCP(_CDataBase):
+@final
+class __CDataGCP(_CDataBase):  # type: ignore[misc]
     def __del__(self, *args, **kwargs): ...
 
-@final  # type: ignore[misc]
-class __CDataOwn(_CDataBase):
+@final
+class __CDataOwn(_CDataBase):  # type: ignore[misc]
     def __delitem__(self, other): ...
     def __getitem__(self, index): ...
     def __len__(self): ...
     def __setitem__(self, index, object): ...
 
-@final  # type: ignore[misc]
-class __CDataOwnGC(__CDataOwn): ...
+@final
+class __CDataOwnGC(__CDataOwn): ...  # type: ignore[misc]
 
 @final
 class __CData_iterator:
