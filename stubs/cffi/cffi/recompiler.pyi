@@ -1,6 +1,6 @@
 import io
 from _typeshed import Incomplete
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from . import ffiplatform as ffiplatform, model as model
 from .cffi_opcode import *

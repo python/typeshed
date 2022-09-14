@@ -1,6 +1,6 @@
 import io
 from _typeshed import Incomplete
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from . import __version_verifier_modules__ as __version_verifier_modules__, ffiplatform as ffiplatform
 from .error import VerificationError as VerificationError

@@ -1,8 +1,9 @@
 import distutils.core
 import sys
 import types
-from _typeshed import Incomplete, ReadableBuffer, WriteableBuffer
-from typing import Any, Callable, Hashable, Literal, TypeAlias, TypeVar, overload
+from _typeshed import ReadableBuffer, WriteableBuffer
+from typing import Any, Callable, Hashable, TypeVar, overload
+from typing_extensions import Literal, TypeAlias
 
 import _cffi_backend
 

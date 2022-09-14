@@ -1,7 +1,8 @@
 import sys
 import types
 from _typeshed import ReadableBuffer, WriteableBuffer
-from typing import Any, Callable, ClassVar, Hashable, Literal, Protocol, TypeAlias, TypeVar, overload
+from typing import Any, Callable, ClassVar, Hashable, Protocol, TypeVar, overload
+from typing_extensions import Literal, TypeAlias
 
 _T = TypeVar("_T")
 
