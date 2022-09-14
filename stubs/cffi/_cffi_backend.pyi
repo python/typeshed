@@ -14,13 +14,14 @@ __version__: str
 
 FFI_CDECL: int
 FFI_DEFAULT_ABI: int
-RTLD_DEEPBIND: int
 RTLD_GLOBAL: int
 RTLD_LAZY: int
 RTLD_LOCAL: int
-RTLD_NODELETE: int
-RTLD_NOLOAD: int
 RTLD_NOW: int
+if sys.platform != "win32":
+    RTLD_DEEPBIND: int
+    RTLD_NODELETE: int
+    RTLD_NOLOAD: int
 
 @final
 class CField:
@@ -112,13 +113,14 @@ class FFI:
 
     class error(Exception): ...
     NULL: ClassVar[CData]
-    RTLD_DEEPBIND: ClassVar[int]
     RTLD_GLOBAL: ClassVar[int]
     RTLD_LAZY: ClassVar[int]
     RTLD_LOCAL: ClassVar[int]
-    RTLD_NODELETE: ClassVar[int]
-    RTLD_NOLOAD: ClassVar[int]
     RTLD_NOW: ClassVar[int]
+    if sys.platform != "win32":
+        RTLD_DEEPBIND: ClassVar[int]
+        RTLD_NODELETE: ClassVar[int]
+        RTLD_NOLOAD: ClassVar[int]
 
     errno: int
 
