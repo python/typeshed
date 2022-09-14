@@ -52,9 +52,7 @@ class CType:
 
 @final
 class Lib:
-    def __delattr__(self, name): ...
     def __dir__(self): ...
-    def __setattr__(self, name, value): ...
 
 @final
 class _CDataBase:
