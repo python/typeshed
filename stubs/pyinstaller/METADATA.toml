@@ -2,6 +2,4 @@ version = "5.4.*"
 requires = ["types-setuptools"]
 
 [tool.stubtest]
-# Most modules are not meant to be used, yet are not marked as private
-# Otherwise results in 129 "failed to find stubs" and 106 "is not present in stub"
-ignore_missing_stub = true
+ignore_missing_stub = false

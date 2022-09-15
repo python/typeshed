@@ -5,7 +5,7 @@
 from _typeshed import StrOrBytesPath
 from collections.abc import Generator, Iterable
 from typing import Any
-from typing_extensions import Literal, LiteralString
+from typing_extensions import Literal
 
 from PyInstaller.building.build_main import Analysis
 from PyInstaller.building.datastruct import TOC
@@ -14,14 +14,10 @@ from PyInstaller.lib.modulegraph.modulegraph import Package
 
 # https://pyinstaller.org/en/stable/hooks.html#the-pre-safe-import-module-psim-api-method
 class PreSafeImportModuleAPI:
-    module_basename: LiteralString
-    module_name: LiteralString
+    module_basename: str
+    module_name: str
     def __init__(
-        self,
-        module_graph: PyiModuleGraph,
-        module_basename: LiteralString,
-        module_name: LiteralString,
-        parent_package: Package | None,
+        self, module_graph: PyiModuleGraph, module_basename: str, module_name: str, parent_package: Package | None
     ) -> None: ...
     @property
     def module_graph(self) -> PyiModuleGraph: ...
@@ -35,32 +31,30 @@ class PreSafeImportModuleAPI:
 # https://pyinstaller.org/en/stable/hooks.html#the-pre-find-module-path-pfmp-api-method
 class PreFindModulePathAPI:
     search_dirs: Iterable[StrOrBytesPath]
-    def __init__(
-        self, module_graph: PyiModuleGraph, module_name: LiteralString, search_dirs: Iterable[StrOrBytesPath]
-    ) -> None: ...
+    def __init__(self, module_graph: PyiModuleGraph, module_name: str, search_dirs: Iterable[StrOrBytesPath]) -> None: ...
     @property
     def module_graph(self) -> PyiModuleGraph: ...
     @property
-    def module_name(self) -> LiteralString: ...
+    def module_name(self) -> str: ...
 
 # https://pyinstaller.org/en/stable/hooks.html#the-hook-hook-api-function
 class PostGraphAPI:
     module_graph: PyiModuleGraph
     module: Package
-    def __init__(self, module_name: LiteralString, module_graph: PyiModuleGraph, analysis: Analysis) -> None: ...
+    def __init__(self, module_name: str, module_graph: PyiModuleGraph, analysis: Analysis) -> None: ...
     @property
-    def __file__(self) -> LiteralString: ...
+    def __file__(self) -> str: ...
     @property
-    def __path__(self) -> tuple[LiteralString, ...] | None: ...
+    def __path__(self) -> tuple[str, ...] | None: ...
     @property
-    def __name__(self) -> LiteralString: ...
+    def __name__(self) -> str: ...
     # Compiled code. See stdlib.builtins.compile
     @property
     def co(self) -> Any: ...
     @property
     def analysis(self) -> Analysis: ...
     @property
-    def name(self) -> LiteralString: ...
+    def name(self) -> str: ...
     @property
     def graph(self) -> PyiModuleGraph: ...
     @property

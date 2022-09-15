@@ -1,8 +1,7 @@
 # https://pyinstaller.org/en/stable/hooks.html
 
-import os
 from _typeshed import StrOrBytesPath, SupportsKeysAndGetItem
-from collections.abc import Callable, Iterable
+from collections.abc import Callable, Iterable, Mapping
 from typing import Any
 from typing_extensions import Literal, TypeAlias
 
@@ -12,7 +11,7 @@ from PyInstaller.depend.imphookapi import PostGraphAPI
 from PyInstaller.utils.hooks import conda as conda_support
 from PyInstaller.utils.hooks.win32 import get_pywin32_module_file_attribute as get_pywin32_module_file_attribute
 
-_Environ: TypeAlias = SupportsKeysAndGetItem[str, str] | Iterable[tuple[str, str]] | os._Environ[str]
+_Environ: TypeAlias = SupportsKeysAndGetItem[str, str] | Iterable[tuple[str, str]] | Mapping[str, str]
 
 PY_IGNORE_EXTENSIONS: set[str]
 hook_variables: dict[str, str]
