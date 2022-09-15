@@ -1,12 +1,12 @@
 # https://pyinstaller.org/en/stable/hooks.html#module-PyInstaller.compat
-from _typeshed import GenericPath, StrOrBytesPath
+from _typeshed import FileDescriptor, GenericPath, StrOrBytesPath
 from collections.abc import Iterable
 from importlib.abc import _Path
 from types import ModuleType
 from typing import AnyStr, overload
 from typing_extensions import Literal, TypeAlias
 
-_OpenFile: TypeAlias = StrOrBytesPath | int
+_OpenFile: TypeAlias = StrOrBytesPath | FileDescriptor
 
 is_64bits: bool
 is_py35: bool
@@ -45,11 +45,11 @@ ALL_SUFFIXES: list[str]
 
 architecture: Literal["64bit", "n32bit", "32bit"]
 system: Literal["Cygwin", "Linux", "Darwin", "Java", "Windows"]
-machine: Literal["sw_64", "loongarch64", "arm", "intel", "ppc", "mips", "riscv", "s390x", "unknown"] | None
+machine: Literal["sw_64", "loongarch64", "arm", "intel", "ppc", "mips", "riscv", "s390x", "unknown", None]
 
 def is_wine_dll(filename: _OpenFile) -> bool: ...
 @overload
-def getenv(name: str, default: str = ...) -> str: ...
+def getenv(name: str, default: str) -> str: ...
 @overload
 def getenv(name: str, default: None = ...) -> str | None: ...
 def setenv(name: str, value: str) -> None: ...

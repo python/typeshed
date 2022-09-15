@@ -3,6 +3,7 @@
 
 from _typeshed import StrOrBytesPath
 from collections.abc import Iterable
+from typing import Any
 
 from PyInstaller.building.datastruct import Target
 
@@ -17,7 +18,7 @@ class Analysis(Target):
         datas=...,
         hiddenimports=...,
         hookspath=...,
-        hooksconfig: dict[str, dict[str, object]] | None = ...,
+        hooksconfig: dict[str, dict[str, Any]] | None = ...,
         excludes=...,
         runtime_hooks=...,
         cipher=...,
