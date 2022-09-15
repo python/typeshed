@@ -24,14 +24,11 @@ google.protobuf.text_format.MessageToBytes
 # a function. Typeshed's typing is more useful
 google.protobuf.service.Service.GetDescriptor
 
-# These are deliberately omitted in the stub
-# due to the fact that these classes have conflicting signatures for __init__/__new__.
+# These are deliberately omitted in the stub.
 # The classes also can't be constructed directly anyway,
 # so the signatures of their constructors are somewhat irrelevant.
 google.protobuf.descriptor.Descriptor.__init__
-google.protobuf.descriptor.Descriptor.__new__
 google.protobuf.descriptor.ServiceDescriptor.__init__
-google.protobuf.descriptor.ServiceDescriptor.__new__
 
 # Set to None at runtime - which doesn't match the Sequence base class.
 # It's a hack - just allow it.
