@@ -28,9 +28,9 @@ is_openbsd: bool
 is_hpux: bool
 is_unix: bool
 is_musl: bool
-is_macos_11_compat: tuple[int, ...] | bool | None
-is_macos_11_native: tuple[int, ...] | bool | None
-is_macos_11: tuple[int, ...] | bool | None
+is_macos_11_compat: bool
+is_macos_11_native: bool
+is_macos_11: bool
 PYDYLIB_NAMES: set[str]
 base_prefix: str
 is_venv: bool
