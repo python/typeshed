@@ -398,6 +398,19 @@ async def main() -> None:
     )
     args = parser.parse_args()
 
+    if args.action_level > ActionLevel.nothing:
+        subprocess.run(["git", "update-index", "--refresh"], capture_output=True)
+        diff_result = subprocess.run(["git", "diff-index", "HEAD", "--name-only"], text=True, capture_output=True)
+        if diff_result.returncode:
+            print("Unexpected exception!")
+            print(diff_result.stdout)
+            print(diff_result.stderr)
+            sys.exit(diff_result.returncode)
+        if diff_result.stdout:
+            changed_files = ", ".join(repr(line) for line in diff_result.stdout.split("\n") if line)
+            print(f"Cannot run stubsabot, as uncommitted changes are present in {changed_files}!")
+            sys.exit(1)
+
     if args.action_level > ActionLevel.fork:
         if os.environ.get("GITHUB_TOKEN") is None:
             raise ValueError("GITHUB_TOKEN environment variable must be set")
