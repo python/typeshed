@@ -1,6 +1,5 @@
 from typing import Any, Protocol
 
-
 class _SupportsGraphident(Protocol):
     graphident: str
 
