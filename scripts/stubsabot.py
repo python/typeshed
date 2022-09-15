@@ -417,7 +417,9 @@ async def main() -> None:
 
     denylist = {"gdb"}  # gdb is not a pypi distribution
 
-    original_branch = subprocess.run(["git", "branch", "--show-current"], text=True, capture_output=True, check=True).stdout.strip()
+    original_branch = subprocess.run(
+        ["git", "branch", "--show-current"], text=True, capture_output=True, check=True
+    ).stdout.strip()
 
     if args.action_level >= ActionLevel.fork:
         subprocess.check_call(["git", "fetch", "--prune", "--all"])
