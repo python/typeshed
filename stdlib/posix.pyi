@@ -309,7 +309,7 @@ if sys.platform != "win32":
                 copy_file_range as copy_file_range,
                 memfd_create as memfd_create,
             )
-    from os import register_at_fork as register_at_fork
+    from os import register_at_fork as register_at_fork, preadv as preadv, pwritev as pwritev
 
     if sys.platform != "darwin":
         from os import (
@@ -317,8 +317,6 @@ if sys.platform != "win32":
             RWF_HIPRI as RWF_HIPRI,
             RWF_NOWAIT as RWF_NOWAIT,
             RWF_SYNC as RWF_SYNC,
-            preadv as preadv,
-            pwritev as pwritev,
         )
 
     # Not same as os.environ or os.environb
