@@ -417,6 +417,8 @@ async def main() -> None:
 
     denylist = {"gdb"}  # gdb is not a pypi distribution
 
+    original_branch = subprocess.run(["git", "branch", "--show-current"], text=True, capture_output=True, check=True).stdout.strip()
+
     if args.action_level >= ActionLevel.fork:
         subprocess.check_call(["git", "fetch", "--prune", "--all"])
 
@@ -457,7 +459,7 @@ async def main() -> None:
         # if you need to cleanup, try:
         # git branch -D $(git branch --list 'stubsabot/*')
         if args.action_level >= ActionLevel.local:
-            subprocess.check_call(["git", "checkout", "master"])
+            subprocess.check_call(["git", "checkout", original_branch])
 
 
 if __name__ == "__main__":
