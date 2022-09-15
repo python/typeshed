@@ -308,28 +308,9 @@ _repo_lock = asyncio.Lock()
 BRANCH_PREFIX = "stubsabot"
 
 
-async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession, action_level: ActionLevel) -> None:
-    if action_level <= ActionLevel.nothing:
-        return
-    title = f"[stubsabot] Bump {update.distribution} to {update.new_version_spec}"
-    async with _repo_lock:
-        branch_name = f"{BRANCH_PREFIX}/{normalize(update.distribution)}"
-        subprocess.check_call(["git", "checkout", "-B", branch_name, "origin/master"])
-        with open(update.stub_path / "METADATA.toml", "rb") as f:
-            meta = tomlkit.load(f)
-        meta["version"] = update.new_version_spec
-        with open(update.stub_path / "METADATA.toml", "w") as f:
-            tomlkit.dump(meta, f)
-        subprocess.check_call(["git", "commit", "--all", "-m", title])
-        if action_level <= ActionLevel.local:
-            return
-        somewhat_safe_force_push(branch_name)
-        if action_level <= ActionLevel.fork:
-            return
-
+def get_update_pr_body(update: Update, metadata: dict[str, Any]) -> str:
     body = "\n".join(f"{k}: {v}" for k, v in update.links.items())
-
-    stubtest_will_run = not meta.get("stubtest", {}).get("skip", False)
+    stubtest_will_run = not metadata.get("stubtest", {}).get("skip", False)
     if stubtest_will_run:
         body += textwrap.dedent(
             """
@@ -348,6 +329,28 @@ async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession
             :warning: Review this PR manually, as stubtest is skipped in CI for {update.distribution}! :warning:
             """
         )
+    return body
+
+
+async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession, action_level: ActionLevel) -> None:
+    if action_level <= ActionLevel.nothing:
+        return
+    title = f"[stubsabot] Bump {update.distribution} to {update.new_version_spec}"
+    async with _repo_lock:
+        branch_name = f"{BRANCH_PREFIX}/{normalize(update.distribution)}"
+        subprocess.check_call(["git", "checkout", "-B", branch_name, "origin/master"])
+        with open(update.stub_path / "METADATA.toml", "rb") as f:
+            meta = tomlkit.load(f)
+        meta["version"] = update.new_version_spec
+        with open(update.stub_path / "METADATA.toml", "w") as f:
+            tomlkit.dump(meta, f)
+        body = get_update_pr_body(update, meta)
+        subprocess.check_call(["git", "commit", "--all", "-m", f"{title}\n\n{body}"])
+        if action_level <= ActionLevel.local:
+            return
+        somewhat_safe_force_push(branch_name)
+        if action_level <= ActionLevel.fork:
+            return
 
     await create_or_update_pull_request(title=title, body=body, branch_name=branch_name, session=session)
 
@@ -366,14 +369,14 @@ async def suggest_typeshed_obsolete(obsolete: Obsolete, session: aiohttp.ClientS
         meta["obsolete_since"] = obs_string
         with open(obsolete.stub_path / "METADATA.toml", "w") as f:
             tomlkit.dump(meta, f)
-        subprocess.check_call(["git", "commit", "--all", "-m", title])
+        body = "\n".join(f"{k}: {v}" for k, v in obsolete.links.items())
+        subprocess.check_call(["git", "commit", "--all", "-m", f"{title}\n\n{body}"])
         if action_level <= ActionLevel.local:
             return
         somewhat_safe_force_push(branch_name)
         if action_level <= ActionLevel.fork:
             return
 
-    body = "\n".join(f"{k}: {v}" for k, v in obsolete.links.items())
     await create_or_update_pull_request(title=title, body=body, branch_name=branch_name, session=session)
 
 
