@@ -369,14 +369,14 @@ async def suggest_typeshed_obsolete(obsolete: Obsolete, session: aiohttp.ClientS
         meta["obsolete_since"] = obs_string
         with open(obsolete.stub_path / "METADATA.toml", "w") as f:
             tomlkit.dump(meta, f)
-        subprocess.check_call(["git", "commit", "--all", "-m", title])
+        body = "\n".join(f"{k}: {v}" for k, v in obsolete.links.items())
+        subprocess.check_call(["git", "commit", "--all", "-m", f"{title}\n\n{body}"])
         if action_level <= ActionLevel.local:
             return
         somewhat_safe_force_push(branch_name)
         if action_level <= ActionLevel.fork:
             return
 
-    body = "\n".join(f"{k}: {v}" for k, v in obsolete.links.items())
     await create_or_update_pull_request(title=title, body=body, branch_name=branch_name, session=session)
 
 
