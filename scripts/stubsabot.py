@@ -309,8 +309,7 @@ BRANCH_PREFIX = "stubsabot"
 
 
 def get_pr_body(update: Update, metadata: dict[str, Any]) -> str:
-    body = "Project links:\n - "
-    body += "\n - ".join(f"{k}: {v}" for k, v in update.links.items())
+    body = "\n".join(f"{k}: {v}" for k, v in update.links.items())
     stubtest_will_run = not metadata.get("stubtest", {}).get("skip", False)
     if stubtest_will_run:
         body += textwrap.dedent(
@@ -346,7 +345,7 @@ async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession
         with open(update.stub_path / "METADATA.toml", "w") as f:
             tomlkit.dump(meta, f)
         body = get_pr_body(update, meta)
-        subprocess.check_call(["git", "commit", "--all", "-m", f"{title}\n{body}"])
+        subprocess.check_call(["git", "commit", "--all", "-m", f"{title}\n\n{body}"])
         if action_level <= ActionLevel.local:
             return
         somewhat_safe_force_push(branch_name)
