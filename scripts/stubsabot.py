@@ -183,6 +183,70 @@ def get_updated_version_spec(spec: str, version: packaging.version.Version) -> s
     return _check_spec(".".join(rounded_version) + ".*", version)
 
 
+@functools.cache
+def get_github_api_headers() -> dict[str, str]:
+    headers = {"Accept": "application/vnd.github.v3+json"}
+    secret = os.environ.get("GITHUB_TOKEN")
+    if secret is not None:
+        headers["Authorization"] = f"token {secret}" if secret.startswith("ghp") else f"Bearer {secret}"
+    return headers
+
+
+@dataclass
+class GithubInfo:
+    repo_path: str
+    tags: list[dict[str, Any]]
+
+
+async def get_github_repo_info(session: aiohttp.ClientSession, pypi_info: PypiInfo) -> GithubInfo | None:
+    """
+    If the project represented by `pypi_info` is hosted on GitHub,
+    return information regarding the project as it exists on GitHub.
+
+    Else, return None.
+    """
+    project_urls = pypi_info.info.get("project_urls", {}).values()
+    for project_url in project_urls:
+        assert isinstance(project_url, str)
+        split_url = urllib.parse.urlsplit(project_url)
+        if split_url.netloc == "github.com" and not split_url.query and not split_url.fragment:
+            url_path = split_url.path
+            url_path_parts = Path(url_path).parts
+            if len(url_path_parts) == 3:
+                github_tags_info_url = f"https://api.github.com/repos{url_path}/tags"
+                async with session.get(github_tags_info_url, headers=get_github_api_headers()) as response:
+                    if response.status == 200:
+                        tags = await response.json()
+                        assert isinstance(tags, list)
+                        return GithubInfo(repo_path=url_path, tags=tags)
+    return None
+
+
+async def get_diff_url(session: aiohttp.ClientSession, stub_info: StubInfo, pypi_info: PypiInfo) -> str | None:
+    """Return a link giving the diff between two releases, if possible.
+
+    Return `None` if the project isn't hosted on GitHub,
+    or if a link pointing to the diff couldn't be found for any other reason.
+    """
+    github_info = await get_github_repo_info(session, pypi_info)
+    if github_info is None:
+        return None
+    tags_to_versions = {tag["name"]: packaging.version.Version(tag["name"]) for tag in github_info.tags}
+    curr_release = packaging.version.Version(stub_info.version_spec.removesuffix(".*")).release
+
+    try:
+        new_tag = next(tag for tag, version in tags_to_versions.items() if version == pypi_info.version)
+        old_tag = next(tag for tag, version in tags_to_versions.items() if version.release[: len(curr_release)] == curr_release)
+    except StopIteration:
+        return None
+
+    diff_url = f"https://github.com{github_info.repo_path}/compare/{old_tag}...{new_tag}"
+    async with session.get(diff_url, headers=get_github_api_headers()) as response:
+        # Double-check we're returning a valid URL here
+        response.raise_for_status()
+        return diff_url
+
+
 async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> Update | NoUpdate | Obsolete:
     stub_info = read_typeshed_stub_metadata(stub_path)
     if stub_info.obsolete:
@@ -200,6 +264,7 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
         "Release": pypi_info.info["release_url"],
         "Homepage": project_urls.get("Homepage"),
         "Changelog": project_urls.get("Changelog") or project_urls.get("Changes") or project_urls.get("Change Log"),
+        "Diff": await get_diff_url(session, stub_info, pypi_info),
     }
     links = {k: v for k, v in maybe_links.items() if v is not None}
 
@@ -234,18 +299,12 @@ def get_origin_owner() -> str:
 
 
 async def create_or_update_pull_request(*, title: str, body: str, branch_name: str, session: aiohttp.ClientSession) -> None:
-    secret = os.environ["GITHUB_TOKEN"]
-    if secret.startswith("ghp"):
-        auth = f"token {secret}"
-    else:
-        auth = f"Bearer {secret}"
-
     fork_owner = get_origin_owner()
 
     async with session.post(
         f"https://api.github.com/repos/{TYPESHED_OWNER}/typeshed/pulls",
         json={"title": title, "body": body, "head": f"{fork_owner}:{branch_name}", "base": "master"},
-        headers={"Accept": "application/vnd.github.v3+json", "Authorization": auth},
+        headers=get_github_api_headers(),
     ) as response:
         resp_json = await response.json()
         if response.status == 422 and any(
@@ -255,7 +314,7 @@ async def create_or_update_pull_request(*, title: str, body: str, branch_name: s
             async with session.get(
                 f"https://api.github.com/repos/{TYPESHED_OWNER}/typeshed/pulls",
                 params={"state": "open", "head": f"{fork_owner}:{branch_name}", "base": "master"},
-                headers={"Accept": "application/vnd.github.v3+json", "Authorization": auth},
+                headers=get_github_api_headers(),
             ) as response:
                 response.raise_for_status()
                 resp_json = await response.json()
@@ -265,7 +324,7 @@ async def create_or_update_pull_request(*, title: str, body: str, branch_name: s
             async with session.patch(
                 f"https://api.github.com/repos/{TYPESHED_OWNER}/typeshed/pulls/{pr_number}",
                 json={"title": title, "body": body},
-                headers={"Accept": "application/vnd.github.v3+json", "Authorization": auth},
+                headers=get_github_api_headers(),
             ) as response:
                 response.raise_for_status()
             return
