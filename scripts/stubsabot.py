@@ -15,6 +15,7 @@ import tarfile
 import textwrap
 import urllib.parse
 import zipfile
+from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, TypeVar
@@ -184,7 +185,7 @@ def get_updated_version_spec(spec: str, version: packaging.version.Version) -> s
 
 
 @functools.cache
-def get_github_api_headers() -> dict[str, str]:
+def get_github_api_headers() -> Mapping[str, str]:
     headers = {"Accept": "application/vnd.github.v3+json"}
     secret = os.environ.get("GITHUB_TOKEN")
     if secret is not None:
@@ -231,20 +232,26 @@ async def get_diff_url(session: aiohttp.ClientSession, stub_info: StubInfo, pypi
     github_info = await get_github_repo_info(session, pypi_info)
     if github_info is None:
         return None
-    tags_to_versions = {tag["name"]: packaging.version.Version(tag["name"]) for tag in github_info.tags}
-    curr_release = packaging.version.Version(stub_info.version_spec.removesuffix(".*")).release
+    versions_to_tags = {packaging.version.Version(tag["name"]): tag["name"] for tag in github_info.tags}
+    curr_specifier = packaging.specifiers.SpecifierSet(f"=={stub_info.version_spec}")
 
     try:
-        new_tag = next(tag for tag, version in tags_to_versions.items() if version == pypi_info.version)
-        old_tag = next(tag for tag, version in tags_to_versions.items() if version.release[: len(curr_release)] == curr_release)
-    except StopIteration:
+        new_tag = versions_to_tags[pypi_info.version]
+    except KeyError:
         return None
+
+    try:
+        old_version = max(version for version in versions_to_tags if version in curr_specifier)
+    except ValueError:
+        return None
+    else:
+        old_tag = versions_to_tags[old_version]
 
     diff_url = f"https://github.com{github_info.repo_path}/compare/{old_tag}...{new_tag}"
     async with session.get(diff_url, headers=get_github_api_headers()) as response:
         # Double-check we're returning a valid URL here
         response.raise_for_status()
-        return diff_url
+    return diff_url
 
 
 async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> Update | NoUpdate | Obsolete:
