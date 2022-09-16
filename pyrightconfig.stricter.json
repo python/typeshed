@@ -79,7 +79,6 @@
         "stubs/PyYAML",
         "stubs/redis",
         "stubs/requests",
-        "stubs/selenium",
         "stubs/Send2Trash",
         "stubs/setuptools",
         "stubs/simplejson",
