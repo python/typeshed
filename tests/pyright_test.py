@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 import shutil
 import subprocess
 import sys
@@ -27,7 +28,9 @@ def main() -> None:
         print("error running npx; is Node.js installed?", file=sys.stderr)
         sys.exit(1)
 
-    command = [npx, "-p", f"pyright@{_PYRIGHT_VERSION}", "pyright"] + sys.argv[1:]
+    os.environ["PYRIGHT_PYTHON_FORCE_VERSION"] = _PYRIGHT_VERSION
+    command = [npx, f"pyright@{_PYRIGHT_VERSION}"] + sys.argv[1:]
+    print("Running:", " ".join(command))
 
     ret = subprocess.run(command).returncode
     sys.exit(ret)
