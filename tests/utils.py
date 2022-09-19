@@ -3,28 +3,16 @@
 import os
 from functools import cache
 from pathlib import Path
-from typing import TYPE_CHECKING, NamedTuple
+from typing import NamedTuple
 
 import tomli
 
-# ====================================================================
-# Some simple hacks so we don't have to install types-termcolor in CI,
-# and so that tests can be run locally without termcolor installed,
-# if desired
-# ====================================================================
+try:
+    from termcolor import colored as colored
+except ImportError:
 
-if TYPE_CHECKING:
-
-    def colored(__str: str, __style: str) -> str:
-        ...
-
-else:
-    try:
-        from termcolor import colored
-    except ImportError:
-
-        def colored(s: str, _: str) -> str:
-            return s
+    def colored(s: str, _: str) -> str:  # type: ignore
+        return s
 
 
 def print_error(error: str, end: str = "\n", fix_path: tuple[str, str] = ("", "")) -> None:

@@ -18,22 +18,14 @@ import zipfile
 from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar
 
 import aiohttp
 import packaging.specifiers
 import packaging.version
 import tomli
 import tomlkit
-
-if TYPE_CHECKING:
-
-    def colored(__str: str, __style: str) -> str:
-        ...
-
-else:
-    from termcolor import colored
-
+from termcolor import colored
 
 ActionLevelSelf = TypeVar("ActionLevelSelf", bound="ActionLevel")
 
