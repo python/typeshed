@@ -27,7 +27,6 @@ import tomli
 import tomlkit
 from termcolor import colored
 
-
 ActionLevelSelf = TypeVar("ActionLevelSelf", bound="ActionLevel")
 
 
