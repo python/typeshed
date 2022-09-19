@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import contextlib
 import datetime
 import enum
 import functools
@@ -203,10 +204,9 @@ async def get_github_repo_info(session: aiohttp.ClientSession, pypi_info: PypiIn
         assert isinstance(project_url, str)
         split_url = urllib.parse.urlsplit(project_url)
         if split_url.netloc == "github.com" and not split_url.query and not split_url.fragment:
-            url_path = split_url.path
-            url_path_parts = Path(url_path).parts
-            if len(url_path_parts) == 3:
-                github_tags_info_url = f"https://api.github.com/repos{url_path}/tags"
+            url_path = split_url.path.strip("/")
+            if len(Path(url_path).parts) == 2:
+                github_tags_info_url = f"https://api.github.com/repos/{url_path}/tags"
                 async with session.get(github_tags_info_url, headers=get_github_api_headers()) as response:
                     if response.status == 200:
                         tags = await response.json()
@@ -224,7 +224,16 @@ async def get_diff_url(session: aiohttp.ClientSession, stub_info: StubInfo, pypi
     github_info = await get_github_repo_info(session, pypi_info)
     if github_info is None:
         return None
-    versions_to_tags = {packaging.version.Version(tag["name"]): tag["name"] for tag in github_info.tags}
+
+    versions_to_tags = {}
+    for tag in github_info.tags:
+        tag_name = tag["name"]
+        # Some packages in typeshed (e.g. emoji) have tag names
+        # that are invalid to be passed to the Version() constructor,
+        # e.g. v.1.4.2
+        with contextlib.suppress(packaging.version.InvalidVersion):
+            versions_to_tags[packaging.version.Version(tag_name)] = tag_name
+
     curr_specifier = packaging.specifiers.SpecifierSet(f"=={stub_info.version_spec}")
 
     try:
@@ -239,7 +248,7 @@ async def get_diff_url(session: aiohttp.ClientSession, stub_info: StubInfo, pypi
     else:
         old_tag = versions_to_tags[old_version]
 
-    diff_url = f"https://github.com{github_info.repo_path}/compare/{old_tag}...{new_tag}"
+    diff_url = f"https://github.com/{github_info.repo_path}/compare/{old_tag}...{new_tag}"
     async with session.get(diff_url, headers=get_github_api_headers()) as response:
         # Double-check we're returning a valid URL here
         response.raise_for_status()
