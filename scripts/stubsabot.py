@@ -169,8 +169,8 @@ async def release_contains_py_typed(release_to_download: PypiReleaseDownload, *,
 
 
 async def find_first_release_with_py_typed(pypi_info: PypiInfo, *, session: aiohttp.ClientSession) -> PypiReleaseDownload:
-    get_earlier_release: Callable[[], PypiReleaseDownload] = pypi_info.releases_in_descending_order().__next__
-    while await release_contains_py_typed(release := get_earlier_release(), session=session):
+    release_iter = pypi_info.releases_in_descending_order()
+    while await release_contains_py_typed(release := next(release_iter), session=session):
         first_release_with_py_typed = release
     return first_release_with_py_typed
 
