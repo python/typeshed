@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import contextlib
 import datetime
 import enum
 import functools
@@ -15,24 +16,17 @@ import tarfile
 import textwrap
 import urllib.parse
 import zipfile
+from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar
 
 import aiohttp
 import packaging.specifiers
 import packaging.version
 import tomli
 import tomlkit
-
-if TYPE_CHECKING:
-
-    def colored(__str: str, __style: str) -> str:
-        ...
-
-else:
-    from termcolor import colored
-
+from termcolor import colored
 
 ActionLevelSelf = TypeVar("ActionLevelSelf", bound="ActionLevel")
 
@@ -183,6 +177,84 @@ def get_updated_version_spec(spec: str, version: packaging.version.Version) -> s
     return _check_spec(".".join(rounded_version) + ".*", version)
 
 
+@functools.cache
+def get_github_api_headers() -> Mapping[str, str]:
+    headers = {"Accept": "application/vnd.github.v3+json"}
+    secret = os.environ.get("GITHUB_TOKEN")
+    if secret is not None:
+        headers["Authorization"] = f"token {secret}" if secret.startswith("ghp") else f"Bearer {secret}"
+    return headers
+
+
+@dataclass
+class GithubInfo:
+    repo_path: str
+    tags: list[dict[str, Any]]
+
+
+async def get_github_repo_info(session: aiohttp.ClientSession, pypi_info: PypiInfo) -> GithubInfo | None:
+    """
+    If the project represented by `pypi_info` is hosted on GitHub,
+    return information regarding the project as it exists on GitHub.
+
+    Else, return None.
+    """
+    project_urls = pypi_info.info.get("project_urls", {}).values()
+    for project_url in project_urls:
+        assert isinstance(project_url, str)
+        split_url = urllib.parse.urlsplit(project_url)
+        if split_url.netloc == "github.com" and not split_url.query and not split_url.fragment:
+            url_path = split_url.path.strip("/")
+            if len(Path(url_path).parts) == 2:
+                github_tags_info_url = f"https://api.github.com/repos/{url_path}/tags"
+                async with session.get(github_tags_info_url, headers=get_github_api_headers()) as response:
+                    if response.status == 200:
+                        tags = await response.json()
+                        assert isinstance(tags, list)
+                        return GithubInfo(repo_path=url_path, tags=tags)
+    return None
+
+
+async def get_diff_url(session: aiohttp.ClientSession, stub_info: StubInfo, pypi_info: PypiInfo) -> str | None:
+    """Return a link giving the diff between two releases, if possible.
+
+    Return `None` if the project isn't hosted on GitHub,
+    or if a link pointing to the diff couldn't be found for any other reason.
+    """
+    github_info = await get_github_repo_info(session, pypi_info)
+    if github_info is None:
+        return None
+
+    versions_to_tags = {}
+    for tag in github_info.tags:
+        tag_name = tag["name"]
+        # Some packages in typeshed (e.g. emoji) have tag names
+        # that are invalid to be passed to the Version() constructor,
+        # e.g. v.1.4.2
+        with contextlib.suppress(packaging.version.InvalidVersion):
+            versions_to_tags[packaging.version.Version(tag_name)] = tag_name
+
+    curr_specifier = packaging.specifiers.SpecifierSet(f"=={stub_info.version_spec}")
+
+    try:
+        new_tag = versions_to_tags[pypi_info.version]
+    except KeyError:
+        return None
+
+    try:
+        old_version = max(version for version in versions_to_tags if version in curr_specifier)
+    except ValueError:
+        return None
+    else:
+        old_tag = versions_to_tags[old_version]
+
+    diff_url = f"https://github.com/{github_info.repo_path}/compare/{old_tag}...{new_tag}"
+    async with session.get(diff_url, headers=get_github_api_headers()) as response:
+        # Double-check we're returning a valid URL here
+        response.raise_for_status()
+    return diff_url
+
+
 async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> Update | NoUpdate | Obsolete:
     stub_info = read_typeshed_stub_metadata(stub_path)
     if stub_info.obsolete:
@@ -200,6 +272,7 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
         "Release": pypi_info.info["release_url"],
         "Homepage": project_urls.get("Homepage"),
         "Changelog": project_urls.get("Changelog") or project_urls.get("Changes") or project_urls.get("Change Log"),
+        "Diff": await get_diff_url(session, stub_info, pypi_info),
     }
     links = {k: v for k, v in maybe_links.items() if v is not None}
 
@@ -234,18 +307,12 @@ def get_origin_owner() -> str:
 
 
 async def create_or_update_pull_request(*, title: str, body: str, branch_name: str, session: aiohttp.ClientSession) -> None:
-    secret = os.environ["GITHUB_TOKEN"]
-    if secret.startswith("ghp"):
-        auth = f"token {secret}"
-    else:
-        auth = f"Bearer {secret}"
-
     fork_owner = get_origin_owner()
 
     async with session.post(
         f"https://api.github.com/repos/{TYPESHED_OWNER}/typeshed/pulls",
         json={"title": title, "body": body, "head": f"{fork_owner}:{branch_name}", "base": "master"},
-        headers={"Accept": "application/vnd.github.v3+json", "Authorization": auth},
+        headers=get_github_api_headers(),
     ) as response:
         resp_json = await response.json()
         if response.status == 422 and any(
@@ -255,7 +322,7 @@ async def create_or_update_pull_request(*, title: str, body: str, branch_name: s
             async with session.get(
                 f"https://api.github.com/repos/{TYPESHED_OWNER}/typeshed/pulls",
                 params={"state": "open", "head": f"{fork_owner}:{branch_name}", "base": "master"},
-                headers={"Accept": "application/vnd.github.v3+json", "Authorization": auth},
+                headers=get_github_api_headers(),
             ) as response:
                 response.raise_for_status()
                 resp_json = await response.json()
@@ -265,7 +332,7 @@ async def create_or_update_pull_request(*, title: str, body: str, branch_name: s
             async with session.patch(
                 f"https://api.github.com/repos/{TYPESHED_OWNER}/typeshed/pulls/{pr_number}",
                 json={"title": title, "body": body},
-                headers={"Accept": "application/vnd.github.v3+json", "Authorization": auth},
+                headers=get_github_api_headers(),
             ) as response:
                 response.raise_for_status()
             return
@@ -308,28 +375,9 @@ _repo_lock = asyncio.Lock()
 BRANCH_PREFIX = "stubsabot"
 
 
-async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession, action_level: ActionLevel) -> None:
-    if action_level <= ActionLevel.nothing:
-        return
-    title = f"[stubsabot] Bump {update.distribution} to {update.new_version_spec}"
-    async with _repo_lock:
-        branch_name = f"{BRANCH_PREFIX}/{normalize(update.distribution)}"
-        subprocess.check_call(["git", "checkout", "-B", branch_name, "origin/master"])
-        with open(update.stub_path / "METADATA.toml", "rb") as f:
-            meta = tomlkit.load(f)
-        meta["version"] = update.new_version_spec
-        with open(update.stub_path / "METADATA.toml", "w") as f:
-            tomlkit.dump(meta, f)
-        subprocess.check_call(["git", "commit", "--all", "-m", title])
-        if action_level <= ActionLevel.local:
-            return
-        somewhat_safe_force_push(branch_name)
-        if action_level <= ActionLevel.fork:
-            return
-
+def get_update_pr_body(update: Update, metadata: dict[str, Any]) -> str:
     body = "\n".join(f"{k}: {v}" for k, v in update.links.items())
-
-    stubtest_will_run = not meta.get("stubtest", {}).get("skip", False)
+    stubtest_will_run = not metadata.get("stubtest", {}).get("skip", False)
     if stubtest_will_run:
         body += textwrap.dedent(
             """
@@ -348,6 +396,28 @@ async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession
             :warning: Review this PR manually, as stubtest is skipped in CI for {update.distribution}! :warning:
             """
         )
+    return body
+
+
+async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession, action_level: ActionLevel) -> None:
+    if action_level <= ActionLevel.nothing:
+        return
+    title = f"[stubsabot] Bump {update.distribution} to {update.new_version_spec}"
+    async with _repo_lock:
+        branch_name = f"{BRANCH_PREFIX}/{normalize(update.distribution)}"
+        subprocess.check_call(["git", "checkout", "-B", branch_name, "origin/master"])
+        with open(update.stub_path / "METADATA.toml", "rb") as f:
+            meta = tomlkit.load(f)
+        meta["version"] = update.new_version_spec
+        with open(update.stub_path / "METADATA.toml", "w") as f:
+            tomlkit.dump(meta, f)
+        body = get_update_pr_body(update, meta)
+        subprocess.check_call(["git", "commit", "--all", "-m", f"{title}\n\n{body}"])
+        if action_level <= ActionLevel.local:
+            return
+        somewhat_safe_force_push(branch_name)
+        if action_level <= ActionLevel.fork:
+            return
 
     await create_or_update_pull_request(title=title, body=body, branch_name=branch_name, session=session)
 
@@ -366,14 +436,14 @@ async def suggest_typeshed_obsolete(obsolete: Obsolete, session: aiohttp.ClientS
         meta["obsolete_since"] = obs_string
         with open(obsolete.stub_path / "METADATA.toml", "w") as f:
             tomlkit.dump(meta, f)
-        subprocess.check_call(["git", "commit", "--all", "-m", title])
+        body = "\n".join(f"{k}: {v}" for k, v in obsolete.links.items())
+        subprocess.check_call(["git", "commit", "--all", "-m", f"{title}\n\n{body}"])
         if action_level <= ActionLevel.local:
             return
         somewhat_safe_force_push(branch_name)
         if action_level <= ActionLevel.fork:
             return
 
-    body = "\n".join(f"{k}: {v}" for k, v in obsolete.links.items())
     await create_or_update_pull_request(title=title, body=body, branch_name=branch_name, session=session)
 
 
@@ -395,11 +465,28 @@ async def main() -> None:
     )
     args = parser.parse_args()
 
+    if args.action_level > ActionLevel.nothing:
+        subprocess.run(["git", "update-index", "--refresh"], capture_output=True)
+        diff_result = subprocess.run(["git", "diff-index", "HEAD", "--name-only"], text=True, capture_output=True)
+        if diff_result.returncode:
+            print("Unexpected exception!")
+            print(diff_result.stdout)
+            print(diff_result.stderr)
+            sys.exit(diff_result.returncode)
+        if diff_result.stdout:
+            changed_files = ", ".join(repr(line) for line in diff_result.stdout.split("\n") if line)
+            print(f"Cannot run stubsabot, as uncommitted changes are present in {changed_files}!")
+            sys.exit(1)
+
     if args.action_level > ActionLevel.fork:
         if os.environ.get("GITHUB_TOKEN") is None:
             raise ValueError("GITHUB_TOKEN environment variable must be set")
 
     denylist = {"gdb"}  # gdb is not a pypi distribution
+
+    original_branch = subprocess.run(
+        ["git", "branch", "--show-current"], text=True, capture_output=True, check=True
+    ).stdout.strip()
 
     if args.action_level >= ActionLevel.fork:
         subprocess.check_call(["git", "fetch", "--prune", "--all"])
@@ -441,7 +528,7 @@ async def main() -> None:
         # if you need to cleanup, try:
         # git branch -D $(git branch --list 'stubsabot/*')
         if args.action_level >= ActionLevel.local:
-            subprocess.check_call(["git", "checkout", "master"])
+            subprocess.check_call(["git", "checkout", original_branch])
 
 
 if __name__ == "__main__":
