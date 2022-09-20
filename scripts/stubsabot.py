@@ -111,6 +111,7 @@ class PypiInfo:
 
 
 async def fetch_pypi_info(distribution: str, session: aiohttp.ClientSession) -> PypiInfo:
+    # Cf. # https://warehouse.pypa.io/api-reference/json.html#get--pypi--project_name--json
     pypi_root = f"https://pypi.org/pypi/{urllib.parse.quote(distribution)}"
     async with session.get(f"{pypi_root}/json") as response:
         response.raise_for_status()
