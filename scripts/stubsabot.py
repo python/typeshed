@@ -16,10 +16,11 @@ import tarfile
 import textwrap
 import urllib.parse
 import zipfile
-from collections.abc import Mapping
+from collections.abc import Iterator, Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, TypeVar
+from typing import Annotated, Any, TypeVar
+from typing_extensions import TypeAlias
 
 import aiohttp
 import packaging.specifiers
@@ -71,32 +72,51 @@ def read_typeshed_stub_metadata(stub_path: Path) -> StubInfo:
 
 
 @dataclass
-class PypiInfo:
-    distribution: str
+class PypiReleaseDownload:
+    url: str
+    packagetype: Annotated[str, "Should hopefully be either 'bdist_wheel' or 'sdist'"]
+    filename: str
     version: packaging.version.Version
     upload_date: datetime.datetime
-    # https://warehouse.pypa.io/api-reference/json.html#get--pypi--project_name--json
-    # Corresponds to a single entry from `releases` for the given version
-    release_to_download: dict[str, Any]
+
+
+VersionString: TypeAlias = str
+ReleaseDownload: TypeAlias = dict[str, Any]
+
+
+@dataclass
+class PypiInfo:
+    distribution: str
+    pypi_root: str
+    releases: dict[VersionString, list[ReleaseDownload]]
     info: dict[str, Any]
+
+    def get_release(self, *, version: VersionString) -> PypiReleaseDownload:
+        # prefer wheels, since it's what most users will get / it's pretty easy to mess up MANIFEST
+        release_info = sorted(self.releases[version], key=lambda x: bool(x["packagetype"] == "bdist_wheel"))[-1]
+        return PypiReleaseDownload(
+            url=release_info["url"],
+            packagetype=release_info["packagetype"],
+            filename=release_info["filename"],
+            version=packaging.version.Version(version),
+            upload_date=datetime.datetime.fromisoformat(release_info["upload_time"]),
+        )
+
+    def get_latest_release(self) -> PypiReleaseDownload:
+        return self.get_release(version=self.info["version"])
+
+    def releases_in_descending_order(self) -> Iterator[PypiReleaseDownload]:
+        for version in sorted(self.releases, key=packaging.version.Version, reverse=True):
+            yield self.get_release(version=version)
 
 
 async def fetch_pypi_info(distribution: str, session: aiohttp.ClientSession) -> PypiInfo:
-    url = f"https://pypi.org/pypi/{urllib.parse.quote(distribution)}/json"
-    async with session.get(url) as response:
+    # Cf. # https://warehouse.pypa.io/api-reference/json.html#get--pypi--project_name--json
+    pypi_root = f"https://pypi.org/pypi/{urllib.parse.quote(distribution)}"
+    async with session.get(f"{pypi_root}/json") as response:
         response.raise_for_status()
         j = await response.json()
-        version = j["info"]["version"]
-        # prefer wheels, since it's what most users will get / it's pretty easy to mess up MANIFEST
-        release_to_download = sorted(j["releases"][version], key=lambda x: bool(x["packagetype"] == "bdist_wheel"))[-1]
-        date = datetime.datetime.fromisoformat(release_to_download["upload_time"])
-        return PypiInfo(
-            distribution=distribution,
-            version=packaging.version.Version(version),
-            upload_date=date,
-            release_to_download=release_to_download,
-            info=j["info"],
-        )
+        return PypiInfo(distribution=distribution, pypi_root=pypi_root, releases=j["releases"], info=j["info"])
 
 
 @dataclass
@@ -132,21 +152,28 @@ class NoUpdate:
         return f"Skipping {self.distribution}: {self.reason}"
 
 
-async def package_contains_py_typed(release_to_download: dict[str, Any], session: aiohttp.ClientSession) -> bool:
-    async with session.get(release_to_download["url"]) as response:
+async def release_contains_py_typed(release_to_download: PypiReleaseDownload, *, session: aiohttp.ClientSession) -> bool:
+    async with session.get(release_to_download.url) as response:
         body = io.BytesIO(await response.read())
 
-    packagetype = release_to_download["packagetype"]
+    packagetype = release_to_download.packagetype
     if packagetype == "bdist_wheel":
-        assert release_to_download["filename"].endswith(".whl")
+        assert release_to_download.filename.endswith(".whl")
         with zipfile.ZipFile(body) as zf:
             return any(Path(f).name == "py.typed" for f in zf.namelist())
     elif packagetype == "sdist":
-        assert release_to_download["filename"].endswith(".tar.gz")
+        assert release_to_download.filename.endswith(".tar.gz")
         with tarfile.open(fileobj=body, mode="r:gz") as zf:
             return any(Path(f).name == "py.typed" for f in zf.getnames())
     else:
-        raise AssertionError(f"Unknown package type: {packagetype}")
+        raise AssertionError(f"Unknown package type: {packagetype!r}")
+
+
+async def find_first_release_with_py_typed(pypi_info: PypiInfo, *, session: aiohttp.ClientSession) -> PypiReleaseDownload:
+    release_iter = pypi_info.releases_in_descending_order()
+    while await release_contains_py_typed(release := next(release_iter), session=session):
+        first_release_with_py_typed = release
+    return first_release_with_py_typed
 
 
 def _check_spec(updated_spec: str, version: packaging.version.Version) -> str:
@@ -215,7 +242,9 @@ async def get_github_repo_info(session: aiohttp.ClientSession, pypi_info: PypiIn
     return None
 
 
-async def get_diff_url(session: aiohttp.ClientSession, stub_info: StubInfo, pypi_info: PypiInfo) -> str | None:
+async def get_diff_url(
+    session: aiohttp.ClientSession, stub_info: StubInfo, pypi_info: PypiInfo, pypi_version: packaging.version.Version
+) -> str | None:
     """Return a link giving the diff between two releases, if possible.
 
     Return `None` if the project isn't hosted on GitHub,
@@ -237,7 +266,7 @@ async def get_diff_url(session: aiohttp.ClientSession, stub_info: StubInfo, pypi
     curr_specifier = packaging.specifiers.SpecifierSet(f"=={stub_info.version_spec}")
 
     try:
-        new_tag = versions_to_tags[pypi_info.version]
+        new_tag = versions_to_tags[pypi_version]
     except KeyError:
         return None
 
@@ -263,25 +292,34 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
         return NoUpdate(stub_info.distribution, "no longer updated")
 
     pypi_info = await fetch_pypi_info(stub_info.distribution, session)
+    latest_release = pypi_info.get_latest_release()
+    latest_version = latest_release.version
     spec = packaging.specifiers.SpecifierSet(f"=={stub_info.version_spec}")
-    if pypi_info.version in spec:
+    if latest_version in spec:
         return NoUpdate(stub_info.distribution, "up to date")
+
+    is_obsolete = await release_contains_py_typed(latest_release, session=session)
+    if is_obsolete:
+        first_release_with_py_typed = await find_first_release_with_py_typed(pypi_info, session=session)
+        relevant_version = version_obsolete_since = first_release_with_py_typed.version
+    else:
+        relevant_version = latest_version
 
     project_urls = pypi_info.info["project_urls"] or {}
     maybe_links: dict[str, str | None] = {
-        "Release": pypi_info.info["release_url"],
+        "Release": f"{pypi_info.pypi_root}/{relevant_version}",
         "Homepage": project_urls.get("Homepage"),
         "Changelog": project_urls.get("Changelog") or project_urls.get("Changes") or project_urls.get("Change Log"),
-        "Diff": await get_diff_url(session, stub_info, pypi_info),
+        "Diff": await get_diff_url(session, stub_info, pypi_info, relevant_version),
     }
     links = {k: v for k, v in maybe_links.items() if v is not None}
 
-    if await package_contains_py_typed(pypi_info.release_to_download, session):
+    if is_obsolete:
         return Obsolete(
             stub_info.distribution,
             stub_path,
-            obsolete_since_version=str(pypi_info.version),
-            obsolete_since_date=pypi_info.upload_date,
+            obsolete_since_version=str(version_obsolete_since),
+            obsolete_since_date=first_release_with_py_typed.upload_date,
             links=links,
         )
 
@@ -289,7 +327,7 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
         distribution=stub_info.distribution,
         stub_path=stub_path,
         old_version_spec=stub_info.version_spec,
-        new_version_spec=get_updated_version_spec(stub_info.version_spec, pypi_info.version),
+        new_version_spec=get_updated_version_spec(stub_info.version_spec, latest_version),
         links=links,
     )
 
