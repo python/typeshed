@@ -1,7 +1,7 @@
 # Referenced in: https://pyinstaller.org/en/stable/hooks.html?highlight=get_hook_config#PyInstaller.utils.hooks.get_hook_config
 # Not to be imported during runtime, but is the type reference for hooks and analysis configuration
 
-from _typeshed import StrOrBytesPath
+from _typeshed import StrPath
 from collections.abc import Iterable
 from typing import Any
 
@@ -12,7 +12,7 @@ class Analysis(Target):
     hooksconfig: dict[str, dict[str, object]]
     def __init__(
         self,
-        scripts: Iterable[StrOrBytesPath],
+        scripts: Iterable[StrPath],
         pathex=...,
         binaries=...,
         datas=...,
