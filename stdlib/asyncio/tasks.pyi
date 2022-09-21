@@ -36,6 +36,7 @@ __all__ = (
 )
 
 _T = TypeVar("_T")
+_T_co = TypeVar("_T_co", covariant=True)
 _T1 = TypeVar("_T1")
 _T2 = TypeVar("_T2")
 _T3 = TypeVar("_T3")
@@ -265,7 +266,7 @@ else:
     ) -> tuple[set[Task[_T]], set[Task[_T]]]: ...
     async def wait_for(fut: _FutureLike[_T], timeout: float | None, *, loop: AbstractEventLoop | None = ...) -> _T: ...
 
-class Task(Future[_T], Generic[_T]):
+class Task(Future[_T_co], Generic[_T_co]):
     if sys.version_info >= (3, 8):
         def __init__(
             self,
