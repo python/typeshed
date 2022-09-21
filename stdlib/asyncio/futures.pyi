@@ -23,13 +23,14 @@ else:
     __all__ = ("CancelledError", "TimeoutError", "InvalidStateError", "Future", "wrap_future", "isfuture")
 
 _T = TypeVar("_T")
+_T_co = TypeVar("_T_co", covariant=True)
 
 # asyncio defines 'isfuture()' in base_futures.py and re-imports it in futures.py
 # but it leads to circular import error in pytype tool.
 # That's why the import order is reversed.
 def isfuture(obj: object) -> TypeGuard[Future[Any]]: ...
 
-class Future(Awaitable[_T], Iterable[_T]):
+class Future(Awaitable[_T_co], Iterable[_T_co]):
     _state: str
     @property
     def _exception(self) -> BaseException: ...
