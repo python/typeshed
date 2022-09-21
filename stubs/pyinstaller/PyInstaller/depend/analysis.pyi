@@ -2,7 +2,7 @@
 
 # The documentation explicitely mentions that "Normally you do not need to know about the module-graph."
 # However, some PyiModuleGraph typed class attributes are still documented as existing in imphookapi.
-from _typeshed import Incomplete, SupportsKeysAndGetItem
+from _typeshed import Incomplete, StrPath, SupportsKeysAndGetItem
 from collections.abc import Iterable
 from typing_extensions import TypeAlias
 
@@ -16,11 +16,11 @@ class PyiModuleGraph:  # incomplete
     def __init__(
         self,
         pyi_homepath: str,
-        user_hook_dirs: Iterable[str] = ...,
+        user_hook_dirs: Iterable[StrPath] = ...,
         excludes: Iterable[str] = ...,
         *,
         path: Iterable[str] | None = ...,
-        replace_paths: Iterable[tuple[str, str]] = ...,
+        replace_paths: Iterable[tuple[StrPath, StrPath]] = ...,
         implies: SupportsKeysAndGetItem[str, _LazyNode] | Iterable[tuple[str, _LazyNode]] = ...,
         graph: _Graph | None = ...,
         debug: int = ...,
