@@ -15,7 +15,7 @@ import yaml
 from packaging.requirements import Requirement
 from packaging.specifiers import SpecifierSet
 from packaging.version import Version
-from utils import get_all_testcase_directories
+from utils import VERSIONS_RE, get_all_testcase_directories, strip_comments
 
 metadata_keys = {"version", "requires", "extra_description", "obsolete_since", "no_longer_updated", "tool"}
 tool_keys = {"stubtest": {"skip", "apt_dependencies", "extras", "ignore_missing_stub"}}
@@ -85,13 +85,6 @@ def check_no_symlinks() -> None:
             raise ValueError(no_symlink.format(file))
 
 
-_VERSIONS_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_.]*): [23]\.\d{1,2}-(?:[23]\.\d{1,2})?$")
-
-
-def strip_comments(text: str) -> str:
-    return text.split("#")[0].strip()
-
-
 def check_versions() -> None:
     versions = set()
     with open("stdlib/VERSIONS") as f:
@@ -100,7 +93,7 @@ def check_versions() -> None:
         line = strip_comments(line)
         if line == "":
             continue
-        m = _VERSIONS_RE.match(line)
+        m = VERSIONS_RE.match(line)
         if not m:
             raise AssertionError(f"Bad line in VERSIONS: {line}")
         module = m.group(1)
