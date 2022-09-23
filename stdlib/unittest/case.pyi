@@ -1,9 +1,10 @@
 import logging
 import sys
 import unittest.result
-from _typeshed import Self, SupportsDunderGE, SupportsDunderGT, SupportsDunderLE, SupportsDunderLT, SupportsSub
+from _typeshed import Self, SupportsDunderGE, SupportsDunderGT, SupportsDunderLE, SupportsDunderLT, SupportsRSub, SupportsSub
 from collections.abc import Callable, Container, Iterable, Mapping, Sequence, Set as AbstractSet
 from contextlib import AbstractContextManager
+from re import Pattern
 from types import TracebackType
 from typing import (
     Any,
@@ -12,7 +13,6 @@ from typing import (
     Generic,
     NamedTuple,
     NoReturn,
-    Pattern,
     Protocol,
     SupportsAbs,
     SupportsRound,
@@ -65,7 +65,7 @@ else:
         ) -> bool | None: ...
 
 if sys.version_info >= (3, 8):
-    def addModuleCleanup(__function: Callable[_P, object], *args: _P.args, **kwargs: _P.kwargs) -> None: ...
+    def addModuleCleanup(__function: Callable[_P, Any], *args: _P.args, **kwargs: _P.kwargs) -> None: ...
     def doModuleCleanups() -> None: ...
 
 if sys.version_info >= (3, 11):
@@ -145,18 +145,20 @@ class TestCase:
     def assertRaises(  # type: ignore[misc]
         self,
         expected_exception: type[BaseException] | tuple[type[BaseException], ...],
-        callable: Callable[..., object],
+        callable: Callable[..., Any],
         *args: Any,
         **kwargs: Any,
     ) -> None: ...
     @overload
-    def assertRaises(self, expected_exception: type[_E] | tuple[type[_E], ...], msg: Any = ...) -> _AssertRaisesContext[_E]: ...
+    def assertRaises(
+        self, expected_exception: type[_E] | tuple[type[_E], ...], *, msg: Any = ...
+    ) -> _AssertRaisesContext[_E]: ...
     @overload
     def assertRaisesRegex(  # type: ignore[misc]
         self,
         expected_exception: type[BaseException] | tuple[type[BaseException], ...],
         expected_regex: str | bytes | Pattern[str] | Pattern[bytes],
-        callable: Callable[..., object],
+        callable: Callable[..., Any],
         *args: Any,
         **kwargs: Any,
     ) -> None: ...
@@ -165,24 +167,27 @@ class TestCase:
         self,
         expected_exception: type[_E] | tuple[type[_E], ...],
         expected_regex: str | bytes | Pattern[str] | Pattern[bytes],
+        *,
         msg: Any = ...,
     ) -> _AssertRaisesContext[_E]: ...
     @overload
     def assertWarns(  # type: ignore[misc]
         self,
         expected_warning: type[Warning] | tuple[type[Warning], ...],
-        callable: Callable[_P, object],
+        callable: Callable[_P, Any],
         *args: _P.args,
         **kwargs: _P.kwargs,
     ) -> None: ...
     @overload
-    def assertWarns(self, expected_warning: type[Warning] | tuple[type[Warning], ...], msg: Any = ...) -> _AssertWarnsContext: ...
+    def assertWarns(
+        self, expected_warning: type[Warning] | tuple[type[Warning], ...], *, msg: Any = ...
+    ) -> _AssertWarnsContext: ...
     @overload
     def assertWarnsRegex(  # type: ignore[misc]
         self,
         expected_warning: type[Warning] | tuple[type[Warning], ...],
         expected_regex: str | bytes | Pattern[str] | Pattern[bytes],
-        callable: Callable[_P, object],
+        callable: Callable[_P, Any],
         *args: _P.args,
         **kwargs: _P.kwargs,
     ) -> None: ...
@@ -191,6 +196,7 @@ class TestCase:
         self,
         expected_warning: type[Warning] | tuple[type[Warning], ...],
         expected_regex: str | bytes | Pattern[str] | Pattern[bytes],
+        *,
         msg: Any = ...,
     ) -> _AssertWarnsContext: ...
     def assertLogs(
@@ -217,6 +223,15 @@ class TestCase:
         delta: None = ...,
     ) -> None: ...
     @overload
+    def assertAlmostEqual(
+        self,
+        first: _T,
+        second: SupportsRSub[_T, SupportsAbs[SupportsRound[object]]],
+        places: int | None = ...,
+        msg: Any = ...,
+        delta: None = ...,
+    ) -> None: ...
+    @overload
     def assertNotAlmostEqual(self, first: _S, second: _S, places: None, msg: Any, delta: _SupportsAbsAndDunderGE) -> None: ...
     @overload
     def assertNotAlmostEqual(
@@ -227,6 +242,15 @@ class TestCase:
         self,
         first: SupportsSub[_T, SupportsAbs[SupportsRound[object]]],
         second: _T,
+        places: int | None = ...,
+        msg: Any = ...,
+        delta: None = ...,
+    ) -> None: ...
+    @overload
+    def assertNotAlmostEqual(
+        self,
+        first: _T,
+        second: SupportsRSub[_T, SupportsAbs[SupportsRound[object]]],
         places: int | None = ...,
         msg: Any = ...,
         delta: None = ...,
@@ -249,9 +273,9 @@ class TestCase:
     def id(self) -> str: ...
     def shortDescription(self) -> str | None: ...
     if sys.version_info >= (3, 8):
-        def addCleanup(self, __function: Callable[_P, object], *args: _P.args, **kwargs: _P.kwargs) -> None: ...
+        def addCleanup(self, __function: Callable[_P, Any], *args: _P.args, **kwargs: _P.kwargs) -> None: ...
     else:
-        def addCleanup(self, function: Callable[_P, object], *args: _P.args, **kwargs: _P.kwargs) -> None: ...
+        def addCleanup(self, function: Callable[_P, Any], *args: _P.args, **kwargs: _P.kwargs) -> None: ...
 
     if sys.version_info >= (3, 11):
         def enterContext(self, cm: AbstractContextManager[_T]) -> _T: ...
@@ -259,7 +283,7 @@ class TestCase:
     def doCleanups(self) -> None: ...
     if sys.version_info >= (3, 8):
         @classmethod
-        def addClassCleanup(cls, __function: Callable[_P, object], *args: _P.args, **kwargs: _P.kwargs) -> None: ...
+        def addClassCleanup(cls, __function: Callable[_P, Any], *args: _P.args, **kwargs: _P.kwargs) -> None: ...
         @classmethod
         def doClassCleanups(cls) -> None: ...
 
@@ -292,9 +316,9 @@ class TestCase:
 class FunctionTestCase(TestCase):
     def __init__(
         self,
-        testFunc: Callable[[], None],
-        setUp: Callable[[], None] | None = ...,
-        tearDown: Callable[[], None] | None = ...,
+        testFunc: Callable[[], Any],
+        setUp: Callable[[], Any] | None = ...,
+        tearDown: Callable[[], Any] | None = ...,
         description: str | None = ...,
     ) -> None: ...
     def runTest(self) -> None: ...

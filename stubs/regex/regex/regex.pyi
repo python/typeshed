@@ -9,7 +9,11 @@ from ._regex_core import *
 __version__: str
 
 def compile(
-    pattern: AnyStr | _regex.Pattern[AnyStr], flags: int = ..., ignore_unused: bool = ..., **kwargs: Any
+    pattern: AnyStr | _regex.Pattern[AnyStr],
+    flags: int = ...,
+    ignore_unused: bool = ...,
+    cache_pattern: bool | None = ...,
+    **kwargs: Any,
 ) -> _regex.Pattern[AnyStr]: ...
 @overload
 def search(

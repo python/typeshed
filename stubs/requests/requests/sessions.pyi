@@ -1,7 +1,7 @@
 from _typeshed import Self, SupportsItems, SupportsRead
 from collections.abc import Callable, Iterable, Mapping, MutableMapping
-from typing import IO, Any, Union
-from typing_extensions import TypeAlias
+from typing import Any, Union
+from typing_extensions import TypeAlias, TypedDict
 
 from urllib3._collections import RecentlyUsedContainer
 
@@ -45,7 +45,25 @@ class SessionRedirectMixin:
     def rebuild_proxies(self, prepared_request, proxies): ...
     def should_strip_auth(self, old_url, new_url): ...
 
-_Data: TypeAlias = str | bytes | Mapping[str, Any] | Iterable[tuple[str, str | None]] | IO[Any]
+_Data: TypeAlias = (
+    # used in requests.models.PreparedRequest.prepare_body
+    #
+    # case: is_stream
+    # see requests.adapters.HTTPAdapter.send
+    # will be sent directly to http.HTTPConnection.send(...) (through urllib3)
+    Iterable[bytes]
+    # case: not is_stream
+    # will be modified before being sent to urllib3.HTTPConnectionPool.urlopen(body=...)
+    # see requests.models.RequestEncodingMixin._encode_params
+    # see requests.models.RequestEncodingMixin._encode_files
+    # note that keys&values are converted from Any to str by urllib.parse.urlencode
+    | str
+    | bytes
+    | SupportsRead[str | bytes]
+    | list[tuple[Any, Any]]
+    | tuple[tuple[Any, Any], ...]
+    | Mapping[Any, Any]
+)
 _Auth: TypeAlias = Union[tuple[str, str], _auth.AuthBase, Callable[[PreparedRequest], PreparedRequest]]
 _Cert: TypeAlias = Union[str, tuple[str, str]]
 # Files is passed to requests.utils.to_key_val_list()
@@ -70,10 +88,15 @@ _Params: TypeAlias = Union[
     str | bytes,
 ]
 _TextMapping: TypeAlias = MutableMapping[str, str]
-_HeadersMapping: TypeAlias = Mapping[str, str | bytes]
 _HeadersUpdateMapping: TypeAlias = Mapping[str, str | bytes | None]
 _Timeout: TypeAlias = Union[float, tuple[float, float], tuple[float, None]]
 _Verify: TypeAlias = bool | str
+
+class _Settings(TypedDict):
+    verify: _Verify | None
+    proxies: _TextMapping
+    stream: bool
+    cert: _Cert | None
 
 class Session(SessionRedirectMixin):
     __attrs__: Any
@@ -86,8 +109,8 @@ class Session(SessionRedirectMixin):
     hooks: dict[str, list[_Hook] | Any]
     params: _Params
     stream: bool
-    verify: None | bool | str
-    cert: None | str | tuple[str, str]
+    verify: _Verify | None
+    cert: _Cert | None
     max_redirects: int
     trust_env: bool
     cookies: RequestsCookieJar
@@ -261,7 +284,14 @@ class Session(SessionRedirectMixin):
         allow_redirects: bool = ...,
         **kwargs: Any,
     ) -> Response: ...
-    def merge_environment_settings(self, url, proxies, stream, verify, cert): ...
+    def merge_environment_settings(
+        self,
+        url: str | bytes | None,
+        proxies: _TextMapping | None,
+        stream: bool | None,
+        verify: _Verify | None,
+        cert: _Cert | None,
+    ) -> _Settings: ...
     def get_adapter(self, url: str) -> _BaseAdapter: ...
     def close(self) -> None: ...
     def mount(self, prefix: str | bytes, adapter: _BaseAdapter) -> None: ...

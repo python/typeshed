@@ -4,10 +4,12 @@ import time
 from _typeshed import Self
 from builtins import list as _list  # conflicts with a method named "list"
 from collections.abc import Callable
+from datetime import datetime
+from re import Pattern
 from socket import socket as _socket
 from ssl import SSLContext, SSLSocket
 from types import TracebackType
-from typing import IO, Any, Pattern
+from typing import IO, Any
 from typing_extensions import Literal, TypeAlias
 
 __all__ = ["IMAP4", "IMAP4_stream", "Internaldate2tuple", "Int2AP", "ParseFlags", "Time2Internaldate", "IMAP4_SSL"]
@@ -17,6 +19,8 @@ __all__ = ["IMAP4", "IMAP4_stream", "Internaldate2tuple", "Int2AP", "ParseFlags"
 _CommandResults: TypeAlias = tuple[str, list[Any]]
 
 _AnyResponseData: TypeAlias = list[None] | list[bytes | tuple[bytes, bytes]]
+
+Commands: dict[str, tuple[str, ...]]
 
 class IMAP4:
     class error(Exception): ...
@@ -125,9 +129,6 @@ class IMAP4_SSL(IMAP4):
             certfile: str | None = ...,
             ssl_context: SSLContext | None = ...,
         ) -> None: ...
-    host: str
-    port: int
-    sock: _socket
     sslobj: SSLSocket
     file: IO[Any]
     if sys.version_info >= (3, 9):
@@ -135,19 +136,11 @@ class IMAP4_SSL(IMAP4):
     else:
         def open(self, host: str = ..., port: int | None = ...) -> None: ...
 
-    def read(self, size: int) -> bytes: ...
-    def readline(self) -> bytes: ...
-    def send(self, data: bytes) -> None: ...
-    def shutdown(self) -> None: ...
-    def socket(self) -> _socket: ...
     def ssl(self) -> SSLSocket: ...
 
 class IMAP4_stream(IMAP4):
     command: str
     def __init__(self, command: str) -> None: ...
-    host: str
-    port: int
-    sock: _socket
     file: IO[Any]
     process: subprocess.Popen[bytes]
     writefile: IO[Any]
@@ -156,11 +149,6 @@ class IMAP4_stream(IMAP4):
         def open(self, host: str | None = ..., port: int | None = ..., timeout: float | None = ...) -> None: ...
     else:
         def open(self, host: str | None = ..., port: int | None = ...) -> None: ...
-
-    def read(self, size: int) -> bytes: ...
-    def readline(self) -> bytes: ...
-    def send(self, data: bytes) -> None: ...
-    def shutdown(self) -> None: ...
 
 class _Authenticator:
     mech: Callable[[bytes], bytes]
@@ -172,4 +160,4 @@ class _Authenticator:
 def Internaldate2tuple(resp: bytes) -> time.struct_time: ...
 def Int2AP(num: int) -> str: ...
 def ParseFlags(resp: bytes) -> tuple[bytes, ...]: ...
-def Time2Internaldate(date_time: float | time.struct_time | str) -> str: ...
+def Time2Internaldate(date_time: float | time.struct_time | time._TimeTuple | datetime | str) -> str: ...

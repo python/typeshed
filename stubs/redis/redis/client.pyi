@@ -2,9 +2,12 @@ import threading
 from _typeshed import Incomplete, Self, SupportsItems
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from datetime import datetime, timedelta
+from re import Pattern
 from types import TracebackType
-from typing import Any, ClassVar, Generic, Pattern, TypeVar, overload
+from typing import Any, ClassVar, Generic, TypeVar, overload
 from typing_extensions import Literal, TypeAlias
+
+from redis import RedisError
 
 from .commands import CoreCommands, RedisModuleCommands, SentinelCommands
 from .connection import ConnectionPool, _ConnectFunc, _ConnectionPoolOptions
@@ -71,10 +74,9 @@ def parse_slowlog_get(response, **options): ...
 _LockType = TypeVar("_LockType")
 
 class AbstractRedis:
-    RESPONSE_CALLBACKS: dict[Any, Any]
+    RESPONSE_CALLBACKS: dict[str, Any]
 
 class Redis(AbstractRedis, RedisModuleCommands, CoreCommands[_StrType], SentinelCommands, Generic[_StrType]):
-    RESPONSE_CALLBACKS: Any
     @overload
     @classmethod
     def from_url(
@@ -164,7 +166,7 @@ class Redis(AbstractRedis, RedisModuleCommands, CoreCommands[_StrType], Sentinel
         errors: str | None,
         decode_responses: Literal[True],
         retry_on_timeout: bool = ...,
-        retry_on_error=...,
+        retry_on_error: list[type[RedisError]] | None = ...,
         ssl: bool = ...,
         ssl_keyfile: str | None = ...,
         ssl_certfile: str | None = ...,

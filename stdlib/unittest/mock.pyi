@@ -28,7 +28,7 @@ if sys.version_info >= (3, 8):
         "PropertyMock",
         "seal",
     )
-elif sys.version_info >= (3, 7):
+else:
     __all__ = (
         "Mock",
         "MagicMock",
@@ -45,27 +45,10 @@ elif sys.version_info >= (3, 7):
         "PropertyMock",
         "seal",
     )
-else:
-    __all__ = (
-        "Mock",
-        "MagicMock",
-        "patch",
-        "sentinel",
-        "DEFAULT",
-        "ANY",
-        "call",
-        "create_autospec",
-        "FILTER_DIR",
-        "NonCallableMock",
-        "NonCallableMagicMock",
-        "mock_open",
-        "PropertyMock",
-    )
+
 __version__: str
 
 FILTER_DIR: Any
-
-class _slotted: ...
 
 class _SentinelObject:
     name: Any
@@ -138,6 +121,7 @@ class NonCallableMock(Base, Any):
     def __getattr__(self, name: str) -> Any: ...
     def __delattr__(self, name: str) -> None: ...
     def __setattr__(self, name: str, value: Any) -> None: ...
+    def __dir__(self) -> list[str]: ...
     if sys.version_info >= (3, 8):
         def _calls_repr(self, prefix: str = ...) -> str: ...
         def assert_called_with(self, *args: Any, **kwargs: Any) -> None: ...
@@ -157,10 +141,8 @@ class NonCallableMock(Base, Any):
         def assert_called_once(_mock_self) -> None: ...
 
     def reset_mock(self, visited: Any = ..., *, return_value: bool = ..., side_effect: bool = ...) -> None: ...
-    if sys.version_info >= (3, 7):
-        def _extract_mock_name(self) -> str: ...
-        def _get_call_signature_from_name(self, name: str) -> Any: ...
-
+    def _extract_mock_name(self) -> str: ...
+    def _get_call_signature_from_name(self, name: str) -> Any: ...
     def assert_any_call(self, *args: Any, **kwargs: Any) -> None: ...
     def assert_has_calls(self, calls: Sequence[_Call], any_order: bool = ...) -> None: ...
     def mock_add_spec(self, spec: Any, spec_set: bool = ...) -> None: ...
@@ -361,11 +343,8 @@ patch: _patcher
 class MagicMixin:
     def __init__(self, *args: Any, **kw: Any) -> None: ...
 
-class NonCallableMagicMock(MagicMixin, NonCallableMock):
-    def mock_add_spec(self, spec: Any, spec_set: bool = ...) -> None: ...
-
-class MagicMock(MagicMixin, Mock):
-    def mock_add_spec(self, spec: Any, spec_set: bool = ...) -> None: ...
+class NonCallableMagicMock(MagicMixin, NonCallableMock): ...
+class MagicMock(MagicMixin, Mock): ...
 
 if sys.version_info >= (3, 8):
     class AsyncMockMixin(Base):
@@ -448,5 +427,4 @@ class PropertyMock(Mock):
 
     def __set__(self, obj: Any, value: Any) -> None: ...
 
-if sys.version_info >= (3, 7):
-    def seal(mock: Any) -> None: ...
+def seal(mock: Any) -> None: ...

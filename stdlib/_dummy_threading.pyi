@@ -1,13 +1,9 @@
 import sys
+from _typeshed import ProfileFunction, TraceFunction
 from collections.abc import Callable, Iterable, Mapping
-from types import FrameType, TracebackType
+from types import TracebackType
 from typing import Any, TypeVar
-from typing_extensions import TypeAlias
 
-# TODO recursive type
-_TF: TypeAlias = Callable[[FrameType, str, Any], Callable[..., Any] | None]
-
-_PF: TypeAlias = Callable[[FrameType, str, Any], None]
 _T = TypeVar("_T")
 
 __all__ = [
@@ -43,8 +39,8 @@ def currentThread() -> Thread: ...
 def get_ident() -> int: ...
 def enumerate() -> list[Thread]: ...
 def main_thread() -> Thread: ...
-def settrace(func: _TF) -> None: ...
-def setprofile(func: _PF | None) -> None: ...
+def settrace(func: TraceFunction) -> None: ...
+def setprofile(func: ProfileFunction | None) -> None: ...
 def stack_size(size: int = ...) -> int: ...
 
 TIMEOUT_MAX: float
@@ -64,7 +60,7 @@ class Thread:
     def __init__(
         self,
         group: None = ...,
-        target: Callable[..., Any] | None = ...,
+        target: Callable[..., object] | None = ...,
         name: str | None = ...,
         args: Iterable[Any] = ...,
         kwargs: Mapping[str, Any] | None = ...,
@@ -155,7 +151,7 @@ class Timer(Thread):
     def __init__(
         self,
         interval: float,
-        function: Callable[..., Any],
+        function: Callable[..., object],
         args: Iterable[Any] | None = ...,
         kwargs: Mapping[str, Any] | None = ...,
     ) -> None: ...

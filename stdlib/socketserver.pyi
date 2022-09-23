@@ -70,8 +70,8 @@ class BaseServer:
     def close_request(self, request: _RequestType) -> None: ...  # undocumented
 
 class TCPServer(BaseServer):
-    allow_reuse_port: bool
-    request_queue_size: int
+    if sys.version_info >= (3, 11):
+        allow_reuse_port: bool
     def __init__(
         self: Self,
         server_address: tuple[str, int],
@@ -80,11 +80,9 @@ class TCPServer(BaseServer):
     ) -> None: ...
     def get_request(self) -> tuple[_socket, Any]: ...
 
-class UDPServer(BaseServer):
-    if sys.version_info >= (3, 11):
-        allow_reuse_port: bool
+class UDPServer(TCPServer):
     max_packet_size: ClassVar[int]
-    def get_request(self) -> tuple[tuple[bytes, _socket], Any]: ...
+    def get_request(self) -> tuple[tuple[bytes, _socket], Any]: ...  # type: ignore[override]
 
 if sys.platform != "win32":
     class UnixStreamServer(BaseServer):
@@ -108,8 +106,7 @@ if sys.platform != "win32":
         timeout: float | None  # undocumented
         active_children: set[int] | None  # undocumented
         max_children: int  # undocumented
-        if sys.version_info >= (3, 7):
-            block_on_close: bool
+        block_on_close: bool
         def collect_children(self, *, blocking: bool = ...) -> None: ...  # undocumented
         def handle_timeout(self) -> None: ...  # undocumented
         def service_actions(self) -> None: ...  # undocumented
@@ -118,8 +115,7 @@ if sys.platform != "win32":
 
 class ThreadingMixIn:
     daemon_threads: bool
-    if sys.version_info >= (3, 7):
-        block_on_close: bool
+    block_on_close: bool
     def process_request_thread(self, request: _RequestType, client_address: _AddressType) -> None: ...  # undocumented
     def process_request(self, request: _RequestType, client_address: _AddressType) -> None: ...
     def server_close(self) -> None: ...
@@ -155,7 +151,7 @@ class StreamRequestHandler(BaseRequestHandler):
     wbufsize: ClassVar[int]  # undocumented
     timeout: ClassVar[float | None]  # undocumented
     disable_nagle_algorithm: ClassVar[bool]  # undocumented
-    connection: _socket  # undocumented
+    connection: Any  # undocumented
     rfile: BinaryIO
     wfile: BinaryIO
 

@@ -2,11 +2,7 @@
     "typeshedPath": ".",
     "include": [
         "stdlib",
-        "stubs",
-        "test_cases"
-    ],
-    "exclude": [
-        "**/@python2"
+        "stubs"
     ],
     "typeCheckingMode": "basic",
     "strictListInference": true,
@@ -41,7 +37,6 @@
     "reportUnboundVariable": "error",
     "reportInvalidStubStatement": "error",
     "reportInvalidTypeVarUse": "error",
-    "reportSelfClsParameterName": "error",
     "reportUnsupportedDunderAll": "error",
     "reportInconsistentConstructor": "error",
     "reportTypeCommentUsage": "error",
@@ -55,4 +50,6 @@
     // (which is stricter than mypy's; see mypy issue #10143 and #10157)
     // would cause many false positives and catch few bugs.
     "reportOverlappingOverload": "none",
+    // The name of the self/cls parameter is out of typeshed's control.
+    "reportSelfClsParameterName": "none",
 }

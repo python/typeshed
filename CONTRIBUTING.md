@@ -29,7 +29,7 @@ it takes a bit longer. For more details, read below.
 Typeshed runs continuous integration (CI) on all pull requests. This means that
 if you file a pull request (PR), our full test suite -- including our linter,
 `flake8` -- is run on your PR. It also means that bots will automatically apply
-changes to your PR (using `black` and `isort`) to fix any formatting issues.
+changes to your PR (using `pycln`, `black` and `isort`) to fix any formatting issues.
 This frees you up to ignore all local setup on your side, focus on the
 code and rely on the CI to fix everything, or point you to the places that
 need fixing.
@@ -80,19 +80,10 @@ terminal to install all non-pytype requirements:
 (.venv) > pip install -r requirements-tests.txt
 ```
 
-### Optional dependencies
-
-Several tests also have `termcolor` as an optional dependency. Installing this
-is not essential to run the tests, but can make the output of some of the tests
-slightly prettier and easier to read. To install `termcolor`, run:
-
-```
-pip install termcolor
-```
-
 ## Code formatting
 
-The code is formatted using `black` and `isort`.
+The code is formatted using `black` and `isort`. Unused imports are also
+auto-removed using `pycln`.
 
 The repository is equipped with a [`pre-commit.ci`](https://pre-commit.ci/)
 configuration file. This means that you don't *need* to do anything yourself to
@@ -100,9 +91,10 @@ run the code formatters. When you push a commit, a bot will run those for you
 right away and add a commit to your PR.
 
 That being said, if you *want* to run the checks locally when you commit,
-you're free to do so. Either run `black` and `isort` manually...
+you're free to do so. Either run `pycln`, `black` and `isort` manually...
 
 ```
+pycln --all .
 isort .
 black .
 ```
@@ -110,7 +102,8 @@ black .
 ...Or install the pre-commit hooks: please refer to the
 [pre-commit](https://pre-commit.com/) documentation.
 
-Our code is also linted using `flake8`, with plugins `flake8-pyi` and `flake8-bugbear`. As with our other checks, running
+Our code is also linted using `flake8`, with plugins `flake8-pyi`,
+`flake8-bugbear`, and `flake8-noqa`. As with our other checks, running
 flake8 before filing a PR is not required. However, if you wish to run flake8
 locally, install the test dependencies as outlined above, and then run:
 
@@ -123,13 +116,10 @@ flake8 .
 ### Standard library stubs
 
 The `stdlib` directory contains stubs for modules in the
-Python 3 standard library — which
+Python standard library — which
 includes pure Python modules, dynamically loaded extension modules,
 hard-linked extension modules, and the builtins. The `VERSIONS` file lists
 the versions of Python where the module is available.
-
-Stubs for Python 2 are available in the `stdlib/@python2` subdirectory.
-Modules that are only available for Python 2 are not listed in `VERSIONS`.
 
 ### Third-party library stubs
 
@@ -262,8 +252,6 @@ Accepted features that *cannot* yet be used in typeshed include:
 - [PEP 570](https://www.python.org/dev/peps/pep-0570/) (positional-only
   arguments): see [#4972](https://github.com/python/typeshed/issues/4972),
   use argument names prefixed with `__` instead
-- [PEP 613](https://www.python.org/dev/peps/pep-0613/) (TypeAlias):
-  see [#4913](https://github.com/python/typeshed/issues/4913)
 
 The following features are partially supported:
 - [PEP 585](https://www.python.org/dev/peps/pep-0585/) (builtin
@@ -342,7 +330,7 @@ project's tracker to fix their documentation.
 You can use checks
 like `if sys.version_info >= (3, 8):` to denote new functionality introduced
 in a given Python version or solve type differences.  When doing so, only use
-one-tuples or two-tuples. Because of this, if a given functionality was
+two-tuples. Because of this, if a given functionality was
 introduced in, say, Python 3.7.4, your check:
 
 * should be expressed as `if sys.version_info >= (3, 7):`
@@ -439,8 +427,7 @@ checker, and leave out unnecessary detail:
 
 Some further tips for good type hints:
 * use built-in generics (`list`, `dict`, `tuple`, `set`), instead
-  of importing them from `typing`, **except** in type aliases, in base classes, and for
-  arbitrary length tuples (`Tuple[int, ...]`);
+  of importing them from `typing`.
 * use `X | Y` instead of `Union[X, Y]` and `X | None`, instead of
   `Optional[X]`, **except** when it is not possible due to mypy bugs (type aliases and base classes);
 * in Python 3 stubs, import collections (`Mapping`, `Iterable`, etc.)
@@ -448,8 +435,6 @@ Some further tips for good type hints:
 * avoid invariant collection types (`list`, `dict`) in argument
   positions, in favor of covariant types like `Mapping` or `Sequence`;
 * avoid union return types: https://github.com/python/mypy/issues/1693;
-* in Python 2, whenever possible, use `unicode` if that's the only
-  possible type, and `Text` if it can be either `unicode` or `bytes`;
 * use platform checks like `if sys.platform == 'win32'` to denote
   platform-dependent APIs;
 * use mypy error codes for mypy-specific `# type: ignore` annotations,
@@ -561,6 +546,9 @@ steps:
    file to `true`.
 4. When a new version of the package was automatically uploaded to PyPI
    (which usually takes up to 3 hours), open a PR to remove the stubs.
+
+If feeling kindly, please update [mypy](https://github.com/python/mypy/blob/master/mypy/stubinfo.py)
+for any stub obsoletions or removals.
 
 ## Maintainer guidelines
 

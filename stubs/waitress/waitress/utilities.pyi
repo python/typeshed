@@ -1,6 +1,8 @@
-from collections.abc import Callable, Mapping, Sequence
+from _typeshed.wsgi import StartResponse
+from collections.abc import Iterator, Mapping, Sequence
 from logging import Logger
-from typing import Any, Match, Pattern
+from re import Match, Pattern
+from typing import Any
 
 logger: Logger
 queue_logger: Logger
@@ -43,7 +45,7 @@ class Error:
     body: str = ...
     def __init__(self, body: str) -> None: ...
     def to_response(self) -> tuple[str, Sequence[tuple[str, str]], str]: ...
-    def wsgi_response(self, environ: Any, start_response: Callable[[str, Sequence[tuple[str, str]]], None]) -> str: ...
+    def wsgi_response(self, environ: Any, start_response: StartResponse) -> Iterator[str]: ...
 
 class BadRequest(Error):
     code: int = ...

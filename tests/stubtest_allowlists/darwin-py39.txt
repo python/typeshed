@@ -1,4 +1,3 @@
-_?curses.A_ITALIC
 webbrowser.MacOSXOSAScript.__init__
 
 # ==========

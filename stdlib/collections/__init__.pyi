@@ -8,40 +8,23 @@ if sys.version_info >= (3, 9):
     from types import GenericAlias
 
 if sys.version_info >= (3, 10):
-    from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping, MutableSequence, Reversible, Sequence
+    from collections.abc import (
+        Callable,
+        ItemsView,
+        Iterable,
+        Iterator,
+        KeysView,
+        Mapping,
+        MutableMapping,
+        MutableSequence,
+        Reversible,
+        Sequence,
+        ValuesView,
+    )
 else:
     from _collections_abc import *
 
 __all__ = ["ChainMap", "Counter", "OrderedDict", "UserDict", "UserList", "UserString", "defaultdict", "deque", "namedtuple"]
-
-if sys.version_info < (3, 7):
-    __all__ += [
-        "Awaitable",
-        "Coroutine",
-        "AsyncIterable",
-        "AsyncIterator",
-        "AsyncGenerator",
-        "Hashable",
-        "Iterable",
-        "Iterator",
-        "Generator",
-        "Reversible",
-        "Sized",
-        "Container",
-        "Callable",
-        "Collection",
-        "Set",
-        "MutableSet",
-        "Mapping",
-        "MutableMapping",
-        "MappingView",
-        "KeysView",
-        "ItemsView",
-        "ValuesView",
-        "Sequence",
-        "MutableSequence",
-        "ByteString",
-    ]
 
 _S = TypeVar("_S")
 _T = TypeVar("_T")
@@ -53,20 +36,14 @@ _KT_co = TypeVar("_KT_co", covariant=True)
 _VT_co = TypeVar("_VT_co", covariant=True)
 
 # namedtuple is special-cased in the type checker; the initializer is ignored.
-if sys.version_info >= (3, 7):
-    def namedtuple(
-        typename: str,
-        field_names: str | Iterable[str],
-        *,
-        rename: bool = ...,
-        module: str | None = ...,
-        defaults: Iterable[Any] | None = ...,
-    ) -> type[tuple[Any, ...]]: ...
-
-else:
-    def namedtuple(
-        typename: str, field_names: str | Iterable[str], *, verbose: bool = ..., rename: bool = ..., module: str | None = ...
-    ) -> type[tuple[Any, ...]]: ...
+def namedtuple(
+    typename: str,
+    field_names: str | Iterable[str],
+    *,
+    rename: bool = ...,
+    module: str | None = ...,
+    defaults: Iterable[Any] | None = ...,
+) -> type[tuple[Any, ...]]: ...
 
 class UserDict(MutableMapping[_KT, _VT], Generic[_KT, _VT]):
     data: dict[_KT, _VT]
@@ -76,9 +53,13 @@ class UserDict(MutableMapping[_KT, _VT], Generic[_KT, _VT]):
     @overload
     def __init__(self: UserDict[str, _VT], __dict: None = ..., **kwargs: _VT) -> None: ...
     @overload
-    def __init__(self, __dict: SupportsKeysAndGetItem[_KT, _VT], **kwargs: _VT) -> None: ...
+    def __init__(self, __dict: SupportsKeysAndGetItem[_KT, _VT]) -> None: ...
     @overload
-    def __init__(self, __iterable: Iterable[tuple[_KT, _VT]], **kwargs: _VT) -> None: ...
+    def __init__(self: UserDict[str, _VT], __dict: SupportsKeysAndGetItem[str, _VT], **kwargs: _VT) -> None: ...
+    @overload
+    def __init__(self, __iterable: Iterable[tuple[_KT, _VT]]) -> None: ...
+    @overload
+    def __init__(self: UserDict[str, _VT], __iterable: Iterable[tuple[str, _VT]], **kwargs: _VT) -> None: ...
     @overload
     def __init__(self: UserDict[str, str], __iterable: Iterable[list[str]]) -> None: ...
     def __len__(self) -> int: ...
@@ -88,8 +69,7 @@ class UserDict(MutableMapping[_KT, _VT], Generic[_KT, _VT]):
     def __iter__(self) -> Iterator[_KT]: ...
     def __contains__(self, key: object) -> bool: ...
     def copy(self: Self) -> Self: ...
-    if sys.version_info >= (3, 7):
-        def __copy__(self: Self) -> Self: ...
+    def __copy__(self: Self) -> Self: ...
 
     # `UserDict.fromkeys` has the same semantics as `dict.fromkeys`, so should be kept in line with `dict.fromkeys`.
     # TODO: Much like `dict.fromkeys`, the true signature of `UserDict.fromkeys` is inexpressible in the current type system.
@@ -142,9 +122,7 @@ class UserList(MutableSequence[_T]):
     def pop(self, i: int = ...) -> _T: ...
     def remove(self, item: _T) -> None: ...
     def copy(self: Self) -> Self: ...
-    if sys.version_info >= (3, 7):
-        def __copy__(self: Self) -> Self: ...
-
+    def __copy__(self: Self) -> Self: ...
     def count(self, item: _T) -> int: ...
     # All arguments are passed to `list.index` at runtime, so the signature should be kept in line with `list.index`.
     def index(self, item: _T, __start: SupportsIndex = ..., __stop: SupportsIndex = ...) -> int: ...
@@ -208,9 +186,7 @@ class UserString(Sequence[UserString]):
     def isspace(self) -> bool: ...
     def istitle(self) -> bool: ...
     def isupper(self) -> bool: ...
-    if sys.version_info >= (3, 7):
-        def isascii(self) -> bool: ...
-
+    def isascii(self) -> bool: ...
     def join(self, seq: Iterable[str]) -> str: ...
     def ljust(self: Self, width: int, *args: Any) -> Self: ...
     def lower(self: Self) -> Self: ...
@@ -337,16 +313,30 @@ class Counter(dict[_T, int], Generic[_T]):
         def __ge__(self, other: Counter[Any]) -> bool: ...
         def __gt__(self, other: Counter[Any]) -> bool: ...
 
+# The pure-Python implementations of the "views" classes
+# These are exposed at runtime in `collections/__init__.py`
+class _OrderedDictKeysView(KeysView[_KT_co], Reversible[_KT_co]):
+    def __reversed__(self) -> Iterator[_KT_co]: ...
+
+class _OrderedDictItemsView(ItemsView[_KT_co, _VT_co], Reversible[tuple[_KT_co, _VT_co]]):
+    def __reversed__(self) -> Iterator[tuple[_KT_co, _VT_co]]: ...
+
+class _OrderedDictValuesView(ValuesView[_VT_co], Reversible[_VT_co]):
+    def __reversed__(self) -> Iterator[_VT_co]: ...
+
+# The C implementations of the "views" classes
+# (At runtime, these are called `odict_keys`, `odict_items` and `odict_values`,
+# but they are not exposed anywhere)
 @final
-class _OrderedDictKeysView(dict_keys[_KT_co, _VT_co], Reversible[_KT_co]):  # type: ignore[misc]
+class _odict_keys(dict_keys[_KT_co, _VT_co], Reversible[_KT_co]):  # type: ignore[misc]
     def __reversed__(self) -> Iterator[_KT_co]: ...
 
 @final
-class _OrderedDictItemsView(dict_items[_KT_co, _VT_co], Reversible[tuple[_KT_co, _VT_co]]):  # type: ignore[misc]
+class _odict_items(dict_items[_KT_co, _VT_co], Reversible[tuple[_KT_co, _VT_co]]):  # type: ignore[misc]
     def __reversed__(self) -> Iterator[tuple[_KT_co, _VT_co]]: ...
 
 @final
-class _OrderedDictValuesView(dict_values[_KT_co, _VT_co], Reversible[_VT_co], Generic[_KT_co, _VT_co]):  # type: ignore[misc]
+class _odict_values(dict_values[_KT_co, _VT_co], Reversible[_VT_co], Generic[_KT_co, _VT_co]):  # type: ignore[misc]
     def __reversed__(self) -> Iterator[_VT_co]: ...
 
 class OrderedDict(dict[_KT, _VT], Reversible[_KT], Generic[_KT, _VT]):
@@ -354,9 +344,9 @@ class OrderedDict(dict[_KT, _VT], Reversible[_KT], Generic[_KT, _VT]):
     def move_to_end(self, key: _KT, last: bool = ...) -> None: ...
     def copy(self: Self) -> Self: ...
     def __reversed__(self) -> Iterator[_KT]: ...
-    def keys(self) -> _OrderedDictKeysView[_KT, _VT]: ...
-    def items(self) -> _OrderedDictItemsView[_KT, _VT]: ...
-    def values(self) -> _OrderedDictValuesView[_KT, _VT]: ...
+    def keys(self) -> _odict_keys[_KT, _VT]: ...
+    def items(self) -> _odict_items[_KT, _VT]: ...
+    def values(self) -> _odict_values[_KT, _VT]: ...
     # The signature of OrderedDict.fromkeys should be kept in line with `dict.fromkeys`, modulo positional-only differences.
     # Like dict.fromkeys, its true signature is not expressible in the current type system.
     # See #3800 & https://github.com/python/typing/issues/548#issuecomment-683336963.

@@ -15,10 +15,8 @@ if sys.version_info >= (3, 11):
 
 if sys.version_info >= (3, 11):
     __all__ = ("Lock", "Event", "Condition", "Semaphore", "BoundedSemaphore", "Barrier")
-elif sys.version_info >= (3, 7):
-    __all__ = ("Lock", "Event", "Condition", "Semaphore", "BoundedSemaphore")
 else:
-    __all__ = ["Lock", "Event", "Condition", "Semaphore", "BoundedSemaphore"]
+    __all__ = ("Lock", "Event", "Condition", "Semaphore", "BoundedSemaphore")
 
 _T = TypeVar("_T")
 
@@ -94,11 +92,7 @@ class Semaphore(_ContextManagerMixin):
     def release(self) -> None: ...
     def _wake_up_next(self) -> None: ...
 
-class BoundedSemaphore(Semaphore):
-    if sys.version_info >= (3, 11):
-        def __init__(self, value: int = ...) -> None: ...
-    else:
-        def __init__(self, value: int = ..., *, loop: AbstractEventLoop | None = ...) -> None: ...
+class BoundedSemaphore(Semaphore): ...
 
 if sys.version_info >= (3, 11):
     class _BarrierState(enum.Enum):  # undocumented

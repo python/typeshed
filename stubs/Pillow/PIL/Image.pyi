@@ -1,5 +1,6 @@
 from _typeshed import Self, SupportsRead, SupportsWrite
 from collections.abc import Callable, Iterable, Iterator, MutableMapping, Sequence
+from enum import IntEnum
 from pathlib import Path
 from typing import Any, ClassVar, Protocol, SupportsBytes, Union
 from typing_extensions import Literal, TypeAlias
@@ -22,7 +23,10 @@ _Box: TypeAlias = tuple[int, int, int, int]
 _ConversionMatrix: TypeAlias = Union[
     tuple[float, float, float, float], tuple[float, float, float, float, float, float, float, float, float, float, float, float],
 ]
-_Color: TypeAlias = float | tuple[float, ...]
+# `str` values are only accepted if mode="RGB" for an `Image` object
+# `float` values are only accepted for certain modes such as "F"
+# See https://pillow.readthedocs.io/en/stable/reference/Image.html#PIL.Image.new
+_Color: TypeAlias = Union[int, tuple[int], tuple[int, int, int], tuple[int, int, int, int], str, float, tuple[float]]
 
 class _Writeable(SupportsWrite[bytes], Protocol):
     def seek(self, __offset: int) -> Any: ...
@@ -75,6 +79,46 @@ MAXCOVERAGE: Literal[1]
 FASTOCTREE: Literal[2]
 LIBIMAGEQUANT: Literal[3]
 
+class Transpose(IntEnum):
+    FLIP_LEFT_RIGHT: Literal[0]
+    FLIP_TOP_BOTTOM: Literal[1]
+    ROTATE_90: Literal[2]
+    ROTATE_180: Literal[3]
+    ROTATE_270: Literal[4]
+    TRANSPOSE: Literal[5]
+    TRANSVERSE: Literal[6]
+
+class Transform(IntEnum):
+    AFFINE: Literal[0]
+    EXTENT: Literal[1]
+    PERSPECTIVE: Literal[2]
+    QUAD: Literal[3]
+    MESH: Literal[4]
+
+class Resampling(IntEnum):
+    NEAREST: Literal[0]
+    LANCZOS: Literal[1]
+    BILINEAR: Literal[2]
+    BICUBIC: Literal[3]
+    BOX: Literal[4]
+    HAMMING: Literal[5]
+
+class Dither(IntEnum):
+    NONE: Literal[0]
+    ORDERED: Literal[1]
+    RASTERIZE: Literal[2]
+    FLOYDSTEINBERG: Literal[3]
+
+class Palette(IntEnum):
+    WEB: Literal[0]
+    ADAPTIVE: Literal[1]
+
+class Quantize(IntEnum):
+    MEDIANCUT: Literal[0]
+    MAXCOVERAGE: Literal[1]
+    FASTOCTREE: Literal[2]
+    LIBIMAGEQUANT: Literal[3]
+
 ID: list[str]
 OPEN: dict[str, Any]
 MIME: dict[str, str]
@@ -95,7 +139,7 @@ def init() -> None: ...
 def coerce_e(value) -> _E: ...
 
 class _E:
-    def __init__(self, data) -> None: ...
+    def __init__(self, scale, data) -> None: ...
     def __add__(self, other) -> _E: ...
     def __mul__(self, other) -> _E: ...
 
@@ -122,7 +166,6 @@ class Image:
     def __exit__(self, *args: object) -> None: ...
     def close(self) -> None: ...
     def __eq__(self, other: object) -> bool: ...
-    def __array__(self, dtype=...) -> Any: ...  # returns numpy.array()
     def __getstate__(self) -> _ImageState: ...
     def __setstate__(self, state: _ImageState) -> None: ...
     def tobytes(self, encoder_name: str = ..., *args) -> bytes: ...
@@ -135,7 +178,7 @@ class Image:
         mode: _Mode | None = ...,
         matrix: _ConversionMatrix | None = ...,
         dither: int | None = ...,
-        palette: Literal[0, 1] = ...,
+        palette: Literal[Palette.WEB] = ...,
         colors: int = ...,
     ) -> Image: ...
     def quantize(
@@ -158,7 +201,7 @@ class Image:
     def getextrema(self): ...
     def getexif(self) -> Exif: ...
     def getim(self): ...
-    def getpalette(self) -> list[int] | None: ...
+    def getpalette(self, rawmode: str | None = ...) -> list[int] | None: ...
     def getpixel(self, xy: tuple[int, int]): ...
     def getprojection(self) -> tuple[list[int], list[int]]: ...
     def histogram(self, mask: Image | None = ..., extrema: tuple[int, int] | tuple[float, float] | None = ...) -> list[int]: ...
@@ -174,7 +217,7 @@ class Image:
     def resize(
         self,
         size: tuple[int, int],
-        resample: _Resample | None = ...,
+        resample: Resampling | _Resample | None = ...,
         box: tuple[float, float, float, float] | None = ...,
         reducing_gap: float | None = ...,
     ) -> Image: ...
@@ -182,7 +225,7 @@ class Image:
     def rotate(
         self,
         angle: float,
-        resample: _Resample = ...,
+        resample: Resampling | _Resample = ...,
         expand: bool = ...,
         center: tuple[float, float] | None = ...,
         translate: tuple[float, float] | None = ...,
@@ -202,17 +245,17 @@ class Image:
     def split(self) -> tuple[Image, ...]: ...
     def getchannel(self, channel: int | str) -> Image: ...
     def tell(self) -> int: ...
-    def thumbnail(self, size: tuple[int, int], resample: _Resample = ..., reducing_gap: float = ...) -> None: ...
+    def thumbnail(self, size: tuple[int, int], resample: Resampling | _Resample = ..., reducing_gap: float = ...) -> None: ...
     def transform(
         self,
         size: _Size,
-        method: Literal[0, 1, 2, 3, 4],
+        method: Transform | Literal[0, 1, 2, 3, 4],
         data=...,
-        resample: _Resample = ...,
+        resample: Resampling | _Resample = ...,
         fill: int = ...,
         fillcolor: _Color | int | None = ...,
     ) -> Image: ...
-    def transpose(self, method: Literal[0, 1, 2, 3, 4, 5, 6]) -> Image: ...
+    def transpose(self, method: Transpose | Literal[0, 1, 2, 3, 4, 5, 6]) -> Image: ...
     def effect_spread(self, distance: int) -> Image: ...
     def toqimage(self): ...
     def toqpixmap(self): ...
@@ -220,7 +263,7 @@ class Image:
 class ImagePointHandler: ...
 class ImageTransformHandler: ...
 
-def new(mode: _Mode, size: tuple[int, int], color: float | tuple[float, ...] | str = ...) -> Image: ...
+def new(mode: _Mode, size: tuple[int, int], color: _Color = ...) -> Image: ...
 def frombytes(mode: _Mode, size: tuple[int, int], data, decoder_name: str = ..., *args) -> Image: ...
 def frombuffer(mode: _Mode, size: tuple[int, int], data, decoder_name: str = ..., *args) -> Image: ...
 def fromarray(obj, mode: _Mode | None = ...) -> Image: ...

@@ -9,7 +9,8 @@ from collections.abc import Callable, ItemsView, Iterable, Iterator as _Iterator
 from functools import wraps as wraps
 from importlib.util import spec_from_loader as spec_from_loader
 from io import BytesIO as BytesIO, StringIO as StringIO
-from typing import Any, AnyStr, NoReturn, Pattern, TypeVar, overload
+from re import Pattern
+from typing import Any, AnyStr, NoReturn, TypeVar, overload
 from typing_extensions import Literal
 
 from . import moves as moves
@@ -27,7 +28,7 @@ PY34: Literal[True]
 
 string_types: tuple[type[str]]
 integer_types: tuple[type[int]]
-class_types: tuple[type[type[Any]]]
+class_types: tuple[type[type]]
 text_type = str
 binary_type = bytes
 
@@ -71,7 +72,7 @@ def assertCountEqual(self: unittest.TestCase, first: Iterable[_T], second: Itera
 @overload
 def assertRaisesRegex(self: unittest.TestCase, msg: str | None = ...) -> Any: ...
 @overload
-def assertRaisesRegex(self: unittest.TestCase, callable_obj: Callable[..., Any], *args: Any, **kwargs: Any) -> Any: ...
+def assertRaisesRegex(self: unittest.TestCase, callable_obj: Callable[..., object], *args: Any, **kwargs: Any) -> Any: ...
 def assertRegex(
     self: unittest.TestCase, text: AnyStr, expected_regex: AnyStr | Pattern[AnyStr], msg: str | None = ...
 ) -> None: ...

@@ -1,11 +1,20 @@
 import datetime
 from _typeshed import Self
 from collections.abc import Iterable
+from typing import ClassVar
 
 from dateutil.relativedelta import relativedelta
 
+from .__version__ import (
+    __author__ as __author__,
+    __copyright__ as __copyright__,
+    __email__ as __email__,
+    __license__ as __license__,
+    __version__ as __version__,
+)
+
 class DateTimeRange:
-    NOT_A_TIME_STR: str
+    NOT_A_TIME_STR: ClassVar[str]
     start_time_format: str
     end_time_format: str
     is_output_elapse: bool
@@ -17,6 +26,10 @@ class DateTimeRange:
         start_time_format: str = ...,
         end_time_format: str = ...,
     ) -> None: ...
+    @classmethod
+    def from_range_text(
+        cls, range_text: str, separator: str = ..., start_time_format: str | None = ..., end_time_format: str | None = ...
+    ) -> DateTimeRange: ...
     def __eq__(self, other: object) -> bool: ...
     def __ne__(self, other: object) -> bool: ...
     def __add__(self, other: datetime.timedelta) -> DateTimeRange: ...
@@ -44,3 +57,5 @@ class DateTimeRange:
     def intersection(self, x: DateTimeRange) -> DateTimeRange: ...
     def encompass(self, x: DateTimeRange) -> DateTimeRange: ...
     def truncate(self, percentage: float) -> None: ...
+    def split(self, separator: str | datetime.datetime) -> list[DateTimeRange]: ...
+    def subtract(self, x: DateTimeRange) -> DateTimeRange: ...
