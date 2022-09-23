@@ -7,7 +7,7 @@ import ctypes
 import mmap
 import pickle
 import sys
-from collections.abc import Awaitable, Callable, Container, Iterable, Set as AbstractSet
+from collections.abc import Awaitable, Callable, Iterable, Set as AbstractSet
 from os import PathLike
 from types import FrameType, TracebackType
 from typing import Any, AnyStr, Generic, Protocol, TypeVar, Union
