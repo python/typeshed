@@ -80,7 +80,7 @@ _AwaitableT_co = TypeVar("_AwaitableT_co", bound=Awaitable[Any], covariant=True)
 class object:
     __doc__: str | None
     __dict__: dict[str, Any]
-    __module__: str
+    __module__: ClassVar[str]
     __annotations__: dict[str, Any]
     @property
     def __class__(self: Self) -> type[Self]: ...
