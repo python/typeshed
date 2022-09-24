@@ -11,10 +11,7 @@ from typing_extensions import TypeAlias
 import gdb.types
 
 # The following submodules are automatically imported
-from . import events as events
-from . import printing as printing
-from . import prompt as prompt
-from . import types as types
+from . import events as events, printing as printing, prompt as prompt, types as types
 
 # Basic
 
