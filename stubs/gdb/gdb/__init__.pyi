@@ -8,6 +8,10 @@ from contextlib import AbstractContextManager
 from typing import Protocol, overload
 from typing_extensions import TypeAlias
 
+# The following submodules are automatically imported
+import gdb.events
+import gdb.printing
+import gdb.prompt
 import gdb.types
 
 # Basic
