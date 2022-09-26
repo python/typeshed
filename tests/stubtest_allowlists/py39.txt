@@ -143,10 +143,6 @@ collections.Set.__rxor__
 
 builtins.memoryview.__iter__  # C type that implements __getitem__
 builtins.memoryview.cast  # inspect.signature is incorrect about shape being kw-only
-sqlite3.dbapi2.Binary.__iter__  # C type that implements __getitem__
-sqlite3.dbapi2.Binary.cast  # inspect.signature is incorrect about shape being kw-only
-sqlite3.Binary.__iter__  # C type that implements __getitem__
-sqlite3.Binary.cast  # inspect.signature is incorrect about shape being kw-only
 
 # C signature is broader than what is actually accepted
 queue.SimpleQueue.__init__
