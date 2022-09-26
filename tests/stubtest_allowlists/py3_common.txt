@@ -132,6 +132,9 @@ lib2to3.pytree.BasePattern.__new__
 lib2to3.pytree.BasePattern.type
 lib2to3.pytree.NegatedPattern.match
 lib2to3.pytree.NegatedPattern.match_seq
+# LC_MESSAGES is sometimes present in __all__, sometimes not,
+# so stubtest will sometimes complain about exported names being different at runtime to the exported names in the stub
+(locale)?
 multiprocessing.JoinableQueue
 multiprocessing.Queue
 multiprocessing.SimpleQueue
