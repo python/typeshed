@@ -46,12 +46,11 @@ asyncio.locks.Condition.locked
 asyncio.locks.Condition.release
 asyncio.proactor_events.BaseProactorEventLoop.sock_recv # nbytes parameter has different name 'n' in implementation
 asyncio.selector_events.BaseSelectorEventLoop.sock_recv # nbytes parameter has different name 'n' in implementation
+builtins.OSError.characters_written  # GetSetDescriptor that always raises AttributeError
 builtins.dict.get
 builtins.ellipsis  # type is not exposed anywhere
 builtins.function
 builtins.memoryview.__contains__  # C type that implements __getitem__
-sqlite3.dbapi2.Binary.__contains__  # C type that implements __getitem__
-sqlite3.Binary.__contains__  # C type that implements __getitem__
 builtins.object.__init__  # default C signature is incorrect
 builtins.type.__dict__  # read-only but not actually a property; stubtest thinks it's a mutable attribute.
 bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
@@ -389,14 +388,6 @@ builtins.super.__self__
 builtins.super.__self_class__
 builtins.super.__thisclass__
 
-# Enum `name` and `value` are special properties that exists at runtime, but stubtest can't detect
-# https://github.com/python/typeshed/pull/6576#issuecomment-992538677
-enum.Enum.name
-enum.Enum.value
-enum.Flag.name
-enum.Flag.value
-enum.IntEnum.value
-
 # These enums derive from (int, IntEnum) or (str, Enum).
 pstats.SortKey.__new__
 tkinter.EventType.__new__
@@ -422,17 +413,6 @@ imaplib.IMAP4_SSL.ssl
 ssl.PROTOCOL_SSLv2
 ssl.PROTOCOL_SSLv3
 ssl.RAND_egd
-
-# GetSetDescriptor that always raises AttributeError
-builtins.OSError.characters_written
-# Aliases for OSError
-_socket.error.characters_written
-builtins.EnvironmentError.characters_written
-builtins.IOError.characters_written
-dbm.dumb.error.characters_written
-os.error.characters_written
-select.error.characters_written
-socket.error.characters_written
 
 collections.abc.*  # Types are re-exported from _collections_abc, so errors should be fixed there
 distutils.command.check.SilentReporter  # only defined if docutils in installed
