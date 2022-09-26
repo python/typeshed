@@ -36,7 +36,3 @@ PyInstaller.utils.osx
 PyInstaller.utils.run_tests
 PyInstaller.utils.tests
 PyInstaller.utils.win32.*
-# Explicitly private implementation details
-PyInstaller\._.*
-PyInstaller.isolated._child
-PyInstaller.utils._gitrevision
