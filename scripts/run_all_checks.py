@@ -74,9 +74,12 @@ if __name__ == "__main__":
             stubtest_result = subprocess.run(["python3", "tests/stubtest_stdlib.py", stub])
         else:
             stubtest_result = subprocess.run(["python3", "tests/stubtest_third_party.py", stub])
+    else:
+        print("Skipping stubtest since mypy failed.")
 
-    # TODO: Run in WSL if available
-    if sys.platform != "win32":
+    if sys.platform == "win32":
+        print("Skipping pytype on Windows. You can run the test with WSL.")
+    else:
         pytype_result = subprocess.run(["python3", "tests/pytype_test.py", path])
 
     if folder == "stdlib":
