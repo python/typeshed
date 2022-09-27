@@ -1,5 +1,7 @@
 """Utilities that are imported by multiple scripts in the tests directory."""
 
+from __future__ import annotations
+
 import os
 import re
 from functools import cache
