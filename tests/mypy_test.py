@@ -21,7 +21,14 @@ if TYPE_CHECKING:
 from typing_extensions import Annotated, TypeAlias
 
 import tomli
-from utils import VERSIONS_RE as VERSION_LINE_RE, colored, print_error, print_success_msg, read_dependencies, strip_comments
+from utils import (
+    VERSIONS_RE as VERSION_LINE_RE,
+    colored,
+    get_recursive_requirements,
+    print_error,
+    print_success_msg,
+    strip_comments,
+)
 
 SUPPORTED_VERSIONS = ["3.11", "3.10", "3.9", "3.8", "3.7"]
 SUPPORTED_PLATFORMS = ("linux", "win32", "darwin")
@@ -263,11 +270,19 @@ def add_third_party_files(
         return
     seen_dists.add(distribution)
 
-    dependencies = read_dependencies(distribution)
-    for dependency in dependencies:
-        add_third_party_files(dependency, files, args, configurations, seen_dists)
+    stubs_dir = Path("stubs")
+    dependencies = get_recursive_requirements(distribution)
 
-    root = Path("stubs", distribution)
+    for dependency in dependencies:
+        if dependency in seen_dists:
+            continue
+        seen_dists.add(dependency)
+        files_to_add = sorted((stubs_dir / dependency).rglob("*.pyi"))
+        files.extend(files_to_add)
+        for file in files_to_add:
+            log(args, file, f"included as a dependency of {distribution!r}")
+
+    root = stubs_dir / distribution
     for name in os.listdir(root):
         if name.startswith("."):
             continue
@@ -343,9 +358,10 @@ def test_third_party_stubs(code: int, args: TestConfig) -> TestResults:
         if not is_probably_stubs_folder(distribution, distribution_path):
             continue
 
-        this_code, checked = test_third_party_distribution(distribution, args)
-        code = max(code, this_code)
-        files_checked += checked
+        if distribution_path in args.filter or any(distribution_path in path.parents for path in args.filter):
+            this_code, checked = test_third_party_distribution(distribution, args)
+            code = max(code, this_code)
+            files_checked += checked
 
     return TestResults(code, files_checked)
 
