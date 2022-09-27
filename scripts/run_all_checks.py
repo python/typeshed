@@ -9,13 +9,13 @@ _extend_ignore = "CCE,N8,Q"
 _STRICTER_CONFIG_FILE = "pyrightconfig.stricter.json"
 
 
-def _parse_jsonc(json_text: str):
+def _parse_jsonc(json_text: str) -> str:
     parsed_json_text = re.sub(r"^\s*?//.*?\n", "", json_text, flags=re.RegexFlag.MULTILINE)
     parsed_json_text = re.sub(r",([\n\s]*?[\}\]])", r"\1", parsed_json_text)
     return parsed_json_text
 
 
-def _get_strict_params(stub_path: str):
+def _get_strict_params(stub_path: str) -> list[str]:
     with open(_STRICTER_CONFIG_FILE) as file:
         data = json.loads(_parse_jsonc(file.read()))
     if stub_path in data["exclude"]:
