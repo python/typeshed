@@ -11,7 +11,7 @@ _STRICTER_CONFIG_FILE = "pyrightconfig.stricter.json"
 
 def _parse_jsonc(json_text: str) -> str:
     # strip comments from the file
-    lines = [line for line in text.split('\n') if not line.strip().startswith('//')]
+    lines = [line for line in text.split("\n") if not line.strip().startswith("//")]
     # strip trailing commas from the file
     valid_json = re.sub(r",(\s*?[\}\]])", r"\1", "\n".join(lines))
     return valid_json
