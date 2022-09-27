@@ -39,7 +39,7 @@ if __name__ == "__main__":
     try:
         path = sys.argv[1]
     except IndexError:
-        print("Missing path argument in format <folder>/<stub>")
+        print("Missing path argument in format <folder>/<stub>", file=sys.stderr)
         sys.exit(1)
     path_tokens = Path(path).parts
     assert len(path_tokens) == 2, "Path argument should be in format <folder>/<stub>"
@@ -58,7 +58,14 @@ if __name__ == "__main__":
     check_consistent_result = subprocess.run(["python3", "tests/check_consistent.py"])
     check_new_syntax_result = subprocess.run(["python3", "tests/check_new_syntax.py"])
 
-    pyright_result = subprocess.run(["python3", "tests/pyright_test.py", path] + _get_strict_params(path))
+    pyright_result = subprocess.run(["python3", "tests/pyright_test.py", path] + _get_strict_params(path), stderr=subprocess.PIPE)
+    print(pyright_result.stderr.decode())
+    if b"error running npx" in pyright_result.stderr:
+        pyright_returncode = 0
+        pyright_skipped = True
+    else:
+        pyright_returncode = pyright_result.returncode
+        pyright_skipped = False
 
     mypy_result = subprocess.run(["python3", "tests/mypy_test.py", path])
     # If mypy failed, stubtest will fail without any helpful error
@@ -84,7 +91,7 @@ if __name__ == "__main__":
         flake8_result.returncode
         + check_consistent_result.returncode
         + check_new_syntax_result.returncode
-        + pyright_result.returncode
+        + pyright_returncode
         + mypy_result.returncode
         + (stubtest_result.returncode if stubtest_result else 0)
         + (pytype_result.returncode if pytype_result else 0)
@@ -99,16 +106,19 @@ if __name__ == "__main__":
     print("flake8:", _SUCCESS if flake8_result.returncode == 0 else _FAILED)
     print("Check consistent:", _SUCCESS if check_consistent_result.returncode == 0 else _FAILED)
     print("Check new syntax:", _SUCCESS if check_new_syntax_result.returncode == 0 else _FAILED)
-    print("pyright:", _SUCCESS if pyright_result.returncode == 0 else _FAILED)
+    if pyright_skipped:
+        print("pyright:", _SKIPPED)
+    else:
+        print("pyright:", _SUCCESS if pyright_returncode == 0 else _FAILED)
     print("mypy:", _SUCCESS if mypy_result.returncode == 0 else _FAILED)
-    if stubtest_result is not None:
-        print("stubtest:", _SUCCESS if stubtest_result.returncode == 0 else _FAILED)
-    else:
+    if stubtest_result is None:
         print("stubtest:", _SKIPPED)
-    if pytype_result is not None:
-        print("pytype:", _SUCCESS if pytype_result.returncode == 0 else _FAILED)
     else:
+        print("stubtest:", _SUCCESS if stubtest_result.returncode == 0 else _FAILED)
+    if pytype_result is None:
         print("pytype:", _SKIPPED)
+    else:
+        print("pytype:", _SUCCESS if pytype_result.returncode == 0 else _FAILED)
     print("Regression test:", _SUCCESS if regr_test_returncode == 0 else _FAILED)
 
     sys.exit(int(any_failure))
