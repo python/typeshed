@@ -10,9 +10,11 @@ _STRICTER_CONFIG_FILE = "pyrightconfig.stricter.json"
 
 
 def _parse_jsonc(json_text: str) -> str:
-    parsed_json_text = re.sub(r"^\s*?//.*?\n", "", json_text, flags=re.RegexFlag.MULTILINE)
-    parsed_json_text = re.sub(r",([\n\s]*?[\}\]])", r"\1", parsed_json_text)
-    return parsed_json_text
+    # strip comments from the file
+    lines = [line for line in text.split('\n') if not line.strip().startswith('//')]
+    # strip trailing commas from the file
+    valid_json = re.sub(r",(\s*?[\}\]])", r"\1", "\n".join(lines))
+    return valid_json
 
 
 def _get_strict_params(stub_path: str) -> list[str]:
@@ -29,13 +31,14 @@ if __name__ == "__main__":
     except IndexError:
         print("Missing path argument in format <folder>/<stub>")
         sys.exit(1)
-    path_tokens = path.replace("\\", "/").split("/")
+    path_tokens = Path(path).parts
     assert len(path_tokens) == 2, "Path argument should be in format <folder>/<stub>"
     folder, stub = path_tokens
     assert folder in {"stdlib", "stubs"}, "Only the 'stdlib' and 'stubs' folders are supported"
 
-    subprocess.run(["python3", "-m", "black", path])
+    subprocess.run(["python3", "-m", "pycln", path, "--all"])
     subprocess.run(["python3", "-m", "isort", path])
+    subprocess.run(["python3", "-m", "black", path])
     subprocess.run(["python3", "-m", "flake8", path, "--extend-ignore", _extend_ignore])
 
     subprocess.run(["python3", "tests/check_consistent.py"])
@@ -43,7 +46,6 @@ if __name__ == "__main__":
 
     subprocess.run(["python3", "tests/pyright_test.py", path] + _get_strict_params(path))
 
-    # FIXME: Fails to see requires
     mypy_result = subprocess.run(["python3", "tests/mypy_test.py", path])
 
     # TODO: Run in WSL if available

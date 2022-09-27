@@ -169,10 +169,8 @@ def main() -> None:
 
     print("\nDone!\n\nSuggested next steps:")
     print(f" 1. Manually review the generated stubs in {stub_dir}")
-    print(" 2. See CONTRIBUTING.md for all the best practices and tips to improve your stub")
-    print(' 3. Run autofixes and tests locally using "python3 -m ./scripts/run_all_checks.py"')
-    print("    See tests/README.md to run individual tests")
-    print(" 4. Commit the changes on a new branch and create a typeshed PR (don't force-push!)")
+    print(" 2. Optionally run tests and autofixes (see tests/README.md for details")
+    print(" 3. Commit the changes on a new branch and create a typeshed PR (don't force-push!)")
 
 
 if __name__ == "__main__":
