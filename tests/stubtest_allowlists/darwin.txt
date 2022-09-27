@@ -35,8 +35,6 @@ _ctypes.dlopen
 _ctypes.dlsym
 
 posix.NGROUPS_MAX
-posix.error.characters_written
-resource.error.characters_written
 select.POLLRDHUP
 webbrowser.MacOSX.__init__
 

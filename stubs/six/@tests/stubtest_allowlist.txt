@@ -21,5 +21,4 @@ six.viewkeys
 six.viewvalues
 
 # Unclear problems
-six.Iterator.__init__
 six.callable
