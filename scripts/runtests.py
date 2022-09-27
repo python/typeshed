@@ -3,6 +3,7 @@ import re
 import subprocess
 import sys
 from pathlib import Path
+from typing import Optional
 
 try:
     from termcolor import colored
@@ -45,8 +46,8 @@ if __name__ == "__main__":
     assert len(path_tokens) == 2, "Path argument should be in format <folder>/<stub>"
     folder, stub = path_tokens
     assert folder in {"stdlib", "stubs"}, "Only the 'stdlib' and 'stubs' folders are supported"
-    stubtest_result = None
-    pytype_result = None
+    stubtest_result: Optional[subprocess.CompletedProcess[bytes]] = None
+    pytype_result: Optional[subprocess.CompletedProcess[bytes]] = None
 
     # Run formatters first. Order matters.
     subprocess.run(["python3", "-m", "pycln", path, "--all"])
@@ -97,7 +98,7 @@ if __name__ == "__main__":
         + pyright_returncode
         + mypy_result.returncode
         + (stubtest_result.returncode if stubtest_result else 0)
-        + (pytype_result.returncode if pytype_result else 0)  # type: ignore[attr-defined]
+        + (pytype_result.returncode if pytype_result else 0)
         + regr_test_returncode
         > 0
     )
