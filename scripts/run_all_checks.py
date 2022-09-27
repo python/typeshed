@@ -2,16 +2,26 @@ import json
 import re
 import subprocess
 import sys
+from pathlib import Path
+
+try:
+    from termcolor import colored
+except ImportError:
+
+    def colored(text: str, color: str = "") -> str:
+        return text
+
 
 # Popular Flake8 extensions not used in Typeshed that cause errors
-_extend_ignore = "CCE,N8,Q"
-
 _STRICTER_CONFIG_FILE = "pyrightconfig.stricter.json"
+_SUCCESS = colored("Success", "green")
+_SKIPPED = colored("Skipped", "yellow")
+_FAILED = colored("Failed", "red")
 
 
 def _parse_jsonc(json_text: str) -> str:
     # strip comments from the file
-    lines = [line for line in text.split('\n') if not line.strip().startswith('//')]
+    lines = [line for line in json_text.split("\n") if not line.strip().startswith("//")]
     # strip trailing commas from the file
     valid_json = re.sub(r",(\s*?[\}\]])", r"\1", "\n".join(lines))
     return valid_json
@@ -35,31 +45,70 @@ if __name__ == "__main__":
     assert len(path_tokens) == 2, "Path argument should be in format <folder>/<stub>"
     folder, stub = path_tokens
     assert folder in {"stdlib", "stubs"}, "Only the 'stdlib' and 'stubs' folders are supported"
+    stubtest_result = None
+    pytype_result = None
 
+    # Run formatters first. Order matters.
     subprocess.run(["python3", "-m", "pycln", path, "--all"])
     subprocess.run(["python3", "-m", "isort", path])
     subprocess.run(["python3", "-m", "black", path])
-    subprocess.run(["python3", "-m", "flake8", path, "--extend-ignore", _extend_ignore])
 
-    subprocess.run(["python3", "tests/check_consistent.py"])
-    subprocess.run(["python3", "tests/check_new_syntax.py"])
+    flake8_result = subprocess.run(["python3", "-m", "flake8", path])
 
-    subprocess.run(["python3", "tests/pyright_test.py", path] + _get_strict_params(path))
+    check_consistent_result = subprocess.run(["python3", "tests/check_consistent.py"])
+    check_new_syntax_result = subprocess.run(["python3", "tests/check_new_syntax.py"])
+
+    pyright_result = subprocess.run(["python3", "tests/pyright_test.py", path] + _get_strict_params(path))
 
     mypy_result = subprocess.run(["python3", "tests/mypy_test.py", path])
+    # If mypy failed, stubtest will fail without any helpful error
+    if mypy_result.returncode == 0:
+        if folder == "stdlib":
+            stubtest_result = subprocess.run(["python3", "tests/stubtest_stdlib.py", stub])
+        else:
+            stubtest_result = subprocess.run(["python3", "tests/stubtest_third_party.py", stub])
 
     # TODO: Run in WSL if available
     if sys.platform != "win32":
-        subprocess.run(["python3", "tests/pytype_test.py", path])
+        pytype_result = subprocess.run(["python3", "tests/pytype_test.py", path])
 
     if folder == "stdlib":
-        subprocess.run(["python3", "tests/regr_test.py", "stdlib"])
+        regr_test_result = subprocess.run(["python3", "tests/regr_test.py", "stdlib"], stderr=subprocess.PIPE)
     else:
-        subprocess.run(["python3", "tests/regr_test.py", stub])
+        regr_test_result = subprocess.run(["python3", "tests/regr_test.py", stub], stderr=subprocess.PIPE)
+    print(regr_test_result.stderr.decode())
+    # No test means they all ran successfully (0 out of 0). Very few 3rd part stub have regression tests.
+    regr_test_returncode = 0 if b"No test cases found" in regr_test_result.stderr else regr_test_result.returncode
 
-    # If mypy failed, this will fail without any helpful error
-    if mypy_result.returncode == 0:
-        if folder == "stdlib":
-            subprocess.run(["python3", "tests/stubtest_stdlib.py", stub])
-        else:
-            subprocess.run(["python3", "tests/stubtest_third_party.py", stub])
+    any_failure = (
+        flake8_result.returncode
+        + check_consistent_result.returncode
+        + check_new_syntax_result.returncode
+        + pyright_result.returncode
+        + mypy_result.returncode
+        + (stubtest_result.returncode if stubtest_result else 0)
+        + (pytype_result.returncode if pytype_result else 0)
+        + regr_test_returncode
+        > 0
+    )
+
+    if any_failure:
+        print("One or more tests failed. See above for details.")
+    else:
+        print("All tests passed!")
+    print("flake8:", _SUCCESS if flake8_result.returncode == 0 else _FAILED)
+    print("Check consistent:", _SUCCESS if check_consistent_result.returncode == 0 else _FAILED)
+    print("Check new syntax:", _SUCCESS if check_new_syntax_result.returncode == 0 else _FAILED)
+    print("pyright:", _SUCCESS if pyright_result.returncode == 0 else _FAILED)
+    print("mypy:", _SUCCESS if mypy_result.returncode == 0 else _FAILED)
+    if stubtest_result is not None:
+        print("stubtest:", _SUCCESS if stubtest_result.returncode == 0 else _FAILED)
+    else:
+        print("stubtest:", _SKIPPED)
+    if pytype_result is not None:
+        print("pytype:", _SUCCESS if pytype_result.returncode == 0 else _FAILED)
+    else:
+        print("pytype:", _SKIPPED)
+    print("Regression test:", _SUCCESS if regr_test_returncode == 0 else _FAILED)
+
+    sys.exit(int(any_failure))
