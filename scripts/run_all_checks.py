@@ -97,7 +97,7 @@ if __name__ == "__main__":
         + pyright_returncode
         + mypy_result.returncode
         + (stubtest_result.returncode if stubtest_result else 0)
-        + (pytype_result.returncode if pytype_result else 0)
+        + (pytype_result.returncode if pytype_result else 0)  # type: ignore[attr-defined]
         + regr_test_returncode
         > 0
     )
