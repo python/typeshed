@@ -19,6 +19,15 @@ in the `tests` and `scripts` directories.
 To run the tests, follow the [setup instructions](../CONTRIBUTING.md#preparing-the-environment)
 in the `CONTRIBUTING.md` document. In particular, we recommend running with Python 3.9+.
 
+## Run all tests for a specific stub
+
+Run using:
+```
+(.venv3)$ python3 scripts/runtests.py <stdlib-or-stubs>/<stub-to-test>
+```
+
+This script will run all tests below for a specific stub with a summary of the results. You must provide a single argument which is a path to the stub to test, like so: `stblib/os` or `stubs/requests`.
+
 ## mypy\_test.py
 
 Run using:
