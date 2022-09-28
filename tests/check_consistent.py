@@ -5,11 +5,13 @@
 # verify these constraints.
 from __future__ import annotations
 
+import functools
 import os
 import re
 import sys
 from pathlib import Path
 
+import pathspec
 import tomli
 import yaml
 from packaging.requirements import Requirement
@@ -22,12 +24,28 @@ tool_keys = {"stubtest": {"skip", "apt_dependencies", "extras", "ignore_missing_
 extension_descriptions = {".pyi": "stub", ".py": ".py"}
 
 
+@functools.cache
+def get_gitignore_spec() -> pathspec.PathSpec:
+    with open(".gitignore") as f:
+        return pathspec.PathSpec.from_lines("gitwildmatch", f.readlines())
+
+
+def _spec_matches_path(spec: pathspec.PathSpec, path: Path) -> bool:
+    normalized_path = path.as_posix()
+    if path.is_dir():
+        normalized_path += "/"
+    return spec.match_file(normalized_path)
+
+
 def assert_consistent_filetypes(directory: Path, *, kind: str, allowed: set[str]) -> None:
     """Check that given directory contains only valid Python files of a certain kind."""
     allowed_paths = {Path(f) for f in allowed}
     contents = list(directory.iterdir())
+    gitignore_spec = get_gitignore_spec()
     while contents:
         entry = contents.pop()
+        if _spec_matches_path(gitignore_spec, entry):
+            continue
         if entry.relative_to(directory) in allowed_paths:
             # Note if a subdirectory is allowed, we will not check its contents
             continue
@@ -45,7 +63,10 @@ def check_stdlib() -> None:
 
 
 def check_stubs() -> None:
+    gitignore_spec = get_gitignore_spec()
     for dist in Path("stubs").iterdir():
+        if _spec_matches_path(gitignore_spec, dist):
+            continue
         assert dist.is_dir(), f"Only directories allowed in stubs, got {dist}"
 
         valid_dist_name = "^([A-Z0-9]|[A-Z0-9][A-Z0-9._-]*[A-Z0-9])$"  # courtesy of PEP 426
