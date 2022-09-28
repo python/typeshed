@@ -15,7 +15,6 @@ except ImportError:
         return text
 
 
-# Popular Flake8 extensions not used in Typeshed that cause errors
 _STRICTER_CONFIG_FILE = "pyrightconfig.stricter.json"
 _SUCCESS = colored("Success", "green")
 _SKIPPED = colored("Skipped", "yellow")
