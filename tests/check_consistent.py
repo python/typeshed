@@ -5,36 +5,21 @@
 # verify these constraints.
 from __future__ import annotations
 
-import functools
 import os
 import re
 import sys
 from pathlib import Path
 
-import pathspec  # type: ignore[import]
 import tomli
 import yaml
 from packaging.requirements import Requirement
 from packaging.specifiers import SpecifierSet
 from packaging.version import Version
-from utils import VERSIONS_RE, get_all_testcase_directories, strip_comments
+from utils import VERSIONS_RE, get_all_testcase_directories, get_gitignore_spec, spec_matches_path, strip_comments
 
 metadata_keys = {"version", "requires", "extra_description", "obsolete_since", "no_longer_updated", "tool"}
 tool_keys = {"stubtest": {"skip", "apt_dependencies", "extras", "ignore_missing_stub"}}
 extension_descriptions = {".pyi": "stub", ".py": ".py"}
-
-
-@functools.cache
-def get_gitignore_spec() -> pathspec.PathSpec:
-    with open(".gitignore") as f:
-        return pathspec.PathSpec.from_lines("gitwildmatch", f.readlines())
-
-
-def _spec_matches_path(spec: pathspec.PathSpec, path: Path) -> bool:
-    normalized_path = path.as_posix()
-    if path.is_dir():
-        normalized_path += "/"
-    return spec.match_file(normalized_path)  # type: ignore[no-any-return]
 
 
 def assert_consistent_filetypes(directory: Path, *, kind: str, allowed: set[str]) -> None:
@@ -44,7 +29,7 @@ def assert_consistent_filetypes(directory: Path, *, kind: str, allowed: set[str]
     gitignore_spec = get_gitignore_spec()
     while contents:
         entry = contents.pop()
-        if _spec_matches_path(gitignore_spec, entry):
+        if spec_matches_path(gitignore_spec, entry):
             continue
         if entry.relative_to(directory) in allowed_paths:
             # Note if a subdirectory is allowed, we will not check its contents
@@ -65,7 +50,7 @@ def check_stdlib() -> None:
 def check_stubs() -> None:
     gitignore_spec = get_gitignore_spec()
     for dist in Path("stubs").iterdir():
-        if _spec_matches_path(gitignore_spec, dist):
+        if spec_matches_path(gitignore_spec, dist):
             continue
         assert dist.is_dir(), f"Only directories allowed in stubs, got {dist}"
 
