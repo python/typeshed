@@ -3,8 +3,7 @@
     "typeshedPath": ".",
     "include": [
         "stdlib",
-        "stubs",
-        "test_cases"
+        "stubs"
     ],
     "exclude": [
         "stdlib/distutils/command",
@@ -37,6 +36,7 @@
         "stubs/beautifulsoup4",
         "stubs/braintree",
         "stubs/caldav",
+        "stubs/cffi",
         "stubs/commonmark",
         "stubs/cryptography",
         "stubs/dateparser",
@@ -78,7 +78,6 @@
         "stubs/PyYAML",
         "stubs/redis",
         "stubs/requests",
-        "stubs/selenium",
         "stubs/Send2Trash",
         "stubs/setuptools",
         "stubs/simplejson",
@@ -99,6 +98,7 @@
     "strictSetInference": true,
     "reportFunctionMemberAccess": "error",
     "reportMissingModuleSource": "none",
+    "reportMissingParameterType": "error",
     "reportMissingTypeStubs": "error",
     "reportUnusedImport": "error",
     "reportUnusedClass": "error",

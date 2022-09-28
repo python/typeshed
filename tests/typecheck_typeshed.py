@@ -8,7 +8,7 @@ import sys
 from itertools import product
 from typing_extensions import TypeAlias
 
-from colors import colored, print_error
+from utils import colored, print_error
 
 ReturnCode: TypeAlias = int
 
@@ -17,6 +17,13 @@ SUPPORTED_VERSIONS = ("3.11", "3.10", "3.9")
 DIRECTORIES_TO_TEST = ("scripts", "tests")
 
 parser = argparse.ArgumentParser(description="Run mypy on typeshed's own code in the `scripts` and `tests` directories.")
+parser.add_argument(
+    "dir",
+    choices=DIRECTORIES_TO_TEST + ([],),
+    nargs="*",
+    action="extend",
+    help=f"Test only these top-level typeshed directories (defaults to {DIRECTORIES_TO_TEST!r})",
+)
 parser.add_argument(
     "--platform",
     choices=SUPPORTED_PLATFORMS,
@@ -31,14 +38,6 @@ parser.add_argument(
     nargs="*",
     action="extend",
     help="Run mypy for certain Python versions (defaults to sys.version_info[:2])",
-)
-parser.add_argument(
-    "-d",
-    "--dir",
-    choices=DIRECTORIES_TO_TEST,
-    nargs="*",
-    action="extend",
-    help=f"Test only these top-level typeshed directories (defaults to {DIRECTORIES_TO_TEST!r})",
 )
 
 
@@ -60,11 +59,8 @@ def run_mypy_as_subprocess(directory: str, platform: str, version: str) -> Retur
         "ignore-without-code",
         "--namespace-packages",
     ]
-    if directory == "tests":
-        if platform == "win32":
-            command.extend(["--exclude", "tests/pytype_test.py"])
-    else:
-        command.append("--ignore-missing-imports")
+    if directory == "tests" and platform == "win32":
+        command.extend(["--exclude", "tests/pytype_test.py"])
     result = subprocess.run(command, capture_output=True)
     stdout, stderr = result.stdout, result.stderr
     if stderr:
