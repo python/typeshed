@@ -46,20 +46,20 @@ if __name__ == "__main__":
     assert len(path_tokens) == 2, "Path argument should be in format <folder>/<stub>"
     folder, stub = path_tokens
     assert folder in {"stdlib", "stubs"}, "Only the 'stdlib' and 'stubs' folders are supported"
-    stubtest_result: Optional[subprocess.CompletedProcess[bytes]] = None
-    pytype_result: Optional[subprocess.CompletedProcess[bytes]] = None
+    stubtest_result: subprocess.CompletedProcess[bytes] | None = None
+    pytype_result: subprocess.CompletedProcess[bytes] | None = None
 
     # Run formatters first. Order matters.
-    subprocess.run(["python3", "-m", "pycln", path, "--all"])
-    subprocess.run(["python3", "-m", "isort", path])
-    subprocess.run(["python3", "-m", "black", path])
+    subprocess.run([sys.executable, "-m", "pycln", path, "--all"])
+    subprocess.run([sys.executable, "-m", "isort", path])
+    subprocess.run([sys.executable, "-m", "black", path])
 
-    flake8_result = subprocess.run(["python3", "-m", "flake8", path])
+    flake8_result = subprocess.run([sys.executable, "-m", "flake8", path])
 
-    check_consistent_result = subprocess.run(["python3", "tests/check_consistent.py"])
-    check_new_syntax_result = subprocess.run(["python3", "tests/check_new_syntax.py"])
+    check_consistent_result = subprocess.run([sys.executable, "tests/check_consistent.py"])
+    check_new_syntax_result = subprocess.run([sys.executable, "tests/check_new_syntax.py"])
 
-    pyright_result = subprocess.run(["python3", "tests/pyright_test.py", path] + _get_strict_params(path), stderr=subprocess.PIPE)
+    pyright_result = subprocess.run([sys.executable, "tests/pyright_test.py", path] + _get_strict_params(path), stderr=subprocess.PIPE)
     print(pyright_result.stderr.decode())
     if b"error running npx" in pyright_result.stderr:
         pyright_returncode = 0
@@ -68,39 +68,40 @@ if __name__ == "__main__":
         pyright_returncode = pyright_result.returncode
         pyright_skipped = False
 
-    mypy_result = subprocess.run(["python3", "tests/mypy_test.py", path])
+    mypy_result = subprocess.run([sys.executable, "tests/mypy_test.py", path])
     # If mypy failed, stubtest will fail without any helpful error
     if mypy_result.returncode == 0:
         if folder == "stdlib":
-            stubtest_result = subprocess.run(["python3", "tests/stubtest_stdlib.py", stub])
+            stubtest_result = subprocess.run([sys.executable, "tests/stubtest_stdlib.py", stub])
         else:
-            stubtest_result = subprocess.run(["python3", "tests/stubtest_third_party.py", stub])
+            stubtest_result = subprocess.run([sys.executable, "tests/stubtest_third_party.py", stub])
     else:
         print("Skipping stubtest since mypy failed.")
 
     if sys.platform == "win32":
         print("Skipping pytype on Windows. You can run the test with WSL.")
     else:
-        pytype_result = subprocess.run(["python3", "tests/pytype_test.py", path])
+        pytype_result = subprocess.run([sys.executable, "tests/pytype_test.py", path])
 
     if folder == "stdlib":
-        regr_test_result = subprocess.run(["python3", "tests/regr_test.py", "stdlib"], stderr=subprocess.PIPE)
+        regr_test_result = subprocess.run([sys.executable, "tests/regr_test.py", "stdlib"], stderr=subprocess.PIPE)
     else:
-        regr_test_result = subprocess.run(["python3", "tests/regr_test.py", stub], stderr=subprocess.PIPE)
+        regr_test_result = subprocess.run([sys.executable, "tests/regr_test.py", stub], stderr=subprocess.PIPE)
     print(regr_test_result.stderr.decode())
-    # No test means they all ran successfully (0 out of 0). Very few 3rd part stub have regression tests.
+    # No test means they all ran successfully (0 out of 0). Not all 3rd-party stubs have regression tests.
     regr_test_returncode = 0 if b"No test cases found" in regr_test_result.stderr else regr_test_result.returncode
 
-    any_failure = (
-        flake8_result.returncode
-        + check_consistent_result.returncode
-        + check_new_syntax_result.returncode
-        + pyright_returncode
-        + mypy_result.returncode
-        + (stubtest_result.returncode if stubtest_result else 0)
-        + (pytype_result.returncode if pytype_result else 0)
-        + regr_test_returncode
-        > 0
+    any_failure = any(
+        [
+            flake8_result.returncode,
+            check_consistent_result.returncode,
+            check_new_syntax_result.returncode,
+            pyright_returncode,
+            mypy_result.returncode,
+            getattr(stubtest_result, "returncode", 0),
+            getattr(pytype_result, "returncode", 0),
+            regr_test_returncode
+        ]
     )
 
     if any_failure:
