@@ -13,7 +13,7 @@ from dataclasses import dataclass
 from io import StringIO
 from itertools import product
 from pathlib import Path
-from typing import TYPE_CHECKING, NamedTuple
+from typing import TYPE_CHECKING, Any, NamedTuple
 
 if TYPE_CHECKING:
     from _typeshed import StrPath
@@ -21,7 +21,16 @@ if TYPE_CHECKING:
 from typing_extensions import Annotated, TypeAlias
 
 import tomli
-from utils import VERSIONS_RE as VERSION_LINE_RE, colored, print_error, print_success_msg, read_dependencies, strip_comments
+from utils import (
+    VERSIONS_RE as VERSION_LINE_RE,
+    colored,
+    get_gitignore_spec,
+    print_error,
+    print_success_msg,
+    read_dependencies,
+    spec_matches_path,
+    strip_comments,
+)
 
 SUPPORTED_VERSIONS = ["3.11", "3.10", "3.9", "3.8", "3.7"]
 SUPPORTED_PLATFORMS = ("linux", "win32", "darwin")
@@ -157,7 +166,7 @@ def add_files(files: list[Path], seen: set[str], module: Path, args: TestConfig)
 
 class MypyDistConf(NamedTuple):
     module_name: str
-    values: dict
+    values: dict[str, dict[str, Any]]
 
 
 # The configuration section in the metadata file looks like the following, with multiple module sections possible
@@ -305,11 +314,6 @@ def test_third_party_distribution(distribution: str, args: TestConfig) -> TestRe
     return TestResults(code, len(files))
 
 
-def is_probably_stubs_folder(distribution: str, distribution_path: Path) -> bool:
-    """Validate that `dist_path` is a folder containing stubs"""
-    return distribution != ".mypy_cache" and distribution_path.is_dir()
-
-
 def test_stdlib(code: int, args: TestConfig) -> TestResults:
     seen = {"builtins", "typing"}  # Always ignore these.
     files: list[Path] = []
@@ -336,11 +340,12 @@ def test_third_party_stubs(code: int, args: TestConfig) -> TestResults:
     print("Testing third-party packages...")
     print("Running mypy " + " ".join(get_mypy_flags(args, "/tmp/...")))
     files_checked = 0
+    gitignore_spec = get_gitignore_spec()
 
     for distribution in sorted(os.listdir("stubs")):
         distribution_path = Path("stubs", distribution)
 
-        if not is_probably_stubs_folder(distribution, distribution_path):
+        if spec_matches_path(gitignore_spec, distribution_path):
             continue
 
         this_code, checked = test_third_party_distribution(distribution, args)
