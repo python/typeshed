@@ -1825,6 +1825,7 @@ class AssertionError(_StandardError): ...
 
 class AttributeError(_StandardError):
     if sys.version_info >= (3, 10):
+        def __init__(self, *args: object, name: str | None = ..., obj: object | None = ...) -> None: ...
         name: str
         obj: object
 
