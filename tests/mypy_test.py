@@ -13,7 +13,7 @@ from dataclasses import dataclass
 from io import StringIO
 from itertools import product
 from pathlib import Path
-from typing import TYPE_CHECKING, NamedTuple
+from typing import TYPE_CHECKING, Any, NamedTuple
 
 if TYPE_CHECKING:
     from _typeshed import StrPath
@@ -157,7 +157,7 @@ def add_files(files: list[Path], seen: set[str], module: Path, args: TestConfig)
 
 class MypyDistConf(NamedTuple):
     module_name: str
-    values: dict
+    values: dict[str, dict[str, Any]]
 
 
 # The configuration section in the metadata file looks like the following, with multiple module sections possible
