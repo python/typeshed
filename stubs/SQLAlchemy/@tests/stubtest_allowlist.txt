@@ -14,10 +14,7 @@ sqlalchemy.ext.declarative.as_declarative
 sqlalchemy.orm.collections.InstrumentedList.*
 sqlalchemy.orm.collections.InstrumentedSet.*
 sqlalchemy.orm.collections.MappedCollection.*
-sqlalchemy.util.OrderedDict.get
 sqlalchemy.util.StringIO.*
-sqlalchemy.util.byte_buffer.*
-sqlalchemy.util.column_dict.get
 
 # method arguments starting with double underscores in the implementation
 sqlalchemy.testing.resolve_lambda

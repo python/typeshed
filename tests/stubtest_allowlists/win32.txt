@@ -37,10 +37,6 @@ _ctypes.set_last_error
 # Allowlist entries that cannot or should not be fixed
 # ==========
 
-# Aliases for OSError
-builtins.WindowsError.characters_written
-winreg.error.characters_written
-
 # Modules that do not exist on Windows systems
 _curses
 _posixsubprocess

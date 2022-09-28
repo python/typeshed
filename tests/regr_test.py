@@ -130,7 +130,10 @@ def test_testcase_directory(package: PackageInfo, version: str, platform: str) -
             os.mkdir(new_typeshed)
             shutil.copytree(Path("stdlib"), new_typeshed / "stdlib")
             requirements = get_recursive_requirements(package_name)
-            for requirement in requirements:
+            # mypy refuses to consider a directory a "valid typeshed directory"
+            # unless there's a stubs/mypy-extensions path inside it,
+            # so add that to the list of stubs to copy over to the new directory
+            for requirement in requirements + ["mypy-extensions"]:
                 shutil.copytree(Path("stubs", requirement), new_typeshed / "stubs" / requirement)
             env_vars["MYPYPATH"] = os.pathsep.join(map(str, new_typeshed.glob("stubs/*")))
             flags.extend(["--custom-typeshed-dir", str(td_path / "typeshed")])

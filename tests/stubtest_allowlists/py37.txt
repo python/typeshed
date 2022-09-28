@@ -45,15 +45,11 @@ typing.NamedTuple._make
 typing.NamedTuple._replace
 typing._SpecialForm.__new__
 typing.runtime_checkable
-typing.Text.maketrans
 uuid.UUID.int
 uuid.UUID.is_safe
 uuid.getnode  # undocumented, unused parameter getters that was later removed
 xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495
 xml.etree.cElementTree.TreeBuilder.start  # bpo-39495
-
-sqlite3.OptimizedUnicode.maketrans
-sqlite3.dbapi2.OptimizedUnicode.maketrans
 
 collections.Coroutine.cr_await
 collections.Coroutine.cr_code
@@ -141,10 +137,6 @@ collections.Set.__rxor__
 
 builtins.memoryview.__iter__  # C type that implements __getitem__
 builtins.memoryview.cast  # inspect.signature is incorrect about shape being kw-only
-sqlite3.dbapi2.Binary.__iter__  # C type that implements __getitem__
-sqlite3.dbapi2.Binary.cast  # inspect.signature is incorrect about shape being kw-only
-sqlite3.Binary.__iter__  # C type that implements __getitem__
-sqlite3.Binary.cast  # inspect.signature is incorrect about shape being kw-only
 
 # C signature is broader than what is actually accepted
 queue.SimpleQueue.__init__
