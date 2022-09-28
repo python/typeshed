@@ -3,7 +3,6 @@ import re
 import subprocess
 import sys
 from pathlib import Path
-from typing import Optional
 
 try:
     from termcolor import colored
@@ -59,7 +58,9 @@ if __name__ == "__main__":
     check_consistent_result = subprocess.run([sys.executable, "tests/check_consistent.py"])
     check_new_syntax_result = subprocess.run([sys.executable, "tests/check_new_syntax.py"])
 
-    pyright_result = subprocess.run([sys.executable, "tests/pyright_test.py", path] + _get_strict_params(path), stderr=subprocess.PIPE)
+    pyright_result = subprocess.run(
+        [sys.executable, "tests/pyright_test.py", path] + _get_strict_params(path), stderr=subprocess.PIPE
+    )
     print(pyright_result.stderr.decode())
     if b"error running npx" in pyright_result.stderr:
         pyright_returncode = 0
@@ -100,7 +101,7 @@ if __name__ == "__main__":
             mypy_result.returncode,
             getattr(stubtest_result, "returncode", 0),
             getattr(pytype_result, "returncode", 0),
-            regr_test_returncode
+            regr_test_returncode,
         ]
     )
 
