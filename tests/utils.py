@@ -9,6 +9,7 @@ from itertools import filterfalse
 from pathlib import Path
 from typing import NamedTuple
 
+import pathspec  # type: ignore[import]
 import tomli
 
 
@@ -91,3 +92,21 @@ def get_all_testcase_directories() -> list[PackageInfo]:
         if potential_testcase_dir.is_dir():
             testcase_directories.append(PackageInfo(package_name, potential_testcase_dir))
     return sorted(testcase_directories)
+
+
+# ====================================================================
+# Parsing .gitignore
+# ====================================================================
+
+
+@cache
+def get_gitignore_spec() -> pathspec.PathSpec:
+    with open(".gitignore") as f:
+        return pathspec.PathSpec.from_lines("gitwildmatch", f.readlines())
+
+
+def spec_matches_path(spec: pathspec.PathSpec, path: Path) -> bool:
+    normalized_path = path.as_posix()
+    if path.is_dir():
+        normalized_path += "/"
+    return spec.match_file(normalized_path)  # type: ignore[no-any-return]

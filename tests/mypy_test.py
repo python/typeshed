@@ -24,9 +24,11 @@ import tomli
 from utils import (
     VERSIONS_RE as VERSION_LINE_RE,
     colored,
+    get_gitignore_spec,
     get_recursive_requirements,
     print_error,
     print_success_msg,
+    spec_matches_path,
     strip_comments,
 )
 
@@ -320,11 +322,6 @@ def test_third_party_distribution(distribution: str, args: TestConfig) -> TestRe
     return TestResults(code, len(files))
 
 
-def is_probably_stubs_folder(distribution: str, distribution_path: Path) -> bool:
-    """Validate that `dist_path` is a folder containing stubs"""
-    return distribution != ".mypy_cache" and distribution_path.is_dir()
-
-
 def test_stdlib(code: int, args: TestConfig) -> TestResults:
     seen = {"builtins", "typing"}  # Always ignore these.
     files: list[Path] = []
@@ -351,11 +348,12 @@ def test_third_party_stubs(code: int, args: TestConfig) -> TestResults:
     print("Testing third-party packages...")
     print("Running mypy " + " ".join(get_mypy_flags(args, "/tmp/...")))
     files_checked = 0
+    gitignore_spec = get_gitignore_spec()
 
     for distribution in sorted(os.listdir("stubs")):
         distribution_path = Path("stubs", distribution)
 
-        if not is_probably_stubs_folder(distribution, distribution_path):
+        if spec_matches_path(gitignore_spec, distribution_path):
             continue
 
         if distribution_path in args.filter or any(distribution_path in path.parents for path in args.filter):
