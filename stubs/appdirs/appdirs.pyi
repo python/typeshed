@@ -1,4 +1,5 @@
 __version_info__: tuple[int, int, int]
+
 PY3: bool
 unicode = str
 system: str
