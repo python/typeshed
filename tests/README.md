@@ -26,7 +26,9 @@ Run using:
 (.venv3)$ python3 scripts/runtests.py <stdlib-or-stubs>/<stub-to-test>
 ```
 
-This script will run all tests below for a specific stub with a summary of the results. You must provide a single argument which is a path to the stub to test, like so: `stblib/os` or `stubs/requests`.
+This script will run all tests below for a specific typeshed directory. A summary of the results will be printed to the terminal.
+
+You must provide a single argument which is a path to the stubs to test, like so: `stdlib/os` or `stubs/requests`.
 
 ## mypy\_test.py
 
