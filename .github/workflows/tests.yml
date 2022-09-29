@@ -137,7 +137,7 @@ jobs:
         with:
           python-version: "3.9"
       - name: Install dependencies
-        run: pip install $(grep tomli== requirements-tests.txt) termcolor
+        run: pip install -r requirements-tests.txt
       - name: Run stubtest
         run: |
           STUBS=$(
