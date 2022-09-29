@@ -50,7 +50,7 @@ jobs:
         with:
           python-version: "3.9"
       - name: Install dependencies
-        run: pip install $(grep -E 'tomli|termcolor|pathspec' requirements-tests.txt)
+        run: pip install -r requirements-tests.txt
       - name: Install apt packages
         run: |
           sudo apt update
