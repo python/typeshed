@@ -377,19 +377,19 @@ async def create_or_update_pull_request(*, title: str, body: str, branch_name: s
         response.raise_for_status()
 
 
-def origin_branch_has_changes(branch: str) -> bool:
+def has_non_stubsabot_commits(branch: str) -> bool:
     assert not branch.startswith("origin/")
     try:
         # number of commits on origin/branch that are not on branch or are
         # patch equivalent to a commit on branch
         output = subprocess.check_output(
-            ["git", "rev-list", "--right-only", "--cherry-pick", "--count", f"{branch}...origin/{branch}"],
+            ["git", "log", "--right-only", "--pretty=%an", "--cherry-pick", f"{branch}...origin/{branch}"],
             stderr=subprocess.DEVNULL,
         )
+        return bool(set(output.splitlines()) - {b"stubsabot"})
     except subprocess.CalledProcessError:
         # origin/branch does not exist
         return False
-    return int(output) > 0
 
 
 class RemoteConflict(Exception):
@@ -397,7 +397,7 @@ class RemoteConflict(Exception):
 
 
 def somewhat_safe_force_push(branch: str) -> None:
-    if origin_branch_has_changes(branch):
+    if has_non_stubsabot_commits(branch):
         raise RemoteConflict(f"origin/{branch} has changes not on {branch}!")
     subprocess.check_call(["git", "push", "origin", branch, "--force"])
 
