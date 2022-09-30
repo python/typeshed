@@ -25,7 +25,6 @@ class Dialect:
     lineterminator: str
     quoting: _QuotingType
     strict: bool
-    def __init__(self) -> None: ...
 
 _DialectLike: TypeAlias = Union[str, Dialect, type[Dialect]]
 
