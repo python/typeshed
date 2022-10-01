@@ -19,6 +19,9 @@ _STRICTER_CONFIG_FILE = "pyrightconfig.stricter.json"
 _SUCCESS = colored("Success", "green")
 _SKIPPED = colored("Skipped", "yellow")
 _FAILED = colored("Failed", "red")
+# We're using the oldest supported version because it's the most likely to produce errors
+# due to unsupported syntax, feature, or bug in a tool.
+_PYTHON_VERSION = "3.7"
 
 
 def _parse_jsonc(json_text: str) -> str:
@@ -37,7 +40,7 @@ def _get_strict_params(stub_path: str) -> list[str]:
     return ["-p", _STRICTER_CONFIG_FILE]
 
 
-if __name__ == "__main__":
+def main():
     try:
         path = sys.argv[1]
     except IndexError:
@@ -69,20 +72,23 @@ if __name__ == "__main__":
     print("\nRunning check_new_syntax.py...")
     check_new_syntax_result = subprocess.run([sys.executable, "tests/check_new_syntax.py"])
 
-    print("\nRunning Pyright...")
+    print(f"\nRunning Pyright on Python {_PYTHON_VERSION}...")
     pyright_result = subprocess.run(
-        [sys.executable, "tests/pyright_test.py", path] + _get_strict_params(path), stderr=subprocess.PIPE, text=True
+        [sys.executable, "tests/pyright_test.py", path, "--pythonversion", _PYTHON_VERSION] + _get_strict_params(path),
+        stderr=subprocess.PIPE,
+        text=True,
     )
-    print(pyright_result.stderr)
     if re.match(r"error (runn|find)ing npx", pyright_result.stderr):
+        print("\nSkipping Pyright tests: npx is not installed or can't be run!")
         pyright_returncode = 0
         pyright_skipped = True
     else:
+        print(pyright_result.stderr)
         pyright_returncode = pyright_result.returncode
         pyright_skipped = False
 
-    print("\nRunning mypy...")
-    mypy_result = subprocess.run([sys.executable, "tests/mypy_test.py", path])
+    print(f"\nRunning mypy for Python {_PYTHON_VERSION}...")
+    mypy_result = subprocess.run([sys.executable, "tests/mypy_test.py", path, "--python-version", _PYTHON_VERSION])
     # If mypy failed, stubtest will fail without any helpful error
     if mypy_result.returncode == 0:
         print("\nRunning stubtest...")
@@ -91,22 +97,24 @@ if __name__ == "__main__":
         else:
             stubtest_result = subprocess.run([sys.executable, "tests/stubtest_third_party.py", stub])
     else:
-        print("Skipping stubtest since mypy failed.")
+        print("\nSkipping stubtest since mypy failed.")
 
     if sys.platform == "win32":
-        print("Skipping pytype on Windows. You can run the test with WSL.")
+        print("\nSkipping pytype on Windows. You can run the test with WSL.")
     else:
         print("\nRunning pytype...")
         pytype_result = subprocess.run([sys.executable, "tests/pytype_test.py", path])
 
-    print("\nRunning regression tests...")
+    print(f"\nRunning regression tests for Python {_PYTHON_VERSION}...")
     regr_test_result = subprocess.run(
-        [sys.executable, "tests/regr_test.py", "stdlib" if folder == "stdlib" else stub], stderr=subprocess.PIPE, text=True
+        [sys.executable, "tests/regr_test.py", "stdlib" if folder == "stdlib" else stub, "--python-version", _PYTHON_VERSION],
+        stderr=subprocess.PIPE,
+        text=True,
     )
     # No test means they all ran successfully (0 out of 0). Not all 3rd-party stubs have regression tests.
     if "No test cases found" in regr_test_result.stderr:
         regr_test_returncode = 0
-        print(f"No test cases found for '{stub}'!")
+        print(colored(f"\nNo test cases found for '{stub}'!"), "green")
     else:
         regr_test_returncode = regr_test_result.returncode
         print(regr_test_result.stderr)
@@ -125,9 +133,9 @@ if __name__ == "__main__":
     )
 
     if any_failure:
-        print("\nOne or more tests failed. See above for details.")
+        print(colored("\n\n--- TEST SUMMARY: One or more tests failed. See above for details. ---\n", "red"))
     else:
-        print("\nAll tests passed!")
+        print(colored("\n\n--- TEST SUMMARY: All tests passed! ---\n", "green"))
     print("Flake8:", _SUCCESS if flake8_result.returncode == 0 else _FAILED)
     print("Check consistent:", _SUCCESS if check_consistent_result.returncode == 0 else _FAILED)
     print("Check new syntax:", _SUCCESS if check_new_syntax_result.returncode == 0 else _FAILED)
@@ -147,3 +155,11 @@ if __name__ == "__main__":
     print("Regression test:", _SUCCESS if regr_test_returncode == 0 else _FAILED)
 
     sys.exit(int(any_failure))
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        print(colored("\nTests aborted due to KeyboardInterrupt!\n", "red"))
+        sys.exit(1)
