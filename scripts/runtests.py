@@ -40,7 +40,7 @@ def _get_strict_params(stub_path: str) -> list[str]:
     return ["-p", _STRICTER_CONFIG_FILE]
 
 
-def main():
+def main() -> None:
     try:
         path = sys.argv[1]
     except IndexError:
