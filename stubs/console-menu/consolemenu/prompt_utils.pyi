@@ -1,5 +1,5 @@
-from typing import Any, NamedTuple
 from collections.abc import Iterable, Sequence
+from typing import Any, NamedTuple
 
 from consolemenu.screen import Screen
 from consolemenu.validators.base import BaseValidator as BaseValidator, InvalidValidator as InvalidValidator

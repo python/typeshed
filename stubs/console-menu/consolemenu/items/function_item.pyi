@@ -1,4 +1,4 @@
-from collections.abc import Callable, Sequence, Mapping
+from collections.abc import Callable, Mapping, Sequence
 from typing import Any
 
 from consolemenu.console_menu import ConsoleMenu
