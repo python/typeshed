@@ -12,7 +12,7 @@ class FunctionItem(ExternalItem):
     def __init__(
         self,
         text: str,
-        function: Callable[[Any], Any],
+        function: Callable[..., Any],
         args: list[Any] | None = ...,
         kwargs: dict[str, Any] | None = ...,
         menu: ConsoleMenu | None = ...,
