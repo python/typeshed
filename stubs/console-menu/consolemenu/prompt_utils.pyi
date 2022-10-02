@@ -2,7 +2,7 @@ from collections.abc import Iterable, Sequence
 from typing import Any, NamedTuple
 
 from consolemenu.screen import Screen
-from consolemenu.validators.base import BaseValidator as BaseValidator, InvalidValidator as InvalidValidator
+from consolemenu.validators.base import BaseValidator, InvalidValidator
 
 class InputResult(NamedTuple):
     input_string: str
