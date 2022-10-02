@@ -98,9 +98,9 @@ that exactly matches typeshed's CI.
 If you need a specific version of Python to repro a CI failure,
 [pyenv](https://github.com/pyenv/pyenv) can also help.
 
-Stubtest is an imperfect tool, and sometimes produces false-positive errors.
-These can be silenced by adding entries to the allowlists in the
-`tests/stubtest_allowlists` directory. Please file issues for stubtest false positives
+Due to its dynamic nature, you may run into false positives. In this case, you
+can add to the allowlists for each affected Python version in
+`tests/stubtest_allowlists`. Please file issues for stubtest false positives
 at [mypy](https://github.com/python/mypy/issues).
 
 ## stubtest\_third\_party.py
