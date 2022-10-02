@@ -88,27 +88,26 @@ Run using
 This test compares the stdlib stubs against the objects at runtime. Because of
 this, the output depends on which version of Python and on what kind of system
 it is run.
-Thus the easiest way to run this test is via Github Actions on your fork;
-if you run it locally, it'll likely complain about system-specific
-differences (in e.g, `socket`) that the type system cannot capture.
-If you need a specific version of Python to repro a CI failure,
-[pyenv](https://github.com/pyenv/pyenv) can help.
+As such, if you run this test locally, it *may* complain about system-specific
+differences (in e.g, `socket`) that the type system has difficulty capturing.
+If you run into this issue, you can consider
+[running the test via Github Actions](https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow#running-a-workflow)
+on your typeshed fork. This ensures that the test is run in an environment
+that exactly matches typeshed's CI.
 
-Due to its dynamic nature, you may run into false positives. In this case, you
-can add to the allowlists for each affected Python version in
-`tests/stubtest_allowlists`. Please file issues for stubtest false positives
+If you need a specific version of Python to repro a CI failure,
+[pyenv](https://github.com/pyenv/pyenv) can also help.
+
+Stubtest is an imperfect tool, and sometimes produces false-positive errors.
+These can be silenced by adding entries to the allowlists in the
+`tests/stubtest_allowlists` directory. Please file issues for stubtest false positives
 at [mypy](https://github.com/python/mypy/issues).
 
-To run stubtest against third party stubs, it's easiest to use stubtest
-directly, with
-```
-(.venv3)$ python3 -m mypy.stubtest \
-  --custom-typeshed-dir <path-to-typeshed> \
-  <third-party-module>
-```
-stubtest can also help you find things missing from the stubs.
-
 ## stubtest\_third\_party.py
+
+:warning: This script downloads and executes arbitrary code from PyPI. Only run
+this script locally if you know you can trust the packages you're running
+stubtest on.
 
 Run using
 ```
@@ -126,6 +125,28 @@ check on the command line:
 For each distribution, stubtest ignores definitions listed in a `@tests/stubtest_allowlist.txt` file,
 relative to the distribution. Additional packages that are needed to run stubtest for a
 distribution can be added to `@tests/requirements-stubtest.txt`.
+
+### Using stubtest to find objects missing from the stubs
+
+By default, stubtest emits an error if a public object is present at runtime
+but missing from the stub. However, this behaviour can be disabled using the
+`--ignore-missing-stub` option.
+
+Many third-party stubs packages in typeshed are currently incomplete, and so by
+default, `stubtest_third_party.py` runs stubtest with the
+`--ignore-missing-stub` option to test our third-party stubs. However, this
+option is not used if the distribution has `ignore_missing_stub = false` in the
+`tool.stubtest` section of its `tests/METADATA.toml` file. This setting
+indicates that the package is considered "complete", for example:
+https://github.com/python/typeshed/blob/6950c3237065e6e2a9b64810765fec716252d52a/stubs/emoji/METADATA.toml#L3-L4
+
+You can help make typeshed's stubs more complete by adding
+`ignore_missing_stub = false` to the `tests/METADATA.toml` file for a
+third-party stubs distribution, running stubtest, and then adding things that
+stubtest reports to be missing to the stub. However, note that not *everything*
+that stubtest reports to be missing should necessarily be added to the stub.
+For some implementation details, it is often better to add allowlist entries
+for missing objects rather than trying to match the runtime in every detail.
 
 ## typecheck\_typeshed.py
 
