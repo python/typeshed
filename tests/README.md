@@ -90,8 +90,7 @@ this, the output depends on which version of Python and on what kind of system
 it is run.
 As such, if you run this test locally, it may complain about system-specific
 differences (in e.g, `socket`) that the type system and/or our stubtest settings
-in CI cannot capture.
-If you run into this issue, you can consider
+in CI cannot capture. If you run into this issue, you can consider
 [running the test via Github Actions](https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow#running-a-workflow)
 on your typeshed fork. This ensures that the test is run in an environment
 that exactly matches typeshed's CI.
