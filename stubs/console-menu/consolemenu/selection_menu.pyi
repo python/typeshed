@@ -6,7 +6,7 @@ from consolemenu.screen import Screen
 class SelectionMenu(ConsoleMenu):
     def __init__(
         self,
-        strings: list[str],
+        strings: Iterable[str],
         title: str | None = ...,
         subtitle: str | None = ...,
         screen: Screen | None = ...,
@@ -20,7 +20,7 @@ class SelectionMenu(ConsoleMenu):
     @classmethod
     def get_selection(
         cls,
-        strings: list[str],
+        strings: Iterable[str],
         title: str = ...,
         subtitle: str | None = ...,
         show_exit_option: bool = ...,
