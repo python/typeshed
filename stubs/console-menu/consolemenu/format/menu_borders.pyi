@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 class MenuBorderStyle:
     @property
     def bottom_left_corner(self) -> str: ...
