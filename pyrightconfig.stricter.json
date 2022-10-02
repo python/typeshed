@@ -75,6 +75,7 @@
         "stubs/python-dateutil",
         "stubs/python-jose",
         "stubs/pyvmomi",
+        "stubs/pywin32",
         "stubs/PyYAML",
         "stubs/redis",
         "stubs/requests",
