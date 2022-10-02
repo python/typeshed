@@ -25,7 +25,6 @@ Run using:
 ```
 (.venv3)$ python3 scripts/runtests.py <stdlib-or-stubs>/<stub-to-test>
 ```
-*Note: Due to [a bug in venv](https://github.com/python/cpython/issues/87915), on Windows you **have to** use `python` as your executable for 3rd party stubtests to work. `python3` will **not**.*
 
 This script will run all tests below for a specific typeshed directory. If a test supports multiple python versions, the oldest supported by typeshed will be selected. A summary of the results will be printed to the terminal.
 
@@ -126,7 +125,6 @@ Run using
 ```
 (.venv3)$ python3 tests/stubtest_third_party.py
 ```
-*Note: Due to [a bug in venv](https://github.com/python/cpython/issues/87915), on Windows you **have to** use `python` as your executable. `python3` will **not** work.*
 
 Similar to `stubtest_stdlib.py`, but tests the third party stubs. By default,
 it checks all third-party stubs, but you can provide the distributions to

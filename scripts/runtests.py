@@ -79,7 +79,7 @@ def main() -> None:
         text=True,
     )
     if re.match(r"error (runn|find)ing npx", pyright_result.stderr):
-        print("\nSkipping Pyright tests: npx is not installed or can't be run!")
+        print(colored("\nSkipping Pyright tests: npx is not installed or can't be run!", "yellow"))
         pyright_returncode = 0
         pyright_skipped = True
     else:
@@ -90,17 +90,29 @@ def main() -> None:
     print(f"\nRunning mypy for Python {_PYTHON_VERSION}...")
     mypy_result = subprocess.run([sys.executable, "tests/mypy_test.py", path, "--python-version", _PYTHON_VERSION])
     # If mypy failed, stubtest will fail without any helpful error
-    if mypy_result.returncode == 0:
-        print("\nRunning stubtest...")
+    if mypy_result.returncode == 1:
         if folder == "stdlib":
+            print("\nRunning stubtest...")
             stubtest_result = subprocess.run([sys.executable, "tests/stubtest_stdlib.py", stub])
         else:
-            stubtest_result = subprocess.run([sys.executable, "tests/stubtest_third_party.py", stub])
+            run_stubtest_query = (
+                f"\nRun stubtest for {stub!r} (Y/N)?\n\n"
+                "NOTE: Running third-party stubtest involves downloading and executing arbitrary code from PyPI.\n"
+                f"Only run stubtest if you trust the {stub!r} package.\n"
+            )
+            run_stubtest_answer = input(colored(run_stubtest_query, "yellow")).lower()
+            while run_stubtest_answer not in {"yes", "no", "y", "n"}:
+                run_stubtest_answer = input(colored("Invalid response; please try again.\n", "red")).lower()
+            if run_stubtest_answer in {"yes", "y"}:
+                print("\nRunning stubtest.")
+                stubtest_result = subprocess.run([sys.executable, "tests/stubtest_third_party.py", stub])
+            else:
+                print(colored(f"\nSkipping stubtest for {stub!r}...", "yellow"))
     else:
-        print("\nSkipping stubtest since mypy failed.")
+        print(colored("\nSkipping stubtest since mypy failed.", "yellow"))
 
     if sys.platform == "win32":
-        print("\nSkipping pytype on Windows. You can run the test with WSL.")
+        print(colored("\nSkipping pytype on Windows. You can run the test with WSL.", "yellow"))
     else:
         print("\nRunning pytype...")
         pytype_result = subprocess.run([sys.executable, "tests/pytype_test.py", path])
@@ -114,7 +126,7 @@ def main() -> None:
     # No test means they all ran successfully (0 out of 0). Not all 3rd-party stubs have regression tests.
     if "No test cases found" in regr_test_result.stderr:
         regr_test_returncode = 0
-        print(colored(f"\nNo test cases found for '{stub}'!"), "green")
+        print(colored(f"\nNo test cases found for {stub!r}!", "green"))
     else:
         regr_test_returncode = regr_test_result.returncode
         print(regr_test_result.stderr)
