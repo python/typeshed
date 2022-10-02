@@ -90,7 +90,7 @@ def main() -> None:
     print(f"\nRunning mypy for Python {_PYTHON_VERSION}...")
     mypy_result = subprocess.run([sys.executable, "tests/mypy_test.py", path, "--python-version", _PYTHON_VERSION])
     # If mypy failed, stubtest will fail without any helpful error
-    if mypy_result.returncode == 1:
+    if mypy_result.returncode == 0:
         if folder == "stdlib":
             print("\nRunning stubtest...")
             stubtest_result = subprocess.run([sys.executable, "tests/stubtest_stdlib.py", stub])
