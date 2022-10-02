@@ -4,7 +4,7 @@ import collections
 import sys
 import typing
 from _collections_abc import dict_items, dict_keys, dict_values
-from _typeshed import IdentityFunction
+from _typeshed import IdentityFunction, Incomplete
 from collections.abc import Iterable
 from typing import (  # noqa: Y022,Y027,Y039
     TYPE_CHECKING as TYPE_CHECKING,
@@ -198,7 +198,6 @@ if sys.version_info >= (3, 11):
         NotRequired as NotRequired,
         Required as Required,
         Self as Self,
-        TypeVarTuple as TypeVarTuple,
         Unpack as Unpack,
         assert_never as assert_never,
         assert_type as assert_type,
