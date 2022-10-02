@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 from consolemenu.console_menu import ConsoleMenu
 from consolemenu.items import MenuItem as MenuItem
 

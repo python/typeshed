@@ -1,4 +1,3 @@
-from consolemenu.console_menu import ConsoleMenu
 from consolemenu.items import MenuItem as MenuItem
 
 class ExternalItem(MenuItem):
