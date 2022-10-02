@@ -1,4 +1,4 @@
-from collections.abc import Callable
+from collections.abc import Callable, Sequence, Mapping
 from typing import Any
 
 from consolemenu.console_menu import ConsoleMenu
@@ -6,15 +6,15 @@ from consolemenu.items import ExternalItem as ExternalItem
 
 class FunctionItem(ExternalItem):
     function: Callable[..., Any]
-    args: list[Any]
-    kwargs: dict[str, Any]
+    args: Sequence[Any]
+    kwargs: Mapping[str, Any]
     return_value: Any | None
     def __init__(
         self,
         text: str,
         function: Callable[..., Any],
-        args: list[Any] | None = ...,
-        kwargs: dict[str, Any] | None = ...,
+        args: Sequence[Any] | None = ...,
+        kwargs: Mapping[str, Any] | None = ...,
         menu: ConsoleMenu | None = ...,
         should_exit: bool = ...,
     ) -> None: ...

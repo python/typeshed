@@ -1,3 +1,5 @@
+from collections.abc import Callable
+
 from consolemenu.menu_formatter import MenuFormatBuilder as MenuFormatBuilder
 from consolemenu.screen import Screen as Screen
 
@@ -6,29 +8,29 @@ class ConsoleMenu:
     screen: Screen
     clear_screen_before_render: bool
     formatter: MenuFormatBuilder
-    title: str | None
-    subtitle: str | None
-    prologue_text: str | None
-    epilogue_text: str | None
+    title: str | Callable[[], str] | None
+    subtitle: str | Callable[[], str] | None
+    prologue_text: str | Callable[[], str] | None
+    epilogue_text: str | Callable[[], str] | None
     highlight: None
     normal: None
     show_exit_option: bool
     items: list[MenuItem]
-    parent: ConsoleMenu
+    parent: ConsoleMenu | None
     exit_item: ExitItem
     current_option: int
     selected_option: int
-    returned_value: object
+    returned_value: object | None
     should_exit: bool
-    previous_active_menu: ConsoleMenu
+    previous_active_menu: ConsoleMenu | None
     def __init__(
         self,
-        title: str | None = ...,
-        subtitle: str | None = ...,
+        title: str | Callable[[], str] | None = ...,
+        subtitle: str | Callable[[], str] | None = ...,
         screen: Screen | None = ...,
         formatter: MenuFormatBuilder | None = ...,
-        prologue_text: str | None = ...,
-        epilogue_text: str | None = ...,
+        prologue_text: str | Callable[[], str] | None = ...,
+        epilogue_text: str | Callable[[], str] | None = ...,
         clear_screen: bool = ...,
         show_exit_option: bool = ...,
         exit_option_text: str = ...,
@@ -69,7 +71,7 @@ class MenuItem:
     menu: ConsoleMenu | None
     should_exit: bool
     index_item_separator: str
-    def __init__(self, text: str, menu: ConsoleMenu | None = ..., should_exit: bool = ...) -> None: ...
+    def __init__(self, text: str | Callable[[], str], menu: ConsoleMenu | None = ..., should_exit: bool = ...) -> None: ...
     def show(self, index: int) -> str: ...
     def set_up(self) -> None: ...
     def action(self) -> None: ...
@@ -79,7 +81,7 @@ class MenuItem:
     def get_text(self) -> str: ...
 
 class ExitItem(MenuItem):
-    def __init__(self, text: str = ..., menu: ConsoleMenu | None = ...) -> None: ...
+    def __init__(self, text: str | Callable[[], str] = ..., menu: ConsoleMenu | None = ...) -> None: ...
     def show(self, index: int, available_width: None = ...): ...
 
 def clear_terminal() -> None: ...

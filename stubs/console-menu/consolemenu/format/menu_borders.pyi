@@ -1,3 +1,5 @@
+import logging
+
 class MenuBorderStyle:
     @property
     def bottom_left_corner(self) -> str: ...

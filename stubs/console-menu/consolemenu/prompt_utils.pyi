@@ -1,4 +1,5 @@
 from typing import Any, NamedTuple
+from collections.abc import Iterable, Sequence
 
 from consolemenu.screen import Screen
 from consolemenu.validators.base import BaseValidator as BaseValidator, InvalidValidator as InvalidValidator
@@ -28,7 +29,7 @@ class PromptUtils:
         self,
         prompt: str | None = ...,
         default: str | None = ...,
-        validators: list[BaseValidator] | None = ...,
+        validators: Iterable[BaseValidator] | None = ...,
         enable_quit: bool = ...,
         quit_string: str = ...,
         quit_message: str = ...,
