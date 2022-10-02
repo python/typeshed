@@ -2,6 +2,7 @@ import _typeshed
 import abc
 import collections
 import sys
+import typing
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import IdentityFunction
 from collections.abc import Iterable
@@ -27,7 +28,6 @@ from typing import (  # noqa: Y022,Y027,Y039
     Sequence,
     Text as Text,
     Type as Type,
-    TypeVar,
     _Alias,
     overload as overload,
     type_check_only,
@@ -43,6 +43,7 @@ __all__ = [
     "ParamSpecKwargs",
     "Self",
     "Type",
+    "TypeVar",
     "TypeVarTuple",
     "Unpack",
     "Awaitable",
@@ -89,9 +90,9 @@ __all__ = [
     "get_type_hints",
 ]
 
-_T = TypeVar("_T")
-_F = TypeVar("_F", bound=Callable[..., Any])
-_TC = TypeVar("_TC", bound=Type[object])
+_T = typing.TypeVar("_T")
+_F = typing.TypeVar("_F", bound=Callable[..., Any])
+_TC = typing.TypeVar("_TC", bound=Type[object])
 
 # unfortunately we have to duplicate this class definition from typing.pyi or we break pytype
 class _SpecialForm:
@@ -167,7 +168,6 @@ class SupportsIndex(Protocol, metaclass=abc.ABCMeta):
 if sys.version_info >= (3, 10):
     from typing import (
         Concatenate as Concatenate,
-        ParamSpec as ParamSpec,
         ParamSpecArgs as ParamSpecArgs,
         ParamSpecKwargs as ParamSpecKwargs,
         TypeAlias as TypeAlias,
@@ -183,18 +183,6 @@ else:
         __origin__: ParamSpec
         def __init__(self, origin: ParamSpec) -> None: ...
 
-    class ParamSpec:
-        __name__: str
-        __bound__: type[Any] | None
-        __covariant__: bool
-        __contravariant__: bool
-        def __init__(
-            self, name: str, *, bound: None | type[Any] | str = ..., contravariant: bool = ..., covariant: bool = ...
-        ) -> None: ...
-        @property
-        def args(self) -> ParamSpecArgs: ...
-        @property
-        def kwargs(self) -> ParamSpecKwargs: ...
     Concatenate: _SpecialForm
     TypeAlias: _SpecialForm
     TypeGuard: _SpecialForm
@@ -233,12 +221,6 @@ else:
     LiteralString: _SpecialForm
     Unpack: _SpecialForm
 
-    @final
-    class TypeVarTuple:
-        __name__: str
-        def __init__(self, name: str) -> None: ...
-        def __iter__(self) -> Any: ...  # Unpack[Self]
-
     def dataclass_transform(
         *,
         eq_default: bool = ...,
@@ -268,3 +250,59 @@ else:
             def _asdict(self) -> collections.OrderedDict[str, Any]: ...
 
         def _replace(self: _typeshed.Self, **kwargs: Any) -> _typeshed.Self: ...
+
+# New things in 3.12
+# The `default` parameter was added to TypeVar, ParamSpec, and TypeVarTuple (PEP 696)
+if sys.version_info >= (3, 12):
+    from typing import ParamSpec as ParamSpec, TypeVar as TypeVar, TypeVarTuple as TypeVarTuple
+else:
+    @final
+    class TypeVar:
+        __name__: str
+        __bound__: Any | None
+        __constraints__: tuple[Any, ...]
+        __covariant__: bool
+        __contravariant__: bool
+        __default__: Any | None
+        def __init__(
+            self,
+            name: str,
+            *constraints: Any,
+            bound: Any | None = ...,
+            covariant: bool = ...,
+            contravariant: bool = ...,
+            default: Any | None = ...,
+        ) -> None: ...
+        if sys.version_info >= (3, 10):
+            def __or__(self, right: Any) -> _SpecialForm: ...
+            def __ror__(self, left: Any) -> _SpecialForm: ...
+        if sys.version_info >= (3, 11):
+            def __typing_subst__(self, arg: Incomplete) -> Incomplete: ...
+
+    @final
+    class ParamSpec:
+        __name__: str
+        __bound__: type[Any] | None
+        __covariant__: bool
+        __contravariant__: bool
+        __default__: type[Any] | None
+        def __init__(
+            self,
+            name: str,
+            *,
+            bound: None | type[Any] | str = ...,
+            contravariant: bool = ...,
+            covariant: bool = ...,
+            default: type[Any] | str | None = ...,
+        ) -> None: ...
+        @property
+        def args(self) -> ParamSpecArgs: ...
+        @property
+        def kwargs(self) -> ParamSpecKwargs: ...
+
+    @final
+    class TypeVarTuple:
+        __name__: str
+        __default__: Any | None
+        def __init__(self, name: str, *, default: Any | None = ...) -> None: ...
+        def __iter__(self) -> Any: ...  # Unpack[Self]
