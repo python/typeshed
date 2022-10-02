@@ -66,7 +66,7 @@ class ConsoleMenu:
 
 class MenuItem:
     text: str
-    menu: ConsoleMenu
+    menu: ConsoleMenu | None
     should_exit: bool
     index_item_separator: str
     def __init__(self, text: str, menu: ConsoleMenu | None = ..., should_exit: bool = ...) -> None: ...
