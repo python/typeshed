@@ -5,11 +5,6 @@ from _typeshed import Incomplete
 from collections.abc import Generator
 from typing import NamedTuple
 
-from pysqlite2 import dbapi2 as pysq3
-
-sqlite3 = pysq3
-sqlite3 = pysq3
-
 class NullHandler(logging.Handler):
     def emit(self, record) -> None: ...
 
