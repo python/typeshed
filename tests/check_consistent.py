@@ -15,7 +15,7 @@ import yaml
 from packaging.requirements import Requirement
 from packaging.specifiers import SpecifierSet
 from packaging.version import Version
-from utils import get_all_testcase_directories
+from utils import VERSIONS_RE, get_all_testcase_directories, get_gitignore_spec, spec_matches_path, strip_comments
 
 metadata_keys = {"version", "requires", "extra_description", "obsolete_since", "no_longer_updated", "tool"}
 tool_keys = {"stubtest": {"skip", "apt_dependencies", "extras", "ignore_missing_stub"}}
@@ -26,8 +26,11 @@ def assert_consistent_filetypes(directory: Path, *, kind: str, allowed: set[str]
     """Check that given directory contains only valid Python files of a certain kind."""
     allowed_paths = {Path(f) for f in allowed}
     contents = list(directory.iterdir())
+    gitignore_spec = get_gitignore_spec()
     while contents:
         entry = contents.pop()
+        if spec_matches_path(gitignore_spec, entry):
+            continue
         if entry.relative_to(directory) in allowed_paths:
             # Note if a subdirectory is allowed, we will not check its contents
             continue
@@ -45,7 +48,10 @@ def check_stdlib() -> None:
 
 
 def check_stubs() -> None:
+    gitignore_spec = get_gitignore_spec()
     for dist in Path("stubs").iterdir():
+        if spec_matches_path(gitignore_spec, dist):
+            continue
         assert dist.is_dir(), f"Only directories allowed in stubs, got {dist}"
 
         valid_dist_name = "^([A-Z0-9]|[A-Z0-9][A-Z0-9._-]*[A-Z0-9])$"  # courtesy of PEP 426
@@ -85,13 +91,6 @@ def check_no_symlinks() -> None:
             raise ValueError(no_symlink.format(file))
 
 
-_VERSIONS_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_.]*): [23]\.\d{1,2}-(?:[23]\.\d{1,2})?$")
-
-
-def strip_comments(text: str) -> str:
-    return text.split("#")[0].strip()
-
-
 def check_versions() -> None:
     versions = set()
     with open("stdlib/VERSIONS") as f:
@@ -100,7 +99,7 @@ def check_versions() -> None:
         line = strip_comments(line)
         if line == "":
             continue
-        m = _VERSIONS_RE.match(line)
+        m = VERSIONS_RE.match(line)
         if not m:
             raise AssertionError(f"Bad line in VERSIONS: {line}")
         module = m.group(1)

@@ -1,30 +1,25 @@
 """Utilities that are imported by multiple scripts in the tests directory."""
 
 import os
+import re
 from functools import cache
 from pathlib import Path
-from typing import TYPE_CHECKING, NamedTuple
+from typing import NamedTuple
 
+import pathspec  # type: ignore[import]
 import tomli
 
-# ====================================================================
-# Some simple hacks so we don't have to install types-termcolor in CI,
-# and so that tests can be run locally without termcolor installed,
-# if desired
-# ====================================================================
 
-if TYPE_CHECKING:
+def strip_comments(text: str) -> str:
+    return text.split("#")[0].strip()
 
-    def colored(__str: str, __style: str) -> str:
-        ...
 
-else:
-    try:
-        from termcolor import colored
-    except ImportError:
+try:
+    from termcolor import colored as colored
+except ImportError:
 
-        def colored(s: str, _: str) -> str:
-            return s
+    def colored(s: str, _: str) -> str:  # type: ignore[misc]
+        return s
 
 
 def print_error(error: str, end: str = "\n", fix_path: tuple[str, str] = ("", "")) -> None:
@@ -59,6 +54,14 @@ def read_dependencies(distribution: str) -> tuple[str, ...]:
 
 
 # ====================================================================
+# Parsing the stdlib/VERSIONS file
+# ====================================================================
+
+
+VERSIONS_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_.]*): ([23]\.\d{1,2})-([23]\.\d{1,2})?$")
+
+
+# ====================================================================
 # Getting test-case directories from package names
 # ====================================================================
 
@@ -79,3 +82,21 @@ def get_all_testcase_directories() -> list[PackageInfo]:
         if potential_testcase_dir.is_dir():
             testcase_directories.append(PackageInfo(package_name, potential_testcase_dir))
     return sorted(testcase_directories)
+
+
+# ====================================================================
+# Parsing .gitignore
+# ====================================================================
+
+
+@cache
+def get_gitignore_spec() -> pathspec.PathSpec:
+    with open(".gitignore") as f:
+        return pathspec.PathSpec.from_lines("gitwildmatch", f.readlines())
+
+
+def spec_matches_path(spec: pathspec.PathSpec, path: Path) -> bool:
+    normalized_path = path.as_posix()
+    if path.is_dir():
+        normalized_path += "/"
+    return spec.match_file(normalized_path)  # type: ignore[no-any-return]
