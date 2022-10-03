@@ -23,3 +23,15 @@ google.protobuf.text_format.MessageToBytes
 # Stubbed as static method, but actually exists as a property that's
 # a function. Typeshed's typing is more useful
 google.protobuf.service.Service.GetDescriptor
+
+# These are deliberately omitted in the stub.
+# The classes can't be constructed directly anyway,
+# so the signatures of their constructors are somewhat irrelevant.
+google.protobuf.descriptor.Descriptor.__init__
+google.protobuf.descriptor.Descriptor.__new__
+google.protobuf.descriptor.ServiceDescriptor.__init__
+google.protobuf.descriptor.ServiceDescriptor.__new__
+
+# Set to None at runtime - which doesn't match the Sequence base class.
+# It's a hack - just allow it.
+google.protobuf.internal.containers.BaseContainer.__hash__

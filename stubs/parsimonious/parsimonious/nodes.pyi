@@ -1,5 +1,6 @@
 from collections.abc import Callable, Iterator, Sequence
-from typing import Any, Match, NoReturn, TypeVar
+from re import Match
+from typing import Any, NoReturn, TypeVar
 
 from parsimonious.exceptions import VisitationError as VisitationError
 from parsimonious.expressions import Expression
@@ -18,6 +19,7 @@ class Node:
     @property
     def text(self) -> str: ...
     def prettily(self, error: Node | None = ...) -> str: ...
+    def __repr__(self, top_level: bool = ...) -> str: ...
 
 class RegexNode(Node):
     match: Match[str]
@@ -26,7 +28,7 @@ class RuleDecoratorMeta(type): ...
 
 class NodeVisitor(metaclass=RuleDecoratorMeta):
     grammar: Grammar | Any
-    unwrapped_exceptions: tuple[type[Exception], ...]
+    unwrapped_exceptions: tuple[type[BaseException], ...]
     def visit(self, node: Node) -> Any: ...
     def generic_visit(self, node: Node, visited_children: Sequence[Any]) -> NoReturn: ...
     def parse(self, text: str, pos: int = ...) -> Node: ...

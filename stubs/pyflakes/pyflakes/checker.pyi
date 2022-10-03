@@ -1,8 +1,9 @@
 import ast
 import sys
 from collections.abc import Callable, Iterable, Iterator
+from re import Pattern
 from tokenize import TokenInfo
-from typing import Any, ClassVar, Pattern, TypeVar, overload
+from typing import Any, ClassVar, TypeVar, overload
 from typing_extensions import Literal, ParamSpec, TypeAlias
 
 from pyflakes.messages import Message
@@ -12,20 +13,12 @@ _F = TypeVar("_F", bound=_AnyFunction)
 _P = ParamSpec("_P")
 _T = TypeVar("_T")
 
-PY2: bool
-PY35_PLUS: bool
-PY36_PLUS: bool
 PY38_PLUS: bool
 PYPY: bool
 
-def getNodeType(node_class: type[ast.AST]) -> str: ...
-def get_raise_argument(node: ast.Raise) -> ast.expr | None: ...
 def getAlternatives(n: ast.If | ast.Try) -> list[ast.AST]: ...
 
 FOR_TYPES: tuple[type[ast.For], type[ast.AsyncFor]]
-LOOP_TYPES: tuple[type[ast.While], type[ast.For], type[ast.AsyncFor]]
-FUNCTION_TYPES: tuple[type[ast.FunctionDef], type[ast.AsyncFunctionDef]]
-ANNASSIGN_TYPES: tuple[type[ast.AnnAssign]]
 TYPE_COMMENT_RE: Pattern[str]
 ASCII_NON_ALNUM: str
 TYPE_IGNORE_RE: Pattern[str]
@@ -159,32 +152,32 @@ def in_string_annotation(func: _F) -> _F: ...
 def make_tokens(code: str | bytes) -> tuple[TokenInfo, ...]: ...
 
 if sys.version_info >= (3, 8):
-    _NamedExpr = ast.NamedExpr
+    _NamedExpr: TypeAlias = ast.NamedExpr
 else:
-    _NamedExpr = Any
+    _NamedExpr: TypeAlias = Any
 
 if sys.version_info >= (3, 10):
-    _Match = ast.Match
-    _MatchCase = ast.match_case
-    _MatchValue = ast.MatchValue
-    _MatchSingleton = ast.MatchSingleton
-    _MatchSequence = ast.MatchSequence
-    _MatchStar = ast.MatchStar
-    _MatchMapping = ast.MatchMapping
-    _MatchClass = ast.MatchClass
-    _MatchAs = ast.MatchAs
-    _MatchOr = ast.MatchOr
+    _Match: TypeAlias = ast.Match
+    _MatchCase: TypeAlias = ast.match_case
+    _MatchValue: TypeAlias = ast.MatchValue
+    _MatchSingleton: TypeAlias = ast.MatchSingleton
+    _MatchSequence: TypeAlias = ast.MatchSequence
+    _MatchStar: TypeAlias = ast.MatchStar
+    _MatchMapping: TypeAlias = ast.MatchMapping
+    _MatchClass: TypeAlias = ast.MatchClass
+    _MatchAs: TypeAlias = ast.MatchAs
+    _MatchOr: TypeAlias = ast.MatchOr
 else:
-    _Match = Any
-    _MatchCase = Any
-    _MatchValue = Any
-    _MatchSingleton = Any
-    _MatchSequence = Any
-    _MatchStar = Any
-    _MatchMapping = Any
-    _MatchClass = Any
-    _MatchAs = Any
-    _MatchOr = Any
+    _Match: TypeAlias = Any
+    _MatchCase: TypeAlias = Any
+    _MatchValue: TypeAlias = Any
+    _MatchSingleton: TypeAlias = Any
+    _MatchSequence: TypeAlias = Any
+    _MatchStar: TypeAlias = Any
+    _MatchMapping: TypeAlias = Any
+    _MatchClass: TypeAlias = Any
+    _MatchAs: TypeAlias = Any
+    _MatchOr: TypeAlias = Any
 
 class Checker:
     nodeDepth: int
@@ -242,23 +235,18 @@ class Checker:
     def handleAnnotation(self, annotation: ast.AST, node: ast.AST) -> None: ...
     def ignore(self, node: ast.AST) -> None: ...
     def DELETE(self, tree: ast.Delete, omit: _OmitType = ...) -> None: ...
-    def PRINT(self, tree: ast.AST, omit: _OmitType = ...) -> None: ...
     def FOR(self, tree: ast.For, omit: _OmitType = ...) -> None: ...
     def ASYNCFOR(self, tree: ast.AsyncFor, omit: _OmitType = ...) -> None: ...
     def WHILE(self, tree: ast.While, omit: _OmitType = ...) -> None: ...
     def WITH(self, tree: ast.With, omit: _OmitType = ...) -> None: ...
     def WITHITEM(self, tree: ast.AST, omit: _OmitType = ...) -> None: ...
     def ASYNCWITH(self, tree: ast.AsyncWith, omit: _OmitType = ...) -> None: ...
-    def ASYNCWITHITEM(self, tree: ast.AST, omit: _OmitType = ...) -> None: ...
-    def TRYFINALLY(self, tree: ast.Try, omit: _OmitType = ...) -> None: ...
-    def EXEC(self, tree: ast.AST, omit: _OmitType = ...) -> None: ...
     def EXPR(self, tree: ast.AST, omit: _OmitType = ...) -> None: ...
     def ASSIGN(self, tree: ast.Assign, omit: _OmitType = ...) -> None: ...
     def PASS(self, node: ast.AST) -> None: ...
     def BOOLOP(self, tree: ast.BoolOp, omit: _OmitType = ...) -> None: ...
     def UNARYOP(self, tree: ast.UnaryOp, omit: _OmitType = ...) -> None: ...
     def SET(self, tree: ast.Set, omit: _OmitType = ...) -> None: ...
-    def REPR(self, tree: ast.AST, omit: _OmitType = ...) -> None: ...
     def ATTRIBUTE(self, tree: ast.Attribute, omit: _OmitType = ...) -> None: ...
     def STARRED(self, tree: ast.Starred, omit: _OmitType = ...) -> None: ...
     def NAMECONSTANT(self, tree: ast.NameConstant, omit: _OmitType = ...) -> None: ...
@@ -345,7 +333,6 @@ class Checker:
     def IMPORT(self, node: ast.Import) -> None: ...
     def IMPORTFROM(self, node: ast.ImportFrom) -> None: ...
     def TRY(self, node: ast.Try) -> None: ...
-    def TRYEXCEPT(self, node: ast.Try) -> None: ...
     def EXCEPTHANDLER(self, node: ast.ExceptHandler) -> None: ...
     def ANNASSIGN(self, node: ast.AnnAssign) -> None: ...
     def COMPARE(self, node: ast.Compare) -> None: ...

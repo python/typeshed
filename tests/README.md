@@ -1,41 +1,43 @@
 This directory contains several tests:
 - `tests/mypy_test.py`
-tests typeshed with [mypy](https://github.com/python/mypy/)
-- `tests/pytype_test.py` tests typeshed with
+tests the stubs with [mypy](https://github.com/python/mypy/)
+- `tests/pytype_test.py` tests the stubs with
 [pytype](https://github.com/google/pytype/).
-- `tests/pyright_test.py` tests typeshed with
+- `tests/pyright_test.py` tests the stubs with
 [pyright](https://github.com/microsoft/pyright).
+- `tests/regr_test.py` runs mypy against the test cases for typeshed's
+stubs, guarding against accidental regressions.
 - `tests/check_consistent.py` checks certain files in typeshed remain
 consistent with each other.
 - `tests/stubtest_stdlib.py` checks standard library stubs against the
 objects at runtime.
 - `tests/stubtest_third_party.py` checks third-party stubs against the
 objects at runtime.
+- `tests/typecheck_typeshed.py` runs mypy against typeshed's own code
+in the `tests` and `scripts` directories.
 
 To run the tests, follow the [setup instructions](../CONTRIBUTING.md#preparing-the-environment)
-in the `CONTRIBUTING.md` document. In particular, we recommend running with Python 3.8 or 3.9.
+in the `CONTRIBUTING.md` document. In particular, we recommend running with Python 3.9+.
 
 ## mypy\_test.py
 
-This test requires Python 3.6 or higher; Python 3.6.1 or higher is recommended.
 Run using:
 ```
 (.venv3)$ python3 tests/mypy_test.py
 ```
 
+The test has two parts: running mypy on the stdlib stubs,
+and running mypy on the third-party stubs.
+
 This test is shallow — it verifies that all stubs can be
 imported but doesn't check whether stubs match their implementation
-(in the Python standard library or a third-party package). It has an exclude list of
-modules that are not tested at all, which also lives in the tests directory.
+(in the Python standard library or a third-party package).
 
-You can restrict mypy tests to a single version by passing `-p2` or `-p3.9`:
-```bash
-(.venv3)$ python3 tests/mypy_test.py -p3.9
-```
+Run `python tests/mypy_test.py --help` for information on the various configuration options
+for this script.
 
 ## pytype\_test.py
 
-This test requires Python between 3.6 and 3.9.
 Note: this test cannot be run on Windows
 systems unless you are using Windows Subsystem for Linux.
 
@@ -48,9 +50,9 @@ This test works similarly to `mypy_test.py`, except it uses `pytype`.
 
 ## pyright\_test.py
 
-This test requires [Node.js](https://nodejs.org) to be installed. It is
-currently not part of the CI,
-but it uses the same pyright version and configuration as the CI.
+This test requires [Node.js](https://nodejs.org) to be installed. Although
+typeshed runs pyright in CI, it does not currently use this script. However,
+this script uses the same pyright version and configuration as the CI.
 ```
 (.venv3)$ python3 tests/pyright_test.py                                # Check all files
 (.venv3)$ python3 tests/pyright_test.py stdlib/sys.pyi                 # Check one file
@@ -58,8 +60,16 @@ but it uses the same pyright version and configuration as the CI.
 ```
 
 `pyrightconfig.stricter.json` is a stricter configuration that enables additional
-checks that would typically fail on incomplete stubs (such as `Unknown` checks),
-and is run on a subset of stubs (including the standard library).
+checks that would typically fail on incomplete stubs (such as `Unknown` checks).
+In typeshed's CI, pyright is run with these configuration settings on a subset of
+the stubs in typeshed (including the standard library).
+
+## regr\_test.py
+
+This test runs mypy against the test cases for typeshed's stdlib and third-party
+stubs. See the README in the `test_cases` directory for more information about what
+these test cases are for and how they work. Run `python tests/regr_test.py --help`
+for information on the various configuration options.
 
 ## check\_consistent.py
 
@@ -70,7 +80,6 @@ python3 tests/check_consistent.py
 
 ## stubtest\_stdlib.py
 
-This test requires Python 3.6 or higher.
 Run using
 ```
 (.venv3)$ python3 tests/stubtest_stdlib.py
@@ -99,10 +108,8 @@ directly, with
 ```
 stubtest can also help you find things missing from the stubs.
 
-
 ## stubtest\_third\_party.py
 
-This test requires Python 3.6 or higher.
 Run using
 ```
 (.venv3)$ python3 tests/stubtest_third_party.py
@@ -119,3 +126,14 @@ check on the command line:
 For each distribution, stubtest ignores definitions listed in a `@tests/stubtest_allowlist.txt` file,
 relative to the distribution. Additional packages that are needed to run stubtest for a
 distribution can be added to `@tests/requirements-stubtest.txt`.
+
+## typecheck\_typeshed.py
+
+Run using
+```
+(.venv3)$ python3 tests/typecheck_typeshed.py
+```
+
+This is a small wrapper script that uses mypy to typecheck typeshed's own code in the
+`scripts` and `tests` directories. Run `python tests/typecheck_typeshed.py --help` for
+information on the various configuration options.
