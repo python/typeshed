@@ -52,11 +52,11 @@ class SortedDict(dict[_SupportsRichComparisonAndHashableT, _VT], Generic[_Suppor
     def __ror__(  # type: ignore[override]
         self, other: Mapping[_SupportsRichComparisonAndHashableS, _VT2]
     ) -> SortedDict[_SupportsRichComparisonAndHashableT | _SupportsRichComparisonAndHashableS, _VT | _VT2]: ...
-    def __ior__(self, other: Mapping[_SupportsRichComparisonAndHashableT, _VT]) -> Self: ...  # type: ignore[override,misc]
+    def __ior__(self: Self, other: Mapping[_SupportsRichComparisonAndHashableT, _VT]) -> Self: ...  # type: ignore[override,misc]
     def copy(self) -> SortedDict[_SupportsRichComparisonAndHashableT, _VT]: ...
     def __copy__(self) -> SortedDict[_SupportsRichComparisonAndHashableT, _VT]: ...
     @classmethod
-    def fromkeys(cls, __iterable: Iterable[_SupportsRichComparisonAndHashableT], __value: _VT = ...) -> Self: ...  # type: ignore[override]
+    def fromkeys(cls: Self, __iterable: Iterable[_SupportsRichComparisonAndHashableT], __value: _VT = ...) -> Self: ...  # type: ignore[override]
     def keys(self) -> SortedKeysView[_SupportsRichComparisonAndHashableT]: ...  # type: ignore[override]
     def items(self) -> SortedItemsView[_SupportsRichComparisonAndHashableT, _VT]: ...  # type: ignore[override]
     def values(self) -> SortedValuesView[_VT]: ...  # type: ignore[override]
