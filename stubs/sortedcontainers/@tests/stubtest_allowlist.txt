@@ -23,13 +23,6 @@ sortedcontainers.sorteddict.SortedDict.irange
 sortedcontainers.sorteddict.SortedDict.islice
 sortedcontainers.sorteddict.SortedDict.pop
 sortedcontainers.sorteddict.SortedDict.setdefault
-sortedcontainers.sorteddict.SortedSet.bisect
-sortedcontainers.sorteddict.SortedSet.bisect_left
-sortedcontainers.sorteddict.SortedSet.bisect_right
-sortedcontainers.sorteddict.SortedSet.irange
-sortedcontainers.sorteddict.SortedSet.islice
-sortedcontainers.sorteddict.SortedSet.issubset
-sortedcontainers.sorteddict.SortedSet.issuperset
 sortedcontainers.sortedlist.hexversion
 sortedcontainers.sortedset.SortedSet.bisect
 sortedcontainers.sortedset.SortedSet.bisect_left

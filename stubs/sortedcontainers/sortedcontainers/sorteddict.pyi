@@ -2,9 +2,6 @@ from _typeshed import Self, SupportsDunderGT, SupportsDunderLT, SupportsRichComp
 from collections.abc import Callable, Hashable, ItemsView, Iterable, Iterator, KeysView, Mapping, Sequence, ValuesView
 from typing import Any, Generic, Protocol, TypeVar, overload
 
-from .sortedlist import SortedList as SortedList, recursive_repr as recursive_repr
-from .sortedset import SortedSet as SortedSet
-
 class _SupportsRichComparisonAndHashable(SupportsDunderLT[Any], SupportsDunderGT[Any], Hashable, Protocol): ...
 
 _SupportsRichComparisonAndHashableT = TypeVar("_SupportsRichComparisonAndHashableT", bound=_SupportsRichComparisonAndHashable)
