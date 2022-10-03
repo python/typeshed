@@ -38,6 +38,7 @@
         "stubs/caldav",
         "stubs/cffi",
         "stubs/commonmark",
+        "stubs/console-menu",
         "stubs/cryptography",
         "stubs/dateparser",
         "stubs/dj-database-url",
