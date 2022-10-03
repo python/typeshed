@@ -250,58 +250,55 @@ else:
 
         def _replace(self: _typeshed.Self, **kwargs: Any) -> _typeshed.Self: ...
 
-# New things in 3.12
+# New things in 3.xx
 # The `default` parameter was added to TypeVar, ParamSpec, and TypeVarTuple (PEP 696)
-if sys.version_info >= (3, 12):
-    from typing import ParamSpec as ParamSpec, TypeVar as TypeVar, TypeVarTuple as TypeVarTuple
-else:
-    @final
-    class TypeVar:
-        __name__: str
-        __bound__: Any | None
-        __constraints__: tuple[Any, ...]
-        __covariant__: bool
-        __contravariant__: bool
-        __default__: Any | None
-        def __init__(
-            self,
-            name: str,
-            *constraints: Any,
-            bound: Any | None = ...,
-            covariant: bool = ...,
-            contravariant: bool = ...,
-            default: Any | None = ...,
-        ) -> None: ...
-        if sys.version_info >= (3, 10):
-            def __or__(self, right: Any) -> _SpecialForm: ...
-            def __ror__(self, left: Any) -> _SpecialForm: ...
-        if sys.version_info >= (3, 11):
-            def __typing_subst__(self, arg: Incomplete) -> Incomplete: ...
+@final
+class TypeVar:
+    __name__: str
+    __bound__: Any | None
+    __constraints__: tuple[Any, ...]
+    __covariant__: bool
+    __contravariant__: bool
+    __default__: Any | None
+    def __init__(
+        self,
+        name: str,
+        *constraints: Any,
+        bound: Any | None = ...,
+        covariant: bool = ...,
+        contravariant: bool = ...,
+        default: Any | None = ...,
+    ) -> None: ...
+    if sys.version_info >= (3, 10):
+        def __or__(self, right: Any) -> _SpecialForm: ...
+        def __ror__(self, left: Any) -> _SpecialForm: ...
+    if sys.version_info >= (3, 11):
+        def __typing_subst__(self, arg: Incomplete) -> Incomplete: ...
 
-    @final
-    class ParamSpec:
-        __name__: str
-        __bound__: type[Any] | None
-        __covariant__: bool
-        __contravariant__: bool
-        __default__: type[Any] | None
-        def __init__(
-            self,
-            name: str,
-            *,
-            bound: None | type[Any] | str = ...,
-            contravariant: bool = ...,
-            covariant: bool = ...,
-            default: type[Any] | str | None = ...,
-        ) -> None: ...
-        @property
-        def args(self) -> ParamSpecArgs: ...
-        @property
-        def kwargs(self) -> ParamSpecKwargs: ...
+@final
+class ParamSpec:
+    __name__: str
+    __bound__: type[Any] | None
+    __covariant__: bool
+    __contravariant__: bool
+    __default__: type[Any] | None
+    def __init__(
+        self,
+        name: str,
+        *,
+        bound: None | type[Any] | str = ...,
+        contravariant: bool = ...,
+        covariant: bool = ...,
+        default: type[Any] | str | None = ...,
+    ) -> None: ...
+    @property
+    def args(self) -> ParamSpecArgs: ...
+    @property
+    def kwargs(self) -> ParamSpecKwargs: ...
 
-    @final
-    class TypeVarTuple:
-        __name__: str
-        __default__: Any | None
-        def __init__(self, name: str, *, default: Any | None = ...) -> None: ...
-        def __iter__(self) -> Any: ...  # Unpack[Self]
+@final
+class TypeVarTuple:
+    __name__: str
+    __default__: Any | None
+    def __init__(self, name: str, *, default: Any | None = ...) -> None: ...
+    def __iter__(self) -> Any: ...  # Unpack[Self]
