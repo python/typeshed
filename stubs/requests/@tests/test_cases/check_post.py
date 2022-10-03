@@ -6,7 +6,6 @@ from collections.abc import Iterable
 
 import requests
 
-
 # =================================================================================================
 # Regression test for #7988 (multiple files should be allowed for the "files" argument)
 # This snippet comes from the requests documentation
@@ -34,6 +33,7 @@ r = requests.post(url, files=multiple_files)
 def gen() -> Iterable[bytes]:
     yield b"foo"
     yield b"bar"
+
 
 requests.post("http://httpbin.org/anything", data=gen()).json()["data"]
 
