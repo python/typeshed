@@ -4,9 +4,6 @@ win32comext.mapi.exchdapi
 win32.winxptheme
 win32.wincerapi
 
-# FIXME: I messed up the stub here. redo
-win32comext.axscript.axscript.*
-
 # incomplete
 pythoncom.*
 pythonwin.pywin.*
