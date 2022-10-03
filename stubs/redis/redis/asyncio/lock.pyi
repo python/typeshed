@@ -1,12 +1,11 @@
-from collections.abc import Awaitable
-from typing import Any, ClassVar
-from types import SimpleNamespace
-from types import TracebackType
 import threading
 from _typeshed import Self
+from collections.abc import Awaitable
+from types import SimpleNamespace, TracebackType
+from typing import Any, ClassVar
 
-from redis.commands.core import AsyncScript
 from redis.asyncio import Redis
+from redis.commands.core import AsyncScript
 
 class Lock:
     lua_release: ClassVar[AsyncScript | None]
@@ -35,7 +34,9 @@ class Lock:
     ) -> None: ...
     def register_scripts(self) -> None: ...
     async def __aenter__(self: Self) -> Self: ...
-    async def __aexit__(self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None) -> None: ...
+    async def __aexit__(
+        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
+    ) -> None: ...
     async def acquire(
         self, blocking: bool | None = ..., blocking_timeout: float | None = ..., token: str | bytes | None = ...
     ) -> bool: ...
