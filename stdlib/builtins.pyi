@@ -1951,7 +1951,7 @@ if sys.version_info >= (3, 11):
         @overload
         def subgroup(self: Self, __condition: Callable[[_BaseExceptionT_co], bool]) -> Self | None: ...
         @overload
-        def split(  # type: ignore[misc]  # complaints about overlapping overloads
+        def split(
             self: Self, __condition: type[_BaseExceptionT] | tuple[type[_BaseExceptionT], ...]
         ) -> tuple[BaseExceptionGroup[_BaseExceptionT] | None, Self | None]: ...
         @overload
@@ -1971,7 +1971,7 @@ if sys.version_info >= (3, 11):
         @overload
         def subgroup(self: Self, __condition: Callable[[_ExceptionT_co], bool]) -> Self | None: ...
         @overload  # type: ignore[override]
-        def split(  # type: ignore[misc]  # complaints about overlapping overloads
+        def split(
             self: Self, __condition: type[_ExceptionT] | tuple[type[_ExceptionT], ...]
         ) -> tuple[ExceptionGroup[_ExceptionT] | None, Self | None]: ...
         @overload
