@@ -1,5 +1,5 @@
 from collections.abc import Awaitable, Callable, Iterable
-from typing import Any, TypeVar
+from typing import TypeVar
 
 from redis.backoff import AbstractBackoff
 from redis.exceptions import RedisError
