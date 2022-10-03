@@ -1,12 +1,10 @@
+# Methods which are added in __init__
 sortedcontainers.SortedDict.bisect
 sortedcontainers.SortedDict.bisect_left
 sortedcontainers.SortedDict.bisect_right
-sortedcontainers.SortedDict.fromkeys
 sortedcontainers.SortedDict.index
 sortedcontainers.SortedDict.irange
 sortedcontainers.SortedDict.islice
-sortedcontainers.SortedDict.pop
-sortedcontainers.SortedDict.setdefault
 sortedcontainers.SortedSet.bisect
 sortedcontainers.SortedSet.bisect_left
 sortedcontainers.SortedSet.bisect_right
@@ -17,13 +15,9 @@ sortedcontainers.SortedSet.issuperset
 sortedcontainers.sorteddict.SortedDict.bisect
 sortedcontainers.sorteddict.SortedDict.bisect_left
 sortedcontainers.sorteddict.SortedDict.bisect_right
-sortedcontainers.sorteddict.SortedDict.fromkeys
 sortedcontainers.sorteddict.SortedDict.index
 sortedcontainers.sorteddict.SortedDict.irange
 sortedcontainers.sorteddict.SortedDict.islice
-sortedcontainers.sorteddict.SortedDict.pop
-sortedcontainers.sorteddict.SortedDict.setdefault
-sortedcontainers.sortedlist.hexversion
 sortedcontainers.sortedset.SortedSet.bisect
 sortedcontainers.sortedset.SortedSet.bisect_left
 sortedcontainers.sortedset.SortedSet.bisect_right
@@ -31,3 +25,13 @@ sortedcontainers.sortedset.SortedSet.irange
 sortedcontainers.sortedset.SortedSet.islice
 sortedcontainers.sortedset.SortedSet.issubset
 sortedcontainers.sortedset.SortedSet.issuperset
+
+# Unnecessary re-export from sys
+sortedcontainers.sortedlist.hexversion
+
+sortedcontainers.SortedDict.fromkeys
+sortedcontainers.SortedDict.pop
+sortedcontainers.SortedDict.setdefault
+sortedcontainers.sorteddict.SortedDict.fromkeys
+sortedcontainers.sorteddict.SortedDict.pop
+sortedcontainers.sorteddict.SortedDict.setdefault
