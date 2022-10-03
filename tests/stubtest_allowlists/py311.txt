@@ -1,4 +1,3 @@
-_codecs.unregister
 _collections_abc.AsyncGenerator.ag_await
 _collections_abc.AsyncGenerator.ag_code
 _collections_abc.AsyncGenerator.ag_frame
@@ -13,68 +12,16 @@ _collections_abc.MappingView.__class_getitem__
 _collections_abc.ValuesView.__reversed__
 _csv.Reader
 _csv.Writer
-_imp.find_frozen
-_imp.get_frozen_object
-_imp.source_hash
-_operator.attrgetter.__vectorcalloffset__
-_operator.itemgetter.__vectorcalloffset__
-argparse._AppendConstAction.__init__
 argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group
-argparse._StoreConstAction.__init__
 asynchat.__warningregistry__  # Removal planned for 3.12, can add if someone needs this
-asyncio.sslproto.AppProtocolState
-asyncio.sslproto.SSLAgainErrors
-asyncio.sslproto.SSLProtocol.__init__
-asyncio.sslproto.SSLProtocol._write_appdata
-asyncio.sslproto.SSLProtocol.buffer_updated
-asyncio.sslproto.SSLProtocol.get_buffer
-asyncio.sslproto.SSLProtocol.max_size
-asyncio.sslproto.SSLProtocolState
-asyncio.sslproto._SSLProtocolTransport.get_read_buffer_limits
-asyncio.sslproto._SSLProtocolTransport.get_read_buffer_size
-asyncio.sslproto._SSLProtocolTransport.set_read_buffer_limits
-asyncio.sslproto.add_flowcontrol_defaults
-bdb.Breakpoint.clearBreakpoints
-binascii.a2b_base64
-builtins.dict.get
-concurrent.futures.ProcessPoolExecutor.__init__
-concurrent.futures.process.ProcessPoolExecutor.__init__
-concurrent.futures.process._ResultItem.__init__
-concurrent.futures.process._process_worker
-concurrent.futures.process._sendback_result
 configparser.LegacyInterpolation.__init__
-contextvars.Context.__init__
-dataclasses.KW_ONLY
-dataclasses.field
-dataclasses.make_dataclass
-dis.Bytecode.__init__
-dis.Bytecode.from_traceback
-dis.dis
-dis.disassemble
-dis.disco
-dis.distb
-dis.get_instructions
-distutils.dist.DistributionMetadata.set_classifiers
-distutils.dist.DistributionMetadata.set_keywords
-distutils.dist.DistributionMetadata.set_platforms
-distutils.util.get_host_platform
 enum.Enum.__init__
-enum.Enum._generate_next_value_
-fractions.Fraction.__int__
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 ftplib.FTP.trust_server_pasv_ipv4_address
-functools.partial.__vectorcalloffset__
-gettext.install
-imp.get_frozen_object
-importlib.resources.Resource
-inspect._ParameterKind.description
 ipaddress.IPv4Interface.hostmask
 ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
 ipaddress._BaseNetwork.hostmask
-locale.getencoding
-logging.getLevelNamesMapping
-logging.handlers.SysLogHandler.createSocket
 multiprocessing.managers.SharedMemoryServer.create
 multiprocessing.managers.SharedMemoryServer.list_segments
 multiprocessing.managers.SharedMemoryServer.public
@@ -82,82 +29,17 @@ multiprocessing.managers.SharedMemoryServer.release_segment
 multiprocessing.managers.SharedMemoryServer.shutdown
 multiprocessing.managers.SharedMemoryServer.track_segment
 multiprocessing.spawn._main
-operator.attrgetter.__vectorcalloffset__
-operator.itemgetter.__vectorcalloffset__
-os.popen
 # platform.uname_result's processor field is now dynamically made to exist
 platform.uname_result.__match_args__
 platform.uname_result.__new__
 platform.uname_result._fields
 platform.uname_result.processor
-pydoc.HTMLDoc.heading
-pydoc.HTMLDoc.multicolumn
-pydoc.HTMLDoc.section
-pyexpat.XMLParserType.SkippedEntityHandler
-pyexpat.XMLParserType.intern
-pyexpat.errors.XML_ERROR_AMPLIFICATION_LIMIT_BREACH
-pyexpat.errors.XML_ERROR_INVALID_ARGUMENT
-pyexpat.errors.XML_ERROR_NO_BUFFER
-pyexpat.errors.XML_ERROR_RESERVED_NAMESPACE_URI
-pyexpat.errors.XML_ERROR_RESERVED_PREFIX_XML
-pyexpat.errors.XML_ERROR_RESERVED_PREFIX_XMLNS
 queue.SimpleQueue.__init__
-shutil.rmtree
-socketserver.UDPServer.allow_reuse_port
-string.Template.get_identifiers
-string.Template.is_valid
-subprocess.getoutput
-subprocess.getstatusoutput
-symtable.SymbolTable.has_exec
 sys.UnraisableHookArgs  # Not exported from sys
-sys.exception
 tkinter._VersionInfoType.__doc__
-traceback.StackSummary.format_frame_summary
-traceback.TracebackException.__init__
-traceback.TracebackException.format
-traceback.TracebackException.print
-types.ClassMethodDescriptorType.__get__
-types.CodeType.co_exceptiontable
-types.CodeType.co_qualname
-types.CoroutineType.cr_suspended
-types.GeneratorType.gi_suspended
-types.MethodDescriptorType.__get__
-types.WrapperDescriptorType.__get__
-typing.ForwardRef._evaluate
 typing.NewType.__call__
 typing.NewType.__mro_entries__
-typing.ParamSpec.__typing_subst__
-typing.TypeVar.__typing_subst__
-typing.TypeVarTuple.__typing_subst__
-unicodedata.UCD.is_normalized
-unittest.TestCase._addSkip
-unittest.case.TestCase._addSkip
-unittest.doModuleCleanups
-urllib.request.FancyURLopener.http_error_308
-urllib.request.HTTPRedirectHandler.http_error_308
 weakref.WeakValueDictionary.update
-wsgiref.types.InputStream.read
-wsgiref.types.InputStream.readline
-wsgiref.types.InputStream.readlines
-wsgiref.types.StartResponse.__call__
-wsgiref.types.WSGIApplication
-wsgiref.types.WSGIEnvironment.get
-wsgiref.types._Readable.read
-xml.parsers.expat.XMLParserType.SkippedEntityHandler
-xml.parsers.expat.XMLParserType.intern
-xml.parsers.expat.errors.XML_ERROR_AMPLIFICATION_LIMIT_BREACH
-xml.parsers.expat.errors.XML_ERROR_INVALID_ARGUMENT
-xml.parsers.expat.errors.XML_ERROR_NO_BUFFER
-xml.parsers.expat.errors.XML_ERROR_RESERVED_NAMESPACE_URI
-xml.parsers.expat.errors.XML_ERROR_RESERVED_PREFIX_XML
-xml.parsers.expat.errors.XML_ERROR_RESERVED_PREFIX_XMLNS
-xml.sax.handler.LexicalHandler
-xmlrpc.server.SimpleXMLRPCRequestHandler.rpc_paths
-zipfile.Path.stem
-zipfile.Path.suffix
-zipfile.Path.suffixes
-zipfile.ZipFile.__init__
-zipfile.ZipFile.mkdir
 
 # stubtest complains that in 3.10 the default argument is inconsistent with the annotation,
 # but in 3.10+ calling the function without the default argument is in fact deprecated,
@@ -206,36 +88,14 @@ os.path.join
 _collections_abc.AsyncGenerator.athrow  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
 _weakref.ProxyType.__reversed__  # Doesn't really exist
 builtins.property.__set_name__  # Doesn't actually exist
-enum.StrEnum.value  # read-only property at runtime but too magical for stubtest
 hmac.new  # Stub is a white lie; see comments in the stub
 http.HTTPMethod.description  # mutable instance attribute at runtime but we pretend it's a property
-http.server.SimpleHTTPRequestHandler.__init__  # *args is expanded
 pickle.Pickler.reducer_override  # implemented in C pickler
-re.Pattern.scanner  # Undocumented and not useful. #6405
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
 types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
 weakref.ProxyType.__reversed__  # Doesn't really exist
-
-# Inherits __init__ from typing.Protocol
-importlib.abc.Traversable.__init__
-importlib.metadata.EntryPoint.__init__
-importlib.metadata.PackageMetadata.__init__
-importlib.metadata._meta.PackageMetadata.__init__
-importlib.metadata._meta.SimplePath.__init__
-typing.SupportsAbs.__init__
-typing.SupportsBytes.__init__
-typing.SupportsComplex.__init__
-typing.SupportsFloat.__init__
-typing.SupportsIndex.__init__
-typing.SupportsInt.__init__
-typing.SupportsRound.__init__
-wsgiref.types.ErrorStream.__init__
-wsgiref.types.FileWrapper.__call__
-wsgiref.types.FileWrapper.__init__
-wsgiref.types.InputStream.__init__
-wsgiref.types.StartResponse.__init__
-wsgiref.types._Readable.__init__
+inspect._ParameterKind.description  # Still exists, but stubtest can't see it
 
 # C signature is broader than what is actually accepted
 ast.Bytes.__new__
@@ -253,24 +113,22 @@ xml.etree.ElementTree.XMLParser.__init__
 xml.etree.cElementTree.XMLParser.__init__
 
 os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all PathLike classes to implement class_getitem
-ssl.PROTOCOL_SSLv3  # Depends on ssl compilation
-ssl.RAND_egd  # Depends on openssl compilation
 types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
 _ast.ImportFrom.level  # None on the class, but never None on instances
 ast.ImportFrom.level  # None on the class, but never None on instances
-
-# These enums derive from (str, Enum). See comment in py3_common.txt
-pstats.SortKey.__new__
-tkinter.EventType.__new__
 
 # Treated an alias of a typing class in the stubs,
 # they are generic to type checkers anyway.
 contextlib.AbstractAsyncContextManager.__class_getitem__
 contextlib.AbstractContextManager.__class_getitem__
 
+# The argument to is_python_build() is deprecated since Python 3.11 and
+# has a default value of None to check for its existence and warn if it's
+# supplied. None is not supposed to be passed by user code and therefore
+# not included in the stubs.
+sysconfig.is_python_build
+
 # Super-special typing primitives
-typing._SpecialForm.__call__
-typing._SpecialForm.__init__
 typing._SpecialForm.__mro_entries__
 typing._TypedDict.__delitem__
 typing._TypedDict.__ior__
@@ -282,3 +140,10 @@ typing._TypedDict.pop
 typing._TypedDict.setdefault
 typing._TypedDict.update
 typing._TypedDict.values
+
+# White lies around defaults
+dataclasses.KW_ONLY
+
+# stubtest confuses stdlib distutils with setuptools-bundled distutils (#8410),
+# and the whole directory is going to be removed in 3.12 anyway
+distutils\..*

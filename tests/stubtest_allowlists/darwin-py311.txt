@@ -1,9 +1,13 @@
-_?curses.A_ITALIC
 _?curses.color_pair
-termios.tcgetwinsize
-termios.tcsetwinsize
 xxlimited.Xxo.x_exports
 
-# Exists at runtime, but missing from stubs
-mmap.MADV_FREE
-distutils.util.__warningregistry__
+# Exists at runtime, missing from stub
+socket.TCP_CONNECTION_INFO
+
+(dbm.gnu)?
+(locale.bind_textdomain_codeset)?
+(locale.bindtextdomain)?
+(locale.dcgettext)
+(locale.dgettext)?
+(locale.gettext)?
+(locale.textdomain)?

@@ -9,19 +9,15 @@ _collections_abc.ValuesView.__reversed__
 _weakref.ProxyType.__reversed__  # Doesn't really exist
 asyncio.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
-builtins.dict.get
 builtins.float.__setformat__  # Internal method for CPython test suite
 builtins.property.__set_name__  # Doesn't actually exist
 contextlib.AbstractAsyncContextManager.__class_getitem__
 contextlib.AbstractContextManager.__class_getitem__
-dataclasses.field
-dataclasses.KW_ONLY
-enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 gettext.install
 gettext.translation
 hmac.new  # Stub is a white lie; see comments in the stub
-http.server.SimpleHTTPRequestHandler.__init__  # *args is expanded
+importlib.metadata._meta.SimplePath.__truediv__  # See comments in the stub
 ipaddress.IPv4Interface.hostmask
 ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
@@ -33,19 +29,12 @@ platform.uname_result.__match_args__
 platform.uname_result.__new__
 platform.uname_result._fields
 platform.uname_result.processor
-re.Pattern.scanner  # Undocumented and not useful. #6405
-symtable.SymbolTable.has_exec
 sys.UnraisableHookArgs  # Not exported from sys
 tkinter.Tk.split
-types.ClassMethodDescriptorType.__get__
 types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
-types.MethodDescriptorType.__get__
-types.WrapperDescriptorType.__get__
 typing._SpecialForm.__mro_entries__
-typing.ForwardRef._evaluate
-typing._SpecialForm.__init__
 typing._TypedDict.__delitem__
 typing._TypedDict.__ior__
 typing._TypedDict.__or__
@@ -73,7 +62,6 @@ tempfile.SpooledTemporaryFile.seekable
 tempfile.SpooledTemporaryFile.writable
 
 # Exists at runtime, but missing from stubs
-_codecs.unregister
 _collections_abc.AsyncIterable.__class_getitem__
 _collections_abc.Awaitable.__class_getitem__
 _collections_abc.Container.__class_getitem__
@@ -81,14 +69,9 @@ _collections_abc.Iterable.__class_getitem__
 _collections_abc.MappingView.__class_getitem__
 _csv.Reader
 _csv.Writer
-_imp.source_hash
 asynchat.__warningregistry__  # Removal planned for 3.12, can add if someone needs this
 bdb.Breakpoint.clearBreakpoints
-distutils.dist.DistributionMetadata.set_classifiers
-distutils.dist.DistributionMetadata.set_keywords
-distutils.dist.DistributionMetadata.set_platforms
 distutils.util.get_host_platform
-functools.partial.__vectorcalloffset__  # undocumented implementation detail
 inspect.Signature.from_builtin  # Removed in 3.11, can add if someone needs this
 inspect.Signature.from_function  # Removed in 3.11, can add if someone needs this
 multiprocessing.managers.SharedMemoryServer.create
@@ -97,13 +80,6 @@ multiprocessing.managers.SharedMemoryServer.public
 multiprocessing.managers.SharedMemoryServer.release_segment
 multiprocessing.managers.SharedMemoryServer.shutdown
 multiprocessing.managers.SharedMemoryServer.track_segment
-pyexpat.XMLParserType.SkippedEntityHandler
-pyexpat.XMLParserType.intern
-typing._SpecialForm.__call__
-unicodedata.UCD.is_normalized
-xml.parsers.expat.XMLParserType.SkippedEntityHandler
-xml.parsers.expat.XMLParserType.intern
-xml.sax.handler.LexicalHandler
 
 # ==========
 # Related to positional-only arguments
@@ -166,32 +142,19 @@ ast.Index.__new__
 ast.NameConstant.__new__
 ast.Num.__new__
 ast.Str.__new__
-contextvars.Context.__init__
 queue.SimpleQueue.__init__
 xml.etree.ElementTree.XMLParser.__init__
 xml.etree.cElementTree.XMLParser.__init__
 
-# Inherits __init__ from typing.Protocol
-importlib.abc.Traversable.__init__
-importlib.metadata.PackageMetadata.__init__
-importlib.metadata._meta.PackageMetadata.__init__
-importlib.metadata._meta.SimplePath.__init__
-typing.SupportsAbs.__init__
-typing.SupportsBytes.__init__
-typing.SupportsComplex.__init__
-typing.SupportsFloat.__init__
-typing.SupportsIndex.__init__
-typing.SupportsInt.__init__
-typing.SupportsRound.__init__
-
 ftplib.FTP.trust_server_pasv_ipv4_address  # Dangerous to use, intentionally undocumented, intentionally missing from typeshed. #6154
 os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all PathLike classes to implement class_getitem
-ssl.PROTOCOL_SSLv3  # Depends on ssl compilation
-ssl.RAND_egd  # Depends on openssl compilation
 types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
 _ast.ImportFrom.level  # None on the class, but never None on instances
 ast.ImportFrom.level  # None on the class, but never None on instances
 
-# These enums derive from (str, Enum). See comment in py3_common.txt
-pstats.SortKey.__new__
-tkinter.EventType.__new__
+# White lies around defaults
+dataclasses.KW_ONLY
+
+# stubtest confuses stdlib distutils with setuptools-bundled distutils (#8410),
+# and the whole directory is going to be removed in 3.12 anyway
+distutils\..*

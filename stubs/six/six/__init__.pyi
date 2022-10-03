@@ -1,14 +1,14 @@
-from __future__ import print_function
-
 import builtins
 import types
 import unittest
+from _typeshed import IdentityFunction
 from builtins import next as next
 from collections.abc import Callable, ItemsView, Iterable, Iterator as _Iterator, KeysView, Mapping, ValuesView
 from functools import wraps as wraps
 from importlib.util import spec_from_loader as spec_from_loader
 from io import BytesIO as BytesIO, StringIO as StringIO
-from typing import Any, AnyStr, NoReturn, Pattern, TypeVar, overload
+from re import Pattern
+from typing import Any, AnyStr, NoReturn, TypeVar, overload
 from typing_extensions import Literal
 
 from . import moves as moves
@@ -26,7 +26,7 @@ PY34: Literal[True]
 
 string_types: tuple[type[str]]
 integer_types: tuple[type[int]]
-class_types: tuple[type[type[Any]]]
+class_types: tuple[type[type]]
 text_type = str
 binary_type = bytes
 
@@ -70,7 +70,7 @@ def assertCountEqual(self: unittest.TestCase, first: Iterable[_T], second: Itera
 @overload
 def assertRaisesRegex(self: unittest.TestCase, msg: str | None = ...) -> Any: ...
 @overload
-def assertRaisesRegex(self: unittest.TestCase, callable_obj: Callable[..., Any], *args: Any, **kwargs: Any) -> Any: ...
+def assertRaisesRegex(self: unittest.TestCase, callable_obj: Callable[..., object], *args: Any, **kwargs: Any) -> Any: ...
 def assertRegex(
     self: unittest.TestCase, text: AnyStr, expected_regex: AnyStr | Pattern[AnyStr], msg: str | None = ...
 ) -> None: ...
@@ -83,7 +83,7 @@ def raise_from(value: BaseException | type[BaseException], from_value: BaseExcep
 print_ = print
 
 def with_metaclass(meta: type, *bases: type) -> type: ...
-def add_metaclass(metaclass: type) -> Callable[[_T], _T]: ...
+def add_metaclass(metaclass: type) -> IdentityFunction: ...
 def ensure_binary(s: bytes | str, encoding: str = ..., errors: str = ...) -> bytes: ...
 def ensure_str(s: bytes | str, encoding: str = ..., errors: str = ...) -> str: ...
 def ensure_text(s: bytes | str, encoding: str = ..., errors: str = ...) -> str: ...

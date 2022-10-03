@@ -1,8 +1,9 @@
 import sys
 from collections.abc import Iterable
+from re import Match, Pattern as _Pattern
 from sre_constants import *
 from sre_constants import _NamedIntConstant as _NIC, error as _Error
-from typing import Any, Match, Pattern as _Pattern, overload
+from typing import Any, overload
 from typing_extensions import TypeAlias
 
 SPECIAL_CHARS: str
@@ -15,8 +16,7 @@ WHITESPACE: frozenset[str]
 ESCAPES: dict[str, tuple[_NIC, int]]
 CATEGORIES: dict[str, tuple[_NIC, _NIC] | tuple[_NIC, list[tuple[_NIC, _NIC]]]]
 FLAGS: dict[str, int]
-if sys.version_info >= (3, 7):
-    TYPE_FLAGS: int
+TYPE_FLAGS: int
 GLOBAL_FLAGS: int
 
 if sys.version_info < (3, 11):
@@ -27,7 +27,6 @@ class _State:
     groupdict: dict[str, int]
     groupwidths: list[int | None]
     lookbehindgroups: int | None
-    def __init__(self) -> None: ...
     @property
     def groups(self) -> int: ...
     def opengroup(self, name: str | None = ...) -> int: ...
@@ -65,7 +64,7 @@ class SubPattern:
     def __setitem__(self, index: int | slice, code: _CodeType) -> None: ...
     def insert(self, index: int, code: _CodeType) -> None: ...
     def append(self, code: _CodeType) -> None: ...
-    def getwidth(self) -> int: ...
+    def getwidth(self) -> tuple[int, int]: ...
 
 class Tokenizer:
     istext: bool

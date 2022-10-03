@@ -4,8 +4,7 @@
 Depends on pytype being installed.
 
 If pytype is installed:
-    1. For every pyi, do nothing if it is in pytype_exclude_list.txt or is
-       Python 2-only.
+    1. For every pyi, do nothing if it is in pytype_exclude_list.txt.
     2. Otherwise, call 'pytype.io.parse_pyi'.
 Option two will load the file and all the builtins, typeshed dependencies. This
 will also discover incorrect usage of imported modules.
@@ -20,7 +19,7 @@ import traceback
 from collections.abc import Sequence
 
 from pytype import config as pytype_config, load_pytd  # type: ignore[import]
-from pytype.pytd import typeshed  # type: ignore[import]
+from pytype.imports import typeshed  # type: ignore[import]
 
 TYPESHED_SUBDIRS = ["stdlib", "stubs"]
 TYPESHED_HOME = "TYPESHED_HOME"
@@ -93,9 +92,7 @@ def _get_relative(filename: str) -> str:
 def _get_module_name(filename: str) -> str:
     """Converts a filename {subdir}/m.n/module/foo to module.foo."""
     parts = _get_relative(filename).split(os.path.sep)
-    if "@python2" in parts:
-        module_parts = parts[parts.index("@python2") + 1 :]
-    elif parts[0] == "stdlib":
+    if parts[0] == "stdlib":
         module_parts = parts[1:]
     else:
         assert parts[0] == "stubs"
@@ -104,13 +101,13 @@ def _get_module_name(filename: str) -> str:
 
 
 def _is_version(path: str, version: str) -> bool:
-    return any("{}{}{}".format(d, os.path.sep, version) in path for d in TYPESHED_SUBDIRS)
+    return any(f"{d}{os.path.sep}{version}" in path for d in TYPESHED_SUBDIRS)
 
 
 def check_subdirs_discoverable(subdir_paths: list[str]) -> None:
     for p in subdir_paths:
         if not os.path.isdir(p):
-            raise SystemExit("Cannot find typeshed subdir at {} (specify parent dir via --typeshed-location)".format(p))
+            raise SystemExit(f"Cannot find typeshed subdir at {p} (specify parent dir via --typeshed-location)")
 
 
 def determine_files_to_test(*, typeshed_location: str, paths: Sequence[str]) -> list[str]:
@@ -123,7 +120,7 @@ def determine_files_to_test(*, typeshed_location: str, paths: Sequence[str]) -> 
     files = []
     for f in sorted(filenames):
         rel = _get_relative(f)
-        if rel in skipped or "@python2" in f:
+        if rel in skipped:
             continue
         files.append(f)
     return files
@@ -159,11 +156,11 @@ def run_all_tests(*, files_to_test: Sequence[str], typeshed_location: str, print
 
         runs = i + 1
         if runs % 25 == 0:
-            print("  {:3d}/{:d} with {:3d} errors".format(runs, total_tests, errors))
+            print(f"  {runs:3d}/{total_tests:d} with {errors:3d} errors")
 
-    print("Ran pytype with {:d} pyis, got {:d} errors.".format(total_tests, errors))
+    print(f"Ran pytype with {total_tests:d} pyis, got {errors:d} errors.")
     for f, v, err in bad:
-        print("{} ({}): {}".format(f, v, err))
+        print(f"{f} ({v}): {err}")
     if errors:
         raise SystemExit("\nRun again with --print-stderr to get the full stacktrace.")
 

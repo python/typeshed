@@ -60,26 +60,11 @@ __all__ = [
 
 _T = TypeVar("_T")
 
-class excel(Dialect):
-    delimiter: str
-    quotechar: str
-    doublequote: bool
-    skipinitialspace: bool
-    lineterminator: str
-    quoting: _QuotingType
+class excel(Dialect): ...
+class excel_tab(excel): ...
+class unix_dialect(Dialect): ...
 
-class excel_tab(excel):
-    delimiter: str
-
-class unix_dialect(Dialect):
-    delimiter: str
-    quotechar: str
-    doublequote: bool
-    skipinitialspace: bool
-    lineterminator: str
-    quoting: _QuotingType
-
-class DictReader(Generic[_T], Iterator[_DictReadMapping[_T, str]]):
+class DictReader(Generic[_T], Iterator[_DictReadMapping[_T | Any, str | Any]]):
     fieldnames: Sequence[_T] | None
     restkey: str | None
     restval: str | None
@@ -123,7 +108,7 @@ class DictReader(Generic[_T], Iterator[_DictReadMapping[_T, str]]):
         strict: bool = ...,
     ) -> None: ...
     def __iter__(self: Self) -> Self: ...
-    def __next__(self) -> _DictReadMapping[_T, str]: ...
+    def __next__(self) -> _DictReadMapping[_T | Any, str | Any]: ...
     if sys.version_info >= (3, 12):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
@@ -161,6 +146,5 @@ class DictWriter(Generic[_T]):
 
 class Sniffer:
     preferred: list[str]
-    def __init__(self) -> None: ...
     def sniff(self, sample: str, delimiters: str | None = ...) -> type[Dialect]: ...
     def has_header(self, sample: str) -> bool: ...

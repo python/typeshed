@@ -3,7 +3,7 @@
 
 stubtest is a script in the mypy project that compares stubs to the actual objects at runtime.
 Note that therefore the output of stubtest depends on which Python version it is run with.
-In typeshed CI, we run stubtest with each currently supported Python minor version, except 2.7.
+In typeshed CI, we run stubtest with each currently supported Python minor version.
 
 """
 
@@ -14,9 +14,9 @@ from pathlib import Path
 
 def run_stubtest(typeshed_dir: Path) -> int:
     allowlist_dir = typeshed_dir / "tests" / "stubtest_allowlists"
-    version_allowlist = "py{}{}.txt".format(sys.version_info.major, sys.version_info.minor)
-    platform_allowlist = "{}.txt".format(sys.platform)
-    combined_allowlist = "{}-py{}{}.txt".format(sys.platform, sys.version_info.major, sys.version_info.minor)
+    version_allowlist = f"py{sys.version_info.major}{sys.version_info.minor}.txt"
+    platform_allowlist = f"{sys.platform}.txt"
+    combined_allowlist = f"{sys.platform}-py{sys.version_info.major}{sys.version_info.minor}.txt"
 
     cmd = [
         sys.executable,
@@ -46,7 +46,7 @@ def run_stubtest(typeshed_dir: Path) -> int:
             "\nNB: stubtest output depends on the Python version (and system) it is run with. "
             "See README.md for more details.\n"
             "NB: We only check positional-only arg accuracy for Python 3.10.\n"
-            "\nCommand run was: {}\n".format(" ".join(cmd)),
+            f"\nCommand run was: {' '.join(cmd)}\n",
             file=sys.stderr,
         )
         print("\n\n", file=sys.stderr)

@@ -1,8 +1,4 @@
-_?curses.A_ITALIC
 webbrowser.MacOSXOSAScript.__init__
-
-# Exists at runtime, but missing from stubs
-mmap.MADV_FREE
 
 # ==========
 # Allowlist entries that cannot or should not be fixed

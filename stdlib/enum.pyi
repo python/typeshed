@@ -7,38 +7,31 @@ from collections.abc import Iterable, Iterator, Mapping
 from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Literal, TypeAlias
 
+__all__ = ["EnumMeta", "Enum", "IntEnum", "Flag", "IntFlag", "auto", "unique"]
+
 if sys.version_info >= (3, 11):
-    __all__ = [
+    __all__ += [
+        "CONFORM",
+        "CONTINUOUS",
+        "EJECT",
+        "EnumCheck",
         "EnumType",
-        "EnumMeta",
-        "Enum",
-        "IntEnum",
-        "StrEnum",
-        "Flag",
-        "IntFlag",
+        "FlagBoundary",
+        "KEEP",
+        "NAMED_FLAGS",
         "ReprEnum",
-        "auto",
-        "unique",
-        "property",
-        "verify",
+        "STRICT",
+        "StrEnum",
+        "UNIQUE",
+        "global_enum",
+        "global_enum_repr",
+        "global_flag_repr",
+        "global_str",
         "member",
         "nonmember",
-        "FlagBoundary",
-        "STRICT",
-        "CONFORM",
-        "EJECT",
-        "KEEP",
-        "global_flag_repr",
-        "global_enum_repr",
-        "global_str",
-        "global_enum",
-        "EnumCheck",
-        "CONTINUOUS",
-        "NAMED_FLAGS",
-        "UNIQUE",
+        "property",
+        "verify",
     ]
-else:
-    __all__ = ["EnumMeta", "Enum", "IntEnum", "Flag", "IntFlag", "auto", "unique"]
 
 _EnumMemberT = TypeVar("_EnumMemberT")
 _EnumerationT = TypeVar("_EnumerationT", bound=type[Enum])
@@ -87,7 +80,7 @@ class _EnumDict(dict[str, Any]):
 class EnumMeta(ABCMeta):
     if sys.version_info >= (3, 11):
         def __new__(
-            metacls: type[Self],  # type: ignore
+            metacls: type[Self],
             cls: str,
             bases: tuple[type, ...],
             classdict: _EnumDict,
@@ -97,9 +90,9 @@ class EnumMeta(ABCMeta):
             **kwds: Any,
         ) -> Self: ...
     elif sys.version_info >= (3, 9):
-        def __new__(metacls: type[Self], cls: str, bases: tuple[type, ...], classdict: _EnumDict, **kwds: Any) -> Self: ...  # type: ignore
+        def __new__(metacls: type[Self], cls: str, bases: tuple[type, ...], classdict: _EnumDict, **kwds: Any) -> Self: ...
     else:
-        def __new__(metacls: type[Self], cls: str, bases: tuple[type, ...], classdict: _EnumDict) -> Self: ...  # type: ignore
+        def __new__(metacls: type[Self], cls: str, bases: tuple[type, ...], classdict: _EnumDict) -> Self: ...
 
     if sys.version_info >= (3, 9):
         @classmethod
@@ -116,6 +109,7 @@ class EnumMeta(ABCMeta):
     def __members__(self: type[_EnumMemberT]) -> types.MappingProxyType[str, _EnumMemberT]: ...
     def __len__(self) -> int: ...
     def __bool__(self) -> Literal[True]: ...
+    def __dir__(self) -> list[str]: ...
     # Simple value lookup
     @overload  # type: ignore[override]
     def __call__(cls: type[_EnumMemberT], value: Any, names: None = ...) -> _EnumMemberT: ...
@@ -168,8 +162,7 @@ class Enum(metaclass=EnumMeta):
     def value(self) -> Any: ...
     _name_: str
     _value_: Any
-    if sys.version_info >= (3, 7):
-        _ignore_: str | list[str]
+    _ignore_: str | list[str]
     _order_: str
     __order__: str
     @classmethod
@@ -184,11 +177,12 @@ class Enum(metaclass=EnumMeta):
     def __new__(cls: type[Self], value: object) -> Self: ...
     def __dir__(self) -> list[str]: ...
     def __format__(self, format_spec: str) -> str: ...
-    def __hash__(self) -> Any: ...
-    def __reduce_ex__(self, proto: object) -> Any: ...
+    def __reduce_ex__(self, proto: object) -> tuple[Any, ...]: ...
 
 if sys.version_info >= (3, 11):
     class ReprEnum(Enum): ...
+
+if sys.version_info >= (3, 11):
     _IntEnumBase = ReprEnum
 else:
     _IntEnumBase = Enum
@@ -230,14 +224,26 @@ class Flag(Enum):
         __rand__ = __and__
         __rxor__ = __xor__
 
-class IntFlag(int, Flag):
-    def __new__(cls: type[Self], value: int) -> Self: ...
-    def __or__(self: Self, other: int) -> Self: ...
-    def __and__(self: Self, other: int) -> Self: ...
-    def __xor__(self: Self, other: int) -> Self: ...
-    __ror__ = __or__
-    __rand__ = __and__
-    __rxor__ = __xor__
+if sys.version_info >= (3, 11):
+    # The body of the class is the same, but the base classes are different.
+    class IntFlag(int, ReprEnum, Flag, boundary=KEEP):
+        def __new__(cls: type[Self], value: int) -> Self: ...
+        def __or__(self: Self, other: int) -> Self: ...
+        def __and__(self: Self, other: int) -> Self: ...
+        def __xor__(self: Self, other: int) -> Self: ...
+        __ror__ = __or__
+        __rand__ = __and__
+        __rxor__ = __xor__
+
+else:
+    class IntFlag(int, Flag):
+        def __new__(cls: type[Self], value: int) -> Self: ...
+        def __or__(self: Self, other: int) -> Self: ...
+        def __and__(self: Self, other: int) -> Self: ...
+        def __xor__(self: Self, other: int) -> Self: ...
+        __ror__ = __or__
+        __rand__ = __and__
+        __rxor__ = __xor__
 
 if sys.version_info >= (3, 11):
     class StrEnum(str, ReprEnum):
