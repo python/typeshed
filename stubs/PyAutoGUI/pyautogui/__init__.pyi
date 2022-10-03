@@ -5,7 +5,7 @@ from typing import NamedTuple, SupportsInt, TypeVar
 from typing_extensions import ParamSpec, SupportsIndex, TypeAlias
 
 from pyscreeze import (
-    Box as Box,
+    Box,
     locate as locate,
     locateAll as locateAll,
     locateAllOnScreen as locateAllOnScreen,
