@@ -152,16 +152,13 @@ def parse_version(v_str: str) -> tuple[int, int]:
     return int(m.group(1)), int(m.group(2))
 
 
-def add_files(files: list[Path], seen: set[str], module: Path, args: TestConfig) -> None:
+def add_files(files: list[Path], module: Path, args: TestConfig) -> None:
     """Add all files in package or module represented by 'name' located in 'root'."""
     if module.is_file() and module.suffix == ".pyi":
         if match(module, args):
             files.append(module)
-            seen.add(module.stem)
     else:
-        to_add = sorted(file for file in module.rglob("*.pyi") if match(file, args))
-        files.extend(to_add)
-        seen.update(path.stem for path in to_add)
+        files.extend(sorted(file for file in module.rglob("*.pyi") if match(file, args)))
 
 
 class MypyDistConf(NamedTuple):
@@ -288,7 +285,7 @@ def add_third_party_files(
     for name in os.listdir(root):
         if name.startswith("."):
             continue
-        add_files(files, set(), (root / name), args)
+        add_files(files, (root / name), args)
         add_configuration(configurations, distribution)
 
 
@@ -323,7 +320,6 @@ def test_third_party_distribution(distribution: str, args: TestConfig) -> TestRe
 
 
 def test_stdlib(code: int, args: TestConfig) -> TestResults:
-    seen = {"builtins", "typing"}  # Always ignore these.
     files: list[Path] = []
     stdlib = Path("stdlib")
     supported_versions = parse_versions(stdlib / "VERSIONS")
@@ -333,7 +329,7 @@ def test_stdlib(code: int, args: TestConfig) -> TestResults:
         module = Path(name).stem
         module_min_version, module_max_version = supported_versions[module]
         if module_min_version <= tuple(map(int, args.version.split("."))) <= module_max_version:
-            add_files(files, seen, (stdlib / name), args)
+            add_files(files, (stdlib / name), args)
 
     if files:
         print(f"Testing stdlib ({len(files)} files)...")
