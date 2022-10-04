@@ -1,8 +1,11 @@
 """Utilities that are imported by multiple scripts in the tests directory."""
 
+from __future__ import annotations
+
 import os
 import re
 from functools import cache
+from itertools import filterfalse
 from pathlib import Path
 from typing import NamedTuple
 
@@ -51,6 +54,13 @@ def read_dependencies(distribution: str) -> tuple[str, ...]:
         assert dependency.startswith("types-"), f"unrecognized dependency {dependency!r}"
         dependencies.append(dependency[6:].split("<")[0])
     return tuple(dependencies)
+
+
+def get_recursive_requirements(package_name: str, seen: set[str] | None = None) -> list[str]:
+    seen = seen if seen is not None else {package_name}
+    for dependency in filterfalse(seen.__contains__, read_dependencies(package_name)):
+        seen.update(get_recursive_requirements(dependency, seen))
+    return sorted(seen | {package_name})
 
 
 # ====================================================================

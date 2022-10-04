@@ -62,15 +62,16 @@ def run_isort(stub_dir: str) -> None:
 
 def create_metadata(stub_dir: str, version: str) -> None:
     """Create a METADATA.toml file."""
-    m = re.match(r"[0-9]+.[0-9]+", version)
-    if m is None:
+    match = re.match(r"[0-9]+.[0-9]+", version)
+    if match is None:
         sys.exit(f"Error: Cannot parse version number: {version}")
-    fnam = os.path.join(stub_dir, "METADATA.toml")
-    version = m.group(0)
-    assert not os.path.exists(fnam)
-    print(f"Writing {fnam}")
-    with open(fnam, "w") as f:
-        f.write(
+    filename = os.path.join(stub_dir, "METADATA.toml")
+    version = match.group(0)
+    if os.path.exists(filename):
+        return
+    print(f"Writing {filename}")
+    with open(filename, "w") as file:
+        file.write(
             f"""\
 version = "{version}.*"
 
@@ -153,8 +154,9 @@ def main() -> None:
     project, version = info
 
     stub_dir = os.path.join("stubs", project)
-    if os.path.exists(stub_dir):
-        sys.exit(f"Error: {stub_dir} already exists (delete it first)")
+    package_dir = os.path.join(stub_dir, package)
+    if os.path.exists(package_dir):
+        sys.exit(f"Error: {package_dir} already exists (delete it first)")
 
     run_stubgen(package, stub_dir)
 
@@ -169,11 +171,8 @@ def main() -> None:
 
     print("\nDone!\n\nSuggested next steps:")
     print(f" 1. Manually review the generated stubs in {stub_dir}")
-    print(f' 2. Run "MYPYPATH={stub_dir} python3 -m mypy.stubtest {package}" to check the stubs against runtime')
-    print(f' 3. Run "mypy {stub_dir}" to check for errors')
-    print(f' 4. Run "black {stub_dir}" and "isort {stub_dir}" (if you\'ve made code changes)')
-    print(f' 5. Run "flake8 {stub_dir}" to check for e.g. unused imports')
-    print(" 6. Commit the changes on a new branch and create a typeshed PR")
+    print(" 2. Optionally run tests and autofixes (see tests/README.md for details")
+    print(" 3. Commit the changes on a new branch and create a typeshed PR (don't force-push!)")
 
 
 if __name__ == "__main__":
