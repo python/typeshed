@@ -20,6 +20,7 @@ jobs:
         with:
           # use an ssh key so that checks automatically run on stubsabot PRs
           ssh-key: ${{ secrets.STUBSABOT_SSH_PRIVATE_KEY }}
+          fetch-depth: 0
       - uses: actions/setup-python@v4
         with:
           python-version: "3.10"
