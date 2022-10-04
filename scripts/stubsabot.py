@@ -16,10 +16,10 @@ import tarfile
 import textwrap
 import urllib.parse
 import zipfile
-from collections.abc import Iterator, Mapping
+from collections.abc import Iterator, Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Annotated, Any, TypeVar
+from typing import Annotated, Any, ClassVar, NamedTuple, TypeVar
 from typing_extensions import TypeAlias
 
 import aiohttp
@@ -126,6 +126,7 @@ class Update:
     old_version_spec: str
     new_version_spec: str
     links: dict[str, str]
+    diff_analysis: DiffAnalysis | None
 
     def __str__(self) -> str:
         return f"Updating {self.distribution} from {self.old_version_spec!r} to {self.new_version_spec!r}"
@@ -242,10 +243,17 @@ async def get_github_repo_info(session: aiohttp.ClientSession, pypi_info: PypiIn
     return None
 
 
-async def get_diff_url(
+class GithubDiffInfo(NamedTuple):
+    repo_path: str
+    old_tag: str
+    new_tag: str
+    diff_url: str
+
+
+async def get_diff_info(
     session: aiohttp.ClientSession, stub_info: StubInfo, pypi_info: PypiInfo, pypi_version: packaging.version.Version
-) -> str | None:
-    """Return a link giving the diff between two releases, if possible.
+) -> GithubDiffInfo | None:
+    """Return a tuple giving info about the diff between two releases, if possible.
 
     Return `None` if the project isn't hosted on GitHub,
     or if a link pointing to the diff couldn't be found for any other reason.
@@ -281,7 +289,118 @@ async def get_diff_url(
     async with session.get(diff_url, headers=get_github_api_headers()) as response:
         # Double-check we're returning a valid URL here
         response.raise_for_status()
-    return diff_url
+    return GithubDiffInfo(repo_path=github_info.repo_path, old_tag=old_tag, new_tag=new_tag, diff_url=diff_url)
+
+
+FileInfo: TypeAlias = dict[str, Any]
+
+
+def _plural_s(num: int, /) -> str:
+    return "s" if num != 1 else ""
+
+
+@dataclass
+class DiffAnalysis:
+    MAXIMUM_NUMBER_OF_FILES_TO_LIST: ClassVar[int] = 7
+    py_files: list[FileInfo]
+    py_files_stubbed_in_typeshed: list[FileInfo]
+
+    @property
+    def runtime_definitely_has_consistent_directory_structure_with_typeshed(self) -> bool:
+        """
+        If 0 .py files in the GitHub diff exist in typeshed's stubs,
+        there's a possibility that the .py files might be found
+        in a different directory at runtime.
+
+        For example: pyopenssl has its .py files in the `src/OpenSSL/` directory at runtime,
+        but in typeshed the stubs are in the `OpenSSL/` directory.
+        """
+        return bool(self.py_files_stubbed_in_typeshed)
+
+    @functools.cached_property
+    def public_files_added(self) -> Sequence[str]:
+        return [
+            file["filename"]
+            for file in self.py_files
+            if not re.match("_[^_]", Path(file["filename"]).name) and file["status"] == "added"
+        ]
+
+    @functools.cached_property
+    def typeshed_files_deleted(self) -> Sequence[str]:
+        return [file["filename"] for file in self.py_files_stubbed_in_typeshed if file["status"] == "removed"]
+
+    @functools.cached_property
+    def typeshed_files_modified(self) -> Sequence[str]:
+        return [file["filename"] for file in self.py_files_stubbed_in_typeshed if file["status"] in {"modified", "renamed"}]
+
+    @property
+    def total_lines_added(self) -> int:
+        return sum(file["additions"] for file in self.py_files)
+
+    @property
+    def total_lines_deleted(self) -> int:
+        return sum(file["deletions"] for file in self.py_files)
+
+    def _describe_files(self, *, verb: str, filenames: Sequence[str]) -> str:
+        num_files = len(filenames)
+        if num_files > 1:
+            description = f"have been {verb}"
+            # Don't list the filenames if there are *loads* of files
+            if num_files <= self.MAXIMUM_NUMBER_OF_FILES_TO_LIST:
+                description += ": "
+                description += ", ".join(f"`{filename}`" for filename in filenames)
+            description += "."
+            return description
+        if num_files == 1:
+            return f"has been {verb}: `{filenames[0]}`."
+        return f"have been {verb}."
+
+    def describe_public_files_added(self) -> str:
+        num_files_added = len(self.public_files_added)
+        analysis = f"{num_files_added} public Python file{_plural_s(num_files_added)} "
+        analysis += self._describe_files(verb="added", filenames=self.public_files_added)
+        return analysis
+
+    def describe_typeshed_files_deleted(self) -> str:
+        num_files_deleted = len(self.typeshed_files_deleted)
+        analysis = f"{num_files_deleted} file{_plural_s(num_files_deleted)} included in typeshed's stubs "
+        analysis += self._describe_files(verb="deleted", filenames=self.typeshed_files_deleted)
+        return analysis
+
+    def describe_typeshed_files_modified(self) -> str:
+        num_files_modified = len(self.typeshed_files_modified)
+        analysis = f"{num_files_modified} file{_plural_s(num_files_modified)} included in typeshed's stubs "
+        analysis += self._describe_files(verb="modified or renamed", filenames=self.typeshed_files_modified)
+        return analysis
+
+    def __str__(self) -> str:
+        data_points = []
+        if self.runtime_definitely_has_consistent_directory_structure_with_typeshed:
+            data_points += [
+                self.describe_public_files_added(),
+                self.describe_typeshed_files_deleted(),
+                self.describe_typeshed_files_modified(),
+            ]
+        data_points += [
+            f"Total lines of Python code added: {self.total_lines_added}.",
+            f"Total lines of Python code deleted: {self.total_lines_deleted}.",
+        ]
+        return "Stubsabot analysis of the diff between the two releases:\n - " + "\n - ".join(data_points)
+
+
+async def analyze_diff(
+    github_repo_path: str, stub_path: Path, old_tag: str, new_tag: str, *, session: aiohttp.ClientSession
+) -> DiffAnalysis | None:
+    url = f"https://api.github.com/repos/{github_repo_path}/compare/{old_tag}...{new_tag}"
+    async with session.get(url, headers=get_github_api_headers()) as response:
+        response.raise_for_status()
+        json_resp = await response.json()
+        assert isinstance(json_resp, dict)
+    # https://docs.github.com/en/rest/commits/commits#compare-two-commits
+    py_files: list[FileInfo] = [file for file in json_resp["files"] if Path(file["filename"]).suffix == ".py"]
+    files_in_typeshed = set(stub_path.rglob("*.pyi"))
+    py_files_stubbed_in_typeshed = [file for file in py_files if (stub_path / f"{file['filename']}i") in files_in_typeshed]
+    return DiffAnalysis(py_files=py_files, py_files_stubbed_in_typeshed=py_files_stubbed_in_typeshed)
 
 
 async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> Update | NoUpdate | Obsolete:
@@ -310,9 +429,13 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
         "Release": f"{pypi_info.pypi_root}/{relevant_version}",
         "Homepage": project_urls.get("Homepage"),
         "Changelog": project_urls.get("Changelog") or project_urls.get("Changes") or project_urls.get("Change Log"),
-        "Diff": await get_diff_url(session, stub_info, pypi_info, relevant_version),
     }
     links = {k: v for k, v in maybe_links.items() if v is not None}
+
+    diff_info = await get_diff_info(session, stub_info, pypi_info, relevant_version)
+    if diff_info is not None:
+        github_repo_path, old_tag, new_tag, diff_url = diff_info
+        links["Diff"] = diff_url
 
     if is_obsolete:
         return Obsolete(
@@ -323,12 +446,20 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
             links=links,
         )
 
+    if diff_info is None:
+        diff_analysis: DiffAnalysis | None = None
+    else:
+        diff_analysis = await analyze_diff(
+            github_repo_path=github_repo_path, stub_path=stub_path, old_tag=old_tag, new_tag=new_tag, session=session
+        )
+
     return Update(
         distribution=stub_info.distribution,
         stub_path=stub_path,
         old_version_spec=stub_info.version_spec,
         new_version_spec=get_updated_version_spec(stub_info.version_spec, latest_version),
         links=links,
+        diff_analysis=diff_analysis,
     )
 
 
@@ -415,6 +546,10 @@ BRANCH_PREFIX = "stubsabot"
 
 def get_update_pr_body(update: Update, metadata: dict[str, Any]) -> str:
     body = "\n".join(f"{k}: {v}" for k, v in update.links.items())
+
+    if update.diff_analysis is not None:
+        body += f"\n\n{update.diff_analysis}"
+
     stubtest_will_run = not metadata.get("stubtest", {}).get("skip", False)
     if stubtest_will_run:
         body += textwrap.dedent(
