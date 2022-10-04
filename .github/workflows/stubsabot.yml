@@ -1,9 +1,9 @@
-name: Run stubsabot weekly  # TODO: change to daily
+name: Run stubsabot daily
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 * * 5"  # TODO: change to daily
+    - cron: "0 0 * * *"
 
 permissions:
   contents: write
