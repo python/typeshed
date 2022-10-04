@@ -1,15 +1,14 @@
-from redis.asyncio.connection import BaseParser, Encoder
-from redis.commands import AsyncRedisClusterCommands
-from redis.cluster import AbstractRedisCluster
-from redis.client import AbstractRedis
-from redis.asyncio.client import ResponseCallbackT
-from redis.typing import EncodableT, KeyT, AnyKeyT
-from redis.commands.core import _StrType
-from redis.asyncio.connection import Connection, BaseParser
-
 from _typeshed import Self
 from collections.abc import Mapping
-from typing import Awaitable, Any, Generic
+from typing import Any, Awaitable, Generic
+
+from redis.asyncio.client import ResponseCallbackT
+from redis.asyncio.connection import BaseParser, Connection, Encoder
+from redis.client import AbstractRedis
+from redis.cluster import AbstractRedisCluster
+from redis.commands import AsyncRedisClusterCommands
+from redis.commands.core import _StrType
+from redis.typing import AnyKeyT, EncodableT, KeyT
 
 # It uses `DefaultParser` in real life, but it is a dynamic base class.
 class ClusterParser(BaseParser): ...
