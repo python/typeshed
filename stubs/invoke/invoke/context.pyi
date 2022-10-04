@@ -1,5 +1,5 @@
 from contextlib import AbstractContextManager
-
+from typing import overload
 from .config import Config, DataProxy
 from .runners import Result
 
@@ -10,6 +10,9 @@ class Context(DataProxy):
     @config.setter
     def config(self, value: Config) -> None: ...
     def run(self, command: str, **kwargs) -> Result: ...
+    @overload
+    def sudo(self, command: str, *, password: str = ..., user: str = ..., **kwargs) -> Result: ...
+    @overload
     def sudo(self, command: str, **kwargs) -> Result: ...
     def prefix(self, command: str) -> AbstractContextManager[None]: ...
     @property
