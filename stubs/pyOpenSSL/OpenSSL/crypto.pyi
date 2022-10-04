@@ -1,4 +1,4 @@
-from _typeshed import StrOrBytesPath
+from _typeshed import Incomplete, StrOrBytesPath
 from collections.abc import Callable, Iterable, Sequence
 from datetime import datetime
 from typing import Any
@@ -143,8 +143,9 @@ class X509StoreContext:
     def verify_certificate(self) -> None: ...
 
 class X509StoreContextError(Exception):
+    errors: list[Incomplete]
     certificate: X509
-    def __init__(self, message: str | bytes, certificate: X509) -> None: ...
+    def __init__(self, message: str | bytes, errors: list[Incomplete], certificate: X509) -> None: ...
 
 class X509StoreFlags:
     CRL_CHECK: int
