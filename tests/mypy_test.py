@@ -356,7 +356,11 @@ def test_third_party_stubs(code: int, args: TestConfig) -> TestResults:
         if spec_matches_path(gitignore_spec, distribution_path):
             continue
 
-        if distribution_path in args.filter or any(distribution_path in path.parents for path in args.filter):
+        if (
+            distribution_path in args.filter
+            or Path("stubs") in args.filter
+            or any(distribution_path in path.parents for path in args.filter)
+        ):
             this_code, checked = test_third_party_distribution(distribution, args)
             code = max(code, this_code)
             files_checked += checked
