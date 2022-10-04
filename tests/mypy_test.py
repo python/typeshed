@@ -25,9 +25,9 @@ from utils import (
     VERSIONS_RE as VERSION_LINE_RE,
     colored,
     get_gitignore_spec,
+    get_recursive_requirements,
     print_error,
     print_success_msg,
-    read_dependencies,
     spec_matches_path,
     strip_comments,
 )
@@ -272,11 +272,19 @@ def add_third_party_files(
         return
     seen_dists.add(distribution)
 
-    dependencies = read_dependencies(distribution)
-    for dependency in dependencies:
-        add_third_party_files(dependency, files, args, configurations, seen_dists)
+    stubs_dir = Path("stubs")
+    dependencies = get_recursive_requirements(distribution)
 
-    root = Path("stubs", distribution)
+    for dependency in dependencies:
+        if dependency in seen_dists:
+            continue
+        seen_dists.add(dependency)
+        files_to_add = sorted((stubs_dir / dependency).rglob("*.pyi"))
+        files.extend(files_to_add)
+        for file in files_to_add:
+            log(args, file, f"included as a dependency of {distribution!r}")
+
+    root = stubs_dir / distribution
     for name in os.listdir(root):
         if name.startswith("."):
             continue
@@ -348,9 +356,10 @@ def test_third_party_stubs(code: int, args: TestConfig) -> TestResults:
         if spec_matches_path(gitignore_spec, distribution_path):
             continue
 
-        this_code, checked = test_third_party_distribution(distribution, args)
-        code = max(code, this_code)
-        files_checked += checked
+        if distribution_path in args.filter or any(distribution_path in path.parents for path in args.filter):
+            this_code, checked = test_third_party_distribution(distribution, args)
+            code = max(code, this_code)
+            files_checked += checked
 
     return TestResults(code, files_checked)
 
