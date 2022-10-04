@@ -6,14 +6,15 @@ from redis.asyncio.client import ResponseCallbackT
 from redis.asyncio.connection import BaseParser, Connection, Encoder
 from redis.client import AbstractRedis
 from redis.cluster import AbstractRedisCluster
-from redis.commands import AsyncRedisClusterCommands
+# TODO: add AsyncRedisClusterCommands
+# from redis.commands import AsyncRedisClusterCommands
 from redis.commands.core import _StrType
 from redis.typing import AnyKeyT, EncodableT, KeyT
 
 # It uses `DefaultParser` in real life, but it is a dynamic base class.
 class ClusterParser(BaseParser): ...
   
-class RedisCluster(AbstractRedis, AbstractRedisCluster, AsyncRedisClusterCommands, Generic[_StrType]): ...
+class RedisCluster(AbstractRedis, AbstractRedisCluster, Generic[_StrType]):  # TODO: AsyncRedisClusterCommands
     def __init__(
         self,
         host: str | None = ...,
