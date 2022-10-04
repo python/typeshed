@@ -19,7 +19,7 @@ import zipfile
 from collections.abc import Iterator, Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Annotated, Any, NamedTuple, TypeVar
+from typing import Annotated, Any, ClassVar, NamedTuple, TypeVar
 from typing_extensions import TypeAlias
 
 import aiohttp
@@ -301,6 +301,7 @@ def _plural_s(num: int, /) -> str:
 
 @dataclass
 class DiffAnalysis:
+    MAXIMUM_NUMBER_OF_FILES_TO_LIST: ClassVar[int] = 7
     py_files: list[FileInfo]
     py_files_stubbed_in_typeshed: list[FileInfo]
 
@@ -340,13 +341,12 @@ class DiffAnalysis:
     def total_lines_deleted(self) -> int:
         return sum(file["deletions"] for file in self.py_files)
 
-    @staticmethod
-    def _describe_files(*, verb: str, filenames: Sequence[str]) -> str:
+    def _describe_files(self, *, verb: str, filenames: Sequence[str]) -> str:
         num_files = len(filenames)
         if num_files > 1:
             description = f"have been {verb}"
             # Don't list the filenames if there are *loads* of files
-            if num_files <= 5:
+            if num_files <= self.MAXIMUM_NUMBER_OF_FILES_TO_LIST:
                 description += ": "
                 description += ", ".join(f"`{filename}`" for filename in filenames)
             description += "."
