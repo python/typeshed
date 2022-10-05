@@ -220,7 +220,9 @@ class FrozenInstanceError(AttributeError): ...
 if sys.version_info >= (3, 9):
     _InitVarMeta: TypeAlias = type
 else:
-    class _InitVarMeta(type): ...
+    class _InitVarMeta(type):
+        # Not used, instead `InitVar.__class_getitem__` is called.
+        def __getitem__(self, params: _T) -> InitVar[_T]: ...
 
 class InitVar(Generic[_T], metaclass=_InitVarMeta):
     type: Type[_T]
