@@ -66,6 +66,7 @@
         "stubs/pytz/pytz/reference.pyi",
         "stubs/pytz/pytz/tzfile.pyi",
         "stubs/google-cloud-ndb",
+        "stubs/paho-mqtt",
         "stubs/passlib",
         "stubs/peewee",
         "stubs/pep8-naming",
