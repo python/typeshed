@@ -22,7 +22,7 @@ def callback(
     proxy_args: _Proxy | None = ...,
 ) -> None: ...
 def simple(
-    topics: list[str],
+    topics: str | list[str],
     qos: int = ...,
     msg_count: int = ...,
     retained: bool = ...,
