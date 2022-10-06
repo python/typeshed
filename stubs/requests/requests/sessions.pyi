@@ -8,7 +8,6 @@ from urllib3._collections import RecentlyUsedContainer
 from . import adapters, auth as _auth, compat, cookies, exceptions, hooks, models, status_codes, utils
 from .models import Response
 from .structures import CaseInsensitiveDict as CaseInsensitiveDict
-from .utils import DEFAULT_PORTS as DEFAULT_PORTS
 
 _BaseAdapter: TypeAlias = adapters.BaseAdapter
 OrderedDict = compat.OrderedDict
@@ -47,7 +46,7 @@ class SessionRedirectMixin:
         req,
         stream: bool = ...,
         timeout: Incomplete | None = ...,
-        verify: Incomplete | None = ...,
+        verify: bool = ...,
         cert: Incomplete | None = ...,
         proxies: Incomplete | None = ...,
         yield_requests: bool = ...,

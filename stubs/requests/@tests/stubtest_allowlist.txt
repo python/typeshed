@@ -20,6 +20,9 @@ requests.models.basestring
 # not `requests.help.requests_version`)
 requests.help.requests_version
 
+# No reason to access this re-exported constant from `requests.sessions` instead of from `requests.utils`
+requests.sessions.DEFAULT_PORTS
+
 # Unnecessary re-exports of third-party modules
 requests.help.chardet
 requests.help.cryptography
