@@ -7,7 +7,6 @@ from typing import Any, AnyStr
 from typing_extensions import TypeAlias
 
 from . import compat, cookies, exceptions, structures
-from .compat import basestring as basestring, integer_types as integer_types
 from .models import PreparedRequest, Request
 
 _Uri: TypeAlias = str | bytes

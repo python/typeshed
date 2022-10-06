@@ -36,7 +36,4 @@ from .models import PreparedRequest as PreparedRequest, Request as Request, Resp
 from .sessions import Session as Session, session as session
 from .status_codes import codes as codes
 
-charset_normalizer_version: str | None
-chardet_version: str | None
-
 def check_compatibility(urllib3_version: str, chardet_version: str | None, charset_normalizer_version: str | None) -> None: ...

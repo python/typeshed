@@ -1,7 +1,6 @@
 from typing import Any
 
 from . import cookies, models, utils
-from .compat import basestring as basestring
 
 extract_cookies_to_jar = cookies.extract_cookies_to_jar
 parse_dict_header = utils.parse_dict_header

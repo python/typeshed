@@ -7,7 +7,6 @@ from typing import Any
 from urllib3 import exceptions as urllib3_exceptions, fields, filepost, util
 
 from . import auth, cookies, exceptions, hooks, status_codes, utils
-from .compat import basestring as basestring
 from .cookies import RequestsCookieJar
 from .structures import CaseInsensitiveDict as CaseInsensitiveDict
 

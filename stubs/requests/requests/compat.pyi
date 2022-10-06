@@ -1,3 +1,4 @@
+from builtins import bytes as bytes, str as str
 from collections import OrderedDict as OrderedDict
 from typing_extensions import TypeAlias
 from urllib.parse import (
@@ -19,8 +20,6 @@ is_py3: bool
 has_simplejson: bool
 
 builtin_str: TypeAlias = str  # noqa: Y042
-# str = str omitted
-# bytes = bytes omitted
 basestring: tuple[type, type]
 numeric_types: tuple[type, type]
 integer_types: tuple[type]
