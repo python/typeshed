@@ -6,7 +6,6 @@ from typing import Any, AnyStr
 from typing_extensions import TypeAlias
 
 from . import compat, cookies, exceptions, structures
-from ._internal_utils import HEADER_VALIDATORS as HEADER_VALIDATORS
 from .compat import basestring as basestring, integer_types as integer_types
 from .models import PreparedRequest, Request
 
