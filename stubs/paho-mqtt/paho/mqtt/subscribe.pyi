@@ -1,14 +1,13 @@
 from collections.abc import Callable
-from typing import Any
 
-from .client import Client, MQTTMessage
+from .client import Client, MQTTMessage, _UserData
 from .publish import _TLS, _Auth, _Msg, _Proxy
 
 def callback(
-    callback: Callable[[Client, Any, MQTTMessage], None],
+    callback: Callable[[Client, _UserData, MQTTMessage], None],
     topics: list[str],
     qos: int = ...,
-    userdata: Any | None = ...,
+    userdata: _UserData | None = ...,
     hostname: str = ...,
     port: int = ...,
     client_id: str = ...,

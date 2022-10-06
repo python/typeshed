@@ -1,5 +1,6 @@
 import logging
 import socket as _socket
+import ssl as _ssl
 import time
 import types
 from collections.abc import Callable, Iterable
@@ -84,31 +85,35 @@ MQTT_CLIENT: int
 MQTT_BRIDGE: int
 MQTT_CLEAN_START_FIRST_ONLY: int
 sockpair_data: bytes
+_UserData: TypeAlias = Any
+_Socket: TypeAlias = _socket.socket | _ssl.SSLSocket | Any
 _Payload: TypeAlias = str | bytes | bytearray | float
 _ExtraHeader: TypeAlias = dict[str, str] | Callable[[dict[str, str]], dict[str, str]]
-_OnLog: TypeAlias = Callable[[Client, Any, int, str], None]
+_OnLog: TypeAlias = Callable[[Client, _UserData, int, str], object]
 _OnConnect = TypeVar(
     "_OnConnect",
-    Callable[[Client, Any, dict[str, int], int], None],
-    Callable[[Client, Any, dict[str, int], ReasonCodes, Properties | None], None],
+    Callable[[Client, _UserData, dict[str, int], int], object],
+    Callable[[Client, _UserData, dict[str, int], ReasonCodes, Properties | None], object],
 )
-_OnConnectFail: TypeAlias = Callable[[Client, Any], None]
+_OnConnectFail: TypeAlias = Callable[[Client, _UserData], object]
 _OnSubscribe = TypeVar(
     "_OnSubscribe",
-    Callable[[Client, Any, int, Iterable[int]], None],
-    Callable[[Client, Any, Iterable[ReasonCodes], Iterable[Properties]], None],
+    Callable[[Client, _UserData, int, Iterable[int]], object],
+    Callable[[Client, _UserData, Iterable[ReasonCodes], Iterable[Properties]], object],
 )
-_OnMessage: TypeAlias = Callable[[Client, Any, MQTTMessage], None]
-_OnPublish: TypeAlias = Callable[[Client, Any, int], None]
+_OnMessage: TypeAlias = Callable[[Client, _UserData, MQTTMessage], object]
+_OnPublish: TypeAlias = Callable[[Client, _UserData, int], object]
 _OnUnsubscribe = TypeVar(
     "_OnUnsubscribe",
-    Callable[[Client, Any, int], None],
-    Callable[[Client, Any, int, Iterable[Properties], Iterable[ReasonCodes]], None],
+    Callable[[Client, _UserData, int], object],
+    Callable[[Client, _UserData, int, Iterable[Properties], Iterable[ReasonCodes]], object],
 )
 _OnDisconnect = TypeVar(
-    "_OnDisconnect", Callable[[Client, Any, int], None], Callable[[Client, Any, int, ReasonCodes | None, Properties | None], None]
+    "_OnDisconnect",
+    Callable[[Client, _UserData, int], object],
+    Callable[[Client, _UserData, int, ReasonCodes | None, Properties | None], object],
 )
-_OnSocket: TypeAlias = Callable[[Client, Any, _socket.socket | Any | None], None]
+_OnSocket: TypeAlias = Callable[[Client, _UserData, _Socket | WebsocketWrapper | None], object]
 
 class WebsocketConnectionError(ValueError): ...
 
@@ -152,24 +157,24 @@ class Client:
         self,
         client_id: str = ...,
         clean_session: bool | None = ...,
-        userdata: Any | None = ...,
+        userdata: _UserData | None = ...,
         protocol: int = ...,
         transport: str = ...,
         reconnect_on_failure: bool = ...,
     ) -> None: ...
     def __del__(self) -> None: ...
-    def reinitialise(self, client_id: str = ..., clean_session: bool = ..., userdata: Any | None = ...) -> None: ...
+    def reinitialise(self, client_id: str = ..., clean_session: bool = ..., userdata: _UserData | None = ...) -> None: ...
     def ws_set_options(self, path: str = ..., headers: _ExtraHeader | None = ...) -> None: ...
-    def tls_set_context(self, context: Any | None = ...) -> None: ...
+    def tls_set_context(self, context: _ssl.SSLContext | None = ...) -> None: ...
     def tls_set(
         self,
         ca_certs: str | None = ...,
         certfile: str | None = ...,
         keyfile: str | None = ...,
-        cert_reqs: Any | None = ...,
-        tls_version: Any | None = ...,
+        cert_reqs: _ssl.VerifyMode | None = ...,
+        tls_version: _ssl._SSLMethod | None = ...,
         ciphers: str | None = ...,
-        keyfile_password: Any | None = ...,
+        keyfile_password: _ssl._PasswordType | None = ...,
     ) -> None: ...
     def tls_insecure_set(self, value: bool) -> None: ...
     def proxy_set(self, **proxy_args: str | int) -> None: ...
@@ -227,13 +232,13 @@ class Client:
     def loop_misc(self) -> int: ...
     def max_inflight_messages_set(self, inflight: int) -> None: ...
     def max_queued_messages_set(self, queue_size: int) -> Client: ...
-    def message_retry_set(self, retry: Any) -> None: ...
-    def user_data_set(self, userdata: Any) -> None: ...
+    def message_retry_set(self, retry: object) -> None: ...
+    def user_data_set(self, userdata: _UserData) -> None: ...
     def will_set(
         self, topic: str, payload: _Payload | None = ..., qos: int = ..., retain: bool = ..., properties: Properties | None = ...
     ) -> None: ...
     def will_clear(self) -> None: ...
-    def socket(self) -> _socket.socket | Any: ...
+    def socket(self) -> _Socket | WebsocketWrapper: ...
     def loop_forever(self, timeout: float = ..., max_packets: int = ..., retry_first_connection: bool = ...) -> int: ...
     def loop_start(self) -> int | None: ...
     def loop_stop(self, force: bool = ...) -> int | None: ...
@@ -309,7 +314,7 @@ class WebsocketWrapper:
     OPCODE_PING: int
     OPCODE_PONG: int
     connected: bool
-    def __init__(self, socket: Any, host: str, port: int, is_ssl: bool, path: str, extra_headers: _ExtraHeader) -> None: ...
+    def __init__(self, socket: _Socket, host: str, port: int, is_ssl: bool, path: str, extra_headers: _ExtraHeader) -> None: ...
     def __del__(self) -> None: ...
     def recv(self, length: int) -> bytes | bytearray | None: ...
     def read(self, length: int) -> bytes | bytearray | None: ...
