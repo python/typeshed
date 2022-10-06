@@ -8,7 +8,7 @@ from _typeshed import IdentityFunction, Incomplete
 from collections.abc import Iterable
 from typing import (  # noqa: Y022,Y027,Y039
     TYPE_CHECKING as TYPE_CHECKING,
-    Any,
+    Any as Any,
     AsyncContextManager as AsyncContextManager,
     AsyncGenerator as AsyncGenerator,
     AsyncIterable as AsyncIterable,
@@ -34,6 +34,7 @@ from typing import (  # noqa: Y022,Y027,Y039
 )
 
 __all__ = [
+    "Any",
     "ClassVar",
     "Concatenate",
     "Final",
@@ -71,6 +72,7 @@ __all__ = [
     "Literal",
     "NewType",
     "overload",
+    "override",
     "Protocol",
     "reveal_type",
     "runtime",
@@ -253,6 +255,7 @@ else:
 # New things in 3.xx
 # The `default` parameter was added to TypeVar, ParamSpec, and TypeVarTuple (PEP 696)
 # The `infer_variance` parameter was added to TypeVar (PEP 695)
+# typing_extensions.override (PEP 698)
 @final
 class TypeVar:
     __name__: str
@@ -304,3 +307,5 @@ class TypeVarTuple:
     __default__: Any | None
     def __init__(self, name: str, *, default: Any | None = ...) -> None: ...
     def __iter__(self) -> Any: ...  # Unpack[Self]
+
+def override(__arg: _F) -> _F: ...
