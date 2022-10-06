@@ -252,6 +252,7 @@ else:
 
 # New things in 3.xx
 # The `default` parameter was added to TypeVar, ParamSpec, and TypeVarTuple (PEP 696)
+# The `infer_variance` parameter was added to TypeVar (PEP 695)
 @final
 class TypeVar:
     __name__: str
@@ -268,6 +269,7 @@ class TypeVar:
         covariant: bool = ...,
         contravariant: bool = ...,
         default: Any | None = ...,
+        infer_variance: bool = ...,
     ) -> None: ...
     if sys.version_info >= (3, 10):
         def __or__(self, right: Any) -> _SpecialForm: ...
