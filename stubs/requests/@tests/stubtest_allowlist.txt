@@ -1,3 +1,15 @@
+# Re-exports from urllib3 (should be fixed in those stubs, not here)
+requests.adapters.HTTPResponse.DECODER_ERROR_CLASSES
+requests.adapters.PoolManager.connection_from_context
 requests.adapters.PoolManager.connection_from_host
+requests.adapters.PoolManager.connection_from_pool_key
 requests.adapters.PoolManager.connection_from_url
+requests.adapters.PoolManager.proxy_config
 requests.adapters.PoolManager.urlopen
+requests.adapters.Retry.DEFAULT
+
+# Unnecessary re-exported constant from requests.compat
+requests.adapters.basestring
+
+# Internal implementation detail, not for re-export
+requests.utils.HEADER_VALIDATORS
