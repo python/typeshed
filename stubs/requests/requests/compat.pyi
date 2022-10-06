@@ -20,6 +20,6 @@ is_py3: bool
 has_simplejson: bool
 
 builtin_str: TypeAlias = str  # noqa: Y042
-basestring: tuple[type, type]
-numeric_types: tuple[type, type]
-integer_types: tuple[type]
+basestring: tuple[type, ...]
+numeric_types: tuple[type, ...]
+integer_types: tuple[type, ...]

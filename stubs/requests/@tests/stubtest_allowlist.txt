@@ -15,6 +15,11 @@ requests.utils.basestring
 requests.utils.integer_types
 requests.models.basestring
 
+# Unnecessary re-exported constant
+# (you should access this as `requests.__version__` or `requests.__version__.__version__`,
+# not `requests.help.requests_version`)
+requests.help.requests_version
+
 # Unnecessary re-exports of third-party modules
 requests.help.chardet
 requests.help.cryptography

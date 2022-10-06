@@ -1,4 +1,4 @@
-from _typeshed import Self, SupportsItems, SupportsRead
+from _typeshed import Incomplete, Self, SupportsItems, SupportsRead
 from collections.abc import Callable, Iterable, Mapping, MutableMapping
 from typing import Any, Union
 from typing_extensions import TypeAlias, TypedDict
@@ -46,10 +46,10 @@ class SessionRedirectMixin:
         resp,
         req,
         stream: bool = ...,
-        timeout=...,
-        verify=...,
-        cert=...,
-        proxies=...,
+        timeout: Incomplete | None = ...,
+        verify: Incomplete | None = ...,
+        cert: Incomplete | None = ...,
+        proxies: Incomplete | None = ...,
         yield_requests: bool = ...,
         **adapter_kwargs,
     ): ...

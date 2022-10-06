@@ -1,7 +1,5 @@
 from typing_extensions import TypedDict
 
-from .__version__ import __version__ as requests_version
-
 class _VersionDict(TypedDict):
     version: str
 
