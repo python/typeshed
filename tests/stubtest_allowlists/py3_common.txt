@@ -46,12 +46,11 @@ asyncio.locks.Condition.locked
 asyncio.locks.Condition.release
 asyncio.proactor_events.BaseProactorEventLoop.sock_recv # nbytes parameter has different name 'n' in implementation
 asyncio.selector_events.BaseSelectorEventLoop.sock_recv # nbytes parameter has different name 'n' in implementation
+builtins.OSError.characters_written  # GetSetDescriptor that always raises AttributeError
 builtins.dict.get
 builtins.ellipsis  # type is not exposed anywhere
 builtins.function
 builtins.memoryview.__contains__  # C type that implements __getitem__
-sqlite3.dbapi2.Binary.__contains__  # C type that implements __getitem__
-sqlite3.Binary.__contains__  # C type that implements __getitem__
 builtins.object.__init__  # default C signature is incorrect
 builtins.type.__dict__  # read-only but not actually a property; stubtest thinks it's a mutable attribute.
 bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
@@ -133,6 +132,9 @@ lib2to3.pytree.BasePattern.__new__
 lib2to3.pytree.BasePattern.type
 lib2to3.pytree.NegatedPattern.match
 lib2to3.pytree.NegatedPattern.match_seq
+# LC_MESSAGES is sometimes present in __all__, sometimes not,
+# so stubtest will sometimes complain about exported names being different at runtime to the exported names in the stub
+(locale)?
 multiprocessing.JoinableQueue
 multiprocessing.Queue
 multiprocessing.SimpleQueue
@@ -169,7 +171,9 @@ socketserver.BaseServer.get_request  # implemented in derived classes
 socketserver.BaseServer.server_bind  # implemented in derived classes
 ssl.Purpose.__new__  # You cannot override __new__ in NamedTuple and runtime uses namedtuple.
 ssl._ASN1Object.__new__  # You cannot override __new__ in NamedTuple and runtime uses namedtuple.
+(sys.get_int_max_str_digits)?  # Added in a patch release, backported to all security branches, but has yet to find its way to all GitHub Actions images
 sys.implementation  # Actually SimpleNamespace but then you wouldn't have convenient attributes
+(sys.set_int_max_str_digits)?  # Added in a patch release, backported to all security branches, but has yet to find its way to all GitHub Actions images
 sys.thread_info
 tarfile.TarFile.errors  # errors is initialized for some reason as None even though it really only accepts str
 threading.Condition.acquire  # Condition functions are exported in __init__
@@ -339,6 +343,26 @@ turtle.ScrolledCanvas.onResize
 wave.Wave_read.initfp
 wave.Wave_write.initfp
 
+_ctypes.Array
+_ctypes.CFuncPtr
+_ctypes.POINTER
+_ctypes.PyObj_FromPtr
+_ctypes.Py_DECREF
+_ctypes.Py_INCREF
+_ctypes.Structure
+_ctypes.Union
+_ctypes.addressof
+_ctypes.alignment
+_ctypes.buffer_info
+_ctypes.byref
+_ctypes.call_cdeclfunction
+_ctypes.call_function
+_ctypes.get_errno
+_ctypes.pointer
+_ctypes.resize
+_ctypes.set_errno
+_ctypes.sizeof
+
 # ==========
 # Allowlist entries that cannot or should not be fixed
 # ==========
@@ -367,14 +391,6 @@ builtins.super.__self__
 builtins.super.__self_class__
 builtins.super.__thisclass__
 
-# Enum `name` and `value` are special properties that exists at runtime, but stubtest can't detect
-# https://github.com/python/typeshed/pull/6576#issuecomment-992538677
-enum.Enum.name
-enum.Enum.value
-enum.Flag.name
-enum.Flag.value
-enum.IntEnum.value
-
 # These enums derive from (int, IntEnum) or (str, Enum).
 pstats.SortKey.__new__
 tkinter.EventType.__new__
@@ -400,17 +416,6 @@ imaplib.IMAP4_SSL.ssl
 ssl.PROTOCOL_SSLv2
 ssl.PROTOCOL_SSLv3
 ssl.RAND_egd
-
-# GetSetDescriptor that always raises AttributeError
-builtins.OSError.characters_written
-# Aliases for OSError
-_socket.error.characters_written
-builtins.EnvironmentError.characters_written
-builtins.IOError.characters_written
-dbm.dumb.error.characters_written
-os.error.characters_written
-select.error.characters_written
-socket.error.characters_written
 
 collections.abc.*  # Types are re-exported from _collections_abc, so errors should be fixed there
 distutils.command.check.SilentReporter  # only defined if docutils in installed

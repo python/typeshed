@@ -4,13 +4,17 @@ from collections.abc import Callable, Iterable, Sequence
 from ctypes import _CData
 from logging import Logger
 from multiprocessing import popen_fork, popen_forkserver, popen_spawn_posix, popen_spawn_win32, queues, synchronize
-from multiprocessing.connection import _ConnectionBase
 from multiprocessing.managers import SyncManager
 from multiprocessing.pool import Pool as _Pool
 from multiprocessing.process import BaseProcess
 from multiprocessing.sharedctypes import SynchronizedArray, SynchronizedBase
 from typing import Any, ClassVar, TypeVar, overload
 from typing_extensions import Literal, TypeAlias
+
+if sys.platform != "win32":
+    from multiprocessing.connection import Connection
+else:
+    from multiprocessing.connection import PipeConnection
 
 if sys.version_info >= (3, 8):
     __all__ = ()
@@ -43,7 +47,15 @@ class BaseContext:
     def active_children() -> list[BaseProcess]: ...
     def cpu_count(self) -> int: ...
     def Manager(self) -> SyncManager: ...
-    def Pipe(self, duplex: bool = ...) -> tuple[_ConnectionBase, _ConnectionBase]: ...
+
+    # N.B. Keep this in sync with multiprocessing.connection.Pipe.
+    # _ConnectionBase is the common base class of Connection and PipeConnection
+    # and can be used in cross-platform code.
+    if sys.platform != "win32":
+        def Pipe(self, duplex: bool = ...) -> tuple[Connection, Connection]: ...
+    else:
+        def Pipe(self, duplex: bool = ...) -> tuple[PipeConnection, PipeConnection]: ...
+
     def Barrier(
         self, parties: int, action: Callable[..., object] | None = ..., timeout: float | None = ...
     ) -> synchronize.Barrier: ...
@@ -137,7 +149,6 @@ class Process(BaseProcess):
 class DefaultContext(BaseContext):
     Process: ClassVar[type[Process]]
     def __init__(self, context: BaseContext) -> None: ...
-    def set_start_method(self, method: str | None, force: bool = ...) -> None: ...
     def get_start_method(self, allow_none: bool = ...) -> str: ...
     def get_all_start_methods(self) -> list[str]: ...
     if sys.version_info < (3, 8):
@@ -145,16 +156,24 @@ class DefaultContext(BaseContext):
 
 _default_context: DefaultContext
 
+class SpawnProcess(BaseProcess):
+    _start_method: str
+    if sys.platform != "win32":
+        @staticmethod
+        def _Popen(process_obj: BaseProcess) -> popen_spawn_posix.Popen: ...
+    else:
+        @staticmethod
+        def _Popen(process_obj: BaseProcess) -> popen_spawn_win32.Popen: ...
+
+class SpawnContext(BaseContext):
+    _name: str
+    Process: ClassVar[type[SpawnProcess]]
+
 if sys.platform != "win32":
     class ForkProcess(BaseProcess):
         _start_method: str
         @staticmethod
         def _Popen(process_obj: BaseProcess) -> popen_fork.Popen: ...
-
-    class SpawnProcess(BaseProcess):
-        _start_method: str
-        @staticmethod
-        def _Popen(process_obj: BaseProcess) -> popen_spawn_posix.Popen: ...
 
     class ForkServerProcess(BaseProcess):
         _start_method: str
@@ -165,23 +184,9 @@ if sys.platform != "win32":
         _name: str
         Process: ClassVar[type[ForkProcess]]
 
-    class SpawnContext(BaseContext):
-        _name: str
-        Process: ClassVar[type[SpawnProcess]]
-
     class ForkServerContext(BaseContext):
         _name: str
         Process: ClassVar[type[ForkServerProcess]]
-
-else:
-    class SpawnProcess(BaseProcess):
-        _start_method: str
-        @staticmethod
-        def _Popen(process_obj: BaseProcess) -> popen_spawn_win32.Popen: ...
-
-    class SpawnContext(BaseContext):
-        _name: str
-        Process: ClassVar[type[SpawnProcess]]
 
 def _force_start_method(method: str) -> None: ...
 def get_spawning_popen() -> Any | None: ...

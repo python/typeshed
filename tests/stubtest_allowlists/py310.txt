@@ -17,8 +17,7 @@ fractions.Fraction.__new__  # overload is too complicated for stubtest to resolv
 gettext.install
 gettext.translation
 hmac.new  # Stub is a white lie; see comments in the stub
-importlib.metadata._meta.SimplePath.__div__  # See comments
-importlib.metadata._meta.SimplePath.__truediv__  # See comments
+importlib.metadata._meta.SimplePath.__truediv__  # See comments in the stub
 ipaddress.IPv4Interface.hostmask
 ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
@@ -36,7 +35,6 @@ types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
 typing._SpecialForm.__mro_entries__
-typing.ForwardRef._evaluate
 typing._TypedDict.__delitem__
 typing._TypedDict.__ior__
 typing._TypedDict.__or__
@@ -74,7 +72,6 @@ _csv.Writer
 asynchat.__warningregistry__  # Removal planned for 3.12, can add if someone needs this
 bdb.Breakpoint.clearBreakpoints
 distutils.util.get_host_platform
-functools.partial.__vectorcalloffset__  # undocumented implementation detail
 inspect.Signature.from_builtin  # Removed in 3.11, can add if someone needs this
 inspect.Signature.from_function  # Removed in 3.11, can add if someone needs this
 multiprocessing.managers.SharedMemoryServer.create
@@ -149,19 +146,6 @@ queue.SimpleQueue.__init__
 xml.etree.ElementTree.XMLParser.__init__
 xml.etree.cElementTree.XMLParser.__init__
 
-# Inherits __init__ from typing.Protocol
-importlib.abc.Traversable.__init__
-importlib.metadata.PackageMetadata.__init__
-importlib.metadata._meta.PackageMetadata.__init__
-importlib.metadata._meta.SimplePath.__init__
-typing.SupportsAbs.__init__
-typing.SupportsBytes.__init__
-typing.SupportsComplex.__init__
-typing.SupportsFloat.__init__
-typing.SupportsIndex.__init__
-typing.SupportsInt.__init__
-typing.SupportsRound.__init__
-
 ftplib.FTP.trust_server_pasv_ipv4_address  # Dangerous to use, intentionally undocumented, intentionally missing from typeshed. #6154
 os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all PathLike classes to implement class_getitem
 types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
@@ -171,57 +155,6 @@ ast.ImportFrom.level  # None on the class, but never None on instances
 # White lies around defaults
 dataclasses.KW_ONLY
 
-# Runtime signature is incorrect (https://github.com/python/cpython/issues/93021)
-builtins.classmethod.__get__
-builtins.property.__get__
-builtins.staticmethod.__get__
-types.FunctionType.__get__
-types.LambdaType.__get__
-
-# Missing from distutils (deprecated, to be removed in 3.12)
-distutils.core.Command.dump_options
-distutils.core.Command.ensure_finalized
-distutils.core.Distribution.announce
-distutils.core.Distribution.common_usage
-distutils.core.Distribution.display_option_names
-distutils.core.Distribution.display_options
-distutils.core.Distribution.dump_option_dicts
-distutils.core.Distribution.find_config_files
-distutils.core.Distribution.get_command_packages
-distutils.core.Distribution.global_options
-distutils.core.Distribution.has_c_libraries
-distutils.core.Distribution.has_data_files
-distutils.core.Distribution.has_ext_modules
-distutils.core.Distribution.has_headers
-distutils.core.Distribution.has_modules
-distutils.core.Distribution.has_pure_modules
-distutils.core.Distribution.has_scripts
-distutils.core.Distribution.is_pure
-distutils.core.Distribution.negative_opt
-distutils.core.Distribution.parse_command_line
-distutils.core.Distribution.print_command_list
-distutils.core.Distribution.reinitialize_command
-distutils.core.Distribution.run_commands
-distutils.cygwinccompiler.PIPE
-distutils.cygwinccompiler.is_cygwingcc
-distutils.dist.Distribution.announce
-distutils.dist.Distribution.common_usage
-distutils.dist.Distribution.display_option_names
-distutils.dist.Distribution.display_options
-distutils.dist.Distribution.dump_option_dicts
-distutils.dist.Distribution.find_config_files
-distutils.dist.Distribution.get_command_packages
-distutils.dist.Distribution.global_options
-distutils.dist.Distribution.has_c_libraries
-distutils.dist.Distribution.has_data_files
-distutils.dist.Distribution.has_ext_modules
-distutils.dist.Distribution.has_headers
-distutils.dist.Distribution.has_modules
-distutils.dist.Distribution.has_pure_modules
-distutils.dist.Distribution.has_scripts
-distutils.dist.Distribution.is_pure
-distutils.dist.Distribution.negative_opt
-distutils.dist.Distribution.parse_command_line
-distutils.dist.Distribution.print_command_list
-distutils.dist.Distribution.reinitialize_command
-distutils.dist.Distribution.run_commands
+# stubtest confuses stdlib distutils with setuptools-bundled distutils (#8410),
+# and the whole directory is going to be removed in 3.12 anyway
+distutils\..*

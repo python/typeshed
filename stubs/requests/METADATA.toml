@@ -2,9 +2,5 @@ version = "2.28.*"
 requires = ["types-urllib3<1.27"] # keep in sync with requests's setup.py
 
 [tool.stubtest]
-# TODO: complete third party libraries that are re-exported or required by
-# requests:
-# * requests.adapters.PoolManager
-# * requests.adapters.HTTPResponse
-# * requests.adapters.Retry
-# ignore_missing_stub = false
+ignore_missing_stub = false
+extras = ["socks"]

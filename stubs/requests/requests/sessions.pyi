@@ -1,6 +1,6 @@
 from _typeshed import Self, SupportsItems, SupportsRead
 from collections.abc import Callable, Iterable, Mapping, MutableMapping
-from typing import IO, Any, Union
+from typing import Any, Union
 from typing_extensions import TypeAlias, TypedDict
 
 from urllib3._collections import RecentlyUsedContainer
@@ -59,7 +59,25 @@ class SessionRedirectMixin:
     def rebuild_method(self, prepared_request: PreparedRequest, response: Response) -> None: ...
     def get_redirect_target(self, resp: Response) -> str | None: ...
 
-_Data: TypeAlias = str | bytes | Mapping[str, Any] | Iterable[tuple[str, str | None]] | IO[Any]
+_Data: TypeAlias = (
+    # used in requests.models.PreparedRequest.prepare_body
+    #
+    # case: is_stream
+    # see requests.adapters.HTTPAdapter.send
+    # will be sent directly to http.HTTPConnection.send(...) (through urllib3)
+    Iterable[bytes]
+    # case: not is_stream
+    # will be modified before being sent to urllib3.HTTPConnectionPool.urlopen(body=...)
+    # see requests.models.RequestEncodingMixin._encode_params
+    # see requests.models.RequestEncodingMixin._encode_files
+    # note that keys&values are converted from Any to str by urllib.parse.urlencode
+    | str
+    | bytes
+    | SupportsRead[str | bytes]
+    | list[tuple[Any, Any]]
+    | tuple[tuple[Any, Any], ...]
+    | Mapping[Any, Any]
+)
 _Auth: TypeAlias = Union[tuple[str, str], _auth.AuthBase, Callable[[PreparedRequest], PreparedRequest]]
 _Cert: TypeAlias = Union[str, tuple[str, str]]
 # Files is passed to requests.utils.to_key_val_list()

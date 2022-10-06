@@ -1,5 +1,7 @@
+<<<<<<< HEAD
 from logging import NullHandler as NullHandler
 
+=======
 from .__version__ import (
     __author__ as __author__,
     __author_email__ as __author_email__,

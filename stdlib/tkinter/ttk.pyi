@@ -4,7 +4,7 @@ import tkinter
 from _typeshed import Incomplete
 from collections.abc import Callable
 from tkinter.font import _FontDescription
-from typing import Any, overload
+from typing import Any, Union, overload
 from typing_extensions import Literal, TypeAlias, TypedDict
 
 __all__ = [
@@ -37,6 +37,14 @@ __all__ = [
 
 def tclobjs_to_py(adict: dict[Any, Any]) -> dict[Any, Any]: ...
 def setup_master(master: Incomplete | None = ...): ...
+
+_Padding: TypeAlias = Union[
+    tkinter._ScreenUnits,
+    tuple[tkinter._ScreenUnits],
+    tuple[tkinter._ScreenUnits, tkinter._ScreenUnits],
+    tuple[tkinter._ScreenUnits, tkinter._ScreenUnits, tkinter._ScreenUnits],
+    tuple[tkinter._ScreenUnits, tkinter._ScreenUnits, tkinter._ScreenUnits, tkinter._ScreenUnits],
+]
 
 # from ttk_widget (aka ttk::widget) manual page, differs from tkinter._Compound
 _TtkCompound: TypeAlias = Literal["text", "image", tkinter._Compound]
@@ -337,7 +345,7 @@ class Frame(Widget):
         cursor: tkinter._Cursor = ...,
         height: tkinter._ScreenUnits = ...,
         name: str = ...,
-        padding: tkinter._Padding = ...,
+        padding: _Padding = ...,
         relief: tkinter._Relief = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
@@ -352,7 +360,7 @@ class Frame(Widget):
         borderwidth: tkinter._ScreenUnits = ...,
         cursor: tkinter._Cursor = ...,
         height: tkinter._ScreenUnits = ...,
-        padding: tkinter._Padding = ...,
+        padding: _Padding = ...,
         relief: tkinter._Relief = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
@@ -379,7 +387,7 @@ class Label(Widget):
         image: tkinter._ImageSpec = ...,
         justify: Literal["left", "center", "right"] = ...,
         name: str = ...,
-        padding: tkinter._Padding = ...,
+        padding: _Padding = ...,
         relief: tkinter._Relief = ...,
         state: str = ...,
         style: str = ...,
@@ -405,7 +413,7 @@ class Label(Widget):
         foreground: tkinter._Color = ...,
         image: tkinter._ImageSpec = ...,
         justify: Literal["left", "center", "right"] = ...,
-        padding: tkinter._Padding = ...,
+        padding: _Padding = ...,
         relief: tkinter._Relief = ...,
         state: str = ...,
         style: str = ...,
@@ -433,7 +441,7 @@ class Labelframe(Widget):
         labelanchor: Literal["nw", "n", "ne", "en", "e", "es", "se", "s", "sw", "ws", "w", "wn"] = ...,
         labelwidget: tkinter.Misc = ...,
         name: str = ...,
-        padding: tkinter._Padding = ...,
+        padding: _Padding = ...,
         relief: tkinter._Relief = ...,  # undocumented
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
@@ -452,7 +460,7 @@ class Labelframe(Widget):
         height: tkinter._ScreenUnits = ...,
         labelanchor: Literal["nw", "n", "ne", "en", "e", "es", "se", "s", "sw", "ws", "w", "wn"] = ...,
         labelwidget: tkinter.Misc = ...,
-        padding: tkinter._Padding = ...,
+        padding: _Padding = ...,
         relief: tkinter._Relief = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
@@ -519,7 +527,7 @@ class Notebook(Widget):
         cursor: tkinter._Cursor = ...,
         height: int = ...,
         name: str = ...,
-        padding: tkinter._Padding = ...,
+        padding: _Padding = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
         width: int = ...,
@@ -531,7 +539,7 @@ class Notebook(Widget):
         *,
         cursor: tkinter._Cursor = ...,
         height: int = ...,
-        padding: tkinter._Padding = ...,
+        padding: _Padding = ...,
         style: str = ...,
         takefocus: tkinter._TakeFocusValue = ...,
         width: int = ...,
@@ -545,7 +553,7 @@ class Notebook(Widget):
         *,
         state: Literal["normal", "disabled", "hidden"] = ...,
         sticky: str = ...,  # consists of letters 'n', 's', 'w', 'e', no repeats, may be empty
-        padding: tkinter._Padding = ...,
+        padding: _Padding = ...,
         text: str = ...,
         image=...,  # Sequence of an image name, followed by zero or more (sequences of one or more state names followed by an image name)
         compound: tkinter._Compound = ...,
@@ -929,7 +937,7 @@ class _TreeviewTagDict(TypedDict):
     foreground: tkinter._Color
     background: tkinter._Color
     font: _FontDescription
-    image: Literal[""] | str  # not wrapped in list :D
+    image: str  # not wrapped in list :D
 
 class _TreeviewHeaderDict(TypedDict):
     text: str
@@ -955,10 +963,10 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         class_: str = ...,
         columns: str | list[str] | tuple[str, ...] = ...,
         cursor: tkinter._Cursor = ...,
-        displaycolumns: str | list[str] | tuple[str, ...] | list[int] | tuple[int, ...] | Literal["#all"] = ...,
+        displaycolumns: str | list[str] | tuple[str, ...] | list[int] | tuple[int, ...] = ...,
         height: int = ...,
         name: str = ...,
-        padding: tkinter._Padding = ...,
+        padding: _Padding = ...,
         selectmode: Literal["extended", "browse", "none"] = ...,
         # list/tuple of Literal don't actually work in mypy
         #
@@ -977,9 +985,9 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         *,
         columns: str | list[str] | tuple[str, ...] = ...,
         cursor: tkinter._Cursor = ...,
-        displaycolumns: str | list[str] | tuple[str, ...] | list[int] | tuple[int, ...] | Literal["#all"] = ...,
+        displaycolumns: str | list[str] | tuple[str, ...] | list[int] | tuple[int, ...] = ...,
         height: int = ...,
-        padding: tkinter._Padding = ...,
+        padding: _Padding = ...,
         selectmode: Literal["extended", "browse", "none"] = ...,
         show: Literal["tree", "headings", "tree headings", ""] | list[str] | tuple[str, ...] = ...,
         style: str = ...,

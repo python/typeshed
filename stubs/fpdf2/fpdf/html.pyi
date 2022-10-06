@@ -1,6 +1,10 @@
 from html.parser import HTMLParser
 from typing import Any
 
+__author__: str
+__copyright__: str
+__license__: str
+
 LOGGER: Any
 BULLET_WIN1252: str
 DEFAULT_HEADING_SIZES: Any
@@ -39,6 +43,8 @@ class HTML2FPDF(HTMLParser):
     table_row_height: int
     heading_level: Any
     heading_sizes: Any
+    heading_above: float
+    heading_below: float
     def __init__(
         self,
         pdf,
