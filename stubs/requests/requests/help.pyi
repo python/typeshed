@@ -39,9 +39,5 @@ class _InfoDict(TypedDict):
     idna: _VersionDict
     requests: _VersionDict
 
-<<<<<<< HEAD
-def _implementation() -> dict[str, str]: ...
-=======
->>>>>>> origin/master
 def info() -> _InfoDict: ...
 def main() -> None: ...
