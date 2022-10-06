@@ -47,7 +47,7 @@ def get_installed_package_info(project: str) -> tuple[str, str] | None:
 
 def run_stubgen(package: str, output: str) -> None:
     print(f"Running stubgen: stubgen -o {output} -p {package}")
-    subprocess.run(["stubgen", "-o", output, "-p", package], check=True)
+    subprocess.run(["stubgen", "-o", output, "-p", package, "--export-less"], check=True)
 
 
 def run_black(stub_dir: str) -> None:
@@ -171,11 +171,8 @@ def main() -> None:
 
     print("\nDone!\n\nSuggested next steps:")
     print(f" 1. Manually review the generated stubs in {stub_dir}")
-    print(f' 2. Run "MYPYPATH={stub_dir} python3 -m mypy.stubtest {package}" to check the stubs against runtime')
-    print(f' 3. Run "mypy {stub_dir}" to check for errors')
-    print(f' 4. Run "black {stub_dir}" and "isort {stub_dir}" (if you\'ve made code changes)')
-    print(f' 5. Run "flake8 {stub_dir}" to check for e.g. unused imports')
-    print(" 6. Commit the changes on a new branch and create a typeshed PR")
+    print(" 2. Optionally run tests and autofixes (see tests/README.md for details")
+    print(" 3. Commit the changes on a new branch and create a typeshed PR (don't force-push!)")
 
 
 if __name__ == "__main__":

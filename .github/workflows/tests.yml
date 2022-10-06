@@ -79,7 +79,7 @@ jobs:
         with:
           python-version: 3.x
       - run: pip install -r requirements-tests.txt
-      - run: ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
+      - run: python ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
 
   regression-tests:
     name: Run mypy on the test cases

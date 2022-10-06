@@ -25,9 +25,9 @@ from utils import (
     VERSIONS_RE as VERSION_LINE_RE,
     colored,
     get_gitignore_spec,
+    get_recursive_requirements,
     print_error,
     print_success_msg,
-    read_dependencies,
     spec_matches_path,
     strip_comments,
 )
@@ -152,16 +152,13 @@ def parse_version(v_str: str) -> tuple[int, int]:
     return int(m.group(1)), int(m.group(2))
 
 
-def add_files(files: list[Path], seen: set[str], module: Path, args: TestConfig) -> None:
+def add_files(files: list[Path], module: Path, args: TestConfig) -> None:
     """Add all files in package or module represented by 'name' located in 'root'."""
     if module.is_file() and module.suffix == ".pyi":
         if match(module, args):
             files.append(module)
-            seen.add(module.stem)
     else:
-        to_add = sorted(file for file in module.rglob("*.pyi") if match(file, args))
-        files.extend(to_add)
-        seen.update(path.stem for path in to_add)
+        files.extend(sorted(file for file in module.rglob("*.pyi") if match(file, args)))
 
 
 class MypyDistConf(NamedTuple):
@@ -272,15 +269,23 @@ def add_third_party_files(
         return
     seen_dists.add(distribution)
 
-    dependencies = read_dependencies(distribution)
-    for dependency in dependencies:
-        add_third_party_files(dependency, files, args, configurations, seen_dists)
+    stubs_dir = Path("stubs")
+    dependencies = get_recursive_requirements(distribution)
 
-    root = Path("stubs", distribution)
+    for dependency in dependencies:
+        if dependency in seen_dists:
+            continue
+        seen_dists.add(dependency)
+        files_to_add = sorted((stubs_dir / dependency).rglob("*.pyi"))
+        files.extend(files_to_add)
+        for file in files_to_add:
+            log(args, file, f"included as a dependency of {distribution!r}")
+
+    root = stubs_dir / distribution
     for name in os.listdir(root):
         if name.startswith("."):
             continue
-        add_files(files, set(), (root / name), args)
+        add_files(files, (root / name), args)
         add_configuration(configurations, distribution)
 
 
@@ -315,7 +320,6 @@ def test_third_party_distribution(distribution: str, args: TestConfig) -> TestRe
 
 
 def test_stdlib(code: int, args: TestConfig) -> TestResults:
-    seen = {"builtins", "typing"}  # Always ignore these.
     files: list[Path] = []
     stdlib = Path("stdlib")
     supported_versions = parse_versions(stdlib / "VERSIONS")
@@ -325,7 +329,7 @@ def test_stdlib(code: int, args: TestConfig) -> TestResults:
         module = Path(name).stem
         module_min_version, module_max_version = supported_versions[module]
         if module_min_version <= tuple(map(int, args.version.split("."))) <= module_max_version:
-            add_files(files, seen, (stdlib / name), args)
+            add_files(files, (stdlib / name), args)
 
     if files:
         print(f"Testing stdlib ({len(files)} files)...")
@@ -348,9 +352,14 @@ def test_third_party_stubs(code: int, args: TestConfig) -> TestResults:
         if spec_matches_path(gitignore_spec, distribution_path):
             continue
 
-        this_code, checked = test_third_party_distribution(distribution, args)
-        code = max(code, this_code)
-        files_checked += checked
+        if (
+            distribution_path in args.filter
+            or Path("stubs") in args.filter
+            or any(distribution_path in path.parents for path in args.filter)
+        ):
+            this_code, checked = test_third_party_distribution(distribution, args)
+            code = max(code, this_code)
+            files_checked += checked
 
     return TestResults(code, files_checked)
 
