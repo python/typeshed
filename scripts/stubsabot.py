@@ -535,6 +535,22 @@ def has_non_stubsabot_commits(branch: str) -> bool:
         return False
 
 
+def latest_commit_is_different_to_last_commit_on_origin(branch: str) -> bool:
+    assert not branch.startswith("origin/")
+    try:
+        # https://www.git-scm.com/docs/git-range-diff
+        # If the number of lines is >1,
+        # it indicates that something about our commit is different to the last commit
+        # (Could be the commit "content", or the commit message).
+        commit_comparison = subprocess.run(
+            ["git", "range-diff", f"origin/{branch}~1..origin/{branch}", "HEAD~1..HEAD"], check=True, capture_output=True
+        )
+        return len(commit_comparison.stdout.splitlines()) > 1
+    except subprocess.CalledProcessError:
+        # origin/branch does not exist
+        return True
+
+
 class RemoteConflict(Exception):
     pass
 
@@ -600,6 +616,9 @@ async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession
         subprocess.check_call(["git", "commit", "--all", "-m", f"{title}\n\n{body}"])
         if action_level <= ActionLevel.local:
             return
+        if not latest_commit_is_different_to_last_commit_on_origin(branch_name):
+            print(f"No pushing to origin required: origin/{branch_name} exists and requires no changes!")
+            return
         somewhat_safe_force_push(branch_name)
         if action_level <= ActionLevel.fork:
             return
@@ -624,6 +643,9 @@ async def suggest_typeshed_obsolete(obsolete: Obsolete, session: aiohttp.ClientS
         body = "\n".join(f"{k}: {v}" for k, v in obsolete.links.items())
         subprocess.check_call(["git", "commit", "--all", "-m", f"{title}\n\n{body}"])
         if action_level <= ActionLevel.local:
+            return
+        if not latest_commit_is_different_to_last_commit_on_origin(branch_name):
+            print(f"No PR required: origin/{branch_name} exists and requires no changes!")
             return
         somewhat_safe_force_push(branch_name)
         if action_level <= ActionLevel.fork:
