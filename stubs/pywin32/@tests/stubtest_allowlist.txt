@@ -1,50 +1,75 @@
 # Not available at runtime. Contains type definitions that are otherwise not exposed
 _win32typing
-win32comext.mapi.exchdapi
-win32.winxptheme
-win32.wincerapi
-
-# incomplete
-pythoncom.*
+win32com(ext)?.mapi._exchdapi
+win32._wincerapi
+# PyWin tool / debugger
 pythonwin.pywin.*
-win32.lib.pywintypes.*
-win32.lib.ntsecuritycon.*
-win32.lib.sspicon.*
-win32.lib.win2kras.*
-win32.lib.win32con.*
-win32.lib.win32cryptcon.*
-win32.lib.win32inetcon.*
-win32.lib.win32netcon.*
-win32.lib.winioctlcon.*
-win32.win32pdh.*
-win32.win32ras.*
-win32.win32wnet.*
-win32comext.adsi.*
-win32comext.mapi.exchange.*
-win32comext.shell.shell.*
-win32comext.directsound.directsound.*
-
-win32comext.axdebug.axdebug
-win32comext.internet.internet
-win32comext.adsi.adsicon
-win32comext.axdebug.adb
-win32comext.axdebug.codecontainer
-win32comext.axdebug.contexts
-win32comext.axdebug.debugger
-win32comext.axdebug.documents
-win32comext.axdebug.dump
-win32comext.axdebug.expressions
-win32comext.axdebug.gateways
-win32comext.axdebug.stackframe
-win32comext.axdebug.util
-win32comext.axscript.asputil
-win32comext.axscript.client.*
-win32comext.axscript.server.*
-win32comext.directsound.test.*
-win32comext.ifilter.ifiltercon
-win32comext.internet.inetcon
-win32comext.mapi.emsabtags
-win32comext.mapi.mapitags
-win32comext.mapi.mapiutil
-win32comext.propsys.pscon
-win32comext.shell.shellcon
+win32com.client.combrowse
+win32com.client.tlbrowse
+# Utilities to generate python bindings
+win32com.client.build
+win32com.client.CLSIDToClass
+win32com.client.connect
+# Necessary for mypy to not throw AssertionError
+win32com.client.dynamic.*
+win32com.client.gencache
+win32com.client.genpy
+win32com.client.makepy
+win32com.client.selecttlb
+win32com.client.util
+win32com.makegw.*
+# COM object servers scripts
+win32com.server.factory
+win32com.server.localserver
+win32com.server.register
+win32com.servers.*
+# Active X Scripts
+win32com(ext)?.axscript.client.framework
+win32com(ext)?.axscript.client.pyscript_rexec
+# Necessary for mypy to not fail
+win32com(ext)?.axscript.client.pyscript.*
+win32com(ext)?.axscript.client.scriptdispatch
+# Other scripts
+isapi.install
+win32.scripts.*
+win32.lib.netbios
+win32.lib.sspi
+win32.lib.win32pdhutil
+win32.lib.win32rcparser
+win32.lib.win32serviceutil
+win32.lib.win32traceutil
+win32.lib.verstamp
+# Demos, tests and debugging
+win32.lib.pywin32_testutil
+win32.lib.rasutil
+win32.lib.win32gui_struct
+win32com.demos.*
+win32com.servers.test_pycomtest
+win32com.test.*
+win32com(ext)?.axdebug.codecontainer
+win32com(ext)?.axdebug.dump
+win32com(ext)?.axdebug.debugger
+win32com(ext)?.axscript.client.pydumper
+win32com(ext)?.directsound.test.*
+# Deprecated and obsolete
+pythoncom.MakeIID
+pythoncom.MakeTime
+win32.lib.dbi
+win32.lib.win32pdhquery.Query.addperfcounter
+win32.win32gui.PyMakeBuffer
+# Also a script
+win32.lib.regcheck
+# failed to import, ImportError: DLL load failed while importing axdebug: The specified module could not be found.
+# https://github.com/python/mypy/issues/13822
+win32com.axdebug.axdebug
+win32com(ext)?.axdebug.adb
+win32com(ext)?.axdebug.codecontainer
+# failed to import, SystemError: CoInternetCreateSecurityManager() method: bad call flags
+win32com(ext)?.internet.internet
+# failed to import, ModuleNotFoundError: No module named '...'
+win32com(ext)?.axdebug.contexts
+win32com(ext)?.axdebug.debugger
+win32com(ext)?.axdebug.documents
+win32com(ext)?.axdebug.expressions
+win32com(ext)?.axdebug.stackframe
+win32com(ext)?.axscript.client.debug
