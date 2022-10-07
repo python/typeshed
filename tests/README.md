@@ -116,7 +116,7 @@ at [mypy](https://github.com/python/mypy/issues).
 To run stubtest against third party stubs, it's easiest to use stubtest
 directly, with
 ```
-(.venv3)$ python3 -m mypy.stubtest \
+(.venv3)$ MYPYPATH=<path-to-stubs> python3 -m mypy.stubtest \
   --custom-typeshed-dir <path-to-typeshed> \
   <third-party-module>
 ```
@@ -140,6 +140,10 @@ check on the command line:
 For each distribution, stubtest ignores definitions listed in a `@tests/stubtest_allowlist.txt` file,
 relative to the distribution. Additional packages that are needed to run stubtest for a
 distribution can be added to `@tests/requirements-stubtest.txt`.
+
+If running stubtest directly (via `python3 -m mypy.stubtest`), make sure to set the
+`MYPYPATH` environment variable to the location of the stub to test, otherwise
+stubs won't be found.
 
 ## typecheck\_typeshed.py
 
