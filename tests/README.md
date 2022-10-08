@@ -117,15 +117,6 @@ can add to the allowlists for each affected Python version in
 `tests/stubtest_allowlists`. Please file issues for stubtest false positives
 at [mypy](https://github.com/python/mypy/issues).
 
-To run stubtest against third party stubs, it's easiest to use stubtest
-directly, with
-```
-(.venv3)$ MYPYPATH=<path-to-stubs> python3 -m mypy.stubtest \
-  --custom-typeshed-dir <path-to-typeshed> \
-  <third-party-module>
-```
-stubtest can also help you find things missing from the stubs.
-
 ## stubtest\_third\_party.py
 
 :warning: This script downloads and executes arbitrary code from PyPI. Only run
@@ -143,6 +134,14 @@ check on the command line:
 
 ```
 (.venv3)$ python3 tests/stubtest_third_party.py Pillow toml  # check stubs/Pillow and stubs/toml
+```
+
+To run stubtest against third party stubs, it's easiest to use stubtest
+directly, with
+```
+(.venv3)$ MYPYPATH=<path-to-module-stubs> python3 -m mypy.stubtest \
+  --custom-typeshed-dir <path-to-typeshed> \
+  <third-party-module>
 ```
 
 For each distribution, stubtest ignores definitions listed in a `@tests/stubtest_allowlist.txt` file,
