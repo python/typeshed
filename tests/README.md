@@ -136,7 +136,7 @@ check on the command line:
 (.venv3)$ python3 tests/stubtest_third_party.py Pillow toml  # check stubs/Pillow and stubs/toml
 ```
 
-To run stubtest against third party stubs, it's easiest to use stubtest
+If you have the runtime package installed in your local virtual environment, you can also run stubtest
 directly, with
 ```
 (.venv3)$ MYPYPATH=<path-to-module-stubs> python3 -m mypy.stubtest \
