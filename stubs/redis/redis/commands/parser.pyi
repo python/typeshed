@@ -2,7 +2,6 @@ from redis.client import AbstractRedis
 from redis.typing import EncodableT
 
 class CommandsParser:
-    initialized: bool  # will be removed in the future
     commands: dict[str, str]
     def __init__(self, redis_connection: AbstractRedis) -> None: ...
     def initialize(self, r: AbstractRedis) -> None: ...
