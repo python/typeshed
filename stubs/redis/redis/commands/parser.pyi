@@ -1,5 +1,3 @@
-from typing import Any
-
 from redis.client import AbstractRedis
 from redis.typing import EncodableT
 
