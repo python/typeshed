@@ -89,11 +89,11 @@ This test compares the stdlib stubs against the objects at runtime. Because of
 this, the output depends on which version of Python and on what kind of system
 it is run.
 As such, if you run this test locally, it may complain about system-specific
-differences (in e.g, `socket`) that the type system and/or our stubtest settings
-in CI cannot capture. If you run into this issue, you can consider
+differences (in e.g, `socket`) that the type system cannot capture or our stubtest settings
+in CI do not account for. If you run into this issue, consider opening a draft PR and letting CI
+test it automatically (or
 [running the test via Github Actions](https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow#running-a-workflow)
-on your typeshed fork. This ensures that the test is run in an environment
-that exactly matches typeshed's CI.
+on your typeshed fork).
 
 If you need a specific version of Python to repro a CI failure,
 [pyenv](https://github.com/pyenv/pyenv) can also help.
