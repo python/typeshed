@@ -1,5 +1,5 @@
 name: Post mypy_primer comment
-# cancel build
+
 on:
   workflow_run:
     workflows:
