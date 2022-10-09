@@ -136,6 +136,14 @@ check on the command line:
 (.venv3)$ python3 tests/stubtest_third_party.py Pillow toml  # check stubs/Pillow and stubs/toml
 ```
 
+If you have the runtime package installed in your local virtual environment, you can also run stubtest
+directly, with
+```
+(.venv3)$ MYPYPATH=<path-to-module-stubs> python3 -m mypy.stubtest \
+  --custom-typeshed-dir <path-to-typeshed> \
+  <third-party-module>
+```
+
 For each distribution, stubtest ignores definitions listed in a `@tests/stubtest_allowlist.txt` file,
 relative to the distribution. Additional packages that are needed to run stubtest for a
 distribution can be added to `@tests/requirements-stubtest.txt`.
