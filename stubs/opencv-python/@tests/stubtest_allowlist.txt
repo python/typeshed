@@ -1,0 +1,11 @@
+# failed to import, NameError: name 'LOADER_DIR' is not defined
+cv2.config
+# Also: AssertionError: Files must be valid modules, got: "stubs\opencv-python\cv2\config-3.pyi"
+cv2.config-3
+
+# Python 2
+cv2.load_config_py2
+
+# Specific kwargs definition
+cv2.mat_wrapper.Mat.__init__
+cv2.mat_wrapper.Mat.__new__

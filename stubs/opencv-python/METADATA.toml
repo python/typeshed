@@ -1,0 +1,5 @@
+# Can't bump to 4.6 until https://github.com/opencv/opencv-python/issues/676 is fixed.
+version = "4.5.*"
+
+[tool.stubtest]
+ignore_missing_stub = false
