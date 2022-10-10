@@ -305,57 +305,76 @@ class stat_result(structseq[float], tuple[int, int, int, int, int, int, int, flo
     if sys.version_info >= (3, 10):
         __match_args__: Final = ("st_mode", "st_ino", "st_dev", "st_nlink", "st_uid", "st_gid", "st_size")
     @property
-    def st_mode(self) -> int: ...  # protection bits,
+    def st_mode(self) -> int:
+        """File mode: file type and file mode bits (permissions)."""
     @property
-    def st_ino(self) -> int: ...  # inode number,
+    def st_ino(self) -> int:
+        """Platform dependent, but if non-zero, uniquely identifies the file for a given value of st_dev. Typically: the inode number on Unix, the file index on Windows"""
     @property
-    def st_dev(self) -> int: ...  # device,
+    def st_dev(self) -> int:
+        """Identifier of the device on which this file resides."""
     @property
-    def st_nlink(self) -> int: ...  # number of hard links,
+    def st_nlink(self) -> int:
+        """Number of hard links."""
     @property
-    def st_uid(self) -> int: ...  # user id of owner,
+    def st_uid(self) -> int:
+        """User identifier of the file owner."""
     @property
-    def st_gid(self) -> int: ...  # group id of owner,
+    def st_gid(self) -> int:
+        """Group identifier of the file owner."""
     @property
-    def st_size(self) -> int: ...  # size of file, in bytes,
+    def st_size(self) -> int:
+        """Size of the file in bytes, if it is a regular file or a symbolic link. The size of a symbolic link is the length of the pathname it contains, without a terminating null byte."""
     @property
-    def st_atime(self) -> float: ...  # time of most recent access,
+    def st_atime(self) -> float:
+        """Time of most recent access expressed in seconds."""
     @property
-    def st_mtime(self) -> float: ...  # time of most recent content modification,
-    # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows)
+    def st_mtime(self) -> float:
+        """Time of most recent content modification expressed in seconds."""
     @property
-    def st_ctime(self) -> float: ...
+    def st_ctime(self) -> float:
+        """Platform dependent: the time of most recent metadata change on Unix, the time of creation on Windows, expressed in seconds."""
     @property
-    def st_atime_ns(self) -> int: ...  # time of most recent access, in nanoseconds
+    def st_atime_ns(self) -> int:
+        """Time of most recent access expressed in nanoseconds as an integer."""
     @property
-    def st_mtime_ns(self) -> int: ...  # time of most recent content modification in nanoseconds
-    # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows) in nanoseconds
+    def st_mtime_ns(self) -> int:
+        """Time of most recent content modification expressed in nanoseconds as an integer."""
     @property
-    def st_ctime_ns(self) -> int: ...
+    def st_ctime_ns(self) -> int:
+        """Platform dependent: the time of most recent metadata change on Unix, the time of creation on Windows, expressed in nanoseconds as an integer."""
     if sys.platform == "win32":
         @property
-        def st_file_attributes(self) -> int: ...
+        def st_file_attributes(self) -> int:
+            """Windows file attributes: dwFileAttributes member of the BY_HANDLE_FILE_INFORMATION structure returned by GetFileInformationByHandle(). See the FILE_ATTRIBUTE_* constants in the stat module."""
         if sys.version_info >= (3, 8):
             @property
-            def st_reparse_tag(self) -> int: ...
+            def st_reparse_tag(self) -> int:
+                """When st_file_attributes has the FILE_ATTRIBUTE_REPARSE_POINT set, this field contains the tag identifying the type of reparse point. See the IO_REPARSE_TAG_* constants in the stat module."""
     else:
         @property
-        def st_blocks(self) -> int: ...  # number of blocks allocated for file
+        def st_blocks(self) -> int:
+            """Number of 512-byte blocks allocated for file. This may be smaller than st_size/512 when the file has holes."""
         @property
-        def st_blksize(self) -> int: ...  # filesystem blocksize
+        def st_blksize(self) -> int:
+            """“Preferred” blocksize for efficient file system I/O. Writing to a file in smaller chunks may cause an inefficient read-modify-rewrite."""
         @property
-        def st_rdev(self) -> int: ...  # type of device if an inode device
+        def st_rdev(self) -> int:
+            """Type of device if an inode device."""
         if sys.platform != "linux":
             # These properties are available on MacOS, but not on Windows or Ubuntu.
             # On other Unix systems (such as FreeBSD), the following attributes may be
             # available (but may be only filled out if root tries to use them):
             @property
-            def st_gen(self) -> int: ...  # file generation number
+            def st_gen(self) -> int:
+                """File generation number."""
             @property
-            def st_birthtime(self) -> int: ...  # time of file creation
+            def st_birthtime(self) -> int:
+                """Time of file creation."""
     if sys.platform == "darwin":
         @property
-        def st_flags(self) -> int: ...  # user defined flags for file
+        def st_flags(self) -> int:
+            """User defined flags for file."""
     # Attributes documented as sometimes appearing, but deliberately omitted from the stub: `st_creator`, `st_rsize`, `st_type`.
     # See https://github.com/python/typeshed/pull/6560#issuecomment-991253327
 
