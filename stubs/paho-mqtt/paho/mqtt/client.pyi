@@ -4,7 +4,7 @@ import ssl as _ssl
 import time
 import types
 from collections.abc import Callable, Iterable
-from typing import Any, TypeVar
+from typing import Any, Optional
 from typing_extensions import TypeAlias
 
 from .matcher import MQTTMatcher as MQTTMatcher
@@ -90,28 +90,24 @@ _Socket: TypeAlias = _socket.socket | _ssl.SSLSocket | Any
 _Payload: TypeAlias = str | bytes | bytearray | float
 _ExtraHeader: TypeAlias = dict[str, str] | Callable[[dict[str, str]], dict[str, str]]
 _OnLog: TypeAlias = Callable[[Client, _UserData, int, str], object]
-_OnConnect = TypeVar(
-    "_OnConnect",
-    Callable[[Client, _UserData, dict[str, int], int], object],
-    Callable[[Client, _UserData, dict[str, int], ReasonCodes, Properties | None], object],
+_OnConnect: TypeAlias = (
+    Callable[[Client, _UserData, dict[str, int], int], object]
+    | Callable[[Client, _UserData, dict[str, int], ReasonCodes, Optional[Properties]], object]
 )
 _OnConnectFail: TypeAlias = Callable[[Client, _UserData], object]
-_OnSubscribe = TypeVar(
-    "_OnSubscribe",
-    Callable[[Client, _UserData, int, Iterable[int]], object],
-    Callable[[Client, _UserData, Iterable[ReasonCodes], Iterable[Properties]], object],
+_OnSubscribe: TypeAlias = (
+    Callable[[Client, _UserData, int, Iterable[int]], object]
+    | Callable[[Client, _UserData, int, Iterable[ReasonCodes], Iterable[Properties]], object]
 )
 _OnMessage: TypeAlias = Callable[[Client, _UserData, MQTTMessage], object]
 _OnPublish: TypeAlias = Callable[[Client, _UserData, int], object]
-_OnUnsubscribe = TypeVar(
-    "_OnUnsubscribe",
-    Callable[[Client, _UserData, int], object],
-    Callable[[Client, _UserData, int, Iterable[Properties], Iterable[ReasonCodes]], object],
+_OnUnsubscribe: TypeAlias = (
+    Callable[[Client, _UserData, int], object]
+    | Callable[[Client, _UserData, int, Iterable[Properties], Iterable[ReasonCodes]], object]
 )
-_OnDisconnect = TypeVar(
-    "_OnDisconnect",
-    Callable[[Client, _UserData, int], object],
-    Callable[[Client, _UserData, int, ReasonCodes | None, Properties | None], object],
+_OnDisconnect: TypeAlias = (
+    Callable[[Client, _UserData, int], object]
+    | Callable[[Client, _UserData, int, Optional[ReasonCodes], Optional[Properties]], object]
 )
 _OnSocket: TypeAlias = Callable[[Client, _UserData, _Socket | WebsocketWrapper | None], object]
 
@@ -155,7 +151,7 @@ class Client:
     suppress_exceptions: bool
     def __init__(
         self,
-        client_id: str = ...,
+        client_id: str | None = ...,
         clean_session: bool | None = ...,
         userdata: _UserData | None = ...,
         protocol: int = ...,
@@ -177,7 +173,7 @@ class Client:
         keyfile_password: _ssl._PasswordType | None = ...,
     ) -> None: ...
     def tls_insecure_set(self, value: bool) -> None: ...
-    def proxy_set(self, **proxy_args: str | int) -> None: ...
+    def proxy_set(self, **proxy_args: Any) -> None: ...
     def enable_logger(self, logger: logging.Logger | None = ...) -> None: ...
     def disable_logger(self) -> None: ...
     def connect(
@@ -314,7 +310,9 @@ class WebsocketWrapper:
     OPCODE_PING: int
     OPCODE_PONG: int
     connected: bool
-    def __init__(self, socket: _Socket, host: str, port: int, is_ssl: bool, path: str, extra_headers: _ExtraHeader) -> None: ...
+    def __init__(
+        self, socket: _Socket, host: str, port: int, is_ssl: bool, path: str, extra_headers: _ExtraHeader | None
+    ) -> None: ...
     def __del__(self) -> None: ...
     def recv(self, length: int) -> bytes | bytearray | None: ...
     def read(self, length: int) -> bytes | bytearray | None: ...
