@@ -1,14 +1,17 @@
 # fake module, only exists once the app is frozen
 pyi_splash
+
 # Undocumented and clearly not meant to be exposed
 PyInstaller.__main__.generate_parser
 PyInstaller.__main__.run_build
 PyInstaller.__main__.run_makespec
 PyInstaller.utils.hooks.conda.lib_dir
+
 # A mix of modules meant to be private, and shallow incomplete type references for other modules
 PyInstaller.building.*
 PyInstaller.depend.analysis.*
 PyInstaller.isolated._parent.*
+
 # Most modules are not meant to be used, yet are not marked as private
 PyInstaller.archive.*
 PyInstaller.config
