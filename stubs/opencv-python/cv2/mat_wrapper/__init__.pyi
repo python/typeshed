@@ -1,15 +1,13 @@
-from _typeshed import Incomplete
 from typing_extensions import TypeAlias
 
-# import numpy
+from cv2.cv2 import _Mat
 
-_NDArray: TypeAlias = Incomplete  # numpy.ndarray[int, np.dtype[np.generic]]
 _Unused: TypeAlias = object
 
 __all__: list[str] = []
 
-class Mat(_NDArray):
+class Mat(_Mat):
     wrap_channels: bool | None
-    def __new__(cls, arr: _NDArray, wrap_channels: bool = ..., **kwargs: _Unused) -> _NDArray: ...
-    def __init__(self, arr: _NDArray, wrap_channels: bool = ...) -> None: ...
-    def __array_finalize__(self, obj: _NDArray | None) -> None: ...
+    def __new__(cls, arr: _Mat, wrap_channels: bool = ..., **kwargs: _Unused) -> _Mat: ...
+    def __init__(self, arr: _Mat, wrap_channels: bool = ...) -> None: ...
+    def __array_finalize__(self, obj: _Mat | None) -> None: ...
