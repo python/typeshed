@@ -164,7 +164,7 @@ _P3: TypeAlias = Incomplete  # noqa: Y042
 _Q: TypeAlias = Incomplete  # noqa: Y042
 _roi1: TypeAlias = Incomplete  # noqa: Y042
 _roi2: TypeAlias = Incomplete  # noqa: Y042
-__3dImage: TypeAlias = Incomplete  # noqa: Y042
+_3dImage: TypeAlias = Incomplete  # noqa: Y042
 _intersectingRegion: TypeAlias = Incomplete  # noqa: Y042
 _blend: TypeAlias = Incomplete  # noqa: Y042
 _boundingBoxes: TypeAlias = Incomplete  # noqa: Y042
@@ -5782,10 +5782,7 @@ def cartToPolar(x, y, magnitude=..., angle=..., angleInDegrees=...) -> tuple[_ma
     """
     ...
 
-def checkChessboard(img: Mat, size) -> _retval:
-    """ """
-    ...
-
+def checkChessboard(img: Mat, size) -> _retval: ...
 def checkHardwareSupport(feature) -> _retval:
     """
     @brief Returns true if the specified feature is supported by the host hardware.
@@ -6520,10 +6517,7 @@ def createBackgroundSubtractorMOG2(history=..., varThreshold=..., detectShadows=
     """
     ...
 
-def createButton(buttonName, onChange, userData=..., buttonType=..., initialButtonState=...) -> None:
-    """ """
-    ...
-
+def createButton(buttonName, onChange, userData=..., buttonType=..., initialButtonState=...) -> None: ...
 def createCLAHE(clipLimit=..., tileGridSize=...) -> _retval:
     """
     @brief Creates a smart pointer to a cv::CLAHE class and initializes it.
@@ -6677,10 +6671,7 @@ def createTonemapReinhard(gamma=..., intensity=..., light_adapt=..., color_adapt
     """
     ...
 
-def createTrackbar(trackbarName, windowName, value, count, onChange) -> None:
-    """ """
-    ...
-
+def createTrackbar(trackbarName, windowName, value, count, onChange) -> None: ...
 def cubeRoot(val) -> _retval:
     """
     @brief Computes the cube root of an argument.
@@ -7315,14 +7306,8 @@ def divide(src1: Mat, src2: Mat, dts: Mat = ..., scale=..., dtype=...) -> _dst:
 
 @overload
 def divide(scale, src2, dst=..., dtype=...) -> _dst: ...
-def dnn_registerLayer() -> None:
-    """ """
-    ...
-
-def dnn_unregisterLayer() -> None:
-    """ """
-    ...
-
+def dnn_registerLayer() -> None: ...
+def dnn_unregisterLayer() -> None: ...
 def drawChessboardCorners(image: Mat, patternSize, corners, patternWasFound) -> _image:
     """
     @brief Renders the detected chessboard corners.
@@ -8216,10 +8201,7 @@ def filterSpeckles(img: Mat, newVal, maxSpeckleSize, maxDiff, buf=...) -> tuple[
     """
     ...
 
-def find4QuadCornerSubpix(img: Mat, corners, region_size) -> tuple[_retval, _corners]:
-    """ """
-    ...
-
+def find4QuadCornerSubpix(img: Mat, corners, region_size) -> tuple[_retval, _corners]: ...
 def findChessboardCorners(image: Mat, patternSize, corners=..., flags: int = ...) -> tuple[_retval, _corners]:
     """
     @brief Finds the positions of internal corners of the chessboard.
@@ -9388,10 +9370,7 @@ def getTrackbarPos(trackbarname, winname) -> _retval:
     """
     ...
 
-def getValidDisparityROI(roi1, roi2, minDisparity, numberOfDisparities, blockSize) -> _retval:
-    """ """
-    ...
-
+def getValidDisparityROI(roi1, roi2, minDisparity, numberOfDisparities, blockSize) -> _retval: ...
 def getVersionMajor() -> _retval:
     """
     @brief Returns major library version
@@ -11334,14 +11313,8 @@ def rectify3Collinear(
     P2=...,
     P3=...,
     Q=...,
-) -> tuple[_retval, _R1, _R2, _R3, _P1, _P2, _P3, _Q, _roi1, _roi2]:
-    """ """
-    ...
-
-def redirectError(onError) -> None:
-    """ """
-    ...
-
+) -> tuple[_retval, _R1, _R2, _R3, _P1, _P2, _P3, _Q, _roi1, _roi2]: ...
+def redirectError(onError) -> None: ...
 def reduce(src: Mat, dim, rtype, dts: Mat = ..., dtype=...) -> _dst:
     """
     @brief Reduces a matrix to a vector.
@@ -11425,7 +11398,7 @@ def repeat(src: Mat, ny, nx, dts: Mat = ...) -> _dst:
     """
     ...
 
-def reprojectImageTo3D(disparity, Q, _3dImage=..., handleMissingValues=..., ddepth=...) -> __3dImage:
+def reprojectImageTo3D(disparity, Q, _3dImage=..., handleMissingValues=..., ddepth=...) -> _3dImage:
     """
     @brief Reprojects a disparity image to 3D space.
 
@@ -11707,10 +11680,7 @@ def setIdentity(mtx, s=...) -> _mtx:
     ...
 
 def setLogLevel(*args, **kwargs) -> Any: ...  # incomplete
-def setMouseCallback(windowName, onMouse, param=...) -> None:
-    """ """
-    ...
-
+def setMouseCallback(windowName, onMouse, param=...) -> None: ...
 def setNumThreads(nthreads) -> None:
     """
     @brief OpenCV will try to set the number of threads for the next parallel region.
@@ -11794,10 +11764,7 @@ def setTrackbarPos(trackbarname, winname, pos) -> None:
     """
     ...
 
-def setUseOpenVX(flag) -> None:
-    """ """
-    ...
-
+def setUseOpenVX(flag) -> None: ...
 def setUseOptimized(onoff) -> None:
     """
     @brief Enables or disables the optimized code.
@@ -12569,10 +12536,7 @@ def sqrt(src: Mat, dts: Mat = ...) -> _dst:
     """
     ...
 
-def startWindowThread() -> _retval:
-    """ """
-    ...
-
+def startWindowThread() -> _retval: ...
 def stereoCalibrate(
     objectPoints,
     imagePoints1,
@@ -12588,10 +12552,7 @@ def stereoCalibrate(
     F=...,
     flags: int = ...,
     criteria=...,
-) -> tuple[_retval, _cameraMatrix1, _distCoeffs1, _cameraMatrix2, _distCoeffs2, _R, _T, _E, _F]:
-    """ """
-    ...
-
+) -> tuple[_retval, _cameraMatrix1, _distCoeffs1, _cameraMatrix2, _distCoeffs2, _R, _T, _E, _F]: ...
 def stereoCalibrateExtended(
     objectPoints,
     imagePoints1,
@@ -13171,10 +13132,7 @@ def undistortPointsIter(src: Mat, cameraMatrix, distCoeffs, R, P, criteria, dts:
     """
     ...
 
-def useOpenVX() -> _retval:
-    """ """
-    ...
-
+def useOpenVX() -> _retval: ...
 def useOptimized() -> _retval:
     """
     @brief Returns the status of optimized code usage.
@@ -13183,10 +13141,7 @@ def useOptimized() -> _retval:
     """
     ...
 
-def validateDisparity(disparity, cost, minDisparity, numberOfDisparities, disp12MaxDisp=...) -> _disparity:
-    """ """
-    ...
-
+def validateDisparity(disparity, cost, minDisparity, numberOfDisparities, disp12MaxDisp=...) -> _disparity: ...
 def vconcat(src: Mat | list[Mat], dts: Mat = ...) -> Mat:
     """
     @param src input array or vector of matrices. all of the matrices must have the same number of cols and the same depth
