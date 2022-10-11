@@ -610,7 +610,7 @@ async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession
         with open(update.stub_path / "METADATA.toml", "rb") as f:
             meta = tomlkit.load(f)
         meta["version"] = update.new_version_spec
-        with open(update.stub_path / "METADATA.toml", "w") as f:
+        with open(update.stub_path / "METADATA.toml", "w", encoding="UTF-8") as f:
             tomlkit.dump(meta, f)
         body = get_update_pr_body(update, meta)
         subprocess.check_call(["git", "commit", "--all", "-m", f"{title}\n\n{body}"])
@@ -638,7 +638,7 @@ async def suggest_typeshed_obsolete(obsolete: Obsolete, session: aiohttp.ClientS
         obs_string = tomlkit.string(obsolete.obsolete_since_version)
         obs_string.comment(f"Released on {obsolete.obsolete_since_date.date().isoformat()}")
         meta["obsolete_since"] = obs_string
-        with open(obsolete.stub_path / "METADATA.toml", "w") as f:
+        with open(obsolete.stub_path / "METADATA.toml", "w", encoding="UTF-8") as f:
             tomlkit.dump(meta, f)
         body = "\n".join(f"{k}: {v}" for k, v in obsolete.links.items())
         subprocess.check_call(["git", "commit", "--all", "-m", f"{title}\n\n{body}"])
