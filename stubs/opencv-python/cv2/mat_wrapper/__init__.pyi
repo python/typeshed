@@ -3,7 +3,7 @@ from typing_extensions import TypeAlias
 
 # import numpy
 
-_NDArray: TypeAlias = Incomplete  # numpy.ndarray
+_NDArray: TypeAlias = Incomplete  # numpy.ndarray[int, np.dtype[np.generic]]
 _Unused: TypeAlias = object
 
 __all__: list[str] = []

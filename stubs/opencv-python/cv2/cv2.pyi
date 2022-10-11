@@ -2,6 +2,8 @@ from _typeshed import Incomplete
 from typing import Any, ClassVar, overload
 from typing_extensions import TypeAlias
 
+from cv2.mat_wrapper import Mat
+
 _flow: TypeAlias = Incomplete  # noqa: Y042
 _image: TypeAlias = Incomplete  # noqa: Y042
 _edgeList: TypeAlias = Incomplete  # noqa: Y042
@@ -18,6 +20,8 @@ _pts: TypeAlias = Incomplete  # noqa: Y042
 _dst: TypeAlias = Incomplete  # noqa: Y042
 _markers: TypeAlias = Incomplete  # noqa: Y042
 _masks: TypeAlias = Incomplete  # noqa: Y042
+
+__version__: str
 
 ACCESS_FAST: int
 ACCESS_MASK: int
@@ -2051,7 +2055,7 @@ class GCompileArg:
 
 class GComputation:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def apply(self) -> Incomplete: ...
+    def apply(self): ...
     def compileStreaming(self, *args, **kwargs) -> Any: ...  # incomplete
 
 class GFTTDetector(Feature2D):
@@ -2127,7 +2131,7 @@ class GStreamingCompiled:
     @overload
     def setSource(self, callback) -> None: ...
     @overload
-    def setSource(self) -> Incomplete: ...
+    def setSource(self): ...
     def start(self) -> None: ...
     def stop(self) -> None: ...
 
@@ -2621,7 +2625,7 @@ class VideoCapture:
     def get(self, *args, **kwargs) -> Any: ...  # incomplete
     def getBackendName(self, *args, **kwargs) -> Any: ...  # incomplete
     def getExceptionMode(self, *args, **kwargs) -> Any: ...  # incomplete
-    def grab(self) -> Incomplete: ...
+    def grab(self): ...
     def isOpened(self, *args, **kwargs) -> Any: ...  # incomplete
     def open(self, *args, **kwargs) -> Any: ...  # incomplete
     def read(self, *args, **kwargs) -> Any: ...  # incomplete
@@ -3569,427 +3573,10152 @@ class segmentation_IntelligentScissorsMB:
     def setGradientMagnitudeMaxLimit(self, *args, **kwargs) -> Any: ...  # incomplete
     def setWeights(self, *args, **kwargs) -> Any: ...  # incomplete
 
-def AKAZE_create(*args, **kwargs) -> Any: ...  # incomplete
+def AKAZE_create(
+    descriptor_type=...,
+    descriptor_size=...,
+    descriptor_channels=...,
+    threshold=...,
+    nOctaves=...,
+    nOctaveLayers=...,
+    diffusivity=...,
+):
+    """
+    AKAZE_create([, descriptor_type[, descriptor_size[, descriptor_channels[, threshold[, nOctaves[, nOctaveLayers[, diffusivity]]]]]]]) -> retval
+    @brief The AKAZE constructor
+
+    @param descriptor_type Type of the extracted descriptor: DESCRIPTOR_KAZE,
+    DESCRIPTOR_KAZE_UPRIGHT, DESCRIPTOR_MLDB or DESCRIPTOR_MLDB_UPRIGHT.
+    @param descriptor_size Size of the descriptor in bits. 0 -> Full size
+    @param descriptor_channels Number of channels in the descriptor (1, 2, 3)
+    @param threshold Detector response threshold to accept point
+    @param nOctaves Maximum octave evolution of the image
+    @param nOctaveLayers Default number of sublevels per scale level
+    @param diffusivity Diffusivity type. DIFF_PM_G1, DIFF_PM_G2, DIFF_WEICKERT or
+    DIFF_CHARBONNIER
+    """
+    ...
+
 def AffineFeature_create(*args, **kwargs) -> Any: ...  # incomplete
-def AgastFeatureDetector_create(*args, **kwargs) -> Any: ...  # incomplete
-def BFMatcher_create(*args, **kwargs) -> Any: ...  # incomplete
-def BRISK_create(*args, **kwargs) -> Any: ...  # incomplete
-def CamShift(*args, **kwargs) -> Any: ...  # incomplete
-def Canny(*args, **kwargs) -> Any: ...  # incomplete
-def CascadeClassifier_convert(*args, **kwargs) -> Any: ...  # incomplete
-def DISOpticalFlow_create(*args, **kwargs) -> Any: ...  # incomplete
-def DescriptorMatcher_create(*args, **kwargs) -> Any: ...  # incomplete
-def EMD(*args, **kwargs) -> Any: ...  # incomplete
+def AgastFeatureDetector_create(threshold=..., nonmaxSuppression=..., type=...):
+    """
+    AgastFeatureDetector_create([, threshold[, nonmaxSuppression[, type]]]) -> retval
+
+    """
+    ...
+
+def BFMatcher_create(normType: int = ..., crossCheck=...):
+    """
+    BFMatcher_create([, normType[, crossCheck]]) -> retval
+    @brief Brute-force matcher create method.
+    @param normType One of NORM_L1, NORM_L2, NORM_HAMMING, NORM_HAMMING2. L1 and L2 norms are
+    preferable choices for SIFT and SURF descriptors, NORM_HAMMING should be used with ORB, BRISK and
+    BRIEF, NORM_HAMMING2 should be used with ORB when WTA_K==3 or 4 (see ORB::ORB constructor
+    description).
+    @param crossCheck If it is false, this is will be default BFMatcher behaviour when it finds the k
+    nearest neighbors for each query descriptor. If crossCheck==true, then the knnMatch() method with
+    k=1 will only return pairs (i,j) such that for i-th query descriptor the j-th descriptor in the
+    matcher's collection is the nearest and vice versa, i.e. the BFMatcher will only return consistent
+    pairs. Such technique usually produces best results with minimal number of outliers when there are
+    enough matches. This is alternative to the ratio test, used by D. Lowe in SIFT paper.
+    """
+    ...
+
+def BRISK_create(thresh=..., octaves=..., patternScale=...):
+    """
+    BRISK_create([, thresh[, octaves[, patternScale]]]) -> retval
+    @brief The BRISK constructor
+
+    @param thresh AGAST detection threshold score.
+    @param octaves detection octaves. Use 0 to do single scale.
+    @param patternScale apply this scale to the pattern used for sampling the neighbourhood of a
+    keypoint.
+
+
+
+    BRISK_create(radiusList, numberList[, dMax[, dMin[, indexChange]]]) -> retval
+    @brief The BRISK constructor for a custom pattern
+
+    @param radiusList defines the radii (in pixels) where the samples around a keypoint are taken (for
+    keypoint scale 1).
+    @param numberList defines the number of sampling points on the sampling circle. Must be the same
+    size as radiusList..
+    @param dMax threshold for the short pairings used for descriptor formation (in pixels for keypoint
+    scale 1).
+    @param dMin threshold for the long pairings used for orientation determination (in pixels for
+    keypoint scale 1).
+    @param indexChange index remapping of the bits.
+
+
+
+    BRISK_create(thresh, octaves, radiusList, numberList[, dMax[, dMin[, indexChange]]]) -> retval
+    @brief The BRISK constructor for a custom pattern, detection threshold and octaves
+
+    @param thresh AGAST detection threshold score.
+    @param octaves detection octaves. Use 0 to do single scale.
+    @param radiusList defines the radii (in pixels) where the samples around a keypoint are taken (for
+    keypoint scale 1).
+    @param numberList defines the number of sampling points on the sampling circle. Must be the same
+    size as radiusList..
+    @param dMax threshold for the short pairings used for descriptor formation (in pixels for keypoint
+    scale 1).
+    @param dMin threshold for the long pairings used for orientation determination (in pixels for
+    keypoint scale 1).
+    @param indexChange index remapping of the bits.
+    """
+    ...
+
+def CamShift(probImage, window, criteria):
+    """
+    CamShift(probImage, window, criteria) -> retval, window
+    @brief Finds an object center, size, and orientation.
+
+    @param probImage Back projection of the object histogram. See calcBackProject.
+    @param window Initial search window.
+    @param criteria Stop criteria for the underlying meanShift.
+    returns
+    (in old interfaces) Number of iterations CAMSHIFT took to converge
+    The function implements the CAMSHIFT object tracking algorithm @cite Bradski98 . First, it finds an
+    object center using meanShift and then adjusts the window size and finds the optimal rotation. The
+    function returns the rotated rectangle structure that includes the object position, size, and
+    orientation. The next position of the search window can be obtained with RotatedRect::boundingRect()
+
+    See the OpenCV sample camshiftdemo.c that tracks colored objects.
+
+    @note
+    -   (Python) A sample explaining the camshift tracking algorithm can be found at
+    opencv_source_code/samples/python/camshift.py
+    """
+    ...
+
+def Canny(image: Mat, threshold1, threshold2, edges=..., apertureSize=..., L2gradient=...):
+    """
+    Canny(image, threshold1, threshold2[, edges[, apertureSize[, L2gradient]]]) -> edges
+    @brief Finds edges in an image using the Canny algorithm @cite Canny86 .
+
+    The function finds edges in the input image and marks them in the output map edges using the
+    Canny algorithm. The smallest value between threshold1 and threshold2 is used for edge linking. The
+    largest value is used to find initial segments of strong edges. See
+    <http://en.wikipedia.org/wiki/Canny_edge_detector>
+
+    @param image 8-bit input image.
+    @param edges output edge map; single channels 8-bit image, which has the same size as image .
+    @param threshold1 first threshold for the hysteresis procedure.
+    @param threshold2 second threshold for the hysteresis procedure.
+    @param apertureSize aperture size for the Sobel operator.
+    @param L2gradient a flag, indicating whether a more accurate `L_2` norm
+    `=√{(dI/dx)^2 + (dI/dy)^2}` should be used to calculate the image gradient magnitude (
+    L2gradient=true ), or whether the default `L_1` norm `=|dI/dx|+|dI/dy|` is enough (
+    L2gradient=false ).
+
+
+
+    Canny(dx, dy, threshold1, threshold2[, edges[, L2gradient]]) -> edges
+    \\overload
+
+    Finds edges in an image using the Canny algorithm with custom image gradient.
+
+    @param dx 16-bit x derivative of input image (CV_16SC1 or CV_16SC3).
+    @param dy 16-bit y derivative of input image (same type as dx).
+    @param edges output edge map; single channels 8-bit image, which has the same size as image .
+    @param threshold1 first threshold for the hysteresis procedure.
+    @param threshold2 second threshold for the hysteresis procedure.
+    @param L2gradient a flag, indicating whether a more accurate `L_2` norm
+    `=√{(dI/dx)^2 + (dI/dy)^2}` should be used to calculate the image gradient magnitude (
+    L2gradient=true ), or whether the default `L_1` norm `=|dI/dx|+|dI/dy|` is enough (
+    L2gradient=false ).
+    """
+    ...
+
+def CascadeClassifier_convert(oldcascade, newcascade):
+    """
+    CascadeClassifier_convert(oldcascade, newcascade) -> retval
+
+    """
+    ...
+
+def DISOpticalFlow_create(preset=...):
+    """
+    DISOpticalFlow_create([, preset]) -> retval
+    @brief Creates an instance of DISOpticalFlow
+
+    @param preset one of PRESET_ULTRAFAST, PRESET_FAST and PRESET_MEDIUM
+    """
+    ...
+
+def DescriptorMatcher_create(descriptorMatcherType):
+    """
+    DescriptorMatcher_create(descriptorMatcherType) -> retval
+    @brief Creates a descriptor matcher of a given type with the default parameters (using default
+    constructor).
+
+    @param descriptorMatcherType Descriptor matcher type. Now the following matcher types are
+    supported:
+    -   `BruteForce` (it uses L2 )
+    -   `BruteForce-L1`
+    -   `BruteForce-Hamming`
+    -   `BruteForce-Hamming(2)`
+    -   `FlannBased`
+
+
+
+    DescriptorMatcher_create(matcherType) -> retval
+
+    """
+    ...
+
+def EMD(signature1, signature2, distType, cost=..., lowerBound=..., flow=...):
+    """
+    EMD(signature1, signature2, distType[, cost[, lowerBound[, flow]]]) -> retval, lowerBound, flow
+    @brief Computes the "minimal work" distance between two weighted point configurations.
+
+    The function computes the earth mover distance and/or a lower boundary of the distance between the
+    two weighted point configurations. One of the applications described in @cite RubnerSept98,
+    @cite Rubner2000 is multi-dimensional histogram comparison for image retrieval. EMD is a transportation
+    problem that is solved using some modification of a simplex algorithm, thus the complexity is
+    exponential in the worst case, though, on average it is much faster. In the case of a real metric
+    the lower boundary can be calculated even faster (using linear-time algorithm) and it can be used
+    to determine roughly whether the two signatures are far enough so that they cannot relate to the
+    same object.
+
+    @param signature1 First signature, a ``size1`x `dims`+1` floating-point matrix.
+    Each row stores the point weight followed by the point coordinates. The matrix is allowed to have
+    a single column (weights only) if the user-defined cost matrix is used. The weights must be
+    non-negative and have at least one non-zero value.
+    @param signature2 Second signature of the same format as signature1 , though the number of rows
+    may be different. The total weights may be different. In this case an extra "dummy" point is added
+    to either signature1 or signature2. The weights must be non-negative and have at least one non-zero
+    value.
+    @param distType Used metric. See #DistanceTypes.
+    @param cost User-defined ``size1`x `size2`` cost matrix. Also, if a cost matrix
+    is used, lower boundary lowerBound cannot be calculated because it needs a metric function.
+    @param lowerBound Optional input/output parameter: lower boundary of a distance between the two
+    signatures that is a distance between mass centers. The lower boundary may not be calculated if
+    the user-defined cost matrix is used, the total weights of point configurations are not equal, or
+    if the signatures consist of weights only (the signature matrices have a single column). You
+    **must** initialize  * lowerBound . If the calculated distance between mass centers is greater or
+    equal to  * lowerBound (it means that the signatures are far enough), the function does not
+    calculate EMD. In any case  * lowerBound is set to the calculated distance between mass centers on
+    return. Thus, if you want to calculate both distance between mass centers and EMD,  * lowerBound
+    should be set to 0.
+    @param flow Resultant ``size1` x `size2`` flow matrix: ``flow`_{i,j}` is
+    a flow from `i` -th point of signature1 to `j` -th point of signature2 .
+    """
+    ...
+
 def FaceDetectorYN_create(*args, **kwargs) -> Any: ...  # incomplete
 def FaceRecognizerSF_create(*args, **kwargs) -> Any: ...  # incomplete
-def FarnebackOpticalFlow_create(*args, **kwargs) -> Any: ...  # incomplete
-def FastFeatureDetector_create(*args, **kwargs) -> Any: ...  # incomplete
-def FlannBasedMatcher_create(*args, **kwargs) -> Any: ...  # incomplete
-def GFTTDetector_create(*args, **kwargs) -> Any: ...  # incomplete
-def GaussianBlur(*args, **kwargs) -> Any: ...  # incomplete
-def HOGDescriptor_getDaimlerPeopleDetector(*args, **kwargs) -> Any: ...  # incomplete
-def HOGDescriptor_getDefaultPeopleDetector(*args, **kwargs) -> Any: ...  # incomplete
-def HoughCircles(*args, **kwargs) -> Any: ...  # incomplete
-def HoughLines(*args, **kwargs) -> Any: ...  # incomplete
-def HoughLinesP(*args, **kwargs) -> Any: ...  # incomplete
-def HoughLinesPointSet(*args, **kwargs) -> Any: ...  # incomplete
+def FarnebackOpticalFlow_create(
+    numLevels=..., pyrScale=..., fastPyramids=..., winSize=..., numIters=..., polyN=..., polySigma=..., flags: int = ...
+):
+    """
+    FarnebackOpticalFlow_create([, numLevels[, pyrScale[, fastPyramids[, winSize[, numIters[, polyN[, polySigma[, flags]]]]]]]]) -> retval
+
+    """
+    ...
+
+def FastFeatureDetector_create(threshold=..., nonmaxSuppression=..., type=...):
+    """
+    FastFeatureDetector_create([, threshold[, nonmaxSuppression[, type]]]) -> retval
+
+    """
+    ...
+
+def FlannBasedMatcher_create():
+    """
+    FlannBasedMatcher_create() -> retval
+
+    """
+    ...
+
+def GFTTDetector_create(maxCorners=..., qualityLevel=..., minDistance=..., blockSize=..., useHarrisDetector=..., k=...):
+    """
+    GFTTDetector_create([, maxCorners[, qualityLevel[, minDistance[, blockSize[, useHarrisDetector[, k]]]]]]) -> retval
+
+
+
+
+    GFTTDetector_create(maxCorners, qualityLevel, minDistance, blockSize, gradiantSize[, useHarrisDetector[, k]]) -> retval
+
+    """
+    ...
+
+def GaussianBlur(src: Mat, ksize, sigmaX, dts: Mat = ..., sigmaY=..., borderType=...):
+    """
+    GaussianBlur(src, ksize, sigmaX[, dst[, sigmaY[, borderType]]]) -> dst
+    @brief Blurs an image using a Gaussian filter.
+
+    The function convolves the source image with the specified Gaussian kernel. In-place filtering is
+    supported.
+
+    @param src input image; the image can have any number of channels, which are processed
+    independently, but the depth should be CV_8U, CV_16U, CV_16S, CV_32F or CV_64F.
+    @param dst output image of the same size and type as src.
+    @param ksize Gaussian kernel size. ksize.width and ksize.height can differ but they both must be
+    positive and odd. Or, they can be zero's and then they are computed from sigma.
+    @param sigmaX Gaussian kernel standard deviation in X direction.
+    @param sigmaY Gaussian kernel standard deviation in Y direction; if sigmaY is zero, it is set to be
+    equal to sigmaX, if both sigmas are zeros, they are computed from ksize.width and ksize.height,
+    respectively (see #getGaussianKernel for details); to fully control the result regardless of
+    possible future modifications of all this semantics, it is recommended to specify all of ksize,
+    sigmaX, and sigmaY.
+    @param borderType pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.
+
+    @sa  sepFilter2D, filter2D, blur, boxFilter, bilateralFilter, medianBlur
+    """
+    ...
+
+def HOGDescriptor_getDaimlerPeopleDetector():
+    """
+    HOGDescriptor_getDaimlerPeopleDetector() -> retval
+    @brief Returns coefficients of the classifier trained for people detection (for 48x96 windows).
+    """
+    ...
+
+def HOGDescriptor_getDefaultPeopleDetector():
+    """
+    HOGDescriptor_getDefaultPeopleDetector() -> retval
+    @brief Returns coefficients of the classifier trained for people detection (for 64x128 windows).
+    """
+    ...
+
+def HoughCircles(image: Mat, method: int, dp, minDist, circles=..., param1=..., param2=..., minRadius=..., maxRadius=...):
+    """
+    HoughCircles(image, method, dp, minDist[, circles[, param1[, param2[, minRadius[, maxRadius]]]]]) -> circles
+    @brief Finds circles in a grayscale image using the Hough transform.
+
+    The function finds circles in a grayscale image using a modification of the Hough transform.
+
+    Example: :
+    @include snippets/imgproc_HoughLinesCircles.cpp
+
+    @note Usually the function detects the centers of circles well. However, it may fail to find correct
+    radii. You can assist to the function by specifying the radius range ( minRadius and maxRadius ) if
+    you know it. Or, in the case of #HOUGH_GRADIENT method you may set maxRadius to a negative number
+    to return centers only without radius search, and find the correct radius using an additional procedure.
+
+    It also helps to smooth image a bit unless it\'s already soft. For example,
+    GaussianBlur() with 7x7 kernel and 1.5x1.5 sigma or similar blurring may help.
+
+    @param image 8-bit, single-channel, grayscale input image.
+    @param circles Output vector of found circles. Each vector is encoded as  3 or 4 element
+    floating-point vector `(x, y, radius)` or `(x, y, radius, votes)` .
+    @param method Detection method, see #HoughModes. The available methods are #HOUGH_GRADIENT and #HOUGH_GRADIENT_ALT.
+    @param dp Inverse ratio of the accumulator resolution to the image resolution. For example, if
+    dp=1 , the accumulator has the same resolution as the input image. If dp=2 , the accumulator has
+    half as big width and height. For #HOUGH_GRADIENT_ALT the recommended value is dp=1.5,
+    unless some small very circles need to be detected.
+    @param minDist Minimum distance between the centers of the detected circles. If the parameter is
+    too small, multiple neighbor circles may be falsely detected in addition to a true one. If it is
+    too large, some circles may be missed.
+    @param param1 First method-specific parameter. In case of #HOUGH_GRADIENT and #HOUGH_GRADIENT_ALT,
+    it is the higher threshold of the two passed to the Canny edge detector (the lower one is twice smaller).
+    Note that #HOUGH_GRADIENT_ALT uses #Scharr algorithm to compute image derivatives, so the threshold value
+    shough normally be higher, such as 300 or normally exposed and contrasty images.
+    @param param2 Second method-specific parameter. In case of #HOUGH_GRADIENT, it is the
+    accumulator threshold for the circle centers at the detection stage. The smaller it is, the more
+    false circles may be detected. Circles, corresponding to the larger accumulator values, will be
+    returned first. In the case of #HOUGH_GRADIENT_ALT algorithm, this is the circle "perfectness" measure.
+    The closer it to 1, the better shaped circles algorithm selects. In most cases 0.9 should be fine.
+    If you want get better detection of small circles, you may decrease it to 0.85, 0.8 or even less.
+    But then also try to limit the search range [minRadius, maxRadius] to avoid many false circles.
+    @param minRadius Minimum circle radius.
+    @param maxRadius Maximum circle radius. If <= 0, uses the maximum image dimension. If < 0, #HOUGH_GRADIENT returns
+    centers without finding the radius. #HOUGH_GRADIENT_ALT always computes circle radiuses.
+
+    @sa fitEllipse, minEnclosingCircle
+    """
+    ...
+
+def HoughLines(image: Mat, rho, theta, threshold, lines=..., srn=..., stn=..., min_theta=..., max_theta=...):
+    """
+    HoughLines(image, rho, theta, threshold[, lines[, srn[, stn[, min_theta[, max_theta]]]]]) -> lines
+    @brief Finds lines in a binary image using the standard Hough transform.
+
+    The function implements the standard or standard multi-scale Hough transform algorithm for line
+    detection. See <http://homepages.inf.ed.ac.uk/rbf/HIPR2/hough.htm> for a good explanation of Hough
+    transform.
+
+    @param image 8-bit, single-channel binary source image. The image may be modified by the function.
+    @param lines Output vector of lines. Each line is represented by a 2 or 3 element vector
+    `(P, θ)` or `(P, θ, \\textrm{votes})` . `P` is the distance from the coordinate origin `(0,0)` (top-left corner of
+    the image). `θ` is the line rotation angle in radians (
+    `0 \\sim \\textrm{vertical line}, π/2 \\sim \\textrm{horizontal line}` ).
+    `\\textrm{votes}` is the value of accumulator.
+    @param rho Distance resolution of the accumulator in pixels.
+    @param theta Angle resolution of the accumulator in radians.
+    @param threshold Accumulator threshold parameter. Only those lines are returned that get enough
+    votes ( `>`threshold`` ).
+    @param srn For the multi-scale Hough transform, it is a divisor for the distance resolution rho .
+    The coarse accumulator distance resolution is rho and the accurate accumulator resolution is
+    rho/srn . If both srn=0 and stn=0 , the classical Hough transform is used. Otherwise, both these
+    parameters should be positive.
+    @param stn For the multi-scale Hough transform, it is a divisor for the distance resolution theta.
+    @param min_theta For standard and multi-scale Hough transform, minimum angle to check for lines.
+    Must fall between 0 and max_theta.
+    @param max_theta For standard and multi-scale Hough transform, maximum angle to check for lines.
+    Must fall between min_theta and CV_PI.
+    """
+    ...
+
+def HoughLinesP(image: Mat, rho, theta, threshold, lines=..., minLineLength=..., maxLineGap=...):
+    """
+    HoughLinesP(image, rho, theta, threshold[, lines[, minLineLength[, maxLineGap]]]) -> lines
+    @brief Finds line segments in a binary image using the probabilistic Hough transform.
+
+    The function implements the probabilistic Hough transform algorithm for line detection, described
+    in @cite Matas00
+
+    See the line detection example below:
+    @include snippets/imgproc_HoughLinesP.cpp
+    This is a sample picture the function parameters have been tuned for:
+
+    ![image](pics/building.jpg)
+
+    And this is the output of the above program in case of the probabilistic Hough transform:
+
+    ![image](pics/houghp.png)
+
+    @param image 8-bit, single-channel binary source image. The image may be modified by the function.
+    @param lines Output vector of lines. Each line is represented by a 4-element vector
+    `(x_1, y_1, x_2, y_2)` , where `(x_1,y_1)` and `(x_2, y_2)` are the ending points of each detected
+    line segment.
+    @param rho Distance resolution of the accumulator in pixels.
+    @param theta Angle resolution of the accumulator in radians.
+    @param threshold Accumulator threshold parameter. Only those lines are returned that get enough
+    votes ( `>`threshold`` ).
+    @param minLineLength Minimum line length. Line segments shorter than that are rejected.
+    @param maxLineGap Maximum allowed gap between points on the same line to link them.
+
+    @sa LineSegmentDetector
+    """
+    ...
+
+def HoughLinesPointSet(_point, lines_max, threshold, min_rho, max_rho, rho_step, min_theta, max_theta, theta_step, _lines=...):
+    """
+    HoughLinesPointSet(_point, lines_max, threshold, min_rho, max_rho, rho_step, min_theta, max_theta, theta_step[, _lines]) -> _lines
+    @brief Finds lines in a set of points using the standard Hough transform.
+
+    The function finds lines in a set of points using a modification of the Hough transform.
+    @include snippets/imgproc_HoughLinesPointSet.cpp
+    @param _point Input vector of points. Each vector must be encoded as a Point vector `(x,y)`. Type must be CV_32FC2 or CV_32SC2.
+    @param _lines Output vector of found lines. Each vector is encoded as a vector<Vec3d> `(votes, rho, theta)`.
+    The larger the value of 'votes', the higher the reliability of the Hough line.
+    @param lines_max Max count of hough lines.
+    @param threshold Accumulator threshold parameter. Only those lines are returned that get enough
+    votes ( `>`threshold`` )
+    @param min_rho Minimum Distance value of the accumulator in pixels.
+    @param max_rho Maximum Distance value of the accumulator in pixels.
+    @param rho_step Distance resolution of the accumulator in pixels.
+    @param min_theta Minimum angle value of the accumulator in radians.
+    @param max_theta Maximum angle value of the accumulator in radians.
+    @param theta_step Angle resolution of the accumulator in radians.
+    """
+    ...
+
 def HoughLinesWithAccumulator(*args, **kwargs) -> Any: ...  # incomplete
-def HuMoments(*args, **kwargs) -> Any: ...  # incomplete
-def KAZE_create(*args, **kwargs) -> Any: ...  # incomplete
-def KeyPoint_convert(*args, **kwargs) -> Any: ...  # incomplete
-def KeyPoint_overlap(*args, **kwargs) -> Any: ...  # incomplete
-def LUT(*args, **kwargs) -> Any: ...  # incomplete
-def Laplacian(*args, **kwargs) -> Any: ...  # incomplete
-def MSER_create(*args, **kwargs) -> Any: ...  # incomplete
-def Mahalanobis(*args, **kwargs) -> Any: ...  # incomplete
-def ORB_create(*args, **kwargs) -> Any: ...  # incomplete
-def PCABackProject(*args, **kwargs) -> Any: ...  # incomplete
-def PCACompute(*args, **kwargs) -> Any: ...  # incomplete
-def PCACompute2(*args, **kwargs) -> Any: ...  # incomplete
-def PCAProject(*args, **kwargs) -> Any: ...  # incomplete
-def PSNR(*args, **kwargs) -> Any: ...  # incomplete
+def HuMoments(m, hu=...):
+    """
+    HuMoments(m[, hu]) -> hu
+    @overload
+    """
+    ...
+
+def KAZE_create(extended=..., upright=..., threshold=..., nOctaves=..., nOctaveLayers=..., diffusivity=...):
+    """
+    KAZE_create([, extended[, upright[, threshold[, nOctaves[, nOctaveLayers[, diffusivity]]]]]]) -> retval
+    @brief The KAZE constructor
+
+    @param extended Set to enable extraction of extended (128-byte) descriptor.
+    @param upright Set to enable use of upright descriptors (non rotation-invariant).
+    @param threshold Detector response threshold to accept point
+    @param nOctaves Maximum octave evolution of the image
+    @param nOctaveLayers Default number of sublevels per scale level
+    @param diffusivity Diffusivity type. DIFF_PM_G1, DIFF_PM_G2, DIFF_WEICKERT or
+    DIFF_CHARBONNIER
+    """
+    ...
+
+def KeyPoint_convert(keypoints, keypointIndexes=...):
+    """
+    KeyPoint_convert(keypoints[, keypointIndexes]) -> points2f
+    This method converts vector of keypoints to vector of points or the reverse, where each keypoint is
+    assigned the same size and the same orientation.
+
+    @param keypoints Keypoints obtained from any feature detection algorithm like SIFT/SURF/ORB
+    @param points2f Array of (x,y) coordinates of each keypoint
+    @param keypointIndexes Array of indexes of keypoints to be converted to points. (Acts like a mask to
+    convert only specified keypoints)
+
+
+
+    KeyPoint_convert(points2f[, size[, response[, octave[, class_id]]]]) -> keypoints
+    @overload
+    @param points2f Array of (x,y) coordinates of each keypoint
+    @param keypoints Keypoints obtained from any feature detection algorithm like SIFT/SURF/ORB
+    @param size keypoint diameter
+    @param response keypoint detector response on the keypoint (that is, strength of the keypoint)
+    @param octave pyramid octave in which the keypoint has been detected
+    @param class_id object id
+    """
+    ...
+
+def KeyPoint_overlap(kp1, kp2):
+    """
+    KeyPoint_overlap(kp1, kp2) -> retval
+    This method computes overlap for pair of keypoints. Overlap is the ratio between area of keypoint
+    regions' intersection and area of keypoint regions' union (considering keypoint region as circle).
+    If they don't overlap, we get zero. If they coincide at same location with same size, we get 1.
+    @param kp1 First keypoint
+    @param kp2 Second keypoint
+    """
+    ...
+
+def LUT(src: Mat, lut, dts: Mat = ...):
+    """
+    LUT(src, lut[, dst]) -> dst
+    @brief Performs a look-up table transform of an array.
+
+    The function LUT fills the output array with values from the look-up table. Indices of the entries
+    are taken from the input array. That is, the function processes each element of src as follows:
+    [`dst` (I)  ← `lut(src(I) + d)`]
+    where
+    [d =  \\fork{0}{if (`src`) has depth (`CV_8U`)}{128}{if (`src`) has depth (`CV_8S`)}]
+    @param src input array of 8-bit elements.
+    @param lut look-up table of 256 elements; in case of multi-channel input array, the table should
+    either have a single channel (in this case the same table is used for all channels) or the same
+    number of channels as in the input array.
+    @param dst output array of the same size and number of channels as src, and the same depth as lut.
+    @sa  convertScaleAbs, Mat::convertTo
+    """
+    ...
+
+def Laplacian(src: Mat, ddepth, dts: Mat = ..., ksize=..., scale=..., delta=..., borderType=...):
+    """
+    Laplacian(src, ddepth[, dst[, ksize[, scale[, delta[, borderType]]]]]) -> dst
+    @brief Calculates the Laplacian of an image.
+
+    The function calculates the Laplacian of the source image by adding up the second x and y
+    derivatives calculated using the Sobel operator:
+
+    [`dst` =  \\Delta `src` =  \\frac{\\partial^2 `src`}{\\partial x^2} +  \\frac{\\partial^2 `src`}{\\partial y^2}]
+
+    This is done when `ksize > 1`. When `ksize == 1`, the Laplacian is computed by filtering the image
+    with the following `3 x 3` aperture:
+
+    [\\vecthreethree {0}{1}{0}{1}{-4}{1}{0}{1}{0}]
+
+    @param src Source image.
+    @param dst Destination image of the same size and the same number of channels as src .
+    @param ddepth Desired depth of the destination image.
+    @param ksize Aperture size used to compute the second-derivative filters. See #getDerivKernels for
+    details. The size must be positive and odd.
+    @param scale Optional scale factor for the computed Laplacian values. By default, no scaling is
+    applied. See #getDerivKernels for details.
+    @param delta Optional delta value that is added to the results prior to storing them in dst .
+    @param borderType Pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.
+    @sa  Sobel, Scharr
+    """
+    ...
+
+def MSER_create(
+    _delta=...,
+    _min_area=...,
+    _max_area=...,
+    _max_variation=...,
+    _min_diversity=...,
+    _max_evolution=...,
+    _area_threshold=...,
+    _min_margin=...,
+    _edge_blur_size=...,
+):
+    """
+    MSER_create([, _delta[, _min_area[, _max_area[, _max_variation[, _min_diversity[, _max_evolution[, _area_threshold[, _min_margin[, _edge_blur_size]]]]]]]]]) -> retval
+    @brief Full constructor for %MSER detector
+
+    @param _delta it compares `(size_{i}-size_{i-delta})/size_{i-delta}`
+    @param _min_area prune the area which smaller than minArea
+    @param _max_area prune the area which bigger than maxArea
+    @param _max_variation prune the area have similar size to its children
+    @param _min_diversity for color image, trace back to cut off mser with diversity less than min_diversity
+    @param _max_evolution  for color image, the evolution steps
+    @param _area_threshold for color image, the area threshold to cause re-initialize
+    @param _min_margin for color image, ignore too small margin
+    @param _edge_blur_size for color image, the aperture size for edge blur
+    """
+    ...
+
+def Mahalanobis(v1, v2, icovar):
+    """
+    Mahalanobis(v1, v2, icovar) -> retval
+    @brief Calculates the Mahalanobis distance between two vectors.
+
+    The function cv::Mahalanobis calculates and returns the weighted distance between two vectors:
+    [d( `vec1` , `vec2` )= √{∑_{i,j}{`icovar(i,j)`·(`vec1`(I)-`vec2`(I))·(`vec1(j)`-`vec2(j)`)} }]
+    The covariance matrix may be calculated using the #calcCovarMatrix function and then inverted using
+    the invert function (preferably using the #DECOMP_SVD method, as the most accurate).
+    @param v1 first 1D input vector.
+    @param v2 second 1D input vector.
+    @param icovar inverse covariance matrix.
+    """
+    ...
+
+def ORB_create(
+    nfeatures=...,
+    scaleFactor=...,
+    nlevels=...,
+    edgeThreshold=...,
+    firstLevel=...,
+    WTA_K=...,
+    scoreType=...,
+    patchSize=...,
+    fastThreshold=...,
+):
+    """
+    ORB_create([, nfeatures[, scaleFactor[, nlevels[, edgeThreshold[, firstLevel[, WTA_K[, scoreType[, patchSize[, fastThreshold]]]]]]]]]) -> retval
+    @brief The ORB constructor
+
+    @param nfeatures The maximum number of features to retain.
+    @param scaleFactor Pyramid decimation ratio, greater than 1. scaleFactor==2 means the classical
+    pyramid, where each next level has 4x less pixels than the previous, but such a big scale factor
+    will degrade feature matching scores dramatically. On the other hand, too close to 1 scale factor
+    will mean that to cover certain scale range you will need more pyramid levels and so the speed
+    will suffer.
+    @param nlevels The number of pyramid levels. The smallest level will have linear size equal to
+    input_image_linear_size/pow(scaleFactor, nlevels - firstLevel).
+    @param edgeThreshold This is size of the border where the features are not detected. It should
+    roughly match the patchSize parameter.
+    @param firstLevel The level of pyramid to put source image to. Previous layers are filled
+    with upscaled source image.
+    @param WTA_K The number of points that produce each element of the oriented BRIEF descriptor. The
+    default value 2 means the BRIEF where we take a random point pair and compare their brightnesses,
+    so we get 0/1 response. Other possible values are 3 and 4. For example, 3 means that we take 3
+    random points (of course, those point coordinates are random, but they are generated from the
+    pre-defined seed, so each element of BRIEF descriptor is computed deterministically from the pixel
+    rectangle), find point of maximum brightness and output index of the winner (0, 1 or 2). Such
+    output will occupy 2 bits, and therefore it will need a special variant of Hamming distance,
+    denoted as NORM_HAMMING2 (2 bits per bin). When WTA_K=4, we take 4 random points to compute each
+    bin (that will also occupy 2 bits with possible values 0, 1, 2 or 3).
+    @param scoreType The default HARRIS_SCORE means that Harris algorithm is used to rank features
+    (the score is written to KeyPoint::score and is used to retain best nfeatures features);
+    FAST_SCORE is alternative value of the parameter that produces slightly less stable keypoints,
+    but it is a little faster to compute.
+    @param patchSize size of the patch used by the oriented BRIEF descriptor. Of course, on smaller
+    pyramid layers the perceived image area covered by a feature will be larger.
+    @param fastThreshold the fast threshold
+    """
+    ...
+
+def PCABackProject(data, mean, eigenvectors, result=...):
+    """
+    PCABackProject(data, mean, eigenvectors[, result]) -> result
+    wrap PCA::backProject
+    """
+    ...
+
+def PCACompute(data, mean, eigenvectors=..., maxComponents=...):
+    """
+    PCACompute(data, mean[, eigenvectors[, maxComponents]]) -> mean, eigenvectors
+    wrap PCA::operator()
+
+
+
+    PCACompute(data, mean, retainedVariance[, eigenvectors]) -> mean, eigenvectors
+    wrap PCA::operator()
+    """
+    ...
+
+def PCACompute2(data, mean, eigenvectors=..., eigenvalues=..., maxComponents=...):
+    """
+    PCACompute2(data, mean[, eigenvectors[, eigenvalues[, maxComponents]]]) -> mean, eigenvectors, eigenvalues
+    wrap PCA::operator() and add eigenvalues output parameter
+
+
+
+    PCACompute2(data, mean, retainedVariance[, eigenvectors[, eigenvalues]]) -> mean, eigenvectors, eigenvalues
+    wrap PCA::operator() and add eigenvalues output parameter
+    """
+    ...
+
+def PCAProject(data, mean, eigenvectors, result=...):
+    """
+    PCAProject(data, mean, eigenvectors[, result]) -> result
+    wrap PCA::project
+    """
+    ...
+
+def PSNR(src1: Mat, src2: Mat, R=...):
+    """
+    PSNR(src1, src2[, R]) -> retval
+    @brief Computes the Peak Signal-to-Noise Ratio (PSNR) image quality metric.
+
+    This function calculates the Peak Signal-to-Noise Ratio (PSNR) image quality metric in decibels (dB),
+    between two input arrays src1 and src2. The arrays must have the same type.
+
+    The PSNR is calculated as follows:
+
+    [
+    `PSNR` = 10 · \\log_{10}{\\left( \\frac{R^2}{MSE} \\right) }
+    ]
+
+    where R is the maximum integer value of depth (e.g. 255 in the case of CV_8U data)
+    and MSE is the mean squared error between the two arrays.
+
+    @param src1 first input array.
+    @param src2 second input array of the same size as src1.
+    @param R the maximum pixel value (255 by default)
+    """
+    ...
+
 def QRCodeEncoder_create(*args, **kwargs) -> Any: ...  # incomplete
-def RQDecomp3x3(*args, **kwargs) -> Any: ...  # incomplete
-def Rodrigues(*args, **kwargs) -> Any: ...  # incomplete
-def SIFT_create(*args, **kwargs) -> Any: ...  # incomplete
-def SVBackSubst(*args, **kwargs) -> Any: ...  # incomplete
-def SVDecomp(*args, **kwargs) -> Any: ...  # incomplete
-def Scharr(src, dst, ddepth, dx, dy, scale, delta, borderType) -> Incomplete: ...
-def SimpleBlobDetector_create(*args, **kwargs) -> Any: ...  # incomplete
-def Sobel(*args, **kwargs) -> Any: ...  # incomplete
-def SparsePyrLKOpticalFlow_create(*args, **kwargs) -> Any: ...  # incomplete
-def StereoBM_create(*args, **kwargs) -> Any: ...  # incomplete
-def StereoSGBM_create(*args, **kwargs) -> Any: ...  # incomplete
-def Stitcher_create(*args, **kwargs) -> Any: ...  # incomplete
+def RQDecomp3x3(src: Mat, mtxR=..., mtxQ=..., Qx=..., Qy=..., Qz=...):
+    """
+    RQDecomp3x3(src[, mtxR[, mtxQ[, Qx[, Qy[, Qz]]]]]) -> retval, mtxR, mtxQ, Qx, Qy, Qz
+    @brief Computes an RQ decomposition of 3x3 matrices.
+
+    @param src 3x3 input matrix.
+    @param mtxR Output 3x3 upper-triangular matrix.
+    @param mtxQ Output 3x3 orthogonal matrix.
+    @param Qx Optional output 3x3 rotation matrix around x-axis.
+    @param Qy Optional output 3x3 rotation matrix around y-axis.
+    @param Qz Optional output 3x3 rotation matrix around z-axis.
+
+    The function computes a RQ decomposition using the given rotations. This function is used in
+    decomposeProjectionMatrix to decompose the left 3x3 submatrix of a projection matrix into a camera
+    and a rotation matrix.
+
+    It optionally returns three rotation matrices, one for each axis, and the three Euler angles in
+    degrees (as the return value) that could be used in OpenGL. Note, there is always more than one
+    sequence of rotations about the three principal axes that results in the same orientation of an
+    object, e.g. see @cite Slabaugh . Returned tree rotation matrices and corresponding three Euler angles
+    are only one of the possible solutions.
+    """
+    ...
+
+def Rodrigues(src: Mat, dts: Mat = ..., jacobian=...):
+    """
+    Rodrigues(src[, dst[, jacobian]]) -> dst, jacobian
+    @brief Converts a rotation matrix to a rotation vector or vice versa.
+
+    @param src Input rotation vector (3x1 or 1x3) or rotation matrix (3x3).
+    @param dst Output rotation matrix (3x3) or rotation vector (3x1 or 1x3), respectively.
+    @param jacobian Optional output Jacobian matrix, 3x9 or 9x3, which is a matrix of partial
+    derivatives of the output array components with respect to the input array components.
+
+    [\\begin{array}{l} θ ← norm(r) \\ r  ← r/ θ \\ R =  \\cos(θ) I + (1- \\cos{θ} ) r r^T +  ∿(θ) \\vecthreethree{0}{-r_z}{r_y}{r_z}{0}{-r_x}{-r_y}{r_x}{0} \\end{array}]
+
+    Inverse transformation can be also done easily, since
+
+    [∿ ( θ ) \\vecthreethree{0}{-r_z}{r_y}{r_z}{0}{-r_x}{-r_y}{r_x}{0} = \\frac{R - R^T}{2}]
+
+    A rotation vector is a convenient and most compact representation of a rotation matrix (since any
+    rotation matrix has just 3 degrees of freedom). The representation is used in the global 3D geometry
+    optimization procedures like @ref calibrateCamera, @ref stereoCalibrate, or @ref solvePnP .
+
+    @note More information about the computation of the derivative of a 3D rotation matrix with respect to its exponential coordinate
+    can be found in:
+    - A Compact Formula for the Derivative of a 3-D Rotation in Exponential Coordinates, Guillermo Gallego, Anthony J. Yezzi @cite Gallego2014ACF
+
+    @note Useful information on SE(3) and Lie Groups can be found in:
+    - A tutorial on SE(3) transformation parameterizations and on-manifold optimization, Jose-Luis Blanco @cite blanco2010tutorial
+    - Lie Groups for 2D and 3D Transformation, Ethan Eade @cite Eade17
+    - A micro Lie theory for state estimation in robotics, Joan Sol&#224;, J&#233;r&#233;mie Deray, Dinesh Atchuthan @cite Sol2018AML
+    """
+    ...
+
+def SIFT_create(nfeatures=..., nOctaveLayers=..., contrastThreshold=..., edgeThreshold=..., sigma=...):
+    """
+    SIFT_create([, nfeatures[, nOctaveLayers[, contrastThreshold[, edgeThreshold[, sigma]]]]]) -> retval
+    @param nfeatures The number of best features to retain. The features are ranked by their scores
+    (measured in SIFT algorithm as the local contrast)
+
+    @param nOctaveLayers The number of layers in each octave. 3 is the value used in D. Lowe paper. The
+    number of octaves is computed automatically from the image resolution.
+
+    @param contrastThreshold The contrast threshold used to filter out weak features in semi-uniform
+    (low-contrast) regions. The larger the threshold, the less features are produced by the detector.
+
+    @note The contrast threshold will be divided by nOctaveLayers when the filtering is applied. When
+    nOctaveLayers is set to default and if you want to use the value used in D. Lowe paper, 0.03, set
+    this argument to 0.09.
+
+    @param edgeThreshold The threshold used to filter out edge-like features. Note that the its meaning
+    is different from the contrastThreshold, i.e. the larger the edgeThreshold, the less features are
+    filtered out (more features are retained).
+
+    @param sigma The sigma of the Gaussian applied to the input image at the octave #0. If your image
+    is captured with a weak camera with soft lenses, you might want to reduce the number.
+    """
+    ...
+
+def SVBackSubst(w, u, vt, rhs, dts: Mat = ...):
+    """
+    SVBackSubst(w, u, vt, rhs[, dst]) -> dst
+    wrap SVD::backSubst
+    """
+    ...
+
+def SVDecomp(src: Mat, w=..., u=..., vt=..., flags: int = ...):
+    """
+    SVDecomp(src[, w[, u[, vt[, flags]]]]) -> w, u, vt
+    wrap SVD::compute
+    """
+    ...
+
+def Scharr(src: Mat, ddepth, dx, dy, dts: Mat = ..., scale=..., delta=..., borderType=...):
+    """
+    Scharr(src, ddepth, dx, dy[, dst[, scale[, delta[, borderType]]]]) -> dst
+    @brief Calculates the first x- or y- image derivative using Scharr operator.
+
+    The function computes the first x- or y- spatial image derivative using the Scharr operator. The
+    call
+
+    [`Scharr(src, dst, ddepth, dx, dy, scale, delta, borderType)`]
+
+    is equivalent to
+
+    [`Sobel(src, dst, ddepth, dx, dy, FILTER_SCHARR, scale, delta, borderType)` .]
+
+    @param src input image.
+    @param dst output image of the same size and the same number of channels as src.
+    @param ddepth output image depth, see @ref filter_depths "combinations"
+    @param dx order of the derivative x.
+    @param dy order of the derivative y.
+    @param scale optional scale factor for the computed derivative values; by default, no scaling is
+    applied (see #getDerivKernels for details).
+    @param delta optional delta value that is added to the results prior to storing them in dst.
+    @param borderType pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.
+    @sa  cartToPolar
+    """
+    ...
+
+def SimpleBlobDetector_create(parameters=...):
+    """
+    SimpleBlobDetector_create([, parameters]) -> retval
+
+    """
+    ...
+
+def Sobel(src: Mat, ddepth, dx, dy, dts: Mat = ..., ksize=..., scale=..., delta=..., borderType=...):
+    """
+    Sobel(src, ddepth, dx, dy[, dst[, ksize[, scale[, delta[, borderType]]]]]) -> dst
+    @brief Calculates the first, second, third, or mixed image derivatives using an extended Sobel operator.
+
+    In all cases except one, the ``ksize` x `ksize`` separable kernel is used to
+    calculate the derivative. When ``ksize = 1``, the `3 x 1` or `1 x 3`
+    kernel is used (that is, no Gaussian smoothing is done). `ksize = 1` can only be used for the first
+    or the second x- or y- derivatives.
+
+    There is also the special value `ksize = #FILTER_SCHARR (-1)` that corresponds to the `3x3` Scharr
+    filter that may give more accurate results than the `3x3` Sobel. The Scharr aperture is
+
+    [\\vecthreethree{-3}{0}{3}{-10}{0}{10}{-3}{0}{3}]
+
+    for the x-derivative, or transposed for the y-derivative.
+
+    The function calculates an image derivative by convolving the image with the appropriate kernel:
+
+    [`dst` =  \\frac{\\partial^{xorder+yorder} `src`}{\\partial x^{xorder} \\partial y^{yorder}}]
+
+    The Sobel operators combine Gaussian smoothing and differentiation, so the result is more or less
+    resistant to the noise. Most often, the function is called with ( xorder = 1, yorder = 0, ksize = 3)
+    or ( xorder = 0, yorder = 1, ksize = 3) to calculate the first x- or y- image derivative. The first
+    case corresponds to a kernel of:
+
+    [\\vecthreethree{-1}{0}{1}{-2}{0}{2}{-1}{0}{1}]
+
+    The second case corresponds to a kernel of:
+
+    [\\vecthreethree{-1}{-2}{-1}{0}{0}{0}{1}{2}{1}]
+
+    @param src input image.
+    @param dst output image of the same size and the same number of channels as src .
+    @param ddepth output image depth, see @ref filter_depths "combinations"; in the case of
+    8-bit input images it will result in truncated derivatives.
+    @param dx order of the derivative x.
+    @param dy order of the derivative y.
+    @param ksize size of the extended Sobel kernel; it must be 1, 3, 5, or 7.
+    @param scale optional scale factor for the computed derivative values; by default, no scaling is
+    applied (see #getDerivKernels for details).
+    @param delta optional delta value that is added to the results prior to storing them in dst.
+    @param borderType pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.
+    @sa  Scharr, Laplacian, sepFilter2D, filter2D, GaussianBlur, cartToPolar
+    """
+    ...
+
+def SparsePyrLKOpticalFlow_create(winSize=..., maxLevel=..., crit=..., flags: int = ..., minEigThreshold=...):
+    """
+    SparsePyrLKOpticalFlow_create([, winSize[, maxLevel[, crit[, flags[, minEigThreshold]]]]]) -> retval
+
+    """
+    ...
+
+def StereoBM_create(numDisparities=..., blockSize=...):
+    """
+    StereoBM_create([, numDisparities[, blockSize]]) -> retval
+    @brief Creates StereoBM object
+
+    @param numDisparities the disparity search range. For each pixel algorithm will find the best
+    disparity from 0 (default minimum disparity) to numDisparities. The search range can then be
+    shifted by changing the minimum disparity.
+    @param blockSize the linear size of the blocks compared by the algorithm. The size should be odd
+    (as the block is centered at the current pixel). Larger block size implies smoother, though less
+    accurate disparity map. Smaller block size gives more detailed disparity map, but there is higher
+    chance for algorithm to find a wrong correspondence.
+
+    The function create StereoBM object. You can then call StereoBM::compute() to compute disparity for
+    a specific stereo pair.
+    """
+    ...
+
+def StereoSGBM_create(
+    minDisparity=...,
+    numDisparities=...,
+    blockSize=...,
+    P1=...,
+    P2=...,
+    disp12MaxDiff=...,
+    preFilterCap=...,
+    uniquenessRatio=...,
+    speckleWindowSize=...,
+    speckleRange=...,
+    mode=...,
+):
+    """
+    StereoSGBM_create([, minDisparity[, numDisparities[, blockSize[, P1[, P2[, disp12MaxDiff[, preFilterCap[, uniquenessRatio[, speckleWindowSize[, speckleRange[, mode]]]]]]]]]]]) -> retval
+    @brief Creates StereoSGBM object
+
+    @param minDisparity Minimum possible disparity value. Normally, it is zero but sometimes
+    rectification algorithms can shift images, so this parameter needs to be adjusted accordingly.
+    @param numDisparities Maximum disparity minus minimum disparity. The value is always greater than
+    zero. In the current implementation, this parameter must be divisible by 16.
+    @param blockSize Matched block size. It must be an odd number >=1 . Normally, it should be
+    somewhere in the 3..11 range.
+    @param P1 The first parameter controlling the disparity smoothness. See below.
+    @param P2 The second parameter controlling the disparity smoothness. The larger the values are,
+    the smoother the disparity is. P1 is the penalty on the disparity change by plus or minus 1
+    between neighbor pixels. P2 is the penalty on the disparity change by more than 1 between neighbor
+    pixels. The algorithm requires P2 > P1 . See stereo_match.cpp sample where some reasonably good
+    P1 and P2 values are shown (like 8 * number_of_image_channels * blockSize * blockSize and
+    32 * number_of_image_channels * blockSize * blockSize , respectively).
+    @param disp12MaxDiff Maximum allowed difference (in integer pixel units) in the left-right
+    disparity check. Set it to a non-positive value to disable the check.
+    @param preFilterCap Truncation value for the prefiltered image pixels. The algorithm first
+    computes x-derivative at each pixel and clips its value by [-preFilterCap, preFilterCap] interval.
+    The result values are passed to the Birchfield-Tomasi pixel cost function.
+    @param uniquenessRatio Margin in percentage by which the best (minimum) computed cost function
+    value should "win" the second best value to consider the found match correct. Normally, a value
+    within the 5-15 range is good enough.
+    @param speckleWindowSize Maximum size of smooth disparity regions to consider their noise speckles
+    and invalidate. Set it to 0 to disable speckle filtering. Otherwise, set it somewhere in the
+    50-200 range.
+    @param speckleRange Maximum disparity variation within each connected component. If you do speckle
+    filtering, set the parameter to a positive value, it will be implicitly multiplied by 16.
+    Normally, 1 or 2 is good enough.
+    @param mode Set it to StereoSGBM::MODE_HH to run the full-scale two-pass dynamic programming
+    algorithm. It will consume O(W * H * numDisparities) bytes, which is large for 640x480 stereo and
+    huge for HD-size pictures. By default, it is set to false .
+
+    The first constructor initializes StereoSGBM with all the default parameters. So, you only have to
+    set StereoSGBM::numDisparities at minimum. The second constructor enables you to set each parameter
+    to a custom value.
+    """
+    ...
+
+def Stitcher_create(mode=...):
+    """
+    Stitcher_create([, mode]) -> retval
+    @brief Creates a Stitcher configured in one of the stitching modes.
+
+    @param mode Scenario for stitcher operation. This is usually determined by source of images
+    to stitch and their transformation. Default parameters will be chosen for operation in given
+    scenario.
+    @return Stitcher class instance.
+    """
+    ...
+
 def TrackerDaSiamRPN_create(*args, **kwargs) -> Any: ...  # incomplete
 def TrackerGOTURN_create(*args, **kwargs) -> Any: ...  # incomplete
 def TrackerMIL_create(*args, **kwargs) -> Any: ...  # incomplete
-def UMat_context(*args, **kwargs) -> Any: ...  # incomplete
-def UMat_queue(*args, **kwargs) -> Any: ...  # incomplete
-def VariationalRefinement_create(*args, **kwargs) -> Any: ...  # incomplete
-def VideoWriter_fourcc(*args, **kwargs) -> Any: ...  # incomplete
+def UMat_context():
+    """
+    UMat_context() -> retval
+
+    """
+    ...
+
+def UMat_queue():
+    """
+    UMat_queue() -> retval
+
+    """
+    ...
+
+def VariationalRefinement_create():
+    """
+    VariationalRefinement_create() -> retval
+    @brief Creates an instance of VariationalRefinement
+    """
+    ...
+
+def VideoWriter_fourcc(c1, c2, c3, c4):
+    """
+    VideoWriter_fourcc(c1, c2, c3, c4) -> retval
+    @brief Concatenates 4 chars to a fourcc code
+
+    @return a fourcc code
+
+    This static method constructs the fourcc code of the codec to be used in the constructor
+    VideoWriter::VideoWriter or VideoWriter::open.
+    """
+    ...
+
 def _registerMatType(*args, **kwargs) -> Any: ...  # incomplete
-def absdiff(*args, **kwargs) -> Any: ...  # incomplete
-def accumulate(*args, **kwargs) -> Any: ...  # incomplete
-def accumulateProduct(*args, **kwargs) -> Any: ...  # incomplete
-def accumulateSquare(*args, **kwargs) -> Any: ...  # incomplete
-def accumulateWeighted(*args, **kwargs) -> Any: ...  # incomplete
-def adaptiveThreshold(*args, **kwargs) -> Any: ...  # incomplete
-def add(*args, **kwargs) -> Any: ...  # incomplete
-def addText(*args, **kwargs) -> Any: ...  # incomplete
-def addWeighted(*args, **kwargs) -> Any: ...  # incomplete
-def applyColorMap(*args, **kwargs) -> Any: ...  # incomplete
-def approxPolyDP(*args, **kwargs) -> Any: ...  # incomplete
-def arcLength(*args, **kwargs) -> Any: ...  # incomplete
-def arrowedLine(*args, **kwargs) -> Any: ...  # incomplete
-def batchDistance(*args, **kwargs) -> Any: ...  # incomplete
-def bilateralFilter(*args, **kwargs) -> Any: ...  # incomplete
-def bitwise_and(*args, **kwargs) -> Any: ...  # incomplete
-def bitwise_not(*args, **kwargs) -> Any: ...  # incomplete
-def bitwise_or(*args, **kwargs) -> Any: ...  # incomplete
-def bitwise_xor(*args, **kwargs) -> Any: ...  # incomplete
+def absdiff(src1: Mat, src2: Mat, dts: Mat = ...):
+    """
+    absdiff(src1, src2[, dst]) -> dst
+    @brief Calculates the per-element absolute difference between two arrays or between an array and a scalar.
+
+    The function cv::absdiff calculates:
+    *   Absolute difference between two arrays when they have the same
+    size and type:
+    [`dst`(I) =  `saturate` (| `src1`(I) -  `src2`(I)|)]
+    *   Absolute difference between an array and a scalar when the second
+    array is constructed from Scalar or has as many elements as the
+    number of channels in `src1`:
+    [`dst`(I) =  `saturate` (| `src1`(I) -  `src2` |)]
+    *   Absolute difference between a scalar and an array when the first
+    array is constructed from Scalar or has as many elements as the
+    number of channels in `src2`:
+    [`dst`(I) =  `saturate` (| `src1` -  `src2`(I) |)]
+    where I is a multi-dimensional index of array elements. In case of
+    multi-channel arrays, each channel is processed independently.
+    @note Saturation is not applied when the arrays have the depth CV_32S.
+    You may even get a negative value in the case of overflow.
+    @param src1 first input array or a scalar.
+    @param src2 second input array or a scalar.
+    @param dst output array that has the same size and type as input arrays.
+    @sa cv::abs(const Mat&)
+    """
+    ...
+
+def accumulate(src: Mat, dts: Mat, mask: Mat = ...):
+    """
+    accumulate(src, dst[, mask]) -> dst
+    @brief Adds an image to the accumulator image.
+
+    The function adds src or some of its elements to dst :
+
+    [`dst` (x,y)  ← `dst` (x,y) +  `src` (x,y)  \\quad \\text{if} \\quad `mask` (x,y)  \
+    e 0]
+
+    The function supports multi-channel images. Each channel is processed independently.
+
+    The function cv::accumulate can be used, for example, to collect statistics of a scene background
+    viewed by a still camera and for the further foreground-background segmentation.
+
+    @param src Input image of type CV_8UC(n), CV_16UC(n), CV_32FC(n) or CV_64FC(n), where n is a positive integer.
+    @param dst %Accumulator image with the same number of channels as input image, and a depth of CV_32F or CV_64F.
+    @param mask Optional operation mask.
+
+    @sa  accumulateSquare, accumulateProduct, accumulateWeighted
+    """
+    ...
+
+def accumulateProduct(src1: Mat, src2: Mat, dts: Mat, mask: Mat = ...):
+    """
+    accumulateProduct(src1, src2, dst[, mask]) -> dst
+    @brief Adds the per-element product of two input images to the accumulator image.
+
+    The function adds the product of two images or their selected regions to the accumulator dst :
+
+    [`dst` (x,y)  ← `dst` (x,y) +  `src1` (x,y) · `src2` (x,y)  \\quad \\text{if} \\quad `mask` (x,y)  \
+    e 0]
+
+    The function supports multi-channel images. Each channel is processed independently.
+
+    @param src1 First input image, 1- or 3-channel, 8-bit or 32-bit floating point.
+    @param src2 Second input image of the same type and the same size as src1 .
+    @param dst %Accumulator image with the same number of channels as input images, 32-bit or 64-bit
+    floating-point.
+    @param mask Optional operation mask.
+
+    @sa  accumulate, accumulateSquare, accumulateWeighted
+    """
+    ...
+
+def accumulateSquare(src: Mat, dts: Mat, mask: Mat = ...):
+    """
+    accumulateSquare(src, dst[, mask]) -> dst
+    @brief Adds the square of a source image to the accumulator image.
+
+    The function adds the input image src or its selected region, raised to a power of 2, to the
+    accumulator dst :
+
+    [`dst` (x,y)  ← `dst` (x,y) +  `src` (x,y)^2  \\quad \\text{if} \\quad `mask` (x,y)  \
+    e 0]
+
+    The function supports multi-channel images. Each channel is processed independently.
+
+    @param src Input image as 1- or 3-channel, 8-bit or 32-bit floating point.
+    @param dst %Accumulator image with the same number of channels as input image, 32-bit or 64-bit
+    floating-point.
+    @param mask Optional operation mask.
+
+    @sa  accumulateSquare, accumulateProduct, accumulateWeighted
+    """
+    ...
+
+def accumulateWeighted(src: Mat, dts: Mat, alpha, mask: Mat = ...):
+    """
+    accumulateWeighted(src, dst, alpha[, mask]) -> dst
+    @brief Updates a running average.
+
+    The function calculates the weighted sum of the input image src and the accumulator dst so that dst
+    becomes a running average of a frame sequence:
+
+    [`dst` (x,y)  ← (1- `alpha` ) · `dst` (x,y) +  `alpha` · `src` (x,y)  \\quad \\text{if} \\quad `mask` (x,y)  \
+    e 0]
+
+    That is, alpha regulates the update speed (how fast the accumulator "forgets" about earlier images).
+    The function supports multi-channel images. Each channel is processed independently.
+
+    @param src Input image as 1- or 3-channel, 8-bit or 32-bit floating point.
+    @param dst %Accumulator image with the same number of channels as input image, 32-bit or 64-bit
+    floating-point.
+    @param alpha Weight of the input image.
+    @param mask Optional operation mask.
+
+    @sa  accumulate, accumulateSquare, accumulateProduct
+    """
+    ...
+
+def adaptiveThreshold(src: Mat, maxValue, adaptiveMethod, thresholdType, blockSize, C, dts: Mat = ...):
+    """
+    adaptiveThreshold(src, maxValue, adaptiveMethod, thresholdType, blockSize, C[, dst]) -> dst
+    @brief Applies an adaptive threshold to an array.
+
+    The function transforms a grayscale image to a binary image according to the formulae:
+    -   **THRESH_BINARY**
+    [dst(x,y) =  \\fork{`maxValue`}{if (src(x,y) > T(x,y))}{0}{otherwise}]
+    -   **THRESH_BINARY_INV**
+    [dst(x,y) =  \\fork{0}{if (src(x,y) > T(x,y))}{`maxValue`}{otherwise}]
+    where `T(x,y)` is a threshold calculated individually for each pixel (see adaptiveMethod parameter).
+
+    The function can process the image in-place.
+
+    @param src Source 8-bit single-channel image.
+    @param dst Destination image of the same size and the same type as src.
+    @param maxValue Non-zero value assigned to the pixels for which the condition is satisfied
+    @param adaptiveMethod Adaptive thresholding algorithm to use, see #AdaptiveThresholdTypes.
+    The #BORDER_REPLICATE | #BORDER_ISOLATED is used to process boundaries.
+    @param thresholdType Thresholding type that must be either #THRESH_BINARY or #THRESH_BINARY_INV,
+    see #ThresholdTypes.
+    @param blockSize Size of a pixel neighborhood that is used to calculate a threshold value for the
+    pixel: 3, 5, 7, and so on.
+    @param C Constant subtracted from the mean or weighted mean (see the details below). Normally, it
+    is positive but may be zero or negative as well.
+
+    @sa  threshold, blur, GaussianBlur
+    """
+    ...
+
+def add(src1: Mat, src2: Mat, dts: Mat = ..., mask: Mat = ..., dtype=...):
+    """
+    add(src1, src2[, dst[, mask[, dtype]]]) -> dst
+    @brief Calculates the per-element sum of two arrays or an array and a scalar.
+
+    The function add calculates:
+    - Sum of two arrays when both input arrays have the same size and the same number of channels:
+    [`dst`(I) =  `saturate` ( `src1`(I) +  `src2`(I)) \\quad `if mask`(I) \
+    e0]
+    - Sum of an array and a scalar when src2 is constructed from Scalar or has the same number of
+    elements as `src1.channels()`:
+    [`dst`(I) =  `saturate` ( `src1`(I) +  `src2` ) \\quad `if mask`(I) \
+    e0]
+    - Sum of a scalar and an array when src1 is constructed from Scalar or has the same number of
+    elements as `src2.channels()`:
+    [`dst`(I) =  `saturate` ( `src1` +  `src2`(I) ) \\quad `if mask`(I) \
+    e0]
+    where `I` is a multi-dimensional index of array elements. In case of multi-channel arrays, each
+    channel is processed independently.
+
+    The first function in the list above can be replaced with matrix expressions:
+    @code{.cpp}
+    dst = src1 + src2;
+    dst += src1; // equivalent to add(dst, src1, dst);
+    @endcode
+    The input arrays and the output array can all have the same or different depths. For example, you
+    can add a 16-bit unsigned array to a 8-bit signed array and store the sum as a 32-bit
+    floating-point array. Depth of the output array is determined by the dtype parameter. In the second
+    and third cases above, as well as in the first case, when src1.depth() == src2.depth(), dtype can
+    be set to the default -1. In this case, the output array will have the same depth as the input
+    array, be it src1, src2 or both.
+    @note Saturation is not applied when the output array has the depth CV_32S. You may even get
+    result of an incorrect sign in the case of overflow.
+    @param src1 first input array or a scalar.
+    @param src2 second input array or a scalar.
+    @param dst output array that has the same size and number of channels as the input array(s); the
+    depth is defined by dtype or src1/src2.
+    @param mask optional operation mask - 8-bit single channel array, that specifies elements of the
+    output array to be changed.
+    @param dtype optional depth of the output array (see the discussion below).
+    @sa subtract, addWeighted, scaleAdd, Mat::convertTo
+    """
+    ...
+
+def addText(img: Mat, text, org, nameFont, pointSize=..., color=..., weight=..., style=..., spacing=...):
+    """
+    addText(img, text, org, nameFont[, pointSize[, color[, weight[, style[, spacing]]]]]) -> None
+    @brief Draws a text on the image.
+
+    @param img 8-bit 3-channel image where the text should be drawn.
+    @param text Text to write on an image.
+    @param org Point(x,y) where the text should start on an image.
+    @param nameFont Name of the font. The name should match the name of a system font (such as
+    *Times*). If the font is not found, a default one is used.
+    @param pointSize Size of the font. If not specified, equal zero or negative, the point size of the
+    font is set to a system-dependent default value. Generally, this is 12 points.
+    @param color Color of the font in BGRA where A = 255 is fully transparent.
+    @param weight Font weight. Available operation flags are : cv::QtFontWeights You can also specify a positive integer for better control.
+    @param style Font style. Available operation flags are : cv::QtFontStyles
+    @param spacing Spacing between characters. It can be negative or positive.
+    """
+    ...
+
+def addWeighted(src1: Mat, alpha, src2: Mat, beta, gamma, dts: Mat = ..., dtype=...):
+    """
+    addWeighted(src1, alpha, src2, beta, gamma[, dst[, dtype]]) -> dst
+    @brief Calculates the weighted sum of two arrays.
+
+    The function addWeighted calculates the weighted sum of two arrays as follows:
+    [`dst` (I)= `saturate` ( `src1` (I)* `alpha` +  `src2` (I)* `beta` +  `gamma` )]
+    where I is a multi-dimensional index of array elements. In case of multi-channel arrays, each
+    channel is processed independently.
+    The function can be replaced with a matrix expression:
+    @code{.cpp}
+    dst = src1*alpha + src2*beta + gamma;
+    @endcode
+    @note Saturation is not applied when the output array has the depth CV_32S. You may even get
+    result of an incorrect sign in the case of overflow.
+    @param src1 first input array.
+    @param alpha weight of the first array elements.
+    @param src2 second input array of the same size and channel number as src1.
+    @param beta weight of the second array elements.
+    @param gamma scalar added to each sum.
+    @param dst output array that has the same size and number of channels as the input arrays.
+    @param dtype optional depth of the output array; when both input arrays have the same depth, dtype
+    can be set to -1, which will be equivalent to src1.depth().
+    @sa  add, subtract, scaleAdd, Mat::convertTo
+    """
+    ...
+
+def applyColorMap(src: Mat, colormap, dts: Mat = ...):
+    """
+    applyColorMap(src, colormap[, dst]) -> dst
+    @brief Applies a GNU Octave/MATLAB equivalent colormap on a given image.
+
+    @param src The source image, grayscale or colored of type CV_8UC1 or CV_8UC3.
+    @param dst The result is the colormapped source image. Note: Mat::create is called on dst.
+    @param colormap The colormap to apply, see #ColormapTypes
+
+
+
+    applyColorMap(src, userColor[, dst]) -> dst
+    @brief Applies a user colormap on a given image.
+
+    @param src The source image, grayscale or colored of type CV_8UC1 or CV_8UC3.
+    @param dst The result is the colormapped source image. Note: Mat::create is called on dst.
+    @param userColor The colormap to apply of type CV_8UC1 or CV_8UC3 and size 256
+    """
+    ...
+
+def approxPolyDP(curve, epsilon, closed, approxCurve=...):
+    """
+    approxPolyDP(curve, epsilon, closed[, approxCurve]) -> approxCurve
+    @brief Approximates a polygonal curve(s) with the specified precision.
+
+    The function cv::approxPolyDP approximates a curve or a polygon with another curve/polygon with less
+    vertices so that the distance between them is less or equal to the specified precision. It uses the
+    Douglas-Peucker algorithm <http://en.wikipedia.org/wiki/Ramer-Douglas-Peucker_algorithm>
+
+    @param curve Input vector of a 2D point stored in std::vector or Mat
+    @param approxCurve Result of the approximation. The type should match the type of the input curve.
+    @param epsilon Parameter specifying the approximation accuracy. This is the maximum distance
+    between the original curve and its approximation.
+    @param closed If true, the approximated curve is closed (its first and last vertices are
+    connected). Otherwise, it is not closed.
+    """
+    ...
+
+def arcLength(curve, closed):
+    """
+    arcLength(curve, closed) -> retval
+    @brief Calculates a contour perimeter or a curve length.
+
+    The function computes a curve length or a closed contour perimeter.
+
+    @param curve Input vector of 2D points, stored in std::vector or Mat.
+    @param closed Flag indicating whether the curve is closed or not.
+    """
+    ...
+
+def arrowedLine(img: Mat, pt1, pt2, color, thickness=..., line_type=..., shift=..., tipLength=...):
+    """
+    arrowedLine(img, pt1, pt2, color[, thickness[, line_type[, shift[, tipLength]]]]) -> img
+    @brief Draws a arrow segment pointing from the first point to the second one.
+
+    The function cv::arrowedLine draws an arrow between pt1 and pt2 points in the image. See also #line.
+
+    @param img Image.
+    @param pt1 The point the arrow starts from.
+    @param pt2 The point the arrow points to.
+    @param color Line color.
+    @param thickness Line thickness.
+    @param line_type Type of the line. See #LineTypes
+    @param shift Number of fractional bits in the point coordinates.
+    @param tipLength The length of the arrow tip in relation to the arrow length
+    """
+    ...
+
+def batchDistance(
+    src1: Mat, src2: Mat, dtype, dist=..., nidx=..., normType: int = ..., K=..., mask: Mat = ..., update=..., crosscheck=...
+):
+    """
+    batchDistance(src1, src2, dtype[, dist[, nidx[, normType[, K[, mask[, update[, crosscheck]]]]]]]) -> dist, nidx
+    @brief naive nearest neighbor finder
+
+    see http://en.wikipedia.org/wiki/Nearest_neighbor_search
+    @todo document
+    """
+    ...
+
+def bilateralFilter(src: Mat, d, sigmaColor, sigmaSpace, dts: Mat = ..., borderType=...):
+    """
+    bilateralFilter(src, d, sigmaColor, sigmaSpace[, dst[, borderType]]) -> dst
+    @brief Applies the bilateral filter to an image.
+
+    The function applies bilateral filtering to the input image, as described in
+    http://www.dai.ed.ac.uk/CVonline/LOCAL_COPIES/MANDUCHI1/Bilateral_Filtering.html
+    bilateralFilter can reduce unwanted noise very well while keeping edges fairly sharp. However, it is
+    very slow compared to most filters.
+
+    _Sigma values_: For simplicity, you can set the 2 sigma values to be the same. If they are small (<
+    10), the filter will not have much effect, whereas if they are large (> 150), they will have a very
+    strong effect, making the image look "cartoonish".
+
+    _Filter size_: Large filters (d > 5) are very slow, so it is recommended to use d=5 for real-time
+    applications, and perhaps d=9 for offline applications that need heavy noise filtering.
+
+    This filter does not work inplace.
+    @param src Source 8-bit or floating-point, 1-channel or 3-channel image.
+    @param dst Destination image of the same size and type as src .
+    @param d Diameter of each pixel neighborhood that is used during filtering. If it is non-positive,
+    it is computed from sigmaSpace.
+    @param sigmaColor Filter sigma in the color space. A larger value of the parameter means that
+    farther colors within the pixel neighborhood (see sigmaSpace) will be mixed together, resulting
+    in larger areas of semi-equal color.
+    @param sigmaSpace Filter sigma in the coordinate space. A larger value of the parameter means that
+    farther pixels will influence each other as long as their colors are close enough (see sigmaColor
+    ). When d>0, it specifies the neighborhood size regardless of sigmaSpace. Otherwise, d is
+    proportional to sigmaSpace.
+    @param borderType border mode used to extrapolate pixels outside of the image, see #BorderTypes
+    """
+    ...
+
+def bitwise_and(src1: Mat, src2: Mat, dts: Mat = ..., mask: Mat = ...):
+    """
+    bitwise_and(src1, src2[, dst[, mask]]) -> dst
+    @brief computes bitwise conjunction of the two arrays (dst = src1 & src2)
+    Calculates the per-element bit-wise conjunction of two arrays or an
+    array and a scalar.
+
+    The function cv::bitwise_and calculates the per-element bit-wise logical conjunction for:
+    *   Two arrays when src1 and src2 have the same size:
+    [`dst` (I) =  `src1` (I)  \\wedge `src2` (I) \\quad `if mask` (I) \
+    e0]
+    *   An array and a scalar when src2 is constructed from Scalar or has
+    the same number of elements as `src1.channels()`:
+    [`dst` (I) =  `src1` (I)  \\wedge `src2` \\quad `if mask` (I) \
+    e0]
+    *   A scalar and an array when src1 is constructed from Scalar or has
+    the same number of elements as `src2.channels()`:
+    [`dst` (I) =  `src1`  \\wedge `src2` (I) \\quad `if mask` (I) \
+    e0]
+    In case of floating-point arrays, their machine-specific bit
+    representations (usually IEEE754-compliant) are used for the operation.
+    In case of multi-channel arrays, each channel is processed
+    independently. In the second and third cases above, the scalar is first
+    converted to the array type.
+    @param src1 first input array or a scalar.
+    @param src2 second input array or a scalar.
+    @param dst output array that has the same size and type as the input
+    arrays.
+    @param mask optional operation mask, 8-bit single channel array, that
+    specifies elements of the output array to be changed.
+    """
+    ...
+
+def bitwise_not(src: Mat, dts: Mat = ..., mask: Mat = ...):
+    """
+    bitwise_not(src[, dst[, mask]]) -> dst
+    @brief  Inverts every bit of an array.
+
+    The function cv::bitwise_not calculates per-element bit-wise inversion of the input
+    array:
+    [`dst` (I) =  \
+    eg `src` (I)]
+    In case of a floating-point input array, its machine-specific bit
+    representation (usually IEEE754-compliant) is used for the operation. In
+    case of multi-channel arrays, each channel is processed independently.
+    @param src input array.
+    @param dst output array that has the same size and type as the input
+    array.
+    @param mask optional operation mask, 8-bit single channel array, that
+    specifies elements of the output array to be changed.
+    """
+    ...
+
+def bitwise_or(src1: Mat, src2: Mat, dts: Mat = ..., mask: Mat = ...):
+    """
+    bitwise_or(src1, src2[, dst[, mask]]) -> dst
+    @brief Calculates the per-element bit-wise disjunction of two arrays or an
+    array and a scalar.
+
+    The function cv::bitwise_or calculates the per-element bit-wise logical disjunction for:
+    *   Two arrays when src1 and src2 have the same size:
+    [`dst` (I) =  `src1` (I)  \\vee `src2` (I) \\quad `if mask` (I) \
+    e0]
+    *   An array and a scalar when src2 is constructed from Scalar or has
+    the same number of elements as `src1.channels()`:
+    [`dst` (I) =  `src1` (I)  \\vee `src2` \\quad `if mask` (I) \
+    e0]
+    *   A scalar and an array when src1 is constructed from Scalar or has
+    the same number of elements as `src2.channels()`:
+    [`dst` (I) =  `src1`  \\vee `src2` (I) \\quad `if mask` (I) \
+    e0]
+    In case of floating-point arrays, their machine-specific bit
+    representations (usually IEEE754-compliant) are used for the operation.
+    In case of multi-channel arrays, each channel is processed
+    independently. In the second and third cases above, the scalar is first
+    converted to the array type.
+    @param src1 first input array or a scalar.
+    @param src2 second input array or a scalar.
+    @param dst output array that has the same size and type as the input
+    arrays.
+    @param mask optional operation mask, 8-bit single channel array, that
+    specifies elements of the output array to be changed.
+    """
+    ...
+
+def bitwise_xor(src1: Mat, src2: Mat, dts: Mat = ..., mask: Mat = ...):
+    """
+    bitwise_xor(src1, src2[, dst[, mask]]) -> dst
+    @brief Calculates the per-element bit-wise "exclusive or" operation on two
+    arrays or an array and a scalar.
+
+    The function cv::bitwise_xor calculates the per-element bit-wise logical "exclusive-or"
+    operation for:
+    *   Two arrays when src1 and src2 have the same size:
+    [`dst` (I) =  `src1` (I)  \\oplus `src2` (I) \\quad `if mask` (I) \
+    e0]
+    *   An array and a scalar when src2 is constructed from Scalar or has
+    the same number of elements as `src1.channels()`:
+    [`dst` (I) =  `src1` (I)  \\oplus `src2` \\quad `if mask` (I) \
+    e0]
+    *   A scalar and an array when src1 is constructed from Scalar or has
+    the same number of elements as `src2.channels()`:
+    [`dst` (I) =  `src1`  \\oplus `src2` (I) \\quad `if mask` (I) \
+    e0]
+    In case of floating-point arrays, their machine-specific bit
+    representations (usually IEEE754-compliant) are used for the operation.
+    In case of multi-channel arrays, each channel is processed
+    independently. In the 2nd and 3rd cases above, the scalar is first
+    converted to the array type.
+    @param src1 first input array or a scalar.
+    @param src2 second input array or a scalar.
+    @param dst output array that has the same size and type as the input
+    arrays.
+    @param mask optional operation mask, 8-bit single channel array, that
+    specifies elements of the output array to be changed.
+    """
+    ...
+
 def blendLinear(*args, **kwargs) -> Any: ...  # incomplete
-def blur(src, dst, ksize, anchor, borderType) -> Incomplete: ...
-def borderInterpolate(*args, **kwargs) -> Any: ...  # incomplete
-def boundingRect(*args, **kwargs) -> Any: ...  # incomplete
-def boxFilter(*args, **kwargs) -> Any: ...  # incomplete
-def boxPoints(*args, **kwargs) -> Any: ...  # incomplete
-def buildOpticalFlowPyramid(*args, **kwargs) -> Any: ...  # incomplete
-def calcBackProject(*args, **kwargs) -> Any: ...  # incomplete
-def calcCovarMatrix(*args, **kwargs) -> Any: ...  # incomplete
-def calcHist(*args, **kwargs) -> Any: ...  # incomplete
-def calcOpticalFlowFarneback(prev, next, flow, pyr_scale, levels, winsize, iterations, poly_n, poly_sigma, flags) -> _flow: ...
-def calcOpticalFlowPyrLK(*args, **kwargs) -> Any: ...  # incomplete
-def calibrateCamera(*args, **kwargs) -> Any: ...  # incomplete
-def calibrateCameraExtended(*args, **kwargs) -> Any: ...  # incomplete
-def calibrateCameraRO(*args, **kwargs) -> Any: ...  # incomplete
-def calibrateCameraROExtended(*args, **kwargs) -> Any: ...  # incomplete
-def calibrateHandEye(*args, **kwargs) -> Any: ...  # incomplete
+def blur(src: Mat, ksize, dts: Mat = ..., anchor=..., borderType=...):
+    """
+    blur(src, ksize[, dst[, anchor[, borderType]]]) -> dst
+    @brief Blurs an image using the normalized box filter.
+
+    The function smooths an image using the kernel:
+
+    [`K` =  \\frac{1}{`ksize.width*ksize.height`} \\begin{bmatrix} 1 & 1 & 1 & ·s & 1 & 1  \\ 1 & 1 & 1 & ·s & 1 & 1  \\ \\hdotsfor{6} \\ 1 & 1 & 1 & ·s & 1 & 1  \\ \\end{bmatrix}]
+
+    The call `blur(src, dst, ksize, anchor, borderType)` is equivalent to `boxFilter(src, dst, src.type(), ksize,
+    anchor, true, borderType)`.
+
+    @param src input image; it can have any number of channels, which are processed independently, but
+    the depth should be CV_8U, CV_16U, CV_16S, CV_32F or CV_64F.
+    @param dst output image of the same size and type as src.
+    @param ksize blurring kernel size.
+    @param anchor anchor point; default value Point(-1,-1) means that the anchor is at the kernel
+    center.
+    @param borderType border mode used to extrapolate pixels outside of the image, see #BorderTypes. #BORDER_WRAP is not supported.
+    @sa  boxFilter, bilateralFilter, GaussianBlur, medianBlur
+    """
+    ...
+
+def borderInterpolate(p, len, borderType):
+    """
+    borderInterpolate(p, len, borderType) -> retval
+    @brief Computes the source location of an extrapolated pixel.
+
+    The function computes and returns the coordinate of a donor pixel corresponding to the specified
+    extrapolated pixel when using the specified extrapolation border mode. For example, if you use
+    cv::BORDER_WRAP mode in the horizontal direction, cv::BORDER_REFLECT_101 in the vertical direction and
+    want to compute value of the "virtual" pixel Point(-5, 100) in a floating-point image img , it
+    looks like:
+    @code{.cpp}
+    float val = img.at<float>(borderInterpolate(100, img.rows, cv::BORDER_REFLECT_101),
+                borderInterpolate(-5, img.cols, cv::BORDER_WRAP));
+    @endcode
+    Normally, the function is not called directly. It is used inside filtering functions and also in
+    copyMakeBorder.
+    @param p 0-based coordinate of the extrapolated pixel along one of the axes, likely <0 or >= len
+    @param len Length of the array along the corresponding axis.
+    @param borderType Border type, one of the #BorderTypes, except for #BORDER_TRANSPARENT and
+    #BORDER_ISOLATED . When borderType==#BORDER_CONSTANT , the function always returns -1, regardless
+    of p and len.
+
+    @sa copyMakeBorder
+    """
+    ...
+
+def boundingRect(array):
+    """
+    boundingRect(array) -> retval
+    @brief Calculates the up-right bounding rectangle of a point set or non-zero pixels of gray-scale image.
+
+    The function calculates and returns the minimal up-right bounding rectangle for the specified point set or
+    non-zero pixels of gray-scale image.
+
+    @param array Input gray-scale image or 2D point set, stored in std::vector or Mat.
+    """
+    ...
+
+def boxFilter(src: Mat, ddepth, ksize, dts: Mat = ..., anchor=..., normalize=..., borderType=...):
+    """
+    boxFilter(src, ddepth, ksize[, dst[, anchor[, normalize[, borderType]]]]) -> dst
+    @brief Blurs an image using the box filter.
+
+    The function smooths an image using the kernel:
+
+    [`K` =  \\alpha \\begin{bmatrix} 1 & 1 & 1 & ·s & 1 & 1  \\ 1 & 1 & 1 & ·s & 1 & 1  \\ \\hdotsfor{6} \\ 1 & 1 & 1 & ·s & 1 & 1 \\end{bmatrix}]
+
+    where
+
+    [\\alpha = \\begin{cases} \\frac{1}{`ksize.width*ksize.height`} & `when ` `normalize=true`  \\1 & `otherwise`\\end{cases}]
+
+    Unnormalized box filter is useful for computing various integral characteristics over each pixel
+    neighborhood, such as covariance matrices of image derivatives (used in dense optical flow
+    algorithms, and so on). If you need to compute pixel sums over variable-size windows, use #integral.
+
+    @param src input image.
+    @param dst output image of the same size and type as src.
+    @param ddepth the output image depth (-1 to use src.depth()).
+    @param ksize blurring kernel size.
+    @param anchor anchor point; default value Point(-1,-1) means that the anchor is at the kernel
+    center.
+    @param normalize flag, specifying whether the kernel is normalized by its area or not.
+    @param borderType border mode used to extrapolate pixels outside of the image, see #BorderTypes. #BORDER_WRAP is not supported.
+    @sa  blur, bilateralFilter, GaussianBlur, medianBlur, integral
+    """
+    ...
+
+def boxPoints(box, points=...):
+    """
+    boxPoints(box[, points]) -> points
+    @brief Finds the four vertices of a rotated rect. Useful to draw the rotated rectangle.
+
+    The function finds the four vertices of a rotated rectangle. This function is useful to draw the
+    rectangle. In C++, instead of using this function, you can directly use RotatedRect::points method. Please
+    visit the @ref tutorial_bounding_rotated_ellipses "tutorial on Creating Bounding rotated boxes and ellipses for contours" for more information.
+
+    @param box The input rotated rectangle. It may be the output of
+    @param points The output array of four vertices of rectangles.
+    """
+    ...
+
+def buildOpticalFlowPyramid(
+    img: Mat, winSize, maxLevel, pyramid=..., withDerivatives=..., pyrBorder=..., derivBorder=..., tryReuseInputImage=...
+):
+    """
+    buildOpticalFlowPyramid(img, winSize, maxLevel[, pyramid[, withDerivatives[, pyrBorder[, derivBorder[, tryReuseInputImage]]]]]) -> retval, pyramid
+    @brief Constructs the image pyramid which can be passed to calcOpticalFlowPyrLK.
+
+    @param img 8-bit input image.
+    @param pyramid output pyramid.
+    @param winSize window size of optical flow algorithm. Must be not less than winSize argument of
+    calcOpticalFlowPyrLK. It is needed to calculate required padding for pyramid levels.
+    @param maxLevel 0-based maximal pyramid level number.
+    @param withDerivatives set to precompute gradients for the every pyramid level. If pyramid is
+    constructed without the gradients then calcOpticalFlowPyrLK will calculate them internally.
+    @param pyrBorder the border mode for pyramid layers.
+    @param derivBorder the border mode for gradients.
+    @param tryReuseInputImage put ROI of input image into the pyramid if possible. You can pass false
+    to force data copying.
+    @return number of levels in constructed pyramid. Can be less than maxLevel.
+    """
+    ...
+
+def calcBackProject(images: list[Mat], channels: list[int], hist, ranges: list[int], scale, dts: Mat = ...):
+    """
+    calcBackProject(images, channels, hist, ranges, scale[, dst]) -> dst
+    @overload
+    """
+    ...
+
+def calcCovarMatrix(samples, mean, flags: int, covar=..., ctype=...):
+    """
+    calcCovarMatrix(samples, mean, flags[, covar[, ctype]]) -> covar, mean
+    @overload
+    @note use #COVAR_ROWS or #COVAR_COLS flag
+    @param samples samples stored as rows/columns of a single matrix.
+    @param covar output covariance matrix of the type ctype and square size.
+    @param mean input or output (depending on the flags) array as the average value of the input vectors.
+    @param flags operation flags as a combination of #CovarFlags
+    @param ctype type of the matrixl; it equals 'CV_64F' by default.
+    """
+    ...
+
+def calcHist(
+    images: list[Mat], channels: list[int], mask: Mat | None, histSize: list[int], ranges: list[int], hist=..., accumulate=...
+) -> Mat:
+    """
+    calcHist(images, channels, mask, histSize, ranges[, hist[, accumulate]]) -> hist
+    @overload
+    """
+    ...
+
+def calcOpticalFlowFarneback(prev, next, flow, pyr_scale, levels, winsize, iterations, poly_n, poly_sigma, flags: int) -> _flow:
+    """
+    calcOpticalFlowFarneback(prev, next, flow, pyr_scale, levels, winsize, iterations, poly_n, poly_sigma, flags) -> flow
+    @brief Computes a dense optical flow using the Gunnar Farneback's algorithm.
+
+    @param prev first 8-bit single-channel input image.
+    @param next second input image of the same size and the same type as prev.
+    @param flow computed flow image that has the same size as prev and type CV_32FC2.
+    @param pyr_scale parameter, specifying the image scale (<1) to build pyramids for each image;
+    pyr_scale=0.5 means a classical pyramid, where each next layer is twice smaller than the previous
+    one.
+    @param levels number of pyramid layers including the initial image; levels=1 means that no extra
+    layers are created and only the original images are used.
+    @param winsize averaging window size; larger values increase the algorithm robustness to image
+    noise and give more chances for fast motion detection, but yield more blurred motion field.
+    @param iterations number of iterations the algorithm does at each pyramid level.
+    @param poly_n size of the pixel neighborhood used to find polynomial expansion in each pixel;
+    larger values mean that the image will be approximated with smoother surfaces, yielding more
+    robust algorithm and more blurred motion field, typically poly_n =5 or 7.
+    @param poly_sigma standard deviation of the Gaussian that is used to smooth derivatives used as a
+    basis for the polynomial expansion; for poly_n=5, you can set poly_sigma=1.1, for poly_n=7, a
+    good value would be poly_sigma=1.5.
+    @param flags operation flags that can be a combination of the following:
+    -   **OPTFLOW_USE_INITIAL_FLOW** uses the input flow as an initial flow approximation.
+    -   **OPTFLOW_FARNEBACK_GAUSSIAN** uses the Gaussian ``winsize`x`winsize``
+     filter instead of a box filter of the same size for optical flow estimation; usually, this
+     option gives z more accurate flow than with a box filter, at the cost of lower speed;
+     normally, winsize for a Gaussian window should be set to a larger value to achieve the same
+     level of robustness.
+
+    The function finds an optical flow for each prev pixel using the @cite Farneback2003 algorithm so that
+
+    [`prev` (y,x)  \\sim `next` ( y + `flow` (y,x)[1],  x + `flow` (y,x)[0])]
+
+    @note
+
+    -   An example using the optical flow algorithm described by Gunnar Farneback can be found at
+    opencv_source_code/samples/cpp/fback.cpp
+    -   (Python) An example using the optical flow algorithm described by Gunnar Farneback can be
+    found at opencv_source_code/samples/python/opt_flow.py
+    """
+    ...
+
+def calcOpticalFlowPyrLK(
+    prevImg,
+    nextImg,
+    prevPts,
+    nextPts,
+    status=...,
+    err=...,
+    winSize=...,
+    maxLevel=...,
+    criteria=...,
+    flags: int = ...,
+    minEigThreshold=...,
+):
+    """
+    calcOpticalFlowPyrLK(prevImg, nextImg, prevPts, nextPts[, status[, err[, winSize[, maxLevel[, criteria[, flags[, minEigThreshold]]]]]]]) -> nextPts, status, err
+    @brief Calculates an optical flow for a sparse feature set using the iterative Lucas-Kanade method with
+    pyramids.
+
+    @param prevImg first 8-bit input image or pyramid constructed by buildOpticalFlowPyramid.
+    @param nextImg second input image or pyramid of the same size and the same type as prevImg.
+    @param prevPts vector of 2D points for which the flow needs to be found; point coordinates must be
+    single-precision floating-point numbers.
+    @param nextPts output vector of 2D points (with single-precision floating-point coordinates)
+    containing the calculated new positions of input features in the second image; when
+    OPTFLOW_USE_INITIAL_FLOW flag is passed, the vector must have the same size as in the input.
+    @param status output status vector (of unsigned chars); each element of the vector is set to 1 if
+    the flow for the corresponding features has been found, otherwise, it is set to 0.
+    @param err output vector of errors; each element of the vector is set to an error for the
+    corresponding feature, type of the error measure can be set in flags parameter; if the flow wasn't
+    found then the error is not defined (use the status parameter to find such cases).
+    @param winSize size of the search window at each pyramid level.
+    @param maxLevel 0-based maximal pyramid level number; if set to 0, pyramids are not used (single
+    level), if set to 1, two levels are used, and so on; if pyramids are passed to input then
+    algorithm will use as many levels as pyramids have but no more than maxLevel.
+    @param criteria parameter, specifying the termination criteria of the iterative search algorithm
+    (after the specified maximum number of iterations criteria.maxCount or when the search window
+    moves by less than criteria.epsilon.
+    @param flags operation flags:
+    -   **OPTFLOW_USE_INITIAL_FLOW** uses initial estimations, stored in nextPts; if the flag is
+     not set, then prevPts is copied to nextPts and is considered the initial estimate.
+    -   **OPTFLOW_LK_GET_MIN_EIGENVALS** use minimum eigen values as an error measure (see
+     minEigThreshold description); if the flag is not set, then L1 distance between patches
+     around the original and a moved point, divided by number of pixels in a window, is used as a
+     error measure.
+    @param minEigThreshold the algorithm calculates the minimum eigen value of a 2x2 normal matrix of
+    optical flow equations (this matrix is called a spatial gradient matrix in @cite Bouguet00), divided
+    by number of pixels in a window; if this value is less than minEigThreshold, then a corresponding
+    feature is filtered out and its flow is not processed, so it allows to remove bad points and get a
+    performance boost.
+
+    The function implements a sparse iterative version of the Lucas-Kanade optical flow in pyramids. See
+    @cite Bouguet00 . The function is parallelized with the TBB library.
+
+    @note
+
+    -   An example using the Lucas-Kanade optical flow algorithm can be found at
+    opencv_source_code/samples/cpp/lkdemo.cpp
+    -   (Python) An example using the Lucas-Kanade optical flow algorithm can be found at
+    opencv_source_code/samples/python/lk_track.py
+    -   (Python) An example using the Lucas-Kanade tracker for homography matching can be found at
+    opencv_source_code/samples/python/lk_homography.py
+    """
+    ...
+
+def calibrateCamera(
+    objectPoints, imagePoints, imageSize, cameraMatrix, distCoeffs, rvecs=..., tvecs=..., flags: int = ..., criteria=...
+):
+    """
+    calibrateCamera(objectPoints, imagePoints, imageSize, cameraMatrix, distCoeffs[, rvecs[, tvecs[, flags[, criteria]]]]) -> retval, cameraMatrix, distCoeffs, rvecs, tvecs
+    @overload
+    """
+    ...
+
+def calibrateCameraExtended(
+    objectPoints,
+    imagePoints,
+    imageSize,
+    cameraMatrix,
+    distCoeffs,
+    rvecs=...,
+    tvecs=...,
+    stdDeviationsIntrinsics=...,
+    stdDeviationsExtrinsics=...,
+    perViewErrors=...,
+    flags: int = ...,
+    criteria=...,
+):
+    """
+    calibrateCameraExtended(objectPoints, imagePoints, imageSize, cameraMatrix, distCoeffs[, rvecs[, tvecs[, stdDeviationsIntrinsics[, stdDeviationsExtrinsics[, perViewErrors[, flags[, criteria]]]]]]]) -> retval, cameraMatrix, distCoeffs, rvecs, tvecs, stdDeviationsIntrinsics, stdDeviationsExtrinsics, perViewErrors
+    @brief Finds the camera intrinsic and extrinsic parameters from several views of a calibration
+    pattern.
+
+    @param objectPoints In the new interface it is a vector of vectors of calibration pattern points in
+    the calibration pattern coordinate space (e.g. std::vector<std::vector<cv::Vec3f>>). The outer
+    vector contains as many elements as the number of pattern views. If the same calibration pattern
+    is shown in each view and it is fully visible, all the vectors will be the same. Although, it is
+    possible to use partially occluded patterns or even different patterns in different views. Then,
+    the vectors will be different. Although the points are 3D, they all lie in the calibration pattern's
+    XY coordinate plane (thus 0 in the Z-coordinate), if the used calibration pattern is a planar rig.
+    In the old interface all the vectors of object points from different views are concatenated
+    together.
+    @param imagePoints In the new interface it is a vector of vectors of the projections of calibration
+    pattern points (e.g. std::vector<std::vector<cv::Vec2f>>). imagePoints.size() and
+    objectPoints.size(), and imagePoints[i].size() and objectPoints[i].size() for each i, must be equal,
+    respectively. In the old interface all the vectors of object points from different views are
+    concatenated together.
+    @param imageSize Size of the image used only to initialize the intrinsic camera matrix.
+    @param cameraMatrix Input/output 3x3 floating-point camera matrix
+    `A = \\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}` . If CV\\_CALIB\\_USE\\_INTRINSIC\\_GUESS
+    and/or CALIB_FIX_ASPECT_RATIO are specified, some or all of fx, fy, cx, cy must be
+    initialized before calling the function.
+    @param distCoeffs Input/output vector of distortion coefficients
+    `(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]])` of
+    4, 5, 8, 12 or 14 elements.
+    @param rvecs Output vector of rotation vectors (@ref Rodrigues ) estimated for each pattern view
+    (e.g. std::vector<cv::Mat>>). That is, each i-th rotation vector together with the corresponding
+    i-th translation vector (see the next output parameter description) brings the calibration pattern
+    from the object coordinate space (in which object points are specified) to the camera coordinate
+    space. In more technical terms, the tuple of the i-th rotation and translation vector performs
+    a change of basis from object coordinate space to camera coordinate space. Due to its duality, this
+    tuple is equivalent to the position of the calibration pattern with respect to the camera coordinate
+    space.
+    @param tvecs Output vector of translation vectors estimated for each pattern view, see parameter
+    describtion above.
+    @param stdDeviationsIntrinsics Output vector of standard deviations estimated for intrinsic
+    parameters. Order of deviations values:
+    `(f_x, f_y, c_x, c_y, k_1, k_2, p_1, p_2, k_3, k_4, k_5, k_6 , s_1, s_2, s_3,
+    s_4, \\tau_x, \\tau_y)` If one of parameters is not estimated, it's deviation is equals to zero.
+    @param stdDeviationsExtrinsics Output vector of standard deviations estimated for extrinsic
+    parameters. Order of deviations values: `(R_0, T_0, \\dotsc , R_{M - 1}, T_{M - 1})` where M is
+    the number of pattern views. `R_i, T_i` are concatenated 1x3 vectors.
+    @param perViewErrors Output vector of the RMS re-projection error estimated for each pattern view.
+    @param flags Different flags that may be zero or a combination of the following values:
+    -   **CALIB_USE_INTRINSIC_GUESS** cameraMatrix contains valid initial values of
+    fx, fy, cx, cy that are optimized further. Otherwise, (cx, cy) is initially set to the image
+    center ( imageSize is used), and focal distances are computed in a least-squares fashion.
+    Note, that if intrinsic parameters are known, there is no need to use this function just to
+    estimate extrinsic parameters. Use solvePnP instead.
+    -   **CALIB_FIX_PRINCIPAL_POINT** The principal point is not changed during the global
+    optimization. It stays at the center or at a different location specified when
+    CALIB_USE_INTRINSIC_GUESS is set too.
+    -   **CALIB_FIX_ASPECT_RATIO** The functions consider only fy as a free parameter. The
+    ratio fx/fy stays the same as in the input cameraMatrix . When
+    CALIB_USE_INTRINSIC_GUESS is not set, the actual input values of fx and fy are
+    ignored, only their ratio is computed and used further.
+    -   **CALIB_ZERO_TANGENT_DIST** Tangential distortion coefficients `(p_1, p_2)` are set
+    to zeros and stay zero.
+    -   **CALIB_FIX_K1,...,CALIB_FIX_K6** The corresponding radial distortion
+    coefficient is not changed during the optimization. If CALIB_USE_INTRINSIC_GUESS is
+    set, the coefficient from the supplied distCoeffs matrix is used. Otherwise, it is set to 0.
+    -   **CALIB_RATIONAL_MODEL** Coefficients k4, k5, and k6 are enabled. To provide the
+    backward compatibility, this extra flag should be explicitly specified to make the
+    calibration function use the rational model and return 8 coefficients. If the flag is not
+    set, the function computes and returns only 5 distortion coefficients.
+    -   **CALIB_THIN_PRISM_MODEL** Coefficients s1, s2, s3 and s4 are enabled. To provide the
+    backward compatibility, this extra flag should be explicitly specified to make the
+    calibration function use the thin prism model and return 12 coefficients. If the flag is not
+    set, the function computes and returns only 5 distortion coefficients.
+    -   **CALIB_FIX_S1_S2_S3_S4** The thin prism distortion coefficients are not changed during
+    the optimization. If CALIB_USE_INTRINSIC_GUESS is set, the coefficient from the
+    supplied distCoeffs matrix is used. Otherwise, it is set to 0.
+    -   **CALIB_TILTED_MODEL** Coefficients tauX and tauY are enabled. To provide the
+    backward compatibility, this extra flag should be explicitly specified to make the
+    calibration function use the tilted sensor model and return 14 coefficients. If the flag is not
+    set, the function computes and returns only 5 distortion coefficients.
+    -   **CALIB_FIX_TAUX_TAUY** The coefficients of the tilted sensor model are not changed during
+    the optimization. If CALIB_USE_INTRINSIC_GUESS is set, the coefficient from the
+    supplied distCoeffs matrix is used. Otherwise, it is set to 0.
+    @param criteria Termination criteria for the iterative optimization algorithm.
+
+    @return the overall RMS re-projection error.
+
+    The function estimates the intrinsic camera parameters and extrinsic parameters for each of the
+    views. The algorithm is based on @cite Zhang2000 and @cite BouguetMCT . The coordinates of 3D object
+    points and their corresponding 2D projections in each view must be specified. That may be achieved
+    by using an object with known geometry and easily detectable feature points. Such an object is
+    called a calibration rig or calibration pattern, and OpenCV has built-in support for a chessboard as
+    a calibration rig (see @ref findChessboardCorners). Currently, initialization of intrinsic
+    parameters (when CALIB_USE_INTRINSIC_GUESS is not set) is only implemented for planar calibration
+    patterns (where Z-coordinates of the object points must be all zeros). 3D calibration rigs can also
+    be used as long as initial cameraMatrix is provided.
+
+    The algorithm performs the following steps:
+
+    -   Compute the initial intrinsic parameters (the option only available for planar calibration
+    patterns) or read them from the input parameters. The distortion coefficients are all set to
+    zeros initially unless some of CALIB_FIX_K? are specified.
+
+    -   Estimate the initial camera pose as if the intrinsic parameters have been already known. This is
+    done using solvePnP .
+
+    -   Run the global Levenberg-Marquardt optimization algorithm to minimize the reprojection error,
+    that is, the total sum of squared distances between the observed feature points imagePoints and
+    the projected (using the current estimates for camera parameters and the poses) object points
+    objectPoints. See projectPoints for details.
+
+    @note
+    If you use a non-square (i.e. non-N-by-N) grid and @ref findChessboardCorners for calibration,
+    and @ref calibrateCamera returns bad values (zero distortion coefficients, `c_x` and
+    `c_y` very far from the image center, and/or large differences between `f_x` and
+    `f_y` (ratios of 10:1 or more)), then you are probably using patternSize=cvSize(rows,cols)
+    instead of using patternSize=cvSize(cols,rows) in @ref findChessboardCorners.
+
+    @sa
+      calibrateCameraRO, findChessboardCorners, solvePnP, initCameraMatrix2D, stereoCalibrate,
+      undistort
+    """
+    ...
+
+def calibrateCameraRO(
+    objectPoints,
+    imagePoints,
+    imageSize,
+    iFixedPoint,
+    cameraMatrix,
+    distCoeffs,
+    rvecs=...,
+    tvecs=...,
+    newObjPoints=...,
+    flags: int = ...,
+    criteria=...,
+):
+    """
+    calibrateCameraRO(objectPoints, imagePoints, imageSize, iFixedPoint, cameraMatrix, distCoeffs[, rvecs[, tvecs[, newObjPoints[, flags[, criteria]]]]]) -> retval, cameraMatrix, distCoeffs, rvecs, tvecs, newObjPoints
+    @overload
+    """
+    ...
+
+def calibrateCameraROExtended(
+    objectPoints,
+    imagePoints,
+    imageSize,
+    iFixedPoint,
+    cameraMatrix,
+    distCoeffs,
+    rvecs=...,
+    tvecs=...,
+    newObjPoints=...,
+    stdDeviationsIntrinsics=...,
+    stdDeviationsExtrinsics=...,
+    stdDeviationsObjPoints=...,
+    perViewErrors=...,
+    flags: int = ...,
+    criteria=...,
+):
+    """
+    calibrateCameraROExtended(objectPoints, imagePoints, imageSize, iFixedPoint, cameraMatrix, distCoeffs[, rvecs[, tvecs[, newObjPoints[, stdDeviationsIntrinsics[, stdDeviationsExtrinsics[, stdDeviationsObjPoints[, perViewErrors[, flags[, criteria]]]]]]]]]) -> retval, cameraMatrix, distCoeffs, rvecs, tvecs, newObjPoints, stdDeviationsIntrinsics, stdDeviationsExtrinsics, stdDeviationsObjPoints, perViewErrors
+    @brief Finds the camera intrinsic and extrinsic parameters from several views of a calibration pattern.
+
+    This function is an extension of calibrateCamera() with the method of releasing object which was
+    proposed in @cite strobl2011iccv. In many common cases with inaccurate, unmeasured, roughly planar
+    targets (calibration plates), this method can dramatically improve the precision of the estimated
+    camera parameters. Both the object-releasing method and standard method are supported by this
+    function. Use the parameter **iFixedPoint** for method selection. In the internal implementation,
+    calibrateCamera() is a wrapper for this function.
+
+    @param objectPoints Vector of vectors of calibration pattern points in the calibration pattern
+    coordinate space. See calibrateCamera() for details. If the method of releasing object to be used,
+    the identical calibration board must be used in each view and it must be fully visible, and all
+    objectPoints[i] must be the same and all points should be roughly close to a plane. **The calibration
+    target has to be rigid, or at least static if the camera (rather than the calibration target) is
+    shifted for grabbing images.**
+    @param imagePoints Vector of vectors of the projections of calibration pattern points. See
+    calibrateCamera() for details.
+    @param imageSize Size of the image used only to initialize the intrinsic camera matrix.
+    @param iFixedPoint The index of the 3D object point in objectPoints[0] to be fixed. It also acts as
+    a switch for calibration method selection. If object-releasing method to be used, pass in the
+    parameter in the range of [1, objectPoints[0].size()-2], otherwise a value out of this range will
+    make standard calibration method selected. Usually the top-right corner point of the calibration
+    board grid is recommended to be fixed when object-releasing method being utilized. According to
+    \\cite strobl2011iccv, two other points are also fixed. In this implementation, objectPoints[0].front
+    and objectPoints[0].back.z are used. With object-releasing method, accurate rvecs, tvecs and
+    newObjPoints are only possible if coordinates of these three fixed points are accurate enough.
+    @param cameraMatrix Output 3x3 floating-point camera matrix. See calibrateCamera() for details.
+    @param distCoeffs Output vector of distortion coefficients. See calibrateCamera() for details.
+    @param rvecs Output vector of rotation vectors estimated for each pattern view. See calibrateCamera()
+    for details.
+    @param tvecs Output vector of translation vectors estimated for each pattern view.
+    @param newObjPoints The updated output vector of calibration pattern points. The coordinates might
+    be scaled based on three fixed points. The returned coordinates are accurate only if the above
+    mentioned three fixed points are accurate. If not needed, noArray() can be passed in. This parameter
+    is ignored with standard calibration method.
+    @param stdDeviationsIntrinsics Output vector of standard deviations estimated for intrinsic parameters.
+    See calibrateCamera() for details.
+    @param stdDeviationsExtrinsics Output vector of standard deviations estimated for extrinsic parameters.
+    See calibrateCamera() for details.
+    @param stdDeviationsObjPoints Output vector of standard deviations estimated for refined coordinates
+    of calibration pattern points. It has the same size and order as objectPoints[0] vector. This
+    parameter is ignored with standard calibration method.
+    @param perViewErrors Output vector of the RMS re-projection error estimated for each pattern view.
+    @param flags Different flags that may be zero or a combination of some predefined values. See
+    calibrateCamera() for details. If the method of releasing object is used, the calibration time may
+    be much longer. CALIB_USE_QR or CALIB_USE_LU could be used for faster calibration with potentially
+    less precise and less stable in some rare cases.
+    @param criteria Termination criteria for the iterative optimization algorithm.
+
+    @return the overall RMS re-projection error.
+
+    The function estimates the intrinsic camera parameters and extrinsic parameters for each of the
+    views. The algorithm is based on @cite Zhang2000, @cite BouguetMCT and @cite strobl2011iccv. See
+    calibrateCamera() for other detailed explanations.
+    @sa
+      calibrateCamera, findChessboardCorners, solvePnP, initCameraMatrix2D, stereoCalibrate, undistort
+    """
+    ...
+
+def calibrateHandEye(
+    R_gripper2base, t_gripper2base, R_target2cam, t_target2cam, R_cam2gripper=..., t_cam2gripper=..., method: int = ...
+):
+    """
+    calibrateHandEye(R_gripper2base, t_gripper2base, R_target2cam, t_target2cam[, R_cam2gripper[, t_cam2gripper[, method]]]) -> R_cam2gripper, t_cam2gripper
+    @brief Computes Hand-Eye calibration: `_{}^{g}\\textrm{T}_c`
+
+    @param[in] R_gripper2base Rotation part extracted from the homogeneous matrix that transforms a point
+    expressed in the gripper frame to the robot base frame (`_{}^{b}\\textrm{T}_g`).
+    This is a vector (`vector<Mat>`) that contains the rotation matrices for all the transformations
+    from gripper frame to robot base frame.
+    @param[in] t_gripper2base Translation part extracted from the homogeneous matrix that transforms a point
+    expressed in the gripper frame to the robot base frame (`_{}^{b}\\textrm{T}_g`).
+    This is a vector (`vector<Mat>`) that contains the translation vectors for all the transformations
+    from gripper frame to robot base frame.
+    @param[in] R_target2cam Rotation part extracted from the homogeneous matrix that transforms a point
+    expressed in the target frame to the camera frame (`_{}^{c}\\textrm{T}_t`).
+    This is a vector (`vector<Mat>`) that contains the rotation matrices for all the transformations
+    from calibration target frame to camera frame.
+    @param[in] t_target2cam Rotation part extracted from the homogeneous matrix that transforms a point
+    expressed in the target frame to the camera frame (`_{}^{c}\\textrm{T}_t`).
+    This is a vector (`vector<Mat>`) that contains the translation vectors for all the transformations
+    from calibration target frame to camera frame.
+    @param[out] R_cam2gripper Estimated rotation part extracted from the homogeneous matrix that transforms a point
+    expressed in the camera frame to the gripper frame (`_{}^{g}\\textrm{T}_c`).
+    @param[out] t_cam2gripper Estimated translation part extracted from the homogeneous matrix that transforms a point
+    expressed in the camera frame to the gripper frame (`_{}^{g}\\textrm{T}_c`).
+    @param[in] method One of the implemented Hand-Eye calibration method, see cv::HandEyeCalibrationMethod
+
+    The function performs the Hand-Eye calibration using various methods. One approach consists in estimating the
+    rotation then the translation (separable solutions) and the following methods are implemented:
+     - R. Tsai, R. Lenz A New Technique for Fully Autonomous and Efficient 3D Robotics Hand/EyeCalibration \\cite Tsai89
+     - F. Park, B. Martin Robot Sensor Calibration: Solving AX = XB on the Euclidean Group \\cite Park94
+     - R. Horaud, F. Dornaika Hand-Eye Calibration \\cite Horaud95
+
+    Another approach consists in estimating simultaneously the rotation and the translation (simultaneous solutions),
+    with the following implemented method:
+     - N. Andreff, R. Horaud, B. Espiau On-line Hand-Eye Calibration \\cite Andreff99
+     - K. Daniilidis Hand-Eye Calibration Using Dual Quaternions \\cite Daniilidis98
+
+    The following picture describes the Hand-Eye calibration problem where the transformation between a camera ("eye")
+    mounted on a robot gripper ("hand") has to be estimated.
+
+    ![](pics/hand-eye_figure.png)
+
+    The calibration procedure is the following:
+     - a static calibration pattern is used to estimate the transformation between the target frame
+     and the camera frame
+     - the robot gripper is moved in order to acquire several poses
+     - for each pose, the homogeneous transformation between the gripper frame and the robot base frame is recorded using for
+     instance the robot kinematics
+    [
+    \\begin{bmatrix}
+    X_b
+    Y_b
+    Z_b
+    1
+    \\end{bmatrix}
+    =
+    \\begin{bmatrix}
+    _{}^{b}\\textrm{R}_g & _{}^{b}\\textrm{t}_g
+    0_{1 x 3} & 1
+    \\end{bmatrix}
+    \\begin{bmatrix}
+    X_g
+    Y_g
+    Z_g
+    1
+    \\end{bmatrix}
+    ]
+     - for each pose, the homogeneous transformation between the calibration target frame and the camera frame is recorded using
+     for instance a pose estimation method (PnP) from 2D-3D point correspondences
+    [
+    \\begin{bmatrix}
+    X_c
+    Y_c
+    Z_c
+    1
+    \\end{bmatrix}
+    =
+    \\begin{bmatrix}
+    _{}^{c}\\textrm{R}_t & _{}^{c}\\textrm{t}_t
+    0_{1 x 3} & 1
+    \\end{bmatrix}
+    \\begin{bmatrix}
+    X_t
+    Y_t
+    Z_t
+    1
+    \\end{bmatrix}
+    ]
+
+    The Hand-Eye calibration procedure returns the following homogeneous transformation
+    [
+    \\begin{bmatrix}
+    X_g
+    Y_g
+    Z_g
+    1
+    \\end{bmatrix}
+    =
+    \\begin{bmatrix}
+    _{}^{g}\\textrm{R}_c & _{}^{g}\\textrm{t}_c
+    0_{1 x 3} & 1
+    \\end{bmatrix}
+    \\begin{bmatrix}
+    X_c
+    Y_c
+    Z_c
+    1
+    \\end{bmatrix}
+    ]
+
+    This problem is also known as solving the `\\mathbf{A}\\mathbf{X}=\\mathbf{X}\\mathbf{B}` equation:
+    [
+    \\begin{align*}
+    ^{b}{\\textrm{T}_g}^{(1)} \\hspace{0.2em} ^{g}\\textrm{T}_c \\hspace{0.2em} ^{c}{\\textrm{T}_t}^{(1)} &=
+    \\hspace{0.1em} ^{b}{\\textrm{T}_g}^{(2)} \\hspace{0.2em} ^{g}\\textrm{T}_c \\hspace{0.2em} ^{c}{\\textrm{T}_t}^{(2)}
+
+    (^{b}{\\textrm{T}_g}^{(2)})^{-1} \\hspace{0.2em} ^{b}{\\textrm{T}_g}^{(1)} \\hspace{0.2em} ^{g}\\textrm{T}_c &=
+    \\hspace{0.1em} ^{g}\\textrm{T}_c \\hspace{0.2em} ^{c}{\\textrm{T}_t}^{(2)} (^{c}{\\textrm{T}_t}^{(1)})^{-1}
+
+    \\textrm{A}_i \\textrm{X} &= \\textrm{X} \\textrm{B}_i
+    \\end{align*}
+    ]
+
+    \
+    ote
+    Additional information can be found on this [website](http://campar.in.tum.de/Chair/HandEyeCalibration).
+    \
+    ote
+    A minimum of 2 motions with non parallel rotation axes are necessary to determine the hand-eye transformation.
+    So at least 3 different poses are required, but it is strongly recommended to use many more poses.
+    """
+    ...
+
 def calibrateRobotWorldHandEye(*args, **kwargs) -> Any: ...  # incomplete
-def calibrationMatrixValues(*args, **kwargs) -> Any: ...  # incomplete
-def cartToPolar(*args, **kwargs) -> Any: ...  # incomplete
-def checkChessboard(*args, **kwargs) -> Any: ...  # incomplete
-def checkHardwareSupport() -> Incomplete: ...
-def checkRange(*args, **kwargs) -> Any: ...  # incomplete
-def circle(*args, **kwargs) -> Any: ...  # incomplete
-def clipLine(*args, **kwargs) -> Any: ...  # incomplete
-def colorChange(*args, **kwargs) -> Any: ...  # incomplete
-def compare(*args, **kwargs) -> Any: ...  # incomplete
-def compareHist(*args, **kwargs) -> Any: ...  # incomplete
-def completeSymm(*args, **kwargs) -> Any: ...  # incomplete
-def composeRT(*args, **kwargs) -> Any: ...  # incomplete
-def computeCorrespondEpilines(*args, **kwargs) -> Any: ...  # incomplete
-def computeECC(*args, **kwargs) -> Any: ...  # incomplete
-def connectedComponents(*args, **kwargs) -> Any: ...  # incomplete
-def connectedComponentsWithAlgorithm(*args, **kwargs) -> Any: ...  # incomplete
-def connectedComponentsWithStats(*args, **kwargs) -> Any: ...  # incomplete
-def connectedComponentsWithStatsWithAlgorithm(*args, **kwargs) -> Any: ...  # incomplete
+def calibrationMatrixValues(cameraMatrix, imageSize, apertureWidth, apertureHeight):
+    """
+    calibrationMatrixValues(cameraMatrix, imageSize, apertureWidth, apertureHeight) -> fovx, fovy, focalLength, principalPoint, aspectRatio
+    @brief Computes useful camera characteristics from the camera matrix.
+
+    @param cameraMatrix Input camera matrix that can be estimated by calibrateCamera or
+    stereoCalibrate .
+    @param imageSize Input image size in pixels.
+    @param apertureWidth Physical width in mm of the sensor.
+    @param apertureHeight Physical height in mm of the sensor.
+    @param fovx Output field of view in degrees along the horizontal sensor axis.
+    @param fovy Output field of view in degrees along the vertical sensor axis.
+    @param focalLength Focal length of the lens in mm.
+    @param principalPoint Principal point in mm.
+    @param aspectRatio `f_y/f_x`
+
+    The function computes various useful camera characteristics from the previously estimated camera
+    matrix.
+
+    @note
+      Do keep in mind that the unity measure 'mm' stands for whatever unit of measure one chooses for
+    the chessboard pitch (it can thus be any value).
+    """
+    ...
+
+def cartToPolar(x, y, magnitude=..., angle=..., angleInDegrees=...):
+    """
+    cartToPolar(x, y[, magnitude[, angle[, angleInDegrees]]]) -> magnitude, angle
+    @brief Calculates the magnitude and angle of 2D vectors.
+
+    The function cv::cartToPolar calculates either the magnitude, angle, or both
+    for every 2D vector (x(I),y(I)):
+    [\\begin{array}{l} `magnitude` (I)= √{`x`(I)^2+`y`(I)^2} , \\ `angle` (I)= `atan2` ( `y` (I), `x` (I))[ ·180 / π ] \\end{array}]
+
+    The angles are calculated with accuracy about 0.3 degrees. For the point
+    (0,0), the angle is set to 0.
+    @param x array of x-coordinates; this must be a single-precision or
+    double-precision floating-point array.
+    @param y array of y-coordinates, that must have the same size and same type as x.
+    @param magnitude output array of magnitudes of the same size and type as x.
+    @param angle output array of angles that has the same size and type as
+    x; the angles are measured in radians (from 0 to 2 * Pi) or in degrees (0 to 360 degrees).
+    @param angleInDegrees a flag, indicating whether the angles are measured
+    in radians (which is by default), or in degrees.
+    @sa Sobel, Scharr
+    """
+    ...
+
+def checkChessboard(img: Mat, size):
+    """
+    checkChessboard(img, size) -> retval
+
+    """
+    ...
+
+def checkHardwareSupport(feature):
+    """
+    checkHardwareSupport(feature) -> retval
+    @brief Returns true if the specified feature is supported by the host hardware.
+
+    The function returns true if the host hardware supports the specified feature. When user calls
+    setUseOptimized(false), the subsequent calls to checkHardwareSupport() will return false until
+    setUseOptimized(true) is called. This way user can dynamically switch on and off the optimized code
+    in OpenCV.
+    @param feature The feature of interest, one of cv::CpuFeatures
+    """
+    ...
+
+def checkRange(a, quiet=..., minVal=..., maxVal=...):
+    """
+    checkRange(a[, quiet[, minVal[, maxVal]]]) -> retval, pos
+    @brief Checks every element of an input array for invalid values.
+
+    The function cv::checkRange checks that every array element is neither NaN nor infinite. When minVal >
+    -DBL_MAX and maxVal < DBL_MAX, the function also checks that each value is between minVal and
+    maxVal. In case of multi-channel arrays, each channel is processed independently. If some values
+    are out of range, position of the first outlier is stored in pos (when pos != NULL). Then, the
+    function either returns false (when quiet=true) or throws an exception.
+    @param a input array.
+    @param quiet a flag, indicating whether the functions quietly return false when the array elements
+    are out of range or they throw an exception.
+    @param pos optional output parameter, when not NULL, must be a pointer to array of src.dims
+    elements.
+    @param minVal inclusive lower boundary of valid values range.
+    @param maxVal exclusive upper boundary of valid values range.
+    """
+    ...
+
+def circle(img: Mat, center, radius, color, thickness=..., lineType=..., shift=...):
+    """
+    circle(img, center, radius, color[, thickness[, lineType[, shift]]]) -> img
+    @brief Draws a circle.
+
+    The function cv::circle draws a simple or filled circle with a given center and radius.
+    @param img Image where the circle is drawn.
+    @param center Center of the circle.
+    @param radius Radius of the circle.
+    @param color Circle color.
+    @param thickness Thickness of the circle outline, if positive. Negative values, like #FILLED,
+    mean that a filled circle is to be drawn.
+    @param lineType Type of the circle boundary. See #LineTypes
+    @param shift Number of fractional bits in the coordinates of the center and in the radius value.
+    """
+    ...
+
+def clipLine(imgRect, pt1, pt2):
+    """
+    clipLine(imgRect, pt1, pt2) -> retval, pt1, pt2
+    @overload
+    @param imgRect Image rectangle.
+    @param pt1 First line point.
+    @param pt2 Second line point.
+    """
+    ...
+
+def colorChange(src: Mat, mask: Mat, dts: Mat = ..., red_mul=..., green_mul=..., blue_mul=...):
+    """
+    colorChange(src, mask[, dst[, red_mul[, green_mul[, blue_mul]]]]) -> dst
+    @brief Given an original color image, two differently colored versions of this image can be mixed
+    seamlessly.
+
+    @param src Input 8-bit 3-channel image.
+    @param mask Input 8-bit 1 or 3-channel image.
+    @param dst Output image with the same size and type as src .
+    @param red_mul R-channel multiply factor.
+    @param green_mul G-channel multiply factor.
+    @param blue_mul B-channel multiply factor.
+
+    Multiplication factor is between .5 to 2.5.
+    """
+    ...
+
+def compare(src1: Mat, src2: Mat, cmpop, dts: Mat = ...):
+    """
+    compare(src1, src2, cmpop[, dst]) -> dst
+    @brief Performs the per-element comparison of two arrays or an array and scalar value.
+
+    The function compares:
+    *   Elements of two arrays when src1 and src2 have the same size:
+    [`dst` (I) =  `src1` (I)  \\,`cmpop`\\, `src2` (I)]
+    *   Elements of src1 with a scalar src2 when src2 is constructed from
+    Scalar or has a single element:
+    [`dst` (I) =  `src1`(I) \\,`cmpop`\\,  `src2`]
+    *   src1 with elements of src2 when src1 is constructed from Scalar or
+    has a single element:
+    [`dst` (I) =  `src1`  \\,`cmpop`\\, `src2` (I)]
+    When the comparison result is true, the corresponding element of output
+    array is set to 255. The comparison operations can be replaced with the
+    equivalent matrix expressions:
+    @code{.cpp}
+    Mat dst1 = src1 >= src2;
+    Mat dst2 = src1 < 8;
+    ...
+    @endcode
+    @param src1 first input array or a scalar; when it is an array, it must have a single channel.
+    @param src2 second input array or a scalar; when it is an array, it must have a single channel.
+    @param dst output array of type ref CV_8U that has the same size and the same number of channels as
+    the input arrays.
+    @param cmpop a flag, that specifies correspondence between the arrays (cv::CmpTypes)
+    @sa checkRange, min, max, threshold
+    """
+    ...
+
+def compareHist(H1: Mat, H2: Mat, method: int) -> float:
+    """
+    compareHist(H1, H2, method) -> retval
+    @brief Compares two histograms.
+
+    The function cv::compareHist compares two dense or two sparse histograms using the specified method.
+
+    The function returns `d(H_1, H_2)` .
+
+    While the function works well with 1-, 2-, 3-dimensional dense histograms, it may not be suitable
+    for high-dimensional sparse histograms. In such histograms, because of aliasing and sampling
+    problems, the coordinates of non-zero histogram bins can slightly shift. To compare such histograms
+    or more general sparse configurations of weighted points, consider using the #EMD function.
+
+    @param H1 First compared histogram.
+    @param H2 Second compared histogram of the same size as H1 .
+    @param method Comparison method, see #HistCompMethods
+    """
+    ...
+
+def completeSymm(m, lowerToUpper=...):
+    """
+    completeSymm(m[, lowerToUpper]) -> m
+    @brief Copies the lower or the upper half of a square matrix to its another half.
+
+    The function cv::completeSymm copies the lower or the upper half of a square matrix to
+    its another half. The matrix diagonal remains unchanged:
+    - ``m`_{ij}=`m`_{ji}` for `i > j` if
+    lowerToUpper=false
+    - ``m`_{ij}=`m`_{ji}` for `i < j` if
+    lowerToUpper=true
+
+    @param m input-output floating-point square matrix.
+    @param lowerToUpper operation flag; if true, the lower half is copied to
+    the upper half. Otherwise, the upper half is copied to the lower half.
+    @sa flip, transpose
+    """
+    ...
+
+def composeRT(
+    rvec1,
+    tvec1,
+    rvec2,
+    tvec2,
+    rvec3=...,
+    tvec3=...,
+    dr3dr1=...,
+    dr3dt1=...,
+    dr3dr2=...,
+    dr3dt2=...,
+    dt3dr1=...,
+    dt3dt1=...,
+    dt3dr2=...,
+    dt3dt2=...,
+):
+    """
+    composeRT(rvec1, tvec1, rvec2, tvec2[, rvec3[, tvec3[, dr3dr1[, dr3dt1[, dr3dr2[, dr3dt2[, dt3dr1[, dt3dt1[, dt3dr2[, dt3dt2]]]]]]]]]]) -> rvec3, tvec3, dr3dr1, dr3dt1, dr3dr2, dr3dt2, dt3dr1, dt3dt1, dt3dr2, dt3dt2
+    @brief Combines two rotation-and-shift transformations.
+
+    @param rvec1 First rotation vector.
+    @param tvec1 First translation vector.
+    @param rvec2 Second rotation vector.
+    @param tvec2 Second translation vector.
+    @param rvec3 Output rotation vector of the superposition.
+    @param tvec3 Output translation vector of the superposition.
+    @param dr3dr1 Optional output derivative of rvec3 with regard to rvec1
+    @param dr3dt1 Optional output derivative of rvec3 with regard to tvec1
+    @param dr3dr2 Optional output derivative of rvec3 with regard to rvec2
+    @param dr3dt2 Optional output derivative of rvec3 with regard to tvec2
+    @param dt3dr1 Optional output derivative of tvec3 with regard to rvec1
+    @param dt3dt1 Optional output derivative of tvec3 with regard to tvec1
+    @param dt3dr2 Optional output derivative of tvec3 with regard to rvec2
+    @param dt3dt2 Optional output derivative of tvec3 with regard to tvec2
+
+    The functions compute:
+
+    [\\begin{array}{l} `rvec3` =  \\mathrm{rodrigues} ^{-1} \\left ( \\mathrm{rodrigues} ( `rvec2` ) · \\mathrm{rodrigues} ( `rvec1` ) \\right )  \\ `tvec3` =  \\mathrm{rodrigues} ( `rvec2` ) · `tvec1` +  `tvec2` \\end{array} ,]
+
+    where `\\mathrm{rodrigues}` denotes a rotation vector to a rotation matrix transformation, and
+    `\\mathrm{rodrigues}^{-1}` denotes the inverse transformation. See Rodrigues for details.
+
+    Also, the functions can compute the derivatives of the output vectors with regards to the input
+    vectors (see matMulDeriv ). The functions are used inside stereoCalibrate but can also be used in
+    your own code where Levenberg-Marquardt or another gradient-based solver is used to optimize a
+    function that contains a matrix multiplication.
+    """
+    ...
+
+def computeCorrespondEpilines(points, whichImage, F, lines=...):
+    """
+    computeCorrespondEpilines(points, whichImage, F[, lines]) -> lines
+    @brief For points in an image of a stereo pair, computes the corresponding epilines in the other image.
+
+    @param points Input points. `N x 1` or `1 x N` matrix of type CV_32FC2 or
+    vector<Point2f> .
+    @param whichImage Index of the image (1 or 2) that contains the points .
+    @param F Fundamental matrix that can be estimated using findFundamentalMat or stereoRectify .
+    @param lines Output vector of the epipolar lines corresponding to the points in the other image.
+    Each line `ax + by + c=0` is encoded by 3 numbers `(a, b, c)` .
+
+    For every point in one of the two images of a stereo pair, the function finds the equation of the
+    corresponding epipolar line in the other image.
+
+    From the fundamental matrix definition (see findFundamentalMat ), line `l^{(2)}_i` in the second
+    image for the point `p^{(1)}_i` in the first image (when whichImage=1 ) is computed as:
+
+    [l^{(2)}_i = F p^{(1)}_i]
+
+    And vice versa, when whichImage=2, `l^{(1)}_i` is computed from `p^{(2)}_i` as:
+
+    [l^{(1)}_i = F^T p^{(2)}_i]
+
+    Line coefficients are defined up to a scale. They are normalized so that `a_i^2+b_i^2=1` .
+    """
+    ...
+
+def computeECC(templateImage, inputImage, inputMask=...):
+    """
+    computeECC(templateImage, inputImage[, inputMask]) -> retval
+    @brief Computes the Enhanced Correlation Coefficient value between two images @cite EP08 .
+
+    @param templateImage single-channel template image; CV_8U or CV_32F array.
+    @param inputImage single-channel input image to be warped to provide an image similar to
+    templateImage, same type as templateImage.
+    @param inputMask An optional mask to indicate valid values of inputImage.
+
+    @sa
+    findTransformECC
+    """
+    ...
+
+def connectedComponents(image: Mat, labels=..., connectivity=..., ltype=...):
+    """
+    connectedComponents(image[, labels[, connectivity[, ltype]]]) -> retval, labels
+    @overload
+
+    @param image the 8-bit single-channel image to be labeled
+    @param labels destination labeled image
+    @param connectivity 8 or 4 for 8-way or 4-way connectivity respectively
+    @param ltype output image label type. Currently CV_32S and CV_16U are supported.
+    """
+    ...
+
+def connectedComponentsWithAlgorithm(image: Mat, connectivity, ltype, ccltype, labels=...):
+    """
+    connectedComponentsWithAlgorithm(image, connectivity, ltype, ccltype[, labels]) -> retval, labels
+    @brief computes the connected components labeled image of boolean image
+
+    image with 4 or 8 way connectivity - returns N, the total number of labels [0, N-1] where 0
+    represents the background label. ltype specifies the output label image type, an important
+    consideration based on the total number of labels or alternatively the total number of pixels in
+    the source image. ccltype specifies the connected components labeling algorithm to use, currently
+    Grana (BBDT) and Wu's (SAUF) algorithms are supported, see the #ConnectedComponentsAlgorithmsTypes
+    for details. Note that SAUF algorithm forces a row major ordering of labels while BBDT does not.
+    This function uses parallel version of both Grana and Wu's algorithms if at least one allowed
+    parallel framework is enabled and if the rows of the image are at least twice the number returned by #getNumberOfCPUs.
+
+    @param image the 8-bit single-channel image to be labeled
+    @param labels destination labeled image
+    @param connectivity 8 or 4 for 8-way or 4-way connectivity respectively
+    @param ltype output image label type. Currently CV_32S and CV_16U are supported.
+    @param ccltype connected components algorithm type (see the #ConnectedComponentsAlgorithmsTypes).
+    """
+    ...
+
+def connectedComponentsWithStats(image: Mat, labels=..., stats=..., centroids=..., connectivity=..., ltype=...):
+    """
+    connectedComponentsWithStats(image[, labels[, stats[, centroids[, connectivity[, ltype]]]]]) -> retval, labels, stats, centroids
+    @overload
+    @param image the 8-bit single-channel image to be labeled
+    @param labels destination labeled image
+    @param stats statistics output for each label, including the background label.
+    Statistics are accessed via stats(label, COLUMN) where COLUMN is one of
+    #ConnectedComponentsTypes, selecting the statistic. The data type is CV_32S.
+    @param centroids centroid output for each label, including the background label. Centroids are
+    accessed via centroids(label, 0) for x and centroids(label, 1) for y. The data type CV_64F.
+    @param connectivity 8 or 4 for 8-way or 4-way connectivity respectively
+    @param ltype output image label type. Currently CV_32S and CV_16U are supported.
+    """
+    ...
+
+def connectedComponentsWithStatsWithAlgorithm(image: Mat, connectivity, ltype, ccltype, labels=..., stats=..., centroids=...):
+    """
+    connectedComponentsWithStatsWithAlgorithm(image, connectivity, ltype, ccltype[, labels[, stats[, centroids]]]) -> retval, labels, stats, centroids
+    @brief computes the connected components labeled image of boolean image and also produces a statistics output for each label
+
+    image with 4 or 8 way connectivity - returns N, the total number of labels [0, N-1] where 0
+    represents the background label. ltype specifies the output label image type, an important
+    consideration based on the total number of labels or alternatively the total number of pixels in
+    the source image. ccltype specifies the connected components labeling algorithm to use, currently
+    Grana's (BBDT) and Wu's (SAUF) algorithms are supported, see the #ConnectedComponentsAlgorithmsTypes
+    for details. Note that SAUF algorithm forces a row major ordering of labels while BBDT does not.
+    This function uses parallel version of both Grana and Wu's algorithms (statistics included) if at least one allowed
+    parallel framework is enabled and if the rows of the image are at least twice the number returned by #getNumberOfCPUs.
+
+    @param image the 8-bit single-channel image to be labeled
+    @param labels destination labeled image
+    @param stats statistics output for each label, including the background label.
+    Statistics are accessed via stats(label, COLUMN) where COLUMN is one of
+    #ConnectedComponentsTypes, selecting the statistic. The data type is CV_32S.
+    @param centroids centroid output for each label, including the background label. Centroids are
+    accessed via centroids(label, 0) for x and centroids(label, 1) for y. The data type CV_64F.
+    @param connectivity 8 or 4 for 8-way or 4-way connectivity respectively
+    @param ltype output image label type. Currently CV_32S and CV_16U are supported.
+    @param ccltype connected components algorithm type (see #ConnectedComponentsAlgorithmsTypes).
+    """
+    ...
+
 @overload
-def contourArea(contour) -> Incomplete: ...
+def contourArea(approx): ...
 @overload
-def contourArea(approx) -> Incomplete: ...
-def convertFp16(*args, **kwargs) -> Any: ...  # incomplete
-def convertMaps(*args, **kwargs) -> Any: ...  # incomplete
-def convertPointsFromHomogeneous(*args, **kwargs) -> Any: ...  # incomplete
-def convertPointsToHomogeneous(*args, **kwargs) -> Any: ...  # incomplete
-def convertScaleAbs(*args, **kwargs) -> Any: ...  # incomplete
-def convexHull(*args, **kwargs) -> Any: ...  # incomplete
-def convexityDefects(*args, **kwargs) -> Any: ...  # incomplete
-def copyMakeBorder(*args, **kwargs) -> Any: ...  # incomplete
-def copyTo(*args, **kwargs) -> Any: ...  # incomplete
-def cornerEigenValsAndVecs(*args, **kwargs) -> Any: ...  # incomplete
-def cornerHarris(*args, **kwargs) -> Any: ...  # incomplete
-def cornerMinEigenVal(*args, **kwargs) -> Any: ...  # incomplete
-def cornerSubPix(image, corners, winSize, zeroZone, criteria) -> _corners: ...
-def correctMatches(*args, **kwargs) -> Any: ...  # incomplete
-def countNonZero(*args, **kwargs) -> Any: ...  # incomplete
-def createAlignMTB(*args, **kwargs) -> Any: ...  # incomplete
-def createBackgroundSubtractorKNN(*args, **kwargs) -> Any: ...  # incomplete
-def createBackgroundSubtractorMOG2(*args, **kwargs) -> Any: ...  # incomplete
-def createButton(*args, **kwargs) -> Any: ...  # incomplete
-def createCLAHE(*args, **kwargs) -> Any: ...  # incomplete
-def createCalibrateDebevec(*args, **kwargs) -> Any: ...  # incomplete
-def createCalibrateRobertson(*args, **kwargs) -> Any: ...  # incomplete
-def createGeneralizedHoughBallard(*args, **kwargs) -> Any: ...  # incomplete
-def createGeneralizedHoughGuil(*args, **kwargs) -> Any: ...  # incomplete
-def createHanningWindow(*args, **kwargs) -> Any: ...  # incomplete
-def createLineSegmentDetector(*args, **kwargs) -> Any: ...  # incomplete
-def createMergeDebevec(*args, **kwargs) -> Any: ...  # incomplete
-def createMergeMertens(*args, **kwargs) -> Any: ...  # incomplete
-def createMergeRobertson(*args, **kwargs) -> Any: ...  # incomplete
-def createTonemap(*args, **kwargs) -> Any: ...  # incomplete
-def createTonemapDrago(*args, **kwargs) -> Any: ...  # incomplete
-def createTonemapMantiuk(*args, **kwargs) -> Any: ...  # incomplete
-def createTonemapReinhard(*args, **kwargs) -> Any: ...  # incomplete
-def createTrackbar(trackbarName, windowName, value, count, onChange) -> None: ...
-def cubeRoot(*args, **kwargs) -> Any: ...  # incomplete
-def cvtColor(*args, **kwargs) -> Any: ...  # incomplete
-def cvtColorTwoPlane(*args, **kwargs) -> Any: ...  # incomplete
-def dct(*args, **kwargs) -> Any: ...  # incomplete
-def decolor(*args, **kwargs) -> Any: ...  # incomplete
-def decomposeEssentialMat(*args, **kwargs) -> Any: ...  # incomplete
-def decomposeHomographyMat(*args, **kwargs) -> Any: ...  # incomplete
-def decomposeProjectionMatrix(*args, **kwargs) -> Any: ...  # incomplete
-def demosaicing(*args, **kwargs) -> Any: ...  # incomplete
-def denoise_TVL1(*args, **kwargs) -> Any: ...  # incomplete
-def destroyAllWindows() -> None: ...
-def destroyWindow(winname) -> None: ...
-def detailEnhance(*args, **kwargs) -> Any: ...  # incomplete
-def determinant(*args, **kwargs) -> Any: ...  # incomplete
-def dft(*args, **kwargs) -> Any: ...  # incomplete
-def dilate(*args, **kwargs) -> Any: ...  # incomplete
-def displayOverlay(*args, **kwargs) -> Any: ...  # incomplete
-def displayStatusBar(*args, **kwargs) -> Any: ...  # incomplete
-def distanceTransform(*args, **kwargs) -> Any: ...  # incomplete
-def distanceTransformWithLabels(*args, **kwargs) -> Any: ...  # incomplete
+def contourArea(contour, oriented=...):
+    """
+    contourArea(contour[, oriented]) -> retval
+    @brief Calculates a contour area.
+
+    The function computes a contour area. Similarly to moments , the area is computed using the Green
+    formula. Thus, the returned area and the number of non-zero pixels, if you draw the contour using
+    #drawContours or #fillPoly , can be different. Also, the function will most certainly give a wrong
+    results for contours with self-intersections.
+
+    Example:
+    @code
+    vector<Point> contour;
+    contour.push_back(Point2f(0, 0));
+    contour.push_back(Point2f(10, 0));
+    contour.push_back(Point2f(10, 10));
+    contour.push_back(Point2f(5, 4));
+
+    double area0 = contourArea(contour);
+    vector<Point> approx;
+    approxPolyDP(contour, approx, 5, true);
+    double area1 = contourArea(approx);
+
+    cout << "area0 =" << area0 << endl <<
+          "area1 =" << area1 << endl <<
+          "approx poly vertices" << approx.size() << endl;
+    @endcode
+    @param contour Input vector of 2D points (contour vertices), stored in std::vector or Mat.
+    @param oriented Oriented area flag. If it is true, the function returns a signed area value,
+    depending on the contour orientation (clockwise or counter-clockwise). Using this feature you can
+    determine orientation of a contour by taking the sign of an area. By default, the parameter is
+    false, which means that the absolute value is returned.
+    """
+    ...
+
+def convertFp16(src: Mat, dts: Mat = ...):
+    """
+    convertFp16(src[, dst]) -> dst
+    @brief Converts an array to half precision floating number.
+
+    This function converts FP32 (single precision floating point) from/to FP16 (half precision floating point). CV_16S format is used to represent FP16 data.
+    There are two use modes (src -> dst): CV_32F -> CV_16S and CV_16S -> CV_32F. The input array has to have type of CV_32F or
+    CV_16S to represent the bit depth. If the input array is neither of them, the function will raise an error.
+    The format of half precision floating point is defined in IEEE 754-2008.
+
+    @param src input array.
+    @param dst output array.
+    """
+    ...
+
+def convertMaps(map1, map2, dstmap1type, dstmap1=..., dstmap2=..., nninterpolation=...):
+    """
+    convertMaps(map1, map2, dstmap1type[, dstmap1[, dstmap2[, nninterpolation]]]) -> dstmap1, dstmap2
+    @brief Converts image transformation maps from one representation to another.
+
+    The function converts a pair of maps for remap from one representation to another. The following
+    options ( (map1.type(), map2.type()) `→` (dstmap1.type(), dstmap2.type()) ) are
+    supported:
+
+    - ``(CV_32FC1, CV_32FC1)` → `(CV_16SC2, CV_16UC1)``. This is the
+    most frequently used conversion operation, in which the original floating-point maps (see remap )
+    are converted to a more compact and much faster fixed-point representation. The first output array
+    contains the rounded coordinates and the second array (created only when nninterpolation=false )
+    contains indices in the interpolation tables.
+
+    - ``(CV_32FC2)` → `(CV_16SC2, CV_16UC1)``. The same as above but
+    the original maps are stored in one 2-channel matrix.
+
+    - Reverse conversion. Obviously, the reconstructed floating-point maps will not be exactly the same
+    as the originals.
+
+    @param map1 The first input map of type CV_16SC2, CV_32FC1, or CV_32FC2 .
+    @param map2 The second input map of type CV_16UC1, CV_32FC1, or none (empty matrix),
+    respectively.
+    @param dstmap1 The first output map that has the type dstmap1type and the same size as src .
+    @param dstmap2 The second output map.
+    @param dstmap1type Type of the first output map that should be CV_16SC2, CV_32FC1, or
+    CV_32FC2 .
+    @param nninterpolation Flag indicating whether the fixed-point maps are used for the
+    nearest-neighbor or for a more complex interpolation.
+
+    @sa  remap, undistort, initUndistortRectifyMap
+    """
+    ...
+
+def convertPointsFromHomogeneous(src: Mat, dts: Mat = ...):
+    """
+    convertPointsFromHomogeneous(src[, dst]) -> dst
+    @brief Converts points from homogeneous to Euclidean space.
+
+    @param src Input vector of N-dimensional points.
+    @param dst Output vector of N-1-dimensional points.
+
+    The function converts points homogeneous to Euclidean space using perspective projection. That is,
+    each point (x1, x2, ... x(n-1), xn) is converted to (x1/xn, x2/xn, ..., x(n-1)/xn). When xn=0, the
+    output point coordinates will be (0,0,0,...).
+    """
+    ...
+
+def convertPointsToHomogeneous(src: Mat, dts: Mat = ...):
+    """
+    convertPointsToHomogeneous(src[, dst]) -> dst
+    @brief Converts points from Euclidean to homogeneous space.
+
+    @param src Input vector of N-dimensional points.
+    @param dst Output vector of N+1-dimensional points.
+
+    The function converts points from Euclidean to homogeneous space by appending 1's to the tuple of
+    point coordinates. That is, each point (x1, x2, ..., xn) is converted to (x1, x2, ..., xn, 1).
+    """
+    ...
+
+def convertScaleAbs(src: Mat, dts: Mat = ..., alpha=..., beta=...):
+    """
+    convertScaleAbs(src[, dst[, alpha[, beta]]]) -> dst
+    @brief Scales, calculates absolute values, and converts the result to 8-bit.
+
+    On each element of the input array, the function convertScaleAbs
+    performs three operations sequentially: scaling, taking an absolute
+    value, conversion to an unsigned 8-bit type:
+    [`dst` (I)= `saturate\\_cast<uchar>` (| `src` (I)* `alpha` +  `beta` |)]
+    In case of multi-channel arrays, the function processes each channel
+    independently. When the output is not 8-bit, the operation can be
+    emulated by calling the Mat::convertTo method (or by using matrix
+    expressions) and then by calculating an absolute value of the result.
+    For example:
+    @code{.cpp}
+    Mat_<float> A(30,30);
+    randu(A, Scalar(-100), Scalar(100));
+    Mat_<float> B = A*5 + 3;
+    B = abs(B);
+    // Mat_<float> B = abs(A*5+3) will also do the job,
+    // but it will allocate a temporary matrix
+    @endcode
+    @param src input array.
+    @param dst output array.
+    @param alpha optional scale factor.
+    @param beta optional delta added to the scaled values.
+    @sa  Mat::convertTo, cv::abs(const Mat&)
+    """
+    ...
+
+def convexHull(points, hull=..., clockwise=..., returnPoints=...):
+    """
+    convexHull(points[, hull[, clockwise[, returnPoints]]]) -> hull
+    @brief Finds the convex hull of a point set.
+
+    The function cv::convexHull finds the convex hull of a 2D point set using the Sklansky's algorithm @cite Sklansky82
+    that has *O(N logN)* complexity in the current implementation.
+
+    @param points Input 2D point set, stored in std::vector or Mat.
+    @param hull Output convex hull. It is either an integer vector of indices or vector of points. In
+    the first case, the hull elements are 0-based indices of the convex hull points in the original
+    array (since the set of convex hull points is a subset of the original point set). In the second
+    case, hull elements are the convex hull points themselves.
+    @param clockwise Orientation flag. If it is true, the output convex hull is oriented clockwise.
+    Otherwise, it is oriented counter-clockwise. The assumed coordinate system has its X axis pointing
+    to the right, and its Y axis pointing upwards.
+    @param returnPoints Operation flag. In case of a matrix, when the flag is true, the function
+    returns convex hull points. Otherwise, it returns indices of the convex hull points. When the
+    output array is std::vector, the flag is ignored, and the output depends on the type of the
+    vector: std::vector<int> implies returnPoints=false, std::vector<Point> implies
+    returnPoints=true.
+
+    @note `points` and `hull` should be different arrays, inplace processing isn't supported.
+
+    Check @ref tutorial_hull \"the corresponding tutorial\" for more details.
+
+    useful links:
+
+    https://www.learnopencv.com/convex-hull-using-opencv-in-python-and-c/
+    """
+    ...
+
+def convexityDefects(contour, convexhull, convexityDefects=...):
+    """
+    convexityDefects(contour, convexhull[, convexityDefects]) -> convexityDefects
+    @brief Finds the convexity defects of a contour.
+
+    The figure below displays convexity defects of a hand contour:
+
+    ![image](pics/defects.png)
+
+    @param contour Input contour.
+    @param convexhull Convex hull obtained using convexHull that should contain indices of the contour
+    points that make the hull.
+    @param convexityDefects The output vector of convexity defects. In C++ and the new Python/Java
+    interface each convexity defect is represented as 4-element integer vector (a.k.a. #Vec4i):
+    (start_index, end_index, farthest_pt_index, fixpt_depth), where indices are 0-based indices
+    in the original contour of the convexity defect beginning, end and the farthest point, and
+    fixpt_depth is fixed-point approximation (with 8 fractional bits) of the distance between the
+    farthest contour point and the hull. That is, to get the floating-point value of the depth will be
+    fixpt_depth/256.0.
+    """
+    ...
+
+def copyMakeBorder(src: Mat, top, bottom, left, right, borderType, dts: Mat = ..., value=...):
+    """
+    copyMakeBorder(src, top, bottom, left, right, borderType[, dst[, value]]) -> dst
+    @brief Forms a border around an image.
+
+    The function copies the source image into the middle of the destination image. The areas to the
+    left, to the right, above and below the copied source image will be filled with extrapolated
+    pixels. This is not what filtering functions based on it do (they extrapolate pixels on-fly), but
+    what other more complex functions, including your own, may do to simplify image boundary handling.
+
+    The function supports the mode when src is already in the middle of dst . In this case, the
+    function does not copy src itself but simply constructs the border, for example:
+
+    @code{.cpp}
+    // let border be the same in all directions
+    int border=2;
+    // constructs a larger image to fit both the image and the border
+    Mat gray_buf(rgb.rows + border*2, rgb.cols + border*2, rgb.depth());
+    // select the middle part of it w/o copying data
+    Mat gray(gray_canvas, Rect(border, border, rgb.cols, rgb.rows));
+    // convert image from RGB to grayscale
+    cvtColor(rgb, gray, COLOR_RGB2GRAY);
+    // form a border in-place
+    copyMakeBorder(gray, gray_buf, border, border,
+             border, border, BORDER_REPLICATE);
+    // now do some custom filtering ...
+    ...
+    @endcode
+    @note When the source image is a part (ROI) of a bigger image, the function will try to use the
+    pixels outside of the ROI to form a border. To disable this feature and always do extrapolation, as
+    if src was not a ROI, use borderType | #BORDER_ISOLATED.
+
+    @param src Source image.
+    @param dst Destination image of the same type as src and the size Size(src.cols+left+right,
+    src.rows+top+bottom) .
+    @param top the top pixels
+    @param bottom the bottom pixels
+    @param left the left pixels
+    @param right Parameter specifying how many pixels in each direction from the source image rectangle
+    to extrapolate. For example, top=1, bottom=1, left=1, right=1 mean that 1 pixel-wide border needs
+    to be built.
+    @param borderType Border type. See borderInterpolate for details.
+    @param value Border value if borderType==BORDER_CONSTANT .
+
+    @sa  borderInterpolate
+    """
+    ...
+
+def copyTo(src: Mat, mask: Mat, dts: Mat = ...):
+    """
+    copyTo(src, mask[, dst]) -> dst
+    @brief  This is an overloaded member function, provided for convenience (python)
+    Copies the matrix to another one.
+    When the operation mask is specified, if the Mat::create call shown above reallocates the matrix, the newly allocated matrix is initialized with all zeros before copying the data.
+    @param src source matrix.
+    @param dst Destination matrix. If it does not have a proper size or type before the operation, it is
+    reallocated.
+    @param mask Operation mask of the same size as  * this. Its non-zero elements indicate which matrix
+    elements need to be copied. The mask has to be of type CV_8U and can have 1 or multiple channels.
+    """
+    ...
+
+def cornerEigenValsAndVecs(src: Mat, blockSize, ksize, dts: Mat = ..., borderType=...):
+    """
+    cornerEigenValsAndVecs(src, blockSize, ksize[, dst[, borderType]]) -> dst
+    @brief Calculates eigenvalues and eigenvectors of image blocks for corner detection.
+
+    For every pixel `p` , the function cornerEigenValsAndVecs considers a blockSize `x` blockSize
+    neighborhood `S(p)` . It calculates the covariation matrix of derivatives over the neighborhood as:
+
+    [M =  \\begin{bmatrix} ∑ _{S(p)}(dI/dx)^2 &  ∑ _{S(p)}dI/dx dI/dy  \\ ∑ _{S(p)}dI/dx dI/dy &  ∑ _{S(p)}(dI/dy)^2 \\end{bmatrix}]
+
+    where the derivatives are computed using the Sobel operator.
+
+    After that, it finds eigenvectors and eigenvalues of `M` and stores them in the destination image as
+    `(λ1, λ2, x_1, y_1, x_2, y_2)` where
+
+    -   `λ1, λ2` are the non-sorted eigenvalues of `M`
+    -   `x_1, y_1` are the eigenvectors corresponding to `λ1`
+    -   `x_2, y_2` are the eigenvectors corresponding to `λ2`
+
+    The output of the function can be used for robust edge or corner detection.
+
+    @param src Input single-channel 8-bit or floating-point image.
+    @param dst Image to store the results. It has the same size as src and the type CV_32FC(6) .
+    @param blockSize Neighborhood size (see details below).
+    @param ksize Aperture parameter for the Sobel operator.
+    @param borderType Pixel extrapolation method. See #BorderTypes. #BORDER_WRAP is not supported.
+
+    @sa  cornerMinEigenVal, cornerHarris, preCornerDetect
+    """
+    ...
+
+def cornerHarris(src: Mat, blockSize, ksize, k, dts: Mat = ..., borderType=...):
+    """
+    cornerHarris(src, blockSize, ksize, k[, dst[, borderType]]) -> dst
+    @brief Harris corner detector.
+
+    The function runs the Harris corner detector on the image. Similarly to cornerMinEigenVal and
+    cornerEigenValsAndVecs , for each pixel `(x, y)` it calculates a `2x2` gradient covariance
+    matrix `M^{(x,y)}` over a ``blockSize` x `blockSize`` neighborhood. Then, it
+    computes the following characteristic:
+
+    [`dst` (x,y) =  \\mathrm{det} M^{(x,y)} - k · \\left ( \\mathrm{tr} M^{(x,y)} \\right )^2]
+
+    Corners in the image can be found as the local maxima of this response map.
+
+    @param src Input single-channel 8-bit or floating-point image.
+    @param dst Image to store the Harris detector responses. It has the type CV_32FC1 and the same
+    size as src .
+    @param blockSize Neighborhood size (see the details on #cornerEigenValsAndVecs ).
+    @param ksize Aperture parameter for the Sobel operator.
+    @param k Harris detector free parameter. See the formula above.
+    @param borderType Pixel extrapolation method. See #BorderTypes. #BORDER_WRAP is not supported.
+    """
+    ...
+
+def cornerMinEigenVal(src: Mat, blockSize, dts: Mat = ..., ksize=..., borderType=...):
+    """
+    cornerMinEigenVal(src, blockSize[, dst[, ksize[, borderType]]]) -> dst
+    @brief Calculates the minimal eigenvalue of gradient matrices for corner detection.
+
+    The function is similar to cornerEigenValsAndVecs but it calculates and stores only the minimal
+    eigenvalue of the covariance matrix of derivatives, that is, `\\min(λ1, λ2)` in terms
+    of the formulae in the cornerEigenValsAndVecs description.
+
+    @param src Input single-channel 8-bit or floating-point image.
+    @param dst Image to store the minimal eigenvalues. It has the type CV_32FC1 and the same size as
+    src .
+    @param blockSize Neighborhood size (see the details on #cornerEigenValsAndVecs ).
+    @param ksize Aperture parameter for the Sobel operator.
+    @param borderType Pixel extrapolation method. See #BorderTypes. #BORDER_WRAP is not supported.
+    """
+    ...
+
+def cornerSubPix(image: Mat, corners, winSize, zeroZone, criteria) -> _corners:
+    """
+    cornerSubPix(image, corners, winSize, zeroZone, criteria) -> corners
+    @brief Refines the corner locations.
+
+    The function iterates to find the sub-pixel accurate location of corners or radial saddle points, as
+    shown on the figure below.
+
+    ![image](pics/cornersubpix.png)
+
+    Sub-pixel accurate corner locator is based on the observation that every vector from the center `q`
+    to a point `p` located within a neighborhood of `q` is orthogonal to the image gradient at `p`
+    subject to image and measurement noise. Consider the expression:
+
+    [E _i = {DI_{p_i}}^T · (q - p_i)]
+
+    where `{DI_{p_i}}` is an image gradient at one of the points `p_i` in a neighborhood of `q` . The
+    value of `q` is to be found so that `E_i` is minimized. A system of equations may be set up
+    with `E_i` set to zero:
+
+    [∑ _i(DI_{p_i} · {DI_{p_i}}^T) · q -  ∑ _i(DI_{p_i} · {DI_{p_i}}^T · p_i)]
+
+    where the gradients are summed within a neighborhood ("search window") of `q` . Calling the first
+    gradient term `G` and the second gradient term `b` gives:
+
+    [q = G^{-1} · b]
+
+    The algorithm sets the center of the neighborhood window at this new center `q` and then iterates
+    until the center stays within a set threshold.
+
+    @param image Input single-channel, 8-bit or float image.
+    @param corners Initial coordinates of the input corners and refined coordinates provided for
+    output.
+    @param winSize Half of the side length of the search window. For example, if winSize=Size(5,5) ,
+    then a `(5*2+1) x (5*2+1) = 11 x 11` search window is used.
+    @param zeroZone Half of the size of the dead region in the middle of the search zone over which
+    the summation in the formula below is not done. It is used sometimes to avoid possible
+    singularities of the autocorrelation matrix. The value of (-1,-1) indicates that there is no such
+    a size.
+    @param criteria Criteria for termination of the iterative process of corner refinement. That is,
+    the process of corner position refinement stops either after criteria.maxCount iterations or when
+    the corner position moves by less than criteria.epsilon on some iteration.
+    """
+    ...
+
+def correctMatches(F, points1, points2, newPoints1=..., newPoints2=...):
+    """
+    correctMatches(F, points1, points2[, newPoints1[, newPoints2]]) -> newPoints1, newPoints2
+    @brief Refines coordinates of corresponding points.
+
+    @param F 3x3 fundamental matrix.
+    @param points1 1xN array containing the first set of points.
+    @param points2 1xN array containing the second set of points.
+    @param newPoints1 The optimized points1.
+    @param newPoints2 The optimized points2.
+
+    The function implements the Optimal Triangulation Method (see Multiple View Geometry for details).
+    For each given point correspondence points1[i] <-> points2[i], and a fundamental matrix F, it
+    computes the corrected correspondences newPoints1[i] <-> newPoints2[i] that minimize the geometric
+    error `d(points1[i], newPoints1[i])^2 + d(points2[i],newPoints2[i])^2` (where `d(a,b)` is the
+    geometric distance between points `a` and `b` ) subject to the epipolar constraint
+    `newPoints2^T * F * newPoints1 = 0` .
+    """
+    ...
+
+def countNonZero(src):
+    """
+    countNonZero(src) -> retval
+    @brief Counts non-zero array elements.
+
+    The function returns the number of non-zero elements in src :
+    [∑ _{I: ; `src` (I) \
+    e0 } 1]
+    @param src single-channel array.
+    @sa  mean, meanStdDev, norm, minMaxLoc, calcCovarMatrix
+    """
+    ...
+
+def createAlignMTB(max_bits=..., exclude_range=..., cut=...):
+    """
+    createAlignMTB([, max_bits[, exclude_range[, cut]]]) -> retval
+    @brief Creates AlignMTB object
+
+    @param max_bits logarithm to the base 2 of maximal shift in each dimension. Values of 5 and 6 are
+    usually good enough (31 and 63 pixels shift respectively).
+    @param exclude_range range for exclusion bitmap that is constructed to suppress noise around the
+    median value.
+    @param cut if true cuts images, otherwise fills the new regions with zeros.
+    """
+    ...
+
+def createBackgroundSubtractorKNN(history=..., dist2Threshold=..., detectShadows=...):
+    """
+    createBackgroundSubtractorKNN([, history[, dist2Threshold[, detectShadows]]]) -> retval
+    @brief Creates KNN Background Subtractor
+
+    @param history Length of the history.
+    @param dist2Threshold Threshold on the squared distance between the pixel and the sample to decide
+    whether a pixel is close to that sample. This parameter does not affect the background update.
+    @param detectShadows If true, the algorithm will detect shadows and mark them. It decreases the
+    speed a bit, so if you do not need this feature, set the parameter to false.
+    """
+    ...
+
+def createBackgroundSubtractorMOG2(history=..., varThreshold=..., detectShadows=...):
+    """
+    createBackgroundSubtractorMOG2([, history[, varThreshold[, detectShadows]]]) -> retval
+    @brief Creates MOG2 Background Subtractor
+
+    @param history Length of the history.
+    @param varThreshold Threshold on the squared Mahalanobis distance between the pixel and the model
+    to decide whether a pixel is well described by the background model. This parameter does not
+    affect the background update.
+    @param detectShadows If true, the algorithm will detect shadows and mark them. It decreases the
+    speed a bit, so if you do not need this feature, set the parameter to false.
+    """
+    ...
+
+def createButton(buttonName, onChange, userData=..., buttonType=..., initialButtonState=...):
+    """
+    createButton(buttonName, onChange [, userData, buttonType, initialButtonState]) -> None
+    """
+    ...
+
+def createCLAHE(clipLimit=..., tileGridSize=...):
+    """
+    createCLAHE([, clipLimit[, tileGridSize]]) -> retval
+    @brief Creates a smart pointer to a cv::CLAHE class and initializes it.
+
+    @param clipLimit Threshold for contrast limiting.
+    @param tileGridSize Size of grid for histogram equalization. Input image will be divided into
+    equally sized rectangular tiles. tileGridSize defines the number of tiles in row and column.
+    """
+    ...
+
+def createCalibrateDebevec(samples=..., lambda_=..., random=...):
+    """
+    createCalibrateDebevec([, samples[, lambda[, random]]]) -> retval
+    @brief Creates CalibrateDebevec object
+
+    @param samples number of pixel locations to use
+    @param lambda smoothness term weight. Greater values produce smoother results, but can alter the
+    response.
+    @param random if true sample pixel locations are chosen at random, otherwise they form a
+    rectangular grid.
+    """
+    ...
+
+def createCalibrateRobertson(max_iter=..., threshold=...):
+    """
+    createCalibrateRobertson([, max_iter[, threshold]]) -> retval
+    @brief Creates CalibrateRobertson object
+
+    @param max_iter maximal number of Gauss-Seidel solver iterations.
+    @param threshold target difference between results of two successive steps of the minimization.
+    """
+    ...
+
+def createGeneralizedHoughBallard():
+    """
+    createGeneralizedHoughBallard() -> retval
+    @brief Creates a smart pointer to a cv::GeneralizedHoughBallard class and initializes it.
+    """
+    ...
+
+def createGeneralizedHoughGuil():
+    """
+    createGeneralizedHoughGuil() -> retval
+    @brief Creates a smart pointer to a cv::GeneralizedHoughGuil class and initializes it.
+    """
+    ...
+
+def createHanningWindow(winSize, type, dts: Mat = ...):
+    """
+    createHanningWindow(winSize, type[, dst]) -> dst
+    @brief This function computes a Hanning window coefficients in two dimensions.
+
+    See (http://en.wikipedia.org/wiki/Hann_function) and (http://en.wikipedia.org/wiki/Window_function)
+    for more information.
+
+    An example is shown below:
+    @code
+    // create hanning window of size 100x100 and type CV_32F
+    Mat hann;
+    createHanningWindow(hann, Size(100, 100), CV_32F);
+    @endcode
+    @param dst Destination array to place Hann coefficients in
+    @param winSize The window size specifications (both width and height must be > 1)
+    @param type Created array type
+    """
+    ...
+
+def createLineSegmentDetector(
+    _refine=..., _scale=..., _sigma_scale=..., _quant=..., _ang_th=..., _log_eps=..., _density_th=..., _n_bins=...
+):
+    """
+    createLineSegmentDetector([, _refine[, _scale[, _sigma_scale[, _quant[, _ang_th[, _log_eps[, _density_th[, _n_bins]]]]]]]]) -> retval
+    @brief Creates a smart pointer to a LineSegmentDetector object and initializes it.
+
+    The LineSegmentDetector algorithm is defined using the standard values. Only advanced users may want
+    to edit those, as to tailor it for their own application.
+
+    @param _refine The way found lines will be refined, see #LineSegmentDetectorModes
+    @param _scale The scale of the image that will be used to find the lines. Range (0..1].
+    @param _sigma_scale Sigma for Gaussian filter. It is computed as sigma = _sigma_scale/_scale.
+    @param _quant Bound to the quantization error on the gradient norm.
+    @param _ang_th Gradient angle tolerance in degrees.
+    @param _log_eps Detection threshold: -log10(NFA) > log_eps. Used only when advance refinement
+    is chosen.
+    @param _density_th Minimal density of aligned region points in the enclosing rectangle.
+    @param _n_bins Number of bins in pseudo-ordering of gradient modulus.
+
+    @note Implementation has been removed due original code license conflict
+    """
+    ...
+
+def createMergeDebevec():
+    """
+    createMergeDebevec() -> retval
+    @brief Creates MergeDebevec object
+    """
+    ...
+
+def createMergeMertens(contrast_weight=..., saturation_weight=..., exposure_weight=...):
+    """
+    createMergeMertens([, contrast_weight[, saturation_weight[, exposure_weight]]]) -> retval
+    @brief Creates MergeMertens object
+
+    @param contrast_weight contrast measure weight. See MergeMertens.
+    @param saturation_weight saturation measure weight
+    @param exposure_weight well-exposedness measure weight
+    """
+    ...
+
+def createMergeRobertson():
+    """
+    createMergeRobertson() -> retval
+    @brief Creates MergeRobertson object
+    """
+    ...
+
+def createTonemap(gamma=...):
+    """
+    createTonemap([, gamma]) -> retval
+    @brief Creates simple linear mapper with gamma correction
+
+    @param gamma positive value for gamma correction. Gamma value of 1.0 implies no correction, gamma
+    equal to 2.2f is suitable for most displays.
+    Generally gamma > 1 brightens the image and gamma < 1 darkens it.
+    """
+    ...
+
+def createTonemapDrago(gamma=..., saturation=..., bias=...):
+    """
+    createTonemapDrago([, gamma[, saturation[, bias]]]) -> retval
+    @brief Creates TonemapDrago object
+
+    @param gamma gamma value for gamma correction. See createTonemap
+    @param saturation positive saturation enhancement value. 1.0 preserves saturation, values greater
+    than 1 increase saturation and values less than 1 decrease it.
+    @param bias value for bias function in [0, 1] range. Values from 0.7 to 0.9 usually give best
+    results, default value is 0.85.
+    """
+    ...
+
+def createTonemapMantiuk(gamma=..., scale=..., saturation=...):
+    """
+    createTonemapMantiuk([, gamma[, scale[, saturation]]]) -> retval
+    @brief Creates TonemapMantiuk object
+
+    @param gamma gamma value for gamma correction. See createTonemap
+    @param scale contrast scale factor. HVS response is multiplied by this parameter, thus compressing
+    dynamic range. Values from 0.6 to 0.9 produce best results.
+    @param saturation saturation enhancement value. See createTonemapDrago
+    """
+    ...
+
+def createTonemapReinhard(gamma=..., intensity=..., light_adapt=..., color_adapt=...):
+    """
+    createTonemapReinhard([, gamma[, intensity[, light_adapt[, color_adapt]]]]) -> retval
+    @brief Creates TonemapReinhard object
+
+    @param gamma gamma value for gamma correction. See createTonemap
+    @param intensity result intensity in [-8, 8] range. Greater intensity produces brighter results.
+    @param light_adapt light adaptation in [0, 1] range. If 1 adaptation is based only on pixel
+    value, if 0 it's global, otherwise it's a weighted mean of this two cases.
+    @param color_adapt chromatic adaptation in [0, 1] range. If 1 channels are treated independently,
+    if 0 adaptation level is the same for each channel.
+    """
+    ...
+
+def createTrackbar(trackbarName, windowName, value, count, onChange) -> None:
+    """
+    createTrackbar(trackbarName, windowName, value, count, onChange) -> None
+    """
+    ...
+
+def cubeRoot(val):
+    """
+    cubeRoot(val) -> retval
+    @brief Computes the cube root of an argument.
+
+    The function cubeRoot computes `√[3]{`val`}`. Negative arguments are handled correctly.
+    NaN and Inf are not handled. The accuracy approaches the maximum possible accuracy for
+    single-precision data.
+    @param val A function argument.
+    """
+    ...
+
+def cvtColor(src: Mat, code: int, dts: Mat = ..., dstCn: int = ...) -> Mat:
+    """
+    cvtColor(src, code[, dst[, dstCn]]) -> dst
+    @brief Converts an image from one color space to another.
+
+    The function converts an input image from one color space to another. In case of a transformation
+    to-from RGB color space, the order of the channels should be specified explicitly (RGB or BGR). Note
+    that the default color format in OpenCV is often referred to as RGB but it is actually BGR (the
+    bytes are reversed). So the first byte in a standard (24-bit) color image will be an 8-bit Blue
+    component, the second byte will be Green, and the third byte will be Red. The fourth, fifth, and
+    sixth bytes would then be the second pixel (Blue, then Green, then Red), and so on.
+
+    The conventional ranges for R, G, and B channel values are:
+    -   0 to 255 for CV_8U images
+    -   0 to 65535 for CV_16U images
+    -   0 to 1 for CV_32F images
+
+    In case of linear transformations, the range does not matter. But in case of a non-linear
+    transformation, an input RGB image should be normalized to the proper value range to get the correct
+    results, for example, for RGB `→` L * u * v *  transformation. For example, if you have a
+    32-bit floating-point image directly converted from an 8-bit image without any scaling, then it will
+    have the 0..255 value range instead of 0..1 assumed by the function. So, before calling #cvtColor ,
+    you need first to scale the image down:
+    @code
+    img *= 1./255;
+    cvtColor(img, img, COLOR_BGR2Luv);
+    @endcode
+    If you use #cvtColor with 8-bit images, the conversion will have some information lost. For many
+    applications, this will not be noticeable but it is recommended to use 32-bit images in applications
+    that need the full range of colors or that convert an image before an operation and then convert
+    back.
+
+    If conversion adds the alpha channel, its value will set to the maximum of corresponding channel
+    range: 255 for CV_8U, 65535 for CV_16U, 1 for CV_32F.
+
+    @param src input image: 8-bit unsigned, 16-bit unsigned ( CV_16UC... ), or single-precision
+    floating-point.
+    @param dst output image of the same size and depth as src.
+    @param code color space conversion code (see #ColorConversionCodes).
+    @param dstCn number of channels in the destination image; if the parameter is 0, the number of the
+    channels is derived automatically from src and code.
+
+    @see @ref imgproc_color_conversions
+    """
+    ...
+
+def cvtColorTwoPlane(src1: Mat, src2: Mat, code: int, dts: Mat = ...):
+    """
+    cvtColorTwoPlane(src1, src2, code[, dst]) -> dst
+    @brief Converts an image from one color space to another where the source image is
+    stored in two planes.
+
+    This function only supports YUV420 to RGB conversion as of now.
+
+    @param src1: 8-bit image (#CV_8U) of the Y plane.
+    @param src2: image containing interleaved U/V plane.
+    @param dst: output image.
+    @param code: Specifies the type of conversion. It can take any of the following values:
+    - #COLOR_YUV2BGR_NV12
+    - #COLOR_YUV2RGB_NV12
+    - #COLOR_YUV2BGRA_NV12
+    - #COLOR_YUV2RGBA_NV12
+    - #COLOR_YUV2BGR_NV21
+    - #COLOR_YUV2RGB_NV21
+    - #COLOR_YUV2BGRA_NV21
+    - #COLOR_YUV2RGBA_NV21
+    """
+    ...
+
+def dct(src: Mat, dts: Mat = ..., flags: int = ...):
+    """
+    dct(src[, dst[, flags]]) -> dst
+    @brief Performs a forward or inverse discrete Cosine transform of 1D or 2D array.
+
+    The function cv::dct performs a forward or inverse discrete Cosine transform (DCT) of a 1D or 2D
+    floating-point array:
+    -   Forward Cosine transform of a 1D vector of N elements:
+    [Y = C^{(N)} · X]
+    where
+    [C^{(N)}_{jk}= √{\\alpha_j/N} \\cos \\left ( \\frac{π(2k+1)j}{2N} \\right )]
+    and
+    `\\alpha_0=1`, `\\alpha_j=2` for *j > 0*.
+    -   Inverse Cosine transform of a 1D vector of N elements:
+    [X =  \\left (C^{(N)} \\right )^{-1} · Y =  \\left (C^{(N)} \\right )^T · Y]
+    (since `C^{(N)}` is an orthogonal matrix, `C^{(N)} · \\left(C^{(N)}\\right)^T = I` )
+    -   Forward 2D Cosine transform of M x N matrix:
+    [Y = C^{(N)} · X · \\left (C^{(N)} \\right )^T]
+    -   Inverse 2D Cosine transform of M x N matrix:
+    [X =  \\left (C^{(N)} \\right )^T · X · C^{(N)}]
+
+    The function chooses the mode of operation by looking at the flags and size of the input array:
+    -   If (flags & #DCT_INVERSE) == 0 , the function does a forward 1D or 2D transform. Otherwise, it
+    is an inverse 1D or 2D transform.
+    -   If (flags & #DCT_ROWS) != 0 , the function performs a 1D transform of each row.
+    -   If the array is a single column or a single row, the function performs a 1D transform.
+    -   If none of the above is true, the function performs a 2D transform.
+
+    @note Currently dct supports even-size arrays (2, 4, 6 ...). For data analysis and approximation, you
+    can pad the array when necessary.
+    Also, the function performance depends very much, and not monotonically, on the array size (see
+    getOptimalDFTSize ). In the current implementation DCT of a vector of size N is calculated via DFT
+    of a vector of size N/2 . Thus, the optimal DCT size N1 >= N can be calculated as:
+    @code
+    size_t getOptimalDCTSize(size_t N) { return 2*getOptimalDFTSize((N+1)/2); }
+    N1 = getOptimalDCTSize(N);
+    @endcode
+    @param src input floating-point array.
+    @param dst output array of the same size and type as src .
+    @param flags transformation flags as a combination of cv::DftFlags (DCT_*)
+    @sa dft , getOptimalDFTSize , idct
+    """
+    ...
+
+def decolor(src: Mat, grayscale=..., color_boost=...):
+    """
+    decolor(src[, grayscale[, color_boost]]) -> grayscale, color_boost
+    @brief Transforms a color image to a grayscale image. It is a basic tool in digital printing, stylized
+    black-and-white photograph rendering, and in many single channel image processing applications
+    @cite CL12 .
+
+    @param src Input 8-bit 3-channel image.
+    @param grayscale Output 8-bit 1-channel image.
+    @param color_boost Output 8-bit 3-channel image.
+
+    This function is to be applied on color images.
+    """
+    ...
+
+def decomposeEssentialMat(E, R1=..., R2=..., t=...):
+    """
+    decomposeEssentialMat(E[, R1[, R2[, t]]]) -> R1, R2, t
+    @brief Decompose an essential matrix to possible rotations and translation.
+
+    @param E The input essential matrix.
+    @param R1 One possible rotation matrix.
+    @param R2 Another possible rotation matrix.
+    @param t One possible translation.
+
+    This function decomposes the essential matrix E using svd decomposition @cite HartleyZ00. In
+    general, four possible poses exist for the decomposition of E. They are [R_1, t],
+    [R_1, -t], [R_2, t], [R_2, -t].
+
+    If E gives the epipolar constraint [p_2; 1]^T A^{-T} E A^{-1} [p_1; 1] = 0` between the image
+    points `p_1` in the first image and `p_2` in second image, then any of the tuples
+    [R_1, t], [R_1, -t], [R_2, t], [R_2, -t] is a change of basis from the first
+    camera's coordinate system to the second camera's coordinate system. However, by decomposing E, one
+    can only get the direction of the translation. For this reason, the translation t is returned with
+    unit length.
+    """
+    ...
+
+def decomposeHomographyMat(H, K, rotations=..., translations=..., normals=...):
+    """
+    decomposeHomographyMat(H, K[, rotations[, translations[, normals]]]) -> retval, rotations, translations, normals
+    @brief Decompose a homography matrix to rotation(s), translation(s) and plane normal(s).
+
+    @param H The input homography matrix between two images.
+    @param K The input intrinsic camera calibration matrix.
+    @param rotations Array of rotation matrices.
+    @param translations Array of translation matrices.
+    @param normals Array of plane normal matrices.
+
+    This function extracts relative camera motion between two views of a planar object and returns up to
+    four mathematical solution tuples of rotation, translation, and plane normal. The decomposition of
+    the homography matrix H is described in detail in @cite Malis.
+
+    If the homography H, induced by the plane, gives the constraint
+    [s_i \\vecthree{x'_i}{y'_i}{1} \\sim H \\vecthree{x_i}{y_i}{1}] on the source image points
+    `p_i` and the destination image points `p'_i`, then the tuple of rotations[k] and
+    translations[k] is a change of basis from the source camera's coordinate system to the destination
+    camera's coordinate system. However, by decomposing H, one can only get the translation normalized
+    by the (typically unknown) depth of the scene, i.e. its direction but with normalized length.
+
+    If point correspondences are available, at least two solutions may further be invalidated, by
+    applying positive depth constraint, i.e. all points must be in front of the camera.
+    """
+    ...
+
+def decomposeProjectionMatrix(
+    projMatrix, cameraMatrix=..., rotMatrix=..., transVect=..., rotMatrixX=..., rotMatrixY=..., rotMatrixZ=..., eulerAngles=...
+):
+    """
+    decomposeProjectionMatrix(projMatrix[, cameraMatrix[, rotMatrix[, transVect[, rotMatrixX[, rotMatrixY[, rotMatrixZ[, eulerAngles]]]]]]]) -> cameraMatrix, rotMatrix, transVect, rotMatrixX, rotMatrixY, rotMatrixZ, eulerAngles
+    @brief Decomposes a projection matrix into a rotation matrix and a camera matrix.
+
+    @param projMatrix 3x4 input projection matrix P.
+    @param cameraMatrix Output 3x3 camera matrix K.
+    @param rotMatrix Output 3x3 external rotation matrix R.
+    @param transVect Output 4x1 translation vector T.
+    @param rotMatrixX Optional 3x3 rotation matrix around x-axis.
+    @param rotMatrixY Optional 3x3 rotation matrix around y-axis.
+    @param rotMatrixZ Optional 3x3 rotation matrix around z-axis.
+    @param eulerAngles Optional three-element vector containing three Euler angles of rotation in
+    degrees.
+
+    The function computes a decomposition of a projection matrix into a calibration and a rotation
+    matrix and the position of a camera.
+
+    It optionally returns three rotation matrices, one for each axis, and three Euler angles that could
+    be used in OpenGL. Note, there is always more than one sequence of rotations about the three
+    principal axes that results in the same orientation of an object, e.g. see @cite Slabaugh . Returned
+    tree rotation matrices and corresponding three Euler angles are only one of the possible solutions.
+
+    The function is based on RQDecomp3x3 .
+    """
+    ...
+
+def demosaicing(src: Mat, code: int, dts: Mat = ..., dstCn: int = ...):
+    """
+    demosaicing(src, code[, dst[, dstCn]]) -> dst
+    @brief main function for all demosaicing processes
+
+    @param src input image: 8-bit unsigned or 16-bit unsigned.
+    @param dst output image of the same size and depth as src.
+    @param code Color space conversion code (see the description below).
+    @param dstCn number of channels in the destination image; if the parameter is 0, the number of the
+    channels is derived automatically from src and code.
+
+    The function can do the following transformations:
+
+    -   Demosaicing using bilinear interpolation
+
+    #COLOR_BayerBG2BGR , #COLOR_BayerGB2BGR , #COLOR_BayerRG2BGR , #COLOR_BayerGR2BGR
+
+    #COLOR_BayerBG2GRAY , #COLOR_BayerGB2GRAY , #COLOR_BayerRG2GRAY , #COLOR_BayerGR2GRAY
+
+    -   Demosaicing using Variable Number of Gradients.
+
+    #COLOR_BayerBG2BGR_VNG , #COLOR_BayerGB2BGR_VNG , #COLOR_BayerRG2BGR_VNG , #COLOR_BayerGR2BGR_VNG
+
+    -   Edge-Aware Demosaicing.
+
+    #COLOR_BayerBG2BGR_EA , #COLOR_BayerGB2BGR_EA , #COLOR_BayerRG2BGR_EA , #COLOR_BayerGR2BGR_EA
+
+    -   Demosaicing with alpha channel
+
+    #COLOR_BayerBG2BGRA , #COLOR_BayerGB2BGRA , #COLOR_BayerRG2BGRA , #COLOR_BayerGR2BGRA
+
+    @sa cvtColor
+    """
+    ...
+
+def denoise_TVL1(observations, result, lambda_=..., niters=...):
+    """
+    denoise_TVL1(observations, result[, lambda[, niters]]) -> None
+    @brief Primal-dual algorithm is an algorithm for solving special types of variational problems (that is,
+    finding a function to minimize some functional). As the image denoising, in particular, may be seen
+    as the variational problem, primal-dual algorithm then can be used to perform denoising and this is
+    exactly what is implemented.
+
+    It should be noted, that this implementation was taken from the July 2013 blog entry
+    @cite MA13 , which also contained (slightly more general) ready-to-use source code on Python.
+    Subsequently, that code was rewritten on C++ with the usage of openCV by Vadim Pisarevsky at the end
+    of July 2013 and finally it was slightly adapted by later authors.
+
+    Although the thorough discussion and justification of the algorithm involved may be found in
+    @cite ChambolleEtAl, it might make sense to skim over it here, following @cite MA13 . To begin
+    with, we consider the 1-byte gray-level images as the functions from the rectangular domain of
+    pixels (it may be seen as set
+    `\\left{(x,y)\\in\\mathbb{N}x\\mathbb{N}\\mid 1≤ x≤ n,;1≤ y≤ m\\right}` for some
+    `m,;n\\in\\mathbb{N}`) into `{0,1,\\dots,255}`. We shall denote the noised images as `f_i` and with
+    this view, given some image `x` of the same size, we may measure how bad it is by the formula
+
+    [\\left|\\left|\
+    abla x\\right|\\right| + λ∑_i\\left|\\left|x-f_i\\right|\\right|]
+
+    `||·||` here denotes `L_2`-norm and as you see, the first addend states that we want our
+    image to be smooth (ideally, having zero gradient, thus being constant) and the second states that
+    we want our result to be close to the observations we've got. If we treat `x` as a function, this is
+    exactly the functional what we seek to minimize and here the Primal-Dual algorithm comes into play.
+
+    @param observations This array should contain one or more noised versions of the image that is to
+    be restored.
+    @param result Here the denoised image will be stored. There is no need to do pre-allocation of
+    storage space, as it will be automatically allocated, if necessary.
+    @param lambda Corresponds to `λ` in the formulas above. As it is enlarged, the smooth
+    (blurred) images are treated more favorably than detailed (but maybe more noised) ones. Roughly
+    speaking, as it becomes smaller, the result will be more blur but more sever outliers will be
+    removed.
+    @param niters Number of iterations that the algorithm will run. Of course, as more iterations as
+    better, but it is hard to quantitatively refine this statement, so just use the default and
+    increase it if the results are poor.
+    """
+    ...
+
+def destroyAllWindows() -> None:
+    """
+    destroyAllWindows() -> None
+    @brief Destroys all of the HighGUI windows.
+
+    The function destroyAllWindows destroys all of the opened HighGUI windows.
+    """
+    ...
+
+def destroyWindow(winname) -> None:
+    """
+    destroyWindow(winname) -> None
+    @brief Destroys the specified window.
+
+    The function destroyWindow destroys the window with the given name.
+
+    @param winname Name of the window to be destroyed.
+    """
+    ...
+
+def detailEnhance(src: Mat, dts: Mat = ..., sigma_s=..., sigma_r=...):
+    """
+    detailEnhance(src[, dst[, sigma_s[, sigma_r]]]) -> dst
+    @brief This filter enhances the details of a particular image.
+
+    @param src Input 8-bit 3-channel image.
+    @param dst Output image with the same size and type as src.
+    @param sigma_s %Range between 0 to 200.
+    @param sigma_r %Range between 0 to 1.
+    """
+    ...
+
+def determinant(mtx):
+    """
+    determinant(mtx) -> retval
+    @brief Returns the determinant of a square floating-point matrix.
+
+    The function cv::determinant calculates and returns the determinant of the
+    specified matrix. For small matrices ( mtx.cols=mtx.rows<=3 ), the
+    direct method is used. For larger matrices, the function uses LU
+    factorization with partial pivoting.
+
+    For symmetric positively-determined matrices, it is also possible to use
+    eigen decomposition to calculate the determinant.
+    @param mtx input matrix that must have CV_32FC1 or CV_64FC1 type and
+    square size.
+    @sa trace, invert, solve, eigen, @ref MatrixExpressions
+    """
+    ...
+
+def dft(src: Mat, dts: Mat = ..., flags: int = ..., nonzeroRows=...):
+    """
+    dft(src[, dst[, flags[, nonzeroRows]]]) -> dst
+    @brief Performs a forward or inverse Discrete Fourier transform of a 1D or 2D floating-point array.
+
+    The function cv::dft performs one of the following:
+    -   Forward the Fourier transform of a 1D vector of N elements:
+    [Y = F^{(N)} · X,]
+    where `F^{(N)}_{jk}=\\exp(-2π i j k/N)` and `i=√{-1}`
+    -   Inverse the Fourier transform of a 1D vector of N elements:
+    [\\begin{array}{l} X'=  \\left (F^{(N)} \\right )^{-1} · Y =  \\left (F^{(N)} \\right )^* · y  \\ X = (1/N) · X, \\end{array}]
+    where `F^*=\\left(\\textrm{Re}(F^{(N)})-\\textrm{Im}(F^{(N)})\\right)^T`
+    -   Forward the 2D Fourier transform of a M x N matrix:
+    [Y = F^{(M)} · X · F^{(N)}]
+    -   Inverse the 2D Fourier transform of a M x N matrix:
+    [\\begin{array}{l} X'=  \\left (F^{(M)} \\right )^* · Y · \\left (F^{(N)} \\right )^* \\ X =  \\frac{1}{M · N} · X' \\end{array}]
+
+    In case of real (single-channel) data, the output spectrum of the forward Fourier transform or input
+    spectrum of the inverse Fourier transform can be represented in a packed format called *CCS*
+    (complex-conjugate-symmetrical). It was borrowed from IPL (Intel *  Image Processing Library). Here
+    is how 2D *CCS* spectrum looks:
+    [\\begin{bmatrix} Re Y_{0,0} & Re Y_{0,1} & Im Y_{0,1} & Re Y_{0,2} & Im Y_{0,2} & ·s & Re Y_{0,N/2-1} & Im Y_{0,N/2-1} & Re Y_{0,N/2}  \\ Re Y_{1,0} & Re Y_{1,1} & Im Y_{1,1} & Re Y_{1,2} & Im Y_{1,2} & ·s & Re Y_{1,N/2-1} & Im Y_{1,N/2-1} & Re Y_{1,N/2}  \\ Im Y_{1,0} & Re Y_{2,1} & Im Y_{2,1} & Re Y_{2,2} & Im Y_{2,2} & ·s & Re Y_{2,N/2-1} & Im Y_{2,N/2-1} & Im Y_{1,N/2}  \\ \\hdotsfor{9} \\ Re Y_{M/2-1,0} &  Re Y_{M-3,1}  & Im Y_{M-3,1} &  \\hdotsfor{3} & Re Y_{M-3,N/2-1} & Im Y_{M-3,N/2-1}& Re Y_{M/2-1,N/2}  \\ Im Y_{M/2-1,0} &  Re Y_{M-2,1}  & Im Y_{M-2,1} &  \\hdotsfor{3} & Re Y_{M-2,N/2-1} & Im Y_{M-2,N/2-1}& Im Y_{M/2-1,N/2}  \\ Re Y_{M/2,0}  &  Re Y_{M-1,1} &  Im Y_{M-1,1} &  \\hdotsfor{3} & Re Y_{M-1,N/2-1} & Im Y_{M-1,N/2-1}& Re Y_{M/2,N/2} \\end{bmatrix}]
+
+    In case of 1D transform of a real vector, the output looks like the first row of the matrix above.
+
+    So, the function chooses an operation mode depending on the flags and size of the input array:
+    -   If #DFT_ROWS is set or the input array has a single row or single column, the function
+    performs a 1D forward or inverse transform of each row of a matrix when #DFT_ROWS is set.
+    Otherwise, it performs a 2D transform.
+    -   If the input array is real and #DFT_INVERSE is not set, the function performs a forward 1D or
+    2D transform:
+    -   When #DFT_COMPLEX_OUTPUT is set, the output is a complex matrix of the same size as
+       input.
+    -   When #DFT_COMPLEX_OUTPUT is not set, the output is a real matrix of the same size as
+       input. In case of 2D transform, it uses the packed format as shown above. In case of a
+       single 1D transform, it looks like the first row of the matrix above. In case of
+       multiple 1D transforms (when using the #DFT_ROWS flag), each row of the output matrix
+       looks like the first row of the matrix above.
+    -   If the input array is complex and either #DFT_INVERSE or #DFT_REAL_OUTPUT are not set, the
+    output is a complex array of the same size as input. The function performs a forward or
+    inverse 1D or 2D transform of the whole input array or each row of the input array
+    independently, depending on the flags DFT_INVERSE and DFT_ROWS.
+    -   When #DFT_INVERSE is set and the input array is real, or it is complex but #DFT_REAL_OUTPUT
+    is set, the output is a real array of the same size as input. The function performs a 1D or 2D
+    inverse transformation of the whole input array or each individual row, depending on the flags
+    #DFT_INVERSE and #DFT_ROWS.
+
+    If #DFT_SCALE is set, the scaling is done after the transformation.
+
+    Unlike dct , the function supports arrays of arbitrary size. But only those arrays are processed
+    efficiently, whose sizes can be factorized in a product of small prime numbers (2, 3, and 5 in the
+    current implementation). Such an efficient DFT size can be calculated using the getOptimalDFTSize
+    method.
+
+    The sample below illustrates how to calculate a DFT-based convolution of two 2D real arrays:
+    @code
+    void convolveDFT(InputArray A, InputArray B, OutputArray C)
+    {
+       // reallocate the output array if needed
+       C.create(abs(A.rows - B.rows)+1, abs(A.cols - B.cols)+1, A.type());
+       Size dftSize;
+       // calculate the size of DFT transform
+       dftSize.width = getOptimalDFTSize(A.cols + B.cols - 1);
+       dftSize.height = getOptimalDFTSize(A.rows + B.rows - 1);
+
+       // allocate temporary buffers and initialize them with 0's
+       Mat tempA(dftSize, A.type(), Scalar::all(0));
+       Mat tempB(dftSize, B.type(), Scalar::all(0));
+
+       // copy A and B to the top-left corners of tempA and tempB, respectively
+       Mat roiA(tempA, Rect(0,0,A.cols,A.rows));
+       A.copyTo(roiA);
+       Mat roiB(tempB, Rect(0,0,B.cols,B.rows));
+       B.copyTo(roiB);
+
+       // now transform the padded A & B in-place;
+       // use \"nonzeroRows\" hint for faster processing
+       dft(tempA, tempA, 0, A.rows);
+       dft(tempB, tempB, 0, B.rows);
+
+       // multiply the spectrums;
+       // the function handles packed spectrum representations well
+       mulSpectrums(tempA, tempB, tempA);
+
+       // transform the product back from the frequency domain.
+       // Even though all the result rows will be non-zero,
+       // you need only the first C.rows of them, and thus you
+       // pass nonzeroRows == C.rows
+       dft(tempA, tempA, DFT_INVERSE + DFT_SCALE, C.rows);
+
+       // now copy the result back to C.
+       tempA(Rect(0, 0, C.cols, C.rows)).copyTo(C);
+
+       // all the temporary buffers will be deallocated automatically
+    }
+    @endcode
+    To optimize this sample, consider the following approaches:
+    -   Since nonzeroRows != 0 is passed to the forward transform calls and since A and B are copied to
+    the top-left corners of tempA and tempB, respectively, it is not necessary to clear the whole
+    tempA and tempB. It is only necessary to clear the tempA.cols - A.cols ( tempB.cols - B.cols)
+    rightmost columns of the matrices.
+    -   This DFT-based convolution does not have to be applied to the whole big arrays, especially if B
+    is significantly smaller than A or vice versa. Instead, you can calculate convolution by parts.
+    To do this, you need to split the output array C into multiple tiles. For each tile, estimate
+    which parts of A and B are required to calculate convolution in this tile. If the tiles in C are
+    too small, the speed will decrease a lot because of repeated work. In the ultimate case, when
+    each tile in C is a single pixel, the algorithm becomes equivalent to the naive convolution
+    algorithm. If the tiles are too big, the temporary arrays tempA and tempB become too big and
+    there is also a slowdown because of bad cache locality. So, there is an optimal tile size
+    somewhere in the middle.
+    -   If different tiles in C can be calculated in parallel and, thus, the convolution is done by
+    parts, the loop can be threaded.
+
+    All of the above improvements have been implemented in #matchTemplate and #filter2D . Therefore, by
+    using them, you can get the performance even better than with the above theoretically optimal
+    implementation. Though, those two functions actually calculate cross-correlation, not convolution,
+    so you need to \"flip\" the second convolution operand B vertically and horizontally using flip .
+    @note
+    -   An example using the discrete fourier transform can be found at
+    opencv_source_code/samples/cpp/dft.cpp
+    -   (Python) An example using the dft functionality to perform Wiener deconvolution can be found
+    at opencv_source/samples/python/deconvolution.py
+    -   (Python) An example rearranging the quadrants of a Fourier image can be found at
+    opencv_source/samples/python/dft.py
+    @param src input array that could be real or complex.
+    @param dst output array whose size and type depends on the flags .
+    @param flags transformation flags, representing a combination of the #DftFlags
+    @param nonzeroRows when the parameter is not zero, the function assumes that only the first
+    nonzeroRows rows of the input array (#DFT_INVERSE is not set) or only the first nonzeroRows of the
+    output array (#DFT_INVERSE is set) contain non-zeros, thus, the function can handle the rest of the
+    rows more efficiently and save some time; this technique is very useful for calculating array
+    cross-correlation or convolution using DFT.
+    @sa dct , getOptimalDFTSize , mulSpectrums, filter2D , matchTemplate , flip , cartToPolar ,
+    magnitude , phase
+    """
+    ...
+
+def dilate(src: Mat, kernel, dts: Mat = ..., anchor=..., iterations=..., borderType=..., borderValue=...):
+    """
+    dilate(src, kernel[, dst[, anchor[, iterations[, borderType[, borderValue]]]]]) -> dst
+    @brief Dilates an image by using a specific structuring element.
+
+    The function dilates the source image using the specified structuring element that determines the
+    shape of a pixel neighborhood over which the maximum is taken:
+    [`dst` (x,y) =  \\max _{(x',y'):  \\, `element` (x',y') \
+    e0 } `src` (x+x',y+y')]
+
+    The function supports the in-place mode. Dilation can be applied several ( iterations ) times. In
+    case of multi-channel images, each channel is processed independently.
+
+    @param src input image; the number of channels can be arbitrary, but the depth should be one of
+    CV_8U, CV_16U, CV_16S, CV_32F or CV_64F.
+    @param dst output image of the same size and type as src.
+    @param kernel structuring element used for dilation; if elemenat=Mat(), a 3 x 3 rectangular
+    structuring element is used. Kernel can be created using #getStructuringElement
+    @param anchor position of the anchor within the element; default value (-1, -1) means that the
+    anchor is at the element center.
+    @param iterations number of times dilation is applied.
+    @param borderType pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not suported.
+    @param borderValue border value in case of a constant border
+    @sa  erode, morphologyEx, getStructuringElement
+    """
+    ...
+
+def displayOverlay(winname, text, delayms=...):
+    """
+    displayOverlay(winname, text[, delayms]) -> None
+    @brief Displays a text on a window image as an overlay for a specified duration.
+
+    The function displayOverlay displays useful information/tips on top of the window for a certain
+    amount of time *delayms*. The function does not modify the image, displayed in the window, that is,
+    after the specified delay the original content of the window is restored.
+
+    @param winname Name of the window.
+    @param text Overlay text to write on a window image.
+    @param delayms The period (in milliseconds), during which the overlay text is displayed. If this
+    function is called before the previous overlay text timed out, the timer is restarted and the text
+    is updated. If this value is zero, the text never disappears.
+    """
+    ...
+
+def displayStatusBar(winname, text, delayms=...):
+    """
+    displayStatusBar(winname, text[, delayms]) -> None
+    @brief Displays a text on the window statusbar during the specified period of time.
+
+    The function displayStatusBar displays useful information/tips on top of the window for a certain
+    amount of time *delayms* . This information is displayed on the window statusbar (the window must be
+    created with the CV_GUI_EXPANDED flags).
+
+    @param winname Name of the window.
+    @param text Text to write on the window statusbar.
+    @param delayms Duration (in milliseconds) to display the text. If this function is called before
+    the previous text timed out, the timer is restarted and the text is updated. If this value is
+    zero, the text never disappears.
+    """
+    ...
+
+def distanceTransform(src: Mat, distanceType, maskSize, dts: Mat = ..., dstType=...):
+    """
+    distanceTransform(src, distanceType, maskSize[, dst[, dstType]]) -> dst
+    @overload
+    @param src 8-bit, single-channel (binary) source image.
+    @param dst Output image with calculated distances. It is a 8-bit or 32-bit floating-point,
+    single-channel image of the same size as src .
+    @param distanceType Type of distance, see #DistanceTypes
+    @param maskSize Size of the distance transform mask, see #DistanceTransformMasks. In case of the
+    #DIST_L1 or #DIST_C distance type, the parameter is forced to 3 because a `3x 3` mask gives
+    the same result as `5x 5` or any larger aperture.
+    @param dstType Type of output image. It can be CV_8U or CV_32F. Type CV_8U can be used only for
+    the first variant of the function and distanceType == #DIST_L1.
+    """
+    ...
+
+def distanceTransformWithLabels(src: Mat, distanceType, maskSize, dts: Mat = ..., labels=..., labelType=...):
+    """
+    distanceTransformWithLabels(src, distanceType, maskSize[, dst[, labels[, labelType]]]) -> dst, labels
+    @brief Calculates the distance to the closest zero pixel for each pixel of the source image.
+
+    The function cv::distanceTransform calculates the approximate or precise distance from every binary
+    image pixel to the nearest zero pixel. For zero image pixels, the distance will obviously be zero.
+
+    When maskSize == #DIST_MASK_PRECISE and distanceType == #DIST_L2 , the function runs the
+    algorithm described in @cite Felzenszwalb04 . This algorithm is parallelized with the TBB library.
+
+    In other cases, the algorithm @cite Borgefors86 is used. This means that for a pixel the function
+    finds the shortest path to the nearest zero pixel consisting of basic shifts: horizontal, vertical,
+    diagonal, or knight's move (the latest is available for a `5x 5` mask). The overall
+    distance is calculated as a sum of these basic distances. Since the distance function should be
+    symmetric, all of the horizontal and vertical shifts must have the same cost (denoted as a ), all
+    the diagonal shifts must have the same cost (denoted as `b`), and all knight's moves must have the
+    same cost (denoted as `c`). For the #DIST_C and #DIST_L1 types, the distance is calculated
+    precisely, whereas for #DIST_L2 (Euclidean distance) the distance can be calculated only with a
+    relative error (a `5x 5` mask gives more accurate results). For `a`,`b`, and `c`, OpenCV
+    uses the values suggested in the original paper:
+    - DIST_L1: `a = 1, b = 2`
+    - DIST_L2:
+    - `3 x 3`: `a=0.955, b=1.3693`
+    - `5 x 5`: `a=1, b=1.4, c=2.1969`
+    - DIST_C: `a = 1, b = 1`
+
+    Typically, for a fast, coarse distance estimation #DIST_L2, a `3x 3` mask is used. For a
+    more accurate distance estimation #DIST_L2, a `5x 5` mask or the precise algorithm is used.
+    Note that both the precise and the approximate algorithms are linear on the number of pixels.
+
+    This variant of the function does not only compute the minimum distance for each pixel `(x, y)`
+    but also identifies the nearest connected component consisting of zero pixels
+    (labelType==#DIST_LABEL_CCOMP) or the nearest zero pixel (labelType==#DIST_LABEL_PIXEL). Index of the
+    component/pixel is stored in `labels(x, y)`. When labelType==#DIST_LABEL_CCOMP, the function
+    automatically finds connected components of zero pixels in the input image and marks them with
+    distinct labels. When labelType==#DIST_LABEL_CCOMP, the function scans through the input image and
+    marks all the zero pixels with distinct labels.
+
+    In this mode, the complexity is still linear. That is, the function provides a very fast way to
+    compute the Voronoi diagram for a binary image. Currently, the second variant can use only the
+    approximate distance transform algorithm, i.e. maskSize=#DIST_MASK_PRECISE is not supported
+    yet.
+
+    @param src 8-bit, single-channel (binary) source image.
+    @param dst Output image with calculated distances. It is a 8-bit or 32-bit floating-point,
+    single-channel image of the same size as src.
+    @param labels Output 2D array of labels (the discrete Voronoi diagram). It has the type
+    CV_32SC1 and the same size as src.
+    @param distanceType Type of distance, see #DistanceTypes
+    @param maskSize Size of the distance transform mask, see #DistanceTransformMasks.
+    #DIST_MASK_PRECISE is not supported by this variant. In case of the #DIST_L1 or #DIST_C distance type,
+    the parameter is forced to 3 because a `3x 3` mask gives the same result as `5x
+    5` or any larger aperture.
+    @param labelType Type of the label array to build, see #DistanceTransformLabelTypes.
+    """
+    ...
+
 def divSpectrums(*args, **kwargs) -> Any: ...  # incomplete
-def divide(*args, **kwargs) -> Any: ...  # incomplete
-def dnn_registerLayer(*args, **kwargs) -> Any: ...  # incomplete
-def dnn_unregisterLayer(*args, **kwargs) -> Any: ...  # incomplete
-def drawChessboardCorners(image, patternSize, corners, patternWasFound) -> _image: ...
-def drawContours(*args, **kwargs) -> Any: ...  # incomplete
-def drawFrameAxes(*args, **kwargs) -> Any: ...  # incomplete
-def drawKeypoints(*args, **kwargs) -> Any: ...  # incomplete
-def drawMarker(*args, **kwargs) -> Any: ...  # incomplete
-def drawMatches(*args, **kwargs) -> Any: ...  # incomplete
-def drawMatchesKnn(*args, **kwargs) -> Any: ...  # incomplete
-def edgePreservingFilter(*args, **kwargs) -> Any: ...  # incomplete
-def eigen(*args, **kwargs) -> Any: ...  # incomplete
-def eigenNonSymmetric(*args, **kwargs) -> Any: ...  # incomplete
-def ellipse(*args, **kwargs) -> Any: ...  # incomplete
-def ellipse2Poly(center, axes, angle, arcStart, arcEnd, delta) -> _pts: ...
+def divide(src1: Mat, src2: Mat, dts: Mat = ..., scale=..., dtype=...):
+    """
+    divide(src1, src2[, dst[, scale[, dtype]]]) -> dst
+    @brief Performs per-element division of two arrays or a scalar by an array.
+
+    The function cv::divide divides one array by another:
+    [`dst(I) = saturate(src1(I)*scale/src2(I))`]
+    or a scalar by an array when there is no src1 :
+    [`dst(I) = saturate(scale/src2(I))`]
+
+    Different channels of multi-channel arrays are processed independently.
+
+    For integer types when src2(I) is zero, dst(I) will also be zero.
+
+    @note In case of floating point data there is no special defined behavior for zero src2(I) values.
+    Regular floating-point division is used.
+    Expect correct IEEE-754 behaviour for floating-point data (with NaN, Inf result values).
+
+    @note Saturation is not applied when the output array has the depth CV_32S. You may even get
+    result of an incorrect sign in the case of overflow.
+    @param src1 first input array.
+    @param src2 second input array of the same size and type as src1.
+    @param scale scalar factor.
+    @param dst output array of the same size and type as src2.
+    @param dtype optional depth of the output array; if -1, dst will have depth src2.depth(), but in
+    case of an array-by-array division, you can only pass -1 when src1.depth()==src2.depth().
+    @sa  multiply, add, subtract
+
+
+
+    divide(scale, src2[, dst[, dtype]]) -> dst
+    @overload
+    """
+    ...
+
+def dnn_registerLayer():
+    """
+    registerLayer(type, class) -> None
+    """
+    ...
+
+def dnn_unregisterLayer():
+    """
+    unregisterLayer(type) -> None
+    """
+    ...
+
+def drawChessboardCorners(image: Mat, patternSize, corners, patternWasFound) -> _image:
+    """
+    drawChessboardCorners(image, patternSize, corners, patternWasFound) -> image
+    @brief Renders the detected chessboard corners.
+
+    @param image Destination image. It must be an 8-bit color image.
+    @param patternSize Number of inner corners per a chessboard row and column
+    (patternSize = cv::Size(points_per_row,points_per_column)).
+    @param corners Array of detected corners, the output of findChessboardCorners.
+    @param patternWasFound Parameter indicating whether the complete board was found or not. The
+    return value of findChessboardCorners should be passed here.
+
+    The function draws individual chessboard corners detected either as red circles if the board was not
+    found, or as colored corners connected with lines if the board was found.
+    """
+    ...
+
+def drawContours(image: Mat, contours, contourIdx, color, thickness=..., lineType=..., hierarchy=..., maxLevel=..., offset=...):
+    """
+    drawContours(image, contours, contourIdx, color[, thickness[, lineType[, hierarchy[, maxLevel[, offset]]]]]) -> image
+    @brief Draws contours outlines or filled contours.
+
+    The function draws contour outlines in the image if ``thickness` ≥ 0` or fills the area
+    bounded by the contours if ``thickness`<0` . The example below shows how to retrieve
+    connected components from the binary image and label them: :
+    @include snippets/imgproc_drawContours.cpp
+
+    @param image Destination image.
+    @param contours All the input contours. Each contour is stored as a point vector.
+    @param contourIdx Parameter indicating a contour to draw. If it is negative, all the contours are drawn.
+    @param color Color of the contours.
+    @param thickness Thickness of lines the contours are drawn with. If it is negative (for example,
+    thickness=#FILLED ), the contour interiors are drawn.
+    @param lineType Line connectivity. See #LineTypes
+    @param hierarchy Optional information about hierarchy. It is only needed if you want to draw only
+    some of the contours (see maxLevel ).
+    @param maxLevel Maximal level for drawn contours. If it is 0, only the specified contour is drawn.
+    If it is 1, the function draws the contour(s) and all the nested contours. If it is 2, the function
+    draws the contours, all the nested contours, all the nested-to-nested contours, and so on. This
+    parameter is only taken into account when there is hierarchy available.
+    @param offset Optional contour shift parameter. Shift all the drawn contours by the specified
+    ``offset`=(dx,dy)` .
+    @note When thickness=#FILLED, the function is designed to handle connected components with holes correctly
+    even when no hierarchy date is provided. This is done by analyzing all the outlines together
+    using even-odd rule. This may give incorrect results if you have a joint collection of separately retrieved
+    contours. In order to solve this problem, you need to call #drawContours separately for each sub-group
+    of contours, or iterate over the collection using contourIdx parameter.
+    """
+    ...
+
+def drawFrameAxes(image: Mat, cameraMatrix, distCoeffs, rvec, tvec, length, thickness=...):
+    """
+    drawFrameAxes(image, cameraMatrix, distCoeffs, rvec, tvec, length[, thickness]) -> image
+    @brief Draw axes of the world/object coordinate system from pose estimation. @sa solvePnP
+
+    @param image Input/output image. It must have 1 or 3 channels. The number of channels is not altered.
+    @param cameraMatrix Input 3x3 floating-point matrix of camera intrinsic parameters.
+    `A = \\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}`
+    @param distCoeffs Input vector of distortion coefficients
+    `(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]])` of
+    4, 5, 8, 12 or 14 elements. If the vector is empty, the zero distortion coefficients are assumed.
+    @param rvec Rotation vector (see @ref Rodrigues ) that, together with tvec, brings points from
+    the model coordinate system to the camera coordinate system.
+    @param tvec Translation vector.
+    @param length Length of the painted axes in the same unit than tvec (usually in meters).
+    @param thickness Line thickness of the painted axes.
+
+    This function draws the axes of the world/object coordinate system w.r.t. to the camera frame.
+    OX is drawn in red, OY in green and OZ in blue.
+    """
+    ...
+
+def drawKeypoints(image: Mat, keypoints, outImage, color=..., flags: int = ...):
+    """
+    drawKeypoints(image, keypoints, outImage[, color[, flags]]) -> outImage
+    @brief Draws keypoints.
+
+    @param image Source image.
+    @param keypoints Keypoints from the source image.
+    @param outImage Output image. Its content depends on the flags value defining what is drawn in the
+    output image. See possible flags bit values below.
+    @param color Color of keypoints.
+    @param flags Flags setting drawing features. Possible flags bit values are defined by
+    DrawMatchesFlags. See details above in drawMatches .
+
+    @note
+    For Python API, flags are modified as cv.DRAW_MATCHES_FLAGS_DEFAULT,
+    cv.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS, cv.DRAW_MATCHES_FLAGS_DRAW_OVER_OUTIMG,
+    cv.DRAW_MATCHES_FLAGS_NOT_DRAW_SINGLE_POINTS
+    """
+    ...
+
+def drawMarker(img: Mat, position, color, markerType=..., markerSize=..., thickness=..., line_type=...):
+    """
+    drawMarker(img, position, color[, markerType[, markerSize[, thickness[, line_type]]]]) -> img
+    @brief Draws a marker on a predefined position in an image.
+
+    The function cv::drawMarker draws a marker on a given position in the image. For the moment several
+    marker types are supported, see #MarkerTypes for more information.
+
+    @param img Image.
+    @param position The point where the crosshair is positioned.
+    @param color Line color.
+    @param markerType The specific type of marker you want to use, see #MarkerTypes
+    @param thickness Line thickness.
+    @param line_type Type of the line, See #LineTypes
+    @param markerSize The length of the marker axis [default = 20 pixels]
+    """
+    ...
+
+def drawMatches(
+    img1,
+    keypoints1,
+    img2,
+    keypoints2,
+    matches1to2,
+    outImg,
+    matchColor=...,
+    singlePointColor=...,
+    matchesMask=...,
+    flags: int = ...,
+):
+    """
+    drawMatches(img1, keypoints1, img2, keypoints2, matches1to2, outImg[, matchColor[, singlePointColor[, matchesMask[, flags]]]]) -> outImg
+    @brief Draws the found matches of keypoints from two images.
+
+    @param img1 First source image.
+    @param keypoints1 Keypoints from the first source image.
+    @param img2 Second source image.
+    @param keypoints2 Keypoints from the second source image.
+    @param matches1to2 Matches from the first image to the second one, which means that keypoints1[i]
+    has a corresponding point in keypoints2[matches[i]] .
+    @param outImg Output image. Its content depends on the flags value defining what is drawn in the
+    output image. See possible flags bit values below.
+    @param matchColor Color of matches (lines and connected keypoints). If matchColor==Scalar::all(-1)
+    , the color is generated randomly.
+    @param singlePointColor Color of single keypoints (circles), which means that keypoints do not
+    have the matches. If singlePointColor==Scalar::all(-1) , the color is generated randomly.
+    @param matchesMask Mask determining which matches are drawn. If the mask is empty, all matches are
+    drawn.
+    @param flags Flags setting drawing features. Possible flags bit values are defined by
+    DrawMatchesFlags.
+
+    This function draws matches of keypoints from two images in the output image. Match is a line
+    connecting two keypoints (circles). See cv::DrawMatchesFlags.
+    """
+    ...
+
+def drawMatchesKnn(
+    img1,
+    keypoints1,
+    img2,
+    keypoints2,
+    matches1to2,
+    outImg,
+    matchColor=...,
+    singlePointColor=...,
+    matchesMask=...,
+    flags: int = ...,
+):
+    """
+    drawMatchesKnn(img1, keypoints1, img2, keypoints2, matches1to2, outImg[, matchColor[, singlePointColor[, matchesMask[, flags]]]]) -> outImg
+    @overload
+    """
+    ...
+
+def edgePreservingFilter(src: Mat, dts: Mat = ..., flags: int = ..., sigma_s=..., sigma_r=...):
+    """
+    edgePreservingFilter(src[, dst[, flags[, sigma_s[, sigma_r]]]]) -> dst
+    @brief Filtering is the fundamental operation in image and video processing. Edge-preserving smoothing
+    filters are used in many different applications @cite EM11 .
+
+    @param src Input 8-bit 3-channel image.
+    @param dst Output 8-bit 3-channel image.
+    @param flags Edge preserving filters: cv::RECURS_FILTER or cv::NORMCONV_FILTER
+    @param sigma_s %Range between 0 to 200.
+    @param sigma_r %Range between 0 to 1.
+    """
+    ...
+
+def eigen(src: Mat, eigenvalues=..., eigenvectors=...):
+    """
+    eigen(src[, eigenvalues[, eigenvectors]]) -> retval, eigenvalues, eigenvectors
+    @brief Calculates eigenvalues and eigenvectors of a symmetric matrix.
+
+    The function cv::eigen calculates just eigenvalues, or eigenvalues and eigenvectors of the symmetric
+    matrix src:
+    @code
+    src*eigenvectors.row(i).t() = eigenvalues.at<srcType>(i)*eigenvectors.row(i).t()
+    @endcode
+
+    @note Use cv::eigenNonSymmetric for calculation of real eigenvalues and eigenvectors of non-symmetric matrix.
+
+    @param src input matrix that must have CV_32FC1 or CV_64FC1 type, square size and be symmetrical
+    (src ^T^ == src).
+    @param eigenvalues output vector of eigenvalues of the same type as src; the eigenvalues are stored
+    in the descending order.
+    @param eigenvectors output matrix of eigenvectors; it has the same size and type as src; the
+    eigenvectors are stored as subsequent matrix rows, in the same order as the corresponding
+    eigenvalues.
+    @sa eigenNonSymmetric, completeSymm , PCA
+    """
+    ...
+
+def eigenNonSymmetric(src: Mat, eigenvalues=..., eigenvectors=...):
+    """
+    eigenNonSymmetric(src[, eigenvalues[, eigenvectors]]) -> eigenvalues, eigenvectors
+    @brief Calculates eigenvalues and eigenvectors of a non-symmetric matrix (real eigenvalues only).
+
+    @note Assumes real eigenvalues.
+
+    The function calculates eigenvalues and eigenvectors (optional) of the square matrix src:
+    @code
+    src*eigenvectors.row(i).t() = eigenvalues.at<srcType>(i)*eigenvectors.row(i).t()
+    @endcode
+
+    @param src input matrix (CV_32FC1 or CV_64FC1 type).
+    @param eigenvalues output vector of eigenvalues (type is the same type as src).
+    @param eigenvectors output matrix of eigenvectors (type is the same type as src). The eigenvectors are stored as subsequent matrix rows, in the same order as the corresponding eigenvalues.
+    @sa eigen
+    """
+    ...
+
+def ellipse(img: Mat, center, axes, angle, startAngle, endAngle, color, thickness=..., lineType=..., shift=...):
+    """
+    ellipse(img, center, axes, angle, startAngle, endAngle, color[, thickness[, lineType[, shift]]]) -> img
+    @brief Draws a simple or thick elliptic arc or fills an ellipse sector.
+
+    The function cv::ellipse with more parameters draws an ellipse outline, a filled ellipse, an elliptic
+    arc, or a filled ellipse sector. The drawing code uses general parametric form.
+    A piecewise-linear curve is used to approximate the elliptic arc
+    boundary. If you need more control of the ellipse rendering, you can retrieve the curve using
+    #ellipse2Poly and then render it with #polylines or fill it with #fillPoly. If you use the first
+    variant of the function and want to draw the whole ellipse, not an arc, pass `startAngle=0` and
+    `endAngle=360`. If `startAngle` is greater than `endAngle`, they are swapped. The figure below explains
+    the meaning of the parameters to draw the blue arc.
+
+    ![Parameters of Elliptic Arc](pics/ellipse.svg)
+
+    @param img Image.
+    @param center Center of the ellipse.
+    @param axes Half of the size of the ellipse main axes.
+    @param angle Ellipse rotation angle in degrees.
+    @param startAngle Starting angle of the elliptic arc in degrees.
+    @param endAngle Ending angle of the elliptic arc in degrees.
+    @param color Ellipse color.
+    @param thickness Thickness of the ellipse arc outline, if positive. Otherwise, this indicates that
+    a filled ellipse sector is to be drawn.
+    @param lineType Type of the ellipse boundary. See #LineTypes
+    @param shift Number of fractional bits in the coordinates of the center and values of axes.
+
+
+
+    ellipse(img, box, color[, thickness[, lineType]]) -> img
+    @overload
+    @param img Image.
+    @param box Alternative ellipse representation via RotatedRect. This means that the function draws
+    an ellipse inscribed in the rotated rectangle.
+    @param color Ellipse color.
+    @param thickness Thickness of the ellipse arc outline, if positive. Otherwise, this indicates that
+    a filled ellipse sector is to be drawn.
+    @param lineType Type of the ellipse boundary. See #LineTypes
+    """
+    ...
+
+def ellipse2Poly(center, axes, angle, arcStart, arcEnd, delta) -> _pts:
+    """
+    ellipse2Poly(center, axes, angle, arcStart, arcEnd, delta) -> pts
+    @brief Approximates an elliptic arc with a polyline.
+
+    The function ellipse2Poly computes the vertices of a polyline that approximates the specified
+    elliptic arc. It is used by #ellipse. If `arcStart` is greater than `arcEnd`, they are swapped.
+
+    @param center Center of the arc.
+    @param axes Half of the size of the ellipse main axes. See #ellipse for details.
+    @param angle Rotation angle of the ellipse in degrees. See #ellipse for details.
+    @param arcStart Starting angle of the elliptic arc in degrees.
+    @param arcEnd Ending angle of the elliptic arc in degrees.
+    @param delta Angle between the subsequent polyline vertices. It defines the approximation
+    accuracy.
+    @param pts Output vector of polyline vertices.
+    """
+    ...
+
 def empty_array_desc(*args, **kwargs) -> Any: ...  # incomplete
 def empty_gopaque_desc(*args, **kwargs) -> Any: ...  # incomplete
 def empty_scalar_desc(*args, **kwargs) -> Any: ...  # incomplete
-def equalizeHist(*args, **kwargs) -> Any: ...  # incomplete
-def erode(*args, **kwargs) -> Any: ...  # incomplete
-def estimateAffine2D(*args, **kwargs) -> Any: ...  # incomplete
-def estimateAffine3D(*args, **kwargs) -> Any: ...  # incomplete
-def estimateAffinePartial2D(*args, **kwargs) -> Any: ...  # incomplete
-def estimateChessboardSharpness(*args, **kwargs) -> Any: ...  # incomplete
-def estimateTranslation3D(*args, **kwargs) -> Any: ...  # incomplete
-def exp(*args, **kwargs) -> Any: ...  # incomplete
-def extractChannel(*args, **kwargs) -> Any: ...  # incomplete
-def fastAtan2(*args, **kwargs) -> Any: ...  # incomplete
-def fastNlMeansDenoising(*args, **kwargs) -> Any: ...  # incomplete
-def fastNlMeansDenoisingColored(*args, **kwargs) -> Any: ...  # incomplete
-def fastNlMeansDenoisingColoredMulti(*args, **kwargs) -> Any: ...  # incomplete
-def fastNlMeansDenoisingMulti(*args, **kwargs) -> Any: ...  # incomplete
-def fillConvexPoly(*args, **kwargs) -> Any: ...  # incomplete
-def fillPoly(*args, **kwargs) -> Any: ...  # incomplete
-def filter2D(*args, **kwargs) -> Any: ...  # incomplete
-def filterHomographyDecompByVisibleRefpoints(*args, **kwargs) -> Any: ...  # incomplete
-def filterSpeckles(*args, **kwargs) -> Any: ...  # incomplete
-def find4QuadCornerSubpix(*args, **kwargs) -> Any: ...  # incomplete
-def findChessboardCorners(*args, **kwargs) -> Any: ...  # incomplete
-def findChessboardCornersSB(*args, **kwargs) -> Any: ...  # incomplete
-def findChessboardCornersSBWithMeta(*args, **kwargs) -> Any: ...  # incomplete
-def findCirclesGrid(gray, patternsize, centers) -> Incomplete: ...
-def findContours(*args, **kwargs) -> Any: ...  # incomplete
-def findEssentialMat(*args, **kwargs) -> Any: ...  # incomplete
-def findFundamentalMat(*args, **kwargs) -> Any: ...  # incomplete
-def findHomography(*args, **kwargs) -> Any: ...  # incomplete
-def findNonZero(*args, **kwargs) -> Any: ...  # incomplete
-def findTransformECC(*args, **kwargs) -> Any: ...  # incomplete
-def fitEllipse(*args, **kwargs) -> Any: ...  # incomplete
-def fitEllipseAMS(*args, **kwargs) -> Any: ...  # incomplete
-def fitEllipseDirect(*args, **kwargs) -> Any: ...  # incomplete
-def fitLine(*args, **kwargs) -> Any: ...  # incomplete
-def flip(*args, **kwargs) -> Any: ...  # incomplete
-def floodFill(*args, **kwargs) -> Any: ...  # incomplete
-def gemm(*args, **kwargs) -> Any: ...  # incomplete
-def getAffineTransform(*args, **kwargs) -> Any: ...  # incomplete
-def getBuildInformation(*args, **kwargs) -> Any: ...  # incomplete
-def getCPUFeaturesLine(*args, **kwargs) -> Any: ...  # incomplete
-def getCPUTickCount(*args, **kwargs) -> Any: ...  # incomplete
-def getDefaultNewCameraMatrix(*args, **kwargs) -> Any: ...  # incomplete
-def getDerivKernels(*args, **kwargs) -> Any: ...  # incomplete
-def getFontScaleFromHeight(*args, **kwargs) -> Any: ...  # incomplete
-def getGaborKernel(*args, **kwargs) -> Any: ...  # incomplete
-def getGaussianKernel(*args, **kwargs) -> Any: ...  # incomplete
-def getHardwareFeatureName(*args, **kwargs) -> Any: ...  # incomplete
+def equalizeHist(src: Mat, dts: Mat = ...):
+    """
+    equalizeHist(src[, dst]) -> dst
+    @brief Equalizes the histogram of a grayscale image.
+
+    The function equalizes the histogram of the input image using the following algorithm:
+
+    - Calculate the histogram `H` for src .
+    - Normalize the histogram so that the sum of histogram bins is 255.
+    - Compute the integral of the histogram:
+    [H'_i =  ∑ _{0  \\le j < i} H(j)]
+    - Transform the image using `H'` as a look-up table: ``dst`(x,y) = H'(`src`(x,y))`
+
+    The algorithm normalizes the brightness and increases the contrast of the image.
+
+    @param src Source 8-bit single channel image.
+    @param dst Destination image of the same size and type as src .
+    """
+    ...
+
+def erode(src: Mat, kernel, dts: Mat = ..., anchor=..., iterations=..., borderType=..., borderValue=...):
+    """
+    erode(src, kernel[, dst[, anchor[, iterations[, borderType[, borderValue]]]]]) -> dst
+    @brief Erodes an image by using a specific structuring element.
+
+    The function erodes the source image using the specified structuring element that determines the
+    shape of a pixel neighborhood over which the minimum is taken:
+
+    [`dst` (x,y) =  \\min _{(x',y'):  \\, `element` (x',y') \
+    e0 } `src` (x+x',y+y')]
+
+    The function supports the in-place mode. Erosion can be applied several ( iterations ) times. In
+    case of multi-channel images, each channel is processed independently.
+
+    @param src input image; the number of channels can be arbitrary, but the depth should be one of
+    CV_8U, CV_16U, CV_16S, CV_32F or CV_64F.
+    @param dst output image of the same size and type as src.
+    @param kernel structuring element used for erosion; if `element=Mat()`, a `3 x 3` rectangular
+    structuring element is used. Kernel can be created using #getStructuringElement.
+    @param anchor position of the anchor within the element; default value (-1, -1) means that the
+    anchor is at the element center.
+    @param iterations number of times erosion is applied.
+    @param borderType pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.
+    @param borderValue border value in case of a constant border
+    @sa  dilate, morphologyEx, getStructuringElement
+    """
+    ...
+
+def estimateAffine2D(
+    from_, to, inliers=..., method: int = ..., ransacReprojThreshold=..., maxIters=..., confidence=..., refineIters=...
+):
+    """
+    estimateAffine2D(from, to[, inliers[, method[, ransacReprojThreshold[, maxIters[, confidence[, refineIters]]]]]]) -> retval, inliers
+    @brief Computes an optimal affine transformation between two 2D point sets.
+
+    It computes
+    [
+    \\begin{bmatrix}
+    x
+    y
+    \\end{bmatrix}
+    =
+    \\begin{bmatrix}
+    a_{11} & a_{12}
+    a_{21} & a_{22}
+    \\end{bmatrix}
+    \\begin{bmatrix}
+    X
+    Y
+    \\end{bmatrix}
+    +
+    \\begin{bmatrix}
+    b_1
+    b_2
+    \\end{bmatrix}
+    ]
+
+    @param from First input 2D point set containing `(X,Y)`.
+    @param to Second input 2D point set containing `(x,y)`.
+    @param inliers Output vector indicating which points are inliers (1-inlier, 0-outlier).
+    @param method Robust method used to compute transformation. The following methods are possible:
+    -   cv::RANSAC - RANSAC-based robust method
+    -   cv::LMEDS - Least-Median robust method
+    RANSAC is the default method.
+    @param ransacReprojThreshold Maximum reprojection error in the RANSAC algorithm to consider
+    a point as an inlier. Applies only to RANSAC.
+    @param maxIters The maximum number of robust method iterations.
+    @param confidence Confidence level, between 0 and 1, for the estimated transformation. Anything
+    between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation
+    significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation.
+    @param refineIters Maximum number of iterations of refining algorithm (Levenberg-Marquardt).
+    Passing 0 will disable refining, so the output matrix will be output of robust method.
+
+    @return Output 2D affine transformation matrix `2 x 3` or empty matrix if transformation
+    could not be estimated. The returned matrix has the following form:
+    [
+    \\begin{bmatrix}
+    a_{11} & a_{12} & b_1
+    a_{21} & a_{22} & b_2
+    \\end{bmatrix}
+    ]
+
+    The function estimates an optimal 2D affine transformation between two 2D point sets using the
+    selected robust algorithm.
+
+    The computed transformation is then refined further (using only inliers) with the
+    Levenberg-Marquardt method to reduce the re-projection error even more.
+
+    @note
+    The RANSAC method can handle practically any ratio of outliers but needs a threshold to
+    distinguish inliers from outliers. The method LMeDS does not need any threshold but it works
+    correctly only when there are more than 50% of inliers.
+
+    @sa estimateAffinePartial2D, getAffineTransform
+    """
+    ...
+
+def estimateAffine3D(src: Mat, dts: Mat, out=..., inliers=..., ransacThreshold=..., confidence=...):
+    """
+    estimateAffine3D(src, dst[, out[, inliers[, ransacThreshold[, confidence]]]]) -> retval, out, inliers
+    @brief Computes an optimal affine transformation between two 3D point sets.
+
+    It computes
+    [
+    \\begin{bmatrix}
+    x
+    y
+    z
+    \\end{bmatrix}
+    =
+    \\begin{bmatrix}
+    a_{11} & a_{12} & a_{13}
+    a_{21} & a_{22} & a_{23}
+    a_{31} & a_{32} & a_{33}
+    \\end{bmatrix}
+    \\begin{bmatrix}
+    X
+    Y
+    Z
+    \\end{bmatrix}
+    +
+    \\begin{bmatrix}
+    b_1
+    b_2
+    b_3
+    \\end{bmatrix}
+    ]
+
+    @param src First input 3D point set containing `(X,Y,Z)`.
+    @param dst Second input 3D point set containing `(x,y,z)`.
+    @param out Output 3D affine transformation matrix `3 x 4` of the form
+    [
+    \\begin{bmatrix}
+    a_{11} & a_{12} & a_{13} & b_1
+    a_{21} & a_{22} & a_{23} & b_2
+    a_{31} & a_{32} & a_{33} & b_3
+    \\end{bmatrix}
+    ]
+    @param inliers Output vector indicating which points are inliers (1-inlier, 0-outlier).
+    @param ransacThreshold Maximum reprojection error in the RANSAC algorithm to consider a point as
+    an inlier.
+    @param confidence Confidence level, between 0 and 1, for the estimated transformation. Anything
+    between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation
+    significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation.
+
+    The function estimates an optimal 3D affine transformation between two 3D point sets using the
+    RANSAC algorithm.
+    """
+    ...
+
+def estimateAffinePartial2D(
+    from_, to, inliers=..., method: int = ..., ransacReprojThreshold=..., maxIters=..., confidence=..., refineIters=...
+):
+    """
+    estimateAffinePartial2D(from, to[, inliers[, method[, ransacReprojThreshold[, maxIters[, confidence[, refineIters]]]]]]) -> retval, inliers
+    @brief Computes an optimal limited affine transformation with 4 degrees of freedom between
+    two 2D point sets.
+
+    @param from First input 2D point set.
+    @param to Second input 2D point set.
+    @param inliers Output vector indicating which points are inliers.
+    @param method Robust method used to compute transformation. The following methods are possible:
+    -   cv::RANSAC - RANSAC-based robust method
+    -   cv::LMEDS - Least-Median robust method
+    RANSAC is the default method.
+    @param ransacReprojThreshold Maximum reprojection error in the RANSAC algorithm to consider
+    a point as an inlier. Applies only to RANSAC.
+    @param maxIters The maximum number of robust method iterations.
+    @param confidence Confidence level, between 0 and 1, for the estimated transformation. Anything
+    between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation
+    significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation.
+    @param refineIters Maximum number of iterations of refining algorithm (Levenberg-Marquardt).
+    Passing 0 will disable refining, so the output matrix will be output of robust method.
+
+    @return Output 2D affine transformation (4 degrees of freedom) matrix `2 x 3` or
+    empty matrix if transformation could not be estimated.
+
+    The function estimates an optimal 2D affine transformation with 4 degrees of freedom limited to
+    combinations of translation, rotation, and uniform scaling. Uses the selected algorithm for robust
+    estimation.
+
+    The computed transformation is then refined further (using only inliers) with the
+    Levenberg-Marquardt method to reduce the re-projection error even more.
+
+    Estimated transformation matrix is:
+    [ \\begin{bmatrix} \\cos(θ) · s & -∿(θ) · s & t_x
+          ∿(θ) · s & \\cos(θ) · s & t_y
+    \\end{bmatrix} ]
+    Where ` θ ` is the rotation angle, ` s ` the scaling factor and ` t_x, t_y ` are
+    translations in ` x, y ` axes respectively.
+
+    @note
+    The RANSAC method can handle practically any ratio of outliers but need a threshold to
+    distinguish inliers from outliers. The method LMeDS does not need any threshold but it works
+    correctly only when there are more than 50% of inliers.
+
+    @sa estimateAffine2D, getAffineTransform
+    """
+    ...
+
+def estimateChessboardSharpness(image: Mat, patternSize, corners, rise_distance=..., vertical=..., sharpness=...):
+    """
+    estimateChessboardSharpness(image, patternSize, corners[, rise_distance[, vertical[, sharpness]]]) -> retval, sharpness
+    @brief Estimates the sharpness of a detected chessboard.
+
+    Image sharpness, as well as brightness, are a critical parameter for accuracte
+    camera calibration. For accessing these parameters for filtering out
+    problematic calibraiton images, this method calculates edge profiles by traveling from
+    black to white chessboard cell centers. Based on this, the number of pixels is
+    calculated required to transit from black to white. This width of the
+    transition area is a good indication of how sharp the chessboard is imaged
+    and should be below ~3.0 pixels.
+
+    @param image Gray image used to find chessboard corners
+    @param patternSize Size of a found chessboard pattern
+    @param corners Corners found by findChessboardCorners(SB)
+    @param rise_distance Rise distance 0.8 means 10% ... 90% of the final signal strength
+    @param vertical By default edge responses for horizontal lines are calculated
+    @param sharpness Optional output array with a sharpness value for calculated edge responses (see description)
+
+    The optional sharpness array is of type CV_32FC1 and has for each calculated
+    profile one row with the following five entries:
+    * 0 = x coordinate of the underlying edge in the image
+    * 1 = y coordinate of the underlying edge in the image
+    * 2 = width of the transition area (sharpness)
+    * 3 = signal strength in the black cell (min brightness)
+    * 4 = signal strength in the white cell (max brightness)
+
+    @return Scalar(average sharpness, average min brightness, average max brightness,0)
+    """
+    ...
+
+def estimateTranslation3D(src: Mat, dts: Mat, out=..., inliers=..., ransacThreshold=..., confidence=...):
+    """
+    estimateTranslation3D(src, dst[, out[, inliers[, ransacThreshold[, confidence]]]]) -> retval, out, inliers
+    @brief Computes an optimal translation between two 3D point sets.
+    *
+    * It computes
+    * [
+    * \\begin{bmatrix}
+    * x
+    * y
+    * z
+    * \\end{bmatrix}
+    * =
+    * \\begin{bmatrix}
+    * X
+    * Y
+    * Z
+    * \\end{bmatrix}
+    * +
+    * \\begin{bmatrix}
+    * b_1
+    * b_2
+    * b_3
+    * \\end{bmatrix}
+    * ]
+    *
+    * @param src First input 3D point set containing `(X,Y,Z)`.
+    * @param dst Second input 3D point set containing `(x,y,z)`.
+    * @param out Output 3D translation vector `3 x 1` of the form
+    * [
+    * \\begin{bmatrix}
+    * b_1
+    * b_2
+    * b_3
+    * \\end{bmatrix}
+    * ]
+    * @param inliers Output vector indicating which points are inliers (1-inlier, 0-outlier).
+    * @param ransacThreshold Maximum reprojection error in the RANSAC algorithm to consider a point as
+    * an inlier.
+    * @param confidence Confidence level, between 0 and 1, for the estimated transformation. Anything
+    * between 0.95 and 0.99 is usually good enough. Values too close to 1 can slow down the estimation
+    * significantly. Values lower than 0.8-0.9 can result in an incorrectly estimated transformation.
+    *
+    * The function estimates an optimal 3D translation between two 3D point sets using the
+    * RANSAC algorithm.
+    *
+    """
+    ...
+
+def exp(src: Mat, dts: Mat = ...):
+    """
+    exp(src[, dst]) -> dst
+    @brief Calculates the exponent of every array element.
+
+    The function cv::exp calculates the exponent of every element of the input
+    array:
+    [`dst` [I] = e^{ src(I) }]
+
+    The maximum relative error is about 7e-6 for single-precision input and
+    less than 1e-10 for double-precision input. Currently, the function
+    converts denormalized values to zeros on output. Special values (NaN,
+    Inf) are not handled.
+    @param src input array.
+    @param dst output array of the same size and type as src.
+    @sa log , cartToPolar , polarToCart , phase , pow , sqrt , magnitude
+    """
+    ...
+
+def extractChannel(src: Mat, coi, dts: Mat = ...):
+    """
+    extractChannel(src, coi[, dst]) -> dst
+    @brief Extracts a single channel from src (coi is 0-based index)
+    @param src input array
+    @param dst output array
+    @param coi index of channel to extract
+    @sa mixChannels, split
+    """
+    ...
+
+def fastAtan2(y, x):
+    """
+    fastAtan2(y, x) -> retval
+    @brief Calculates the angle of a 2D vector in degrees.
+
+    The function fastAtan2 calculates the full-range angle of an input 2D vector. The angle is measured
+    in degrees and varies from 0 to 360 degrees. The accuracy is about 0.3 degrees.
+    @param x x-coordinate of the vector.
+    @param y y-coordinate of the vector.
+    """
+    ...
+
+def fastNlMeansDenoising(src: Mat, dts: Mat = ..., h=..., templateWindowSize=..., searchWindowSize=...):
+    """
+    fastNlMeansDenoising(src[, dst[, h[, templateWindowSize[, searchWindowSize]]]]) -> dst
+    @brief Perform image denoising using Non-local Means Denoising algorithm
+    <http://www.ipol.im/pub/algo/bcm_non_local_means_denoising/> with several computational
+    optimizations. Noise expected to be a gaussian white noise
+
+    @param src Input 8-bit 1-channel, 2-channel, 3-channel or 4-channel image.
+    @param dst Output image with the same size and type as src .
+    @param templateWindowSize Size in pixels of the template patch that is used to compute weights.
+    Should be odd. Recommended value 7 pixels
+    @param searchWindowSize Size in pixels of the window that is used to compute weighted average for
+    given pixel. Should be odd. Affect performance linearly: greater searchWindowsSize - greater
+    denoising time. Recommended value 21 pixels
+    @param h Parameter regulating filter strength. Big h value perfectly removes noise but also
+    removes image details, smaller h value preserves details but also preserves some noise
+
+    This function expected to be applied to grayscale images. For colored images look at
+    fastNlMeansDenoisingColored. Advanced usage of this functions can be manual denoising of colored
+    image in different colorspaces. Such approach is used in fastNlMeansDenoisingColored by converting
+    image to CIELAB colorspace and then separately denoise L and AB components with different h
+    parameter.
+
+
+
+    fastNlMeansDenoising(src, h[, dst[, templateWindowSize[, searchWindowSize[, normType]]]]) -> dst
+    @brief Perform image denoising using Non-local Means Denoising algorithm
+    <http://www.ipol.im/pub/algo/bcm_non_local_means_denoising/> with several computational
+    optimizations. Noise expected to be a gaussian white noise
+
+    @param src Input 8-bit or 16-bit (only with NORM_L1) 1-channel,
+    2-channel, 3-channel or 4-channel image.
+    @param dst Output image with the same size and type as src .
+    @param templateWindowSize Size in pixels of the template patch that is used to compute weights.
+    Should be odd. Recommended value 7 pixels
+    @param searchWindowSize Size in pixels of the window that is used to compute weighted average for
+    given pixel. Should be odd. Affect performance linearly: greater searchWindowsSize - greater
+    denoising time. Recommended value 21 pixels
+    @param h Array of parameters regulating filter strength, either one
+    parameter applied to all channels or one per channel in dst. Big h value
+    perfectly removes noise but also removes image details, smaller h
+    value preserves details but also preserves some noise
+    @param normType Type of norm used for weight calculation. Can be either NORM_L2 or NORM_L1
+
+    This function expected to be applied to grayscale images. For colored images look at
+    fastNlMeansDenoisingColored. Advanced usage of this functions can be manual denoising of colored
+    image in different colorspaces. Such approach is used in fastNlMeansDenoisingColored by converting
+    image to CIELAB colorspace and then separately denoise L and AB components with different h
+    parameter.
+    """
+    ...
+
+def fastNlMeansDenoisingColored(src: Mat, dts: Mat = ..., h=..., hColor=..., templateWindowSize=..., searchWindowSize=...):
+    """
+    fastNlMeansDenoisingColored(src[, dst[, h[, hColor[, templateWindowSize[, searchWindowSize]]]]]) -> dst
+    @brief Modification of fastNlMeansDenoising function for colored images
+
+    @param src Input 8-bit 3-channel image.
+    @param dst Output image with the same size and type as src .
+    @param templateWindowSize Size in pixels of the template patch that is used to compute weights.
+    Should be odd. Recommended value 7 pixels
+    @param searchWindowSize Size in pixels of the window that is used to compute weighted average for
+    given pixel. Should be odd. Affect performance linearly: greater searchWindowsSize - greater
+    denoising time. Recommended value 21 pixels
+    @param h Parameter regulating filter strength for luminance component. Bigger h value perfectly
+    removes noise but also removes image details, smaller h value preserves details but also preserves
+    some noise
+    @param hColor The same as h but for color components. For most images value equals 10
+    will be enough to remove colored noise and do not distort colors
+
+    The function converts image to CIELAB colorspace and then separately denoise L and AB components
+    with given h parameters using fastNlMeansDenoising function.
+    """
+    ...
+
+def fastNlMeansDenoisingColoredMulti(
+    srcImgs,
+    imgToDenoiseIndex,
+    temporalWindowSize,
+    dts: Mat = ...,
+    h=...,
+    hColor=...,
+    templateWindowSize=...,
+    searchWindowSize=...,
+):
+    """
+    fastNlMeansDenoisingColoredMulti(srcImgs, imgToDenoiseIndex, temporalWindowSize[, dst[, h[, hColor[, templateWindowSize[, searchWindowSize]]]]]) -> dst
+    @brief Modification of fastNlMeansDenoisingMulti function for colored images sequences
+
+    @param srcImgs Input 8-bit 3-channel images sequence. All images should have the same type and
+    size.
+    @param imgToDenoiseIndex Target image to denoise index in srcImgs sequence
+    @param temporalWindowSize Number of surrounding images to use for target image denoising. Should
+    be odd. Images from imgToDenoiseIndex - temporalWindowSize / 2 to
+    imgToDenoiseIndex - temporalWindowSize / 2 from srcImgs will be used to denoise
+    srcImgs[imgToDenoiseIndex] image.
+    @param dst Output image with the same size and type as srcImgs images.
+    @param templateWindowSize Size in pixels of the template patch that is used to compute weights.
+    Should be odd. Recommended value 7 pixels
+    @param searchWindowSize Size in pixels of the window that is used to compute weighted average for
+    given pixel. Should be odd. Affect performance linearly: greater searchWindowsSize - greater
+    denoising time. Recommended value 21 pixels
+    @param h Parameter regulating filter strength for luminance component. Bigger h value perfectly
+    removes noise but also removes image details, smaller h value preserves details but also preserves
+    some noise.
+    @param hColor The same as h but for color components.
+
+    The function converts images to CIELAB colorspace and then separately denoise L and AB components
+    with given h parameters using fastNlMeansDenoisingMulti function.
+    """
+    ...
+
+def fastNlMeansDenoisingMulti(
+    srcImgs, imgToDenoiseIndex, temporalWindowSize, dts: Mat = ..., h=..., templateWindowSize=..., searchWindowSize=...
+):
+    """
+    fastNlMeansDenoisingMulti(srcImgs, imgToDenoiseIndex, temporalWindowSize[, dst[, h[, templateWindowSize[, searchWindowSize]]]]) -> dst
+    @brief Modification of fastNlMeansDenoising function for images sequence where consecutive images have been
+    captured in small period of time. For example video. This version of the function is for grayscale
+    images or for manual manipulation with colorspaces. For more details see
+    <http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.131.6394>
+
+    @param srcImgs Input 8-bit 1-channel, 2-channel, 3-channel or
+    4-channel images sequence. All images should have the same type and
+    size.
+    @param imgToDenoiseIndex Target image to denoise index in srcImgs sequence
+    @param temporalWindowSize Number of surrounding images to use for target image denoising. Should
+    be odd. Images from imgToDenoiseIndex - temporalWindowSize / 2 to
+    imgToDenoiseIndex - temporalWindowSize / 2 from srcImgs will be used to denoise
+    srcImgs[imgToDenoiseIndex] image.
+    @param dst Output image with the same size and type as srcImgs images.
+    @param templateWindowSize Size in pixels of the template patch that is used to compute weights.
+    Should be odd. Recommended value 7 pixels
+    @param searchWindowSize Size in pixels of the window that is used to compute weighted average for
+    given pixel. Should be odd. Affect performance linearly: greater searchWindowsSize - greater
+    denoising time. Recommended value 21 pixels
+    @param h Parameter regulating filter strength. Bigger h value
+    perfectly removes noise but also removes image details, smaller h
+    value preserves details but also preserves some noise
+
+
+
+    fastNlMeansDenoisingMulti(srcImgs, imgToDenoiseIndex, temporalWindowSize, h[, dst[, templateWindowSize[, searchWindowSize[, normType]]]]) -> dst
+    @brief Modification of fastNlMeansDenoising function for images sequence where consecutive images have been
+    captured in small period of time. For example video. This version of the function is for grayscale
+    images or for manual manipulation with colorspaces. For more details see
+    <http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.131.6394>
+
+    @param srcImgs Input 8-bit or 16-bit (only with NORM_L1) 1-channel,
+    2-channel, 3-channel or 4-channel images sequence. All images should
+    have the same type and size.
+    @param imgToDenoiseIndex Target image to denoise index in srcImgs sequence
+    @param temporalWindowSize Number of surrounding images to use for target image denoising. Should
+    be odd. Images from imgToDenoiseIndex - temporalWindowSize / 2 to
+    imgToDenoiseIndex - temporalWindowSize / 2 from srcImgs will be used to denoise
+    srcImgs[imgToDenoiseIndex] image.
+    @param dst Output image with the same size and type as srcImgs images.
+    @param templateWindowSize Size in pixels of the template patch that is used to compute weights.
+    Should be odd. Recommended value 7 pixels
+    @param searchWindowSize Size in pixels of the window that is used to compute weighted average for
+    given pixel. Should be odd. Affect performance linearly: greater searchWindowsSize - greater
+    denoising time. Recommended value 21 pixels
+    @param h Array of parameters regulating filter strength, either one
+    parameter applied to all channels or one per channel in dst. Big h value
+    perfectly removes noise but also removes image details, smaller h
+    value preserves details but also preserves some noise
+    @param normType Type of norm used for weight calculation. Can be either NORM_L2 or NORM_L1
+    """
+    ...
+
+def fillConvexPoly(img: Mat, points, color, lineType=..., shift=...):
+    """
+    fillConvexPoly(img, points, color[, lineType[, shift]]) -> img
+    @brief Fills a convex polygon.
+
+    The function cv::fillConvexPoly draws a filled convex polygon. This function is much faster than the
+    function #fillPoly . It can fill not only convex polygons but any monotonic polygon without
+    self-intersections, that is, a polygon whose contour intersects every horizontal line (scan line)
+    twice at the most (though, its top-most and/or the bottom edge could be horizontal).
+
+    @param img Image.
+    @param points Polygon vertices.
+    @param color Polygon color.
+    @param lineType Type of the polygon boundaries. See #LineTypes
+    @param shift Number of fractional bits in the vertex coordinates.
+    """
+    ...
+
+def fillPoly(img: Mat, pts, color, lineType=..., shift=..., offset=...):
+    """
+    fillPoly(img, pts, color[, lineType[, shift[, offset]]]) -> img
+    @brief Fills the area bounded by one or more polygons.
+
+    The function cv::fillPoly fills an area bounded by several polygonal contours. The function can fill
+    complex areas, for example, areas with holes, contours with self-intersections (some of their
+    parts), and so forth.
+
+    @param img Image.
+    @param pts Array of polygons where each polygon is represented as an array of points.
+    @param color Polygon color.
+    @param lineType Type of the polygon boundaries. See #LineTypes
+    @param shift Number of fractional bits in the vertex coordinates.
+    @param offset Optional offset of all points of the contours.
+    """
+    ...
+
+def filter2D(src: Mat, ddepth, kernel, dts: Mat = ..., anchor=..., delta=..., borderType=...):
+    """
+    filter2D(src, ddepth, kernel[, dst[, anchor[, delta[, borderType]]]]) -> dst
+    @brief Convolves an image with the kernel.
+
+    The function applies an arbitrary linear filter to an image. In-place operation is supported. When
+    the aperture is partially outside the image, the function interpolates outlier pixel values
+    according to the specified border mode.
+
+    The function does actually compute correlation, not the convolution:
+
+    [`dst` (x,y) =  ∑ _{ \\substack{0≤ x' < `kernel.cols`\\{0≤ y' < `kernel.rows`}}}  `kernel` (x',y')* `src` (x+x'- `anchor.x` ,y+y'- `anchor.y` )]
+
+    That is, the kernel is not mirrored around the anchor point. If you need a real convolution, flip
+    the kernel using #flip and set the new anchor to `(kernel.cols - anchor.x - 1, kernel.rows -
+    anchor.y - 1)`.
+
+    The function uses the DFT-based algorithm in case of sufficiently large kernels (~`11 x 11` or
+    larger) and the direct algorithm for small kernels.
+
+    @param src input image.
+    @param dst output image of the same size and the same number of channels as src.
+    @param ddepth desired depth of the destination image, see @ref filter_depths \"combinations\"
+    @param kernel convolution kernel (or rather a correlation kernel), a single-channel floating point
+    matrix; if you want to apply different kernels to different channels, split the image into
+    separate color planes using split and process them individually.
+    @param anchor anchor of the kernel that indicates the relative position of a filtered point within
+    the kernel; the anchor should lie within the kernel; default value (-1,-1) means that the anchor
+    is at the kernel center.
+    @param delta optional value added to the filtered pixels before storing them in dst.
+    @param borderType pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.
+    @sa  sepFilter2D, dft, matchTemplate
+    """
+    ...
+
+def filterHomographyDecompByVisibleRefpoints(
+    rotations, normals, beforePoints, afterPoints, possibleSolutions=..., pointsMask=...
+):
+    """
+    filterHomographyDecompByVisibleRefpoints(rotations, normals, beforePoints, afterPoints[, possibleSolutions[, pointsMask]]) -> possibleSolutions
+    @brief Filters homography decompositions based on additional information.
+
+    @param rotations Vector of rotation matrices.
+    @param normals Vector of plane normal matrices.
+    @param beforePoints Vector of (rectified) visible reference points before the homography is applied
+    @param afterPoints Vector of (rectified) visible reference points after the homography is applied
+    @param possibleSolutions Vector of int indices representing the viable solution set after filtering
+    @param pointsMask optional Mat/Vector of 8u type representing the mask for the inliers as given by the findHomography function
+
+    This function is intended to filter the output of the decomposeHomographyMat based on additional
+    information as described in @cite Malis . The summary of the method: the decomposeHomographyMat function
+    returns 2 unique solutions and their "opposites" for a total of 4 solutions. If we have access to the
+    sets of points visible in the camera frame before and after the homography transformation is applied,
+    we can determine which are the true potential solutions and which are the opposites by verifying which
+    homographies are consistent with all visible reference points being in front of the camera. The inputs
+    are left unchanged; the filtered solution set is returned as indices into the existing one.
+    """
+    ...
+
+def filterSpeckles(img: Mat, newVal, maxSpeckleSize, maxDiff, buf=...):
+    """
+    filterSpeckles(img, newVal, maxSpeckleSize, maxDiff[, buf]) -> img, buf
+    @brief Filters off small noise blobs (speckles) in the disparity map
+
+    @param img The input 16-bit signed disparity image
+    @param newVal The disparity value used to paint-off the speckles
+    @param maxSpeckleSize The maximum speckle size to consider it a speckle. Larger blobs are not
+    affected by the algorithm
+    @param maxDiff Maximum difference between neighbor disparity pixels to put them into the same
+    blob. Note that since StereoBM, StereoSGBM and may be other algorithms return a fixed-point
+    disparity map, where disparity values are multiplied by 16, this scale factor should be taken into
+    account when specifying this parameter value.
+    @param buf The optional temporary buffer to avoid memory allocation within the function.
+    """
+    ...
+
+def find4QuadCornerSubpix(img: Mat, corners, region_size):
+    """
+    find4QuadCornerSubpix(img, corners, region_size) -> retval, corners
+
+    """
+    ...
+
+def findChessboardCorners(image: Mat, patternSize, corners=..., flags: int = ...):
+    """
+    findChessboardCorners(image, patternSize[, corners[, flags]]) -> retval, corners
+    @brief Finds the positions of internal corners of the chessboard.
+
+    @param image Source chessboard view. It must be an 8-bit grayscale or color image.
+    @param patternSize Number of inner corners per a chessboard row and column
+    ( patternSize = cv::Size(points_per_row,points_per_colum) = cv::Size(columns,rows) ).
+    @param corners Output array of detected corners.
+    @param flags Various operation flags that can be zero or a combination of the following values:
+    -   **CALIB_CB_ADAPTIVE_THRESH** Use adaptive thresholding to convert the image to black
+    and white, rather than a fixed threshold level (computed from the average image brightness).
+    -   **CALIB_CB_NORMALIZE_IMAGE** Normalize the image gamma with equalizeHist before
+    applying fixed or adaptive thresholding.
+    -   **CALIB_CB_FILTER_QUADS** Use additional criteria (like contour area, perimeter,
+    square-like shape) to filter out false quads extracted at the contour retrieval stage.
+    -   **CALIB_CB_FAST_CHECK** Run a fast check on the image that looks for chessboard corners,
+    and shortcut the call if none is found. This can drastically speed up the call in the
+    degenerate condition when no chessboard is observed.
+
+    The function attempts to determine whether the input image is a view of the chessboard pattern and
+    locate the internal chessboard corners. The function returns a non-zero value if all of the corners
+    are found and they are placed in a certain order (row by row, left to right in every row).
+    Otherwise, if the function fails to find all the corners or reorder them, it returns 0. For example,
+    a regular chessboard has 8 x 8 squares and 7 x 7 internal corners, that is, points where the black
+    squares touch each other. The detected coordinates are approximate, and to determine their positions
+    more accurately, the function calls cornerSubPix. You also may use the function cornerSubPix with
+    different parameters if returned coordinates are not accurate enough.
+
+    Sample usage of detecting and drawing chessboard corners: :
+    @code
+    Size patternsize(8,6); //interior number of corners
+    Mat gray = ....; //source image
+    vector<Point2f> corners; //this will be filled by the detected corners
+
+    //CALIB_CB_FAST_CHECK saves a lot of time on images
+    //that do not contain any chessboard corners
+    bool patternfound = findChessboardCorners(gray, patternsize, corners,
+          CALIB_CB_ADAPTIVE_THRESH + CALIB_CB_NORMALIZE_IMAGE
+          + CALIB_CB_FAST_CHECK);
+
+    if(patternfound)
+     cornerSubPix(gray, corners, Size(11, 11), Size(-1, -1),
+       TermCriteria(CV_TERMCRIT_EPS + CV_TERMCRIT_ITER, 30, 0.1));
+
+    drawChessboardCorners(img, patternsize, Mat(corners), patternfound);
+    @endcode
+    @note The function requires white space (like a square-thick border, the wider the better) around
+    the board to make the detection more robust in various environments. Otherwise, if there is no
+    border and the background is dark, the outer black squares cannot be segmented properly and so the
+    square grouping and ordering algorithm fails.
+    """
+    ...
+
+def findChessboardCornersSB(image: Mat, patternSize, corners=..., flags: int = ...):
+    """
+    findChessboardCornersSB(image, patternSize[, corners[, flags]]) -> retval, corners
+    @overload
+    """
+    ...
+
+def findChessboardCornersSBWithMeta(image: Mat, patternSize, flags: int, corners=..., meta=...):
+    """
+    findChessboardCornersSBWithMeta(image, patternSize, flags[, corners[, meta]]) -> retval, corners, meta
+    @brief Finds the positions of internal corners of the chessboard using a sector based approach.
+
+    @param image Source chessboard view. It must be an 8-bit grayscale or color image.
+    @param patternSize Number of inner corners per a chessboard row and column
+    ( patternSize = cv::Size(points_per_row,points_per_colum) = cv::Size(columns,rows) ).
+    @param corners Output array of detected corners.
+    @param flags Various operation flags that can be zero or a combination of the following values:
+    -   **CALIB_CB_NORMALIZE_IMAGE** Normalize the image gamma with equalizeHist before detection.
+    -   **CALIB_CB_EXHAUSTIVE** Run an exhaustive search to improve detection rate.
+    -   **CALIB_CB_ACCURACY** Up sample input image to improve sub-pixel accuracy due to aliasing effects.
+    -   **CALIB_CB_LARGER** The detected pattern is allowed to be larger than patternSize (see description).
+    -   **CALIB_CB_MARKER** The detected pattern must have a marker (see description).
+    This should be used if an accurate camera calibration is required.
+    @param meta Optional output arrray of detected corners (CV_8UC1 and size = cv::Size(columns,rows)).
+    Each entry stands for one corner of the pattern and can have one of the following values:
+    -   0 = no meta data attached
+    -   1 = left-top corner of a black cell
+    -   2 = left-top corner of a white cell
+    -   3 = left-top corner of a black cell with a white marker dot
+    -   4 = left-top corner of a white cell with a black marker dot (pattern origin in case of markers otherwise first corner)
+
+    The function is analog to findchessboardCorners but uses a localized radon
+    transformation approximated by box filters being more robust to all sort of
+    noise, faster on larger images and is able to directly return the sub-pixel
+    position of the internal chessboard corners. The Method is based on the paper
+    @cite duda2018 "Accurate Detection and Localization of Checkerboard Corners for
+    Calibration" demonstrating that the returned sub-pixel positions are more
+    accurate than the one returned by cornerSubPix allowing a precise camera
+    calibration for demanding applications.
+
+    In the case, the flags **CALIB_CB_LARGER** or **CALIB_CB_MARKER** are given,
+    the result can be recovered from the optional meta array. Both flags are
+    helpful to use calibration patterns exceeding the field of view of the camera.
+    These oversized patterns allow more accurate calibrations as corners can be
+    utilized, which are as close as possible to the image borders.  For a
+    consistent coordinate system across all images, the optional marker (see image
+    below) can be used to move the origin of the board to the location where the
+    black circle is located.
+
+    @note The function requires a white boarder with roughly the same width as one
+    of the checkerboard fields around the whole board to improve the detection in
+    various environments. In addition, because of the localized radon
+    transformation it is beneficial to use round corners for the field corners
+    which are located on the outside of the board. The following figure illustrates
+    a sample checkerboard optimized for the detection. However, any other checkerboard
+    can be used as well.
+    ![Checkerboard](pics/checkerboard_radon.png)
+    """
+    ...
+
+def findCirclesGrid(image: Mat, patternSize, flags: int, blobDetector, parameters, centers=...):
+    """
+    findCirclesGrid(image, patternSize, flags, blobDetector, parameters[, centers]) -> retval, centers
+    @brief Finds centers in the grid of circles.
+
+    @param image grid view of input circles; it must be an 8-bit grayscale or color image.
+    @param patternSize number of circles per row and column
+    ( patternSize = Size(points_per_row, points_per_colum) ).
+    @param centers output array of detected centers.
+    @param flags various operation flags that can be one of the following values:
+    -   **CALIB_CB_SYMMETRIC_GRID** uses symmetric pattern of circles.
+    -   **CALIB_CB_ASYMMETRIC_GRID** uses asymmetric pattern of circles.
+    -   **CALIB_CB_CLUSTERING** uses a special algorithm for grid detection. It is more robust to
+    perspective distortions but much more sensitive to background clutter.
+    @param blobDetector feature detector that finds blobs like dark circles on light background.
+    @param parameters struct for finding circles in a grid pattern.
+
+    The function attempts to determine whether the input image contains a grid of circles. If it is, the
+    function locates centers of the circles. The function returns a non-zero value if all of the centers
+    have been found and they have been placed in a certain order (row by row, left to right in every
+    row). Otherwise, if the function fails to find all the corners or reorder them, it returns 0.
+
+    Sample usage of detecting and drawing the centers of circles: :
+    @code
+    Size patternsize(7,7); //number of centers
+    Mat gray = ....; //source image
+    vector<Point2f> centers; //this will be filled by the detected centers
+
+    bool patternfound = findCirclesGrid(gray, patternsize, centers);
+
+    drawChessboardCorners(img, patternsize, Mat(centers), patternfound);
+    @endcode
+    @note The function requires white space (like a square-thick border, the wider the better) around
+    the board to make the detection more robust in various environments.
+
+
+
+    findCirclesGrid(image, patternSize[, centers[, flags[, blobDetector]]]) -> retval, centers
+    @overload
+    """
+    ...
+
+def findContours(image: Mat, mode, method: int, contours=..., hierarchy=..., offset=...):
+    """
+    findContours(image, mode, method[, contours[, hierarchy[, offset]]]) -> contours, hierarchy
+    @brief Finds contours in a binary image.
+
+    The function retrieves contours from the binary image using the algorithm @cite Suzuki85 . The contours
+    are a useful tool for shape analysis and object detection and recognition. See squares.cpp in the
+    OpenCV sample directory.
+    @note Since opencv 3.2 source image is not modified by this function.
+
+    @param image Source, an 8-bit single-channel image. Non-zero pixels are treated as 1's. Zero
+    pixels remain 0's, so the image is treated as binary . You can use #compare, #inRange, #threshold ,
+    #adaptiveThreshold, #Canny, and others to create a binary image out of a grayscale or color one.
+    If mode equals to #RETR_CCOMP or #RETR_FLOODFILL, the input can also be a 32-bit integer image of labels (CV_32SC1).
+    @param contours Detected contours. Each contour is stored as a vector of points (e.g.
+    std::vector<std::vector<cv::Point> >).
+    @param hierarchy Optional output vector (e.g. std::vector<cv::Vec4i>), containing information about the image topology. It has
+    as many elements as the number of contours. For each i-th contour contours[i], the elements
+    hierarchy[i][0] , hierarchy[i][1] , hierarchy[i][2] , and hierarchy[i][3] are set to 0-based indices
+    in contours of the next and previous contours at the same hierarchical level, the first child
+    contour and the parent contour, respectively. If for the contour i there are no next, previous,
+    parent, or nested contours, the corresponding elements of hierarchy[i] will be negative.
+    @param mode Contour retrieval mode, see #RetrievalModes
+    @param method Contour approximation method, see #ContourApproximationModes
+    @param offset Optional offset by which every contour point is shifted. This is useful if the
+    contours are extracted from the image ROI and then they should be analyzed in the whole image
+    context.
+    """
+    ...
+
+def findEssentialMat(points1, points2, cameraMatrix, method: int = ..., prob=..., threshold=..., mask: Mat = ...):
+    """
+    findEssentialMat(points1, points2, cameraMatrix[, method[, prob[, threshold[, mask]]]]) -> retval, mask
+    @brief Calculates an essential matrix from the corresponding points in two images.
+
+    @param points1 Array of N (N >= 5) 2D points from the first image. The point coordinates should
+    be floating-point (single or double precision).
+    @param points2 Array of the second image points of the same size and format as points1 .
+    @param cameraMatrix Camera matrix `K = \\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}` .
+    Note that this function assumes that points1 and points2 are feature points from cameras with the
+    same camera matrix. If this assumption does not hold for your use case, use
+    `undistortPoints()` with `P = cv::NoArray()` for both cameras to transform image points
+    to normalized image coordinates, which are valid for the identity camera matrix. When
+    passing these coordinates, pass the identity matrix for this parameter.
+    @param method Method for computing an essential matrix.
+    -   **RANSAC** for the RANSAC algorithm.
+    -   **LMEDS** for the LMedS algorithm.
+    @param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of
+    confidence (probability) that the estimated matrix is correct.
+    @param threshold Parameter used for RANSAC. It is the maximum distance from a point to an epipolar
+    line in pixels, beyond which the point is considered an outlier and is not used for computing the
+    final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the
+    point localization, image resolution, and the image noise.
+    @param mask Output array of N elements, every element of which is set to 0 for outliers and to 1
+    for the other points. The array is computed only in the RANSAC and LMedS methods.
+
+    This function estimates essential matrix based on the five-point algorithm solver in @cite Nister03 .
+    @cite SteweniusCFS is also a related. The epipolar geometry is described by the following equation:
+
+    [[p_2; 1]^T K^{-T} E K^{-1} [p_1; 1] = 0]
+
+    where `E` is an essential matrix, `p_1` and `p_2` are corresponding points in the first and the
+    second images, respectively. The result of this function may be passed further to
+    decomposeEssentialMat or recoverPose to recover the relative pose between cameras.
+
+
+
+    findEssentialMat(points1, points2[, focal[, pp[, method[, prob[, threshold[, mask]]]]]]) -> retval, mask
+    @overload
+    @param points1 Array of N (N >= 5) 2D points from the first image. The point coordinates should
+    be floating-point (single or double precision).
+    @param points2 Array of the second image points of the same size and format as points1 .
+    @param focal focal length of the camera. Note that this function assumes that points1 and points2
+    are feature points from cameras with same focal length and principal point.
+    @param pp principal point of the camera.
+    @param method Method for computing a fundamental matrix.
+    -   **RANSAC** for the RANSAC algorithm.
+    -   **LMEDS** for the LMedS algorithm.
+    @param threshold Parameter used for RANSAC. It is the maximum distance from a point to an epipolar
+    line in pixels, beyond which the point is considered an outlier and is not used for computing the
+    final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the
+    point localization, image resolution, and the image noise.
+    @param prob Parameter used for the RANSAC or LMedS methods only. It specifies a desirable level of
+    confidence (probability) that the estimated matrix is correct.
+    @param mask Output array of N elements, every element of which is set to 0 for outliers and to 1
+    for the other points. The array is computed only in the RANSAC and LMedS methods.
+
+    This function differs from the one above that it computes camera matrix from focal length and
+    principal point:
+
+    [K =
+    \\begin{bmatrix}
+    f & 0 & x_{pp}
+    0 & f & y_{pp}
+    0 & 0 & 1
+    \\end{bmatrix}]
+    """
+    ...
+
+def findFundamentalMat(points1, points2, method: int, ransacReprojThreshold, confidence, maxIters, mask: Mat = ...):
+    """
+    findFundamentalMat(points1, points2, method, ransacReprojThreshold, confidence, maxIters[, mask]) -> retval, mask
+    @brief Calculates a fundamental matrix from the corresponding points in two images.
+
+    @param points1 Array of N points from the first image. The point coordinates should be
+    floating-point (single or double precision).
+    @param points2 Array of the second image points of the same size and format as points1 .
+    @param method Method for computing a fundamental matrix.
+    -   **CV_FM_7POINT** for a 7-point algorithm. `N = 7`
+    -   **CV_FM_8POINT** for an 8-point algorithm. `N ≥ 8`
+    -   **CV_FM_RANSAC** for the RANSAC algorithm. `N ≥ 8`
+    -   **CV_FM_LMEDS** for the LMedS algorithm. `N ≥ 8`
+    @param ransacReprojThreshold Parameter used only for RANSAC. It is the maximum distance from a point to an epipolar
+    line in pixels, beyond which the point is considered an outlier and is not used for computing the
+    final fundamental matrix. It can be set to something like 1-3, depending on the accuracy of the
+    point localization, image resolution, and the image noise.
+    @param confidence Parameter used for the RANSAC and LMedS methods only. It specifies a desirable level
+    of confidence (probability) that the estimated matrix is correct.
+    @param mask
+    @param maxIters The maximum number of robust method iterations.
+
+    The epipolar geometry is described by the following equation:
+
+    [[p_2; 1]^T F [p_1; 1] = 0]
+
+    where `F` is a fundamental matrix, `p_1` and `p_2` are corresponding points in the first and the
+    second images, respectively.
+
+    The function calculates the fundamental matrix using one of four methods listed above and returns
+    the found fundamental matrix. Normally just one matrix is found. But in case of the 7-point
+    algorithm, the function may return up to 3 solutions ( `9 x 3` matrix that stores all 3
+    matrices sequentially).
+
+    The calculated fundamental matrix may be passed further to computeCorrespondEpilines that finds the
+    epipolar lines corresponding to the specified points. It can also be passed to
+    stereoRectifyUncalibrated to compute the rectification transformation. :
+    @code
+    // Example. Estimation of fundamental matrix using the RANSAC algorithm
+    int point_count = 100;
+    vector<Point2f> points1(point_count);
+    vector<Point2f> points2(point_count);
+
+    // initialize the points here ...
+    for( int i = 0; i < point_count; i++ )
+    {
+       points1[i] = ...;
+       points2[i] = ...;
+    }
+
+    Mat fundamental_matrix =
+     findFundamentalMat(points1, points2, FM_RANSAC, 3, 0.99);
+    @endcode
+
+
+
+    findFundamentalMat(points1, points2[, method[, ransacReprojThreshold[, confidence[, mask]]]]) -> retval, mask
+    @overload
+    """
+    ...
+
+def findHomography(
+    srcPoints, dstPoints, method: int = ..., ransacReprojThreshold=..., mask: Mat = ..., maxIters=..., confidence=...
+):
+    """
+    findHomography(srcPoints, dstPoints[, method[, ransacReprojThreshold[, mask[, maxIters[, confidence]]]]]) -> retval, mask
+    @brief Finds a perspective transformation between two planes.
+
+    @param srcPoints Coordinates of the points in the original plane, a matrix of the type CV_32FC2
+    or vector<Point2f> .
+    @param dstPoints Coordinates of the points in the target plane, a matrix of the type CV_32FC2 or
+    a vector<Point2f> .
+    @param method Method used to compute a homography matrix. The following methods are possible:
+    -   **0** - a regular method using all the points, i.e., the least squares method
+    -   **RANSAC** - RANSAC-based robust method
+    -   **LMEDS** - Least-Median robust method
+    -   **RHO** - PROSAC-based robust method
+    @param ransacReprojThreshold Maximum allowed reprojection error to treat a point pair as an inlier
+    (used in the RANSAC and RHO methods only). That is, if
+    [| `dstPoints` _i -  `convertPointsHomogeneous` ( `H` * `srcPoints` _i) |_2  >  `ransacReprojThreshold`]
+    then the point `i` is considered as an outlier. If srcPoints and dstPoints are measured in pixels,
+    it usually makes sense to set this parameter somewhere in the range of 1 to 10.
+    @param mask Optional output mask set by a robust method ( RANSAC or LMEDS ). Note that the input
+    mask values are ignored.
+    @param maxIters The maximum number of RANSAC iterations.
+    @param confidence Confidence level, between 0 and 1.
+
+    The function finds and returns the perspective transformation `H` between the source and the
+    destination planes:
+
+    [s_i  \\vecthree{x'_i}{y'_i}{1} \\sim H  \\vecthree{x_i}{y_i}{1}]
+
+    so that the back-projection error
+
+    [∑ _i \\left ( x'_i- \\frac{h_{11} x_i + h_{12} y_i + h_{13}}{h_{31} x_i + h_{32} y_i + h_{33}} \\right )^2+ \\left ( y'_i- \\frac{h_{21} x_i + h_{22} y_i + h_{23}}{h_{31} x_i + h_{32} y_i + h_{33}} \\right )^2]
+
+    is minimized. If the parameter method is set to the default value 0, the function uses all the point
+    pairs to compute an initial homography estimate with a simple least-squares scheme.
+
+    However, if not all of the point pairs ( `srcPoints_i`, `dstPoints_i` ) fit the rigid perspective
+    transformation (that is, there are some outliers), this initial estimate will be poor. In this case,
+    you can use one of the three robust methods. The methods RANSAC, LMeDS and RHO try many different
+    random subsets of the corresponding point pairs (of four pairs each, collinear pairs are discarded), estimate the homography matrix
+    using this subset and a simple least-squares algorithm, and then compute the quality/goodness of the
+    computed homography (which is the number of inliers for RANSAC or the least median re-projection error for
+    LMeDS). The best subset is then used to produce the initial estimate of the homography matrix and
+    the mask of inliers/outliers.
+
+    Regardless of the method, robust or not, the computed homography matrix is refined further (using
+    inliers only in case of a robust method) with the Levenberg-Marquardt method to reduce the
+    re-projection error even more.
+
+    The methods RANSAC and RHO can handle practically any ratio of outliers but need a threshold to
+    distinguish inliers from outliers. The method LMeDS does not need any threshold but it works
+    correctly only when there are more than 50% of inliers. Finally, if there are no outliers and the
+    noise is rather small, use the default method (method=0).
+
+    The function is used to find initial intrinsic and extrinsic matrices. Homography matrix is
+    determined up to a scale. Thus, it is normalized so that `h_{33}=1`. Note that whenever an `H` matrix
+    cannot be estimated, an empty one will be returned.
+
+    @sa
+    getAffineTransform, estimateAffine2D, estimateAffinePartial2D, getPerspectiveTransform, warpPerspective,
+    perspectiveTransform
+    """
+    ...
+
+def findNonZero(src: Mat, idx=...):
+    """
+    findNonZero(src[, idx]) -> idx
+    @brief Returns the list of locations of non-zero pixels
+
+    Given a binary matrix (likely returned from an operation such
+    as threshold(), compare(), >, ==, etc, return all of
+    the non-zero indices as a cv::Mat or std::vector<cv::Point> (x,y)
+    For example:
+    @code{.cpp}
+    cv::Mat binaryImage; // input, binary image
+    cv::Mat locations;   // output, locations of non-zero pixels
+    cv::findNonZero(binaryImage, locations);
+
+    // access pixel coordinates
+    Point pnt = locations.at<Point>(i);
+    @endcode
+    or
+    @code{.cpp}
+    cv::Mat binaryImage; // input, binary image
+    vector<Point> locations;   // output, locations of non-zero pixels
+    cv::findNonZero(binaryImage, locations);
+
+    // access pixel coordinates
+    Point pnt = locations[i];
+    @endcode
+    @param src single-channel array
+    @param idx the output array, type of cv::Mat or std::vector<Point>, corresponding to non-zero indices in the input
+    """
+    ...
+
+def findTransformECC(templateImage, inputImage, warpMatrix, motionType, criteria, inputMask, gaussFiltSize):
+    """
+    findTransformECC(templateImage, inputImage, warpMatrix, motionType, criteria, inputMask, gaussFiltSize) -> retval, warpMatrix
+    @brief Finds the geometric transform (warp) between two images in terms of the ECC criterion @cite EP08 .
+
+    @param templateImage single-channel template image; CV_8U or CV_32F array.
+    @param inputImage single-channel input image which should be warped with the final warpMatrix in
+    order to provide an image similar to templateImage, same type as templateImage.
+    @param warpMatrix floating-point `2x 3` or `3x 3` mapping matrix (warp).
+    @param motionType parameter, specifying the type of motion:
+    -   **MOTION_TRANSLATION** sets a translational motion model; warpMatrix is `2x 3` with
+     the first `2x 2` part being the unity matrix and the rest two parameters being
+     estimated.
+    -   **MOTION_EUCLIDEAN** sets a Euclidean (rigid) transformation as motion model; three
+     parameters are estimated; warpMatrix is `2x 3`.
+    -   **MOTION_AFFINE** sets an affine motion model (DEFAULT); six parameters are estimated;
+     warpMatrix is `2x 3`.
+    -   **MOTION_HOMOGRAPHY** sets a homography as a motion model; eight parameters are
+     estimated;`warpMatrix` is `3x 3`.
+    @param criteria parameter, specifying the termination criteria of the ECC algorithm;
+    criteria.epsilon defines the threshold of the increment in the correlation coefficient between two
+    iterations (a negative criteria.epsilon makes criteria.maxcount the only termination criterion).
+    Default values are shown in the declaration above.
+    @param inputMask An optional mask to indicate valid values of inputImage.
+    @param gaussFiltSize An optional value indicating size of gaussian blur filter; (DEFAULT: 5)
+
+    The function estimates the optimum transformation (warpMatrix) with respect to ECC criterion
+    (@cite EP08), that is
+
+    [`warpMatrix` = \\arg\\max_{W} `ECC`(`templateImage`(x,y),`inputImage`(x',y'))]
+
+    where
+
+    [\\begin{bmatrix} x' \\ y' \\end{bmatrix} = W · \\begin{bmatrix} x \\ y \\ 1 \\end{bmatrix}]
+
+    (the equation holds with homogeneous coordinates for homography). It returns the final enhanced
+    correlation coefficient, that is the correlation coefficient between the template image and the
+    final warped input image. When a `3x 3` matrix is given with motionType =0, 1 or 2, the third
+    row is ignored.
+
+    Unlike findHomography and estimateRigidTransform, the function findTransformECC implements an
+    area-based alignment that builds on intensity similarities. In essence, the function updates the
+    initial transformation that roughly aligns the images. If this information is missing, the identity
+    warp (unity matrix) is used as an initialization. Note that if images undergo strong
+    displacements/rotations, an initial transformation that roughly aligns the images is necessary
+    (e.g., a simple euclidean/similarity transform that allows for the images showing the same image
+    content approximately). Use inverse warping in the second image to take an image close to the first
+    one, i.e. use the flag WARP_INVERSE_MAP with warpAffine or warpPerspective. See also the OpenCV
+    sample image_alignment.cpp that demonstrates the use of the function. Note that the function throws
+    an exception if algorithm does not converges.
+
+    @sa
+    computeECC, estimateAffine2D, estimateAffinePartial2D, findHomography
+    """
+    ...
+
+def fitEllipse(points):
+    """
+    fitEllipse(points) -> retval
+    @brief Fits an ellipse around a set of 2D points.
+
+    The function calculates the ellipse that fits (in a least-squares sense) a set of 2D points best of
+    all. It returns the rotated rectangle in which the ellipse is inscribed. The first algorithm described by @cite Fitzgibbon95
+    is used. Developer should keep in mind that it is possible that the returned
+    ellipse/rotatedRect data contains negative indices, due to the data points being close to the
+    border of the containing Mat element.
+
+    @param points Input 2D point set, stored in std::vector<> or Mat
+    """
+    ...
+
+def fitEllipseAMS(points):
+    """
+    fitEllipseAMS(points) -> retval
+    @brief Fits an ellipse around a set of 2D points.
+
+    The function calculates the ellipse that fits a set of 2D points.
+    It returns the rotated rectangle in which the ellipse is inscribed.
+    The Approximate Mean Square (AMS) proposed by @cite Taubin1991 is used.
+
+    For an ellipse, this basis set is ` \\chi= \\left(x^2, x y, y^2, x, y, 1\\right) `,
+    which is a set of six free coefficients ` A^T=\\left{A_{\\text{xx}},A_{\\text{xy}},A_{\\text{yy}},A_x,A_y,A_0\\right} `.
+    However, to specify an ellipse, all that is needed is five numbers; the major and minor axes lengths ` (a,b) `,
+    the position ` (x_0,y_0) `, and the orientation ` θ `. This is because the basis set includes lines,
+    quadratics, parabolic and hyperbolic functions as well as elliptical functions as possible fits.
+    If the fit is found to be a parabolic or hyperbolic function then the standard #fitEllipse method is used.
+    The AMS method restricts the fit to parabolic, hyperbolic and elliptical curves
+    by imposing the condition that ` A^T ( D_x^T D_x  +   D_y^T D_y) A = 1 ` where
+    the matrices ` Dx ` and ` Dy ` are the partial derivatives of the design matrix ` D ` with
+    respect to x and y. The matrices are formed row by row applying the following to
+    each of the points in the set:
+    \\f{align*}{
+    D(i,:)&=\\left{x_i^2, x_i y_i, y_i^2, x_i, y_i, 1\\right} &
+    D_x(i,:)&=\\left{2 x_i,y_i,0,1,0,0\\right} &
+    D_y(i,:)&=\\left{0,x_i,2 y_i,0,1,0\\right}
+    }
+    The AMS method minimizes the cost function
+    \\f{equation*}{
+    E ^2=\\frac{ A^T D^T D A }{ A^T (D_x^T D_x +  D_y^T D_y) A^T }
+    }
+
+    The minimum cost is found by solving the generalized eigenvalue problem.
+
+    \\f{equation*}{
+    D^T D A = λ  \\left( D_x^T D_x +  D_y^T D_y\\right) A
+    }
+
+    @param points Input 2D point set, stored in std::vector<> or Mat
+    """
+    ...
+
+def fitEllipseDirect(points):
+    """
+    fitEllipseDirect(points) -> retval
+    @brief Fits an ellipse around a set of 2D points.
+
+    The function calculates the ellipse that fits a set of 2D points.
+    It returns the rotated rectangle in which the ellipse is inscribed.
+    The Direct least square (Direct) method by @cite Fitzgibbon1999 is used.
+
+    For an ellipse, this basis set is ` \\chi= \\left(x^2, x y, y^2, x, y, 1\\right) `,
+    which is a set of six free coefficients ` A^T=\\left{A_{\\text{xx}},A_{\\text{xy}},A_{\\text{yy}},A_x,A_y,A_0\\right} `.
+    However, to specify an ellipse, all that is needed is five numbers; the major and minor axes lengths ` (a,b) `,
+    the position ` (x_0,y_0) `, and the orientation ` θ `. This is because the basis set includes lines,
+    quadratics, parabolic and hyperbolic functions as well as elliptical functions as possible fits.
+    The Direct method confines the fit to ellipses by ensuring that ` 4 A_{xx} A_{yy}- A_{xy}^2 > 0 `.
+    The condition imposed is that ` 4 A_{xx} A_{yy}- A_{xy}^2=1 ` which satisfies the inequality
+    and as the coefficients can be arbitrarily scaled is not overly restrictive.
+
+    \\f{equation*}{
+    E ^2= A^T D^T D A \\quad \\text{with} \\quad A^T C A =1 \\quad \\text{and} \\quad C=\\left(\\begin{matrix}
+    0 & 0  & 2  & 0  & 0  &  0
+    0 & -1  & 0  & 0  & 0  &  0
+    2 & 0  & 0  & 0  & 0  &  0
+    0 & 0  & 0  & 0  & 0  &  0
+    0 & 0  & 0  & 0  & 0  &  0
+    0 & 0  & 0  & 0  & 0  &  0
+    \\end{matrix} \\right)
+    }
+
+    The minimum cost is found by solving the generalized eigenvalue problem.
+
+    \\f{equation*}{
+    D^T D A = λ  \\left( C\\right) A
+    }
+
+    The system produces only one positive eigenvalue ` λ` which is chosen as the solution
+    with its eigenvector `\\mathbf{u}`. These are used to find the coefficients
+
+    \\f{equation*}{
+    A = √{\\frac{1}{\\mathbf{u}^T C \\mathbf{u}}}  \\mathbf{u}
+    }
+    The scaling factor guarantees that  `A^T C A =1`.
+
+    @param points Input 2D point set, stored in std::vector<> or Mat
+    """
+    ...
+
+def fitLine(points, distType, param, reps, aeps, line=...):
+    """
+    fitLine(points, distType, param, reps, aeps[, line]) -> line
+    @brief Fits a line to a 2D or 3D point set.
+
+    The function fitLine fits a line to a 2D or 3D point set by minimizing `∑_i P(r_i)` where
+    `r_i` is a distance between the `i^{th}` point, the line and `P(r)` is a distance function, one
+    of the following:
+    -  DIST_L2
+    [P (r) = r^2/2  \\quad \\text{(the simplest and the fastest least-squares method)}]
+    - DIST_L1
+    [P (r) = r]
+    - DIST_L12
+    [P (r) = 2 · ( √{1 + \\frac{r^2}{2}} - 1)]
+    - DIST_FAIR
+    [P \\left (r \\right ) = C^2 · \\left (  \\frac{r}{C} -  \\log{\\left(1 + \\frac{r}{C}\\right)} \\right )  \\quad \\text{where} \\quad C=1.3998]
+    - DIST_WELSCH
+    [P \\left (r \\right ) =  \\frac{C^2}{2} · \\left ( 1 -  \\exp{\\left(-\\left(\\frac{r}{C}\\right)^2\\right)} \\right )  \\quad \\text{where} \\quad C=2.9846]
+    - DIST_HUBER
+    [P (r) =  \\fork{r^2/2}{if (r < C)}{C · (r-C/2)}{otherwise} \\quad \\text{where} \\quad C=1.345]
+
+    The algorithm is based on the M-estimator ( <http://en.wikipedia.org/wiki/M-estimator> ) technique
+    that iteratively fits the line using the weighted least-squares algorithm. After each iteration the
+    weights `w_i` are adjusted to be inversely proportional to `P(r_i)` .
+
+    @param points Input vector of 2D or 3D points, stored in std::vector<> or Mat.
+    @param line Output line parameters. In case of 2D fitting, it should be a vector of 4 elements
+    (like Vec4f) - (vx, vy, x0, y0), where (vx, vy) is a normalized vector collinear to the line and
+    (x0, y0) is a point on the line. In case of 3D fitting, it should be a vector of 6 elements (like
+    Vec6f) - (vx, vy, vz, x0, y0, z0), where (vx, vy, vz) is a normalized vector collinear to the line
+    and (x0, y0, z0) is a point on the line.
+    @param distType Distance used by the M-estimator, see #DistanceTypes
+    @param param Numerical parameter ( C ) for some types of distances. If it is 0, an optimal value
+    is chosen.
+    @param reps Sufficient accuracy for the radius (distance between the coordinate origin and the line).
+    @param aeps Sufficient accuracy for the angle. 0.01 would be a good default value for reps and aeps.
+    """
+    ...
+
+def flip(src: Mat, flipCode, dts: Mat = ...):
+    """
+    flip(src, flipCode[, dst]) -> dst
+    @brief Flips a 2D array around vertical, horizontal, or both axes.
+
+    The function cv::flip flips the array in one of three different ways (row
+    and column indices are 0-based):
+    [`dst` _{ij} =
+    \\left{
+    \\begin{array}{l l}
+    `src` _{`src.rows`-i-1,j} & if;  `flipCode` = 0
+    `src` _{i, `src.cols` -j-1} & if;  `flipCode` > 0
+    `src` _{ `src.rows` -i-1, `src.cols` -j-1} & if; `flipCode` < 0
+    \\end{array}
+    \\right.]
+    The example scenarios of using the function are the following:
+    *   Vertical flipping of the image (flipCode == 0) to switch between
+    top-left and bottom-left image origin. This is a typical operation
+    in video processing on Microsoft Windows *  OS.
+    *   Horizontal flipping of the image with the subsequent horizontal
+    shift and absolute difference calculation to check for a
+    vertical-axis symmetry (flipCode > 0).
+    *   Simultaneous horizontal and vertical flipping of the image with
+    the subsequent shift and absolute difference calculation to check
+    for a central symmetry (flipCode < 0).
+    *   Reversing the order of point arrays (flipCode > 0 or
+    flipCode == 0).
+    @param src input array.
+    @param dst output array of the same size and type as src.
+    @param flipCode a flag to specify how to flip the array; 0 means
+    flipping around the x-axis and positive value (for example, 1) means
+    flipping around y-axis. Negative value (for example, -1) means flipping
+    around both axes.
+    @sa transpose , repeat , completeSymm
+    """
+    ...
+
+def floodFill(image: Mat, mask: Mat | None, seedPoint, newVal, loDiff=..., upDiff=..., flags: int = ...):
+    """
+    floodFill(image, mask, seedPoint, newVal[, loDiff[, upDiff[, flags]]]) -> retval, image, mask, rect
+    @brief Fills a connected component with the given color.
+
+    The function cv::floodFill fills a connected component starting from the seed point with the specified
+    color. The connectivity is determined by the color/brightness closeness of the neighbor pixels. The
+    pixel at `(x,y)` is considered to belong to the repainted domain if:
+
+    - in case of a grayscale image and floating range
+    [`src` (x',y')- `loDiff` ≤ `src` (x,y)  ≤ `src` (x',y')+ `upDiff`]
+
+
+    - in case of a grayscale image and fixed range
+    [`src` ( `seedPoint` .x, `seedPoint` .y)- `loDiff` ≤ `src` (x,y)  ≤ `src` ( `seedPoint` .x, `seedPoint` .y)+ `upDiff`]
+
+
+    - in case of a color image and floating range
+    [`src` (x',y')_r- `loDiff` _r ≤ `src` (x,y)_r ≤ `src` (x',y')_r+ `upDiff` _r,]
+    [`src` (x',y')_g- `loDiff` _g ≤ `src` (x,y)_g ≤ `src` (x',y')_g+ `upDiff` _g]
+    and
+    [`src` (x',y')_b- `loDiff` _b ≤ `src` (x,y)_b ≤ `src` (x',y')_b+ `upDiff` _b]
+
+
+    - in case of a color image and fixed range
+    [`src` ( `seedPoint` .x, `seedPoint` .y)_r- `loDiff` _r ≤ `src` (x,y)_r ≤ `src` ( `seedPoint` .x, `seedPoint` .y)_r+ `upDiff` _r,]
+    [`src` ( `seedPoint` .x, `seedPoint` .y)_g- `loDiff` _g ≤ `src` (x,y)_g ≤ `src` ( `seedPoint` .x, `seedPoint` .y)_g+ `upDiff` _g]
+    and
+    [`src` ( `seedPoint` .x, `seedPoint` .y)_b- `loDiff` _b ≤ `src` (x,y)_b ≤ `src` ( `seedPoint` .x, `seedPoint` .y)_b+ `upDiff` _b]
+
+
+    where `src(x',y')` is the value of one of pixel neighbors that is already known to belong to the
+    component. That is, to be added to the connected component, a color/brightness of the pixel should
+    be close enough to:
+    - Color/brightness of one of its neighbors that already belong to the connected component in case
+    of a floating range.
+    - Color/brightness of the seed point in case of a fixed range.
+
+    Use these functions to either mark a connected component with the specified color in-place, or build
+    a mask and then extract the contour, or copy the region to another image, and so on.
+
+    @param image Input/output 1- or 3-channel, 8-bit, or floating-point image. It is modified by the
+    function unless the #FLOODFILL_MASK_ONLY flag is set in the second variant of the function. See
+    the details below.
+    @param mask Operation mask that should be a single-channel 8-bit image, 2 pixels wider and 2 pixels
+    taller than image. Since this is both an input and output parameter, you must take responsibility
+    of initializing it. Flood-filling cannot go across non-zero pixels in the input mask. For example,
+    an edge detector output can be used as a mask to stop filling at edges. On output, pixels in the
+    mask corresponding to filled pixels in the image are set to 1 or to the a value specified in flags
+    as described below. Additionally, the function fills the border of the mask with ones to simplify
+    internal processing. It is therefore possible to use the same mask in multiple calls to the function
+    to make sure the filled areas do not overlap.
+    @param seedPoint Starting point.
+    @param newVal New value of the repainted domain pixels.
+    @param loDiff Maximal lower brightness/color difference between the currently observed pixel and
+    one of its neighbors belonging to the component, or a seed pixel being added to the component.
+    @param upDiff Maximal upper brightness/color difference between the currently observed pixel and
+    one of its neighbors belonging to the component, or a seed pixel being added to the component.
+    @param rect Optional output parameter set by the function to the minimum bounding rectangle of the
+    repainted domain.
+    @param flags Operation flags. The first 8 bits contain a connectivity value. The default value of
+    4 means that only the four nearest neighbor pixels (those that share an edge) are considered. A
+    connectivity value of 8 means that the eight nearest neighbor pixels (those that share a corner)
+    will be considered. The next 8 bits (8-16) contain a value between 1 and 255 with which to fill
+    the mask (the default value is 1). For example, 4 | ( 255 << 8 ) will consider 4 nearest
+    neighbours and fill the mask with a value of 255. The following additional options occupy higher
+    bits and therefore may be further combined with the connectivity and mask fill values using
+    bit-wise or (|), see #FloodFillFlags.
+
+    @note Since the mask is larger than the filled image, a pixel `(x, y)` in image corresponds to the
+    pixel `(x+1, y+1)` in the mask .
+
+    @sa findContours
+    """
+    ...
+
+def gemm(src1: Mat, src2: Mat, alpha, src3, beta, dts: Mat = ..., flags: int = ...):
+    """
+    gemm(src1, src2, alpha, src3, beta[, dst[, flags]]) -> dst
+    @brief Performs generalized matrix multiplication.
+
+    The function cv::gemm performs generalized matrix multiplication similar to the
+    gemm functions in BLAS level 3. For example,
+    `gemm(src1, src2, alpha, src3, beta, dst, GEMM_1_T + GEMM_3_T)`
+    corresponds to
+    [`dst` =  `alpha` · `src1` ^T · `src2` +  `beta` · `src3` ^T]
+
+    In case of complex (two-channel) data, performed a complex matrix
+    multiplication.
+
+    The function can be replaced with a matrix expression. For example, the
+    above call can be replaced with:
+    @code{.cpp}
+    dst = alpha*src1.t()*src2 + beta*src3.t();
+    @endcode
+    @param src1 first multiplied input matrix that could be real(CV_32FC1,
+    CV_64FC1) or complex(CV_32FC2, CV_64FC2).
+    @param src2 second multiplied input matrix of the same type as src1.
+    @param alpha weight of the matrix product.
+    @param src3 third optional delta matrix added to the matrix product; it
+    should have the same type as src1 and src2.
+    @param beta weight of src3.
+    @param dst output matrix; it has the proper size and the same type as
+    input matrices.
+    @param flags operation flags (cv::GemmFlags)
+    @sa mulTransposed , transform
+    """
+    ...
+
+def getAffineTransform(src: Mat, dts: Mat):
+    """
+    getAffineTransform(src, dst) -> retval
+    @overload
+    """
+    ...
+
+def getBuildInformation():
+    """
+    getBuildInformation() -> retval
+    @brief Returns full configuration time cmake output.
+
+    Returned value is raw cmake output including version control system revision, compiler version,
+    compiler flags, enabled modules and third party libraries, etc. Output format depends on target
+    architecture.
+    """
+    ...
+
+def getCPUFeaturesLine():
+    """
+    getCPUFeaturesLine() -> retval
+    @brief Returns list of CPU features enabled during compilation.
+
+    Returned value is a string containing space separated list of CPU features with following markers:
+
+    - no markers - baseline features
+    - prefix `*` - features enabled in dispatcher
+    - suffix `?` - features enabled but not available in HW
+
+    Example: `SSE SSE2 SSE3 *SSE4.1 *SSE4.2 *FP16 *AVX *AVX2 *AVX512-SKX?`
+    """
+    ...
+
+def getCPUTickCount():
+    """
+    getCPUTickCount() -> retval
+    @brief Returns the number of CPU ticks.
+
+    The function returns the current number of CPU ticks on some architectures (such as x86, x64,
+    PowerPC). On other platforms the function is equivalent to getTickCount. It can also be used for
+    very accurate time measurements, as well as for RNG initialization. Note that in case of multi-CPU
+    systems a thread, from which getCPUTickCount is called, can be suspended and resumed at another CPU
+    with its own counter. So, theoretically (and practically) the subsequent calls to the function do
+    not necessary return the monotonously increasing values. Also, since a modern CPU varies the CPU
+    frequency depending on the load, the number of CPU clocks spent in some code cannot be directly
+    converted to time units. Therefore, getTickCount is generally a preferable solution for measuring
+    execution time.
+    """
+    ...
+
+def getDefaultNewCameraMatrix(cameraMatrix, imgsize=..., centerPrincipalPoint=...):
+    """
+    getDefaultNewCameraMatrix(cameraMatrix[, imgsize[, centerPrincipalPoint]]) -> retval
+    @brief Returns the default new camera matrix.
+
+    The function returns the camera matrix that is either an exact copy of the input cameraMatrix (when
+    centerPrinicipalPoint=false ), or the modified one (when centerPrincipalPoint=true).
+
+    In the latter case, the new camera matrix will be:
+
+    [\\begin{bmatrix} f_x && 0 && ( `imgSize.width` -1)*0.5  \\ 0 && f_y && ( `imgSize.height` -1)*0.5  \\ 0 && 0 && 1 \\end{bmatrix} ,]
+
+    where `f_x` and `f_y` are `(0,0)` and `(1,1)` elements of cameraMatrix, respectively.
+
+    By default, the undistortion functions in OpenCV (see #initUndistortRectifyMap, #undistort) do not
+    move the principal point. However, when you work with stereo, it is important to move the principal
+    points in both views to the same y-coordinate (which is required by most of stereo correspondence
+    algorithms), and may be to the same x-coordinate too. So, you can form the new camera matrix for
+    each view where the principal points are located at the center.
+
+    @param cameraMatrix Input camera matrix.
+    @param imgsize Camera view image size in pixels.
+    @param centerPrincipalPoint Location of the principal point in the new camera matrix. The
+    parameter indicates whether this location should be at the image center or not.
+    """
+    ...
+
+def getDerivKernels(dx, dy, ksize, kx=..., ky=..., normalize=..., ktype=...):
+    """
+    getDerivKernels(dx, dy, ksize[, kx[, ky[, normalize[, ktype]]]]) -> kx, ky
+    @brief Returns filter coefficients for computing spatial image derivatives.
+
+    The function computes and returns the filter coefficients for spatial image derivatives. When
+    `ksize=FILTER_SCHARR`, the Scharr `3 x 3` kernels are generated (see #Scharr). Otherwise, Sobel
+    kernels are generated (see #Sobel). The filters are normally passed to #sepFilter2D or to
+
+    @param kx Output matrix of row filter coefficients. It has the type ktype .
+    @param ky Output matrix of column filter coefficients. It has the type ktype .
+    @param dx Derivative order in respect of x.
+    @param dy Derivative order in respect of y.
+    @param ksize Aperture size. It can be FILTER_SCHARR, 1, 3, 5, or 7.
+    @param normalize Flag indicating whether to normalize (scale down) the filter coefficients or not.
+    Theoretically, the coefficients should have the denominator `=2^{ksize*2-dx-dy-2}`. If you are
+    going to filter floating-point images, you are likely to use the normalized kernels. But if you
+    compute derivatives of an 8-bit image, store the results in a 16-bit image, and wish to preserve
+    all the fractional bits, you may want to set normalize=false .
+    @param ktype Type of filter coefficients. It can be CV_32f or CV_64F .
+    """
+    ...
+
+def getFontScaleFromHeight(fontFace, pixelHeight, thickness=...):
+    """
+    getFontScaleFromHeight(fontFace, pixelHeight[, thickness]) -> retval
+    @brief Calculates the font-specific size to use to achieve a given height in pixels.
+
+    @param fontFace Font to use, see cv::HersheyFonts.
+    @param pixelHeight Pixel height to compute the fontScale for
+    @param thickness Thickness of lines used to render the text.See putText for details.
+    @return The fontSize to use for cv::putText
+
+    @see cv::putText
+    """
+    ...
+
+def getGaborKernel(ksize, sigma, theta, lambd, gamma, psi=..., ktype=...):
+    """
+    getGaborKernel(ksize, sigma, theta, lambd, gamma[, psi[, ktype]]) -> retval
+    @brief Returns Gabor filter coefficients.
+
+    For more details about gabor filter equations and parameters, see: [Gabor
+    Filter](http://en.wikipedia.org/wiki/Gabor_filter).
+
+    @param ksize Size of the filter returned.
+    @param sigma Standard deviation of the gaussian envelope.
+    @param theta Orientation of the normal to the parallel stripes of a Gabor function.
+    @param lambd Wavelength of the sinusoidal factor.
+    @param gamma Spatial aspect ratio.
+    @param psi Phase offset.
+    @param ktype Type of filter coefficients. It can be CV_32F or CV_64F .
+    """
+    ...
+
+def getGaussianKernel(ksize, sigma, ktype=...):
+    """
+    getGaussianKernel(ksize, sigma[, ktype]) -> retval
+    @brief Returns Gaussian filter coefficients.
+
+    The function computes and returns the ``ksize` x 1` matrix of Gaussian filter
+    coefficients:
+
+    [G_i= \\alpha *e^{-(i-( `ksize` -1)/2)^2/(2* `sigma`^2)},]
+
+    where `i=0..`ksize`-1` and `\\alpha` is the scale factor chosen so that `∑_i G_i=1`.
+
+    Two of such generated kernels can be passed to sepFilter2D. Those functions automatically recognize
+    smoothing kernels (a symmetrical kernel with sum of weights equal to 1) and handle them accordingly.
+    You may also use the higher-level GaussianBlur.
+    @param ksize Aperture size. It should be odd ( ``ksize` \\mod 2 = 1` ) and positive.
+    @param sigma Gaussian standard deviation. If it is non-positive, it is computed from ksize as
+    `sigma = 0.3*((ksize-1)*0.5 - 1) + 0.8`.
+    @param ktype Type of filter coefficients. It can be CV_32F or CV_64F .
+    @sa  sepFilter2D, getDerivKernels, getStructuringElement, GaussianBlur
+    """
+    ...
+
+def getHardwareFeatureName(feature):
+    """
+    getHardwareFeatureName(feature) -> retval
+    @brief Returns feature name by ID
+
+    Returns empty string if feature is not defined
+    """
+    ...
+
 def getLogLevel(*args, **kwargs) -> Any: ...  # incomplete
-def getNumThreads(*args, **kwargs) -> Any: ...  # incomplete
-def getNumberOfCPUs(*args, **kwargs) -> Any: ...  # incomplete
-def getOptimalDFTSize(*args, **kwargs) -> Any: ...  # incomplete
-def getOptimalNewCameraMatrix(*args, **kwargs) -> Any: ...  # incomplete
-def getPerspectiveTransform(*args, **kwargs) -> Any: ...  # incomplete
-def getRectSubPix(*args, **kwargs) -> Any: ...  # incomplete
-def getRotationMatrix2D(*args, **kwargs) -> Any: ...  # incomplete
-def getStructuringElement(*args, **kwargs) -> Any: ...  # incomplete
-def getTextSize(*args, **kwargs) -> Any: ...  # incomplete
-def getThreadNum(*args, **kwargs) -> Any: ...  # incomplete
-def getTickCount(*args, **kwargs) -> Any: ...  # incomplete
-def getTickFrequency() -> Incomplete: ...
-def getTrackbarPos(*args, **kwargs) -> Any: ...  # incomplete
-def getValidDisparityROI(*args, **kwargs) -> Any: ...  # incomplete
-def getVersionMajor(*args, **kwargs) -> Any: ...  # incomplete
-def getVersionMinor(*args, **kwargs) -> Any: ...  # incomplete
-def getVersionRevision(*args, **kwargs) -> Any: ...  # incomplete
-def getVersionString(*args, **kwargs) -> Any: ...  # incomplete
-def getWindowImageRect(*args, **kwargs) -> Any: ...  # incomplete
-def getWindowProperty(*args, **kwargs) -> Any: ...  # incomplete
-def goodFeaturesToTrack(*args, **kwargs) -> Any: ...  # incomplete
+def getNumThreads():
+    """
+    getNumThreads() -> retval
+    @brief Returns the number of threads used by OpenCV for parallel regions.
+
+    Always returns 1 if OpenCV is built without threading support.
+
+    The exact meaning of return value depends on the threading framework used by OpenCV library:
+    - `TBB` - The number of threads, that OpenCV will try to use for parallel regions. If there is
+     any tbb::thread_scheduler_init in user code conflicting with OpenCV, then function returns
+     default number of threads used by TBB library.
+    - `OpenMP` - An upper bound on the number of threads that could be used to form a new team.
+    - `Concurrency` - The number of threads, that OpenCV will try to use for parallel regions.
+    - `GCD` - Unsupported; returns the GCD thread pool limit (512) for compatibility.
+    - `C=` - The number of threads, that OpenCV will try to use for parallel regions, if before
+     called setNumThreads with threads > 0, otherwise returns the number of logical CPUs,
+     available for the process.
+    @sa setNumThreads, getThreadNum
+    """
+    ...
+
+def getNumberOfCPUs():
+    """
+    getNumberOfCPUs() -> retval
+    @brief Returns the number of logical CPUs available for the process.
+    """
+    ...
+
+def getOptimalDFTSize(vecsize):
+    """
+    getOptimalDFTSize(vecsize) -> retval
+    @brief Returns the optimal DFT size for a given vector size.
+
+    DFT performance is not a monotonic function of a vector size. Therefore, when you calculate
+    convolution of two arrays or perform the spectral analysis of an array, it usually makes sense to
+    pad the input data with zeros to get a bit larger array that can be transformed much faster than the
+    original one. Arrays whose size is a power-of-two (2, 4, 8, 16, 32, ...) are the fastest to process.
+    Though, the arrays whose size is a product of 2's, 3's, and 5's (for example, 300 = 5 * 5 * 3 * 2 * 2)
+    are also processed quite efficiently.
+
+    The function cv::getOptimalDFTSize returns the minimum number N that is greater than or equal to vecsize
+    so that the DFT of a vector of size N can be processed efficiently. In the current implementation N
+    = 2 ^p^  *  3 ^q^  *  5 ^r^ for some integer p, q, r.
+
+    The function returns a negative number if vecsize is too large (very close to INT_MAX ).
+
+    While the function cannot be used directly to estimate the optimal vector size for DCT transform
+    (since the current DCT implementation supports only even-size vectors), it can be easily processed
+    as getOptimalDFTSize((vecsize+1)/2) * 2.
+    @param vecsize vector size.
+    @sa dft , dct , idft , idct , mulSpectrums
+    """
+    ...
+
+def getOptimalNewCameraMatrix(cameraMatrix, distCoeffs, imageSize, alpha, newImgSize=..., centerPrincipalPoint=...):
+    """
+    getOptimalNewCameraMatrix(cameraMatrix, distCoeffs, imageSize, alpha[, newImgSize[, centerPrincipalPoint]]) -> retval, validPixROI
+    @brief Returns the new camera matrix based on the free scaling parameter.
+
+    @param cameraMatrix Input camera matrix.
+    @param distCoeffs Input vector of distortion coefficients
+    `(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]])` of
+    4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are
+    assumed.
+    @param imageSize Original image size.
+    @param alpha Free scaling parameter between 0 (when all the pixels in the undistorted image are
+    valid) and 1 (when all the source image pixels are retained in the undistorted image). See
+    stereoRectify for details.
+    @param newImgSize Image size after rectification. By default, it is set to imageSize .
+    @param validPixROI Optional output rectangle that outlines all-good-pixels region in the
+    undistorted image. See roi1, roi2 description in stereoRectify .
+    @param centerPrincipalPoint Optional flag that indicates whether in the new camera matrix the
+    principal point should be at the image center or not. By default, the principal point is chosen to
+    best fit a subset of the source image (determined by alpha) to the corrected image.
+    @return new_camera_matrix Output new camera matrix.
+
+    The function computes and returns the optimal new camera matrix based on the free scaling parameter.
+    By varying this parameter, you may retrieve only sensible pixels alpha=0 , keep all the original
+    image pixels if there is valuable information in the corners alpha=1 , or get something in between.
+    When alpha>0 , the undistorted result is likely to have some black pixels corresponding to
+    "virtual" pixels outside of the captured distorted image. The original camera matrix, distortion
+    coefficients, the computed new camera matrix, and newImageSize should be passed to
+    initUndistortRectifyMap to produce the maps for remap .
+    """
+    ...
+
+def getPerspectiveTransform(src: Mat, dts: Mat, solveMethod=...):
+    """
+    getPerspectiveTransform(src, dst[, solveMethod]) -> retval
+    @brief Calculates a perspective transform from four pairs of the corresponding points.
+
+    The function calculates the `3 x 3` matrix of a perspective transform so that:
+
+    [\\begin{bmatrix} t_i x'_i \\ t_i y'_i \\ t_i \\end{bmatrix} = `map_matrix` · \\begin{bmatrix} x_i \\ y_i \\ 1 \\end{bmatrix}]
+
+    where
+
+    [dst(i)=(x'_i,y'_i), src(i)=(x_i, y_i), i=0,1,2,3]
+
+    @param src Coordinates of quadrangle vertices in the source image.
+    @param dst Coordinates of the corresponding quadrangle vertices in the destination image.
+    @param solveMethod method passed to cv::solve (#DecompTypes)
+
+    @sa  findHomography, warpPerspective, perspectiveTransform
+    """
+    ...
+
+def getRectSubPix(image: Mat, patchSize, center, patch=..., patchType=...):
+    """
+    getRectSubPix(image, patchSize, center[, patch[, patchType]]) -> patch
+    @brief Retrieves a pixel rectangle from an image with sub-pixel accuracy.
+
+    The function getRectSubPix extracts pixels from src:
+
+    [patch(x, y) = src(x +  `center.x` - ( `dst.cols` -1)*0.5, y +  `center.y` - ( `dst.rows` -1)*0.5)]
+
+    where the values of the pixels at non-integer coordinates are retrieved using bilinear
+    interpolation. Every channel of multi-channel images is processed independently. Also
+    the image should be a single channel or three channel image. While the center of the
+    rectangle must be inside the image, parts of the rectangle may be outside.
+
+    @param image Source image.
+    @param patchSize Size of the extracted patch.
+    @param center Floating point coordinates of the center of the extracted rectangle within the
+    source image. The center must be inside the image.
+    @param patch Extracted patch that has the size patchSize and the same number of channels as src .
+    @param patchType Depth of the extracted pixels. By default, they have the same depth as src .
+
+    @sa  warpAffine, warpPerspective
+    """
+    ...
+
+def getRotationMatrix2D(center, angle, scale):
+    """
+    getRotationMatrix2D(center, angle, scale) -> retval
+    @brief Calculates an affine matrix of 2D rotation.
+
+    The function calculates the following matrix:
+
+    [\\begin{bmatrix} \\alpha &  \\beta & (1- \\alpha ) · `center.x` -  \\beta · `center.y` \\ - \\beta &  \\alpha &  \\beta · `center.x` + (1- \\alpha ) · `center.y` \\end{bmatrix}]
+
+    where
+
+    [\\begin{array}{l} \\alpha =  `scale` · \\cos `angle` , \\ \\beta =  `scale` · ∿ `angle` \\end{array}]
+
+    The transformation maps the rotation center to itself. If this is not the target, adjust the shift.
+
+    @param center Center of the rotation in the source image.
+    @param angle Rotation angle in degrees. Positive values mean counter-clockwise rotation (the
+    coordinate origin is assumed to be the top-left corner).
+    @param scale Isotropic scale factor.
+
+    @sa  getAffineTransform, warpAffine, transform
+    """
+    ...
+
+def getStructuringElement(shape, ksize, anchor=...):
+    """
+    getStructuringElement(shape, ksize[, anchor]) -> retval
+    @brief Returns a structuring element of the specified size and shape for morphological operations.
+
+    The function constructs and returns the structuring element that can be further passed to #erode,
+    #dilate or #morphologyEx. But you can also construct an arbitrary binary mask yourself and use it as
+    the structuring element.
+
+    @param shape Element shape that could be one of #MorphShapes
+    @param ksize Size of the structuring element.
+    @param anchor Anchor position within the element. The default value `(-1, -1)` means that the
+    anchor is at the center. Note that only the shape of a cross-shaped element depends on the anchor
+    position. In other cases the anchor just regulates how much the result of the morphological
+    operation is shifted.
+    """
+    ...
+
+def getTextSize(text, fontFace, fontScale, thickness):
+    """
+    getTextSize(text, fontFace, fontScale, thickness) -> retval, baseLine
+    @brief Calculates the width and height of a text string.
+
+    The function cv::getTextSize calculates and returns the size of a box that contains the specified text.
+    That is, the following code renders some text, the tight box surrounding it, and the baseline: :
+    @code
+    String text = "Funny text inside the box";
+    int fontFace = FONT_HERSHEY_SCRIPT_SIMPLEX;
+    double fontScale = 2;
+    int thickness = 3;
+
+    Mat img(600, 800, CV_8UC3, Scalar::all(0));
+
+    int baseline=0;
+    Size textSize = getTextSize(text, fontFace,
+                 fontScale, thickness, &baseline);
+    baseline += thickness;
+
+    // center the text
+    Point textOrg((img.cols - textSize.width)/2,
+            (img.rows + textSize.height)/2);
+
+    // draw the box
+    rectangle(img, textOrg + Point(0, baseline),
+         textOrg + Point(textSize.width, -textSize.height),
+         Scalar(0,0,255));
+    // ... and the baseline first
+    line(img, textOrg + Point(0, thickness),
+        textOrg + Point(textSize.width, thickness),
+        Scalar(0, 0, 255));
+
+    // then put the text itself
+    putText(img, text, textOrg, fontFace, fontScale,
+          Scalar::all(255), thickness, 8);
+    @endcode
+
+    @param text Input text string.
+    @param fontFace Font to use, see #HersheyFonts.
+    @param fontScale Font scale factor that is multiplied by the font-specific base size.
+    @param thickness Thickness of lines used to render the text. See #putText for details.
+    @param[out] baseLine y-coordinate of the baseline relative to the bottom-most text
+    point.
+    @return The size of a box that contains the specified text.
+
+    @see putText
+    """
+    ...
+
+def getThreadNum():
+    """
+    getThreadNum() -> retval
+    @brief Returns the index of the currently executed thread within the current parallel region. Always
+    returns 0 if called outside of parallel region.
+
+    @deprecated Current implementation doesn't corresponding to this documentation.
+
+    The exact meaning of the return value depends on the threading framework used by OpenCV library:
+    - `TBB` - Unsupported with current 4.1 TBB release. Maybe will be supported in future.
+    - `OpenMP` - The thread number, within the current team, of the calling thread.
+    - `Concurrency` - An ID for the virtual processor that the current context is executing on (0
+     for master thread and unique number for others, but not necessary 1,2,3,...).
+    - `GCD` - System calling thread's ID. Never returns 0 inside parallel region.
+    - `C=` - The index of the current parallel task.
+    @sa setNumThreads, getNumThreads
+    """
+    ...
+
+def getTickCount():
+    """
+    getTickCount() -> retval
+    @brief Returns the number of ticks.
+
+    The function returns the number of ticks after the certain event (for example, when the machine was
+    turned on). It can be used to initialize RNG or to measure a function execution time by reading the
+    tick count before and after the function call.
+    @sa getTickFrequency, TickMeter
+    """
+    ...
+
+def getTickFrequency():
+    """
+    getTickFrequency() -> retval
+    @brief Returns the number of ticks per second.
+
+    The function returns the number of ticks per second. That is, the following code computes the
+    execution time in seconds:
+    @code
+    double t = (double)getTickCount();
+    // do something ...
+    t = ((double)getTickCount() - t)/getTickFrequency();
+    @endcode
+    @sa getTickCount, TickMeter
+    """
+    ...
+
+def getTrackbarPos(trackbarname, winname):
+    """
+    getTrackbarPos(trackbarname, winname) -> retval
+    @brief Returns the trackbar position.
+
+    The function returns the current position of the specified trackbar.
+
+    @note
+
+    [__Qt Backend Only__] winname can be empty if the trackbar is attached to the control
+    panel.
+
+    @param trackbarname Name of the trackbar.
+    @param winname Name of the window that is the parent of the trackbar.
+    """
+    ...
+
+def getValidDisparityROI(roi1, roi2, minDisparity, numberOfDisparities, blockSize):
+    """
+    getValidDisparityROI(roi1, roi2, minDisparity, numberOfDisparities, blockSize) -> retval
+
+    """
+    ...
+
+def getVersionMajor():
+    """
+    getVersionMajor() -> retval
+    @brief Returns major library version
+    """
+    ...
+
+def getVersionMinor():
+    """
+    getVersionMinor() -> retval
+    @brief Returns minor library version
+    """
+    ...
+
+def getVersionRevision():
+    """
+    getVersionRevision() -> retval
+    @brief Returns revision field of the library version
+    """
+    ...
+
+def getVersionString():
+    """
+    getVersionString() -> retval
+    @brief Returns library version string
+
+    For example "3.4.1-dev".
+
+    @sa getMajorVersion, getMinorVersion, getRevisionVersion
+    """
+    ...
+
+def getWindowImageRect(winname):
+    """
+    getWindowImageRect(winname) -> retval
+    @brief Provides rectangle of image in the window.
+
+    The function getWindowImageRect returns the client screen coordinates, width and height of the image rendering area.
+
+    @param winname Name of the window.
+
+    @sa resizeWindow moveWindow
+    """
+    ...
+
+def getWindowProperty(winname, prop_id):
+    """
+    getWindowProperty(winname, prop_id) -> retval
+    @brief Provides parameters of a window.
+
+    The function getWindowProperty returns properties of a window.
+
+    @param winname Name of the window.
+    @param prop_id Window property to retrieve. The following operation flags are available: (cv::WindowPropertyFlags)
+
+    @sa setWindowProperty
+    """
+    ...
+
+def goodFeaturesToTrack(
+    image: Mat, maxCorners, qualityLevel, minDistance, corners=..., mask: Mat = ..., blockSize=..., useHarrisDetector=..., k=...
+):
+    """
+    goodFeaturesToTrack(image, maxCorners, qualityLevel, minDistance[, corners[, mask[, blockSize[, useHarrisDetector[, k]]]]]) -> corners
+    @brief Determines strong corners on an image.
+
+    The function finds the most prominent corners in the image or in the specified image region, as
+    described in @cite Shi94
+
+    -   Function calculates the corner quality measure at every source image pixel using the
+    #cornerMinEigenVal or #cornerHarris .
+    -   Function performs a non-maximum suppression (the local maximums in *3 x 3* neighborhood are
+    retained).
+    -   The corners with the minimal eigenvalue less than
+    ``qualityLevel` · \\max_{x,y} qualityMeasureMap(x,y)` are rejected.
+    -   The remaining corners are sorted by the quality measure in the descending order.
+    -   Function throws away each corner for which there is a stronger corner at a distance less than
+    maxDistance.
+
+    The function can be used to initialize a point-based tracker of an object.
+
+    @note If the function is called with different values A and B of the parameter qualityLevel , and
+    A > B, the vector of returned corners with qualityLevel=A will be the prefix of the output vector
+    with qualityLevel=B .
+
+    @param image Input 8-bit or floating-point 32-bit, single-channel image.
+    @param corners Output vector of detected corners.
+    @param maxCorners Maximum number of corners to return. If there are more corners than are found,
+    the strongest of them is returned. `maxCorners <= 0` implies that no limit on the maximum is set
+    and all detected corners are returned.
+    @param qualityLevel Parameter characterizing the minimal accepted quality of image corners. The
+    parameter value is multiplied by the best corner quality measure, which is the minimal eigenvalue
+    (see #cornerMinEigenVal ) or the Harris function response (see #cornerHarris ). The corners with the
+    quality measure less than the product are rejected. For example, if the best corner has the
+    quality measure = 1500, and the qualityLevel=0.01 , then all the corners with the quality measure
+    less than 15 are rejected.
+    @param minDistance Minimum possible Euclidean distance between the returned corners.
+    @param mask Optional region of interest. If the image is not empty (it needs to have the type
+    CV_8UC1 and the same size as image ), it specifies the region in which the corners are detected.
+    @param blockSize Size of an average block for computing a derivative covariation matrix over each
+    pixel neighborhood. See cornerEigenValsAndVecs .
+    @param useHarrisDetector Parameter indicating whether to use a Harris detector (see #cornerHarris)
+    or #cornerMinEigenVal.
+    @param k Free parameter of the Harris detector.
+
+    @sa  cornerMinEigenVal, cornerHarris, calcOpticalFlowPyrLK, estimateRigidTransform,
+
+
+
+    goodFeaturesToTrack(image, maxCorners, qualityLevel, minDistance, mask, blockSize, gradientSize[, corners[, useHarrisDetector[, k]]]) -> corners
+
+    """
+    ...
+
 def goodFeaturesToTrackWithQuality(*args, **kwargs) -> Any: ...  # incomplete
-def grabCut(*args, **kwargs) -> Any: ...  # incomplete
-def groupRectangles(*args, **kwargs) -> Any: ...  # incomplete
-def haveImageReader(*args, **kwargs) -> Any: ...  # incomplete
-def haveImageWriter(*args, **kwargs) -> Any: ...  # incomplete
-def haveOpenVX(*args, **kwargs) -> Any: ...  # incomplete
-def hconcat(matrices, out) -> Incomplete: ...
-def idct(src, dst, flags) -> Incomplete: ...
-def idft(*args, **kwargs) -> Any: ...  # incomplete
-def illuminationChange(*args, **kwargs) -> Any: ...  # incomplete
+def grabCut(img: Mat, mask: Mat | None, rect, bgdModel, fgdModel, iterCount, mode=...):
+    """
+    grabCut(img, mask, rect, bgdModel, fgdModel, iterCount[, mode]) -> mask, bgdModel, fgdModel
+    @brief Runs the GrabCut algorithm.
+
+    The function implements the [GrabCut image segmentation algorithm](http://en.wikipedia.org/wiki/GrabCut).
+
+    @param img Input 8-bit 3-channel image.
+    @param mask Input/output 8-bit single-channel mask. The mask is initialized by the function when
+    mode is set to #GC_INIT_WITH_RECT. Its elements may have one of the #GrabCutClasses.
+    @param rect ROI containing a segmented object. The pixels outside of the ROI are marked as
+    "obvious background". The parameter is only used when mode==#GC_INIT_WITH_RECT .
+    @param bgdModel Temporary array for the background model. Do not modify it while you are
+    processing the same image.
+    @param fgdModel Temporary arrays for the foreground model. Do not modify it while you are
+    processing the same image.
+    @param iterCount Number of iterations the algorithm should make before returning the result. Note
+    that the result can be refined with further calls with mode==#GC_INIT_WITH_MASK or
+    mode==GC_EVAL .
+    @param mode Operation mode that could be one of the #GrabCutModes
+    """
+    ...
+
+def groupRectangles(rectList, groupThreshold, eps=...):
+    """
+    groupRectangles(rectList, groupThreshold[, eps]) -> rectList, weights
+    @overload
+    """
+    ...
+
+def haveImageReader(filename: str):
+    """
+    haveImageReader(filename) -> retval
+    @brief Returns true if the specified image can be decoded by OpenCV
+
+    @param filename File name of the image
+    """
+    ...
+
+def haveImageWriter(filename: str):
+    """
+    haveImageWriter(filename) -> retval
+    @brief Returns true if an image with the specified filename can be encoded by OpenCV
+
+    @param filename File name of the image
+    """
+    ...
+
+def haveOpenVX():
+    """
+    haveOpenVX() -> retval
+
+    """
+    ...
+
+def hconcat(src: Mat, dts: Mat = ...):
+    """
+    hconcat(src[, dst]) -> dst
+    @overload
+    @code{.cpp}
+    std::vector<cv::Mat> matrices = { cv::Mat(4, 1, CV_8UC1, cv::Scalar(1)),
+                      cv::Mat(4, 1, CV_8UC1, cv::Scalar(2)),
+                      cv::Mat(4, 1, CV_8UC1, cv::Scalar(3)),};
+
+    cv::Mat out;
+    cv::hconcat( matrices, out );
+    //out:
+    //[1, 2, 3;
+    // 1, 2, 3;
+    // 1, 2, 3;
+    // 1, 2, 3]
+    @endcode
+    @param src input array or vector of matrices. all of the matrices must have the same number of rows and the same depth.
+    @param dst output array. It has the same number of rows and depth as the src, and the sum of cols of the src.
+    same depth.
+    """
+    ...
+
+def idct(src: Mat, dts: Mat = ..., flags: int = ...):
+    """
+    idct(src[, dst[, flags]]) -> dst
+    @brief Calculates the inverse Discrete Cosine Transform of a 1D or 2D array.
+
+    idct(src, dst, flags) is equivalent to dct(src, dst, flags | DCT_INVERSE).
+    @param src input floating-point single-channel array.
+    @param dst output array of the same size and type as src.
+    @param flags operation flags.
+    @sa  dct, dft, idft, getOptimalDFTSize
+    """
+    ...
+
+def idft(src: Mat, dts: Mat = ..., flags: int = ..., nonzeroRows=...):
+    """
+    idft(src[, dst[, flags[, nonzeroRows]]]) -> dst
+    @brief Calculates the inverse Discrete Fourier Transform of a 1D or 2D array.
+
+    idft(src, dst, flags) is equivalent to dft(src, dst, flags | #DFT_INVERSE) .
+    @note None of dft and idft scales the result by default. So, you should pass #DFT_SCALE to one of
+    dft or idft explicitly to make these transforms mutually inverse.
+    @sa dft, dct, idct, mulSpectrums, getOptimalDFTSize
+    @param src input floating-point real or complex array.
+    @param dst output array whose size and type depend on the flags.
+    @param flags operation flags (see dft and #DftFlags).
+    @param nonzeroRows number of dst rows to process; the rest of the rows have undefined content (see
+    the convolution sample in dft description.
+    """
+    ...
+
+def illuminationChange(src: Mat, mask: Mat, dts: Mat = ..., alpha=..., beta=...):
+    """
+    illuminationChange(src, mask[, dst[, alpha[, beta]]]) -> dst
+    @brief Applying an appropriate non-linear transformation to the gradient field inside the selection and
+    then integrating back with a Poisson solver, modifies locally the apparent illumination of an image.
+
+    @param src Input 8-bit 3-channel image.
+    @param mask Input 8-bit 1 or 3-channel image.
+    @param dst Output image with the same size and type as src.
+    @param alpha Value ranges between 0-2.
+    @param beta Value ranges between 0-2.
+
+    This is useful to highlight under-exposed foreground objects or to reduce specular reflections.
+    """
+    ...
+
 def imcount(*args, **kwargs) -> Any: ...  # incomplete
-def imdecode(*args, **kwargs) -> Any: ...  # incomplete
-def imencode(*args, **kwargs) -> Any: ...  # incomplete
-def imread(*args, **kwargs) -> Any: ...  # incomplete
-def imreadmulti(*args, **kwargs) -> Any: ...  # incomplete
-def imshow(winname, mat) -> None: ...
-def imwrite(*args, **kwargs) -> Any: ...  # incomplete
+def imdecode(buf, flags: int):
+    """
+    imdecode(buf, flags) -> retval
+    @brief Reads an image from a buffer in memory.
+
+    The function imdecode reads an image from the specified buffer in the memory. If the buffer is too short or
+    contains invalid data, the function returns an empty matrix ( Mat::data==NULL ).
+
+    See cv::imread for the list of supported formats and flags description.
+
+    @note In the case of color images, the decoded images will have the channels stored in **B G R** order.
+    @param buf Input array or vector of bytes.
+    @param flags The same flags as in cv::imread, see cv::ImreadModes.
+    """
+    ...
+
+def imencode(ext, img: Mat, params=...):
+    """
+    imencode(ext, img[, params]) -> retval, buf
+    @brief Encodes an image into a memory buffer.
+
+    The function imencode compresses the image and stores it in the memory buffer that is resized to fit the
+    result. See cv::imwrite for the list of supported formats and flags description.
+
+    @param ext File extension that defines the output format.
+    @param img Image to be written.
+    @param buf Output buffer resized to fit the compressed image.
+    @param params Format-specific parameters. See cv::imwrite and cv::ImwriteFlags.
+    """
+    ...
+
+def imread(filename: str, flags: int = ...) -> Mat:
+    """
+    imread(filename[, flags]) -> retval
+    @brief Loads an image from a file.
+
+    @anchor imread
+
+    The function imread loads an image from the specified file and returns it. If the image cannot be
+    read (because of missing file, improper permissions, unsupported or invalid format), the function
+    returns an empty matrix ( Mat::data==NULL ).
+
+    Currently, the following file formats are supported:
+
+    -   Windows bitmaps -  * .bmp,  * .dib (always supported)
+    -   JPEG files -  * .jpeg,  * .jpg,  * .jpe (see the *Note* section)
+    -   JPEG 2000 files -  * .jp2 (see the *Note* section)
+    -   Portable Network Graphics -  * .png (see the *Note* section)
+    -   WebP -  * .webp (see the *Note* section)
+    -   Portable image format -  * .pbm,  * .pgm,  * .ppm  * .pxm,  * .pnm (always supported)
+    -   PFM files -  * .pfm (see the *Note* section)
+    -   Sun rasters -  * .sr,  * .ras (always supported)
+    -   TIFF files -  * .tiff,  * .tif (see the *Note* section)
+    -   OpenEXR Image files -  * .exr (see the *Note* section)
+    -   Radiance HDR -  * .hdr,  * .pic (always supported)
+    -   Raster and Vector geospatial data supported by GDAL (see the *Note* section)
+
+    @note
+    -   The function determines the type of an image by the content, not by the file extension.
+    -   In the case of color images, the decoded images will have the channels stored in **B G R** order.
+    -   When using IMREAD_GRAYSCALE, the codec\'s internal grayscale conversion will be used, if available.
+    Results may differ to the output of cvtColor()
+    -   On Microsoft Windows *  OS and MacOSX * , the codecs shipped with an OpenCV image (libjpeg,
+    libpng, libtiff, and libjasper) are used by default. So, OpenCV can always read JPEGs, PNGs,
+    and TIFFs. On MacOSX, there is also an option to use native MacOSX image readers. But beware
+    that currently these native image loaders give images with different pixel values because of
+    the color management embedded into MacOSX.
+    -   On Linux * , BSD flavors and other Unix-like open-source operating systems, OpenCV looks for
+    codecs supplied with an OS image. Install the relevant packages (do not forget the development
+    files, for example, "libjpeg-dev", in Debian *  and Ubuntu * ) to get the codec support or turn
+    on the OPENCV_BUILD_3RDPARTY_LIBS flag in CMake.
+    -   In the case you set *WITH_GDAL* flag to true in CMake and @ref IMREAD_LOAD_GDAL to load the image,
+    then the [GDAL](http://www.gdal.org) driver will be used in order to decode the image, supporting
+    the following formats: [Raster](http://www.gdal.org/formats_list.html),
+    [Vector](http://www.gdal.org/ogr_formats.html).
+    -   If EXIF information is embedded in the image file, the EXIF orientation will be taken into account
+    and thus the image will be rotated accordingly except if the flags @ref IMREAD_IGNORE_ORIENTATION
+    or @ref IMREAD_UNCHANGED are passed.
+    -   Use the IMREAD_UNCHANGED flag to keep the floating point values from PFM image.
+    -   By default number of pixels must be less than 2^30. Limit can be set using system
+    variable OPENCV_IO_MAX_IMAGE_PIXELS
+
+    @param filename Name of file to be loaded.
+    @param flags Flag that can take values of cv::ImreadModes
+    """
+    ...
+
+def imreadmulti(filename: str, mats=..., flags: int = ...):
+    """
+    imreadmulti(filename[, mats[, flags]]) -> retval, mats
+    @brief Loads a multi-page image from a file.
+
+    The function imreadmulti loads a multi-page image from the specified file into a vector of Mat objects.
+    @param filename Name of file to be loaded.
+    @param flags Flag that can take values of cv::ImreadModes, default with cv::IMREAD_ANYCOLOR.
+    @param mats A vector of Mat objects holding each page, if more than one.
+    @sa cv::imread
+    """
+    ...
+
+def imshow(winname, mat) -> None:
+    """
+    imshow(winname, mat) -> None
+    @brief Displays an image in the specified window.
+
+    The function imshow displays an image in the specified window. If the window was created with the
+    cv::WINDOW_AUTOSIZE flag, the image is shown with its original size, however it is still limited by the screen resolution.
+    Otherwise, the image is scaled to fit the window. The function may scale the image, depending on its depth:
+
+    -   If the image is 8-bit unsigned, it is displayed as is.
+    -   If the image is 16-bit unsigned or 32-bit integer, the pixels are divided by 256. That is, the
+    value range [0,255 * 256] is mapped to [0,255].
+    -   If the image is 32-bit or 64-bit floating-point, the pixel values are multiplied by 255. That is, the
+    value range [0,1] is mapped to [0,255].
+
+    If window was created with OpenGL support, cv::imshow also support ogl::Buffer , ogl::Texture2D and
+    cuda::GpuMat as input.
+
+    If the window was not created before this function, it is assumed creating a window with cv::WINDOW_AUTOSIZE.
+
+    If you need to show an image that is bigger than the screen resolution, you will need to call namedWindow("", WINDOW_NORMAL) before the imshow.
+
+    @note This function should be followed by cv::waitKey function which displays the image for specified
+    milliseconds. Otherwise, it won\'t display the image. For example, **waitKey(0)** will display the window
+    infinitely until any keypress (it is suitable for image display). **waitKey(25)** will display a frame
+    for 25 ms, after which display will be automatically closed. (If you put it in a loop to read
+    videos, it will display the video frame-by-frame)
+
+    @note
+
+    [__Windows Backend Only__] Pressing Ctrl+C will copy the image to the clipboard.
+
+    [__Windows Backend Only__] Pressing Ctrl+S will show a dialog to save the image.
+
+    @param winname Name of the window.
+    @param mat Image to be shown.
+    """
+    ...
+
+def imwrite(filename: str, img: Mat, params: list[int] = ...) -> bool:
+    """
+    imwrite(filename, img[, params]) -> retval
+    @brief Saves an image to a specified file.
+
+    The function imwrite saves the image to the specified file. The image format is chosen based on the
+    filename extension (see cv::imread for the list of extensions). In general, only 8-bit
+    single-channel or 3-channel (with 'BGR' channel order) images
+    can be saved using this function, with these exceptions:
+
+    - 16-bit unsigned (CV_16U) images can be saved in the case of PNG, JPEG 2000, and TIFF formats
+    - 32-bit float (CV_32F) images can be saved in PFM, TIFF, OpenEXR, and Radiance HDR formats;
+     3-channel (CV_32FC3) TIFF images will be saved using the LogLuv high dynamic range encoding
+     (4 bytes per pixel)
+    - PNG images with an alpha channel can be saved using this function. To do this, create
+    8-bit (or 16-bit) 4-channel image BGRA, where the alpha channel goes last. Fully transparent pixels
+    should have alpha set to 0, fully opaque pixels should have alpha set to 255/65535 (see the code sample below).
+    - Multiple images (vector of Mat) can be saved in TIFF format (see the code sample below).
+
+    If the format, depth or channel order is different, use
+    Mat::convertTo and cv::cvtColor to convert it before saving. Or, use the universal FileStorage I/O
+    functions to save the image to XML or YAML format.
+
+    The sample below shows how to create a BGRA image, how to set custom compression parameters and save it to a PNG file.
+    It also demonstrates how to save multiple images in a TIFF file:
+    @include snippets/imgcodecs_imwrite.cpp
+    @param filename Name of the file.
+    @param img (Mat or vector of Mat) Image or Images to be saved.
+    @param params Format-specific parameters encoded as pairs (paramId_1, paramValue_1, paramId_2, paramValue_2, ... .) see cv::ImwriteFlags
+    """
+    ...
+
 def imwritemulti(*args, **kwargs) -> Any: ...  # incomplete
-def inRange(*args, **kwargs) -> Any: ...  # incomplete
-def initCameraMatrix2D(*args, **kwargs) -> Any: ...  # incomplete
+def inRange(src: Mat, lowerBound: Mat, upperbBound: Mat, dts: Mat = ...) -> Mat:
+    """
+    inRange(src, lowerBound, upperbBound[, dst]) -> dst
+    @brief  Checks if array elements lie between the elements of two other arrays.
+
+    The function checks the range as follows:
+    -   For every element of a single-channel input array:
+    [`dst` (I)= `lowerBound` (I)_0  ≤ `src` (I)_0 ≤  `upperbBound` (I)_0]
+    -   For two-channel arrays:
+    [`dst` (I)= `lowerBound` (I)_0  ≤ `src` (I)_0 ≤  `upperbBound` (I)_0  \\land `lowerBound` (I)_1  ≤ `src` (I)_1 ≤  `upperbBound` (I)_1]
+    -   and so forth.
+
+    That is, dst (I) is set to 255 (all 1 -bits) if src (I) is within the
+    specified 1D, 2D, 3D, ... box and 0 otherwise.
+
+    When the lower and/or upper boundary parameters are scalars, the indexes
+    (I) at lowerBound and upperbBound in the above formulas should be omitted.
+    @param src first input array.
+    @param lowerBound inclusive lower boundary array or a scalar.
+    @param upperbBound inclusive upper boundary array or a scalar.
+    @param dst output array of the same size as src and CV_8U type.
+    """
+    ...
+
+def initCameraMatrix2D(objectPoints, imagePoints, imageSize, aspectRatio=...):
+    """
+    initCameraMatrix2D(objectPoints, imagePoints, imageSize[, aspectRatio]) -> retval
+    @brief Finds an initial camera matrix from 3D-2D point correspondences.
+
+    @param objectPoints Vector of vectors of the calibration pattern points in the calibration pattern
+    coordinate space. In the old interface all the per-view vectors are concatenated. See
+    calibrateCamera for details.
+    @param imagePoints Vector of vectors of the projections of the calibration pattern points. In the
+    old interface all the per-view vectors are concatenated.
+    @param imageSize Image size in pixels used to initialize the principal point.
+    @param aspectRatio If it is zero or negative, both `f_x` and `f_y` are estimated independently.
+    Otherwise, `f_x = f_y * `aspectRatio`` .
+
+    The function estimates and returns an initial camera matrix for the camera calibration process.
+    Currently, the function only supports planar calibration patterns, which are patterns where each
+    object point has z-coordinate =0.
+    """
+    ...
+
 def initInverseRectificationMap(*args, **kwargs) -> Any: ...  # incomplete
-def initUndistortRectifyMap(*args, **kwargs) -> Any: ...  # incomplete
-def inpaint(*args, **kwargs) -> Any: ...  # incomplete
-def insertChannel(src, dst, coi) -> _dst: ...
-def integral(*args, **kwargs) -> Any: ...  # incomplete
-def integral2(*args, **kwargs) -> Any: ...  # incomplete
-def integral3(*args, **kwargs) -> Any: ...  # incomplete
-def intersectConvexConvex(*args, **kwargs) -> Any: ...  # incomplete
-def invert(*args, **kwargs) -> Any: ...  # incomplete
-def invertAffineTransform(*args, **kwargs) -> Any: ...  # incomplete
-def isContourConvex(*args, **kwargs) -> Any: ...  # incomplete
-def kmeans(*args, **kwargs) -> Any: ...  # incomplete
-def line(*args, **kwargs) -> Any: ...  # incomplete
-def linearPolar(*args, **kwargs) -> Any: ...  # incomplete
-def log(*args, **kwargs) -> Any: ...  # incomplete
-def logPolar(*args, **kwargs) -> Any: ...  # incomplete
-def magnitude(*args, **kwargs) -> Any: ...  # incomplete
-def matMulDeriv(*args, **kwargs) -> Any: ...  # incomplete
-def matchShapes(*args, **kwargs) -> Any: ...  # incomplete
-def matchTemplate(*args, **kwargs) -> Any: ...  # incomplete
-def max(*args, **kwargs) -> Any: ...  # incomplete
-def mean(*args, **kwargs) -> Any: ...  # incomplete
-def meanShift(*args, **kwargs) -> Any: ...  # incomplete
-def meanStdDev(*args, **kwargs) -> Any: ...  # incomplete
-def medianBlur(*args, **kwargs) -> Any: ...  # incomplete
-def merge(*args, **kwargs) -> Any: ...  # incomplete
-def min(*args, **kwargs) -> Any: ...  # incomplete
-def minAreaRect(*args, **kwargs) -> Any: ...  # incomplete
-def minEnclosingCircle(*args, **kwargs) -> Any: ...  # incomplete
-def minEnclosingTriangle(*args, **kwargs) -> Any: ...  # incomplete
-def minMaxLoc(*args, **kwargs) -> Any: ...  # incomplete
-def mixChannels(src, dst, fromTo) -> _dst: ...
-def moments(*args, **kwargs) -> Any: ...  # incomplete
-def morphologyEx(*args, **kwargs) -> Any: ...  # incomplete
-def moveWindow(winname, x, y) -> None: ...
-def mulSpectrums(*args, **kwargs) -> Any: ...  # incomplete
-def mulTransposed(*args, **kwargs) -> Any: ...  # incomplete
-def multiply(*args, **kwargs) -> Any: ...  # incomplete
-def namedWindow(*args, **kwargs) -> Any: ...  # incomplete
-def norm(*args, **kwargs) -> Any: ...  # incomplete
-def normalize(*args, **kwargs) -> Any: ...  # incomplete
-def patchNaNs(*args, **kwargs) -> Any: ...  # incomplete
-def pencilSketch(*args, **kwargs) -> Any: ...  # incomplete
-def perspectiveTransform(*args, **kwargs) -> Any: ...  # incomplete
-def phase(*args, **kwargs) -> Any: ...  # incomplete
-def phaseCorrelate(*args, **kwargs) -> Any: ...  # incomplete
-def pointPolygonTest(*args, **kwargs) -> Any: ...  # incomplete
-def polarToCart(*args, **kwargs) -> Any: ...  # incomplete
+def initUndistortRectifyMap(cameraMatrix, distCoeffs, R, newCameraMatrix, size, m1type, map1=..., map2=...):
+    """
+    initUndistortRectifyMap(cameraMatrix, distCoeffs, R, newCameraMatrix, size, m1type[, map1[, map2]]) -> map1, map2
+    @brief Computes the undistortion and rectification transformation map.
+
+    The function computes the joint undistortion and rectification transformation and represents the
+    result in the form of maps for remap. The undistorted image looks like original, as if it is
+    captured with a camera using the camera matrix =newCameraMatrix and zero distortion. In case of a
+    monocular camera, newCameraMatrix is usually equal to cameraMatrix, or it can be computed by
+    #getOptimalNewCameraMatrix for a better control over scaling. In case of a stereo camera,
+    newCameraMatrix is normally set to P1 or P2 computed by #stereoRectify .
+
+    Also, this new camera is oriented differently in the coordinate space, according to R. That, for
+    example, helps to align two heads of a stereo camera so that the epipolar lines on both images
+    become horizontal and have the same y- coordinate (in case of a horizontally aligned stereo camera).
+
+    The function actually builds the maps for the inverse mapping algorithm that is used by remap. That
+    is, for each pixel `(u, v)` in the destination (corrected and rectified) image, the function
+    computes the corresponding coordinates in the source image (that is, in the original image from
+    camera). The following process is applied:
+    [
+    \\begin{array}{l}
+    x  ← (u - {c'}_x)/{f'}_x
+    y  ← (v - {c'}_y)/{f'}_y
+    {[X\\,Y\\,W]} ^T  ← R^{-1}*[x \\, y \\, 1]^T
+    x'  ← X/W
+    y'  ← Y/W
+    r^2  ← x'^2 + y'^2
+    x'  ← x' \\frac{1 + k_1 r^2 + k_2 r^4 + k_3 r^6}{1 + k_4 r^2 + k_5 r^4 + k_6 r^6}
+    + 2p_1 x' y' + p_2(r^2 + 2 x'^2)  + s_1 r^2 + s_2 r^4
+    y'  ← y' \\frac{1 + k_1 r^2 + k_2 r^4 + k_3 r^6}{1 + k_4 r^2 + k_5 r^4 + k_6 r^6}
+    + p_1 (r^2 + 2 y'^2) + 2 p_2 x' y' + s_3 r^2 + s_4 r^4
+    s\\vecthree{x'}{y'}{1} =
+    \\vecthreethree{R_{33}(\\tau_x, \\tau_y)}{0}{-R_{13}((\\tau_x, \\tau_y)}
+    {0}{R_{33}(\\tau_x, \\tau_y)}{-R_{23}(\\tau_x, \\tau_y)}
+    {0}{0}{1} R(\\tau_x, \\tau_y) \\vecthree{x''}{y''}{1}
+    map_x(u,v)  ← x''' f_x + c_x
+    map_y(u,v)  ← y''' f_y + c_y
+    \\end{array}
+    ]
+    where `(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]])`
+    are the distortion coefficients.
+
+    In case of a stereo camera, this function is called twice: once for each camera head, after
+    stereoRectify, which in its turn is called after #stereoCalibrate. But if the stereo camera
+    was not calibrated, it is still possible to compute the rectification transformations directly from
+    the fundamental matrix using #stereoRectifyUncalibrated. For each camera, the function computes
+    homography H as the rectification transformation in a pixel domain, not a rotation matrix R in 3D
+    space. R can be computed from H as
+    [`R` = `cameraMatrix` ^{-1} · `H` · `cameraMatrix`]
+    where cameraMatrix can be chosen arbitrarily.
+
+    @param cameraMatrix Input camera matrix `A=\\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}` .
+    @param distCoeffs Input vector of distortion coefficients
+    `(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]])`
+    of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.
+    @param R Optional rectification transformation in the object space (3x3 matrix). R1 or R2 ,
+    computed by #stereoRectify can be passed here. If the matrix is empty, the identity transformation
+    is assumed. In cvInitUndistortMap R assumed to be an identity matrix.
+    @param newCameraMatrix New camera matrix `A'=\\vecthreethree{f_x'}{0}{c_x'}{0}{f_y'}{c_y'}{0}{0}{1}`.
+    @param size Undistorted image size.
+    @param m1type Type of the first output map that can be CV_32FC1, CV_32FC2 or CV_16SC2, see #convertMaps
+    @param map1 The first output map.
+    @param map2 The second output map.
+    """
+    ...
+
+def inpaint(src: Mat, inpaintMask, inpaintRadius, flags: int, dts: Mat = ...):
+    """
+    inpaint(src, inpaintMask, inpaintRadius, flags[, dst]) -> dst
+    @brief Restores the selected region in an image using the region neighborhood.
+
+    @param src Input 8-bit, 16-bit unsigned or 32-bit float 1-channel or 8-bit 3-channel image.
+    @param inpaintMask Inpainting mask, 8-bit 1-channel image. Non-zero pixels indicate the area that
+    needs to be inpainted.
+    @param dst Output image with the same size and type as src .
+    @param inpaintRadius Radius of a circular neighborhood of each point inpainted that is considered
+    by the algorithm.
+    @param flags Inpainting method that could be cv::INPAINT_NS or cv::INPAINT_TELEA
+
+    The function reconstructs the selected image area from the pixel near the area boundary. The
+    function may be used to remove dust and scratches from a scanned photo, or to remove undesirable
+    objects from still images or video. See <http://en.wikipedia.org/wiki/Inpainting> for more details.
+
+    @note
+      -   An example using the inpainting technique can be found at
+       opencv_source_code/samples/cpp/inpaint.cpp
+      -   (Python) An example using the inpainting technique can be found at
+       opencv_source_code/samples/python/inpaint.py
+    """
+    ...
+
+def insertChannel(src: Mat, dts: Mat, coi) -> _dst:
+    """
+    insertChannel(src, dst, coi) -> dst
+    @brief Inserts a single channel to dst (coi is 0-based index)
+    @param src input array
+    @param dst output array
+    @param coi index of channel for insertion
+    @sa mixChannels, merge
+    """
+    ...
+
+def integral(src: Mat, sum=..., sdepth=...):
+    """
+    integral(src[, sum[, sdepth]]) -> sum
+    @overload
+    """
+    ...
+
+def integral2(src: Mat, sum=..., sqsum=..., sdepth=..., sqdepth=...):
+    """
+    integral2(src[, sum[, sqsum[, sdepth[, sqdepth]]]]) -> sum, sqsum
+    @overload
+    """
+    ...
+
+def integral3(src: Mat, sum=..., sqsum=..., tilted=..., sdepth=..., sqdepth=...):
+    """
+    integral3(src[, sum[, sqsum[, tilted[, sdepth[, sqdepth]]]]]) -> sum, sqsum, tilted
+    @brief Calculates the integral of an image.
+
+    The function calculates one or more integral images for the source image as follows:
+
+    [`sum` (X,Y) =  ∑ _{x<X,y<Y}  `image` (x,y)]
+
+    [`sqsum` (X,Y) =  ∑ _{x<X,y<Y}  `image` (x,y)^2]
+
+    [`tilted` (X,Y) =  ∑ _{y<Y,abs(x-X+1) ≤ Y-y-1}  `image` (x,y)]
+
+    Using these integral images, you can calculate sum, mean, and standard deviation over a specific
+    up-right or rotated rectangular region of the image in a constant time, for example:
+
+    [∑ _{x_1 ≤ x < x_2,  \\, y_1  ≤ y < y_2}  `image` (x,y) =  `sum` (x_2,y_2)- `sum` (x_1,y_2)- `sum` (x_2,y_1)+ `sum` (x_1,y_1)]
+
+    It makes possible to do a fast blurring or fast block correlation with a variable window size, for
+    example. In case of multi-channel images, sums for each channel are accumulated independently.
+
+    As a practical example, the next figure shows the calculation of the integral of a straight
+    rectangle Rect(3,3,3,2) and of a tilted rectangle Rect(5,1,2,3) . The selected pixels in the
+    original image are shown, as well as the relative pixels in the integral images sum and tilted .
+
+    ![integral calculation example](pics/integral.png)
+
+    @param src input image as `W x H`, 8-bit or floating-point (32f or 64f).
+    @param sum integral image as `(W+1)x (H+1)` , 32-bit integer or floating-point (32f or 64f).
+    @param sqsum integral image for squared pixel values; it is `(W+1)x (H+1)`, double-precision
+    floating-point (64f) array.
+    @param tilted integral for the image rotated by 45 degrees; it is `(W+1)x (H+1)` array with
+    the same data type as sum.
+    @param sdepth desired depth of the integral and the tilted integral images, CV_32S, CV_32F, or
+    CV_64F.
+    @param sqdepth desired depth of the integral image of squared pixel values, CV_32F or CV_64F.
+    """
+    ...
+
+def intersectConvexConvex(_p1, _p2, _p12=..., handleNested=...):
+    """
+    intersectConvexConvex(_p1, _p2[, _p12[, handleNested]]) -> retval, _p12
+    @brief Finds intersection of two convex polygons
+
+    @param _p1 First polygon
+    @param _p2 Second polygon
+    @param _p12 Output polygon describing the intersecting area
+    @param handleNested When true, an intersection is found if one of the polygons is fully enclosed in the other.
+    When false, no intersection is found. If the polygons share a side or the vertex of one polygon lies on an edge
+    of the other, they are not considered nested and an intersection will be found regardless of the value of handleNested.
+
+    @returns Absolute value of area of intersecting polygon
+
+    @note intersectConvexConvex doesn't confirm that both polygons are convex and will return invalid results if they aren't.
+    """
+    ...
+
+def invert(src: Mat, dts: Mat = ..., flags: int = ...):
+    """
+    invert(src[, dst[, flags]]) -> retval, dst
+    @brief Finds the inverse or pseudo-inverse of a matrix.
+
+    The function cv::invert inverts the matrix src and stores the result in dst
+    . When the matrix src is singular or non-square, the function calculates
+    the pseudo-inverse matrix (the dst matrix) so that norm(src * dst - I) is
+    minimal, where I is an identity matrix.
+
+    In case of the #DECOMP_LU method, the function returns non-zero value if
+    the inverse has been successfully calculated and 0 if src is singular.
+
+    In case of the #DECOMP_SVD method, the function returns the inverse
+    condition number of src (the ratio of the smallest singular value to the
+    largest singular value) and 0 if src is singular. The SVD method
+    calculates a pseudo-inverse matrix if src is singular.
+
+    Similarly to #DECOMP_LU, the method #DECOMP_CHOLESKY works only with
+    non-singular square matrices that should also be symmetrical and
+    positively defined. In this case, the function stores the inverted
+    matrix in dst and returns non-zero. Otherwise, it returns 0.
+
+    @param src input floating-point M x N matrix.
+    @param dst output matrix of N x M size and the same type as src.
+    @param flags inversion method (cv::DecompTypes)
+    @sa solve, SVD
+    """
+    ...
+
+def invertAffineTransform(M, iM=...):
+    """
+    invertAffineTransform(M[, iM]) -> iM
+    @brief Inverts an affine transformation.
+
+    The function computes an inverse affine transformation represented by `2 x 3` matrix M:
+
+    [\\begin{bmatrix} a_{11} & a_{12} & b_1  \\ a_{21} & a_{22} & b_2 \\end{bmatrix}]
+
+    The result is also a `2 x 3` matrix of the same type as M.
+
+    @param M Original affine transformation.
+    @param iM Output reverse affine transformation.
+    """
+    ...
+
+def isContourConvex(contour):
+    """
+    isContourConvex(contour) -> retval
+    @brief Tests a contour convexity.
+
+    The function tests whether the input contour is convex or not. The contour must be simple, that is,
+    without self-intersections. Otherwise, the function output is undefined.
+
+    @param contour Input vector of 2D points, stored in std::vector<> or Mat
+    """
+    ...
+
+def kmeans(data, K, bestLabels, criteria, attempts, flags: int, centers=...):
+    """
+    kmeans(data, K, bestLabels, criteria, attempts, flags[, centers]) -> retval, bestLabels, centers
+    @brief Finds centers of clusters and groups input samples around the clusters.
+
+    The function kmeans implements a k-means algorithm that finds the centers of cluster_count clusters
+    and groups the input samples around the clusters. As an output, ``bestLabels`_i` contains a
+    0-based cluster index for the sample stored in the `i^{th}` row of the samples matrix.
+
+    @note
+    -   (Python) An example on K-means clustering can be found at
+    opencv_source_code/samples/python/kmeans.py
+    @param data Data for clustering. An array of N-Dimensional points with float coordinates is needed.
+    Examples of this array can be:
+    -   Mat points(count, 2, CV_32F);
+    -   Mat points(count, 1, CV_32FC2);
+    -   Mat points(1, count, CV_32FC2);
+    -   std::vector<cv::Point2f> points(sampleCount);
+    @param K Number of clusters to split the set by.
+    @param bestLabels Input/output integer array that stores the cluster indices for every sample.
+    @param criteria The algorithm termination criteria, that is, the maximum number of iterations and/or
+    the desired accuracy. The accuracy is specified as criteria.epsilon. As soon as each of the cluster
+    centers moves by less than criteria.epsilon on some iteration, the algorithm stops.
+    @param attempts Flag to specify the number of times the algorithm is executed using different
+    initial labellings. The algorithm returns the labels that yield the best compactness (see the last
+    function parameter).
+    @param flags Flag that can take values of cv::KmeansFlags
+    @param centers Output matrix of the cluster centers, one row per each cluster center.
+    @return The function returns the compactness measure that is computed as
+    [∑ _i  | `samples` _i -  `centers` _{ `labels` _i} | ^2]
+    after every attempt. The best (minimum) value is chosen and the corresponding labels and the
+    compactness value are returned by the function. Basically, you can use only the core of the
+    function, set the number of attempts to 1, initialize labels each time using a custom algorithm,
+    pass them with the ( flags = #KMEANS_USE_INITIAL_LABELS ) flag, and then choose the best
+    (most-compact) clustering.
+    """
+    ...
+
+def line(img: Mat, pt1, pt2, color, thickness=..., lineType=..., shift=...):
+    """
+    line(img, pt1, pt2, color[, thickness[, lineType[, shift]]]) -> img
+    @brief Draws a line segment connecting two points.
+
+    The function line draws the line segment between pt1 and pt2 points in the image. The line is
+    clipped by the image boundaries. For non-antialiased lines with integer coordinates, the 8-connected
+    or 4-connected Bresenham algorithm is used. Thick lines are drawn with rounding endings. Antialiased
+    lines are drawn using Gaussian filtering.
+
+    @param img Image.
+    @param pt1 First point of the line segment.
+    @param pt2 Second point of the line segment.
+    @param color Line color.
+    @param thickness Line thickness.
+    @param lineType Type of the line. See #LineTypes.
+    @param shift Number of fractional bits in the point coordinates.
+    """
+    ...
+
+def linearPolar(src: Mat, center, maxRadius, flags: int, dts: Mat = ...):
+    """
+    linearPolar(src, center, maxRadius, flags[, dst]) -> dst
+    @brief Remaps an image to polar coordinates space.
+
+    @deprecated This function produces same result as cv::warpPolar(src, dst, src.size(), center, maxRadius, flags)
+
+    @internal
+    Transform the source image using the following transformation (See @ref polar_remaps_reference_image "Polar remaps reference image c)"):
+    [\\begin{array}{l}
+     dst( P , ϕ ) = src(x,y)
+     dst.size() ← src.size()
+    \\end{array}]
+
+    where
+    [\\begin{array}{l}
+     I = (dx,dy) = (x - center.x,y - center.y)
+     P = Kmag · `magnitude` (I) ,
+     ϕ = angle · `angle` (I)
+    \\end{array}]
+
+    and
+    [\\begin{array}{l}
+     Kx = src.cols / maxRadius
+     Ky = src.rows / 2π
+    \\end{array}]
+
+
+    @param src Source image
+    @param dst Destination image. It will have same size and type as src.
+    @param center The transformation center;
+    @param maxRadius The radius of the bounding circle to transform. It determines the inverse magnitude scale parameter too.
+    @param flags A combination of interpolation methods, see #InterpolationFlags
+
+    @note
+    -   The function can not operate in-place.
+    -   To calculate magnitude and angle in degrees #cartToPolar is used internally thus angles are measured from 0 to 360 with accuracy about 0.3 degrees.
+
+    @sa cv::logPolar
+    @endinternal
+    """
+    ...
+
+def log(src: Mat, dts: Mat = ...):
+    """
+    log(src[, dst]) -> dst
+    @brief Calculates the natural logarithm of every array element.
+
+    The function cv::log calculates the natural logarithm of every element of the input array:
+    [`dst` (I) =  \\log (`src`(I)) ]
+
+    Output on zero, negative and special (NaN, Inf) values is undefined.
+
+    @param src input array.
+    @param dst output array of the same size and type as src .
+    @sa exp, cartToPolar, polarToCart, phase, pow, sqrt, magnitude
+    """
+    ...
+
+def logPolar(src: Mat, center, M, flags: int, dts: Mat = ...):
+    '''
+    logPolar(src, center, M, flags[, dst]) -> dst
+    @brief Remaps an image to semilog-polar coordinates space.
+
+    @deprecated This function produces same result as cv::warpPolar(src, dst, src.size(), center, maxRadius, flags+WARP_POLAR_LOG);
+
+    @internal
+    Transform the source image using the following transformation (See @ref polar_remaps_reference_image "Polar remaps reference image d)"""):
+    [\\begin{array}{l}
+     dst( P , ϕ ) = src(x,y)
+     dst.size() ← src.size()
+    \\end{array}]
+
+    where
+    [\\begin{array}{l}
+     I = (dx,dy) = (x - center.x,y - center.y)
+     P = M · log_e(`magnitude` (I)) ,
+     ϕ = Kangle · `angle` (I)
+    \\end{array}]
+
+    and
+    [\\begin{array}{l}
+     M = src.cols / log_e(maxRadius)
+     Kangle = src.rows / 2π
+    \\end{array}]
+
+    The function emulates the human "foveal" vision and can be used for fast scale and
+    rotation-invariant template matching, for object tracking and so forth.
+    @param src Source image
+    @param dst Destination image. It will have same size and type as src.
+    @param center The transformation center; where the output precision is maximal
+    @param M Magnitude scale parameter. It determines the radius of the bounding circle to transform too.
+    @param flags A combination of interpolation methods, see #InterpolationFlags
+
+    @note
+    -   The function can not operate in-place.
+    -   To calculate magnitude and angle in degrees #cartToPolar is used internally thus angles are measured from 0 to 360 with accuracy about 0.3 degrees.
+
+    @sa cv::linearPolar
+    @endinternal
+    '''
+    ...
+
+def magnitude(x, y, magnitude=...):
+    """
+    magnitude(x, y[, magnitude]) -> magnitude
+    @brief Calculates the magnitude of 2D vectors.
+
+    The function cv::magnitude calculates the magnitude of 2D vectors formed
+    from the corresponding elements of x and y arrays:
+    [`dst` (I) =  √{`x`(I)^2 + `y`(I)^2}]
+    @param x floating-point array of x-coordinates of the vectors.
+    @param y floating-point array of y-coordinates of the vectors; it must
+    have the same size as x.
+    @param magnitude output array of the same size and type as x.
+    @sa cartToPolar, polarToCart, phase, sqrt
+    """
+    ...
+
+def matMulDeriv(A, B, dABdA=..., dABdB=...):
+    """
+    matMulDeriv(A, B[, dABdA[, dABdB]]) -> dABdA, dABdB
+    @brief Computes partial derivatives of the matrix product for each multiplied matrix.
+
+    @param A First multiplied matrix.
+    @param B Second multiplied matrix.
+    @param dABdA First output derivative matrix d(A * B)/dA of size
+    ``A.rows*B.cols` x {A.rows*A.cols}` .
+    @param dABdB Second output derivative matrix d(A * B)/dB of size
+    ``A.rows*B.cols` x {B.rows*B.cols}` .
+
+    The function computes partial derivatives of the elements of the matrix product `A*B` with regard to
+    the elements of each of the two input matrices. The function is used to compute the Jacobian
+    matrices in stereoCalibrate but can also be used in any other similar optimization function.
+    """
+    ...
+
+def matchShapes(contour1, contour2, method: int, parameter):
+    """
+    matchShapes(contour1, contour2, method, parameter) -> retval
+    @brief Compares two shapes.
+
+    The function compares two shapes. All three implemented methods use the Hu invariants (see #HuMoments)
+
+    @param contour1 First contour or grayscale image.
+    @param contour2 Second contour or grayscale image.
+    @param method Comparison method, see #ShapeMatchModes
+    @param parameter Method-specific parameter (not supported now).
+    """
+    ...
+
+def matchTemplate(image: Mat, templ: Mat, method: int, result: Mat = ..., mask: Mat | None = ...) -> Mat:
+    """
+    matchTemplate(image, templ, method[, result[, mask]]) -> result
+    @brief Compares a template against overlapped image regions.
+
+    The function slides through image , compares the overlapped patches of size `w x h` against
+    templ using the specified method and stores the comparison results in result . #TemplateMatchModes
+    describes the formulae for the available comparison methods ( `I` denotes image, `T`
+    template, `R` result, `M` the optional mask ). The summation is done over template and/or
+    the image patch: `x' = 0...w-1, y' = 0...h-1`
+
+    After the function finishes the comparison, the best matches can be found as global minimums (when
+    #TM_SQDIFF was used) or maximums (when #TM_CCORR or #TM_CCOEFF was used) using the
+    #minMaxLoc function. In case of a color image, template summation in the numerator and each sum in
+    the denominator is done over all of the channels and separate mean values are used for each channel.
+    That is, the function can take a color template and a color image. The result will still be a
+    single-channel image, which is easier to analyze.
+
+    @param image Image where the search is running. It must be 8-bit or 32-bit floating-point.
+    @param templ Searched template. It must be not greater than the source image and have the same
+    data type.
+    @param result Map of comparison results. It must be single-channel 32-bit floating-point. If image
+    is `W x H` and templ is `w x h` , then result is `(W-w+1) x (H-h+1)` .
+    @param method Parameter specifying the comparison method, see #TemplateMatchModes
+    @param mask Optional mask. It must have the same size as templ. It must either have the same number
+          of channels as template or only one channel, which is then used for all template and
+          image channels. If the data type is #CV_8U, the mask is interpreted as a binary mask,
+          meaning only elements where mask is nonzero are used and are kept unchanged independent
+          of the actual mask value (weight equals 1). For data tpye #CV_32F, the mask values are
+          used as weights. The exact formulas are documented in #TemplateMatchModes.
+    """
+    ...
+
+def max(src1: Mat, src2: Mat, dts: Mat = ...):
+    """
+    max(src1, src2[, dst]) -> dst
+    @brief Calculates per-element maximum of two arrays or an array and a scalar.
+
+    The function cv::max calculates the per-element maximum of two arrays:
+    [`dst` (I)= \\max ( `src1` (I), `src2` (I))]
+    or array and a scalar:
+    [`dst` (I)= \\max ( `src1` (I), `value` )]
+    @param src1 first input array.
+    @param src2 second input array of the same size and type as src1 .
+    @param dst output array of the same size and type as src1.
+    @sa  min, compare, inRange, minMaxLoc, @ref MatrixExpressions
+    """
+    ...
+
+def mean(src: Mat, mask: Mat = ...):
+    """
+    mean(src[, mask]) -> retval
+    @brief Calculates an average (mean) of array elements.
+
+    The function cv::mean calculates the mean value M of array elements,
+    independently for each channel, and return it:
+    [\\begin{array}{l} N =  ∑ _{I: ; `mask` (I) \
+    e 0} 1 \\ M_c =  \\left ( ∑ _{I: ; `mask` (I) \
+    e 0}{ `mtx` (I)_c} \\right )/N \\end{array}]
+    When all the mask elements are 0's, the function returns Scalar::all(0)
+    @param src input array that should have from 1 to 4 channels so that the result can be stored in
+    Scalar_ .
+    @param mask optional operation mask.
+    @sa  countNonZero, meanStdDev, norm, minMaxLoc
+    """
+    ...
+
+def meanShift(probImage, window, criteria):
+    """
+    meanShift(probImage, window, criteria) -> retval, window
+    @brief Finds an object on a back projection image.
+
+    @param probImage Back projection of the object histogram. See calcBackProject for details.
+    @param window Initial search window.
+    @param criteria Stop criteria for the iterative search algorithm.
+    returns
+    :   Number of iterations CAMSHIFT took to converge.
+    The function implements the iterative object search algorithm. It takes the input back projection of
+    an object and the initial position. The mass center in window of the back projection image is
+    computed and the search window center shifts to the mass center. The procedure is repeated until the
+    specified number of iterations criteria.maxCount is done or until the window center shifts by less
+    than criteria.epsilon. The algorithm is used inside CamShift and, unlike CamShift , the search
+    window size or orientation do not change during the search. You can simply pass the output of
+    calcBackProject to this function. But better results can be obtained if you pre-filter the back
+    projection and remove the noise. For example, you can do this by retrieving connected components
+    with findContours , throwing away contours with small area ( contourArea ), and rendering the
+    remaining contours with drawContours.
+    """
+    ...
+
+def meanStdDev(src: Mat, mean=..., stddev=..., mask: Mat = ...):
+    """
+    meanStdDev(src[, mean[, stddev[, mask]]]) -> mean, stddev
+    Calculates a mean and standard deviation of array elements.
+
+    The function cv::meanStdDev calculates the mean and the standard deviation M
+    of array elements independently for each channel and returns it via the
+    output parameters:
+    [\\begin{array}{l} N =  ∑ _{I, `mask` (I)  \
+    e 0} 1 \\ `mean` _c =  \\frac{∑_{ I: ; `mask`(I) \
+    e 0} `src` (I)_c}{N} \\ `stddev` _c =  √{\\frac{∑_{ I: ; `mask`(I) \
+    e 0} \\left ( `src` (I)_c -  `mean` _c \\right )^2}{N}} \\end{array}]
+    When all the mask elements are 0's, the function returns
+    mean=stddev=Scalar::all(0).
+    @note The calculated standard deviation is only the diagonal of the
+    complete normalized covariance matrix. If the full matrix is needed, you
+    can reshape the multi-channel array M x N to the single-channel array
+    M * N x mtx.channels() (only possible when the matrix is continuous) and
+    then pass the matrix to calcCovarMatrix .
+    @param src input array that should have from 1 to 4 channels so that the results can be stored in
+    Scalar_ 's.
+    @param mean output parameter: calculated mean value.
+    @param stddev output parameter: calculated standard deviation.
+    @param mask optional operation mask.
+    @sa  countNonZero, mean, norm, minMaxLoc, calcCovarMatrix
+    """
+    ...
+
+def medianBlur(src: Mat, ksize, dts: Mat = ...):
+    """
+    medianBlur(src, ksize[, dst]) -> dst
+    @brief Blurs an image using the median filter.
+
+    The function smoothes an image using the median filter with the ``ksize` x
+    `ksize`` aperture. Each channel of a multi-channel image is processed independently.
+    In-place operation is supported.
+
+    @note The median filter uses #BORDER_REPLICATE internally to cope with border pixels, see #BorderTypes
+
+    @param src input 1-, 3-, or 4-channel image; when ksize is 3 or 5, the image depth should be
+    CV_8U, CV_16U, or CV_32F, for larger aperture sizes, it can only be CV_8U.
+    @param dst destination array of the same size and type as src.
+    @param ksize aperture linear size; it must be odd and greater than 1, for example: 3, 5, 7 ...
+    @sa  bilateralFilter, blur, boxFilter, GaussianBlur
+    """
+    ...
+
+def merge(mv, dts: Mat = ...):
+    """
+    merge(mv[, dst]) -> dst
+    @overload
+    @param mv input vector of matrices to be merged; all the matrices in mv must have the same
+    size and the same depth.
+    @param dst output array of the same size and the same depth as mv[0]; The number of channels will
+    be the total number of channels in the matrix array.
+    """
+    ...
+
+def min(src1: Mat, src2: Mat, dts: Mat = ...):
+    """
+    min(src1, src2[, dst]) -> dst
+    @brief Calculates per-element minimum of two arrays or an array and a scalar.
+
+    The function cv::min calculates the per-element minimum of two arrays:
+    [`dst` (I)= \\min ( `src1` (I), `src2` (I))]
+    or array and a scalar:
+    [`dst` (I)= \\min ( `src1` (I), `value` )]
+    @param src1 first input array.
+    @param src2 second input array of the same size and type as src1.
+    @param dst output array of the same size and type as src1.
+    @sa max, compare, inRange, minMaxLoc
+    """
+    ...
+
+def minAreaRect(points):
+    """
+    minAreaRect(points) -> retval
+    @brief Finds a rotated rectangle of the minimum area enclosing the input 2D point set.
+
+    The function calculates and returns the minimum-area bounding rectangle (possibly rotated) for a
+    specified point set. Developer should keep in mind that the returned RotatedRect can contain negative
+    indices when data is close to the containing Mat element boundary.
+
+    @param points Input vector of 2D points, stored in std::vector<> or Mat
+    """
+    ...
+
+def minEnclosingCircle(points):
+    """
+    minEnclosingCircle(points) -> center, radius
+    @brief Finds a circle of the minimum area enclosing a 2D point set.
+
+    The function finds the minimal enclosing circle of a 2D point set using an iterative algorithm.
+
+    @param points Input vector of 2D points, stored in std::vector<> or Mat
+    @param center Output center of the circle.
+    @param radius Output radius of the circle.
+    """
+    ...
+
+def minEnclosingTriangle(points, triangle=...):
+    """
+    minEnclosingTriangle(points[, triangle]) -> retval, triangle
+    @brief Finds a triangle of minimum area enclosing a 2D point set and returns its area.
+
+    The function finds a triangle of minimum area enclosing the given set of 2D points and returns its
+    area. The output for a given 2D point set is shown in the image below. 2D points are depicted in
+    *red* and the enclosing triangle in *yellow*.
+
+    ![Sample output of the minimum enclosing triangle function](pics/minenclosingtriangle.png)
+
+    The implementation of the algorithm is based on O'Rourke's @cite ORourke86 and Klee and Laskowski's
+    @cite KleeLaskowski85 papers. O'Rourke provides a `θ(n)` algorithm for finding the minimal
+    enclosing triangle of a 2D convex polygon with n vertices. Since the #minEnclosingTriangle function
+    takes a 2D point set as input an additional preprocessing step of computing the convex hull of the
+    2D point set is required. The complexity of the #convexHull function is `O(n log(n))` which is higher
+    than `θ(n)`. Thus the overall complexity of the function is `O(n log(n))`.
+
+    @param points Input vector of 2D points with depth CV_32S or CV_32F, stored in std::vector<> or Mat
+    @param triangle Output vector of three 2D points defining the vertices of the triangle. The depth
+    of the OutputArray must be CV_32F.
+    """
+    ...
+
+def minMaxLoc(src: Mat, mask: Mat = ...) -> tuple[float, float, tuple[int, int], tuple[int, int]]:
+    """
+    minMaxLoc(src[, mask]) -> minVal, maxVal, minLoc, maxLoc
+    @brief Finds the global minimum and maximum in an array.
+
+    The function cv::minMaxLoc finds the minimum and maximum element values and their positions. The
+    extremums are searched across the whole array or, if mask is not an empty array, in the specified
+    array region.
+
+    The function do not work with multi-channel arrays. If you need to find minimum or maximum
+    elements across all the channels, use Mat::reshape first to reinterpret the array as
+    single-channel. Or you may extract the particular channel using either extractImageCOI , or
+    mixChannels , or split .
+    @param src input single-channel array.
+    @param minVal pointer to the returned minimum value; NULL is used if not required.
+    @param maxVal pointer to the returned maximum value; NULL is used if not required.
+    @param minLoc pointer to the returned minimum location (in 2D case); NULL is used if not required.
+    @param maxLoc pointer to the returned maximum location (in 2D case); NULL is used if not required.
+    @param mask optional mask used to select a sub-array.
+    @sa max, min, compare, inRange, extractImageCOI, mixChannels, split, Mat::reshape
+    """
+    ...
+
+def mixChannels(src: Mat, dts: Mat, fromTo) -> _dst:
+    """
+    mixChannels(src, dst, fromTo) -> dst
+    @overload
+    @param src input array or vector of matrices; all of the matrices must have the same size and the
+    same depth.
+    @param dst output array or vector of matrices; all the matrices **must be allocated**; their size and
+    depth must be the same as in src[0].
+    @param fromTo array of index pairs specifying which channels are copied and where; fromTo[k * 2] is
+    a 0-based index of the input channel in src, fromTo[k * 2+1] is an index of the output channel in
+    dst; the continuous channel numbering is used: the first input image channels are indexed from 0 to
+    src[0].channels()-1, the second input image channels are indexed from src[0].channels() to
+    src[0].channels() + src[1].channels()-1, and so on, the same scheme is used for the output image
+    channels; as a special case, when fromTo[k * 2] is negative, the corresponding output channel is
+    filled with zero .
+    """
+    ...
+
+def moments(array, binaryImage=...):
+    """
+    moments(array[, binaryImage]) -> retval
+    @brief Calculates all of the moments up to the third order of a polygon or rasterized shape.
+
+    The function computes moments, up to the 3rd order, of a vector shape or a rasterized shape. The
+    results are returned in the structure cv::Moments.
+
+    @param array Raster image (single-channel, 8-bit or floating-point 2D array) or an array (
+    `1 x N` or `N x 1` ) of 2D points (Point or Point2f ).
+    @param binaryImage If it is true, all non-zero image pixels are treated as 1's. The parameter is
+    used for images only.
+    @returns moments.
+
+    @note Only applicable to contour moments calculations from Python bindings: Note that the numpy
+    type for the input array should be either np.int32 or np.float32.
+
+    @sa  contourArea, arcLength
+    """
+    ...
+
+def morphologyEx(src: Mat, op, kernel, dts: Mat = ..., anchor=..., iterations=..., borderType=..., borderValue=...):
+    """
+    morphologyEx(src, op, kernel[, dst[, anchor[, iterations[, borderType[, borderValue]]]]]) -> dst
+    @brief Performs advanced morphological transformations.
+
+    The function cv::morphologyEx can perform advanced morphological transformations using an erosion and dilation as
+    basic operations.
+
+    Any of the operations can be done in-place. In case of multi-channel images, each channel is
+    processed independently.
+
+    @param src Source image. The number of channels can be arbitrary. The depth should be one of
+    CV_8U, CV_16U, CV_16S, CV_32F or CV_64F.
+    @param dst Destination image of the same size and type as source image.
+    @param op Type of a morphological operation, see #MorphTypes
+    @param kernel Structuring element. It can be created using #getStructuringElement.
+    @param anchor Anchor position with the kernel. Negative values mean that the anchor is at the
+    kernel center.
+    @param iterations Number of times erosion and dilation are applied.
+    @param borderType Pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.
+    @param borderValue Border value in case of a constant border. The default value has a special
+    meaning.
+    @sa  dilate, erode, getStructuringElement
+    @note The number of iterations is the number of times erosion or dilatation operation will be applied.
+    For instance, an opening operation (#MORPH_OPEN) with two iterations is equivalent to apply
+    successively: erode -> erode -> dilate -> dilate (and not erode -> dilate -> erode -> dilate).
+    """
+    ...
+
+def moveWindow(winname, x, y) -> None:
+    """
+    moveWindow(winname, x, y) -> None
+    @brief Moves window to the specified position
+
+    @param winname Name of the window.
+    @param x The new x-coordinate of the window.
+    @param y The new y-coordinate of the window.
+    """
+    ...
+
+def mulSpectrums(a, b, flags: int, c=..., conjB=...):
+    """
+    mulSpectrums(a, b, flags[, c[, conjB]]) -> c
+    @brief Performs the per-element multiplication of two Fourier spectrums.
+
+    The function cv::mulSpectrums performs the per-element multiplication of the two CCS-packed or complex
+    matrices that are results of a real or complex Fourier transform.
+
+    The function, together with dft and idft , may be used to calculate convolution (pass conjB=false )
+    or correlation (pass conjB=true ) of two arrays rapidly. When the arrays are complex, they are
+    simply multiplied (per element) with an optional conjugation of the second-array elements. When the
+    arrays are real, they are assumed to be CCS-packed (see dft for details).
+    @param a first input array.
+    @param b second input array of the same size and type as src1 .
+    @param c output array of the same size and type as src1 .
+    @param flags operation flags; currently, the only supported flag is cv::DFT_ROWS, which indicates that
+    each row of src1 and src2 is an independent 1D Fourier spectrum. If you do not want to use this flag, then simply add a `0` as value.
+    @param conjB optional flag that conjugates the second input array before the multiplication (true)
+    or not (false).
+    """
+    ...
+
+def mulTransposed(src: Mat, aTa, dts: Mat = ..., delta=..., scale=..., dtype=...):
+    """
+    mulTransposed(src, aTa[, dst[, delta[, scale[, dtype]]]]) -> dst
+    @brief Calculates the product of a matrix and its transposition.
+
+    The function cv::mulTransposed calculates the product of src and its
+    transposition:
+    [`dst` = `scale` ( `src` - `delta` )^T ( `src` - `delta` )]
+    if aTa=true , and
+    [`dst` = `scale` ( `src` - `delta` ) ( `src` - `delta` )^T]
+    otherwise. The function is used to calculate the covariance matrix. With
+    zero delta, it can be used as a faster substitute for general matrix
+    product A * B when B=A\'
+    @param src input single-channel matrix. Note that unlike gemm, the
+    function can multiply not only floating-point matrices.
+    @param dst output square matrix.
+    @param aTa Flag specifying the multiplication ordering. See the
+    description below.
+    @param delta Optional delta matrix subtracted from src before the
+    multiplication. When the matrix is empty ( delta=noArray() ), it is
+    assumed to be zero, that is, nothing is subtracted. If it has the same
+    size as src , it is simply subtracted. Otherwise, it is "repeated" (see
+    repeat ) to cover the full src and then subtracted. Type of the delta
+    matrix, when it is not empty, must be the same as the type of created
+    output matrix. See the dtype parameter description below.
+    @param scale Optional scale factor for the matrix product.
+    @param dtype Optional type of the output matrix. When it is negative,
+    the output matrix will have the same type as src . Otherwise, it will be
+    type=CV_MAT_DEPTH(dtype) that should be either CV_32F or CV_64F .
+    @sa calcCovarMatrix, gemm, repeat, reduce
+    """
+    ...
+
+def multiply(src1: Mat, src2: Mat, dts: Mat = ..., scale=..., dtype=...):
+    """
+    multiply(src1, src2[, dst[, scale[, dtype]]]) -> dst
+    @brief Calculates the per-element scaled product of two arrays.
+
+    The function multiply calculates the per-element product of two arrays:
+
+    [`dst` (I)= `saturate` ( `scale` · `src1` (I) · `src2` (I))]
+
+    There is also a @ref MatrixExpressions -friendly variant of the first function. See Mat::mul .
+
+    For a not-per-element matrix product, see gemm .
+
+    @note Saturation is not applied when the output array has the depth
+    CV_32S. You may even get result of an incorrect sign in the case of
+    overflow.
+    @param src1 first input array.
+    @param src2 second input array of the same size and the same type as src1.
+    @param dst output array of the same size and type as src1.
+    @param scale optional scale factor.
+    @param dtype optional depth of the output array
+    @sa add, subtract, divide, scaleAdd, addWeighted, accumulate, accumulateProduct, accumulateSquare,
+    Mat::convertTo
+    """
+    ...
+
+def namedWindow(winname, flags: int = ...):
+    """
+    namedWindow(winname[, flags]) -> None
+    @brief Creates a window.
+
+    The function namedWindow creates a window that can be used as a placeholder for images and
+    trackbars. Created windows are referred to by their names.
+
+    If a window with the same name already exists, the function does nothing.
+
+    You can call cv::destroyWindow or cv::destroyAllWindows to close the window and de-allocate any associated
+    memory usage. For a simple program, you do not really have to call these functions because all the
+    resources and windows of the application are closed automatically by the operating system upon exit.
+
+    @note
+
+    Qt backend supports additional flags:
+    -   **WINDOW_NORMAL or WINDOW_AUTOSIZE:** WINDOW_NORMAL enables you to resize the
+     window, whereas WINDOW_AUTOSIZE adjusts automatically the window size to fit the
+     displayed image (see imshow ), and you cannot change the window size manually.
+    -   **WINDOW_FREERATIO or WINDOW_KEEPRATIO:** WINDOW_FREERATIO adjusts the image
+     with no respect to its ratio, whereas WINDOW_KEEPRATIO keeps the image ratio.
+    -   **WINDOW_GUI_NORMAL or WINDOW_GUI_EXPANDED:** WINDOW_GUI_NORMAL is the old way to draw the window
+     without statusbar and toolbar, whereas WINDOW_GUI_EXPANDED is a new enhanced GUI.
+    By default, flags == WINDOW_AUTOSIZE | WINDOW_KEEPRATIO | WINDOW_GUI_EXPANDED
+
+    @param winname Name of the window in the window caption that may be used as a window identifier.
+    @param flags Flags of the window. The supported flags are: (cv::WindowFlags)
+    """
+    ...
+
+def norm(src1: Mat, src2: Mat, normType: int = ..., mask: Mat = ...) -> float:
+    """
+    norm(src1, src2[, normType[, mask]]) -> retval
+    @brief Calculates the  absolute norm of an array.
+
+    This version of #norm calculates the absolute norm of src1. The type of norm to calculate is specified using #NormTypes.
+
+    As example for one array consider the function `r(x)= \\begin{pmatrix} x \\ 1-x \\end{pmatrix}, x \\in [-1;1].
+    The ` L_{1}, L_{2} ` and ` L_{\\infty} ` norm for the sample value `r(-1) = \\begin{pmatrix} -1 \\ 2 \\end{pmatrix}`
+    is calculated as follows
+    \\f{align*}
+    | r(-1) |_{L_1} &= |-1| + |2| = 3
+    | r(-1) |_{L_2} &= √{(-1)^{2} + (2)^{2}} = √{5}
+    | r(-1) |_{L_\\infty} &= \\max(|-1|,|2|) = 2
+    }
+    and for `r(0.5) = \\begin{pmatrix} 0.5 \\ 0.5 \\end{pmatrix}` the calculation is
+    \\f{align*}
+    | r(0.5) |_{L_1} &= |0.5| + |0.5| = 1
+    | r(0.5) |_{L_2} &= √{(0.5)^{2} + (0.5)^{2}} = √{0.5}
+    | r(0.5) |_{L_\\infty} &= \\max(|0.5|,|0.5|) = 0.5.
+    }
+    The following graphic shows all values for the three norm functions `| r(x) |_{L_1}, | r(x) |_{L_2}` and `| r(x) |_{L_\\infty}`.
+    It is notable that the ` L_{1} ` norm forms the upper and the ` L_{\\infty} ` norm forms the lower border for the example function ` r(x) `.
+    ![Graphs for the different norm functions from the above example](pics/NormTypes_OneArray_1-2-INF.png)
+
+    When the mask parameter is specified and it is not empty, the norm is
+
+    If normType is not specified, #NORM_L2 is used.
+    calculated only over the region specified by the mask.
+
+    Multi-channel input arrays are treated as single-channel arrays, that is,
+    the results for all channels are combined.
+
+    Hamming norms can only be calculated with CV_8U depth arrays.
+
+    @param src1 first input array.
+    @param normType type of the norm (see #NormTypes).
+    @param mask optional operation mask; it must have the same size as src1 and CV_8UC1 type.
+
+
+
+    norm(src1, src2[, normType[, mask]]) -> retval
+    @brief Calculates an absolute difference norm or a relative difference norm.
+
+    This version of cv::norm calculates the absolute difference norm
+    or the relative difference norm of arrays src1 and src2.
+    The type of norm to calculate is specified using #NormTypes.
+
+    @param src1 first input array.
+    @param src2 second input array of the same size and the same type as src1.
+    @param normType type of the norm (see #NormTypes).
+    @param mask optional operation mask; it must have the same size as src1 and CV_8UC1 type.
+    """
+    ...
+
+def normalize(src: Mat, dts: Mat, alpha=..., beta=..., normType: int = ..., dtype=..., mask: Mat = ...) -> Mat:
+    """
+    normalize(src, dst[, alpha[, beta[, normType[, dtype[, mask]]]]]) -> dst
+    @brief Normalizes the norm or value range of an array.
+
+    The function cv::normalize normalizes scale and shift the input array elements so that
+    [| `dst` | _{L_p}= `alpha`]
+    (where p=Inf, 1 or 2) when normType=NORM_INF, NORM_L1, or NORM_L2, respectively; or so that
+    [\\min _I  `dst` (I)= `alpha` , \\, \\, \\max _I  `dst` (I)= `beta`]
+
+    when normType=NORM_MINMAX (for dense arrays only). The optional mask specifies a sub-array to be
+    normalized. This means that the norm or min-n-max are calculated over the sub-array, and then this
+    sub-array is modified to be normalized. If you want to only use the mask to calculate the norm or
+    min-max but modify the whole array, you can use norm and Mat::convertTo.
+
+    In case of sparse matrices, only the non-zero values are analyzed and transformed. Because of this,
+    the range transformation for sparse matrices is not allowed since it can shift the zero level.
+
+    Possible usage with some positive example data:
+    @code{.cpp}
+    vector<double> positiveData = { 2.0, 8.0, 10.0 };
+    vector<double> normalizedData_l1, normalizedData_l2, normalizedData_inf, normalizedData_minmax;
+
+    // Norm to probability (total count)
+    // sum(numbers) = 20.0
+    // 2.0     0.1    (2.0/20.0)
+    // 8.0     0.4    (8.0/20.0)
+    // 10.0    0.5    (10.0/20.0)
+    normalize(positiveData, normalizedData_l1, 1.0, 0.0, NORM_L1);
+
+    // Norm to unit vector: ||positiveData|| = 1.0
+    // 2.0     0.15
+    // 8.0     0.62
+    // 10.0    0.77
+    normalize(positiveData, normalizedData_l2, 1.0, 0.0, NORM_L2);
+
+    // Norm to max element
+    // 2.0     0.2    (2.0/10.0)
+    // 8.0     0.8    (8.0/10.0)
+    // 10.0    1.0    (10.0/10.0)
+    normalize(positiveData, normalizedData_inf, 1.0, 0.0, NORM_INF);
+
+    // Norm to range [0.0;1.0]
+    // 2.0     0.0    (shift to left border)
+    // 8.0     0.75    (6.0/8.0)
+    // 10.0    1.0    (shift to right border)
+    normalize(positiveData, normalizedData_minmax, 1.0, 0.0, NORM_MINMAX);
+    @endcode
+
+    @param src input array.
+    @param dst output array of the same size as src .
+    @param alpha norm value to normalize to or the lower range boundary in case of the range
+    normalization.
+    @param beta upper range boundary in case of the range normalization; it is not used for the norm
+    normalization.
+    @param normType normalization type (see cv::NormTypes).
+    @param dtype when negative, the output array has the same type as src; otherwise, it has the same
+    number of channels as src and the depth =CV_MAT_DEPTH(dtype).
+    @param mask optional operation mask.
+    @sa norm, Mat::convertTo, SparseMat::convertTo
+    """
+    ...
+
+def patchNaNs(a, val=...):
+    """
+    patchNaNs(a[, val]) -> a
+    @brief converts NaN's to the given number
+    """
+    ...
+
+def pencilSketch(src: Mat, dts1: Mat = ..., dts2: Mat = ..., sigma_s=..., sigma_r=..., shade_factor=...):
+    """
+    pencilSketch(src[, dst1[, dst2[, sigma_s[, sigma_r[, shade_factor]]]]]) -> dst1, dst2
+    @brief Pencil-like non-photorealistic line drawing
+
+    @param src Input 8-bit 3-channel image.
+    @param dst1 Output 8-bit 1-channel image.
+    @param dst2 Output image with the same size and type as src.
+    @param sigma_s %Range between 0 to 200.
+    @param sigma_r %Range between 0 to 1.
+    @param shade_factor %Range between 0 to 0.1.
+    """
+    ...
+
+def perspectiveTransform(src: Mat, m, dts: Mat = ...):
+    """
+    perspectiveTransform(src, m[, dst]) -> dst
+    @brief Performs the perspective matrix transformation of vectors.
+
+    The function cv::perspectiveTransform transforms every element of src by
+    treating it as a 2D or 3D vector, in the following way:
+    [(x, y, z)  → (x'/w, y'/w, z'/w)]
+    where
+    [(x', y', z', w') =  `mat` · \\begin{bmatrix} x & y & z & 1  \\end{bmatrix}]
+    and
+    [w =  \\fork{w'}{if (w' \
+    e 0)}{\\infty}{otherwise}]
+
+    Here a 3D vector transformation is shown. In case of a 2D vector
+    transformation, the z component is omitted.
+
+    @note The function transforms a sparse set of 2D or 3D vectors. If you
+    want to transform an image using perspective transformation, use
+    warpPerspective . If you have an inverse problem, that is, you want to
+    compute the most probable perspective transformation out of several
+    pairs of corresponding points, you can use getPerspectiveTransform or
+    findHomography .
+    @param src input two-channel or three-channel floating-point array; each
+    element is a 2D/3D vector to be transformed.
+    @param dst output array of the same size and type as src.
+    @param m 3x3 or 4x4 floating-point transformation matrix.
+    @sa  transform, warpPerspective, getPerspectiveTransform, findHomography
+    """
+    ...
+
+def phase(x, y, angle=..., angleInDegrees=...):
+    """
+    phase(x, y[, angle[, angleInDegrees]]) -> angle
+    @brief Calculates the rotation angle of 2D vectors.
+
+    The function cv::phase calculates the rotation angle of each 2D vector that
+    is formed from the corresponding elements of x and y :
+    [`angle` (I) =  `atan2` ( `y` (I), `x` (I))]
+
+    The angle estimation accuracy is about 0.3 degrees. When x(I)=y(I)=0 ,
+    the corresponding angle(I) is set to 0.
+    @param x input floating-point array of x-coordinates of 2D vectors.
+    @param y input array of y-coordinates of 2D vectors; it must have the
+    same size and the same type as x.
+    @param angle output array of vector angles; it has the same size and
+    same type as x .
+    @param angleInDegrees when true, the function calculates the angle in
+    degrees, otherwise, they are measured in radians.
+    """
+    ...
+
+def phaseCorrelate(src1: Mat, src2: Mat, window=...):
+    """
+    phaseCorrelate(src1, src2[, window]) -> retval, response
+    @brief The function is used to detect translational shifts that occur between two images.
+
+    The operation takes advantage of the Fourier shift theorem for detecting the translational shift in
+    the frequency domain. It can be used for fast image registration as well as motion estimation. For
+    more information please see <http://en.wikipedia.org/wiki/Phase_correlation>
+
+    Calculates the cross-power spectrum of two supplied source arrays. The arrays are padded if needed
+    with getOptimalDFTSize.
+
+    The function performs the following equations:
+    - First it applies a Hanning window (see <http://en.wikipedia.org/wiki/Hann_function>) to each
+    image to remove possible edge effects. This window is cached until the array size changes to speed
+    up processing time.
+    - Next it computes the forward DFTs of each source array:
+    [\\mathbf{G}_a = \\mathcal{F}{src_1}, ; \\mathbf{G}_b = \\mathcal{F}{src_2}]
+    where `\\mathcal{F}` is the forward DFT.
+    - It then computes the cross-power spectrum of each frequency domain array:
+    [R = \\frac{ \\mathbf{G}_a \\mathbf{G}_b^*}{|\\mathbf{G}_a \\mathbf{G}_b^*|}]
+    - Next the cross-correlation is converted back into the time domain via the inverse DFT:
+    [r = \\mathcal{F}^{-1}{R}]
+    - Finally, it computes the peak location and computes a 5x5 weighted centroid around the peak to
+    achieve sub-pixel accuracy.
+    [(\\Delta x, \\Delta y) = `weightedCentroid` {\\arg \\max_{(x, y)}{r}}]
+    - If non-zero, the response parameter is computed as the sum of the elements of r within the 5x5
+    centroid around the peak location. It is normalized to a maximum of 1 (meaning there is a single
+    peak) and will be smaller when there are multiple peaks.
+
+    @param src1 Source floating point array (CV_32FC1 or CV_64FC1)
+    @param src2 Source floating point array (CV_32FC1 or CV_64FC1)
+    @param window Floating point array with windowing coefficients to reduce edge effects (optional).
+    @param response Signal power within the 5x5 centroid around the peak, between 0 and 1 (optional).
+    @returns detected phase shift (sub-pixel) between the two arrays.
+
+    @sa dft, getOptimalDFTSize, idft, mulSpectrums createHanningWindow
+    """
+    ...
+
+def pointPolygonTest(contour, pt, measureDist):
+    """
+    pointPolygonTest(contour, pt, measureDist) -> retval
+    @brief Performs a point-in-contour test.
+
+    The function determines whether the point is inside a contour, outside, or lies on an edge (or
+    coincides with a vertex). It returns positive (inside), negative (outside), or zero (on an edge)
+    value, correspondingly. When measureDist=false , the return value is +1, -1, and 0, respectively.
+    Otherwise, the return value is a signed distance between the point and the nearest contour edge.
+
+    See below a sample output of the function where each image pixel is tested against the contour:
+
+    ![sample output](pics/pointpolygon.png)
+
+    @param contour Input contour.
+    @param pt Point tested against the contour.
+    @param measureDist If true, the function estimates the signed distance from the point to the
+    nearest contour edge. Otherwise, the function only checks if the point is inside a contour or not.
+    """
+    ...
+
+def polarToCart(magnitude, angle, x=..., y=..., angleInDegrees=...):
+    """
+    polarToCart(magnitude, angle[, x[, y[, angleInDegrees]]]) -> x, y
+    @brief Calculates x and y coordinates of 2D vectors from their magnitude and angle.
+
+    The function cv::polarToCart calculates the Cartesian coordinates of each 2D
+    vector represented by the corresponding elements of magnitude and angle:
+    [\\begin{array}{l} `x` (I) =  `magnitude` (I) \\cos ( `angle` (I)) \\ `y` (I) =  `magnitude` (I) ∿ ( `angle` (I)) \\ \\end{array}]
+
+    The relative accuracy of the estimated coordinates is about 1e-6.
+    @param magnitude input floating-point array of magnitudes of 2D vectors;
+    it can be an empty matrix (=Mat()), in this case, the function assumes
+    that all the magnitudes are =1; if it is not empty, it must have the
+    same size and type as angle.
+    @param angle input floating-point array of angles of 2D vectors.
+    @param x output array of x-coordinates of 2D vectors; it has the same
+    size and type as angle.
+    @param y output array of y-coordinates of 2D vectors; it has the same
+    size and type as angle.
+    @param angleInDegrees when true, the input angles are measured in
+    degrees, otherwise, they are measured in radians.
+    @sa cartToPolar, magnitude, phase, exp, log, pow, sqrt
+    """
+    ...
+
 def pollKey(*args, **kwargs) -> Any: ...  # incomplete
-def polylines(*args, **kwargs) -> Any: ...  # incomplete
-def pow(*args, **kwargs) -> Any: ...  # incomplete
-def preCornerDetect(*args, **kwargs) -> Any: ...  # incomplete
-def projectPoints(*args, **kwargs) -> Any: ...  # incomplete
-def putText(*args, **kwargs) -> Any: ...  # incomplete
-def pyrDown(*args, **kwargs) -> Any: ...  # incomplete
-def pyrMeanShiftFiltering(*args, **kwargs) -> Any: ...  # incomplete
-def pyrUp(*args, **kwargs) -> Any: ...  # incomplete
-def randShuffle(*args, **kwargs) -> Any: ...  # incomplete
-def randn(dst, mean, stddev) -> _dst: ...
-def randu(dst, low, high) -> _dst: ...
-def readOpticalFlow(*args, **kwargs) -> Any: ...  # incomplete
+def polylines(img: Mat, pts, isClosed, color, thickness=..., lineType=..., shift=...):
+    """
+    polylines(img, pts, isClosed, color[, thickness[, lineType[, shift]]]) -> img
+    @brief Draws several polygonal curves.
+
+    @param img Image.
+    @param pts Array of polygonal curves.
+    @param isClosed Flag indicating whether the drawn polylines are closed or not. If they are closed,
+    the function draws a line from the last vertex of each curve to its first vertex.
+    @param color Polyline color.
+    @param thickness Thickness of the polyline edges.
+    @param lineType Type of the line segments. See #LineTypes
+    @param shift Number of fractional bits in the vertex coordinates.
+
+    The function cv::polylines draws one or more polygonal curves.
+    """
+    ...
+
+def pow(src: Mat, power, dts: Mat = ...):
+    """
+    pow(src, power[, dst]) -> dst
+    @brief Raises every array element to a power.
+
+    The function cv::pow raises every element of the input array to power :
+    [`dst` (I) =  \\fork{`src`(I)^{power}}{if (`power`) is integer}{|`src`(I)|^{power}}{otherwise}]
+
+    So, for a non-integer power exponent, the absolute values of input array
+    elements are used. However, it is possible to get true values for
+    negative values using some extra operations. In the example below,
+    computing the 5th root of array src shows:
+    @code{.cpp}
+    Mat mask = src < 0;
+    pow(src, 1./5, dst);
+    subtract(Scalar::all(0), dst, dst, mask);
+    @endcode
+    For some values of power, such as integer values, 0.5 and -0.5,
+    specialized faster algorithms are used.
+
+    Special values (NaN, Inf) are not handled.
+    @param src input array.
+    @param power exponent of power.
+    @param dst output array of the same size and type as src.
+    @sa sqrt, exp, log, cartToPolar, polarToCart
+    """
+    ...
+
+def preCornerDetect(src: Mat, ksize, dts: Mat = ..., borderType=...):
+    """
+    preCornerDetect(src, ksize[, dst[, borderType]]) -> dst
+    @brief Calculates a feature map for corner detection.
+
+    The function calculates the complex spatial derivative-based function of the source image
+
+    [`dst` = (D_x  `src` )^2 · D_{yy}  `src` + (D_y  `src` )^2 · D_{xx}  `src` - 2 D_x  `src` · D_y  `src` · D_{xy}  `src`]
+
+    where `D_x`,`D_y` are the first image derivatives, `D_{xx}`,`D_{yy}` are the second image
+    derivatives, and `D_{xy}` is the mixed derivative.
+
+    The corners can be found as local maximums of the functions, as shown below:
+    @code
+    Mat corners, dilated_corners;
+    preCornerDetect(image, corners, 3);
+    // dilation with 3x3 rectangular structuring element
+    dilate(corners, dilated_corners, Mat(), 1);
+    Mat corner_mask = corners == dilated_corners;
+    @endcode
+
+    @param src Source single-channel 8-bit of floating-point image.
+    @param dst Output image that has the type CV_32F and the same size as src .
+    @param ksize %Aperture size of the Sobel .
+    @param borderType Pixel extrapolation method. See #BorderTypes. #BORDER_WRAP is not supported.
+    """
+    ...
+
+def projectPoints(objectPoints, rvec, tvec, cameraMatrix, distCoeffs, imagePoints=..., jacobian=..., aspectRatio=...):
+    """
+    projectPoints(objectPoints, rvec, tvec, cameraMatrix, distCoeffs[, imagePoints[, jacobian[, aspectRatio]]]) -> imagePoints, jacobian
+    @brief Projects 3D points to an image plane.
+
+    @param objectPoints Array of object points expressed wrt. the world coordinate frame. A 3xN/Nx3
+    1-channel or 1xN/Nx1 3-channel (or vector<Point3f> ), where N is the number of points in the view.
+    @param rvec The rotation vector (@ref Rodrigues) that, together with tvec, performs a change of
+    basis from world to camera coordinate system, see @ref calibrateCamera for details.
+    @param tvec The translation vector, see parameter description above.
+    @param cameraMatrix Camera matrix `A = \\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{_1}` .
+    @param distCoeffs Input vector of distortion coefficients
+    `(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]])` of
+    4, 5, 8, 12 or 14 elements. If the vector is empty, the zero distortion coefficients are assumed.
+    @param imagePoints Output array of image points, 1xN/Nx1 2-channel, or
+    vector<Point2f> .
+    @param jacobian Optional output 2Nx(10+<numDistCoeffs>) jacobian matrix of derivatives of image
+    points with respect to components of the rotation vector, translation vector, focal lengths,
+    coordinates of the principal point and the distortion coefficients. In the old interface different
+    components of the jacobian are returned via different output parameters.
+    @param aspectRatio Optional "fixed aspect ratio" parameter. If the parameter is not 0, the
+    function assumes that the aspect ratio (`f_x / f_y`) is fixed and correspondingly adjusts the
+    jacobian matrix.
+
+    The function computes the 2D projections of 3D points to the image plane, given intrinsic and
+    extrinsic camera parameters. Optionally, the function computes Jacobians -matrices of partial
+    derivatives of image points coordinates (as functions of all the input parameters) with respect to
+    the particular parameters, intrinsic and/or extrinsic. The Jacobians are used during the global
+    optimization in @ref calibrateCamera, @ref solvePnP, and @ref stereoCalibrate. The function itself
+    can also be used to compute a re-projection error, given the current intrinsic and extrinsic
+    parameters.
+
+    @note By setting rvec = tvec = [0, 0, 0], or by setting cameraMatrix to a 3x3 identity matrix,
+    or by passing zero distortion coefficients, one can get various useful partial cases of the
+    function. This means, one can compute the distorted coordinates for a sparse set of points or apply
+    a perspective transformation (and also compute the derivatives) in the ideal zero-distortion setup.
+    """
+    ...
+
+def putText(img: Mat, text, org, fontFace, fontScale, color, thickness=..., lineType=..., bottomLeftOrigin=...):
+    """
+    putText(img, text, org, fontFace, fontScale, color[, thickness[, lineType[, bottomLeftOrigin]]]) -> img
+    @brief Draws a text string.
+
+    The function cv::putText renders the specified text string in the image. Symbols that cannot be rendered
+    using the specified font are replaced by question marks. See #getTextSize for a text rendering code
+    example.
+
+    @param img Image.
+    @param text Text string to be drawn.
+    @param org Bottom-left corner of the text string in the image.
+    @param fontFace Font type, see #HersheyFonts.
+    @param fontScale Font scale factor that is multiplied by the font-specific base size.
+    @param color Text color.
+    @param thickness Thickness of the lines used to draw a text.
+    @param lineType Line type. See #LineTypes
+    @param bottomLeftOrigin When true, the image data origin is at the bottom-left corner. Otherwise,
+    it is at the top-left corner.
+    """
+    ...
+
+def pyrDown(src: Mat, dts: Mat = ..., dstsize=..., borderType=...):
+    """
+    pyrDown(src[, dst[, dstsize[, borderType]]]) -> dst
+    @brief Blurs an image and downsamples it.
+
+    By default, size of the output image is computed as `Size((src.cols+1)/2, (src.rows+1)/2)`, but in
+    any case, the following conditions should be satisfied:
+
+    [\\begin{array}{l} | `dstsize.width` *2-src.cols| ≤ 2 \\ | `dstsize.height` *2-src.rows| ≤ 2 \\end{array}]
+
+    The function performs the downsampling step of the Gaussian pyramid construction. First, it
+    convolves the source image with the kernel:
+
+    [\\frac{1}{256} \\begin{bmatrix} 1 & 4 & 6 & 4 & 1  \\ 4 & 16 & 24 & 16 & 4  \\ 6 & 24 & 36 & 24 & 6  \\ 4 & 16 & 24 & 16 & 4  \\ 1 & 4 & 6 & 4 & 1 \\end{bmatrix}]
+
+    Then, it downsamples the image by rejecting even rows and columns.
+
+    @param src input image.
+    @param dst output image; it has the specified size and the same type as src.
+    @param dstsize size of the output image.
+    @param borderType Pixel extrapolation method, see #BorderTypes (#BORDER_CONSTANT isn't supported)
+    """
+    ...
+
+def pyrMeanShiftFiltering(src: Mat, sp, sr, dts: Mat = ..., maxLevel=..., termcrit=...):
+    """
+    pyrMeanShiftFiltering(src, sp, sr[, dst[, maxLevel[, termcrit]]]) -> dst
+    @brief Performs initial step of meanshift segmentation of an image.
+
+    The function implements the filtering stage of meanshift segmentation, that is, the output of the
+    function is the filtered \"posterized\" image with color gradients and fine-grain texture flattened.
+    At every pixel (X,Y) of the input image (or down-sized input image, see below) the function executes
+    meanshift iterations, that is, the pixel (X,Y) neighborhood in the joint space-color hyperspace is
+    considered:
+
+    [(x,y): X- `sp` \\le x  \\le X+ `sp` , Y- `sp` \\le y  \\le Y+ `sp` , ||(R,G,B)-(r,g,b)||   \\le `sr`]
+
+    where (R,G,B) and (r,g,b) are the vectors of color components at (X,Y) and (x,y), respectively
+    (though, the algorithm does not depend on the color space used, so any 3-component color space can
+    be used instead). Over the neighborhood the average spatial value (X',Y') and average color vector
+    (R',G',B') are found and they act as the neighborhood center on the next iteration:
+
+    [(X,Y)~(X',Y'), (R,G,B)~(R',G',B').]
+
+    After the iterations over, the color components of the initial pixel (that is, the pixel from where
+    the iterations started) are set to the final value (average color at the last iteration):
+
+    [I(X,Y) <- (R*,G*,B*)]
+
+    When maxLevel > 0, the gaussian pyramid of maxLevel+1 levels is built, and the above procedure is
+    run on the smallest layer first. After that, the results are propagated to the larger layer and the
+    iterations are run again only on those pixels where the layer colors differ by more than sr from the
+    lower-resolution layer of the pyramid. That makes boundaries of color regions sharper. Note that the
+    results will be actually different from the ones obtained by running the meanshift procedure on the
+    whole original image (i.e. when maxLevel==0).
+
+    @param src The source 8-bit, 3-channel image.
+    @param dst The destination image of the same format and the same size as the source.
+    @param sp The spatial window radius.
+    @param sr The color window radius.
+    @param maxLevel Maximum level of the pyramid for the segmentation.
+    @param termcrit Termination criteria: when to stop meanshift iterations.
+    """
+    ...
+
+def pyrUp(src: Mat, dts: Mat = ..., dstsize=..., borderType=...):
+    """
+    pyrUp(src[, dst[, dstsize[, borderType]]]) -> dst
+    @brief Upsamples an image and then blurs it.
+
+    By default, size of the output image is computed as `Size(src.cols * 2, (src.rows * 2)`, but in any
+    case, the following conditions should be satisfied:
+
+    [\\begin{array}{l} | `dstsize.width` -src.cols*2| ≤  ( `dstsize.width`   \\mod  2)  \\ | `dstsize.height` -src.rows*2| ≤  ( `dstsize.height`   \\mod  2) \\end{array}]
+
+    The function performs the upsampling step of the Gaussian pyramid construction, though it can
+    actually be used to construct the Laplacian pyramid. First, it upsamples the source image by
+    injecting even zero rows and columns and then convolves the result with the same kernel as in
+    pyrDown multiplied by 4.
+
+    @param src input image.
+    @param dst output image. It has the specified size and the same type as src .
+    @param dstsize size of the output image.
+    @param borderType Pixel extrapolation method, see #BorderTypes (only #BORDER_DEFAULT is supported)
+    """
+    ...
+
+def randShuffle(dts: Mat, iterFactor=...):
+    """
+    randShuffle(dst[, iterFactor]) -> dst
+    @brief Shuffles the array elements randomly.
+
+    The function cv::randShuffle shuffles the specified 1D array by randomly choosing pairs of elements and
+    swapping them. The number of such swap operations will be dst.rows * dst.cols * iterFactor .
+    @param dst input/output numerical 1D array.
+    @param iterFactor scale factor that determines the number of random swap operations (see the details
+    below).
+    @param rng optional random number generator used for shuffling; if it is zero, theRNG () is used
+    instead.
+    @sa RNG, sort
+    """
+    ...
+
+def randn(dts: Mat, mean, stddev) -> _dst:
+    """
+    randn(dst, mean, stddev) -> dst
+    @brief Fills the array with normally distributed random numbers.
+
+    The function cv::randn fills the matrix dst with normally distributed random numbers with the specified
+    mean vector and the standard deviation matrix. The generated random numbers are clipped to fit the
+    value range of the output array data type.
+    @param dst output array of random numbers; the array must be pre-allocated and have 1 to 4 channels.
+    @param mean mean value (expectation) of the generated random numbers.
+    @param stddev standard deviation of the generated random numbers; it can be either a vector (in
+    which case a diagonal standard deviation matrix is assumed) or a square matrix.
+    @sa RNG, randu
+    """
+    ...
+
+def randu(dts: Mat, low, high) -> _dst:
+    """
+    randu(dst, low, high) -> dst
+    @brief Generates a single uniformly-distributed random number or an array of random numbers.
+
+    Non-template variant of the function fills the matrix dst with uniformly-distributed
+    random numbers from the specified range:
+    [`low` _c  ≤ `dst` (I)_c <  `high` _c]
+    @param dst output array of random numbers; the array must be pre-allocated.
+    @param low inclusive lower boundary of the generated random numbers.
+    @param high exclusive upper boundary of the generated random numbers.
+    @sa RNG, randn, theRNG
+    """
+    ...
+
+def readOpticalFlow(path):
+    """
+    readOpticalFlow(path) -> retval
+    @brief Read a .flo file
+
+    @param path Path to the file to be loaded
+
+    The function readOpticalFlow loads a flow field from a file and returns it as a single matrix.
+    Resulting Mat has a type CV_32FC2 - floating-point, 2-channel. First channel corresponds to the
+    flow in the horizontal direction (u), second - vertical (v).
+    """
+    ...
+
 @overload
-def recoverPose(points1, points2, cameraMatrix1, distCoeffs1, cameraMatrix2, distCoeffs2, E, R, t, mask) -> Incomplete: ...
+def recoverPose(points1, points2, cameraMatrix1, distCoeffs1, cameraMatrix2, distCoeffs2, E, R, t, mask): ...
 @overload
-def recoverPose(E, points1, points2, cameraMatrix, R, t, mask) -> Incomplete: ...
-def rectangle(*args, **kwargs) -> Any: ...  # incomplete
-def rectify3Collinear(*args, **kwargs) -> Any: ...  # incomplete
-def redirectError(onError) -> None: ...
-def reduce(*args, **kwargs) -> Any: ...  # incomplete
+def recoverPose(E, points1, points2, cameraMatrix, R=..., t=..., mask: Mat = ...):
+    """
+    recoverPose(E, points1, points2, cameraMatrix[, R[, t[, mask]]]) -> retval, R, t, mask
+    @brief Recovers the relative camera rotation and the translation from an estimated essential
+    matrix and the corresponding points in two images, using cheirality check. Returns the number of
+    inliers that pass the check.
+
+    @param E The input essential matrix.
+    @param points1 Array of N 2D points from the first image. The point coordinates should be
+    floating-point (single or double precision).
+    @param points2 Array of the second image points of the same size and format as points1 .
+    @param cameraMatrix Camera matrix `A = \\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}` .
+    Note that this function assumes that points1 and points2 are feature points from cameras with the
+    same camera matrix.
+    @param R Output rotation matrix. Together with the translation vector, this matrix makes up a tuple
+    that performs a change of basis from the first camera's coordinate system to the second camera's
+    coordinate system. Note that, in general, t can not be used for this tuple, see the parameter
+    described below.
+    @param t Output translation vector. This vector is obtained by @ref decomposeEssentialMat and
+    therefore is only known up to scale, i.e. t is the direction of the translation vector and has unit
+    length.
+    @param mask Input/output mask for inliers in points1 and points2. If it is not empty, then it marks
+    inliers in points1 and points2 for then given essential matrix E. Only these inliers will be used to
+    recover pose. In the output mask only inliers which pass the cheirality check.
+
+    This function decomposes an essential matrix using @ref decomposeEssentialMat and then verifies
+    possible pose hypotheses by doing cheirality check. The cheirality check means that the
+    triangulated 3D points should have positive depth. Some details can be found in @cite Nister03.
+
+    This function can be used to process the output E and mask from @ref findEssentialMat. In this
+    scenario, points1 and points2 are the same input for findEssentialMat.:
+    @code
+    // Example. Estimation of fundamental matrix using the RANSAC algorithm
+    int point_count = 100;
+    vector<Point2f> points1(point_count);
+    vector<Point2f> points2(point_count);
+
+    // initialize the points here ...
+    for( int i = 0; i < point_count; i++ )
+    {
+       points1[i] = ...;
+       points2[i] = ...;
+    }
+
+    // cametra matrix with both focal lengths = 1, and principal point = (0, 0)
+    Mat cameraMatrix = Mat::eye(3, 3, CV_64F);
+
+    Mat E, R, t, mask;
+
+    E = findEssentialMat(points1, points2, cameraMatrix, RANSAC, 0.999, 1.0, mask);
+    recoverPose(E, points1, points2, cameraMatrix, R, t, mask);
+    @endcode
+
+
+
+    recoverPose(E, points1, points2[, R[, t[, focal[, pp[, mask]]]]]) -> retval, R, t, mask
+    @overload
+    @param E The input essential matrix.
+    @param points1 Array of N 2D points from the first image. The point coordinates should be
+    floating-point (single or double precision).
+    @param points2 Array of the second image points of the same size and format as points1 .
+    @param R Output rotation matrix. Together with the translation vector, this matrix makes up a tuple
+    that performs a change of basis from the first camera's coordinate system to the second camera's
+    coordinate system. Note that, in general, t can not be used for this tuple, see the parameter
+    description below.
+    @param t Output translation vector. This vector is obtained by @ref decomposeEssentialMat and
+    therefore is only known up to scale, i.e. t is the direction of the translation vector and has unit
+    length.
+    @param focal Focal length of the camera. Note that this function assumes that points1 and points2
+    are feature points from cameras with same focal length and principal point.
+    @param pp principal point of the camera.
+    @param mask Input/output mask for inliers in points1 and points2. If it is not empty, then it marks
+    inliers in points1 and points2 for then given essential matrix E. Only these inliers will be used to
+    recover pose. In the output mask only inliers which pass the cheirality check.
+
+    This function differs from the one above that it computes camera matrix from focal length and
+    principal point:
+
+    [A =
+    \\begin{bmatrix}
+    f & 0 & x_{pp}
+    0 & f & y_{pp}
+    0 & 0 & 1
+    \\end{bmatrix}]
+
+
+
+    recoverPose(E, points1, points2, cameraMatrix, distanceThresh[, R[, t[, mask[, triangulatedPoints]]]]) -> retval, R, t, mask, triangulatedPoints
+    @overload
+    @param E The input essential matrix.
+    @param points1 Array of N 2D points from the first image. The point coordinates should be
+    floating-point (single or double precision).
+    @param points2 Array of the second image points of the same size and format as points1.
+    @param cameraMatrix Camera matrix `A = \\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}` .
+    Note that this function assumes that points1 and points2 are feature points from cameras with the
+    same camera matrix.
+    @param R Output rotation matrix. Together with the translation vector, this matrix makes up a tuple
+    that performs a change of basis from the first camera's coordinate system to the second camera's
+    coordinate system. Note that, in general, t can not be used for this tuple, see the parameter
+    description below.
+    @param t Output translation vector. This vector is obtained by @ref decomposeEssentialMat and
+    therefore is only known up to scale, i.e. t is the direction of the translation vector and has unit
+    length.
+    @param distanceThresh threshold distance which is used to filter out far away points (i.e. infinite
+    points).
+    @param mask Input/output mask for inliers in points1 and points2. If it is not empty, then it marks
+    inliers in points1 and points2 for then given essential matrix E. Only these inliers will be used to
+    recover pose. In the output mask only inliers which pass the cheirality check.
+    @param triangulatedPoints 3D points which were reconstructed by triangulation.
+
+    This function differs from the one above that it outputs the triangulated 3D point that are used for
+    the cheirality check.
+    """
+    ...
+
+def rectangle(img: Mat, pt1, pt2, color, thickness=..., lineType=..., shift=...):
+    """
+    rectangle(img, pt1, pt2, color[, thickness[, lineType[, shift]]]) -> img
+    @brief Draws a simple, thick, or filled up-right rectangle.
+
+    The function cv::rectangle draws a rectangle outline or a filled rectangle whose two opposite corners
+    are pt1 and pt2.
+
+    @param img Image.
+    @param pt1 Vertex of the rectangle.
+    @param pt2 Vertex of the rectangle opposite to pt1 .
+    @param color Rectangle color or brightness (grayscale image).
+    @param thickness Thickness of lines that make up the rectangle. Negative values, like #FILLED,
+    mean that the function has to draw a filled rectangle.
+    @param lineType Type of the line. See #LineTypes
+    @param shift Number of fractional bits in the point coordinates.
+
+
+
+    rectangle(img, rec, color[, thickness[, lineType[, shift]]]) -> img
+    @overload
+
+    use `rec` parameter as alternative specification of the drawn rectangle: `r.tl() and
+    r.br()-Point(1,1)` are opposite corners
+    """
+    ...
+
+def rectify3Collinear(
+    cameraMatrix1,
+    distCoeffs1,
+    cameraMatrix2,
+    distCoeffs2,
+    cameraMatrix3,
+    distCoeffs3,
+    imgpt1,
+    imgpt3,
+    imageSize,
+    R12,
+    T12,
+    R13,
+    T13,
+    alpha,
+    newImgSize,
+    flags: int,
+    R1=...,
+    R2=...,
+    R3=...,
+    P1=...,
+    P2=...,
+    P3=...,
+    Q=...,
+):
+    """
+    rectify3Collinear(cameraMatrix1, distCoeffs1, cameraMatrix2, distCoeffs2, cameraMatrix3, distCoeffs3, imgpt1, imgpt3, imageSize, R12, T12, R13, T13, alpha, newImgSize, flags[, R1[, R2[, R3[, P1[, P2[, P3[, Q]]]]]]]) -> retval, R1, R2, R3, P1, P2, P3, Q, roi1, roi2
+
+    """
+    ...
+
+def redirectError(onError) -> None:
+    """
+    redirectError(onError) -> None
+    """
+    ...
+
+def reduce(src: Mat, dim, rtype, dts: Mat = ..., dtype=...):
+    """
+    reduce(src, dim, rtype[, dst[, dtype]]) -> dst
+    @brief Reduces a matrix to a vector.
+
+    The function #reduce reduces the matrix to a vector by treating the matrix rows/columns as a set of
+    1D vectors and performing the specified operation on the vectors until a single row/column is
+    obtained. For example, the function can be used to compute horizontal and vertical projections of a
+    raster image. In case of #REDUCE_MAX and #REDUCE_MIN , the output image should have the same type as the source one.
+    In case of #REDUCE_SUM and #REDUCE_AVG , the output may have a larger element bit-depth to preserve accuracy.
+    And multi-channel arrays are also supported in these two reduction modes.
+
+    The following code demonstrates its usage for a single channel matrix.
+    @snippet snippets/core_reduce.cpp example
+
+    And the following code demonstrates its usage for a two-channel matrix.
+    @snippet snippets/core_reduce.cpp example2
+
+    @param src input 2D matrix.
+    @param dst output vector. Its size and type is defined by dim and dtype parameters.
+    @param dim dimension index along which the matrix is reduced. 0 means that the matrix is reduced to
+    a single row. 1 means that the matrix is reduced to a single column.
+    @param rtype reduction operation that could be one of #ReduceTypes
+    @param dtype when negative, the output vector will have the same type as the input matrix,
+    otherwise, its type will be CV_MAKE_TYPE(CV_MAT_DEPTH(dtype), src.channels()).
+    @sa repeat
+    """
+    ...
+
 def reduceArgMax(*args, **kwargs) -> Any: ...  # incomplete
 def reduceArgMin(*args, **kwargs) -> Any: ...  # incomplete
-def remap(*args, **kwargs) -> Any: ...  # incomplete
-def repeat(*args, **kwargs) -> Any: ...  # incomplete
-def reprojectImageTo3D(*args, **kwargs) -> Any: ...  # incomplete
-def resize(*args, **kwargs) -> Any: ...  # incomplete
+def remap(src: Mat, map1, map2, interpolation: int, dts: Mat = ..., borderMode=..., borderValue=...):
+    """
+    remap(src, map1, map2, interpolation[, dst[, borderMode[, borderValue]]]) -> dst
+    @brief Applies a generic geometrical transformation to an image.
+
+    The function remap transforms the source image using the specified map:
+
+    [`dst` (x,y) =  `src` (map_x(x,y),map_y(x,y))]
+
+    where values of pixels with non-integer coordinates are computed using one of available
+    interpolation methods. `map_x` and `map_y` can be encoded as separate floating-point maps
+    in `map_1` and `map_2` respectively, or interleaved floating-point maps of `(x,y)` in
+    `map_1`, or fixed-point maps created by using convertMaps. The reason you might want to
+    convert from floating to fixed-point representations of a map is that they can yield much faster
+    (\\~2x) remapping operations. In the converted case, `map_1` contains pairs (cvFloor(x),
+    cvFloor(y)) and `map_2` contains indices in a table of interpolation coefficients.
+
+    This function cannot operate in-place.
+
+    @param src Source image.
+    @param dst Destination image. It has the same size as map1 and the same type as src .
+    @param map1 The first map of either (x,y) points or just x values having the type CV_16SC2 ,
+    CV_32FC1, or CV_32FC2. See convertMaps for details on converting a floating point
+    representation to fixed-point for speed.
+    @param map2 The second map of y values having the type CV_16UC1, CV_32FC1, or none (empty map
+    if map1 is (x,y) points), respectively.
+    @param interpolation Interpolation method (see #InterpolationFlags). The method #INTER_AREA is
+    not supported by this function.
+    @param borderMode Pixel extrapolation method (see #BorderTypes). When
+    borderMode=#BORDER_TRANSPARENT, it means that the pixels in the destination image that
+    corresponds to the "outliers" in the source image are not modified by the function.
+    @param borderValue Value used in case of a constant border. By default, it is 0.
+    @note
+    Due to current implementation limitations the size of an input and output images should be less than 32767x32767.
+    """
+    ...
+
+def repeat(src: Mat, ny, nx, dts: Mat = ...):
+    """
+    repeat(src, ny, nx[, dst]) -> dst
+    @brief Fills the output array with repeated copies of the input array.
+
+    The function cv::repeat duplicates the input array one or more times along each of the two axes:
+    [`dst` _{ij}= `src` _{i\\mod src.rows, ; j\\mod src.cols }]
+    The second variant of the function is more convenient to use with @ref MatrixExpressions.
+    @param src input array to replicate.
+    @param ny Flag to specify how many times the `src` is repeated along the
+    vertical axis.
+    @param nx Flag to specify how many times the `src` is repeated along the
+    horizontal axis.
+    @param dst output array of the same type as `src`.
+    @sa cv::reduce
+    """
+    ...
+
+def reprojectImageTo3D(disparity, Q, _3dImage=..., handleMissingValues=..., ddepth=...):
+    """
+    reprojectImageTo3D(disparity, Q[, _3dImage[, handleMissingValues[, ddepth]]]) -> _3dImage
+    @brief Reprojects a disparity image to 3D space.
+
+    @param disparity Input single-channel 8-bit unsigned, 16-bit signed, 32-bit signed or 32-bit
+    floating-point disparity image. The values of 8-bit / 16-bit signed formats are assumed to have no
+    fractional bits. If the disparity is 16-bit signed format, as computed by @ref StereoBM or
+    @ref StereoSGBM and maybe other algorithms, it should be divided by 16 (and scaled to float) before
+    being used here.
+    @param _3dImage Output 3-channel floating-point image of the same size as disparity. Each element of
+    _3dImage(x,y) contains 3D coordinates of the point (x,y) computed from the disparity map. If one
+    uses Q obtained by @ref stereoRectify, then the returned points are represented in the first
+    camera's rectified coordinate system.
+    @param Q `4 x 4` perspective transformation matrix that can be obtained with
+    @ref stereoRectify.
+    @param handleMissingValues Indicates, whether the function should handle missing values (i.e.
+    points where the disparity was not computed). If handleMissingValues=true, then pixels with the
+    minimal disparity that corresponds to the outliers (see StereoMatcher::compute ) are transformed
+    to 3D points with a very large Z value (currently set to 10000).
+    @param ddepth The optional output array depth. If it is -1, the output image will have CV_32F
+    depth. ddepth can also be set to CV_16S, CV_32S or CV_32F.
+
+    The function transforms a single-channel disparity map to a 3-channel image representing a 3D
+    surface. That is, for each pixel (x,y) and the corresponding disparity d=disparity(x,y) , it
+    computes:
+
+    [\\begin{bmatrix}
+    X
+    Y
+    Z
+    W
+    \\end{bmatrix} = Q \\begin{bmatrix}
+    x
+    y
+    `disparity` (x,y)
+    z
+    \\end{bmatrix}.]
+
+    @sa
+      To reproject a sparse set of points {(x,y,d),...} to 3D space, use perspectiveTransform.
+    """
+    ...
+
+def resize(src: Mat, dsize: tuple[int, int], dts: Mat = ..., fx: int = ..., fy: int = ..., interpolation: int = ...) -> Mat:
+    """
+    resize(src, dsize[, dst[, fx[, fy[, interpolation]]]]) -> dst
+    @brief Resizes an image.
+
+    The function resize resizes the image src down to or up to the specified size. Note that the
+    initial dst type or size are not taken into account. Instead, the size and type are derived from
+    the `src`,`dsize`,`fx`, and `fy`. If you want to resize src so that it fits the pre-created dst,
+    you may call the function as follows:
+    @code
+    // explicitly specify dsize=dst.size(); fx and fy will be computed from that.
+    resize(src, dst, dst.size(), 0, 0, interpolation);
+    @endcode
+    If you want to decimate the image by factor of 2 in each direction, you can call the function this
+    way:
+    @code
+    // specify fx and fy and let the function compute the destination image size.
+    resize(src, dst, Size(), 0.5, 0.5, interpolation);
+    @endcode
+    To shrink an image, it will generally look best with #INTER_AREA interpolation, whereas to
+    enlarge an image, it will generally look best with c#INTER_CUBIC (slow) or #INTER_LINEAR
+    (faster but still looks OK).
+
+    @param src input image.
+    @param dst output image; it has the size dsize (when it is non-zero) or the size computed from
+    src.size(), fx, and fy; the type of dst is the same as of src.
+    @param dsize output image size; if it equals zero, it is computed as:
+    [`dsize = Size(round(fx*src.cols), round(fy*src.rows))`]
+    Either dsize or both fx and fy must be non-zero.
+    @param fx scale factor along the horizontal axis; when it equals 0, it is computed as
+    [`(double)dsize.width/src.cols`]
+    @param fy scale factor along the vertical axis; when it equals 0, it is computed as
+    [`(double)dsize.height/src.rows`]
+    @param interpolation interpolation method, see #InterpolationFlags
+
+    @sa  warpAffine, warpPerspective, remap
+    """
+    ...
+
 @overload
-def resizeWindow(winname, width, height) -> None: ...
+def resizeWindow(winname, width, height) -> None:
+    """
+    resizeWindow(winname, width, height) -> None
+    @brief Resizes window to the specified size
+
+    @note
+
+    -   The specified window size is for the image area. Toolbars are not counted.
+    -   Only windows created without cv::WINDOW_AUTOSIZE flag can be resized.
+
+    @param winname Window name.
+    @param width The new window width.
+    @param height The new window height.
+
+
+
+    resizeWindow(winname, size) -> None
+    @overload
+    @param winname Window name.
+    @param size The new window size.
+    """
+    ...
+
 @overload
 def resizeWindow(winname, size) -> None: ...
-def rotate(*args, **kwargs) -> Any: ...  # incomplete
-def rotatedRectangleIntersection(*args, **kwargs) -> Any: ...  # incomplete
-def sampsonDistance(*args, **kwargs) -> Any: ...  # incomplete
-def scaleAdd(*args, **kwargs) -> Any: ...  # incomplete
-def seamlessClone(*args, **kwargs) -> Any: ...  # incomplete
-def selectROI(*args, **kwargs) -> Any: ...  # incomplete
-def selectROIs(*args, **kwargs) -> Any: ...  # incomplete
-def sepFilter2D(*args, **kwargs) -> Any: ...  # incomplete
-def setIdentity(*args, **kwargs) -> Any: ...  # incomplete
+def rotate(src: Mat, rotateCode, dts: Mat = ...):
+    """
+    rotate(src, rotateCode[, dst]) -> dst
+    @brief Rotates a 2D array in multiples of 90 degrees.
+    The function cv::rotate rotates the array in one of three different ways:
+    *   Rotate by 90 degrees clockwise (rotateCode = ROTATE_90_CLOCKWISE).
+    *   Rotate by 180 degrees clockwise (rotateCode = ROTATE_180).
+    *   Rotate by 270 degrees clockwise (rotateCode = ROTATE_90_COUNTERCLOCKWISE).
+    @param src input array.
+    @param dst output array of the same type as src.  The size is the same with ROTATE_180,
+    and the rows and cols are switched for ROTATE_90_CLOCKWISE and ROTATE_90_COUNTERCLOCKWISE.
+    @param rotateCode an enum to specify how to rotate the array; see the enum #RotateFlags
+    @sa transpose , repeat , completeSymm, flip, RotateFlags
+    """
+    ...
+
+def rotatedRectangleIntersection(rect1, rect2, intersectingRegion=...):
+    """
+    rotatedRectangleIntersection(rect1, rect2[, intersectingRegion]) -> retval, intersectingRegion
+    @brief Finds out if there is any intersection between two rotated rectangles.
+
+    If there is then the vertices of the intersecting region are returned as well.
+
+    Below are some examples of intersection configurations. The hatched pattern indicates the
+    intersecting region and the red vertices are returned by the function.
+
+    ![intersection examples](pics/intersection.png)
+
+    @param rect1 First rectangle
+    @param rect2 Second rectangle
+    @param intersectingRegion The output array of the vertices of the intersecting region. It returns
+    at most 8 vertices. Stored as std::vector<cv::Point2f> or cv::Mat as Mx1 of type CV_32FC2.
+    @returns One of #RectanglesIntersectTypes
+    """
+    ...
+
+def sampsonDistance(pt1, pt2, F):
+    """
+    sampsonDistance(pt1, pt2, F) -> retval
+    @brief Calculates the Sampson Distance between two points.
+
+    The function cv::sampsonDistance calculates and returns the first order approximation of the geometric error as:
+    [
+    sd( `pt1` , `pt2` )=
+    \\frac{(`pt2`^t · `F` · `pt1`)^2}
+    {((`F` · `pt1`)(0))^2 +
+    ((`F` · `pt1`)(1))^2 +
+    ((`F`^t · `pt2`)(0))^2 +
+    ((`F`^t · `pt2`)(1))^2}
+    ]
+    The fundamental matrix may be calculated using the cv::findFundamentalMat function. See @cite HartleyZ00 11.4.3 for details.
+    @param pt1 first homogeneous 2d point
+    @param pt2 second homogeneous 2d point
+    @param F fundamental matrix
+    @return The computed Sampson distance.
+    """
+    ...
+
+def scaleAdd(src1: Mat, alpha, src2: Mat, dts: Mat = ...):
+    """
+    scaleAdd(src1, alpha, src2[, dst]) -> dst
+    @brief Calculates the sum of a scaled array and another array.
+
+    The function scaleAdd is one of the classical primitive linear algebra operations, known as DAXPY
+    or SAXPY in [BLAS](http://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms). It calculates
+    the sum of a scaled array and another array:
+    [`dst` (I)= `scale` · `src1` (I) +  `src2` (I)]
+    The function can also be emulated with a matrix expression, for example:
+    @code{.cpp}
+    Mat A(3, 3, CV_64F);
+    ...
+    A.row(0) = A.row(1)*2 + A.row(2);
+    @endcode
+    @param src1 first input array.
+    @param alpha scale factor for the first array.
+    @param src2 second input array of the same size and type as src1.
+    @param dst output array of the same size and type as src1.
+    @sa add, addWeighted, subtract, Mat::dot, Mat::convertTo
+    """
+    ...
+
+def seamlessClone(src: Mat, dts: Mat, mask: Mat | None, p, flags: int, blend=...):
+    """
+    seamlessClone(src, dst, mask, p, flags[, blend]) -> blend
+    @brief Image editing tasks concern either global changes (color/intensity corrections, filters,
+    deformations) or local changes concerned to a selection. Here we are interested in achieving local
+    changes, ones that are restricted to a region manually selected (ROI), in a seamless and effortless
+    manner. The extent of the changes ranges from slight distortions to complete replacement by novel
+    content @cite PM03 .
+
+    @param src Input 8-bit 3-channel image.
+    @param dst Input 8-bit 3-channel image.
+    @param mask Input 8-bit 1 or 3-channel image.
+    @param p Point in dst image where object is placed.
+    @param blend Output image with the same size and type as dst.
+    @param flags Cloning method that could be cv::NORMAL_CLONE, cv::MIXED_CLONE or cv::MONOCHROME_TRANSFER
+    """
+    ...
+
+def selectROI(windowName, img: Mat, showCrosshair=..., fromCenter=...):
+    """
+    selectROI(windowName, img[, showCrosshair[, fromCenter]]) -> retval
+    @brief Selects ROI on the given image.
+    Function creates a window and allows user to select a ROI using mouse.
+    Controls: use `space` or `enter` to finish selection, use key `c` to cancel selection (function will return the zero cv::Rect).
+
+    @param windowName name of the window where selection process will be shown.
+    @param img image to select a ROI.
+    @param showCrosshair if true crosshair of selection rectangle will be shown.
+    @param fromCenter if true center of selection will match initial mouse position. In opposite case a corner of
+    selection rectangle will correspont to the initial mouse position.
+    @return selected ROI or empty rect if selection canceled.
+
+    @note The function sets it's own mouse callback for specified window using cv::setMouseCallback(windowName, ...).
+    After finish of work an empty callback will be set for the used window.
+
+
+
+    selectROI(img[, showCrosshair[, fromCenter]]) -> retval
+    @overload
+    """
+    ...
+
+def selectROIs(windowName, img: Mat, showCrosshair=..., fromCenter=...):
+    """
+    selectROIs(windowName, img[, showCrosshair[, fromCenter]]) -> boundingBoxes
+    @brief Selects ROIs on the given image.
+    Function creates a window and allows user to select a ROIs using mouse.
+    Controls: use `space` or `enter` to finish current selection and start a new one,
+    use `esc` to terminate multiple ROI selection process.
+
+    @param windowName name of the window where selection process will be shown.
+    @param img image to select a ROI.
+    @param boundingBoxes selected ROIs.
+    @param showCrosshair if true crosshair of selection rectangle will be shown.
+    @param fromCenter if true center of selection will match initial mouse position. In opposite case a corner of
+    selection rectangle will correspont to the initial mouse position.
+
+    @note The function sets it's own mouse callback for specified window using cv::setMouseCallback(windowName, ...).
+    After finish of work an empty callback will be set for the used window.
+    """
+    ...
+
+def sepFilter2D(src: Mat, ddepth, kernelX, kernelY, dts: Mat = ..., anchor=..., delta=..., borderType=...):
+    """
+    sepFilter2D(src, ddepth, kernelX, kernelY[, dst[, anchor[, delta[, borderType]]]]) -> dst
+    @brief Applies a separable linear filter to an image.
+
+    The function applies a separable linear filter to the image. That is, first, every row of src is
+    filtered with the 1D kernel kernelX. Then, every column of the result is filtered with the 1D
+    kernel kernelY. The final result shifted by delta is stored in dst .
+
+    @param src Source image.
+    @param dst Destination image of the same size and the same number of channels as src .
+    @param ddepth Destination image depth, see @ref filter_depths "combinations"
+    @param kernelX Coefficients for filtering each row.
+    @param kernelY Coefficients for filtering each column.
+    @param anchor Anchor position within the kernel. The default value `(-1,-1)` means that the anchor
+    is at the kernel center.
+    @param delta Value added to the filtered results before storing them.
+    @param borderType Pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.
+    @sa  filter2D, Sobel, GaussianBlur, boxFilter, blur
+    """
+    ...
+
+def setIdentity(mtx, s=...):
+    """
+    setIdentity(mtx[, s]) -> mtx
+    @brief Initializes a scaled identity matrix.
+
+    The function cv::setIdentity initializes a scaled identity matrix:
+    [`mtx` (i,j)= \\fork{`value`}{ if (i=j)}{0}{otherwise}]
+
+    The function can also be emulated using the matrix initializers and the
+    matrix expressions:
+    @code
+    Mat A = Mat::eye(4, 3, CV_32F)*5;
+    // A will be set to [[5, 0, 0], [0, 5, 0], [0, 0, 5], [0, 0, 0]]
+    @endcode
+    @param mtx matrix to initialize (not necessarily square).
+    @param s value to assign to diagonal elements.
+    @sa Mat::zeros, Mat::ones, Mat::setTo, Mat::operator=
+    """
+    ...
+
 def setLogLevel(*args, **kwargs) -> Any: ...  # incomplete
-def setMouseCallback(*args, **kwargs) -> Any: ...  # incomplete
-def setNumThreads(nthreads) -> None: ...
-def setRNGSeed(seed) -> None: ...
-def setTrackbarMax(trackbarname, winname, maxval) -> None: ...
-def setTrackbarMin(trackbarname, winname, minval) -> None: ...
-def setTrackbarPos(trackbarname, winname, pos) -> None: ...
-def setUseOpenVX(flag) -> None: ...
-def setUseOptimized(onoff) -> None: ...
-def setWindowProperty(winname, prop_id, prop_value) -> None: ...
-def setWindowTitle(winname, title) -> None: ...
-def solve(*args, **kwargs) -> Any: ...  # incomplete
-def solveCubic(*args, **kwargs) -> Any: ...  # incomplete
-def solveLP(*args, **kwargs) -> Any: ...  # incomplete
-def solveP3P(*args, **kwargs) -> Any: ...  # incomplete
-def solvePnP(*args, **kwargs) -> Any: ...  # incomplete
-def solvePnPGeneric(*args, **kwargs) -> Any: ...  # incomplete
-def solvePnPRansac(*args, **kwargs) -> Any: ...  # incomplete
-def solvePnPRefineLM(*args, **kwargs) -> Any: ...  # incomplete
-def solvePnPRefineVVS(*args, **kwargs) -> Any: ...  # incomplete
-def solvePoly(*args, **kwargs) -> Any: ...  # incomplete
-def sort(*args, **kwargs) -> Any: ...  # incomplete
-def sortIdx(*args, **kwargs) -> Any: ...  # incomplete
-def spatialGradient(*args, **kwargs) -> Any: ...  # incomplete
-def split(*args, **kwargs) -> Any: ...  # incomplete
-def sqrBoxFilter(*args, **kwargs) -> Any: ...  # incomplete
-def sqrt(*args, **kwargs) -> Any: ...  # incomplete
-def startWindowThread(*args, **kwargs) -> Any: ...  # incomplete
-def stereoCalibrate(*args, **kwargs) -> Any: ...  # incomplete
-def stereoCalibrateExtended(*args, **kwargs) -> Any: ...  # incomplete
-def stereoRectify(*args, **kwargs) -> Any: ...  # incomplete
-def stereoRectifyUncalibrated(*args, **kwargs) -> Any: ...  # incomplete
-def stylization(*args, **kwargs) -> Any: ...  # incomplete
-def subtract(*args, **kwargs) -> Any: ...  # incomplete
-def sumElems(*args, **kwargs) -> Any: ...  # incomplete
-def textureFlattening(*args, **kwargs) -> Any: ...  # incomplete
-def threshold(*args, **kwargs) -> Any: ...  # incomplete
-def trace(*args, **kwargs) -> Any: ...  # incomplete
-def transform(*args, **kwargs) -> Any: ...  # incomplete
-def transpose(*args, **kwargs) -> Any: ...  # incomplete
-def triangulatePoints(*args, **kwargs) -> Any: ...  # incomplete
-def undistort(*args, **kwargs) -> Any: ...  # incomplete
-def undistortPoints(*args, **kwargs) -> Any: ...  # incomplete
-def undistortPointsIter(*args, **kwargs) -> Any: ...  # incomplete
-def useOpenVX(*args, **kwargs) -> Any: ...  # incomplete
-def useOptimized(*args, **kwargs) -> Any: ...  # incomplete
-def validateDisparity(*args, **kwargs) -> Any: ...  # incomplete
-def vconcat(matrices, out) -> Incomplete: ...
-def waitKey(*args, **kwargs) -> Any: ...  # incomplete
-def waitKeyEx(*args, **kwargs) -> Any: ...  # incomplete
-def warpAffine(*args, **kwargs) -> Any: ...  # incomplete
-def warpPerspective(*args, **kwargs) -> Any: ...  # incomplete
-def warpPolar(*args, **kwargs) -> Any: ...  # incomplete
-def watershed(image, markers) -> _markers: ...
-def writeOpticalFlow(*args, **kwargs) -> Any: ...  # incomplete
+def setMouseCallback(windowName, onMouse, param=...):
+    """
+    setMouseCallback(windowName, onMouse [, param]) -> None
+    """
+    ...
+
+def setNumThreads(nthreads) -> None:
+    """
+    setNumThreads(nthreads) -> None
+    @brief OpenCV will try to set the number of threads for the next parallel region.
+
+    If threads == 0, OpenCV will disable threading optimizations and run all it's functions
+    sequentially. Passing threads < 0 will reset threads number to system default. This function must
+    be called outside of parallel region.
+
+    OpenCV will try to run its functions with specified threads number, but some behaviour differs from
+    framework:
+    -   `TBB` - User-defined parallel constructions will run with the same threads number, if
+    another is not specified. If later on user creates his own scheduler, OpenCV will use it.
+    -   `OpenMP` - No special defined behaviour.
+    -   `Concurrency` - If threads == 1, OpenCV will disable threading optimizations and run its
+    functions sequentially.
+    -   `GCD` - Supports only values <= 0.
+    -   `C=` - No special defined behaviour.
+    @param nthreads Number of threads used by OpenCV.
+    @sa getNumThreads, getThreadNum
+    """
+    ...
+
+def setRNGSeed(seed) -> None:
+    """
+    setRNGSeed(seed) -> None
+    @brief Sets state of default random number generator.
+
+    The function cv::setRNGSeed sets state of default random number generator to custom value.
+    @param seed new state for default random number generator
+    @sa RNG, randu, randn
+    """
+    ...
+
+def setTrackbarMax(trackbarname, winname, maxval) -> None:
+    """
+    setTrackbarMax(trackbarname, winname, maxval) -> None
+    @brief Sets the trackbar maximum position.
+
+    The function sets the maximum position of the specified trackbar in the specified window.
+
+    @note
+
+    [__Qt Backend Only__] winname can be empty if the trackbar is attached to the control
+    panel.
+
+    @param trackbarname Name of the trackbar.
+    @param winname Name of the window that is the parent of trackbar.
+    @param maxval New maximum position.
+    """
+    ...
+
+def setTrackbarMin(trackbarname, winname, minval) -> None:
+    """
+    setTrackbarMin(trackbarname, winname, minval) -> None
+    @brief Sets the trackbar minimum position.
+
+    The function sets the minimum position of the specified trackbar in the specified window.
+
+    @note
+
+    [__Qt Backend Only__] winname can be empty if the trackbar is attached to the control
+    panel.
+
+    @param trackbarname Name of the trackbar.
+    @param winname Name of the window that is the parent of trackbar.
+    @param minval New minimum position.
+    """
+    ...
+
+def setTrackbarPos(trackbarname, winname, pos) -> None:
+    """
+    setTrackbarPos(trackbarname, winname, pos) -> None
+    @brief Sets the trackbar position.
+
+    The function sets the position of the specified trackbar in the specified window.
+
+    @note
+
+    [__Qt Backend Only__] winname can be empty if the trackbar is attached to the control
+    panel.
+
+    @param trackbarname Name of the trackbar.
+    @param winname Name of the window that is the parent of trackbar.
+    @param pos New position.
+    """
+    ...
+
+def setUseOpenVX(flag) -> None:
+    """
+    setUseOpenVX(flag) -> None
+
+    """
+    ...
+
+def setUseOptimized(onoff) -> None:
+    """
+    setUseOptimized(onoff) -> None
+    @brief Enables or disables the optimized code.
+
+    The function can be used to dynamically turn on and off optimized dispatched code (code that uses SSE4.2, AVX/AVX2,
+    and other instructions on the platforms that support it). It sets a global flag that is further
+    checked by OpenCV functions. Since the flag is not checked in the inner OpenCV loops, it is only
+    safe to call the function on the very top level in your application where you can be sure that no
+    other OpenCV function is currently executed.
+
+    By default, the optimized code is enabled unless you disable it in CMake. The current status can be
+    retrieved using useOptimized.
+    @param onoff The boolean flag specifying whether the optimized code should be used (onoff=true)
+    or not (onoff=false).
+    """
+    ...
+
+def setWindowProperty(winname, prop_id, prop_value) -> None:
+    """
+    setWindowProperty(winname, prop_id, prop_value) -> None
+    @brief Changes parameters of a window dynamically.
+
+    The function setWindowProperty enables changing properties of a window.
+
+    @param winname Name of the window.
+    @param prop_id Window property to edit. The supported operation flags are: (cv::WindowPropertyFlags)
+    @param prop_value New value of the window property. The supported flags are: (cv::WindowFlags)
+    """
+    ...
+
+def setWindowTitle(winname, title) -> None:
+    """
+    setWindowTitle(winname, title) -> None
+    @brief Updates window title
+    @param winname Name of the window.
+    @param title New title.
+    """
+    ...
+
+def solve(src1: Mat, src2: Mat, dts: Mat = ..., flags: int = ...):
+    """
+    solve(src1, src2[, dst[, flags]]) -> retval, dst
+    @brief Solves one or more linear systems or least-squares problems.
+
+    The function cv::solve solves a linear system or least-squares problem (the
+    latter is possible with SVD or QR methods, or by specifying the flag
+    #DECOMP_NORMAL ):
+    [`dst` =  \\arg \\min _X | `src1` · `X` -  `src2` |]
+
+    If #DECOMP_LU or #DECOMP_CHOLESKY method is used, the function returns 1
+    if src1 (or ``src1`^T`src1`` ) is non-singular. Otherwise,
+    it returns 0. In the latter case, dst is not valid. Other methods find a
+    pseudo-solution in case of a singular left-hand side part.
+
+    @note If you want to find a unity-norm solution of an under-defined
+    singular system ``src1`·`dst`=0` , the function solve
+    will not do the work. Use SVD::solveZ instead.
+
+    @param src1 input matrix on the left-hand side of the system.
+    @param src2 input matrix on the right-hand side of the system.
+    @param dst output solution.
+    @param flags solution (matrix inversion) method (#DecompTypes)
+    @sa invert, SVD, eigen
+    """
+    ...
+
+def solveCubic(coeffs, roots=...):
+    """
+    solveCubic(coeffs[, roots]) -> retval, roots
+    @brief Finds the real roots of a cubic equation.
+
+    The function solveCubic finds the real roots of a cubic equation:
+    -   if coeffs is a 4-element vector:
+    [`coeffs` [0] x^3 +  `coeffs` [1] x^2 +  `coeffs` [2] x +  `coeffs` [3] = 0]
+    -   if coeffs is a 3-element vector:
+    [x^3 +  `coeffs` [0] x^2 +  `coeffs` [1] x +  `coeffs` [2] = 0]
+
+    The roots are stored in the roots array.
+    @param coeffs equation coefficients, an array of 3 or 4 elements.
+    @param roots output array of real roots that has 1 or 3 elements.
+    @return number of real roots. It can be 0, 1 or 2.
+    """
+    ...
+
+def solveLP(Func, Constr, z=...):
+    """
+    solveLP(Func, Constr[, z]) -> retval, z
+    @brief Solve given (non-integer) linear programming problem using the Simplex Algorithm (Simplex Method).
+
+    What we mean here by "linear programming problem" (or LP problem, for short) can be formulated as:
+
+    [\\mbox{Maximize } c· x
+    \\mbox{Subject to:}
+    Ax≤ b
+    x≥q 0]
+
+    Where `c` is fixed `1`-by-`n` row-vector, `A` is fixed `m`-by-`n` matrix, `b` is fixed `m`-by-`1`
+    column vector and `x` is an arbitrary `n`-by-`1` column vector, which satisfies the constraints.
+
+    Simplex algorithm is one of many algorithms that are designed to handle this sort of problems
+    efficiently. Although it is not optimal in theoretical sense (there exist algorithms that can solve
+    any problem written as above in polynomial time, while simplex method degenerates to exponential
+    time for some special cases), it is well-studied, easy to implement and is shown to work well for
+    real-life purposes.
+
+    The particular implementation is taken almost verbatim from **Introduction to Algorithms, third
+    edition** by T. H. Cormen, C. E. Leiserson, R. L. Rivest and Clifford Stein. In particular, the
+    Bland\'s rule <http://en.wikipedia.org/wiki/Bland%27s_rule> is used to prevent cycling.
+
+    @param Func This row-vector corresponds to `c` in the LP problem formulation (see above). It should
+    contain 32- or 64-bit floating point numbers. As a convenience, column-vector may be also submitted,
+    in the latter case it is understood to correspond to `c^T`.
+    @param Constr `m`-by-`n+1` matrix, whose rightmost column corresponds to `b` in formulation above
+    and the remaining to `A`. It should contain 32- or 64-bit floating point numbers.
+    @param z The solution will be returned here as a column-vector - it corresponds to `c` in the
+    formulation above. It will contain 64-bit floating point numbers.
+    @return One of cv::SolveLPResult
+    """
+    ...
+
+def solveP3P(objectPoints, imagePoints, cameraMatrix, distCoeffs, flags: int, rvecs=..., tvecs=...):
+    """
+    solveP3P(objectPoints, imagePoints, cameraMatrix, distCoeffs, flags[, rvecs[, tvecs]]) -> retval, rvecs, tvecs
+    @brief Finds an object pose from 3 3D-2D point correspondences.
+
+    @param objectPoints Array of object points in the object coordinate space, 3x3 1-channel or
+    1x3/3x1 3-channel. vector<Point3f> can be also passed here.
+    @param imagePoints Array of corresponding image points, 3x2 1-channel or 1x3/3x1 2-channel.
+    vector<Point2f> can be also passed here.
+    @param cameraMatrix Input camera matrix `A = \\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}` .
+    @param distCoeffs Input vector of distortion coefficients
+    `(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]])` of
+    4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are
+    assumed.
+    @param rvecs Output rotation vectors (see @ref Rodrigues ) that, together with tvecs, brings points from
+    the model coordinate system to the camera coordinate system. A P3P problem has up to 4 solutions.
+    @param tvecs Output translation vectors.
+    @param flags Method for solving a P3P problem:
+    -   **SOLVEPNP_P3P** Method is based on the paper of X.S. Gao, X.-R. Hou, J. Tang, H.-F. Chang
+    "Complete Solution Classification for the Perspective-Three-Point Problem" (@cite gao2003complete).
+    -   **SOLVEPNP_AP3P** Method is based on the paper of T. Ke and S. Roumeliotis.
+    "An Efficient Algebraic Solution to the Perspective-Three-Point Problem" (@cite Ke17).
+
+    The function estimates the object pose given 3 object points, their corresponding image
+    projections, as well as the camera matrix and the distortion coefficients.
+
+    @note
+    The solutions are sorted by reprojection errors (lowest to highest).
+    """
+    ...
+
+def solvePnP(objectPoints, imagePoints, cameraMatrix, distCoeffs, rvec=..., tvec=..., useExtrinsicGuess=..., flags: int = ...):
+    """
+    solvePnP(objectPoints, imagePoints, cameraMatrix, distCoeffs[, rvec[, tvec[, useExtrinsicGuess[, flags]]]]) -> retval, rvec, tvec
+    @brief Finds an object pose from 3D-2D point correspondences.
+    This function returns the rotation and the translation vectors that transform a 3D point expressed in the object
+    coordinate frame to the camera coordinate frame, using different methods:
+    - P3P methods (@ref SOLVEPNP_P3P, @ref SOLVEPNP_AP3P): need 4 input points to return a unique solution.
+    - @ref SOLVEPNP_IPPE Input points must be >= 4 and object points must be coplanar.
+    - @ref SOLVEPNP_IPPE_SQUARE Special case suitable for marker pose estimation.
+    Number of input points must be 4. Object points must be defined in the following order:
+     - point 0: [-squareLength / 2,  squareLength / 2, 0]
+     - point 1: [ squareLength / 2,  squareLength / 2, 0]
+     - point 2: [ squareLength / 2, -squareLength / 2, 0]
+     - point 3: [-squareLength / 2, -squareLength / 2, 0]
+    - for all the other flags, number of input points must be >= 4 and object points can be in any configuration.
+
+    @param objectPoints Array of object points in the object coordinate space, Nx3 1-channel or
+    1xN/Nx1 3-channel, where N is the number of points. vector<Point3d> can be also passed here.
+    @param imagePoints Array of corresponding image points, Nx2 1-channel or 1xN/Nx1 2-channel,
+    where N is the number of points. vector<Point2d> can be also passed here.
+    @param cameraMatrix Input camera matrix `A = \\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}` .
+    @param distCoeffs Input vector of distortion coefficients
+    `(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]])` of
+    4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are
+    assumed.
+    @param rvec Output rotation vector (see @ref Rodrigues ) that, together with tvec, brings points from
+    the model coordinate system to the camera coordinate system.
+    @param tvec Output translation vector.
+    @param useExtrinsicGuess Parameter used for #SOLVEPNP_ITERATIVE. If true (1), the function uses
+    the provided rvec and tvec values as initial approximations of the rotation and translation
+    vectors, respectively, and further optimizes them.
+    @param flags Method for solving a PnP problem:
+    -   **SOLVEPNP_ITERATIVE** Iterative method is based on a Levenberg-Marquardt optimization. In
+    this case the function finds such a pose that minimizes reprojection error, that is the sum
+    of squared distances between the observed projections imagePoints and the projected (using
+    projectPoints ) objectPoints .
+    -   **SOLVEPNP_P3P** Method is based on the paper of X.S. Gao, X.-R. Hou, J. Tang, H.-F. Chang
+    "Complete Solution Classification for the Perspective-Three-Point Problem" (@cite gao2003complete).
+    In this case the function requires exactly four object and image points.
+    -   **SOLVEPNP_AP3P** Method is based on the paper of T. Ke, S. Roumeliotis
+    "An Efficient Algebraic Solution to the Perspective-Three-Point Problem" (@cite Ke17).
+    In this case the function requires exactly four object and image points.
+    -   **SOLVEPNP_EPNP** Method has been introduced by F. Moreno-Noguer, V. Lepetit and P. Fua in the
+    paper "EPnP: Efficient Perspective-n-Point Camera Pose Estimation" (@cite lepetit2009epnp).
+    -   **SOLVEPNP_DLS** Method is based on the paper of J. Hesch and S. Roumeliotis.
+    "A Direct Least-Squares (DLS) Method for PnP" (@cite hesch2011direct).
+    -   **SOLVEPNP_UPNP** Method is based on the paper of A. Penate-Sanchez, J. Andrade-Cetto,
+    F. Moreno-Noguer. "Exhaustive Linearization for Robust Camera Pose and Focal Length
+    Estimation" (@cite penate2013exhaustive). In this case the function also estimates the parameters `f_x` and `f_y`
+    assuming that both have the same value. Then the cameraMatrix is updated with the estimated
+    focal length.
+    -   **SOLVEPNP_IPPE** Method is based on the paper of T. Collins and A. Bartoli.
+    "Infinitesimal Plane-Based Pose Estimation" (@cite Collins14). This method requires coplanar object points.
+    -   **SOLVEPNP_IPPE_SQUARE** Method is based on the paper of Toby Collins and Adrien Bartoli.
+    "Infinitesimal Plane-Based Pose Estimation" (@cite Collins14). This method is suitable for marker pose estimation.
+    It requires 4 coplanar object points defined in the following order:
+     - point 0: [-squareLength / 2,  squareLength / 2, 0]
+     - point 1: [ squareLength / 2,  squareLength / 2, 0]
+     - point 2: [ squareLength / 2, -squareLength / 2, 0]
+     - point 3: [-squareLength / 2, -squareLength / 2, 0]
+
+    The function estimates the object pose given a set of object points, their corresponding image
+    projections, as well as the camera matrix and the distortion coefficients, see the figure below
+    (more precisely, the X-axis of the camera frame is pointing to the right, the Y-axis downward
+    and the Z-axis forward).
+
+    ![](pnp.jpg)
+
+    Points expressed in the world frame ` \\bf{X}_w ` are projected into the image plane ` \\left[ u, v \\right] `
+    using the perspective projection model ` π ` and the camera intrinsic parameters matrix ` \\bf{A} `:
+
+    [
+     \\begin{align*}
+     \\begin{bmatrix}
+     u
+     v
+     1
+     \\end{bmatrix} &=
+     \\bf{A} \\hspace{0.1em} π \\hspace{0.2em} ^{c}\\bf{T}_w
+     \\begin{bmatrix}
+     X_{w}
+     Y_{w}
+     Z_{w}
+     1
+     \\end{bmatrix}
+     \\begin{bmatrix}
+     u
+     v
+     1
+     \\end{bmatrix} &=
+     \\begin{bmatrix}
+     f_x & 0 & c_x
+     0 & f_y & c_y
+     0 & 0 & 1
+     \\end{bmatrix}
+     \\begin{bmatrix}
+     1 & 0 & 0 & 0
+     0 & 1 & 0 & 0
+     0 & 0 & 1 & 0
+     \\end{bmatrix}
+     \\begin{bmatrix}
+     r_{11} & r_{12} & r_{13} & t_x
+     r_{21} & r_{22} & r_{23} & t_y
+     r_{31} & r_{32} & r_{33} & t_z
+     0 & 0 & 0 & 1
+     \\end{bmatrix}
+     \\begin{bmatrix}
+     X_{w}
+     Y_{w}
+     Z_{w}
+     1
+     \\end{bmatrix}
+     \\end{align*}
+    ]
+
+    The estimated pose is thus the rotation (`rvec`) and the translation (`tvec`) vectors that allow transforming
+    a 3D point expressed in the world frame into the camera frame:
+
+    [
+     \\begin{align*}
+     \\begin{bmatrix}
+     X_c
+     Y_c
+     Z_c
+     1
+     \\end{bmatrix} &=
+     \\hspace{0.2em} ^{c}\\bf{T}_w
+     \\begin{bmatrix}
+     X_{w}
+     Y_{w}
+     Z_{w}
+     1
+     \\end{bmatrix}
+     \\begin{bmatrix}
+     X_c
+     Y_c
+     Z_c
+     1
+     \\end{bmatrix} &=
+     \\begin{bmatrix}
+     r_{11} & r_{12} & r_{13} & t_x
+     r_{21} & r_{22} & r_{23} & t_y
+     r_{31} & r_{32} & r_{33} & t_z
+     0 & 0 & 0 & 1
+     \\end{bmatrix}
+     \\begin{bmatrix}
+     X_{w}
+     Y_{w}
+     Z_{w}
+     1
+     \\end{bmatrix}
+     \\end{align*}
+    ]
+
+    @note
+      -   An example of how to use solvePnP for planar augmented reality can be found at
+       opencv_source_code/samples/python/plane_ar.py
+      -   If you are using Python:
+       - Numpy array slices won\'t work as input because solvePnP requires contiguous
+       arrays (enforced by the assertion using cv::Mat::checkVector() around line 55 of
+       modules/calib3d/src/solvepnp.cpp version 2.4.9)
+       - The P3P algorithm requires image points to be in an array of shape (N,1,2) due
+       to its calling of cv::undistortPoints (around line 75 of modules/calib3d/src/solvepnp.cpp version 2.4.9)
+       which requires 2-channel information.
+       - Thus, given some data D = np.array(...) where D.shape = (N,M), in order to use a subset of
+       it as, e.g., imagePoints, one must effectively copy it into a new array: imagePoints =
+       np.ascontiguousarray(D[:,:2]).reshape((N,1,2))
+      -   The methods **SOLVEPNP_DLS** and **SOLVEPNP_UPNP** cannot be used as the current implementations are
+      unstable and sometimes give completely wrong results. If you pass one of these two
+      flags, **SOLVEPNP_EPNP** method will be used instead.
+      -   The minimum number of points is 4 in the general case. In the case of **SOLVEPNP_P3P** and **SOLVEPNP_AP3P**
+      methods, it is required to use exactly 4 points (the first 3 points are used to estimate all the solutions
+      of the P3P problem, the last one is used to retain the best solution that minimizes the reprojection error).
+      -   With **SOLVEPNP_ITERATIVE** method and `useExtrinsicGuess=true`, the minimum number of points is 3 (3 points
+      are sufficient to compute a pose but there are up to 4 solutions). The initial solution should be close to the
+      global solution to converge.
+      -   With **SOLVEPNP_IPPE** input points must be >= 4 and object points must be coplanar.
+      -   With **SOLVEPNP_IPPE_SQUARE** this is a special case suitable for marker pose estimation.
+      Number of input points must be 4. Object points must be defined in the following order:
+        - point 0: [-squareLength / 2,  squareLength / 2, 0]
+        - point 1: [ squareLength / 2,  squareLength / 2, 0]
+        - point 2: [ squareLength / 2, -squareLength / 2, 0]
+        - point 3: [-squareLength / 2, -squareLength / 2, 0]
+    """
+    ...
+
+def solvePnPGeneric(
+    objectPoints,
+    imagePoints,
+    cameraMatrix,
+    distCoeffs,
+    rvecs=...,
+    tvecs=...,
+    useExtrinsicGuess=...,
+    flags: int = ...,
+    rvec=...,
+    tvec=...,
+    reprojectionError=...,
+):
+    """
+    solvePnPGeneric(objectPoints, imagePoints, cameraMatrix, distCoeffs[, rvecs[, tvecs[, useExtrinsicGuess[, flags[, rvec[, tvec[, reprojectionError]]]]]]]) -> retval, rvecs, tvecs, reprojectionError
+    @brief Finds an object pose from 3D-2D point correspondences.
+    This function returns a list of all the possible solutions (a solution is a <rotation vector, translation vector>
+    couple), depending on the number of input points and the chosen method:
+    - P3P methods (@ref SOLVEPNP_P3P, @ref SOLVEPNP_AP3P): 3 or 4 input points. Number of returned solutions can be between 0 and 4 with 3 input points.
+    - @ref SOLVEPNP_IPPE Input points must be >= 4 and object points must be coplanar. Returns 2 solutions.
+    - @ref SOLVEPNP_IPPE_SQUARE Special case suitable for marker pose estimation.
+    Number of input points must be 4 and 2 solutions are returned. Object points must be defined in the following order:
+     - point 0: [-squareLength / 2,  squareLength / 2, 0]
+     - point 1: [ squareLength / 2,  squareLength / 2, 0]
+     - point 2: [ squareLength / 2, -squareLength / 2, 0]
+     - point 3: [-squareLength / 2, -squareLength / 2, 0]
+    - for all the other flags, number of input points must be >= 4 and object points can be in any configuration.
+    Only 1 solution is returned.
+
+    @param objectPoints Array of object points in the object coordinate space, Nx3 1-channel or
+    1xN/Nx1 3-channel, where N is the number of points. vector<Point3d> can be also passed here.
+    @param imagePoints Array of corresponding image points, Nx2 1-channel or 1xN/Nx1 2-channel,
+    where N is the number of points. vector<Point2d> can be also passed here.
+    @param cameraMatrix Input camera matrix `A = \\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}` .
+    @param distCoeffs Input vector of distortion coefficients
+    `(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]])` of
+    4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are
+    assumed.
+    @param rvecs Vector of output rotation vectors (see @ref Rodrigues ) that, together with tvecs, brings points from
+    the model coordinate system to the camera coordinate system.
+    @param tvecs Vector of output translation vectors.
+    @param useExtrinsicGuess Parameter used for #SOLVEPNP_ITERATIVE. If true (1), the function uses
+    the provided rvec and tvec values as initial approximations of the rotation and translation
+    vectors, respectively, and further optimizes them.
+    @param flags Method for solving a PnP problem:
+    -   **SOLVEPNP_ITERATIVE** Iterative method is based on a Levenberg-Marquardt optimization. In
+    this case the function finds such a pose that minimizes reprojection error, that is the sum
+    of squared distances between the observed projections imagePoints and the projected (using
+    projectPoints ) objectPoints .
+    -   **SOLVEPNP_P3P** Method is based on the paper of X.S. Gao, X.-R. Hou, J. Tang, H.-F. Chang
+    "Complete Solution Classification for the Perspective-Three-Point Problem" (@cite gao2003complete).
+    In this case the function requires exactly four object and image points.
+    -   **SOLVEPNP_AP3P** Method is based on the paper of T. Ke, S. Roumeliotis
+    "An Efficient Algebraic Solution to the Perspective-Three-Point Problem" (@cite Ke17).
+    In this case the function requires exactly four object and image points.
+    -   **SOLVEPNP_EPNP** Method has been introduced by F.Moreno-Noguer, V.Lepetit and P.Fua in the
+    paper "EPnP: Efficient Perspective-n-Point Camera Pose Estimation" (@cite lepetit2009epnp).
+    -   **SOLVEPNP_DLS** Method is based on the paper of Joel A. Hesch and Stergios I. Roumeliotis.
+    "A Direct Least-Squares (DLS) Method for PnP" (@cite hesch2011direct).
+    -   **SOLVEPNP_UPNP** Method is based on the paper of A.Penate-Sanchez, J.Andrade-Cetto,
+    F.Moreno-Noguer. "Exhaustive Linearization for Robust Camera Pose and Focal Length
+    Estimation" (@cite penate2013exhaustive). In this case the function also estimates the parameters `f_x` and `f_y`
+    assuming that both have the same value. Then the cameraMatrix is updated with the estimated
+    focal length.
+    -   **SOLVEPNP_IPPE** Method is based on the paper of T. Collins and A. Bartoli.
+    "Infinitesimal Plane-Based Pose Estimation" (@cite Collins14). This method requires coplanar object points.
+    -   **SOLVEPNP_IPPE_SQUARE** Method is based on the paper of Toby Collins and Adrien Bartoli.
+    "Infinitesimal Plane-Based Pose Estimation" (@cite Collins14). This method is suitable for marker pose estimation.
+    It requires 4 coplanar object points defined in the following order:
+     - point 0: [-squareLength / 2,  squareLength / 2, 0]
+     - point 1: [ squareLength / 2,  squareLength / 2, 0]
+     - point 2: [ squareLength / 2, -squareLength / 2, 0]
+     - point 3: [-squareLength / 2, -squareLength / 2, 0]
+    @param rvec Rotation vector used to initialize an iterative PnP refinement algorithm, when flag is SOLVEPNP_ITERATIVE
+    and useExtrinsicGuess is set to true.
+    @param tvec Translation vector used to initialize an iterative PnP refinement algorithm, when flag is SOLVEPNP_ITERATIVE
+    and useExtrinsicGuess is set to true.
+    @param reprojectionError Optional vector of reprojection error, that is the RMS error
+    (` \\text{RMSE} = √{\\frac{∑_{i}^{N} \\left ( \\hat{y_i} - y_i \\right )^2}{N}} `) between the input image points
+    and the 3D object points projected with the estimated pose.
+
+    The function estimates the object pose given a set of object points, their corresponding image
+    projections, as well as the camera matrix and the distortion coefficients, see the figure below
+    (more precisely, the X-axis of the camera frame is pointing to the right, the Y-axis downward
+    and the Z-axis forward).
+
+    ![](pnp.jpg)
+
+    Points expressed in the world frame ` \\bf{X}_w ` are projected into the image plane ` \\left[ u, v \\right] `
+    using the perspective projection model ` π ` and the camera intrinsic parameters matrix ` \\bf{A} `:
+
+    [
+     \\begin{align*}
+     \\begin{bmatrix}
+     u
+     v
+     1
+     \\end{bmatrix} &=
+     \\bf{A} \\hspace{0.1em} π \\hspace{0.2em} ^{c}\\bf{T}_w
+     \\begin{bmatrix}
+     X_{w}
+     Y_{w}
+     Z_{w}
+     1
+     \\end{bmatrix}
+     \\begin{bmatrix}
+     u
+     v
+     1
+     \\end{bmatrix} &=
+     \\begin{bmatrix}
+     f_x & 0 & c_x
+     0 & f_y & c_y
+     0 & 0 & 1
+     \\end{bmatrix}
+     \\begin{bmatrix}
+     1 & 0 & 0 & 0
+     0 & 1 & 0 & 0
+     0 & 0 & 1 & 0
+     \\end{bmatrix}
+     \\begin{bmatrix}
+     r_{11} & r_{12} & r_{13} & t_x
+     r_{21} & r_{22} & r_{23} & t_y
+     r_{31} & r_{32} & r_{33} & t_z
+     0 & 0 & 0 & 1
+     \\end{bmatrix}
+     \\begin{bmatrix}
+     X_{w}
+     Y_{w}
+     Z_{w}
+     1
+     \\end{bmatrix}
+     \\end{align*}
+    ]
+
+    The estimated pose is thus the rotation (`rvec`) and the translation (`tvec`) vectors that allow transforming
+    a 3D point expressed in the world frame into the camera frame:
+
+    [
+     \\begin{align*}
+     \\begin{bmatrix}
+     X_c
+     Y_c
+     Z_c
+     1
+     \\end{bmatrix} &=
+     \\hspace{0.2em} ^{c}\\bf{T}_w
+     \\begin{bmatrix}
+     X_{w}
+     Y_{w}
+     Z_{w}
+     1
+     \\end{bmatrix}
+     \\begin{bmatrix}
+     X_c
+     Y_c
+     Z_c
+     1
+     \\end{bmatrix} &=
+     \\begin{bmatrix}
+     r_{11} & r_{12} & r_{13} & t_x
+     r_{21} & r_{22} & r_{23} & t_y
+     r_{31} & r_{32} & r_{33} & t_z
+     0 & 0 & 0 & 1
+     \\end{bmatrix}
+     \\begin{bmatrix}
+     X_{w}
+     Y_{w}
+     Z_{w}
+     1
+     \\end{bmatrix}
+     \\end{align*}
+    ]
+
+    @note
+      -   An example of how to use solvePnP for planar augmented reality can be found at
+       opencv_source_code/samples/python/plane_ar.py
+      -   If you are using Python:
+       - Numpy array slices won\'t work as input because solvePnP requires contiguous
+       arrays (enforced by the assertion using cv::Mat::checkVector() around line 55 of
+       modules/calib3d/src/solvepnp.cpp version 2.4.9)
+       - The P3P algorithm requires image points to be in an array of shape (N,1,2) due
+       to its calling of cv::undistortPoints (around line 75 of modules/calib3d/src/solvepnp.cpp version 2.4.9)
+       which requires 2-channel information.
+       - Thus, given some data D = np.array(...) where D.shape = (N,M), in order to use a subset of
+       it as, e.g., imagePoints, one must effectively copy it into a new array: imagePoints =
+       np.ascontiguousarray(D[:,:2]).reshape((N,1,2))
+      -   The methods **SOLVEPNP_DLS** and **SOLVEPNP_UPNP** cannot be used as the current implementations are
+      unstable and sometimes give completely wrong results. If you pass one of these two
+      flags, **SOLVEPNP_EPNP** method will be used instead.
+      -   The minimum number of points is 4 in the general case. In the case of **SOLVEPNP_P3P** and **SOLVEPNP_AP3P**
+      methods, it is required to use exactly 4 points (the first 3 points are used to estimate all the solutions
+      of the P3P problem, the last one is used to retain the best solution that minimizes the reprojection error).
+      -   With **SOLVEPNP_ITERATIVE** method and `useExtrinsicGuess=true`, the minimum number of points is 3 (3 points
+      are sufficient to compute a pose but there are up to 4 solutions). The initial solution should be close to the
+      global solution to converge.
+      -   With **SOLVEPNP_IPPE** input points must be >= 4 and object points must be coplanar.
+      -   With **SOLVEPNP_IPPE_SQUARE** this is a special case suitable for marker pose estimation.
+      Number of input points must be 4. Object points must be defined in the following order:
+        - point 0: [-squareLength / 2,  squareLength / 2, 0]
+        - point 1: [ squareLength / 2,  squareLength / 2, 0]
+        - point 2: [ squareLength / 2, -squareLength / 2, 0]
+        - point 3: [-squareLength / 2, -squareLength / 2, 0]
+    """
+    ...
+
+def solvePnPRansac(
+    objectPoints,
+    imagePoints,
+    cameraMatrix,
+    distCoeffs,
+    rvec=...,
+    tvec=...,
+    useExtrinsicGuess=...,
+    iterationsCount=...,
+    reprojectionError=...,
+    confidence=...,
+    inliers=...,
+    flags: int = ...,
+):
+    """
+    solvePnPRansac(objectPoints, imagePoints, cameraMatrix, distCoeffs[, rvec[, tvec[, useExtrinsicGuess[, iterationsCount[, reprojectionError[, confidence[, inliers[, flags]]]]]]]]) -> retval, rvec, tvec, inliers
+    @brief Finds an object pose from 3D-2D point correspondences using the RANSAC scheme.
+
+    @param objectPoints Array of object points in the object coordinate space, Nx3 1-channel or
+    1xN/Nx1 3-channel, where N is the number of points. vector<Point3d> can be also passed here.
+    @param imagePoints Array of corresponding image points, Nx2 1-channel or 1xN/Nx1 2-channel,
+    where N is the number of points. vector<Point2d> can be also passed here.
+    @param cameraMatrix Input camera matrix `A = \\vecthreethree{fx}{0}{cx}{0}{fy}{cy}{0}{0}{1}` .
+    @param distCoeffs Input vector of distortion coefficients
+    `(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]])` of
+    4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are
+    assumed.
+    @param rvec Output rotation vector (see @ref Rodrigues ) that, together with tvec, brings points from
+    the model coordinate system to the camera coordinate system.
+    @param tvec Output translation vector.
+    @param useExtrinsicGuess Parameter used for @ref SOLVEPNP_ITERATIVE. If true (1), the function uses
+    the provided rvec and tvec values as initial approximations of the rotation and translation
+    vectors, respectively, and further optimizes them.
+    @param iterationsCount Number of iterations.
+    @param reprojectionError Inlier threshold value used by the RANSAC procedure. The parameter value
+    is the maximum allowed distance between the observed and computed point projections to consider it
+    an inlier.
+    @param confidence The probability that the algorithm produces a useful result.
+    @param inliers Output vector that contains indices of inliers in objectPoints and imagePoints .
+    @param flags Method for solving a PnP problem (see @ref solvePnP ).
+
+    The function estimates an object pose given a set of object points, their corresponding image
+    projections, as well as the camera matrix and the distortion coefficients. This function finds such
+    a pose that minimizes reprojection error, that is, the sum of squared distances between the observed
+    projections imagePoints and the projected (using @ref projectPoints ) objectPoints. The use of RANSAC
+    makes the function resistant to outliers.
+
+    @note
+      -   An example of how to use solvePNPRansac for object detection can be found at
+       opencv_source_code/samples/cpp/tutorial_code/calib3d/real_time_pose_estimation/
+      -   The default method used to estimate the camera pose for the Minimal Sample Sets step
+      is #SOLVEPNP_EPNP. Exceptions are:
+        - if you choose #SOLVEPNP_P3P or #SOLVEPNP_AP3P, these methods will be used.
+        - if the number of input points is equal to 4, #SOLVEPNP_P3P is used.
+      -   The method used to estimate the camera pose using all the inliers is defined by the
+      flags parameters unless it is equal to #SOLVEPNP_P3P or #SOLVEPNP_AP3P. In this case,
+      the method #SOLVEPNP_EPNP will be used instead.
+    """
+    ...
+
+def solvePnPRefineLM(objectPoints, imagePoints, cameraMatrix, distCoeffs, rvec, tvec, criteria=...):
+    """
+    solvePnPRefineLM(objectPoints, imagePoints, cameraMatrix, distCoeffs, rvec, tvec[, criteria]) -> rvec, tvec
+    @brief Refine a pose (the translation and the rotation that transform a 3D point expressed in the object coordinate frame
+    to the camera coordinate frame) from a 3D-2D point correspondences and starting from an initial solution.
+
+    @param objectPoints Array of object points in the object coordinate space, Nx3 1-channel or 1xN/Nx1 3-channel,
+    where N is the number of points. vector<Point3d> can also be passed here.
+    @param imagePoints Array of corresponding image points, Nx2 1-channel or 1xN/Nx1 2-channel,
+    where N is the number of points. vector<Point2d> can also be passed here.
+    @param cameraMatrix Input camera matrix `A = \\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}` .
+    @param distCoeffs Input vector of distortion coefficients
+    `(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]])` of
+    4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are
+    assumed.
+    @param rvec Input/Output rotation vector (see @ref Rodrigues ) that, together with tvec, brings points from
+    the model coordinate system to the camera coordinate system. Input values are used as an initial solution.
+    @param tvec Input/Output translation vector. Input values are used as an initial solution.
+    @param criteria Criteria when to stop the Levenberg-Marquard iterative algorithm.
+
+    The function refines the object pose given at least 3 object points, their corresponding image
+    projections, an initial solution for the rotation and translation vector,
+    as well as the camera matrix and the distortion coefficients.
+    The function minimizes the projection error with respect to the rotation and the translation vectors, according
+    to a Levenberg-Marquardt iterative minimization @cite Madsen04 @cite Eade13 process.
+    """
+    ...
+
+def solvePnPRefineVVS(objectPoints, imagePoints, cameraMatrix, distCoeffs, rvec, tvec, criteria=..., VVSlambda=...):
+    """
+    solvePnPRefineVVS(objectPoints, imagePoints, cameraMatrix, distCoeffs, rvec, tvec[, criteria[, VVSlambda]]) -> rvec, tvec
+    @brief Refine a pose (the translation and the rotation that transform a 3D point expressed in the object coordinate frame
+    to the camera coordinate frame) from a 3D-2D point correspondences and starting from an initial solution.
+
+    @param objectPoints Array of object points in the object coordinate space, Nx3 1-channel or 1xN/Nx1 3-channel,
+    where N is the number of points. vector<Point3d> can also be passed here.
+    @param imagePoints Array of corresponding image points, Nx2 1-channel or 1xN/Nx1 2-channel,
+    where N is the number of points. vector<Point2d> can also be passed here.
+    @param cameraMatrix Input camera matrix `A = \\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}` .
+    @param distCoeffs Input vector of distortion coefficients
+    `(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]])` of
+    4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are
+    assumed.
+    @param rvec Input/Output rotation vector (see @ref Rodrigues ) that, together with tvec, brings points from
+    the model coordinate system to the camera coordinate system. Input values are used as an initial solution.
+    @param tvec Input/Output translation vector. Input values are used as an initial solution.
+    @param criteria Criteria when to stop the Levenberg-Marquard iterative algorithm.
+    @param VVSlambda Gain for the virtual visual servoing control law, equivalent to the `\\alpha`
+    gain in the Damped Gauss-Newton formulation.
+
+    The function refines the object pose given at least 3 object points, their corresponding image
+    projections, an initial solution for the rotation and translation vector,
+    as well as the camera matrix and the distortion coefficients.
+    The function minimizes the projection error with respect to the rotation and the translation vectors, using a
+    virtual visual servoing (VVS) @cite Chaumette06 @cite Marchand16 scheme.
+    """
+    ...
+
+def solvePoly(coeffs, roots=..., maxIters=...):
+    """
+    solvePoly(coeffs[, roots[, maxIters]]) -> retval, roots
+    @brief Finds the real or complex roots of a polynomial equation.
+
+    The function cv::solvePoly finds real and complex roots of a polynomial equation:
+    [`coeffs` [n] x^{n} +  `coeffs` [n-1] x^{n-1} + ... +  `coeffs` [1] x +  `coeffs` [0] = 0]
+    @param coeffs array of polynomial coefficients.
+    @param roots output (complex) array of roots.
+    @param maxIters maximum number of iterations the algorithm does.
+    """
+    ...
+
+def sort(src: Mat, flags: int, dts: Mat = ...):
+    """
+    sort(src, flags[, dst]) -> dst
+    @brief Sorts each row or each column of a matrix.
+
+    The function cv::sort sorts each matrix row or each matrix column in
+    ascending or descending order. So you should pass two operation flags to
+    get desired behaviour. If you want to sort matrix rows or columns
+    lexicographically, you can use STL std::sort generic function with the
+    proper comparison predicate.
+
+    @param src input single-channel array.
+    @param dst output array of the same size and type as src.
+    @param flags operation flags, a combination of #SortFlags
+    @sa sortIdx, randShuffle
+    """
+    ...
+
+def sortIdx(src: Mat, flags: int, dts: Mat = ...):
+    """
+    sortIdx(src, flags[, dst]) -> dst
+    @brief Sorts each row or each column of a matrix.
+
+    The function cv::sortIdx sorts each matrix row or each matrix column in the
+    ascending or descending order. So you should pass two operation flags to
+    get desired behaviour. Instead of reordering the elements themselves, it
+    stores the indices of sorted elements in the output array. For example:
+    @code
+    Mat A = Mat::eye(3,3,CV_32F), B;
+    sortIdx(A, B, SORT_EVERY_ROW + SORT_ASCENDING);
+    // B will probably contain
+    // (because of equal elements in A some permutations are possible):
+    // [[1, 2, 0], [0, 2, 1], [0, 1, 2]]
+    @endcode
+    @param src input single-channel array.
+    @param dst output integer array of the same size as src.
+    @param flags operation flags that could be a combination of cv::SortFlags
+    @sa sort, randShuffle
+    """
+    ...
+
+def spatialGradient(src: Mat, dx=..., dy=..., ksize=..., borderType=...):
+    """
+    spatialGradient(src[, dx[, dy[, ksize[, borderType]]]]) -> dx, dy
+    @brief Calculates the first order image derivative in both x and y using a Sobel operator
+
+    Equivalent to calling:
+
+    @code
+    Sobel( src, dx, CV_16SC1, 1, 0, 3 );
+    Sobel( src, dy, CV_16SC1, 0, 1, 3 );
+    @endcode
+
+    @param src input image.
+    @param dx output image with first-order derivative in x.
+    @param dy output image with first-order derivative in y.
+    @param ksize size of Sobel kernel. It must be 3.
+    @param borderType pixel extrapolation method, see #BorderTypes.
+            Only #BORDER_DEFAULT=#BORDER_REFLECT_101 and #BORDER_REPLICATE are supported.
+
+    @sa Sobel
+    """
+    ...
+
+def split(m, mv=...):
+    """
+    split(m[, mv]) -> mv
+    @overload
+    @param m input multi-channel array.
+    @param mv output vector of arrays; the arrays themselves are reallocated, if needed.
+    """
+    ...
+
+def sqrBoxFilter(src: Mat, ddepth, ksize, dts: Mat = ..., anchor=..., normalize=..., borderType=...):
+    """
+    sqrBoxFilter(src, ddepth, ksize[, dst[, anchor[, normalize[, borderType]]]]) -> dst
+    @brief Calculates the normalized sum of squares of the pixel values overlapping the filter.
+
+    For every pixel ` (x, y) ` in the source image, the function calculates the sum of squares of those neighboring
+    pixel values which overlap the filter placed over the pixel ` (x, y) `.
+
+    The unnormalized square box filter can be useful in computing local image statistics such as the the local
+    variance and standard deviation around the neighborhood of a pixel.
+
+    @param src input image
+    @param dst output image of the same size and type as _src
+    @param ddepth the output image depth (-1 to use src.depth())
+    @param ksize kernel size
+    @param anchor kernel anchor point. The default value of Point(-1, -1) denotes that the anchor is at the kernel
+    center.
+    @param normalize flag, specifying whether the kernel is to be normalized by it's area or not.
+    @param borderType border mode used to extrapolate pixels outside of the image, see #BorderTypes. #BORDER_WRAP is not supported.
+    @sa boxFilter
+    """
+    ...
+
+def sqrt(src: Mat, dts: Mat = ...):
+    """
+    sqrt(src[, dst]) -> dst
+    @brief Calculates a square root of array elements.
+
+    The function cv::sqrt calculates a square root of each input array element.
+    In case of multi-channel arrays, each channel is processed
+    independently. The accuracy is approximately the same as of the built-in
+    std::sqrt .
+    @param src input floating-point array.
+    @param dst output array of the same size and type as src.
+    """
+    ...
+
+def startWindowThread():
+    """
+    startWindowThread() -> retval
+
+    """
+    ...
+
+def stereoCalibrate(
+    objectPoints,
+    imagePoints1,
+    imagePoints2,
+    cameraMatrix1,
+    distCoeffs1,
+    cameraMatrix2,
+    distCoeffs2,
+    imageSize,
+    R=...,
+    T=...,
+    E=...,
+    F=...,
+    flags: int = ...,
+    criteria=...,
+):
+    """
+    stereoCalibrate(objectPoints, imagePoints1, imagePoints2, cameraMatrix1, distCoeffs1, cameraMatrix2, distCoeffs2, imageSize[, R[, T[, E[, F[, flags[, criteria]]]]]]) -> retval, cameraMatrix1, distCoeffs1, cameraMatrix2, distCoeffs2, R, T, E, F
+
+    """
+    ...
+
+def stereoCalibrateExtended(
+    objectPoints,
+    imagePoints1,
+    imagePoints2,
+    cameraMatrix1,
+    distCoeffs1,
+    cameraMatrix2,
+    distCoeffs2,
+    imageSize,
+    R,
+    T,
+    E=...,
+    F=...,
+    perViewErrors=...,
+    flags: int = ...,
+    criteria=...,
+):
+    """
+    stereoCalibrateExtended(objectPoints, imagePoints1, imagePoints2, cameraMatrix1, distCoeffs1, cameraMatrix2, distCoeffs2, imageSize, R, T[, E[, F[, perViewErrors[, flags[, criteria]]]]]) -> retval, cameraMatrix1, distCoeffs1, cameraMatrix2, distCoeffs2, R, T, E, F, perViewErrors
+    @brief Calibrates a stereo camera set up. This function finds the intrinsic parameters
+    for each of the two cameras and the extrinsic parameters between the two cameras.
+
+    @param objectPoints Vector of vectors of the calibration pattern points. The same structure as
+    in @ref calibrateCamera. For each pattern view, both cameras need to see the same object
+    points. Therefore, objectPoints.size(), imagePoints1.size(), and imagePoints2.size() need to be
+    equal as well as objectPoints[i].size(), imagePoints1[i].size(), and imagePoints2[i].size() need to
+    be equal for each i.
+    @param imagePoints1 Vector of vectors of the projections of the calibration pattern points,
+    observed by the first camera. The same structure as in @ref calibrateCamera.
+    @param imagePoints2 Vector of vectors of the projections of the calibration pattern points,
+    observed by the second camera. The same structure as in @ref calibrateCamera.
+    @param cameraMatrix1 Input/output camera matrix for the first camera, the same as in
+    @ref calibrateCamera. Furthermore, for the stereo case, additional flags may be used, see below.
+    @param distCoeffs1 Input/output vector of distortion coefficients, the same as in
+    @ref calibrateCamera.
+    @param cameraMatrix2 Input/output second camera matrix for the second camera. See description for
+    cameraMatrix1.
+    @param distCoeffs2 Input/output lens distortion coefficients for the second camera. See
+    description for distCoeffs1.
+    @param imageSize Size of the image used only to initialize the intrinsic camera matrices.
+    @param R Output rotation matrix. Together with the translation vector T, this matrix brings
+    points given in the first camera's coordinate system to points in the second camera's
+    coordinate system. In more technical terms, the tuple of R and T performs a change of basis
+    from the first camera's coordinate system to the second camera's coordinate system. Due to its
+    duality, this tuple is equivalent to the position of the first camera with respect to the
+    second camera coordinate system.
+    @param T Output translation vector, see description above.
+    @param E Output essential matrix.
+    @param F Output fundamental matrix.
+    @param perViewErrors Output vector of the RMS re-projection error estimated for each pattern view.
+    @param flags Different flags that may be zero or a combination of the following values:
+    -   **CALIB_FIX_INTRINSIC** Fix cameraMatrix? and distCoeffs? so that only R, T, E, and F
+    matrices are estimated.
+    -   **CALIB_USE_INTRINSIC_GUESS** Optimize some or all of the intrinsic parameters
+    according to the specified flags. Initial values are provided by the user.
+    -   **CALIB_USE_EXTRINSIC_GUESS** R and T contain valid initial values that are optimized further.
+    Otherwise R and T are initialized to the median value of the pattern views (each dimension separately).
+    -   **CALIB_FIX_PRINCIPAL_POINT** Fix the principal points during the optimization.
+    -   **CALIB_FIX_FOCAL_LENGTH** Fix `f^{(j)}_x` and `f^{(j)}_y` .
+    -   **CALIB_FIX_ASPECT_RATIO** Optimize `f^{(j)}_y` . Fix the ratio `f^{(j)}_x/f^{(j)}_y`
+    .
+    -   **CALIB_SAME_FOCAL_LENGTH** Enforce `f^{(0)}_x=f^{(1)}_x` and `f^{(0)}_y=f^{(1)}_y` .
+    -   **CALIB_ZERO_TANGENT_DIST** Set tangential distortion coefficients for each camera to
+    zeros and fix there.
+    -   **CALIB_FIX_K1,...,CALIB_FIX_K6** Do not change the corresponding radial
+    distortion coefficient during the optimization. If CALIB_USE_INTRINSIC_GUESS is set,
+    the coefficient from the supplied distCoeffs matrix is used. Otherwise, it is set to 0.
+    -   **CALIB_RATIONAL_MODEL** Enable coefficients k4, k5, and k6. To provide the backward
+    compatibility, this extra flag should be explicitly specified to make the calibration
+    function use the rational model and return 8 coefficients. If the flag is not set, the
+    function computes and returns only 5 distortion coefficients.
+    -   **CALIB_THIN_PRISM_MODEL** Coefficients s1, s2, s3 and s4 are enabled. To provide the
+    backward compatibility, this extra flag should be explicitly specified to make the
+    calibration function use the thin prism model and return 12 coefficients. If the flag is not
+    set, the function computes and returns only 5 distortion coefficients.
+    -   **CALIB_FIX_S1_S2_S3_S4** The thin prism distortion coefficients are not changed during
+    the optimization. If CALIB_USE_INTRINSIC_GUESS is set, the coefficient from the
+    supplied distCoeffs matrix is used. Otherwise, it is set to 0.
+    -   **CALIB_TILTED_MODEL** Coefficients tauX and tauY are enabled. To provide the
+    backward compatibility, this extra flag should be explicitly specified to make the
+    calibration function use the tilted sensor model and return 14 coefficients. If the flag is not
+    set, the function computes and returns only 5 distortion coefficients.
+    -   **CALIB_FIX_TAUX_TAUY** The coefficients of the tilted sensor model are not changed during
+    the optimization. If CALIB_USE_INTRINSIC_GUESS is set, the coefficient from the
+    supplied distCoeffs matrix is used. Otherwise, it is set to 0.
+    @param criteria Termination criteria for the iterative optimization algorithm.
+
+    The function estimates the transformation between two cameras making a stereo pair. If one computes
+    the poses of an object relative to the first camera and to the second camera,
+    ( `R_1`,`T_1` ) and (`R_2`,`T_2`), respectively, for a stereo camera where the
+    relative position and orientation between the two cameras are fixed, then those poses definitely
+    relate to each other. This means, if the relative position and orientation (`R`,`T`) of the
+    two cameras is known, it is possible to compute (`R_2`,`T_2`) when (`R_1`,`T_1`) is
+    given. This is what the described function does. It computes (`R`,`T`) such that:
+
+    [R_2=R R_1]
+    [T_2=R T_1 + T.]
+
+    Therefore, one can compute the coordinate representation of a 3D point for the second camera's
+    coordinate system when given the point's coordinate representation in the first camera's coordinate
+    system:
+
+    [\\begin{bmatrix}
+    X_2
+    Y_2
+    Z_2
+    1
+    \\end{bmatrix} = \\begin{bmatrix}
+    R & T
+    0 & 1
+    \\end{bmatrix} \\begin{bmatrix}
+    X_1
+    Y_1
+    Z_1
+    1
+    \\end{bmatrix}.]
+
+
+    Optionally, it computes the essential matrix E:
+
+    [E= \\vecthreethree{0}{-T_2}{T_1}{T_2}{0}{-T_0}{-T_1}{T_0}{0} R]
+
+    where `T_i` are components of the translation vector `T` : `T=[T_0, T_1, T_2]^T` .
+    And the function can also compute the fundamental matrix F:
+
+    [F = cameraMatrix2^{-T}· E · cameraMatrix1^{-1}]
+
+    Besides the stereo-related information, the function can also perform a full calibration of each of
+    the two cameras. However, due to the high dimensionality of the parameter space and noise in the
+    input data, the function can diverge from the correct solution. If the intrinsic parameters can be
+    estimated with high accuracy for each of the cameras individually (for example, using
+    calibrateCamera ), you are recommended to do so and then pass CALIB_FIX_INTRINSIC flag to the
+    function along with the computed intrinsic parameters. Otherwise, if all the parameters are
+    estimated at once, it makes sense to restrict some parameters, for example, pass
+    CALIB_SAME_FOCAL_LENGTH and CALIB_ZERO_TANGENT_DIST flags, which is usually a
+    reasonable assumption.
+
+    Similarly to calibrateCamera, the function minimizes the total re-projection error for all the
+    points in all the available views from both cameras. The function returns the final value of the
+    re-projection error.
+    """
+    ...
+
+def stereoRectify(
+    cameraMatrix1,
+    distCoeffs1,
+    cameraMatrix2,
+    distCoeffs2,
+    imageSize,
+    R,
+    T,
+    R1=...,
+    R2=...,
+    P1=...,
+    P2=...,
+    Q=...,
+    flags: int = ...,
+    alpha=...,
+    newImageSize=...,
+):
+    """
+    stereoRectify(cameraMatrix1, distCoeffs1, cameraMatrix2, distCoeffs2, imageSize, R, T[, R1[, R2[, P1[, P2[, Q[, flags[, alpha[, newImageSize]]]]]]]]) -> R1, R2, P1, P2, Q, validPixROI1, validPixROI2
+    @brief Computes rectification transforms for each head of a calibrated stereo camera.
+
+    @param cameraMatrix1 First camera matrix.
+    @param distCoeffs1 First camera distortion parameters.
+    @param cameraMatrix2 Second camera matrix.
+    @param distCoeffs2 Second camera distortion parameters.
+    @param imageSize Size of the image used for stereo calibration.
+    @param R Rotation matrix from the coordinate system of the first camera to the second camera,
+    see @ref stereoCalibrate.
+    @param T Translation vector from the coordinate system of the first camera to the second camera,
+    see @ref stereoCalibrate.
+    @param R1 Output 3x3 rectification transform (rotation matrix) for the first camera. This matrix
+    brings points given in the unrectified first camera's coordinate system to points in the rectified
+    first camera's coordinate system. In more technical terms, it performs a change of basis from the
+    unrectified first camera's coordinate system to the rectified first camera's coordinate system.
+    @param R2 Output 3x3 rectification transform (rotation matrix) for the second camera. This matrix
+    brings points given in the unrectified second camera's coordinate system to points in the rectified
+    second camera's coordinate system. In more technical terms, it performs a change of basis from the
+    unrectified second camera's coordinate system to the rectified second camera's coordinate system.
+    @param P1 Output 3x4 projection matrix in the new (rectified) coordinate systems for the first
+    camera, i.e. it projects points given in the rectified first camera coordinate system into the
+    rectified first camera's image.
+    @param P2 Output 3x4 projection matrix in the new (rectified) coordinate systems for the second
+    camera, i.e. it projects points given in the rectified first camera coordinate system into the
+    rectified second camera's image.
+    @param Q Output `4 x 4` disparity-to-depth mapping matrix (see @ref reprojectImageTo3D).
+    @param flags Operation flags that may be zero or CALIB_ZERO_DISPARITY . If the flag is set,
+    the function makes the principal points of each camera have the same pixel coordinates in the
+    rectified views. And if the flag is not set, the function may still shift the images in the
+    horizontal or vertical direction (depending on the orientation of epipolar lines) to maximize the
+    useful image area.
+    @param alpha Free scaling parameter. If it is -1 or absent, the function performs the default
+    scaling. Otherwise, the parameter should be between 0 and 1. alpha=0 means that the rectified
+    images are zoomed and shifted so that only valid pixels are visible (no black areas after
+    rectification). alpha=1 means that the rectified image is decimated and shifted so that all the
+    pixels from the original images from the cameras are retained in the rectified images (no source
+    image pixels are lost). Any intermediate value yields an intermediate result between
+    those two extreme cases.
+    @param newImageSize New image resolution after rectification. The same size should be passed to
+    initUndistortRectifyMap (see the stereo_calib.cpp sample in OpenCV samples directory). When (0,0)
+    is passed (default), it is set to the original imageSize . Setting it to a larger value can help you
+    preserve details in the original image, especially when there is a big radial distortion.
+    @param validPixROI1 Optional output rectangles inside the rectified images where all the pixels
+    are valid. If alpha=0 , the ROIs cover the whole images. Otherwise, they are likely to be smaller
+    (see the picture below).
+    @param validPixROI2 Optional output rectangles inside the rectified images where all the pixels
+    are valid. If alpha=0 , the ROIs cover the whole images. Otherwise, they are likely to be smaller
+    (see the picture below).
+
+    The function computes the rotation matrices for each camera that (virtually) make both camera image
+    planes the same plane. Consequently, this makes all the epipolar lines parallel and thus simplifies
+    the dense stereo correspondence problem. The function takes the matrices computed by stereoCalibrate
+    as input. As output, it provides two rotation matrices and also two projection matrices in the new
+    coordinates. The function distinguishes the following two cases:
+
+    -   **Horizontal stereo**: the first and the second camera views are shifted relative to each other
+    mainly along the x-axis (with possible small vertical shift). In the rectified images, the
+    corresponding epipolar lines in the left and right cameras are horizontal and have the same
+    y-coordinate. P1 and P2 look like:
+
+    [`P1` = \\begin{bmatrix}
+              f & 0 & cx_1 & 0
+              0 & f & cy & 0
+              0 & 0 & 1 & 0
+              \\end{bmatrix}]
+
+    [`P2` = \\begin{bmatrix}
+              f & 0 & cx_2 & T_x*f
+              0 & f & cy & 0
+              0 & 0 & 1 & 0
+              \\end{bmatrix} ,]
+
+    where `T_x` is a horizontal shift between the cameras and `cx_1=cx_2` if
+    CALIB_ZERO_DISPARITY is set.
+
+    -   **Vertical stereo**: the first and the second camera views are shifted relative to each other
+    mainly in the vertical direction (and probably a bit in the horizontal direction too). The epipolar
+    lines in the rectified images are vertical and have the same x-coordinate. P1 and P2 look like:
+
+    [`P1` = \\begin{bmatrix}
+              f & 0 & cx & 0
+              0 & f & cy_1 & 0
+              0 & 0 & 1 & 0
+              \\end{bmatrix}]
+
+    [`P2` = \\begin{bmatrix}
+              f & 0 & cx & 0
+              0 & f & cy_2 & T_y*f
+              0 & 0 & 1 & 0
+              \\end{bmatrix},]
+
+    where `T_y` is a vertical shift between the cameras and `cy_1=cy_2` if
+    CALIB_ZERO_DISPARITY is set.
+
+    As you can see, the first three columns of P1 and P2 will effectively be the new \"rectified\" camera
+    matrices. The matrices, together with R1 and R2 , can then be passed to initUndistortRectifyMap to
+    initialize the rectification map for each camera.
+
+    See below the screenshot from the stereo_calib.cpp sample. Some red horizontal lines pass through
+    the corresponding image regions. This means that the images are well rectified, which is what most
+    stereo correspondence algorithms rely on. The green rectangles are roi1 and roi2 . You see that
+    their interiors are all valid pixels.
+
+    ![image](pics/stereo_undistort.jpg)
+    """
+    ...
+
+def stereoRectifyUncalibrated(points1, points2, F, imgSize, H1=..., H2=..., threshold=...):
+    """
+    stereoRectifyUncalibrated(points1, points2, F, imgSize[, H1[, H2[, threshold]]]) -> retval, H1, H2
+    @brief Computes a rectification transform for an uncalibrated stereo camera.
+
+    @param points1 Array of feature points in the first image.
+    @param points2 The corresponding points in the second image. The same formats as in
+    findFundamentalMat are supported.
+    @param F Input fundamental matrix. It can be computed from the same set of point pairs using
+    findFundamentalMat .
+    @param imgSize Size of the image.
+    @param H1 Output rectification homography matrix for the first image.
+    @param H2 Output rectification homography matrix for the second image.
+    @param threshold Optional threshold used to filter out the outliers. If the parameter is greater
+    than zero, all the point pairs that do not comply with the epipolar geometry (that is, the points
+    for which `|`points2[i]^T*`F`*`points1[i]|>`threshold`` ) are
+    rejected prior to computing the homographies. Otherwise, all the points are considered inliers.
+
+    The function computes the rectification transformations without knowing intrinsic parameters of the
+    cameras and their relative position in the space, which explains the suffix "uncalibrated". Another
+    related difference from stereoRectify is that the function outputs not the rectification
+    transformations in the object (3D) space, but the planar perspective transformations encoded by the
+    homography matrices H1 and H2 . The function implements the algorithm @cite Hartley99 .
+
+    @note
+      While the algorithm does not need to know the intrinsic parameters of the cameras, it heavily
+    depends on the epipolar geometry. Therefore, if the camera lenses have a significant distortion,
+    it would be better to correct it before computing the fundamental matrix and calling this
+    function. For example, distortion coefficients can be estimated for each head of stereo camera
+    separately by using calibrateCamera . Then, the images can be corrected using undistort , or
+    just the point coordinates can be corrected with undistortPoints .
+    """
+    ...
+
+def stylization(src: Mat, dts: Mat = ..., sigma_s=..., sigma_r=...):
+    """
+    stylization(src[, dst[, sigma_s[, sigma_r]]]) -> dst
+    @brief Stylization aims to produce digital imagery with a wide variety of effects not focused on
+    photorealism. Edge-aware filters are ideal for stylization, as they can abstract regions of low
+    contrast while preserving, or enhancing, high-contrast features.
+
+    @param src Input 8-bit 3-channel image.
+    @param dst Output image with the same size and type as src.
+    @param sigma_s %Range between 0 to 200.
+    @param sigma_r %Range between 0 to 1.
+    """
+    ...
+
+def subtract(src1: Mat, src2: Mat, dts: Mat = ..., mask: Mat = ..., dtype=...):
+    """
+    subtract(src1, src2[, dst[, mask[, dtype]]]) -> dst
+    @brief Calculates the per-element difference between two arrays or array and a scalar.
+
+    The function subtract calculates:
+    - Difference between two arrays, when both input arrays have the same size and the same number of
+    channels:
+    [`dst`(I) =  `saturate` ( `src1`(I) -  `src2`(I)) \\quad `if mask`(I) \
+    e0]
+    - Difference between an array and a scalar, when src2 is constructed from Scalar or has the same
+    number of elements as `src1.channels()`:
+    [`dst`(I) =  `saturate` ( `src1`(I) -  `src2` ) \\quad `if mask`(I) \
+    e0]
+    - Difference between a scalar and an array, when src1 is constructed from Scalar or has the same
+    number of elements as `src2.channels()`:
+    [`dst`(I) =  `saturate` ( `src1` -  `src2`(I) ) \\quad `if mask`(I) \
+    e0]
+    - The reverse difference between a scalar and an array in the case of `SubRS`:
+    [`dst`(I) =  `saturate` ( `src2` -  `src1`(I) ) \\quad `if mask`(I) \
+    e0]
+    where I is a multi-dimensional index of array elements. In case of multi-channel arrays, each
+    channel is processed independently.
+
+    The first function in the list above can be replaced with matrix expressions:
+    @code{.cpp}
+    dst = src1 - src2;
+    dst -= src1; // equivalent to subtract(dst, src1, dst);
+    @endcode
+    The input arrays and the output array can all have the same or different depths. For example, you
+    can subtract to 8-bit unsigned arrays and store the difference in a 16-bit signed array. Depth of
+    the output array is determined by dtype parameter. In the second and third cases above, as well as
+    in the first case, when src1.depth() == src2.depth(), dtype can be set to the default -1. In this
+    case the output array will have the same depth as the input array, be it src1, src2 or both.
+    @note Saturation is not applied when the output array has the depth CV_32S. You may even get
+    result of an incorrect sign in the case of overflow.
+    @param src1 first input array or a scalar.
+    @param src2 second input array or a scalar.
+    @param dst output array of the same size and the same number of channels as the input array.
+    @param mask optional operation mask; this is an 8-bit single channel array that specifies elements
+    of the output array to be changed.
+    @param dtype optional depth of the output array
+    @sa  add, addWeighted, scaleAdd, Mat::convertTo
+    """
+    ...
+
+def sumElems(src):
+    """
+    sumElems(src) -> retval
+    @brief Calculates the sum of array elements.
+
+    The function cv::sum calculates and returns the sum of array elements,
+    independently for each channel.
+    @param src input array that must have from 1 to 4 channels.
+    @sa  countNonZero, mean, meanStdDev, norm, minMaxLoc, reduce
+    """
+    ...
+
+def textureFlattening(src: Mat, mask: Mat, dts: Mat = ..., low_threshold=..., high_threshold=..., kernel_size=...):
+    """
+    textureFlattening(src, mask[, dst[, low_threshold[, high_threshold[, kernel_size]]]]) -> dst
+    @brief By retaining only the gradients at edge locations, before integrating with the Poisson solver, one
+    washes out the texture of the selected region, giving its contents a flat aspect. Here Canny Edge %Detector is used.
+
+    @param src Input 8-bit 3-channel image.
+    @param mask Input 8-bit 1 or 3-channel image.
+    @param dst Output image with the same size and type as src.
+    @param low_threshold %Range from 0 to 100.
+    @param high_threshold Value > 100.
+    @param kernel_size The size of the Sobel kernel to be used.
+
+    @note
+    The algorithm assumes that the color of the source image is close to that of the destination. This
+    assumption means that when the colors don't match, the source image color gets tinted toward the
+    color of the destination image.
+    """
+    ...
+
+def threshold(src: Mat, thresh, maxval, type, dts: Mat = ...):
+    """
+    threshold(src, thresh, maxval, type[, dst]) -> retval, dst
+    @brief Applies a fixed-level threshold to each array element.
+
+    The function applies fixed-level thresholding to a multiple-channel array. The function is typically
+    used to get a bi-level (binary) image out of a grayscale image ( #compare could be also used for
+    this purpose) or for removing a noise, that is, filtering out pixels with too small or too large
+    values. There are several types of thresholding supported by the function. They are determined by
+    type parameter.
+
+    Also, the special values #THRESH_OTSU or #THRESH_TRIANGLE may be combined with one of the
+    above values. In these cases, the function determines the optimal threshold value using the Otsu's
+    or Triangle algorithm and uses it instead of the specified thresh.
+
+    @note Currently, the Otsu's and Triangle methods are implemented only for 8-bit single-channel images.
+
+    @param src input array (multiple-channel, 8-bit or 32-bit floating point).
+    @param dst output array of the same size  and type and the same number of channels as src.
+    @param thresh threshold value.
+    @param maxval maximum value to use with the #THRESH_BINARY and #THRESH_BINARY_INV thresholding
+    types.
+    @param type thresholding type (see #ThresholdTypes).
+    @return the computed threshold value if Otsu's or Triangle methods used.
+
+    @sa  adaptiveThreshold, findContours, compare, min, max
+    """
+    ...
+
+def trace(mtx):
+    """
+    trace(mtx) -> retval
+    @brief Returns the trace of a matrix.
+
+    The function cv::trace returns the sum of the diagonal elements of the
+    matrix mtx .
+    [\\mathrm{tr} ( `mtx` ) =  ∑ _i  `mtx` (i,i)]
+    @param mtx input matrix.
+    """
+    ...
+
+def transform(src: Mat, m, dts: Mat = ...):
+    """
+    transform(src, m[, dst]) -> dst
+    @brief Performs the matrix transformation of every array element.
+
+    The function cv::transform performs the matrix transformation of every
+    element of the array src and stores the results in dst :
+    [`dst` (I) =  `m` · `src` (I)]
+    (when m.cols=src.channels() ), or
+    [`dst` (I) =  `m` · [ `src` (I); 1]]
+    (when m.cols=src.channels()+1 )
+
+    Every element of the N -channel array src is interpreted as N -element
+    vector that is transformed using the M x N or M x (N+1) matrix m to
+    M-element vector - the corresponding element of the output array dst .
+
+    The function may be used for geometrical transformation of
+    N -dimensional points, arbitrary linear color space transformation (such
+    as various kinds of RGB to YUV transforms), shuffling the image
+    channels, and so forth.
+    @param src input array that must have as many channels (1 to 4) as
+    m.cols or m.cols-1.
+    @param dst output array of the same size and depth as src; it has as
+    many channels as m.rows.
+    @param m transformation 2x2 or 2x3 floating-point matrix.
+    @sa perspectiveTransform, getAffineTransform, estimateAffine2D, warpAffine, warpPerspective
+    """
+    ...
+
+def transpose(src: Mat, dts: Mat = ...):
+    """
+    transpose(src[, dst]) -> dst
+    @brief Transposes a matrix.
+
+    The function cv::transpose transposes the matrix src :
+    [`dst` (i,j) =  `src` (j,i)]
+    @note No complex conjugation is done in case of a complex matrix. It
+    should be done separately if needed.
+    @param src input array.
+    @param dst output array of the same type as src.
+    """
+    ...
+
+def triangulatePoints(projMatr1, projMatr2, projPoints1, projPoints2, points4D=...):
+    """
+    triangulatePoints(projMatr1, projMatr2, projPoints1, projPoints2[, points4D]) -> points4D
+    @brief This function reconstructs 3-dimensional points (in homogeneous coordinates) by using
+    their observations with a stereo camera.
+
+    @param projMatr1 3x4 projection matrix of the first camera, i.e. this matrix projects 3D points
+    given in the world's coordinate system into the first image.
+    @param projMatr2 3x4 projection matrix of the second camera, i.e. this matrix projects 3D points
+    given in the world's coordinate system into the second image.
+    @param projPoints1 2xN array of feature points in the first image. In the case of the c++ version,
+    it can be also a vector of feature points or two-channel matrix of size 1xN or Nx1.
+    @param projPoints2 2xN array of corresponding points in the second image. In the case of the c++
+    version, it can be also a vector of feature points or two-channel matrix of size 1xN or Nx1.
+    @param points4D 4xN array of reconstructed points in homogeneous coordinates. These points are
+    returned in the world's coordinate system.
+
+    @note
+      Keep in mind that all input data should be of float type in order for this function to work.
+
+    @note
+      If the projection matrices from @ref stereoRectify are used, then the returned points are
+      represented in the first camera's rectified coordinate system.
+
+    @sa
+      reprojectImageTo3D
+    """
+    ...
+
+def undistort(src: Mat, cameraMatrix, distCoeffs, dts: Mat = ..., newCameraMatrix=...):
+    """
+    undistort(src, cameraMatrix, distCoeffs[, dst[, newCameraMatrix]]) -> dst
+    @brief Transforms an image to compensate for lens distortion.
+
+    The function transforms an image to compensate radial and tangential lens distortion.
+
+    The function is simply a combination of #initUndistortRectifyMap (with unity R ) and #remap
+    (with bilinear interpolation). See the former function for details of the transformation being
+    performed.
+
+    Those pixels in the destination image, for which there is no correspondent pixels in the source
+    image, are filled with zeros (black color).
+
+    A particular subset of the source image that will be visible in the corrected image can be regulated
+    by newCameraMatrix. You can use #getOptimalNewCameraMatrix to compute the appropriate
+    newCameraMatrix depending on your requirements.
+
+    The camera matrix and the distortion parameters can be determined using #calibrateCamera. If
+    the resolution of images is different from the resolution used at the calibration stage, `f_x,
+    f_y, c_x` and `c_y` need to be scaled accordingly, while the distortion coefficients remain
+    the same.
+
+    @param src Input (distorted) image.
+    @param dst Output (corrected) image that has the same size and type as src .
+    @param cameraMatrix Input camera matrix `A = \\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}` .
+    @param distCoeffs Input vector of distortion coefficients
+    `(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]])`
+    of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.
+    @param newCameraMatrix Camera matrix of the distorted image. By default, it is the same as
+    cameraMatrix but you may additionally scale and shift the result by using a different matrix.
+    """
+    ...
+
+def undistortPoints(src: Mat, cameraMatrix, distCoeffs, dts: Mat = ..., R=..., P=...):
+    """
+    undistortPoints(src, cameraMatrix, distCoeffs[, dst[, R[, P]]]) -> dst
+    @brief Computes the ideal point coordinates from the observed point coordinates.
+
+    The function is similar to #undistort and #initUndistortRectifyMap but it operates on a
+    sparse set of points instead of a raster image. Also the function performs a reverse transformation
+    to projectPoints. In case of a 3D object, it does not reconstruct its 3D coordinates, but for a
+    planar object, it does, up to a translation vector, if the proper R is specified.
+
+    For each observed point coordinate `(u, v)` the function computes:
+    [
+    \\begin{array}{l}
+    x^{\"}  ← (u - c_x)/f_x
+    y^{\"}  ← (v - c_y)/f_y
+    (x',y') = undistort(x^{\"},y^{\"}, `distCoeffs`)
+    {[X\\,Y\\,W]} ^T  ← R*[x' \\, y' \\, 1]^T
+    x  ← X/W
+    y  ← Y/W
+    \\text{only performed if P is specified:}
+    u'  ← x {f'}_x + {c'}_x
+    v'  ← y {f'}_y + {c'}_y
+    \\end{array}
+    ]
+
+    where *undistort* is an approximate iterative algorithm that estimates the normalized original
+    point coordinates out of the normalized distorted point coordinates (\"normalized\" means that the
+    coordinates do not depend on the camera matrix).
+
+    The function can be used for both a stereo camera head or a monocular camera (when R is empty).
+    @param src Observed point coordinates, 2xN/Nx2 1-channel or 1xN/Nx1 2-channel (CV_32FC2 or CV_64FC2) (or
+    vector<Point2f> ).
+    @param dst Output ideal point coordinates (1xN/Nx1 2-channel or vector<Point2f> ) after undistortion and reverse perspective
+    transformation. If matrix P is identity or omitted, dst will contain normalized point coordinates.
+    @param cameraMatrix Camera matrix `\\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}` .
+    @param distCoeffs Input vector of distortion coefficients
+    `(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \\tau_x, \\tau_y]]]])`
+    of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.
+    @param R Rectification transformation in the object space (3x3 matrix). R1 or R2 computed by
+    #stereoRectify can be passed here. If the matrix is empty, the identity transformation is used.
+    @param P New camera matrix (3x3) or new projection matrix (3x4) `\\begin{bmatrix} {f'}_x & 0 & {c'}_x & t_x \\ 0 & {f'}_y & {c'}_y & t_y \\ 0 & 0 & 1 & t_z \\end{bmatrix}`. P1 or P2 computed by
+    #stereoRectify can be passed here. If the matrix is empty, the identity new camera matrix is used.
+    """
+    ...
+
+def undistortPointsIter(src: Mat, cameraMatrix, distCoeffs, R, P, criteria, dts: Mat = ...):
+    """
+    undistortPointsIter(src, cameraMatrix, distCoeffs, R, P, criteria[, dst]) -> dst
+    @overload
+    @note Default version of #undistortPoints does 5 iterations to compute undistorted points.
+    """
+    ...
+
+def useOpenVX():
+    """
+    useOpenVX() -> retval
+
+    """
+    ...
+
+def useOptimized():
+    """
+    useOptimized() -> retval
+    @brief Returns the status of optimized code usage.
+
+    The function returns true if the optimized code is enabled. Otherwise, it returns false.
+    """
+    ...
+
+def validateDisparity(disparity, cost, minDisparity, numberOfDisparities, disp12MaxDisp=...):
+    """
+    validateDisparity(disparity, cost, minDisparity, numberOfDisparities[, disp12MaxDisp]) -> disparity
+
+    """
+    ...
+
+def vconcat(src: Mat, dts: Mat = ...):
+    """
+    vconcat(src[, dst]) -> dst
+    @overload
+    @code{.cpp}
+    std::vector<cv::Mat> matrices = { cv::Mat(1, 4, CV_8UC1, cv::Scalar(1)),
+                      cv::Mat(1, 4, CV_8UC1, cv::Scalar(2)),
+                      cv::Mat(1, 4, CV_8UC1, cv::Scalar(3)),};
+
+    cv::Mat out;
+    cv::vconcat( matrices, out );
+    //out:
+    //[1,   1,   1,   1;
+    // 2,   2,   2,   2;
+    // 3,   3,   3,   3]
+    @endcode
+    @param src input array or vector of matrices. all of the matrices must have the same number of cols and the same depth
+    @param dst output array. It has the same number of cols and depth as the src, and the sum of rows of the src.
+    same depth.
+    """
+    ...
+
+def waitKey(delay=...):
+    """
+    waitKey([, delay]) -> retval
+    @brief Waits for a pressed key.
+
+    The function waitKey waits for a key event infinitely (when ``delay`≤ 0` ) or for delay
+    milliseconds, when it is positive. Since the OS has a minimum time between switching threads, the
+    function will not wait exactly delay ms, it will wait at least delay ms, depending on what else is
+    running on your computer at that time. It returns the code of the pressed key or -1 if no key was
+    pressed before the specified time had elapsed.
+
+    @note
+
+    This function is the only method in HighGUI that can fetch and handle events, so it needs to be
+    called periodically for normal event processing unless HighGUI is used within an environment that
+    takes care of event processing.
+
+    @note
+
+    The function only works if there is at least one HighGUI window created and the window is active.
+    If there are several HighGUI windows, any of them can be active.
+
+    @param delay Delay in milliseconds. 0 is the special value that means "forever".
+    """
+    ...
+
+def waitKeyEx(delay=...):
+    """
+    waitKeyEx([, delay]) -> retval
+    @brief Similar to #waitKey, but returns full key code.
+
+    @note
+
+    Key code is implementation specific and depends on used backend: QT/GTK/Win32/etc
+    """
+    ...
+
+def warpAffine(src: Mat, M, dsize: tuple[int, int], dts: Mat = ..., flags: int = ..., borderMode=..., borderValue=...):
+    """
+    warpAffine(src, M, dsize[, dst[, flags[, borderMode[, borderValue]]]]) -> dst
+    @brief Applies an affine transformation to an image.
+
+    The function warpAffine transforms the source image using the specified matrix:
+
+    [`dst` (x,y) =  `src` ( `M` _{11} x +  `M` _{12} y +  `M` _{13}, `M` _{21} x +  `M` _{22} y +  `M` _{23})]
+
+    when the flag #WARP_INVERSE_MAP is set. Otherwise, the transformation is first inverted
+    with #invertAffineTransform and then put in the formula above instead of M. The function cannot
+    operate in-place.
+
+    @param src input image.
+    @param dst output image that has the size dsize and the same type as src .
+    @param M `2x 3` transformation matrix.
+    @param dsize size of the output image.
+    @param flags combination of interpolation methods (see #InterpolationFlags) and the optional
+    flag #WARP_INVERSE_MAP that means that M is the inverse transformation (
+    ``dst`→`src`` ).
+    @param borderMode pixel extrapolation method (see #BorderTypes); when
+    borderMode=#BORDER_TRANSPARENT, it means that the pixels in the destination image corresponding to
+    the "outliers" in the source image are not modified by the function.
+    @param borderValue value used in case of a constant border; by default, it is 0.
+
+    @sa  warpPerspective, resize, remap, getRectSubPix, transform
+    """
+    ...
+
+def warpPerspective(src: Mat, M, dsize: tuple[int, int], dts: Mat = ..., flags: int = ..., borderMode=..., borderValue=...):
+    """
+    warpPerspective(src, M, dsize[, dst[, flags[, borderMode[, borderValue]]]]) -> dst
+    @brief Applies a perspective transformation to an image.
+
+    The function warpPerspective transforms the source image using the specified matrix:
+
+    [`dst` (x,y) =  `src` \\left ( \\frac{M_{11} x + M_{12} y + M_{13}}{M_{31} x + M_{32} y + M_{33}} ,
+     \\frac{M_{21} x + M_{22} y + M_{23}}{M_{31} x + M_{32} y + M_{33}} \\right )]
+
+    when the flag #WARP_INVERSE_MAP is set. Otherwise, the transformation is first inverted with invert
+    and then put in the formula above instead of M. The function cannot operate in-place.
+
+    @param src input image.
+    @param dst output image that has the size dsize and the same type as src .
+    @param M `3x 3` transformation matrix.
+    @param dsize size of the output image.
+    @param flags combination of interpolation methods (#INTER_LINEAR or #INTER_NEAREST) and the
+    optional flag #WARP_INVERSE_MAP, that sets M as the inverse transformation (
+    ``dst`→`src`` ).
+    @param borderMode pixel extrapolation method (#BORDER_CONSTANT or #BORDER_REPLICATE).
+    @param borderValue value used in case of a constant border; by default, it equals 0.
+
+    @sa  warpAffine, resize, remap, getRectSubPix, perspectiveTransform
+    """
+    ...
+
+def warpPolar(src: Mat, dsize: tuple[int, int], center, maxRadius, flags: int, dts: Mat = ...):
+    """
+    warpPolar(src, dsize: tuple[int, int], center, maxRadius, flags[, dst]) -> dst
+    @brief Remaps an image to polar or semilog-polar coordinates space
+
+    @anchor polar_remaps_reference_image
+    ![Polar remaps reference](pics/polar_remap_doc.png)
+
+    Transform the source image using the following transformation:
+    [
+    dst(P , ϕ ) = src(x,y)
+    ]
+
+    where
+    [
+    \\begin{array}{l}
+    \\vec{I} = (x - center.x, ;y - center.y)
+    ϕ = Kangle · `angle` (\\vec{I})
+    P = \\left{\\begin{matrix}
+    Klin · `magnitude` (\\vec{I}) & default
+    Klog · log_e(`magnitude` (\\vec{I})) & if ; semilog
+    \\end{matrix}\\right.
+    \\end{array}
+    ]
+
+    and
+    [
+    \\begin{array}{l}
+    Kangle = dsize.height / 2π
+    Klin = dsize.width / maxRadius
+    Klog = dsize.width / log_e(maxRadius)
+    \\end{array}
+    ]
+
+
+    \\par Linear vs semilog mapping
+
+    Polar mapping can be linear or semi-log. Add one of #WarpPolarMode to `flags` to specify the polar mapping mode.
+
+    Linear is the default mode.
+
+    The semilog mapping emulates the human "foveal" vision that permit very high acuity on the line of sight (central vision)
+    in contrast to peripheral vision where acuity is minor.
+
+    \\par Option on `dsize`:
+
+    - if both values in `dsize <=0 ` (default),
+    the destination image will have (almost) same area of source bounding circle:
+    [\\begin{array}{l}
+    dsize.area  ← (maxRadius^2 · π)
+    dsize.width = `cvRound`(maxRadius)
+    dsize.height = `cvRound`(maxRadius · π)
+    \\end{array}]
+
+
+    - if only `dsize.height <= 0`,
+    the destination image area will be proportional to the bounding circle area but scaled by `Kx * Kx`:
+    [\\begin{array}{l}
+    dsize.height = `cvRound`(dsize.width · π)
+    \\end{array}
+    ]
+
+    - if both values in `dsize > 0 `,
+    the destination image will have the given size therefore the area of the bounding circle will be scaled to `dsize`.
+
+
+    \\par Reverse mapping
+
+    You can get reverse mapping adding #WARP_INVERSE_MAP to `flags`
+    \\snippet polar_transforms.cpp InverseMap
+
+    In addiction, to calculate the original coordinate from a polar mapped coordinate `(rho, phi)->(x, y)`:
+    \\snippet polar_transforms.cpp InverseCoordinate
+
+    @param src Source image.
+    @param dst Destination image. It will have same type as src.
+    @param dsize The destination image size (see description for valid options).
+    @param center The transformation center.
+    @param maxRadius The radius of the bounding circle to transform. It determines the inverse magnitude scale parameter too.
+    @param flags A combination of interpolation methods, #InterpolationFlags + #WarpPolarMode.
+          - Add #WARP_POLAR_LINEAR to select linear polar mapping (default)
+          - Add #WARP_POLAR_LOG to select semilog polar mapping
+          - Add #WARP_INVERSE_MAP for reverse mapping.
+    @note
+    -  The function can not operate in-place.
+    -  To calculate magnitude and angle in degrees #cartToPolar is used internally thus angles are measured from 0 to 360 with accuracy about 0.3 degrees.
+    -  This function uses #remap. Due to current implementation limitations the size of an input and output images should be less than 32767x32767.
+
+    @sa cv::remap
+    """
+    ...
+
+def watershed(image: Mat, markers) -> _markers:
+    """
+    watershed(image, markers) -> markers
+    @brief Performs a marker-based image segmentation using the watershed algorithm.
+
+    The function implements one of the variants of watershed, non-parametric marker-based segmentation
+    algorithm, described in @cite Meyer92 .
+
+    Before passing the image to the function, you have to roughly outline the desired regions in the
+    image markers with positive (>0) indices. So, every region is represented as one or more connected
+    components with the pixel values 1, 2, 3, and so on. Such markers can be retrieved from a binary
+    mask using #findContours and #drawContours (see the watershed.cpp demo). The markers are "seeds" of
+    the future image regions. All the other pixels in markers , whose relation to the outlined regions
+    is not known and should be defined by the algorithm, should be set to 0\'s. In the function output,
+    each pixel in markers is set to a value of the "seed" components or to -1 at boundaries between the
+    regions.
+
+    @note Any two neighbor connected components are not necessarily separated by a watershed boundary
+    (-1\'s pixels); for example, they can touch each other in the initial marker image passed to the
+    function.
+
+    @param image Input 8-bit 3-channel image.
+    @param markers Input/output 32-bit single-channel image (map) of markers. It should have the same
+    size as image .
+
+    @sa findContours
+
+    @ingroup imgproc_misc
+    """
+    ...
+
+def writeOpticalFlow(path, flow):
+    """
+    writeOpticalFlow(path, flow) -> retval
+    @brief Write a .flo to disk
+
+    @param path Path to the file to be written
+    @param flow Flow field to be stored
+
+    The function stores a flow field in a file, returns true on success, false otherwise.
+    The flow field must be a 2-channel, floating-point matrix (CV_32FC2). First channel corresponds
+    to the flow in the horizontal direction (u), second - vertical (v).
+    """
+    ...
