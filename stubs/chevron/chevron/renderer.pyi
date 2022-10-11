@@ -8,7 +8,6 @@ line_sep: str
 python3: Literal[True]
 
 def unicode(x: str, y: str) -> str: ...
-
 def render(
     template: SupportsRead[str] | str | Sequence[tuple[str, str]] = ...,
     data: dict[str, Any] = ...,
