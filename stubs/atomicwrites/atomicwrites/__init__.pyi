@@ -4,7 +4,7 @@ from contextlib import AbstractContextManager
 from typing import IO, Any, AnyStr
 from typing_extensions import Literal
 
-PY: Literal[True]
+PY2: Literal[False]
 DEFAULT_MODE: Literal["w"]
 
 def replace_atomic(src: AnyStr, dst: AnyStr) -> None: ...
