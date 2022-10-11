@@ -3,8 +3,8 @@ import socket as _socket
 import ssl as _ssl
 import time
 import types
-from collections.abc import Callable, Iterable
-from typing import Any, Optional, TypeVar
+from collections.abc import Callable
+from typing import Any, List, Optional, Tuple, TypeVar
 from typing_extensions import TypeAlias
 
 from .matcher import MQTTMatcher as MQTTMatcher
@@ -94,13 +94,13 @@ _OnConnect: TypeAlias = Callable[[Client, _UserData, dict[str, int], int], objec
 _OnConnectV5: TypeAlias = Callable[[Client, _UserData, dict[str, int], ReasonCodes, Optional[Properties]], object]
 _TOnConnect = TypeVar("_TOnConnect", _OnConnect, _OnConnectV5)
 _OnConnectFail: TypeAlias = Callable[[Client, _UserData], object]
-_OnSubscribe: TypeAlias = Callable[[Client, _UserData, int, Iterable[int]], object]
-_OnSubscribeV5: TypeAlias = Callable[[Client, _UserData, int, Iterable[ReasonCodes], Iterable[Properties]], object]
+_OnSubscribe: TypeAlias = Callable[[Client, _UserData, int, Tuple[int]], object]
+_OnSubscribeV5: TypeAlias = Callable[[Client, _UserData, int, List[ReasonCodes], Properties], object]
 _TOnSubscribe = TypeVar("_TOnSubscribe", _OnSubscribe, _OnSubscribeV5)
 _OnMessage: TypeAlias = Callable[[Client, _UserData, MQTTMessage], object]
 _OnPublish: TypeAlias = Callable[[Client, _UserData, int], object]
 _OnUnsubscribe: TypeAlias = Callable[[Client, _UserData, int], object]
-_OnUnsubscribeV5: TypeAlias = Callable[[Client, _UserData, int, Iterable[Properties], Iterable[ReasonCodes]], object]
+_OnUnsubscribeV5: TypeAlias = Callable[[Client, _UserData, int, Properties, List[ReasonCodes] | ReasonCodes], object]
 _TOnUnsubscribe = TypeVar("_TOnUnsubscribe", _OnUnsubscribe, _OnUnsubscribeV5)
 _OnDisconnect: TypeAlias = Callable[[Client, _UserData, int], object]
 _OnDisconnectV5: TypeAlias = Callable[[Client, _UserData, Optional[ReasonCodes], Optional[Properties]], object]
