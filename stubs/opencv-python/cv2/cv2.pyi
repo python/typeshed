@@ -645,7 +645,7 @@ CC_STAT_LEFT: int
 CC_STAT_MAX: int
 CC_STAT_TOP: int
 CC_STAT_WIDTH: int
-CHAIN_APPROXNone: int
+CHAIN_APPROX_NONE: int
 CHAIN_APPROX_SIMPLE: int
 CHAIN_APPROX_TC89_KCOS: int
 CHAIN_APPROX_TC89_L1: int
@@ -1156,7 +1156,7 @@ FILE_NODE_FLOW: int
 FILE_NODE_INT: int
 FILE_NODE_MAP: int
 FILE_NODE_NAMED: int
-FILE_NODENone: int
+FILE_NODE_NONE: int
 FILE_NODE_REAL: int
 FILE_NODE_SEQ: int
 FILE_NODE_STR: int
@@ -1215,7 +1215,7 @@ FileNode_FLOW: int
 FileNode_INT: int
 FileNode_MAP: int
 FileNode_NAMED: int
-FileNodeNone: int
+FileNode_NONE: int
 FileNode_REAL: int
 FileNode_SEQ: int
 FileNode_STR: int
@@ -1348,7 +1348,7 @@ IMWRITE_WEBP_QUALITY: int
 INPAINT_NS: int
 INPAINT_TELEA: int
 INTERSECT_FULL: int
-INTERSECTNone: int
+INTERSECT_NONE: int
 INTERSECT_PARTIAL: int
 INTER_AREA: int
 INTER_BITS: int
@@ -1380,7 +1380,7 @@ LOCAL_OPTIM_INNER_LO: int
 LOCAL_OPTIM_NULL: int
 LOCAL_OPTIM_SIGMA: int
 LSD_REFINE_ADV: int
-LSD_REFINENone: int
+LSD_REFINE_NONE: int
 LSD_REFINE_STD: int
 MARKER_CROSS: int
 MARKER_DIAMOND: int
@@ -1748,7 +1748,7 @@ VIDEOWRITER_PROP_QUALITY: int
 VIDEO_ACCELERATION_ANY: int
 VIDEO_ACCELERATION_D3D11: int
 VIDEO_ACCELERATION_MFX: int
-VIDEO_ACCELERATIONNone: int
+VIDEO_ACCELERATION_NONE: int
 VIDEO_ACCELERATION_VAAPI: int
 WARP_FILL_OUTLIERS: int
 WARP_INVERSE_MAP: int
@@ -1778,7 +1778,7 @@ _INPUT_ARRAY_KIND_MASK: int
 _INPUT_ARRAY_KIND_SHIFT: int
 _INPUT_ARRAY_MAT: int
 _INPUT_ARRAY_MATX: int
-_INPUT_ARRAYNone: int
+_INPUT_ARRAY_NONE: int
 _INPUT_ARRAY_OPENGL_BUFFER: int
 _INPUT_ARRAY_STD_ARRAY: int
 _INPUT_ARRAY_STD_ARRAY_MAT: int
@@ -1798,7 +1798,7 @@ _InputArray_KIND_MASK: int
 _InputArray_KIND_SHIFT: int
 _InputArray_MAT: int
 _InputArray_MATX: int
-_InputArrayNone: int
+_InputArray_NONE: int
 _InputArray_OPENGL_BUFFER: int
 _InputArray_STD_ARRAY: int
 _InputArray_STD_ARRAY_MAT: int
@@ -3302,10 +3302,10 @@ class dnn_TextRecognitionModel(dnn_Model):
     def setVocabulary(self, *args, **kwargs) -> Any: ...  # incomplete
 
 class error(Exception):
-    code: ClassVar[None] = ...
-    err: ClassVar[None] = ...
-    file: ClassVar[None] = ...
-    func: ClassVar[None] = ...
+    code: ClassVar[int | None] = ...
+    err: ClassVar[str | None] = ...
+    file: ClassVar[str | None] = ...
+    func: ClassVar[str | None] = ...
     line: ClassVar[None] = ...
     msg: ClassVar[None] = ...
 
