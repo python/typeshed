@@ -11471,7 +11471,9 @@ def reprojectImageTo3D(disparity, Q, _3dImage=..., handleMissingValues=..., ddep
     """
     ...
 
-def resize(src: Mat, dsize: tuple[int, int], _dts: Mat = ..., _fx: int = ..., _fy: int = ..., _interpolation: int = ...) -> Mat:
+def resize(
+    src: Mat, dsize: tuple[int, int] | None, _dts: Mat = ..., _fx: float = ..., _fy: float = ..., _interpolation: int = ...
+) -> Mat:
     """
     @brief Resizes an image.
 
