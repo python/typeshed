@@ -4800,7 +4800,7 @@ def adaptiveThreshold(src: Mat, maxValue, adaptiveMethod, thresholdType, blockSi
     """
     ...
 
-def add(src1: Mat, src2: Mat, dts: Mat = ..., mask: Mat = ..., dtype=...) -> _dst:
+def add(src1: Mat | float, src2: Mat | float, dts: Mat = ..., mask: Mat = ..., dtype=...) -> _dst:
     """
     @brief Calculates the per-element sum of two arrays or an array and a scalar.
 
@@ -9539,8 +9539,7 @@ def haveImageWriter(filename: str) -> _retval:
     ...
 
 def haveOpenVX() -> _retval: ...
-@overload
-def hconcat(src: Mat, dts: Mat = ...) -> _dst:
+def hconcat(src: Mat | list[Mat], dts: Mat = ...) -> _dst:
     """
     @param src input array or vector of matrices. all of the matrices must have the same number of rows and the same depth.
     @param dst output array. It has the same number of rows and depth as the src, and the sum of cols of the src.
@@ -9548,8 +9547,6 @@ def hconcat(src: Mat, dts: Mat = ...) -> _dst:
     """
     ...
 
-@overload
-def hconcat(matrices: set[Mat], out: Mat) -> Mat: ...
 def idct(src: Mat, dts: Mat = ..., flags: int = ...) -> _dst:
     """
     @brief Calculates the inverse Discrete Cosine Transform of a 1D or 2D array.
@@ -10680,7 +10677,7 @@ def norm(src1, src2, normType=..., mask=...) -> _retval:
     """
     ...
 
-def normalize(src: Mat, dts: Mat, alpha=..., beta=..., normType: int = ..., dtype=..., mask: Mat = ...) -> Mat:
+def normalize(src: Mat, dts: Mat, alpha=..., beta=..., norm_type: int = ..., dtype=..., mask: Mat = ...) -> Mat:
     """
     @brief Normalizes the norm or value range of an array.
 
@@ -11287,7 +11284,7 @@ def recoverPose(
     ...
 
 @overload
-def rectangle(img: Mat, pt1, pt2, color, thickness=..., lineType=..., shift=...) -> _img:
+def rectangle(img: Mat, pt1: tuple[int, int], pt2: tuple[int, int], color, thickness=..., lineType=..., shift=...) -> Mat:
     """
     @brief Draws a simple, thick, or filled up-right rectangle.
 
@@ -11306,7 +11303,7 @@ def rectangle(img: Mat, pt1, pt2, color, thickness=..., lineType=..., shift=...)
     ...
 
 @overload
-def rectangle(img, rec, color, thickness=..., lineType=..., shift=...) -> _img:
+def rectangle(img: Mat, rec: tuple[int, int, int, int], color, thickness=..., lineType=..., shift=...) -> Mat:
     """
     use `rec` parameter as alternative specification of the drawn rectangle: `r.tl() and
     r.br()-Point(1,1)` are opposite corners
@@ -12908,7 +12905,7 @@ def stylization(src: Mat, dts: Mat = ..., sigma_s=..., sigma_r=...) -> _dst:
     """
     ...
 
-def subtract(src1: Mat, src2: Mat, dts: Mat = ..., mask: Mat = ..., dtype=...) -> _dst:
+def subtract(src1: Mat | float, src2: Mat | float, dts: Mat = ..., mask: Mat = ..., dtype=...) -> _dst:
     """
     @brief Calculates the per-element difference between two arrays or array and a scalar.
 
@@ -13190,22 +13187,14 @@ def validateDisparity(disparity, cost, minDisparity, numberOfDisparities, disp12
     """ """
     ...
 
-@overload
-def vconcat(src: Mat, dts: Mat = ...) -> Mat:
+def vconcat(src: Mat | list[Mat], dts: Mat = ...) -> Mat:
     """
-    //out:
-    //[1,   1,   1,   1;
-    // 2,   2,   2,   2;
-    // 3,   3,   3,   3]
-    @endcode
     @param src input array or vector of matrices. all of the matrices must have the same number of cols and the same depth
     @param dst output array. It has the same number of cols and depth as the src, and the sum of rows of the src.
     same depth.
     """
     ...
 
-@overload
-def vconcat(matrices: set[Mat], out: Mat) -> Mat: ...
 def waitKey(delay=...) -> _retval:
     """
     @brief Waits for a pressed key.
