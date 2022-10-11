@@ -2,6 +2,8 @@ from _typeshed import StrOrBytesPath
 from typing import Any
 from typing_extensions import TypeAlias
 
+version: str
+
 _OpenFile: TypeAlias = StrOrBytesPath | int
 
 def main(template: _OpenFile, data: _OpenFile | None = ..., **kwargs: Any) -> str: ...
