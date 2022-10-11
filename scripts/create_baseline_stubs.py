@@ -70,7 +70,7 @@ def create_metadata(stub_dir: str, version: str) -> None:
     if os.path.exists(filename):
         return
     print(f"Writing {filename}")
-    with open(filename, "w") as file:
+    with open(filename, "w", encoding="UTF-8") as file:
         file.write(
             f"""\
 version = "{version}.*"
@@ -83,7 +83,7 @@ ignore_missing_stub = false
 
 def add_pyright_exclusion(stub_dir: str) -> None:
     """Exclude stub_dir from strict pyright checks."""
-    with open(PYRIGHT_CONFIG) as f:
+    with open(PYRIGHT_CONFIG, encoding="UTF-8") as f:
         lines = f.readlines()
     i = 0
     while i < len(lines) and not lines[i].strip().startswith('"exclude": ['):
@@ -105,7 +105,7 @@ def add_pyright_exclusion(stub_dir: str) -> None:
         lines[i] = lines[i].rstrip() + ",\n"
     lines.insert(i + 1, line_to_add + "\n")
     print(f"Updating {PYRIGHT_CONFIG}")
-    with open(PYRIGHT_CONFIG, "w") as f:
+    with open(PYRIGHT_CONFIG, "w", encoding="UTF-8") as f:
         f.writelines(lines)
 
 

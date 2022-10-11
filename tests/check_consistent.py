@@ -71,7 +71,7 @@ def check_test_cases() -> None:
         for file in testcase_dir.rglob("*.py"):
             assert file.stem.startswith("check_"), bad_test_case_filename.format(file)
             if package_name != "stdlib":
-                with open(file) as f:
+                with open(file, encoding="UTF-8") as f:
                     lines = {line.strip() for line in f}
                 pyright_setting_not_enabled_msg = (
                     f'Third-party test-case file "{file}" must have '
@@ -93,7 +93,7 @@ def check_no_symlinks() -> None:
 
 def check_versions() -> None:
     versions = set()
-    with open("stdlib/VERSIONS") as f:
+    with open("stdlib/VERSIONS", encoding="UTF-8") as f:
         data = f.read().splitlines()
     for line in data:
         line = strip_comments(line)
@@ -128,7 +128,7 @@ def _find_stdlib_modules() -> set[str]:
 
 def check_metadata() -> None:
     for distribution in os.listdir("stubs"):
-        with open(os.path.join("stubs", distribution, "METADATA.toml")) as f:
+        with open(os.path.join("stubs", distribution, "METADATA.toml"), encoding="UTF-8") as f:
             data = tomli.loads(f.read())
         assert "version" in data, f"Missing version for {distribution}"
         version = data["version"]
@@ -153,14 +153,14 @@ def check_metadata() -> None:
 
 
 def get_txt_requirements() -> dict[str, SpecifierSet]:
-    with open("requirements-tests.txt") as requirements_file:
+    with open("requirements-tests.txt", encoding="UTF-8") as requirements_file:
         stripped_lines = map(strip_comments, requirements_file)
         requirements = map(Requirement, filter(None, stripped_lines))
         return {requirement.name: requirement.specifier for requirement in requirements}
 
 
 def get_precommit_requirements() -> dict[str, SpecifierSet]:
-    with open(".pre-commit-config.yaml") as precommit_file:
+    with open(".pre-commit-config.yaml", encoding="UTF-8") as precommit_file:
         precommit = precommit_file.read()
     yam = yaml.load(precommit, Loader=yaml.Loader)
     precommit_requirements = {}

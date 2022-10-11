@@ -44,8 +44,8 @@ requests.post("http://httpbin.org/anything", data=b"foobar").json()["data"]
 requests.post("http://httpbin.org/anything", data="foobar").json()["data"]
 
 # Files
-requests.post("http://httpbin.org/anything", data=open("/tmp/foobar", "rb")).json()["data"]
-requests.post("http://httpbin.org/anything", data=open("/tmp/foobar", "r")).json()["data"]
+requests.post("http://httpbin.org/anything", data=open("/tmp/foobar", "rb", encoding="UTF-8")).json()["data"]
+requests.post("http://httpbin.org/anything", data=open("/tmp/foobar", "r", encoding="UTF-8")).json()["data"]
 
 # Mappings
 requests.post("http://httpbin.org/anything", data={b"foo": b"bar"}).json()["form"]

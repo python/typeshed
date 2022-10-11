@@ -129,7 +129,7 @@ def match(path: Path, args: TestConfig) -> bool:
 
 def parse_versions(fname: StrPath) -> dict[str, tuple[VersionTuple, VersionTuple]]:
     result = {}
-    with open(fname) as f:
+    with open(fname, encoding="UTF-8") as f:
         for line in f:
             line = strip_comments(line)
             if line == "":

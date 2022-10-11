@@ -101,7 +101,7 @@ def get_all_testcase_directories() -> list[PackageInfo]:
 
 @cache
 def get_gitignore_spec() -> pathspec.PathSpec:
-    with open(".gitignore") as f:
+    with open(".gitignore", encoding="UTF-8") as f:
         return pathspec.PathSpec.from_lines("gitwildmatch", f.readlines())
 
 

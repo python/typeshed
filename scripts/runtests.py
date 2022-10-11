@@ -33,7 +33,7 @@ def _parse_jsonc(json_text: str) -> str:
 
 
 def _get_strict_params(stub_path: str) -> list[str]:
-    with open(_STRICTER_CONFIG_FILE) as file:
+    with open(_STRICTER_CONFIG_FILE, encoding="UTF-8") as file:
         data = json.loads(_parse_jsonc(file.read()))
     if stub_path in data["exclude"]:
         return []
