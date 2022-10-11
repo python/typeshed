@@ -4,7 +4,7 @@ from typing import Any
 from typing_extensions import Literal
 
 g_token_cache: dict[str, list[tuple[str, str]]]  # undocumented
-line_sep: str
+linesep: str
 python3: Literal[True]
 
 def unicode(x: str, y: str) -> str: ...
