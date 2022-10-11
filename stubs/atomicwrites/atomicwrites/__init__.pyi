@@ -2,7 +2,7 @@ from _typeshed import StrOrBytesPath
 from collections.abc import Callable
 from contextlib import AbstractContextManager
 from typing import IO, Any, AnyStr
-from typing_extension import Literal
+from typing_extensions import Literal
 
 PY: Literal[True]
 DEFAULT_MODE: Literal["w"]
