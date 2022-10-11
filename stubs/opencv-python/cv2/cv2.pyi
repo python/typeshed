@@ -3974,7 +3974,7 @@ def GFTTDetector_create(
 def GFTTDetector_create(
     maxCorners, qualityLevel, minDistance, blockSize, gradiantSize, useHarrisDetector=..., k=...
 ) -> _retval: ...
-def GaussianBlur(src: _Mat, ksize, sigmaX, dts: _Mat = ..., sigmaY=..., borderType=...) -> _dst:
+def GaussianBlur(src: _Mat, ksize, sigmaX, dst: _Mat = ..., sigmaY=..., borderType=...) -> _dst:
     """
     @brief Blurs an image using a Gaussian filter.
 
@@ -4194,7 +4194,7 @@ def KeyPoint_overlap(kp1, kp2) -> _retval:
     """
     ...
 
-def LUT(src: _Mat, lut, dts: _Mat = ...) -> _dst:
+def LUT(src: _Mat, lut, dst: _Mat = ...) -> _dst:
     """
     @brief Performs a look-up table transform of an array.
 
@@ -4212,7 +4212,7 @@ def LUT(src: _Mat, lut, dts: _Mat = ...) -> _dst:
     """
     ...
 
-def Laplacian(src: _Mat, ddepth, dts: _Mat = ..., ksize=..., scale=..., delta=..., borderType=...) -> _dst:
+def Laplacian(src: _Mat, ddepth, dst: _Mat = ..., ksize=..., scale=..., delta=..., borderType=...) -> _dst:
     """
     @brief Calculates the Laplacian of an image.
 
@@ -4414,7 +4414,7 @@ def RQDecomp3x3(src: _Mat, mtxR=..., mtxQ=..., Qx=..., Qy=..., Qz=...) -> tuple[
     """
     ...
 
-def Rodrigues(src: _Mat, dts: _Mat = ..., jacobian=...) -> tuple[tuple[_dst, _jacobian]]:
+def Rodrigues(src: _Mat, dst: _Mat = ..., jacobian=...) -> tuple[tuple[_dst, _jacobian]]:
     """
     @brief Converts a rotation matrix to a rotation vector or vice versa.
 
@@ -4468,7 +4468,7 @@ def SIFT_create(nfeatures=..., nOctaveLayers=..., contrastThreshold=..., edgeThr
     """
     ...
 
-def SVBackSubst(w, u, vt, rhs, dts: _Mat = ...) -> _dst:
+def SVBackSubst(w, u, vt, rhs, dst: _Mat = ...) -> _dst:
     """
     wrap SVD::backSubst
     """
@@ -4480,7 +4480,7 @@ def SVDecomp(src: _Mat, w=..., u=..., vt=..., flags: int = ...) -> tuple[tuple[_
     """
     ...
 
-def Scharr(src: _Mat, ddepth, dx, dy, dts: _Mat = ..., scale=..., delta=..., borderType=...) -> _dst:
+def Scharr(src: _Mat, ddepth, dx, dy, dst: _Mat = ..., scale=..., delta=..., borderType=...) -> _dst:
     """
     @brief Calculates the first x- or y- image derivative using Scharr operator.
 
@@ -4507,7 +4507,7 @@ def Scharr(src: _Mat, ddepth, dx, dy, dts: _Mat = ..., scale=..., delta=..., bor
     ...
 
 def SimpleBlobDetector_create(parameters=...) -> _retval: ...
-def Sobel(src: _Mat, ddepth, dx, dy, dts: _Mat = ..., ksize=..., scale=..., delta=..., borderType=...) -> _dst:
+def Sobel(src: _Mat, ddepth, dx, dy, dst: _Mat = ..., ksize=..., scale=..., delta=..., borderType=...) -> _dst:
     """
     @brief Calculates the first, second, third, or mixed image derivatives using an extended Sobel operator.
 
@@ -4658,7 +4658,7 @@ def VideoWriter_fourcc(c1, c2, c3, c4) -> _retval:
     ...
 
 def _registerMatType(*args, **kwargs) -> Any: ...  # incomplete
-def absdiff(src1: _Mat, src2: _Mat, dts: _Mat = ...) -> _dst:
+def absdiff(src1: _Mat, src2: _Mat, dst: _Mat = ...) -> _dst:
     """
     @brief Calculates the per-element absolute difference between two arrays or between an array and a scalar.
 
@@ -4685,7 +4685,7 @@ def absdiff(src1: _Mat, src2: _Mat, dts: _Mat = ...) -> _dst:
     """
     ...
 
-def accumulate(src: _Mat, dts: _Mat, mask: _Mat = ...) -> _dst:
+def accumulate(src: _Mat, dst: _Mat, mask: _Mat = ...) -> _dst:
     """
     @brief Adds an image to the accumulator image.
 
@@ -4707,7 +4707,7 @@ def accumulate(src: _Mat, dts: _Mat, mask: _Mat = ...) -> _dst:
     """
     ...
 
-def accumulateProduct(src1: _Mat, src2: _Mat, dts: _Mat, mask: _Mat = ...) -> _dst:
+def accumulateProduct(src1: _Mat, src2: _Mat, dst: _Mat, mask: _Mat = ...) -> _dst:
     """
     @brief Adds the per-element product of two input images to the accumulator image.
 
@@ -4728,7 +4728,7 @@ def accumulateProduct(src1: _Mat, src2: _Mat, dts: _Mat, mask: _Mat = ...) -> _d
     """
     ...
 
-def accumulateSquare(src: _Mat, dts: _Mat, mask: _Mat = ...) -> _dst:
+def accumulateSquare(src: _Mat, dst: _Mat, mask: _Mat = ...) -> _dst:
     """
     @brief Adds the square of a source image to the accumulator image.
 
@@ -4749,7 +4749,7 @@ def accumulateSquare(src: _Mat, dts: _Mat, mask: _Mat = ...) -> _dst:
     """
     ...
 
-def accumulateWeighted(src: _Mat, dts: _Mat, alpha, mask: _Mat = ...) -> _dst:
+def accumulateWeighted(src: _Mat, dst: _Mat, alpha, mask: _Mat = ...) -> _dst:
     """
     @brief Updates a running average.
 
@@ -4772,7 +4772,7 @@ def accumulateWeighted(src: _Mat, dts: _Mat, alpha, mask: _Mat = ...) -> _dst:
     """
     ...
 
-def adaptiveThreshold(src: _Mat, maxValue, adaptiveMethod, thresholdType, blockSize, C, dts: _Mat = ...) -> _dst:
+def adaptiveThreshold(src: _Mat, maxValue, adaptiveMethod, thresholdType, blockSize, C, dst: _Mat = ...) -> _dst:
     """
     @brief Applies an adaptive threshold to an array.
 
@@ -4801,7 +4801,7 @@ def adaptiveThreshold(src: _Mat, maxValue, adaptiveMethod, thresholdType, blockS
     """
     ...
 
-def add(src1: _Mat | float, src2: _Mat | float, dts: _Mat = ..., mask: _Mat = ..., dtype=...) -> _dst:
+def add(src1: _Mat | float, src2: _Mat | float, dst: _Mat = ..., mask: _Mat = ..., dtype=...) -> _dst:
     """
     @brief Calculates the per-element sum of two arrays or an array and a scalar.
 
@@ -4862,7 +4862,7 @@ def addText(img: _Mat, text, org, nameFont, pointSize=..., color=..., weight=...
     """
     ...
 
-def addWeighted(src1: _Mat, alpha, src2: _Mat, beta, gamma, dts: _Mat = ..., dtype=...) -> _dst:
+def addWeighted(src1: _Mat, alpha, src2: _Mat, beta, gamma, dst: _Mat = ..., dtype=...) -> _dst:
     """
     @brief Calculates the weighted sum of two arrays.
 
@@ -4889,7 +4889,7 @@ def addWeighted(src1: _Mat, alpha, src2: _Mat, beta, gamma, dts: _Mat = ..., dty
     ...
 
 @overload
-def applyColorMap(src: _Mat, colormap, dts: _Mat = ...) -> _dst:
+def applyColorMap(src: _Mat, colormap, dst: _Mat = ...) -> _dst:
     """
     @brief Applies a GNU Octave/MATLAB equivalent colormap on a given image.
 
@@ -4965,7 +4965,7 @@ def batchDistance(
     """
     ...
 
-def bilateralFilter(src: _Mat, d, sigmaColor, sigmaSpace, dts: _Mat = ..., borderType=...) -> _dst:
+def bilateralFilter(src: _Mat, d, sigmaColor, sigmaSpace, dst: _Mat = ..., borderType=...) -> _dst:
     """
     @brief Applies the bilateral filter to an image.
 
@@ -4997,7 +4997,7 @@ def bilateralFilter(src: _Mat, d, sigmaColor, sigmaSpace, dts: _Mat = ..., borde
     """
     ...
 
-def bitwise_and(src1: _Mat, src2: _Mat, dts: _Mat = ..., mask: _Mat = ...) -> _dst:
+def bitwise_and(src1: _Mat, src2: _Mat, dst: _Mat = ..., mask: _Mat = ...) -> _dst:
     """
     @brief computes bitwise conjunction of the two arrays (dst = src1 & src2)
     Calculates the per-element bit-wise conjunction of two arrays or an
@@ -5029,7 +5029,7 @@ def bitwise_and(src1: _Mat, src2: _Mat, dts: _Mat = ..., mask: _Mat = ...) -> _d
     """
     ...
 
-def bitwise_not(src: _Mat, dts: _Mat = ..., mask: _Mat = ...) -> _dst:
+def bitwise_not(src: _Mat, dst: _Mat = ..., mask: _Mat = ...) -> _dst:
     """
     @brief  Inverts every bit of an array.
 
@@ -5048,7 +5048,7 @@ def bitwise_not(src: _Mat, dts: _Mat = ..., mask: _Mat = ...) -> _dst:
     """
     ...
 
-def bitwise_or(src1: _Mat, src2: _Mat, dts: _Mat = ..., mask: _Mat = ...) -> _dst:
+def bitwise_or(src1: _Mat, src2: _Mat, dst: _Mat = ..., mask: _Mat = ...) -> _dst:
     """
     @brief Calculates the per-element bit-wise disjunction of two arrays or an
     array and a scalar.
@@ -5079,7 +5079,7 @@ def bitwise_or(src1: _Mat, src2: _Mat, dts: _Mat = ..., mask: _Mat = ...) -> _ds
     """
     ...
 
-def bitwise_xor(src1: _Mat, src2: _Mat, dts: _Mat = ..., mask: _Mat = ...) -> _dst:
+def bitwise_xor(src1: _Mat, src2: _Mat, dst: _Mat = ..., mask: _Mat = ...) -> _dst:
     """
     @brief Calculates the per-element bit-wise "exclusive or" operation on two
     arrays or an array and a scalar.
@@ -5112,7 +5112,7 @@ def bitwise_xor(src1: _Mat, src2: _Mat, dts: _Mat = ..., mask: _Mat = ...) -> _d
     ...
 
 def blendLinear(*args, **kwargs) -> Any: ...  # incomplete
-def blur(src: _Mat, ksize, dts: _Mat = ..., anchor=..., borderType=...) -> _dst:
+def blur(src: _Mat, ksize, dst: _Mat = ..., anchor=..., borderType=...) -> _dst:
     """
     @brief Blurs an image using the normalized box filter.
 
@@ -5170,7 +5170,7 @@ def boundingRect(array) -> _retval:
     """
     ...
 
-def boxFilter(src: _Mat, ddepth, ksize, dts: _Mat = ..., anchor=..., normalize=..., borderType=...) -> _dst:
+def boxFilter(src: _Mat, ddepth, ksize, dst: _Mat = ..., anchor=..., normalize=..., borderType=...) -> _dst:
     """
     @brief Blurs an image using the box filter.
 
@@ -5232,7 +5232,7 @@ def buildOpticalFlowPyramid(
     """
     ...
 
-def calcBackProject(images: list[_Mat], channels: list[int], hist, ranges: list[int], scale, dts: _Mat = ...) -> _dst: ...
+def calcBackProject(images: list[_Mat], channels: list[int], hist, ranges: list[int], scale, dst: _Mat = ...) -> _dst: ...
 def calcCovarMatrix(samples, mean, flags: int, covar=..., ctype=...) -> tuple[_covar, _mean]:
     """
     @note use #COVAR_ROWS or #COVAR_COLS flag
@@ -5839,7 +5839,7 @@ def clipLine(imgRect, pt1, pt2) -> tuple[_retval, _pt1, _pt2]:
     """
     ...
 
-def colorChange(src: _Mat, mask: _Mat, dts: _Mat = ..., red_mul=..., green_mul=..., blue_mul=...) -> _dst:
+def colorChange(src: _Mat, mask: _Mat, dst: _Mat = ..., red_mul=..., green_mul=..., blue_mul=...) -> _dst:
     """
     @brief Given an original color image, two differently colored versions of this image can be mixed
     seamlessly.
@@ -5855,7 +5855,7 @@ def colorChange(src: _Mat, mask: _Mat, dts: _Mat = ..., red_mul=..., green_mul=.
     """
     ...
 
-def compare(src1: _Mat, src2: _Mat, cmpop, dts: _Mat = ...) -> _dst:
+def compare(src1: _Mat, src2: _Mat, cmpop, dst: _Mat = ...) -> _dst:
     """
     @brief Performs the per-element comparison of two arrays or an array and scalar value.
 
@@ -6122,7 +6122,7 @@ def contourArea(contour, oriented=...) -> _retval:
     """
     ...
 
-def convertFp16(src: _Mat, dts: _Mat = ...) -> _dst:
+def convertFp16(src: _Mat, dst: _Mat = ...) -> _dst:
     """
     @brief Converts an array to half precision floating number.
 
@@ -6170,7 +6170,7 @@ def convertMaps(map1, map2, dstmap1type, dstmap1=..., dstmap2=..., nninterpolati
     """
     ...
 
-def convertPointsFromHomogeneous(src: _Mat, dts: _Mat = ...) -> _dst:
+def convertPointsFromHomogeneous(src: _Mat, dst: _Mat = ...) -> _dst:
     """
     @brief Converts points from homogeneous to Euclidean space.
 
@@ -6183,7 +6183,7 @@ def convertPointsFromHomogeneous(src: _Mat, dts: _Mat = ...) -> _dst:
     """
     ...
 
-def convertPointsToHomogeneous(src: _Mat, dts: _Mat = ...) -> _dst:
+def convertPointsToHomogeneous(src: _Mat, dst: _Mat = ...) -> _dst:
     """
     @brief Converts points from Euclidean to homogeneous space.
 
@@ -6195,7 +6195,7 @@ def convertPointsToHomogeneous(src: _Mat, dts: _Mat = ...) -> _dst:
     """
     ...
 
-def convertScaleAbs(src: _Mat, dts: _Mat = ..., alpha=..., beta=...) -> _dst:
+def convertScaleAbs(src: _Mat, dst: _Mat = ..., alpha=..., beta=...) -> _dst:
     """
     @brief Scales, calculates absolute values, and converts the result to 8-bit.
 
@@ -6276,7 +6276,7 @@ def convexityDefects(contour, convexhull, convexityDefects=...) -> _convexityDef
     """
     ...
 
-def copyMakeBorder(src: _Mat, top, bottom, left, right, borderType, dts: _Mat = ..., value=...) -> _dst:
+def copyMakeBorder(src: _Mat, top, bottom, left, right, borderType, dst: _Mat = ..., value=...) -> _dst:
     """
     @brief Forms a border around an image.
 
@@ -6323,7 +6323,7 @@ def copyMakeBorder(src: _Mat, top, bottom, left, right, borderType, dts: _Mat = 
     """
     ...
 
-def copyTo(src: _Mat, mask: _Mat, dts: _Mat = ...) -> _dst:
+def copyTo(src: _Mat, mask: _Mat, dst: _Mat = ...) -> _dst:
     """
     @brief  This is an overloaded member function, provided for convenience (python)
     Copies the matrix to another one.
@@ -6336,7 +6336,7 @@ def copyTo(src: _Mat, mask: _Mat, dts: _Mat = ...) -> _dst:
     """
     ...
 
-def cornerEigenValsAndVecs(src: _Mat, blockSize, ksize, dts: _Mat = ..., borderType=...) -> _dst:
+def cornerEigenValsAndVecs(src: _Mat, blockSize, ksize, dst: _Mat = ..., borderType=...) -> _dst:
     """
     @brief Calculates eigenvalues and eigenvectors of image blocks for corner detection.
 
@@ -6366,7 +6366,7 @@ def cornerEigenValsAndVecs(src: _Mat, blockSize, ksize, dts: _Mat = ..., borderT
     """
     ...
 
-def cornerHarris(src: _Mat, blockSize, ksize, k, dts: _Mat = ..., borderType=...) -> _dst:
+def cornerHarris(src: _Mat, blockSize, ksize, k, dst: _Mat = ..., borderType=...) -> _dst:
     """
     @brief Harris corner detector.
 
@@ -6389,7 +6389,7 @@ def cornerHarris(src: _Mat, blockSize, ksize, k, dts: _Mat = ..., borderType=...
     """
     ...
 
-def cornerMinEigenVal(src: _Mat, blockSize, dts: _Mat = ..., ksize=..., borderType=...) -> _dst:
+def cornerMinEigenVal(src: _Mat, blockSize, dst: _Mat = ..., ksize=..., borderType=...) -> _dst:
     """
     @brief Calculates the minimal eigenvalue of gradient matrices for corner detection.
 
@@ -6562,7 +6562,7 @@ def createGeneralizedHoughGuil() -> _retval:
     """
     ...
 
-def createHanningWindow(winSize, type, dts: _Mat = ...) -> _dst:
+def createHanningWindow(winSize, type, dst: _Mat = ...) -> _dst:
     """
     @brief This function computes a Hanning window coefficients in two dimensions.
 
@@ -6684,7 +6684,7 @@ def cubeRoot(val) -> _retval:
     """
     ...
 
-def cvtColor(src: _Mat, code: int, dts: _Mat = ..., dstCn: int = ...) -> _Mat:
+def cvtColor(src: _Mat, code: int, dst: _Mat = ..., dstCn: int = ...) -> _Mat:
     """
     @brief Converts an image from one color space to another.
 
@@ -6729,7 +6729,7 @@ def cvtColor(src: _Mat, code: int, dts: _Mat = ..., dstCn: int = ...) -> _Mat:
     """
     ...
 
-def cvtColorTwoPlane(src1: _Mat, src2: _Mat, code: int, dts: _Mat = ...) -> _dst:
+def cvtColorTwoPlane(src1: _Mat, src2: _Mat, code: int, dst: _Mat = ...) -> _dst:
     """
     @brief Converts an image from one color space to another where the source image is
     stored in two planes.
@@ -6751,7 +6751,7 @@ def cvtColorTwoPlane(src1: _Mat, src2: _Mat, code: int, dts: _Mat = ...) -> _dst
     """
     ...
 
-def dct(src: _Mat, dts: _Mat = ..., flags: int = ...) -> _dst:
+def dct(src: _Mat, dst: _Mat = ..., flags: int = ...) -> _dst:
     """
     @brief Performs a forward or inverse discrete Cosine transform of 1D or 2D array.
 
@@ -6886,7 +6886,7 @@ def decomposeProjectionMatrix(
     """
     ...
 
-def demosaicing(src: _Mat, code: int, dts: _Mat = ..., dstCn: int = ...) -> _dst:
+def demosaicing(src: _Mat, code: int, dst: _Mat = ..., dstCn: int = ...) -> _dst:
     """
     @brief main function for all demosaicing processes
 
@@ -6980,7 +6980,7 @@ def destroyWindow(winname) -> None:
     """
     ...
 
-def detailEnhance(src: _Mat, dts: _Mat = ..., sigma_s=..., sigma_r=...) -> _dst:
+def detailEnhance(src: _Mat, dst: _Mat = ..., sigma_s=..., sigma_r=...) -> _dst:
     """
     @brief This filter enhances the details of a particular image.
 
@@ -7008,7 +7008,7 @@ def determinant(mtx) -> _retval:
     """
     ...
 
-def dft(src: _Mat, dts: _Mat = ..., flags: int = ..., nonzeroRows=...) -> _dst:
+def dft(src: _Mat, dst: _Mat = ..., flags: int = ..., nonzeroRows=...) -> _dst:
     """
     @brief Performs a forward or inverse Discrete Fourier transform of a 1D or 2D floating-point array.
 
@@ -7144,7 +7144,7 @@ def dft(src: _Mat, dts: _Mat = ..., flags: int = ..., nonzeroRows=...) -> _dst:
     """
     ...
 
-def dilate(src: _Mat, kernel, dts: _Mat = ..., anchor=..., iterations=..., borderType=..., borderValue=...) -> _dst:
+def dilate(src: _Mat, kernel, dst: _Mat = ..., anchor=..., iterations=..., borderType=..., borderValue=...) -> _dst:
     """
     @brief Dilates an image by using a specific structuring element.
 
@@ -7202,7 +7202,7 @@ def displayStatusBar(winname, text, delayms=...) -> None:
     """
     ...
 
-def distanceTransform(src: _Mat, distanceType, maskSize, dts: _Mat = ..., dstType=...) -> _dst:
+def distanceTransform(src: _Mat, distanceType, maskSize, dst: _Mat = ..., dstType=...) -> _dst:
     """
     @param src 8-bit, single-channel (binary) source image.
     @param dst Output image with calculated distances. It is a 8-bit or 32-bit floating-point,
@@ -7217,7 +7217,7 @@ def distanceTransform(src: _Mat, distanceType, maskSize, dts: _Mat = ..., dstTyp
     ...
 
 def distanceTransformWithLabels(
-    src: _Mat, distanceType, maskSize, dts: _Mat = ..., labels=..., labelType=...
+    src: _Mat, distanceType, maskSize, dst: _Mat = ..., labels=..., labelType=...
 ) -> tuple[_dst, _labels]:
     """
     @brief Calculates the distance to the closest zero pixel for each pixel of the source image.
@@ -7277,7 +7277,7 @@ def distanceTransformWithLabels(
 
 def divSpectrums(*args, **kwargs) -> Any: ...  # incomplete
 @overload
-def divide(src1: _Mat, src2: _Mat, dts: _Mat = ..., scale=..., dtype=...) -> _dst:
+def divide(src1: _Mat, src2: _Mat, dst: _Mat = ..., scale=..., dtype=...) -> _dst:
     """
     @brief Performs per-element division of two arrays or a scalar by an array.
 
@@ -7465,7 +7465,7 @@ def drawMatchesKnn(
     matchesMask=...,
     flags: int = ...,
 ) -> _outImg: ...
-def edgePreservingFilter(src: _Mat, dts: _Mat = ..., flags: int = ..., sigma_s=..., sigma_r=...) -> _dst:
+def edgePreservingFilter(src: _Mat, dst: _Mat = ..., flags: int = ..., sigma_s=..., sigma_r=...) -> _dst:
     """
     @brief Filtering is the fundamental operation in image and video processing. Edge-preserving smoothing
     filters are used in many different applications @cite EM11 .
@@ -7582,7 +7582,7 @@ def ellipse2Poly(center, axes, angle, arcStart, arcEnd, delta) -> _pts:
 def empty_array_desc(*args, **kwargs) -> Any: ...  # incomplete
 def empty_gopaque_desc(*args, **kwargs) -> Any: ...  # incomplete
 def empty_scalar_desc(*args, **kwargs) -> Any: ...  # incomplete
-def equalizeHist(src: _Mat, dts: _Mat = ...) -> _dst:
+def equalizeHist(src: _Mat, dst: _Mat = ...) -> _dst:
     """
     @brief Equalizes the histogram of a grayscale image.
 
@@ -7601,7 +7601,7 @@ def equalizeHist(src: _Mat, dts: _Mat = ...) -> _dst:
     """
     ...
 
-def erode(src: _Mat, kernel, dts: _Mat = ..., anchor=..., iterations=..., borderType=..., borderValue=...) -> _dst:
+def erode(src: _Mat, kernel, dst: _Mat = ..., anchor=..., iterations=..., borderType=..., borderValue=...) -> _dst:
     """
     @brief Erodes an image by using a specific structuring element.
 
@@ -7697,7 +7697,7 @@ def estimateAffine2D(
     ...
 
 def estimateAffine3D(
-    src: _Mat, dts: _Mat, out=..., inliers=..., ransacThreshold=..., confidence=...
+    src: _Mat, dst: _Mat, out=..., inliers=..., ransacThreshold=..., confidence=...
 ) -> tuple[_retval, _out, _inliers]:
     """
     @brief Computes an optimal affine transformation between two 3D point sets.
@@ -7833,7 +7833,7 @@ def estimateChessboardSharpness(
     ...
 
 def estimateTranslation3D(
-    src: _Mat, dts: _Mat, out=..., inliers=..., ransacThreshold=..., confidence=...
+    src: _Mat, dst: _Mat, out=..., inliers=..., ransacThreshold=..., confidence=...
 ) -> tuple[_retval, _out, _inliers]:
     """
     @brief Computes an optimal translation between two 3D point sets.
@@ -7882,7 +7882,7 @@ def estimateTranslation3D(
     """
     ...
 
-def exp(src: _Mat, dts: _Mat = ...) -> _dst:
+def exp(src: _Mat, dst: _Mat = ...) -> _dst:
     """
     @brief Calculates the exponent of every array element.
 
@@ -7900,7 +7900,7 @@ def exp(src: _Mat, dts: _Mat = ...) -> _dst:
     """
     ...
 
-def extractChannel(src: _Mat, coi, dts: _Mat = ...) -> _dst:
+def extractChannel(src: _Mat, coi, dst: _Mat = ...) -> _dst:
     """
     @brief Extracts a single channel from src (coi is 0-based index)
     @param src input array
@@ -7922,7 +7922,7 @@ def fastAtan2(y, x) -> _retval:
     ...
 
 @overload
-def fastNlMeansDenoising(src: _Mat, dts: _Mat = ..., h=..., templateWindowSize=..., searchWindowSize=...) -> _dst:
+def fastNlMeansDenoising(src: _Mat, dst: _Mat = ..., h=..., templateWindowSize=..., searchWindowSize=...) -> _dst:
     """
     @brief Perform image denoising using Non-local Means Denoising algorithm
     <http://www.ipol.im/pub/algo/bcm_non_local_means_denoising/> with several computational
@@ -7975,7 +7975,7 @@ def fastNlMeansDenoising(src, h, dst=..., templateWindowSize=..., searchWindowSi
     ...
 
 def fastNlMeansDenoisingColored(
-    src: _Mat, dts: _Mat = ..., h=..., hColor=..., templateWindowSize=..., searchWindowSize=...
+    src: _Mat, dst: _Mat = ..., h=..., hColor=..., templateWindowSize=..., searchWindowSize=...
 ) -> _dst:
     """
     @brief Modification of fastNlMeansDenoising function for colored images
@@ -8002,7 +8002,7 @@ def fastNlMeansDenoisingColoredMulti(
     srcImgs,
     imgToDenoiseIndex,
     temporalWindowSize,
-    dts: _Mat = ...,
+    dst: _Mat = ...,
     h=...,
     hColor=...,
     templateWindowSize=...,
@@ -8036,7 +8036,7 @@ def fastNlMeansDenoisingColoredMulti(
 
 @overload
 def fastNlMeansDenoisingMulti(
-    srcImgs, imgToDenoiseIndex, temporalWindowSize, dts: _Mat = ..., h=..., templateWindowSize=..., searchWindowSize=...
+    srcImgs, imgToDenoiseIndex, temporalWindowSize, dst: _Mat = ..., h=..., templateWindowSize=..., searchWindowSize=...
 ) -> _dst:
     """
     @brief Modification of fastNlMeansDenoising function for images sequence where consecutive images have been
@@ -8129,7 +8129,7 @@ def fillPoly(img: _Mat, pts, color, lineType=..., shift=..., offset=...) -> _img
     """
     ...
 
-def filter2D(src: _Mat, ddepth, kernel, dts: _Mat = ..., anchor=..., delta=..., borderType=...) -> _dst:
+def filter2D(src: _Mat, ddepth, kernel, dst: _Mat = ..., anchor=..., delta=..., borderType=...) -> _dst:
     """
     @brief Convolves an image with the kernel.
 
@@ -8799,7 +8799,7 @@ def fitLine(points, distType, param, reps, aeps, line=...) -> _line:
     """
     ...
 
-def flip(src: _Mat, flipCode, dts: _Mat = ...) -> _dst:
+def flip(src: _Mat, flipCode, dst: _Mat = ...) -> _dst:
     """
     @brief Flips a 2D array around vertical, horizontal, or both axes.
 
@@ -8912,7 +8912,7 @@ def floodFill(
     """
     ...
 
-def gemm(src1: _Mat, src2: _Mat, alpha, src3, beta, dts: _Mat = ..., flags: int = ...) -> _dst:
+def gemm(src1: _Mat, src2: _Mat, alpha, src3, beta, dst: _Mat = ..., flags: int = ...) -> _dst:
     """
     @brief Performs generalized matrix multiplication.
 
@@ -8944,7 +8944,7 @@ def gemm(src1: _Mat, src2: _Mat, alpha, src3, beta, dts: _Mat = ..., flags: int 
     """
     ...
 
-def getAffineTransform(src: _Mat, dts: _Mat) -> _retval: ...
+def getAffineTransform(src: _Mat, dst: _Mat) -> _retval: ...
 def getBuildInformation() -> _retval:
     """
     @brief Returns full configuration time cmake output.
@@ -9178,7 +9178,7 @@ def getOptimalNewCameraMatrix(
     """
     ...
 
-def getPerspectiveTransform(src: _Mat, dts: _Mat, solveMethod=...) -> _retval:
+def getPerspectiveTransform(src: _Mat, dst: _Mat, solveMethod=...) -> _retval:
     """
     @brief Calculates a perspective transform from four pairs of the corresponding points.
 
@@ -9519,7 +9519,7 @@ def haveImageWriter(filename: str) -> _retval:
     ...
 
 def haveOpenVX() -> _retval: ...
-def hconcat(src: _Mat | list[_Mat], dts: _Mat = ...) -> _dst:
+def hconcat(src: _Mat | list[_Mat], dst: _Mat = ...) -> _dst:
     """
     @param src input array or vector of matrices. all of the matrices must have the same number of rows and the same depth.
     @param dst output array. It has the same number of rows and depth as the src, and the sum of cols of the src.
@@ -9527,7 +9527,7 @@ def hconcat(src: _Mat | list[_Mat], dts: _Mat = ...) -> _dst:
     """
     ...
 
-def idct(src: _Mat, dts: _Mat = ..., flags: int = ...) -> _dst:
+def idct(src: _Mat, dst: _Mat = ..., flags: int = ...) -> _dst:
     """
     @brief Calculates the inverse Discrete Cosine Transform of a 1D or 2D array.
 
@@ -9539,7 +9539,7 @@ def idct(src: _Mat, dts: _Mat = ..., flags: int = ...) -> _dst:
     """
     ...
 
-def idft(src: _Mat, dts: _Mat = ..., flags: int = ..., nonzeroRows=...) -> _dst:
+def idft(src: _Mat, dst: _Mat = ..., flags: int = ..., nonzeroRows=...) -> _dst:
     """
     @brief Calculates the inverse Discrete Fourier Transform of a 1D or 2D array.
 
@@ -9555,7 +9555,7 @@ def idft(src: _Mat, dts: _Mat = ..., flags: int = ..., nonzeroRows=...) -> _dst:
     """
     ...
 
-def illuminationChange(src: _Mat, mask: _Mat, dts: _Mat = ..., alpha=..., beta=...) -> _dst:
+def illuminationChange(src: _Mat, mask: _Mat, dst: _Mat = ..., alpha=..., beta=...) -> _dst:
     """
     @brief Applying an appropriate non-linear transformation to the gradient field inside the selection and
     then integrating back with a Poisson solver, modifies locally the apparent illumination of an image.
@@ -9737,7 +9737,7 @@ def imwrite(filename: str, img: _Mat, params: list[int] = ...) -> bool:
     ...
 
 def imwritemulti(*args, **kwargs) -> Any: ...  # incomplete
-def inRange(src: _Mat, lowerBound: _Mat, upperbBound: _Mat, dts: _Mat = ...) -> _Mat:
+def inRange(src: _Mat, lowerBound: _Mat, upperbBound: _Mat, dst: _Mat = ...) -> _Mat:
     """
     @brief  Checks if array elements lie between the elements of two other arrays.
 
@@ -9848,7 +9848,7 @@ def initUndistortRectifyMap(
     """
     ...
 
-def inpaint(src: _Mat, inpaintMask, inpaintRadius, flags: int, dts: _Mat = ...) -> _dst:
+def inpaint(src: _Mat, inpaintMask, inpaintRadius, flags: int, dst: _Mat = ...) -> _dst:
     """
     @brief Restores the selected region in an image using the region neighborhood.
 
@@ -9872,7 +9872,7 @@ def inpaint(src: _Mat, inpaintMask, inpaintRadius, flags: int, dts: _Mat = ...) 
     """
     ...
 
-def insertChannel(src: _Mat, dts: _Mat, coi) -> _dst:
+def insertChannel(src: _Mat, dst: _Mat, coi) -> _dst:
     """
     @brief Inserts a single channel to dst (coi is 0-based index)
     @param src input array
@@ -9939,7 +9939,7 @@ def intersectConvexConvex(_p1, _p2, _p12=..., handleNested=...) -> tuple[_retval
     """
     ...
 
-def invert(src: _Mat, dts: _Mat = ..., flags: int = ...) -> tuple[_retval, _dst]:
+def invert(src: _Mat, dst: _Mat = ..., flags: int = ...) -> tuple[_retval, _dst]:
     """
     @brief Finds the inverse or pseudo-inverse of a matrix.
 
@@ -10050,7 +10050,7 @@ def line(img: _Mat, pt1, pt2, color, thickness=..., lineType=..., shift=...) -> 
     """
     ...
 
-def linearPolar(src: _Mat, center, maxRadius, flags: int, dts: _Mat = ...) -> _dst:
+def linearPolar(src: _Mat, center, maxRadius, flags: int, dst: _Mat = ...) -> _dst:
     """
     @brief Remaps an image to polar coordinates space.
 
@@ -10092,7 +10092,7 @@ def linearPolar(src: _Mat, center, maxRadius, flags: int, dts: _Mat = ...) -> _d
     """
     ...
 
-def log(src: _Mat, dts: _Mat = ...) -> _dst:
+def log(src: _Mat, dst: _Mat = ...) -> _dst:
     """
     @brief Calculates the natural logarithm of every array element.
 
@@ -10107,7 +10107,7 @@ def log(src: _Mat, dts: _Mat = ...) -> _dst:
     """
     ...
 
-def logPolar(src: _Mat, center, M, flags: int, dts: _Mat = ...) -> _dst:
+def logPolar(src: _Mat, center, M, flags: int, dst: _Mat = ...) -> _dst:
     '''
     @brief Remaps an image to semilog-polar coordinates space.
 
@@ -10227,7 +10227,7 @@ def matchTemplate(image: _Mat, templ: _Mat, method: int, result: _Mat = ..., mas
     """
     ...
 
-def max(src1: _Mat, src2: _Mat, dts: _Mat = ...) -> _dst:
+def max(src1: _Mat, src2: _Mat, dst: _Mat = ...) -> _dst:
     """
     @brief Calculates per-element maximum of two arrays or an array and a scalar.
 
@@ -10308,7 +10308,7 @@ def meanStdDev(src: _Mat, mean=..., stddev=..., mask: _Mat = ...) -> tuple[_mean
     """
     ...
 
-def medianBlur(src: _Mat, ksize, dts: _Mat = ...) -> _dst:
+def medianBlur(src: _Mat, ksize, dst: _Mat = ...) -> _dst:
     """
     @brief Blurs an image using the median filter.
 
@@ -10326,7 +10326,7 @@ def medianBlur(src: _Mat, ksize, dts: _Mat = ...) -> _dst:
     """
     ...
 
-def merge(mv, dts: _Mat = ...) -> _dst:
+def merge(mv, dst: _Mat = ...) -> _dst:
     """
     @param mv input vector of matrices to be merged; all the matrices in mv must have the same
     size and the same depth.
@@ -10335,7 +10335,7 @@ def merge(mv, dts: _Mat = ...) -> _dst:
     """
     ...
 
-def min(src1: _Mat, src2: _Mat, dts: _Mat = ...) -> _dst:
+def min(src1: _Mat, src2: _Mat, dst: _Mat = ...) -> _dst:
     """
     @brief Calculates per-element minimum of two arrays or an array and a scalar.
 
@@ -10419,7 +10419,7 @@ def minMaxLoc(src: _Mat, mask: _Mat = ...) -> tuple[float, float, tuple[int, int
     """
     ...
 
-def mixChannels(src: _Mat, dts: _Mat, fromTo) -> _dst:
+def mixChannels(src: _Mat, dst: _Mat, fromTo) -> _dst:
     """
     @param src input array or vector of matrices; all of the matrices must have the same size and the
     same depth.
@@ -10455,7 +10455,7 @@ def moments(array, binaryImage=...) -> _retval:
     """
     ...
 
-def morphologyEx(src: _Mat, op, kernel, dts: _Mat = ..., anchor=..., iterations=..., borderType=..., borderValue=...) -> _dst:
+def morphologyEx(src: _Mat, op, kernel, dst: _Mat = ..., anchor=..., iterations=..., borderType=..., borderValue=...) -> _dst:
     """
     @brief Performs advanced morphological transformations.
 
@@ -10514,7 +10514,7 @@ def mulSpectrums(a, b, flags: int, c=..., conjB=...) -> _c:
     """
     ...
 
-def mulTransposed(src: _Mat, aTa, dts: _Mat = ..., delta=..., scale=..., dtype=...) -> _dst:
+def mulTransposed(src: _Mat, aTa, dst: _Mat = ..., delta=..., scale=..., dtype=...) -> _dst:
     """
     @brief Calculates the product of a matrix and its transposition.
 
@@ -10546,7 +10546,7 @@ def mulTransposed(src: _Mat, aTa, dts: _Mat = ..., delta=..., scale=..., dtype=.
     """
     ...
 
-def multiply(src1: _Mat, src2: _Mat, dts: _Mat = ..., scale=..., dtype=...) -> _dst:
+def multiply(src1: _Mat, src2: _Mat, dst: _Mat = ..., scale=..., dtype=...) -> _dst:
     """
     @brief Calculates the per-element scaled product of two arrays.
 
@@ -10657,7 +10657,7 @@ def norm(src1, src2, normType=..., mask=...) -> _retval:
     """
     ...
 
-def normalize(src: _Mat, dts: _Mat, alpha=..., beta=..., norm_type: int = ..., dtype=..., mask: _Mat = ...) -> _Mat:
+def normalize(src: _Mat, dst: _Mat, alpha=..., beta=..., norm_type: int = ..., dtype=..., mask: _Mat = ...) -> _Mat:
     """
     @brief Normalizes the norm or value range of an array.
 
@@ -10726,7 +10726,7 @@ def patchNaNs(a, val=...) -> _a:
     ...
 
 def pencilSketch(
-    src: _Mat, dts1: _Mat = ..., dts2: _Mat = ..., sigma_s=..., sigma_r=..., shade_factor=...
+    src: _Mat, dst1: _Mat = ..., dst2: _Mat = ..., sigma_s=..., sigma_r=..., shade_factor=...
 ) -> tuple[_dst1, _dst2]:
     """
     @brief Pencil-like non-photorealistic line drawing
@@ -10740,7 +10740,7 @@ def pencilSketch(
     """
     ...
 
-def perspectiveTransform(src: _Mat, m, dts: _Mat = ...) -> _dst:
+def perspectiveTransform(src: _Mat, m, dst: _Mat = ...) -> _dst:
     """
     @brief Performs the perspective matrix transformation of vectors.
 
@@ -10891,7 +10891,7 @@ def polylines(img: _Mat, pts, isClosed, color, thickness=..., lineType=..., shif
     """
     ...
 
-def pow(src: _Mat, power, dts: _Mat = ...) -> _dst:
+def pow(src: _Mat, power, dst: _Mat = ...) -> _dst:
     """
     @brief Raises every array element to a power.
 
@@ -10918,7 +10918,7 @@ def pow(src: _Mat, power, dts: _Mat = ...) -> _dst:
     """
     ...
 
-def preCornerDetect(src: _Mat, ksize, dts: _Mat = ..., borderType=...) -> _dst:
+def preCornerDetect(src: _Mat, ksize, dst: _Mat = ..., borderType=...) -> _dst:
     """
     @brief Calculates a feature map for corner detection.
 
@@ -11006,7 +11006,7 @@ def putText(img: _Mat, text, org, fontFace, fontScale, color, thickness=..., lin
     """
     ...
 
-def pyrDown(src: _Mat, dts: _Mat = ..., dstsize=..., borderType=...) -> _dst:
+def pyrDown(src: _Mat, dst: _Mat = ..., dstsize=..., borderType=...) -> _dst:
     """
     @brief Blurs an image and downsamples it.
 
@@ -11029,7 +11029,7 @@ def pyrDown(src: _Mat, dts: _Mat = ..., dstsize=..., borderType=...) -> _dst:
     """
     ...
 
-def pyrMeanShiftFiltering(src: _Mat, sp, sr, dts: _Mat = ..., maxLevel=..., termcrit=...) -> _dst:
+def pyrMeanShiftFiltering(src: _Mat, sp, sr, dst: _Mat = ..., maxLevel=..., termcrit=...) -> _dst:
     """
     @brief Performs initial step of meanshift segmentation of an image.
 
@@ -11069,7 +11069,7 @@ def pyrMeanShiftFiltering(src: _Mat, sp, sr, dts: _Mat = ..., maxLevel=..., term
     """
     ...
 
-def pyrUp(src: _Mat, dts: _Mat = ..., dstsize=..., borderType=...) -> _dst:
+def pyrUp(src: _Mat, dst: _Mat = ..., dstsize=..., borderType=...) -> _dst:
     """
     @brief Upsamples an image and then blurs it.
 
@@ -11090,7 +11090,7 @@ def pyrUp(src: _Mat, dts: _Mat = ..., dstsize=..., borderType=...) -> _dst:
     """
     ...
 
-def randShuffle(dts: _Mat, iterFactor=...) -> _dst:
+def randShuffle(dst: _Mat, iterFactor=...) -> _dst:
     """
     @brief Shuffles the array elements randomly.
 
@@ -11105,7 +11105,7 @@ def randShuffle(dts: _Mat, iterFactor=...) -> _dst:
     """
     ...
 
-def randn(dts: _Mat, mean, stddev) -> _dst:
+def randn(dst: _Mat, mean, stddev) -> _dst:
     """
     @brief Fills the array with normally distributed random numbers.
 
@@ -11120,7 +11120,7 @@ def randn(dts: _Mat, mean, stddev) -> _dst:
     """
     ...
 
-def randu(dts: _Mat, low, high) -> _dst:
+def randu(dst: _Mat, low, high) -> _dst:
     """
     @brief Generates a single uniformly-distributed random number or an array of random numbers.
 
@@ -11318,7 +11318,7 @@ def rectify3Collinear(
     Q=...,
 ) -> tuple[_retval, _R1, _R2, _R3, _P1, _P2, _P3, _Q, _roi1, _roi2]: ...
 def redirectError(onError) -> None: ...
-def reduce(src: _Mat, dim, rtype, dts: _Mat = ..., dtype=...) -> _dst:
+def reduce(src: _Mat, dim, rtype, dst: _Mat = ..., dtype=...) -> _dst:
     """
     @brief Reduces a matrix to a vector.
 
@@ -11348,7 +11348,7 @@ def reduce(src: _Mat, dim, rtype, dts: _Mat = ..., dtype=...) -> _dst:
 
 def reduceArgMax(*args, **kwargs) -> Any: ...  # incomplete
 def reduceArgMin(*args, **kwargs) -> Any: ...  # incomplete
-def remap(src: _Mat, map1, map2, interpolation: int, dts: _Mat = ..., borderMode=..., borderValue=...) -> _dst:
+def remap(src: _Mat, map1, map2, interpolation: int, dst: _Mat = ..., borderMode=..., borderValue=...) -> _dst:
     """
     @brief Applies a generic geometrical transformation to an image.
 
@@ -11384,7 +11384,7 @@ def remap(src: _Mat, map1, map2, interpolation: int, dts: _Mat = ..., borderMode
     """
     ...
 
-def repeat(src: _Mat, ny, nx, dts: _Mat = ...) -> _dst:
+def repeat(src: _Mat, ny, nx, dst: _Mat = ...) -> _dst:
     """
     @brief Fills the output array with repeated copies of the input array.
 
@@ -11445,7 +11445,7 @@ def reprojectImageTo3D(disparity, Q, _3dImage=..., handleMissingValues=..., ddep
     ...
 
 def resize(
-    src: _Mat, dsize: tuple[int, int] | None, _dts: _Mat = ..., _fx: float = ..., _fy: float = ..., _interpolation: int = ...
+    src: _Mat, dsize: tuple[int, int] | None, _dst: _Mat = ..., _fx: float = ..., _fy: float = ..., _interpolation: int = ...
 ) -> _Mat:
     """
     @brief Resizes an image.
@@ -11508,7 +11508,7 @@ def resizeWindow(winname, size) -> None:
     """
     ...
 
-def rotate(src: _Mat, rotateCode, dts: _Mat = ...) -> _dst:
+def rotate(src: _Mat, rotateCode, dst: _Mat = ...) -> _dst:
     """
     @brief Rotates a 2D array in multiples of 90 degrees.
     The function cv::rotate rotates the array in one of three different ways:
@@ -11563,7 +11563,7 @@ def sampsonDistance(pt1, pt2, F) -> _retval:
     """
     ...
 
-def scaleAdd(src1: _Mat, alpha, src2: _Mat, dts: _Mat = ...) -> _dst:
+def scaleAdd(src1: _Mat, alpha, src2: _Mat, dst: _Mat = ...) -> _dst:
     """
     @brief Calculates the sum of a scaled array and another array.
 
@@ -11585,7 +11585,7 @@ def scaleAdd(src1: _Mat, alpha, src2: _Mat, dts: _Mat = ...) -> _dst:
     """
     ...
 
-def seamlessClone(src: _Mat, dts: _Mat, mask: _Mat | None, p, flags: int, blend=...) -> _blend:
+def seamlessClone(src: _Mat, dst: _Mat, mask: _Mat | None, p, flags: int, blend=...) -> _blend:
     """
     @brief Image editing tasks concern either global changes (color/intensity corrections, filters,
     deformations) or local changes concerned to a selection. Here we are interested in achieving local
@@ -11642,7 +11642,7 @@ def selectROIs(windowName, img: _Mat, showCrosshair=..., fromCenter=...) -> _bou
     """
     ...
 
-def sepFilter2D(src: _Mat, ddepth, kernelX, kernelY, dts: _Mat = ..., anchor=..., delta=..., borderType=...) -> _dst:
+def sepFilter2D(src: _Mat, ddepth, kernelX, kernelY, dst: _Mat = ..., anchor=..., delta=..., borderType=...) -> _dst:
     """
     @brief Applies a separable linear filter to an image.
 
@@ -11805,7 +11805,7 @@ def setWindowTitle(winname, title) -> None:
     """
     ...
 
-def solve(src1: _Mat, src2: _Mat, dts: _Mat = ..., flags: int = ...) -> tuple[_retval, _dst]:
+def solve(src1: _Mat, src2: _Mat, dst: _Mat = ..., flags: int = ...) -> tuple[_retval, _dst]:
     """
     @brief Solves one or more linear systems or least-squares problems.
 
@@ -12436,7 +12436,7 @@ def solvePoly(coeffs, roots=..., maxIters=...) -> tuple[_retval, _roots]:
     """
     ...
 
-def sort(src: _Mat, flags: int, dts: _Mat = ...) -> _dst:
+def sort(src: _Mat, flags: int, dst: _Mat = ...) -> _dst:
     """
     @brief Sorts each row or each column of a matrix.
 
@@ -12453,7 +12453,7 @@ def sort(src: _Mat, flags: int, dts: _Mat = ...) -> _dst:
     """
     ...
 
-def sortIdx(src: _Mat, flags: int, dts: _Mat = ...) -> _dst:
+def sortIdx(src: _Mat, flags: int, dst: _Mat = ...) -> _dst:
     """
     @brief Sorts each row or each column of a matrix.
 
@@ -12504,7 +12504,7 @@ def split(m, mv=...) -> _mv:
     """
     ...
 
-def sqrBoxFilter(src: _Mat, ddepth, ksize, dts: _Mat = ..., anchor=..., normalize=..., borderType=...) -> _dst:
+def sqrBoxFilter(src: _Mat, ddepth, ksize, dst: _Mat = ..., anchor=..., normalize=..., borderType=...) -> _dst:
     """
     @brief Calculates the normalized sum of squares of the pixel values overlapping the filter.
 
@@ -12526,7 +12526,7 @@ def sqrBoxFilter(src: _Mat, ddepth, ksize, dts: _Mat = ..., anchor=..., normaliz
     """
     ...
 
-def sqrt(src: _Mat, dts: _Mat = ...) -> _dst:
+def sqrt(src: _Mat, dst: _Mat = ...) -> _dst:
     """
     @brief Calculates a square root of array elements.
 
@@ -12856,7 +12856,7 @@ def stereoRectifyUncalibrated(points1, points2, F, imgSize, H1=..., H2=..., thre
     """
     ...
 
-def stylization(src: _Mat, dts: _Mat = ..., sigma_s=..., sigma_r=...) -> _dst:
+def stylization(src: _Mat, dst: _Mat = ..., sigma_s=..., sigma_r=...) -> _dst:
     """
     @brief Stylization aims to produce digital imagery with a wide variety of effects not focused on
     photorealism. Edge-aware filters are ideal for stylization, as they can abstract regions of low
@@ -12869,7 +12869,7 @@ def stylization(src: _Mat, dts: _Mat = ..., sigma_s=..., sigma_r=...) -> _dst:
     """
     ...
 
-def subtract(src1: _Mat | float, src2: _Mat | float, dts: _Mat = ..., mask: _Mat = ..., dtype=...) -> _dst:
+def subtract(src1: _Mat | float, src2: _Mat | float, dst: _Mat = ..., mask: _Mat = ..., dtype=...) -> _dst:
     """
     @brief Calculates the per-element difference between two arrays or array and a scalar.
 
@@ -12925,7 +12925,7 @@ def sumElems(src) -> _retval:
     """
     ...
 
-def textureFlattening(src: _Mat, mask: _Mat, dts: _Mat = ..., low_threshold=..., high_threshold=..., kernel_size=...) -> _dst:
+def textureFlattening(src: _Mat, mask: _Mat, dst: _Mat = ..., low_threshold=..., high_threshold=..., kernel_size=...) -> _dst:
     """
     @brief By retaining only the gradients at edge locations, before integrating with the Poisson solver, one
     washes out the texture of the selected region, giving its contents a flat aspect. Here Canny Edge %Detector is used.
@@ -12944,7 +12944,7 @@ def textureFlattening(src: _Mat, mask: _Mat, dts: _Mat = ..., low_threshold=...,
     """
     ...
 
-def threshold(src: _Mat, thresh, maxval, type, dts: _Mat = ...) -> tuple[_retval, _dst]:
+def threshold(src: _Mat, thresh, maxval, type, dst: _Mat = ...) -> tuple[_retval, _dst]:
     """
     @brief Applies a fixed-level threshold to each array element.
 
@@ -12983,7 +12983,7 @@ def trace(mtx) -> _retval:
     """
     ...
 
-def transform(src: _Mat, m, dts: _Mat = ...) -> _dst:
+def transform(src: _Mat, m, dst: _Mat = ...) -> _dst:
     """
     @brief Performs the matrix transformation of every array element.
 
@@ -13011,7 +13011,7 @@ def transform(src: _Mat, m, dts: _Mat = ...) -> _dst:
     """
     ...
 
-def transpose(src: _Mat, dts: _Mat = ...) -> _dst:
+def transpose(src: _Mat, dst: _Mat = ...) -> _dst:
     """
     @brief Transposes a matrix.
 
@@ -13052,7 +13052,7 @@ def triangulatePoints(projMatr1, projMatr2, projPoints1, projPoints2, points4D=.
     """
     ...
 
-def undistort(src: _Mat, cameraMatrix, distCoeffs, dts: _Mat = ..., newCameraMatrix=...) -> _dst:
+def undistort(src: _Mat, cameraMatrix, distCoeffs, dst: _Mat = ..., newCameraMatrix=...) -> _dst:
     """
     @brief Transforms an image to compensate for lens distortion.
 
@@ -13085,7 +13085,7 @@ def undistort(src: _Mat, cameraMatrix, distCoeffs, dts: _Mat = ..., newCameraMat
     """
     ...
 
-def undistortPoints(src: _Mat, cameraMatrix, distCoeffs, dts: _Mat = ..., R=..., P=...) -> _dst:
+def undistortPoints(src: _Mat, cameraMatrix, distCoeffs, dst: _Mat = ..., R=..., P=...) -> _dst:
     """
     @brief Computes the ideal point coordinates from the observed point coordinates.
 
@@ -13129,7 +13129,7 @@ def undistortPoints(src: _Mat, cameraMatrix, distCoeffs, dts: _Mat = ..., R=...,
     """
     ...
 
-def undistortPointsIter(src: _Mat, cameraMatrix, distCoeffs, R, P, criteria, dts: _Mat = ...) -> _dst:
+def undistortPointsIter(src: _Mat, cameraMatrix, distCoeffs, R, P, criteria, dst: _Mat = ...) -> _dst:
     """
     @note Default version of #undistortPoints does 5 iterations to compute undistorted points.
     """
@@ -13145,7 +13145,7 @@ def useOptimized() -> _retval:
     ...
 
 def validateDisparity(disparity, cost, minDisparity, numberOfDisparities, disp12MaxDisp=...) -> _disparity: ...
-def vconcat(src: _Mat | list[_Mat], dts: _Mat = ...) -> _Mat:
+def vconcat(src: _Mat | list[_Mat], dst: _Mat = ...) -> _Mat:
     """
     @param src input array or vector of matrices. all of the matrices must have the same number of cols and the same depth
     @param dst output array. It has the same number of cols and depth as the src, and the sum of rows of the src.
@@ -13189,7 +13189,7 @@ def waitKeyEx(delay=...) -> _retval:
     ...
 
 def warpAffine(
-    src: _Mat, M, dsize: tuple[int, int], _dts: _Mat = ..., _flags: int = ..., _borderMode=..., _borderValue=...
+    src: _Mat, M, dsize: tuple[int, int], _dst: _Mat = ..., _flags: int = ..., _borderMode=..., _borderValue=...
 ) -> _dst:
     """
     @brief Applies an affine transformation to an image.
@@ -13219,7 +13219,7 @@ def warpAffine(
     ...
 
 def warpPerspective(
-    src: _Mat, M, dsize: tuple[int, int], _dts: _Mat = ..., _flags: int = ..., _borderMode=..., _borderValue=...
+    src: _Mat, M, dsize: tuple[int, int], _dst: _Mat = ..., _flags: int = ..., _borderMode=..., _borderValue=...
 ) -> _dst:
     """
     @brief Applies a perspective transformation to an image.
@@ -13246,7 +13246,7 @@ def warpPerspective(
     """
     ...
 
-def warpPolar(src: _Mat, dsize: tuple[int, int], _center, _maxRadius, _flags: int, _dts: _Mat = ...) -> _dst:
+def warpPolar(src: _Mat, dsize: tuple[int, int], _center, _maxRadius, _flags: int, _dst: _Mat = ...) -> _dst:
     """
     @brief Remaps an image to polar or semilog-polar coordinates space
 
