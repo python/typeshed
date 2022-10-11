@@ -103,7 +103,7 @@ _OnUnsubscribe: TypeAlias = Callable[[Client, _UserData, int], object]
 _OnUnsubscribeV5: TypeAlias = Callable[[Client, _UserData, int, Iterable[Properties], Iterable[ReasonCodes]], object]
 _TOnUnsubscribe = TypeVar("_TOnUnsubscribe", _OnUnsubscribe, _OnUnsubscribeV5)
 _OnDisconnect: TypeAlias = Callable[[Client, _UserData, int], object]
-_OnDisconnectV5: TypeAlias = Callable[[Client, _UserData, int, Optional[ReasonCodes], Optional[Properties]], object]
+_OnDisconnectV5: TypeAlias = Callable[[Client, _UserData, Optional[ReasonCodes], Optional[Properties]], object]
 _TOnDisconnect = TypeVar("_TOnDisconnect", _OnDisconnect, _OnDisconnectV5)
 _OnSocket: TypeAlias = Callable[[Client, _UserData, _Socket | WebsocketWrapper | None], object]
 
