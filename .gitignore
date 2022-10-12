@@ -66,3 +66,6 @@ analyze.py
 
 # Mypy cache
 .mypy_cache/
+
+# pyenv local python version
+.python-version
