@@ -1,5 +1,5 @@
 # Partial files inserted in code when generating config.
-cv2.config-.*
+cv2.config-?.*
 
 # Python 2
 cv2.load_config_py2

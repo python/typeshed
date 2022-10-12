@@ -16,10 +16,10 @@ _Scalar: TypeAlias = _Mat | _NumericScalar | Sequence[_NumericScalar]
 _Point: TypeAlias = Union[tuple[int, int], Sequence[int]]  # noqa: Y047
 _Size: TypeAlias = Union[tuple[int, int], Sequence[int]]  # noqa: Y047
 _Range: TypeAlias = Union[tuple[int, int], Sequence[int]]  # noqa: Y047
-_PointFloat: TypeAlias = Union[tuple[float, float], Sequence[float]]
-_SizeFloat: TypeAlias = Union[tuple[float, float], Sequence[float]]
+_PointFloat: TypeAlias = Union[tuple[float, float], Sequence[float]]  # noqa: Y047
+_SizeFloat: TypeAlias = Union[tuple[float, float], Sequence[float]]  # noqa: Y047
 _Rect: TypeAlias = Union[tuple[int, int, int, int], Sequence[int]]  # noqa: Y047
-_Boolean: TypeAlias = bool | int | None
+_Boolean: TypeAlias = bool | int | None  # noqa: Y047
 # _UMat also covers InputArray and InputOutputArray
 _UMat: TypeAlias = UMat | _Mat | _NumericScalar
 _UMatF: TypeAlias = UMat | _MatF | _NumericScalar
