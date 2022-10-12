@@ -2,10 +2,10 @@ from collections.abc import Sequence
 from typing import overload
 from typing_extensions import TypeAlias
 
+from cv2 import Mat
 from cv2.cv2 import (
     GCompileArg,
     GMat,
-    _Mat,
     _NumericScalar,
     gapi_wip_draw_Circle,
     gapi_wip_draw_Image,
@@ -28,10 +28,10 @@ Rect = gapi_wip_draw_Rect
 Text = gapi_wip_draw_Text
 
 @overload
-def render(bgr: _Mat | _NumericScalar, prims: Sequence[_Prim], args: Sequence[GCompileArg] = ...) -> None: ...
+def render(bgr: Mat | _NumericScalar, prims: Sequence[_Prim], args: Sequence[GCompileArg] = ...) -> None: ...
 @overload
 def render(
-    y_plane: _Mat | _NumericScalar, uv_plane: _Mat | _NumericScalar, prims: Sequence[_Prim], args: Sequence[GCompileArg] = ...
+    y_plane: Mat | _NumericScalar, uv_plane: Mat | _NumericScalar, prims: Sequence[_Prim], args: Sequence[GCompileArg] = ...
 ) -> None: ...
 def render3ch(src: GMat, prims: GArray.Prim) -> GMat: ...
 def renderNV12(y: GMat, uv: GMat, prims: GArray.Prim) -> tuple[GMat, GMat]: ...

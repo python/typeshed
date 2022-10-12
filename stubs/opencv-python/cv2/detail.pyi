@@ -1,12 +1,11 @@
 from collections.abc import Sequence
 from typing import overload
 
+from cv2 import Mat, _MatF
 from cv2.cv2 import (
     Feature2D,
     UMat,
     _Boolean,
-    _Mat,
-    _MatF,
     _NumericScalar,
     _Point,
     _Rect,
@@ -153,7 +152,7 @@ def computeImageFeatures2(featuresFinder: Feature2D, image: _UMat, mask: _UMat =
 def createLaplacePyr(img: _UMat, num_levels: int, pyr: Sequence[_UMat]) -> tuple[UMat, ...]: ...
 def createLaplacePyrGpu(img: _UMat, num_levels: int, pyr: Sequence[_UMat]) -> tuple[UMat, ...]: ...
 def createWeightMap(mask: _TUMat, sharpness: float, weight: _TUMat) -> _TUMat: ...
-def focalsFromHomography(H: _Mat, f0: float, f1: float, f0_ok: bool, f1_ok: bool) -> None: ...
+def focalsFromHomography(H: Mat, f0: float, f1: float, f0_ok: bool, f1_ok: bool) -> None: ...
 def leaveBiggestComponent(
     features: Sequence[detail_ImageFeatures], pairwise_matches: Sequence[detail_MatchesInfo], conf_threshold: float
 ) -> tuple[int, ...]: ...

@@ -23,6 +23,8 @@ def gin(*args: _A) -> list[_A]: ...
 def descr_of(*args: _A) -> list[_A]: ...
 
 class GOpaque:
+    # NB: Inheritance from c++ class cause segfault.
+    # So just aggregate cv.GOpaqueT instead of inheritance
     def __new__(cls, argtype: int) -> GOpaqueT: ...  # type: ignore[misc]
 
     class Bool:
@@ -59,6 +61,8 @@ class GOpaque:
         def __new__(self) -> GOpaqueT: ...  # type: ignore[misc]
 
 class GArray:
+    # NB: Inheritance from c++ class cause segfault.
+    # So just aggregate cv.GArrayT instead of inheritance
     def __new__(cls, argtype: int) -> GArrayT: ...  # type: ignore[misc]
 
     class Bool:
