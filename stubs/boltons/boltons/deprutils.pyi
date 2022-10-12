@@ -1,0 +1,9 @@
+from _typeshed import Incomplete
+
+ModuleType: Incomplete
+
+class DeprecatableModule(ModuleType):
+    def __init__(self, module) -> None: ...
+    def __getattribute__(self, name): ...
+
+def deprecate_module_member(mod_name, name, message) -> None: ...
