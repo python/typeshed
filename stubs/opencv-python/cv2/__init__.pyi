@@ -18,4 +18,4 @@ def bootstrap() -> None: ...
 
 Mat: TypeAlias = WrappedMat | _NDArray
 # TODO: Make Mat generic with int or float
-_MatF: TypeAlias = WrappedMat | _NDArray
+_MatF: TypeAlias = WrappedMat | _NDArray  # noqa: Y047

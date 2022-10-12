@@ -9,3 +9,10 @@ cv2.GMat.__init__
 cv2.cv2.GMat.__init__
 cv2.mat_wrapper.Mat.__init__
 cv2.mat_wrapper.Mat.__new__
+
+# In actual execution, these wouldn't be None during error handling
+(cv2\.)?cv2.error\..*
+
+# cv2.Mat is not a Union
+# We cheat the Mat type because of variance issues
+cv2.Mat

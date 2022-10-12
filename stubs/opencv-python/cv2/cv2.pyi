@@ -7,7 +7,7 @@ from cv2 import Mat, _MatF
 from cv2.gapi.streaming import queue_capacity
 
 # Y047 & Y018 (Unused TypeAlias and TypeVar): Helper types reused everywhere.
-# noqa won't be necessary as types in this module are completed
+# The noqa comments won't be necessary as types in this module are completed
 
 # Function argument types
 _NumericScalar: TypeAlias = float | bool | None
