@@ -1,7 +1,5 @@
-# failed to import, NameError: name 'LOADER_DIR' is not defined
-cv2.config
-# Also: AssertionError: Files must be valid modules, got: "stubs\opencv-python\cv2\config-3.pyi"
-cv2.config-3
+# Partial files inserted in code when generating config.
+cv2.config-.*
 
 # Python 2
 cv2.load_config_py2
