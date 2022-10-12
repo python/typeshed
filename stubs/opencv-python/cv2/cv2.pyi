@@ -5,6 +5,7 @@ from typing_extensions import TypeAlias
 
 from cv2.gapi.streaming import queue_capacity
 
+# #5768
 # import numpy
 _Mat: TypeAlias = Incomplete  # numpy.ndarray[int, np.dtype[np.generic]]
 _MatF: TypeAlias = Incomplete  # numpy.ndarray[float, np.dtype[np.generic]]
@@ -12,21 +13,23 @@ _MatF: TypeAlias = Incomplete  # numpy.ndarray[float, np.dtype[np.generic]]
 # Function argument types
 _NumericScalar: TypeAlias = float | bool | None
 _Scalar: TypeAlias = _Mat | _NumericScalar | Sequence[_NumericScalar]
-_Point: TypeAlias = Union[tuple[int, int], Sequence[int]]
-_Size: TypeAlias = Union[tuple[int, int], Sequence[int]]
-_Range: TypeAlias = Union[tuple[int, int], Sequence[int]]
+_Point: TypeAlias = Union[tuple[int, int], Sequence[int]]  # noqa: Y047
+_Size: TypeAlias = Union[tuple[int, int], Sequence[int]]  # noqa: Y047
+_Range: TypeAlias = Union[tuple[int, int], Sequence[int]]  # noqa: Y047
 _PointFloat: TypeAlias = Union[tuple[float, float], Sequence[float]]
 _SizeFloat: TypeAlias = Union[tuple[float, float], Sequence[float]]
-_Rect: TypeAlias = Union[tuple[int, int, int, int], Sequence[int]]
+_Rect: TypeAlias = Union[tuple[int, int, int, int], Sequence[int]]  # noqa: Y047
 _Boolean: TypeAlias = bool | int | None
 # _UMat also covers InputArray and InputOutputArray
 _UMat: TypeAlias = UMat | _Mat | _NumericScalar
 _UMatF: TypeAlias = UMat | _MatF | _NumericScalar
 
-_TUMat = TypeVar("_TUMat", bound=_UMat)
-_TUMatF = TypeVar("_TUMatF", bound=_UMatF)
+_TUMat = TypeVar("_TUMat", bound=_UMat)  # noqa: Y018
+_TUMatF = TypeVar("_TUMatF", bound=_UMatF)  # noqa: Y018
 
+# TODO: Complete types until all the aliases below are gone!
 # These are temporary placeholder return types, as were in the docstrings signatures from microsoft/python-type-stubs
+# This is often (but not always) sign a TypeVar should be used to return teh same type as a param.
 # retval is equivalent to Unknown
 _flow: TypeAlias = Incomplete  # noqa: Y042
 _image: TypeAlias = Incomplete  # noqa: Y042

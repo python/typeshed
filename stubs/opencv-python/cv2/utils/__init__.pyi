@@ -5,6 +5,8 @@ from typing_extensions import TypeAlias
 
 from cv2.cv2 import AsyncArray, _Boolean, _Mat, _NumericScalar, _Point, _PointFloat, _Range, _Rect, _SizeFloat, _TUMat, _UMat
 
+# #5768
+# import numpy
 _NDArray: TypeAlias = Incomplete
 _RotatedRect: TypeAlias = Union[tuple[_PointFloat, _SizeFloat, float], Sequence[_PointFloat | _SizeFloat | float]]
 _RotatedRectResult: TypeAlias = tuple[tuple[float, float], tuple[float, float], float]
