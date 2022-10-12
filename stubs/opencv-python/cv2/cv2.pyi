@@ -1,11 +1,17 @@
 from _typeshed import Incomplete
-from typing import Any, ClassVar, overload
+from typing import Any, ClassVar, Sequence, overload
 from typing_extensions import TypeAlias
+
+from cv2.gapi.streaming import queue_capacity
 
 # import numpy
 _Mat: TypeAlias = Incomplete  # numpy.ndarray[int, np.dtype[np.generic]]
+_NumericScalar: TypeAlias = float | bool | None
+_Scalar: TypeAlias = _Mat | _NumericScalar | Sequence[_NumericScalar]
 
 # These are temporary placeholder return types, as were in the docstrings signatures from microsoft/python-type-stubs
+# retval is equivalent to Unknown
+_retval: TypeAlias = Incomplete  # noqa: Y042
 _flow: TypeAlias = Incomplete  # noqa: Y042
 _image: TypeAlias = Incomplete  # noqa: Y042
 _edgeList: TypeAlias = Incomplete  # noqa: Y042
@@ -22,7 +28,6 @@ _pts: TypeAlias = Incomplete  # noqa: Y042
 _dst: TypeAlias = Incomplete  # noqa: Y042
 _markers: TypeAlias = Incomplete  # noqa: Y042
 _masks: TypeAlias = Incomplete  # noqa: Y042
-_retval: TypeAlias = Incomplete  # noqa: Y042
 _window: TypeAlias = Incomplete  # noqa: Y042
 _edges: TypeAlias = Incomplete  # noqa: Y042
 _lowerBound: TypeAlias = Incomplete  # noqa: Y042
@@ -2219,14 +2224,14 @@ class GArrayDesc:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class GArrayT:
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def type(self, *args, **kwargs) -> Any: ...  # incomplete
+    def __init__(self, type: int) -> None: ...
+    def type(self) -> int: ...
 
 class GCompileArg:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class GComputation:
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
+    def __init__(self, arg: gapi_GKernelPackage | gapi_GNetPackage | queue_capacity) -> None: ...
     def apply(self): ...
     def compileStreaming(self, *args, **kwargs) -> Any: ...  # incomplete
 
@@ -2267,7 +2272,7 @@ class GInferOutputs:
     def at(self, *args, **kwargs) -> Any: ...  # incomplete
 
 class GMat:
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
+    def __init__(self) -> None: ...
 
 class GMatDesc:
     chan: Any
@@ -2287,8 +2292,8 @@ class GOpaqueDesc:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class GOpaqueT:
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def type(self, *args, **kwargs) -> Any: ...  # incomplete
+    def __init__(self, type: int) -> None: ...
+    def type(self) -> int: ...
 
 class GScalar:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
@@ -3331,14 +3336,19 @@ class gapi_GNetParam:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class gapi_ie_PyParams:
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def cfgBatchSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def cfgNumRequests(self, *args, **kwargs) -> Any: ...  # incomplete
-    def constInput(self, *args, **kwargs) -> Any: ...  # incomplete
+    @overload
+    def __init__(self) -> None: ...
+    @overload
+    def __init__(self, tag: str, model: str, device: str) -> None: ...
+    @overload
+    def __init__(self, tag: str, model: str, weights: str, device: str) -> None: ...
+    def cfgBatchSize(self, size): ...
+    def cfgNumRequests(self, nireq): ...
+    def constInput(self, layer_name, data, hint=...): ...
 
 class gapi_streaming_queue_capacity:
-    capacity: Any
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
+    capacity: int
+    def __init__(self, cap: int = ...) -> None: ...
 
 class gapi_wip_GOutputs:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
@@ -3397,15 +3407,16 @@ class gapi_wip_draw_Rect:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class gapi_wip_draw_Text:
-    bottom_left_origin: Any
-    color: Any
-    ff: Any
-    fs: Any
-    lt: Any
-    org: Any
-    text: Any
-    thick: Any
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
+    bottom_left_origin: bool
+    color: tuple[float, float, float, float]
+    ff: int
+    fs: float
+    lt: int
+    org: tuple[int, int]
+    text: str
+    thick: int
+    # TODO: org_ should have exactly two values
+    def __init__(self, text_: str, org_: Sequence[int], ff_: int, fs_: float, color_: _Scalar) -> None: ...
 
 class ml_ANN_MLP(ml_StatModel):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
@@ -3753,7 +3764,7 @@ def AKAZE_create(
     nOctaves=...,
     nOctaveLayers=...,
     diffusivity=...,
-) -> _retval:
+):
     """
     @brief The AKAZE constructor
 
@@ -3770,8 +3781,8 @@ def AKAZE_create(
     ...
 
 def AffineFeature_create(*args, **kwargs) -> Any: ...  # incomplete
-def AgastFeatureDetector_create(threshold=..., nonmaxSuppression=..., type=...) -> _retval: ...
-def BFMatcher_create(normType: int = ..., crossCheck=...) -> _retval:
+def AgastFeatureDetector_create(threshold=..., nonmaxSuppression=..., type=...): ...
+def BFMatcher_create(normType: int = ..., crossCheck=...):
     """
     @brief Brute-force matcher create method.
 
@@ -3789,7 +3800,7 @@ def BFMatcher_create(normType: int = ..., crossCheck=...) -> _retval:
     ...
 
 @overload
-def BRISK_create(thresh=..., octaves=..., patternScale=...) -> _retval:
+def BRISK_create(thresh=..., octaves=..., patternScale=...):
     """
     @brief The BRISK constructor
 
@@ -3800,7 +3811,7 @@ def BRISK_create(thresh=..., octaves=..., patternScale=...) -> _retval:
     """
 
 @overload
-def BRISK_create(radiusList, numberList, dMax=..., dMin=..., indexChange=...) -> _retval:
+def BRISK_create(radiusList, numberList, dMax=..., dMin=..., indexChange=...):
     """
     @brief The BRISK constructor for a custom pattern
 
@@ -3816,7 +3827,7 @@ def BRISK_create(radiusList, numberList, dMax=..., dMin=..., indexChange=...) ->
     """
 
 @overload
-def BRISK_create(thresh, octaves, radiusList, numberList, dMax=..., dMin=..., indexChange=...) -> _retval:
+def BRISK_create(thresh, octaves, radiusList, numberList, dMax=..., dMin=..., indexChange=...):
     """
     @brief The BRISK constructor for a custom pattern, detection threshold and octaves
 
@@ -3894,8 +3905,8 @@ def Canny(dx, dy, threshold1, threshold2, edges=..., L2gradient=...) -> _edges:
     """
     ...
 
-def CascadeClassifier_convert(oldcascade, newcascade) -> _retval: ...
-def DISOpticalFlow_create(preset=...) -> _retval:
+def CascadeClassifier_convert(oldcascade, newcascade): ...
+def DISOpticalFlow_create(preset=...):
     """
     @brief Creates an instance of DISOpticalFlow
 
@@ -3904,7 +3915,7 @@ def DISOpticalFlow_create(preset=...) -> _retval:
     ...
 
 @overload
-def DescriptorMatcher_create(descriptorMatcherType) -> _retval:
+def DescriptorMatcher_create(descriptorMatcherType: str) -> DescriptorMatcher:
     """
     @brief Creates a descriptor matcher of a given type with the default parameters (using default
     constructor).
@@ -3920,7 +3931,7 @@ def DescriptorMatcher_create(descriptorMatcherType) -> _retval:
     ...
 
 @overload
-def DescriptorMatcher_create(matcherType) -> _retval: ...
+def DescriptorMatcher_create(matcherType: int) -> DescriptorMatcher: ...
 def EMD(signature1, signature2, distType, cost=..., lowerBound=..., flow=...) -> tuple[tuple[_retval, _lowerBound, _flow]]:
     """
     @brief Computes the "minimal work" distance between two weighted point configurations.
@@ -3963,17 +3974,13 @@ def FaceDetectorYN_create(*args, **kwargs) -> Any: ...  # incomplete
 def FaceRecognizerSF_create(*args, **kwargs) -> Any: ...  # incomplete
 def FarnebackOpticalFlow_create(
     numLevels=..., pyrScale=..., fastPyramids=..., winSize=..., numIters=..., polyN=..., polySigma=..., flags: int = ...
-) -> _retval: ...
-def FastFeatureDetector_create(threshold=..., nonmaxSuppression=..., type=...) -> _retval: ...
-def FlannBasedMatcher_create() -> _retval: ...
+): ...
+def FastFeatureDetector_create(threshold=..., nonmaxSuppression=..., type=...): ...
+def FlannBasedMatcher_create(): ...
 @overload
-def GFTTDetector_create(
-    maxCorners=..., qualityLevel=..., minDistance=..., blockSize=..., useHarrisDetector=..., k=...
-) -> _retval: ...
+def GFTTDetector_create(maxCorners=..., qualityLevel=..., minDistance=..., blockSize=..., useHarrisDetector=..., k=...): ...
 @overload
-def GFTTDetector_create(
-    maxCorners, qualityLevel, minDistance, blockSize, gradiantSize, useHarrisDetector=..., k=...
-) -> _retval: ...
+def GFTTDetector_create(maxCorners, qualityLevel, minDistance, blockSize, gradiantSize, useHarrisDetector=..., k=...): ...
 def GaussianBlur(src: _Mat, ksize, sigmaX, dst: _Mat = ..., sigmaY=..., borderType=...) -> _dst:
     """
     @brief Blurs an image using a Gaussian filter.
@@ -3998,13 +4005,13 @@ def GaussianBlur(src: _Mat, ksize, sigmaX, dst: _Mat = ..., sigmaY=..., borderTy
     """
     ...
 
-def HOGDescriptor_getDaimlerPeopleDetector() -> _retval:
+def HOGDescriptor_getDaimlerPeopleDetector():
     """
     @brief Returns coefficients of the classifier trained for people detection (for 48x96 windows).
     """
     ...
 
-def HOGDescriptor_getDefaultPeopleDetector() -> _retval:
+def HOGDescriptor_getDefaultPeopleDetector():
     """
     @brief Returns coefficients of the classifier trained for people detection (for 64x128 windows).
     """
@@ -4146,7 +4153,7 @@ def HoughLinesPointSet(
 
 def HoughLinesWithAccumulator(*args, **kwargs) -> Any: ...  # incomplete
 def HuMoments(m, hu=...) -> _hu: ...
-def KAZE_create(extended=..., upright=..., threshold=..., nOctaves=..., nOctaveLayers=..., diffusivity=...) -> _retval:
+def KAZE_create(extended=..., upright=..., threshold=..., nOctaves=..., nOctaveLayers=..., diffusivity=...):
     """
     @brief The KAZE constructor
 
@@ -4184,7 +4191,7 @@ def KeyPoint_convert(points2f, size=..., response=..., octave=..., class_id=...)
     """
     ...
 
-def KeyPoint_overlap(kp1, kp2) -> _retval:
+def KeyPoint_overlap(kp1, kp2):
     """
     This method computes overlap for pair of keypoints. Overlap is the ratio between area of keypoint
     regions' intersection and area of keypoint regions' union (considering keypoint region as circle).
@@ -4249,7 +4256,7 @@ def MSER_create(
     _area_threshold=...,
     _min_margin=...,
     _edge_blur_size=...,
-) -> _retval:
+):
     """
     @brief Full constructor for %MSER detector
 
@@ -4265,7 +4272,7 @@ def MSER_create(
     """
     ...
 
-def Mahalanobis(v1, v2, icovar) -> _retval:
+def Mahalanobis(v1, v2, icovar):
     """
     @brief Calculates the Mahalanobis distance between two vectors.
 
@@ -4289,7 +4296,7 @@ def ORB_create(
     scoreType=...,
     patchSize=...,
     fastThreshold=...,
-) -> _retval:
+):
     """
     @brief The ORB constructor
 
@@ -4324,7 +4331,7 @@ def ORB_create(
     """
     ...
 
-def PCABackProject(data, mean, eigenvectors, result=...) -> _retval:
+def PCABackProject(data, mean, eigenvectors, result=...):
     """
     wrap PCA::backProject
     """
@@ -4368,7 +4375,7 @@ def PCAProject(data, mean, eigenvectors, result=...) -> _result:
     """
     ...
 
-def PSNR(src1: _Mat, src2: _Mat, R=...) -> _retval:
+def PSNR(src1: _Mat, src2: _Mat, R=...):
     """
     @brief Computes the Peak Signal-to-Noise Ratio (PSNR) image quality metric.
 
@@ -4444,7 +4451,7 @@ def Rodrigues(src: _Mat, dst: _Mat = ..., jacobian=...) -> tuple[tuple[_dst, _ja
     """
     ...
 
-def SIFT_create(nfeatures=..., nOctaveLayers=..., contrastThreshold=..., edgeThreshold=..., sigma=...) -> _retval:
+def SIFT_create(nfeatures=..., nOctaveLayers=..., contrastThreshold=..., edgeThreshold=..., sigma=...):
     """
     @param nfeatures The number of best features to retain. The features are ranked by their scores
     (measured in SIFT algorithm as the local contrast)
@@ -4506,7 +4513,7 @@ def Scharr(src: _Mat, ddepth, dx, dy, dst: _Mat = ..., scale=..., delta=..., bor
     """
     ...
 
-def SimpleBlobDetector_create(parameters=...) -> _retval: ...
+def SimpleBlobDetector_create(parameters=...): ...
 def Sobel(src: _Mat, ddepth, dx, dy, dst: _Mat = ..., ksize=..., scale=..., delta=..., borderType=...) -> _dst:
     """
     @brief Calculates the first, second, third, or mixed image derivatives using an extended Sobel operator.
@@ -4553,8 +4560,8 @@ def Sobel(src: _Mat, ddepth, dx, dy, dst: _Mat = ..., ksize=..., scale=..., delt
     """
     ...
 
-def SparsePyrLKOpticalFlow_create(winSize=..., maxLevel=..., crit=..., flags: int = ..., minEigThreshold=...) -> _retval: ...
-def StereoBM_create(numDisparities=..., blockSize=...) -> _retval:
+def SparsePyrLKOpticalFlow_create(winSize=..., maxLevel=..., crit=..., flags: int = ..., minEigThreshold=...): ...
+def StereoBM_create(numDisparities=..., blockSize=...):
     """
     @brief Creates StereoBM object
 
@@ -4583,7 +4590,7 @@ def StereoSGBM_create(
     speckleWindowSize=...,
     speckleRange=...,
     mode=...,
-) -> _retval:
+):
     """
     @brief Creates StereoSGBM object
 
@@ -4624,7 +4631,7 @@ def StereoSGBM_create(
     """
     ...
 
-def Stitcher_create(mode=...) -> _retval:
+def Stitcher_create(mode=...):
     """
     @brief Creates a Stitcher configured in one of the stitching modes.
 
@@ -4638,15 +4645,15 @@ def Stitcher_create(mode=...) -> _retval:
 def TrackerDaSiamRPN_create(*args, **kwargs) -> Any: ...  # incomplete
 def TrackerGOTURN_create(*args, **kwargs) -> Any: ...  # incomplete
 def TrackerMIL_create(*args, **kwargs) -> Any: ...  # incomplete
-def UMat_context() -> _retval: ...
-def UMat_queue() -> _retval: ...
-def VariationalRefinement_create() -> _retval:
+def UMat_context(): ...
+def UMat_queue(): ...
+def VariationalRefinement_create():
     """
     @brief Creates an instance of VariationalRefinement
     """
     ...
 
-def VideoWriter_fourcc(c1, c2, c3, c4) -> _retval:
+def VideoWriter_fourcc(c1, c2, c3, c4):
     """
     @brief Concatenates 4 chars to a fourcc code
 
@@ -4801,7 +4808,7 @@ def adaptiveThreshold(src: _Mat, maxValue, adaptiveMethod, thresholdType, blockS
     """
     ...
 
-def add(src1: _Mat | float, src2: _Mat | float, dst: _Mat = ..., mask: _Mat = ..., dtype=...) -> _dst:
+def add(src1: _Mat | _NumericScalar, src2: _Mat | _NumericScalar, dst: _Mat = ..., mask: _Mat = ..., dtype=...) -> _dst:
     """
     @brief Calculates the per-element sum of two arrays or an array and a scalar.
 
@@ -4926,7 +4933,7 @@ def approxPolyDP(curve, epsilon, closed, approxCurve=...) -> _approxCurve:
     """
     ...
 
-def arcLength(curve, closed) -> _retval:
+def arcLength(curve, closed):
     """
     @brief Calculates a contour perimeter or a curve length.
 
@@ -5134,7 +5141,7 @@ def blur(src: _Mat, ksize, dst: _Mat = ..., anchor=..., borderType=...) -> _dst:
     """
     ...
 
-def borderInterpolate(p, len, borderType) -> _retval:
+def borderInterpolate(p, len, borderType):
     """
     @brief Computes the source location of an extrapolated pixel.
 
@@ -5159,7 +5166,7 @@ def borderInterpolate(p, len, borderType) -> _retval:
     """
     ...
 
-def boundingRect(array) -> _retval:
+def boundingRect(array):
     """
     @brief Calculates the up-right bounding rectangle of a point set or non-zero pixels of gray-scale image.
 
@@ -5783,8 +5790,8 @@ def cartToPolar(x, y, magnitude=..., angle=..., angleInDegrees=...) -> tuple[_ma
     """
     ...
 
-def checkChessboard(img: _Mat, size) -> _retval: ...
-def checkHardwareSupport(feature) -> _retval:
+def checkChessboard(img: _Mat, size): ...
+def checkHardwareSupport(feature):
     """
     @brief Returns true if the specified feature is supported by the host hardware.
 
@@ -5861,13 +5868,13 @@ def compare(src1: _Mat, src2: _Mat, cmpop, dst: _Mat = ...) -> _dst:
 
     The function compares:
     *   Elements of two arrays when src1 and src2 have the same size:
-    [`dst` (I) =  `src1` (I)  \\,`cmpop`\\, `src2` (I)]
+    [`dst` (I) =  `src1` (I)   , `cmpop` ,  `src2` (I)]
     *   Elements of src1 with a scalar src2 when src2 is constructed from
     Scalar or has a single element:
-    [`dst` (I) =  `src1`(I) \\,`cmpop`\\,  `src2`]
+    [`dst` (I) =  `src1`(I)  , `cmpop` ,   `src2`]
     *   src1 with elements of src2 when src1 is constructed from Scalar or
     has a single element:
-    [`dst` (I) =  `src1`  \\,`cmpop`\\, `src2` (I)]
+    [`dst` (I) =  `src1`   , `cmpop` ,  `src2` (I)]
     When the comparison result is true, the corresponding element of output
     array is set to 255. The comparison operations can be replaced with the
     equivalent matrix expressions:
@@ -5997,7 +6004,7 @@ def computeCorrespondEpilines(points, whichImage, F, lines=...) -> _lines:
     """
     ...
 
-def computeECC(templateImage, inputImage, inputMask=...) -> _retval:
+def computeECC(templateImage, inputImage, inputMask=...):
     """
     @brief Computes the Enhanced Correlation Coefficient value between two images @cite EP08 .
 
@@ -6088,7 +6095,7 @@ def connectedComponentsWithStatsWithAlgorithm(
 @overload
 def contourArea(approx): ...
 @overload
-def contourArea(contour, oriented=...) -> _retval:
+def contourArea(contour, oriented=...):
     """
     @brief Calculates a contour area.
 
@@ -6247,7 +6254,7 @@ def convexHull(points, hull=..., clockwise=..., returnPoints=...) -> _hull:
 
     @note `points` and `hull` should be different arrays, inplace processing isn't supported.
 
-    Check @ref tutorial_hull \"the corresponding tutorial\" for more details.
+    Check @ref tutorial_hull "the corresponding tutorial" for more details.
 
     useful links:
 
@@ -6469,7 +6476,7 @@ def correctMatches(F, points1, points2, newPoints1=..., newPoints2=...) -> tuple
     """
     ...
 
-def countNonZero(src) -> _retval:
+def countNonZero(src):
     """
     @brief Counts non-zero array elements.
 
@@ -6481,7 +6488,7 @@ def countNonZero(src) -> _retval:
     """
     ...
 
-def createAlignMTB(max_bits=..., exclude_range=..., cut=...) -> _retval:
+def createAlignMTB(max_bits=..., exclude_range=..., cut=...):
     """
     @brief Creates AlignMTB object
 
@@ -6493,7 +6500,7 @@ def createAlignMTB(max_bits=..., exclude_range=..., cut=...) -> _retval:
     """
     ...
 
-def createBackgroundSubtractorKNN(history=..., dist2Threshold=..., detectShadows=...) -> _retval:
+def createBackgroundSubtractorKNN(history=..., dist2Threshold=..., detectShadows=...):
     """
     @brief Creates KNN Background Subtractor
 
@@ -6505,7 +6512,7 @@ def createBackgroundSubtractorKNN(history=..., dist2Threshold=..., detectShadows
     """
     ...
 
-def createBackgroundSubtractorMOG2(history=..., varThreshold=..., detectShadows=...) -> _retval:
+def createBackgroundSubtractorMOG2(history=..., varThreshold=..., detectShadows=...):
     """
     @brief Creates MOG2 Background Subtractor
 
@@ -6519,7 +6526,7 @@ def createBackgroundSubtractorMOG2(history=..., varThreshold=..., detectShadows=
     ...
 
 def createButton(buttonName, onChange, userData=..., buttonType=..., initialButtonState=...) -> None: ...
-def createCLAHE(clipLimit=..., tileGridSize=...) -> _retval:
+def createCLAHE(clipLimit=..., tileGridSize=...):
     """
     @brief Creates a smart pointer to a cv::CLAHE class and initializes it.
 
@@ -6529,7 +6536,7 @@ def createCLAHE(clipLimit=..., tileGridSize=...) -> _retval:
     """
     ...
 
-def createCalibrateDebevec(samples=..., lambda_=..., random=...) -> _retval:
+def createCalibrateDebevec(samples=..., lambda_=..., random=...):
     """
     @brief Creates CalibrateDebevec object
 
@@ -6541,7 +6548,7 @@ def createCalibrateDebevec(samples=..., lambda_=..., random=...) -> _retval:
     """
     ...
 
-def createCalibrateRobertson(max_iter=..., threshold=...) -> _retval:
+def createCalibrateRobertson(max_iter=..., threshold=...):
     """
     @brief Creates CalibrateRobertson object
 
@@ -6550,13 +6557,13 @@ def createCalibrateRobertson(max_iter=..., threshold=...) -> _retval:
     """
     ...
 
-def createGeneralizedHoughBallard() -> _retval:
+def createGeneralizedHoughBallard():
     """
     @brief Creates a smart pointer to a cv::GeneralizedHoughBallard class and initializes it.
     """
     ...
 
-def createGeneralizedHoughGuil() -> _retval:
+def createGeneralizedHoughGuil():
     """
     @brief Creates a smart pointer to a cv::GeneralizedHoughGuil class and initializes it.
     """
@@ -6583,7 +6590,7 @@ def createHanningWindow(winSize, type, dst: _Mat = ...) -> _dst:
 
 def createLineSegmentDetector(
     _refine=..., _scale=..., _sigma_scale=..., _quant=..., _ang_th=..., _log_eps=..., _density_th=..., _n_bins=...
-) -> _retval:
+):
     """
     @brief Creates a smart pointer to a LineSegmentDetector object and initializes it.
 
@@ -6604,13 +6611,13 @@ def createLineSegmentDetector(
     """
     ...
 
-def createMergeDebevec() -> _retval:
+def createMergeDebevec():
     """
     @brief Creates MergeDebevec object
     """
     ...
 
-def createMergeMertens(contrast_weight=..., saturation_weight=..., exposure_weight=...) -> _retval:
+def createMergeMertens(contrast_weight=..., saturation_weight=..., exposure_weight=...):
     """
     @brief Creates MergeMertens object
 
@@ -6620,13 +6627,13 @@ def createMergeMertens(contrast_weight=..., saturation_weight=..., exposure_weig
     """
     ...
 
-def createMergeRobertson() -> _retval:
+def createMergeRobertson():
     """
     @brief Creates MergeRobertson object
     """
     ...
 
-def createTonemap(gamma=...) -> _retval:
+def createTonemap(gamma=...):
     """
     @brief Creates simple linear mapper with gamma correction
 
@@ -6636,7 +6643,7 @@ def createTonemap(gamma=...) -> _retval:
     """
     ...
 
-def createTonemapDrago(gamma=..., saturation=..., bias=...) -> _retval:
+def createTonemapDrago(gamma=..., saturation=..., bias=...):
     """
     @brief Creates TonemapDrago object
 
@@ -6648,7 +6655,7 @@ def createTonemapDrago(gamma=..., saturation=..., bias=...) -> _retval:
     """
     ...
 
-def createTonemapMantiuk(gamma=..., scale=..., saturation=...) -> _retval:
+def createTonemapMantiuk(gamma=..., scale=..., saturation=...):
     """
     @brief Creates TonemapMantiuk object
 
@@ -6659,7 +6666,7 @@ def createTonemapMantiuk(gamma=..., scale=..., saturation=...) -> _retval:
     """
     ...
 
-def createTonemapReinhard(gamma=..., intensity=..., light_adapt=..., color_adapt=...) -> _retval:
+def createTonemapReinhard(gamma=..., intensity=..., light_adapt=..., color_adapt=...):
     """
     @brief Creates TonemapReinhard object
 
@@ -6673,7 +6680,7 @@ def createTonemapReinhard(gamma=..., intensity=..., light_adapt=..., color_adapt
     ...
 
 def createTrackbar(trackbarName, windowName, value, count, onChange) -> None: ...
-def cubeRoot(val) -> _retval:
+def cubeRoot(val):
     """
     @brief Computes the cube root of an argument.
 
@@ -6991,7 +6998,7 @@ def detailEnhance(src: _Mat, dst: _Mat = ..., sigma_s=..., sigma_r=...) -> _dst:
     """
     ...
 
-def determinant(mtx) -> _retval:
+def determinant(mtx):
     """
     @brief Returns the determinant of a square floating-point matrix.
 
@@ -7083,7 +7090,7 @@ def dft(src: _Mat, dst: _Mat = ..., flags: int = ..., nonzeroRows=...) -> _dst:
        B.copyTo(roiB);
 
        // now transform the padded A & B in-place;
-       // use \"nonzeroRows\" hint for faster processing
+       // use "nonzeroRows" hint for faster processing
        dft(tempA, tempA, 0, A.rows);
        dft(tempB, tempB, 0, B.rows);
 
@@ -7123,7 +7130,7 @@ def dft(src: _Mat, dst: _Mat = ..., flags: int = ..., nonzeroRows=...) -> _dst:
     All of the above improvements have been implemented in #matchTemplate and #filter2D . Therefore, by
     using them, you can get the performance even better than with the above theoretically optimal
     implementation. Though, those two functions actually calculate cross-correlation, not convolution,
-    so you need to \"flip\" the second convolution operand B vertically and horizontally using flip .
+    so you need to "flip" the second convolution operand B vertically and horizontally using flip .
     @note
     -   An example using the discrete fourier transform can be found at
     opencv_source_code/samples/cpp/dft.cpp
@@ -7150,7 +7157,7 @@ def dilate(src: _Mat, kernel, dst: _Mat = ..., anchor=..., iterations=..., borde
 
     The function dilates the source image using the specified structuring element that determines the
     shape of a pixel neighborhood over which the maximum is taken:
-    [`dst` (x,y) =  \\max _{(x',y'):  \\, `element` (x',y') \
+    [`dst` (x,y) =  \\max _{(x',y'):   ,  `element` (x',y') \
     e0 } `src` (x+x',y+y')]
 
     The function supports the in-place mode. Dilation can be applied several ( iterations ) times. In
@@ -7608,7 +7615,7 @@ def erode(src: _Mat, kernel, dst: _Mat = ..., anchor=..., iterations=..., border
     The function erodes the source image using the specified structuring element that determines the
     shape of a pixel neighborhood over which the minimum is taken:
 
-    [`dst` (x,y) =  \\min _{(x',y'):  \\, `element` (x',y') \
+    [`dst` (x,y) =  \\min _{(x',y'):   ,  `element` (x',y') \
     e0 } `src` (x+x',y+y')]
 
     The function supports the in-place mode. Erosion can be applied several ( iterations ) times. In
@@ -7910,7 +7917,7 @@ def extractChannel(src: _Mat, coi, dst: _Mat = ...) -> _dst:
     """
     ...
 
-def fastAtan2(y, x) -> _retval:
+def fastAtan2(y, x):
     """
     @brief Calculates the angle of a 2D vector in degrees.
 
@@ -8150,7 +8157,7 @@ def filter2D(src: _Mat, ddepth, kernel, dst: _Mat = ..., anchor=..., delta=..., 
 
     @param src input image.
     @param dst output image of the same size and the same number of channels as src.
-    @param ddepth desired depth of the destination image, see @ref filter_depths \"combinations\"
+    @param ddepth desired depth of the destination image, see @ref filter_depths "combinations"
     @param kernel convolution kernel (or rather a correlation kernel), a single-channel floating point
     matrix; if you want to apply different kernels to different channels, split the image into
     separate color planes using split and process them individually.
@@ -8662,7 +8669,7 @@ def findTransformECC(
     """
     ...
 
-def fitEllipse(points) -> _retval:
+def fitEllipse(points):
     """
     @brief Fits an ellipse around a set of 2D points.
 
@@ -8676,7 +8683,7 @@ def fitEllipse(points) -> _retval:
     """
     ...
 
-def fitEllipseAMS(points) -> _retval:
+def fitEllipseAMS(points):
     """
     @brief Fits an ellipse around a set of 2D points.
 
@@ -8715,7 +8722,7 @@ def fitEllipseAMS(points) -> _retval:
     """
     ...
 
-def fitEllipseDirect(points) -> _retval:
+def fitEllipseDirect(points):
     """
     @brief Fits an ellipse around a set of 2D points.
 
@@ -8944,8 +8951,8 @@ def gemm(src1: _Mat, src2: _Mat, alpha, src3, beta, dst: _Mat = ..., flags: int 
     """
     ...
 
-def getAffineTransform(src: _Mat, dst: _Mat) -> _retval: ...
-def getBuildInformation() -> _retval:
+def getAffineTransform(src: _Mat, dst: _Mat): ...
+def getBuildInformation():
     """
     @brief Returns full configuration time cmake output.
 
@@ -8955,7 +8962,7 @@ def getBuildInformation() -> _retval:
     """
     ...
 
-def getCPUFeaturesLine() -> _retval:
+def getCPUFeaturesLine():
     """
     @brief Returns list of CPU features enabled during compilation.
 
@@ -8969,7 +8976,7 @@ def getCPUFeaturesLine() -> _retval:
     """
     ...
 
-def getCPUTickCount() -> _retval:
+def getCPUTickCount():
     """
     @brief Returns the number of CPU ticks.
 
@@ -8985,7 +8992,7 @@ def getCPUTickCount() -> _retval:
     """
     ...
 
-def getDefaultNewCameraMatrix(cameraMatrix, imgsize=..., centerPrincipalPoint=...) -> _retval:
+def getDefaultNewCameraMatrix(cameraMatrix, imgsize=..., centerPrincipalPoint=...):
     """
     @brief Returns the default new camera matrix.
 
@@ -9033,7 +9040,7 @@ def getDerivKernels(dx, dy, ksize, kx=..., ky=..., normalize=..., ktype=...) -> 
     """
     ...
 
-def getFontScaleFromHeight(fontFace, pixelHeight, thickness=...) -> _retval:
+def getFontScaleFromHeight(fontFace, pixelHeight, thickness=...):
     """
     @brief Calculates the font-specific size to use to achieve a given height in pixels.
 
@@ -9046,7 +9053,7 @@ def getFontScaleFromHeight(fontFace, pixelHeight, thickness=...) -> _retval:
     """
     ...
 
-def getGaborKernel(ksize, sigma, theta, lambd, gamma, psi=..., ktype=...) -> _retval:
+def getGaborKernel(ksize, sigma, theta, lambd, gamma, psi=..., ktype=...):
     """
     @brief Returns Gabor filter coefficients.
 
@@ -9063,7 +9070,7 @@ def getGaborKernel(ksize, sigma, theta, lambd, gamma, psi=..., ktype=...) -> _re
     """
     ...
 
-def getGaussianKernel(ksize, sigma, ktype=...) -> _retval:
+def getGaussianKernel(ksize, sigma, ktype=...):
     """
     @brief Returns Gaussian filter coefficients.
 
@@ -9085,7 +9092,7 @@ def getGaussianKernel(ksize, sigma, ktype=...) -> _retval:
     """
     ...
 
-def getHardwareFeatureName(feature) -> _retval:
+def getHardwareFeatureName(feature):
     """
     @brief Returns feature name by ID
 
@@ -9094,7 +9101,7 @@ def getHardwareFeatureName(feature) -> _retval:
     ...
 
 def getLogLevel(*args, **kwargs) -> Any: ...  # incomplete
-def getNumThreads() -> _retval:
+def getNumThreads():
     """
     @brief Returns the number of threads used by OpenCV for parallel regions.
 
@@ -9114,13 +9121,13 @@ def getNumThreads() -> _retval:
     """
     ...
 
-def getNumberOfCPUs() -> _retval:
+def getNumberOfCPUs():
     """
     @brief Returns the number of logical CPUs available for the process.
     """
     ...
 
-def getOptimalDFTSize(vecsize) -> _retval:
+def getOptimalDFTSize(vecsize):
     """
     @brief Returns the optimal DFT size for a given vector size.
 
@@ -9178,7 +9185,7 @@ def getOptimalNewCameraMatrix(
     """
     ...
 
-def getPerspectiveTransform(src: _Mat, dst: _Mat, solveMethod=...) -> _retval:
+def getPerspectiveTransform(src: _Mat, dst: _Mat, solveMethod=...):
     """
     @brief Calculates a perspective transform from four pairs of the corresponding points.
 
@@ -9222,7 +9229,7 @@ def getRectSubPix(image: _Mat, patchSize, center, patch=..., patchType=...) -> _
     """
     ...
 
-def getRotationMatrix2D(center, angle, scale) -> _retval:
+def getRotationMatrix2D(center, angle, scale):
     """
     @brief Calculates an affine matrix of 2D rotation.
 
@@ -9245,7 +9252,7 @@ def getRotationMatrix2D(center, angle, scale) -> _retval:
     """
     ...
 
-def getStructuringElement(shape, ksize, anchor=...) -> _retval:
+def getStructuringElement(shape, ksize, anchor=...):
     """
     @brief Returns a structuring element of the specified size and shape for morphological operations.
 
@@ -9311,7 +9318,7 @@ def getTextSize(text, fontFace, fontScale, thickness) -> tuple[_retval, _baseLin
     """
     ...
 
-def getThreadNum() -> _retval:
+def getThreadNum():
     """
     @brief Returns the index of the currently executed thread within the current parallel region. Always
     returns 0 if called outside of parallel region.
@@ -9329,7 +9336,7 @@ def getThreadNum() -> _retval:
     """
     ...
 
-def getTickCount() -> _retval:
+def getTickCount():
     """
     @brief Returns the number of ticks.
 
@@ -9340,7 +9347,7 @@ def getTickCount() -> _retval:
     """
     ...
 
-def getTickFrequency() -> _retval:
+def getTickFrequency():
     """
     @brief Returns the number of ticks per second.
 
@@ -9355,7 +9362,7 @@ def getTickFrequency() -> _retval:
     """
     ...
 
-def getTrackbarPos(trackbarname, winname) -> _retval:
+def getTrackbarPos(trackbarname, winname):
     """
     @brief Returns the trackbar position.
 
@@ -9371,26 +9378,26 @@ def getTrackbarPos(trackbarname, winname) -> _retval:
     """
     ...
 
-def getValidDisparityROI(roi1, roi2, minDisparity, numberOfDisparities, blockSize) -> _retval: ...
-def getVersionMajor() -> _retval:
+def getValidDisparityROI(roi1, roi2, minDisparity, numberOfDisparities, blockSize): ...
+def getVersionMajor():
     """
     @brief Returns major library version
     """
     ...
 
-def getVersionMinor() -> _retval:
+def getVersionMinor():
     """
     @brief Returns minor library version
     """
     ...
 
-def getVersionRevision() -> _retval:
+def getVersionRevision():
     """
     @brief Returns revision field of the library version
     """
     ...
 
-def getVersionString() -> _retval:
+def getVersionString():
     """
     @brief Returns library version string
 
@@ -9400,7 +9407,7 @@ def getVersionString() -> _retval:
     """
     ...
 
-def getWindowImageRect(winname) -> _retval:
+def getWindowImageRect(winname):
     """
     @brief Provides rectangle of image in the window.
 
@@ -9412,7 +9419,7 @@ def getWindowImageRect(winname) -> _retval:
     """
     ...
 
-def getWindowProperty(winname, prop_id) -> _retval:
+def getWindowProperty(winname, prop_id):
     """
     @brief Provides parameters of a window.
 
@@ -9502,7 +9509,7 @@ def grabCut(img: _Mat, mask: _Mat | None, rect, bgdModel, fgdModel, iterCount, m
     ...
 
 def groupRectangles(rectList, groupThreshold, eps=...) -> tuple[_rectList, _weights]: ...
-def haveImageReader(filename: str) -> _retval:
+def haveImageReader(filename: str):
     """
     @brief Returns true if the specified image can be decoded by OpenCV
 
@@ -9510,7 +9517,7 @@ def haveImageReader(filename: str) -> _retval:
     """
     ...
 
-def haveImageWriter(filename: str) -> _retval:
+def haveImageWriter(filename: str):
     """
     @brief Returns true if an image with the specified filename can be encoded by OpenCV
 
@@ -9518,7 +9525,7 @@ def haveImageWriter(filename: str) -> _retval:
     """
     ...
 
-def haveOpenVX() -> _retval: ...
+def haveOpenVX(): ...
 def hconcat(src: _Mat | list[_Mat], dst: _Mat = ...) -> _dst:
     """
     @param src input array or vector of matrices. all of the matrices must have the same number of rows and the same depth.
@@ -9571,7 +9578,7 @@ def illuminationChange(src: _Mat, mask: _Mat, dst: _Mat = ..., alpha=..., beta=.
     ...
 
 def imcount(*args, **kwargs) -> Any: ...  # incomplete
-def imdecode(buf, flags: int) -> _retval:
+def imdecode(buf, flags: int):
     """
     @brief Reads an image from a buffer in memory.
 
@@ -9760,7 +9767,7 @@ def inRange(src: _Mat, lowerBound: _Mat, upperbBound: _Mat, dst: _Mat = ...) -> 
     """
     ...
 
-def initCameraMatrix2D(objectPoints, imagePoints, imageSize, aspectRatio=...) -> _retval:
+def initCameraMatrix2D(objectPoints, imagePoints, imageSize, aspectRatio=...):
     """
     @brief Finds an initial camera matrix from 3D-2D point correspondences.
 
@@ -9805,7 +9812,7 @@ def initUndistortRectifyMap(
     \\begin{array}{l}
     x  ← (u - {c'}_x)/{f'}_x
     y  ← (v - {c'}_y)/{f'}_y
-    {[X\\,Y\\,W]} ^T  ← R^{-1}*[x \\, y \\, 1]^T
+    {[X , Y , W]} ^T  ← R^{-1}*[x  ,  y  ,  1]^T
     x'  ← X/W
     y'  ← Y/W
     r^2  ← x'^2 + y'^2
@@ -9899,7 +9906,7 @@ def integral3(src: _Mat, sum=..., sqsum=..., tilted=..., sdepth=..., sqdepth=...
     Using these integral images, you can calculate sum, mean, and standard deviation over a specific
     up-right or rotated rectangular region of the image in a constant time, for example:
 
-    [∑ _{x_1 ≤ x < x_2,  \\, y_1  ≤ y < y_2}  `image` (x,y) =  `sum` (x_2,y_2)- `sum` (x_1,y_2)- `sum` (x_2,y_1)+ `sum` (x_1,y_1)]
+    [∑ _{x_1 ≤ x < x_2,   ,  y_1  ≤ y < y_2}  `image` (x,y) =  `sum` (x_2,y_2)- `sum` (x_1,y_2)- `sum` (x_2,y_1)+ `sum` (x_1,y_1)]
 
     It makes possible to do a fast blurring or fast block correlation with a variable window size, for
     example. In case of multi-channel images, sums for each channel are accumulated independently.
@@ -9983,7 +9990,7 @@ def invertAffineTransform(M, iM=...) -> _iM:
     """
     ...
 
-def isContourConvex(contour) -> _retval:
+def isContourConvex(contour):
     """
     @brief Tests a contour convexity.
 
@@ -10108,13 +10115,13 @@ def log(src: _Mat, dst: _Mat = ...) -> _dst:
     ...
 
 def logPolar(src: _Mat, center, M, flags: int, dst: _Mat = ...) -> _dst:
-    '''
+    """
     @brief Remaps an image to semilog-polar coordinates space.
 
     @deprecated This function produces same result as cv::warpPolar(src, dst, src.size(), center, maxRadius, flags+WARP_POLAR_LOG);
 
     @internal
-    Transform the source image using the following transformation (See @ref polar_remaps_reference_image "Polar remaps reference image d)"""):
+    Transform the source image using the following transformation (See @ref polar_remaps_reference_image "Polar remaps reference image d)"):
     [\\begin{array}{l}
      dst( P , ϕ ) = src(x,y)
      dst.size() ← src.size()
@@ -10147,7 +10154,7 @@ def logPolar(src: _Mat, center, M, flags: int, dst: _Mat = ...) -> _dst:
 
     @sa cv::linearPolar
     @endinternal
-    '''
+    """
     ...
 
 def magnitude(x, y, magnitude=...) -> _magnitude:
@@ -10182,7 +10189,7 @@ def matMulDeriv(A, B, dABdA=..., dABdB=...) -> tuple[_dABdA, _dABdB]:
     """
     ...
 
-def matchShapes(contour1, contour2, method: int, parameter) -> _retval:
+def matchShapes(contour1, contour2, method: int, parameter):
     """
     @brief Compares two shapes.
 
@@ -10242,7 +10249,7 @@ def max(src1: _Mat, src2: _Mat, dst: _Mat = ...) -> _dst:
     """
     ...
 
-def mean(src: _Mat, mask: _Mat = ...) -> _retval:
+def mean(src: _Mat, mask: _Mat = ...):
     """
     @brief Calculates an average (mean) of array elements.
 
@@ -10350,7 +10357,7 @@ def min(src1: _Mat, src2: _Mat, dst: _Mat = ...) -> _dst:
     """
     ...
 
-def minAreaRect(points) -> _retval:
+def minAreaRect(points):
     """
     @brief Finds a rotated rectangle of the minimum area enclosing the input 2D point set.
 
@@ -10435,7 +10442,7 @@ def mixChannels(src: _Mat, dst: _Mat, fromTo) -> _dst:
     """
     ...
 
-def moments(array, binaryImage=...) -> _retval:
+def moments(array, binaryImage=...):
     """
     @brief Calculates all of the moments up to the third order of a polygon or rasterized shape.
 
@@ -10642,7 +10649,7 @@ def norm(src1: _Mat, src2: _Mat, normType: int = ..., mask: _Mat = ...) -> float
     """
 
 @overload
-def norm(src1, src2, normType=..., mask=...) -> _retval:
+def norm(src1, src2, normType=..., mask=...):
     """
     @brief Calculates an absolute difference norm or a relative difference norm.
 
@@ -10664,7 +10671,7 @@ def normalize(src: _Mat, dst: _Mat, alpha=..., beta=..., norm_type: int = ..., d
     The function cv::normalize normalizes scale and shift the input array elements so that
     [| `dst` | _{L_p}= `alpha`]
     (where p=Inf, 1 or 2) when normType=NORM_INF, NORM_L1, or NORM_L2, respectively; or so that
-    [\\min _I  `dst` (I)= `alpha` , \\, \\, \\max _I  `dst` (I)= `beta`]
+    [\\min _I  `dst` (I)= `alpha` ,  ,   ,  \\max _I  `dst` (I)= `beta`]
 
     when normType=NORM_MINMAX (for dense arrays only). The optional mask specifies a sub-array to be
     normalized. This means that the norm or min-n-max are calculated over the sub-array, and then this
@@ -10829,7 +10836,7 @@ def phaseCorrelate(src1: _Mat, src2: _Mat, window=...) -> tuple[_retval, _respon
     """
     ...
 
-def pointPolygonTest(contour, pt, measureDist) -> _retval:
+def pointPolygonTest(contour, pt, measureDist):
     """
     @brief Performs a point-in-contour test.
 
@@ -11034,7 +11041,7 @@ def pyrMeanShiftFiltering(src: _Mat, sp, sr, dst: _Mat = ..., maxLevel=..., term
     @brief Performs initial step of meanshift segmentation of an image.
 
     The function implements the filtering stage of meanshift segmentation, that is, the output of the
-    function is the filtered \"posterized\" image with color gradients and fine-grain texture flattened.
+    function is the filtered "posterized" image with color gradients and fine-grain texture flattened.
     At every pixel (X,Y) of the input image (or down-sized input image, see below) the function executes
     meanshift iterations, that is, the pixel (X,Y) neighborhood in the joint space-color hyperspace is
     considered:
@@ -11134,7 +11141,7 @@ def randu(dst: _Mat, low, high) -> _dst:
     """
     ...
 
-def readOpticalFlow(path) -> _retval:
+def readOpticalFlow(path):
     """
     @brief Read a .flo file
 
@@ -11542,7 +11549,7 @@ def rotatedRectangleIntersection(rect1, rect2, intersectingRegion=...) -> tuple[
     """
     ...
 
-def sampsonDistance(pt1, pt2, F) -> _retval:
+def sampsonDistance(pt1, pt2, F):
     """
     @brief Calculates the Sampson Distance between two points.
 
@@ -11603,7 +11610,7 @@ def seamlessClone(src: _Mat, dst: _Mat, mask: _Mat | None, p, flags: int, blend=
     ...
 
 @overload
-def selectROI(windowName, img: _Mat, showCrosshair=..., fromCenter=...) -> _retval:
+def selectROI(windowName, img: _Mat, showCrosshair=..., fromCenter=...):
     """
     @brief Selects ROI on the given image.
     Function creates a window and allows user to select a ROI using mouse.
@@ -11622,7 +11629,7 @@ def selectROI(windowName, img: _Mat, showCrosshair=..., fromCenter=...) -> _retv
     ...
 
 @overload
-def selectROI(img: _Mat, showCrosshair=..., fromCenter=...) -> _retval: ...
+def selectROI(img: _Mat, showCrosshair=..., fromCenter=...): ...
 def selectROIs(windowName, img: _Mat, showCrosshair=..., fromCenter=...) -> _boundingBoxes:
     """
     @brief Selects ROIs on the given image.
@@ -12539,7 +12546,7 @@ def sqrt(src: _Mat, dst: _Mat = ...) -> _dst:
     """
     ...
 
-def startWindowThread() -> _retval: ...
+def startWindowThread(): ...
 def stereoCalibrate(
     objectPoints,
     imagePoints1,
@@ -12810,7 +12817,7 @@ def stereoRectify(
     where `T_y` is a vertical shift between the cameras and `cy_1=cy_2` if
     CALIB_ZERO_DISPARITY is set.
 
-    As you can see, the first three columns of P1 and P2 will effectively be the new \"rectified\" camera
+    As you can see, the first three columns of P1 and P2 will effectively be the new "rectified" camera
     matrices. The matrices, together with R1 and R2 , can then be passed to initUndistortRectifyMap to
     initialize the rectification map for each camera.
 
@@ -12869,7 +12876,7 @@ def stylization(src: _Mat, dst: _Mat = ..., sigma_s=..., sigma_r=...) -> _dst:
     """
     ...
 
-def subtract(src1: _Mat | float, src2: _Mat | float, dst: _Mat = ..., mask: _Mat = ..., dtype=...) -> _dst:
+def subtract(src1: _Mat | _NumericScalar, src2: _Mat | _NumericScalar, dst: _Mat = ..., mask: _Mat = ..., dtype=...) -> _dst:
     """
     @brief Calculates the per-element difference between two arrays or array and a scalar.
 
@@ -12914,7 +12921,7 @@ def subtract(src1: _Mat | float, src2: _Mat | float, dst: _Mat = ..., mask: _Mat
     """
     ...
 
-def sumElems(src) -> _retval:
+def sumElems(src):
     """
     @brief Calculates the sum of array elements.
 
@@ -12972,7 +12979,7 @@ def threshold(src: _Mat, thresh, maxval, type, dst: _Mat = ...) -> tuple[_retval
     """
     ...
 
-def trace(mtx) -> _retval:
+def trace(mtx):
     """
     @brief Returns the trace of a matrix.
 
@@ -13097,10 +13104,10 @@ def undistortPoints(src: _Mat, cameraMatrix, distCoeffs, dst: _Mat = ..., R=...,
     For each observed point coordinate `(u, v)` the function computes:
     [
     \\begin{array}{l}
-    x^{\"}  ← (u - c_x)/f_x
-    y^{\"}  ← (v - c_y)/f_y
-    (x',y') = undistort(x^{\"},y^{\"}, `distCoeffs`)
-    {[X\\,Y\\,W]} ^T  ← R*[x' \\, y' \\, 1]^T
+    x^{"}  ← (u - c_x)/f_x
+    y^{"}  ← (v - c_y)/f_y
+    (x',y') = undistort(x^{"},y^{"}, `distCoeffs`)
+    {[X , Y , W]} ^T  ← R*[x'  ,  y'  ,  1]^T
     x  ← X/W
     y  ← Y/W
     \\text{only performed if P is specified:}
@@ -13110,7 +13117,7 @@ def undistortPoints(src: _Mat, cameraMatrix, distCoeffs, dst: _Mat = ..., R=...,
     ]
 
     where *undistort* is an approximate iterative algorithm that estimates the normalized original
-    point coordinates out of the normalized distorted point coordinates (\"normalized\" means that the
+    point coordinates out of the normalized distorted point coordinates ("normalized" means that the
     coordinates do not depend on the camera matrix).
 
     The function can be used for both a stereo camera head or a monocular camera (when R is empty).
@@ -13135,8 +13142,8 @@ def undistortPointsIter(src: _Mat, cameraMatrix, distCoeffs, R, P, criteria, dst
     """
     ...
 
-def useOpenVX() -> _retval: ...
-def useOptimized() -> _retval:
+def useOpenVX(): ...
+def useOptimized():
     """
     @brief Returns the status of optimized code usage.
 
@@ -13153,7 +13160,7 @@ def vconcat(src: _Mat | list[_Mat], dst: _Mat = ...) -> _Mat:
     """
     ...
 
-def waitKey(delay=...) -> _retval:
+def waitKey(delay=...):
     """
     @brief Waits for a pressed key.
 
@@ -13178,7 +13185,7 @@ def waitKey(delay=...) -> _retval:
     """
     ...
 
-def waitKeyEx(delay=...) -> _retval:
+def waitKeyEx(delay=...):
     """
     @brief Similar to #waitKey, but returns full key code.
 
@@ -13367,7 +13374,7 @@ def watershed(image: _Mat, markers) -> _markers:
     """
     ...
 
-def writeOpticalFlow(path, flow) -> _retval:
+def writeOpticalFlow(path, flow):
     """
     @brief Write a .flo to disk
 

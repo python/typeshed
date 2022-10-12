@@ -2,7 +2,8 @@ from _typeshed import Self
 from collections.abc import Callable, Iterable, Sequence
 from typing import Protocol, TypeVar
 
-from cv2 import GArrayT, GCompileArg, GOpaqueT, gapi_GNetPackage
+from cv2.cv2 import GArrayT, GCompileArg, GOpaqueT, gapi_GKernelPackage, gapi_GNetPackage, gapi_ie_PyParams
+from cv2.gapi.streaming import queue_capacity
 
 class _KernelCls(Protocol):
     id: str
@@ -14,15 +15,15 @@ _F = TypeVar("_F", bound=Callable[..., object])
 _A = TypeVar("_A")
 
 def register(mname: str) -> Callable[[_F], _F]: ...
-def networks(*args) -> gapi_GNetPackage: ...
-def compile_args(*args) -> list[GCompileArg]: ...
+def networks(*args: gapi_ie_PyParams) -> gapi_GNetPackage: ...
+def compile_args(*args: gapi_GKernelPackage | gapi_GNetPackage | queue_capacity) -> list[GCompileArg]: ...
 def GIn(*args: _A) -> list[_A]: ...
 def GOut(*args: _A) -> list[_A]: ...
 def gin(*args: _A) -> list[_A]: ...
 def descr_of(*args: _A) -> list[_A]: ...
 
 class GOpaque:
-    def __new__(cls, argtype) -> GOpaqueT: ...  # type: ignore[misc]
+    def __new__(cls, argtype: int) -> GOpaqueT: ...  # type: ignore[misc]
 
     class Bool:
         def __new__(self) -> GOpaqueT: ...  # type: ignore[misc]
@@ -58,7 +59,7 @@ class GOpaque:
         def __new__(self) -> GOpaqueT: ...  # type: ignore[misc]
 
 class GArray:
-    def __new__(cls, argtype) -> GArrayT: ...  # type: ignore[misc]
+    def __new__(cls, argtype: int) -> GArrayT: ...  # type: ignore[misc]
 
     class Bool:
         def __new__(self) -> GArrayT: ...  # type: ignore[misc]

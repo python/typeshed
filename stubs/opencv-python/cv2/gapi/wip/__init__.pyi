@@ -1,0 +1,3 @@
+from cv2.cv2 import gapi_wip_IStreamSource
+
+def make_capture_src(path: str) -> gapi_wip_IStreamSource: ...

@@ -6,6 +6,8 @@ cv2.config-3
 # Python 2
 cv2.load_config_py2
 
-# Specific kwargs definition
+# Specific args and kwargs definition
+cv2.GMat.__init__
+cv2.cv2.GMat.__init__
 cv2.mat_wrapper.Mat.__init__
 cv2.mat_wrapper.Mat.__new__
