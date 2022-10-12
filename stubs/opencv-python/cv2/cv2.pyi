@@ -1,18 +1,33 @@
 from _typeshed import Incomplete
 from collections.abc import Sequence
-from typing import Any, ClassVar, overload
+from typing import Any, ClassVar, TypeVar, Union, overload
 from typing_extensions import TypeAlias
 
 from cv2.gapi.streaming import queue_capacity
 
 # import numpy
 _Mat: TypeAlias = Incomplete  # numpy.ndarray[int, np.dtype[np.generic]]
+_MatF: TypeAlias = Incomplete  # numpy.ndarray[float, np.dtype[np.generic]]
+
+# Function argument types
 _NumericScalar: TypeAlias = float | bool | None
 _Scalar: TypeAlias = _Mat | _NumericScalar | Sequence[_NumericScalar]
+_Point: TypeAlias = Union[tuple[int, int], Sequence[int]]
+_Size: TypeAlias = Union[tuple[int, int], Sequence[int]]
+_Range: TypeAlias = Union[tuple[int, int], Sequence[int]]
+_PointFloat: TypeAlias = Union[tuple[float, float], Sequence[float]]
+_SizeFloat: TypeAlias = Union[tuple[float, float], Sequence[float]]
+_Rect: TypeAlias = Union[tuple[int, int, int, int], Sequence[int]]
+_Boolean: TypeAlias = bool | int | None
+# _UMat also covers InputArray and InputOutputArray
+_UMat: TypeAlias = UMat | _Mat | _NumericScalar
+_UMatF: TypeAlias = UMat | _MatF | _NumericScalar
+
+_TUMat = TypeVar("_TUMat", bound=_UMat)
+_TUMatF = TypeVar("_TUMatF", bound=_UMatF)
 
 # These are temporary placeholder return types, as were in the docstrings signatures from microsoft/python-type-stubs
 # retval is equivalent to Unknown
-_retval: TypeAlias = Incomplete  # noqa: Y042
 _flow: TypeAlias = Incomplete  # noqa: Y042
 _image: TypeAlias = Incomplete  # noqa: Y042
 _edgeList: TypeAlias = Incomplete  # noqa: Y042
@@ -2045,21 +2060,21 @@ class CascadeClassifier:
     def read(self, *args, **kwargs) -> Any: ...  # incomplete
 
 class CirclesGridFinderParameters:
-    convexHullFactor: Any
-    densityNeighborhoodSize: Any
-    edgeGain: Any
-    edgePenalty: Any
-    existingVertexGain: Any
-    keypointScale: Any
-    kmeansAttempts: Any
-    maxRectifiedDistance: Any
-    minDensity: Any
-    minDistanceToAddKeypoint: Any
-    minGraphConfidence: Any
-    minRNGEdgeSwitchDist: Any
-    squareSize: Any
-    vertexGain: Any
-    vertexPenalty: Any
+    convexHullFactor: Incomplete
+    densityNeighborhoodSize: Incomplete
+    edgeGain: Incomplete
+    edgePenalty: Incomplete
+    existingVertexGain: Incomplete
+    keypointScale: Incomplete
+    kmeansAttempts: Incomplete
+    maxRectifiedDistance: Incomplete
+    minDensity: Incomplete
+    minDistanceToAddKeypoint: Incomplete
+    minGraphConfidence: Incomplete
+    minRNGEdgeSwitchDist: Incomplete
+    squareSize: Incomplete
+    vertexGain: Incomplete
+    vertexPenalty: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class DISOpticalFlow(DenseOpticalFlow):
@@ -2087,10 +2102,10 @@ class DISOpticalFlow(DenseOpticalFlow):
     def setVariationalRefinementIterations(self, val) -> None: ...
 
 class DMatch:
-    distance: Any
-    imgIdx: Any
-    queryIdx: Any
-    trainIdx: Any
+    distance: Incomplete
+    imgIdx: Incomplete
+    queryIdx: Incomplete
+    trainIdx: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class DenseOpticalFlow(Algorithm):
@@ -2276,11 +2291,11 @@ class GMat:
     def __init__(self) -> None: ...
 
 class GMatDesc:
-    chan: Any
-    depth: Any
-    dims: Any
-    planar: Any
-    size: Any
+    chan: Incomplete
+    depth: Incomplete
+    dims: Incomplete
+    planar: Incomplete
+    size: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def asInterleaved(self, *args, **kwargs) -> Any: ...  # incomplete
     def asPlanar(self, *args, **kwargs) -> Any: ...  # incomplete
@@ -2363,19 +2378,19 @@ class GeneralizedHoughGuil(GeneralizedHough):
     def setXi(self, xi) -> None: ...
 
 class HOGDescriptor:
-    L2HysThreshold: Any
-    blockSize: Any
-    blockStride: Any
-    cellSize: Any
-    derivAperture: Any
-    gammaCorrection: Any
-    histogramNormType: Any
-    nbins: Any
-    nlevels: Any
-    signedGradient: Any
-    svmDetector: Any
-    winSigma: Any
-    winSize: Any
+    L2HysThreshold: Incomplete
+    blockSize: Incomplete
+    blockStride: Incomplete
+    cellSize: Incomplete
+    derivAperture: Incomplete
+    gammaCorrection: Incomplete
+    histogramNormType: Incomplete
+    nbins: Incomplete
+    nlevels: Incomplete
+    signedGradient: Incomplete
+    svmDetector: Incomplete
+    winSigma: Incomplete
+    winSize: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def checkDetectorSize(self, *args, **kwargs) -> Any: ...  # incomplete
     def compute(self, *args, **kwargs) -> Any: ...  # incomplete
@@ -2408,27 +2423,27 @@ class KAZE(Feature2D):
     def setUpright(self, upright) -> None: ...
 
 class KalmanFilter:
-    controlMatrix: Any
-    errorCovPost: Any
-    errorCovPre: Any
-    gain: Any
-    measurementMatrix: Any
-    measurementNoiseCov: Any
-    processNoiseCov: Any
-    statePost: Any
-    statePre: Any
-    transitionMatrix: Any
+    controlMatrix: Incomplete
+    errorCovPost: Incomplete
+    errorCovPre: Incomplete
+    gain: Incomplete
+    measurementMatrix: Incomplete
+    measurementNoiseCov: Incomplete
+    processNoiseCov: Incomplete
+    statePost: Incomplete
+    statePre: Incomplete
+    transitionMatrix: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def correct(self, *args, **kwargs) -> Any: ...  # incomplete
     def predict(self, *args, **kwargs) -> Any: ...  # incomplete
 
 class KeyPoint:
-    angle: Any
-    class_id: Any
-    octave: Any
-    pt: Any
-    response: Any
-    size: Any
+    angle: Incomplete
+    class_id: Incomplete
+    octave: Incomplete
+    pt: Incomplete
+    response: Incomplete
+    size: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def convert(self, *args, **kwargs) -> Any: ...  # incomplete
     def overlap(self, *args, **kwargs) -> Any: ...  # incomplete
@@ -2529,10 +2544,10 @@ class QRCodeEncoder:
     def encodeStructuredAppend(self, *args, **kwargs) -> Any: ...  # incomplete
 
 class QRCodeEncoder_Params:
-    correction_level: Any
-    mode: Any
-    structure_number: Any
-    version: Any
+    correction_level: Incomplete
+    mode: Incomplete
+    structure_number: Incomplete
+    version: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class SIFT(Feature2D):
@@ -2546,25 +2561,25 @@ class SimpleBlobDetector(Feature2D):
     def getDefaultName(self, *args, **kwargs) -> Any: ...  # incomplete
 
 class SimpleBlobDetector_Params:
-    blobColor: Any
-    filterByArea: Any
-    filterByCircularity: Any
-    filterByColor: Any
-    filterByConvexity: Any
-    filterByInertia: Any
-    maxArea: Any
-    maxCircularity: Any
-    maxConvexity: Any
-    maxInertiaRatio: Any
-    maxThreshold: Any
-    minArea: Any
-    minCircularity: Any
-    minConvexity: Any
-    minDistBetweenBlobs: Any
-    minInertiaRatio: Any
-    minRepeatability: Any
-    minThreshold: Any
-    thresholdStep: Any
+    blobColor: Incomplete
+    filterByArea: Incomplete
+    filterByCircularity: Incomplete
+    filterByColor: Incomplete
+    filterByConvexity: Incomplete
+    filterByInertia: Incomplete
+    maxArea: Incomplete
+    maxCircularity: Incomplete
+    maxConvexity: Incomplete
+    maxInertiaRatio: Incomplete
+    maxThreshold: Incomplete
+    minArea: Incomplete
+    minCircularity: Incomplete
+    minConvexity: Incomplete
+    minDistBetweenBlobs: Incomplete
+    minInertiaRatio: Incomplete
+    minRepeatability: Incomplete
+    minThreshold: Incomplete
+    thresholdStep: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class SparseOpticalFlow(Algorithm):
@@ -2727,11 +2742,11 @@ class TrackerDaSiamRPN(Tracker):
     def getTrackingScore(self, *args, **kwargs) -> Any: ...  # incomplete
 
 class TrackerDaSiamRPN_Params:
-    backend: Any
-    kernel_cls1: Any
-    kernel_r1: Any
-    model: Any
-    target: Any
+    backend: Incomplete
+    kernel_cls1: Incomplete
+    kernel_r1: Incomplete
+    model: Incomplete
+    target: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class TrackerGOTURN(Tracker):
@@ -2739,8 +2754,8 @@ class TrackerGOTURN(Tracker):
     def create(self, *args, **kwargs) -> Any: ...  # incomplete
 
 class TrackerGOTURN_Params:
-    modelBin: Any
-    modelTxt: Any
+    modelBin: Incomplete
+    modelTxt: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class TrackerMIL(Tracker):
@@ -2748,37 +2763,39 @@ class TrackerMIL(Tracker):
     def create(self, *args, **kwargs) -> Any: ...  # incomplete
 
 class TrackerMIL_Params:
-    featureSetNumFeatures: Any
-    samplerInitInRadius: Any
-    samplerInitMaxNegNum: Any
-    samplerSearchWinSize: Any
-    samplerTrackInRadius: Any
-    samplerTrackMaxNegNum: Any
-    samplerTrackMaxPosNum: Any
+    featureSetNumFeatures: Incomplete
+    samplerInitInRadius: Incomplete
+    samplerInitMaxNegNum: Incomplete
+    samplerSearchWinSize: Incomplete
+    samplerTrackInRadius: Incomplete
+    samplerTrackMaxNegNum: Incomplete
+    samplerTrackMaxPosNum: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class UMat:
-    offset: Any
+    offset: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def context(self, *args, **kwargs) -> Any: ...  # incomplete
-    def get(self, *args, **kwargs) -> Any: ...  # incomplete
-    def handle(self, *args, **kwargs) -> Any: ...  # incomplete
-    def isContinuous(self, *args, **kwargs) -> Any: ...  # incomplete
-    def isSubmatrix(self, *args, **kwargs) -> Any: ...  # incomplete
-    def queue(self, *args, **kwargs) -> Any: ...  # incomplete
+    @staticmethod
+    def context(): ...
+    def get(self): ...
+    def handle(self, accessFlags): ...
+    def isContinuous(self): ...
+    def isSubmatrix(self): ...
+    @staticmethod
+    def queue(): ...
 
 class UsacParams:
-    confidence: Any
-    isParallel: Any
-    loIterations: Any
-    loMethod: Any
-    loSampleSize: Any
-    maxIterations: Any
-    neighborsSearch: Any
-    randomGeneratorState: Any
-    sampler: Any
-    score: Any
-    threshold: Any
+    confidence: Incomplete
+    isParallel: Incomplete
+    loIterations: Incomplete
+    loMethod: Incomplete
+    loSampleSize: Incomplete
+    maxIterations: Incomplete
+    neighborsSearch: Incomplete
+    randomGeneratorState: Incomplete
+    sampler: Incomplete
+    score: Incomplete
+    threshold: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class VariationalRefinement(DenseOpticalFlow):
@@ -2901,7 +2918,7 @@ class cuda_GpuData:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class cuda_GpuMat:
-    step: Any
+    step: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def adjustROI(self, *args, **kwargs) -> Any: ...  # incomplete
     def assignTo(self, *args, **kwargs) -> Any: ...  # incomplete
@@ -2946,7 +2963,7 @@ class cuda_GpuMat_Allocator:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class cuda_HostMem:
-    step: Any
+    step: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def channels(self, *args, **kwargs) -> Any: ...  # incomplete
     def clone(self, *args, **kwargs) -> Any: ...  # incomplete
@@ -3053,12 +3070,12 @@ class detail_BundleAdjusterReproj(detail_BundleAdjusterBase):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class detail_CameraParams:
-    R: Any
-    aspect: Any
-    focal: Any
-    ppx: Any
-    ppy: Any
-    t: Any
+    R: Incomplete
+    aspect: Incomplete
+    focal: Incomplete
+    ppx: Incomplete
+    ppy: Incomplete
+    t: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def K(self, *args, **kwargs) -> Any: ...  # incomplete
 
@@ -3124,19 +3141,19 @@ class detail_HomographyBasedEstimator(detail_Estimator):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class detail_ImageFeatures:
-    descriptors: Any
-    img_idx: Any
-    img_size: Any
-    keypoints: Any
+    descriptors: Incomplete
+    img_idx: Incomplete
+    img_size: Incomplete
+    keypoints: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def getKeypoints(self, *args, **kwargs) -> Any: ...  # incomplete
 
 class detail_MatchesInfo:
-    H: Any
-    confidence: Any
-    dst_img_idx: Any
-    num_inliers: Any
-    src_img_idx: Any
+    H: Incomplete
+    confidence: Incomplete
+    dst_img_idx: Incomplete
+    num_inliers: Incomplete
+    src_img_idx: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def getInliers(self, *args, **kwargs) -> Any: ...  # incomplete
     def getMatches(self, *args, **kwargs) -> Any: ...  # incomplete
@@ -3217,10 +3234,10 @@ class dnn_KeypointsModel(dnn_Model):
     def estimate(self, *args, **kwargs) -> Any: ...  # incomplete
 
 class dnn_Layer(Algorithm):
-    blobs: Any
-    name: Any
-    preferableTarget: Any
-    type: Any
+    blobs: Incomplete
+    name: Incomplete
+    preferableTarget: Incomplete
+    type: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def finalize(self, *args, **kwargs) -> Any: ...  # incomplete
     def outputNameToIndex(self, *args, **kwargs) -> Any: ...  # incomplete
@@ -3362,49 +3379,49 @@ class gapi_wip_IStreamSource:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class gapi_wip_draw_Circle:
-    center: Any
-    color: Any
-    lt: Any
-    radius: Any
-    shift: Any
-    thick: Any
+    center: Incomplete
+    color: Incomplete
+    lt: Incomplete
+    radius: Incomplete
+    shift: Incomplete
+    thick: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class gapi_wip_draw_Image:
-    alpha: Any
-    img: Any
-    org: Any
+    alpha: Incomplete
+    img: Incomplete
+    org: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class gapi_wip_draw_Line:
-    color: Any
-    lt: Any
-    pt1: Any
-    pt2: Any
-    shift: Any
-    thick: Any
+    color: Incomplete
+    lt: Incomplete
+    pt1: Incomplete
+    pt2: Incomplete
+    shift: Incomplete
+    thick: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class gapi_wip_draw_Mosaic:
-    cellSz: Any
-    decim: Any
-    mos: Any
+    cellSz: Incomplete
+    decim: Incomplete
+    mos: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class gapi_wip_draw_Poly:
-    color: Any
-    lt: Any
-    points: Any
-    shift: Any
-    thick: Any
+    color: Incomplete
+    lt: Incomplete
+    points: Incomplete
+    shift: Incomplete
+    thick: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class gapi_wip_draw_Rect:
-    color: Any
-    lt: Any
-    rect: Any
-    shift: Any
-    thick: Any
+    color: Incomplete
+    lt: Incomplete
+    rect: Incomplete
+    shift: Incomplete
+    thick: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class gapi_wip_draw_Text:
@@ -3413,10 +3430,10 @@ class gapi_wip_draw_Text:
     ff: int
     fs: float
     lt: int
-    org: tuple[int, int]
+    org: _Point
     text: str
     thick: int
-    def __init__(self, text_: str, org_: tuple[int, int], ff_: int, fs_: float, color_: _Scalar) -> None: ...
+    def __init__(self, text_: str, org_: _Point, ff_: int, fs_: float, color_: _Scalar) -> None: ...
 
 class ml_ANN_MLP(ml_StatModel):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
@@ -3546,9 +3563,9 @@ class ml_NormalBayesClassifier(ml_StatModel):
     def predictProb(self, *args, **kwargs) -> Any: ...  # incomplete
 
 class ml_ParamGrid:
-    logStep: Any
-    maxVal: Any
-    minVal: Any
+    logStep: Incomplete
+    maxVal: Incomplete
+    minVal: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def create(self, *args, **kwargs) -> Any: ...  # incomplete
 
@@ -3845,7 +3862,7 @@ def BRISK_create(thresh, octaves, radiusList, numberList, dMax=..., dMin=..., in
     """
     ...
 
-def CamShift(probImage, window, criteria) -> tuple[tuple[_retval, _window]]:
+def CamShift(probImage, window, criteria) -> tuple[tuple[Incomplete, _window]]:
     """
     @brief Finds an object center, size, and orientation.
 
@@ -3932,7 +3949,7 @@ def DescriptorMatcher_create(descriptorMatcherType: str) -> DescriptorMatcher:
 
 @overload
 def DescriptorMatcher_create(matcherType: int) -> DescriptorMatcher: ...
-def EMD(signature1, signature2, distType, cost=..., lowerBound=..., flow=...) -> tuple[tuple[_retval, _lowerBound, _flow]]:
+def EMD(signature1, signature2, distType, cost=..., lowerBound=..., flow=...) -> tuple[tuple[Incomplete, _lowerBound, _flow]]:
     """
     @brief Computes the "minimal work" distance between two weighted point configurations.
 
@@ -4398,7 +4415,7 @@ def PSNR(src1: _Mat, src2: _Mat, R=...):
     ...
 
 def QRCodeEncoder_create(*args, **kwargs) -> Any: ...  # incomplete
-def RQDecomp3x3(src: _Mat, mtxR=..., mtxQ=..., Qx=..., Qy=..., Qz=...) -> tuple[tuple[_retval, _mtxR, _mtxQ, _Qx, _Qy, _Qz]]:
+def RQDecomp3x3(src: _Mat, mtxR=..., mtxQ=..., Qx=..., Qy=..., Qz=...) -> tuple[tuple[Incomplete, _mtxR, _mtxQ, _Qx, _Qy, _Qz]]:
     """
     @brief Computes an RQ decomposition of 3x3 matrices.
 
@@ -5220,7 +5237,7 @@ def boxPoints(box, points=...) -> _points:
 
 def buildOpticalFlowPyramid(
     img: _Mat, winSize, maxLevel, pyramid=..., withDerivatives=..., pyrBorder=..., derivBorder=..., tryReuseInputImage=...
-) -> tuple[_retval, _pyramid]:
+) -> tuple[Incomplete, _pyramid]:
     """
     @brief Constructs the image pyramid which can be passed to calcOpticalFlowPyrLK.
 
@@ -5369,7 +5386,7 @@ def calcOpticalFlowPyrLK(
 
 def calibrateCamera(
     objectPoints, imagePoints, imageSize, cameraMatrix, distCoeffs, rvecs=..., tvecs=..., flags: int = ..., criteria=...
-) -> tuple[_retval, _cameraMatrix, _distCoeffs, _rvecs, _tvecs]: ...
+) -> tuple[Incomplete, _cameraMatrix, _distCoeffs, _rvecs, _tvecs]: ...
 def calibrateCameraExtended(
     objectPoints,
     imagePoints,
@@ -5384,7 +5401,7 @@ def calibrateCameraExtended(
     flags: int = ...,
     criteria=...,
 ) -> tuple[
-    _retval, _cameraMatrix, _distCoeffs, _rvecs, _tvecs, _stdDeviationsIntrinsics, _stdDeviationsExtrinsics, _perViewErrors
+    Incomplete, _cameraMatrix, _distCoeffs, _rvecs, _tvecs, _stdDeviationsIntrinsics, _stdDeviationsExtrinsics, _perViewErrors
 ]:
     """
     @brief Finds the camera intrinsic and extrinsic parameters from several views of a calibration
@@ -5519,7 +5536,7 @@ def calibrateCameraRO(
     newObjPoints=...,
     flags: int = ...,
     criteria=...,
-) -> tuple[_retval, _cameraMatrix, _distCoeffs, _rvecs, _tvecs, _newObjPoints]: ...
+) -> tuple[Incomplete, _cameraMatrix, _distCoeffs, _rvecs, _tvecs, _newObjPoints]: ...
 def calibrateCameraROExtended(
     objectPoints,
     imagePoints,
@@ -5537,7 +5554,7 @@ def calibrateCameraROExtended(
     flags: int = ...,
     criteria=...,
 ) -> tuple[
-    _retval,
+    Incomplete,
     _cameraMatrix,
     _distCoeffs,
     _rvecs,
@@ -5805,7 +5822,7 @@ def checkHardwareSupport(feature):
     """
     ...
 
-def checkRange(a, quiet=..., minVal=..., maxVal=...) -> tuple[_retval, _pos]:
+def checkRange(a, quiet=..., minVal=..., maxVal=...) -> tuple[Incomplete, _pos]:
     """
     @brief Checks every element of an input array for invalid values.
 
@@ -5840,7 +5857,7 @@ def circle(img: _Mat, center, radius, color, thickness=..., lineType=..., shift=
     """
     ...
 
-def clipLine(imgRect, pt1, pt2) -> tuple[_retval, _pt1, _pt2]:
+def clipLine(imgRect, pt1, pt2) -> tuple[Incomplete, _pt1, _pt2]:
     """
     @param imgRect Image rectangle.
     @param pt1 First line point.
@@ -6020,7 +6037,7 @@ def computeECC(templateImage, inputImage, inputMask=...):
     """
     ...
 
-def connectedComponents(image: _Mat, labels=..., connectivity=..., ltype=...) -> tuple[_retval, _labels]:
+def connectedComponents(image: _Mat, labels=..., connectivity=..., ltype=...) -> tuple[Incomplete, _labels]:
     """
     @param image the 8-bit single-channel image to be labeled
     @param labels destination labeled image
@@ -6029,7 +6046,7 @@ def connectedComponents(image: _Mat, labels=..., connectivity=..., ltype=...) ->
     """
     ...
 
-def connectedComponentsWithAlgorithm(image: _Mat, connectivity, ltype, ccltype, labels=...) -> tuple[_retval, _labels]:
+def connectedComponentsWithAlgorithm(image: _Mat, connectivity, ltype, ccltype, labels=...) -> tuple[Incomplete, _labels]:
     """
     @brief computes the connected components labeled image of boolean image
 
@@ -6052,7 +6069,7 @@ def connectedComponentsWithAlgorithm(image: _Mat, connectivity, ltype, ccltype, 
 
 def connectedComponentsWithStats(
     image: _Mat, labels=..., stats=..., centroids=..., connectivity=..., ltype=...
-) -> tuple[_retval, _labels, _stats, _centroids]:
+) -> tuple[Incomplete, _labels, _stats, _centroids]:
     """
     @param image the 8-bit single-channel image to be labeled
     @param labels destination labeled image
@@ -6068,7 +6085,7 @@ def connectedComponentsWithStats(
 
 def connectedComponentsWithStatsWithAlgorithm(
     image: _Mat, connectivity, ltype, ccltype, labels=..., stats=..., centroids=...
-) -> tuple[_retval, _labels, _stats, _centroids]:
+) -> tuple[Incomplete, _labels, _stats, _centroids]:
     """
     @brief computes the connected components labeled image of boolean image and also produces a statistics output for each label
 
@@ -6841,7 +6858,7 @@ def decomposeEssentialMat(E, R1=..., R2=..., t=...) -> tuple[_R1, _R2, _t]:
 
 def decomposeHomographyMat(
     H, K, rotations=..., translations=..., normals=...
-) -> tuple[_retval, _rotations, _translations, _normals]:
+) -> tuple[Incomplete, _rotations, _translations, _normals]:
     """
     @brief Decompose a homography matrix to rotation(s), translation(s) and plane normal(s).
 
@@ -7487,7 +7504,7 @@ def edgePreservingFilter(src: _Mat, dst: _Mat = ..., flags: int = ..., sigma_s=.
     """
     ...
 
-def eigen(src: _Mat, eigenvalues=..., eigenvectors=...) -> tuple[_retval, _eigenvalues, _eigenvectors]:
+def eigen(src: _Mat, eigenvalues=..., eigenvectors=...) -> tuple[Incomplete, _eigenvalues, _eigenvectors]:
     """
     @brief Calculates eigenvalues and eigenvectors of a symmetric matrix.
 
@@ -7639,7 +7656,7 @@ def erode(src: _Mat, kernel, dst: _Mat = ..., anchor=..., iterations=..., border
 
 def estimateAffine2D(
     from_, to, inliers=..., method: int = ..., ransacReprojThreshold=..., maxIters=..., confidence=..., refineIters=...
-) -> tuple[_retval, _inliers]:
+) -> tuple[Incomplete, _inliers]:
     """
     @brief Computes an optimal affine transformation between two 2D point sets.
 
@@ -7707,7 +7724,7 @@ def estimateAffine2D(
 
 def estimateAffine3D(
     src: _Mat, dst: _Mat, out=..., inliers=..., ransacThreshold=..., confidence=...
-) -> tuple[_retval, _out, _inliers]:
+) -> tuple[Incomplete, _out, _inliers]:
     """
     @brief Computes an optimal affine transformation between two 3D point sets.
 
@@ -7761,7 +7778,7 @@ def estimateAffine3D(
 
 def estimateAffinePartial2D(
     from_, to, inliers=..., method: int = ..., ransacReprojThreshold=..., maxIters=..., confidence=..., refineIters=...
-) -> tuple[_retval, _inliers]:
+) -> tuple[Incomplete, _inliers]:
     """
     @brief Computes an optimal limited affine transformation with 4 degrees of freedom between
     two 2D point sets.
@@ -7810,7 +7827,7 @@ def estimateAffinePartial2D(
 
 def estimateChessboardSharpness(
     image: _Mat, patternSize, corners, rise_distance=..., vertical=..., sharpness=...
-) -> tuple[_retval, _sharpness]:
+) -> tuple[Incomplete, _sharpness]:
     """
     @brief Estimates the sharpness of a detected chessboard.
 
@@ -7843,7 +7860,7 @@ def estimateChessboardSharpness(
 
 def estimateTranslation3D(
     src: _Mat, dst: _Mat, out=..., inliers=..., ransacThreshold=..., confidence=...
-) -> tuple[_retval, _out, _inliers]:
+) -> tuple[Incomplete, _out, _inliers]:
     """
     @brief Computes an optimal translation between two 3D point sets.
     *
@@ -8211,8 +8228,8 @@ def filterSpeckles(img: _Mat, newVal, maxSpeckleSize, maxDiff, buf=...) -> tuple
     """
     ...
 
-def find4QuadCornerSubpix(img: _Mat, corners, region_size) -> tuple[_retval, _corners]: ...
-def findChessboardCorners(image: _Mat, patternSize, corners=..., flags: int = ...) -> tuple[_retval, _corners]:
+def find4QuadCornerSubpix(img: _Mat, corners, region_size) -> tuple[Incomplete, _corners]: ...
+def findChessboardCorners(image: _Mat, patternSize, corners=..., flags: int = ...) -> tuple[Incomplete, _corners]:
     """
     @brief Finds the positions of internal corners of the chessboard.
 
@@ -8265,10 +8282,10 @@ def findChessboardCorners(image: _Mat, patternSize, corners=..., flags: int = ..
     """
     ...
 
-def findChessboardCornersSB(image: _Mat, patternSize, corners=..., flags: int = ...) -> tuple[_retval, _corners]: ...
+def findChessboardCornersSB(image: _Mat, patternSize, corners=..., flags: int = ...) -> tuple[Incomplete, _corners]: ...
 def findChessboardCornersSBWithMeta(
     image: _Mat, patternSize, flags: int, corners=..., meta=...
-) -> tuple[_retval, _corners, _meta]:
+) -> tuple[Incomplete, _corners, _meta]:
     """
     @brief Finds the positions of internal corners of the chessboard using a sector based approach.
 
@@ -8321,7 +8338,7 @@ def findChessboardCornersSBWithMeta(
     ...
 
 @overload
-def findCirclesGrid(image: _Mat, patternSize, flags: int, blobDetector, parameters, centers=...) -> tuple[_retval, _centers]:
+def findCirclesGrid(image: _Mat, patternSize, flags: int, blobDetector, parameters, centers=...) -> tuple[Incomplete, _centers]:
     """
     @brief Finds centers in the grid of circles.
 
@@ -8357,7 +8374,7 @@ def findCirclesGrid(image: _Mat, patternSize, flags: int, blobDetector, paramete
     """
 
 @overload
-def findCirclesGrid(image, patternSize, centers=..., flags=..., blobDetector=...) -> tuple[_retval, _centers]: ...
+def findCirclesGrid(image, patternSize, centers=..., flags=..., blobDetector=...) -> tuple[Incomplete, _centers]: ...
 def findContours(image: _Mat, mode, method: int, contours=..., hierarchy=..., offset=...) -> tuple[_contours, _hierarchy]:
     """
     @brief Finds contours in a binary image.
@@ -8390,7 +8407,7 @@ def findContours(image: _Mat, mode, method: int, contours=..., hierarchy=..., of
 @overload
 def findEssentialMat(
     points1, points2, cameraMatrix, method: int = ..., prob=..., threshold=..., mask: _Mat = ...
-) -> tuple[_retval, _mask]:
+) -> tuple[Incomplete, _mask]:
     """
     @brief Calculates an essential matrix from the corresponding points in two images.
 
@@ -8426,7 +8443,9 @@ def findEssentialMat(
     """
 
 @overload
-def findEssentialMat(points1, points2, focal=..., pp=..., method=..., prob=..., threshold=..., mask=...) -> tuple[_retval, _mask]:
+def findEssentialMat(
+    points1, points2, focal=..., pp=..., method=..., prob=..., threshold=..., mask=...
+) -> tuple[Incomplete, _mask]:
     """
     @param points1 Array of N (N >= 5) 2D points from the first image. The point coordinates should
     be floating-point (single or double precision).
@@ -8461,7 +8480,7 @@ def findEssentialMat(points1, points2, focal=..., pp=..., method=..., prob=..., 
 @overload
 def findFundamentalMat(
     points1, points2, method: int, ransacReprojThreshold, confidence, maxIters, mask: _Mat = ...
-) -> tuple[_retval, _mask]:
+) -> tuple[Incomplete, _mask]:
     """
     @brief Calculates a fundamental matrix from the corresponding points in two images.
 
@@ -8518,10 +8537,10 @@ def findFundamentalMat(
 @overload
 def findFundamentalMat(
     points1, points2, method=..., ransacReprojThreshold=..., confidence=..., mask=...
-) -> tuple[_retval, _mask]: ...
+) -> tuple[Incomplete, _mask]: ...
 def findHomography(
     srcPoints, dstPoints, method: int = ..., ransacReprojThreshold=..., mask: _Mat = ..., maxIters=..., confidence=...
-) -> tuple[_retval, _mask]:
+) -> tuple[Incomplete, _mask]:
     """
     @brief Finds a perspective transformation between two planes.
 
@@ -8616,7 +8635,7 @@ def findNonZero(src: _Mat, idx=...) -> _idx:
 
 def findTransformECC(
     templateImage, inputImage, warpMatrix, motionType, criteria, inputMask, gaussFiltSize
-) -> tuple[_retval, _warpMatrix]:
+) -> tuple[Incomplete, _warpMatrix]:
     """
     @brief Finds the geometric transform (warp) between two images in terms of the ECC criterion @cite EP08 .
 
@@ -8846,7 +8865,7 @@ def flip(src: _Mat, flipCode, dst: _Mat = ...) -> _dst:
 
 def floodFill(
     image: _Mat, mask: _Mat | None, seedPoint, newVal, loDiff=..., upDiff=..., flags: int = ...
-) -> tuple[_retval, _image, _mask, _rect]:
+) -> tuple[Incomplete, _image, _mask, _rect]:
     """
     @brief Fills a connected component with the given color.
 
@@ -9156,7 +9175,7 @@ def getOptimalDFTSize(vecsize):
 
 def getOptimalNewCameraMatrix(
     cameraMatrix, distCoeffs, imageSize, alpha, newImgSize=..., centerPrincipalPoint=...
-) -> tuple[_retval, _validPixROI]:
+) -> tuple[Incomplete, _validPixROI]:
     """
     @brief Returns the new camera matrix based on the free scaling parameter.
 
@@ -9271,7 +9290,7 @@ def getStructuringElement(shape, ksize, anchor=...):
     """
     ...
 
-def getTextSize(text, fontFace, fontScale, thickness) -> tuple[_retval, _baseLine]:
+def getTextSize(text, fontFace, fontScale, thickness) -> tuple[Incomplete, _baseLine]:
     """
     @brief Calculates the width and height of a text string.
 
@@ -9528,7 +9547,7 @@ def haveImageWriter(filename: str):
     ...
 
 def haveOpenVX(): ...
-def hconcat(src: _Mat | list[_Mat], dst: _Mat = ...) -> _dst:
+def hconcat(src: _Mat | Sequence[_Mat], dst: _Mat = ...) -> _dst:
     """
     @param src input array or vector of matrices. all of the matrices must have the same number of rows and the same depth.
     @param dst output array. It has the same number of rows and depth as the src, and the sum of cols of the src.
@@ -9595,7 +9614,7 @@ def imdecode(buf, flags: int):
     """
     ...
 
-def imencode(ext, img: _Mat, params=...) -> tuple[_retval, _buf]:
+def imencode(ext, img: _Mat, params=...) -> tuple[Incomplete, _buf]:
     """
     @brief Encodes an image into a memory buffer.
 
@@ -9664,7 +9683,7 @@ def imread(filename: str, flags: int = ...) -> _Mat:
     """
     ...
 
-def imreadmulti(filename: str, mats=..., flags: int = ...) -> tuple[_retval, _mats]:
+def imreadmulti(filename: str, mats=..., flags: int = ...) -> tuple[Incomplete, _mats]:
     """
     @brief Loads a multi-page image from a file.
 
@@ -9931,7 +9950,7 @@ def integral3(src: _Mat, sum=..., sqsum=..., tilted=..., sdepth=..., sqdepth=...
     """
     ...
 
-def intersectConvexConvex(_p1, _p2, _p12=..., handleNested=...) -> tuple[_retval, _p12]:
+def intersectConvexConvex(_p1, _p2, _p12=..., handleNested=...) -> tuple[Incomplete, _p12]:
     """
     @brief Finds intersection of two convex polygons
 
@@ -9948,7 +9967,7 @@ def intersectConvexConvex(_p1, _p2, _p12=..., handleNested=...) -> tuple[_retval
     """
     ...
 
-def invert(src: _Mat, dst: _Mat = ..., flags: int = ...) -> tuple[_retval, _dst]:
+def invert(src: _Mat, dst: _Mat = ..., flags: int = ...) -> tuple[Incomplete, _dst]:
     """
     @brief Finds the inverse or pseudo-inverse of a matrix.
 
@@ -10003,7 +10022,7 @@ def isContourConvex(contour):
     """
     ...
 
-def kmeans(data, K, bestLabels, criteria, attempts, flags: int, centers=...) -> tuple[_retval, _bestLabels, _centers]:
+def kmeans(data, K, bestLabels, criteria, attempts, flags: int, centers=...) -> tuple[Incomplete, _bestLabels, _centers]:
     """
     @brief Finds centers of clusters and groups input samples around the clusters.
 
@@ -10268,7 +10287,7 @@ def mean(src: _Mat, mask: _Mat = ...):
     """
     ...
 
-def meanShift(probImage, window, criteria) -> tuple[_retval, _window]:
+def meanShift(probImage, window, criteria) -> tuple[Incomplete, _window]:
     """
     @brief Finds an object on a back projection image.
 
@@ -10383,7 +10402,7 @@ def minEnclosingCircle(points) -> tuple[_center, _radius]:
     """
     ...
 
-def minEnclosingTriangle(points, triangle=...) -> tuple[_retval, _triangle]:
+def minEnclosingTriangle(points, triangle=...) -> tuple[Incomplete, _triangle]:
     """
     @brief Finds a triangle of minimum area enclosing a 2D point set and returns its area.
 
@@ -10799,7 +10818,7 @@ def phase(x, y, angle=..., angleInDegrees=...) -> _angle:
     """
     ...
 
-def phaseCorrelate(src1: _Mat, src2: _Mat, window=...) -> tuple[_retval, _response]:
+def phaseCorrelate(src1: _Mat, src2: _Mat, window=...) -> tuple[Incomplete, _response]:
     """
     @brief The function is used to detect translational shifts that occur between two images.
 
@@ -11158,7 +11177,7 @@ def readOpticalFlow(path):
 @overload
 def recoverPose(points1, points2, cameraMatrix1, distCoeffs1, cameraMatrix2, distCoeffs2, E, R, t, mask): ...
 @overload
-def recoverPose(E, points1, points2, cameraMatrix, R=..., t=..., mask: _Mat = ...) -> tuple[_retval, _R, _t, _mask]:
+def recoverPose(E, points1, points2, cameraMatrix, R=..., t=..., mask: _Mat = ...) -> tuple[Incomplete, _R, _t, _mask]:
     """
     @brief Recovers the relative camera rotation and the translation from an estimated essential
     matrix and the corresponding points in two images, using cheirality check. Returns the number of
@@ -11212,7 +11231,7 @@ def recoverPose(E, points1, points2, cameraMatrix, R=..., t=..., mask: _Mat = ..
     """
 
 @overload
-def recoverPose(E, points1, points2, R=..., t=..., focal=..., pp=..., mask=...) -> tuple[_retval, _R, _t, _mask]:
+def recoverPose(E, points1, points2, R=..., t=..., focal=..., pp=..., mask=...) -> tuple[Incomplete, _R, _t, _mask]:
     """
     @param E The input essential matrix.
     @param points1 Array of N 2D points from the first image. The point coordinates should be
@@ -11246,7 +11265,7 @@ def recoverPose(E, points1, points2, R=..., t=..., focal=..., pp=..., mask=...) 
 @overload
 def recoverPose(
     E, points1, points2, cameraMatrix, distanceThresh, R=..., t=..., mask=..., triangulatedPoints=...
-) -> tuple[_retval, _R, _t, _mask, _triangulatedPoints]:
+) -> tuple[Incomplete, _R, _t, _mask, _triangulatedPoints]:
     """
     @param E The input essential matrix.
     @param points1 Array of N 2D points from the first image. The point coordinates should be
@@ -11275,7 +11294,7 @@ def recoverPose(
     ...
 
 @overload
-def rectangle(img: _Mat, pt1: tuple[int, int], pt2: tuple[int, int], color, thickness=..., lineType=..., shift=...) -> _Mat:
+def rectangle(img: _Mat, pt1: _Point, pt2: _Point, color, thickness=..., lineType=..., shift=...) -> _Mat:
     """
     @brief Draws a simple, thick, or filled up-right rectangle.
 
@@ -11294,7 +11313,7 @@ def rectangle(img: _Mat, pt1: tuple[int, int], pt2: tuple[int, int], color, thic
     ...
 
 @overload
-def rectangle(img: _Mat, rec: tuple[int, int, int, int], color, thickness=..., lineType=..., shift=...) -> _Mat:
+def rectangle(img: _Mat, rec: _Rect, color, thickness=..., lineType=..., shift=...) -> _Mat:
     """
     use `rec` parameter as alternative specification of the drawn rectangle: `r.tl() and
     r.br()-Point(1,1)` are opposite corners
@@ -11325,7 +11344,7 @@ def rectify3Collinear(
     P2=...,
     P3=...,
     Q=...,
-) -> tuple[_retval, _R1, _R2, _R3, _P1, _P2, _P3, _Q, _roi1, _roi2]: ...
+) -> tuple[Incomplete, _R1, _R2, _R3, _P1, _P2, _P3, _Q, _roi1, _roi2]: ...
 def redirectError(onError) -> None: ...
 def reduce(src: _Mat, dim, rtype, dst: _Mat = ..., dtype=...) -> _dst:
     """
@@ -11454,7 +11473,7 @@ def reprojectImageTo3D(disparity, Q, _3dImage=..., handleMissingValues=..., ddep
     ...
 
 def resize(
-    src: _Mat, dsize: tuple[int, int] | None, _dst: _Mat = ..., _fx: float = ..., _fy: float = ..., _interpolation: int = ...
+    src: _Mat, dsize: _Size | None, _dst: _Mat = ..., _fx: float = ..., _fy: float = ..., _interpolation: int = ...
 ) -> _Mat:
     """
     @brief Resizes an image.
@@ -11532,7 +11551,7 @@ def rotate(src: _Mat, rotateCode, dst: _Mat = ...) -> _dst:
     """
     ...
 
-def rotatedRectangleIntersection(rect1, rect2, intersectingRegion=...) -> tuple[_retval, _intersectingRegion]:
+def rotatedRectangleIntersection(rect1, rect2, intersectingRegion=...) -> tuple[Incomplete, _intersectingRegion]:
     """
     @brief Finds out if there is any intersection between two rotated rectangles.
 
@@ -11814,7 +11833,7 @@ def setWindowTitle(winname, title) -> None:
     """
     ...
 
-def solve(src1: _Mat, src2: _Mat, dst: _Mat = ..., flags: int = ...) -> tuple[_retval, _dst]:
+def solve(src1: _Mat, src2: _Mat, dst: _Mat = ..., flags: int = ...) -> tuple[Incomplete, _dst]:
     """
     @brief Solves one or more linear systems or least-squares problems.
 
@@ -11840,7 +11859,7 @@ def solve(src1: _Mat, src2: _Mat, dst: _Mat = ..., flags: int = ...) -> tuple[_r
     """
     ...
 
-def solveCubic(coeffs, roots=...) -> tuple[_retval, _roots]:
+def solveCubic(coeffs, roots=...) -> tuple[Incomplete, _roots]:
     """
     @brief Finds the real roots of a cubic equation.
 
@@ -11857,7 +11876,7 @@ def solveCubic(coeffs, roots=...) -> tuple[_retval, _roots]:
     """
     ...
 
-def solveLP(Func, Constr, z=...) -> tuple[_retval, _z]:
+def solveLP(Func, Constr, z=...) -> tuple[Incomplete, _z]:
     """
     @brief Solve given (non-integer) linear programming problem using the Simplex Algorithm (Simplex Method).
 
@@ -11894,7 +11913,7 @@ def solveLP(Func, Constr, z=...) -> tuple[_retval, _z]:
 
 def solveP3P(
     objectPoints, imagePoints, cameraMatrix, distCoeffs, flags: int, rvecs=..., tvecs=...
-) -> tuple[_retval, _rvecs, _tvecs]:
+) -> tuple[Incomplete, _rvecs, _tvecs]:
     """
     @brief Finds an object pose from 3 3D-2D point correspondences.
 
@@ -11926,7 +11945,7 @@ def solveP3P(
 
 def solvePnP(
     objectPoints, imagePoints, cameraMatrix, distCoeffs, rvec=..., tvec=..., useExtrinsicGuess=..., flags: int = ...
-) -> tuple[_retval, _rvec, _tvec]:
+) -> tuple[Incomplete, _rvec, _tvec]:
     """
     @brief Finds an object pose from 3D-2D point correspondences.
     This function returns the rotation and the translation vectors that transform a 3D point expressed in the object
@@ -12123,7 +12142,7 @@ def solvePnPGeneric(
     rvec=...,
     tvec=...,
     reprojectionError=...,
-) -> tuple[_retval, _rvecs, _tvecs, _reprojectionError]:
+) -> tuple[Incomplete, _rvecs, _tvecs, _reprojectionError]:
     """
     @brief Finds an object pose from 3D-2D point correspondences.
     This function returns a list of all the possible solutions (a solution is a <rotation vector, translation vector>
@@ -12329,7 +12348,7 @@ def solvePnPRansac(
     confidence=...,
     inliers=...,
     flags: int = ...,
-) -> tuple[_retval, _rvec, _tvec, _inliers]:
+) -> tuple[Incomplete, _rvec, _tvec, _inliers]:
     """
     @brief Finds an object pose from 3D-2D point correspondences using the RANSAC scheme.
 
@@ -12433,7 +12452,7 @@ def solvePnPRefineVVS(
     """
     ...
 
-def solvePoly(coeffs, roots=..., maxIters=...) -> tuple[_retval, _roots]:
+def solvePoly(coeffs, roots=..., maxIters=...) -> tuple[Incomplete, _roots]:
     """
     @brief Finds the real or complex roots of a polynomial equation.
 
@@ -12564,7 +12583,7 @@ def stereoCalibrate(
     F=...,
     flags: int = ...,
     criteria=...,
-) -> tuple[_retval, _cameraMatrix1, _distCoeffs1, _cameraMatrix2, _distCoeffs2, _R, _T, _E, _F]: ...
+) -> tuple[Incomplete, _cameraMatrix1, _distCoeffs1, _cameraMatrix2, _distCoeffs2, _R, _T, _E, _F]: ...
 def stereoCalibrateExtended(
     objectPoints,
     imagePoints1,
@@ -12581,7 +12600,7 @@ def stereoCalibrateExtended(
     perViewErrors=...,
     flags: int = ...,
     criteria=...,
-) -> tuple[_retval, _cameraMatrix1, _distCoeffs1, _cameraMatrix2, _distCoeffs2, _R, _T, _E, _F, _perViewErrors]:
+) -> tuple[Incomplete, _cameraMatrix1, _distCoeffs1, _cameraMatrix2, _distCoeffs2, _R, _T, _E, _F, _perViewErrors]:
     """
     @brief Calibrates a stereo camera set up. This function finds the intrinsic parameters
     for each of the two cameras and the extrinsic parameters between the two cameras.
@@ -12832,7 +12851,7 @@ def stereoRectify(
     """
     ...
 
-def stereoRectifyUncalibrated(points1, points2, F, imgSize, H1=..., H2=..., threshold=...) -> tuple[_retval, _H1, _H2]:
+def stereoRectifyUncalibrated(points1, points2, F, imgSize, H1=..., H2=..., threshold=...) -> tuple[Incomplete, _H1, _H2]:
     """
     @brief Computes a rectification transform for an uncalibrated stereo camera.
 
@@ -12953,7 +12972,7 @@ def textureFlattening(src: _Mat, mask: _Mat, dst: _Mat = ..., low_threshold=...,
     """
     ...
 
-def threshold(src: _Mat, thresh, maxval, type, dst: _Mat = ...) -> tuple[_retval, _dst]:
+def threshold(src: _Mat, thresh, maxval, type, dst: _Mat = ...) -> tuple[Incomplete, _dst]:
     """
     @brief Applies a fixed-level threshold to each array element.
 
@@ -13154,7 +13173,7 @@ def useOptimized():
     ...
 
 def validateDisparity(disparity, cost, minDisparity, numberOfDisparities, disp12MaxDisp=...) -> _disparity: ...
-def vconcat(src: _Mat | list[_Mat], dst: _Mat = ...) -> _Mat:
+def vconcat(src: _Mat | Sequence[_Mat], dst: _Mat = ...) -> _Mat:
     """
     @param src input array or vector of matrices. all of the matrices must have the same number of cols and the same depth
     @param dst output array. It has the same number of cols and depth as the src, and the sum of rows of the src.
@@ -13197,9 +13216,7 @@ def waitKeyEx(delay=...):
     """
     ...
 
-def warpAffine(
-    src: _Mat, M, dsize: tuple[int, int], _dst: _Mat = ..., _flags: int = ..., _borderMode=..., _borderValue=...
-) -> _dst:
+def warpAffine(src: _Mat, M, dsize: _Size, _dst: _Mat = ..., _flags: int = ..., _borderMode=..., _borderValue=...) -> _dst:
     """
     @brief Applies an affine transformation to an image.
 
@@ -13227,9 +13244,7 @@ def warpAffine(
     """
     ...
 
-def warpPerspective(
-    src: _Mat, M, dsize: tuple[int, int], _dst: _Mat = ..., _flags: int = ..., _borderMode=..., _borderValue=...
-) -> _dst:
+def warpPerspective(src: _Mat, M, dsize: _Size, _dst: _Mat = ..., _flags: int = ..., _borderMode=..., _borderValue=...) -> _dst:
     """
     @brief Applies a perspective transformation to an image.
 
@@ -13255,7 +13270,7 @@ def warpPerspective(
     """
     ...
 
-def warpPolar(src: _Mat, dsize: tuple[int, int], _center, _maxRadius, _flags: int, _dst: _Mat = ...) -> _dst:
+def warpPolar(src: _Mat, dsize: _Size, _center, _maxRadius, _flags: int, _dst: _Mat = ...) -> _dst:
     """
     @brief Remaps an image to polar or semilog-polar coordinates space
 
