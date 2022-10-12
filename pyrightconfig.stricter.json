@@ -67,6 +67,7 @@
         "stubs/pytz/pytz/tzfile.pyi",
         "stubs/google-cloud-ndb",
         "stubs/opencv-python/cv2/cv2.pyi",
+        "stubs/opencv-python/cv2/detail.pyi",
         "stubs/opencv-python/cv2/utils/__init__.pyi",
         "stubs/paho-mqtt",
         "stubs/passlib",

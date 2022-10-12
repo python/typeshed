@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
-from typing import Any, ClassVar, Sequence, overload
+from collections.abc import Sequence
+from typing import Any, ClassVar, overload
 from typing_extensions import TypeAlias
 
 from cv2.gapi.streaming import queue_capacity
@@ -3415,8 +3416,7 @@ class gapi_wip_draw_Text:
     org: tuple[int, int]
     text: str
     thick: int
-    # TODO: org_ should have exactly two values
-    def __init__(self, text_: str, org_: Sequence[int], ff_: int, fs_: float, color_: _Scalar) -> None: ...
+    def __init__(self, text_: str, org_: tuple[int, int], ff_: int, fs_: float, color_: _Scalar) -> None: ...
 
 class ml_ANN_MLP(ml_StatModel):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
@@ -4033,7 +4033,7 @@ def HoughCircles(
     you know it. Or, in the case of #HOUGH_GRADIENT method you may set maxRadius to a negative number
     to return centers only without radius search, and find the correct radius using an additional procedure.
 
-    It also helps to smooth image a bit unless it\'s already soft. For example,
+    It also helps to smooth image a bit unless it's already soft. For example,
     GaussianBlur() with 7x7 kernel and 1.5x1.5 sigma or similar blurring may help.
 
     @param image 8-bit, single-channel, grayscale input image.
@@ -5239,7 +5239,9 @@ def buildOpticalFlowPyramid(
     """
     ...
 
-def calcBackProject(images: list[_Mat], channels: list[int], hist, ranges: list[int], scale, dst: _Mat = ...) -> _dst: ...
+def calcBackProject(
+    images: Sequence[_Mat], channels: Sequence[int], hist, ranges: Sequence[int], scale, dst: _Mat = ...
+) -> _dst: ...
 def calcCovarMatrix(samples, mean, flags: int, covar=..., ctype=...) -> tuple[_covar, _mean]:
     """
     @note use #COVAR_ROWS or #COVAR_COLS flag
@@ -5252,11 +5254,11 @@ def calcCovarMatrix(samples, mean, flags: int, covar=..., ctype=...) -> tuple[_c
     ...
 
 def calcHist(
-    images: list[_Mat],
-    channels: list[int],
+    images: Sequence[_Mat],
+    channels: Sequence[int],
     mask: _Mat | None,
-    histSize: list[int],
-    ranges: list[int],
+    histSize: Sequence[int],
+    ranges: Sequence[int],
     hist: _Mat = ...,
     accumulate=...,
 ) -> _Mat: ...
@@ -9635,7 +9637,7 @@ def imread(filename: str, flags: int = ...) -> _Mat:
     @note
     -   The function determines the type of an image by the content, not by the file extension.
     -   In the case of color images, the decoded images will have the channels stored in **B G R** order.
-    -   When using IMREAD_GRAYSCALE, the codec\'s internal grayscale conversion will be used, if available.
+    -   When using IMREAD_GRAYSCALE, the codec's internal grayscale conversion will be used, if available.
     Results may differ to the output of cvtColor()
     -   On Microsoft Windows *  OS and MacOSX * , the codecs shipped with an OpenCV image (libjpeg,
     libpng, libtiff, and libjasper) are used by default. So, OpenCV can always read JPEGs, PNGs,
@@ -9696,7 +9698,7 @@ def imshow(winname, mat) -> None:
     If you need to show an image that is bigger than the screen resolution, you will need to call namedWindow("", WINDOW_NORMAL) before the imshow.
 
     @note This function should be followed by cv::waitKey function which displays the image for specified
-    milliseconds. Otherwise, it won\'t display the image. For example, **waitKey(0)** will display the window
+    milliseconds. Otherwise, it won't display the image. For example, **waitKey(0)** will display the window
     infinitely until any keypress (it is suitable for image display). **waitKey(25)** will display a frame
     for 25 ms, after which display will be automatically closed. (If you put it in a loop to read
     videos, it will display the video frame-by-frame)
@@ -9712,7 +9714,7 @@ def imshow(winname, mat) -> None:
     """
     ...
 
-def imwrite(filename: str, img: _Mat, params: list[int] = ...) -> bool:
+def imwrite(filename: str, img: _Mat, params: Sequence[int] = ...) -> bool:
     """
     @brief Saves an image to a specified file.
 
@@ -10532,7 +10534,7 @@ def mulTransposed(src: _Mat, aTa, dst: _Mat = ..., delta=..., scale=..., dtype=.
     [`dst` = `scale` ( `src` - `delta` ) ( `src` - `delta` )^T]
     otherwise. The function is used to calculate the covariance matrix. With
     zero delta, it can be used as a faster substitute for general matrix
-    product A * B when B=A\'
+    product A * B when B=A'
     @param src input single-channel matrix. Note that unlike gemm, the
     function can multiply not only floating-point matrices.
     @param dst output square matrix.
@@ -11877,7 +11879,7 @@ def solveLP(Func, Constr, z=...) -> tuple[_retval, _z]:
 
     The particular implementation is taken almost verbatim from **Introduction to Algorithms, third
     edition** by T. H. Cormen, C. E. Leiserson, R. L. Rivest and Clifford Stein. In particular, the
-    Bland\'s rule <http://en.wikipedia.org/wiki/Bland%27s_rule> is used to prevent cycling.
+    Bland's rule <http://en.wikipedia.org/wiki/Bland%27s_rule> is used to prevent cycling.
 
     @param Func This row-vector corresponds to `c` in the LP problem formulation (see above). It should
     contain 32- or 64-bit floating point numbers. As a convenience, column-vector may be also submitted,
@@ -12081,7 +12083,7 @@ def solvePnP(
       -   An example of how to use solvePnP for planar augmented reality can be found at
        opencv_source_code/samples/python/plane_ar.py
       -   If you are using Python:
-       - Numpy array slices won\'t work as input because solvePnP requires contiguous
+       - Numpy array slices won't work as input because solvePnP requires contiguous
        arrays (enforced by the assertion using cv::_Mat::checkVector() around line 55 of
        modules/calib3d/src/solvepnp.cpp version 2.4.9)
        - The P3P algorithm requires image points to be in an array of shape (N,1,2) due
@@ -12286,7 +12288,7 @@ def solvePnPGeneric(
       -   An example of how to use solvePnP for planar augmented reality can be found at
        opencv_source_code/samples/python/plane_ar.py
       -   If you are using Python:
-       - Numpy array slices won\'t work as input because solvePnP requires contiguous
+       - Numpy array slices won't work as input because solvePnP requires contiguous
        arrays (enforced by the assertion using cv::_Mat::checkVector() around line 55 of
        modules/calib3d/src/solvepnp.cpp version 2.4.9)
        - The P3P algorithm requires image points to be in an array of shape (N,1,2) due
@@ -13356,12 +13358,12 @@ def watershed(image: _Mat, markers) -> _markers:
     components with the pixel values 1, 2, 3, and so on. Such markers can be retrieved from a binary
     mask using #findContours and #drawContours (see the watershed.cpp demo). The markers are "seeds" of
     the future image regions. All the other pixels in markers , whose relation to the outlined regions
-    is not known and should be defined by the algorithm, should be set to 0\'s. In the function output,
+    is not known and should be defined by the algorithm, should be set to 0's. In the function output,
     each pixel in markers is set to a value of the "seed" components or to -1 at boundaries between the
     regions.
 
     @note Any two neighbor connected components are not necessarily separated by a watershed boundary
-    (-1\'s pixels); for example, they can touch each other in the initial marker image passed to the
+    (-1's pixels); for example, they can touch each other in the initial marker image passed to the
     function.
 
     @param image Input 8-bit 3-channel image.
