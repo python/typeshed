@@ -3,19 +3,19 @@ from re import Pattern
 from typing import Any, TypeVar, overload
 from typing_extensions import TypeAlias
 
-from . import resolver as resolver  # Help mypy a bit; this is implied by loader and dumper
-from .constructor import BaseConstructor
-from .cyaml import *
-from .dumper import *
-from .emitter import _WriteStream
-from .error import *
-from .events import *
-from .loader import *
-from .nodes import *
-from .reader import _ReadStream
-from .representer import BaseRepresenter
-from .resolver import BaseResolver
-from .tokens import *
+from yaml import resolver as resolver  # Help mypy a bit; this is implied by loader and dumper
+from yaml.constructor import BaseConstructor
+from yaml.cyaml import *
+from yaml.dumper import *
+from yaml.emitter import _WriteStream
+from yaml.error import *
+from yaml.events import *
+from yaml.loader import *
+from yaml.nodes import *
+from yaml.reader import _ReadStream
+from yaml.representer import BaseRepresenter
+from yaml.resolver import BaseResolver
+from yaml.tokens import *
 
 # FIXME: the functions really return str if encoding is None, otherwise bytes. Waiting for python/mypy#5621
 _Yaml: TypeAlias = Any

@@ -3,10 +3,10 @@ from collections.abc import Mapping, Sequence
 from typing import IO, Any
 from typing_extensions import TypeAlias
 
-from ._yaml import CEmitter, CParser
-from .constructor import BaseConstructor, FullConstructor, SafeConstructor, UnsafeConstructor
-from .representer import BaseRepresenter, SafeRepresenter
-from .resolver import BaseResolver, Resolver
+from yaml._yaml import CEmitter, CParser
+from yaml.constructor import BaseConstructor, FullConstructor, SafeConstructor, UnsafeConstructor
+from yaml.representer import BaseRepresenter, SafeRepresenter
+from yaml.resolver import BaseResolver, Resolver
 
 __all__ = ["CBaseLoader", "CSafeLoader", "CFullLoader", "CUnsafeLoader", "CLoader", "CBaseDumper", "CSafeDumper", "CDumper"]
 

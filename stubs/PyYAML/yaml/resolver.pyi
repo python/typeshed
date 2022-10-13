@@ -1,6 +1,8 @@
 from typing import Any
 
+from yaml.error import *
 from yaml.error import YAMLError
+from yaml.nodes import *
 
 class ResolverError(YAMLError): ...
 

@@ -4,7 +4,9 @@ from collections.abc import Callable, Iterable, Mapping
 from types import BuiltinFunctionType, FunctionType, ModuleType
 from typing import Any, ClassVar, NoReturn, TypeVar
 
+from yaml.error import *
 from yaml.error import YAMLError as YAMLError
+from yaml.nodes import *
 from yaml.nodes import MappingNode as MappingNode, Node as Node, ScalarNode as ScalarNode, SequenceNode as SequenceNode
 
 _T = TypeVar("_T")

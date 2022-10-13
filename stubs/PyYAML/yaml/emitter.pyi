@@ -1,6 +1,7 @@
 from typing import Any, Protocol, TypeVar
 
 from yaml.error import YAMLError
+from yaml.events import *
 
 _T_contra = TypeVar("_T_contra", str, bytes, contravariant=True)
 

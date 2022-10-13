@@ -1,6 +1,9 @@
 from typing import Any
 
 from yaml.error import MarkedYAMLError
+from yaml.events import *
+from yaml.scanner import Scanner as Scanner
+from yaml.tokens import *
 
 class ParserError(MarkedYAMLError): ...
 

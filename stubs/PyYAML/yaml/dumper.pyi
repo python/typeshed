@@ -1,12 +1,10 @@
 from collections.abc import Mapping
 from typing import Any
 
-from yaml.emitter import Emitter
+from yaml.emitter import Emitter, _WriteStream
 from yaml.representer import BaseRepresenter, Representer, SafeRepresenter
 from yaml.resolver import BaseResolver, Resolver
 from yaml.serializer import Serializer
-
-from .emitter import _WriteStream
 
 class BaseDumper(Emitter, Serializer, BaseRepresenter, BaseResolver):
     def __init__(

@@ -1,6 +1,8 @@
 from typing import Any
 
 from yaml.error import MarkedYAMLError
+from yaml.events import *
+from yaml.nodes import *
 from yaml.nodes import MappingNode, Node, ScalarNode, SequenceNode
 
 class ComposerError(MarkedYAMLError): ...

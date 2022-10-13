@@ -2,9 +2,9 @@ from _typeshed import SupportsRead
 from collections.abc import Mapping, Sequence
 from typing import IO, Any
 
-from .events import Event
-from .nodes import Node
-from .tokens import Token
+from yaml.events import Event
+from yaml.nodes import Node
+from yaml.tokens import Token
 
 def get_version_string() -> str: ...
 def get_version() -> tuple[int, int, int]: ...

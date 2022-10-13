@@ -1,6 +1,8 @@
 from typing import Any
 
 from yaml.error import YAMLError
+from yaml.events import *
+from yaml.nodes import *
 from yaml.nodes import Node
 
 class SerializerError(YAMLError): ...
