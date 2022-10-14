@@ -2,9 +2,8 @@ import decimal
 from _typeshed import Incomplete, Self
 from collections import OrderedDict
 from collections.abc import Generator
-from contextlib import _GeneratorContextManager
 from re import Pattern
-from typing import ClassVar, NamedTuple, TypeVar
+from typing import ClassVar, NamedTuple, TypeVar, Iterator
 from typing_extensions import TypeAlias
 
 from .syntax import Name, Raw
@@ -325,7 +324,7 @@ class PaintedPath:
     @clipping_path.setter
     def clipping_path(self, new_clipath) -> None: ...
     @contextmanager
-    def transform_group(self, transform) -> _GeneratorContextManager[Incomplete]: ...
+    def transform_group(self, transform) -> Iterator[Incomplete]: ...
     def add_path_element(self, item, _copy: bool = ...) -> None: ...
     def remove_last_path_element(self) -> None: ...
     def rectangle(self: Self, x, y, w, h, rx: int = ..., ry: int = ...) -> Self: ...
