@@ -3,7 +3,7 @@ from _typeshed import Incomplete, Self
 from collections import OrderedDict
 from collections.abc import Generator
 from re import Pattern
-from typing import ClassVar, NamedTuple, TypeVar, Iterator
+from typing import ClassVar, Iterator, NamedTuple, TypeVar
 from typing_extensions import TypeAlias
 
 from .syntax import Name, Raw
