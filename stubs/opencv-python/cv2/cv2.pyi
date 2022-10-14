@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Sequence
-from typing import Any, ClassVar, TypeVar, Union, overload
+from typing import ClassVar, TypeVar, Union, overload
 from typing_extensions import TypeAlias
 
 from cv2 import Mat, _MatF
