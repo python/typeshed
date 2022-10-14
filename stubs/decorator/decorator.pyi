@@ -1,7 +1,7 @@
 from builtins import dict as _dict  # alias to avoid conflicts with attribute name
 from collections.abc import Callable, Iterator
 from contextlib import _GeneratorContextManager
-from inspect import getfullargspec as getfullargspec, iscoroutinefunction as iscoroutinefunction, Signature
+from inspect import Signature, getfullargspec as getfullargspec, iscoroutinefunction as iscoroutinefunction
 from re import Pattern
 from typing import Any, TypeVar
 from typing_extensions import ParamSpec
