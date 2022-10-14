@@ -1,17 +1,17 @@
 import decimal
 from _typeshed import Incomplete, Self
 from collections import OrderedDict
-from collections.abc import Generator, Iterator
+from collections.abc import Generator, Iterator, Callable
 from contextlib import contextmanager
 from re import Pattern
-from typing import ClassVar, NamedTuple, TypeVar
+from typing import ClassVar, NamedTuple, TypeVar, Any
 from typing_extensions import TypeAlias
 
 from .syntax import Name, Raw
 
 __pdoc__: dict[str, bool]
 
-_CallableT = TypeVar("_CallableT", bound=Callable[Any])
+_CallableT = TypeVar("_CallableT", bound=Callable[..., Any])
 
 def force_nodocument(item: _CallableT) -> _CallableT: ...
 def force_document(item: _CallableT) -> _CallableT: ...
