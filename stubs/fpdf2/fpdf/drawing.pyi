@@ -11,10 +11,10 @@ from .syntax import Name, Raw
 
 __pdoc__: dict[str, bool]
 
-_T = TypeVar("_T", bound=Callable[Any])
+_CallableT = TypeVar("_CallableT", bound=Callable[Any])
 
-def force_nodocument(item: _T) -> _T: ...
-def force_document(item: _T) -> _T: ...
+def force_nodocument(item: _CallableT) -> _CallableT: ...
+def force_document(item: _CallableT) -> _CallableT: ...
 
 Number: TypeAlias = int | float | decimal.Decimal
 NumberClass: tuple[type, ...]
