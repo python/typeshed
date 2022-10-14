@@ -4,15 +4,17 @@ from collections import OrderedDict
 from collections.abc import Generator
 from contextlib import _GeneratorContextManager
 from re import Pattern
-from typing import ClassVar, NamedTuple
+from typing import ClassVar, NamedTuple, TypeVar
 from typing_extensions import TypeAlias
 
 from .syntax import Name, Raw
 
 __pdoc__: dict[str, bool]
 
-def force_nodocument(item) -> item: ...
-def force_document(item) -> item: ...
+_T = TypeVar("_T")
+
+def force_nodocument(item: _T) -> _T: ...
+def force_document(item: _T) -> _T: ...
 
 Number: TypeAlias = int | float | decimal.Decimal
 NumberClass: tuple[type, ...]
