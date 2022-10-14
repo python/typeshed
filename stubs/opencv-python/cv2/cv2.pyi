@@ -1796,15 +1796,15 @@ WND_PROP_VSYNC: int
 
 class AKAZE(Feature2D):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDefaultName(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDescriptorChannels(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDescriptorSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDescriptorType(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDiffusivity(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getNOctaveLayers(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getNOctaves(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getThreshold(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def getDefaultName(self, *args, **kwargs): ...  # incomplete
+    def getDescriptorChannels(self, *args, **kwargs): ...  # incomplete
+    def getDescriptorSize(self, *args, **kwargs): ...  # incomplete
+    def getDescriptorType(self, *args, **kwargs): ...  # incomplete
+    def getDiffusivity(self, *args, **kwargs): ...  # incomplete
+    def getNOctaveLayers(self, *args, **kwargs): ...  # incomplete
+    def getNOctaves(self, *args, **kwargs): ...  # incomplete
+    def getThreshold(self, *args, **kwargs): ...  # incomplete
     def setDescriptorChannels(self, dch) -> None: ...
     def setDescriptorSize(self, dsize) -> None: ...
     def setDescriptorType(self, dtype) -> None: ...
@@ -1815,18 +1815,18 @@ class AKAZE(Feature2D):
 
 class AffineFeature(Feature2D):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDefaultName(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def getDefaultName(self, *args, **kwargs): ...  # incomplete
     def getViewParams(self, tilts, rolls) -> None: ...
     def setViewParams(self, tilts, rolls) -> None: ...
 
 class AgastFeatureDetector(Feature2D):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDefaultName(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getNonmaxSuppression(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getThreshold(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getType(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def getDefaultName(self, *args, **kwargs): ...  # incomplete
+    def getNonmaxSuppression(self, *args, **kwargs): ...  # incomplete
+    def getThreshold(self, *args, **kwargs): ...  # incomplete
+    def getType(self, *args, **kwargs): ...  # incomplete
     def setNonmaxSuppression(self, f) -> None: ...
     def setThreshold(self, threshold) -> None: ...
     def setType(self, type) -> None: ...
@@ -1834,11 +1834,11 @@ class AgastFeatureDetector(Feature2D):
 class Algorithm:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def clear(self) -> None: ...
-    def empty(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDefaultName(self, *args, **kwargs) -> Any: ...  # incomplete
+    def empty(self, *args, **kwargs): ...  # incomplete
+    def getDefaultName(self, *args, **kwargs): ...  # incomplete
     def read(self, fn) -> None: ...
     def save(self, filename) -> None: ...
-    def write(self, *args, **kwargs) -> Any: ...  # incomplete
+    def write(self, *args, **kwargs): ...  # incomplete
 
 class AlignExposures(Algorithm):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
@@ -1846,11 +1846,11 @@ class AlignExposures(Algorithm):
 
 class AlignMTB(AlignExposures):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def calculateShift(self, *args, **kwargs) -> Any: ...  # incomplete
-    def computeBitmaps(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getCut(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getExcludeRange(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getMaxBits(self, *args, **kwargs) -> Any: ...  # incomplete
+    def calculateShift(self, *args, **kwargs): ...  # incomplete
+    def computeBitmaps(self, *args, **kwargs): ...  # incomplete
+    def getCut(self, *args, **kwargs): ...  # incomplete
+    def getExcludeRange(self, *args, **kwargs): ...  # incomplete
+    def getMaxBits(self, *args, **kwargs): ...  # incomplete
     @overload
     def process(self, src, dst, times, response) -> None: ...
     @overload
@@ -1858,62 +1858,62 @@ class AlignMTB(AlignExposures):
     def setCut(self, value) -> None: ...
     def setExcludeRange(self, exclude_range) -> None: ...
     def setMaxBits(self, max_bits) -> None: ...
-    def shiftMat(self, *args, **kwargs) -> Any: ...  # incomplete
+    def shiftMat(self, *args, **kwargs): ...  # incomplete
 
 class AsyncArray:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def get(self, *args, **kwargs) -> Any: ...  # incomplete
+    def get(self, *args, **kwargs): ...  # incomplete
     def release(self) -> None: ...
-    def valid(self, *args, **kwargs) -> Any: ...  # incomplete
-    def wait_for(self, *args, **kwargs) -> Any: ...  # incomplete
+    def valid(self, *args, **kwargs): ...  # incomplete
+    def wait_for(self, *args, **kwargs): ...  # incomplete
 
 class BFMatcher(DescriptorMatcher):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
 
 class BOWImgDescriptorExtractor:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def compute(self, *args, **kwargs) -> Any: ...  # incomplete
-    def descriptorSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def descriptorType(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getVocabulary(self, *args, **kwargs) -> Any: ...  # incomplete
+    def compute(self, *args, **kwargs): ...  # incomplete
+    def descriptorSize(self, *args, **kwargs): ...  # incomplete
+    def descriptorType(self, *args, **kwargs): ...  # incomplete
+    def getVocabulary(self, *args, **kwargs): ...  # incomplete
     def setVocabulary(self, vocabulary) -> None: ...
 
 class BOWKMeansTrainer(BOWTrainer):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def cluster(self, *args, **kwargs) -> Any: ...  # incomplete
+    def cluster(self, *args, **kwargs): ...  # incomplete
 
 class BOWTrainer:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def add(self, descriptors) -> None: ...
     def clear(self) -> None: ...
-    def cluster(self, *args, **kwargs) -> Any: ...  # incomplete
-    def descriptorsCount(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDescriptors(self, *args, **kwargs) -> Any: ...  # incomplete
+    def cluster(self, *args, **kwargs): ...  # incomplete
+    def descriptorsCount(self, *args, **kwargs): ...  # incomplete
+    def getDescriptors(self, *args, **kwargs): ...  # incomplete
 
 class BRISK(Feature2D):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDefaultName(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getOctaves(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getThreshold(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def getDefaultName(self, *args, **kwargs): ...  # incomplete
+    def getOctaves(self, *args, **kwargs): ...  # incomplete
+    def getThreshold(self, *args, **kwargs): ...  # incomplete
     def setOctaves(self, octaves) -> None: ...
     def setThreshold(self, threshold) -> None: ...
 
 class BackgroundSubtractor(Algorithm):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def apply(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getBackgroundImage(self, *args, **kwargs) -> Any: ...  # incomplete
+    def apply(self, *args, **kwargs): ...  # incomplete
+    def getBackgroundImage(self, *args, **kwargs): ...  # incomplete
 
 class BackgroundSubtractorKNN(BackgroundSubtractor):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def getDetectShadows(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDist2Threshold(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getHistory(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getNSamples(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getShadowThreshold(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getShadowValue(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getkNNSamples(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getDetectShadows(self, *args, **kwargs): ...  # incomplete
+    def getDist2Threshold(self, *args, **kwargs): ...  # incomplete
+    def getHistory(self, *args, **kwargs): ...  # incomplete
+    def getNSamples(self, *args, **kwargs): ...  # incomplete
+    def getShadowThreshold(self, *args, **kwargs): ...  # incomplete
+    def getShadowValue(self, *args, **kwargs): ...  # incomplete
+    def getkNNSamples(self, *args, **kwargs): ...  # incomplete
     def setDetectShadows(self, detectShadows) -> None: ...
     def setDist2Threshold(self, _dist2Threshold) -> None: ...
     def setHistory(self, history) -> None: ...
@@ -1924,19 +1924,19 @@ class BackgroundSubtractorKNN(BackgroundSubtractor):
 
 class BackgroundSubtractorMOG2(BackgroundSubtractor):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def apply(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getBackgroundRatio(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getComplexityReductionThreshold(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDetectShadows(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getHistory(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getNMixtures(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getShadowThreshold(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getShadowValue(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getVarInit(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getVarMax(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getVarMin(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getVarThreshold(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getVarThresholdGen(self, *args, **kwargs) -> Any: ...  # incomplete
+    def apply(self, *args, **kwargs): ...  # incomplete
+    def getBackgroundRatio(self, *args, **kwargs): ...  # incomplete
+    def getComplexityReductionThreshold(self, *args, **kwargs): ...  # incomplete
+    def getDetectShadows(self, *args, **kwargs): ...  # incomplete
+    def getHistory(self, *args, **kwargs): ...  # incomplete
+    def getNMixtures(self, *args, **kwargs): ...  # incomplete
+    def getShadowThreshold(self, *args, **kwargs): ...  # incomplete
+    def getShadowValue(self, *args, **kwargs): ...  # incomplete
+    def getVarInit(self, *args, **kwargs): ...  # incomplete
+    def getVarMax(self, *args, **kwargs): ...  # incomplete
+    def getVarMin(self, *args, **kwargs): ...  # incomplete
+    def getVarThreshold(self, *args, **kwargs): ...  # incomplete
+    def getVarThresholdGen(self, *args, **kwargs): ...  # incomplete
     def setBackgroundRatio(self, ratio) -> None: ...
     def setComplexityReductionThreshold(self, ct) -> None: ...
     def setDetectShadows(self, detectShadows) -> None: ...
@@ -1955,46 +1955,46 @@ class BaseCascadeClassifier(Algorithm):
 
 class CLAHE(Algorithm):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def apply(self, *args, **kwargs) -> Any: ...  # incomplete
+    def apply(self, *args, **kwargs): ...  # incomplete
     def collectGarbage(self) -> None: ...
-    def getClipLimit(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTilesGridSize(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getClipLimit(self, *args, **kwargs): ...  # incomplete
+    def getTilesGridSize(self, *args, **kwargs): ...  # incomplete
     def setClipLimit(self, clipLimit) -> None: ...
     def setTilesGridSize(self, tileGridSize) -> None: ...
 
 class CalibrateCRF(Algorithm):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def process(self, *args, **kwargs) -> Any: ...  # incomplete
+    def process(self, *args, **kwargs): ...  # incomplete
 
 class CalibrateDebevec(CalibrateCRF):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def getLambda(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getRandom(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getSamples(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getLambda(self, *args, **kwargs): ...  # incomplete
+    def getRandom(self, *args, **kwargs): ...  # incomplete
+    def getSamples(self, *args, **kwargs): ...  # incomplete
     def setLambda(self, lambda_) -> None: ...
     def setRandom(self, random) -> None: ...
     def setSamples(self, samples) -> None: ...
 
 class CalibrateRobertson(CalibrateCRF):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def getMaxIter(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getRadiance(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getThreshold(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getMaxIter(self, *args, **kwargs): ...  # incomplete
+    def getRadiance(self, *args, **kwargs): ...  # incomplete
+    def getThreshold(self, *args, **kwargs): ...  # incomplete
     def setMaxIter(self, max_iter) -> None: ...
     def setThreshold(self, threshold) -> None: ...
 
 class CascadeClassifier:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def convert(self, *args, **kwargs) -> Any: ...  # incomplete
-    def detectMultiScale(self, *args, **kwargs) -> Any: ...  # incomplete
-    def detectMultiScale2(self, *args, **kwargs) -> Any: ...  # incomplete
-    def detectMultiScale3(self, *args, **kwargs) -> Any: ...  # incomplete
-    def empty(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getFeatureType(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getOriginalWindowSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def isOldFormatCascade(self, *args, **kwargs) -> Any: ...  # incomplete
-    def load(self, *args, **kwargs) -> Any: ...  # incomplete
-    def read(self, *args, **kwargs) -> Any: ...  # incomplete
+    def convert(self, *args, **kwargs): ...  # incomplete
+    def detectMultiScale(self, *args, **kwargs): ...  # incomplete
+    def detectMultiScale2(self, *args, **kwargs): ...  # incomplete
+    def detectMultiScale3(self, *args, **kwargs): ...  # incomplete
+    def empty(self, *args, **kwargs): ...  # incomplete
+    def getFeatureType(self, *args, **kwargs): ...  # incomplete
+    def getOriginalWindowSize(self, *args, **kwargs): ...  # incomplete
+    def isOldFormatCascade(self, *args, **kwargs): ...  # incomplete
+    def load(self, *args, **kwargs): ...  # incomplete
+    def read(self, *args, **kwargs): ...  # incomplete
 
 class CirclesGridFinderParameters:
     convexHullFactor: Incomplete
@@ -2016,17 +2016,17 @@ class CirclesGridFinderParameters:
 
 class DISOpticalFlow(DenseOpticalFlow):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getFinestScale(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getGradientDescentIterations(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getPatchSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getPatchStride(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getUseMeanNormalization(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getUseSpatialPropagation(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getVariationalRefinementAlpha(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getVariationalRefinementDelta(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getVariationalRefinementGamma(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getVariationalRefinementIterations(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def getFinestScale(self, *args, **kwargs): ...  # incomplete
+    def getGradientDescentIterations(self, *args, **kwargs): ...  # incomplete
+    def getPatchSize(self, *args, **kwargs): ...  # incomplete
+    def getPatchStride(self, *args, **kwargs): ...  # incomplete
+    def getUseMeanNormalization(self, *args, **kwargs): ...  # incomplete
+    def getUseSpatialPropagation(self, *args, **kwargs): ...  # incomplete
+    def getVariationalRefinementAlpha(self, *args, **kwargs): ...  # incomplete
+    def getVariationalRefinementDelta(self, *args, **kwargs): ...  # incomplete
+    def getVariationalRefinementGamma(self, *args, **kwargs): ...  # incomplete
+    def getVariationalRefinementIterations(self, *args, **kwargs): ...  # incomplete
     def setFinestScale(self, val) -> None: ...
     def setGradientDescentIterations(self, val) -> None: ...
     def setPatchSize(self, val) -> None: ...
@@ -2054,26 +2054,26 @@ class DescriptorMatcher(Algorithm):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def add(self, descriptors) -> None: ...
     def clear(self) -> None: ...
-    def clone(self, *args, **kwargs) -> Any: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def empty(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTrainDescriptors(self, *args, **kwargs) -> Any: ...  # incomplete
-    def isMaskSupported(self, *args, **kwargs) -> Any: ...  # incomplete
-    def knnMatch(self, *args, **kwargs) -> Any: ...  # incomplete
-    def match(self, *args, **kwargs) -> Any: ...  # incomplete
-    def radiusMatch(self, *args, **kwargs) -> Any: ...  # incomplete
+    def clone(self, *args, **kwargs): ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def empty(self, *args, **kwargs): ...  # incomplete
+    def getTrainDescriptors(self, *args, **kwargs): ...  # incomplete
+    def isMaskSupported(self, *args, **kwargs): ...  # incomplete
+    def knnMatch(self, *args, **kwargs): ...  # incomplete
+    def match(self, *args, **kwargs): ...  # incomplete
+    def radiusMatch(self, *args, **kwargs): ...  # incomplete
     def read(self, fileName) -> None: ...
     def train(self) -> None: ...
     def write(self, fileName) -> None: ...
 
 class FaceDetectorYN:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def detect(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getInputSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getNMSThreshold(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getScoreThreshold(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTopK(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def detect(self, *args, **kwargs): ...  # incomplete
+    def getInputSize(self, *args, **kwargs): ...  # incomplete
+    def getNMSThreshold(self, *args, **kwargs): ...  # incomplete
+    def getScoreThreshold(self, *args, **kwargs): ...  # incomplete
+    def getTopK(self, *args, **kwargs): ...  # incomplete
     def setInputSize(self, input_size) -> None: ...
     def setNMSThreshold(self, nms_threshold) -> None: ...
     def setScoreThreshold(self, score_threshold) -> None: ...
@@ -2081,22 +2081,22 @@ class FaceDetectorYN:
 
 class FaceRecognizerSF:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def alignCrop(self, *args, **kwargs) -> Any: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def feature(self, *args, **kwargs) -> Any: ...  # incomplete
-    def match(self, *args, **kwargs) -> Any: ...  # incomplete
+    def alignCrop(self, *args, **kwargs): ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def feature(self, *args, **kwargs): ...  # incomplete
+    def match(self, *args, **kwargs): ...  # incomplete
 
 class FarnebackOpticalFlow(DenseOpticalFlow):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getFastPyramids(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getFlags(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getNumIters(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getNumLevels(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getPolyN(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getPolySigma(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getPyrScale(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getWinSize(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def getFastPyramids(self, *args, **kwargs): ...  # incomplete
+    def getFlags(self, *args, **kwargs): ...  # incomplete
+    def getNumIters(self, *args, **kwargs): ...  # incomplete
+    def getNumLevels(self, *args, **kwargs): ...  # incomplete
+    def getPolyN(self, *args, **kwargs): ...  # incomplete
+    def getPolySigma(self, *args, **kwargs): ...  # incomplete
+    def getPyrScale(self, *args, **kwargs): ...  # incomplete
+    def getWinSize(self, *args, **kwargs): ...  # incomplete
     def setFastPyramids(self, fastPyramids) -> None: ...
     def setFlags(self, flags) -> None: ...
     def setNumIters(self, numIters) -> None: ...
@@ -2108,25 +2108,25 @@ class FarnebackOpticalFlow(DenseOpticalFlow):
 
 class FastFeatureDetector(Feature2D):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDefaultName(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getNonmaxSuppression(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getThreshold(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getType(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def getDefaultName(self, *args, **kwargs): ...  # incomplete
+    def getNonmaxSuppression(self, *args, **kwargs): ...  # incomplete
+    def getThreshold(self, *args, **kwargs): ...  # incomplete
+    def getType(self, *args, **kwargs): ...  # incomplete
     def setNonmaxSuppression(self, f) -> None: ...
     def setThreshold(self, threshold) -> None: ...
     def setType(self, type) -> None: ...
 
 class Feature2D:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def compute(self, *args, **kwargs) -> Any: ...  # incomplete
-    def defaultNorm(self, *args, **kwargs) -> Any: ...  # incomplete
-    def descriptorSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def descriptorType(self, *args, **kwargs) -> Any: ...  # incomplete
-    def detect(self, *args, **kwargs) -> Any: ...  # incomplete
-    def detectAndCompute(self, *args, **kwargs) -> Any: ...  # incomplete
-    def empty(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDefaultName(self, *args, **kwargs) -> Any: ...  # incomplete
+    def compute(self, *args, **kwargs): ...  # incomplete
+    def defaultNorm(self, *args, **kwargs): ...  # incomplete
+    def descriptorSize(self, *args, **kwargs): ...  # incomplete
+    def descriptorType(self, *args, **kwargs): ...  # incomplete
+    def detect(self, *args, **kwargs): ...  # incomplete
+    def detectAndCompute(self, *args, **kwargs): ...  # incomplete
+    def empty(self, *args, **kwargs): ...  # incomplete
+    def getDefaultName(self, *args, **kwargs): ...  # incomplete
     @overload
     def read(self, fileName) -> None: ...
     @overload
@@ -2135,43 +2135,43 @@ class Feature2D:
 
 class FileNode:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def at(self, *args, **kwargs) -> Any: ...  # incomplete
-    def empty(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getNode(self, *args, **kwargs) -> Any: ...  # incomplete
-    def isInt(self, *args, **kwargs) -> Any: ...  # incomplete
-    def isMap(self, *args, **kwargs) -> Any: ...  # incomplete
-    def isNamed(self, *args, **kwargs) -> Any: ...  # incomplete
-    def isNone(self, *args, **kwargs) -> Any: ...  # incomplete
-    def isReal(self, *args, **kwargs) -> Any: ...  # incomplete
-    def isSeq(self, *args, **kwargs) -> Any: ...  # incomplete
-    def isString(self, *args, **kwargs) -> Any: ...  # incomplete
-    def keys(self, *args, **kwargs) -> Any: ...  # incomplete
-    def mat(self, *args, **kwargs) -> Any: ...  # incomplete
-    def name(self, *args, **kwargs) -> Any: ...  # incomplete
-    def rawSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def real(self, *args, **kwargs) -> Any: ...  # incomplete
-    def size(self, *args, **kwargs) -> Any: ...  # incomplete
-    def string(self, *args, **kwargs) -> Any: ...  # incomplete
-    def type(self, *args, **kwargs) -> Any: ...  # incomplete
+    def at(self, *args, **kwargs): ...  # incomplete
+    def empty(self, *args, **kwargs): ...  # incomplete
+    def getNode(self, *args, **kwargs): ...  # incomplete
+    def isInt(self, *args, **kwargs): ...  # incomplete
+    def isMap(self, *args, **kwargs): ...  # incomplete
+    def isNamed(self, *args, **kwargs): ...  # incomplete
+    def isNone(self, *args, **kwargs): ...  # incomplete
+    def isReal(self, *args, **kwargs): ...  # incomplete
+    def isSeq(self, *args, **kwargs): ...  # incomplete
+    def isString(self, *args, **kwargs): ...  # incomplete
+    def keys(self, *args, **kwargs): ...  # incomplete
+    def mat(self, *args, **kwargs): ...  # incomplete
+    def name(self, *args, **kwargs): ...  # incomplete
+    def rawSize(self, *args, **kwargs): ...  # incomplete
+    def real(self, *args, **kwargs): ...  # incomplete
+    def size(self, *args, **kwargs): ...  # incomplete
+    def string(self, *args, **kwargs): ...  # incomplete
+    def type(self, *args, **kwargs): ...  # incomplete
 
 class FileStorage:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def endWriteStruct(self) -> None: ...
-    def getFirstTopLevelNode(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getFormat(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getNode(self, *args, **kwargs) -> Any: ...  # incomplete
-    def isOpened(self, *args, **kwargs) -> Any: ...  # incomplete
-    def open(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getFirstTopLevelNode(self, *args, **kwargs): ...  # incomplete
+    def getFormat(self, *args, **kwargs): ...  # incomplete
+    def getNode(self, *args, **kwargs): ...  # incomplete
+    def isOpened(self, *args, **kwargs): ...  # incomplete
+    def open(self, *args, **kwargs): ...  # incomplete
     def release(self) -> None: ...
-    def releaseAndGetString(self, *args, **kwargs) -> Any: ...  # incomplete
-    def root(self, *args, **kwargs) -> Any: ...  # incomplete
-    def startWriteStruct(self, *args, **kwargs) -> Any: ...  # incomplete
+    def releaseAndGetString(self, *args, **kwargs): ...  # incomplete
+    def root(self, *args, **kwargs): ...  # incomplete
+    def startWriteStruct(self, *args, **kwargs): ...  # incomplete
     def write(self, name, val) -> None: ...
-    def writeComment(self, *args, **kwargs) -> Any: ...  # incomplete
+    def writeComment(self, *args, **kwargs): ...  # incomplete
 
 class FlannBasedMatcher(DescriptorMatcher):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
 
 class GArrayDesc:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
@@ -2186,18 +2186,18 @@ class GCompileArg:
 class GComputation:
     def __init__(self, arg: gapi_GKernelPackage | gapi_GNetPackage | queue_capacity) -> None: ...
     def apply(self): ...
-    def compileStreaming(self, *args, **kwargs) -> Any: ...  # incomplete
+    def compileStreaming(self, *args, **kwargs): ...  # incomplete
 
 class GFTTDetector(Feature2D):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getBlockSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDefaultName(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getHarrisDetector(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getK(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getMaxFeatures(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getMinDistance(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getQualityLevel(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def getBlockSize(self, *args, **kwargs): ...  # incomplete
+    def getDefaultName(self, *args, **kwargs): ...  # incomplete
+    def getHarrisDetector(self, *args, **kwargs): ...  # incomplete
+    def getK(self, *args, **kwargs): ...  # incomplete
+    def getMaxFeatures(self, *args, **kwargs): ...  # incomplete
+    def getMinDistance(self, *args, **kwargs): ...  # incomplete
+    def getQualityLevel(self, *args, **kwargs): ...  # incomplete
     def setBlockSize(self, blockSize) -> None: ...
     def setHarrisDetector(self, val) -> None: ...
     def setK(self, k) -> None: ...
@@ -2210,19 +2210,19 @@ class GFrame:
 
 class GInferInputs:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def setInput(self, *args, **kwargs) -> Any: ...  # incomplete
+    def setInput(self, *args, **kwargs): ...  # incomplete
 
 class GInferListInputs:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def setInput(self, *args, **kwargs) -> Any: ...  # incomplete
+    def setInput(self, *args, **kwargs): ...  # incomplete
 
 class GInferListOutputs:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def at(self, *args, **kwargs) -> Any: ...  # incomplete
+    def at(self, *args, **kwargs): ...  # incomplete
 
 class GInferOutputs:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def at(self, *args, **kwargs) -> Any: ...  # incomplete
+    def at(self, *args, **kwargs): ...  # incomplete
 
 class GMat:
     def __init__(self) -> None: ...
@@ -2234,12 +2234,12 @@ class GMatDesc:
     planar: Incomplete
     size: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def asInterleaved(self, *args, **kwargs) -> Any: ...  # incomplete
-    def asPlanar(self, *args, **kwargs) -> Any: ...  # incomplete
-    def withDepth(self, *args, **kwargs) -> Any: ...  # incomplete
-    def withSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def withSizeDelta(self, *args, **kwargs) -> Any: ...  # incomplete
-    def withType(self, *args, **kwargs) -> Any: ...  # incomplete
+    def asInterleaved(self, *args, **kwargs): ...  # incomplete
+    def asPlanar(self, *args, **kwargs): ...  # incomplete
+    def withDepth(self, *args, **kwargs): ...  # incomplete
+    def withSize(self, *args, **kwargs): ...  # incomplete
+    def withSizeDelta(self, *args, **kwargs): ...  # incomplete
+    def withType(self, *args, **kwargs): ...  # incomplete
 
 class GOpaqueDesc:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
@@ -2256,8 +2256,8 @@ class GScalarDesc:
 
 class GStreamingCompiled:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def pull(self, *args, **kwargs) -> Any: ...  # incomplete
-    def running(self, *args, **kwargs) -> Any: ...  # incomplete
+    def pull(self, *args, **kwargs): ...  # incomplete
+    def running(self, *args, **kwargs): ...  # incomplete
     @overload
     def setSource(self, callback) -> None: ...
     @overload
@@ -2267,40 +2267,40 @@ class GStreamingCompiled:
 
 class GeneralizedHough(Algorithm):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def detect(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getCannyHighThresh(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getCannyLowThresh(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDp(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getMaxBufferSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getMinDist(self, *args, **kwargs) -> Any: ...  # incomplete
+    def detect(self, *args, **kwargs): ...  # incomplete
+    def getCannyHighThresh(self, *args, **kwargs): ...  # incomplete
+    def getCannyLowThresh(self, *args, **kwargs): ...  # incomplete
+    def getDp(self, *args, **kwargs): ...  # incomplete
+    def getMaxBufferSize(self, *args, **kwargs): ...  # incomplete
+    def getMinDist(self, *args, **kwargs): ...  # incomplete
     def setCannyHighThresh(self, cannyHighThresh) -> None: ...
     def setCannyLowThresh(self, cannyLowThresh) -> None: ...
     def setDp(self, dp) -> None: ...
     def setMaxBufferSize(self, maxBufferSize) -> None: ...
     def setMinDist(self, minDist) -> None: ...
-    def setTemplate(self, *args, **kwargs) -> Any: ...  # incomplete
+    def setTemplate(self, *args, **kwargs): ...  # incomplete
 
 class GeneralizedHoughBallard(GeneralizedHough):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def getLevels(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getVotesThreshold(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getLevels(self, *args, **kwargs): ...  # incomplete
+    def getVotesThreshold(self, *args, **kwargs): ...  # incomplete
     def setLevels(self, levels) -> None: ...
     def setVotesThreshold(self, votesThreshold) -> None: ...
 
 class GeneralizedHoughGuil(GeneralizedHough):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def getAngleEpsilon(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getAngleStep(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getAngleThresh(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getLevels(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getMaxAngle(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getMaxScale(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getMinAngle(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getMinScale(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getPosThresh(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getScaleStep(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getScaleThresh(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getXi(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getAngleEpsilon(self, *args, **kwargs): ...  # incomplete
+    def getAngleStep(self, *args, **kwargs): ...  # incomplete
+    def getAngleThresh(self, *args, **kwargs): ...  # incomplete
+    def getLevels(self, *args, **kwargs): ...  # incomplete
+    def getMaxAngle(self, *args, **kwargs): ...  # incomplete
+    def getMaxScale(self, *args, **kwargs): ...  # incomplete
+    def getMinAngle(self, *args, **kwargs): ...  # incomplete
+    def getMinScale(self, *args, **kwargs): ...  # incomplete
+    def getPosThresh(self, *args, **kwargs): ...  # incomplete
+    def getScaleStep(self, *args, **kwargs): ...  # incomplete
+    def getScaleThresh(self, *args, **kwargs): ...  # incomplete
+    def getXi(self, *args, **kwargs): ...  # incomplete
     def setAngleEpsilon(self, angleEpsilon) -> None: ...
     def setAngleStep(self, angleStep) -> None: ...
     def setAngleThresh(self, angleThresh) -> None: ...
@@ -2329,29 +2329,29 @@ class HOGDescriptor:
     winSigma: Incomplete
     winSize: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def checkDetectorSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def compute(self, *args, **kwargs) -> Any: ...  # incomplete
-    def computeGradient(self, *args, **kwargs) -> Any: ...  # incomplete
-    def detect(self, *args, **kwargs) -> Any: ...  # incomplete
-    def detectMultiScale(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDaimlerPeopleDetector(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDefaultPeopleDetector(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDescriptorSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getWinSigma(self, *args, **kwargs) -> Any: ...  # incomplete
-    def load(self, *args, **kwargs) -> Any: ...  # incomplete
-    def save(self, *args, **kwargs) -> Any: ...  # incomplete
+    def checkDetectorSize(self, *args, **kwargs): ...  # incomplete
+    def compute(self, *args, **kwargs): ...  # incomplete
+    def computeGradient(self, *args, **kwargs): ...  # incomplete
+    def detect(self, *args, **kwargs): ...  # incomplete
+    def detectMultiScale(self, *args, **kwargs): ...  # incomplete
+    def getDaimlerPeopleDetector(self, *args, **kwargs): ...  # incomplete
+    def getDefaultPeopleDetector(self, *args, **kwargs): ...  # incomplete
+    def getDescriptorSize(self, *args, **kwargs): ...  # incomplete
+    def getWinSigma(self, *args, **kwargs): ...  # incomplete
+    def load(self, *args, **kwargs): ...  # incomplete
+    def save(self, *args, **kwargs): ...  # incomplete
     def setSVMDetector(self, svmdetector) -> None: ...
 
 class KAZE(Feature2D):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDefaultName(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDiffusivity(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getExtended(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getNOctaveLayers(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getNOctaves(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getThreshold(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getUpright(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def getDefaultName(self, *args, **kwargs): ...  # incomplete
+    def getDiffusivity(self, *args, **kwargs): ...  # incomplete
+    def getExtended(self, *args, **kwargs): ...  # incomplete
+    def getNOctaveLayers(self, *args, **kwargs): ...  # incomplete
+    def getNOctaves(self, *args, **kwargs): ...  # incomplete
+    def getThreshold(self, *args, **kwargs): ...  # incomplete
+    def getUpright(self, *args, **kwargs): ...  # incomplete
     def setDiffusivity(self, diff) -> None: ...
     def setExtended(self, extended) -> None: ...
     def setNOctaveLayers(self, octaveLayers) -> None: ...
@@ -2371,8 +2371,8 @@ class KalmanFilter:
     statePre: Incomplete
     transitionMatrix: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def correct(self, *args, **kwargs) -> Any: ...  # incomplete
-    def predict(self, *args, **kwargs) -> Any: ...  # incomplete
+    def correct(self, *args, **kwargs): ...  # incomplete
+    def predict(self, *args, **kwargs): ...  # incomplete
 
 class KeyPoint:
     angle: Incomplete
@@ -2382,24 +2382,24 @@ class KeyPoint:
     response: Incomplete
     size: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def convert(self, *args, **kwargs) -> Any: ...  # incomplete
-    def overlap(self, *args, **kwargs) -> Any: ...  # incomplete
+    def convert(self, *args, **kwargs): ...  # incomplete
+    def overlap(self, *args, **kwargs): ...  # incomplete
 
 class LineSegmentDetector(Algorithm):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def compareSegments(self, *args, **kwargs) -> Any: ...  # incomplete
-    def detect(self, *args, **kwargs) -> Any: ...  # incomplete
+    def compareSegments(self, *args, **kwargs): ...  # incomplete
+    def detect(self, *args, **kwargs): ...  # incomplete
     def drawSegments(self, image, lines) -> _image: ...
 
 class MSER(Feature2D):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def detectRegions(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDefaultName(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDelta(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getMaxArea(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getMinArea(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getPass2Only(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def detectRegions(self, *args, **kwargs): ...  # incomplete
+    def getDefaultName(self, *args, **kwargs): ...  # incomplete
+    def getDelta(self, *args, **kwargs): ...  # incomplete
+    def getMaxArea(self, *args, **kwargs): ...  # incomplete
+    def getMinArea(self, *args, **kwargs): ...  # incomplete
+    def getPass2Only(self, *args, **kwargs): ...  # incomplete
     def setDelta(self, delta) -> None: ...
     def setMaxArea(self, maxArea) -> None: ...
     def setMinArea(self, minArea) -> None: ...
@@ -2407,39 +2407,39 @@ class MSER(Feature2D):
 
 class MergeDebevec(MergeExposures):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def process(self, *args, **kwargs) -> Any: ...  # incomplete
+    def process(self, *args, **kwargs): ...  # incomplete
 
 class MergeExposures(Algorithm):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def process(self, *args, **kwargs) -> Any: ...  # incomplete
+    def process(self, *args, **kwargs): ...  # incomplete
 
 class MergeMertens(MergeExposures):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def getContrastWeight(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getExposureWeight(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getSaturationWeight(self, *args, **kwargs) -> Any: ...  # incomplete
-    def process(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getContrastWeight(self, *args, **kwargs): ...  # incomplete
+    def getExposureWeight(self, *args, **kwargs): ...  # incomplete
+    def getSaturationWeight(self, *args, **kwargs): ...  # incomplete
+    def process(self, *args, **kwargs): ...  # incomplete
     def setContrastWeight(self, contrast_weiht) -> None: ...
     def setExposureWeight(self, exposure_weight) -> None: ...
     def setSaturationWeight(self, saturation_weight) -> None: ...
 
 class MergeRobertson(MergeExposures):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def process(self, *args, **kwargs) -> Any: ...  # incomplete
+    def process(self, *args, **kwargs): ...  # incomplete
 
 class ORB(Feature2D):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDefaultName(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getEdgeThreshold(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getFastThreshold(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getFirstLevel(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getMaxFeatures(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getNLevels(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getPatchSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getScaleFactor(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getScoreType(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getWTA_K(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def getDefaultName(self, *args, **kwargs): ...  # incomplete
+    def getEdgeThreshold(self, *args, **kwargs): ...  # incomplete
+    def getFastThreshold(self, *args, **kwargs): ...  # incomplete
+    def getFirstLevel(self, *args, **kwargs): ...  # incomplete
+    def getMaxFeatures(self, *args, **kwargs): ...  # incomplete
+    def getNLevels(self, *args, **kwargs): ...  # incomplete
+    def getPatchSize(self, *args, **kwargs): ...  # incomplete
+    def getScaleFactor(self, *args, **kwargs): ...  # incomplete
+    def getScoreType(self, *args, **kwargs): ...  # incomplete
+    def getWTA_K(self, *args, **kwargs): ...  # incomplete
     def setEdgeThreshold(self, edgeThreshold) -> None: ...
     def setFastThreshold(self, fastThreshold) -> None: ...
     def setFirstLevel(self, firstLevel) -> None: ...
@@ -2452,33 +2452,33 @@ class ORB(Feature2D):
 
 class PyRotationWarper:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def buildMaps(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getScale(self, *args, **kwargs) -> Any: ...  # incomplete
+    def buildMaps(self, *args, **kwargs): ...  # incomplete
+    def getScale(self, *args, **kwargs): ...  # incomplete
     def setScale(self, arg1) -> None: ...
-    def warp(self, *args, **kwargs) -> Any: ...  # incomplete
-    def warpBackward(self, *args, **kwargs) -> Any: ...  # incomplete
-    def warpPoint(self, *args, **kwargs) -> Any: ...  # incomplete
-    def warpPointBackward(self, *args, **kwargs) -> Any: ...  # incomplete
-    def warpRoi(self, *args, **kwargs) -> Any: ...  # incomplete
+    def warp(self, *args, **kwargs): ...  # incomplete
+    def warpBackward(self, *args, **kwargs): ...  # incomplete
+    def warpPoint(self, *args, **kwargs): ...  # incomplete
+    def warpPointBackward(self, *args, **kwargs): ...  # incomplete
+    def warpRoi(self, *args, **kwargs): ...  # incomplete
 
 class QRCodeDetector:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def decode(self, *args, **kwargs) -> Any: ...  # incomplete
-    def decodeCurved(self, *args, **kwargs) -> Any: ...  # incomplete
-    def decodeMulti(self, *args, **kwargs) -> Any: ...  # incomplete
-    def detect(self, *args, **kwargs) -> Any: ...  # incomplete
-    def detectAndDecode(self, *args, **kwargs) -> Any: ...  # incomplete
-    def detectAndDecodeCurved(self, *args, **kwargs) -> Any: ...  # incomplete
-    def detectAndDecodeMulti(self, *args, **kwargs) -> Any: ...  # incomplete
-    def detectMulti(self, *args, **kwargs) -> Any: ...  # incomplete
+    def decode(self, *args, **kwargs): ...  # incomplete
+    def decodeCurved(self, *args, **kwargs): ...  # incomplete
+    def decodeMulti(self, *args, **kwargs): ...  # incomplete
+    def detect(self, *args, **kwargs): ...  # incomplete
+    def detectAndDecode(self, *args, **kwargs): ...  # incomplete
+    def detectAndDecodeCurved(self, *args, **kwargs): ...  # incomplete
+    def detectAndDecodeMulti(self, *args, **kwargs): ...  # incomplete
+    def detectMulti(self, *args, **kwargs): ...  # incomplete
     def setEpsX(self, epsX) -> None: ...
     def setEpsY(self, epsY) -> None: ...
 
 class QRCodeEncoder:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def encode(self, *args, **kwargs) -> Any: ...  # incomplete
-    def encodeStructuredAppend(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def encode(self, *args, **kwargs): ...  # incomplete
+    def encodeStructuredAppend(self, *args, **kwargs): ...  # incomplete
 
 class QRCodeEncoder_Params:
     correction_level: Incomplete
@@ -2489,13 +2489,13 @@ class QRCodeEncoder_Params:
 
 class SIFT(Feature2D):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDefaultName(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def getDefaultName(self, *args, **kwargs): ...  # incomplete
 
 class SimpleBlobDetector(Feature2D):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDefaultName(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def getDefaultName(self, *args, **kwargs): ...  # incomplete
 
 class SimpleBlobDetector_Params:
     blobColor: Incomplete
@@ -2521,16 +2521,16 @@ class SimpleBlobDetector_Params:
 
 class SparseOpticalFlow(Algorithm):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def calc(self, *args, **kwargs) -> Any: ...  # incomplete
+    def calc(self, *args, **kwargs): ...  # incomplete
 
 class SparsePyrLKOpticalFlow(SparseOpticalFlow):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getFlags(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getMaxLevel(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getMinEigThreshold(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTermCriteria(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getWinSize(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def getFlags(self, *args, **kwargs): ...  # incomplete
+    def getMaxLevel(self, *args, **kwargs): ...  # incomplete
+    def getMinEigThreshold(self, *args, **kwargs): ...  # incomplete
+    def getTermCriteria(self, *args, **kwargs): ...  # incomplete
+    def getWinSize(self, *args, **kwargs): ...  # incomplete
     def setFlags(self, flags) -> None: ...
     def setMaxLevel(self, maxLevel) -> None: ...
     def setMinEigThreshold(self, minEigThreshold) -> None: ...
@@ -2539,15 +2539,15 @@ class SparsePyrLKOpticalFlow(SparseOpticalFlow):
 
 class StereoBM(StereoMatcher):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getPreFilterCap(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getPreFilterSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getPreFilterType(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getROI1(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getROI2(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getSmallerBlockSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTextureThreshold(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getUniquenessRatio(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def getPreFilterCap(self, *args, **kwargs): ...  # incomplete
+    def getPreFilterSize(self, *args, **kwargs): ...  # incomplete
+    def getPreFilterType(self, *args, **kwargs): ...  # incomplete
+    def getROI1(self, *args, **kwargs): ...  # incomplete
+    def getROI2(self, *args, **kwargs): ...  # incomplete
+    def getSmallerBlockSize(self, *args, **kwargs): ...  # incomplete
+    def getTextureThreshold(self, *args, **kwargs): ...  # incomplete
+    def getUniquenessRatio(self, *args, **kwargs): ...  # incomplete
     def setPreFilterCap(self, preFilterCap) -> None: ...
     def setPreFilterSize(self, preFilterSize) -> None: ...
     def setPreFilterType(self, preFilterType) -> None: ...
@@ -2559,13 +2559,13 @@ class StereoBM(StereoMatcher):
 
 class StereoMatcher(Algorithm):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def compute(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getBlockSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDisp12MaxDiff(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getMinDisparity(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getNumDisparities(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getSpeckleRange(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getSpeckleWindowSize(self, *args, **kwargs) -> Any: ...  # incomplete
+    def compute(self, *args, **kwargs): ...  # incomplete
+    def getBlockSize(self, *args, **kwargs): ...  # incomplete
+    def getDisp12MaxDiff(self, *args, **kwargs): ...  # incomplete
+    def getMinDisparity(self, *args, **kwargs): ...  # incomplete
+    def getNumDisparities(self, *args, **kwargs): ...  # incomplete
+    def getSpeckleRange(self, *args, **kwargs): ...  # incomplete
+    def getSpeckleWindowSize(self, *args, **kwargs): ...  # incomplete
     def setBlockSize(self, blockSize) -> None: ...
     def setDisp12MaxDiff(self, disp12MaxDiff) -> None: ...
     def setMinDisparity(self, minDisparity) -> None: ...
@@ -2575,12 +2575,12 @@ class StereoMatcher(Algorithm):
 
 class StereoSGBM(StereoMatcher):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getMode(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getP1(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getP2(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getPreFilterCap(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getUniquenessRatio(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def getMode(self, *args, **kwargs): ...  # incomplete
+    def getP1(self, *args, **kwargs): ...  # incomplete
+    def getP2(self, *args, **kwargs): ...  # incomplete
+    def getPreFilterCap(self, *args, **kwargs): ...  # incomplete
+    def getUniquenessRatio(self, *args, **kwargs): ...  # incomplete
     def setMode(self, mode) -> None: ...
     def setP1(self, P1) -> None: ...
     def setP2(self, P2) -> None: ...
@@ -2589,81 +2589,81 @@ class StereoSGBM(StereoMatcher):
 
 class Stitcher:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def composePanorama(self, *args, **kwargs) -> Any: ...  # incomplete
-    def compositingResol(self, *args, **kwargs) -> Any: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def estimateTransform(self, *args, **kwargs) -> Any: ...  # incomplete
-    def interpolationFlags(self, *args, **kwargs) -> Any: ...  # incomplete
-    def panoConfidenceThresh(self, *args, **kwargs) -> Any: ...  # incomplete
-    def registrationResol(self, *args, **kwargs) -> Any: ...  # incomplete
-    def seamEstimationResol(self, *args, **kwargs) -> Any: ...  # incomplete
+    def composePanorama(self, *args, **kwargs): ...  # incomplete
+    def compositingResol(self, *args, **kwargs): ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def estimateTransform(self, *args, **kwargs): ...  # incomplete
+    def interpolationFlags(self, *args, **kwargs): ...  # incomplete
+    def panoConfidenceThresh(self, *args, **kwargs): ...  # incomplete
+    def registrationResol(self, *args, **kwargs): ...  # incomplete
+    def seamEstimationResol(self, *args, **kwargs): ...  # incomplete
     def setCompositingResol(self, resol_mpx) -> None: ...
     def setInterpolationFlags(self, interp_flags) -> None: ...
     def setPanoConfidenceThresh(self, conf_thresh) -> None: ...
     def setRegistrationResol(self, resol_mpx) -> None: ...
     def setSeamEstimationResol(self, resol_mpx) -> None: ...
     def setWaveCorrection(self, flag) -> None: ...
-    def stitch(self, *args, **kwargs) -> Any: ...  # incomplete
-    def waveCorrection(self, *args, **kwargs) -> Any: ...  # incomplete
-    def workScale(self, *args, **kwargs) -> Any: ...  # incomplete
+    def stitch(self, *args, **kwargs): ...  # incomplete
+    def waveCorrection(self, *args, **kwargs): ...  # incomplete
+    def workScale(self, *args, **kwargs): ...  # incomplete
 
 class Subdiv2D:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def edgeDst(self, *args, **kwargs) -> Any: ...  # incomplete
-    def edgeOrg(self, *args, **kwargs) -> Any: ...  # incomplete
-    def findNearest(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getEdge(self, *args, **kwargs) -> Any: ...  # incomplete
+    def edgeDst(self, *args, **kwargs): ...  # incomplete
+    def edgeOrg(self, *args, **kwargs): ...  # incomplete
+    def findNearest(self, *args, **kwargs): ...  # incomplete
+    def getEdge(self, *args, **kwargs): ...  # incomplete
     def getEdgeList(self) -> _edgeList: ...
     def getLeadingEdgeList(self) -> _leadingEdgeList: ...
     def getTriangleList(self) -> _triangleList: ...
-    def getVertex(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getVoronoiFacetList(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getVertex(self, *args, **kwargs): ...  # incomplete
+    def getVoronoiFacetList(self, *args, **kwargs): ...  # incomplete
     def initDelaunay(self, rect) -> None: ...
     def insert(self, ptvec) -> None: ...
-    def locate(self, *args, **kwargs) -> Any: ...  # incomplete
-    def nextEdge(self, *args, **kwargs) -> Any: ...  # incomplete
-    def rotateEdge(self, *args, **kwargs) -> Any: ...  # incomplete
-    def symEdge(self, *args, **kwargs) -> Any: ...  # incomplete
+    def locate(self, *args, **kwargs): ...  # incomplete
+    def nextEdge(self, *args, **kwargs): ...  # incomplete
+    def rotateEdge(self, *args, **kwargs): ...  # incomplete
+    def symEdge(self, *args, **kwargs): ...  # incomplete
 
 class TickMeter:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def getAvgTimeMilli(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getAvgTimeSec(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getCounter(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getFPS(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTimeMicro(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTimeMilli(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTimeSec(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTimeTicks(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getAvgTimeMilli(self, *args, **kwargs): ...  # incomplete
+    def getAvgTimeSec(self, *args, **kwargs): ...  # incomplete
+    def getCounter(self, *args, **kwargs): ...  # incomplete
+    def getFPS(self, *args, **kwargs): ...  # incomplete
+    def getTimeMicro(self, *args, **kwargs): ...  # incomplete
+    def getTimeMilli(self, *args, **kwargs): ...  # incomplete
+    def getTimeSec(self, *args, **kwargs): ...  # incomplete
+    def getTimeTicks(self, *args, **kwargs): ...  # incomplete
     def reset(self) -> None: ...
     def start(self) -> None: ...
     def stop(self) -> None: ...
 
 class Tonemap(Algorithm):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def getGamma(self, *args, **kwargs) -> Any: ...  # incomplete
-    def process(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getGamma(self, *args, **kwargs): ...  # incomplete
+    def process(self, *args, **kwargs): ...  # incomplete
     def setGamma(self, gamma) -> None: ...
 
 class TonemapDrago(Tonemap):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def getBias(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getSaturation(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getBias(self, *args, **kwargs): ...  # incomplete
+    def getSaturation(self, *args, **kwargs): ...  # incomplete
     def setBias(self, bias) -> None: ...
     def setSaturation(self, saturation) -> None: ...
 
 class TonemapMantiuk(Tonemap):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def getSaturation(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getScale(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getSaturation(self, *args, **kwargs): ...  # incomplete
+    def getScale(self, *args, **kwargs): ...  # incomplete
     def setSaturation(self, saturation) -> None: ...
     def setScale(self, scale) -> None: ...
 
 class TonemapReinhard(Tonemap):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def getColorAdaptation(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getIntensity(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getLightAdaptation(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getColorAdaptation(self, *args, **kwargs): ...  # incomplete
+    def getIntensity(self, *args, **kwargs): ...  # incomplete
+    def getLightAdaptation(self, *args, **kwargs): ...  # incomplete
     def setColorAdaptation(self, color_adapt) -> None: ...
     def setIntensity(self, intensity) -> None: ...
     def setLightAdaptation(self, light_adapt) -> None: ...
@@ -2671,12 +2671,12 @@ class TonemapReinhard(Tonemap):
 class Tracker:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def init(self, image, boundingBox) -> None: ...
-    def update(self, *args, **kwargs) -> Any: ...  # incomplete
+    def update(self, *args, **kwargs): ...  # incomplete
 
 class TrackerDaSiamRPN(Tracker):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTrackingScore(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def getTrackingScore(self, *args, **kwargs): ...  # incomplete
 
 class TrackerDaSiamRPN_Params:
     backend: Incomplete
@@ -2688,7 +2688,7 @@ class TrackerDaSiamRPN_Params:
 
 class TrackerGOTURN(Tracker):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
 
 class TrackerGOTURN_Params:
     modelBin: Incomplete
@@ -2697,7 +2697,7 @@ class TrackerGOTURN_Params:
 
 class TrackerMIL(Tracker):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
 
 class TrackerMIL_Params:
     featureSetNumFeatures: Incomplete
@@ -2737,14 +2737,14 @@ class UsacParams:
 
 class VariationalRefinement(DenseOpticalFlow):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def calcUV(self, *args, **kwargs) -> Any: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getAlpha(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDelta(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getFixedPointIterations(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getGamma(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getOmega(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getSorIterations(self, *args, **kwargs) -> Any: ...  # incomplete
+    def calcUV(self, *args, **kwargs): ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def getAlpha(self, *args, **kwargs): ...  # incomplete
+    def getDelta(self, *args, **kwargs): ...  # incomplete
+    def getFixedPointIterations(self, *args, **kwargs): ...  # incomplete
+    def getGamma(self, *args, **kwargs): ...  # incomplete
+    def getOmega(self, *args, **kwargs): ...  # incomplete
+    def getSorIterations(self, *args, **kwargs): ...  # incomplete
     def setAlpha(self, val) -> None: ...
     def setDelta(self, val) -> None: ...
     def setFixedPointIterations(self, val) -> None: ...
@@ -2754,27 +2754,27 @@ class VariationalRefinement(DenseOpticalFlow):
 
 class VideoCapture:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def get(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getBackendName(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getExceptionMode(self, *args, **kwargs) -> Any: ...  # incomplete
+    def get(self, *args, **kwargs): ...  # incomplete
+    def getBackendName(self, *args, **kwargs): ...  # incomplete
+    def getExceptionMode(self, *args, **kwargs): ...  # incomplete
     def grab(self): ...
-    def isOpened(self, *args, **kwargs) -> Any: ...  # incomplete
-    def open(self, *args, **kwargs) -> Any: ...  # incomplete
-    def read(self, *args, **kwargs) -> Any: ...  # incomplete
+    def isOpened(self, *args, **kwargs): ...  # incomplete
+    def open(self, *args, **kwargs): ...  # incomplete
+    def read(self, *args, **kwargs): ...  # incomplete
     def release(self) -> None: ...
-    def retrieve(self, *args, **kwargs) -> Any: ...  # incomplete
-    def set(self, *args, **kwargs) -> Any: ...  # incomplete
+    def retrieve(self, *args, **kwargs): ...  # incomplete
+    def set(self, *args, **kwargs): ...  # incomplete
     def setExceptionMode(self, enable) -> None: ...
 
 class VideoWriter:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def fourcc(self, *args, **kwargs) -> Any: ...  # incomplete
-    def get(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getBackendName(self, *args, **kwargs) -> Any: ...  # incomplete
-    def isOpened(self, *args, **kwargs) -> Any: ...  # incomplete
-    def open(self, *args, **kwargs) -> Any: ...  # incomplete
+    def fourcc(self, *args, **kwargs): ...  # incomplete
+    def get(self, *args, **kwargs): ...  # incomplete
+    def getBackendName(self, *args, **kwargs): ...  # incomplete
+    def isOpened(self, *args, **kwargs): ...  # incomplete
+    def open(self, *args, **kwargs): ...  # incomplete
     def release(self) -> None: ...
-    def set(self, *args, **kwargs) -> Any: ...  # incomplete
+    def set(self, *args, **kwargs): ...  # incomplete
     def write(self, image) -> None: ...
 
 class WarperCreator:
@@ -2782,73 +2782,73 @@ class WarperCreator:
 
 class cuda_BufferPool:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def getAllocator(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getBuffer(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getAllocator(self, *args, **kwargs): ...  # incomplete
+    def getBuffer(self, *args, **kwargs): ...  # incomplete
 
 class cuda_DeviceInfo:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def ECCEnabled(self, *args, **kwargs) -> Any: ...  # incomplete
-    def asyncEngineCount(self, *args, **kwargs) -> Any: ...  # incomplete
-    def canMapHostMemory(self, *args, **kwargs) -> Any: ...  # incomplete
-    def clockRate(self, *args, **kwargs) -> Any: ...  # incomplete
-    def computeMode(self, *args, **kwargs) -> Any: ...  # incomplete
-    def concurrentKernels(self, *args, **kwargs) -> Any: ...  # incomplete
-    def deviceID(self, *args, **kwargs) -> Any: ...  # incomplete
-    def freeMemory(self, *args, **kwargs) -> Any: ...  # incomplete
-    def integrated(self, *args, **kwargs) -> Any: ...  # incomplete
-    def isCompatible(self, *args, **kwargs) -> Any: ...  # incomplete
-    def kernelExecTimeoutEnabled(self, *args, **kwargs) -> Any: ...  # incomplete
-    def l2CacheSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def majorVersion(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxGridSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxSurface1D(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxSurface1DLayered(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxSurface2D(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxSurface2DLayered(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxSurface3D(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxSurfaceCubemap(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxSurfaceCubemapLayered(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxTexture1D(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxTexture1DLayered(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxTexture1DLinear(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxTexture1DMipmap(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxTexture2D(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxTexture2DGather(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxTexture2DLayered(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxTexture2DLinear(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxTexture2DMipmap(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxTexture3D(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxTextureCubemap(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxTextureCubemapLayered(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxThreadsDim(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxThreadsPerBlock(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxThreadsPerMultiProcessor(self, *args, **kwargs) -> Any: ...  # incomplete
-    def memPitch(self, *args, **kwargs) -> Any: ...  # incomplete
-    def memoryBusWidth(self, *args, **kwargs) -> Any: ...  # incomplete
-    def memoryClockRate(self, *args, **kwargs) -> Any: ...  # incomplete
-    def minorVersion(self, *args, **kwargs) -> Any: ...  # incomplete
-    def multiProcessorCount(self, *args, **kwargs) -> Any: ...  # incomplete
-    def pciBusID(self, *args, **kwargs) -> Any: ...  # incomplete
-    def pciDeviceID(self, *args, **kwargs) -> Any: ...  # incomplete
-    def pciDomainID(self, *args, **kwargs) -> Any: ...  # incomplete
+    def ECCEnabled(self, *args, **kwargs): ...  # incomplete
+    def asyncEngineCount(self, *args, **kwargs): ...  # incomplete
+    def canMapHostMemory(self, *args, **kwargs): ...  # incomplete
+    def clockRate(self, *args, **kwargs): ...  # incomplete
+    def computeMode(self, *args, **kwargs): ...  # incomplete
+    def concurrentKernels(self, *args, **kwargs): ...  # incomplete
+    def deviceID(self, *args, **kwargs): ...  # incomplete
+    def freeMemory(self, *args, **kwargs): ...  # incomplete
+    def integrated(self, *args, **kwargs): ...  # incomplete
+    def isCompatible(self, *args, **kwargs): ...  # incomplete
+    def kernelExecTimeoutEnabled(self, *args, **kwargs): ...  # incomplete
+    def l2CacheSize(self, *args, **kwargs): ...  # incomplete
+    def majorVersion(self, *args, **kwargs): ...  # incomplete
+    def maxGridSize(self, *args, **kwargs): ...  # incomplete
+    def maxSurface1D(self, *args, **kwargs): ...  # incomplete
+    def maxSurface1DLayered(self, *args, **kwargs): ...  # incomplete
+    def maxSurface2D(self, *args, **kwargs): ...  # incomplete
+    def maxSurface2DLayered(self, *args, **kwargs): ...  # incomplete
+    def maxSurface3D(self, *args, **kwargs): ...  # incomplete
+    def maxSurfaceCubemap(self, *args, **kwargs): ...  # incomplete
+    def maxSurfaceCubemapLayered(self, *args, **kwargs): ...  # incomplete
+    def maxTexture1D(self, *args, **kwargs): ...  # incomplete
+    def maxTexture1DLayered(self, *args, **kwargs): ...  # incomplete
+    def maxTexture1DLinear(self, *args, **kwargs): ...  # incomplete
+    def maxTexture1DMipmap(self, *args, **kwargs): ...  # incomplete
+    def maxTexture2D(self, *args, **kwargs): ...  # incomplete
+    def maxTexture2DGather(self, *args, **kwargs): ...  # incomplete
+    def maxTexture2DLayered(self, *args, **kwargs): ...  # incomplete
+    def maxTexture2DLinear(self, *args, **kwargs): ...  # incomplete
+    def maxTexture2DMipmap(self, *args, **kwargs): ...  # incomplete
+    def maxTexture3D(self, *args, **kwargs): ...  # incomplete
+    def maxTextureCubemap(self, *args, **kwargs): ...  # incomplete
+    def maxTextureCubemapLayered(self, *args, **kwargs): ...  # incomplete
+    def maxThreadsDim(self, *args, **kwargs): ...  # incomplete
+    def maxThreadsPerBlock(self, *args, **kwargs): ...  # incomplete
+    def maxThreadsPerMultiProcessor(self, *args, **kwargs): ...  # incomplete
+    def memPitch(self, *args, **kwargs): ...  # incomplete
+    def memoryBusWidth(self, *args, **kwargs): ...  # incomplete
+    def memoryClockRate(self, *args, **kwargs): ...  # incomplete
+    def minorVersion(self, *args, **kwargs): ...  # incomplete
+    def multiProcessorCount(self, *args, **kwargs): ...  # incomplete
+    def pciBusID(self, *args, **kwargs): ...  # incomplete
+    def pciDeviceID(self, *args, **kwargs): ...  # incomplete
+    def pciDomainID(self, *args, **kwargs): ...  # incomplete
     def queryMemory(self, totalMemory, freeMemory) -> None: ...
-    def regsPerBlock(self, *args, **kwargs) -> Any: ...  # incomplete
-    def sharedMemPerBlock(self, *args, **kwargs) -> Any: ...  # incomplete
-    def surfaceAlignment(self, *args, **kwargs) -> Any: ...  # incomplete
-    def tccDriver(self, *args, **kwargs) -> Any: ...  # incomplete
-    def textureAlignment(self, *args, **kwargs) -> Any: ...  # incomplete
-    def texturePitchAlignment(self, *args, **kwargs) -> Any: ...  # incomplete
-    def totalConstMem(self, *args, **kwargs) -> Any: ...  # incomplete
-    def totalGlobalMem(self, *args, **kwargs) -> Any: ...  # incomplete
-    def totalMemory(self, *args, **kwargs) -> Any: ...  # incomplete
-    def unifiedAddressing(self, *args, **kwargs) -> Any: ...  # incomplete
-    def warpSize(self, *args, **kwargs) -> Any: ...  # incomplete
+    def regsPerBlock(self, *args, **kwargs): ...  # incomplete
+    def sharedMemPerBlock(self, *args, **kwargs): ...  # incomplete
+    def surfaceAlignment(self, *args, **kwargs): ...  # incomplete
+    def tccDriver(self, *args, **kwargs): ...  # incomplete
+    def textureAlignment(self, *args, **kwargs): ...  # incomplete
+    def texturePitchAlignment(self, *args, **kwargs): ...  # incomplete
+    def totalConstMem(self, *args, **kwargs): ...  # incomplete
+    def totalGlobalMem(self, *args, **kwargs): ...  # incomplete
+    def totalMemory(self, *args, **kwargs): ...  # incomplete
+    def unifiedAddressing(self, *args, **kwargs): ...  # incomplete
+    def warpSize(self, *args, **kwargs): ...  # incomplete
 
 class cuda_Event:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def elapsedTime(self, *args, **kwargs) -> Any: ...  # incomplete
-    def queryIfComplete(self, *args, **kwargs) -> Any: ...  # incomplete
-    def record(self, *args, **kwargs) -> Any: ...  # incomplete
+    def elapsedTime(self, *args, **kwargs): ...  # incomplete
+    def queryIfComplete(self, *args, **kwargs): ...  # incomplete
+    def record(self, *args, **kwargs): ...  # incomplete
     def waitForCompletion(self) -> None: ...
 
 class cuda_GpuData:
@@ -2857,36 +2857,36 @@ class cuda_GpuData:
 class cuda_GpuMat:
     step: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def adjustROI(self, *args, **kwargs) -> Any: ...  # incomplete
-    def assignTo(self, *args, **kwargs) -> Any: ...  # incomplete
-    def channels(self, *args, **kwargs) -> Any: ...  # incomplete
-    def clone(self, *args, **kwargs) -> Any: ...  # incomplete
-    def col(self, *args, **kwargs) -> Any: ...  # incomplete
-    def colRange(self, *args, **kwargs) -> Any: ...  # incomplete
-    def convertTo(self, *args, **kwargs) -> Any: ...  # incomplete
-    def copyTo(self, *args, **kwargs) -> Any: ...  # incomplete
+    def adjustROI(self, *args, **kwargs): ...  # incomplete
+    def assignTo(self, *args, **kwargs): ...  # incomplete
+    def channels(self, *args, **kwargs): ...  # incomplete
+    def clone(self, *args, **kwargs): ...  # incomplete
+    def col(self, *args, **kwargs): ...  # incomplete
+    def colRange(self, *args, **kwargs): ...  # incomplete
+    def convertTo(self, *args, **kwargs): ...  # incomplete
+    def copyTo(self, *args, **kwargs): ...  # incomplete
     @overload
     def create(self, rows, cols, type) -> None: ...
     @overload
     def create(size, type) -> None: ...
-    def cudaPtr(self, *args, **kwargs) -> Any: ...  # incomplete
-    def defaultAllocator(self, *args, **kwargs) -> Any: ...  # incomplete
-    def depth(self, *args, **kwargs) -> Any: ...  # incomplete
-    def download(self, *args, **kwargs) -> Any: ...  # incomplete
-    def elemSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def elemSize1(self, *args, **kwargs) -> Any: ...  # incomplete
-    def empty(self, *args, **kwargs) -> Any: ...  # incomplete
-    def isContinuous(self, *args, **kwargs) -> Any: ...  # incomplete
+    def cudaPtr(self, *args, **kwargs): ...  # incomplete
+    def defaultAllocator(self, *args, **kwargs): ...  # incomplete
+    def depth(self, *args, **kwargs): ...  # incomplete
+    def download(self, *args, **kwargs): ...  # incomplete
+    def elemSize(self, *args, **kwargs): ...  # incomplete
+    def elemSize1(self, *args, **kwargs): ...  # incomplete
+    def empty(self, *args, **kwargs): ...  # incomplete
+    def isContinuous(self, *args, **kwargs): ...  # incomplete
     def locateROI(self, wholeSize, ofs) -> None: ...
-    def reshape(self, *args, **kwargs) -> Any: ...  # incomplete
-    def row(self, *args, **kwargs) -> Any: ...  # incomplete
-    def rowRange(self, *args, **kwargs) -> Any: ...  # incomplete
-    def setDefaultAllocator(self, *args, **kwargs) -> Any: ...  # incomplete
-    def setTo(self, *args, **kwargs) -> Any: ...  # incomplete
-    def size(self, *args, **kwargs) -> Any: ...  # incomplete
-    def step1(self, *args, **kwargs) -> Any: ...  # incomplete
+    def reshape(self, *args, **kwargs): ...  # incomplete
+    def row(self, *args, **kwargs): ...  # incomplete
+    def rowRange(self, *args, **kwargs): ...  # incomplete
+    def setDefaultAllocator(self, *args, **kwargs): ...  # incomplete
+    def setTo(self, *args, **kwargs): ...  # incomplete
+    def size(self, *args, **kwargs): ...  # incomplete
+    def step1(self, *args, **kwargs): ...  # incomplete
     def swap(self, mat) -> None: ...
-    def type(self, *args, **kwargs) -> Any: ...  # incomplete
+    def type(self, *args, **kwargs): ...  # incomplete
     def updateContinuityFlag(self) -> None: ...
     @overload
     def upload(self, arr) -> None: ...
@@ -2902,38 +2902,38 @@ class cuda_GpuMat_Allocator:
 class cuda_HostMem:
     step: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def channels(self, *args, **kwargs) -> Any: ...  # incomplete
-    def clone(self, *args, **kwargs) -> Any: ...  # incomplete
+    def channels(self, *args, **kwargs): ...  # incomplete
+    def clone(self, *args, **kwargs): ...  # incomplete
     def create(self, rows, cols, type) -> None: ...
-    def createMatHeader(self, *args, **kwargs) -> Any: ...  # incomplete
-    def depth(self, *args, **kwargs) -> Any: ...  # incomplete
-    def elemSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def elemSize1(self, *args, **kwargs) -> Any: ...  # incomplete
-    def empty(self, *args, **kwargs) -> Any: ...  # incomplete
-    def isContinuous(self, *args, **kwargs) -> Any: ...  # incomplete
-    def reshape(self, *args, **kwargs) -> Any: ...  # incomplete
-    def size(self, *args, **kwargs) -> Any: ...  # incomplete
-    def step1(self, *args, **kwargs) -> Any: ...  # incomplete
+    def createMatHeader(self, *args, **kwargs): ...  # incomplete
+    def depth(self, *args, **kwargs): ...  # incomplete
+    def elemSize(self, *args, **kwargs): ...  # incomplete
+    def elemSize1(self, *args, **kwargs): ...  # incomplete
+    def empty(self, *args, **kwargs): ...  # incomplete
+    def isContinuous(self, *args, **kwargs): ...  # incomplete
+    def reshape(self, *args, **kwargs): ...  # incomplete
+    def size(self, *args, **kwargs): ...  # incomplete
+    def step1(self, *args, **kwargs): ...  # incomplete
     def swap(self, b) -> None: ...
-    def type(self, *args, **kwargs) -> Any: ...  # incomplete
+    def type(self, *args, **kwargs): ...  # incomplete
 
 class cuda_Stream:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def Null(self, *args, **kwargs) -> Any: ...  # incomplete
-    def cudaPtr(self, *args, **kwargs) -> Any: ...  # incomplete
-    def queryIfComplete(self, *args, **kwargs) -> Any: ...  # incomplete
+    def Null(self, *args, **kwargs): ...  # incomplete
+    def cudaPtr(self, *args, **kwargs): ...  # incomplete
+    def queryIfComplete(self, *args, **kwargs): ...  # incomplete
     def waitEvent(self, event) -> None: ...
     def waitForCompletion(self) -> None: ...
 
 class cuda_TargetArchs:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def has(self, *args, **kwargs) -> Any: ...  # incomplete
-    def hasBin(self, *args, **kwargs) -> Any: ...  # incomplete
-    def hasEqualOrGreater(self, *args, **kwargs) -> Any: ...  # incomplete
-    def hasEqualOrGreaterBin(self, *args, **kwargs) -> Any: ...  # incomplete
-    def hasEqualOrGreaterPtx(self, *args, **kwargs) -> Any: ...  # incomplete
-    def hasEqualOrLessPtx(self, *args, **kwargs) -> Any: ...  # incomplete
-    def hasPtx(self, *args, **kwargs) -> Any: ...  # incomplete
+    def has(self, *args, **kwargs): ...  # incomplete
+    def hasBin(self, *args, **kwargs): ...  # incomplete
+    def hasEqualOrGreater(self, *args, **kwargs): ...  # incomplete
+    def hasEqualOrGreaterBin(self, *args, **kwargs): ...  # incomplete
+    def hasEqualOrGreaterPtx(self, *args, **kwargs): ...  # incomplete
+    def hasEqualOrLessPtx(self, *args, **kwargs): ...  # incomplete
+    def hasPtx(self, *args, **kwargs): ...  # incomplete
 
 class detail_AffineBasedEstimator(detail_Estimator):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
@@ -2944,15 +2944,15 @@ class detail_AffineBestOf2NearestMatcher(detail_BestOf2NearestMatcher):
 class detail_BestOf2NearestMatcher(detail_FeaturesMatcher):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def collectGarbage(self) -> None: ...
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
 
 class detail_BestOf2NearestRangeMatcher(detail_BestOf2NearestMatcher):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class detail_Blender:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def blend(self, *args, **kwargs) -> Any: ...  # incomplete
-    def createDefault(self, *args, **kwargs) -> Any: ...  # incomplete
+    def blend(self, *args, **kwargs): ...  # incomplete
+    def createDefault(self, *args, **kwargs): ...  # incomplete
     def feed(self, img, mask, tl) -> None: ...
     @overload
     def prepare(self, corners, sizes) -> None: ...
@@ -2965,11 +2965,11 @@ class detail_BlocksChannelsCompensator(detail_BlocksCompensator):
 class detail_BlocksCompensator(detail_ExposureCompensator):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def apply(self, index, corner, image, mask) -> _image: ...
-    def getBlockSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getMatGains(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getNrFeeds(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getNrGainsFilteringIterations(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getSimilarityThreshold(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getBlockSize(self, *args, **kwargs): ...  # incomplete
+    def getMatGains(self, *args, **kwargs): ...  # incomplete
+    def getNrFeeds(self, *args, **kwargs): ...  # incomplete
+    def getNrGainsFilteringIterations(self, *args, **kwargs): ...  # incomplete
+    def getSimilarityThreshold(self, *args, **kwargs): ...  # incomplete
     @overload
     def setBlockSize(self, width, height) -> None: ...
     @overload
@@ -2982,7 +2982,7 @@ class detail_BlocksCompensator(detail_ExposureCompensator):
 class detail_BlocksGainCompensator(detail_BlocksCompensator):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def apply(self, index, corner, image, mask) -> _image: ...
-    def getMatGains(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getMatGains(self, *args, **kwargs): ...  # incomplete
     def setMatGains(self, umv) -> None: ...
 
 class detail_BundleAdjusterAffine(detail_BundleAdjusterBase):
@@ -2993,12 +2993,12 @@ class detail_BundleAdjusterAffinePartial(detail_BundleAdjusterBase):
 
 class detail_BundleAdjusterBase(detail_Estimator):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def confThresh(self, *args, **kwargs) -> Any: ...  # incomplete
-    def refinementMask(self, *args, **kwargs) -> Any: ...  # incomplete
+    def confThresh(self, *args, **kwargs): ...  # incomplete
+    def refinementMask(self, *args, **kwargs): ...  # incomplete
     def setConfThresh(self, conf_thresh) -> None: ...
     def setRefinementMask(self, mask) -> None: ...
     def setTermCriteria(self, term_criteria) -> None: ...
-    def termCriteria(self, *args, **kwargs) -> Any: ...  # incomplete
+    def termCriteria(self, *args, **kwargs): ...  # incomplete
 
 class detail_BundleAdjusterRay(detail_BundleAdjusterBase):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
@@ -3014,14 +3014,14 @@ class detail_CameraParams:
     ppy: Incomplete
     t: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def K(self, *args, **kwargs) -> Any: ...  # incomplete
+    def K(self, *args, **kwargs): ...  # incomplete
 
 class detail_ChannelsCompensator(detail_ExposureCompensator):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def apply(self, index, corner, image, mask) -> _image: ...
-    def getMatGains(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getNrFeeds(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getSimilarityThreshold(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getMatGains(self, *args, **kwargs): ...  # incomplete
+    def getNrFeeds(self, *args, **kwargs): ...  # incomplete
+    def getSimilarityThreshold(self, *args, **kwargs): ...  # incomplete
     def setMatGains(self, umv) -> None: ...
     def setNrFeeds(self, nr_feeds) -> None: ...
     def setSimilarityThreshold(self, similarity_threshold) -> None: ...
@@ -3032,40 +3032,40 @@ class detail_DpSeamFinder(detail_SeamFinder):
 
 class detail_Estimator:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def apply(self, *args, **kwargs) -> Any: ...  # incomplete
+    def apply(self, *args, **kwargs): ...  # incomplete
 
 class detail_ExposureCompensator:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def apply(self, index, corner, image, mask) -> _image: ...
-    def createDefault(self, *args, **kwargs) -> Any: ...  # incomplete
+    def createDefault(self, *args, **kwargs): ...  # incomplete
     def feed(self, corners, images, masks) -> None: ...
-    def getMatGains(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getUpdateGain(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getMatGains(self, *args, **kwargs): ...  # incomplete
+    def getUpdateGain(self, *args, **kwargs): ...  # incomplete
     def setMatGains(self, arg1) -> None: ...
     def setUpdateGain(self, b) -> None: ...
 
 class detail_FeatherBlender(detail_Blender):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def blend(self, *args, **kwargs) -> Any: ...  # incomplete
-    def createWeightMaps(self, *args, **kwargs) -> Any: ...  # incomplete
+    def blend(self, *args, **kwargs): ...  # incomplete
+    def createWeightMaps(self, *args, **kwargs): ...  # incomplete
     def feed(self, img, mask, tl) -> None: ...
     def prepare(self, dst_roi) -> None: ...  # type: ignore[override]
     def setSharpness(self, val) -> None: ...
-    def sharpness(self, *args, **kwargs) -> Any: ...  # incomplete
+    def sharpness(self, *args, **kwargs): ...  # incomplete
 
 class detail_FeaturesMatcher:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def apply(self, features1, features2) -> _matches_info: ...
-    def apply2(self, *args, **kwargs) -> Any: ...  # incomplete
+    def apply2(self, *args, **kwargs): ...  # incomplete
     def collectGarbage(self) -> None: ...
-    def isThreadSafe(self, *args, **kwargs) -> Any: ...  # incomplete
+    def isThreadSafe(self, *args, **kwargs): ...  # incomplete
 
 class detail_GainCompensator(detail_ExposureCompensator):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def apply(self, index, corner, image, mask) -> _image: ...
-    def getMatGains(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getNrFeeds(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getSimilarityThreshold(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getMatGains(self, *args, **kwargs): ...  # incomplete
+    def getNrFeeds(self, *args, **kwargs): ...  # incomplete
+    def getSimilarityThreshold(self, *args, **kwargs): ...  # incomplete
     def setMatGains(self, umv) -> None: ...
     def setNrFeeds(self, nr_feeds) -> None: ...
     def setSimilarityThreshold(self, similarity_threshold) -> None: ...
@@ -3083,7 +3083,7 @@ class detail_ImageFeatures:
     img_size: Incomplete
     keypoints: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def getKeypoints(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getKeypoints(self, *args, **kwargs): ...  # incomplete
 
 class detail_MatchesInfo:
     H: Incomplete
@@ -3092,14 +3092,14 @@ class detail_MatchesInfo:
     num_inliers: Incomplete
     src_img_idx: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def getInliers(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getMatches(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getInliers(self, *args, **kwargs): ...  # incomplete
+    def getMatches(self, *args, **kwargs): ...  # incomplete
 
 class detail_MultiBandBlender(detail_Blender):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def blend(self, *args, **kwargs) -> Any: ...  # incomplete
+    def blend(self, *args, **kwargs): ...  # incomplete
     def feed(self, img, mask, tl) -> None: ...
-    def numBands(self, *args, **kwargs) -> Any: ...  # incomplete
+    def numBands(self, *args, **kwargs): ...  # incomplete
     def prepare(self, dst_roi) -> None: ...  # type: ignore[override]
     def setNumBands(self, val) -> None: ...
 
@@ -3109,7 +3109,7 @@ class detail_NoBundleAdjuster(detail_BundleAdjusterBase):
 class detail_NoExposureCompensator(detail_ExposureCompensator):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def apply(self, arg1, arg2, arg3, arg4) -> _arg3: ...
-    def getMatGains(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getMatGains(self, *args, **kwargs): ...  # incomplete
     def setMatGains(self, umv) -> None: ...
 
 class detail_NoSeamFinder(detail_SeamFinder):
@@ -3125,7 +3125,7 @@ class detail_ProjectorBase:
 
 class detail_SeamFinder:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def createDefault(self, *args, **kwargs) -> Any: ...  # incomplete
+    def createDefault(self, *args, **kwargs): ...  # incomplete
     def find(self, src, corners, masks) -> _masks: ...
 
 class detail_SphericalProjector(detail_ProjectorBase):
@@ -3135,8 +3135,8 @@ class detail_SphericalProjector(detail_ProjectorBase):
 
 class detail_Timelapser:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def createDefault(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDst(self, *args, **kwargs) -> Any: ...  # incomplete
+    def createDefault(self, *args, **kwargs): ...  # incomplete
+    def getDst(self, *args, **kwargs): ...  # incomplete
     def initialize(self, corners, sizes) -> None: ...
     def process(self, img, mask, tl) -> None: ...
 
@@ -3149,26 +3149,26 @@ class detail_VoronoiSeamFinder(detail_PairwiseSeamFinder):
 
 class dnn_ClassificationModel(dnn_Model):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def classify(self, *args, **kwargs) -> Any: ...  # incomplete
+    def classify(self, *args, **kwargs): ...  # incomplete
 
 class dnn_DetectionModel(dnn_Model):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def detect(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getNmsAcrossClasses(self, *args, **kwargs) -> Any: ...  # incomplete
-    def setNmsAcrossClasses(self, *args, **kwargs) -> Any: ...  # incomplete
+    def detect(self, *args, **kwargs): ...  # incomplete
+    def getNmsAcrossClasses(self, *args, **kwargs): ...  # incomplete
+    def setNmsAcrossClasses(self, *args, **kwargs): ...  # incomplete
 
 class dnn_DictValue:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def getIntValue(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getRealValue(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getStringValue(self, *args, **kwargs) -> Any: ...  # incomplete
-    def isInt(self, *args, **kwargs) -> Any: ...  # incomplete
-    def isReal(self, *args, **kwargs) -> Any: ...  # incomplete
-    def isString(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getIntValue(self, *args, **kwargs): ...  # incomplete
+    def getRealValue(self, *args, **kwargs): ...  # incomplete
+    def getStringValue(self, *args, **kwargs): ...  # incomplete
+    def isInt(self, *args, **kwargs): ...  # incomplete
+    def isReal(self, *args, **kwargs): ...  # incomplete
+    def isString(self, *args, **kwargs): ...  # incomplete
 
 class dnn_KeypointsModel(dnn_Model):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def estimate(self, *args, **kwargs) -> Any: ...  # incomplete
+    def estimate(self, *args, **kwargs): ...  # incomplete
 
 class dnn_Layer(Algorithm):
     blobs: Incomplete
@@ -3176,50 +3176,50 @@ class dnn_Layer(Algorithm):
     preferableTarget: Incomplete
     type: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def finalize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def outputNameToIndex(self, *args, **kwargs) -> Any: ...  # incomplete
-    def run(self, *args, **kwargs) -> Any: ...  # incomplete
+    def finalize(self, *args, **kwargs): ...  # incomplete
+    def outputNameToIndex(self, *args, **kwargs): ...  # incomplete
+    def run(self, *args, **kwargs): ...  # incomplete
 
 class dnn_Model:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def predict(self, *args, **kwargs) -> Any: ...  # incomplete
-    def setInputCrop(self, *args, **kwargs) -> Any: ...  # incomplete
-    def setInputMean(self, *args, **kwargs) -> Any: ...  # incomplete
-    def setInputParams(self, *args, **kwargs) -> Any: ...  # incomplete
-    def setInputScale(self, *args, **kwargs) -> Any: ...  # incomplete
-    def setInputSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def setInputSwapRB(self, *args, **kwargs) -> Any: ...  # incomplete
-    def setPreferableBackend(self, *args, **kwargs) -> Any: ...  # incomplete
-    def setPreferableTarget(self, *args, **kwargs) -> Any: ...  # incomplete
+    def predict(self, *args, **kwargs): ...  # incomplete
+    def setInputCrop(self, *args, **kwargs): ...  # incomplete
+    def setInputMean(self, *args, **kwargs): ...  # incomplete
+    def setInputParams(self, *args, **kwargs): ...  # incomplete
+    def setInputScale(self, *args, **kwargs): ...  # incomplete
+    def setInputSize(self, *args, **kwargs): ...  # incomplete
+    def setInputSwapRB(self, *args, **kwargs): ...  # incomplete
+    def setPreferableBackend(self, *args, **kwargs): ...  # incomplete
+    def setPreferableTarget(self, *args, **kwargs): ...  # incomplete
 
 class dnn_Net:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def connect(self, outPin, inpPin) -> None: ...
-    def dump(self, *args, **kwargs) -> Any: ...  # incomplete
+    def dump(self, *args, **kwargs): ...  # incomplete
     def dumpToFile(self, path) -> None: ...
-    def empty(self, *args, **kwargs) -> Any: ...  # incomplete
+    def empty(self, *args, **kwargs): ...  # incomplete
     def enableFusion(self, fusion) -> None: ...
-    def forward(self, *args, **kwargs) -> Any: ...  # incomplete
+    def forward(self, *args, **kwargs): ...  # incomplete
     def forwardAndRetrieve(self, outBlobNames) -> _outputBlobs: ...
-    def forwardAsync(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getFLOPS(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getInputDetails(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getLayer(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getLayerId(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getLayerNames(self, *args, **kwargs) -> Any: ...  # incomplete
+    def forwardAsync(self, *args, **kwargs): ...  # incomplete
+    def getFLOPS(self, *args, **kwargs): ...  # incomplete
+    def getInputDetails(self, *args, **kwargs): ...  # incomplete
+    def getLayer(self, *args, **kwargs): ...  # incomplete
+    def getLayerId(self, *args, **kwargs): ...  # incomplete
+    def getLayerNames(self, *args, **kwargs): ...  # incomplete
     def getLayerTypes(self) -> _layersTypes: ...
-    def getLayersCount(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getLayersShapes(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getMemoryConsumption(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getOutputDetails(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getParam(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getPerfProfile(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getUnconnectedOutLayers(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getUnconnectedOutLayersNames(self, *args, **kwargs) -> Any: ...  # incomplete
-    def quantize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def readFromModelOptimizer(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getLayersCount(self, *args, **kwargs): ...  # incomplete
+    def getLayersShapes(self, *args, **kwargs): ...  # incomplete
+    def getMemoryConsumption(self, *args, **kwargs): ...  # incomplete
+    def getOutputDetails(self, *args, **kwargs): ...  # incomplete
+    def getParam(self, *args, **kwargs): ...  # incomplete
+    def getPerfProfile(self, *args, **kwargs): ...  # incomplete
+    def getUnconnectedOutLayers(self, *args, **kwargs): ...  # incomplete
+    def getUnconnectedOutLayersNames(self, *args, **kwargs): ...  # incomplete
+    def quantize(self, *args, **kwargs): ...  # incomplete
+    def readFromModelOptimizer(self, *args, **kwargs): ...  # incomplete
     def setHalideScheduler(self, scheduler) -> None: ...
-    def setInput(self, *args, **kwargs) -> Any: ...  # incomplete
+    def setInput(self, *args, **kwargs): ...  # incomplete
     def setInputShape(self, inputName, shape) -> None: ...
     def setInputsNames(self, inputBlobNames) -> None: ...
     def setParam(self, layer, numParam, blob) -> None: ...
@@ -3228,7 +3228,7 @@ class dnn_Net:
 
 class dnn_SegmentationModel(dnn_Model):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def segment(self, *args, **kwargs) -> Any: ...  # incomplete
+    def segment(self, *args, **kwargs): ...  # incomplete
 
 class dnn_TextDetectionModel(dnn_Model):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
@@ -3237,30 +3237,30 @@ class dnn_TextDetectionModel(dnn_Model):
 
 class dnn_TextDetectionModel_DB(dnn_TextDetectionModel):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def getBinaryThreshold(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getMaxCandidates(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getPolygonThreshold(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getUnclipRatio(self, *args, **kwargs) -> Any: ...  # incomplete
-    def setBinaryThreshold(self, *args, **kwargs) -> Any: ...  # incomplete
-    def setMaxCandidates(self, *args, **kwargs) -> Any: ...  # incomplete
-    def setPolygonThreshold(self, *args, **kwargs) -> Any: ...  # incomplete
-    def setUnclipRatio(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getBinaryThreshold(self, *args, **kwargs): ...  # incomplete
+    def getMaxCandidates(self, *args, **kwargs): ...  # incomplete
+    def getPolygonThreshold(self, *args, **kwargs): ...  # incomplete
+    def getUnclipRatio(self, *args, **kwargs): ...  # incomplete
+    def setBinaryThreshold(self, *args, **kwargs): ...  # incomplete
+    def setMaxCandidates(self, *args, **kwargs): ...  # incomplete
+    def setPolygonThreshold(self, *args, **kwargs): ...  # incomplete
+    def setUnclipRatio(self, *args, **kwargs): ...  # incomplete
 
 class dnn_TextDetectionModel_EAST(dnn_TextDetectionModel):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def getConfidenceThreshold(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getNMSThreshold(self, *args, **kwargs) -> Any: ...  # incomplete
-    def setConfidenceThreshold(self, *args, **kwargs) -> Any: ...  # incomplete
-    def setNMSThreshold(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getConfidenceThreshold(self, *args, **kwargs): ...  # incomplete
+    def getNMSThreshold(self, *args, **kwargs): ...  # incomplete
+    def setConfidenceThreshold(self, *args, **kwargs): ...  # incomplete
+    def setNMSThreshold(self, *args, **kwargs): ...  # incomplete
 
 class dnn_TextRecognitionModel(dnn_Model):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def getDecodeType(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getVocabulary(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getDecodeType(self, *args, **kwargs): ...  # incomplete
+    def getVocabulary(self, *args, **kwargs): ...  # incomplete
     def recognize(self, frame, roiRects) -> _results: ...
-    def setDecodeOptsCTCPrefixBeamSearch(self, *args, **kwargs) -> Any: ...  # incomplete
-    def setDecodeType(self, *args, **kwargs) -> Any: ...  # incomplete
-    def setVocabulary(self, *args, **kwargs) -> Any: ...  # incomplete
+    def setDecodeOptsCTCPrefixBeamSearch(self, *args, **kwargs): ...  # incomplete
+    def setDecodeType(self, *args, **kwargs): ...  # incomplete
+    def setVocabulary(self, *args, **kwargs): ...  # incomplete
 
 class error(Exception):
     code: ClassVar[int]
@@ -3272,12 +3272,12 @@ class error(Exception):
 
 class flann_Index:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def build(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getAlgorithm(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDistance(self, *args, **kwargs) -> Any: ...  # incomplete
-    def knnSearch(self, *args, **kwargs) -> Any: ...  # incomplete
-    def load(self, *args, **kwargs) -> Any: ...  # incomplete
-    def radiusSearch(self, *args, **kwargs) -> Any: ...  # incomplete
+    def build(self, *args, **kwargs): ...  # incomplete
+    def getAlgorithm(self, *args, **kwargs): ...  # incomplete
+    def getDistance(self, *args, **kwargs): ...  # incomplete
+    def knnSearch(self, *args, **kwargs): ...  # incomplete
+    def load(self, *args, **kwargs): ...  # incomplete
+    def radiusSearch(self, *args, **kwargs): ...  # incomplete
     def release(self) -> None: ...
     def save(self, filename) -> None: ...
 
@@ -3307,10 +3307,10 @@ class gapi_streaming_queue_capacity:
 
 class gapi_wip_GOutputs:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def getGArray(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getGMat(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getGOpaque(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getGScalar(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getGArray(self, *args, **kwargs): ...  # incomplete
+    def getGMat(self, *args, **kwargs): ...  # incomplete
+    def getGOpaque(self, *args, **kwargs): ...  # incomplete
+    def getGScalar(self, *args, **kwargs): ...  # incomplete
 
 class gapi_wip_IStreamSource:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
@@ -3374,24 +3374,24 @@ class gapi_wip_draw_Text:
 
 class ml_ANN_MLP(ml_StatModel):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getAnnealCoolingRatio(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getAnnealFinalT(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getAnnealInitialT(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getAnnealItePerStep(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getBackpropMomentumScale(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getBackpropWeightScale(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getLayerSizes(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getRpropDW0(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getRpropDWMax(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getRpropDWMin(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getRpropDWMinus(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getRpropDWPlus(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTermCriteria(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTrainMethod(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getWeights(self, *args, **kwargs) -> Any: ...  # incomplete
-    def load(self, *args, **kwargs) -> Any: ...  # incomplete
-    def setActivationFunction(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def getAnnealCoolingRatio(self, *args, **kwargs): ...  # incomplete
+    def getAnnealFinalT(self, *args, **kwargs): ...  # incomplete
+    def getAnnealInitialT(self, *args, **kwargs): ...  # incomplete
+    def getAnnealItePerStep(self, *args, **kwargs): ...  # incomplete
+    def getBackpropMomentumScale(self, *args, **kwargs): ...  # incomplete
+    def getBackpropWeightScale(self, *args, **kwargs): ...  # incomplete
+    def getLayerSizes(self, *args, **kwargs): ...  # incomplete
+    def getRpropDW0(self, *args, **kwargs): ...  # incomplete
+    def getRpropDWMax(self, *args, **kwargs): ...  # incomplete
+    def getRpropDWMin(self, *args, **kwargs): ...  # incomplete
+    def getRpropDWMinus(self, *args, **kwargs): ...  # incomplete
+    def getRpropDWPlus(self, *args, **kwargs): ...  # incomplete
+    def getTermCriteria(self, *args, **kwargs): ...  # incomplete
+    def getTrainMethod(self, *args, **kwargs): ...  # incomplete
+    def getWeights(self, *args, **kwargs): ...  # incomplete
+    def load(self, *args, **kwargs): ...  # incomplete
+    def setActivationFunction(self, *args, **kwargs): ...  # incomplete
     def setAnnealCoolingRatio(self, val) -> None: ...
     def setAnnealFinalT(self, val) -> None: ...
     def setAnnealInitialT(self, val) -> None: ...
@@ -3405,32 +3405,32 @@ class ml_ANN_MLP(ml_StatModel):
     def setRpropDWMinus(self, val) -> None: ...
     def setRpropDWPlus(self, val) -> None: ...
     def setTermCriteria(self, val) -> None: ...
-    def setTrainMethod(self, *args, **kwargs) -> Any: ...  # incomplete
+    def setTrainMethod(self, *args, **kwargs): ...  # incomplete
 
 class ml_Boost(ml_DTrees):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getBoostType(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getWeakCount(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getWeightTrimRate(self, *args, **kwargs) -> Any: ...  # incomplete
-    def load(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def getBoostType(self, *args, **kwargs): ...  # incomplete
+    def getWeakCount(self, *args, **kwargs): ...  # incomplete
+    def getWeightTrimRate(self, *args, **kwargs): ...  # incomplete
+    def load(self, *args, **kwargs): ...  # incomplete
     def setBoostType(self, val) -> None: ...
     def setWeakCount(self, val) -> None: ...
     def setWeightTrimRate(self, val) -> None: ...
 
 class ml_DTrees(ml_StatModel):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getCVFolds(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getMaxCategories(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getMaxDepth(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getMinSampleCount(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getPriors(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getRegressionAccuracy(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTruncatePrunedTree(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getUse1SERule(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getUseSurrogates(self, *args, **kwargs) -> Any: ...  # incomplete
-    def load(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def getCVFolds(self, *args, **kwargs): ...  # incomplete
+    def getMaxCategories(self, *args, **kwargs): ...  # incomplete
+    def getMaxDepth(self, *args, **kwargs): ...  # incomplete
+    def getMinSampleCount(self, *args, **kwargs): ...  # incomplete
+    def getPriors(self, *args, **kwargs): ...  # incomplete
+    def getRegressionAccuracy(self, *args, **kwargs): ...  # incomplete
+    def getTruncatePrunedTree(self, *args, **kwargs): ...  # incomplete
+    def getUse1SERule(self, *args, **kwargs): ...  # incomplete
+    def getUseSurrogates(self, *args, **kwargs): ...  # incomplete
+    def load(self, *args, **kwargs): ...  # incomplete
     def setCVFolds(self, val) -> None: ...
     def setMaxCategories(self, val) -> None: ...
     def setMaxDepth(self, val) -> None: ...
@@ -3443,32 +3443,32 @@ class ml_DTrees(ml_StatModel):
 
 class ml_EM(ml_StatModel):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getClustersNumber(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getCovarianceMatrixType(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getCovs(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getMeans(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTermCriteria(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getWeights(self, *args, **kwargs) -> Any: ...  # incomplete
-    def load(self, *args, **kwargs) -> Any: ...  # incomplete
-    def predict(self, *args, **kwargs) -> Any: ...  # incomplete
-    def predict2(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def getClustersNumber(self, *args, **kwargs): ...  # incomplete
+    def getCovarianceMatrixType(self, *args, **kwargs): ...  # incomplete
+    def getCovs(self, *args, **kwargs): ...  # incomplete
+    def getMeans(self, *args, **kwargs): ...  # incomplete
+    def getTermCriteria(self, *args, **kwargs): ...  # incomplete
+    def getWeights(self, *args, **kwargs): ...  # incomplete
+    def load(self, *args, **kwargs): ...  # incomplete
+    def predict(self, *args, **kwargs): ...  # incomplete
+    def predict2(self, *args, **kwargs): ...  # incomplete
     def setClustersNumber(self, val) -> None: ...
     def setCovarianceMatrixType(self, val) -> None: ...
     def setTermCriteria(self, val) -> None: ...
-    def trainE(self, *args, **kwargs) -> Any: ...  # incomplete
-    def trainEM(self, *args, **kwargs) -> Any: ...  # incomplete
-    def trainM(self, *args, **kwargs) -> Any: ...  # incomplete
+    def trainE(self, *args, **kwargs): ...  # incomplete
+    def trainEM(self, *args, **kwargs): ...  # incomplete
+    def trainM(self, *args, **kwargs): ...  # incomplete
 
 class ml_KNearest(ml_StatModel):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def findNearest(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getAlgorithmType(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDefaultK(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getEmax(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getIsClassifier(self, *args, **kwargs) -> Any: ...  # incomplete
-    def load(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def findNearest(self, *args, **kwargs): ...  # incomplete
+    def getAlgorithmType(self, *args, **kwargs): ...  # incomplete
+    def getDefaultK(self, *args, **kwargs): ...  # incomplete
+    def getEmax(self, *args, **kwargs): ...  # incomplete
+    def getIsClassifier(self, *args, **kwargs): ...  # incomplete
+    def load(self, *args, **kwargs): ...  # incomplete
     def setAlgorithmType(self, val) -> None: ...
     def setDefaultK(self, val) -> None: ...
     def setEmax(self, val) -> None: ...
@@ -3476,16 +3476,16 @@ class ml_KNearest(ml_StatModel):
 
 class ml_LogisticRegression(ml_StatModel):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getIterations(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getLearningRate(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getMiniBatchSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getRegularization(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTermCriteria(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTrainMethod(self, *args, **kwargs) -> Any: ...  # incomplete
-    def get_learnt_thetas(self, *args, **kwargs) -> Any: ...  # incomplete
-    def load(self, *args, **kwargs) -> Any: ...  # incomplete
-    def predict(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def getIterations(self, *args, **kwargs): ...  # incomplete
+    def getLearningRate(self, *args, **kwargs): ...  # incomplete
+    def getMiniBatchSize(self, *args, **kwargs): ...  # incomplete
+    def getRegularization(self, *args, **kwargs): ...  # incomplete
+    def getTermCriteria(self, *args, **kwargs): ...  # incomplete
+    def getTrainMethod(self, *args, **kwargs): ...  # incomplete
+    def get_learnt_thetas(self, *args, **kwargs): ...  # incomplete
+    def load(self, *args, **kwargs): ...  # incomplete
+    def predict(self, *args, **kwargs): ...  # incomplete
     def setIterations(self, val) -> None: ...
     def setLearningRate(self, val) -> None: ...
     def setMiniBatchSize(self, val) -> None: ...
@@ -3495,49 +3495,49 @@ class ml_LogisticRegression(ml_StatModel):
 
 class ml_NormalBayesClassifier(ml_StatModel):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def load(self, *args, **kwargs) -> Any: ...  # incomplete
-    def predictProb(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def load(self, *args, **kwargs): ...  # incomplete
+    def predictProb(self, *args, **kwargs): ...  # incomplete
 
 class ml_ParamGrid:
     logStep: Incomplete
     maxVal: Incomplete
     minVal: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
 
 class ml_RTrees(ml_DTrees):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getActiveVarCount(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getCalculateVarImportance(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getOOBError(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTermCriteria(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getVarImportance(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getVotes(self, *args, **kwargs) -> Any: ...  # incomplete
-    def load(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def getActiveVarCount(self, *args, **kwargs): ...  # incomplete
+    def getCalculateVarImportance(self, *args, **kwargs): ...  # incomplete
+    def getOOBError(self, *args, **kwargs): ...  # incomplete
+    def getTermCriteria(self, *args, **kwargs): ...  # incomplete
+    def getVarImportance(self, *args, **kwargs): ...  # incomplete
+    def getVotes(self, *args, **kwargs): ...  # incomplete
+    def load(self, *args, **kwargs): ...  # incomplete
     def setActiveVarCount(self, val) -> None: ...
     def setCalculateVarImportance(self, val) -> None: ...
     def setTermCriteria(self, val) -> None: ...
 
 class ml_SVM(ml_StatModel):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getC(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getClassWeights(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getCoef0(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDecisionFunction(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDefaultGridPtr(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDegree(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getGamma(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getKernelType(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getNu(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getP(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getSupportVectors(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTermCriteria(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getType(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getUncompressedSupportVectors(self, *args, **kwargs) -> Any: ...  # incomplete
-    def load(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def getC(self, *args, **kwargs): ...  # incomplete
+    def getClassWeights(self, *args, **kwargs): ...  # incomplete
+    def getCoef0(self, *args, **kwargs): ...  # incomplete
+    def getDecisionFunction(self, *args, **kwargs): ...  # incomplete
+    def getDefaultGridPtr(self, *args, **kwargs): ...  # incomplete
+    def getDegree(self, *args, **kwargs): ...  # incomplete
+    def getGamma(self, *args, **kwargs): ...  # incomplete
+    def getKernelType(self, *args, **kwargs): ...  # incomplete
+    def getNu(self, *args, **kwargs): ...  # incomplete
+    def getP(self, *args, **kwargs): ...  # incomplete
+    def getSupportVectors(self, *args, **kwargs): ...  # incomplete
+    def getTermCriteria(self, *args, **kwargs): ...  # incomplete
+    def getType(self, *args, **kwargs): ...  # incomplete
+    def getUncompressedSupportVectors(self, *args, **kwargs): ...  # incomplete
+    def load(self, *args, **kwargs): ...  # incomplete
     def setC(self, val) -> None: ...
     def setClassWeights(self, val) -> None: ...
     def setCoef0(self, val) -> None: ...
@@ -3548,167 +3548,167 @@ class ml_SVM(ml_StatModel):
     def setP(self, val) -> None: ...
     def setTermCriteria(self, val) -> None: ...
     def setType(self, val) -> None: ...
-    def trainAuto(self, *args, **kwargs) -> Any: ...  # incomplete
+    def trainAuto(self, *args, **kwargs): ...  # incomplete
 
 class ml_SVMSGD(ml_StatModel):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getInitialStepSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getMarginRegularization(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getMarginType(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getShift(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getStepDecreasingPower(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getSvmsgdType(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTermCriteria(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getWeights(self, *args, **kwargs) -> Any: ...  # incomplete
-    def load(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def getInitialStepSize(self, *args, **kwargs): ...  # incomplete
+    def getMarginRegularization(self, *args, **kwargs): ...  # incomplete
+    def getMarginType(self, *args, **kwargs): ...  # incomplete
+    def getShift(self, *args, **kwargs): ...  # incomplete
+    def getStepDecreasingPower(self, *args, **kwargs): ...  # incomplete
+    def getSvmsgdType(self, *args, **kwargs): ...  # incomplete
+    def getTermCriteria(self, *args, **kwargs): ...  # incomplete
+    def getWeights(self, *args, **kwargs): ...  # incomplete
+    def load(self, *args, **kwargs): ...  # incomplete
     def setInitialStepSize(self, InitialStepSize) -> None: ...
     def setMarginRegularization(self, marginRegularization) -> None: ...
     def setMarginType(self, marginType) -> None: ...
-    def setOptimalParameters(self, *args, **kwargs) -> Any: ...  # incomplete
+    def setOptimalParameters(self, *args, **kwargs): ...  # incomplete
     def setStepDecreasingPower(self, stepDecreasingPower) -> None: ...
     def setSvmsgdType(self, svmsgdType) -> None: ...
     def setTermCriteria(self, val) -> None: ...
 
 class ml_StatModel(Algorithm):
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def calcError(self, *args, **kwargs) -> Any: ...  # incomplete
-    def empty(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getVarCount(self, *args, **kwargs) -> Any: ...  # incomplete
-    def isClassifier(self, *args, **kwargs) -> Any: ...  # incomplete
-    def isTrained(self, *args, **kwargs) -> Any: ...  # incomplete
-    def predict(self, *args, **kwargs) -> Any: ...  # incomplete
-    def train(self, *args, **kwargs) -> Any: ...  # incomplete
+    def calcError(self, *args, **kwargs): ...  # incomplete
+    def empty(self, *args, **kwargs): ...  # incomplete
+    def getVarCount(self, *args, **kwargs): ...  # incomplete
+    def isClassifier(self, *args, **kwargs): ...  # incomplete
+    def isTrained(self, *args, **kwargs): ...  # incomplete
+    def predict(self, *args, **kwargs): ...  # incomplete
+    def train(self, *args, **kwargs): ...  # incomplete
 
 class ml_TrainData:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def create(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getCatCount(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getCatMap(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getCatOfs(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getClassLabels(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDefaultSubstValues(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getLayout(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getMissing(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getNAllVars(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getNSamples(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getNTestSamples(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getNTrainSamples(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getNVars(self, *args, **kwargs) -> Any: ...  # incomplete
+    def create(self, *args, **kwargs): ...  # incomplete
+    def getCatCount(self, *args, **kwargs): ...  # incomplete
+    def getCatMap(self, *args, **kwargs): ...  # incomplete
+    def getCatOfs(self, *args, **kwargs): ...  # incomplete
+    def getClassLabels(self, *args, **kwargs): ...  # incomplete
+    def getDefaultSubstValues(self, *args, **kwargs): ...  # incomplete
+    def getLayout(self, *args, **kwargs): ...  # incomplete
+    def getMissing(self, *args, **kwargs): ...  # incomplete
+    def getNAllVars(self, *args, **kwargs): ...  # incomplete
+    def getNSamples(self, *args, **kwargs): ...  # incomplete
+    def getNTestSamples(self, *args, **kwargs): ...  # incomplete
+    def getNTrainSamples(self, *args, **kwargs): ...  # incomplete
+    def getNVars(self, *args, **kwargs): ...  # incomplete
     def getNames(self, names) -> None: ...
-    def getNormCatResponses(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getResponseType(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getResponses(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getNormCatResponses(self, *args, **kwargs): ...  # incomplete
+    def getResponseType(self, *args, **kwargs): ...  # incomplete
+    def getResponses(self, *args, **kwargs): ...  # incomplete
     def getSample(self, varIdx, sidx, buf) -> None: ...
-    def getSampleWeights(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getSamples(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getSubMatrix(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getSubVector(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTestNormCatResponses(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTestResponses(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTestSampleIdx(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTestSampleWeights(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTestSamples(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTrainNormCatResponses(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTrainResponses(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTrainSampleIdx(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTrainSampleWeights(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getTrainSamples(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getSampleWeights(self, *args, **kwargs): ...  # incomplete
+    def getSamples(self, *args, **kwargs): ...  # incomplete
+    def getSubMatrix(self, *args, **kwargs): ...  # incomplete
+    def getSubVector(self, *args, **kwargs): ...  # incomplete
+    def getTestNormCatResponses(self, *args, **kwargs): ...  # incomplete
+    def getTestResponses(self, *args, **kwargs): ...  # incomplete
+    def getTestSampleIdx(self, *args, **kwargs): ...  # incomplete
+    def getTestSampleWeights(self, *args, **kwargs): ...  # incomplete
+    def getTestSamples(self, *args, **kwargs): ...  # incomplete
+    def getTrainNormCatResponses(self, *args, **kwargs): ...  # incomplete
+    def getTrainResponses(self, *args, **kwargs): ...  # incomplete
+    def getTrainSampleIdx(self, *args, **kwargs): ...  # incomplete
+    def getTrainSampleWeights(self, *args, **kwargs): ...  # incomplete
+    def getTrainSamples(self, *args, **kwargs): ...  # incomplete
     def getValues(self, vi, sidx, values) -> None: ...
-    def getVarIdx(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getVarSymbolFlags(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getVarType(self, *args, **kwargs) -> Any: ...  # incomplete
-    def setTrainTestSplit(self, *args, **kwargs) -> Any: ...  # incomplete
-    def setTrainTestSplitRatio(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getVarIdx(self, *args, **kwargs): ...  # incomplete
+    def getVarSymbolFlags(self, *args, **kwargs): ...  # incomplete
+    def getVarType(self, *args, **kwargs): ...  # incomplete
+    def setTrainTestSplit(self, *args, **kwargs): ...  # incomplete
+    def setTrainTestSplitRatio(self, *args, **kwargs): ...  # incomplete
     def shuffleTrainTest(self) -> None: ...
 
 class ocl_Device:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def OpenCLVersion(self, *args, **kwargs) -> Any: ...  # incomplete
-    def OpenCL_C_Version(self, *args, **kwargs) -> Any: ...  # incomplete
-    def addressBits(self, *args, **kwargs) -> Any: ...  # incomplete
-    def available(self, *args, **kwargs) -> Any: ...  # incomplete
-    def compilerAvailable(self, *args, **kwargs) -> Any: ...  # incomplete
-    def deviceVersionMajor(self, *args, **kwargs) -> Any: ...  # incomplete
-    def deviceVersionMinor(self, *args, **kwargs) -> Any: ...  # incomplete
-    def doubleFPConfig(self, *args, **kwargs) -> Any: ...  # incomplete
-    def driverVersion(self, *args, **kwargs) -> Any: ...  # incomplete
-    def endianLittle(self, *args, **kwargs) -> Any: ...  # incomplete
-    def errorCorrectionSupport(self, *args, **kwargs) -> Any: ...  # incomplete
-    def executionCapabilities(self, *args, **kwargs) -> Any: ...  # incomplete
-    def extensions(self, *args, **kwargs) -> Any: ...  # incomplete
-    def getDefault(self, *args, **kwargs) -> Any: ...  # incomplete
-    def globalMemCacheLineSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def globalMemCacheSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def globalMemCacheType(self, *args, **kwargs) -> Any: ...  # incomplete
-    def globalMemSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def halfFPConfig(self, *args, **kwargs) -> Any: ...  # incomplete
-    def hostUnifiedMemory(self, *args, **kwargs) -> Any: ...  # incomplete
-    def image2DMaxHeight(self, *args, **kwargs) -> Any: ...  # incomplete
-    def image2DMaxWidth(self, *args, **kwargs) -> Any: ...  # incomplete
-    def image3DMaxDepth(self, *args, **kwargs) -> Any: ...  # incomplete
-    def image3DMaxHeight(self, *args, **kwargs) -> Any: ...  # incomplete
-    def image3DMaxWidth(self, *args, **kwargs) -> Any: ...  # incomplete
-    def imageFromBufferSupport(self, *args, **kwargs) -> Any: ...  # incomplete
-    def imageMaxArraySize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def imageMaxBufferSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def imageSupport(self, *args, **kwargs) -> Any: ...  # incomplete
-    def intelSubgroupsSupport(self, *args, **kwargs) -> Any: ...  # incomplete
-    def isAMD(self, *args, **kwargs) -> Any: ...  # incomplete
-    def isExtensionSupported(self, *args, **kwargs) -> Any: ...  # incomplete
-    def isIntel(self, *args, **kwargs) -> Any: ...  # incomplete
-    def isNVidia(self, *args, **kwargs) -> Any: ...  # incomplete
-    def linkerAvailable(self, *args, **kwargs) -> Any: ...  # incomplete
-    def localMemSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def localMemType(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxClockFrequency(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxComputeUnits(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxConstantArgs(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxConstantBufferSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxMemAllocSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxParameterSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxReadImageArgs(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxSamplers(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxWorkGroupSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxWorkItemDims(self, *args, **kwargs) -> Any: ...  # incomplete
-    def maxWriteImageArgs(self, *args, **kwargs) -> Any: ...  # incomplete
-    def memBaseAddrAlign(self, *args, **kwargs) -> Any: ...  # incomplete
-    def name(self, *args, **kwargs) -> Any: ...  # incomplete
-    def nativeVectorWidthChar(self, *args, **kwargs) -> Any: ...  # incomplete
-    def nativeVectorWidthDouble(self, *args, **kwargs) -> Any: ...  # incomplete
-    def nativeVectorWidthFloat(self, *args, **kwargs) -> Any: ...  # incomplete
-    def nativeVectorWidthHalf(self, *args, **kwargs) -> Any: ...  # incomplete
-    def nativeVectorWidthInt(self, *args, **kwargs) -> Any: ...  # incomplete
-    def nativeVectorWidthLong(self, *args, **kwargs) -> Any: ...  # incomplete
-    def nativeVectorWidthShort(self, *args, **kwargs) -> Any: ...  # incomplete
-    def preferredVectorWidthChar(self, *args, **kwargs) -> Any: ...  # incomplete
-    def preferredVectorWidthDouble(self, *args, **kwargs) -> Any: ...  # incomplete
-    def preferredVectorWidthFloat(self, *args, **kwargs) -> Any: ...  # incomplete
-    def preferredVectorWidthHalf(self, *args, **kwargs) -> Any: ...  # incomplete
-    def preferredVectorWidthInt(self, *args, **kwargs) -> Any: ...  # incomplete
-    def preferredVectorWidthLong(self, *args, **kwargs) -> Any: ...  # incomplete
-    def preferredVectorWidthShort(self, *args, **kwargs) -> Any: ...  # incomplete
-    def printfBufferSize(self, *args, **kwargs) -> Any: ...  # incomplete
-    def profilingTimerResolution(self, *args, **kwargs) -> Any: ...  # incomplete
-    def singleFPConfig(self, *args, **kwargs) -> Any: ...  # incomplete
-    def type(self, *args, **kwargs) -> Any: ...  # incomplete
-    def vendorID(self, *args, **kwargs) -> Any: ...  # incomplete
-    def vendorName(self, *args, **kwargs) -> Any: ...  # incomplete
-    def version(self, *args, **kwargs) -> Any: ...  # incomplete
+    def OpenCLVersion(self, *args, **kwargs): ...  # incomplete
+    def OpenCL_C_Version(self, *args, **kwargs): ...  # incomplete
+    def addressBits(self, *args, **kwargs): ...  # incomplete
+    def available(self, *args, **kwargs): ...  # incomplete
+    def compilerAvailable(self, *args, **kwargs): ...  # incomplete
+    def deviceVersionMajor(self, *args, **kwargs): ...  # incomplete
+    def deviceVersionMinor(self, *args, **kwargs): ...  # incomplete
+    def doubleFPConfig(self, *args, **kwargs): ...  # incomplete
+    def driverVersion(self, *args, **kwargs): ...  # incomplete
+    def endianLittle(self, *args, **kwargs): ...  # incomplete
+    def errorCorrectionSupport(self, *args, **kwargs): ...  # incomplete
+    def executionCapabilities(self, *args, **kwargs): ...  # incomplete
+    def extensions(self, *args, **kwargs): ...  # incomplete
+    def getDefault(self, *args, **kwargs): ...  # incomplete
+    def globalMemCacheLineSize(self, *args, **kwargs): ...  # incomplete
+    def globalMemCacheSize(self, *args, **kwargs): ...  # incomplete
+    def globalMemCacheType(self, *args, **kwargs): ...  # incomplete
+    def globalMemSize(self, *args, **kwargs): ...  # incomplete
+    def halfFPConfig(self, *args, **kwargs): ...  # incomplete
+    def hostUnifiedMemory(self, *args, **kwargs): ...  # incomplete
+    def image2DMaxHeight(self, *args, **kwargs): ...  # incomplete
+    def image2DMaxWidth(self, *args, **kwargs): ...  # incomplete
+    def image3DMaxDepth(self, *args, **kwargs): ...  # incomplete
+    def image3DMaxHeight(self, *args, **kwargs): ...  # incomplete
+    def image3DMaxWidth(self, *args, **kwargs): ...  # incomplete
+    def imageFromBufferSupport(self, *args, **kwargs): ...  # incomplete
+    def imageMaxArraySize(self, *args, **kwargs): ...  # incomplete
+    def imageMaxBufferSize(self, *args, **kwargs): ...  # incomplete
+    def imageSupport(self, *args, **kwargs): ...  # incomplete
+    def intelSubgroupsSupport(self, *args, **kwargs): ...  # incomplete
+    def isAMD(self, *args, **kwargs): ...  # incomplete
+    def isExtensionSupported(self, *args, **kwargs): ...  # incomplete
+    def isIntel(self, *args, **kwargs): ...  # incomplete
+    def isNVidia(self, *args, **kwargs): ...  # incomplete
+    def linkerAvailable(self, *args, **kwargs): ...  # incomplete
+    def localMemSize(self, *args, **kwargs): ...  # incomplete
+    def localMemType(self, *args, **kwargs): ...  # incomplete
+    def maxClockFrequency(self, *args, **kwargs): ...  # incomplete
+    def maxComputeUnits(self, *args, **kwargs): ...  # incomplete
+    def maxConstantArgs(self, *args, **kwargs): ...  # incomplete
+    def maxConstantBufferSize(self, *args, **kwargs): ...  # incomplete
+    def maxMemAllocSize(self, *args, **kwargs): ...  # incomplete
+    def maxParameterSize(self, *args, **kwargs): ...  # incomplete
+    def maxReadImageArgs(self, *args, **kwargs): ...  # incomplete
+    def maxSamplers(self, *args, **kwargs): ...  # incomplete
+    def maxWorkGroupSize(self, *args, **kwargs): ...  # incomplete
+    def maxWorkItemDims(self, *args, **kwargs): ...  # incomplete
+    def maxWriteImageArgs(self, *args, **kwargs): ...  # incomplete
+    def memBaseAddrAlign(self, *args, **kwargs): ...  # incomplete
+    def name(self, *args, **kwargs): ...  # incomplete
+    def nativeVectorWidthChar(self, *args, **kwargs): ...  # incomplete
+    def nativeVectorWidthDouble(self, *args, **kwargs): ...  # incomplete
+    def nativeVectorWidthFloat(self, *args, **kwargs): ...  # incomplete
+    def nativeVectorWidthHalf(self, *args, **kwargs): ...  # incomplete
+    def nativeVectorWidthInt(self, *args, **kwargs): ...  # incomplete
+    def nativeVectorWidthLong(self, *args, **kwargs): ...  # incomplete
+    def nativeVectorWidthShort(self, *args, **kwargs): ...  # incomplete
+    def preferredVectorWidthChar(self, *args, **kwargs): ...  # incomplete
+    def preferredVectorWidthDouble(self, *args, **kwargs): ...  # incomplete
+    def preferredVectorWidthFloat(self, *args, **kwargs): ...  # incomplete
+    def preferredVectorWidthHalf(self, *args, **kwargs): ...  # incomplete
+    def preferredVectorWidthInt(self, *args, **kwargs): ...  # incomplete
+    def preferredVectorWidthLong(self, *args, **kwargs): ...  # incomplete
+    def preferredVectorWidthShort(self, *args, **kwargs): ...  # incomplete
+    def printfBufferSize(self, *args, **kwargs): ...  # incomplete
+    def profilingTimerResolution(self, *args, **kwargs): ...  # incomplete
+    def singleFPConfig(self, *args, **kwargs): ...  # incomplete
+    def type(self, *args, **kwargs): ...  # incomplete
+    def vendorID(self, *args, **kwargs): ...  # incomplete
+    def vendorName(self, *args, **kwargs): ...  # incomplete
+    def version(self, *args, **kwargs): ...  # incomplete
 
 class ocl_OpenCLExecutionContext:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class segmentation_IntelligentScissorsMB:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def applyImage(self, *args, **kwargs) -> Any: ...  # incomplete
-    def applyImageFeatures(self, *args, **kwargs) -> Any: ...  # incomplete
+    def applyImage(self, *args, **kwargs): ...  # incomplete
+    def applyImageFeatures(self, *args, **kwargs): ...  # incomplete
     def buildMap(self, sourcePt) -> None: ...
-    def getContour(self, *args, **kwargs) -> Any: ...  # incomplete
-    def setEdgeFeatureCannyParameters(self, *args, **kwargs) -> Any: ...  # incomplete
-    def setEdgeFeatureZeroCrossingParameters(self, *args, **kwargs) -> Any: ...  # incomplete
-    def setGradientMagnitudeMaxLimit(self, *args, **kwargs) -> Any: ...  # incomplete
-    def setWeights(self, *args, **kwargs) -> Any: ...  # incomplete
+    def getContour(self, *args, **kwargs): ...  # incomplete
+    def setEdgeFeatureCannyParameters(self, *args, **kwargs): ...  # incomplete
+    def setEdgeFeatureZeroCrossingParameters(self, *args, **kwargs): ...  # incomplete
+    def setGradientMagnitudeMaxLimit(self, *args, **kwargs): ...  # incomplete
+    def setWeights(self, *args, **kwargs): ...  # incomplete
 
 def AKAZE_create(
     descriptor_type=...,
