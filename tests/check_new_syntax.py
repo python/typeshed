@@ -96,10 +96,7 @@ def check_new_syntax(tree: ast.AST, path: Path, stub: str) -> list[str]:
 def main() -> None:
     errors = []
     for path in chain(Path("stdlib").rglob("*.pyi"), Path("stubs").rglob("*.pyi")):
-        if Path("stubs/protobuf/google/protobuf") in path.parents:  # TODO: fix protobuf stubs
-            continue
-
-        with open(path) as f:
+        with open(path, encoding="UTF-8") as f:
             stub = f.read()
             tree = ast.parse(stub)
         errors.extend(check_new_syntax(tree, path, stub))

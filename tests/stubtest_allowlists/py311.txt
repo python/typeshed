@@ -12,16 +12,12 @@ _collections_abc.MappingView.__class_getitem__
 _collections_abc.ValuesView.__reversed__
 _csv.Reader
 _csv.Writer
-_operator.attrgetter.__vectorcalloffset__
-_operator.itemgetter.__vectorcalloffset__
 argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group
 asynchat.__warningregistry__  # Removal planned for 3.12, can add if someone needs this
 configparser.LegacyInterpolation.__init__
-distutils.util.get_host_platform
 enum.Enum.__init__
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 ftplib.FTP.trust_server_pasv_ipv4_address
-functools.partial.__vectorcalloffset__
 ipaddress.IPv4Interface.hostmask
 ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
@@ -33,8 +29,6 @@ multiprocessing.managers.SharedMemoryServer.release_segment
 multiprocessing.managers.SharedMemoryServer.shutdown
 multiprocessing.managers.SharedMemoryServer.track_segment
 multiprocessing.spawn._main
-operator.attrgetter.__vectorcalloffset__
-operator.itemgetter.__vectorcalloffset__
 # platform.uname_result's processor field is now dynamically made to exist
 platform.uname_result.__match_args__
 platform.uname_result.__new__
@@ -43,7 +37,6 @@ platform.uname_result.processor
 queue.SimpleQueue.__init__
 sys.UnraisableHookArgs  # Not exported from sys
 tkinter._VersionInfoType.__doc__
-typing.ForwardRef._evaluate
 typing.NewType.__call__
 typing.NewType.__mro_entries__
 weakref.WeakValueDictionary.update
@@ -95,7 +88,6 @@ os.path.join
 _collections_abc.AsyncGenerator.athrow  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
 _weakref.ProxyType.__reversed__  # Doesn't really exist
 builtins.property.__set_name__  # Doesn't actually exist
-enum.StrEnum.value  # read-only property at runtime but too magical for stubtest
 hmac.new  # Stub is a white lie; see comments in the stub
 http.HTTPMethod.description  # mutable instance attribute at runtime but we pretend it's a property
 pickle.Pickler.reducer_override  # implemented in C pickler
@@ -104,25 +96,6 @@ types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
 weakref.ProxyType.__reversed__  # Doesn't really exist
 inspect._ParameterKind.description  # Still exists, but stubtest can't see it
-
-# Inherits __init__ from typing.Protocol (https://github.com/python/mypy/issues/12820)
-importlib.abc.Traversable.__init__
-importlib.metadata.EntryPoint.__init__
-importlib.metadata.PackageMetadata.__init__
-importlib.metadata._meta.PackageMetadata.__init__
-importlib.metadata._meta.SimplePath.__init__
-typing.SupportsAbs.__init__
-typing.SupportsBytes.__init__
-typing.SupportsComplex.__init__
-typing.SupportsFloat.__init__
-typing.SupportsIndex.__init__
-typing.SupportsInt.__init__
-typing.SupportsRound.__init__
-wsgiref.types.ErrorStream.__init__
-wsgiref.types.FileWrapper.__init__
-wsgiref.types.InputStream.__init__
-wsgiref.types.StartResponse.__init__
-wsgiref.types._Readable.__init__
 
 # C signature is broader than what is actually accepted
 ast.Bytes.__new__
@@ -171,8 +144,6 @@ typing._TypedDict.values
 # White lies around defaults
 dataclasses.KW_ONLY
 
-# https://github.com/python/mypy/issues/13114
-wsgiref.types.WSGIEnvironment
-
-# https://github.com/python/mypy/issues/12821 (stubtest bug with Callable type alias)
-wsgiref.types.WSGIApplication
+# stubtest confuses stdlib distutils with setuptools-bundled distutils (#8410),
+# and the whole directory is going to be removed in 3.12 anyway
+distutils\..*
