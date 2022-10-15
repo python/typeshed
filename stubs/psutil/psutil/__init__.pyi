@@ -2,7 +2,8 @@ import sys
 from _typeshed import Self
 from collections.abc import Callable, Iterable, Iterator
 from contextlib import AbstractContextManager
-from typing import Any
+from typing import Any, overload
+from typing_extensions import Literal, TypeAlias
 
 from ._common import (
     AIX as AIX,
@@ -50,7 +51,6 @@ from ._common import (
     NoSuchProcess as NoSuchProcess,
     TimeoutExpired as TimeoutExpired,
     ZombieProcess as ZombieProcess,
-    _Status,
     pconn,
     pcputimes,
     pctxsw,
@@ -102,14 +102,15 @@ if sys.platform == "win32":
     )
 
 if sys.platform == "linux":
-    from ._pslinux import pfullmem, pmem
+    from ._pslinux import pfullmem, pmem, svmem
 elif sys.platform == "darwin":
-    from ._psosx import pfullmem, pmem
+    from ._psosx import pfullmem, pmem, svmem
 elif sys.platform == "win32":
-    from ._pswindows import pfullmem, pmem
+    from ._pswindows import pfullmem, pmem, svmem
 else:
     class pmem(Any): ...
     class pfullmem(Any): ...
+    class svmem(Any): ...
 
 if sys.platform == "linux":
     PROCFS_PATH: str
@@ -117,6 +118,23 @@ AF_LINK: int
 version_info: tuple[int, int, int]
 __version__: str
 __author__: str
+
+_Status: TypeAlias = Literal[
+    "running",
+    "sleeping",
+    "disk-sleep",
+    "stopped",
+    "tracing-stop",
+    "zombie",
+    "dead",
+    "wake-kill",
+    "waking",
+    "idle",
+    "locked",
+    "waiting",
+    "suspended",
+    "parked",
+]
 
 class Process:
     def __init__(self, pid: int | None = ...) -> None: ...
@@ -203,12 +221,18 @@ def cpu_times_percent(interval: float | None = ..., percpu: bool = ...): ...
 def cpu_stats() -> scpustats: ...
 def cpu_freq(percpu: bool = ...) -> scpufreq: ...
 def getloadavg() -> tuple[float, float, float]: ...
-def virtual_memory(): ...
+def virtual_memory() -> svmem: ...
 def swap_memory() -> sswap: ...
 def disk_usage(path: str) -> sdiskusage: ...
 def disk_partitions(all: bool = ...) -> list[sdiskpart]: ...
-def disk_io_counters(perdisk: bool = ..., nowrap: bool = ...) -> sdiskio: ...
-def net_io_counters(pernic: bool = ..., nowrap: bool = ...) -> snetio: ...
+@overload
+def disk_io_counters(perdisk: Literal[False] = ..., nowrap: bool = ...) -> sdiskio | None: ...
+@overload
+def disk_io_counters(perdisk: Literal[True], nowrap: bool = ...) -> dict[str, sdiskio]: ...
+@overload
+def net_io_counters(pernic: Literal[False] = ..., nowrap: bool = ...) -> snetio: ...
+@overload
+def net_io_counters(pernic: Literal[True], nowrap: bool = ...) -> dict[str, snetio]: ...
 def net_connections(kind: str = ...) -> list[sconn]: ...
 def net_if_addrs() -> dict[str, list[snicaddr]]: ...
 def net_if_stats() -> dict[str, snicstats]: ...

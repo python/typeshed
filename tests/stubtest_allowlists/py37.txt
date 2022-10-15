@@ -45,15 +45,11 @@ typing.NamedTuple._make
 typing.NamedTuple._replace
 typing._SpecialForm.__new__
 typing.runtime_checkable
-typing.Text.maketrans
 uuid.UUID.int
 uuid.UUID.is_safe
 uuid.getnode  # undocumented, unused parameter getters that was later removed
 xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495
 xml.etree.cElementTree.TreeBuilder.start  # bpo-39495
-
-sqlite3.OptimizedUnicode.maketrans
-sqlite3.dbapi2.OptimizedUnicode.maketrans
 
 collections.Coroutine.cr_await
 collections.Coroutine.cr_code
@@ -141,10 +137,6 @@ collections.Set.__rxor__
 
 builtins.memoryview.__iter__  # C type that implements __getitem__
 builtins.memoryview.cast  # inspect.signature is incorrect about shape being kw-only
-sqlite3.dbapi2.Binary.__iter__  # C type that implements __getitem__
-sqlite3.dbapi2.Binary.cast  # inspect.signature is incorrect about shape being kw-only
-sqlite3.Binary.__iter__  # C type that implements __getitem__
-sqlite3.Binary.cast  # inspect.signature is incorrect about shape being kw-only
 
 # C signature is broader than what is actually accepted
 queue.SimpleQueue.__init__
@@ -160,3 +152,51 @@ builtins.property.__get__
 builtins.staticmethod.__get__
 types.FunctionType.__get__
 types.LambdaType.__get__
+
+# Missing from distutils (deprecated, to be removed in 3.12)
+distutils.core.Command.dump_options
+distutils.core.Command.ensure_finalized
+distutils.core.Distribution.announce
+distutils.core.Distribution.common_usage
+distutils.core.Distribution.display_option_names
+distutils.core.Distribution.display_options
+distutils.core.Distribution.dump_option_dicts
+distutils.core.Distribution.find_config_files
+distutils.core.Distribution.get_command_packages
+distutils.core.Distribution.global_options
+distutils.core.Distribution.has_c_libraries
+distutils.core.Distribution.has_data_files
+distutils.core.Distribution.has_ext_modules
+distutils.core.Distribution.has_headers
+distutils.core.Distribution.has_modules
+distutils.core.Distribution.has_pure_modules
+distutils.core.Distribution.has_scripts
+distutils.core.Distribution.is_pure
+distutils.core.Distribution.negative_opt
+distutils.core.Distribution.parse_command_line
+distutils.core.Distribution.print_command_list
+distutils.core.Distribution.reinitialize_command
+distutils.core.Distribution.run_commands
+distutils.cygwinccompiler.PIPE
+distutils.cygwinccompiler.is_cygwingcc
+distutils.dist.Distribution.announce
+distutils.dist.Distribution.common_usage
+distutils.dist.Distribution.display_option_names
+distutils.dist.Distribution.display_options
+distutils.dist.Distribution.dump_option_dicts
+distutils.dist.Distribution.find_config_files
+distutils.dist.Distribution.get_command_packages
+distutils.dist.Distribution.global_options
+distutils.dist.Distribution.has_c_libraries
+distutils.dist.Distribution.has_data_files
+distutils.dist.Distribution.has_ext_modules
+distutils.dist.Distribution.has_headers
+distutils.dist.Distribution.has_modules
+distutils.dist.Distribution.has_pure_modules
+distutils.dist.Distribution.has_scripts
+distutils.dist.Distribution.is_pure
+distutils.dist.Distribution.negative_opt
+distutils.dist.Distribution.parse_command_line
+distutils.dist.Distribution.print_command_list
+distutils.dist.Distribution.reinitialize_command
+distutils.dist.Distribution.run_commands

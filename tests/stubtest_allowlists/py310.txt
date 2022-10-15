@@ -17,6 +17,7 @@ fractions.Fraction.__new__  # overload is too complicated for stubtest to resolv
 gettext.install
 gettext.translation
 hmac.new  # Stub is a white lie; see comments in the stub
+importlib.metadata._meta.SimplePath.__truediv__  # See comments in the stub
 ipaddress.IPv4Interface.hostmask
 ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
@@ -34,7 +35,6 @@ types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
 typing._SpecialForm.__mro_entries__
-typing.ForwardRef._evaluate
 typing._TypedDict.__delitem__
 typing._TypedDict.__ior__
 typing._TypedDict.__or__
@@ -72,7 +72,6 @@ _csv.Writer
 asynchat.__warningregistry__  # Removal planned for 3.12, can add if someone needs this
 bdb.Breakpoint.clearBreakpoints
 distutils.util.get_host_platform
-functools.partial.__vectorcalloffset__  # undocumented implementation detail
 inspect.Signature.from_builtin  # Removed in 3.11, can add if someone needs this
 inspect.Signature.from_function  # Removed in 3.11, can add if someone needs this
 multiprocessing.managers.SharedMemoryServer.create
@@ -147,19 +146,6 @@ queue.SimpleQueue.__init__
 xml.etree.ElementTree.XMLParser.__init__
 xml.etree.cElementTree.XMLParser.__init__
 
-# Inherits __init__ from typing.Protocol
-importlib.abc.Traversable.__init__
-importlib.metadata.PackageMetadata.__init__
-importlib.metadata._meta.PackageMetadata.__init__
-importlib.metadata._meta.SimplePath.__init__
-typing.SupportsAbs.__init__
-typing.SupportsBytes.__init__
-typing.SupportsComplex.__init__
-typing.SupportsFloat.__init__
-typing.SupportsIndex.__init__
-typing.SupportsInt.__init__
-typing.SupportsRound.__init__
-
 ftplib.FTP.trust_server_pasv_ipv4_address  # Dangerous to use, intentionally undocumented, intentionally missing from typeshed. #6154
 os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all PathLike classes to implement class_getitem
 types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
@@ -169,9 +155,6 @@ ast.ImportFrom.level  # None on the class, but never None on instances
 # White lies around defaults
 dataclasses.KW_ONLY
 
-# Runtime signature is incorrect (https://github.com/python/cpython/issues/93021)
-builtins.classmethod.__get__
-builtins.property.__get__
-builtins.staticmethod.__get__
-types.FunctionType.__get__
-types.LambdaType.__get__
+# stubtest confuses stdlib distutils with setuptools-bundled distutils (#8410),
+# and the whole directory is going to be removed in 3.12 anyway
+distutils\..*

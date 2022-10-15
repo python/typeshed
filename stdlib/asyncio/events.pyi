@@ -1,6 +1,6 @@
 import ssl
 import sys
-from _typeshed import FileDescriptorLike, Self, WriteableBuffer
+from _typeshed import FileDescriptorLike, Self, StrPath, WriteableBuffer
 from abc import ABCMeta, abstractmethod
 from collections.abc import Awaitable, Callable, Coroutine, Generator, Sequence
 from contextvars import Context
@@ -85,7 +85,6 @@ class TimerHandle(Handle):
         loop: AbstractEventLoop,
         context: Context | None = ...,
     ) -> None: ...
-    def __hash__(self) -> int: ...
     def when(self) -> float: ...
     def __lt__(self, other: TimerHandle) -> bool: ...
     def __le__(self, other: TimerHandle) -> bool: ...
@@ -373,7 +372,7 @@ class AbstractEventLoop:
         async def create_unix_server(
             self,
             protocol_factory: _ProtocolFactory,
-            path: str | None = ...,
+            path: StrPath | None = ...,
             *,
             sock: socket | None = ...,
             backlog: int = ...,
@@ -433,7 +432,7 @@ class AbstractEventLoop:
         async def create_unix_server(
             self,
             protocol_factory: _ProtocolFactory,
-            path: str | None = ...,
+            path: StrPath | None = ...,
             *,
             sock: socket | None = ...,
             backlog: int = ...,
@@ -612,7 +611,6 @@ class AbstractEventLoopPolicy:
     def set_child_watcher(self, watcher: AbstractChildWatcher) -> None: ...
 
 class BaseDefaultEventLoopPolicy(AbstractEventLoopPolicy, metaclass=ABCMeta):
-    def __init__(self) -> None: ...
     def get_event_loop(self) -> AbstractEventLoop: ...
     def set_event_loop(self, loop: AbstractEventLoop | None) -> None: ...
     def new_event_loop(self) -> AbstractEventLoop: ...

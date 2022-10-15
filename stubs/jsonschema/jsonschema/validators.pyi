@@ -1,9 +1,18 @@
-from _typeshed import SupportsKeysAndGetItem
-from collections.abc import Callable, Generator, Iterable, Mapping
+from _typeshed import Incomplete, SupportsKeysAndGetItem
+from collections.abc import Callable, Generator, Iterable, Iterator, Mapping
+from contextlib import contextmanager
 from typing import Any, ClassVar
 from typing_extensions import TypeAlias
 
+from ._format import FormatChecker
+from ._types import TypeChecker
 from ._utils import URIDict
+from .exceptions import ValidationError
+
+# these type aliases do not exist at runtime, they're only defined here in the stub
+_JsonObject: TypeAlias = Mapping[str, Any]
+_JsonValue: TypeAlias = _JsonObject | list[Any] | str | int | float | bool | None
+_ValidatorCallback: TypeAlias = Callable[[Any, Any, _JsonValue, _JsonObject], Iterator[ValidationError]]
 
 _Schema: TypeAlias = Mapping[str, Any]
 
@@ -33,13 +42,13 @@ class _Validator:
 
 def validates(version: str) -> Callable[..., Any]: ...
 def create(
-    meta_schema,
-    validators=...,
+    meta_schema: _Schema,
+    validators: Mapping[str, _ValidatorCallback] | tuple[()] = ...,
     version: Any | None = ...,
-    type_checker=...,
-    format_checker=...,
-    id_of=...,
-    applicable_validators=...,
+    type_checker: TypeChecker = ...,
+    format_checker: FormatChecker = ...,
+    id_of: Callable[[_Schema], str] = ...,
+    applicable_validators: Callable[[_Schema], Iterable[tuple[str, _ValidatorCallback]]] = ...,
 ) -> type[_Validator]: ...
 def extend(
     validator, validators=..., version: Any | None = ..., type_checker: Any | None = ..., format_checker: Any | None = ...
@@ -78,8 +87,10 @@ class RefResolver:
     def resolution_scope(self): ...
     @property
     def base_uri(self): ...
-    def in_scope(self, scope) -> None: ...
-    def resolving(self, ref) -> None: ...
+    @contextmanager
+    def in_scope(self, scope) -> Generator[None, None, None]: ...
+    @contextmanager
+    def resolving(self, ref) -> Generator[Incomplete, None, None]: ...
     def resolve(self, ref): ...
     def resolve_from_url(self, url): ...
     def resolve_fragment(self, document, fragment): ...

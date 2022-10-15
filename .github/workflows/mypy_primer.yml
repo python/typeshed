@@ -9,13 +9,17 @@ on:
     - '.github/workflows/mypy_primer.yml'
     - '.github/workflows/mypy_primer_comment.yml'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
 jobs:
   mypy_primer:
     name: Run
-    if: github.actor != 'pre-commit-ci[bot]'
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
     strategy:
       matrix:
         shard-index: [0, 1, 2, 3]

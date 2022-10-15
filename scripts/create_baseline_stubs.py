@@ -8,13 +8,13 @@ $ python3 scripts/create_baseline_stubs.py <project on PyPI>
 Run with -h for more help.
 """
 
+from __future__ import annotations
+
 import argparse
 import os
 import re
-import shutil
 import subprocess
 import sys
-from typing import Optional, Tuple
 
 if sys.version_info >= (3, 8):
     from importlib.metadata import distribution
@@ -22,7 +22,7 @@ if sys.version_info >= (3, 8):
 PYRIGHT_CONFIG = "pyrightconfig.stricter.json"
 
 
-def search_pip_freeze_output(project: str, output: str) -> Optional[Tuple[str, str]]:
+def search_pip_freeze_output(project: str, output: str) -> tuple[str, str] | None:
     # Look for lines such as "typed-ast==1.4.2".  '-' matches '_' and
     # '_' matches '-' in project name, so that "typed_ast" matches
     # "typed-ast", and vice versa.
@@ -33,7 +33,7 @@ def search_pip_freeze_output(project: str, output: str) -> Optional[Tuple[str, s
     return m.group(1), m.group(2)
 
 
-def get_installed_package_info(project: str) -> Optional[Tuple[str, str]]:
+def get_installed_package_info(project: str) -> tuple[str, str] | None:
     """Find package information from pip freeze output.
 
     Match project name somewhat fuzzily (case sensitive; '-' matches '_', and
@@ -45,24 +45,9 @@ def get_installed_package_info(project: str) -> Optional[Tuple[str, str]]:
     return search_pip_freeze_output(project, r.stdout)
 
 
-def run_stubgen(package: str) -> None:
-    print(f"Running stubgen: stubgen -p {package}")
-    subprocess.run(["stubgen", "-p", package], check=True)
-
-
-def copy_stubs(src_base_dir: str, package: str, stub_dir: str) -> None:
-    """Copy generated stubs to the target directory under stub_dir/."""
-    print(f"Copying stubs to {stub_dir}")
-    if not os.path.isdir(stub_dir):
-        os.mkdir(stub_dir)
-    src_dir = os.path.join(src_base_dir, package)
-    if os.path.isdir(src_dir):
-        shutil.copytree(src_dir, os.path.join(stub_dir, package))
-    else:
-        src_file = os.path.join("out", package + ".pyi")
-        if not os.path.isfile(src_file):
-            sys.exit("Error: Cannot find generated stubs")
-        shutil.copy(src_file, stub_dir)
+def run_stubgen(package: str, output: str) -> None:
+    print(f"Running stubgen: stubgen -o {output} -p {package}")
+    subprocess.run(["stubgen", "-o", output, "-p", package, "--export-less"], check=True)
 
 
 def run_black(stub_dir: str) -> None:
@@ -77,15 +62,16 @@ def run_isort(stub_dir: str) -> None:
 
 def create_metadata(stub_dir: str, version: str) -> None:
     """Create a METADATA.toml file."""
-    m = re.match(r"[0-9]+.[0-9]+", version)
-    if m is None:
+    match = re.match(r"[0-9]+.[0-9]+", version)
+    if match is None:
         sys.exit(f"Error: Cannot parse version number: {version}")
-    fnam = os.path.join(stub_dir, "METADATA.toml")
-    version = m.group(0)
-    assert not os.path.exists(fnam)
-    print(f"Writing {fnam}")
-    with open(fnam, "w") as f:
-        f.write(
+    filename = os.path.join(stub_dir, "METADATA.toml")
+    version = match.group(0)
+    if os.path.exists(filename):
+        return
+    print(f"Writing {filename}")
+    with open(filename, "w", encoding="UTF-8") as file:
+        file.write(
             f"""\
 version = "{version}.*"
 
@@ -97,7 +83,7 @@ ignore_missing_stub = false
 
 def add_pyright_exclusion(stub_dir: str) -> None:
     """Exclude stub_dir from strict pyright checks."""
-    with open(PYRIGHT_CONFIG) as f:
+    with open(PYRIGHT_CONFIG, encoding="UTF-8") as f:
         lines = f.readlines()
     i = 0
     while i < len(lines) and not lines[i].strip().startswith('"exclude": ['):
@@ -105,7 +91,8 @@ def add_pyright_exclusion(stub_dir: str) -> None:
     assert i < len(lines), f"Error parsing {PYRIGHT_CONFIG}"
     while not lines[i].strip().startswith("]"):
         i += 1
-    line_to_add = f'        "{stub_dir}",'
+    # Must use forward slash in the .json file
+    line_to_add = f'        "{stub_dir}",'.replace("\\", "/")
     initial = i - 1
     while lines[i].lower() > line_to_add.lower():
         i -= 1
@@ -118,7 +105,7 @@ def add_pyright_exclusion(stub_dir: str) -> None:
         lines[i] = lines[i].rstrip() + ",\n"
     lines.insert(i + 1, line_to_add + "\n")
     print(f"Updating {PYRIGHT_CONFIG}")
-    with open(PYRIGHT_CONFIG, "w") as f:
+    with open(PYRIGHT_CONFIG, "w", encoding="UTF-8") as f:
         f.writelines(lines)
 
 
@@ -167,13 +154,11 @@ def main() -> None:
     project, version = info
 
     stub_dir = os.path.join("stubs", project)
-    if os.path.exists(stub_dir):
-        sys.exit(f"Error: {stub_dir} already exists (delete it first)")
+    package_dir = os.path.join(stub_dir, package)
+    if os.path.exists(package_dir):
+        sys.exit(f"Error: {package_dir} already exists (delete it first)")
 
-    run_stubgen(package)
-
-    # Stubs were generated under out/. Copy them to stubs/.
-    copy_stubs("out", package, stub_dir)
+    run_stubgen(package, stub_dir)
 
     run_isort(stub_dir)
     run_black(stub_dir)
@@ -186,11 +171,8 @@ def main() -> None:
 
     print("\nDone!\n\nSuggested next steps:")
     print(f" 1. Manually review the generated stubs in {stub_dir}")
-    print(f' 2. Run "MYPYPATH={stub_dir} python3 -m mypy.stubtest {package}" to check the stubs against runtime')
-    print(f' 3. Run "mypy {stub_dir}" to check for errors')
-    print(f' 4. Run "black {stub_dir}" and "isort {stub_dir}" (if you\'ve made code changes)')
-    print(f' 5. Run "flake8 {stub_dir}" to check for e.g. unused imports')
-    print(" 6. Commit the changes on a new branch and create a typeshed PR")
+    print(" 2. Optionally run tests and autofixes (see tests/README.md for details)")
+    print(" 3. Commit the changes on a new branch and create a typeshed PR (don't force-push!)")
 
 
 if __name__ == "__main__":
