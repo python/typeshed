@@ -1,5 +1,6 @@
 from typing import Any, ClassVar
 from typing_extensions import Literal
+from _typeshed import Incomplete
 
 from docutils import parsers
 from docutils.parsers.rst import states
@@ -29,6 +30,6 @@ class Directive:
         state: states.RSTState,
         state_machine: states.RSTStateMachine,
     ) -> None: ...
-    def __getattr__(self, name: str) -> Any: ...  # incomplete
+    def __getattr__(self, name: str) -> Incomplete: ...
 
 def convert_directive_function(directive_fn): ...

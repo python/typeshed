@@ -2,6 +2,7 @@ from _typeshed import OpenBinaryModeReading, OpenBinaryModeWriting, OpenTextMode
 from re import Pattern
 from typing import Any, ClassVar
 from typing_extensions import Literal
+from _typeshed import Incomplete
 
 from docutils import TransformSpec
 
@@ -64,7 +65,7 @@ class FileInput(Input):
 
 class FileOutput(Output):
     mode: ClassVar[OpenTextModeWriting | OpenBinaryModeWriting]
-    def __getattr__(self, name: str) -> Any: ...  # incomplete
+    def __getattr__(self, name: str) -> Incomplete: ...
 
 class BinaryFileOutput(FileOutput): ...
 

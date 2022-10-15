@@ -1,5 +1,6 @@
 import logging
 from typing import Any
+from _typeshed import Incomplete
 
 from .s3.connection import S3Connection
 
@@ -102,4 +103,4 @@ def storage_uri(
 def storage_uri_for_key(key): ...
 
 # Explicitly mark this package as incomplete.
-def __getattr__(name: str) -> Any: ...
+def __getattr__(name: str) -> Incomplete: ...

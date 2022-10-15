@@ -362,14 +362,16 @@ Example of a partial module with a partial class `Foo` and a partially
 annotated function `bar()`:
 
 ```python
-def __getattr__(name: str) -> Any: ...  # incomplete
+from _typeshed import Incomplete
 
 class Foo:
-    def __getattr__(self, name: str) -> Any: ...  # incomplete
+    def __getattr__(self, name: str) -> Incomplete: ...
     x: int
     y: str
 
 def bar(x: str, y, *, z=...): ...
+
+def __getattr__(name: str) -> Incomplete: ...
 ```
 
 ## Stub file coding style

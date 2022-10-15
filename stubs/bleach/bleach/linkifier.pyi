@@ -2,6 +2,7 @@ from collections.abc import Container, Iterable, MutableMapping
 from re import Pattern
 from typing import Any, Protocol
 from typing_extensions import TypeAlias
+from _typeshed import Incomplete
 
 from .html5lib_shim import Filter
 
@@ -44,4 +45,4 @@ class LinkifyFilter(Filter):
     def __init__(
         self, source, callbacks=..., skip_tags: Container[str] | None = ..., parse_email: bool = ..., url_re=..., email_re=...
     ) -> None: ...
-    def __getattr__(self, item: str) -> Any: ...  # incomplete
+    def __getattr__(self, item: str) -> Incomplete: ...

@@ -14,6 +14,7 @@ from collections.abc import (
     ValuesView,
 )
 from importlib.machinery import ModuleSpec
+from _typeshed import Incomplete
 
 # pytype crashes if types.MappingProxyType inherits from collections.abc.Mapping instead of typing.Mapping
 from typing import Any, ClassVar, Generic, Mapping, Protocol, TypeVar, overload  # noqa: Y027
@@ -591,7 +592,7 @@ if sys.version_info >= (3, 9):
             @property
             def __typing_unpacked_tuple_args__(self) -> tuple[Any, ...] | None: ...
 
-        def __getattr__(self, name: str) -> Any: ...  # incomplete
+        def __getattr__(self, name: str) -> Incomplete: ...
 
 if sys.version_info >= (3, 10):
     @final
