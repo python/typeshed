@@ -24,7 +24,7 @@ class NoSuchEntryPoint(Exception):
     def __init__(self, group: str, name: str) -> None: ...
 
 class CaseSensitiveConfigParser(ConfigParser):
-    optionxform = staticmethod(str)
+    optionxform: staticmethod[str]
 
 class EntryPoint:
     name: str
