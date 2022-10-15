@@ -1,5 +1,5 @@
 import sys
-from _typeshed import Incomplete, SupportsKeysAndGetItem
+from _typeshed import SupportsKeysAndGetItem
 from collections.abc import (
     AsyncGenerator,
     Awaitable,
