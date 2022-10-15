@@ -6,6 +6,19 @@ import ast
 from collections.abc import Generator
 from typing import Any, ClassVar
 
+YTT101: str
+YTT102: str
+YTT103: str
+YTT201: str
+YTT202: str
+YTT203: str
+YTT204: str
+YTT301: str
+YTT302: str
+YTT303: str
+
+class Visitor(ast.NodeVisitor): ...
+
 class Plugin:
     name: ClassVar[str]
     version: ClassVar[str]
