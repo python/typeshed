@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Sequence
-from typing import Any, ClassVar, TypeVar, Union, overload
+from typing import ClassVar, TypeVar, Union, overload
 from typing_extensions import TypeAlias
 
 from cv2 import Mat, _MatF
@@ -1832,7 +1832,7 @@ class AgastFeatureDetector(Feature2D):
     def setType(self, type) -> None: ...
 
 class Algorithm:
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
+    def __init__(self, *args, **kwargs) -> None: ...
     def clear(self) -> None: ...
     def empty(self, *args, **kwargs): ...  # incomplete
     def getDefaultName(self, *args, **kwargs): ...  # incomplete
@@ -1841,11 +1841,9 @@ class Algorithm:
     def write(self, *args, **kwargs): ...  # incomplete
 
 class AlignExposures(Algorithm):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def process(self, src, dst, times, response) -> None: ...
 
 class AlignMTB(AlignExposures):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def calculateShift(self, *args, **kwargs): ...  # incomplete
     def computeBitmaps(self, *args, **kwargs): ...  # incomplete
     def getCut(self, *args, **kwargs): ...  # incomplete
@@ -1854,7 +1852,7 @@ class AlignMTB(AlignExposures):
     @overload
     def process(self, src, dst, times, response) -> None: ...
     @overload
-    def process(src, dst) -> None: ...
+    def process(self, src, dst) -> None: ...
     def setCut(self, value) -> None: ...
     def setExcludeRange(self, exclude_range) -> None: ...
     def setMaxBits(self, max_bits) -> None: ...
@@ -1868,7 +1866,7 @@ class AsyncArray:
     def wait_for(self, *args, **kwargs): ...  # incomplete
 
 class BFMatcher(DescriptorMatcher):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
+    def __init__(self, normType: int | None = ..., crossCheck: _Boolean = ...) -> None: ...
     def create(self, *args, **kwargs): ...  # incomplete
 
 class BOWImgDescriptorExtractor:
@@ -1901,12 +1899,10 @@ class BRISK(Feature2D):
     def setThreshold(self, threshold) -> None: ...
 
 class BackgroundSubtractor(Algorithm):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def apply(self, *args, **kwargs): ...  # incomplete
     def getBackgroundImage(self, *args, **kwargs): ...  # incomplete
 
 class BackgroundSubtractorKNN(BackgroundSubtractor):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def getDetectShadows(self, *args, **kwargs): ...  # incomplete
     def getDist2Threshold(self, *args, **kwargs): ...  # incomplete
     def getHistory(self, *args, **kwargs): ...  # incomplete
@@ -1923,7 +1919,6 @@ class BackgroundSubtractorKNN(BackgroundSubtractor):
     def setkNNSamples(self, _nkNN) -> None: ...
 
 class BackgroundSubtractorMOG2(BackgroundSubtractor):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def apply(self, *args, **kwargs): ...  # incomplete
     def getBackgroundRatio(self, *args, **kwargs): ...  # incomplete
     def getComplexityReductionThreshold(self, *args, **kwargs): ...  # incomplete
@@ -1950,11 +1945,9 @@ class BackgroundSubtractorMOG2(BackgroundSubtractor):
     def setVarThreshold(self, varThreshold) -> None: ...
     def setVarThresholdGen(self, varThresholdGen) -> None: ...
 
-class BaseCascadeClassifier(Algorithm):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
+class BaseCascadeClassifier(Algorithm): ...
 
 class CLAHE(Algorithm):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def apply(self, *args, **kwargs): ...  # incomplete
     def collectGarbage(self) -> None: ...
     def getClipLimit(self, *args, **kwargs): ...  # incomplete
@@ -1963,11 +1956,9 @@ class CLAHE(Algorithm):
     def setTilesGridSize(self, tileGridSize) -> None: ...
 
 class CalibrateCRF(Algorithm):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def process(self, *args, **kwargs): ...  # incomplete
 
 class CalibrateDebevec(CalibrateCRF):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def getLambda(self, *args, **kwargs): ...  # incomplete
     def getRandom(self, *args, **kwargs): ...  # incomplete
     def getSamples(self, *args, **kwargs): ...  # incomplete
@@ -1976,7 +1967,6 @@ class CalibrateDebevec(CalibrateCRF):
     def setSamples(self, samples) -> None: ...
 
 class CalibrateRobertson(CalibrateCRF):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def getMaxIter(self, *args, **kwargs): ...  # incomplete
     def getRadiance(self, *args, **kwargs): ...  # incomplete
     def getThreshold(self, *args, **kwargs): ...  # incomplete
@@ -2015,7 +2005,6 @@ class CirclesGridFinderParameters:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class DISOpticalFlow(DenseOpticalFlow):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def create(self, *args, **kwargs): ...  # incomplete
     def getFinestScale(self, *args, **kwargs): ...  # incomplete
     def getGradientDescentIterations(self, *args, **kwargs): ...  # incomplete
@@ -2046,12 +2035,10 @@ class DMatch:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class DenseOpticalFlow(Algorithm):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def calc(self, I0, I1, flow) -> _flow: ...
     def collectGarbage(self) -> None: ...
 
 class DescriptorMatcher(Algorithm):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def add(self, descriptors) -> None: ...
     def clear(self) -> None: ...
     def clone(self, *args, **kwargs): ...  # incomplete
@@ -2087,7 +2074,6 @@ class FaceRecognizerSF:
     def match(self, *args, **kwargs): ...  # incomplete
 
 class FarnebackOpticalFlow(DenseOpticalFlow):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def create(self, *args, **kwargs): ...  # incomplete
     def getFastPyramids(self, *args, **kwargs): ...  # incomplete
     def getFlags(self, *args, **kwargs): ...  # incomplete
@@ -2130,7 +2116,7 @@ class Feature2D:
     @overload
     def read(self, fileName) -> None: ...
     @overload
-    def read(arg1) -> None: ...
+    def read(self, arg1) -> None: ...
     def write(self, fileName) -> None: ...
 
 class FileNode:
@@ -2170,7 +2156,7 @@ class FileStorage:
     def writeComment(self, *args, **kwargs): ...  # incomplete
 
 class FlannBasedMatcher(DescriptorMatcher):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
+    def __init__(self, indexParams=..., searchParams=...) -> None: ...
     def create(self, *args, **kwargs): ...  # incomplete
 
 class GArrayDesc:
@@ -2258,15 +2244,11 @@ class GStreamingCompiled:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def pull(self, *args, **kwargs): ...  # incomplete
     def running(self, *args, **kwargs): ...  # incomplete
-    @overload
     def setSource(self, callback) -> None: ...
-    @overload
-    def setSource(self): ...
     def start(self) -> None: ...
     def stop(self) -> None: ...
 
 class GeneralizedHough(Algorithm):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def detect(self, *args, **kwargs): ...  # incomplete
     def getCannyHighThresh(self, *args, **kwargs): ...  # incomplete
     def getCannyLowThresh(self, *args, **kwargs): ...  # incomplete
@@ -2281,14 +2263,12 @@ class GeneralizedHough(Algorithm):
     def setTemplate(self, *args, **kwargs): ...  # incomplete
 
 class GeneralizedHoughBallard(GeneralizedHough):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def getLevels(self, *args, **kwargs): ...  # incomplete
     def getVotesThreshold(self, *args, **kwargs): ...  # incomplete
     def setLevels(self, levels) -> None: ...
     def setVotesThreshold(self, votesThreshold) -> None: ...
 
 class GeneralizedHoughGuil(GeneralizedHough):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def getAngleEpsilon(self, *args, **kwargs): ...  # incomplete
     def getAngleStep(self, *args, **kwargs): ...  # incomplete
     def getAngleThresh(self, *args, **kwargs): ...  # incomplete
@@ -2386,7 +2366,6 @@ class KeyPoint:
     def overlap(self, *args, **kwargs): ...  # incomplete
 
 class LineSegmentDetector(Algorithm):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def compareSegments(self, *args, **kwargs): ...  # incomplete
     def detect(self, *args, **kwargs): ...  # incomplete
     def drawSegments(self, image, lines) -> _image: ...
@@ -2406,15 +2385,12 @@ class MSER(Feature2D):
     def setPass2Only(self, f) -> None: ...
 
 class MergeDebevec(MergeExposures):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def process(self, *args, **kwargs): ...  # incomplete
 
 class MergeExposures(Algorithm):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def process(self, *args, **kwargs): ...  # incomplete
 
 class MergeMertens(MergeExposures):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def getContrastWeight(self, *args, **kwargs): ...  # incomplete
     def getExposureWeight(self, *args, **kwargs): ...  # incomplete
     def getSaturationWeight(self, *args, **kwargs): ...  # incomplete
@@ -2424,7 +2400,6 @@ class MergeMertens(MergeExposures):
     def setSaturationWeight(self, saturation_weight) -> None: ...
 
 class MergeRobertson(MergeExposures):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def process(self, *args, **kwargs): ...  # incomplete
 
 class ORB(Feature2D):
@@ -2520,11 +2495,9 @@ class SimpleBlobDetector_Params:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class SparseOpticalFlow(Algorithm):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def calc(self, *args, **kwargs): ...  # incomplete
 
 class SparsePyrLKOpticalFlow(SparseOpticalFlow):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def create(self, *args, **kwargs): ...  # incomplete
     def getFlags(self, *args, **kwargs): ...  # incomplete
     def getMaxLevel(self, *args, **kwargs): ...  # incomplete
@@ -2538,7 +2511,6 @@ class SparsePyrLKOpticalFlow(SparseOpticalFlow):
     def setWinSize(self, winSize) -> None: ...
 
 class StereoBM(StereoMatcher):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def create(self, *args, **kwargs): ...  # incomplete
     def getPreFilterCap(self, *args, **kwargs): ...  # incomplete
     def getPreFilterSize(self, *args, **kwargs): ...  # incomplete
@@ -2558,7 +2530,6 @@ class StereoBM(StereoMatcher):
     def setUniquenessRatio(self, uniquenessRatio) -> None: ...
 
 class StereoMatcher(Algorithm):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def compute(self, *args, **kwargs): ...  # incomplete
     def getBlockSize(self, *args, **kwargs): ...  # incomplete
     def getDisp12MaxDiff(self, *args, **kwargs): ...  # incomplete
@@ -2574,7 +2545,6 @@ class StereoMatcher(Algorithm):
     def setSpeckleWindowSize(self, speckleWindowSize) -> None: ...
 
 class StereoSGBM(StereoMatcher):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def create(self, *args, **kwargs): ...  # incomplete
     def getMode(self, *args, **kwargs): ...  # incomplete
     def getP1(self, *args, **kwargs): ...  # incomplete
@@ -2640,27 +2610,23 @@ class TickMeter:
     def stop(self) -> None: ...
 
 class Tonemap(Algorithm):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def getGamma(self, *args, **kwargs): ...  # incomplete
     def process(self, *args, **kwargs): ...  # incomplete
     def setGamma(self, gamma) -> None: ...
 
 class TonemapDrago(Tonemap):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def getBias(self, *args, **kwargs): ...  # incomplete
     def getSaturation(self, *args, **kwargs): ...  # incomplete
     def setBias(self, bias) -> None: ...
     def setSaturation(self, saturation) -> None: ...
 
 class TonemapMantiuk(Tonemap):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def getSaturation(self, *args, **kwargs): ...  # incomplete
     def getScale(self, *args, **kwargs): ...  # incomplete
     def setSaturation(self, saturation) -> None: ...
     def setScale(self, scale) -> None: ...
 
 class TonemapReinhard(Tonemap):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def getColorAdaptation(self, *args, **kwargs): ...  # incomplete
     def getIntensity(self, *args, **kwargs): ...  # incomplete
     def getLightAdaptation(self, *args, **kwargs): ...  # incomplete
@@ -2736,7 +2702,6 @@ class UsacParams:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
 
 class VariationalRefinement(DenseOpticalFlow):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def calcUV(self, *args, **kwargs): ...  # incomplete
     def create(self, *args, **kwargs): ...  # incomplete
     def getAlpha(self, *args, **kwargs): ...  # incomplete
@@ -2753,18 +2718,40 @@ class VariationalRefinement(DenseOpticalFlow):
     def setSorIterations(self, val) -> None: ...
 
 class VideoCapture:
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
-    def get(self, *args, **kwargs): ...  # incomplete
-    def getBackendName(self, *args, **kwargs): ...  # incomplete
-    def getExceptionMode(self, *args, **kwargs): ...  # incomplete
-    def grab(self): ...
-    def isOpened(self, *args, **kwargs): ...  # incomplete
-    def open(self, *args, **kwargs): ...  # incomplete
-    def read(self, *args, **kwargs): ...  # incomplete
+    @overload
+    def __init__(self) -> None: ...
+    @overload
+    def __init__(self, filename: str) -> None: ...
+    @overload
+    def __init__(self, filename: str, apiPreference: int | None, params: Sequence[int] = ...) -> None: ...
+    @overload
+    def __init__(self, index: int) -> None: ...
+    @overload
+    def __init__(self, index: int, apiPreference: int | None, params: Sequence[int] = ...) -> None: ...
+    def get(self, propId: int) -> int: ...
+    def getBackendName(self) -> str: ...
+    def getExceptionMode(self) -> bool: ...
+    def grab(self) -> bool: ...
+    def isOpened(self) -> bool: ...
+    @overload
+    def open(self, filename: str, apiPreference: int = ...) -> bool: ...
+    @overload
+    def open(self, filename: str, apiPreference: int, params: Sequence[int]) -> bool: ...
+    @overload
+    def open(self, index: int, apiPreference: int = ...) -> bool: ...
+    @overload
+    def open(self, index: int, apiPreference: int, params: Sequence[int]) -> bool: ...
+    @overload
+    def read(self, image: None = ...) -> tuple[bool, Mat]: ...  # type: ignore[misc]  # https://github.com/python/mypy/issues/8881
+    @overload
+    def read(self, image: _TUMat) -> tuple[bool, _TUMat]: ...
     def release(self) -> None: ...
-    def retrieve(self, *args, **kwargs): ...  # incomplete
-    def set(self, *args, **kwargs): ...  # incomplete
-    def setExceptionMode(self, enable) -> None: ...
+    @overload
+    def retrieve(self, image: None = ..., flag: int = ...) -> tuple[bool, Mat]: ...  # type: ignore[misc]  # https://github.com/python/mypy/issues/8881
+    @overload
+    def retrieve(self, image: _TUMat, flag: int = ...) -> tuple[bool, _TUMat]: ...
+    def set(self, propId: int, value: int) -> bool: ...
+    def setExceptionMode(self, enable: bool) -> None: ...
 
 class VideoWriter:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
@@ -2868,7 +2855,7 @@ class cuda_GpuMat:
     @overload
     def create(self, rows, cols, type) -> None: ...
     @overload
-    def create(size, type) -> None: ...
+    def create(self, size, type) -> None: ...
     def cudaPtr(self, *args, **kwargs): ...  # incomplete
     def defaultAllocator(self, *args, **kwargs): ...  # incomplete
     def depth(self, *args, **kwargs): ...  # incomplete
@@ -2891,7 +2878,7 @@ class cuda_GpuMat:
     @overload
     def upload(self, arr) -> None: ...
     @overload
-    def upload(arr, stream) -> None: ...
+    def upload(self, arr, stream) -> None: ...
 
 class cuda_GpuMatND:
     def __init__(self, *args, **kwargs) -> None: ...  # incomplete
@@ -2973,7 +2960,7 @@ class detail_BlocksCompensator(detail_ExposureCompensator):
     @overload
     def setBlockSize(self, width, height) -> None: ...
     @overload
-    def setBlockSize(size) -> None: ...
+    def setBlockSize(self, size) -> None: ...
     def setMatGains(self, umv) -> None: ...
     def setNrFeeds(self, nr_feeds) -> None: ...
     def setNrGainsFilteringIterations(self, nr_iterations) -> None: ...
@@ -3175,7 +3162,6 @@ class dnn_Layer(Algorithm):
     name: Incomplete
     preferableTarget: Incomplete
     type: Incomplete
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def finalize(self, *args, **kwargs): ...  # incomplete
     def outputNameToIndex(self, *args, **kwargs): ...  # incomplete
     def run(self, *args, **kwargs): ...  # incomplete
@@ -3373,7 +3359,6 @@ class gapi_wip_draw_Text:
     def __init__(self, text_: str, org_: _Point, ff_: int, fs_: float, color_: _Scalar) -> None: ...
 
 class ml_ANN_MLP(ml_StatModel):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def create(self, *args, **kwargs): ...  # incomplete
     def getAnnealCoolingRatio(self, *args, **kwargs): ...  # incomplete
     def getAnnealFinalT(self, *args, **kwargs): ...  # incomplete
@@ -3408,7 +3393,6 @@ class ml_ANN_MLP(ml_StatModel):
     def setTrainMethod(self, *args, **kwargs): ...  # incomplete
 
 class ml_Boost(ml_DTrees):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def create(self, *args, **kwargs): ...  # incomplete
     def getBoostType(self, *args, **kwargs): ...  # incomplete
     def getWeakCount(self, *args, **kwargs): ...  # incomplete
@@ -3419,7 +3403,6 @@ class ml_Boost(ml_DTrees):
     def setWeightTrimRate(self, val) -> None: ...
 
 class ml_DTrees(ml_StatModel):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def create(self, *args, **kwargs): ...  # incomplete
     def getCVFolds(self, *args, **kwargs): ...  # incomplete
     def getMaxCategories(self, *args, **kwargs): ...  # incomplete
@@ -3442,7 +3425,6 @@ class ml_DTrees(ml_StatModel):
     def setUseSurrogates(self, val) -> None: ...
 
 class ml_EM(ml_StatModel):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def create(self, *args, **kwargs): ...  # incomplete
     def getClustersNumber(self, *args, **kwargs): ...  # incomplete
     def getCovarianceMatrixType(self, *args, **kwargs): ...  # incomplete
@@ -3461,7 +3443,6 @@ class ml_EM(ml_StatModel):
     def trainM(self, *args, **kwargs): ...  # incomplete
 
 class ml_KNearest(ml_StatModel):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def create(self, *args, **kwargs): ...  # incomplete
     def findNearest(self, *args, **kwargs): ...  # incomplete
     def getAlgorithmType(self, *args, **kwargs): ...  # incomplete
@@ -3475,7 +3456,6 @@ class ml_KNearest(ml_StatModel):
     def setIsClassifier(self, val) -> None: ...
 
 class ml_LogisticRegression(ml_StatModel):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def create(self, *args, **kwargs): ...  # incomplete
     def getIterations(self, *args, **kwargs): ...  # incomplete
     def getLearningRate(self, *args, **kwargs): ...  # incomplete
@@ -3494,7 +3474,6 @@ class ml_LogisticRegression(ml_StatModel):
     def setTrainMethod(self, val) -> None: ...
 
 class ml_NormalBayesClassifier(ml_StatModel):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def create(self, *args, **kwargs): ...  # incomplete
     def load(self, *args, **kwargs): ...  # incomplete
     def predictProb(self, *args, **kwargs): ...  # incomplete
@@ -3507,7 +3486,6 @@ class ml_ParamGrid:
     def create(self, *args, **kwargs): ...  # incomplete
 
 class ml_RTrees(ml_DTrees):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def create(self, *args, **kwargs): ...  # incomplete
     def getActiveVarCount(self, *args, **kwargs): ...  # incomplete
     def getCalculateVarImportance(self, *args, **kwargs): ...  # incomplete
@@ -3521,7 +3499,6 @@ class ml_RTrees(ml_DTrees):
     def setTermCriteria(self, val) -> None: ...
 
 class ml_SVM(ml_StatModel):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def create(self, *args, **kwargs): ...  # incomplete
     def getC(self, *args, **kwargs): ...  # incomplete
     def getClassWeights(self, *args, **kwargs): ...  # incomplete
@@ -3551,7 +3528,6 @@ class ml_SVM(ml_StatModel):
     def trainAuto(self, *args, **kwargs): ...  # incomplete
 
 class ml_SVMSGD(ml_StatModel):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def create(self, *args, **kwargs): ...  # incomplete
     def getInitialStepSize(self, *args, **kwargs): ...  # incomplete
     def getMarginRegularization(self, *args, **kwargs): ...  # incomplete
@@ -3571,7 +3547,6 @@ class ml_SVMSGD(ml_StatModel):
     def setTermCriteria(self, val) -> None: ...
 
 class ml_StatModel(Algorithm):
-    def __init__(self, *args, **kwargs) -> None: ...  # incomplete
     def calcError(self, *args, **kwargs): ...  # incomplete
     def empty(self, *args, **kwargs): ...  # incomplete
     def getVarCount(self, *args, **kwargs): ...  # incomplete
@@ -3728,7 +3703,7 @@ def BRISK_create(thresh=..., octaves=..., patternScale=...): ...
 def BRISK_create(radiusList, numberList, dMax=..., dMin=..., indexChange=...): ...
 @overload
 def BRISK_create(thresh, octaves, radiusList, numberList, dMax=..., dMin=..., indexChange=...): ...
-def CamShift(probImage, window, criteria) -> tuple[tuple[Incomplete, _window]]: ...
+def CamShift(probImage, window, criteria) -> tuple[tuple[tuple[float, float], tuple[float, float], float], _window]: ...
 @overload
 def Canny(image: Mat, threshold1, threshold2, edges=..., apertureSize=..., L2gradient=...) -> _edges: ...
 @overload
