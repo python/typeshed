@@ -38,12 +38,6 @@ class LocalTZInfo(tzinfo):
     def tzname(self, dt): ...
 
 LocalTZ: Incomplete
-DSTSTART_2007: Incomplete
-DSTEND_2007: Incomplete
-DSTSTART_1987_2006: Incomplete
-DSTEND_1987_2006: Incomplete
-DSTSTART_1967_1986: Incomplete
-DSTEND_1967_1986 = DSTEND_1987_2006
 
 class USTimeZone(tzinfo):
     stdoffset: Incomplete

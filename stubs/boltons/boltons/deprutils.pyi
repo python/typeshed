@@ -1,6 +1,4 @@
-from _typeshed import Incomplete
-
-ModuleType: Incomplete
+from types import ModuleType
 
 class DeprecatableModule(ModuleType):
     def __init__(self, module) -> None: ...

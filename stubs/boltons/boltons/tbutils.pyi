@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 
-text = unicode
 text = str
 
 class Callpoint:
