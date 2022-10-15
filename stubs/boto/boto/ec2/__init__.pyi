@@ -1,5 +1,5 @@
-from typing import Any
 from _typeshed import Incomplete
+from typing import Any
 
 RegionData: Any
 

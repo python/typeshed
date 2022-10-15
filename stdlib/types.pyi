@@ -1,5 +1,5 @@
 import sys
-from _typeshed import SupportsKeysAndGetItem
+from _typeshed import Incomplete, SupportsKeysAndGetItem
 from collections.abc import (
     AsyncGenerator,
     Awaitable,
@@ -14,7 +14,6 @@ from collections.abc import (
     ValuesView,
 )
 from importlib.machinery import ModuleSpec
-from _typeshed import Incomplete
 
 # pytype crashes if types.MappingProxyType inherits from collections.abc.Mapping instead of typing.Mapping
 from typing import Any, ClassVar, Generic, Mapping, Protocol, TypeVar, overload  # noqa: Y027

@@ -1,8 +1,8 @@
+from _typeshed import Incomplete
 from collections.abc import Container, Iterable, MutableMapping
 from re import Pattern
 from typing import Any, Protocol
 from typing_extensions import TypeAlias
-from _typeshed import Incomplete
 
 from .html5lib_shim import Filter
 

@@ -1,6 +1,6 @@
+from _typeshed import Incomplete
 from typing import Any, ClassVar
 from typing_extensions import Literal
-from _typeshed import Incomplete
 
 from docutils import parsers
 from docutils.parsers.rst import states

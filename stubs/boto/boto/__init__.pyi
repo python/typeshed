@@ -1,6 +1,6 @@
 import logging
-from typing import Any
 from _typeshed import Incomplete
+from typing import Any
 
 from .s3.connection import S3Connection
 

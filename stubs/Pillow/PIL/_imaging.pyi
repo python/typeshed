@@ -1,6 +1,6 @@
+from _typeshed import Incomplete
 from collections.abc import Sequence
 from typing_extensions import Literal
-from _typeshed import Incomplete
 
 DEFAULT_STRATEGY: Literal[0]
 FILTERED: Literal[1]

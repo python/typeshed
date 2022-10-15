@@ -1,8 +1,14 @@
-from _typeshed import OpenBinaryModeReading, OpenBinaryModeWriting, OpenTextModeReading, OpenTextModeWriting, SupportsWrite
+from _typeshed import (
+    Incomplete,
+    OpenBinaryModeReading,
+    OpenBinaryModeWriting,
+    OpenTextModeReading,
+    OpenTextModeWriting,
+    SupportsWrite,
+)
 from re import Pattern
 from typing import Any, ClassVar
 from typing_extensions import Literal
-from _typeshed import Incomplete
 
 from docutils import TransformSpec
 

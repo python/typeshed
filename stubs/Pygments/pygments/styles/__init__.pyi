@@ -1,5 +1,5 @@
-from collections.abc import Iterator, Mapping
 from _typeshed import Incomplete
+from collections.abc import Iterator, Mapping
 
 from pygments.style import StyleMeta
 from pygments.util import ClassNotFound as ClassNotFound

@@ -1,6 +1,5 @@
-from _typeshed import StrOrBytesPath
+from _typeshed import Incomplete, StrOrBytesPath
 from typing import Any
-from _typeshed import Incomplete
 
 from .exceptions import TrashPermissionError as TrashPermissionError
 

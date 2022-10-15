@@ -1,7 +1,7 @@
+from _typeshed import Incomplete
 from datetime import datetime
 from enum import Enum
 from typing import Any
-from _typeshed import Incomplete
 
 from ..vmodl.query import PropertyCollector
 from .event import EventManager

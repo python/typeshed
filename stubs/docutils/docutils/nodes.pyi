@@ -1,5 +1,5 @@
 import xml.dom.minidom
-from _typeshed import Self, Incomplete
+from _typeshed import Incomplete, Self
 from abc import abstractmethod
 from collections.abc import Callable, Generator, Iterable, Sequence
 from typing import Any, ClassVar, Protocol, TypeVar, overload

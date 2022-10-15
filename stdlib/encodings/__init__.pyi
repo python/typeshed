@@ -1,5 +1,5 @@
-from codecs import CodecInfo
 from _typeshed import Incomplete
+from codecs import CodecInfo
 
 class CodecRegistryError(LookupError, SystemError): ...
 

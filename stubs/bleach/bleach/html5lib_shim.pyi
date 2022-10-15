@@ -1,5 +1,5 @@
-from collections.abc import Generator, Iterable
 from _typeshed import Incomplete
+from collections.abc import Generator, Iterable
 
 class HTMLParser:  # actually html5lib.HTMLParser
     def __getattr__(self, __name: str) -> Incomplete: ...

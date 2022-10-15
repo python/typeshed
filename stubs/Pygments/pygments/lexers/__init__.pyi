@@ -1,8 +1,7 @@
-from _typeshed import StrOrBytesPath, StrPath
+from _typeshed import Incomplete, StrOrBytesPath, StrPath
 from collections.abc import Iterator
 from typing import Any
 from typing_extensions import TypeAlias
-from _typeshed import Incomplete
 
 from pygments.lexer import Lexer, LexerMeta
 

@@ -1,6 +1,6 @@
+from _typeshed import Incomplete
 from collections.abc import Iterable
 from typing import Any, overload
-from _typeshed import Incomplete
 
 class LazyFixture:
     name: str

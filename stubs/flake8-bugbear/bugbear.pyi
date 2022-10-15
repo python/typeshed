@@ -1,8 +1,8 @@
 import argparse
 import ast
+from _typeshed import Incomplete
 from collections.abc import Sequence
 from typing import Any
-from _typeshed import Incomplete
 
 class BugBearChecker:
     name: str

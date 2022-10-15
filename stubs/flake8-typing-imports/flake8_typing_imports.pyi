@@ -1,8 +1,8 @@
 import argparse
 import ast
+from _typeshed import Incomplete
 from collections.abc import Generator
 from typing import Any, ClassVar
-from _typeshed import Incomplete
 
 class Plugin:
     name: ClassVar[str]

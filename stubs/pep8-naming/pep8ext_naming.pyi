@@ -1,8 +1,8 @@
 import ast
+from _typeshed import Incomplete
 from argparse import Namespace
 from collections.abc import Generator, Iterable
 from typing import Any
-from _typeshed import Incomplete
 
 __version__: str
 

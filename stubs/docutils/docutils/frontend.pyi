@@ -1,8 +1,8 @@
 import optparse
+from _typeshed import Incomplete
 from collections.abc import Iterable, Mapping
 from configparser import RawConfigParser
 from typing import Any, ClassVar
-from _typeshed import Incomplete
 
 from docutils import SettingsSpec
 from docutils.parsers import Parser

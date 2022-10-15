@@ -1,5 +1,5 @@
-from typing import Protocol
 from _typeshed import Incomplete
+from typing import Protocol
 
 from docutils.utils import Reporter
 
