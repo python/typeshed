@@ -1,0 +1,5 @@
+# We don't need violation definitions:
+flake8_2020.YTT\d+
+
+# Has many implementation details:
+flake8_2020.Visititor
