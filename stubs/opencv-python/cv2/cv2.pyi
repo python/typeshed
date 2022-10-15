@@ -10,23 +10,28 @@ from cv2.gapi.streaming import queue_capacity
 # The noqa comments won't be necessary when types in this module are more complete and use the aliases
 
 # Function argument types
+# Convertable to boolean
+_Boolean: TypeAlias = bool | int | None
+# "a scalar"
 _NumericScalar: TypeAlias = float | bool | None
 # cv::Scalar
 _Scalar: TypeAlias = Mat | _NumericScalar | Sequence[_NumericScalar]
 # cv::Point<int>
-_Point: TypeAlias = Union[tuple[int, int], Sequence[int]]  # noqa: Y047
+_Point: TypeAlias = Union[tuple[int, int], Sequence[int]]
 # cv::Size<int>
-_Size: TypeAlias = Union[tuple[int, int], Sequence[int]]  # noqa: Y047
+_Size: TypeAlias = Union[tuple[int, int], Sequence[int]]
 # cv::Range<int>
 _Range: TypeAlias = Union[tuple[int, int], Sequence[int]]  # noqa: Y047
 # cv::Point<float>
-_PointFloat: TypeAlias = Union[tuple[float, float], Sequence[float]]  # noqa: Y047
+_PointFloat: TypeAlias = Union[tuple[float, float], Sequence[float]]
 # cv::Size<float>
-_SizeFloat: TypeAlias = Union[tuple[float, float], Sequence[float]]  # noqa: Y047
+_SizeFloat: TypeAlias = Union[tuple[float, float], Sequence[float]]
 # cv::Rect<int>
 _Rect: TypeAlias = Union[tuple[int, int, int, int], Sequence[int]]  # noqa: Y047
-_Boolean: TypeAlias = bool | int | None  # noqa: Y047
-# _UMat also covers cv::InputArray and cv::InputOutputArray
+# cv::RotatedRect
+_RotatedRect: TypeAlias = Union[tuple[_PointFloat, _SizeFloat, float], Sequence[_PointFloat | _SizeFloat | float]]  # noqa: Y047
+_RotatedRectResult: TypeAlias = tuple[tuple[float, float], tuple[float, float], float]
+# cv:UMat, cv::InputArray and cv::InputOutputArray
 _UMat: TypeAlias = UMat | Mat | _NumericScalar
 _UMatF: TypeAlias = UMat | _MatF | _NumericScalar
 
@@ -3710,7 +3715,7 @@ def BRISK_create(thresh=..., octaves=..., patternScale=...): ...
 def BRISK_create(radiusList, numberList, dMax=..., dMin=..., indexChange=...): ...
 @overload
 def BRISK_create(thresh, octaves, radiusList, numberList, dMax=..., dMin=..., indexChange=...): ...
-def CamShift(probImage, window, criteria) -> tuple[tuple[tuple[float, float], tuple[float, float], float], _window]: ...
+def CamShift(probImage, window, criteria) -> tuple[_RotatedRectResult, _window]: ...
 @overload
 def Canny(image: Mat, threshold1, threshold2, edges=..., apertureSize=..., L2gradient=...) -> _edges: ...
 @overload

@@ -1,16 +1,11 @@
-from _typeshed import Incomplete
 from collections.abc import Sequence
 from typing import NamedTuple, Union, overload
 from typing_extensions import TypeAlias
 
 from cv2 import Mat
-from cv2.cv2 import AsyncArray, _Boolean, _NumericScalar, _Point, _PointFloat, _Range, _Rect, _SizeFloat, _TUMat, _UMat
+from cv2.cv2 import AsyncArray, _Boolean, _NumericScalar, _Point, _Range, _Rect, _RotatedRect, _RotatedRectResult, _TUMat, _UMat
+from cv2.mat_wrapper import _NDArray
 
-# #5768
-# import numpy
-_NDArray: TypeAlias = Incomplete
-_RotatedRect: TypeAlias = Union[tuple[_PointFloat, _SizeFloat, float], Sequence[_PointFloat | _SizeFloat | float]]
-_RotatedRectResult: TypeAlias = tuple[tuple[float, float], tuple[float, float], float]
 _TermCriteria: TypeAlias = Union[tuple[int, int, float], Sequence[float]]
 
 class NativeMethodPatchedResult(NamedTuple):
