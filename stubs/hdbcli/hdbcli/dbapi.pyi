@@ -1,9 +1,9 @@
 import decimal
-from _typeshed import ReadableBuffer, Incomplete
+from _typeshed import Incomplete, ReadableBuffer
 from collections.abc import Sequence
 from datetime import date, datetime, time
-from typing import Any, overload
 from types import TracebackType
+from typing import Any, overload
 from typing_extensions import Literal, TypeAlias
 
 from .resultrow import ResultRow
