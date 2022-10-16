@@ -1,10 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 
-class RLock:
-    def __enter__(self) -> None: ...
-    def __exit__(self, exctype, excinst, exctb) -> None: ...
-
 xrange = range
 unicode: Incomplete
 str: Incomplete
@@ -16,7 +12,7 @@ KEY: Incomplete
 VALUE: Incomplete
 DEFAULT_MAX_SIZE: int
 
-class LRI(dict):
+class LRI(dict[Incomplete, Incomplete]):
     hit_count: int
     max_size: Incomplete
     on_miss: Incomplete
@@ -30,14 +26,14 @@ class LRI(dict):
     def clear(self) -> None: ...
     def copy(self): ...
     def setdefault(self, key, default: Incomplete | None = ...): ...
-    def update(self, E, **F) -> None: ...
+    def update(self, E, **F) -> None: ...  # type: ignore
     def __eq__(self, other): ...
     def __ne__(self, other): ...
 
 class LRU(LRI):
     def __getitem__(self, key): ...
 
-class _HashedKey(list):
+class _HashedKey(list[Incomplete]):
     hash_value: Incomplete
     def __init__(self, key) -> None: ...
     def __hash__(self): ...

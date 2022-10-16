@@ -88,7 +88,7 @@ VALUE: Incomplete
 SPREV: Incomplete
 SNEXT: Incomplete
 
-class QueryParamDict(OrderedMultiDict):
+class QueryParamDict(OrderedMultiDict[Incomplete, Incomplete]):
     @classmethod
     def from_text(cls, query_string): ...
     def to_text(self, full_quote: bool = ...): ...
