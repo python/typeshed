@@ -1,6 +1,6 @@
 from _typeshed import Self, StrPath
 from collections.abc import Iterable, Sequence
-from datetime import tzinfo
+from datetime import tzinfo, datetime, timedelta
 from typing import Any, Protocol
 
 __all__ = ["ZoneInfo", "reset_tzpath", "available_timezones", "TZPATH", "ZoneInfoNotFoundError", "InvalidTZPathWarning"]
