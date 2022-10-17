@@ -1,6 +1,6 @@
 import sys
 from _typeshed import Self
-from abc import ABCMeta, abstractmethod
+from abc import abstractmethod
 from time import struct_time
 from typing import ClassVar, NamedTuple, NoReturn, SupportsAbs, TypeVar, overload
 from typing_extensions import Literal, TypeAlias, final
@@ -15,7 +15,7 @@ _D = TypeVar("_D", bound=date)
 MINYEAR: Literal[1]
 MAXYEAR: Literal[9999]
 
-class tzinfo(metaclass=ABCMeta):
+class tzinfo:
     @abstractmethod
     def tzname(self, __dt: datetime | None) -> str | None: ...
     @abstractmethod
