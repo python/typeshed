@@ -23,8 +23,8 @@ class Task:
     incrementable: Iterable[str]
     auto_shortflags: bool
     help: dict[str, str]
-    pre: Iterable[Task]
-    post: Iterable[Task]
+    pre: Iterable[Task | Call]
+    post: Iterable[Task | Call]
     times_called: int
     autoprint: bool
     def __init__(
@@ -37,8 +37,8 @@ class Task:
         default: bool = ...,
         auto_shortflags: bool = ...,
         help: dict[str, str] | None = ...,
-        pre: Iterable[Task] | None = ...,
-        post: Iterable[Task] | None = ...,
+        pre: Iterable[Task | Call] | None = ...,
+        post: Iterable[Task | Call] | None = ...,
         autoprint: bool = ...,
         iterable: Iterable[str] | None = ...,
         incrementable: Iterable[str] | None = ...,
@@ -59,7 +59,7 @@ class Task:
 def task(__func: Callable[..., Any]) -> Task: ...
 @overload
 def task(
-    *args: Task,
+    *args: Task | Call,
     name: str | None = ...,
     aliases: tuple[str, ...] = ...,
     positional: Iterable[str] | None = ...,
@@ -67,15 +67,15 @@ def task(
     default: bool = ...,
     auto_shortflags: bool = ...,
     help: dict[str, str] | None = ...,
-    pre: list[Task] | None = ...,
-    post: list[Task] | None = ...,
+    pre: list[Task | Call] | None = ...,
+    post: list[Task | Call] | None = ...,
     autoprint: bool = ...,
     iterable: Iterable[str] | None = ...,
     incrementable: Iterable[str] | None = ...,
 ) -> Callable[[Callable[..., Any]], Task]: ...
 @overload
 def task(
-    *args: Task,
+    *args: Task | Call,
     name: str | None = ...,
     aliases: tuple[str, ...] = ...,
     positional: Iterable[str] | None = ...,
@@ -83,8 +83,8 @@ def task(
     default: bool = ...,
     auto_shortflags: bool = ...,
     help: dict[str, str] | None = ...,
-    pre: list[Task] | None = ...,
-    post: list[Task] | None = ...,
+    pre: list[Task | Call] | None = ...,
+    post: list[Task | Call] | None = ...,
     autoprint: bool = ...,
     iterable: Iterable[str] | None = ...,
     incrementable: Iterable[str] | None = ...,
