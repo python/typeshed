@@ -8,7 +8,7 @@ from _typeshed import (
     Self,
     StrPath,
 )
-from collections.abc import Callable, Iterator, Generator, Sequence
+from collections.abc import Callable, Generator, Iterator, Sequence
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from os import PathLike, stat_result
 from types import TracebackType
