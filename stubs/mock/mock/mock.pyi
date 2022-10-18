@@ -6,7 +6,7 @@ from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Literal
 
 _F = TypeVar("_F", bound=Callable[..., Any])
-_AF = TypeVar("_F", bound=Callable[..., Awaitable[Any]])
+_AF = TypeVar("_AF", bound=Callable[..., Awaitable[Any]])
 _T = TypeVar("_T")
 _TT = TypeVar("_TT", bound=type[Any])
 _R = TypeVar("_R")
