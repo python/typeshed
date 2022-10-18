@@ -36,6 +36,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements-tests.txt
       - name: Run stubtest
+        shell: bash
         run: |
           STUBS=$(
             git diff --name-only origin/${{ github.base_ref }} HEAD |
@@ -43,6 +44,7 @@ jobs:
             # git ls-files |
             egrep ^stubs/ | cut -d "/" -f 2 | sort -u | (while read stub; do [ -d stubs/$stub ] && echo $stub || true; done)
           )
+
           if [ -n "$STUBS" ]; then
             echo "Testing $STUBS..."
             PACKAGES=$(python tests/get_packages.py $STUBS)
