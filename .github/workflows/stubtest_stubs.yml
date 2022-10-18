@@ -43,12 +43,12 @@ jobs:
             # git ls-files |
             egrep ^stubs/ | cut -d "/" -f 2 | sort -u | (while read stub; do [ -d stubs/$stub ] && echo $stub || true; done)
           )
-          if test -n "$STUBS"; then
+          if [ -n "$STUBS" ]; then
             echo "Testing $STUBS..."
             PACKAGES=$(python tests/get_packages.py $STUBS)
 
             if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
-              if test -n "$PACKAGES"; then
+              if [ -n "$PACKAGES" ]; then
                 echo "Installing apt packages: $PACKAGES"
                 sudo apt update && sudo apt install -y $PACKAGES
               fi
