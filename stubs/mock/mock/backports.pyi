@@ -1,8 +1,8 @@
 import sys
 
-if sys.version_info[:2] >= (3, 8):
-    from asyncio import iscoroutinefunction as iscoroutinefunction  # pyright: ignore[reportGeneralTypeIssues]
-    from unittest import IsolatedAsyncioTestCase as IsolatedAsyncioTestCase  # pyright: ignore[reportGeneralTypeIssues]
+if sys.version_info >= (3, 8):
+    from asyncio import iscoroutinefunction as iscoroutinefunction
+    from unittest import IsolatedAsyncioTestCase as IsolatedAsyncioTestCase
 else:
     import unittest
 
