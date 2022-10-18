@@ -18,7 +18,7 @@ from packaging.version import Version
 from utils import VERSIONS_RE, get_all_testcase_directories, get_gitignore_spec, spec_matches_path, strip_comments
 
 metadata_keys = {"version", "requires", "extra_description", "obsolete_since", "no_longer_updated", "tool"}
-tool_keys = {"stubtest": {"skip", "apt_dependencies", "extras", "ignore_missing_stub"}}
+tool_keys = {"stubtest": {"skip", "apt_dependencies", "extras", "ignore_missing_stub", "platform"}}
 extension_descriptions = {".pyi": "stub", ".py": ".py"}
 
 
