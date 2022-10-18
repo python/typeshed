@@ -1,10 +1,12 @@
 from _typeshed import Self
-from collections.abc import Callable, Mapping, Sequence
+from collections.abc import Awaitable, Callable, Mapping, Sequence
+from contextlib import AbstractContextManager
 from types import TracebackType
 from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Literal
 
 _F = TypeVar("_F", bound=Callable[..., Any])
+_AF = TypeVar("_F", bound=Callable[..., Awaitable[Any]])
 _T = TypeVar("_T")
 _TT = TypeVar("_TT", bound=type[Any])
 _R = TypeVar("_R")
@@ -159,6 +161,8 @@ class _patch(Generic[_T]):
     def __call__(self, func: Callable[..., _R]) -> Callable[..., _R]: ...
     def decorate_class(self, klass: _TT) -> _TT: ...
     def decorate_callable(self, func: _F) -> _F: ...
+    def decorate_async_callable(self, func: _AF) -> _AF: ...
+    def decoration_helper(self, patched: Any, args: tuple[Any, ...], keywargs: dict[str, Any]) -> AbstractContextManager[tuple[tuple[Any, ...], dict[str, Any]]]: ...
     def get_original(self) -> tuple[Any, bool]: ...
     target: Any
     temp_original: Any
