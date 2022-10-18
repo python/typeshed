@@ -34,6 +34,11 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
         print(colored("skipping", "yellow"))
         return True
 
+    platform = metadata.get("tool", {}).get("plaform", None)
+    if platform is not None and sys.platform not in platform:
+        print(colored(f"skipping, unsupported platform: {sys.platform}, supported: {platform}", "yellow"))
+        return True
+
     with tempfile.TemporaryDirectory() as tmp:
         venv_dir = Path(tmp)
         venv.create(venv_dir, with_pip=True, clear=True)

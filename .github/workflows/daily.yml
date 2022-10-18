@@ -54,7 +54,7 @@ jobs:
       - name: Install apt packages
         run: |
           sudo apt update
-          sudo apt install -y $(python tests/get_apt_packages.py)
+          sudo apt install -y $(python tests/get_packages.py)
       - name: Run stubtest
         run: xvfb-run python tests/stubtest_third_party.py --num-shards 4 --shard-index ${{ matrix.shard-index }}
 
