@@ -8,12 +8,12 @@ from _typeshed import (
     Self,
     StrPath,
 )
-from collections.abc import Generator, Sequence
+from collections.abc import Callable, Iterator, Generator, Sequence
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from os import PathLike, stat_result
 from types import TracebackType
-from typing import IO, Any, AnyStr, BinaryIO, Callable, Iterator, TypeAlias, overload
-from typing_extensions import Literal
+from typing import IO, Any, AnyStr, BinaryIO, overload
+from typing_extensions import Literal, TypeAlias
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
