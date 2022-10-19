@@ -1,4 +1,4 @@
-from _typeshed import Self
+from _typeshed import Self, StrOrBytesPath
 from codecs import StreamReaderWriter
 from collections.abc import Generator, Iterator
 from types import TracebackType
@@ -6,12 +6,12 @@ from types import TracebackType
 MATCHER: str
 
 class LogReader:
-    filename: str
+    filename: StrOrBytesPath
     mass: int
     size: int
     read: int
     pipe: StreamReaderWriter | None
-    def __init__(self, filename: str, mass: int = ...) -> None: ...
+    def __init__(self, filename: StrOrBytesPath, mass: int = ...) -> None: ...
     def __enter__(self: Self) -> Self: ...
     def __exit__(
         self, error_type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None

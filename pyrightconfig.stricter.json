@@ -62,6 +62,7 @@
         "stubs/paramiko",
         "stubs/prettytable",
         "stubs/protobuf",
+        "stubs/python-crontab",
         "stubs/pytz/pytz/lazy.pyi",
         "stubs/pytz/pytz/reference.pyi",
         "stubs/pytz/pytz/tzfile.pyi",
