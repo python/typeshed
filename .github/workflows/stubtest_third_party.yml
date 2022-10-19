@@ -1,4 +1,4 @@
-name: Run stubtest on stubs
+name: Third-party stubtest
 
 on:
   pull_request:
