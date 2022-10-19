@@ -108,6 +108,9 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
         allowlist_path = dist / "@tests/stubtest_allowlist.txt"
         if allowlist_path.exists():
             stubtest_cmd.extend(["--allowlist", str(allowlist_path)])
+        platform_allowlist = dist / f"@tests/stubtest_allowlist_{sys.platform}.txt"
+        if allowlist_path.exists():
+            stubtest_cmd.extend(["--allowlist", str(platform_allowlist)])
 
         try:
             subprocess.run(stubtest_cmd, env=stubtest_env, check=True, capture_output=True)
