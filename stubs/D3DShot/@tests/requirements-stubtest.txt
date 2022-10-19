@@ -1,1 +1,1 @@
-pillow
+Pillow~=7.1.2

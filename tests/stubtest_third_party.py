@@ -38,7 +38,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
     platforms_to_test = stubtest_meta.get("platforms", ["linux"])
     if sys.platform not in platforms_to_test:
         print(colored(f"skipping, unsupported platform: {sys.platform}, supported: {platforms_to_test}", "yellow"))
-        # return True
+        return True
 
     with tempfile.TemporaryDirectory() as tmp:
         venv_dir = Path(tmp)
