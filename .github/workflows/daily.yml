@@ -39,9 +39,10 @@ jobs:
   stubtest-third-party:
     name: Check third party stubs with stubtest
     if: ${{ github.repository == 'python/typeshed' || github.event_name == 'workflow_dispatch' }}
-    runs-on: ubuntu-20.04
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
         shard-index: [0, 1, 2, 3]
       fail-fast: false
     steps:
