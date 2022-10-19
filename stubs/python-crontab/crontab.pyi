@@ -37,7 +37,11 @@ class CronTab:
     root: bool
     intab: Incomplete
     def __init__(
-        self, user: str | None = ..., tab: Incomplete | None = ..., tabfile: Incomplete | None = ..., log: Incomplete | None = ...
+        self,
+        user: bool | str | None = ...,
+        tab: Incomplete | None = ...,
+        tabfile: Incomplete | None = ...,
+        log: Incomplete | None = ...,
     ) -> None: ...
     def __enter__(self: Self) -> Self: ...
     def __exit__(
