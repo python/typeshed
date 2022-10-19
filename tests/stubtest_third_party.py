@@ -38,7 +38,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
     platforms_to_test = stubtest_meta.get("platforms", ["linux"])
     if sys.platform not in platforms_to_test:
         print(colored(f"skipping, unsupported platform: {sys.platform}, supported: {platforms_to_test}", "yellow"))
-        return True
+        # return True
 
     with tempfile.TemporaryDirectory() as tmp:
         venv_dir = Path(tmp)
@@ -63,8 +63,9 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
         # If @tests/requirements-stubtest.txt exists, run "pip install" on it.
         req_path = dist / "@tests" / "requirements-stubtest.txt"
         if req_path.exists():
+            pip_cmd = [pip_exe, "install", "-r", str(req_path)]
+            print("Running install of extra requirements:", " ".join(pip_cmd))
             try:
-                pip_cmd = [pip_exe, "install", "-r", str(req_path)]
                 subprocess.run(pip_cmd, check=True, capture_output=True)
             except subprocess.CalledProcessError as e:
                 print_command_failure("Failed to install requirements", e)
