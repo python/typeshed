@@ -1,5 +1,6 @@
 version = "0.1.*"
 requires = ["types-Pillow"]
+no_longer_updated = true
 
 [tool.stubtest]
 # The library only works on Windows; we currently only run stubtest on Ubuntu for third-party stubs in CI.
