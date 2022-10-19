@@ -64,7 +64,6 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
         req_path = dist / "@tests" / "requirements-stubtest.txt"
         if req_path.exists():
             pip_cmd = [pip_exe, "install", "-r", str(req_path)]
-            print("Running install of extra requirements:", " ".join(pip_cmd))
             try:
                 subprocess.run(pip_cmd, check=True, capture_output=True)
             except subprocess.CalledProcessError as e:
@@ -110,7 +109,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
         if allowlist_path.exists():
             stubtest_cmd.extend(["--allowlist", str(allowlist_path)])
         platform_allowlist = dist / f"@tests/stubtest_allowlist_{sys.platform}.txt"
-        if allowlist_path.exists():
+        if platform_allowlist.exists():
             stubtest_cmd.extend(["--allowlist", str(platform_allowlist)])
 
         try:
