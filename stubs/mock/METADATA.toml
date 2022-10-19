@@ -1,5 +1,4 @@
 version = "4.0.*"
-no_longer_updated = true
 
 [tool.stubtest]
 ignore_missing_stub = false
