@@ -7,7 +7,8 @@ __all__: list[str] = []
 
 # #5768
 # import numpy
-_NDArray = Incomplete  # numpy.ndarray[float, np.dtype[np.generic]]
+_NDArray = Incomplete  # numpy.ndarray[int, np.dtype[np.generic]]  # np.uint8 ?
+_NDArrayF = Incomplete  # numpy.ndarray[float, np.dtype[np.generic]]  # np.float32 ?
 
 # TODO: Make Mat generic with int or float
 class Mat(_NDArray):

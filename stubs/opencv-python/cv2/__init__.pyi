@@ -10,7 +10,7 @@ from cv2 import (
     version as version,
 )
 from cv2.cv2 import *
-from cv2.mat_wrapper import Mat as _WrappedMat, _NDArray
+from cv2.mat_wrapper import Mat as _WrappedMat, _NDArray, _NDArrayF
 
 __all__: list[str] = []
 
@@ -18,4 +18,4 @@ def bootstrap() -> None: ...
 
 Mat: TypeAlias = _WrappedMat | _NDArray
 # TODO: Make Mat generic with int or float
-_MatF: TypeAlias = _WrappedMat | _NDArray  # noqa: Y047
+_MatF: TypeAlias = _WrappedMat | _NDArrayF  # noqa: Y047

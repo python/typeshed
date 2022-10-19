@@ -1,12 +1,21 @@
 from collections.abc import Sequence
-from typing import NamedTuple, Union, overload
-from typing_extensions import TypeAlias
+from typing import NamedTuple, overload
 
 from cv2 import Mat
-from cv2.cv2 import AsyncArray, _Boolean, _NumericScalar, _Point, _Range, _Rect, _RotatedRect, _RotatedRectResult, _TUMat, _UMat
+from cv2.cv2 import (
+    AsyncArray,
+    UMat,
+    _Boolean,
+    _NumericScalar,
+    _Point,
+    _Range,
+    _Rect,
+    _RotatedRect,
+    _RotatedRectResult,
+    _TermCriteria,
+    _UMat,
+)
 from cv2.mat_wrapper import _NDArray
-
-_TermCriteria: TypeAlias = Union[tuple[int, int, float], Sequence[float]]
 
 class NativeMethodPatchedResult(NamedTuple):
     py: int
@@ -19,8 +28,20 @@ def dumpDouble(argument: float | None) -> str: ...
 def dumpFloat(argument: float | None) -> str: ...
 def dumpInputArray(argument: _UMat) -> str: ...
 def dumpInputArrayOfArrays(argument: Sequence[_UMat] | None) -> str: ...
-def dumpInputOutputArray(argument: _TUMat) -> tuple[str, _TUMat]: ...
-def dumpInputOutputArrayOfArrays(argument: Sequence[_TUMat] | None) -> tuple[str, tuple[_TUMat, ...]]: ...
+@overload
+def dumpInputOutputArray(argument: None) -> tuple[str, None]: ...  # type: ignore[misc]
+@overload
+def dumpInputOutputArray(argument: Mat) -> tuple[str, Mat]: ...
+@overload
+def dumpInputOutputArray(argument: _UMat) -> tuple[str, UMat]: ...
+@overload
+def dumpInputOutputArrayOfArrays(argument: None) -> tuple[str, tuple[()]]: ...
+@overload
+def dumpInputOutputArrayOfArrays(argument: Sequence[None]) -> tuple[str, tuple[None, ...]]: ...  # type: ignore[misc]
+@overload
+def dumpInputOutputArrayOfArrays(argument: Sequence[Mat]) -> tuple[str, tuple[Mat, ...]]: ...
+@overload
+def dumpInputOutputArrayOfArrays(argument: Sequence[_UMat]) -> tuple[str, tuple[UMat, ...]]: ...
 def dumpInt(argument: int) -> str: ...
 def dumpRange(argument: _Range | None) -> str: ...
 def dumpRect(argument: _Rect | None) -> str: ...

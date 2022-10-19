@@ -1,0 +1,3 @@
+from cv2.cv2 import _Boolean
+
+def setParallelForBackend(backendName: str | None, propagateNumThreads: _Boolean = ...) -> bool: ...
