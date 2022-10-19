@@ -34,9 +34,10 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
         print(colored("skipping", "yellow"))
         return True
 
-    platform = stubtest_meta.get("platform", None)
-    if platform is not None and sys.platform not in platform:
-        print(colored(f"skipping, unsupported platform: {sys.platform}, supported: {platform}", "yellow"))
+    # TODO: enable for `win32` and `darwin` by default?
+    platforms_to_test = stubtest_meta.get("platforms", ["linux"])
+    if sys.platform not in platforms_to_test:
+        print(colored(f"skipping, unsupported platform: {sys.platform}, supported: {platforms_to_test}", "yellow"))
         return True
 
     with tempfile.TemporaryDirectory() as tmp:

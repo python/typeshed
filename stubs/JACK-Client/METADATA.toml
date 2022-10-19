@@ -1,5 +1,5 @@
 version = "0.5.*"
 
 [tool.stubtest]
-platform = ["linux"]
+platforms = ["linux"]
 apt_dependencies = ["libjack-dev"]

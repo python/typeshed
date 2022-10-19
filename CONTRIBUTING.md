@@ -192,9 +192,9 @@ This has the following keys:
 * `apt_dependencies` (default: `[]`): A list of Ubuntu APT packages
   that need to be installed for stubtest to run successfully. These are
   usually packages needed to pip install the implementation distribution.
-* `platform` (default: `None`): A list of supported OSes.
+* `platforms` (default: `["linux"]`): A list of supported OSes.
   Can contain `win32`, `linux`, and `darwin` values.
-  If not specified, all platforms are considered supported.
+  If not specified, only `linux` is considered supported.
 
 The format of all `METADATA.toml` files can be checked by running
 `python3 ./tests/check_consistent.py`.

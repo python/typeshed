@@ -1,5 +1,5 @@
 version = "7.45.*"
 
 [tool.stubtest]
-platform = ["linux"]
+platforms = ["linux"]
 apt_dependencies = ["libcurl4-openssl-dev"]
