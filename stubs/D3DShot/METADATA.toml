@@ -2,4 +2,6 @@ version = "0.1.*"
 requires = ["types-Pillow"]
 
 [tool.stubtest]
+# TODO: re-enable
+skip = true
 platforms = ["win32"]
