@@ -44,6 +44,7 @@
         "stubs/dj-database-url",
         "stubs/docutils",
         "stubs/editdistance/editdistance/bycython.pyi",
+        "stubs/Flask-JSONRPC",
         "stubs/Flask-SQLAlchemy",
         "stubs/fpdf2",
         "stubs/html5lib",
