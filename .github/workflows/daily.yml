@@ -52,12 +52,17 @@ jobs:
           python-version: "3.9"
       - name: Install dependencies
         run: pip install -r requirements-tests.txt
-      - name: Install apt packages
-        run: |
-          sudo apt update
-          sudo apt install -y $(python tests/get_packages.py)
       - name: Run stubtest
-        run: xvfb-run python tests/stubtest_third_party.py --num-shards 4 --shard-index ${{ matrix.shard-index }}
+        shell: bash
+        run: |
+          if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
+            sudo apt update
+            sudo apt install -y $(python tests/get_packages.py)
+
+            xvfb-run python tests/stubtest_third_party.py --num-shards 4 --shard-index ${{ matrix.shard-index }}
+          else
+            python tests/stubtest_third_party.py --num-shards 4 --shard-index ${{ matrix.shard-index }}
+          fi
 
   stub-uploader:
     name: Run the stub_uploader tests
