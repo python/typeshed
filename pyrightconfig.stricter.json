@@ -80,7 +80,6 @@
         "stubs/requests",
         "stubs/Send2Trash",
         "stubs/setuptools",
-        "stubs/simplejson",
         "stubs/slumber",
         "stubs/SQLAlchemy",
         "stubs/stripe",
