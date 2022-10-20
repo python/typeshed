@@ -17,7 +17,7 @@ _NumericScalar: TypeAlias = float | bool | None
 # cv::Scalar
 _Scalar: TypeAlias = Mat | _NumericScalar | Sequence[_NumericScalar]
 # cv::TermCriteria
-_TermCriteria: TypeAlias = Union[tuple[int, int, float], Sequence[float]]
+_TermCriteria: TypeAlias = Union[tuple[int, int, float], Sequence[float]]  # noqa: Y047
 # cv::Point<int>
 _Point: TypeAlias = Union[tuple[int, int], Sequence[int]]
 # cv::Size<int>
@@ -36,8 +36,7 @@ _RectFloat: TypeAlias = Union[tuple[int, int, int, int], Sequence[int]]  # noqa:
 _RotatedRect: TypeAlias = Union[tuple[_PointFloat, _SizeFloat, float], Sequence[_PointFloat | _SizeFloat | float]]  # noqa: Y047
 _RotatedRectResult: TypeAlias = tuple[tuple[float, float], tuple[float, float], float]
 # cv:UMat, cv::InputArray, cv::OutputArray and cv::InputOutputArray
-_UMat: TypeAlias = UMat | Mat | _NumericScalar
-_UMatF: TypeAlias = UMat | _MatF | _NumericScalar
+_UMat: TypeAlias = UMat | _MatF | _NumericScalar
 
 # TODO: Complete types until all the aliases below are gone!
 # These are temporary placeholder return types, as were in the docstrings signatures from microsoft/python-type-stubs
