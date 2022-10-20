@@ -41,7 +41,6 @@
         "stubs/console-menu",
         "stubs/cryptography",
         "stubs/dateparser",
-        "stubs/dj-database-url",
         "stubs/docutils",
         "stubs/editdistance/editdistance/bycython.pyi",
         "stubs/Flask-SQLAlchemy",
