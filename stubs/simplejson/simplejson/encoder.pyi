@@ -1,4 +1,3 @@
-from collections.abc import Iterable
 from typing import Any, NoReturn
 
 class JSONEncoder:
