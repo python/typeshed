@@ -88,7 +88,6 @@
         "stubs/SQLAlchemy",
         "stubs/stripe",
         "stubs/tqdm",
-        "stubs/tree-sitter",
         "stubs/tzlocal/tzlocal/utils.pyi",
         "stubs/ttkthemes",
         "stubs/urllib3",
