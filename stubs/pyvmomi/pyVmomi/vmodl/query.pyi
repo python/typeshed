@@ -13,7 +13,9 @@ class PropertyCollector:
         pathSet: list[str]
 
     class TraversalSpec:
-        def __init__(self, *, path: str = ..., skip: bool = ..., type: type[ContainerView] = ..., **kwargs: Incomplete) -> None: ...
+        def __init__(
+            self, *, path: str = ..., skip: bool = ..., type: type[ContainerView] = ..., **kwargs: Incomplete
+        ) -> None: ...
         path: str
         skip: bool
         type: type[ContainerView]
