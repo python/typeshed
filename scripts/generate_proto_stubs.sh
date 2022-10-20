@@ -13,7 +13,7 @@ set -ex -o pipefail
 # Update these two variables when rerunning script
 PROTOBUF_VERSION=21.8
 PYTHON_PROTOBUF_VERSION=4.21.8
-MYPY_PROTOBUF_VERSION=v3.3.0
+MYPY_PROTOBUF_VERSION=v3.4.0
 
 if uname -a | grep Darwin; then
     # brew install coreutils wget
