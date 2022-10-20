@@ -2,7 +2,9 @@ from _typeshed import Self, StrOrBytesPath
 from codecs import StreamReaderWriter
 from collections.abc import Generator, Iterator
 from types import TracebackType
+from typing_extensions import Literal
 
+PY3: Literal[True]
 MATCHER: str
 
 class LogReader:
