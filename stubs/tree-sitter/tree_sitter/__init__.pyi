@@ -1,5 +1,5 @@
 import ctypes
-from _typeshed import StrPath, Incomplete
+from _typeshed import Incomplete, StrPath
 from collections.abc import Sequence
 
 # At runtime, Query and Range are available only in tree_sitter.binding
