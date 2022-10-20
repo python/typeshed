@@ -44,8 +44,6 @@ class Empty(google.protobuf.message.Message):
         service Foo {
           rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
         }
-
-    The JSON representation for `Empty` is empty JSON object `{}`.
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
