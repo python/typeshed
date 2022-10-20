@@ -1,4 +1,4 @@
-from typing import Any, NoReturn
+from typing import Any, Iterator, NoReturn
 
 class JSONEncoder:
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
