@@ -52,7 +52,6 @@
         "stubs/jsonschema",
         "stubs/ldap3",
         "stubs/Markdown",
-        "stubs/mock",
         "stubs/mysqlclient",
         "stubs/oauthlib",
         "stubs/openpyxl",
