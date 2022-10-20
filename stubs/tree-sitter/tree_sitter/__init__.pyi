@@ -3,8 +3,7 @@ from _typeshed import StrPath
 from collections.abc import Sequence
 
 # At runtime, Query and Range are available only in tree_sitter.binding
-from tree_sitter.binding import Node as Node, Parser as Parser, Tree as Tree, TreeCursor as TreeCursor
-from tree_sitter.binding import Query
+from tree_sitter.binding import Node as Node, Parser as Parser, Query, Tree as Tree, TreeCursor as TreeCursor
 
 class Language:
     @staticmethod
