@@ -1,7 +1,7 @@
-from collections.abc import Callable
+from collections.abc import Callable, Hashable
 from datetime import date
 from re import Pattern
-from typing import Any, ClassVar, Hashable, TypeVar
+from typing import Any, ClassVar, TypeVar
 from typing_extensions import TypeAlias
 
 from yaml.error import MarkedYAMLError
