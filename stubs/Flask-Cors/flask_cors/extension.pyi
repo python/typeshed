@@ -4,6 +4,8 @@ from logging import Logger
 from typing import Any
 from typing_extensions import TypeAlias
 
+from flask import Flask
+
 _App: TypeAlias = Any  # flask is not part of typeshed
 
 LOG: Logger
@@ -11,7 +13,7 @@ LOG: Logger
 class CORS:
     def __init__(
         self,
-        app: Any | None = ...,
+        app: Flask | None = ...,
         *,
         resources: dict[str, dict[str, Any]] | list[str] | str | None = ...,
         origins: str | list[str] | None = ...,
