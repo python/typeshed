@@ -72,14 +72,7 @@ class Parser:
 @final
 class Query:
     # start_point and end_point arguments don't seem to do anything
-    def captures(
-        self,
-        node: Node,
-        start_point: tuple[int, int] = ...,
-        end_point: tuple[int, int] = ...,
-        start_byte: int = ...,
-        end_byte: int = ...,
-    ) -> list[tuple[Node, str]]: ...
+    def captures(self, node: Node, start_point: tuple[int, int] = ..., end_point: tuple[int, int] = ..., start_byte: int = ..., end_byte: int = ...) -> list[tuple[Node, str]]: ...
 
 @final
 class Range:
