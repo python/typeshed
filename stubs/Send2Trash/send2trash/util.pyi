@@ -1,4 +1,4 @@
 from _typeshed import StrOrBytesPath
-from collections.abc import Sequence
 
-def preprocess_paths(paths: StrOrBytesPath | Sequence[StrOrBytesPath]) -> list[str | bytes]: ...
+# Should be consistent with `__init__.py`
+def preprocess_paths(paths: list[Any] | StrOrBytesPath) -> list[str | bytes]: ...
