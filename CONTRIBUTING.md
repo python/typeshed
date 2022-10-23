@@ -342,7 +342,7 @@ always put the code for the most recent Python version first.
 
 ### Incomplete stubs
 
-We accept partial stubs, especially for larger packages. The only guidline that needs to be followed is:
+We generally prefer complete stubs, but for larger packages can be submitted with some incomplete non-essential parts.The thing to be remembered is:
 
 * Included functions and methods must list all arguments, but the arguments
   can be left unannotated. Do not use `Any` to mark unannotated arguments
