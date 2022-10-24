@@ -1,9 +1,10 @@
 from _typeshed import Incomplete
+from typing_extensions import TypeAlias
 
 from tensorflow import Tensor, TensorShape, _TensorCompatible
 from tensorflow.dtypes import DType
 
-_SparseTensorCompatible = _TensorCompatible | SparseTensor
+_SparseTensorCompatible: TypeAlias = _TensorCompatible | SparseTensor
 
 class SparseTensor:
     indices: Tensor

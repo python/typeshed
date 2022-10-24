@@ -1,8 +1,9 @@
 from _typeshed import Incomplete
 from builtins import bool as _bool
+from collections import Iterable, Iterator, Sequence
 from contextlib import contextmanager
-from typing import Any, Iterable, Iterator, NoReturn, Sequence, TypeVar, overload
-from typing_extensions import ParamSpec, Self
+from typing import Any, NoReturn, overload
+from typing_extensions import Self, TypeAlias
 
 import numpy as np
 from tensorflow.dtypes import *
@@ -16,17 +17,14 @@ from tensorflow.sparse import SparseTensor
 # we will skip making Tensor generic. Also good type hints for shapes will
 # run quickly into many places where type system is not strong enough today.
 # So shape typing is probably not worth doing anytime soon.
-_SliceT = int | slice | None
+_SliceT: TypeAlias = int | slice | None
 
-_R = TypeVar("_R")
-_P = ParamSpec("_P")
-
-_FloatDataSequence = Sequence[float] | Sequence[_FloatDataSequence]
-_StrDataSequence = Sequence[str] | Sequence[_StrDataSequence]
-_ScalarTensorCompatible = Tensor | str | float | np.ndarray[Any, Any] | np.number[Any]
-_TensorCompatible = _ScalarTensorCompatible | Sequence[_TensorCompatible]
-_ShapeLike = TensorShape | Iterable[_ScalarTensorCompatible | None] | int | Tensor
-_DTypeLike = DType | str | np.dtype[Any]
+_FloatDataSequence: TypeAlias = Sequence[float] | Sequence[_FloatDataSequence]
+_StrDataSequence: TypeAlias = Sequence[str] | Sequence[_StrDataSequence]
+_ScalarTensorCompatible: TypeAlias = Tensor | str | float | np.ndarray[Any, Any] | np.number[Any]
+_TensorCompatible: TypeAlias = _ScalarTensorCompatible | Sequence[_TensorCompatible]
+_ShapeLike: TypeAlias = TensorShape | Iterable[_ScalarTensorCompatible | None] | int | Tensor
+_DTypeLike: TypeAlias = DType | str | np.dtype[Any]
 
 class Tensor:
     def consumers(self) -> list[Incomplete]: ...
