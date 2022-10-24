@@ -77,7 +77,6 @@
         "stubs/SQLAlchemy",
         "stubs/stripe",
         "stubs/tqdm",
-        "stubs/tree-sitter",
         "stubs/ttkthemes",
         "stubs/urllib3",
         "stubs/vobject"
