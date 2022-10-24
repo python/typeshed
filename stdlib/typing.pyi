@@ -452,8 +452,7 @@ class Container(Protocol[_T_co]):
     def __contains__(self, __x: object) -> bool: ...
 
 @runtime_checkable
-class Collection(Iterable[_T_co], Container[_T_co], Protocol[_T_co]):
-    # Implement Sized (but don't have it as a base class).
+class Collection(Sized, Iterable[_T_co], Container[_T_co], Protocol[_T_co]):
     @abstractmethod
     def __len__(self) -> int: ...
 
