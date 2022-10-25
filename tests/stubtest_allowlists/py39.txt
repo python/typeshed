@@ -165,6 +165,11 @@ types.FunctionType.__get__
 types.LambdaType.__get__
 
 # Missing from distutils (deprecated, to be removed in 3.12)
+distutils.core.DEBUG
+distutils.core.USAGE
+distutils.core.extension_keywords
+distutils.core.gen_usage
+distutils.core.setup_keywords
 distutils.core.Command.dump_options
 distutils.core.Command.ensure_finalized
 distutils.core.Distribution.announce
