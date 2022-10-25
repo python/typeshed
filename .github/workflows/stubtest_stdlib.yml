@@ -29,7 +29,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+        # tkinter doesn't import on macOS 12
+        os: ["ubuntu-latest", "windows-latest", "macos-11"]
         python-version: ["3.7", "3.8", "3.9", "3.10", "3.11-dev"]
       fail-fast: false
 
