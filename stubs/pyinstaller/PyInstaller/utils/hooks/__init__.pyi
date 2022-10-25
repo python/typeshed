@@ -75,3 +75,9 @@ def include_or_exclude_file(
     include_list: Iterable[StrOrBytesPath] | None = ...,
     exclude_list: Iterable[StrOrBytesPath] | None = ...,
 ) -> bool: ...
+def collect_delvewheel_libs_directory(
+    package_name: str,
+    libdir_name: StrPath | None = ...,
+    datas: list[tuple[str, str]] | None = ...,
+    binaries: list[tuple[str, str]] | None = ...,
+) -> tuple[list[tuple[str, str]], list[tuple[str, str]]]: ...
