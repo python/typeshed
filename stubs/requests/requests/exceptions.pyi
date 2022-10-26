@@ -1,10 +1,12 @@
-from typing import Any
+from typing import Optional
 
 from urllib3.exceptions import HTTPError as BaseHTTPError
 
+from .models import Response, Request
+
 class RequestException(IOError):
-    response: Any
-    request: Any
+    response: Optional[Response]
+    request: Optional[Request]
     def __init__(self, *args, **kwargs) -> None: ...
 
 class InvalidJSONError(RequestException): ...
