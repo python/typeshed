@@ -196,7 +196,7 @@ This has the following keys:
   Can contain `win32`, `linux`, and `darwin` values.
   If not specified, only `linux` is considered supported.
   Only add extra OSes to the test
-  if there is platform-specific code in a package.
+  if there are platform-specific branches in a stubs package.
 
 The format of all `METADATA.toml` files can be checked by running
 `python3 ./tests/check_consistent.py`.
