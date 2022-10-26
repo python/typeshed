@@ -1,17 +1,19 @@
-from typing import Optional
-
 from urllib3.exceptions import HTTPError as BaseHTTPError
 
 from .models import Request, Response
 
 class RequestException(IOError):
-    response: Optional[Response]
-    request: Optional[Request]
+    response: Response | None
+    request: Request | None
     def __init__(self, *args, **kwargs) -> None: ...
 
 class InvalidJSONError(RequestException): ...
 class JSONDecodeError(InvalidJSONError): ...
-class HTTPError(RequestException): ...
+
+class HTTPError(RequestException): 
+    request: Request
+    response: Response
+
 class ConnectionError(RequestException): ...
 class ProxyError(ConnectionError): ...
 class SSLError(ConnectionError): ...
