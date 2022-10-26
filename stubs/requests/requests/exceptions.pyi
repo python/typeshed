@@ -10,7 +10,7 @@ class RequestException(IOError):
 class InvalidJSONError(RequestException): ...
 class JSONDecodeError(InvalidJSONError): ...
 
-class HTTPError(RequestException): 
+class HTTPError(RequestException):
     request: Request
     response: Response
 
