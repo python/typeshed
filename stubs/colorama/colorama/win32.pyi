@@ -4,6 +4,7 @@ from typing_extensions import Literal
 
 STDOUT: Literal[-11]
 STDERR: Literal[-12]
+ENABLE_VIRTUAL_TERMINAL_PROCESSING: int
 
 if sys.platform == "win32":
     from ctypes import LibraryLoader, Structure, WinDLL, wintypes
