@@ -2,7 +2,7 @@ from typing import Optional
 
 from urllib3.exceptions import HTTPError as BaseHTTPError
 
-from .models import Response, Request
+from .models import Request, Response
 
 class RequestException(IOError):
     response: Optional[Response]
