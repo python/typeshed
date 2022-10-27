@@ -1,5 +1,6 @@
 import sys
 from _ast import *
+from _typeshed import ReadableBuffer
 from collections.abc import Iterator
 from typing import Any, TypeVar, overload
 from typing_extensions import Literal
@@ -157,8 +158,8 @@ _T = TypeVar("_T", bound=AST)
 if sys.version_info >= (3, 8):
     @overload
     def parse(
-        source: str | bytes,
-        filename: str | bytes = ...,
+        source: str | ReadableBuffer,
+        filename: str | ReadableBuffer = ...,
         mode: Literal["exec"] = ...,
         *,
         type_comments: bool = ...,
@@ -166,8 +167,8 @@ if sys.version_info >= (3, 8):
     ) -> Module: ...
     @overload
     def parse(
-        source: str | bytes,
-        filename: str | bytes,
+        source: str | ReadableBuffer,
+        filename: str | ReadableBuffer,
         mode: Literal["eval"],
         *,
         type_comments: bool = ...,
@@ -175,8 +176,8 @@ if sys.version_info >= (3, 8):
     ) -> Expression: ...
     @overload
     def parse(
-        source: str | bytes,
-        filename: str | bytes,
+        source: str | ReadableBuffer,
+        filename: str | ReadableBuffer,
         mode: Literal["func_type"],
         *,
         type_comments: bool = ...,
@@ -184,8 +185,8 @@ if sys.version_info >= (3, 8):
     ) -> FunctionType: ...
     @overload
     def parse(
-        source: str | bytes,
-        filename: str | bytes,
+        source: str | ReadableBuffer,
+        filename: str | ReadableBuffer,
         mode: Literal["single"],
         *,
         type_comments: bool = ...,
@@ -193,7 +194,7 @@ if sys.version_info >= (3, 8):
     ) -> Interactive: ...
     @overload
     def parse(
-        source: str | bytes,
+        source: str | ReadableBuffer,
         *,
         mode: Literal["eval"],
         type_comments: bool = ...,
@@ -201,7 +202,7 @@ if sys.version_info >= (3, 8):
     ) -> Expression: ...
     @overload
     def parse(
-        source: str | bytes,
+        source: str | ReadableBuffer,
         *,
         mode: Literal["func_type"],
         type_comments: bool = ...,
@@ -209,7 +210,7 @@ if sys.version_info >= (3, 8):
     ) -> FunctionType: ...
     @overload
     def parse(
-        source: str | bytes,
+        source: str | ReadableBuffer,
         *,
         mode: Literal["single"],
         type_comments: bool = ...,
@@ -217,8 +218,8 @@ if sys.version_info >= (3, 8):
     ) -> Interactive: ...
     @overload
     def parse(
-        source: str | bytes,
-        filename: str | bytes = ...,
+        source: str | ReadableBuffer,
+        filename: str | ReadableBuffer = ...,
         mode: str = ...,
         *,
         type_comments: bool = ...,
@@ -227,17 +228,17 @@ if sys.version_info >= (3, 8):
 
 else:
     @overload
-    def parse(source: str | bytes, filename: str | bytes = ..., mode: Literal["exec"] = ...) -> Module: ...
+    def parse(source: str | ReadableBuffer, filename: str | ReadableBuffer = ..., mode: Literal["exec"] = ...) -> Module: ...
     @overload
-    def parse(source: str | bytes, filename: str | bytes, mode: Literal["eval"]) -> Expression: ...
+    def parse(source: str | ReadableBuffer, filename: str | ReadableBuffer, mode: Literal["eval"]) -> Expression: ...
     @overload
-    def parse(source: str | bytes, filename: str | bytes, mode: Literal["single"]) -> Interactive: ...
+    def parse(source: str | ReadableBuffer, filename: str | ReadableBuffer, mode: Literal["single"]) -> Interactive: ...
     @overload
-    def parse(source: str | bytes, *, mode: Literal["eval"]) -> Expression: ...
+    def parse(source: str | ReadableBuffer, *, mode: Literal["eval"]) -> Expression: ...
     @overload
-    def parse(source: str | bytes, *, mode: Literal["single"]) -> Interactive: ...
+    def parse(source: str | ReadableBuffer, *, mode: Literal["single"]) -> Interactive: ...
     @overload
-    def parse(source: str | bytes, filename: str | bytes = ..., mode: str = ...) -> AST: ...
+    def parse(source: str | ReadableBuffer, filename: str | ReadableBuffer = ..., mode: str = ...) -> AST: ...
 
 if sys.version_info >= (3, 9):
     def unparse(ast_obj: AST) -> str: ...
