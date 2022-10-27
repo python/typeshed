@@ -1,6 +1,6 @@
-from _typeshed import ReadableBuffer
 import sys
 from _ast import *
+from _typeshed import ReadableBuffer
 from collections.abc import Iterator
 from typing import Any, TypeVar, overload
 from typing_extensions import Literal
