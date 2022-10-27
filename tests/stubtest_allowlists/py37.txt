@@ -78,6 +78,11 @@ distutils.cygwinccompiler.RE_VERSION
 distutils.dist.command_re
 distutils.fancy_getopt.longopt_re
 distutils.fancy_getopt.neg_alias_re
+distutils.core.DEBUG
+distutils.core.USAGE
+distutils.core.extension_keywords
+distutils.core.gen_usage
+distutils.core.setup_keywords
 dummy_threading.Lock
 dummy_threading.RLock
 dummy_threading.stack_size
@@ -154,6 +159,11 @@ types.FunctionType.__get__
 types.LambdaType.__get__
 
 # Missing from distutils (deprecated, to be removed in 3.12)
+distutils.core.DEBUG
+distutils.core.USAGE
+distutils.core.extension_keywords
+distutils.core.gen_usage
+distutils.core.setup_keywords
 distutils.core.Command.dump_options
 distutils.core.Command.ensure_finalized
 distutils.core.Distribution.announce

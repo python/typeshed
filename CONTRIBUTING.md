@@ -352,7 +352,7 @@ follow the following guidelines:
   `# incomplete` comment (see example below).
 * Partial modules (i.e. modules that are missing some or all classes,
   functions, or attributes) must include a top-level `__getattr__()`
-  function marked with an `# incomplete` comment (see example below).
+  function marked with an `Incomplete` return type (see example below).
 * Partial packages (i.e. packages that are missing one or more sub-modules)
   must have a `__init__.pyi` stub that is marked as incomplete (see above).
   A better alternative is to create empty stubs for all sub-modules and
@@ -362,14 +362,16 @@ Example of a partial module with a partial class `Foo` and a partially
 annotated function `bar()`:
 
 ```python
-def __getattr__(name: str) -> Any: ...  # incomplete
+from _typeshed import Incomplete
 
 class Foo:
-    def __getattr__(self, name: str) -> Any: ...  # incomplete
+    def __getattr__(self, name: str) -> Incomplete: ...
     x: int
     y: str
 
 def bar(x: str, y, *, z=...): ...
+
+def __getattr__(name: str) -> Incomplete: ...
 ```
 
 ## Stub file coding style

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import subprocess
 import sys
@@ -35,7 +36,8 @@ def _parse_jsonc(json_text: str) -> str:
 def _get_strict_params(stub_path: str) -> list[str]:
     with open(_STRICTER_CONFIG_FILE, encoding="UTF-8") as file:
         data = json.loads(_parse_jsonc(file.read()))
-    if stub_path in data["exclude"]:
+    lower_stub_path = stub_path.lower()
+    if any(lower_stub_path == stub.lower() for stub in data["exclude"]):
         return []
     return ["-p", _STRICTER_CONFIG_FILE]
 
@@ -46,10 +48,11 @@ def main() -> None:
     except IndexError:
         print("Missing path argument in format <folder>/<stub>", file=sys.stderr)
         sys.exit(1)
+    assert os.path.exists(path), rf"Path {path} does not exist."
     path_tokens = Path(path).parts
-    assert len(path_tokens) == 2, "Path argument should be in format <folder>/<stub>"
+    assert len(path_tokens) == 2, "Path argument should be in format <folder>/<stub>."
     folder, stub = path_tokens
-    assert folder in {"stdlib", "stubs"}, "Only the 'stdlib' and 'stubs' folders are supported"
+    assert folder in {"stdlib", "stubs"}, "Only the 'stdlib' and 'stubs' folders are supported."
     stubtest_result: subprocess.CompletedProcess[bytes] | None = None
     pytype_result: subprocess.CompletedProcess[bytes] | None = None
 

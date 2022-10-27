@@ -171,7 +171,7 @@ def main() -> None:
 
     print("\nDone!\n\nSuggested next steps:")
     print(f" 1. Manually review the generated stubs in {stub_dir}")
-    print(" 2. Optionally run tests and autofixes (see tests/README.md for details")
+    print(" 2. Optionally run tests and autofixes (see tests/README.md for details)")
     print(" 3. Commit the changes on a new branch and create a typeshed PR (don't force-push!)")
 
 
