@@ -16,9 +16,8 @@ class ABCMeta(type):
             __mcls: type[Self], __name: str, __bases: tuple[type, ...], __namespace: dict[str, Any], **kwargs: Any
         ) -> Self: ...
     else:
-        # pyright doesn't like the first parameter being called mcls, hence the `pyright: ignore`
         def __new__(
-            mcls: type[Self], name: str, bases: tuple[type, ...], namespace: dict[str, Any], **kwargs: Any  # pyright: ignore
+            mcls: type[Self], name: str, bases: tuple[type, ...], namespace: dict[str, Any], **kwargs: Any
         ) -> Self: ...
 
     def __instancecheck__(cls: ABCMeta, instance: Any) -> Any: ...
