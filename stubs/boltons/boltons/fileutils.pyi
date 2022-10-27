@@ -1,8 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 
-unicode = str
-
 def mkdir_p(path) -> None: ...
 
 class FilePerms:
