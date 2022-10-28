@@ -292,6 +292,8 @@ currently a draft, removes the implicit promotion of the
 Typeshed stubs should be written assuming that this proposal
 is accepted, so a parameter that accepts either `bytes` or
 `bytearray` should be typed as `bytes | bytearray`.
+Often one of the aliases from `_typeshed`, such as
+`_typeshed.ReadableBuffer` can be used instead.
 
 ### What to include
 
