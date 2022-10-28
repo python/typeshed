@@ -5,9 +5,9 @@ from _typeshed import (
     OpenBinaryModeUpdating,
     OpenBinaryModeWriting,
     OpenTextMode,
+    ReadableBuffer,
     Self,
     StrPath,
-    ReadableBuffer,
 )
 from collections.abc import Callable, Generator, Iterator, Sequence
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
