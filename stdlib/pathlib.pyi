@@ -7,8 +7,8 @@ from _typeshed import (
     OpenTextMode,
     ReadableBuffer,
     Self,
-    StrPath,
     StrOrBytesPath,
+    StrPath,
 )
 from collections.abc import Callable, Generator, Iterator, Sequence
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
