@@ -1,5 +1,5 @@
-from _typeshed import StrOrBytesPath
 import sys
+from _typeshed import StrOrBytesPath
 from collections.abc import Callable, Sequence
 from typing_extensions import SupportsIndex
 
@@ -25,7 +25,7 @@ if sys.platform != "win32":
         __pgid_to_set: int,
         __gid_object: SupportsIndex | None,
         __groups_list: list[int] | None,
-        __uid_object: SupportsIndex | None, 
+        __uid_object: SupportsIndex | None,
         __child_umask: int,
         __preexec_fn: Callable[[], None],
         __allow_vfork: bool,
