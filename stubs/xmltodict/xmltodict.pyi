@@ -9,7 +9,7 @@ __license__: str
 class ParsingInterrupted(Exception): ...
 
 def parse(
-    xml_input: str | ReadableBuffer | SupportsRead[bytes] | GeneratorType[bytes, Any, Any],
+    xml_input: str | ReadableBuffer | SupportsRead[bytes] | GeneratorType[ReadableBuffer, Any, Any],
     encoding: str | None = ...,
     expat: Any = ...,
     process_namespaces: bool = ...,
