@@ -8,6 +8,7 @@ from _typeshed import (
     ReadableBuffer,
     Self,
     StrPath,
+    StrOrBytesPath,
 )
 from collections.abc import Callable, Generator, Iterator, Sequence
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
@@ -197,8 +198,8 @@ class Path(PurePath):
         ) -> int: ...
     else:
         def write_text(self, data: str, encoding: str | None = ..., errors: str | None = ...) -> int: ...
-    if sys.version_info >=(3, 8) and sys.version_info < (3, 12):
-        def link_to(self, target: StrPath) -> None: ...
+    if sys.version_info >= (3, 8) and sys.version_info < (3, 12):
+        def link_to(self, target: StrOrBytesPath) -> None: ...
     if sys.version_info >= (3, 12):
         def walk(
             self: Self, top_down: bool = ..., on_error: Callable[[OSError], object] | None = ..., follow_symlinks: bool = ...
