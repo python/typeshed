@@ -768,7 +768,7 @@ if sys.version_info >= (3, 11):
     def create_connection(
         address: tuple[str | None, int],
         timeout: float | None = ...,  # noqa: F811
-        source_address: _Address | ReadableBuffer | None = ...,
+        source_address: _Address | None = ...,
         *,
         all_errors: bool = ...,
     ) -> socket: ...
@@ -777,7 +777,7 @@ else:
     def create_connection(
         address: tuple[str | None, int],
         timeout: float | None = ...,  # noqa: F811
-        source_address: _Address | ReadableBuffer | None = ...,
+        source_address: _Address | None = ...,
     ) -> socket: ...
 
 if sys.version_info >= (3, 8):
