@@ -1,6 +1,6 @@
-from _typeshed import ReadableBuffer
 import socket
 import sys
+from _typeshed import ReadableBuffer
 from builtins import type as Type  # alias to avoid name clashes with property named "type"
 from collections.abc import Iterable
 from types import TracebackType
@@ -66,7 +66,11 @@ class TransportSocket:
             ) -> NoReturn: ...
 
         def sendmsg(
-            self, __buffers: Iterable[ReadableBuffer], __ancdata: Iterable[_CMSG] = ..., __flags: int = ..., __address: _Address = ...
+            self,
+            __buffers: Iterable[ReadableBuffer],
+            __ancdata: Iterable[_CMSG] = ...,
+            __flags: int = ...,
+            __address: _Address = ...,
         ) -> int: ...
         @overload
         def sendto(self, data: ReadableBuffer, address: _Address) -> int: ...
