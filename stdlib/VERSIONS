@@ -61,7 +61,7 @@ antigravity: 2.7-
 argparse: 2.7-
 array: 2.7-
 ast: 2.7-
-asynchat: 2.7-3.12
+asynchat: 2.7-3.11
 asyncio: 3.4-
 asyncio.mixins: 3.10-
 asyncio.exceptions: 3.8-
@@ -72,7 +72,7 @@ asyncio.taskgroups: 3.11-
 asyncio.threads: 3.9-
 asyncio.timeouts: 3.11-
 asyncio.trsock: 3.8-
-asyncore: 2.7-3.12
+asyncore: 2.7-3.11
 atexit: 2.7-
 audioop: 2.7-
 base64: 2.7-
