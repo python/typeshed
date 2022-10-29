@@ -1,5 +1,6 @@
 from _typeshed import Self
-from typing import Any, Literal
+from typing import Any
+from typing_extensions import Literal
 
 from stripe.api_resources.abstract import CreateableAPIResource, DeletableAPIResource, ListableAPIResource
 
