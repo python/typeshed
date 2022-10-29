@@ -1,6 +1,6 @@
+from _typeshed import ReadableBuffer
 from typing import IO, Any
 from typing_extensions import Literal, TypeAlias
-from _typeshed import ReadableBuffer
 
 __all__ = ["binhex", "hexbin", "Error"]
 
