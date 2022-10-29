@@ -1,5 +1,5 @@
 import sys
-from _typeshed import FileDescriptorLike
+from _typeshed import FileDescriptorLike, ReadableBuffer
 from socket import socket
 from typing import Any, overload
 from typing_extensions import TypeAlias
