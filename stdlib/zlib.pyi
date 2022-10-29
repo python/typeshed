@@ -1,5 +1,5 @@
-from _typeshed import ReadableBuffer
 import sys
+from _typeshed import ReadableBuffer
 from typing_extensions import Literal
 
 DEFLATED: Literal[8]
@@ -49,7 +49,12 @@ else:
     def compress(__data: ReadableBuffer, level: int = ...) -> bytes: ...
 
 def compressobj(
-    level: int = ..., method: int = ..., wbits: int = ..., memLevel: int = ..., strategy: int = ..., zdict: ReadableBuffer | None = ...
+    level: int = ...,
+    method: int = ...,
+    wbits: int = ...,
+    memLevel: int = ...,
+    strategy: int = ...,
+    zdict: ReadableBuffer | None = ...,
 ) -> _Compress: ...
 def crc32(__data: ReadableBuffer, __value: int = ...) -> int: ...
 def decompress(__data: ReadableBuffer, wbits: int = ..., bufsize: int = ...) -> bytes: ...
