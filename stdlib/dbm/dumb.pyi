@@ -6,7 +6,7 @@ from typing_extensions import TypeAlias
 __all__ = ["error", "open"]
 
 _KeyType: TypeAlias = str | bytes
-_ValueType: TypeAlias = str | bytes
+_ValueType: TypeAlias = str | bytes | bytearray
 
 error = OSError
 
