@@ -1,3 +1,4 @@
+from _typeshed import _BufferWithLen
 from typing import IO, Any
 from typing_extensions import Literal, TypeAlias
 
