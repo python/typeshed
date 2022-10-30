@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Self
 from collections.abc import Iterator, Mapping as DictMixin
 
 class LazyDict(DictMixin[str, Incomplete]):
@@ -9,7 +9,9 @@ class LazyDict(DictMixin[str, Incomplete]):
     def __len__(self) -> int: ...
 
 class LazyList(list[Incomplete]):
-    def __new__(cls, fill_iter: Incomplete | None = ...) -> LazyList: ...
+    # does not return `Self` type:
+    def __new__(cls, fill_iter: Incomplete | None = ...) -> LazyList: ...  # noqa: Y034
 
 class LazySet(set[Incomplete]):
-    def __new__(cls, fill_iter: Incomplete | None = ...) -> LazySet: ...
+    # does not return `Self` type:
+    def __new__(cls, fill_iter: Incomplete | None = ...) -> LazySet: ...  # noqa: Y034
