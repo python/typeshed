@@ -42,7 +42,6 @@ win32.lib.verstamp
 # Demos, tests and debugging
 win32.lib.pywin32_testutil
 win32.lib.rasutil
-win32.lib.win32gui_struct
 win32com.demos.*
 win32com.servers.test_pycomtest
 win32com.test.*
