@@ -1,3 +1,5 @@
 from typing import IO
 
-def build_tzinfo(zone: str, fp: IO[bytes]): ...
+from pytz.tzinfo import DstTzInfo
+
+def build_tzinfo(zone: str, fp: IO[bytes]) -> DstTzInfo: ...
