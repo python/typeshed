@@ -1,7 +1,7 @@
 import _compression
 import sys
 import zlib
-from _typeshed import ReadableBuffer, StrOrBytesPath
+from _typeshed import _BufferWithLen, ReadableBuffer, StrOrBytesPath
 from io import FileIO
 from typing import Any, Protocol, TextIO, overload
 from typing_extensions import Literal, TypeAlias
@@ -159,9 +159,9 @@ class _GzipReader(_compression.DecompressReader):
     def __init__(self, fp: _ReadableFileobj) -> None: ...
 
 if sys.version_info >= (3, 8):
-    def compress(data: ReadableBuffer, compresslevel: int = ..., *, mtime: float | None = ...) -> bytes: ...
+    def compress(data: _BufferWithLen, compresslevel: int = ..., *, mtime: float | None = ...) -> bytes: ...
 
 else:
-    def compress(data: ReadableBuffer, compresslevel: int = ...) -> bytes: ...
+    def compress(data: _BufferWithLen, compresslevel: int = ...) -> bytes: ...
 
 def decompress(data: ReadableBuffer) -> bytes: ...
