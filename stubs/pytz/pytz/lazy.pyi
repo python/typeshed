@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, Self
+from _typeshed import Incomplete
 from collections.abc import Iterator, Mapping as DictMixin
 
 class LazyDict(DictMixin[str, Incomplete]):
