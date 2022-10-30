@@ -1,7 +1,7 @@
 import _compression
 import sys
 import zlib
-from _typeshed import _BufferWithLen, ReadableBuffer, StrOrBytesPath
+from _typeshed import ReadableBuffer, StrOrBytesPath, _BufferWithLen
 from io import FileIO
 from typing import Any, Protocol, TextIO, overload
 from typing_extensions import Literal, TypeAlias
