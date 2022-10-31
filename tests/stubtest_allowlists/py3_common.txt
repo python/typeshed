@@ -367,7 +367,7 @@ _ctypes.sizeof
 # Allowlist entries that cannot or should not be fixed
 # ==========
 
-ctypes.Array.raw  # exists but stubtest can't see it
+ctypes.Array.raw  # exists but stubtest can't see it; only available if _CT == c_char
 
 _collections_abc.AsyncGenerator.asend  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
 _collections_abc.AsyncGenerator.__anext__  # async at runtime, deliberately not in the stub, see #7491
