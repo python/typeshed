@@ -1,4 +1,4 @@
-from _typeshed import ReadableBuffer
+from _typeshed import ReadableBuffer, SupportsRead, SupportsWrite
 from typing import Any
 
 version: int
