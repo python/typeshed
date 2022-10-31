@@ -1,5 +1,5 @@
 import sys
-from _typeshed import Self, ReadableBuffer
+from _typeshed import ReadableBuffer, Self
 from collections.abc import Mapping, MutableMapping
 from datetime import datetime
 from enum import Enum
@@ -48,7 +48,9 @@ FMT_BINARY = PlistFormat.FMT_BINARY
 
 if sys.version_info >= (3, 9):
     def load(fp: IO[bytes], *, fmt: PlistFormat | None = ..., dict_type: type[MutableMapping[str, Any]] = ...) -> Any: ...
-    def loads(value: ReadableBuffer, *, fmt: PlistFormat | None = ..., dict_type: type[MutableMapping[str, Any]] = ...) -> Any: ...
+    def loads(
+        value: ReadableBuffer, *, fmt: PlistFormat | None = ..., dict_type: type[MutableMapping[str, Any]] = ...
+    ) -> Any: ...
 
 else:
     def load(
