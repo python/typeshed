@@ -1,5 +1,5 @@
 from _typeshed import ReadableBuffer
-from typing import IO, Any
+from typing import Any
 
 version: int
 
