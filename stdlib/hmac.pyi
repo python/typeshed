@@ -1,5 +1,5 @@
 import sys
-from _typeshed import _BufferWithLen, ReadableBuffer
+from _typeshed import ReadableBuffer, _BufferWithLen
 from collections.abc import Callable
 from types import ModuleType
 from typing import Any, AnyStr, overload
