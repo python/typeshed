@@ -16,8 +16,6 @@ SSLEAY_BUILT_ON: int
 SENT_SHUTDOWN: int
 RECEIVED_SHUTDOWN: int
 
-SSLv2_METHOD: int
-SSLv3_METHOD: int
 SSLv23_METHOD: int
 TLSv1_METHOD: int
 TLSv1_1_METHOD: int
@@ -179,7 +177,7 @@ class Connection:
 _T = TypeVar("_T")
 
 class Context:
-    def __getattr__(self, name: str) -> Any: ...  # incomplete
+    def __getattr__(self, name: str) -> Incomplete: ...
     def __init__(self, method: int) -> None: ...
     def load_verify_locations(self, cafile: str | None, capath: str | None = ...) -> None: ...
     def set_options(self, options: int) -> None: ...

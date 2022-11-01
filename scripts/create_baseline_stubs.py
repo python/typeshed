@@ -47,7 +47,7 @@ def get_installed_package_info(project: str) -> tuple[str, str] | None:
 
 def run_stubgen(package: str, output: str) -> None:
     print(f"Running stubgen: stubgen -o {output} -p {package}")
-    subprocess.run(["stubgen", "-o", output, "-p", package], check=True)
+    subprocess.run(["stubgen", "-o", output, "-p", package, "--export-less"], check=True)
 
 
 def run_black(stub_dir: str) -> None:
@@ -62,15 +62,16 @@ def run_isort(stub_dir: str) -> None:
 
 def create_metadata(stub_dir: str, version: str) -> None:
     """Create a METADATA.toml file."""
-    m = re.match(r"[0-9]+.[0-9]+", version)
-    if m is None:
+    match = re.match(r"[0-9]+.[0-9]+", version)
+    if match is None:
         sys.exit(f"Error: Cannot parse version number: {version}")
-    fnam = os.path.join(stub_dir, "METADATA.toml")
-    version = m.group(0)
-    assert not os.path.exists(fnam)
-    print(f"Writing {fnam}")
-    with open(fnam, "w") as f:
-        f.write(
+    filename = os.path.join(stub_dir, "METADATA.toml")
+    version = match.group(0)
+    if os.path.exists(filename):
+        return
+    print(f"Writing {filename}")
+    with open(filename, "w", encoding="UTF-8") as file:
+        file.write(
             f"""\
 version = "{version}.*"
 
@@ -82,7 +83,7 @@ ignore_missing_stub = false
 
 def add_pyright_exclusion(stub_dir: str) -> None:
     """Exclude stub_dir from strict pyright checks."""
-    with open(PYRIGHT_CONFIG) as f:
+    with open(PYRIGHT_CONFIG, encoding="UTF-8") as f:
         lines = f.readlines()
     i = 0
     while i < len(lines) and not lines[i].strip().startswith('"exclude": ['):
@@ -104,7 +105,7 @@ def add_pyright_exclusion(stub_dir: str) -> None:
         lines[i] = lines[i].rstrip() + ",\n"
     lines.insert(i + 1, line_to_add + "\n")
     print(f"Updating {PYRIGHT_CONFIG}")
-    with open(PYRIGHT_CONFIG, "w") as f:
+    with open(PYRIGHT_CONFIG, "w", encoding="UTF-8") as f:
         f.writelines(lines)
 
 
@@ -153,8 +154,9 @@ def main() -> None:
     project, version = info
 
     stub_dir = os.path.join("stubs", project)
-    if os.path.exists(stub_dir):
-        sys.exit(f"Error: {stub_dir} already exists (delete it first)")
+    package_dir = os.path.join(stub_dir, package)
+    if os.path.exists(package_dir):
+        sys.exit(f"Error: {package_dir} already exists (delete it first)")
 
     run_stubgen(package, stub_dir)
 
@@ -169,11 +171,8 @@ def main() -> None:
 
     print("\nDone!\n\nSuggested next steps:")
     print(f" 1. Manually review the generated stubs in {stub_dir}")
-    print(f' 2. Run "MYPYPATH={stub_dir} python3 -m mypy.stubtest {package}" to check the stubs against runtime')
-    print(f' 3. Run "mypy {stub_dir}" to check for errors')
-    print(f' 4. Run "black {stub_dir}" and "isort {stub_dir}" (if you\'ve made code changes)')
-    print(f' 5. Run "flake8 {stub_dir}" to check for e.g. unused imports')
-    print(" 6. Commit the changes on a new branch and create a typeshed PR")
+    print(" 2. Optionally run tests and autofixes (see tests/README.md for details)")
+    print(" 3. Commit the changes on a new branch and create a typeshed PR (don't force-push!)")
 
 
 if __name__ == "__main__":

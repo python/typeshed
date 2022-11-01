@@ -13,6 +13,12 @@ builtins.float.__setformat__  # Internal method for CPython test suite
 builtins.property.__set_name__  # Doesn't actually exist
 contextlib.AbstractAsyncContextManager.__class_getitem__
 contextlib.AbstractContextManager.__class_getitem__
+# Missing from distutils module (deprecated, to be removed in 3.12)
+distutils.core.DEBUG
+distutils.core.USAGE
+distutils.core.extension_keywords
+distutils.core.gen_usage
+distutils.core.setup_keywords
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 gettext.install
 gettext.translation

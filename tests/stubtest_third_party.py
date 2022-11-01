@@ -19,12 +19,12 @@ from utils import colored, print_error, print_success_msg
 
 @functools.lru_cache()
 def get_mypy_req() -> str:
-    with open("requirements-tests.txt") as f:
+    with open("requirements-tests.txt", encoding="UTF-8") as f:
         return next(line.strip() for line in f if "mypy" in line)
 
 
 def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
-    with open(dist / "METADATA.toml") as f:
+    with open(dist / "METADATA.toml", encoding="UTF-8") as f:
         metadata = dict(tomli.loads(f.read()))
 
     print(f"{dist.name}... ", end="")

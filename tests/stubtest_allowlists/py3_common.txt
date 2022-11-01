@@ -367,6 +367,8 @@ _ctypes.sizeof
 # Allowlist entries that cannot or should not be fixed
 # ==========
 
+ctypes.Array.raw  # exists but stubtest can't see it; only available if _CT == c_char
+
 _collections_abc.AsyncGenerator.asend  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
 _collections_abc.AsyncGenerator.__anext__  # async at runtime, deliberately not in the stub, see #7491
 _collections_abc.AsyncGenerator.aclose  # async at runtime, deliberately not in the stub, see #7491
@@ -650,17 +652,12 @@ distutils.command.build_ext.USER_BASE
 distutils.command.build_scripts.ST_MODE
 distutils.command.install.*
 distutils.command.install_scripts.ST_MODE
-distutils.core.DEBUG
-distutils.core.USAGE
 distutils.core.Distribution.finalize_options
 distutils.core.Distribution.get_command_class
 distutils.core.Distribution.get_command_list
 distutils.core.Distribution.handle_display_options
 distutils.core.Distribution.print_commands
 distutils.core.Distribution.run_command
-distutils.core.extension_keywords
-distutils.core.gen_usage
-distutils.core.setup_keywords
 distutils.cygwinccompiler.CONFIG_H_NOTOK
 distutils.cygwinccompiler.CONFIG_H_OK
 distutils.cygwinccompiler.CONFIG_H_UNCERTAIN

@@ -286,6 +286,15 @@ Two exceptions are `Protocol` and `runtime_checkable`: although
 these were added in Python 3.8, they can be used in stubs regardless
 of Python version.
 
+[PEP 688](https://www.python.org/dev/peps/pep-0688/), which is
+currently a draft, removes the implicit promotion of the
+`bytearray` and `memoryview` classes to `bytes`.
+Typeshed stubs should be written assuming that this proposal
+is accepted, so a parameter that accepts either `bytes` or
+`bytearray` should be typed as `bytes | bytearray`.
+Often one of the aliases from `_typeshed`, such as
+`_typeshed.ReadableBuffer`, can be used instead.
+
 ### What to include
 
 Stubs should include the complete interface (classes, functions,
@@ -352,7 +361,7 @@ follow the following guidelines:
   `# incomplete` comment (see example below).
 * Partial modules (i.e. modules that are missing some or all classes,
   functions, or attributes) must include a top-level `__getattr__()`
-  function marked with an `# incomplete` comment (see example below).
+  function marked with an `Incomplete` return type (see example below).
 * Partial packages (i.e. packages that are missing one or more sub-modules)
   must have a `__init__.pyi` stub that is marked as incomplete (see above).
   A better alternative is to create empty stubs for all sub-modules and
@@ -362,14 +371,16 @@ Example of a partial module with a partial class `Foo` and a partially
 annotated function `bar()`:
 
 ```python
-def __getattr__(name: str) -> Any: ...  # incomplete
+from _typeshed import Incomplete
 
 class Foo:
-    def __getattr__(self, name: str) -> Any: ...  # incomplete
+    def __getattr__(self, name: str) -> Incomplete: ...
     x: int
     y: str
 
 def bar(x: str, y, *, z=...): ...
+
+def __getattr__(name: str) -> Incomplete: ...
 ```
 
 ## Stub file coding style
