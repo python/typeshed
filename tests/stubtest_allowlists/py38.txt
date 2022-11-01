@@ -32,6 +32,11 @@ collections.KeysView.__reversed__
 collections.ValuesView.__reversed__
 collections.Mapping.__reversed__  # Set to None at runtime for a better error message
 distutils.command.bdist_wininst  # see #6523
+distutils.core.DEBUG
+distutils.core.USAGE
+distutils.core.extension_keywords
+distutils.core.gen_usage
+distutils.core.setup_keywords
 dummy_threading.Condition.acquire
 dummy_threading.Condition.release
 dummy_threading.Event.isSet
@@ -57,13 +62,6 @@ typing.NamedTuple.__new__
 typing.NamedTuple._asdict
 typing.NamedTuple._make
 typing.NamedTuple._replace
-typing.SupportsAbs.__init__
-typing.SupportsBytes.__init__
-typing.SupportsComplex.__init__
-typing.SupportsFloat.__init__
-typing.SupportsIndex.__init__
-typing.SupportsInt.__init__
-typing.SupportsRound.__init__
 typing._SpecialForm.__new__
 weakref.WeakValueDictionary.update
 xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495
@@ -160,10 +158,6 @@ collections.Set.__rxor__
 
 builtins.memoryview.__iter__  # C type that implements __getitem__
 builtins.memoryview.cast  # inspect.signature is incorrect about shape being kw-only
-sqlite3.dbapi2.Binary.__iter__  # C type that implements __getitem__
-sqlite3.dbapi2.Binary.cast  # inspect.signature is incorrect about shape being kw-only
-sqlite3.Binary.__iter__  # C type that implements __getitem__
-sqlite3.Binary.cast  # inspect.signature is incorrect about shape being kw-only
 
 # C signature is broader than what is actually accepted
 queue.SimpleQueue.__init__
@@ -179,6 +173,11 @@ types.FunctionType.__get__
 types.LambdaType.__get__
 
 # Missing from distutils (deprecated, to be removed in 3.12)
+distutils.core.DEBUG
+distutils.core.USAGE
+distutils.core.extension_keywords
+distutils.core.gen_usage
+distutils.core.setup_keywords
 distutils.core.Command.dump_options
 distutils.core.Command.ensure_finalized
 distutils.core.Distribution.announce

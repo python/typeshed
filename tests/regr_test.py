@@ -9,7 +9,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
-from itertools import filterfalse, product
+from itertools import product
 from pathlib import Path
 from typing_extensions import TypeAlias
 
@@ -17,9 +17,9 @@ from utils import (
     PackageInfo,
     colored,
     get_all_testcase_directories,
+    get_recursive_requirements,
     print_error,
     print_success_msg,
-    read_dependencies,
     testcase_dir_from_package_name,
 )
 
@@ -81,13 +81,6 @@ parser.add_argument(
 )
 
 
-def get_recursive_requirements(package_name: str, seen: set[str] | None = None) -> list[str]:
-    seen = seen if seen is not None else {package_name}
-    for dependency in filterfalse(seen.__contains__, read_dependencies(package_name)):
-        seen.update(get_recursive_requirements(dependency, seen))
-    return sorted(seen | {package_name})
-
-
 def test_testcase_directory(package: PackageInfo, version: str, platform: str) -> ReturnCode:
     package_name, test_case_directory = package
     is_stdlib = package_name == "stdlib"
@@ -130,7 +123,10 @@ def test_testcase_directory(package: PackageInfo, version: str, platform: str) -
             os.mkdir(new_typeshed)
             shutil.copytree(Path("stdlib"), new_typeshed / "stdlib")
             requirements = get_recursive_requirements(package_name)
-            for requirement in requirements:
+            # mypy refuses to consider a directory a "valid typeshed directory"
+            # unless there's a stubs/mypy-extensions path inside it,
+            # so add that to the list of stubs to copy over to the new directory
+            for requirement in requirements + ["mypy-extensions"]:
                 shutil.copytree(Path("stubs", requirement), new_typeshed / "stubs" / requirement)
             env_vars["MYPYPATH"] = os.pathsep.join(map(str, new_typeshed.glob("stubs/*")))
             flags.extend(["--custom-typeshed-dir", str(td_path / "typeshed")])

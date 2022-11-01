@@ -7,7 +7,7 @@ import ctypes
 import mmap
 import pickle
 import sys
-from collections.abc import Awaitable, Callable, Container, Iterable, Set as AbstractSet
+from collections.abc import Awaitable, Callable, Iterable, Set as AbstractSet
 from os import PathLike
 from types import FrameType, TracebackType
 from typing import Any, AnyStr, Generic, Protocol, TypeVar, Union
@@ -118,7 +118,8 @@ class SupportsKeysAndGetItem(Protocol[_KT, _VT_co]):
     def __getitem__(self, __key: _KT) -> _VT_co: ...
 
 # stable
-class SupportsGetItem(Container[_KT_contra], Protocol[_KT_contra, _VT_co]):
+class SupportsGetItem(Protocol[_KT_contra, _VT_co]):
+    def __contains__(self, __x: object) -> bool: ...
     def __getitem__(self, __key: _KT_contra) -> _VT_co: ...
 
 # stable
@@ -233,6 +234,7 @@ else:
     WriteableBuffer: TypeAlias = bytearray | memoryview | array.array[Any] | mmap.mmap | ctypes._CData  # stable
 # Same as _WriteableBuffer, but also includes read-only buffer types (like bytes).
 ReadableBuffer: TypeAlias = ReadOnlyBuffer | WriteableBuffer  # stable
+_BufferWithLen: TypeAlias = ReadableBuffer  # not stable  # noqa: Y047
 
 ExcInfo: TypeAlias = tuple[type[BaseException], BaseException, TracebackType]
 OptExcInfo: TypeAlias = Union[ExcInfo, tuple[None, None, None]]

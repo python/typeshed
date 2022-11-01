@@ -15,7 +15,7 @@ import yaml
 from packaging.requirements import Requirement
 from packaging.specifiers import SpecifierSet
 from packaging.version import Version
-from utils import get_all_testcase_directories
+from utils import VERSIONS_RE, get_all_testcase_directories, get_gitignore_spec, spec_matches_path, strip_comments
 
 metadata_keys = {"version", "requires", "extra_description", "obsolete_since", "no_longer_updated", "tool"}
 tool_keys = {"stubtest": {"skip", "apt_dependencies", "extras", "ignore_missing_stub"}}
@@ -26,8 +26,11 @@ def assert_consistent_filetypes(directory: Path, *, kind: str, allowed: set[str]
     """Check that given directory contains only valid Python files of a certain kind."""
     allowed_paths = {Path(f) for f in allowed}
     contents = list(directory.iterdir())
+    gitignore_spec = get_gitignore_spec()
     while contents:
         entry = contents.pop()
+        if spec_matches_path(gitignore_spec, entry):
+            continue
         if entry.relative_to(directory) in allowed_paths:
             # Note if a subdirectory is allowed, we will not check its contents
             continue
@@ -45,7 +48,10 @@ def check_stdlib() -> None:
 
 
 def check_stubs() -> None:
+    gitignore_spec = get_gitignore_spec()
     for dist in Path("stubs").iterdir():
+        if spec_matches_path(gitignore_spec, dist):
+            continue
         assert dist.is_dir(), f"Only directories allowed in stubs, got {dist}"
 
         valid_dist_name = "^([A-Z0-9]|[A-Z0-9][A-Z0-9._-]*[A-Z0-9])$"  # courtesy of PEP 426
@@ -65,7 +71,7 @@ def check_test_cases() -> None:
         for file in testcase_dir.rglob("*.py"):
             assert file.stem.startswith("check_"), bad_test_case_filename.format(file)
             if package_name != "stdlib":
-                with open(file) as f:
+                with open(file, encoding="UTF-8") as f:
                     lines = {line.strip() for line in f}
                 pyright_setting_not_enabled_msg = (
                     f'Third-party test-case file "{file}" must have '
@@ -85,22 +91,15 @@ def check_no_symlinks() -> None:
             raise ValueError(no_symlink.format(file))
 
 
-_VERSIONS_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_.]*): [23]\.\d{1,2}-(?:[23]\.\d{1,2})?$")
-
-
-def strip_comments(text: str) -> str:
-    return text.split("#")[0].strip()
-
-
 def check_versions() -> None:
     versions = set()
-    with open("stdlib/VERSIONS") as f:
+    with open("stdlib/VERSIONS", encoding="UTF-8") as f:
         data = f.read().splitlines()
     for line in data:
         line = strip_comments(line)
         if line == "":
             continue
-        m = _VERSIONS_RE.match(line)
+        m = VERSIONS_RE.match(line)
         if not m:
             raise AssertionError(f"Bad line in VERSIONS: {line}")
         module = m.group(1)
@@ -129,7 +128,7 @@ def _find_stdlib_modules() -> set[str]:
 
 def check_metadata() -> None:
     for distribution in os.listdir("stubs"):
-        with open(os.path.join("stubs", distribution, "METADATA.toml")) as f:
+        with open(os.path.join("stubs", distribution, "METADATA.toml"), encoding="UTF-8") as f:
             data = tomli.loads(f.read())
         assert "version" in data, f"Missing version for {distribution}"
         version = data["version"]
@@ -154,14 +153,14 @@ def check_metadata() -> None:
 
 
 def get_txt_requirements() -> dict[str, SpecifierSet]:
-    with open("requirements-tests.txt") as requirements_file:
+    with open("requirements-tests.txt", encoding="UTF-8") as requirements_file:
         stripped_lines = map(strip_comments, requirements_file)
         requirements = map(Requirement, filter(None, stripped_lines))
         return {requirement.name: requirement.specifier for requirement in requirements}
 
 
 def get_precommit_requirements() -> dict[str, SpecifierSet]:
-    with open(".pre-commit-config.yaml") as precommit_file:
+    with open(".pre-commit-config.yaml", encoding="UTF-8") as precommit_file:
         precommit = precommit_file.read()
     yam = yaml.load(precommit, Loader=yaml.Loader)
     precommit_requirements = {}

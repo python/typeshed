@@ -1,9 +1,9 @@
-name: Run stubsabot weekly  # TODO: change to daily
+name: Run stubsabot daily
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 * * 5"  # TODO: change to daily
+    - cron: "0 0 * * *"
 
 permissions:
   contents: write
@@ -17,6 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          # use an ssh key so that checks automatically run on stubsabot PRs
+          ssh-key: ${{ secrets.STUBSABOT_SSH_PRIVATE_KEY }}
+          fetch-depth: 0
       - uses: actions/setup-python@v4
         with:
           python-version: "3.10"
