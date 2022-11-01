@@ -2,7 +2,7 @@ import email.message
 import io
 import ssl
 import types
-from _typeshed import Self, WriteableBuffer
+from _typeshed import ReadableBuffer, Self, SupportsRead, WriteableBuffer
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from socket import socket
 from typing import IO, Any, BinaryIO, TypeVar, overload
@@ -30,7 +30,7 @@ __all__ = [
     "HTTPSConnection",
 ]
 
-_DataType: TypeAlias = bytes | IO[Any] | Iterable[bytes] | str
+_DataType: TypeAlias = SupportsRead[bytes] | Iterable[ReadableBuffer] | ReadableBuffer
 _T = TypeVar("_T")
 
 HTTP_PORT: int
