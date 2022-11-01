@@ -3,7 +3,7 @@ import sys
 import zlib
 from _typeshed import ReadableBuffer, StrOrBytesPath, _BufferWithLen
 from io import FileIO
-from typing import Any, Protocol, TextIO, overload
+from typing import Protocol, TextIO, overload
 from typing_extensions import Literal, TypeAlias
 
 if sys.version_info >= (3, 8):
@@ -26,15 +26,15 @@ FCOMMENT: int  # actually Literal[16] # undocumented
 
 class _ReadableFileobj(Protocol):
     def read(self, __n: int) -> bytes: ...
-    def seek(self, __n: int) -> Any: ...
+    def seek(self, __n: int) -> object: ...
     # The following attributes and methods are optional:
     # name: str
     # mode: str
     # def fileno() -> int: ...
 
 class _WritableFileobj(Protocol):
-    def write(self, __b: bytes) -> Any: ...
-    def flush(self) -> Any: ...
+    def write(self, __b: bytes) -> object: ...
+    def flush(self) -> object: ...
     # The following attributes and methods are optional:
     # name: str
     # mode: str
