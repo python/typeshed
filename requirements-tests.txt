@@ -1,4 +1,4 @@
-aiohttp==3.8.1
+aiohttp==3.8.3
 black==22.10.0          # must match .pre-commit-config.yaml
 flake8==5.0.4           # must match .pre-commit-config.yaml
 flake8-bugbear==22.7.1  # must match .pre-commit-config.yaml
@@ -10,8 +10,8 @@ packaging==21.3
 pathspec
 pycln==2.1.1            # must match .pre-commit-config.yaml
 pyyaml==6.0
-pytype==2022.08.30; platform_system != "Windows"
+pytype==2022.10.26; platform_system != "Windows" and python_version < "3.11"
 termcolor>=2
-tomli==1.2.2
-tomlkit==0.11.4
+tomli==2.0.1
+tomlkit==0.11.6
 types-pyyaml
