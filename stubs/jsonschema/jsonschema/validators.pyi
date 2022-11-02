@@ -6,7 +6,7 @@ from typing_extensions import TypeAlias
 
 from ._format import FormatChecker
 from ._types import TypeChecker
-from ._utils import URIDict, Unset
+from ._utils import Unset, URIDict
 from .exceptions import ValidationError
 
 # these type aliases do not exist at runtime, they're only defined here in the stub
