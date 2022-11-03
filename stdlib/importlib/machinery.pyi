@@ -1,6 +1,7 @@
 import importlib.abc
 import sys
 import types
+from _typeshed import ReadableBuffer
 from collections.abc import Callable, Iterable, Sequence
 from typing import Any
 
@@ -113,10 +114,10 @@ class PathFinder:
 
     @classmethod
     def find_spec(
-        cls, fullname: str, path: Sequence[bytes | str] | None = ..., target: types.ModuleType | None = ...
+        cls, fullname: str, path: Sequence[str] | None = ..., target: types.ModuleType | None = ...
     ) -> ModuleSpec | None: ...
     @classmethod
-    def find_module(cls, fullname: str, path: Sequence[bytes | str] | None = ...) -> importlib.abc.Loader | None: ...
+    def find_module(cls, fullname: str, path: Sequence[str] | None = ...) -> importlib.abc.Loader | None: ...
 
 SOURCE_SUFFIXES: list[str]
 DEBUG_BYTECODE_SUFFIXES: list[str]
@@ -135,7 +136,7 @@ class FileFinder(importlib.abc.PathEntryFinder):
     ) -> Callable[[str], importlib.abc.PathEntryFinder]: ...
 
 class SourceFileLoader(importlib.abc.FileLoader, importlib.abc.SourceLoader):
-    def set_data(self, path: importlib.abc._Path, data: bytes, *, _mode: int = ...) -> None: ...
+    def set_data(self, path: importlib.abc._Path, data: ReadableBuffer, *, _mode: int = ...) -> None: ...
 
 class SourcelessFileLoader(importlib.abc.FileLoader, importlib.abc.SourceLoader): ...
 
