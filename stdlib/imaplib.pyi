@@ -1,7 +1,7 @@
 import subprocess
 import sys
 import time
-from _typeshed import _BufferWithLen, ReadableBuffer, Self
+from _typeshed import ReadableBuffer, Self, _BufferWithLen
 from builtins import list as _list  # conflicts with a method named "list"
 from collections.abc import Callable
 from datetime import datetime
