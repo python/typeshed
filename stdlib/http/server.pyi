@@ -59,6 +59,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             server: socketserver.BaseServer,
             *,
             directory: str | None = ...,
+            index_pages: Sequence[str] | None = ...,
         ) -> None: ...
     else:
         def __init__(
@@ -68,7 +69,6 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             server: socketserver.BaseServer,
             *,
             directory: str | None = ...,
-            index_pages: Sequence[str] | None = ...,
         ) -> None: ...
 
     def do_GET(self) -> None: ...
