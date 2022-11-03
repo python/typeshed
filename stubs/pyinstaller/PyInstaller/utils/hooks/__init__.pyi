@@ -9,6 +9,9 @@ import pkg_resources
 from PyInstaller import HOMEPATH as HOMEPATH
 from PyInstaller.depend.imphookapi import PostGraphAPI
 from PyInstaller.utils.hooks.win32 import get_pywin32_module_file_attribute as get_pywin32_module_file_attribute
+from Pyinstaller.utils.hooks import conda
+
+conda_support = conda
 
 _Environ: TypeAlias = SupportsKeysAndGetItem[str, str] | Iterable[tuple[str, str]] | Mapping[str, str]
 

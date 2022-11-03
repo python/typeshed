@@ -2,6 +2,7 @@ from _typeshed import ReadableBuffer, SupportsRead
 from collections.abc import Callable
 from typing import Any
 from typing_extensions import TypeAlias, final
+from pyexpat import errors as errors, model as model
 
 EXPAT_VERSION: str  # undocumented
 version_info: tuple[int, int, int]  # undocumented
