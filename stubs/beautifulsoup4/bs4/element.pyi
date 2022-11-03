@@ -247,7 +247,7 @@ class Tag(PageElement):
         name: str | None = ...,
         namespace: str | None = ...,
         prefix: str | None = ...,
-        attrs: dict[str, str] | None = ...,
+        attrs: dict[str, Any] | None = ...,
         parent: Tag | None = ...,
         previous: PageElement | None = ...,
         is_xml: bool | None = ...,
