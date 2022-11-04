@@ -1,7 +1,6 @@
-import pyexpat.errors as errors
-import pyexpat.model as model
 from _typeshed import ReadableBuffer, SupportsRead
 from collections.abc import Callable
+from pyexpat import errors as errors, model as model
 from typing import Any
 from typing_extensions import TypeAlias, final
 
