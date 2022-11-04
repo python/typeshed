@@ -1,11 +1,12 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
+from .coco import COCO
+from .coco_types import _EvaluationResult
+
 # import numpy as np
 # import numpy.typing as npt
 
-from .coco import COCO
-from .coco_types import _EvaluationResult
 
 _NDArray: TypeAlias = Incomplete
 _TIOU: TypeAlias = Literal["segm", "bbox", "keypoints"]

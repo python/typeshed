@@ -1,11 +1,12 @@
 from _typeshed import Incomplete
 from typing import overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import TypeAlias
+
+from .coco_types import _EncodedRLE
 
 # import numpy as np
 # import numpy.typing as npt
 
-from .coco_types import _EncodedRLE
 
 _NPUInt32: TypeAlias = Incomplete  # np.uint32
 _NDArrayUInt8: TypeAlias = Incomplete  # npt.NDArray[np.uint8]

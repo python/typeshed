@@ -3,10 +3,11 @@ from pathlib import Path
 from typing import overload
 from typing_extensions import Literal, Self, TypeAlias
 
+from .coco_types import _RLE, _Annotation, _AnnotationG, _Category, _Dataset, _EncodedRLE, _Image, _TPolygonSegmentation
+
 # import numpy as np
 # import numpy.typing as npt
 
-from .coco_types import _RLE, _Annotation, _AnnotationG, _Category, _Dataset, _EncodedRLE, _Image, _TPolygonSegmentation
 
 PYTHON_VERSION: Incomplete
 _NDArray: TypeAlias = Incomplete
