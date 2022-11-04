@@ -56,14 +56,14 @@ class _EvaluationResult(TypedDict):
     dtIds: list[int]
     gtIds: list[int]
     dtMatches: _NDArray
-    # dtMatches: npt._NDArray[np.float64]
+    # dtMatches: npt.NDArray[np.float64]
     gtMatches: _NDArray
-    # gtMatches: npt._NDArray[np.float64]
+    # gtMatches: npt.NDArray[np.float64]
     dtScores: list[float]
     gtIgnore: _NDArray
-    # gtIgnore: npt._NDArray[np.float64]
+    # gtIgnore: npt.NDArray[np.float64]
     dtIgnore: _NDArray
-    # dtIgnore: npt._NDArray[np.float64]
+    # dtIgnore: npt.NDArray[np.float64]
 
 class _Dataset(TypedDict):
     images: list[_Image]

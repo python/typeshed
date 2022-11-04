@@ -8,9 +8,9 @@ from typing_extensions import Literal, TypeAlias
 from .coco_types import _EncodedRLE
 
 _NPUInt32: TypeAlias = Incomplete  # np.uint32
-_NDArrayUInt8: TypeAlias = Incomplete  # npt._NDArray[np.uint8]
-_NDArrayUInt32: TypeAlias = Incomplete  # npt._NDArray[np.uint32]
-_NDArrayFloat64: TypeAlias = Incomplete  # npt._NDArray[np.float64]
+_NDArrayUInt8: TypeAlias = Incomplete  # npt.NDArray[np.uint8]
+_NDArrayUInt32: TypeAlias = Incomplete  # npt.NDArray[np.uint32]
+_NDArrayFloat64: TypeAlias = Incomplete  # npt.NDArray[np.float64]
 
 def iou(
     dt: _NDArrayUInt32 | list[float] | list[_EncodedRLE],
