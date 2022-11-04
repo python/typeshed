@@ -5,8 +5,11 @@ import numpy.typing as npt
 
 from .coco_types import _EncodedRLE
 
-
-def iou(dt: npt.NDArray[np.uint32] | list[float] | list[_EncodedRLE], gt: npt.NDArray[np.uint32] | list[float] | list[_EncodedRLE], pyiscrowd: list[int] | npt.NDArray[np.uint8]) -> list | npt.NDArray[np.float64]: ...
+def iou(
+    dt: npt.NDArray[np.uint32] | list[float] | list[_EncodedRLE],
+    gt: npt.NDArray[np.uint32] | list[float] | list[_EncodedRLE],
+    pyiscrowd: list[int] | npt.NDArray[np.uint8],
+) -> list | npt.NDArray[np.float64]: ...
 def merge(rleObjs: list[_EncodedRLE], intersect: int = ...): ...
 @overload
 def frPyObjects(pyobj: npt.NDArray[np.uint32] | list[list[int]] | list[_EncodedRLE], h: int, w: int) -> list[_EncodedRLE]: ...

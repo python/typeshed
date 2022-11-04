@@ -422,7 +422,6 @@ ssl.RAND_egd
 collections.abc.*  # Types are re-exported from _collections_abc, so errors should be fixed there
 distutils.command.check.SilentReporter  # only defined if docutils in installed
 hmac.HMAC.blocksize  # use block_size instead
-http.server.SimpleHTTPRequestHandler.__init__  # *args is expanded
 pickle.Pickler.memo  # undocumented implementation detail, has different type in C/Python implementations
 pickle.Unpickler.memo  # undocumented implementation detail, has different type in C/Python implementations
 re.Pattern.scanner  # Undocumented and not useful. #6405
