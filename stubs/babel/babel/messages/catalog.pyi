@@ -40,8 +40,6 @@ class Message:
 
 class TranslationError(Exception): ...
 
-def parse_separated_header(value: str): ...
-
 class Catalog:
     domain: Any
     locale: Any
