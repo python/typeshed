@@ -1,8 +1,11 @@
+from _typeshed import Incomplete
 from typing import Generic, TypeAlias, TypeVar
 from typing_extensions import TypedDict
 
-import numpy as np
-import numpy.typing as npt
+# import numpy as np
+# import numpy.typing as npt
+
+_NDArray: TypeAlias = Incomplete
 
 class _Image(TypedDict):
     id: int
@@ -52,11 +55,15 @@ class _EvaluationResult(TypedDict):
     maxDet: int
     dtIds: list[int]
     gtIds: list[int]
-    dtMatches: npt.NDArray[np.float64]
-    gtMatches: npt.NDArray[np.float64]
+    dtMatches: _NDArray
+    # dtMatches: npt._NDArray[np.float64]
+    gtMatches: _NDArray
+    # gtMatches: npt._NDArray[np.float64]
     dtScores: list[float]
-    gtIgnore: npt.NDArray[np.float64]
-    dtIgnore: npt.NDArray[np.float64]
+    gtIgnore: _NDArray
+    # gtIgnore: npt._NDArray[np.float64]
+    dtIgnore: _NDArray
+    # dtIgnore: npt._NDArray[np.float64]
 
 class _Dataset(TypedDict):
     images: list[_Image]
