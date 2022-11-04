@@ -59,7 +59,6 @@
         "stubs/peewee",
         "stubs/psutil",
         "stubs/psycopg2",
-        "stubs/pycocotools",
         "stubs/pyflakes",
         "stubs/Pygments",
         "stubs/PyMySQL",
