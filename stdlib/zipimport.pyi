@@ -1,5 +1,5 @@
-from _typeshed import StrOrBytesPath
 import sys
+from _typeshed import StrOrBytesPath
 from importlib.abc import ResourceReader
 from importlib.machinery import ModuleSpec
 from types import CodeType, ModuleType
@@ -16,6 +16,7 @@ class zipimporter:
         def __init__(self, path: str) -> None: ...
     else:
         def __init__(self, path: StrOrBytesPath) -> None: ...
+
     def find_loader(self, fullname: str, path: str | None = ...) -> tuple[zipimporter | None, list[str]]: ...  # undocumented
     def find_module(self, fullname: str, path: str | None = ...) -> zipimporter | None: ...
     def get_code(self, fullname: str) -> CodeType: ...
