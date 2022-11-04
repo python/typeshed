@@ -1,4 +1,4 @@
-from typing import Literal, Optional, TypeAlias
+from typing import Literal, TypeAlias
 
 import numpy as np
 import numpy.typing as npt
@@ -8,7 +8,6 @@ from .coco_types import _EvaluationResult
 
 _TIOU: TypeAlias = Literal["segm", "bbox", "keypoints"]
 
-
 class COCOeval:
     cocoGt: COCO
     cocoDt: COCO
@@ -16,7 +15,7 @@ class COCOeval:
     eval: _EvaluationResult
     params: Params
     stats: npt.NDArray[np.float64]
-    ious: dict[tuple[int, int],  list[float]]
+    ious: dict[tuple[int, int], list[float]]
     def __init__(self, cocoGt: COCO | None = ..., cocoDt: COCO | None = ..., iouType: _TIOU = ...) -> None: ...
     def evaluate(self) -> None: ...
     def computeIoU(self, imgId: int, catId: int) -> list[float]: ...

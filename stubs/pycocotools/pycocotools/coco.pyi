@@ -1,15 +1,14 @@
+from _typeshed import Incomplete
 from pathlib import Path
 from typing import Literal, overload
+from typing_extensions import Self
 
 import numpy as np
 import numpy.typing as npt
-from _typeshed import Incomplete
-from typing_extensions import Self
 
-from .coco_types import _Annotation, _AnnotationG, _Category, _Dataset, _EncodedRLE, _Image, _RLE, _TPolygonSegmentation
+from .coco_types import _RLE, _Annotation, _AnnotationG, _Category, _Dataset, _EncodedRLE, _Image, _TPolygonSegmentation
 
 PYTHON_VERSION: Incomplete
-
 
 class COCO:
     anns: dict[int, _Annotation]
@@ -21,7 +20,9 @@ class COCO:
     def __init__(self, annotation_file: str | Path = ...) -> None: ...
     def createIndex(self) -> None: ...
     def info(self) -> None: ...
-    def getAnnIds(self, imgIds: list[int] = ..., catIds: list[int] = ..., areaRng: list[float] = ..., iscrowd: bool | None = ...) -> list[int]: ...
+    def getAnnIds(
+        self, imgIds: list[int] = ..., catIds: list[int] = ..., areaRng: list[float] = ..., iscrowd: bool | None = ...
+    ) -> list[int]: ...
     def getCatIds(self, catNms: list[str] = ..., supNms: list[str] = ..., catIds: list[int] = ...) -> list[int]: ...
     def getImgIds(self, imgIds: list[int] = ..., catIds: list[int] = ...) -> list[int]: ...
     def loadAnns(self, ids: list[int] = ...) -> list[_Annotation]: ...
