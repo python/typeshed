@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
-from typing import Generic, TypeAlias, TypeVar
-from typing_extensions import TypedDict
+from typing import Generic, TypeVar
+from typing_extensions import TypedDict, TypeAlias
 
 # import numpy as np
 # import numpy.typing as npt
