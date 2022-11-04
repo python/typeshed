@@ -1,4 +1,5 @@
 from typing import Any
+
 from babel.core import Locale
 
 long = int
@@ -36,11 +37,7 @@ def format_decimal(
     number, format: Any | None = ..., locale=..., decimal_quantization: bool = ..., group_separator: bool = ...
 ): ...
 def format_compact_decimal(
-    number: int | float,
-    *,
-    format_type: str = ...,
-    locale: Locale | str | None = ...,
-    fraction_digits: int = ...,
+    number: float, *, format_type: str = ..., locale: Locale | str | None = ..., fraction_digits: int = ...
 ) -> str: ...
 
 class UnknownCurrencyFormatError(KeyError): ...
