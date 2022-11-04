@@ -4,6 +4,7 @@ from typing_extensions import Literal, TypeAlias
 from .coco import COCO
 from .coco_types import _EvaluationResult
 
+# TODO: Use numpy types when #5768 is resolved.
 # import numpy as np
 # import numpy.typing as npt
 

@@ -5,6 +5,7 @@ from typing_extensions import Literal, TypeAlias
 
 from .coco_types import _RLE, _Annotation, _AnnotationG, _Category, _Dataset, _EncodedRLE, _Image, _TPolygonSegmentation
 
+# TODO: Use numpy types when #5768 is resolved.
 # import numpy as np
 # import numpy.typing as npt
 

@@ -2,6 +2,7 @@ from _typeshed import Incomplete
 from typing import Generic, TypeVar
 from typing_extensions import TypeAlias, TypedDict
 
+# TODO: Use numpy types when #5768 is resolved.
 # import numpy as np
 # import numpy.typing as npt
 
