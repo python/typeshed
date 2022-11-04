@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import overload
+from typing import Any, overload
 from typing_extensions import TypeAlias
 
 from .coco_types import _EncodedRLE
@@ -17,8 +17,8 @@ def iou(
     dt: _NDArrayUInt32 | list[float] | list[_EncodedRLE],
     gt: _NDArrayUInt32 | list[float] | list[_EncodedRLE],
     pyiscrowd: list[int] | _NDArrayUInt8,
-) -> list | _NDArrayFloat64: ...
-def merge(rleObjs: list[_EncodedRLE], intersect: int = ...): ...
+) -> list[Any] | _NDArrayFloat64: ...
+def merge(rleObjs: list[_EncodedRLE], intersect: int = ...) -> _EncodedRLE: ...
 @overload
 def frPyObjects(pyobj: _NDArrayUInt32 | list[list[int]] | list[_EncodedRLE], h: int, w: int) -> list[_EncodedRLE]: ...
 @overload
