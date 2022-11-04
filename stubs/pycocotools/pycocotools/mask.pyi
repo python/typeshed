@@ -7,7 +7,6 @@ from .coco_types import _EncodedRLE
 # import numpy as np
 # import numpy.typing as npt
 
-
 _NPUInt32: TypeAlias = Incomplete  # np.uint32
 _NDArrayUInt8: TypeAlias = Incomplete  # npt.NDArray[np.uint8]
 _NDArrayUInt32: TypeAlias = Incomplete  # npt.NDArray[np.uint32]

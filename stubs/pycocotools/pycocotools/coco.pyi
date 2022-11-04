@@ -8,7 +8,6 @@ from .coco_types import _RLE, _Annotation, _AnnotationG, _Category, _Dataset, _E
 # import numpy as np
 # import numpy.typing as npt
 
-
 PYTHON_VERSION: Incomplete
 _NDArray: TypeAlias = Incomplete
 

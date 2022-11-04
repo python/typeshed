@@ -7,7 +7,6 @@ from .coco_types import _EvaluationResult
 # import numpy as np
 # import numpy.typing as npt
 
-
 _NDArray: TypeAlias = Incomplete
 _TIOU: TypeAlias = Literal["segm", "bbox", "keypoints"]
 
