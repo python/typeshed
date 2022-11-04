@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from pathlib import Path
-from typing import Literal, overload
-from typing_extensions import Self
+from typing import overload
+from typing_extensions import Literal, Self
 
 import numpy as np
 import numpy.typing as npt

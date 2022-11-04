@@ -1,4 +1,5 @@
-from typing import Generic, TypeAlias, TypedDict, TypeVar
+from typing import Generic, TypeAlias, TypeVar
+from typing_extensions import TypedDict
 
 import numpy as np
 import numpy.typing as npt

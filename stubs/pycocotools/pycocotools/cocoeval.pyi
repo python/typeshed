@@ -1,4 +1,5 @@
-from typing import Literal, TypeAlias
+from typing import TypeAlias
+from typing_extensions import Literal
 
 import numpy as np
 import numpy.typing as npt
