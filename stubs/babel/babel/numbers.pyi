@@ -1,4 +1,5 @@
 from typing import Any
+from babel.core import Locale
 
 long = int
 LC_NUMERIC: Any
