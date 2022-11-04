@@ -67,6 +67,6 @@ class _EvaluationResult(TypedDict):
 
 
 class Dataset(TypedDict):
-    images: list[Image]
-    annotations: list[Annotation]
-    categories: list[Category]
+    images: list[_Image]
+    annotations: list[_Annotation]
+    categories: list[_Category]
