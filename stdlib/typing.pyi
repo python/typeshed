@@ -677,7 +677,11 @@ class IO(Iterator[AnyStr], Generic[AnyStr]):
     @overload
     def write(self: IO[bytes], __s: ReadableBuffer) -> int: ...
     @abstractmethod
-    def writelines(self, __lines: Iterable[AnyStr]) -> None: ...
+    @overload
+    def writelines(self: IO[str], __s: Iterable[str]) -> None: ...
+    @abstractmethod
+    @overload
+    def writelines(self: IO[bytes], __lines: Iterable[ReadableBuffer]) -> None: ...
     @abstractmethod
     def __next__(self) -> AnyStr: ...
     @abstractmethod
@@ -692,12 +696,6 @@ class IO(Iterator[AnyStr], Generic[AnyStr]):
 class BinaryIO(IO[bytes]):
     @abstractmethod
     def __enter__(self) -> BinaryIO: ...
-    # False positive, see
-    # https://github.com/python/mypy/issues/14002
-    # This method can be removed when the mypy bug is fixed, it's here just
-    # so we don't have to type ignore every subclass of BinaryIO.
-    @abstractmethod
-    def write(self, __s: ReadableBuffer) -> int: ...  # type: ignore[override]
 
 class TextIO(IO[str]):
     # See comment regarding the @properties in the `IO` class

@@ -1,5 +1,5 @@
 import sys
-from _typeshed import Self
+from _typeshed import ReadableBuffer, Self
 from collections.abc import Callable, Iterable
 from email.message import Message
 from types import TracebackType
@@ -33,8 +33,9 @@ class addbase(BinaryIO):
     def tell(self) -> int: ...
     def truncate(self, size: int | None = ...) -> int: ...
     def writable(self) -> bool: ...
-    def write(self, s: bytes) -> int: ...
-    def writelines(self, lines: Iterable[bytes]) -> None: ...
+    # https://github.com/python/mypy/issues/14002
+    def write(self, s: ReadableBuffer) -> int: ...  # type: ignore[override]
+    def writelines(self, lines: Iterable[bytes]) -> None: ...  # type: ignore[override]
 
 class addclosehook(addbase):
     closehook: Callable[..., object]
