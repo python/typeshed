@@ -2,7 +2,7 @@ import _typeshed
 import collections  # Needed by aliases like DefaultDict, see mypy issue 2986
 import sys
 from _collections_abc import dict_items, dict_keys, dict_values
-from _typeshed import IdentityFunction, Incomplete, SupportsKeysAndGetItem
+from _typeshed import IdentityFunction, Incomplete, ReadableBuffer, SupportsKeysAndGetItem
 from abc import ABCMeta, abstractmethod
 from contextlib import AbstractAsyncContextManager, AbstractContextManager
 from re import Match as Match, Pattern as Pattern
@@ -671,7 +671,11 @@ class IO(Iterator[AnyStr], Generic[AnyStr]):
     @abstractmethod
     def writable(self) -> bool: ...
     @abstractmethod
-    def write(self, __s: AnyStr) -> int: ...
+    @overload
+    def write(self: IO[str], __s: str) -> int: ...
+    @abstractmethod
+    @overload
+    def write(self: IO[bytes], __s: ReadableBuffer) -> int: ...
     @abstractmethod
     def writelines(self, __lines: Iterable[AnyStr]) -> None: ...
     @abstractmethod
