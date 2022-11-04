@@ -57,7 +57,7 @@ class _EvaluationResult(TypedDict):
     gtIgnore: npt.NDArray[np.float64]
     dtIgnore: npt.NDArray[np.float64]
 
-class Dataset(TypedDict):
+class _Dataset(TypedDict):
     images: list[_Image]
     annotations: list[_Annotation]
     categories: list[_Category]
