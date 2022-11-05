@@ -2,7 +2,7 @@ import sys
 import types
 from _typeshed import ReadableBuffer, Self
 from collections.abc import Callable
-from socket import socket as _socket, _RetAddress
+from socket import _RetAddress, socket as _socket
 from typing import Any, BinaryIO, ClassVar, Union
 from typing_extensions import TypeAlias
 
