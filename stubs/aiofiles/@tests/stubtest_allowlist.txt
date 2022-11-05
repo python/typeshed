@@ -58,3 +58,6 @@ aiofiles.tempfile.temptypes.AsyncSpooledTemporaryFile.newlines
 aiofiles.tempfile.temptypes.AsyncSpooledTemporaryFile.rollover
 aiofiles.tempfile.temptypes.AsyncSpooledTemporaryFile.tell
 aiofiles.tempfile.temptypes.AsyncTemporaryDirectory.cleanup
+
+# it was never actually working:
+aiofiles.tempfile.temptypes.AsyncSpooledTemporaryFile.softspace
