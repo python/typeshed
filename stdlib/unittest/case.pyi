@@ -157,7 +157,7 @@ class TestCase:
     def assertRaisesRegex(  # type: ignore[misc]
         self,
         expected_exception: type[BaseException] | tuple[type[BaseException], ...],
-        expected_regex: str | bytes | Pattern[str] | Pattern[bytes],
+        expected_regex: str | Pattern[str],
         callable: Callable[..., Any],
         *args: Any,
         **kwargs: Any,
@@ -166,7 +166,7 @@ class TestCase:
     def assertRaisesRegex(
         self,
         expected_exception: type[_E] | tuple[type[_E], ...],
-        expected_regex: str | bytes | Pattern[str] | Pattern[bytes],
+        expected_regex: str | Pattern[str],
         *,
         msg: Any = ...,
     ) -> _AssertRaisesContext[_E]: ...
@@ -186,7 +186,7 @@ class TestCase:
     def assertWarnsRegex(  # type: ignore[misc]
         self,
         expected_warning: type[Warning] | tuple[type[Warning], ...],
-        expected_regex: str | bytes | Pattern[str] | Pattern[bytes],
+        expected_regex: str | Pattern[str],
         callable: Callable[_P, Any],
         *args: _P.args,
         **kwargs: _P.kwargs,
@@ -195,7 +195,7 @@ class TestCase:
     def assertWarnsRegex(
         self,
         expected_warning: type[Warning] | tuple[type[Warning], ...],
-        expected_regex: str | bytes | Pattern[str] | Pattern[bytes],
+        expected_regex: str | Pattern[str],
         *,
         msg: Any = ...,
     ) -> _AssertWarnsContext: ...
