@@ -9,7 +9,7 @@ from types import TracebackType
 from typing import Any, Protocol, overload
 from typing_extensions import TypeAlias
 
-from _socket import _Address
+from _socket import _Address as _SourceAddress
 
 __all__ = [
     "SMTPException",
@@ -86,7 +86,7 @@ class SMTP:
     timeout: float
     esmtp_features: dict[str, str]
     command_encoding: str
-    source_address: _Address | None
+    source_address: _SourceAddress | None
     local_hostname: str
     def __init__(
         self,
@@ -94,14 +94,14 @@ class SMTP:
         port: int = ...,
         local_hostname: str | None = ...,
         timeout: float = ...,
-        source_address: _Address | None = ...,
+        source_address: _SourceAddress | None = ...,
     ) -> None: ...
     def __enter__(self: Self) -> Self: ...
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_value: BaseException | None, tb: TracebackType | None
     ) -> None: ...
     def set_debuglevel(self, debuglevel: int) -> None: ...
-    def connect(self, host: str = ..., port: int = ..., source_address: _Address | None = ...) -> _Reply: ...
+    def connect(self, host: str = ..., port: int = ..., source_address: _SourceAddress | None = ...) -> _Reply: ...
     def send(self, s: ReadableBuffer | str) -> None: ...
     def putcmd(self, cmd: str, args: str = ...) -> None: ...
     def getreply(self) -> _Reply: ...
@@ -161,7 +161,7 @@ class SMTP_SSL(SMTP):
         keyfile: str | None = ...,
         certfile: str | None = ...,
         timeout: float = ...,
-        source_address: _Address | None = ...,
+        source_address: _SourceAddress | None = ...,
         context: SSLContext | None = ...,
     ) -> None: ...
 
@@ -174,10 +174,10 @@ class LMTP(SMTP):
             host: str = ...,
             port: int = ...,
             local_hostname: str | None = ...,
-            source_address: _Address | None = ...,
+            source_address: _SourceAddress | None = ...,
             timeout: float = ...,
         ) -> None: ...
     else:
         def __init__(
-            self, host: str = ..., port: int = ..., local_hostname: str | None = ..., source_address: _Address | None = ...
+            self, host: str = ..., port: int = ..., local_hostname: str | None = ..., source_address: _SourceAddress | None = ...
         ) -> None: ...
