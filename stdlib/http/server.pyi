@@ -1,5 +1,6 @@
 import email.message
 import io
+import socket
 import socketserver
 import sys
 from _typeshed import StrPath, SupportsRead, SupportsWrite
@@ -55,7 +56,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         def __init__(
             self,
             request: socketserver._RequestType,
-            client_address: socketserver._AddressType,
+            client_address: socket._RetAddress,
             server: socketserver.BaseServer,
             *,
             directory: str | None = ...,
@@ -65,7 +66,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         def __init__(
             self,
             request: socketserver._RequestType,
-            client_address: socketserver._AddressType,
+            client_address: socket._RetAddress,
             server: socketserver.BaseServer,
             *,
             directory: str | None = ...,
