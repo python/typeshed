@@ -9,6 +9,7 @@ from email.message import Message
 from hashlib import _Hash
 from typing import IO, Any, TypeVar
 from typing_extensions import TypeAlias
+from _typeshed import StrOrBytesPath
 
 import boto.connection
 
@@ -65,7 +66,7 @@ class ShellCommand:
     wait: bool
     fail_fast: bool
     def __init__(
-        self, command: subprocess._CMD, wait: bool = ..., fail_fast: bool = ..., cwd: subprocess._TXT | None = ...
+        self, command: subprocess._CMD, wait: bool = ..., fail_fast: bool = ..., cwd: StrOrBytesPath | None = ...
     ) -> None: ...
     process: subprocess.Popen[Any]
     def run(self, cwd: subprocess._CMD | None = ...) -> int | None: ...
