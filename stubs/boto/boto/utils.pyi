@@ -3,13 +3,13 @@ import io
 import logging.handlers
 import subprocess
 import time
+from _typeshed import StrOrBytesPath
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from contextlib import AbstractContextManager
 from email.message import Message
 from hashlib import _Hash
 from typing import IO, Any, TypeVar
 from typing_extensions import TypeAlias
-from _typeshed import StrOrBytesPath
 
 import boto.connection
 
