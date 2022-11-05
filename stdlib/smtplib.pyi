@@ -1,4 +1,5 @@
 import sys
+from _socket import _Address as _SourceAddress
 from _typeshed import ReadableBuffer, Self, _BufferWithLen
 from collections.abc import Sequence
 from email.message import Message as _Message
@@ -8,8 +9,6 @@ from ssl import SSLContext
 from types import TracebackType
 from typing import Any, Protocol, overload
 from typing_extensions import TypeAlias
-
-from _socket import _Address as _SourceAddress
 
 __all__ = [
     "SMTPException",
