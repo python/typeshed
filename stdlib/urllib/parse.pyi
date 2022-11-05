@@ -1,5 +1,5 @@
 import sys
-from collections.abc import Callable, Mapping, Sequence
+from collections.abc import Callable, Mapping, Sequence, Iterable
 from typing import Any, AnyStr, Generic, NamedTuple, overload
 
 if sys.version_info >= (3, 9):
