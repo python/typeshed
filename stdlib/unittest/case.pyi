@@ -164,11 +164,7 @@ class TestCase:
     ) -> None: ...
     @overload
     def assertRaisesRegex(
-        self,
-        expected_exception: type[_E] | tuple[type[_E], ...],
-        expected_regex: str | Pattern[str],
-        *,
-        msg: Any = ...,
+        self, expected_exception: type[_E] | tuple[type[_E], ...], expected_regex: str | Pattern[str], *, msg: Any = ...
     ) -> _AssertRaisesContext[_E]: ...
     @overload
     def assertWarns(  # type: ignore[misc]
@@ -193,11 +189,7 @@ class TestCase:
     ) -> None: ...
     @overload
     def assertWarnsRegex(
-        self,
-        expected_warning: type[Warning] | tuple[type[Warning], ...],
-        expected_regex: str | Pattern[str],
-        *,
-        msg: Any = ...,
+        self, expected_warning: type[Warning] | tuple[type[Warning], ...], expected_regex: str | Pattern[str], *, msg: Any = ...
     ) -> _AssertWarnsContext: ...
     def assertLogs(
         self, logger: str | logging.Logger | None = ..., level: int | str | None = ...
