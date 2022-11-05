@@ -21,7 +21,6 @@
         "stdlib/xml/dom/minidom.pyi",
         "stdlib/xml/dom/pulldom.pyi",
         "stdlib/xml/sax",
-        "stubs/aiofiles/aiofiles/tempfile/temptypes.pyi",
         "stubs/aiofiles/aiofiles/threadpool/utils.pyi",
         "stubs/annoy/annoy/annoylib.pyi",
         "stubs/aws-xray-sdk",
