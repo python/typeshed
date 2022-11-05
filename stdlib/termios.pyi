@@ -9,45 +9,33 @@ if sys.platform != "win32":
 
     B0: int
     B1000000: int
-    B1000000: int
     B110: int
     B115200: int
-    B1152000: int
     B1152000: int
     B1200: int
     B134: int
     B150: int
     B1500000: int
-    B1500000: int
     B1800: int
     B19200: int
     B200: int
     B2000000: int
-    B2000000: int
     B230400: int
     B2400: int
     B2500000: int
-    B2500000: int
     B300: int
     B3000000: int
-    B3000000: int
-    B3500000: int
     B3500000: int
     B38400: int
     B4000000: int
-    B4000000: int
-    B460800: int
     B460800: int
     B4800: int
     B50: int
     B500000: int
-    B500000: int
     B57600: int
-    B576000: int
     B576000: int
     B600: int
     B75: int
-    B921600: int
     B921600: int
     B9600: int
     BRKINT: int
