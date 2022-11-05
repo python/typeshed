@@ -1,5 +1,4 @@
 import sys
-from _typeshed import ReadableBuffer
 from collections.abc import Callable, Mapping, Sequence
 from typing import Any, AnyStr, Generic, NamedTuple, overload
 
