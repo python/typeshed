@@ -1,6 +1,6 @@
 import sys
 import types
-from _typeshed import Self
+from _typeshed import ReadableBuffer, Self
 from collections.abc import Callable
 from socket import socket as _socket
 from typing import Any, BinaryIO, ClassVar, Union
@@ -29,7 +29,9 @@ if sys.platform != "win32":
     ]
 
 _RequestType: TypeAlias = Union[_socket, tuple[bytes, _socket]]
-_AddressType: TypeAlias = Union[tuple[str, int], str]
+_AfUnixAddress: TypeAlias = str | ReadableBuffer  # adddress acceptable for an AF_UNIX socket
+_AfInetAddress: TypeAlias = tuple[str | bytes | bytearray, int]  # address acceptable for an AF_INET socket
+_AddressType: TypeAlias = _AfUnixAddress | _AfInetAddress
 
 # This can possibly be generic at some point:
 class BaseServer:
@@ -74,21 +76,21 @@ class TCPServer(BaseServer):
         allow_reuse_port: bool
     def __init__(
         self: Self,
-        server_address: tuple[str, int],
+        server_address: _AfInetAddress,
         RequestHandlerClass: Callable[[Any, Any, Self], BaseRequestHandler],
         bind_and_activate: bool = ...,
     ) -> None: ...
-    def get_request(self) -> tuple[_socket, Any]: ...
+    def get_request(self) -> tuple[_socket, _AddressType]: ...
 
 class UDPServer(TCPServer):
     max_packet_size: ClassVar[int]
-    def get_request(self) -> tuple[tuple[bytes, _socket], Any]: ...  # type: ignore[override]
+    def get_request(self) -> tuple[tuple[bytes, _socket], _AddressType]: ...  # type: ignore[override]
 
 if sys.platform != "win32":
     class UnixStreamServer(BaseServer):
         def __init__(
             self: Self,
-            server_address: str | bytes,
+            server_address: _AfUnixAddress,
             RequestHandlerClass: Callable[[Any, Any, Self], BaseRequestHandler],
             bind_and_activate: bool = ...,
         ) -> None: ...
@@ -96,7 +98,7 @@ if sys.platform != "win32":
     class UnixDatagramServer(BaseServer):
         def __init__(
             self: Self,
-            server_address: str | bytes,
+            server_address: _AfUnixAddress,
             RequestHandlerClass: Callable[[Any, Any, Self], BaseRequestHandler],
             bind_and_activate: bool = ...,
         ) -> None: ...
