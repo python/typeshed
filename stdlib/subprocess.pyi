@@ -1,5 +1,5 @@
 import sys
-from _typeshed import Self, StrOrBytesPath
+from _typeshed import ReadableBuffer, Self, StrOrBytesPath
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from types import TracebackType
 from typing import IO, Any, AnyStr, Generic, TypeVar, overload
@@ -63,13 +63,13 @@ if sys.platform == "win32":
 # except TimeoutError as e:
 #    reveal_type(e.cmd)  # Any, but morally is _CMD
 _FILE: TypeAlias = None | int | IO[Any]
-_TXT: TypeAlias = bytes | str
+_TXT: TypeAlias = ReadableBuffer | str
 if sys.version_info >= (3, 8):
     _CMD: TypeAlias = StrOrBytesPath | Sequence[StrOrBytesPath]
 else:
     # Python 3.7 doesn't support _CMD being a single PathLike.
     # See: https://bugs.python.org/issue31961
-    _CMD: TypeAlias = _TXT | Sequence[StrOrBytesPath]
+    _CMD: TypeAlias = str | bytes | Sequence[StrOrBytesPath]
 if sys.platform == "win32":
     _ENV: TypeAlias = Mapping[str, str]
 else:
@@ -266,7 +266,7 @@ if sys.version_info >= (3, 11):
         check: bool = ...,
         encoding: None = ...,
         errors: None = ...,
-        input: bytes | None = ...,
+        input: ReadableBuffer | None = ...,
         text: Literal[None, False] = ...,
         timeout: float | None = ...,
         user: str | int | None = ...,
@@ -470,7 +470,7 @@ elif sys.version_info >= (3, 10):
         check: bool = ...,
         encoding: None = ...,
         errors: None = ...,
-        input: bytes | None = ...,
+        input: ReadableBuffer | None = ...,
         text: Literal[None, False] = ...,
         timeout: float | None = ...,
         user: str | int | None = ...,
@@ -668,7 +668,7 @@ elif sys.version_info >= (3, 9):
         check: bool = ...,
         encoding: None = ...,
         errors: None = ...,
-        input: bytes | None = ...,
+        input: ReadableBuffer | None = ...,
         text: Literal[None, False] = ...,
         timeout: float | None = ...,
         user: str | int | None = ...,
@@ -847,7 +847,7 @@ else:
         check: bool = ...,
         encoding: None = ...,
         errors: None = ...,
-        input: bytes | None = ...,
+        input: ReadableBuffer | None = ...,
         text: Literal[None, False] = ...,
         timeout: float | None = ...,
     ) -> CompletedProcess[bytes]: ...
@@ -2556,13 +2556,19 @@ class Popen(Generic[AnyStr]):
 
     def poll(self) -> int | None: ...
     def wait(self, timeout: float | None = ...) -> int: ...
-    # Return str/bytes
+    # morally the members of the returned tuple should be optional
+    @overload
     def communicate(
-        self,
-        input: AnyStr | None = ...,
+        self: Popen[str],
+        input: str | None = ...,
         timeout: float | None = ...,
-        # morally this should be optional
-    ) -> tuple[AnyStr, AnyStr]: ...
+    ) -> tuple[str, str]: ...
+    @overload
+    def communicate(
+        self: Popen[bytes],
+        input: ReadableBuffer | None = ...,
+        timeout: float | None = ...,
+    ) -> tuple[bytes, bytes]: ...
     def send_signal(self, sig: int) -> None: ...
     def terminate(self) -> None: ...
     def kill(self) -> None: ...
@@ -2575,12 +2581,12 @@ class Popen(Generic[AnyStr]):
 
 # The result really is always a str.
 if sys.version_info >= (3, 11):
-    def getstatusoutput(cmd: _TXT, *, encoding: str | None = ..., errors: str | None = ...) -> tuple[int, str]: ...
-    def getoutput(cmd: _TXT, *, encoding: str | None = ..., errors: str | None = ...) -> str: ...
+    def getstatusoutput(cmd: str | bytes, *, encoding: str | None = ..., errors: str | None = ...) -> tuple[int, str]: ...
+    def getoutput(cmd: str | bytes, *, encoding: str | None = ..., errors: str | None = ...) -> str: ...
 
 else:
-    def getstatusoutput(cmd: _TXT) -> tuple[int, str]: ...
-    def getoutput(cmd: _TXT) -> str: ...
+    def getstatusoutput(cmd: str | bytes) -> tuple[int, str]: ...
+    def getoutput(cmd: str | bytes) -> str: ...
 
 if sys.version_info >= (3, 8):
     def list2cmdline(seq: Iterable[StrOrBytesPath]) -> str: ...  # undocumented
