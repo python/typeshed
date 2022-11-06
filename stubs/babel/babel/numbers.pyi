@@ -1,5 +1,5 @@
 import decimal
-from datetime import date, datetime
+from datetime import date
 from re import Pattern
 from typing_extensions import Literal
 
@@ -22,8 +22,8 @@ def get_currency_precision(currency: str) -> int: ...
 def get_currency_unit_pattern(currency: str, count: float | None = ..., locale: Locale | str | None = ...) -> str: ...
 def get_territory_currencies(
     territory: str,
-    start_date: date | datetime | None = ...,
-    end_date: date | datetime | None = ...,
+    start_date: date | None = ...,
+    end_date: date | None = ...,
     tender: bool = ...,
     non_tender: bool = ...,
     include_details: bool = ...,
