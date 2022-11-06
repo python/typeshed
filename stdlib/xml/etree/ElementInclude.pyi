@@ -1,7 +1,7 @@
 import sys
+from _typeshed import StrOrBytesPath
 from collections.abc import Callable
 from xml.etree.ElementTree import Element
-from _typeshed import StrOrBytesPath
 
 XINCLUDE: str
 XINCLUDE_INCLUDE: str
