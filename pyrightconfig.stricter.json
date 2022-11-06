@@ -23,7 +23,6 @@
         "stdlib/xml/sax",
         "stubs/aws-xray-sdk",
         "stubs/babel",
-        "stubs/backports.ssl_match_hostname",
         "stubs/bleach",
         "stubs/boto",
         "stubs/beautifulsoup4",
