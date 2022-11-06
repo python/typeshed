@@ -236,6 +236,9 @@ else:
 ReadableBuffer: TypeAlias = ReadOnlyBuffer | WriteableBuffer  # stable
 _BufferWithLen: TypeAlias = ReadableBuffer  # not stable  # noqa: Y047
 
+# Anything that implements the read-write buffer interface, and can be sliced.
+SliceableBuffer: TypeAlias = bytes | bytearray | memoryview | array.array[Any] | mmap.mmap
+
 ExcInfo: TypeAlias = tuple[type[BaseException], BaseException, TracebackType]
 OptExcInfo: TypeAlias = Union[ExcInfo, tuple[None, None, None]]
 
