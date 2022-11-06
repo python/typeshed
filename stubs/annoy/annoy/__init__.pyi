@@ -1,5 +1,5 @@
 from typing_extensions import TypeAlias
 
-from .annoylib import AnnoyIndex
+from .annoylib import Annoy
 
-Annoy: TypeAlias = AnnoyIndex
+AnnoyIndex: TypeAlias = Annoy

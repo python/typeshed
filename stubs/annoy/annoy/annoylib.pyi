@@ -4,7 +4,7 @@ from typing_extensions import Literal, TypeAlias
 
 _Vector: TypeAlias = SupportsLenAndGetItem[float]
 
-class AnnoyIndex:
+class Annoy:
     f: int
     def __init__(self, f: int, metric: Literal["angular", "euclidean", "manhattan", "hamming", "dot"]) -> None: ...
     def load(self, fn: str, prefault: bool = ...) -> Literal[True]: ...
