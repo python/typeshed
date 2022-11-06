@@ -100,13 +100,13 @@ class NumberPattern:
     def __init__(
         self,
         pattern: str,
-        prefix: tuple[str, str] = ...,
-        suffix: tuple[str, str] = ...,
-        grouping: tuple[int, int] = ...,
-        int_prec: tuple[int, int] = ...,
-        frac_prec: tuple[int, int] = ...,
-        exp_prec: tuple[int, int] | None = ...,
-        exp_plus: bool | None = ...,
+        prefix: tuple[str, str],
+        suffix: tuple[str, str],
+        grouping: tuple[int, int],
+        int_prec: tuple[int, int],
+        frac_prec: tuple[int, int],
+        exp_prec: tuple[int, int] | None,
+        exp_plus: bool | None,
     ) -> None: ...
     def compute_scale(self) -> Literal[0, 2, 3]: ...
     def scientific_notation_elements(self, value: decimal.Decimal, locale: Locale | str) -> tuple[decimal.Decimal, int, str]: ...
