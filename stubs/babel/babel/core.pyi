@@ -1,5 +1,5 @@
 from collections.abc import Iterable, Mapping
-from typing import Any
+from typing import Any, overload
 from typing_extensions import Literal, TypeAlias
 
 from babel.localedata import LocaleDataDict
