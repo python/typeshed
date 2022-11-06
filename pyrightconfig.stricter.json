@@ -21,7 +21,6 @@
         "stdlib/xml/dom/minidom.pyi",
         "stdlib/xml/dom/pulldom.pyi",
         "stdlib/xml/sax",
-        "stubs/aiofiles/aiofiles/threadpool/utils.pyi",
         "stubs/aws-xray-sdk",
         "stubs/babel",
         "stubs/backports.ssl_match_hostname",
