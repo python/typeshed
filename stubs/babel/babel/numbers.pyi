@@ -1,7 +1,7 @@
 import decimal
 from datetime import date, datetime
 from re import Pattern
-from typing import Literal
+from typing_extensions import Literal
 
 from babel.core import Locale
 
