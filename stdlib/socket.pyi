@@ -1,15 +1,8 @@
-import sys
-from _typeshed import ReadableBuffer, Self, WriteableBuffer
-from collections.abc import Iterable
-from enum import IntEnum, IntFlag
-from io import BufferedReader, BufferedRWPair, BufferedWriter, IOBase, RawIOBase, TextIOWrapper
-from typing import Any, Protocol, overload
-from typing_extensions import Literal
-
 # Ideally, we'd just do "from _socket import *". Unfortunately, socket
 # overrides some definitions from _socket incompatibly. mypy incorrectly
 # prefers the definitions from _socket over those defined here.
 import _socket
+import sys
 from _socket import (
     _FD,
     EAI_AGAIN as EAI_AGAIN,
@@ -119,6 +112,12 @@ from _socket import (
     setdefaulttimeout as setdefaulttimeout,
     timeout as timeout,
 )
+from _typeshed import ReadableBuffer, Self, WriteableBuffer
+from collections.abc import Iterable
+from enum import IntEnum, IntFlag
+from io import BufferedReader, BufferedRWPair, BufferedWriter, IOBase, RawIOBase, TextIOWrapper
+from typing import Any, Protocol, overload
+from typing_extensions import Literal
 
 if sys.platform != "darwin" or sys.version_info >= (3, 9):
     from _socket import (
