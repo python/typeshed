@@ -12,7 +12,7 @@ from re import Pattern
 from typing import Any, AnyStr, NoReturn, TypeVar, overload
 from typing_extensions import Literal
 
-from . import moves as moves
+from six import moves as moves
 
 _T = TypeVar("_T")
 _K = TypeVar("_K")
