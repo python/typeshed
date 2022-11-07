@@ -115,11 +115,11 @@ class itemgetter(Generic[_T_co]):
     def __new__(
         cls, item: _T_co, __item2: _T_co, __item3: _T_co, __item4: _T_co
     ) -> itemgetter[tuple[_T_co, _T_co, _T_co, _T_co]]: ...
+    # mypy lacks support for PEP 646 https://github.com/python/mypy/issues/12280
     @overload
-    def __new__(
-        cls, *items: _T_co
-    ) -> itemgetter[tuple[_T_co, ...]]: ...  # mypy lacks support for PEP 646 https://github.com/python/mypy/issues/12280
-    def __call__(self, __obj: SupportsGetItem[_T_co, Any]) -> Any: ...
+    def __new__(cls, *items: _T_co) -> itemgetter[tuple[_T_co, ...]]: ...
+    # A bug in mypy prevents using _T instead of Any here.
+    def __call__(self, obj: SupportsGetItem[_T_co, Any]) -> Any: ...
 
 @final
 class methodcaller:
