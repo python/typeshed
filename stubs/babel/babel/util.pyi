@@ -1,42 +1,45 @@
 import collections
+import io
 import textwrap
-from datetime import tzinfo
+from collections.abc import Generator, Iterable
+from datetime import timedelta, tzinfo
+from re import Pattern
 from typing import Any
 
 from babel import localtime as localtime
 from pytz import BaseTzInfo
 
-missing: Any
+missing: object
 
-def distinct(iterable) -> None: ...
+def distinct(iterable: Iterable[Any]) -> Generator[Any, None, None]: ...
 
-PYTHON_MAGIC_COMMENT_re: Any
+PYTHON_MAGIC_COMMENT_re: Pattern[bytes]
 
-def parse_encoding(fp): ...
+def parse_encoding(fp: io.BytesIO | str) -> str: ...
 
-PYTHON_FUTURE_IMPORT_re: Any
+PYTHON_FUTURE_IMPORT_re: Pattern[str]
 
-def parse_future_flags(fp, encoding: str = ...): ...
-def pathmatch(pattern, filename): ...
+def parse_future_flags(fp: io.BytesIO | str, encoding: str = ...) -> int: ...
+def pathmatch(pattern: str, filename: str) -> bool: ...
 
 class TextWrapper(textwrap.TextWrapper):
-    wordsep_re: Any
+    wordsep_re: Pattern[str]
 
 def wraptext(text, width: int = ..., initial_indent: str = ..., subsequent_indent: str = ...): ...
 
 odict = collections.OrderedDict
 
 class FixedOffsetTimezone(tzinfo):
-    zone: Any
-    def __init__(self, offset, name: Any | None = ...) -> None: ...
-    def utcoffset(self, dt): ...
-    def tzname(self, dt): ...
-    def dst(self, dt): ...
+    zone: str
+    def __init__(self, offset: float, name: str | None = ...) -> None: ...
+    def utcoffset(self, dt: Any) -> timedelta: ...
+    def tzname(self, dt: Any) -> str: ...
+    def dst(self, dt: Any) -> timedelta: ...
 
 UTC: BaseTzInfo
 LOCALTZ: BaseTzInfo
 get_localzone = localtime.get_localzone
-STDOFFSET: Any
-DSTOFFSET: Any
-DSTDIFF: Any
-ZERO: Any
+STDOFFSET: timedelta
+DSTOFFSET: timedelta
+DSTDIFF: timedelta
+ZERO: timedelta
