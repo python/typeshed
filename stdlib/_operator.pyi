@@ -106,7 +106,7 @@ class attrgetter(Generic[_T_co]):
 @final
 class itemgetter(Generic[_T_co]):
     @overload
-    def __new__(cls, item: _T_co) -> itemgetter[_T_co]: ...
+    def __new__(cls, item: _T_co) -> itemgetter[_T_co]: ...  # type: ignore[misc]
     @overload
     def __new__(cls, item: _T_co, __item2: _T_co) -> itemgetter[tuple[_T_co, _T_co]]: ...
     @overload
@@ -116,7 +116,9 @@ class itemgetter(Generic[_T_co]):
         cls, item: _T_co, __item2: _T_co, __item3: _T_co, __item4: _T_co
     ) -> itemgetter[tuple[_T_co, _T_co, _T_co, _T_co]]: ...
     @overload
-    def __new__(cls, *items: _T_co) -> itemgetter[tuple[_T_co, ...]]: ...
+    def __new__(
+        cls, *items: _T_co
+    ) -> itemgetter[tuple[_T_co, ...]]: ...  # mypy lacks support for PEP 646 https://github.com/python/mypy/issues/12280
     def __call__(self, obj: SupportsGetItem[_T_co, _T]) -> _T: ...
 
 @final
