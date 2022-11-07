@@ -240,7 +240,7 @@ _BufferWithLen: TypeAlias = ReadableBuffer  # not stable  # noqa: Y047
 SliceableBuffer: TypeAlias = bytes | bytearray | memoryview | array.array[Any] | mmap.mmap
 IndexableBuffer: TypeAlias = bytes | bytearray | memoryview | array.array[Any] | mmap.mmap
 # https://github.com/python/typeshed/pull/9115#issuecomment-1304905864
-# Post PEP 668, they should be rewritten as such:
+# Post PEP 688, they should be rewritten as such:
 # from collections.abc import Sequence
 # from typing import Sized, overload
 # class SliceableBuffer(Protocol):
