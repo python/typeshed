@@ -1,9 +1,6 @@
 version = "304.*"
 [tool.stubtest]
+ignore_missing_stub = false
 # The library only works on Windows; we currently only run stubtest on Ubuntu for third-party stubs in CI.
 # See #8660
 skip = true
-# This crashes stubtest. It should be fixed in next mypy update
-# (keeping it since we currently skip the stub anyway)
-# https://github.com/python/mypy/issues/13822
-ignore_missing_stub = false
