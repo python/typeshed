@@ -3,6 +3,8 @@ from collections.abc import Iterator
 from typing import Any
 from typing_extensions import TypeAlias
 
+LATEST_MINOR_VERSION: int
+
 class NodeVisitor:
     def visit(self, node: AST) -> Any: ...
     def generic_visit(self, node: AST) -> None: ...
