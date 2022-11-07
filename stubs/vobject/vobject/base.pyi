@@ -1,7 +1,14 @@
 from _typeshed import SupportsWrite
 from collections.abc import Iterable, Iterator
 from typing import Any, TypeVar, overload
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
+
+basestring: tuple[type[str], type[bytes]]
+unicode_type: TypeAlias = str
+
+def str_(s: str) -> str: ...
+def to_unicode(value: bytes) -> str: ...
+def to_basestring(s: str) -> bytes: ...
 
 DEBUG: bool
 CR: str
