@@ -439,7 +439,7 @@ typing.[A-Z]\w+
 typing_extensions\..*
 
 # These are abstract properties at runtime,
-# but marking them as such in the stub breaks half the the typed-Python ecosystem
+# but marking them as such in the stub breaks half the the typed-Python ecosystem (see #8726)
 typing.IO.closed
 typing.IO.mode
 typing.IO.name
