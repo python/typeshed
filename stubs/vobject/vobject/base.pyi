@@ -4,7 +4,7 @@ from typing import Any, TypeVar, overload
 from typing_extensions import Literal, TypeAlias
 
 basestring: tuple[type[str], type[bytes]]
-unicode_type: TypeAlias = str
+unicode_type: TypeAlias = str  # noqa: Y042
 
 def str_(s: str) -> str: ...
 def to_unicode(value: bytes) -> str: ...
