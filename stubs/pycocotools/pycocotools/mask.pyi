@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from typing import Any, overload
 from typing_extensions import TypeAlias
 
-from .coco_types import _EncodedRLE
+from . import _EncodedRLE
 
 # TODO: Use numpy types when #5768 is resolved.
 # import numpy as np

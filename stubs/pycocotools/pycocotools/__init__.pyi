@@ -1,3 +1,6 @@
-from .coco import *
-from .cocoeval import *
-from .mask import *
+from typing_extensions import TypedDict
+
+# Unused in this module, but imported in multiple submodules.
+class _EncodedRLE(TypedDict):  # noqa: Y049
+    size: list[int]
+    counts: str | bytes

@@ -1,9 +1,9 @@
 from _typeshed import Incomplete, Self
 from pathlib import Path
-from typing import overload
-from typing_extensions import Literal, TypeAlias
+from typing import overload, Generic, TypeVar
+from typing_extensions import Literal, TypeAlias, TypedDict
 
-from .coco_types import _RLE, _Annotation, _AnnotationG, _Category, _Dataset, _EncodedRLE, _Image, _TPolygonSegmentation
+from . import _EncodedRLE
 
 # TODO: Use numpy types when #5768 is resolved.
 # import numpy as np
@@ -11,6 +11,48 @@ from .coco_types import _RLE, _Annotation, _AnnotationG, _Category, _Dataset, _E
 
 PYTHON_VERSION: Incomplete
 _NDArray: TypeAlias = Incomplete
+
+class _Image(TypedDict):
+    id: int
+    width: int
+    height: int
+    file_name: str
+
+_TPolygonSegmentation: TypeAlias = list[list[float]]
+
+class _RLE(TypedDict):
+    size: list[int]
+    counts: list[int]
+
+class _Annotation(TypedDict):
+    id: int
+    image_id: int
+    category_id: int
+    segmentation: _TPolygonSegmentation | _RLE | _EncodedRLE
+    area: float
+    bbox: list[float]
+    iscrowd: int  # Either 1 or 0
+
+_TSeg = TypeVar("_TSeg", _TPolygonSegmentation, _RLE, _EncodedRLE)
+
+class _AnnotationG(TypedDict, Generic[_TSeg]):
+    id: int
+    image_id: int
+    category_id: int
+    segmentation: _TSeg
+    area: float
+    bbox: list[float]
+    iscrowd: int  # Either 1 or 0
+
+class _Category(TypedDict):
+    id: int
+    name: str
+    supercategory: str
+
+class _Dataset(TypedDict):
+    images: list[_Image]
+    annotations: list[_Annotation]
+    categories: list[_Category]
 
 class COCO:
     anns: dict[int, _Annotation]

@@ -1,8 +1,7 @@
 from _typeshed import Incomplete
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, TypeAlias, TypedDict
 
 from .coco import COCO
-from .coco_types import _EvaluationResult
 
 # TODO: Use numpy types when #5768 is resolved.
 # import numpy as np
@@ -10,6 +9,23 @@ from .coco_types import _EvaluationResult
 
 _NDArray: TypeAlias = Incomplete
 _TIOU: TypeAlias = Literal["segm", "bbox", "keypoints"]
+
+class _EvaluationResult(TypedDict):
+    image_id: int
+    category_id: int
+    aRng: list[int]
+    maxDet: int
+    dtIds: list[int]
+    gtIds: list[int]
+    dtMatches: _NDArray
+    # dtMatches: npt.NDArray[np.float64]
+    gtMatches: _NDArray
+    # gtMatches: npt.NDArray[np.float64]
+    dtScores: list[float]
+    gtIgnore: _NDArray
+    # gtIgnore: npt.NDArray[np.float64]
+    dtIgnore: _NDArray
+    # dtIgnore: npt.NDArray[np.float64]
 
 class COCOeval:
     cocoGt: COCO
