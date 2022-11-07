@@ -55,6 +55,7 @@ pythoncom.MakeIID
 pythoncom.MakeTime
 win32.lib.dbi
 win32.lib.win32pdhquery.Query.addperfcounter
+# Deprecated and makes a buffer of random junk. Use something like `b"\x00" * bufferSize` instead
 win32.win32gui.PyMakeBuffer
 # Also a script
 win32.lib.regcheck
