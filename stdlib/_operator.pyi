@@ -118,8 +118,13 @@ class itemgetter(Generic[_T_co]):
     # mypy lacks support for PEP 646 https://github.com/python/mypy/issues/12280
     @overload
     def __new__(cls, *items: _T_co) -> itemgetter[tuple[_T_co, ...]]: ...
-    # A bug in mypy prevents using _T instead of Any here.
-    def __call__(self, obj: SupportsGetItem[_T_co, Any]) -> Any: ...
+    # __key: _KT_contra in SupportsGetItem seems to be causing variance issues, ie:
+    # TypeVar "_KT_contra@SupportsGetItem" is contravariant
+    #   "tuple[int, int]" is incompatible with protocol "SupportsIndex"
+    # preventing [_T_co, ...] instead of [Any, ...]
+    #
+    # A bug in mypy prevents using [..., _T] instead of [..., Any] here.
+    def __call__(self, obj: SupportsGetItem[Any, Any]) -> Any: ...
 
 @final
 class methodcaller:
