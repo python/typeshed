@@ -11,3 +11,11 @@ vobject.icalendar.pytz
 
 # re-exports
 vobject.hcalendar.CRLF
+
+# python2 compat
+vobject.base.basestring
+vobject.base.unicode_type
+vobject.base.str_
+vobject.base.to_unicode
+vobject.base.to_basestring
+vobject.vcard.basestring

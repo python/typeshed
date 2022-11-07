@@ -1,6 +1,5 @@
 from typing import Any
 
-from .base import basestring as basestring
 from .behavior import Behavior
 
 class Name:
