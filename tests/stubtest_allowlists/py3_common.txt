@@ -438,6 +438,17 @@ types.WrapperDescriptorType.__get__
 typing.[A-Z]\w+
 typing_extensions\..*
 
+# These are abstract properties at runtime,
+# but marking them as such in the stub breaks half the the typed-Python ecosystem
+typing.IO.closed
+typing.IO.mode
+typing.IO.name
+typing.TextIO.buffer
+typing.TextIO.encoding
+typing.TextIO.errors
+typing.TextIO.line_buffering
+typing.TextIO.newlines
+
 # Typing-related weirdness
 _collections_abc.Callable
 _typeshed.*  # Utility types for typeshed, doesn't exist at runtime
