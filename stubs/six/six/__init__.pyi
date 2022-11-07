@@ -65,7 +65,7 @@ unichr = chr
 
 def int2byte(i: int) -> bytes: ...
 
-byte2int = operator.itemgetter(0)
+byte2int: operator.itemgetter[int]
 indexbytes = operator.getitem
 iterbytes = iter
 
