@@ -16,11 +16,13 @@ _VT = TypeVar("_VT")
 
 
 class KeysAndGetItem(Generic[_KT, _VT]):
+    data: dict[_KT, _VT]
+
     def keys(self) -> Iterable[_KT]:
-        ...
+        return self.data.keys()
 
     def __getitem__(self, __k: _KT) -> _VT:
-        ...
+        return self.data[__k]
 
 
 kt1: KeysAndGetItem[int, str] = KeysAndGetItem()
