@@ -1,6 +1,6 @@
 from _typeshed import Incomplete, Self
 from pathlib import Path
-from typing import overload, Generic, TypeVar
+from typing import Generic, TypeVar, overload
 from typing_extensions import Literal, TypeAlias, TypedDict
 
 from . import _EncodedRLE
