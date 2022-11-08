@@ -105,8 +105,10 @@ class attrgetter(Generic[_T_co]):
 
 @final
 class itemgetter(Generic[_T_co]):
+    # mypy lacks support for PEP 646 https://github.com/python/mypy/issues/12280
+    # So we have to define all of these overloads to simulate unpacking the arguments
     @overload
-    def __new__(cls, item: _T_co) -> itemgetter[_T_co]: ...  # type: ignore[misc]
+    def __new__(cls, item: _T_co) -> itemgetter[_T_co]: ...
     @overload
     def __new__(cls, item: _T_co, __item2: _T_co) -> itemgetter[tuple[_T_co, _T_co]]: ...
     @overload
@@ -115,15 +117,17 @@ class itemgetter(Generic[_T_co]):
     def __new__(
         cls, item: _T_co, __item2: _T_co, __item3: _T_co, __item4: _T_co
     ) -> itemgetter[tuple[_T_co, _T_co, _T_co, _T_co]]: ...
-    # mypy lacks support for PEP 646 https://github.com/python/mypy/issues/12280
     @overload
-    def __new__(cls, *items: _T_co) -> itemgetter[tuple[_T_co, ...]]: ...
+    def __new__(
+        cls, item: _T_co, __item2: _T_co, __item3: _T_co, __item4: _T_co, *items: _T_co
+    ) -> itemgetter[tuple[_T_co, ...]]: ...
     # __key: _KT_contra in SupportsGetItem seems to be causing variance issues, ie:
     # TypeVar "_KT_contra@SupportsGetItem" is contravariant
     #   "tuple[int, int]" is incompatible with protocol "SupportsIndex"
     # preventing [_T_co, ...] instead of [Any, ...]
     #
-    # A bug in mypy prevents using [..., _T] instead of [..., Any] here.
+    # A suspected mypy issue prevents using [..., _T] instead of [..., Any] here.
+    # https://github.com/python/mypy/issues/14032
     def __call__(self, obj: SupportsGetItem[Any, Any]) -> Any: ...
 
 @final
