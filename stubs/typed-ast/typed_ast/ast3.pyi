@@ -257,7 +257,7 @@ class Call(expr):
     keywords: list[keyword]
 
 class Num(expr):
-    n: complex
+    n: int | float | complex
 
 class Str(expr):
     s: str

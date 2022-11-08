@@ -12,7 +12,7 @@ if sys.version_info >= (3, 8):
             def __init__(cls, *args: object) -> None: ...
 
     class Num(Constant, metaclass=_ABC):
-        value: int | float | complex  # noqa: Y041
+        value: int | float | complex
 
     class Str(Constant, metaclass=_ABC):
         value: str

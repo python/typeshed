@@ -420,8 +420,8 @@ class _Screen(TurtleScreen):
     # Note int and float are interpreted differently, hence the Union instead of just float
     def setup(
         self,
-        width: int | float = ...,  # noqa: Y041
-        height: int | float = ...,  # noqa: Y041
+        width: int | float = ...,
+        height: int | float = ...,
         startx: int | None = ...,
         starty: int | None = ...,
     ) -> None: ...
