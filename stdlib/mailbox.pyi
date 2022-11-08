@@ -33,9 +33,10 @@ __all__ = [
 
 _T = TypeVar("_T")
 _MessageT = TypeVar("_MessageT", bound=Message)
-_MessageData: TypeAlias = email.message.Message | bytes | str | io.StringIO | _SupportsReadAndReadline
 
 class _SupportsReadAndReadline(SupportsRead[bytes], SupportsNoArgReadline[bytes], Protocol): ...
+
+_MessageData: TypeAlias = email.message.Message | bytes | str | io.StringIO | _SupportsReadAndReadline
 
 class _HasIteritems(Protocol):
     def iteritems(self) -> Iterator[tuple[str, _MessageData]]: ...
