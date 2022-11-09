@@ -32,16 +32,7 @@ win32com(ext)?.axscript.client.scriptdispatch
 # Other scripts
 isapi.install
 win32.scripts.*
-win32.lib.netbios
-win32.lib.sspi
-win32.lib.win32pdhutil
-win32.lib.win32rcparser
-win32.lib.win32serviceutil
-win32.lib.win32traceutil
-win32.lib.verstamp
 # Demos, tests and debugging
-win32.lib.pywin32_testutil
-win32.lib.rasutil
 win32com.demos.*
 win32com.servers.test_pycomtest
 win32com.test.*
@@ -53,12 +44,9 @@ win32com(ext)?.directsound.test.*
 # Deprecated and obsolete
 pythoncom.MakeIID
 pythoncom.MakeTime
-win32.lib.dbi
 win32.lib.win32pdhquery.Query.addperfcounter
 # Deprecated and makes a buffer of random junk. Use something like `b"\x00" * bufferSize` instead
 win32.win32gui.PyMakeBuffer
-# Also a script
-win32.lib.regcheck
 # failed to import, ImportError: DLL load failed while importing axdebug: The specified module could not be found.
 # https://github.com/python/mypy/issues/13822
 win32com.axdebug.axdebug
@@ -73,3 +61,21 @@ win32com(ext)?.axdebug.documents
 win32com(ext)?.axdebug.expressions
 win32com(ext)?.axdebug.stackframe
 win32com(ext)?.axscript.client.debug
+
+# Errors from running stubtest on Windows machine:
+pythoncom.internal_error
+pythoncom.new
+pywintypes.TimeType
+pywintypes.WAVE_FORMAT_PCM
+pywintypes.__import_pywin32_system_module__
+win32.lib.pywintypes.TimeType
+win32.lib.pywintypes.WAVE_FORMAT_PCM
+win32.lib.pywintypes.__import_pywin32_system_module__
+win32.winxpgui.GetConsoleWindow
+win32.winxpgui.GetWindowRgnBox
+win32.winxpgui.PyMakeBuffer
+win32gui.PyMakeBuffer
+win32pdhquery.Query.addperfcounter
+winxpgui.GetConsoleWindow
+winxpgui.GetWindowRgnBox
+winxpgui.PyMakeBuffer
