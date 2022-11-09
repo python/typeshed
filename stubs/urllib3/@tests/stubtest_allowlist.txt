@@ -28,3 +28,6 @@ urllib3.util.connection.poll
 urllib3.util.connection.select
 urllib3.util.ssl_.create_default_context
 urllib3.util.ssl_.ssl_wrap_socket
+
+# Metaclass differs:
+urllib3.util.retry.Retry
