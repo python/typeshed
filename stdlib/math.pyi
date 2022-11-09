@@ -1,7 +1,7 @@
 import sys
 from _typeshed import SupportsTrunc
 from collections.abc import Iterable
-from typing import SupportsFloat, overload
+from typing import Protocol, SupportsFloat, overload
 from typing_extensions import SupportsIndex, TypeAlias
 
 if sys.version_info >= (3, 8):
@@ -26,7 +26,10 @@ def atanh(__x: _SupportsFloatOrIndex) -> float: ...
 if sys.version_info >= (3, 11):
     def cbrt(__x: _SupportsFloatOrIndex) -> float: ...
 
-def ceil(__x: _SupportsFloatOrIndex) -> int: ...
+class _SupportsCeil(Protocol):
+    def __ceil__(self) -> int: ...
+
+def ceil(__x: _SupportsFloatOrIndex | _SupportsCeil) -> int: ...
 
 if sys.version_info >= (3, 8):
     def comb(__n: SupportsIndex, __k: SupportsIndex) -> int: ...
