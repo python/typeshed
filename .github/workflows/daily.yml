@@ -4,6 +4,10 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "0 0 * * *"
+  pull_request:
+    paths:
+      - 'requirements-tests.txt'
+      - '.github/workflows/daily.yml'
 
 # Please keep the permissions minimal, as stubtest runs arbitrary code from pypi.
 permissions:
@@ -93,7 +97,7 @@ jobs:
     name: Create an issue if daily tests failed
     runs-on: ubuntu-latest
     needs: [stubtest-stdlib, stubtest-third-party, stub-uploader]
-    if: ${{ github.repository == 'python/typeshed' && always() && (needs.stubtest-stdlib.result == 'failure' || needs.stubtest-third-party.result == 'failure' || needs.stub-uploader.result == 'failure') }}
+    if: ${{ github.repository == 'python/typeshed' && always() && github.event_name != 'pull_request' && (needs.stubtest-stdlib.result == 'failure' || needs.stubtest-third-party.result == 'failure' || needs.stub-uploader.result == 'failure') }}
     permissions:
       issues: write
     steps:
