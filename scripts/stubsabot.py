@@ -480,7 +480,7 @@ async def create_or_update_pull_request(*, title: str, body: str, branch_name: s
 
     async with session.post(
         f"https://api.github.com/repos/{TYPESHED_OWNER}/typeshed/pulls",
-        json={"title": title, "body": body, "head": f"{fork_owner}:{branch_name}", "base": "master"},
+        json={"title": title, "body": body, "head": f"{fork_owner}:{branch_name}", "base": "main"},
         headers=get_github_api_headers(),
     ) as response:
         resp_json = await response.json()
@@ -490,7 +490,7 @@ async def create_or_update_pull_request(*, title: str, body: str, branch_name: s
             # Find the existing PR
             async with session.get(
                 f"https://api.github.com/repos/{TYPESHED_OWNER}/typeshed/pulls",
-                params={"state": "open", "head": f"{fork_owner}:{branch_name}", "base": "master"},
+                params={"state": "open", "head": f"{fork_owner}:{branch_name}", "base": "main"},
                 headers=get_github_api_headers(),
             ) as response:
                 response.raise_for_status()
@@ -578,7 +578,7 @@ def get_update_pr_body(update: Update, metadata: dict[str, Any]) -> str:
     if update.diff_analysis is not None:
         body += f"\n\n{update.diff_analysis}"
 
-    stubtest_will_run = not metadata.get("stubtest", {}).get("skip", False)
+    stubtest_will_run = not metadata.get("tool", {}).get("stubtest", {}).get("skip", False)
     if stubtest_will_run:
         body += textwrap.dedent(
             """
@@ -606,7 +606,7 @@ async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession
     title = f"[stubsabot] Bump {update.distribution} to {update.new_version_spec}"
     async with _repo_lock:
         branch_name = f"{BRANCH_PREFIX}/{normalize(update.distribution)}"
-        subprocess.check_call(["git", "checkout", "-B", branch_name, "origin/master"])
+        subprocess.check_call(["git", "checkout", "-B", branch_name, "origin/main"])
         with open(update.stub_path / "METADATA.toml", "rb") as f:
             meta = tomlkit.load(f)
         meta["version"] = update.new_version_spec
@@ -632,7 +632,7 @@ async def suggest_typeshed_obsolete(obsolete: Obsolete, session: aiohttp.ClientS
     title = f"[stubsabot] Mark {obsolete.distribution} as obsolete since {obsolete.obsolete_since_version}"
     async with _repo_lock:
         branch_name = f"{BRANCH_PREFIX}/{normalize(obsolete.distribution)}"
-        subprocess.check_call(["git", "checkout", "-B", branch_name, "origin/master"])
+        subprocess.check_call(["git", "checkout", "-B", branch_name, "origin/main"])
         with open(obsolete.stub_path / "METADATA.toml", "rb") as f:
             meta = tomlkit.load(f)
         obs_string = tomlkit.string(obsolete.obsolete_since_version)

@@ -2,5 +2,4 @@ version = "304.*"
 
 [tool.stubtest]
 platforms = ["win32"]
-# `ignore_missing_stub = false` crashes stubtest. This should be fixed in next mypy update
-# https://github.com/python/mypy/issues/13822
+ignore_missing_stub = false

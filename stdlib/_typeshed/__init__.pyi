@@ -234,6 +234,7 @@ else:
     WriteableBuffer: TypeAlias = bytearray | memoryview | array.array[Any] | mmap.mmap | ctypes._CData  # stable
 # Same as _WriteableBuffer, but also includes read-only buffer types (like bytes).
 ReadableBuffer: TypeAlias = ReadOnlyBuffer | WriteableBuffer  # stable
+_BufferWithLen: TypeAlias = ReadableBuffer  # not stable  # noqa: Y047
 
 ExcInfo: TypeAlias = tuple[type[BaseException], BaseException, TracebackType]
 OptExcInfo: TypeAlias = Union[ExcInfo, tuple[None, None, None]]
@@ -275,5 +276,4 @@ StrOrLiteralStr = TypeVar("StrOrLiteralStr", LiteralString, str)  # noqa: Y001
 ProfileFunction: TypeAlias = Callable[[FrameType, str, Any], object]
 
 # Objects suitable to be passed to sys.settrace, threading.settrace, and similar
-# TODO: Ideally this would be a recursive type alias
-TraceFunction: TypeAlias = Callable[[FrameType, str, Any], Callable[[FrameType, str, Any], Any] | None]
+TraceFunction: TypeAlias = Callable[[FrameType, str, Any], TraceFunction | None]

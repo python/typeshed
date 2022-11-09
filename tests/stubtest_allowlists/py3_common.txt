@@ -367,6 +367,8 @@ _ctypes.sizeof
 # Allowlist entries that cannot or should not be fixed
 # ==========
 
+ctypes.Array.raw  # exists but stubtest can't see it; only available if _CT == c_char
+
 _collections_abc.AsyncGenerator.asend  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
 _collections_abc.AsyncGenerator.__anext__  # async at runtime, deliberately not in the stub, see #7491
 _collections_abc.AsyncGenerator.aclose  # async at runtime, deliberately not in the stub, see #7491
@@ -420,7 +422,6 @@ ssl.RAND_egd
 collections.abc.*  # Types are re-exported from _collections_abc, so errors should be fixed there
 distutils.command.check.SilentReporter  # only defined if docutils in installed
 hmac.HMAC.blocksize  # use block_size instead
-http.server.SimpleHTTPRequestHandler.__init__  # *args is expanded
 pickle.Pickler.memo  # undocumented implementation detail, has different type in C/Python implementations
 pickle.Unpickler.memo  # undocumented implementation detail, has different type in C/Python implementations
 re.Pattern.scanner  # Undocumented and not useful. #6405
@@ -436,6 +437,17 @@ types.WrapperDescriptorType.__get__
 # Various classes in typing aren't types at runtime. In addition, mypy thinks some special forms are tautologically defined.
 typing.[A-Z]\w+
 typing_extensions\..*
+
+# These are abstract properties at runtime,
+# but marking them as such in the stub breaks half the the typed-Python ecosystem (see #8726)
+typing.IO.closed
+typing.IO.mode
+typing.IO.name
+typing.TextIO.buffer
+typing.TextIO.encoding
+typing.TextIO.errors
+typing.TextIO.line_buffering
+typing.TextIO.newlines
 
 # Typing-related weirdness
 _collections_abc.Callable
@@ -650,17 +662,12 @@ distutils.command.build_ext.USER_BASE
 distutils.command.build_scripts.ST_MODE
 distutils.command.install.*
 distutils.command.install_scripts.ST_MODE
-distutils.core.DEBUG
-distutils.core.USAGE
 distutils.core.Distribution.finalize_options
 distutils.core.Distribution.get_command_class
 distutils.core.Distribution.get_command_list
 distutils.core.Distribution.handle_display_options
 distutils.core.Distribution.print_commands
 distutils.core.Distribution.run_command
-distutils.core.extension_keywords
-distutils.core.gen_usage
-distutils.core.setup_keywords
 distutils.cygwinccompiler.CONFIG_H_NOTOK
 distutils.cygwinccompiler.CONFIG_H_OK
 distutils.cygwinccompiler.CONFIG_H_UNCERTAIN
