@@ -11,7 +11,7 @@ if not distributions:
 
 metadata_mapping = {
     "linux": "apt_dependencies",
-    # TODO: support others:
+    # We could add others here if we run into stubs that need it:
     # "darwin": "brew_dependencies",
     # "win32": "choco_dependencies",
 }
