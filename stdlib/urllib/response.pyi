@@ -1,5 +1,5 @@
 import sys
-from _typeshed import Self, ReadableBuffer
+from _typeshed import ReadableBuffer, Self
 from collections.abc import Callable, Iterable
 from email.message import Message
 from types import TracebackType
