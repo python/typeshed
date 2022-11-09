@@ -4,6 +4,10 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "0 0 * * *"
+  pull_request:
+    paths:
+      - 'requirements-tests.txt'
+      - '.github/workflows/daily.yml'
 
 # Please keep the permissions minimal, as stubtest runs arbitrary code from pypi.
 permissions:

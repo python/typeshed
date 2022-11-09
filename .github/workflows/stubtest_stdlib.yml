@@ -10,7 +10,7 @@ on:
       - 'stdlib/**'
       - '.github/workflows/stubtest_stdlib.yml'
       - 'tests/**'
-      - 'requirements-tests.txt'
+      # When requirements.txt changes, we run `daily.yml`, which includes stdlib stubtest
 
 permissions:
   contents: read
