@@ -1,15 +1,16 @@
 import collections
-import io
 import textwrap
 from collections.abc import Generator, Iterable
 from datetime import timedelta, tzinfo
 from re import Pattern
-from typing import Any
+from typing import IO, Any, TypeVar
 
 from babel import localtime as localtime
 from pytz import BaseTzInfo
 
 missing: object
+
+_T = TypeVar("_T")
 
 def distinct(iterable: Iterable[_T]) -> Generator[_T, None, None]: ...
 
