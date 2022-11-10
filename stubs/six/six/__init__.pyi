@@ -65,7 +65,12 @@ unichr = chr
 
 def int2byte(i: int) -> bytes: ...
 
-# Should be `byte2int: operator.itemgetter[int]`. But a bug in mypy prevents using TypeVar in itemgetter__call__
+# This overload works around a mypy bug that thinks `SupportsGetItem[int, <nothing>]` is expected when passed bytes
+@overload
+def byte2int(obj: bytes) -> int: ...
+
+# Should be `byte2int: operator.itemgetter[int]`. But a bug in mypy prevents using TypeVar in itemgetter.__call__
+@overload
 def byte2int(obj: SupportsGetItem[int, _T]) -> _T: ...
 
 indexbytes = operator.getitem
