@@ -9,6 +9,8 @@ from win32.lib.pywintypes import com_error as com_error
 
 error: TypeAlias = com_error  # noqa: Y042
 
+class internal_error(Exception): ...
+
 def CoCreateFreeThreadedMarshaler(unk: _win32typing.PyIUnknown) -> _win32typing.PyIUnknown: ...
 def CoCreateInstanceEx(
     clsid: _win32typing.PyIID,
@@ -133,6 +135,8 @@ def CoGetCancelObject(riid: _win32typing.PyIID, ThreadID: int = ...) -> _win32ty
 def CoSetCancelObject(Unk: _win32typing.PyIUnknown) -> None: ...
 def CoEnableCallCancellation() -> None: ...
 def CoDisableCallCancellation() -> None: ...
+def CreateURLMonikerEx(*args, **kwargs): ...  # incomplete
+def new(__iid: _win32typing.PyIID | str): ...
 
 ACTIVEOBJECT_STRONG: int
 ACTIVEOBJECT_WEAK: int
@@ -153,8 +157,6 @@ COINIT_MULTITHREADED: int
 COINIT_SPEED_OVER_MEMORY: int
 COWAIT_ALERTABLE: int
 COWAIT_WAITALL: int
-
-def CreateURLMonikerEx(*args, **kwargs): ...  # incomplete
 
 DATADIR_GET: int
 DATADIR_SET: int
