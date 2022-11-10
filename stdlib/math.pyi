@@ -1,6 +1,6 @@
 import sys
 from collections.abc import Iterable
-from typing import Protocol, SupportsFloat, overload, TypeVar
+from typing import Protocol, SupportsFloat, TypeVar, overload
 from typing_extensions import SupportsIndex, TypeAlias
 
 _T = TypeVar("_T")
