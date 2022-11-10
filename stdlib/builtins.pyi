@@ -1666,8 +1666,11 @@ else:
     @overload
     def sum(__iterable: Iterable[_AddableT1], __start: _AddableT2) -> _AddableT1 | _AddableT2: ...
 
-# The argument to `vars()` has to have a `__dict__` attribute, so can't be annotated with `object`
+# The argument to `vars()` has to have a `__dict__` attribute, so the second overload can't be annotated with `object`
 # (A "SupportsDunderDict" protocol doesn't work)
+@overload
+def vars(__object: type) -> types.MappingProxyType[str, Any]: ...
+@overload
 def vars(__object: Any = ...) -> dict[str, Any]: ...
 
 class zip(Iterator[_T_co], Generic[_T_co]):
