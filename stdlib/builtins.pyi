@@ -1668,8 +1668,9 @@ else:
 
 # The argument to `vars()` has to have a `__dict__` attribute, so the second overload can't be annotated with `object`
 # (A "SupportsDunderDict" protocol doesn't work)
+# Use a type: ignore to make complaints about overlapping overloads go away
 @overload
-def vars(__object: type) -> types.MappingProxyType[str, Any]: ...
+def vars(__object: type) -> types.MappingProxyType[str, Any]: ...  # type: ignore[misc]
 @overload
 def vars(__object: Any = ...) -> dict[str, Any]: ...
 
