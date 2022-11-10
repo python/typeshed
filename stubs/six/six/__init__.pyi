@@ -65,7 +65,7 @@ unichr = chr
 
 def int2byte(i: int) -> bytes: ...
 
-# This overload works around a mypy bug that thinks `SupportsGetItem[int, <nothing>]` is expected when passed bytes
+# This overload is temporary until typecheckers update their shipped version of typeshed
 @overload
 def byte2int(obj: bytes) -> int: ...
 
