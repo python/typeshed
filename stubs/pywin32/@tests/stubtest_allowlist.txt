@@ -65,5 +65,3 @@ win32com(ext)?.axdebug.documents
 win32com(ext)?.axdebug.expressions
 # failed to import, ModuleNotFoundError: No module named 'expressions'
 win32com(ext)?.axdebug.stackframe
-# failed to import, SystemError: CoInternetCreateSecurityManager() method: bad call flags
-win32com(ext)?.internet.internet
