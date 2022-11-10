@@ -6,9 +6,7 @@ assert_type(round(5.5), int)
 assert_type(round(5.5, None), int)
 assert_type(round(5.5, 0), float)
 assert_type(round(5.5, 1), float)
-
-n: int
-assert_type(round(5.5, n), float)
+assert_type(round(5.5, 5), float)
 
 # Protocols:
 
