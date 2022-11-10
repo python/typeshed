@@ -1,6 +1,6 @@
 import sys
 from collections.abc import Callable, Iterable, Mapping, Sequence
-from typing import Any, AnyStr, Generic, NamedTuple, overload
+from typing import Any, AnyStr, Generic, NamedTuple, overload, TypeVar
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -153,13 +153,16 @@ def unquote_plus(string: str, encoding: str = ..., errors: str = ...) -> str: ..
 def urldefrag(url: str) -> DefragResult: ...
 @overload
 def urldefrag(url: bytes | bytearray | None) -> DefragResultBytes: ...
+
+_Q = TypeVar("_Q", bound=str | Iterable[int])
+
 def urlencode(
     query: Mapping[Any, Any] | Mapping[Any, Sequence[Any]] | Sequence[tuple[Any, Any]] | Sequence[tuple[Any, Sequence[Any]]],
     doseq: bool = ...,
-    safe: str | Iterable[int] = ...,
+    safe: _Q = ...,
     encoding: str = ...,
     errors: str = ...,
-    quote_via: Callable[[AnyStr, str | Iterable[int], str, str], str] = ...,
+    quote_via: Callable[[AnyStr, _Q, str, str], str] = ...,
 ) -> str: ...
 def urljoin(base: AnyStr, url: AnyStr | None, allow_fragments: bool = ...) -> AnyStr: ...
 @overload
