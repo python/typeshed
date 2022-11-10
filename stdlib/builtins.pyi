@@ -50,7 +50,6 @@ from typing import (  # noqa: Y027
     SupportsComplex,
     SupportsFloat,
     SupportsInt,
-    SupportsRound,
     TypeVar,
     overload,
     type_check_only,
