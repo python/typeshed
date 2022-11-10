@@ -38,3 +38,6 @@ requests.packages.target
 requests.charset_normalizer_version
 requests.chardet_version
 requests.utils.HEADER_VALIDATORS
+
+# Metaclass differs:
+requests.adapters.Retry
