@@ -11,7 +11,7 @@ from pytz import BaseTzInfo
 
 missing: object
 
-def distinct(iterable: Iterable[Any]) -> Generator[Any, None, None]: ...
+def distinct(iterable: Iterable[_T]) -> Generator[_T, None, None]: ...
 
 PYTHON_MAGIC_COMMENT_re: Pattern[bytes]
 
