@@ -12,13 +12,16 @@ assert_type(round(5.5, n), float)
 
 # Protocols:
 
+
 class CustomIndex:
     def __index__(self) -> int:
         return 1
 
+
 class WithCustomRound1:
     def __round__(self) -> str:
-        return 'a'
+        return "a"
+
 
 assert_type(round(WithCustomRound1()), str)
 assert_type(round(WithCustomRound1(), None), str)
@@ -26,9 +29,11 @@ assert_type(round(WithCustomRound1(), None), str)
 round(WithCustomRound1(), 1)  # type: ignore
 round(WithCustomRound1(), CustomIndex())  # type: ignore
 
+
 class WithCustomRound2:
     def __round__(self, digits: int) -> str:
-        return 'a'
+        return "a"
+
 
 assert_type(round(WithCustomRound2(), 1), str)
 assert_type(round(WithCustomRound2(), CustomIndex()), str)
