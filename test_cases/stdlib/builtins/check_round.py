@@ -54,7 +54,7 @@ round(WithCustomRound2())  # type: ignore
 
 class WithOverloadedRound:
     @overload
-    def __round__(self) -> str:
+    def __round__(self, ndigits: None = ...) -> str:
         ...
 
     @overload
