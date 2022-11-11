@@ -52,11 +52,16 @@ round(WithCustomRound2())  # type: ignore
 
 class WithOverloadedRound:
     @overload
-    def __round__(self) -> str: ...
+    def __round__(self) -> str:
+        ...
+
     @overload
-    def __round__(self, ndigits: int) -> bytes: ...
+    def __round__(self, ndigits: int) -> bytes:
+        ...
+
     def __round__(self, ndigits: int | None = None) -> str | bytes:
-        return b'' if ndigits is None else ''
+        return b"" if ndigits is None else ""
+
 
 assert_type(round(WithOverloadedRound()), str)
 assert_type(round(WithOverloadedRound(), None), str)
