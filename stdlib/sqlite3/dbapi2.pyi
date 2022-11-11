@@ -30,7 +30,7 @@ def TimestampFromTicks(ticks: float) -> Timestamp: ...
 
 version_info: tuple[int, int, int]
 sqlite_version_info: tuple[int, int, int]
-Binary = memoryview
+Binary: TypeAlias = memoryview
 
 # The remaining definitions are imported from _sqlite3.
 
