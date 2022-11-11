@@ -65,15 +65,3 @@ win32com(ext)?.axdebug.documents
 win32com(ext)?.axdebug.expressions
 # failed to import, ModuleNotFoundError: No module named 'expressions'
 win32com(ext)?.axdebug.stackframe
-
-# Errors from running stubtest on Windows machine:
-pythoncom.internal_error
-pythoncom.new
-pywintypes.TimeType
-pywintypes.WAVE_FORMAT_PCM
-win32.lib.pywintypes.TimeType
-win32.lib.pywintypes.WAVE_FORMAT_PCM
-win32.winxpgui.GetConsoleWindow
-win32.winxpgui.GetWindowRgnBox
-winxpgui.GetConsoleWindow
-winxpgui.GetWindowRgnBox
