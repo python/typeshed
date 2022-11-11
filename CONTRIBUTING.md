@@ -194,7 +194,7 @@ This has the following keys:
   usually packages needed to pip install the implementation distribution.
 * `platforms` (default: `["linux"]`): A list of OSes on which to run stubtest.
   Can contain `win32`, `linux`, and `darwin` values.
-  If not specified, tests are run only on `linux`.
+  If not specified, stubtest is run only on `linux`.
   Only add extra OSes to the test
   if there are platform-specific branches in a stubs package.
 
