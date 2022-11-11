@@ -41,8 +41,8 @@ jobs:
           # This only runs stubtest on changed stubs, because it is much faster.
           # Use the daily.yml workflow to run stubtest on all third party stubs.
           STUBS=$(
-            git diff --name-only origin/${{ github.base_ref }} HEAD |
-            { egrep '^stubs/' || echo '' } | cut -d "/" -f 2 | sort -u |
+            git diff --name-only origin/${{ github.base_ref }} HEAD | \
+            { egrep '^stubs/' || echo '' } | cut -d "/" -f 2 | sort -u | \
             (while read stub; do [ -d "stubs/$stub" ] && echo "$stub" || true; done)
           )
 
