@@ -9,7 +9,7 @@ from yaml.loader import BaseLoader, FullLoader, Loader, SafeLoader, UnsafeLoader
 from yaml.nodes import MappingNode, Node, ScalarNode, SequenceNode
 
 _L = TypeVar("_L", bound=Loader | BaseLoader | FullLoader | SafeLoader | UnsafeLoader)
-_N = TypeVar("_N", bound=Node)
+_N = TypeVar("_N", bound=Node | MappingNode | ScalarNode | SequenceNode)
 
 _Scalar: TypeAlias = str | int | float | bool | None
 
