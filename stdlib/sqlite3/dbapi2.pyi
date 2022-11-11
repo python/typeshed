@@ -20,9 +20,9 @@ _Converter: TypeAlias = Callable[[bytes], Any]
 paramstyle: str
 threadsafety: int
 apilevel: str
-Date = date
-Time = time
-Timestamp = datetime
+Date: TypeAlias = date
+Time: TypeAlias = time
+Timestamp: TypeAlias = datetime
 
 def DateFromTicks(ticks: float) -> Date: ...
 def TimeFromTicks(ticks: float) -> Time: ...
