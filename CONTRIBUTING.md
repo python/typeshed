@@ -192,9 +192,9 @@ This has the following keys:
 * `apt_dependencies` (default: `[]`): A list of Ubuntu APT packages
   that need to be installed for stubtest to run successfully. These are
   usually packages needed to pip install the implementation distribution.
-* `platforms` (default: `["linux"]`): A list of supported OSes.
+* `platforms` (default: `["linux"]`): A list of OSes on which to run stubtest.
   Can contain `win32`, `linux`, and `darwin` values.
-  If not specified, only `linux` is considered supported.
+  If not specified, tests are run only on `linux`.
   Only add extra OSes to the test
   if there are platform-specific branches in a stubs package.
 
