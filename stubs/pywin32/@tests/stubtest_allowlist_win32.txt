@@ -2,15 +2,17 @@
 _win32typing
 win32com(ext)?.mapi._exchdapi
 win32._wincerapi
+
 # PyWin tool / debugger
 pythonwin.pywin.*
 win32com.client.combrowse
 win32com.client.tlbrowse
+
 # Utilities to generate python bindings
 win32com.client.build
 win32com.client.CLSIDToClass
 win32com.client.connect
-# Necessary for mypy to not throw AssertionError
+# "dynamic.CDipatch" is necessary for mypy to not throw AssertionError
 win32com.client.dynamic.*
 win32com.client.gencache
 win32com.client.genpy
@@ -18,6 +20,8 @@ win32com.client.makepy
 win32com.client.selecttlb
 win32com.client.util
 win32com.makegw.*
+(win32.lib.)?pywintypes.__import_pywin32_system_module__
+
 # COM object servers scripts
 win32com.server.factory
 win32com.server.localserver
@@ -26,50 +30,38 @@ win32com.servers.*
 # Active X Scripts
 win32com(ext)?.axscript.client.framework
 win32com(ext)?.axscript.client.pyscript_rexec
-# Necessary for mypy to not fail
+# "pyscript.pyi" is necessary for mypy to not fail due to missing stub
 win32com(ext)?.axscript.client.pyscript.*
 win32com(ext)?.axscript.client.scriptdispatch
 # Other scripts
 isapi.install
-win32.scripts.*
-win32.lib.netbios
-win32.lib.sspi
-win32.lib.win32pdhutil
-win32.lib.win32rcparser
-win32.lib.win32serviceutil
-win32.lib.win32traceutil
-win32.lib.verstamp
+
 # Demos, tests and debugging
-win32.lib.pywin32_testutil
-win32.lib.rasutil
-win32.lib.win32gui_struct
 win32com.demos.*
 win32com.servers.test_pycomtest
 win32com.test.*
 win32com(ext)?.axdebug.codecontainer
 win32com(ext)?.axdebug.dump
 win32com(ext)?.axdebug.debugger
+win32com(ext)?.axscript.client.debug
 win32com(ext)?.axscript.client.pydumper
 win32com(ext)?.directsound.test.*
+
 # Deprecated and obsolete
 pythoncom.MakeIID
 pythoncom.MakeTime
-win32.lib.dbi
-win32.lib.win32pdhquery.Query.addperfcounter
-win32.win32gui.PyMakeBuffer
-# Also a script
-win32.lib.regcheck
+(win32.lib.)?win32pdhquery.Query.addperfcounter
+# Deprecated and makes a buffer of random junk. Use something like `b"\x00" * bufferSize` instead
+(win32.)?win(32|xp)gui.PyMakeBuffer
+
 # failed to import, ImportError: DLL load failed while importing axdebug: The specified module could not be found.
-# https://github.com/python/mypy/issues/13822
 win32com.axdebug.axdebug
-win32com(ext)?.axdebug.adb
 win32com(ext)?.axdebug.codecontainer
-# failed to import, SystemError: CoInternetCreateSecurityManager() method: bad call flags
-win32com(ext)?.internet.internet
-# failed to import, ModuleNotFoundError: No module named '...'
+# failed to import, ModuleNotFoundError: No module named 'gateways'
 win32com(ext)?.axdebug.contexts
-win32com(ext)?.axdebug.debugger
+# failed to import, ModuleNotFoundError: No module named 'axdebug'
+win32com(ext)?.axdebug.adb
 win32com(ext)?.axdebug.documents
 win32com(ext)?.axdebug.expressions
+# failed to import, ModuleNotFoundError: No module named 'expressions'
 win32com(ext)?.axdebug.stackframe
-win32com(ext)?.axscript.client.debug

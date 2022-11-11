@@ -192,6 +192,11 @@ This has the following keys:
 * `apt_dependencies` (default: `[]`): A list of Ubuntu APT packages
   that need to be installed for stubtest to run successfully. These are
   usually packages needed to pip install the implementation distribution.
+* `platforms` (default: `["linux"]`): A list of OSes on which to run stubtest.
+  Can contain `win32`, `linux`, and `darwin` values.
+  If not specified, stubtest is run only on `linux`.
+  Only add extra OSes to the test
+  if there are platform-specific branches in a stubs package.
 
 The format of all `METADATA.toml` files can be checked by running
 `python3 ./tests/check_consistent.py`.
@@ -285,6 +290,15 @@ instead in typeshed stubs. This currently affects:
 Two exceptions are `Protocol` and `runtime_checkable`: although
 these were added in Python 3.8, they can be used in stubs regardless
 of Python version.
+
+[PEP 688](https://www.python.org/dev/peps/pep-0688/), which is
+currently a draft, removes the implicit promotion of the
+`bytearray` and `memoryview` classes to `bytes`.
+Typeshed stubs should be written assuming that this proposal
+is accepted, so a parameter that accepts either `bytes` or
+`bytearray` should be typed as `bytes | bytearray`.
+Often one of the aliases from `_typeshed`, such as
+`_typeshed.ReadableBuffer`, can be used instead.
 
 ### What to include
 

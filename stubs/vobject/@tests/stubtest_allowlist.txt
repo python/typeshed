@@ -3,3 +3,18 @@ vobject.base.VBase.__init__
 
 # only available on Windows
 vobject.win32tz
+
+# dependencies
+vobject.change_tz.PyICU
+vobject.icalendar.Pytz
+vobject.icalendar.pytz
+
+# re-exports
+vobject.hcalendar.CRLF
+
+# python2 compat
+vobject.base.basestring
+vobject.base.str_
+vobject.base.to_unicode
+vobject.base.to_basestring
+vobject.vcard.basestring

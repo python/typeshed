@@ -367,6 +367,8 @@ _ctypes.sizeof
 # Allowlist entries that cannot or should not be fixed
 # ==========
 
+ctypes.Array.raw  # exists but stubtest can't see it; only available if _CT == c_char
+
 _collections_abc.AsyncGenerator.asend  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
 _collections_abc.AsyncGenerator.__anext__  # async at runtime, deliberately not in the stub, see #7491
 _collections_abc.AsyncGenerator.aclose  # async at runtime, deliberately not in the stub, see #7491
@@ -420,7 +422,6 @@ ssl.RAND_egd
 collections.abc.*  # Types are re-exported from _collections_abc, so errors should be fixed there
 distutils.command.check.SilentReporter  # only defined if docutils in installed
 hmac.HMAC.blocksize  # use block_size instead
-http.server.SimpleHTTPRequestHandler.__init__  # *args is expanded
 pickle.Pickler.memo  # undocumented implementation detail, has different type in C/Python implementations
 pickle.Unpickler.memo  # undocumented implementation detail, has different type in C/Python implementations
 re.Pattern.scanner  # Undocumented and not useful. #6405
@@ -436,6 +437,17 @@ types.WrapperDescriptorType.__get__
 # Various classes in typing aren't types at runtime. In addition, mypy thinks some special forms are tautologically defined.
 typing.[A-Z]\w+
 typing_extensions\..*
+
+# These are abstract properties at runtime,
+# but marking them as such in the stub breaks half the the typed-Python ecosystem (see #8726)
+typing.IO.closed
+typing.IO.mode
+typing.IO.name
+typing.TextIO.buffer
+typing.TextIO.encoding
+typing.TextIO.errors
+typing.TextIO.line_buffering
+typing.TextIO.newlines
 
 # Typing-related weirdness
 _collections_abc.Callable
@@ -532,10 +544,7 @@ xml.sax
 
 # Platform differences that cannot be captured by the type system
 os.O_[A-Z_]+
-(posix.O_[A-Z_]+)?
-(posix.ST_[A-Z]+)?
 socket.AF_DECnet
-(termios.[A-Z0-9_]+)?
 
 # Loadable SQLite extensions are disabled on GitHub runners
 (sqlite3(.dbapi2)?.Connection.enable_load_extension)?
@@ -603,6 +612,7 @@ wsgiref.handlers.BaseHandler.status
 # These would ideally be special-cased by type checkers; see https://github.com/python/mypy/issues/2220
 ctypes.Array.__iter__
 mmap.mmap.__iter__
+mmap.mmap.__contains__
 xml.etree.ElementTree.Element.__iter__
 xml.etree.cElementTree.Element.__iter__
 typing.IO.__iter__  # See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
