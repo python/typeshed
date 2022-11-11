@@ -12,7 +12,7 @@ from .transport import _SocketLike
 
 class _TransportFactory(Protocol):
     def __call__(
-        self, sock: _SocketLike, gss_kex: bool, gss_deleg_creds: bool, disabled_algorithms: dict[str, Iterable[str]] | None
+        self, __sock: _SocketLike, *, gss_kex: bool, gss_deleg_creds: bool, disabled_algorithms: dict[str, Iterable[str]] | None
     ) -> Transport: ...
 
 class SSHClient(ClosingContextManager):
