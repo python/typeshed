@@ -1,3 +1,4 @@
+from __future__ import annotations
 from typing import overload
 from typing_extensions import assert_type
 
