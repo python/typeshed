@@ -1,4 +1,5 @@
 version = "0.2.*"
 
 [tool.stubtest]
+platforms = ["linux"]
 apt_dependencies = ["portaudio19-dev"]
