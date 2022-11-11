@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Generator, Hashable, ItemsView, Iterable, KeysView, ValuesView
 from typing import Any, NoReturn, TypeVar
+from typing_extensions import TypeAlias
 
 def __getattr__(name: str) -> Any: ...  # incomplete
 
@@ -37,11 +38,15 @@ class OrderedMultiDict(dict[_KT, _VT]):
     def viewkeys(self) -> KeysView[_KT]: ...
     def viewvalues(self) -> ValuesView[_VT]: ...
 
+OMD: TypeAlias = OrderedMultiDict[Any, Any]
+MultiDict: TypeAlias = OrderedMultiDict[Any, Any]
+
 class FastIterOrderedMultiDict(OrderedMultiDict[_KT, _VT]):  # undocumented
     def iteritems(self, multi: bool = ...) -> Generator[tuple[_KT, _VT], None, None]: ...
     def iterkeys(self, multi: bool = ...) -> Generator[_KT, None, None]: ...
 
 class OneToOne(dict[_KT, _VT]):
+    inv: Incomplete
     def clear(self) -> None: ...
     def copy(self) -> OneToOne[_KT, _VT]: ...
     def pop(self, key: _KT, default: _VT = ...) -> _VT: ...  # type: ignore
@@ -52,7 +57,6 @@ class OneToOne(dict[_KT, _VT]):
     def update(self, dict_or_iterable: dict[_KT, _VT] | Iterable[object], **kw) -> NoReturn: ...  # type: ignore
 
 class ManyToMany:
-    def __getattr__(self, name: str) -> Any: ...  # incomplete
     data: dict[Hashable, object]
     def __contains__(self, key): ...
     def __delitem__(self, key) -> None: ...

@@ -16,6 +16,7 @@ EXPAT_VERSION: Incomplete
 CPU_COUNT: Incomplete
 HAVE_THREADING: bool
 HAVE_IPV6: Incomplete
+RLIMIT_NOFILE: Incomplete
 RLIMIT_FDS_SOFT: Incomplete
 RLIMIT_FDS_HARD: Incomplete
 START_TIME_INFO: Incomplete

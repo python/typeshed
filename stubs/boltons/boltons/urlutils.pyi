@@ -51,7 +51,7 @@ class URL:
         username: Incomplete | None = ...,
         password: Incomplete | None = ...,
     ): ...
-    def query_params(self): ...
+    query_params: Incomplete
     qp: Incomplete
     @property
     def path(self): ...
@@ -71,8 +71,8 @@ class URL:
 
 class _sockaddr(ctypes.Structure): ...
 
-WSAStringToAddressA: Incomplete
-WSAAddressToStringA: Incomplete
+# WSAStringToAddressA: Incomplete
+# WSAAddressToStringA: Incomplete
 
 def parse_host(host): ...
 def parse_url(url_text): ...

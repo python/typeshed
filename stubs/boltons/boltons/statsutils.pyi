@@ -39,6 +39,17 @@ class Stats:
 
 def describe(data, quantiles: Incomplete | None = ..., format: Incomplete | None = ...): ...
 
-func: Incomplete
+# func: Incomplete
+mean: Incomplete
+median: Incomplete
+iqr: Incomplete
+trimean: Incomplete
+variance: Incomplete
+std_dev: Incomplete
+median_abs_dev: Incomplete
+rel_std_dev: Incomplete
+skewness: Incomplete
+kurtosis: Incomplete
+pearson_type: Incomplete
 
 def format_histogram_counts(bin_counts, width: Incomplete | None = ..., format_bin: Incomplete | None = ...): ...

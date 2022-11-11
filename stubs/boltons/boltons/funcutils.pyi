@@ -1,11 +1,11 @@
 import functools
 from _typeshed import Incomplete
 from functools import total_ordering as total_ordering
-from types import MethodType
 
-make_method = MethodType
+make_method: Incomplete
 basestring: Incomplete
 NO_DEFAULT: Incomplete
+inspect_formatargspec: Incomplete
 
 def get_module_callables(mod, ignore: Incomplete | None = ...): ...
 def mro_items(type_obj): ...

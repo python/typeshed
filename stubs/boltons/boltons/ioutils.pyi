@@ -5,6 +5,7 @@ from abc import abstractmethod
 text_type = str
 binary_type = bytes
 READ_CHUNK_SIZE: int
+EINVAL: Incomplete
 
 class SpooledIOBase(metaclass=abc.ABCMeta):
     __metaclass__: Incomplete
