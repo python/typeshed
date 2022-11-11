@@ -38,11 +38,14 @@ jobs:
       - name: Run stubtest
         shell: bash
         run: |
-          STUBS=$(
-            git diff --name-only origin/${{ github.base_ref }} HEAD |
-            # Use the daily.yml workflow to run stubtest on all third party stubs
-            egrep ^stubs/ | cut -d "/" -f 2 | sort -u | (while read stub; do [ -d stubs/$stub ] && echo $stub || true; done)
-          )
+          # This only runs stubtest on changed stubs, because it is much faster.
+          # Use the daily.yml workflow to run stubtest on all third party stubs.
+          function find_stubs {
+            git diff --name-only origin/${{ github.base_ref }} HEAD | \
+            egrep ^stubs/ | cut -d "/" -f 2 | sort -u | \
+            (while read stub; do [ -d "stubs/$stub" ] && echo "$stub" || true; done)
+          }
+          STUBS=$(find_stubs || echo '')
 
           if [ -n "$STUBS" ]; then
             echo "Testing $STUBS..."
