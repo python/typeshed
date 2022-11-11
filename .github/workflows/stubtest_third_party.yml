@@ -2,11 +2,11 @@ name: Third-party stubtest
 
 on:
   pull_request:
-    paths-ignore:
-      - '**/*.md'
-      - 'scripts/**'
+    paths:
+      - 'stubs/**'
+      - '.github/workflows/stubtest_third_party.yml'
+      - 'tests/**'
       # When requirements.txt changes, we run `daily.yml`, which includes third-party stubtest
-      - 'requirements-tests.txt'
 
 permissions:
   contents: read
