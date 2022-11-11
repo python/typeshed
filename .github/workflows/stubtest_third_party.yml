@@ -5,6 +5,8 @@ on:
     paths-ignore:
       - '**/*.md'
       - 'scripts/**'
+      # When requirements.txt changes, we run `daily.yml`, which includes third-party stubtest
+      - 'requirements-tests.txt'
 
 permissions:
   contents: read
