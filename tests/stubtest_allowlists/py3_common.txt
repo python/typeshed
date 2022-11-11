@@ -544,10 +544,7 @@ xml.sax
 
 # Platform differences that cannot be captured by the type system
 os.O_[A-Z_]+
-(posix.O_[A-Z_]+)?
-(posix.ST_[A-Z]+)?
 socket.AF_DECnet
-(termios.[A-Z0-9_]+)?
 
 # Loadable SQLite extensions are disabled on GitHub runners
 (sqlite3(.dbapi2)?.Connection.enable_load_extension)?
@@ -615,6 +612,7 @@ wsgiref.handlers.BaseHandler.status
 # These would ideally be special-cased by type checkers; see https://github.com/python/mypy/issues/2220
 ctypes.Array.__iter__
 mmap.mmap.__iter__
+mmap.mmap.__contains__
 xml.etree.ElementTree.Element.__iter__
 xml.etree.cElementTree.Element.__iter__
 typing.IO.__iter__  # See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3

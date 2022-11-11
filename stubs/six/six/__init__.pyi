@@ -1,7 +1,8 @@
 import builtins
+import operator
 import types
 import unittest
-from _typeshed import IdentityFunction
+from _typeshed import IdentityFunction, SupportsGetItem
 from builtins import next as next
 from collections.abc import Callable, ItemsView, Iterable, Iterator as _Iterator, KeysView, Mapping, ValuesView
 from functools import wraps as wraps
@@ -11,7 +12,7 @@ from re import Pattern
 from typing import Any, AnyStr, NoReturn, TypeVar, overload
 from typing_extensions import Literal
 
-from . import moves as moves
+from six import moves as moves
 
 _T = TypeVar("_T")
 _K = TypeVar("_K")
@@ -63,9 +64,13 @@ def u(s: str) -> str: ...
 unichr = chr
 
 def int2byte(i: int) -> bytes: ...
-def byte2int(bs: bytes) -> int: ...
-def indexbytes(buf: bytes, i: int) -> int: ...
-def iterbytes(buf: bytes) -> _Iterator[int]: ...
+
+# Should be `byte2int: operator.itemgetter[int]`. But a bug in mypy prevents using TypeVar in itemgetter__call__
+def byte2int(obj: SupportsGetItem[int, _T]) -> _T: ...
+
+indexbytes = operator.getitem
+iterbytes = iter
+
 def assertCountEqual(self: unittest.TestCase, first: Iterable[_T], second: Iterable[_T], msg: str | None = ...) -> None: ...
 @overload
 def assertRaisesRegex(self: unittest.TestCase, msg: str | None = ...) -> Any: ...
