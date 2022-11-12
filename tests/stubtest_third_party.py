@@ -23,7 +23,7 @@ def get_mypy_req() -> str:
         return next(line.strip() for line in f if "mypy" in line)
 
 
-def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
+def run_stubtest(dist: Path, *, verbose: bool = False, ci_run: bool = False) -> bool:
     with open(dist / "METADATA.toml", encoding="UTF-8") as f:
         metadata = dict(tomli.loads(f.read()))
 
@@ -35,7 +35,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
         return True
 
     platforms_to_test: list[str] | None = stubtest_meta.get("platforms")
-    if os.environ.get("CI"):
+    if ci_run:
         if platforms_to_test:
             if sys.platform not in platforms_to_test:
                 print(colored(f"skipping, unsupported platform: {sys.platform}, supported: {platforms_to_test}", "yellow"))
@@ -181,6 +181,7 @@ def main() -> NoReturn:
     parser.add_argument("-v", "--verbose", action="store_true", help="verbose output")
     parser.add_argument("--num-shards", type=int, default=1)
     parser.add_argument("--shard-index", type=int, default=0)
+    parser.add_argument("--ci-run", action="store_true")
     parser.add_argument("dists", metavar="DISTRIBUTION", type=str, nargs=argparse.ZERO_OR_MORE)
     args = parser.parse_args()
 
@@ -194,7 +195,7 @@ def main() -> NoReturn:
     for i, dist in enumerate(dists):
         if i % args.num_shards != args.shard_index:
             continue
-        if not run_stubtest(dist, verbose=args.verbose):
+        if not run_stubtest(dist, verbose=args.verbose, ci_run=args.ci_run):
             result = 1
     sys.exit(result)
 
