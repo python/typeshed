@@ -1,9 +1,32 @@
+import builtins
+import types
 from _typeshed import ReadableBuffer, SupportsRead, SupportsWrite
 from typing import Any
+from typing_extensions import TypeAlias
 
 version: int
 
-def dump(__value: Any, __file: SupportsWrite[bytes], __version: int = ...) -> None: ...
+_Marshallable: TypeAlias = (
+    int
+    | float
+    | complex
+    | bytes
+    | str
+    | tuple[_Marshallable, ...]
+    | list[Any]
+    | dict[Any, Any]
+    | set[Any]
+    | frozenset[_Marshallable]
+    | types.CodeType
+    | ReadableBuffer
+    | None
+    | bool
+    | type[StopIteration]
+    | builtins.ellipsis
+    | builtins._NotImplementedType
+)
+
+def dump(__value: _Marshallable, __file: SupportsWrite[bytes], __version: int = ...) -> None: ...
 def load(__file: SupportsRead[bytes]) -> Any: ...
-def dumps(__value: Any, __version: int = ...) -> bytes: ...
+def dumps(__value: _Marshallable, __version: int = ...) -> bytes: ...
 def loads(__bytes: ReadableBuffer) -> Any: ...
