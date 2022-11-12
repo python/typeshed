@@ -180,7 +180,9 @@ if sys.version_info >= (3, 11):
 
 else:
     @overload
-    def urlsplit(url: bytes | bytearray | None, scheme: bytes | bytearray | None = ..., allow_fragments: bool = ...) -> SplitResultBytes: ...
+    def urlsplit(
+        url: bytes | bytearray | None, scheme: bytes | bytearray | None = ..., allow_fragments: bool = ...
+    ) -> SplitResultBytes: ...
 
 @overload
 def urlunparse(
