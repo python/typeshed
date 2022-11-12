@@ -176,11 +176,11 @@ def urlsplit(url: str, scheme: str | None = ..., allow_fragments: bool = ...) ->
 
 if sys.version_info >= (3, 11):
     @overload
-    def urlsplit(url: bytes | None, scheme: bytes | bytearray | None = ..., allow_fragments: bool = ...) -> SplitResultBytes: ...
+    def urlsplit(url: bytes | None, scheme: bytes | None = ..., allow_fragments: bool = ...) -> SplitResultBytes: ...
 
 else:
     @overload
-    def urlsplit(url: bytes | bytearray | None, scheme: bytes | None = ..., allow_fragments: bool = ...) -> SplitResultBytes: ...
+    def urlsplit(url: bytes | bytearray | None, scheme: bytes | bytearray | None = ..., allow_fragments: bool = ...) -> SplitResultBytes: ...
 
 @overload
 def urlunparse(
