@@ -1,3 +1,6 @@
+psutil._psaix
 psutil._psosx
+psutil._pssunos
 psutil._psutil_windows
+psutil._psutil_osx
 psutil._pswindows

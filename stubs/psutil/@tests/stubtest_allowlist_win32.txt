@@ -1,4 +1,7 @@
+psutil._psaix
 psutil._pslinux
 psutil._psosx
+psutil._pssunos
 psutil._psutil_linux
+psutil._psutil_osx
 psutil._psutil_posix

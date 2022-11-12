@@ -14,6 +14,7 @@ from psutil._common import (
     supports_ipv6 as supports_ipv6,
     usage_percent as usage_percent,
 )
+from psutil._compat import PY3 as PY3
 
 __extra__all__: Any
 POWER_SUPPLY_PATH: str
