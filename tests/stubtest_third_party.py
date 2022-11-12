@@ -47,7 +47,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
     elif platforms_to_test and sys.platform not in platforms_to_test:
         print(
             colored(
-                rf"warning: your platform {sys.platform}, is not in: {platforms_to_test}. "
+                f"warning: your platform, {sys.platform}, is not in: {platforms_to_test}. "
                 + "It may be unsupported or deemed redundant to test on the CI",
                 "yellow",
             )
