@@ -1,14 +1,14 @@
 import pickle
 import sys
 from _typeshed import HasFileno, SupportsWrite
-from collections.abc import Callable
-from typing import Any
 from abc import ABCMeta
+from collections.abc import Callable
 from copyreg import _DispatchTableType
-from socket import socket
-from typing_extensions import Literal, TypeAlias
-from pickle import _ReducedType
 from multiprocessing import connection
+from pickle import _ReducedType
+from socket import socket
+from typing import Any
+from typing_extensions import Literal, TypeAlias
 
 if sys.platform == "win32":
     __all__ = ["send_handle", "recv_handle", "ForkingPickler", "register", "dump", "DupHandle", "duplicate", "steal_handle"]
