@@ -59,8 +59,6 @@ class Task(Generic[_P, _R_co]):
     def get_arguments(self, ignore_unknown_help: bool | None = ...) -> list[Argument]: ...
 
 @overload
-def task(__func: Callable[_P, _R_co]) -> Task[_P, _R_co]: ...
-@overload
 def task(
     *args: Task[..., Any],
     name: str | None = ...,
@@ -93,6 +91,8 @@ def task(
     incrementable: Iterable[str] | None = ...,
     klass: type[_TaskT],
 ) -> Callable[[Callable[..., Any]], _TaskT]: ...
+@overload
+def task(__func: Callable[_P, _R_co]) -> Task[_P, _R_co]: ...
 
 class Call:
     task: Task[..., Any]
