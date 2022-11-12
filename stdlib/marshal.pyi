@@ -1,7 +1,7 @@
 import builtins
 import types
 from _typeshed import ReadableBuffer, SupportsRead, SupportsWrite
-from typing import Any
+from typing import Any, Union
 from typing_extensions import TypeAlias
 
 version: int
