@@ -2,7 +2,7 @@ import gzip
 import http.client
 import sys
 import time
-from _typeshed import _BufferWithLen, ReadableBuffer, Self, SupportsRead, SupportsWrite
+from _typeshed import ReadableBuffer, Self, SupportsRead, SupportsWrite, _BufferWithLen
 from collections.abc import Callable, Iterable, Mapping
 from datetime import datetime
 from io import BytesIO
@@ -15,7 +15,19 @@ class _SupportsTimeTuple(Protocol):
 
 _DateTimeComparable: TypeAlias = DateTime | datetime | str | _SupportsTimeTuple
 _Marshallable: TypeAlias = (
-    bool | int | float | str | bytes | bytearray | None | tuple[Any, ...] | list[Any] | dict[Any, Any] | datetime | DateTime | Binary
+    bool
+    | int
+    | float
+    | str
+    | bytes
+    | bytearray
+    | None
+    | tuple[Any, ...]
+    | list[Any]
+    | dict[Any, Any]
+    | datetime
+    | DateTime
+    | Binary
 )
 _XMLDate: TypeAlias = int | datetime | tuple[int, ...] | time.struct_time
 _HostType: TypeAlias = Union[tuple[str, dict[str, str]], str]
@@ -231,7 +243,9 @@ class Transport:
     else:
         def __init__(self, use_datetime: bool = ..., use_builtin_types: bool = ...) -> None: ...
 
-    def request(self, host: _HostType, handler: str, request_body: _BufferWithLen, verbose: bool = ...) -> tuple[_Marshallable, ...]: ...
+    def request(
+        self, host: _HostType, handler: str, request_body: _BufferWithLen, verbose: bool = ...
+    ) -> tuple[_Marshallable, ...]: ...
     def single_request(
         self, host: _HostType, handler: str, request_body: _BufferWithLen, verbose: bool = ...
     ) -> tuple[_Marshallable, ...]: ...
@@ -239,7 +253,9 @@ class Transport:
     def get_host_info(self, host: _HostType) -> tuple[str, list[tuple[str, str]], dict[str, str]]: ...
     def make_connection(self, host: _HostType) -> http.client.HTTPConnection: ...
     def close(self) -> None: ...
-    def send_request(self, host: _HostType, handler: str, request_body: _BufferWithLen, debug: bool) -> http.client.HTTPConnection: ...
+    def send_request(
+        self, host: _HostType, handler: str, request_body: _BufferWithLen, debug: bool
+    ) -> http.client.HTTPConnection: ...
     def send_headers(self, connection: http.client.HTTPConnection, headers: list[tuple[str, str]]) -> None: ...
     def send_content(self, connection: http.client.HTTPConnection, request_body: _BufferWithLen) -> None: ...
     def parse_response(self, response: http.client.HTTPResponse) -> tuple[_Marshallable, ...]: ...
