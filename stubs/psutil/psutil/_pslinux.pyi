@@ -1,7 +1,7 @@
 import enum
 from typing import Any, NamedTuple
 
-from ._common import (
+from psutil._common import (
     NIC_DUPLEX_FULL as NIC_DUPLEX_FULL,
     NIC_DUPLEX_HALF as NIC_DUPLEX_HALF,
     NIC_DUPLEX_UNKNOWN as NIC_DUPLEX_UNKNOWN,

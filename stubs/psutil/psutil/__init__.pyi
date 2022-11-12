@@ -5,7 +5,7 @@ from contextlib import AbstractContextManager
 from typing import Any, overload
 from typing_extensions import Literal, TypeAlias
 
-from ._common import (
+from psutil._common import (
     AIX as AIX,
     BSD as BSD,
     CONN_CLOSE as CONN_CLOSE,
@@ -59,7 +59,6 @@ from ._common import (
     popenfile,
     pthread,
     puids,
-    sbattery,
     sconn,
     scpufreq,
     scpustats,
@@ -102,15 +101,17 @@ if sys.platform == "win32":
     )
 
 if sys.platform == "linux":
-    from ._pslinux import pfullmem, pmem, svmem
+    from ._pslinux import pfullmem, pmem, sensors_battery as sensors_battery, svmem
 elif sys.platform == "darwin":
-    from ._psosx import pfullmem, pmem, svmem
+    from ._psosx import pfullmem, pmem, sensors_battery as sensors_battery, svmem
 elif sys.platform == "win32":
-    from ._pswindows import pfullmem, pmem, svmem
+    from ._pswindows import pfullmem, pmem, sensors_battery as sensors_battery, svmem
 else:
     class pmem(Any): ...
     class pfullmem(Any): ...
     class svmem(Any): ...
+
+    def sensors_battery(): ...
 
 if sys.platform == "linux":
     PROCFS_PATH: str
@@ -240,9 +241,6 @@ def net_if_stats() -> dict[str, snicstats]: ...
 if sys.platform == "linux":
     def sensors_temperatures(fahrenheit: bool = ...) -> dict[str, list[shwtemp]]: ...
     def sensors_fans() -> dict[str, list[sfan]]: ...
-
-if sys.platform != "win32":
-    def sensors_battery() -> sbattery | None: ...
 
 def boot_time() -> float: ...
 def users() -> list[suser]: ...

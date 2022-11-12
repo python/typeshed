@@ -1,4 +1,11 @@
+# These super() dunders don't seem to be particularly useful,
+# and having them pop up on autocomplete suggestions would be annoying
+builtins.super.__self__
+builtins.super.__self_class__
+builtins.super.__thisclass__
+
+# Stubtest does not support freebsd platform
 psutil._psbsd
-psutil._psosx
-psutil._psutil_windows
-psutil._pswindows
+
+# Test utilities
+psutil.tests.*
