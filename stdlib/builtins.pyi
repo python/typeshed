@@ -50,7 +50,6 @@ from typing import (  # noqa: Y027
     SupportsComplex,
     SupportsFloat,
     SupportsInt,
-    SupportsRound,
     TypeVar,
     overload,
     type_check_only,
@@ -1619,12 +1618,21 @@ class reversed(Iterator[_T], Generic[_T]):
     def __length_hint__(self) -> int: ...
 
 def repr(__obj: object) -> str: ...
+
+# See https://github.com/python/typeshed/pull/9141
+# and https://github.com/python/typeshed/pull/9151
+# on why we don't use `SupportsRound` from `typing.pyi`
+
+class _SupportsRound1(Protocol[_T_co]):
+    def __round__(self) -> _T_co: ...
+
+class _SupportsRound2(Protocol[_T_co]):
+    def __round__(self, __ndigits: int) -> _T_co: ...
+
 @overload
-def round(number: SupportsRound[Any]) -> int: ...
+def round(number: _SupportsRound1[_T], ndigits: None = ...) -> _T: ...
 @overload
-def round(number: SupportsRound[Any], ndigits: None) -> int: ...
-@overload
-def round(number: SupportsRound[_T], ndigits: SupportsIndex) -> _T: ...
+def round(number: _SupportsRound2[_T], ndigits: SupportsIndex) -> _T: ...
 
 # See https://github.com/python/typeshed/pull/6292#discussion_r748875189
 # for why arg 3 of `setattr` should be annotated with `Any` and not `object`
@@ -1666,8 +1674,12 @@ else:
     @overload
     def sum(__iterable: Iterable[_AddableT1], __start: _AddableT2) -> _AddableT1 | _AddableT2: ...
 
-# The argument to `vars()` has to have a `__dict__` attribute, so can't be annotated with `object`
+# The argument to `vars()` has to have a `__dict__` attribute, so the second overload can't be annotated with `object`
 # (A "SupportsDunderDict" protocol doesn't work)
+# Use a type: ignore to make complaints about overlapping overloads go away
+@overload
+def vars(__object: type) -> types.MappingProxyType[str, Any]: ...  # type: ignore[misc]
+@overload
 def vars(__object: Any = ...) -> dict[str, Any]: ...
 
 class zip(Iterator[_T_co], Generic[_T_co]):

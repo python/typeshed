@@ -75,7 +75,7 @@ parser.add_argument(
     nargs="*",
     action="extend",
     help=(
-        "Run mypy for certain Python versions (defaults to sys.version_info[:2])"
+        "Run mypy for certain Python versions (defaults to sys.version_info[:2]). "
         "Note that this cannot be specified if --all is also specified."
     ),
 )
