@@ -81,6 +81,26 @@ if sys.platform == "linux":
         IOPRIO_CLASS_NONE as IOPRIO_CLASS_NONE,
         IOPRIO_CLASS_RT as IOPRIO_CLASS_RT,
     )
+    def sensors_temperatures(fahrenheit: bool = ...) -> dict[str, list[shwtemp]]: ...
+    def sensors_fans() -> dict[str, list[sfan]]: ...
+    PROCFS_PATH: str
+    RLIMIT_AS: int
+    RLIMIT_CORE: int
+    RLIMIT_CPU: int
+    RLIMIT_DATA: int
+    RLIMIT_FSIZE: int
+    RLIMIT_LOCKS: int
+    RLIMIT_MEMLOCK: int
+    RLIMIT_MSGQUEUE: int
+    RLIMIT_NICE: int
+    RLIMIT_NOFILE: int
+    RLIMIT_NPROC: int
+    RLIMIT_RSS: int
+    RLIMIT_RTPRIO: int
+    RLIMIT_RTTIME: int
+    RLIMIT_SIGPENDING: int
+    RLIMIT_STACK: int
+    RLIM_INFINITY: int
 if sys.platform == "win32":
     from ._psutil_windows import (
         ABOVE_NORMAL_PRIORITY_CLASS as ABOVE_NORMAL_PRIORITY_CLASS,
@@ -113,8 +133,6 @@ else:
 
     def sensors_battery(): ...
 
-if sys.platform == "linux":
-    PROCFS_PATH: str
 AF_LINK: int
 version_info: tuple[int, int, int]
 __version__: str
@@ -168,11 +186,10 @@ class Process:
     if sys.platform != "darwin":
         def io_counters(self): ...
         def ionice(self, ioclass: int | None = ..., value: int | None = ...) -> pionice: ...
+        def cpu_affinity(self, cpus: list[int] | None = ...) -> list[int] | None: ...
+        def memory_maps(self, grouped: bool = ...): ...
     if sys.platform == "linux":
         def rlimit(self, resource: int, limits: tuple[int, int] | None = ...) -> tuple[int, int]: ...
-    if sys.platform != "darwin":
-        def cpu_affinity(self, cpus: list[int] | None = ...) -> list[int] | None: ...
-    if sys.platform == "linux":
         def cpu_num(self) -> int: ...
 
     def environ(self) -> dict[str, str]: ...
@@ -189,9 +206,6 @@ class Process:
     def memory_info_ex(self) -> pmem: ...
     def memory_full_info(self) -> pfullmem: ...
     def memory_percent(self, memtype: str = ...) -> float: ...
-    if sys.platform != "darwin":
-        def memory_maps(self, grouped: bool = ...): ...
-
     def open_files(self) -> list[popenfile]: ...
     def connections(self, kind: str = ...) -> list[pconn]: ...
     def send_signal(self, sig: int) -> None: ...
@@ -237,28 +251,5 @@ def net_io_counters(pernic: Literal[True], nowrap: bool = ...) -> dict[str, snet
 def net_connections(kind: str = ...) -> list[sconn]: ...
 def net_if_addrs() -> dict[str, list[snicaddr]]: ...
 def net_if_stats() -> dict[str, snicstats]: ...
-
-if sys.platform == "linux":
-    def sensors_temperatures(fahrenheit: bool = ...) -> dict[str, list[shwtemp]]: ...
-    def sensors_fans() -> dict[str, list[sfan]]: ...
-
 def boot_time() -> float: ...
 def users() -> list[suser]: ...
-
-if sys.platform == "linux":
-    RLIMIT_AS: int
-    RLIMIT_CORE: int
-    RLIMIT_CPU: int
-    RLIMIT_DATA: int
-    RLIMIT_FSIZE: int
-    RLIMIT_LOCKS: int
-    RLIMIT_MEMLOCK: int
-    RLIMIT_MSGQUEUE: int
-    RLIMIT_NICE: int
-    RLIMIT_NOFILE: int
-    RLIMIT_NPROC: int
-    RLIMIT_RSS: int
-    RLIMIT_RTPRIO: int
-    RLIMIT_SIGPENDING: int
-    RLIMIT_STACK: int
-    RLIM_INFINITY: int
