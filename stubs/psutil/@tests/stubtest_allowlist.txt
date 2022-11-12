@@ -1,8 +1,8 @@
 # These super() dunders don't seem to be particularly useful,
 # and having them pop up on autocomplete suggestions would be annoying
-psutil.builtins.super.__self__
-psutil.builtins.super.__self_class__
-psutil.builtins.super.__thisclass__
+psutil._compat.builtins.super.__self__
+psutil._compat.builtins.super.__self_class__
+psutil._compat.builtins.super.__thisclass__
 
 # Stubtest does not support BSD platforms
 psutil._psbsd
