@@ -4,6 +4,10 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "0 0 * * *"
+  pull_request:
+    paths:
+      - 'requirements-tests.txt'
+      - '.github/workflows/daily.yml'
 
 # Please keep the permissions minimal, as stubtest runs arbitrary code from pypi.
 permissions:
@@ -40,9 +44,10 @@ jobs:
   stubtest-third-party:
     name: Check third party stubs with stubtest
     if: ${{ github.repository == 'python/typeshed' || github.event_name == 'workflow_dispatch' }}
-    runs-on: ubuntu-20.04
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
         shard-index: [0, 1, 2, 3]
       fail-fast: false
     steps:
@@ -52,12 +57,17 @@ jobs:
           python-version: "3.9"
       - name: Install dependencies
         run: pip install -r requirements-tests.txt
-      - name: Install apt packages
-        run: |
-          sudo apt update
-          sudo apt install -y $(python tests/get_apt_packages.py)
       - name: Run stubtest
-        run: xvfb-run python tests/stubtest_third_party.py --num-shards 4 --shard-index ${{ matrix.shard-index }}
+        shell: bash
+        run: |
+          if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
+            sudo apt update
+            sudo apt install -y $(python tests/get_packages.py)
+
+            xvfb-run python tests/stubtest_third_party.py --num-shards 4 --shard-index ${{ matrix.shard-index }}
+          else
+            python tests/stubtest_third_party.py --num-shards 4 --shard-index ${{ matrix.shard-index }}
+          fi
 
   stub-uploader:
     name: Run the stub_uploader tests
@@ -87,7 +97,7 @@ jobs:
     name: Create an issue if daily tests failed
     runs-on: ubuntu-latest
     needs: [stubtest-stdlib, stubtest-third-party, stub-uploader]
-    if: ${{ github.repository == 'python/typeshed' && always() && (needs.stubtest-stdlib.result == 'failure' || needs.stubtest-third-party.result == 'failure' || needs.stub-uploader.result == 'failure') }}
+    if: ${{ github.repository == 'python/typeshed' && always() && github.event_name != 'pull_request' && (needs.stubtest-stdlib.result == 'failure' || needs.stubtest-third-party.result == 'failure' || needs.stub-uploader.result == 'failure') }}
     permissions:
       issues: write
     steps:
