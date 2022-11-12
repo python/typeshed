@@ -2,17 +2,23 @@ import builtins
 import operator
 import types
 import unittest
-from _typeshed import IdentityFunction, SupportsGetItem
+from _typeshed import IdentityFunction, _KT_contra, _VT_co
 from builtins import next as next
 from collections.abc import Callable, ItemsView, Iterable, Iterator as _Iterator, KeysView, Mapping, ValuesView
 from functools import wraps as wraps
 from importlib.util import spec_from_loader as spec_from_loader
 from io import BytesIO as BytesIO, StringIO as StringIO
 from re import Pattern
-from typing import Any, AnyStr, NoReturn, TypeVar, overload
+from typing import Any, AnyStr, NoReturn, Protocol, TypeVar, overload
 from typing_extensions import Literal
 
 from six import moves as moves
+
+# TODO: We should switch to the _typeshed version of SupportsGetItem
+# once mypy updates its vendored copy of typeshed and makes a new release
+class SupportsGetItem(Protocol[_KT_contra, _VT_co]):
+    def __contains__(self, __x: Any) -> bool: ...
+    def __getitem__(self, __key: _KT_contra) -> _VT_co: ...
 
 _T = TypeVar("_T")
 _K = TypeVar("_K")
@@ -65,12 +71,7 @@ unichr = chr
 
 def int2byte(i: int) -> bytes: ...
 
-# This overload is temporary until typecheckers update their shipped version of typeshed
-@overload
-def byte2int(obj: bytes) -> int: ...
-
 # Should be `byte2int: operator.itemgetter[int]`. But a bug in mypy prevents using TypeVar in itemgetter.__call__
-@overload
 def byte2int(obj: SupportsGetItem[int, _T]) -> _T: ...
 
 indexbytes = operator.getitem
