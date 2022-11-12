@@ -1,10 +1,30 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, ReadableBuffer
 from array import array
+from typing import NamedTuple
 
 is64bit: bool
 
-def UnpackWMNOTIFY(lparam) -> tuple[Incomplete, ...]: ...
-def UnpackNMITEMACTIVATE(lparam) -> tuple[Incomplete, ...]: ...
+class _WMNOTIFY(NamedTuple):
+    hwndFrom: Incomplete
+    idFrom: Incomplete
+    code: Incomplete
+
+def UnpackWMNOTIFY(lparam: int) -> _WMNOTIFY: ...
+
+class _NMITEMACTIVATE(NamedTuple):
+    hwndFrom: Incomplete
+    idFrom: Incomplete
+    code: Incomplete
+    iItem: Incomplete
+    iSubItem: Incomplete
+    uNewState: Incomplete
+    uOldState: Incomplete
+    uChanged: Incomplete
+    actionx: Incomplete
+    actiony: Incomplete
+    lParam: Incomplete
+
+def UnpackNMITEMACTIVATE(lparam) -> _NMITEMACTIVATE: ...
 def PackMENUITEMINFO(
     fType: Incomplete | None = ...,
     fState: Incomplete | None = ...,
@@ -17,20 +37,20 @@ def PackMENUITEMINFO(
     hbmpItem: Incomplete | None = ...,
     dwTypeData: Incomplete | None = ...,
 ) -> tuple[array[int], list[Incomplete]]: ...
-def UnpackMENUITEMINFO(
-    s,
-) -> tuple[
-    Incomplete | None,
-    Incomplete | None,
-    Incomplete | None,
-    Incomplete | None,
-    Incomplete | None,
-    Incomplete | None,
-    Incomplete | None,
-    str | None,
-    Incomplete | None,
-]: ...
-def EmptyMENUITEMINFO(mask: Incomplete | None = ..., text_buf_size: int = ...) -> tuple[array[int], list[Incomplete]]: ...
+
+class _MENUITEMINFO(NamedTuple):
+    fType: int | None
+    fState: int | None
+    wID: int | None
+    hSubMenu: int | None
+    hbmpChecked: int | None
+    hbmpUnchecked: int | None
+    dwItemData: int | None
+    text: str | None
+    hbmpItem: int | None
+
+def UnpackMENUITEMINFO(s: ReadableBuffer) -> _MENUITEMINFO: ...
+def EmptyMENUITEMINFO(mask: Incomplete | None = ..., text_buf_size: int = ...) -> tuple[array[int], list[array[int]]]: ...
 def PackMENUINFO(
     dwStyle: Incomplete | None = ...,
     cyMax: Incomplete | None = ...,
@@ -39,68 +59,49 @@ def PackMENUINFO(
     dwMenuData: Incomplete | None = ...,
     fMask: int = ...,
 ) -> array[int]: ...
-def UnpackMENUINFO(s) -> tuple[Incomplete | None, Incomplete | None, Incomplete | None, Incomplete | None, Incomplete | None]: ...
+
+class _MENUINFO(NamedTuple):
+    dwStyle: Incomplete | None
+    cyMax: Incomplete | None
+    hbrBack: Incomplete | None
+    dwContextHelpID: Incomplete | None
+    dwMenuData: Incomplete | None
+
+def UnpackMENUINFO(s: ReadableBuffer) -> _MENUINFO: ...
 def EmptyMENUINFO(mask: Incomplete | None = ...) -> array[int]: ...
 def PackTVINSERTSTRUCT(parent, insertAfter, tvitem) -> tuple[bytes, list[Incomplete]]: ...
 def PackTVITEM(hitem, state, stateMask, text, image, selimage, citems, param) -> tuple[array[int], list[Incomplete]]: ...
 def EmptyTVITEM(hitem, mask: Incomplete | None = ..., text_buf_size: int = ...) -> tuple[array[int], list[Incomplete]]: ...
-def UnpackTVITEM(
-    buffer,
-) -> tuple[
-    Incomplete,
-    Incomplete | None,
-    Incomplete | None,
-    Incomplete | None,
-    Incomplete | None,
-    Incomplete | None,
-    Incomplete | None,
-    Incomplete | None,
-]: ...
-def UnpackTVNOTIFY(
-    lparam,
-) -> tuple[
-    Incomplete,
-    Incomplete,
-    Incomplete,
-    Incomplete,
-    tuple[
-        Incomplete,
-        Incomplete | None,
-        Incomplete | None,
-        Incomplete | None,
-        Incomplete | None,
-        Incomplete | None,
-        Incomplete | None,
-        Incomplete | None,
-    ],
-    tuple[
-        Incomplete,
-        Incomplete | None,
-        Incomplete | None,
-        Incomplete | None,
-        Incomplete | None,
-        Incomplete | None,
-        Incomplete | None,
-        Incomplete | None,
-    ],
-]: ...
-def UnpackTVDISPINFO(
-    lparam,
-) -> tuple[
-    Incomplete,
-    Incomplete,
-    Incomplete,
-    tuple[
-        Incomplete,
-        Incomplete | None,
-        Incomplete | None,
-        Incomplete | None,
-        Incomplete | None,
-        Incomplete | None,
-        Incomplete | None,
-        Incomplete | None,
-    ],
-]: ...
+
+class _TVITEM(NamedTuple):
+    item_hItem: Incomplete
+    item_state: Incomplete | None
+    item_stateMask: Incomplete | None
+    text: Incomplete | None
+    item_image: Incomplete | None
+    item_selimage: Incomplete | None
+    item_cChildren: Incomplete | None
+    item_param: Incomplete | None
+
+def UnpackTVITEM(buffer: ReadableBuffer) -> _TVITEM: ...
+
+class _TVNOTIFY(NamedTuple):
+    hwndFrom: Incomplete
+    id: Incomplete
+    code: Incomplete
+    action: Incomplete
+    item_old: _TVITEM
+    item_new: _TVITEM
+
+def UnpackTVNOTIFY(lparam: int) -> _TVNOTIFY: ...
+
+class _TVDISPINFO(NamedTuple):
+    hwndFrom: Incomplete
+    id: Incomplete
+    code: Incomplete
+    item: _TVITEM
+
+def UnpackTVDISPINFO(lparam: int) -> _TVDISPINFO: ...
 def PackLVITEM(
     item: Incomplete | None = ...,
     subItem: Incomplete | None = ...,
@@ -111,49 +112,40 @@ def PackLVITEM(
     param: Incomplete | None = ...,
     indent: Incomplete | None = ...,
 ) -> tuple[array[int], list[Incomplete]]: ...
-def UnpackLVITEM(
-    buffer,
-) -> tuple[
-    Incomplete,
-    Incomplete,
-    Incomplete | None,
-    Incomplete | None,
-    Incomplete | None,
-    Incomplete | None,
-    Incomplete | None,
-    Incomplete | None,
-]: ...
-def UnpackLVDISPINFO(
-    lparam,
-) -> tuple[
-    Incomplete,
-    Incomplete,
-    Incomplete,
-    tuple[
-        Incomplete,
-        Incomplete,
-        Incomplete | None,
-        Incomplete | None,
-        Incomplete | None,
-        Incomplete | None,
-        Incomplete | None,
-        Incomplete | None,
-    ],
-]: ...
-def UnpackLVNOTIFY(
-    lparam,
-) -> tuple[
-    Incomplete,
-    Incomplete,
-    Incomplete,
-    Incomplete,
-    Incomplete,
-    Incomplete,
-    Incomplete,
-    Incomplete,
-    tuple[Incomplete, Incomplete],
-    Incomplete,
-]: ...
+
+class _LVITEM(NamedTuple):
+    item_item: Incomplete
+    item_subItem: Incomplete
+    item_state: Incomplete | None
+    item_stateMask: Incomplete | None
+    text: Incomplete | None
+    item_image: Incomplete | None
+    item_param: Incomplete | None
+    item_indent: Incomplete | None
+
+def UnpackLVITEM(buffer: ReadableBuffer) -> _LVITEM: ...
+
+class _LVDISPINFO(NamedTuple):
+    hwndFrom: Incomplete
+    id: Incomplete
+    code: Incomplete
+    item: _LVITEM
+
+def UnpackLVDISPINFO(lparam: int) -> _LVDISPINFO: ...
+
+class _UnpackLVNOTIFY(NamedTuple):
+    hwndFrom: Incomplete
+    id: Incomplete
+    code: Incomplete
+    item: Incomplete
+    subitem: Incomplete
+    newstate: Incomplete
+    oldstate: Incomplete
+    changed: Incomplete
+    pt: tuple[Incomplete, Incomplete]
+    lparam: Incomplete
+
+def UnpackLVNOTIFY(lparam: int) -> _UnpackLVNOTIFY: ...
 def EmptyLVITEM(
     item, subitem, mask: Incomplete | None = ..., text_buf_size: int = ...
 ) -> tuple[array[int], list[Incomplete]]: ...
@@ -165,12 +157,26 @@ def PackLVCOLUMN(
     image: Incomplete | None = ...,
     order: Incomplete | None = ...,
 ) -> tuple[array[int], list[Incomplete]]: ...
-def UnpackLVCOLUMN(
-    lparam,
-) -> tuple[Incomplete | None, Incomplete | None, Incomplete | None, Incomplete | None, Incomplete | None, Incomplete | None]: ...
+
+class _LVCOLUMN(NamedTuple):
+    fmt: Incomplete | None
+    cx: Incomplete | None
+    text: Incomplete | None
+    subItem: Incomplete | None
+    image: Incomplete | None
+    order: Incomplete | None
+
+def UnpackLVCOLUMN(lparam: ReadableBuffer) -> _LVCOLUMN: ...
 def EmptyLVCOLUMN(mask: Incomplete | None = ..., text_buf_size: int = ...) -> tuple[array[int], list[Incomplete]]: ...
 def PackLVHITTEST(pt) -> tuple[array[int], None]: ...
-def UnpackLVHITTEST(buf) -> tuple[tuple[Incomplete, Incomplete], Incomplete, Incomplete, Incomplete]: ...
+
+class _LVHITTEST(NamedTuple):
+    pt: tuple[Incomplete, Incomplete]
+    flags: Incomplete
+    item: Incomplete
+    subitem: Incomplete
+
+def UnpackLVHITTEST(buf: ReadableBuffer) -> tuple[tuple[Incomplete, Incomplete], Incomplete, Incomplete, Incomplete]: ...
 def PackHDITEM(
     cxy: Incomplete | None = ...,
     text: Incomplete | None = ...,
@@ -189,4 +195,4 @@ class DEV_BROADCAST_INFO:
     devicetype: Incomplete
     def __init__(self, devicetype, **kw) -> None: ...
 
-def UnpackDEV_BROADCAST(lparam) -> DEV_BROADCAST_INFO | None: ...
+def UnpackDEV_BROADCAST(lparam: int) -> DEV_BROADCAST_INFO | None: ...

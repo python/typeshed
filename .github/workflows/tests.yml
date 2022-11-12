@@ -146,36 +146,3 @@ jobs:
           cd stub_uploader
           pip install -r requirements.txt
           python -m pytest tests
-
-  stubtest-third-party:
-    name: Check third party stubs with stubtest
-    runs-on: ubuntu-20.04
-    if: github.event_name == 'pull_request'
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-python@v4
-        with:
-          python-version: "3.9"
-      - name: Install dependencies
-        run: pip install -r requirements-tests.txt
-      - name: Run stubtest
-        run: |
-          STUBS=$(
-            git diff --name-only origin/${{ github.base_ref }} HEAD |
-            # Uncomment the following to (very slowly) run on all third party stubs:
-            # git ls-files |
-            egrep ^stubs/ | cut -d "/" -f 2 | sort -u | (while read stub; do [ -d stubs/$stub ] && echo $stub || true; done)
-          )
-          if test -n "$STUBS"; then
-            echo "Testing $STUBS..."
-            APT_PACKAGES=$(python tests/get_apt_packages.py $STUBS)
-            if test -n "$APT_PACKAGES"; then
-              echo "Installing apt packages: $APT_PACKAGES"
-              sudo apt update && sudo apt install -y $APT_PACKAGES
-            fi
-            xvfb-run python tests/stubtest_third_party.py $STUBS
-          else
-            echo "Nothing to test"
-          fi

@@ -33,3 +33,6 @@ google.protobuf.descriptor.ServiceDescriptor.__new__
 # Set to None at runtime - which doesn't match the Sequence base class.
 # It's a hack - just allow it.
 google.protobuf.internal.containers.BaseContainer.__hash__
+
+# Metaclass differs:
+google.protobuf.descriptor.OneofDescriptor

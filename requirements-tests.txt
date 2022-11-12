@@ -5,7 +5,7 @@ flake8-bugbear==22.10.27  # must match .pre-commit-config.yaml
 flake8-noqa==1.2.9        # must match .pre-commit-config.yaml
 flake8-pyi==22.10.0       # must match .pre-commit-config.yaml
 isort==5.10.1             # must match .pre-commit-config.yaml
-mypy==0.982
+mypy==0.990
 packaging==21.3
 pathspec
 pycln==2.1.1              # must match .pre-commit-config.yaml
