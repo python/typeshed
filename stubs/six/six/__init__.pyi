@@ -16,7 +16,7 @@ from six import moves as moves
 
 # TODO: We should switch to the _typeshed version of SupportsGetItem
 # once mypy updates its vendored copy of typeshed and makes a new release
-class SupportsGetItem(Protocol[_KT_contra, _VT_co]):
+class _SupportsGetItem(Protocol[_KT_contra, _VT_co]):
     def __contains__(self, __x: Any) -> bool: ...
     def __getitem__(self, __key: _KT_contra) -> _VT_co: ...
 
@@ -72,7 +72,7 @@ unichr = chr
 def int2byte(i: int) -> bytes: ...
 
 # Should be `byte2int: operator.itemgetter[int]`. But a bug in mypy prevents using TypeVar in itemgetter.__call__
-def byte2int(obj: SupportsGetItem[int, _T]) -> _T: ...
+def byte2int(obj: _SupportsGetItem[int, _T]) -> _T: ...
 
 indexbytes = operator.getitem
 iterbytes = iter
