@@ -34,10 +34,24 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
         print(colored("skipping", "yellow"))
         return True
 
-    platforms_to_test = stubtest_meta.get("platforms", ["linux"])
-    if sys.platform not in platforms_to_test:
-        print(colored(f"skipping, unsupported platform: {sys.platform}, supported: {platforms_to_test}", "yellow"))
-        return True
+    platforms_to_test: list[str] | None = stubtest_meta.get("platforms")
+    if os.environ.get("CI"):
+        if platforms_to_test:
+            if sys.platform not in platforms_to_test:
+                print(colored(f"skipping, unsupported platform: {sys.platform}, supported: {platforms_to_test}", "yellow"))
+                return True
+        elif sys.platform != "linux":
+            print(colored(f"skipping, redundant platform: {sys.platform}", "yellow"))
+            return True
+
+    elif platforms_to_test and sys.platform not in platforms_to_test:
+        print(
+            colored(
+                rf"warning: your platform {sys.platform}, is not in: {platforms_to_test}. "
+                + "It may be unsupported or deemed redundant to test on the CI",
+                "yellow",
+            )
+        )
 
     with tempfile.TemporaryDirectory() as tmp:
         venv_dir = Path(tmp)
