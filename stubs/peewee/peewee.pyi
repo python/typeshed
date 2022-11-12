@@ -3,7 +3,7 @@ import logging
 import threading
 from _typeshed import Incomplete, Self, SupportsKeysAndGetItem
 from collections.abc import Generator
-from typing import NamedTuple, TypeVar
+from typing import NamedTuple, TypeVar, Iterable, ClassVar
 
 class NullHandler(logging.Handler):
     def emit(self, record) -> None: ...
@@ -27,7 +27,7 @@ class attrdict(dict[str, _VT]):
 OP: Incomplete
 DJANGO_MAP: Incomplete
 JOIN: Incomplete
-PREFETCH_TYPE: attrdict[str, int]
+PREFETCH_TYPE: attrdict[int]
 
 def chunked(it, n) -> Generator[Incomplete, None, None]: ...
 
