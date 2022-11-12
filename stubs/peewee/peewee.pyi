@@ -3,7 +3,7 @@ import logging
 import threading
 from _typeshed import Incomplete, Self, SupportsKeysAndGetItem
 from collections.abc import Generator
-from typing import NamedTuple, TypeVar, Iterable, ClassVar
+from typing import ClassVar, Iterable, NamedTuple, TypeVar
 
 class NullHandler(logging.Handler):
     def emit(self, record) -> None: ...
