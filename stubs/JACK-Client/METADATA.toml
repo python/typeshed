@@ -1,5 +1,9 @@
 version = "0.5.*"
 
 [tool.stubtest]
-platforms = ["linux"]
+ignore_missing_stub = false
+# darwin and win32 are equivalent
+platforms = ["linux", "darwin", "win32"]  # TODO: Remove darwin or win32, I'm only testing brew & choco
 apt_dependencies = ["libjack-dev"]
+brew_dependencies = ["jack"]
+choco_dependencies = ["jack"]

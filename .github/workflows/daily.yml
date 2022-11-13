@@ -60,12 +60,21 @@ jobs:
       - name: Run stubtest
         shell: bash
         run: |
+          PACKAGES=$(python tests/get_packages.py $STUBS)
+
           if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
-            sudo apt update
-            sudo apt install -y $(python tests/get_packages.py)
+            sudo apt update && sudo apt install -y $PACKAGES
 
             xvfb-run python tests/stubtest_third_party.py --num-shards 4 --shard-index ${{ matrix.shard-index }}
           else
+            if [ "${{ matrix.os }}" = "macos-latest" ]; then
+              NONINTERACTIVE=1 brew install $PACKAGES
+            fi
+
+            if [ "${{ matrix.os }}" = "windows-latest" ]; then
+              choco install -y $PACKAGES
+            fi
+
             python tests/stubtest_third_party.py --num-shards 4 --shard-index ${{ matrix.shard-index }}
           fi
 
