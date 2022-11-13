@@ -1,7 +1,9 @@
 # implementation has *args and **kwds arguments that can't be used
 vobject.base.VBase.__init__
 
-# only available on Windows
+# Only available on Windows
+# This module is currently broken on Python 3
+# See: https://github.com/eventable/vobject/pull/187
 vobject.win32tz
 
 # dependencies
