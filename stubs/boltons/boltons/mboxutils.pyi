@@ -1,9 +1,11 @@
-import mailbox
-from _typeshed import Incomplete
+# TODO: DONE!
 
-DEFAULT_MAXMEM: Incomplete
+import mailbox
+from typing import NoReturn
+
+DEFAULT_MAXMEM: int
 
 class mbox_readonlydir(mailbox.mbox):
-    maxmem: Incomplete
-    def __init__(self, path, factory: Incomplete | None = ..., create: bool = ..., maxmem=...) -> None: ...
-    def flush(self) -> None: ...
+    maxmem: int
+    def __init__(self, path: str, factory: type | None = ..., create: bool = ..., maxmem: int = ...) -> NoReturn: ...
+    def flush(self) -> NoReturn: ...

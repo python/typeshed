@@ -1,13 +1,16 @@
-from _typeshed import Incomplete
+# TODO: DONE!
+
+import os
+from typing import Any
 
 def augpath(
-    path,
+    path: str | "os.PathLike[Any]",
     suffix: str = ...,
     prefix: str = ...,
-    ext: Incomplete | None = ...,
-    base: Incomplete | None = ...,
-    dpath: Incomplete | None = ...,
+    ext: str | None = ...,
+    base: str | None = ...,
+    dpath: str | "os.PathLike[Any]" | None = ...,
     multidot: bool = ...,
-): ...
-def shrinkuser(path, home: str = ...): ...
-def expandpath(path): ...
+) -> str: ...
+def shrinkuser(path: str | "os.PathLike[Any]", home: str = ...) -> str: ...
+def expandpath(path: str | "os.PathLike[Any]") -> str: ...
