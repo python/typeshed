@@ -618,6 +618,8 @@ class MutableMapping(Mapping[_KT, _VT], Generic[_KT, _VT]):
     # -- os._Environ.__ior__
     # -- collections.UserDict.__ior__
     # -- collections.ChainMap.__ior__
+    # -- peewee.attrdict.__add__
+    # -- peewee.attrdict.__iadd__
     # -- weakref.WeakValueDictionary.__ior__
     # -- weakref.WeakKeyDictionary.__ior__
     @overload
