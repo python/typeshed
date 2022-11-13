@@ -34,7 +34,10 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+          cache-dependency-path: requirements-tests.txt
       - name: Update pip
+        if: matrix.os == "macos-11"
         run: python -m pip install -U pip
       - name: Install dependencies
         run: pip install $(grep tomli== requirements-tests.txt) $(grep mypy== requirements-tests.txt)
@@ -55,6 +58,10 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: "3.9"
+          cache: 'pip'
+          cache-dependency-path: |
+            requirements-tests.txt
+            stubs/**/@tests/requirements-stubtest.txt
       - name: Install dependencies
         run: pip install -r requirements-tests.txt
       - name: Run stubtest
@@ -86,6 +93,8 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: "3.10"
+          cache: 'pip'
+          cache-dependency-path: stub_uploader/requirements.txt
       - name: Run tests
         run: |
           cd stub_uploader
