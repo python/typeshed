@@ -44,13 +44,6 @@ colorama.initialise.wrapped_stdout
 
 # These are re-exports that are implementation detail:
 colorama.ansitowin32.BEL
-colorama.ansitowin32.windll
-colorama.winterm.get_osfhandle
-
-# These are only available on Windows:
-colorama.winterm.WinColor
-colorama.winterm.WinStyle
-colorama.winterm.WinTerm
 
 # Not planning on writing stubs for tests:
 colorama.tests.*
