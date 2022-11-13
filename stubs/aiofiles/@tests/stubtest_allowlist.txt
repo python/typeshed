@@ -48,6 +48,7 @@ aiofiles.ospath.samefile
 aiofiles.ospath.sameopenfile
 
 # Same issues as above
+aiofiles.tempfile.temptypes.AsyncSpooledTemporaryFile.close
 aiofiles.tempfile.temptypes.AsyncSpooledTemporaryFile.fileno
 aiofiles.tempfile.temptypes.AsyncSpooledTemporaryFile.flush
 aiofiles.tempfile.temptypes.AsyncSpooledTemporaryFile.isatty
@@ -61,3 +62,4 @@ aiofiles.tempfile.AiofilesContextManagerTempDir
 
 # Helper decorator, too complex to type
 aiofiles.os.wrap
+
