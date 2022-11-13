@@ -201,7 +201,7 @@ This has the following keys:
   Only add extra OSes to the test
   if there are platform-specific branches in a stubs package.
 
-`*_dependencies` are usually packages needed to pip install the implementation
+`*_dependencies` are usually packages needed to `pip install` the implementation
 distribution.
 
 The format of all `METADATA.toml` files can be checked by running

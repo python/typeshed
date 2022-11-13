@@ -1,8 +1,8 @@
 import sys
 from collections.abc import Callable, Mapping, Sequence
-from typing_extensions import Final, LiteralString, TypeAlias, final
+from typing_extensions import Final, TypeAlias, final
 
-__docformat__: LiteralString
+__docformat__: str
 
 paFloat32: Final[int]
 paInt32: Final[int]
