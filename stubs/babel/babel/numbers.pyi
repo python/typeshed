@@ -67,7 +67,10 @@ def format_percent(
     group_separator: bool = ...,
 ) -> str: ...
 def format_scientific(
-    number: float | decimal.Decimal | str, format: str | None = ..., locale: Locale | str | None = ..., decimal_quantization: bool = ...
+    number: float | decimal.Decimal | str,
+    format: str | None = ...,
+    locale: Locale | str | None = ...,
+    decimal_quantization: bool = ...,
 ) -> str: ...
 
 class NumberFormatError(ValueError):
