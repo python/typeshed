@@ -238,7 +238,7 @@ class Repr(expr):
     value: expr
 
 class Num(expr):
-    n: complex
+    n: int | float | complex
 
 class Str(expr):
     s: str | bytes
