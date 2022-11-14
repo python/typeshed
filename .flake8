@@ -27,7 +27,7 @@
 #            have "no matching violations" since the relevant flake8-pyi checks haven't
 #            yet been released.
 #     Y041   Use "complex" instead of "float | complex" (see "The numeric tower" in PEP 484)
-#            Type promotions was changed with mypy 0.990 so all possible types must be listed
+#            TODO this check is somewhat broken, see https://github.com/PyCQA/flake8-pyi/issues/299
 
 [flake8]
 per-file-ignores =
