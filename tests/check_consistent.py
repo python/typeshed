@@ -151,6 +151,10 @@ def check_metadata() -> None:
             for key in data.get("tool", {}).get(tool, {}):
                 assert key in tk, f"Unrecognised {tool} key {key} for {distribution}"
 
+        stubtest_platforms = set(data.get("tool", {}).get("stubtest", {}).get("platforms", []))
+        supported_platforms = {"win32", "linux", "darwin"}
+        assert stubtest_platforms <= supported_platforms, f"Unrecognised platforms specified: {supported_platforms - stubtest_platforms}"
+
 
 def get_txt_requirements() -> dict[str, SpecifierSet]:
     with open("requirements-tests.txt", encoding="UTF-8") as requirements_file:
