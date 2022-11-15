@@ -72,10 +72,10 @@ class BlockingConnection:
     def exchange_exchange_bindings_supported(self): ...
     @property
     def publisher_confirms_supported(self): ...
-    basic_nack: Incomplete
-    consumer_cancel_notify: Incomplete
-    exchange_exchange_bindings: Incomplete
-    publisher_confirms: Incomplete
+    basic_nack = basic_nack_supported
+    consumer_cancel_notify = consumer_cancel_notify_supported
+    exchange_exchange_bindings = exchange_exchange_bindings_supported
+    publisher_confirms = publisher_confirms_supported
 
 class _ChannelPendingEvt: ...
 
