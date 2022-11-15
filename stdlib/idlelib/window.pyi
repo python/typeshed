@@ -1,5 +1,5 @@
+from tkinter import Tk, Toplevel
 from typing import Any, Callable
-from tkinter import Toplevel, Tk
 
 class WindowList:
     dict: dict[str, Toplevel]
@@ -13,8 +13,8 @@ class WindowList:
     def call_callbacks(self) -> None: ...
 
 registry: WindowList
-add_windows_to_menu:  Callable[[Tk], None]
-register_callback:  Callable[[Callable[[], Any]], None]
+add_windows_to_menu: Callable[[Tk], None]
+register_callback: Callable[[Callable[[], Any]], None]
 unregister_callback: Callable[[Callable[[], Any]], None]
 
 class ListedToplevel(Toplevel):

@@ -1,4 +1,7 @@
 from _typeshed import Incomplete
+from tkinter import Toplevel
+from tkinter.ttk import Frame, HighPage, LabelFrame, Notebook
+
 from idlelib import macosx as macosx
 from idlelib.autocomplete import AutoComplete as AutoComplete
 from idlelib.codecontext import CodeContext as CodeContext
@@ -10,8 +13,6 @@ from idlelib.parenmatch import ParenMatch as ParenMatch
 from idlelib.query import HelpSource as HelpSource, SectionName as SectionName
 from idlelib.squeezer import Squeezer as Squeezer
 from idlelib.textview import ScrollableTextFrame as ScrollableTextFrame, view_text as view_text
-from tkinter import Toplevel
-from tkinter.ttk import Frame, LabelFrame, Notebook, HighPage
 
 changes: dict[str, dict]
 reloadables: tuple
@@ -23,11 +24,11 @@ class ConfigDialog(Toplevel):
     frame: Frame
     note: Notebook
     extpage: Incomplete
-    highpage: 'HighPage'
-    fontpage: 'FontPage'
-    keyspage: 'KeysPage'
-    winpage: 'WinPage'
-    shedpage: 'ShedPage'
+    highpage: "HighPage"
+    fontpage: "FontPage"
+    keyspage: "KeysPage"
+    winpage: "WinPage"
+    shedpage: "ShedPage"
     def create_widgets(self) -> None: ...
     buttons: dict[str, Button]
     def create_action_buttons(self) -> Frame: ...

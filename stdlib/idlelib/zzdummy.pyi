@@ -1,10 +1,11 @@
-from typing import Any, Union, Callable
 from tkinter import Event, Text
+from typing import Any, Callable, Union
+
 from idlelib.config import idleConf as idleConf
 from idlelib.editor import EditorWindow
 from idlelib.format import FormatRegion
 
-def format_selection(format_line: Callable[['ZzDummy', str], str]) -> Callable[[Union['Event[Any]', None]], str]: ...
+def format_selection(format_line: Callable[["ZzDummy", str], str]) -> Callable[[Union["Event[Any]", None]], str]: ...
 
 class ZzDummy:
     menudefs: list[tuple[str, list[tuple[str, str]]]]

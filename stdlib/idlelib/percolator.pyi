@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+
 from idlelib.delegator import Delegator as Delegator
 from idlelib.redirector import WidgetRedirector as WidgetRedirector
 

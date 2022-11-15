@@ -1,6 +1,7 @@
-from tkinter import *
 from _typeshed import Incomplete
 from code import InteractiveInterpreter
+from tkinter import *
+
 from idlelib import debugger as debugger, debugger_r as debugger_r, replace as replace, rpc as rpc
 from idlelib.colorizer import ColorDelegator as ColorDelegator
 from idlelib.config import idleConf as idleConf
@@ -9,7 +10,12 @@ from idlelib.editor import EditorWindow as EditorWindow, fixwordbreaks as fixwor
 from idlelib.filelist import FileList as FileList
 from idlelib.history import History as History
 from idlelib.outwin import OutputWindow as OutputWindow
-from idlelib.run import StdInputFile as StdInputFile, StdOutputFile as StdOutputFile, fix_scaling as fix_scaling, idle_formatwarning as idle_formatwarning
+from idlelib.run import (
+    StdInputFile as StdInputFile,
+    StdOutputFile as StdOutputFile,
+    fix_scaling as fix_scaling,
+    idle_formatwarning as idle_formatwarning,
+)
 from idlelib.sidebar import ShellSidebar as ShellSidebar
 from idlelib.squeezer import Squeezer as Squeezer
 from idlelib.undo import UndoDelegator as UndoDelegator
@@ -21,7 +27,9 @@ PORT: int
 eof: str
 warning_stream: Incomplete
 
-def idle_showwarning(message, category, filename, lineno, file: Incomplete | None = ..., line: Incomplete | None = ...) -> None: ...
+def idle_showwarning(
+    message, category, filename, lineno, file: Incomplete | None = ..., line: Incomplete | None = ...
+) -> None: ...
 def capture_warnings(capture) -> None: ...
 def extended_linecache_checkcache(filename: Incomplete | None = ..., orig_checkcache=...) -> None: ...
 

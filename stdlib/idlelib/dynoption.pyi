@@ -1,5 +1,5 @@
+from tkinter import BaseWidget, OptionMenu, StringVar
 from typing import Any, Callable
-from tkinter import OptionMenu, StringVar, BaseWidget
 
 class DynOptionMenu(OptionMenu):
     variable: StringVar

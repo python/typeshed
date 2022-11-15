@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+
 from idlelib.config import idleConf as idleConf
 
 class FormatParagraph:

@@ -1,6 +1,6 @@
-from typing import Any
 from tkinter import BaseWidget
-from tkinter.ttk import Label, Frame
+from tkinter.ttk import Frame, Label
+from typing import Any
 
 class MultiStatusBar(Frame):
     labels: dict[str, Label]

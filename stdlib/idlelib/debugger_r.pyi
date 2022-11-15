@@ -1,5 +1,6 @@
+from types import CodeType, FrameType, TracebackType
 from typing import Any, Hashable
-from types import FrameType, TracebackType, CodeType
+
 from idlelib import debugger as debugger, rpc as rpc
 from idlelib.pyshell import PyShellEditorWindow
 
@@ -19,7 +20,9 @@ class GUIProxy:
     conn: rpc.RPCClient
     oid: str
     def __init__(self, conn: rpc.RPCClient, gui_adap_oid: str) -> None: ...
-    def interaction(self, message: str, frame: FrameType, info: tuple[BaseException, str, TracebackType] | None = ...) -> None: ...
+    def interaction(
+        self, message: str, frame: FrameType, info: tuple[BaseException, str, TracebackType] | None = ...
+    ) -> None: ...
 
 class IdbAdapter:
     idb: debugger.Idb

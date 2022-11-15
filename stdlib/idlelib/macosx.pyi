@@ -1,5 +1,6 @@
-from typing import Any
 from tkinter import Tk
+from typing import Any
+
 from idlelib.filelist import FileList
 
 def isAquaTk() -> bool: ...

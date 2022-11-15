@@ -1,22 +1,32 @@
-from typing import Any, Callable
-from types import TracebackType
-from socket import socket
-from tkinter import Tk, BaseWidget, Misc
 import io
+from socket import socket
+from tkinter import BaseWidget, Misc, Tk
+from types import TracebackType
+from typing import Any, Callable
 
-from idlelib import autocomplete as autocomplete, calltip as calltip, debugger_r as debugger_r, debugobj_r as debugobj_r, iomenu as iomenu, rpc as rpc, stackviewer as stackviewer
+from idlelib import (
+    autocomplete as autocomplete,
+    calltip as calltip,
+    debugger_r as debugger_r,
+    debugobj_r as debugobj_r,
+    iomenu as iomenu,
+    rpc as rpc,
+    stackviewer as stackviewer,
+)
 from idlelib.pyshell import PyShellEditorWindow
 
 LOCALHOST: str
 eof: str
 
 def idle_formatwarning(message: str, category: type, filename: str, lineno: str, line: str | None = ...) -> str: ...
-def idle_showwarning_subproc(message: str, category: type, filename: str, lineno: str, file: str | None = ..., line: str | None = ...) -> None: ...
+def idle_showwarning_subproc(
+    message: str, category: type, filename: str, lineno: str, file: str | None = ..., line: str | None = ...
+) -> None: ...
 def capture_warnings(capture: bool) -> None: ...
 
 tcl: Tk
 
-def handle_tk_events(tcl: Misc=...) -> None: ...
+def handle_tk_events(tcl: Misc = ...) -> None: ...
 
 exit_now: bool
 quitting: bool
@@ -46,9 +56,9 @@ class StdioFile(io.TextIOBase):
     tags: str
     def __init__(self, shell: PyShellEditorWindow, tags: str, encoding: str = ..., errors: str = ...) -> None: ...
     @property
-    def encoding(self) -> str: ...# type: ignore
+    def encoding(self) -> str: ...  # type: ignore
     @property
-    def errors(self) -> str: ...# type: ignore
+    def errors(self) -> str: ...  # type: ignore
     @property
     def name(self) -> str: ...
     def isatty(self) -> bool: ...
@@ -60,7 +70,7 @@ class StdOutputFile(StdioFile):
 class StdInputFile(StdioFile):
     def readable(self) -> bool: ...
     def read(self, size: int | None = ...) -> str: ...
-    def readline(self, size: int | None = ...) -> str: ...# type: ignore
+    def readline(self, size: int | None = ...) -> str: ...  # type: ignore
     def close(self) -> None: ...
 
 class MyHandler(rpc.RPCHandler):

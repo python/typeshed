@@ -1,4 +1,5 @@
 from typing import Any
+
 from idlelib import rpc as rpc
 
 def remote_object_tree_item(item: object) -> int: ...

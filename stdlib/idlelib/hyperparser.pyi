@@ -1,7 +1,7 @@
-from idlelib import pyparse as pyparse
-from idlelib.editor import EditorWindow
-from idlelib.pyshell import PyShellEditorWindow
 from tkinter import Widget
+
+from idlelib import pyparse as pyparse
+from idlelib.pyshell import PyShellEditorWindow
 
 class HyperParser:
     editwin: PyShellEditorWindow

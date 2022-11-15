@@ -1,12 +1,13 @@
+from tkinter import Event, Tk
 from typing import Any, Callable, Union
+
 from idlelib import pyshell as pyshell
 from idlelib.config import idleConf as idleConf
 from idlelib.tree import ScrolledCanvas as ScrolledCanvas, TreeItem as TreeItem, TreeNode as TreeNode
 from idlelib.util import py_extensions as py_extensions
 from idlelib.window import ListedToplevel as ListedToplevel
-from tkinter import Tk, Event
 
-file_open: Callable[[str, bool | None], pyshell.EditorWindow | None]#pyshell.flist.open
+file_open: Callable[[str, bool | None], pyshell.EditorWindow | None]  # pyshell.flist.open
 browseable_extension_blocklist: tuple[str]
 
 def is_browseable_extension(path: str) -> bool: ...
@@ -16,12 +17,12 @@ class ModuleBrowser:
     master: Tk
     path: str
     def __init__(self, master: Tk, path: str, *, _htest: bool = ..., _utest: bool = ...) -> None: ...
-    def close(self, event: Union['Event[Any]', None] = ...) -> None: ...
+    def close(self, event: Union["Event[Any]", None] = ...) -> None: ...
     top: ListedToplevel
     node: TreeNode
     def init(self) -> None: ...
     def settitle(self) -> None: ...
-    def rootnode(self) -> 'ModuleBrowserTreeItem': ...
+    def rootnode(self) -> "ModuleBrowserTreeItem": ...
 
 class ModuleBrowserTreeItem(TreeItem):
     file: str

@@ -1,7 +1,8 @@
-from typing import Any
 from _sitebuiltins import _Printer
+from tkinter import Button, Event, PhotoImage, Tk, Toplevel
+from typing import Any
+
 from idlelib import textview as textview
-from tkinter import Event, Toplevel, Tk, Button, PhotoImage
 
 version: str
 
@@ -30,4 +31,3 @@ class AboutDialog(Toplevel):
     def display_printer_text(self, title: str, printer: _Printer) -> None: ...
     def display_file_text(self, title: str, filename: str, encoding: str | None = ...) -> None: ...
     def ok(self, event: Event[Any] | None = ...) -> None: ...
-

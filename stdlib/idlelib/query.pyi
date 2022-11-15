@@ -1,14 +1,24 @@
-from typing import Any, Callable, Container, Union
 from tkinter import BaseWidget, BooleanVar, Button, Entry, Event, Frame, Label, StringVar, Toplevel
 from tkinter.font import Font
+from typing import Any, Callable, Container, Union
 
 class Query(Toplevel):
     parent: BaseWidget
     message: str
     text0: str
     used_names: Container[str]
-    def __init__(self, parent: BaseWidget, title: str, message: str, *, text0: str = ..., used_names: Container[str]=..., _htest: bool = ..., _utest: bool = ...) -> None: ...
-    frame: Frame # type: ignore[assignment]
+    def __init__(
+        self,
+        parent: BaseWidget,
+        title: str,
+        message: str,
+        *,
+        text0: str = ...,
+        used_names: Container[str] = ...,
+        _htest: bool = ...,
+        _utest: bool = ...,
+    ) -> None: ...
+    frame: Frame  # type: ignore[assignment]
     entryvar: StringVar
     entry: Entry
     error_font: Font
@@ -20,24 +30,38 @@ class Query(Toplevel):
     def showerror(self, message: str, widget: BaseWidget | None = ...) -> None: ...
     def entry_ok(self) -> str | None: ...
     result: str | None
-    def ok(self, event: Union['Event[Any]', None] = ...) -> None: ...
-    def cancel(self, event: Union['Event[Any]', None] = ...) -> None: ...
+    def ok(self, event: Union["Event[Any]", None] = ...) -> None: ...
+    def cancel(self, event: Union["Event[Any]", None] = ...) -> None: ...
     def destroy(self) -> None: ...
 
 class SectionName(Query):
-    def __init__(self, parent: BaseWidget, title: str, message: str, used_names: Container[str], *, _htest: bool = ..., _utest: bool = ...) -> None: ...
+    def __init__(
+        self, parent: BaseWidget, title: str, message: str, used_names: Container[str], *, _htest: bool = ..., _utest: bool = ...
+    ) -> None: ...
     def entry_ok(self) -> str | None: ...
 
 class ModuleName(Query):
-    def __init__(self, parent: BaseWidget, title: str, message: str, text0: str, *, _htest: bool = ..., _utest: bool = ...) -> None: ...
+    def __init__(
+        self, parent: BaseWidget, title: str, message: str, text0: str, *, _htest: bool = ..., _utest: bool = ...
+    ) -> None: ...
     def entry_ok(self) -> str | None: ...
 
 class Goto(Query):
-    def entry_ok(self) -> int | None: ...# type: ignore[override]
+    def entry_ok(self) -> int | None: ...  # type: ignore[override]
 
 class HelpSource(Query):
     filepath: str
-    def __init__(self, parent: BaseWidget, title: str, *, menuitem: str = ..., filepath: str = ..., used_names: Container[str]=..., _htest: bool = ..., _utest: bool = ...) -> None: ...
+    def __init__(
+        self,
+        parent: BaseWidget,
+        title: str,
+        *,
+        menuitem: str = ...,
+        filepath: str = ...,
+        used_names: Container[str] = ...,
+        _htest: bool = ...,
+        _utest: bool = ...,
+    ) -> None: ...
     pathvar: StringVar
     path: Entry
     path_error: Label
@@ -49,9 +73,11 @@ class HelpSource(Query):
     def entry_ok(self) -> str | None: ...
 
 class CustomRun(Query):
-    def __init__(self, parent: BaseWidget, title: str, *, cli_args: list[str]=..., _htest: bool = ..., _utest: bool = ...) -> None: ...
+    def __init__(
+        self, parent: BaseWidget, title: str, *, cli_args: list[str] = ..., _htest: bool = ..., _utest: bool = ...
+    ) -> None: ...
     restartvar: BooleanVar
     args_error: Label
     def create_extra(self) -> None: ...
     def cli_args_ok(self) -> list[str]: ...
-    def entry_ok(self) -> tuple[list[str], bool] | None: ...# type: ignore
+    def entry_ok(self) -> tuple[list[str], bool] | None: ...  # type: ignore

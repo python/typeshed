@@ -1,6 +1,7 @@
-from typing import Any
-from idlelib.editor import EditorWindow as EditorWindow
 from tkinter import Tk, Variable
+from typing import Any
+
+from idlelib.editor import EditorWindow as EditorWindow
 
 class FileList:
     root: Tk
