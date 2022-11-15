@@ -39,12 +39,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False, ci_run: bool = False) -> 
         if ci_run:
             print(colored(f"skipping (unsupported platform)", "yellow"))
             return True
-        print(
-            colored(
-                f"Note: stubtest is not currently tested on {sys.platform} in typeshed's CI.",
-                "yellow",
-            )
-        )
+        print(colored(f"Note: stubtest is not currently tested on {sys.platform} in typeshed's CI.", "yellow"))
 
     with tempfile.TemporaryDirectory() as tmp:
         venv_dir = Path(tmp)
