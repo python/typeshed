@@ -1,24 +1,20 @@
-from typing import Any
+import sys
+from _typeshed import Incomplete, Self
 from typing_extensions import final
-
-GLOBAL_ACK_EINTR: int
-GLOBAL_ALL: int
-GLOBAL_DEFAULT: int
-GLOBAL_NOTHING: int
-GLOBAL_SSL: int
-GLOBAL_WIN32: int
-
-def global_init(option: int) -> None: ...
-def global_cleanup() -> None: ...
 
 version: str
 
-def version_info() -> tuple[int, str, int, str, int, str, int, str, tuple[str, ...], Any, int, Any]: ...
+def global_init(option: int) -> None: ...
+def global_cleanup() -> None: ...
+def version_info() -> tuple[
+    int, str, int, str, int, str, int, str, tuple[str, ...], Incomplete | None, int, Incomplete | None
+]: ...
 
 class error(Exception): ...
 
 @final
 class Curl:
+    USERPWD: int
     def close(self) -> None: ...
     def setopt(self, option: int, value: Any) -> None: ...
     def setopt_string(self, option: int, value: str) -> None: ...
@@ -31,8 +27,9 @@ class Curl:
     def unsetopt(self, option: int) -> Any: ...
     def pause(self, bitmask: Any) -> Any: ...
     def errstr(self) -> str: ...
-    # TODO(MichalPokorny): wat?
-    USERPWD: int
+    def duphandle(self: Self) -> Self: ...
+    def errstr_raw(self) -> bytes: ...
+    def set_ca_certs(self, __value: bytes | str) -> None: ...
 
 @final
 class CurlMulti:
@@ -45,11 +42,19 @@ class CurlMulti:
     def select(self, timeout: float = ...) -> int: ...
     def info_read(self, max_objects: int = ...) -> tuple[int, list[Any], list[Any]]: ...
     def socket_action(self, sockfd: int, ev_bitmask: int) -> tuple[int, int]: ...
+    def assign(self, __sockfd: int, __socket: Incomplete) -> Incomplete: ...
+    def socket_all(self) -> tuple[int, int]: ...
+    def timeout(self) -> int: ...
 
 @final
 class CurlShare:
     def close(self) -> None: ...
     def setopt(self, option: int, value: Any) -> Any: ...
+
+if sys.platform != "darwin":
+    CURL_VERSION_HTTP3: int
+    MAXAGE_CONN: int
+    M_MAX_CONCURRENT_STREAMS: int
 
 ACCEPTTIMEOUT_MS: int
 ACCEPT_ENCODING: int
@@ -86,9 +91,15 @@ CSELECT_OUT: int
 CURL_HTTP_VERSION_1_0: int
 CURL_HTTP_VERSION_1_1: int
 CURL_HTTP_VERSION_2: int
+CURL_HTTP_VERSION_2TLS: int
 CURL_HTTP_VERSION_2_0: int
+CURL_HTTP_VERSION_2_PRIOR_KNOWLEDGE: int
 CURL_HTTP_VERSION_LAST: int
 CURL_HTTP_VERSION_NONE: int
+CURL_VERSION_ALTSVC: int
+CURL_VERSION_BROTLI: int
+CURL_VERSION_HTTPS_PROXY: int
+CURL_VERSION_MULTI_SSL: int
 CUSTOMREQUEST: int
 DEBUGFUNCTION: int
 DEFAULT_PROTOCOL: int
@@ -96,6 +107,7 @@ DIRLISTONLY: int
 DNS_CACHE_TIMEOUT: int
 DNS_SERVERS: int
 DNS_USE_GLOBAL_CACHE: int
+DOH_URL: int
 EFFECTIVE_URL: int
 EGDSOCKET: int
 ENCODING: int
@@ -138,10 +150,17 @@ FTP_SSL_CCC: int
 FTP_USE_EPRT: int
 FTP_USE_EPSV: int
 FTP_USE_PRET: int
+GLOBAL_ACK_EINTR: int
+GLOBAL_ALL: int
+GLOBAL_DEFAULT: int
+GLOBAL_NOTHING: int
+GLOBAL_SSL: int
+GLOBAL_WIN32: int
 GSSAPI_DELEGATION: int
 GSSAPI_DELEGATION_FLAG: int
 GSSAPI_DELEGATION_NONE: int
 GSSAPI_DELEGATION_POLICY_FLAG: int
+HAPROXYPROTOCOL: int
 HEADER: int
 HEADERFUNCTION: int
 HEADEROPT: int
@@ -221,8 +240,10 @@ LOCALPORT: int
 LOCALPORTRANGE: int
 LOCAL_IP: int
 LOCAL_PORT: int
+LOCK_DATA_CONNECT: int
 LOCK_DATA_COOKIE: int
 LOCK_DATA_DNS: int
+LOCK_DATA_PSL: int
 LOCK_DATA_SSL_SESSION: int
 LOGIN_OPTIONS: int
 LOW_SPEED_LIMIT: int
@@ -279,6 +300,7 @@ PAUSE_RECV: int
 PAUSE_SEND: int
 PINNEDPUBLICKEY: int
 PIPEWAIT: int
+PIPE_HTTP1: int
 PIPE_MULTIPLEX: int
 PIPE_NOTHING: int
 POLL_IN: int
@@ -439,13 +461,18 @@ SSLOPT_ALLOW_BEAST: int
 SSLOPT_NO_REVOKE: int
 SSLVERSION: int
 SSLVERSION_DEFAULT: int
+SSLVERSION_MAX_DEFAULT: int
+SSLVERSION_MAX_TLSv1_0: int
+SSLVERSION_MAX_TLSv1_1: int
+SSLVERSION_MAX_TLSv1_2: int
+SSLVERSION_MAX_TLSv1_3: int
 SSLVERSION_SSLv2: int
 SSLVERSION_SSLv3: int
 SSLVERSION_TLSv1: int
 SSLVERSION_TLSv1_0: int
 SSLVERSION_TLSv1_1: int
 SSLVERSION_TLSv1_2: int
-SSLVERSION_MAX_DEFAULT: int
+SSLVERSION_TLSv1_3: int
 SSL_CIPHER_LIST: int
 SSL_ENABLE_ALPN: int
 SSL_ENABLE_NPN: int
@@ -483,6 +510,7 @@ TRANSFER_ENCODING: int
 UNIX_SOCKET_PATH: int
 UNRESTRICTED_AUTH: int
 UPLOAD: int
+UPLOAD_BUFFERSIZE: int
 URL: int
 USERAGENT: int
 USERNAME: int
@@ -497,7 +525,6 @@ VERSION_ASYNCHDNS: int
 VERSION_CONV: int
 VERSION_CURLDEBUG: int
 VERSION_DEBUG: int
-VERSION_FIRST: int
 VERSION_GSSAPI: int
 VERSION_GSSNEGOTIATE: int
 VERSION_HTTP2: int
