@@ -73,9 +73,9 @@ jobs:
             sudo apt update
             sudo apt install -y $(python tests/get_packages.py)
 
-            xvfb-run python tests/stubtest_third_party.py --num-shards 4 --shard-index ${{ matrix.shard-index }}
+            xvfb-run python tests/stubtest_third_party.py --specified-stubs-only --num-shards 4 --shard-index ${{ matrix.shard-index }}
           else
-            python tests/stubtest_third_party.py --num-shards 4 --shard-index ${{ matrix.shard-index }}
+            python tests/stubtest_third_party.py --specified-stubs-only --num-shards 4 --shard-index ${{ matrix.shard-index }}
           fi
 
   stub-uploader:
