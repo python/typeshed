@@ -35,6 +35,11 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: "3.9"
+          cache: pip
+          cache-dependency-path: |
+            requirements-tests.txt
+            stubs/**/@tests/requirements-stubtest.txt
+            stubs/**/METADATA.toml
       - name: Install dependencies
         run: pip install -r requirements-tests.txt
       - name: Run stubtest
@@ -59,7 +64,7 @@ jobs:
                 sudo apt update && sudo apt install -y $PACKAGES
               fi
 
-              xvfb-run python tests/stubtest_third_party.py $STUBS
+              xvfb-run python tests/stubtest_third_party.py --specified-stubs-only $STUBS
             else
               if [ "${{ matrix.os }}" = "macos-latest" ] && [ -n "$PACKAGES" ]; then
                 echo "Installing Homebrew packages: $PACKAGES"
@@ -71,7 +76,7 @@ jobs:
                 choco install -y $PACKAGES
               fi
 
-              python tests/stubtest_third_party.py $STUBS
+              python tests/stubtest_third_party.py --specified-stubs-only $STUBS
             fi
           else
             echo "Nothing to test"

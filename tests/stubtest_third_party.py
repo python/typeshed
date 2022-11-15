@@ -23,7 +23,7 @@ def get_mypy_req() -> str:
         return next(line.strip() for line in f if "mypy" in line)
 
 
-def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
+def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: bool = False) -> bool:
     with open(dist / "METADATA.toml", encoding="UTF-8") as f:
         metadata = dict(tomli.loads(f.read()))
 
@@ -36,8 +36,10 @@ def run_stubtest(dist: Path, *, verbose: bool = False) -> bool:
 
     platforms_to_test = stubtest_meta.get("platforms", ["linux"])
     if sys.platform not in platforms_to_test:
-        print(colored(f"skipping, unsupported platform: {sys.platform}, supported: {platforms_to_test}", "yellow"))
-        return True
+        if specified_stubs_only:
+            print(colored("skipping (platform not specified in METADATA.toml)", "yellow"))
+            return True
+        print(colored(f"Note: {dist.name} is not currently tested on {sys.platform} in typeshed's CI.", "yellow"))
 
     with tempfile.TemporaryDirectory() as tmp:
         venv_dir = Path(tmp)
@@ -167,6 +169,11 @@ def main() -> NoReturn:
     parser.add_argument("-v", "--verbose", action="store_true", help="verbose output")
     parser.add_argument("--num-shards", type=int, default=1)
     parser.add_argument("--shard-index", type=int, default=0)
+    parser.add_argument(
+        "--specified-stubs-only",
+        action="store_true",
+        help="skip the test if the current platform is not specified in METADATA.toml/tool.stubtest.platforms",
+    )
     parser.add_argument("dists", metavar="DISTRIBUTION", type=str, nargs=argparse.ZERO_OR_MORE)
     args = parser.parse_args()
 
@@ -180,7 +187,7 @@ def main() -> NoReturn:
     for i, dist in enumerate(dists):
         if i % args.num_shards != args.shard_index:
             continue
-        if not run_stubtest(dist, verbose=args.verbose):
+        if not run_stubtest(dist, verbose=args.verbose, specified_stubs_only=args.specified_stubs_only):
             result = 1
     sys.exit(result)
 
