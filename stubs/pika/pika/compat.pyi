@@ -1,7 +1,7 @@
 from abc import ABCMeta
 from io import StringIO as StringIO
 from re import Pattern
-from typing import Final, Literal
+from typing_extensions import Final, Literal
 from urllib.parse import parse_qs, quote, unquote, urlencode as urlencode, urlparse as urlparse
 
 url_quote = quote
