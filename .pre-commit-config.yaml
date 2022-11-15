@@ -1,9 +1,9 @@
 repos:
   - repo: https://github.com/hadialqattan/pycln
-    rev: v2.1.1 # must match requirements-tests.txt
+    rev: v2.1.2 # must match requirements-tests.txt
     hooks:
       - id: pycln
-        args: [--all, stubs, stdlib, tests, scripts]
+        args: [--config=pyproject.toml, stubs, stdlib, tests, scripts]
   - repo: https://github.com/psf/black
     rev: 22.10.0 # must match requirements-tests.txt
     hooks:

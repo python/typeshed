@@ -35,6 +35,11 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: "3.9"
+          cache: pip
+          cache-dependency-path: |
+            requirements-tests.txt
+            stubs/**/@tests/requirements-stubtest.txt
+            stubs/**/METADATA.toml
       - name: Install dependencies
         run: pip install -r requirements-tests.txt
       - name: Run stubtest
@@ -58,17 +63,17 @@ jobs:
                 echo "Installing apt packages: $PACKAGES"
                 sudo apt update && sudo apt install -y $PACKAGES
               fi
-              xvfb-run python tests/stubtest_third_party.py $STUBS
+              xvfb-run python tests/stubtest_third_party.py --specified-stubs-only $STUBS
             fi
 
             if [ "${{ matrix.os }}" = "macos-latest" ]; then
               # Could install brew packages here if we run into stubs that need it
-              python tests/stubtest_third_party.py $STUBS
+              python tests/stubtest_third_party.py --specified-stubs-only $STUBS
             fi
 
             if [ "${{ matrix.os }}" = "windows-latest" ]; then
               # Could install choco packages here if we run into stubs that need it
-              python tests/stubtest_third_party.py $STUBS
+              python tests/stubtest_third_party.py --specified-stubs-only $STUBS
             fi
           else
             echo "Nothing to test"
