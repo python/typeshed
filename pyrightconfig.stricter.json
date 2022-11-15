@@ -7,6 +7,7 @@
     ],
     "exclude": [
         "stdlib/distutils/command",
+        "stdlib/idlelib",
         "stdlib/lib2to3/refactor.pyi",
         "stdlib/multiprocessing/reduction.pyi",
         "stdlib/_tkinter.pyi",
