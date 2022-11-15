@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-import pika.tcp_socket_opts
+import pika.compat
 
 class AMQPConnectorException(Exception): ...
 class AMQPConnectorStackTimeout(AMQPConnectorException): ...

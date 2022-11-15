@@ -1,13 +1,15 @@
 from _typeshed import Incomplete
-from typing import NamedTuple
+from typing import Any, NamedTuple
 
 import pika.connection
 from pika.adapters.utils import nbio_interface
-from twisted.internet import defer, protocol
+
+DeferredQueue = Any  # TODO: twisted.internet.defer.DeferredQueue
+Protocol = Any  # TODO: twisted.internet.protocol.Protocol
 
 LOGGER: Incomplete
 
-class ClosableDeferredQueue(defer.DeferredQueue):
+class ClosableDeferredQueue(DeferredQueue):
     closed: Incomplete
     def __init__(self, size: Incomplete | None = ..., backlog: Incomplete | None = ...) -> None: ...
     def put(self, obj): ...
@@ -104,7 +106,7 @@ class _TwistedConnectionAdapter(pika.connection.Connection):
     def connection_lost(self, error) -> None: ...
     def data_received(self, data) -> None: ...
 
-class TwistedProtocolConnection(protocol.Protocol):
+class TwistedProtocolConnection(Protocol):
     ready: Incomplete
     closed: Incomplete
     def __init__(self, parameters: Incomplete | None = ..., custom_reactor: Incomplete | None = ...) -> None: ...

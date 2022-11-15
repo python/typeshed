@@ -1,7 +1,7 @@
 import abc
 from _typeshed import Incomplete
 
-import pika.heartbeat
+from pika.compat import AbstractBase
 
 PRODUCT: str
 LOGGER: Incomplete
@@ -147,7 +147,7 @@ class SSLOptions:
     server_hostname: Incomplete
     def __init__(self, context, server_hostname: Incomplete | None = ...) -> None: ...
 
-class Connection(pika.compat.AbstractBase, metaclass=abc.ABCMeta):
+class Connection(AbstractBase, metaclass=abc.ABCMeta):
     ON_CONNECTION_CLOSED: str
     ON_CONNECTION_ERROR: str
     ON_CONNECTION_OPEN_OK: str
