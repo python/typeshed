@@ -52,6 +52,7 @@
         "stubs/google-cloud-ndb",
         "stubs/passlib",
         "stubs/peewee",
+        "stubs/pika",
         "stubs/psutil",
         "stubs/psycopg2",
         "stubs/pyflakes",
