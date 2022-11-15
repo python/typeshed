@@ -34,21 +34,14 @@ def run_stubtest(dist: Path, *, verbose: bool = False, ci_run: bool = False) -> 
         print(colored("skipping", "yellow"))
         return True
 
-    platforms_to_test: list[str] | None = stubtest_meta.get("platforms")
-    if ci_run:
-        if platforms_to_test:
-            if sys.platform not in platforms_to_test:
-                print(colored(f"skipping, unsupported platform: {sys.platform}, supported: {platforms_to_test}", "yellow"))
-                return True
-        elif sys.platform != "linux":
-            print(colored(f"skipping, redundant platform: {sys.platform}", "yellow"))
+    platforms_to_test = stubtest_meta.get("platforms", ["linux"])
+    if sys.platform not in platforms_to_test:
+        if ci_run:
+            print(colored(f"skipping (unsupported platform)", "yellow"))
             return True
-
-    elif platforms_to_test and sys.platform not in platforms_to_test:
         print(
             colored(
-                f"warning: your platform, {sys.platform}, is not in: {platforms_to_test}. "
-                + "It may be unsupported or deemed redundant to test on the CI",
+                f"Note: stubtest is not currently tested on {sys.platform} in typeshed's CI.",
                 "yellow",
             )
         )
