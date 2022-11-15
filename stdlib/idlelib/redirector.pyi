@@ -1,0 +1,23 @@
+from _typeshed import Incomplete
+
+class WidgetRedirector:
+    def __getattr__(self, name: str) -> Incomplete: ...  # Incomplete
+    widget: Incomplete
+    tk: Incomplete
+    orig: Incomplete
+    def __init__(self, widget) -> None: ...
+    def close(self) -> None: ...
+    def register(self, operation, function): ...
+    def unregister(self, operation): ...
+    def dispatch(self, operation, *args): ...
+
+class OriginalCommand:
+    def __getattr__(self, name: str) -> Incomplete: ...  # Incomplete
+    redir: Incomplete
+    operation: Incomplete
+    tk: Incomplete
+    orig: Incomplete
+    tk_call: Incomplete
+    orig_and_operation: Incomplete
+    def __init__(self, redir, operation) -> None: ...
+    def __call__(self, *args): ...
