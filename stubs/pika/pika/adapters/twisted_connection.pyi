@@ -1,11 +1,12 @@
 from _typeshed import Incomplete
 from typing import Any, NamedTuple
+from typing_extensions import TypeAlias
 
 import pika.connection
 from pika.adapters.utils import nbio_interface
 
-DeferredQueue = Any  # TODO: twisted.internet.defer.DeferredQueue
-Protocol = Any  # TODO: twisted.internet.protocol.Protocol
+DeferredQueue: TypeAlias = Any  # TODO: twisted.internet.defer.DeferredQueue
+Protocol: TypeAlias = Any  # TODO: twisted.internet.protocol.Protocol
 
 LOGGER: Incomplete
 

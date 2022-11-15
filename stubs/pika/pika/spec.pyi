@@ -6,7 +6,7 @@ from pika.amqp_object import Class, Method, Properties
 from pika.compat import str_or_bytes as str_or_bytes
 
 # Ouch. Since str = bytes at runtime, we need a type alias for "str".
-_str: TypeAlias = str
+_str: TypeAlias = str  # noqa: Y042
 str = bytes
 
 PROTOCOL_VERSION: Incomplete
