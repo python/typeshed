@@ -1,7 +1,6 @@
+from idlelib.tooltip import TooltipBase as TooltipBase
 from tkinter import Event, Label, Text
 from typing import Any, Union
-
-from idlelib.tooltip import TooltipBase as TooltipBase
 
 HIDE_EVENT: str
 HIDE_SEQUENCES: tuple[str, str]

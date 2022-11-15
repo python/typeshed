@@ -1,11 +1,10 @@
-from tkinter import Event, Tk
-from typing import Any, Callable, Union
-
 from idlelib import pyshell as pyshell
 from idlelib.config import idleConf as idleConf
 from idlelib.tree import ScrolledCanvas as ScrolledCanvas, TreeItem as TreeItem, TreeNode as TreeNode
 from idlelib.util import py_extensions as py_extensions
 from idlelib.window import ListedToplevel as ListedToplevel
+from tkinter import Event, Tk
+from typing import Any, Callable, Union
 
 file_open: Callable[[str, bool | None], pyshell.EditorWindow | None]  # pyshell.flist.open
 browseable_extension_blocklist: tuple[str]

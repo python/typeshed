@@ -1,8 +1,4 @@
 from _typeshed import Incomplete
-from tkinter import *
-from tkinter import Event
-from typing import Any, Union
-
 from idlelib import (
     configdialog as configdialog,
     grep as grep,
@@ -33,6 +29,9 @@ from idlelib.tree import wheel_event as wheel_event
 from idlelib.undo import UndoDelegator as UndoDelegator
 from idlelib.util import py_extensions as py_extensions
 from idlelib.zoomheight import ZoomHeight as ZoomHeight
+from tkinter import *
+from tkinter import Event
+from typing import Any, Union
 
 TK_TABWIDTH_DEFAULT: int
 darwin: bool

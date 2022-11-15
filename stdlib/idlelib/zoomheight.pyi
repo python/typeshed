@@ -1,7 +1,6 @@
+from idlelib.editor import EditorWindow
 from tkinter import BaseWidget, Event
 from typing import Any, Union
-
-from idlelib.editor import EditorWindow
 
 class WmInfoGatheringError(Exception): ...
 

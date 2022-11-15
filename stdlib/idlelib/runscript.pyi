@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-
 from idlelib import macosx as macosx, outwin as outwin, pyshell as pyshell
 from idlelib.config import idleConf as idleConf
 from idlelib.query import CustomRun as CustomRun

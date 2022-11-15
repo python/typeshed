@@ -1,9 +1,4 @@
 import io
-from socket import socket
-from tkinter import BaseWidget, Misc, Tk
-from types import TracebackType
-from typing import Any, Callable
-
 from idlelib import (
     autocomplete as autocomplete,
     calltip as calltip,
@@ -14,6 +9,10 @@ from idlelib import (
     stackviewer as stackviewer,
 )
 from idlelib.pyshell import PyShellEditorWindow
+from socket import socket
+from tkinter import BaseWidget, Misc, Tk
+from types import TracebackType
+from typing import Any, Callable
 
 LOCALHOST: str
 eof: str

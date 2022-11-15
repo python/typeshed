@@ -1,8 +1,7 @@
 from _sitebuiltins import _Printer
+from idlelib import textview as textview
 from tkinter import Button, Event, PhotoImage, Tk, Toplevel
 from typing import Any
-
-from idlelib import textview as textview
 
 version: str
 

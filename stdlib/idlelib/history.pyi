@@ -1,7 +1,6 @@
+from idlelib.config import idleConf as idleConf
 from tkinter import Event, Text
 from typing import Any, Union
-
-from idlelib.config import idleConf as idleConf
 
 class History:
     text: Text  # Idle Multicall wrapper of tk Text widget, with .bell().

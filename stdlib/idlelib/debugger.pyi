@@ -1,15 +1,14 @@
 import bdb
 import reprlib
-from tkinter import BaseWidget, BooleanVar, Button, Canvas, Checkbutton, Event, Frame, Label, Scrollbar, Tk
-from types import CodeType, FrameType, TracebackType
-from typing import Any, Type, Union
-
 from idlelib import macosx as macosx, rpc as rpc
 from idlelib.debugger_r import IdbProxy
 from idlelib.filelist import FileList
 from idlelib.pyshell import PyShellEditorWindow
 from idlelib.scrolledlist import ScrolledList as ScrolledList
 from idlelib.window import ListedToplevel as ListedToplevel
+from tkinter import BaseWidget, BooleanVar, Button, Canvas, Checkbutton, Event, Frame, Label, Scrollbar, Tk
+from types import CodeType, FrameType, TracebackType
+from typing import Any, Type, Union
 
 class Idb(bdb.Bdb):
     gui: "Debugger"

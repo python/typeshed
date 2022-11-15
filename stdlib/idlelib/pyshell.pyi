@@ -1,7 +1,5 @@
 from _typeshed import Incomplete
 from code import InteractiveInterpreter
-from tkinter import *
-
 from idlelib import debugger as debugger, debugger_r as debugger_r, replace as replace, rpc as rpc
 from idlelib.colorizer import ColorDelegator as ColorDelegator
 from idlelib.config import idleConf as idleConf
@@ -19,6 +17,7 @@ from idlelib.run import (
 from idlelib.sidebar import ShellSidebar as ShellSidebar
 from idlelib.squeezer import Squeezer as Squeezer
 from idlelib.undo import UndoDelegator as UndoDelegator
+from tkinter import *
 
 root: Incomplete
 use_subprocess: bool

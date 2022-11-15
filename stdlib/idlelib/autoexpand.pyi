@@ -1,7 +1,6 @@
+from idlelib.pyshell import PyShellEditorWindow
 from tkinter import Event
 from typing import Any, Callable
-
-from idlelib.pyshell import PyShellEditorWindow
 
 class AutoExpand:
     wordchars: str

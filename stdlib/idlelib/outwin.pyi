@@ -1,10 +1,9 @@
 from _typeshed import Incomplete
+from idlelib.editor import EditorWindow as EditorWindow
+from idlelib.filelist import FileList
 from re import Pattern
 from tkinter import Event
 from typing import Any, Iterable, Union
-
-from idlelib.editor import EditorWindow as EditorWindow
-from idlelib.filelist import FileList
 
 file_line_pats: list[str]
 file_line_progs: list[Pattern[str]] | None

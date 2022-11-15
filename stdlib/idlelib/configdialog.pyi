@@ -1,7 +1,4 @@
 from _typeshed import Incomplete
-from tkinter import Toplevel
-from tkinter.ttk import Frame, HighPage, LabelFrame, Notebook
-
 from idlelib import macosx as macosx
 from idlelib.autocomplete import AutoComplete as AutoComplete
 from idlelib.codecontext import CodeContext as CodeContext
@@ -13,6 +10,8 @@ from idlelib.parenmatch import ParenMatch as ParenMatch
 from idlelib.query import HelpSource as HelpSource, SectionName as SectionName
 from idlelib.squeezer import Squeezer as Squeezer
 from idlelib.textview import ScrollableTextFrame as ScrollableTextFrame, view_text as view_text
+from tkinter import Toplevel
+from tkinter.ttk import Frame, HighPage, LabelFrame, Notebook
 
 changes: dict[str, dict]
 reloadables: tuple

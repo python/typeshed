@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-
 from idlelib.browser import ModuleBrowser as ModuleBrowser, ModuleBrowserTreeItem as ModuleBrowserTreeItem
 from idlelib.tree import TreeItem as TreeItem
 

@@ -1,11 +1,10 @@
 from collections.abc import Generator
-from tkinter import BaseWidget, Canvas, Event, Text
-from typing import Any, Callable, Union
-
 from idlelib import macosx as macosx
 from idlelib.config import idleConf as idleConf
 from idlelib.delegator import Delegator as Delegator
 from idlelib.pyshell import PyShellEditorWindow
+from tkinter import BaseWidget, Canvas, Event, Text
+from typing import Any, Callable, Union
 
 def get_lineno(text: Text, index: str) -> int | None: ...
 def get_end_linenumber(text: Text) -> int | None: ...

@@ -1,9 +1,8 @@
-from tkinter import Tk, Toplevel
-from types import FrameType, TracebackType
-
 from idlelib.debugobj import ObjectTreeItem as ObjectTreeItem, make_objecttreeitem as make_objecttreeitem
 from idlelib.pyshell import PyShellFileList
 from idlelib.tree import ScrolledCanvas as ScrolledCanvas, TreeItem as TreeItem, TreeNode as TreeNode
+from tkinter import Tk, Toplevel
+from types import FrameType, TracebackType
 
 def StackBrowser(
     root: Tk, flist: PyShellFileList | None = ..., tb: TracebackType | None = ..., top: Toplevel | None = ...

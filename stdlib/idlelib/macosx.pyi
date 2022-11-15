@@ -1,7 +1,6 @@
+from idlelib.filelist import FileList
 from tkinter import Tk
 from typing import Any
-
-from idlelib.filelist import FileList
 
 def isAquaTk() -> bool: ...
 def isCarbonTk() -> bool: ...

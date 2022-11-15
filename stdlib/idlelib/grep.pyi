@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-
 from idlelib import searchengine as searchengine
 from idlelib.searchbase import SearchDialogBase as SearchDialogBase
 

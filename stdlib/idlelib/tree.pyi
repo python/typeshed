@@ -1,9 +1,8 @@
+from idlelib import zoomheight as zoomheight
+from idlelib.config import idleConf as idleConf
 from tkinter import *
 from tkinter import Canvas, Event, Frame, PhotoImage, Scrollbar, Tk, Widget
 from typing import Any, Union
-
-from idlelib import zoomheight as zoomheight
-from idlelib.config import idleConf as idleConf
 
 ICONDIR: str
 

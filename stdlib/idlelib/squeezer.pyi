@@ -1,12 +1,11 @@
 import tkinter as tk
-from tkinter import Event, Text
-from typing import Any, Union
-
 from idlelib import macosx as macosx
 from idlelib.config import idleConf as idleConf
 from idlelib.pyshell import PyShellEditorWindow
 from idlelib.textview import view_text as view_text
 from idlelib.tooltip import Hovertip as Hovertip
+from tkinter import Event, Text
+from typing import Any, Union
 
 def count_lines_with_wrapping(s: str, linewidth: int = ...) -> int: ...
 
