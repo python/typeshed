@@ -1,9 +1,14 @@
 from _typeshed import Incomplete
 from typing import ClassVar
+from typing_extensions import TypeAlias
 
 from pika.amqp_object import Class, Method, Properties
+from pika.compat import str_or_bytes as str_or_bytes
 
+# Ouch. Since str = bytes at runtime, we need a type alias for "str".
+_str: TypeAlias = str
 str = bytes
+
 PROTOCOL_VERSION: Incomplete
 PORT: int
 ACCESS_REFUSED: int
@@ -52,8 +57,8 @@ class Connection(Class):
             version_major: int = ...,
             version_minor: int = ...,
             server_properties: Incomplete | None = ...,
-            mechanisms: str = ...,
-            locales: str = ...,
+            mechanisms: _str = ...,
+            locales: _str = ...,
         ) -> None: ...
         @property
         def synchronous(self): ...
@@ -69,9 +74,9 @@ class Connection(Class):
         def __init__(
             self,
             client_properties: Incomplete | None = ...,
-            mechanism: str = ...,
+            mechanism: _str = ...,
             response: Incomplete | None = ...,
-            locale: str = ...,
+            locale: _str = ...,
         ) -> None: ...
         @property
         def synchronous(self): ...
@@ -123,7 +128,7 @@ class Connection(Class):
         virtual_host: Incomplete
         capabilities: Incomplete
         insist: Incomplete
-        def __init__(self, virtual_host: str = ..., capabilities: str = ..., insist: bool = ...) -> None: ...
+        def __init__(self, virtual_host: _str = ..., capabilities: _str = ..., insist: bool = ...) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = ...): ...
@@ -132,7 +137,7 @@ class Connection(Class):
     class OpenOk(Method):
         INDEX: ClassVar[int]
         known_hosts: Incomplete
-        def __init__(self, known_hosts: str = ...) -> None: ...
+        def __init__(self, known_hosts: _str = ...) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = ...): ...
@@ -147,7 +152,7 @@ class Connection(Class):
         def __init__(
             self,
             reply_code: Incomplete | None = ...,
-            reply_text: str = ...,
+            reply_text: _str = ...,
             class_id: Incomplete | None = ...,
             method_id: Incomplete | None = ...,
         ) -> None: ...
@@ -167,7 +172,7 @@ class Connection(Class):
     class Blocked(Method):
         INDEX: ClassVar[int]
         reason: Incomplete
-        def __init__(self, reason: str = ...) -> None: ...
+        def __init__(self, reason: _str = ...) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = ...): ...
@@ -206,7 +211,7 @@ class Channel(Class):
     class Open(Method):
         INDEX: ClassVar[int]
         out_of_band: Incomplete
-        def __init__(self, out_of_band: str = ...) -> None: ...
+        def __init__(self, out_of_band: _str = ...) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = ...): ...
@@ -215,7 +220,7 @@ class Channel(Class):
     class OpenOk(Method):
         INDEX: ClassVar[int]
         channel_id: Incomplete
-        def __init__(self, channel_id: str = ...) -> None: ...
+        def __init__(self, channel_id: _str = ...) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = ...): ...
@@ -248,7 +253,7 @@ class Channel(Class):
         def __init__(
             self,
             reply_code: Incomplete | None = ...,
-            reply_text: str = ...,
+            reply_text: _str = ...,
             class_id: Incomplete | None = ...,
             method_id: Incomplete | None = ...,
         ) -> None: ...
@@ -278,7 +283,7 @@ class Access(Class):
         read: Incomplete
         def __init__(
             self,
-            realm: str = ...,
+            realm: _str = ...,
             exclusive: bool = ...,
             passive: bool = ...,
             active: bool = ...,
@@ -362,18 +367,18 @@ class Exchange(Class):
 
     class Bind(Method):
         INDEX: ClassVar[int]
-        ticket: Incomplete
-        destination: Incomplete
-        source: Incomplete
-        routing_key: Incomplete
-        nowait: Incomplete
-        arguments: Incomplete
+        ticket: int
+        destination: Incomplete | None
+        source: Incomplete | None
+        routing_key: _str
+        nowait: bool
+        arguments: Incomplete | None
         def __init__(
             self,
             ticket: int = ...,
             destination: Incomplete | None = ...,
             source: Incomplete | None = ...,
-            routing_key: str = ...,
+            routing_key: _str = ...,
             nowait: bool = ...,
             arguments: Incomplete | None = ...,
         ) -> None: ...
@@ -403,7 +408,7 @@ class Exchange(Class):
             ticket: int = ...,
             destination: Incomplete | None = ...,
             source: Incomplete | None = ...,
-            routing_key: str = ...,
+            routing_key: _str = ...,
             nowait: bool = ...,
             arguments: Incomplete | None = ...,
         ) -> None: ...
@@ -436,7 +441,7 @@ class Queue(Class):
         def __init__(
             self,
             ticket: int = ...,
-            queue: str = ...,
+            queue: _str = ...,
             passive: bool = ...,
             durable: bool = ...,
             exclusive: bool = ...,
@@ -473,9 +478,9 @@ class Queue(Class):
         def __init__(
             self,
             ticket: int = ...,
-            queue: str = ...,
+            queue: _str = ...,
             exchange: Incomplete | None = ...,
-            routing_key: str = ...,
+            routing_key: _str = ...,
             nowait: bool = ...,
             arguments: Incomplete | None = ...,
         ) -> None: ...
@@ -497,7 +502,7 @@ class Queue(Class):
         ticket: Incomplete
         queue: Incomplete
         nowait: Incomplete
-        def __init__(self, ticket: int = ..., queue: str = ..., nowait: bool = ...) -> None: ...
+        def __init__(self, ticket: int = ..., queue: _str = ..., nowait: bool = ...) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = ...): ...
@@ -520,7 +525,7 @@ class Queue(Class):
         if_empty: Incomplete
         nowait: Incomplete
         def __init__(
-            self, ticket: int = ..., queue: str = ..., if_unused: bool = ..., if_empty: bool = ..., nowait: bool = ...
+            self, ticket: int = ..., queue: _str = ..., if_unused: bool = ..., if_empty: bool = ..., nowait: bool = ...
         ) -> None: ...
         @property
         def synchronous(self): ...
@@ -546,9 +551,9 @@ class Queue(Class):
         def __init__(
             self,
             ticket: int = ...,
-            queue: str = ...,
+            queue: _str = ...,
             exchange: Incomplete | None = ...,
-            routing_key: str = ...,
+            routing_key: _str = ...,
             arguments: Incomplete | None = ...,
         ) -> None: ...
         @property
@@ -599,8 +604,8 @@ class Basic(Class):
         def __init__(
             self,
             ticket: int = ...,
-            queue: str = ...,
-            consumer_tag: str = ...,
+            queue: _str = ...,
+            consumer_tag: _str = ...,
             no_local: bool = ...,
             no_ack: bool = ...,
             exclusive: bool = ...,
@@ -648,7 +653,7 @@ class Basic(Class):
         mandatory: Incomplete
         immediate: Incomplete
         def __init__(
-            self, ticket: int = ..., exchange: str = ..., routing_key: str = ..., mandatory: bool = ..., immediate: bool = ...
+            self, ticket: int = ..., exchange: _str = ..., routing_key: _str = ..., mandatory: bool = ..., immediate: bool = ...
         ) -> None: ...
         @property
         def synchronous(self): ...
@@ -664,7 +669,7 @@ class Basic(Class):
         def __init__(
             self,
             reply_code: Incomplete | None = ...,
-            reply_text: str = ...,
+            reply_text: _str = ...,
             exchange: Incomplete | None = ...,
             routing_key: Incomplete | None = ...,
         ) -> None: ...
@@ -698,7 +703,7 @@ class Basic(Class):
         ticket: Incomplete
         queue: Incomplete
         no_ack: Incomplete
-        def __init__(self, ticket: int = ..., queue: str = ..., no_ack: bool = ...) -> None: ...
+        def __init__(self, ticket: int = ..., queue: _str = ..., no_ack: bool = ...) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = ...): ...
@@ -727,7 +732,7 @@ class Basic(Class):
     class GetEmpty(Method):
         INDEX: ClassVar[int]
         cluster_id: Incomplete
-        def __init__(self, cluster_id: str = ...) -> None: ...
+        def __init__(self, cluster_id: _str = ...) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = ...): ...
