@@ -145,6 +145,7 @@ heapq: 2.7-
 hmac: 2.7-
 html: 3.0-
 http: 3.0-
+idlelib: 2.7-
 imaplib: 2.7-
 imghdr: 2.7-
 imp: 2.7-

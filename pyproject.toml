@@ -51,6 +51,7 @@ extra_standard_library = [
     "_weakref",
     "_weakrefset",
     "_winapi",
+    "idlelib",
     "genericpath",
     "opcode",
     "pyexpat",
