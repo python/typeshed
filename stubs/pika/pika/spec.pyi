@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 
-from pika import amqp_object
+from pika.amqp_object import Class, Method, Properties
 
 str = bytes
 PROTOCOL_VERSION: Incomplete
@@ -36,13 +37,11 @@ SYNTAX_ERROR: int
 TRANSIENT_DELIVERY_MODE: int
 UNEXPECTED_FRAME: int
 
-class Connection(amqp_object.Class):
-    INDEX: int
-    NAME: str
+class Connection(Class):
+    INDEX: ClassVar[int]
 
-    class Start(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Start(Method):
+        INDEX: ClassVar[int]
         version_major: Incomplete
         version_minor: Incomplete
         server_properties: Incomplete
@@ -61,9 +60,8 @@ class Connection(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class StartOk(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class StartOk(Method):
+        INDEX: ClassVar[int]
         client_properties: Incomplete
         mechanism: Incomplete
         response: Incomplete
@@ -80,9 +78,8 @@ class Connection(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class Secure(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Secure(Method):
+        INDEX: ClassVar[int]
         challenge: Incomplete
         def __init__(self, challenge: Incomplete | None = ...) -> None: ...
         @property
@@ -90,9 +87,8 @@ class Connection(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class SecureOk(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class SecureOk(Method):
+        INDEX: ClassVar[int]
         response: Incomplete
         def __init__(self, response: Incomplete | None = ...) -> None: ...
         @property
@@ -100,9 +96,8 @@ class Connection(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class Tune(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Tune(Method):
+        INDEX: ClassVar[int]
         channel_max: Incomplete
         frame_max: Incomplete
         heartbeat: Incomplete
@@ -112,9 +107,8 @@ class Connection(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class TuneOk(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class TuneOk(Method):
+        INDEX: ClassVar[int]
         channel_max: Incomplete
         frame_max: Incomplete
         heartbeat: Incomplete
@@ -124,9 +118,8 @@ class Connection(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class Open(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Open(Method):
+        INDEX: ClassVar[int]
         virtual_host: Incomplete
         capabilities: Incomplete
         insist: Incomplete
@@ -136,9 +129,8 @@ class Connection(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class OpenOk(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class OpenOk(Method):
+        INDEX: ClassVar[int]
         known_hosts: Incomplete
         def __init__(self, known_hosts: str = ...) -> None: ...
         @property
@@ -146,9 +138,8 @@ class Connection(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class Close(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Close(Method):
+        INDEX: ClassVar[int]
         reply_code: Incomplete
         reply_text: Incomplete
         class_id: Incomplete
@@ -165,18 +156,16 @@ class Connection(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class CloseOk(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class CloseOk(Method):
+        INDEX: ClassVar[int]
         def __init__(self) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class Blocked(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Blocked(Method):
+        INDEX: ClassVar[int]
         reason: Incomplete
         def __init__(self, reason: str = ...) -> None: ...
         @property
@@ -184,18 +173,16 @@ class Connection(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class Unblocked(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Unblocked(Method):
+        INDEX: ClassVar[int]
         def __init__(self) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class UpdateSecret(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class UpdateSecret(Method):
+        INDEX: ClassVar[int]
         new_secret: Incomplete
         reason: Incomplete
         def __init__(self, new_secret, reason) -> None: ...
@@ -205,22 +192,19 @@ class Connection(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class UpdateSecretOk(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class UpdateSecretOk(Method):
+        INDEX: ClassVar[int]
         def __init__(self) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-class Channel(amqp_object.Class):
-    INDEX: int
-    NAME: str
+class Channel(Class):
+    INDEX: ClassVar[int]
 
-    class Open(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Open(Method):
+        INDEX: ClassVar[int]
         out_of_band: Incomplete
         def __init__(self, out_of_band: str = ...) -> None: ...
         @property
@@ -228,9 +212,8 @@ class Channel(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class OpenOk(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class OpenOk(Method):
+        INDEX: ClassVar[int]
         channel_id: Incomplete
         def __init__(self, channel_id: str = ...) -> None: ...
         @property
@@ -238,9 +221,8 @@ class Channel(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class Flow(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Flow(Method):
+        INDEX: ClassVar[int]
         active: Incomplete
         def __init__(self, active: Incomplete | None = ...) -> None: ...
         @property
@@ -248,9 +230,8 @@ class Channel(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class FlowOk(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class FlowOk(Method):
+        INDEX: ClassVar[int]
         active: Incomplete
         def __init__(self, active: Incomplete | None = ...) -> None: ...
         @property
@@ -258,9 +239,8 @@ class Channel(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class Close(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Close(Method):
+        INDEX: ClassVar[int]
         reply_code: Incomplete
         reply_text: Incomplete
         class_id: Incomplete
@@ -277,22 +257,19 @@ class Channel(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class CloseOk(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class CloseOk(Method):
+        INDEX: ClassVar[int]
         def __init__(self) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-class Access(amqp_object.Class):
-    INDEX: int
-    NAME: str
+class Access(Class):
+    INDEX: ClassVar[int]
 
-    class Request(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Request(Method):
+        INDEX: ClassVar[int]
         realm: Incomplete
         exclusive: Incomplete
         passive: Incomplete
@@ -313,9 +290,8 @@ class Access(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class RequestOk(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class RequestOk(Method):
+        INDEX: ClassVar[int]
         ticket: Incomplete
         def __init__(self, ticket: int = ...) -> None: ...
         @property
@@ -323,13 +299,11 @@ class Access(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-class Exchange(amqp_object.Class):
-    INDEX: int
-    NAME: str
+class Exchange(Class):
+    INDEX: ClassVar[int]
 
-    class Declare(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Declare(Method):
+        INDEX: ClassVar[int]
         ticket: Incomplete
         exchange: Incomplete
         type: Incomplete
@@ -356,18 +330,16 @@ class Exchange(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class DeclareOk(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class DeclareOk(Method):
+        INDEX: ClassVar[int]
         def __init__(self) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class Delete(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Delete(Method):
+        INDEX: ClassVar[int]
         ticket: Incomplete
         exchange: Incomplete
         if_unused: Incomplete
@@ -380,18 +352,16 @@ class Exchange(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class DeleteOk(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class DeleteOk(Method):
+        INDEX: ClassVar[int]
         def __init__(self) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class Bind(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Bind(Method):
+        INDEX: ClassVar[int]
         ticket: Incomplete
         destination: Incomplete
         source: Incomplete
@@ -412,18 +382,16 @@ class Exchange(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class BindOk(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class BindOk(Method):
+        INDEX: ClassVar[int]
         def __init__(self) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class Unbind(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Unbind(Method):
+        INDEX: ClassVar[int]
         ticket: Incomplete
         destination: Incomplete
         source: Incomplete
@@ -444,22 +412,19 @@ class Exchange(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class UnbindOk(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class UnbindOk(Method):
+        INDEX: ClassVar[int]
         def __init__(self) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-class Queue(amqp_object.Class):
-    INDEX: int
-    NAME: str
+class Queue(Class):
+    INDEX: ClassVar[int]
 
-    class Declare(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Declare(Method):
+        INDEX: ClassVar[int]
         ticket: Incomplete
         queue: Incomplete
         passive: Incomplete
@@ -484,9 +449,8 @@ class Queue(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class DeclareOk(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class DeclareOk(Method):
+        INDEX: ClassVar[int]
         queue: Incomplete
         message_count: Incomplete
         consumer_count: Incomplete
@@ -498,9 +462,8 @@ class Queue(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class Bind(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Bind(Method):
+        INDEX: ClassVar[int]
         ticket: Incomplete
         queue: Incomplete
         exchange: Incomplete
@@ -521,18 +484,16 @@ class Queue(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class BindOk(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class BindOk(Method):
+        INDEX: ClassVar[int]
         def __init__(self) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class Purge(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Purge(Method):
+        INDEX: ClassVar[int]
         ticket: Incomplete
         queue: Incomplete
         nowait: Incomplete
@@ -542,9 +503,8 @@ class Queue(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class PurgeOk(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class PurgeOk(Method):
+        INDEX: ClassVar[int]
         message_count: Incomplete
         def __init__(self, message_count: Incomplete | None = ...) -> None: ...
         @property
@@ -552,9 +512,8 @@ class Queue(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class Delete(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Delete(Method):
+        INDEX: ClassVar[int]
         ticket: Incomplete
         queue: Incomplete
         if_unused: Incomplete
@@ -568,9 +527,8 @@ class Queue(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class DeleteOk(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class DeleteOk(Method):
+        INDEX: ClassVar[int]
         message_count: Incomplete
         def __init__(self, message_count: Incomplete | None = ...) -> None: ...
         @property
@@ -578,9 +536,8 @@ class Queue(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class Unbind(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Unbind(Method):
+        INDEX: ClassVar[int]
         ticket: Incomplete
         queue: Incomplete
         exchange: Incomplete
@@ -599,22 +556,19 @@ class Queue(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class UnbindOk(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class UnbindOk(Method):
+        INDEX: ClassVar[int]
         def __init__(self) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-class Basic(amqp_object.Class):
-    INDEX: int
-    NAME: str
+class Basic(Class):
+    INDEX: ClassVar[int]
 
-    class Qos(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Qos(Method):
+        INDEX: ClassVar[int]
         prefetch_size: Incomplete
         prefetch_count: Incomplete
         global_qos: Incomplete
@@ -624,18 +578,16 @@ class Basic(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class QosOk(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class QosOk(Method):
+        INDEX: ClassVar[int]
         def __init__(self) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class Consume(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Consume(Method):
+        INDEX: ClassVar[int]
         ticket: Incomplete
         queue: Incomplete
         consumer_tag: Incomplete
@@ -660,9 +612,8 @@ class Basic(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class ConsumeOk(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class ConsumeOk(Method):
+        INDEX: ClassVar[int]
         consumer_tag: Incomplete
         def __init__(self, consumer_tag: Incomplete | None = ...) -> None: ...
         @property
@@ -670,9 +621,8 @@ class Basic(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class Cancel(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Cancel(Method):
+        INDEX: ClassVar[int]
         consumer_tag: Incomplete
         nowait: Incomplete
         def __init__(self, consumer_tag: Incomplete | None = ..., nowait: bool = ...) -> None: ...
@@ -681,9 +631,8 @@ class Basic(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class CancelOk(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class CancelOk(Method):
+        INDEX: ClassVar[int]
         consumer_tag: Incomplete
         def __init__(self, consumer_tag: Incomplete | None = ...) -> None: ...
         @property
@@ -691,9 +640,8 @@ class Basic(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class Publish(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Publish(Method):
+        INDEX: ClassVar[int]
         ticket: Incomplete
         exchange: Incomplete
         routing_key: Incomplete
@@ -707,9 +655,8 @@ class Basic(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class Return(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Return(Method):
+        INDEX: ClassVar[int]
         reply_code: Incomplete
         reply_text: Incomplete
         exchange: Incomplete
@@ -726,9 +673,8 @@ class Basic(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class Deliver(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Deliver(Method):
+        INDEX: ClassVar[int]
         consumer_tag: Incomplete
         delivery_tag: Incomplete
         redelivered: Incomplete
@@ -747,9 +693,8 @@ class Basic(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class Get(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Get(Method):
+        INDEX: ClassVar[int]
         ticket: Incomplete
         queue: Incomplete
         no_ack: Incomplete
@@ -759,9 +704,8 @@ class Basic(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class GetOk(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class GetOk(Method):
+        INDEX: ClassVar[int]
         delivery_tag: Incomplete
         redelivered: Incomplete
         exchange: Incomplete
@@ -780,9 +724,8 @@ class Basic(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class GetEmpty(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class GetEmpty(Method):
+        INDEX: ClassVar[int]
         cluster_id: Incomplete
         def __init__(self, cluster_id: str = ...) -> None: ...
         @property
@@ -790,9 +733,8 @@ class Basic(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class Ack(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Ack(Method):
+        INDEX: ClassVar[int]
         delivery_tag: Incomplete
         multiple: Incomplete
         def __init__(self, delivery_tag: int = ..., multiple: bool = ...) -> None: ...
@@ -801,9 +743,8 @@ class Basic(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class Reject(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Reject(Method):
+        INDEX: ClassVar[int]
         delivery_tag: Incomplete
         requeue: Incomplete
         def __init__(self, delivery_tag: Incomplete | None = ..., requeue: bool = ...) -> None: ...
@@ -812,9 +753,8 @@ class Basic(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class RecoverAsync(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class RecoverAsync(Method):
+        INDEX: ClassVar[int]
         requeue: Incomplete
         def __init__(self, requeue: bool = ...) -> None: ...
         @property
@@ -822,9 +762,8 @@ class Basic(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class Recover(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Recover(Method):
+        INDEX: ClassVar[int]
         requeue: Incomplete
         def __init__(self, requeue: bool = ...) -> None: ...
         @property
@@ -832,18 +771,16 @@ class Basic(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class RecoverOk(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class RecoverOk(Method):
+        INDEX: ClassVar[int]
         def __init__(self) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class Nack(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Nack(Method):
+        INDEX: ClassVar[int]
         delivery_tag: Incomplete
         multiple: Incomplete
         requeue: Incomplete
@@ -853,71 +790,62 @@ class Basic(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-class Tx(amqp_object.Class):
-    INDEX: int
-    NAME: str
+class Tx(Class):
+    INDEX: ClassVar[int]
 
-    class Select(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Select(Method):
+        INDEX: ClassVar[int]
         def __init__(self) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class SelectOk(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class SelectOk(Method):
+        INDEX: ClassVar[int]
         def __init__(self) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class Commit(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Commit(Method):
+        INDEX: ClassVar[int]
         def __init__(self) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class CommitOk(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class CommitOk(Method):
+        INDEX: ClassVar[int]
         def __init__(self) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class Rollback(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Rollback(Method):
+        INDEX: ClassVar[int]
         def __init__(self) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class RollbackOk(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class RollbackOk(Method):
+        INDEX: ClassVar[int]
         def __init__(self) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-class Confirm(amqp_object.Class):
-    INDEX: int
-    NAME: str
+class Confirm(Class):
+    INDEX: ClassVar[int]
 
-    class Select(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class Select(Method):
+        INDEX: ClassVar[int]
         nowait: Incomplete
         def __init__(self, nowait: bool = ...) -> None: ...
         @property
@@ -925,19 +853,17 @@ class Confirm(amqp_object.Class):
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-    class SelectOk(amqp_object.Method):
-        INDEX: int
-        NAME: str
+    class SelectOk(Method):
+        INDEX: ClassVar[int]
         def __init__(self) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = ...): ...
         def encode(self): ...
 
-class BasicProperties(amqp_object.Properties):
+class BasicProperties(Properties):
     CLASS: Incomplete
-    INDEX: int
-    NAME: str
+    INDEX: ClassVar[int]
     FLAG_CONTENT_TYPE: Incomplete
     FLAG_CONTENT_ENCODING: Incomplete
     FLAG_HEADERS: Incomplete

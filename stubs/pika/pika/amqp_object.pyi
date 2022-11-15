@@ -1,18 +1,15 @@
-from _typeshed import Incomplete
+from typing import ClassVar
 
 class AMQPObject:
-    NAME: str
-    INDEX: Incomplete
-    def __eq__(self, other): ...
+    NAME: ClassVar[str]
+    INDEX: ClassVar[int | None]
+    def __eq__(self, other: object) -> bool: ...
 
-class Class(AMQPObject):
-    NAME: str
+class Class(AMQPObject): ...
 
 class Method(AMQPObject):
-    NAME: str
-    synchronous: bool
-    def get_properties(self): ...
-    def get_body(self): ...
+    synchronous: ClassVar[bool]
+    def get_properties(self) -> Properties: ...
+    def get_body(self) -> str: ...
 
-class Properties(AMQPObject):
-    NAME: str
+class Properties(AMQPObject): ...
