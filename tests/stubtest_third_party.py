@@ -37,7 +37,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
     platforms_to_test = stubtest_meta.get("platforms", ["linux"])
     if sys.platform not in platforms_to_test:
         if specified_stubs_only:
-            print(colored("skipping (unspecified platform)", "yellow"))
+            print(colored("skipping (platform not specified in METADATA.toml)", "yellow"))
             return True
         print(colored(f"Note: {dist.name} is not currently tested on {sys.platform} in typeshed's CI.", "yellow"))
 
