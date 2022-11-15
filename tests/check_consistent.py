@@ -153,7 +153,9 @@ def check_metadata() -> None:
 
         stubtest_platforms = set(data.get("tool", {}).get("stubtest", {}).get("platforms", []))
         supported_platforms = {"win32", "linux", "darwin"}
-        assert stubtest_platforms <= supported_platforms, f"Unrecognised platforms specified: {supported_platforms - stubtest_platforms}"
+        assert (
+            stubtest_platforms <= supported_platforms
+        ), f"Unrecognised platforms specified: {supported_platforms - stubtest_platforms}"
 
 
 def get_txt_requirements() -> dict[str, SpecifierSet]:
