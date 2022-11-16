@@ -1,6 +1,6 @@
 from tkinter import BaseWidget, BooleanVar, Button, Entry, Event, Frame, Label, StringVar, Toplevel
 from tkinter.font import Font
-from typing import Any, Callable, Container, Union
+from typing import Any, Callable, Container
 
 class Query(Toplevel):
     parent: BaseWidget

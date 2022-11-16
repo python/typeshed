@@ -3,7 +3,7 @@ from idlelib.autocomplete import ATTRS as ATTRS, FILES as FILES
 from idlelib.multicall import MC_SHIFT as MC_SHIFT
 from tkinter import *
 from tkinter import Event, Listbox, Scrollbar, Text, Toplevel, Widget
-from typing import Any, Union
+from typing import Any
 
 HIDE_VIRTUAL_EVENT_NAME: str
 HIDE_FOCUS_OUT_SEQUENCE: str

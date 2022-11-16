@@ -1,7 +1,7 @@
 from idlelib.colorizer import color_config as color_config
 from tkinter import Event, Toplevel
 from tkinter.ttk import Button, Frame, Scrollbar, Widget
-from typing import Any, Union
+from typing import Any
 
 class AutoHideScrollbar(Scrollbar):
     def set(self, lo: float, hi: float) -> None: ...

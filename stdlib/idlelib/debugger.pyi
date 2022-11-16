@@ -8,7 +8,7 @@ from idlelib.scrolledlist import ScrolledList as ScrolledList
 from idlelib.window import ListedToplevel as ListedToplevel
 from tkinter import BaseWidget, BooleanVar, Button, Canvas, Checkbutton, Event, Frame, Label, Scrollbar, Tk
 from types import CodeType, FrameType, TracebackType
-from typing import Any, Type, Union
+from typing import Any, Type
 
 class Idb(bdb.Bdb):
     gui: "Debugger"

@@ -4,7 +4,7 @@ from idlelib.tree import ScrolledCanvas as ScrolledCanvas, TreeItem as TreeItem,
 from idlelib.util import py_extensions as py_extensions
 from idlelib.window import ListedToplevel as ListedToplevel
 from tkinter import Event, Tk
-from typing import Any, Callable, Union
+from typing import Any, Callable
 
 file_open: Callable[[str, bool | None], pyshell.EditorWindow | None]  # pyshell.flist.open
 browseable_extension_blocklist: tuple[str]

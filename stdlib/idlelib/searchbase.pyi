@@ -1,6 +1,6 @@
 from idlelib.searchengine import SearchEngine
 from tkinter import BaseWidget, Button, Entry, Event, Frame, Label, Text, Tk, Variable
-from typing import Any, Callable, Union
+from typing import Any, Callable
 
 class SearchDialogBase:
     title: str

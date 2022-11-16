@@ -1,6 +1,6 @@
 from idlelib.delegator import Delegator as Delegator
 from tkinter import Event, Text
-from typing import Any, Callable, Union
+from typing import Any, Callable
 
 class UndoDelegator(Delegator):
     max_undo: int

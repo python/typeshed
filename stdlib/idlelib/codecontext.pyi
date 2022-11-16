@@ -2,7 +2,7 @@ from idlelib.config import idleConf as idleConf
 from idlelib.editor import EditorWindow
 from re import Pattern
 from tkinter import Event, Frame, Text
-from typing import Any, Union
+from typing import Any
 
 BLOCKOPENERS: set[str]
 

@@ -1,6 +1,6 @@
 from tkinter import Event, Listbox, StringVar, Tk, Toplevel
 from tkinter.ttk import Button, Checkbutton, Entry, Frame
-from typing import Any, Container, Union
+from typing import Any, Container
 
 FUNCTION_KEYS: tuple[str, ...]
 ALPHANUM_KEYS: tuple[str, ...]

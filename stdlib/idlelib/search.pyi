@@ -1,7 +1,7 @@
 from idlelib import searchengine as searchengine
 from idlelib.searchbase import SearchDialogBase as SearchDialogBase
 from tkinter import Event, Text
-from typing import Any, Union
+from typing import Any
 
 def find(text: Text) -> None: ...
 def find_again(text: Text) -> bool: ...

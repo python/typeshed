@@ -1,7 +1,7 @@
 from idlelib import macosx as macosx
 from tkinter import BaseWidget, Event, Listbox, Menu
 from tkinter.ttk import Frame, Scrollbar
-from typing import Any, Union
+from typing import Any
 
 class ScrolledList:
     default: str

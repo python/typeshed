@@ -2,7 +2,7 @@ from idlelib import calltip_w as calltip_w
 from idlelib.hyperparser import HyperParser as HyperParser
 from idlelib.pyshell import PyShellEditorWindow
 from tkinter import Event, Text
-from typing import Any, Union
+from typing import Any
 
 class Calltip:
     editwin: PyShellEditorWindow

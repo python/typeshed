@@ -31,7 +31,7 @@ from idlelib.util import py_extensions as py_extensions
 from idlelib.zoomheight import ZoomHeight as ZoomHeight
 from tkinter import *
 from tkinter import Event
-from typing import Any, Union
+from typing import Any
 
 TK_TABWIDTH_DEFAULT: int
 darwin: bool

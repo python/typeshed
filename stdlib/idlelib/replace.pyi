@@ -1,7 +1,7 @@
 from idlelib import searchengine as searchengine
 from idlelib.searchbase import SearchDialogBase as SearchDialogBase
 from tkinter import Entry, Event, StringVar, Text, Tk
-from typing import Any, Union
+from typing import Any
 
 def replace(text: Text, insert_tags: str | None = ...) -> None: ...
 

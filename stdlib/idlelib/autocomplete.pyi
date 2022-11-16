@@ -3,7 +3,7 @@ from idlelib.config import idleConf as idleConf
 from idlelib.editor import EditorWindow
 from idlelib.hyperparser import HyperParser as HyperParser
 from tkinter import Event, Text
-from typing import Any, Union
+from typing import Any
 
 completion_kwds: list[str]
 ATTRS: int

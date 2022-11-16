@@ -5,7 +5,7 @@ from idlelib.pyshell import PyShellEditorWindow
 from idlelib.textview import view_text as view_text
 from idlelib.tooltip import Hovertip as Hovertip
 from tkinter import Event, Text
-from typing import Any, Union
+from typing import Any
 
 def count_lines_with_wrapping(s: str, linewidth: int = ...) -> int: ...
 
