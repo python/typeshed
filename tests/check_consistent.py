@@ -20,6 +20,7 @@ from utils import VERSIONS_RE, get_all_testcase_directories, get_gitignore_spec,
 metadata_keys = {"version", "requires", "extra_description", "obsolete_since", "no_longer_updated", "tool"}
 tool_keys = {"stubtest": {"skip", "apt_dependencies", "extras", "ignore_missing_stub", "platforms"}}
 extension_descriptions = {".pyi": "stub", ".py": ".py"}
+supported_stubtest_platforms = {"win32", "darwin", "linux"}
 
 
 def assert_consistent_filetypes(directory: Path, *, kind: str, allowed: set[str]) -> None:
@@ -150,6 +151,11 @@ def check_metadata() -> None:
         for tool, tk in tool_keys.items():
             for key in data.get("tool", {}).get(tool, {}):
                 assert key in tk, f"Unrecognised {tool} key {key} for {distribution}"
+
+        specified_stubtest_platforms = set(data.get("tool", {}).get("stubtest", {}).get("platforms", []))
+        assert (
+            specified_stubtest_platforms <= supported_stubtest_platforms
+        ), f"Unrecognised platforms specified: {supported_stubtest_platforms - specified_stubtest_platforms}"
 
 
 def get_txt_requirements() -> dict[str, SpecifierSet]:

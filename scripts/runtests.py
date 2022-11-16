@@ -58,7 +58,7 @@ def main() -> None:
 
     # Run formatters first. Order matters.
     print("\nRunning pycln...")
-    subprocess.run([sys.executable, "-m", "pycln", path, "--all"])
+    subprocess.run([sys.executable, "-m", "pycln", path, "--config=pyproject.toml"])
     print("\nRunning isort...")
     subprocess.run([sys.executable, "-m", "isort", path])
     print("\nRunning Black...")
