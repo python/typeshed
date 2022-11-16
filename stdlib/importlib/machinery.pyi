@@ -9,7 +9,7 @@ if sys.version_info >= (3, 8):
     from importlib.metadata import DistributionFinder, PathDistribution
 
 if sys.version_info >= (3, 10):
-    from importlib.metadata import SimplePath
+    from importlib.metadata._meta import SimplePath
 elif sys.version_info >= (3, 8):
     from pathlib import Path
 
