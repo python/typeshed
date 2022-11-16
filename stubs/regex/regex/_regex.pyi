@@ -1,5 +1,6 @@
 from _typeshed import Self
-from typing import Any, AnyStr, Generic, final
+from typing import Any, AnyStr, Generic
+from typing_extensions import final
 
 from .regex import Match, Pattern
 
