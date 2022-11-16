@@ -1,7 +1,7 @@
 from re import Match, Pattern
 from tkinter import BooleanVar, Misc, StringVar, Text
 
-def get(root: Misc) -> "SearchEngine": ...
+def get(root: Misc) -> SearchEngine: ...
 
 class SearchEngine:
     root: Misc

@@ -12,7 +12,8 @@ from idlelib.pyshell import PyShellEditorWindow
 from socket import socket
 from tkinter import BaseWidget, Misc, Tk
 from types import TracebackType
-from typing import Any, Callable
+from typing import Any
+from collections.abc import Callable
 
 LOCALHOST: str
 eof: str

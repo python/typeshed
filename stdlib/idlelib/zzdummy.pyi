@@ -4,7 +4,7 @@ from idlelib.format import FormatRegion
 from tkinter import Event, Text
 from typing import Any, Callable
 
-def format_selection(format_line: Callable[["ZzDummy", str], str]) -> Callable[[Event[Any] | None], str]: ...
+def format_selection(format_line: Callable[[ZzDummy, str], str]) -> Callable[[Event[Any] | None], str]: ...
 
 class ZzDummy:
     menudefs: list[tuple[str, list[tuple[str, str]]]]

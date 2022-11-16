@@ -23,11 +23,11 @@ class ConfigDialog(Toplevel):
     frame: Frame  # type: ignore[assignment]
     note: Notebook
     extpage: Incomplete
-    highpage: "HighPage"
-    fontpage: "FontPage"
-    keyspage: "KeysPage"
-    winpage: "WinPage"
-    shedpage: "ShedPage"
+    highpage: HighPage
+    fontpage: FontPage
+    keyspage: KeysPage
+    winpage: WinPage
+    shedpage: ShedPage
     def create_widgets(self) -> None: ...
     buttons: dict[str, Button]
     def create_action_buttons(self) -> Frame: ...
@@ -44,7 +44,7 @@ font_sample_text: str
 class FontPage(Frame):
     def __getattr__(self, name: str) -> Incomplete: ...  # Incomplete
     highlight_sample: Incomplete
-    def __init__(self, master, highpage: "HighPage") -> None: ...
+    def __init__(self, master, highpage: HighPage) -> None: ...
     font_name: str
     font_size: int
     font_bold: bool

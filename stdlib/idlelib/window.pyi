@@ -1,5 +1,6 @@
 from tkinter import Tk, Toplevel
-from typing import Any, Callable
+from typing import Any
+from collections.abc import Callable
 
 class WindowList:
     dict: dict[str, Toplevel]

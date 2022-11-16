@@ -3,7 +3,8 @@ from idlelib.editor import EditorWindow as EditorWindow
 from idlelib.filelist import FileList
 from re import Pattern
 from tkinter import Event
-from typing import Any, Iterable
+from typing import Any
+from collections.abc import Iterable
 
 file_line_pats: list[str]
 file_line_progs: list[Pattern[str]] | None
@@ -22,7 +23,7 @@ class OutputWindow(EditorWindow):
     def writelines(self, lines: Iterable[str]) -> None: ...
     def flush(self) -> None: ...
     def showerror(self, *args: str, **kwargs: Any) -> None: ...
-    def goto_file_line(self, event: "Event[Any] | None" = ...) -> None: ...
+    def goto_file_line(self, event: Event[Any] | None = ...) -> None: ...
 
 class OnDemandOutputWindow:
     tagdefs: dict[str, dict[str, str]]

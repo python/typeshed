@@ -1,6 +1,7 @@
 from idlelib.tree import ScrolledCanvas as ScrolledCanvas, TreeItem as TreeItem, TreeNode as TreeNode
 from reprlib import Repr
-from typing import Any, Callable, Hashable, Iterable
+from typing import Any
+from collections.abc import Callable, Hashable, Iterable
 
 myrepr: Repr
 

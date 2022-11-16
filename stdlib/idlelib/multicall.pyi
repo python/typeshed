@@ -1,5 +1,6 @@
 from tkinter import Event, Misc
-from typing import Any, Callable, Iterable
+from typing import Any
+from collections.abc import Callable, Iterable
 
 MC_KEYPRESS: int
 MC_KEYRELEASE: int

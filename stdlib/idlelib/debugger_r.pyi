@@ -1,7 +1,8 @@
 from idlelib import debugger as debugger, rpc as rpc
 from idlelib.pyshell import PyShellEditorWindow
 from types import CodeType, FrameType, TracebackType
-from typing import Any, Hashable
+from typing import Any
+from collections.abc import Hashable
 
 debugging: int
 idb_adap_oid: str

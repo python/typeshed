@@ -2,7 +2,7 @@ from html.parser import HTMLParser
 from idlelib.config import idleConf as idleConf
 from tkinter import Text, Tk, Toplevel
 from tkinter.ttk import Frame, Menubutton, Scrollbar, Style
-from typing import Iterable
+from collections.abc import Iterable
 
 class HelpParser(HTMLParser):
     text: Text
