@@ -24,10 +24,10 @@ __all__ = [
 ]
 
 if sys.version_info >= (3, 10):
-    __all__ += ["PackageMetadata", "SimplePath", "packages_distributions"]
+    __all__ += ["PackageMetadata", "packages_distributions"]
 
 if sys.version_info >= (3, 10):
-    from importlib.metadata._meta import PackageMetadata as PackageMetadata, SimplePath as SimplePath
+    from importlib.metadata._meta import PackageMetadata as PackageMetadata, SimplePath
     def packages_distributions() -> Mapping[str, list[str]]: ...
 
     _SimplePath = SimplePath
