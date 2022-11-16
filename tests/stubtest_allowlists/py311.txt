@@ -18,6 +18,7 @@ configparser.LegacyInterpolation.__init__
 enum.Enum.__init__
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 ftplib.FTP.trust_server_pasv_ipv4_address
+importlib.metadata._meta.SimplePath  # See comments in the stub
 ipaddress.IPv4Interface.hostmask
 ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
