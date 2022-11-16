@@ -10,8 +10,8 @@ from idlelib.parenmatch import ParenMatch as ParenMatch
 from idlelib.query import HelpSource as HelpSource, SectionName as SectionName
 from idlelib.squeezer import Squeezer as Squeezer
 from idlelib.textview import ScrollableTextFrame as ScrollableTextFrame, view_text as view_text
-from tkinter import Toplevel, Button, Variable, Listbox
-from tkinter.ttk import Frame, LabelFrame, Notebook, Style, Checkbutton
+from tkinter import Button, Listbox, Toplevel, Variable
+from tkinter.ttk import Checkbutton, Frame, LabelFrame, Notebook, Style
 
 changes: ConfigChanges
 reloadables: tuple[AutoComplete, CodeContext, ParenMatch, FormatParagraph, Squeezer]
@@ -20,7 +20,7 @@ class ConfigDialog(Toplevel):
     def __getattr__(self, name: str) -> Incomplete: ...  # Incomplete
     parent: Incomplete
     def __init__(self, parent, title: str = ..., *, _htest: bool = ..., _utest: bool = ...) -> None: ...
-    frame: Frame # type: ignore[assignment]
+    frame: Frame  # type: ignore[assignment]
     note: Notebook
     extpage: Incomplete
     highpage: "HighPage"
