@@ -10,7 +10,7 @@ from pathlib import Path
 from re import Pattern
 from typing import Any, ClassVar, Generic, NamedTuple, TypeVar, overload
 
-if sys.version_info > (3, 8):
+if sys.version_info >= (3, 9):
     from ._meta import SimplePath as _SimplePath
 else:
     _SimplePath = Path
