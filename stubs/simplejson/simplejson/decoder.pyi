@@ -1,7 +1,7 @@
+from collections.abc import Callable
 from re import Match
 from typing import Any
 from typing_extensions import Literal
-from collections.abc import Callable
 
 class JSONDecoder:
     encoding: str

@@ -1,7 +1,7 @@
+from _typeshed import SupportsRichComparison
+from collections.abc import Callable
 from typing import IO, Any, TypeVar
 from typing_extensions import TypeAlias
-from collections.abc import Callable
-from _typeshed import SupportsRichComparison
 
 from simplejson.decoder import JSONDecoder as JSONDecoder
 from simplejson.encoder import JSONEncoder as JSONEncoder, JSONEncoderForHTML as JSONEncoderForHTML
@@ -88,5 +88,4 @@ def load(
     # Technically: you cannot pass extra `kw` without passing custom `cls`
     **kw: Any,
 ) -> Any: ...
-
 def simple_first(kv: tuple[_T, object]) -> tuple[bool, _T]: ...

@@ -1,5 +1,6 @@
-from simplejson.decoder import JSONDecoder
 from collections.abc import Callable
+
+from simplejson.decoder import JSONDecoder
 
 class JSONDecodeError(ValueError):
     msg: str = ...
