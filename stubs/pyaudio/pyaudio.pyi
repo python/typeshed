@@ -85,7 +85,7 @@ if sys.platform == "darwin":
         paMacCoreMinimizeCPU: Final[int]
         flags: Final[int]
         channel_map: Final[_ChannelMap | None]
-        def __init__(self, flags: int | None = ..., channel_map: _ChannelMap | None = ...) -> None: ...
+        def __init__(self, flags: int = ..., channel_map: _ChannelMap = ...) -> None: ...
 
     class PaMacCoreStreamInfo:
         paMacCoreChangeDeviceParameters: Final[int]
