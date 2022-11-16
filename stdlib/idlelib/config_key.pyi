@@ -1,7 +1,7 @@
+from collections.abc import Container
 from tkinter import Event, Listbox, StringVar, Tk, Toplevel
 from tkinter.ttk import Button, Checkbutton, Entry, Frame
 from typing import Any
-from collections.abc import Container
 
 FUNCTION_KEYS: tuple[str, ...]
 ALPHANUM_KEYS: tuple[str, ...]

@@ -1,6 +1,6 @@
+from collections.abc import Callable
 from tkinter import BaseWidget, OptionMenu, StringVar
 from typing import Any
-from collections.abc import Callable
 
 class DynOptionMenu(OptionMenu):
     variable: StringVar

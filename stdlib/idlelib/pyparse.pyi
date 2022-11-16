@@ -1,5 +1,5 @@
-from typing import Any
 from collections.abc import Callable, Hashable
+from typing import Any
 
 C_NONE: int
 C_BACKSLASH: int

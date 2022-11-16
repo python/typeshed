@@ -1,7 +1,7 @@
+from collections.abc import Callable
 from idlelib.pyshell import PyShellEditorWindow
 from tkinter import Event
 from typing import Any
-from collections.abc import Callable
 
 class AutoExpand:
     wordchars: str

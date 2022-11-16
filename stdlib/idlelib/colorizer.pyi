@@ -1,9 +1,9 @@
+from collections.abc import Generator, Iterable
 from idlelib.config import idleConf as idleConf
 from idlelib.delegator import Delegator as Delegator
 from re import Match, Pattern
 from tkinter import Event, Text
 from typing import Any
-from collections.abc import Generator, Iterable
 
 DEBUG: bool
 

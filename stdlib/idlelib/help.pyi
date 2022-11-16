@@ -1,8 +1,8 @@
+from collections.abc import Iterable
 from html.parser import HTMLParser
 from idlelib.config import idleConf as idleConf
 from tkinter import Text, Tk, Toplevel
 from tkinter.ttk import Frame, Menubutton, Scrollbar, Style
-from collections.abc import Iterable
 
 class HelpParser(HTMLParser):
     text: Text

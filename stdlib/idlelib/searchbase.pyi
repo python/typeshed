@@ -1,7 +1,7 @@
+from collections.abc import Callable
 from idlelib.searchengine import SearchEngine
 from tkinter import BaseWidget, Button, Entry, Event, Frame, Label, Text, Tk, Variable
 from typing import Any
-from collections.abc import Callable
 
 class SearchDialogBase:
     title: str

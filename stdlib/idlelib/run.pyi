@@ -1,4 +1,5 @@
 import io
+from collections.abc import Callable
 from idlelib import (
     autocomplete as autocomplete,
     calltip as calltip,
@@ -13,7 +14,6 @@ from socket import socket
 from tkinter import BaseWidget, Misc, Tk
 from types import TracebackType
 from typing import Any
-from collections.abc import Callable
 
 LOCALHOST: str
 eof: str
