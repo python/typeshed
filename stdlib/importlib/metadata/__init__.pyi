@@ -10,13 +10,6 @@ from pathlib import Path
 from re import Pattern
 from typing import Any, ClassVar, Generic, NamedTuple, TypeVar, overload
 
-if sys.version_info >= (3, 9):
-    from ._meta import SimplePath as _SimplePath
-else:
-    _SimplePath = Path
-
-_TSimplePath = TypeVar("_TSimplePath", bound=_SimplePath)
-
 __all__ = [
     "Distribution",
     "DistributionFinder",
@@ -31,11 +24,17 @@ __all__ = [
 ]
 
 if sys.version_info >= (3, 10):
-    __all__ += ["PackageMetadata", "packages_distributions"]
+    __all__ += ["PackageMetadata", "SimplePath", "packages_distributions"]
 
 if sys.version_info >= (3, 10):
-    from importlib.metadata._meta import PackageMetadata as PackageMetadata
+    from importlib.metadata._meta import PackageMetadata as PackageMetadata, SimplePath as SimplePath
     def packages_distributions() -> Mapping[str, list[str]]: ...
+
+    _SimplePath = SimplePath
+else:
+    _SimplePath = Path
+
+_TSimplePath = TypeVar("_TSimplePath", bound=_SimplePath)
 
 class PackageNotFoundError(ModuleNotFoundError):
     @property
