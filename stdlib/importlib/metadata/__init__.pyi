@@ -6,10 +6,16 @@ from collections.abc import Iterable, Mapping
 from email.message import Message
 from importlib.abc import MetaPathFinder
 from os import PathLike
+from pathlib import Path
 from re import Pattern
-from typing import Any, ClassVar, NamedTuple, overload
+from typing import Any, ClassVar, Generic, NamedTuple, TypeVar, overload
 
-from ._meta import SimplePath
+if sys.version_info > (3, 8):
+    from ._meta import SimplePath as _SimplePath
+else:
+    _SimplePath = Path
+
+_TSimplePath = TypeVar("_TSimplePath", bound=_SimplePath)
 
 __all__ = [
     "Distribution",
@@ -136,7 +142,7 @@ class Distribution:
         cls, *, context: None = ..., name: str | None = ..., path: list[str] = ..., **kwargs: Any
     ) -> Iterable[Distribution]: ...
     @staticmethod
-    def at(path: StrPath) -> PathDistribution: ...
+    def at(path: _TSimplePath) -> PathDistribution[_TSimplePath]: ...
 
     if sys.version_info >= (3, 10):
         @property
@@ -171,15 +177,15 @@ class DistributionFinder(MetaPathFinder):
 
 class MetadataPathFinder(DistributionFinder):
     @classmethod
-    def find_distributions(cls, context: DistributionFinder.Context = ...) -> Iterable[PathDistribution]: ...
+    def find_distributions(cls, context: DistributionFinder.Context = ...) -> Iterable[PathDistribution[_SimplePath]]: ...
     if sys.version_info >= (3, 10):
         # Yes, this is an instance method that has argumend named "cls"
         def invalidate_caches(cls) -> None: ...
 
-class PathDistribution(Distribution):
-    def __init__(self, path: SimplePath) -> None: ...
-    def read_text(self, filename: StrPath) -> str: ...
-    def locate_file(self, path: StrPath) -> PathLike[str]: ...
+class PathDistribution(Distribution, Generic[_TSimplePath]):
+    def __init__(self, path: _TSimplePath) -> None: ...
+    def read_text(self, filename: _TSimplePath) -> str: ...
+    def locate_file(self, path: _TSimplePath) -> _TSimplePath: ...
 
 def distribution(distribution_name: str) -> Distribution: ...
 @overload
