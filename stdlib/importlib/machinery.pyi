@@ -106,11 +106,15 @@ class PathFinder:
         @classmethod
         def invalidate_caches(cls) -> None: ...
     if sys.version_info >= (3, 10):
+        from importlib.metadata import SimplePath
+
         @staticmethod
-        def find_distributions(context: DistributionFinder.Context = ...) -> Iterable[PathDistribution]: ...
+        def find_distributions(context: DistributionFinder.Context = ...) -> Iterable[PathDistribution[SimplePath]]: ...
     elif sys.version_info >= (3, 8):
+        from pathlib import Path
+
         @classmethod
-        def find_distributions(cls, context: DistributionFinder.Context = ...) -> Iterable[PathDistribution]: ...
+        def find_distributions(cls, context: DistributionFinder.Context = ...) -> Iterable[PathDistribution[Path]]: ...
 
     @classmethod
     def find_spec(
