@@ -8,6 +8,11 @@ from typing import Any
 if sys.version_info >= (3, 8):
     from importlib.metadata import DistributionFinder, PathDistribution
 
+if sys.version_info >= (3, 10):
+    from importlib.metadata import SimplePath
+elif sys.version_info >= (3, 8):
+    from pathlib import Path
+
 class ModuleSpec:
     def __init__(
         self,
@@ -106,13 +111,9 @@ class PathFinder:
         @classmethod
         def invalidate_caches(cls) -> None: ...
     if sys.version_info >= (3, 10):
-        from importlib.metadata import SimplePath
-
         @staticmethod
         def find_distributions(context: DistributionFinder.Context = ...) -> Iterable[PathDistribution[SimplePath]]: ...
     elif sys.version_info >= (3, 8):
-        from pathlib import Path
-
         @classmethod
         def find_distributions(cls, context: DistributionFinder.Context = ...) -> Iterable[PathDistribution[Path]]: ...
 
