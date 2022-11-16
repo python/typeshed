@@ -1,11 +1,11 @@
 from _typeshed import Incomplete
 from idlelib import searchengine as searchengine
-from idlelib.searchbase import SearchDialogBase as SearchDialogBase
-from idlelib.iomenu import IOBinding
 from idlelib.filelist import FileList
-from tkinter import Entry, Event, Text, StringVar, BooleanVar
-from typing import Any
+from idlelib.iomenu import IOBinding
+from idlelib.searchbase import SearchDialogBase as SearchDialogBase
 from re import Pattern
+from tkinter import BooleanVar, Entry, Event, StringVar, Text
+from typing import Any
 
 def grep(text: Text, io: IOBinding | None = ..., flist: FileList | None = ...) -> None: ...
 def walk_error(msg: str) -> None: ...
@@ -27,4 +27,3 @@ class GrepDialog(SearchDialogBase):
     def create_command_buttons(self) -> None: ...
     def default_command(self, event: "Event[Any] | None" = ...) -> None: ...
     def grep_it(self, prog: Pattern[str], path: str) -> None: ...
-
