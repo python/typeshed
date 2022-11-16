@@ -1,8 +1,9 @@
+from collections.abc import Callable
 from idlelib.config import idleConf as idleConf
 from idlelib.editor import EditorWindow
 from idlelib.format import FormatRegion
 from tkinter import Event, Text
-from typing import Any, Callable
+from typing import Any
 
 def format_selection(format_line: Callable[[ZzDummy, str], str]) -> Callable[[Event[Any] | None], str]: ...
 

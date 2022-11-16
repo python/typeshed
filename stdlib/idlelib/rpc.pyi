@@ -1,10 +1,11 @@
+from collections.abc import Callable, Hashable, Iterable
 import pickle
 import queue
 import socket
 import socketserver
 import threading
 from types import CodeType
-from typing import Any, Callable, Hashable, Iterable
+from typing import Any
 
 def unpickle_code(ms: bytes) -> CodeType: ...
 def pickle_code(co: CodeType) -> tuple[Callable[[bytes], CodeType], tuple[bytes]]: ...
