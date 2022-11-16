@@ -23,7 +23,10 @@ fractions.Fraction.__new__  # overload is too complicated for stubtest to resolv
 gettext.install
 gettext.translation
 hmac.new  # Stub is a white lie; see comments in the stub
-importlib.metadata._meta.SimplePath  # See comments in the stub
+importlib.metadata._meta.SimplePath.__truediv__  # See comments in the stub
+importlib.metadata._meta.SimplePath.joinpath  # See comments in the stub
+importlib.metadata._meta.SimplePath.parent  # See comments in the stub
+importlib.metadata._meta.SimplePath.read_text  # See comments in the stub
 ipaddress.IPv4Interface.hostmask
 ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
