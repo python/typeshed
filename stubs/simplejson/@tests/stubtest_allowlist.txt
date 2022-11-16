@@ -1,14 +1,20 @@
-simplejson.JSONDecodeError.__init__
-simplejson.JSONDecoder.__init__
-simplejson.JSONDecoder.decode
-simplejson.JSONDecoder.raw_decode
-simplejson.JSONEncoder.__init__
-simplejson.decoder.JSONDecoder.__init__
-simplejson.decoder.JSONDecoder.decode
-simplejson.decoder.JSONDecoder.raw_decode
-simplejson.dump
-simplejson.dumps
-simplejson.encoder.JSONEncoder.__init__
-simplejson.load
-simplejson.loads
+# Re-exports:
+simplejson.encoder.PosInf
+simplejson.encoder.PY3
+
+# Speedups (C vs Python inconsistency):
+simplejson.scanner.make_scanner
 simplejson.scanner.JSONDecodeError.__init__
+simplejson.JSONDecodeError.__init__
+
+# Tests are not included:
+simplejson.tests.*
+
+# Internal and compat tools:
+simplejson.compat
+simplejson.ordered_dict
+simplejson.tool
+simplejson.OrderedDict
+simplejson.encoder.string_types
+simplejson.encoder.integer_types
+simplejson.encoder.i
