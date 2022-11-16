@@ -43,7 +43,6 @@ class parser:
         yearfirst: bool | None = ...,
         fuzzy: bool = ...,
         fuzzy_with_tokens: bool = ...,
-        **kwargs: Any,
     ) -> datetime: ...
 
 DEFAULTPARSER: parser
@@ -59,7 +58,6 @@ def parse(
     fuzzy_with_tokens: bool = ...,
     default: datetime | None = ...,
     tzinfos: _TzInfo | None = ...,
-    **kwargs: Any,
 ) -> datetime: ...
 
 class _tzparser: ...
