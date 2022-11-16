@@ -10,17 +10,17 @@ from idlelib.parenmatch import ParenMatch as ParenMatch
 from idlelib.query import HelpSource as HelpSource, SectionName as SectionName
 from idlelib.squeezer import Squeezer as Squeezer
 from idlelib.textview import ScrollableTextFrame as ScrollableTextFrame, view_text as view_text
-from tkinter import Toplevel
-from tkinter.ttk import Frame, HighPage, LabelFrame, Notebook
+from tkinter import Toplevel, Button, Variable, Listbox
+from tkinter.ttk import Frame, LabelFrame, Notebook, Style, Checkbutton
 
-changes: dict[str, dict]
-reloadables: tuple
+changes: ConfigChanges
+reloadables: tuple[AutoComplete, CodeContext, ParenMatch, FormatParagraph, Squeezer]
 
 class ConfigDialog(Toplevel):
     def __getattr__(self, name: str) -> Incomplete: ...  # Incomplete
     parent: Incomplete
     def __init__(self, parent, title: str = ..., *, _htest: bool = ..., _utest: bool = ...) -> None: ...
-    frame: Frame
+    frame: Frame # type: ignore[assignment]
     note: Notebook
     extpage: Incomplete
     highpage: "HighPage"
@@ -44,14 +44,14 @@ font_sample_text: str
 class FontPage(Frame):
     def __getattr__(self, name: str) -> Incomplete: ...  # Incomplete
     highlight_sample: Incomplete
-    def __init__(self, master, highpage) -> None: ...
-    font_name: Incomplete
-    font_size: Incomplete
-    font_bold: Incomplete
-    fontlist: Incomplete
-    sizelist: Incomplete
-    bold_toggle: Incomplete
-    font_sample: Incomplete
+    def __init__(self, master, highpage: "HighPage") -> None: ...
+    font_name: str
+    font_size: int
+    font_bold: bool
+    fontlist: Listbox
+    sizelist: DynOptionMenu
+    bold_toggle: Checkbutton
+    font_sample: ScrollableTextFrame
     def create_page_font(self) -> None: ...
     def load_font_cfg(self) -> None: ...
     def var_changed_font(self, *params) -> None: ...
@@ -61,10 +61,10 @@ class FontPage(Frame):
 class HighPage(Frame):
     def __getattr__(self, name: str) -> Incomplete: ...  # Incomplete
     extpage: Incomplete
-    cd: Incomplete
-    style: Incomplete
+    cd: Toplevel
+    style: Style
     def __init__(self, master, extpage) -> None: ...
-    theme_elements: Incomplete
+    theme_elements: dict[str, tuple[str, str]]
     builtin_name: Incomplete
     custom_name: Incomplete
     fg_bg_toggle: Incomplete
@@ -83,8 +83,8 @@ class HighPage(Frame):
     customlist: Incomplete
     button_delete_custom: Incomplete
     theme_message: Incomplete
-    def create_page_highlight(self): ...
-    def load_theme_cfg(self): ...
+    def create_page_highlight(self) -> None: ...
+    def load_theme_cfg(self) -> None: ...
     def var_changed_builtin_name(self, *params) -> None: ...
     def var_changed_custom_name(self, *params) -> None: ...
     def var_changed_theme_source(self, *params) -> None: ...
@@ -144,7 +144,7 @@ class WinPage(Frame):
     def __getattr__(self, name: str) -> Incomplete: ...  # Incomplete
     def __init__(self, master) -> None: ...
     digits_only: Incomplete
-    def init_validators(self): ...
+    def init_validators(self) -> None: ...
     startup_edit: Incomplete
     win_width: Incomplete
     win_height: Incomplete
@@ -173,7 +173,7 @@ class ShedPage(Frame):
     def __getattr__(self, name: str) -> Incomplete: ...  # Incomplete
     def __init__(self, master) -> None: ...
     digits_only: Incomplete
-    def init_validators(self): ...
+    def init_validators(self) -> None: ...
     auto_squeeze_min_lines: Incomplete
     autosave: Incomplete
     line_numbers_default: Incomplete
@@ -231,19 +231,18 @@ class VarTrace:
     traced: Incomplete
     def __init__(self) -> None: ...
     def clear(self) -> None: ...
-    def add(self, var, callback): ...
+    def add(self, var: Variable, callback) -> Variable: ...
     @staticmethod
     def make_callback(var, config): ...
     def attach(self) -> None: ...
     def detach(self) -> None: ...
 
-tracers: Incomplete
+tracers: VarTrace
 help_common: str
-help_pages: Incomplete
+help_pages: dict[str, str]
 
-def is_int(s): ...
+def is_int(s: str) -> bool: ...
 
 class VerticalScrolledFrame(Frame):
-    def __getattr__(self, name: str) -> Incomplete: ...  # Incomplete
-    interior: Incomplete
-    def __init__(self, parent, *args, **kw) -> None: ...
+    interior: Frame
+    def __init__(self, parent: Misc | None, *args: Incomplete, **kw: Incomplete) -> None: ...
