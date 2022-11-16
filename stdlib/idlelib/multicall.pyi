@@ -1,4 +1,4 @@
-from tkinter import Misc
+from tkinter import Misc, Event
 from typing import Any, Callable, Iterable
 
 MC_KEYPRESS: int
