@@ -31,7 +31,7 @@ class _Annotation(TypedDict):
     segmentation: _TPolygonSegmentation | _RLE | _EncodedRLE
     area: float
     bbox: list[float]
-    iscrowd: int  # Either 1 or 0
+    iscrowd: int
 
 _TSeg = TypeVar("_TSeg", _TPolygonSegmentation, _RLE, _EncodedRLE)
 
@@ -42,7 +42,7 @@ class _AnnotationG(TypedDict, Generic[_TSeg]):
     segmentation: _TSeg
     area: float
     bbox: list[float]
-    iscrowd: int  # Either 1 or 0
+    iscrowd: int
 
 class _Category(TypedDict):
     id: int
