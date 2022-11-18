@@ -1,11 +1,9 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from typing import Any
 
 xrange = range
-unicode: Incomplete
-str: Incomplete
-bytes: Incomplete
-basestring: Incomplete
+basestring: Any
 PREV: Incomplete
 NEXT: Incomplete
 KEY: Incomplete
@@ -65,7 +63,6 @@ def cached(cache, scoped: bool = ..., typed: bool = ..., key: Incomplete | None 
 def cachedmethod(cache, scoped: bool = ..., typed: bool = ..., key: Incomplete | None = ...): ...
 
 class cachedproperty:
-    __doc__: Incomplete
     __isabstractmethod__: Incomplete
     func: Incomplete
     def __init__(self, func) -> None: ...

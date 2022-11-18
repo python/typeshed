@@ -1,2 +1,7 @@
 boltons.strutils.int_list_complement
 boltons.strutils.int_list_to_int_tuples
+
+# Bug in boltons https://github.com/mahmoud/boltons/issues/294
+# This bug is fixed only in the development version (on github).
+# In the PyPI repository version the bug is not fixed
+boltons.ecoutils
