@@ -64,6 +64,15 @@ class Formatter:
     ) -> LiteralString: ...
     @overload
     def vformat(self, format_string: str, args: Sequence[Any], kwargs: Mapping[str, Any]) -> str: ...
+    def _vformat(
+        self,
+        format_string: str,
+        args: Sequence[Any],
+        kwargs: Mapping[str, Any],
+        used_args: Sequence[int | str],
+        recursion_depth: int,
+        auto_arg_index: int = ...,
+    ) -> str | bool: ...
     def parse(
         self, format_string: StrOrLiteralStr
     ) -> Iterable[tuple[StrOrLiteralStr, StrOrLiteralStr | None, StrOrLiteralStr | None, StrOrLiteralStr | None]]: ...
