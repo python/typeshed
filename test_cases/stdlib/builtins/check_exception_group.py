@@ -22,31 +22,25 @@ if sys.version_info >= (3, 11):
     # but I am unable to represent this with types right now.
     assert_type(beg2, BaseExceptionGroup[ValueError])
 
-
     # .subgroup()
     # -----------
 
     assert_type(beg.subgroup(KeyboardInterrupt), BaseExceptionGroup[KeyboardInterrupt] | None)
     assert_type(beg.subgroup((KeyboardInterrupt, SystemExit)), BaseExceptionGroup[BaseException] | None)
 
-
     def is_base_exc(exc: BaseException) -> bool:
         return isinstance(exc, BaseException)
 
-
     def is_specific(exc: SystemExit | BaseExceptionGroup[SystemExit]) -> bool:
         return isinstance(exc, SystemExit)
-
 
     # This one does not have `BaseExceptionGroup` part,
     # this is why we treat as an error.
     def is_system_exit(exc: SystemExit) -> bool:
         return isinstance(exc, SystemExit)
 
-
     def unrelated_subgroup(exc: KeyboardInterrupt) -> bool:
         return False
-
 
     assert_type(beg.subgroup(is_base_exc), BaseExceptionGroup[SystemExit] | None)
     assert_type(beg.subgroup(is_specific), BaseExceptionGroup[SystemExit] | None)
@@ -62,14 +56,11 @@ if sys.version_info >= (3, 11):
     # Because callables might return `True` the first time. And `BaseExceptionGroup`
     # will stick, no matter what arguments are.
 
-
     def is_exception(exc: Exception) -> bool:
         return isinstance(exc, Exception)
 
-
     def is_exception_or_beg(exc: Exception | BaseExceptionGroup[SystemError]) -> bool:
         return isinstance(exc, Exception)
-
 
     # This is an error because of the `Exception` argument type,
     # while `SystemError` is needed.
@@ -78,7 +69,6 @@ if sys.version_info >= (3, 11):
     # This is an error, because `BaseExceptionGroup` is not an `Exception`
     # subclass. It is required.
     beg.subgroup(is_exception)  # type: ignore
-
 
     # .split()
     # --------
@@ -109,10 +99,8 @@ if sys.version_info >= (3, 11):
         tuple[ExceptionGroup[ValueError] | None, BaseExceptionGroup[ValueError | KeyError | SystemExit] | None,],
     )
 
-
     def split_callable1(exc: ValueError | KeyError | SystemExit | BaseExceptionGroup[ValueError | KeyError | SystemExit]) -> bool:
         return True
-
 
     assert_type(
         to_split.split(split_callable1),  # Concrete type is ok
@@ -131,13 +119,11 @@ if sys.version_info >= (3, 11):
     # `Exception` cannot be used: `BaseExceptionGroup` is not a subtype of it.
     to_split.split(is_exception)  # type: ignore
 
-
     # .derive()
     # ---------
 
     assert_type(beg.derive([ValueError()]), ExceptionGroup[ValueError])
     assert_type(beg.derive([KeyboardInterrupt()]), BaseExceptionGroup[KeyboardInterrupt])
-
 
     # ExceptionGroup
     # ==============
@@ -153,7 +139,6 @@ if sys.version_info >= (3, 11):
 
     # `ExceptionGroup` cannot work with `BaseException`:
     ExceptionGroup("x", [SystemExit()])  # type: ignore
-
 
     # .subgroup()
     # -----------
@@ -174,14 +159,11 @@ if sys.version_info >= (3, 11):
     assert_type(eg.subgroup(ValueError), ExceptionGroup[ValueError] | None)
     assert_type(eg.subgroup((ValueError, KeyError)), ExceptionGroup[Exception] | None)
 
-
     def subgroup_eg1(exc: ValueError | KeyError | ExceptionGroup[ValueError | KeyError]) -> bool:
         return True
 
-
     def subgroup_eg2(exc: ValueError | KeyError) -> bool:
         return True
-
 
     assert_type(eg.subgroup(subgroup_eg1), ExceptionGroup[ValueError | KeyError] | None)
     assert_type(eg.subgroup(is_exception), ExceptionGroup[ValueError | KeyError] | None)
@@ -190,7 +172,6 @@ if sys.version_info >= (3, 11):
 
     # Does not have `ExceptionGroup` part:
     eg.subgroup(subgroup_eg2)  # type: ignore
-
 
     # .split()
     # --------
@@ -213,20 +194,17 @@ if sys.version_info >= (3, 11):
     def value_or_key_error(exc: ValueError | KeyError) -> bool:
         return isinstance(exc, (ValueError, KeyError))
 
-
     eg.split(value_or_key_error)  # type: ignore
 
     # `ExceptionGroup` cannot have direct `BaseException` subclasses inside.
     eg.split(BaseException)  # type: ignore
     eg.split((SystemExit, GeneratorExit))  # type: ignore
 
-
     # .derive()
     # ---------
 
     assert_type(eg.derive([ValueError()]), ExceptionGroup[ValueError])
     assert_type(eg.derive([KeyboardInterrupt()]), BaseExceptionGroup[KeyboardInterrupt])
-
 
     # BaseExceptionGroup Custom Subclass
     # ==================================
@@ -236,16 +214,13 @@ if sys.version_info >= (3, 11):
 
     _BE = TypeVar("_BE", bound=BaseException)
 
-
     class CustomBaseGroup(BaseExceptionGroup[_BE]):
         ...
-
 
     cb1 = CustomBaseGroup("x", [SystemExit()])
     assert_type(cb1, CustomBaseGroup[SystemExit])
     cb2 = CustomBaseGroup("x", [ValueError()])
     assert_type(cb2, CustomBaseGroup[ValueError])
-
 
     # .subgroup()
     # -----------
@@ -256,20 +231,16 @@ if sys.version_info >= (3, 11):
     assert_type(cb1.subgroup(ValueError), ExceptionGroup[ValueError] | None)
     assert_type(cb2.subgroup((KeyError, TypeError)), ExceptionGroup[Exception] | None)
 
-
     def cb_subgroup1(exc: SystemExit | CustomBaseGroup[SystemExit]) -> bool:
         return True
 
-
     def cb_subgroup2(exc: ValueError | CustomBaseGroup[ValueError]) -> bool:
         return True
-
 
     assert_type(cb1.subgroup(cb_subgroup1), BaseExceptionGroup[SystemExit] | None)
     assert_type(cb2.subgroup(cb_subgroup2), BaseExceptionGroup[ValueError] | None)
     cb1.subgroup(cb_subgroup2)  # type: ignore
     cb2.subgroup(cb_subgroup1)  # type: ignore
-
 
     # .split()
     # --------
@@ -278,22 +249,20 @@ if sys.version_info >= (3, 11):
         cb1.split(KeyboardInterrupt), tuple[BaseExceptionGroup[KeyboardInterrupt] | None, BaseExceptionGroup[SystemExit] | None]
     )
     assert_type(cb1.split(TypeError), tuple[ExceptionGroup[TypeError] | None, BaseExceptionGroup[SystemExit] | None])
-    assert_type(cb2.split((TypeError, IndexError)), tuple[ExceptionGroup[Exception] | None, BaseExceptionGroup[ValueError] | None])
-
+    assert_type(
+        cb2.split((TypeError, IndexError)), tuple[ExceptionGroup[Exception] | None, BaseExceptionGroup[ValueError] | None]
+    )
 
     def cb_split1(exc: SystemExit | CustomBaseGroup[SystemExit]) -> bool:
         return True
 
-
     def cb_split2(exc: ValueError | CustomBaseGroup[ValueError]) -> bool:
         return True
-
 
     assert_type(cb1.split(cb_split1), tuple[BaseExceptionGroup[SystemExit] | None, BaseExceptionGroup[SystemExit] | None])
     assert_type(cb2.split(cb_split2), tuple[BaseExceptionGroup[ValueError] | None, BaseExceptionGroup[ValueError] | None])
     cb1.split(cb_split2)  # type: ignore
     cb2.split(cb_split1)  # type: ignore
-
 
     # .derive()
     # ---------
@@ -304,21 +273,17 @@ if sys.version_info >= (3, 11):
     assert_type(cb2.derive([ValueError()]), ExceptionGroup[ValueError])
     assert_type(cb2.derive([KeyboardInterrupt()]), BaseExceptionGroup[KeyboardInterrupt])
 
-
     # ExceptionGroup Custom Subclass
     # ==============================
 
     _E = TypeVar("_E", bound=Exception)
 
-
     class CustomGroup(ExceptionGroup[_E]):
         ...
-
 
     CustomGroup("x", [SystemExit()])  # type: ignore
     cg1 = CustomGroup("x", [ValueError()])
     assert_type(cg1, CustomGroup[ValueError])
-
 
     # .subgroup()
     # -----------
@@ -329,18 +294,14 @@ if sys.version_info >= (3, 11):
     assert_type(cg1.subgroup(ValueError), ExceptionGroup[ValueError] | None)
     assert_type(cg1.subgroup((KeyError, TypeError)), ExceptionGroup[Exception] | None)
 
-
     def cg_subgroup1(exc: ValueError | CustomGroup[ValueError]) -> bool:
         return True
-
 
     def cg_subgroup2(exc: ValueError) -> bool:
         return True
 
-
     assert_type(cg1.subgroup(cg_subgroup1), ExceptionGroup[ValueError] | None)
     cg1.subgroup(cb_subgroup2)  # type: ignore
-
 
     # .split()
     # --------
@@ -349,18 +310,14 @@ if sys.version_info >= (3, 11):
     assert_type(cg1.split((TypeError, IndexError)), tuple[ExceptionGroup[Exception] | None, ExceptionGroup[ValueError] | None])
     cg1.split(BaseException)  # type: ignore
 
-
     def cg_split1(exc: ValueError | CustomGroup[ValueError]) -> bool:
         return True
-
 
     def cg_split2(exc: ValueError) -> bool:
         return True
 
-
     assert_type(cg1.split(cg_split1), tuple[ExceptionGroup[ValueError] | None, ExceptionGroup[ValueError] | None])
     cg1.split(cg_split2)  # type: ignore
-
 
     # .derive()
     # ---------
