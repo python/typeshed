@@ -65,9 +65,7 @@ class SubsetMap:
 def get_page_format(format: _Format | tuple[float, float], k: float | None = ...) -> tuple[float, float]: ...
 
 # TODO: TypedDicts
-_Page: TypeAlias = dict[str, Any]
 _Font: TypeAlias = dict[str, Any]
-_FontFile: TypeAlias = dict[str, Any]
 _Image: TypeAlias = dict[str, Any]
 
 class FPDF:
