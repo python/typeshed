@@ -3,7 +3,7 @@ from collections.abc import Callable
 from re import Pattern
 from typing_extensions import TypeAlias
 
-BasePen: TypeAlias = Incomplete  # actually fontTools.pens.basePen.BasePen
+_BasePen: TypeAlias = Incomplete  # actually fontTools.pens.basePen.BasePen
 
 __pdoc__: dict[str, bool]
 
@@ -56,7 +56,7 @@ class ShapeBuilder:
 
 def convert_transforms(tfstr): ...
 
-class PathPen(BasePen):
+class PathPen(_BasePen):
     pdf_path: Incomplete
     last_was_line_to: bool
     first_is_move: bool | None
