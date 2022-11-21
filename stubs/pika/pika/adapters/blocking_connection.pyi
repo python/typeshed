@@ -4,6 +4,7 @@ from typing import NamedTuple
 
 from ..connection import Parameters
 from ..data import _ArgumentMapping
+from ..exchange_type import ExchangeType
 from ..spec import BasicProperties
 
 LOGGER: Incomplete
@@ -208,7 +209,7 @@ class BlockingChannel:
     def exchange_declare(
         self,
         exchange: str,
-        exchange_type: str = ...,
+        exchange_type: ExchangeType | str = ...,
         passive: bool = ...,
         durable: bool = ...,
         auto_delete: bool = ...,

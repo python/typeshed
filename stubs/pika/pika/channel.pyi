@@ -5,6 +5,7 @@ from typing_extensions import Final
 from .callback import CallbackManager
 from .connection import Connection
 from .data import _ArgumentMapping
+from .exchange_type import ExchangeType
 from .frame import Method
 from .spec import Basic, BasicProperties
 
@@ -59,7 +60,7 @@ class Channel:
     def exchange_declare(
         self,
         exchange: str,
-        exchange_type: str = ...,
+        exchange_type: ExchangeType | str = ...,
         passive: bool = ...,
         durable: bool = ...,
         auto_delete: bool = ...,
