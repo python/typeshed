@@ -3,6 +3,7 @@ from collections import defaultdict
 from logging import Logger
 from typing_extensions import Final
 
+from .annotations import AnnotationDict
 from .syntax import Name, PDFArray, PDFContentStream, PDFObject
 
 LOGGER: Logger
@@ -142,7 +143,7 @@ class PDFPage(PDFObject):
     contents: Incomplete
     dur: Incomplete | None
     trans: Incomplete
-    annots: PDFArray
+    annots: PDFArray[AnnotationDict]
     group: Incomplete | None
     media_box: Incomplete | None
     struct_parents: Incomplete | None

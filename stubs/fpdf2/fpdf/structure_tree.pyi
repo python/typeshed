@@ -12,14 +12,14 @@ class NumberTree(PDFObject):
 class StructTreeRoot(PDFObject):
     type: str
     parent_tree: NumberTree
-    k: PDFArray
+    k: PDFArray[Incomplete]
     def __init__(self) -> None: ...
 
 class StructElem(PDFObject):
     type: str
     s: str
     p: PDFObject
-    k: PDFArray
+    k: PDFArray[Incomplete]
     t: PDFString | None
     alt: PDFString | None
     pg: Incomplete | None

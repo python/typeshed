@@ -1,8 +1,10 @@
 from _typeshed import Incomplete, SupportsItems
 from abc import ABC, abstractmethod
 from re import Pattern
-from typing import Any, ClassVar
+from typing import ClassVar, Generic, TypeVar
 from typing_extensions import Literal
+
+_T = TypeVar("_T")
 
 def clear_empty_fields(d): ...
 def create_dictionary_string(
@@ -46,7 +48,7 @@ class PDFString(str):
     USE_HEX_ENCODING: ClassVar[bool]
     def serialize(self) -> str: ...
 
-class PDFArray(list[Any]):
+class PDFArray(list[_T], Generic[_T]):
     def serialize(self) -> str: ...
 
 class Destination(ABC):
