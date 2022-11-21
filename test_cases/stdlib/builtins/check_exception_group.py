@@ -26,7 +26,7 @@ if sys.version_info >= (3, 11):
     # -----------
 
     assert_type(beg.subgroup(KeyboardInterrupt), BaseExceptionGroup[KeyboardInterrupt] | None)
-    assert_type(beg.subgroup((KeyboardInterrupt, SystemExit)), BaseExceptionGroup[BaseException] | None)
+    assert_type(beg.subgroup((KeyboardInterrupt,)), BaseExceptionGroup[KeyboardInterrupt] | None)
 
     def is_base_exc(exc: BaseException) -> bool:
         return isinstance(exc, BaseException)
@@ -47,10 +47,9 @@ if sys.version_info >= (3, 11):
     beg.subgroup(is_system_exit)  # type: ignore
     beg.subgroup(unrelated_subgroup)  # type: ignore
 
-    # This might be strange at first, `ValueError` is not listed in the generic params.
-    # But, this seems practical. Some exception types can be down-casted.
+    # `Exception`` subgroup returns `ExceptionGroup`:
     assert_type(beg.subgroup(ValueError), ExceptionGroup[ValueError] | None)
-    assert_type(beg.subgroup((ValueError, KeyError)), ExceptionGroup[Exception] | None)
+    assert_type(beg.subgroup((ValueError,)), ExceptionGroup[ValueError] | None)
 
     # Callable are harder, we don't support cast to `ExceptionGroup` here.
     # Because callables might return `True` the first time. And `BaseExceptionGroup`
@@ -59,11 +58,11 @@ if sys.version_info >= (3, 11):
     def is_exception(exc: Exception) -> bool:
         return isinstance(exc, Exception)
 
-    def is_exception_or_beg(exc: Exception | BaseExceptionGroup[SystemError]) -> bool:
+    def is_exception_or_beg(exc: Exception | BaseExceptionGroup[SystemExit]) -> bool:
         return isinstance(exc, Exception)
 
     # This is an error because of the `Exception` argument type,
-    # while `SystemError` is needed.
+    # while `SystemExit` is needed instead.
     beg.subgroup(is_exception_or_beg)  # type: ignore
 
     # This is an error, because `BaseExceptionGroup` is not an `Exception`
@@ -77,8 +76,8 @@ if sys.version_info >= (3, 11):
         beg.split(KeyboardInterrupt), tuple[BaseExceptionGroup[KeyboardInterrupt] | None, BaseExceptionGroup[SystemExit] | None]
     )
     assert_type(
-        beg.split((KeyboardInterrupt, SystemExit)),
-        tuple[BaseExceptionGroup[BaseException] | None, BaseExceptionGroup[SystemExit] | None],
+        beg.split((KeyboardInterrupt,)),
+        tuple[BaseExceptionGroup[KeyboardInterrupt] | None, BaseExceptionGroup[SystemExit] | None],
     )
     assert_type(
         beg.split(ValueError),  # there are no `ValueError` items in there, but anyway
@@ -157,7 +156,7 @@ if sys.version_info >= (3, 11):
 
     assert_type(eg.subgroup(Exception), ExceptionGroup[Exception] | None)
     assert_type(eg.subgroup(ValueError), ExceptionGroup[ValueError] | None)
-    assert_type(eg.subgroup((ValueError, KeyError)), ExceptionGroup[Exception] | None)
+    assert_type(eg.subgroup((ValueError,)), ExceptionGroup[ValueError] | None)
 
     def subgroup_eg1(exc: ValueError | KeyError | ExceptionGroup[ValueError | KeyError]) -> bool:
         return True
@@ -177,9 +176,7 @@ if sys.version_info >= (3, 11):
     # --------
 
     assert_type(eg.split(TypeError), tuple[ExceptionGroup[TypeError] | None, ExceptionGroup[ValueError | KeyError] | None])
-    assert_type(
-        eg.split((TypeError, IndexError)), tuple[ExceptionGroup[Exception] | None, ExceptionGroup[ValueError | KeyError] | None]
-    )
+    assert_type(eg.split((TypeError,)), tuple[ExceptionGroup[TypeError] | None, ExceptionGroup[ValueError | KeyError] | None])
     assert_type(
         eg.split(is_exception), tuple[ExceptionGroup[ValueError | KeyError] | None, ExceptionGroup[ValueError | KeyError] | None]
     )
@@ -226,7 +223,7 @@ if sys.version_info >= (3, 11):
     # -----------
 
     assert_type(cb1.subgroup(KeyboardInterrupt), BaseExceptionGroup[KeyboardInterrupt] | None)
-    assert_type(cb2.subgroup((KeyboardInterrupt, SystemExit)), BaseExceptionGroup[BaseException] | None)
+    assert_type(cb2.subgroup((KeyboardInterrupt,)), BaseExceptionGroup[KeyboardInterrupt] | None)
 
     assert_type(cb1.subgroup(ValueError), ExceptionGroup[ValueError] | None)
     assert_type(cb2.subgroup((KeyError, TypeError)), ExceptionGroup[Exception] | None)
