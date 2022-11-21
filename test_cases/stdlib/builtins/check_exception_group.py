@@ -226,7 +226,7 @@ if sys.version_info >= (3, 11):
     assert_type(cb2.subgroup((KeyboardInterrupt,)), BaseExceptionGroup[KeyboardInterrupt] | None)
 
     assert_type(cb1.subgroup(ValueError), ExceptionGroup[ValueError] | None)
-    assert_type(cb2.subgroup((KeyError, TypeError)), ExceptionGroup[Exception] | None)
+    assert_type(cb2.subgroup((KeyError,)), ExceptionGroup[KeyError] | None)
 
     def cb_subgroup1(exc: SystemExit | CustomBaseGroup[SystemExit]) -> bool:
         return True
@@ -247,7 +247,7 @@ if sys.version_info >= (3, 11):
     )
     assert_type(cb1.split(TypeError), tuple[ExceptionGroup[TypeError] | None, BaseExceptionGroup[SystemExit] | None])
     assert_type(
-        cb2.split((TypeError, IndexError)), tuple[ExceptionGroup[Exception] | None, BaseExceptionGroup[ValueError] | None]
+        cb2.split((TypeError,)), tuple[ExceptionGroup[TypeError] | None, BaseExceptionGroup[ValueError] | None]
     )
 
     def cb_split1(exc: SystemExit | CustomBaseGroup[SystemExit]) -> bool:
@@ -289,7 +289,7 @@ if sys.version_info >= (3, 11):
     cg1.subgroup((KeyboardInterrupt, SystemExit))  # type: ignore
 
     assert_type(cg1.subgroup(ValueError), ExceptionGroup[ValueError] | None)
-    assert_type(cg1.subgroup((KeyError, TypeError)), ExceptionGroup[Exception] | None)
+    assert_type(cg1.subgroup((KeyError,)), ExceptionGroup[KeyError] | None)
 
     def cg_subgroup1(exc: ValueError | CustomGroup[ValueError]) -> bool:
         return True
@@ -304,7 +304,7 @@ if sys.version_info >= (3, 11):
     # --------
 
     assert_type(cg1.split(TypeError), tuple[ExceptionGroup[TypeError] | None, ExceptionGroup[ValueError] | None])
-    assert_type(cg1.split((TypeError, IndexError)), tuple[ExceptionGroup[Exception] | None, ExceptionGroup[ValueError] | None])
+    assert_type(cg1.split((TypeError,)), tuple[ExceptionGroup[TypeError] | None, ExceptionGroup[ValueError] | None])
     cg1.split(BaseException)  # type: ignore
 
     def cg_split1(exc: ValueError | CustomGroup[ValueError]) -> bool:
