@@ -1,4 +1,4 @@
-from collections.abc import Mapping, MutableMapping, ItemsView
+from collections.abc import ItemsView, Mapping, MutableMapping
 from typing import Any, TypeVar
 
 _KT = TypeVar("_KT")
