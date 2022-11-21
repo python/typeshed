@@ -246,9 +246,7 @@ if sys.version_info >= (3, 11):
         cb1.split(KeyboardInterrupt), tuple[BaseExceptionGroup[KeyboardInterrupt] | None, BaseExceptionGroup[SystemExit] | None]
     )
     assert_type(cb1.split(TypeError), tuple[ExceptionGroup[TypeError] | None, BaseExceptionGroup[SystemExit] | None])
-    assert_type(
-        cb2.split((TypeError,)), tuple[ExceptionGroup[TypeError] | None, BaseExceptionGroup[ValueError] | None]
-    )
+    assert_type(cb2.split((TypeError,)), tuple[ExceptionGroup[TypeError] | None, BaseExceptionGroup[ValueError] | None])
 
     def cb_split1(exc: SystemExit | CustomBaseGroup[SystemExit]) -> bool:
         return True
