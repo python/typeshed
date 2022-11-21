@@ -1,7 +1,13 @@
 import abc
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Self
+from collections.abc import Callable
+from typing import Any
+from typing_extensions import Final
 
-from pika.compat import AbstractBase
+from .callback import CallbackManager
+from .channel import Channel
+from .compat import AbstractBase
+from .frame import Method
 
 PRODUCT: str
 LOGGER: Incomplete
@@ -97,41 +103,42 @@ class Parameters:
 
 class ConnectionParameters(Parameters):
     class _DEFAULT: ...
-    blocked_connection_timeout: Incomplete
-    channel_max: Incomplete
+    # The following attributes only exist if set in the constructor.
+    blocked_connection_timeout: float
+    channel_max: int
     client_properties: Incomplete
-    connection_attempts: Incomplete
-    credentials: Incomplete
-    frame_max: Incomplete
-    heartbeat: Incomplete
-    host: Incomplete
-    locale: Incomplete
-    retry_delay: Incomplete
-    socket_timeout: Incomplete
-    stack_timeout: Incomplete
-    ssl_options: Incomplete
-    port: Incomplete
-    virtual_host: Incomplete
-    tcp_options: Incomplete
+    connection_attempts: int
+    credentials: Any
+    frame_max: int
+    heartbeat: int | Callable[[Connection, int], int] | None
+    host: str
+    locale: str
+    retry_delay: int | float
+    socket_timeout: int | float
+    stack_timeout: int | float
+    ssl_options: SSLOptions
+    port: int
+    virtual_host: str
+    tcp_options: Incomplete | None
+
     def __init__(
         self,
-        host=...,
-        port=...,
-        virtual_host=...,
-        credentials=...,
-        channel_max=...,
-        frame_max=...,
-        heartbeat=...,
-        ssl_options=...,
-        connection_attempts=...,
-        retry_delay=...,
-        socket_timeout=...,
-        stack_timeout=...,
-        locale=...,
-        blocked_connection_timeout=...,
-        client_properties=...,
-        tcp_options=...,
-        **kwargs,
+        host: str = ...,
+        port: int = ...,
+        virtual_host: str = ...,
+        credentials: Any = ...,
+        channel_max: int = ...,
+        frame_max: int = ...,
+        heartbeat: int | Callable[[Connection, int], int] | None = ...,
+        ssl_options: SSLOptions = ...,
+        connection_attempts: int = ...,
+        retry_delay: float = ...,
+        socket_timeout: float = ...,
+        stack_timeout: float = ...,
+        locale: str = ...,
+        blocked_connection_timeout: float = ...,
+        client_properties: Incomplete | None = ...,
+        tcp_options: Incomplete | None = ...,
     ) -> None: ...
 
 class URLParameters(Parameters):
@@ -151,46 +158,50 @@ class Connection(AbstractBase, metaclass=abc.ABCMeta):
     ON_CONNECTION_CLOSED: str
     ON_CONNECTION_ERROR: str
     ON_CONNECTION_OPEN_OK: str
-    CONNECTION_CLOSED: int
-    CONNECTION_INIT: int
-    CONNECTION_PROTOCOL: int
-    CONNECTION_START: int
-    CONNECTION_TUNE: int
-    CONNECTION_OPEN: int
-    CONNECTION_CLOSING: int
-    connection_state: Incomplete
-    params: Incomplete
-    callbacks: Incomplete
+    CONNECTION_CLOSED: Final[int]
+    CONNECTION_INIT: Final[int]
+    CONNECTION_PROTOCOL: Final[int]
+    CONNECTION_START: Final[int]
+    CONNECTION_TUNE: Final[int]
+    CONNECTION_OPEN: Final[int]
+    CONNECTION_CLOSING: Final[int]
+    connection_state: int  # one of the constants above
+    params: Parameters
+    callbacks: CallbackManager
     server_capabilities: Incomplete
     server_properties: Incomplete
     known_hosts: Incomplete
     def __init__(
-        self,
-        parameters: Incomplete | None = ...,
-        on_open_callback: Incomplete | None = ...,
-        on_open_error_callback: Incomplete | None = ...,
-        on_close_callback: Incomplete | None = ...,
+        self: Self,
+        parameters: Parameters | None = ...,
+        on_open_callback: Callable[[Self], object] | None = ...,
+        on_open_error_callback: Callable[[Self, BaseException], object] | None = ...,
+        on_close_callback: Callable[[Self, BaseException], object] | None = ...,
         internal_connection_workflow: bool = ...,
     ) -> None: ...
-    def add_on_close_callback(self, callback) -> None: ...
-    def add_on_connection_blocked_callback(self, callback) -> None: ...
-    def add_on_connection_unblocked_callback(self, callback) -> None: ...
-    def add_on_open_callback(self, callback) -> None: ...
-    def add_on_open_error_callback(self, callback, remove_default: bool = ...) -> None: ...
-    def channel(self, channel_number: Incomplete | None = ..., on_open_callback: Incomplete | None = ...): ...
+    def add_on_close_callback(self: Self, callback: Callable[[Self, BaseException], object]) -> None: ...
+    def add_on_connection_blocked_callback(self: Self, callback: Callable[[Self, Method], object]) -> None: ...
+    def add_on_connection_unblocked_callback(self: Self, callback: Callable[[Self, Method], object]) -> None: ...
+    def add_on_open_callback(self: Self, callback: Callable[[Self], object]) -> None: ...
+    def add_on_open_error_callback(
+        self: Self, callback: Callable[[Self, BaseException], object], remove_default: bool = ...
+    ) -> None: ...
+    def channel(
+        self, channel_number: int | None = ..., on_open_callback: Callable[[Channel], object] | None = ...
+    ) -> Channel: ...
     def update_secret(self, new_secret, reason, callback: Incomplete | None = ...) -> None: ...
     def close(self, reply_code: int = ..., reply_text: str = ...) -> None: ...
     @property
-    def is_closed(self): ...
+    def is_closed(self) -> bool: ...
     @property
-    def is_closing(self): ...
+    def is_closing(self) -> bool: ...
     @property
-    def is_open(self): ...
+    def is_open(self) -> bool: ...
     @property
-    def basic_nack(self): ...
+    def basic_nack(self) -> bool: ...
     @property
-    def consumer_cancel_notify(self): ...
+    def consumer_cancel_notify(self) -> bool: ...
     @property
-    def exchange_exchange_bindings(self): ...
+    def exchange_exchange_bindings(self) -> bool: ...
     @property
-    def publisher_confirms(self): ...
+    def publisher_confirms(self) -> bool: ...

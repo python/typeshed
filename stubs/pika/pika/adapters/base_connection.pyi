@@ -1,14 +1,21 @@
 import abc
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Self
+from collections.abc import Callable
 
-from pika import connection
-from pika.adapters.utils import nbio_interface
+from ..adapters.utils import nbio_interface
+from ..connection import Connection
 
 LOGGER: Incomplete
 
-class BaseConnection(connection.Connection, metaclass=abc.ABCMeta):
+class BaseConnection(Connection, metaclass=abc.ABCMeta):
     def __init__(
-        self, parameters, on_open_callback, on_open_error_callback, on_close_callback, nbio, internal_connection_workflow
+        self: Self,
+        parameters,
+        on_open_callback: Callable[[Self], object] | None,
+        on_open_error_callback: Callable[[Self, BaseException], object] | None,
+        on_close_callback: Callable[[Self, BaseException], object] | None,
+        nbio,
+        internal_connection_workflow: bool,
     ) -> None: ...
     @classmethod
     @abc.abstractmethod
