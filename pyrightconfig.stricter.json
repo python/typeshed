@@ -65,6 +65,7 @@
         "stubs/requests",
         "stubs/setuptools",
         "stubs/slumber",
+        "stubs/sortedcontainers",
         "stubs/SQLAlchemy",
         "stubs/stripe",
         "stubs/tqdm",
