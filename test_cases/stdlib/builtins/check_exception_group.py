@@ -95,7 +95,7 @@ if sys.version_info >= (3, 11):
     # in the second part here because of that.
     assert_type(
         to_split.split(ValueError),
-        tuple[ExceptionGroup[ValueError] | None, BaseExceptionGroup[ValueError | KeyError | SystemExit] | None,],
+        tuple[ExceptionGroup[ValueError] | None, BaseExceptionGroup[ValueError | KeyError | SystemExit] | None],
     )
 
     def split_callable1(exc: ValueError | KeyError | SystemExit | BaseExceptionGroup[ValueError | KeyError | SystemExit]) -> bool:
