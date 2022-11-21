@@ -11,7 +11,6 @@ if sys.version_info >= (3, 11):
 
     # BaseExceptionGroup
     # ==================
-
     # `BaseExceptionGroup` can work with `BaseException`:
     beg = BaseExceptionGroup("x", [SystemExit(), SystemExit()])
     assert_type(beg, BaseExceptionGroup[SystemExit])
