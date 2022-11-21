@@ -1,6 +1,6 @@
 from _typeshed import Self
-from typing import Any
 from datetime import datetime, timedelta, tzinfo
+from typing import Any
 
 class FixedOffset(tzinfo):
     def __init__(self, hours: float, minutes: float) -> None: ...
