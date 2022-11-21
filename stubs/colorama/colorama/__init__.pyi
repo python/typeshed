@@ -4,6 +4,6 @@ from .initialise import (
     colorama_text as colorama_text,
     deinit as deinit,
     init as init,
-    reinit as reinit,
     just_fix_windows_console as just_fix_windows_console,
+    reinit as reinit,
 )
