@@ -20,3 +20,9 @@ pika.adapters.blocking_connection.BlockingConnection.basic_nack
 pika.adapters.blocking_connection.BlockingConnection.consumer_cancel_notify
 pika.adapters.blocking_connection.BlockingConnection.exchange_exchange_bindings
 pika.adapters.blocking_connection.BlockingConnection.publisher_confirms
+
+# Flagged by stubtest for unknown reasons.
+pika.data.PY2
+pika.data.basestring
+pika.spec.str_or_bytes
+pika.validators.basestring
