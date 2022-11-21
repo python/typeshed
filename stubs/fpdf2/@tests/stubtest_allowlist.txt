@@ -4,3 +4,7 @@ fpdf.fpdf.FPDF.output
 
 # Unnecessary re-export from codecs
 fpdf.syntax.BOM_UTF16_BE
+
+# stubtest doesn't recognize ImportError handler
+fpdf.linearization.signer
+fpdf.output.signer
