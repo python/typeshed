@@ -27,8 +27,5 @@ pkg_resources.py31compat
 pkg_resources.split_sections
 pkg_resources.to_filename
 
-# Unclear import from stdlib/sub-classing related error
-setuptools._distutils.core.Distribution.parse_config_files
-
 # Only present if docutils is installed
 setuptools._distutils.command.check.SilentReporter
