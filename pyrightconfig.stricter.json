@@ -64,7 +64,6 @@
         "stubs/redis",
         "stubs/requests",
         "stubs/setuptools",
-        "stubs/slumber",
         "stubs/SQLAlchemy",
         "stubs/stripe",
         "stubs/tqdm",
