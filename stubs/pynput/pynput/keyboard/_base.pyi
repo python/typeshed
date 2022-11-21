@@ -99,9 +99,6 @@ class Controller:
         CTRL_MASK: ClassVar[int]
         SHIFT_MASK: ClassVar[int]
 
-        @property
-        def keyboard_mapping(self) -> dict[int, int]: ...
-
     class InvalidKeyException(Exception): ...
     class InvalidCharacterException(Exception): ...
 
