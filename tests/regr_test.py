@@ -136,8 +136,9 @@ def test_testcase_directory(package: PackageInfo, version: str, platform: str) -
         # only run the test if --python-version was set to 3.9 or higher (for example)
         for path in new_test_case_dir.rglob("*.py"):
             if match := re.fullmatch(r".*-py3(\d{1,2})", path.stem):
-                assert f"3.{match[1]}" in SUPPORTED_VERSIONS
-                if int(match[1]) <= int(version.split(".")[1]):
+                minor_version_required = int(match[1])
+                assert f"3.{minor_version_required}" in SUPPORTED_VERSIONS
+                if minor_version_required <= int(version.split(".")[1]):
                     flags.append(str(path))
             else:
                 flags.append(str(path))
