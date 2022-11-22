@@ -132,9 +132,9 @@ class SSLOptions:
     def __init__(self, context, server_hostname: Incomplete | None = ...) -> None: ...
 
 class Connection(AbstractBase, metaclass=abc.ABCMeta):
-    ON_CONNECTION_CLOSED: str
-    ON_CONNECTION_ERROR: str
-    ON_CONNECTION_OPEN_OK: str
+    ON_CONNECTION_CLOSED: Final[str]
+    ON_CONNECTION_ERROR: Final[str]
+    ON_CONNECTION_OPEN_OK: Final[str]
     CONNECTION_CLOSED: Final[int]
     CONNECTION_INIT: Final[int]
     CONNECTION_PROTOCOL: Final[int]
