@@ -3,7 +3,8 @@ version = "0.5.*"
 [tool.stubtest]
 ignore_missing_stub = false
 # darwin and win32 are equivalent
-platforms = ["linux", "darwin", "win32"]  # TODO: Remove darwin or win32, I'm only testing brew & choco
+platforms = ["linux", "darwin"]
 apt_dependencies = ["libjack-dev"]
 brew_dependencies = ["jack"]
-choco_dependencies = ["jack"]
+# No need to install on the CI. Leaving here as information for Windows contributors.
+# choco_dependencies = ["jack"]

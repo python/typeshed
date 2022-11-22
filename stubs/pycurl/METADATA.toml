@@ -9,6 +9,8 @@ ignore_missing_stub = false
 # % export LDFLAGS="-L/usr/local/opt/openssl@3/lib"
 # % export CPPFLAGS="-I/usr/local/opt/openssl@3/include"
 # % pip install --compile --install-option="--with-openssl" pycurl
+# TODO: Test on Windows and/or MacOS once wheels are available.
 platforms = ["linux"]
 apt_dependencies = ["libcurl4-openssl-dev"]
-brew_dependencies = ["openssl"]
+# No need to install on the CI. Leaving here as information for MacOS contributors.
+# brew_dependencies = ["openssl"]
