@@ -2,7 +2,7 @@ import pickle
 import sys
 from _typeshed import HasFileno, SupportsWrite
 from abc import ABCMeta
-from builtins import type as _Type
+from builtins import type as Type  # alias to avoid name clash
 from collections.abc import Callable
 from copyreg import _DispatchTableType
 from multiprocessing import connection
@@ -22,7 +22,7 @@ class ForkingPickler(pickle.Pickler):
     dispatch_table: _DispatchTableType
     def __init__(self, file: SupportsWrite[bytes], protocol: int | None = ...) -> None: ...
     @classmethod
-    def register(cls, type: _Type, reduce: Callable[[Any], _ReducedType]) -> None: ...
+    def register(cls, type: Type, reduce: Callable[[Any], _ReducedType]) -> None: ...
     @classmethod
     def dumps(cls, obj: Any, protocol: int | None = ...) -> memoryview: ...
     loads = pickle.loads
