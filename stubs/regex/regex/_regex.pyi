@@ -1,3 +1,8 @@
+# This is actually a C-extension module.
+# Not all types defined in C are exported to Python.
+# For example: `Pattern` and `Match` are not exported
+# and are redefined in `regex.regex module.
+
 from _typeshed import Self
 from typing import Any, AnyStr, Generic
 from typing_extensions import final
