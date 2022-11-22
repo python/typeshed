@@ -1,4 +1,4 @@
-from collections.abc import Callable
+from collections.abc import Callable, Iterable, Sequence
 from logging import Logger
 from typing import Any, TypeVar
 from typing_extensions import ParamSpec, TypeAlias
