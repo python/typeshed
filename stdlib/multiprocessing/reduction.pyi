@@ -2,6 +2,7 @@ import pickle
 import sys
 from _typeshed import HasFileno, SupportsWrite
 from abc import ABCMeta
+from builtins import type as _Type
 from collections.abc import Callable
 from copyreg import _DispatchTableType
 from multiprocessing import connection
@@ -15,7 +16,6 @@ if sys.platform == "win32":
 else:
     __all__ = ["send_handle", "recv_handle", "ForkingPickler", "register", "dump", "DupFd", "sendfds", "recvfds"]
 
-_Type: TypeAlias = type  # name conflict
 HAVE_SEND_HANDLE: bool
 
 class ForkingPickler(pickle.Pickler):
@@ -54,6 +54,7 @@ else:
         ACKNOWLEDGE: Literal[False]
 
     def recvfds(sock: socket, size: int) -> list[int]: ...
+    # destination_pid is unused
     def send_handle(conn: HasFileno, handle: int, destination_pid: object) -> None: ...
     def recv_handle(conn: HasFileno) -> int: ...
     def sendfds(sock: socket, fds: list[int]) -> None: ...
@@ -91,4 +92,5 @@ class AbstractReducer(metaclass=ABCMeta):
         sendfds = _sendfds
         recvfds = _recvfds
         DupFd = _DupFd
+    # *args are unused
     def __init__(self, *args: object) -> None: ...
