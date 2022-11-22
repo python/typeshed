@@ -86,7 +86,7 @@ class _CanCastTo(_CData): ...
 class _PointerLike(_CanCastTo): ...
 
 _ECT: TypeAlias = Callable[[type[_CData] | None, _FuncPointer, tuple[_CData, ...]], _CData]
-_PF: TypeAlias = _UnionT[tuple[int], tuple[int, str], tuple[int, str, Any]]
+_PF: TypeAlias = _UnionT[tuple[int, str | None], tuple[int, str | None, Any]]
 
 class _FuncPointer(_PointerLike, _CData):
     restype: type[_CData] | Callable[[int], Any] | None
