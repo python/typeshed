@@ -69,7 +69,7 @@ jobs:
       - name: Run stubtest
         shell: bash
         run: |
-          PACKAGES=$(python tests/get_packages.py $STUBS)
+          PACKAGES=$(python tests/get_packages.py)
 
           if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
             sudo apt update && sudo apt install -y $PACKAGES
