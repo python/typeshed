@@ -1,18 +1,27 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Self
+from collections.abc import Callable
+from typing_extensions import Final
+
+from .callback import CallbackManager
+from .connection import Connection
+from .data import _ArgumentMapping
+from .exchange_type import ExchangeType
+from .frame import Method
+from .spec import Basic, BasicProperties
 
 LOGGER: Incomplete
 MAX_CHANNELS: int
 
 class Channel:
-    CLOSED: int
-    OPENING: int
-    OPEN: int
-    CLOSING: int
-    channel_number: Incomplete
-    callbacks: Incomplete
-    connection: Incomplete
+    CLOSED: Final[int]
+    OPENING: Final[int]
+    OPEN: Final[int]
+    CLOSING: Final[int]
+    channel_number: int
+    callbacks: CallbackManager
+    connection: Connection
     flow_active: bool
-    def __init__(self, connection, channel_number, on_open_callback) -> None: ...
+    def __init__(self: Self, connection: Connection, channel_number: int, on_open_callback: Callable[[Self], object]) -> None: ...
     def __int__(self) -> int: ...
     def add_callback(self, callback, replies, one_shot: bool = ...) -> None: ...
     def add_on_cancel_callback(self, callback) -> None: ...
@@ -20,20 +29,22 @@ class Channel:
     def add_on_flow_callback(self, callback) -> None: ...
     def add_on_return_callback(self, callback) -> None: ...
     def basic_ack(self, delivery_tag: int = ..., multiple: bool = ...): ...
-    def basic_cancel(self, consumer_tag: str = ..., callback: Incomplete | None = ...) -> None: ...
+    def basic_cancel(self, consumer_tag: str = ..., callback: Callable[[Method], object] | None = ...) -> None: ...
     def basic_consume(
         self,
-        queue,
-        on_message_callback,
+        queue: str,
+        on_message_callback: Callable[[Channel, Basic.Deliver, BasicProperties, bytes], object],
         auto_ack: bool = ...,
         exclusive: bool = ...,
-        consumer_tag: Incomplete | None = ...,
-        arguments: Incomplete | None = ...,
-        callback: Incomplete | None = ...,
-    ): ...
+        consumer_tag: str | None = ...,
+        arguments: _ArgumentMapping | None = ...,
+        callback: Callable[[Method], object] | None = ...,
+    ) -> str: ...
     def basic_get(self, queue, callback, auto_ack: bool = ...) -> None: ...
     def basic_nack(self, delivery_tag: int = ..., multiple: bool = ..., requeue: bool = ...): ...
-    def basic_publish(self, exchange, routing_key, body, properties: Incomplete | None = ..., mandatory: bool = ...) -> None: ...
+    def basic_publish(
+        self, exchange: str, routing_key: str, body: str | bytes, properties: BasicProperties | None = ..., mandatory: bool = ...
+    ) -> None: ...
     def basic_qos(
         self, prefetch_size: int = ..., prefetch_count: int = ..., global_qos: bool = ..., callback: Incomplete | None = ...
     ): ...
@@ -48,16 +59,18 @@ class Channel:
     ): ...
     def exchange_declare(
         self,
-        exchange,
-        exchange_type=...,
+        exchange: str,
+        exchange_type: ExchangeType | str = ...,
         passive: bool = ...,
         durable: bool = ...,
         auto_delete: bool = ...,
         internal: bool = ...,
-        arguments: Incomplete | None = ...,
-        callback: Incomplete | None = ...,
+        arguments: _ArgumentMapping | None = ...,
+        callback: Callable[[Method], object] | None = ...,
     ): ...
-    def exchange_delete(self, exchange: Incomplete | None = ..., if_unused: bool = ..., callback: Incomplete | None = ...): ...
+    def exchange_delete(
+        self, exchange: str | None = ..., if_unused: bool = ..., callback: Callable[[Method], object] | None = ...
+    ): ...
     def exchange_unbind(
         self,
         destination: Incomplete | None = ...,

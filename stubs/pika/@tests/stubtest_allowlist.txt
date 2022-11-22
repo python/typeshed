@@ -26,3 +26,7 @@ pika.data.PY2
 pika.data.basestring
 pika.spec.str_or_bytes
 pika.validators.basestring
+
+# Arguments have a sentinel default, which is not reflected in the stubs.
+pika.ConnectionParameters.__init__
+pika.connection.ConnectionParameters.__init__
