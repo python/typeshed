@@ -1,24 +1,28 @@
 from _typeshed import Incomplete
-from collections.abc import Generator
-from typing import Any
+from collections.abc import Callable, Generator
+from typing import Any, NoReturn, TypeVar
+
+_KT = TypeVar("_KT")
+_VT = TypeVar("_VT")
+# _T = TypeVar("_T")
 
 xrange = range
 basestring: Any
-PREV: Incomplete
-NEXT: Incomplete
-KEY: Incomplete
-VALUE: Incomplete
+PREV: int
+NEXT: int
+KEY: int
+VALUE: int
 DEFAULT_MAX_SIZE: int
 
-class LRI(dict[Incomplete, Incomplete]):
+class LRI(dict[_KT, _VT]):
     hit_count: int
-    max_size: Incomplete
-    on_miss: Incomplete
-    def __init__(self, max_size=..., values: Incomplete | None = ..., on_miss: Incomplete | None = ...) -> None: ...
-    def __setitem__(self, key, value) -> None: ...
-    def __getitem__(self, key): ...
+    max_size: int
+    on_miss: Callable[[_KT], _VT]
+    def __init__(self, max_size: int = ..., values: _VT | None = ..., on_miss: Callable[[_KT], _VT] | None = ...) -> NoReturn: ...
+    def __setitem__(self, key: _KT, value: _VT) -> NoReturn: ...
+    def __getitem__(self, key: _KT) -> _VT: ...
     def get(self, key, default: Incomplete | None = ...): ...
-    def __delitem__(self, key) -> None: ...
+    def __delitem__(self, key: _KT) -> NoReturn: ...
     def pop(self, key, default=...): ...
     def popitem(self): ...
     def clear(self) -> None: ...
