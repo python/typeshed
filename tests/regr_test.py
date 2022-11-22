@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -130,7 +131,19 @@ def test_testcase_directory(package: PackageInfo, version: str, platform: str) -
                 shutil.copytree(Path("stubs", requirement), new_typeshed / "stubs" / requirement)
             env_vars["MYPYPATH"] = os.pathsep.join(map(str, new_typeshed.glob("stubs/*")))
             flags.extend(["--custom-typeshed-dir", str(td_path / "typeshed")])
-        result = subprocess.run([sys.executable, "-m", "mypy", new_test_case_dir, *flags], capture_output=True, env=env_vars)
+
+        # If the test-case filename ends with -py39,
+        # only run the test if --python-version was set to 3.9 or higher (for example)
+        for path in new_test_case_dir.rglob("*.py"):
+            if match := re.fullmatch(r".*-py3(\d{1,2})", path.stem):
+                minor_version_required = int(match[1])
+                assert f"3.{minor_version_required}" in SUPPORTED_VERSIONS
+                if minor_version_required <= int(version.split(".")[1]):
+                    flags.append(str(path))
+            else:
+                flags.append(str(path))
+
+        result = subprocess.run([sys.executable, "-m", "mypy", *flags], capture_output=True, env=env_vars)
 
     if result.returncode:
         print_error("failure\n")
