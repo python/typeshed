@@ -8,6 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 _T = TypeVar("_T")
 _P = ParamSpec("_P")
 _App: TypeAlias = Any  # flask.Flask is not possible as a dependency yet
+_ConfigureCallback: TypeAlias = Callable[[Config], Config]
 
 alembic_version: tuple[int, int, int]
 log: Logger
@@ -18,7 +19,7 @@ class Config:  # should inherit from alembic.config.Config which is not possible
     def get_template_directory(self) -> str: ...
 
 class Migrate:
-    configure_callbacks: list[Callable[[Config], None]]
+    configure_callbacks: list[_ConfigureCallback]
     db: SQLAlchemy | None
     directory: str
     alembic_ctx_kwargs: dict[str, Any]
@@ -42,7 +43,7 @@ class Migrate:
         render_as_batch: bool | None = ...,
         **kwargs,
     ) -> None: ...
-    def configure(self, f: Callable[[Config], None]) -> Callable[[Config], None]: ...
+    def configure(self, f: _ConfigureCallback) -> _ConfigureCallback: ...
     def call_configure_callbacks(self, config: Config): ...
     def get_config(
         self, directory: str | None = ..., x_arg: str | Sequence[str] | None = ..., opts: Iterable[str] | None = ...
