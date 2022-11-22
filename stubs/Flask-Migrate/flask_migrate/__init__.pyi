@@ -1,14 +1,14 @@
 from collections.abc import Callable
 from logging import Logger
 from typing import Any, TypeVar
-from typing_extensions import ParamSpec
+from typing_extensions import ParamSpec, TypeAlias
 
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 
 _T = TypeVar("_T")
 _P = ParamSpec("_P")
-_App = Any  # flask.Flask is not possible as a dependency yet
+_App: TypeAlias = Any  # flask.Flask is not possible as a dependency yet
 
 alembic_version: tuple[int, int, int]
 log: Logger
@@ -32,8 +32,26 @@ class Migrate:
     db: SQLAlchemy | None
     directory: str
     alembic_ctx_kwargs: dict[str, Any]
-    def __init__(self, app: _App | None = ..., db: SQLAlchemy | None = ..., directory: str = ..., **kwargs) -> None: ...
-    def init_app(self, app: _App, db: SQLAlchemy | None = ..., directory: str | None = ..., **kwargs) -> None: ...
+    def __init__(
+        self,
+        app: _App | None = ...,
+        db: SQLAlchemy | None = ...,
+        directory: str = ...,
+        command: str = ...,
+        compare_type: bool = ...,
+        render_as_batch: bool = ...,
+        **kwargs,
+    ) -> None: ...
+    def init_app(
+        self,
+        app: _App,
+        db: SQLAlchemy | None = ...,
+        directory: str | None = ...,
+        command: str | None = ...,
+        compare_type: bool | None = ...,
+        render_as_batch: bool | None = ...,
+        **kwargs,
+    ) -> None: ...
     def configure(self, f: Callable[[Config], None]) -> Callable[[Config], None]: ...
     def call_configure_callbacks(self, config: Config): ...
     def get_config(self, directory: str | None = ..., x_arg: tuple[str] | None = ..., opts: list[str] | None = ...): ...
