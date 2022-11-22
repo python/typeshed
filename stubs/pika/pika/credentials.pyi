@@ -1,8 +1,12 @@
 from _typeshed import Incomplete
 from logging import Logger
 from typing import ClassVar
+from typing_extensions import TypeAlias
 
 from .spec import Connection
+
+# TODO: This could be turned into a protocol.
+_Credentials: TypeAlias = Incomplete  # noqa: Y047
 
 LOGGER: Logger
 

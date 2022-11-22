@@ -1,12 +1,12 @@
 import abc
 from _typeshed import Incomplete, Self
 from collections.abc import Callable
-from typing import Any
 from typing_extensions import Final
 
 from .callback import CallbackManager
 from .channel import Channel
 from .compat import AbstractBase
+from .credentials import _Credentials
 from .frame import Method
 
 PRODUCT: str
@@ -108,7 +108,7 @@ class ConnectionParameters(Parameters):
     channel_max: int
     client_properties: Incomplete
     connection_attempts: int
-    credentials: Any
+    credentials: _Credentials
     frame_max: int
     heartbeat: int | Callable[[Connection, int], int] | None
     host: str
@@ -126,7 +126,7 @@ class ConnectionParameters(Parameters):
         host: str = ...,
         port: int = ...,
         virtual_host: str = ...,
-        credentials: Any = ...,
+        credentials: _Credentials = ...,
         channel_max: int = ...,
         frame_max: int = ...,
         heartbeat: int | Callable[[Connection, int], int] | None = ...,
@@ -145,7 +145,7 @@ class URLParameters(Parameters):
     ssl_options: Incomplete
     host: Incomplete
     port: Incomplete
-    credentials: Incomplete
+    credentials: _Credentials
     virtual_host: Incomplete
     def __init__(self, url) -> None: ...
 
