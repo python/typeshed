@@ -206,7 +206,7 @@ def check_requirements() -> None:
     precommit_requirements = get_precommit_requirements()
     no_txt_entry_msg = "All pre-commit requirements must also be listed in `requirements-tests.txt` (missing {requirement!r})"
     for requirement, specifier in precommit_requirements.items():
-        assert requirement in requirements_txt_requirements, no_txt_entry_msg.format(requirement)
+        assert requirement in requirements_txt_requirements, no_txt_entry_msg.format(requirement=requirement)
         specifier_mismatch = (
             f'Specifier "{specifier}" for {requirement!r} in `.pre-commit-config.yaml` '
             f'does not match specifier "{requirements_txt_requirements[requirement]}" in `requirements-tests.txt`'

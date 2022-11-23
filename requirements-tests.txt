@@ -9,6 +9,7 @@ mypy==0.991
 packaging==21.3
 pathspec
 pycln==2.1.2              # must match .pre-commit-config.yaml
+pyupgrade==3.2.2          # must match .pre-commit-config.yaml
 pyyaml==6.0
 pytype==2022.11.10; platform_system != "Windows" and python_version < "3.11"
 termcolor>=2
