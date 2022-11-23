@@ -162,7 +162,7 @@ def check_metadata() -> None:
             Requirement(dep)
 
         if "stub_distribution" in data:
-            assert dist_name_re.fullmatch(data["stub_distribution"]), f"Invalid 'stub_distribution' value for {distribution}"
+            assert dist_name_re.fullmatch(data["stub_distribution"]), f"Invalid 'stub_distribution' value for {distribution!r}"
 
         assert isinstance(data.get("upload", True), bool), f"Invalid 'upload' value for {distribution}"
 
