@@ -204,7 +204,7 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
         configurations.append(MypyDistConf(module_name, values.copy()))
 
 
-def run_mypy(args: TestConfig, configurations: list[MypyDistConf], files: list[Path]) -> ReturnCode:
+def run_mypy(args: TestConfig, configurations: list[MypyDistConf], files: list[Path], *, testing_stdlib: bool) -> ReturnCode:
     with tempfile.NamedTemporaryFile("w+") as temp:
         temp.write("[mypy]\n")
         for dist_conf in configurations:
@@ -213,7 +213,7 @@ def run_mypy(args: TestConfig, configurations: list[MypyDistConf], files: list[P
                 temp.write(f"{k} = {v}\n")
         temp.flush()
 
-        flags = get_mypy_flags(args, temp.name)
+        flags = get_mypy_flags(args, temp.name, testing_stdlib=testing_stdlib)
         mypy_args = [*flags, *map(str, files)]
         if args.verbose:
             print("running mypy", " ".join(mypy_args))
@@ -238,8 +238,8 @@ def run_mypy(args: TestConfig, configurations: list[MypyDistConf], files: list[P
         return exit_code
 
 
-def get_mypy_flags(args: TestConfig, temp_name: str) -> list[str]:
-    return [
+def get_mypy_flags(args: TestConfig, temp_name: str, *, testing_stdlib: bool) -> list[str]:
+    flags = [
         "--python-version",
         args.version,
         "--show-traceback",
@@ -260,6 +260,9 @@ def get_mypy_flags(args: TestConfig, temp_name: str) -> list[str]:
         "--config-file",
         temp_name,
     ]
+    if not testing_stdlib:
+        flags.append("--explicit-package-bases")
+    return flags
 
 
 def add_third_party_files(
@@ -317,7 +320,7 @@ def test_third_party_distribution(distribution: str, args: TestConfig) -> TestRe
 
     prev_mypypath = os.getenv("MYPYPATH")
     os.environ["MYPYPATH"] = os.pathsep.join(str(Path("stubs", dist)) for dist in seen_dists)
-    code = run_mypy(args, configurations, files)
+    code = run_mypy(args, configurations, files, testing_stdlib=False)
     if prev_mypypath is None:
         del os.environ["MYPYPATH"]
     else:
@@ -340,8 +343,8 @@ def test_stdlib(code: int, args: TestConfig) -> TestResults:
 
     if files:
         print(f"Testing stdlib ({len(files)} files)...")
-        print("Running mypy " + " ".join(get_mypy_flags(args, "/tmp/...")))
-        this_code = run_mypy(args, [], files)
+        print("Running mypy " + " ".join(get_mypy_flags(args, "/tmp/...", testing_stdlib=True)))
+        this_code = run_mypy(args, [], files, testing_stdlib=True)
         code = max(code, this_code)
 
     return TestResults(code, len(files))
@@ -349,7 +352,7 @@ def test_stdlib(code: int, args: TestConfig) -> TestResults:
 
 def test_third_party_stubs(code: int, args: TestConfig) -> TestResults:
     print("Testing third-party packages...")
-    print("Running mypy " + " ".join(get_mypy_flags(args, "/tmp/...")))
+    print("Running mypy " + " ".join(get_mypy_flags(args, "/tmp/...", testing_stdlib=False)))
     files_checked = 0
     gitignore_spec = get_gitignore_spec()
 
