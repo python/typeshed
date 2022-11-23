@@ -32,6 +32,12 @@ from utils import (
     strip_comments,
 )
 
+try:
+    from mypy.api import run as mypy_run
+except ImportError:
+    print_error("Cannot import mypy. Did you install it?")
+    sys.exit(1)
+
 SUPPORTED_VERSIONS = ["3.11", "3.10", "3.9", "3.8", "3.7"]
 SUPPORTED_PLATFORMS = ("linux", "win32", "darwin")
 DIRECTORIES_TO_TEST = [Path("stdlib"), Path("stubs")]
@@ -199,12 +205,6 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
 
 
 def run_mypy(args: TestConfig, configurations: list[MypyDistConf], files: list[Path]) -> ReturnCode:
-    try:
-        from mypy.api import run as mypy_run
-    except ImportError:
-        print_error("Cannot import mypy. Did you install it?")
-        sys.exit(1)
-
     with tempfile.NamedTemporaryFile("w+") as temp:
         temp.write("[mypy]\n")
         for dist_conf in configurations:
@@ -315,7 +315,14 @@ def test_third_party_distribution(distribution: str, args: TestConfig) -> TestRe
         print_error("no files found")
         sys.exit(1)
 
+    prev_mypypath = os.getenv("MYPYPATH")
+    os.environ["MYPYPATH"] = os.pathsep.join(str(Path("stubs", dist)) for dist in seen_dists)
     code = run_mypy(args, configurations, files)
+    if prev_mypypath is None:
+        del os.environ["MYPYPATH"]
+    else:
+        os.environ["MYPYPATH"] = prev_mypypath
+
     return TestResults(code, len(files))
 
 
