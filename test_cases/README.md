@@ -110,4 +110,4 @@ is passed on the command line.
 
 However, `if sys.version_info >= (3, target):` is still required for `pyright`
 in the test file itself.
-Example: [`check_exception_group-311.py`](https://github.com/python/typeshed/blob/main/test_cases/stdlib/builtins/check_exception_group-py311.py)
+Example: [`check_exception_group-py311.py`](https://github.com/python/typeshed/blob/main/test_cases/stdlib/builtins/check_exception_group-py311.py)
