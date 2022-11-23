@@ -180,7 +180,8 @@ class Options(enum.IntFlag):
     OP_NO_RENEGOTIATION: int
     if sys.version_info >= (3, 8):
         OP_ENABLE_MIDDLEBOX_COMPAT: int
-        OP_IGNORE_UNEXPECTED_EOF: int
+        if sys.platform == "linux"
+            OP_IGNORE_UNEXPECTED_EOF: int
 
 OP_ALL: Options
 OP_NO_SSLv2: Options
@@ -197,7 +198,8 @@ OP_NO_TICKET: Options
 OP_NO_RENEGOTIATION: Options
 if sys.version_info >= (3, 8):
     OP_ENABLE_MIDDLEBOX_COMPAT: Options
-    OP_IGNORE_UNEXPECTED_EOF: Options
+    if sys.platform == "linux"
+        OP_IGNORE_UNEXPECTED_EOF: Options
 
 HAS_NEVER_CHECK_COMMON_NAME: bool
 HAS_SSLv2: bool
