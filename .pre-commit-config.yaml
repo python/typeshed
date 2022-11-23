@@ -1,4 +1,5 @@
 repos:
+  # this only runs on the .py files
   - repo: https://github.com/asottile/pyupgrade
     rev: v3.2.2 # must match requirements-tests.txt
     hooks:
