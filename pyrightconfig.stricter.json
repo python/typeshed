@@ -12,7 +12,6 @@
         "stdlib/tkinter/__init__.pyi",
         "stdlib/tkinter/filedialog.pyi",
         "stdlib/tkinter/messagebox.pyi",
-        "stdlib/tkinter/tix.pyi",
         "stdlib/tkinter/ttk.pyi",
         "stdlib/xml/dom/NodeFilter.pyi",
         "stdlib/xml/dom/expatbuilder.pyi",
