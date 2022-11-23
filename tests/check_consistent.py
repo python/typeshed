@@ -17,12 +17,26 @@ from packaging.specifiers import SpecifierSet
 from packaging.version import Version
 from utils import VERSIONS_RE, get_all_testcase_directories, get_gitignore_spec, spec_matches_path, strip_comments
 
-metadata_keys = {"version", "requires", "extra_description", "obsolete_since", "no_longer_updated", "tool"}
-tool_keys = {"stubtest": {"skip", "apt_dependencies", "extras", "ignore_missing_stub"}}
+metadata_keys = {
+    "version",
+    "requires",
+    "extra_description",
+    "stub_distribution",
+    "obsolete_since",
+    "no_longer_updated",
+    "upload",
+    "tool",
+}
+tool_keys = {"stubtest": {"skip", "apt_dependencies", "extras", "ignore_missing_stub", "platforms"}}
 extension_descriptions = {".pyi": "stub", ".py": ".py"}
+supported_stubtest_platforms = {"win32", "darwin", "linux"}
+
+dist_name_re = re.compile(r"^[a-z0-9]([a-z0-9._-]*[a-z0-9])?$", re.IGNORECASE)
 
 
-def assert_consistent_filetypes(directory: Path, *, kind: str, allowed: set[str]) -> None:
+def assert_consistent_filetypes(
+    directory: Path, *, kind: str, allowed: set[str], allow_nonidentifier_filenames: bool = False
+) -> None:
     """Check that given directory contains only valid Python files of a certain kind."""
     allowed_paths = {Path(f) for f in allowed}
     contents = list(directory.iterdir())
@@ -35,7 +49,8 @@ def assert_consistent_filetypes(directory: Path, *, kind: str, allowed: set[str]
             # Note if a subdirectory is allowed, we will not check its contents
             continue
         if entry.is_file():
-            assert entry.stem.isidentifier(), f'Files must be valid modules, got: "{entry}"'
+            if not allow_nonidentifier_filenames:
+                assert entry.stem.isidentifier(), f'Files must be valid modules, got: "{entry}"'
             bad_filetype = f'Only {extension_descriptions[kind]!r} files allowed in the "{directory}" directory; got: {entry}'
             assert entry.suffix == kind, bad_filetype
         else:
@@ -66,7 +81,7 @@ def check_stubs() -> None:
 
 def check_test_cases() -> None:
     for package_name, testcase_dir in get_all_testcase_directories():
-        assert_consistent_filetypes(testcase_dir, kind=".py", allowed={"README.md"})
+        assert_consistent_filetypes(testcase_dir, kind=".py", allowed={"README.md"}, allow_nonidentifier_filenames=True)
         bad_test_case_filename = 'Files in a `test_cases` directory must have names starting with "check_"; got "{}"'
         for file in testcase_dir.rglob("*.py"):
             assert file.stem.startswith("check_"), bad_test_case_filename.format(file)
@@ -146,10 +161,20 @@ def check_metadata() -> None:
             # Check that the requirement parses
             Requirement(dep)
 
+        if "stub_distribution" in data:
+            assert dist_name_re.fullmatch(data["stub_distribution"]), f"Invalid 'stub_distribution' value for {distribution!r}"
+
+        assert isinstance(data.get("upload", True), bool), f"Invalid 'upload' value for {distribution!r}"
+
         assert set(data.get("tool", [])).issubset(tool_keys.keys()), f"Unrecognised tool for {distribution}"
         for tool, tk in tool_keys.items():
             for key in data.get("tool", {}).get(tool, {}):
                 assert key in tk, f"Unrecognised {tool} key {key} for {distribution}"
+
+        specified_stubtest_platforms = set(data.get("tool", {}).get("stubtest", {}).get("platforms", []))
+        assert (
+            specified_stubtest_platforms <= supported_stubtest_platforms
+        ), f"Unrecognised platforms specified: {supported_stubtest_platforms - specified_stubtest_platforms}"
 
 
 def get_txt_requirements() -> dict[str, SpecifierSet]:

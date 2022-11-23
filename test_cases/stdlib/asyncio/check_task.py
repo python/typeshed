@@ -15,7 +15,7 @@ class Waiter:
 
 
 async def foo() -> int:
-    ...
+    return 42
 
 
 async def main() -> None:

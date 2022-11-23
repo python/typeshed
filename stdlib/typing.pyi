@@ -325,7 +325,7 @@ class SupportsRound(Protocol[_T_co]):
     def __round__(self, __ndigits: int) -> _T_co: ...
 
 @runtime_checkable
-class Sized(Protocol, metaclass=ABCMeta):
+class Sized(Protocol):
     @abstractmethod
     def __len__(self) -> int: ...
 
@@ -618,6 +618,8 @@ class MutableMapping(Mapping[_KT, _VT], Generic[_KT, _VT]):
     # -- os._Environ.__ior__
     # -- collections.UserDict.__ior__
     # -- collections.ChainMap.__ior__
+    # -- peewee.attrdict.__add__
+    # -- peewee.attrdict.__iadd__
     # -- weakref.WeakValueDictionary.__ior__
     # -- weakref.WeakKeyDictionary.__ior__
     @overload

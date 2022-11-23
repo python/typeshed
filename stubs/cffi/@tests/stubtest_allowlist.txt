@@ -1,6 +1,3 @@
-# technically exists on all OSs, but crashes on all but windows
-cffi.(api.)?FFI.getwinerror
-
 # added dynamically and not detected by stubtest
 cffi.(api.)?FFI.CData
 cffi.(api.)?FFI.CType
