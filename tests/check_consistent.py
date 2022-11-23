@@ -85,9 +85,10 @@ def check_test_cases() -> None:
         bad_test_case_filename = 'Files in a `test_cases` directory must have names starting with "check_"; got "{}"'
         for file in testcase_dir.rglob("*.py"):
             assert file.stem.startswith("check_"), bad_test_case_filename.format(file)
+            with open(file, encoding="UTF-8") as f:
+                lines = {line.strip() for line in f}
+            assert "from __future__ import annotations" in lines, "Test-case files should use modern typing syntax where possible"
             if package_name != "stdlib":
-                with open(file, encoding="UTF-8") as f:
-                    lines = {line.strip() for line in f}
                 pyright_setting_not_enabled_msg = (
                     f'Third-party test-case file "{file}" must have '
                     f'"# pyright: reportUnnecessaryTypeIgnoreComment=true" '
