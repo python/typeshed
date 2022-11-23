@@ -164,7 +164,7 @@ def check_metadata() -> None:
         if "stub_distribution" in data:
             assert dist_name_re.fullmatch(data["stub_distribution"]), f"Invalid 'stub_distribution' value for {distribution!r}"
 
-        assert isinstance(data.get("upload", True), bool), f"Invalid 'upload' value for {distribution}"
+        assert isinstance(data.get("upload", True), bool), f"Invalid 'upload' value for {distribution!r}"
 
         assert set(data.get("tool", [])).issubset(tool_keys.keys()), f"Unrecognised tool for {distribution}"
         for tool, tk in tool_keys.items():
