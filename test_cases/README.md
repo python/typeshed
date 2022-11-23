@@ -107,3 +107,7 @@ if `--python-version 3.9`, `--python-version 3.10` or `--python-version 3.11`
 is passed on the command line to `tests/regr_test.py`,
 but it *won't* run the test case if `--python-version 3.7` or `--python-version 3.8`
 is passed on the command line.
+
+However, `if sys.version_info >= (3, target):` is still required for `pyright`
+in the test file itself.
+Example: [`check_exception_group-py311.py`](https://github.com/python/typeshed/blob/main/test_cases/stdlib/builtins/check_exception_group-py311.py)
