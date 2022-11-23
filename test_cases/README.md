@@ -79,20 +79,26 @@ is because the purpose of this folder is to test the implications of typeshed
 changes for end users, who will mainly be using `.py` files rather than `.pyi`
 files.
 
-Another difference to the rest of typeshed is that the test cases in this
-directory cannot always use modern syntax for type hints.
+Another difference to the rest of typeshed
+(which stems from the fact that the test-case files are all `.py` files
+rather than `.pyi` files)
+is that the test cases cannot always use modern syntax for type hints.
+While we can use `from __future__ import annotations` to enable the use of
+modern typing syntax wherever possible,
+type checkers may (correctly) emit errors if PEP 604 syntax or PEP 585 syntax
+is used in a runtime context on lower versions of Python. For example:
 
-For example, PEP 604
-syntax (unions with a pipe `|` operator) is new in Python 3.10. While this
-syntax can be used on older Python versions in a `.pyi` file, code using this
-syntax will fail at runtime on Python <=3.9. Since the test cases all use `.py`
-extensions, and since the tests need to pass on all Python versions >=3.7, PEP
-604 syntax cannot be used in a test case. Use `typing.Union` and
-`typing.Optional` instead.
+```python
+from __future__ import annotations
 
-PEP 585 syntax can also not be used in the `test_cases` directory. Use
-`typing.Tuple` instead of `tuple`, `typing.Callable` instead of
-`collections.abc.Callable`, and `typing.Match` instead of `re.Match` (etc.).
+from typing_extensions import assert_type
+
+x: str | int  # PEP 604 syntax: okay on Python >=3.7, due to __future__ annotations
+assert_type(x, str | int)  # Will fail at runtime on Python <3.10 (use typing.Union instead)
+
+y: dict[str, int]  # PEP 585 syntax: okay on Python >= 3.7, due to __future__ annotations
+assert_type(y, dict[str, int])  # Will fail at runtime on Python <3.9 (use typing.Dict instead)
+```
 
 ### Version-dependent tests
 
