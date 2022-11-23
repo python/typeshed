@@ -17,10 +17,21 @@ from packaging.specifiers import SpecifierSet
 from packaging.version import Version
 from utils import VERSIONS_RE, get_all_testcase_directories, get_gitignore_spec, spec_matches_path, strip_comments
 
-metadata_keys = {"version", "requires", "extra_description", "obsolete_since", "no_longer_updated", "tool"}
+metadata_keys = {
+    "version",
+    "requires",
+    "extra_description",
+    "stub_distribution",
+    "obsolete_since",
+    "no_longer_updated",
+    "upload",
+    "tool",
+}
 tool_keys = {"stubtest": {"skip", "apt_dependencies", "extras", "ignore_missing_stub", "platforms"}}
 extension_descriptions = {".pyi": "stub", ".py": ".py"}
 supported_stubtest_platforms = {"win32", "darwin", "linux"}
+
+dist_name_re = re.compile(r"^[a-z0-9]([a-z0-9._-]*[a-z0-9])?$", re.IGNORECASE)
 
 
 def assert_consistent_filetypes(
@@ -40,7 +51,7 @@ def assert_consistent_filetypes(
         if entry.is_file():
             if not allow_nonidentifier_filenames:
                 assert entry.stem.isidentifier(), f'Files must be valid modules, got: "{entry}"'
-                bad_filetype = f'Only {extension_descriptions[kind]!r} files allowed in the "{directory}" directory; got: {entry}'
+            bad_filetype = f'Only {extension_descriptions[kind]!r} files allowed in the "{directory}" directory; got: {entry}'
             assert entry.suffix == kind, bad_filetype
         else:
             assert entry.name.isidentifier(), f"Directories must be valid packages, got: {entry}"
@@ -149,6 +160,11 @@ def check_metadata() -> None:
                 assert space not in dep, f"For consistency, requirement should not have whitespace: {dep}"
             # Check that the requirement parses
             Requirement(dep)
+
+        if "stub_distribution" in data:
+            assert dist_name_re.fullmatch(data["stub_distribution"]), f"Invalid 'stub_distribution' value for {distribution}"
+
+        assert isinstance(data.get("upload", True), bool), f"Invalid 'upload' value for {distribution}"
 
         assert set(data.get("tool", [])).issubset(tool_keys.keys()), f"Unrecognised tool for {distribution}"
         for tool, tk in tool_keys.items():
