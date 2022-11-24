@@ -54,24 +54,24 @@ jobs:
           }
           STUBS=$(find_stubs || echo '')
 
-          if [ -n "$STUBS" ]; then
+          if [ -z "$STUBS" ]; then
             echo "Testing $STUBS..."
             PACKAGES=$(python tests/get_packages.py $STUBS)
 
-            if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
-              if [ -n "$PACKAGES" ]; then
+            if [ "${{ runner.os }}" = "Linux" ]; then
+              if [ -z "$PACKAGES" ]; then
                 echo "Installing apt packages: $PACKAGES"
                 sudo apt update && sudo apt install -y $PACKAGES
               fi
 
               xvfb-run python tests/stubtest_third_party.py --specified-stubs-only $STUBS
             else
-              if [ "${{ matrix.os }}" = "macos-latest" ] && [ -n "$PACKAGES" ]; then
+              if [ "${{ runner.os }}" = "macOS" ] && [ -z "$PACKAGES" ]; then
                 echo "Installing Homebrew packages: $PACKAGES"
                 NONINTERACTIVE=1 brew install $PACKAGES
               fi
 
-              if [ "${{ matrix.os }}" = "windows-latest" ] && [ -n "$PACKAGES" ]; then
+              if [ "${{ runner.os }}" = "Windows" ] && [ -z "$PACKAGES" ]; then
                 echo "Installing Chocolatey packages: $PACKAGES"
                 choco install -y $PACKAGES
               fi

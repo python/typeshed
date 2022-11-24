@@ -71,16 +71,18 @@ jobs:
         run: |
           PACKAGES=$(python tests/get_packages.py)
 
-          if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
-            sudo apt update && sudo apt install -y $PACKAGES
+          if [ "${{ runner.os }}" = "Linux" ]; then
+            if [ -z "$PACKAGES" ]; then
+              sudo apt update && sudo apt install -y $PACKAGES
+            fi
 
             xvfb-run python tests/stubtest_third_party.py --specified-stubs-only --num-shards 4 --shard-index ${{ matrix.shard-index }}
           else
-            if [ "${{ matrix.os }}" = "macos-latest" ]; then
+            if [ "${{ runner.os }}" = "macOS" ] && [ -z "$PACKAGES" ]; then
               NONINTERACTIVE=1 brew install $PACKAGES
             fi
 
-            if [ "${{ matrix.os }}" = "windows-latest" ]; then
+            if [ "${{ runner.os }}" = "Windows" ] && [ -z "$PACKAGES" ]; then
               choco install -y $PACKAGES
             fi
 
