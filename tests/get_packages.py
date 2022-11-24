@@ -4,12 +4,12 @@ import sys
 
 import tomli
 
+from utils import metadata_mapping
+
 platform = sys.platform
 distributions = sys.argv[1:]
 if not distributions:
     distributions = os.listdir("stubs")
-
-metadata_mapping = {"linux": "apt_dependencies", "darwin": "brew_dependencies", "win32": "choco_dependencies"}
 
 if platform in metadata_mapping:
     for distribution in distributions:
