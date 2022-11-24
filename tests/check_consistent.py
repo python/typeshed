@@ -27,7 +27,17 @@ metadata_keys = {
     "upload",
     "tool",
 }
-tool_keys = {"stubtest": {"skip", "apt_dependencies", "extras", "ignore_missing_stub", "platforms"}}
+tool_keys = {
+    "stubtest": {
+        "skip",
+        "apt_dependencies",
+        "brew_dependencies",
+        "choco_dependencies",
+        "extras",
+        "ignore_missing_stub",
+        "platforms",
+    }
+}
 extension_descriptions = {".pyi": "stub", ".py": ".py"}
 supported_stubtest_platforms = {"win32", "darwin", "linux"}
 
