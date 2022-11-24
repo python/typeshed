@@ -1,6 +1,6 @@
 aiohttp==3.8.3
 black==22.10.0            # must match .pre-commit-config.yaml
-flake8==6.0.0             # must match .pre-commit-config.yaml
+flake8==5.0.4             # must match .pre-commit-config.yaml
 flake8-bugbear==22.10.27  # must match .pre-commit-config.yaml
 flake8-noqa==1.2.9        # must match .pre-commit-config.yaml
 flake8-pyi==22.11.0       # must match .pre-commit-config.yaml

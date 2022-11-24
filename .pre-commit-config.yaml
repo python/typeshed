@@ -15,7 +15,7 @@ repos:
       - id: isort
         name: isort (python)
   - repo: https://github.com/pycqa/flake8
-    rev: 6.0.0  # must match requirements-tests.txt
+    rev: 5.0.4  # must match requirements-tests.txt
     hooks:
       - id: flake8
         additional_dependencies:
