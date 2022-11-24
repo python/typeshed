@@ -19,9 +19,9 @@ from utils import (
     VERSIONS_RE,
     get_all_testcase_directories,
     get_gitignore_spec,
+    metadata_mapping,
     spec_matches_path,
     strip_comments,
-    metadata_mapping,
 )
 
 metadata_keys = {

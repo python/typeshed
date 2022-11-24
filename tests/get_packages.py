@@ -3,7 +3,6 @@ import os
 import sys
 
 import tomli
-
 from utils import metadata_mapping
 
 platform = sys.platform
