@@ -182,7 +182,7 @@ def finditer(
     timeout: float | None = ...,
     ignore_unused: bool = ...,
     **kwargs: Any,
-) -> Scanner[str]: ...
+) -> _regex.Scanner[str]: ...
 @overload
 def finditer(
     pattern: ReadableBuffer | Pattern[bytes],
@@ -196,7 +196,7 @@ def finditer(
     timeout: float | None = ...,
     ignore_unused: bool = ...,
     **kwargs: Any,
-) -> Scanner[bytes]: ...
+) -> _regex.Scanner[bytes]: ...
 @overload
 def sub(
     pattern: str | Pattern[str],
@@ -438,7 +438,7 @@ class Pattern(Generic[AnyStr]):
         overlapped: bool = ...,
         concurrent: bool | None = ...,
         timeout: float | None = ...,
-    ) -> Scanner[str]: ...
+    ) -> _regex.Scanner[str]: ...
     @overload
     def finditer(
         self: Pattern[bytes],
@@ -448,7 +448,7 @@ class Pattern(Generic[AnyStr]):
         overlapped: bool = ...,
         concurrent: bool | None = ...,
         timeout: float | None = ...,
-    ) -> Scanner[bytes]: ...
+    ) -> _regex.Scanner[bytes]: ...
     @overload
     def sub(
         self: Pattern[str],
@@ -554,7 +554,7 @@ class Pattern(Generic[AnyStr]):
         overlapped: bool = ...,
         concurrent: bool | None = ...,
         timeout: float | None = ...,
-    ) -> Scanner[str]: ...
+    ) -> _regex.Scanner[str]: ...
     @overload
     def scanner(
         self: Pattern[bytes],
@@ -564,7 +564,7 @@ class Pattern(Generic[AnyStr]):
         overlapped: bool = ...,
         concurrent: bool | None = ...,
         timeout: float | None = ...,
-    ) -> Scanner[bytes]: ...
+    ) -> _regex.Scanner[bytes]: ...
     def __copy__(self: Self) -> Self: ...
     def __deepcopy__(self: Self) -> Self: ...
     if sys.version_info >= (3, 9):
