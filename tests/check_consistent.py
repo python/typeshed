@@ -15,7 +15,14 @@ import yaml
 from packaging.requirements import Requirement
 from packaging.specifiers import SpecifierSet
 from packaging.version import Version
-from utils import VERSIONS_RE, get_all_testcase_directories, get_gitignore_spec, spec_matches_path, strip_comments
+from utils import (
+    METADATA_MAPPING,
+    VERSIONS_RE,
+    get_all_testcase_directories,
+    get_gitignore_spec,
+    spec_matches_path,
+    strip_comments,
+)
 
 metadata_keys = {
     "version",
@@ -182,10 +189,18 @@ def check_metadata() -> None:
             for key in data.get("tool", {}).get(tool, {}):
                 assert key in tk, f"Unrecognised {tool} key {key} for {distribution}"
 
-        specified_stubtest_platforms = set(data.get("tool", {}).get("stubtest", {}).get("platforms", []))
+        tool_stubtest = data.get("tool", {}).get("stubtest", {})
+        specified_stubtest_platforms = set(tool_stubtest.get("platforms", []))
         assert (
             specified_stubtest_platforms <= supported_stubtest_platforms
         ), f"Unrecognised platforms specified: {supported_stubtest_platforms - specified_stubtest_platforms}"
+
+        # Check that only specified platforms install packages:
+        for supported_plat in supported_stubtest_platforms:
+            if supported_plat not in specified_stubtest_platforms:
+                assert (
+                    METADATA_MAPPING[supported_plat] not in tool_stubtest
+                ), f"Installing system deps for unspecified platform {supported_plat} for {distribution}"
 
 
 def get_txt_requirements() -> dict[str, SpecifierSet]:
