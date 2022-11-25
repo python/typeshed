@@ -7,6 +7,12 @@ from typing_extensions import TypeAlias
 version: int
 
 _Marshallable: TypeAlias = Union[
+    # handled in w_object() in marshal.c
+    None,
+    type[StopIteration],
+    builtins.ellipsis,
+    bool,
+    # handled in w_complex_object() in marshal.c
     int,
     float,
     complex,
@@ -19,11 +25,6 @@ _Marshallable: TypeAlias = Union[
     frozenset[_Marshallable],
     types.CodeType,
     ReadableBuffer,
-    None,
-    bool,
-    type[StopIteration],
-    builtins.ellipsis,
-    Any,  # TODO should be builtins.NotImplemented
 ]
 
 def dump(__value: _Marshallable, __file: SupportsWrite[bytes], __version: int = ...) -> None: ...
