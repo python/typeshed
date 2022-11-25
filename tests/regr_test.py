@@ -104,6 +104,7 @@ def test_testcase_directory(package: PackageInfo, version: str, platform: str, q
         platform,
         "--no-site-packages",
         "--strict",
+        "--pretty",
     ]
 
     # --warn-unused-ignores doesn't work for files inside typeshed.
