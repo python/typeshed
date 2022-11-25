@@ -19,7 +19,7 @@ from utils import (
     VERSIONS_RE,
     get_all_testcase_directories,
     get_gitignore_spec,
-    metadata_mapping,
+    METADATA_MAPPING,
     spec_matches_path,
     strip_comments,
 )
@@ -198,7 +198,7 @@ def check_metadata() -> None:
         # Check that only specified platforms install packages:
         for supported_plat in supported_stubtest_platforms:
             if supported_plat not in specified_stubtest_platforms:
-                assert metadata_mapping[supported_plat] not in tool_stubtest, f"Installing system deps for unspecified platform {supported_plat} for {distribution}"
+                assert METADATA_MAPPING[supported_plat] not in tool_stubtest, f"Installing system deps for unspecified platform {supported_plat} for {distribution}"
 
 
 def get_txt_requirements() -> dict[str, SpecifierSet]:
