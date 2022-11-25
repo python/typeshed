@@ -19,6 +19,7 @@ concurrency:
 
 env:
   PIP_DISABLE_PIP_VERSION_CHECK: 1
+  FORCE_COLOR: 1
 
 jobs:
   stubtest-stdlib:
