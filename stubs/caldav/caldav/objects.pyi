@@ -126,6 +126,7 @@ class Calendar(DAVObject):
         todo: bool | None = ...,
         include_completed: bool = ...,
         sort_keys: Sequence[str] = ...,
+        split_expanded: bool = ...,
         **kwargs,
     ) -> list[_CC]: ...
     @overload
@@ -136,6 +137,7 @@ class Calendar(DAVObject):
         todo: bool | None = ...,
         include_completed: bool = ...,
         sort_keys: Sequence[str] = ...,
+        split_expanded: bool = ...,
         **kwargs,
     ) -> list[_CC]: ...
     def build_search_xml_query(
