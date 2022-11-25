@@ -16,10 +16,10 @@ from packaging.requirements import Requirement
 from packaging.specifiers import SpecifierSet
 from packaging.version import Version
 from utils import (
+    METADATA_MAPPING,
     VERSIONS_RE,
     get_all_testcase_directories,
     get_gitignore_spec,
-    METADATA_MAPPING,
     spec_matches_path,
     strip_comments,
 )
