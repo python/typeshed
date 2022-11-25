@@ -24,7 +24,7 @@ class Display:
     extension_major_opcodes: dict[str, int]
     error_classes: dict[int, type[error.XError]]  # pyright: ignore[reportPrivateUsage]
     event_classes: dict[int, type[rq.Event] | dict[int, type[rq.Event]]]  # pyright: ignore[reportPrivateUsage]
-    resource_classes: _resource_baseclasses
+    resource_classes: _resource_baseclasses | None
     display_name: str
     default_screen: int
     socket: socket

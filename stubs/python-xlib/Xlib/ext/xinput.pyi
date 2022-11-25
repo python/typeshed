@@ -150,8 +150,8 @@ class ButtonMask:
 class ButtonState(rq.ValueField):
     structcode: None
     def __init__(self, name: str) -> None: ...
-    def parse_binary_value(
-        self, data: SliceableBuffer, display: Unused, length: int | None, fmt: Unused
+    def parse_binary_value(  # type: ignore[override]  # length: None will error. See: https://github.com/python-xlib/python-xlib/pull/248
+        self, data: SliceableBuffer, display: Unused, length: int, fmt: Unused
     ) -> tuple[ButtonMask, SliceableBuffer]: ...
 
 ButtonInfo: rq.Struct
@@ -162,7 +162,6 @@ TouchInfo: rq.Struct
 INFO_CLASSES: dict[int, rq.Struct]
 
 class ClassInfoClass:
-    check_value: None
     structcode: None
     def parse_binary(self, data: SliceableBuffer, display: display.Display | None) -> tuple[rq.DictWrapper, SliceableBuffer]: ...
 

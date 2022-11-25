@@ -3,7 +3,7 @@ Xlib._typing
 
 # __all__ is a map at runtime
 # https://github.com/python-xlib/python-xlib/pull/238
-Xlib.ext\.(__all__)?
+Xlib.ext(\.__all__)?
 
 # Default values
 Xlib.protocol.display.Display.send_and_recv

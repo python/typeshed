@@ -1,6 +1,5 @@
 from collections.abc import Sequence
 
-from Xlib import error
 from Xlib.display import Display
 from Xlib.protocol import request, rq
 from Xlib.xobject import drawable, resource
@@ -59,9 +58,9 @@ BadRROutput: int
 BadRRCrtc: int
 BadRRMode: int
 
-class BadRROutputError(error.XError): ...
-class BadRRCrtcError(error.XError): ...
-class BadRRModeError(error.XError): ...
+class BadRROutputError(Exception): ...
+class BadRRCrtcError(Exception): ...
+class BadRRModeError(Exception): ...
 
 RandR_ScreenSizes: rq.Struct
 RandR_ModeInfo: rq.Struct

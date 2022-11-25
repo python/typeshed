@@ -1,5 +1,6 @@
 from collections.abc import Callable, Sequence, Sized
 from typing import Any, TypeVar
+from typing_extensions import Literal
 
 from Xlib._typing import Unused
 from Xlib.display import Display
@@ -31,7 +32,7 @@ Record_ClientInfo: rq.Struct
 class RawField(rq.ValueField):
     structcode: None
     def pack_value(self, val: _S) -> tuple[_S, int, None]: ...  # type: ignore[override]
-    def parse_binary_value(self, data: _T, display: Unused, length: Unused, format: Unused) -> tuple[_T, bytes]: ...
+    def parse_binary_value(self, data: _T, display: Unused, length: Unused, format: Unused) -> tuple[_T, Literal[""]]: ...  # type: ignore[override]  # See: https://github.com/python-xlib/python-xlib/pull/249
 
 class GetVersion(rq.ReplyRequest): ...
 

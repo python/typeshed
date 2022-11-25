@@ -60,9 +60,6 @@ class LengthField(Field):
     structcode: str
     other_fields: list[str] | tuple[str, ...] | None
     def calc_length(self, length: int) -> int: ...
-    def parse_binary_value(
-        self, data: Unused, display: Unused, length: Unused, format: Unused
-    ) -> tuple[Literal[b""], Literal[b""]]: ...
 
 class TotalLengthField(LengthField): ...
 class RequestLength(TotalLengthField): ...
@@ -112,7 +109,7 @@ class Resource(Card32):
     def check_value(self, value: Callable[[], _T]) -> _T: ...
     @overload
     def check_value(self, value: _T) -> _T: ...
-    def parse_value(self, value: int, display: _BaseDisplay | None) -> int: ...  # type: ignore[override]
+    def parse_value(self, value: int, display: _BaseDisplay) -> int: ...  # type: ignore[override]  # display: None will error. See: https://github.com/python-xlib/python-xlib/pull/248
 
 class Window(Resource):
     cast_function: str
@@ -170,7 +167,7 @@ class Binary(ValueField):
     def pack_value(  # type: ignore[override]  # Override Callable
         self, val: bytes | bytearray
     ) -> tuple[bytes | bytearray, int, None]: ...
-    @overload
+    @overload  # type: ignore[override]  # Overload for specific values
     def parse_binary_value(self, data: _T, display: Unused, length: None, format: Unused) -> tuple[_T, Literal[b""]]: ...
     @overload
     def parse_binary_value(
@@ -182,7 +179,7 @@ class String8(ValueField):
     pad: int
     def __init__(self, name: str, pad: int = ...) -> None: ...
     def pack_value(self, val: bytes | str) -> tuple[bytes, int, None]: ...  # type: ignore[override]  # Override Callable
-    @overload
+    @overload  # type: ignore[override]  # Overload for specific values
     def parse_binary_value(
         self, data: bytes | bytearray, display: Unused, length: None, format: Unused
     ) -> tuple[str, Literal[b""]]: ...
@@ -196,7 +193,7 @@ class String16(ValueField):
     pad: int
     def __init__(self, name: str, pad: int = ...) -> None: ...
     def pack_value(self, val: Sequence[object]) -> tuple[bytes, int, None]: ...  # type: ignore[override]  # Override Callable
-    def parse_binary_value(
+    def parse_binary_value(  # type: ignore[override]  # length: None will error. See: https://github.com/python-xlib/python-xlib/pull/248
         self, data: SliceableBuffer, display: Unused, length: int | Literal["odd", "even"], format: Unused
     ) -> tuple[tuple[Any, ...], SliceableBuffer]: ...
 
@@ -208,7 +205,7 @@ class List(ValueField):
         self, name: str, type: Struct | ScalarObj | ResourceObj | ClassInfoClass | Type[ValueField], pad: int = ...
     ) -> None: ...
     def parse_binary_value(
-        self, data: SliceableBuffer, display: display.Display | None, length: SupportsIndex, format: Unused
+        self, data: SliceableBuffer, display: display.Display | None, length: SupportsIndex | None, format: Unused
     ) -> tuple[list[DictWrapper | None], SliceableBuffer]: ...
     def pack_value(  # type: ignore[override]  # Override Callable
         self, val: Sequence[object] | dict[str, object]
@@ -315,7 +312,7 @@ class ResourceObj:
     class_name: str
     check_value: None
     def __init__(self, class_name: str) -> None: ...
-    def parse_value(self, value: int, display: _BaseDisplay | None) -> int | _ResourceBaseClass: ...
+    def parse_value(self, value: int, display: _BaseDisplay) -> int | _ResourceBaseClass: ...
 
 WindowObj: ResourceObj
 ColormapObj: ResourceObj
@@ -367,9 +364,9 @@ class TextElements8(ValueField):
     def pack_value(  # type: ignore[override]  # Override Callable
         self, value: Iterable[Field | str | bytes | tuple[Sequence[object], ...] | dict[str, Sequence[object]] | DictWrapper]
     ) -> tuple[bytes, None, None]: ...
-    def parse_binary_value(
+    def parse_binary_value(  # type: ignore[override]  # See: https://github.com/python-xlib/python-xlib/pull/249
         self, data: SliceableBuffer, display: display.Display | None, length: Unused, format: Unused
-    ) -> tuple[list[DictWrapper], Literal[b""]]: ...
+    ) -> tuple[list[DictWrapper], Literal[""]]: ...
 
 class TextElements16(TextElements8):
     string_textitem: Struct
