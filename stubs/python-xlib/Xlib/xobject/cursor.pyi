@@ -1,0 +1,9 @@
+from Xlib._typing import ErrorHandler
+from Xlib.xobject import resource
+
+class Cursor(resource.Resource):
+    __cursor__ = resource.Resource.__resource__
+    def free(self, onerror: ErrorHandler[object] | None = ...) -> None: ...
+    def recolor(
+        self, foreground: tuple[int, int, int], background: tuple[int, int, int], onerror: ErrorHandler[object] | None = ...
+    ) -> None: ...
