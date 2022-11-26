@@ -23,6 +23,7 @@ _Marshallable: TypeAlias = (
     | bytearray
     | None
     | tuple[_Marshallable, ...]
+    # Ideally we'd use _Marshallable for list and dict, but invariance makes that impractical
     | list[Any]
     | dict[str, Any]
     | datetime
