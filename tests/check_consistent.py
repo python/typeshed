@@ -193,7 +193,7 @@ def check_metadata() -> None:
         specified_stubtest_platforms = set(tool_stubtest.get("platforms", []))
         assert (
             specified_stubtest_platforms <= supported_stubtest_platforms
-        ), f"Unrecognised platforms specified: {supported_stubtest_platforms - specified_stubtest_platforms}"
+        ), f"Unrecognised platforms specified: {supported_stubtest_platforms - specified_stubtest_platforms} for {distribution}"
 
         # Check that only specified platforms install packages:
         for supported_plat in supported_stubtest_platforms:
