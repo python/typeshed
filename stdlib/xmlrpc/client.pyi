@@ -22,9 +22,9 @@ _Marshallable: TypeAlias = (
     | bytes
     | bytearray
     | None
-    | tuple[Any, ...]
+    | tuple[_Marshallable, ...]
     | list[Any]
-    | dict[Any, Any]
+    | dict[str, Any]
     | datetime
     | DateTime
     | Binary
