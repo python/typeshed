@@ -1,3 +1,4 @@
+from builtins import map  # Explicit import for pytype
 from collections.abc import Iterable, Sequence
 
 from PIL import Image
@@ -5,6 +6,7 @@ from Xlib._typing import ErrorHandler, SliceableBuffer
 from Xlib.protocol import request, rq
 from Xlib.xobject import colormap, cursor, fontable, resource
 
+# Otherwise mypy thinks map is Xlib.xobject.drawable.Window.map
 _map = map
 
 class Drawable(resource.Resource):
