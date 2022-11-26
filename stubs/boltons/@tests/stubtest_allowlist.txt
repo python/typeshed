@@ -3,10 +3,10 @@ boltons.strutils.int_list_to_int_tuples
 
 # But stubtest complains about runtime
 # def dumps(val: Any, indent: int) -> str: ...
-boltons.ecoutils
+boltons.ecoutils.dumps
 
 
 # Bug in boltons https://github.com/mahmoud/boltons/issues/294
 # This bug is fixed only in the development version (on github).
 # In the PyPI repository version the bug is not fixed
-# boltons.ecoutils
+boltons.ecoutils
