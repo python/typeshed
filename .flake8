@@ -26,13 +26,11 @@
 #            into the typeshed codebase to unblock flake8-pyi PRs, meaning these comments
 #            have "no matching violations" since the relevant flake8-pyi checks haven't
 #            yet been released.
-#     Y041   Use "complex" instead of "float | complex" (see "The numeric tower" in PEP 484)
-#            TODO this check is somewhat broken, see https://github.com/PyCQA/flake8-pyi/issues/299
 
 [flake8]
 per-file-ignores =
   *.py: E203, E301, E302, E305, E501
-  *.pyi: B, E301, E302, E305, E501, E701, E741, NQA102, F401, F403, F405, F822, Y037, Y041
+  *.pyi: B, E301, E302, E305, E501, E701, E741, NQA102, F401, F403, F405, F822, Y037
   # Since typing.pyi defines "overload" this is not recognized by flake8 as typing.overload.
   # Unfortunately, flake8 does not allow to "noqa" just a specific error inside the file itself.
   # https://github.com/PyCQA/flake8/issues/1079

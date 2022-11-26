@@ -8,7 +8,6 @@
     "exclude": [
         "stdlib/distutils/command",
         "stdlib/lib2to3/refactor.pyi",
-        "stdlib/multiprocessing/reduction.pyi",
         "stdlib/_tkinter.pyi",
         "stdlib/tkinter/__init__.pyi",
         "stdlib/tkinter/filedialog.pyi",
@@ -33,6 +32,7 @@
         "stubs/cryptography",
         "stubs/dateparser",
         "stubs/docutils",
+        "stubs/Flask-Migrate",
         "stubs/Flask-SQLAlchemy",
         "stubs/fpdf2",
         "stubs/html5lib",

@@ -37,6 +37,7 @@ aiofiles.os.mkdir
 aiofiles.os.makedirs
 aiofiles.os.rmdir
 aiofiles.os.removedirs
+aiofiles.os.scandir
 aiofiles.ospath.exists
 aiofiles.ospath.isfile
 aiofiles.ospath.isdir
