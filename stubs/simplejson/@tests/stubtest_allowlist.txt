@@ -1,3 +1,9 @@
+# Overload hacks:
+simplejson.dumps
+simplejson.dump
+simplejson.loads
+simplejson.load
+
 # Re-exports:
 simplejson.encoder.PosInf
 simplejson.encoder.PY3
