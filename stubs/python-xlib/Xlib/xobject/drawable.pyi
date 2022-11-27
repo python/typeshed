@@ -1,4 +1,4 @@
-from builtins import map  # Explicit import for pytype
+# from builtins import map  # Explicit import for pytype https://github.com/google/pytype/issues/1324
 from collections.abc import Iterable, Sequence
 
 from PIL import Image
@@ -6,8 +6,10 @@ from Xlib._typing import ErrorHandler, SliceableBuffer
 from Xlib.protocol import request, rq
 from Xlib.xobject import colormap, cursor, fontable, resource
 
-# Otherwise mypy thinks map is Xlib.xobject.drawable.Window.map
-_map = map
+# Alias to _map. Otherwise mypy thinks map is Xlib.xobject.drawable.Window.map https://github.com/python/mypy/issues/14205
+# _map = map
+# Using map crashes pytype https://github.com/google/pytype/issues/1324
+_map = list
 
 class Drawable(resource.Resource):
     __drawable__ = resource.Resource.__resource__

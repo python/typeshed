@@ -1,17 +1,25 @@
 from _typeshed import ReadableBuffer, SupportsTrunc
 from array import array
 from collections.abc import Callable, Iterable, Sequence
-from typing import Any, SupportsInt, Type, TypeVar, overload, type_check_only  # noqa: Y022  # mypy thinks type is List.type
+
+# mypy thinks type is List.type https://github.com/python/mypy/issues/14205
+from typing import Any, SupportsInt, Type, TypeVar, overload, type_check_only  # noqa: Y022
 from typing_extensions import Literal, LiteralString, SupportsIndex, TypeAlias
 
 from Xlib._typing import ErrorHandler, SliceableBuffer, Unused
-from Xlib.display import _BaseDisplay, _ResourceBaseClass  # pyright: ignore[reportPrivateUsage]
+from Xlib.display import _ResourceBaseClass  # pyright: ignore[reportPrivateUsage]
 from Xlib.error import XError
 from Xlib.ext.xinput import ClassInfoClass
 from Xlib.protocol import display
 
 _T = TypeVar("_T")
 _IntNew: TypeAlias = str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc
+
+# Workaround for pytype crash. Should be Xlib.display._BaseDisplay
+@type_check_only
+class _BaseDisplay(display.Display):
+    def __init__(self, display: str | None = ...) -> None: ...
+    def get_atom(self, atomname: str, only_if_exists: bool = ...) -> int: ...
 
 def decode_string(bs: bytes | bytearray) -> str: ...
 def encode_array(a: array[Any] | memoryview) -> str: ...

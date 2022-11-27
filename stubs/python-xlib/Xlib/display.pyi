@@ -1,3 +1,4 @@
+# from builtins import map  # Explicit import for pytype https://github.com/google/pytype/issues/1324
 from collections.abc import Callable, Sequence
 from types import FunctionType, MethodType
 from typing import Any, Pattern, overload
@@ -7,6 +8,9 @@ from Xlib import error
 from Xlib._typing import ErrorHandler
 from Xlib.protocol import display, request, rq
 from Xlib.xobject import colormap, cursor, drawable, fontable, resource
+
+# Using map crashes pytype https://github.com/google/pytype/issues/1324
+_map = list
 
 _ResourceBaseClass: TypeAlias = (
     resource.Resource
