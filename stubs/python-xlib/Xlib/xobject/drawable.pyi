@@ -2,7 +2,7 @@
 from collections.abc import Iterable, Sequence
 
 from PIL import Image
-from Xlib._typing import ErrorHandler, SliceableBuffer
+from Xlib._typing import ErrorHandler
 from Xlib.protocol import request, rq
 from Xlib.xobject import colormap, cursor, fontable, resource
 
@@ -103,7 +103,7 @@ class Drawable(resource.Resource):
         format: int,
         depth: int,
         left_pad: int,
-        data: SliceableBuffer,
+        data: bytes | bytearray,
         onerror: ErrorHandler[object] | None = ...,
     ) -> None: ...
     def put_pil_image(self, gc: int, x: int, y: int, image: Image.Image, onerror: ErrorHandler[object] | None = ...) -> None: ...

@@ -1,4 +1,4 @@
-from _typeshed import ReadableBuffer, SupportsTrunc
+from _typeshed import ReadableBuffer, SliceableBuffer, SupportsTrunc
 from array import array
 from collections.abc import Callable, Iterable, Sequence
 
@@ -6,7 +6,7 @@ from collections.abc import Callable, Iterable, Sequence
 from typing import Any, SupportsInt, Type, TypeVar, overload, type_check_only  # noqa: Y022
 from typing_extensions import Literal, LiteralString, SupportsIndex, TypeAlias
 
-from Xlib._typing import ErrorHandler, SliceableBuffer, Unused
+from Xlib._typing import ErrorHandler, Unused
 from Xlib.display import _ResourceBaseClass  # pyright: ignore[reportPrivateUsage]
 from Xlib.error import XError
 from Xlib.ext.xinput import ClassInfoClass
@@ -328,7 +328,7 @@ ColormapObj: ResourceObj
 class StrClass:
     structcode: None
     def pack_value(self, val: str) -> bytes: ...
-    def parse_binary(self, data: bytes, display: Unused) -> tuple[str, bytes]: ...
+    def parse_binary(self, data: bytes | bytearray, display: Unused) -> tuple[str, bytes | bytearray]: ...
 
 Str: StrClass
 

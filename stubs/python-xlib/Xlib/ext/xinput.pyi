@@ -1,9 +1,9 @@
-from _typeshed import ReadableBuffer
+from _typeshed import ReadableBuffer, SliceableBuffer
 from collections.abc import Iterable, Sequence
 from typing import SupportsFloat, TypeVar
 from typing_extensions import SupportsIndex, TypeAlias
 
-from Xlib._typing import SliceableBuffer, Unused
+from Xlib._typing import Unused
 from Xlib.display import Display
 from Xlib.protocol import display, request, rq
 from Xlib.xobject import drawable, resource

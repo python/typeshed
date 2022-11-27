@@ -1,9 +1,10 @@
+from _typeshed import _BufferWithLen
 from socket import socket
 from typing import TypeVar, overload
 from typing_extensions import Literal
 
 from Xlib import error
-from Xlib._typing import ErrorHandler, SliceableBuffer
+from Xlib._typing import ErrorHandler
 from Xlib.display import _resource_baseclasses, _ResourceBaseClass  # pyright: ignore[reportPrivateUsage]
 from Xlib.protocol import rq
 from Xlib.support import lock
@@ -13,7 +14,10 @@ _T = TypeVar("_T")
 
 class bytesview:
     view: memoryview
-    def __init__(self, data: SliceableBuffer | bytesview, offset: int = ..., size: int | None = ...) -> None: ...
+    @overload
+    def __init__(self, data: bytes | bytesview, offset: int, size: int) -> None: ...
+    @overload
+    def __init__(self, data: _BufferWithLen, offset: int = ..., size: int | None = ...) -> None: ...
     @overload
     def __getitem__(self, key: slice) -> bytes: ...
     @overload

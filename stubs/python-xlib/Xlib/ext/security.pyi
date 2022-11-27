@@ -1,4 +1,4 @@
-from Xlib._typing import SliceableBuffer, Unused
+from Xlib._typing import Unused
 from Xlib.display import Display
 from Xlib.protocol import rq
 from Xlib.xobject import resource
@@ -18,7 +18,7 @@ class SecurityGenerateAuthorization(rq.ReplyRequest): ...
 def generate_authorization(
     self: Display | resource.Resource,
     auth_proto: str,
-    auth_data: SliceableBuffer = ...,
+    auth_data: bytes | bytearray = ...,
     timeout: int | None = ...,
     trust_level: int | None = ...,
     group: int | None = ...,

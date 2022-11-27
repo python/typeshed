@@ -1,6 +1,6 @@
+from _typeshed import SliceableBuffer
 from typing_extensions import Literal
 
-from Xlib._typing import SliceableBuffer
 from Xlib.protocol import display, rq
 
 class DisplayError(Exception):
