@@ -8,8 +8,8 @@ from typing_extensions import Literal, TypeAlias
 _OpenFile: TypeAlias = StrOrBytesPath | FileDescriptor
 
 is_64bits: bool
-is_py35: bool
-is_py36: bool
+is_py35: Literal[True]
+is_py36: Literal[True]
 is_py37: bool
 is_py38: bool
 is_py39: bool

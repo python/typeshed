@@ -15,6 +15,7 @@ permissions:
 
 env:
   PIP_DISABLE_PIP_VERSION_CHECK: 1
+  FORCE_COLOR: 1
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
@@ -99,7 +100,7 @@ jobs:
           cache: pip
           cache-dependency-path: requirements-tests.txt
       - run: pip install -r requirements-tests.txt
-      - run: python ./tests/regr_test.py --all
+      - run: python ./tests/regr_test.py --all --quiet
 
   pyright:
     name: Test typeshed with pyright

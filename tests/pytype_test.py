@@ -149,7 +149,7 @@ def run_all_tests(*, files_to_test: Sequence[str], typeshed_location: str, print
         )
         if stderr:
             if print_stderr:
-                print(stderr)
+                print("\n{stderr}")
             errors += 1
             stacktrace_final_line = stderr.rstrip().rsplit("\n", 1)[-1]
             bad.append((_get_relative(f), python_version, stacktrace_final_line))
@@ -160,7 +160,7 @@ def run_all_tests(*, files_to_test: Sequence[str], typeshed_location: str, print
 
     print(f"Ran pytype with {total_tests:d} pyis, got {errors:d} errors.")
     for f, v, err in bad:
-        print(f"{f} ({v}): {err}")
+        print(f"\n{f} ({v}): {err}")
     if errors:
         raise SystemExit("\nRun again with --print-stderr to get the full stacktrace.")
 
