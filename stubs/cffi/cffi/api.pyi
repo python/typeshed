@@ -18,7 +18,7 @@ basestring: TypeAlias = str  # noqa: Y042
 class FFI:
     CData: type[_CData]
     CType: type[_CType]
-    buffer: type[_buffer]  # noqa: Y042
+    buffer: type[_buffer]
 
     BVoidP: _CType
     BCharA: _CType
