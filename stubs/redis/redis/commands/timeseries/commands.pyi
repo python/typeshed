@@ -42,7 +42,7 @@ class TimeSeriesCommands:
         self,
         key: _Key,
         timestamp: int | str,
-        value: int | float,
+        value: float,
         retention_msecs: int | None = ...,
         uncompressed: bool | None = ...,
         labels: dict[str, str] | None = ...,
@@ -53,7 +53,7 @@ class TimeSeriesCommands:
     def incrby(
         self,
         key: _Key,
-        value: int | float,
+        value: float,
         timestamp: int | str | None = ...,
         retention_msecs: int | None = ...,
         uncompressed: bool | None = ...,
@@ -63,7 +63,7 @@ class TimeSeriesCommands:
     def decrby(
         self,
         key: _Key,
-        value: int | float,
+        value: float,
         timestamp: int | str | None = ...,
         retention_msecs: int | None = ...,
         uncompressed: bool | None = ...,
