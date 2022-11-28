@@ -80,12 +80,12 @@ assert_type(pow(4.7, 9.2, None), Any)
 assert_type((-95) ** 8.42, Any)
 
 # All of the following cases should fail a type-checker.
-pow(1.9, 4, 6)  # type: ignore
-pow(4, 7, 4.32)  # type: ignore
-pow(6.2, 5.9, 73)  # type: ignore
-pow(complex(6), 6.2, 7)  # type: ignore
-pow(Fraction(), 5, 8)  # type: ignore
-Decimal("8.7") ** 3.14  # type: ignore
+pow(1.9, 4, 6)  # type: ignore[misc]
+pow(4, 7, 4.32)  # type: ignore[misc]
+pow(6.2, 5.9, 73)  # type: ignore[misc]
+pow(complex(6), 6.2, 7)  # type: ignore[misc]
+pow(Fraction(), 5, 8)  # type: ignore[call-overload]
+Decimal("8.7") ** 3.14  # type: ignore[operator]
 
 # TODO: This fails at runtime, but currently passes mypy and pyright:
 pow(Decimal("8.5"), 3.21)

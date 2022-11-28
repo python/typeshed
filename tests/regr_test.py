@@ -100,6 +100,8 @@ def test_testcase_directory(package: PackageInfo, version: str, platform: str, q
         "--show-traceback",
         "--show-error-codes",
         "--no-error-summary",
+        "--enable-error-code",
+        "ignore-without-code",
         "--platform",
         platform,
         "--no-site-packages",

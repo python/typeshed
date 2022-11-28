@@ -45,7 +45,6 @@
     "reportIncompatibleMethodOverride": "error",
     "reportIncompatibleVariableOverride": "error",
     "reportOverlappingOverload": "error",
+    "reportMatchNotExhaustive": "error",
     "reportUnnecessaryTypeIgnoreComment": "error",
-    "reportMissingTypeStubs": "error",
-    "reportMatchNotExhaustive": "error"
 }

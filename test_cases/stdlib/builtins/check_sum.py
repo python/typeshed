@@ -43,12 +43,12 @@ sum([5.6, 3.2])  # mypy: `float`; pyright: `float | Literal[0]`
 sum([2.5, 5.8], 5)  # mypy: `float`; pyright: `float | int`
 
 # These all fail at runtime
-sum("abcde")  # type: ignore
-sum([["foo"], ["bar"]])  # type: ignore
-sum([("foo",), ("bar", "baz")])  # type: ignore
-sum([Foo(), Foo()])  # type: ignore
-sum([Bar(), Bar()], Bar())  # type: ignore
-sum([Bar(), Bar()])  # type: ignore
+sum("abcde")  # type: ignore[arg-type]
+sum([["foo"], ["bar"]])  # type: ignore[list-item]
+sum([("foo",), ("bar", "baz")])  # type: ignore[list-item]
+sum([Foo(), Foo()])  # type: ignore[list-item]
+sum([Bar(), Bar()], Bar())  # type: ignore[call-overload]
+sum([Bar(), Bar()])  # type: ignore[list-item]
 
 # TODO: these pass pyright with the current stubs, but mypy erroneously emits an error:
 # sum([3, Fraction(7, 22), complex(8, 0), 9.83])

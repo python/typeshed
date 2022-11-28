@@ -257,6 +257,7 @@ def get_mypy_flags(args: TestConfig, temp_name: str, *, testing_stdlib: bool) ->
         "--strict-equality",
         "--enable-error-code",
         "ignore-without-code",
+        "--warn-unused-ignores",
         "--config-file",
         temp_name,
     ]
