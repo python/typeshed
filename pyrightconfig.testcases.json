@@ -7,7 +7,10 @@
     "typeCheckingMode": "strict",
     "reportPropertyTypeMismatch": "error",
     "reportUnnecessaryTypeIgnoreComment": "error",
-    "reportUnnecessaryIsInstance": "none",
     "reportMissingModuleSource": "none",
     "reportPrivateUsage": "none",
+    // isinstance checks are still needed when validating inputs outside of typeshed's control
+    "reportUnnecessaryIsInstance": "none",
+    // The name of the self/cls parameter is out of typeshed's control.
+    "reportSelfClsParameterName": "none",
 }
