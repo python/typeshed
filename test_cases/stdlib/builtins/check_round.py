@@ -36,8 +36,8 @@ class WithCustomRound1:
 assert_type(round(WithCustomRound1()), str)
 assert_type(round(WithCustomRound1(), None), str)
 # Errors:
-round(WithCustomRound1(), 1)  # type: ignore[call-overload]
-round(WithCustomRound1(), CustomIndex())  # type: ignore[call-overload]
+round(WithCustomRound1(), 1)  # type: ignore
+round(WithCustomRound1(), CustomIndex())  # type: ignore
 
 
 class WithCustomRound2:
@@ -48,8 +48,8 @@ class WithCustomRound2:
 assert_type(round(WithCustomRound2(), 1), str)
 assert_type(round(WithCustomRound2(), CustomIndex()), str)
 # Errors:
-round(WithCustomRound2(), None)  # type: ignore[call-overload]
-round(WithCustomRound2())  # type: ignore[call-overload]
+round(WithCustomRound2(), None)  # type: ignore
+round(WithCustomRound2())  # type: ignore
 
 
 class WithOverloadedRound:
