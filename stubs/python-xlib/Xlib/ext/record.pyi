@@ -92,7 +92,7 @@ def get_context(self: Display | resource.Resource, context: int) -> GetContext: 
 class EnableContext(rq.ReplyRequest):
     def __init__(
         self,
-        callback: Callable[[rq.DictWrapper | dict[str, object]], Any],
+        callback: Callable[[rq.DictWrapper | dict[str, Any]], Any],
         display: display.Display,
         defer: bool = ...,
         *args: object | bool,
@@ -100,7 +100,7 @@ class EnableContext(rq.ReplyRequest):
     ) -> None: ...
 
 def enable_context(
-    self: Display | resource.Resource, context: int, callback: Callable[[rq.DictWrapper | dict[str, object]], Any]
+    self: Display | resource.Resource, context: int, callback: Callable[[rq.DictWrapper | dict[str, Any]], Any]
 ) -> None: ...
 
 class DisableContext(rq.Request): ...

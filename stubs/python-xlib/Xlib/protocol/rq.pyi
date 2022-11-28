@@ -1,9 +1,10 @@
 from _typeshed import ReadableBuffer, SliceableBuffer, SupportsTrunc
 from array import array
-from collections.abc import Callable, Iterable, Sequence
 
-# mypy thinks type is List.type https://github.com/python/mypy/issues/14205
-from typing import Any, SupportsInt, Type, TypeVar, overload, type_check_only  # noqa: Y022
+# Avoid name collision with List.type
+from builtins import type as Type
+from collections.abc import Callable, Iterable, Sequence
+from typing import Any, SupportsInt, TypeVar, overload, type_check_only
 from typing_extensions import Literal, LiteralString, SupportsIndex, TypeAlias
 
 from Xlib._typing import ErrorHandler, Unused
@@ -216,7 +217,7 @@ class List(ValueField):
         self, data: SliceableBuffer, display: display.Display | None, length: SupportsIndex | None, format: Unused
     ) -> tuple[list[DictWrapper | None], SliceableBuffer]: ...
     def pack_value(  # type: ignore[override]  # Override Callable
-        self, val: Sequence[object] | dict[str, object]
+        self, val: Sequence[object] | dict[str, Any]
     ) -> tuple[bytes, int, None]: ...
 
 class FixedList(List):
@@ -235,7 +236,7 @@ class Object(ValueField):
     ) -> tuple[DictWrapper, SliceableBuffer]: ...
     def parse_value(self, val: SliceableBuffer, display: display.Display | None) -> DictWrapper: ...  # type: ignore[override]
     def pack_value(  # type: ignore[override]  # Override Callable
-        self, val: tuple[object, ...] | dict[str, object] | DictWrapper
+        self, val: tuple[object, ...] | dict[str, Any] | DictWrapper
     ) -> bytes: ...
     def check_value(self, val: tuple[_T, ...] | dict[str, _T] | DictWrapper) -> list[_T]: ...  # type: ignore[override]
 
@@ -261,7 +262,7 @@ class ValueList(Field):
     fields: list[tuple[Field, int]]
     def __init__(self, name: str, mask: int, pad: int, *fields: Field) -> None: ...
     def pack_value(  # type: ignore[override]  # Override Callable
-        self, arg: str | dict[str, object], keys: dict[str, object]
+        self, arg: str | dict[str, Any], keys: dict[str, Any]
     ) -> tuple[bytes, None, None]: ...
     def parse_binary_value(
         self, data: SliceableBuffer, display: display.Display | None, length: Unused, format: Unused
@@ -346,7 +347,7 @@ class Struct:
     structvalues: int
     def __init__(self, *fields: Field) -> None: ...
     def to_binary(self, *varargs: object, **keys: object) -> bytes: ...
-    def pack_value(self, value: tuple[object, ...] | dict[str, object] | DictWrapper) -> bytes: ...
+    def pack_value(self, value: tuple[object, ...] | dict[str, Any] | DictWrapper) -> bytes: ...
     @overload
     def parse_value(self, val: SliceableBuffer, display: display.Display | None, rawdict: Literal[True]) -> dict[str, Any]: ...
     @overload
@@ -362,8 +363,7 @@ class Struct:
         self, data: SliceableBuffer, display: display.Display | None, rawdict: Literal[False] = ...
     ) -> tuple[DictWrapper, SliceableBuffer]: ...
     # Structs generate their attributes
-    # TODO: Complete all classes inheriting from Struct
-    # and create a type-only class for all direct instances
+    # TODO: Create a specific type-only class for all instances of `Struct`
     @type_check_only
     def __getattr__(self, __name: str) -> Any: ...
 
@@ -387,7 +387,7 @@ class GetAttrData:
     def __setattr__(self, __name: str, __value: Any) -> None: ...
 
 class DictWrapper(GetAttrData):
-    def __init__(self, dict: dict[str, object]) -> None: ...
+    def __init__(self, dict: dict[str, Any]) -> None: ...
     def __getitem__(self, key: str) -> object: ...
     def __setitem__(self, key: str, value: object) -> None: ...
     def __delitem__(self, key: str) -> None: ...
