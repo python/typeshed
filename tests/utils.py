@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import os
 import re
+from collections.abc import Iterable
 from functools import cache
 from itertools import filterfalse
 from pathlib import Path
@@ -24,8 +25,8 @@ try:
     from termcolor import colored as colored
 except ImportError:
 
-    def colored(s: str, _: str) -> str:  # type: ignore[misc]
-        return s
+    def colored(text: str, color: str | None = None, on_color: str | None = None, attrs: Iterable[str] | None = None) -> str:
+        return text
 
 
 def print_error(error: str, end: str = "\n", fix_path: tuple[str, str] = ("", "")) -> None:

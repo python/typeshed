@@ -1,0 +1,20 @@
+{
+    "$schema": "https://raw.githubusercontent.com/microsoft/pyright/main/packages/vscode-pyright/schemas/pyrightconfig.schema.json",
+    "typeshedPath": ".",
+    "pythonVersion": "3.9",
+    "include": [
+        "scripts",
+        "tests",
+    ],
+    "typeCheckingMode": "strict",
+    "reportPropertyTypeMismatch": "error",
+    // Conflicts with mypy "# type: ignore"
+    "reportUnnecessaryTypeIgnoreComment": "warning",
+    "reportMissingModuleSource": "none",
+    "reportPrivateUsage": "none",
+    // TODO: FIXME
+    "reportUnknownParameterType": "none",
+    "reportUnknownVariableType": "none",
+    "reportUnknownMemberType": "none",
+    "reportUnknownArgumentType": "none",
+}

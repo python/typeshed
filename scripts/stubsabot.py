@@ -29,6 +29,9 @@ import tomli
 import tomlkit
 from termcolor import colored
 
+# Checks made outside of scope lead to many possibly unbound variables
+# pyright: reportUnboundVariable=false
+
 ActionLevelSelf = TypeVar("ActionLevelSelf", bound="ActionLevel")
 
 
@@ -724,7 +727,7 @@ async def main() -> None:
                     if isinstance(update, Update):
                         await suggest_typeshed_update(update, session, action_level=args.action_level)
                         continue
-                    if isinstance(update, Obsolete):
+                    if isinstance(update, Obsolete):  # pyright: ignore[reportUnnecessaryIsInstance]
                         await suggest_typeshed_obsolete(update, session, action_level=args.action_level)
                         continue
                 except RemoteConflict as e:

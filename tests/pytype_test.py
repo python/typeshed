@@ -100,7 +100,7 @@ def _get_module_name(filename: str) -> str:
     return ".".join(module_parts).replace(".pyi", "").replace(".__init__", "")
 
 
-def _is_version(path: str, version: str) -> bool:
+def _is_version(path: str, version: str) -> bool:  # pyright: ignore[reportUnusedFunction]
     return any(f"{d}{os.path.sep}{version}" in path for d in TYPESHED_SUBDIRS)
 
 
