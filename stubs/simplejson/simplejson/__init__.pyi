@@ -34,7 +34,6 @@ def dumps(
     ignore_nan: bool = ...,
     int_as_string_bitcount: int | None = ...,
     iterable_as_array: bool = ...,
-    # Technically: you cannot pass extra `kw` without passing custom `cls`
     **kw: Any,
 ) -> str: ...
 @overload
@@ -84,7 +83,6 @@ def dump(
     ignore_nan: bool = ...,
     int_as_string_bitcount: int | None = ...,
     iterable_as_array: bool = ...,
-    # Technically: you cannot pass extra `kw` without passing custom `cls`
     **kw: Any,
 ) -> None: ...
 @overload
@@ -123,7 +121,6 @@ def loads(
     parse_constant: Callable[[str], Any] | None = ...,
     object_pairs_hook: Callable[[list[tuple[Any, Any]]], Any] | None = ...,
     use_decimal: bool = ...,
-    # Technically: you cannot pass extra `kw` without passing custom `cls`
     **kw: Any,
 ) -> Any: ...
 @overload
@@ -152,7 +149,6 @@ def load(
     use_decimal: bool = ...,
     namedtuple_as_object: bool = ...,
     tuple_as_array: bool = ...,
-    # Technically: you cannot pass extra `kw` without passing custom `cls`
     **kw: Any,
 ) -> Any: ...
 @overload
