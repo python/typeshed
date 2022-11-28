@@ -1,15 +1,9 @@
-# from builtins import map  # Explicit import for pytype https://github.com/google/pytype/issues/1324
 from collections.abc import Iterable, Sequence
 
 from PIL import Image
 from Xlib._typing import ErrorHandler
 from Xlib.protocol import request, rq
 from Xlib.xobject import colormap, cursor, fontable, resource
-
-# Alias to _map. Otherwise mypy thinks map is Xlib.xobject.drawable.Window.map https://github.com/python/mypy/issues/14205
-# _map = map
-# Using map crashes pytype https://github.com/google/pytype/issues/1324
-_map = list
 
 class Drawable(resource.Resource):
     __drawable__ = resource.Resource.__resource__
@@ -241,7 +235,7 @@ class Window(Drawable):
     def set_wm_protocols(self, protocols: Iterable[int], onerror: ErrorHandler[object] | None = ...) -> None: ...
     def get_wm_protocols(self) -> list[int]: ...
     def set_wm_colormap_windows(self, windows: Iterable[Window], onerror: ErrorHandler[object] | None = ...) -> None: ...
-    def get_wm_colormap_windows(self) -> list[Window] | _map[Window]: ...
+    def get_wm_colormap_windows(self) -> Iterable[Window]: ...
     def set_wm_client_machine(self, name: bytes | str, onerror: ErrorHandler[object] | None = ...) -> None: ...
     def get_wm_client_machine(self) -> str | None: ...
     def set_wm_normal_hints(

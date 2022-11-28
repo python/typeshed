@@ -5,7 +5,7 @@ from typing_extensions import Literal
 
 from Xlib import error
 from Xlib._typing import ErrorHandler
-from Xlib.display import _resource_baseclasses, _ResourceBaseClass  # pyright: ignore[reportPrivateUsage]
+from Xlib.display import _ResourceBaseClass, _ResourceBaseClassesType
 from Xlib.protocol import rq
 from Xlib.support import lock
 from Xlib.xobject import colormap, cursor, drawable, fontable, resource
@@ -26,9 +26,9 @@ class bytesview:
 
 class Display:
     extension_major_opcodes: dict[str, int]
-    error_classes: dict[int, type[error.XError]]  # pyright: ignore[reportPrivateUsage]
-    event_classes: dict[int, type[rq.Event] | dict[int, type[rq.Event]]]  # pyright: ignore[reportPrivateUsage]
-    resource_classes: _resource_baseclasses | None
+    error_classes: dict[int, type[error.XError]]
+    event_classes: dict[int, type[rq.Event] | dict[int, type[rq.Event]]]
+    resource_classes: _ResourceBaseClassesType | None
     display_name: str
     default_screen: int
     socket: socket

@@ -1,5 +1,4 @@
-# from builtins import map  # Explicit import for pytype https://github.com/google/pytype/issues/1324
-from collections.abc import Callable, Sequence
+from collections.abc import Callable, Iterable, Sequence
 from types import FunctionType, MethodType
 from typing import Any, Pattern, overload
 from typing_extensions import Literal, TypeAlias, TypedDict
@@ -8,9 +7,6 @@ from Xlib import error
 from Xlib._typing import ErrorHandler
 from Xlib.protocol import display, request, rq
 from Xlib.xobject import colormap, cursor, drawable, fontable, resource
-
-# Using map crashes pytype https://github.com/google/pytype/issues/1324
-_map = list
 
 _ResourceBaseClass: TypeAlias = (
     resource.Resource
@@ -24,7 +20,9 @@ _ResourceBaseClass: TypeAlias = (
     | cursor.Cursor
 )
 
-class _resource_baseclasses(TypedDict):  # noqa: Y049  # Is actually defined in this file
+class _ResourceBaseClassesType(
+    TypedDict
+):  # noqa: Y049  # is the type of the `_resource_baseclasses` variable, defined in this file at runtime
     resource: type[resource.Resource]
     drawable: type[drawable.Drawable]
     window: type[drawable.Window]
@@ -86,7 +84,7 @@ class Display:
     def extension_add_error(self, code: int, err: type[error.XError]) -> None: ...
     def keycode_to_keysym(self, keycode: int, index: int) -> int: ...
     def keysym_to_keycode(self, keysym: int) -> int: ...
-    def keysym_to_keycodes(self, keysym: int) -> _map[tuple[int, int]] | list[tuple[int, int]]: ...
+    def keysym_to_keycodes(self, keysym: int) -> Iterable[tuple[int, int]]: ...
     def refresh_keyboard_mapping(self, evt: rq.Event) -> None: ...
     def lookup_string(self, keysym: int) -> str | None: ...
     def rebind_string(self, keysym: int, newstring: str | None) -> None: ...

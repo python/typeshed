@@ -6,7 +6,7 @@ from typing_extensions import TypeAlias
 
 from Xlib._typing import SupportsComparisons
 from Xlib.display import Display
-from Xlib.support.lock import _DummyLock  # pyright: ignore[reportPrivateUsage]
+from Xlib.support.lock import _DummyLock
 
 _T = TypeVar("_T")
 _C = TypeVar("_C", bound=SupportsComparisons)

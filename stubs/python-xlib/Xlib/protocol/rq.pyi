@@ -7,7 +7,7 @@ from typing import Any, SupportsInt, Type, TypeVar, overload, type_check_only  #
 from typing_extensions import Literal, LiteralString, SupportsIndex, TypeAlias
 
 from Xlib._typing import ErrorHandler, Unused
-from Xlib.display import _ResourceBaseClass  # pyright: ignore[reportPrivateUsage]
+from Xlib.display import _ResourceBaseClass
 from Xlib.error import XError
 from Xlib.ext.xinput import ClassInfoClass
 from Xlib.protocol import display

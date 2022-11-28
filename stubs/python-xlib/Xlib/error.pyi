@@ -44,26 +44,7 @@ class BadName(XError): ...
 class BadLength(XError): ...
 class BadImplementation(XError): ...
 
-xerror_class: dict[
-    int,
-    type[BadRequest]
-    | type[BadValue]
-    | type[BadWindow]
-    | type[BadPixmap]
-    | type[BadAtom]
-    | type[BadCursor]
-    | type[BadFont]
-    | type[BadMatch]
-    | type[BadDrawable]
-    | type[BadAccess]
-    | type[BadAlloc]
-    | type[BadColor]
-    | type[BadGC]
-    | type[BadIDChoice]
-    | type[BadName]
-    | type[BadLength]
-    | type[BadImplementation],
-]
+xerror_class: dict[int, type[XError]]
 
 class CatchError:
     error_types: tuple[type[XError], ...]
