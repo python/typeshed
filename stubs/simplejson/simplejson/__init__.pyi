@@ -18,6 +18,8 @@ def dumps(
     ensure_ascii: bool = ...,
     check_circular: bool = ...,
     allow_nan: bool = ...,
+    *,
+    cls: type[JSONEncoder],
     indent: str | int | None = ...,
     separators: tuple[str, str] | None = ...,
     encoding: str = ...,
@@ -32,9 +34,7 @@ def dumps(
     ignore_nan: bool = ...,
     int_as_string_bitcount: int | None = ...,
     iterable_as_array: bool = ...,
-    *,
     # Technically: you cannot pass extra `kw` without passing custom `cls`
-    cls: type[JSONEncoder],
     **kw: Any,
 ) -> str: ...
 @overload
@@ -68,6 +68,8 @@ def dump(
     ensure_ascii: bool = ...,
     check_circular: bool = ...,
     allow_nan: bool = ...,
+    *,
+    cls: type[JSONEncoder],
     indent: str | int | None = ...,
     separators: tuple[str, str] | None = ...,
     encoding: str = ...,
@@ -83,8 +85,6 @@ def dump(
     int_as_string_bitcount: int | None = ...,
     iterable_as_array: bool = ...,
     # Technically: you cannot pass extra `kw` without passing custom `cls`
-    *,
-    cls: type[JSONEncoder],
     **kw: Any,
 ) -> None: ...
 @overload
@@ -115,6 +115,8 @@ def dump(
 def loads(
     s: _LoadsString,
     encoding: str | None = ...,
+    *,
+    cls: type[JSONDecoder],
     object_hook: Callable[[dict[Any, Any]], Any] | None = ...,
     parse_float: Callable[[str], Any] | None = ...,
     parse_int: Callable[[str], Any] | None = ...,
@@ -122,8 +124,6 @@ def loads(
     object_pairs_hook: Callable[[list[tuple[Any, Any]]], Any] | None = ...,
     use_decimal: bool = ...,
     # Technically: you cannot pass extra `kw` without passing custom `cls`
-    *,
-    cls: type[JSONDecoder],
     **kw: Any,
 ) -> Any: ...
 @overload
@@ -142,6 +142,8 @@ def loads(
 def load(
     fp: IO[str],
     encoding: str | None = ...,
+    *,
+    cls: type[JSONDecoder],
     object_hook: Callable[[dict[Any, Any]], Any] | None = ...,
     parse_float: Callable[[str], Any] | None = ...,
     parse_int: Callable[[str], Any] | None = ...,
@@ -151,8 +153,6 @@ def load(
     namedtuple_as_object: bool = ...,
     tuple_as_array: bool = ...,
     # Technically: you cannot pass extra `kw` without passing custom `cls`
-    *,
-    cls: type[JSONDecoder],
     **kw: Any,
 ) -> Any: ...
 @overload
