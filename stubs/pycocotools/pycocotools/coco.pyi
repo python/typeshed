@@ -1,4 +1,5 @@
-from _typeshed import Incomplete, Self
+from _typeshed import Incomplete
+from collections.abc import Collection, Sequence
 from pathlib import Path
 from typing import Generic, TypeVar, overload
 from typing_extensions import Literal, TypeAlias, TypedDict
