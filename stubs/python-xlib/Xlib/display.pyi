@@ -20,9 +20,8 @@ _ResourceBaseClass: TypeAlias = (
     | cursor.Cursor
 )
 
-class _ResourceBaseClassesType(
-    TypedDict
-):  # noqa: Y049  # is the type of the `_resource_baseclasses` variable, defined in this file at runtime
+# Is the type of the `_resource_baseclasses` variable, defined in this file at runtime
+class _ResourceBaseClassesType(TypedDict):  # noqa: Y049
     resource: type[resource.Resource]
     drawable: type[drawable.Drawable]
     window: type[drawable.Window]
