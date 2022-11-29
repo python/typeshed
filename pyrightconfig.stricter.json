@@ -76,6 +76,7 @@
     "reportPrivateUsage": "none",
     "reportIncompleteStub": "none",
     "reportMissingModuleSource": "none",
+
     // Incompatible overrides and property type mismatches are out of typeshed's control
     // as they are inherited from the implementation.
     "reportIncompatibleMethodOverride": "none",
