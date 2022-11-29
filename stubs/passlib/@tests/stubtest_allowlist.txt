@@ -34,3 +34,20 @@ passlib.utils.handlers.GenericHandler.setting_kwds
 # set to None on class level, but initialized in __init__
 passlib.utils.handlers.HasManyIdents.ident
 passlib.utils.handlers.HasRounds.rounds
+
+# Errors in `__all__`:
+# TODO: change after https://github.com/python/mypy/pull/14217 is released
+passlib.handlers.oracle
+passlib.handlers.oracle.oracle11g
+passlib.handlers.oracle.oracle10g
+passlib.handlers.mysql
+passlib.handlers.mysql.mysq41
+
+# Mutable state because of the warnigns:
+passlib.utils.des.__warningregistry__
+
+# Compat tools are ignored:
+passlib.utils.compat.*
+
+# Tests are not included:
+passlib.tests.*
