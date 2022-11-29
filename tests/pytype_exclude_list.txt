@@ -14,8 +14,6 @@ stubs/mysqlclient/MySQLdb/cursors.pyi
 # Eg
 # pytype.pyi.parser.ParseError:   File: "/Users/nipunn/src/typeshed/third_party/2and3/google/protobuf/descriptor_pb2.pyi", line 195
 # b"TypeValue = typing___NewType('TypeValue', builtin___int)"
-
-
 stubs/protobuf/google/protobuf/any_pb2.pyi
 stubs/protobuf/google/protobuf/api_pb2.pyi
 stubs/protobuf/google/protobuf/compiler/plugin_pb2.pyi

@@ -7,10 +7,8 @@ six.create_bound_method.__closure__
 six.create_bound_method.__defaults__
 six.moves.*
 
-
 # Implemented using "operator" functions in the implementation
 six.get_function_closure
-
 six.get_function_code
 six.get_function_defaults
 six.get_function_globals
