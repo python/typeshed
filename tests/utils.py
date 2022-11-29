@@ -10,6 +10,7 @@ from itertools import filterfalse
 from pathlib import Path
 from typing import NamedTuple
 
+# https://github.com/cpburnz/python-pathspec/issues/66
 import pathspec  # type: ignore[import]
 import tomli
 
@@ -52,7 +53,7 @@ def read_dependencies(distribution: str) -> tuple[str, ...]:
         data = tomli.load(f)
     requires = data.get("requires", [])
     assert isinstance(requires, list)
-    dependencies = []
+    dependencies: list[str] = []
     for dependency in requires:
         assert isinstance(dependency, str)
         assert dependency.startswith("types-"), f"unrecognized dependency {dependency!r}"
@@ -106,7 +107,10 @@ def get_all_testcase_directories() -> list[PackageInfo]:
 @cache
 def get_gitignore_spec() -> pathspec.PathSpec:
     with open(".gitignore", encoding="UTF-8") as f:
-        return pathspec.PathSpec.from_lines("gitwildmatch", f.readlines())
+        # https://github.com/cpburnz/python-pathspec/issues/70
+        return pathspec.PathSpec.from_lines(  # pyright: ignore[reportUnknownVariableType,reportUnknownMemberType]
+            "gitwildmatch", f.readlines()
+        )
 
 
 def spec_matches_path(spec: pathspec.PathSpec, path: Path) -> bool:

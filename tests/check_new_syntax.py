@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 def check_new_syntax(tree: ast.AST, path: Path, stub: str) -> list[str]:
-    errors = []
+    errors: list[str] = []
     sourcelines = stub.splitlines()
 
     class AnnotationUnionFinder(ast.NodeVisitor):
@@ -84,7 +84,7 @@ def check_new_syntax(tree: ast.AST, path: Path, stub: str) -> list[str]:
                 new_syntax = "if " + ast.unparse(node.test).replace("<", ">=", 1)
                 errors.append(
                     f"{path}:{node.lineno}: When using if/else with sys.version_info, "
-                    f"put the code for new Python versions first, e.g. `{new_syntax}`"
+                    + f"put the code for new Python versions first, e.g. `{new_syntax}`"
                 )
             self.generic_visit(node)
 
@@ -94,7 +94,7 @@ def check_new_syntax(tree: ast.AST, path: Path, stub: str) -> list[str]:
 
 
 def main() -> None:
-    errors = []
+    errors: list[str] = []
     for path in chain(Path("stdlib").rglob("*.pyi"), Path("stubs").rglob("*.pyi")):
         with open(path, encoding="UTF-8") as f:
             stub = f.read()

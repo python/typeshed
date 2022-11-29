@@ -44,9 +44,9 @@ def run_stubtest(typeshed_dir: Path) -> int:
     except subprocess.CalledProcessError as e:
         print(
             "\nNB: stubtest output depends on the Python version (and system) it is run with. "
-            "See README.md for more details.\n"
-            "NB: We only check positional-only arg accuracy for Python 3.10.\n"
-            f"\nCommand run was: {' '.join(cmd)}\n",
+            + "See README.md for more details.\n"
+            + "NB: We only check positional-only arg accuracy for Python 3.10.\n"
+            + f"\nCommand run was: {' '.join(cmd)}\n",
             file=sys.stderr,
         )
         print("\n\n", file=sys.stderr)

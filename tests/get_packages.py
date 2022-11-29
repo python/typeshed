@@ -13,5 +13,12 @@ if not distributions:
 if platform in METADATA_MAPPING:
     for distribution in distributions:
         with open(f"stubs/{distribution}/METADATA.toml", "rb") as file:
-            for package in tomli.load(file).get("tool", {}).get("stubtest", {}).get(METADATA_MAPPING[platform], []):
+            packages: list[str] = (
+                tomli.load(file)
+                .get("tool", {})
+                .get("stubtest", {})
+                # Loss of type due to infered dict[Unknown, Unknown]
+                .get(METADATA_MAPPING[platform], [])  # pyright: ignore[reportUnknownMemberType]
+            )
+            for package in packages:
                 print(package)

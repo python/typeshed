@@ -1,20 +1,21 @@
 {
     "$schema": "https://raw.githubusercontent.com/microsoft/pyright/main/packages/vscode-pyright/schemas/pyrightconfig.schema.json",
     "typeshedPath": ".",
-    "pythonVersion": "3.9",
     "include": [
         "scripts",
         "tests",
     ],
     "typeCheckingMode": "strict",
+    "useLibraryCodeForTypes": true, // Runtime libraries used by typeshed are not all py.typed
+    // Extra strict settings
+    "reportMissingModuleSource": "error",
+    "reportShadowedImports": "error",
+    "reportCallInDefaultInitializer": "error",
+    "reportImplicitStringConcatenation": "error",
+    "reportMissingSuperCall": "error",
     "reportPropertyTypeMismatch": "error",
-    // Conflicts with mypy "# type: ignore"
+    "reportUninitializedInstanceVariable": "error",
+    // Conflicts with mypy "# type: ignore". Resolved next version
+    // https://github.com/microsoft/pyright/issues/4243
     "reportUnnecessaryTypeIgnoreComment": "warning",
-    "reportMissingModuleSource": "none",
-    "reportPrivateUsage": "none",
-    // TODO: FIXME
-    "reportUnknownParameterType": "none",
-    "reportUnknownVariableType": "none",
-    "reportUnknownMemberType": "none",
-    "reportUnknownArgumentType": "none",
 }

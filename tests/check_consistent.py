@@ -9,6 +9,7 @@ import os
 import re
 import sys
 from pathlib import Path
+from typing import Any
 
 import tomli
 import yaml
@@ -125,7 +126,7 @@ def check_no_symlinks() -> None:
 
 
 def check_versions() -> None:
-    versions = set()
+    versions: set[str] = set()
     with open("stdlib/VERSIONS", encoding="UTF-8") as f:
         data = f.read().splitlines()
     for line in data:
@@ -147,7 +148,7 @@ def check_versions() -> None:
 
 
 def _find_stdlib_modules() -> set[str]:
-    modules = set()
+    modules: set[str] = set()
     for path, _, files in os.walk("stdlib"):
         for filename in files:
             base_module = ".".join(os.path.normpath(path).split(os.sep)[1:])
@@ -186,10 +187,11 @@ def check_metadata() -> None:
 
         assert set(data.get("tool", [])).issubset(tool_keys.keys()), f"Unrecognised tool for {distribution}"
         for tool, tk in tool_keys.items():
-            for key in data.get("tool", {}).get(tool, {}):
+            keys: dict[str, Any] = data.get("tool", {}).get(tool, {})
+            for key in keys:
                 assert key in tk, f"Unrecognised {tool} key {key} for {distribution}"
 
-        tool_stubtest = data.get("tool", {}).get("stubtest", {})
+        tool_stubtest: dict[str, list[str]] = data.get("tool", {}).get("stubtest", {})
         specified_stubtest_platforms = set(tool_stubtest.get("platforms", []))
         assert (
             specified_stubtest_platforms <= supported_stubtest_platforms
@@ -213,8 +215,9 @@ def get_txt_requirements() -> dict[str, SpecifierSet]:
 def get_precommit_requirements() -> dict[str, SpecifierSet]:
     with open(".pre-commit-config.yaml", encoding="UTF-8") as precommit_file:
         precommit = precommit_file.read()
-    yam = yaml.load(precommit, Loader=yaml.Loader)
-    precommit_requirements = {}
+    # yaml.load has Unknown Loader parameter
+    yam = yaml.load(precommit, Loader=yaml.Loader)  # pyright: ignore[reportUnknownMemberType]
+    precommit_requirements: dict[str, SpecifierSet] = {}
     for repo in yam["repos"]:
         hook = repo["hooks"][0]
         package_name, package_rev = hook["id"], repo["rev"]

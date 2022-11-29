@@ -11,7 +11,7 @@ import sys
 import tempfile
 import venv
 from pathlib import Path
-from typing import NoReturn
+from typing import Any, NoReturn
 
 import tomli
 from utils import colored, print_error, print_success_msg
@@ -29,12 +29,12 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
 
     print(f"{dist.name}... ", end="")
 
-    stubtest_meta = metadata.get("tool", {}).get("stubtest", {})
+    stubtest_meta: dict[str, Any] = metadata.get("tool", {}).get("stubtest", {})
     if stubtest_meta.get("skip", False):
         print(colored("skipping", "yellow"))
         return True
 
-    platforms_to_test = stubtest_meta.get("platforms", ["linux"])
+    platforms_to_test: list[str] = stubtest_meta.get("platforms", ["linux"])
     if sys.platform not in platforms_to_test:
         if specified_stubs_only:
             print(colored("skipping (platform not specified in METADATA.toml)", "yellow"))
@@ -55,7 +55,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
         pip_exe, python_exe = str(pip), str(python)
 
         dist_version = metadata["version"]
-        extras = stubtest_meta.get("extras", [])
+        extras: list[str] = stubtest_meta.get("extras", [])
         assert isinstance(dist_version, str)
         assert isinstance(extras, list)
         dist_extras = ", ".join(extras)

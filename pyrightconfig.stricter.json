@@ -73,8 +73,14 @@
         "stubs/vobject",
     ],
     "typeCheckingMode": "strict",
-    "reportPrivateUsage": "none",
+    // TODO: Complete incomplete stubs
     "reportIncompleteStub": "none",
+    // Conflicts with mypy "# type: ignore". Resolved next version
+    // https://github.com/microsoft/pyright/issues/4243
+    "reportUnnecessaryTypeIgnoreComment": "none",
+    // Stubs are allowed to use private variables
+    "reportPrivateUsage": "none",
+    // Stubs don't need the actual modules to be installed
     "reportMissingModuleSource": "none",
     // Incompatible overrides and property type mismatches are out of typeshed's control
     // as they are inherited from the implementation.

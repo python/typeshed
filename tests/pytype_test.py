@@ -18,8 +18,11 @@ import sys
 import traceback
 from collections.abc import Sequence
 
-from pytype import config as pytype_config, load_pytd  # type: ignore[import]
-from pytype.imports import typeshed  # type: ignore[import]
+# # Lack of pytype typing
+# # pyright: reportUnknownVariableType=false, reportUnknownMemberType=false, reportUnknownArgumentType=false
+assert sys.platform != "win32"
+from pytype import config as pytype_config, load_pytd  # type: ignore[import]  # noqa: E402
+from pytype.imports import typeshed  # type: ignore[import]  # noqa: E402
 
 TYPESHED_SUBDIRS = ["stdlib", "stubs"]
 TYPESHED_HOME = "TYPESHED_HOME"

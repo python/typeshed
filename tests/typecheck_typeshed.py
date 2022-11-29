@@ -19,7 +19,8 @@ DIRECTORIES_TO_TEST = ("scripts", "tests")
 parser = argparse.ArgumentParser(description="Run mypy on typeshed's own code in the `scripts` and `tests` directories.")
 parser.add_argument(
     "dir",
-    choices=DIRECTORIES_TO_TEST + ([],),
+    # https://github.com/microsoft/pyright/issues/4244
+    choices=DIRECTORIES_TO_TEST + ([],),  # pyright: ignore[reportUnknownArgumentType]
     nargs="*",
     action="extend",
     help=f"Test only these top-level typeshed directories (defaults to {DIRECTORIES_TO_TEST!r})",

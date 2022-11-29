@@ -4,7 +4,7 @@ import asyncio
 
 
 class Waiter:
-    def __init__(self) -> None:
+    def __init__(self) -> None:  # pyright: ignore[reportMissingSuperCall] # Is this a false-positive?
         self.tasks: list[asyncio.Task[object]] = []
 
     def add(self, t: asyncio.Task[object]) -> None:

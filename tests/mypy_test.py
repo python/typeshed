@@ -49,11 +49,11 @@ Platform: TypeAlias = Annotated[str, "Must be one of the entries in SUPPORTED_PL
 
 
 class CommandLineArgs(argparse.Namespace):
-    verbose: int
-    filter: list[Path]
-    exclude: list[Path] | None
-    python_version: list[VersionString] | None
-    platform: list[Platform] | None
+    verbose: int = 0
+    filter: list[Path] = []
+    exclude: list[Path] | None = None
+    python_version: list[VersionString] | None = None
+    platform: list[Platform] | None = None
 
 
 def valid_path(cmd_arg: str) -> Path:
@@ -134,7 +134,7 @@ def match(path: Path, args: TestConfig) -> bool:
 
 
 def parse_versions(fname: StrPath) -> dict[str, tuple[VersionTuple, VersionTuple]]:
-    result = {}
+    result: dict[str, tuple[tuple[int, int], tuple[int, int]]] = {}
     with open(fname, encoding="UTF-8") as f:
         for line in f:
             line = strip_comments(line)
@@ -185,7 +185,7 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
     with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
         data = tomli.load(f)
 
-    mypy_tests_conf = data.get("mypy-tests")
+    mypy_tests_conf: dict[str, dict[str, Any]] | None = data.get("mypy-tests")
     if not mypy_tests_conf:
         return
 
@@ -197,7 +197,7 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
         assert module_name is not None, f"{section_name} should have a module_name key"
         assert isinstance(module_name, str), f"{section_name} should be a key-value pair"
 
-        values = mypy_section.get("values")
+        values: dict[str, dict[str, Any]] | None = mypy_section.get("values")
         assert values is not None, f"{section_name} should have a values section"
         assert isinstance(values, dict), "values should be a section"
 

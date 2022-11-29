@@ -5,10 +5,15 @@
         "test_cases",
     ],
     "typeCheckingMode": "strict",
+    // Extra strict settings
+    "reportMissingModuleSource": "error",
+    "reportShadowedImports": "error",
+    "reportCallInDefaultInitializer": "error",
+    "reportImplicitStringConcatenation": "error",
+    "reportMissingSuperCall": "error",
     "reportPropertyTypeMismatch": "error",
+    "reportUninitializedInstanceVariable": "error",
     "reportUnnecessaryTypeIgnoreComment": "error",
-    "reportMissingModuleSource": "none",
-    "reportPrivateUsage": "none",
     // isinstance checks are still needed when validating inputs outside of typeshed's control
     "reportUnnecessaryIsInstance": "none",
     // The name of the self/cls parameter is out of typeshed's control.
