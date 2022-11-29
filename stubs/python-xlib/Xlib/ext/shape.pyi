@@ -2,6 +2,7 @@ from collections.abc import Sequence
 
 from Xlib.display import Display
 from Xlib.protocol import request, rq
+from Xlib.protocol.structs import _Rectangle4IntSequence
 from Xlib.xobject import drawable, resource
 
 extname: str
@@ -54,7 +55,7 @@ def rectangles(
     ordering: int,
     x_offset: int,
     y_offset: int,
-    rectangles: Sequence[tuple[int, int, int, int]],
+    rectangles: Sequence[_Rectangle4IntSequence],
 ) -> None: ...
 def select_input(self: drawable.Window, enable: int) -> None: ...
 def init(disp: Display, info: request.QueryExtension) -> None: ...

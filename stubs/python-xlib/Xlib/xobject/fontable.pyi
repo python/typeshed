@@ -2,6 +2,7 @@ from collections.abc import Sequence
 
 from Xlib._typing import ErrorHandler
 from Xlib.protocol import request
+from Xlib.protocol.structs import _RGB3IntIterable
 from Xlib.xobject import cursor, resource
 
 class Fontable(resource.Resource):
@@ -28,5 +29,5 @@ class Font(Fontable):
     __font__ = resource.Resource.__resource__
     def close(self, onerror: ErrorHandler[object] | None = ...) -> None: ...
     def create_glyph_cursor(
-        self, mask: Font, source_char: int, mask_char: int, foreground: tuple[int, int, int], background: tuple[int, int, int]
+        self, mask: Font, source_char: int, mask_char: int, foreground: _RGB3IntIterable, background: _RGB3IntIterable
     ) -> cursor.Cursor: ...

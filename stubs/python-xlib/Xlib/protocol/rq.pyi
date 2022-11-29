@@ -15,6 +15,7 @@ from Xlib.protocol import display
 
 _T = TypeVar("_T")
 _IntNew: TypeAlias = str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc
+_ModifierMappingList8Elements: TypeAlias = Sequence[Sequence[int]]
 
 # Workaround for pytype crash. Should be Xlib.display._BaseDisplay
 @type_check_only
@@ -283,18 +284,7 @@ class ModifierMapping(ValueField):
         self, data: SliceableBuffer, display: Unused, length: Unused, format: int
     ) -> tuple[list[array[int]], SliceableBuffer]: ...
     def pack_value(  # type: ignore[override]  # Override Callable
-        self,
-        value: Sequence[Sequence[object]]
-        | tuple[
-            Sequence[object],
-            Sequence[object],
-            Sequence[object],
-            Sequence[object],
-            Sequence[object],
-            Sequence[object],
-            Sequence[object],
-            Sequence[object],
-        ],
+        self, value: _ModifierMappingList8Elements
     ) -> tuple[bytes, int, int]: ...
 
 class EventField(ValueField):

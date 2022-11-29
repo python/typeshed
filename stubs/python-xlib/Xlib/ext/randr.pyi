@@ -1,8 +1,11 @@
 from collections.abc import Sequence
+from typing_extensions import TypeAlias
 
 from Xlib.display import Display
 from Xlib.protocol import request, rq
 from Xlib.xobject import drawable, resource
+
+_RandRModeInfo13IntSequence: TypeAlias = Sequence[int]
 
 extname: str
 RRScreenChangeNotify: int
@@ -146,9 +149,7 @@ def get_output_property(
 
 class CreateMode(rq.ReplyRequest): ...
 
-def create_mode(
-    self: drawable.Window, mode: tuple[int, int, int, int, int, int, int, int, int, int, int, int, int], name: str
-) -> CreateMode: ...
+def create_mode(self: drawable.Window, mode: _RandRModeInfo13IntSequence, name: str) -> CreateMode: ...
 
 class DestroyMode(rq.Request): ...
 

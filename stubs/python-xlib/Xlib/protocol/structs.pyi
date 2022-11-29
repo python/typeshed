@@ -1,4 +1,12 @@
+from collections.abc import Iterable, Sequence
+from typing_extensions import TypeAlias
+
 from Xlib.protocol import rq
+
+_RGB3IntIterable: TypeAlias = Iterable[int]
+_Rectangle4IntSequence: TypeAlias = Sequence[int]
+_Segment4IntSequence: TypeAlias = Sequence[int]
+_Arc6IntSequence: TypeAlias = Sequence[int]
 
 # TODO: Complete all classes using WindowValues and GCValues
 # Currently *object is used to represent the ValueList instead of the possible attribute types
