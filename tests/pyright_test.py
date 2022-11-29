@@ -6,7 +6,6 @@ import subprocess
 import sys
 from pathlib import Path
 
-_PYRIGHT_VERSION = "1.1.278"  # Must match .github/workflows/tests.yml.
 _WELL_KNOWN_FILE = Path("tests", "pyright_test.py")
 
 
@@ -28,8 +27,11 @@ def main() -> None:
         print("error running npx; is Node.js installed?", file=sys.stderr)
         sys.exit(1)
 
-    os.environ["PYRIGHT_PYTHON_FORCE_VERSION"] = _PYRIGHT_VERSION
-    command = [npx, f"pyright@{_PYRIGHT_VERSION}"] + sys.argv[1:]
+    with open("tests/PYRIGHT_VERSION.txt", "r") as file:
+        PYRIGHT_VERSION = file.readline()
+
+    os.environ["PYRIGHT_PYTHON_FORCE_VERSION"] = PYRIGHT_VERSION
+    command = [npx, f"pyright@{PYRIGHT_VERSION}"] + sys.argv[1:]
     print("Running:", " ".join(command))
 
     ret = subprocess.run(command).returncode
