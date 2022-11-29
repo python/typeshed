@@ -29,7 +29,7 @@ def main() -> None:
         print("error running npx; is Node.js installed?", file=sys.stderr)
         sys.exit(1)
 
-    with open("pyproject.toml", "rb", encoding="utf-8") as config:
+    with open("pyproject.toml", "rb") as config:
         pyright_version = tomli.load(config)["tool"]["typeshed"]["pyright_version"]
 
     os.environ["PYRIGHT_PYTHON_FORCE_VERSION"] = pyright_version
