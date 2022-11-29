@@ -5,10 +5,13 @@ Xlib._typing
 # https://github.com/python-xlib/python-xlib/pull/238
 Xlib.ext(\.__all__)?
 
+# These will unconditionally fail at runtime
+# See: https://github.com/python-xlib/python-xlib/issues/253
+Xlib.protocol.rq.DictWrapper.__gt__
+Xlib.protocol.rq.DictWrapper.__lt__
+
 # Default values
 Xlib.protocol.display.Display.send_and_recv
-# Redefined as TypedDict in stub for exact keys
-Xlib.display._resource_baseclasses
 # Can be None or str once instanciated
 Xlib.protocol.rq.*.structcode
 # Should only ever be str once instanciated
