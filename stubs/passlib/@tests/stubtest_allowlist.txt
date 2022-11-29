@@ -35,7 +35,7 @@ passlib.utils.handlers.GenericHandler.setting_kwds
 passlib.utils.handlers.HasManyIdents.ident
 passlib.utils.handlers.HasRounds.rounds
 
-# Errors in `__all__`:
+# Errors in `__all__` at runtime:
 # TODO: change after https://github.com/python/mypy/pull/14217 is released
 passlib.handlers.oracle
 passlib.handlers.oracle.oracle11g
