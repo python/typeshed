@@ -113,25 +113,24 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Get pyright version
-        id: get-version
-        run: echo "::set-output name=PYRIGHT_VERSION::$(<tests/PYRIGHT_VERSION.txt)"
+        run: echo "PYRIGHT_VERSION=$(<tests/PYRIGHT_VERSION.txt)" >> $GITHUB_ENV
       - uses: jakebailey/pyright-action@v1
         with:
-          version: ${{ steps.get-version.outputs.PYRIGHT_VERSION }}
+          version: ${{ env.PYRIGHT_VERSION }}
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
           no-comments: ${{ matrix.python-version != '3.10' || matrix.python-platform != 'Linux' }} # Having each job create the same comment is too noisy.
           project: ./pyrightconfig.stricter.json
       - uses: jakebailey/pyright-action@v1
         with:
-          version: ${{ steps.get-version.outputs.PYRIGHT_VERSION }}
+          version: ${{ env.PYRIGHT_VERSION }}
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
           no-comments: ${{ matrix.python-version != '3.10' || matrix.python-platform != 'Linux' }} # Having each job create the same comment is too noisy.
           project: ./pyrightconfig.testcases.json
       - uses: jakebailey/pyright-action@v1
         with:
-          version: ${{ steps.get-version.outputs.PYRIGHT_VERSION }}
+          version: ${{ env.PYRIGHT_VERSION }}
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
           no-comments: ${{ matrix.python-version != '3.10' || matrix.python-platform != 'Linux' }}  # Having each job create the same comment is too noisy.
