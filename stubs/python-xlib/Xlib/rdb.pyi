@@ -12,7 +12,8 @@ _T = TypeVar("_T")
 _C = TypeVar("_C", bound=SupportsComparisons)
 
 _DB: TypeAlias = dict[str, tuple[_DB, ...]]
-# This can be a bit annoying due to dict invariance, so making a parameter-specific alias
+# A recursive type can be a bit annoying due to dict invariance,
+# so this is a slightly less precise version of the _DB alias for parameter annotations
 _DB_Param: TypeAlias = dict[str, Any]
 
 comment_re: Pattern[str]
