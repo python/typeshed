@@ -1,5 +1,5 @@
-from sys import version_info as version_info
+from typing_extensions import Literal
 
-PY2: bool
+PY2: Literal[False]
 DOCKERFILE_FILENAME: str
 COMMENT_INSTRUCTION: str

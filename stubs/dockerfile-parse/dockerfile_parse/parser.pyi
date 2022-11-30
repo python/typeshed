@@ -1,31 +1,20 @@
-import logging
 import typing as t
-from contextlib import contextmanager
 from typing_extensions import TypedDict
 
-from six import string_types as string_types
-
-from .constants import COMMENT_INSTRUCTION as COMMENT_INSTRUCTION, DOCKERFILE_FILENAME as DOCKERFILE_FILENAME
-
-logger: logging.Logger
+from .util import Context
 
 class KeyValues(dict[str, str]):
-    parser_attr: str | None
+    parser_attr: t.ClassVar[str | None]
     parser: DockerfileParser
-    def __init__(self, key_values: dict[str, str], parser: DockerfileParser) -> None: ...
+    def __init__(self, key_values: t.Mapping[str, str], parser: DockerfileParser) -> None: ...
     def __delitem__(self, key: str) -> None: ...
     def __setitem__(self, key: str, value: str) -> None: ...
-    def __eq__(self, other) -> bool: ...
-    def __hash__(self) -> int: ...  # type: ignore
+    def __eq__(self, other: object) -> bool: ...
+    def __hash__(self) -> int: ...  # type: ignore[override]
 
-class Labels(KeyValues):
-    parser_attr: str
-
-class Envs(KeyValues):
-    parser_attr: str
-
-class Args(KeyValues):
-    parser_attr: str
+class Labels(KeyValues): ...
+class Envs(KeyValues): ...
+class Args(KeyValues): ...
 
 class _InstructionDict(TypedDict):
     instruction: str
@@ -36,24 +25,22 @@ class _InstructionDict(TypedDict):
 
 class DockerfileParser:
     fileobj: t.IO[str]
-    dockerfile_path: str | None
+    dockerfile_path: str
     cache_content: bool
     cached_content: str
     env_replace: bool
-    parent_env: t.Mapping[str, str]
-    build_args: t.Mapping[str, str]
+    parent_env: dict[str, str]
+    build_args: dict[str, str]
     def __init__(
         self,
         path: str | None = ...,
         cache_content: bool = ...,
         env_replace: bool = ...,
-        parent_env: t.Mapping[str, str] | None = ...,
+        parent_env: dict[str, str] | None = ...,
         fileobj: t.IO[str] | None = ...,
-        build_args: t.Mapping[str, str] | None = ...,
+        build_args: dict[str, str] | None = ...,
     ) -> None: ...
-    @contextmanager
-    def _open_dockerfile(self, mode: str) -> t.Iterator[t.IO[str]]: ...
-    lines: t.Sequence[str]
+    lines: list[str]
     content: str
     @property
     def structure(self) -> list[_InstructionDict]: ...
@@ -68,12 +55,12 @@ class DockerfileParser:
     envs: t.Mapping[str, str]
     args: t.Mapping[str, str]
     def add_lines(
-        self, *lines: list[str], all_stages: bool | None = ..., at_start: bool | None = ..., skip_scratch: bool | None = ...
+        self, *lines: str, all_stages: bool | None = ..., at_start: bool | None = ..., skip_scratch: bool | None = ...
     ) -> None: ...
     def add_lines_at(
-        self, anchor: str | int | dict[str, int], *lines: list[str], replace: bool | None = ..., after: bool | None = ...
+        self, anchor: str | int | dict[str, int], *lines: str, replace: bool | None = ..., after: bool | None = ...
     ) -> None: ...
     @property
-    def context_structure(self) -> list[str]: ...
+    def context_structure(self) -> list[Context]: ...
 
-def image_from(from_value: str) -> tuple[str, str | None]: ...
+def image_from(from_value: str) -> tuple[str | None, str | None]: ...

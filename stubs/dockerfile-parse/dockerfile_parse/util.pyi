@@ -1,8 +1,7 @@
 import typing as t
 from collections.abc import Generator
+from io import StringIO
 from typing_extensions import Literal, TypeAlias
-
-from .constants import PY2 as PY2
 
 def b2u(string: bytes | str) -> str: ...
 def u2b(string: str | bytes) -> bytes: ...
@@ -11,12 +10,12 @@ _Quotes: TypeAlias = Literal["'", '"']
 _ContextType: TypeAlias = Literal["ARG", "ENV", "LABEL"]
 
 class WordSplitter:
-    SQUOTE: _Quotes
-    DQUOTE: _Quotes
-    stream: t.IO[str]
-    args: t.Mapping[str, str]
-    envs: t.Mapping[str, str]
-    quotes: _Quotes
+    SQUOTE: t.ClassVar[_Quotes]
+    DQUOTE: t.ClassVar[_Quotes]
+    stream: StringIO
+    args: t.Mapping[str, str] | None
+    envs: t.Mapping[str, str] | None
+    quotes: _Quotes | None
     escaped: bool
     def __init__(self, s: str, args: t.Mapping[str, str] | None = ..., envs: t.Mapping[str, str] | None = ...) -> None: ...
     def dequote(self) -> str: ...
@@ -28,17 +27,17 @@ def get_key_val_dictionary(
 ): ...
 
 class Context:
-    args: t.Mapping[str, str]
-    envs: t.Mapping[str, str]
-    labels: t.Mapping[str, str]
+    args: t.MutableMapping[str, str]
+    envs: t.MutableMapping[str, str]
+    labels: t.MutableMapping[str, str]
     line_args: t.Mapping[str, str]
     line_envs: t.Mapping[str, str]
     line_labels: t.Mapping[str, str]
     def __init__(
         self,
-        args: t.Mapping[str, str] | None = ...,
-        envs: t.Mapping[str, str] | None = ...,
-        labels: t.Mapping[str, str] | None = ...,
+        args: t.MutableMapping[str, str] | None = ...,
+        envs: t.MutableMapping[str, str] | None = ...,
+        labels: t.MutableMapping[str, str] | None = ...,
         line_args: t.Mapping[str, str] | None = ...,
         line_envs: t.Mapping[str, str] | None = ...,
         line_labels: t.Mapping[str, str] | None = ...,
