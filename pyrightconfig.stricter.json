@@ -48,7 +48,6 @@
         "stubs/Pillow",
         "stubs/prettytable",
         "stubs/protobuf",
-        "stubs/python-crontab",
         "stubs/google-cloud-ndb",
         "stubs/passlib",
         "stubs/peewee",

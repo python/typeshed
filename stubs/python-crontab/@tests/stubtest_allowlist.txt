@@ -1,2 +1,5 @@
 # Re-export:
 crontabs.X_OK
+
+# Caching hack:
+crontabs.CronTabs.__new__
