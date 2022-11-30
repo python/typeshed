@@ -27,6 +27,7 @@
         "stubs/braintree",
         "stubs/caldav",
         "stubs/cffi",
+        "stubs/click-default-group",
         "stubs/commonmark",
         "stubs/cryptography",
         "stubs/dateparser",
