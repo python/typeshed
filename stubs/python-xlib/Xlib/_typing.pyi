@@ -1,6 +1,6 @@
-from _typeshed import FileDescriptor, StrOrBytesPath, SupportsDunderGT, SupportsDunderLT
+from _typeshed import FileDescriptor, StrOrBytesPath
 from collections.abc import Callable
-from typing import Optional, Protocol, TypeVar
+from typing import Optional, TypeVar
 from typing_extensions import TypeAlias
 
 from Xlib.error import XError
@@ -10,5 +10,3 @@ _T = TypeVar("_T")
 ErrorHandler: TypeAlias = Callable[[XError, Optional[Request]], _T]
 Unused: TypeAlias = object
 OpenFile: TypeAlias = StrOrBytesPath | FileDescriptor
-
-class SupportsComparisons(SupportsDunderLT[object], SupportsDunderGT[object], Protocol): ...

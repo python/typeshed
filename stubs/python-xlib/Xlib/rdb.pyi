@@ -1,19 +1,20 @@
-from _typeshed import SupportsRead
+from _typeshed import SupportsDunderGT, SupportsDunderLT, SupportsRead
 from collections.abc import Iterable, Mapping, Sequence
 from re import Pattern
-from typing import Any, TypeVar, overload
+from typing import Any, Protocol, TypeVar, overload
 from typing_extensions import TypeAlias
 
-from Xlib._typing import SupportsComparisons
 from Xlib.display import Display
 from Xlib.support.lock import _DummyLock
 
 _T = TypeVar("_T")
-_C = TypeVar("_C", bound=SupportsComparisons)
+_T_contra = TypeVar("_T_contra", contravariant=True)
 
 _DB: TypeAlias = dict[str, tuple[_DB, ...]]
 # This can be a bit annoying due to dict invariance, so making a parameter-specific alias
 _DB_Param: TypeAlias = dict[str, Any]
+
+class _SupportsComparisons(SupportsDunderLT[_T_contra], SupportsDunderGT[_T_contra], Protocol[_T_contra]): ...
 
 comment_re: Pattern[str]
 resource_spec_re: Pattern[str]
@@ -48,7 +49,7 @@ class ResourceDB:
     def output(self) -> str: ...
     def getopt(self, name: str, argv: Sequence[str], opts: Mapping[str, Option]) -> Sequence[str]: ...
 
-def bin_insert(list: list[_C], element: _C) -> None: ...
+def bin_insert(list: list[_SupportsComparisons[_T]], element: _SupportsComparisons[_T]) -> None: ...
 def update_db(dest: _DB_Param, src: _DB_Param) -> None: ...
 def copy_group(group: tuple[_DB_Param, ...]) -> tuple[_DB, ...]: ...
 def copy_db(db: _DB_Param) -> _DB: ...

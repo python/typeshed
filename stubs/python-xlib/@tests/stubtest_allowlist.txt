@@ -9,6 +9,8 @@ Xlib.ext(\.__all__)?
 # See: https://github.com/python-xlib/python-xlib/issues/253
 Xlib.protocol.rq.DictWrapper.__gt__
 Xlib.protocol.rq.DictWrapper.__lt__
+Xlib.protocol.rq.Event.__gt__
+Xlib.protocol.rq.Event.__lt__
 
 # Default values
 Xlib.protocol.display.Display.send_and_recv
