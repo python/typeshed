@@ -1,5 +1,6 @@
 # Re-export:
 crontabs.X_OK
 
-# Caching hack:
+# Runtime only-hacks that don't affect typing:
 crontabs.CronTabs.__new__
+crontab.CronTab.remove_all
