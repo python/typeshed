@@ -11,7 +11,8 @@ _T = TypeVar("_T")
 _T_contra = TypeVar("_T_contra", contravariant=True)
 
 _DB: TypeAlias = dict[str, tuple[_DB, ...]]
-# This can be a bit annoying due to dict invariance, so making a parameter-specific alias
+# A recursive type can be a bit annoying due to dict invariance,
+# so this is a slightly less precise version of the _DB alias for parameter annotations
 _DB_Param: TypeAlias = dict[str, Any]
 
 class _SupportsComparisons(SupportsDunderLT[_T_contra], SupportsDunderGT[_T_contra], Protocol[_T_contra]): ...
