@@ -1,6 +1,6 @@
-import typing as t
-from collections.abc import Generator
+from collections.abc import Generator, Mapping, MutableMapping
 from io import StringIO
+from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
 def b2u(string: bytes | str) -> str: ...
@@ -10,38 +10,38 @@ _Quotes: TypeAlias = Literal["'", '"']
 _ContextType: TypeAlias = Literal["ARG", "ENV", "LABEL"]
 
 class WordSplitter:
-    SQUOTE: t.ClassVar[_Quotes]
-    DQUOTE: t.ClassVar[_Quotes]
+    SQUOTE: ClassVar[_Quotes]
+    DQUOTE: ClassVar[_Quotes]
     stream: StringIO
-    args: t.Mapping[str, str] | None
-    envs: t.Mapping[str, str] | None
+    args: Mapping[str, str] | None
+    envs: Mapping[str, str] | None
     quotes: _Quotes | None
     escaped: bool
-    def __init__(self, s: str, args: t.Mapping[str, str] | None = ..., envs: t.Mapping[str, str] | None = ...) -> None: ...
+    def __init__(self, s: str, args: Mapping[str, str] | None = ..., envs: Mapping[str, str] | None = ...) -> None: ...
     def dequote(self) -> str: ...
     def split(self, maxsplit: int | None = ..., dequote: bool = ...) -> Generator[str | None, None, None]: ...
 
-def extract_key_values(env_replace: bool, args: t.Mapping[str, str], envs: t.Mapping[str, str], instruction_value: str): ...
+def extract_key_values(env_replace: bool, args: Mapping[str, str], envs: Mapping[str, str], instruction_value: str): ...
 def get_key_val_dictionary(
-    instruction_value, env_replace: bool = ..., args: t.Mapping[str, str] | None = ..., envs: t.Mapping[str, str] | None = ...
+    instruction_value, env_replace: bool = ..., args: Mapping[str, str] | None = ..., envs: Mapping[str, str] | None = ...
 ): ...
 
 class Context:
-    args: t.MutableMapping[str, str]
-    envs: t.MutableMapping[str, str]
-    labels: t.MutableMapping[str, str]
-    line_args: t.Mapping[str, str]
-    line_envs: t.Mapping[str, str]
-    line_labels: t.Mapping[str, str]
+    args: MutableMapping[str, str]
+    envs: MutableMapping[str, str]
+    labels: MutableMapping[str, str]
+    line_args: Mapping[str, str]
+    line_envs: Mapping[str, str]
+    line_labels: Mapping[str, str]
     def __init__(
         self,
-        args: t.MutableMapping[str, str] | None = ...,
-        envs: t.MutableMapping[str, str] | None = ...,
-        labels: t.MutableMapping[str, str] | None = ...,
-        line_args: t.Mapping[str, str] | None = ...,
-        line_envs: t.Mapping[str, str] | None = ...,
-        line_labels: t.Mapping[str, str] | None = ...,
+        args: MutableMapping[str, str] | None = ...,
+        envs: MutableMapping[str, str] | None = ...,
+        labels: MutableMapping[str, str] | None = ...,
+        line_args: Mapping[str, str] | None = ...,
+        line_envs: Mapping[str, str] | None = ...,
+        line_labels: Mapping[str, str] | None = ...,
     ) -> None: ...
-    def set_line_value(self, context_type: _ContextType, value: t.Mapping[str, str]) -> None: ...
-    def get_line_value(self, context_type: _ContextType) -> t.Mapping[str, str]: ...
-    def get_values(self, context_type: _ContextType) -> t.Mapping[str, str]: ...
+    def set_line_value(self, context_type: _ContextType, value: Mapping[str, str]) -> None: ...
+    def get_line_value(self, context_type: _ContextType) -> Mapping[str, str]: ...
+    def get_values(self, context_type: _ContextType) -> Mapping[str, str]: ...

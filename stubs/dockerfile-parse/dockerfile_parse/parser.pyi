@@ -1,12 +1,13 @@
-import typing as t
+from collections.abc import Mapping, Sequence
+from typing import IO, ClassVar
 from typing_extensions import TypedDict
 
 from .util import Context
 
 class KeyValues(dict[str, str]):
-    parser_attr: t.ClassVar[str | None]
+    parser_attr: ClassVar[str | None]
     parser: DockerfileParser
-    def __init__(self, key_values: t.Mapping[str, str], parser: DockerfileParser) -> None: ...
+    def __init__(self, key_values: Mapping[str, str], parser: DockerfileParser) -> None: ...
     def __delitem__(self, key: str) -> None: ...
     def __setitem__(self, key: str, value: str) -> None: ...
     def __eq__(self, other: object) -> bool: ...
@@ -24,7 +25,7 @@ class _InstructionDict(TypedDict):
     value: str
 
 class DockerfileParser:
-    fileobj: t.IO[str]
+    fileobj: IO[str]
     dockerfile_path: str
     cache_content: bool
     cached_content: str
@@ -37,7 +38,7 @@ class DockerfileParser:
         cache_content: bool = ...,
         env_replace: bool = ...,
         parent_env: dict[str, str] | None = ...,
-        fileobj: t.IO[str] | None = ...,
+        fileobj: IO[str] | None = ...,
         build_args: dict[str, str] | None = ...,
     ) -> None: ...
     lines: list[str]
@@ -46,14 +47,14 @@ class DockerfileParser:
     def structure(self) -> list[_InstructionDict]: ...
     @property
     def json(self) -> str: ...
-    parent_images: t.Sequence[str]
+    parent_images: Sequence[str]
     @property
     def is_multistage(self) -> bool: ...
     baseimage: str
     cmd: str
-    labels: t.Mapping[str, str]
-    envs: t.Mapping[str, str]
-    args: t.Mapping[str, str]
+    labels: Mapping[str, str]
+    envs: Mapping[str, str]
+    args: Mapping[str, str]
     def add_lines(
         self, *lines: str, all_stages: bool | None = ..., at_start: bool | None = ..., skip_scratch: bool | None = ...
     ) -> None: ...
