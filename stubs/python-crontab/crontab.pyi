@@ -1,10 +1,10 @@
 import re
 import subprocess
-from builtins import range as _range
-from datetime import datetime
 from _typeshed import Incomplete, Self
+from builtins import range as _range
 from collections import OrderedDict
-from collections.abc import Callable, Iterator, Iterable
+from collections.abc import Callable, Iterable, Iterator
+from datetime import datetime
 from logging import Logger
 from types import TracebackType
 from typing import Any
@@ -45,11 +45,7 @@ class CronTab:
     intab: str | None
     tabfile: str | None
     def __init__(
-        self,
-        user: _User = ...,
-        tab: str | None = ...,
-        tabfile: str | None = ...,
-        log: CronLog | str | None = ...,
+        self, user: _User = ..., tab: str | None = ..., tabfile: str | None = ..., log: CronLog | str | None = ...
     ) -> None: ...
     def __enter__(self: Self) -> Self: ...
     def __exit__(
@@ -81,7 +77,9 @@ class CronTab:
     def comments(self) -> Iterator[str]: ...
     # You cannot actually pass `*args`, it will raise an exception,
     # also known kwargs are added:
-    def remove_all(self, *, command: str | re.Pattern[str] = ..., comment: str | re.Pattern[str] = ..., time: Any = ..., **kwargs: object) -> int: ...
+    def remove_all(
+        self, *, command: str | re.Pattern[str] = ..., comment: str | re.Pattern[str] = ..., time: Any = ..., **kwargs: object
+    ) -> int: ...
     def remove(self, *items: CronItem | Iterable[CronItem]) -> int: ...
     def __iter__(self) -> Iterator[CronItem]: ...
     def __getitem__(self, i: int) -> CronItem: ...
@@ -102,9 +100,7 @@ class CronItem:
     marker: str | None
     stdin: str | None
     slices: CronSlices
-    def __init__(
-        self, command: str = ..., comment: str = ..., user: _User = ..., pre_comment: bool = ...
-    ) -> None: ...
+    def __init__(self, command: str = ..., comment: str = ..., user: _User = ..., pre_comment: bool = ...) -> None: ...
     def __hash__(self) -> int: ...
     def __eq__(self, other: object) -> bool: ...
     @classmethod
