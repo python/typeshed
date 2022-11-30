@@ -2,10 +2,14 @@ import logging
 import typing as t
 from contextlib import contextmanager
 
+from six import string_types as string_types
+
+from .constants import COMMENT_INSTRUCTION as COMMENT_INSTRUCTION, DOCKERFILE_FILENAME as DOCKERFILE_FILENAME
+
 logger: logging.Logger
 
 class KeyValues(dict[str, str]):
-    parser_attr: str
+    parser_attr: str | None
     parser: DockerfileParser
     def __init__(self, key_values: dict[str, str], parser: DockerfileParser) -> None: ...
     def __delitem__(self, key: str) -> None: ...
@@ -21,6 +25,13 @@ class Envs(KeyValues):
 
 class Args(KeyValues):
     parser_attr: str
+
+class _InstructionDict(t.TypedDict):
+    instruction: str
+    startline: int
+    endline: int
+    content: str
+    value: str
 
 class DockerfileParser:
     fileobj: t.IO[str]
@@ -40,11 +51,11 @@ class DockerfileParser:
         build_args: t.Mapping[str, str] | None = ...,
     ) -> None: ...
     @contextmanager
-    def _open_dockerfile(self, mode: str) -> t.IO: ...
+    def _open_dockerfile(self, mode: str) -> t.Iterator[t.IO[str]]: ...
     lines: t.Sequence[str]
     content: str
     @property
-    def structure(self) -> list[dict[str, t.Any]]: ...
+    def structure(self) -> list[_InstructionDict]: ...
     @property
     def json(self) -> str: ...
     parent_images: t.Sequence[str]

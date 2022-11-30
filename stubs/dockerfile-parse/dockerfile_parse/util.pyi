@@ -1,12 +1,14 @@
 import typing as t
 from collections.abc import Generator
-from typing_extensions import TypeAlias
+from typing_extensions import Literal, TypeAlias
+
+from .constants import PY2 as PY2
 
 def b2u(string: bytes | str) -> str: ...
 def u2b(string: str | bytes) -> bytes: ...
 
-_Quotes: TypeAlias = t.Literal["'", '"']  # NOQA: Y020
-_ContextType: TypeAlias = t.Literal["ARG", "ENV", "LABEL"]  # NOQA: Y020
+_Quotes: TypeAlias = Literal["'", '"']
+_ContextType: TypeAlias = Literal["ARG", "ENV", "LABEL"]
 
 class WordSplitter:
     SQUOTE: _Quotes
