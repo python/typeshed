@@ -1,6 +1,7 @@
 import logging
 import typing as t
 from contextlib import contextmanager
+from typing_extensions import TypedDict
 
 from six import string_types as string_types
 
@@ -26,7 +27,7 @@ class Envs(KeyValues):
 class Args(KeyValues):
     parser_attr: str
 
-class _InstructionDict(t.TypedDict):
+class _InstructionDict(TypedDict):
     instruction: str
     startline: int
     endline: int
