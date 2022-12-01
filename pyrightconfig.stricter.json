@@ -30,7 +30,6 @@
         "stubs/commonmark",
         "stubs/cryptography",
         "stubs/dateparser",
-        "stubs/dockerfile-parse",
         "stubs/docutils",
         "stubs/Flask-Migrate",
         "stubs/Flask-SQLAlchemy",
