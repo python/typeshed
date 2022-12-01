@@ -1,4 +1,5 @@
 # Pytype exclude list. Files will not be tested with pytype.
+# Its path and name is hardcoded into `pytype` itself, see `load_pytype_blocklist` method in `pytype`.
 
 # pytype has its own version of these files, and thus doesn't mind if it
 # can't parse the typeshed version:
