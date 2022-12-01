@@ -1,7 +1,7 @@
 import http.client
 from _typeshed import Self
 from collections.abc import Generator
-from typing import Any
+from typing import Any, ClassVar
 
 from .error import *
 
