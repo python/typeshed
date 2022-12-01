@@ -1,0 +1,26 @@
+import argparse
+import typing as t
+
+def stock_file_manager() -> str: ...
+def user_file_manager() -> str: ...
+def valid_file_manager() -> str: ...
+def show_in_file_manager(
+    path_or_uri: str | t.Sequence[str] | None = ...,
+    open_not_select_directory: bool | None = ...,
+    file_manager: str | None = ...,
+    allow_conversion: bool = ...,
+    verbose: bool = ...,
+    debug: bool = ...,
+) -> None: ...
+
+class Diagnostics:
+    stock_file_manager: str
+    user_file_manager: str
+    valid_file_manager: str
+    desktop: str
+    wsl_version: str
+    def __init__(self) -> None: ...
+
+def package_metadata() -> tuple[str, str]: ...
+def parser_options(formatter_class: t.Type[argparse.HelpFormatter] = ...) -> argparse.HelpFormatter: ...
+def main() -> None: ...

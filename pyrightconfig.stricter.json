@@ -65,6 +65,7 @@
         "stubs/redis",
         "stubs/requests",
         "stubs/setuptools",
+        "stubs/show-in-file-manager",
         "stubs/SQLAlchemy",
         "stubs/stripe",
         "stubs/tqdm",

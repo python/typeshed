@@ -1,0 +1,6 @@
+showinfm.system.tools.cannot_open_uris
+showinfm.showinfm.is_wsl
+showinfm.showinfm.is_wsl1
+showinfm.showinfm.is_wsl2
+showinfm.showinfm.single_file_only
+showinfm.showinfm.cannot_open_uris
