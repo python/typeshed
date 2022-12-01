@@ -1,7 +1,7 @@
+from _typeshed import Incomplete
 from collections import OrderedDict
 from collections.abc import Mapping
 from typing import Any
-from _typeshed import Incomplete
 
 def strip_braces(date_string: str) -> str: ...
 def normalize_unicode(string: str, form: str = ...) -> str: ...
