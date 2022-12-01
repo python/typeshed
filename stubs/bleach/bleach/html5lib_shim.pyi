@@ -40,13 +40,13 @@ class BleachHTMLTokenizer(HTMLTokenizer):
     consume_entities: bool
     stream: InputStreamWithMemory
     emitted_last_token: dict[str, Any] | None
-    def __init__(self, consume_entities: bool = ..., **kwargs): ...
+    def __init__(self, consume_entities: bool = ..., **kwargs: Any) -> None: ...
 
 class BleachHTMLParser(HTMLParser):
     tags: list[str] | None
     strip: bool
     consume_entities: bool
-    def __init__(self, tags: Iterable[str] | None, strip: bool, consume_entities: bool, **kwargs) -> None: ...
+    def __init__(self, tags: Iterable[str] | None, strip: bool, consume_entities: bool, **kwargs: Any) -> None: ...
 
 class BleachHTMLSerializer(HTMLSerializer):
     escape_rcdata: bool

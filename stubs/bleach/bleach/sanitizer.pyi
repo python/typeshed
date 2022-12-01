@@ -8,6 +8,7 @@ from .html5lib_shim import BleachHTMLParser, BleachHTMLSerializer
 from .linkifier import _Token
 from html5lib.filters.sanitizer import Filter as SanitizerFilter
 from html5lib.filters.base import Filter
+from html5lib.treewalkers.base import TreeWalker
 
 ALLOWED_TAGS: list[str]
 ALLOWED_ATTRIBUTES: dict[str, list[str]]
@@ -52,16 +53,17 @@ class BleachSanitizerFilter(SanitizerFilter):
     strip_html_comments: bool
     def __init__(
         self,
-        source,
+        source: TreeWalker,
         allowed_elements: Container[str] = ...,
         attributes: _Attributes = ...,
         allowed_protocols: Container[str] = ...,
         strip_disallowed_elements: bool = ...,
         strip_html_comments: bool = ...,
         css_sanitizer: CSSSanitizer | None = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> None: ...
     def sanitize_stream(self, token_iterator: Iterable[_Token]) -> Iterator[_Token]: ...
     def merge_characters(self, token_iterator: Iterable[_Token]) -> Iterator[_Token]: ...
     def sanitize_characters(self, token: _Token) -> _Token | None: ...
     def sanitize_uri_value(self, value: str, allowed_protocols: Container[str]) -> str | None: ...
+    def allow_token(self, token: _Token) -> _Token: ...
