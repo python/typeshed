@@ -34,9 +34,7 @@ def main() -> None:
     old_typeshed_home = os.environ.get(TYPESHED_HOME)
     os.environ[TYPESHED_HOME] = typeshed_location
     files_to_test = determine_files_to_test(paths=args.files or subdir_paths)
-    run_all_tests(
-        files_to_test=files_to_test, print_stderr=args.print_stderr, dry_run=args.dry_run
-    )
+    run_all_tests(files_to_test=files_to_test, print_stderr=args.print_stderr, dry_run=args.dry_run)
     if old_typeshed_home is None:
         del os.environ[TYPESHED_HOME]
     else:
@@ -140,9 +138,7 @@ def run_all_tests(*, files_to_test: Sequence[str], print_stderr: bool, dry_run: 
     print("Testing files with pytype...")
     for i, f in enumerate(files_to_test):
         python_version = "{0.major}.{0.minor}".format(sys.version_info)
-        stderr = (
-            run_pytype(filename=f, python_version=python_version) if not dry_run else None
-        )
+        stderr = run_pytype(filename=f, python_version=python_version) if not dry_run else None
         if stderr:
             if print_stderr:
                 print("\n{stderr}")
