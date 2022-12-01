@@ -1,14 +1,14 @@
-from collections.abc import Iterator, Iterable
-from typing import Any
 import re
+from collections.abc import Iterable, Iterator
+from typing import Any
 
 # We don't re-export any `html5lib` types / values here, because they are not
 # really public and may change at any time. This is just a helper module,
 # import things directly from `html5lib` instead!
 from html5lib import HTMLParser
-from html5lib.serializer import HTMLSerializer
-from html5lib._tokenizer import HTMLTokenizer
 from html5lib._inputstream import HTMLUnicodeInputStream
+from html5lib._tokenizer import HTMLTokenizer
+from html5lib.serializer import HTMLSerializer
 
 HTML_TAGS: list[str]
 HTML_TAGS_BLOCK_LEVEL: frozenset[str]

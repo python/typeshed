@@ -3,12 +3,13 @@ from re import Pattern
 from typing import Any
 from typing_extensions import TypeAlias
 
+from html5lib.filters.base import Filter
+from html5lib.filters.sanitizer import Filter as SanitizerFilter
+from html5lib.treewalkers.base import TreeWalker
+
 from .css_sanitizer import CSSSanitizer
 from .html5lib_shim import BleachHTMLParser, BleachHTMLSerializer
 from .linkifier import _Token
-from html5lib.filters.sanitizer import Filter as SanitizerFilter
-from html5lib.filters.base import Filter
-from html5lib.treewalkers.base import TreeWalker
 
 ALLOWED_TAGS: list[str]
 ALLOWED_ATTRIBUTES: dict[str, list[str]]
