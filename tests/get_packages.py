@@ -5,6 +5,7 @@ import sys
 import tomli
 from utils import METADATA_MAPPING
 
+
 def main() -> None:
     platform = sys.platform
     distributions = sys.argv[1:]
