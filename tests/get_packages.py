@@ -3,21 +3,15 @@ import os
 import sys
 
 import tomli
+from utils import METADATA_MAPPING
 
 platform = sys.platform
 distributions = sys.argv[1:]
 if not distributions:
     distributions = os.listdir("stubs")
 
-metadata_mapping = {
-    "linux": "apt_dependencies",
-    # We could add others here if we run into stubs that need it:
-    # "darwin": "brew_dependencies",
-    # "win32": "choco_dependencies",
-}
-
-if platform in metadata_mapping:
+if platform in METADATA_MAPPING:
     for distribution in distributions:
         with open(f"stubs/{distribution}/METADATA.toml", "rb") as file:
-            for package in tomli.load(file).get("tool", {}).get("stubtest", {}).get(metadata_mapping[platform], []):
+            for package in tomli.load(file).get("tool", {}).get("stubtest", {}).get(METADATA_MAPPING[platform], []):
                 print(package)
