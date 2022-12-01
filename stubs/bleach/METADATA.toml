@@ -1,1 +1,6 @@
 version = "5.0.*"
+requires = ["types-html5lib"]
+
+[tool.stubtest]
+ignore_missing_stub = false
+extras = ["css"]

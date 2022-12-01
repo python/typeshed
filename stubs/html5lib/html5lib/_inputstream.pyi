@@ -24,13 +24,13 @@ def HTMLInputStream(source, **kwargs): ...
 class HTMLUnicodeInputStream:
     reportCharacterErrors: Any
     newLines: Any
-    charEncoding: Any
+    charEncoding: tuple[str, str]
     dataStream: Any
     def __init__(self, source) -> None: ...
     chunk: str
     chunkSize: int
     chunkOffset: int
-    errors: Any
+    errors: list[str]
     prevNumLines: int
     prevNumCols: int
     def reset(self) -> None: ...

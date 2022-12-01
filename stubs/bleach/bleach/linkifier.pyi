@@ -1,12 +1,12 @@
-from _typeshed import Incomplete
-from collections.abc import Container, Iterable, MutableMapping
+import re
+from collections.abc import Container, Iterable, MutableMapping, Sequence, Iterator
 from re import Pattern
 from typing import Any, Protocol
 from typing_extensions import TypeAlias
 
-from .html5lib_shim import Filter
+from html5lib.filters.base import Filter
 
-_Attrs: TypeAlias = MutableMapping[Any, str]
+from .callbacks import _Attrs
 
 class _Callback(Protocol):
     def __call__(self, attrs: _Attrs, new: bool = ...) -> _Attrs: ...
@@ -36,13 +36,22 @@ class Linker:
     ) -> None: ...
     def linkify(self, text: str) -> str: ...
 
+# TODO: `_Token` might be converted into `TypedDict`
+# or `html5lib` token might be reused
+_Token: TypeAlias = dict[str, Any]
+
 class LinkifyFilter(Filter):
-    callbacks: Any
+    callbacks: list[_Callback]
     skip_tags: Container[str]
     parse_email: bool
-    url_re: Any
-    email_re: Any
+    url_re: re.Pattern[str]
+    email_re: re.Pattern[str]
     def __init__(
-        self, source, callbacks=..., skip_tags: Container[str] | None = ..., parse_email: bool = ..., url_re=..., email_re=...
+        self, source, callbacks=..., skip_tags: Container[str] | None = ..., parse_email: bool = ..., url_re: re.Pattern[str] = ..., email_re: re.Pattern[str] = ...
     ) -> None: ...
-    def __getattr__(self, item: str) -> Incomplete: ...
+    def apply_callbacks(self, attrs: _Attrs, is_new: bool) -> _Attrs: ...
+    def extract_character_data(self, token_list: _Token) -> str: ...
+    def handle_a_tag(self, token_buffer: Sequence[_Token]) -> Iterator[_Token]: ...
+    def handle_email_addresses(self, src_iter: _Token) -> Iterator[_Token]: ...
+    def handle_links(self, src_iter: Iterable[_Token]) -> Iterator[_Token]: ...
+    def strip_non_url_bits(self, fragment: str) -> tuple[str, str, str]: ...

@@ -1,10 +1,13 @@
-from collections.abc import Callable, Container, Iterable
+from collections.abc import Callable, Container, Iterable, Iterator
 from re import Pattern
 from typing import Any
 from typing_extensions import TypeAlias
 
 from .css_sanitizer import CSSSanitizer
-from .html5lib_shim import BleachHTMLParser, BleachHTMLSerializer, SanitizerFilter
+from .html5lib_shim import BleachHTMLParser, BleachHTMLSerializer
+from .linkifier import _Token
+from html5lib.filters.sanitizer import Filter as SanitizerFilter
+from html5lib.filters.base import Filter
 
 ALLOWED_TAGS: list[str]
 ALLOWED_ATTRIBUTES: dict[str, list[str]]
@@ -14,16 +17,13 @@ INVISIBLE_CHARACTERS: str
 INVISIBLE_CHARACTERS_RE: Pattern[str]
 INVISIBLE_REPLACEMENT_CHAR: str
 
-# A html5lib Filter class
-_Filter: TypeAlias = Any
-
 class Cleaner:
     tags: Container[str]
     attributes: _Attributes
     protocols: Container[str]
     strip: bool
     strip_comments: bool
-    filters: Iterable[_Filter]
+    filters: Iterable[Filter]
     css_sanitizer: CSSSanitizer | None
     parser: BleachHTMLParser
     walker: Any
@@ -35,7 +35,7 @@ class Cleaner:
         protocols: Container[str] = ...,
         strip: bool = ...,
         strip_comments: bool = ...,
-        filters: Iterable[_Filter] | None = ...,
+        filters: Iterable[Filter] | None = ...,
         css_sanitizer: CSSSanitizer | None = ...,
     ) -> None: ...
     def clean(self, text: str) -> str: ...
@@ -61,12 +61,7 @@ class BleachSanitizerFilter(SanitizerFilter):
         css_sanitizer: CSSSanitizer | None = ...,
         **kwargs,
     ) -> None: ...
-    def sanitize_stream(self, token_iterator): ...
-    def merge_characters(self, token_iterator): ...
-    def __iter__(self): ...
-    def sanitize_token(self, token): ...
-    def sanitize_characters(self, token): ...
-    def sanitize_uri_value(self, value, allowed_protocols): ...
-    def allow_token(self, token): ...
-    def disallowed_token(self, token): ...
-    def sanitize_css(self, style): ...
+    def sanitize_stream(self, token_iterator: Iterable[_Token]) -> Iterator[_Token]: ...
+    def merge_characters(self, token_iterator: Iterable[_Token]) -> Iterator[_Token]: ...
+    def sanitize_characters(self, token: _Token) -> _Token | None: ...
+    def sanitize_uri_value(self, value: str, allowed_protocols: Container[str]) -> str | None: ...

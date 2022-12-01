@@ -1,2 +1,13 @@
-bleach.css_sanitizer  # Requires tinycss2 to be installed
-bleach.html5lib_shim.*
+# Internal private stuff:
+bleach._vendor.*
+
+# Hacks:
+bleach.html5lib_shim.InputStreamWithMemory.changeEncoding
+bleach.html5lib_shim.InputStreamWithMemory.reset
+
+# Re-exports:
+bleach.html5lib_shim.allowed_svg_properties
+bleach.html5lib_shim.allowed_protocols
+bleach.html5lib_shim.allowed_css_properties
+bleach.html5lib_shim.namespaces
+bleach.html5lib_shim.prefixes
