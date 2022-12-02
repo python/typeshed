@@ -1,7 +1,9 @@
 from openpyxl.compat.numbers import NUMPY as NUMPY
-from openpyxl.reader.excel import load_workbook as load_workbook, load_workbook as open  # pyright: ignore[reportUnusedImport]
+from openpyxl.reader.excel import load_workbook as load_workbook
 from openpyxl.workbook import Workbook as Workbook
 from openpyxl.xml import DEFUSEDXML as DEFUSEDXML, LXML as LXML
+
+open = load_workbook
 
 from ._constants import (
     __author__ as __author__,
