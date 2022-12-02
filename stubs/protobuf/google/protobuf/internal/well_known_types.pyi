@@ -66,7 +66,7 @@ class _FieldMaskTree:
     def MergeMessage(self, source: tAny, destination: tAny, replace_message: tAny, replace_repeated: tAny) -> None: ...
 
 _StructValue: TypeAlias = struct_pb2.Struct | struct_pb2.ListValue | str | float | bool | None
-_StructValueArg: TypeAlias = _StructValue | Mapping[_StructValueArg] | Sequence[_StructValueArg]
+_StructValueArg: TypeAlias = _StructValue | Mapping[str, _StructValueArg] | Sequence[_StructValueArg]
 
 class Struct:
     def __getitem__(self, key: str) -> _StructValue: ...
