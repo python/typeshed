@@ -3,7 +3,6 @@ from typing import Any as tAny, Iterable, Iterator, Mapping, Sequence, TypeAlias
 
 from google.protobuf import struct_pb2
 
-
 class Any:
     type_url: tAny = ...
     value: tAny = ...
@@ -66,10 +65,8 @@ class _FieldMaskTree:
     def AddLeafNodes(self, prefix: tAny, node: tAny) -> None: ...
     def MergeMessage(self, source: tAny, destination: tAny, replace_message: tAny, replace_repeated: tAny) -> None: ...
 
-
 _StructValue: TypeAlias = struct_pb2.Struct | struct_pb2.ListValue | str | float | bool | None
 _StructValueArg: TypeAlias = _StructValue | Mapping[_StructValueArg] | Sequence[_StructValueArg]
-
 
 class Struct:
     def __getitem__(self, key: str) -> _StructValue: ...
