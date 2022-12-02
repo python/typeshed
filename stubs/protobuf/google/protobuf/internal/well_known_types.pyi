@@ -1,9 +1,9 @@
 from collections.abc import Iterable, Iterator, Mapping, Sequence
 from datetime import datetime, timedelta, tzinfo
 from typing import Any as tAny
+from typing_extensions import TypeAlias
 
 from google.protobuf import struct_pb2
-from typing_extensions import TypeAlias
 
 class Any:
     type_url: tAny = ...
