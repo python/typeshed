@@ -3,7 +3,6 @@ from re import Pattern
 from dateparser.conf import Settings
 
 NUMERAL_PATTERN: Pattern[str]
-ALWAYS_KEEP_TOKENS: list[str]
 
 class Locale:
     shortname: str
