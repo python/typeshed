@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta, tzinfo
-from typing import Any as tAny, Mapping, Sequence, Iterable, Iterator
+from typing import Any as tAny, Iterable, Iterator, Mapping, Sequence
 
 from google.protobuf import struct_pb2
 
