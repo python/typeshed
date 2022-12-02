@@ -12,5 +12,7 @@ dateparser.conf.date_order_chart
 dateparser.conf.language_order
 dateparser.languages.loader.language_locale_dict
 dateparser.languages.loader.language_order
+dateparser.languages.locale.ALWAYS_KEEP_TOKENS
 dateparser.custom_language_detection.language_mapping.language_map
 dateparser.custom_language_detection.fasttext.dateparser_model_home
+dateparser.timezone_parser.timezone_info_list
