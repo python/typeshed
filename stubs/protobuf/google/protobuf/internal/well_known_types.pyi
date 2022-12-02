@@ -1,5 +1,6 @@
+from collections.abc import Iterable, Iterator, Mapping, Sequence
 from datetime import datetime, timedelta, tzinfo
-from typing import Any as tAny, Iterable, Iterator, Mapping, Sequence, TypeAlias
+from typing import Any as tAny, TypeAlias
 
 from google.protobuf import struct_pb2
 
