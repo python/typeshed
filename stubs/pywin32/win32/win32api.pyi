@@ -1,5 +1,5 @@
 from _typeshed import Incomplete, ReadableBuffer
-from typing import Iterable
+from collections import Iterable
 from typing_extensions import TypedDict
 
 import _win32typing
