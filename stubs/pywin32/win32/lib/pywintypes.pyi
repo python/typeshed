@@ -10,8 +10,10 @@ class error(Exception):
     winerror: int
     funcname: str
     strerror: str
+    def __init__(self, winerror: int, funcname: str, strerror: str): ...
 
 class com_error(Exception): ...
+class UnicodeType(str): ...
 
 class TimeType(datetime):
     Format = datetime.strftime
