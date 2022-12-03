@@ -1,7 +1,7 @@
 from abc import abstractmethod
-from collections.abc import Iterable, Mapping
+from collections.abc import Iterable, Mapping, Sequence
 from distutils.core import Command as _Command
-from typing import Any, Sequence
+from typing import Any
 
 from setuptools._deprecation_warning import SetuptoolsDeprecationWarning as SetuptoolsDeprecationWarning
 from setuptools.depends import Require as Require
