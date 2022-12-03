@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from collections.abc import Iterable, Mapping
 from distutils.core import Command as _Command
-from typing import Any
+from typing import Any, Sequence
 
 from setuptools._deprecation_warning import SetuptoolsDeprecationWarning as SetuptoolsDeprecationWarning
 from setuptools.depends import Require as Require
@@ -34,7 +34,7 @@ def setup(
     packages: list[str] = ...,
     py_modules: list[str] = ...,
     scripts: list[str] = ...,
-    ext_modules: list[Extension] = ...,
+    ext_modules: Sequence[Extension] = ...,
     classifiers: list[str] = ...,
     distclass: type[Distribution] = ...,
     script_name: str = ...,

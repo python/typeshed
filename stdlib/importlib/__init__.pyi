@@ -2,6 +2,8 @@ from collections.abc import Mapping, Sequence
 from importlib.abc import Loader
 from types import ModuleType
 
+from . import machinery as machinery
+
 __all__ = ["__import__", "import_module", "invalidate_caches", "reload"]
 
 # Signature of `builtins.__import__` should be kept identical to `importlib.__import__`
