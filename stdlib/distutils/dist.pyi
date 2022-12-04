@@ -1,8 +1,7 @@
 from _typeshed import StrOrBytesPath, SupportsWrite
 from collections.abc import Iterable, Mapping
 from distutils.cmd import Command
-from typing import IO, Any, overload
-from typing_extensions import Literal
+from typing import IO, Any
 
 class DistributionMetadata:
     def __init__(self, path: int | StrOrBytesPath | None = ...) -> None: ...
@@ -54,11 +53,6 @@ class DistributionMetadata:
 class Distribution:
     cmdclass: dict[str, type[Command]]
     metadata: DistributionMetadata
-    command_obj: dict[str, Command]
     def __init__(self, attrs: Mapping[str, Any] | None = ...) -> None: ...
     def get_option_dict(self, command: str) -> dict[str, tuple[str, str]]: ...
     def parse_config_files(self, filenames: Iterable[str] | None = ...) -> None: ...
-    @overload
-    def get_command_obj(self, command: str, create: Literal[True] = ...) -> Command: ...
-    @overload
-    def get_command_obj(self, command: str, create: Literal[False]) -> Command | None: ...

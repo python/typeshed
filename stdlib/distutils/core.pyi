@@ -1,4 +1,4 @@
-from collections.abc import Mapping, Sequence
+from collections.abc import Mapping
 from distutils.cmd import Command as Command
 from distutils.dist import Distribution as Distribution
 from distutils.extension import Extension as Extension
@@ -19,7 +19,7 @@ def setup(
     packages: list[str] = ...,
     py_modules: list[str] = ...,
     scripts: list[str] = ...,
-    ext_modules: Sequence[Extension] = ...,
+    ext_modules: list[Extension] = ...,
     classifiers: list[str] = ...,
     distclass: type[Distribution] = ...,
     script_name: str = ...,
@@ -45,5 +45,5 @@ def setup(
     password: str = ...,
     fullname: str = ...,
     **attrs: Any,
-) -> Distribution: ...
+) -> None: ...
 def run_setup(script_name: str, script_args: list[str] | None = ..., stop_after: str = ...) -> Distribution: ...

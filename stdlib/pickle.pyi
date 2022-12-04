@@ -276,7 +276,6 @@ if sys.version_info >= (3, 8):
     NEXT_BUFFER: bytes
     READONLY_BUFFER: bytes
 
-def whichmodule(obj: object, name: str) -> str: ...
 def encode_long(x: int) -> bytes: ...  # undocumented
 def decode_long(data: Iterable[SupportsIndex] | SupportsBytes | ReadableBuffer) -> int: ...  # undocumented
 
