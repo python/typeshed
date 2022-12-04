@@ -94,6 +94,7 @@ def test_testcase_directory(package: PackageInfo, version: str, platform: str, q
         msg += "standard library test cases..." if is_stdlib else f"test cases for {package_name!r}..."
         print(msg, end=" ")
 
+    # "--enable-error-code ignore-without-code" is purposefully ommited. See https://github.com/python/typeshed/pull/8083
     flags = [
         "--python-version",
         version,
