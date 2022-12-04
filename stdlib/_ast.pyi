@@ -98,7 +98,7 @@ class Delete(stmt):
 class Assign(stmt):
     if sys.version_info >= (3, 10):
         __match_args__ = ("targets", "value", "type_comment")
-    targets: list[Tuple | Name | Attribute | Subscript | Starred]
+    targets: expr
     value: expr
 
 class AugAssign(stmt):
@@ -515,7 +515,7 @@ class alias(AST):
 class withitem(AST):
     if sys.version_info >= (3, 10):
         __match_args__ = ("context_expr", "optional_vars")
-    context_expr: Name | Subscript | Attribute
+    context_expr: expr
     optional_vars: expr | None
 
 if sys.version_info >= (3, 10):
