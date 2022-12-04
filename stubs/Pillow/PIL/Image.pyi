@@ -238,6 +238,7 @@ class Image:
         *,
         save_all: bool = ...,
         bitmap_format: Literal["bmp", "png"] = ...,  # for ICO files
+        optimize: bool = ...,
         **params: Any,
     ) -> None: ...
     def seek(self, frame: int) -> None: ...
