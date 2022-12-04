@@ -98,20 +98,20 @@ class Delete(stmt):
 class Assign(stmt):
     if sys.version_info >= (3, 10):
         __match_args__ = ("targets", "value", "type_comment")
-    targets: list[expr]
+    targets: list[Tuple | Name | Attribute | Subscript | Starred]
     value: expr
 
 class AugAssign(stmt):
     if sys.version_info >= (3, 10):
         __match_args__ = ("target", "op", "value")
-    target: expr
+    target: Name | Attribute | Subscript
     op: operator
     value: expr
 
 class AnnAssign(stmt):
     if sys.version_info >= (3, 10):
         __match_args__ = ("target", "annotation", "value", "simple")
-    target: expr
+    target: Name | Attribute | Subscript
     annotation: expr
     value: expr | None
     simple: int
@@ -355,7 +355,7 @@ if sys.version_info >= (3, 8):
     class NamedExpr(expr):
         if sys.version_info >= (3, 10):
             __match_args__ = ("target", "value")
-        target: expr
+        target: Name
         value: expr
 
 class Attribute(expr):
@@ -515,7 +515,7 @@ class alias(AST):
 class withitem(AST):
     if sys.version_info >= (3, 10):
         __match_args__ = ("context_expr", "optional_vars")
-    context_expr: expr
+    context_expr: Name | Subscript | Attribute
     optional_vars: expr | None
 
 if sys.version_info >= (3, 10):
