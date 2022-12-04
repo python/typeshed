@@ -98,7 +98,7 @@ class Delete(stmt):
 class Assign(stmt):
     if sys.version_info >= (3, 10):
         __match_args__ = ("targets", "value", "type_comment")
-    targets: expr
+    targets: list[expr]
     value: expr
 
 class AugAssign(stmt):
