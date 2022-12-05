@@ -178,7 +178,7 @@ class Image:
         mode: _Mode | None = ...,
         matrix: _ConversionMatrix | None = ...,
         dither: int | None = ...,
-        palette: Literal[Palette.WEB] = ...,
+        palette: Palette | Literal[0, 1] = ...,
         colors: int = ...,
     ) -> Image: ...
     def quantize(
