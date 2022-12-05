@@ -5,7 +5,7 @@ from google.protobuf.struct_pb2 import ListValue, Struct
 
 list_value = ListValue()
 
-lst = list(list_value)  # ensure ListValue's __len__ + __getitem__ make it iterable
+lst = list(list_value)  # Ensure type checkers recognise that the class is iterable (doesn't have an `__iter__` method at runtime)
 
 list_value[0] = 42.42
 list_value[0] = "42"
