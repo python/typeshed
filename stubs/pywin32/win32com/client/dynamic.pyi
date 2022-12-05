@@ -6,17 +6,18 @@ import _win32typing
 from win32.lib.pywintypes import IIDType
 from win32com.client import build as build
 
-class _DispatchCreateClass(Protocol):
-    def __init__(
-        self,
+_T_co = TypeVar("_T_co", covariant=True)
+_T = TypeVar("_T")
+
+class _DispatchCreateClass(Protocol[_T_co]):
+    @staticmethod
+    def __call__(
         IDispatch: str | PyIDispatchType | _GoodDispatchTypes | PyIUnknownType,
         olerepr: build.DispatchItem | build.LazyDispatchItem,
         userName: str | None = ...,
         UnicodeToString: None = ...,
         lazydata: Incomplete | None = ...,
-    ): ...
-
-_T = TypeVar("_T", bound=_DispatchCreateClass)
+    ) -> _T_co: ...
 
 debugging: int
 debugging_attr: int
@@ -31,13 +32,13 @@ def MakeMethod(func, inst, cls): ...
 PyIDispatchType = _win32typing.PyIDispatch
 PyIUnknownType = _win32typing.PyIUnknown
 
-_GoodDispatchTypes: TypeAlias = tuple[type[str], type[IIDType]]  # noqa: Y047
+_GoodDispatchTypes: TypeAlias = tuple[type[str], type[IIDType]]
 
 @overload
 def Dispatch(
     IDispatch: str | PyIDispatchType | _GoodDispatchTypes | PyIUnknownType,
     userName: str | None,
-    createClass: type[_T] | None,
+    createClass: _DispatchCreateClass[_T],
     typeinfo: _win32typing.PyITypeInfo | None = ...,
     UnicodeToString: None = ...,
     clsctx: int = ...,
