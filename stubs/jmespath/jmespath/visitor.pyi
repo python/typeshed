@@ -1,12 +1,12 @@
 from typing import Any
 from typing_extensions import TypedDict
 
-from jmespath.functions import Functions as Functions
+from jmespath.functions import Functions as _Functions
 
 class Options:
     dict_cls: Any
-    custom_functions: Functions
-    def __init__(self, dict_cls: Any | None = ..., custom_functions: Functions | None = ...) -> None: ...
+    custom_functions: _Functions
+    def __init__(self, dict_cls: Any | None = ..., custom_functions: _Functions | None = ...) -> None: ...
 
 class _Expression:
     expression: str
