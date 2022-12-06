@@ -1,5 +1,5 @@
-from typing import Iterator
-from typing_extensions import TypedDict
+from collections.abc import Iterator
+from typing_extensions import TypeAlias, TypedDict
 
 from jmespath.exceptions import EmptyExpressionError as EmptyExpressionError, LexerError as LexerError
 
@@ -9,7 +9,7 @@ class LexerTokenizeResult(TypedDict):
     start: int
     end: int
 
-LexerTokenizeResults = Iterator[LexerTokenizeResult]
+LexerTokenizeResults: TypeAlias = Iterator[LexerTokenizeResult]
 
 class Lexer:
     START_IDENTIFIER: set[str]
