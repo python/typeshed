@@ -5,7 +5,7 @@ on:
   pull_request:
     paths:
     - 'stdlib/**'
-    - 'stubs/**'
+    - 'stubs/**/*.pyi'
     - '.github/workflows/mypy_primer.yml'
     - '.github/workflows/mypy_primer_comment.yml'
 
