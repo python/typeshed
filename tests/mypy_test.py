@@ -32,6 +32,12 @@ from utils import (
     strip_comments,
 )
 
+try:
+    from mypy.api import run as mypy_run
+except ImportError:
+    print_error("Cannot import mypy. Did you install it?")
+    sys.exit(1)
+
 SUPPORTED_VERSIONS = ["3.11", "3.10", "3.9", "3.8", "3.7"]
 SUPPORTED_PLATFORMS = ("linux", "win32", "darwin")
 DIRECTORIES_TO_TEST = [Path("stdlib"), Path("stubs")]
@@ -129,7 +135,7 @@ def match(path: Path, args: TestConfig) -> bool:
 
 def parse_versions(fname: StrPath) -> dict[str, tuple[VersionTuple, VersionTuple]]:
     result = {}
-    with open(fname) as f:
+    with open(fname, encoding="UTF-8") as f:
         for line in f:
             line = strip_comments(line)
             if line == "":
@@ -152,16 +158,13 @@ def parse_version(v_str: str) -> tuple[int, int]:
     return int(m.group(1)), int(m.group(2))
 
 
-def add_files(files: list[Path], seen: set[str], module: Path, args: TestConfig) -> None:
+def add_files(files: list[Path], module: Path, args: TestConfig) -> None:
     """Add all files in package or module represented by 'name' located in 'root'."""
     if module.is_file() and module.suffix == ".pyi":
         if match(module, args):
             files.append(module)
-            seen.add(module.stem)
     else:
-        to_add = sorted(file for file in module.rglob("*.pyi") if match(file, args))
-        files.extend(to_add)
-        seen.update(path.stem for path in to_add)
+        files.extend(sorted(file for file in module.rglob("*.pyi") if match(file, args)))
 
 
 class MypyDistConf(NamedTuple):
@@ -201,13 +204,7 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
         configurations.append(MypyDistConf(module_name, values.copy()))
 
 
-def run_mypy(args: TestConfig, configurations: list[MypyDistConf], files: list[Path]) -> ReturnCode:
-    try:
-        from mypy.api import run as mypy_run
-    except ImportError:
-        print_error("Cannot import mypy. Did you install it?")
-        sys.exit(1)
-
+def run_mypy(args: TestConfig, configurations: list[MypyDistConf], files: list[Path], *, testing_stdlib: bool) -> ReturnCode:
     with tempfile.NamedTemporaryFile("w+") as temp:
         temp.write("[mypy]\n")
         for dist_conf in configurations:
@@ -216,7 +213,7 @@ def run_mypy(args: TestConfig, configurations: list[MypyDistConf], files: list[P
                 temp.write(f"{k} = {v}\n")
         temp.flush()
 
-        flags = get_mypy_flags(args, temp.name)
+        flags = get_mypy_flags(args, temp.name, testing_stdlib=testing_stdlib)
         mypy_args = [*flags, *map(str, files)]
         if args.verbose:
             print("running mypy", " ".join(mypy_args))
@@ -241,8 +238,8 @@ def run_mypy(args: TestConfig, configurations: list[MypyDistConf], files: list[P
         return exit_code
 
 
-def get_mypy_flags(args: TestConfig, temp_name: str) -> list[str]:
-    return [
+def get_mypy_flags(args: TestConfig, temp_name: str, *, testing_stdlib: bool) -> list[str]:
+    flags = [
         "--python-version",
         args.version,
         "--show-traceback",
@@ -254,15 +251,19 @@ def get_mypy_flags(args: TestConfig, temp_name: str) -> list[str]:
         "--no-site-packages",
         "--custom-typeshed-dir",
         str(Path(__file__).parent.parent),
-        "--no-implicit-optional",
-        "--disallow-untyped-decorators",
-        "--disallow-any-generics",
-        "--strict-equality",
+        "--strict",
+        # Stub completion is checked by pyright (--allow-*-defs)
+        "--allow-untyped-defs",
+        "--allow-incomplete-defs",
+        "--allow-subclassing-any",  # Needed until we can use non-types dependencies #5768
         "--enable-error-code",
         "ignore-without-code",
         "--config-file",
         temp_name,
     ]
+    if not testing_stdlib:
+        flags.append("--explicit-package-bases")
+    return flags
 
 
 def add_third_party_files(
@@ -288,7 +289,7 @@ def add_third_party_files(
     for name in os.listdir(root):
         if name.startswith("."):
             continue
-        add_files(files, set(), (root / name), args)
+        add_files(files, (root / name), args)
         add_configuration(configurations, distribution)
 
 
@@ -318,12 +319,18 @@ def test_third_party_distribution(distribution: str, args: TestConfig) -> TestRe
         print_error("no files found")
         sys.exit(1)
 
-    code = run_mypy(args, configurations, files)
+    prev_mypypath = os.getenv("MYPYPATH")
+    os.environ["MYPYPATH"] = os.pathsep.join(str(Path("stubs", dist)) for dist in seen_dists)
+    code = run_mypy(args, configurations, files, testing_stdlib=False)
+    if prev_mypypath is None:
+        del os.environ["MYPYPATH"]
+    else:
+        os.environ["MYPYPATH"] = prev_mypypath
+
     return TestResults(code, len(files))
 
 
 def test_stdlib(code: int, args: TestConfig) -> TestResults:
-    seen = {"builtins", "typing"}  # Always ignore these.
     files: list[Path] = []
     stdlib = Path("stdlib")
     supported_versions = parse_versions(stdlib / "VERSIONS")
@@ -333,12 +340,12 @@ def test_stdlib(code: int, args: TestConfig) -> TestResults:
         module = Path(name).stem
         module_min_version, module_max_version = supported_versions[module]
         if module_min_version <= tuple(map(int, args.version.split("."))) <= module_max_version:
-            add_files(files, seen, (stdlib / name), args)
+            add_files(files, (stdlib / name), args)
 
     if files:
         print(f"Testing stdlib ({len(files)} files)...")
-        print("Running mypy " + " ".join(get_mypy_flags(args, "/tmp/...")))
-        this_code = run_mypy(args, [], files)
+        print("Running mypy " + " ".join(get_mypy_flags(args, "/tmp/...", testing_stdlib=True)))
+        this_code = run_mypy(args, [], files, testing_stdlib=True)
         code = max(code, this_code)
 
     return TestResults(code, len(files))
@@ -346,7 +353,7 @@ def test_stdlib(code: int, args: TestConfig) -> TestResults:
 
 def test_third_party_stubs(code: int, args: TestConfig) -> TestResults:
     print("Testing third-party packages...")
-    print("Running mypy " + " ".join(get_mypy_flags(args, "/tmp/...")))
+    print("Running mypy " + " ".join(get_mypy_flags(args, "/tmp/...", testing_stdlib=False)))
     files_checked = 0
     gitignore_spec = get_gitignore_spec()
 
@@ -356,7 +363,11 @@ def test_third_party_stubs(code: int, args: TestConfig) -> TestResults:
         if spec_matches_path(gitignore_spec, distribution_path):
             continue
 
-        if distribution_path in args.filter or any(distribution_path in path.parents for path in args.filter):
+        if (
+            distribution_path in args.filter
+            or Path("stubs") in args.filter
+            or any(distribution_path in path.parents for path in args.filter)
+        ):
             this_code, checked = test_third_party_distribution(distribution, args)
             code = max(code, this_code)
             files_checked += checked

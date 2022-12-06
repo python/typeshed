@@ -1,9 +1,9 @@
 import socket
+from _socket import _Address, _RetAddress
 from _typeshed import Incomplete, ReadableBuffer
 from collections.abc import Callable, MutableSequence, Sequence
 from typing import Any, TypeVar
 
-from _socket import _Address, _RetAddress
 from OpenSSL.crypto import X509, PKey, X509Name
 
 OPENSSL_VERSION_NUMBER: int
@@ -177,7 +177,7 @@ class Connection:
 _T = TypeVar("_T")
 
 class Context:
-    def __getattr__(self, name: str) -> Any: ...  # incomplete
+    def __getattr__(self, name: str) -> Incomplete: ...
     def __init__(self, method: int) -> None: ...
     def load_verify_locations(self, cafile: str | None, capath: str | None = ...) -> None: ...
     def set_options(self, options: int) -> None: ...

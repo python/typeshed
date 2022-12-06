@@ -47,7 +47,7 @@ def get_installed_package_info(project: str) -> tuple[str, str] | None:
 
 def run_stubgen(package: str, output: str) -> None:
     print(f"Running stubgen: stubgen -o {output} -p {package}")
-    subprocess.run(["stubgen", "-o", output, "-p", package], check=True)
+    subprocess.run(["stubgen", "-o", output, "-p", package, "--export-less"], check=True)
 
 
 def run_black(stub_dir: str) -> None:
@@ -70,7 +70,7 @@ def create_metadata(stub_dir: str, version: str) -> None:
     if os.path.exists(filename):
         return
     print(f"Writing {filename}")
-    with open(filename, "w") as file:
+    with open(filename, "w", encoding="UTF-8") as file:
         file.write(
             f"""\
 version = "{version}.*"
@@ -83,7 +83,7 @@ ignore_missing_stub = false
 
 def add_pyright_exclusion(stub_dir: str) -> None:
     """Exclude stub_dir from strict pyright checks."""
-    with open(PYRIGHT_CONFIG) as f:
+    with open(PYRIGHT_CONFIG, encoding="UTF-8") as f:
         lines = f.readlines()
     i = 0
     while i < len(lines) and not lines[i].strip().startswith('"exclude": ['):
@@ -105,7 +105,7 @@ def add_pyright_exclusion(stub_dir: str) -> None:
         lines[i] = lines[i].rstrip() + ",\n"
     lines.insert(i + 1, line_to_add + "\n")
     print(f"Updating {PYRIGHT_CONFIG}")
-    with open(PYRIGHT_CONFIG, "w") as f:
+    with open(PYRIGHT_CONFIG, "w", encoding="UTF-8") as f:
         f.writelines(lines)
 
 
@@ -171,7 +171,7 @@ def main() -> None:
 
     print("\nDone!\n\nSuggested next steps:")
     print(f" 1. Manually review the generated stubs in {stub_dir}")
-    print(" 2. Optionally run tests and autofixes (see tests/README.md for details")
+    print(" 2. Optionally run tests and autofixes (see tests/README.md for details)")
     print(" 3. Commit the changes on a new branch and create a typeshed PR (don't force-push!)")
 
 

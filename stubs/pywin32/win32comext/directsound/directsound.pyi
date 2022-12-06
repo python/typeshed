@@ -1,9 +1,7 @@
 from _typeshed import Incomplete
-from typing import Any
 
 import _win32typing
 
-def __getattr__(name: str) -> Any: ...  # incomplete
 def DirectSoundCreate(guid: _win32typing.PyIID | None = ..., unk: Incomplete | None = ...) -> _win32typing.PyIUnknown: ...
 def DirectSoundEnumerate(): ...
 def DirectSoundCaptureCreate(guid: _win32typing.PyIID | None = ..., unk: Incomplete | None = ...) -> _win32typing.PyIUnknown: ...

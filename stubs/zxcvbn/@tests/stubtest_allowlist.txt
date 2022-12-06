@@ -1,0 +1,7 @@
+zxcvbn.__main__
+
+# re-exports:
+zxcvbn.feedback.ALL_UPPER
+zxcvbn.feedback.START_UPPER
+zxcvbn.scoring.ADJACENCY_GRAPHS
+zxcvbn.matching.FREQUENCY_LISTS

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import unittest
 from datetime import datetime, timedelta
 from decimal import Decimal
@@ -58,14 +60,14 @@ class Eggs:
 
 
 class Ham:
-    def __lt__(self, other: "Ham") -> bool:
+    def __lt__(self, other: Ham) -> bool:
         if not isinstance(other, Ham):
             return NotImplemented
         return True
 
 
 class Bacon:
-    def __gt__(self, other: "Bacon") -> bool:
+    def __gt__(self, other: Bacon) -> bool:
         if not isinstance(other, Bacon):
             return NotImplemented
         return True
