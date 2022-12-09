@@ -38,8 +38,8 @@ def run_stubtest(typeshed_dir: Path) -> int:
         # As discussed in https://github.com/python/typeshed/issues/3693, we only aim for
         # positional-only arg accuracy for the latest Python version.
         cmd += ["--ignore-positional-only"]
+    print(" ".join(cmd), file=sys.stderr)
     try:
-        print(" ".join(cmd), file=sys.stderr)
         subprocess.run(cmd, check=True)
     except subprocess.CalledProcessError as e:
         print(

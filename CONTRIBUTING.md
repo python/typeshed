@@ -94,7 +94,7 @@ That being said, if you *want* to run the checks locally when you commit,
 you're free to do so. Either run `pycln`, `black` and `isort` manually...
 
 ```
-pycln --all .
+pycln --config=pyproject.toml .
 isort .
 black .
 ```
@@ -176,6 +176,9 @@ supported:
 * `extra_description` (optional): Can be used to add a custom description to
   the package's long description. It should be a multi-line string in
   Markdown format.
+* `stub_distribution` (optional): Distribution name to be uploaded to PyPI.
+  This defaults to `types-<distribution>` and should only be set in special
+  cases.
 * `obsolete_since` (optional): This field is part of our process for
   [removing obsolete third-party libraries](#third-party-library-removal-policy).
   It contains the first version of the corresponding library that ships
@@ -183,6 +186,9 @@ supported:
 * `no_longer_updated` (optional): This field is set to `true` before removing
   stubs for other reasons than the upstream library shipping with type
   information.
+* `upload` (optional): This field is set to `false` to prevent automatic
+  uploads to PyPI. This should only used in special cases, e.g. when the stubs
+  break the upload.
 
 In addition, we specify configuration for stubtest in the `tool.stubtest` table.
 This has the following keys:
@@ -190,8 +196,19 @@ This has the following keys:
   package. Please avoid setting this to `true`, and add a comment if you have
   to.
 * `apt_dependencies` (default: `[]`): A list of Ubuntu APT packages
-  that need to be installed for stubtest to run successfully. These are
-  usually packages needed to pip install the implementation distribution.
+  that need to be installed for stubtest to run successfully.
+* `brew_dependencies` (default: `[]`): A list of MacOS Homebrew packages
+  that need to be installed for stubtest to run successfully
+* `choco_dependencies` (default: `[]`): A list of Windows Chocolatey packages
+  that need to be installed for stubtest to run successfully
+* `platforms` (default: `["linux"]`): A list of OSes on which to run stubtest.
+  Can contain `win32`, `linux`, and `darwin` values.
+  If not specified, stubtest is run only on `linux`.
+  Only add extra OSes to the test
+  if there are platform-specific branches in a stubs package.
+
+`*_dependencies` are usually packages needed to `pip install` the implementation
+distribution.
 
 The format of all `METADATA.toml` files can be checked by running
 `python3 ./tests/check_consistent.py`.
@@ -286,6 +303,15 @@ Two exceptions are `Protocol` and `runtime_checkable`: although
 these were added in Python 3.8, they can be used in stubs regardless
 of Python version.
 
+[PEP 688](https://www.python.org/dev/peps/pep-0688/), which is
+currently a draft, removes the implicit promotion of the
+`bytearray` and `memoryview` classes to `bytes`.
+Typeshed stubs should be written assuming that this proposal
+is accepted, so a parameter that accepts either `bytes` or
+`bytearray` should be typed as `bytes | bytearray`.
+Often one of the aliases from `_typeshed`, such as
+`_typeshed.ReadableBuffer`, can be used instead.
+
 ### What to include
 
 Stubs should include the complete interface (classes, functions,
@@ -352,7 +378,7 @@ follow the following guidelines:
   `# incomplete` comment (see example below).
 * Partial modules (i.e. modules that are missing some or all classes,
   functions, or attributes) must include a top-level `__getattr__()`
-  function marked with an `# incomplete` comment (see example below).
+  function marked with an `Incomplete` return type (see example below).
 * Partial packages (i.e. packages that are missing one or more sub-modules)
   must have a `__init__.pyi` stub that is marked as incomplete (see above).
   A better alternative is to create empty stubs for all sub-modules and
@@ -362,14 +388,16 @@ Example of a partial module with a partial class `Foo` and a partially
 annotated function `bar()`:
 
 ```python
-def __getattr__(name: str) -> Any: ...  # incomplete
+from _typeshed import Incomplete
 
 class Foo:
-    def __getattr__(self, name: str) -> Any: ...  # incomplete
+    def __getattr__(self, name: str) -> Incomplete: ...
     x: int
     y: str
 
 def bar(x: str, y, *, z=...): ...
+
+def __getattr__(name: str) -> Incomplete: ...
 ```
 
 ## Stub file coding style

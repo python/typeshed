@@ -5,11 +5,12 @@ from __future__ import annotations
 
 import argparse
 import os
+import re
 import shutil
 import subprocess
 import sys
 import tempfile
-from itertools import filterfalse, product
+from itertools import product
 from pathlib import Path
 from typing_extensions import TypeAlias
 
@@ -17,9 +18,9 @@ from utils import (
     PackageInfo,
     colored,
     get_all_testcase_directories,
+    get_recursive_requirements,
     print_error,
     print_success_msg,
-    read_dependencies,
     testcase_dir_from_package_name,
 )
 
@@ -36,6 +37,8 @@ def package_with_test_cases(package_name: str) -> PackageInfo:
         return PackageInfo("stdlib", Path("test_cases"))
     test_case_dir = testcase_dir_from_package_name(package_name)
     if test_case_dir.is_dir():
+        if not os.listdir(test_case_dir):
+            raise argparse.ArgumentTypeError(f"{package_name!r} has a 'test_cases' directory but it is empty!")
         return PackageInfo(package_name, test_case_dir)
     raise argparse.ArgumentTypeError(f"No test cases found for {package_name!r}!")
 
@@ -56,6 +59,7 @@ parser.add_argument(
         "Note that this cannot be specified if --platform and/or --python-version are specified."
     ),
 )
+parser.add_argument("--quiet", action="store_true", help="Print less output to the terminal")
 parser.add_argument(
     "--platform",
     dest="platforms_to_test",
@@ -75,27 +79,22 @@ parser.add_argument(
     nargs="*",
     action="extend",
     help=(
-        "Run mypy for certain Python versions (defaults to sys.version_info[:2])"
+        "Run mypy for certain Python versions (defaults to sys.version_info[:2]). "
         "Note that this cannot be specified if --all is also specified."
     ),
 )
 
 
-def get_recursive_requirements(package_name: str, seen: set[str] | None = None) -> list[str]:
-    seen = seen if seen is not None else {package_name}
-    for dependency in filterfalse(seen.__contains__, read_dependencies(package_name)):
-        seen.update(get_recursive_requirements(dependency, seen))
-    return sorted(seen | {package_name})
-
-
-def test_testcase_directory(package: PackageInfo, version: str, platform: str) -> ReturnCode:
+def test_testcase_directory(package: PackageInfo, version: str, platform: str, quiet: bool) -> ReturnCode:
     package_name, test_case_directory = package
     is_stdlib = package_name == "stdlib"
 
-    msg = f"Running mypy --platform {platform} --python-version {version} on the "
-    msg += "standard library test cases..." if is_stdlib else f"test cases for {package_name!r}..."
-    print(msg, end=" ")
+    if not quiet:
+        msg = f"Running mypy --platform {platform} --python-version {version} on the "
+        msg += "standard library test cases..." if is_stdlib else f"test cases for {package_name!r}..."
+        print(msg, end=" ")
 
+    # "--enable-error-code ignore-without-code" is purposefully ommited. See https://github.com/python/typeshed/pull/8083
     flags = [
         "--python-version",
         version,
@@ -106,6 +105,7 @@ def test_testcase_directory(package: PackageInfo, version: str, platform: str) -
         platform,
         "--no-site-packages",
         "--strict",
+        "--pretty",
     ]
 
     # --warn-unused-ignores doesn't work for files inside typeshed.
@@ -130,11 +130,26 @@ def test_testcase_directory(package: PackageInfo, version: str, platform: str) -
             os.mkdir(new_typeshed)
             shutil.copytree(Path("stdlib"), new_typeshed / "stdlib")
             requirements = get_recursive_requirements(package_name)
-            for requirement in requirements:
+            # mypy refuses to consider a directory a "valid typeshed directory"
+            # unless there's a stubs/mypy-extensions path inside it,
+            # so add that to the list of stubs to copy over to the new directory
+            for requirement in requirements + ["mypy-extensions"]:
                 shutil.copytree(Path("stubs", requirement), new_typeshed / "stubs" / requirement)
             env_vars["MYPYPATH"] = os.pathsep.join(map(str, new_typeshed.glob("stubs/*")))
             flags.extend(["--custom-typeshed-dir", str(td_path / "typeshed")])
-        result = subprocess.run([sys.executable, "-m", "mypy", new_test_case_dir, *flags], capture_output=True, env=env_vars)
+
+        # If the test-case filename ends with -py39,
+        # only run the test if --python-version was set to 3.9 or higher (for example)
+        for path in new_test_case_dir.rglob("*.py"):
+            if match := re.fullmatch(r".*-py3(\d{1,2})", path.stem):
+                minor_version_required = int(match[1])
+                assert f"3.{minor_version_required}" in SUPPORTED_VERSIONS
+                if minor_version_required <= int(version.split(".")[1]):
+                    flags.append(str(path))
+            else:
+                flags.append(str(path))
+
+        result = subprocess.run([sys.executable, "-m", "mypy", *flags], capture_output=True, env=env_vars)
 
     if result.returncode:
         print_error("failure\n")
@@ -143,7 +158,7 @@ def test_testcase_directory(package: PackageInfo, version: str, platform: str) -
             print_error(result.stderr.decode(), fix_path=replacements)
         if result.stdout:
             print_error(result.stdout.decode(), fix_path=replacements)
-    else:
+    elif not quiet:
         print_success_msg()
     return result.returncode
 
@@ -154,9 +169,9 @@ def main() -> ReturnCode:
     testcase_directories = args.packages_to_test or get_all_testcase_directories()
     if args.all:
         if args.platforms_to_test:
-            raise TypeError("Cannot specify both --platform and --all")
+            parser.error("Cannot specify both --platform and --all")
         if args.versions_to_test:
-            raise TypeError("Cannot specify both --python-version and --all")
+            parser.error("Cannot specify both --python-version and --all")
         platforms_to_test, versions_to_test = SUPPORTED_PLATFORMS, SUPPORTED_VERSIONS
     else:
         platforms_to_test = args.platforms_to_test or [sys.platform]
@@ -164,7 +179,7 @@ def main() -> ReturnCode:
 
     code = 0
     for platform, version, directory in product(platforms_to_test, versions_to_test, testcase_directories):
-        code = max(code, test_testcase_directory(directory, version, platform))
+        code = max(code, test_testcase_directory(directory, version, platform, args.quiet))
     if code:
         print_error("\nTest completed with errors")
     else:
