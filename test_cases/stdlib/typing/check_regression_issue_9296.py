@@ -13,4 +13,4 @@ d: dict[t.Any, t.Any] = {}
 dict_keys = type(d.keys())
 
 # This should not cause an error like `Member "register" is unknown`:
-MyKeysView.regixster(dict_keys)
+MyKeysView.register(dict_keys)
