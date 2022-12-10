@@ -325,7 +325,7 @@ class SupportsRound(Protocol[_T_co]):
     def __round__(self, __ndigits: int) -> _T_co: ...
 
 @runtime_checkable
-class Sized(Protocol):
+class Sized(Protocol, metaclass=ABCMeta):
     @abstractmethod
     def __len__(self) -> int: ...
 
