@@ -804,7 +804,7 @@ class bytearray(MutableSequence[int], ByteString):
     def __alloc__(self) -> int: ...
 
 @final
-class memoryview(Sequence[int]):
+class memoryview(Sized, Sequence[int]):
     @property
     def format(self) -> str: ...
     @property
