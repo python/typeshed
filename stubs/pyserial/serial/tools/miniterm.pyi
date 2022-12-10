@@ -13,7 +13,7 @@ def key_description(character: str) -> str: ...
 class ConsoleBase:
     miniterm: Miniterm
     byte_output: BinaryIO
-    output: TextIO
+    output: codecs.StreamWriter | TextIO
     def __init__(self, miniterm: Miniterm) -> None: ...
     def setup(self) -> None: ...
     def cleanup(self) -> None: ...
@@ -34,7 +34,6 @@ if sys.platform == "win32":
     class Console(ConsoleBase):
         fncodes: dict[str, str]
         navcodes: dict[str, str]
-        output: codecs.StreamWriter
 
 else:
     class Console(ConsoleBase):
