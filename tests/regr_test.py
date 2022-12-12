@@ -89,11 +89,12 @@ def test_testcase_directory(package: PackageInfo, version: str, platform: str, q
     package_name, test_case_directory = package
     is_stdlib = package_name == "stdlib"
 
+    msg = f"Running mypy --platform {platform} --python-version {version} on the "
+    msg += "standard library test cases..." if is_stdlib else f"test cases for {package_name!r}..."
     if not quiet:
-        msg = f"Running mypy --platform {platform} --python-version {version} on the "
-        msg += "standard library test cases..." if is_stdlib else f"test cases for {package_name!r}..."
         print(msg, end=" ")
 
+    # "--enable-error-code ignore-without-code" is purposefully ommited. See https://github.com/python/typeshed/pull/8083
     flags = [
         "--python-version",
         version,
@@ -151,6 +152,11 @@ def test_testcase_directory(package: PackageInfo, version: str, platform: str, q
         result = subprocess.run([sys.executable, "-m", "mypy", *flags], capture_output=True, env=env_vars)
 
     if result.returncode:
+        if quiet:
+            # We'll already have printed this if --quiet wasn't passed.
+            # If--quiet was passed, only print this if there were errors.
+            # If there are errors, the output is inscrutable if this isn't printed.
+            print(msg, end=" ")
         print_error("failure\n")
         replacements = (str(new_test_case_dir), str(test_case_directory))
         if result.stderr:
