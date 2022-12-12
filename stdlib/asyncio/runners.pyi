@@ -3,7 +3,7 @@ from _typeshed import Self
 from collections.abc import Callable, Coroutine
 from contextvars import Context
 from typing import Any, TypeVar
-from typing_extensions  import final
+from typing_extensions import final
 
 from .events import AbstractEventLoop
 
