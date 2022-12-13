@@ -1,4 +1,4 @@
-from typing import ClassVar
+from typing import ClassVar, Any
 
 from .drawing import DeviceGray, DeviceRGB
 
