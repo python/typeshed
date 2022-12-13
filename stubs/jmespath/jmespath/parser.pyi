@@ -1,11 +1,11 @@
 from typing import Any
 
-from jmespath.lexer import LexerTokenizeResults as _LexerTokenizeResults
+from jmespath.lexer import LexerTokenizeResults
 from jmespath.visitor import TreeNode
 
 class Parser:
     BINDING_POWER: dict[str, int]
-    tokenizer: _LexerTokenizeResults
+    tokenizer: LexerTokenizeResults
     def __init__(self, lookahead: int = ...) -> None: ...
     def parse(self, expression: str) -> ParsedResult: ...
     @classmethod
