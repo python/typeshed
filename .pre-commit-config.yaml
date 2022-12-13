@@ -5,12 +5,12 @@ repos:
       - id: pycln
         args: [--config=pyproject.toml, stubs, stdlib, tests, scripts]
   - repo: https://github.com/psf/black
-    rev: 22.10.0 # must match requirements-tests.txt
+    rev: 22.12.0 # must match requirements-tests.txt
     hooks:
       - id: black
         language_version: python3.9
   - repo: https://github.com/pycqa/isort
-    rev: 5.10.1  # must match requirements-tests.txt
+    rev: 5.11.1  # must match requirements-tests.txt
     hooks:
       - id: isort
         name: isort (python)
