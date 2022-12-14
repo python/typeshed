@@ -1,5 +1,6 @@
 from collections.abc import Iterator
-from typing_extensions import TypeAlias, TypedDict
+from typing import ClassVar
+from typing_extensions import TypedDict
 
 from jmespath.exceptions import EmptyExpressionError as EmptyExpressionError, LexerError as LexerError
 
@@ -9,12 +10,10 @@ class _LexerTokenizeResult(TypedDict):
     start: int
     end: int
 
-_LexerTokenizeResults: TypeAlias = Iterator[_LexerTokenizeResult]
-
 class Lexer:
-    START_IDENTIFIER: set[str]
-    VALID_IDENTIFIER: set[str]
-    VALID_NUMBER: set[str]
-    WHITESPACE: set[str]
-    SIMPLE_TOKENS: dict[str, str]
-    def tokenize(self, expression: str) -> _LexerTokenizeResults: ...
+    START_IDENTIFIER: ClassVar[set[str]]
+    VALID_IDENTIFIER: ClassVar[set[str]]
+    VALID_NUMBER: ClassVar[set[str]]
+    WHITESPACE: ClassVar[set[str]]
+    SIMPLE_TOKENS: ClassVar[dict[str, str]]
+    def tokenize(self, expression: str) -> Iterator[_LexerTokenizeResult]: ...
