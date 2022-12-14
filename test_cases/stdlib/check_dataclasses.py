@@ -1,10 +1,12 @@
 import dataclasses as dc
-from typing import Any, Dict, Tuple, Type, Union
+from typing import Any, Dict, Tuple, Type
 from typing_extensions import assert_type
+
 
 @dc.dataclass
 class Foo:
     attr: str
+
 
 f = Foo(attr="attr")
 
@@ -49,5 +51,4 @@ def test_other_isdataclass_overloads(x: type, y: object) -> None:
         assert_type(dc.fields(y), Tuple[dc.Field[Any], ...])
         assert_type(dc.asdict(y), Dict[str, Any])
         assert_type(dc.astuple(y), Tuple[Any, ...])
-        dc.replace(y) 
-    
+        dc.replace(y)
