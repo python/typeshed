@@ -33,6 +33,8 @@ if sys.version_info >= (3, 10):
 class _DataclassInstance(Protocol):
     __dataclass_fields__: ClassVar[dict[str, Any]]
 
+_DataclassT = TypeVar("_DataclassT", bound=_DataclassInstance)
+
 # define _MISSING_TYPE as an enum within the type stubs,
 # even though that is not really its type at runtime
 # this allows us to use Literal[_MISSING_TYPE.MISSING]
@@ -293,4 +295,4 @@ else:
         frozen: bool = ...,
     ) -> type: ...
 
-def replace(__obj: _T, **changes: Any) -> _T: ...
+def replace(__obj: _DataclassT, **changes: Any) -> _DataclassT: ...
