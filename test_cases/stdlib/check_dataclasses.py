@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import dataclasses as dc
 from typing import Any, Dict, Tuple, Type
 from typing_extensions import assert_type
