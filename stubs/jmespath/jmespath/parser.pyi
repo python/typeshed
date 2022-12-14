@@ -1,12 +1,12 @@
 from collections.abc import Iterator
-from typing import Any
+from typing import Any, ClassVar
 
 from jmespath.lexer import _LexerTokenizeResult
 from jmespath.visitor import Options, _TreeNode
 
 class Parser:
-    BINDING_POWER: dict[str, int]
-    tokenizer: Iterator[_LexerTokenizeResult]
+    BINDING_POWER: ClassVar[dict[str, int]]
+    tokenizer: Iterator[_LexerTokenizeResult] | None
     def __init__(self, lookahead: int = ...) -> None: ...
     def parse(self, expression: str) -> ParsedResult: ...
     @classmethod
