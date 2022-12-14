@@ -21,7 +21,20 @@ class _DBConfig(TypedDict, total=False):
     TIME_ZONE: str
     USER: str
 
-def parse(url: str, engine: str | None = ..., conn_max_age: int = ..., conn_health_checks: bool = ..., ssl_require: bool = ..., test_options: dict[Incomplete, Incomplete] | None = ...) -> _DBConfig: ...
+def parse(
+    url: str,
+    engine: str | None = ...,
+    conn_max_age: int = ...,
+    conn_health_checks: bool = ...,
+    ssl_require: bool = ...,
+    test_options: dict[Incomplete, Incomplete] | None = ...,
+) -> _DBConfig: ...
 def config(
-    env: str = ..., default: str | None = ..., engine: str | None = ..., conn_max_age: int = ..., conn_health_checks: bool = ..., ssl_require: bool = ..., test_options: dict[Incomplete, Incomplete] | None = ...
+    env: str = ...,
+    default: str | None = ...,
+    engine: str | None = ...,
+    conn_max_age: int = ...,
+    conn_health_checks: bool = ...,
+    ssl_require: bool = ...,
+    test_options: dict[Incomplete, Incomplete] | None = ...,
 ) -> _DBConfig: ...
