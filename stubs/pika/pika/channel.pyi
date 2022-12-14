@@ -7,7 +7,7 @@ from .connection import Connection
 from .data import _ArgumentMapping
 from .exchange_type import ExchangeType
 from .frame import Method
-from .spec import Basic, BasicProperties, Exchange, Queue
+from .spec import Basic, BasicProperties, Exchange
 
 LOGGER: Incomplete
 MAX_CHANNELS: int
