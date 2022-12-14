@@ -8,15 +8,27 @@ class Foo:
     attr: str
 
 
-f = Foo(attr="attr")
-
-if dc.is_dataclass(f):
-    assert_type(f, Foo)
+assert_type(dc.fields(Foo), Tuple[dc.Field[Any], ...])
+dc.asdict(Foo)  # type: ignore
+dc.astuple(Foo)  # type: ignore
+dc.replace(Foo)  # type: ignore
 
 if dc.is_dataclass(Foo):
+    # The inferred type doesn't change
+    # if it's already known to be a subtype of type[_DataclassInstance]
     assert_type(Foo, Type[Foo])
 
+f = Foo(attr="attr")
+
+assert_type(dc.fields(f), Tuple[dc.Field[Any], ...])
+assert_type(dc.asdict(f), Dict[str, Any])
+assert_type(dc.astuple(f), Tuple[Any, ...])
 assert_type(dc.replace(f, attr="new"), Foo)
+
+if dc.is_dataclass(f):
+    # The inferred type doesn't change
+    # if it's already known to be a subtype of _DataclassInstance
+    assert_type(f, Foo)
 
 
 def test_other_isdataclass_overloads(x: type, y: object) -> None:
