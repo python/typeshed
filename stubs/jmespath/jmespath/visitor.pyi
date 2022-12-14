@@ -5,8 +5,8 @@ from typing_extensions import TypedDict
 from jmespath.functions import Functions
 
 class Options:
-    dict_cls: Callable[[], MutableMapping[Any, Any]]
-    custom_functions: Functions
+    dict_cls: Callable[[], MutableMapping[Any, Any]] | None
+    custom_functions: Functions | None
     def __init__(
         self, dict_cls: Callable[[], MutableMapping[Any, Any]] | None = ..., custom_functions: Functions | None = ...
     ) -> None: ...
