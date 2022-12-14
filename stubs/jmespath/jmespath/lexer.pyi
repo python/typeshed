@@ -3,13 +3,13 @@ from typing_extensions import TypeAlias, TypedDict
 
 from jmespath.exceptions import EmptyExpressionError as EmptyExpressionError, LexerError as LexerError
 
-class LexerTokenizeResult(TypedDict):
+class _LexerTokenizeResult(TypedDict):
     type: str
     value: str
     start: int
     end: int
 
-LexerTokenizeResults: TypeAlias = Iterator[LexerTokenizeResult]
+_LexerTokenizeResults: TypeAlias = Iterator[_LexerTokenizeResult]
 
 class Lexer:
     START_IDENTIFIER: set[str]
@@ -17,4 +17,4 @@ class Lexer:
     VALID_NUMBER: set[str]
     WHITESPACE: set[str]
     SIMPLE_TOKENS: dict[str, str]
-    def tokenize(self, expression: str) -> LexerTokenizeResults: ...
+    def tokenize(self, expression: str) -> _LexerTokenizeResults: ...
