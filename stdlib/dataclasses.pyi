@@ -31,7 +31,7 @@ if sys.version_info >= (3, 10):
     __all__ += ["KW_ONLY"]
 
 class _DataclassInstance(Protocol):
-    __dataclass_fields__: ClassVar[dict[str, Any]]
+    __dataclass_fields__: ClassVar[dict[str, Field[Any]]]
 
 _DataclassT = TypeVar("_DataclassT", bound=_DataclassInstance)
 
