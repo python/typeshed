@@ -35,7 +35,9 @@ if dc.is_dataclass(f):
 
 
 def test_other_isdataclass_overloads(x: type, y: object) -> None:
-    dc.fields(x)  # TODO: why does this pass mypy? It should fail, ideally...
+    # TODO: pyright correctly emits an error on this, but mypy does not -- why?
+    # dc.fields(x)
+
     dc.fields(y)  # type: ignore
 
     dc.asdict(x)  # type: ignore
