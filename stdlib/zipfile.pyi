@@ -277,8 +277,8 @@ def is_zipfile(filename: StrOrBytesPath | _SupportsReadSeekTell) -> bool: ...
 
 ZIP_STORED: Literal[0]
 ZIP_DEFLATED: Literal[8]
-ZIP64_LIMIT: Literal[2147483647]
-ZIP_FILECOUNT_LIMIT: Literal[65535]
-ZIP_MAX_COMMENT: Literal[65535]
+ZIP64_LIMIT: int
+ZIP_FILECOUNT_LIMIT: int
+ZIP_MAX_COMMENT: int
 ZIP_BZIP2: Literal[12]
 ZIP_LZMA: Literal[14]
