@@ -2,7 +2,7 @@ from collections.abc import Iterator
 from typing import Any
 
 from jmespath.lexer import _LexerTokenizeResult
-from jmespath.visitor import _TreeNode
+from jmespath.visitor import Options, _TreeNode
 
 class Parser:
     BINDING_POWER: dict[str, int]
@@ -16,4 +16,4 @@ class ParsedResult:
     expression: str
     parsed: _TreeNode
     def __init__(self, expression: str, parsed: _TreeNode) -> None: ...
-    def search(self, value: Any, options: Any | None = ...) -> _TreeNode: ...
+    def search(self, value: Any, options: Options | None = ...) -> _TreeNode: ...
