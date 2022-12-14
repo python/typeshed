@@ -7,7 +7,7 @@ from .connection import Connection
 from .data import _ArgumentMapping
 from .exchange_type import ExchangeType
 from .frame import Method
-from .spec import Basic, BasicProperties
+from .spec import Basic, BasicProperties, Exchange, Queue
 
 LOGGER: Incomplete
 MAX_CHANNELS: int
@@ -29,7 +29,9 @@ class Channel:
     def add_on_flow_callback(self, callback) -> None: ...
     def add_on_return_callback(self, callback) -> None: ...
     def basic_ack(self, delivery_tag: int = ..., multiple: bool = ...): ...
-    def basic_cancel(self, consumer_tag: str = ..., callback: Callable[[Method], object] | None = ...) -> None: ...
+    def basic_cancel(
+        self, consumer_tag: str = ..., callback: Callable[[Method[Basic.CancelOk]], object] | None = ...
+    ) -> None: ...
     def basic_consume(
         self,
         queue: str,
@@ -38,7 +40,7 @@ class Channel:
         exclusive: bool = ...,
         consumer_tag: str | None = ...,
         arguments: _ArgumentMapping | None = ...,
-        callback: Callable[[Method], object] | None = ...,
+        callback: Callable[[Method[Queue.DeclareOk]], object] | None = ...,
     ) -> str: ...
     def basic_get(self, queue, callback, auto_ack: bool = ...) -> None: ...
     def basic_nack(self, delivery_tag: int = ..., multiple: bool = ..., requeue: bool = ...): ...
@@ -66,10 +68,13 @@ class Channel:
         auto_delete: bool = ...,
         internal: bool = ...,
         arguments: _ArgumentMapping | None = ...,
-        callback: Callable[[Method], object] | None = ...,
+        callback: Callable[[Method[Exchange.DeclareOk]], object] | None = ...,
     ): ...
     def exchange_delete(
-        self, exchange: str | None = ..., if_unused: bool = ..., callback: Callable[[Method], object] | None = ...
+        self,
+        exchange: str | None = ...,
+        if_unused: bool = ...,
+        callback: Callable[[Method[Exchange.DeleteOk]], object] | None = ...,
     ): ...
     def exchange_unbind(
         self,
