@@ -9,6 +9,7 @@ class Foo:
 
 
 assert_type(dc.fields(Foo), Tuple[dc.Field[Any], ...])
+# These should fail due to the fact it's a dataclass class, not an instance
 dc.asdict(Foo)  # type: ignore
 dc.astuple(Foo)  # type: ignore
 dc.replace(Foo)  # type: ignore
