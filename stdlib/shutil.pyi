@@ -88,7 +88,12 @@ class _RmtreeType(Protocol):
     avoids_symlink_attacks: bool
     if sys.version_info >= (3, 11):
         def __call__(
-            self, path: StrOrBytesPath, ignore_errors: bool = ..., onerror: _OnErrorCallback | None = ..., *, dir_fd: int | None = ...
+            self,
+            path: StrOrBytesPath,
+            ignore_errors: bool = ...,
+            onerror: _OnErrorCallback | None = ...,
+            *,
+            dir_fd: int | None = ...,
         ) -> None: ...
 
     else:
