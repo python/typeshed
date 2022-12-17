@@ -252,10 +252,14 @@ def get_mypy_flags(args: TestConfig, temp_name: str, *, testing_stdlib: bool) ->
         "--custom-typeshed-dir",
         str(Path(__file__).parent.parent),
         "--strict",
+        # Ignoring "module is installed, but missing library stubs or py.typed marker"
+        # because external dependencies may not be marked as typed.
+        # pyright already flags non-typed external dependencies as warnings.
+        # TODO: This mutes ALL import errors, can we narrow it down?
+        "--ignore-missing-imports",
         # Stub completion is checked by pyright (--allow-*-defs)
         "--allow-untyped-defs",
         "--allow-incomplete-defs",
-        "--allow-subclassing-any",  # Needed until we can use non-types dependencies #5768
         "--enable-error-code",
         "ignore-without-code",
         "--config-file",

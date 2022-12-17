@@ -59,7 +59,10 @@ def create_parser() -> argparse.ArgumentParser:
 def run_pytype(*, filename: str, python_version: str) -> str | None:
     """Runs pytype, returning the stderr if any."""
     if python_version not in _LOADERS:
-        options = pytype_config.Options.create("", parse_pyi=True, python_version=python_version)
+        # Disabling pyi-error because external dependencies may not have stub files
+        # pyright already flags non-typed external dependencies as warnings
+        # TODO: Get pytype to work "pytype.load_pytd.BadDependencyError: Can't find pyi for 'torch', referenced from 'd3dshot.capture_output'"
+        options = pytype_config.Options.create("", parse_pyi=True, python_version=python_version, disable="pyi-error")
         loader = load_pytd.create_loader(options)
         _LOADERS[python_version] = (options, loader)
     options, loader = _LOADERS[python_version]

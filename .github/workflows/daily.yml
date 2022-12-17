@@ -71,13 +71,14 @@ jobs:
         shell: bash
         run: |
           PACKAGES=$(python tests/get_packages.py)
+          PYTHON_EXECUTABLE="python"
 
           if [ "${{ runner.os }}" = "Linux" ]; then
             if [ -n "$PACKAGES" ]; then
               sudo apt update && sudo apt install -y $PACKAGES
             fi
 
-            xvfb-run python tests/stubtest_third_party.py --specified-stubs-only --num-shards 4 --shard-index ${{ matrix.shard-index }}
+            PYTHON_EXECUTABLE="xvfb-run"
           else
             if [ "${{ runner.os }}" = "macOS" ] && [ -n "$PACKAGES" ]; then
               NONINTERACTIVE=1 brew install $PACKAGES
@@ -86,9 +87,9 @@ jobs:
             if [ "${{ runner.os }}" = "Windows" ] && [ -n "$PACKAGES" ]; then
               choco install -y $PACKAGES
             fi
-
-            python tests/stubtest_third_party.py --specified-stubs-only --num-shards 4 --shard-index ${{ matrix.shard-index }}
           fi
+
+          $PYTHON_EXECUTABLE tests/stubtest_third_party.py --specified-stubs-only --num-shards 4 --shard-index ${{ matrix.shard-index }}
 
   stub-uploader:
     name: Run the stub_uploader tests

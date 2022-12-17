@@ -6,6 +6,7 @@ from ctypes.wintypes import PFLOAT
 from typing import TypeVar
 from typing_extensions import TypeAlias
 
+from comtypes import IUnknown
 from d3dshot.capture_output import _Frame
 
 _ProcessFuncRegionArg = TypeVar("_ProcessFuncRegionArg", tuple[int, int, int, int], None)
@@ -20,9 +21,8 @@ if sys.platform == "win32":
 else:
     _HRESULT: TypeAlias = Incomplete
 
-# TODO: Use comtypes.IUnknown once we can import non-types dependencies
-# See: #5768
-class _IUnknown(_CData):
+# Type issue in comtypes: Type "IUnknown" cannot be assigned to type "_CData"
+class _IUnknown(IUnknown, _CData):
     def QueryInterface(self, interface: type, iid: _CData | None = ...) -> _HRESULT: ...
     def AddRef(self) -> c_ulong: ...
     def Release(self) -> c_ulong: ...

@@ -75,6 +75,12 @@
     "typeCheckingMode": "strict",
     "reportPrivateUsage": "none",
     "reportIncompleteStub": "none",
+    // Since we allow non-type dependencies, we may need to refer to a library
+    // that is not marked as "typed" and has no stubs.
+    // It's still useful to raise a warning to flag those dependencies.
+    "useLibraryCodeForTypes": true,
+    "reportMissingTypeStubs": "warning",
+    // Typeshed uses type-stubs, the source is not needed.
     "reportMissingModuleSource": "none",
     // Incompatible overrides and property type mismatches are out of typeshed's control
     // as they are inherited from the implementation.

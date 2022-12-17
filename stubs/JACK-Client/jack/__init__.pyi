@@ -4,7 +4,10 @@ from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from typing import Any, overload
 from typing_extensions import Literal, TypeAlias
 
-_NDArray: TypeAlias = Any  # FIXME: no typings for numpy arrays
+import numpy as np
+import numpy.typing as npt
+
+_NDArray: TypeAlias = npt.NDArray[np.generic]  # incomplete: np.generic may be too wide
 
 class _JackPositionT: ...
 

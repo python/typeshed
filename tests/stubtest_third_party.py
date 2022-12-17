@@ -71,11 +71,14 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
                 print_command_failure("Failed to install requirements", e)
                 return False
 
+        external_requires = metadata.get("external_requires", [])
+
         # We need stubtest to be able to import the package, so install mypy into the venv
         # Hopefully mypy continues to not need too many dependencies
         # TODO: Maybe find a way to cache these in CI
         dists_to_install = [dist_req, get_mypy_req()]
         dists_to_install.extend(metadata.get("requires", []))
+        dists_to_install.extend(external_requires)
         pip_cmd = [pip_exe, "install"] + dists_to_install
         try:
             subprocess.run(pip_cmd, check=True, capture_output=True)
@@ -84,6 +87,11 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
             return False
 
         ignore_missing_stub = ["--ignore-missing-stub"] if stubtest_meta.get("ignore_missing_stub", True) else []
+        # Ignoring "module is installed, but missing library stubs or py.typed marker"
+        # because external dependencies may not be marked as typed.
+        # pyright already flags non-typed external dependencies as warnings.
+        # TODO: This mutes ALL import errors, can we narrow it down?
+        # ignore_missing_imports = ["--ignore-missing-imports"] if external_requires else []
         packages_to_check = [d.name for d in dist.iterdir() if d.is_dir() and d.name.isidentifier()]
         modules_to_check = [d.stem for d in dist.iterdir() if d.is_file() and d.suffix == ".pyi"]
         stubtest_cmd = [
@@ -94,6 +102,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
             "--custom-typeshed-dir",
             str(dist.parent.parent),
             *ignore_missing_stub,
+            # *ignore_missing_imports,
             *packages_to_check,
             *modules_to_check,
         ]

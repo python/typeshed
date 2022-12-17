@@ -1,18 +1,14 @@
 import enum
-from _typeshed import Incomplete
 from collections.abc import Sequence
 from ctypes import _CVoidConstPLike
 from typing_extensions import Literal, TypeAlias
 
+import numpy as np
+import numpy.typing as npt
 from PIL import Image
+from torch import Tensor
 
-_Frame: TypeAlias = Image.Image | Incomplete
-# TODO: Complete types once we can import non-types dependencies
-# See: #5768
-# from torch import Tensor
-# from comtypes import IUnknown
-# import numpy.typing as npt
-# _Frame: TypeAlias = Image.Image | npt.NDArray[np.int32] | npt.NDArray[np.float32] | Tensor
+_Frame: TypeAlias = Image.Image | npt.NDArray[np.int32] | npt.NDArray[np.float32] | Tensor
 
 class CaptureOutputs(enum.Enum):
     PIL: int
