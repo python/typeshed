@@ -1,5 +1,4 @@
 import sys
-
 from _typeshed import StrOrBytesPath
 from typing_extensions import TypeAlias
 
