@@ -51,7 +51,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
                 " package via your system package manager."
             )
             print_command_failure(msg, e)
-            return False
+            sys.exit(2)
 
         if sys.platform == "win32":
             pip = venv_dir / "Scripts" / "pip.exe"
