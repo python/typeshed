@@ -11,7 +11,8 @@ class Foo:
 
 
 assert_type(dc.fields(Foo), Tuple[dc.Field[Any], ...])
-# These should fail due to the fact it's a dataclass class, not an instance
+# These should cause type checkers to emit errors
+# due to the fact it's a dataclass class, not an instance
 dc.asdict(Foo)  # type: ignore
 dc.astuple(Foo)  # type: ignore
 dc.replace(Foo)  # type: ignore
@@ -51,14 +52,15 @@ def test_other_isdataclass_overloads(x: type, y: object) -> None:
 
     if dc.is_dataclass(x):
         assert_type(dc.fields(x), Tuple[dc.Field[Any], ...])
-        # These should fail due to the fact it's a dataclass class, not an instance
+        # These should cause type checkers to emit errors
+        # due to the fact it's a dataclass class, not an instance
         dc.asdict(x)  # type: ignore
         dc.astuple(x)  # type: ignore
         dc.replace(x)  # type: ignore
 
     if dc.is_dataclass(y):
         assert_type(dc.fields(y), Tuple[dc.Field[Any], ...])
-        # These should fail due to the fact we don't know
+        # These should cause type checkers to emit errors due to the fact we don't know
         # whether it's a dataclass class or a dataclass instance
         dc.asdict(y)  # type: ignore
         dc.astuple(y)  # type: ignore
