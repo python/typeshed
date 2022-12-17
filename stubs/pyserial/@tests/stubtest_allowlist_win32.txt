@@ -1,0 +1,10 @@
+# Error: failed to import
+# =======================
+serial.serialposix  # Posix only
+serial.tools.list_ports_osx  # Mac only
+serial.tools.list_ports_linux  # Linux only
+
+# Error: is inconsistent
+# ======================
+serial.serialwin32.Serial.read
+serial.serialwin32.Serial.write

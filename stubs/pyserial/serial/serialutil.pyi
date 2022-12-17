@@ -1,5 +1,4 @@
 import io
-from _typeshed import ReadableBuffer, WriteableBuffer
 from collections.abc import Callable, Generator
 from typing import Any
 from typing_extensions import Final
@@ -64,9 +63,7 @@ class SerialBase(io.RawIOBase):
         inter_byte_timeout: float | None = ...,
         exclusive: float | None = ...,
     ) -> None: ...
-    def read(self, __size: int = ...) -> bytes: ...
-    def readinto(self, b: WriteableBuffer) -> int | None: ...
-    def write(self, data: ReadableBuffer) -> int: ...
+    def read(self, __size: int = ...) -> bytes: ...  # same as io.RawIOBase.read but always returns bytes
     @property
     def port(self) -> str | None: ...
     @port.setter

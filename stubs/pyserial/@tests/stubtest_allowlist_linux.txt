@@ -1,0 +1,19 @@
+# Error: failed to import
+# =======================
+serial.serialwin32  # Windows only
+serial.win32  # Windows only
+serial.tools.list_ports_osx  # Mac only
+serial.tools.list_ports_windows  # Windows only
+
+# Error: is inconsistent
+# ======================
+serial.PosixPollSerial.read
+serial.VTIMESerial.read
+serial.serialposix.Serial.read
+serial.serialposix.Serial.write
+serial.serialposix.PosixPollSerial.read
+serial.serialposix.VTIMESerial.read
+
+# Error: is not present at runtime
+# ================================
+serial.serialposix.BAUDRATE_OFFSET  # It exists

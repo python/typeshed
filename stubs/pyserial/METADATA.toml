@@ -2,3 +2,4 @@ version = "3.5.*"
 
 [tool.stubtest]
 platforms = ["linux", "win32", "darwin"]
+extras = ["cp2110"]
