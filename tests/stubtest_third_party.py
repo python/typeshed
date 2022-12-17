@@ -43,7 +43,17 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
 
     with tempfile.TemporaryDirectory() as tmp:
         venv_dir = Path(tmp)
-        venv.create(venv_dir, with_pip=True, clear=True)
+        try:
+            venv.create(venv_dir, with_pip=True, clear=True)
+        except subprocess.CalledProcessError as e:
+            print_command_failure(
+                (
+                    "Failed to create virtual environment. Note that on some linux systems, you need to install the `python3-venv`"
+                    " package via your system package manager."
+                ),
+                e,
+            )
+            return False
 
         if sys.platform == "win32":
             pip = venv_dir / "Scripts" / "pip.exe"
