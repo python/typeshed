@@ -260,6 +260,7 @@ def get_mypy_flags(args: TestConfig, temp_name: str, *, testing_stdlib: bool) ->
         # Stub completion is checked by pyright (--allow-*-defs)
         "--allow-untyped-defs",
         "--allow-incomplete-defs",
+        "--allow-subclassing-any",  # Needed until we can use non-types dependencies #5768
         "--enable-error-code",
         "ignore-without-code",
         "--config-file",
