@@ -1,6 +1,7 @@
 version = "3.5.*"
 
 [tool.stubtest]
+skip = true
 ignore_missing_stub = false
 platforms = ["linux", "win32", "darwin"]
 extras = ["cp2110"]
