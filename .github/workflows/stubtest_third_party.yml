@@ -66,7 +66,7 @@ jobs:
                 sudo apt update && sudo apt install -y $PACKAGES
               fi
 
-              PYTHON_EXECUTABLE="xvfb-run"
+              PYTHON_EXECUTABLE="xvfb-run python"
             else
               if [ "${{ runner.os }}" = "macOS" ] && [ -n "$PACKAGES" ]; then
                 echo "Installing Homebrew packages: $PACKAGES"
