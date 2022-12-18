@@ -4,9 +4,6 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 
-# For the purposes of testing this PR, we're pretending packaging is a non-types dependency of types-urllib3
-# Since types-urllib3 is a dependency of requests, packaging should be available in the test cases for requests
-import packaging.version
 import requests
 
 # =================================================================================================
@@ -59,6 +56,3 @@ requests.post("http://httpbin.org/anything", data=[(b"foo", b"bar")]).json()["fo
 requests.post("http://httpbin.org/anything", data=[("foo", "bar")]).json()["form"]
 requests.post("http://httpbin.org/anything", data=((b"foo", b"bar"),)).json()["form"]
 requests.post("http://httpbin.org/anything", data=(("foo", "bar"),)).json()["form"]
-
-foo: packaging.version.Version
-x = requests.does_not_exist.how_fun()
