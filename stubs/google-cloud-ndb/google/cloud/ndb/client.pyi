@@ -1,9 +1,9 @@
 from _typeshed import Incomplete
-from collections.abc import Iterator
+from collections.abc import Callable, Iterator
 from contextlib import contextmanager
-from typing import Callable, ClassVar
+from typing import ClassVar
 
-from google.cloud.ndb import context, key
+from google.cloud.ndb import context as context_module, key
 
 DATASTORE_API_HOST: str
 
@@ -30,4 +30,4 @@ class Client:
         global_cache_policy: Callable[[key.Key], bool] | None = ...,
         global_cache_timeout_policy: Callable[[key.Key], int] | None = ...,
         legacy_data: bool = ...,
-    ) -> Iterator[context.Context]: ...
+    ) -> Iterator[context_module.Context]: ...
