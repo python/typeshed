@@ -8,10 +8,6 @@ serial.serialjava  # No Java Communications API implementation found
 # ================================
 serial.urlhandler.protocol_spy.FormatLog  # Class exists!
 serial.urlhandler.protocol_spy.FormatLogHex  # Class exists!
-# serial.tools.hexlify_codec.Codec.decode
-# serial.tools.hexlify_codec.Codec.encode
-# serial.tools.hexlify_codec.IncrementalDecoder.decode
-# serial.tools.hexlify_codec.IncrementalEncoder.encode
 serial.tools.miniterm.Console.__init__  # Argument exists!
 serial.tools.miniterm.Console.sigint  # Method exists!
 serial.tools.miniterm.ConsoleBase.__init__  # Argument exists!
