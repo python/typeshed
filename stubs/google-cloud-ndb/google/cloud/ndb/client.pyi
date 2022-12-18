@@ -3,8 +3,7 @@ from collections.abc import Iterator
 from contextlib import contextmanager
 from typing import Callable, ClassVar
 
-from google.cloud.ndb import context
-from google.cloud.ndb import key
+from google.cloud.ndb import context, key
 
 DATASTORE_API_HOST: str
 
