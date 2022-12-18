@@ -46,12 +46,13 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
         try:
             venv.create(venv_dir, with_pip=True, clear=True)
         except subprocess.CalledProcessError as e:
-            msg = (
-                "Failed to create virtual environment. Note that on some linux systems, you may need to install the `python3-venv`"
-                " package via your system package manager."
-            )
-            print_command_failure(msg, e)
-            sys.exit(2)
+            if "ensurepip" in e.cmd:
+                print_error("fail")
+                print_error(
+                    "stubtest requires a Python installation with ensurepip. "
+                    "If on Linux, you may need to install the python3-venv package."
+                )
+            raise
 
         if sys.platform == "win32":
             pip = venv_dir / "Scripts" / "pip.exe"
