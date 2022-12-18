@@ -61,3 +61,4 @@ requests.post("http://httpbin.org/anything", data=((b"foo", b"bar"),)).json()["f
 requests.post("http://httpbin.org/anything", data=(("foo", "bar"),)).json()["form"]
 
 foo: packaging.version.Version
+x = requests.does_not_exist.how_fun()
