@@ -43,7 +43,16 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
 
     with tempfile.TemporaryDirectory() as tmp:
         venv_dir = Path(tmp)
-        venv.create(venv_dir, with_pip=True, clear=True)
+        try:
+            venv.create(venv_dir, with_pip=True, clear=True)
+        except subprocess.CalledProcessError as e:
+            if "ensurepip" in e.cmd:
+                print_error("fail")
+                print_error(
+                    "stubtest requires a Python installation with ensurepip. "
+                    "If on Linux, you may need to install the python3-venv package."
+                )
+            raise
 
         if sys.platform == "win32":
             pip = venv_dir / "Scripts" / "pip.exe"
