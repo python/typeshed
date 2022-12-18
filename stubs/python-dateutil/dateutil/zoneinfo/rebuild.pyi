@@ -1,5 +1,11 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, StrOrBytesPath
+from collections.abc import Sequence
+from tarfile import TarInfo
 
 def rebuild(
-    filename, tag: Incomplete | None = ..., format: str = ..., zonegroups=..., metadata: Incomplete | None = ...
+    filename: StrOrBytesPath,
+    tag: Incomplete | None = ...,
+    format: str = ...,
+    zonegroups: Sequence[str | TarInfo] = ...,
+    metadata: Incomplete | None = ...,
 ) -> None: ...
