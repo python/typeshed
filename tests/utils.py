@@ -62,6 +62,7 @@ def read_dependencies(distribution: str) -> PackageDependencies:
     assert isinstance(dependencies, list)
     typeshed, external = [], []
     for dependency in dependencies:
+        assert isinstance(dependency, str)
         if dependency.startswith("types-"):
             maybe_typeshed_dependency = Requirement(dependency).name.removeprefix("types-")
             if maybe_typeshed_dependency in os.listdir("stubs"):
@@ -73,20 +74,17 @@ def read_dependencies(distribution: str) -> PackageDependencies:
     return PackageDependencies(tuple(typeshed), tuple(external))
 
 
-def get_recursive_requirements(package_name: str, seen: set[str] | None = None) -> PackageDependencies:
+@cache
+def get_recursive_requirements(package_name: str) -> PackageDependencies:
     typeshed: set[str] = set()
     external: set[str] = set()
-    seen = seen if seen is not None else {package_name}
     non_recursive_requirements = read_dependencies(package_name)
     typeshed.update(non_recursive_requirements.typeshed_pkgs)
     external.update(non_recursive_requirements.external_pkgs)
     for pkg in non_recursive_requirements.typeshed_pkgs:
-        if pkg in seen:
-            continue
         reqs = get_recursive_requirements(pkg)
         typeshed.update(reqs.typeshed_pkgs)
         external.update(reqs.external_pkgs)
-        seen.add(pkg)
     return PackageDependencies(tuple(sorted(typeshed)), tuple(sorted(external)))
 
 

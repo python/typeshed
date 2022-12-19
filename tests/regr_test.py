@@ -112,13 +112,14 @@ def run_testcases(
         # mypy refuses to consider a directory a "valid typeshed directory"
         # unless there's a stubs/mypy-extensions path inside it,
         # so add that to the list of stubs to copy over to the new directory
-        for requirement in set(requirements.typeshed_pkgs) | {package.name, "mypy-extensions"}:
+        for requirement in {package.name, *requirements.typeshed_pkgs, "mypy-extensions"}:
             shutil.copytree(Path("stubs", requirement), new_typeshed / "stubs" / requirement)
 
         if requirements.external_pkgs:
             pip_exe, python_exe = make_venv(tmpdir_path / ".venv")
+            pip_command = [pip_exe, "install", get_mypy_req(), *requirements.external_pkgs]
             try:
-                subprocess.run([pip_exe, "install", get_mypy_req(), *requirements.external_pkgs], check=True, capture_output=True)
+                subprocess.run(pip_command, check=True, capture_output=True)
             except subprocess.CalledProcessError as e:
                 print(e.stderr)
                 raise
@@ -139,7 +140,9 @@ def run_testcases(
         else:
             flags.append(str(path))
 
-    return new_test_case_dir, subprocess.run([python_exe, "-m", "mypy", *flags], capture_output=True, text=True, env=env_vars)
+    mypy_command = [python_exe, "-m", "mypy"] + flags
+    result = subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars)
+    return new_test_case_dir, result
 
 
 def test_testcase_directory(package: PackageInfo, version: str, platform: str, quiet: bool) -> ReturnCode:
