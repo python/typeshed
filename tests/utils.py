@@ -7,6 +7,7 @@ import re
 import subprocess
 import sys
 import venv
+from collections.abc import Mapping
 from functools import cache
 from pathlib import Path
 from typing import NamedTuple
@@ -55,7 +56,31 @@ class PackageDependencies(NamedTuple):
 
 
 @cache
+def get_pypi_name_to_typeshed_name_mapping() -> Mapping[str, str]:
+    stub_name_map = {}
+    for typeshed_name in os.listdir("stubs"):
+        with Path("stubs", typeshed_name, "METADATA.toml").open("rb") as f:
+            pypi_name = tomli.load(f).get("stub_distribution", f"types-{typeshed_name}")
+        assert isinstance(pypi_name, str)
+        stub_name_map[pypi_name] = typeshed_name
+    return stub_name_map
+
+
+@cache
 def read_dependencies(distribution: str) -> PackageDependencies:
+    """Read the dependencies listed in a METADATA.toml file for a stubs package.
+
+    Once the dependencies have been read,
+    determine which dependencies are typeshed-internal dependencies,
+    and which dependencies are external (non-types) dependencies.
+    For typeshed dependencies, translate the "dependency name" into the "package name";
+    for external dependencies, leave them as they are in the METADATA.toml file.
+
+    Note that this function may consider things to be typeshed stubs
+    even if they haven't yet been uploaded to PyPI.
+    If a typeshed stub is removed, this function will consider it to be an external dependency.
+    """
+    pypi_name_to_typeshed_name_mapping = get_pypi_name_to_typeshed_name_mapping()
     with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
         data = tomli.load(f)
     dependencies = data.get("requires", [])
@@ -63,12 +88,9 @@ def read_dependencies(distribution: str) -> PackageDependencies:
     typeshed, external = [], []
     for dependency in dependencies:
         assert isinstance(dependency, str)
-        if dependency.startswith("types-"):
-            maybe_typeshed_dependency = Requirement(dependency).name.removeprefix("types-")
-            if maybe_typeshed_dependency in os.listdir("stubs"):
-                typeshed.append(maybe_typeshed_dependency)
-            else:
-                external.append(dependency)
+        maybe_typeshed_dependency = Requirement(dependency).name
+        if maybe_typeshed_dependency in pypi_name_to_typeshed_name_mapping:
+            typeshed.append(pypi_name_to_typeshed_name_mapping[maybe_typeshed_dependency])
         else:
             external.append(dependency)
     return PackageDependencies(tuple(typeshed), tuple(external))
@@ -76,6 +98,14 @@ def read_dependencies(distribution: str) -> PackageDependencies:
 
 @cache
 def get_recursive_requirements(package_name: str) -> PackageDependencies:
+    """Recursively gather dependencies for a single stubs package.
+
+    For example, if the stubs for `caldav`
+    declare a dependency on typeshed's stubs for `requests`,
+    and the stubs for requests declare a dependency on typeshed's stubs for `urllib3`,
+    `get_recursive_requirements("caldav")` will determine that the stubs for `caldav`
+    have both `requests` and `urllib3` as typeshed-internal dependencies.
+    """
     typeshed: set[str] = set()
     external: set[str] = set()
     non_recursive_requirements = read_dependencies(package_name)
