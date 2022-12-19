@@ -15,10 +15,10 @@ LOGGER: Logger
 MAX_CHANNELS: Final[int]
 
 class Channel:
-    CLOSED: Final[Literal[0]]
-    OPENING: Final[Literal[1]]
-    OPEN: Final[Literal[2]]
-    CLOSING: Final[Literal[3]]
+    CLOSED: Final = 0
+    OPENING: Final = 1
+    OPEN: Final = 2
+    CLOSING: Final = 3
 
     channel_number: int
     callbacks: CallbackManager
