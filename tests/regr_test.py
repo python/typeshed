@@ -119,7 +119,7 @@ def run_testcases(
             pip_exe, python_exe = make_venv(tmpdir_path / ".venv")
             pip_command = [pip_exe, "install", get_mypy_req(), *requirements.external_pkgs]
             try:
-                subprocess.run(pip_command, check=True, capture_output=True)
+                subprocess.run(pip_command, check=True, capture_output=True, text=True)
             except subprocess.CalledProcessError as e:
                 print(e.stderr)
                 raise
