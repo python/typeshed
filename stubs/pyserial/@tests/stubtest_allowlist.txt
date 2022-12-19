@@ -43,7 +43,7 @@ serial.serialutil.basestring
 serial.serialutil.iterbytes
 serial.serialutil.to_bytes
 
-# Depredated aliases
+# Deprecated aliases
 serial.SerialBase.applySettingsDict
 serial.SerialBase.flushInput
 serial.SerialBase.flushOutput
