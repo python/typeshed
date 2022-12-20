@@ -127,6 +127,17 @@ class VenvInfo(NamedTuple):
     pip_exe: Annotated[str, "A path to the venv's pip executable"]
     python_exe: Annotated[str, "A path to the venv's python executable"]
 
+    @staticmethod
+    def of_existing_venv(venv_dir: Path) -> VenvInfo:
+        if sys.platform == "win32":
+            pip = venv_dir / "Scripts" / "pip.exe"
+            python = venv_dir / "Scripts" / "python.exe"
+        else:
+            pip = venv_dir / "bin" / "pip"
+            python = venv_dir / "bin" / "python"
+
+        return VenvInfo(str(pip), str(python))
+
 
 def make_venv(venv_dir: Path) -> VenvInfo:
     try:
@@ -139,14 +150,7 @@ def make_venv(venv_dir: Path) -> VenvInfo:
             )
         raise
 
-    if sys.platform == "win32":
-        pip = venv_dir / "Scripts" / "pip.exe"
-        python = venv_dir / "Scripts" / "python.exe"
-    else:
-        pip = venv_dir / "bin" / "pip"
-        python = venv_dir / "bin" / "python"
-
-    return VenvInfo(str(pip), str(python))
+    return VenvInfo.of_existing_venv(venv_dir)
 
 
 @cache
