@@ -10,6 +10,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+from enum import IntEnum
 from itertools import product
 from pathlib import Path
 from typing_extensions import TypeAlias
@@ -50,6 +51,12 @@ def package_with_test_cases(package_name: str) -> PackageInfo:
     raise argparse.ArgumentTypeError(f"No test cases found for {package_name!r}!")
 
 
+class Verbosity(IntEnum):
+    QUIET = 0
+    NORMAL = 1
+    VERBOSE = 2
+
+
 parser = argparse.ArgumentParser(description="Script to run mypy against various test cases for typeshed's stubs")
 parser.add_argument(
     "packages_to_test",
@@ -66,7 +73,12 @@ parser.add_argument(
         "Note that this cannot be specified if --platform and/or --python-version are specified."
     ),
 )
-parser.add_argument("--quiet", action="store_true", help="Print less output to the terminal")
+parser.add_argument(
+    "--verbosity",
+    choices=[member.name for member in Verbosity],
+    default=Verbosity.NORMAL.name,
+    help="Control how much output to print to the terminal",
+)
 parser.add_argument(
     "--platform",
     dest="platforms_to_test",
@@ -92,7 +104,13 @@ parser.add_argument(
 )
 
 
-def setup_testcase_dir(package: PackageInfo, tempdir: Path, new_test_case_dir: Path) -> None:
+def verbose_log(msg: str) -> None:
+    print(colored("\n" + msg, "blue"))
+
+
+def setup_testcase_dir(package: PackageInfo, tempdir: Path, new_test_case_dir: Path, verbosity: Verbosity) -> None:
+    if verbosity is verbosity.VERBOSE:
+        verbose_log(f"Setting up testcase dir in {tempdir}")
     # --warn-unused-ignores doesn't work for files inside typeshed.
     # SO, to work around this, we copy the test_cases directory into a TemporaryDirectory,
     # and run the test cases inside of that.
@@ -119,8 +137,12 @@ def setup_testcase_dir(package: PackageInfo, tempdir: Path, new_test_case_dir: P
         shutil.copytree(Path("stubs", requirement), new_typeshed / "stubs" / requirement)
 
     if requirements.external_pkgs:
+        if verbosity is Verbosity.VERBOSE:
+            verbose_log(f"Setting up venv in {tempdir / VENV_DIR}")
         pip_exe = make_venv(tempdir / VENV_DIR).pip_exe
         pip_command = [pip_exe, "install", get_mypy_req(), *requirements.external_pkgs]
+        if verbosity is Verbosity.VERBOSE:
+            verbose_log(f"{pip_command=}")
         try:
             subprocess.run(pip_command, check=True, capture_output=True, text=True)
         except subprocess.CalledProcessError as e:
@@ -128,15 +150,18 @@ def setup_testcase_dir(package: PackageInfo, tempdir: Path, new_test_case_dir: P
             raise
 
 
-def run_testcases(package: PackageInfo, version: str, platform: str, *, tempdir: Path) -> subprocess.CompletedProcess[str]:
+def run_testcases(
+    package: PackageInfo, version: str, platform: str, *, tempdir: Path, verbosity: Verbosity
+) -> subprocess.CompletedProcess[str]:
     env_vars = dict(os.environ)
     new_test_case_dir = tempdir / TEST_CASES
     testcasedir_already_setup = new_test_case_dir.exists() and new_test_case_dir.is_dir()
 
     if not testcasedir_already_setup:
-        setup_testcase_dir(package, tempdir=tempdir, new_test_case_dir=new_test_case_dir)
+        setup_testcase_dir(package, tempdir=tempdir, new_test_case_dir=new_test_case_dir, verbosity=verbosity)
 
-    # "--enable-error-code ignore-without-code" is purposefully ommited. See https://github.com/python/typeshed/pull/8083
+    # "--enable-error-code ignore-without-code" is purposefully ommited.
+    # See https://github.com/python/typeshed/pull/8083
     flags = [
         "--python-version",
         version,
@@ -178,19 +203,27 @@ def run_testcases(package: PackageInfo, version: str, platform: str, *, tempdir:
         flags.append(str(path))
 
     mypy_command = [python_exe, "-m", "mypy"] + flags
+    if verbosity is Verbosity.VERBOSE:
+        verbose_log(f"\n{mypy_command=}")
+        if "MYPYPATH" in env_vars:
+            verbose_log(f"{env_vars['MYPYPATH']=}")
+        else:
+            verbose_log("MYPYPATH not set")
     return subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars)
 
 
-def test_testcase_directory(package: PackageInfo, version: str, platform: str, *, quiet: bool, tempdir: Path) -> ReturnCode:
+def test_testcase_directory(
+    package: PackageInfo, version: str, platform: str, *, verbosity: Verbosity, tempdir: Path
+) -> ReturnCode:
     msg = f"Running mypy --platform {platform} --python-version {version} on the "
     msg += "standard library test cases..." if package.is_stdlib else f"test cases for {package.name!r}..."
-    if not quiet:
+    if verbosity > Verbosity.QUIET:
         print(msg, end=" ", flush=True)
 
-    result = run_testcases(package=package, version=version, platform=platform, tempdir=tempdir)
+    result = run_testcases(package=package, version=version, platform=platform, tempdir=tempdir, verbosity=verbosity)
 
     if result.returncode:
-        if quiet:
+        if verbosity > Verbosity.QUIET:
             # We'll already have printed this if --quiet wasn't passed.
             # If--quiet was passed, only print this if there were errors.
             # If there are errors, the output is inscrutable if this isn't printed.
@@ -201,7 +234,7 @@ def test_testcase_directory(package: PackageInfo, version: str, platform: str, *
             print_error(result.stderr, fix_path=replacements)
         if result.stdout:
             print_error(result.stdout, fix_path=replacements)
-    elif not quiet:
+    elif verbosity > Verbosity.QUIET:
         print_success_msg()
     return result.returncode
 
@@ -210,6 +243,7 @@ def main() -> ReturnCode:
     args = parser.parse_args()
 
     testcase_directories = args.packages_to_test or get_all_testcase_directories()
+    verbosity = Verbosity[args.verbosity]
     if args.all:
         if args.platforms_to_test:
             parser.error("Cannot specify both --platform and --all")
@@ -225,7 +259,7 @@ def main() -> ReturnCode:
         with tempfile.TemporaryDirectory() as td:
             tempdir = Path(td)
             for platform, version in product(platforms_to_test, versions_to_test):
-                this_code = test_testcase_directory(testcase_dir, version, platform, quiet=args.quiet, tempdir=tempdir)
+                this_code = test_testcase_directory(testcase_dir, version, platform, verbosity=verbosity, tempdir=tempdir)
                 code = max(code, this_code)
     if code:
         print_error("\nTest completed with errors")
