@@ -204,7 +204,7 @@ def run_testcases(
 
     mypy_command = [python_exe, "-m", "mypy"] + flags
     if verbosity is Verbosity.VERBOSE:
-        verbose_log(f"\n{mypy_command=}")
+        verbose_log(f"{mypy_command=}")
         if "MYPYPATH" in env_vars:
             verbose_log(f"{env_vars['MYPYPATH']=}")
         else:
