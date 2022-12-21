@@ -113,7 +113,7 @@ class _Settings(TypedDict):
 
 class Session(SessionRedirectMixin):
     __attrs__: Any
-    headers: CaseInsensitiveDict[str | bytes]
+    headers: MutableMapping[str, str | bytes | None]
     auth: _Auth | None
     proxies: _TextMapping
     # Don't complain if:
