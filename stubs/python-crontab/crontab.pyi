@@ -5,8 +5,8 @@ from collections import OrderedDict
 from collections.abc import Callable, Generator
 from logging import Logger
 from types import TracebackType
-from typing import Any, Iterator, SupportsIndex
-from typing_extensions import Literal
+from typing import Any, Iterator
+from typing_extensions import Literal, SupportsIndex
 
 from cronlog import CronLog
 
