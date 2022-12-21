@@ -23,7 +23,6 @@ _StrType = TypeVar("_StrType", bound=str | bytes)
 
 _VT = TypeVar("_VT")
 _T = TypeVar("_T")
-_ScoreCastFuncReturn = TypeVar("_ScoreCastFuncReturn")
 
 # Keyword arguments that are passed to Redis.parse_response().
 _ParseResponseOptions: TypeAlias = Any
