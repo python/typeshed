@@ -7,6 +7,7 @@ from typing_extensions import TypeAlias
 # import numpy as np
 # import numpy.typing as npt
 
+# for now, use Any instead of numpy.ndarray
 _NDArray: TypeAlias = Any  # FIXME: no typings for numpy arrays
 
 class _ImageU8(ctypes.Structure): ...
