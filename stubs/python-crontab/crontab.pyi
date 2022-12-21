@@ -2,10 +2,10 @@ import re
 import subprocess
 from _typeshed import Incomplete, Self
 from collections import OrderedDict
-from collections.abc import Callable, Generator
+from collections.abc import Callable, Generator, Iterator
 from logging import Logger
 from types import TracebackType
-from typing import Any, Iterator
+from typing import Any
 from typing_extensions import Literal, SupportsIndex
 
 from cronlog import CronLog
