@@ -1,5 +1,5 @@
 version = "0.0.16"
-requires = [ "numpy" ]
+requires = [ "types-numpy" ]
 
 [tool.stubtest]
 ignore_missing_stub = false
