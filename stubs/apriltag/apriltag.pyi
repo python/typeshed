@@ -1,7 +1,12 @@
 import ctypes
 from typing import Any, Dict, List, NamedTuple, Tuple
+from typing_extensions import TypeAlias
 
-import numpy  # type: ignore
+# TODO: Use numpy types when #5768 is resolved.
+# import numpy as np
+# import numpy.typing as npt
+
+_NDArray: TypeAlias = Any  # FIXME: no typings for numpy arrays
 
 class _ImageU8(ctypes.Structure): ...
 class _Matd(ctypes.Structure): ...
@@ -16,9 +21,9 @@ class DetectionBase(NamedTuple):
     hamming: int
     goodness: float
     decision_margin: float
-    homography: numpy.ndarray
-    center: numpy.ndarray
-    corners: numpy.ndarray
+    homography: _NDArray
+    center: _NDArray
+    corners: _NDArray
 
 class Detection(DetectionBase):
     def tostring(self, values: Dict[str, Any] | None = ..., indent: int = ...) -> str: ...
@@ -57,10 +62,10 @@ class Detector:
     families: List[str]
     def __init__(self, options: DetectorOptions | None = ..., searchpath: List[str] = ...) -> None: ...
     def __del__(self) -> None: ...
-    def detect(self, img: numpy.ndarray, return_image: bool = ...) -> numpy.ndarray: ...
+    def detect(self, img: _NDArray, return_image: bool = ...) -> _NDArray: ...
     def add_tag_family(self, name) -> None: ...
     def detection_pose(
         self, detection, camera_params, tag_size: int = ..., z_sign: int = ...
-    ) -> Tuple[numpy.ndarray, float, float]: ...
+    ) -> Tuple[_NDArray, float, float]: ...
 
 def main() -> None: ...
