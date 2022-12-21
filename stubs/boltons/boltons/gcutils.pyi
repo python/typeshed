@@ -1,5 +1,3 @@
-# TODO: DONE!
-
 from typing import NoReturn, TypeVar
 
 _T = TypeVar("_T")

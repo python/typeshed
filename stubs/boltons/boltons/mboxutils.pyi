@@ -1,5 +1,3 @@
-# TODO: DONE!
-
 import mailbox
 from typing import NoReturn
 

@@ -1,5 +1,3 @@
-# TODO: DONE!
-
 def augpath(
     path: str,
     suffix: str = ...,

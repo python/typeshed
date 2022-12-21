@@ -1,5 +1,3 @@
-# TODO: DONE!
-
 from _typeshed import StrOrBytesPath
 from collections.abc import Callable, Generator, Iterable
 from types import TracebackType
@@ -11,12 +9,6 @@ _PathReturn: TypeAlias = Any
 def mkdir_p(path: StrOrBytesPath) -> NoReturn: ...
 
 class FilePerms:
-    # class _FilePermProperty:
-    #     attribute: Incomplete
-    #     offset: Incomplete
-    #     def __init__(self, attribute, offset) -> None: ...
-    #     def __get__(self, fp_obj, type_: Incomplete | None = ...): ...
-    #     def __set__(self, fp_obj, value): ...
     user: str
     group: str
     other: str

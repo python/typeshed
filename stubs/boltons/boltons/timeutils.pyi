@@ -1,5 +1,3 @@
-# TODO: DONE!
-
 from collections.abc import Generator
 from datetime import date, datetime, timedelta, tzinfo
 from typing import NoReturn

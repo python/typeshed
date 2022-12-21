@@ -1,5 +1,3 @@
-# TODO: DONE!
-
 from collections.abc import Iterable
 from typing import NoReturn
 
@@ -7,7 +5,6 @@ def clamp(x: float, lower: float = ..., upper: float = ...) -> float: ...
 def ceil(x: float, options: Iterable[float] | None = ...) -> float: ...
 def floor(x: float, options: Iterable[float] | None = ...) -> float: ...
 
-# bytes = str
 unicode = str
 
 class Bits:

@@ -1,28 +1,8 @@
-# TODO: DONE!
-
-from typing import Any, NamedTuple, NoReturn
+from typing import Any, NoReturn
 
 class ExceptionCauseMixin(Exception):
     cause: Any
     def __new__(cls, *args, **kw) -> NoReturn: ...
     def get_str(self) -> str: ...
-
-class _BaseTBItem(NamedTuple):
-    filename: str
-    lineno: int
-    name: str
-    line: str
-
-class _TBItem(_BaseTBItem): ...
-
-class _DeferredLine:
-    filename: str
-    lineno: int
-    module_globals: dict[Any, Any]
-    def __init__(self, filename: str, lineno: int, module_globals: dict[Any, Any] | None = ...) -> None: ...
-    def __eq__(self, other: object) -> bool: ...
-    def __ne__(self, other: object) -> bool: ...
-    def __len__(self) -> int: ...
-    def strip(self) -> str: ...
 
 class MathError(ExceptionCauseMixin, ValueError): ...

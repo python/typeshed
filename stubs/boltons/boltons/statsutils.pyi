@@ -1,5 +1,3 @@
-# TODO: DONE!
-
 from collections.abc import Callable, Iterator
 from typing import Any, NoReturn
 
@@ -44,7 +42,6 @@ def describe(
     data: list[float], quantiles: list[float] | None = ..., format: str | None = ...
 ) -> dict[str, float] | list[float] | str: ...
 
-# func: Incomplete
 mean: Any
 median: Any
 iqr: Any

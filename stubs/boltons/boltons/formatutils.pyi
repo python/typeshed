@@ -1,9 +1,5 @@
-# TODO: DONE!
-
 from collections.abc import Callable
 from typing import Any, NoReturn
-
-# unicode = str
 
 def construct_format_field_str(fname: str, fspec: str, conv: str) -> str: ...
 def infer_positional_format_args(fstr: str) -> str: ...

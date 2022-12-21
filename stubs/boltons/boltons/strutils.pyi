@@ -1,5 +1,3 @@
-# TODO: DONE!
-
 from collections.abc import Callable, Generator, Iterable
 from html.parser import HTMLParser
 from typing import Any, NoReturn, TypeVar

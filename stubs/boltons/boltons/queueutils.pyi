@@ -1,5 +1,3 @@
-# TODO: DONE!
-
 from typing import Any, NoReturn
 from typing_extensions import TypeAlias
 

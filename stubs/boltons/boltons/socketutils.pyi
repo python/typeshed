@@ -1,10 +1,6 @@
 import socket
 from _typeshed import Incomplete
 
-# class RLock:
-#     def __enter__(self) -> None: ...
-#     def __exit__(self, exctype, excinst, exctb) -> None: ...
-
 DEFAULT_TIMEOUT: int
 DEFAULT_MAXSIZE: Incomplete
 

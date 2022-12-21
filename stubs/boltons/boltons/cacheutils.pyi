@@ -4,7 +4,6 @@ from typing import Any, NoReturn, TypeVar
 
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
-# _T = TypeVar("_T")
 
 xrange = range
 basestring: Any

@@ -1,6 +1,2 @@
-# TODO: DONE!
-
-# OrderedDict = dict
-
 def namedtuple(typename: str, field_names: list[str], verbose: bool = ..., rename: bool = ...): ...
 def namedlist(typename: str, field_names: list[str], verbose: bool = ..., rename: bool = ...): ...

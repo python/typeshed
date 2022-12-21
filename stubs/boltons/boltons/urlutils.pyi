@@ -71,9 +71,6 @@ class URL:
 
 class _sockaddr(ctypes.Structure): ...
 
-# WSAStringToAddressA: Incomplete
-# WSAAddressToStringA: Incomplete
-
 def parse_host(host): ...
 def parse_url(url_text): ...
 

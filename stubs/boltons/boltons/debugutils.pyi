@@ -1,5 +1,3 @@
-# TODO: DONE!
-
 from typing import NoReturn
 
 def pdb_on_signal(signalnum: int | None = ...) -> NoReturn: ...

@@ -1,5 +1,3 @@
-# TODO: DONE!
-
 from collections.abc import Generator
 from typing import IO, Any, AnyStr, NoReturn
 
