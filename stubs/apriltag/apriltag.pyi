@@ -1,7 +1,7 @@
+import argparse
 import ctypes
 from typing import Any, Dict, List, NamedTuple, Tuple
 from typing_extensions import TypeAlias
-import argparse
 
 # TODO: Use numpy types when #5768 is resolved.
 # import numpy as np
