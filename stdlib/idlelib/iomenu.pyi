@@ -1,6 +1,6 @@
 from idlelib.config import idleConf as idleConf
-from idlelib.util import py_extensions as py_extensions
 from idlelib.pyshell import PyShellEditorWindow
+from idlelib.util import py_extensions as py_extensions
 from tkinter import Event, Text, filedialog
 from typing import Any, Callable
 

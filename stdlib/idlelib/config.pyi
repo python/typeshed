@@ -23,7 +23,7 @@ class IdleUserConfParser(IdleConfParser):
     def IsEmpty(self) -> bool: ...
     def Save(self) -> None: ...
 
-T = TypeVar('T')
+T = TypeVar("T")
 
 class IdleConf:
     config_types: tuple[str, str, str, str]
