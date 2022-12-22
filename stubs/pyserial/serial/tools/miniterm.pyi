@@ -1,7 +1,6 @@
 import codecs
 import sys
 import threading
-import types
 from _typeshed import Self
 from collections.abc import Iterable
 from typing import Any, BinaryIO, TextIO
@@ -11,10 +10,9 @@ from serial import Serial
 def key_description(character: str) -> str: ...
 
 class ConsoleBase:
-    miniterm: Miniterm
     byte_output: BinaryIO
     output: codecs.StreamWriter | TextIO
-    def __init__(self, miniterm: Miniterm) -> None: ...
+    def __init__(self) -> None: ...
     def setup(self) -> None: ...
     def cleanup(self) -> None: ...
     def getkey(self) -> None: ...
@@ -40,7 +38,6 @@ else:
         fd: int
         old: list[Any]  # return type of termios.tcgetattr()
         enc_stdin: TextIO
-        def sigint(self, sig: int, frame: types.FrameType | None) -> None: ...
 
 class Transform:
     def rx(self, text: str) -> str: ...
@@ -110,9 +107,5 @@ class Miniterm:
     def get_help_text(self) -> str: ...
 
 def main(
-    default_port: str | None = ...,
-    default_baudrate: int = ...,
-    default_rts: int | None = ...,
-    default_dtr: int | None = ...,
-    serial_instance: Serial | None = ...,
+    default_port: str | None = ..., default_baudrate: int = ..., default_rts: int | None = ..., default_dtr: int | None = ...
 ) -> None: ...

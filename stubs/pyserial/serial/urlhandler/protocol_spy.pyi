@@ -1,4 +1,3 @@
-import logging
 from collections.abc import Generator
 from typing import TextIO
 
@@ -29,13 +28,7 @@ class FormatHexdump(_Formatter):
     def __init__(self, output: TextIO, color: bool) -> None: ...
     def write_line(self, timestamp: float, label: str, value: str, value2: str = ...) -> None: ...
 
-class FormatLog(_Formatter):
-    log: logging.Logger
-    def __init__(self, output: str, color: bool) -> None: ...
-
-class FormatLogHex(FormatLog): ...
-
 class Serial(serial.Serial):
-    formatter: FormatRaw | FormatHexdump | FormatLog | FormatLogHex | None
+    formatter: FormatRaw | FormatHexdump | None
     show_all: bool
     def from_url(self, url: str) -> str: ...

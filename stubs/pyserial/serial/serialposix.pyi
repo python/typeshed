@@ -11,7 +11,6 @@ CMSPAR: int
 if sys.platform == "linux":
     TCGETS2: int
     TCSETS2: int
-    BAUDRATE_OFFSET: int
     BOTHER: int
     TIOCGRS485: int
     TIOCSRS485: int

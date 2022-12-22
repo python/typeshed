@@ -4,15 +4,6 @@ serial.__main__  # SystemExit
 serial.serialcli  # (IronPython) ModuleNotFoundError: No module named 'System'
 serial.serialjava  # No Java Communications API implementation found
 
-# Error: is not present at runtime
-# ================================
-serial.urlhandler.protocol_spy.FormatLog  # Class exists!
-serial.urlhandler.protocol_spy.FormatLogHex  # Class exists!
-serial.tools.miniterm.Console.__init__  # Argument exists!
-serial.tools.miniterm.Console.sigint  # Method exists!
-serial.tools.miniterm.ConsoleBase.__init__  # Argument exists!
-serial.tools.miniterm.main # Argument exists!
-
 # Error: is inconsistent
 # ======================
 # These are positional only argument in the stub because they inherit from io.RawIOBase
