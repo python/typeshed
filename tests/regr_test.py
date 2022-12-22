@@ -37,6 +37,8 @@ def package_with_test_cases(package_name: str) -> PackageInfo:
         return PackageInfo("stdlib", Path("test_cases"))
     test_case_dir = testcase_dir_from_package_name(package_name)
     if test_case_dir.is_dir():
+        if not os.listdir(test_case_dir):
+            raise argparse.ArgumentTypeError(f"{package_name!r} has a 'test_cases' directory but it is empty!")
         return PackageInfo(package_name, test_case_dir)
     raise argparse.ArgumentTypeError(f"No test cases found for {package_name!r}!")
 
@@ -57,6 +59,7 @@ parser.add_argument(
         "Note that this cannot be specified if --platform and/or --python-version are specified."
     ),
 )
+parser.add_argument("--quiet", action="store_true", help="Print less output to the terminal")
 parser.add_argument(
     "--platform",
     dest="platforms_to_test",
@@ -82,14 +85,16 @@ parser.add_argument(
 )
 
 
-def test_testcase_directory(package: PackageInfo, version: str, platform: str) -> ReturnCode:
+def test_testcase_directory(package: PackageInfo, version: str, platform: str, quiet: bool) -> ReturnCode:
     package_name, test_case_directory = package
     is_stdlib = package_name == "stdlib"
 
     msg = f"Running mypy --platform {platform} --python-version {version} on the "
     msg += "standard library test cases..." if is_stdlib else f"test cases for {package_name!r}..."
-    print(msg, end=" ")
+    if not quiet:
+        print(msg, end=" ")
 
+    # "--enable-error-code ignore-without-code" is purposefully ommited. See https://github.com/python/typeshed/pull/8083
     flags = [
         "--python-version",
         version,
@@ -100,6 +105,7 @@ def test_testcase_directory(package: PackageInfo, version: str, platform: str) -
         platform,
         "--no-site-packages",
         "--strict",
+        "--pretty",
     ]
 
     # --warn-unused-ignores doesn't work for files inside typeshed.
@@ -146,13 +152,18 @@ def test_testcase_directory(package: PackageInfo, version: str, platform: str) -
         result = subprocess.run([sys.executable, "-m", "mypy", *flags], capture_output=True, env=env_vars)
 
     if result.returncode:
+        if quiet:
+            # We'll already have printed this if --quiet wasn't passed.
+            # If--quiet was passed, only print this if there were errors.
+            # If there are errors, the output is inscrutable if this isn't printed.
+            print(msg, end=" ")
         print_error("failure\n")
         replacements = (str(new_test_case_dir), str(test_case_directory))
         if result.stderr:
             print_error(result.stderr.decode(), fix_path=replacements)
         if result.stdout:
             print_error(result.stdout.decode(), fix_path=replacements)
-    else:
+    elif not quiet:
         print_success_msg()
     return result.returncode
 
@@ -163,9 +174,9 @@ def main() -> ReturnCode:
     testcase_directories = args.packages_to_test or get_all_testcase_directories()
     if args.all:
         if args.platforms_to_test:
-            raise TypeError("Cannot specify both --platform and --all")
+            parser.error("Cannot specify both --platform and --all")
         if args.versions_to_test:
-            raise TypeError("Cannot specify both --python-version and --all")
+            parser.error("Cannot specify both --python-version and --all")
         platforms_to_test, versions_to_test = SUPPORTED_PLATFORMS, SUPPORTED_VERSIONS
     else:
         platforms_to_test = args.platforms_to_test or [sys.platform]
@@ -173,7 +184,7 @@ def main() -> ReturnCode:
 
     code = 0
     for platform, version, directory in product(platforms_to_test, versions_to_test, testcase_directories):
-        code = max(code, test_testcase_directory(directory, version, platform))
+        code = max(code, test_testcase_directory(directory, version, platform, args.quiet))
     if code:
         print_error("\nTest completed with errors")
     else:

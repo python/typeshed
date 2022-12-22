@@ -19,6 +19,8 @@ concurrency:
 
 env:
   PIP_DISABLE_PIP_VERSION_CHECK: 1
+  FORCE_COLOR: 1
+  TERM: xterm-256color  # needed for FORCE_COLOR to work on mypy on Ubuntu, see https://github.com/python/mypy/issues/13817
 
 jobs:
   stubtest-stdlib:
@@ -58,7 +60,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
-          python-version: "3.9"
+          python-version: "3.10"
           cache: pip
           cache-dependency-path: |
             requirements-tests.txt
@@ -69,12 +71,23 @@ jobs:
       - name: Run stubtest
         shell: bash
         run: |
-          if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
-            sudo apt update
-            sudo apt install -y $(python tests/get_packages.py)
+          PACKAGES=$(python tests/get_packages.py)
+
+          if [ "${{ runner.os }}" = "Linux" ]; then
+            if [ -n "$PACKAGES" ]; then
+              sudo apt update && sudo apt install -y $PACKAGES
+            fi
 
             xvfb-run python tests/stubtest_third_party.py --specified-stubs-only --num-shards 4 --shard-index ${{ matrix.shard-index }}
           else
+            if [ "${{ runner.os }}" = "macOS" ] && [ -n "$PACKAGES" ]; then
+              NONINTERACTIVE=1 brew install $PACKAGES
+            fi
+
+            if [ "${{ runner.os }}" = "Windows" ] && [ -n "$PACKAGES" ]; then
+              choco install -y $PACKAGES
+            fi
+
             python tests/stubtest_third_party.py --specified-stubs-only --num-shards 4 --shard-index ${{ matrix.shard-index }}
           fi
 

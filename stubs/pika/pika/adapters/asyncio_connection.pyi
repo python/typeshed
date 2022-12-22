@@ -1,23 +1,27 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Self
+from asyncio import AbstractEventLoop
+from collections.abc import Callable
+from logging import Logger
 
-from pika.adapters import base_connection
-from pika.adapters.utils import io_services_utils, nbio_interface
+from ..connection import Parameters
+from .base_connection import BaseConnection
+from .utils import io_services_utils, nbio_interface
 
-LOGGER: Incomplete
+LOGGER: Logger
 
-class AsyncioConnection(base_connection.BaseConnection):
+class AsyncioConnection(BaseConnection):
     def __init__(
-        self,
-        parameters: Incomplete | None = ...,
-        on_open_callback: Incomplete | None = ...,
-        on_open_error_callback: Incomplete | None = ...,
-        on_close_callback: Incomplete | None = ...,
-        custom_ioloop: Incomplete | None = ...,
+        self: Self,
+        parameters: Parameters | None = ...,
+        on_open_callback: Callable[[Self], object] | None = ...,
+        on_open_error_callback: Callable[[Self, BaseException], object] | None = ...,
+        on_close_callback: Callable[[Self, BaseException], object] | None = ...,
+        custom_ioloop: AbstractEventLoop | None = ...,
         internal_connection_workflow: bool = ...,
     ) -> None: ...
     @classmethod
     def create_connection(
-        cls, connection_configs, on_done, custom_ioloop: Incomplete | None = ..., workflow: Incomplete | None = ...
+        cls, connection_configs, on_done, custom_ioloop: AbstractEventLoop | None = ..., workflow: Incomplete | None = ...
     ): ...
 
 class _AsyncioIOServicesAdapter(

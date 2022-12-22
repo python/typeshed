@@ -15,12 +15,40 @@ import yaml
 from packaging.requirements import Requirement
 from packaging.specifiers import SpecifierSet
 from packaging.version import Version
-from utils import VERSIONS_RE, get_all_testcase_directories, get_gitignore_spec, spec_matches_path, strip_comments
+from utils import (
+    METADATA_MAPPING,
+    VERSIONS_RE,
+    get_all_testcase_directories,
+    get_gitignore_spec,
+    spec_matches_path,
+    strip_comments,
+)
 
-metadata_keys = {"version", "requires", "extra_description", "obsolete_since", "no_longer_updated", "tool"}
-tool_keys = {"stubtest": {"skip", "apt_dependencies", "extras", "ignore_missing_stub", "platforms"}}
+metadata_keys = {
+    "version",
+    "requires",
+    "extra_description",
+    "stub_distribution",
+    "obsolete_since",
+    "no_longer_updated",
+    "upload",
+    "tool",
+}
+tool_keys = {
+    "stubtest": {
+        "skip",
+        "apt_dependencies",
+        "brew_dependencies",
+        "choco_dependencies",
+        "extras",
+        "ignore_missing_stub",
+        "platforms",
+    }
+}
 extension_descriptions = {".pyi": "stub", ".py": ".py"}
 supported_stubtest_platforms = {"win32", "darwin", "linux"}
+
+dist_name_re = re.compile(r"^[a-z0-9]([a-z0-9._-]*[a-z0-9])?$", re.IGNORECASE)
 
 
 def assert_consistent_filetypes(
@@ -40,7 +68,7 @@ def assert_consistent_filetypes(
         if entry.is_file():
             if not allow_nonidentifier_filenames:
                 assert entry.stem.isidentifier(), f'Files must be valid modules, got: "{entry}"'
-                bad_filetype = f'Only {extension_descriptions[kind]!r} files allowed in the "{directory}" directory; got: {entry}'
+            bad_filetype = f'Only {extension_descriptions[kind]!r} files allowed in the "{directory}" directory; got: {entry}'
             assert entry.suffix == kind, bad_filetype
         else:
             assert entry.name.isidentifier(), f"Directories must be valid packages, got: {entry}"
@@ -74,9 +102,10 @@ def check_test_cases() -> None:
         bad_test_case_filename = 'Files in a `test_cases` directory must have names starting with "check_"; got "{}"'
         for file in testcase_dir.rglob("*.py"):
             assert file.stem.startswith("check_"), bad_test_case_filename.format(file)
+            with open(file, encoding="UTF-8") as f:
+                lines = {line.strip() for line in f}
+            assert "from __future__ import annotations" in lines, "Test-case files should use modern typing syntax where possible"
             if package_name != "stdlib":
-                with open(file, encoding="UTF-8") as f:
-                    lines = {line.strip() for line in f}
                 pyright_setting_not_enabled_msg = (
                     f'Third-party test-case file "{file}" must have '
                     f'"# pyright: reportUnnecessaryTypeIgnoreComment=true" '
@@ -150,15 +179,28 @@ def check_metadata() -> None:
             # Check that the requirement parses
             Requirement(dep)
 
+        if "stub_distribution" in data:
+            assert dist_name_re.fullmatch(data["stub_distribution"]), f"Invalid 'stub_distribution' value for {distribution!r}"
+
+        assert isinstance(data.get("upload", True), bool), f"Invalid 'upload' value for {distribution!r}"
+
         assert set(data.get("tool", [])).issubset(tool_keys.keys()), f"Unrecognised tool for {distribution}"
         for tool, tk in tool_keys.items():
             for key in data.get("tool", {}).get(tool, {}):
                 assert key in tk, f"Unrecognised {tool} key {key} for {distribution}"
 
-        specified_stubtest_platforms = set(data.get("tool", {}).get("stubtest", {}).get("platforms", []))
+        tool_stubtest = data.get("tool", {}).get("stubtest", {})
+        specified_stubtest_platforms = set(tool_stubtest.get("platforms", []))
         assert (
             specified_stubtest_platforms <= supported_stubtest_platforms
-        ), f"Unrecognised platforms specified: {supported_stubtest_platforms - specified_stubtest_platforms}"
+        ), f"Unrecognised platforms specified: {supported_stubtest_platforms - specified_stubtest_platforms} for {distribution}"
+
+        # Check that only specified platforms install packages:
+        for supported_plat in supported_stubtest_platforms:
+            if supported_plat not in specified_stubtest_platforms:
+                assert (
+                    METADATA_MAPPING[supported_plat] not in tool_stubtest
+                ), f"Installing system deps for unspecified platform {supported_plat} for {distribution}"
 
 
 def get_txt_requirements() -> dict[str, SpecifierSet]:
@@ -189,7 +231,7 @@ def check_requirements() -> None:
     precommit_requirements = get_precommit_requirements()
     no_txt_entry_msg = "All pre-commit requirements must also be listed in `requirements-tests.txt` (missing {requirement!r})"
     for requirement, specifier in precommit_requirements.items():
-        assert requirement in requirements_txt_requirements, no_txt_entry_msg.format(requirement)
+        assert requirement in requirements_txt_requirements, no_txt_entry_msg.format(requirement=requirement)
         specifier_mismatch = (
             f'Specifier "{specifier}" for {requirement!r} in `.pre-commit-config.yaml` '
             f'does not match specifier "{requirements_txt_requirements[requirement]}" in `requirements-tests.txt`'

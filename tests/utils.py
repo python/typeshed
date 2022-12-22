@@ -12,6 +12,9 @@ from typing import NamedTuple
 import pathspec  # type: ignore[import]
 import tomli
 
+# Used to install system-wide packages for different OS types:
+METADATA_MAPPING = {"linux": "apt_dependencies", "darwin": "brew_dependencies", "win32": "choco_dependencies"}
+
 
 def strip_comments(text: str) -> str:
     return text.split("#")[0].strip()

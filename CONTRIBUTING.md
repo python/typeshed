@@ -176,6 +176,9 @@ supported:
 * `extra_description` (optional): Can be used to add a custom description to
   the package's long description. It should be a multi-line string in
   Markdown format.
+* `stub_distribution` (optional): Distribution name to be uploaded to PyPI.
+  This defaults to `types-<distribution>` and should only be set in special
+  cases.
 * `obsolete_since` (optional): This field is part of our process for
   [removing obsolete third-party libraries](#third-party-library-removal-policy).
   It contains the first version of the corresponding library that ships
@@ -183,6 +186,9 @@ supported:
 * `no_longer_updated` (optional): This field is set to `true` before removing
   stubs for other reasons than the upstream library shipping with type
   information.
+* `upload` (optional): This field is set to `false` to prevent automatic
+  uploads to PyPI. This should only used in special cases, e.g. when the stubs
+  break the upload.
 
 In addition, we specify configuration for stubtest in the `tool.stubtest` table.
 This has the following keys:
@@ -190,13 +196,19 @@ This has the following keys:
   package. Please avoid setting this to `true`, and add a comment if you have
   to.
 * `apt_dependencies` (default: `[]`): A list of Ubuntu APT packages
-  that need to be installed for stubtest to run successfully. These are
-  usually packages needed to pip install the implementation distribution.
+  that need to be installed for stubtest to run successfully.
+* `brew_dependencies` (default: `[]`): A list of MacOS Homebrew packages
+  that need to be installed for stubtest to run successfully
+* `choco_dependencies` (default: `[]`): A list of Windows Chocolatey packages
+  that need to be installed for stubtest to run successfully
 * `platforms` (default: `["linux"]`): A list of OSes on which to run stubtest.
   Can contain `win32`, `linux`, and `darwin` values.
   If not specified, stubtest is run only on `linux`.
   Only add extra OSes to the test
   if there are platform-specific branches in a stubs package.
+
+`*_dependencies` are usually packages needed to `pip install` the implementation
+distribution.
 
 The format of all `METADATA.toml` files can be checked by running
 `python3 ./tests/check_consistent.py`.
