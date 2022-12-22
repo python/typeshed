@@ -1,6 +1,6 @@
 from configparser import ConfigParser
 from tkinter import Widget
-from typing import Any
+from typing import Any, TypeVar
 
 class InvalidConfigType(Exception): ...
 class InvalidConfigSet(Exception): ...
@@ -23,6 +23,8 @@ class IdleUserConfParser(IdleConfParser):
     def IsEmpty(self) -> bool: ...
     def Save(self) -> None: ...
 
+T = TypeVar('T')
+
 class IdleConf:
     config_types: tuple[str, str, str, str]
     defaultCfg: dict[str, IdleConfParser]
@@ -37,11 +39,11 @@ class IdleConf:
         configType: str,
         section: str,
         option: str,
-        default: Any | None = ...,
-        type: Any | None = ...,
+        default: T | None = ...,
+        type: str | None = ...,
         warn_on_default: bool = ...,
         raw: bool = ...,
-    ) -> str | int | bool: ...
+    ) -> str | int | bool | T | None: ...
     def SetOption(self, configType: str, section: str, option: str, value: str | int | bool) -> None: ...
     def GetSectionList(self, configSet: str, configType: str) -> list[str]: ...
     def GetHighlight(self, theme: str, element: str) -> dict[str, str]: ...
