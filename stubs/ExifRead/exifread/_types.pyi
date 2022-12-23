@@ -1,4 +1,4 @@
-# Stubs-only module with type aliases, commonly used in ExifRead.
+# Stubs-only module with type aliases for ExifRead.
 
 from collections.abc import Callable
 from typing import Protocol
