@@ -1,9 +1,9 @@
-from _typeshed import Incomplete
+from logging import Logger
 from typing import Any
 
 from ._types import Reader, TagDict
 
-logger: Incomplete
+logger: Logger
 
 class IfdTag:
     printable: str
@@ -18,7 +18,7 @@ class ExifHeader:
     file_handle: Reader
     endian: str
     offset: int
-    fake_exif: Incomplete
+    fake_exif: bool
     strict: bool
     debug: bool
     detailed: bool
@@ -29,7 +29,7 @@ class ExifHeader:
         file_handle: Reader,
         endian: str,
         offset: int,
-        fake_exif,
+        fake_exif: bool,
         strict: bool,
         debug: bool = ...,
         detailed: bool = ...,
