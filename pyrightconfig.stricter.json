@@ -31,7 +31,6 @@
         "stubs/cryptography",
         "stubs/dateparser",
         "stubs/docutils",
-        "stubs/ExifRead",
         "stubs/Flask-Migrate",
         "stubs/Flask-SQLAlchemy",
         "stubs/fpdf2",
