@@ -1,6 +1,6 @@
+from _typeshed import Self
 from collections.abc import Iterator, Mapping
 from typing import Any
-from _typeshed import Self
 from xml.sax import handler
 
 def is_string(x: object) -> bool: ...
