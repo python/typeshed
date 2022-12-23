@@ -224,7 +224,7 @@ def test_testcase_directory(
     if result.returncode:
         if verbosity > Verbosity.QUIET:
             # We'll already have printed this if --quiet wasn't passed.
-            # If--quiet was passed, only print this if there were errors.
+            # If --quiet was passed, only print this if there were errors.
             # If there are errors, the output is inscrutable if this isn't printed.
             print(msg, end=" ")
         print_error("failure\n")
