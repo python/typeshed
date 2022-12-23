@@ -3,7 +3,7 @@ import subprocess
 from _typeshed import Incomplete, Self
 from builtins import range as _range
 from collections import OrderedDict
-from collections.abc import Callable, Iterable, Iterator
+from collections.abc import Callable, Generator, Iterable, Iterator
 from datetime import datetime
 from logging import Logger
 from types import TracebackType
