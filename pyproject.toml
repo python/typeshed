@@ -59,3 +59,6 @@ extra_standard_library = [
 [tool.pycln]
 all = true
 disable_all_dunder_policy = true
+
+[tool.typeshed]
+pyright_version = "1.1.284"

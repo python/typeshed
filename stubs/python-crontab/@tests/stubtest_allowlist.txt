@@ -1,6 +1,6 @@
 # Re-export:
 crontabs.X_OK
-
-# Runtime only-hacks that don't affect typing:
+# Runtime only-hack that doesn't affect typing:
 crontabs.CronTabs.__new__
+# stub does not have *args argument "args", but function doesn't actually accept positional args
 crontab.CronTab.remove_all
