@@ -69,6 +69,7 @@
         "stubs/stripe",
         "stubs/tqdm",
         "stubs/ttkthemes",
+        "stubs/untangle",
         "stubs/urllib3",
         "stubs/vobject",
     ],
