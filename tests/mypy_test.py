@@ -274,7 +274,7 @@ def add_third_party_files(
     seen_dists.add(distribution)
 
     stubs_dir = Path("stubs")
-    dependencies = get_recursive_requirements(distribution)
+    dependencies = get_recursive_requirements(distribution).typeshed_pkgs
 
     for dependency in dependencies:
         if dependency in seen_dists:
