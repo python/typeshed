@@ -2,7 +2,6 @@ from _typeshed import Self, StrOrBytesPath
 from codecs import StreamReaderWriter
 from collections.abc import Generator, Iterator
 from types import TracebackType
-from typing_extensions import Literal
 
 MATCHER: str
 

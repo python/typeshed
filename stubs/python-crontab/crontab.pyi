@@ -6,7 +6,7 @@ from collections.abc import Callable, Generator, Iterator
 from logging import Logger
 from types import TracebackType
 from typing import Any
-from typing_extensions import Literal, SupportsIndex
+from typing_extensions import SupportsIndex
 
 from cronlog import CronLog
 
