@@ -4,23 +4,15 @@
 from __future__ import annotations
 
 import argparse
-import functools
 import os
 import subprocess
 import sys
 import tempfile
-import venv
 from pathlib import Path
 from typing import NoReturn
 
 import tomli
-from utils import colored, print_error, print_success_msg
-
-
-@functools.lru_cache()
-def get_mypy_req() -> str:
-    with open("requirements-tests.txt", encoding="UTF-8") as f:
-        return next(line.strip() for line in f if "mypy" in line)
+from utils import colored, get_mypy_req, make_venv, print_error, print_success_msg
 
 
 def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: bool = False) -> bool:
@@ -44,25 +36,10 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
     with tempfile.TemporaryDirectory() as tmp:
         venv_dir = Path(tmp)
         try:
-            venv.create(venv_dir, with_pip=True, clear=True)
-        except subprocess.CalledProcessError as e:
-            if "ensurepip" in e.cmd:
-                print_error("fail")
-                print_error(
-                    "stubtest requires a Python installation with ensurepip. "
-                    "If on Linux, you may need to install the python3-venv package."
-                )
+            pip_exe, python_exe = make_venv(venv_dir)
+        except Exception:
+            print_error("fail")
             raise
-
-        if sys.platform == "win32":
-            pip = venv_dir / "Scripts" / "pip.exe"
-            python = venv_dir / "Scripts" / "python.exe"
-        else:
-            pip = venv_dir / "bin" / "pip"
-            python = venv_dir / "bin" / "python"
-
-        pip_exe, python_exe = str(pip), str(python)
-
         dist_version = metadata["version"]
         extras = stubtest_meta.get("extras", [])
         assert isinstance(dist_version, str)

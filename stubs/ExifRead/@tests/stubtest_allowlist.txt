@@ -1,0 +1,7 @@
+# The following constants are only re-exported at runtime as a side effect
+# of Python's import system.
+exifread.DEFAULT_STOP_TAG
+exifread.classes.DEFAULT_STOP_TAG
+exifread.classes.EXIF_TAGS
+exifread.classes.FIELD_TYPES
+exifread.classes.IGNORE_TAGS
