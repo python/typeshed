@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import concurrent.futures
 import os
 import re
 import subprocess
@@ -12,6 +13,7 @@ import tempfile
 from dataclasses import dataclass
 from itertools import product
 from pathlib import Path
+from threading import Lock
 from typing import TYPE_CHECKING, Any, NamedTuple
 
 if TYPE_CHECKING:
@@ -22,9 +24,13 @@ from typing_extensions import Annotated, TypeAlias
 import tomli
 from utils import (
     VERSIONS_RE as VERSION_LINE_RE,
+    PackageDependencies,
+    VenvInfo,
     colored,
     get_gitignore_spec,
+    get_mypy_req,
     get_recursive_requirements,
+    make_venv,
     print_error,
     print_success_msg,
     spec_matches_path,
@@ -205,7 +211,14 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
 
 
 def run_mypy(
-    args: TestConfig, configurations: list[MypyDistConf], files: list[Path], *, testing_stdlib: bool, mypypath: str | None = None
+    args: TestConfig,
+    configurations: list[MypyDistConf],
+    files: list[Path],
+    *,
+    testing_stdlib: bool,
+    non_types_dependencies: bool,
+    python_exe: str,
+    mypypath: str | None = None,
 ) -> ReturnCode:
     env_vars = dict(os.environ)
     if mypypath is not None:
@@ -218,11 +231,36 @@ def run_mypy(
                 temp.write(f"{k} = {v}\n")
         temp.flush()
 
-        flags = get_mypy_flags(args, temp.name, testing_stdlib=testing_stdlib)
+        flags = [
+            "--python-version",
+            args.version,
+            "--show-traceback",
+            "--warn-incomplete-stub",
+            "--show-error-codes",
+            "--no-error-summary",
+            "--platform",
+            args.platform,
+            "--custom-typeshed-dir",
+            str(Path(__file__).parent.parent),
+            "--strict",
+            # Stub completion is checked by pyright (--allow-*-defs)
+            "--allow-untyped-defs",
+            "--allow-incomplete-defs",
+            "--allow-subclassing-any",  # Needed until we can use non-types dependencies #5768
+            "--enable-error-code",
+            "ignore-without-code",
+            "--config-file",
+            temp.name,
+        ]
+        if not testing_stdlib:
+            flags.append("--explicit-package-bases")
+        if not non_types_dependencies:
+            flags.append("--no-site-packages")
+
         mypy_args = [*flags, *map(str, files)]
+        mypy_command = [python_exe, "-m", "mypy"] + mypy_args
         if args.verbose:
-            print("running mypy", " ".join(mypy_args))
-        mypy_command = [sys.executable, "-m", "mypy"] + mypy_args
+            print(colored(f"running {' '.join(mypy_command)}", "blue"))
         result = subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars)
         if result.returncode:
             print_error("failure\n")
@@ -233,34 +271,6 @@ def run_mypy(
         else:
             print_success_msg()
         return result.returncode
-
-
-def get_mypy_flags(args: TestConfig, temp_name: str, *, testing_stdlib: bool) -> list[str]:
-    flags = [
-        "--python-version",
-        args.version,
-        "--show-traceback",
-        "--warn-incomplete-stub",
-        "--show-error-codes",
-        "--no-error-summary",
-        "--platform",
-        args.platform,
-        "--no-site-packages",
-        "--custom-typeshed-dir",
-        str(Path(__file__).parent.parent),
-        "--strict",
-        # Stub completion is checked by pyright (--allow-*-defs)
-        "--allow-untyped-defs",
-        "--allow-incomplete-defs",
-        "--allow-subclassing-any",  # Needed until we can use non-types dependencies #5768
-        "--enable-error-code",
-        "ignore-without-code",
-        "--config-file",
-        temp_name,
-    ]
-    if not testing_stdlib:
-        flags.append("--explicit-package-bases")
-    return flags
 
 
 def add_third_party_files(
@@ -295,7 +305,9 @@ class TestResults(NamedTuple):
     files_checked: int
 
 
-def test_third_party_distribution(distribution: str, args: TestConfig) -> TestResults:
+def test_third_party_distribution(
+    distribution: str, args: TestConfig, python_exe: str, *, non_types_dependencies: bool
+) -> TestResults:
     """Test the stubs of a third-party distribution.
 
     Return a tuple, where the first element indicates mypy's return code
@@ -317,7 +329,17 @@ def test_third_party_distribution(distribution: str, args: TestConfig) -> TestRe
         sys.exit(1)
 
     mypypath = os.pathsep.join(str(Path("stubs", dist)) for dist in seen_dists)
-    code = run_mypy(args, configurations, files, mypypath=mypypath, testing_stdlib=False)
+    if args.verbose:
+        print(colored(f"\n{mypypath=}", "blue"))
+    code = run_mypy(
+        args,
+        configurations,
+        files,
+        python_exe=python_exe,
+        mypypath=mypypath,
+        testing_stdlib=False,
+        non_types_dependencies=non_types_dependencies,
+    )
     return TestResults(code, len(files))
 
 
@@ -334,19 +356,72 @@ def test_stdlib(code: int, args: TestConfig) -> TestResults:
             add_files(files, (stdlib / name), args)
 
     if files:
-        print(f"Testing stdlib ({len(files)} files)...")
-        print("Running mypy " + " ".join(get_mypy_flags(args, "/tmp/...", testing_stdlib=True)))
-        this_code = run_mypy(args, [], files, testing_stdlib=True)
+        print(f"Testing stdlib ({len(files)} files)...", end="", flush=True)
+        this_code = run_mypy(args, [], files, python_exe=sys.executable, testing_stdlib=True, non_types_dependencies=False)
         code = max(code, this_code)
 
     return TestResults(code, len(files))
 
 
-def test_third_party_stubs(code: int, args: TestConfig) -> TestResults:
+_PRINT_LOCK = Lock()
+_PYTHON_EXE_MAPPING: dict[str, VenvInfo] = {}
+
+
+def setup_venv_for_distribution(distribution: str, tempdir: Path) -> tuple[str, VenvInfo]:
+    venv_dir = tempdir / f".venv-{distribution}"
+    return distribution, make_venv(venv_dir)
+
+
+def install_requirements_for_distribution(
+    distribution: str, pip_exe: str, args: TestConfig, external_requirements: tuple[str, ...]
+) -> None:
+    # Use --no-cache-dir to avoid issues with concurrent read/writes to the cache
+    pip_command = [pip_exe, "install", get_mypy_req(), *external_requirements, "--no-cache-dir"]
+    if args.verbose:
+        with _PRINT_LOCK:
+            print(colored(f"pip installing the following requirements for {distribution!r}: {external_requirements}", "blue"))
+    try:
+        subprocess.run(pip_command, check=True, capture_output=True, text=True)
+    except subprocess.CalledProcessError as e:
+        print(e.stderr)
+        raise
+
+
+def setup_virtual_environments(distributions: dict[str, PackageDependencies], args: TestConfig, tempdir: Path) -> None:
+    distributions_needing_venvs: dict[str, PackageDependencies] = {}
+    for distribution, requirements in distributions.items():
+        if requirements.external_pkgs:
+            distributions_needing_venvs[distribution] = requirements
+        else:
+            _PYTHON_EXE_MAPPING[distribution] = VenvInfo(pip_exe="", python_exe=sys.executable)
+
+    if args.verbose:
+        print(colored(f"Setting up venvs for {list(distributions_needing_venvs)}...", "blue"))
+
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        venv_info_futures = [
+            executor.submit(setup_venv_for_distribution, distribution, tempdir) for distribution in distributions_needing_venvs
+        ]
+        for venv_info_future in concurrent.futures.as_completed(venv_info_futures):
+            distribution, venv_info = venv_info_future.result()
+            _PYTHON_EXE_MAPPING[distribution] = venv_info
+
+    # Limit workers to 5 at a time, since this makes network requests
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+        futures = []
+        for distribution, requirements in distributions_needing_venvs.items():
+            pip_exe = _PYTHON_EXE_MAPPING[distribution].pip_exe
+            futures.append(
+                executor.submit(install_requirements_for_distribution, distribution, pip_exe, args, requirements.external_pkgs)
+            )
+        concurrent.futures.wait(futures)
+
+
+def test_third_party_stubs(code: int, args: TestConfig, tempdir: Path) -> TestResults:
     print("Testing third-party packages...")
-    print("Running mypy " + " ".join(get_mypy_flags(args, "/tmp/...", testing_stdlib=False)))
     files_checked = 0
     gitignore_spec = get_gitignore_spec()
+    distributions_to_check: dict[str, PackageDependencies] = {}
 
     for distribution in sorted(os.listdir("stubs")):
         distribution_path = Path("stubs", distribution)
@@ -359,14 +434,24 @@ def test_third_party_stubs(code: int, args: TestConfig) -> TestResults:
             or Path("stubs") in args.filter
             or any(distribution_path in path.parents for path in args.filter)
         ):
-            this_code, checked = test_third_party_distribution(distribution, args)
-            code = max(code, this_code)
-            files_checked += checked
+            distributions_to_check[distribution] = get_recursive_requirements(distribution)
+
+    if not _PYTHON_EXE_MAPPING:
+        setup_virtual_environments(distributions_to_check, args, tempdir)
+
+    for distribution, requirements in distributions_to_check.items():
+        has_non_types_dependencies = bool(requirements.external_pkgs)
+        python_to_use = _PYTHON_EXE_MAPPING[distribution].python_exe
+        this_code, checked = test_third_party_distribution(
+            distribution, args, python_exe=python_to_use, non_types_dependencies=has_non_types_dependencies
+        )
+        code = max(code, this_code)
+        files_checked += checked
 
     return TestResults(code, files_checked)
 
 
-def test_typeshed(code: int, args: TestConfig) -> TestResults:
+def test_typeshed(code: int, args: TestConfig, tempdir: Path) -> TestResults:
     print(f"*** Testing Python {args.version} on {args.platform}")
     files_checked_this_version = 0
     stdlib_dir, stubs_dir = Path("stdlib"), Path("stubs")
@@ -376,7 +461,7 @@ def test_typeshed(code: int, args: TestConfig) -> TestResults:
         print()
 
     if stubs_dir in args.filter or any(stubs_dir in path.parents for path in args.filter):
-        code, third_party_files_checked = test_third_party_stubs(code, args)
+        code, third_party_files_checked = test_third_party_stubs(code, args, tempdir)
         files_checked_this_version += third_party_files_checked
         print()
 
@@ -391,10 +476,12 @@ def main() -> None:
     exclude = args.exclude or []
     code = 0
     total_files_checked = 0
-    for version, platform in product(versions, platforms):
-        config = TestConfig(args.verbose, filter, exclude, version, platform)
-        code, files_checked_this_version = test_typeshed(code, args=config)
-        total_files_checked += files_checked_this_version
+    with tempfile.TemporaryDirectory() as td:
+        td_path = Path(td)
+        for version, platform in product(versions, platforms):
+            config = TestConfig(args.verbose, filter, exclude, version, platform)
+            code, files_checked_this_version = test_typeshed(code, args=config, tempdir=td_path)
+            total_files_checked += files_checked_this_version
     if code:
         print_error(f"--- exit status {code}, {total_files_checked} files checked ---")
         sys.exit(code)

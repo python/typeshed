@@ -142,7 +142,7 @@ def make_venv(venv_dir: Path) -> VenvInfo:
     try:
         venv.create(venv_dir, with_pip=True, clear=True)
     except subprocess.CalledProcessError as e:
-        if "ensurepip" in e.cmd:
+        if "ensurepip" in e.cmd and "KeyboardInterrupt" not in e.stdout:
             print_error(
                 "stubtest requires a Python installation with ensurepip. "
                 "If on Linux, you may need to install the python3-venv package."
