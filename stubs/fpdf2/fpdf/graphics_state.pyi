@@ -1,6 +1,7 @@
 from typing import Any, ClassVar
 
 from .drawing import DeviceGray, DeviceRGB
+from .enums import TextMode
 
 class GraphicsStateMixin:
     DEFAULT_DRAW_COLOR: ClassVar[DeviceGray]
@@ -60,9 +61,9 @@ class GraphicsStateMixin:
     @line_width.setter
     def line_width(self, v: float) -> None: ...
     @property
-    def text_mode(self) -> int: ...
+    def text_mode(self) -> TextMode: ...
     @text_mode.setter
-    def text_mode(self, v: str | int) -> None: ...
+    def text_mode(self, v: TextMode) -> None: ...
     @property
     def char_vpos(self): ...
     @char_vpos.setter
