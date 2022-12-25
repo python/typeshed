@@ -6,11 +6,10 @@ from __future__ import annotations
 import argparse
 import os
 import re
+import subprocess
 import sys
 import tempfile
-from contextlib import redirect_stderr, redirect_stdout
 from dataclasses import dataclass
-from io import StringIO
 from itertools import product
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, NamedTuple
@@ -32,8 +31,9 @@ from utils import (
     strip_comments,
 )
 
+# Fail early if mypy isn't installed
 try:
-    from mypy.api import run as mypy_run
+    import mypy  # noqa: F401
 except ImportError:
     print_error("Cannot import mypy. Did you install it?")
     sys.exit(1)
@@ -108,7 +108,7 @@ class TestConfig:
 
 def log(args: TestConfig, *varargs: object) -> None:
     if args.verbose >= 2:
-        print(*varargs)
+        print(colored(" ".join(map(str, varargs)), "blue"))
 
 
 def match(path: Path, args: TestConfig) -> bool:
@@ -204,7 +204,12 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
         configurations.append(MypyDistConf(module_name, values.copy()))
 
 
-def run_mypy(args: TestConfig, configurations: list[MypyDistConf], files: list[Path], *, testing_stdlib: bool) -> ReturnCode:
+def run_mypy(
+    args: TestConfig, configurations: list[MypyDistConf], files: list[Path], *, testing_stdlib: bool, mypypath: str | None = None
+) -> ReturnCode:
+    env_vars = dict(os.environ)
+    if mypypath is not None:
+        env_vars["MYPYPATH"] = mypypath
     with tempfile.NamedTemporaryFile("w+") as temp:
         temp.write("[mypy]\n")
         for dist_conf in configurations:
@@ -217,25 +222,17 @@ def run_mypy(args: TestConfig, configurations: list[MypyDistConf], files: list[P
         mypy_args = [*flags, *map(str, files)]
         if args.verbose:
             print("running mypy", " ".join(mypy_args))
-        stdout_redirect, stderr_redirect = StringIO(), StringIO()
-        with redirect_stdout(stdout_redirect), redirect_stderr(stderr_redirect):
-            returned_stdout, returned_stderr, exit_code = mypy_run(mypy_args)
-
-        if exit_code:
+        mypy_command = [sys.executable, "-m", "mypy"] + mypy_args
+        result = subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars)
+        if result.returncode:
             print_error("failure\n")
-            captured_stdout = stdout_redirect.getvalue()
-            captured_stderr = stderr_redirect.getvalue()
-            if returned_stderr:
-                print_error(returned_stderr)
-            if captured_stderr:
-                print_error(captured_stderr)
-            if returned_stdout:
-                print_error(returned_stdout)
-            if captured_stdout:
-                print_error(captured_stdout, end="")
+            if result.stdout:
+                print_error(result.stdout)
+            if result.stderr:
+                print_error(result.stderr)
         else:
             print_success_msg()
-        return exit_code
+        return result.returncode
 
 
 def get_mypy_flags(args: TestConfig, temp_name: str, *, testing_stdlib: bool) -> list[str]:
@@ -313,20 +310,14 @@ def test_third_party_distribution(distribution: str, args: TestConfig) -> TestRe
     if not files and args.filter:
         return TestResults(0, 0)
 
-    print(f"testing {distribution} ({len(files)} files)... ", end="")
+    print(f"testing {distribution} ({len(files)} files)... ", end="", flush=True)
 
     if not files:
         print_error("no files found")
         sys.exit(1)
 
-    prev_mypypath = os.getenv("MYPYPATH")
-    os.environ["MYPYPATH"] = os.pathsep.join(str(Path("stubs", dist)) for dist in seen_dists)
-    code = run_mypy(args, configurations, files, testing_stdlib=False)
-    if prev_mypypath is None:
-        del os.environ["MYPYPATH"]
-    else:
-        os.environ["MYPYPATH"] = prev_mypypath
-
+    mypypath = os.pathsep.join(str(Path("stubs", dist)) for dist in seen_dists)
+    code = run_mypy(args, configurations, files, mypypath=mypypath, testing_stdlib=False)
     return TestResults(code, len(files))
 
 
@@ -417,5 +408,5 @@ if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        print_error("\n\n!!!\nTest aborted due to KeyboardInterrupt\n!!!")
+        print_error("\n\nTest aborted due to KeyboardInterrupt!")
         sys.exit(1)
