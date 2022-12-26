@@ -1,5 +1,5 @@
 version = "2.12.*"
-requires = ["types-cryptography"]
+requires = ["cryptography"]
 
 [tool.stubtest]
 # linux and darwin are equivalent

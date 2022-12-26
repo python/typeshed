@@ -1,3 +1,4 @@
+requires = ["tomli"]
 version = "1.4.45"
 extra_description = """\
   The `sqlalchemy-stubs` package is an alternative to this package and also \
