@@ -1,2 +1,1 @@
-requires = ["packaging"]
 version = "9.3.*"
