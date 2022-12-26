@@ -10,6 +10,8 @@ import re
 import subprocess
 import sys
 import tempfile
+import time
+from collections import defaultdict
 from dataclasses import dataclass
 from itertools import product
 from pathlib import Path
@@ -246,7 +248,7 @@ def run_mypy(
             # Stub completion is checked by pyright (--allow-*-defs)
             "--allow-untyped-defs",
             "--allow-incomplete-defs",
-            "--allow-subclassing-any",  # Needed until we can use non-types dependencies #5768
+            "--allow-subclassing-any",  # TODO: Do we still need this now that non-types dependencies are allowed?
             "--enable-error-code",
             "ignore-without-code",
             "--config-file",
@@ -364,22 +366,21 @@ def test_stdlib(code: int, args: TestConfig) -> TestResults:
 
 
 _PRINT_LOCK = Lock()
-_PYTHON_EXE_MAPPING: dict[str, VenvInfo] = {}
+_DISTRIBUTION_TO_VENV_MAPPING: dict[str, VenvInfo] = {}
 
 
-def setup_venv_for_distribution(distribution: str, tempdir: Path) -> tuple[str, VenvInfo]:
-    venv_dir = tempdir / f".venv-{distribution}"
-    return distribution, make_venv(venv_dir)
+def setup_venv_for_external_requirements_set(requirements_set: frozenset[str], tempdir: Path) -> tuple[frozenset[str], VenvInfo]:
+    reqs_joined = "-".join(sorted(requirements_set))
+    venv_dir = tempdir / f".venv-{reqs_joined}"
+    return requirements_set, make_venv(venv_dir)
 
 
-def install_requirements_for_distribution(
-    distribution: str, pip_exe: str, args: TestConfig, external_requirements: tuple[str, ...]
-) -> None:
+def install_requirements_for_venv(venv_info: VenvInfo, args: TestConfig, external_requirements: frozenset[str]) -> None:
     # Use --no-cache-dir to avoid issues with concurrent read/writes to the cache
-    pip_command = [pip_exe, "install", get_mypy_req(), *external_requirements, "--no-cache-dir"]
+    pip_command = [venv_info.pip_exe, "install", get_mypy_req(), *sorted(external_requirements), "--no-cache-dir"]
     if args.verbose:
         with _PRINT_LOCK:
-            print(colored(f"pip installing the following requirements for {distribution!r}: {external_requirements}", "blue"))
+            print(colored(f"Running {pip_command}", "blue"))
     try:
         subprocess.run(pip_command, check=True, capture_output=True, text=True)
     except subprocess.CalledProcessError as e:
@@ -388,33 +389,55 @@ def install_requirements_for_distribution(
 
 
 def setup_virtual_environments(distributions: dict[str, PackageDependencies], args: TestConfig, tempdir: Path) -> None:
-    distributions_needing_venvs: dict[str, PackageDependencies] = {}
-    for distribution, requirements in distributions.items():
+    no_external_dependencies_venv = VenvInfo(pip_exe="", python_exe=sys.executable)
+    external_requirements_to_distributions: defaultdict[frozenset[str], list[str]] = defaultdict(list)
+    num_pkgs_with_external_reqs = 0
+
+    for distribution_name, requirements in distributions.items():
         if requirements.external_pkgs:
-            distributions_needing_venvs[distribution] = requirements
+            num_pkgs_with_external_reqs += 1
+            external_requirements_to_distributions[frozenset(requirements.external_pkgs)].append(distribution_name)
         else:
-            _PYTHON_EXE_MAPPING[distribution] = VenvInfo(pip_exe="", python_exe=sys.executable)
+            _DISTRIBUTION_TO_VENV_MAPPING[distribution_name] = no_external_dependencies_venv
+
+    requirements_sets_to_venvs: dict[frozenset[str], VenvInfo] = {}
 
     if args.verbose:
-        print(colored(f"Setting up venvs for {list(distributions_needing_venvs)}...", "blue"))
+        num_venvs = len(external_requirements_to_distributions)
+        msg = f"Setting up {num_venvs} venvs for {num_pkgs_with_external_reqs} distributions... "
+        print(colored(msg, "blue"), end="", flush=True)
+        venv_start_time = time.perf_counter()
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
         venv_info_futures = [
-            executor.submit(setup_venv_for_distribution, distribution, tempdir) for distribution in distributions_needing_venvs
+            executor.submit(setup_venv_for_external_requirements_set, requirements_set, tempdir)
+            for requirements_set in external_requirements_to_distributions
         ]
         for venv_info_future in concurrent.futures.as_completed(venv_info_futures):
-            distribution, venv_info = venv_info_future.result()
-            _PYTHON_EXE_MAPPING[distribution] = venv_info
+            requirements_set, venv_info = venv_info_future.result()
+            requirements_sets_to_venvs[requirements_set] = venv_info
 
-    # Limit workers to 5 at a time, since this makes network requests
-    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
-        futures = []
-        for distribution, requirements in distributions_needing_venvs.items():
-            pip_exe = _PYTHON_EXE_MAPPING[distribution].pip_exe
-            futures.append(
-                executor.submit(install_requirements_for_distribution, distribution, pip_exe, args, requirements.external_pkgs)
-            )
-        concurrent.futures.wait(futures)
+    if args.verbose:
+        venv_elapsed_time = time.perf_counter() - venv_start_time
+        print(colored(f"took {venv_elapsed_time:.2f} seconds", "blue"))
+        pip_start_time = time.perf_counter()
+
+    # Limit workers to 10 at a time, since this makes network requests
+    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+        pip_install_futures = [
+            executor.submit(install_requirements_for_venv, venv_info, args, requirements_set)
+            for requirements_set, venv_info in requirements_sets_to_venvs.items()
+        ]
+        concurrent.futures.wait(pip_install_futures)
+
+    if args.verbose:
+        pip_elapsed_time = time.perf_counter() - pip_start_time
+        msg = f"Combined time for installing requirements across all venvs: {pip_elapsed_time:.2f} seconds"
+        print(colored(msg, "blue"))
+
+    for requirements_set, distribution_list in external_requirements_to_distributions.items():
+        venv_to_use = requirements_sets_to_venvs[requirements_set]
+        _DISTRIBUTION_TO_VENV_MAPPING.update(dict.fromkeys(distribution_list, venv_to_use))
 
 
 def test_third_party_stubs(code: int, args: TestConfig, tempdir: Path) -> TestResults:
@@ -436,14 +459,15 @@ def test_third_party_stubs(code: int, args: TestConfig, tempdir: Path) -> TestRe
         ):
             distributions_to_check[distribution] = get_recursive_requirements(distribution)
 
-    if not _PYTHON_EXE_MAPPING:
+    if not _DISTRIBUTION_TO_VENV_MAPPING:
         setup_virtual_environments(distributions_to_check, args, tempdir)
 
-    for distribution, requirements in distributions_to_check.items():
-        has_non_types_dependencies = bool(requirements.external_pkgs)
-        python_to_use = _PYTHON_EXE_MAPPING[distribution].python_exe
+    assert len(_DISTRIBUTION_TO_VENV_MAPPING) == len(distributions_to_check)
+
+    for distribution, venv_info in _DISTRIBUTION_TO_VENV_MAPPING.items():
+        venv_python = venv_info.python_exe
         this_code, checked = test_third_party_distribution(
-            distribution, args, python_exe=python_to_use, non_types_dependencies=has_non_types_dependencies
+            distribution, args, python_exe=venv_python, non_types_dependencies=(venv_python != sys.executable)
         )
         code = max(code, this_code)
         files_checked += checked
