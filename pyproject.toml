@@ -61,4 +61,4 @@ all = true
 disable_all_dunder_policy = true
 
 [tool.typeshed]
-pyright_version = "1.1.284"
+pyright_version = "1.1.285"
