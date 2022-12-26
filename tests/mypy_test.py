@@ -24,6 +24,7 @@ if TYPE_CHECKING:
 from typing_extensions import Annotated, TypeAlias
 
 import tomli
+from packaging.requirements import Requirement
 from utils import (
     VERSIONS_RE as VERSION_LINE_RE,
     PackageDependencies,
@@ -396,7 +397,11 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
     for distribution_name, requirements in distributions.items():
         if requirements.external_pkgs:
             num_pkgs_with_external_reqs += 1
-            external_requirements_to_distributions[frozenset(requirements.external_pkgs)].append(distribution_name)
+            # convert to Requirement and then back to str
+            # to make sure that the requirements all have a normalised string representation
+            # (This will also catch any malformed requirements early)
+            external_requirements = frozenset(str(Requirement(pkg)) for pkg in requirements.external_pkgs)
+            external_requirements_to_distributions[external_requirements].append(distribution_name)
         else:
             _DISTRIBUTION_TO_VENV_MAPPING[distribution_name] = no_external_dependencies_venv
 
@@ -462,7 +467,7 @@ def test_third_party_stubs(code: int, args: TestConfig, tempdir: Path) -> TestRe
     if not _DISTRIBUTION_TO_VENV_MAPPING:
         setup_virtual_environments(distributions_to_check, args, tempdir)
 
-    assert len(_DISTRIBUTION_TO_VENV_MAPPING) == len(distributions_to_check)
+    assert _DISTRIBUTION_TO_VENV_MAPPING.keys() == distributions_to_check.keys()
 
     for distribution, venv_info in _DISTRIBUTION_TO_VENV_MAPPING.items():
         venv_python = venv_info.python_exe
