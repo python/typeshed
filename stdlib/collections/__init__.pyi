@@ -327,8 +327,8 @@ class _OrderedDictValuesView(ValuesView[_VT_co], Reversible[_VT_co]):
 # The C implementations of the "views" classes
 # (At runtime, these are called `odict_keys`, `odict_items` and `odict_values`,
 # but they are not exposed anywhere)
-@final
 # pyright doesn't have a specific error code for subclassing error!
+@final
 class _odict_keys(dict_keys[_KT_co, _VT_co], Reversible[_KT_co]):  # type: ignore[misc]  # pyright: ignore
     def __reversed__(self) -> Iterator[_KT_co]: ...
 
