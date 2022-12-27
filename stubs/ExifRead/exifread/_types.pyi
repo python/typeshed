@@ -4,7 +4,9 @@ from collections.abc import Callable
 from typing import Protocol
 from typing_extensions import Literal, TypeAlias
 
-TagDict: TypeAlias = dict[str, tuple[str] | tuple[str, dict[int, str | Callable[[bytes], str]]]]
+# The second item of the value tuple - if it exists - can be a variety of types,
+# including a callable or another dict.
+TagDict: TypeAlias = dict[str, tuple[str] | tuple[str, Any]]
 
 class Reader(Protocol):
     def __iter__(self) -> bytes: ...
