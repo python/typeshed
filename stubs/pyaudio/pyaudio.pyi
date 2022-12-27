@@ -133,7 +133,7 @@ class Stream:
     def write(self, frames: bytes, num_frames: int | None = ..., exception_on_underflow: bool = ...) -> None: ...
 
 # Use an alias to workaround pyright complaints about recursive definitions in the PyAudio class
-_Stream: TypeAlias = Stream
+_Stream = Stream
 
 class PyAudio:
     Stream = _Stream
