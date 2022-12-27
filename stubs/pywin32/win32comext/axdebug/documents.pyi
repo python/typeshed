@@ -14,6 +14,7 @@ class DebugDocumentProvider(gateways.DebugDocumentProvider):
     def GetDocument(self): ...
 
 # error: Cannot determine consistent method resolution order (MRO) for "DebugDocumentText"
+# pyright doesn't have a specific error code for MRO error!
 class DebugDocumentText(gateways.DebugDocumentInfo, gateways.DebugDocumentText, gateways.DebugDocument):  # type: ignore[misc]  # pyright: ignore
     codeContainer: Incomplete
     def __init__(self, codeContainer) -> None: ...
