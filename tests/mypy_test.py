@@ -24,7 +24,6 @@ if TYPE_CHECKING:
 from typing_extensions import Annotated, TypeAlias
 
 import tomli
-from packaging.requirements import Requirement
 from utils import (
     VERSIONS_RE as VERSION_LINE_RE,
     PackageDependencies,
@@ -397,10 +396,7 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
     for distribution_name, requirements in distributions.items():
         if requirements.external_pkgs:
             num_pkgs_with_external_reqs += 1
-            # convert to Requirement and then back to str
-            # to make sure that the requirements all have a normalised string representation
-            # (This will also catch any malformed requirements early)
-            external_requirements = frozenset(str(Requirement(pkg)) for pkg in requirements.external_pkgs)
+            external_requirements = frozenset(requirements.external_pkgs)
             external_requirements_to_distributions[external_requirements].append(distribution_name)
         else:
             _DISTRIBUTION_TO_VENV_MAPPING[distribution_name] = no_external_dependencies_venv

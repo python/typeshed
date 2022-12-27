@@ -91,7 +91,10 @@ def read_dependencies(distribution: str) -> PackageDependencies:
         if maybe_typeshed_dependency in pypi_name_to_typeshed_name_mapping:
             typeshed.append(pypi_name_to_typeshed_name_mapping[maybe_typeshed_dependency])
         else:
-            external.append(dependency)
+            # convert to Requirement and then back to str
+            # to make sure that the requirements all have a normalised string representation
+            # (This will also catch any malformed requirements early)
+            external.append(str(Requirement(dependency)))
     return PackageDependencies(tuple(typeshed), tuple(external))
 
 
