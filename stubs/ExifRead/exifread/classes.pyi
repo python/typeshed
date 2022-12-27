@@ -16,7 +16,7 @@ class IfdTag:
 
 class ExifHeader:
     file_handle: Reader
-    endian: str
+    endian: Literal["I", "M"]
     offset: int
     fake_exif: bool
     strict: bool
@@ -27,7 +27,7 @@ class ExifHeader:
     def __init__(
         self,
         file_handle: Reader,
-        endian: str,
+        endian: Literal["I", "M"],
         offset: int,
         fake_exif: bool,
         strict: bool,

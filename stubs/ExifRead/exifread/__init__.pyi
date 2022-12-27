@@ -3,6 +3,7 @@ from typing import Any
 
 from ._types import Reader
 
+__version__: str
 logger: Logger
 
 def process_file(
