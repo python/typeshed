@@ -405,7 +405,11 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
 
     if args.verbose:
         num_venvs = len(external_requirements_to_distributions)
-        msg = f"Setting up {num_venvs} venvs for {num_pkgs_with_external_reqs} distributions... "
+        msg = (
+            f"Setting up {num_venvs} venv{'s' if num_venvs != 1 else ''} "
+            f"for {num_pkgs_with_external_reqs} "
+            f"distribution{'s' if num_pkgs_with_external_reqs != 1 else ''}... "
+        )
         print(colored(msg, "blue"), end="", flush=True)
         venv_start_time = time.perf_counter()
 
