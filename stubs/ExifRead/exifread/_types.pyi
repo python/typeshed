@@ -5,7 +5,7 @@ from typing_extensions import Literal, TypeAlias
 
 # The second item of the value tuple - if it exists - can be a variety of types,
 # including a callable or another dict.
-TagDict: TypeAlias = dict[str, tuple[str] | tuple[str, Any]]
+TagDict: TypeAlias = dict[int, tuple[str] | tuple[str, Any]]
 
 class Reader(Protocol):
     def __iter__(self) -> bytes: ...
