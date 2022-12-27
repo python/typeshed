@@ -70,23 +70,6 @@ paPrimingOutput: Final[int]
 paFramesPerBufferUnspecified: Final[int]
 
 if sys.platform == "darwin":
-    @final
-    class paMacCoreStreamInfo:
-        paMacCoreChangeDeviceParameters: Final[int]
-        paMacCoreFailIfConversionRequired: Final[int]
-        paMacCoreConversionQualityMin: Final[int]
-        paMacCoreConversionQualityMedium: Final[int]
-        paMacCoreConversionQualityLow: Final[int]
-        paMacCoreConversionQualityHigh: Final[int]
-        paMacCoreConversionQualityMax: Final[int]
-        paMacCorePlayNice: Final[int]
-        paMacCorePro: Final[int]
-        paMacCoreMinimizeCPUButPlayNice: Final[int]
-        paMacCoreMinimizeCPU: Final[int]
-        flags: Final[int]
-        channel_map: Final[_ChannelMap | None]
-        def __init__(self, flags: int = ..., channel_map: _ChannelMap = ...) -> None: ...
-
     class PaMacCoreStreamInfo:
         paMacCoreChangeDeviceParameters: Final[int]
         paMacCoreFailIfConversionRequired: Final[int]
@@ -149,7 +132,11 @@ class Stream:
     def stop_stream(self) -> None: ...
     def write(self, frames: bytes, num_frames: int | None = ..., exception_on_underflow: bool = ...) -> None: ...
 
+# Use an alias to workaround pyright complaints about recursive definitions in the PyAudio class
+_Stream: TypeAlias = Stream
+
 class PyAudio:
+    Stream = _Stream
     def __init__(self) -> None: ...
     def close(self, stream: Stream) -> None: ...
     def get_default_host_api_info(self) -> _PaHostApiInfo: ...
