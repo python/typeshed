@@ -1,3 +1,6 @@
+# Stub-only module.
+exifread._types
+
 # The following constants are only re-exported at runtime as a side effect
 # of Python's import system.
 exifread.DEFAULT_STOP_TAG
