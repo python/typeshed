@@ -1,5 +1,6 @@
 from logging import Logger
 from typing import Any
+from typing_extensions import Literal
 
 from ._types import Reader, TagDict
 
