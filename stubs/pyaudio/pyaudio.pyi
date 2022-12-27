@@ -1,5 +1,6 @@
 import sys
 from collections.abc import Callable, Mapping, Sequence
+from typing import ClassVar
 from typing_extensions import Final, TypeAlias
 
 __docformat__: str
@@ -136,7 +137,7 @@ class Stream:
 _Stream = Stream
 
 class PyAudio:
-    Stream = _Stream
+    Stream: ClassVar[type[_Stream]]
     def __init__(self) -> None: ...
     def close(self, stream: _Stream) -> None: ...
     def get_default_host_api_info(self) -> _PaHostApiInfo: ...
