@@ -56,7 +56,7 @@ jobs:
           cache: pip
           cache-dependency-path: requirements-tests.txt
       - run: pip install -r requirements-tests.txt
-      - run: flake8
+      - run: flake8 --color always
 
   pytype:
     name: Run pytype against the stubs
