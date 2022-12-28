@@ -12,8 +12,6 @@ Xlib.protocol.rq.DictWrapper.__lt__
 Xlib.protocol.rq.Event.__gt__
 Xlib.protocol.rq.Event.__lt__
 
-# Default values
-Xlib.protocol.display.Display.send_and_recv
 # Can be None or str once instanciated
 Xlib.protocol.rq.*.structcode
 # Should only ever be str once instanciated
@@ -24,8 +22,6 @@ Xlib.protocol.rq.Struct.__getattr__
 
 # Iteration variable bleed into the global scope
 Xlib.protocol.rq.c
-# Re-export from tkinter
-Xlib.ext.randr.W
 # Re-exports from six
 Xlib.ext.xinput.integer_types
 Xlib.protocol.display.PY3
