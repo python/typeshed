@@ -1,5 +1,5 @@
 from _typeshed import Self
-from collections.abc import Awaitable, Callable, Coroutine, Mapping, Sequence
+from collections.abc import Callable, Coroutine, Mapping, Sequence
 from contextlib import AbstractContextManager
 from types import TracebackType
 from typing import Any, Generic, TypeVar, overload
