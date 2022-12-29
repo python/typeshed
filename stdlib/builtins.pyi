@@ -1,5 +1,5 @@
-import sys
 import _ast
+import sys
 import types
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import (
