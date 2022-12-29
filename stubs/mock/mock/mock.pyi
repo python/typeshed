@@ -1,5 +1,5 @@
 from _typeshed import Self
-from collections.abc import Awaitable, Callable, Mapping, Sequence
+from collections.abc import Awaitable, Callable, Coroutine, Mapping, Sequence
 from contextlib import AbstractContextManager
 from types import TracebackType
 from typing import Any, Generic, TypeVar, overload
@@ -7,6 +7,7 @@ from typing_extensions import Literal
 
 _F = TypeVar("_F", bound=Callable[..., Any])
 _AF = TypeVar("_AF", bound=Callable[..., Awaitable[Any]])
+_CF = TypeVar("_CF", bound=Callable[..., Coroutine[Any, Any, Any]])
 _T = TypeVar("_T")
 _TT = TypeVar("_TT", bound=type[Any])
 _R = TypeVar("_R")
@@ -28,12 +29,20 @@ __all__ = (
     "PropertyMock",
     "seal",
 )
-__version__: str
 
-FILTER_DIR: Any
+class InvalidSpecError(Exception): ...
 
-sentinel: Any
-DEFAULT: Any
+FILTER_DIR: bool
+
+class _SentinelObject:
+    def __init__(self, name: str) -> None: ...
+    name: str
+
+class _Sentinel:
+    def __getattr__(self, name: str) -> _SentinelObject: ...
+
+sentinel: _Sentinel
+DEFAULT: _SentinelObject
 
 class _Call(tuple[Any, ...]):
     def __new__(
@@ -69,7 +78,21 @@ class Base:
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
 
 class NonCallableMock(Base, Any):
-    def __new__(__cls: type[Self], *args: Any, **kw: Any) -> Self: ...
+    def __new__(
+        cls: type[Self],
+        spec: list[str] | object | type[object] | None = ...,
+        wraps: Any | None = ...,
+        name: str | None = ...,
+        spec_set: list[str] | object | type[object] | None = ...,
+        parent: NonCallableMock | None = ...,
+        _spec_state: Any | None = ...,
+        _new_name: str = ...,
+        _new_parent: NonCallableMock | None = ...,
+        _spec_as_instance: bool = ...,
+        _eat_self: bool | None = ...,
+        unsafe: bool = ...,
+        **kwargs: Any,
+    ) -> Self: ...
     def __init__(
         self,
         spec: list[str] | object | type[object] | None = ...,
@@ -156,12 +179,14 @@ class _patch(Generic[_T]):
         autospec: Any | None,
         new_callable: Any | None,
         kwargs: Mapping[str, Any],
+        *,
+        unsafe: bool = ...,
     ) -> None: ...
     def copy(self) -> _patch[_T]: ...
     def __call__(self, func: Callable[..., _R]) -> Callable[..., _R]: ...
     def decorate_class(self, klass: _TT) -> _TT: ...
     def decorate_callable(self, func: _F) -> _F: ...
-    def decorate_async_callable(self, func: _AF) -> _AF: ...
+    def decorate_async_callable(self, func: _CF) -> _CF: ...
     def decoration_helper(
         self, patched: Any, args: tuple[Any, ...], keywargs: dict[str, Any]
     ) -> AbstractContextManager[tuple[tuple[Any, ...], dict[str, Any]]]: ...
@@ -182,6 +207,8 @@ class _patch_dict:
     clear: Any
     def __init__(self, in_dict: Any, values: Any = ..., clear: Any = ..., **kwargs: Any) -> None: ...
     def __call__(self, f: Any) -> Any: ...
+    def decorate_callable(self, f: _F) -> _F: ...
+    def decorate_async_callable(self, f: _AF) -> _AF: ...
     def decorate_class(self, klass: Any) -> Any: ...
     def __enter__(self) -> Any: ...
     def __exit__(self, *args: object) -> Any: ...
@@ -201,6 +228,7 @@ class _patcher:
         spec_set: Any | None = ...,
         autospec: Any | None = ...,
         new_callable: Any | None = ...,
+        unsafe: bool = ...,
         **kwargs: Any,
     ) -> _patch[MagicMock | AsyncMock]: ...
     # This overload also covers the case, where new==DEFAULT. In this case, the return type is _patch[Any].
@@ -216,6 +244,8 @@ class _patcher:
         spec_set: Any | None = ...,
         autospec: Any | None = ...,
         new_callable: Any | None = ...,
+        *,
+        unsafe: bool = ...,
         **kwargs: Any,
     ) -> _patch[_T]: ...
     @overload
@@ -229,6 +259,7 @@ class _patcher:
         spec_set: Any | None = ...,
         autospec: Any | None = ...,
         new_callable: Any | None = ...,
+        unsafe: bool = ...,
         **kwargs: Any,
     ) -> _patch[MagicMock | AsyncMock]: ...
     @overload
@@ -242,6 +273,8 @@ class _patcher:
         spec_set: Any | None = ...,
         autospec: Any | None = ...,
         new_callable: Any | None = ...,
+        *,
+        unsafe: bool = ...,
         **kwargs: Any,
     ) -> _patch[_T]: ...
     def multiple(
@@ -252,6 +285,8 @@ class _patcher:
         spec_set: Any | None = ...,
         autospec: Any | None = ...,
         new_callable: Any | None = ...,
+        *,
+        unsafe: bool = ...,
         **kwargs: _T,
     ) -> _patch[_T]: ...
     def stopall(self) -> None: ...
@@ -269,21 +304,23 @@ class MagicMock(MagicMixin, Mock):
 
 class AsyncMockMixin(Base):
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
-    def assert_awaited(self) -> None: ...
-    def assert_awaited_once(self) -> None: ...
-    def assert_awaited_with(self, *args: Any, **kwargs: Any) -> None: ...
-    def assert_awaited_once_with(self, *args: Any, **kwargs: Any) -> None: ...
-    def assert_any_await(self, *args: Any, **kwargs: Any) -> None: ...
-    def assert_has_awaits(self, calls: _CallList, any_order: bool = ...) -> None: ...
-    def assert_not_awaited(self) -> None: ...
+    def assert_awaited(_mock_self) -> None: ...
+    def assert_awaited_once(_mock_self) -> None: ...
+    def assert_awaited_with(_mock_self, *args: Any, **kwargs: Any) -> None: ...
+    def assert_awaited_once_with(_mock_self, *args: Any, **kwargs: Any) -> None: ...
+    def assert_any_await(_mock_self, *args: Any, **kwargs: Any) -> None: ...
+    def assert_has_awaits(_mock_self, calls: _CallList, any_order: bool = ...) -> None: ...
+    def assert_not_awaited(_mock_self) -> None: ...
     def reset_mock(self, *args: Any, **kwargs: Any) -> None: ...
     await_count: int
     await_args: _Call | None
     await_args_list: _CallList
+    __name__: str
+    __defaults__: tuple[Any, ...]
+    __kwdefaults__: dict[str, Any]
+    __annotations__: dict[str, Any] | None  # type: ignore[assignment]
 
-class AsyncMagicMixin(MagicMixin):
-    def __init__(self, *args: Any, **kw: Any) -> None: ...
-
+class AsyncMagicMixin(MagicMixin): ...
 class AsyncMock(AsyncMockMixin, AsyncMagicMixin, Mock): ...
 
 class MagicProxy(Base):
@@ -300,7 +337,14 @@ class _ANY:
 ANY: Any
 
 def create_autospec(
-    spec: Any, spec_set: Any = ..., instance: Any = ..., _parent: Any | None = ..., _name: Any | None = ..., **kwargs: Any
+    spec: Any,
+    spec_set: Any = ...,
+    instance: Any = ...,
+    _parent: Any | None = ...,
+    _name: Any | None = ...,
+    *,
+    unsafe: bool = ...,
+    **kwargs: Any,
 ) -> Any: ...
 
 class _SpecState:
