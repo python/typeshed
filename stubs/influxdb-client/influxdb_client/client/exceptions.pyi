@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from urllib3 import HTTPResponse as HTTPResponse
+from urllib3 import HTTPResponse
 
 logger: Incomplete
 

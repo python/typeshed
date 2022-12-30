@@ -24,7 +24,7 @@ class InfluxDBClient(_BaseClient):
         timeout: int = ...,
         enable_gzip: bool = ...,
         org: str = ...,
-        default_tags: dict = ...,
+        default_tags: dict[Incomplete, Incomplete] = ...,
         **kwargs,
     ) -> None: ...
     def __enter__(self): ...

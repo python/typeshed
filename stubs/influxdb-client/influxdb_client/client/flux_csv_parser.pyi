@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 from enum import Enum
-from typing import List
 
 from influxdb_client.client.flux_table import TableList
 
@@ -41,7 +40,7 @@ class FluxCsvParser:
         self,
         response,
         serialization_mode: FluxSerializationMode,
-        data_frame_index: List[str] = ...,
+        data_frame_index: list[str] = ...,
         query_options: Incomplete | None = ...,
         response_metadata_mode: FluxResponseMetadataMode = ...,
     ) -> None: ...

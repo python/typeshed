@@ -1,2 +1,4 @@
-import numpy as np
-import pandas as pd
+from typing import Any
+
+np: Any  # numpy module
+pd: Any  # pandas module

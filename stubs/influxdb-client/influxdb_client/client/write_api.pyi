@@ -1,12 +1,15 @@
 from _typeshed import Incomplete
-from dataclasses import dataclass
+from collections.abc import Iterable
 from enum import Enum
-from typing import Any, Iterable, NamedTuple, Union
+from typing import Any, NamedTuple
+from typing_extensions import TypeAlias
 
 from influxdb_client import WritePrecision
 from influxdb_client.client._base import _BaseWriteApi
 from influxdb_client.client.write.point import Point
-from reactivex import Observable
+
+_DataClass: TypeAlias = Any  # any dataclass
+_Observable: TypeAlias = Any  # reactivex.Observable
 
 logger: Incomplete
 
@@ -62,7 +65,7 @@ class _BatchItem:
     data: Incomplete
     size: Incomplete
     def __init__(self, key: _BatchItemKey, data, size: int = ...) -> None: ...
-    def to_key_tuple(self) -> Tuple[str, str, str]: ...
+    def to_key_tuple(self) -> tuple[str, str, str]: ...
 
 class _BatchResponse:
     data: Incomplete
@@ -77,21 +80,19 @@ class WriteApi(_BaseWriteApi):
         self,
         bucket: str,
         org: str = ...,
-        record: Union[
-            str,
-            Iterable["str"],
-            Point,
-            Iterable["Point"],
-            dict,
-            Iterable["dict"],
-            bytes,
-            Iterable["bytes"],
-            Observable,
-            NamedTuple,
-            Iterable["NamedTuple"],
-            "dataclass",
-            Iterable["dataclass"],
-        ] = ...,
+        record: str
+        | Iterable[str]
+        | Point
+        | Iterable[Point]
+        | dict[Incomplete, Incomplete]
+        | Iterable[dict[Incomplete, Incomplete]]
+        | bytes
+        | Iterable["bytes"]
+        | _Observable
+        | NamedTuple
+        | Iterable["NamedTuple"]
+        | _DataClass
+        | Iterable[_DataClass] = ...,
         write_precision: WritePrecision = ...,
         **kwargs,
     ) -> Any: ...

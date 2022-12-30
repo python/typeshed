@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
 
 from influxdb_client import Configuration
-from urllib3 import HTTPResponse as HTTPResponse
 
 LOGGERS_NAMES: Incomplete
 
@@ -23,7 +22,7 @@ class _BaseClient:
         timeout: int = ...,
         enable_gzip: bool = ...,
         org: str = ...,
-        default_tags: dict = ...,
+        default_tags: dict[Incomplete, Incomplete] = ...,
         http_client_logger: str = ...,
         **kwargs,
     ) -> None: ...
@@ -43,5 +42,5 @@ class _Configuration(Configuration):
     username: Incomplete
     password: Incomplete
     def __init__(self) -> None: ...
-    def update_request_header_params(self, path: str, params: dict): ...
+    def update_request_header_params(self, path: str, params: dict[Incomplete, Incomplete]): ...
     def update_request_body(self, path: str, body): ...

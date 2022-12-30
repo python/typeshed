@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Dict
 
 from influxdb_client.client.exceptions import InfluxDBError
 
@@ -21,4 +20,4 @@ class _BaseRESTClient:
     @staticmethod
     def log_body(body: object, prefix: str): ...
     @staticmethod
-    def log_headers(headers: Dict[str, str], prefix: str): ...
+    def log_headers(headers: dict[str, str], prefix: str): ...

@@ -1,10 +1,13 @@
 from _typeshed import Incomplete
-from dataclasses import dataclass
-from typing import Iterable, NamedTuple, Union
+from collections.abc import Iterable
+from typing import Any, NamedTuple
+from typing_extensions import TypeAlias
 
 from influxdb_client import Point, WritePrecision
 from influxdb_client.client._base import _BaseWriteApi
 from influxdb_client.client.write_api import PointSettings
+
+_DataClass: TypeAlias = Any  # any dataclass
 
 logger: Incomplete
 
@@ -14,20 +17,18 @@ class WriteApiAsync(_BaseWriteApi):
         self,
         bucket: str,
         org: str = ...,
-        record: Union[
-            str,
-            Iterable["str"],
-            Point,
-            Iterable["Point"],
-            dict,
-            Iterable["dict"],
-            bytes,
-            Iterable["bytes"],
-            NamedTuple,
-            Iterable["NamedTuple"],
-            "dataclass",
-            Iterable["dataclass"],
-        ] = ...,
+        record: str
+        | Iterable[str]
+        | Point
+        | Iterable[Point]
+        | dict[Incomplete, Incomplete]
+        | Iterable[dict[Incomplete, Incomplete]]
+        | bytes
+        | Iterable[bytes]
+        | NamedTuple
+        | Iterable[NamedTuple]
+        | _DataClass
+        | Iterable[_DataClass] = ...,
         write_precision: WritePrecision = ...,
         **kwargs,
     ) -> bool: ...
