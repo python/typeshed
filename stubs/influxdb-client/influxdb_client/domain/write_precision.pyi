@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from typing import Any, ClassVar
 from typing_extensions import Final, Literal, TypeAlias
 
-_WritePrecision: TypeAlias = Literal["ms", "s", "us", "ns"]
+_WritePrecision: TypeAlias = Literal["ms", "s", "us", "ns"]  # noqa: Y047
 
 class WritePrecision:
     MS: Final = "ms"
