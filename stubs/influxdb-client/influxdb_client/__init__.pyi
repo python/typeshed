@@ -422,3 +422,6 @@ from influxdb_client.service.users_service import UsersService as UsersService
 from influxdb_client.service.variables_service import VariablesService as VariablesService
 from influxdb_client.service.views_service import ViewsService as ViewsService
 from influxdb_client.service.write_service import WriteService as WriteService
+from influxdb_client.version import VERSION as VERSION
+
+__version__ = VERSION
