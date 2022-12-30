@@ -19,12 +19,12 @@ class InfluxDBClient(_BaseClient):
     def __init__(
         self,
         url,
-        token: str = ...,
+        token: str | None = ...,
         debug: Incomplete | None = ...,
         timeout: int = ...,
         enable_gzip: bool = ...,
-        org: str = ...,
-        default_tags: dict[Incomplete, Incomplete] = ...,
+        org: str | None = ...,
+        default_tags: dict[Incomplete, Incomplete] | None = ...,
         **kwargs,
     ) -> None: ...
     def __enter__(self): ...

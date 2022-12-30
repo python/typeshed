@@ -13,8 +13,8 @@ class InfluxDBClientAsync(_BaseClient):
     def __init__(
         self,
         url,
-        token: str = ...,
-        org: str = ...,
+        token: str | None = ...,
+        org: str | None = ...,
         debug: Incomplete | None = ...,
         timeout: int = ...,
         enable_gzip: bool = ...,

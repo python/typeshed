@@ -22,7 +22,7 @@ class WritesRetry(Retry):
         max_retry_time: int = ...,
         total: int = ...,
         retry_interval: int = ...,
-        retry_callback: Callable[[Exception], int] = ...,
+        retry_callback: Callable[[Exception], int] | None = ...,
         **kw,
     ) -> None: ...
     def new(self, **kw): ...

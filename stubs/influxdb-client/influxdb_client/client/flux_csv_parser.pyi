@@ -40,7 +40,7 @@ class FluxCsvParser:
         self,
         response,
         serialization_mode: FluxSerializationMode,
-        data_frame_index: list[str] = ...,
+        data_frame_index: list[str] | None = ...,
         query_options: Incomplete | None = ...,
         response_metadata_mode: FluxResponseMetadataMode = ...,
     ) -> None: ...

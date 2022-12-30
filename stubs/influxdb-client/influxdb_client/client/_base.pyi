@@ -21,9 +21,9 @@ class _BaseClient:
         debug: Incomplete | None = ...,
         timeout: int = ...,
         enable_gzip: bool = ...,
-        org: str = ...,
-        default_tags: dict[Incomplete, Incomplete] = ...,
-        http_client_logger: str = ...,
+        org: str | None = ...,
+        default_tags: dict[Incomplete, Incomplete] | None = ...,
+        http_client_logger: str | None = ...,
         **kwargs,
     ) -> None: ...
 

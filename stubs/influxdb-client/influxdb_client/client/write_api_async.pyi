@@ -17,7 +17,7 @@ class WriteApiAsync(_BaseWriteApi):
     async def write(
         self,
         bucket: str,
-        org: str = ...,
+        org: str | None = ...,
         record: str
         | Iterable[str]
         | Point

@@ -70,7 +70,7 @@ class _BatchItem:
 class _BatchResponse:
     data: Incomplete
     exception: Incomplete
-    def __init__(self, data: _BatchItem, exception: Exception = ...) -> None: ...
+    def __init__(self, data: _BatchItem, exception: Exception | None = ...) -> None: ...
 
 class WriteApi(_BaseWriteApi):
     def __init__(
@@ -79,7 +79,7 @@ class WriteApi(_BaseWriteApi):
     def write(
         self,
         bucket: str,
-        org: str = ...,
+        org: str | None = ...,
         record: str
         | Iterable[str]
         | Point
