@@ -1,0 +1,4 @@
+# Imports that stubtest thinks should be re-exported.
+influxdb_client.client.write.dataframe_serializer.DEFAULT_WRITE_PRECISION
+influxdb_client.client.write_api.DEFAULT_WRITE_PRECISION
+influxdb_client.client.write_api_async.DEFAULT_WRITE_PRECISION

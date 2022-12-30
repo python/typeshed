@@ -4,9 +4,9 @@ from enum import Enum
 from typing import Any, NamedTuple
 from typing_extensions import TypeAlias
 
-from influxdb_client import WritePrecision
 from influxdb_client.client._base import _BaseWriteApi
 from influxdb_client.client.write.point import Point
+from influxdb_client.domain.write_precision import _WritePrecision
 
 _DataClass: TypeAlias = Any  # any dataclass
 _Observable: TypeAlias = Any  # reactivex.Observable
@@ -93,7 +93,7 @@ class WriteApi(_BaseWriteApi):
         | Iterable[NamedTuple]
         | _DataClass
         | Iterable[_DataClass] = ...,
-        write_precision: WritePrecision = ...,
+        write_precision: _WritePrecision = ...,
         **kwargs,
     ) -> Any: ...
     def flush(self) -> None: ...

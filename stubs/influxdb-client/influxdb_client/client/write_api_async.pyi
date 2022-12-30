@@ -3,9 +3,10 @@ from collections.abc import Iterable
 from typing import Any, NamedTuple
 from typing_extensions import TypeAlias
 
-from influxdb_client import Point, WritePrecision
 from influxdb_client.client._base import _BaseWriteApi
+from influxdb_client.client.write.point import Point
 from influxdb_client.client.write_api import PointSettings
+from influxdb_client.domain.write_precision import _WritePrecision
 
 _DataClass: TypeAlias = Any  # any dataclass
 
@@ -29,6 +30,6 @@ class WriteApiAsync(_BaseWriteApi):
         | Iterable[NamedTuple]
         | _DataClass
         | Iterable[_DataClass] = ...,
-        write_precision: WritePrecision = ...,
+        write_precision: _WritePrecision = ...,
         **kwargs,
     ) -> bool: ...
