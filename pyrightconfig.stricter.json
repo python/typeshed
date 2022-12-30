@@ -50,6 +50,7 @@
         "stubs/protobuf",
         "stubs/python-crontab",
         "stubs/google-cloud-ndb",
+        "stubs/influxdb-client",
         "stubs/passlib",
         "stubs/peewee",
         "stubs/pika",
