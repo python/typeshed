@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Callable
+from collections.abc import Callable
 
 from urllib3 import Retry
 

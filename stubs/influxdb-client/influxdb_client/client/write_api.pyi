@@ -87,10 +87,10 @@ class WriteApi(_BaseWriteApi):
         | dict[Incomplete, Incomplete]
         | Iterable[dict[Incomplete, Incomplete]]
         | bytes
-        | Iterable["bytes"]
+        | Iterable[bytes]
         | _Observable
         | NamedTuple
-        | Iterable["NamedTuple"]
+        | Iterable[NamedTuple]
         | _DataClass
         | Iterable[_DataClass] = ...,
         write_precision: WritePrecision = ...,

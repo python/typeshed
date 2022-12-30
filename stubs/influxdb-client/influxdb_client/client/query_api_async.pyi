@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import AsyncGenerator
+from collections.abc import AsyncGenerator
 
 from influxdb_client.client._base import _BaseQueryApi
 from influxdb_client.client.flux_table import FluxRecord, TableList
@@ -9,7 +9,7 @@ class QueryApiAsync(_BaseQueryApi):
     async def query(self, query: str, org: Incomplete | None = ..., params: dict[Incomplete, Incomplete] = ...) -> TableList: ...
     async def query_stream(
         self, query: str, org: Incomplete | None = ..., params: dict[Incomplete, Incomplete] = ...
-    ) -> AsyncGenerator["FluxRecord", None]: ...
+    ) -> AsyncGenerator[FluxRecord, None]: ...
     async def query_data_frame(
         self,
         query: str,
