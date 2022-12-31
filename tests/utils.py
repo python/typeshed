@@ -10,12 +10,20 @@ import venv
 from collections.abc import Mapping
 from functools import cache
 from pathlib import Path
-from typing import NamedTuple
+from typing import Iterable, NamedTuple
 from typing_extensions import Annotated
 
 import pathspec  # type: ignore[import]
 import tomli
 from packaging.requirements import Requirement
+
+try:
+    from termcolor import colored as colored
+except ImportError:
+
+    def colored(text: str, color: str | None = None, on_color: str | None = None, attrs: Iterable[str] | None = None) -> str:
+        return text
+
 
 # Used to install system-wide packages for different OS types:
 METADATA_MAPPING = {"linux": "apt_dependencies", "darwin": "brew_dependencies", "win32": "choco_dependencies"}
@@ -23,14 +31,6 @@ METADATA_MAPPING = {"linux": "apt_dependencies", "darwin": "brew_dependencies", 
 
 def strip_comments(text: str) -> str:
     return text.split("#")[0].strip()
-
-
-try:
-    from termcolor import colored as colored
-except ImportError:
-
-    def colored(s: str, _: str) -> str:  # type: ignore[misc]
-        return s
 
 
 def print_error(error: str, end: str = "\n", fix_path: tuple[str, str] = ("", "")) -> None:
