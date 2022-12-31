@@ -8,7 +8,6 @@ import subprocess
 import sys
 import venv
 from collections.abc import Mapping
-from functools import cache
 from pathlib import Path
 from typing import NamedTuple
 from typing_extensions import Annotated
@@ -17,20 +16,27 @@ import pathspec  # type: ignore[import]
 import tomli
 from packaging.requirements import Requirement
 
-# Used to install system-wide packages for different OS types:
-METADATA_MAPPING = {"linux": "apt_dependencies", "darwin": "brew_dependencies", "win32": "choco_dependencies"}
-
-
-def strip_comments(text: str) -> str:
-    return text.split("#")[0].strip()
-
-
 try:
     from termcolor import colored as colored
 except ImportError:
 
     def colored(s: str, _: str) -> str:  # type: ignore[misc]
         return s
+
+
+if sys.version_info >= (3, 9):
+    from functools import cache
+else:
+    from functools import lru_cache
+
+    cache = lru_cache(maxsize=None)
+
+# Used to install system-wide packages for different OS types:
+METADATA_MAPPING = {"linux": "apt_dependencies", "darwin": "brew_dependencies", "win32": "choco_dependencies"}
+
+
+def strip_comments(text: str) -> str:
+    return text.split("#")[0].strip()
 
 
 def print_error(error: str, end: str = "\n", fix_path: tuple[str, str] = ("", "")) -> None:

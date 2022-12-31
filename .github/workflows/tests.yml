@@ -118,7 +118,7 @@ jobs:
           cache: pip
           cache-dependency-path: requirements-tests.txt
       - run: |
-          pip install tomli functools
+          pip install tomli
           DEPENDENCIES=$(python tests/get_external_dependencies.py)
           if [ -n "$DEPENDENCIES" ]; then
             pip install $DEPENDENCIES
