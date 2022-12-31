@@ -1,6 +1,6 @@
 version = "5.7.*"
 requires = ["types-setuptools"]
-external_requires = ["modulegraph"]
+requires = ["modulegraph"]
 
 [tool.stubtest]
 ignore_missing_stub = false

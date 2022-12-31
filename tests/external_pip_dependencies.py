@@ -6,7 +6,7 @@ import subprocess
 import sys
 from collections.abc import Generator, Iterable
 
-import tomli
+from utils import read_dependencies
 
 
 def install(distributions: Iterable[str] | None = None) -> None:
@@ -20,9 +20,8 @@ def get(distributions: Iterable[str] | None = None) -> Generator[str, None, None
         distributions = os.listdir("stubs")
 
     for distribution in distributions:
-        with open(f"stubs/{distribution}/METADATA.toml", "rb") as file:
-            for package in tomli.load(file).get("external_requires", []):
-                yield package
+        for package in read_dependencies(distribution).external_pkgs:
+            yield package
 
 
 if __name__ == "__main__":

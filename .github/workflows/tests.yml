@@ -88,7 +88,6 @@ jobs:
           cache: pip
           cache-dependency-path: requirements-tests.txt
       - run: pip install -r requirements-tests.txt
-      - run: pip install $(python tests/external_pip_dependencies.py)
       - run: python ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
 
   regression-tests:

@@ -1,5 +1,5 @@
 version = "2.0.*"
-external_requires = ["numpy"]
+requires = ["numpy"]
 
 [tool.stubtest]
 ignore_missing_stub = false

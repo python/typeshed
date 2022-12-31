@@ -27,7 +27,6 @@ from utils import (
 metadata_keys = {
     "version",
     "requires",
-    "external_requires",
     "extra_description",
     "stub_distribution",
     "obsolete_since",

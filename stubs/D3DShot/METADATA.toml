@@ -1,6 +1,5 @@
 version = "0.1.*"
-requires = ["types-Pillow"]
-external_requires = ["numpy", "torch", "comtypes"]
+requires = ["types-Pillow", "numpy", "torch", "comtypes"]
 
 [tool.stubtest]
 # TODO: figure out how to run stubtest for this package
