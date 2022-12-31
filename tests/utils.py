@@ -92,14 +92,15 @@ def read_dependencies(distribution: str) -> PackageDependencies:
     with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
         dependencies = tomli.load(f).get("requires", [])
     assert isinstance(dependencies, list)
-    typeshed, external = [], []
+    typeshed: set[str] = set()
+    external: set[str] = set()
     for dependency in dependencies:
         assert isinstance(dependency, str)
         maybe_typeshed_dependency = Requirement(dependency).name
         if maybe_typeshed_dependency in pypi_name_to_typeshed_name_mapping:
-            typeshed.append(pypi_name_to_typeshed_name_mapping[maybe_typeshed_dependency])
+            typeshed.add(pypi_name_to_typeshed_name_mapping[maybe_typeshed_dependency])
         else:
-            external.append(dependency)
+            external.add(dependency)
     return PackageDependencies(tuple(typeshed), tuple(external))
 
 

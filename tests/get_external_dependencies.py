@@ -7,10 +7,9 @@ import sys
 from utils import read_dependencies
 
 distributions = sys.argv[1:]
-
 if not distributions:
     distributions = os.listdir("stubs")
 
 for distribution in distributions:
     for package in read_dependencies(distribution).external_pkgs:
-        print(f"{package} ")
+        print(package)
