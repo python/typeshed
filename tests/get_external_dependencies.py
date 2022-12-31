@@ -13,4 +13,4 @@ if not distributions:
 
 for distribution in distributions:
     for package in read_dependencies(distribution).external_pkgs:
-        print(package)
+        print(f"{package} ")

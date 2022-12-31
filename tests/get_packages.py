@@ -14,4 +14,4 @@ if platform in METADATA_MAPPING:
     for distribution in distributions:
         with open(f"stubs/{distribution}/METADATA.toml", "rb") as file:
             for package in tomli.load(file).get("tool", {}).get("stubtest", {}).get(METADATA_MAPPING[platform], []):
-                print(package)
+                print(f"{package} ")
