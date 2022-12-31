@@ -16,6 +16,14 @@ import pathspec  # type: ignore[import]
 import tomli
 from packaging.requirements import Requirement
 
+# Used to install system-wide packages for different OS types:
+METADATA_MAPPING = {"linux": "apt_dependencies", "darwin": "brew_dependencies", "win32": "choco_dependencies"}
+
+
+def strip_comments(text: str) -> str:
+    return text.split("#")[0].strip()
+
+
 try:
     from termcolor import colored as colored
 except ImportError:
@@ -30,13 +38,6 @@ else:
     from functools import lru_cache
 
     cache = lru_cache(maxsize=None)
-
-# Used to install system-wide packages for different OS types:
-METADATA_MAPPING = {"linux": "apt_dependencies", "darwin": "brew_dependencies", "win32": "choco_dependencies"}
-
-
-def strip_comments(text: str) -> str:
-    return text.split("#")[0].strip()
 
 
 def print_error(error: str, end: str = "\n", fix_path: tuple[str, str] = ("", "")) -> None:
