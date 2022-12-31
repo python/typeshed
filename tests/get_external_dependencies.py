@@ -10,6 +10,9 @@ distributions = sys.argv[1:]
 if not distributions:
     distributions = os.listdir("stubs")
 
+requirements = set[str]()
 for distribution in distributions:
-    for package in read_dependencies(distribution).external_pkgs:
-        print(package)
+    requirements.update(read_dependencies(distribution).external_pkgs)
+
+for requirement in sorted(requirements):
+    print(requirement)
