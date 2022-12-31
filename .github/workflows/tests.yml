@@ -112,6 +112,13 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: requirements-tests.txt
+      - run: pip install tomli
+      - run: pip install $(python tests/get_external_dependencies.py)
       - name: Get pyright version
         uses: SebRollen/toml-action@v1.0.2
         id: pyright_version
