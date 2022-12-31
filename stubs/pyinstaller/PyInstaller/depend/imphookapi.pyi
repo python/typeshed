@@ -7,10 +7,10 @@ from collections.abc import Generator, Iterable
 from typing import Any
 from typing_extensions import Literal
 
-from modulegraph.modulegraph import Package
 from PyInstaller.building.build_main import Analysis
 from PyInstaller.building.datastruct import TOC
 from PyInstaller.depend.analysis import PyiModuleGraph
+from PyInstaller.lib.modulegraph.modulegraph import Package
 
 # https://pyinstaller.org/en/stable/hooks.html#the-pre-safe-import-module-psim-api-method
 class PreSafeImportModuleAPI:

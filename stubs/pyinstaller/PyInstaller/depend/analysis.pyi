@@ -6,7 +6,7 @@ from _typeshed import Incomplete, StrPath, SupportsKeysAndGetItem
 from collections.abc import Iterable
 from typing_extensions import TypeAlias
 
-from modulegraph.modulegraph import Alias, Node
+from PyInstaller.lib.modulegraph.modulegraph import Alias, Node
 
 _LazyNode: TypeAlias = Iterable[Node] | Iterable[str] | Alias | None
 # from altgraph.Graph import Graph
