@@ -10,7 +10,7 @@ import venv
 from collections.abc import Iterable, Mapping
 from functools import cache
 from pathlib import Path
-from typing import TYPE_CHECKING, NamedTuple
+from typing import TYPE_CHECKING, Iterable, NamedTuple
 
 import pathspec  # type: ignore[import]
 import tomli
