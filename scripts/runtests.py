@@ -3,14 +3,19 @@ from __future__ import annotations
 
 import json
 import os
-import pathlib
 import re
 import subprocess
 import sys
 from pathlib import Path
+from typing import Iterable
 
-sys.path.append(str(pathlib.Path(__file__).parent.parent / "tests"))
-from utils import colored  # type: ignore[import]  # noqa: E402
+try:
+    from termcolor import colored
+except ImportError:
+
+    def colored(text: str, color: str | None = None, on_color: str | None = None, attrs: Iterable[str] | None = None) -> str:
+        return text
+
 
 _STRICTER_CONFIG_FILE = "pyrightconfig.stricter.json"
 _SUCCESS = colored("Success", "green")
