@@ -238,7 +238,6 @@ def run_mypy(
             args.version,
             "--show-traceback",
             "--warn-incomplete-stub",
-            "--show-error-codes",
             "--no-error-summary",
             "--platform",
             args.platform,
