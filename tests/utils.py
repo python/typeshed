@@ -7,6 +7,8 @@ import re
 import subprocess
 import sys
 import venv
+from collections.abc import Iterable, Mapping
+from functools import cache
 from pathlib import Path
 from typing import TYPE_CHECKING, NamedTuple
 
@@ -15,7 +17,6 @@ import tomli
 from packaging.requirements import Requirement
 
 if TYPE_CHECKING:
-    from collections.abc import Iterable, Mapping
     from typing_extensions import Annotated
 
 try:
@@ -25,13 +26,6 @@ except ImportError:
     def colored(text: str, color: str | None = None, on_color: str | None = None, attrs: Iterable[str] | None = None) -> str:
         return text
 
-
-if sys.version_info >= (3, 9):
-    from functools import cache
-else:
-    from functools import lru_cache
-
-    cache = lru_cache(maxsize=None)
 
 # Used to install system-wide packages for different OS types:
 METADATA_MAPPING = {"linux": "apt_dependencies", "darwin": "brew_dependencies", "win32": "choco_dependencies"}
