@@ -50,6 +50,7 @@
         "stubs/protobuf",
         "stubs/python-crontab",
         "stubs/google-cloud-ndb",
+        "stubs/influxdb-client",
         "stubs/passlib",
         "stubs/peewee",
         "stubs/pika",
@@ -73,7 +74,12 @@
         "stubs/vobject",
     ],
     "typeCheckingMode": "strict",
+    "reportUnnecessaryTypeIgnoreComment": "error",
+    // Leave "type: ignore" comments to mypy
+    "enableTypeIgnoreComments": false,
+    // Stubs are allowed to use private variables
     "reportPrivateUsage": "none",
+    // TODO: Complete incomplete stubs
     "reportIncompleteStub": "none",
     // Since we allow non-type dependencies, we may need to refer to a library
     // that is not marked as "typed" and has no stubs.

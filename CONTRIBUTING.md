@@ -467,6 +467,11 @@ Some further tips for good type hints:
   platform-dependent APIs;
 * use mypy error codes for mypy-specific `# type: ignore` annotations,
   e.g. `# type: ignore[override]` for Liskov Substitution Principle violations.
+* use pyright error codes for pyright-specific suppressions,
+  e.g. `# pyright: ignore[reportGeneralTypeIssues]`.
+  - pyright is configured to discard `# type: ignore` annotations.
+  If you need both on the same line, mypy's annotation needs to go first,
+  e.g. `# type: ignore[override]  # pyright: ignore[reportGeneralTypeIssues]`.
 
 Imports in stubs are considered private (not part of the exported API)
 unless:

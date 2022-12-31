@@ -34,12 +34,17 @@
     "reportInconsistentConstructor": "error",
     "reportTypeCommentUsage": "error",
     "reportUnnecessaryComparison": "error",
+    "reportUnnecessaryTypeIgnoreComment": "error",
+    // Leave "type: ignore" comments to mypy
+    "enableTypeIgnoreComments": false,
     // Since we allow non-type dependencies, we may need to refer to a library
     // that is not marked as "typed" and has no stubs.
     // It's still useful to raise a warning to flag those dependencies.
     "useLibraryCodeForTypes": true,
     "reportMissingTypeStubs": "warning",
-    // Typeshed uses type-stubs, the source is not needed.
+    // Stubs are allowed to use private variables
+    "reportPrivateUsage": "none",
+    // Stubs don't need the actual modules to be installed
     "reportMissingModuleSource": "none",
     // Incompatible overrides and property type mismatches are out of typeshed's control
     // as they are inherited from the implementation.

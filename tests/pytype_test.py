@@ -144,7 +144,7 @@ def run_all_tests(*, files_to_test: Sequence[str], print_stderr: bool, dry_run: 
         stderr = run_pytype(filename=f, python_version=python_version) if not dry_run else None
         if stderr:
             if print_stderr:
-                print("\n{stderr}")
+                print(f"\n{stderr}")
             errors += 1
             stacktrace_final_line = stderr.rstrip().rsplit("\n", 1)[-1]
             bad.append((_get_relative(f), python_version, stacktrace_final_line))
