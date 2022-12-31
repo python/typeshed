@@ -1,0 +1,3 @@
+# Error: is not present in stub
+# =============================
+netaddr.core.a  # This is a temporary module attribute used to detect python version
