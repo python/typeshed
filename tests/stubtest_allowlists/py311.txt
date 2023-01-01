@@ -16,6 +16,9 @@ argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group
 asynchat.__warningregistry__  # Removal planned for 3.12, can add if someone needs this
 configparser.LegacyInterpolation.__init__
 enum.Enum.__init__
+# TODO: The stub for enum is nothing like the implementation
+enum.auto.__init__
+enum.auto.value
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 ftplib.FTP.trust_server_pasv_ipv4_address
 ipaddress.IPv4Interface.hostmask
@@ -32,7 +35,6 @@ multiprocessing.spawn._main
 # platform.uname_result's processor field is now dynamically made to exist
 platform.uname_result.__match_args__
 platform.uname_result.__new__
-platform.uname_result._fields
 platform.uname_result.processor
 queue.SimpleQueue.__init__
 sys.UnraisableHookArgs  # Not exported from sys
@@ -40,6 +42,10 @@ tkinter._VersionInfoType.__doc__
 typing.NewType.__call__
 typing.NewType.__mro_entries__
 weakref.WeakValueDictionary.update
+
+# Runtime has *args, **kwargs, but will error if any are supplied
+unittest.TestCase.__init_subclass__
+unittest.case.TestCase.__init_subclass__
 
 # stubtest complains that in 3.10 the default argument is inconsistent with the annotation,
 # but in 3.10+ calling the function without the default argument is in fact deprecated,
