@@ -78,6 +78,13 @@ checks that would typically fail on incomplete stubs (such as `Unknown` checks).
 In typeshed's CI, pyright is run with these configuration settings on a subset of
 the stubs in typeshed (including the standard library).
 
+Third-party stubs may require non-types dependencies external to typeshed to be installed in your virtual environment.
+You can list or install all of a stubs' non-types dependencies using the following script:
+```bash
+(.venv3)$ python tests/get_external_dependencies.py <third_party_stub>  # List non-types dependencies
+(.venv3)$ pip install $(python tests/get_external_dependencies.py <third_party_stub>)  # Install non-types dependencies
+```
+
 ## regr\_test.py
 
 This test runs mypy against the test cases for typeshed's stdlib and third-party
