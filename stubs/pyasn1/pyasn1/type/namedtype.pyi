@@ -1,9 +1,7 @@
-from _typeshed import Incomplete
-
 class NamedType:
     isOptional: bool
     isDefaulted: bool
-    def __init__(self, name, asn1Object, openType: Incomplete | None = ...) -> None: ...
+    def __init__(self, name, asn1Object, openType: type | None = ...) -> None: ...
     def __eq__(self, other): ...
     def __ne__(self, other): ...
     def __lt__(self, other): ...
@@ -23,11 +21,11 @@ class NamedType:
     def getType(self): ...
 
 class OptionalNamedType(NamedType):
-    __doc__: Incomplete
+    __doc__: str
     isOptional: bool
 
 class DefaultedNamedType(NamedType):
-    __doc__: Incomplete
+    __doc__: str
     isDefaulted: bool
 
 class NamedTypes:

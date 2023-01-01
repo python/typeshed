@@ -2,14 +2,17 @@ from _typeshed import Incomplete
 from typing import type_check_only
 from typing_extensions import final
 
+from pyasn1.type import constraint, namedtype
+from pyasn1.type.tag import TagSet
+
 class Asn1Item:
     @classmethod
     def getTypeId(cls, increment: int = ...): ...
 
 class Asn1Type(Asn1Item):
-    tagSet: Incomplete
-    subtypeSpec: Incomplete
-    typeId: Incomplete
+    tagSet: TagSet
+    subtypeSpec: constraint.ConstraintsIntersection
+    typeId: int | None
     def __init__(self, **kwargs) -> None: ...
     def __setattr__(self, name, value) -> None: ...
     @property
@@ -33,7 +36,7 @@ Asn1ItemBase = Asn1Type
 
 @final
 class NoValue:
-    skipMethods: Incomplete
+    skipMethods: set[str]
     def __new__(cls): ...
     def __getattr__(self, attr) -> None: ...
     # def __new__.<locals>.getPlug.<locals>.plug
@@ -99,7 +102,7 @@ class NoValue:
     __xor__ = int.__xor__
 
 class SimpleAsn1Type(Asn1Type):
-    defaultValue: Incomplete
+    defaultValue: Incomplete | NoValue
     def __init__(self, value=..., **kwargs) -> None: ...
     def __eq__(self, other): ...
     def __ne__(self, other): ...
@@ -122,8 +125,8 @@ AbstractSimpleAsn1Item = SimpleAsn1Type
 
 class ConstructedAsn1Type(Asn1Type):
     strictConstraints: bool
-    componentType: Incomplete
-    sizeSpec: Incomplete
+    componentType: namedtype.NamedTypes | None
+    sizeSpec: constraint.ConstraintsIntersection
     def __init__(self, **kwargs) -> None: ...
     def __eq__(self, other): ...
     def __ne__(self, other): ...

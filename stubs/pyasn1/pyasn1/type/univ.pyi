@@ -1,16 +1,21 @@
-from _typeshed import Incomplete
-from collections.abc import Generator
+from _typeshed import Incomplete, ReadableBuffer, Self, SupportsRichComparison, SupportsTrunc
+from collections.abc import Callable, Generator
+from typing import SupportsInt
+from typing_extensions import SupportsIndex, TypeAlias
 
-from pyasn1.type import base
+from pyasn1.type import base, constraint, namedtype, namedval
+from pyasn1.type.tag import TagSet
 
-NoValue: Incomplete
-noValue: Incomplete
+_SizedIntegerable: TypeAlias = ReadableBuffer | str | SupportsInt | SupportsIndex | SupportsTrunc
+
+NoValue = base.NoValue
+noValue: NoValue
 
 class Integer(base.SimpleAsn1Type):
-    tagSet: Incomplete
-    subtypeSpec: Incomplete
-    namedValues: Incomplete
-    typeId: Incomplete
+    tagSet: TagSet
+    subtypeSpec: constraint.ConstraintsIntersection
+    namedValues: namedval.NamedValues
+    typeId: int
     def __init__(self, value=..., **kwargs) -> None: ...
     def __and__(self, value): ...
     def __rand__(self, value): ...
@@ -28,7 +33,8 @@ class Integer(base.SimpleAsn1Type):
     def __rmul__(self, value): ...
     def __mod__(self, value): ...
     def __rmod__(self, value): ...
-    def __pow__(self, value, modulo: Incomplete | None = ...): ...
+    # Accepts everything builtins.pow does
+    def __pow__(self: Self, value: complex, modulo: int | None = ...) -> Self: ...
     def __rpow__(self, value): ...
     def __floordiv__(self, value): ...
     def __rfloordiv__(self, value): ...
@@ -36,7 +42,7 @@ class Integer(base.SimpleAsn1Type):
     def __rtruediv__(self, value): ...
     def __divmod__(self, value): ...
     def __rdivmod__(self, value): ...
-    __hash__: Incomplete
+    __hash__ = base.SimpleAsn1Type.__hash__
     def __int__(self) -> int: ...
     def __float__(self) -> float: ...
     def __abs__(self): ...
@@ -59,26 +65,26 @@ class Integer(base.SimpleAsn1Type):
     def getNamedValues(self): ...
 
 class Boolean(Integer):
-    tagSet: Incomplete
-    subtypeSpec: Incomplete
-    namedValues: Incomplete
-    typeId: Incomplete
+    tagSet: TagSet
+    subtypeSpec: constraint.ConstraintsIntersection
+    namedValues: namedval.NamedValues
+    typeId: int
 
 SizedIntegerBase = int
 
 class SizedInteger(SizedIntegerBase):
-    bitLength: Incomplete
-    leadingZeroBits: Incomplete
+    bitLength: int | None
+    leadingZeroBits: int | None
     def setBitLength(self, bitLength): ...
     def __len__(self) -> int: ...
 
 class BitString(base.SimpleAsn1Type):
-    tagSet: Incomplete
-    subtypeSpec: Incomplete
-    namedValues: Incomplete
-    typeId: Incomplete
-    defaultBinValue: Incomplete
-    defaultHexValue: Incomplete
+    tagSet: TagSet
+    subtypeSpec: constraint.ConstraintsIntersection
+    namedValues: namedval.NamedValues
+    typeId: int
+    defaultBinValue: str | base.NoValue
+    defaultHexValue: str | base.NoValue
     def __init__(self, value=..., **kwargs) -> None: ...
     def __eq__(self, other): ...
     def __ne__(self, other): ...
@@ -103,19 +109,19 @@ class BitString(base.SimpleAsn1Type):
     def asInteger(self): ...
     def asBinary(self): ...
     @classmethod
-    def fromHexString(cls, value, internalFormat: bool = ..., prepend: Incomplete | None = ...): ...
+    def fromHexString(cls, value, internalFormat: bool = ..., prepend: _SizedIntegerable | None = ...): ...
     @classmethod
-    def fromBinaryString(cls, value, internalFormat: bool = ..., prepend: Incomplete | None = ...): ...
+    def fromBinaryString(cls, value, internalFormat: bool = ..., prepend: _SizedIntegerable | None = ...): ...
     @classmethod
-    def fromOctetString(cls, value, internalFormat: bool = ..., prepend: Incomplete | None = ..., padding: int = ...): ...
+    def fromOctetString(cls, value, internalFormat: bool = ..., prepend: _SizedIntegerable | None = ..., padding: int = ...): ...
     def prettyIn(self, value): ...
 
 class OctetString(base.SimpleAsn1Type):
-    tagSet: Incomplete
-    subtypeSpec: Incomplete
-    typeId: Incomplete
-    defaultBinValue: Incomplete
-    defaultHexValue: Incomplete
+    tagSet: TagSet
+    subtypeSpec: constraint.ConstraintsIntersection
+    typeId: int
+    defaultBinValue: str | base.NoValue
+    defaultHexValue: str | base.NoValue
     encoding: str
     def __init__(self, value=..., **kwargs) -> None: ...
     def prettyIn(self, value): ...
@@ -141,15 +147,15 @@ class OctetString(base.SimpleAsn1Type):
     def __reversed__(self): ...
 
 class Null(OctetString):
-    tagSet: Incomplete
-    subtypeSpec: Incomplete
-    typeId: Incomplete
+    tagSet: TagSet
+    subtypeSpec: constraint.ConstraintsIntersection
+    typeId: int
     def prettyIn(self, value): ...
 
 class ObjectIdentifier(base.SimpleAsn1Type):
-    tagSet: Incomplete
-    subtypeSpec: Incomplete
-    typeId: Incomplete
+    tagSet: TagSet
+    subtypeSpec: constraint.ConstraintsIntersection
+    typeId: int
     def __add__(self, other): ...
     def __radd__(self, other): ...
     def asTuple(self): ...
@@ -163,10 +169,10 @@ class ObjectIdentifier(base.SimpleAsn1Type):
     def prettyOut(self, value): ...
 
 class Real(base.SimpleAsn1Type):
-    binEncBase: Incomplete
-    tagSet: Incomplete
-    subtypeSpec: Incomplete
-    typeId: Incomplete
+    binEncBase: int | None
+    tagSet: TagSet
+    subtypeSpec: constraint.ConstraintsIntersection
+    typeId: int
     def prettyIn(self, value): ...
     def prettyPrint(self, scope: int = ...): ...
     @property
@@ -183,7 +189,8 @@ class Real(base.SimpleAsn1Type):
     def __rsub__(self, value): ...
     def __mod__(self, value): ...
     def __rmod__(self, value): ...
-    def __pow__(self, value, modulo: Incomplete | None = ...): ...
+    # Accepts everything builtins.pow with a float base does
+    def __pow__(self: Self, value: complex, modulo: int | None = ...) -> Self: ...
     def __rpow__(self, value): ...
     def __truediv__(self, value): ...
     def __rtruediv__(self, value): ...
@@ -205,28 +212,37 @@ class Real(base.SimpleAsn1Type):
     def __gt__(self, value): ...
     def __ge__(self, value): ...
     def __bool__(self) -> bool: ...
-    __hash__: Incomplete
+    __hash__ = base.SimpleAsn1Type.__hash__
     def __getitem__(self, idx): ...
     def isPlusInfinity(self): ...
     def isMinusInfinity(self): ...
     def isInfinity(self): ...
 
 class Enumerated(Integer):
-    tagSet: Incomplete
-    subtypeSpec: Incomplete
-    typeId: Incomplete
-    namedValues: Incomplete
+    tagSet: TagSet
+    subtypeSpec: constraint.ConstraintsIntersection
+    typeId: int
+    namedValues: namedval.NamedValues
 
 class SequenceOfAndSetOfBase(base.ConstructedAsn1Type):
-    def __init__(self, *args, **kwargs) -> None: ...
+    componentType: namedtype.NamedTypes | None
+    tagSet: TagSet
+    subtypeSpec: constraint.ConstraintsIntersection
+    def __init__(
+        self,
+        *args,
+        componentType: namedtype.NamedTypes | None = ...,
+        tagSet: TagSet = ...,
+        subtypeSpec: constraint.ConstraintsIntersection = ...,
+    ) -> None: ...
     def __getitem__(self, idx): ...
     def __setitem__(self, idx, value) -> None: ...
     def append(self, value) -> None: ...
     def count(self, value): ...
     def extend(self, values) -> None: ...
-    def index(self, value, start: int = ..., stop: Incomplete | None = ...): ...
+    def index(self, value, start: int = ..., stop: int | None = ...): ...
     def reverse(self) -> None: ...
-    def sort(self, key: Incomplete | None = ..., reverse: bool = ...) -> None: ...
+    def sort(self, key: Callable[[Incomplete], SupportsRichComparison] | None = ..., reverse: bool = ...) -> None: ...
     def __len__(self) -> int: ...
     def __iter__(self): ...
     def getComponentByPosition(self, idx, default=..., instantiate: bool = ...): ...
@@ -247,21 +263,15 @@ class SequenceOfAndSetOfBase(base.ConstructedAsn1Type):
     def isInconsistent(self): ...
 
 class SequenceOf(SequenceOfAndSetOfBase):
-    __doc__: Incomplete
-    tagSet: Incomplete
-    componentType: Incomplete
-    subtypeSpec: Incomplete
-    typeId: Incomplete
+    __doc__: str
+    typeId: int
 
 class SetOf(SequenceOfAndSetOfBase):
-    __doc__: Incomplete
-    tagSet: Incomplete
-    componentType: Incomplete
-    subtypeSpec: Incomplete
-    typeId: Incomplete
+    __doc__: str
+    typeId: int
 
 class SequenceAndSetBase(base.ConstructedAsn1Type):
-    componentType: Incomplete
+    componentType: namedtype.NamedTypes
 
     class DynamicNames:
         def __init__(self) -> None: ...
@@ -306,20 +316,20 @@ class SequenceAndSetBase(base.ConstructedAsn1Type):
     def getNameByPosition(self, idx): ...
 
 class Sequence(SequenceAndSetBase):
-    __doc__: Incomplete
-    tagSet: Incomplete
-    subtypeSpec: Incomplete
-    componentType: Incomplete
-    typeId: Incomplete
+    __doc__: str
+    tagSet: TagSet
+    subtypeSpec: constraint.ConstraintsIntersection
+    componentType: namedtype.NamedTypes
+    typeId: int
     def getComponentTagMapNearPosition(self, idx): ...
     def getComponentPositionNearType(self, tagSet, idx): ...
 
 class Set(SequenceAndSetBase):
-    __doc__: Incomplete
-    tagSet: Incomplete
-    componentType: Incomplete
-    subtypeSpec: Incomplete
-    typeId: Incomplete
+    __doc__: str
+    tagSet: TagSet
+    componentType: namedtype.NamedTypes
+    subtypeSpec: constraint.ConstraintsIntersection
+    typeId: int
     def getComponent(self, innerFlag: bool = ...): ...
     def getComponentByType(self, tagSet, default=..., instantiate: bool = ..., innerFlag: bool = ...): ...
     def setComponentByType(
@@ -335,10 +345,10 @@ class Set(SequenceAndSetBase):
     def componentTagMap(self): ...
 
 class Choice(Set):
-    tagSet: Incomplete
-    componentType: Incomplete
-    subtypeSpec: Incomplete
-    typeId: Incomplete
+    tagSet: TagSet
+    componentType: namedtype.NamedTypes
+    subtypeSpec: constraint.ConstraintsIntersection
+    typeId: int
     def __eq__(self, other): ...
     def __ne__(self, other): ...
     def __lt__(self, other): ...
@@ -369,8 +379,8 @@ class Choice(Set):
     def getMinTagSet(self): ...
 
 class Any(OctetString):
-    tagSet: Incomplete
-    subtypeSpec: Incomplete
-    typeId: Incomplete
+    tagSet: TagSet
+    subtypeSpec: constraint.ConstraintsIntersection
+    typeId: int
     @property
     def tagMap(self): ...

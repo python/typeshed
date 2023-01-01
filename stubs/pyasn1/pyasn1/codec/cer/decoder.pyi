@@ -1,18 +1,22 @@
-from _typeshed import Incomplete
+from typing_extensions import TypeAlias
 
 from pyasn1.codec.ber import decoder
+from pyasn1.type import univ
+from pyasn1.type.tag import TagSet
+
+_Unused: TypeAlias = object
 
 class BooleanDecoder(decoder.AbstractSimpleDecoder):
-    protoComponent: Incomplete
+    protoComponent: univ.Boolean
     def valueDecoder(
         self,
         substrate,
         asn1Spec,
-        tagSet: Incomplete | None = ...,
-        length: Incomplete | None = ...,
-        state: Incomplete | None = ...,
-        decodeFun: Incomplete | None = ...,
-        substrateFun: Incomplete | None = ...,
+        tagSet: TagSet | None = ...,
+        length: int | None = ...,
+        state: _Unused = ...,
+        decodeFun: _Unused = ...,
+        substrateFun: _Unused = ...,
         **options,
     ): ...
 

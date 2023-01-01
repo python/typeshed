@@ -1,12 +1,12 @@
 import datetime
-from _typeshed import Incomplete
 
 from pyasn1.type import char
+from pyasn1.type.tag import TagSet
 
 class ObjectDescriptor(char.GraphicString):
-    __doc__: Incomplete
-    tagSet: Incomplete
-    typeId: Incomplete
+    __doc__: str
+    tagSet: TagSet
+    typeId: int
 
 class TimeMixIn:
     class FixedOffset(datetime.tzinfo):
@@ -14,18 +14,18 @@ class TimeMixIn:
         def utcoffset(self, dt): ...
         def tzname(self, dt): ...
         def dst(self, dt): ...
-    UTC: Incomplete
+    UTC: FixedOffset
     @property
     def asDateTime(self): ...
     @classmethod
     def fromDateTime(cls, dt): ...
 
 class GeneralizedTime(char.VisibleString, TimeMixIn):
-    __doc__: Incomplete
-    tagSet: Incomplete
-    typeId: Incomplete
+    __doc__: str
+    tagSet: TagSet
+    typeId: int
 
 class UTCTime(char.VisibleString, TimeMixIn):
-    __doc__: Incomplete
-    tagSet: Incomplete
-    typeId: Incomplete
+    __doc__: str
+    tagSet: TagSet
+    typeId: int

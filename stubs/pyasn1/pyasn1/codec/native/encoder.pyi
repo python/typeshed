@@ -1,6 +1,8 @@
-from _typeshed import Incomplete
+from abc import ABC, abstractmethod
+from collections import OrderedDict
 
-class AbstractItemEncoder:
+class AbstractItemEncoder(ABC):
+    @abstractmethod
     def encode(self, value, encodeFun, **options) -> None: ...
 
 class BooleanEncoder(AbstractItemEncoder):
@@ -28,11 +30,11 @@ class RealEncoder(AbstractItemEncoder):
     def encode(self, value, encodeFun, **options): ...
 
 class SetEncoder(AbstractItemEncoder):
-    protoDict: Incomplete
+    protoDict = dict
     def encode(self, value, encodeFun, **options): ...
 
 class SequenceEncoder(SetEncoder):
-    protoDict: Incomplete
+    protoDict = OrderedDict
 
 class SequenceOfEncoder(AbstractItemEncoder):
     def encode(self, value, encodeFun, **options): ...
@@ -46,4 +48,4 @@ class Encoder:
     def __init__(self, tagMap, typeMap=...) -> None: ...
     def __call__(self, value, **options): ...
 
-encode: Incomplete
+encode: Encoder

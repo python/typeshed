@@ -1,7 +1,6 @@
-from _typeshed import Incomplete
 from typing_extensions import Literal
 
-implementation: Incomplete
+implementation: str
 null: Literal[b""]
 
 def from_bytes(octets, signed: bool = ...): ...

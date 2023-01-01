@@ -1,13 +1,16 @@
-from _typeshed import Incomplete
+from abc import ABC, abstractmethod
 
-class AbstractItemEncoder:
+from pyasn1.type.base import Asn1Type
+
+class AbstractItemEncoder(ABC):
     supportIndefLenMode: bool
-    eooIntegerSubstrate: Incomplete
-    eooOctetsSubstrate: Incomplete
+    eooIntegerSubstrate: tuple[int, int]
+    eooOctetsSubstrate: bytes
     def encodeTag(self, singleTag, isConstructed): ...
     def encodeLength(self, length, defMode): ...
+    @abstractmethod
     def encodeValue(self, value, asn1Spec, encodeFun, **options) -> None: ...
-    def encode(self, value, asn1Spec: Incomplete | None = ..., encodeFun: Incomplete | None = ..., **options): ...
+    def encode(self, value, asn1Spec: Asn1Type | None = ..., encodeFun: object | None = ..., **options): ...
 
 class EndOfOctetsEncoder(AbstractItemEncoder):
     def encodeValue(self, value, asn1Spec, encodeFun, **options): ...
@@ -55,9 +58,9 @@ class AnyEncoder(OctetStringEncoder):
     def encodeValue(self, value, asn1Spec, encodeFun, **options): ...
 
 class Encoder:
-    fixedDefLengthMode: Incomplete
-    fixedChunkSize: Incomplete
+    fixedDefLengthMode: bool | None
+    fixedChunkSize: int | None
     def __init__(self, tagMap, typeMap=...) -> None: ...
-    def __call__(self, value, asn1Spec: Incomplete | None = ..., **options): ...
+    def __call__(self, value, asn1Spec: Asn1Type | None = ..., **options): ...
 
 encode: Encoder

@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 from pyasn1.codec.ber import encoder
 
 class BooleanEncoder(encoder.IntegerEncoder):
@@ -8,12 +6,12 @@ class BooleanEncoder(encoder.IntegerEncoder):
 class RealEncoder(encoder.RealEncoder): ...
 
 class TimeEncoderMixIn:
-    Z_CHAR: Incomplete
-    PLUS_CHAR: Incomplete
-    MINUS_CHAR: Incomplete
-    COMMA_CHAR: Incomplete
-    DOT_CHAR: Incomplete
-    ZERO_CHAR: Incomplete
+    Z_CHAR: int
+    PLUS_CHAR: int
+    MINUS_CHAR: int
+    COMMA_CHAR: int
+    DOT_CHAR: int
+    ZERO_CHAR: int
     MIN_LENGTH: int
     MAX_LENGTH: int
     def encodeValue(self, value, asn1Spec, encodeFun, **options): ...

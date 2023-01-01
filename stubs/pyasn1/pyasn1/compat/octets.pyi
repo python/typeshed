@@ -1,14 +1,19 @@
-from _typeshed import Incomplete
+from typing import TypeVar
 from typing_extensions import Literal
 
-int2oct: Incomplete
-ints2octs: Incomplete
-null: Literal[b""]
-oct2int = ord
-octs2ints: Incomplete
-str2octs: Incomplete
-octs2str: Incomplete
-isOctetsType: Incomplete
-isStringType: Incomplete
-ensureString = bytes
+_T = TypeVar("_T")
+
 ints2octs = bytes
+
+def int2oct(x) -> bytes: ...
+
+null: Literal[b""]
+
+def oct2int(x: _T) -> _T: ...
+def octs2ints(x: _T) -> _T: ...
+def str2octs(x: str) -> bytes: ...
+def octs2str(x: bytes) -> str: ...
+def isOctetsType(s: object) -> bool: ...
+def isStringType(s: object) -> bool: ...
+
+ensureString = bytes

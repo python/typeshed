@@ -1,325 +1,336 @@
 from _typeshed import Incomplete
+from abc import ABCMeta, abstractmethod
+from collections.abc import Callable
+from typing_extensions import TypeAlias
 
-class AbstractDecoder:
-    protoComponent: Incomplete
+from pyasn1.type import base, char, univ, useful
+from pyasn1.type.base import Asn1Type
+from pyasn1.type.tag import TagSet
+
+_Unused: TypeAlias = object
+
+class AbstractDecoder(metaclass=ABCMeta):
+    protoComponent: Asn1Type | None
+    @abstractmethod
     def valueDecoder(
         self,
         substrate,
         asn1Spec,
-        tagSet: Incomplete | None = ...,
-        length: Incomplete | None = ...,
+        tagSet: TagSet | None = ...,
+        length: int | None = ...,
         state: Incomplete | None = ...,
-        decodeFun: Incomplete | None = ...,
-        substrateFun: Incomplete | None = ...,
+        decodeFun: Callable[..., Incomplete] | None = ...,
+        substrateFun: Callable[..., Incomplete] | None = ...,
         **options,
     ) -> None: ...
+    # Abstract, but implementation is optional
     def indefLenValueDecoder(
         self,
         substrate,
         asn1Spec,
-        tagSet: Incomplete | None = ...,
-        length: Incomplete | None = ...,
+        tagSet: TagSet | None = ...,
+        length: int | None = ...,
         state: Incomplete | None = ...,
-        decodeFun: Incomplete | None = ...,
-        substrateFun: Incomplete | None = ...,
+        decodeFun: Callable[..., Incomplete] | None = ...,
+        substrateFun: Callable[..., Incomplete] | None = ...,
         **options,
     ) -> None: ...
 
-class AbstractSimpleDecoder(AbstractDecoder):
+class AbstractSimpleDecoder(AbstractDecoder, metaclass=ABCMeta):
     @staticmethod
     def substrateCollector(asn1Object, substrate, length): ...
 
 class ExplicitTagDecoder(AbstractSimpleDecoder):
-    protoComponent: Incomplete
+    protoComponent: univ.Any
     def valueDecoder(
         self,
         substrate,
         asn1Spec,
-        tagSet: Incomplete | None = ...,
-        length: Incomplete | None = ...,
-        state: Incomplete | None = ...,
-        decodeFun: Incomplete | None = ...,
-        substrateFun: Incomplete | None = ...,
+        tagSet: TagSet | None = ...,
+        length: int | None = ...,
+        state: _Unused = ...,
+        decodeFun: Callable[..., Incomplete] | None = ...,
+        substrateFun: Callable[..., Incomplete] | None = ...,
         **options,
     ): ...
     def indefLenValueDecoder(
         self,
         substrate,
         asn1Spec,
-        tagSet: Incomplete | None = ...,
-        length: Incomplete | None = ...,
-        state: Incomplete | None = ...,
-        decodeFun: Incomplete | None = ...,
-        substrateFun: Incomplete | None = ...,
+        tagSet: TagSet | None = ...,
+        length: int | None = ...,
+        state: _Unused = ...,
+        decodeFun: Callable[..., Incomplete] | None = ...,
+        substrateFun: Callable[..., Incomplete] | None = ...,
         **options,
     ): ...
 
 class IntegerDecoder(AbstractSimpleDecoder):
-    protoComponent: Incomplete
+    protoComponent: univ.Integer
     def valueDecoder(
         self,
         substrate,
         asn1Spec,
-        tagSet: Incomplete | None = ...,
-        length: Incomplete | None = ...,
-        state: Incomplete | None = ...,
-        decodeFun: Incomplete | None = ...,
-        substrateFun: Incomplete | None = ...,
+        tagSet: TagSet | None = ...,
+        length: int | None = ...,
+        state: _Unused = ...,
+        decodeFun: _Unused = ...,
+        substrateFun: _Unused = ...,
         **options,
     ): ...
 
 class BooleanDecoder(IntegerDecoder):
-    protoComponent: Incomplete
+    protoComponent: univ.Boolean
 
 class BitStringDecoder(AbstractSimpleDecoder):
-    protoComponent: Incomplete
+    protoComponent: univ.BitString
     supportConstructedForm: bool
     def valueDecoder(
         self,
         substrate,
         asn1Spec,
-        tagSet: Incomplete | None = ...,
-        length: Incomplete | None = ...,
-        state: Incomplete | None = ...,
-        decodeFun: Incomplete | None = ...,
-        substrateFun: Incomplete | None = ...,
+        tagSet: TagSet | None = ...,
+        length: int | None = ...,
+        state: _Unused = ...,
+        decodeFun: Callable[..., Incomplete] | None = ...,
+        substrateFun: Callable[..., Incomplete] | None = ...,
         **options,
     ): ...
     def indefLenValueDecoder(
         self,
         substrate,
         asn1Spec,
-        tagSet: Incomplete | None = ...,
-        length: Incomplete | None = ...,
-        state: Incomplete | None = ...,
-        decodeFun: Incomplete | None = ...,
-        substrateFun: Incomplete | None = ...,
+        tagSet: TagSet | None = ...,
+        length: int | None = ...,
+        state: _Unused = ...,
+        decodeFun: Callable[..., Incomplete] | None = ...,
+        substrateFun: Callable[..., Incomplete] | None = ...,
         **options,
     ): ...
 
 class OctetStringDecoder(AbstractSimpleDecoder):
-    protoComponent: Incomplete
+    protoComponent: univ.OctetString
     supportConstructedForm: bool
     def valueDecoder(
         self,
         substrate,
         asn1Spec,
-        tagSet: Incomplete | None = ...,
-        length: Incomplete | None = ...,
-        state: Incomplete | None = ...,
-        decodeFun: Incomplete | None = ...,
-        substrateFun: Incomplete | None = ...,
+        tagSet: TagSet | None = ...,
+        length: int | None = ...,
+        state: _Unused = ...,
+        decodeFun: Callable[..., Incomplete] | None = ...,
+        substrateFun: Callable[..., Incomplete] | None = ...,
         **options,
     ): ...
     def indefLenValueDecoder(
         self,
         substrate,
         asn1Spec,
-        tagSet: Incomplete | None = ...,
-        length: Incomplete | None = ...,
-        state: Incomplete | None = ...,
-        decodeFun: Incomplete | None = ...,
-        substrateFun: Incomplete | None = ...,
+        tagSet: TagSet | None = ...,
+        length: int | None = ...,
+        state: _Unused = ...,
+        decodeFun: Callable[..., Incomplete] | None = ...,
+        substrateFun: Callable[..., Incomplete] | None = ...,
         **options,
     ): ...
 
 class NullDecoder(AbstractSimpleDecoder):
-    protoComponent: Incomplete
+    protoComponent: univ.Null
     def valueDecoder(
         self,
         substrate,
         asn1Spec,
-        tagSet: Incomplete | None = ...,
-        length: Incomplete | None = ...,
-        state: Incomplete | None = ...,
-        decodeFun: Incomplete | None = ...,
-        substrateFun: Incomplete | None = ...,
+        tagSet: TagSet | None = ...,
+        length: int | None = ...,
+        state: _Unused = ...,
+        decodeFun: _Unused = ...,
+        substrateFun: _Unused = ...,
         **options,
     ): ...
 
 class ObjectIdentifierDecoder(AbstractSimpleDecoder):
-    protoComponent: Incomplete
+    protoComponent: univ.ObjectIdentifier
     def valueDecoder(
         self,
         substrate,
         asn1Spec,
-        tagSet: Incomplete | None = ...,
-        length: Incomplete | None = ...,
-        state: Incomplete | None = ...,
-        decodeFun: Incomplete | None = ...,
-        substrateFun: Incomplete | None = ...,
+        tagSet: TagSet | None = ...,
+        length: int | None = ...,
+        state: _Unused = ...,
+        decodeFun: _Unused = ...,
+        substrateFun: _Unused = ...,
         **options,
     ): ...
 
 class RealDecoder(AbstractSimpleDecoder):
-    protoComponent: Incomplete
+    protoComponent: univ.Real
     def valueDecoder(
         self,
         substrate,
         asn1Spec,
-        tagSet: Incomplete | None = ...,
-        length: Incomplete | None = ...,
-        state: Incomplete | None = ...,
-        decodeFun: Incomplete | None = ...,
-        substrateFun: Incomplete | None = ...,
+        tagSet: TagSet | None = ...,
+        length: int | None = ...,
+        state: _Unused = ...,
+        decodeFun: _Unused = ...,
+        substrateFun: _Unused = ...,
         **options,
     ): ...
 
-class AbstractConstructedDecoder(AbstractDecoder):
-    protoComponent: Incomplete
+class AbstractConstructedDecoder(AbstractDecoder, metaclass=ABCMeta):
+    protoComponent: base.ConstructedAsn1Type | None
 
 class UniversalConstructedTypeDecoder(AbstractConstructedDecoder):
-    protoRecordComponent: Incomplete
-    protoSequenceComponent: Incomplete
+    protoRecordComponent: univ.SequenceAndSetBase | None
+    protoSequenceComponent: univ.SequenceOfAndSetOfBase | None
     def valueDecoder(
         self,
         substrate,
         asn1Spec,
-        tagSet: Incomplete | None = ...,
-        length: Incomplete | None = ...,
-        state: Incomplete | None = ...,
-        decodeFun: Incomplete | None = ...,
-        substrateFun: Incomplete | None = ...,
+        tagSet: TagSet | None = ...,
+        length: int | None = ...,
+        state: _Unused = ...,
+        decodeFun: Callable[..., Incomplete] | None = ...,
+        substrateFun: Callable[..., Incomplete] | None = ...,
         **options,
     ): ...
     def indefLenValueDecoder(
         self,
         substrate,
         asn1Spec,
-        tagSet: Incomplete | None = ...,
-        length: Incomplete | None = ...,
-        state: Incomplete | None = ...,
-        decodeFun: Incomplete | None = ...,
-        substrateFun: Incomplete | None = ...,
+        tagSet: TagSet | None = ...,
+        length: int | None = ...,
+        state: _Unused = ...,
+        decodeFun: Callable[..., Incomplete] | None = ...,
+        substrateFun: Callable[..., Incomplete] | None = ...,
         **options,
     ): ...
 
 class SequenceOrSequenceOfDecoder(UniversalConstructedTypeDecoder):
-    protoRecordComponent: Incomplete
-    protoSequenceComponent: Incomplete
+    protoRecordComponent: univ.Sequence
+    protoSequenceComponent: univ.SequenceOf
 
 class SequenceDecoder(SequenceOrSequenceOfDecoder):
-    protoComponent: Incomplete
+    protoComponent: univ.Sequence
 
 class SequenceOfDecoder(SequenceOrSequenceOfDecoder):
-    protoComponent: Incomplete
+    protoComponent: univ.SequenceOf
 
 class SetOrSetOfDecoder(UniversalConstructedTypeDecoder):
-    protoRecordComponent: Incomplete
-    protoSequenceComponent: Incomplete
+    protoRecordComponent: univ.Set
+    protoSequenceComponent: univ.SetOf
 
 class SetDecoder(SetOrSetOfDecoder):
-    protoComponent: Incomplete
+    protoComponent: univ.Set
 
 class SetOfDecoder(SetOrSetOfDecoder):
-    protoComponent: Incomplete
+    protoComponent: univ.SetOf
 
 class ChoiceDecoder(AbstractConstructedDecoder):
-    protoComponent: Incomplete
+    protoComponent: univ.Choice
     def valueDecoder(
         self,
         substrate,
         asn1Spec,
-        tagSet: Incomplete | None = ...,
-        length: Incomplete | None = ...,
+        tagSet: TagSet | None = ...,
+        length: int | None = ...,
         state: Incomplete | None = ...,
-        decodeFun: Incomplete | None = ...,
-        substrateFun: Incomplete | None = ...,
+        decodeFun: Callable[..., Incomplete] | None = ...,
+        substrateFun: Callable[..., Incomplete] | None = ...,
         **options,
     ): ...
     def indefLenValueDecoder(
         self,
         substrate,
         asn1Spec,
-        tagSet: Incomplete | None = ...,
-        length: Incomplete | None = ...,
+        tagSet: TagSet | None = ...,
+        length: int | None = ...,
         state: Incomplete | None = ...,
-        decodeFun: Incomplete | None = ...,
-        substrateFun: Incomplete | None = ...,
+        decodeFun: Callable[..., Incomplete] | None = ...,
+        substrateFun: Callable[..., Incomplete] | None = ...,
         **options,
     ): ...
 
 class AnyDecoder(AbstractSimpleDecoder):
-    protoComponent: Incomplete
+    protoComponent: univ.Any
     def valueDecoder(
         self,
         substrate,
         asn1Spec,
-        tagSet: Incomplete | None = ...,
-        length: Incomplete | None = ...,
-        state: Incomplete | None = ...,
-        decodeFun: Incomplete | None = ...,
-        substrateFun: Incomplete | None = ...,
+        tagSet: TagSet | None = ...,
+        length: int | None = ...,
+        state: _Unused = ...,
+        decodeFun: _Unused = ...,
+        substrateFun: Callable[..., Incomplete] | None = ...,
         **options,
     ): ...
     def indefLenValueDecoder(
         self,
         substrate,
         asn1Spec,
-        tagSet: Incomplete | None = ...,
-        length: Incomplete | None = ...,
-        state: Incomplete | None = ...,
-        decodeFun: Incomplete | None = ...,
-        substrateFun: Incomplete | None = ...,
+        tagSet: TagSet | None = ...,
+        length: int | None = ...,
+        state: _Unused = ...,
+        decodeFun: Callable[..., Incomplete] | None = ...,
+        substrateFun: Callable[..., Incomplete] | None = ...,
         **options,
     ): ...
 
 class UTF8StringDecoder(OctetStringDecoder):
-    protoComponent: Incomplete
+    protoComponent: char.UTF8String
 
 class NumericStringDecoder(OctetStringDecoder):
-    protoComponent: Incomplete
+    protoComponent: char.NumericString
 
 class PrintableStringDecoder(OctetStringDecoder):
-    protoComponent: Incomplete
+    protoComponent: char.PrintableString
 
 class TeletexStringDecoder(OctetStringDecoder):
-    protoComponent: Incomplete
+    protoComponent: char.TeletexString
 
 class VideotexStringDecoder(OctetStringDecoder):
-    protoComponent: Incomplete
+    protoComponent: char.VideotexString
 
 class IA5StringDecoder(OctetStringDecoder):
-    protoComponent: Incomplete
+    protoComponent: char.IA5String
 
 class GraphicStringDecoder(OctetStringDecoder):
-    protoComponent: Incomplete
+    protoComponent: char.GraphicString
 
 class VisibleStringDecoder(OctetStringDecoder):
-    protoComponent: Incomplete
+    protoComponent: char.VisibleString
 
 class GeneralStringDecoder(OctetStringDecoder):
-    protoComponent: Incomplete
+    protoComponent: char.GeneralString
 
 class UniversalStringDecoder(OctetStringDecoder):
-    protoComponent: Incomplete
+    protoComponent: char.UniversalString
 
 class BMPStringDecoder(OctetStringDecoder):
-    protoComponent: Incomplete
+    protoComponent: char.BMPString
 
 class ObjectDescriptorDecoder(OctetStringDecoder):
-    protoComponent: Incomplete
+    protoComponent: useful.ObjectDescriptor
 
 class GeneralizedTimeDecoder(OctetStringDecoder):
-    protoComponent: Incomplete
+    protoComponent: useful.GeneralizedTime
 
 class UTCTimeDecoder(OctetStringDecoder):
-    protoComponent: Incomplete
+    protoComponent: useful.UTCTime
 
 class Decoder:
-    defaultErrorState: Incomplete
-    defaultRawDecoder: Incomplete
+    defaultErrorState: int
+    defaultRawDecoder: AnyDecoder
     supportIndefLength: bool
     def __init__(self, tagMap, typeMap=...) -> None: ...
     def __call__(
         self,
         substrate,
-        asn1Spec: Incomplete | None = ...,
-        tagSet: Incomplete | None = ...,
-        length: Incomplete | None = ...,
+        asn1Spec: Asn1Type | None = ...,
+        tagSet: TagSet | None = ...,
+        length: int | None = ...,
         state=...,
-        decodeFun: Incomplete | None = ...,
-        substrateFun: Incomplete | None = ...,
+        decodeFun: _Unused = ...,
+        substrateFun: Callable[..., Incomplete] | None = ...,
         **options,
     ): ...
 

@@ -1,16 +1,19 @@
 import logging
-from _typeshed import Incomplete
+from typing import TextIO
 
 class Printer:
     def __init__(
-        self, logger: Incomplete | None = ..., handler: Incomplete | None = ..., formatter: Incomplete | None = ...
+        self,
+        logger: logging.Logger | None = ...,
+        handler: logging.StreamHandler[TextIO] | None = ...,
+        formatter: logging.Formatter | None = ...,
     ) -> None: ...
     def __call__(self, msg) -> None: ...
 
 NullHandler = logging.NullHandler
 
 class Debug:
-    defaultPrinter: Incomplete
+    defaultPrinter: Printer
     def __init__(self, *flags, **options) -> None: ...
     def __call__(self, msg) -> None: ...
     def __and__(self, flag): ...

@@ -1,8 +1,13 @@
-from _typeshed import Incomplete
+from collections.abc import Container, Mapping
+
+from pyasn1.type.base import Asn1Type
 
 class TagMap:
     def __init__(
-        self, presentTypes: Incomplete | None = ..., skipTypes: Incomplete | None = ..., defaultType: Incomplete | None = ...
+        self,
+        presentTypes: Mapping[TagMap, Asn1Type] | None = ...,
+        skipTypes: Container[TagMap] | None = ...,
+        defaultType: Asn1Type | None = ...,
     ) -> None: ...
     def __contains__(self, tagSet) -> bool: ...
     def __getitem__(self, tagSet): ...
