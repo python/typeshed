@@ -10,14 +10,12 @@ import venv
 from collections.abc import Iterable, Mapping
 from functools import cache
 from pathlib import Path
-from typing import TYPE_CHECKING, NamedTuple
+from typing import NamedTuple
+from typing_extensions import Annotated
 
 import pathspec  # type: ignore[import]
 import tomli
 from packaging.requirements import Requirement
-
-if TYPE_CHECKING:
-    from typing_extensions import Annotated
 
 try:
     from termcolor import colored as colored
