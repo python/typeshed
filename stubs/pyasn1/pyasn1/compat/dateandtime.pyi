@@ -1,1 +1,3 @@
-def strptime(text, dateFormat): ...
+from datetime import datetime
+
+strptime = datetime.strptime
