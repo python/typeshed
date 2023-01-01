@@ -7,12 +7,13 @@ import re
 import subprocess
 import sys
 from pathlib import Path
+from typing import Iterable
 
 try:
     from termcolor import colored
 except ImportError:
 
-    def colored(text: str, color: str = "") -> str:  # type: ignore[misc]
+    def colored(text: str, color: str | None = None, on_color: str | None = None, attrs: Iterable[str] | None = None) -> str:
         return text
 
 
