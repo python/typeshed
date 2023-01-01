@@ -1,4 +1,4 @@
-from collections.abc import Iterable
+from collections.abc import Callable, Iterable
 
 import gdb
 from gdb import _PrettyPrinterLookupFunction
@@ -26,4 +26,8 @@ class RegexpCollectionPrettyPrinter(PrettyPrinter):
 class FlagEnumerationPrinter(PrettyPrinter):
     def __init__(self, enum_type: str) -> None: ...
 
-def register_pretty_printer(obj: gdb.Objfile | gdb.Progspace | None, printer: PrettyPrinter, replace: bool = ...) -> None: ...
+def register_pretty_printer(
+    obj: gdb.Objfile | gdb.Progspace | None,
+    printer: PrettyPrinter | Callable[[gdb.Value], gdb._PrettyPrinter | None],
+    replace: bool = ...,
+) -> None: ...
