@@ -6,7 +6,7 @@ from gdb import _PrettyPrinterLookupFunction
 class PrettyPrinter:
 
     name: str
-    subprinters: list[SubPrettyPrinter]
+    subprinters: list[SubPrettyPrinter] | None
     enabled: bool
 
     def __init__(self, name: str, subprinters: Iterable[SubPrettyPrinter] | None = ...) -> None: ...
