@@ -84,7 +84,9 @@ You can list or install all of a stubs package's external dependencies using the
 (.venv3)$ python tests/get_external_dependencies.py <third_party_stub>  # List external dependencies for <third_party_stub>
 (.venv3)$ python tests/get_external_dependencies.py <third_party_stub1> <third_party_stub2>  # List external dependencies for <third_party_stub1> and <third_party_stub2>
 (.venv3)$ python tests/get_external_dependencies.py  # List external dependencies for all non stubs packages in typeshed
-(.venv3)$ pip install $(python tests/get_external_dependencies.py <third_party_stub>)  # Install non-types dependencies
+# Install external dependencies for all non stubs packages in typeshed
+(.venv3)$ DEPENDENCIES=$(python tests/get_external_dependencies.py)
+(.venv3)$ if [ -n "$DEPENDENCIES" ]; then pip install $DEPENDENCIES; fi
 ```
 
 ## regr\_test.py
