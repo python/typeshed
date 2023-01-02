@@ -22,7 +22,7 @@ in the `CONTRIBUTING.md` document. In particular, we recommend running with Pyth
 ## Run all tests for a specific stub
 
 Run using:
-```
+```bash
 (.venv3)$ python3 scripts/runtests.py <stdlib-or-stubs>/<stub-to-test>
 ```
 
@@ -36,7 +36,7 @@ so: `stdlib/os` or `stubs/requests`.
 ## mypy\_test.py
 
 Run using:
-```
+```bash
 (.venv3)$ python3 tests/mypy_test.py
 ```
 
@@ -56,7 +56,7 @@ Note: this test cannot be run on Windows
 systems unless you are using Windows Subsystem for Linux.
 
 Run using:
-```
+```bash
 (.venv3)$ python3 tests/pytype_test.py
 ```
 
@@ -67,7 +67,7 @@ This test works similarly to `mypy_test.py`, except it uses `pytype`.
 This test requires [Node.js](https://nodejs.org) to be installed. Although
 typeshed runs pyright in CI, it does not currently use this script. However,
 this script uses the same pyright version and configuration as the CI.
-```
+```bash
 (.venv3)$ python3 tests/pyright_test.py                                # Check all files
 (.venv3)$ python3 tests/pyright_test.py stdlib/sys.pyi                 # Check one file
 (.venv3)$ python3 tests/pyright_test.py -p pyrightconfig.stricter.json # Check with the stricter config.
@@ -88,14 +88,14 @@ for information on the various configuration options.
 ## check\_consistent.py
 
 Run using:
-```
-python3 tests/check_consistent.py
+```bash
+$ python3 tests/check_consistent.py
 ```
 
 ## stubtest\_stdlib.py
 
 Run using
-```
+```bash
 (.venv3)$ python3 tests/stubtest_stdlib.py
 ```
 
@@ -124,7 +124,7 @@ this script locally if you know you can trust the packages you're running
 stubtest on.
 
 Run using
-```
+```bash
 (.venv3)$ python3 tests/stubtest_third_party.py
 ```
 
@@ -132,13 +132,13 @@ Similar to `stubtest_stdlib.py`, but tests the third party stubs. By default,
 it checks all third-party stubs, but you can provide the distributions to
 check on the command line:
 
-```
+```bash
 (.venv3)$ python3 tests/stubtest_third_party.py Pillow toml  # check stubs/Pillow and stubs/toml
 ```
 
 If you have the runtime package installed in your local virtual environment, you can also run stubtest
 directly, with
-```
+```bash
 (.venv3)$ MYPYPATH=<path-to-module-stubs> python3 -m mypy.stubtest \
   --custom-typeshed-dir <path-to-typeshed> \
   <third-party-module>
@@ -173,7 +173,7 @@ for missing objects rather than trying to match the runtime in every detail.
 ## typecheck\_typeshed.py
 
 Run using
-```
+```bash
 (.venv3)$ python3 tests/typecheck_typeshed.py
 ```
 
