@@ -166,7 +166,6 @@ def run_testcases(
         "--python-version",
         version,
         "--show-traceback",
-        "--show-error-codes",
         "--no-error-summary",
         "--platform",
         platform,
