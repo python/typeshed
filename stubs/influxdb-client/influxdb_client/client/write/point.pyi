@@ -22,10 +22,11 @@ class Point:
         write_precision: _WritePrecision = ...,
         *,
         record_measurement_name: str | None = ...,
+        record_measurement_key: str = ...,
         record_tag_keys: Iterable[str] | None = ...,
         record_field_keys: Iterable[str] | None = ...,
         record_time_key: str = ...,
-        field_types: SupportsItems[str, Literal["int", "uint", "float"]] = ...,
+        fields: SupportsItems[str, Literal["int", "uint", "float"]] = ...,
     ) -> Point: ...
     def __init__(self, measurement_name: str) -> None: ...
     def time(self: Self, time: _Time, write_precision: _WritePrecision = ...) -> Self: ...
