@@ -71,7 +71,7 @@ jobs:
       - name: Run stubtest
         shell: bash
         run: |
-          PACKAGES=$(python tests/get_packages.py)
+          PACKAGES=$(python tests/get_stubtest_system_requirements.py)
 
           if [ "${{ runner.os }}" = "Linux" ]; then
             if [ -n "$PACKAGES" ]; then

@@ -58,7 +58,7 @@ jobs:
 
           if [ -n "$STUBS" ]; then
             echo "Testing $STUBS..."
-            PACKAGES=$(python tests/get_packages.py $STUBS)
+            PACKAGES=$(python tests/get_stubtest_system_requirements.py $STUBS)
 
             if [ "${{ runner.os }}" = "Linux" ]; then
               if [ -n "$PACKAGES" ]; then

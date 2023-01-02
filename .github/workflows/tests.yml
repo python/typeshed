@@ -120,7 +120,7 @@ jobs:
       - name: Install 3rd-party dependencies for stubs packages
         run: |
           pip install -r requirements-tests.txt
-          DEPENDENCIES=$(python tests/get_external_dependencies.py)
+          DEPENDENCIES=$(python tests/get_external_stub_requirements.py)
           if [ -n "$DEPENDENCIES" ]; then
             echo "Installing packages: $DEPENDENCIES"
             pip install $DEPENDENCIES
