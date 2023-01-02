@@ -71,13 +71,13 @@ which will allow you to run the full suite of tests. If you choose to install
 WSL, follow the Linux/Mac OS instructions above.
 
 If you do not wish to install WSL, run the following commands from a Windows
-terminal to install all non-pytype requirements (powershell example):
+terminal to install all non-pytype requirements:
 
 ```powershell
-PS > python -m venv .venv
-PS > & ".venv/scripts/activate"
-(.venv) PS > pip install -U pip
-(.venv) PS > pip install -r requirements-tests.txt
+> python -m venv .venv
+> .venv\scripts\activate
+(.venv) > pip install -U pip
+(.venv) > pip install -r "requirements-tests.txt"
 ```
 
 ## Code formatting
