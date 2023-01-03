@@ -4,6 +4,7 @@ from typing import Any
 from typing_extensions import TypeAlias
 from urllib.parse import ParseResult, SplitResult
 
+import numpy
 from requests.auth import AuthBase
 from requests.models import Response
 from requests.sessions import _Timeout
@@ -13,6 +14,7 @@ from .lib.url import URL
 from .objects import Calendar, DAVObject, Principal
 
 _Element: TypeAlias = Any  # actually lxml.etree._Element
+foo = numpy.NDArray
 
 class DAVResponse:
     reason: str
