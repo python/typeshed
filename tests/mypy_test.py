@@ -219,7 +219,7 @@ def run_mypy(
     *,
     testing_stdlib: bool,
     non_types_dependencies: bool,
-    python_exe: str,
+    venv_info: VenvInfo,
     mypypath: str | None = None,
 ) -> ReturnCode:
     env_vars = dict(os.environ)
@@ -259,7 +259,7 @@ def run_mypy(
             flags.append("--no-site-packages")
 
         mypy_args = [*flags, *map(str, files)]
-        mypy_command = [python_exe, "-m", "mypy"] + mypy_args
+        mypy_command = [venv_info.python_exe, "-m", "mypy"] + mypy_args
         if args.verbose:
             print(colored(f"running {' '.join(mypy_command)}", "blue"))
         result = subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars)
@@ -269,6 +269,10 @@ def run_mypy(
                 print_error(result.stdout)
             if result.stderr:
                 print_error(result.stderr)
+            if non_types_dependencies and args.verbose:
+                print("Ran with the following environment:")
+                subprocess.run([venv_info.pip_exe, "freeze", "--all"])
+                print()
         else:
             print_success_msg()
         return result.returncode
@@ -307,7 +311,7 @@ class TestResults(NamedTuple):
 
 
 def test_third_party_distribution(
-    distribution: str, args: TestConfig, python_exe: str, *, non_types_dependencies: bool
+    distribution: str, args: TestConfig, venv_info: VenvInfo, *, non_types_dependencies: bool
 ) -> TestResults:
     """Test the stubs of a third-party distribution.
 
@@ -336,7 +340,7 @@ def test_third_party_distribution(
         args,
         configurations,
         files,
-        python_exe=python_exe,
+        venv_info=venv_info,
         mypypath=mypypath,
         testing_stdlib=False,
         non_types_dependencies=non_types_dependencies,
@@ -469,9 +473,9 @@ def test_third_party_stubs(code: int, args: TestConfig, tempdir: Path) -> TestRe
     assert _DISTRIBUTION_TO_VENV_MAPPING.keys() == distributions_to_check.keys()
 
     for distribution, venv_info in _DISTRIBUTION_TO_VENV_MAPPING.items():
-        venv_python = venv_info.python_exe
+        non_types_dependencies = venv_info.python_exe != sys.executable
         this_code, checked = test_third_party_distribution(
-            distribution, args, python_exe=venv_python, non_types_dependencies=(venv_python != sys.executable)
+            distribution, args, venv_info=venv_info, non_types_dependencies=non_types_dependencies
         )
         code = max(code, this_code)
         files_checked += checked
