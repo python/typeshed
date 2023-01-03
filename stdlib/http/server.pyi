@@ -52,7 +52,7 @@ class BaseHTTPRequestHandler(socketserver.StreamRequestHandler):
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
     extensions_map: dict[str, str]
     if sys.version_info >= (3, 12):
-        index_pages: tuple[str, ...]
+        index_pages: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         request: socketserver._RequestType,
