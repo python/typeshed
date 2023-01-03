@@ -7,10 +7,10 @@ import re
 import subprocess
 import sys
 import venv
-from collections.abc import Mapping
+from collections.abc import Iterable, Mapping
 from functools import cache
 from pathlib import Path
-from typing import Iterable, NamedTuple
+from typing import NamedTuple
 from typing_extensions import Annotated
 
 import pathspec  # type: ignore[import]
