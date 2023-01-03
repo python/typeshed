@@ -97,7 +97,7 @@ class CompletedProcess(Generic[_T]):
         args: _CMD,
         returncode: int,
         stdout: _T | None = ...,  # pyright: ignore[reportInvalidTypeVarUse]
-        stderr: _T | None = ...,  # pyright: ignore[reportInvalidTypeVarUse]
+        stderr: _T | None = ...,
     ) -> None: ...
     def check_returncode(self) -> None: ...
     if sys.version_info >= (3, 9):

@@ -23,7 +23,6 @@ _StrType = TypeVar("_StrType", bound=str | bytes)
 
 _VT = TypeVar("_VT")
 _T = TypeVar("_T")
-_ScoreCastFuncReturn = TypeVar("_ScoreCastFuncReturn")
 
 # Keyword arguments that are passed to Redis.parse_response().
 _ParseResponseOptions: TypeAlias = Any
@@ -568,7 +567,6 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def sscan_iter(self, name: _Key, match: _Key | None = ..., count: int | None = ...) -> Iterator[Any]: ...
     def hscan(self, name: _Key, cursor: int = ..., match: _Key | None = ..., count: int | None = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def hscan_iter(self, name, match: _Key | None = ..., count: int | None = ...) -> Iterator[Any]: ...
-    def zscan(self, name: _Key, cursor: int = ..., match: _Key | None = ..., count: int | None = ..., score_cast_func: Callable[[_StrType], _ScoreCastFuncReturn] = ...) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def zscan_iter(
         self, name: _Key, match: _Key | None = ..., count: int | None = ..., score_cast_func: Callable[[_StrType], Any] = ...
     ) -> Iterator[Any]: ...
