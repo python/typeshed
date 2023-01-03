@@ -46,9 +46,11 @@ virtual environment. If you're not familiar with what it is and how it works,
 please refer to this
 [documentation](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/).
 
+Some tests require extra setup steps to install the required dependencies.
+
 ### Linux/Mac OS
 
-On Linux and Mac OS, you will be able to run the full test suite on Python 3.8,
+On Linux and Mac OS, you will be able to run the full test suite on Python
 3.9 or 3.10.
 To install the necessary requirements, run the following commands from a
 terminal window:

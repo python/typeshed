@@ -1,5 +1,5 @@
 version = "0.1.*"
-requires = ["types-Pillow"]
+requires = ["types-Pillow", "numpy"]
 
 [tool.stubtest]
 # TODO: figure out how to run stubtest for this package
