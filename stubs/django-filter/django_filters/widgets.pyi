@@ -1,7 +1,7 @@
 from typing import Any, Dict, Optional, Tuple
 
 from django import forms
-from django.forms.renderers import EngineMixin
+from django.forms.renderers import BaseRenderer
 from django.utils.safestring import SafeText
 
 _OptAttrs = Dict[str, Any]
@@ -11,13 +11,13 @@ class LinkWidget(forms.Widget):
     def __init__(self, attrs: Optional[Any] = ..., choices: Any = ...) -> None: ...
     data: Any = ...
     def value_from_datadict(self, data: Any, files: Any, name: Any): ...
-    def render(
+    def render(  # type: ignore[override]
         self,
         name: str,
         value: Any,
         attrs: Optional[_OptAttrs] = ...,
         choices: Tuple = ...,
-        renderer: Optional[EngineMixin] = ...,
+        renderer: Optional[BaseRenderer] = ...,
     ) -> SafeText: ...
     def render_options(self, choices: Any, selected_choices: Any, name: Any): ...
     def render_option(
