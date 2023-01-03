@@ -7,10 +7,10 @@ on:
       - main
   pull_request:
     paths:
-      - 'scripts/**'
-      - 'tests/**'
-      - '.github/workflows/typecheck_typeshed_code.yml'
-      - 'requirements-tests.txt'
+      - "scripts/**"
+      - "tests/**"
+      - ".github/workflows/typecheck_typeshed_code.yml"
+      - "requirements-tests.txt"
 
 permissions:
   contents: read
