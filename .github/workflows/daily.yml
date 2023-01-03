@@ -6,8 +6,8 @@ on:
     - cron: "0 0 * * *"
   pull_request:
     paths:
-      - 'requirements-tests.txt'
-      - '.github/workflows/daily.yml'
+      - "requirements-tests.txt"
+      - ".github/workflows/daily.yml"
 
 # Please keep the permissions minimal, as stubtest runs arbitrary code from pypi.
 permissions:
@@ -20,7 +20,7 @@ concurrency:
 env:
   PIP_DISABLE_PIP_VERSION_CHECK: 1
   FORCE_COLOR: 1
-  TERM: xterm-256color  # needed for FORCE_COLOR to work on mypy on Ubuntu, see https://github.com/python/mypy/issues/13817
+  TERM: xterm-256color # needed for FORCE_COLOR to work on mypy on Ubuntu, see https://github.com/python/mypy/issues/13817
 
 jobs:
   stubtest-stdlib:
