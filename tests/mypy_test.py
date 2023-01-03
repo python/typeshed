@@ -348,7 +348,7 @@ def test_third_party_distribution(
     return TestResults(code, len(files))
 
 
-def test_stdlib(code: int, args: TestConfig) -> TestResults:
+def test_stdlib(code: int, args: TestConfig, venv_info: VenvInfo) -> TestResults:
     files: list[Path] = []
     stdlib = Path("stdlib")
     supported_versions = parse_versions(stdlib / "VERSIONS")
@@ -362,7 +362,7 @@ def test_stdlib(code: int, args: TestConfig) -> TestResults:
 
     if files:
         print(f"Testing stdlib ({len(files)} files)...", end="", flush=True)
-        this_code = run_mypy(args, [], files, python_exe=sys.executable, testing_stdlib=True, non_types_dependencies=False)
+        this_code = run_mypy(args, [], files, venv_info=venv_info, testing_stdlib=True, non_types_dependencies=False)
         code = max(code, this_code)
 
     return TestResults(code, len(files))
@@ -392,6 +392,7 @@ def install_requirements_for_venv(venv_info: VenvInfo, args: TestConfig, externa
 
 
 def setup_virtual_environments(distributions: dict[str, PackageDependencies], args: TestConfig, tempdir: Path) -> None:
+    # We don't actually need pip if there aren't any external dependencies
     no_external_dependencies_venv = VenvInfo(pip_exe="", python_exe=sys.executable)
     external_requirements_to_distributions: defaultdict[frozenset[str], list[str]] = defaultdict(list)
     num_pkgs_with_external_reqs = 0
@@ -488,7 +489,9 @@ def test_typeshed(code: int, args: TestConfig, tempdir: Path) -> TestResults:
     files_checked_this_version = 0
     stdlib_dir, stubs_dir = Path("stdlib"), Path("stubs")
     if stdlib_dir in args.filter or any(stdlib_dir in path.parents for path in args.filter):
-        code, stdlib_files_checked = test_stdlib(code, args)
+        # We don't actually need pip for the stdlib testing
+        stdlib_env = VenvInfo(pip_exe="", python_exe=sys.executable)
+        code, stdlib_files_checked = test_stdlib(code, args, venv_info=stdlib_env)
         files_checked_this_version += stdlib_files_checked
         print()
 
