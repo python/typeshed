@@ -216,6 +216,8 @@ def get_precommit_requirements() -> dict[str, SpecifierSet]:
     yam = yaml.load(precommit, Loader=yaml.Loader)
     precommit_requirements = {}
     for repo in yam["repos"]:
+        if not repo.get("python_requirement", True):
+            continue
         hook = repo["hooks"][0]
         package_name, package_rev = hook["id"], repo["rev"]
         package_specifier = SpecifierSet(f"=={package_rev.removeprefix('v')}")

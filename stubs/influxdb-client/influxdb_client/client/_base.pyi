@@ -5,26 +5,40 @@ from influxdb_client import Configuration
 LOGGERS_NAMES: Incomplete
 
 class _BaseClient:
-    url: Incomplete
-    token: Incomplete
-    org: Incomplete
-    default_tags: Incomplete
-    conf: Incomplete
-    auth_header_name: Incomplete
-    auth_header_value: Incomplete
-    retries: Incomplete
-    profilers: Incomplete
+    url: str
+    token: str | None
+    org: str | None
+    default_tags: Incomplete | None
+    conf: _Configuration
+    auth_header_name: Incomplete | None
+    auth_header_value: Incomplete | None
+    retries: bool | Incomplete
+    profilers: Incomplete | None
     def __init__(
         self,
-        url,
-        token,
-        debug: Incomplete | None = ...,
+        url: str,
+        token: str | None,
+        debug: bool | None = ...,
         timeout: int = ...,
         enable_gzip: bool = ...,
         org: str | None = ...,
         default_tags: dict[Incomplete, Incomplete] | None = ...,
         http_client_logger: str | None = ...,
-        **kwargs,
+        *,
+        verify_ssl: bool = ...,
+        ssl_ca_cert: Incomplete | None = ...,
+        cert_file: Incomplete | None = ...,
+        cert_key_file: Incomplete | None = ...,
+        cert_key_password: Incomplete | None = ...,
+        ssl_context: Incomplete | None = ...,
+        proxy: Incomplete | None = ...,
+        proxy_headers: Incomplete | None = ...,
+        connection_pool_maxsize: int = ...,
+        username: Incomplete | None = ...,
+        password: Incomplete | None = ...,
+        auth_basic: bool = ...,
+        retries: bool | Incomplete = ...,
+        profilers: Incomplete | None = ...,
     ) -> None: ...
 
 class _BaseQueryApi:
