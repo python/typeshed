@@ -1,5 +1,3 @@
-import rich
-
 from .engine import (
     create_engine as create_engine,
     create_mock_engine as create_mock_engine,
@@ -131,7 +129,5 @@ from .types import (
     Unicode as Unicode,
     UnicodeText as UnicodeText,
 )
-
-bar = rich.print
 
 __version__: str

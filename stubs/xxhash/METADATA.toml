@@ -1,5 +1,4 @@
 version = "3.0.*"
-requires = ["pytest"]
 obsolete_since = "3.1.0" # Released on 2022-10-19
 
 [tool.stubtest]
