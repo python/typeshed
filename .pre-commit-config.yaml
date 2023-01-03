@@ -24,6 +24,7 @@ repos:
           - "flake8-pyi==22.11.0" # must match requirements-tests.txt
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v2.7.1
+    python_requirement: false
     hooks:
       - id: prettier
         types_or: [yaml]
