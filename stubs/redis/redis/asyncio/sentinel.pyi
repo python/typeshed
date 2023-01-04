@@ -1,5 +1,5 @@
 from collections.abc import AsyncIterator, Iterable, Mapping, Sequence
-from typing import Any
+from typing import Any, Optional
 
 from redis.asyncio.client import Redis
 from redis.asyncio.connection import Connection, ConnectionPool, SSLConnection
