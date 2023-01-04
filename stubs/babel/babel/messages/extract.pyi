@@ -1,9 +1,9 @@
 from _typeshed import SupportsRead, SupportsReadline
 from collections.abc import Callable, Collection, Iterable
 from os import PathLike
-from typing import Any, AnyStr, Protocol, TypedDict
+from typing import Any, AnyStr, Protocol, TypedDict, TypeAlias
 
-_Keyword: tuple[int | tuple[int, int] | tuple[int, str], ...]
+_Keyword: TypeAlias = tuple[int | tuple[int, int] | tuple[int, str], ...]
 
 GROUP_NAME: str
 DEFAULT_KEYWORDS: dict[str, _Keyword]
@@ -16,7 +16,7 @@ def extract_from_dir(
     options_map: Any | None = ...,
     keywords: dict[str, _Keyword] = ...,
     comment_tags: Collection[str] = ...,
-    callback: Callable[[AnyStr, str, dict[str, Any]]] | None = ...,
+    callback: Callable[[AnyStr, str, dict[str, Any]], object] | None = ...,
     strip_comment_tags: bool = ...,
     directory_filter: Callable[[str], bool] | None = ...,
 ) -> list[tuple[AnyStr, int, str | tuple[str, ...], list[str], str | None]]: ...
@@ -24,7 +24,7 @@ def check_and_call_extract_file(
     filepath: AnyStr | PathLike,
     method_map: list[tuple[str, str]],
     options_map: dict[str, dict[str, Any]],
-    callback: Callable[[AnyStr, str, dict[str, Any]]] | None,
+    callback: Callable[[AnyStr, str, dict[str, Any]], object] | None,
     keywords: dict[str, _Keyword],
     comment_tags: Collection[str],
     strip_comment_tags,
