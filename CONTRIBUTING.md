@@ -46,14 +46,16 @@ virtual environment. If you're not familiar with what it is and how it works,
 please refer to this
 [documentation](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/).
 
+Note that some tests require extra setup steps to install the required dependencies.
+
 ### Linux/Mac OS
 
-On Linux and Mac OS, you will be able to run the full test suite on Python 3.8,
+On Linux and Mac OS, you will be able to run the full test suite on Python
 3.9 or 3.10.
 To install the necessary requirements, run the following commands from a
 terminal window:
 
-```
+```bash
 $ python3 -m venv .venv
 $ source .venv/bin/activate
 (.venv)$ pip install -U pip
@@ -73,11 +75,11 @@ WSL, follow the Linux/Mac OS instructions above.
 If you do not wish to install WSL, run the following commands from a Windows
 terminal to install all non-pytype requirements:
 
-```
+```powershell
 > python -m venv .venv
-> ".venv/scripts/activate"
+> .venv\scripts\activate
 (.venv) > pip install -U pip
-(.venv) > pip install -r requirements-tests.txt
+(.venv) > pip install -r "requirements-tests.txt"
 ```
 
 ## Code formatting
@@ -93,10 +95,10 @@ right away and add a commit to your PR.
 That being said, if you *want* to run the checks locally when you commit,
 you're free to do so. Either run `pycln`, `black` and `isort` manually...
 
-```
-pycln --config=pyproject.toml .
-isort .
-black .
+```bash
+$ pycln --config=pyproject.toml .
+$ isort .
+$ black .
 ```
 
 ...Or install the pre-commit hooks: please refer to the
@@ -107,8 +109,8 @@ Our code is also linted using `flake8`, with plugins `flake8-pyi`,
 flake8 before filing a PR is not required. However, if you wish to run flake8
 locally, install the test dependencies as outlined above, and then run:
 
-```
-flake8 .
+```bash
+(.venv3)$ flake8 .
 ```
 
 ## Where to make changes
@@ -248,7 +250,7 @@ To get started, fork typeshed, clone your fork, and then
 You can then install the library with `pip` into the virtualenv and run the script,
 replacing `libraryname` with the name of the library below:
 
-```
+```bash
 (.venv3)$ pip install libraryname
 (.venv3)$ python3 scripts/create_baseline_stubs.py libraryname
 ```
@@ -467,6 +469,11 @@ Some further tips for good type hints:
   platform-dependent APIs;
 * use mypy error codes for mypy-specific `# type: ignore` annotations,
   e.g. `# type: ignore[override]` for Liskov Substitution Principle violations.
+* use pyright error codes for pyright-specific suppressions,
+  e.g. `# pyright: ignore[reportGeneralTypeIssues]`.
+  - pyright is configured to discard `# type: ignore` annotations.
+  If you need both on the same line, mypy's annotation needs to go first,
+  e.g. `# type: ignore[override]  # pyright: ignore[reportGeneralTypeIssues]`.
 
 Imports in stubs are considered private (not part of the exported API)
 unless:

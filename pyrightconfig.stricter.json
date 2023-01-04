@@ -50,6 +50,7 @@
         "stubs/protobuf",
         "stubs/python-crontab",
         "stubs/google-cloud-ndb",
+        "stubs/influxdb-client",
         "stubs/passlib",
         "stubs/peewee",
         "stubs/pika",
@@ -73,8 +74,14 @@
         "stubs/vobject",
     ],
     "typeCheckingMode": "strict",
+    "reportUnnecessaryTypeIgnoreComment": "error",
+    // Leave "type: ignore" comments to mypy
+    "enableTypeIgnoreComments": false,
+    // Stubs are allowed to use private variables
     "reportPrivateUsage": "none",
+    // TODO: Complete incomplete stubs
     "reportIncompleteStub": "none",
+    // Stubs don't need the actual modules to be installed
     "reportMissingModuleSource": "none",
     // Incompatible overrides and property type mismatches are out of typeshed's control
     // as they are inherited from the implementation.
