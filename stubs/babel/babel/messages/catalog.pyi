@@ -1,12 +1,13 @@
 import datetime
 from collections import OrderedDict
 from collections.abc import Generator, Iterable, Iterator
+from typing_extensions import TypeAlias
 
 from babel.core import Locale
 
 __all__ = ["Message", "Catalog", "TranslationError"]
 
-_MessageID = str | tuple[str, ...] | list[str]
+_MessageID: TypeAlias = str | tuple[str, ...] | list[str]
 
 class Message:
     id: _MessageID
@@ -59,7 +60,7 @@ class Catalog:
     language_team: str
     charset: str
     creation_date: datetime.datetime | str
-    revision_date: datetime.datetime | datetime.time | int | float | str
+    revision_date: datetime.datetime | datetime.time | float | str
     fuzzy: bool
     obsolete: OrderedDict[str | tuple[str, str], Message]
     def __init__(
