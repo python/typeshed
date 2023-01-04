@@ -194,8 +194,7 @@ class UnixDomainSocketConnection(Connection):
     health_check_interval: Any
     next_health_check: int
     redis_connect_func: ConnectCallbackT | None
-    encoder: Any,
-    credential_provider: Optional[Any]
+    encoder: Any
     def __init__(
         self,
         *,
