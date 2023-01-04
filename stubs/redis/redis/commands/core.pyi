@@ -818,7 +818,14 @@ class StreamCommands:
         limit: Any | None = ...,
     ): ...
     def xautoclaim(
-        self, name, groupname, consumername, min_idle_time, start_id: Union[int, bytes, str, memoryview] = ..., count: Any | None = ..., justid: bool = ...
+        self,
+        name,
+        groupname,
+        consumername,
+        min_idle_time,
+        start_id: Union[int, bytes, str, memoryview] = ...,
+        count: Any | None = ...,
+        justid: bool = ...,
     ): ...
     def xclaim(
         self, name, groupname, consumername, min_idle_time, message_ids, idle=..., time=..., retrycount=..., force=..., justid=...
@@ -861,7 +868,14 @@ class AsyncStreamCommands:
         limit: Any | None = ...,
     ): ...
     async def xautoclaim(
-        self, name, groupname, consumername, min_idle_time, start_id: Union[int, bytes, str, memoryview] = ..., count: Any | None = ..., justid: bool = ...
+        self,
+        name,
+        groupname,
+        consumername,
+        min_idle_time,
+        start_id: Union[int, bytes, str, memoryview] = ...,
+        count: Any | None = ...,
+        justid: bool = ...,
     ): ...
     async def xclaim(
         self, name, groupname, consumername, min_idle_time, message_ids, idle=..., time=..., retrycount=..., force=..., justid=...
