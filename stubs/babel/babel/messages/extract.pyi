@@ -15,7 +15,7 @@ empty_msgid_warning: str
 def extract_from_dir(
     dirname: AnyStr | PathLike[AnyStr],
     method_map: list[tuple[str, str]] = ...,
-    options_map: Any | None = ...,
+    options_map: dict[str, dict[str, Any]] | None = ...,
     keywords: dict[str, _Keyword] = ...,
     comment_tags: Collection[str] = ...,
     callback: Callable[[AnyStr, str, dict[str, Any]], object] | None = ...,
@@ -26,7 +26,7 @@ def extract_from_dir(
 def extract_from_dir(
     dirname: None=..., # No dirname causes os.getcwd() to be used, producing str.
     method_map: list[tuple[str, str]] = ...,
-    options_map: Any | None = ...,
+    options_map: dict[str, dict[str, Any]] | None = ...,
     keywords: dict[str, _Keyword] = ...,
     comment_tags: Collection[str] = ...,
     callback: Callable[[str, str, dict[str, Any]], object] | None = ...,
