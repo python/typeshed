@@ -348,7 +348,7 @@ def test_third_party_distribution(
     return TestResults(code, len(files))
 
 
-def test_stdlib(code: int, args: TestConfig, venv_info: VenvInfo) -> TestResults:
+def test_stdlib(code: int, args: TestConfig) -> TestResults:
     files: list[Path] = []
     stdlib = Path("stdlib")
     supported_versions = parse_versions(stdlib / "VERSIONS")
@@ -362,6 +362,8 @@ def test_stdlib(code: int, args: TestConfig, venv_info: VenvInfo) -> TestResults
 
     if files:
         print(f"Testing stdlib ({len(files)} files)...", end="", flush=True)
+        # We don't actually need pip for the stdlib testing
+        venv_info = VenvInfo(pip_exe="", python_exe=sys.executable)
         this_code = run_mypy(args, [], files, venv_info=venv_info, testing_stdlib=True, non_types_dependencies=False)
         code = max(code, this_code)
 
@@ -489,9 +491,7 @@ def test_typeshed(code: int, args: TestConfig, tempdir: Path) -> TestResults:
     files_checked_this_version = 0
     stdlib_dir, stubs_dir = Path("stdlib"), Path("stubs")
     if stdlib_dir in args.filter or any(stdlib_dir in path.parents for path in args.filter):
-        # We don't actually need pip for the stdlib testing
-        stdlib_env = VenvInfo(pip_exe="", python_exe=sys.executable)
-        code, stdlib_files_checked = test_stdlib(code, args, venv_info=stdlib_env)
+        code, stdlib_files_checked = test_stdlib(code, args)
         files_checked_this_version += stdlib_files_checked
         print()
 
