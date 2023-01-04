@@ -2,7 +2,6 @@ from typing import NamedTuple
 from collections.abc import Generator, Sequence
 from re import Pattern
 
-
 operators: Sequence[str]
 escapes: dict[str, str]
 name_re: Pattern[str]

@@ -5,7 +5,6 @@ from babel.core import Locale
 from babel.messages.catalog import Catalog
 from re import Pattern
 
-
 def unescape(string: str) -> str: ...
 def denormalize(string: str) -> str: ...
 

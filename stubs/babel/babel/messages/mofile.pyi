@@ -1,7 +1,6 @@
 from _typeshed import SupportsRead, SupportsWrite
 from babel.messages.catalog import Catalog
 
-
 LE_MAGIC: int
 BE_MAGIC: int
 
