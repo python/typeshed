@@ -22,7 +22,7 @@ def extract_from_dir(
     directory_filter: Callable[[str], bool] | None = ...,
 ) -> list[tuple[AnyStr, int, str | tuple[str, ...], list[str], str | None]]: ...
 def check_and_call_extract_file(
-    filepath: AnyStr | PathLike,
+    filepath: AnyStr | PathLike[AnyStr],
     method_map: list[tuple[str, str]],
     options_map: dict[str, dict[str, Any]],
     callback: Callable[[AnyStr, str, dict[str, Any]], object] | None,
@@ -33,7 +33,7 @@ def check_and_call_extract_file(
 ) -> list[tuple[AnyStr, int, str | tuple[str, ...], list[str], str | None]]: ...
 def extract_from_file(
     method,
-    filename: AnyStr | PathLike,
+    filename: AnyStr | PathLike[AnyStr],
     keywords: dict[str, _Keyword] = ...,
     comment_tags: Collection[str] = ...,
     options: dict[str, Any] | None = ...,
