@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Self
 from collections.abc import AsyncIterator, Awaitable, Callable, Iterable, Mapping, MutableMapping, Sequence
 from datetime import datetime, timedelta
-from typing import Any, ClassVar, Generic, NoReturn, Optional, Protocol, overload
+from typing import Any, ClassVar, Generic, NoReturn, Optional, Protocol, overload, Union
 from typing_extensions import Literal, TypeAlias, TypedDict
 
 from redis import RedisError
@@ -588,7 +588,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         groupname,
         consumername,
         min_idle_time,
-        start_id: int = ...,
+        start_id: Union[int, bytes, str, memoryview] = ...,
         count: Incomplete | None = ...,
         justid: bool = ...,
     ) -> Any: ...
