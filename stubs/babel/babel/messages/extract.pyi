@@ -2,7 +2,7 @@ from _typeshed import SupportsRead, SupportsReadline
 from collections.abc import Callable, Collection, Iterable
 from os import PathLike
 from typing import Any, AnyStr, overload
-from typing_extensions import Protocol, TypedDict, TypeAlias
+from typing_extensions import Protocol, TypeAlias, TypedDict
 
 _Keyword: TypeAlias = tuple[int | tuple[int, int] | tuple[int, str], ...]
 
@@ -24,7 +24,7 @@ def extract_from_dir(
 ) -> list[tuple[AnyStr, int, str | tuple[str, ...], list[str], str | None]]: ...
 @overload
 def extract_from_dir(
-    dirname: None=..., # No dirname causes os.getcwd() to be used, producing str.
+    dirname: None = ...,  # No dirname causes os.getcwd() to be used, producing str.
     method_map: list[tuple[str, str]] = ...,
     options_map: dict[str, dict[str, Any]] | None = ...,
     keywords: dict[str, _Keyword] = ...,
