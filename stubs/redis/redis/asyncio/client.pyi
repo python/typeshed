@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Self
 from collections.abc import AsyncIterator, Awaitable, Callable, Iterable, Mapping, MutableMapping, Sequence
 from datetime import datetime, timedelta
-from typing import Any, ClassVar, Generic, NoReturn, Optional, Protocol, overload, Union
+from typing import Any, ClassVar, Generic, NoReturn, Optional, Protocol, Union, overload
 from typing_extensions import Literal, TypeAlias, TypedDict
 
 from redis import RedisError
