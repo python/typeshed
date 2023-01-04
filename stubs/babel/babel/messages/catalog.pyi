@@ -73,7 +73,7 @@ class Catalog:
         copyright_holder: str | None = ...,
         msgid_bugs_address: str | None = ...,
         creation_date: datetime.datetime | str | None = ...,
-        revision_date: datetime.datetime | datetime.time | int | float | str | None = ...,
+        revision_date: datetime.datetime | datetime.time | float | str | None = ...,
         last_translator: str | None = ...,
         language_team: str | None = ...,
         charset: str | None = ...,
