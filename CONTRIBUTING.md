@@ -46,7 +46,7 @@ virtual environment. If you're not familiar with what it is and how it works,
 please refer to this
 [documentation](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/).
 
-Some tests require extra setup steps to install the required dependencies.
+Note that some tests require extra setup steps to install the required dependencies.
 
 ### Linux/Mac OS
 

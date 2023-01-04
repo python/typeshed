@@ -20,7 +20,7 @@ To run the tests, follow the [setup instructions](../CONTRIBUTING.md#preparing-t
 in the `CONTRIBUTING.md` document. In particular, you have to run with Python 3.9+.
 
 In order for `pytype_test` and `pyright_test` to work correctly, some third-party stubs
-may require dependencies external to typeshed to be installed in your virtual environment
+may require extra dependencies external to typeshed to be installed in your virtual environment
 prior to running the test.
 You can list or install all of a stubs package's external dependencies using the following script:
 ```bash

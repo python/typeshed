@@ -76,6 +76,7 @@ jobs:
             echo "Installing packages: $DEPENDENCIES"
             pip install $DEPENDENCIES
           fi
+     - run: pip freeze --all
       - run: ./tests/pytype_test.py --print-stderr
 
   mypy:
