@@ -2,7 +2,7 @@ from _typeshed import Incomplete, Self
 from collections.abc import Callable, Iterable, Sequence
 from threading import Lock
 from types import TracebackType
-from typing import Any, ClassVar, Generic, NoReturn, Protocol
+from typing import ClassVar, Generic, NoReturn, Optional, Protocol
 from typing_extensions import Literal
 
 from redis.client import CaseInsensitiveDict, PubSub, Redis, _ParseResponseOptions
@@ -11,6 +11,7 @@ from redis.commands.core import _StrType
 from redis.connection import BaseParser, Connection, ConnectionPool, Encoder, _ConnectionPoolOptions, _Encodable
 from redis.exceptions import MovedError, RedisError
 from redis.typing import EncodableT
+from redis.retry import Retry
 
 def get_node_name(host: str, port: str | int) -> str: ...
 def get_connection(redis_node: Redis[Any], *args, **options: _ConnectionPoolOptions) -> Connection: ...
@@ -62,6 +63,7 @@ class RedisCluster(AbstractRedisCluster, RedisClusterCommands[_StrType], Generic
         port: int | None = ...,
         startup_nodes: list[ClusterNode] | None = ...,
         cluster_error_retry_attempts: int = ...,
+        retry: Optional[Retry] = ...,
         require_full_coverage: bool = ...,
         reinitialize_steps: int = ...,
         read_from_replicas: bool = ...,
