@@ -4,7 +4,7 @@ from typing_extensions import Literal, TypeAlias
 from .ImageFile import ImageFile
 
 SUPPORTED: bool
-_XMP_Tags: TypeAlias = dict[str, _XMP_Tags]
+_XMP_Tags: TypeAlias = dict[str, str | _XMP_Tags]
 
 class WebPImageFile(ImageFile):
     format: ClassVar[Literal["WEBP"]]

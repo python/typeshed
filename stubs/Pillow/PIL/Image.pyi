@@ -1,5 +1,4 @@
 from _typeshed import Incomplete, Self, SupportsRead, SupportsWrite
-from builtins import _NotImplementedType
 from collections.abc import Callable, Iterable, Iterator, MutableMapping, Sequence
 from enum import IntEnum
 from pathlib import Path
@@ -164,8 +163,8 @@ class Image:
     pyaccess: PyAccess | None
     is_animated: bool  # not present on all Image objects
     n_frames: int  # not present on all Image objects
-    # Can never be None, but can be missing
-    encoderconfig: tuple[Incomplete, ...] | _NotImplementedType
+    # Only defined after a call to save().
+    encoderconfig: tuple[Incomplete, ...]
     @property
     def width(self) -> int: ...
     @property
