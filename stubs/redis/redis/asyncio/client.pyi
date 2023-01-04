@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Self
 from collections.abc import AsyncIterator, Awaitable, Callable, Iterable, Mapping, MutableMapping, Sequence
 from datetime import datetime, timedelta
-from typing import Any, ClassVar, Generic, NoReturn, Protocol, overload
+from typing import Any, ClassVar, Generic, NoReturn, Optional, Protocol, overload
 from typing_extensions import Literal, TypeAlias, TypedDict
 
 from redis import RedisError
@@ -63,6 +63,7 @@ class Redis(AbstractRedis, RedisModuleCommands, AsyncCoreCommands[_StrType], Asy
         retry: Retry | None = ...,
         auto_close_connection_pool: bool = ...,
         redis_connect_func: ConnectCallbackT | None = ...,
+        credential_provider: Optional[Any] = ...,
     ) -> None: ...
     def __await__(self): ...
     async def initialize(self: Self) -> Self: ...
@@ -82,7 +83,8 @@ class Redis(AbstractRedis, RedisModuleCommands, AsyncCoreCommands[_StrType], Asy
         name: KeyT,
         timeout: float | None = ...,
         sleep: float = ...,
-        blocking_timeout: float | None = ...,
+        blocking: bool = ...,
+        blocking_timeout: Optional[float] = ...,
         lock_class: type[Lock] | None = ...,
         thread_local: bool = ...,
     ) -> Lock: ...
