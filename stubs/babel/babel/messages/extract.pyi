@@ -1,7 +1,7 @@
 from _typeshed import SupportsRead, SupportsReadline
 from collections.abc import Callable, Collection, Iterable
 from os import PathLike
-from typing import Any, AnyStr
+from typing import Any, AnyStr, overload
 from typing_extensions import Protocol, TypedDict, TypeAlias
 
 _Keyword: TypeAlias = tuple[int | tuple[int, int] | tuple[int, str], ...]
@@ -11,8 +11,9 @@ DEFAULT_KEYWORDS: dict[str, _Keyword]
 DEFAULT_MAPPING: list[tuple[str, str]]
 empty_msgid_warning: str
 
+@overload
 def extract_from_dir(
-    dirname: AnyStr | PathLike[AnyStr] | None = ...,
+    dirname: AnyStr | PathLike[AnyStr],
     method_map: list[tuple[str, str]] = ...,
     options_map: Any | None = ...,
     keywords: dict[str, _Keyword] = ...,
@@ -21,6 +22,17 @@ def extract_from_dir(
     strip_comment_tags: bool = ...,
     directory_filter: Callable[[str], bool] | None = ...,
 ) -> list[tuple[AnyStr, int, str | tuple[str, ...], list[str], str | None]]: ...
+@overload
+def extract_from_dir(
+    dirname: None=..., # No dirname causes os.getcwd() to be used, producing str.
+    method_map: list[tuple[str, str]] = ...,
+    options_map: Any | None = ...,
+    keywords: dict[str, _Keyword] = ...,
+    comment_tags: Collection[str] = ...,
+    callback: Callable[[str, str, dict[str, Any]], object] | None = ...,
+    strip_comment_tags: bool = ...,
+    directory_filter: Callable[[str], bool] | None = ...,
+) -> list[tuple[str, int, str | tuple[str, ...], list[str], str | None]]: ...
 def check_and_call_extract_file(
     filepath: AnyStr | PathLike[AnyStr],
     method_map: list[tuple[str, str]],
