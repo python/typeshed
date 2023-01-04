@@ -1,6 +1,6 @@
-from collections import OrderedDict
-from collections.abc import Iterable, Iterator, Generator
 import datetime
+from collections import OrderedDict
+from collections.abc import Generator, Iterable, Iterator
 
 from babel.core import Locale
 

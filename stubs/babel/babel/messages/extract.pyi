@@ -1,7 +1,7 @@
-from collections.abc import Callable, Iterable, Collection
-from typing import Any, Protocol, TypedDict, AnyStr
-from os import PathLike
 from _typeshed import SupportsRead, SupportsReadline
+from collections.abc import Callable, Collection, Iterable
+from os import PathLike
+from typing import Any, AnyStr, Protocol, TypedDict
 
 _Keyword: tuple[int | tuple[int, int] | tuple[int, str], ...]
 

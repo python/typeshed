@@ -1,6 +1,6 @@
-from typing import NamedTuple
 from collections.abc import Generator, Sequence
 from re import Pattern
+from typing import NamedTuple
 
 operators: Sequence[str]
 escapes: dict[str, str]
