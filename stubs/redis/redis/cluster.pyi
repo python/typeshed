@@ -2,7 +2,7 @@ from _typeshed import Incomplete, Self
 from collections.abc import Callable, Iterable, Sequence
 from threading import Lock
 from types import TracebackType
-from typing import ClassVar, Generic, NoReturn, Optional, Protocol
+from typing import ClassVar, Generic, NoReturn, Optional, Protocol, Any
 from typing_extensions import Literal
 
 from redis.client import CaseInsensitiveDict, PubSub, Redis, _ParseResponseOptions
