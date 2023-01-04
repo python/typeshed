@@ -1,7 +1,7 @@
 from _typeshed import SupportsRead, SupportsReadline
 from collections.abc import Callable, Collection, Iterable
 from os import PathLike
-from typing import Any, AnyStr, Protocol, TypedDict, TypeAlias
+from typing import Any, AnyStr, Protocol, TypeAlias, TypedDict
 
 _Keyword: TypeAlias = tuple[int | tuple[int, int] | tuple[int, str], ...]
 
