@@ -407,6 +407,11 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
         else:
             _DISTRIBUTION_TO_VENV_MAPPING[distribution_name] = no_external_dependencies_venv
 
+    if num_pkgs_with_external_reqs == 0:
+        if args.verbose:
+            print(colored("No additional venvs are required to be set up", "blue"))
+        return
+
     requirements_sets_to_venvs: dict[frozenset[str], VenvInfo] = {}
 
     if args.verbose:
