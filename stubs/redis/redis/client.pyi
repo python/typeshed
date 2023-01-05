@@ -4,7 +4,7 @@ from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from datetime import datetime, timedelta
 from re import Pattern
 from types import TracebackType
-from typing import Any, ClassVar, Generic, Optional, TypeVar, overload
+from typing import Any, ClassVar, Generic, TypeVar, overload
 from typing_extensions import Literal, TypeAlias
 
 from redis import RedisError
@@ -186,7 +186,7 @@ class Redis(AbstractRedis, RedisModuleCommands, CoreCommands[_StrType], Sentinel
         username: str | None = ...,
         retry: Retry | None = ...,
         redis_connect_func: _ConnectFunc | None = ...,
-        credential_provider: Optional[Any] = ...,
+        credential_provider: Any | None = ...,
     ) -> None: ...
     @overload
     def __init__(

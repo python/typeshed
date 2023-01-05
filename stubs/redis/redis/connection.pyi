@@ -2,7 +2,7 @@ from _typeshed import Incomplete, Self
 from collections.abc import Callable, Iterable, Mapping
 from queue import Queue
 from socket import socket
-from typing import Any, ClassVar, Optional
+from typing import Any, ClassVar
 from typing_extensions import TypeAlias
 
 from .retry import Retry
@@ -121,7 +121,7 @@ class Connection:
         username: str | None = ...,
         retry: Retry | None = ...,
         redis_connect_func: _ConnectFunc | None = ...,
-        credential_provider: Optional[Any] = ...,
+        credential_provider: Any | None = ...,
     ) -> None: ...
     def __del__(self) -> None: ...
     def register_connect_callback(self, callback: _ConnectFunc) -> None: ...
@@ -188,7 +188,7 @@ class UnixDomainSocketConnection(Connection):
         client_name: str | None = ...,
         retry: Retry | None = ...,
         redis_connect_func: _ConnectFunc | None = ...,
-        credential_provider: Optional[Any] = ...,
+        credential_provider: Any | None = ...,
     ) -> None: ...
 
 # TODO: make generic on `connection_class`

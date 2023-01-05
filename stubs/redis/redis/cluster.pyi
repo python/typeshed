@@ -2,7 +2,7 @@ from _typeshed import Incomplete, Self
 from collections.abc import Callable, Iterable, Sequence
 from threading import Lock
 from types import TracebackType
-from typing import Any, ClassVar, Generic, NoReturn, Optional, Protocol
+from typing import Any, ClassVar, Generic, NoReturn, Protocol
 from typing_extensions import Literal
 
 from redis.client import CaseInsensitiveDict, PubSub, Redis, _ParseResponseOptions
@@ -63,7 +63,7 @@ class RedisCluster(AbstractRedisCluster, RedisClusterCommands[_StrType], Generic
         port: int | None = ...,
         startup_nodes: list[ClusterNode] | None = ...,
         cluster_error_retry_attempts: int = ...,
-        retry: Optional[Retry] = ...,
+        retry: Retry | None = ...,
         require_full_coverage: bool = ...,
         reinitialize_steps: int = ...,
         read_from_replicas: bool = ...,

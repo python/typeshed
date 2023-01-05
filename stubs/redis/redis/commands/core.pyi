@@ -2,7 +2,7 @@ import builtins
 from _typeshed import Incomplete
 from collections.abc import AsyncIterator, Awaitable, Callable, Iterable, Iterator, Mapping, Sequence
 from datetime import datetime, timedelta
-from typing import Any, Generic, TypeVar, Union, overload
+from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Literal
 
 from ..asyncio.client import Redis as AsyncRedis
@@ -823,7 +823,7 @@ class StreamCommands:
         groupname,
         consumername,
         min_idle_time,
-        start_id: Union[int, bytes, str, memoryview] = ...,
+        start_id: int | bytes | str | memoryview = ...,
         count: Any | None = ...,
         justid: bool = ...,
     ): ...
@@ -873,7 +873,7 @@ class AsyncStreamCommands:
         groupname,
         consumername,
         min_idle_time,
-        start_id: Union[int, bytes, str, memoryview] = ...,
+        start_id: int | bytes | str | memoryview = ...,
         count: Any | None = ...,
         justid: bool = ...,
     ): ...
