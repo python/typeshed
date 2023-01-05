@@ -7,6 +7,7 @@ from typing_extensions import TypeAlias, TypedDict
 
 from redis import RedisError
 from redis.asyncio.retry import Retry
+from redis.credentials import CredentialProvider
 from redis.exceptions import ResponseError
 from redis.typing import EncodableT, EncodedT
 
@@ -116,7 +117,7 @@ class Connection:
         retry: Retry | None = ...,
         redis_connect_func: ConnectCallbackT | None = ...,
         encoder_class: type[Encoder] = ...,
-        credential_provider: Any | None = ...,
+        credential_provider: CredentialProvider | None = ...,
     ) -> None: ...
     def repr_pieces(self): ...
     def __del__(self) -> None: ...
@@ -215,7 +216,7 @@ class UnixDomainSocketConnection(Connection):
         client_name: str | None = ...,
         retry: Retry | None = ...,
         redis_connect_func: ConnectCallbackT | None = ...,
-        credential_provider: Any | None = ...,
+        credential_provider: CredentialProvider | None = ...,
     ) -> None: ...
     def repr_pieces(self) -> Iterable[tuple[str, str | int]]: ...
 
