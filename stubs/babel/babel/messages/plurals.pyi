@@ -1,7 +1,5 @@
-from collections.abc import Mapping
-
 LC_CTYPE: str
-PLURALS: Mapping[str, tuple[int, str]]
+PLURALS: dict[str, tuple[int, str]]
 DEFAULT_PLURAL: tuple[int, str]
 
 class _PluralTuple(tuple[int, str]):
