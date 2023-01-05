@@ -12,6 +12,9 @@ class ParseError(JMESPathError):
     def __init__(self, lex_position: int, token_value: str, token_type: str, msg: str = ...) -> None: ...
 
 class IncompleteExpressionError(ParseError):
+    # When ParseError is used directly, the token always have a non-null value and type
+    token_value: str | None  # type: ignore[assignment]
+    token_type: str | None  # type: ignore[assignment]
     expression: str
     def set_expression(self, expression: str) -> None: ...
 
@@ -25,7 +28,6 @@ class ArityError(ParseError):
     expected_arity: int
     actual_arity: int
     function_name: str
-    expression: None
     def __init__(self, expected, actual, name) -> None: ...
 
 class VariadictArityError(ArityError): ...
