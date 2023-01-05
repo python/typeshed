@@ -375,8 +375,7 @@ _DISTRIBUTION_TO_VENV_MAPPING: dict[str, VenvInfo] = {}
 
 
 def setup_venv_for_external_requirements_set(requirements_set: frozenset[str], tempdir: Path) -> tuple[frozenset[str], VenvInfo]:
-    reqs_joined = "-".join(sorted(requirements_set))
-    venv_dir = tempdir / f".venv-{reqs_joined}"
+    venv_dir = tempdir / f".venv-{hash(requirements_set)}"
     return requirements_set, make_venv(venv_dir)
 
 
