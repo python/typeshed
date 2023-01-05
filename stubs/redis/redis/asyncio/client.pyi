@@ -11,7 +11,7 @@ from redis.asyncio.retry import Retry
 from redis.client import AbstractRedis, _CommandOptions, _Key, _StrType, _Value
 from redis.commands import AsyncCoreCommands, AsyncSentinelCommands, RedisModuleCommands
 from redis.credentials import CredentialProvider
-from redis.typing import ChannelT, EncodableT, KeyT, PatternT
+from redis.typing import ChannelT, EncodableT, KeyT, PatternT, StreamIdT
 
 PubSubHandler: TypeAlias = Callable[[dict[str, str]], Awaitable[None]]
 
@@ -589,7 +589,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         groupname,
         consumername,
         min_idle_time,
-        start_id: int | bytes | str | memoryview = ...,
+        start_id: StreamIdT = ...,
         count: Incomplete | None = ...,
         justid: bool = ...,
     ) -> Any: ...
