@@ -1,4 +1,4 @@
-from collections.abc import Callable
+from collections.abc import Callable, Iterable
 from typing import Any, TypeVar
 from typing_extensions import NotRequired, TypedDict
 
@@ -18,4 +18,4 @@ class FunctionRegistry(type):
 
 class Functions(metaclass=FunctionRegistry):
     FUNCTION_TABLE: Any
-    def call_function(self, function_name, resolved_args): ...
+    def call_function(self, function_name: str, resolved_args: Iterable[Any]) -> Any: ...
