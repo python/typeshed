@@ -4,10 +4,10 @@ on:
   # Only run on PR, since we diff against main
   pull_request:
     paths:
-    - 'stdlib/**'
-    - 'stubs/**'
-    - '.github/workflows/mypy_primer.yml'
-    - '.github/workflows/mypy_primer_comment.yml'
+      - "stdlib/**"
+      - "stubs/**/*.pyi"
+      - ".github/workflows/mypy_primer.yml"
+      - ".github/workflows/mypy_primer_comment.yml"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
