@@ -1,6 +1,6 @@
 from _typeshed import Self
 from collections.abc import Awaitable, Mapping
-from typing import Any, Generic
+from typing import Any, Generic, ForwardRef
 
 from redis.asyncio.client import ResponseCallbackT
 from redis.asyncio.connection import BaseParser, Connection, Encoder
@@ -12,6 +12,7 @@ from redis.cluster import AbstractRedisCluster
 from redis.commands.core import _StrType
 from redis.typing import AnyKeyT, EncodableT, KeyT
 from redis.credentials import CredentialProvider
+from redis.retry import Retry
 
 # It uses `DefaultParser` in real life, but it is a dynamic base class.
 class ClusterParser(BaseParser): ...
@@ -47,6 +48,7 @@ class RedisCluster(AbstractRedis, AbstractRedisCluster, Generic[_StrType]):  # T
         socket_keepalive_options: Mapping[int, int | bytes] | None = ...,
         socket_timeout: float | None = ...,
         # SSL related kwargs
+        retry: Retry | None = ...,
         ssl: bool = ...,
         ssl_ca_certs: str | None = ...,
         ssl_ca_data: str | None = ...,
