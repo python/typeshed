@@ -32,7 +32,7 @@ class RedisCluster(AbstractRedis, AbstractRedisCluster, Generic[_StrType]):  # T
         # Client related kwargs
         db: str | int = ...,
         path: str | None = ...,
-        credential_provider: CredentialProvider = ...,
+        credential_provider: CredentialProvider | None = ...,
         username: str | None = ...,
         password: str | None = ...,
         client_name: str | None = ...,
