@@ -2,6 +2,8 @@ from _typeshed import Incomplete
 from collections.abc import Callable
 from typing_extensions import TypeAlias
 
+from pyasn1.type.tag import TagSet
+
 _Unused: TypeAlias = object
 
 class AbstractScalarDecoder:
@@ -18,6 +20,9 @@ class SequenceOfOrSetOfDecoder:
 
 class ChoiceDecoder:
     def __call__(self, pyObject, asn1Spec, decodeFun: Callable[..., Incomplete] | None = ..., **options): ...
+
+tagMap: dict[TagSet, AbstractScalarDecoder | SequenceOrSetDecoder | SequenceOfOrSetOfDecoder | ChoiceDecoder]
+typeMap: dict[int, AbstractScalarDecoder | SequenceOrSetDecoder | SequenceOfOrSetOfDecoder | ChoiceDecoder]
 
 class Decoder:
     def __init__(self, tagMap, typeMap) -> None: ...

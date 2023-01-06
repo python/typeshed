@@ -1,6 +1,8 @@
 from abc import abstractmethod
 from collections import OrderedDict
 
+from pyasn1.type.tag import TagSet
+
 class AbstractItemEncoder:
     @abstractmethod
     def encode(self, value, encodeFun, **options) -> None: ...
@@ -43,6 +45,9 @@ class ChoiceEncoder(SequenceEncoder): ...
 
 class AnyEncoder(AbstractItemEncoder):
     def encode(self, value, encodeFun, **options): ...
+
+tagMap: dict[TagSet, AbstractItemEncoder]
+typeMap: dict[int, AbstractItemEncoder]
 
 class Encoder:
     def __init__(self, tagMap, typeMap=...) -> None: ...

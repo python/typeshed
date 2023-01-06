@@ -1,6 +1,7 @@
 from typing import ClassVar
 
 from pyasn1.codec.ber import encoder
+from pyasn1.type.tag import TagSet
 
 class BooleanEncoder(encoder.IntegerEncoder):
     def encodeValue(self, value, asn1Spec, encodeFun, **options): ...
@@ -32,6 +33,9 @@ class SetEncoder(encoder.SequenceEncoder):
 
 class SequenceEncoder(encoder.SequenceEncoder):
     omitEmptyOptionals: bool
+
+tagMap: dict[TagSet, encoder.AbstractItemEncoder]
+typeMap: dict[int, encoder.AbstractItemEncoder]
 
 class Encoder(encoder.Encoder):
     fixedDefLengthMode: bool

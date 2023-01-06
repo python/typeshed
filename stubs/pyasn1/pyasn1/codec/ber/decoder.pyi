@@ -317,6 +317,9 @@ class GeneralizedTimeDecoder(OctetStringDecoder):
 class UTCTimeDecoder(OctetStringDecoder):
     protoComponent: useful.UTCTime
 
+tagMap: dict[TagSet, AbstractDecoder]
+typeMap: dict[int, AbstractDecoder]
+
 class Decoder:
     defaultErrorState: int
     defaultRawDecoder: AnyDecoder

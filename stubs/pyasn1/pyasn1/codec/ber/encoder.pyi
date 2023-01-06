@@ -2,6 +2,7 @@ from _typeshed import Incomplete
 from abc import abstractmethod
 
 from pyasn1.type.base import Asn1Type
+from pyasn1.type.tag import TagSet
 
 class AbstractItemEncoder:
     supportIndefLenMode: bool
@@ -57,6 +58,9 @@ class ChoiceEncoder(AbstractItemEncoder):
 
 class AnyEncoder(OctetStringEncoder):
     def encodeValue(self, value, asn1Spec, encodeFun, **options): ...
+
+tagMap: dict[TagSet, AbstractItemEncoder]
+typeMap: dict[int, AbstractItemEncoder]
 
 class Encoder:
     fixedDefLengthMode: bool | None

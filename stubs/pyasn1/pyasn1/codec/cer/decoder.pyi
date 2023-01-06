@@ -24,6 +24,9 @@ BitStringDecoder = decoder.BitStringDecoder
 OctetStringDecoder = decoder.OctetStringDecoder
 RealDecoder = decoder.RealDecoder
 
+tagMap: dict[TagSet, decoder.AbstractDecoder]
+typeMap: dict[int, decoder.AbstractDecoder]
+
 class Decoder(decoder.Decoder): ...
 
 decode: Decoder
