@@ -9,7 +9,7 @@ from pyasn1.type.tag import TagSet
 
 _Unused: TypeAlias = object
 
-class AbstractDecoder(metaclass=ABCMeta):
+class AbstractDecoder:
     protoComponent: Asn1Type | None
     @abstractmethod
     def valueDecoder(
