@@ -7,9 +7,7 @@ from redis.asyncio.connection import BaseParser, Connection, Encoder
 from redis.client import AbstractRedis
 from redis.cluster import AbstractRedisCluster
 
-# TODO: add AsyncRedisClusterCommands
-# from redis.commands import AsyncRedisClusterCommands
-from redis.commands.core import _StrType
+# TODO: add  AsyncRedisClusterCommands stubs
 from redis.commands.cluster import AsyncRedisClusterCommands
 from redis.typing import AnyKeyT, EncodableT, KeyT
 from redis.credentials import CredentialProvider
@@ -79,7 +77,7 @@ class RedisCluster(AbstractRedis, AbstractRedisCluster, AsyncRedisClusterCommand
     def get_connection_kwargs(self) -> dict[str, Any | None]: ...
     def set_response_callback(self, command: str, callback: ResponseCallbackT) -> None: ...
     async def execute_command(self, *args: EncodableT, **kwargs: Any) -> Any: ...
-    def pipeline(self, transaction: Any | None = ..., shard_hint: Any | None = ...) -> ClusterPipeline[_StrType]: ...
+    def pipeline(self, transaction: Any | None = ..., shard_hint: Any | None = ...) -> ClusterPipeline: ...
     @classmethod
     def from_url(cls: type[Self], url: str, **kwargs) -> Self: ...
 
