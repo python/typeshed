@@ -8,6 +8,12 @@ HUFFMAN_ONLY: Literal[2]
 RLE: Literal[3]
 FIXED: Literal[4]
 
+class PixelAccess:
+    # As well as the C extension source, this is also documented at
+    # Pillow's docs/reference/PixelAccess.rst, e.g.
+    # https://github.com/python-pillow/Pillow/blob/main/docs/reference/PixelAccess.rst
+    def __getattr__(self, item: str) -> Incomplete: ...
+
 class _Path:
     def __getattr__(self, item: str) -> Incomplete: ...
 
