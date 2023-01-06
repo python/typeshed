@@ -11,6 +11,7 @@ from redis.cluster import AbstractRedisCluster
 # from redis.commands import AsyncRedisClusterCommands
 from redis.commands.core import _StrType
 from redis.typing import AnyKeyT, EncodableT, KeyT
+from redis.credentials import CredentialProvider
 
 # It uses `DefaultParser` in real life, but it is a dynamic base class.
 class ClusterParser(BaseParser): ...
@@ -31,6 +32,7 @@ class RedisCluster(AbstractRedis, AbstractRedisCluster, Generic[_StrType]):  # T
         # Client related kwargs
         db: str | int = ...,
         path: str | None = ...,
+        credential_provider: CredentialProvider = ...,
         username: str | None = ...,
         password: str | None = ...,
         client_name: str | None = ...,
