@@ -24,7 +24,7 @@ Typeshed supports Python versions 3.7 and up.
 
 ## Using
 
-If you're just using a type-checker ([mypy](https://github.com/python/mypy/),
+If you're just using a type checker ([mypy](https://github.com/python/mypy/),
 [pyright](https://github.com/microsoft/pyright),
 [pytype](https://github.com/google/pytype/), PyCharm, ...), as opposed to
 developing it, you don't need to interact with the typeshed repo at
