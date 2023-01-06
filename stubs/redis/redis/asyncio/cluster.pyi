@@ -10,9 +10,9 @@ from redis.cluster import AbstractRedisCluster
 # TODO: add AsyncRedisClusterCommands
 # from redis.commands import AsyncRedisClusterCommands
 from redis.commands.core import _StrType
-from redis.typing import AnyKeyT, EncodableT, KeyT
 from redis.credentials import CredentialProvider
 from redis.retry import Retry
+from redis.typing import AnyKeyT, EncodableT, KeyT
 
 # It uses `DefaultParser` in real life, but it is a dynamic base class.
 class ClusterParser(BaseParser): ...
