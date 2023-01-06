@@ -1,6 +1,6 @@
 from _typeshed import Self
 from collections.abc import Awaitable, Mapping
-from typing import Any, Generic, List
+from typing import Any, List
 
 from redis.asyncio.client import ResponseCallbackT
 from redis.asyncio.connection import BaseParser, Connection, Encoder
