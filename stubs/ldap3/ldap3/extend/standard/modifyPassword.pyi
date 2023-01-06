@@ -1,21 +1,23 @@
-from typing import Any
+from _typeshed import Incomplete
+
+from ldap3.protocol.rfc3062 import PasswdModifyResponseValue
 
 from ...extend.operation import ExtendedOperation
 
 class ModifyPassword(ExtendedOperation):
     request_name: str
-    request_value: Any
-    asn1_spec: Any
+    request_value: Incomplete
+    asn1_spec: PasswdModifyResponseValue | None
     response_attribute: str
     def config(self) -> None: ...
     def __init__(
         self,
         connection,
-        user: Any | None = ...,
-        old_password: Any | None = ...,
-        new_password: Any | None = ...,
-        hash_algorithm: Any | None = ...,
-        salt: Any | None = ...,
-        controls: Any | None = ...,
+        user: Incomplete | None = ...,
+        old_password: Incomplete | None = ...,
+        new_password: Incomplete | None = ...,
+        hash_algorithm: Incomplete | None = ...,
+        salt: Incomplete | None = ...,
+        controls: Incomplete | None = ...,
     ) -> None: ...
     def populate_result(self) -> None: ...
