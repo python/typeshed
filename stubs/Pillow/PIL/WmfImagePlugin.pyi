@@ -2,7 +2,7 @@ import sys
 from typing import Any, ClassVar
 from typing_extensions import Literal
 
-from ._imaging import PixelAccess
+from ._imaging import _PixelAccess
 from .ImageFile import StubImageFile
 from .PyAccess import PyAccess
 
@@ -17,4 +17,4 @@ if sys.platform == "win32":
 class WmfStubImageFile(StubImageFile):
     format: ClassVar[Literal["WMF"]]
     format_description: ClassVar[str]
-    def load(self, dpi: Any | None = ...) -> PixelAccess | PyAccess: ...
+    def load(self, dpi: Any | None = ...) -> _PixelAccess | PyAccess: ...

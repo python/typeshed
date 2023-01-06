@@ -1,7 +1,7 @@
 from typing import Any, ClassVar
 from typing_extensions import Literal
 
-from ._imaging import PixelAccess
+from ._imaging import _PixelAccess
 from .ImageFile import ImageFile
 from .PyAccess import PyAccess
 
@@ -26,5 +26,5 @@ class EpsImageFile(ImageFile):
     im: Any
     mode: Any
     tile: Any
-    def load(self, scale: int = ..., transparency: bool = ...) -> PixelAccess | PyAccess: ...
+    def load(self, scale: int = ..., transparency: bool = ...) -> _PixelAccess | PyAccess: ...
     def load_seek(self, *args, **kwargs) -> None: ...
