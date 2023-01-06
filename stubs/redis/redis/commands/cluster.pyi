@@ -3,8 +3,7 @@ from typing import Any, Generic
 from .core import ACLCommands, DataAccessCommands, ManagementCommands, PubSubCommands, _StrType
 
 # TODO: Stubs for `AsyncRedisClusterCommands`
-class AsyncRedisClusterCommands:
-    ...
+class AsyncRedisClusterCommands: ...
 
 class ClusterMultiKeyCommands:
     def mget_nonatomic(self, keys, *args): ...
