@@ -1,7 +1,7 @@
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 from collections import OrderedDict
 
-class AbstractItemEncoder(ABC):
+class AbstractItemEncoder:
     @abstractmethod
     def encode(self, value, encodeFun, **options) -> None: ...
 

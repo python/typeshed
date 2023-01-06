@@ -4,7 +4,6 @@ from pyasn1.type import char
 from pyasn1.type.tag import TagSet
 
 class ObjectDescriptor(char.GraphicString):
-    __doc__: str
     tagSet: TagSet
     typeId: int
 
@@ -21,11 +20,9 @@ class TimeMixIn:
     def fromDateTime(cls, dt): ...
 
 class GeneralizedTime(char.VisibleString, TimeMixIn):
-    __doc__: str
     tagSet: TagSet
     typeId: int
 
 class UTCTime(char.VisibleString, TimeMixIn):
-    __doc__: str
     tagSet: TagSet
     typeId: int

@@ -1,3 +1,5 @@
+from typing import ClassVar
+
 from pyasn1.codec.ber import encoder
 
 class BooleanEncoder(encoder.IntegerEncoder):
@@ -6,23 +8,18 @@ class BooleanEncoder(encoder.IntegerEncoder):
 class RealEncoder(encoder.RealEncoder): ...
 
 class TimeEncoderMixIn:
-    Z_CHAR: int
-    PLUS_CHAR: int
-    MINUS_CHAR: int
-    COMMA_CHAR: int
-    DOT_CHAR: int
-    ZERO_CHAR: int
-    MIN_LENGTH: int
-    MAX_LENGTH: int
+    Z_CHAR: ClassVar[int]
+    PLUS_CHAR: ClassVar[int]
+    MINUS_CHAR: ClassVar[int]
+    COMMA_CHAR: ClassVar[int]
+    DOT_CHAR: ClassVar[int]
+    ZERO_CHAR: ClassVar[int]
+    MIN_LENGTH: ClassVar[int]
+    MAX_LENGTH: ClassVar[int]
     def encodeValue(self, value, asn1Spec, encodeFun, **options): ...
 
-class GeneralizedTimeEncoder(TimeEncoderMixIn, encoder.OctetStringEncoder):
-    MIN_LENGTH: int
-    MAX_LENGTH: int
-
-class UTCTimeEncoder(TimeEncoderMixIn, encoder.OctetStringEncoder):
-    MIN_LENGTH: int
-    MAX_LENGTH: int
+class GeneralizedTimeEncoder(TimeEncoderMixIn, encoder.OctetStringEncoder): ...
+class UTCTimeEncoder(TimeEncoderMixIn, encoder.OctetStringEncoder): ...
 
 class SetOfEncoder(encoder.SequenceOfEncoder):
     def encodeValue(self, value, asn1Spec, encodeFun, **options): ...

@@ -1,8 +1,9 @@
-from abc import ABC, abstractmethod
+from _typeshed import Incomplete
+from abc import abstractmethod
 
 from pyasn1.type.base import Asn1Type
 
-class AbstractItemEncoder(ABC):
+class AbstractItemEncoder:
     supportIndefLenMode: bool
     eooIntegerSubstrate: tuple[int, int]
     eooOctetsSubstrate: bytes
@@ -10,7 +11,7 @@ class AbstractItemEncoder(ABC):
     def encodeLength(self, length, defMode): ...
     @abstractmethod
     def encodeValue(self, value, asn1Spec, encodeFun, **options) -> None: ...
-    def encode(self, value, asn1Spec: Asn1Type | None = ..., encodeFun: object | None = ..., **options): ...
+    def encode(self, value, asn1Spec: Asn1Type | None = ..., encodeFun: Incomplete | None = ..., **options): ...
 
 class EndOfOctetsEncoder(AbstractItemEncoder):
     def encodeValue(self, value, asn1Spec, encodeFun, **options): ...
