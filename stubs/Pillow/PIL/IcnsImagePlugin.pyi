@@ -1,7 +1,9 @@
 from typing import Any, ClassVar
 from typing_extensions import Literal
 
+from ._imaging import PixelAccess
 from .ImageFile import ImageFile
+from .PyAccess import PyAccess
 
 enable_jpeg2k: Any
 HEADERSIZE: int
@@ -32,4 +34,4 @@ class IcnsImageFile(ImageFile):
     best_size: Any
     im: Any
     mode: Any
-    def load(self) -> None: ...
+    def load(self) -> PixelAccess | PyAccess: ...

@@ -1,7 +1,9 @@
 from typing import Any, ClassVar
 from typing_extensions import Literal
 
+from ._imaging import PixelAccess
 from .ImageFile import ImageFile
+from .PyAccess import PyAccess
 
 class IcoFile:
     buf: Any
@@ -22,5 +24,5 @@ class IcoImageFile(ImageFile):
     def size(self, value) -> None: ...
     im: Any
     mode: Any
-    def load(self) -> None: ...
+    def load(self) -> PixelAccess | PyAccess: ...
     def load_seek(self) -> None: ...

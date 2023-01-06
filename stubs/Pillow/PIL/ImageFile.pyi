@@ -1,7 +1,9 @@
 from _typeshed import Incomplete, Self
 from typing import Any, NoReturn
 
+from ._imaging import PixelAccess
 from .Image import Image
+from .PyAccess import PyAccess
 
 MAXBLOCK: int
 SAFEBLOCK: Any
@@ -23,12 +25,12 @@ class ImageFile(Image):
     def verify(self) -> None: ...
     map: Any
     im: Any
-    def load(self): ...
+    def load(self) -> PixelAccess | PyAccess: ...
     def load_prepare(self) -> None: ...
     def load_end(self) -> None: ...
 
 class StubImageFile(ImageFile):
-    def load(self) -> None: ...
+    def load(self) -> PixelAccess | PyAccess: ...
 
 class Parser:
     incremental: Any | None
