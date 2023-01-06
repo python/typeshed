@@ -1,6 +1,6 @@
 from _typeshed import Self
 from collections.abc import Awaitable, Mapping
-from typing import Any, Generic, ForwardRef
+from typing import Any, Generic, List
 
 from redis.asyncio.client import ResponseCallbackT
 from redis.asyncio.connection import BaseParser, Connection, Encoder
@@ -47,8 +47,9 @@ class RedisCluster(AbstractRedis, AbstractRedisCluster, Generic[_StrType]):  # T
         socket_keepalive: bool = ...,
         socket_keepalive_options: Mapping[int, int | bytes] | None = ...,
         socket_timeout: float | None = ...,
-        # SSL related kwargs
         retry: Retry | None = ...,
+        retry_on_error: List[Exception] | None = ...,
+        # SSL related kwargs
         ssl: bool = ...,
         ssl_ca_certs: str | None = ...,
         ssl_ca_data: str | None = ...,
