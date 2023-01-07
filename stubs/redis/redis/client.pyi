@@ -11,6 +11,7 @@ from redis import RedisError
 
 from .commands import CoreCommands, RedisModuleCommands, SentinelCommands
 from .connection import ConnectionPool, _ConnectFunc, _ConnectionPoolOptions
+from .credentials import CredentialProvider
 from .lock import Lock
 from .retry import Retry
 from .typing import ChannelT, EncodableT, KeyT, PatternT
@@ -186,6 +187,7 @@ class Redis(AbstractRedis, RedisModuleCommands, CoreCommands[_StrType], Sentinel
         username: str | None = ...,
         retry: Retry | None = ...,
         redis_connect_func: _ConnectFunc | None = ...,
+        credential_provider: CredentialProvider | None = ...,
     ) -> None: ...
     @overload
     def __init__(
@@ -226,6 +228,7 @@ class Redis(AbstractRedis, RedisModuleCommands, CoreCommands[_StrType], Sentinel
         username: str | None = ...,
         retry: Retry | None = ...,
         redis_connect_func: _ConnectFunc | None = ...,
+        credential_provider: CredentialProvider | None = ...,
     ) -> None: ...
     @overload
     def __init__(
@@ -265,6 +268,7 @@ class Redis(AbstractRedis, RedisModuleCommands, CoreCommands[_StrType], Sentinel
         username: str | None = ...,
         retry: Retry | None = ...,
         redis_connect_func: _ConnectFunc | None = ...,
+        credential_provider: CredentialProvider | None = ...,
     ) -> None: ...
     def get_encoder(self): ...
     def get_connection_kwargs(self): ...

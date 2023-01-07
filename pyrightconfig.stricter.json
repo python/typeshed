@@ -55,6 +55,7 @@
         "stubs/pika",
         "stubs/psutil",
         "stubs/psycopg2",
+        "stubs/pyasn1",
         "stubs/pyflakes",
         "stubs/Pygments",
         "stubs/PyMySQL",
