@@ -1,5 +1,6 @@
 from collections.abc import Iterable, Sequence
 from re import Pattern
+from typing import ClassVar
 from typing_extensions import Literal
 
 AF_EUI64: Literal[64]
@@ -7,15 +8,15 @@ width: Literal[64]
 family: Literal[64]
 family_name: Literal["EUI-64"]
 version: Literal[64]
-max_int: Literal[18446744073709551615]
+max_int: int
 
 class eui64_base:
-    word_size: int
-    num_words: int
-    max_word: int
-    word_sep: str
-    word_fmt: str
-    word_base: int
+    word_size: ClassVar[int]
+    num_words: ClassVar[int]
+    max_word: ClassVar[int]
+    word_sep: ClassVar[str]
+    word_fmt: ClassVar[str]
+    word_base: ClassVar[int]
 
 class eui64_unix(eui64_base): ...
 class eui64_unix_expanded(eui64_unix): ...

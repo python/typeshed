@@ -1,6 +1,5 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, SupportsWrite
 from collections.abc import Iterator, Mapping
-from typing import TextIO
 from typing_extensions import Final
 
 BIG_ENDIAN_PLATFORM: bool
@@ -21,9 +20,9 @@ class Subscriber:
     def update(self, data: Incomplete) -> None: ...
 
 class PrettyPrinter(Subscriber):
-    fh: TextIO
+    fh: SupportsWrite[str]
     write_eol: bool
-    def __init__(self, fh: TextIO = ..., write_eol: bool = ...) -> None: ...
+    def __init__(self, fh: SupportsWrite[str] = ..., write_eol: bool = ...) -> None: ...
     def update(self, data: object) -> None: ...
 
 class Publisher:

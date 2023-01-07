@@ -12,9 +12,9 @@ family: Literal[AddressFamily.AF_INET]
 family_name: Literal["IPv4"]
 version: Literal[4]
 word_base: Literal[10]
-max_int: Literal[4294967295]
+max_int: int
 num_words: Literal[4]
-max_word: Literal[255]
+max_word: int
 prefix_to_netmask: dict[int, int]
 netmask_to_prefix: dict[int, int]
 prefix_to_hostmask: dict[int, int]

@@ -1,5 +1,6 @@
 from collections.abc import Iterable, Sequence
 from re import Pattern
+from typing import ClassVar
 from typing_extensions import Literal
 
 AF_LINK: Literal[48]
@@ -7,15 +8,15 @@ width: Literal[48]
 family: Literal[48]
 family_name: Literal["MAC"]
 version: Literal[48]
-max_int: Literal[281474976710655]
+max_int: int
 
 class mac_eui48:
-    word_size: int
-    num_words: int
-    max_word: int
-    word_sep: str
-    word_fmt: str
-    word_base: int
+    word_size: ClassVar[int]
+    num_words: ClassVar[int]
+    max_word: ClassVar[int]
+    word_sep: ClassVar[str]
+    word_fmt: ClassVar[str]
+    word_base: ClassVar[int]
 
 class mac_unix(mac_eui48): ...
 class mac_unix_expanded(mac_unix): ...

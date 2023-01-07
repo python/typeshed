@@ -1,4 +1,5 @@
 from collections.abc import Iterable, Sequence
+from typing import ClassVar
 from typing_extensions import Final, Literal
 
 from netaddr.fbsocket import AF_INET6
@@ -11,17 +12,17 @@ family: Final = AF_INET6
 family_name: Literal["IPv6"]
 version: Literal[6]
 word_base: Literal[16]
-max_int: Literal[340282366920938463463374607431768211455]
+max_int: int
 num_words: Literal[8]
-max_word: Literal[65535]
+max_word: int
 prefix_to_netmask: dict[int, int]
 netmask_to_prefix: dict[int, int]
 prefix_to_hostmask: dict[int, int]
 hostmask_to_prefix: dict[int, int]
 
 class ipv6_compact:
-    word_fmt: str
-    compact: bool
+    word_fmt: ClassVar[str]
+    compact: ClassVar[bool]
 
 class ipv6_full(ipv6_compact): ...
 class ipv6_verbose(ipv6_compact): ...
