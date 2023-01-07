@@ -91,7 +91,10 @@ def read_dependencies(distribution: str) -> PackageDependencies:
         if maybe_typeshed_dependency in pypi_name_to_typeshed_name_mapping:
             typeshed.append(pypi_name_to_typeshed_name_mapping[maybe_typeshed_dependency])
         else:
-            external.append(dependency)
+            # convert to Requirement and then back to str
+            # to make sure that the requirements all have a normalised string representation
+            # (This will also catch any malformed requirements early)
+            external.append(str(Requirement(dependency)))
     return PackageDependencies(tuple(typeshed), tuple(external))
 
 
@@ -142,7 +145,7 @@ def make_venv(venv_dir: Path) -> VenvInfo:
     try:
         venv.create(venv_dir, with_pip=True, clear=True)
     except subprocess.CalledProcessError as e:
-        if "ensurepip" in e.cmd:
+        if "ensurepip" in e.cmd and b"KeyboardInterrupt" not in e.stdout.splitlines():
             print_error(
                 "stubtest requires a Python installation with ensurepip. "
                 "If on Linux, you may need to install the python3-venv package."
