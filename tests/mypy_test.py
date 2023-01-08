@@ -396,7 +396,7 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
     """Logic necessary for testing stubs with non-types dependencies in isolated environments."""
     # STAGE 1: Determine which (if any) stubs packages require virtual environments.
     # Group stubs packages according to their external-requirements sets
-    
+
     # We don't actually need pip if there aren't any external dependencies
     no_external_dependencies_venv = VenvInfo(pip_exe="", python_exe=sys.executable)
     external_requirements_to_distributions: defaultdict[frozenset[str], list[str]] = defaultdict(list)
