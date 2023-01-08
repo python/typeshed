@@ -1,4 +1,8 @@
-// Copy this file as "settings.json" for these settings to take effect.
+// Copy this file as `.vscode/settings.json` to configure VSCode for this workspace.
+// Unfortunately, VSCode doesn't (yet) offer any way to have "workspace defaults" or "user-worspace settings",
+// so offering defaults to copy is the best we can do at the moment.
+//
+// ⚠ Disclaimer: The typeshed team doesn't commit to maintaining this file. It exists purely for your ease of use.
 {
     // Don't format on save for formatters we don't explicitely control
     "editor.formatOnSave": false,
@@ -26,6 +30,12 @@
     "editor.tabSize": 2,
     "[json][jsonc][python]": {
         "editor.tabSize": 4
+    },
+    "[markdown]": {
+        "editor.rulers": [
+            90,
+            130
+        ]
     },
     "[git-commit]": {
         "editor.rulers": [
