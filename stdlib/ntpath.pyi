@@ -1,5 +1,5 @@
 import sys
-from _typeshed import BytesPath, StrPath
+from _typeshed import AnyOrLiteralStr, GenericPath
 from genericpath import (
     commonprefix as commonprefix,
     exists as exists,
@@ -13,7 +13,6 @@ from genericpath import (
     sameopenfile as sameopenfile,
     samestat as samestat,
 )
-from os import PathLike
 
 # Re-export common definitions from posixpath to reduce duplication
 from posixpath import (
@@ -42,7 +41,7 @@ from posixpath import (
     splitext as splitext,
     supports_unicode_filenames as supports_unicode_filenames,
 )
-from typing import AnyStr, overload
+from typing import AnyStr
 from typing_extensions import LiteralString
 
 __all__ = [
@@ -91,24 +90,13 @@ altsep: LiteralString
 # First parameter is not actually pos-only,
 # but must be defined as pos-only in the stub or cross-platform code doesn't type-check,
 # as the parameter name is different in posixpath.join()
-@overload
-def join(__path: LiteralString, *paths: LiteralString) -> LiteralString: ...
-@overload
-def join(__path: StrPath, *paths: StrPath) -> str: ...
-@overload
-def join(__path: BytesPath, *paths: BytesPath) -> bytes: ...
+def join(__path: GenericPath[AnyOrLiteralStr], *paths: GenericPath[AnyOrLiteralStr]) -> AnyOrLiteralStr: ...
 
 if sys.platform == "win32":
     if sys.version_info >= (3, 10):
-        @overload
-        def realpath(path: PathLike[AnyStr], *, strict: bool = ...) -> AnyStr: ...
-        @overload
-        def realpath(path: AnyStr, *, strict: bool = ...) -> AnyStr: ...
+        def realpath(path: GenericPath[AnyStr], *, strict: bool = ...) -> AnyStr: ...
     else:
-        @overload
-        def realpath(path: PathLike[AnyStr]) -> AnyStr: ...
-        @overload
-        def realpath(path: AnyStr) -> AnyStr: ...
+        def realpath(path: GenericPath[AnyStr]) -> AnyStr: ...
 
 else:
     realpath = abspath

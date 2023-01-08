@@ -10,7 +10,7 @@ import sys
 from collections.abc import Awaitable, Callable, Iterable, Set as AbstractSet
 from os import PathLike
 from types import FrameType, TracebackType
-from typing import Any, AnyStr, Generic, Protocol, TypeVar, Union
+from typing import Any, Generic, Protocol, TypeVar, Union
 from typing_extensions import Final, Literal, LiteralString, TypeAlias, final
 
 _KT = TypeVar("_KT")
@@ -129,7 +129,7 @@ class SupportsItemAccess(SupportsGetItem[_KT_contra, _VT], Protocol[_KT_contra, 
 
 StrPath: TypeAlias = str | PathLike[str]  # stable
 BytesPath: TypeAlias = bytes | PathLike[bytes]  # stable
-GenericPath: TypeAlias = AnyStr | PathLike[AnyStr]
+GenericPath: TypeAlias = AnyStr_co | PathLike[AnyStr_co]
 StrOrBytesPath: TypeAlias = str | bytes | PathLike[str] | PathLike[bytes]  # stable
 
 OpenTextModeUpdating: TypeAlias = Literal[
