@@ -381,6 +381,10 @@ def install_requirements_for_venv(venv_info: VenvInfo, args: TestConfig, externa
 
 
 def setup_virtual_environments(distributions: dict[str, PackageDependencies], args: TestConfig, tempdir: Path) -> None:
+    """Logic necessary for testing stubs with non-types dependencies in isolated environments."""
+    # STAGE 1: Determine which (if any) stubs packages require virtual environments.
+    # Group stubs packages according to their external-requirements sets
+
     # We don't actually need pip if there aren't any external dependencies
     no_external_dependencies_venv = VenvInfo(pip_exe="", python_exe=sys.executable)
     external_requirements_to_distributions: defaultdict[frozenset[str], list[str]] = defaultdict(list)
@@ -394,11 +398,13 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
         else:
             _DISTRIBUTION_TO_VENV_MAPPING[distribution_name] = no_external_dependencies_venv
 
+    # Exit early if there are no stubs packages that have non-types dependencies
     if num_pkgs_with_external_reqs == 0:
         if args.verbose:
             print(colored("No additional venvs are required to be set up", "blue"))
         return
 
+    # STAGE 2: Setup a virtual environment for each unique set of external requirements
     requirements_sets_to_venvs: dict[frozenset[str], VenvInfo] = {}
 
     if args.verbose:
@@ -409,7 +415,8 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
             f"distribution{'s' if num_pkgs_with_external_reqs != 1 else ''}... "
         )
         print(colored(msg, "blue"), end="", flush=True)
-        venv_start_time = time.perf_counter()
+
+    venv_start_time = time.perf_counter()
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
         venv_info_futures = [
@@ -420,10 +427,14 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
             requirements_set, venv_info = venv_info_future.result()
             requirements_sets_to_venvs[requirements_set] = venv_info
 
+    venv_elapsed_time = time.perf_counter() - venv_start_time
+
     if args.verbose:
-        venv_elapsed_time = time.perf_counter() - venv_start_time
         print(colored(f"took {venv_elapsed_time:.2f} seconds", "blue"))
-        pip_start_time = time.perf_counter()
+
+    # STAGE 3: For each {virtual_environment: requirements_set} pairing,
+    # `pip install` the requirements set into the virtual environment
+    pip_start_time = time.perf_counter()
 
     # Limit workers to 10 at a time, since this makes network requests
     with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
@@ -433,11 +444,14 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
         ]
         concurrent.futures.wait(pip_install_futures)
 
+    pip_elapsed_time = time.perf_counter() - pip_start_time
+
     if args.verbose:
-        pip_elapsed_time = time.perf_counter() - pip_start_time
         msg = f"Combined time for installing requirements across all venvs: {pip_elapsed_time:.2f} seconds"
         print(colored(msg, "blue"))
 
+    # STAGE 4: Populate the _DISTRIBUTION_TO_VENV_MAPPING
+    # so that we have a simple {distribution: venv_to_use} mapping to use for the rest of the test.
     for requirements_set, distribution_list in external_requirements_to_distributions.items():
         venv_to_use = requirements_sets_to_venvs[requirements_set]
         _DISTRIBUTION_TO_VENV_MAPPING.update(dict.fromkeys(distribution_list, venv_to_use))
@@ -462,6 +476,9 @@ def test_third_party_stubs(code: int, args: TestConfig, tempdir: Path) -> TestRe
         ):
             distributions_to_check[distribution] = get_recursive_requirements(distribution)
 
+    # If it's the first time test_third_party_stubs() has been called during this session,
+    # setup the necessary virtual environments for testing the third-party stubs.
+    # It should only be necessary to call setup_virtual_environments() once per session.
     if not _DISTRIBUTION_TO_VENV_MAPPING:
         setup_virtual_environments(distributions_to_check, args, tempdir)
 
