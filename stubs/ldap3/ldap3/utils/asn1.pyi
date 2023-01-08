@@ -3,13 +3,13 @@ from collections.abc import Callable, Mapping
 from typing import Any, TypeVar, overload
 from typing_extensions import Final, TypeAlias
 
-from pyasn1.codec.ber.encoder import AbstractItemEncoder, tagMap, typeMap
+from pyasn1.codec.ber.encoder import AbstractItemEncoder
 
-# Use _typeshed.SupportsGetItemBuffer after PEP 688
-SupportsGetItemBuffer: TypeAlias = SliceableBuffer | IndexableBuffer
+# Use _typeshed._SupportsGetItemBuffer after PEP 688
+_SupportsGetItemBuffer: TypeAlias = SliceableBuffer | IndexableBuffer
 _Unused: TypeAlias = object
 _R = TypeVar("_R")
-_B = TypeVar("_B", bound=SupportsGetItemBuffer)
+_B = TypeVar("_B", bound=_SupportsGetItemBuffer)
 # The possible return type is a union of all other decode methods, ie: AnyOf[Incomplete | bool]
 _AllDecodersReturnType: TypeAlias = Any
 
@@ -20,15 +20,12 @@ class LDAPBooleanEncoder(AbstractItemEncoder):
     # Requires pyasn1 > 0.3.7
     def encodeValue(self, value: bool | int, asn1Spec: _Unused, encodeFun: _Unused, **options: _Unused): ...
 
-customTagMap = tagMap
-customTypeMap = typeMap
-
 def compute_ber_size(data): ...
 def decode_message_fast(message): ...
 @overload
 def decode_sequence(message: _B, start, stop, context_decoders: Mapping[int, Callable[[_B, int, int], _R]]) -> _R: ...
 @overload
-def decode_sequence(message: SupportsGetItemBuffer, start, stop, context_decoders: None = ...) -> _AllDecodersReturnType: ...
+def decode_sequence(message: _SupportsGetItemBuffer, start, stop, context_decoders: None = ...) -> _AllDecodersReturnType: ...
 def decode_integer(message, start, stop, context_decoders: _Unused = ...): ...
 def decode_octet_string(message, start, stop, context_decoders: _Unused = ...): ...
 def decode_boolean(message, start, stop, context_decoders: _Unused = ...): ...

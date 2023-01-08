@@ -6,18 +6,18 @@ from pyasn1.type.namedval import NamedValues
 from pyasn1.type.tag import TagSet
 from pyasn1.type.univ import Boolean, Choice, Enumerated, Integer, Null, OctetString, Sequence, SequenceOf, SetOf
 
-LDAP_MAX_INT: _Final = 2147483647
+LDAP_MAX_INT: _Final = 2147483647  # noqa: Y015  # name conflict
 MAXINT: _Final[Integer]
 rangeInt0ToMaxConstraint: ValueRangeConstraint
 rangeInt1To127Constraint: ValueRangeConstraint
 size1ToMaxConstraint: ValueSizeConstraint
 responseValueConstraint: SingleValueConstraint
-numericOIDConstraint = None
-distinguishedNameConstraint = None
-nameComponentConstraint = None
-attributeDescriptionConstraint = None
-uriConstraint = None
-attributeSelectorConstraint = None
+numericOIDConstraint: None
+distinguishedNameConstraint: None
+nameComponentConstraint: None
+attributeDescriptionConstraint: None
+uriConstraint: None
+attributeSelectorConstraint: None
 
 class Integer0ToMax(Integer):
     subtypeSpec: ConstraintsIntersection
@@ -43,10 +43,10 @@ class AttributeValueAssertion(Sequence):
 class MatchingRuleId(LDAPString): ...
 
 class Vals(SetOf):
-    componentType: NamedTypes
+    componentType: AttributeValue  # type: ignore[assignment]
 
 class ValsAtLeast1(SetOf):
-    componentType: NamedTypes
+    componentType: AttributeValue  # type: ignore[assignment]
     subtypeSpec: ConstraintsIntersection
 
 class PartialAttribute(Sequence):
@@ -56,7 +56,7 @@ class Attribute(Sequence):
     componentType: NamedTypes
 
 class AttributeList(SequenceOf):
-    componentType: NamedTypes
+    componentType: Attribute  # type: ignore[assignment]
 
 class Simple(OctetString):
     tagSet: TagSet
@@ -95,7 +95,7 @@ class URI(LDAPString): ...
 
 class Referral(SequenceOf):
     tagSet: TagSet
-    componentType: NamedTypes
+    componentType: URI  # type: ignore[assignment]
 
 class ServerSaslCreds(OctetString):
     tagSet: TagSet
@@ -115,7 +115,7 @@ class Control(Sequence):
 
 class Controls(SequenceOf):
     tagSet: TagSet
-    componentType: NamedTypes
+    componentType: Control  # type: ignore[assignment]
 
 class Scope(Enumerated):
     namedValues: NamedValues
@@ -127,7 +127,7 @@ class TypesOnly(Boolean): ...
 class Selector(LDAPString): ...
 
 class AttributeSelection(SequenceOf):
-    componentType: NamedTypes
+    componentType: Selector  # type: ignore[assignment]
 
 class MatchingRule(MatchingRuleId):
     tagSet: TagSet
@@ -159,7 +159,7 @@ class Substring(Choice):
 
 class Substrings(SequenceOf):
     subtypeSpec: ConstraintsIntersection
-    componentType: NamedTypes
+    componentType: Substring  # type: ignore[assignment]
 
 class SubstringFilter(Sequence):
     tagSet: TagSet
@@ -197,7 +197,7 @@ class Filter(Choice):
     componentType: NamedTypes
 
 class PartialAttributeList(SequenceOf):
-    componentType: NamedTypes
+    componentType: PartialAttribute  # type: ignore[assignment]
 
 class Operation(Enumerated):
     namedValues: NamedValues
@@ -206,7 +206,7 @@ class Change(Sequence):
     componentType: NamedTypes
 
 class Changes(SequenceOf):
-    componentType: NamedTypes
+    componentType: Change  # type: ignore[assignment]
 
 class DeleteOldRDN(Boolean): ...
 
@@ -252,7 +252,7 @@ class SearchRequest(Sequence):
 class SearchResultReference(SequenceOf):
     tagSet: TagSet
     subtypeSpec: ConstraintsIntersection
-    componentType: NamedTypes
+    componentType: URI  # type: ignore[assignment]
 
 class SearchResultEntry(Sequence):
     tagSet: TagSet
