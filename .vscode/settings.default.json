@@ -1,8 +1,10 @@
-// Copy this file as `.vscode/settings.json` to configure VSCode for this workspace.
-// Unfortunately, VSCode doesn't (yet) offer any way to have "workspace defaults" or "user-worspace settings",
-// so offering defaults to copy is the best we can do at the moment.
-//
-// ⚠ Disclaimer: The typeshed team doesn't commit to maintaining this file. It exists purely for your ease of use.
+/*
+ * Copy this file as `.vscode/settings.json` to configure VSCode for this workspace.
+ * Unfortunately, VSCode doesn't (yet) offer any way to have "workspace defaults" or "user-worspace settings",
+ * so offering defaults to copy is the best we can do at the moment.
+ *
+ * ⚠ Disclaimer: The typeshed team doesn't commit to maintaining this file. It exists purely for your ease of use.
+*/
 {
     // Don't format on save for formatters we don't explicitely control
     "editor.formatOnSave": false,
