@@ -284,20 +284,8 @@ def add_third_party_files(
     if distribution in seen_dists:
         return
     seen_dists.add(distribution)
-
-    stubs_dir = Path("stubs")
-    dependencies = get_recursive_requirements(distribution).typeshed_pkgs
-
-    for dependency in dependencies:
-        if dependency in seen_dists:
-            continue
-        seen_dists.add(dependency)
-        files_to_add = sorted((stubs_dir / dependency).rglob("*.pyi"))
-        files.extend(files_to_add)
-        for file in files_to_add:
-            log(args, file, f"included as a dependency of {distribution!r}")
-
-    root = stubs_dir / distribution
+    seen_dists.update(get_recursive_requirements(distribution).typeshed_pkgs)
+    root = Path("stubs", distribution)
     for name in os.listdir(root):
         if name.startswith("."):
             continue
