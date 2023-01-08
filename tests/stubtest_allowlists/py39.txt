@@ -32,6 +32,11 @@ collections.ValuesView.__reversed__
 contextlib.AbstractAsyncContextManager.__class_getitem__
 contextlib.AbstractContextManager.__class_getitem__
 distutils.command.bdist_wininst  # see #6523
+distutils.core.DEBUG
+distutils.core.USAGE
+distutils.core.extension_keywords
+distutils.core.gen_usage
+distutils.core.setup_keywords
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 gettext.install
 gettext.translation
@@ -165,6 +170,11 @@ types.FunctionType.__get__
 types.LambdaType.__get__
 
 # Missing from distutils (deprecated, to be removed in 3.12)
+distutils.core.DEBUG
+distutils.core.USAGE
+distutils.core.extension_keywords
+distutils.core.gen_usage
+distutils.core.setup_keywords
 distutils.core.Command.dump_options
 distutils.core.Command.ensure_finalized
 distutils.core.Distribution.announce

@@ -33,10 +33,8 @@ def main() -> None:
     check_subdirs_discoverable(subdir_paths)
     old_typeshed_home = os.environ.get(TYPESHED_HOME)
     os.environ[TYPESHED_HOME] = typeshed_location
-    files_to_test = determine_files_to_test(typeshed_location=typeshed_location, paths=args.files or subdir_paths)
-    run_all_tests(
-        files_to_test=files_to_test, typeshed_location=typeshed_location, print_stderr=args.print_stderr, dry_run=args.dry_run
-    )
+    files_to_test = determine_files_to_test(paths=args.files or subdir_paths)
+    run_all_tests(files_to_test=files_to_test, print_stderr=args.print_stderr, dry_run=args.dry_run)
     if old_typeshed_home is None:
         del os.environ[TYPESHED_HOME]
     else:
@@ -58,7 +56,7 @@ def create_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def run_pytype(*, filename: str, python_version: str, typeshed_location: str) -> str | None:
+def run_pytype(*, filename: str, python_version: str) -> str | None:
     """Runs pytype, returning the stderr if any."""
     if python_version not in _LOADERS:
         options = pytype_config.Options.create("", parse_pyi=True, python_version=python_version)
@@ -100,17 +98,13 @@ def _get_module_name(filename: str) -> str:
     return ".".join(module_parts).replace(".pyi", "").replace(".__init__", "")
 
 
-def _is_version(path: str, version: str) -> bool:
-    return any(f"{d}{os.path.sep}{version}" in path for d in TYPESHED_SUBDIRS)
-
-
 def check_subdirs_discoverable(subdir_paths: list[str]) -> None:
     for p in subdir_paths:
         if not os.path.isdir(p):
             raise SystemExit(f"Cannot find typeshed subdir at {p} (specify parent dir via --typeshed-location)")
 
 
-def determine_files_to_test(*, typeshed_location: str, paths: Sequence[str]) -> list[str]:
+def determine_files_to_test(*, paths: Sequence[str]) -> list[str]:
     """Determine all files to test, checking if it's in the exclude list and which Python versions to use.
 
     Returns a list of pairs of the file path and Python version as an int."""
@@ -137,19 +131,17 @@ def find_stubs_in_paths(paths: Sequence[str]) -> list[str]:
     return filenames
 
 
-def run_all_tests(*, files_to_test: Sequence[str], typeshed_location: str, print_stderr: bool, dry_run: bool) -> None:
+def run_all_tests(*, files_to_test: Sequence[str], print_stderr: bool, dry_run: bool) -> None:
     bad = []
     errors = 0
     total_tests = len(files_to_test)
     print("Testing files with pytype...")
     for i, f in enumerate(files_to_test):
         python_version = "{0.major}.{0.minor}".format(sys.version_info)
-        stderr = (
-            run_pytype(filename=f, python_version=python_version, typeshed_location=typeshed_location) if not dry_run else None
-        )
+        stderr = run_pytype(filename=f, python_version=python_version) if not dry_run else None
         if stderr:
             if print_stderr:
-                print(stderr)
+                print(f"\n{stderr}")
             errors += 1
             stacktrace_final_line = stderr.rstrip().rsplit("\n", 1)[-1]
             bad.append((_get_relative(f), python_version, stacktrace_final_line))
@@ -160,7 +152,7 @@ def run_all_tests(*, files_to_test: Sequence[str], typeshed_location: str, print
 
     print(f"Ran pytype with {total_tests:d} pyis, got {errors:d} errors.")
     for f, v, err in bad:
-        print(f"{f} ({v}): {err}")
+        print(f"\n{f} ({v}): {err}")
     if errors:
         raise SystemExit("\nRun again with --print-stderr to get the full stacktrace.")
 

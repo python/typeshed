@@ -27,6 +27,7 @@ stubs/protobuf/google/protobuf/internal/decoder.pyi
 stubs/protobuf/google/protobuf/internal/encoder.pyi
 stubs/protobuf/google/protobuf/internal/enum_type_wrapper.pyi
 stubs/protobuf/google/protobuf/internal/extension_dict.pyi
+stubs/protobuf/google/protobuf/internal/well_known_types.pyi
 stubs/protobuf/google/protobuf/json_format.pyi
 stubs/protobuf/google/protobuf/message.pyi
 stubs/protobuf/google/protobuf/message_factory.pyi

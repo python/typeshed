@@ -1,27 +1,24 @@
 # https://pyinstaller.org/en/stable/hooks.html
 
-from _typeshed import StrOrBytesPath, StrPath, SupportsKeysAndGetItem
-from collections.abc import Callable, Iterable, Mapping
+from _typeshed import StrOrBytesPath, StrPath
+from collections.abc import Callable, Iterable
 from typing import Any
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal
 
 import pkg_resources
 from PyInstaller import HOMEPATH as HOMEPATH
 from PyInstaller.depend.imphookapi import PostGraphAPI
-from PyInstaller.utils.hooks import conda as conda_support
+from PyInstaller.utils.hooks import conda
 from PyInstaller.utils.hooks.win32 import get_pywin32_module_file_attribute as get_pywin32_module_file_attribute
 
-_Environ: TypeAlias = SupportsKeysAndGetItem[str, str] | Iterable[tuple[str, str]] | Mapping[str, str]
+conda_support = conda
 
 PY_IGNORE_EXTENSIONS: set[str]
 hook_variables: dict[str, str]
 
 def exec_statement(statement: str) -> str | int: ...
 def exec_statement_rc(statement: str) -> str | int: ...
-def exec_script(script_filename: StrOrBytesPath, *args: str, env: _Environ | None = ...) -> str | int: ...
-def exec_script_rc(script_filename: StrOrBytesPath, *args: str, env: _Environ | None = ...) -> str | int: ...
 def eval_statement(statement: str) -> Any | Literal[""]: ...
-def eval_script(script_filename: StrOrBytesPath, *args: str, env: _Environ | None = ...) -> Any | Literal[""]: ...
 def get_pyextension_imports(module_name: str) -> list[str]: ...
 def get_homebrew_path(formula: str = ...) -> str | None: ...
 def remove_prefix(string: str, prefix: str) -> str: ...
@@ -75,3 +72,9 @@ def include_or_exclude_file(
     include_list: Iterable[StrOrBytesPath] | None = ...,
     exclude_list: Iterable[StrOrBytesPath] | None = ...,
 ) -> bool: ...
+def collect_delvewheel_libs_directory(
+    package_name: str,
+    libdir_name: StrPath | None = ...,
+    datas: list[tuple[str, str]] | None = ...,
+    binaries: list[tuple[str, str]] | None = ...,
+) -> tuple[list[tuple[str, str]], list[tuple[str, str]]]: ...

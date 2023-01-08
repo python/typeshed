@@ -1,0 +1,5 @@
+# Re-export:
+crontabs.X_OK
+
+# stub does not have *args argument "args", but function doesn't actually accept positional args
+crontab.CronTab.remove_all

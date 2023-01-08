@@ -1,4 +1,4 @@
-from _typeshed import Self, SupportsItems, SupportsRead
+from _typeshed import Incomplete, Self, SupportsItems, SupportsRead
 from collections.abc import Callable, Iterable, Mapping, MutableMapping
 from typing import Any, Union
 from typing_extensions import TypeAlias, TypedDict
@@ -40,10 +40,23 @@ def merge_setting(request_setting, session_setting, dict_class=...): ...
 def merge_hooks(request_hooks, session_hooks, dict_class=...): ...
 
 class SessionRedirectMixin:
-    def resolve_redirects(self, resp, req, stream=..., timeout=..., verify=..., cert=..., proxies=...): ...
+    def resolve_redirects(
+        self,
+        resp,
+        req,
+        stream: bool = ...,
+        timeout: Incomplete | None = ...,
+        verify: bool = ...,
+        cert: Incomplete | None = ...,
+        proxies: Incomplete | None = ...,
+        yield_requests: bool = ...,
+        **adapter_kwargs,
+    ): ...
     def rebuild_auth(self, prepared_request, response): ...
     def rebuild_proxies(self, prepared_request, proxies): ...
     def should_strip_auth(self, old_url, new_url): ...
+    def rebuild_method(self, prepared_request: PreparedRequest, response: Response) -> None: ...
+    def get_redirect_target(self, resp: Response) -> str | None: ...
 
 _Data: TypeAlias = (
     # used in requests.models.PreparedRequest.prepare_body
@@ -100,7 +113,9 @@ class _Settings(TypedDict):
 
 class Session(SessionRedirectMixin):
     __attrs__: Any
-    headers: CaseInsensitiveDict[str | bytes]
+    # See https://github.com/psf/requests/issues/5020#issuecomment-989082461:
+    # requests sets this as a CaseInsensitiveDict, but users may set it to any MutableMapping
+    headers: MutableMapping[str, str | bytes]
     auth: _Auth | None
     proxies: _TextMapping
     # Don't complain if:

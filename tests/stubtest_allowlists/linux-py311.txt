@@ -18,16 +18,4 @@ signal.Signals.SIGSTKFLT
 signal.sigtimedwait
 signal.sigwaitinfo
 select.epoll.register
-sqlite3.Connection.deserialize
-sqlite3.Connection.serialize
-sqlite3.SQLITE_BUSY_TIMEOUT
-sqlite3.SQLITE_CORRUPT_INDEX
-sqlite3.SQLITE_IOERR_CORRUPTFS
-sqlite3.SQLITE_IOERR_DATA
-sqlite3.dbapi2.Connection.deserialize
-sqlite3.dbapi2.Connection.serialize
-sqlite3.dbapi2.SQLITE_BUSY_TIMEOUT
-sqlite3.dbapi2.SQLITE_CORRUPT_INDEX
-sqlite3.dbapi2.SQLITE_IOERR_CORRUPTFS
-sqlite3.dbapi2.SQLITE_IOERR_DATA
 xxlimited.Xxo.x_exports
