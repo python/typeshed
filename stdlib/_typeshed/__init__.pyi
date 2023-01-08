@@ -36,7 +36,7 @@ AnyStr_co = TypeVar("AnyStr_co", str, bytes, covariant=True)  # noqa: Y001
 # "Incomplete | None" instead of "Any | None".
 Incomplete: TypeAlias = Any
 
-# To describe a method parameter that is unused and will work with anything.
+# To describe a function parameter that is unused and will work with anything.
 Unused: TypeAlias = object
 
 # stable
