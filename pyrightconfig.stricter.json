@@ -73,6 +73,7 @@
         "stubs/ttkthemes",
         "stubs/urllib3",
         "stubs/vobject",
+        "stubs/zstd",
     ],
     "typeCheckingMode": "strict",
     "reportUnnecessaryTypeIgnoreComment": "error",
