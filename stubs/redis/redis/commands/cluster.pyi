@@ -2,7 +2,6 @@ from typing import Any, Generic
 
 from .core import ACLCommands, DataAccessCommands, ManagementCommands, PubSubCommands, _StrType
 
-
 class ClusterMultiKeyCommands:
     def mget_nonatomic(self, keys, *args): ...
     def mset_nonatomic(self, mapping): ...
