@@ -195,5 +195,5 @@ def def_unit(
     namespace: Incomplete | None = ...,
 ): ...
 
-dimensionless_unscaled: Incomplete
+dimensionless_unscaled: Incomplete = ...
 one = dimensionless_unscaled
