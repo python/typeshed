@@ -91,7 +91,7 @@ class UnitBase:
     @property
     def physical_type(self): ...
 
-    class EquivalentUnitsList(list):
+    class EquivalentUnitsList(list[UnitBase]):
         HEADING_NAMES: Incomplete
         ROW_LEN: int
         NO_EQUIV_UNITS_MSG: str
