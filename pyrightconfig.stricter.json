@@ -19,6 +19,7 @@
         "stdlib/xml/dom/minidom.pyi",
         "stdlib/xml/dom/pulldom.pyi",
         "stdlib/xml/sax",
+        "stubs/astropy",
         "stubs/aws-xray-sdk",
         "stubs/babel",
         "stubs/bleach",
