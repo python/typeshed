@@ -7,7 +7,6 @@ from redis.asyncio.connection import BaseParser, Connection, Encoder
 from redis.client import AbstractRedis
 from redis.cluster import AbstractRedisCluster
 
-from redis.commands.cluster import AsyncRedisClusterCommands
 # TODO: add  AsyncRedisClusterCommands stubs
 # from redis.commands import AsyncRedisClusterCommands
 from redis.commands.core import _StrType
