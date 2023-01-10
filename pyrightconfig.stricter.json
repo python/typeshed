@@ -28,7 +28,6 @@
         "stubs/caldav",
         "stubs/cffi",
         "stubs/commonmark",
-        "stubs/cryptography",
         "stubs/dateparser",
         "stubs/docutils",
         "stubs/Flask-Migrate",
