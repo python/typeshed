@@ -58,7 +58,7 @@ def create_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def run_pytype(*, filename: str, python_version: str, missing_modules: Sequence[str]) -> str | None:
+def run_pytype(*, filename: str, python_version: str, missing_modules: Iterable[str]) -> str | None:
     """Runs pytype, returning the stderr if any."""
     if python_version not in _LOADERS:
         options = pytype_config.Options.create("", parse_pyi=True, python_version=python_version)
@@ -154,9 +154,9 @@ def get_missing_modules(files_to_test: Sequence[str]) -> Iterable[str]:
     for distribution in stub_distributions:
         for pkg in utils.read_dependencies(distribution).external_pkgs:
             # See https://stackoverflow.com/a/54853084
-            top_level_file = os.path.join(pkg_resources.get_distribution(pkg).egg_info, "top_level.txt")
-            with open(top_level_file) as fi:
-                missing_modules.update(fi.read().splitlines())
+            top_level_file = os.path.join(pkg_resources.get_distribution(pkg).egg_info, "top_level.txt")  # type: ignore[attr-defined]
+            with open(top_level_file) as f:
+                missing_modules.update(f.read().splitlines())
     return missing_modules
 
 
