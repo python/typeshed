@@ -52,12 +52,11 @@ def run_mypy_as_subprocess(directory: str, platform: str, version: str) -> Retur
         "--python-version",
         version,
         "--strict",
+        "--pretty",
         "--show-traceback",
-        "--show-error-codes",
         "--no-error-summary",
         "--enable-error-code",
         "ignore-without-code",
-        "--namespace-packages",
     ]
     if directory == "tests" and platform == "win32":
         command.extend(["--exclude", "tests/pytype_test.py"])
