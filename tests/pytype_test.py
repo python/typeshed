@@ -14,15 +14,14 @@ from __future__ import annotations
 
 import argparse
 import os
-import pkg_resources
 import sys
 import traceback
 from collections.abc import Iterable, Sequence
 
+import pkg_resources
+import utils
 from pytype import config as pytype_config, load_pytd  # type: ignore[import]
 from pytype.imports import typeshed  # type: ignore[import]
-
-import utils
 
 TYPESHED_SUBDIRS = ["stdlib", "stubs"]
 TYPESHED_HOME = "TYPESHED_HOME"
