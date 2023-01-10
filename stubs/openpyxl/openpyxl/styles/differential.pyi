@@ -1,37 +1,44 @@
-from typing import Any
+from _typeshed import Incomplete
+from typing_extensions import TypeAlias
 
+from openpyxl.descriptors.sequence import _Sequence
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.styles import Alignment, Border, Fill, Font, Protection
+
+from .numbers import NumberFormat
+
+_Unused: TypeAlias = object
 
 class DifferentialStyle(Serialisable):
     tagname: str
-    __elements__: Any
-    font: Any
-    numFmt: Any
-    fill: Any
-    alignment: Any
-    border: Any
-    protection: Any
-    extLst: Any
+    __elements__: tuple[str, ...]
+    font: Font | None
+    numFmt: NumberFormat | None
+    fill: Fill | None
+    alignment: Alignment | None
+    border: Border | None
+    protection: Protection | None
+    extLst: _Sequence[Incomplete] | None
     def __init__(
         self,
-        font: Any | None = ...,
-        numFmt: Any | None = ...,
-        fill: Any | None = ...,
-        alignment: Any | None = ...,
-        border: Any | None = ...,
-        protection: Any | None = ...,
-        extLst: Any | None = ...,
+        font: Font | None = ...,
+        numFmt: NumberFormat | None = ...,
+        fill: Fill | None = ...,
+        alignment: Alignment | None = ...,
+        border: Border | None = ...,
+        protection: Protection | None = ...,
+        extLst: _Sequence[Incomplete] | None = ...,
     ) -> None: ...
 
 class DifferentialStyleList(Serialisable):
     tagname: str
-    dxf: Any
-    styles: Any
-    __attrs__: Any
-    def __init__(self, dxf=..., count: Any | None = ...) -> None: ...
-    def append(self, dxf) -> None: ...
-    def add(self, dxf): ...
+    dxf: _Sequence[DifferentialStyle]
+    styles: Incomplete
+    __attrs__: Incomplete
+    def __init__(self, dxf: _Sequence[DifferentialStyle] = ..., count: _Unused = ...) -> None: ...
+    def append(self, dxf: DifferentialStyle) -> None: ...
+    def add(self, dxf: DifferentialStyle) -> int: ...
     def __bool__(self) -> bool: ...
-    def __getitem__(self, idx): ...
+    def __getitem__(self, idx: int) -> DifferentialStyle: ...
     @property
     def count(self): ...

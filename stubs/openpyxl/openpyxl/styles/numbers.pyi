@@ -1,19 +1,25 @@
-from typing import Any
+from re import Pattern
+from typing import overload
+from typing_extensions import Literal, TypeAlias, TypeGuard
 
 from openpyxl.descriptors import String
+from openpyxl.descriptors.sequence import _Sequence
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.styles.named_styles import NamedStyle
 
-BUILTIN_FORMATS: Any
+_Unused: TypeAlias = object
+
+BUILTIN_FORMATS: dict[int, str]
 BUILTIN_FORMATS_MAX_SIZE: int
-BUILTIN_FORMATS_REVERSE: Any
-FORMAT_GENERAL: Any
-FORMAT_TEXT: Any
-FORMAT_NUMBER: Any
-FORMAT_NUMBER_00: Any
-FORMAT_NUMBER_COMMA_SEPARATED1: Any
+BUILTIN_FORMATS_REVERSE: dict[str, int]
+FORMAT_GENERAL: str
+FORMAT_TEXT: str
+FORMAT_NUMBER: str
+FORMAT_NUMBER_00: str
+FORMAT_NUMBER_COMMA_SEPARATED1: str
 FORMAT_NUMBER_COMMA_SEPARATED2: str
-FORMAT_PERCENTAGE: Any
-FORMAT_PERCENTAGE_00: Any
+FORMAT_PERCENTAGE: str
+FORMAT_PERCENTAGE_00: str
 FORMAT_DATE_YYYYMMDD2: str
 FORMAT_DATE_YYMMDD: str
 FORMAT_DATE_DDMMYY: str
@@ -21,18 +27,18 @@ FORMAT_DATE_DMYSLASH: str
 FORMAT_DATE_DMYMINUS: str
 FORMAT_DATE_DMMINUS: str
 FORMAT_DATE_MYMINUS: str
-FORMAT_DATE_XLSX14: Any
-FORMAT_DATE_XLSX15: Any
-FORMAT_DATE_XLSX16: Any
-FORMAT_DATE_XLSX17: Any
-FORMAT_DATE_XLSX22: Any
+FORMAT_DATE_XLSX14: str
+FORMAT_DATE_XLSX15: str
+FORMAT_DATE_XLSX16: str
+FORMAT_DATE_XLSX17: str
+FORMAT_DATE_XLSX22: str
 FORMAT_DATE_DATETIME: str
-FORMAT_DATE_TIME1: Any
-FORMAT_DATE_TIME2: Any
-FORMAT_DATE_TIME3: Any
-FORMAT_DATE_TIME4: Any
-FORMAT_DATE_TIME5: Any
-FORMAT_DATE_TIME6: Any
+FORMAT_DATE_TIME1: str
+FORMAT_DATE_TIME2: str
+FORMAT_DATE_TIME3: str
+FORMAT_DATE_TIME4: str
+FORMAT_DATE_TIME5: str
+FORMAT_DATE_TIME6: str
 FORMAT_DATE_TIME7: str
 FORMAT_DATE_TIME8: str
 FORMAT_DATE_TIMEDELTA: str
@@ -43,31 +49,34 @@ FORMAT_CURRENCY_EUR_SIMPLE: str
 COLORS: str
 LITERAL_GROUP: str
 LOCALE_GROUP: str
-STRIP_RE: Any
-TIMEDELTA_RE: Any
+STRIP_RE: Pattern[str]
+TIMEDELTA_RE: Pattern[str]
 
-def is_date_format(fmt): ...
+def is_date_format(fmt: str | None) -> TypeGuard[str]: ...
 def is_timedelta_format(fmt): ...
-def is_datetime(fmt): ...
-def is_builtin(fmt): ...
-def builtin_format_code(index): ...
+@overload
+def is_datetime(fmt: None) -> None: ...
+@overload
+def is_datetime(fmt: str) -> Literal["datetime", "date", "time", None]: ...
+def is_builtin(fmt: str) -> bool: ...
+def builtin_format_code(index: int) -> str | None: ...
 def builtin_format_id(fmt): ...
 
 class NumberFormatDescriptor(String):
-    def __set__(self, instance, value) -> None: ...
+    def __set__(self, instance: NamedStyle, value: str | None) -> None: ...
 
 class NumberFormat(Serialisable):  # type: ignore[misc]
-    numFmtId: Any
-    formatCode: Any
-    def __init__(self, numFmtId: Any | None = ..., formatCode: Any | None = ...) -> None: ...
+    numFmtId: int
+    formatCode: str
+    def __init__(self, numFmtId: int, formatCode: str) -> None: ...
 
 class NumberFormatList(Serialisable):  # type: ignore[misc]
     # Overwritten by property below
-    # count: Integer
-    numFmt: Any
-    __elements__: Any
-    __attrs__: Any
-    def __init__(self, count: Any | None = ..., numFmt=...) -> None: ...
+    # count: int | None
+    numFmt: _Sequence[NumberFormat]
+    __elements__: tuple[str, ...]
+    __attrs__: tuple[str, ...]
+    def __init__(self, count: _Unused = ..., numFmt: _Sequence[NumberFormat] = ...) -> None: ...
     @property
-    def count(self): ...
-    def __getitem__(self, idx): ...
+    def count(self) -> int | None: ...
+    def __getitem__(self, idx) -> NumberFormat: ...

@@ -1,70 +1,81 @@
+from _typeshed import Incomplete, Self
 from abc import abstractmethod
-from typing import Any
+from typing_extensions import Literal, TypeAlias
 
+from openpyxl.chart.data_source import NumFmt
+from openpyxl.chart.title import Title
+from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.xml.functions import _Element
+
+from .layout import Layout
+from .shapes import GraphicalProperties
+from .text import RichText, Text
+
+_Unused: TypeAlias = object
 
 class ChartLines(Serialisable):
     tagname: str
-    spPr: Any
-    graphicalProperties: Any
-    def __init__(self, spPr: Any | None = ...) -> None: ...
+    spPr: GraphicalProperties | None = ...
+    graphicalProperties = spPr
+    def __init__(self, spPr: GraphicalProperties | None = ...) -> None: ...
 
 class Scaling(Serialisable):
     tagname: str
-    logBase: Any
-    orientation: Any
-    max: Any
-    min: Any
-    extLst: Any
-    __elements__: Any
+    logBase: float | None
+    orientation: Literal["maxMin", "minMax"]
+    max: float | None
+    min: float | None
+    extLst: ExtensionList | None
+    __elements__: tuple[str, ...]
     def __init__(
         self,
-        logBase: Any | None = ...,
-        orientation: str = ...,
-        max: Any | None = ...,
-        min: Any | None = ...,
-        extLst: Any | None = ...,
+        logBase: float | None = ...,
+        orientation: Literal["maxMin", "minMax"] = ...,
+        max: float | None = ...,
+        min: float | None = ...,
+        extLst: _Unused = ...,
     ) -> None: ...
 
 class _BaseAxis(Serialisable):
-    axId: Any
-    scaling: Any
-    delete: Any
-    axPos: Any
-    majorGridlines: Any
-    minorGridlines: Any
-    title: Any
-    numFmt: Any
-    number_format: Any
-    majorTickMark: Any
-    minorTickMark: Any
-    tickLblPos: Any
-    spPr: Any
-    graphicalProperties: Any
-    txPr: Any
-    textProperties: Any
-    crossAx: Any
-    crosses: Any
-    crossesAt: Any
-    __elements__: Any
+    axId: int
+    scaling: Scaling
+    delete: bool | None
+    axPos: Literal["b", "l", "r", "t"]
+    majorGridlines: ChartLines | None
+    minorGridlines: ChartLines | None
+    title: Title | None
+    numFmt: NumFmt | None = ...
+    number_format = numFmt
+    majorTickMark: Literal["cross", "in", "out", None]
+    minorTickMark: Literal["cross", "in", "out", None]
+    tickLblPos: Literal["high", "low", "nextTo", None]
+    spPr: GraphicalProperties | None = ...
+    graphicalProperties = spPr
+    txPr: RichText | None = ...
+    textProperties = txPr
+    crossAx: int
+    crosses: Literal["autoZero", "max", "min", None]
+    crossesAt: float | None
+    __elements__: tuple[str, ...]
     def __init__(
         self,
-        axId: Any | None = ...,
-        scaling: Any | None = ...,
-        delete: Any | None = ...,
-        axPos: str = ...,
-        majorGridlines: Any | None = ...,
-        minorGridlines: Any | None = ...,
-        title: Any | None = ...,
-        numFmt: Any | None = ...,
-        majorTickMark: Any | None = ...,
-        minorTickMark: Any | None = ...,
-        tickLblPos: Any | None = ...,
-        spPr: Any | None = ...,
-        txPr: Any | None = ...,
-        crossAx: Any | None = ...,
-        crosses: Any | None = ...,
-        crossesAt: Any | None = ...,
+        axId: int,
+        scaling: Scaling | None,
+        delete: bool | None,
+        axPos: str,
+        majorGridlines: ChartLines | None,
+        minorGridlines: ChartLines | None,
+        title: Title | None,
+        numFmt: Incomplete | None,
+        majorTickMark: Literal["cross", "in", "out", None],
+        minorTickMark: Literal["cross", "in", "out", None],
+        tickLblPos: Literal["high", "low", "nextTo", None],
+        spPr: GraphicalProperties | None,
+        txPr: RichText | None,
+        crossAx: int,
+        crosses: Literal["autoZero", "max", "min", None] = ...,
+        crossesAt: float | None = ...,
     ) -> None: ...
     @property
     @abstractmethod
@@ -72,163 +83,195 @@ class _BaseAxis(Serialisable):
 
 class DisplayUnitsLabel(Serialisable):
     tagname: str
-    layout: Any
-    tx: Any
-    text: Any
-    spPr: Any
-    graphicalProperties: Any
-    txPr: Any
-    textPropertes: Any
-    __elements__: Any
+    layout: Layout | None
+    tx: Text | None = ...
+    text = tx
+    spPr: GraphicalProperties | None = ...
+    graphicalProperties = spPr
+    txPr: RichText | None = ...
+    textPropertes = txPr
+    __elements__: tuple[str, ...]
     def __init__(
-        self, layout: Any | None = ..., tx: Any | None = ..., spPr: Any | None = ..., txPr: Any | None = ...
+        self,
+        layout: Layout | None = ...,
+        tx: Text | None = ...,
+        spPr: GraphicalProperties | None = ...,
+        txPr: RichText | None = ...,
     ) -> None: ...
 
 class DisplayUnitsLabelList(Serialisable):
     tagname: str
-    custUnit: Any
-    builtInUnit: Any
-    dispUnitsLbl: Any
-    extLst: Any
-    __elements__: Any
+    custUnit: float | None
+    builtInUnit: Literal[
+        "hundreds",
+        "thousands",
+        "tenThousands",
+        "hundredThousands",
+        "millions",
+        "tenMillions",
+        "hundredMillions",
+        "billions",
+        "trillions",
+        None,
+    ]
+    dispUnitsLbl: DisplayUnitsLabel | None
+    extLst: ExtensionList | None
+    __elements__: tuple[str, ...]
     def __init__(
-        self, custUnit: Any | None = ..., builtInUnit: Any | None = ..., dispUnitsLbl: Any | None = ..., extLst: Any | None = ...
+        self,
+        custUnit: float | None = ...,
+        builtInUnit: Literal[
+            "hundreds",
+            "thousands",
+            "tenThousands",
+            "hundredThousands",
+            "millions",
+            "tenMillions",
+            "hundredMillions",
+            "billions",
+            "trillions",
+            None,
+        ] = ...,
+        dispUnitsLbl: DisplayUnitsLabel | None = ...,
+        extLst: _Unused = ...,
     ) -> None: ...
 
 class NumericAxis(_BaseAxis):
     tagname: str
-    axId: Any
-    scaling: Any
-    delete: Any
-    axPos: Any
-    majorGridlines: Any
-    minorGridlines: Any
-    title: Any
-    numFmt: Any
-    majorTickMark: Any
-    minorTickMark: Any
-    tickLblPos: Any
-    spPr: Any
-    txPr: Any
-    crossAx: Any
-    crosses: Any
-    crossesAt: Any
-    crossBetween: Any
-    majorUnit: Any
-    minorUnit: Any
-    dispUnits: Any
-    extLst: Any
-    __elements__: Any
+    crossBetween: Literal["between", "midCat", None]
+    majorUnit: float | None
+    minorUnit: float | None
+    dispUnits: DisplayUnitsLabelList | None
+    extLst: ExtensionList | None
+    __elements__: tuple[str, ...]
     def __init__(
         self,
-        crossBetween: Any | None = ...,
-        majorUnit: Any | None = ...,
-        minorUnit: Any | None = ...,
-        dispUnits: Any | None = ...,
-        extLst: Any | None = ...,
-        **kw,
+        crossBetween: Incomplete | None = ...,
+        majorUnit: Incomplete | None = ...,
+        minorUnit: Incomplete | None = ...,
+        dispUnits: Incomplete | None = ...,
+        extLst: Incomplete | None = ...,
+        axId: int = ...,
+        scaling: Scaling | None = ...,
+        delete: bool | None = ...,
+        axPos: str = ...,
+        majorGridlines: ChartLines | None = ...,
+        minorGridlines: ChartLines | None = ...,
+        title: Title | None = ...,
+        numFmt: Incomplete | None = ...,
+        majorTickMark: Literal["cross", "in", "out", None] = ...,
+        minorTickMark: Literal["cross", "in", "out", None] = ...,
+        tickLblPos: Literal["high", "low", "nextTo", None] = ...,
+        spPr: GraphicalProperties | None = ...,
+        txPr: RichText | None = ...,
+        crossAx: int = ...,
+        crosses: Literal["autoZero", "max", "min", None] = ...,
+        crossesAt: float | None = ...,
     ) -> None: ...
     @classmethod
-    def from_tree(cls, node): ...
+    def from_tree(cls: Self, node: _Element) -> Self: ...
 
 class TextAxis(_BaseAxis):
     tagname: str
-    axId: Any
-    scaling: Any
-    delete: Any
-    axPos: Any
-    majorGridlines: Any
-    minorGridlines: Any
-    title: Any
-    numFmt: Any
-    majorTickMark: Any
-    minorTickMark: Any
-    tickLblPos: Any
-    spPr: Any
-    txPr: Any
-    crossAx: Any
-    crosses: Any
-    crossesAt: Any
-    auto: Any
-    lblAlgn: Any
-    lblOffset: Any
-    tickLblSkip: Any
-    tickMarkSkip: Any
-    noMultiLvlLbl: Any
-    extLst: Any
-    __elements__: Any
+    auto: bool | None
+    lblAlgn: Literal["ctr", "l", "r", None]
+    lblOffset: float
+    tickLblSkip: int | None
+    tickMarkSkip: int | None
+    noMultiLvlLbl: bool | None
+    extLst: ExtensionList | None
+    __elements__: tuple[str, ...]
     def __init__(
         self,
-        auto: Any | None = ...,
-        lblAlgn: Any | None = ...,
-        lblOffset: int = ...,
-        tickLblSkip: Any | None = ...,
-        tickMarkSkip: Any | None = ...,
-        noMultiLvlLbl: Any | None = ...,
-        extLst: Any | None = ...,
-        **kw,
+        auto: bool | None = ...,
+        lblAlgn: Literal["ctr", "l", "r", None] = ...,
+        lblOffset: float = ...,
+        tickLblSkip: int | None = ...,
+        tickMarkSkip: int | None = ...,
+        noMultiLvlLbl: bool | None = ...,
+        extLst: _Unused = ...,
+        axId: int = ...,
+        scaling: Scaling | None = ...,
+        delete: bool | None = ...,
+        axPos: str = ...,
+        majorGridlines: ChartLines | None = ...,
+        minorGridlines: ChartLines | None = ...,
+        title: Title | None = ...,
+        numFmt: Incomplete | None = ...,
+        majorTickMark: Literal["cross", "in", "out", None] = ...,
+        minorTickMark: Literal["cross", "in", "out", None] = ...,
+        tickLblPos: Literal["high", "low", "nextTo", None] = ...,
+        spPr: GraphicalProperties | None = ...,
+        txPr: RichText | None = ...,
+        crossAx: int = ...,
+        crosses: Literal["autoZero", "max", "min", None] = ...,
+        crossesAt: float | None = ...,
     ) -> None: ...
 
 class DateAxis(TextAxis):
     tagname: str
-    axId: Any
-    scaling: Any
-    delete: Any
-    axPos: Any
-    majorGridlines: Any
-    minorGridlines: Any
-    title: Any
-    numFmt: Any
-    majorTickMark: Any
-    minorTickMark: Any
-    tickLblPos: Any
-    spPr: Any
-    txPr: Any
-    crossAx: Any
-    crosses: Any
-    crossesAt: Any
-    auto: Any
-    lblOffset: Any
-    baseTimeUnit: Any
-    majorUnit: Any
-    majorTimeUnit: Any
-    minorUnit: Any
-    minorTimeUnit: Any
-    extLst: Any
-    __elements__: Any
+    auto: bool | None
+    lblOffset: int | None  # type: ignore[assignment]
+    baseTimeUnit: Literal["days", "months", "years", None]
+    majorUnit: float | None
+    majorTimeUnit: Literal["days", "months", "years", None]
+    minorUnit: float | None
+    minorTimeUnit: Literal["days", "months", "years", None]
+    extLst: ExtensionList | None
+    __elements__: tuple[str, ...]
     def __init__(
         self,
-        auto: Any | None = ...,
-        lblOffset: Any | None = ...,
-        baseTimeUnit: Any | None = ...,
-        majorUnit: Any | None = ...,
-        majorTimeUnit: Any | None = ...,
-        minorUnit: Any | None = ...,
-        minorTimeUnit: Any | None = ...,
-        extLst: Any | None = ...,
-        **kw,
+        auto: bool | None = ...,
+        lblOffset: int | None = ...,
+        baseTimeUnit: Literal["days", "months", "years", None] = ...,
+        majorUnit: float | None = ...,
+        majorTimeUnit: Literal["days", "months", "years", None] = ...,
+        minorUnit: float | None = ...,
+        minorTimeUnit: Literal["days", "months", "years", None] = ...,
+        extLst: ExtensionList | None = ...,
+        axId: int = ...,
+        scaling: Scaling | None = ...,
+        delete: bool | None = ...,
+        axPos: str = ...,
+        majorGridlines: ChartLines | None = ...,
+        minorGridlines: ChartLines | None = ...,
+        title: Title | None = ...,
+        numFmt: Incomplete | None = ...,
+        majorTickMark: Literal["cross", "in", "out", None] = ...,
+        minorTickMark: Literal["cross", "in", "out", None] = ...,
+        tickLblPos: Literal["high", "low", "nextTo", None] = ...,
+        spPr: GraphicalProperties | None = ...,
+        txPr: RichText | None = ...,
+        crossAx: int = ...,
+        crosses: Literal["autoZero", "max", "min", None] = ...,
+        crossesAt: float | None = ...,
     ) -> None: ...
 
 class SeriesAxis(_BaseAxis):
     tagname: str
-    axId: Any
-    scaling: Any
-    delete: Any
-    axPos: Any
-    majorGridlines: Any
-    minorGridlines: Any
-    title: Any
-    numFmt: Any
-    majorTickMark: Any
-    minorTickMark: Any
-    tickLblPos: Any
-    spPr: Any
-    txPr: Any
-    crossAx: Any
-    crosses: Any
-    crossesAt: Any
-    tickLblSkip: Any
-    tickMarkSkip: Any
-    extLst: Any
-    __elements__: Any
-    def __init__(self, tickLblSkip: Any | None = ..., tickMarkSkip: Any | None = ..., extLst: Any | None = ..., **kw) -> None: ...
+    tickLblSkip: int | None
+    tickMarkSkip: int | None
+    extLst: ExtensionList | None
+    __elements__: tuple[str, ...]
+    def __init__(
+        self,
+        tickLblSkip: int | None = ...,
+        tickMarkSkip: int | None = ...,
+        extLst: _Unused = ...,
+        axId: int = ...,
+        scaling: Scaling | None = ...,
+        delete: bool | None = ...,
+        axPos: str = ...,
+        majorGridlines: ChartLines | None = ...,
+        minorGridlines: ChartLines | None = ...,
+        title: Title | None = ...,
+        numFmt: Incomplete | None = ...,
+        majorTickMark: Literal["cross", "in", "out", None] = ...,
+        minorTickMark: Literal["cross", "in", "out", None] = ...,
+        tickLblPos: Literal["high", "low", "nextTo", None] = ...,
+        spPr: GraphicalProperties | None = ...,
+        txPr: RichText | None = ...,
+        crossAx: int = ...,
+        crosses: Literal["autoZero", "max", "min", None] = ...,
+        crossesAt: float | None = ...,
+    ) -> None: ...

@@ -1,60 +1,137 @@
-from typing import Any
+from _typeshed import Self
+from collections.abc import Generator
+from re import Pattern
+from typing import TypeVar, overload
+from typing_extensions import TypeAlias
 
 from openpyxl.descriptors import Typed
+from openpyxl.descriptors.sequence import _Sequence
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.drawing.colors import SystemColor
 
-COLOR_INDEX: Any
-BLACK: Any
-WHITE: Any
-BLUE: Any
-aRGB_REGEX: Any
+_Unused: TypeAlias = object
+_S = TypeVar("_S", bound=Serialisable)
+
+COLOR_INDEX: tuple[
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+    str,
+]
+BLACK: str
+WHITE: str
+BLUE: str
+aRGB_REGEX: Pattern[str]
 
 class RGB(Typed):
-    expected_type: Any
-    def __set__(self, instance, value) -> None: ...
+    expected_type: type[str]
+    def __set__(self, instance: Color | SystemColor | RgbColor, value: str) -> None: ...
 
 class Color(Serialisable):
     tagname: str
-    rgb: Any
-    indexed: Any
-    auto: Any
-    theme: Any
-    tint: Any
-    type: Any
+    rgb: str
+    indexed: int
+    auto: bool
+    theme: int
+    tint: float
+    type: str
     def __init__(
         self,
-        rgb=...,
-        indexed: Any | None = ...,
-        auto: Any | None = ...,
-        theme: Any | None = ...,
+        rgb: str = ...,
+        indexed: int | None = ...,
+        auto: bool | None = ...,
+        theme: int | None = ...,
         tint: float = ...,
-        index: Any | None = ...,
-        type: str = ...,
+        index: int | None = ...,
+        type: _Unused = ...,
     ) -> None: ...
     @property
-    def value(self): ...
+    def value(self) -> str | float | bool: ...
     @value.setter
-    def value(self, value) -> None: ...
-    def __iter__(self): ...
+    def value(self, value: str | float | bool) -> None: ...
+    def __iter__(self) -> Generator[tuple[str, str], None, None]: ...
     @property
-    def index(self): ...
-    def __add__(self, other): ...
+    def index(self) -> str | float | bool: ...
+    @overload
+    def __add__(self: Self, other: Color) -> Self: ...
+    @overload
+    def __add__(self, other: _S) -> _S: ...
 
 class ColorDescriptor(Typed):
-    expected_type: Any
-    def __set__(self, instance, value) -> None: ...
+    expected_type: type[Color]
+    def __set__(self, instance: Serialisable, value: str | Color) -> None: ...
 
 class RgbColor(Serialisable):
     tagname: str
-    rgb: Any
-    def __init__(self, rgb: Any | None = ...) -> None: ...
+    rgb: str
+    def __init__(self, rgb: str) -> None: ...
 
 class ColorList(Serialisable):
     tagname: str
-    indexedColors: Any
-    mruColors: Any
-    __elements__: Any
-    def __init__(self, indexedColors=..., mruColors=...) -> None: ...
+    indexedColors: _Sequence[RgbColor]
+    mruColors: _Sequence[Color]
+    __elements__: tuple[str, ...]
+    def __init__(self, indexedColors: _Sequence[RgbColor] = ..., mruColors: _Sequence[Color] = ...) -> None: ...
     def __bool__(self) -> bool: ...
     @property
-    def index(self): ...
+    def index(self) -> list[str]: ...

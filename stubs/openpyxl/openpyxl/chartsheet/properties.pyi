@@ -1,11 +1,13 @@
-from typing import Any
+from _typeshed import Incomplete
 
-from openpyxl.descriptors.serialisable import Serialisable as Serialisable
+from openpyxl.descriptors.serialisable import Serialisable
 
 class ChartsheetProperties(Serialisable):
     tagname: str
-    published: Any
-    codeName: Any
-    tabColor: Any
-    __elements__: Any
-    def __init__(self, published: Any | None = ..., codeName: Any | None = ..., tabColor: Any | None = ...) -> None: ...
+    published: Incomplete
+    codeName: Incomplete
+    tabColor: Incomplete
+    __elements__: tuple[str, ...]
+    def __init__(
+        self, published: Incomplete | None = ..., codeName: Incomplete | None = ..., tabColor: Incomplete | None = ...
+    ) -> None: ...

@@ -1,12 +1,14 @@
-from typing import Any
+from _typeshed import Incomplete
 from warnings import warn as warn
 
+from .proxy import StyleProxy
+
 class StyleDescriptor:
-    collection: Any
-    key: Any
-    def __init__(self, collection, key) -> None: ...
+    collection: str
+    key: str
+    def __init__(self, collection: str, key: str) -> None: ...
     def __set__(self, instance, value) -> None: ...
-    def __get__(self, instance, cls): ...
+    def __get__(self, instance, cls) -> StyleProxy: ...
 
 class NumberFormatDescriptor:
     key: str
@@ -21,24 +23,24 @@ class NamedStyleDescriptor:
     def __get__(self, instance, cls): ...
 
 class StyleArrayDescriptor:
-    key: Any
-    def __init__(self, key) -> None: ...
+    key: str
+    def __init__(self, key: str) -> None: ...
     def __set__(self, instance, value) -> None: ...
-    def __get__(self, instance, cls): ...
+    def __get__(self, instance, cls) -> bool: ...
 
 class StyleableObject:
-    font: Any
-    fill: Any
-    border: Any
-    number_format: Any
-    protection: Any
-    alignment: Any
-    style: Any
-    quotePrefix: Any
-    pivotButton: Any
-    parent: Any
-    def __init__(self, sheet, style_array: Any | None = ...) -> None: ...
+    font: StyleDescriptor
+    fill: StyleDescriptor
+    border: StyleDescriptor
+    number_format: NumberFormatDescriptor
+    protection: StyleDescriptor
+    alignment: StyleDescriptor
+    style: NamedStyleDescriptor
+    quotePrefix: StyleArrayDescriptor
+    pivotButton: StyleArrayDescriptor
+    parent: Incomplete
+    def __init__(self, sheet, style_array: Incomplete | None = ...) -> None: ...
     @property
-    def style_id(self): ...
+    def style_id(self) -> int: ...
     @property
-    def has_style(self): ...
+    def has_style(self) -> bool: ...

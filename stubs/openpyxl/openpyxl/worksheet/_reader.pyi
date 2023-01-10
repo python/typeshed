@@ -1,87 +1,108 @@
-from collections.abc import Generator
+from _typeshed import Incomplete
+from collections.abc import Container, Generator, Sequence
+from datetime import datetime
 from typing import Any
+from zipfile import ZipExtFile
 
-CELL_TAG: Any
-VALUE_TAG: Any
-FORMULA_TAG: Any
-MERGE_TAG: Any
-INLINE_STRING: Any
-COL_TAG: Any
-ROW_TAG: Any
-CF_TAG: Any
-LEGACY_TAG: Any
-PROT_TAG: Any
-EXT_TAG: Any
-HYPERLINK_TAG: Any
-TABLE_TAG: Any
-PRINT_TAG: Any
-MARGINS_TAG: Any
-PAGE_TAG: Any
-HEADER_TAG: Any
-FILTER_TAG: Any
-VALIDATION_TAG: Any
-PROPERTIES_TAG: Any
-VIEWS_TAG: Any
-FORMAT_TAG: Any
-ROW_BREAK_TAG: Any
-COL_BREAK_TAG: Any
-SCENARIOS_TAG: Any
-DATA_TAG: Any
-DIMENSION_TAG: Any
-CUSTOM_VIEWS_TAG: Any
+from openpyxl.cell.cell import Cell
+from openpyxl.worksheet.hyperlink import HyperlinkList
+from openpyxl.worksheet.pagebreak import ColBreak, RowBreak
+from openpyxl.worksheet.table import TablePartList
+from openpyxl.worksheet.worksheet import Worksheet
+from openpyxl.xml.functions import _Element
+
+CELL_TAG: str
+VALUE_TAG: str
+FORMULA_TAG: str
+MERGE_TAG: str
+INLINE_STRING: str
+COL_TAG: str
+ROW_TAG: str
+CF_TAG: str
+LEGACY_TAG: str
+PROT_TAG: str
+EXT_TAG: str
+HYPERLINK_TAG: str
+TABLE_TAG: str
+PRINT_TAG: str
+MARGINS_TAG: str
+PAGE_TAG: str
+HEADER_TAG: str
+FILTER_TAG: str
+VALIDATION_TAG: str
+PROPERTIES_TAG: str
+VIEWS_TAG: str
+FORMAT_TAG: str
+ROW_BREAK_TAG: str
+COL_BREAK_TAG: str
+SCENARIOS_TAG: str
+DATA_TAG: str
+DIMENSION_TAG: str
+CUSTOM_VIEWS_TAG: str
 
 class WorkSheetParser:
-    min_row: Any
-    epoch: Any
-    source: Any
-    shared_strings: Any
-    data_only: Any
-    shared_formulae: Any
-    array_formulae: Any
+    min_row: Incomplete | None
+    min_col: Incomplete | None
+    epoch: datetime
+    source: ZipExtFile | str
+    shared_strings: Sequence[str]
+    data_only: bool
+    shared_formulae: dict[Incomplete, Incomplete]
+    array_formulae: dict[Incomplete, Incomplete]
     row_counter: int
-    tables: Any
-    date_formats: Any
-    timedelta_formats: Any
-    row_dimensions: Any
-    column_dimensions: Any
-    number_formats: Any
+    tables: TablePartList
+    date_formats: Container[int]
+    timedelta_formats: Container[int]
+    row_dimensions: dict[Incomplete, Incomplete]
+    column_dimensions: dict[Incomplete, Incomplete]
+    number_formats: list[Incomplete]
     keep_vba: bool
-    hyperlinks: Any
-    formatting: Any
-    legacy_drawing: Any
-    merged_cells: Any
-    row_breaks: Any
-    col_breaks: Any
+    hyperlinks: HyperlinkList
+    formatting: list[Incomplete]
+    legacy_drawing: Incomplete | None
+    merged_cells: Incomplete | None
+    row_breaks: RowBreak
+    col_breaks: ColBreak
     def __init__(
-        self, src, shared_strings, data_only: bool = ..., epoch=..., date_formats=..., timedelta_formats=...
+        self,
+        src: ZipExtFile | str,
+        shared_strings: Sequence[str],
+        data_only: bool = ...,
+        epoch: datetime = ...,
+        date_formats: Container[int] = ...,
+        timedelta_formats: Container[int] = ...,
     ) -> None: ...
-    def parse(self) -> Generator[Any, None, None]: ...
-    def parse_dimensions(self): ...
-    col_counter: Any
-    def parse_cell(self, element): ...
-    def parse_formula(self, element): ...
-    def parse_column_dimensions(self, col) -> None: ...
-    def parse_row(self, row): ...
-    def parse_formatting(self, element) -> None: ...
-    protection: Any
-    def parse_sheet_protection(self, element) -> None: ...
-    def parse_extensions(self, element) -> None: ...
-    def parse_legacy(self, element) -> None: ...
-    def parse_row_breaks(self, element) -> None: ...
-    def parse_col_breaks(self, element) -> None: ...
-    def parse_custom_views(self, element) -> None: ...
+    def parse(self) -> Generator[Incomplete, None, None]: ...
+    def parse_dimensions(self) -> tuple[int, int, int, int]: ...
+    col_counter: Incomplete
+    # dict[str, AnyOf[time, date, datetime, timedelta, float, int, bool | str, None]]
+    def parse_cell(self, element: _Element) -> dict[str, Any]: ...
+    def parse_formula(self, element: _Element): ...
+    def parse_column_dimensions(self, col: _Element) -> None: ...
+    # tuple[int, list[dict[str, AnyOf[time, date, datetime, timedelta, float, int, bool | str, None]]]]
+    def parse_row(self, row: _Element) -> tuple[int, list[dict[str, Any]]]: ...
+    def parse_formatting(self, element: _Element) -> None: ...
+    protection: Incomplete
+    def parse_sheet_protection(self, element: _Element) -> None: ...
+    def parse_extensions(self, element: _Element) -> None: ...
+    def parse_legacy(self, element: _Element) -> None: ...
+    def parse_row_breaks(self, element: _Element) -> None: ...
+    def parse_col_breaks(self, element: _Element) -> None: ...
+    def parse_custom_views(self, element: _Element) -> None: ...
 
 class WorksheetReader:
-    ws: Any
-    parser: Any
-    tables: Any
-    def __init__(self, ws, xml_source, shared_strings, data_only) -> None: ...
+    ws: Worksheet
+    parser: WorkSheetParser
+    tables: list[Incomplete]
+    def __init__(
+        self, ws: Worksheet, xml_source: ZipExtFile | str, shared_strings: Sequence[str] | None, data_only: bool | None
+    ) -> None: ...
     def bind_cells(self) -> None: ...
     def bind_formatting(self) -> None: ...
     def bind_tables(self) -> None: ...
     def bind_merged_cells(self) -> None: ...
     def bind_hyperlinks(self) -> None: ...
-    def normalize_merged_cell_link(self, coord): ...
+    def normalize_merged_cell_link(self, coord: str) -> Cell | None: ...
     def bind_col_dimensions(self) -> None: ...
     def bind_row_dimensions(self) -> None: ...
     def bind_properties(self) -> None: ...

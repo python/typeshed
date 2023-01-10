@@ -1,1 +1,5 @@
 version = "3.0.*"
+requires = ["lxml-stubs", "types-pillow"]
+
+[tool.stubtest]
+ignore_missing_stub = false

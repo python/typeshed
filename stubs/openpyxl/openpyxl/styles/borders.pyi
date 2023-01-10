@@ -1,62 +1,83 @@
-from typing import Any
+from _typeshed import Incomplete
+from collections.abc import Generator
+from typing_extensions import Final, Literal, TypeAlias
 
 from openpyxl.descriptors.serialisable import Serialisable
 
-BORDER_NONE: Any
-BORDER_DASHDOT: str
-BORDER_DASHDOTDOT: str
-BORDER_DASHED: str
-BORDER_DOTTED: str
-BORDER_DOUBLE: str
-BORDER_HAIR: str
-BORDER_MEDIUM: str
-BORDER_MEDIUMDASHDOT: str
-BORDER_MEDIUMDASHDOTDOT: str
-BORDER_MEDIUMDASHED: str
-BORDER_SLANTDASHDOT: str
-BORDER_THICK: str
-BORDER_THIN: str
+from .colors import Color
+
+BORDER_NONE: None
+BORDER_DASHDOT: Final = "dashDot"
+BORDER_DASHDOTDOT: Final = "dashDotDot"
+BORDER_DASHED: Final = "dashed"
+BORDER_DOTTED: Final = "dotted"
+BORDER_DOUBLE: Final = "double"
+BORDER_HAIR: Final = "hair"
+BORDER_MEDIUM: Final = "medium"
+BORDER_MEDIUMDASHDOT: Final = "mediumDashDot"
+BORDER_MEDIUMDASHDOTDOT: Final = "mediumDashDotDot"
+BORDER_MEDIUMDASHED: Final = "mediumDashed"
+BORDER_SLANTDASHDOT: Final = "slantDashDot"
+BORDER_THICK: Final = "thick"
+BORDER_THIN: Final = "thin"
+_StyleType: TypeAlias = Literal[
+    "dashDot",
+    "dashDotDot",
+    "dashed",
+    "dotted",
+    "double",
+    "hair",
+    "medium",
+    "mediumDashDot",
+    "mediumDashDotDot",
+    "mediumDashed",
+    "slantDashDot",
+    "thick",
+    "thin",
+]
 
 class Side(Serialisable):  # type: ignore[misc]
-    __fields__: Any
-    color: Any
-    style: Any
-    border_style: Any
-    def __init__(self, style: Any | None = ..., color: Any | None = ..., border_style: Any | None = ...) -> None: ...
+    __fields__: tuple[str, ...]
+    color: Color | None
+    style: _StyleType | None = ...
+    border_style = style
+    def __init__(
+        self, style: _StyleType | None = ..., color: Color | None = ..., border_style: _StyleType | None = ...
+    ) -> None: ...
 
 class Border(Serialisable):
     tagname: str
-    __fields__: Any
-    __elements__: Any
-    start: Any
-    end: Any
-    left: Any
-    right: Any
-    top: Any
-    bottom: Any
-    diagonal: Any
-    vertical: Any
-    horizontal: Any
-    outline: Any
-    diagonalUp: Any
-    diagonalDown: Any
-    diagonal_direction: Any
+    __fields__: tuple[str, ...]
+    __elements__: tuple[str, ...]
+    start: Side | None
+    end: Side | None
+    left: Side | None
+    right: Side | None
+    top: Side | None
+    bottom: Side | None
+    diagonal: Side | None
+    vertical: Side | None
+    horizontal: Side | None
+    outline: bool
+    diagonalUp: bool
+    diagonalDown: bool
+    diagonal_direction: Incomplete | None
     def __init__(
         self,
-        left: Any | None = ...,
-        right: Any | None = ...,
-        top: Any | None = ...,
-        bottom: Any | None = ...,
-        diagonal: Any | None = ...,
-        diagonal_direction: Any | None = ...,
-        vertical: Any | None = ...,
-        horizontal: Any | None = ...,
+        left: Side | None = ...,
+        right: Side | None = ...,
+        top: Side | None = ...,
+        bottom: Side | None = ...,
+        diagonal: Side | None = ...,
+        diagonal_direction: Incomplete | None = ...,
+        vertical: Side | None = ...,
+        horizontal: Side | None = ...,
         diagonalUp: bool = ...,
         diagonalDown: bool = ...,
         outline: bool = ...,
-        start: Any | None = ...,
-        end: Any | None = ...,
+        start: Side | None = ...,
+        end: Side | None = ...,
     ) -> None: ...
-    def __iter__(self): ...
+    def __iter__(self) -> Generator[tuple[str, str], None, None]: ...
 
-DEFAULT_BORDER: Any
+DEFAULT_BORDER: Border
