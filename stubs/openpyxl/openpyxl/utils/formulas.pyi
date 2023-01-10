@@ -1,3 +1,3 @@
-from typing import Incomplete
+from _typeshed import Incomplete
 
 FORMULAE: Incomplete

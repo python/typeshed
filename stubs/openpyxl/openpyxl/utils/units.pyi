@@ -1,4 +1,4 @@
-from typing import Incomplete
+from _typeshed import Incomplete
 
 DEFAULT_ROW_HEIGHT: float
 BASE_COL_WIDTH: int

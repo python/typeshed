@@ -1,4 +1,4 @@
-from typing import Incomplete
+from _typeshed import Incomplete
 
 from openpyxl.descriptors.serialisable import Serialisable
 

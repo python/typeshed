@@ -1,4 +1,4 @@
-from typing import Incomplete
+from _typeshed import Incomplete
 
 NS_REGEX: Incomplete
 
