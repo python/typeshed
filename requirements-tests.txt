@@ -10,7 +10,7 @@ packaging==22.0
 pathspec
 pycln==2.1.2              # must match .pre-commit-config.yaml
 pyyaml==6.0
-pytype==2022.12.15; platform_system != "Windows" and python_version < "3.11"
+pytype==2023.1.10; platform_system != "Windows" and python_version < "3.11"
 termcolor>=2
 tomli==2.0.1
 tomlkit==0.11.6
