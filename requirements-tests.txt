@@ -15,4 +15,5 @@ termcolor>=2
 tomli==2.0.1
 tomlkit==0.11.6
 types-pyyaml
+types-setuptools
 typing-extensions
