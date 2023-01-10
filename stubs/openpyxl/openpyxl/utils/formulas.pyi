@@ -1,3 +1,3 @@
-from typing import Any
+from typing import Incomplete
 
-FORMULAE: Any
+FORMULAE: Incomplete

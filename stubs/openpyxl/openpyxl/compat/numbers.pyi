@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Incomplete
 
-NUMERIC_TYPES: Any
+NUMERIC_TYPES: Incomplete
 NUMPY: bool
