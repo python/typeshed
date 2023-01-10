@@ -1,10 +1,11 @@
 from datetime import datetime
 from typing import Any
+
+from openpyxl.comments.comments import Comment
 from openpyxl.styles.cell_style import StyleArray
 from openpyxl.styles.styleable import StyleableObject
 from openpyxl.worksheet.hyperlink import Hyperlink
 from openpyxl.worksheet.worksheet import Worksheet
-from openpyxl.comments.comments import Comment
 
 __docformat__: str
 TIME_TYPES: Any
@@ -31,7 +32,12 @@ class Cell(StyleableObject):
     column: int
     data_type: str
     def __init__(
-        self, worksheet: Worksheet, row: int | None = ..., column: int | None = ..., value: str | float | int | datetime | None = ..., style_array: StyleArray | None = ...
+        self,
+        worksheet: Worksheet,
+        row: int | None = ...,
+        column: int | None = ...,
+        value: str | float | int | datetime | None = ...,
+        style_array: StyleArray | None = ...,
     ) -> None: ...
     @property
     def coordinate(self) -> str: ...
