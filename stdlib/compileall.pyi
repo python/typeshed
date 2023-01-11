@@ -79,7 +79,7 @@ elif sys.version_info >= (3, 9):
 else:
     def compile_dir(
         dir: StrPath,
-        maxlevels: int = None,
+        maxlevels: int = ...,
         ddir: StrPath | None = None,
         force: bool = False,
         rx: _SupportsSearch | None = None,
