@@ -8,7 +8,7 @@ import subprocess
 import sys
 import venv
 from collections.abc import Iterable, Mapping
-from functools import cache
+from functools import lru_cache
 from pathlib import Path
 from typing import NamedTuple
 from typing_extensions import Annotated
@@ -24,6 +24,10 @@ except ImportError:
     def colored(text: str, color: str | None = None, on_color: str | None = None, attrs: Iterable[str] | None = None) -> str:
         return text
 
+
+# A backport of functools.cache for Python <3.9
+# This module is imported by mypy_test.py, which needs to run on 3.7 in CI
+cache = lru_cache(None)
 
 # Used to install system-wide packages for different OS types:
 METADATA_MAPPING = {"linux": "apt_dependencies", "darwin": "brew_dependencies", "win32": "choco_dependencies"}
