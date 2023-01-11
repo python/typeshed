@@ -1,2 +1,3 @@
 version = "2.10.*"
-requires = ["numpy"]
+# requires a version of numpy with a `py.typed` file
+requires = ["numpy>=1.20"]
