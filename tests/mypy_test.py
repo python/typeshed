@@ -323,7 +323,7 @@ def test_third_party_distribution(
 
     mypypath = os.pathsep.join(str(Path("stubs", dist)) for dist in seen_dists)
     if args.verbose:
-        print(colored(f"\n{mypypath=}", "blue"))
+        print(colored(f"\nmypypath={mypypath}", "blue"))
     code = run_mypy(
         args,
         configurations,
