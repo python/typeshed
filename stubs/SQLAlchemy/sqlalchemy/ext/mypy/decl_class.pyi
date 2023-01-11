@@ -1,4 +1,5 @@
-from mypy.plugin import SemanticAnalyzerPluginInterface
+# mypy_test can't find mypy import
+from mypy.plugin import SemanticAnalyzerPluginInterface  # type: ignore[import]
 
 from . import util
 

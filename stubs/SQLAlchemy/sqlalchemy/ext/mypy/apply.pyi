@@ -1,6 +1,7 @@
-from mypy.nodes import AssignmentStmt, NameExpr, StrExpr
-from mypy.plugin import SemanticAnalyzerPluginInterface
-from mypy.types import ProperType
+# mypy_test can't find mypy import
+from mypy.nodes import AssignmentStmt, NameExpr, StrExpr  # type: ignore[import]
+from mypy.plugin import SemanticAnalyzerPluginInterface  # type: ignore[import]
+from mypy.types import ProperType  # type: ignore[import]
 
 from . import util
 

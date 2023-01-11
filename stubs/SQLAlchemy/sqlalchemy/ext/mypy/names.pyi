@@ -1,6 +1,7 @@
-from mypy.nodes import ClassDef, Expression, MemberExpr, NameExpr, SymbolNode, TypeInfo
-from mypy.plugin import SemanticAnalyzerPluginInterface
-from mypy.types import UnboundType
+# mypy_test can't find mypy import
+from mypy.nodes import ClassDef, Expression, MemberExpr, NameExpr, SymbolNode, TypeInfo  # type: ignore[import]
+from mypy.plugin import SemanticAnalyzerPluginInterface  # type: ignore[import]
+from mypy.types import UnboundType  # type: ignore[import]
 
 from ...util import symbol
 

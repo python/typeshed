@@ -1,8 +1,9 @@
 from collections.abc import Sequence
 
-from mypy.nodes import AssignmentStmt, Expression, RefExpr, TypeInfo, Var
-from mypy.plugin import SemanticAnalyzerPluginInterface
-from mypy.types import ProperType
+# mypy_test can't find mypy import
+from mypy.nodes import AssignmentStmt, Expression, RefExpr, TypeInfo, Var  # type: ignore[import]
+from mypy.plugin import SemanticAnalyzerPluginInterface  # type: ignore[import]
+from mypy.types import ProperType  # type: ignore[import]
 
 def infer_type_from_right_hand_nameexpr(
     api: SemanticAnalyzerPluginInterface,

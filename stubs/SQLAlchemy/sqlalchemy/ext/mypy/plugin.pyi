@@ -1,8 +1,9 @@
 from collections.abc import Callable
 
-from mypy.nodes import MypyFile
-from mypy.plugin import AttributeContext, ClassDefContext, DynamicClassDefContext, Plugin
-from mypy.types import Type
+# mypy_test can't find mypy import
+from mypy.nodes import MypyFile  # type: ignore[import]
+from mypy.plugin import AttributeContext, ClassDefContext, DynamicClassDefContext, Plugin  # type: ignore[import]
+from mypy.types import Type  # type: ignore[import]
 
 class SQLAlchemyPlugin(Plugin):
     def get_dynamic_class_hook(self, fullname: str) -> Callable[[DynamicClassDefContext], None] | None: ...
