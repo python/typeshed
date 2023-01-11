@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import NoReturn
 
 import tomli
+
 from utils import colored, get_mypy_req, make_venv, print_error, print_success_msg
 
 

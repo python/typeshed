@@ -24,6 +24,7 @@ if TYPE_CHECKING:
 from typing_extensions import Annotated, TypeAlias
 
 import tomli
+
 from utils import (
     VERSIONS_RE as VERSION_LINE_RE,
     PackageDependencies,
