@@ -16,7 +16,7 @@ from dataclasses import dataclass
 from itertools import product
 from pathlib import Path
 from threading import Lock
-from typing import TYPE_CHECKING, Any, NamedTuple
+from typing import TYPE_CHECKING, Any, NamedTuple, Tuple
 
 if TYPE_CHECKING:
     from _typeshed import StrPath
@@ -52,7 +52,7 @@ DIRECTORIES_TO_TEST = [Path("stdlib"), Path("stubs")]
 
 ReturnCode: TypeAlias = int
 VersionString: TypeAlias = Annotated[str, "Must be one of the entries in SUPPORTED_VERSIONS"]
-VersionTuple: TypeAlias = tuple[int, int]
+VersionTuple: TypeAlias = Tuple[int, int]
 Platform: TypeAlias = Annotated[str, "Must be one of the entries in SUPPORTED_PLATFORMS"]
 
 
