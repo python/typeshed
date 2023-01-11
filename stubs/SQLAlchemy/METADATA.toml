@@ -1,4 +1,5 @@
 version = "1.4.46"
+requires = ["mypy"]
 extra_description = """\
   The `sqlalchemy-stubs` package is an alternative to this package and also \
   includes a mypy plugin for more precise types.\
