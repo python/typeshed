@@ -1,6 +1,5 @@
-from ldap3.protocol.novell import Identity
-
 from ...extend.operation import ExtendedOperation
+from ...protocol.novell import Identity
 
 class GetBindDn(ExtendedOperation):
     request_name: str

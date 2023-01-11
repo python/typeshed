@@ -1,8 +1,7 @@
 from _typeshed import Incomplete
 
-from ldap3.protocol.novell import ReplicaList
-
 from ...extend.operation import ExtendedOperation
+from ...protocol.novell import ReplicaList
 from ...protocol.rfc4511 import LDAPDN
 
 class ListReplicas(ExtendedOperation):
