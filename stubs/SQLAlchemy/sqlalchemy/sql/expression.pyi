@@ -163,7 +163,9 @@ lateral: Incomplete
 or_: Incomplete
 bindparam: Incomplete
 select: Incomplete
-text: Incomplete
+
+def text(text: str, bind: Incomplete | None = None) -> TextClause: ...
+
 table: Incomplete
 column: Incomplete
 over: Incomplete
