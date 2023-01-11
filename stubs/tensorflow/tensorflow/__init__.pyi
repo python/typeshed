@@ -7,7 +7,7 @@ from enum import Enum
 from typing import Any, NoReturn, overload
 from typing_extensions import TypeAlias
 
-import numpy as np
+import numpy
 from tensorflow.dtypes import *
 
 # Most tf.math functions are exported as tf, but sadly not all are.
@@ -23,10 +23,10 @@ _Slice: TypeAlias = int | slice | None
 
 _FloatDataSequence: TypeAlias = Sequence[float] | Sequence[_FloatDataSequence]
 _StrDataSequence: TypeAlias = Sequence[str] | Sequence[_StrDataSequence]
-_ScalarTensorCompatible: TypeAlias = Tensor | str | float | np.ndarray[Any, Any] | np.number[Any]
+_ScalarTensorCompatible: TypeAlias = Tensor | str | float | numpy.ndarray[Any, Any] | numpy.number[Any]
 _TensorCompatible: TypeAlias = _ScalarTensorCompatible | Sequence[_TensorCompatible]
 _ShapeLike: TypeAlias = TensorShape | Iterable[_ScalarTensorCompatible | None] | int | Tensor
-_DTypeLike: TypeAlias = DType | str | np.dtype[Any]
+_DTypeLike: TypeAlias = DType | str | numpy.dtype[Any]
 
 class Tensor:
     def __init__(self, op: Operation, value_index: int, dtype: DType) -> None: ...
@@ -42,7 +42,7 @@ class Tensor:
     def name(self) -> str: ...
     @property
     def op(self) -> Operation: ...
-    def numpy(self) -> np.ndarray[Any, Any]: ...
+    def numpy(self) -> numpy.ndarray[Any, Any]: ...
     def __int__(self) -> int: ...
     def __abs__(self, name: str | None = None) -> Tensor: ...
     def __add__(self, other: _TensorCompatible) -> Tensor: ...
