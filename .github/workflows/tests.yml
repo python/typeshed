@@ -94,7 +94,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: pip
           cache-dependency-path: requirements-tests.txt
-      - run: pip install -r requirements-tests.txt
+      - run: pip install mypy packaging pathspec termcolor tomli
       - run: python ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
 
   regression-tests:
