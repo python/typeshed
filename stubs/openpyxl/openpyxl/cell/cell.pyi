@@ -1,6 +1,6 @@
+from _typeshed import Incomplete
 from datetime import datetime
 from typing import Any
-from _typeshed import Incomplete
 
 from openpyxl.comments.comments import Comment
 from openpyxl.styles.cell_style import StyleArray
