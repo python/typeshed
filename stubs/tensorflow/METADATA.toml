@@ -1,5 +1,2 @@
 version = "2.10.*"
 requires = ["numpy"]
-
-[tool.stubtest]
-ignore_missing_stub = false

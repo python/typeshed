@@ -26,7 +26,7 @@
 [flake8]
 per-file-ignores =
   *.py: E203, E301, E302, E305, E501
-  *.pyi: B, E301, E302, E305, E501, E701, E741, F401, F403, F405, F822, Y037
+  *.pyi: B, E301, E302, E305, E501, E701, E741, F401, F403, F405, F822, Y011, Y037
   # Since typing.pyi defines "overload" this is not recognized by flake8 as typing.overload.
   # Unfortunately, flake8 does not allow to "noqa" just a specific error inside the file itself.
   # https://github.com/PyCQA/flake8/issues/1079
