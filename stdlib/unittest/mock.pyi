@@ -102,8 +102,8 @@ class _CallList(list[_Call]):
 class Base:
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
 
-# We subclass with "Any" because defining this and other mock classes exactly like the source
-# causes many false positives with mypy and production code.
+# We subclass with "Any" because mocks are explicitly designed to stand in for other types,
+# something that can't be expressed with our static type system.
 class NonCallableMock(Base, Any):  # type: ignore[misc]
     def __new__(__cls: type[Self], *args: Any, **kw: Any) -> Self: ...
     def __init__(
