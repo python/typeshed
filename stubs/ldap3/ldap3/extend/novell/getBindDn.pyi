@@ -5,6 +5,6 @@ class GetBindDn(ExtendedOperation):
     request_name: str
     response_name: str
     response_attribute: str
-    asn1_spec: Identity | None
+    asn1_spec: Identity
     def config(self) -> None: ...
     def populate_result(self) -> None: ...

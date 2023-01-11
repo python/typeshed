@@ -1,3 +1,4 @@
+# Alias the import to avoid name clash with a class called "Final"
 from typing_extensions import Final as _Final
 
 from pyasn1.type.constraint import ConstraintsIntersection, SingleValueConstraint, ValueRangeConstraint, ValueSizeConstraint
@@ -6,7 +7,7 @@ from pyasn1.type.namedval import NamedValues
 from pyasn1.type.tag import TagSet
 from pyasn1.type.univ import Boolean, Choice, Enumerated, Integer, Null, OctetString, Sequence, SequenceOf, SetOf
 
-LDAP_MAX_INT: _Final = 2147483647  # noqa: Y015  # name conflict
+LDAP_MAX_INT: _Final = 2147483647  # noqa: Y015
 MAXINT: _Final[Integer]
 rangeInt0ToMaxConstraint: ValueRangeConstraint
 rangeInt1To127Constraint: ValueRangeConstraint
