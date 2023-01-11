@@ -49,12 +49,7 @@ else:
     def compress(__data: ReadableBuffer, level: int = ...) -> bytes: ...
 
 def compressobj(
-    level: int = ...,
-    method: int = 8,
-    wbits: int = 15,
-    memLevel: int = 8,
-    strategy: int = 0,
-    zdict: ReadableBuffer | None = None,
+    level: int = ..., method: int = 8, wbits: int = 15, memLevel: int = 8, strategy: int = 0, zdict: ReadableBuffer | None = None
 ) -> _Compress: ...
 def crc32(__data: ReadableBuffer, __value: int = ...) -> int: ...
 def decompress(__data: ReadableBuffer, wbits: int = 15, bufsize: int = 16384) -> bytes: ...

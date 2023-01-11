@@ -11,7 +11,7 @@ def make_archive(
 def make_tarball(
     base_name: str,
     base_dir: str,
-    compress: str | None = 'gzip',
+    compress: str | None = "gzip",
     verbose: int = 0,
     dry_run: int = 0,
     owner: str | None = None,

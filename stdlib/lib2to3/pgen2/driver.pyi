@@ -20,5 +20,5 @@ class Driver:
     def parse_string(self, text: str, debug: bool = ...) -> _NL: ...
 
 def load_grammar(
-    gt: str = 'Grammar.txt', gp: str | None = None, save: bool = True, force: bool = False, logger: Logger | None = None
+    gt: str = "Grammar.txt", gp: str | None = None, save: bool = True, force: bool = False, logger: Logger | None = None
 ) -> Grammar: ...

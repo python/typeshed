@@ -19,11 +19,11 @@ class Timer:
     def autorange(self, callback: Callable[[int, float], object] | None = ...) -> tuple[int, float]: ...
 
 def timeit(
-    stmt: _Stmt = 'pass', setup: _Stmt = 'pass', timer: _Timer = ..., number: int = 1000000, globals: dict[str, Any] | None = None
+    stmt: _Stmt = "pass", setup: _Stmt = "pass", timer: _Timer = ..., number: int = 1000000, globals: dict[str, Any] | None = None
 ) -> float: ...
 def repeat(
-    stmt: _Stmt = 'pass',
-    setup: _Stmt = 'pass',
+    stmt: _Stmt = "pass",
+    setup: _Stmt = "pass",
     timer: _Timer = ...,
     repeat: int = 5,
     number: int = 1000000,

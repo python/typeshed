@@ -117,38 +117,38 @@ def parse_qs(
     qs: AnyStr | None,
     keep_blank_values: bool = False,
     strict_parsing: bool = False,
-    encoding: str = 'utf-8',
-    errors: str = 'replace',
+    encoding: str = "utf-8",
+    errors: str = "replace",
     max_num_fields: int | None = None,
-    separator: str = '&',
+    separator: str = "&",
 ) -> dict[AnyStr, list[AnyStr]]: ...
 def parse_qsl(
     qs: AnyStr | None,
     keep_blank_values: bool = False,
     strict_parsing: bool = False,
-    encoding: str = 'utf-8',
-    errors: str = 'replace',
+    encoding: str = "utf-8",
+    errors: str = "replace",
     max_num_fields: int | None = None,
-    separator: str = '&',
+    separator: str = "&",
 ) -> list[tuple[AnyStr, AnyStr]]: ...
 @overload
 def quote(string: str, safe: str | Iterable[int] = ..., encoding: str | None = ..., errors: str | None = ...) -> str: ...
 @overload
 def quote(string: bytes | bytearray, safe: str | Iterable[int] = ...) -> str: ...
-def quote_from_bytes(bs: bytes | bytearray, safe: str | Iterable[int] = '/') -> str: ...
+def quote_from_bytes(bs: bytes | bytearray, safe: str | Iterable[int] = "/") -> str: ...
 @overload
 def quote_plus(string: str, safe: str | Iterable[int] = ..., encoding: str | None = ..., errors: str | None = ...) -> str: ...
 @overload
 def quote_plus(string: bytes | bytearray, safe: str | Iterable[int] = ...) -> str: ...
 
 if sys.version_info >= (3, 9):
-    def unquote(string: str | bytes, encoding: str = 'utf-8', errors: str = 'replace') -> str: ...
+    def unquote(string: str | bytes, encoding: str = "utf-8", errors: str = "replace") -> str: ...
 
 else:
-    def unquote(string: str, encoding: str = 'utf-8', errors: str = 'replace') -> str: ...
+    def unquote(string: str, encoding: str = "utf-8", errors: str = "replace") -> str: ...
 
 def unquote_to_bytes(string: str | bytes | bytearray) -> bytes: ...
-def unquote_plus(string: str, encoding: str = 'utf-8', errors: str = 'replace') -> str: ...
+def unquote_plus(string: str, encoding: str = "utf-8", errors: str = "replace") -> str: ...
 @overload
 def urldefrag(url: str) -> DefragResult: ...
 @overload
@@ -159,7 +159,7 @@ _Q = TypeVar("_Q", bound=str | Iterable[int])
 def urlencode(
     query: Mapping[Any, Any] | Mapping[Any, Sequence[Any]] | Sequence[tuple[Any, Any]] | Sequence[tuple[Any, Sequence[Any]]],
     doseq: bool = False,
-    safe: _Q = '',
+    safe: _Q = "",
     encoding: str = None,
     errors: str = None,
     quote_via: Callable[[AnyStr, _Q, str, str], str] = ...,

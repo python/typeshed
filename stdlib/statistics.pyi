@@ -73,7 +73,7 @@ def pvariance(data: Iterable[_NumberT], mu: _NumberT | None = None) -> _NumberT:
 
 if sys.version_info >= (3, 8):
     def quantiles(
-        data: Iterable[_NumberT], *, n: int = 4, method: Literal["inclusive", "exclusive"] = 'exclusive'
+        data: Iterable[_NumberT], *, n: int = 4, method: Literal["inclusive", "exclusive"] = "exclusive"
     ) -> list[_NumberT]: ...
 
 def stdev(data: Iterable[_NumberT], xbar: _NumberT | None = None) -> _NumberT: ...

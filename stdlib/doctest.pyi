@@ -190,7 +190,12 @@ def testfile(
     encoding: str | None = None,
 ) -> TestResults: ...
 def run_docstring_examples(
-    f: object, globs: dict[str, Any], verbose: bool = False, name: str = 'NoName', compileflags: int | None = None, optionflags: int = 0
+    f: object,
+    globs: dict[str, Any],
+    verbose: bool = False,
+    name: str = "NoName",
+    compileflags: int | None = None,
+    optionflags: int = 0,
 ) -> None: ...
 def set_unittest_reportflags(flags: int) -> int: ...
 

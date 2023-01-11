@@ -90,7 +90,7 @@ ENCODING: str
 
 def open(
     name: StrOrBytesPath | None = None,
-    mode: str = 'r',
+    mode: str = "r",
     fileobj: IO[bytes] | None = None,  # depends on mode
     bufsize: int = 10240,
     *,

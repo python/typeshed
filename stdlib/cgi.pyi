@@ -29,7 +29,7 @@ def parse(
     environ: SupportsItemAccess[str, str] = ...,
     keep_blank_values: bool = 0,
     strict_parsing: bool = 0,
-    separator: str = '&',
+    separator: str = "&",
 ) -> dict[str, list[str]]: ...
 
 if sys.version_info < (3, 8):
@@ -37,7 +37,7 @@ if sys.version_info < (3, 8):
     def parse_qsl(qs: str, keep_blank_values: bool = ..., strict_parsing: bool = ...) -> list[tuple[str, str]]: ...
 
 def parse_multipart(
-    fp: IO[Any], pdict: SupportsGetItem[str, bytes], encoding: str = 'utf-8', errors: str = 'replace', separator: str = '&'
+    fp: IO[Any], pdict: SupportsGetItem[str, bytes], encoding: str = "utf-8", errors: str = "replace", separator: str = "&"
 ) -> dict[str, list[Any]]: ...
 
 class _Environ(Protocol):
