@@ -9,7 +9,7 @@ class ExtendedOperation:
     asn1_spec: Asn1Type | None
     request_name: Incomplete
     response_name: Incomplete
-    request_value: Incomplete
+    request_value: Asn1Type | None
     response_value: Incomplete
     response_attribute: Incomplete
     controls: Incomplete

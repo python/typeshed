@@ -1,1 +1,5 @@
 ldap3.protocol.sasl.kerberos  # requires gssapi package to import
+
+# stubtest bug
+ldap3.protocol.rfc4511.Or.componentType
+ldap3.protocol.rfc4511.And.componentType

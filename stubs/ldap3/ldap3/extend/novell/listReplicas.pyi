@@ -3,12 +3,13 @@ from _typeshed import Incomplete
 from ldap3.protocol.novell import ReplicaList
 
 from ...extend.operation import ExtendedOperation
+from ...protocol.rfc4511 import LDAPDN
 
 class ListReplicas(ExtendedOperation):
     request_name: str
     response_name: str
-    request_value: Incomplete
-    asn1_spec: ReplicaList | None
+    request_value: LDAPDN
+    asn1_spec: ReplicaList
     response_attribute: str
     def config(self) -> None: ...
     def __init__(self, connection, server_dn, controls: Incomplete | None = ...) -> None: ...

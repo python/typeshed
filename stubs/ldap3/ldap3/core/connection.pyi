@@ -1,8 +1,10 @@
 from _collections_abc import Generator, dict_keys
-from _typeshed import Self
+from _typeshed import ReadableBuffer, Self
 from types import TracebackType
 from typing import Any
 from typing_extensions import Literal, TypeAlias
+
+from pyasn1.type.base import Asn1Item
 
 from .pooling import ServerPool
 from .server import Server
@@ -156,7 +158,11 @@ class Connection:
     ): ...
     def abandon(self, message_id, controls: Any | None = ...): ...
     def extended(
-        self, request_name, request_value: Any | None = ..., controls: Any | None = ..., no_encode: Any | None = ...
+        self,
+        request_name,
+        request_value: Asn1Item | ReadableBuffer | None = ...,
+        controls: Any | None = ...,
+        no_encode: bool | None = ...,
     ): ...
     def start_tls(self, read_server_info: bool = ...): ...
     def do_sasl_bind(self, controls): ...

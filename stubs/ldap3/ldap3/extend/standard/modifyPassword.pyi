@@ -1,13 +1,12 @@
 from _typeshed import Incomplete
 
-from ldap3.protocol.rfc3062 import PasswdModifyResponseValue
-
 from ...extend.operation import ExtendedOperation
+from ...protocol.rfc3062 import PasswdModifyRequestValue, PasswdModifyResponseValue
 
 class ModifyPassword(ExtendedOperation):
     request_name: str
-    request_value: Incomplete
-    asn1_spec: PasswdModifyResponseValue | None
+    request_value: PasswdModifyRequestValue
+    asn1_spec: PasswdModifyResponseValue
     response_attribute: str
     def config(self) -> None: ...
     def __init__(

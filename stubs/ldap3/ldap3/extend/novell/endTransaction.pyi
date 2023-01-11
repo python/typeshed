@@ -1,14 +1,13 @@
 from _typeshed import Incomplete
 
-from ldap3.protocol.novell import EndGroupTypeResponseValue
-
 from ...extend.operation import ExtendedOperation
+from ...protocol.novell import EndGroupTypeRequestValue, EndGroupTypeResponseValue
 
 class EndTransaction(ExtendedOperation):
     request_name: str
     response_name: str
-    request_value: Incomplete
-    asn1_spec: EndGroupTypeResponseValue | None
+    request_value: EndGroupTypeRequestValue
+    asn1_spec: EndGroupTypeResponseValue
     def config(self) -> None: ...
     def __init__(self, connection, commit: bool = ..., controls: Incomplete | None = ...) -> None: ...
     def populate_result(self) -> None: ...
