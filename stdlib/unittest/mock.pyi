@@ -102,7 +102,10 @@ class _CallList(list[_Call]):
 class Base:
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
 
-class NonCallableMock(Base, Any):
+# Defining this and other mock classes exactly like the source causes
+# many false positives with mypy and production code.
+# We improve by use a class with an "Any" base class.
+class NonCallableMock(Base, Any):  # type: ignore[misc]
     def __new__(__cls: type[Self], *args: Any, **kw: Any) -> Self: ...
     def __init__(
         self,
