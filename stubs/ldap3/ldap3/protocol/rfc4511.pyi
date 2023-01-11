@@ -7,12 +7,13 @@ from pyasn1.type.namedval import NamedValues
 from pyasn1.type.tag import TagSet
 from pyasn1.type.univ import Boolean, Choice, Enumerated, Integer, Null, OctetString, Sequence, SequenceOf, SetOf
 
-LDAP_MAX_INT: _Final = 2147483647  # noqa: Y015
+LDAP_MAX_INT: _Final = 2147483647
 MAXINT: _Final[Integer]
 rangeInt0ToMaxConstraint: ValueRangeConstraint
 rangeInt1To127Constraint: ValueRangeConstraint
 size1ToMaxConstraint: ValueSizeConstraint
 responseValueConstraint: SingleValueConstraint
+# Custom constraints. They have yet to be implemented so ldap3 keeps them as None.
 numericOIDConstraint: None
 distinguishedNameConstraint: None
 nameComponentConstraint: None
