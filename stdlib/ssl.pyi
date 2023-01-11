@@ -64,7 +64,7 @@ def create_default_context(
     cadata: str | ReadableBuffer | None = None,
 ) -> SSLContext: ...
 def _create_unverified_context(
-    protocol: int = None,
+    protocol: int = ...,
     *,
     cert_reqs: int = 0,
     check_hostname: bool = False,

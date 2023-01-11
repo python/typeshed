@@ -161,7 +161,7 @@ def urlencode(
     doseq: bool = False,
     safe: _Q = ...,
     encoding: str = ...,
-    errors: str = None,
+    errors: str = ...,
     quote_via: Callable[[AnyStr, _Q, str, str], str] = ...,
 ) -> str: ...
 def urljoin(base: AnyStr, url: AnyStr | None, allow_fragments: bool = True) -> AnyStr: ...
