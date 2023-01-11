@@ -46,14 +46,16 @@ virtual environment. If you're not familiar with what it is and how it works,
 please refer to this
 [documentation](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/).
 
+Note that some tests require extra setup steps to install the required dependencies.
+
 ### Linux/Mac OS
 
-On Linux and Mac OS, you will be able to run the full test suite on Python 3.8,
+On Linux and Mac OS, you will be able to run the full test suite on Python
 3.9 or 3.10.
 To install the necessary requirements, run the following commands from a
 terminal window:
 
-```
+```bash
 $ python3 -m venv .venv
 $ source .venv/bin/activate
 (.venv)$ pip install -U pip
@@ -73,11 +75,11 @@ WSL, follow the Linux/Mac OS instructions above.
 If you do not wish to install WSL, run the following commands from a Windows
 terminal to install all non-pytype requirements:
 
-```
+```powershell
 > python -m venv .venv
-> ".venv/scripts/activate"
+> .venv\scripts\activate
 (.venv) > pip install -U pip
-(.venv) > pip install -r requirements-tests.txt
+(.venv) > pip install -r "requirements-tests.txt"
 ```
 
 ## Code formatting
@@ -93,10 +95,10 @@ right away and add a commit to your PR.
 That being said, if you *want* to run the checks locally when you commit,
 you're free to do so. Either run `pycln`, `black` and `isort` manually...
 
-```
-pycln --all .
-isort .
-black .
+```bash
+$ pycln --config=pyproject.toml .
+$ isort .
+$ black .
 ```
 
 ...Or install the pre-commit hooks: please refer to the
@@ -107,8 +109,8 @@ Our code is also linted using `flake8`, with plugins `flake8-pyi`,
 flake8 before filing a PR is not required. However, if you wish to run flake8
 locally, install the test dependencies as outlined above, and then run:
 
-```
-flake8 .
+```bash
+(.venv3)$ flake8 .
 ```
 
 ## Where to make changes
@@ -176,6 +178,9 @@ supported:
 * `extra_description` (optional): Can be used to add a custom description to
   the package's long description. It should be a multi-line string in
   Markdown format.
+* `stub_distribution` (optional): Distribution name to be uploaded to PyPI.
+  This defaults to `types-<distribution>` and should only be set in special
+  cases.
 * `obsolete_since` (optional): This field is part of our process for
   [removing obsolete third-party libraries](#third-party-library-removal-policy).
   It contains the first version of the corresponding library that ships
@@ -183,6 +188,9 @@ supported:
 * `no_longer_updated` (optional): This field is set to `true` before removing
   stubs for other reasons than the upstream library shipping with type
   information.
+* `upload` (optional): This field is set to `false` to prevent automatic
+  uploads to PyPI. This should only used in special cases, e.g. when the stubs
+  break the upload.
 
 In addition, we specify configuration for stubtest in the `tool.stubtest` table.
 This has the following keys:
@@ -190,8 +198,19 @@ This has the following keys:
   package. Please avoid setting this to `true`, and add a comment if you have
   to.
 * `apt_dependencies` (default: `[]`): A list of Ubuntu APT packages
-  that need to be installed for stubtest to run successfully. These are
-  usually packages needed to pip install the implementation distribution.
+  that need to be installed for stubtest to run successfully.
+* `brew_dependencies` (default: `[]`): A list of MacOS Homebrew packages
+  that need to be installed for stubtest to run successfully
+* `choco_dependencies` (default: `[]`): A list of Windows Chocolatey packages
+  that need to be installed for stubtest to run successfully
+* `platforms` (default: `["linux"]`): A list of OSes on which to run stubtest.
+  Can contain `win32`, `linux`, and `darwin` values.
+  If not specified, stubtest is run only on `linux`.
+  Only add extra OSes to the test
+  if there are platform-specific branches in a stubs package.
+
+`*_dependencies` are usually packages needed to `pip install` the implementation
+distribution.
 
 The format of all `METADATA.toml` files can be checked by running
 `python3 ./tests/check_consistent.py`.
@@ -231,7 +250,7 @@ To get started, fork typeshed, clone your fork, and then
 You can then install the library with `pip` into the virtualenv and run the script,
 replacing `libraryname` with the name of the library below:
 
-```
+```bash
 (.venv3)$ pip install libraryname
 (.venv3)$ python3 scripts/create_baseline_stubs.py libraryname
 ```
@@ -285,6 +304,15 @@ instead in typeshed stubs. This currently affects:
 Two exceptions are `Protocol` and `runtime_checkable`: although
 these were added in Python 3.8, they can be used in stubs regardless
 of Python version.
+
+[PEP 688](https://www.python.org/dev/peps/pep-0688/), which is
+currently a draft, removes the implicit promotion of the
+`bytearray` and `memoryview` classes to `bytes`.
+Typeshed stubs should be written assuming that this proposal
+is accepted, so a parameter that accepts either `bytes` or
+`bytearray` should be typed as `bytes | bytearray`.
+Often one of the aliases from `_typeshed`, such as
+`_typeshed.ReadableBuffer`, can be used instead.
 
 ### What to include
 
@@ -441,6 +469,11 @@ Some further tips for good type hints:
   platform-dependent APIs;
 * use mypy error codes for mypy-specific `# type: ignore` annotations,
   e.g. `# type: ignore[override]` for Liskov Substitution Principle violations.
+* use pyright error codes for pyright-specific suppressions,
+  e.g. `# pyright: ignore[reportGeneralTypeIssues]`.
+  - pyright is configured to discard `# type: ignore` annotations.
+  If you need both on the same line, mypy's annotation needs to go first,
+  e.g. `# type: ignore[override]  # pyright: ignore[reportGeneralTypeIssues]`.
 
 Imports in stubs are considered private (not part of the exported API)
 unless:
