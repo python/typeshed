@@ -24,6 +24,7 @@ except ImportError:
     def colored(text: str, color: str | None = None, on_color: str | None = None, attrs: Iterable[str] | None = None) -> str:
         return text
 
+
 cache = lru_cache(None)
 
 # Used to install system-wide packages for different OS types:
