@@ -16,10 +16,13 @@ import argparse
 import os
 import sys
 import traceback
-from collections.abc import Sequence
+from collections.abc import Iterable, Sequence
 
+import pkg_resources
 from pytype import config as pytype_config, load_pytd  # type: ignore[import]
 from pytype.imports import typeshed  # type: ignore[import]
+
+import utils
 
 TYPESHED_SUBDIRS = ["stdlib", "stubs"]
 TYPESHED_HOME = "TYPESHED_HOME"
@@ -56,11 +59,13 @@ def create_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def run_pytype(*, filename: str, python_version: str) -> str | None:
+def run_pytype(*, filename: str, python_version: str, missing_modules: Iterable[str]) -> str | None:
     """Runs pytype, returning the stderr if any."""
     if python_version not in _LOADERS:
         options = pytype_config.Options.create("", parse_pyi=True, python_version=python_version)
-        loader = load_pytd.create_loader(options)
+        # For simplicity, pretends missing modules are part of the stdlib.
+        missing_modules = tuple(os.path.join("stdlib", m) for m in missing_modules)
+        loader = load_pytd.create_loader(options, missing_modules)
         _LOADERS[python_version] = (options, loader)
     options, loader = _LOADERS[python_version]
     stderr: str | None
@@ -131,14 +136,43 @@ def find_stubs_in_paths(paths: Sequence[str]) -> list[str]:
     return filenames
 
 
+def get_missing_modules(files_to_test: Sequence[str]) -> Iterable[str]:
+    """Gets module names provided by typeshed-external dependencies.
+
+    Some typeshed stubs depend on dependencies outside of typeshed. Since pytype
+    isn't able to read such dependencies, we instead declare them as "missing"
+    modules, so that no errors are reported for them.
+    """
+    stub_distributions = set()
+    for fi in files_to_test:
+        parts = fi.split(os.sep)
+        try:
+            idx = parts.index("stubs")
+        except ValueError:
+            continue
+        stub_distributions.add(parts[idx + 1])
+    missing_modules = set()
+    for distribution in stub_distributions:
+        for pkg in utils.read_dependencies(distribution).external_pkgs:
+            # See https://stackoverflow.com/a/54853084
+            top_level_file = os.path.join(pkg_resources.get_distribution(pkg).egg_info, "top_level.txt")  # type: ignore[attr-defined]
+            with open(top_level_file) as f:
+                missing_modules.update(f.read().splitlines())
+    return missing_modules
+
+
 def run_all_tests(*, files_to_test: Sequence[str], print_stderr: bool, dry_run: bool) -> None:
     bad = []
     errors = 0
     total_tests = len(files_to_test)
+    missing_modules = get_missing_modules(files_to_test)
     print("Testing files with pytype...")
     for i, f in enumerate(files_to_test):
         python_version = "{0.major}.{0.minor}".format(sys.version_info)
-        stderr = run_pytype(filename=f, python_version=python_version) if not dry_run else None
+        if dry_run:
+            stderr = None
+        else:
+            stderr = run_pytype(filename=f, python_version=python_version, missing_modules=missing_modules)
         if stderr:
             if print_stderr:
                 print(f"\n{stderr}")
