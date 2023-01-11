@@ -168,10 +168,12 @@ class SubstringFilter(Sequence):
 class And(SetOf):
     tagSet: TagSet
     subtypeSpec: ConstraintsIntersection
+    componentType: Filter  # type: ignore[assignment]
 
 class Or(SetOf):
     tagSet: TagSet
     subtypeSpec: ConstraintsIntersection
+    componentType: Filter  # type: ignore[assignment]
 
 class Not(Choice): ...
 
