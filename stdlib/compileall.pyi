@@ -101,7 +101,7 @@ else:
     ) -> int: ...
 
 def compile_path(
-    skip_curdir: bool = 1,
+    skip_curdir: bool = ...,
     maxlevels: int = 0,
     force: bool = False,
     quiet: int = 0,

@@ -27,8 +27,8 @@ if sys.version_info < (3, 8):
 def parse(
     fp: IO[Any] | None = None,
     environ: SupportsItemAccess[str, str] = ...,
-    keep_blank_values: bool = 0,
-    strict_parsing: bool = 0,
+    keep_blank_values: bool = ...,
+    strict_parsing: bool = ...,
     separator: str = "&",
 ) -> dict[str, list[str]]: ...
 

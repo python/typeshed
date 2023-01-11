@@ -159,8 +159,8 @@ _Q = TypeVar("_Q", bound=str | Iterable[int])
 def urlencode(
     query: Mapping[Any, Any] | Mapping[Any, Sequence[Any]] | Sequence[tuple[Any, Any]] | Sequence[tuple[Any, Sequence[Any]]],
     doseq: bool = False,
-    safe: _Q = "",
-    encoding: str = None,
+    safe: _Q = ...,
+    encoding: str = ...,
     errors: str = None,
     quote_via: Callable[[AnyStr, _Q, str, str], str] = ...,
 ) -> str: ...
