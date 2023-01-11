@@ -109,3 +109,11 @@ stubs/SQLAlchemy/sqlalchemy/sql/selectable.pyi
 stubs/Flask-SQLAlchemy/flask_sqlalchemy/__init__.pyi
 stubs/Flask-SQLAlchemy/flask_sqlalchemy/model.pyi
 stubs/Flask-SQLAlchemy/flask_sqlalchemy/utils.pyi
+
+# mypy extensions
+stubs/SQLAlchemy/sqlalchemy/ext/mypy/apply.pyi
+stubs/SQLAlchemy/sqlalchemy/ext/mypy/decl_class.pyi
+stubs/SQLAlchemy/sqlalchemy/ext/mypy/infer.pyi
+stubs/SQLAlchemy/sqlalchemy/ext/mypy/names.pyi
+stubs/SQLAlchemy/sqlalchemy/ext/mypy/plugin.pyi
+stubs/SQLAlchemy/sqlalchemy/ext/mypy/util.pyi
