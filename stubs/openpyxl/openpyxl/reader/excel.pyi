@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import Any
 
 from openpyxl.chartsheet.chartsheet import Chartsheet
 from openpyxl.workbook.workbook import Workbook
