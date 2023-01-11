@@ -15,6 +15,7 @@ import yaml
 from packaging.requirements import Requirement
 from packaging.specifiers import SpecifierSet
 from packaging.version import Version
+
 from utils import (
     METADATA_MAPPING,
     VERSIONS_RE,

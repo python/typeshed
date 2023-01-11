@@ -1,5 +1,6 @@
 from datetime import datetime
 from typing import Any
+from _typeshed import Incomplete
 
 from openpyxl.comments.comments import Comment
 from openpyxl.styles.cell_style import StyleArray
@@ -8,12 +9,12 @@ from openpyxl.worksheet.hyperlink import Hyperlink
 from openpyxl.worksheet.worksheet import Worksheet
 
 __docformat__: str
-TIME_TYPES: Any
-TIME_FORMATS: Any
-STRING_TYPES: Any
-KNOWN_TYPES: Any
-ILLEGAL_CHARACTERS_RE: Any
-ERROR_CODES: Any
+TIME_TYPES: Incomplete
+TIME_FORMATS: Incomplete
+STRING_TYPES: Incomplete
+KNOWN_TYPES: Incomplete
+ILLEGAL_CHARACTERS_RE: Incomplete
+ERROR_CODES: Incomplete
 TYPE_STRING: str
 TYPE_FORMULA: str
 TYPE_NUMERIC: str
@@ -22,7 +23,7 @@ TYPE_NULL: str
 TYPE_INLINE: str
 TYPE_ERROR: str
 TYPE_FORMULA_CACHE_STRING: str
-VALID_TYPES: Any
+VALID_TYPES: Incomplete
 
 def get_type(t: Any, value: Any) -> Any: ...
 def get_time_format(t: Any) -> Any: ...

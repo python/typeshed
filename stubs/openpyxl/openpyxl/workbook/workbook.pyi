@@ -1,27 +1,28 @@
+from _typeshed import Incomplete
 from typing import Any, Iterator
 
 from openpyxl.chartsheet.chartsheet import Chartsheet
 from openpyxl.styles.named_styles import NamedStyle
 from openpyxl.worksheet.worksheet import Worksheet
 
-INTEGER_TYPES: Any
+INTEGER_TYPES: Incomplete
 
 class Workbook:
     template: bool
     path: str
-    defined_names: Any
-    properties: Any
-    security: Any
-    shared_strings: Any
-    loaded_theme: Any
-    vba_archive: Any
+    defined_names: Incomplete
+    properties: Incomplete
+    security: Incomplete
+    shared_strings: Incomplete
+    loaded_theme: Incomplete
+    vba_archive: Incomplete
     is_template: bool
-    code_name: Any
+    code_name: Incomplete
     encoding: str
-    iso_dates: Any
-    rels: Any
-    calculation: Any
-    views: Any
+    iso_dates: Incomplete
+    rels: Incomplete
+    calculation: Incomplete
+    views: Incomplete
     def __init__(self, write_only: bool = ..., iso_dates: bool = ...) -> None: ...
     @property
     def epoch(self) -> Any: ...
@@ -59,7 +60,7 @@ class Workbook:
     @property
     def sheetnames(self) -> list[str]: ...
     def create_named_range(
-        self, name: str, worksheet: Worksheet | None = ..., value: str | Any | None = ..., scope: Any | None = ...
+        self, name: str, worksheet: Worksheet | None = ..., value: str | Any | None = ..., scope: Incomplete | None = ...
     ) -> None: ...
     def add_named_style(self, style: Any) -> None: ...
     @property
