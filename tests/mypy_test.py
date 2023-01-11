@@ -12,6 +12,7 @@ import sys
 import tempfile
 import time
 from collections import defaultdict
+from collections.abc import Sequence
 from dataclasses import dataclass
 from itertools import product
 from pathlib import Path
@@ -77,6 +78,13 @@ def valid_path(cmd_arg: str) -> Path:
 parser = argparse.ArgumentParser(
     description="Typecheck typeshed's stubs with mypy. Patterns are unanchored regexps on the full path."
 )
+if sys.version_info < (3, 8):
+    class ExtendAction(argparse.Action):
+        def __call__(self, parser: argparse.ArgumentParser, namespace: argparse.Namespace, values: Sequence[str], option_string: object = None) -> None:
+            items = getattr(namespace, self.dest) or []
+            items.extend(values)
+            setattr(namespace, self.dest, items)
+    parser.register('action', 'extend', ExtendAction)
 parser.add_argument(
     "filter",
     type=valid_path,
