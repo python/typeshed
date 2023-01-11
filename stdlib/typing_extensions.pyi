@@ -151,9 +151,9 @@ OrderedDict = _Alias()
 
 def get_type_hints(
     obj: Callable[..., Any],
-    globalns: dict[str, Any] | None = ...,
-    localns: dict[str, Any] | None = ...,
-    include_extras: bool = ...,
+    globalns: dict[str, Any] | None = None,
+    localns: dict[str, Any] | None = None,
+    include_extras: bool = False,
 ) -> dict[str, Any]: ...
 def get_args(tp: Any) -> tuple[Any, ...]: ...
 def get_origin(tp: Any) -> Any | None: ...
@@ -224,9 +224,9 @@ else:
 
     def dataclass_transform(
         *,
-        eq_default: bool = ...,
-        order_default: bool = ...,
-        kw_only_default: bool = ...,
+        eq_default: bool = True,
+        order_default: bool = False,
+        kw_only_default: bool = False,
         field_specifiers: tuple[type[Any] | Callable[..., Any], ...] = ...,
         **kwargs: object,
     ) -> IdentityFunction: ...

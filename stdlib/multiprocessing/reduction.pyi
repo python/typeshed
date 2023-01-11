@@ -29,7 +29,7 @@ class ForkingPickler(pickle.Pickler):
 
 register = ForkingPickler.register
 
-def dump(obj: Any, file: SupportsWrite[bytes], protocol: int | None = ...) -> None: ...
+def dump(obj: Any, file: SupportsWrite[bytes], protocol: int | None = None) -> None: ...
 
 if sys.platform == "win32":
     if sys.version_info >= (3, 8):

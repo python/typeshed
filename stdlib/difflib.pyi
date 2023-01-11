@@ -70,29 +70,29 @@ class Differ:
     def compare(self, a: Sequence[str], b: Sequence[str]) -> Iterator[str]: ...
 
 def IS_LINE_JUNK(line: str, pat: Any = ...) -> bool: ...  # pat is undocumented
-def IS_CHARACTER_JUNK(ch: str, ws: str = ...) -> bool: ...  # ws is undocumented
+def IS_CHARACTER_JUNK(ch: str, ws: str = ' \t') -> bool: ...  # ws is undocumented
 def unified_diff(
     a: Sequence[str],
     b: Sequence[str],
-    fromfile: str = ...,
-    tofile: str = ...,
-    fromfiledate: str = ...,
-    tofiledate: str = ...,
-    n: int = ...,
-    lineterm: str = ...,
+    fromfile: str = '',
+    tofile: str = '',
+    fromfiledate: str = '',
+    tofiledate: str = '',
+    n: int = 3,
+    lineterm: str = '\n',
 ) -> Iterator[str]: ...
 def context_diff(
     a: Sequence[str],
     b: Sequence[str],
-    fromfile: str = ...,
-    tofile: str = ...,
-    fromfiledate: str = ...,
-    tofiledate: str = ...,
-    n: int = ...,
-    lineterm: str = ...,
+    fromfile: str = '',
+    tofile: str = '',
+    fromfiledate: str = '',
+    tofiledate: str = '',
+    n: int = 3,
+    lineterm: str = '\n',
 ) -> Iterator[str]: ...
 def ndiff(
-    a: Sequence[str], b: Sequence[str], linejunk: Callable[[str], bool] | None = ..., charjunk: Callable[[str], bool] | None = ...
+    a: Sequence[str], b: Sequence[str], linejunk: Callable[[str], bool] | None = None, charjunk: Callable[[str], bool] | None = ...
 ) -> Iterator[str]: ...
 
 class HtmlDiff:
@@ -133,6 +133,6 @@ def diff_bytes(
     tofile: bytes | bytearray = ...,
     fromfiledate: bytes | bytearray = ...,
     tofiledate: bytes | bytearray = ...,
-    n: int = ...,
+    n: int = 3,
     lineterm: bytes | bytearray = ...,
 ) -> Iterator[bytes]: ...

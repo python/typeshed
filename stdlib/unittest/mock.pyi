@@ -392,18 +392,18 @@ ANY: Any
 if sys.version_info >= (3, 10):
     def create_autospec(
         spec: Any,
-        spec_set: Any = ...,
-        instance: Any = ...,
-        _parent: Any | None = ...,
-        _name: Any | None = ...,
+        spec_set: Any = False,
+        instance: Any = False,
+        _parent: Any | None = None,
+        _name: Any | None = None,
         *,
-        unsafe: bool = ...,
+        unsafe: bool = False,
         **kwargs: Any,
     ) -> Any: ...
 
 else:
     def create_autospec(
-        spec: Any, spec_set: Any = ..., instance: Any = ..., _parent: Any | None = ..., _name: Any | None = ..., **kwargs: Any
+        spec: Any, spec_set: Any = False, instance: Any = False, _parent: Any | None = None, _name: Any | None = None, **kwargs: Any
     ) -> Any: ...
 
 class _SpecState:
@@ -423,7 +423,7 @@ class _SpecState:
         instance: Any = ...,
     ) -> None: ...
 
-def mock_open(mock: Any | None = ..., read_data: Any = ...) -> Any: ...
+def mock_open(mock: Any | None = None, read_data: Any = '') -> Any: ...
 
 class PropertyMock(Mock):
     if sys.version_info >= (3, 8):

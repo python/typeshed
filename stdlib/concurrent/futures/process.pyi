@@ -95,14 +95,14 @@ if sys.version_info >= (3, 11):
     def _sendback_result(
         result_queue: SimpleQueue[_WorkItem[Any]],
         work_id: int,
-        result: Any | None = ...,
-        exception: Exception | None = ...,
-        exit_pid: int | None = ...,
+        result: Any | None = None,
+        exception: Exception | None = None,
+        exit_pid: int | None = None,
     ) -> None: ...
 
 else:
     def _sendback_result(
-        result_queue: SimpleQueue[_WorkItem[Any]], work_id: int, result: Any | None = ..., exception: Exception | None = ...
+        result_queue: SimpleQueue[_WorkItem[Any]], work_id: int, result: Any | None = None, exception: Exception | None = None
     ) -> None: ...
 
 if sys.version_info >= (3, 11):
@@ -111,7 +111,7 @@ if sys.version_info >= (3, 11):
         result_queue: SimpleQueue[_ResultItem],
         initializer: Callable[..., object] | None,
         initargs: tuple[Any, ...],
-        max_tasks: int | None = ...,
+        max_tasks: int | None = None,
     ) -> None: ...
 
 else:

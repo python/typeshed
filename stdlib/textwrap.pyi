@@ -53,7 +53,7 @@ class TextWrapper:
 
 def wrap(
     text: str,
-    width: int = ...,
+    width: int = 70,
     *,
     initial_indent: str = ...,
     subsequent_indent: str = ...,
@@ -69,7 +69,7 @@ def wrap(
 ) -> list[str]: ...
 def fill(
     text: str,
-    width: int = ...,
+    width: int = 70,
     *,
     initial_indent: str = ...,
     subsequent_indent: str = ...,
@@ -100,4 +100,4 @@ def shorten(
     placeholder: str = ...,
 ) -> str: ...
 def dedent(text: str) -> str: ...
-def indent(text: str, prefix: str, predicate: Callable[[str], bool] | None = ...) -> str: ...
+def indent(text: str, prefix: str, predicate: Callable[[str], bool] | None = None) -> str: ...

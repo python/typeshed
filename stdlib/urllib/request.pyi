@@ -54,13 +54,13 @@ _DataType: TypeAlias = ReadableBuffer | SupportsRead[bytes] | Iterable[bytes] | 
 
 def urlopen(
     url: str | Request,
-    data: _DataType | None = ...,
+    data: _DataType | None = None,
     timeout: float | None = ...,
     *,
-    cafile: str | None = ...,
-    capath: str | None = ...,
-    cadefault: bool = ...,
-    context: ssl.SSLContext | None = ...,
+    cafile: str | None = None,
+    capath: str | None = None,
+    cadefault: bool = False,
+    context: ssl.SSLContext | None = None,
 ) -> _UrlopenRet: ...
 def install_opener(opener: OpenerDirector) -> None: ...
 def build_opener(*handlers: BaseHandler | Callable[[], BaseHandler]) -> OpenerDirector: ...
@@ -292,9 +292,9 @@ class HTTPErrorProcessor(BaseHandler):
 
 def urlretrieve(
     url: str,
-    filename: StrOrBytesPath | None = ...,
-    reporthook: Callable[[int, int, int], object] | None = ...,
-    data: _DataType = ...,
+    filename: StrOrBytesPath | None = None,
+    reporthook: Callable[[int, int, int], object] | None = None,
+    data: _DataType = None,
 ) -> tuple[str, HTTPMessage]: ...
 def urlcleanup() -> None: ...
 

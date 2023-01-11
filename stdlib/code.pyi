@@ -25,9 +25,9 @@ class InteractiveConsole(InteractiveInterpreter):
     def raw_input(self, prompt: str = ...) -> str: ...
 
 def interact(
-    banner: str | None = ...,
-    readfunc: Callable[[str], str] | None = ...,
-    local: Mapping[str, Any] | None = ...,
-    exitmsg: str | None = ...,
+    banner: str | None = None,
+    readfunc: Callable[[str], str] | None = None,
+    local: Mapping[str, Any] | None = None,
+    exitmsg: str | None = None,
 ) -> None: ...
-def compile_command(source: str, filename: str = ..., symbol: str = ...) -> CodeType | None: ...
+def compile_command(source: str, filename: str = '<input>', symbol: str = 'single') -> CodeType | None: ...

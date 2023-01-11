@@ -902,7 +902,7 @@ if sys.version_info >= (3, 11):
         start_new_session: bool = ...,
         pass_fds: Collection[int] = ...,
         *,
-        timeout: float | None = ...,
+        timeout: float | None = None,
         text: bool | None = ...,
         user: str | int | None = ...,
         group: str | int | None = ...,
@@ -933,7 +933,7 @@ elif sys.version_info >= (3, 10):
         start_new_session: bool = ...,
         pass_fds: Collection[int] = ...,
         *,
-        timeout: float | None = ...,
+        timeout: float | None = None,
         text: bool | None = ...,
         user: str | int | None = ...,
         group: str | int | None = ...,
@@ -963,7 +963,7 @@ elif sys.version_info >= (3, 9):
         start_new_session: bool = ...,
         pass_fds: Collection[int] = ...,
         *,
-        timeout: float | None = ...,
+        timeout: float | None = None,
         text: bool | None = ...,
         user: str | int | None = ...,
         group: str | int | None = ...,
@@ -991,7 +991,7 @@ else:
         start_new_session: bool = ...,
         pass_fds: Collection[int] = ...,
         *,
-        timeout: float | None = ...,
+        timeout: float | None = None,
         text: bool | None = ...,
     ) -> int: ...
 
@@ -2575,8 +2575,8 @@ class Popen(Generic[AnyStr]):
 
 # The result really is always a str.
 if sys.version_info >= (3, 11):
-    def getstatusoutput(cmd: _TXT, *, encoding: str | None = ..., errors: str | None = ...) -> tuple[int, str]: ...
-    def getoutput(cmd: _TXT, *, encoding: str | None = ..., errors: str | None = ...) -> str: ...
+    def getstatusoutput(cmd: _TXT, *, encoding: str | None = None, errors: str | None = None) -> tuple[int, str]: ...
+    def getoutput(cmd: _TXT, *, encoding: str | None = None, errors: str | None = None) -> str: ...
 
 else:
     def getstatusoutput(cmd: _TXT) -> tuple[int, str]: ...

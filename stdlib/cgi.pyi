@@ -25,11 +25,11 @@ if sys.version_info < (3, 8):
     __all__ += ["parse_qs", "parse_qsl", "escape"]
 
 def parse(
-    fp: IO[Any] | None = ...,
+    fp: IO[Any] | None = None,
     environ: SupportsItemAccess[str, str] = ...,
-    keep_blank_values: bool = ...,
-    strict_parsing: bool = ...,
-    separator: str = ...,
+    keep_blank_values: bool = 0,
+    strict_parsing: bool = 0,
+    separator: str = '&',
 ) -> dict[str, list[str]]: ...
 
 if sys.version_info < (3, 8):
@@ -37,7 +37,7 @@ if sys.version_info < (3, 8):
     def parse_qsl(qs: str, keep_blank_values: bool = ..., strict_parsing: bool = ...) -> list[tuple[str, str]]: ...
 
 def parse_multipart(
-    fp: IO[Any], pdict: SupportsGetItem[str, bytes], encoding: str = ..., errors: str = ..., separator: str = ...
+    fp: IO[Any], pdict: SupportsGetItem[str, bytes], encoding: str = 'utf-8', errors: str = 'replace', separator: str = '&'
 ) -> dict[str, list[Any]]: ...
 
 class _Environ(Protocol):
@@ -120,9 +120,9 @@ class FieldStorage:
     def make_file(self) -> IO[Any]: ...
 
 def print_exception(
-    type: type[BaseException] | None = ...,
-    value: BaseException | None = ...,
-    tb: TracebackType | None = ...,
-    limit: int | None = ...,
+    type: type[BaseException] | None = None,
+    value: BaseException | None = None,
+    tb: TracebackType | None = None,
+    limit: int | None = None,
 ) -> None: ...
 def print_arguments() -> None: ...

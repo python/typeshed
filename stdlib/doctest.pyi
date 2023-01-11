@@ -165,32 +165,32 @@ class DebugRunner(DocTestRunner): ...
 master: DocTestRunner | None
 
 def testmod(
-    m: types.ModuleType | None = ...,
-    name: str | None = ...,
-    globs: dict[str, Any] | None = ...,
-    verbose: bool | None = ...,
-    report: bool = ...,
-    optionflags: int = ...,
-    extraglobs: dict[str, Any] | None = ...,
-    raise_on_error: bool = ...,
-    exclude_empty: bool = ...,
+    m: types.ModuleType | None = None,
+    name: str | None = None,
+    globs: dict[str, Any] | None = None,
+    verbose: bool | None = None,
+    report: bool = True,
+    optionflags: int = 0,
+    extraglobs: dict[str, Any] | None = None,
+    raise_on_error: bool = False,
+    exclude_empty: bool = False,
 ) -> TestResults: ...
 def testfile(
     filename: str,
-    module_relative: bool = ...,
-    name: str | None = ...,
-    package: None | str | types.ModuleType = ...,
-    globs: dict[str, Any] | None = ...,
-    verbose: bool | None = ...,
-    report: bool = ...,
-    optionflags: int = ...,
-    extraglobs: dict[str, Any] | None = ...,
-    raise_on_error: bool = ...,
+    module_relative: bool = True,
+    name: str | None = None,
+    package: None | str | types.ModuleType = None,
+    globs: dict[str, Any] | None = None,
+    verbose: bool | None = None,
+    report: bool = True,
+    optionflags: int = 0,
+    extraglobs: dict[str, Any] | None = None,
+    raise_on_error: bool = False,
     parser: DocTestParser = ...,
-    encoding: str | None = ...,
+    encoding: str | None = None,
 ) -> TestResults: ...
 def run_docstring_examples(
-    f: object, globs: dict[str, Any], verbose: bool = ..., name: str = ..., compileflags: int | None = ..., optionflags: int = ...
+    f: object, globs: dict[str, Any], verbose: bool = False, name: str = 'NoName', compileflags: int | None = None, optionflags: int = 0
 ) -> None: ...
 def set_unittest_reportflags(flags: int) -> int: ...
 
@@ -214,10 +214,10 @@ class SkipDocTestCase(DocTestCase):
 class _DocTestSuite(unittest.TestSuite): ...
 
 def DocTestSuite(
-    module: None | str | types.ModuleType = ...,
-    globs: dict[str, Any] | None = ...,
-    extraglobs: dict[str, Any] | None = ...,
-    test_finder: DocTestFinder | None = ...,
+    module: None | str | types.ModuleType = None,
+    globs: dict[str, Any] | None = None,
+    extraglobs: dict[str, Any] | None = None,
+    test_finder: DocTestFinder | None = None,
     **options: Any,
 ) -> _DocTestSuite: ...
 
@@ -225,16 +225,16 @@ class DocFileCase(DocTestCase): ...
 
 def DocFileTest(
     path: str,
-    module_relative: bool = ...,
-    package: None | str | types.ModuleType = ...,
-    globs: dict[str, Any] | None = ...,
+    module_relative: bool = True,
+    package: None | str | types.ModuleType = None,
+    globs: dict[str, Any] | None = None,
     parser: DocTestParser = ...,
-    encoding: str | None = ...,
+    encoding: str | None = None,
     **options: Any,
 ) -> DocFileCase: ...
 def DocFileSuite(*paths: str, **kw: Any) -> _DocTestSuite: ...
 def script_from_examples(s: str) -> str: ...
 def testsource(module: None | str | types.ModuleType, name: str) -> str: ...
-def debug_src(src: str, pm: bool = ..., globs: dict[str, Any] | None = ...) -> None: ...
-def debug_script(src: str, pm: bool = ..., globs: dict[str, Any] | None = ...) -> None: ...
-def debug(module: None | str | types.ModuleType, name: str, pm: bool = ...) -> None: ...
+def debug_src(src: str, pm: bool = False, globs: dict[str, Any] | None = None) -> None: ...
+def debug_script(src: str, pm: bool = False, globs: dict[str, Any] | None = None) -> None: ...
+def debug(module: None | str | types.ModuleType, name: str, pm: bool = False) -> None: ...

@@ -728,14 +728,14 @@ _get_type_hints_obj_allowed_types = (  # noqa: Y026  # TODO: Use TypeAlias once 
 if sys.version_info >= (3, 9):
     def get_type_hints(
         obj: _get_type_hints_obj_allowed_types,
-        globalns: dict[str, Any] | None = ...,
-        localns: dict[str, Any] | None = ...,
-        include_extras: bool = ...,
+        globalns: dict[str, Any] | None = None,
+        localns: dict[str, Any] | None = None,
+        include_extras: bool = False,
     ) -> dict[str, Any]: ...
 
 else:
     def get_type_hints(
-        obj: _get_type_hints_obj_allowed_types, globalns: dict[str, Any] | None = ..., localns: dict[str, Any] | None = ...
+        obj: _get_type_hints_obj_allowed_types, globalns: dict[str, Any] | None = None, localns: dict[str, Any] | None = None
     ) -> dict[str, Any]: ...
 
 if sys.version_info >= (3, 8):
@@ -757,9 +757,9 @@ if sys.version_info >= (3, 11):
     def get_overloads(func: Callable[..., object]) -> Sequence[Callable[..., object]]: ...
     def dataclass_transform(
         *,
-        eq_default: bool = ...,
-        order_default: bool = ...,
-        kw_only_default: bool = ...,
+        eq_default: bool = True,
+        order_default: bool = False,
+        kw_only_default: bool = False,
         field_specifiers: tuple[type[Any] | Callable[..., Any], ...] = ...,
         **kwargs: Any,
     ) -> IdentityFunction: ...

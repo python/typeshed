@@ -19,14 +19,14 @@ class Timer:
     def autorange(self, callback: Callable[[int, float], object] | None = ...) -> tuple[int, float]: ...
 
 def timeit(
-    stmt: _Stmt = ..., setup: _Stmt = ..., timer: _Timer = ..., number: int = ..., globals: dict[str, Any] | None = ...
+    stmt: _Stmt = 'pass', setup: _Stmt = 'pass', timer: _Timer = ..., number: int = 1000000, globals: dict[str, Any] | None = None
 ) -> float: ...
 def repeat(
-    stmt: _Stmt = ...,
-    setup: _Stmt = ...,
+    stmt: _Stmt = 'pass',
+    setup: _Stmt = 'pass',
     timer: _Timer = ...,
-    repeat: int = ...,
-    number: int = ...,
-    globals: dict[str, Any] | None = ...,
+    repeat: int = 5,
+    number: int = 1000000,
+    globals: dict[str, Any] | None = None,
 ) -> list[float]: ...
-def main(args: Sequence[str] | None = ..., *, _wrap_timer: Callable[[_Timer], _Timer] | None = ...) -> None: ...
+def main(args: Sequence[str] | None = None, *, _wrap_timer: Callable[[_Timer], _Timer] | None = None) -> None: ...

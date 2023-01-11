@@ -731,15 +731,15 @@ class socket(_socket.socket):
     def get_inheritable(self) -> bool: ...
     def set_inheritable(self, inheritable: bool) -> None: ...
 
-def fromfd(fd: _FD, family: AddressFamily | int, type: SocketKind | int, proto: int = ...) -> socket: ...
+def fromfd(fd: _FD, family: AddressFamily | int, type: SocketKind | int, proto: int = 0) -> socket: ...
 
 if sys.platform != "win32":
     if sys.version_info >= (3, 9):
         # flags and address appear to be unused in send_fds and recv_fds
         def send_fds(
-            sock: socket, buffers: Iterable[ReadableBuffer], fds: Iterable[int], flags: int = ..., address: None = ...
+            sock: socket, buffers: Iterable[ReadableBuffer], fds: Iterable[int], flags: int = 0, address: None = None
         ) -> int: ...
-        def recv_fds(sock: socket, bufsize: int, maxfds: int, flags: int = ...) -> tuple[bytes, list[int], int, Any]: ...
+        def recv_fds(sock: socket, bufsize: int, maxfds: int, flags: int = 0) -> tuple[bytes, list[int], int, Any]: ...
 
 if sys.platform == "win32":
     def fromshare(info: bytes) -> socket: ...
@@ -749,7 +749,7 @@ if sys.platform == "win32":
 
 else:
     def socketpair(
-        family: int | AddressFamily | None = ..., type: SocketType | int = ..., proto: int = ...
+        family: int | AddressFamily | None = None, type: SocketType | int = 1, proto: int = 0
     ) -> tuple[socket, socket]: ...
 
 class SocketIO(RawIOBase):
@@ -761,34 +761,34 @@ class SocketIO(RawIOBase):
     @property
     def mode(self) -> Literal["rb", "wb", "rwb"]: ...
 
-def getfqdn(name: str = ...) -> str: ...
+def getfqdn(name: str = '') -> str: ...
 
 if sys.version_info >= (3, 11):
     def create_connection(
         address: tuple[str | None, int],
         timeout: float | None = ...,  # noqa: F811
-        source_address: _Address | None = ...,
+        source_address: _Address | None = None,
         *,
-        all_errors: bool = ...,
+        all_errors: bool = False,
     ) -> socket: ...
 
 else:
     def create_connection(
-        address: tuple[str | None, int], timeout: float | None = ..., source_address: _Address | None = ...  # noqa: F811
+        address: tuple[str | None, int], timeout: float | None = ..., source_address: _Address | None = None  # noqa: F811
     ) -> socket: ...
 
 if sys.version_info >= (3, 8):
     def has_dualstack_ipv6() -> bool: ...
     def create_server(
-        address: _Address, *, family: int = ..., backlog: int | None = ..., reuse_port: bool = ..., dualstack_ipv6: bool = ...
+        address: _Address, *, family: int = 2, backlog: int | None = None, reuse_port: bool = False, dualstack_ipv6: bool = False
     ) -> socket: ...
 
 # the 5th tuple item is an address
 def getaddrinfo(
     host: bytes | str | None,
     port: bytes | str | int | None,
-    family: int = ...,
-    type: int = ...,
-    proto: int = ...,
-    flags: int = ...,
+    family: int = 0,
+    type: int = 0,
+    proto: int = 0,
+    flags: int = 0,
 ) -> list[tuple[AddressFamily, SocketKind, int, str, tuple[str, int] | tuple[str, int, int, int]]]: ...

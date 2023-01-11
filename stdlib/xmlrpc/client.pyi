@@ -200,17 +200,17 @@ FastMarshaller: Marshaller | None
 FastParser: ExpatParser | None
 FastUnmarshaller: Unmarshaller | None
 
-def getparser(use_datetime: bool = ..., use_builtin_types: bool = ...) -> tuple[ExpatParser, Unmarshaller]: ...
+def getparser(use_datetime: bool = False, use_builtin_types: bool = False) -> tuple[ExpatParser, Unmarshaller]: ...
 def dumps(
     params: Fault | tuple[_Marshallable, ...],
-    methodname: str | None = ...,
-    methodresponse: bool | None = ...,
-    encoding: str | None = ...,
-    allow_none: bool = ...,
+    methodname: str | None = None,
+    methodresponse: bool | None = None,
+    encoding: str | None = None,
+    allow_none: bool = False,
 ) -> str: ...
-def loads(data: str, use_datetime: bool = ..., use_builtin_types: bool = ...) -> tuple[tuple[_Marshallable, ...], str | None]: ...
+def loads(data: str, use_datetime: bool = False, use_builtin_types: bool = False) -> tuple[tuple[_Marshallable, ...], str | None]: ...
 def gzip_encode(data: ReadableBuffer) -> bytes: ...  # undocumented
-def gzip_decode(data: ReadableBuffer, max_decode: int = ...) -> bytes: ...  # undocumented
+def gzip_decode(data: ReadableBuffer, max_decode: int = 20971520) -> bytes: ...  # undocumented
 
 class GzipDecodedResponse(gzip.GzipFile):  # undocumented
 

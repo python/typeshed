@@ -30,7 +30,7 @@ punctuation: LiteralString
 printable: LiteralString
 whitespace: LiteralString
 
-def capwords(s: StrOrLiteralStr, sep: StrOrLiteralStr | None = ...) -> StrOrLiteralStr: ...
+def capwords(s: StrOrLiteralStr, sep: StrOrLiteralStr | None = None) -> StrOrLiteralStr: ...
 
 if sys.version_info >= (3, 9):
     _TemplateMetaclass: TypeAlias = type

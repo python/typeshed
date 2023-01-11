@@ -18,8 +18,8 @@ def main(
     listener_fd: int | None,
     alive_r: FileDescriptorLike,
     preload: Sequence[str],
-    main_path: str | None = ...,
-    sys_path: object | None = ...,
+    main_path: str | None = None,
+    sys_path: object | None = None,
 ) -> None: ...
 def read_signed(fd: int) -> Any: ...
 def write_signed(fd: int, n: int) -> None: ...

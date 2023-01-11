@@ -89,10 +89,10 @@ PAX_NAME_FIELDS: set[str]
 ENCODING: str
 
 def open(
-    name: StrOrBytesPath | None = ...,
-    mode: str = ...,
-    fileobj: IO[bytes] | None = ...,  # depends on mode
-    bufsize: int = ...,
+    name: StrOrBytesPath | None = None,
+    mode: str = 'r',
+    fileobj: IO[bytes] | None = None,  # depends on mode
+    bufsize: int = 10240,
     *,
     format: int | None = ...,
     tarinfo: type[TarInfo] | None = ...,

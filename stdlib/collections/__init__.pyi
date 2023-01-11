@@ -40,9 +40,9 @@ def namedtuple(
     typename: str,
     field_names: str | Iterable[str],
     *,
-    rename: bool = ...,
-    module: str | None = ...,
-    defaults: Iterable[Any] | None = ...,
+    rename: bool = False,
+    module: str | None = None,
+    defaults: Iterable[Any] | None = None,
 ) -> type[tuple[Any, ...]]: ...
 
 class UserDict(MutableMapping[_KT, _VT], Generic[_KT, _VT]):

@@ -32,7 +32,7 @@ _DispatchProtocol: TypeAlias = (
     _DispatchArity0 | _DispatchArity1 | _DispatchArity2 | _DispatchArity3 | _DispatchArity4 | _DispatchArityN
 )
 
-def resolve_dotted_attribute(obj: Any, attr: str, allow_dotted_names: bool = ...) -> Any: ...  # undocumented
+def resolve_dotted_attribute(obj: Any, attr: str, allow_dotted_names: bool = True) -> Any: ...  # undocumented
 def list_public_methods(obj: Any) -> list[str]: ...  # undocumented
 
 class SimpleXMLRPCDispatcher:  # undocumented

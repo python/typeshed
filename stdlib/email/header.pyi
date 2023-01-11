@@ -25,7 +25,7 @@ class Header:
 def decode_header(header: Header | str) -> list[tuple[Any, Any | None]]: ...
 def make_header(
     decoded_seq: Iterable[tuple[bytes | bytearray | str, str | None]],
-    maxlinelen: int | None = ...,
-    header_name: str | None = ...,
-    continuation_ws: str = ...,
+    maxlinelen: int | None = None,
+    header_name: str | None = None,
+    continuation_ws: str = ' ',
 ) -> Header: ...

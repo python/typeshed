@@ -53,7 +53,7 @@ def getcontext() -> Context: ...
 
 if sys.version_info >= (3, 11):
     def localcontext(
-        ctx: Context | None = ...,
+        ctx: Context | None = None,
         *,
         prec: int | None = ...,
         rounding: str | None = ...,
@@ -66,7 +66,7 @@ if sys.version_info >= (3, 11):
     ) -> _ContextManager: ...
 
 else:
-    def localcontext(ctx: Context | None = ...) -> _ContextManager: ...
+    def localcontext(ctx: Context | None = None) -> _ContextManager: ...
 
 class Decimal:
     def __new__(cls: type[Self], value: _DecimalNew = ..., context: Context | None = ...) -> Self: ...

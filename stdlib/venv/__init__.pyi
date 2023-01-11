@@ -55,22 +55,22 @@ class EnvBuilder:
 if sys.version_info >= (3, 9):
     def create(
         env_dir: StrOrBytesPath,
-        system_site_packages: bool = ...,
-        clear: bool = ...,
-        symlinks: bool = ...,
-        with_pip: bool = ...,
-        prompt: str | None = ...,
-        upgrade_deps: bool = ...,
+        system_site_packages: bool = False,
+        clear: bool = False,
+        symlinks: bool = False,
+        with_pip: bool = False,
+        prompt: str | None = None,
+        upgrade_deps: bool = False,
     ) -> None: ...
 
 else:
     def create(
         env_dir: StrOrBytesPath,
-        system_site_packages: bool = ...,
-        clear: bool = ...,
-        symlinks: bool = ...,
-        with_pip: bool = ...,
-        prompt: str | None = ...,
+        system_site_packages: bool = False,
+        clear: bool = False,
+        symlinks: bool = False,
+        with_pip: bool = False,
+        prompt: str | None = None,
     ) -> None: ...
 
-def main(args: Sequence[str] | None = ...) -> None: ...
+def main(args: Sequence[str] | None = None) -> None: ...

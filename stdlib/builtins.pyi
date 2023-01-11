@@ -1226,8 +1226,8 @@ if sys.version_info >= (3, 8):
         source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
         filename: str | ReadableBuffer | _PathLike[Any],
         mode: str,
-        flags: int = ...,
-        dont_inherit: int = ...,
+        flags: int = 0,
+        dont_inherit: int = False,
         optimize: int = ...,
         *,
         _feature_version: int = ...,
@@ -1238,8 +1238,8 @@ else:
         source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
         filename: str | ReadableBuffer | _PathLike[Any],
         mode: str,
-        flags: int = ...,
-        dont_inherit: int = ...,
+        flags: int = 0,
+        dont_inherit: int = False,
         optimize: int = ...,
     ) -> Any: ...
 
@@ -1265,7 +1265,7 @@ if sys.version_info >= (3, 11):
         __globals: dict[str, Any] | None = ...,
         __locals: Mapping[str, object] | None = ...,
         *,
-        closure: tuple[_Cell, ...] | None = ...,
+        closure: tuple[_Cell, ...] | None = None,
     ) -> None: ...
 
 else:
@@ -1275,7 +1275,7 @@ else:
         __locals: Mapping[str, object] | None = ...,
     ) -> None: ...
 
-def exit(code: sys._ExitCode = ...) -> NoReturn: ...
+def exit(code: sys._ExitCode = None) -> NoReturn: ...
 
 class filter(Iterator[_T], Generic[_T]):
     @overload
@@ -1606,7 +1606,7 @@ else:
     @overload
     def pow(__base: _SupportsSomeKindOfPow, __exp: complex, __mod: None = ...) -> complex: ...
 
-def quit(code: sys._ExitCode = ...) -> NoReturn: ...
+def quit(code: sys._ExitCode = None) -> NoReturn: ...
 
 class reversed(Iterator[_T], Generic[_T]):
     @overload
@@ -1764,10 +1764,10 @@ class zip(Iterator[_T_co], Generic[_T_co]):
 # Return type of `__import__` should be kept the same as return type of `importlib.import_module`
 def __import__(
     name: str,
-    globals: Mapping[str, object] | None = ...,
-    locals: Mapping[str, object] | None = ...,
+    globals: Mapping[str, object] | None = None,
+    locals: Mapping[str, object] | None = None,
     fromlist: Sequence[str] = ...,
-    level: int = ...,
+    level: int = 0,
 ) -> types.ModuleType: ...
 def __build_class__(__func: Callable[[], _Cell | Any], __name: str, *bases: Any, metaclass: Any = ..., **kwds: Any) -> Any: ...
 

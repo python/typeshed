@@ -31,14 +31,14 @@ def getTestCaseNames(
     testCaseClass: type[unittest.case.TestCase],
     prefix: str,
     sortUsing: _SortComparisonMethod = ...,
-    testNamePatterns: list[str] | None = ...,
+    testNamePatterns: list[str] | None = None,
 ) -> Sequence[str]: ...
 def makeSuite(
     testCaseClass: type[unittest.case.TestCase],
-    prefix: str = ...,
+    prefix: str = 'test',
     sortUsing: _SortComparisonMethod = ...,
     suiteClass: _SuiteClass = ...,
 ) -> unittest.suite.TestSuite: ...
 def findTestCases(
-    module: ModuleType, prefix: str = ..., sortUsing: _SortComparisonMethod = ..., suiteClass: _SuiteClass = ...
+    module: ModuleType, prefix: str = 'test', sortUsing: _SortComparisonMethod = ..., suiteClass: _SuiteClass = ...
 ) -> unittest.suite.TestSuite: ...

@@ -10,18 +10,18 @@ def check_environ() -> None: ...
 def subst_vars(s: str, local_vars: Mapping[str, str]) -> None: ...
 def split_quoted(s: str) -> list[str]: ...
 def execute(
-    func: Callable[..., object], args: tuple[Any, ...], msg: str | None = ..., verbose: bool = ..., dry_run: bool = ...
+    func: Callable[..., object], args: tuple[Any, ...], msg: str | None = None, verbose: bool = 0, dry_run: bool = 0
 ) -> None: ...
 def strtobool(val: str) -> Literal[0, 1]: ...
 def byte_compile(
     py_files: list[str],
-    optimize: int = ...,
-    force: bool = ...,
-    prefix: str | None = ...,
-    base_dir: str | None = ...,
-    verbose: bool = ...,
-    dry_run: bool = ...,
-    direct: bool | None = ...,
+    optimize: int = 0,
+    force: bool = 0,
+    prefix: str | None = None,
+    base_dir: str | None = None,
+    verbose: bool = 1,
+    dry_run: bool = 0,
+    direct: bool | None = None,
 ) -> None: ...
 def rfc822_escape(header: str) -> str: ...
 def run_2to3(
