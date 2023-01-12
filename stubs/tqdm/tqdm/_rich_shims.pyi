@@ -30,7 +30,7 @@ class Column(Protocol):
     min_width: int | None
     max_width: int | None
     ratio: int | None
-    no_wrap: bool = False
+    no_wrap: bool
     def copy(self) -> Column: ...
     @property
     def cells(self) -> Iterable[RenderableType]: ...
