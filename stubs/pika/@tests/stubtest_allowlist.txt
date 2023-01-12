@@ -3,8 +3,10 @@ pika.compat.StringIO.seek
 pika.compat.StringIO.truncate
 
 # Requires external libraries to be installed.
-pika\.adapters\.gevent_connection.*
-pika\.adapters\.tornado_connection.*
+pika.adapters.gevent_connection
+pika.adapters.tornado_connection
+pika.adapters.twisted_connection
+pika.adapters._twisted_shims
 
 # Stubtest doesn't understand that a property alias is also read-only.
 pika.BlockingConnection.basic_nack
