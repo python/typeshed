@@ -36,7 +36,7 @@ _AfInetAddress: TypeAlias = tuple[str | bytes | bytearray, int]  # address accep
 # This can possibly be generic at some point:
 class BaseServer:
     address_family: int
-    server_address: tuple[int, int]
+    server_address: tuple[str, int]
     socket: _socket
     allow_reuse_address: bool
     request_queue_size: int
