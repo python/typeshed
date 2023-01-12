@@ -1,3 +1,4 @@
+import _socket
 import email.message
 import io
 import socketserver
@@ -56,7 +57,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
     def __init__(
         self,
         request: socketserver._RequestType,
-        client_address: socketserver._RetAddress,
+        client_address: _socket._RetAddress,
         server: socketserver.BaseServer,
         *,
         directory: str | None = ...,
