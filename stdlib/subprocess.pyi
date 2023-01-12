@@ -1,5 +1,5 @@
 import sys
-from _typeshed import Self, StrOrBytesPath
+from _typeshed import ReadableBuffer, Self, StrOrBytesPath
 from collections.abc import Callable, Collection, Iterable, Mapping, Sequence
 from types import TracebackType
 from typing import IO, Any, AnyStr, Generic, TypeVar, overload
@@ -63,13 +63,13 @@ if sys.platform == "win32":
 # except TimeoutError as e:
 #    reveal_type(e.cmd)  # Any, but morally is _CMD
 _FILE: TypeAlias = None | int | IO[Any]
-_TXT: TypeAlias = bytes | str
+_InputString: TypeAlias = ReadableBuffer | str
 if sys.version_info >= (3, 8):
     _CMD: TypeAlias = StrOrBytesPath | Sequence[StrOrBytesPath]
 else:
     # Python 3.7 doesn't support _CMD being a single PathLike.
     # See: https://bugs.python.org/issue31961
-    _CMD: TypeAlias = _TXT | Sequence[StrOrBytesPath]
+    _CMD: TypeAlias = str | bytes | Sequence[StrOrBytesPath]
 if sys.platform == "win32":
     _ENV: TypeAlias = Mapping[str, str]
 else:
@@ -266,7 +266,7 @@ if sys.version_info >= (3, 11):
         check: bool = ...,
         encoding: None = ...,
         errors: None = ...,
-        input: bytes | None = ...,
+        input: ReadableBuffer | None = ...,
         text: Literal[None, False] = ...,
         timeout: float | None = ...,
         user: str | int | None = ...,
@@ -300,7 +300,7 @@ if sys.version_info >= (3, 11):
         check: bool = ...,
         encoding: str | None = ...,
         errors: str | None = ...,
-        input: _TXT | None = ...,
+        input: _InputString | None = ...,
         text: bool | None = ...,
         timeout: float | None = ...,
         user: str | int | None = ...,
@@ -470,7 +470,7 @@ elif sys.version_info >= (3, 10):
         check: bool = ...,
         encoding: None = ...,
         errors: None = ...,
-        input: bytes | None = ...,
+        input: ReadableBuffer | None = ...,
         text: Literal[None, False] = ...,
         timeout: float | None = ...,
         user: str | int | None = ...,
@@ -503,7 +503,7 @@ elif sys.version_info >= (3, 10):
         check: bool = ...,
         encoding: str | None = ...,
         errors: str | None = ...,
-        input: _TXT | None = ...,
+        input: _InputString | None = ...,
         text: bool | None = ...,
         timeout: float | None = ...,
         user: str | int | None = ...,
@@ -668,7 +668,7 @@ elif sys.version_info >= (3, 9):
         check: bool = ...,
         encoding: None = ...,
         errors: None = ...,
-        input: bytes | None = ...,
+        input: ReadableBuffer | None = ...,
         text: Literal[None, False] = ...,
         timeout: float | None = ...,
         user: str | int | None = ...,
@@ -700,7 +700,7 @@ elif sys.version_info >= (3, 9):
         check: bool = ...,
         encoding: str | None = ...,
         errors: str | None = ...,
-        input: _TXT | None = ...,
+        input: _InputString | None = ...,
         text: bool | None = ...,
         timeout: float | None = ...,
         user: str | int | None = ...,
@@ -847,7 +847,7 @@ else:
         check: bool = ...,
         encoding: None = ...,
         errors: None = ...,
-        input: bytes | None = ...,
+        input: ReadableBuffer | None = ...,
         text: Literal[None, False] = ...,
         timeout: float | None = ...,
     ) -> CompletedProcess[bytes]: ...
@@ -875,7 +875,7 @@ else:
         check: bool = ...,
         encoding: str | None = ...,
         errors: str | None = ...,
-        input: _TXT | None = ...,
+        input: _InputString | None = ...,
         text: bool | None = ...,
         timeout: float | None = ...,
     ) -> CompletedProcess[Any]: ...
@@ -1132,7 +1132,7 @@ if sys.version_info >= (3, 11):
         pass_fds: Collection[int] = ...,
         *,
         timeout: float | None = ...,
-        input: _TXT | None = ...,
+        input: _InputString | None = ...,
         encoding: str | None = ...,
         errors: str | None = ...,
         text: Literal[True],
@@ -1163,7 +1163,7 @@ if sys.version_info >= (3, 11):
         pass_fds: Collection[int] = ...,
         *,
         timeout: float | None = ...,
-        input: _TXT | None = ...,
+        input: _InputString | None = ...,
         encoding: str,
         errors: str | None = ...,
         text: bool | None = ...,
@@ -1194,7 +1194,7 @@ if sys.version_info >= (3, 11):
         pass_fds: Collection[int] = ...,
         *,
         timeout: float | None = ...,
-        input: _TXT | None = ...,
+        input: _InputString | None = ...,
         encoding: str | None = ...,
         errors: str,
         text: bool | None = ...,
@@ -1226,7 +1226,7 @@ if sys.version_info >= (3, 11):
         pass_fds: Collection[int] = ...,
         # where the real keyword only ones start
         timeout: float | None = ...,
-        input: _TXT | None = ...,
+        input: _InputString | None = ...,
         encoding: str | None = ...,
         errors: str | None = ...,
         text: bool | None = ...,
@@ -1257,7 +1257,7 @@ if sys.version_info >= (3, 11):
         pass_fds: Collection[int] = ...,
         *,
         timeout: float | None = ...,
-        input: _TXT | None = ...,
+        input: _InputString | None = ...,
         encoding: None = ...,
         errors: None = ...,
         text: Literal[None, False] = ...,
@@ -1288,7 +1288,7 @@ if sys.version_info >= (3, 11):
         pass_fds: Collection[int] = ...,
         *,
         timeout: float | None = ...,
-        input: _TXT | None = ...,
+        input: _InputString | None = ...,
         encoding: str | None = ...,
         errors: str | None = ...,
         text: bool | None = ...,
@@ -1298,7 +1298,7 @@ if sys.version_info >= (3, 11):
         umask: int = ...,
         pipesize: int = ...,
         process_group: int | None = ...,
-    ) -> Any: ...  # morally: -> _TXT
+    ) -> Any: ...  # morally: -> str | bytes
 
 elif sys.version_info >= (3, 10):
     # 3.10 adds "pipesize" argument
@@ -1322,7 +1322,7 @@ elif sys.version_info >= (3, 10):
         pass_fds: Collection[int] = ...,
         *,
         timeout: float | None = ...,
-        input: _TXT | None = ...,
+        input: _InputString | None = ...,
         encoding: str | None = ...,
         errors: str | None = ...,
         text: Literal[True],
@@ -1352,7 +1352,7 @@ elif sys.version_info >= (3, 10):
         pass_fds: Collection[int] = ...,
         *,
         timeout: float | None = ...,
-        input: _TXT | None = ...,
+        input: _InputString | None = ...,
         encoding: str,
         errors: str | None = ...,
         text: bool | None = ...,
@@ -1382,7 +1382,7 @@ elif sys.version_info >= (3, 10):
         pass_fds: Collection[int] = ...,
         *,
         timeout: float | None = ...,
-        input: _TXT | None = ...,
+        input: _InputString | None = ...,
         encoding: str | None = ...,
         errors: str,
         text: bool | None = ...,
@@ -1413,7 +1413,7 @@ elif sys.version_info >= (3, 10):
         pass_fds: Collection[int] = ...,
         # where the real keyword only ones start
         timeout: float | None = ...,
-        input: _TXT | None = ...,
+        input: _InputString | None = ...,
         encoding: str | None = ...,
         errors: str | None = ...,
         text: bool | None = ...,
@@ -1443,7 +1443,7 @@ elif sys.version_info >= (3, 10):
         pass_fds: Collection[int] = ...,
         *,
         timeout: float | None = ...,
-        input: _TXT | None = ...,
+        input: _InputString | None = ...,
         encoding: None = ...,
         errors: None = ...,
         text: Literal[None, False] = ...,
@@ -1473,7 +1473,7 @@ elif sys.version_info >= (3, 10):
         pass_fds: Collection[int] = ...,
         *,
         timeout: float | None = ...,
-        input: _TXT | None = ...,
+        input: _InputString | None = ...,
         encoding: str | None = ...,
         errors: str | None = ...,
         text: bool | None = ...,
@@ -1482,7 +1482,7 @@ elif sys.version_info >= (3, 10):
         extra_groups: Iterable[str | int] | None = ...,
         umask: int = ...,
         pipesize: int = ...,
-    ) -> Any: ...  # morally: -> _TXT
+    ) -> Any: ...  # morally: -> str | bytes
 
 elif sys.version_info >= (3, 9):
     # 3.9 adds arguments "user", "group", "extra_groups" and "umask"
@@ -1506,7 +1506,7 @@ elif sys.version_info >= (3, 9):
         pass_fds: Collection[int] = ...,
         *,
         timeout: float | None = ...,
-        input: _TXT | None = ...,
+        input: _InputString | None = ...,
         encoding: str | None = ...,
         errors: str | None = ...,
         text: Literal[True],
@@ -1535,7 +1535,7 @@ elif sys.version_info >= (3, 9):
         pass_fds: Collection[int] = ...,
         *,
         timeout: float | None = ...,
-        input: _TXT | None = ...,
+        input: _InputString | None = ...,
         encoding: str,
         errors: str | None = ...,
         text: bool | None = ...,
@@ -1564,7 +1564,7 @@ elif sys.version_info >= (3, 9):
         pass_fds: Collection[int] = ...,
         *,
         timeout: float | None = ...,
-        input: _TXT | None = ...,
+        input: _InputString | None = ...,
         encoding: str | None = ...,
         errors: str,
         text: bool | None = ...,
@@ -1594,7 +1594,7 @@ elif sys.version_info >= (3, 9):
         pass_fds: Collection[int] = ...,
         # where the real keyword only ones start
         timeout: float | None = ...,
-        input: _TXT | None = ...,
+        input: _InputString | None = ...,
         encoding: str | None = ...,
         errors: str | None = ...,
         text: bool | None = ...,
@@ -1623,7 +1623,7 @@ elif sys.version_info >= (3, 9):
         pass_fds: Collection[int] = ...,
         *,
         timeout: float | None = ...,
-        input: _TXT | None = ...,
+        input: _InputString | None = ...,
         encoding: None = ...,
         errors: None = ...,
         text: Literal[None, False] = ...,
@@ -1652,7 +1652,7 @@ elif sys.version_info >= (3, 9):
         pass_fds: Collection[int] = ...,
         *,
         timeout: float | None = ...,
-        input: _TXT | None = ...,
+        input: _InputString | None = ...,
         encoding: str | None = ...,
         errors: str | None = ...,
         text: bool | None = ...,
@@ -1660,7 +1660,7 @@ elif sys.version_info >= (3, 9):
         group: str | int | None = ...,
         extra_groups: Iterable[str | int] | None = ...,
         umask: int = ...,
-    ) -> Any: ...  # morally: -> _TXT
+    ) -> Any: ...  # morally: -> str | bytes
 
 else:
     @overload
@@ -1683,7 +1683,7 @@ else:
         pass_fds: Collection[int] = ...,
         *,
         timeout: float | None = ...,
-        input: _TXT | None = ...,
+        input: _InputString | None = ...,
         encoding: str | None = ...,
         errors: str | None = ...,
         text: Literal[True],
@@ -1708,7 +1708,7 @@ else:
         pass_fds: Collection[int] = ...,
         *,
         timeout: float | None = ...,
-        input: _TXT | None = ...,
+        input: _InputString | None = ...,
         encoding: str,
         errors: str | None = ...,
         text: bool | None = ...,
@@ -1733,7 +1733,7 @@ else:
         pass_fds: Collection[int] = ...,
         *,
         timeout: float | None = ...,
-        input: _TXT | None = ...,
+        input: _InputString | None = ...,
         encoding: str | None = ...,
         errors: str,
         text: bool | None = ...,
@@ -1759,7 +1759,7 @@ else:
         pass_fds: Collection[int] = ...,
         # where the real keyword only ones start
         timeout: float | None = ...,
-        input: _TXT | None = ...,
+        input: _InputString | None = ...,
         encoding: str | None = ...,
         errors: str | None = ...,
         text: bool | None = ...,
@@ -1784,7 +1784,7 @@ else:
         pass_fds: Collection[int] = ...,
         *,
         timeout: float | None = ...,
-        input: _TXT | None = ...,
+        input: _InputString | None = ...,
         encoding: None = ...,
         errors: None = ...,
         text: Literal[None, False] = ...,
@@ -1809,11 +1809,11 @@ else:
         pass_fds: Collection[int] = ...,
         *,
         timeout: float | None = ...,
-        input: _TXT | None = ...,
+        input: _InputString | None = ...,
         encoding: str | None = ...,
         errors: str | None = ...,
         text: bool | None = ...,
-    ) -> Any: ...  # morally: -> _TXT
+    ) -> Any: ...  # morally: -> str | bytes
 
 PIPE: int
 STDOUT: int
@@ -1822,11 +1822,11 @@ DEVNULL: int
 class SubprocessError(Exception): ...
 
 class TimeoutExpired(SubprocessError):
-    def __init__(self, cmd: _CMD, timeout: float, output: _TXT | None = ..., stderr: _TXT | None = ...) -> None: ...
+    def __init__(self, cmd: _CMD, timeout: float, output: str | bytes | None = ..., stderr: str | bytes | None = ...) -> None: ...
     # morally: _CMD
     cmd: Any
     timeout: float
-    # morally: _TXT | None
+    # morally: str | bytes | None
     output: Any
     stdout: bytes | None
     stderr: bytes | None
@@ -1835,13 +1835,15 @@ class CalledProcessError(SubprocessError):
     returncode: int
     # morally: _CMD
     cmd: Any
-    # morally: _TXT | None
+    # morally: str | bytes | None
     output: Any
 
-    # morally: _TXT | None
+    # morally: str | bytes | None
     stdout: Any
     stderr: Any
-    def __init__(self, returncode: int, cmd: _CMD, output: _TXT | None = ..., stderr: _TXT | None = ...) -> None: ...
+    def __init__(
+        self, returncode: int, cmd: _CMD, output: str | bytes | None = ..., stderr: str | bytes | None = ...
+    ) -> None: ...
 
 class Popen(Generic[AnyStr]):
     args: _CMD
@@ -2556,13 +2558,10 @@ class Popen(Generic[AnyStr]):
 
     def poll(self) -> int | None: ...
     def wait(self, timeout: float | None = ...) -> int: ...
-    # Return str/bytes
-    def communicate(
-        self,
-        input: AnyStr | None = ...,
-        timeout: float | None = ...,
-        # morally this should be optional
-    ) -> tuple[AnyStr, AnyStr]: ...
+    # morally the members of the returned tuple should be optional
+    # TODO this should allow ReadableBuffer for Popen[bytes], but adding
+    # overloads for that runs into a mypy bug (python/mypy#14070).
+    def communicate(self, input: AnyStr | None = ..., timeout: float | None = ...) -> tuple[AnyStr, AnyStr]: ...
     def send_signal(self, sig: int) -> None: ...
     def terminate(self) -> None: ...
     def kill(self) -> None: ...
@@ -2575,12 +2574,12 @@ class Popen(Generic[AnyStr]):
 
 # The result really is always a str.
 if sys.version_info >= (3, 11):
-    def getstatusoutput(cmd: _TXT, *, encoding: str | None = None, errors: str | None = None) -> tuple[int, str]: ...
-    def getoutput(cmd: _TXT, *, encoding: str | None = None, errors: str | None = None) -> str: ...
+    def getstatusoutput(cmd: str | bytes, *, encoding: str | None = ..., errors: str | None = ...) -> tuple[int, str]: ...
+    def getoutput(cmd: str | bytes, *, encoding: str | None = ..., errors: str | None = ...) -> str: ...
 
 else:
-    def getstatusoutput(cmd: _TXT) -> tuple[int, str]: ...
-    def getoutput(cmd: _TXT) -> str: ...
+    def getstatusoutput(cmd: str | bytes) -> tuple[int, str]: ...
+    def getoutput(cmd: str | bytes) -> str: ...
 
 if sys.version_info >= (3, 8):
     def list2cmdline(seq: Iterable[StrOrBytesPath]) -> str: ...  # undocumented
