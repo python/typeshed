@@ -2,7 +2,8 @@ import sys
 import types
 from _typeshed import ReadableBuffer, Self
 from collections.abc import Callable
-from socket import _RetAddress, socket as _socket
+from _socket import _RetAddress, _Address
+from socket import socket as _socket
 from typing import Any, BinaryIO, ClassVar, Union
 from typing_extensions import TypeAlias
 
@@ -42,13 +43,13 @@ class BaseServer:
     socket_type: int
     timeout: float | None
     def __init__(
-        self: Self, server_address: Any, RequestHandlerClass: Callable[[Any, Any, Self], BaseRequestHandler]
+        self: Self, server_address: _Address, RequestHandlerClass: Callable[[Any, _RetAddress, Self], BaseRequestHandler]
     ) -> None: ...
     # It is not actually a `@property`, but we need a `Self` type:
     @property
-    def RequestHandlerClass(self: Self) -> Callable[[Any, Any, Self], BaseRequestHandler]: ...
+    def RequestHandlerClass(self: Self) -> Callable[[Any, _RetAddress, Self], BaseRequestHandler]: ...
     @RequestHandlerClass.setter
-    def RequestHandlerClass(self: Self, val: Callable[[Any, Any, Self], BaseRequestHandler]) -> None: ...
+    def RequestHandlerClass(self: Self, val: Callable[[Any, _RetAddress, Self], BaseRequestHandler]) -> None: ...
     def fileno(self) -> int: ...
     def handle_request(self) -> None: ...
     def serve_forever(self, poll_interval: float = ...) -> None: ...
@@ -73,10 +74,11 @@ class BaseServer:
 class TCPServer(BaseServer):
     if sys.version_info >= (3, 11):
         allow_reuse_port: bool
+    server_address: _AfInetAddress
     def __init__(
         self: Self,
         server_address: _AfInetAddress,
-        RequestHandlerClass: Callable[[Any, Any, Self], BaseRequestHandler],
+        RequestHandlerClass: Callable[[Any, _RetAddress, Self], BaseRequestHandler],
         bind_and_activate: bool = ...,
     ) -> None: ...
     def get_request(self) -> tuple[_socket, _RetAddress]: ...
@@ -87,18 +89,20 @@ class UDPServer(TCPServer):
 
 if sys.platform != "win32":
     class UnixStreamServer(BaseServer):
+        server_address: _AfUnixAddress
         def __init__(
             self: Self,
             server_address: _AfUnixAddress,
-            RequestHandlerClass: Callable[[Any, Any, Self], BaseRequestHandler],
+            RequestHandlerClass: Callable[[Any, _RetAddress, Self], BaseRequestHandler],
             bind_and_activate: bool = ...,
         ) -> None: ...
 
     class UnixDatagramServer(BaseServer):
+        server_address: _AfUnixAddress
         def __init__(
             self: Self,
             server_address: _AfUnixAddress,
-            RequestHandlerClass: Callable[[Any, Any, Self], BaseRequestHandler],
+            RequestHandlerClass: Callable[[Any, _RetAddress, Self], BaseRequestHandler],
             bind_and_activate: bool = ...,
         ) -> None: ...
 
