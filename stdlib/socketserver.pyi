@@ -74,7 +74,7 @@ class BaseServer:
 class TCPServer(BaseServer):
     if sys.version_info >= (3, 11):
         allow_reuse_port: bool
-    server_address: _AfInetAddress
+    server_address: _AfInetAddress  # type: ignore[assignment]
     def __init__(
         self: Self,
         server_address: _AfInetAddress,
@@ -89,7 +89,7 @@ class UDPServer(TCPServer):
 
 if sys.platform != "win32":
     class UnixStreamServer(BaseServer):
-        server_address: _AfUnixAddress
+        server_address: _AfUnixAddress  # type: ignore[assignment]
         def __init__(
             self: Self,
             server_address: _AfUnixAddress,
@@ -98,7 +98,7 @@ if sys.platform != "win32":
         ) -> None: ...
 
     class UnixDatagramServer(BaseServer):
-        server_address: _AfUnixAddress
+        server_address: _AfUnixAddress  # type: ignore[assignment]
         def __init__(
             self: Self,
             server_address: _AfUnixAddress,
