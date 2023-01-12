@@ -25,6 +25,7 @@ if TYPE_CHECKING:
 from typing_extensions import Annotated, TypeAlias
 
 import tomli
+
 from utils import (
     VERSIONS_RE as VERSION_LINE_RE,
     PackageDependencies,
@@ -339,7 +340,7 @@ def test_third_party_distribution(
 
     mypypath = os.pathsep.join(str(Path("stubs", dist)) for dist in seen_dists)
     if args.verbose:
-        print(colored(f"\nmypypath={mypypath}", "blue"))
+        print(colored(f"\nMYPYPATH={mypypath}", "blue"))
     code = run_mypy(
         args,
         configurations,

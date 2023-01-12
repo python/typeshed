@@ -25,6 +25,8 @@ except ImportError:
         return text
 
 
+# A backport of functools.cache for Python <3.9
+# This module is imported by mypy_test.py, which needs to run on 3.7 in CI
 cache = lru_cache(None)
 
 # Used to install system-wide packages for different OS types:
