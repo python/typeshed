@@ -4,6 +4,7 @@ import types
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import (
     AnyStr_co,
+    FileDescriptorOrPath,
     OpenBinaryMode,
     OpenBinaryModeReading,
     OpenBinaryModeUpdating,
@@ -11,7 +12,6 @@ from _typeshed import (
     OpenTextMode,
     ReadableBuffer,
     Self,
-    StrOrBytesPath,
     SupportsAdd,
     SupportsAiter,
     SupportsAnext,
@@ -1412,13 +1412,12 @@ def next(__i: SupportsNext[_T]) -> _T: ...
 def next(__i: SupportsNext[_T], __default: _VT) -> _T | _VT: ...
 def oct(__number: int | SupportsIndex) -> str: ...
 
-_OpenFile = StrOrBytesPath | int  # noqa: Y026  # TODO: Use TypeAlias once mypy bugs are fixed
 _Opener: TypeAlias = Callable[[str, int], int]
 
 # Text mode: always returns a TextIOWrapper
 @overload
 def open(
-    file: _OpenFile,
+    file: FileDescriptorOrPath,
     mode: OpenTextMode = ...,
     buffering: int = ...,
     encoding: str | None = ...,
@@ -1431,7 +1430,7 @@ def open(
 # Unbuffered binary mode: returns a FileIO
 @overload
 def open(
-    file: _OpenFile,
+    file: FileDescriptorOrPath,
     mode: OpenBinaryMode,
     buffering: Literal[0],
     encoding: None = ...,
@@ -1444,7 +1443,7 @@ def open(
 # Buffering is on: return BufferedRandom, BufferedReader, or BufferedWriter
 @overload
 def open(
-    file: _OpenFile,
+    file: FileDescriptorOrPath,
     mode: OpenBinaryModeUpdating,
     buffering: Literal[-1, 1] = ...,
     encoding: None = ...,
@@ -1455,7 +1454,7 @@ def open(
 ) -> BufferedRandom: ...
 @overload
 def open(
-    file: _OpenFile,
+    file: FileDescriptorOrPath,
     mode: OpenBinaryModeWriting,
     buffering: Literal[-1, 1] = ...,
     encoding: None = ...,
@@ -1466,7 +1465,7 @@ def open(
 ) -> BufferedWriter: ...
 @overload
 def open(
-    file: _OpenFile,
+    file: FileDescriptorOrPath,
     mode: OpenBinaryModeReading,
     buffering: Literal[-1, 1] = ...,
     encoding: None = ...,
@@ -1479,7 +1478,7 @@ def open(
 # Buffering cannot be determined: fall back to BinaryIO
 @overload
 def open(
-    file: _OpenFile,
+    file: FileDescriptorOrPath,
     mode: OpenBinaryMode,
     buffering: int = ...,
     encoding: None = ...,
@@ -1492,7 +1491,7 @@ def open(
 # Fallback if mode is not specified
 @overload
 def open(
-    file: _OpenFile,
+    file: FileDescriptorOrPath,
     mode: str,
     buffering: int = ...,
     encoding: str | None = ...,
