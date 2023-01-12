@@ -2,7 +2,7 @@
 pika.compat.StringIO.seek
 pika.compat.StringIO.truncate
 
-# Requires external libraries to be installed.
+# Fake module so we don't have to declare a dependency on `twisted` just for an optional backend
 pika.adapters._twisted_shims
 
 # Stubtest doesn't understand that a property alias is also read-only.
