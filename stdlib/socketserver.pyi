@@ -36,7 +36,7 @@ _AfInetAddress: TypeAlias = tuple[str | bytes | bytearray, int]  # address accep
 # This can possibly be generic at some point:
 class BaseServer:
     address_family: int
-    server_address: tuple[str, int]
+    server_address: tuple[int, int]
     socket: _socket
     allow_reuse_address: bool
     request_queue_size: int
@@ -137,14 +137,14 @@ if sys.platform != "win32":
     class ThreadingUnixDatagramServer(ThreadingMixIn, UnixDatagramServer): ...
 
 class BaseRequestHandler:
-    # Those are technically of types, respectively:
-    # * _RequestType
-    # * _RetAddress
-    # But there are some concerns that having unions here would cause
+    # `request` is technically of type _RequestType,
+    # but there are some concerns that having a union here would cause
     # too much inconvenience to people using it (see
     # https://github.com/python/typeshed/pull/384#issuecomment-234649696)
+    #
+    # Note also that _RetAddress is also just an alias for `Any`
     request: Any
-    client_address: Any
+    client_address: _RetAddress
     server: BaseServer
     def __init__(self, request: _RequestType, client_address: _RetAddress, server: BaseServer) -> None: ...
     def setup(self) -> None: ...
