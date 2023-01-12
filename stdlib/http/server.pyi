@@ -1,6 +1,5 @@
 import email.message
 import io
-import socket
 import socketserver
 import sys
 from _typeshed import StrPath, SupportsRead, SupportsWrite
