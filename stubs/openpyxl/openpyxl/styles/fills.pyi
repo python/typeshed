@@ -3,6 +3,7 @@ from collections.abc import Generator, Sequence
 from typing_extensions import Final, Literal, TypeAlias
 
 from openpyxl.descriptors import Sequence as SequenceDescriptor
+from openpyxl.descriptors.base import _FloatSetter
 from openpyxl.descriptors.sequence import _Sequence
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.xml.functions import _Element
@@ -81,12 +82,12 @@ class Fill(Serialisable):
 class PatternFill(Fill):
     tagname: str
     __elements__: tuple[str, ...]
-    patternType: _FillsType | None = ...
-    fill_type = patternType
-    fgColor: Color = ...
-    start_color = fgColor
-    bgColor: Color = ...
-    end_color = bgColor
+    patternType: _FillsType | None
+    fill_type = patternType  # noqa: F821
+    fgColor: Color
+    start_color = fgColor  # noqa: F821
+    bgColor: Color
+    end_color = bgColor  # noqa: F821
     def __init__(
         self,
         patternType: _FillsType | None = ...,
@@ -103,9 +104,12 @@ DEFAULT_GRAY_FILL: PatternFill
 
 class Stop(Serialisable):
     tagname: str
-    position: float
+    @property
+    def position(self) -> float: ...
+    @position.setter
+    def position(self, __value: _FloatSetter) -> None: ...
     color: Color
-    def __init__(self, color: Color, position: float) -> None: ...
+    def __init__(self, color: Color, position: _FloatSetter) -> None: ...
 
 class StopList(SequenceDescriptor):
     expected_type: type[Stop]
@@ -115,20 +119,35 @@ class GradientFill(Fill):
     tagname: str
     type: Literal["linear", "path"]
     fill_type = type
-    degree: float
-    left: float
-    right: float
-    top: float
-    bottom: float
+    @property
+    def degree(self) -> float: ...
+    @degree.setter
+    def degree(self, __value: _FloatSetter) -> None: ...
+    @property
+    def left(self) -> float: ...
+    @left.setter
+    def left(self, __value: _FloatSetter) -> None: ...
+    @property
+    def right(self) -> float: ...
+    @right.setter
+    def right(self, __value: _FloatSetter) -> None: ...
+    @property
+    def top(self) -> float: ...
+    @top.setter
+    def top(self, __value: _FloatSetter) -> None: ...
+    @property
+    def bottom(self) -> float: ...
+    @bottom.setter
+    def bottom(self, __value: _FloatSetter) -> None: ...
     stop: _Sequence[Stop]
     def __init__(
         self,
         type: Literal["linear", "path"] = ...,
-        degree: float = ...,
-        left: float = ...,
-        right: float = ...,
-        top: float = ...,
-        bottom: float = ...,
+        degree: _FloatSetter = ...,
+        left: _FloatSetter = ...,
+        right: _FloatSetter = ...,
+        top: _FloatSetter = ...,
+        bottom: _FloatSetter = ...,
         stop: _Sequence[Stop] = ...,
     ) -> None: ...
     def __iter__(self) -> Generator[tuple[str, str], None, None]: ...

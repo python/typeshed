@@ -1,6 +1,7 @@
 from collections.abc import Generator
 from typing_extensions import Literal, TypeAlias
 
+from openpyxl.descriptors.base import _BoolSetter, _IntegerSetter
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.sequence import _Sequence
 from openpyxl.descriptors.serialisable import Serialisable
@@ -22,10 +23,14 @@ class NamedStyle(Serialisable):  # type: ignore[misc]
     alignment: Alignment
     number_format: str
     protection: Protection
-    builtinId: int | None
-    hidden: bool | None
-    # Overwritten by property below
-    # xfId: int | None
+    @property
+    def builtinId(self) -> int | None: ...
+    @builtinId.setter
+    def builtinId(self, __value: _IntegerSetter | None) -> None: ...
+    @property
+    def hidden(self) -> bool: ...
+    @hidden.setter
+    def hidden(self, __value: _BoolSetter) -> None: ...
     name: str
     def __init__(
         self,
@@ -36,8 +41,8 @@ class NamedStyle(Serialisable):  # type: ignore[misc]
         alignment: Alignment = ...,
         number_format: str | None = ...,
         protection: Protection = ...,
-        builtinId: int | None = ...,
-        hidden: bool | None = ...,
+        builtinId: _IntegerSetter | None = ...,
+        hidden: _BoolSetter = ...,
         xfId: _Unused = ...,
     ) -> None: ...
     def __setattr__(self, attr: str, value) -> None: ...
@@ -58,21 +63,36 @@ class NamedStyleList(list[NamedStyle]):
 class _NamedCellStyle(Serialisable):
     tagname: str
     name: str
-    xfId: int
-    builtinId: int | None
-    iLevel: int | None
-    hidden: bool | None
-    customBuiltin: bool | None
+    @property
+    def xfId(self) -> int: ...
+    @xfId.setter
+    def xfId(self, __value: _IntegerSetter) -> None: ...
+    @property
+    def builtinId(self) -> int | None: ...
+    @builtinId.setter
+    def builtinId(self, __value: _IntegerSetter | None) -> None: ...
+    @property
+    def iLevel(self) -> int | None: ...
+    @iLevel.setter
+    def iLevel(self, __value: _IntegerSetter | None) -> None: ...
+    @property
+    def hidden(self) -> bool: ...
+    @hidden.setter
+    def hidden(self, __value: _BoolSetter) -> None: ...
+    @property
+    def customBuiltin(self) -> bool: ...
+    @customBuiltin.setter
+    def customBuiltin(self, __value: _BoolSetter) -> None: ...
     extLst: ExtensionList | None
     __elements__: tuple[str, ...]
     def __init__(
         self,
         name: str,
-        xfId: int,
-        builtinId: int | None = ...,
-        iLevel: int | None = ...,
-        hidden: bool | None = ...,
-        customBuiltin: bool | None = ...,
+        xfId: _IntegerSetter,
+        builtinId: _IntegerSetter | None = ...,
+        iLevel: _IntegerSetter | None = ...,
+        hidden: _BoolSetter = ...,
+        customBuiltin: _BoolSetter = ...,
         extLst: _Unused = ...,
     ) -> None: ...
 

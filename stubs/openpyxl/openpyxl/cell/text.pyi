@@ -1,5 +1,6 @@
 from typing_extensions import Literal, TypeAlias
 
+from openpyxl.descriptors.base import _IntegerSetter
 from openpyxl.descriptors.sequence import _Sequence
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.colors import Color
@@ -7,23 +8,32 @@ from openpyxl.styles.fonts import Font
 
 class PhoneticProperties(Serialisable):
     tagname: str
-    fontId: int
+    @property
+    def fontId(self) -> int: ...
+    @fontId.setter
+    def fontId(self, __value: _IntegerSetter | None) -> None: ...
     type: Literal["halfwidthKatakana", "fullwidthKatakana", "Hiragana", "noConversion", None]
     alignment: Literal["noControl", "left", "center", "distributed", None]
     def __init__(
         self,
-        fontId: int,
+        fontId: _IntegerSetter,
         type: Literal["halfwidthKatakana", "fullwidthKatakana", "Hiragana", "noConversion", None] = ...,
         alignment: Literal["noControl", "left", "center", "distributed", None] = ...,
     ) -> None: ...
 
 class PhoneticText(Serialisable):
     tagname: str
-    sb: int
-    eb: int
-    t: str = ...
-    text = t
-    def __init__(self, sb: int, eb: int, t: str) -> None: ...
+    @property
+    def sb(self) -> int: ...
+    @sb.setter
+    def sb(self, __value: _IntegerSetter) -> None: ...
+    @property
+    def eb(self) -> int: ...
+    @eb.setter
+    def eb(self, __value: _IntegerSetter) -> None: ...
+    t: str
+    text = t  # noqa: F821
+    def __init__(self, sb: _IntegerSetter, eb: _IntegerSetter, t: str) -> None: ...
 
 class InlineFont(Font):
     tagname: str
@@ -50,10 +60,10 @@ class InlineFont(Font):
 
 class RichText(Serialisable):
     tagname: str
-    rPr: InlineFont | None = ...
-    font = rPr
-    t: str | None = ...
-    text = t
+    rPr: InlineFont | None
+    font = rPr  # noqa: F821
+    t: str | None
+    text = t  # noqa: F821
     __elements__: tuple[str, ...]
     def __init__(self, rPr: InlineFont | None = ..., t: str | None = ...) -> None: ...
 
@@ -61,14 +71,14 @@ _PhoneticProperties: TypeAlias = PhoneticProperties
 
 class Text(Serialisable):
     tagname: str
-    t: str | None = ...
-    plain = t
-    r: _Sequence[RichText] | None = ...
-    formatted = r
-    rPh: _Sequence[PhoneticText] | None = ...
-    phonetic = rPh
-    phoneticPr: _PhoneticProperties | None = ...
-    PhoneticProperties = phoneticPr
+    t: str | None
+    plain = t  # noqa: F821
+    r: _Sequence[RichText] | None
+    formatted = r  # noqa: F821
+    rPh: _Sequence[PhoneticText] | None
+    phonetic = rPh  # noqa: F821
+    phoneticPr: _PhoneticProperties | None
+    PhoneticProperties = phoneticPr  # noqa: F821
     __elements__: tuple[str, ...]
     def __init__(
         self,

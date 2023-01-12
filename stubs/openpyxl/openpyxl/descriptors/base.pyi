@@ -1,4 +1,11 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, ReadableBuffer, SupportsTrunc
+from typing import SupportsFloat, SupportsInt
+from typing_extensions import SupportsIndex, TypeAlias
+
+# Helper types for Convertible Descriptors
+_IntegerSetter: TypeAlias = str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc  # noqa: Y047
+_FloatSetter: TypeAlias = SupportsFloat | SupportsIndex | str | ReadableBuffer  # noqa: Y047
+_BoolSetter: TypeAlias = object  # noqa: Y047
 
 class Descriptor:
     name: Incomplete

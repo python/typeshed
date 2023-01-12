@@ -1,33 +1,65 @@
 from _typeshed import Self
+from typing import ClassVar
 from typing_extensions import Literal
 
+from openpyxl.descriptors.base import _BoolSetter, _FloatSetter, _IntegerSetter
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.xml.functions import _Element
 
 from .colors import Color
 
 class Font(Serialisable):
-    UNDERLINE_DOUBLE: str
-    UNDERLINE_DOUBLE_ACCOUNTING: str
-    UNDERLINE_SINGLE: str
-    UNDERLINE_SINGLE_ACCOUNTING: str
+    UNDERLINE_DOUBLE: ClassVar[Literal["double"]]
+    UNDERLINE_DOUBLE_ACCOUNTING: ClassVar[Literal["doubleAccounting"]]
+    UNDERLINE_SINGLE: ClassVar[Literal["single"]]
+    UNDERLINE_SINGLE_ACCOUNTING: ClassVar[Literal["singleAccounting"]]
     name: str | None
-    charset: int | None
-    family: float | None
-    sz: float | None = ...
+    @property
+    def charset(self) -> int | None: ...
+    @charset.setter
+    def charset(self, __value: _IntegerSetter | None) -> None: ...
+    @property
+    def family(self) -> float | None: ...
+    @family.setter
+    def family(self, __value: _FloatSetter | None) -> None: ...
+    @property
+    def sz(self) -> float | None: ...
+    @sz.setter
+    def sz(self, __value: _FloatSetter | None) -> None: ...
     size = sz
-    b: bool = ...
+    @property
+    def b(self) -> bool: ...
+    @b.setter
+    def b(self, __value: _BoolSetter) -> None: ...
     bold = b
-    i: bool = ...
+    @property
+    def i(self) -> bool: ...
+    @i.setter
+    def i(self, __value: _BoolSetter) -> None: ...
     italic = i
-    strike: bool | None = ...
+    @property
+    def strike(self) -> bool | None: ...
+    @strike.setter
+    def strike(self, __value: _BoolSetter) -> None: ...
     strikethrough = strike
-    outline: bool | None
-    shadow: bool | None
-    condense: bool | None
-    extend: bool | None
-    u: Literal["single", "double", "singleAccounting", "doubleAccounting", None] = ...
-    underline = u
+    @property
+    def outline(self) -> bool | None: ...
+    @outline.setter
+    def outline(self, __value: _BoolSetter) -> None: ...
+    @property
+    def shadow(self) -> bool | None: ...
+    @shadow.setter
+    def shadow(self, __value: _BoolSetter) -> None: ...
+    @property
+    def condense(self) -> bool | None: ...
+    @condense.setter
+    def condense(self, __value: _BoolSetter) -> None: ...
+    @property
+    def extend(self) -> bool | None: ...
+    @extend.setter
+    def extend(self, __value: _BoolSetter) -> None: ...
+    u: Literal["single", "double", "singleAccounting", "doubleAccounting", None]
+    underline = u  # noqa: F821
     vertAlign: Literal["superscript", "subscript", "baseline", None]
     color: Color | None
     scheme: Literal["major", "minor", None]
@@ -38,25 +70,25 @@ class Font(Serialisable):
     def __init__(
         self,
         name: str | None = ...,
-        sz: float | None = ...,
-        b: bool | None = ...,
-        i: bool | None = ...,
-        charset: int | None = ...,
+        sz: _FloatSetter | None = ...,
+        b: _BoolSetter = ...,
+        i: _BoolSetter = ...,
+        charset: _IntegerSetter | None = ...,
         u: Literal["single", "double", "singleAccounting", "doubleAccounting", None] = ...,
-        strike: bool | None = ...,
+        strike: _BoolSetter = ...,
         color: Color | None = ...,
         scheme: Literal["major", "minor", None] = ...,
-        family: float | None = ...,
-        size: float | None = ...,
-        bold: bool | None = ...,
-        italic: bool | None = ...,
-        strikethrough: bool | None = ...,
+        family: _FloatSetter | None = ...,
+        size: _FloatSetter | None = ...,
+        bold: _BoolSetter = ...,
+        italic: _BoolSetter = ...,
+        strikethrough: _BoolSetter = ...,
         underline: Literal["single", "double", "singleAccounting", "doubleAccounting", None] = ...,
         vertAlign: Literal["superscript", "subscript", "baseline", None] = ...,
-        outline: bool | None = ...,
-        shadow: bool | None = ...,
-        condense: bool | None = ...,
-        extend: bool | None = ...,
+        outline: _BoolSetter = ...,
+        shadow: _BoolSetter = ...,
+        condense: _BoolSetter = ...,
+        extend: _BoolSetter = ...,
     ) -> None: ...
     @classmethod
     def from_tree(cls: Self, node: _Element) -> Self: ...

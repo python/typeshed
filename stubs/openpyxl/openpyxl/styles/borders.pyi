@@ -2,6 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Generator
 from typing_extensions import Final, Literal, TypeAlias
 
+from openpyxl.descriptors.base import _BoolSetter
 from openpyxl.descriptors.serialisable import Serialisable
 
 from .colors import Color
@@ -39,8 +40,8 @@ _StyleType: TypeAlias = Literal[
 class Side(Serialisable):  # type: ignore[misc]
     __fields__: tuple[str, ...]
     color: Color | None
-    style: _StyleType | None = ...
-    border_style = style
+    style: _StyleType | None
+    border_style = style  # noqa: F821
     def __init__(
         self, style: _StyleType | None = ..., color: Color | None = ..., border_style: _StyleType | None = ...
     ) -> None: ...
@@ -58,9 +59,18 @@ class Border(Serialisable):
     diagonal: Side | None
     vertical: Side | None
     horizontal: Side | None
-    outline: bool
-    diagonalUp: bool
-    diagonalDown: bool
+    @property
+    def outline(self) -> bool: ...
+    @outline.setter
+    def outline(self, __value: _BoolSetter) -> None: ...
+    @property
+    def diagonalUp(self) -> bool: ...
+    @diagonalUp.setter
+    def diagonalUp(self, __value: _BoolSetter) -> None: ...
+    @property
+    def diagonalDown(self) -> bool: ...
+    @diagonalDown.setter
+    def diagonalDown(self, __value: _BoolSetter) -> None: ...
     diagonal_direction: Incomplete | None
     def __init__(
         self,
@@ -72,9 +82,9 @@ class Border(Serialisable):
         diagonal_direction: Incomplete | None = ...,
         vertical: Side | None = ...,
         horizontal: Side | None = ...,
-        diagonalUp: bool = ...,
-        diagonalDown: bool = ...,
-        outline: bool = ...,
+        diagonalUp: _BoolSetter = ...,
+        diagonalDown: _BoolSetter = ...,
+        outline: _BoolSetter = ...,
         start: Side | None = ...,
         end: Side | None = ...,
     ) -> None: ...

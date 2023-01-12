@@ -5,6 +5,7 @@ from typing import TypeVar, overload
 from typing_extensions import TypeAlias
 
 from openpyxl.descriptors import Typed
+from openpyxl.descriptors.base import _BoolSetter, _FloatSetter, _IntegerSetter
 from openpyxl.descriptors.sequence import _Sequence
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.colors import SystemColor
@@ -90,19 +91,31 @@ class RGB(Typed):
 class Color(Serialisable):
     tagname: str
     rgb: str
-    indexed: int
-    auto: bool
-    theme: int
-    tint: float
+    @property
+    def indexed(self) -> int: ...
+    @indexed.setter
+    def indexed(self, __value: _IntegerSetter) -> None: ...
+    @property
+    def auto(self) -> bool: ...
+    @auto.setter
+    def auto(self, __value: _BoolSetter) -> None: ...
+    @property
+    def theme(self) -> int: ...
+    @theme.setter
+    def theme(self, __value: _IntegerSetter) -> None: ...
+    @property
+    def tint(self) -> float: ...
+    @tint.setter
+    def tint(self, __value: _FloatSetter) -> None: ...
     type: str
     def __init__(
         self,
         rgb: str = ...,
-        indexed: int | None = ...,
-        auto: bool | None = ...,
-        theme: int | None = ...,
-        tint: float = ...,
-        index: int | None = ...,
+        indexed: _IntegerSetter | None = ...,
+        auto: _BoolSetter = ...,
+        theme: _IntegerSetter | None = ...,
+        tint: _FloatSetter = ...,
+        index: _IntegerSetter | None = ...,
         type: _Unused = ...,
     ) -> None: ...
     @property
