@@ -98,12 +98,10 @@ class _NamedCellStyle(Serialisable):
 
 class _NamedCellStyleList(Serialisable):
     tagname: str
-    # Overwritten by property below
-    # count: int | None
     cellStyle: _Sequence[_NamedCellStyle]
     __attrs__: tuple[str, ...]
     def __init__(self, count: _Unused = ..., cellStyle: _Sequence[_NamedCellStyle] = ...) -> None: ...
     @property
-    def count(self) -> int | None: ...
+    def count(self) -> int: ...
     @property
     def names(self) -> NamedStyleList: ...

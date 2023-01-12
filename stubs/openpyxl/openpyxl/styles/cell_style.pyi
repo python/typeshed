@@ -76,13 +76,11 @@ class CellStyle(Serialisable):
 class CellStyleList(Serialisable):
     tagname: str
     __attrs__: Incomplete
-    # Overwritten by property below
-    # count: Integer
     xf: Incomplete
     alignment: Incomplete
     protection: Incomplete
     __elements__: Incomplete
     def __init__(self, count: Incomplete | None = ..., xf=...) -> None: ...
     @property
-    def count(self): ...
+    def count(self) -> int: ...
     def __getitem__(self, idx): ...

@@ -22,13 +22,11 @@ class WebPublishObject(Serialisable):
 
 class WebPublishObjectList(Serialisable):
     tagname: str
-    # Overwritten by property below
-    # count: Integer
     webPublishObject: Incomplete
     __elements__: Incomplete
     def __init__(self, count: Incomplete | None = ..., webPublishObject=...) -> None: ...
     @property
-    def count(self): ...
+    def count(self) -> int: ...
 
 class WebPublishing(Serialisable):
     tagname: str

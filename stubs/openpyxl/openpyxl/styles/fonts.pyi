@@ -1,6 +1,5 @@
 from _typeshed import Self
-from typing import ClassVar
-from typing_extensions import Literal
+from typing_extensions import Final, Literal
 
 from openpyxl.descriptors.base import _BoolSetter, _FloatSetter, _IntegerSetter
 from openpyxl.descriptors.serialisable import Serialisable
@@ -9,10 +8,10 @@ from openpyxl.xml.functions import _Element
 from .colors import Color
 
 class Font(Serialisable):
-    UNDERLINE_DOUBLE: ClassVar[Literal["double"]]
-    UNDERLINE_DOUBLE_ACCOUNTING: ClassVar[Literal["doubleAccounting"]]
-    UNDERLINE_SINGLE: ClassVar[Literal["single"]]
-    UNDERLINE_SINGLE_ACCOUNTING: ClassVar[Literal["singleAccounting"]]
+    UNDERLINE_DOUBLE: Final = "double"
+    UNDERLINE_DOUBLE_ACCOUNTING: Final = "doubleAccounting"
+    UNDERLINE_SINGLE: Final = "single"
+    UNDERLINE_SINGLE_ACCOUNTING: Final = "singleAccounting"
     name: str | None
     @property
     def charset(self) -> int | None: ...

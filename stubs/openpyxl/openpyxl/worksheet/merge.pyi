@@ -14,14 +14,12 @@ class MergeCell(CellRange):
 
 class MergeCells(Serialisable):
     tagname: str
-    # Overwritten by property below
-    # count: Integer
     mergeCell: Incomplete
     __elements__: Incomplete
     __attrs__: Incomplete
     def __init__(self, count: Incomplete | None = ..., mergeCell=...) -> None: ...
     @property
-    def count(self): ...
+    def count(self) -> int: ...
 
 class MergedCellRange(CellRange):
     ws: Incomplete

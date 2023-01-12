@@ -1,5 +1,4 @@
-from _typeshed import Incomplete
-
+from openpyxl.chart.data_source import NumFmt
 from openpyxl.descriptors import Typed
 from openpyxl.descriptors.nested import NestedMinMax
 
@@ -14,6 +13,6 @@ class NestedOverlap(NestedMinMax):
     max: int
 
 class NumberFormatDescriptor(Typed):
-    expected_type: Incomplete
+    expected_type: type[NumFmt]
     allow_none: bool
     def __set__(self, instance, value) -> None: ...

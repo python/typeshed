@@ -160,15 +160,13 @@ class Table(Serialisable):
 
 class TablePartList(Serialisable):
     tagname: str
-    # Overwritten by property below
-    # count: Integer
     tablePart: Incomplete
     __elements__: Incomplete
     __attrs__: Incomplete
     def __init__(self, count: Incomplete | None = ..., tablePart=...) -> None: ...
     def append(self, part) -> None: ...
     @property
-    def count(self): ...
+    def count(self) -> int: ...
     def __bool__(self) -> bool: ...
 
 class TableList(dict[Incomplete, Incomplete]):
