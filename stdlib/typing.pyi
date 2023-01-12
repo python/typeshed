@@ -325,7 +325,7 @@ class SupportsRound(Protocol[_T_co]):
     def __round__(self, __ndigits: int) -> _T_co: ...
 
 @runtime_checkable
-class Sized(Protocol):
+class Sized(Protocol, metaclass=ABCMeta):
     @abstractmethod
     def __len__(self) -> int: ...
 
@@ -452,7 +452,10 @@ class Container(Protocol[_T_co]):
     def __contains__(self, __x: object) -> bool: ...
 
 @runtime_checkable
-class Collection(Sized, Iterable[_T_co], Container[_T_co], Protocol[_T_co]): ...
+class Collection(Iterable[_T_co], Container[_T_co], Protocol[_T_co]):
+    # Implement Sized (but don't have it as a base class).
+    @abstractmethod
+    def __len__(self) -> int: ...
 
 class Sequence(Collection[_T_co], Reversible[_T_co], Generic[_T_co]):
     @overload
@@ -618,6 +621,8 @@ class MutableMapping(Mapping[_KT, _VT], Generic[_KT, _VT]):
     # -- os._Environ.__ior__
     # -- collections.UserDict.__ior__
     # -- collections.ChainMap.__ior__
+    # -- peewee.attrdict.__add__
+    # -- peewee.attrdict.__iadd__
     # -- weakref.WeakValueDictionary.__ior__
     # -- weakref.WeakKeyDictionary.__ior__
     @overload

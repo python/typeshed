@@ -13,12 +13,6 @@ builtins.float.__setformat__  # Internal method for CPython test suite
 builtins.property.__set_name__  # Doesn't actually exist
 contextlib.AbstractAsyncContextManager.__class_getitem__
 contextlib.AbstractContextManager.__class_getitem__
-# Missing from distutils module (deprecated, to be removed in 3.12)
-distutils.core.DEBUG
-distutils.core.USAGE
-distutils.core.extension_keywords
-distutils.core.gen_usage
-distutils.core.setup_keywords
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 gettext.install
 gettext.translation
@@ -33,7 +27,6 @@ pickle.Pickler.reducer_override  # implemented in C pickler
 # platform.uname_result's processor field is now dynamically made to exist
 platform.uname_result.__match_args__
 platform.uname_result.__new__
-platform.uname_result._fields
 platform.uname_result.processor
 sys.UnraisableHookArgs  # Not exported from sys
 tkinter.Tk.split
@@ -53,6 +46,10 @@ typing._TypedDict.update
 typing._TypedDict.values
 weakref.ProxyType.__reversed__  # Doesn't really exist
 weakref.WeakValueDictionary.update
+
+# Runtime has *args, **kwargs, but will error if any are supplied
+unittest.TestCase.__init_subclass__
+unittest.case.TestCase.__init_subclass__
 
 # stubtest complains that in 3.10 the default argument is inconsistent with the annotation,
 # but in 3.10+ calling the function without the default argument is in fact deprecated,

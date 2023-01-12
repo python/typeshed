@@ -18,8 +18,9 @@ RTLD_GLOBAL: int
 RTLD_LAZY: int
 RTLD_LOCAL: int
 RTLD_NOW: int
-if sys.platform != "win32":
+if sys.platform == "linux":
     RTLD_DEEPBIND: int
+if sys.platform != "win32":
     RTLD_NODELETE: int
     RTLD_NOLOAD: int
 

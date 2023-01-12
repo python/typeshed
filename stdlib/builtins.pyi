@@ -1,6 +1,6 @@
+import _ast
 import sys
 import types
-from _ast import AST
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import (
     AnyStr_co,
@@ -1188,7 +1188,7 @@ class property:
 class _NotImplementedType(Any):  # type: ignore[misc]
     # A little weird, but typing the __call__ as NotImplemented makes the error message
     # for NotImplemented() much better
-    __call__: NotImplemented  # type: ignore[valid-type]
+    __call__: NotImplemented  # type: ignore[valid-type]  # pyright: ignore[reportGeneralTypeIssues]
 
 NotImplemented: _NotImplementedType
 
@@ -1223,7 +1223,7 @@ if sys.version_info >= (3, 10):
 # TODO: `compile` has a more precise return type in reality; work on a way of expressing that?
 if sys.version_info >= (3, 8):
     def compile(
-        source: str | ReadableBuffer | AST,
+        source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
         filename: str | ReadableBuffer | _PathLike[Any],
         mode: str,
         flags: int = ...,
@@ -1235,7 +1235,7 @@ if sys.version_info >= (3, 8):
 
 else:
     def compile(
-        source: str | ReadableBuffer | AST,
+        source: str | ReadableBuffer | _ast.Module | _ast.Expression | _ast.Interactive,
         filename: str | ReadableBuffer | _PathLike[Any],
         mode: str,
         flags: int = ...,
@@ -1938,6 +1938,7 @@ if sys.version_info >= (3, 11):
     _ExceptionT_co = TypeVar("_ExceptionT_co", bound=Exception, covariant=True)
     _ExceptionT = TypeVar("_ExceptionT", bound=Exception)
 
+    # See `check_exception_group.py` for use-cases and comments.
     class BaseExceptionGroup(BaseException, Generic[_BaseExceptionT_co]):
         def __new__(cls: type[Self], __message: str, __exceptions: Sequence[_BaseExceptionT_co]) -> Self: ...
         @property
@@ -1946,17 +1947,33 @@ if sys.version_info >= (3, 11):
         def exceptions(self) -> tuple[_BaseExceptionT_co | BaseExceptionGroup[_BaseExceptionT_co], ...]: ...
         @overload
         def subgroup(
+            self, __condition: type[_ExceptionT] | tuple[type[_ExceptionT], ...]
+        ) -> ExceptionGroup[_ExceptionT] | None: ...
+        @overload
+        def subgroup(
             self, __condition: type[_BaseExceptionT] | tuple[type[_BaseExceptionT], ...]
         ) -> BaseExceptionGroup[_BaseExceptionT] | None: ...
         @overload
-        def subgroup(self: Self, __condition: Callable[[_BaseExceptionT_co], bool]) -> Self | None: ...
+        def subgroup(
+            self: Self, __condition: Callable[[_BaseExceptionT_co | Self], bool]
+        ) -> BaseExceptionGroup[_BaseExceptionT_co] | None: ...
         @overload
         def split(
-            self: Self, __condition: type[_BaseExceptionT] | tuple[type[_BaseExceptionT], ...]
-        ) -> tuple[BaseExceptionGroup[_BaseExceptionT] | None, Self | None]: ...
+            self, __condition: type[_ExceptionT] | tuple[type[_ExceptionT], ...]
+        ) -> tuple[ExceptionGroup[_ExceptionT] | None, BaseExceptionGroup[_BaseExceptionT_co] | None]: ...
         @overload
-        def split(self: Self, __condition: Callable[[_BaseExceptionT_co], bool]) -> tuple[Self | None, Self | None]: ...
-        def derive(self: Self, __excs: Sequence[_BaseExceptionT_co]) -> Self: ...
+        def split(
+            self, __condition: type[_BaseExceptionT] | tuple[type[_BaseExceptionT], ...]
+        ) -> tuple[BaseExceptionGroup[_BaseExceptionT] | None, BaseExceptionGroup[_BaseExceptionT_co] | None]: ...
+        @overload
+        def split(
+            self: Self, __condition: Callable[[_BaseExceptionT_co | Self], bool]
+        ) -> tuple[BaseExceptionGroup[_BaseExceptionT_co] | None, BaseExceptionGroup[_BaseExceptionT_co] | None]: ...
+        # In reality it is `NonEmptySequence`:
+        @overload
+        def derive(self, __excs: Sequence[_ExceptionT]) -> ExceptionGroup[_ExceptionT]: ...
+        @overload
+        def derive(self, __excs: Sequence[_BaseExceptionT]) -> BaseExceptionGroup[_BaseExceptionT]: ...
         def __class_getitem__(cls, __item: Any) -> GenericAlias: ...
 
     class ExceptionGroup(BaseExceptionGroup[_ExceptionT_co], Exception):
@@ -1969,10 +1986,14 @@ if sys.version_info >= (3, 11):
             self, __condition: type[_ExceptionT] | tuple[type[_ExceptionT], ...]
         ) -> ExceptionGroup[_ExceptionT] | None: ...
         @overload
-        def subgroup(self: Self, __condition: Callable[[_ExceptionT_co], bool]) -> Self | None: ...
+        def subgroup(
+            self: Self, __condition: Callable[[_ExceptionT_co | Self], bool]
+        ) -> ExceptionGroup[_ExceptionT_co] | None: ...
         @overload  # type: ignore[override]
         def split(
-            self: Self, __condition: type[_ExceptionT] | tuple[type[_ExceptionT], ...]
-        ) -> tuple[ExceptionGroup[_ExceptionT] | None, Self | None]: ...
+            self, __condition: type[_ExceptionT] | tuple[type[_ExceptionT], ...]
+        ) -> tuple[ExceptionGroup[_ExceptionT] | None, ExceptionGroup[_ExceptionT_co] | None]: ...
         @overload
-        def split(self: Self, __condition: Callable[[_ExceptionT_co], bool]) -> tuple[Self | None, Self | None]: ...
+        def split(
+            self: Self, __condition: Callable[[_ExceptionT_co | Self], bool]
+        ) -> tuple[ExceptionGroup[_ExceptionT_co] | None, ExceptionGroup[_ExceptionT_co] | None]: ...
