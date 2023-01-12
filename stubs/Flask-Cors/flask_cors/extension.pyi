@@ -25,7 +25,7 @@ class CORS:
     ) -> None: ...
     def init_app(
         self,
-        app: flask.App,
+        app: flask.Flask,
         *,
         resources: dict[str, dict[str, Any]] | list[str] | str = ...,
         origins: str | list[str] = ...,
