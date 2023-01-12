@@ -165,6 +165,7 @@ poplib.POP3_SSL.stls  # bad declaration of inherited function. See poplib.pyi
 pyexpat.expat_CAPI
 select.poll  # Depends on configuration
 selectors.DevpollSelector  # Depends on configuration
+shutil.rmtree  # stubtest doesn't like that we have this as an instance of a callback protocol instead of a function
 socketserver.BaseServer.RequestHandlerClass  # is defined as a property, because we need `Self` type
 socketserver.BaseServer.fileno  # implemented in derived classes
 socketserver.BaseServer.get_request  # implemented in derived classes
@@ -438,6 +439,17 @@ types.WrapperDescriptorType.__get__
 typing.[A-Z]\w+
 typing_extensions\..*
 
+# These are abstract properties at runtime,
+# but marking them as such in the stub breaks half the the typed-Python ecosystem (see #8726)
+typing.IO.closed
+typing.IO.mode
+typing.IO.name
+typing.TextIO.buffer
+typing.TextIO.encoding
+typing.TextIO.errors
+typing.TextIO.line_buffering
+typing.TextIO.newlines
+
 # Typing-related weirdness
 _collections_abc.Callable
 _typeshed.*  # Utility types for typeshed, doesn't exist at runtime
@@ -533,10 +545,7 @@ xml.sax
 
 # Platform differences that cannot be captured by the type system
 os.O_[A-Z_]+
-(posix.O_[A-Z_]+)?
-(posix.ST_[A-Z]+)?
 socket.AF_DECnet
-(termios.[A-Z0-9_]+)?
 
 # Loadable SQLite extensions are disabled on GitHub runners
 (sqlite3(.dbapi2)?.Connection.enable_load_extension)?
@@ -604,6 +613,7 @@ wsgiref.handlers.BaseHandler.status
 # These would ideally be special-cased by type checkers; see https://github.com/python/mypy/issues/2220
 ctypes.Array.__iter__
 mmap.mmap.__iter__
+mmap.mmap.__contains__
 xml.etree.ElementTree.Element.__iter__
 xml.etree.cElementTree.Element.__iter__
 typing.IO.__iter__  # See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3

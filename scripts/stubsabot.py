@@ -578,7 +578,7 @@ def get_update_pr_body(update: Update, metadata: dict[str, Any]) -> str:
     if update.diff_analysis is not None:
         body += f"\n\n{update.diff_analysis}"
 
-    stubtest_will_run = not metadata.get("stubtest", {}).get("skip", False)
+    stubtest_will_run = not metadata.get("tool", {}).get("stubtest", {}).get("skip", False)
     if stubtest_will_run:
         body += textwrap.dedent(
             """

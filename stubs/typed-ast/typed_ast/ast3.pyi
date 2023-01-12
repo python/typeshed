@@ -3,6 +3,8 @@ from collections.abc import Iterator
 from typing import Any
 from typing_extensions import TypeAlias
 
+LATEST_MINOR_VERSION: int
+
 class NodeVisitor:
     def visit(self, node: AST) -> Any: ...
     def generic_visit(self, node: AST) -> None: ...
@@ -255,7 +257,7 @@ class Call(expr):
     keywords: list[keyword]
 
 class Num(expr):
-    n: complex
+    n: int | float | complex
 
 class Str(expr):
     s: str
