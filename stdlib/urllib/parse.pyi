@@ -160,8 +160,8 @@ def urlencode(
     query: Mapping[Any, Any] | Mapping[Any, Sequence[Any]] | Sequence[tuple[Any, Any]] | Sequence[tuple[Any, Sequence[Any]]],
     doseq: bool = False,
     safe: _Q = ...,
-    encoding: str = ...,
-    errors: str = ...,
+    encoding: str | None = None,
+    errors: str | None = None,
     quote_via: Callable[[AnyStr, _Q, str, str], str] = ...,
 ) -> str: ...
 def urljoin(base: AnyStr, url: AnyStr | None, allow_fragments: bool = True) -> AnyStr: ...
