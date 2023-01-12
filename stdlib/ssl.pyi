@@ -63,6 +63,7 @@ def create_default_context(
     capath: StrOrBytesPath | None = ...,
     cadata: str | ReadableBuffer | None = ...,
 ) -> SSLContext: ...
+
 if sys.version_info >= (3, 10):
     def _create_unverified_context(
         protocol: int | None = None,
@@ -76,6 +77,7 @@ if sys.version_info >= (3, 10):
         capath: StrOrBytesPath | None = ...,
         cadata: str | ReadableBuffer | None = ...,
     ) -> SSLContext: ...
+
 else:
     def _create_unverified_context(
         protocol: int = ...,
