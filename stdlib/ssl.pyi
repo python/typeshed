@@ -49,8 +49,8 @@ def wrap_socket(
     keyfile: StrOrBytesPath | None = None,
     certfile: StrOrBytesPath | None = None,
     server_side: bool = False,
-    cert_reqs: int = 0,
-    ssl_version: int = 2,
+    cert_reqs: int = ...,
+    ssl_version: int = ...,
     ca_certs: str | None = None,
     do_handshake_on_connect: bool = True,
     suppress_ragged_eofs: bool = True,
@@ -66,7 +66,7 @@ def create_default_context(
 def _create_unverified_context(
     protocol: int = ...,
     *,
-    cert_reqs: int = 0,
+    cert_reqs: int = ...,
     check_hostname: bool = False,
     purpose: Purpose = ...,
     certfile: StrOrBytesPath | None = None,
@@ -91,7 +91,7 @@ def cert_time_to_seconds(cert_time: str) -> int: ...
 
 if sys.version_info >= (3, 10):
     def get_server_certificate(
-        addr: tuple[str, int], ssl_version: int = 16, ca_certs: str | None = None, timeout: float = ...
+        addr: tuple[str, int], ssl_version: int = ..., ca_certs: str | None = None, timeout: float = ...
     ) -> str: ...
 
 else:
