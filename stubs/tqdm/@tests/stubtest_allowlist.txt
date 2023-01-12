@@ -1,5 +1,4 @@
 tqdm.contrib.discord
 
-# Metaclass differs:
-tqdm.rich.FractionColumn
-tqdm.rich.RateColumn
+# Shims
+tqdm._rich_shims
