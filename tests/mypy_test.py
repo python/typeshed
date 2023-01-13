@@ -12,11 +12,12 @@ import sys
 import tempfile
 import time
 from collections import defaultdict
+from collections.abc import Sequence
 from dataclasses import dataclass
 from itertools import product
 from pathlib import Path
 from threading import Lock
-from typing import TYPE_CHECKING, Any, NamedTuple
+from typing import TYPE_CHECKING, Any, NamedTuple, Tuple
 
 if TYPE_CHECKING:
     from _typeshed import StrPath
@@ -53,7 +54,7 @@ DIRECTORIES_TO_TEST = [Path("stdlib"), Path("stubs")]
 
 ReturnCode: TypeAlias = int
 VersionString: TypeAlias = Annotated[str, "Must be one of the entries in SUPPORTED_VERSIONS"]
-VersionTuple: TypeAlias = tuple[int, int]
+VersionTuple: TypeAlias = Tuple[int, int]
 Platform: TypeAlias = Annotated[str, "Must be one of the entries in SUPPORTED_PLATFORMS"]
 
 
@@ -78,6 +79,21 @@ def valid_path(cmd_arg: str) -> Path:
 parser = argparse.ArgumentParser(
     description="Typecheck typeshed's stubs with mypy. Patterns are unanchored regexps on the full path."
 )
+if sys.version_info < (3, 8):
+
+    class ExtendAction(argparse.Action):
+        def __call__(
+            self,
+            parser: argparse.ArgumentParser,
+            namespace: argparse.Namespace,
+            values: Sequence[str],
+            option_string: object = None,
+        ) -> None:
+            items = getattr(namespace, self.dest) or []
+            items.extend(values)
+            setattr(namespace, self.dest, items)
+
+    parser.register("action", "extend", ExtendAction)
 parser.add_argument(
     "filter",
     type=valid_path,
@@ -323,7 +339,7 @@ def test_third_party_distribution(
 
     mypypath = os.pathsep.join(str(Path("stubs", dist)) for dist in seen_dists)
     if args.verbose:
-        print(colored(f"\n{mypypath=}", "blue"))
+        print(colored(f"\nMYPYPATH={mypypath}", "blue"))
     code = run_mypy(
         args,
         configurations,
