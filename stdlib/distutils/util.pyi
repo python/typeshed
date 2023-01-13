@@ -1,4 +1,4 @@
-from _typeshed import StrPath
+from _typeshed import StrPath, Unused
 from collections.abc import Callable, Container, Iterable, Mapping
 from typing import Any
 from typing_extensions import Literal
@@ -25,10 +25,7 @@ def byte_compile(
 ) -> None: ...
 def rfc822_escape(header: str) -> str: ...
 def run_2to3(
-    files: Iterable[str],
-    fixer_names: Iterable[str] | None = ...,
-    options: Mapping[str, Any] | None = ...,
-    explicit: Container[str] | None = ...,  # unused
+    files: Iterable[str], fixer_names: Iterable[str] | None = ..., options: Mapping[str, Any] | None = ..., explicit: Unused = ...
 ) -> None: ...
 def copydir_run_2to3(
     src: StrPath,

@@ -1,5 +1,5 @@
 import threading
-from _typeshed import Incomplete, ReadableBuffer, SupportsTrunc
+from _typeshed import Incomplete, ReadableBuffer, SupportsTrunc, Unused
 from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequence
 from logging import Logger, _Level as _LoggingLevel
 from typing import Any, SupportsInt
@@ -56,7 +56,7 @@ class Finalize:
     ) -> None: ...
     def __call__(
         self,
-        wr: object = ...,
+        wr: Unused = ...,
         _finalizer_registry: MutableMapping[Incomplete, Incomplete] = ...,
         sub_debug: Callable[..., object] = ...,
         getpid: Callable[[], int] = ...,
@@ -70,7 +70,7 @@ class ForkAwareThreadLock:
     acquire: Callable[[bool, float], bool]
     release: Callable[[], None]
     def __enter__(self) -> bool: ...
-    def __exit__(self, *args: object) -> None: ...
+    def __exit__(self, *args: Unused) -> None: ...  # noqa: Y036
 
 class ForkAwareLocal(threading.local): ...
 
