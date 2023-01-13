@@ -29,7 +29,3 @@ pkg_resources.to_filename
 
 # Only present if docutils is installed
 setuptools._distutils.command.check.SilentReporter
-
-# Shim for implementation details, unintended re-exports
-setuptools.msvc.environ
-setuptools.msvc.winreg
