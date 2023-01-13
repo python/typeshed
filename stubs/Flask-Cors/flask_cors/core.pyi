@@ -1,16 +1,15 @@
-from _typeshed import Incomplete
 from collections.abc import Iterable
 from datetime import timedelta
 from logging import Logger
 from re import Pattern
 from typing import Any, TypeVar, overload
-from typing_extensions import TypedDict
+from typing_extensions import TypeAlias, TypedDict
 
 import flask
-import werkzeug.datastructures
 
 _IterableT = TypeVar("_IterableT", bound=Iterable[Any])
 _T = TypeVar("_T")
+_MultiDict: TypeAlias = Any  # werkzeug is not part of typeshed
 
 class _Options(TypedDict, total=False):
     resources: dict[str, dict[str, Any]] | list[str] | str | None
@@ -45,9 +44,7 @@ def parse_resources(resources: dict[str, _Options] | Iterable[str] | str | Patte
 def get_regexp_pattern(regexp: str | Pattern[str]) -> str: ...
 def get_cors_origins(options: _Options, request_origin: str | None) -> list[str] | None: ...
 def get_allow_headers(options: _Options, acl_request_headers: str | None) -> str | None: ...
-def get_cors_headers(
-    options: _Options, request_headers: dict[str, Any], request_method: str
-) -> werkzeug.datastructures.MultiDict[Incomplete, Incomplete]: ...
+def get_cors_headers(options: _Options, request_headers: dict[str, Any], request_method: str) -> _MultiDict: ...
 def set_cors_headers(resp: flask.Response, options: _Options) -> flask.Response: ...
 def probably_regex(maybe_regex: str | Pattern[str]) -> bool: ...
 def re_fix(reg: str) -> str: ...
