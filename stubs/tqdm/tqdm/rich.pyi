@@ -1,20 +1,22 @@
 from _typeshed import Incomplete, SupportsWrite
 from collections.abc import Iterable, Mapping
-from typing import Generic, NoReturn, TypeVar, overload
+from typing import Any, Generic, NoReturn, TypeVar, overload
+from typing_extensions import TypeAlias
 
-from ._rich_shims import ProgressColumn
 from .std import tqdm as std_tqdm
 
 __all__ = ["tqdm_rich", "trrange", "tqdm", "trange"]
 
-class FractionColumn(ProgressColumn):
+_ProgressColumn: TypeAlias = Any  # Actually rich.progress.ProgressColumn
+
+class FractionColumn(_ProgressColumn):
     unit_scale: bool
     unit_divisor: int
 
     def __init__(self, unit_scale: bool = ..., unit_divisor: int = ...) -> None: ...
     def render(self, task): ...
 
-class RateColumn(ProgressColumn):
+class RateColumn(_ProgressColumn):
     unit: str
     unit_scale: bool
     unit_divisor: int
