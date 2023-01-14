@@ -1,5 +1,6 @@
 version = "4.4.0"
-requires = ["types-pyOpenSSL"]
+# Requires a version of cryptography with a `py.typed` file
+requires = ["types-pyOpenSSL", "cryptography>=35.0.0"]
 
 [tool.stubtest]
 extras = ["ocsp"]
