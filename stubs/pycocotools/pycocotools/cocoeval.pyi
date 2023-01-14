@@ -3,7 +3,7 @@ from typing_extensions import Literal, TypeAlias, TypedDict
 
 from .coco import COCO
 
-# TODO: Use numpy types when #5768 is resolved.
+# stub_uploader doesn't allow numpy because pycocotools doesn't declare it as a dependency
 # import numpy as np
 # import numpy.typing as npt
 
