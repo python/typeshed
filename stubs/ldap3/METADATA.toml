@@ -1,2 +1,6 @@
 version = "2.9.*"
 requires = ["types-pyasn1"]
+
+# No need to install on the CI. Leaving here as information for Windows contributors.
+# [tool.stubtest]
+# choco_dependencies = ["mitkerberos"]
