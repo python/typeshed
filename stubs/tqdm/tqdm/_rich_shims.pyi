@@ -1,12 +1,9 @@
 from _typeshed import Incomplete
 from abc import ABC, abstractmethod
-from collections.abc import Callable, Iterable
+from collections.abc import Iterable
 from dataclasses import dataclass
-from typing import NamedTuple, Protocol, runtime_checkable
+from typing import Protocol, runtime_checkable
 from typing_extensions import Literal, TypeAlias
-
-# rich.text
-Text: TypeAlias = str | Incomplete
 
 # rich.align
 VerticalAlignMethod: TypeAlias = Literal["top", "middle", "bottom"]
@@ -41,53 +38,11 @@ class Column(Protocol):
 Segment: TypeAlias = Incomplete
 
 # region rich.console
-HighlighterType: TypeAlias = Callable[[str | Text], Text]
 JustifyMethod: TypeAlias = Literal["default", "left", "center", "right", "full"]
 OverflowMethod: TypeAlias = Literal["fold", "crop", "ellipsis", "ignore"]
 RenderResult: TypeAlias = Iterable[RenderableType | Segment]
 Console: TypeAlias = Incomplete
-
-class NoChange: ...
-
-class ConsoleDimensions(NamedTuple):
-    width: int
-    height: int
-
-@dataclass
-class ConsoleOptions:
-    size: ConsoleDimensions
-    legacy_windows: bool
-    min_width: int
-    max_width: int
-    is_terminal: bool
-    encoding: str
-    max_height: int
-    justify: JustifyMethod | None
-    overflow: OverflowMethod | None
-    no_wrap: bool | None
-    highlight: bool | None
-    markup: bool | None
-    height: int | None
-    @property
-    def ascii_only(self) -> bool: ...
-    def copy(self) -> ConsoleOptions: ...
-    def update(
-        self,
-        *,
-        width: int | NoChange,
-        min_width: int | NoChange,
-        max_width: int | NoChange,
-        justify: JustifyMethod | None | NoChange,
-        overflow: OverflowMethod | None | NoChange,
-        no_wrap: bool | None | NoChange,
-        highlight: bool | None | NoChange,
-        markup: bool | None | NoChange,
-        height: int | None | NoChange,
-    ) -> ConsoleOptions: ...
-    def update_width(self, width: int) -> ConsoleOptions: ...
-    def update_height(self, height: int) -> ConsoleOptions: ...
-    def reset_height(self) -> ConsoleOptions: ...
-    def update_dimensions(self, width: int, height: int) -> ConsoleOptions: ...
+ConsoleOptions: TypeAlias = Incomplete
 
 @runtime_checkable
 class RichCast(Protocol):
