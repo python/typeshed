@@ -1,11 +1,5 @@
 from typing import Any
 
-class winreg:
-    HKEY_USERS: Any
-    HKEY_CURRENT_USER: Any
-    HKEY_LOCAL_MACHINE: Any
-    HKEY_CLASSES_ROOT: Any
-
 PLAT_SPEC_TO_RUNTIME: Any
 
 def msvc14_get_vc_env(plat_spec): ...
