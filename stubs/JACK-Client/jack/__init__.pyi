@@ -6,7 +6,7 @@ from typing_extensions import Literal
 
 import numpy
 from _cffi_backend import _CDataBase
-from numpy._typing import NDArray
+from numpy.typing import NDArray
 
 # Aka jack_position_t
 # Actual type: _cffi_backend.__CDataOwn <cdata 'struct _jack_position *'>
