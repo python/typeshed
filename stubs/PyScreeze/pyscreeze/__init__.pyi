@@ -8,7 +8,7 @@ from typing_extensions import Literal, ParamSpec, SupportsIndex, TypeAlias
 # stubsuploader won't let us add it to METADATA.toml `requires` either.
 # But we can still test it using stubtest, and if the user does not have numpy install,
 # it'll result in Any/Unknow, which is fine.
-import numpy  # type: ignore[import]  # pyright: reportMissingImports
+import numpy  # type: ignore[import]  # pyright: ignore[reportMissingImports]
 from PIL import Image
 
 _Unused: TypeAlias = object
@@ -19,7 +19,7 @@ _R = TypeVar("_R")
 # https://github.com/microsoft/python-type-stubs/tree/main/cv2
 # https://github.com/opencv/opencv/pull/20370
 # cv2.Mat is just an alias for a numpy NDArray
-_Mat: TypeAlias = numpy.ndarray[int, numpy.dtype[numpy.generic]]
+_Mat: TypeAlias = numpy.ndarray[int, numpy.dtype[numpy.generic]]  # pyright: ignore[reportUnknownMemberType]
 
 useOpenCV: bool
 RUNNING_PYTHON_2 = sys.version_info < (3,)
@@ -48,8 +48,8 @@ class ImageNotFoundException(PyScreezeException): ...
 def requiresPillow(wrappedFunction: Callable[_P, _R]) -> Callable[_P, _R]: ...
 @overload
 def locate(
-    needleImage: str | Image.Image | _Mat,  # pyright: ignore[reportUnknownVariableType]
-    haystackImage: str | Image.Image | _Mat,  # pyright: ignore[reportUnknownVariableType]
+    needleImage: str | Image.Image | _Mat,  # pyright: ignore[reportUnknownParameterType]
+    haystackImage: str | Image.Image | _Mat,  # pyright: ignore[reportUnknownParameterType]
     *,
     grayscale: bool | None = ...,
     limit: _Unused = ...,
@@ -74,7 +74,7 @@ def locate(
 # _locateAll_opencv
 @overload
 def locateOnScreen(
-    image: str | Image.Image | _Mat,  # pyright: ignore[reportUnknownVariableType]
+    image: str | Image.Image | _Mat,  # pyright: ignore[reportUnknownParameterType]
     minSearchTime: float = ...,
     *,
     grayscale: bool | None = ...,
@@ -100,7 +100,7 @@ def locateOnScreen(
 # _locateAll_opencv
 @overload
 def locateAllOnScreen(
-    image: str | Image.Image | _Mat,  # pyright: ignore[reportUnknownVariableType]
+    image: str | Image.Image | _Mat,  # pyright: ignore[reportUnknownParameterType]
     *,
     grayscale: bool | None = ...,
     limit: int = ...,
@@ -124,7 +124,7 @@ def locateAllOnScreen(
 # _locateAll_opencv
 @overload
 def locateCenterOnScreen(
-    image: str | Image.Image | _Mat,  # pyright: ignore[reportUnknownVariableType]
+    image: str | Image.Image | _Mat,  # pyright: ignore[reportUnknownParameterType]
     *,
     minSearchTime: float,
     grayscale: bool | None = ...,
@@ -150,7 +150,7 @@ def locateCenterOnScreen(
 # _locateAll_opencv
 @overload
 def locateOnWindow(
-    image: str | Image.Image | _Mat,  # pyright: ignore[reportUnknownVariableType]
+    image: str | Image.Image | _Mat,  # pyright: ignore[reportUnknownParameterType]
     title: str,
     *,
     grayscale: bool | None = ...,
@@ -182,8 +182,8 @@ grab = screenshot
 # _locateAll_opencv
 @overload
 def locateAll(
-    needleImage: str | Image.Image | _Mat,  # pyright: ignore[reportUnknownVariableType]
-    haystackImage: str | Image.Image | _Mat,  # pyright: ignore[reportUnknownVariableType]
+    needleImage: str | Image.Image | _Mat,  # pyright: ignore[reportUnknownParameterType]
+    haystackImage: str | Image.Image | _Mat,  # pyright: ignore[reportUnknownParameterType]
     grayscale: bool | None = ...,
     limit: int = ...,
     region: tuple[int, int, int, int] | None = ...,
