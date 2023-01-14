@@ -14,7 +14,7 @@ _R = TypeVar("_R")
 # https://github.com/microsoft/python-type-stubs/tree/main/cv2
 # https://github.com/opencv/opencv/pull/20370
 # cv2.Mat is just an alias for a numpy NDArray, but can't import that either.
-# Because pyscreeze does not declare it as a dependency, stubsuploader won't let it.
+# Because pyscreeze does not declare it as a dependency, stub_uploader won't let it.
 _Mat: TypeAlias = Incomplete
 
 useOpenCV: bool

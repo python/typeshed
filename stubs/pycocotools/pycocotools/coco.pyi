@@ -6,7 +6,7 @@ from typing_extensions import Literal, TypeAlias, TypedDict
 
 from . import _EncodedRLE
 
-# stub_uploader doesn't allow numpy because pycocotools doesn't declare it as a dependency
+# TODO: Use numpy types when #5768 is resolved.
 # import numpy as np
 # import numpy.typing as npt
 
