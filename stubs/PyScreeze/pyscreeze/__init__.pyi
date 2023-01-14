@@ -48,8 +48,8 @@ class ImageNotFoundException(PyScreezeException): ...
 def requiresPillow(wrappedFunction: Callable[_P, _R]) -> Callable[_P, _R]: ...
 @overload
 def locate(
-    needleImage: str | Image.Image | _Mat,
-    haystackImage: str | Image.Image | _Mat,
+    needleImage: str | Image.Image | _Mat,  # pyright: ignore[reportUnknownVariableType]
+    haystackImage: str | Image.Image | _Mat,  # pyright: ignore[reportUnknownVariableType]
     *,
     grayscale: bool | None = ...,
     limit: _Unused = ...,
@@ -74,7 +74,7 @@ def locate(
 # _locateAll_opencv
 @overload
 def locateOnScreen(
-    image: str | Image.Image | _Mat,
+    image: str | Image.Image | _Mat,  # pyright: ignore[reportUnknownVariableType]
     minSearchTime: float = ...,
     *,
     grayscale: bool | None = ...,
@@ -100,7 +100,7 @@ def locateOnScreen(
 # _locateAll_opencv
 @overload
 def locateAllOnScreen(
-    image: str | Image.Image | _Mat,
+    image: str | Image.Image | _Mat,  # pyright: ignore[reportUnknownVariableType]
     *,
     grayscale: bool | None = ...,
     limit: int = ...,
@@ -124,7 +124,7 @@ def locateAllOnScreen(
 # _locateAll_opencv
 @overload
 def locateCenterOnScreen(
-    image: str | Image.Image | _Mat,
+    image: str | Image.Image | _Mat,  # pyright: ignore[reportUnknownVariableType]
     *,
     minSearchTime: float,
     grayscale: bool | None = ...,
@@ -150,7 +150,7 @@ def locateCenterOnScreen(
 # _locateAll_opencv
 @overload
 def locateOnWindow(
-    image: str | Image.Image | _Mat,
+    image: str | Image.Image | _Mat,  # pyright: ignore[reportUnknownVariableType]
     title: str,
     *,
     grayscale: bool | None = ...,
@@ -182,8 +182,8 @@ grab = screenshot
 # _locateAll_opencv
 @overload
 def locateAll(
-    needleImage: str | Image.Image | _Mat,
-    haystackImage: str | Image.Image | _Mat,
+    needleImage: str | Image.Image | _Mat,  # pyright: ignore[reportUnknownVariableType]
+    haystackImage: str | Image.Image | _Mat,  # pyright: ignore[reportUnknownVariableType]
     grayscale: bool | None = ...,
     limit: int = ...,
     region: tuple[int, int, int, int] | None = ...,
