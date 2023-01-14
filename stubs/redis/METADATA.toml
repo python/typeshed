@@ -1,1 +1,2 @@
 version = "4.4.0"
+requires = ["types-pyOpenSSL", "cryptography"]
