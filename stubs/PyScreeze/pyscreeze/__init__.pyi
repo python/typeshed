@@ -1,17 +1,21 @@
 import sys
-from _typeshed import Incomplete, StrOrBytesPath
+from _typeshed import StrOrBytesPath
 from collections.abc import Callable, Generator
 from typing import NamedTuple, SupportsFloat, TypeVar, overload
 from typing_extensions import Literal, ParamSpec, SupportsIndex, TypeAlias
 
+import numpy
 from PIL import Image
 
 _Unused: TypeAlias = object
 _P = ParamSpec("_P")
 _R = TypeVar("_R")
-# TODO: cv2.Mat is not available as a type yet: https://github.com/microsoft/python-type-stubs/issues/211
-# cv2.Mat is just an alias for a numpy NDArray, but can't import that either.
-_Mat: TypeAlias = Incomplete
+# TODO: cv2.Mat is not available as a type yet:
+# https://github.com/microsoft/python-type-stubs/issues/211
+# https://github.com/microsoft/python-type-stubs/tree/main/cv2
+# https://github.com/opencv/opencv/pull/20370
+# cv2.Mat is just an alias for a numpy NDArray
+_Mat: TypeAlias = numpy.ndarray[int, numpy.dtype[numpy.generic]]
 
 useOpenCV: bool
 RUNNING_PYTHON_2 = sys.version_info < (3,)
