@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from ssl import SSLObject
+from ssl import SSLObject, SSLSocket
 from typing_extensions import Literal
 
 from cryptography.x509.base import Certificate
@@ -12,7 +12,7 @@ class OCSPVerifier:
     HOST: str
     PORT: int
     CA_CERTS: str | None
-    def __init__(self, sock: SSLObject, host: str, port: int, ca_certs: str | None = ...) -> None: ...
+    def __init__(self, sock: SSLObject | SSLSocket, host: str, port: int, ca_certs: str | None = ...) -> None: ...
     # cryptography.x509.general_name.GeneralName.value is typed as Any
     def components_from_socket(self) -> tuple[Certificate, Incomplete | None, Incomplete]: ...
     def components_from_direct_connection(self) -> tuple[Certificate, Incomplete | None, Incomplete]: ...
