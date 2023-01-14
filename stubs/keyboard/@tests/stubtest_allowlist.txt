@@ -2,7 +2,6 @@
 keyboard.KeyboardEvent.scan_code
 keyboard._keyboard_event.KeyboardEvent.scan_code
 # Defaults don't align with possible values
-keyboard.mouse.on_button
 keyboard.mouse.wait
 # TODO: Should this be allowlisted?
 keyboard.__main__

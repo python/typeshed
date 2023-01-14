@@ -1,5 +1,7 @@
 PIL.FpxImagePlugin
 PIL.ImageQt.ImageQt
-PIL.ImageQt.QImage  # Does exist at runtime usually, but stubtest can't see it
-PIL.ImageQt.QPixmap  # Does exist at runtime usually, but stubtest can't see it
 PIL.MicImagePlugin
+# Requires PySide or PyQt to be installed.
+# We don't install either in stubtest so it can't see it
+PIL.ImageQt.QImage
+PIL.ImageQt.QPixmap
