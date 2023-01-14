@@ -228,9 +228,8 @@ def read_dependencies(distribution: str) -> PackageDependencies:
     If a typeshed stub is removed, this function will consider it to be an external dependency.
     """
     pypi_name_to_typeshed_name_mapping = get_pypi_name_to_typeshed_name_mapping()
-    dependencies = read_metadata(distribution).requires
     typeshed, external = [], []
-    for dependency in dependencies:
+    for dependency in read_metadata(distribution).requires:
         maybe_typeshed_dependency = Requirement(dependency).name
         if maybe_typeshed_dependency in pypi_name_to_typeshed_name_mapping:
             typeshed.append(pypi_name_to_typeshed_name_mapping[maybe_typeshed_dependency])
