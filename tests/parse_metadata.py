@@ -1,4 +1,5 @@
 """Tools to help parse and validate information stored in METADATA.toml files."""
+from __future__ import annotations
 
 import os
 import re
