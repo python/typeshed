@@ -154,7 +154,7 @@ def read_metadata(distribution: str) -> StubMetadata:
     version = data["version"]
     assert isinstance(version, str)
     # Check that the version parses
-    Version(version.removesuffix(".*"))
+    Version(version[:-2] if version.endswith(".*") else version)
 
     requires = data.get("requires", [])
     assert isinstance(requires, list)
