@@ -1,7 +1,7 @@
 PIL.FpxImagePlugin
 PIL.ImageQt.ImageQt
 PIL.MicImagePlugin
-# Requires Pyside or PyQt to be installed.
+# Requires PySide or PyQt to be installed.
 # We don't install either in stubtest so it can't see it
 PIL.ImageQt.QImage
 PIL.ImageQt.QPixmap
