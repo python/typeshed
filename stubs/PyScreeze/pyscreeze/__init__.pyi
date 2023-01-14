@@ -4,7 +4,11 @@ from collections.abc import Callable, Generator
 from typing import NamedTuple, SupportsFloat, TypeVar, overload
 from typing_extensions import Literal, ParamSpec, SupportsIndex, TypeAlias
 
-import numpy
+# Because pyscreeze does not declare numpy as a dependency,
+# stubsuploader won't let us add it to METADATA.toml `requires` either.
+# But we can still test it using stubtest, and if the user does not have numpy install,
+# it'll result in Any/Unknow, which is fine.
+import numpy  # type: ignore[import]  # pyright: reportMissingImports
 from PIL import Image
 
 _Unused: TypeAlias = object
