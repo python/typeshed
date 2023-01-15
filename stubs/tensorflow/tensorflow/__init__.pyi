@@ -112,6 +112,7 @@ class Variable(Tensor, metaclass=_VariableMetaclass):
         synchronization: VariableSynchronization = VariableSynchronization.AUTO,
         aggregation: VariableAggregation = VariableAggregation.NONE,
         shape: _ShapeLike | None = None,
+        experimental_enable_variable_lifting: _bool = True,
     ) -> None: ...
     def __getattr__(self, name: str) -> Incomplete: ...
 
