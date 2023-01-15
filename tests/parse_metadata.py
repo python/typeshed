@@ -29,6 +29,10 @@ __all__ = [
 _STUBTEST_PLATFORM_MAPPING: Final = {"linux": "apt_dependencies", "darwin": "brew_dependencies", "win32": "choco_dependencies"}
 
 
+def _is_list_of_strings(obj: object) -> TypeGuard[list[str]]:
+    return isinstance(obj, list) and all(isinstance(item, str) for item in obj)
+
+
 @final
 @dataclass(frozen=True)
 class StubtestSettings:
@@ -48,12 +52,8 @@ class StubtestSettings:
     def system_requirements_for_platform(self, platform: str) -> list[str]:
         assert platform in _STUBTEST_PLATFORM_MAPPING, f"Unrecognised platform {platform!r}"
         ret = getattr(self, _STUBTEST_PLATFORM_MAPPING[platform])
-        assert isinstance(ret, list)
+        assert _is_list_of_strings(ret)
         return ret
-
-
-def _is_list_of_strings(obj: object) -> TypeGuard[list[str]]:
-    return isinstance(obj, list) and all(isinstance(item, str) for item in obj)
 
 
 @cache
