@@ -6,7 +6,8 @@ import re
 from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing_extensions import Annotated, Final, NamedTuple, TypeGuard, final
+from typing import NamedTuple
+from typing_extensions import Annotated, Final, TypeGuard, final
 
 import tomli
 from packaging.requirements import Requirement
