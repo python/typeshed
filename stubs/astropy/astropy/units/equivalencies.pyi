@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections import UserList
 
-class Equivalency(UserList):
+class Equivalency(UserList[Incomplete]):
     data: Incomplete
     name: Incomplete
     kwargs: Incomplete
