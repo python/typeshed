@@ -13,7 +13,7 @@ from typing import NoReturn
 
 import tomli
 
-from utils import colored, get_mypy_req, make_venv, print_error, print_success_msg
+from utils import colored, get_mypy_req, get_recursive_requirements, make_venv, print_error, print_success_msg
 
 
 def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: bool = False) -> bool:
@@ -58,11 +58,13 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
                 print_command_failure("Failed to install requirements", e)
                 return False
 
+        requirements = get_recursive_requirements(dist.name)
+
         # We need stubtest to be able to import the package, so install mypy into the venv
         # Hopefully mypy continues to not need too many dependencies
         # TODO: Maybe find a way to cache these in CI
         dists_to_install = [dist_req, get_mypy_req()]
-        dists_to_install.extend(metadata.get("requires", []))
+        dists_to_install.extend(requirements.external_pkgs)  # Internal requirements are added to MYPYPATH
         pip_cmd = [pip_exe, "install"] + dists_to_install
         try:
             subprocess.run(pip_cmd, check=True, capture_output=True)
@@ -85,13 +87,16 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
             *modules_to_check,
         ]
 
+        stubs_dir = dist.parent
+        mypypath_items = [str(dist)] + [str(stubs_dir / pkg) for pkg in requirements.typeshed_pkgs]
+        mypypath = os.pathsep.join(mypypath_items)
         # For packages that need a display, we need to pass at least $DISPLAY
         # to stubtest. $DISPLAY is set by xvfb-run in CI.
         #
         # It seems that some other environment variables are needed too,
         # because the CI fails if we pass only os.environ["DISPLAY"]. I didn't
         # "bisect" to see which variables are actually needed.
-        stubtest_env = os.environ | {"MYPYPATH": str(dist), "MYPY_FORCE_COLOR": "1"}
+        stubtest_env = os.environ | {"MYPYPATH": mypypath, "MYPY_FORCE_COLOR": "1"}
 
         allowlist_path = dist / "@tests/stubtest_allowlist.txt"
         if allowlist_path.exists():
@@ -104,7 +109,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
             subprocess.run(stubtest_cmd, env=stubtest_env, check=True, capture_output=True)
         except subprocess.CalledProcessError as e:
             print_error("fail")
-            print_commands(dist, pip_cmd, stubtest_cmd)
+            print_commands(dist, pip_cmd, stubtest_cmd, mypypath)
             print_command_output(e)
 
             print("Ran with the following environment:", file=sys.stderr)
@@ -126,15 +131,15 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
             print_success_msg()
 
     if verbose:
-        print_commands(dist, pip_cmd, stubtest_cmd)
+        print_commands(dist, pip_cmd, stubtest_cmd, mypypath)
 
     return True
 
 
-def print_commands(dist: Path, pip_cmd: list[str], stubtest_cmd: list[str]) -> None:
+def print_commands(dist: Path, pip_cmd: list[str], stubtest_cmd: list[str], mypypath: str) -> None:
     print(file=sys.stderr)
     print(" ".join(pip_cmd), file=sys.stderr)
-    print(f"MYPYPATH={dist}", " ".join(stubtest_cmd), file=sys.stderr)
+    print(f"MYPYPATH={mypypath}", " ".join(stubtest_cmd), file=sys.stderr)
     print(file=sys.stderr)
 
 
