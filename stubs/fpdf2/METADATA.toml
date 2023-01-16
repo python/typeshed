@@ -1,5 +1,5 @@
-version = "2.6.0"
-requires = ["types-Pillow"]
+version = "2.6.1"
+requires = ["cryptography", "types-Pillow"]
 
 [tool.stubtest]
 ignore_missing_stub = false
