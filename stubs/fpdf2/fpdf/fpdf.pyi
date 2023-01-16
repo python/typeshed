@@ -13,12 +13,10 @@ from PIL import Image
 from .annotations import AnnotationDict, PDFEmbeddedFile
 from .drawing import DrawingContext, PaintedPath
 from .enums import (
-    AccessPermission,
     Align,
     AnnotationFlag,
     AnnotationName,
     Corner,
-    EncryptionMethod,
     FileAttachmentAnnotationName,
     PageLayout,
     PathPaintRule,
