@@ -368,40 +368,6 @@ introduced in, say, Python 3.7.4, your check:
 When your stub contains if statements for different Python versions,
 always put the code for the most recent Python version first.
 
-### Incomplete stubs
-
-We accept partial stubs, especially for larger packages. These need to
-follow the following guidelines:
-
-* Included functions and methods must list all arguments, but the arguments
-  can be left unannotated. Do not use `Any` to mark unannotated arguments
-  or return values.
-* Partial classes must include a `__getattr__()` method marked with an
-  `# incomplete` comment (see example below).
-* Partial modules (i.e. modules that are missing some or all classes,
-  functions, or attributes) must include a top-level `__getattr__()`
-  function marked with an `Incomplete` return type (see example below).
-* Partial packages (i.e. packages that are missing one or more sub-modules)
-  must have a `__init__.pyi` stub that is marked as incomplete (see above).
-  A better alternative is to create empty stubs for all sub-modules and
-  mark them as incomplete individually.
-
-Example of a partial module with a partial class `Foo` and a partially
-annotated function `bar()`:
-
-```python
-from _typeshed import Incomplete
-
-class Foo:
-    def __getattr__(self, name: str) -> Incomplete: ...
-    x: int
-    y: str
-
-def bar(x: str, y, *, z=...): ...
-
-def __getattr__(name: str) -> Incomplete: ...
-```
-
 ## Stub file coding style
 
 ### Syntax example
@@ -524,6 +490,40 @@ into any of those categories, use your best judgement.
 * Use `HasX` for protocols that have readable and/or writable attributes
   or getter/setter methods (e.g. `HasItems`, `HasFileno`).
 
+### Incomplete stubs
+
+We accept partially annotated stubs, especially for larger packages.
+These need to follow the following guidelines:
+
+* A package must include all public submodules, all public classes,
+  functions and methods, and all other public fields.
+* Included functions and methods must list all arguments, but the argument
+  types and the return type can be left unannotated or only be partially
+  annotated.
+* A type can be partially annotated by using the `_typeshed.Incomplete`
+  marker. A field can be left unannotated by using `Incomplete` as well.
+  Do not use `Incomplete` unless it's syntactically required. See below for
+  an example.
+
+Example of an unannotated field and a partially annotated function:
+
+```python
+from _typeshed import Incomplete
+
+pub_field1: Incomplete  # unannotated
+pub_field2: list[Incomplete]  # partially annotated
+
+def pub_func(x: str, y, z: Incomplete | None = None) -> Any | None: ...
+```
+
+In this example, argument `x` is fully annotated and `y` is left unannotated.
+`Incomplete` is not used for `y` as it's not syntactically required.
+`z` is partially annotated; `None` is one of the allowed types, but other
+types are allowed as well, but this needs further investigation. The return
+type is fully annotated. In this case, the return type was investigated and
+it was found that it can't be fully represented using the current type system,
+which is why `Any` was used. A return type that could potentially be improved
+would be annotated as `Incomplete | None`.
 
 ## Submitting Changes
 
