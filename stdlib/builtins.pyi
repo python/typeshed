@@ -32,7 +32,7 @@ from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWra
 from types import CodeType, TracebackType, _Cell
 
 # mypy crashes if any of {ByteString, Sequence, MutableSequence, Mapping, MutableMapping} are imported from collections.abc in builtins.pyi
-from typing import (  # noqa: Y027
+from typing import (  # noqa: Y022
     IO,
     Any,
     BinaryIO,
