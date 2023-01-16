@@ -109,8 +109,8 @@ class Variable(Tensor, metaclass=_VariableMetaclass):
         dtype: _DTypeLike | None = None,
         import_scope: str | None = None,
         constraint: Callable[[Tensor], Tensor] | None = None,
-        synchronization: VariableSynchronization = VariableSynchronization.AUTO,
-        aggregation: VariableAggregation = VariableAggregation.NONE,
+        synchronization: VariableSynchronization = ...,
+        aggregation: VariableAggregation = ...,
         shape: _ShapeLike | None = None,
         experimental_enable_variable_lifting: _bool = True,
     ) -> None: ...
@@ -122,7 +122,7 @@ class RaggedTensor(metaclass=ABCMeta):
     ) -> Tensor: ...
     @classmethod
     def from_sparse(
-        cls, st_input: SparseTensor, name: str | None = None, row_splits_dtype: _DTypeLike = int64
+        cls, st_input: SparseTensor, name: str | None = None, row_splits_dtype: _DTypeLike = ...
     ) -> RaggedTensor: ...
     def to_sparse(self, name: str | None = None) -> SparseTensor: ...
     def to_tensor(

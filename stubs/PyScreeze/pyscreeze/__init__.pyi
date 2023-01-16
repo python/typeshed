@@ -18,7 +18,7 @@ _R = TypeVar("_R")
 _Mat: TypeAlias = Incomplete
 
 useOpenCV: bool
-RUNNING_PYTHON_2 = sys.version_info < (3,)
+RUNNING_PYTHON_2: Literal[False]
 GRAYSCALE_DEFAULT: Literal[False]
 USE_IMAGE_NOT_FOUND_EXCEPTION: bool
 scrotExists: bool
