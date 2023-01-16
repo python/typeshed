@@ -64,7 +64,7 @@ if sys.version_info >= (3, 11):
 _SysExcInfoType: TypeAlias = Union[tuple[type[BaseException], BaseException, TracebackType | None], tuple[None, None, None]]
 _ExcInfoType: TypeAlias = None | bool | _SysExcInfoType | BaseException
 _ArgsType: TypeAlias = tuple[object, ...] | Mapping[str, object]
-_FilterType: TypeAlias = Filter | Callable[[LogRecord], int]
+_FilterType: TypeAlias = Filter | Callable[[LogRecord], bool]
 _Level: TypeAlias = int | str
 _FormatStyle: TypeAlias = Literal["%", "{", "$"]
 
