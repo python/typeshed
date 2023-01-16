@@ -1,4 +1,3 @@
-import sys
 from _typeshed import Incomplete, StrOrBytesPath
 from collections.abc import Callable, Generator
 from typing import NamedTuple, SupportsFloat, TypeVar, overload
