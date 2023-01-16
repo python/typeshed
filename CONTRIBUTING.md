@@ -501,23 +501,22 @@ These need to follow the following guidelines:
   types and the return type can be left unannotated or only be partially
   annotated.
 * A type can be partially annotated by using the `_typeshed.Incomplete`
-  marker. A field can be left unannotated by using `Incomplete` as well.
-  Do not use `Incomplete` unless it's syntactically required. See below for
-  an example.
+  marker. Do not use `Incomplete` as the only type for argument or return
+  types. See below for an example.
 
-Example of an unannotated field and a partially annotated function:
+Example:
 
 ```python
 from _typeshed import Incomplete
 
-pub_field1: Incomplete  # unannotated
+pub_field1: Incomplete  # unannotated field with required annotation
 pub_field2: list[Incomplete]  # partially annotated
 
 def pub_func(x: str, y, z: Incomplete | None = None) -> Any | None: ...
 ```
 
 In this example, argument `x` is fully annotated and `y` is left unannotated.
-`Incomplete` is not used for `y` as it's not syntactically required.
+`Incomplete` is not used for `y`.
 `z` is partially annotated; `None` is one of the allowed types, but other
 types are allowed as well, but this needs further investigation. The return
 type is fully annotated. In this case, the return type was investigated and
