@@ -23,7 +23,6 @@
 #            Currently can't be enabled due to a few lingering bugs in mypy regarding
 #            PEP 604 type aliases (see #4819).
 
-#
 # A bugbear rule that has many false positives:
 #     B028   consider using the `!r` conversion flag instead of manually surrounding things in quotes
 
