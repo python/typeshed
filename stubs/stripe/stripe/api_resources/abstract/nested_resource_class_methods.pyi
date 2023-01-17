@@ -1,7 +1,8 @@
+from _typeshed import Incomplete
 from typing import Any
 
 from stripe import api_requestor as api_requestor
 
 def nested_resource_class_methods(
-    resource, path: Any | None = ..., operations: Any | None = ..., resource_plural: Any | None = ...
+    resource, path: Incomplete | None = ..., operations: Incomplete | None = ..., resource_plural: Incomplete | None = ...
 ): ...

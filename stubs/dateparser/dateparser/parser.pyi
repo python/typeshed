@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 import datetime
 from typing import Any
 
@@ -12,7 +13,7 @@ def get_unresolved_attrs(parser_object): ...
 
 date_order_chart: Any
 
-def resolve_date_order(order, lst: Any | None = ...): ...
+def resolve_date_order(order, lst: Incomplete | None = ...): ...
 
 class _time_parser:
     time_directives: Any

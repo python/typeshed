@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from _typeshed import Self
 from typing import Any, NoReturn
 
@@ -10,4 +11,4 @@ class ApplicationFeeRefund(UpdateableAPIResource):
     def modify(cls: type[Self], fee, sid: str, **params) -> Self: ...  # type: ignore[override]
     def instance_url(self) -> str: ...
     @classmethod
-    def retrieve(cls, id, api_key: Any | None = ..., **params) -> NoReturn: ...
+    def retrieve(cls, id, api_key: Incomplete | None = ..., **params) -> NoReturn: ...

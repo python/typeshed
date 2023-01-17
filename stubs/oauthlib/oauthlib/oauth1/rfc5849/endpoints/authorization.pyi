@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from typing import Any
 
 from .base import BaseEndpoint as BaseEndpoint
@@ -8,9 +9,9 @@ class AuthorizationEndpoint(BaseEndpoint):
         self,
         uri,
         http_method: str = ...,
-        body: Any | None = ...,
-        headers: Any | None = ...,
-        realms: Any | None = ...,
-        credentials: Any | None = ...,
+        body: Incomplete | None = ...,
+        headers: Incomplete | None = ...,
+        realms: Incomplete | None = ...,
+        credentials: Incomplete | None = ...,
     ): ...
-    def get_realms_and_credentials(self, uri, http_method: str = ..., body: Any | None = ..., headers: Any | None = ...): ...
+    def get_realms_and_credentials(self, uri, http_method: str = ..., body: Incomplete | None = ..., headers: Incomplete | None = ...): ...

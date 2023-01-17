@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from typing import Any
 
 from stripe.error import StripeError as StripeError
@@ -7,10 +8,10 @@ class OAuthError(StripeError):
         self,
         code,
         description,
-        http_body: Any | None = ...,
-        http_status: Any | None = ...,
-        json_body: Any | None = ...,
-        headers: Any | None = ...,
+        http_body: Incomplete | None = ...,
+        http_status: Incomplete | None = ...,
+        json_body: Incomplete | None = ...,
+        headers: Incomplete | None = ...,
     ) -> None: ...
     def construct_error_object(self): ...
 

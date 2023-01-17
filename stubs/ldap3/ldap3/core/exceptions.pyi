@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 import socket
 from _typeshed import Self
 from typing import Any
@@ -7,12 +8,12 @@ class LDAPException(Exception): ...
 class LDAPOperationResult(LDAPException):
     def __new__(
         cls: type[Self],
-        result: Any | None = ...,
-        description: Any | None = ...,
-        dn: Any | None = ...,
-        message: Any | None = ...,
-        response_type: Any | None = ...,
-        response: Any | None = ...,
+        result: Incomplete | None = ...,
+        description: Incomplete | None = ...,
+        dn: Incomplete | None = ...,
+        message: Incomplete | None = ...,
+        response_type: Incomplete | None = ...,
+        response: Incomplete | None = ...,
     ) -> Self: ...
     result: Any
     description: Any
@@ -22,12 +23,12 @@ class LDAPOperationResult(LDAPException):
     response: Any
     def __init__(
         self,
-        result: Any | None = ...,
-        description: Any | None = ...,
-        dn: Any | None = ...,
-        message: Any | None = ...,
-        response_type: Any | None = ...,
-        response: Any | None = ...,
+        result: Incomplete | None = ...,
+        description: Incomplete | None = ...,
+        dn: Incomplete | None = ...,
+        message: Incomplete | None = ...,
+        response_type: Incomplete | None = ...,
+        response: Incomplete | None = ...,
     ) -> None: ...
 
 class LDAPOperationsErrorResult(LDAPOperationResult): ...

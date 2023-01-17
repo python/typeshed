@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from typing import Any, NoReturn
 
 from stripe import error as error
@@ -16,5 +17,5 @@ class BankAccount(DeletableAPIResource, UpdateableAPIResource, VerifyMixin):
     def modify(cls, sid, **params) -> NoReturn: ...
     @classmethod
     def retrieve(
-        cls, id, api_key: Any | None = ..., stripe_version: Any | None = ..., stripe_account: Any | None = ..., **params
+        cls, id, api_key: Incomplete | None = ..., stripe_version: Incomplete | None = ..., stripe_account: Incomplete | None = ..., **params
     ) -> NoReturn: ...

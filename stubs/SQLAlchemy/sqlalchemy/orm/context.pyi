@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from _typeshed import Incomplete
 from typing import Any
 
 from ..sql.base import CacheableOptions, CompileState, Options
@@ -37,8 +38,8 @@ class QueryContext:
         params,
         session,
         load_options,
-        execution_options: Any | None = ...,
-        bind_arguments: Any | None = ...,
+        execution_options: Incomplete | None = ...,
+        bind_arguments: Incomplete | None = ...,
     ) -> None: ...
 
 class ORMCompileState(CompileState):

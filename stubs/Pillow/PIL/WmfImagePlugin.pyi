@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 import sys
 from typing import Any, ClassVar
 from typing_extensions import Literal
@@ -15,4 +16,4 @@ if sys.platform == "win32":
 class WmfStubImageFile(StubImageFile):
     format: ClassVar[Literal["WMF"]]
     format_description: ClassVar[str]
-    def load(self, dpi: Any | None = ...) -> None: ...
+    def load(self, dpi: Incomplete | None = ...) -> None: ...

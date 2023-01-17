@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from typing import Any
 
 from braintree.configuration import Configuration as Configuration
@@ -10,4 +11,4 @@ from braintree.util.http import Http as Http
 
 class SettlementBatchSummary(Resource):
     @staticmethod
-    def generate(settlement_date, group_by_custom_field: Any | None = ...): ...
+    def generate(settlement_date, group_by_custom_field: Incomplete | None = ...): ...

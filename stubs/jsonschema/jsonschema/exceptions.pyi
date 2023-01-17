@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from _typeshed import Self, SupportsRichComparison
 from collections import deque
 from collections.abc import Callable, Container, Iterable, Sequence
@@ -30,7 +31,7 @@ class _Error(Exception):
         message: str,
         validator: _utils.Unset | None | protocols.Validator = ...,
         path: Sequence[str | int] = ...,
-        cause: Any | None = ...,
+        cause: Incomplete | None = ...,
         context: Sequence[ValidationError] = ...,
         validator_value=...,
         instance: Any = ...,
@@ -70,7 +71,7 @@ class UnknownType(Exception):
 class FormatError(Exception):
     message: Any
     cause: Any
-    def __init__(self, message, cause: Any | None = ...) -> None: ...
+    def __init__(self, message, cause: Incomplete | None = ...) -> None: ...
 
 class ErrorTree:
     errors: Any

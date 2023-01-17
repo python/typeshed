@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from _typeshed import Self
 from typing import Any
 
@@ -8,9 +9,9 @@ class CreateableAPIResource(APIResource):
     @classmethod
     def create(
         cls: type[Self],
-        api_key: Any | None = ...,
+        api_key: Incomplete | None = ...,
         idempotency_key: str | None = ...,
-        stripe_version: Any | None = ...,
-        stripe_account: Any | None = ...,
+        stripe_version: Incomplete | None = ...,
+        stripe_account: Incomplete | None = ...,
         **params,
     ) -> Self: ...

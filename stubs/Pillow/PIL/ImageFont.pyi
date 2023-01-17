@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from _typeshed import StrOrBytesPath, SupportsRead
 from typing import Any, Protocol
 from typing_extensions import Literal
@@ -33,7 +34,7 @@ class FreeTypeFont:
         text: str | bytes,
         mode: str = ...,
         direction: Literal["ltr", "rtl", "ttb"] | None = ...,
-        features: Any | None = ...,
+        features: Incomplete | None = ...,
         language: str | None = ...,
     ) -> int: ...
     def getbbox(
@@ -50,7 +51,7 @@ class FreeTypeFont:
         self,
         text: str | bytes,
         direction: Literal["ltr", "rtl", "ttb"] | None = ...,
-        features: Any | None = ...,
+        features: Incomplete | None = ...,
         language: str | None = ...,
         stroke_width: int = ...,
     ) -> tuple[int, int]: ...
@@ -59,7 +60,7 @@ class FreeTypeFont:
         text: str | bytes,
         direction: Literal["ltr", "rtl", "ttb"] | None = ...,
         spacing: float = ...,
-        features: Any | None = ...,
+        features: Incomplete | None = ...,
         language: str | None = ...,
         stroke_width: float = ...,
     ) -> tuple[int, int]: ...
@@ -69,7 +70,7 @@ class FreeTypeFont:
         text: str | bytes,
         mode: str = ...,
         direction: Literal["ltr", "rtl", "ttb"] | None = ...,
-        features: Any | None = ...,
+        features: Incomplete | None = ...,
         language: str | None = ...,
         stroke_width: float = ...,
         anchor: str | None = ...,
@@ -82,7 +83,7 @@ class FreeTypeFont:
         mode: str = ...,
         fill=...,
         direction: Literal["ltr", "rtl", "ttb"] | None = ...,
-        features: Any | None = ...,
+        features: Incomplete | None = ...,
         language: str | None = ...,
         stroke_width: float = ...,
         anchor: str | None = ...,

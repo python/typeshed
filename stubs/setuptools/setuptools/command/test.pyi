@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from _typeshed import Self
 from collections.abc import Callable
 from types import ModuleType
@@ -10,7 +11,7 @@ _T = TypeVar("_T")
 
 class ScanningLoader(TestLoader):
     def __init__(self) -> None: ...
-    def loadTestsFromModule(self, module: ModuleType, pattern: Any | None = ...) -> list[TestSuite]: ...  # type: ignore[override]
+    def loadTestsFromModule(self, module: ModuleType, pattern: Incomplete | None = ...) -> list[TestSuite]: ...  # type: ignore[override]
 
 class NonDataProperty(Generic[_T]):
     fget: Callable[..., _T]

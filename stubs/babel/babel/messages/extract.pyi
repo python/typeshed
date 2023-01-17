@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from _typeshed import SupportsItems, SupportsRead, SupportsReadline
 from collections.abc import Callable, Collection, Generator, Iterable, Mapping
 from os import PathLike
@@ -41,7 +42,7 @@ def check_and_call_extract_file(
     keywords: Mapping[str, _Keyword],
     comment_tags: Collection[str],
     strip_comment_tags,
-    dirpath: Any | None = ...,
+    dirpath: Incomplete | None = ...,
 ) -> Generator[tuple[AnyStr, int, str | tuple[str, ...], list[str], str | None], None, None]: ...
 def extract_from_file(
     method,

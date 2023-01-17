@@ -1,10 +1,11 @@
+from _typeshed import Incomplete
 from collections.abc import Iterable, Iterator
 from typing import Any
 
 from .key import Key
 
 def bucket_lister(
-    bucket, prefix: str = ..., delimiter: str = ..., marker: str = ..., headers: Any | None = ..., encoding_type: Any | None = ...
+    bucket, prefix: str = ..., delimiter: str = ..., marker: str = ..., headers: Incomplete | None = ..., encoding_type: Incomplete | None = ...
 ): ...
 
 class BucketListResultSet(Iterable[Key]):
@@ -16,12 +17,12 @@ class BucketListResultSet(Iterable[Key]):
     encoding_type: Any
     def __init__(
         self,
-        bucket: Any | None = ...,
+        bucket: Incomplete | None = ...,
         prefix: str = ...,
         delimiter: str = ...,
         marker: str = ...,
-        headers: Any | None = ...,
-        encoding_type: Any | None = ...,
+        headers: Incomplete | None = ...,
+        encoding_type: Incomplete | None = ...,
     ) -> None: ...
     def __iter__(self) -> Iterator[Key]: ...
 
@@ -31,8 +32,8 @@ def versioned_bucket_lister(
     delimiter: str = ...,
     key_marker: str = ...,
     version_id_marker: str = ...,
-    headers: Any | None = ...,
-    encoding_type: Any | None = ...,
+    headers: Incomplete | None = ...,
+    encoding_type: Incomplete | None = ...,
 ): ...
 
 class VersionedBucketListResultSet:
@@ -45,18 +46,18 @@ class VersionedBucketListResultSet:
     encoding_type: Any
     def __init__(
         self,
-        bucket: Any | None = ...,
+        bucket: Incomplete | None = ...,
         prefix: str = ...,
         delimiter: str = ...,
         key_marker: str = ...,
         version_id_marker: str = ...,
-        headers: Any | None = ...,
-        encoding_type: Any | None = ...,
+        headers: Incomplete | None = ...,
+        encoding_type: Incomplete | None = ...,
     ) -> None: ...
     def __iter__(self) -> Iterator[Key]: ...
 
 def multipart_upload_lister(
-    bucket, key_marker: str = ..., upload_id_marker: str = ..., headers: Any | None = ..., encoding_type: Any | None = ...
+    bucket, key_marker: str = ..., upload_id_marker: str = ..., headers: Incomplete | None = ..., encoding_type: Incomplete | None = ...
 ): ...
 
 class MultiPartUploadListResultSet:
@@ -67,10 +68,10 @@ class MultiPartUploadListResultSet:
     encoding_type: Any
     def __init__(
         self,
-        bucket: Any | None = ...,
+        bucket: Incomplete | None = ...,
         key_marker: str = ...,
         upload_id_marker: str = ...,
-        headers: Any | None = ...,
-        encoding_type: Any | None = ...,
+        headers: Incomplete | None = ...,
+        encoding_type: Incomplete | None = ...,
     ) -> None: ...
     def __iter__(self): ...

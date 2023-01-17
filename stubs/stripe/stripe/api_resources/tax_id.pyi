@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from typing import Any, NoReturn
 
 from stripe.api_resources.abstract import APIResource as APIResource
@@ -7,4 +8,4 @@ class TaxId(APIResource):
     OBJECT_NAME: str
     def instance_url(self) -> str: ...
     @classmethod
-    def retrieve(cls, id, api_key: Any | None = ..., **params) -> NoReturn: ...
+    def retrieve(cls, id, api_key: Incomplete | None = ..., **params) -> NoReturn: ...

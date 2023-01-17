@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from _typeshed import (
     Incomplete,
     OpenBinaryModeReading,
@@ -35,8 +36,8 @@ class Output(TransformSpec):
     default_destination_path: ClassVar[str | None]
     def __init__(
         self,
-        destination: Any | None = ...,
-        destination_path: Any | None = ...,
+        destination: Incomplete | None = ...,
+        destination_path: Incomplete | None = ...,
         encoding: str | None = ...,
         error_handler: str = ...,
     ) -> None: ...
@@ -58,8 +59,8 @@ class ErrorOutput:
 class FileInput(Input):
     def __init__(
         self,
-        source: Any | None = ...,
-        source_path: Any | None = ...,
+        source: Incomplete | None = ...,
+        source_path: Incomplete | None = ...,
         encoding: str | None = ...,
         error_handler: str = ...,
         autoclose: bool = ...,

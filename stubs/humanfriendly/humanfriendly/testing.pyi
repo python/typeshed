@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 import unittest
 from types import TracebackType
 from typing import Any
@@ -62,7 +63,7 @@ class MockedProgram(CustomSearchPath):
     program_returncode: Any
     program_script: Any
     program_signal_file: Any
-    def __init__(self, name, returncode: int = ..., script: Any | None = ...) -> None: ...
+    def __init__(self, name, returncode: int = ..., script: Incomplete | None = ...) -> None: ...
     def __enter__(self): ...
     def __exit__(self, *args, **kw): ...
 

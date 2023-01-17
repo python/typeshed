@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from _typeshed import Self
 from typing import Any
 
@@ -6,7 +7,7 @@ from stripe.stripe_object import StripeObject as StripeObject
 
 class APIResource(StripeObject):
     @classmethod
-    def retrieve(cls: type[Self], id, api_key: Any | None = ..., **params) -> Self: ...
+    def retrieve(cls: type[Self], id, api_key: Incomplete | None = ..., **params) -> Self: ...
     def refresh(self: Self) -> Self: ...
     @classmethod
     def class_url(cls) -> str: ...

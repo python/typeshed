@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from typing import Any, NoReturn
 
 from stripe.api_resources.abstract import UpdateableAPIResource as UpdateableAPIResource
@@ -9,4 +10,4 @@ class Person(UpdateableAPIResource):
     @classmethod
     def modify(cls, sid, **params) -> NoReturn: ...
     @classmethod
-    def retrieve(cls, id, api_key: Any | None = ..., **params) -> NoReturn: ...
+    def retrieve(cls, id, api_key: Incomplete | None = ..., **params) -> NoReturn: ...
