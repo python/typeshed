@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from typing import Any, ClassVar
 from typing_extensions import Literal, TypeAlias
 
@@ -13,4 +14,9 @@ class FpxImageFile(ImageFile):
     format: ClassVar[Literal["FPX"]]
     format_description: ClassVar[str]
     fp: _OleStream | None
+    maxid: int
+    rawmode: str
+    jpeg: dict[int, Incomplete]
+    tile_prefix: Incomplete
+    stream: list[str]
     def load(self): ...
