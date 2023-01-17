@@ -147,7 +147,8 @@ class FPDF:
         format: _Format | tuple[float, float] = ...,
         font_cache_dir: Literal["DEPRECATED"] = ...,
     ) -> None: ...
-    # The following definition crashes stubtest.
+    # The following definition crashes stubtest 0.991, but seems to be fixed
+    # in later versions.
     # def set_encryption(
     #    self,
     #    owner_password: str,
