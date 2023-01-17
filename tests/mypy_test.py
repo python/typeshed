@@ -434,7 +434,7 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
 
     venv_start_time = time.perf_counter()
 
-    with concurrent.futures.ThreadPoolExecutor() as executor:
+    with concurrent.futures.ProcessPoolExecutor() as executor:
         venv_info_futures = [
             executor.submit(setup_venv_for_external_requirements_set, requirements_set, tempdir)
             for requirements_set in external_requirements_to_distributions

@@ -162,7 +162,6 @@ builtins.memoryview.cast  # inspect.signature is incorrect about shape being kw-
 # C signature is broader than what is actually accepted
 queue.SimpleQueue.__init__
 
-uuid.getnode  # undocumented, unused parameter getters that was later removed
 types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
 
 # Runtime signature is incorrect (https://github.com/python/cpython/issues/93021)

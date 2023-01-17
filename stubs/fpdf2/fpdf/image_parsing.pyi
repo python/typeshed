@@ -1,8 +1,11 @@
 from typing import Any
 from typing_extensions import Literal, TypeAlias
 
+from PIL.Image import Resampling
+
 _ImageFilter: TypeAlias = Literal["AUTO", "FlateDecode", "DCTDecode", "JPXDecode"]
 
+RESAMPLE: Resampling
 SUPPORTED_IMAGE_FILTERS: tuple[_ImageFilter, ...]
 
 def load_image(filename): ...

@@ -16,7 +16,7 @@ from collections.abc import (
 from importlib.machinery import ModuleSpec
 
 # pytype crashes if types.MappingProxyType inherits from collections.abc.Mapping instead of typing.Mapping
-from typing import Any, ClassVar, Generic, Mapping, Protocol, TypeVar, overload  # noqa: Y027
+from typing import Any, ClassVar, Generic, Mapping, Protocol, TypeVar, overload  # noqa: Y022
 from typing_extensions import Literal, ParamSpec, final
 
 __all__ = [
@@ -413,7 +413,7 @@ class _StaticFunctionType:
     # By wrapping FunctionType in _StaticFunctionType, we get the right result;
     # similar to wrapping a function in staticmethod() at runtime to prevent it
     # being bound as a method.
-    def __get__(self, obj: object | None, type: type | None) -> FunctionType: ...
+    def __get__(self, obj: object, type: type | None) -> FunctionType: ...
 
 @final
 class MethodType:

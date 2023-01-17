@@ -1,6 +1,6 @@
 import ssl
 import sys
-from _typeshed import FileDescriptorLike, ReadableBuffer, Self, StrPath, WriteableBuffer
+from _typeshed import FileDescriptorLike, ReadableBuffer, Self, StrPath, Unused, WriteableBuffer
 from abc import ABCMeta, abstractmethod
 from collections.abc import Awaitable, Callable, Coroutine, Generator, Sequence
 from contextvars import Context
@@ -96,7 +96,7 @@ class AbstractServer:
     @abstractmethod
     def close(self) -> None: ...
     async def __aenter__(self: Self) -> Self: ...
-    async def __aexit__(self, *exc: object) -> None: ...
+    async def __aexit__(self, *exc: Unused) -> None: ...
     @abstractmethod
     def get_loop(self) -> AbstractEventLoop: ...
     @abstractmethod

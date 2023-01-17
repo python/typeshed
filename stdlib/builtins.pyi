@@ -32,7 +32,7 @@ from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWra
 from types import CodeType, TracebackType, _Cell
 
 # mypy crashes if any of {ByteString, Sequence, MutableSequence, Mapping, MutableMapping} are imported from collections.abc in builtins.pyi
-from typing import (  # noqa: Y027
+from typing import (  # noqa: Y022
     IO,
     Any,
     BinaryIO,
@@ -953,7 +953,7 @@ class function:
 
     __module__: str
     # mypy uses `builtins.function.__get__` to represent methods, properties, and getset_descriptors so we type the return as Any.
-    def __get__(self, obj: object | None, type: type | None = ...) -> Any: ...
+    def __get__(self, obj: object, type: type | None = ...) -> Any: ...
 
 class list(MutableSequence[_T], Generic[_T]):
     @overload

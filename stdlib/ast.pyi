@@ -1,7 +1,7 @@
 import os
 import sys
 from _ast import *
-from _typeshed import ReadableBuffer
+from _typeshed import ReadableBuffer, Unused
 from collections.abc import Iterator
 from typing import Any, TypeVar, overload
 from typing_extensions import Literal
@@ -9,7 +9,7 @@ from typing_extensions import Literal
 if sys.version_info >= (3, 8):
     class _ABC(type):
         if sys.version_info >= (3, 9):
-            def __init__(cls, *args: object) -> None: ...
+            def __init__(cls, *args: Unused) -> None: ...
 
     class Num(Constant, metaclass=_ABC):
         value: int | float | complex

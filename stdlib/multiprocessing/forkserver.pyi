@@ -1,4 +1,4 @@
-from _typeshed import FileDescriptorLike
+from _typeshed import FileDescriptorLike, Unused
 from collections.abc import Sequence
 from struct import Struct
 from typing import Any
@@ -19,7 +19,7 @@ def main(
     alive_r: FileDescriptorLike,
     preload: Sequence[str],
     main_path: str | None = ...,
-    sys_path: object | None = ...,
+    sys_path: Unused = ...,
 ) -> None: ...
 def read_signed(fd: int) -> Any: ...
 def write_signed(fd: int, n: int) -> None: ...
