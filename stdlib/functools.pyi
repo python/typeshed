@@ -3,7 +3,7 @@ import types
 from _typeshed import IdentityFunction, Self, SupportsAllComparisons, SupportsItems
 from collections.abc import Callable, Hashable, Iterable, Sequence, Sized
 from typing import Any, Generic, NamedTuple, Type, TypeVar, overload
-from typing_extensions import Concatenate, Literal, ParamSpec, TypeAlias, final
+from typing_extensions import Concatenate, Literal, ParamSpec, Self, TypeAlias, final
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -109,7 +109,7 @@ class partialmethod(Generic[_T]):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 class _SingleDispatchCallable(Generic[_S, _P, _T]):
-    registry: types.MappingProxyType[Any, Callable[_P, _T]]
+    registry: types.MappingProxyType[Any, Callable[Concatenate[_S, _P], _T]]
     def dispatch(self, cls: Type[_T1]) -> Callable[Concatenate[_T1, _P], _T]: ...
     # @fun.register(complex)
     # def _(arg, verbose=False): ...
@@ -148,7 +148,10 @@ if sys.version_info >= (3, 8):
         def register(
             self, cls: type[_T1], method: Callable[Concatenate[_T2, _T1, _P], _T]
         ) -> Callable[Concatenate[_T2, _T1, _P], _T]: ...
-        def __get__(self, obj: _T1, cls: _T1 | None = ...) -> Callable[Concatenate[_T2, _S, _P], _T]: ...
+        @overload
+        def __get__(self, obj: None, cls: Self | None = ...) -> Callable[Concatenate[_T2, _S, _P], _T]: ...
+        @overload
+        def __get__(self, obj: Self, cls: Self | None = ...) -> Callable[Concatenate[_S, _P], _T]: ...
 
     class cached_property(Generic[_T]):
         func: Callable[[Any], _T]
