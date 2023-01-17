@@ -2,7 +2,7 @@ import sys
 import types
 from _typeshed import IdentityFunction, Self, SupportsAllComparisons, SupportsItems
 from collections.abc import Callable, Hashable, Iterable, Sequence, Sized
-from typing import Any, Generic, NamedTuple, TypeVar, overload, Type
+from typing import Any, Generic, NamedTuple, Type, TypeVar, overload
 from typing_extensions import Concatenate, Literal, ParamSpec, TypeAlias, final
 
 if sys.version_info >= (3, 9):
