@@ -1,5 +1,5 @@
-from _typeshed import Incomplete
 import datetime
+from _typeshed import Incomplete
 from re import Pattern
 from types import TracebackType
 from typing import Any, NamedTuple

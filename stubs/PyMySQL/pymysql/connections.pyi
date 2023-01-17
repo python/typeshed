@@ -1,5 +1,4 @@
-from _typeshed import Incomplete
-from _typeshed import Self
+from _typeshed import Incomplete, Self
 from collections.abc import Mapping
 from socket import socket as _socket
 from typing import Any, AnyStr, Generic, TypeVar, overload

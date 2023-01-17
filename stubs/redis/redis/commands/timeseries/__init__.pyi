@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from _typeshed import Incomplete
 from typing import Any
 
 from ...client import Pipeline as ClientPipeline

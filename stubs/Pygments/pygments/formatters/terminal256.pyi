@@ -12,7 +12,12 @@ class EscapeSequence:
     underline: Any
     italic: Any
     def __init__(
-        self, fg: Incomplete | None = ..., bg: Incomplete | None = ..., bold: bool = ..., underline: bool = ..., italic: bool = ...
+        self,
+        fg: Incomplete | None = ...,
+        bg: Incomplete | None = ...,
+        bold: bool = ...,
+        underline: bool = ...,
+        italic: bool = ...,
     ) -> None: ...
     def escape(self, attrs): ...
     def color_string(self): ...

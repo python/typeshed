@@ -1,5 +1,5 @@
-from _typeshed import Incomplete
 import timeit
+from _typeshed import Incomplete
 from collections.abc import Generator
 from hmac import compare_digest
 from typing import Any

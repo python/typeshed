@@ -1,6 +1,5 @@
-from _typeshed import Incomplete
 import abc
-from _typeshed import Self
+from _typeshed import Incomplete, Self
 from typing import Any, ClassVar
 
 from passlib.ifc import PasswordHash
@@ -13,7 +12,9 @@ UC_HEX_CHARS = UPPER_HEX_CHARS
 LC_HEX_CHARS = LOWER_HEX_CHARS
 
 def parse_mc2(hash, prefix, sep=..., handler: Incomplete | None = ...): ...
-def parse_mc3(hash, prefix, sep=..., rounds_base: int = ..., default_rounds: Incomplete | None = ..., handler: Incomplete | None = ...): ...
+def parse_mc3(
+    hash, prefix, sep=..., rounds_base: int = ..., default_rounds: Incomplete | None = ..., handler: Incomplete | None = ...
+): ...
 def render_mc2(ident, salt, checksum, sep=...): ...
 def render_mc3(ident, rounds, salt, checksum, sep=..., rounds_base: int = ...): ...
 
@@ -151,7 +152,14 @@ class PrefixWrapper:
     orig_prefix: Any
     __doc__: Any
     def __init__(
-        self, name, wrapped, prefix=..., orig_prefix=..., lazy: bool = ..., doc: Incomplete | None = ..., ident: Incomplete | None = ...
+        self,
+        name,
+        wrapped,
+        prefix=...,
+        orig_prefix=...,
+        lazy: bool = ...,
+        doc: Incomplete | None = ...,
+        ident: Incomplete | None = ...,
     ) -> None: ...
     @property
     def wrapped(self): ...

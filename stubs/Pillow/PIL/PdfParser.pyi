@@ -1,5 +1,5 @@
-from _typeshed import Incomplete
 import collections
+from _typeshed import Incomplete
 from typing import Any
 
 def encode_text(s: str) -> bytes: ...
@@ -87,7 +87,12 @@ class PdfParser:
     trailer_dict: Any
     xref_table: Any
     def __init__(
-        self, filename: Incomplete | None = ..., f: Incomplete | None = ..., buf: Incomplete | None = ..., start_offset: int = ..., mode: str = ...
+        self,
+        filename: Incomplete | None = ...,
+        f: Incomplete | None = ...,
+        buf: Incomplete | None = ...,
+        start_offset: int = ...,
+        mode: str = ...,
     ) -> None: ...
     def __enter__(self): ...
     def __exit__(self, exc_type, exc_value, traceback): ...

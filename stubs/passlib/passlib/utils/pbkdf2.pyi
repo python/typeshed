@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Any
 
 from passlib.crypto.digest import norm_hash_name as norm_hash_name
 

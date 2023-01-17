@@ -1,6 +1,5 @@
-from _typeshed import Incomplete
 import http.client
-from _typeshed import Self
+from _typeshed import Incomplete, Self
 from collections.abc import Generator
 from typing import Any, ClassVar
 
@@ -103,7 +102,9 @@ class ProxyInfo:
 
 class HTTPConnectionWithTimeout(http.client.HTTPConnection):
     proxy_info: Any
-    def __init__(self, host, port: Incomplete | None = ..., timeout: Incomplete | None = ..., proxy_info: Incomplete | None = ...) -> None: ...
+    def __init__(
+        self, host, port: Incomplete | None = ..., timeout: Incomplete | None = ..., proxy_info: Incomplete | None = ...
+    ) -> None: ...
     sock: Any
     def connect(self) -> None: ...
 

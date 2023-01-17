@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Any, NoReturn
+from typing import NoReturn
 
 from stripe.api_resources.abstract import UpdateableAPIResource as UpdateableAPIResource
 from stripe.api_resources.transfer import Transfer as Transfer

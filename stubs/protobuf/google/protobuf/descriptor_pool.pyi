@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Any
 
 class DescriptorPool:
     def __new__(cls, descriptor_db: Incomplete | None = ...): ...

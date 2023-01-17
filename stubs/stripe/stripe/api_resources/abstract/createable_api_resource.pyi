@@ -1,6 +1,4 @@
-from _typeshed import Incomplete
-from _typeshed import Self
-from typing import Any
+from _typeshed import Incomplete, Self
 
 from stripe import api_requestor as api_requestor
 from stripe.api_resources.abstract.api_resource import APIResource as APIResource

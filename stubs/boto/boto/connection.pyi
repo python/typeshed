@@ -1,5 +1,5 @@
-from _typeshed import Incomplete
 import http.client
+from _typeshed import Incomplete
 from typing import Any
 
 HAVE_HTTPS_CONNECTION: bool

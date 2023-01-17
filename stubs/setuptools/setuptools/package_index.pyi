@@ -1,5 +1,5 @@
-from _typeshed import Incomplete
 import configparser
+from _typeshed import Incomplete
 from typing import Any
 
 from pkg_resources import Environment

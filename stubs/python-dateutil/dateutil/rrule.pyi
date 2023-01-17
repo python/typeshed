@@ -1,5 +1,5 @@
-from _typeshed import Incomplete
 import datetime
+from _typeshed import Incomplete
 from collections.abc import Iterable
 from typing import Any
 from typing_extensions import TypeAlias

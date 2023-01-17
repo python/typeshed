@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Any, NoReturn
+from typing import NoReturn
 
 from stripe.api_resources.abstract import APIResource as APIResource
 from stripe.api_resources.customer import Customer as Customer

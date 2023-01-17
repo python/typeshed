@@ -1,5 +1,5 @@
-from _typeshed import Incomplete
 import gettext
+from _typeshed import Incomplete
 from datetime import date as _date, datetime as _datetime, time as _time, timedelta as _timedelta
 from decimal import Decimal
 from typing import Any

@@ -1,6 +1,5 @@
-from _typeshed import Incomplete
 import enum
-from _typeshed import StrOrBytesPath, SupportsWrite
+from _typeshed import Incomplete, StrOrBytesPath, SupportsWrite
 from collections.abc import Callable
 from socket import AF_INET6 as AF_INET6, AddressFamily, SocketKind
 from typing import Any, NamedTuple, TypeVar, overload
@@ -231,7 +230,9 @@ class ZombieProcess(NoSuchProcess):
     ppid: Any
     name: Any
     msg: Any
-    def __init__(self, pid, name: Incomplete | None = ..., ppid: Incomplete | None = ..., msg: Incomplete | None = ...) -> None: ...
+    def __init__(
+        self, pid, name: Incomplete | None = ..., ppid: Incomplete | None = ..., msg: Incomplete | None = ...
+    ) -> None: ...
 
 class AccessDenied(Error):
     __module__: str

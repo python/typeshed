@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Any
 
 from stripe import api_requestor as api_requestor, connect_api_base as connect_api_base, error as error
 

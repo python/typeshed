@@ -28,9 +28,15 @@ _RespType: TypeAlias = dict[Any, Any] | StripeObject | StripeResponse
 # undocumented
 @overload
 def convert_to_stripe_object(
-    resp: list[Any], api_key: Incomplete | None = ..., stripe_version: Incomplete | None = ..., stripe_account: Incomplete | None = ...
+    resp: list[Any],
+    api_key: Incomplete | None = ...,
+    stripe_version: Incomplete | None = ...,
+    stripe_account: Incomplete | None = ...,
 ) -> list[Any]: ...
 @overload
 def convert_to_stripe_object(
-    resp: _RespType, api_key: Incomplete | None = ..., stripe_version: Incomplete | None = ..., stripe_account: Incomplete | None = ...
+    resp: _RespType,
+    api_key: Incomplete | None = ...,
+    stripe_version: Incomplete | None = ...,
+    stripe_account: Incomplete | None = ...,
 ) -> StripeObject: ...

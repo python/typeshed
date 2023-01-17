@@ -1,5 +1,5 @@
-from _typeshed import Incomplete
 import time
+from _typeshed import Incomplete
 from typing import Any
 
 from ...core import AWSXRayRecorder

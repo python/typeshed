@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Any
 
 def prepare_grant_uri(
     uri,

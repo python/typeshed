@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections import OrderedDict
-from typing import Any, Generic, TypeVar
+from typing import Generic, TypeVar
 
 from humanfriendly.compat import unicode
 

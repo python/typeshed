@@ -1,8 +1,7 @@
-from _typeshed import Incomplete
 import builtins
 import ctypes
 import sys
-from _typeshed import Self
+from _typeshed import Incomplete, Self
 from types import TracebackType
 from typing import Any
 

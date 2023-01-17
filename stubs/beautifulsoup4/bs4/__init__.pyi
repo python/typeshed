@@ -1,5 +1,4 @@
-from _typeshed import Incomplete
-from _typeshed import Self, SupportsRead
+from _typeshed import Incomplete, Self, SupportsRead
 from collections.abc import Sequence
 from typing import Any
 

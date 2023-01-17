@@ -1,5 +1,5 @@
-from _typeshed import Incomplete
 import datetime
+from _typeshed import Incomplete
 from typing import Any
 
 NSP_COMPATIBLE: Any

@@ -1,5 +1,5 @@
-from _typeshed import Incomplete
 import abc
+from _typeshed import Incomplete
 from distutils.cmd import Command as _Command
 from typing import Any
 

@@ -1,6 +1,4 @@
-from _typeshed import Incomplete
-from _typeshed import Self
-from typing import Any
+from _typeshed import Incomplete, Self
 
 from stripe import api_requestor as api_requestor, error as error
 from stripe.stripe_object import StripeObject as StripeObject

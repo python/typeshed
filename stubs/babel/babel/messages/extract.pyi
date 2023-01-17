@@ -1,5 +1,4 @@
-from _typeshed import Incomplete
-from _typeshed import SupportsItems, SupportsRead, SupportsReadline
+from _typeshed import Incomplete, SupportsItems, SupportsRead, SupportsReadline
 from collections.abc import Callable, Collection, Generator, Iterable, Mapping
 from os import PathLike
 from typing import Any, AnyStr, Protocol, overload

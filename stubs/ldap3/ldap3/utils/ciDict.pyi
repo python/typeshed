@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import MutableMapping
-from typing import Any, Generic, TypeVar
+from typing import Generic, TypeVar
 
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")

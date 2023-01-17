@@ -1,6 +1,5 @@
-from _typeshed import Incomplete
 import collections.abc
-from _typeshed import Self, SupportsKeysAndGetItem
+from _typeshed import Incomplete, Self, SupportsKeysAndGetItem
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from typing import Any, Generic, NoReturn, TypeVar, overload
 

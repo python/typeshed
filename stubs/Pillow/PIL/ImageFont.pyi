@@ -1,5 +1,4 @@
-from _typeshed import Incomplete
-from _typeshed import StrOrBytesPath, SupportsRead
+from _typeshed import Incomplete, StrOrBytesPath, SupportsRead
 from typing import Any, Protocol
 from typing_extensions import Literal
 

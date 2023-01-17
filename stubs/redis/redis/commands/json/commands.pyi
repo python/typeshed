@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Any
 
 class JSONCommands:
     def arrappend(self, name, path=..., *args): ...

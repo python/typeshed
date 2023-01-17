@@ -1,5 +1,4 @@
-from _typeshed import Incomplete
-from _typeshed import Self
+from _typeshed import Incomplete, Self
 from collections.abc import MutableMapping
 from typing import Any, ClassVar
 

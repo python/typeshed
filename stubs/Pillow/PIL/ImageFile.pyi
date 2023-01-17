@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from _typeshed import Incomplete, Self
 from typing import Any, NoReturn
 

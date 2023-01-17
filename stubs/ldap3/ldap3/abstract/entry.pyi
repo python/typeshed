@@ -55,7 +55,11 @@ class EntryBase:
         include_empty: bool = ...,
     ): ...
     def entry_to_ldif(
-        self, all_base64: bool = ..., line_separator: Incomplete | None = ..., sort_order: Incomplete | None = ..., stream: Incomplete | None = ...
+        self,
+        all_base64: bool = ...,
+        line_separator: Incomplete | None = ...,
+        sort_order: Incomplete | None = ...,
+        stream: Incomplete | None = ...,
     ): ...
 
 class Entry(EntryBase):

@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from _typeshed import Incomplete
 from html.parser import HTMLParser
 from typing import Any
 

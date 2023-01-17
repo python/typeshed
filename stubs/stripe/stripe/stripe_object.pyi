@@ -1,6 +1,5 @@
-from _typeshed import Incomplete
 import json
-from _typeshed import Self
+from _typeshed import Incomplete, Self
 from typing import Any
 
 from stripe import api_requestor as api_requestor

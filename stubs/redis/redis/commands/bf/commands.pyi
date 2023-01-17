@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Any
 
 BF_RESERVE: str
 BF_ADD: str
@@ -66,7 +65,12 @@ class BFCommands:
 
 class CFCommands:
     def create(
-        self, key, capacity, expansion: Incomplete | None = ..., bucket_size: Incomplete | None = ..., max_iterations: Incomplete | None = ...
+        self,
+        key,
+        capacity,
+        expansion: Incomplete | None = ...,
+        bucket_size: Incomplete | None = ...,
+        max_iterations: Incomplete | None = ...,
     ): ...
     def add(self, key, item): ...
     def addnx(self, key, item): ...

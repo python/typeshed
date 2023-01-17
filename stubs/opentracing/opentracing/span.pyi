@@ -1,5 +1,4 @@
-from _typeshed import Incomplete
-from _typeshed import Self
+from _typeshed import Incomplete, Self
 from types import TracebackType
 from typing import Any
 

@@ -1,6 +1,5 @@
-from _typeshed import Incomplete
 import socket
-from typing import Any
+from _typeshed import Incomplete
 
 PROXY_TYPE_SOCKS4: int
 PROXY_TYPE_SOCKS5: int

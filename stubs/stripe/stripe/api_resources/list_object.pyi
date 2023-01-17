@@ -8,7 +8,11 @@ from stripe.stripe_object import StripeObject as StripeObject
 class ListObject(StripeObject):
     OBJECT_NAME: str
     def list(
-        self, api_key: Incomplete | None = ..., stripe_version: Incomplete | None = ..., stripe_account: Incomplete | None = ..., **params
+        self,
+        api_key: Incomplete | None = ...,
+        stripe_version: Incomplete | None = ...,
+        stripe_account: Incomplete | None = ...,
+        **params,
     ) -> ListObject: ...
     def create(
         self,
@@ -19,7 +23,12 @@ class ListObject(StripeObject):
         **params,
     ): ...
     def retrieve(
-        self, id, api_key: Incomplete | None = ..., stripe_version: Incomplete | None = ..., stripe_account: Incomplete | None = ..., **params
+        self,
+        id,
+        api_key: Incomplete | None = ...,
+        stripe_version: Incomplete | None = ...,
+        stripe_account: Incomplete | None = ...,
+        **params,
     ): ...
     def __getitem__(self, k): ...
     def __iter__(self): ...
@@ -33,8 +42,16 @@ class ListObject(StripeObject):
     @property
     def is_empty(self) -> bool: ...
     def next_page(
-        self, api_key: Incomplete | None = ..., stripe_version: Incomplete | None = ..., stripe_account: Incomplete | None = ..., **params
+        self,
+        api_key: Incomplete | None = ...,
+        stripe_version: Incomplete | None = ...,
+        stripe_account: Incomplete | None = ...,
+        **params,
     ) -> ListObject: ...
     def previous_page(
-        self, api_key: Incomplete | None = ..., stripe_version: Incomplete | None = ..., stripe_account: Incomplete | None = ..., **params
+        self,
+        api_key: Incomplete | None = ...,
+        stripe_version: Incomplete | None = ...,
+        stripe_account: Incomplete | None = ...,
+        **params,
     ) -> ListObject: ...

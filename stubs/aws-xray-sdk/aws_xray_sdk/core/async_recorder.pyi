@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Any
 
 from .models.segment import SegmentContextManager as SegmentContextManager
 from .models.subsegment import (

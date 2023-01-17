@@ -1,5 +1,4 @@
-from _typeshed import Incomplete
-from _typeshed import Self
+from _typeshed import Incomplete, Self
 from collections.abc import Callable, Coroutine, Mapping, Sequence
 from contextlib import AbstractContextManager
 from types import TracebackType
@@ -57,7 +56,12 @@ class _Call(tuple[Any, ...]):
     parent: Any
     from_kall: Any
     def __init__(
-        self, value: Any = ..., name: Incomplete | None = ..., parent: Incomplete | None = ..., two: bool = ..., from_kall: bool = ...
+        self,
+        value: Any = ...,
+        name: Incomplete | None = ...,
+        parent: Incomplete | None = ...,
+        two: bool = ...,
+        from_kall: bool = ...,
     ) -> None: ...
     def __eq__(self, other: object) -> bool: ...
     def __ne__(self, __other: object) -> bool: ...

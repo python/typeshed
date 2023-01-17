@@ -1,5 +1,4 @@
-from _typeshed import Incomplete
-from _typeshed import Self
+from _typeshed import Incomplete, Self
 from collections.abc import Callable
 from types import ModuleType
 from typing import Any, Generic, TypeVar, overload

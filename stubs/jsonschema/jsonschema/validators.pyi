@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from _typeshed import Incomplete, SupportsKeysAndGetItem
 from collections.abc import Callable, Generator, Iterable, Iterator, Mapping
 from contextlib import contextmanager
@@ -52,7 +51,11 @@ def create(
     applicable_validators: Callable[[_Schema], Iterable[tuple[str, _ValidatorCallback]]] = ...,
 ) -> type[_Validator]: ...
 def extend(
-    validator, validators=..., version: Incomplete | None = ..., type_checker: Incomplete | None = ..., format_checker: Incomplete | None = ...
+    validator,
+    validators=...,
+    version: Incomplete | None = ...,
+    type_checker: Incomplete | None = ...,
+    format_checker: Incomplete | None = ...,
 ): ...
 
 # At runtime these are fields that are assigned the return values of create() calls.

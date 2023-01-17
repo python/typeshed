@@ -1,5 +1,5 @@
-from _typeshed import Incomplete
 import unittest
+from _typeshed import Incomplete
 from types import TracebackType
 from typing import Any
 

@@ -5,7 +5,12 @@ from typing import Any
 from .key import Key
 
 def bucket_lister(
-    bucket, prefix: str = ..., delimiter: str = ..., marker: str = ..., headers: Incomplete | None = ..., encoding_type: Incomplete | None = ...
+    bucket,
+    prefix: str = ...,
+    delimiter: str = ...,
+    marker: str = ...,
+    headers: Incomplete | None = ...,
+    encoding_type: Incomplete | None = ...,
 ): ...
 
 class BucketListResultSet(Iterable[Key]):
@@ -57,7 +62,11 @@ class VersionedBucketListResultSet:
     def __iter__(self) -> Iterator[Key]: ...
 
 def multipart_upload_lister(
-    bucket, key_marker: str = ..., upload_id_marker: str = ..., headers: Incomplete | None = ..., encoding_type: Incomplete | None = ...
+    bucket,
+    key_marker: str = ...,
+    upload_id_marker: str = ...,
+    headers: Incomplete | None = ...,
+    encoding_type: Incomplete | None = ...,
 ): ...
 
 class MultiPartUploadListResultSet:

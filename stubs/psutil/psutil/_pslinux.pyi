@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 import enum
 from _typeshed import Incomplete
 from typing import Any, NamedTuple

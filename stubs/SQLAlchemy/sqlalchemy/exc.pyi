@@ -83,7 +83,14 @@ class StatementError(SQLAlchemyError):
     hide_parameters: Any
     detail: Any
     def __init__(
-        self, message, statement, params, orig, hide_parameters: bool = ..., code: Incomplete | None = ..., ismulti: Incomplete | None = ...
+        self,
+        message,
+        statement,
+        params,
+        orig,
+        hide_parameters: bool = ...,
+        code: Incomplete | None = ...,
+        ismulti: Incomplete | None = ...,
     ) -> None: ...
     def add_detail(self, msg) -> None: ...
     def __reduce__(self): ...

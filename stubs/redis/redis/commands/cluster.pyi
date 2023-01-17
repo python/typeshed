@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Any, Generic
+from typing import Generic
 
 from .core import ACLCommands, DataAccessCommands, ManagementCommands, PubSubCommands, _StrType
 

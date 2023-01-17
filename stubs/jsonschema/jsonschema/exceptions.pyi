@@ -1,5 +1,4 @@
-from _typeshed import Incomplete
-from _typeshed import Self, SupportsRichComparison
+from _typeshed import Incomplete, Self, SupportsRichComparison
 from collections import deque
 from collections.abc import Callable, Container, Iterable, Sequence
 from typing import Any

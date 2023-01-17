@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Any
 
 def add_operation(
     dn, attributes, auto_encode, schema: Incomplete | None = ..., validator: Incomplete | None = ..., check_names: bool = ...

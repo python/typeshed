@@ -1,5 +1,5 @@
-from _typeshed import Incomplete
 import sys
+from _typeshed import Incomplete
 from collections.abc import Sequence
 from socket import socket
 from typing import Any

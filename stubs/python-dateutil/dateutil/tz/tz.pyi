@@ -1,6 +1,6 @@
-from _typeshed import Incomplete
 import datetime
-from typing import Any, ClassVar, Protocol, TypeVar
+from _typeshed import Incomplete
+from typing import ClassVar, Protocol, TypeVar
 from typing_extensions import Literal
 
 from ..relativedelta import relativedelta

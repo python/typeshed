@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Any
 
 from .langhelpers import (
     decorator as decorator,

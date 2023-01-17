@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Any, NoReturn
+from typing import NoReturn
 
 from stripe import error as error
 from stripe.api_resources.abstract import (
@@ -17,5 +17,10 @@ class Card(DeletableAPIResource, UpdateableAPIResource):
     def modify(cls, sid, **params) -> NoReturn: ...
     @classmethod
     def retrieve(
-        cls, id, api_key: Incomplete | None = ..., stripe_version: Incomplete | None = ..., stripe_account: Incomplete | None = ..., **params
+        cls,
+        id,
+        api_key: Incomplete | None = ...,
+        stripe_version: Incomplete | None = ...,
+        stripe_account: Incomplete | None = ...,
+        **params,
     ) -> NoReturn: ...

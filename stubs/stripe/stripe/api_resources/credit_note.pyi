@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Any
 
 from stripe import api_requestor as api_requestor
 from stripe.api_resources.abstract import (
@@ -13,4 +12,10 @@ class CreditNote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResour
     OBJECT_NAME: str
     def void_credit_note(self, idempotency_key: str | None = ..., **params): ...
     @classmethod
-    def preview(cls, api_key: Incomplete | None = ..., stripe_version: Incomplete | None = ..., stripe_account: Incomplete | None = ..., **params): ...
+    def preview(
+        cls,
+        api_key: Incomplete | None = ...,
+        stripe_version: Incomplete | None = ...,
+        stripe_account: Incomplete | None = ...,
+        **params,
+    ): ...

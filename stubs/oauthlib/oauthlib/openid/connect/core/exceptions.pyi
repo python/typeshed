@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Any
 
 from oauthlib.oauth2.rfc6749.errors import FatalClientError as FatalClientError, OAuth2Error as OAuth2Error
 

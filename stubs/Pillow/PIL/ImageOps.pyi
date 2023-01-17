@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable
-from typing import Any, Protocol, Union
+from typing import Protocol, Union
 from typing_extensions import TypeAlias
 
 from .Image import Image, Resampling, _Resample, _Size
@@ -25,7 +25,11 @@ def colorize(
 ) -> Image: ...
 def contain(image: Image, size: _Size, method: Resampling | _Resample = ...) -> Image: ...
 def pad(
-    image: Image, size: _Size, method: Resampling | _Resample = ..., color: Incomplete | None = ..., centering: Iterable[float] = ...
+    image: Image,
+    size: _Size,
+    method: Resampling | _Resample = ...,
+    color: Incomplete | None = ...,
+    centering: Iterable[float] = ...,
 ) -> Image: ...
 def crop(image: Image, border: _Border = ...) -> Image: ...
 def scale(image: Image, factor: float, resample: Resampling | _Resample = ...) -> Image: ...

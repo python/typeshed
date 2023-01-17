@@ -29,7 +29,9 @@ class OnConflictClause(ClauseElement):
     constraint_target: Any
     inferred_target_elements: Any
     inferred_target_whereclause: Any
-    def __init__(self, constraint: Incomplete | None = ..., index_elements: Incomplete | None = ..., index_where: Incomplete | None = ...) -> None: ...
+    def __init__(
+        self, constraint: Incomplete | None = ..., index_elements: Incomplete | None = ..., index_where: Incomplete | None = ...
+    ) -> None: ...
 
 class OnConflictDoNothing(OnConflictClause):
     __visit_name__: str

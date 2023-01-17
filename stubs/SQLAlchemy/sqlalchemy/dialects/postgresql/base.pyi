@@ -272,7 +272,11 @@ class PGDialect(default.DefaultDialect):
     construct_arguments: Any
     reflection_options: Any
     def __init__(
-        self, isolation_level: Incomplete | None = ..., json_serializer: Incomplete | None = ..., json_deserializer: Incomplete | None = ..., **kwargs
+        self,
+        isolation_level: Incomplete | None = ...,
+        json_serializer: Incomplete | None = ...,
+        json_deserializer: Incomplete | None = ...,
+        **kwargs,
     ) -> None: ...
     def initialize(self, connection) -> None: ...
     def on_connect(self): ...

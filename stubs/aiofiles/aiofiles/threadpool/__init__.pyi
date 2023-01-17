@@ -1,5 +1,5 @@
-from _typeshed import Incomplete
 from _typeshed import (
+    Incomplete,
     OpenBinaryMode,
     OpenBinaryModeReading,
     OpenBinaryModeUpdating,
@@ -9,7 +9,7 @@ from _typeshed import (
 )
 from asyncio import AbstractEventLoop
 from collections.abc import Callable
-from typing import Any, overload
+from typing import overload
 from typing_extensions import Literal, TypeAlias
 
 from ..base import AiofilesContextManager

@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from _typeshed import Incomplete, Self, SupportsItems, SupportsRead
 from collections.abc import Callable, Iterable, Mapping, MutableMapping
 from typing import Any, Union

@@ -1,9 +1,14 @@
 from _typeshed import Incomplete
-from typing import Any
 
 class Require:
     def __init__(
-        self, name, requested_version, module, homepage: str = ..., attribute: Incomplete | None = ..., format: Incomplete | None = ...
+        self,
+        name,
+        requested_version,
+        module,
+        homepage: str = ...,
+        attribute: Incomplete | None = ...,
+        format: Incomplete | None = ...,
     ) -> None: ...
     def full_name(self): ...
     def version_ok(self, version): ...

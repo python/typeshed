@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Any
 
 class ObjectDef:
     def __init__(

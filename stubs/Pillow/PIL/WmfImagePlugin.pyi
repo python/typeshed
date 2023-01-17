@@ -1,5 +1,5 @@
-from _typeshed import Incomplete
 import sys
+from _typeshed import Incomplete
 from typing import Any, ClassVar
 from typing_extensions import Literal
 

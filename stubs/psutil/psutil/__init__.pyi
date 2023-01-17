@@ -1,6 +1,5 @@
-from _typeshed import Incomplete
 import sys
-from _typeshed import Self
+from _typeshed import Incomplete, Self
 from collections.abc import Callable, Iterable, Iterator
 from contextlib import AbstractContextManager
 from typing import Any, overload

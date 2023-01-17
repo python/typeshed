@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Any
 
 def cache(fn, self, con, *args, **kw): ...
 

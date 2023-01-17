@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 import threading
 from _typeshed import Incomplete, Self, SupportsItems
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
@@ -335,7 +334,11 @@ class PubSub:
     health_check_response_b: bytes
     health_check_response: list[str] | list[bytes]
     def __init__(
-        self, connection_pool, shard_hint: Incomplete | None = ..., ignore_subscribe_messages: bool = ..., encoder: Incomplete | None = ...
+        self,
+        connection_pool,
+        shard_hint: Incomplete | None = ...,
+        ignore_subscribe_messages: bool = ...,
+        encoder: Incomplete | None = ...,
     ) -> None: ...
     def __enter__(self: Self) -> Self: ...
     def __exit__(

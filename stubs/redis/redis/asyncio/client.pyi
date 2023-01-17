@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from _typeshed import Incomplete, Self
 from collections.abc import AsyncIterator, Awaitable, Callable, Iterable, Mapping, MutableMapping, Sequence
 from datetime import datetime, timedelta

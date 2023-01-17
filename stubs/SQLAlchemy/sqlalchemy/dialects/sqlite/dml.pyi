@@ -11,7 +11,11 @@ class Insert(StandardInsert):
     @memoized_property
     def excluded(self): ...
     def on_conflict_do_update(
-        self, index_elements: Incomplete | None = ..., index_where: Incomplete | None = ..., set_: Incomplete | None = ..., where: Incomplete | None = ...
+        self,
+        index_elements: Incomplete | None = ...,
+        index_where: Incomplete | None = ...,
+        set_: Incomplete | None = ...,
+        where: Incomplete | None = ...,
     ) -> None: ...
     def on_conflict_do_nothing(self, index_elements: Incomplete | None = ..., index_where: Incomplete | None = ...) -> None: ...
 
@@ -32,5 +36,9 @@ class OnConflictDoUpdate(OnConflictClause):
     update_values_to_set: Any
     update_whereclause: Any
     def __init__(
-        self, index_elements: Incomplete | None = ..., index_where: Incomplete | None = ..., set_: Incomplete | None = ..., where: Incomplete | None = ...
+        self,
+        index_elements: Incomplete | None = ...,
+        index_where: Incomplete | None = ...,
+        set_: Incomplete | None = ...,
+        where: Incomplete | None = ...,
     ) -> None: ...

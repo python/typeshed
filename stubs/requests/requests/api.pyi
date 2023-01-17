@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from collections.abc import Mapping
-from typing import Any
 from typing_extensions import TypeAlias
 
 from .models import Response

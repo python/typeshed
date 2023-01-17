@@ -1,6 +1,5 @@
-from _typeshed import Incomplete
-from _typeshed import Self
-from typing import Any, NoReturn
+from _typeshed import Incomplete, Self
+from typing import NoReturn
 
 from stripe.api_resources import ApplicationFee as ApplicationFee
 from stripe.api_resources.abstract import UpdateableAPIResource as UpdateableAPIResource

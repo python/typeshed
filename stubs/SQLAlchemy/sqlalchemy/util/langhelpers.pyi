@@ -1,5 +1,4 @@
-from _typeshed import Incomplete
-from _typeshed import Self
+from _typeshed import Incomplete, Self
 from collections.abc import Callable
 from typing import Any, Generic, TypeVar, overload
 
@@ -55,7 +54,12 @@ class portable_instancemethod:
 def class_hierarchy(cls): ...
 def iterate_attributes(cls) -> None: ...
 def monkeypatch_proxied_specials(
-    into_cls, from_cls, skip: Incomplete | None = ..., only: Incomplete | None = ..., name: str = ..., from_instance: Incomplete | None = ...
+    into_cls,
+    from_cls,
+    skip: Incomplete | None = ...,
+    only: Incomplete | None = ...,
+    name: str = ...,
+    from_instance: Incomplete | None = ...,
 ) -> None: ...
 def methods_equivalent(meth1, meth2): ...
 def as_interface(obj, cls: Incomplete | None = ..., methods: Incomplete | None = ..., required: Incomplete | None = ...): ...

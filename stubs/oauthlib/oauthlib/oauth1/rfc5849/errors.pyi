@@ -7,7 +7,11 @@ class OAuth1Error(Exception):
     uri: Any
     status_code: Any
     def __init__(
-        self, description: Incomplete | None = ..., uri: Incomplete | None = ..., status_code: int = ..., request: Incomplete | None = ...
+        self,
+        description: Incomplete | None = ...,
+        uri: Incomplete | None = ...,
+        status_code: int = ...,
+        request: Incomplete | None = ...,
     ) -> None: ...
     def in_uri(self, uri): ...
     @property

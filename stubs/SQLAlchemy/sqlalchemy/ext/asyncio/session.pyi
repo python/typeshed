@@ -1,5 +1,4 @@
-from _typeshed import Incomplete
-from _typeshed import Self
+from _typeshed import Incomplete, Self
 from typing import Any
 
 from ...util import memoized_property
@@ -11,7 +10,9 @@ class AsyncSession(ReversibleProxy):
     binds: Any
     sync_session_class: Any
     sync_session: Any
-    def __init__(self, bind: Incomplete | None = ..., binds: Incomplete | None = ..., sync_session_class: Incomplete | None = ..., **kw) -> None: ...
+    def __init__(
+        self, bind: Incomplete | None = ..., binds: Incomplete | None = ..., sync_session_class: Incomplete | None = ..., **kw
+    ) -> None: ...
     async def refresh(self, instance, attribute_names: Incomplete | None = ..., with_for_update: Incomplete | None = ...): ...
     async def run_sync(self, fn, *arg, **kw): ...
     async def execute(

@@ -1,5 +1,4 @@
-from _typeshed import Incomplete
-from _typeshed import Self
+from _typeshed import Incomplete, Self
 from collections.abc import Generator, KeysView
 from typing import Any
 
@@ -111,7 +110,12 @@ class ChunkedIteratorResult(IteratorResult):
     iterator: Any
     dynamic_yield_per: Any
     def __init__(
-        self, cursor_metadata, chunks, source_supports_scalars: bool = ..., raw: Incomplete | None = ..., dynamic_yield_per: bool = ...
+        self,
+        cursor_metadata,
+        chunks,
+        source_supports_scalars: bool = ...,
+        raw: Incomplete | None = ...,
+        dynamic_yield_per: bool = ...,
     ) -> None: ...
 
 class MergedResult(IteratorResult):

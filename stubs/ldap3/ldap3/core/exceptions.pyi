@@ -1,6 +1,5 @@
-from _typeshed import Incomplete
 import socket
-from _typeshed import Self
+from _typeshed import Incomplete, Self
 from typing import Any
 
 class LDAPException(Exception): ...

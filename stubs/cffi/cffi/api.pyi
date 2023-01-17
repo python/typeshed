@@ -1,8 +1,7 @@
-from _typeshed import Incomplete
 import distutils.core
 import sys
 import types
-from _typeshed import ReadableBuffer, WriteableBuffer
+from _typeshed import Incomplete, ReadableBuffer, WriteableBuffer
 from collections.abc import Callable, Hashable
 from typing import Any, TypeVar, overload
 from typing_extensions import Literal, TypeAlias

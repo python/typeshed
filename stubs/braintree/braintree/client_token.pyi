@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Any
 
 from braintree import exceptions as exceptions
 from braintree.configuration import Configuration as Configuration

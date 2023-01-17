@@ -1,6 +1,5 @@
-from _typeshed import Incomplete
 import tkinter
-from typing import Any
+from _typeshed import Incomplete
 
 from ._widget import ThemedWidget
 
