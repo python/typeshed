@@ -1,6 +1,6 @@
 import sys
 import threading
-from _typeshed import Self
+from _typeshed import Self, Unused
 from collections.abc import Callable, Iterable, Iterator, Sequence
 from logging import Logger
 from types import TracebackType
@@ -110,4 +110,4 @@ class _AcquireFutures:
     futures: Iterable[Future[Any]]
     def __init__(self, futures: Iterable[Future[Any]]) -> None: ...
     def __enter__(self) -> None: ...
-    def __exit__(self, *args: object) -> None: ...
+    def __exit__(self, *args: Unused) -> None: ...

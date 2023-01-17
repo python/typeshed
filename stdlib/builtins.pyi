@@ -953,7 +953,7 @@ class function:
 
     __module__: str
     # mypy uses `builtins.function.__get__` to represent methods, properties, and getset_descriptors so we type the return as Any.
-    def __get__(self, obj: object | None, type: type | None = ...) -> Any: ...
+    def __get__(self, obj: object, type: type | None = ...) -> Any: ...
 
 class list(MutableSequence[_T], Generic[_T]):
     @overload

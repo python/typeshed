@@ -112,7 +112,7 @@ from _socket import (
     setdefaulttimeout as setdefaulttimeout,
     timeout as timeout,
 )
-from _typeshed import ReadableBuffer, Self, WriteableBuffer
+from _typeshed import ReadableBuffer, Self, Unused, WriteableBuffer
 from collections.abc import Iterable
 from enum import IntEnum, IntFlag
 from io import BufferedReader, BufferedRWPair, BufferedWriter, IOBase, RawIOBase, TextIOWrapper
@@ -658,7 +658,7 @@ class socket(_socket.socket):
         self, family: AddressFamily | int = ..., type: SocketKind | int = ..., proto: int = ..., fileno: int | None = ...
     ) -> None: ...
     def __enter__(self: Self) -> Self: ...
-    def __exit__(self, *args: object) -> None: ...
+    def __exit__(self, *args: Unused) -> None: ...
     def dup(self: Self) -> Self: ...  # noqa: F811
     def accept(self) -> tuple[socket, _RetAddress]: ...
     # Note that the makefile's documented windows-specific behavior is not represented
@@ -735,9 +735,8 @@ def fromfd(fd: _FD, family: AddressFamily | int, type: SocketKind | int, proto: 
 
 if sys.platform != "win32":
     if sys.version_info >= (3, 9):
-        # flags and address appear to be unused in send_fds and recv_fds
         def send_fds(
-            sock: socket, buffers: Iterable[ReadableBuffer], fds: Iterable[int], flags: int = 0, address: None = None
+            sock: socket, buffers: Iterable[ReadableBuffer], fds: Iterable[int], flags: Unused = 0, address: Unused = None
         ) -> int: ...
         def recv_fds(sock: socket, bufsize: int, maxfds: int, flags: int = 0) -> tuple[bytes, list[int], int, Any]: ...
 
