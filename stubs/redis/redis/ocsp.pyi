@@ -8,7 +8,7 @@ from OpenSSL.SSL import Connection
 def ocsp_staple_verifier(con: Connection, ocsp_bytes: bytes, expected: bytes | None = ...) -> Literal[True]: ...
 
 class OCSPVerifier:
-    SOCK: SSLObject
+    SOCK: SSLObject | SSLSocket
     HOST: str
     PORT: int
     CA_CERTS: str | None
