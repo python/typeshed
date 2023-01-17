@@ -1,6 +1,6 @@
 import sqlite3
 import sys
-from _typeshed import Incomplete, ReadableBuffer, Self, StrOrBytesPath, SupportsLenAndGetItem
+from _typeshed import Incomplete, ReadableBuffer, Self, StrOrBytesPath, SupportsLenAndGetItem, Unused
 from collections.abc import Callable, Generator, Iterable, Iterator, Mapping
 from datetime import date, datetime, time
 from types import TracebackType
@@ -227,7 +227,7 @@ else:
 
 if sys.version_info < (3, 8):
     class Cache:
-        def __init__(self, *args: Incomplete, **kwargs: object) -> None: ...
+        def __init__(self, *args: Incomplete, **kwargs: Unused) -> None: ...
         def display(self, *args: Incomplete, **kwargs: Incomplete) -> None: ...
         def get(self, *args: Incomplete, **kwargs: Incomplete) -> None: ...
 
@@ -385,8 +385,8 @@ class Cursor(Iterator[Any]):
     # Returns either a row (as created by the row_factory) or None, but
     # putting None in the return annotation causes annoying false positives.
     def fetchone(self) -> Any: ...
-    def setinputsizes(self, __sizes: object) -> None: ...  # does nothing
-    def setoutputsize(self, __size: object, __column: object = ...) -> None: ...  # does nothing
+    def setinputsizes(self, __sizes: Unused) -> None: ...  # does nothing
+    def setoutputsize(self, __size: Unused, __column: Unused = ...) -> None: ...  # does nothing
     def __iter__(self: Self) -> Self: ...
     def __next__(self) -> Any: ...
 
