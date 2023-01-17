@@ -12,7 +12,7 @@ class MicImageFile(TiffImageFile):
     format_description: ClassVar[str]
     fp: _OleStream
     frame: int | None
-    images: list[str]
+    images: list[list[str]]
     is_animated: bool
     def seek(self, frame: int) -> None: ...
     def tell(self) -> int | None: ...  # type: ignore[override]
