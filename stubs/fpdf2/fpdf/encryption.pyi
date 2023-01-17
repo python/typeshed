@@ -22,6 +22,9 @@ class ARC4:
     def encrypt(self, key: _Key, text: Iterable[int]) -> list[int]: ...
 
 class CryptFilter:
+    type: Name
+    c_f_m: Name
+    length: int
     def __init__(self, mode, length) -> None: ...
     def serialize(self) -> str: ...
 
@@ -43,13 +46,14 @@ class StandardSecurityHandler:
     DEFAULT_PADDING: ClassVar[bytes]
     fpdf: FPDF
     access_permission: int
-    owner_permission: str
+    owner_password: str
     user_password: str
     encryption_method: EncryptionMethod | None
     cf: CryptFilter | None
     key_length: int
     v: int
     r: int
+    encrypt_metadata: bool
 
     # The following fields are only defined after a call to generate_passwords().
     file_id: Incomplete

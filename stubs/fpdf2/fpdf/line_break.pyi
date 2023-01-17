@@ -11,6 +11,7 @@ class Fragment:
     characters: list[str]
     graphics_state: dict[str, Incomplete]
     k: float
+    url: str | None
     def __init__(
         self, characters: list[str] | str, graphics_state: dict[str, Incomplete], k: float, url: str | None = None
     ) -> None: ...

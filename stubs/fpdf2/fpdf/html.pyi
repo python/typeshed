@@ -57,6 +57,7 @@ class HTML2FPDF(HTMLParser):
     heading_sizes: Incomplete
     heading_above: float
     heading_below: float
+    warn_on_tags_not_matching: bool
     def __init__(
         self,
         pdf: FPDF,
