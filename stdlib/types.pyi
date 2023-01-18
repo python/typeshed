@@ -241,13 +241,13 @@ class CodeType:
         def replace(
             self,
             *,
-            co_argcount: int = ...,
-            co_posonlyargcount: int = ...,
-            co_kwonlyargcount: int = ...,
-            co_nlocals: int = ...,
-            co_stacksize: int = ...,
-            co_flags: int = ...,
-            co_firstlineno: int = ...,
+            co_argcount: int = -1,
+            co_posonlyargcount: int = -1,
+            co_kwonlyargcount: int = -1,
+            co_nlocals: int = -1,
+            co_stacksize: int = -1,
+            co_flags: int = -1,
+            co_firstlineno: int = -1,
             co_code: bytes = ...,
             co_consts: tuple[object, ...] = ...,
             co_names: tuple[str, ...] = ...,
@@ -554,12 +554,12 @@ class MemberDescriptorType:
 def new_class(
     name: str,
     bases: Iterable[object] = ...,
-    kwds: dict[str, Any] | None = ...,
-    exec_body: Callable[[dict[str, Any]], object] | None = ...,
+    kwds: dict[str, Any] | None = None,
+    exec_body: Callable[[dict[str, Any]], object] | None = None,
 ) -> type: ...
 def resolve_bases(bases: Iterable[object]) -> tuple[Any, ...]: ...
 def prepare_class(
-    name: str, bases: tuple[type, ...] = ..., kwds: dict[str, Any] | None = ...
+    name: str, bases: tuple[type, ...] = ..., kwds: dict[str, Any] | None = None
 ) -> tuple[type, dict[str, Any], dict[str, Any]]: ...
 
 # Actually a different type, but `property` is special and we want that too.
