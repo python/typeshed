@@ -191,7 +191,7 @@ def check_metadata() -> None:
                 assert key in tk, f"Unrecognised {tool} key {key} for {distribution}"
 
         tool_stubtest = data.get("tool", {}).get("stubtest", {})
-        specified_stubtest_platforms = set(tool_stubtest.get("platforms", []))
+        specified_stubtest_platforms = set(tool_stubtest.get("platforms", ["linux"]))
         assert (
             specified_stubtest_platforms <= supported_stubtest_platforms
         ), f"Unrecognised platforms specified: {supported_stubtest_platforms - specified_stubtest_platforms} for {distribution}"

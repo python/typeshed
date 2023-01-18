@@ -264,7 +264,7 @@ def run_mypy(
             # Stub completion is checked by pyright (--allow-*-defs)
             "--allow-untyped-defs",
             "--allow-incomplete-defs",
-            "--allow-subclassing-any",  # TODO: Do we still need this now that non-types dependencies are allowed? (#5768)
+            "--allow-subclassing-any",  # See #9491
             "--enable-error-code",
             "ignore-without-code",
             "--config-file",
