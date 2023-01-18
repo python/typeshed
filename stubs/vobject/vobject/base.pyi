@@ -15,9 +15,9 @@ _V = TypeVar("_V", bound=VBase)
 _W = TypeVar("_W", bound=SupportsWrite[bytes])
 
 class VBase:
-    group: Any | None
-    behavior: Any | None
-    parentBehavior: Any | None
+    group: Incomplete | None
+    behavior: Incomplete | None
+    parentBehavior: Incomplete | None
     isNative: bool
     def __init__(self, group: Incomplete | None = ...) -> None: ...
     def copy(self, copyit: VBase) -> None: ...

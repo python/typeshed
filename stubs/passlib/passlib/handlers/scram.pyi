@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Any, ClassVar
+from typing import ClassVar
 
 import passlib.utils.handlers as uh
 
@@ -13,7 +13,7 @@ class scram(uh.HasRounds, uh.HasRawSalt, uh.HasRawChecksum, uh.GenericHandler): 
     max_rounds: ClassVar[int]
     rounds_cost: ClassVar[str]
     default_algs: ClassVar[list[str]]
-    algs: Any | None
+    algs: Incomplete | None
     @classmethod
     def extract_digest_info(cls, hash, alg): ...
     @classmethod

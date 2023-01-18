@@ -145,9 +145,9 @@ class SSLConnection(Connection):
     certfile: Any
     cert_reqs: Any
     ca_certs: Any
-    ca_path: Any | None
+    ca_path: Incomplete | None
     check_hostname: bool
-    certificate_password: Any | None
+    certificate_password: Incomplete | None
     ssl_validate_ocsp: bool
     ssl_validate_ocsp_stapled: bool  # added in 4.1.1
     ssl_ocsp_context: Any | None  # added in 4.1.1
