@@ -44,7 +44,7 @@ class EnvBuilder:
     def ensure_directories(self, env_dir: StrOrBytesPath) -> SimpleNamespace: ...
     def create_configuration(self, context: SimpleNamespace) -> None: ...
     def symlink_or_copy(
-        self, src: StrOrBytesPath, dst: StrOrBytesPath, relative_symlinks_ok: bool = ...
+        self, src: StrOrBytesPath, dst: StrOrBytesPath, relative_symlinks_ok: bool = False
     ) -> None: ...  # undocumented
     def setup_python(self, context: SimpleNamespace) -> None: ...
     def _setup_pip(self, context: SimpleNamespace) -> None: ...  # undocumented
@@ -69,11 +69,11 @@ if sys.version_info >= (3, 9):
 else:
     def create(
         env_dir: StrOrBytesPath,
-        system_site_packages: bool = False,
-        clear: bool = False,
-        symlinks: bool = False,
-        with_pip: bool = False,
-        prompt: str | None = None,
+        system_site_packages: bool = ...,
+        clear: bool = ...,
+        symlinks: bool = ...,
+        with_pip: bool = ...,
+        prompt: str | None = ...,
     ) -> None: ...
 
 def main(args: Sequence[str] | None = None) -> None: ...

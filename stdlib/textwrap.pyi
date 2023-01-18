@@ -27,19 +27,19 @@ class TextWrapper:
     x: str  # leaked loop variable
     def __init__(
         self,
-        width: int = ...,
-        initial_indent: str = ...,
-        subsequent_indent: str = ...,
-        expand_tabs: bool = ...,
-        replace_whitespace: bool = ...,
-        fix_sentence_endings: bool = ...,
-        break_long_words: bool = ...,
-        drop_whitespace: bool = ...,
-        break_on_hyphens: bool = ...,
-        tabsize: int = ...,
+        width: int = 70,
+        initial_indent: str = '',
+        subsequent_indent: str = '',
+        expand_tabs: bool = True,
+        replace_whitespace: bool = True,
+        fix_sentence_endings: bool = False,
+        break_long_words: bool = True,
+        drop_whitespace: bool = True,
+        break_on_hyphens: bool = True,
+        tabsize: int = 8,
         *,
-        max_lines: int | None = ...,
-        placeholder: str = ...,
+        max_lines: int | None = None,
+        placeholder: str = ' [...]',
     ) -> None: ...
     # Private methods *are* part of the documented API for subclasses.
     def _munge_whitespace(self, text: str) -> str: ...

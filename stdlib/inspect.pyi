@@ -297,14 +297,14 @@ if sys.version_info >= (3, 10):
     ) -> Signature: ...
 
 else:
-    def signature(obj: _IntrospectableCallable, *, follow_wrapped: bool = True) -> Signature: ...
+    def signature(obj: _IntrospectableCallable, *, follow_wrapped: bool = ...) -> Signature: ...
 
 class _void: ...
 class _empty: ...
 
 class Signature:
     def __init__(
-        self, parameters: Sequence[Parameter] | None = ..., *, return_annotation: Any = ..., __validate_parameters__: bool = ...
+        self, parameters: Sequence[Parameter] | None = None, *, return_annotation: Any = ..., __validate_parameters__: bool = True
     ) -> None: ...
     empty = _empty
     @property
@@ -500,7 +500,7 @@ if sys.version_info >= (3, 11):
             code_context: list[str] | None,
             index: int | None,
             *,
-            positions: dis.Positions | None = ...,
+            positions: dis.Positions | None = None,
         ) -> Self: ...
 
     class _FrameInfo(NamedTuple):
@@ -522,7 +522,7 @@ if sys.version_info >= (3, 11):
             code_context: list[str] | None,
             index: int | None,
             *,
-            positions: dis.Positions | None = ...,
+            positions: dis.Positions | None = None,
         ) -> Self: ...
 
 else:

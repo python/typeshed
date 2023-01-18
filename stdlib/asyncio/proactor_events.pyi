@@ -20,9 +20,9 @@ class _ProactorBasePipeTransport(transports._FlowControlMixin, transports.BaseTr
         loop: events.AbstractEventLoop,
         sock: socket,
         protocol: streams.StreamReaderProtocol,
-        waiter: futures.Future[Any] | None = ...,
-        extra: Mapping[Any, Any] | None = ...,
-        server: events.AbstractServer | None = ...,
+        waiter: futures.Future[Any] | None = None,
+        extra: Mapping[Any, Any] | None = None,
+        server: events.AbstractServer | None = None,
     ) -> None: ...
     if sys.version_info >= (3, 8):
         def __del__(self, _warn: _WarnCallbackProtocol = ...) -> None: ...
@@ -64,9 +64,9 @@ class _ProactorSocketTransport(_ProactorReadPipeTransport, _ProactorBaseWritePip
         loop: events.AbstractEventLoop,
         sock: socket,
         protocol: streams.StreamReaderProtocol,
-        waiter: futures.Future[Any] | None = ...,
-        extra: Mapping[Any, Any] | None = ...,
-        server: events.AbstractServer | None = ...,
+        waiter: futures.Future[Any] | None = None,
+        extra: Mapping[Any, Any] | None = None,
+        server: events.AbstractServer | None = None,
     ) -> None: ...
     def _set_extra(self, sock: socket) -> None: ...
     def can_write_eof(self) -> Literal[True]: ...

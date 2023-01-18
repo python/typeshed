@@ -70,7 +70,7 @@ class Handle:
     _cancelled: bool
     _args: Sequence[Any]
     def __init__(
-        self, callback: Callable[..., object], args: Sequence[Any], loop: AbstractEventLoop, context: Context | None = ...
+        self, callback: Callable[..., object], args: Sequence[Any], loop: AbstractEventLoop, context: Context | None = None
     ) -> None: ...
     def cancel(self) -> None: ...
     def _run(self) -> None: ...
@@ -83,7 +83,7 @@ class TimerHandle(Handle):
         callback: Callable[..., object],
         args: Sequence[Any],
         loop: AbstractEventLoop,
-        context: Context | None = ...,
+        context: Context | None = None,
     ) -> None: ...
     def when(self) -> float: ...
     def __lt__(self, other: TimerHandle) -> bool: ...
@@ -196,13 +196,13 @@ class AbstractEventLoop:
         host: bytes | str | None,
         port: bytes | str | int | None,
         *,
-        family: int = ...,
-        type: int = ...,
-        proto: int = ...,
-        flags: int = ...,
+        family: int = 0,
+        type: int = 0,
+        proto: int = 0,
+        flags: int = 0,
     ) -> list[tuple[AddressFamily, SocketKind, int, str, tuple[str, int] | tuple[str, int, int, int]]]: ...
     @abstractmethod
-    async def getnameinfo(self, sockaddr: tuple[str, int] | tuple[str, int, int, int], flags: int = ...) -> tuple[str, str]: ...
+    async def getnameinfo(self, sockaddr: tuple[str, int] | tuple[str, int, int, int], flags: int = 0) -> tuple[str, str]: ...
     if sys.version_info >= (3, 11):
         @overload
         @abstractmethod
@@ -485,26 +485,26 @@ class AbstractEventLoop:
 
     @abstractmethod
     async def sock_sendfile(
-        self, sock: socket, file: IO[bytes], offset: int = ..., count: int | None = ..., *, fallback: bool | None = ...
+        self, sock: socket, file: IO[bytes], offset: int = 0, count: int | None = None, *, fallback: bool | None = None
     ) -> int: ...
     @abstractmethod
     async def sendfile(
-        self, transport: WriteTransport, file: IO[bytes], offset: int = ..., count: int | None = ..., *, fallback: bool = ...
+        self, transport: WriteTransport, file: IO[bytes], offset: int = 0, count: int | None = None, *, fallback: bool = True
     ) -> int: ...
     @abstractmethod
     async def create_datagram_endpoint(
         self,
         protocol_factory: Callable[[], _ProtocolT],
-        local_addr: tuple[str, int] | None = ...,
-        remote_addr: tuple[str, int] | None = ...,
+        local_addr: tuple[str, int] | None = None,
+        remote_addr: tuple[str, int] | None = None,
         *,
-        family: int = ...,
-        proto: int = ...,
-        flags: int = ...,
-        reuse_address: bool | None = ...,
-        reuse_port: bool | None = ...,
-        allow_broadcast: bool | None = ...,
-        sock: socket | None = ...,
+        family: int = 0,
+        proto: int = 0,
+        flags: int = 0,
+        reuse_address: bool | None = None,
+        reuse_port: bool | None = None,
+        allow_broadcast: bool | None = None,
+        sock: socket | None = None,
     ) -> tuple[DatagramTransport, _ProtocolT]: ...
     # Pipes and subprocesses.
     @abstractmethod
@@ -521,9 +521,9 @@ class AbstractEventLoop:
         protocol_factory: Callable[[], _ProtocolT],
         cmd: bytes | str,
         *,
-        stdin: int | IO[Any] | None = ...,
-        stdout: int | IO[Any] | None = ...,
-        stderr: int | IO[Any] | None = ...,
+        stdin: int | IO[Any] | None = -1,
+        stdout: int | IO[Any] | None = -1,
+        stderr: int | IO[Any] | None = -1,
         universal_newlines: Literal[False] = ...,
         shell: Literal[True] = ...,
         bufsize: Literal[0] = ...,
@@ -538,9 +538,9 @@ class AbstractEventLoop:
         protocol_factory: Callable[[], _ProtocolT],
         program: Any,
         *args: Any,
-        stdin: int | IO[Any] | None = ...,
-        stdout: int | IO[Any] | None = ...,
-        stderr: int | IO[Any] | None = ...,
+        stdin: int | IO[Any] | None = -1,
+        stdout: int | IO[Any] | None = -1,
+        stderr: int | IO[Any] | None = -1,
         universal_newlines: Literal[False] = ...,
         shell: Literal[True] = ...,
         bufsize: Literal[0] = ...,

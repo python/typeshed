@@ -102,7 +102,7 @@ if sys.version_info >= (3, 11):
 
 else:
     def _sendback_result(
-        result_queue: SimpleQueue[_WorkItem[Any]], work_id: int, result: Any | None = None, exception: Exception | None = None
+        result_queue: SimpleQueue[_WorkItem[Any]], work_id: int, result: Any | None = ..., exception: Exception | None = ...
     ) -> None: ...
 
 if sys.version_info >= (3, 11):

@@ -22,18 +22,16 @@ _ActionKind: TypeAlias = Literal["default", "error", "ignore", "always", "module
 filters: Sequence[tuple[str, str | None, type[Warning], str | None, int]]  # undocumented, do not mutate
 
 def showwarning(
-    message: Warning | str,
-    category: type[Warning],
-    filename: str,
-    lineno: int,
-    file: TextIO | None = None,
-    line: str | None = None,
+    message: Warning | str, category: type[Warning], filename: str, lineno: int, file: TextIO | None = None, line: str | None = None
 ) -> None: ...
-def formatwarning(
-    message: Warning | str, category: type[Warning], filename: str, lineno: int, line: str | None = None
-) -> str: ...
+def formatwarning(message: Warning | str, category: type[Warning], filename: str, lineno: int, line: str | None = None) -> str: ...
 def filterwarnings(
-    action: _ActionKind, message: str = "", category: type[Warning] = ..., module: str = "", lineno: int = 0, append: bool = False
+    action: _ActionKind,
+    message: str = '',
+    category: type[Warning] = ...,
+    module: str = '',
+    lineno: int = 0,
+    append: bool = False,
 ) -> None: ...
 def simplefilter(action: _ActionKind, category: type[Warning] = ..., lineno: int = 0, append: bool = False) -> None: ...
 def resetwarnings() -> None: ...
@@ -54,9 +52,9 @@ class WarningMessage:
         category: type[Warning],
         filename: str,
         lineno: int,
-        file: TextIO | None = ...,
-        line: str | None = ...,
-        source: Any | None = ...,
+        file: TextIO | None = None,
+        line: str | None = None,
+        source: Any | None = None,
     ) -> None: ...
 
 class catch_warnings(Generic[_W]):

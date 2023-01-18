@@ -61,16 +61,16 @@ else:
         etype: type[BaseException] | None,
         value: BaseException | None,
         tb: TracebackType | None,
-        limit: int | None = None,
-        file: SupportsWrite[str] | None = None,
-        chain: bool = True,
+        limit: int | None = ...,
+        file: SupportsWrite[str] | None = ...,
+        chain: bool = ...,
     ) -> None: ...
     def format_exception(
         etype: type[BaseException] | None,
         value: BaseException | None,
         tb: TracebackType | None,
-        limit: int | None = None,
-        chain: bool = True,
+        limit: int | None = ...,
+        chain: bool = ...,
     ) -> list[str]: ...
 
 def print_exc(limit: int | None = None, file: SupportsWrite[str] | None = None, chain: bool = True) -> None: ...
@@ -99,7 +99,7 @@ def walk_tb(tb: TracebackType | None) -> Iterator[tuple[FrameType, int]]: ...
 if sys.version_info >= (3, 11):
     class _ExceptionPrintContext:
         def indent(self) -> str: ...
-        def emit(self, text_gen: str | Iterable[str], margin_char: str | None = ...) -> Generator[str, None, None]: ...
+        def emit(self, text_gen: str | Iterable[str], margin_char: str | None = None) -> Generator[str, None, None]: ...
 
 class TracebackException:
     __cause__: TracebackException
@@ -246,9 +246,9 @@ class StackSummary(list[FrameSummary]):
         cls,
         frame_gen: Iterable[tuple[FrameType, int]],
         *,
-        limit: int | None = ...,
-        lookup_lines: bool = ...,
-        capture_locals: bool = ...,
+        limit: int | None = None,
+        lookup_lines: bool = True,
+        capture_locals: bool = False,
     ) -> StackSummary: ...
     @classmethod
     def from_list(cls, a_list: Iterable[FrameSummary | _PT]) -> StackSummary: ...

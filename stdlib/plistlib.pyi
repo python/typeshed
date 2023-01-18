@@ -56,14 +56,14 @@ else:
     def load(
         fp: IO[bytes],
         *,
-        fmt: PlistFormat | None = None,
+        fmt: PlistFormat | None = ...,
         use_builtin_types: bool = ...,
         dict_type: type[MutableMapping[str, Any]] = ...,
     ) -> Any: ...
     def loads(
         value: ReadableBuffer,
         *,
-        fmt: PlistFormat | None = None,
+        fmt: PlistFormat | None = ...,
         use_builtin_types: bool = ...,
         dict_type: type[MutableMapping[str, Any]] = ...,
     ) -> Any: ...
@@ -104,4 +104,4 @@ if sys.version_info >= (3, 8):
         def __eq__(self, other: object) -> bool: ...
 
 class InvalidFileException(ValueError):
-    def __init__(self, message: str = ...) -> None: ...
+    def __init__(self, message: str = 'Invalid file') -> None: ...

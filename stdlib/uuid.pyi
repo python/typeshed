@@ -16,12 +16,12 @@ class SafeUUID(Enum):
 class UUID:
     def __init__(
         self,
-        hex: str | None = ...,
-        bytes: _Bytes | None = ...,
-        bytes_le: _Bytes | None = ...,
-        fields: _FieldsType | None = ...,
-        int: _Int | None = ...,
-        version: _Int | None = ...,
+        hex: str | None = None,
+        bytes: _Bytes | None = None,
+        bytes_le: _Bytes | None = None,
+        fields: _FieldsType | None = None,
+        int: _Int | None = None,
+        version: _Int | None = None,
         *,
         is_safe: SafeUUID = ...,
     ) -> None: ...

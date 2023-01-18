@@ -99,45 +99,45 @@ class GzipFile(_compression.BaseStream):
         self,
         filename: StrOrBytesPath | None,
         mode: _ReadBinaryMode,
-        compresslevel: int = ...,
-        fileobj: _ReadableFileobj | None = ...,
-        mtime: float | None = ...,
+        compresslevel: int = 9,
+        fileobj: _ReadableFileobj | None = None,
+        mtime: float | None = None,
     ) -> None: ...
     @overload
     def __init__(
         self,
         *,
         mode: _ReadBinaryMode,
-        compresslevel: int = ...,
-        fileobj: _ReadableFileobj | None = ...,
-        mtime: float | None = ...,
+        compresslevel: int = 9,
+        fileobj: _ReadableFileobj | None = None,
+        mtime: float | None = None,
     ) -> None: ...
     @overload
     def __init__(
         self,
         filename: StrOrBytesPath | None,
         mode: _WriteBinaryMode,
-        compresslevel: int = ...,
-        fileobj: _WritableFileobj | None = ...,
-        mtime: float | None = ...,
+        compresslevel: int = 9,
+        fileobj: _WritableFileobj | None = None,
+        mtime: float | None = None,
     ) -> None: ...
     @overload
     def __init__(
         self,
         *,
         mode: _WriteBinaryMode,
-        compresslevel: int = ...,
-        fileobj: _WritableFileobj | None = ...,
-        mtime: float | None = ...,
+        compresslevel: int = 9,
+        fileobj: _WritableFileobj | None = None,
+        mtime: float | None = None,
     ) -> None: ...
     @overload
     def __init__(
         self,
-        filename: StrOrBytesPath | None = ...,
-        mode: str | None = ...,
-        compresslevel: int = ...,
-        fileobj: _ReadableFileobj | _WritableFileobj | None = ...,
-        mtime: float | None = ...,
+        filename: StrOrBytesPath | None = None,
+        mode: str | None = None,
+        compresslevel: int = 9,
+        fileobj: _ReadableFileobj | _WritableFileobj | None = None,
+        mtime: float | None = None,
     ) -> None: ...
     @property
     def filename(self) -> str: ...
@@ -145,15 +145,15 @@ class GzipFile(_compression.BaseStream):
     def mtime(self) -> int | None: ...
     crc: int
     def write(self, data: ReadableBuffer) -> int: ...
-    def read(self, size: int | None = ...) -> bytes: ...
-    def read1(self, size: int = ...) -> bytes: ...
+    def read(self, size: int | None = -1) -> bytes: ...
+    def read1(self, size: int = -1) -> bytes: ...
     def peek(self, n: int) -> bytes: ...
     def close(self) -> None: ...
-    def flush(self, zlib_mode: int = ...) -> None: ...
+    def flush(self, zlib_mode: int = 2) -> None: ...
     def fileno(self) -> int: ...
     def rewind(self) -> None: ...
-    def seek(self, offset: int, whence: int = ...) -> int: ...
-    def readline(self, size: int | None = ...) -> bytes: ...
+    def seek(self, offset: int, whence: int = 0) -> int: ...
+    def readline(self, size: int | None = -1) -> bytes: ...
 
 class _GzipReader(_compression.DecompressReader):
     def __init__(self, fp: _ReadableFileobj) -> None: ...
@@ -162,6 +162,6 @@ if sys.version_info >= (3, 8):
     def compress(data: _BufferWithLen, compresslevel: int = 9, *, mtime: float | None = None) -> bytes: ...
 
 else:
-    def compress(data: _BufferWithLen, compresslevel: int = 9) -> bytes: ...
+    def compress(data: _BufferWithLen, compresslevel: int = ...) -> bytes: ...
 
 def decompress(data: ReadableBuffer) -> bytes: ...

@@ -224,9 +224,9 @@ else:
 
     def dataclass_transform(
         *,
-        eq_default: bool = True,
-        order_default: bool = False,
-        kw_only_default: bool = False,
+        eq_default: bool = ...,
+        order_default: bool = ...,
+        kw_only_default: bool = ...,
         field_specifiers: tuple[type[Any] | Callable[..., Any], ...] = ...,
         **kwargs: object,
     ) -> IdentityFunction: ...
@@ -291,9 +291,9 @@ class ParamSpec:
         self,
         name: str,
         *,
-        bound: None | type[Any] | str = ...,
-        contravariant: bool = ...,
-        covariant: bool = ...,
+        bound: None | type[Any] | str = None,
+        contravariant: bool = False,
+        covariant: bool = False,
         default: type[Any] | str | None = ...,
     ) -> None: ...
     @property
