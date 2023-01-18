@@ -59,6 +59,12 @@ sqlalchemy.testing.provision.stop_test_class_outside_fixtures
 sqlalchemy.testing.provision.temp_table_keyword_args
 sqlalchemy.testing.provision.update_db_opts
 
+# potentially replaced at runtime
+sqlalchemy.engine.Row.count
+sqlalchemy.engine.Row.index
+sqlalchemy.engine.row.Row.count
+sqlalchemy.engine.row.Row.index
+
 # KeyError/AttributeError on import due to dynamic initialization from a different module
 sqlalchemy.testing.fixtures
 sqlalchemy.testing.pickleable
