@@ -120,7 +120,7 @@ def floor(x: RaggedTensor, name: str | None = None) -> RaggedTensor: ...
 def accumulate_n(
     inputs: list[_TensorCompatibleT] | tuple[_TensorCompatibleT, ...],
     shape: _ShapeLike | None = None,
-    dtype: _DTypeLike | None = None,
+    tensor_dtype: _DTypeLike | None = None,
     name: str | None = None,
 ) -> Tensor: ...
 @overload
