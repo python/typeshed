@@ -1,6 +1,7 @@
 from collections.abc import Callable, Iterator, Sequence
 from re import Match
 from typing import Any, NoReturn, TypeVar
+from typing_extensions import TypeAlias
 
 from parsimonious.exceptions import VisitationError as VisitationError
 from parsimonious.expressions import Expression
@@ -26,7 +27,7 @@ class RegexNode(Node):
 
 class RuleDecoratorMeta(type): ...
 
-_VisitRT = Any
+_VisitRT: TypeAlias = Any
 
 class NodeVisitor(metaclass=RuleDecoratorMeta):
     grammar: Grammar | Any
