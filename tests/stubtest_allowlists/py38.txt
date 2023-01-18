@@ -11,6 +11,8 @@ ast.Ellipsis.__new__
 ast.NameConstant.__new__
 ast.Num.__new__
 ast.Str.__new__
+asyncio.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
+asyncio.base_events.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 asyncio.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
 asyncio.locks._ContextManagerMixin.__enter__  # Always raises; deliberately omitted from the stub

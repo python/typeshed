@@ -34,12 +34,10 @@ argparse.Namespace.__getattr__  # The whole point of this class is its attribute
 asynchat.async_chat.encoding  # Removal planned for 3.12, can add if someone needs this
 asynchat.async_chat.use_encoding  # Removal planned for 3.12, can add if someone needs this
 asynchat.find_prefix_at_end  # Removal planned for 3.12, can add if someone needs this
-asyncio.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 # Condition functions are exported in __init__
 asyncio.Condition.acquire
 asyncio.Condition.locked
 asyncio.Condition.release
-asyncio.base_events.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 # Condition functions are exported in __init__
 asyncio.locks.Condition.acquire
 asyncio.locks.Condition.locked
