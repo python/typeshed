@@ -31,7 +31,7 @@ class _JackPositionT(_CDataBase):  # type: ignore[misc]  # pyright: ignore
     unique_1: int
     unique_2: int
     usecs: int
-    valid: Literal[0, 1]
+    valid: int
     video_offset: int
 
 class _CBufferType:
@@ -227,6 +227,8 @@ class OwnPort(Port):
 
 class OwnMidiPort(MidiPort, OwnPort):
     def __init__(self, port_ptr: _CDataBase, client: Client) -> None: ...
+    # The implementation raises NotImplementedError, but this is not an abstract class.
+    # `get_buffer()` and `get_array()` are disabled for OwnMidiPort
     def get_buffer(self) -> NoReturn: ...
     def get_array(self) -> NoReturn: ...
     @property
