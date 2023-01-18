@@ -397,7 +397,7 @@ class BaseEventLoop(AbstractEventLoop):
         stdout: int | IO[Any] | None = ...,
         stderr: int | IO[Any] | None = ...,
         universal_newlines: Literal[False] = ...,
-        shell: Literal[True] = ...,
+        shell: Literal[False] = ...,
         bufsize: Literal[0] = ...,
         encoding: None = ...,
         errors: None = ...,
