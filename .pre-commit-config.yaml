@@ -1,4 +1,15 @@
 repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0 # must match requirements-tests.txt
+    hooks:
+      - id: trailing-whitespace
+      - id: requirements-txt-fixer
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: mixed-line-ending
+      - id: check-case-conflict
   - repo: https://github.com/hadialqattan/pycln
     rev: v2.1.3 # must match requirements-tests.txt
     hooks:
@@ -8,7 +19,7 @@ repos:
     rev: 22.12.0 # must match requirements-tests.txt
     hooks:
       - id: black
-        language_version: python3.9
+        language_version: python3.10
   - repo: https://github.com/pycqa/isort
     rev: 5.11.4 # must match requirements-tests.txt
     hooks:
@@ -33,6 +44,6 @@ ci:
   autofix_commit_msg: "[pre-commit.ci] auto fixes from pre-commit.com hooks"
   autofix_prs: true
   autoupdate_commit_msg: "[pre-commit.ci] pre-commit autoupdate"
-  autoupdate_schedule: weekly
+  autoupdate_schedule: quarterly
   skip: [flake8]
   submodules: false
