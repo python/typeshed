@@ -47,7 +47,6 @@ typing._SpecialForm.__new__
 typing.runtime_checkable
 uuid.UUID.int
 uuid.UUID.is_safe
-uuid.getnode  # undocumented, unused parameter getters that was later removed
 xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495
 xml.etree.cElementTree.TreeBuilder.start  # bpo-39495
 
