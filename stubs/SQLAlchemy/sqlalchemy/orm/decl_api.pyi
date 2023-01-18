@@ -72,7 +72,7 @@ def declarative_base(
 def declarative_base(
     bind: Connectable | None,
     metadata: MetaData | None,
-    mapper: Any | None,
+    mapper: Incomplete | None,
     cls: type[Any] | tuple[type[Any], ...],
     name: str,
     constructor: Callable[..., None],
@@ -109,7 +109,11 @@ class registry:
     ) -> _DeclT: ...
     @overload
     def generate_base(
-        self, mapper: Any | None, cls: type[Any] | tuple[type[Any], ...], name: str, metaclass: _DeclarativeBaseMeta[_DeclT]
+        self,
+        mapper: Incomplete | None,
+        cls: type[Any] | tuple[type[Any], ...],
+        name: str,
+        metaclass: _DeclarativeBaseMeta[_DeclT],
     ) -> type[_DeclarativeBase]: ...
     def mapped(self, cls: _ClsT) -> _ClsT: ...
     # Return type of the callable is a _DeclarativeBase class with the passed in class as base.
