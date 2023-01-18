@@ -8,6 +8,7 @@ from __future__ import annotations
 import os
 import re
 import sys
+import urllib.parse
 from pathlib import Path
 
 import yaml
@@ -150,8 +151,9 @@ def get_precommit_requirements() -> dict[str, SpecifierSet]:
         if not repo.get("python_requirement", True):
             continue
         hook = repo["hooks"][0]
-        package_name, package_rev = hook["id"], repo["rev"]
-        package_specifier = SpecifierSet(f"=={package_rev.removeprefix('v')}")
+        package_name = Path(urllib.parse.urlparse(repo["repo"]).path).name
+        package_rev = repo["rev"].removeprefix("v")
+        package_specifier = SpecifierSet(f"=={package_rev}")
         precommit_requirements[package_name] = package_specifier
         for additional_req in hook.get("additional_dependencies", []):
             req = Requirement(additional_req)
