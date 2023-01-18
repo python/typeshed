@@ -150,8 +150,8 @@ class SSLConnection(Connection):
     certificate_password: Incomplete | None
     ssl_validate_ocsp: bool
     ssl_validate_ocsp_stapled: bool  # added in 4.1.1
-    ssl_ocsp_context: Any | None  # added in 4.1.1
-    ssl_ocsp_expected_cert: Any | None  # added in 4.1.1
+    ssl_ocsp_context: Incomplete | None  # added in 4.1.1
+    ssl_ocsp_expected_cert: Incomplete | None  # added in 4.1.1
     def __init__(
         self,
         ssl_keyfile=...,
