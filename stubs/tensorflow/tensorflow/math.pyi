@@ -1,17 +1,13 @@
 from _typeshed import Incomplete
-from typing import Iterable, overload
+from collections.abc import Iterable
+from typing import TypeVar, overload
+from typing_extensions import TypeAlias
 
-from tensorflow import (
-    IndexedSlices,
-    RaggedTensor,
-    Tensor,
-    _DTypeLike,
-    _ShapeLike,
-    _SparseTensorCompatible,
-    _TensorCompatible,
-    _TensorCompatibleT,
-)
+from tensorflow import IndexedSlices, RaggedTensor, Tensor, _DTypeLike, _ShapeLike, _TensorCompatible
 from tensorflow.sparse import SparseTensor
+
+_TensorCompatibleT = TypeVar("_TensorCompatibleT", bound=_TensorCompatible)
+_SparseTensorCompatible: TypeAlias = _TensorCompatible | SparseTensor
 
 # Most operations support RaggedTensor. Documentation for them is here,
 # https://www.tensorflow.org/api_docs/python/tf/ragged.
@@ -79,9 +75,9 @@ def add(x: _TensorCompatible, y: _TensorCompatible, name: str | None = None) -> 
 @overload
 def add(x: RaggedTensor, y: RaggedTensor, name: str | None = None) -> RaggedTensor: ...
 @overload
-def add_n(x: Iterable[_TensorCompatible | IndexedSlices], name: str | None = None) -> Tensor: ...
+def add_n(inputs: Iterable[_TensorCompatible | IndexedSlices], name: str | None = None) -> Tensor: ...
 @overload
-def add_n(x: Iterable[RaggedTensor], name: str | None = None) -> RaggedTensor: ...
+def add_n(inputs: Iterable[RaggedTensor], name: str | None = None) -> RaggedTensor: ...
 @overload
 def subtract(x: _TensorCompatible, y: _TensorCompatible, name: str | None = None) -> Tensor: ...
 @overload
@@ -122,7 +118,10 @@ def floor(x: RaggedTensor, name: str | None = None) -> RaggedTensor: ...
 # Uses isinstance on list/tuple so other Sequence types are not supported. The TypeVar is to
 # behave covariantly.
 def accumulate_n(
-    inputs: list[_TensorCompatibleT] | tuple[_TensorCompatibleT, ...], shape: _ShapeLike | None = None
+    inputs: list[_TensorCompatibleT] | tuple[_TensorCompatibleT, ...],
+    shape: _ShapeLike | None = None,
+    dtype: _DTypeLike | None = None,
+    name: str | None = None,
 ) -> Tensor: ...
 @overload
 def pow(x: _TensorCompatible, y: _TensorCompatible, name: str | None = None) -> Tensor: ...
@@ -264,13 +263,13 @@ def argmin(
 def reduce_any(
     input_tensor: _TensorCompatible | RaggedTensor,
     axis: _TensorCompatible | None = None,
-    keep_dims: bool = False,
+    keepdims: bool = False,
     name: str | None = None,
 ) -> Tensor: ...
 def reduce_all(
     input_tensor: _TensorCompatible | RaggedTensor,
     axis: _TensorCompatible | None = None,
-    keep_dims: bool = False,
+    keepdims: bool = False,
     name: str | None = None,
 ) -> Tensor: ...
 def count_nonzero(

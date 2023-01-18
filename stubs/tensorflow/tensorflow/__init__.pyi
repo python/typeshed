@@ -4,14 +4,49 @@ from builtins import bool as _bool
 from collections.abc import Callable, Iterable, Iterator, Sequence
 from contextlib import contextmanager
 from enum import Enum
-from typing import Any, NoReturn, TypeVar, overload
+from typing import Any, NoReturn, overload
 from typing_extensions import TypeAlias
 
 import numpy
 from tensorflow.dtypes import *
 
 # Most tf.math functions are exported as tf, but sadly not all are.
-from tensorflow.math import abs as abs
+from tensorflow.math import (
+    abs as abs,
+    add as add,
+    add_n as add_n,
+    argmax as argmax,
+    argmin as argmin,
+    cos as cos,
+    cosh as cosh,
+    divide as divide,
+    equal as equal,
+    greater as greater,
+    greater_equal as greater_equal,
+    less as less,
+    less_equal as less_equal,
+    logical_and as logical_and,
+    logical_not as logical_not,
+    logical_or as logical_or,
+    maximum as maximum,
+    minimum as minimum,
+    multiply as multiply,
+    not_equal as not_equal,
+    pow as pow,
+    reduce_max as reduce_max,
+    reduce_mean as reduce_mean,
+    reduce_min as reduce_min,
+    reduce_prod as reduce_prod,
+    reduce_sum as reduce_sum,
+    sigmoid as sigmoid,
+    sign as sign,
+    sin as sin,
+    sinh as sinh,
+    sqrt as sqrt,
+    square as square,
+    subtract as subtract,
+    tanh as tanh,
+)
 from tensorflow.sparse import SparseTensor
 
 # Tensors ideally should be a generic type, but properly typing data type/shape
@@ -25,8 +60,6 @@ _FloatDataSequence: TypeAlias = Sequence[float] | Sequence[_FloatDataSequence]
 _StrDataSequence: TypeAlias = Sequence[str] | Sequence[_StrDataSequence]
 _ScalarTensorCompatible: TypeAlias = Tensor | str | float | numpy.ndarray[Any, Any] | numpy.number[Any]
 _TensorCompatible: TypeAlias = _ScalarTensorCompatible | Sequence[_TensorCompatible]
-_TensorCompatibleT = TypeVar("_TensorCompatibleT", bound=_TensorCompatible)
-_SparseTensorCompatible: TypeAlias = _TensorCompatible | SparseTensor
 _ShapeLike: TypeAlias = TensorShape | Iterable[_ScalarTensorCompatible | None] | int | Tensor
 _DTypeLike: TypeAlias = DType | str | numpy.dtype[Any]
 
@@ -193,8 +226,8 @@ class Graph:
     def get_name_scope(self) -> str: ...
     def __getattr__(self, name: str) -> Incomplete: ...
 
-class IndexedSlices:
-    def __init__(self, values: Tensor, indices: Tensor, dense_shape: None | Tensor = None): ...
+class IndexedSlices(metaclass=ABCMeta):
+    def __init__(self, values: Tensor, indices: Tensor, dense_shape: None | Tensor = None) -> None: ...
     @property
     def values(self) -> Tensor: ...
     @property
