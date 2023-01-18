@@ -542,7 +542,7 @@ class AbstractEventLoop:
         stdout: int | IO[Any] | None = -1,
         stderr: int | IO[Any] | None = -1,
         universal_newlines: Literal[False] = ...,
-        shell: Literal[True] = ...,
+        shell: Literal[False] = ...,
         bufsize: Literal[0] = ...,
         encoding: None = ...,
         errors: None = ...,
