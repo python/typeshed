@@ -241,7 +241,7 @@ class Transport:
 
     if sys.version_info >= (3, 8):
         def __init__(
-            self, use_datetime: bool = ..., use_builtin_types: bool = ..., *, headers: Iterable[tuple[str, str]] = ...
+            self, use_datetime: bool = False, use_builtin_types: bool = False, *, headers: Iterable[tuple[str, str]] = ...
         ) -> None: ...
     else:
         def __init__(self, use_datetime: bool = ..., use_builtin_types: bool = ...) -> None: ...
@@ -268,11 +268,11 @@ class SafeTransport(Transport):
     if sys.version_info >= (3, 8):
         def __init__(
             self,
-            use_datetime: bool = ...,
-            use_builtin_types: bool = ...,
+            use_datetime: bool = False,
+            use_builtin_types: bool = False,
             *,
             headers: Iterable[tuple[str, str]] = ...,
-            context: Any | None = ...,
+            context: Any | None = None,
         ) -> None: ...
     else:
         def __init__(self, use_datetime: bool = ..., use_builtin_types: bool = ..., *, context: Any | None = ...) -> None: ...
@@ -292,15 +292,15 @@ class ServerProxy:
         def __init__(
             self,
             uri: str,
-            transport: Transport | None = ...,
-            encoding: str | None = ...,
-            verbose: bool = ...,
-            allow_none: bool = ...,
-            use_datetime: bool = ...,
-            use_builtin_types: bool = ...,
+            transport: Transport | None = None,
+            encoding: str | None = None,
+            verbose: bool = False,
+            allow_none: bool = False,
+            use_datetime: bool = False,
+            use_builtin_types: bool = False,
             *,
             headers: Iterable[tuple[str, str]] = ...,
-            context: Any | None = ...,
+            context: Any | None = None,
         ) -> None: ...
     else:
         def __init__(

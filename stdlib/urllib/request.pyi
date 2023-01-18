@@ -344,7 +344,7 @@ class FancyURLopener(URLopener):
     ) -> _UrlopenRet | addinfourl | None: ...  # undocumented
     if sys.version_info >= (3, 11):
         def http_error_308(
-            self, url: str, fp: IO[bytes], errcode: int, errmsg: str, headers: HTTPMessage, data: ReadableBuffer | None = ...
+            self, url: str, fp: IO[bytes], errcode: int, errmsg: str, headers: HTTPMessage, data: ReadableBuffer | None = None
         ) -> _UrlopenRet | addinfourl | None: ...  # undocumented
 
     def http_error_401(

@@ -85,8 +85,8 @@ class EnumMeta(ABCMeta):
             bases: tuple[type, ...],
             classdict: _EnumDict,
             *,
-            boundary: FlagBoundary | None = ...,
-            _simple: bool = ...,
+            boundary: FlagBoundary | None = None,
+            _simple: bool = False,
             **kwds: Any,
         ) -> Self: ...
     elif sys.version_info >= (3, 9):
@@ -112,7 +112,7 @@ class EnumMeta(ABCMeta):
     def __dir__(self) -> list[str]: ...
     # Simple value lookup
     @overload  # type: ignore[override]
-    def __call__(cls: type[_EnumMemberT], value: Any, names: None = None) -> _EnumMemberT: ...
+    def __call__(cls: type[_EnumMemberT], value: Any, names: None = ...) -> _EnumMemberT: ...
     # Functional Enum API
     if sys.version_info >= (3, 11):
         @overload

@@ -161,7 +161,7 @@ class Logger(Filterer):
             self,
             msg: object,
             *args: object,
-            exc_info: _ExcInfoType = ...,
+            exc_info: _ExcInfoType = True,
             stack_info: bool = ...,
             stacklevel: int = ...,
             extra: Mapping[str, object] | None = ...,
@@ -190,10 +190,10 @@ class Logger(Filterer):
             level: int,
             msg: object,
             args: _ArgsType,
-            exc_info: _ExcInfoType | None = ...,
-            extra: Mapping[str, object] | None = ...,
-            stack_info: bool = ...,
-            stacklevel: int = ...,
+            exc_info: _ExcInfoType | None = None,
+            extra: Mapping[str, object] | None = None,
+            stack_info: bool = False,
+            stacklevel: int = 1,
         ) -> None: ...  # undocumented
     else:
         def debug(
@@ -274,7 +274,7 @@ class Logger(Filterer):
     def addHandler(self, hdlr: Handler) -> None: ...
     def removeHandler(self, hdlr: Handler) -> None: ...
     if sys.version_info >= (3, 8):
-        def findCaller(self, stack_info: bool = ..., stacklevel: int = ...) -> tuple[str, int, str, str | None]: ...
+        def findCaller(self, stack_info: bool = False, stacklevel: int = 1) -> tuple[str, int, str, str | None]: ...
     else:
         def findCaller(self, stack_info: bool = ...) -> tuple[str, int, str, str | None]: ...
 
@@ -338,12 +338,12 @@ class Formatter:
     if sys.version_info >= (3, 10):
         def __init__(
             self,
-            fmt: str | None = ...,
-            datefmt: str | None = ...,
-            style: _FormatStyle = ...,
-            validate: bool = ...,
+            fmt: str | None = None,
+            datefmt: str | None = None,
+            style: _FormatStyle = "%",
+            validate: bool = True,
             *,
-            defaults: Mapping[str, Any] | None = ...,
+            defaults: Mapping[str, Any] | None = None,
         ) -> None: ...
     elif sys.version_info >= (3, 8):
         def __init__(
@@ -421,7 +421,7 @@ class LoggerAdapter(Generic[_L]):
     manager: Manager  # undocumented
     if sys.version_info >= (3, 10):
         extra: Mapping[str, object] | None
-        def __init__(self, logger: _L, extra: Mapping[str, object] | None = ...) -> None: ...
+        def __init__(self, logger: _L, extra: Mapping[str, object] | None = None) -> None: ...
     else:
         extra: Mapping[str, object]
         def __init__(self, logger: _L, extra: Mapping[str, object]) -> None: ...
@@ -482,7 +482,7 @@ class LoggerAdapter(Generic[_L]):
             self,
             msg: object,
             *args: object,
-            exc_info: _ExcInfoType = ...,
+            exc_info: _ExcInfoType = True,
             stack_info: bool = ...,
             stacklevel: int = ...,
             extra: Mapping[str, object] | None = ...,
@@ -771,7 +771,7 @@ class StreamHandler(Handler, Generic[_StreamT]):
     stream: _StreamT  # undocumented
     terminator: str
     @overload
-    def __init__(self: StreamHandler[TextIO], stream: None = None) -> None: ...
+    def __init__(self: StreamHandler[TextIO], stream: None = ...) -> None: ...
     @overload
     def __init__(self: StreamHandler[_StreamT], stream: _StreamT) -> None: ...
     def setStream(self, stream: _StreamT) -> _StreamT | None: ...
@@ -786,7 +786,7 @@ class FileHandler(StreamHandler[TextIOWrapper]):
     if sys.version_info >= (3, 9):
         errors: str | None  # undocumented
         def __init__(
-            self, filename: StrPath, mode: str = ..., encoding: str | None = ..., delay: bool = ..., errors: str | None = ...
+            self, filename: StrPath, mode: str = "a", encoding: str | None = None, delay: bool = False, errors: str | None = None
         ) -> None: ...
     else:
         def __init__(self, filename: StrPath, mode: str = ..., encoding: str | None = ..., delay: bool = ...) -> None: ...
@@ -815,7 +815,7 @@ class PercentStyle:  # undocumented
         validation_pattern: Pattern[str]
     _fmt: str
     if sys.version_info >= (3, 10):
-        def __init__(self, fmt: str, *, defaults: Mapping[str, Any] | None = ...) -> None: ...
+        def __init__(self, fmt: str, *, defaults: Mapping[str, Any] | None = None) -> None: ...
     else:
         def __init__(self, fmt: str) -> None: ...
 

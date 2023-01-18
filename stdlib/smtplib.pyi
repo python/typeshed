@@ -122,7 +122,7 @@ class SMTP:
     password: str
     def auth(self, mechanism: str, authobject: _AuthObject, *, initial_response_ok: bool = True) -> _Reply: ...
     @overload
-    def auth_cram_md5(self, challenge: None = None) -> None: ...
+    def auth_cram_md5(self, challenge: None = ...) -> None: ...
     @overload
     def auth_cram_md5(self, challenge: ReadableBuffer) -> str: ...
     def auth_plain(self, challenge: ReadableBuffer | None = None) -> str: ...
@@ -170,10 +170,10 @@ class LMTP(SMTP):
     if sys.version_info >= (3, 9):
         def __init__(
             self,
-            host: str = ...,
-            port: int = ...,
-            local_hostname: str | None = ...,
-            source_address: _SourceAddress | None = ...,
+            host: str = "",
+            port: int = 2003,
+            local_hostname: str | None = None,
+            source_address: _SourceAddress | None = None,
             timeout: float = ...,
         ) -> None: ...
     else:

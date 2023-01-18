@@ -131,19 +131,19 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     if sys.version_info >= (3, 9):
         def __init__(
             self,
-            prog: str | None = ...,
-            usage: str | None = ...,
-            description: str | None = ...,
-            epilog: str | None = ...,
+            prog: str | None = None,
+            usage: str | None = None,
+            description: str | None = None,
+            epilog: str | None = None,
             parents: Sequence[ArgumentParser] = ...,
             formatter_class: _FormatterClass = ...,
-            prefix_chars: str = ...,
-            fromfile_prefix_chars: str | None = ...,
-            argument_default: Any = ...,
-            conflict_handler: str = ...,
-            add_help: bool = ...,
-            allow_abbrev: bool = ...,
-            exit_on_error: bool = ...,
+            prefix_chars: str = "-",
+            fromfile_prefix_chars: str | None = None,
+            argument_default: Any = None,
+            conflict_handler: str = "error",
+            add_help: bool = True,
+            allow_abbrev: bool = True,
+            exit_on_error: bool = True,
         ) -> None: ...
     else:
         def __init__(
@@ -164,7 +164,7 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     # The type-ignores in these overloads should be temporary.  See:
     # https://github.com/python/typeshed/pull/2643#issuecomment-442280277
     @overload
-    def parse_args(self, args: Sequence[str] | None = None) -> Namespace: ...
+    def parse_args(self, args: Sequence[str] | None = ...) -> Namespace: ...
     @overload
     def parse_args(self, args: Sequence[str] | None, namespace: None) -> Namespace: ...  # type: ignore[misc]
     @overload
@@ -366,11 +366,11 @@ class _StoreConstAction(Action):
             self,
             option_strings: Sequence[str],
             dest: str,
-            const: Any | None = ...,
-            default: Any = ...,
-            required: bool = ...,
-            help: str | None = ...,
-            metavar: str | tuple[str, ...] | None = ...,
+            const: Any | None = None,
+            default: Any = None,
+            required: bool = False,
+            help: str | None = None,
+            metavar: str | tuple[str, ...] | None = None,
         ) -> None: ...
     else:
         def __init__(
@@ -410,11 +410,11 @@ class _AppendConstAction(Action):
             self,
             option_strings: Sequence[str],
             dest: str,
-            const: Any | None = ...,
-            default: Any = ...,
-            required: bool = ...,
-            help: str | None = ...,
-            metavar: str | tuple[str, ...] | None = ...,
+            const: Any | None = None,
+            default: Any = None,
+            required: bool = False,
+            help: str | None = None,
+            metavar: str | tuple[str, ...] | None = None,
         ) -> None: ...
     else:
         def __init__(

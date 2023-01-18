@@ -322,10 +322,10 @@ class Signature:
             cls: type[Self],
             obj: _IntrospectableCallable,
             *,
-            follow_wrapped: bool = ...,
-            globals: Mapping[str, Any] | None = ...,
-            locals: Mapping[str, Any] | None = ...,
-            eval_str: bool = ...,
+            follow_wrapped: bool = True,
+            globals: Mapping[str, Any] | None = None,
+            locals: Mapping[str, Any] | None = None,
+            eval_str: bool = False,
         ) -> Self: ...
     else:
         @classmethod

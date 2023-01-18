@@ -36,10 +36,10 @@ class _ProactorReadPipeTransport(_ProactorBasePipeTransport, transports.ReadTran
             loop: events.AbstractEventLoop,
             sock: socket,
             protocol: streams.StreamReaderProtocol,
-            waiter: futures.Future[Any] | None = ...,
-            extra: Mapping[Any, Any] | None = ...,
-            server: events.AbstractServer | None = ...,
-            buffer_size: int = ...,
+            waiter: futures.Future[Any] | None = None,
+            extra: Mapping[Any, Any] | None = None,
+            server: events.AbstractServer | None = None,
+            buffer_size: int = 65536,
         ) -> None: ...
     else:
         def __init__(

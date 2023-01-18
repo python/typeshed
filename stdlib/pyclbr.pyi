@@ -25,9 +25,9 @@ class Class:
             super_: list[Class | str] | None,
             file: str,
             lineno: int,
-            parent: Class | None = ...,
+            parent: Class | None = None,
             *,
-            end_lineno: int | None = ...,
+            end_lineno: int | None = None,
         ) -> None: ...
     else:
         def __init__(
@@ -54,10 +54,10 @@ class Function:
             name: str,
             file: str,
             lineno: int,
-            parent: Function | Class | None = ...,
-            is_async: bool = ...,
+            parent: Function | Class | None = None,
+            is_async: bool = False,
             *,
-            end_lineno: int | None = ...,
+            end_lineno: int | None = None,
         ) -> None: ...
     else:
         def __init__(self, module: str, name: str, file: str, lineno: int, parent: Function | Class | None = ...) -> None: ...

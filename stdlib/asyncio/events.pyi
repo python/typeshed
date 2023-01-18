@@ -132,14 +132,14 @@ class AbstractEventLoop:
     # Methods scheduling callbacks.  All these return Handles.
     if sys.version_info >= (3, 9):  # "context" added in 3.9.10/3.10.2
         @abstractmethod
-        def call_soon(self, callback: Callable[..., object], *args: Any, context: Context | None = ...) -> Handle: ...
+        def call_soon(self, callback: Callable[..., object], *args: Any, context: Context | None = None) -> Handle: ...
         @abstractmethod
         def call_later(
-            self, delay: float, callback: Callable[..., object], *args: Any, context: Context | None = ...
+            self, delay: float, callback: Callable[..., object], *args: Any, context: Context | None = None
         ) -> TimerHandle: ...
         @abstractmethod
         def call_at(
-            self, when: float, callback: Callable[..., object], *args: Any, context: Context | None = ...
+            self, when: float, callback: Callable[..., object], *args: Any, context: Context | None = None
         ) -> TimerHandle: ...
     else:
         @abstractmethod
@@ -161,8 +161,8 @@ class AbstractEventLoop:
             self,
             coro: Coroutine[Any, Any, _T] | Generator[Any, None, _T],
             *,
-            name: str | None = ...,
-            context: Context | None = ...,
+            name: str | None = None,
+            context: Context | None = None,
         ) -> Task[_T]: ...
     elif sys.version_info >= (3, 8):
         @abstractmethod
@@ -180,7 +180,7 @@ class AbstractEventLoop:
     # Methods for interacting with threads
     if sys.version_info >= (3, 9):  # "context" added in 3.9.10/3.10.2
         @abstractmethod
-        def call_soon_threadsafe(self, callback: Callable[..., object], *args: Any, context: Context | None = ...) -> Handle: ...
+        def call_soon_threadsafe(self, callback: Callable[..., object], *args: Any, context: Context | None = None) -> Handle: ...
     else:
         @abstractmethod
         def call_soon_threadsafe(self, callback: Callable[..., object], *args: Any) -> Handle: ...
@@ -364,22 +364,22 @@ class AbstractEventLoop:
             protocol: BaseProtocol,
             sslcontext: ssl.SSLContext,
             *,
-            server_side: bool = ...,
-            server_hostname: str | None = ...,
-            ssl_handshake_timeout: float | None = ...,
-            ssl_shutdown_timeout: float | None = ...,
+            server_side: bool = False,
+            server_hostname: str | None = None,
+            ssl_handshake_timeout: float | None = None,
+            ssl_shutdown_timeout: float | None = None,
         ) -> Transport: ...
         async def create_unix_server(
             self,
             protocol_factory: _ProtocolFactory,
-            path: StrPath | None = ...,
+            path: StrPath | None = None,
             *,
-            sock: socket | None = ...,
-            backlog: int = ...,
-            ssl: _SSLContext = ...,
-            ssl_handshake_timeout: float | None = ...,
-            ssl_shutdown_timeout: float | None = ...,
-            start_serving: bool = ...,
+            sock: socket | None = None,
+            backlog: int = 100,
+            ssl: _SSLContext = None,
+            ssl_handshake_timeout: float | None = None,
+            ssl_shutdown_timeout: float | None = None,
+            start_serving: bool = True,
         ) -> Server: ...
     else:
         @overload
@@ -446,9 +446,9 @@ class AbstractEventLoop:
             protocol_factory: Callable[[], _ProtocolT],
             sock: socket,
             *,
-            ssl: _SSLContext = ...,
-            ssl_handshake_timeout: float | None = ...,
-            ssl_shutdown_timeout: float | None = ...,
+            ssl: _SSLContext = None,
+            ssl_handshake_timeout: float | None = None,
+            ssl_shutdown_timeout: float | None = None,
         ) -> tuple[Transport, _ProtocolT]: ...
     elif sys.version_info >= (3, 10):
         async def connect_accepted_socket(
@@ -463,13 +463,13 @@ class AbstractEventLoop:
         async def create_unix_connection(
             self,
             protocol_factory: Callable[[], _ProtocolT],
-            path: str | None = ...,
+            path: str | None = None,
             *,
-            ssl: _SSLContext = ...,
-            sock: socket | None = ...,
-            server_hostname: str | None = ...,
-            ssl_handshake_timeout: float | None = ...,
-            ssl_shutdown_timeout: float | None = ...,
+            ssl: _SSLContext = None,
+            sock: socket | None = None,
+            server_hostname: str | None = None,
+            ssl_handshake_timeout: float | None = None,
+            ssl_shutdown_timeout: float | None = None,
         ) -> tuple[Transport, _ProtocolT]: ...
     else:
         async def create_unix_connection(
@@ -571,7 +571,7 @@ class AbstractEventLoop:
         @abstractmethod
         async def sock_recvfrom(self, sock: socket, bufsize: int) -> bytes: ...
         @abstractmethod
-        async def sock_recvfrom_into(self, sock: socket, buf: WriteableBuffer, nbytes: int = ...) -> int: ...
+        async def sock_recvfrom_into(self, sock: socket, buf: WriteableBuffer, nbytes: int = 0) -> int: ...
         @abstractmethod
         async def sock_sendto(self, sock: socket, data: ReadableBuffer, address: _Address) -> None: ...
     # Signal handling.

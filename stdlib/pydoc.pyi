@@ -75,16 +75,16 @@ class HTMLDoc(Doc):
     escape = _repr_instance.escape
     def page(self, title: str, contents: str) -> str: ...
     if sys.version_info >= (3, 11):
-        def heading(self, title: str, extras: str = ...) -> str: ...
+        def heading(self, title: str, extras: str = "") -> str: ...
         def section(
             self,
             title: str,
             cls: str,
             contents: str,
-            width: int = ...,
-            prelude: str = ...,
-            marginalia: str | None = ...,
-            gap: str = ...,
+            width: int = 6,
+            prelude: str = "",
+            marginalia: str | None = None,
+            gap: str = "&nbsp;",
         ) -> str: ...
         def multicolumn(self, list: list[_T], format: Callable[[_T], str]) -> str: ...
     else:

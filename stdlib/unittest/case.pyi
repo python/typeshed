@@ -123,21 +123,21 @@ class TestCase:
     def assertIsInstance(self, obj: object, cls: _IsInstanceClassInfo, msg: Any = None) -> None: ...
     def assertNotIsInstance(self, obj: object, cls: _IsInstanceClassInfo, msg: Any = None) -> None: ...
     @overload
-    def assertGreater(self, a: SupportsDunderGT[_T], b: _T, msg: Any = None) -> None: ...
+    def assertGreater(self, a: SupportsDunderGT[_T], b: _T, msg: Any = ...) -> None: ...
     @overload
-    def assertGreater(self, a: _T, b: SupportsDunderLT[_T], msg: Any = None) -> None: ...
+    def assertGreater(self, a: _T, b: SupportsDunderLT[_T], msg: Any = ...) -> None: ...
     @overload
-    def assertGreaterEqual(self, a: SupportsDunderGE[_T], b: _T, msg: Any = None) -> None: ...
+    def assertGreaterEqual(self, a: SupportsDunderGE[_T], b: _T, msg: Any = ...) -> None: ...
     @overload
-    def assertGreaterEqual(self, a: _T, b: SupportsDunderLE[_T], msg: Any = None) -> None: ...
+    def assertGreaterEqual(self, a: _T, b: SupportsDunderLE[_T], msg: Any = ...) -> None: ...
     @overload
-    def assertLess(self, a: SupportsDunderLT[_T], b: _T, msg: Any = None) -> None: ...
+    def assertLess(self, a: SupportsDunderLT[_T], b: _T, msg: Any = ...) -> None: ...
     @overload
-    def assertLess(self, a: _T, b: SupportsDunderGT[_T], msg: Any = None) -> None: ...
+    def assertLess(self, a: _T, b: SupportsDunderGT[_T], msg: Any = ...) -> None: ...
     @overload
-    def assertLessEqual(self, a: SupportsDunderLT[_T], b: _T, msg: Any = None) -> None: ...
+    def assertLessEqual(self, a: SupportsDunderLT[_T], b: _T, msg: Any = ...) -> None: ...
     @overload
-    def assertLessEqual(self, a: _T, b: SupportsDunderGT[_T], msg: Any = None) -> None: ...
+    def assertLessEqual(self, a: _T, b: SupportsDunderGT[_T], msg: Any = ...) -> None: ...
     # `assertRaises`, `assertRaisesRegex`, and `assertRaisesRegexp`
     # are not using `ParamSpec` intentionally,
     # because they might be used with explicitly wrong arg types to raise some error in tests.
@@ -196,56 +196,56 @@ class TestCase:
     ) -> _AssertLogsContext[_LoggingWatcher]: ...
     if sys.version_info >= (3, 10):
         def assertNoLogs(
-            self, logger: str | logging.Logger | None = ..., level: int | str | None = ...
+            self, logger: str | logging.Logger | None = None, level: int | str | None = None
         ) -> _AssertLogsContext[None]: ...
 
     @overload
     def assertAlmostEqual(self, first: _S, second: _S, places: None, msg: Any, delta: _SupportsAbsAndDunderGE) -> None: ...
     @overload
     def assertAlmostEqual(
-        self, first: _S, second: _S, places: None = None, msg: Any = None, *, delta: _SupportsAbsAndDunderGE
+        self, first: _S, second: _S, places: None = ..., msg: Any = ..., *, delta: _SupportsAbsAndDunderGE
     ) -> None: ...
     @overload
     def assertAlmostEqual(
         self,
         first: SupportsSub[_T, SupportsAbs[SupportsRound[object]]],
         second: _T,
-        places: int | None = None,
-        msg: Any = None,
-        delta: None = None,
+        places: int | None = ...,
+        msg: Any = ...,
+        delta: None = ...,
     ) -> None: ...
     @overload
     def assertAlmostEqual(
         self,
         first: _T,
         second: SupportsRSub[_T, SupportsAbs[SupportsRound[object]]],
-        places: int | None = None,
-        msg: Any = None,
-        delta: None = None,
+        places: int | None = ...,
+        msg: Any = ...,
+        delta: None = ...,
     ) -> None: ...
     @overload
     def assertNotAlmostEqual(self, first: _S, second: _S, places: None, msg: Any, delta: _SupportsAbsAndDunderGE) -> None: ...
     @overload
     def assertNotAlmostEqual(
-        self, first: _S, second: _S, places: None = None, msg: Any = None, *, delta: _SupportsAbsAndDunderGE
+        self, first: _S, second: _S, places: None = ..., msg: Any = ..., *, delta: _SupportsAbsAndDunderGE
     ) -> None: ...
     @overload
     def assertNotAlmostEqual(
         self,
         first: SupportsSub[_T, SupportsAbs[SupportsRound[object]]],
         second: _T,
-        places: int | None = None,
-        msg: Any = None,
-        delta: None = None,
+        places: int | None = ...,
+        msg: Any = ...,
+        delta: None = ...,
     ) -> None: ...
     @overload
     def assertNotAlmostEqual(
         self,
         first: _T,
         second: SupportsRSub[_T, SupportsAbs[SupportsRound[object]]],
-        places: int | None = None,
-        msg: Any = None,
-        delta: None = None,
+        places: int | None = ...,
+        msg: Any = ...,
+        delta: None = ...,
     ) -> None: ...
     def assertRegex(self, text: AnyStr, expected_regex: AnyStr | Pattern[AnyStr], msg: Any = None) -> None: ...
     def assertNotRegex(self, text: AnyStr, unexpected_regex: AnyStr | Pattern[AnyStr], msg: Any = None) -> None: ...
@@ -302,7 +302,7 @@ class TestCase:
         assertNotRegexpMatches = assertNotRegex
         assertRaisesRegexp = assertRaisesRegex
         def assertDictContainsSubset(
-            self, subset: Mapping[Any, Any], dictionary: Mapping[Any, Any], msg: object = ...
+            self, subset: Mapping[Any, Any], dictionary: Mapping[Any, Any], msg: object = None
         ) -> None: ...
 
 class FunctionTestCase(TestCase):

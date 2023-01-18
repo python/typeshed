@@ -25,11 +25,11 @@ class CDLL:
         def __init__(
             self,
             name: str | None,
-            mode: int = ...,
-            handle: int | None = ...,
-            use_errno: bool = ...,
-            use_last_error: bool = ...,
-            winmode: int | None = ...,
+            mode: int = 4,
+            handle: int | None = None,
+            use_errno: bool = False,
+            use_last_error: bool = False,
+            winmode: int | None = None,
         ) -> None: ...
     else:
         def __init__(

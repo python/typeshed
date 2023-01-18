@@ -132,10 +132,10 @@ class BaseManager:
     if sys.version_info >= (3, 11):
         def __init__(
             self,
-            address: Any | None = ...,
-            authkey: bytes | None = ...,
-            serializer: str = ...,
-            ctx: BaseContext | None = ...,
+            address: Any | None = None,
+            authkey: bytes | None = None,
+            serializer: str = "pickle",
+            ctx: BaseContext | None = None,
             *,
             shutdown_timeout: float = ...,
         ) -> None: ...

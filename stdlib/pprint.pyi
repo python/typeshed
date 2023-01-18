@@ -101,14 +101,14 @@ class PrettyPrinter:
     if sys.version_info >= (3, 10):
         def __init__(
             self,
-            indent: int = ...,
-            width: int = ...,
-            depth: int | None = ...,
-            stream: IO[str] | None = ...,
+            indent: int = 1,
+            width: int = 80,
+            depth: int | None = None,
+            stream: IO[str] | None = None,
             *,
-            compact: bool = ...,
-            sort_dicts: bool = ...,
-            underscore_numbers: bool = ...,
+            compact: bool = False,
+            sort_dicts: bool = True,
+            underscore_numbers: bool = False,
         ) -> None: ...
     elif sys.version_info >= (3, 8):
         def __init__(

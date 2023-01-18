@@ -99,45 +99,45 @@ class GzipFile(_compression.BaseStream):
         self,
         filename: StrOrBytesPath | None,
         mode: _ReadBinaryMode,
-        compresslevel: int = 9,
-        fileobj: _ReadableFileobj | None = None,
-        mtime: float | None = None,
+        compresslevel: int = ...,
+        fileobj: _ReadableFileobj | None = ...,
+        mtime: float | None = ...,
     ) -> None: ...
     @overload
     def __init__(
         self,
         *,
         mode: _ReadBinaryMode,
-        compresslevel: int = 9,
-        fileobj: _ReadableFileobj | None = None,
-        mtime: float | None = None,
+        compresslevel: int = ...,
+        fileobj: _ReadableFileobj | None = ...,
+        mtime: float | None = ...,
     ) -> None: ...
     @overload
     def __init__(
         self,
         filename: StrOrBytesPath | None,
         mode: _WriteBinaryMode,
-        compresslevel: int = 9,
-        fileobj: _WritableFileobj | None = None,
-        mtime: float | None = None,
+        compresslevel: int = ...,
+        fileobj: _WritableFileobj | None = ...,
+        mtime: float | None = ...,
     ) -> None: ...
     @overload
     def __init__(
         self,
         *,
         mode: _WriteBinaryMode,
-        compresslevel: int = 9,
-        fileobj: _WritableFileobj | None = None,
-        mtime: float | None = None,
+        compresslevel: int = ...,
+        fileobj: _WritableFileobj | None = ...,
+        mtime: float | None = ...,
     ) -> None: ...
     @overload
     def __init__(
         self,
-        filename: StrOrBytesPath | None = None,
-        mode: str | None = None,
-        compresslevel: int = 9,
-        fileobj: _ReadableFileobj | _WritableFileobj | None = None,
-        mtime: float | None = None,
+        filename: StrOrBytesPath | None = ...,
+        mode: str | None = ...,
+        compresslevel: int = ...,
+        fileobj: _ReadableFileobj | _WritableFileobj | None = ...,
+        mtime: float | None = ...,
     ) -> None: ...
     @property
     def filename(self) -> str: ...

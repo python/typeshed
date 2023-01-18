@@ -44,14 +44,14 @@ class FTP:
     if sys.version_info >= (3, 9):
         def __init__(
             self,
-            host: str = ...,
-            user: str = ...,
-            passwd: str = ...,
-            acct: str = ...,
+            host: str = "",
+            user: str = "",
+            passwd: str = "",
+            acct: str = "",
             timeout: float = ...,
-            source_address: tuple[str, int] | None = ...,
+            source_address: tuple[str, int] | None = None,
             *,
-            encoding: str = ...,
+            encoding: str = "utf-8",
         ) -> None: ...
     else:
         def __init__(
@@ -121,17 +121,17 @@ class FTP_TLS(FTP):
     if sys.version_info >= (3, 9):
         def __init__(
             self,
-            host: str = ...,
-            user: str = ...,
-            passwd: str = ...,
-            acct: str = ...,
-            keyfile: str | None = ...,
-            certfile: str | None = ...,
-            context: SSLContext | None = ...,
+            host: str = "",
+            user: str = "",
+            passwd: str = "",
+            acct: str = "",
+            keyfile: str | None = None,
+            certfile: str | None = None,
+            context: SSLContext | None = None,
             timeout: float = ...,
-            source_address: tuple[str, int] | None = ...,
+            source_address: tuple[str, int] | None = None,
             *,
-            encoding: str = ...,
+            encoding: str = "utf-8",
         ) -> None: ...
     else:
         def __init__(

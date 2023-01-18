@@ -70,7 +70,7 @@ class ZipExtFile(io.BufferedIOBase):
         fileobj: _ClosableZipStream,
         mode: _ReadWriteMode,
         zipinfo: ZipInfo,
-        pwd: bytes | None = None,
+        pwd: bytes | None = ...,
         *,
         close_fileobj: Literal[True],
     ) -> None: ...
@@ -80,8 +80,8 @@ class ZipExtFile(io.BufferedIOBase):
         fileobj: _ZipStream,
         mode: _ReadWriteMode,
         zipinfo: ZipInfo,
-        pwd: bytes | None = None,
-        close_fileobj: Literal[False] = False,
+        pwd: bytes | None = ...,
+        close_fileobj: Literal[False] = ...,
     ) -> None: ...
     def read(self, n: int | None = -1) -> bytes: ...
     def readline(self, limit: int = -1) -> bytes: ...  # type: ignore[override]
@@ -184,7 +184,7 @@ class ZipFile:
         compresslevel: int | None = None,
     ) -> None: ...
     if sys.version_info >= (3, 11):
-        def mkdir(self, zinfo_or_directory_name: str | ZipInfo, mode: int = ...) -> None: ...
+        def mkdir(self, zinfo_or_directory_name: str | ZipInfo, mode: int = 511) -> None: ...
 
 class PyZipFile(ZipFile):
     def __init__(
@@ -215,7 +215,7 @@ class ZipInfo:
     if sys.version_info >= (3, 8):
         @classmethod
         def from_file(
-            cls: type[Self], filename: StrPath, arcname: StrPath | None = ..., *, strict_timestamps: bool = ...
+            cls: type[Self], filename: StrPath, arcname: StrPath | None = None, *, strict_timestamps: bool = True
         ) -> Self: ...
     else:
         @classmethod
@@ -246,7 +246,9 @@ if sys.version_info >= (3, 8):
 
         def __init__(self, root: ZipFile | StrPath | IO[bytes], at: str = "") -> None: ...
         if sys.version_info >= (3, 9):
-            def open(self, mode: _ReadWriteBinaryMode = ..., *args: Any, pwd: bytes | None = ..., **kwargs: Any) -> IO[bytes]: ...
+            def open(
+                self, mode: _ReadWriteBinaryMode = "r", *args: Any, pwd: bytes | None = None, **kwargs: Any
+            ) -> IO[bytes]: ...
         else:
             @property
             def open(self) -> _PathOpenProtocol: ...

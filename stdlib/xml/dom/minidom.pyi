@@ -24,8 +24,10 @@ class Node(xml.dom.Node):
     def localName(self) -> str | None: ...
     def __bool__(self) -> Literal[True]: ...
     if sys.version_info >= (3, 9):
-        def toxml(self, encoding: str | None = ..., standalone: bool | None = ...): ...
-        def toprettyxml(self, indent: str = ..., newl: str = ..., encoding: str | None = ..., standalone: bool | None = ...): ...
+        def toxml(self, encoding: str | None = None, standalone: bool | None = None): ...
+        def toprettyxml(
+            self, indent: str = "\t", newl: str = "\n", encoding: str | None = None, standalone: bool | None = None
+        ): ...
     else:
         def toxml(self, encoding: str | None = ...): ...
         def toprettyxml(self, indent: str = ..., newl: str = ..., encoding: str | None = ...): ...
@@ -321,11 +323,11 @@ class Document(Node, DocumentLS):
         def writexml(
             self,
             writer: SupportsWrite[str],
-            indent: str = ...,
-            addindent: str = ...,
-            newl: str = ...,
-            encoding: str | None = ...,
-            standalone: bool | None = ...,
+            indent: str = "",
+            addindent: str = "",
+            newl: str = "",
+            encoding: str | None = None,
+            standalone: bool | None = None,
         ) -> None: ...
     else:
         def writexml(

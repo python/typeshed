@@ -81,8 +81,8 @@ class Path(PurePath):
     @classmethod
     def cwd(cls: type[Self]) -> Self: ...
     if sys.version_info >= (3, 10):
-        def stat(self, *, follow_symlinks: bool = ...) -> stat_result: ...
-        def chmod(self, mode: int, *, follow_symlinks: bool = ...) -> None: ...
+        def stat(self, *, follow_symlinks: bool = True) -> stat_result: ...
+        def chmod(self, mode: int, *, follow_symlinks: bool = True) -> None: ...
     else:
         def stat(self) -> stat_result: ...
         def chmod(self, mode: int) -> None: ...
@@ -106,54 +106,54 @@ class Path(PurePath):
     @overload
     def open(
         self,
-        mode: OpenTextMode = "r",
-        buffering: int = -1,
-        encoding: str | None = None,
-        errors: str | None = None,
-        newline: str | None = None,
+        mode: OpenTextMode = ...,
+        buffering: int = ...,
+        encoding: str | None = ...,
+        errors: str | None = ...,
+        newline: str | None = ...,
     ) -> TextIOWrapper: ...
     # Unbuffered binary mode: returns a FileIO
     @overload
     def open(
-        self, mode: OpenBinaryMode, buffering: Literal[0], encoding: None = None, errors: None = None, newline: None = None
+        self, mode: OpenBinaryMode, buffering: Literal[0], encoding: None = ..., errors: None = ..., newline: None = ...
     ) -> FileIO: ...
     # Buffering is on: return BufferedRandom, BufferedReader, or BufferedWriter
     @overload
     def open(
         self,
         mode: OpenBinaryModeUpdating,
-        buffering: Literal[-1, 1] = -1,
-        encoding: None = None,
-        errors: None = None,
-        newline: None = None,
+        buffering: Literal[-1, 1] = ...,
+        encoding: None = ...,
+        errors: None = ...,
+        newline: None = ...,
     ) -> BufferedRandom: ...
     @overload
     def open(
         self,
         mode: OpenBinaryModeWriting,
-        buffering: Literal[-1, 1] = -1,
-        encoding: None = None,
-        errors: None = None,
-        newline: None = None,
+        buffering: Literal[-1, 1] = ...,
+        encoding: None = ...,
+        errors: None = ...,
+        newline: None = ...,
     ) -> BufferedWriter: ...
     @overload
     def open(
         self,
         mode: OpenBinaryModeReading,
-        buffering: Literal[-1, 1] = -1,
-        encoding: None = None,
-        errors: None = None,
-        newline: None = None,
+        buffering: Literal[-1, 1] = ...,
+        encoding: None = ...,
+        errors: None = ...,
+        newline: None = ...,
     ) -> BufferedReader: ...
     # Buffering cannot be determined: fall back to BinaryIO
     @overload
     def open(
-        self, mode: OpenBinaryMode, buffering: int = -1, encoding: None = None, errors: None = None, newline: None = None
+        self, mode: OpenBinaryMode, buffering: int = ..., encoding: None = ..., errors: None = ..., newline: None = ...
     ) -> BinaryIO: ...
     # Fallback if mode is not specified
     @overload
     def open(
-        self, mode: str, buffering: int = -1, encoding: str | None = None, errors: str | None = None, newline: str | None = None
+        self, mode: str, buffering: int = ..., encoding: str | None = ..., errors: str | None = ..., newline: str | None = ...
     ) -> IO[Any]: ...
     if sys.platform != "win32":
         # These methods do "exist" on Windows, but they always raise NotImplementedError,
@@ -180,7 +180,7 @@ class Path(PurePath):
 
     def touch(self, mode: int = 438, exist_ok: bool = True) -> None: ...
     if sys.version_info >= (3, 8):
-        def unlink(self, missing_ok: bool = ...) -> None: ...
+        def unlink(self, missing_ok: bool = False) -> None: ...
     else:
         def unlink(self) -> None: ...
 
@@ -194,7 +194,7 @@ class Path(PurePath):
     def write_bytes(self, data: ReadableBuffer) -> int: ...
     if sys.version_info >= (3, 10):
         def write_text(
-            self, data: str, encoding: str | None = ..., errors: str | None = ..., newline: str | None = ...
+            self, data: str, encoding: str | None = None, errors: str | None = None, newline: str | None = None
         ) -> int: ...
     else:
         def write_text(self, data: str, encoding: str | None = ..., errors: str | None = ...) -> int: ...

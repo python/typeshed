@@ -45,7 +45,9 @@ class FileCookieJar(CookieJar):
     filename: str
     delayload: bool
     if sys.version_info >= (3, 8):
-        def __init__(self, filename: StrPath | None = ..., delayload: bool = ..., policy: CookiePolicy | None = ...) -> None: ...
+        def __init__(
+            self, filename: StrPath | None = None, delayload: bool = False, policy: CookiePolicy | None = None
+        ) -> None: ...
     else:
         def __init__(self, filename: str | None = ..., delayload: bool = ..., policy: CookiePolicy | None = ...) -> None: ...
 
@@ -85,18 +87,18 @@ class DefaultCookiePolicy(CookiePolicy):
     if sys.version_info >= (3, 8):
         def __init__(
             self,
-            blocked_domains: Sequence[str] | None = ...,
-            allowed_domains: Sequence[str] | None = ...,
-            netscape: bool = ...,
-            rfc2965: bool = ...,
-            rfc2109_as_netscape: bool | None = ...,
-            hide_cookie2: bool = ...,
-            strict_domain: bool = ...,
-            strict_rfc2965_unverifiable: bool = ...,
-            strict_ns_unverifiable: bool = ...,
-            strict_ns_domain: int = ...,
-            strict_ns_set_initial_dollar: bool = ...,
-            strict_ns_set_path: bool = ...,
+            blocked_domains: Sequence[str] | None = None,
+            allowed_domains: Sequence[str] | None = None,
+            netscape: bool = True,
+            rfc2965: bool = False,
+            rfc2109_as_netscape: bool | None = None,
+            hide_cookie2: bool = False,
+            strict_domain: bool = False,
+            strict_rfc2965_unverifiable: bool = True,
+            strict_ns_unverifiable: bool = False,
+            strict_ns_domain: int = 0,
+            strict_ns_set_initial_dollar: bool = False,
+            strict_ns_set_path: bool = False,
             secure_protocols: Sequence[str] = ...,
         ) -> None: ...
     else:

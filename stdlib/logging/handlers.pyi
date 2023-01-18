@@ -22,7 +22,7 @@ class WatchedFileHandler(FileHandler):
     ino: int  # undocumented
     if sys.version_info >= (3, 9):
         def __init__(
-            self, filename: StrPath, mode: str = ..., encoding: str | None = ..., delay: bool = ..., errors: str | None = ...
+            self, filename: StrPath, mode: str = "a", encoding: str | None = None, delay: bool = False, errors: str | None = None
         ) -> None: ...
     else:
         def __init__(self, filename: StrPath, mode: str = ..., encoding: str | None = ..., delay: bool = ...) -> None: ...
@@ -35,7 +35,7 @@ class BaseRotatingHandler(FileHandler):
     rotator: Callable[[str, str], None] | None
     if sys.version_info >= (3, 9):
         def __init__(
-            self, filename: StrPath, mode: str, encoding: str | None = ..., delay: bool = ..., errors: str | None = ...
+            self, filename: StrPath, mode: str, encoding: str | None = None, delay: bool = False, errors: str | None = None
         ) -> None: ...
     else:
         def __init__(self, filename: StrPath, mode: str, encoding: str | None = ..., delay: bool = ...) -> None: ...
@@ -50,12 +50,12 @@ class RotatingFileHandler(BaseRotatingHandler):
         def __init__(
             self,
             filename: StrPath,
-            mode: str = ...,
-            maxBytes: int = ...,
-            backupCount: int = ...,
-            encoding: str | None = ...,
-            delay: bool = ...,
-            errors: str | None = ...,
+            mode: str = "a",
+            maxBytes: int = 0,
+            backupCount: int = 0,
+            encoding: str | None = None,
+            delay: bool = False,
+            errors: str | None = None,
         ) -> None: ...
     else:
         def __init__(
@@ -85,14 +85,14 @@ class TimedRotatingFileHandler(BaseRotatingHandler):
         def __init__(
             self,
             filename: StrPath,
-            when: str = ...,
-            interval: int = ...,
-            backupCount: int = ...,
-            encoding: str | None = ...,
-            delay: bool = ...,
-            utc: bool = ...,
-            atTime: datetime.time | None = ...,
-            errors: str | None = ...,
+            when: str = "h",
+            interval: int = 1,
+            backupCount: int = 0,
+            encoding: str | None = None,
+            delay: bool = False,
+            utc: bool = False,
+            atTime: datetime.time | None = None,
+            errors: str | None = None,
         ) -> None: ...
     else:
         def __init__(

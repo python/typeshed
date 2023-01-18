@@ -669,39 +669,39 @@ class socket(_socket.socket):
         mode: Literal["b", "rb", "br", "wb", "bw", "rwb", "rbw", "wrb", "wbr", "brw", "bwr"],
         buffering: Literal[0],
         *,
-        encoding: str | None = None,
-        errors: str | None = None,
-        newline: str | None = None,
+        encoding: str | None = ...,
+        errors: str | None = ...,
+        newline: str | None = ...,
     ) -> SocketIO: ...
     @overload
     def makefile(
         self,
         mode: Literal["rwb", "rbw", "wrb", "wbr", "brw", "bwr"],
-        buffering: Literal[-1, 1] | None = None,
+        buffering: Literal[-1, 1] | None = ...,
         *,
-        encoding: str | None = None,
-        errors: str | None = None,
-        newline: str | None = None,
+        encoding: str | None = ...,
+        errors: str | None = ...,
+        newline: str | None = ...,
     ) -> BufferedRWPair: ...
     @overload
     def makefile(
         self,
         mode: Literal["rb", "br"],
-        buffering: Literal[-1, 1] | None = None,
+        buffering: Literal[-1, 1] | None = ...,
         *,
-        encoding: str | None = None,
-        errors: str | None = None,
-        newline: str | None = None,
+        encoding: str | None = ...,
+        errors: str | None = ...,
+        newline: str | None = ...,
     ) -> BufferedReader: ...
     @overload
     def makefile(
         self,
         mode: Literal["wb", "bw"],
-        buffering: Literal[-1, 1] | None = None,
+        buffering: Literal[-1, 1] | None = ...,
         *,
-        encoding: str | None = None,
-        errors: str | None = None,
-        newline: str | None = None,
+        encoding: str | None = ...,
+        errors: str | None = ...,
+        newline: str | None = ...,
     ) -> BufferedWriter: ...
     @overload
     def makefile(
@@ -709,19 +709,19 @@ class socket(_socket.socket):
         mode: Literal["b", "rb", "br", "wb", "bw", "rwb", "rbw", "wrb", "wbr", "brw", "bwr"],
         buffering: int,
         *,
-        encoding: str | None = None,
-        errors: str | None = None,
-        newline: str | None = None,
+        encoding: str | None = ...,
+        errors: str | None = ...,
+        newline: str | None = ...,
     ) -> IOBase: ...
     @overload
     def makefile(
         self,
-        mode: Literal["r", "w", "rw", "wr", ""] = "r",
-        buffering: int | None = None,
+        mode: Literal["r", "w", "rw", "wr", ""] = ...,
+        buffering: int | None = ...,
         *,
-        encoding: str | None = None,
-        errors: str | None = None,
-        newline: str | None = None,
+        encoding: str | None = ...,
+        errors: str | None = ...,
+        newline: str | None = ...,
     ) -> TextIOWrapper: ...
     def sendfile(self, file: _SendableFile, offset: int = 0, count: int | None = None) -> int: ...
     @property

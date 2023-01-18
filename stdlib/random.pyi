@@ -44,7 +44,7 @@ class Random(_random.Random):
     # Ignore Y041, since random.seed doesn't treat int like a float subtype. Having an explicit
     # int better documents conventional usage of random.seed.
     if sys.version_info >= (3, 9):
-        def seed(self, a: int | float | str | bytes | bytearray | None = ..., version: int = ...) -> None: ...  # type: ignore[override]  # noqa: Y041
+        def seed(self, a: int | float | str | bytes | bytearray | None = None, version: int = 2) -> None: ...  # type: ignore[override]  # noqa: Y041
     else:
         def seed(self, a: Any = ..., version: int = ...) -> None: ...
 
@@ -69,7 +69,7 @@ class Random(_random.Random):
     else:
         def shuffle(self, x: MutableSequence[Any], random: Callable[[], float] | None = ...) -> None: ...
     if sys.version_info >= (3, 11):
-        def sample(self, population: Sequence[_T], k: int, *, counts: Iterable[int] | None = ...) -> list[_T]: ...
+        def sample(self, population: Sequence[_T], k: int, *, counts: Iterable[int] | None = None) -> list[_T]: ...
     elif sys.version_info >= (3, 9):
         def sample(
             self, population: Sequence[_T] | AbstractSet[_T], k: int, *, counts: Iterable[int] | None = ...

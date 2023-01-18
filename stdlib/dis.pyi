@@ -76,14 +76,14 @@ class Bytecode:
             self,
             x: _HaveCodeType | str,
             *,
-            first_line: int | None = ...,
-            current_offset: int | None = ...,
-            show_caches: bool = ...,
-            adaptive: bool = ...,
+            first_line: int | None = None,
+            current_offset: int | None = None,
+            show_caches: bool = False,
+            adaptive: bool = False,
         ) -> None: ...
         @classmethod
         def from_traceback(
-            cls: type[Self], tb: types.TracebackType, *, show_caches: bool = ..., adaptive: bool = ...
+            cls: type[Self], tb: types.TracebackType, *, show_caches: bool = False, adaptive: bool = False
         ) -> Self: ...
     else:
         def __init__(self, x: _HaveCodeType | str, *, first_line: int | None = ..., current_offset: int | None = ...) -> None: ...

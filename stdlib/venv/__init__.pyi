@@ -20,13 +20,13 @@ class EnvBuilder:
     if sys.version_info >= (3, 9):
         def __init__(
             self,
-            system_site_packages: bool = ...,
-            clear: bool = ...,
-            symlinks: bool = ...,
-            upgrade: bool = ...,
-            with_pip: bool = ...,
-            prompt: str | None = ...,
-            upgrade_deps: bool = ...,
+            system_site_packages: bool = False,
+            clear: bool = False,
+            symlinks: bool = False,
+            upgrade: bool = False,
+            with_pip: bool = False,
+            prompt: str | None = None,
+            upgrade_deps: bool = False,
         ) -> None: ...
     else:
         def __init__(

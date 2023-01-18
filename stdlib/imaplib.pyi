@@ -41,8 +41,8 @@ class IMAP4:
     capabilities: tuple[str, ...]
     PROTOCOL_VERSION: str
     if sys.version_info >= (3, 9):
-        def __init__(self, host: str = ..., port: int = ..., timeout: float | None = ...) -> None: ...
-        def open(self, host: str = ..., port: int = ..., timeout: float | None = ...) -> None: ...
+        def __init__(self, host: str = "", port: int = 143, timeout: float | None = None) -> None: ...
+        def open(self, host: str = "", port: int = 143, timeout: float | None = None) -> None: ...
     else:
         def __init__(self, host: str = ..., port: int = ...) -> None: ...
         def open(self, host: str = ..., port: int = ...) -> None: ...
@@ -113,12 +113,12 @@ class IMAP4_SSL(IMAP4):
     if sys.version_info >= (3, 9):
         def __init__(
             self,
-            host: str = ...,
-            port: int = ...,
-            keyfile: str | None = ...,
-            certfile: str | None = ...,
-            ssl_context: SSLContext | None = ...,
-            timeout: float | None = ...,
+            host: str = "",
+            port: int = 993,
+            keyfile: str | None = None,
+            certfile: str | None = None,
+            ssl_context: SSLContext | None = None,
+            timeout: float | None = None,
         ) -> None: ...
     else:
         def __init__(
@@ -132,7 +132,7 @@ class IMAP4_SSL(IMAP4):
     sslobj: SSLSocket
     file: IO[Any]
     if sys.version_info >= (3, 9):
-        def open(self, host: str = ..., port: int | None = ..., timeout: float | None = ...) -> None: ...
+        def open(self, host: str = "", port: int | None = 993, timeout: float | None = None) -> None: ...
     else:
         def open(self, host: str = ..., port: int | None = ...) -> None: ...
 
@@ -146,7 +146,7 @@ class IMAP4_stream(IMAP4):
     writefile: IO[Any]
     readfile: IO[Any]
     if sys.version_info >= (3, 9):
-        def open(self, host: str | None = ..., port: int | None = ..., timeout: float | None = ...) -> None: ...
+        def open(self, host: str | None = None, port: int | None = None, timeout: float | None = None) -> None: ...
     else:
         def open(self, host: str | None = ..., port: int | None = ...) -> None: ...
 

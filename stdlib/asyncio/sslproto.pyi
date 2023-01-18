@@ -79,7 +79,7 @@ class _SSLProtocolTransport(transports._FlowControlMixin, transports.Transport):
     if sys.version_info >= (3, 11):
         def get_write_buffer_limits(self) -> tuple[int, int]: ...
         def get_read_buffer_limits(self) -> tuple[int, int]: ...
-        def set_read_buffer_limits(self, high: int | None = ..., low: int | None = ...) -> None: ...
+        def set_read_buffer_limits(self, high: int | None = None, low: int | None = None) -> None: ...
         def get_read_buffer_size(self) -> int: ...
 
 if sys.version_info >= (3, 11):
@@ -118,11 +118,11 @@ class SSLProtocol(_SSLProtocolBase):
             app_protocol: protocols.BaseProtocol,
             sslcontext: ssl.SSLContext,
             waiter: futures.Future[Any],
-            server_side: bool = ...,
-            server_hostname: str | None = ...,
-            call_connection_made: bool = ...,
-            ssl_handshake_timeout: int | None = ...,
-            ssl_shutdown_timeout: float | None = ...,
+            server_side: bool = False,
+            server_hostname: str | None = None,
+            call_connection_made: bool = True,
+            ssl_handshake_timeout: int | None = None,
+            ssl_shutdown_timeout: float | None = None,
         ) -> None: ...
     else:
         def __init__(

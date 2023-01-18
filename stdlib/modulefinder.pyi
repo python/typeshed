@@ -35,10 +35,10 @@ class ModuleFinder:
     if sys.version_info >= (3, 8):
         def __init__(
             self,
-            path: list[str] | None = ...,
-            debug: int = ...,
-            excludes: Container[str] | None = ...,
-            replace_paths: Sequence[tuple[str, str]] | None = ...,
+            path: list[str] | None = None,
+            debug: int = 0,
+            excludes: Container[str] | None = None,
+            replace_paths: Sequence[tuple[str, str]] | None = None,
         ) -> None: ...
     else:
         def __init__(

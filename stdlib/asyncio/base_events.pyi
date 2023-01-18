@@ -34,7 +34,7 @@ class Server(AbstractServer):
             ssl_context: _SSLContext,
             backlog: int,
             ssl_handshake_timeout: float | None,
-            ssl_shutdown_timeout: float | None = ...,
+            ssl_shutdown_timeout: float | None = None,
         ) -> None: ...
     else:
         def __init__(
@@ -87,7 +87,7 @@ class BaseEventLoop(AbstractEventLoop):
     # Tasks methods
     if sys.version_info >= (3, 11):
         def create_task(
-            self, coro: Coroutine[Any, Any, _T] | Generator[Any, None, _T], *, name: object = ..., context: Context | None = ...
+            self, coro: Coroutine[Any, Any, _T] | Generator[Any, None, _T], *, name: object = None, context: Context | None = None
         ) -> Task[_T]: ...
     elif sys.version_info >= (3, 8):
         def create_task(self, coro: Coroutine[Any, Any, _T] | Generator[Any, None, _T], *, name: object = ...) -> Task[_T]: ...
@@ -264,19 +264,19 @@ class BaseEventLoop(AbstractEventLoop):
             protocol: BaseProtocol,
             sslcontext: ssl.SSLContext,
             *,
-            server_side: bool = ...,
-            server_hostname: str | None = ...,
-            ssl_handshake_timeout: float | None = ...,
-            ssl_shutdown_timeout: float | None = ...,
+            server_side: bool = False,
+            server_hostname: str | None = None,
+            ssl_handshake_timeout: float | None = None,
+            ssl_shutdown_timeout: float | None = None,
         ) -> Transport: ...
         async def connect_accepted_socket(
             self,
             protocol_factory: Callable[[], _ProtocolT],
             sock: socket,
             *,
-            ssl: _SSLContext = ...,
-            ssl_handshake_timeout: float | None = ...,
-            ssl_shutdown_timeout: float | None = ...,
+            ssl: _SSLContext = None,
+            ssl_handshake_timeout: float | None = None,
+            ssl_shutdown_timeout: float | None = None,
         ) -> tuple[Transport, _ProtocolT]: ...
     else:
         @overload
@@ -342,15 +342,15 @@ class BaseEventLoop(AbstractEventLoop):
         async def create_datagram_endpoint(  # type: ignore[override]
             self,
             protocol_factory: Callable[[], _ProtocolT],
-            local_addr: tuple[str, int] | None = ...,
-            remote_addr: tuple[str, int] | None = ...,
+            local_addr: tuple[str, int] | None = None,
+            remote_addr: tuple[str, int] | None = None,
             *,
-            family: int = ...,
-            proto: int = ...,
-            flags: int = ...,
-            reuse_port: bool | None = ...,
-            allow_broadcast: bool | None = ...,
-            sock: socket | None = ...,
+            family: int = 0,
+            proto: int = 0,
+            flags: int = 0,
+            reuse_port: bool | None = None,
+            allow_broadcast: bool | None = None,
+            sock: socket | None = None,
         ) -> tuple[DatagramTransport, _ProtocolT]: ...
     else:
         async def create_datagram_endpoint(
@@ -418,7 +418,7 @@ class BaseEventLoop(AbstractEventLoop):
     async def sock_accept(self, sock: socket) -> tuple[socket, _RetAddress]: ...
     if sys.version_info >= (3, 11):
         async def sock_recvfrom(self, sock: socket, bufsize: int) -> bytes: ...
-        async def sock_recvfrom_into(self, sock: socket, buf: WriteableBuffer, nbytes: int = ...) -> int: ...
+        async def sock_recvfrom_into(self, sock: socket, buf: WriteableBuffer, nbytes: int = 0) -> int: ...
         async def sock_sendto(self, sock: socket, data: ReadableBuffer, address: _Address) -> None: ...
     # Signal handling.
     def add_signal_handler(self, sig: int, callback: Callable[..., Any], *args: Any) -> None: ...
