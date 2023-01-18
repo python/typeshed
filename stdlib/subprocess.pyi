@@ -91,13 +91,7 @@ class CompletedProcess(Generic[_T]):
     # and writing all the overloads would be horrific.
     stdout: _T
     stderr: _T
-    def __init__(
-        self,
-        args: _CMD,
-        returncode: int,
-        stdout: _T | None = None,
-        stderr: _T | None = None,
-    ) -> None: ...
+    def __init__(self, args: _CMD, returncode: int, stdout: _T | None = None, stderr: _T | None = None) -> None: ...
     def check_returncode(self) -> None: ...
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
