@@ -2,8 +2,7 @@
 # We reference the vendored package rather than depending on the original untyped module.
 # Anything not referenced in the PyInstaller stubs doesn't need to be added here.
 
-from _typeshed import Incomplete
-from typing import Protocol
+from typing import Any, Protocol
 
 class _SupportsGraphident(Protocol):
     graphident: str
@@ -11,7 +10,7 @@ class _SupportsGraphident(Protocol):
 # code, filename and packagepath are always initialized to None. But they can be given a value later.
 class Node:
     # Compiled code. See stdlib.builtins.compile
-    code: Incomplete | None
+    code: Any | None
     filename: str | None
     graphident: str
     identifier: str
