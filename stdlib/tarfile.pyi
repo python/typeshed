@@ -90,7 +90,7 @@ ENCODING: str
 
 def open(
     name: StrOrBytesPath | None = None,
-    mode: str = 'r',
+    mode: str = "r",
     fileobj: IO[bytes] | None = None,  # depends on mode
     bufsize: int = 10240,
     *,
@@ -128,14 +128,14 @@ class TarFile:
     def __init__(
         self,
         name: StrOrBytesPath | None = None,
-        mode: Literal["r", "a", "w", "x"] = 'r',
+        mode: Literal["r", "a", "w", "x"] = "r",
         fileobj: _Fileobj | None = None,
         format: int | None = None,
         tarinfo: type[TarInfo] | None = None,
         dereference: bool | None = None,
         ignore_zeros: bool | None = None,
         encoding: str | None = None,
-        errors: str = 'surrogateescape',
+        errors: str = "surrogateescape",
         pax_headers: Mapping[str, str] | None = None,
         debug: int | None = None,
         errorlevel: int | None = None,
@@ -150,7 +150,7 @@ class TarFile:
     def open(
         cls: type[Self],
         name: StrOrBytesPath | None = None,
-        mode: str = 'r',
+        mode: str = "r",
         fileobj: IO[bytes] | None = None,  # depends on mode
         bufsize: int = 10240,
         *,
@@ -168,7 +168,7 @@ class TarFile:
     def taropen(
         cls: type[Self],
         name: StrOrBytesPath | None,
-        mode: Literal["r", "a", "w", "x"] = 'r',
+        mode: Literal["r", "a", "w", "x"] = "r",
         fileobj: _Fileobj | None = None,
         *,
         compresslevel: int = ...,
@@ -186,7 +186,7 @@ class TarFile:
     def gzopen(
         cls: type[Self],
         name: StrOrBytesPath | None,
-        mode: Literal["r"] = 'r',
+        mode: Literal["r"] = "r",
         fileobj: _GzipReadableFileobj | None = None,
         compresslevel: int = 9,
         *,
@@ -240,7 +240,7 @@ class TarFile:
     def bz2open(
         cls: type[Self],
         name: StrOrBytesPath | None,
-        mode: Literal["r"] = 'r',
+        mode: Literal["r"] = "r",
         fileobj: _Bz2ReadableFileobj | None = None,
         compresslevel: int = 9,
         *,
@@ -257,7 +257,7 @@ class TarFile:
     def xzopen(
         cls: type[Self],
         name: StrOrBytesPath | None,
-        mode: Literal["r", "w", "x"] = 'r',
+        mode: Literal["r", "w", "x"] = "r",
         fileobj: IO[bytes] | None = None,
         preset: int | None = None,
         *,
@@ -276,10 +276,10 @@ class TarFile:
     def list(self, verbose: bool = True, *, members: _list[TarInfo] | None = None) -> None: ...
     def next(self) -> TarInfo | None: ...
     def extractall(
-        self, path: StrOrBytesPath = '.', members: Iterable[TarInfo] | None = None, *, numeric_owner: bool = False
+        self, path: StrOrBytesPath = ".", members: Iterable[TarInfo] | None = None, *, numeric_owner: bool = False
     ) -> None: ...
     def extract(
-        self, member: str | TarInfo, path: StrOrBytesPath = '', set_attrs: bool = True, *, numeric_owner: bool = False
+        self, member: str | TarInfo, path: StrOrBytesPath = "", set_attrs: bool = True, *, numeric_owner: bool = False
     ) -> None: ...
     def _extract_member(
         self, tarinfo: TarInfo, targetpath: str, set_attrs: bool = True, numeric_owner: bool = False
@@ -344,7 +344,7 @@ class TarInfo:
     uname: str
     gname: str
     pax_headers: Mapping[str, str]
-    def __init__(self, name: str = '') -> None: ...
+    def __init__(self, name: str = "") -> None: ...
     @classmethod
     def frombuf(cls: Type[Self], buf: bytes | bytearray, encoding: str, errors: str) -> Self: ...
     @classmethod
@@ -354,7 +354,7 @@ class TarInfo:
     @linkpath.setter
     def linkpath(self, linkname: str) -> None: ...
     def get_info(self) -> Mapping[str, str | int | bytes | Mapping[str, str]]: ...
-    def tobuf(self, format: int | None = 2, encoding: str | None = 'utf-8', errors: str = 'surrogateescape') -> bytes: ...
+    def tobuf(self, format: int | None = 2, encoding: str | None = "utf-8", errors: str = "surrogateescape") -> bytes: ...
     def create_ustar_header(
         self, info: Mapping[str, str | int | bytes | Mapping[str, str]], encoding: str, errors: str
     ) -> bytes: ...

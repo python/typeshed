@@ -70,7 +70,7 @@ class _Call(tuple[Any, ...]):
     def __new__(
         cls: type[Self],
         value: _CallValue = ...,
-        name: str | None = '',
+        name: str | None = "",
         parent: Any | None = None,
         two: bool = False,
         from_kall: bool = True,
@@ -79,7 +79,12 @@ class _Call(tuple[Any, ...]):
     parent: Any
     from_kall: Any
     def __init__(
-        self, value: _CallValue = ..., name: str | None = None, parent: Any | None = None, two: bool = False, from_kall: bool = True
+        self,
+        value: _CallValue = ...,
+        name: str | None = None,
+        parent: Any | None = None,
+        two: bool = False,
+        from_kall: bool = True,
     ) -> None: ...
     def __eq__(self, other: object) -> bool: ...
     def __ne__(self, __other: object) -> bool: ...
@@ -112,7 +117,7 @@ class NonCallableMock(Base, Any):
         spec_set: list[str] | object | type[object] | None = None,
         parent: NonCallableMock | None = None,
         _spec_state: Any | None = None,
-        _new_name: str = '',
+        _new_name: str = "",
         _new_parent: NonCallableMock | None = None,
         _spec_as_instance: bool = False,
         _eat_self: bool | None = None,
@@ -173,7 +178,7 @@ class CallableMixin(Base):
         spec_set: Any | None = None,
         parent: Any | None = None,
         _spec_state: Any | None = None,
-        _new_name: Any = '',
+        _new_name: Any = "",
         _new_parent: Any | None = None,
         **kwargs: Any,
     ) -> None: ...
@@ -423,7 +428,7 @@ class _SpecState:
         instance: Any = False,
     ) -> None: ...
 
-def mock_open(mock: Any | None = None, read_data: Any = '') -> Any: ...
+def mock_open(mock: Any | None = None, read_data: Any = "") -> Any: ...
 
 class PropertyMock(Mock):
     if sys.version_info >= (3, 8):

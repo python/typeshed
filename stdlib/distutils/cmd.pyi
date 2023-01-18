@@ -28,13 +28,7 @@ class Command:
     def execute(self, func: Callable[..., object], args: Iterable[Any], msg: str | None = None, level: int = 1) -> None: ...
     def mkpath(self, name: str, mode: int = 511) -> None: ...
     def copy_file(
-        self,
-        infile: str,
-        outfile: str,
-        preserve_mode: int = 1,
-        preserve_times: int = 1,
-        link: str | None = None,
-        level: Any = 1,
+        self, infile: str, outfile: str, preserve_mode: int = 1, preserve_times: int = 1, link: str | None = None, level: Any = 1
     ) -> tuple[str, bool]: ...  # level is not used
     def copy_tree(
         self,

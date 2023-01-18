@@ -716,7 +716,7 @@ class socket(_socket.socket):
     @overload
     def makefile(
         self,
-        mode: Literal["r", "w", "rw", "wr", ""] = 'r',
+        mode: Literal["r", "w", "rw", "wr", ""] = "r",
         buffering: int | None = None,
         *,
         encoding: str | None = None,
@@ -760,7 +760,7 @@ class SocketIO(RawIOBase):
     @property
     def mode(self) -> Literal["rb", "wb", "rwb"]: ...
 
-def getfqdn(name: str = '') -> str: ...
+def getfqdn(name: str = "") -> str: ...
 
 if sys.version_info >= (3, 11):
     def create_connection(
@@ -784,10 +784,5 @@ if sys.version_info >= (3, 8):
 
 # the 5th tuple item is an address
 def getaddrinfo(
-    host: bytes | str | None,
-    port: bytes | str | int | None,
-    family: int = 0,
-    type: int = 0,
-    proto: int = 0,
-    flags: int = 0,
+    host: bytes | str | None, port: bytes | str | int | None, family: int = 0, type: int = 0, proto: int = 0, flags: int = 0
 ) -> list[tuple[AddressFamily, SocketKind, int, str, tuple[str, int] | tuple[str, int, int, int]]]: ...

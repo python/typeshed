@@ -25,7 +25,7 @@ class TestProgram:
     testNamePatterns: list[str] | None
     def __init__(
         self,
-        module: None | str | ModuleType = '__main__',
+        module: None | str | ModuleType = "__main__",
         defaultTest: str | Iterable[str] | None = None,
         argv: list[str] | None = None,
         testRunner: type[_TestRunner] | _TestRunner | None = None,

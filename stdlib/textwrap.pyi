@@ -28,8 +28,8 @@ class TextWrapper:
     def __init__(
         self,
         width: int = 70,
-        initial_indent: str = '',
-        subsequent_indent: str = '',
+        initial_indent: str = "",
+        subsequent_indent: str = "",
         expand_tabs: bool = True,
         replace_whitespace: bool = True,
         fix_sentence_endings: bool = False,
@@ -39,7 +39,7 @@ class TextWrapper:
         tabsize: int = 8,
         *,
         max_lines: int | None = None,
-        placeholder: str = ' [...]',
+        placeholder: str = " [...]",
     ) -> None: ...
     # Private methods *are* part of the documented API for subclasses.
     def _munge_whitespace(self, text: str) -> str: ...

@@ -23,7 +23,12 @@ class Filter(BaseFilter):
     def filename_pattern(self) -> str: ...
     all_frames: bool
     def __init__(
-        self, inclusive: bool, filename_pattern: str, lineno: int | None = None, all_frames: bool = False, domain: int | None = None
+        self,
+        inclusive: bool,
+        filename_pattern: str,
+        lineno: int | None = None,
+        all_frames: bool = False,
+        domain: int | None = None,
     ) -> None: ...
 
 class Statistic:

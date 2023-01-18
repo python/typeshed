@@ -339,7 +339,7 @@ class FileType:
     _bufsize: int
     _encoding: str | None
     _errors: str | None
-    def __init__(self, mode: str = 'r', bufsize: int = -1, encoding: str | None = None, errors: str | None = None) -> None: ...
+    def __init__(self, mode: str = "r", bufsize: int = -1, encoding: str | None = None, errors: str | None = None) -> None: ...
     def __call__(self, string: str) -> IO[Any]: ...
 
 # undocumented
@@ -436,13 +436,20 @@ class _CountAction(Action):
 
 # undocumented
 class _HelpAction(Action):
-    def __init__(self, option_strings: Sequence[str], dest: str = '==SUPPRESS==', default: str = '==SUPPRESS==', help: str | None = None) -> None: ...
+    def __init__(
+        self, option_strings: Sequence[str], dest: str = "==SUPPRESS==", default: str = "==SUPPRESS==", help: str | None = None
+    ) -> None: ...
 
 # undocumented
 class _VersionAction(Action):
     version: str | None
     def __init__(
-        self, option_strings: Sequence[str], version: str | None = None, dest: str = '==SUPPRESS==', default: str = '==SUPPRESS==', help: str = "show program's version number and exit"
+        self,
+        option_strings: Sequence[str],
+        version: str | None = None,
+        dest: str = "==SUPPRESS==",
+        default: str = "==SUPPRESS==",
+        help: str = "show program's version number and exit",
     ) -> None: ...
 
 # undocumented
@@ -458,7 +465,7 @@ class _SubParsersAction(Action, Generic[_ArgumentParserT]):
         option_strings: Sequence[str],
         prog: str,
         parser_class: type[_ArgumentParserT],
-        dest: str = '==SUPPRESS==',
+        dest: str = "==SUPPRESS==",
         required: bool = False,
         help: str | None = None,
         metavar: str | tuple[str, ...] | None = None,

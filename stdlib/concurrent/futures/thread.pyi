@@ -51,7 +51,7 @@ class ThreadPoolExecutor(Executor):
     def __init__(
         self,
         max_workers: int | None = None,
-        thread_name_prefix: str = '',
+        thread_name_prefix: str = "",
         initializer: Callable[..., object] | None = None,
         initargs: tuple[Any, ...] = ...,
     ) -> None: ...

@@ -27,7 +27,7 @@ class config(Command):
         body: str | None = None,
         headers: Sequence[str] | None = None,
         include_dirs: Sequence[str] | None = None,
-        lang: str = 'c',
+        lang: str = "c",
     ) -> bool: ...
     def search_cpp(
         self,
@@ -35,10 +35,10 @@ class config(Command):
         body: str | None = None,
         headers: Sequence[str] | None = None,
         include_dirs: Sequence[str] | None = None,
-        lang: str = 'c',
+        lang: str = "c",
     ) -> bool: ...
     def try_compile(
-        self, body: str, headers: Sequence[str] | None = None, include_dirs: Sequence[str] | None = None, lang: str = 'c'
+        self, body: str, headers: Sequence[str] | None = None, include_dirs: Sequence[str] | None = None, lang: str = "c"
     ) -> bool: ...
     def try_link(
         self,
@@ -47,7 +47,7 @@ class config(Command):
         include_dirs: Sequence[str] | None = None,
         libraries: Sequence[str] | None = None,
         library_dirs: Sequence[str] | None = None,
-        lang: str = 'c',
+        lang: str = "c",
     ) -> bool: ...
     def try_run(
         self,
@@ -56,7 +56,7 @@ class config(Command):
         include_dirs: Sequence[str] | None = None,
         libraries: Sequence[str] | None = None,
         library_dirs: Sequence[str] | None = None,
-        lang: str = 'c',
+        lang: str = "c",
     ) -> bool: ...
     def check_func(
         self,
@@ -77,7 +77,7 @@ class config(Command):
         other_libraries: list[str] = ...,
     ) -> bool: ...
     def check_header(
-        self, header: str, include_dirs: Sequence[str] | None = None, library_dirs: Sequence[str] | None = None, lang: str = 'c'
+        self, header: str, include_dirs: Sequence[str] | None = None, library_dirs: Sequence[str] | None = None, lang: str = "c"
     ) -> bool: ...
 
 def dump_file(filename: str, head: Any | None = None) -> None: ...

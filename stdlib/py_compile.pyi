@@ -9,7 +9,7 @@ class PyCompileError(Exception):
     exc_value: BaseException
     file: str
     msg: str
-    def __init__(self, exc_type: type[BaseException], exc_value: BaseException, file: str, msg: str = '') -> None: ...
+    def __init__(self, exc_type: type[BaseException], exc_value: BaseException, file: str, msg: str = "") -> None: ...
 
 class PycInvalidationMode(enum.Enum):
     TIMESTAMP: int

@@ -106,7 +106,7 @@ class Path(PurePath):
     @overload
     def open(
         self,
-        mode: OpenTextMode = 'r',
+        mode: OpenTextMode = "r",
         buffering: int = -1,
         encoding: str | None = None,
         errors: str | None = None,

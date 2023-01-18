@@ -119,16 +119,16 @@ if sys.version_info >= (3, 8):
         file: _ReadableFileobj,
         *,
         fix_imports: bool = True,
-        encoding: str = 'ASCII',
-        errors: str = 'strict',
+        encoding: str = "ASCII",
+        errors: str = "strict",
         buffers: Iterable[Any] | None = ...,
     ) -> Any: ...
     def loads(
         __data: ReadableBuffer,
         *,
         fix_imports: bool = True,
-        encoding: str = 'ASCII',
-        errors: str = 'strict',
+        encoding: str = "ASCII",
+        errors: str = "strict",
         buffers: Iterable[Any] | None = ...,
     ) -> Any: ...
 

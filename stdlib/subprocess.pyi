@@ -1822,7 +1822,9 @@ DEVNULL: int
 class SubprocessError(Exception): ...
 
 class TimeoutExpired(SubprocessError):
-    def __init__(self, cmd: _CMD, timeout: float, output: str | bytes | None = None, stderr: str | bytes | None = None) -> None: ...
+    def __init__(
+        self, cmd: _CMD, timeout: float, output: str | bytes | None = None, stderr: str | bytes | None = None
+    ) -> None: ...
     # morally: _CMD
     cmd: Any
     timeout: float

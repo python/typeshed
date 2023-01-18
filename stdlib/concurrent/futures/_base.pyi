@@ -84,7 +84,9 @@ class DoneAndNotDoneFutures(Sequence[set[Future[_T]]]):
     @overload
     def __getitem__(self, __s: slice) -> DoneAndNotDoneFutures[_T]: ...
 
-def wait(fs: Iterable[Future[_T]], timeout: float | None = None, return_when: str = 'ALL_COMPLETED') -> DoneAndNotDoneFutures[_T]: ...
+def wait(
+    fs: Iterable[Future[_T]], timeout: float | None = None, return_when: str = "ALL_COMPLETED"
+) -> DoneAndNotDoneFutures[_T]: ...
 
 class _Waiter:
     event: threading.Event

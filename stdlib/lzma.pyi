@@ -108,7 +108,7 @@ class LZMAFile(io.BufferedIOBase, IO[bytes]):
     def __init__(
         self,
         filename: _PathOrFile | None = None,
-        mode: str = 'r',
+        mode: str = "r",
         *,
         format: int | None = None,
         check: int = -1,

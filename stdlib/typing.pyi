@@ -215,7 +215,9 @@ if sys.version_info >= (3, 10):
         __bound__: Any | None
         __covariant__: bool
         __contravariant__: bool
-        def __init__(self, name: str, *, bound: Any | None = None, contravariant: bool = False, covariant: bool = False) -> None: ...
+        def __init__(
+            self, name: str, *, bound: Any | None = None, contravariant: bool = False, covariant: bool = False
+        ) -> None: ...
         @property
         def args(self) -> ParamSpecArgs: ...
         @property

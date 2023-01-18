@@ -348,7 +348,7 @@ class Connection:
         *,
         pages: int = -1,
         progress: Callable[[int, int, int], object] | None = None,
-        name: str = 'main',
+        name: str = "main",
         sleep: float = ...,
     ) -> None: ...
     if sys.version_info >= (3, 11):

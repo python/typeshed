@@ -52,7 +52,7 @@ class InspectLoader(Loader):
     def get_source(self, fullname: str) -> str | None: ...
     def exec_module(self, module: types.ModuleType) -> None: ...
     @staticmethod
-    def source_to_code(data: ReadableBuffer | str, path: str = '<string>') -> types.CodeType: ...
+    def source_to_code(data: ReadableBuffer | str, path: str = "<string>") -> types.CodeType: ...
 
 class ExecutionLoader(InspectLoader):
     @abstractmethod
@@ -123,7 +123,7 @@ if sys.version_info >= (3, 9):
         @abstractmethod
         def open(
             self,
-            mode: OpenTextMode = 'r',
+            mode: OpenTextMode = "r",
             buffering: int = ...,
             encoding: str | None = ...,
             errors: str | None = ...,

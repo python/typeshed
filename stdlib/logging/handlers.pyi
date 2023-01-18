@@ -185,7 +185,7 @@ class SysLogHandler(Handler):
     def mapPriority(self, levelName: str) -> str: ...
 
 class NTEventLogHandler(Handler):
-    def __init__(self, appname: str, dllname: str | None = None, logtype: str = 'Application') -> None: ...
+    def __init__(self, appname: str, dllname: str | None = None, logtype: str = "Application") -> None: ...
     def getEventCategory(self, record: LogRecord) -> int: ...
     # TODO correct return value?
     def getEventType(self, record: LogRecord) -> int: ...
@@ -238,7 +238,7 @@ class HTTPHandler(Handler):
         self,
         host: str,
         url: str,
-        method: str = 'GET',
+        method: str = "GET",
         secure: bool = False,
         credentials: tuple[str, str] | None = None,
         context: ssl.SSLContext | None = None,
