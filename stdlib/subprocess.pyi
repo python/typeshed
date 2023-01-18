@@ -91,12 +91,11 @@ class CompletedProcess(Generic[_T]):
     # and writing all the overloads would be horrific.
     stdout: _T
     stderr: _T
-    # pyright ignore on __init__ because the TypeVar can technically be unsolved, but see comment above
     def __init__(
         self,
         args: _CMD,
         returncode: int,
-        stdout: _T | None = None,  # pyright: ignore[reportInvalidTypeVarUse]
+        stdout: _T | None = None,
         stderr: _T | None = None,
     ) -> None: ...
     def check_returncode(self) -> None: ...
