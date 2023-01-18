@@ -4,6 +4,7 @@
 
 from _typeshed import StrOrBytesPath
 from collections.abc import Generator, Iterable
+from types import CodeType
 from typing import Any
 from typing_extensions import Literal
 
@@ -50,7 +51,7 @@ class PostGraphAPI:
     def __name__(self) -> str: ...
     # Compiled code. See stdlib.builtins.compile
     @property
-    def co(self) -> Any: ...
+    def co(self) -> CodeType: ...
     @property
     def analysis(self) -> Analysis: ...
     @property
