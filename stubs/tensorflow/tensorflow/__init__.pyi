@@ -8,7 +8,11 @@ from typing import Any, NoReturn, overload
 from typing_extensions import TypeAlias
 
 import numpy
+
+# Explicit import of DType is covered by the wildcard, but
+# is necessary to avoid a crash in pytype.
 from tensorflow.dtypes import *
+from tensorflow.dtypes import DType as DType
 
 # Most tf.math functions are exported as tf, but sadly not all are.
 from tensorflow.math import (
