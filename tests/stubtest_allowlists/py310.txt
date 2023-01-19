@@ -7,6 +7,8 @@ _collections_abc.ItemsView.__reversed__
 _collections_abc.KeysView.__reversed__
 _collections_abc.ValuesView.__reversed__
 _weakref.ProxyType.__reversed__  # Doesn't really exist
+asyncio.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
+asyncio.base_events.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 asyncio.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
 builtins.float.__setformat__  # Internal method for CPython test suite
@@ -55,7 +57,6 @@ unittest.case.TestCase.__init_subclass__
 # but in 3.10+ calling the function without the default argument is in fact deprecated,
 # so it's better to ignore stubtest
 ssl.SSLContext.__new__
-ssl._create_unverified_context
 
 # SpooledTemporaryFile implements IO except these methods before Python 3.11
 # See also https://github.com/python/typeshed/pull/2452#issuecomment-420657918

@@ -51,7 +51,6 @@ unittest.case.TestCase.__init_subclass__
 # but in 3.10+ calling the function without the default argument is in fact deprecated,
 # so it's better to ignore stubtest
 ssl.SSLContext.__new__
-ssl._create_unverified_context
 
 # ==========
 # Related to positional-only arguments
@@ -102,6 +101,8 @@ types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
 weakref.ProxyType.__reversed__  # Doesn't really exist
 inspect._ParameterKind.description  # Still exists, but stubtest can't see it
+asyncio.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
+asyncio.base_events.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 
 # C signature is broader than what is actually accepted
 ast.Bytes.__new__
@@ -127,12 +128,6 @@ ast.ImportFrom.level  # None on the class, but never None on instances
 # they are generic to type checkers anyway.
 contextlib.AbstractAsyncContextManager.__class_getitem__
 contextlib.AbstractContextManager.__class_getitem__
-
-# The argument to is_python_build() is deprecated since Python 3.11 and
-# has a default value of None to check for its existence and warn if it's
-# supplied. None is not supposed to be passed by user code and therefore
-# not included in the stubs.
-sysconfig.is_python_build
 
 # Super-special typing primitives
 typing._SpecialForm.__mro_entries__

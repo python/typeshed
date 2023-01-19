@@ -5,10 +5,6 @@
         "stdlib",
         "stubs",
     ],
-    "exclude": [
-        // `cryptography` stubs are outdated and to be removed
-        "stubs/cryptography",
-    ],
     "typeCheckingMode": "basic",
     "strictListInference": true,
     "strictDictionaryInference": true,

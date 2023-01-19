@@ -8,6 +8,7 @@ from __future__ import annotations
 import os
 import re
 import sys
+import urllib.parse
 from pathlib import Path
 
 import tomli
@@ -15,6 +16,7 @@ import yaml
 from packaging.requirements import Requirement
 from packaging.specifiers import SpecifierSet
 from packaging.version import Version
+
 from utils import (
     METADATA_MAPPING,
     VERSIONS_RE,
@@ -190,7 +192,7 @@ def check_metadata() -> None:
                 assert key in tk, f"Unrecognised {tool} key {key} for {distribution}"
 
         tool_stubtest = data.get("tool", {}).get("stubtest", {})
-        specified_stubtest_platforms = set(tool_stubtest.get("platforms", []))
+        specified_stubtest_platforms = set(tool_stubtest.get("platforms", ["linux"]))
         assert (
             specified_stubtest_platforms <= supported_stubtest_platforms
         ), f"Unrecognised platforms specified: {supported_stubtest_platforms - specified_stubtest_platforms} for {distribution}"
@@ -219,8 +221,9 @@ def get_precommit_requirements() -> dict[str, SpecifierSet]:
         if not repo.get("python_requirement", True):
             continue
         hook = repo["hooks"][0]
-        package_name, package_rev = hook["id"], repo["rev"]
-        package_specifier = SpecifierSet(f"=={package_rev.removeprefix('v')}")
+        package_name = Path(urllib.parse.urlparse(repo["repo"]).path).name
+        package_rev = repo["rev"].removeprefix("v")
+        package_specifier = SpecifierSet(f"=={package_rev}")
         precommit_requirements[package_name] = package_specifier
         for additional_req in hook.get("additional_dependencies", []):
             req = Requirement(additional_req)

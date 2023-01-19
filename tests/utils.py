@@ -8,12 +8,12 @@ import subprocess
 import sys
 import venv
 from collections.abc import Iterable, Mapping
-from functools import cache
+from functools import lru_cache
 from pathlib import Path
 from typing import NamedTuple
 from typing_extensions import Annotated
 
-import pathspec  # type: ignore[import]
+import pathspec
 import tomli
 from packaging.requirements import Requirement
 
@@ -24,6 +24,10 @@ except ImportError:
     def colored(text: str, color: str | None = None, on_color: str | None = None, attrs: Iterable[str] | None = None) -> str:
         return text
 
+
+# A backport of functools.cache for Python <3.9
+# This module is imported by mypy_test.py, which needs to run on 3.7 in CI
+cache = lru_cache(None)
 
 # Used to install system-wide packages for different OS types:
 METADATA_MAPPING = {"linux": "apt_dependencies", "darwin": "brew_dependencies", "win32": "choco_dependencies"}
@@ -91,7 +95,10 @@ def read_dependencies(distribution: str) -> PackageDependencies:
         if maybe_typeshed_dependency in pypi_name_to_typeshed_name_mapping:
             typeshed.append(pypi_name_to_typeshed_name_mapping[maybe_typeshed_dependency])
         else:
-            external.append(dependency)
+            # convert to Requirement and then back to str
+            # to make sure that the requirements all have a normalised string representation
+            # (This will also catch any malformed requirements early)
+            external.append(str(Requirement(dependency)))
     return PackageDependencies(tuple(typeshed), tuple(external))
 
 
@@ -142,7 +149,7 @@ def make_venv(venv_dir: Path) -> VenvInfo:
     try:
         venv.create(venv_dir, with_pip=True, clear=True)
     except subprocess.CalledProcessError as e:
-        if "ensurepip" in e.cmd:
+        if "ensurepip" in e.cmd and b"KeyboardInterrupt" not in e.stdout.splitlines():
             print_error(
                 "stubtest requires a Python installation with ensurepip. "
                 "If on Linux, you may need to install the python3-venv package."
@@ -208,4 +215,4 @@ def spec_matches_path(spec: pathspec.PathSpec, path: Path) -> bool:
     normalized_path = path.as_posix()
     if path.is_dir():
         normalized_path += "/"
-    return spec.match_file(normalized_path)  # type: ignore[no-any-return]
+    return spec.match_file(normalized_path)
