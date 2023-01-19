@@ -71,3 +71,5 @@ redis.commands.core.SortedSetCommands
 redis.commands.core.StreamCommands
 redis.commands.json.Pipeline
 redis.commands.timeseries.Pipeline
+redis.asyncio.cluster.ClusterPipeline
+redis.asyncio.cluster.RedisCluster
