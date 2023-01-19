@@ -17,7 +17,8 @@ from redis.typing import AnyKeyT, EncodableT, KeyT
 # It uses `DefaultParser` in real life, but it is a dynamic base class.
 class ClusterParser(BaseParser): ...
 
-class RedisCluster(AbstractRedis, AbstractRedisCluster, Generic[_StrType]):  # TODO: AsyncRedisClusterCommands
+# TODO: AsyncRedisClusterCommands
+class RedisCluster(AbstractRedis, AbstractRedisCluster, Generic[_StrType]):  # type: ignore
     def __init__(
         self,
         host: str | None = ...,
@@ -112,7 +113,8 @@ class NodesManager:
     async def initialize(self) -> None: ...
     async def close(self, attr: str = ...) -> None: ...
 
-class ClusterPipeline(AbstractRedis, AbstractRedisCluster, Generic[_StrType]):  # TODO: AsyncRedisClusterCommands
+# TODO: AsyncRedisClusterCommands
+class ClusterPipeline(AbstractRedis, AbstractRedisCluster, Generic[_StrType]):  # type: ignore
     def __init__(self, client: RedisCluster) -> None: ...
     async def initialize(self: Self) -> Self: ...
     async def __aenter__(self: Self) -> Self: ...
