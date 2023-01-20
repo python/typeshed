@@ -49,8 +49,8 @@ def wrap_socket(
     keyfile: StrOrBytesPath | None = None,
     certfile: StrOrBytesPath | None = None,
     server_side: bool = False,
-    cert_reqs: int = 0,
-    ssl_version: int = 2,
+    cert_reqs: int = ...,
+    ssl_version: int = ...,
     ca_certs: str | None = None,
     do_handshake_on_connect: bool = True,
     suppress_ragged_eofs: bool = True,
@@ -68,7 +68,7 @@ if sys.version_info >= (3, 10):
     def _create_unverified_context(
         protocol: int | None = None,
         *,
-        cert_reqs: int = 0,
+        cert_reqs: int = ...,
         check_hostname: bool = False,
         purpose: Purpose = ...,
         certfile: StrOrBytesPath | None = None,
@@ -83,13 +83,13 @@ else:
         protocol: int = ...,
         *,
         cert_reqs: int = ...,
-        check_hostname: bool = ...,
+        check_hostname: bool = False,
         purpose: Purpose = ...,
-        certfile: StrOrBytesPath | None = ...,
-        keyfile: StrOrBytesPath | None = ...,
-        cafile: StrOrBytesPath | None = ...,
-        capath: StrOrBytesPath | None = ...,
-        cadata: str | ReadableBuffer | None = ...,
+        certfile: StrOrBytesPath | None = None,
+        keyfile: StrOrBytesPath | None = None,
+        cafile: StrOrBytesPath | None = None,
+        capath: StrOrBytesPath | None = None,
+        cadata: str | ReadableBuffer | None = None,
     ) -> SSLContext: ...
 
 _create_default_https_context: Callable[..., SSLContext]
@@ -107,11 +107,11 @@ def cert_time_to_seconds(cert_time: str) -> int: ...
 
 if sys.version_info >= (3, 10):
     def get_server_certificate(
-        addr: tuple[str, int], ssl_version: int = 16, ca_certs: str | None = None, timeout: float = ...
+        addr: tuple[str, int], ssl_version: int = ..., ca_certs: str | None = None, timeout: float = ...
     ) -> str: ...
 
 else:
-    def get_server_certificate(addr: tuple[str, int], ssl_version: int = ..., ca_certs: str | None = ...) -> str: ...
+    def get_server_certificate(addr: tuple[str, int], ssl_version: int = ..., ca_certs: str | None = None) -> str: ...
 
 def DER_cert_to_PEM_cert(der_cert_bytes: ReadableBuffer) -> str: ...
 def PEM_cert_to_DER_cert(pem_cert_string: str) -> bytes: ...

@@ -779,7 +779,12 @@ else:
 if sys.version_info >= (3, 8):
     def has_dualstack_ipv6() -> bool: ...
     def create_server(
-        address: _Address, *, family: int = 2, backlog: int | None = None, reuse_port: bool = False, dualstack_ipv6: bool = False
+        address: _Address,
+        *,
+        family: int = ...,
+        backlog: int | None = None,
+        reuse_port: bool = False,
+        dualstack_ipv6: bool = False,
     ) -> socket: ...
 
 # the 5th tuple item is an address
