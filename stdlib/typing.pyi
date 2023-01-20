@@ -244,7 +244,7 @@ else:
 
 # These type variables are used by the container types.
 _S = TypeVar("_S")
-_KT = TypeVar("_KT")  # Key type.
+_KT = TypeVar("_KT", bound=Hashable)  # Key type.
 _VT = TypeVar("_VT")  # Value type.
 _T_co = TypeVar("_T_co", covariant=True)  # Any type covariant containers.
 _V_co = TypeVar("_V_co", covariant=True)  # Any type covariant containers.

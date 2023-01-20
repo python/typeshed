@@ -10,7 +10,7 @@ from _weakref import (
     ref as ref,
 )
 from _weakrefset import WeakSet as WeakSet
-from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping
+from collections.abc import Callable, Hashable, Iterable, Iterator, Mapping, MutableMapping
 from typing import Any, Generic, TypeVar, overload
 from typing_extensions import ParamSpec
 
@@ -33,7 +33,7 @@ __all__ = [
 _T = TypeVar("_T")
 _T1 = TypeVar("_T1")
 _T2 = TypeVar("_T2")
-_KT = TypeVar("_KT")
+_KT = TypeVar("_KT", bound=Hashable)
 _VT = TypeVar("_VT")
 _CallableT = TypeVar("_CallableT", bound=Callable[..., Any])
 _P = ParamSpec("_P")

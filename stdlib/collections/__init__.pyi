@@ -10,6 +10,7 @@ if sys.version_info >= (3, 9):
 if sys.version_info >= (3, 10):
     from collections.abc import (
         Callable,
+        Hashable,
         ItemsView,
         Iterable,
         Iterator,
@@ -30,7 +31,7 @@ _S = TypeVar("_S")
 _T = TypeVar("_T")
 _T1 = TypeVar("_T1")
 _T2 = TypeVar("_T2")
-_KT = TypeVar("_KT")
+_KT = TypeVar("_KT", bound=Hashable)
 _VT = TypeVar("_VT")
 _KT_co = TypeVar("_KT_co", covariant=True)
 _VT_co = TypeVar("_VT_co", covariant=True)

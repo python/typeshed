@@ -7,13 +7,13 @@ import ctypes
 import mmap
 import pickle
 import sys
-from collections.abc import Awaitable, Callable, Iterable, Set as AbstractSet
+from collections.abc import Awaitable, Callable, Hashable, Iterable, Set as AbstractSet
 from os import PathLike
 from types import FrameType, TracebackType
 from typing import Any, AnyStr, Generic, Protocol, TypeVar, Union
 from typing_extensions import Final, Literal, LiteralString, TypeAlias, final
 
-_KT = TypeVar("_KT")
+_KT = TypeVar("_KT", bound=Hashable)
 _KT_co = TypeVar("_KT_co", covariant=True)
 _KT_contra = TypeVar("_KT_contra", contravariant=True)
 _VT = TypeVar("_VT")

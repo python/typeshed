@@ -6,6 +6,7 @@ from collections.abc import (
     Callable,
     Coroutine,
     Generator,
+    Hashable,
     ItemsView,
     Iterable,
     Iterator,
@@ -62,7 +63,7 @@ _T1 = TypeVar("_T1")
 _T2 = TypeVar("_T2")
 _T_co = TypeVar("_T_co", covariant=True)
 _T_contra = TypeVar("_T_contra", contravariant=True)
-_KT = TypeVar("_KT")
+_KT = TypeVar("_KT", bound=Hashable)
 _VT_co = TypeVar("_VT_co", covariant=True)
 _V_co = TypeVar("_V_co", covariant=True)
 
