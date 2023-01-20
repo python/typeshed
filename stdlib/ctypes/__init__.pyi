@@ -25,7 +25,7 @@ class CDLL:
         def __init__(
             self,
             name: str | None,
-            mode: int = 4,
+            mode: int = ...,
             handle: int | None = None,
             use_errno: bool = False,
             use_last_error: bool = False,
