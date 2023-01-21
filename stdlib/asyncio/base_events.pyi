@@ -342,8 +342,8 @@ class BaseEventLoop(AbstractEventLoop):
         async def create_datagram_endpoint(  # type: ignore[override]
             self,
             protocol_factory: Callable[[], _ProtocolT],
-            local_addr: tuple[str, int] | None = None,
-            remote_addr: tuple[str, int] | None = None,
+            local_addr: tuple[str, int] | str | None = None,
+            remote_addr: tuple[str, int] | str | None = None,
             *,
             family: int = 0,
             proto: int = 0,
@@ -356,8 +356,8 @@ class BaseEventLoop(AbstractEventLoop):
         async def create_datagram_endpoint(
             self,
             protocol_factory: Callable[[], _ProtocolT],
-            local_addr: tuple[str, int] | None = ...,
-            remote_addr: tuple[str, int] | None = ...,
+            local_addr: tuple[str, int] | str | None = ...,
+            remote_addr: tuple[str, int] | str | None = ...,
             *,
             family: int = ...,
             proto: int = ...,
