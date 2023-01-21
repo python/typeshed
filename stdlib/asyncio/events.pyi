@@ -491,38 +491,21 @@ class AbstractEventLoop:
     async def sendfile(
         self, transport: WriteTransport, file: IO[bytes], offset: int = 0, count: int | None = None, *, fallback: bool = True
     ) -> int: ...
-    if sys.version_info >= (3, 7):
-        @abstractmethod
-        async def create_datagram_endpoint(
-            self,
-            protocol_factory: Callable[[], _ProtocolT],
-            local_addr: tuple[str, int] | str | None = None,
-            remote_addr: tuple[str, int] | str | None = None,
-            *,
-            family: int = 0,
-            proto: int = 0,
-            flags: int = 0,
-            reuse_address: bool | None = None,
-            reuse_port: bool | None = None,
-            allow_broadcast: bool | None = None,
-            sock: socket | None = None,
-        ) -> tuple[DatagramTransport, _ProtocolT]: ...
-    else:
-        @abstractmethod
-        async def create_datagram_endpoint(
-            self,
-            protocol_factory: Callable[[], _ProtocolT],
-            local_addr: tuple[str, int] | str | None = None,
-            remote_addr: tuple[str, int] | str | None = None,
-            *,
-            family: int = 0,
-            proto: int = 0,
-            flags: int = 0,
-            reuse_address: bool | None = None,
-            reuse_port: bool | None = None,
-            allow_broadcast: bool | None = None,
-            sock: socket | None = None,
-        ) -> tuple[DatagramTransport, _ProtocolT]: ...
+    @abstractmethod
+    async def create_datagram_endpoint(
+        self,
+        protocol_factory: Callable[[], _ProtocolT],
+        local_addr: tuple[str, int] | str | None = None,
+        remote_addr: tuple[str, int] | str | None = None,
+        *,
+        family: int = 0,
+        proto: int = 0,
+        flags: int = 0,
+        reuse_address: bool | None = None,
+        reuse_port: bool | None = None,
+        allow_broadcast: bool | None = None,
+        sock: socket | None = None,
+    ) -> tuple[DatagramTransport, _ProtocolT]: ...
     # Pipes and subprocesses.
     @abstractmethod
     async def connect_read_pipe(
