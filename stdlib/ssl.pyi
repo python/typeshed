@@ -378,6 +378,8 @@ class SSLContext:
     if sys.version_info >= (3, 8):
         keylog_filename: str
         post_handshake_auth: bool
+    if sys.version_info >= (3, 10):
+        security_level: int
     def __new__(cls: type[Self], protocol: int = ..., *args: Any, **kwargs: Any) -> Self: ...
     def cert_store_stats(self) -> dict[str, int]: ...
     def load_cert_chain(
