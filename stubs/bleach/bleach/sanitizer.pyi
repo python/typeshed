@@ -4,6 +4,7 @@ from re import Pattern
 from typing import Protocol
 from typing_extensions import TypeAlias
 
+from . import _HTMLAttrKey
 from .css_sanitizer import CSSSanitizer
 from .html5lib_shim import BleachHTMLParser, BleachHTMLSerializer, SanitizerFilter
 
@@ -56,9 +57,9 @@ class BleachSanitizerFilter(SanitizerFilter):
     attr_filter: _AttributeFilter
     strip_disallowed_tags: bool
     strip_html_comments: bool
-    attr_val_is_uri: frozenset[tuple[str | None, str]]
-    svg_attr_val_allows_ref: frozenset[tuple[str | None, str]]
-    svg_allow_local_href: frozenset[tuple[str | None, str]]
+    attr_val_is_uri: frozenset[_HTMLAttrKey]
+    svg_attr_val_allows_ref: frozenset[_HTMLAttrKey]
+    svg_allow_local_href: frozenset[_HTMLAttrKey]
     css_sanitizer: CSSSanitizer | None
     def __init__(
         self,

@@ -1,4 +1,5 @@
 from collections.abc import Container, Iterable
+from typing_extensions import TypeAlias
 
 from .callbacks import _Callback
 from .css_sanitizer import CSSSanitizer
@@ -15,6 +16,8 @@ __all__ = ["clean", "linkify"]
 
 __releasedate__: str
 __version__: str
+
+_HTMLAttrKey: TypeAlias = tuple[str | None, str]  # noqa: Y047
 
 def clean(
     text: str,
