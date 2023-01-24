@@ -1,4 +1,5 @@
-from collections.abc import Container, Iterable
+from _typeshed import Incomplete
+from collections.abc import Container, Iterable, Iterator
 from re import Pattern
 
 from .callbacks import _Callback
