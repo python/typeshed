@@ -1,7 +1,8 @@
 from collections.abc import Container, Iterable
 
+from .callbacks import _Callback
 from .css_sanitizer import CSSSanitizer
-from .linkifier import DEFAULT_CALLBACKS as DEFAULT_CALLBACKS, Linker as Linker, _Callback
+from .linkifier import DEFAULT_CALLBACKS as DEFAULT_CALLBACKS, Linker as Linker
 from .sanitizer import (
     ALLOWED_ATTRIBUTES as ALLOWED_ATTRIBUTES,
     ALLOWED_PROTOCOLS as ALLOWED_PROTOCOLS,
@@ -17,9 +18,9 @@ __version__: str
 
 def clean(
     text: str,
-    tags: Container[str] = ...,
+    tags: Iterable[str] = ...,
     attributes: _Attributes = ...,
-    protocols: Container[str] = ...,
+    protocols: Iterable[str] = ...,
     strip: bool = ...,
     strip_comments: bool = ...,
     css_sanitizer: CSSSanitizer | None = ...,
