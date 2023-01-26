@@ -1,5 +1,5 @@
-from Xlib.display import _BaseDisplay
 from Xlib._typing import ErrorHandler
+from Xlib.display import _BaseDisplay
 
 class Resource:
     display: _BaseDisplay
