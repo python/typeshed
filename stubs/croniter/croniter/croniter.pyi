@@ -100,7 +100,12 @@ class HashExpander:
     def __init__(self, cronit: croniter) -> None: ...
     @overload
     def do(
-        self, idx: int, hash_type: Literal["r"], hash_id: None = None, range_end: int | None = None, range_begin: int | None = None
+        self,
+        idx: int,
+        hash_type: Literal["r"],
+        hash_id: None = None,
+        range_end: int | None = None,
+        range_begin: int | None = None,
     ) -> int: ...
     @overload
     def do(
