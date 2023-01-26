@@ -100,11 +100,11 @@ class HashExpander:
     def __init__(self, cronit: croniter) -> None: ...
     @overload
     def do(
-        self, idx: int, hash_type: Literal["r"], hash_id: None = ..., range_end: int | None = ..., range_begin: int | None = ...
+        self, idx: int, hash_type: Literal["r"], hash_id: None = None, range_end: int | None = None, range_begin: int | None = None
     ) -> int: ...
     @overload
     def do(
-        self, idx: int, hash_type: str, hash_id: ReadableBuffer, range_end: int | None = ..., range_begin: int | None = ...
+        self, idx: int, hash_type: str, hash_id: ReadableBuffer, range_end: int | None = None, range_begin: int | None = None
     ) -> int: ...
     @overload
     def do(
@@ -113,8 +113,8 @@ class HashExpander:
         hash_type: str = "h",
         *,
         hash_id: ReadableBuffer,
-        range_end: int | None = ...,
-        range_begin: int | None = ...,
+        range_end: int | None = None,
+        range_begin: int | None = None,
     ) -> int: ...
     def match(self, efl: object, idx: object, expr: str, hash_id: object = None, **kw: object) -> Match[str] | None: ...
     def expand(
