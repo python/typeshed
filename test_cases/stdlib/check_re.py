@@ -20,7 +20,4 @@ def check_search_with_AnyStr(pattern: re.Pattern[t.AnyStr], string: t.AnyStr) ->
 
 
 def check_no_ReadableBuffer_false_negatives() -> None:
-    b = bytearray(b"foo")  # ReadableBuffer
-
-    string_pattern = re.compile("foo")
-    string_pattern.search(b)  # type: ignore
+    re.compile("foo").search(bytearray(b"foo"))  # type: ignore
