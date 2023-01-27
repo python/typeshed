@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections import Callable
+from collections.abc import Callable
 from typing import Any, Generic, Protocol, TypeVar
 
 from ..sql.base import Generative
