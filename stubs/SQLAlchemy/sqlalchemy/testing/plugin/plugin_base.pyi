@@ -1,11 +1,10 @@
-import abc
+from abc import ABC as ABC, abstractmethod
 from typing import Any
+from typing_extensions import Final
 
 bootstrapped_as_sqlalchemy: bool
 log: Any
-py3k: Any
-ABC = abc.ABC
-
+py3k: Final = True
 fixtures: Any
 engines: Any
 exclusions: Any
@@ -47,17 +46,17 @@ def before_test(test, test_module_name, test_class, test_name) -> None: ...
 def after_test(test) -> None: ...
 def after_test_fixtures(test) -> None: ...
 
-class FixtureFunctions(ABC, metaclass=abc.ABCMeta):
-    @abc.abstractmethod
+class FixtureFunctions(ABC):
+    @abstractmethod
     def skip_test_exception(self, *arg, **kw): ...
-    @abc.abstractmethod
+    @abstractmethod
     def combinations(self, *args, **kw): ...
-    @abc.abstractmethod
+    @abstractmethod
     def param_ident(self, *args, **kw): ...
-    @abc.abstractmethod
+    @abstractmethod
     def fixture(self, *arg, **kw): ...
     def get_current_test_name(self) -> None: ...
-    @abc.abstractmethod
+    @abstractmethod
     def mark_base_test_class(self): ...
 
 def set_fixture_functions(fixture_fn_class) -> None: ...

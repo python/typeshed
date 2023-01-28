@@ -134,7 +134,7 @@ class _MapperEntity(_QueryEntity):
 class _BundleEntity(_QueryEntity):
     bundle: Any
     expr: Any
-    type: Any
+    type: type[Incomplete]
     supports_single_entity: Any
     def __init__(
         self,

@@ -1,5 +1,4 @@
-from typing import Any
-
+from . import base as base, pyodbc as pyodbc, pysybase as pysybase
 from .base import (
     BIGINT as BIGINT,
     BINARY as BINARY,
@@ -55,4 +54,4 @@ __all__ = (
     "dialect",
 )
 
-dialect: Any
+dialect = pyodbc.dialect

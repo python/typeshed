@@ -33,6 +33,7 @@ from .mock import create_mock_engine as create_mock_engine
 from .reflection import Inspector as Inspector
 from .result import (
     ChunkedIteratorResult as ChunkedIteratorResult,
+    FilterResult as FilterResult,
     FrozenResult as FrozenResult,
     IteratorResult as IteratorResult,
     MappingResult as MappingResult,

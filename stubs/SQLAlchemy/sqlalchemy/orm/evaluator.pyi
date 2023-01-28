@@ -1,13 +1,16 @@
 from _typeshed import Incomplete
 from typing import Any
+from typing_extensions import TypeAlias
 
 from ..sql import operators
 
+_Unused: TypeAlias = object
+
 class UnevaluatableError(Exception): ...
 
-class _NoObject(operators.ColumnOperators[Any]):
-    def operate(self, *arg, **kw) -> None: ...
-    def reverse_operate(self, *arg, **kw) -> None: ...
+class _NoObject(operators.ColumnOperators[None]):
+    def operate(self, *arg: _Unused, **kw: _Unused) -> None: ...  # type: ignore[override]
+    def reverse_operate(self, *arg: _Unused, **kw: _Unused) -> None: ...  # type: ignore[override]
 
 class EvaluatorCompiler:
     target_cls: Any

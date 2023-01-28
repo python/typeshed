@@ -1,14 +1,18 @@
 from _typeshed import Incomplete
+from collections import deque
+from threading import Condition, RLock
 from typing import Any
 
 class Empty(Exception): ...
 class Full(Exception): ...
 
 class Queue:
-    mutex: Any
-    not_empty: Any
-    not_full: Any
+    mutex: RLock
+    not_empty: Condition
+    not_full: Condition
     use_lifo: Any
+    maxsize: int
+    queue: deque[Incomplete]
     def __init__(self, maxsize: int = ..., use_lifo: bool = ...) -> None: ...
     def qsize(self): ...
     def empty(self): ...

@@ -1,3 +1,4 @@
+from . import util
 from .engine import (
     create_engine as create_engine,
     create_mock_engine as create_mock_engine,
@@ -130,4 +131,5 @@ from .types import (
     UnicodeText as UnicodeText,
 )
 
+_util = util
 __version__: str

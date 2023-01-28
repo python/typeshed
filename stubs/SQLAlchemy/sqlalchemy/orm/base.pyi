@@ -1,6 +1,8 @@
+from operator import attrgetter
 from typing import Any
 
 from ..util import memoized_property
+from ..util.langhelpers import _symbol
 
 PASSIVE_NO_RESULT: Any
 PASSIVE_CLASS_MISMATCH: Any
@@ -24,8 +26,9 @@ PASSIVE_NO_INITIALIZE: Any
 PASSIVE_NO_FETCH: Any
 PASSIVE_NO_FETCH_RELATED: Any
 PASSIVE_ONLY_PERSISTENT: Any
-DEFAULT_MANAGER_ATTR: str
-DEFAULT_STATE_ATTR: str
+PASSIVE_MERGE: Any
+DEFAULT_MANAGER_ATTR: Any
+DEFAULT_STATE_ATTR: Any
 EXT_CONTINUE: Any
 EXT_STOP: Any
 EXT_SKIP: Any
@@ -34,8 +37,11 @@ MANYTOONE: Any
 MANYTOMANY: Any
 NOT_EXTENSION: Any
 
-_never_set: frozenset[Any]
-_none_set: frozenset[Any]
+_never_set: frozenset[_symbol]
+_none_set: frozenset[_symbol | None]
+_SET_DEFERRED_EXPIRED: Any
+_DEFER_FOR_STATE: Any
+_RAISE_FOR_STATE: Any
 
 def manager_of_class(cls): ...
 
@@ -53,7 +59,7 @@ def _class_to_mapper(class_or_mapper): ...
 def _mapper_or_none(entity): ...
 def _is_mapped_class(entity): ...
 
-_state_mapper: Any
+_state_mapper: attrgetter[Any]
 
 def class_mapper(class_, configure: bool = ...): ...
 

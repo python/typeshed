@@ -1,4 +1,6 @@
-from typing import Any
+from typing import Any, TypeVar
+
+_T = TypeVar("_T")
 
 class MutableBase:
     @classmethod
@@ -11,7 +13,7 @@ class Mutable(MutableBase):
     @classmethod
     def associate_with(cls, sqltype) -> None: ...
     @classmethod
-    def as_mutable(cls, sqltype): ...
+    def as_mutable(cls, sqltype: type[_T] | _T) -> _T: ...
 
 class MutableComposite(MutableBase):
     def changed(self) -> None: ...

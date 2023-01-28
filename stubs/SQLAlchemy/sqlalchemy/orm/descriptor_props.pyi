@@ -1,7 +1,8 @@
 from _typeshed import Incomplete
-from typing import Any, ClassVar, Generic, TypeVar
+from collections.abc import Callable
+from typing import Any, ClassVar, TypeVar
 
-from ..sql.operators import ColumnOperators
+from ..sql.elements import BooleanClauseList, ColumnElement
 from ..util import memoized_property
 from . import util as orm_util
 from .interfaces import MapperProperty, PropComparator
@@ -16,12 +17,21 @@ class DescriptorProperty(MapperProperty):
     def instrument_class(self, mapper): ...
 
 class CompositeProperty(DescriptorProperty):
+    class Comparator(PropComparator[_T]):
+        __hash__: ClassVar[None]  # type: ignore[assignment]
+        @memoized_property
+        def clauses(self): ...
+        def __clause_element__(self): ...
+        @memoized_property
+        def expression(self): ...
+        def __eq__(self, other) -> BooleanClauseList | ColumnElement[_T]: ...  # type: ignore[override]
+        def __ne__(self, other): ...
     attrs: Any
     composite_class: Any
     active_history: Any
     deferred: Any
     group: Any
-    comparator_factory: Any
+    comparator_factory: Callable[[Incomplete], Comparator[Incomplete]]
     info: Any
     def __init__(self, class_, *attrs, **kwargs) -> None: ...
     def instrument_class(self, mapper) -> None: ...
@@ -36,16 +46,6 @@ class CompositeProperty(DescriptorProperty):
         property: Any
         def __init__(self, property_, expr) -> None: ...
         def create_row_processor(self, query, procs, labels): ...
-
-    class Comparator(PropComparator[_T], Generic[_T]):
-        __hash__: ClassVar[None]  # type: ignore[assignment]
-        @memoized_property
-        def clauses(self): ...
-        def __clause_element__(self): ...
-        @memoized_property
-        def expression(self): ...
-        def __eq__(self, other) -> ColumnOperators[_T]: ...  # type: ignore[override]
-        def __ne__(self, other) -> ColumnOperators[_T]: ...  # type: ignore[override]
 
 class ConcreteInheritedProperty(DescriptorProperty):
     descriptor: Any

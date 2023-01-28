@@ -1,5 +1,4 @@
-from typing import Any
-
+from ..util import PluginLoader
 from . import (
     firebird as firebird,
     mssql as mssql,
@@ -12,5 +11,5 @@ from . import (
 
 __all__ = ("firebird", "mssql", "mysql", "oracle", "postgresql", "sqlite", "sybase")
 
-registry: Any
-plugins: Any
+registry: PluginLoader
+plugins: PluginLoader

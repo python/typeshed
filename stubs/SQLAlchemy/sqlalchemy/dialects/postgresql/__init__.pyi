@@ -1,5 +1,10 @@
-import typing
-
+from . import (
+    pg8000 as pg8000,
+    psycopg2 as psycopg2,
+    psycopg2cffi as psycopg2cffi,
+    pygresql as pygresql,
+    pypostgresql as pypostgresql,
+)
 from .array import ARRAY as ARRAY, All as All, Any as Any, array as array
 from .base import (
     BIGINT as BIGINT,
@@ -97,4 +102,4 @@ __all__ = (
     "Insert",
 )
 
-dialect: typing.Any
+dialect = psycopg2.dialect

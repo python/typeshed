@@ -20,14 +20,14 @@ class _AsyncConnDialect(_ConnDialect):
     is_async: bool
 
 class Pool(log.Identified):
-    logging_name: Any
+    logging_name: str | None
     echo: Any
     def __init__(
         self,
         creator,
         recycle: int = ...,
         echo: Incomplete | None = ...,
-        logging_name: Incomplete | None = ...,
+        logging_name: str | None = ...,
         reset_on_return: bool = ...,
         events: Incomplete | None = ...,
         dialect: Incomplete | None = ...,
@@ -77,7 +77,7 @@ class _ConnectionFairy:
     @connection.setter
     def connection(self, value) -> None: ...
     @property
-    def is_valid(self): ...
+    def is_valid(self) -> bool: ...
     @memoized_property
     def info(self): ...
     @property

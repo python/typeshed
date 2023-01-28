@@ -1,4 +1,12 @@
-from .base import Pool as Pool, reset_commit as reset_commit, reset_none as reset_none, reset_rollback as reset_rollback
+from . import events as events
+from .base import (
+    Pool as Pool,
+    _ConnectionFairy as _ConnectionFairy,
+    _ConnectionRecord as _ConnectionRecord,
+    reset_commit as reset_commit,
+    reset_none as reset_none,
+    reset_rollback as reset_rollback,
+)
 from .dbapi_proxy import clear_managers as clear_managers, manage as manage
 from .impl import (
     AssertionPool as AssertionPool,

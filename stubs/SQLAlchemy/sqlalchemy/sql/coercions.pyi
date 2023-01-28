@@ -1,28 +1,158 @@
 from _typeshed import Incomplete
-from typing import Any
+from collections.abc import Generator, Iterable
+from typing import Any, Protocol, TypeVar, Union, overload
+from typing_extensions import TypeAlias
 
+from ..orm.decl_api import _DeclarativeBase
+from ..schema import Column
+from ..sql import (
+    elements as elements,
+    lambdas as lambdas,
+    schema as schema,
+    selectable as selectable,
+    sqltypes as sqltypes,
+    traversals as traversals,
+)
+from ..sql.base import ExecutableOption
+from ..sql.operators import ColumnOperators
 from . import roles
 
-elements: Any
-lambdas: Any
-schema: Any
-selectable: Any
-sqltypes: Any
-traversals: Any
+class _CallableWithCode(Protocol):
+    __code__: Incomplete
+    def __call__(self, *args: object, **kwargs: object) -> object: ...
 
+# For use in other modules so we don't have to redefine all overloads
+# incomplete: This TypeAlias is a bit of a "catch-all" for parameters passed to coercions.expect .
+# Still better than using Any/Incomplete when the coercable types are uncertain.
+_ExpectElement: TypeAlias = Union[  # noqa: Y047
+    roles.SQLRole,
+    lambdas.PyWrapper[Any],  # Any PyWrapper will do
+    _CallableWithCode,
+    str,
+    traversals.HasCacheKey,
+    ExecutableOption,
+    roles.JoinTargetRole,
+    bool,
+    # TODO: Added these extra for mypy_primer, validate if they should be there
+    ColumnOperators[Any],
+    type[_DeclarativeBase],
+]
+
+_T = TypeVar("_T")
+_Unused: TypeAlias = object
+
+_ExpectColExpressionCollectionResult: TypeAlias = (
+    Generator[tuple[_T, Column, str | None, Column], None, None]
+    | Generator[tuple[_T, None, str | None, str | None], None, None]
+    | Generator[tuple[_T, None, None, None], None, None]
+)
+_ExpectColExpressionCollectionResultStr: TypeAlias = (
+    Generator[tuple[str, Column, str, Column], None, None] | Generator[tuple[str, None, str, str], None, None]
+)
+_ExpectColExpressionCollectionResultNonStr: TypeAlias = (
+    Generator[tuple[_T, Column, None, Column], None, None] | Generator[tuple[_T, None, None, None], None, None]
+)
+
+_StrRole: TypeAlias = roles.TruncatedLabelRole | _ReturnsStringKey  # & Not[_NoTextCoercion]
+
+# TODO: @overload for narrowable _literal_coercion
+@overload
 def expect(
-    role,
-    element,
+    role: roles.AllowsLambdaRole,
+    element: _CallableWithCode,
+    apply_propagate_attrs: Incomplete | None = ...,
+    argname: _Unused = ...,
+    post_inspect: _Unused = ...,
+    **kw,
+) -> lambdas.LambdaElement: ...
+@overload
+def expect(
+    role: _StrRole,
+    element: roles.SQLRole | str,
+    apply_propagate_attrs: Incomplete | None = ...,
+    argname: Incomplete | None = ...,
+    post_inspect: bool = ...,
+    **kw,
+) -> str: ...
+@overload
+def expect(
+    role: roles.HasCacheKeyRole,
+    element: roles.SQLRole | traversals.HasCacheKey,
+    apply_propagate_attrs: Incomplete | None = ...,
+    argname: Incomplete | None = ...,
+    post_inspect: bool = ...,
+    **kw,
+) -> Incomplete | traversals.HasCacheKey: ...
+@overload
+def expect(
+    role: roles.ExecutableOptionRole,
+    element: roles.SQLRole | ExecutableOption,
+    apply_propagate_attrs: Incomplete | None = ...,
+    argname: Incomplete | None = ...,
+    post_inspect: bool = ...,
+    **kw,
+) -> Incomplete | ExecutableOption: ...
+@overload
+def expect(
+    role: roles.SQLRole,
+    element: lambdas.PyWrapper[Any],
+    apply_propagate_attrs: Incomplete | None = ...,
+    argname: Incomplete | None = ...,
+    post_inspect: bool = ...,
+    **kw,
+) -> elements.ClauseElement: ...
+@overload
+def expect(
+    role: roles.SQLRole,
+    element: roles.SQLRole,
     apply_propagate_attrs: Incomplete | None = ...,
     argname: Incomplete | None = ...,
     post_inspect: bool = ...,
     **kw,
 ): ...
-def expect_as_key(role, element, **kw): ...
-def expect_col_expression_collection(role, expressions) -> None: ...
+@overload
+def expect_as_key(role: roles.AllowsLambdaRole, element: _CallableWithCode, **kw) -> lambdas.LambdaElement: ...
+@overload
+def expect_as_key(role: _StrRole, element: roles.SQLRole | str, **kw) -> str: ...
+@overload
+def expect_as_key(
+    role: roles.HasCacheKeyRole, element: roles.SQLRole | traversals.HasCacheKey, **kw
+) -> Incomplete | traversals.HasCacheKey: ...
+@overload
+def expect_as_key(
+    role: roles.ExecutableOptionRole, element: roles.SQLRole | ExecutableOption, **kw
+) -> Incomplete | ExecutableOption: ...
+@overload
+def expect_as_key(role: roles.SQLRole, element: lambdas.PyWrapper[Any], **kw) -> elements.ClauseElement: ...
+@overload
+def expect_as_key(role: roles.SQLRole, element: roles.SQLRole, **kw): ...
+@overload
+def expect_col_expression_collection(
+    role: roles.AllowsLambdaRole, expressions: Iterable[_CallableWithCode]
+) -> _ExpectColExpressionCollectionResult[lambdas.LambdaElement]: ...
+@overload
+def expect_col_expression_collection(
+    role: _StrRole, expressions: Iterable[roles.SQLRole | str]
+) -> _ExpectColExpressionCollectionResultStr: ...
+@overload
+def expect_col_expression_collection(
+    role: roles.HasCacheKeyRole, expressions: Iterable[roles.SQLRole | traversals.HasCacheKey]
+) -> _ExpectColExpressionCollectionResult[Incomplete | traversals.HasCacheKey]: ...
+@overload
+def expect_col_expression_collection(
+    role: roles.ExecutableOptionRole, expressions: Iterable[roles.SQLRole | ExecutableOption]
+) -> _ExpectColExpressionCollectionResult[Incomplete | ExecutableOption]: ...
+@overload
+def expect_col_expression_collection(
+    role: roles.SQLRole, expressions: Iterable[lambdas.PyWrapper[Any]]
+) -> _ExpectColExpressionCollectionResultNonStr[elements.ClauseElement]: ...
+@overload
+def expect_col_expression_collection(
+    role: roles.SQLRole, expressions: Iterable[roles.SQLRole]
+) -> _ExpectColExpressionCollectionResult[Incomplete]: ...
 
 class RoleImpl:
-    name: Any
+    name: Incomplete
     def __init__(self, role_class) -> None: ...
 
 class _Deannotate: ...
@@ -69,6 +199,6 @@ class DMLTableImpl(_SelectIsNotFrom, _NoTextCoercion, RoleImpl): ...
 class DMLSelectImpl(_NoTextCoercion, RoleImpl): ...
 class CompoundElementImpl(_NoTextCoercion, RoleImpl): ...
 
-cls: Any
-name: Any
-impl: Any
+cls: Incomplete
+name: Incomplete
+impl: Incomplete

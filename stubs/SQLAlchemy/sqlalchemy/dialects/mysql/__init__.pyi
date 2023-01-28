@@ -1,5 +1,15 @@
-from typing import Any
-
+from . import (
+    aiomysql as aiomysql,
+    asyncmy as asyncmy,
+    base as base,
+    cymysql as cymysql,
+    mariadbconnector as mariadbconnector,
+    mysqlconnector as mysqlconnector,
+    mysqldb as mysqldb,
+    oursql as oursql,
+    pymysql as pymysql,
+    pyodbc as pyodbc,
+)
 from .base import (
     BIGINT as BIGINT,
     BINARY as BINARY,
@@ -82,4 +92,4 @@ __all__ = (
     "match",
 )
 
-dialect: Any
+dialect = mysqldb.dialect

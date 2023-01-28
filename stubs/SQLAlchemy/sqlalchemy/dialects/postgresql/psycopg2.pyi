@@ -1,8 +1,7 @@
 from _typeshed import Incomplete
 from typing import Any
 
-import sqlalchemy.types as sqltypes
-
+from ...sql import sqltypes
 from .array import ARRAY as PGARRAY
 from .base import ENUM, UUID, PGCompiler, PGDialect, PGExecutionContext, PGIdentifierPreparer
 from .hstore import HSTORE
@@ -91,6 +90,6 @@ class PGDialect_psycopg2(PGDialect):
     def on_connect(self): ...
     def do_executemany(self, cursor, statement, parameters, context: Incomplete | None = ...) -> None: ...
     def create_connect_args(self, url): ...
-    def is_disconnect(self, e, connection, cursor): ...
+    def is_disconnect(self, e, connection, cursor) -> bool: ...
 
 dialect = PGDialect_psycopg2

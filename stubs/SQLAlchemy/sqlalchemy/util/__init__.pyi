@@ -1,3 +1,6 @@
+import pickle as pickle
+import threading as threading
+from abc import ABC as ABC
 from collections import defaultdict as defaultdict
 from contextlib import contextmanager as contextmanager
 from functools import partial as partial, update_wrapper as update_wrapper
@@ -40,7 +43,6 @@ from ._collections import (
 )
 from ._preloaded import preload_module as preload_module, preloaded as preloaded
 from .compat import (
-    ABC as ABC,
     TYPE_CHECKING as TYPE_CHECKING,
     StringIO as StringIO,
     arm as arm,
@@ -59,6 +61,7 @@ from .compat import (
     has_refcount_gc as has_refcount_gc,
     inspect_getfullargspec as inspect_getfullargspec,
     int_types as int_types,
+    is64bit as is64bit,
     iterbytes as iterbytes,
     itertools_filter as itertools_filter,
     itertools_filterfalse as itertools_filterfalse,
@@ -69,13 +72,15 @@ from .compat import (
     osx as osx,
     parse_qsl as parse_qsl,
     perf_counter as perf_counter,
-    pickle as pickle,
     print_ as print_,
     py2k as py2k,
     py3k as py3k,
     py37 as py37,
     py38 as py38,
     py39 as py39,
+    py310 as py310,
+    py311 as py311,
+    py312 as py312,
     pypy as pypy,
     quote_plus as quote_plus,
     raise_ as raise_,
@@ -84,7 +89,6 @@ from .compat import (
     reraise as reraise,
     string_types as string_types,
     text_type as text_type,
-    threading as threading,
     timezone as timezone,
     u as u,
     ue as ue,

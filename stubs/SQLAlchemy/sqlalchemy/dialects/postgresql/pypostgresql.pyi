@@ -1,7 +1,6 @@
 from typing import Any
 
-import sqlalchemy.types as sqltypes
-
+from ...sql import sqltypes
 from ...util import memoized_property
 from .base import PGDialect, PGExecutionContext
 
@@ -26,6 +25,6 @@ class PGDialect_pypostgresql(PGDialect):
     @memoized_property
     def dbapi_exception_translation_map(self): ...
     def create_connect_args(self, url): ...
-    def is_disconnect(self, e, connection, cursor): ...
+    def is_disconnect(self, e, connection, cursor) -> bool: ...
 
 dialect = PGDialect_pypostgresql

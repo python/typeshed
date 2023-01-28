@@ -1,7 +1,12 @@
 from _typeshed import Incomplete
-from typing import Any
+from collections.abc import Callable
+from typing import Any, TypeVar
+from typing_extensions import ParamSpec
 
 from ..orm import interfaces
+
+_T = TypeVar("_T")
+_P = ParamSpec("_P")
 
 HYBRID_METHOD: Any
 HYBRID_PROPERTY: Any
@@ -64,5 +69,5 @@ class ExprComparator(Comparator):
     def info(self): ...
     @_property
     def property(self): ...
-    def operate(self, op, *other, **kwargs): ...
-    def reverse_operate(self, op, other, **kwargs): ...
+    def operate(self, op: Callable[_P, _T], *other: _P.args, **kwargs: _P.kwargs) -> _T: ...
+    def reverse_operate(self, op: Callable[..., _T], other, **kwargs) -> _T: ...

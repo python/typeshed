@@ -4,13 +4,13 @@ from typing import Any
 from ..ext.hybrid import hybrid_property
 
 class index_property(hybrid_property):
-    attr_name: Any
+    attr_name: str
     index: Any
     default: Any
     datatype: Any
-    onebased: Any
+    onebased: bool
     def __init__(
-        self, attr_name, index, default=..., datatype: Incomplete | None = ..., mutable: bool = ..., onebased: bool = ...
+        self, attr_name: str, index, default=..., datatype: Incomplete | None = ..., mutable: bool = ..., onebased: bool = ...
     ): ...
     def fget(self, instance): ...
     def fset(self, instance, value) -> None: ...

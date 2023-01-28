@@ -1,9 +1,12 @@
 from _typeshed import Incomplete
-from typing import Any, ClassVar
+from typing import Any, ClassVar, NoReturn
+from typing_extensions import TypeAlias
 
-from .. import types as sqltypes
+from ..sql import sqltypes
 from ..util import memoized_property
 from . import interfaces
+
+_Unused: TypeAlias = object
 
 AUTOCOMMIT_REGEXP: Any
 SERVER_SIDE_CURSOR_RE: Any
@@ -13,7 +16,7 @@ CACHING_DISABLED: Any
 NO_CACHE_KEY: Any
 NO_DIALECT_SUPPORT: Any
 
-class DefaultDialect(interfaces.Dialect):  # type: ignore[misc]
+class DefaultDialect(interfaces.Dialect):
     execution_ctx_cls: ClassVar[type[interfaces.ExecutionContext]]
     statement_compiler: Any
     ddl_compiler: Any
@@ -47,12 +50,12 @@ class DefaultDialect(interfaces.Dialect):  # type: ignore[misc]
     supports_native_decimal: bool
     supports_unicode_statements: bool
     supports_unicode_binds: bool
-    returns_unicode_strings: Any
+    returns_unicode_strings = sqltypes.String.RETURNS_UNICODE
     description_encoding: Any
     name: str
     max_identifier_length: int
     isolation_level: Any
-    max_index_name_length: Any
+    max_index_name_length: int | None
     max_constraint_name_length: Any
     supports_sane_rowcount: bool
     supports_sane_multi_rowcount: bool
@@ -67,7 +70,7 @@ class DefaultDialect(interfaces.Dialect):  # type: ignore[misc]
     server_side_cursors: bool
     supports_for_update_of: bool
     server_version_info: Any
-    default_schema_name: Any
+    default_schema_name: str | None
     construct_arguments: Any
     requires_name_normalize: bool
     reflection_options: Any
@@ -95,12 +98,12 @@ class DefaultDialect(interfaces.Dialect):  # type: ignore[misc]
         dbapi: Incomplete | None = ...,
         implicit_returning: Incomplete | None = ...,
         case_sensitive: bool = ...,
-        supports_native_boolean: Incomplete | None = ...,
+        supports_native_boolean: bool | None = ...,
         max_identifier_length: Incomplete | None = ...,
         label_length: Incomplete | None = ...,
         compiler_linting=...,
         server_side_cursors: bool = ...,
-        **kwargs,
+        **kwargs: _Unused,
     ) -> None: ...
     @property
     def dialect_description(self): ...
@@ -116,7 +119,9 @@ class DefaultDialect(interfaces.Dialect):  # type: ignore[misc]
     def on_connect(self) -> None: ...
     def get_default_isolation_level(self, dbapi_conn): ...
     def type_descriptor(self, typeobj): ...
-    def has_index(self, connection, table_name, index_name, schema: Incomplete | None = ...): ...
+    # Needs to be overriden, but this class isn't abstract.
+    def has_table(self, connection, table_name, schema: Incomplete | None = ..., **kw) -> NoReturn | bool: ...
+    def has_index(self, connection, table_name, index_name, schema: Incomplete | None = ...) -> bool: ...
     def validate_identifier(self, ident) -> None: ...
     def connect(self, *cargs, **cparams): ...
     def create_connect_args(self, url): ...
@@ -134,7 +139,7 @@ class DefaultDialect(interfaces.Dialect):  # type: ignore[misc]
     def do_executemany(self, cursor, statement, parameters, context: Incomplete | None = ...) -> None: ...
     def do_execute(self, cursor, statement, parameters, context: Incomplete | None = ...) -> None: ...
     def do_execute_no_params(self, cursor, statement, context: Incomplete | None = ...) -> None: ...  # type: ignore[override]
-    def is_disconnect(self, e, connection, cursor): ...
+    def is_disconnect(self, e, connection, cursor) -> bool: ...
     def reset_isolation_level(self, dbapi_conn) -> None: ...
     def normalize_name(self, name): ...
     def denormalize_name(self, name): ...

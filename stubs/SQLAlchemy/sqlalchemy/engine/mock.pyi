@@ -3,9 +3,8 @@ from abc import abstractmethod
 from collections.abc import Mapping
 from typing import Any, overload
 
-from .base import _Executable
 from .cursor import CursorResult
-from .interfaces import Connectable, Dialect
+from .interfaces import Connectable, Dialect, _Executable
 from .url import URL
 
 class MockConnection(Connectable):

@@ -1,9 +1,8 @@
-from _typeshed import Self
+from _typeshed import Incomplete, Self
 from collections.abc import Callable
 from types import TracebackType
-from typing import Any
 
-def connection_memoize(key: str) -> Callable[..., Any]: ...
+def connection_memoize(key: str) -> Callable[..., Incomplete]: ...
 
 class TransactionalContext:
     def __enter__(self: Self) -> Self: ...

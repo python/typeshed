@@ -1,10 +1,8 @@
 from _typeshed import Incomplete
 from typing import Any
 
-from sqlalchemy.sql import ClauseElement
-
 from ...engine import default
-from ...sql import compiler, sqltypes
+from ...sql import ClauseElement, compiler, sqltypes
 from ...types import (
     BLOB as BLOB,
     CHAR as CHAR,
@@ -193,8 +191,8 @@ class OracleDialect(default.DefaultDialect):
     def get_isolation_level(self, connection) -> None: ...
     def get_default_isolation_level(self, dbapi_conn): ...
     def set_isolation_level(self, connection, level) -> None: ...
-    def has_table(self, connection, table_name, schema: Incomplete | None = ...): ...  # type: ignore[override]
-    def has_sequence(self, connection, sequence_name, schema: Incomplete | None = ...): ...  # type: ignore[override]
+    def has_table(self, connection, table_name, schema: Incomplete | None = ...) -> bool: ...  # type: ignore[override]
+    def has_sequence(self, connection, sequence_name, schema: Incomplete | None = ...) -> bool: ...  # type: ignore[override]
     def get_schema_names(self, connection, **kw): ...
     def get_table_names(self, connection, schema: Incomplete | None = ..., **kw): ...
     def get_temp_table_names(self, connection, **kw): ...

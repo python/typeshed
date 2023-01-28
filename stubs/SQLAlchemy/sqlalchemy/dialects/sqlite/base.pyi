@@ -1,10 +1,8 @@
 from _typeshed import Incomplete
 from typing import Any
 
-import sqlalchemy.types as sqltypes
-
 from ...engine import default
-from ...sql import compiler
+from ...sql import compiler, sqltypes
 from ...types import (
     BLOB as BLOB,
     BOOLEAN as BOOLEAN,
@@ -132,7 +130,7 @@ class SQLiteDialect(default.DefaultDialect):
     def get_table_names(self, connection, schema: Incomplete | None = ..., **kw): ...
     def get_temp_table_names(self, connection, **kw): ...
     def get_temp_view_names(self, connection, **kw): ...
-    def has_table(self, connection, table_name, schema: Incomplete | None = ...): ...  # type: ignore[override]
+    def has_table(self, connection, table_name, schema: Incomplete | None = ...) -> bool: ...  # type: ignore[override]
     def get_view_names(self, connection, schema: Incomplete | None = ..., **kw): ...
     def get_view_definition(self, connection, view_name, schema: Incomplete | None = ..., **kw): ...
     def get_columns(self, connection, table_name, schema: Incomplete | None = ..., **kw): ...

@@ -1,5 +1,4 @@
-from typing import Any
-
+from . import base as base, cx_oracle as cx_oracle
 from .base import (
     BFILE as BFILE,
     BINARY_DOUBLE as BINARY_DOUBLE,
@@ -49,4 +48,4 @@ __all__ = (
     "ROWID",
 )
 
-dialect: Any
+dialect = cx_oracle.dialect

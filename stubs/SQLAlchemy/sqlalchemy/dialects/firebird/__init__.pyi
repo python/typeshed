@@ -1,6 +1,5 @@
-from typing import Any
-
-from sqlalchemy.dialects.firebird.base import (
+from . import base as base, fdb as fdb, kinterbasdb as kinterbasdb
+from .base import (
     BIGINT as BIGINT,
     BLOB as BLOB,
     CHAR as CHAR,
@@ -31,4 +30,4 @@ __all__ = (
     "dialect",
 )
 
-dialect: Any
+dialect = fdb.dialect

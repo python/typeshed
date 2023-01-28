@@ -1,5 +1,11 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, ReadableBuffer, SupportsTrunc
+from collections.abc import Callable
+from typing import SupportsInt, TypeVar, overload
+from typing_extensions import SupportsIndex, TypeAlias
 
+from ..sql.coercions import _ExpectElement
+from ..sql.type_api import TypeEngine
+from ..util.langhelpers import _symbol, symbol
 from .base import PARSE_AUTOCOMMIT as PARSE_AUTOCOMMIT, ColumnCollection as ColumnCollection, Executable as Executable
 from .dml import Delete as Delete, Insert as Insert, Update as Update, UpdateBase as UpdateBase, ValuesBase as ValuesBase
 from .elements import (
@@ -30,6 +36,7 @@ from .elements import (
     TypeCoerce as TypeCoerce,
     UnaryExpression as UnaryExpression,
     WithinGroup as WithinGroup,
+    _anonymous_label,
     _truncated_label as _truncated_label,
     between as between,
     collate as collate,
@@ -75,7 +82,10 @@ from .selectable import (
     subquery as subquery,
 )
 from .traversals import CacheKey as CacheKey
-from .visitors import Visitable as Visitable
+from .visitors import Traversible, Visitable as Visitable
+
+_Unused: TypeAlias = object
+_T = TypeVar("_T")
 
 __all__ = [
     "Alias",
@@ -154,50 +164,135 @@ __all__ = [
     "values",
 ]
 
-all_: Incomplete
-any_: Incomplete
-and_: Incomplete
-alias: Incomplete
-tablesample: Incomplete
-lateral: Incomplete
-or_: Incomplete
-bindparam: Incomplete
-select: Incomplete
+def all_(expr) -> CollectionAggregate: ...
+def any_(expr) -> CollectionAggregate: ...
+@overload
+def and_() -> BooleanClauseList: ...
+@overload
+def and_(__clause: _ExpectElement) -> ClauseElement: ...
+@overload
+def and_(*clauses: _ExpectElement) -> ClauseElement | BooleanClauseList: ...
+def alias(selectable, name=None, flat=False) -> Alias: ...
+def tablesample(selectable, sampling, name=None, seed=None) -> TableSample: ...
+def lateral(selectable, name=None) -> Lateral: ...
+@overload
+def or_() -> BooleanClauseList: ...
+@overload
+def or_(__clause: _ExpectElement) -> ClauseElement: ...
+@overload
+def or_(*clauses: _ExpectElement) -> ClauseElement | BooleanClauseList: ...
 
-def text(text: str, bind: Incomplete | None = None) -> TextClause: ...
-
-table: Incomplete
-column: Incomplete
-over: Incomplete
-within_group: Incomplete
-label: Incomplete
-case: Incomplete
-cast: Incomplete
-cte: Incomplete
-values: Incomplete
-extract: Incomplete
-tuple_: Incomplete
-except_: Incomplete
-except_all: Incomplete
-intersect: Incomplete
-intersect_all: Incomplete
-union: Incomplete
-union_all: Incomplete
-exists: Incomplete
-nulls_first: Incomplete
-nullsfirst: Incomplete
-nulls_last: Incomplete
-nullslast: Incomplete
-asc: Incomplete
-desc: Incomplete
-distinct: Incomplete
-type_coerce: Incomplete
-true: Incomplete
-false: Incomplete
-null: Incomplete
-join: Incomplete
-outerjoin: Incomplete
-insert: Incomplete
-update: Incomplete
-delete: Incomplete
-funcfilter: Incomplete
+# If the parameter quote is not None. The parameter key is strigified.
+@overload
+def bindparam(
+    key: str,
+    value: _T | _symbol | symbol | None = None,
+    type_: TypeEngine | type[TypeEngine] | None = ...,
+    unique: bool = ...,
+    required: bool | _symbol | symbol = ...,
+    quote: None = ...,
+    callable_: Callable[[], _T] | None = ...,
+    expanding: bool = ...,
+    isoutparam: bool = ...,
+    literal_execute: bool = ...,
+    _compared_to_operator: Incomplete | None = ...,
+    _compared_to_type: Incomplete | None = ...,
+    _is_crud: bool = ...,
+) -> BindParameter[_T]: ...
+@overload
+def bindparam(
+    key: object,
+    *,
+    value: _T | _symbol | symbol | None = None,
+    type_: TypeEngine | type[TypeEngine] | None = ...,
+    unique: bool = ...,
+    required: bool | _symbol | symbol = ...,
+    quote,
+    callable_: Callable[[], _T] | None = ...,
+    expanding: bool = ...,
+    isoutparam: bool = ...,
+    literal_execute: bool = ...,
+    _compared_to_operator: Incomplete | None = ...,
+    _compared_to_type: Incomplete | None = ...,
+    _is_crud: bool = ...,
+) -> BindParameter[_T]: ...
+def select(*args, **kw) -> Select: ...
+def text(text, bind=None) -> TextClause: ...
+def table(name: str, *columns: ColumnClause, **kw) -> TableClause: ...
+def column(
+    text, type_: TypeEngine | type[TypeEngine] | None = ..., is_literal: bool = ..., _selectable: Incomplete | None = ...
+) -> ColumnClause: ...
+def over(
+    element: FunctionElement | WithinGroup,
+    partition_by: _ExpectElement | None = ...,
+    order_by: _ExpectElement | None = ...,
+    range_: tuple[
+        str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc | None,
+        str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc | None,
+    ]
+    | None = ...,
+    rows: tuple[
+        str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc | None,
+        str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc | None,
+    ]
+    | None = ...,
+) -> Over: ...
+def within_group(element: FunctionElement, *order_by: _ExpectElement) -> WithinGroup: ...
+def label(
+    name: str | _anonymous_label, element: ColumnElement[Incomplete], type_: TypeEngine | type[TypeEngine] | None = ...
+) -> Label: ...
+def case(*whens: tuple[ClauseElement, Incomplete], value: Incomplete | None = None, else_: Incomplete | None = None) -> Case: ...
+def cast(expression, type_: TypeEngine | type[TypeEngine] | None) -> Cast: ...
+def cte(selectable, name=None, recursive=False) -> CTE: ...
+def values(*columns, **kw) -> Values: ...
+def extract(field, expr: ClauseElement, **kwargs: _Unused) -> Extract: ...
+def tuple_(*clauses: ColumnElement[Incomplete], **kw) -> Tuple: ...
+def except_(*selects, **kwargs) -> CompoundSelect: ...
+def except_all(*selects, **kwargs) -> CompoundSelect: ...
+def intersect(*selects, **kwargs) -> CompoundSelect: ...
+def intersect_all(*selects, **kwargs) -> CompoundSelect: ...
+def union(*selects, **kwargs) -> CompoundSelect: ...
+def union_all(*selects, **kwargs) -> CompoundSelect: ...
+def exists(*args, **kwargs) -> Exists: ...
+def nulls_first(column) -> UnaryExpression: ...
+def nulls_last(column) -> UnaryExpression: ...
+def asc(column) -> UnaryExpression: ...
+def desc(column) -> UnaryExpression: ...
+def distinct(expr) -> UnaryExpression: ...
+def type_coerce(expression: str | ColumnElement[Incomplete], type_: TypeEngine | type[TypeEngine] | None) -> TypeCoerce: ...
+def true() -> True_: ...
+def false() -> False_: ...
+def null() -> Null: ...
+def join(left, right, onclause=None, isouter=False, full=False) -> Join: ...
+def outerjoin(left, right, onclause=None, full=False) -> Join: ...
+def insert(
+    table: _ExpectElement,
+    values: Incomplete | None = ...,
+    inline: bool = ...,
+    bind: Incomplete | None = ...,
+    prefixes: Incomplete | None = ...,
+    returning: Incomplete | None = ...,
+    return_defaults: bool = ...,
+    **dialect_kw,
+) -> Insert: ...
+def update(
+    table: _ExpectElement,
+    whereclause: bool | str | Traversible | None = ...,
+    values: Incomplete | None = ...,
+    inline: bool = ...,
+    bind: Incomplete | None = ...,
+    prefixes: Incomplete | None = ...,
+    returning: Incomplete | None = ...,
+    return_defaults: bool = ...,
+    preserve_parameter_order: bool = ...,
+    **dialect_kw,
+) -> Update: ...
+def delete(
+    table: _ExpectElement,
+    whereclause: bool | str | Traversible | None = ...,
+    bind: Incomplete | None = ...,
+    returning: Incomplete | None = ...,
+    prefixes: Incomplete | None = ...,
+    **dialect_kw,
+) -> Delete: ...
+def funcfilter(func: FunctionFilter, *criterion) -> FunctionFilter: ...

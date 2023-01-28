@@ -1,8 +1,10 @@
 from _typeshed import Incomplete
-from typing import Any
+from typing import Any, overload
+from typing_extensions import TypeAlias
 
 from ..sql import base as sql_base, expression, util as sql_util
 from ..sql.annotation import SupportsCloneAnnotations
+from ..sql.selectable import Alias, FromClause
 from .base import (
     InspectionAttr as InspectionAttr,
     _class_to_mapper as _class_to_mapper,
@@ -18,6 +20,8 @@ from .base import (
     state_str as state_str,
 )
 from .interfaces import CriteriaOption, ORMColumnsClauseRole, ORMEntityColumnsClauseRole, ORMFromClauseRole
+
+_Unused: TypeAlias = object
 
 all_cascades: Any
 
@@ -52,8 +56,8 @@ class AliasedClass:
     def __init__(
         self,
         mapped_class_or_ac,
-        alias: Incomplete | None = ...,
-        name: Incomplete | None = ...,
+        alias: FromClause | None = ...,
+        name: str | None = ...,
         flat: bool = ...,
         adapt_on_names: bool = ...,
         with_polymorphic_mappers=...,
@@ -67,7 +71,7 @@ class AliasedClass:
 class AliasedInsp(ORMEntityColumnsClauseRole, ORMFromClauseRole, sql_base.MemoizedHasCacheKey, InspectionAttr):
     mapper: Any
     selectable: Any
-    name: Any
+    name: str
     polymorphic_on: Any
     represents_outer_join: Any
     with_polymorphic_mappers: Any
@@ -76,7 +80,7 @@ class AliasedInsp(ORMEntityColumnsClauseRole, ORMFromClauseRole, sql_base.Memoiz
         entity,
         inspected,
         selectable,
-        name,
+        name: str,
         with_polymorphic_mappers,
         polymorphic_on,
         _base_alias,
@@ -110,7 +114,7 @@ class LoaderCriteriaOption(CriteriaOption):
         self,
         entity_or_base,
         where_criteria,
-        loader_only: bool = ...,
+        loader_only: _Unused = ...,
         include_aliases: bool = ...,
         propagate_to_loaders: bool = ...,
         track_closure_variables: bool = ...,
@@ -119,9 +123,14 @@ class LoaderCriteriaOption(CriteriaOption):
     def process_compile_state(self, compile_state) -> None: ...
     def get_global_criteria(self, attributes) -> None: ...
 
+@overload
+def aliased(  # type: ignore[misc]  # Incompatible return types
+    element: FromClause, alias: FromClause | None = ..., name: str | None = ..., flat: bool = ..., adapt_on_names: bool = ...
+) -> Alias | FromClause: ...
+@overload
 def aliased(
-    element, alias: Incomplete | None = ..., name: Incomplete | None = ..., flat: bool = ..., adapt_on_names: bool = ...
-): ...
+    element, alias: FromClause | None = ..., name: str | None = ..., flat: bool = ..., adapt_on_names: bool = ...
+) -> AliasedClass: ...
 def with_polymorphic(
     base,
     classes,
@@ -141,10 +150,10 @@ class Bundle(ORMColumnsClauseRole, SupportsCloneAnnotations, sql_base.MemoizedHa
     is_mapper: bool
     is_aliased_class: bool
     is_bundle: bool
-    name: Any
+    name: str
     exprs: Any
     c: Any
-    def __init__(self, name, *exprs, **kw) -> None: ...
+    def __init__(self, name: str, *exprs, **kw) -> None: ...
     @property
     def mapper(self): ...
     @property
@@ -188,6 +197,6 @@ def join(
 ): ...
 def outerjoin(left, right, onclause: Incomplete | None = ..., full: bool = ..., join_to_left: Incomplete | None = ...): ...
 def with_parent(instance, prop, from_entity: Incomplete | None = ...): ...
-def has_identity(object_): ...
-def was_deleted(object_): ...
+def has_identity(object_) -> bool: ...
+def was_deleted(object_) -> bool: ...
 def randomize_unitofwork() -> None: ...

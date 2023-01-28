@@ -1,10 +1,9 @@
 from _typeshed import Incomplete
 from typing import Any
 
-from sqlalchemy import types as sqltypes
-from sqlalchemy.engine import default, reflection
-from sqlalchemy.sql import compiler
-from sqlalchemy.types import (
+from ...engine import default, reflection
+from ...sql import compiler, sqltypes
+from ...types import (
     BIGINT as BIGINT,
     BINARY as BINARY,
     CHAR as CHAR,
@@ -133,4 +132,4 @@ class SybaseDialect(default.DefaultDialect):
     def get_table_names(self, connection, schema: Incomplete | None = ..., **kw): ...
     def get_view_definition(self, connection, view_name, schema: Incomplete | None = ..., **kw): ...
     def get_view_names(self, connection, schema: Incomplete | None = ..., **kw): ...
-    def has_table(self, connection, table_name, schema: Incomplete | None = ...): ...  # type: ignore[override]
+    def has_table(self, connection, table_name, schema: Incomplete | None = ...) -> bool: ...  # type: ignore[override]

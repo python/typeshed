@@ -67,8 +67,6 @@ from .expression import (
     null as null,
     nulls_first as nulls_first,
     nulls_last as nulls_last,
-    nullsfirst as nullsfirst,
-    nullslast as nullslast,
     or_ as or_,
     outerjoin as outerjoin,
     outparam as outparam,
@@ -88,4 +86,6 @@ from .expression import (
     values as values,
     within_group as within_group,
 )
-from .visitors import ClauseVisitor as ClauseVisitor
+
+nullsfirst = nulls_first
+nullslast = nulls_last

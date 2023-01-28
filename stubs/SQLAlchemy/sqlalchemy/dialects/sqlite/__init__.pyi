@@ -1,5 +1,4 @@
-from typing import Any
-
+from . import aiosqlite as aiosqlite, base as base, pysqlcipher as pysqlcipher, pysqlite as pysqlite
 from .base import (
     BLOB as BLOB,
     BOOLEAN as BOOLEAN,
@@ -42,4 +41,4 @@ __all__ = (
     "dialect",
 )
 
-dialect: Any
+dialect = pysqlite.dialect

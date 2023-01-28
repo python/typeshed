@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from abc import ABCMeta
 from typing import Any
 
 from ...util import memoized_property
@@ -6,9 +7,9 @@ from .base import MySQLCompiler, MySQLDialect, MySQLExecutionContext
 
 class MySQLExecutionContext_mysqldb(MySQLExecutionContext):
     @property
-    def rowcount(self): ...
+    def rowcount(self) -> int: ...
 
-class MySQLCompiler_mysqldb(MySQLCompiler): ...
+class MySQLCompiler_mysqldb(MySQLCompiler, metaclass=ABCMeta): ...
 
 class MySQLDialect_mysqldb(MySQLDialect):
     driver: str

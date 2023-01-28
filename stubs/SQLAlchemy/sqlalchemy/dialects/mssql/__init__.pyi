@@ -1,5 +1,4 @@
-from typing import Any
-
+from . import base as base, mxodbc as mxodbc, pymssql as pymssql, pyodbc as pyodbc
 from .base import (
     BIGINT as BIGINT,
     BINARY as BINARY,
@@ -73,4 +72,4 @@ __all__ = (
     "try_cast",
 )
 
-dialect: Any
+dialect = pyodbc.dialect

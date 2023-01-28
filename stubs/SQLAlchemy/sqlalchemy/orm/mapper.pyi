@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
-from typing import Any
+from collections.abc import Callable
+from typing import Any, TypeVar
+from typing_extensions import Literal
 
 from ..sql import base as sql_base
 from ..util import HasMemoized, memoized_property
@@ -11,32 +13,34 @@ from .base import (
 )
 from .interfaces import InspectionAttr, ORMEntityColumnsClauseRole, ORMFromClauseRole
 
+_T = TypeVar("_T")
+
 NO_ATTRIBUTE: Any
 
 class Mapper(ORMFromClauseRole, ORMEntityColumnsClauseRole, sql_base.MemoizedHasCacheKey, InspectionAttr):
     logger: Any
     class_: Any
     class_manager: Any
-    non_primary: Any
-    always_refresh: Any
+    non_primary: bool
+    always_refresh: bool
     version_id_prop: Any
     version_id_col: Any
-    version_id_generator: bool
-    concrete: Any
+    version_id_generator: Callable[[int], int] | Literal[False]
+    concrete: bool
     single: bool
     inherits: Any
     local_table: Any
     inherit_condition: Any
     inherit_foreign_keys: Any
-    batch: Any
-    eager_defaults: Any
+    batch: bool
+    eager_defaults: bool
     column_prefix: Any
     polymorphic_on: Any
     validators: Any
-    passive_updates: Any
-    passive_deletes: Any
-    legacy_is_orphan: Any
-    allow_partial_pks: Any
+    passive_updates: bool
+    passive_deletes: bool
+    legacy_is_orphan: bool
+    allow_partial_pks: bool
     confirm_deleted_rows: bool
     polymorphic_load: Any
     polymorphic_identity: Any
@@ -55,7 +59,7 @@ class Mapper(ORMFromClauseRole, ORMEntityColumnsClauseRole, sql_base.MemoizedHas
         inherit_foreign_keys: Incomplete | None = ...,
         always_refresh: bool = ...,
         version_id_col: Incomplete | None = ...,
-        version_id_generator: Incomplete | None = ...,
+        version_id_generator: Callable[[int], int] | Literal[False] | None = ...,
         polymorphic_on: Incomplete | None = ...,
         _polymorphic_map: Incomplete | None = ...,
         polymorphic_identity: Incomplete | None = ...,
@@ -91,7 +95,7 @@ class Mapper(ORMFromClauseRole, ORMEntityColumnsClauseRole, sql_base.MemoizedHas
     def mapped_table(self): ...
     def add_properties(self, dict_of_properties) -> None: ...
     def add_property(self, key, prop) -> None: ...
-    def has_property(self, key): ...
+    def has_property(self, key) -> bool: ...
     def get_property(self, key, _configure_mappers: bool = ...): ...
     def get_property_by_column(self, column): ...
     @property
@@ -117,7 +121,7 @@ class Mapper(ORMFromClauseRole, ORMEntityColumnsClauseRole, sql_base.MemoizedHas
     @HasMemoized.memoized_attribute
     def composites(self): ...
     def common_parent(self, other): ...
-    def is_sibling(self, other): ...
+    def is_sibling(self, other) -> bool: ...
     def isa(self, other): ...
     def iterate_to_root(self) -> None: ...
     @HasMemoized.memoized_attribute
@@ -136,7 +140,7 @@ class _OptGetColumnsNotAvailable(Exception): ...
 
 def configure_mappers() -> None: ...
 def reconstructor(fn): ...
-def validates(*names, **kw): ...
+def validates(*names, include_removes: bool = False, include_backrefs: bool = True) -> Callable[[_T], _T]: ...
 
 class _ColumnMapping(dict[Any, Any]):
     mapper: Any

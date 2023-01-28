@@ -1,5 +1,3 @@
-from typing import Any
-
 from ..util import memoized_property
 from .base import Pool
 
@@ -25,7 +23,7 @@ class NullPool(Pool):
     def dispose(self) -> None: ...
 
 class SingletonThreadPool(Pool):
-    size: Any
+    size: int
     def __init__(self, creator, pool_size: int = ..., **kw) -> None: ...
     def recreate(self): ...
     def dispose(self) -> None: ...

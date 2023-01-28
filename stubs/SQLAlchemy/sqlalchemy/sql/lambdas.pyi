@@ -1,11 +1,16 @@
 from _typeshed import Incomplete
+from collections.abc import Callable
+from enum import Enum
 from typing import Generic, TypeVar
+from typing_extensions import ParamSpec
 
 from . import elements, roles
 from .base import Options
 from .operators import ColumnOperators
 
 _T = TypeVar("_T")
+_L = TypeVar("_L", None, int, bool, str, bytes, Enum)  # Any valid Literal type
+_P = ParamSpec("_P")
 
 class LambdaOptions(Options):
     enable_tracking: bool
@@ -110,13 +115,14 @@ class PyWrapper(ColumnOperators[_T], Generic[_T]):
         track_bound_values: bool = ...,
     ) -> None: ...
     def __call__(self, *arg, **kw): ...
-    def operate(self, op, *other, **kwargs): ...
-    def reverse_operate(self, op, other, **kwargs): ...
+    def operate(self, op: Callable[_P, _T], *other: _P.args, **kwargs: _P.kwargs) -> _T: ...  # type: ignore[override]  # _T doesn't match
+    def reverse_operate(self, op: Callable[..., _T], other, **kwargs) -> _T: ...  # type: ignore[override]  # _T doesn't match
     def __clause_element__(self): ...  # Field not always present.
     def __bool__(self) -> bool: ...
     def __nonzero__(self) -> bool: ...
     def __getattribute__(self, key: str): ...
     def __iter__(self): ...
-    def __getitem__(self, key) -> ColumnOperators[_T]: ...
+    # "Dictionary keys / list indexes inside of a cached lambda must be Python literals only"
+    def __getitem__(self, key: Callable[..., _L]) -> _L: ...  # type: ignore[override]  # Custom __getitem__
 
 def insp(lmb): ...

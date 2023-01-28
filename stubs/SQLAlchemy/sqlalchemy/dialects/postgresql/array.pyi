@@ -1,35 +1,66 @@
-from typing import Any as _Any
+from _typeshed import Incomplete, Self, SupportsGetItem
+from collections.abc import Callable, Sequence
+from typing import NoReturn, TypeVar, overload
 
-import sqlalchemy.types as sqltypes
+from ...sql import expression, sqltypes
+from ...sql.elements import BinaryExpression, Grouping
+from ...sql.type_api import TypeEngine
+from ...util.langhelpers import memoized_property
 
-from ...sql import expression
+_T = TypeVar("_T")
+_K = TypeVar("_K")
+_V = TypeVar("_V")
 
 def Any(other, arrexpr, operator=...): ...
 def All(other, arrexpr, operator=...): ...
 
-class array(expression.ClauseList, expression.ColumnElement[_Any]):
+class array(expression.ClauseList, expression.ColumnElement[Incomplete]):
     __visit_name__: str
     stringify_dialect: str
     inherit_cache: bool
-    type: _Any
+    @memoized_property
+    def type(self) -> ARRAY: ...  # type: ignore[override]  # Is always assigned ARRAY
     def __init__(self, clauses, **kw) -> None: ...
-    def self_group(self, against: _Any | None = ...): ...
+    @overload  # type: ignore[override]  # Actual return type
+    def self_group(  # type: ignore[misc]  # Actual return type
+        self: Self,
+        against: Callable[[Incomplete], Incomplete]
+        | Callable[[Sequence[_V], slice], Sequence[_V]]
+        | Callable[[SupportsGetItem[_K, _V], _K], _V],
+    ) -> Grouping | Self: ...
+    @overload
+    def self_group(self: Self, against: object = ...) -> Self: ...
 
-CONTAINS: _Any
-CONTAINED_BY: _Any
-OVERLAP: _Any
+CONTAINS: Incomplete
+CONTAINED_BY: Incomplete
+OVERLAP: Incomplete
 
 class ARRAY(sqltypes.ARRAY):
-    class Comparator(sqltypes.ARRAY.Comparator[_Any]):
-        def contains(self, other, **kwargs): ...
-        def contained_by(self, other): ...
-        def overlap(self, other): ...
-    comparator_factory: _Any
-    item_type: _Any
-    as_tuple: _Any
-    dimensions: _Any
-    zero_indexes: _Any
-    def __init__(self, item_type, as_tuple: bool = ..., dimensions: _Any | None = ..., zero_indexes: bool = ...) -> None: ...
+    class Comparator(sqltypes.ARRAY.Comparator[_T]):
+        def contains(self, other: str, **kwargs) -> BinaryExpression: ...
+        def contained_by(self, other) -> BinaryExpression: ...
+        def overlap(self, other) -> BinaryExpression: ...
+    comparator_factory: Callable[[Incomplete], Comparator[Incomplete]]
+    item_type: TypeEngine
+    as_tuple: bool
+    dimensions: Incomplete
+    zero_indexes: bool
+    @overload
+    def __init__(
+        self,
+        item_type: ARRAY,  # (Not[Array])
+        as_tuple: bool = ...,
+        dimensions: Incomplete | None = ...,
+        zero_indexes: bool = ...,
+    ) -> NoReturn: ...
+    @overload
+    def __init__(
+        self,
+        item_type: TypeEngine | type[TypeEngine],
+        as_tuple: bool = ...,
+        dimensions: Incomplete | None = ...,
+        zero_indexes: bool = ...,
+    ) -> None: ...
     @property
     def hashable(self): ...
     @property

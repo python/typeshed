@@ -1,14 +1,12 @@
-import abc
+from abc import ABC, abstractmethod
 
-from ..util import ABC
-
-class ConnectionCharacteristic(ABC, metaclass=abc.ABCMeta):
+class ConnectionCharacteristic(ABC):
     transactional: bool
-    @abc.abstractmethod
+    @abstractmethod
     def reset_characteristic(self, dialect, dbapi_conn): ...
-    @abc.abstractmethod
+    @abstractmethod
     def set_characteristic(self, dialect, dbapi_conn, value): ...
-    @abc.abstractmethod
+    @abstractmethod
     def get_characteristic(self, dialect, dbapi_conn): ...
 
 class IsolationLevelCharacteristic(ConnectionCharacteristic):

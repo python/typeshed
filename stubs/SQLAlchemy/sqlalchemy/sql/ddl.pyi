@@ -1,68 +1,91 @@
-from _typeshed import Incomplete
-from typing import Any
+from _typeshed import Incomplete, Self
+from collections.abc import Callable, Iterable, Mapping
+from typing import Any, Protocol
 
+from ..engine import Connection, Engine
+from ..engine.cursor import CursorResult
+from ..engine.default import DefaultDialect
+from ..engine.interfaces import Connectable
+from ..sql.compiler import IdentifierPreparer
 from . import roles
 from .base import Executable, SchemaVisitor
-from .elements import ClauseElement
+from .elements import ClauseElement, ColumnElement
+from .schema import Constraint, ForeignKey, ForeignKeyConstraint, Index, MetaData, SchemaItem, Sequence, Table
+
+class _DDLCallable(Protocol):
+    def __call__(
+        self,
+        ddl: DDLElement,
+        target: Table | MetaData | None,
+        bind: Connectable,
+        tables: list[Incomplete] | None = ...,
+        state: Incomplete | None = ...,
+        checkfirst: bool = ...,
+    ) -> bool: ...
 
 class _DDLCompiles(ClauseElement): ...
 
 class DDLElement(roles.DDLRole, Executable, _DDLCompiles):
-    target: Any
-    on: Any
-    dialect: Any
-    callable_: Any
-    def execute(self, bind: Incomplete | None = ..., target: Incomplete | None = ...): ...  # type: ignore[override]
-    def against(self, target) -> None: ...
+    target: SchemaItem | None
+    on: None  # Never assigned or used
+    dialect: str | tuple[str] | list[str] | set[str] | None
+    callable_: _DDLCallable | None
+    def execute(self, bind: Engine | Connection | None = ..., target: Incomplete | None = ...) -> CursorResult: ...
+    def against(self: Self, target: SchemaItem) -> Self: ...
     state: Any
     def execute_if(
-        self, dialect: Incomplete | None = ..., callable_: Incomplete | None = ..., state: Incomplete | None = ...
-    ) -> None: ...
-    def __call__(self, target, bind, **kw): ...
-    bind: Any
+        self: Self,
+        dialect: str | tuple[str] | list[str] | set[str] | None = ...,
+        callable_: _DDLCallable | None = ...,
+        state: Incomplete | None = ...,
+    ) -> Self: ...
+    def __call__(self, target: Table | MetaData | None, bind: Connectable, **kw): ...
+    bind: Connectable | None  # type: ignore[assignment]  # Any Connectable is valid
 
 class DDL(DDLElement):
     __visit_name__: str
-    statement: Any
-    context: Any
-    def __init__(self, statement, context: Incomplete | None = ..., bind: Incomplete | None = ...) -> None: ...
+    statement: str
+    context: Mapping[Incomplete, Incomplete]
+    def __init__(
+        self, statement: str, context: Mapping[Incomplete, Incomplete] | None = ..., bind: Connectable | None = ...
+    ) -> None: ...
 
 class _CreateDropBase(DDLElement):
-    element: Any
-    bind: Any
+    element: SchemaItem
     if_exists: Any
     if_not_exists: Any
     def __init__(
         self,
-        element,
-        bind: Incomplete | None = ...,
+        element: SchemaItem,
+        bind: Connectable | None = ...,
         if_exists: bool = ...,
         if_not_exists: bool = ...,
-        _legacy_bind: Incomplete | None = ...,
+        _legacy_bind: Connectable | None = ...,
     ) -> None: ...
     @property
     def stringify_dialect(self): ...
 
 class CreateSchema(_CreateDropBase):
     __visit_name__: str
-    quote: Any
-    def __init__(self, name, quote: Incomplete | None = ..., **kw) -> None: ...
+    quote: bool | None
+    def __init__(self, name, quote: bool | None = ..., **kw) -> None: ...
 
 class DropSchema(_CreateDropBase):
     __visit_name__: str
-    quote: Any
-    cascade: Any
-    def __init__(self, name, quote: Incomplete | None = ..., cascade: bool = ..., **kw) -> None: ...
+    quote: bool | None
+    cascade: bool
+    def __init__(self, name, quote: bool | None = ..., cascade: bool = ..., **kw) -> None: ...
 
 class CreateTable(_CreateDropBase):
     __visit_name__: str
-    columns: Any
-    include_foreign_key_constraints: Any
+    columns: list[CreateColumn]
+    include_foreign_key_constraints: Iterable[ForeignKeyConstraint] | None
+    element: Table
     def __init__(
         self,
-        element,
-        bind: Incomplete | None = ...,
-        include_foreign_key_constraints: Incomplete | None = ...,
+        element: Table,
+        bind: Connectable | None = ...,
+        include_foreign_key_constraints: Iterable[ForeignKeyConstraint] | None = ...,
         if_not_exists: bool = ...,
     ) -> None: ...
 
@@ -71,12 +94,13 @@ class _DropView(_CreateDropBase):
 
 class CreateColumn(_DDLCompiles):
     __visit_name__: str
-    element: Any
-    def __init__(self, element) -> None: ...
+    element: ColumnElement[Incomplete]
+    def __init__(self, element: ColumnElement[Incomplete]) -> None: ...
 
 class DropTable(_CreateDropBase):
     __visit_name__: str
-    def __init__(self, element, bind: Incomplete | None = ..., if_exists: bool = ...) -> None: ...
+    element: Table
+    def __init__(self, element: Table, bind: Incomplete | None = ..., if_exists: bool = ...) -> None: ...
 
 class CreateSequence(_CreateDropBase):
     __visit_name__: str
@@ -86,20 +110,24 @@ class DropSequence(_CreateDropBase):
 
 class CreateIndex(_CreateDropBase):
     __visit_name__: str
-    def __init__(self, element, bind: Incomplete | None = ..., if_not_exists: bool = ...) -> None: ...
+    element: Index
+    def __init__(self, element: Index, bind: Incomplete | None = ..., if_not_exists: bool = ...) -> None: ...
 
 class DropIndex(_CreateDropBase):
     __visit_name__: str
-    def __init__(self, element, bind: Incomplete | None = ..., if_exists: bool = ...) -> None: ...
+    element: Index
+    def __init__(self, element: Index, bind: Incomplete | None = ..., if_exists: bool = ...) -> None: ...
 
 class AddConstraint(_CreateDropBase):
     __visit_name__: str
-    def __init__(self, element, *args, **kw) -> None: ...
+    element: Constraint
+    def __init__(self, element: Constraint, *args, **kw) -> None: ...
 
 class DropConstraint(_CreateDropBase):
     __visit_name__: str
-    cascade: Any
-    def __init__(self, element, cascade: bool = ..., **kw) -> None: ...
+    cascade: bool
+    element: Constraint
+    def __init__(self, element: Constraint, cascade: bool = ..., **kw) -> None: ...
 
 class SetTableComment(_CreateDropBase):
     __visit_name__: str
@@ -114,42 +142,65 @@ class DropColumnComment(_CreateDropBase):
     __visit_name__: str
 
 class DDLBase(SchemaVisitor):
-    connection: Any
-    def __init__(self, connection) -> None: ...
+    connection: Connection
+    def __init__(self, connection: Connection) -> None: ...
 
 class SchemaGenerator(DDLBase):
-    checkfirst: Any
-    tables: Any
-    preparer: Any
-    dialect: Any
-    memo: Any
-    def __init__(self, dialect, connection, checkfirst: bool = ..., tables: Incomplete | None = ..., **kwargs) -> None: ...
-    def visit_metadata(self, metadata) -> None: ...
+    checkfirst: bool
+    tables: Iterable[Table] | None
+    preparer: IdentifierPreparer
+    dialect: DefaultDialect
+    memo: dict[Incomplete, Incomplete]
+    def __init__(
+        self,
+        dialect: DefaultDialect,
+        connection: Connection,
+        checkfirst: bool = ...,
+        tables: Iterable[Table] | None = ...,
+        **kwargs,
+    ) -> None: ...
+    def visit_metadata(self, metadata: MetaData) -> None: ...
     def visit_table(
         self,
-        table,
+        table: Table,
         create_ok: bool = ...,
         include_foreign_key_constraints: Incomplete | None = ...,
         _is_metadata_operation: bool = ...,
     ) -> None: ...
-    def visit_foreign_key_constraint(self, constraint) -> None: ...
-    def visit_sequence(self, sequence, create_ok: bool = ...) -> None: ...
-    def visit_index(self, index, create_ok: bool = ...) -> None: ...
+    def visit_foreign_key_constraint(self, constraint: ForeignKeyConstraint) -> None: ...
+    def visit_sequence(self, sequence: Sequence, create_ok: bool = ...) -> None: ...
+    def visit_index(self, index: Index, create_ok: bool = ...) -> None: ...
 
 class SchemaDropper(DDLBase):
-    checkfirst: Any
-    tables: Any
-    preparer: Any
-    dialect: Any
-    memo: Any
-    def __init__(self, dialect, connection, checkfirst: bool = ..., tables: Incomplete | None = ..., **kwargs) -> None: ...
-    def visit_metadata(self, metadata): ...
-    def visit_index(self, index, drop_ok: bool = ...) -> None: ...
-    def visit_table(self, table, drop_ok: bool = ..., _is_metadata_operation: bool = ..., _ignore_sequences=...) -> None: ...
-    def visit_foreign_key_constraint(self, constraint) -> None: ...
-    def visit_sequence(self, sequence, drop_ok: bool = ...) -> None: ...
+    checkfirst: bool
+    tables: Iterable[Table] | None
+    preparer: IdentifierPreparer
+    dialect: DefaultDialect
+    memo: dict[Incomplete, Incomplete]
+    def __init__(
+        self,
+        dialect: DefaultDialect,
+        connection: Connection,
+        checkfirst: bool = ...,
+        tables: Iterable[Table] | None = ...,
+        **kwargs,
+    ) -> None: ...
+    def visit_metadata(self, metadata: MetaData): ...
+    def visit_index(self, index: Index, drop_ok: bool = ...) -> None: ...
+    def visit_table(
+        self, table: Table, drop_ok: bool = ..., _is_metadata_operation: bool = ..., _ignore_sequences=...
+    ) -> None: ...
+    def visit_foreign_key_constraint(self, constraint: ForeignKeyConstraint) -> None: ...
+    def visit_sequence(self, sequence: Sequence, drop_ok: bool = ...) -> None: ...
 
-def sort_tables(tables, skip_fn: Incomplete | None = ..., extra_dependencies: Incomplete | None = ...): ...
-def sort_tables_and_constraints(
-    tables, filter_fn: Incomplete | None = ..., extra_dependencies: Incomplete | None = ..., _warn_for_cycles: bool = ...
+def sort_tables(
+    tables: Iterable[Table],
+    skip_fn: Callable[[ForeignKey], bool] | None = ...,
+    extra_dependencies: Iterable[tuple[Table, Table]] | None = ...,
 ): ...
+def sort_tables_and_constraints(
+    tables: Iterable[Table],
+    filter_fn: Callable[[ForeignKeyConstraint], bool | None] | None = ...,
+    extra_dependencies: Iterable[tuple[Table, Table]] | None = ...,
+    _warn_for_cycles: bool = ...,
+) -> list[tuple[Table | None, set[ForeignKeyConstraint] | list[ForeignKeyConstraint]]]: ...

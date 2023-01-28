@@ -8,20 +8,15 @@ from typing_extensions import Concatenate, ParamSpec, TypeAlias
 
 from ..log import Identified, _EchoFlag, echo_property
 from ..pool import Pool
-from ..sql.compiler import Compiled
-from ..sql.ddl import DDLElement
-from ..sql.elements import ClauseElement
-from ..sql.functions import FunctionElement
-from ..sql.schema import DefaultGenerator
 from .cursor import CursorResult
-from .interfaces import Connectable as Connectable, Dialect, ExceptionContext
+from .interfaces import Connectable as Connectable, Dialect, ExceptionContext, _Executable
 from .url import URL
 from .util import TransactionalContext
 
+_Unused: TypeAlias = object
+
 _T = TypeVar("_T")
 _P = ParamSpec("_P")
-
-_Executable: TypeAlias = ClauseElement | FunctionElement | DDLElement | DefaultGenerator | Compiled
 
 class Connection(Connectable):
     engine: Engine
@@ -52,16 +47,19 @@ class Connection(Connectable):
     def invalidated(self) -> bool: ...
     @property
     def connection(self) -> DBAPIConnection: ...
-    def get_isolation_level(self): ...
+    def get_isolation_level(self) -> str: ...
     @property
-    def default_isolation_level(self): ...
+    def default_isolation_level(self) -> str: ...
     @property
-    def info(self): ...
+    def info(self) -> dict[Incomplete, Incomplete]: ...
     def connect(self, close_with_result: bool = ...): ...  # type: ignore[override]
     def invalidate(self, exception: Exception | None = ...) -> None: ...
     def detach(self) -> None: ...
-    def begin(self) -> Transaction: ...
-    def begin_nested(self) -> Transaction | None: ...
+    # Can technically return None.
+    # But that shouldn't be the case in user-controlled code, for simplicity we omit it.
+    def begin(self) -> Transaction | RootTransaction | MarkerTransaction: ...
+    # IDEM
+    def begin_nested(self) -> Transaction | RootTransaction | MarkerTransaction | NestedTransaction: ...
     def begin_twophase(self, xid: Incomplete | None = ...) -> TwoPhaseTransaction: ...
     def recover_twophase(self): ...
     def rollback_prepared(self, xid, recover: bool = ...) -> None: ...
@@ -94,20 +92,20 @@ class ExceptionContextImpl(ExceptionContext):
     execution_context: Any
     statement: Any
     parameters: Any
-    is_disconnect: Any
-    invalidate_pool_on_disconnect: Any
+    is_disconnect: bool
+    invalidate_pool_on_disconnect: bool
     def __init__(
         self,
         exception,
         sqlalchemy_exception,
         engine,
         connection,
-        cursor,
+        cursor: _Unused,
         statement,
         parameters,
         context,
-        is_disconnect,
-        invalidate_pool_on_disconnect,
+        is_disconnect: bool,
+        invalidate_pool_on_disconnect: bool,
     ) -> None: ...
 
 class Transaction(TransactionalContext):

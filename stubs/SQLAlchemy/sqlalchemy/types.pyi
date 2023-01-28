@@ -14,10 +14,12 @@ from .sql.sqltypes import (
     INTEGER as INTEGER,
     JSON as JSON,
     NCHAR as NCHAR,
+    NULLTYPE as NULLTYPE,
     NUMERIC as NUMERIC,
     NVARCHAR as NVARCHAR,
     REAL as REAL,
     SMALLINT as SMALLINT,
+    STRINGTYPE as STRINGTYPE,
     TEXT as TEXT,
     TIME as TIME,
     TIMESTAMP as TIMESTAMP,
@@ -38,6 +40,7 @@ from .sql.sqltypes import (
     NullType as NullType,
     Numeric as Numeric,
     PickleType as PickleType,
+    SchemaType as SchemaType,
     SmallInteger as SmallInteger,
     String as String,
     Text as Text,
@@ -52,6 +55,9 @@ from .sql.type_api import (
     TypeDecorator as TypeDecorator,
     TypeEngine as TypeEngine,
     UserDefinedType as UserDefinedType,
+    Variant as Variant,
+    adapt_type as adapt_type,
+    to_instance as to_instance,
 )
 
 __all__ = [
