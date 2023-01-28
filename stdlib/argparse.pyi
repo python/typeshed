@@ -148,18 +148,18 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     else:
         def __init__(
             self,
-            prog: str | None = ...,
-            usage: str | None = ...,
-            description: str | None = ...,
-            epilog: str | None = ...,
+            prog: str | None = None,
+            usage: str | None = None,
+            description: str | None = None,
+            epilog: str | None = None,
             parents: Sequence[ArgumentParser] = ...,
             formatter_class: _FormatterClass = ...,
-            prefix_chars: str = ...,
-            fromfile_prefix_chars: str | None = ...,
-            argument_default: Any = ...,
-            conflict_handler: str = ...,
-            add_help: bool = ...,
-            allow_abbrev: bool = ...,
+            prefix_chars: str = '-',
+            fromfile_prefix_chars: str | None = None,
+            argument_default: Any = None,
+            conflict_handler: str = 'error',
+            add_help: bool = True,
+            allow_abbrev: bool = True,
         ) -> None: ...
     # The type-ignores in these overloads should be temporary.  See:
     # https://github.com/python/typeshed/pull/2643#issuecomment-442280277

@@ -79,25 +79,25 @@ elif sys.version_info >= (3, 9):
 else:
     def compile_dir(
         dir: StrPath,
-        maxlevels: int = ...,
-        ddir: StrPath | None = ...,
-        force: bool = ...,
-        rx: _SupportsSearch | None = ...,
-        quiet: int = ...,
-        legacy: bool = ...,
-        optimize: int = ...,
-        workers: int = ...,
-        invalidation_mode: PycInvalidationMode | None = ...,
+        maxlevels: int = 10,
+        ddir: StrPath | None = None,
+        force: bool = False,
+        rx: _SupportsSearch | None = None,
+        quiet: int = 0,
+        legacy: bool = False,
+        optimize: int = -1,
+        workers: int = 1,
+        invalidation_mode: PycInvalidationMode | None = None,
     ) -> int: ...
     def compile_file(
         fullname: StrPath,
-        ddir: StrPath | None = ...,
-        force: bool = ...,
-        rx: _SupportsSearch | None = ...,
-        quiet: int = ...,
-        legacy: bool = ...,
-        optimize: int = ...,
-        invalidation_mode: PycInvalidationMode | None = ...,
+        ddir: StrPath | None = None,
+        force: bool = False,
+        rx: _SupportsSearch | None = None,
+        quiet: int = 0,
+        legacy: bool = False,
+        optimize: int = -1,
+        invalidation_mode: PycInvalidationMode | None = None,
     ) -> int: ...
 
 def compile_path(

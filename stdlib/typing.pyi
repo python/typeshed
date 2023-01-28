@@ -737,7 +737,7 @@ if sys.version_info >= (3, 9):
 
 else:
     def get_type_hints(
-        obj: _get_type_hints_obj_allowed_types, globalns: dict[str, Any] | None = ..., localns: dict[str, Any] | None = ...
+        obj: _get_type_hints_obj_allowed_types, globalns: dict[str, Any] | None = None, localns: dict[str, Any] | None = None
     ) -> dict[str, Any]: ...
 
 if sys.version_info >= (3, 8):
@@ -825,7 +825,7 @@ class ForwardRef:
         # The module and is_class arguments were added in later Python 3.9 versions.
         def __init__(self, arg: str, is_argument: bool = True, module: Any | None = None, *, is_class: bool = False) -> None: ...
     else:
-        def __init__(self, arg: str, is_argument: bool = ...) -> None: ...
+        def __init__(self, arg: str, is_argument: bool = True) -> None: ...
 
     if sys.version_info >= (3, 9):
         def _evaluate(

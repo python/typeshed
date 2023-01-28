@@ -105,19 +105,19 @@ class BZ2File(BaseStream, IO[bytes]):
     else:
         @overload
         def __init__(
-            self, filename: _WritableFileobj, mode: _WriteBinaryMode, buffering: Any | None = ..., compresslevel: int = ...
+            self, filename: _WritableFileobj, mode: _WriteBinaryMode, buffering: Any | None = ..., compresslevel: int = 9
         ) -> None: ...
         @overload
         def __init__(
-            self, filename: _ReadableFileobj, mode: _ReadBinaryMode = ..., buffering: Any | None = ..., compresslevel: int = ...
+            self, filename: _ReadableFileobj, mode: _ReadBinaryMode = 'r', buffering: Any | None = ..., compresslevel: int = 9
         ) -> None: ...
         @overload
         def __init__(
             self,
             filename: StrOrBytesPath,
-            mode: _ReadBinaryMode | _WriteBinaryMode = ...,
+            mode: _ReadBinaryMode | _WriteBinaryMode = 'r',
             buffering: Any | None = ...,
-            compresslevel: int = ...,
+            compresslevel: int = 9,
         ) -> None: ...
 
     def read(self, size: int | None = -1) -> bytes: ...
