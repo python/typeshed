@@ -758,11 +758,11 @@ def truncate(path: FileDescriptorOrPath, length: int) -> None: ...  # Unix only 
 def unlink(path: StrOrBytesPath, *, dir_fd: int | None = None) -> None: ...
 def utime(
     path: FileDescriptorOrPath,
-    times: tuple[int, int] | tuple[float, float] | None = ...,
+    times: tuple[int, int] | tuple[float, float] | None = None,
     *,
-    ns: tuple[int, int] = ...,
-    dir_fd: int | None = ...,
-    follow_symlinks: bool = ...,
+    ns: tuple[int, int] = None,
+    dir_fd: int | None = None,
+    follow_symlinks: bool = True,
 ) -> None: ...
 
 _OnError: TypeAlias = Callable[[OSError], object]
@@ -886,7 +886,7 @@ def times() -> times_result: ...
 def waitpid(__pid: int, __options: int) -> tuple[int, int]: ...
 
 if sys.platform == "win32":
-    def startfile(path: StrOrBytesPath, operation: str | None = ...) -> None: ...
+    def startfile(path: StrOrBytesPath, operation: str | None = None) -> None: ...
 
 else:
     def spawnlp(mode: int, file: StrOrBytesPath, arg0: StrOrBytesPath, *args: StrOrBytesPath) -> int: ...

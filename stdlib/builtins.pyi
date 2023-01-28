@@ -437,9 +437,9 @@ class str(Sequence[str]):
         def expandtabs(self, tabsize: SupportsIndex = 8) -> str: ...  # type: ignore[misc]
     else:
         @overload
-        def expandtabs(self: LiteralString, tabsize: int = ...) -> LiteralString: ...
+        def expandtabs(self: LiteralString, tabsize: int = 8) -> LiteralString: ...
         @overload
-        def expandtabs(self, tabsize: int = ...) -> str: ...  # type: ignore[misc]
+        def expandtabs(self, tabsize: int = 8) -> str: ...  # type: ignore[misc]
 
     def find(self, __sub: str, __start: SupportsIndex | None = ..., __end: SupportsIndex | None = ...) -> int: ...
     @overload

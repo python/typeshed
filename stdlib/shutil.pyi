@@ -76,10 +76,10 @@ else:
     def copytree(
         src: StrPath,
         dst: StrPath,
-        symlinks: bool = ...,
-        ignore: None | Callable[[str, list[str]], Iterable[str]] | Callable[[StrPath, list[str]], Iterable[str]] = ...,
+        symlinks: bool = False,
+        ignore: None | Callable[[str, list[str]], Iterable[str]] | Callable[[StrPath, list[str]], Iterable[str]] = None,
         copy_function: Callable[[str, str], object] = ...,
-        ignore_dangling_symlinks: bool = ...,
+        ignore_dangling_symlinks: bool = False,
     ) -> _PathReturn: ...
 
 _OnErrorCallback: TypeAlias = Callable[[Callable[..., Any], Any, Any], object]
@@ -139,7 +139,7 @@ if sys.version_info >= (3, 8):
     def which(cmd: bytes, mode: int = 1, path: StrPath | None = None) -> bytes | None: ...
 
 else:
-    def which(cmd: _StrPathT, mode: int = ..., path: StrPath | None = ...) -> str | _StrPathT | None: ...
+    def which(cmd: _StrPathT, mode: int = 1, path: StrPath | None = None) -> str | _StrPathT | None: ...
 
 def make_archive(
     base_name: str,

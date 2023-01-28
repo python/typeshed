@@ -144,10 +144,10 @@ class ZipFile:
         def __init__(
             self,
             file: StrPath | IO[bytes],
-            mode: _ZipFileMode = ...,
-            compression: int = ...,
-            allowZip64: bool = ...,
-            compresslevel: int | None = ...,
+            mode: _ZipFileMode = 'r',
+            compression: int = 0,
+            allowZip64: bool = True,
+            compresslevel: int | None = None,
         ) -> None: ...
 
     def __enter__(self: Self) -> Self: ...
@@ -219,7 +219,7 @@ class ZipInfo:
         ) -> Self: ...
     else:
         @classmethod
-        def from_file(cls: type[Self], filename: StrPath, arcname: StrPath | None = ...) -> Self: ...
+        def from_file(cls: type[Self], filename: StrPath, arcname: StrPath | None = None) -> Self: ...
 
     def is_dir(self) -> bool: ...
     def FileHeader(self, zip64: bool | None = None) -> bytes: ...

@@ -257,7 +257,7 @@ class Logger(Filterer):
             self,
             msg: object,
             *args: object,
-            exc_info: _ExcInfoType = ...,
+            exc_info: _ExcInfoType = True,
             stack_info: bool = ...,
             extra: Mapping[str, object] | None = ...,
         ) -> None: ...
@@ -266,9 +266,9 @@ class Logger(Filterer):
             level: int,
             msg: object,
             args: _ArgsType,
-            exc_info: _ExcInfoType | None = ...,
-            extra: Mapping[str, object] | None = ...,
-            stack_info: bool = ...,
+            exc_info: _ExcInfoType | None = None,
+            extra: Mapping[str, object] | None = None,
+            stack_info: bool = False,
         ) -> None: ...  # undocumented
     fatal = critical
     def addHandler(self, hdlr: Handler) -> None: ...
@@ -276,7 +276,7 @@ class Logger(Filterer):
     if sys.version_info >= (3, 8):
         def findCaller(self, stack_info: bool = False, stacklevel: int = 1) -> tuple[str, int, str, str | None]: ...
     else:
-        def findCaller(self, stack_info: bool = ...) -> tuple[str, int, str, str | None]: ...
+        def findCaller(self, stack_info: bool = False) -> tuple[str, int, str, str | None]: ...
 
     def handle(self, record: LogRecord) -> None: ...
     def makeRecord(
@@ -350,7 +350,7 @@ class Formatter:
             self, fmt: str | None = None, datefmt: str | None = None, style: _FormatStyle = '%', validate: bool = True
         ) -> None: ...
     else:
-        def __init__(self, fmt: str | None = ..., datefmt: str | None = ..., style: _FormatStyle = ...) -> None: ...
+        def __init__(self, fmt: str | None = None, datefmt: str | None = None, style: _FormatStyle = '%') -> None: ...
 
     def format(self, record: LogRecord) -> str: ...
     def formatTime(self, record: LogRecord, datefmt: str | None = None) -> str: ...
@@ -559,7 +559,7 @@ class LoggerAdapter(Generic[_L]):
             self,
             msg: object,
             *args: object,
-            exc_info: _ExcInfoType = ...,
+            exc_info: _ExcInfoType = True,
             stack_info: bool = ...,
             extra: Mapping[str, object] | None = ...,
             **kwargs: object,
@@ -693,7 +693,7 @@ else:
         msg: object, *args: object, exc_info: _ExcInfoType = ..., stack_info: bool = ..., extra: Mapping[str, object] | None = ...
     ) -> None: ...
     def exception(
-        msg: object, *args: object, exc_info: _ExcInfoType = ..., stack_info: bool = ..., extra: Mapping[str, object] | None = ...
+        msg: object, *args: object, exc_info: _ExcInfoType = True, stack_info: bool = ..., extra: Mapping[str, object] | None = ...
     ) -> None: ...
     def log(
         level: int,

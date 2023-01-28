@@ -32,11 +32,11 @@ if sys.version_info >= (3, 8):
 else:
     def compile(
         file: AnyStr,
-        cfile: AnyStr | None = ...,
-        dfile: AnyStr | None = ...,
-        doraise: bool = ...,
-        optimize: int = ...,
-        invalidation_mode: PycInvalidationMode | None = ...,
+        cfile: AnyStr | None = None,
+        dfile: AnyStr | None = None,
+        doraise: bool = False,
+        optimize: int = -1,
+        invalidation_mode: PycInvalidationMode | None = None,
     ) -> AnyStr | None: ...
 
 if sys.version_info >= (3, 10):

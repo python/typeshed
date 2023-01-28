@@ -244,7 +244,7 @@ class Transport:
             self, use_datetime: bool = False, use_builtin_types: bool = False, *, headers: Iterable[tuple[str, str]] = ...
         ) -> None: ...
     else:
-        def __init__(self, use_datetime: bool = ..., use_builtin_types: bool = ...) -> None: ...
+        def __init__(self, use_datetime: bool = False, use_builtin_types: bool = False) -> None: ...
 
     def request(
         self, host: _HostType, handler: str, request_body: _BufferWithLen, verbose: bool = False
@@ -275,7 +275,7 @@ class SafeTransport(Transport):
             context: Any | None = None,
         ) -> None: ...
     else:
-        def __init__(self, use_datetime: bool = ..., use_builtin_types: bool = ..., *, context: Any | None = ...) -> None: ...
+        def __init__(self, use_datetime: bool = False, use_builtin_types: bool = False, *, context: Any | None = None) -> None: ...
 
     def make_connection(self, host: _HostType) -> http.client.HTTPSConnection: ...
 
@@ -306,14 +306,14 @@ class ServerProxy:
         def __init__(
             self,
             uri: str,
-            transport: Transport | None = ...,
-            encoding: str | None = ...,
-            verbose: bool = ...,
-            allow_none: bool = ...,
-            use_datetime: bool = ...,
-            use_builtin_types: bool = ...,
+            transport: Transport | None = None,
+            encoding: str | None = None,
+            verbose: bool = False,
+            allow_none: bool = False,
+            use_datetime: bool = False,
+            use_builtin_types: bool = False,
             *,
-            context: Any | None = ...,
+            context: Any | None = None,
         ) -> None: ...
 
     def __getattr__(self, name: str) -> _Method: ...

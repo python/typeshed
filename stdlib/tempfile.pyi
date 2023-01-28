@@ -78,35 +78,35 @@ else:
     @overload
     def NamedTemporaryFile(
         mode: _StrMode,
-        buffering: int = ...,
-        encoding: str | None = ...,
-        newline: str | None = ...,
-        suffix: AnyStr | None = ...,
-        prefix: AnyStr | None = ...,
-        dir: GenericPath[AnyStr] | None = ...,
-        delete: bool = ...,
+        buffering: int = -1,
+        encoding: str | None = None,
+        newline: str | None = None,
+        suffix: AnyStr | None = None,
+        prefix: AnyStr | None = None,
+        dir: GenericPath[AnyStr] | None = None,
+        delete: bool = True,
     ) -> _TemporaryFileWrapper[str]: ...
     @overload
     def NamedTemporaryFile(
-        mode: _BytesMode = ...,
-        buffering: int = ...,
-        encoding: str | None = ...,
-        newline: str | None = ...,
-        suffix: AnyStr | None = ...,
-        prefix: AnyStr | None = ...,
-        dir: GenericPath[AnyStr] | None = ...,
-        delete: bool = ...,
+        mode: _BytesMode = 'w+b',
+        buffering: int = -1,
+        encoding: str | None = None,
+        newline: str | None = None,
+        suffix: AnyStr | None = None,
+        prefix: AnyStr | None = None,
+        dir: GenericPath[AnyStr] | None = None,
+        delete: bool = True,
     ) -> _TemporaryFileWrapper[bytes]: ...
     @overload
     def NamedTemporaryFile(
-        mode: str = ...,
-        buffering: int = ...,
-        encoding: str | None = ...,
-        newline: str | None = ...,
-        suffix: AnyStr | None = ...,
-        prefix: AnyStr | None = ...,
-        dir: GenericPath[AnyStr] | None = ...,
-        delete: bool = ...,
+        mode: str = 'w+b',
+        buffering: int = -1,
+        encoding: str | None = None,
+        newline: str | None = None,
+        suffix: AnyStr | None = None,
+        prefix: AnyStr | None = None,
+        dir: GenericPath[AnyStr] | None = None,
+        delete: bool = True,
     ) -> _TemporaryFileWrapper[Any]: ...
 
 if sys.platform == "win32":
@@ -280,38 +280,38 @@ class SpooledTemporaryFile(IO[AnyStr], _SpooledTemporaryFileBase):
         @overload
         def __init__(
             self: SpooledTemporaryFile[bytes],
-            max_size: int = ...,
-            mode: _BytesMode = ...,
-            buffering: int = ...,
-            encoding: str | None = ...,
-            newline: str | None = ...,
-            suffix: str | None = ...,
-            prefix: str | None = ...,
-            dir: str | None = ...,
+            max_size: int = 0,
+            mode: _BytesMode = 'w+b',
+            buffering: int = -1,
+            encoding: str | None = None,
+            newline: str | None = None,
+            suffix: str | None = None,
+            prefix: str | None = None,
+            dir: str | None = None,
         ) -> None: ...
         @overload
         def __init__(
             self: SpooledTemporaryFile[str],
-            max_size: int = ...,
-            mode: _StrMode = ...,
-            buffering: int = ...,
-            encoding: str | None = ...,
-            newline: str | None = ...,
-            suffix: str | None = ...,
-            prefix: str | None = ...,
-            dir: str | None = ...,
+            max_size: int = 0,
+            mode: _StrMode = 'w+b',
+            buffering: int = -1,
+            encoding: str | None = None,
+            newline: str | None = None,
+            suffix: str | None = None,
+            prefix: str | None = None,
+            dir: str | None = None,
         ) -> None: ...
         @overload
         def __init__(
             self,
-            max_size: int = ...,
-            mode: str = ...,
-            buffering: int = ...,
-            encoding: str | None = ...,
-            newline: str | None = ...,
-            suffix: str | None = ...,
-            prefix: str | None = ...,
-            dir: str | None = ...,
+            max_size: int = 0,
+            mode: str = 'w+b',
+            buffering: int = -1,
+            encoding: str | None = None,
+            newline: str | None = None,
+            suffix: str | None = None,
+            prefix: str | None = None,
+            dir: str | None = None,
         ) -> None: ...
 
     def rollover(self) -> None: ...
