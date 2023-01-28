@@ -174,7 +174,22 @@ async def find_first_release_with_py_typed(pypi_info: PypiInfo, *, session: aioh
     release_iter = pypi_info.releases_in_descending_order()
     while await release_contains_py_typed(release := next(release_iter), session=session):
         first_release_with_py_typed = release
-    return first_release_with_py_typed
+    first_version_with_py_typed = first_release_with_py_typed.version
+    if not first_version_with_py_typed.is_prerelease:
+        return first_release_with_py_typed
+    normalised_versions_to_version_strings = {
+        packaging.version.Version(version_string): version_string for version_string in pypi_info.releases
+    }
+    # We should be able to safely count on this being a non-empty iterable,
+    # since this function hopefully won't be called
+    # unless a non-prerelease version has been released
+    # that has a py.typed file
+    first_nonprerelease_version_with_py_typed = min(
+        version
+        for version in normalised_versions_to_version_strings
+        if version > first_version_with_py_typed and not version.is_prerelease
+    )
+    return pypi_info.get_release(version=normalised_versions_to_version_strings[first_nonprerelease_version_with_py_typed])
 
 
 def _check_spec(updated_spec: str, version: packaging.version.Version) -> str:
