@@ -164,7 +164,7 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     # The type-ignores in these overloads should be temporary.  See:
     # https://github.com/python/typeshed/pull/2643#issuecomment-442280277
     @overload
-    def parse_args(self, args: Sequence[str] | None = ...) -> Namespace: ...
+    def parse_args(self, args: Sequence[str] | None = None) -> Namespace: ...
     @overload
     def parse_args(self, args: Sequence[str] | None, namespace: None) -> Namespace: ...  # type: ignore[misc]
     @overload
@@ -378,10 +378,10 @@ class _StoreConstAction(Action):
             option_strings: Sequence[str],
             dest: str,
             const: Any,
-            default: Any = ...,
-            required: bool = ...,
-            help: str | None = ...,
-            metavar: str | tuple[str, ...] | None = ...,
+            default: Any = None,
+            required: bool = False,
+            help: str | None = None,
+            metavar: str | tuple[str, ...] | None = None,
         ) -> None: ...
 
 # undocumented
@@ -422,10 +422,10 @@ class _AppendConstAction(Action):
             option_strings: Sequence[str],
             dest: str,
             const: Any,
-            default: Any = ...,
-            required: bool = ...,
-            help: str | None = ...,
-            metavar: str | tuple[str, ...] | None = ...,
+            default: Any = None,
+            required: bool = False,
+            help: str | None = None,
+            metavar: str | tuple[str, ...] | None = None,
         ) -> None: ...
 
 # undocumented

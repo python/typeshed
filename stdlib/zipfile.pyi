@@ -70,7 +70,7 @@ class ZipExtFile(io.BufferedIOBase):
         fileobj: _ClosableZipStream,
         mode: _ReadWriteMode,
         zipinfo: ZipInfo,
-        pwd: bytes | None = ...,
+        pwd: bytes | None = None,
         *,
         close_fileobj: Literal[True],
     ) -> None: ...
@@ -80,8 +80,8 @@ class ZipExtFile(io.BufferedIOBase):
         fileobj: _ZipStream,
         mode: _ReadWriteMode,
         zipinfo: ZipInfo,
-        pwd: bytes | None = ...,
-        close_fileobj: Literal[False] = ...,
+        pwd: bytes | None = None,
+        close_fileobj: Literal[False] = False,
     ) -> None: ...
     def read(self, n: int | None = -1) -> bytes: ...
     def readline(self, limit: int = -1) -> bytes: ...  # type: ignore[override]
@@ -133,12 +133,12 @@ class ZipFile:
         def __init__(
             self,
             file: StrPath | IO[bytes],
-            mode: _ZipFileMode = ...,
-            compression: int = ...,
-            allowZip64: bool = ...,
-            compresslevel: int | None = ...,
+            mode: _ZipFileMode = 'r',
+            compression: int = 0,
+            allowZip64: bool = True,
+            compresslevel: int | None = None,
             *,
-            strict_timestamps: bool = ...,
+            strict_timestamps: bool = True,
         ) -> None: ...
     else:
         def __init__(

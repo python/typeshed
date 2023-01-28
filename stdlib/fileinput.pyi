@@ -36,36 +36,36 @@ if sys.version_info >= (3, 10):
     # encoding and errors are added
     @overload
     def input(
-        files: StrOrBytesPath | Iterable[StrOrBytesPath] | None = ...,
-        inplace: bool = ...,
-        backup: str = ...,
+        files: StrOrBytesPath | Iterable[StrOrBytesPath] | None = None,
+        inplace: bool = False,
+        backup: str = '',
         *,
-        mode: _TextMode = ...,
-        openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[str]] | None = ...,
-        encoding: str | None = ...,
-        errors: str | None = ...,
+        mode: _TextMode = 'r',
+        openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[str]] | None = None,
+        encoding: str | None = None,
+        errors: str | None = None,
     ) -> FileInput[str]: ...
     @overload
     def input(
-        files: StrOrBytesPath | Iterable[StrOrBytesPath] | None = ...,
-        inplace: bool = ...,
-        backup: str = ...,
+        files: StrOrBytesPath | Iterable[StrOrBytesPath] | None = None,
+        inplace: bool = False,
+        backup: str = '',
         *,
         mode: Literal["rb"],
-        openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[bytes]] | None = ...,
-        encoding: None = ...,
-        errors: None = ...,
+        openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[bytes]] | None = None,
+        encoding: None = None,
+        errors: None = None,
     ) -> FileInput[bytes]: ...
     @overload
     def input(
-        files: StrOrBytesPath | Iterable[StrOrBytesPath] | None = ...,
-        inplace: bool = ...,
-        backup: str = ...,
+        files: StrOrBytesPath | Iterable[StrOrBytesPath] | None = None,
+        inplace: bool = False,
+        backup: str = '',
         *,
         mode: str,
-        openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[Any]] | None = ...,
-        encoding: str | None = ...,
-        errors: str | None = ...,
+        openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[Any]] | None = None,
+        encoding: str | None = None,
+        errors: str | None = None,
     ) -> FileInput[Any]: ...
 
 elif sys.version_info >= (3, 8):
@@ -164,38 +164,38 @@ class FileInput(Iterator[AnyStr], Generic[AnyStr]):
         @overload
         def __init__(
             self: FileInput[str],
-            files: StrOrBytesPath | Iterable[StrOrBytesPath] | None = ...,
-            inplace: bool = ...,
-            backup: str = ...,
+            files: StrOrBytesPath | Iterable[StrOrBytesPath] | None = None,
+            inplace: bool = False,
+            backup: str = '',
             *,
-            mode: _TextMode = ...,
-            openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[str]] | None = ...,
-            encoding: str | None = ...,
-            errors: str | None = ...,
+            mode: _TextMode = 'r',
+            openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[str]] | None = None,
+            encoding: str | None = None,
+            errors: str | None = None,
         ) -> None: ...
         @overload
         def __init__(
             self: FileInput[bytes],
-            files: StrOrBytesPath | Iterable[StrOrBytesPath] | None = ...,
-            inplace: bool = ...,
-            backup: str = ...,
+            files: StrOrBytesPath | Iterable[StrOrBytesPath] | None = None,
+            inplace: bool = False,
+            backup: str = '',
             *,
             mode: Literal["rb"],
-            openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[bytes]] | None = ...,
-            encoding: None = ...,
-            errors: None = ...,
+            openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[bytes]] | None = None,
+            encoding: None = None,
+            errors: None = None,
         ) -> None: ...
         @overload
         def __init__(
             self: FileInput[Any],
-            files: StrOrBytesPath | Iterable[StrOrBytesPath] | None = ...,
-            inplace: bool = ...,
-            backup: str = ...,
+            files: StrOrBytesPath | Iterable[StrOrBytesPath] | None = None,
+            inplace: bool = False,
+            backup: str = '',
             *,
             mode: str,
-            openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[Any]] | None = ...,
-            encoding: str | None = ...,
-            errors: str | None = ...,
+            openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[Any]] | None = None,
+            encoding: str | None = None,
+            errors: str | None = None,
         ) -> None: ...
 
     elif sys.version_info >= (3, 8):

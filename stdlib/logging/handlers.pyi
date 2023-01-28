@@ -210,7 +210,7 @@ class SMTPHandler(Handler):
         subject: str,
         credentials: tuple[str, str] | None = None,
         secure: tuple[()] | tuple[str] | tuple[str, str] | None = None,
-        timeout: float = ...,
+        timeout: float = 5.0,
     ) -> None: ...
     def getSubject(self, record: LogRecord) -> str: ...
 

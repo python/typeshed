@@ -442,9 +442,9 @@ def formatannotationrelativeto(object: object) -> Callable[[object], str]: ...
 if sys.version_info < (3, 11):
     def formatargspec(
         args: list[str],
-        varargs: str | None = ...,
-        varkw: str | None = ...,
-        defaults: tuple[Any, ...] | None = ...,
+        varargs: str | None = None,
+        varkw: str | None = None,
+        defaults: tuple[Any, ...] | None = None,
         kwonlyargs: Sequence[str] | None = ...,
         kwonlydefaults: Mapping[str, Any] | None = ...,
         annotations: Mapping[str, Any] = ...,

@@ -8,55 +8,55 @@ _T = TypeVar("_T")
 if sys.version_info >= (3, 10):
     @overload
     def bisect_left(
-        a: Sequence[SupportsRichComparisonT], x: SupportsRichComparisonT, lo: int = ..., hi: int | None = ..., *, key: None = ...
+        a: Sequence[SupportsRichComparisonT], x: SupportsRichComparisonT, lo: int = 0, hi: int | None = None, *, key: None = None
     ) -> int: ...
     @overload
     def bisect_left(
         a: Sequence[_T],
         x: SupportsRichComparisonT,
-        lo: int = ...,
-        hi: int | None = ...,
+        lo: int = 0,
+        hi: int | None = None,
         *,
-        key: Callable[[_T], SupportsRichComparisonT] = ...,
+        key: Callable[[_T], SupportsRichComparisonT] = None,
     ) -> int: ...
     @overload
     def bisect_right(
-        a: Sequence[SupportsRichComparisonT], x: SupportsRichComparisonT, lo: int = ..., hi: int | None = ..., *, key: None = ...
+        a: Sequence[SupportsRichComparisonT], x: SupportsRichComparisonT, lo: int = 0, hi: int | None = None, *, key: None = None
     ) -> int: ...
     @overload
     def bisect_right(
         a: Sequence[_T],
         x: SupportsRichComparisonT,
-        lo: int = ...,
-        hi: int | None = ...,
+        lo: int = 0,
+        hi: int | None = None,
         *,
-        key: Callable[[_T], SupportsRichComparisonT] = ...,
+        key: Callable[[_T], SupportsRichComparisonT] = None,
     ) -> int: ...
     @overload
     def insort_left(
         a: MutableSequence[SupportsRichComparisonT],
         x: SupportsRichComparisonT,
-        lo: int = ...,
-        hi: int | None = ...,
+        lo: int = 0,
+        hi: int | None = None,
         *,
-        key: None = ...,
+        key: None = None,
     ) -> None: ...
     @overload
     def insort_left(
-        a: MutableSequence[_T], x: _T, lo: int = ..., hi: int | None = ..., *, key: Callable[[_T], SupportsRichComparisonT] = ...
+        a: MutableSequence[_T], x: _T, lo: int = 0, hi: int | None = None, *, key: Callable[[_T], SupportsRichComparisonT] = None
     ) -> None: ...
     @overload
     def insort_right(
         a: MutableSequence[SupportsRichComparisonT],
         x: SupportsRichComparisonT,
-        lo: int = ...,
-        hi: int | None = ...,
+        lo: int = 0,
+        hi: int | None = None,
         *,
-        key: None = ...,
+        key: None = None,
     ) -> None: ...
     @overload
     def insort_right(
-        a: MutableSequence[_T], x: _T, lo: int = ..., hi: int | None = ..., *, key: Callable[[_T], SupportsRichComparisonT] = ...
+        a: MutableSequence[_T], x: _T, lo: int = 0, hi: int | None = None, *, key: Callable[[_T], SupportsRichComparisonT] = None
     ) -> None: ...
 
 else:

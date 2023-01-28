@@ -25,7 +25,7 @@ class CDLL:
         def __init__(
             self,
             name: str | None,
-            mode: int = ...,
+            mode: int = 0,
             handle: int | None = None,
             use_errno: bool = False,
             use_last_error: bool = False,
@@ -181,7 +181,7 @@ def sizeof(obj_or_type: _CData | type[_CData]) -> int: ...
 def string_at(address: _CVoidConstPLike, size: int = -1) -> bytes: ...
 
 if sys.platform == "win32":
-    def WinError(code: int | None = ..., descr: str | None = ...) -> OSError: ...
+    def WinError(code: int | None = None, descr: str | None = None) -> OSError: ...
 
 def wstring_at(address: _CVoidConstPLike, size: int = -1) -> str: ...
 

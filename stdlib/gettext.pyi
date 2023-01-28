@@ -59,14 +59,14 @@ class GNUTranslations(NullTranslations):
 
 @overload  # ignores incompatible overloads
 def find(  # type: ignore[misc]
-    domain: str, localedir: StrPath | None = ..., languages: Iterable[str] | None = ..., all: Literal[False] = ...
+    domain: str, localedir: StrPath | None = None, languages: Iterable[str] | None = None, all: Literal[False] = False
 ) -> str | None: ...
 @overload
 def find(
-    domain: str, localedir: StrPath | None = ..., languages: Iterable[str] | None = ..., all: Literal[True] = ...
+    domain: str, localedir: StrPath | None = None, languages: Iterable[str] | None = None, all: Literal[True] = False
 ) -> list[str]: ...
 @overload
-def find(domain: str, localedir: StrPath | None = ..., languages: Iterable[str] | None = ..., all: bool = ...) -> Any: ...
+def find(domain: str, localedir: StrPath | None = None, languages: Iterable[str] | None = None, all: bool = False) -> Any: ...
 
 _NullTranslationsT = TypeVar("_NullTranslationsT", bound=NullTranslations)
 
@@ -110,20 +110,20 @@ else:
     @overload
     def translation(
         domain: str,
-        localedir: StrPath | None = ...,
-        languages: Iterable[str] | None = ...,
-        class_: None = ...,
-        fallback: Literal[False] = ...,
+        localedir: StrPath | None = None,
+        languages: Iterable[str] | None = None,
+        class_: None = None,
+        fallback: Literal[False] = False,
         codeset: str | None = ...,
     ) -> GNUTranslations: ...
     @overload
     def translation(
         domain: str,
-        localedir: StrPath | None = ...,
-        languages: Iterable[str] | None = ...,
+        localedir: StrPath | None = None,
+        languages: Iterable[str] | None = None,
         *,
         class_: Callable[[io.BufferedReader], _NullTranslationsT],
-        fallback: Literal[False] = ...,
+        fallback: Literal[False] = False,
         codeset: str | None = ...,
     ) -> _NullTranslationsT: ...
     @overload
@@ -132,20 +132,20 @@ else:
         localedir: StrPath | None,
         languages: Iterable[str] | None,
         class_: Callable[[io.BufferedReader], _NullTranslationsT],
-        fallback: Literal[False] = ...,
+        fallback: Literal[False] = False,
         codeset: str | None = ...,
     ) -> _NullTranslationsT: ...
     @overload
     def translation(
         domain: str,
-        localedir: StrPath | None = ...,
-        languages: Iterable[str] | None = ...,
-        class_: Callable[[io.BufferedReader], NullTranslations] | None = ...,
-        fallback: bool = ...,
+        localedir: StrPath | None = None,
+        languages: Iterable[str] | None = None,
+        class_: Callable[[io.BufferedReader], NullTranslations] | None = None,
+        fallback: bool = False,
         codeset: str | None = ...,
     ) -> NullTranslations: ...
     def install(
-        domain: str, localedir: StrPath | None = ..., codeset: str | None = ..., names: Container[str] | None = ...
+        domain: str, localedir: StrPath | None = None, codeset: str | None = ..., names: Container[str] | None = None
     ) -> None: ...
 
 def textdomain(domain: str | None = None) -> str: ...
@@ -166,6 +166,6 @@ if sys.version_info < (3, 11):
     def ldgettext(domain: str, message: str) -> str: ...
     def lngettext(msgid1: str, msgid2: str, n: int) -> str: ...
     def ldngettext(domain: str, msgid1: str, msgid2: str, n: int) -> str: ...
-    def bind_textdomain_codeset(domain: str, codeset: str | None = ...) -> str: ...
+    def bind_textdomain_codeset(domain: str, codeset: str | None = None) -> str: ...
 
 Catalog = translation

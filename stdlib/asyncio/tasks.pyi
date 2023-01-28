@@ -59,9 +59,9 @@ else:
     ) -> Iterator[Future[_T]]: ...
 
 @overload
-def ensure_future(coro_or_future: _FT, *, loop: AbstractEventLoop | None = ...) -> _FT: ...  # type: ignore[misc]
+def ensure_future(coro_or_future: _FT, *, loop: AbstractEventLoop | None = None) -> _FT: ...  # type: ignore[misc]
 @overload
-def ensure_future(coro_or_future: Awaitable[_T], *, loop: AbstractEventLoop | None = ...) -> Task[_T]: ...
+def ensure_future(coro_or_future: Awaitable[_T], *, loop: AbstractEventLoop | None = None) -> Task[_T]: ...
 
 # `gather()` actually returns a list with length equal to the number
 # of tasks passed; however, Tuple is used similar to the annotation for
@@ -72,10 +72,10 @@ def ensure_future(coro_or_future: Awaitable[_T], *, loop: AbstractEventLoop | No
 # but having overlapping overloads is the only way to get acceptable type inference in all edge cases.
 if sys.version_info >= (3, 10):
     @overload
-    def gather(__coro_or_future1: _FutureLike[_T1], *, return_exceptions: Literal[False] = ...) -> Future[tuple[_T1]]: ...  # type: ignore[misc]
+    def gather(__coro_or_future1: _FutureLike[_T1], *, return_exceptions: Literal[False] = False) -> Future[tuple[_T1]]: ...  # type: ignore[misc]
     @overload
     def gather(  # type: ignore[misc]
-        __coro_or_future1: _FutureLike[_T1], __coro_or_future2: _FutureLike[_T2], *, return_exceptions: Literal[False] = ...
+        __coro_or_future1: _FutureLike[_T1], __coro_or_future2: _FutureLike[_T2], *, return_exceptions: Literal[False] = False
     ) -> Future[tuple[_T1, _T2]]: ...
     @overload
     def gather(  # type: ignore[misc]
@@ -83,7 +83,7 @@ if sys.version_info >= (3, 10):
         __coro_or_future2: _FutureLike[_T2],
         __coro_or_future3: _FutureLike[_T3],
         *,
-        return_exceptions: Literal[False] = ...,
+        return_exceptions: Literal[False] = False,
     ) -> Future[tuple[_T1, _T2, _T3]]: ...
     @overload
     def gather(  # type: ignore[misc]
@@ -92,7 +92,7 @@ if sys.version_info >= (3, 10):
         __coro_or_future3: _FutureLike[_T3],
         __coro_or_future4: _FutureLike[_T4],
         *,
-        return_exceptions: Literal[False] = ...,
+        return_exceptions: Literal[False] = False,
     ) -> Future[tuple[_T1, _T2, _T3, _T4]]: ...
     @overload
     def gather(  # type: ignore[misc]
@@ -102,7 +102,7 @@ if sys.version_info >= (3, 10):
         __coro_or_future4: _FutureLike[_T4],
         __coro_or_future5: _FutureLike[_T5],
         *,
-        return_exceptions: Literal[False] = ...,
+        return_exceptions: Literal[False] = False,
     ) -> Future[tuple[_T1, _T2, _T3, _T4, _T5]]: ...
     @overload
     def gather(__coro_or_future1: _FutureLike[_T1], *, return_exceptions: bool) -> Future[tuple[_T1 | BaseException]]: ...  # type: ignore[misc]
@@ -140,7 +140,7 @@ if sys.version_info >= (3, 10):
         tuple[_T1 | BaseException, _T2 | BaseException, _T3 | BaseException, _T4 | BaseException, _T5 | BaseException]
     ]: ...
     @overload
-    def gather(*coros_or_futures: _FutureLike[Any], return_exceptions: bool = ...) -> Future[list[Any]]: ...  # type: ignore[misc]
+    def gather(*coros_or_futures: _FutureLike[Any], return_exceptions: bool = False) -> Future[list[Any]]: ...  # type: ignore[misc]
 
 else:
     @overload
@@ -243,10 +243,10 @@ if sys.version_info >= (3, 10):
     @overload
     async def sleep(delay: float, result: _T) -> _T: ...
     @overload
-    async def wait(fs: Iterable[_FT], *, timeout: float | None = ..., return_when: str = ...) -> tuple[set[_FT], set[_FT]]: ...  # type: ignore[misc]
+    async def wait(fs: Iterable[_FT], *, timeout: float | None = None, return_when: str = 'ALL_COMPLETED') -> tuple[set[_FT], set[_FT]]: ...  # type: ignore[misc]
     @overload
     async def wait(
-        fs: Iterable[Awaitable[_T]], *, timeout: float | None = ..., return_when: str = ...
+        fs: Iterable[Awaitable[_T]], *, timeout: float | None = None, return_when: str = 'ALL_COMPLETED'
     ) -> tuple[set[Task[_T]], set[Task[_T]]]: ...
     async def wait_for(fut: _FutureLike[_T], timeout: float | None) -> _T: ...
 
@@ -309,7 +309,7 @@ if sys.version_info >= (3, 11):
     ) -> Task[_T]: ...
 
 elif sys.version_info >= (3, 8):
-    def create_task(coro: Generator[Any, None, _T] | Coroutine[Any, Any, _T], *, name: str | None = ...) -> Task[_T]: ...
+    def create_task(coro: Generator[Any, None, _T] | Coroutine[Any, Any, _T], *, name: str | None = None) -> Task[_T]: ...
 
 else:
     def create_task(coro: Generator[Any, None, _T] | Coroutine[Any, Any, _T]) -> Task[_T]: ...
