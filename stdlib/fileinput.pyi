@@ -72,30 +72,30 @@ elif sys.version_info >= (3, 8):
     # bufsize is dropped and mode and openhook become keyword-only
     @overload
     def input(
-        files: StrOrBytesPath | Iterable[StrOrBytesPath] | None = ...,
-        inplace: bool = ...,
-        backup: str = ...,
+        files: StrOrBytesPath | Iterable[StrOrBytesPath] | None = None,
+        inplace: bool = False,
+        backup: str = '',
         *,
-        mode: _TextMode = ...,
-        openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[str]] | None = ...,
+        mode: _TextMode = 'r',
+        openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[str]] | None = None,
     ) -> FileInput[str]: ...
     @overload
     def input(
-        files: StrOrBytesPath | Iterable[StrOrBytesPath] | None = ...,
-        inplace: bool = ...,
-        backup: str = ...,
+        files: StrOrBytesPath | Iterable[StrOrBytesPath] | None = None,
+        inplace: bool = False,
+        backup: str = '',
         *,
         mode: Literal["rb"],
-        openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[bytes]] | None = ...,
+        openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[bytes]] | None = None,
     ) -> FileInput[bytes]: ...
     @overload
     def input(
-        files: StrOrBytesPath | Iterable[StrOrBytesPath] | None = ...,
-        inplace: bool = ...,
-        backup: str = ...,
+        files: StrOrBytesPath | Iterable[StrOrBytesPath] | None = None,
+        inplace: bool = False,
+        backup: str = '',
         *,
         mode: str,
-        openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[Any]] | None = ...,
+        openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[Any]] | None = None,
     ) -> FileInput[Any]: ...
 
 else:
@@ -203,32 +203,32 @@ class FileInput(Iterator[AnyStr], Generic[AnyStr]):
         @overload
         def __init__(
             self: FileInput[str],
-            files: StrOrBytesPath | Iterable[StrOrBytesPath] | None = ...,
-            inplace: bool = ...,
-            backup: str = ...,
+            files: StrOrBytesPath | Iterable[StrOrBytesPath] | None = None,
+            inplace: bool = False,
+            backup: str = '',
             *,
-            mode: _TextMode = ...,
-            openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[str]] | None = ...,
+            mode: _TextMode = 'r',
+            openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[str]] | None = None,
         ) -> None: ...
         @overload
         def __init__(
             self: FileInput[bytes],
-            files: StrOrBytesPath | Iterable[StrOrBytesPath] | None = ...,
-            inplace: bool = ...,
-            backup: str = ...,
+            files: StrOrBytesPath | Iterable[StrOrBytesPath] | None = None,
+            inplace: bool = False,
+            backup: str = '',
             *,
             mode: Literal["rb"],
-            openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[bytes]] | None = ...,
+            openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[bytes]] | None = None,
         ) -> None: ...
         @overload
         def __init__(
             self: FileInput[Any],
-            files: StrOrBytesPath | Iterable[StrOrBytesPath] | None = ...,
-            inplace: bool = ...,
-            backup: str = ...,
+            files: StrOrBytesPath | Iterable[StrOrBytesPath] | None = None,
+            inplace: bool = False,
+            backup: str = '',
             *,
             mode: str,
-            openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[Any]] | None = ...,
+            openhook: Callable[[StrOrBytesPath, str], _HasReadlineAndFileno[Any]] | None = None,
         ) -> None: ...
 
     else:

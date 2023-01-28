@@ -61,16 +61,16 @@ else:
         etype: type[BaseException] | None,
         value: BaseException | None,
         tb: TracebackType | None,
-        limit: int | None = ...,
-        file: SupportsWrite[str] | None = ...,
-        chain: bool = ...,
+        limit: int | None = None,
+        file: SupportsWrite[str] | None = None,
+        chain: bool = True,
     ) -> None: ...
     def format_exception(
         etype: type[BaseException] | None,
         value: BaseException | None,
         tb: TracebackType | None,
-        limit: int | None = ...,
-        chain: bool = ...,
+        limit: int | None = None,
+        chain: bool = True,
     ) -> list[str]: ...
 
 def print_exc(limit: int | None = None, file: SupportsWrite[str] | None = None, chain: bool = True) -> None: ...
@@ -169,10 +169,10 @@ class TracebackException:
             exc_value: BaseException,
             exc_traceback: TracebackType | None,
             *,
-            limit: int | None = ...,
-            lookup_lines: bool = ...,
-            capture_locals: bool = ...,
-            _seen: set[int] | None = ...,
+            limit: int | None = None,
+            lookup_lines: bool = True,
+            capture_locals: bool = False,
+            _seen: set[int] | None = None,
         ) -> None: ...
         @classmethod
         def from_exception(

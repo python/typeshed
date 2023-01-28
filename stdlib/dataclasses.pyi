@@ -104,7 +104,7 @@ elif sys.version_info >= (3, 10):
 else:
     @overload
     def dataclass(
-        *, init: bool = ..., repr: bool = ..., eq: bool = ..., order: bool = ..., unsafe_hash: bool = ..., frozen: bool = ...
+        *, init: bool = True, repr: bool = True, eq: bool = True, order: bool = False, unsafe_hash: bool = False, frozen: bool = False
     ) -> Callable[[type[_T]], type[_T]]: ...
 
 # See https://github.com/python/mypy/issues/10750
@@ -191,30 +191,30 @@ else:
     def field(
         *,
         default: _T,
-        init: bool = ...,
-        repr: bool = ...,
-        hash: bool | None = ...,
-        compare: bool = ...,
-        metadata: Mapping[Any, Any] | None = ...,
+        init: bool = True,
+        repr: bool = True,
+        hash: bool | None = None,
+        compare: bool = True,
+        metadata: Mapping[Any, Any] | None = None,
     ) -> _T: ...
     @overload
     def field(
         *,
         default_factory: Callable[[], _T],
-        init: bool = ...,
-        repr: bool = ...,
-        hash: bool | None = ...,
-        compare: bool = ...,
-        metadata: Mapping[Any, Any] | None = ...,
+        init: bool = True,
+        repr: bool = True,
+        hash: bool | None = None,
+        compare: bool = True,
+        metadata: Mapping[Any, Any] | None = None,
     ) -> _T: ...
     @overload
     def field(
         *,
-        init: bool = ...,
-        repr: bool = ...,
-        hash: bool | None = ...,
-        compare: bool = ...,
-        metadata: Mapping[Any, Any] | None = ...,
+        init: bool = True,
+        repr: bool = True,
+        hash: bool | None = None,
+        compare: bool = True,
+        metadata: Mapping[Any, Any] | None = None,
     ) -> Any: ...
 
 def fields(class_or_instance: _DataclassInstance | type[_DataclassInstance]) -> tuple[Field[Any], ...]: ...
@@ -286,13 +286,13 @@ else:
         fields: Iterable[str | tuple[str, type] | tuple[str, type, Any]],
         *,
         bases: tuple[type, ...] = ...,
-        namespace: dict[str, Any] | None = ...,
-        init: bool = ...,
-        repr: bool = ...,
-        eq: bool = ...,
-        order: bool = ...,
-        unsafe_hash: bool = ...,
-        frozen: bool = ...,
+        namespace: dict[str, Any] | None = None,
+        init: bool = True,
+        repr: bool = True,
+        eq: bool = True,
+        order: bool = False,
+        unsafe_hash: bool = False,
+        frozen: bool = False,
     ) -> type: ...
 
 def replace(__obj: _DataclassT, **changes: Any) -> _DataclassT: ...

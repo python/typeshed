@@ -21,12 +21,12 @@ if sys.version_info >= (3, 10):
 elif sys.version_info >= (3, 8):
     def pformat(
         object: object,
-        indent: int = ...,
-        width: int = ...,
-        depth: int | None = ...,
+        indent: int = 1,
+        width: int = 80,
+        depth: int | None = None,
         *,
-        compact: bool = ...,
-        sort_dicts: bool = ...,
+        compact: bool = False,
+        sort_dicts: bool = True,
     ) -> str: ...
 
 else:
@@ -54,7 +54,7 @@ elif sys.version_info >= (3, 8):
         depth: int | None = ...,
         *,
         compact: bool = ...,
-        sort_dicts: bool = ...,
+        sort_dicts: bool = False,
     ) -> None: ...
 
 if sys.version_info >= (3, 10):
@@ -73,13 +73,13 @@ if sys.version_info >= (3, 10):
 elif sys.version_info >= (3, 8):
     def pprint(
         object: object,
-        stream: IO[str] | None = ...,
-        indent: int = ...,
-        width: int = ...,
-        depth: int | None = ...,
+        stream: IO[str] | None = None,
+        indent: int = 1,
+        width: int = 80,
+        depth: int | None = None,
         *,
-        compact: bool = ...,
-        sort_dicts: bool = ...,
+        compact: bool = False,
+        sort_dicts: bool = True,
     ) -> None: ...
 
 else:
@@ -113,13 +113,13 @@ class PrettyPrinter:
     elif sys.version_info >= (3, 8):
         def __init__(
             self,
-            indent: int = ...,
-            width: int = ...,
-            depth: int | None = ...,
-            stream: IO[str] | None = ...,
+            indent: int = 1,
+            width: int = 80,
+            depth: int | None = None,
+            stream: IO[str] | None = None,
             *,
-            compact: bool = ...,
-            sort_dicts: bool = ...,
+            compact: bool = False,
+            sort_dicts: bool = True,
         ) -> None: ...
     else:
         def __init__(
