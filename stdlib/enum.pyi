@@ -121,11 +121,11 @@ class EnumMeta(ABCMeta):
             value: str,
             names: _EnumNames,
             *,
-            module: str | None = ...,
-            qualname: str | None = ...,
-            type: type | None = ...,
-            start: int = ...,
-            boundary: FlagBoundary | None = ...,
+            module: str | None = None,
+            qualname: str | None = None,
+            type: type | None = None,
+            start: int = 1,
+            boundary: FlagBoundary | None = None,
         ) -> type[Enum]: ...
     else:
         @overload

@@ -137,7 +137,7 @@ class BaseManager:
             serializer: str = "pickle",
             ctx: BaseContext | None = None,
             *,
-            shutdown_timeout: float = ...,
+            shutdown_timeout: float = 1.0,
         ) -> None: ...
     else:
         def __init__(

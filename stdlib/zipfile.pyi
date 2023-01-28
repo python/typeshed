@@ -109,25 +109,25 @@ class ZipFile:
         def __init__(
             self,
             file: StrPath | IO[bytes],
-            mode: Literal["r"] = ...,
-            compression: int = ...,
-            allowZip64: bool = ...,
-            compresslevel: int | None = ...,
+            mode: Literal["r"] = 'r',
+            compression: int = 0,
+            allowZip64: bool = True,
+            compresslevel: int | None = None,
             *,
-            strict_timestamps: bool = ...,
+            strict_timestamps: bool = True,
             metadata_encoding: str | None,
         ) -> None: ...
         @overload
         def __init__(
             self,
             file: StrPath | IO[bytes],
-            mode: _ZipFileMode = ...,
-            compression: int = ...,
-            allowZip64: bool = ...,
-            compresslevel: int | None = ...,
+            mode: _ZipFileMode = 'r',
+            compression: int = 0,
+            allowZip64: bool = True,
+            compresslevel: int | None = None,
             *,
-            strict_timestamps: bool = ...,
-            metadata_encoding: None = ...,
+            strict_timestamps: bool = True,
+            metadata_encoding: None = None,
         ) -> None: ...
     elif sys.version_info >= (3, 8):
         def __init__(

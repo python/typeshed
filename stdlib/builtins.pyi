@@ -1571,14 +1571,14 @@ class _SupportsWriteAndFlush(SupportsWrite[_T_contra], Protocol[_T_contra]):
 @overload
 def print(
     *values: object,
-    sep: str | None = ...,
-    end: str | None = ...,
-    file: SupportsWrite[str] | None = ...,
-    flush: Literal[False] = ...,
+    sep: str | None = ' ',
+    end: str | None = '\n',
+    file: SupportsWrite[str] | None = None,
+    flush: Literal[False] = False,
 ) -> None: ...
 @overload
 def print(
-    *values: object, sep: str | None = ..., end: str | None = ..., file: _SupportsWriteAndFlush[str] | None = ..., flush: bool
+    *values: object, sep: str | None = ' ', end: str | None = '\n', file: _SupportsWriteAndFlush[str] | None = None, flush: bool
 ) -> None: ...
 
 _E = TypeVar("_E", contravariant=True)

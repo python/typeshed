@@ -74,19 +74,19 @@ if sys.version_info >= (3, 11):
     @overload
     def translation(
         domain: str,
-        localedir: StrPath | None = ...,
-        languages: Iterable[str] | None = ...,
-        class_: None = ...,
-        fallback: Literal[False] = ...,
+        localedir: StrPath | None = None,
+        languages: Iterable[str] | None = None,
+        class_: None = None,
+        fallback: Literal[False] = False,
     ) -> GNUTranslations: ...
     @overload
     def translation(
         domain: str,
-        localedir: StrPath | None = ...,
-        languages: Iterable[str] | None = ...,
+        localedir: StrPath | None = None,
+        languages: Iterable[str] | None = None,
         *,
         class_: Callable[[io.BufferedReader], _NullTranslationsT],
-        fallback: Literal[False] = ...,
+        fallback: Literal[False] = False,
     ) -> _NullTranslationsT: ...
     @overload
     def translation(
@@ -94,15 +94,15 @@ if sys.version_info >= (3, 11):
         localedir: StrPath | None,
         languages: Iterable[str] | None,
         class_: Callable[[io.BufferedReader], _NullTranslationsT],
-        fallback: Literal[False] = ...,
+        fallback: Literal[False] = False,
     ) -> _NullTranslationsT: ...
     @overload
     def translation(
         domain: str,
-        localedir: StrPath | None = ...,
-        languages: Iterable[str] | None = ...,
-        class_: Callable[[io.BufferedReader], NullTranslations] | None = ...,
-        fallback: bool = ...,
+        localedir: StrPath | None = None,
+        languages: Iterable[str] | None = None,
+        class_: Callable[[io.BufferedReader], NullTranslations] | None = None,
+        fallback: bool = False,
     ) -> NullTranslations: ...
     def install(domain: str, localedir: StrPath | None = None, *, names: Container[str] | None = None) -> None: ...
 

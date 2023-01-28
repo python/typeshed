@@ -74,16 +74,16 @@ if sys.version_info >= (3, 11):
     @overload
     def dataclass(
         *,
-        init: bool = ...,
-        repr: bool = ...,
-        eq: bool = ...,
-        order: bool = ...,
-        unsafe_hash: bool = ...,
-        frozen: bool = ...,
-        match_args: bool = ...,
-        kw_only: bool = ...,
-        slots: bool = ...,
-        weakref_slot: bool = ...,
+        init: bool = True,
+        repr: bool = True,
+        eq: bool = True,
+        order: bool = False,
+        unsafe_hash: bool = False,
+        frozen: bool = False,
+        match_args: bool = True,
+        kw_only: bool = False,
+        slots: bool = False,
+        weakref_slot: bool = False,
     ) -> Callable[[type[_T]], type[_T]]: ...
 
 elif sys.version_info >= (3, 10):
