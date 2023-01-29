@@ -10,7 +10,7 @@ from collections import namedtuple as namedtuple  # noqa: Y024  # Actual import
 from contextlib import contextmanager as contextmanager
 from datetime import timezone as timezone
 from functools import reduce as reduce
-from io import BytesIO, StringIO as _StringIO
+from io import BytesIO, StringIO as StringIO
 from itertools import zip_longest as zip_longest
 from time import perf_counter as perf_counter
 from typing import TYPE_CHECKING as TYPE_CHECKING, Any, NamedTuple
@@ -47,10 +47,6 @@ arm: bool
 is64bit: bool
 has_refcount_gc: bool
 dottedgetter = operator.attrgetter
-
-class StringIO(_StringIO):
-    def seek(self, __pos: int, __whence: int = 0) -> int: ...
-    def truncate(self, __pos: int | None = None) -> int: ...
 
 class FullArgSpec(NamedTuple):
     args: Any

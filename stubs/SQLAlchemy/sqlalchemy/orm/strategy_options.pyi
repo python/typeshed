@@ -51,13 +51,7 @@ class _UnboundLoad(Load):
 # wich is callable with their original parameters.
 #
 # While both mypy and pyright's validation work, Pylance is unable to
-# show the parameters and return types.
-#
-# There is a workaround (define the method for Pylance, then reassign
-# an instance of loader_option to it for mypy, and add pyright+Flake8
-# suppressions), but it is too hacky and relies on some unsupported quirks.
-#
-# Asking Pylance to add support for these generic callables might be preferable.
+# show the parameters and return types without a hacky workaround.
 ###
 
 _F = TypeVar("_F", bound=Callable[..., loader_option[Any]])

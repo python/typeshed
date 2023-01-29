@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, SupportsKeysAndGetItem
 from collections.abc import Iterable, Mapping
 from typing import Any, TypeVar, overload
 from typing_extensions import Literal, SupportsIndex
@@ -124,4 +124,7 @@ class MappedCollection(dict[_KT, _VT]):
     def setdefault(self, key: _KT, default: _T) -> _VT | _T: ...
     @overload
     def setdefault(self, key: _KT, default: None = None) -> _VT | None: ...
-    def update(self, __other: Mapping[_KT, _VT] = ..., **kw: _VT) -> None: ...  # type: ignore[override]
+    @overload
+    def update(self, __other: SupportsKeysAndGetItem[_KT, _VT] = ..., **kwargs: _VT) -> None: ...
+    @overload
+    def update(self, __other: Iterable[tuple[_KT, _VT]] = ..., **kwargs: _VT) -> None: ...
