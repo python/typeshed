@@ -62,7 +62,7 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
     with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
         data: dict[str, object] = tomli.load(f).get("tool", {}).get("stubtest", {})
 
-    skipped = data.get("skipped", False)
+    skipped = data.get("skip", False)
     apt_dependencies = data.get("apt_dependencies", [])
     brew_dependencies = data.get("brew_dependencies", [])
     choco_dependencies = data.get("choco_dependencies", [])
