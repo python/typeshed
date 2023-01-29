@@ -11,7 +11,7 @@ if sys.version_info >= (3, 8):
 
 else:
     def libc_ver(
-        executable: str = "C:\\Users\\alexw\\.conda\\envs\\py37\\python.exe",
+        executable: str = ...,
         lib: str = "",
         version: str = "",
         chunksize: int = 16384,
