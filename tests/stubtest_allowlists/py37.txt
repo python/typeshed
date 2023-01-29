@@ -24,7 +24,6 @@ collections.AsyncGenerator.ag_frame
 collections.AsyncGenerator.ag_running
 collections.Callable
 collections.Mapping.__reversed__  # Set to None at runtime for a better error message
-collections.UserString.maketrans
 contextvars.ContextVar.get
 distutils.command.bdist_wininst  # see #6523
 dummy_threading.Condition.acquire
