@@ -74,37 +74,43 @@ if sys.version_info >= (3, 11):
     @overload
     def dataclass(
         *,
-        init: bool = ...,
-        repr: bool = ...,
-        eq: bool = ...,
-        order: bool = ...,
-        unsafe_hash: bool = ...,
-        frozen: bool = ...,
-        match_args: bool = ...,
-        kw_only: bool = ...,
-        slots: bool = ...,
-        weakref_slot: bool = ...,
+        init: bool = True,
+        repr: bool = True,
+        eq: bool = True,
+        order: bool = False,
+        unsafe_hash: bool = False,
+        frozen: bool = False,
+        match_args: bool = True,
+        kw_only: bool = False,
+        slots: bool = False,
+        weakref_slot: bool = False,
     ) -> Callable[[type[_T]], type[_T]]: ...
 
 elif sys.version_info >= (3, 10):
     @overload
     def dataclass(
         *,
-        init: bool = ...,
-        repr: bool = ...,
-        eq: bool = ...,
-        order: bool = ...,
-        unsafe_hash: bool = ...,
-        frozen: bool = ...,
-        match_args: bool = ...,
-        kw_only: bool = ...,
-        slots: bool = ...,
+        init: bool = True,
+        repr: bool = True,
+        eq: bool = True,
+        order: bool = False,
+        unsafe_hash: bool = False,
+        frozen: bool = False,
+        match_args: bool = True,
+        kw_only: bool = False,
+        slots: bool = False,
     ) -> Callable[[type[_T]], type[_T]]: ...
 
 else:
     @overload
     def dataclass(
-        *, init: bool = ..., repr: bool = ..., eq: bool = ..., order: bool = ..., unsafe_hash: bool = ..., frozen: bool = ...
+        *,
+        init: bool = True,
+        repr: bool = True,
+        eq: bool = True,
+        order: bool = False,
+        unsafe_hash: bool = False,
+        frozen: bool = False,
     ) -> Callable[[type[_T]], type[_T]]: ...
 
 # See https://github.com/python/mypy/issues/10750
@@ -157,32 +163,32 @@ if sys.version_info >= (3, 10):
     def field(
         *,
         default: _T,
-        init: bool = ...,
-        repr: bool = ...,
-        hash: bool | None = ...,
-        compare: bool = ...,
-        metadata: Mapping[Any, Any] | None = ...,
+        init: bool = True,
+        repr: bool = True,
+        hash: bool | None = None,
+        compare: bool = True,
+        metadata: Mapping[Any, Any] | None = None,
         kw_only: bool = ...,
     ) -> _T: ...
     @overload
     def field(
         *,
         default_factory: Callable[[], _T],
-        init: bool = ...,
-        repr: bool = ...,
-        hash: bool | None = ...,
-        compare: bool = ...,
-        metadata: Mapping[Any, Any] | None = ...,
+        init: bool = True,
+        repr: bool = True,
+        hash: bool | None = None,
+        compare: bool = True,
+        metadata: Mapping[Any, Any] | None = None,
         kw_only: bool = ...,
     ) -> _T: ...
     @overload
     def field(
         *,
-        init: bool = ...,
-        repr: bool = ...,
-        hash: bool | None = ...,
-        compare: bool = ...,
-        metadata: Mapping[Any, Any] | None = ...,
+        init: bool = True,
+        repr: bool = True,
+        hash: bool | None = None,
+        compare: bool = True,
+        metadata: Mapping[Any, Any] | None = None,
         kw_only: bool = ...,
     ) -> Any: ...
 
@@ -191,30 +197,30 @@ else:
     def field(
         *,
         default: _T,
-        init: bool = ...,
-        repr: bool = ...,
-        hash: bool | None = ...,
-        compare: bool = ...,
-        metadata: Mapping[Any, Any] | None = ...,
+        init: bool = True,
+        repr: bool = True,
+        hash: bool | None = None,
+        compare: bool = True,
+        metadata: Mapping[Any, Any] | None = None,
     ) -> _T: ...
     @overload
     def field(
         *,
         default_factory: Callable[[], _T],
-        init: bool = ...,
-        repr: bool = ...,
-        hash: bool | None = ...,
-        compare: bool = ...,
-        metadata: Mapping[Any, Any] | None = ...,
+        init: bool = True,
+        repr: bool = True,
+        hash: bool | None = None,
+        compare: bool = True,
+        metadata: Mapping[Any, Any] | None = None,
     ) -> _T: ...
     @overload
     def field(
         *,
-        init: bool = ...,
-        repr: bool = ...,
-        hash: bool | None = ...,
-        compare: bool = ...,
-        metadata: Mapping[Any, Any] | None = ...,
+        init: bool = True,
+        repr: bool = True,
+        hash: bool | None = None,
+        compare: bool = True,
+        metadata: Mapping[Any, Any] | None = None,
     ) -> Any: ...
 
 def fields(class_or_instance: _DataclassInstance | type[_DataclassInstance]) -> tuple[Field[Any], ...]: ...
@@ -268,16 +274,16 @@ elif sys.version_info >= (3, 10):
         fields: Iterable[str | tuple[str, type] | tuple[str, type, Any]],
         *,
         bases: tuple[type, ...] = ...,
-        namespace: dict[str, Any] | None = ...,
-        init: bool = ...,
-        repr: bool = ...,
-        eq: bool = ...,
-        order: bool = ...,
-        unsafe_hash: bool = ...,
-        frozen: bool = ...,
-        match_args: bool = ...,
-        kw_only: bool = ...,
-        slots: bool = ...,
+        namespace: dict[str, Any] | None = None,
+        init: bool = True,
+        repr: bool = True,
+        eq: bool = True,
+        order: bool = False,
+        unsafe_hash: bool = False,
+        frozen: bool = False,
+        match_args: bool = True,
+        kw_only: bool = False,
+        slots: bool = False,
     ) -> type: ...
 
 else:
@@ -286,13 +292,13 @@ else:
         fields: Iterable[str | tuple[str, type] | tuple[str, type, Any]],
         *,
         bases: tuple[type, ...] = ...,
-        namespace: dict[str, Any] | None = ...,
-        init: bool = ...,
-        repr: bool = ...,
-        eq: bool = ...,
-        order: bool = ...,
-        unsafe_hash: bool = ...,
-        frozen: bool = ...,
+        namespace: dict[str, Any] | None = None,
+        init: bool = True,
+        repr: bool = True,
+        eq: bool = True,
+        order: bool = False,
+        unsafe_hash: bool = False,
+        frozen: bool = False,
     ) -> type: ...
 
 def replace(__obj: _DataclassT, **changes: Any) -> _DataclassT: ...

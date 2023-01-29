@@ -228,14 +228,14 @@ class int:
             signed: bool = False,
         ) -> Self: ...
     else:
-        def to_bytes(self, length: SupportsIndex, byteorder: Literal["little", "big"], *, signed: bool = ...) -> bytes: ...
+        def to_bytes(self, length: SupportsIndex, byteorder: Literal["little", "big"], *, signed: bool = False) -> bytes: ...
         @classmethod
         def from_bytes(
             cls: type[Self],
             bytes: Iterable[SupportsIndex] | SupportsBytes | ReadableBuffer,
             byteorder: Literal["little", "big"],
             *,
-            signed: bool = ...,
+            signed: bool = False,
         ) -> Self: ...
 
     def __add__(self, __x: int) -> int: ...
@@ -432,14 +432,14 @@ class str(Sequence[str]):
     ) -> bool: ...
     if sys.version_info >= (3, 8):
         @overload
-        def expandtabs(self: LiteralString, tabsize: SupportsIndex = ...) -> LiteralString: ...
+        def expandtabs(self: LiteralString, tabsize: SupportsIndex = 8) -> LiteralString: ...
         @overload
-        def expandtabs(self, tabsize: SupportsIndex = ...) -> str: ...  # type: ignore[misc]
+        def expandtabs(self, tabsize: SupportsIndex = 8) -> str: ...  # type: ignore[misc]
     else:
         @overload
-        def expandtabs(self: LiteralString, tabsize: int = ...) -> LiteralString: ...
+        def expandtabs(self: LiteralString, tabsize: int = 8) -> LiteralString: ...
         @overload
-        def expandtabs(self, tabsize: int = ...) -> str: ...  # type: ignore[misc]
+        def expandtabs(self, tabsize: int = 8) -> str: ...  # type: ignore[misc]
 
     def find(self, __sub: str, __start: SupportsIndex | None = ..., __end: SupportsIndex | None = ...) -> int: ...
     @overload
@@ -507,21 +507,21 @@ class str(Sequence[str]):
     @overload
     def rpartition(self, __sep: str) -> tuple[str, str, str]: ...  # type: ignore[misc]
     @overload
-    def rsplit(self: LiteralString, sep: LiteralString | None = ..., maxsplit: SupportsIndex = ...) -> list[LiteralString]: ...
+    def rsplit(self: LiteralString, sep: LiteralString | None = None, maxsplit: SupportsIndex = -1) -> list[LiteralString]: ...
     @overload
-    def rsplit(self, sep: str | None = ..., maxsplit: SupportsIndex = ...) -> list[str]: ...  # type: ignore[misc]
+    def rsplit(self, sep: str | None = None, maxsplit: SupportsIndex = -1) -> list[str]: ...  # type: ignore[misc]
     @overload
     def rstrip(self: LiteralString, __chars: LiteralString | None = ...) -> LiteralString: ...
     @overload
     def rstrip(self, __chars: str | None = ...) -> str: ...  # type: ignore[misc]
     @overload
-    def split(self: LiteralString, sep: LiteralString | None = ..., maxsplit: SupportsIndex = ...) -> list[LiteralString]: ...
+    def split(self: LiteralString, sep: LiteralString | None = None, maxsplit: SupportsIndex = -1) -> list[LiteralString]: ...
     @overload
-    def split(self, sep: str | None = ..., maxsplit: SupportsIndex = ...) -> list[str]: ...  # type: ignore[misc]
+    def split(self, sep: str | None = None, maxsplit: SupportsIndex = -1) -> list[str]: ...  # type: ignore[misc]
     @overload
-    def splitlines(self: LiteralString, keepends: bool = ...) -> list[LiteralString]: ...
+    def splitlines(self: LiteralString, keepends: bool = False) -> list[LiteralString]: ...
     @overload
-    def splitlines(self, keepends: bool = ...) -> list[str]: ...  # type: ignore[misc]
+    def splitlines(self, keepends: bool = False) -> list[str]: ...  # type: ignore[misc]
     def startswith(
         self, __prefix: str | tuple[str, ...], __start: SupportsIndex | None = ..., __end: SupportsIndex | None = ...
     ) -> bool: ...
@@ -847,7 +847,7 @@ class memoryview(Sequence[int]):
     @overload
     def __setitem__(self, __i: SupportsIndex, __o: SupportsIndex) -> None: ...
     if sys.version_info >= (3, 8):
-        def tobytes(self, order: Literal["C", "F", "A"] | None = "C") -> bytes: ...
+        def tobytes(self, order: Literal["C", "F", "A"] | None = ...) -> bytes: ...
     else:
         def tobytes(self) -> bytes: ...
 
@@ -976,9 +976,9 @@ class list(MutableSequence[_T], Generic[_T]):
     # Use list[SupportsRichComparisonT] for the first overload rather than [SupportsRichComparison]
     # to work around invariance
     @overload
-    def sort(self: list[SupportsRichComparisonT], *, key: None = ..., reverse: bool = ...) -> None: ...
+    def sort(self: list[SupportsRichComparisonT], *, key: None = None, reverse: bool = False) -> None: ...
     @overload
-    def sort(self, *, key: Callable[[_T], SupportsRichComparison], reverse: bool = ...) -> None: ...
+    def sort(self, *, key: Callable[[_T], SupportsRichComparison], reverse: bool = False) -> None: ...
     def __len__(self) -> int: ...
     def __iter__(self) -> Iterator[_T]: ...
     __hash__: ClassVar[None]  # type: ignore[assignment]
@@ -1481,13 +1481,13 @@ _Opener: TypeAlias = Callable[[str, int], int]
 @overload
 def open(
     file: FileDescriptorOrPath,
-    mode: OpenTextMode = ...,
-    buffering: int = ...,
-    encoding: str | None = ...,
-    errors: str | None = ...,
-    newline: str | None = ...,
-    closefd: bool = ...,
-    opener: _Opener | None = ...,
+    mode: OpenTextMode = "r",
+    buffering: int = -1,
+    encoding: str | None = None,
+    errors: str | None = None,
+    newline: str | None = None,
+    closefd: bool = True,
+    opener: _Opener | None = None,
 ) -> TextIOWrapper: ...
 
 # Unbuffered binary mode: returns a FileIO
@@ -1496,11 +1496,11 @@ def open(
     file: FileDescriptorOrPath,
     mode: OpenBinaryMode,
     buffering: Literal[0],
-    encoding: None = ...,
-    errors: None = ...,
-    newline: None = ...,
-    closefd: bool = ...,
-    opener: _Opener | None = ...,
+    encoding: None = None,
+    errors: None = None,
+    newline: None = None,
+    closefd: bool = True,
+    opener: _Opener | None = None,
 ) -> FileIO: ...
 
 # Buffering is on: return BufferedRandom, BufferedReader, or BufferedWriter
@@ -1508,34 +1508,34 @@ def open(
 def open(
     file: FileDescriptorOrPath,
     mode: OpenBinaryModeUpdating,
-    buffering: Literal[-1, 1] = ...,
-    encoding: None = ...,
-    errors: None = ...,
-    newline: None = ...,
-    closefd: bool = ...,
-    opener: _Opener | None = ...,
+    buffering: Literal[-1, 1] = -1,
+    encoding: None = None,
+    errors: None = None,
+    newline: None = None,
+    closefd: bool = True,
+    opener: _Opener | None = None,
 ) -> BufferedRandom: ...
 @overload
 def open(
     file: FileDescriptorOrPath,
     mode: OpenBinaryModeWriting,
-    buffering: Literal[-1, 1] = ...,
-    encoding: None = ...,
-    errors: None = ...,
-    newline: None = ...,
-    closefd: bool = ...,
-    opener: _Opener | None = ...,
+    buffering: Literal[-1, 1] = -1,
+    encoding: None = None,
+    errors: None = None,
+    newline: None = None,
+    closefd: bool = True,
+    opener: _Opener | None = None,
 ) -> BufferedWriter: ...
 @overload
 def open(
     file: FileDescriptorOrPath,
     mode: OpenBinaryModeReading,
-    buffering: Literal[-1, 1] = ...,
-    encoding: None = ...,
-    errors: None = ...,
-    newline: None = ...,
-    closefd: bool = ...,
-    opener: _Opener | None = ...,
+    buffering: Literal[-1, 1] = -1,
+    encoding: None = None,
+    errors: None = None,
+    newline: None = None,
+    closefd: bool = True,
+    opener: _Opener | None = None,
 ) -> BufferedReader: ...
 
 # Buffering cannot be determined: fall back to BinaryIO
@@ -1543,12 +1543,12 @@ def open(
 def open(
     file: FileDescriptorOrPath,
     mode: OpenBinaryMode,
-    buffering: int = ...,
-    encoding: None = ...,
-    errors: None = ...,
-    newline: None = ...,
-    closefd: bool = ...,
-    opener: _Opener | None = ...,
+    buffering: int = -1,
+    encoding: None = None,
+    errors: None = None,
+    newline: None = None,
+    closefd: bool = True,
+    opener: _Opener | None = None,
 ) -> BinaryIO: ...
 
 # Fallback if mode is not specified
@@ -1556,12 +1556,12 @@ def open(
 def open(
     file: FileDescriptorOrPath,
     mode: str,
-    buffering: int = ...,
-    encoding: str | None = ...,
-    errors: str | None = ...,
-    newline: str | None = ...,
-    closefd: bool = ...,
-    opener: _Opener | None = ...,
+    buffering: int = -1,
+    encoding: str | None = None,
+    errors: str | None = None,
+    newline: str | None = None,
+    closefd: bool = True,
+    opener: _Opener | None = None,
 ) -> IO[Any]: ...
 def ord(__c: str | bytes | bytearray) -> int: ...
 
@@ -1571,14 +1571,14 @@ class _SupportsWriteAndFlush(SupportsWrite[_T_contra], Protocol[_T_contra]):
 @overload
 def print(
     *values: object,
-    sep: str | None = ...,
-    end: str | None = ...,
-    file: SupportsWrite[str] | None = ...,
-    flush: Literal[False] = ...,
+    sep: str | None = " ",
+    end: str | None = "\n",
+    file: SupportsWrite[str] | None = None,
+    flush: Literal[False] = False,
 ) -> None: ...
 @overload
 def print(
-    *values: object, sep: str | None = ..., end: str | None = ..., file: _SupportsWriteAndFlush[str] | None = ..., flush: bool
+    *values: object, sep: str | None = " ", end: str | None = "\n", file: _SupportsWriteAndFlush[str] | None = None, flush: bool
 ) -> None: ...
 
 _E = TypeVar("_E", contravariant=True)
@@ -1603,38 +1603,38 @@ if sys.version_info >= (3, 8):
     @overload
     def pow(base: int, exp: int, mod: int) -> int: ...
     @overload
-    def pow(base: int, exp: Literal[0], mod: None = ...) -> Literal[1]: ...  # type: ignore[misc]
+    def pow(base: int, exp: Literal[0], mod: None = None) -> Literal[1]: ...  # type: ignore[misc]
     @overload
-    def pow(base: int, exp: _PositiveInteger, mod: None = ...) -> int: ...  # type: ignore[misc]
+    def pow(base: int, exp: _PositiveInteger, mod: None = None) -> int: ...  # type: ignore[misc]
     @overload
-    def pow(base: int, exp: _NegativeInteger, mod: None = ...) -> float: ...  # type: ignore[misc]
+    def pow(base: int, exp: _NegativeInteger, mod: None = None) -> float: ...  # type: ignore[misc]
     # int base & positive-int exp -> int; int base & negative-int exp -> float
     # return type must be Any as `int | float` causes too many false-positive errors
     @overload
-    def pow(base: int, exp: int, mod: None = ...) -> Any: ...
+    def pow(base: int, exp: int, mod: None = None) -> Any: ...
     @overload
-    def pow(base: _PositiveInteger, exp: float, mod: None = ...) -> float: ...
+    def pow(base: _PositiveInteger, exp: float, mod: None = None) -> float: ...
     @overload
-    def pow(base: _NegativeInteger, exp: float, mod: None = ...) -> complex: ...
+    def pow(base: _NegativeInteger, exp: float, mod: None = None) -> complex: ...
     @overload
-    def pow(base: float, exp: int, mod: None = ...) -> float: ...
+    def pow(base: float, exp: int, mod: None = None) -> float: ...
     # float base & float exp could return float or complex
     # return type must be Any (same as complex base, complex exp),
     # as `float | complex` causes too many false-positive errors
     @overload
-    def pow(base: float, exp: complex | _SupportsSomeKindOfPow, mod: None = ...) -> Any: ...
+    def pow(base: float, exp: complex | _SupportsSomeKindOfPow, mod: None = None) -> Any: ...
     @overload
-    def pow(base: complex, exp: complex | _SupportsSomeKindOfPow, mod: None = ...) -> complex: ...
+    def pow(base: complex, exp: complex | _SupportsSomeKindOfPow, mod: None = None) -> complex: ...
     @overload
-    def pow(base: _SupportsPow2[_E, _T_co], exp: _E, mod: None = ...) -> _T_co: ...
+    def pow(base: _SupportsPow2[_E, _T_co], exp: _E, mod: None = None) -> _T_co: ...
     @overload
-    def pow(base: _SupportsPow3NoneOnly[_E, _T_co], exp: _E, mod: None = ...) -> _T_co: ...
+    def pow(base: _SupportsPow3NoneOnly[_E, _T_co], exp: _E, mod: None = None) -> _T_co: ...
     @overload
     def pow(base: _SupportsPow3[_E, _M, _T_co], exp: _E, mod: _M = ...) -> _T_co: ...
     @overload
-    def pow(base: _SupportsSomeKindOfPow, exp: float, mod: None = ...) -> Any: ...
+    def pow(base: _SupportsSomeKindOfPow, exp: float, mod: None = None) -> Any: ...
     @overload
-    def pow(base: _SupportsSomeKindOfPow, exp: complex, mod: None = ...) -> complex: ...
+    def pow(base: _SupportsSomeKindOfPow, exp: complex, mod: None = None) -> complex: ...
 
 else:
     @overload
@@ -1692,7 +1692,7 @@ class _SupportsRound2(Protocol[_T_co]):
     def __round__(self, __ndigits: int) -> _T_co: ...
 
 @overload
-def round(number: _SupportsRound1[_T], ndigits: None = ...) -> _T: ...
+def round(number: _SupportsRound1[_T], ndigits: None = None) -> _T: ...
 @overload
 def round(number: _SupportsRound2[_T], ndigits: SupportsIndex) -> _T: ...
 
@@ -1701,10 +1701,10 @@ def round(number: _SupportsRound2[_T], ndigits: SupportsIndex) -> _T: ...
 def setattr(__obj: object, __name: str, __value: Any) -> None: ...
 @overload
 def sorted(
-    __iterable: Iterable[SupportsRichComparisonT], *, key: None = ..., reverse: bool = ...
+    __iterable: Iterable[SupportsRichComparisonT], *, key: None = None, reverse: bool = False
 ) -> list[SupportsRichComparisonT]: ...
 @overload
-def sorted(__iterable: Iterable[_T], *, key: Callable[[_T], SupportsRichComparison], reverse: bool = ...) -> list[_T]: ...
+def sorted(__iterable: Iterable[_T], *, key: Callable[[_T], SupportsRichComparison], reverse: bool = False) -> list[_T]: ...
 
 _AddableT1 = TypeVar("_AddableT1", bound=SupportsAdd[Any, Any])
 _AddableT2 = TypeVar("_AddableT2", bound=SupportsAdd[Any, Any])
@@ -1719,7 +1719,7 @@ _SupportsSumNoDefaultT = TypeVar("_SupportsSumNoDefaultT", bound=_SupportsSumWit
 # Instead, we special-case the most common examples of this: bool and literal integers.
 if sys.version_info >= (3, 8):
     @overload
-    def sum(__iterable: Iterable[bool | _LiteralInteger], start: int = ...) -> int: ...  # type: ignore[misc]
+    def sum(__iterable: Iterable[bool | _LiteralInteger], start: int = 0) -> int: ...  # type: ignore[misc]
 
 else:
     @overload
