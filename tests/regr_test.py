@@ -15,13 +15,13 @@ from itertools import product
 from pathlib import Path
 from typing_extensions import TypeAlias
 
-from parse_metadata import get_recursive_requirements
 from utils import (
     PackageInfo,
     VenvInfo,
     colored,
     get_all_testcase_directories,
     get_mypy_req,
+    get_recursive_requirements,
     make_venv,
     print_error,
     print_success_msg,

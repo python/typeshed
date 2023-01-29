@@ -26,13 +26,14 @@ from typing_extensions import Annotated, TypeAlias
 
 import tomli
 
-from parse_metadata import PackageDependencies, get_recursive_requirements
 from utils import (
     VERSIONS_RE as VERSION_LINE_RE,
+    PackageDependencies,
     VenvInfo,
     colored,
     get_gitignore_spec,
     get_mypy_req,
+    get_recursive_requirements,
     make_venv,
     print_error,
     print_success_msg,
