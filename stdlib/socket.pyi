@@ -716,7 +716,7 @@ class socket(_socket.socket):
     @overload
     def makefile(
         self,
-        mode: Literal["r", "w", "rw", "wr", ""] = 'r',
+        mode: Literal["r", "w", "rw", "wr", ""] = "r",
         buffering: int | None = None,
         *,
         encoding: str | None = None,

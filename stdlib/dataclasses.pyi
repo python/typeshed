@@ -104,7 +104,13 @@ elif sys.version_info >= (3, 10):
 else:
     @overload
     def dataclass(
-        *, init: bool = True, repr: bool = True, eq: bool = True, order: bool = False, unsafe_hash: bool = False, frozen: bool = False
+        *,
+        init: bool = True,
+        repr: bool = True,
+        eq: bool = True,
+        order: bool = False,
+        unsafe_hash: bool = False,
+        frozen: bool = False,
     ) -> Callable[[type[_T]], type[_T]]: ...
 
 # See https://github.com/python/mypy/issues/10750

@@ -126,7 +126,7 @@ class LZMAFile(io.BufferedIOBase, IO[bytes]):
 @overload
 def open(
     filename: _PathOrFile,
-    mode: Literal["r", "rb"] = 'rb',
+    mode: Literal["r", "rb"] = "rb",
     *,
     format: int | None = None,
     check: Literal[-1] = -1,

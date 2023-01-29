@@ -25,7 +25,7 @@ class WatchedFileHandler(FileHandler):
             self, filename: StrPath, mode: str = "a", encoding: str | None = None, delay: bool = False, errors: str | None = None
         ) -> None: ...
     else:
-        def __init__(self, filename: StrPath, mode: str = 'a', encoding: str | None = None, delay: bool = False) -> None: ...
+        def __init__(self, filename: StrPath, mode: str = "a", encoding: str | None = None, delay: bool = False) -> None: ...
 
     def _statstream(self) -> None: ...  # undocumented
     def reopenIfNeeded(self) -> None: ...
@@ -61,7 +61,7 @@ class RotatingFileHandler(BaseRotatingHandler):
         def __init__(
             self,
             filename: StrPath,
-            mode: str = 'a',
+            mode: str = "a",
             maxBytes: int = 0,
             backupCount: int = 0,
             encoding: str | None = None,
@@ -98,7 +98,7 @@ class TimedRotatingFileHandler(BaseRotatingHandler):
         def __init__(
             self,
             filename: StrPath,
-            when: str = 'h',
+            when: str = "h",
             interval: int = 1,
             backupCount: int = 0,
             encoding: str | None = None,

@@ -74,7 +74,7 @@ class RawConfigParser(_Parser):
         inline_comment_prefixes: Sequence[str] | None = None,
         strict: bool = True,
         empty_lines_in_values: bool = True,
-        default_section: str = 'DEFAULT',
+        default_section: str = "DEFAULT",
         interpolation: Interpolation | None = ...,
         converters: _ConvertersMap = ...,
     ) -> None: ...
@@ -90,7 +90,7 @@ class RawConfigParser(_Parser):
         inline_comment_prefixes: Sequence[str] | None = None,
         strict: bool = True,
         empty_lines_in_values: bool = True,
-        default_section: str = 'DEFAULT',
+        default_section: str = "DEFAULT",
         interpolation: Interpolation | None = ...,
         converters: _ConvertersMap = ...,
     ) -> None: ...
@@ -145,7 +145,9 @@ class RawConfigParser(_Parser):
     @overload  # type: ignore[override]
     def get(self, section: str, option: str, *, raw: bool = False, vars: _Section | None = None) -> str | Any: ...
     @overload
-    def get(self, section: str, option: str, *, raw: bool = False, vars: _Section | None = None, fallback: _T) -> str | _T | Any: ...
+    def get(
+        self, section: str, option: str, *, raw: bool = False, vars: _Section | None = None, fallback: _T
+    ) -> str | _T | Any: ...
     @overload
     def items(self, *, raw: bool = False, vars: _Section | None = None) -> ItemsView[str, SectionProxy]: ...
     @overload

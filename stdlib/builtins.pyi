@@ -1481,7 +1481,7 @@ _Opener: TypeAlias = Callable[[str, int], int]
 @overload
 def open(
     file: FileDescriptorOrPath,
-    mode: OpenTextMode = 'r',
+    mode: OpenTextMode = "r",
     buffering: int = -1,
     encoding: str | None = None,
     errors: str | None = None,
@@ -1571,14 +1571,14 @@ class _SupportsWriteAndFlush(SupportsWrite[_T_contra], Protocol[_T_contra]):
 @overload
 def print(
     *values: object,
-    sep: str | None = ' ',
-    end: str | None = '\n',
+    sep: str | None = " ",
+    end: str | None = "\n",
     file: SupportsWrite[str] | None = None,
     flush: Literal[False] = False,
 ) -> None: ...
 @overload
 def print(
-    *values: object, sep: str | None = ' ', end: str | None = '\n', file: _SupportsWriteAndFlush[str] | None = None, flush: bool
+    *values: object, sep: str | None = " ", end: str | None = "\n", file: _SupportsWriteAndFlush[str] | None = None, flush: bool
 ) -> None: ...
 
 _E = TypeVar("_E", contravariant=True)

@@ -243,10 +243,10 @@ if sys.version_info >= (3, 10):
     @overload
     async def sleep(delay: float, result: _T) -> _T: ...
     @overload
-    async def wait(fs: Iterable[_FT], *, timeout: float | None = None, return_when: str = 'ALL_COMPLETED') -> tuple[set[_FT], set[_FT]]: ...  # type: ignore[misc]
+    async def wait(fs: Iterable[_FT], *, timeout: float | None = None, return_when: str = "ALL_COMPLETED") -> tuple[set[_FT], set[_FT]]: ...  # type: ignore[misc]
     @overload
     async def wait(
-        fs: Iterable[Awaitable[_T]], *, timeout: float | None = None, return_when: str = 'ALL_COMPLETED'
+        fs: Iterable[Awaitable[_T]], *, timeout: float | None = None, return_when: str = "ALL_COMPLETED"
     ) -> tuple[set[Task[_T]], set[Task[_T]]]: ...
     async def wait_for(fut: _FutureLike[_T], timeout: float | None) -> _T: ...
 
@@ -258,11 +258,19 @@ else:
     async def sleep(delay: float, result: _T, *, loop: AbstractEventLoop | None = None) -> _T: ...
     @overload
     async def wait(  # type: ignore[misc]
-        fs: Iterable[_FT], *, loop: AbstractEventLoop | None = None, timeout: float | None = None, return_when: str = 'ALL_COMPLETED'
+        fs: Iterable[_FT],
+        *,
+        loop: AbstractEventLoop | None = None,
+        timeout: float | None = None,
+        return_when: str = "ALL_COMPLETED",
     ) -> tuple[set[_FT], set[_FT]]: ...
     @overload
     async def wait(
-        fs: Iterable[Awaitable[_T]], *, loop: AbstractEventLoop | None = None, timeout: float | None = None, return_when: str = 'ALL_COMPLETED'
+        fs: Iterable[Awaitable[_T]],
+        *,
+        loop: AbstractEventLoop | None = None,
+        timeout: float | None = None,
+        return_when: str = "ALL_COMPLETED",
     ) -> tuple[set[Task[_T]], set[Task[_T]]]: ...
     async def wait_for(fut: _FutureLike[_T], timeout: float | None, *, loop: AbstractEventLoop | None = None) -> _T: ...
 

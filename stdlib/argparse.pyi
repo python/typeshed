@@ -154,10 +154,10 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
             epilog: str | None = None,
             parents: Sequence[ArgumentParser] = ...,
             formatter_class: _FormatterClass = ...,
-            prefix_chars: str = '-',
+            prefix_chars: str = "-",
             fromfile_prefix_chars: str | None = None,
             argument_default: Any = None,
-            conflict_handler: str = 'error',
+            conflict_handler: str = "error",
             add_help: bool = True,
             allow_abbrev: bool = True,
         ) -> None: ...

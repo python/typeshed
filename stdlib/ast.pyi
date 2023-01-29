@@ -174,8 +174,8 @@ if sys.version_info >= (3, 8):
     @overload
     def parse(
         source: str | ReadableBuffer,
-        filename: str | ReadableBuffer | os.PathLike[Any] = '<unknown>',
-        mode: Literal["exec"] = 'exec',
+        filename: str | ReadableBuffer | os.PathLike[Any] = "<unknown>",
+        mode: Literal["exec"] = "exec",
         *,
         type_comments: bool = False,
         feature_version: None | int | tuple[int, int] = None,
@@ -234,8 +234,8 @@ if sys.version_info >= (3, 8):
     @overload
     def parse(
         source: str | ReadableBuffer,
-        filename: str | ReadableBuffer | os.PathLike[Any] = '<unknown>',
-        mode: str = 'exec',
+        filename: str | ReadableBuffer | os.PathLike[Any] = "<unknown>",
+        mode: str = "exec",
         *,
         type_comments: bool = False,
         feature_version: None | int | tuple[int, int] = None,
@@ -244,7 +244,9 @@ if sys.version_info >= (3, 8):
 else:
     @overload
     def parse(
-        source: str | ReadableBuffer, filename: str | ReadableBuffer | os.PathLike[Any] = '<unknown>', mode: Literal["exec"] = 'exec'
+        source: str | ReadableBuffer,
+        filename: str | ReadableBuffer | os.PathLike[Any] = "<unknown>",
+        mode: Literal["exec"] = "exec",
     ) -> Module: ...
     @overload
     def parse(
@@ -259,7 +261,9 @@ else:
     @overload
     def parse(source: str | ReadableBuffer, *, mode: Literal["single"]) -> Interactive: ...
     @overload
-    def parse(source: str | ReadableBuffer, filename: str | ReadableBuffer | os.PathLike[Any] = '<unknown>', mode: str = 'exec') -> AST: ...
+    def parse(
+        source: str | ReadableBuffer, filename: str | ReadableBuffer | os.PathLike[Any] = "<unknown>", mode: str = "exec"
+    ) -> AST: ...
 
 if sys.version_info >= (3, 9):
     def unparse(ast_obj: AST) -> str: ...

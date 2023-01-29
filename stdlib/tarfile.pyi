@@ -186,7 +186,7 @@ class TarFile:
     def gzopen(
         cls: type[Self],
         name: StrOrBytesPath | None,
-        mode: Literal["r"] = 'r',
+        mode: Literal["r"] = "r",
         fileobj: _GzipReadableFileobj | None = None,
         compresslevel: int = 9,
         *,
@@ -240,7 +240,7 @@ class TarFile:
     def bz2open(
         cls: type[Self],
         name: StrOrBytesPath | None,
-        mode: Literal["r"] = 'r',
+        mode: Literal["r"] = "r",
         fileobj: _Bz2ReadableFileobj | None = None,
         compresslevel: int = 9,
         *,

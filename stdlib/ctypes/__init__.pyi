@@ -33,7 +33,12 @@ class CDLL:
         ) -> None: ...
     else:
         def __init__(
-            self, name: str | None, mode: int = 0, handle: int | None = None, use_errno: bool = False, use_last_error: bool = False
+            self,
+            name: str | None,
+            mode: int = 0,
+            handle: int | None = None,
+            use_errno: bool = False,
+            use_last_error: bool = False,
         ) -> None: ...
 
     def __getattr__(self, name: str) -> _NamedFuncPointer: ...

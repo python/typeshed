@@ -30,7 +30,7 @@ _WriteTextMode: TypeAlias = Literal["wt", "xt", "at"]
 @overload
 def open(
     filename: _ReadableFileobj,
-    mode: _ReadBinaryMode = 'rb',
+    mode: _ReadBinaryMode = "rb",
     compresslevel: int = 9,
     encoding: None = None,
     errors: None = None,
@@ -66,7 +66,7 @@ def open(
 @overload
 def open(
     filename: StrOrBytesPath,
-    mode: _ReadBinaryMode | _WriteBinaryMode = 'rb',
+    mode: _ReadBinaryMode | _WriteBinaryMode = "rb",
     compresslevel: int = 9,
     encoding: None = None,
     errors: None = None,
@@ -97,10 +97,10 @@ class BZ2File(BaseStream, IO[bytes]):
         @overload
         def __init__(self, filename: _WritableFileobj, mode: _WriteBinaryMode, *, compresslevel: int = 9) -> None: ...
         @overload
-        def __init__(self, filename: _ReadableFileobj, mode: _ReadBinaryMode = 'r', *, compresslevel: int = 9) -> None: ...
+        def __init__(self, filename: _ReadableFileobj, mode: _ReadBinaryMode = "r", *, compresslevel: int = 9) -> None: ...
         @overload
         def __init__(
-            self, filename: StrOrBytesPath, mode: _ReadBinaryMode | _WriteBinaryMode = 'r', *, compresslevel: int = 9
+            self, filename: StrOrBytesPath, mode: _ReadBinaryMode | _WriteBinaryMode = "r", *, compresslevel: int = 9
         ) -> None: ...
     else:
         @overload
@@ -109,13 +109,13 @@ class BZ2File(BaseStream, IO[bytes]):
         ) -> None: ...
         @overload
         def __init__(
-            self, filename: _ReadableFileobj, mode: _ReadBinaryMode = 'r', buffering: Any | None = None, compresslevel: int = 9
+            self, filename: _ReadableFileobj, mode: _ReadBinaryMode = "r", buffering: Any | None = None, compresslevel: int = 9
         ) -> None: ...
         @overload
         def __init__(
             self,
             filename: StrOrBytesPath,
-            mode: _ReadBinaryMode | _WriteBinaryMode = 'r',
+            mode: _ReadBinaryMode | _WriteBinaryMode = "r",
             buffering: Any | None = None,
             compresslevel: int = 9,
         ) -> None: ...

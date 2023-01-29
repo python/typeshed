@@ -109,7 +109,7 @@ class ZipFile:
         def __init__(
             self,
             file: StrPath | IO[bytes],
-            mode: Literal["r"] = 'r',
+            mode: Literal["r"] = "r",
             compression: int = 0,
             allowZip64: bool = True,
             compresslevel: int | None = None,
@@ -121,7 +121,7 @@ class ZipFile:
         def __init__(
             self,
             file: StrPath | IO[bytes],
-            mode: _ZipFileMode = 'r',
+            mode: _ZipFileMode = "r",
             compression: int = 0,
             allowZip64: bool = True,
             compresslevel: int | None = None,
@@ -133,7 +133,7 @@ class ZipFile:
         def __init__(
             self,
             file: StrPath | IO[bytes],
-            mode: _ZipFileMode = 'r',
+            mode: _ZipFileMode = "r",
             compression: int = 0,
             allowZip64: bool = True,
             compresslevel: int | None = None,
@@ -144,7 +144,7 @@ class ZipFile:
         def __init__(
             self,
             file: StrPath | IO[bytes],
-            mode: _ZipFileMode = 'r',
+            mode: _ZipFileMode = "r",
             compression: int = 0,
             allowZip64: bool = True,
             compresslevel: int | None = None,

@@ -13,7 +13,7 @@ class SimpleDialog:
     def __init__(
         self,
         master: Misc | None,
-        text: str = '',
+        text: str = "",
         buttons: list[str] = ...,
         default: int | None = None,
         cancel: int | None = None,

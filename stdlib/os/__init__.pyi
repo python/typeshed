@@ -516,7 +516,7 @@ _Opener: TypeAlias = Callable[[str, int], int]
 @overload
 def fdopen(
     fd: int,
-    mode: OpenTextMode = 'r',
+    mode: OpenTextMode = "r",
     buffering: int = -1,
     encoding: str | None = None,
     errors: str | None = ...,

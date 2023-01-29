@@ -88,7 +88,7 @@ class HTMLDoc(Doc):
         ) -> str: ...
         def multicolumn(self, list: list[_T], format: Callable[[_T], str]) -> str: ...
     else:
-        def heading(self, title: str, fgcol: str, bgcol: str, extras: str = '') -> str: ...
+        def heading(self, title: str, fgcol: str, bgcol: str, extras: str = "") -> str: ...
         def section(
             self,
             title: str,
@@ -96,9 +96,9 @@ class HTMLDoc(Doc):
             bgcol: str,
             contents: str,
             width: int = 6,
-            prelude: str = '',
+            prelude: str = "",
             marginalia: str | None = None,
-            gap: str = '&nbsp;',
+            gap: str = "&nbsp;",
         ) -> str: ...
         def multicolumn(self, list: list[_T], format: Callable[[_T], str], cols: int = 4) -> str: ...
 

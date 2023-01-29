@@ -141,7 +141,11 @@ class BaseManager:
         ) -> None: ...
     else:
         def __init__(
-            self, address: Any | None = None, authkey: bytes | None = None, serializer: str = 'pickle', ctx: BaseContext | None = None
+            self,
+            address: Any | None = None,
+            authkey: bytes | None = None,
+            serializer: str = "pickle",
+            ctx: BaseContext | None = None,
         ) -> None: ...
 
     def get_server(self) -> Server: ...

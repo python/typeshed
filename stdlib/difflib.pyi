@@ -36,8 +36,8 @@ class SequenceMatcher(Generic[_T]):
     def __init__(
         self: SequenceMatcher[str],
         isjunk: Callable[[str], bool] | None = None,
-        a: Sequence[str] = '',
-        b: Sequence[str] = '',
+        a: Sequence[str] = "",
+        b: Sequence[str] = "",
         autojunk: bool = True,
     ) -> None: ...
     def set_seqs(self, a: Sequence[_T], b: Sequence[_T]) -> None: ...

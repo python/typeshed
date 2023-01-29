@@ -43,7 +43,7 @@ class _WritableFileobj(Protocol):
 @overload
 def open(
     filename: StrOrBytesPath | _ReadableFileobj,
-    mode: _ReadBinaryMode = 'rb',
+    mode: _ReadBinaryMode = "rb",
     compresslevel: int = 9,
     encoding: None = None,
     errors: None = None,
