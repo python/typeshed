@@ -44,6 +44,6 @@ jobs:
           cache: pip
           cache-dependency-path: requirements-tests.txt
       - name: Install dependencies
-        run: pip install $(grep mypy== requirements-tests.txt)
+        run: pip install git+https://github.com/python/mypy@81efd6eaa0f8300ec4bd29d6797b9e4476a06d7d
       - name: Run stubtest
         run: python tests/stubtest_stdlib.py
