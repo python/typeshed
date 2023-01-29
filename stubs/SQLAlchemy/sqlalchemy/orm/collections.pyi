@@ -1,5 +1,5 @@
 from _typeshed import Incomplete, SupportsKeysAndGetItem
-from collections.abc import Iterable, Mapping
+from collections.abc import Iterable
 from typing import Any, TypeVar, overload
 from typing_extensions import Literal, SupportsIndex
 
