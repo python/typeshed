@@ -17,7 +17,7 @@ if sys.version_info >= (3, 10):
         lo: int = 0,
         hi: int | None = None,
         *,
-        key: Callable[[_T], SupportsRichComparisonT] = None,
+        key: Callable[[_T], SupportsRichComparisonT] = ...,
     ) -> int: ...
     @overload
     def bisect_right(
@@ -30,7 +30,7 @@ if sys.version_info >= (3, 10):
         lo: int = 0,
         hi: int | None = None,
         *,
-        key: Callable[[_T], SupportsRichComparisonT] = None,
+        key: Callable[[_T], SupportsRichComparisonT] = ...,
     ) -> int: ...
     @overload
     def insort_left(
@@ -43,7 +43,7 @@ if sys.version_info >= (3, 10):
     ) -> None: ...
     @overload
     def insort_left(
-        a: MutableSequence[_T], x: _T, lo: int = 0, hi: int | None = None, *, key: Callable[[_T], SupportsRichComparisonT] = None
+        a: MutableSequence[_T], x: _T, lo: int = 0, hi: int | None = None, *, key: Callable[[_T], SupportsRichComparisonT] = ...
     ) -> None: ...
     @overload
     def insort_right(
@@ -56,7 +56,7 @@ if sys.version_info >= (3, 10):
     ) -> None: ...
     @overload
     def insort_right(
-        a: MutableSequence[_T], x: _T, lo: int = 0, hi: int | None = None, *, key: Callable[[_T], SupportsRichComparisonT] = None
+        a: MutableSequence[_T], x: _T, lo: int = 0, hi: int | None = None, *, key: Callable[[_T], SupportsRichComparisonT] = ...
     ) -> None: ...
 
 else:

@@ -159,7 +159,7 @@ _Q = TypeVar("_Q", bound=str | Iterable[int])
 def urlencode(
     query: Mapping[Any, Any] | Mapping[Any, Sequence[Any]] | Sequence[tuple[Any, Any]] | Sequence[tuple[Any, Sequence[Any]]],
     doseq: bool = False,
-    safe: _Q = '',
+    safe: _Q = ...,
     encoding: str | None = None,
     errors: str | None = None,
     quote_via: Callable[[AnyStr, _Q, str, str], str] = ...,
@@ -169,19 +169,19 @@ def urljoin(base: AnyStr, url: AnyStr | None, allow_fragments: bool = True) -> A
 def urlparse(url: str, scheme: str | None = '', allow_fragments: bool = True) -> ParseResult: ...
 @overload
 def urlparse(
-    url: bytes | bytearray | None, scheme: bytes | bytearray | None = '', allow_fragments: bool = True
+    url: bytes | bytearray | None, scheme: bytes | bytearray | None = ..., allow_fragments: bool = True
 ) -> ParseResultBytes: ...
 @overload
 def urlsplit(url: str, scheme: str | None = '', allow_fragments: bool = True) -> SplitResult: ...
 
 if sys.version_info >= (3, 11):
     @overload
-    def urlsplit(url: bytes | None, scheme: bytes | None = '', allow_fragments: bool = True) -> SplitResultBytes: ...
+    def urlsplit(url: bytes | None, scheme: bytes | None = ..., allow_fragments: bool = True) -> SplitResultBytes: ...
 
 else:
     @overload
     def urlsplit(
-        url: bytes | bytearray | None, scheme: bytes | bytearray | None = '', allow_fragments: bool = True
+        url: bytes | bytearray | None, scheme: bytes | bytearray | None = ..., allow_fragments: bool = True
     ) -> SplitResultBytes: ...
 
 @overload

@@ -67,7 +67,7 @@ class RawConfigParser(_Parser):
         self,
         defaults: Mapping[str, str | None] | None = None,
         dict_type: type[Mapping[str, str]] = ...,
-        allow_no_value: Literal[True] = False,
+        allow_no_value: Literal[True] = ...,
         *,
         delimiters: Sequence[str] = ...,
         comment_prefixes: Sequence[str] = ...,
