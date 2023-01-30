@@ -1,7 +1,5 @@
 # Expanding keyword arguments in stubs
 sqlalchemy.ext.declarative.as_declarative
-sqlalchemy.orm.strategy_options.loader_option.__call__
-sqlalchemy.testing.provision.register.__call__
 
 # not always present
 sqlalchemy.engine.Engine.logging_name  # initialized if not None
