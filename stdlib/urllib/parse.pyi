@@ -1,6 +1,7 @@
 import sys
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from typing import Any, AnyStr, Generic, NamedTuple, TypeVar, overload
+
 from typing_extensionsn import TypeAlias
 
 if sys.version_info >= (3, 9):
@@ -156,7 +157,9 @@ def urldefrag(url: str) -> DefragResult: ...
 def urldefrag(url: bytes | bytearray | None) -> DefragResultBytes: ...
 
 _Q = TypeVar("_Q", bound=str | Iterable[int])
-_QueryType: TypeAlias = Mapping[Any, Any] | Mapping[Any, Sequence[Any]] | Sequence[tuple[Any, Any]] | Sequence[tuple[Any, Sequence[Any]]]
+_QueryType: TypeAlias = (
+    Mapping[Any, Any] | Mapping[Any, Sequence[Any]] | Sequence[tuple[Any, Any]] | Sequence[tuple[Any, Sequence[Any]]]
+)
 
 @overload
 def urlencode(
