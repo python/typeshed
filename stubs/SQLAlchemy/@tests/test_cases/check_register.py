@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections import Callable
-from typing import NoReturn, Optional, Union
+from typing import NoReturn, Optional
 from typing_extensions import assert_type
 
 from sqlalchemy.engine.base import Connection
@@ -9,7 +9,6 @@ from sqlalchemy.engine.interfaces import Connectable
 from sqlalchemy.engine.url import URL
 from sqlalchemy.testing.config import Config
 from sqlalchemy.testing.provision import (
-    _S,
     _U,
     configure_follower,
     create_db,

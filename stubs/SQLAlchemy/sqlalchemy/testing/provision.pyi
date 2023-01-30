@@ -2,7 +2,7 @@ from _typeshed import Incomplete, Self
 from collections.abc import Callable
 from logging import Logger
 from typing import Any, Generic, NoReturn, TypeVar
-from typing_extensions import TypeAlias, reveal_type
+from typing_extensions import TypeAlias
 
 from ..engine.interfaces import Connectable
 from ..engine.url import URL
