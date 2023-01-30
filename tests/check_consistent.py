@@ -14,8 +14,8 @@ from pathlib import Path
 import yaml
 from packaging.requirements import Requirement
 from packaging.specifiers import SpecifierSet
-
 from parse_metadata import read_metadata
+
 from utils import VERSIONS_RE, get_all_testcase_directories, get_gitignore_spec, spec_matches_path, strip_comments
 
 extension_descriptions = {".pyi": "stub", ".py": ".py"}
@@ -67,7 +67,7 @@ def check_stubs() -> None:
 
 
 def check_test_cases() -> None:
-    for package_name, testcase_dir in get_all_testcase_directories():
+    for _package_name, testcase_dir in get_all_testcase_directories():
         assert_consistent_filetypes(testcase_dir, kind=".py", allowed={"README.md"}, allow_nonidentifier_filenames=True)
         bad_test_case_filename = 'Files in a `test_cases` directory must have names starting with "check_"; got "{}"'
         for file in testcase_dir.rglob("*.py"):
