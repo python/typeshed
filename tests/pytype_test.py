@@ -22,7 +22,7 @@ import pkg_resources
 from pytype import config as pytype_config, load_pytd  # type: ignore[import]
 from pytype.imports import typeshed  # type: ignore[import]
 
-import utils
+from parse_metadata import read_dependencies
 
 TYPESHED_SUBDIRS = ["stdlib", "stubs"]
 TYPESHED_HOME = "TYPESHED_HOME"
@@ -153,7 +153,7 @@ def get_missing_modules(files_to_test: Sequence[str]) -> Iterable[str]:
         stub_distributions.add(parts[idx + 1])
     missing_modules = set()
     for distribution in stub_distributions:
-        for pkg in utils.read_dependencies(distribution).external_pkgs:
+        for pkg in read_dependencies(distribution).external_pkgs:
             # See https://stackoverflow.com/a/54853084
             top_level_file = os.path.join(pkg_resources.get_distribution(pkg).egg_info, "top_level.txt")  # type: ignore[attr-defined]
             with open(top_level_file) as f:

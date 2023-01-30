@@ -1,8 +1,10 @@
+import logging
 from _typeshed import Incomplete, SupportsWrite
 from collections.abc import Iterable, Iterator
 from typing import Any, TypeVar, overload
 from typing_extensions import Literal
 
+logger: logging.Logger
 DEBUG: bool
 CR: str
 LF: str

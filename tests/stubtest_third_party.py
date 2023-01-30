@@ -11,28 +11,25 @@ import tempfile
 from pathlib import Path
 from typing import NoReturn
 
-import tomli
-
-from utils import colored, get_mypy_req, get_recursive_requirements, make_venv, print_error, print_success_msg
+from parse_metadata import get_recursive_requirements, read_metadata
+from utils import colored, get_mypy_req, make_venv, print_error, print_success_msg
 
 
 def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: bool = False) -> bool:
-    with open(dist / "METADATA.toml", encoding="UTF-8") as f:
-        metadata = dict(tomli.loads(f.read()))
+    dist_name = dist.name
+    metadata = read_metadata(dist_name)
+    print(f"{dist_name}... ", end="")
 
-    print(f"{dist.name}... ", end="")
-
-    stubtest_meta = metadata.get("tool", {}).get("stubtest", {})
-    if stubtest_meta.get("skip", False):
+    stubtest_settings = metadata.stubtest_settings
+    if stubtest_settings.skipped:
         print(colored("skipping", "yellow"))
         return True
 
-    platforms_to_test = stubtest_meta.get("platforms", ["linux"])
-    if sys.platform not in platforms_to_test:
+    if sys.platform not in stubtest_settings.platforms:
         if specified_stubs_only:
             print(colored("skipping (platform not specified in METADATA.toml)", "yellow"))
             return True
-        print(colored(f"Note: {dist.name} is not currently tested on {sys.platform} in typeshed's CI.", "yellow"))
+        print(colored(f"Note: {dist_name} is not currently tested on {sys.platform} in typeshed's CI.", "yellow"))
 
     with tempfile.TemporaryDirectory() as tmp:
         venv_dir = Path(tmp)
@@ -41,12 +38,8 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
         except Exception:
             print_error("fail")
             raise
-        dist_version = metadata["version"]
-        extras = stubtest_meta.get("extras", [])
-        assert isinstance(dist_version, str)
-        assert isinstance(extras, list)
-        dist_extras = ", ".join(extras)
-        dist_req = f"{dist.name}[{dist_extras}]=={dist_version}"
+        dist_extras = ", ".join(stubtest_settings.extras)
+        dist_req = f"{dist_name}[{dist_extras}]=={metadata.version}"
 
         # If @tests/requirements-stubtest.txt exists, run "pip install" on it.
         req_path = dist / "@tests" / "requirements-stubtest.txt"
@@ -58,7 +51,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
                 print_command_failure("Failed to install requirements", e)
                 return False
 
-        requirements = get_recursive_requirements(dist.name)
+        requirements = get_recursive_requirements(dist_name)
 
         # We need stubtest to be able to import the package, so install mypy into the venv
         # Hopefully mypy continues to not need too many dependencies
@@ -72,7 +65,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
             print_command_failure("Failed to install", e)
             return False
 
-        ignore_missing_stub = ["--ignore-missing-stub"] if stubtest_meta.get("ignore_missing_stub", True) else []
+        ignore_missing_stub = ["--ignore-missing-stub"] if stubtest_settings.ignore_missing_stub else []
         packages_to_check = [d.name for d in dist.iterdir() if d.is_dir() and d.name.isidentifier()]
         modules_to_check = [d.stem for d in dist.iterdir() if d.is_file() and d.suffix == ".pyi"]
         stubtest_cmd = [
