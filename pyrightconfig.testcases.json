@@ -3,7 +3,7 @@
     "typeshedPath": ".",
     "include": [
         "test_cases",
-        "stubs/*/@tests/test_cases/*.py"
+        "**/@tests/test_cases"
     ],
     "typeCheckingMode": "strict",
     // Using unspecific "type ignore" comments in test_cases.
