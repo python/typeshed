@@ -5,7 +5,7 @@ from typing_extensions import assert_type
 
 
 # See issue #7961
-class Thing(ExitStack):
+class Thing(ExitStack):  # type: ignore
     pass
 
 
