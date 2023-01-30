@@ -349,7 +349,7 @@ class Connection:
         pages: int = -1,
         progress: Callable[[int, int, int], object] | None = None,
         name: str = "main",
-        sleep: float = ...,
+        sleep: float = 0.25,
     ) -> None: ...
     if sys.version_info >= (3, 11):
         def setlimit(self, __category: int, __limit: int) -> int: ...

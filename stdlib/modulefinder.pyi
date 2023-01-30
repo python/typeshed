@@ -43,8 +43,8 @@ class ModuleFinder:
     else:
         def __init__(
             self,
-            path: list[str] | None = ...,
-            debug: int = ...,
+            path: list[str] | None = None,
+            debug: int = 0,
             excludes: Container[str] = ...,
             replace_paths: Sequence[tuple[str, str]] = ...,
         ) -> None: ...

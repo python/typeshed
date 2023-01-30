@@ -367,7 +367,7 @@ class PathLike(Protocol[AnyStr_co]):
     def __fspath__(self) -> AnyStr_co: ...
 
 @overload
-def listdir(path: StrPath | None = ...) -> list[str]: ...
+def listdir(path: StrPath | None = None) -> list[str]: ...
 @overload
 def listdir(path: BytesPath) -> list[bytes]: ...
 @overload
@@ -516,9 +516,9 @@ _Opener: TypeAlias = Callable[[str, int], int]
 @overload
 def fdopen(
     fd: int,
-    mode: OpenTextMode = ...,
-    buffering: int = ...,
-    encoding: str | None = ...,
+    mode: OpenTextMode = "r",
+    buffering: int = -1,
+    encoding: str | None = None,
     errors: str | None = ...,
     newline: str | None = ...,
     closefd: bool = ...,
@@ -529,7 +529,7 @@ def fdopen(
     fd: int,
     mode: OpenBinaryMode,
     buffering: Literal[0],
-    encoding: None = ...,
+    encoding: None = None,
     errors: None = ...,
     newline: None = ...,
     closefd: bool = ...,
@@ -539,8 +539,8 @@ def fdopen(
 def fdopen(
     fd: int,
     mode: OpenBinaryModeUpdating,
-    buffering: Literal[-1, 1] = ...,
-    encoding: None = ...,
+    buffering: Literal[-1, 1] = -1,
+    encoding: None = None,
     errors: None = ...,
     newline: None = ...,
     closefd: bool = ...,
@@ -550,8 +550,8 @@ def fdopen(
 def fdopen(
     fd: int,
     mode: OpenBinaryModeWriting,
-    buffering: Literal[-1, 1] = ...,
-    encoding: None = ...,
+    buffering: Literal[-1, 1] = -1,
+    encoding: None = None,
     errors: None = ...,
     newline: None = ...,
     closefd: bool = ...,
@@ -561,8 +561,8 @@ def fdopen(
 def fdopen(
     fd: int,
     mode: OpenBinaryModeReading,
-    buffering: Literal[-1, 1] = ...,
-    encoding: None = ...,
+    buffering: Literal[-1, 1] = -1,
+    encoding: None = None,
     errors: None = ...,
     newline: None = ...,
     closefd: bool = ...,
@@ -572,8 +572,8 @@ def fdopen(
 def fdopen(
     fd: int,
     mode: OpenBinaryMode,
-    buffering: int = ...,
-    encoding: None = ...,
+    buffering: int = -1,
+    encoding: None = None,
     errors: None = ...,
     newline: None = ...,
     closefd: bool = ...,
@@ -583,8 +583,8 @@ def fdopen(
 def fdopen(
     fd: int,
     mode: str,
-    buffering: int = ...,
-    encoding: str | None = ...,
+    buffering: int = -1,
+    encoding: str | None = None,
     errors: str | None = ...,
     newline: str | None = ...,
     closefd: bool = ...,
@@ -737,7 +737,7 @@ class _ScandirIterator(Iterator[DirEntry[AnyStr]], AbstractContextManager[_Scand
     def close(self) -> None: ...
 
 @overload
-def scandir(path: None = ...) -> _ScandirIterator[str]: ...
+def scandir(path: None = None) -> _ScandirIterator[str]: ...
 @overload
 def scandir(path: int) -> _ScandirIterator[str]: ...
 @overload
@@ -758,11 +758,11 @@ def truncate(path: FileDescriptorOrPath, length: int) -> None: ...  # Unix only 
 def unlink(path: StrOrBytesPath, *, dir_fd: int | None = None) -> None: ...
 def utime(
     path: FileDescriptorOrPath,
-    times: tuple[int, int] | tuple[float, float] | None = ...,
+    times: tuple[int, int] | tuple[float, float] | None = None,
     *,
     ns: tuple[int, int] = ...,
-    dir_fd: int | None = ...,
-    follow_symlinks: bool = ...,
+    dir_fd: int | None = None,
+    follow_symlinks: bool = True,
 ) -> None: ...
 
 _OnError: TypeAlias = Callable[[OSError], object]
@@ -886,7 +886,7 @@ def times() -> times_result: ...
 def waitpid(__pid: int, __options: int) -> tuple[int, int]: ...
 
 if sys.platform == "win32":
-    def startfile(path: StrOrBytesPath, operation: str | None = ...) -> None: ...
+    def startfile(path: StrOrBytesPath, operation: str | None = None) -> None: ...
 
 else:
     def spawnlp(mode: int, file: StrOrBytesPath, arg0: StrOrBytesPath, *args: StrOrBytesPath) -> int: ...

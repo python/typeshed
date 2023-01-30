@@ -33,7 +33,7 @@ jobs:
           cache: pip
           cache-dependency-path: requirements-tests.txt
       - run: pip install -r requirements-tests.txt
-      - run: ./tests/check_consistent.py
+      - run: python ./tests/check_consistent.py
 
   new-syntax:
     name: Ensure new syntax usage
