@@ -3,8 +3,6 @@ sqlalchemy.sql.elements.Slice.self_group
 
 # Expanding keyword arguments in stubs
 sqlalchemy.ext.declarative.as_declarative
-sqlalchemy.orm.strategy_options.loader_option.__call__
-sqlalchemy.testing.provision.register.__call__
 
 # not always present
 sqlalchemy.cresultproxy.BaseRow.__getattr__
@@ -14,11 +12,6 @@ sqlalchemy.engine.base.Engine.logging_name  # initialized if not None
 sqlalchemy.engine.Engine.logging_name  # initialized if not None
 sqlalchemy.sql.lambdas.PyWrapper.__clause_element__
 sqlalchemy.testing.util.non_refcount_gc_collect
-
-# wrong argument name in implementation ("self" instead of "cls")
-sqlalchemy.engine.URL.__new__
-sqlalchemy.engine.url.URL.__new__
-sqlalchemy.util.langhelpers._symbol.__new__
 
 # abstract fields not present at runtime
 sqlalchemy.engine.Transaction.connection
@@ -114,3 +107,9 @@ sqlalchemy.sql.quoted_name.lower
 sqlalchemy.sql.quoted_name.upper
 sqlalchemy.orm.ColumnProperty.Comparator.__clause_element__
 sqlalchemy.orm.properties.ColumnProperty.Comparator.__clause_element__
+
+# Same error as in stdlib due to it being re-erported
+sqlalchemy.util.compat.StringIO.seek
+sqlalchemy.util.compat.StringIO.truncate
+sqlalchemy.util.StringIO.seek
+sqlalchemy.util.StringIO.truncate
