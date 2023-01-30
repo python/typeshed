@@ -22,9 +22,9 @@ class _CallableWithCode(Protocol):
     def __call__(self, *args: object, **kwargs: object) -> object: ...
 
 # For use in other modules so we don't have to redefine all overloads
-# incomplete: This TypeAlias is a bit of a "catch-all" for parameters passed to coercions.expect .
+# incomplete: This TypeAlias is a bit of a "catch-all" for elements passed to coercions.expect .
 # Still better than using Any/Incomplete when the coercable types are uncertain.
-_ExpectElement: TypeAlias = Union[  # noqa: Y047
+_CoercibleElement: TypeAlias = Union[  # noqa: Y047
     roles.SQLRole,
     lambdas.PyWrapper[Any],  # Any PyWrapper will do
     _CallableWithCode,

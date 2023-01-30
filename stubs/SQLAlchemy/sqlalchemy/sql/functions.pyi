@@ -7,7 +7,7 @@ from typing_extensions import SupportsIndex, TypeAlias
 from ..engine import ResultProxy
 from ..engine.base import Connection, Engine
 from ..sql import sqltypes
-from ..sql.coercions import _ExpectElement
+from ..sql.coercions import _CoercibleElement
 from ..sql.operators import _AnyOperator
 from ..sql.schema import Sequence
 from ..sql.type_api import TypeEngine
@@ -48,8 +48,8 @@ class FunctionElement(Executable, ColumnElement[Any], FromClause, Generative):  
     def clauses(self) -> ClauseList: ...
     def over(
         self,
-        partition_by: _ExpectElement | None = ...,
-        order_by: _ExpectElement | None = ...,
+        partition_by: _CoercibleElement | None = ...,
+        order_by: _CoercibleElement | None = ...,
         rows: tuple[
             str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc | None,
             str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc | None,
@@ -61,7 +61,7 @@ class FunctionElement(Executable, ColumnElement[Any], FromClause, Generative):  
         ]
         | None = ...,
     ): ...
-    def within_group(self, *order_by: _ExpectElement): ...
+    def within_group(self, *order_by: _CoercibleElement): ...
     @overload
     def filter(self: Self) -> Self: ...  # type: ignore[misc]
     @overload

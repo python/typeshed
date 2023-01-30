@@ -6,7 +6,7 @@ from typing_extensions import Literal, ParamSpec, SupportsIndex, TypeAlias
 
 from .. import util
 from ..engine import Connection, Engine
-from ..sql.coercions import _ExpectElement
+from ..sql.coercions import _CoercibleElement
 from ..sql.functions import FunctionElement
 from ..sql.schema import ForeignKey
 from ..sql.selectable import Subquery, TableClause, TextualSelect
@@ -222,7 +222,7 @@ class ClauseList(roles.InElementRole, roles.OrderByRole, roles.ColumnsClauseRole
     @overload
     def __init__(
         self,
-        *clauses: Iterable[_ExpectElement] | _ExpectElement,
+        *clauses: Iterable[_CoercibleElement] | _CoercibleElement,
         operator: Callable[[Incomplete, Incomplete], Incomplete] = ...,
         group: bool = ...,
         group_contents: bool = ...,
@@ -232,7 +232,7 @@ class ClauseList(roles.InElementRole, roles.OrderByRole, roles.ColumnsClauseRole
     @overload
     def __init__(
         self,
-        *clauses: _ExpectElement,
+        *clauses: _CoercibleElement,
         operator: Callable[[Incomplete, Incomplete], Incomplete] = ...,
         group: bool = ...,
         group_contents: bool = ...,
@@ -253,19 +253,23 @@ class BooleanClauseList(ClauseList, ColumnElement[Any]):
     def and_(cls: _type[Self]) -> Self: ...
     @overload
     @classmethod
-    def and_(cls, __clause: _ExpectElement) -> ClauseElement: ...
+    def and_(cls, __clause: _CoercibleElement) -> ClauseElement: ...
     @overload
     @classmethod
-    def and_(cls: _type[Self], __clause1: _ExpectElement, __clause2: _ExpectElement, *clauses: _ExpectElement) -> Self: ...
+    def and_(
+        cls: _type[Self], __clause1: _CoercibleElement, __clause2: _CoercibleElement, *clauses: _CoercibleElement
+    ) -> Self: ...
     @overload
     @classmethod
     def or_(cls: _type[Self]) -> Self: ...
     @overload
     @classmethod
-    def or_(cls, __clause: _ExpectElement) -> ClauseElement: ...
+    def or_(cls, __clause: _CoercibleElement) -> ClauseElement: ...
     @overload
     @classmethod
-    def or_(cls: _type[Self], __clause1: _ExpectElement, __clause2: _ExpectElement, *clauses: _ExpectElement) -> Self: ...
+    def or_(
+        cls: _type[Self], __clause1: _CoercibleElement, __clause2: _CoercibleElement, *clauses: _CoercibleElement
+    ) -> Self: ...
     def self_group(  # type: ignore[override]  # supertype has overloads
         self: Self, against: _AnyOperator | None = ...
     ) -> Grouping | Self: ...
@@ -447,8 +451,8 @@ class Over(ColumnElement[Any]):
     def __init__(
         self,
         element: FunctionElement | WithinGroup,
-        partition_by: _ExpectElement | None = ...,
-        order_by: _ExpectElement | None = ...,
+        partition_by: _CoercibleElement | None = ...,
+        order_by: _CoercibleElement | None = ...,
         range_: tuple[
             str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc | None,
             str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc | None,
@@ -468,12 +472,12 @@ class WithinGroup(ColumnElement[Any]):
     __visit_name__: str
     order_by: ClauseList | None
     element: FunctionElement
-    def __init__(self, element: FunctionElement, *order_by: _ExpectElement) -> None: ...
+    def __init__(self, element: FunctionElement, *order_by: _CoercibleElement) -> None: ...
     def __reduce__(self): ...
     def over(
         self,
-        partition_by: _ExpectElement | None = ...,
-        order_by: _ExpectElement | None = ...,
+        partition_by: _CoercibleElement | None = ...,
+        order_by: _CoercibleElement | None = ...,
         range_: tuple[
             str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc | None,
             str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc | None,
@@ -496,8 +500,8 @@ class FunctionFilter(ColumnElement[Any]):
     def filter(self, *criterion) -> FunctionFilter: ...
     def over(
         self,
-        partition_by: _ExpectElement | None = ...,
-        order_by: _ExpectElement | None = ...,
+        partition_by: _CoercibleElement | None = ...,
+        order_by: _CoercibleElement | None = ...,
         range_: tuple[
             str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc | None,
             str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc | None,

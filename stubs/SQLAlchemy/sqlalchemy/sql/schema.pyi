@@ -8,7 +8,7 @@ from ..engine import Connection, Engine
 from ..engine.interfaces import Connectable
 from ..engine.url import URL
 from ..sql import functions
-from ..sql.coercions import _ExpectElement
+from ..sql.coercions import _CoercibleElement
 from ..sql.compiler import DDLCompiler
 from ..sql.type_api import TypeEngine
 from ..util import FacadeDict, immutabledict, memoized_property
@@ -336,7 +336,7 @@ class CheckConstraint(ColumnCollectionConstraint):
     sqltext: Any
     def __init__(
         self,
-        sqltext: _ExpectElement,
+        sqltext: _CoercibleElement,
         name: str | None = ...,
         deferrable: bool | None = ...,
         initially: str | None = ...,

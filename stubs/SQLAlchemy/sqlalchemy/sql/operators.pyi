@@ -26,7 +26,7 @@ from operator import (
 from typing import Any, Generic, NoReturn, TypeVar, overload
 from typing_extensions import Literal, ParamSpec, TypeAlias
 
-from ..sql.coercions import _ExpectElement
+from ..sql.coercions import _CoercibleElement
 from ..sql.elements import BinaryExpression, BooleanClauseList, CollectionAggregate, ColumnElement, UnaryExpression
 from ..util.langhelpers import _symbol, symbol
 
@@ -49,8 +49,8 @@ class Operators:
     # we must redefine ALL of the methods below for that subtype.
     # Same as stdlib._operators (but Any is replaced with same as all subtypes)
     def __invert__(self) -> NoReturn | UnaryExpression: ...
-    def __and__(self, other: _ExpectElement) -> BooleanClauseList | ColumnElement[Incomplete]: ...
-    def __or__(self, other: _ExpectElement) -> BooleanClauseList | ColumnElement[Incomplete]: ...
+    def __and__(self, other: _CoercibleElement) -> BooleanClauseList | ColumnElement[Incomplete]: ...
+    def __or__(self, other: _CoercibleElement) -> BooleanClauseList | ColumnElement[Incomplete]: ...
 
 class custom_op:
     __name__: str

@@ -2,10 +2,9 @@ from _typeshed import Incomplete, Self
 from collections.abc import Iterable
 from typing import Any, NoReturn
 
-from sqlalchemy.sql.coercions import _ExpectElement
-
 from ..orm.query import Query
 from ..schema import Table
+from ..sql.coercions import _CoercibleElement
 from ..sql.schema import Column
 from ..sql.visitors import Traversible
 from . import roles
@@ -49,7 +48,7 @@ class UpdateBase(roles.DMLRole, HasCTE, HasCompileState, DialectKWArgs, HasPrefi
     def returning(self: Self, *cols: ColumnElement[Incomplete] | Table) -> Self: ...
     @property
     def exported_columns(self): ...
-    def with_hint(self: Self, text: str, selectable: _ExpectElement | None = ..., dialect_name: str = ...) -> Self: ...
+    def with_hint(self: Self, text: str, selectable: _CoercibleElement | None = ..., dialect_name: str = ...) -> Self: ...
 
 class ValuesBase(UpdateBase):
     __visit_name__: str
