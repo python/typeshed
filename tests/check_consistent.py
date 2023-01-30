@@ -14,8 +14,8 @@ from pathlib import Path
 import yaml
 from packaging.requirements import Requirement
 from packaging.specifiers import SpecifierSet
-from parse_metadata import read_metadata
 
+from parse_metadata import read_metadata
 from utils import VERSIONS_RE, get_all_testcase_directories, get_gitignore_spec, spec_matches_path, strip_comments
 
 extension_descriptions = {".pyi": "stub", ".py": ".py"}
