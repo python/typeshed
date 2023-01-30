@@ -78,21 +78,21 @@ if sys.version_info >= (3, 10):
 
 else:
     async def open_connection(
-        host: str | None = ...,
-        port: int | str | None = ...,
+        host: str | None = None,
+        port: int | str | None = None,
         *,
-        loop: events.AbstractEventLoop | None = ...,
-        limit: int = ...,
+        loop: events.AbstractEventLoop | None = None,
+        limit: int = 65536,
         ssl_handshake_timeout: float | None = ...,
         **kwds: Any,
     ) -> tuple[StreamReader, StreamWriter]: ...
     async def start_server(
         client_connected_cb: _ClientConnectedCallback,
-        host: str | None = ...,
-        port: int | str | None = ...,
+        host: str | None = None,
+        port: int | str | None = None,
         *,
-        loop: events.AbstractEventLoop | None = ...,
-        limit: int = ...,
+        loop: events.AbstractEventLoop | None = None,
+        limit: int = 65536,
         ssl_handshake_timeout: float | None = ...,
         **kwds: Any,
     ) -> Server: ...
