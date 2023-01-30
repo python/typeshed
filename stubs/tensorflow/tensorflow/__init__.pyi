@@ -8,11 +8,6 @@ from typing import Any, NoReturn, overload
 from typing_extensions import TypeAlias
 
 import numpy
-from tensorflow.dtypes import *
-
-# Most tf.math functions are exported as tf, but sadly not all are.
-from tensorflow.math import abs as abs
-from tensorflow.sparse import SparseTensor
 from tensorflow._api.v2 import (
     __internal__ as __internal__,
     __operators__ as __operators__,
@@ -58,8 +53,13 @@ from tensorflow._api.v2 import (
     train as train,
     types as types,
     version as version,
-    xla as xla
+    xla as xla,
 )
+from tensorflow.dtypes import *
+
+# Most tf.math functions are exported as tf, but sadly not all are.
+from tensorflow.math import abs as abs
+from tensorflow.sparse import SparseTensor
 
 # Tensors ideally should be a generic type, but properly typing data type/shape
 # will be a lot of work. Until we have good non-generic tensorflow stubs,
