@@ -9,7 +9,7 @@ from invoke import Context, task
 
 
 @task
-def docker_build(context: Context) -> None:
+def docker_build(context: Context) -> None:  # type: ignore
     pass
 
 
