@@ -2,11 +2,11 @@ from _typeshed import Incomplete, Self
 from collections.abc import Callable
 from logging import Logger
 from typing import Any, Generic, NoReturn, TypeVar
-from typing_extensions import TypeAlias
+from typing_extensions import TypeAlias, reveal_type
 
-from sqlalchemy.engine.interfaces import Connectable
-from sqlalchemy.engine.url import URL
-from sqlalchemy.testing.config import Config
+from ..engine.interfaces import Connectable
+from ..engine.url import URL
+from ..testing.config import Config
 
 _Unused: TypeAlias = object
 _S = TypeVar("_S", bound=str)
@@ -29,7 +29,7 @@ class register(Generic[_F]):
     def init(cls: type[Self], fn: _F) -> Self: ...
     def for_db(self: Self, *dbnames: str) -> Callable[[_F], Self]: ...
     # Impossible to specify the args from the generic Callable in the current type system
-    def __call__(self, cfg: str | URL, *arg: Any) -> str | URL | None: ...
+    def __call__(self, cfg: str | URL, *arg: Any) -> str | URL | None: ...  # AnyOf[str | URL | None]
 
 @register.init
 def generate_driver_url(url: _U, driver: str, query_str: str) -> _U | None: ...
@@ -46,7 +46,7 @@ def update_db_opts(db_url: _Unused, db_opts: _Unused) -> None: ...
 @register.init
 def post_configure_engine(url: _Unused, engine: _Unused, follower_ident: _Unused) -> None: ...
 @register.init
-def follower_url_from_main(url: _U, ident) -> _U: ...
+def follower_url_from_main(url: _U, ident: str) -> _U: ...
 @register.init
 def configure_follower(cfg: _Unused, ident: _Unused) -> None: ...
 @register.init
