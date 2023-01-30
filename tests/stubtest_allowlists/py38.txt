@@ -102,7 +102,6 @@ distutils.fancy_getopt.neg_alias_re
 dummy_threading.ExceptHookArgs
 dummy_threading.Lock
 dummy_threading.RLock
-dummy_threading.stack_size
 html.parser.HTMLParser.unescape
 multiprocessing.managers.SharedMemoryServer.create
 multiprocessing.managers.SharedMemoryServer.list_segments
