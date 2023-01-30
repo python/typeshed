@@ -58,7 +58,7 @@ class Grail(BaseBrowser):
 
 if sys.platform == "win32":
     class WindowsDefault(BaseBrowser):
-        def open(self, url: str, new: int = ..., autoraise: bool = ...) -> bool: ...
+        def open(self, url: str, new: int = 0, autoraise: bool = True) -> bool: ...
 
 if sys.platform == "darwin":
     class MacOSX(BaseBrowser):
