@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, Self
+from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Iterator, Sequence
 from typing import TypeVar, overload
 from typing_extensions import Literal
@@ -12,18 +12,18 @@ _T_co = TypeVar("_T_co")
 class BaseRow(Iterable[_T_co]):
     @overload
     def __init__(
-        self: Self,
+        self,
         __parent: ResultMetaData,
-        __processors: Iterable[Callable[[Self], Incomplete]] | None,
+        __processors: Iterable[Callable[[_T_co], Incomplete] | None] | None,
         __keymap: dict[Incomplete, Incomplete],
         __key_style: Literal[1],
         __row: Sequence[_T_co],
     ) -> None: ...
     @overload
     def __init__(
-        self: Self,
+        self,
         __parent: ResultMetaData | None,
-        __processors: Iterable[Callable[[Self], Incomplete]] | None,
+        __processors: Iterable[Callable[[_T_co], Incomplete]] | None,
         __keymap: dict[Incomplete, Incomplete],
         __key_style: int,
         __row: Sequence[_T_co],
