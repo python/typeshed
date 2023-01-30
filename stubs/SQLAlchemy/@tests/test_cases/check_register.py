@@ -1,8 +1,12 @@
 from __future__ import annotations
 
-from sqlalchemy.engine.base import Connection
-from sqlalchemy.engine.interfaces import Connectable
+from _typeshed.dbapi import DBAPIConnection
+from typing import cast
+
+from sqlalchemy.engine.base import Engine
+from sqlalchemy.engine.default import DefaultDialect
 from sqlalchemy.engine.url import URL
+from sqlalchemy.pool.base import Pool
 from sqlalchemy.testing.provision import (
     configure_follower,
     create_db,
@@ -21,10 +25,11 @@ from sqlalchemy.testing.provision import (
     temp_table_keyword_args,
     update_db_opts,
 )
+from sqlalchemy.util import immutabledict
 
-url: URL
-engine: Connectable
-connection: Connection
+url = URL("", "", "", "", 0, "", immutabledict())
+engine = Engine(Pool(lambda: cast(DBAPIConnection, object())), DefaultDialect(), "")
+unused = None
 
 # The decorator changes the first parameter to "cfg: str | URL"
 @register.init
@@ -33,18 +38,18 @@ def no_args(foo: int) -> None:
 
 
 no_args(cfg=url)
-generate_driver_url(url, "")
-drop_all_schema_objects_pre_tables(url, engine)
-drop_all_schema_objects_post_tables(url, engine)
-create_db(url, engine, "")
-drop_db(url, engine, "")
-update_db_opts(url, {})
-post_configure_engine(url, engine, "")
+generate_driver_url(url, "", "")
+drop_all_schema_objects_pre_tables(url, unused)
+drop_all_schema_objects_post_tables(url, unused)
+create_db(url, engine, unused)
+drop_db(url, engine, unused)
+update_db_opts(url, unused)
+post_configure_engine(url, unused, unused)
 follower_url_from_main(url, "")
-configure_follower(url, "")
-run_reap_dbs(url, "")
+configure_follower(url, unused)
+run_reap_dbs(url, unused)
 temp_table_keyword_args(url, engine)
-prepare_for_drop_tables(url, connection)
-stop_test_class_outside_fixtures(url, connection, type)
-get_temp_table_name(url, engine, "")
-set_default_schema_on_connection(url, connection, "")
+prepare_for_drop_tables(url, unused)
+stop_test_class_outside_fixtures(url, unused, type)
+get_temp_table_name(url, unused, "")
+set_default_schema_on_connection(url, unused, unused)
