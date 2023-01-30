@@ -84,7 +84,6 @@ distutils.core.gen_usage
 distutils.core.setup_keywords
 dummy_threading.Lock
 dummy_threading.RLock
-dummy_threading.stack_size
 html.parser.HTMLParser.unescape
 platform.popen
 plistlib.Data.asBase64
