@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from sqlalchemy.engine.base import Connection
 from sqlalchemy.engine.interfaces import Connectable
 from sqlalchemy.engine.url import URL
