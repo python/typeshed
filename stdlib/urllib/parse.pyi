@@ -213,12 +213,12 @@ if sys.version_info >= (3, 11):
 else:
     @overload
     def urlsplit(
-        url: str | bytes | bytearray | None, scheme: str | bytes | bytearray | None = "", allow_fragments: bool = True
-    ) -> SplitResult | SplitResultBytes: ...
-    @overload
-    def urlsplit(
         url: bytes | bytearray | None, scheme: bytes | bytearray | None, allow_fragments: bool = True
     ) -> SplitResultBytes: ...
+    @overload
+    def urlsplit(
+        url: str | bytes | bytearray | None, scheme: str | bytes | bytearray | None = "", allow_fragments: bool = True
+    ) -> SplitResult | SplitResultBytes: ...
 
 @overload
 def urlunparse(
