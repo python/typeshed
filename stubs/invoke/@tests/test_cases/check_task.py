@@ -1,4 +1,3 @@
-# pyright: enableTypeIgnoreComments=true
 from __future__ import annotations
 
 from invoke import Context, task
