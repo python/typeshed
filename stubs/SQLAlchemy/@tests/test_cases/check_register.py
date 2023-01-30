@@ -31,9 +31,14 @@ url = URL("", "", "", "", 0, "", immutabledict())
 engine = Engine(Pool(lambda: cast(DBAPIConnection, object())), DefaultDialect(), "")
 unused = None
 
+
+class Foo:
+    pass
+
+
 # The decorator changes the first parameter to "cfg: str | URL"
 @register.init
-def no_args(foo: int) -> None:
+def no_args(__foo: Foo) -> None:
     pass
 
 
