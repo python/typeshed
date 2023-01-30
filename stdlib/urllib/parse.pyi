@@ -206,7 +206,7 @@ if sys.version_info >= (3, 11):
 else:
     @overload
     def urlsplit(
-        url: bytes | bytearray | None, scheme: bytes | bytearray | Non, allow_fragments: bool = True
+        url: bytes | bytearray | None, scheme: bytes | bytearray | None, allow_fragments: bool = True
     ) -> SplitResultBytes: ...
 
 @overload
