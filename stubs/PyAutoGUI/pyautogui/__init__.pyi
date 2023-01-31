@@ -34,18 +34,18 @@ G_LOG_SCREENSHOTS_FILENAMES: list[str]
 # Implementation details
 QWERTY: Final[str]
 QWERTZ: Final[str]
-MINIMUM_SLEEP: float = 0.05  # Is meant to be platform-dependant, do not rely on value being constant
+MINIMUM_SLEEP: Final[float]
 
 # These are meant to be overridable
-LOG_SCREENSHOTS: Final = False
-LOG_SCREENSHOTS_LIMIT: int | None = 10
+LOG_SCREENSHOTS: bool
+LOG_SCREENSHOTS_LIMIT: int | None
 # https://pyautogui.readthedocs.io/en/latest/index.html#fail-safes
-FAILSAFE: bool = True
-PAUSE: float = 0.1
-DARWIN_CATCH_UP_TIME: float = 0.01
+FAILSAFE: bool
+PAUSE: float
+DARWIN_CATCH_UP_TIME: float
 FAILSAFE_POINTS: list[tuple[int, int]]
 # https://pyautogui.readthedocs.io/en/latest/mouse.htmln#mouse-movement
-MINIMUM_DURATION: float = 0.1
+MINIMUM_DURATION: float
 
 class PyAutoGUIException(Exception): ...
 class FailSafeException(PyAutoGUIException): ...
