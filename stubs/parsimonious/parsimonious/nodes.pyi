@@ -1,7 +1,6 @@
 from collections.abc import Callable, Iterator, Sequence
 from re import Match
-from typing import Any, NoReturn, TypeVar
-from typing_extensions import TypeAlias
+from typing import Any, Generic, NoReturn, TypeVar
 
 from parsimonious.exceptions import VisitationError as VisitationError
 from parsimonious.expressions import Expression
@@ -27,15 +26,15 @@ class RegexNode(Node):
 
 class RuleDecoratorMeta(type): ...
 
-_VisitRT: TypeAlias = Any
+_VisitResultT = TypeVar("_VisitResultT")
 
-class NodeVisitor(metaclass=RuleDecoratorMeta):
+class NodeVisitor(Generic[_VisitResultT], metaclass=RuleDecoratorMeta):
     grammar: Grammar | Any
     unwrapped_exceptions: tuple[type[BaseException], ...]
-    def visit(self, node: Node) -> _VisitRT: ...
+    def visit(self, node: Node) -> _VisitResultT: ...
     def generic_visit(self, node: Node, visited_children: Sequence[Any]) -> NoReturn: ...
-    def parse(self, text: str, pos: int = ...) -> _VisitRT: ...
-    def match(self, text: str, pos: int = ...) -> _VisitRT: ...
+    def parse(self, text: str, pos: int = ...) -> _VisitResultT: ...
+    def match(self, text: str, pos: int = ...) -> _VisitResultT: ...
     def lift_child(self, node: Node, children: Sequence[Any]) -> Any: ...
 
 _CallableT = TypeVar("_CallableT", bound=Callable[..., Any])
