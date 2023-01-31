@@ -221,6 +221,24 @@ webbrowser.UnixBrowser.remote_action_newwin  # always overridden in inheriting c
 xml.parsers.expat.expat_CAPI
 
 # ==========
+# The "lock" argument exists at runtime,
+# but raises TypeError if you try to provide any value for it
+# ==========
+asyncio.BoundedSemaphore.__init__
+asyncio.Condition.__init__
+asyncio.Event.__init__
+asyncio.Lock.__init__
+asyncio.Queue.__init__
+asyncio.Semaphore.__init__
+asyncio.locks.BoundedSemaphore.__init__
+asyncio.locks.Semaphore.__init__
+asyncio.locks.Condition.__init__
+asyncio.locks.Event.__init__
+asyncio.locks.Lock.__init__
+asyncio.locks.Semaphore.__init__
+asyncio.queues.Queue.__init__
+
+# ==========
 # Exists at runtime, but missing from stubs
 # ==========
 _json.encode_basestring
