@@ -493,7 +493,7 @@ into any of those categories, use your best judgement.
 ### Incomplete stubs
 
 We accept partially annotated stubs, especially for larger packages.
-These need to follow the following guidelines:
+These should follow the following guidelines:
 
 * A package must include all public submodules, all public classes,
   functions and methods, and all other public fields.
