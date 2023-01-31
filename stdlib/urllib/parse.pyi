@@ -197,22 +197,22 @@ def urlparse(
 ) -> ParseResultBytes: ...
 @overload
 def urlparse(url: str | None, scheme: Literal[""] = "", allow_fragments: bool = True) -> ParseResult | ParseResultBytes: ...
+
 @overload
 def urlsplit(url: str, scheme: str = "", allow_fragments: bool = True) -> SplitResult: ...
 
 if sys.version_info >= (3, 11):
     @overload
     def urlsplit(url: bytes | None, scheme: bytes | None, allow_fragments: bool = True) -> SplitResultBytes: ...
-    @overload
-    def urlsplit(url: str | None, scheme: Literal[""] = "", allow_fragments: bool = True) -> SplitResult | SplitResultBytes: ...
 
 else:
     @overload
     def urlsplit(
         url: bytes | bytearray | None, scheme: bytes | bytearray | None, allow_fragments: bool = True
     ) -> SplitResultBytes: ...
-    @overload
-    def urlsplit(url: str | None, scheme: Literal[""] = "", allow_fragments: bool = True) -> SplitResult | SplitResultBytes: ...
+
+@overload
+def urlsplit(url: str | None, scheme: Literal[""] = "", allow_fragments: bool = True) -> SplitResult | SplitResultBytes: ...
 
 @overload
 def urlunparse(
