@@ -22,9 +22,9 @@ resource_spec_re: Final[Pattern[str]]
 value_escape_re: Final[Pattern[str]]
 resource_parts_re: Final[Pattern[str]]
 NAME_MATCH: Final = 0
-CLASS_MATCH = 2
-WILD_MATCH = 4
-MATCH_SKIP = 6
+CLASS_MATCH: Final = 2
+WILD_MATCH: Final = 4
+MATCH_SKIP: Final = 6
 
 class OptionError(Exception): ...
 

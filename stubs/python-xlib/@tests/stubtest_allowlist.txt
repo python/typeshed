@@ -25,7 +25,5 @@ Xlib.protocol.rq.c
 Xlib.protocol.rq.size
 # Re-exports from six
 Xlib.ext.xinput.integer_types
-Xlib.protocol.display.byte2int
 Xlib.protocol.display.PY3
-Xlib.protocol.rq.byte2int
 Xlib.protocol.rq.PY3
