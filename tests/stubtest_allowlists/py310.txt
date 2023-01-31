@@ -53,11 +53,6 @@ weakref.WeakValueDictionary.update
 unittest.TestCase.__init_subclass__
 unittest.case.TestCase.__init_subclass__
 
-# stubtest complains that in 3.10 the default argument is inconsistent with the annotation,
-# but in 3.10+ calling the function without the default argument is in fact deprecated,
-# so it's better to ignore stubtest
-ssl.SSLContext.__new__
-
 # SpooledTemporaryFile implements IO except these methods before Python 3.11
 # See also https://github.com/python/typeshed/pull/2452#issuecomment-420657918
 tempfile.SpooledTemporaryFile.__next__
