@@ -249,8 +249,36 @@ class SpooledTemporaryFile(IO[AnyStr], _SpooledTemporaryFileBase):
         @overload
         def __init__(
             self: SpooledTemporaryFile[str],
+            max_size: int,
+            mode: _StrMode,
+            buffering: int = -1,
+            encoding: str | None = None,
+            newline: str | None = None,
+            suffix: str | None = None,
+            prefix: str | None = None,
+            dir: str | None = None,
+            *,
+            errors: str | None = None,
+        ) -> None: ...
+        @overload
+        def __init__(
+            self: SpooledTemporaryFile[str],
             max_size: int = 0,
-            mode: _StrMode = ...,
+            *,
+            mode: _StrMode,
+            buffering: int = -1,
+            encoding: str | None = None,
+            newline: str | None = None,
+            suffix: str | None = None,
+            prefix: str | None = None,
+            dir: str | None = None,
+            errors: str | None = None,
+        ) -> None: ...
+        @overload
+        def __init__(
+            self,
+            max_size: int,
+            mode: str,
             buffering: int = -1,
             encoding: str | None = None,
             newline: str | None = None,
@@ -264,14 +292,14 @@ class SpooledTemporaryFile(IO[AnyStr], _SpooledTemporaryFileBase):
         def __init__(
             self,
             max_size: int = 0,
-            mode: str = "w+b",
+            *,
+            mode: str,
             buffering: int = -1,
             encoding: str | None = None,
             newline: str | None = None,
             suffix: str | None = None,
             prefix: str | None = None,
             dir: str | None = None,
-            *,
             errors: str | None = None,
         ) -> None: ...
         @property
@@ -292,8 +320,33 @@ class SpooledTemporaryFile(IO[AnyStr], _SpooledTemporaryFileBase):
         @overload
         def __init__(
             self: SpooledTemporaryFile[str],
+            max_size: int,
+            mode: _StrMode,
+            buffering: int = -1,
+            encoding: str | None = None,
+            newline: str | None = None,
+            suffix: str | None = None,
+            prefix: str | None = None,
+            dir: str | None = None,
+        ) -> None: ...
+        @overload
+        def __init__(
+            self: SpooledTemporaryFile[str],
             max_size: int = 0,
-            mode: _StrMode = ...,
+            *,
+            mode: _StrMode,
+            buffering: int = -1,
+            encoding: str | None = None,
+            newline: str | None = None,
+            suffix: str | None = None,
+            prefix: str | None = None,
+            dir: str | None = None,
+        ) -> None: ...
+        @overload
+        def __init__(
+            self,
+            max_size: int,
+            mode: str,
             buffering: int = -1,
             encoding: str | None = None,
             newline: str | None = None,
@@ -305,7 +358,8 @@ class SpooledTemporaryFile(IO[AnyStr], _SpooledTemporaryFileBase):
         def __init__(
             self,
             max_size: int = 0,
-            mode: str = "w+b",
+            *,
+            mode: str,
             buffering: int = -1,
             encoding: str | None = None,
             newline: str | None = None,
