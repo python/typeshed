@@ -197,7 +197,6 @@ def urlparse(
 ) -> ParseResultBytes: ...
 @overload
 def urlparse(url: str | None, scheme: Literal[""] = "", allow_fragments: bool = True) -> ParseResult | ParseResultBytes: ...
-
 @overload
 def urlsplit(url: str, scheme: str = "", allow_fragments: bool = True) -> SplitResult: ...
 
@@ -213,7 +212,6 @@ else:
 
 @overload
 def urlsplit(url: str | None, scheme: Literal[""] = "", allow_fragments: bool = True) -> SplitResult | SplitResultBytes: ...
-
 @overload
 def urlunparse(
     components: tuple[AnyStr | None, AnyStr | None, AnyStr | None, AnyStr | None, AnyStr | None, AnyStr | None]
