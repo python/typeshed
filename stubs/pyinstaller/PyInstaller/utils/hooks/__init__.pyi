@@ -4,7 +4,7 @@ import logging
 from _typeshed import StrOrBytesPath, StrPath
 from collections.abc import Callable, Iterable
 from typing import Any
-from typing_extensions import Literal
+from typing_extensions import Final, Literal
 
 import pkg_resources
 from PyInstaller import HOMEPATH as HOMEPATH
@@ -15,7 +15,7 @@ from PyInstaller.utils.hooks.win32 import get_pywin32_module_file_attribute as g
 conda_support = conda
 
 logger: logging.Logger
-PY_IGNORE_EXTENSIONS: set[str]
+PY_IGNORE_EXTENSIONS: Final[set[str]]
 hook_variables: dict[str, str]
 
 def exec_statement(statement: str) -> str | int: ...
@@ -43,7 +43,7 @@ def collect_submodules(
 ) -> list[str]: ...
 def is_module_or_submodule(name: str, mod_or_submod: str) -> bool: ...
 
-PY_DYLIB_PATTERNS: list[str]
+PY_DYLIB_PATTERNS: Final[list[str]]
 
 def collect_dynamic_libs(package: str, destdir: object = None) -> list[tuple[str, str]]: ...
 def collect_data_files(

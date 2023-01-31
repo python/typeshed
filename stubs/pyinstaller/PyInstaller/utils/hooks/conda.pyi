@@ -4,7 +4,7 @@ import sys
 from _typeshed import StrOrBytesPath
 from collections.abc import Iterable
 from pathlib import Path, PurePosixPath
-from typing_extensions import TypedDict
+from typing_extensions import Final, TypedDict
 
 if sys.version_info >= (3, 8):
     from importlib.metadata import PackagePath as _PackagePath
@@ -15,9 +15,9 @@ else:
         def read_binary(self) -> str: ...
         def locate(self) -> Path: ...
 
-CONDA_ROOT: Path
-CONDA_META_DIR: Path
-PYTHONPATH_PREFIXES: list[Path]
+CONDA_ROOT: Final[Path]
+CONDA_META_DIR: Final[Path]
+PYTHONPATH_PREFIXES: Final[list[Path]]
 
 class _RawDict(TypedDict):
     name: str
