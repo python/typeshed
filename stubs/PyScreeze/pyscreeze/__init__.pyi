@@ -47,11 +47,11 @@ def locate(
     needleImage: str | Image.Image | _Mat,
     haystackImage: str | Image.Image | _Mat,
     *,
-    grayscale: bool | None = ...,
-    limit: _Unused = ...,
-    region: tuple[int, int, int, int] | None = ...,
-    step: int = ...,
-    confidence: SupportsFloat | SupportsIndex | str = ...,
+    grayscale: bool | None = None,
+    limit: _Unused = 1,
+    region: tuple[int, int, int, int] | None = None,
+    step: int = 1,
+    confidence: SupportsFloat | SupportsIndex | str = 0.999,
 ) -> Box | None: ...
 
 # _locateAll_python / _locateAll_pillow
@@ -60,11 +60,11 @@ def locate(
     needleImage: str | Image.Image,
     haystackImage: str | Image.Image,
     *,
-    grayscale: bool | None = ...,
-    limit: _Unused = ...,
-    region: tuple[int, int, int, int] | None = ...,
-    step: int = ...,
-    confidence: None = ...,
+    grayscale: bool | None = None,
+    limit: _Unused = 1,
+    region: tuple[int, int, int, int] | None = None,
+    step: int = 1,
+    confidence: None = None,
 ) -> Box | None: ...
 
 # _locateAll_opencv
@@ -73,11 +73,11 @@ def locateOnScreen(
     image: str | Image.Image | _Mat,
     minSearchTime: float = 0,
     *,
-    grayscale: bool | None = ...,
-    limit: _Unused = ...,
-    region: tuple[int, int, int, int] | None = ...,
-    step: int = ...,
-    confidence: SupportsFloat | SupportsIndex | str = ...,
+    grayscale: bool | None = None,
+    limit: _Unused = 1,
+    region: tuple[int, int, int, int] | None = None,
+    step: int = 1,
+    confidence: SupportsFloat | SupportsIndex | str = 0.999,
 ) -> Box | None: ...
 
 # _locateAll_python / _locateAll_pillow
@@ -86,11 +86,11 @@ def locateOnScreen(
     image: str | Image.Image,
     minSearchTime: float = 0,
     *,
-    grayscale: bool | None = ...,
-    limit: _Unused = ...,
-    region: tuple[int, int, int, int] | None = ...,
-    step: int = ...,
-    confidence: None = ...,
+    grayscale: bool | None = None,
+    limit: _Unused = 1,
+    region: tuple[int, int, int, int] | None = None,
+    step: int = 1,
+    confidence: None = None,
 ) -> Box | None: ...
 
 # _locateAll_opencv
@@ -98,11 +98,11 @@ def locateOnScreen(
 def locateAllOnScreen(
     image: str | Image.Image | _Mat,
     *,
-    grayscale: bool | None = ...,
-    limit: int = ...,
-    region: tuple[int, int, int, int] | None = ...,
-    step: int = ...,
-    confidence: SupportsFloat | SupportsIndex | str = ...,
+    grayscale: bool | None = None,
+    limit: int = 1000,
+    region: tuple[int, int, int, int] | None = None,
+    step: int = 1,
+    confidence: SupportsFloat | SupportsIndex | str = 0.999,
 ) -> Generator[Box, None, None]: ...
 
 # _locateAll_python / _locateAll_pillow
@@ -110,11 +110,11 @@ def locateAllOnScreen(
 def locateAllOnScreen(
     image: str | Image.Image,
     *,
-    grayscale: bool | None = ...,
-    limit: int | None = ...,
-    region: tuple[int, int, int, int] | None = ...,
-    step: int = ...,
-    confidence: None = ...,
+    grayscale: bool | None = None,
+    limit: int | None = None,
+    region: tuple[int, int, int, int] | None = None,
+    step: int = 1,
+    confidence: None = None,
 ) -> Generator[Box, None, None]: ...
 
 # _locateAll_opencv
@@ -123,11 +123,11 @@ def locateCenterOnScreen(
     image: str | Image.Image | _Mat,
     *,
     minSearchTime: float,
-    grayscale: bool | None = ...,
-    limit: _Unused = ...,
-    region: tuple[int, int, int, int] | None = ...,
-    step: int = ...,
-    confidence: SupportsFloat | SupportsIndex | str = ...,
+    grayscale: bool | None = None,
+    limit: _Unused = 1,
+    region: tuple[int, int, int, int] | None = None,
+    step: int = 1,
+    confidence: SupportsFloat | SupportsIndex | str = 0.999,
 ) -> Point | None: ...
 
 # _locateAll_python / _locateAll_pillow
@@ -136,11 +136,11 @@ def locateCenterOnScreen(
     image: str | Image.Image,
     *,
     minSearchTime: float,
-    grayscale: bool | None = ...,
-    limit: _Unused = ...,
-    region: tuple[int, int, int, int] | None = ...,
-    step: int = ...,
-    confidence: None = ...,
+    grayscale: bool | None = None,
+    limit: _Unused = 1,
+    region: tuple[int, int, int, int] | None = None,
+    step: int = 1,
+    confidence: None = None,
 ) -> Point | None: ...
 
 # _locateAll_opencv
@@ -149,10 +149,10 @@ def locateOnWindow(
     image: str | Image.Image | _Mat,
     title: str,
     *,
-    grayscale: bool | None = ...,
-    limit: _Unused = ...,
-    step: int = ...,
-    confidence: SupportsFloat | SupportsIndex | str = ...,
+    grayscale: bool | None = None,
+    limit: _Unused = 1,
+    step: int = 1,
+    confidence: SupportsFloat | SupportsIndex | str = 0.999,
 ) -> Box | None: ...
 
 # _locateAll_python / _locateAll_pillow
@@ -161,10 +161,10 @@ def locateOnWindow(
     image: str | Image.Image,
     title: str,
     *,
-    grayscale: bool | None = ...,
-    limit: _Unused = ...,
-    step: int = ...,
-    confidence: None = ...,
+    grayscale: bool | None = None,
+    limit: _Unused = 1,
+    step: int = 1,
+    confidence: None = None,
 ) -> Box | None: ...
 def showRegionOnScreen(
     region: tuple[int, int, int, int], outlineColor: str = "red", filename: str = "_showRegionOnScreen.png"
@@ -183,10 +183,10 @@ def locateAll(
     needleImage: str | Image.Image | _Mat,
     haystackImage: str | Image.Image | _Mat,
     grayscale: bool | None = None,
-    limit: int = None,
+    limit: int = 1000,
     region: tuple[int, int, int, int] | None = None,
     step: int = 1,
-    confidence: SupportsFloat | SupportsIndex | str = None,
+    confidence: SupportsFloat | SupportsIndex | str = 0.999,
 ) -> Generator[Box, None, None]: ...
 
 # _locateAll_python / _locateAll_pillow
