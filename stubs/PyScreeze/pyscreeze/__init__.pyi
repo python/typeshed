@@ -71,7 +71,7 @@ def locate(
 @overload
 def locateOnScreen(
     image: str | Image.Image | _Mat,
-    minSearchTime: float = ...,
+    minSearchTime: float = 0,
     *,
     grayscale: bool | None = ...,
     limit: _Unused = ...,
@@ -84,7 +84,7 @@ def locateOnScreen(
 @overload
 def locateOnScreen(
     image: str | Image.Image,
-    minSearchTime: float = ...,
+    minSearchTime: float = 0,
     *,
     grayscale: bool | None = ...,
     limit: _Unused = ...,
@@ -166,13 +166,15 @@ def locateOnWindow(
     step: int = ...,
     confidence: None = ...,
 ) -> Box | None: ...
-def showRegionOnScreen(region: tuple[int, int, int, int], outlineColor: str = ..., filename: str = ...) -> None: ...
+def showRegionOnScreen(
+    region: tuple[int, int, int, int], outlineColor: str = "red", filename: str = "_showRegionOnScreen.png"
+) -> None: ...
 def center(coords: tuple[int, int, int, int]) -> Point: ...
 def pixelMatchesColor(
-    x: int, y: int, expectedRGBColor: tuple[int, int, int] | tuple[int, int, int, int], tolerance: int = ...
+    x: int, y: int, expectedRGBColor: tuple[int, int, int] | tuple[int, int, int, int], tolerance: int = 0
 ) -> bool: ...
 def pixel(x: int, y: int) -> tuple[int, int, int]: ...
-def screenshot(imageFilename: StrOrBytesPath | None = ..., region: tuple[int, int, int, int] | None = ...) -> Image.Image: ...
+def screenshot(imageFilename: StrOrBytesPath | None = None, region: tuple[int, int, int, int] | None = None) -> Image.Image: ...
 
 grab = screenshot
 # _locateAll_opencv
@@ -180,11 +182,11 @@ grab = screenshot
 def locateAll(
     needleImage: str | Image.Image | _Mat,
     haystackImage: str | Image.Image | _Mat,
-    grayscale: bool | None = ...,
-    limit: int = ...,
-    region: tuple[int, int, int, int] | None = ...,
-    step: int = ...,
-    confidence: SupportsFloat | SupportsIndex | str = ...,
+    grayscale: bool | None = None,
+    limit: int = None,
+    region: tuple[int, int, int, int] | None = None,
+    step: int = 1,
+    confidence: SupportsFloat | SupportsIndex | str = None,
 ) -> Generator[Box, None, None]: ...
 
 # _locateAll_python / _locateAll_pillow
@@ -192,9 +194,9 @@ def locateAll(
 def locateAll(
     needleImage: str | Image.Image,
     haystackImage: str | Image.Image,
-    grayscale: bool | None = ...,
-    limit: int | None = ...,
-    region: tuple[int, int, int, int] | None = ...,
-    step: int = ...,
-    confidence: None = ...,
+    grayscale: bool | None = None,
+    limit: int | None = None,
+    region: tuple[int, int, int, int] | None = None,
+    step: int = 1,
+    confidence: None = None,
 ) -> Generator[Box, None, None]: ...
