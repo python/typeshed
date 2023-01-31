@@ -2,7 +2,7 @@ import contextlib
 from collections.abc import Callable, Iterable, Sequence
 from datetime import datetime
 from typing import NamedTuple, SupportsInt, TypeVar
-from typing_extensions import ParamSpec, SupportsIndex, TypeAlias
+from typing_extensions import Final, Literal, ParamSpec, SupportsIndex, TypeAlias
 
 from pyscreeze import (
     center as center,
@@ -32,24 +32,24 @@ def useImageNotFoundException(value: bool | None = None) -> None: ...
 
 KEY_NAMES: list[str]
 KEYBOARD_KEYS: list[str]
-LEFT: str
-MIDDLE: str
-RIGHT: str
-PRIMARY: str
-SECONDARY: str
-QWERTY: str
-QWERTZ: str
+LEFT: Final = "left"
+MIDDLE: Final = "middle"
+RIGHT: Final = "right"
+PRIMARY: Final = "primary"
+SECONDARY: Final = "secondary"
+QWERTY: Final[str]
+QWERTZ: Final[str]
 
 def isShiftCharacter(character: str) -> bool: ...
 
-MINIMUM_DURATION: float
-MINIMUM_SLEEP: float
+MINIMUM_DURATION: Final = 0.1
+MINIMUM_SLEEP: Final = 0.05
 PAUSE: float
-DARWIN_CATCH_UP_TIME: float
-FAILSAFE: bool
+DARWIN_CATCH_UP_TIME: Final = 0.01
+FAILSAFE: Final = True
 FAILSAFE_POINTS: list[tuple[int, int]]
-LOG_SCREENSHOTS: bool
-LOG_SCREENSHOTS_LIMIT: int
+LOG_SCREENSHOTS: Final = False
+LOG_SCREENSHOTS_LIMIT: Final = 10
 G_LOG_SCREENSHOTS_FILENAMES: list[str]
 
 class Point(NamedTuple):
@@ -230,7 +230,7 @@ def typewrite(
 
 write = typewrite
 
-def hotkey(*args: str, logScreenshot: bool | None = ..., interval: float = ...) -> None: ...
+def hotkey(*args: str, logScreenshot: bool | None = None, interval: float = 0.0) -> None: ...
 def failSafeCheck() -> None: ...
 def displayMousePosition(xOffset: float = 0, yOffset: float = 0) -> None: ...
 def sleep(seconds: float) -> None: ...
