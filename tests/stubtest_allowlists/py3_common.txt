@@ -221,7 +221,7 @@ webbrowser.UnixBrowser.remote_action_newwin  # always overridden in inheriting c
 xml.parsers.expat.expat_CAPI
 
 # ==========
-# The "lock" argument exists at runtime,
+# The "loop" argument exists at runtime,
 # but raises TypeError if you try to provide any value for it
 # ==========
 asyncio.BoundedSemaphore.__init__
