@@ -94,7 +94,7 @@ class EnableContext(rq.ReplyRequest):
         self,
         callback: Callable[[rq.DictWrapper | dict[str, Any]], Any],
         display: display.Display,
-        defer: bool = ...,
+        defer: bool = False,
         *args: object | bool,
         **keys: object | bool,
     ) -> None: ...

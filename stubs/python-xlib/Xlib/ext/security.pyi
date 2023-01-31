@@ -18,7 +18,7 @@ class SecurityGenerateAuthorization(rq.ReplyRequest): ...
 def generate_authorization(
     self: Display | resource.Resource,
     auth_proto: str,
-    auth_data: bytes | bytearray = ...,
+    auth_data: bytes | bytearray = b"",
     timeout: int | None = None,
     trust_level: int | None = None,
     group: int | None = None,

@@ -8,7 +8,7 @@ from typing import Any, SupportsInt, TypeVar, overload, type_check_only
 from typing_extensions import Literal, LiteralString, SupportsIndex, TypeAlias
 
 from Xlib._typing import ErrorHandler, Unused
-from Xlib.display import _ResourceBaseClass
+from Xlib.display import _BaseDisplay, _ResourceBaseClass
 from Xlib.error import XError
 from Xlib.ext.xinput import ClassInfoClass
 from Xlib.protocol import display
@@ -16,12 +16,6 @@ from Xlib.protocol import display
 _T = TypeVar("_T")
 _IntNew: TypeAlias = str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc
 _ModifierMappingList8Elements: TypeAlias = Sequence[Sequence[int]]
-
-# Workaround for pytype crash. Should be Xlib.display._BaseDisplay
-@type_check_only
-class _BaseDisplay(display.Display):
-    def __init__(self, display: str | None = ...) -> None: ...
-    def get_atom(self, atomname: str, only_if_exists: bool = ...) -> int: ...
 
 def decode_string(bs: bytes | bytearray) -> str: ...
 def encode_array(a: array[Any] | memoryview) -> str: ...
