@@ -65,6 +65,22 @@ tempfile.SpooledTemporaryFile.readable
 tempfile.SpooledTemporaryFile.seekable
 tempfile.SpooledTemporaryFile.writable
 
+# The "loop" argument exists at runtime,
+# but raises TypeError if you try to provide any value for it
+asyncio.BoundedSemaphore.__init__
+asyncio.Condition.__init__
+asyncio.Event.__init__
+asyncio.Lock.__init__
+asyncio.Queue.__init__
+asyncio.Semaphore.__init__
+asyncio.locks.BoundedSemaphore.__init__
+asyncio.locks.Semaphore.__init__
+asyncio.locks.Condition.__init__
+asyncio.locks.Event.__init__
+asyncio.locks.Lock.__init__
+asyncio.locks.Semaphore.__init__
+asyncio.queues.Queue.__init__
+
 # Exists at runtime, but missing from stubs
 _collections_abc.AsyncIterable.__class_getitem__
 _collections_abc.Awaitable.__class_getitem__
