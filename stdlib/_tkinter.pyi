@@ -118,6 +118,7 @@ if sys.version_info >= (3, 8):
         __sync: bool = False,
         __use: str | None = None,
     ): ...
+
 else:
     def create(
         __screenName: str | None = None,
@@ -129,5 +130,6 @@ else:
         __sync: bool = False,
         __use: str | None = None,
     ): ...
+
 def getbusywaitinterval(): ...
 def setbusywaitinterval(__new_val): ...
