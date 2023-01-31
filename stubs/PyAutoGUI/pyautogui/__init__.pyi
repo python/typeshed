@@ -28,7 +28,7 @@ _NormalizeableXArg: TypeAlias = str | SupportsInt | Sequence[SupportsInt]
 
 def raisePyAutoGUIImageNotFoundException(wrappedFunction: Callable[_P, _R]) -> Callable[_P, _R]: ...
 def mouseInfo() -> None: ...
-def useImageNotFoundException(value: bool | None = ...) -> None: ...
+def useImageNotFoundException(value: bool | None = None) -> None: ...
 
 KEY_NAMES: list[str]
 KEYBOARD_KEYS: list[str]
@@ -62,179 +62,179 @@ class Size(NamedTuple):
 
 def getPointOnLine(x1: float, y1: float, x2: float, y2: float, n: float) -> tuple[float, float]: ...
 def linear(n: float) -> float: ...
-def position(x: int | None = ..., y: int | None = ...) -> Point: ...
+def position(x: int | None = None, y: int | None = None) -> Point: ...
 def size() -> Size: ...
-def onScreen(x: _NormalizeableXArg | None, y: SupportsInt | None = ...) -> bool: ...
+def onScreen(x: _NormalizeableXArg | None, y: SupportsInt | None = None) -> bool: ...
 def mouseDown(
-    x: _NormalizeableXArg | None = ...,
-    y: SupportsInt | None = ...,
+    x: _NormalizeableXArg | None = None,
+    y: SupportsInt | None = None,
     # Docstring says `button` can also be `int`, but `.lower()` is called unconditionally in `_normalizeButton()`
-    button: str = ...,
-    duration: float = ...,
+    button: str = "primary",
+    duration: float = 0.0,
     tween: Callable[[float], float] = ...,
-    logScreenshot: bool | None = ...,
-    _pause: bool = ...,
+    logScreenshot: bool | None = None,
+    _pause: bool = True,
 ) -> None: ...
 def mouseUp(
-    x: _NormalizeableXArg | None = ...,
-    y: SupportsInt | None = ...,
+    x: _NormalizeableXArg | None = None,
+    y: SupportsInt | None = None,
     # Docstring says `button` can also be `int`, but `.lower()` is called unconditionally in `_normalizeButton()`
-    button: str = ...,
-    duration: float = ...,
+    button: str = "primary",
+    duration: float = 0.0,
     tween: Callable[[float], float] = ...,
-    logScreenshot: bool | None = ...,
-    _pause: bool = ...,
+    logScreenshot: bool | None = None,
+    _pause: bool = True,
 ) -> None: ...
 def click(
-    x: _NormalizeableXArg | None = ...,
-    y: SupportsInt | None = ...,
-    clicks: SupportsIndex = ...,
-    interval: float = ...,
+    x: _NormalizeableXArg | None = None,
+    y: SupportsInt | None = None,
+    clicks: SupportsIndex = 1,
+    interval: float = 0.0,
     # Docstring says `button` can also be `int`, but `.lower()` is called unconditionally in `_normalizeButton()`
-    button: str = ...,
-    duration: float = ...,
+    button: str = "primary",
+    duration: float = 0.0,
     tween: Callable[[float], float] = ...,
-    logScreenshot: bool | None = ...,
-    _pause: bool = ...,
+    logScreenshot: bool | None = None,
+    _pause: bool = True,
 ) -> None: ...
 def leftClick(
-    x: _NormalizeableXArg | None = ...,
-    y: SupportsInt | None = ...,
-    interval: float = ...,
-    duration: float = ...,
+    x: _NormalizeableXArg | None = None,
+    y: SupportsInt | None = None,
+    interval: float = 0.0,
+    duration: float = 0.0,
     tween: Callable[[float], float] = ...,
-    logScreenshot: bool | None = ...,
-    _pause: bool = ...,
+    logScreenshot: bool | None = None,
+    _pause: bool = True,
 ) -> None: ...
 def rightClick(
-    x: _NormalizeableXArg | None = ...,
-    y: SupportsInt | None = ...,
-    interval: float = ...,
-    duration: float = ...,
+    x: _NormalizeableXArg | None = None,
+    y: SupportsInt | None = None,
+    interval: float = 0.0,
+    duration: float = 0.0,
     tween: Callable[[float], float] = ...,
-    logScreenshot: bool | None = ...,
-    _pause: bool = ...,
+    logScreenshot: bool | None = None,
+    _pause: bool = True,
 ) -> None: ...
 def middleClick(
-    x: _NormalizeableXArg | None = ...,
-    y: SupportsInt | None = ...,
-    interval: float = ...,
-    duration: float = ...,
+    x: _NormalizeableXArg | None = None,
+    y: SupportsInt | None = None,
+    interval: float = 0.0,
+    duration: float = 0.0,
     tween: Callable[[float], float] = ...,
-    logScreenshot: bool | None = ...,
-    _pause: bool = ...,
+    logScreenshot: bool | None = None,
+    _pause: bool = True,
 ) -> None: ...
 def doubleClick(
-    x: _NormalizeableXArg | None = ...,
-    y: SupportsInt | None = ...,
-    interval: float = ...,
+    x: _NormalizeableXArg | None = None,
+    y: SupportsInt | None = None,
+    interval: float = 0.0,
     # Docstring says `button` can also be `int`, but `.lower()` is called unconditionally in `_normalizeButton()`
-    button: str = ...,
-    duration: float = ...,
+    button: str = "left",
+    duration: float = 0.0,
     tween: Callable[[float], float] = ...,
-    logScreenshot: bool | None = ...,
-    _pause: bool = ...,
+    logScreenshot: bool | None = None,
+    _pause: bool = True,
 ) -> None: ...
 def tripleClick(
-    x: _NormalizeableXArg | None = ...,
-    y: SupportsInt | None = ...,
-    interval: float = ...,
+    x: _NormalizeableXArg | None = None,
+    y: SupportsInt | None = None,
+    interval: float = 0.0,
     # Docstring says `button` can also be `int`, but `.lower()` is called unconditionally in `_normalizeButton()`
-    button: str = ...,
-    duration: float = ...,
+    button: str = "left",
+    duration: float = 0.0,
     tween: Callable[[float], float] = ...,
-    logScreenshot: bool | None = ...,
-    _pause: bool = ...,
+    logScreenshot: bool | None = None,
+    _pause: bool = True,
 ) -> None: ...
 def scroll(
     clicks: float,
-    x: _NormalizeableXArg | None = ...,
-    y: SupportsInt | None = ...,
-    logScreenshot: bool | None = ...,
-    _pause: bool = ...,
+    x: _NormalizeableXArg | None = None,
+    y: SupportsInt | None = None,
+    logScreenshot: bool | None = None,
+    _pause: bool = True,
 ) -> None: ...
 def hscroll(
     clicks: float,
-    x: _NormalizeableXArg | None = ...,
-    y: SupportsInt | None = ...,
-    logScreenshot: bool | None = ...,
-    _pause: bool = ...,
+    x: _NormalizeableXArg | None = None,
+    y: SupportsInt | None = None,
+    logScreenshot: bool | None = None,
+    _pause: bool = True,
 ) -> None: ...
 def vscroll(
     clicks: float,
-    x: _NormalizeableXArg | None = ...,
-    y: SupportsInt | None = ...,
-    logScreenshot: bool | None = ...,
-    _pause: bool = ...,
+    x: _NormalizeableXArg | None = None,
+    y: SupportsInt | None = None,
+    logScreenshot: bool | None = None,
+    _pause: bool = True,
 ) -> None: ...
 def moveTo(
-    x: _NormalizeableXArg | None = ...,
-    y: SupportsInt | None = ...,
-    duration: float = ...,
+    x: _NormalizeableXArg | None = None,
+    y: SupportsInt | None = None,
+    duration: float = 0.0,
     tween: Callable[[float], float] = ...,
-    logScreenshot: bool = ...,
-    _pause: bool = ...,
+    logScreenshot: bool = False,
+    _pause: bool = True,
 ) -> None: ...
 def moveRel(
-    xOffset: _NormalizeableXArg | None = ...,
-    yOffset: SupportsInt | None = ...,
-    duration: float = ...,
+    xOffset: _NormalizeableXArg | None = None,
+    yOffset: SupportsInt | None = None,
+    duration: float = 0.0,
     tween: Callable[[float], float] = ...,
-    logScreenshot: bool = ...,
-    _pause: bool = ...,
+    logScreenshot: bool = False,
+    _pause: bool = True,
 ) -> None: ...
 
 move = moveRel
 
 def dragTo(
-    x: _NormalizeableXArg | None = ...,
-    y: SupportsInt | None = ...,
-    duration: float = ...,
+    x: _NormalizeableXArg | None = None,
+    y: SupportsInt | None = None,
+    duration: float = 0.0,
     tween: Callable[[float], float] = ...,
     # Docstring says `button` can also be `int`, but `.lower()` is called unconditionally in `_normalizeButton()`
-    button: str = ...,
-    logScreenshot: bool | None = ...,
-    _pause: bool = ...,
-    mouseDownUp: bool = ...,
+    button: str = "primary",
+    logScreenshot: bool | None = None,
+    _pause: bool = True,
+    mouseDownUp: bool = True,
 ) -> None: ...
 def dragRel(
-    xOffset: _NormalizeableXArg | None = ...,
-    yOffset: SupportsInt | None = ...,
-    duration: float = ...,
+    xOffset: _NormalizeableXArg | None = 0,
+    yOffset: SupportsInt | None = 0,
+    duration: float = 0.0,
     tween: Callable[[float], float] = ...,
     # Docstring says `button` can also be `int`, but `.lower()` is called unconditionally in `_normalizeButton()`
-    button: str = ...,
-    logScreenshot: bool | None = ...,
-    _pause: bool = ...,
-    mouseDownUp: bool = ...,
+    button: str = "primary",
+    logScreenshot: bool | None = None,
+    _pause: bool = True,
+    mouseDownUp: bool = True,
 ) -> None: ...
 
 drag = dragRel
 
 def isValidKey(key: str) -> bool: ...
-def keyDown(key: str, logScreenshot: bool | None = ..., _pause: bool = ...) -> None: ...
-def keyUp(key: str, logScreenshot: bool | None = ..., _pause: bool = ...) -> None: ...
+def keyDown(key: str, logScreenshot: bool | None = None, _pause: bool = True) -> None: ...
+def keyUp(key: str, logScreenshot: bool | None = None, _pause: bool = True) -> None: ...
 def press(
     keys: str | Iterable[str],
-    presses: SupportsIndex = ...,
-    interval: float = ...,
-    logScreenshot: bool | None = ...,
-    _pause: bool = ...,
+    presses: SupportsIndex = 1,
+    interval: float = 0.0,
+    logScreenshot: bool | None = None,
+    _pause: bool = True,
 ) -> None: ...
 def hold(
-    keys: str | Iterable[str], logScreenshot: bool | None = ..., _pause: bool = ...
+    keys: str | Iterable[str], logScreenshot: bool | None = None, _pause: bool = True
 ) -> contextlib._GeneratorContextManager[None]: ...
 def typewrite(
-    message: str | Sequence[str], interval: float = ..., logScreenshot: bool | None = ..., _pause: bool = ...
+    message: str | Sequence[str], interval: float = 0.0, logScreenshot: bool | None = None, _pause: bool = True
 ) -> None: ...
 
 write = typewrite
 
 def hotkey(*args: str, logScreenshot: bool | None = ..., interval: float = ...) -> None: ...
 def failSafeCheck() -> None: ...
-def displayMousePosition(xOffset: float = ..., yOffset: float = ...) -> None: ...
+def displayMousePosition(xOffset: float = 0, yOffset: float = 0) -> None: ...
 def sleep(seconds: float) -> None: ...
 def countdown(seconds: SupportsIndex) -> None: ...
-def run(commandStr: str, _ssCount: Sequence[int] | None = ...) -> None: ...
-def printInfo(dontPrint: bool = ...) -> str: ...
+def run(commandStr: str, _ssCount: Sequence[int] | None = None) -> None: ...
+def printInfo(dontPrint: bool = False) -> str: ...
 def getInfo() -> tuple[str, str, str, str, Size, datetime]: ...
