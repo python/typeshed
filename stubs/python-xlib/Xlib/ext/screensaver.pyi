@@ -34,16 +34,16 @@ def set_attributes(
     width: int,
     height: int,
     border_width: int,
-    window_class: int = ...,
-    depth: int = ...,
-    visual: int = ...,
-    onerror: ErrorHandler[object] | None = ...,
+    window_class: int = 0,
+    depth: int = 0,
+    visual: int = 0,
+    onerror: ErrorHandler[object] | None = None,
     **keys: object,
 ) -> SetAttributes: ...
 
 class UnsetAttributes(rq.Request): ...
 
-def unset_attributes(self: drawable.Drawable, onerror: ErrorHandler[object] | None = ...) -> UnsetAttributes: ...
+def unset_attributes(self: drawable.Drawable, onerror: ErrorHandler[object] | None = None) -> UnsetAttributes: ...
 
 class Notify(rq.Event): ...
 

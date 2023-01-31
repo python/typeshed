@@ -90,7 +90,7 @@ class FormatField(Field):
 Format = FormatField
 
 class ValueField(Field):
-    def __init__(self, name: str, default: int | None = ...) -> None: ...
+    def __init__(self, name: str, default: int | None = None) -> None: ...
 
 class Int8(ValueField):
     structcode: str
@@ -114,7 +114,7 @@ class Resource(Card32):
     cast_function: str
     class_name: str
     codes: tuple[int, ...]
-    def __init__(self, name: str, codes: tuple[int, ...] = ..., default: int | None = ...) -> None: ...
+    def __init__(self, name: str, codes: tuple[int, ...] = ..., default: int | None = None) -> None: ...
     @overload  # type: ignore[override]
     def check_value(self, value: Callable[[], _T]) -> _T: ...
     @overload
@@ -160,7 +160,7 @@ class Bool(ValueField):
 class Set(ValueField):
     structcode: str
     values: Sequence[object]
-    def __init__(self, name: str, size: int, values: Sequence[object], default: int | None = ...) -> None: ...
+    def __init__(self, name: str, size: int, values: Sequence[object], default: int | None = None) -> None: ...
     def check_value(self, val: _T) -> _T: ...  # type: ignore[override]
 
 class Gravity(Set):
@@ -173,7 +173,7 @@ class FixedBinary(ValueField):
 class Binary(ValueField):
     structcode: None
     pad: int
-    def __init__(self, name: str, pad: int = ...) -> None: ...
+    def __init__(self, name: str, pad: int = 1) -> None: ...
     def pack_value(  # type: ignore[override]  # Override Callable
         self, val: bytes | bytearray
     ) -> tuple[bytes | bytearray, int, None]: ...
@@ -187,7 +187,7 @@ class Binary(ValueField):
 class String8(ValueField):
     structcode: None
     pad: int
-    def __init__(self, name: str, pad: int = ...) -> None: ...
+    def __init__(self, name: str, pad: int = 1) -> None: ...
     def pack_value(self, val: bytes | str) -> tuple[bytes, int, None]: ...  # type: ignore[override]  # Override Callable
     @overload  # type: ignore[override]  # Overload for specific values
     def parse_binary_value(
@@ -201,7 +201,7 @@ class String8(ValueField):
 class String16(ValueField):
     structcode: None
     pad: int
-    def __init__(self, name: str, pad: int = ...) -> None: ...
+    def __init__(self, name: str, pad: int = 1) -> None: ...
     def pack_value(self, val: Sequence[object]) -> tuple[bytes, int, None]: ...  # type: ignore[override]  # Override Callable
     def parse_binary_value(  # type: ignore[override]  # length: None will error. See: https://github.com/python-xlib/python-xlib/pull/248
         self, data: SliceableBuffer, display: Unused, length: int | Literal["odd", "even"], format: Unused
@@ -212,7 +212,7 @@ class List(ValueField):
     type: Struct | ScalarObj | ResourceObj | ClassInfoClass | type[ValueField]
     pad: int
     def __init__(
-        self, name: str, type: Struct | ScalarObj | ResourceObj | ClassInfoClass | Type[ValueField], pad: int = ...
+        self, name: str, type: Struct | ScalarObj | ResourceObj | ClassInfoClass | Type[ValueField], pad: int = 1
     ) -> None: ...
     def parse_binary_value(
         self, data: SliceableBuffer, display: display.Display | None, length: SupportsIndex | None, format: Unused
@@ -223,7 +223,7 @@ class List(ValueField):
 
 class FixedList(List):
     size: int
-    def __init__(self, name: str, size: int, type: Struct | ScalarObj, pad: int = ...) -> None: ...
+    def __init__(self, name: str, size: int, type: Struct | ScalarObj, pad: int = 1) -> None: ...
     def parse_binary_value(
         self, data: SliceableBuffer, display: display.Display | None, length: Unused, format: Unused
     ) -> tuple[list[DictWrapper | None], SliceableBuffer]: ...
@@ -231,7 +231,7 @@ class FixedList(List):
 class Object(ValueField):
     type: Struct
     structcode: str | None
-    def __init__(self, name: str, type: Struct, default: int | None = ...) -> None: ...
+    def __init__(self, name: str, type: Struct, default: int | None = None) -> None: ...
     def parse_binary_value(
         self, data: SliceableBuffer, display: display.Display | None, length: Unused, format: Unused
     ) -> tuple[DictWrapper, SliceableBuffer]: ...
@@ -342,7 +342,7 @@ class Struct:
     def parse_value(self, val: SliceableBuffer, display: display.Display | None, rawdict: Literal[True]) -> dict[str, Any]: ...
     @overload
     def parse_value(
-        self, val: SliceableBuffer, display: display.Display | None, rawdict: Literal[False] = ...
+        self, val: SliceableBuffer, display: display.Display | None, rawdict: Literal[False] = False
     ) -> DictWrapper: ...
     @overload
     def parse_binary(
@@ -350,7 +350,7 @@ class Struct:
     ) -> tuple[dict[str, Any], SliceableBuffer]: ...
     @overload
     def parse_binary(
-        self, data: SliceableBuffer, display: display.Display | None, rawdict: Literal[False] = ...
+        self, data: SliceableBuffer, display: display.Display | None, rawdict: Literal[False] = False
     ) -> tuple[DictWrapper, SliceableBuffer]: ...
     # Structs generate their attributes
     # TODO: Create a specific type-only class for all instances of `Struct`
@@ -385,16 +385,16 @@ class DictWrapper(GetAttrData):
 
 class Request:
     def __init__(
-        self, display: _BaseDisplay, onerror: ErrorHandler[object] | None = ..., *args: object, **keys: object
+        self, display: _BaseDisplay, onerror: ErrorHandler[object] | None = None, *args: object, **keys: object
     ) -> None: ...
 
 class ReplyRequest(GetAttrData):
-    def __init__(self, display: display.Display, defer: int = ..., *args: object, **keys: object) -> None: ...
+    def __init__(self, display: display.Display, defer: int = False, *args: object, **keys: object) -> None: ...
     def reply(self) -> None: ...
 
 class Event(GetAttrData):
     def __init__(
-        self, binarydata: SliceableBuffer | None = ..., display: display.Display | None = ..., **keys: object
+        self, binarydata: SliceableBuffer | None = None, display: display.Display | None = None, **keys: object
     ) -> None: ...
 
 def call_error_handler(

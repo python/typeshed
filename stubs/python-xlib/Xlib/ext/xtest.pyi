@@ -17,13 +17,7 @@ def compare_cursor(self: Display | resource.Resource, cursor: int) -> int: ...
 class FakeInput(rq.Request): ...
 
 def fake_input(
-    self: Display | resource.Resource,
-    event_type: int,
-    detail: int = ...,
-    time: int = ...,
-    root: int = ...,
-    x: int = ...,
-    y: int = ...,
+    self: Display | resource.Resource, event_type: int, detail: int = 0, time: int = 0, root: int = 0, x: int = 0, y: int = 0
 ) -> None: ...
 
 class GrabControl(rq.Request): ...

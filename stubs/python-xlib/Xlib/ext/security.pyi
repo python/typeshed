@@ -19,10 +19,10 @@ def generate_authorization(
     self: Display | resource.Resource,
     auth_proto: str,
     auth_data: bytes | bytearray = ...,
-    timeout: int | None = ...,
-    trust_level: int | None = ...,
-    group: int | None = ...,
-    event_mask: int | None = ...,
+    timeout: int | None = None,
+    trust_level: int | None = None,
+    group: int | None = None,
+    event_mask: int | None = None,
 ) -> SecurityGenerateAuthorization: ...
 
 class SecurityRevokeAuthorization(rq.Request): ...
