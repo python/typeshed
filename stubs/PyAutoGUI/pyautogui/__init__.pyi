@@ -2,7 +2,7 @@ import contextlib
 from collections.abc import Callable, Iterable, Sequence
 from datetime import datetime
 from typing import NamedTuple, SupportsInt, TypeVar
-from typing_extensions import Final, Literal, ParamSpec, SupportsIndex, TypeAlias
+from typing_extensions import Final, ParamSpec, SupportsIndex, TypeAlias
 
 from pyscreeze import (
     center as center,
