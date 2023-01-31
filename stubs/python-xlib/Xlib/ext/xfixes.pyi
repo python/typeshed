@@ -1,19 +1,21 @@
+from typing_extensions import Final
+
 from Xlib._typing import Unused
 from Xlib.display import Display
 from Xlib.protocol import request, rq
 from Xlib.xobject import drawable, resource
 
-extname: str
-XFixesSelectionNotify: int
-XFixesCursorNotify: int
-XFixesSetSelectionOwnerNotifyMask: int
-XFixesSelectionWindowDestroyNotifyMask: int
-XFixesSelectionClientCloseNotifyMask: int
-XFixesDisplayCursorNotifyMask: int
-XFixesSetSelectionOwnerNotify: int
-XFixesSelectionWindowDestroyNotify: int
-XFixesSelectionClientCloseNotify: int
-XFixesDisplayCursorNotify: int
+extname: Final = "XFIXES"
+XFixesSelectionNotify: Final = 0
+XFixesCursorNotify: Final = 1
+XFixesSetSelectionOwnerNotifyMask: Final = 1
+XFixesSelectionWindowDestroyNotifyMask: Final = 2
+XFixesSelectionClientCloseNotifyMask: Final = 4
+XFixesDisplayCursorNotifyMask: Final = 8
+XFixesSetSelectionOwnerNotify: Final = 0
+XFixesSelectionWindowDestroyNotify: Final = 1
+XFixesSelectionClientCloseNotify: Final = 2
+XFixesDisplayCursorNotify: Final = 0
 
 class QueryVersion(rq.ReplyRequest): ...
 

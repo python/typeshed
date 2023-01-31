@@ -1,4 +1,5 @@
 from typing import NoReturn
+from typing_extensions import Final
 
 from Xlib import display
 from Xlib.protocol import rq
@@ -130,4 +131,4 @@ class SetModifierMapping(rq.ReplyRequest): ...
 class GetModifierMapping(rq.ReplyRequest): ...
 class NoOperation(rq.Request): ...
 
-major_codes: dict[int, type[rq.Request]]
+major_codes: Final[dict[int, type[rq.Request]]]

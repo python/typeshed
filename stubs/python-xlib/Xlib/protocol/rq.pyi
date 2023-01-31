@@ -5,7 +5,7 @@ from array import array
 from builtins import type as Type
 from collections.abc import Callable, Iterable, Sequence
 from typing import Any, SupportsInt, TypeVar, overload, type_check_only
-from typing_extensions import Literal, LiteralString, SupportsIndex, TypeAlias
+from typing_extensions import Final, Literal, LiteralString, SupportsIndex, TypeAlias
 
 from Xlib._typing import ErrorHandler, Unused
 from Xlib.display import _BaseDisplay, _ResourceBaseClass
@@ -22,11 +22,10 @@ def encode_array(a: array[Any] | memoryview) -> str: ...
 
 class BadDataError(Exception): ...
 
-signed_codes: dict[int, str]
-unsigned_codes: dict[int, str]
-array_unsigned_codes: dict[int, LiteralString]
-struct_to_array_codes: dict[str, LiteralString]
-size: int
+signed_codes: Final[dict[int, str]]
+unsigned_codes: Final[dict[int, str]]
+array_unsigned_codes: Final[dict[int, LiteralString]]
+struct_to_array_codes: Final[dict[str, LiteralString]]
 
 class Field:
     name: str

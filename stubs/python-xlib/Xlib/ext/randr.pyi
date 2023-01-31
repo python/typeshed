@@ -1,5 +1,5 @@
 from collections.abc import Sequence
-from typing_extensions import TypeAlias
+from typing_extensions import Final, TypeAlias
 
 from Xlib.display import Display
 from Xlib.protocol import request, rq
@@ -7,59 +7,59 @@ from Xlib.xobject import drawable, resource
 
 _RandRModeInfo13IntSequence: TypeAlias = Sequence[int]
 
-extname: str
-RRScreenChangeNotify: int
-RRNotify: int
-RRNotify_CrtcChange: int
-RRNotify_OutputChange: int
-RRNotify_OutputProperty: int
-RRScreenChangeNotifyMask: int
-RRCrtcChangeNotifyMask: int
-RROutputChangeNotifyMask: int
-RROutputPropertyNotifyMask: int
-SetConfigSuccess: int
-SetConfigInvalidConfigTime: int
-SetConfigInvalidTime: int
-SetConfigFailed: int
-Rotate_0: int
-Rotate_90: int
-Rotate_180: int
-Rotate_270: int
-Reflect_X: int
-Reflect_Y: int
-HSyncPositive: int
-HSyncNegative: int
-VSyncPositive: int
-VSyncNegative: int
-Interlace: int
-DoubleScan: int
-CSync: int
-CSyncPositive: int
-CSyncNegative: int
-HSkewPresent: int
-BCast: int
-PixelMultiplex: int
-DoubleClock: int
-ClockDivideBy2: int
-Connected: int
-Disconnected: int
-UnknownConnection: int
-PROPERTY_RANDR_EDID: str
-PROPERTY_SIGNAL_FORMAT: str
-PROPERTY_SIGNAL_PROPERTIES: str
-PROPERTY_CONNECTOR_TYPE: str
-PROPERTY_CONNECTOR_NUMBER: str
-PROPERTY_COMPATIBILITY_LIST: str
-PROPERTY_CLONE_LIST: str
-SubPixelUnknown: int
-SubPixelHorizontalRGB: int
-SubPixelHorizontalBGR: int
-SubPixelVerticalRGB: int
-SubPixelVerticalBGR: int
-SubPixelNone: int
-BadRROutput: int
-BadRRCrtc: int
-BadRRMode: int
+extname: Final = "RANDR"
+RRScreenChangeNotify: Final = 0
+RRNotify: Final = 1
+RRNotify_CrtcChange: Final = 0
+RRNotify_OutputChange: Final = 1
+RRNotify_OutputProperty: Final = 2
+RRScreenChangeNotifyMask: Final = 1
+RRCrtcChangeNotifyMask: Final = 2
+RROutputChangeNotifyMask: Final = 4
+RROutputPropertyNotifyMask: Final = 8
+SetConfigSuccess: Final = 0
+SetConfigInvalidConfigTime: Final = 1
+SetConfigInvalidTime: Final = 2
+SetConfigFailed: Final = 3
+Rotate_0: Final = 1
+Rotate_90: Final = 2
+Rotate_180: Final = 4
+Rotate_270: Final = 8
+Reflect_X: Final = 16
+Reflect_Y: Final = 32
+HSyncPositive: Final = 0x00000001
+HSyncNegative: Final = 0x00000002
+VSyncPositive: Final = 0x00000004
+VSyncNegative: Final = 0x00000008
+Interlace: Final = 0x00000010
+DoubleScan: Final = 0x00000020
+CSync: Final = 0x00000040
+CSyncPositive: Final = 0x00000080
+CSyncNegative: Final = 0x00000100
+HSkewPresent: Final = 0x00000200
+BCast: Final = 0x00000400
+PixelMultiplex: Final = 0x00000800
+DoubleClock: Final = 0x00001000
+ClockDivideBy2: Final = 0x00002000
+Connected: Final = 0
+Disconnected: Final = 1
+UnknownConnection: Final = 2
+PROPERTY_RANDR_EDID: Final = "EDID"
+PROPERTY_SIGNAL_FORMAT: Final = "SignalFormat"
+PROPERTY_SIGNAL_PROPERTIES: Final = "SignalProperties"
+PROPERTY_CONNECTOR_TYPE: Final = "ConnectorType"
+PROPERTY_CONNECTOR_NUMBER: Final = "ConnectorNumber"
+PROPERTY_COMPATIBILITY_LIST: Final = "CompatibilityList"
+PROPERTY_CLONE_LIST: Final = "CloneList"
+SubPixelUnknown: Final = 0
+SubPixelHorizontalRGB: Final = 1
+SubPixelHorizontalBGR: Final = 2
+SubPixelVerticalRGB: Final = 3
+SubPixelVerticalBGR: Final = 4
+SubPixelNone: Final = 5
+BadRROutput: Final = 0
+BadRRCrtc: Final = 1
+BadRRMode: Final = 2
 
 class BadRROutputError(Exception): ...
 class BadRRCrtcError(Exception): ...

@@ -1,345 +1,347 @@
-NONE: int
-ParentRelative: int
-CopyFromParent: int
-PointerWindow: int
-InputFocus: int
-PointerRoot: int
-AnyPropertyType: int
-AnyKey: int
-AnyButton: int
-AllTemporary: int
-CurrentTime: int
-NoSymbol: int
-NoEventMask: int
-KeyPressMask: int
-KeyReleaseMask: int
-ButtonPressMask: int
-ButtonReleaseMask: int
-EnterWindowMask: int
-LeaveWindowMask: int
-PointerMotionMask: int
-PointerMotionHintMask: int
-Button1MotionMask: int
-Button2MotionMask: int
-Button3MotionMask: int
-Button4MotionMask: int
-Button5MotionMask: int
-ButtonMotionMask: int
-KeymapStateMask: int
-ExposureMask: int
-VisibilityChangeMask: int
-StructureNotifyMask: int
-ResizeRedirectMask: int
-SubstructureNotifyMask: int
-SubstructureRedirectMask: int
-FocusChangeMask: int
-PropertyChangeMask: int
-ColormapChangeMask: int
-OwnerGrabButtonMask: int
-KeyPress: int
-KeyRelease: int
-ButtonPress: int
-ButtonRelease: int
-MotionNotify: int
-EnterNotify: int
-LeaveNotify: int
-FocusIn: int
-FocusOut: int
-KeymapNotify: int
-Expose: int
-GraphicsExpose: int
-NoExpose: int
-VisibilityNotify: int
-CreateNotify: int
-DestroyNotify: int
-UnmapNotify: int
-MapNotify: int
-MapRequest: int
-ReparentNotify: int
-ConfigureNotify: int
-ConfigureRequest: int
-GravityNotify: int
-ResizeRequest: int
-CirculateNotify: int
-CirculateRequest: int
-PropertyNotify: int
-SelectionClear: int
-SelectionRequest: int
-SelectionNotify: int
-ColormapNotify: int
-ClientMessage: int
-MappingNotify: int
-LASTEvent: int
-ShiftMask: int
-LockMask: int
-ControlMask: int
-Mod1Mask: int
-Mod2Mask: int
-Mod3Mask: int
-Mod4Mask: int
-Mod5Mask: int
-ShiftMapIndex: int
-LockMapIndex: int
-ControlMapIndex: int
-Mod1MapIndex: int
-Mod2MapIndex: int
-Mod3MapIndex: int
-Mod4MapIndex: int
-Mod5MapIndex: int
-Button1Mask: int
-Button2Mask: int
-Button3Mask: int
-Button4Mask: int
-Button5Mask: int
-AnyModifier: int
-Button1: int
-Button2: int
-Button3: int
-Button4: int
-Button5: int
-NotifyNormal: int
-NotifyGrab: int
-NotifyUngrab: int
-NotifyWhileGrabbed: int
-NotifyHint: int
-NotifyAncestor: int
-NotifyVirtual: int
-NotifyInferior: int
-NotifyNonlinear: int
-NotifyNonlinearVirtual: int
-NotifyPointer: int
-NotifyPointerRoot: int
-NotifyDetailNone: int
-VisibilityUnobscured: int
-VisibilityPartiallyObscured: int
-VisibilityFullyObscured: int
-PlaceOnTop: int
-PlaceOnBottom: int
-FamilyInternet: int
-FamilyDECnet: int
-FamilyChaos: int
-FamilyServerInterpreted: int
-FamilyInternetV6: int
-PropertyNewValue: int
-PropertyDelete: int
-ColormapUninstalled: int
-ColormapInstalled: int
-GrabModeSync: int
-GrabModeAsync: int
-GrabSuccess: int
-AlreadyGrabbed: int
-GrabInvalidTime: int
-GrabNotViewable: int
-GrabFrozen: int
-AsyncPointer: int
-SyncPointer: int
-ReplayPointer: int
-AsyncKeyboard: int
-SyncKeyboard: int
-ReplayKeyboard: int
-AsyncBoth: int
-SyncBoth: int
-RevertToNone: int
-RevertToPointerRoot: int
-RevertToParent: int
-Success: int
-BadRequest: int
-BadValue: int
-BadWindow: int
-BadPixmap: int
-BadAtom: int
-BadCursor: int
-BadFont: int
-BadMatch: int
-BadDrawable: int
-BadAccess: int
-BadAlloc: int
-BadColor: int
-BadGC: int
-BadIDChoice: int
-BadName: int
-BadLength: int
-BadImplementation: int
-FirstExtensionError: int
-LastExtensionError: int
-InputOutput: int
-InputOnly: int
-CWBackPixmap: int
-CWBackPixel: int
-CWBorderPixmap: int
-CWBorderPixel: int
-CWBitGravity: int
-CWWinGravity: int
-CWBackingStore: int
-CWBackingPlanes: int
-CWBackingPixel: int
-CWOverrideRedirect: int
-CWSaveUnder: int
-CWEventMask: int
-CWDontPropagate: int
-CWColormap: int
-CWCursor: int
-CWX: int
-CWY: int
-CWWidth: int
-CWHeight: int
-CWBorderWidth: int
-CWSibling: int
-CWStackMode: int
-ForgetGravity: int
-NorthWestGravity: int
-NorthGravity: int
-NorthEastGravity: int
-WestGravity: int
-CenterGravity: int
-EastGravity: int
-SouthWestGravity: int
-SouthGravity: int
-SouthEastGravity: int
-StaticGravity: int
-UnmapGravity: int
-NotUseful: int
-WhenMapped: int
-Always: int
-IsUnmapped: int
-IsUnviewable: int
-IsViewable: int
-SetModeInsert: int
-SetModeDelete: int
-DestroyAll: int
-RetainPermanent: int
-RetainTemporary: int
-Above: int
-Below: int
-TopIf: int
-BottomIf: int
-Opposite: int
-RaiseLowest: int
-LowerHighest: int
-PropModeReplace: int
-PropModePrepend: int
-PropModeAppend: int
-GXclear: int
-GXand: int
-GXandReverse: int
-GXcopy: int
-GXandInverted: int
-GXnoop: int
-GXxor: int
-GXor: int
-GXnor: int
-GXequiv: int
-GXinvert: int
-GXorReverse: int
-GXcopyInverted: int
-GXorInverted: int
-GXnand: int
-GXset: int
-LineSolid: int
-LineOnOffDash: int
-LineDoubleDash: int
-CapNotLast: int
-CapButt: int
-CapRound: int
-CapProjecting: int
-JoinMiter: int
-JoinRound: int
-JoinBevel: int
-FillSolid: int
-FillTiled: int
-FillStippled: int
-FillOpaqueStippled: int
-EvenOddRule: int
-WindingRule: int
-ClipByChildren: int
-IncludeInferiors: int
-Unsorted: int
-YSorted: int
-YXSorted: int
-YXBanded: int
-CoordModeOrigin: int
-CoordModePrevious: int
-Complex: int
-Nonconvex: int
-Convex: int
-ArcChord: int
-ArcPieSlice: int
-GCFunction: int
-GCPlaneMask: int
-GCForeground: int
-GCBackground: int
-GCLineWidth: int
-GCLineStyle: int
-GCCapStyle: int
-GCJoinStyle: int
-GCFillStyle: int
-GCFillRule: int
-GCTile: int
-GCStipple: int
-GCTileStipXOrigin: int
-GCTileStipYOrigin: int
-GCFont: int
-GCSubwindowMode: int
-GCGraphicsExposures: int
-GCClipXOrigin: int
-GCClipYOrigin: int
-GCClipMask: int
-GCDashOffset: int
-GCDashList: int
-GCArcMode: int
-GCLastBit: int
-FontLeftToRight: int
-FontRightToLeft: int
-FontChange: int
-XYBitmap: int
-XYPixmap: int
-ZPixmap: int
-AllocNone: int
-AllocAll: int
-DoRed: int
-DoGreen: int
-DoBlue: int
-CursorShape: int
-TileShape: int
-StippleShape: int
-AutoRepeatModeOff: int
-AutoRepeatModeOn: int
-AutoRepeatModeDefault: int
-LedModeOff: int
-LedModeOn: int
-KBKeyClickPercent: int
-KBBellPercent: int
-KBBellPitch: int
-KBBellDuration: int
-KBLed: int
-KBLedMode: int
-KBKey: int
-KBAutoRepeatMode: int
-MappingSuccess: int
-MappingBusy: int
-MappingFailed: int
-MappingModifier: int
-MappingKeyboard: int
-MappingPointer: int
-DontPreferBlanking: int
-PreferBlanking: int
-DefaultBlanking: int
-DisableScreenSaver: int
-DisableScreenInterval: int
-DontAllowExposures: int
-AllowExposures: int
-DefaultExposures: int
-ScreenSaverReset: int
-ScreenSaverActive: int
-HostInsert: int
-HostDelete: int
-EnableAccess: int
-DisableAccess: int
-StaticGray: int
-GrayScale: int
-StaticColor: int
-PseudoColor: int
-TrueColor: int
-DirectColor: int
-LSBFirst: int
-MSBFirst: int
+from typing_extensions import Final
+
+NONE: Final = 0
+ParentRelative: Final = 1
+CopyFromParent: Final = 0
+PointerWindow: Final = 0
+InputFocus: Final = 1
+PointerRoot: Final = 1
+AnyPropertyType: Final = 0
+AnyKey: Final = 0
+AnyButton: Final = 0
+AllTemporary: Final = 0
+CurrentTime: Final = 0
+NoSymbol: Final = 0
+NoEventMask: Final = 0
+KeyPressMask: Final = 1
+KeyReleaseMask: Final = 2
+ButtonPressMask: Final = 4
+ButtonReleaseMask: Final = 8
+EnterWindowMask: Final = 16
+LeaveWindowMask: Final = 32
+PointerMotionMask: Final = 64
+PointerMotionHintMask: Final = 128
+Button1MotionMask: Final = 256
+Button2MotionMask: Final = 512
+Button3MotionMask: Final = 1024
+Button4MotionMask: Final = 2048
+Button5MotionMask: Final = 4096
+ButtonMotionMask: Final = 8192
+KeymapStateMask: Final = 16384
+ExposureMask: Final = 32768
+VisibilityChangeMask: Final = 65536
+StructureNotifyMask: Final = 131072
+ResizeRedirectMask: Final = 262144
+SubstructureNotifyMask: Final = 524288
+SubstructureRedirectMask: Final = 1048576
+FocusChangeMask: Final = 2097152
+PropertyChangeMask: Final = 4194304
+ColormapChangeMask: Final = 8388608
+OwnerGrabButtonMask: Final = 16777216
+KeyPress: Final = 2
+KeyRelease: Final = 3
+ButtonPress: Final = 4
+ButtonRelease: Final = 5
+MotionNotify: Final = 6
+EnterNotify: Final = 7
+LeaveNotify: Final = 8
+FocusIn: Final = 9
+FocusOut: Final = 10
+KeymapNotify: Final = 11
+Expose: Final = 12
+GraphicsExpose: Final = 13
+NoExpose: Final = 14
+VisibilityNotify: Final = 15
+CreateNotify: Final = 16
+DestroyNotify: Final = 17
+UnmapNotify: Final = 18
+MapNotify: Final = 19
+MapRequest: Final = 20
+ReparentNotify: Final = 21
+ConfigureNotify: Final = 22
+ConfigureRequest: Final = 23
+GravityNotify: Final = 24
+ResizeRequest: Final = 25
+CirculateNotify: Final = 26
+CirculateRequest: Final = 27
+PropertyNotify: Final = 28
+SelectionClear: Final = 29
+SelectionRequest: Final = 30
+SelectionNotify: Final = 31
+ColormapNotify: Final = 32
+ClientMessage: Final = 33
+MappingNotify: Final = 34
+LASTEvent: Final = 35
+ShiftMask: Final = 1
+LockMask: Final = 2
+ControlMask: Final = 4
+Mod1Mask: Final = 8
+Mod2Mask: Final = 16
+Mod3Mask: Final = 32
+Mod4Mask: Final = 64
+Mod5Mask: Final = 128
+ShiftMapIndex: Final = 0
+LockMapIndex: Final = 1
+ControlMapIndex: Final = 2
+Mod1MapIndex: Final = 3
+Mod2MapIndex: Final = 4
+Mod3MapIndex: Final = 5
+Mod4MapIndex: Final = 6
+Mod5MapIndex: Final = 7
+Button1Mask: Final = 256
+Button2Mask: Final = 512
+Button3Mask: Final = 1024
+Button4Mask: Final = 2048
+Button5Mask: Final = 4096
+AnyModifier: Final = 32768
+Button1: Final = 1
+Button2: Final = 2
+Button3: Final = 3
+Button4: Final = 4
+Button5: Final = 5
+NotifyNormal: Final = 0
+NotifyGrab: Final = 1
+NotifyUngrab: Final = 2
+NotifyWhileGrabbed: Final = 3
+NotifyHint: Final = 1
+NotifyAncestor: Final = 0
+NotifyVirtual: Final = 1
+NotifyInferior: Final = 2
+NotifyNonlinear: Final = 3
+NotifyNonlinearVirtual: Final = 4
+NotifyPointer: Final = 5
+NotifyPointerRoot: Final = 6
+NotifyDetailNone: Final = 7
+VisibilityUnobscured: Final = 0
+VisibilityPartiallyObscured: Final = 1
+VisibilityFullyObscured: Final = 2
+PlaceOnTop: Final = 0
+PlaceOnBottom: Final = 1
+FamilyInternet: Final = 0
+FamilyDECnet: Final = 1
+FamilyChaos: Final = 2
+FamilyServerInterpreted: Final = 5
+FamilyInternetV6: Final = 6
+PropertyNewValue: Final = 0
+PropertyDelete: Final = 1
+ColormapUninstalled: Final = 0
+ColormapInstalled: Final = 1
+GrabModeSync: Final = 0
+GrabModeAsync: Final = 1
+GrabSuccess: Final = 0
+AlreadyGrabbed: Final = 1
+GrabInvalidTime: Final = 2
+GrabNotViewable: Final = 3
+GrabFrozen: Final = 4
+AsyncPointer: Final = 0
+SyncPointer: Final = 1
+ReplayPointer: Final = 2
+AsyncKeyboard: Final = 3
+SyncKeyboard: Final = 4
+ReplayKeyboard: Final = 5
+AsyncBoth: Final = 6
+SyncBoth: Final = 7
+RevertToNone: Final = 0
+RevertToPointerRoot: Final = PointerRoot
+RevertToParent: Final = 2
+Success: Final = 0
+BadRequest: Final = 1
+BadValue: Final = 2
+BadWindow: Final = 3
+BadPixmap: Final = 4
+BadAtom: Final = 5
+BadCursor: Final = 6
+BadFont: Final = 7
+BadMatch: Final = 8
+BadDrawable: Final = 9
+BadAccess: Final = 10
+BadAlloc: Final = 11
+BadColor: Final = 12
+BadGC: Final = 13
+BadIDChoice: Final = 14
+BadName: Final = 15
+BadLength: Final = 16
+BadImplementation: Final = 17
+FirstExtensionError: Final = 128
+LastExtensionError: Final = 255
+InputOutput: Final = 1
+InputOnly: Final = 2
+CWBackPixmap: Final = 1
+CWBackPixel: Final = 2
+CWBorderPixmap: Final = 4
+CWBorderPixel: Final = 8
+CWBitGravity: Final = 16
+CWWinGravity: Final = 32
+CWBackingStore: Final = 64
+CWBackingPlanes: Final = 128
+CWBackingPixel: Final = 256
+CWOverrideRedirect: Final = 512
+CWSaveUnder: Final = 1024
+CWEventMask: Final = 2048
+CWDontPropagate: Final = 4096
+CWColormap: Final = 8192
+CWCursor: Final = 16384
+CWX: Final = 1
+CWY: Final = 2
+CWWidth: Final = 4
+CWHeight: Final = 8
+CWBorderWidth: Final = 16
+CWSibling: Final = 32
+CWStackMode: Final = 64
+ForgetGravity: Final = 0
+NorthWestGravity: Final = 1
+NorthGravity: Final = 2
+NorthEastGravity: Final = 3
+WestGravity: Final = 4
+CenterGravity: Final = 5
+EastGravity: Final = 6
+SouthWestGravity: Final = 7
+SouthGravity: Final = 8
+SouthEastGravity: Final = 9
+StaticGravity: Final = 10
+UnmapGravity: Final = 0
+NotUseful: Final = 0
+WhenMapped: Final = 1
+Always: Final = 2
+IsUnmapped: Final = 0
+IsUnviewable: Final = 1
+IsViewable: Final = 2
+SetModeInsert: Final = 0
+SetModeDelete: Final = 1
+DestroyAll: Final = 0
+RetainPermanent: Final = 1
+RetainTemporary: Final = 2
+Above: Final = 0
+Below: Final = 1
+TopIf: Final = 2
+BottomIf: Final = 3
+Opposite: Final = 4
+RaiseLowest: Final = 0
+LowerHighest: Final = 1
+PropModeReplace: Final = 0
+PropModePrepend: Final = 1
+PropModeAppend: Final = 2
+GXclear: Final = 0x0
+GXand: Final = 0x1
+GXandReverse: Final = 0x2
+GXcopy: Final = 0x3
+GXandInverted: Final = 0x4
+GXnoop: Final = 0x5
+GXxor: Final = 0x6
+GXor: Final = 0x7
+GXnor: Final = 0x8
+GXequiv: Final = 0x9
+GXinvert: Final = 0xA
+GXorReverse: Final = 0xB
+GXcopyInverted: Final = 0xC
+GXorInverted: Final = 0xD
+GXnand: Final = 0xE
+GXset: Final = 0xF
+LineSolid: Final = 0
+LineOnOffDash: Final = 1
+LineDoubleDash: Final = 2
+CapNotLast: Final = 0
+CapButt: Final = 1
+CapRound: Final = 2
+CapProjecting: Final = 3
+JoinMiter: Final = 0
+JoinRound: Final = 1
+JoinBevel: Final = 2
+FillSolid: Final = 0
+FillTiled: Final = 1
+FillStippled: Final = 2
+FillOpaqueStippled: Final = 3
+EvenOddRule: Final = 0
+WindingRule: Final = 1
+ClipByChildren: Final = 0
+IncludeInferiors: Final = 1
+Unsorted: Final = 0
+YSorted: Final = 1
+YXSorted: Final = 2
+YXBanded: Final = 3
+CoordModeOrigin: Final = 0
+CoordModePrevious: Final = 1
+Complex: Final = 0
+Nonconvex: Final = 1
+Convex: Final = 2
+ArcChord: Final = 0
+ArcPieSlice: Final = 1
+GCFunction: Final = 1
+GCPlaneMask: Final = 2
+GCForeground: Final = 4
+GCBackground: Final = 8
+GCLineWidth: Final = 16
+GCLineStyle: Final = 32
+GCCapStyle: Final = 64
+GCJoinStyle: Final = 128
+GCFillStyle: Final = 256
+GCFillRule: Final = 512
+GCTile: Final = 1024
+GCStipple: Final = 2048
+GCTileStipXOrigin: Final = 4096
+GCTileStipYOrigin: Final = 8192
+GCFont: Final = 16384
+GCSubwindowMode: Final = 32768
+GCGraphicsExposures: Final = 65536
+GCClipXOrigin: Final = 131072
+GCClipYOrigin: Final = 262144
+GCClipMask: Final = 524288
+GCDashOffset: Final = 1048576
+GCDashList: Final = 2097152
+GCArcMode: Final = 4194304
+GCLastBit: Final = 22
+FontLeftToRight: Final = 0
+FontRightToLeft: Final = 1
+FontChange: Final = 255
+XYBitmap: Final = 0
+XYPixmap: Final = 1
+ZPixmap: Final = 2
+AllocNone: Final = 0
+AllocAll: Final = 1
+DoRed: Final = 1
+DoGreen: Final = 2
+DoBlue: Final = 4
+CursorShape: Final = 0
+TileShape: Final = 1
+StippleShape: Final = 2
+AutoRepeatModeOff: Final = 0
+AutoRepeatModeOn: Final = 1
+AutoRepeatModeDefault: Final = 2
+LedModeOff: Final = 0
+LedModeOn: Final = 1
+KBKeyClickPercent: Final = 1
+KBBellPercent: Final = 2
+KBBellPitch: Final = 4
+KBBellDuration: Final = 8
+KBLed: Final = 16
+KBLedMode: Final = 32
+KBKey: Final = 64
+KBAutoRepeatMode: Final = 128
+MappingSuccess: Final = 0
+MappingBusy: Final = 1
+MappingFailed: Final = 2
+MappingModifier: Final = 0
+MappingKeyboard: Final = 1
+MappingPointer: Final = 2
+DontPreferBlanking: Final = 0
+PreferBlanking: Final = 1
+DefaultBlanking: Final = 2
+DisableScreenSaver: Final = 0
+DisableScreenInterval: Final = 0
+DontAllowExposures: Final = 0
+AllowExposures: Final = 1
+DefaultExposures: Final = 2
+ScreenSaverReset: Final = 0
+ScreenSaverActive: Final = 1
+HostInsert: Final = 0
+HostDelete: Final = 1
+EnableAccess: Final = 1
+DisableAccess: Final = 0
+StaticGray: Final = 0
+GrayScale: Final = 1
+StaticColor: Final = 2
+PseudoColor: Final = 3
+TrueColor: Final = 4
+DirectColor: Final = 5
+LSBFirst: Final = 0
+MSBFirst: Final = 1

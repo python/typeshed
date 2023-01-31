@@ -1,12 +1,14 @@
+from typing_extensions import Final
+
 from Xlib._typing import Unused
 from Xlib.display import Display
 from Xlib.protocol import rq
 from Xlib.xobject import resource
 
-extname: str
-SecurityClientTrusted: int
-SecurityClientUntrusted: int
-SecurityAuthorizationRevokedMask: int
+extname: Final = "SECURITY"
+SecurityClientTrusted: Final = 0
+SecurityClientUntrusted: Final = 1
+SecurityAuthorizationRevokedMask: Final = 1
 AUTHID = rq.Card32
 
 class QueryVersion(rq.ReplyRequest): ...

@@ -1,6 +1,6 @@
 from collections.abc import Callable
 from typing import Any, Union
-from typing_extensions import TypeAlias
+from typing_extensions import Final, TypeAlias
 
 from Xlib._typing import ErrorHandler, Unused
 from Xlib.display import Display
@@ -9,9 +9,9 @@ from Xlib.xobject import drawable, resource
 
 _Update: TypeAlias = Callable[[Union[rq.DictWrapper, dict[str, Any]]], object]
 
-extname: str
-RedirectAutomatic: int
-RedirectManual: int
+extname: Final = "Composite"
+RedirectAutomatic: Final = 0
+RedirectManual: Final = 1
 
 class QueryVersion(rq.ReplyRequest): ...
 

@@ -1,19 +1,20 @@
 from collections.abc import Sequence
+from typing_extensions import Final
 
 from Xlib._typing import Unused
 from Xlib.display import Display
 from Xlib.protocol import rq
 from Xlib.xobject import resource
 
-RES_MAJOR_VERSION: int
-RES_MINOR_VERSION: int
-extname: str
-ResQueryVersion: int
-ResQueryClients: int
-ResQueryClientResources: int
-ResQueryClientPixmapBytes: int
-ResQueryClientIds: int
-ResQueryResourceBytes: int
+RES_MAJOR_VERSION: Final = 1
+RES_MINOR_VERSION: Final = 2
+extname: Final = "X-Resource"
+ResQueryVersion: Final = 0
+ResQueryClients: Final = 1
+ResQueryClientResources: Final = 2
+ResQueryClientPixmapBytes: Final = 3
+ResQueryClientIds: Final = 4
+ResQueryResourceBytes: Final = 5
 
 class QueryVersion(rq.ReplyRequest): ...
 

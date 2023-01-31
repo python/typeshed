@@ -1,11 +1,15 @@
-from Xlib._typing import OpenFile
+from typing_extensions import Final
 
-FamilyInternet: int
-FamilyDECnet: int
-FamilyChaos: int
-FamilyServerInterpreted: int
-FamilyInternetV6: int
-FamilyLocal: int
+from Xlib._typing import OpenFile
+from Xlib.X import (
+    FamilyChaos as FamilyChaos,
+    FamilyDECnet as FamilyDECnet,
+    FamilyInternet as FamilyInternet,
+    FamilyInternetV6 as FamilyInternetV6,
+    FamilyServerInterpreted as FamilyServerInterpreted,
+)
+
+FamilyLocal: Final = 256
 
 class Xauthority:
     entries: list[tuple[bytes, bytes, bytes, bytes, bytes]]

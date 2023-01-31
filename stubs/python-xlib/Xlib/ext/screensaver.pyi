@@ -1,17 +1,19 @@
+from typing_extensions import Final
+
 from Xlib._typing import ErrorHandler
 from Xlib.display import Display
 from Xlib.protocol import request, rq
 from Xlib.xobject import drawable
 
-extname: str
-NotifyMask: int
-CycleMask: int
-StateOff: int
-StateOn: int
-StateCycle: int
-KindBlanked: int
-KindInternal: int
-KindExternal: int
+extname: Final = "MIT-SCREEN-SAVER"
+NotifyMask: Final = 1
+CycleMask: Final = 2
+StateOff: Final = 0
+StateOn: Final = 1
+StateCycle: Final = 2
+KindBlanked: Final = 0
+KindInternal: Final = 1
+KindExternal: Final = 2
 
 class QueryVersion(rq.ReplyRequest): ...
 

@@ -2,7 +2,7 @@ from _typeshed import SupportsDunderGT, SupportsDunderLT, SupportsRead
 from collections.abc import Iterable, Mapping, Sequence
 from re import Pattern
 from typing import Any, Protocol, TypeVar, overload
-from typing_extensions import TypeAlias
+from typing_extensions import Final, TypeAlias
 
 from Xlib.display import Display
 from Xlib.support.lock import _DummyLock
@@ -17,14 +17,14 @@ _DB_Param: TypeAlias = dict[str, Any]
 
 class _SupportsComparisons(SupportsDunderLT[_T_contra], SupportsDunderGT[_T_contra], Protocol[_T_contra]): ...
 
-comment_re: Pattern[str]
-resource_spec_re: Pattern[str]
-value_escape_re: Pattern[str]
-resource_parts_re: Pattern[str]
-NAME_MATCH: int
-CLASS_MATCH: int
-WILD_MATCH: int
-MATCH_SKIP: int
+comment_re: Final[Pattern[str]]
+resource_spec_re: Final[Pattern[str]]
+value_escape_re: Final[Pattern[str]]
+resource_parts_re: Final[Pattern[str]]
+NAME_MATCH: Final = 0
+CLASS_MATCH = 2
+WILD_MATCH = 4
+MATCH_SKIP = 6
 
 class OptionError(Exception): ...
 
@@ -94,4 +94,4 @@ def get_display_opts(
     options: Mapping[str, Option], argv: Sequence[str] = ...
 ) -> tuple[Display, str, ResourceDB, Sequence[str]]: ...
 
-stdopts: dict[str, SepArg | NoArg | ResArgClass]
+stdopts: Final[dict[str, SepArg | NoArg | ResArgClass]]

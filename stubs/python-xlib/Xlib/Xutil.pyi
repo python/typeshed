@@ -1,57 +1,59 @@
-NoValue: int
-XValue: int
-YValue: int
-WidthValue: int
-HeightValue: int
-AllValues: int
-XNegative: int
-YNegative: int
-USPosition: int
-USSize: int
-PPosition: int
-PSize: int
-PMinSize: int
-PMaxSize: int
-PResizeInc: int
-PAspect: int
-PBaseSize: int
-PWinGravity: int
-PAllHints: int
-InputHint: int
-StateHint: int
-IconPixmapHint: int
-IconWindowHint: int
-IconPositionHint: int
-IconMaskHint: int
-WindowGroupHint: int
-MessageHint: int
-UrgencyHint: int
-AllHints: int
-WithdrawnState: int
-NormalState: int
-IconicState: int
-DontCareState: int
-ZoomState: int
-InactiveState: int
-RectangleOut: int
-RectangleIn: int
-RectanglePart: int
-VisualNoMask: int
-VisualIDMask: int
-VisualScreenMask: int
-VisualDepthMask: int
-VisualClassMask: int
-VisualRedMaskMask: int
-VisualGreenMaskMask: int
-VisualBlueMaskMask: int
-VisualColormapSizeMask: int
-VisualBitsPerRGBMask: int
-VisualAllMask: int
-ReleaseByFreeingColormap: int
-BitmapSuccess: int
-BitmapOpenFailed: int
-BitmapFileInvalid: int
-BitmapNoMemory: int
-XCSUCCESS: int
-XCNOMEM: int
-XCNOENT: int
+from typing_extensions import Final
+
+NoValue: Final = 0x0000
+XValue: Final = 0x0001
+YValue: Final = 0x0002
+WidthValue: Final = 0x0004
+HeightValue: Final = 0x0008
+AllValues: Final = 0x000F
+XNegative: Final = 0x0010
+YNegative: Final = 0x0020
+USPosition: Final = 1
+USSize: Final = 2
+PPosition: Final = 4
+PSize: Final = 8
+PMinSize: Final = 16
+PMaxSize: Final = 32
+PResizeInc: Final = 64
+PAspect: Final = 128
+PBaseSize: Final = 256
+PWinGravity: Final = 512
+PAllHints: Final = 256
+InputHint: Final = 1
+StateHint: Final = 2
+IconPixmapHint: Final = 4
+IconWindowHint: Final = 8
+IconPositionHint: Final = 16
+IconMaskHint: Final = 32
+WindowGroupHint: Final = 64
+MessageHint: Final = 128
+UrgencyHint: Final = 264
+AllHints: Final = 511
+WithdrawnState: Final = 0
+NormalState: Final = 1
+IconicState: Final = 3
+DontCareState: Final = 0
+ZoomState: Final = 2
+InactiveState: Final = 4
+RectangleOut: Final = 0
+RectangleIn: Final = 1
+RectanglePart: Final = 2
+VisualNoMask: Final = 0x0
+VisualIDMask: Final = 0x1
+VisualScreenMask: Final = 0x2
+VisualDepthMask: Final = 0x4
+VisualClassMask: Final = 0x8
+VisualRedMaskMask: Final = 0x10
+VisualGreenMaskMask: Final = 0x20
+VisualBlueMaskMask: Final = 0x40
+VisualColormapSizeMask: Final = 0x80
+VisualBitsPerRGBMask: Final = 0x100
+VisualAllMask: Final = 0x1FF
+ReleaseByFreeingColormap: Final = 1
+BitmapSuccess: Final = 0
+BitmapOpenFailed: Final = 1
+BitmapFileInvalid: Final = 2
+BitmapNoMemory: Final = 3
+XCSUCCESS: Final = 0
+XCNOMEM: Final = 1
+XCNOENT: Final = 2

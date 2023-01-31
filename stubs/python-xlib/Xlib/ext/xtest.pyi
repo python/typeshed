@@ -1,10 +1,12 @@
+from typing_extensions import Final
+
 from Xlib._typing import Unused
 from Xlib.display import Display
 from Xlib.protocol import rq
 from Xlib.xobject import resource
 
-extname: str
-CurrentCursor: int
+extname: Final = "XTEST"
+CurrentCursor: Final = 1
 
 class GetVersion(rq.ReplyRequest): ...
 

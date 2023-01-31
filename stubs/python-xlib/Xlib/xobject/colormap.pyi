@@ -1,11 +1,12 @@
 from collections.abc import Sequence
 from re import Pattern
+from typing_extensions import Final
 
 from Xlib._typing import ErrorHandler
 from Xlib.protocol import request, rq
 from Xlib.xobject import resource
 
-rgb_res: list[Pattern[str]]
+rgb_res: Final[list[Pattern[str]]]
 
 class Colormap(resource.Resource):
     __colormap__ = resource.Resource.__resource__
