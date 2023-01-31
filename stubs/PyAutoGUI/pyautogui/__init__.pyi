@@ -5,12 +5,17 @@ from typing import NamedTuple, SupportsInt, TypeVar
 from typing_extensions import ParamSpec, SupportsIndex, TypeAlias
 
 from pyscreeze import (
+    center as center,
+    grab as grab,
     locate as locate,
     locateAll as locateAll,
     locateAllOnScreen as locateAllOnScreen,
     locateCenterOnScreen as locateCenterOnScreen,
     locateOnScreen as locateOnScreen,
     locateOnWindow as locateOnWindow,
+    pixel as pixel,
+    pixelMatchesColor as pixelMatchesColor,
+    screenshot as screenshot,
 )
 
 class PyAutoGUIException(Exception): ...
