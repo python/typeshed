@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, StrOrBytesPath
 from collections.abc import Callable, Generator
 from typing import NamedTuple, SupportsFloat, TypeVar, overload
-from typing_extensions import Literal, ParamSpec, SupportsIndex, TypeAlias
+from typing_extensions import Final, ParamSpec, SupportsIndex, TypeAlias
 
 from PIL import Image
 
@@ -16,11 +16,12 @@ _R = TypeVar("_R")
 # Because pyscreeze does not declare it as a dependency, stub_uploader won't let it.
 _Mat: TypeAlias = Incomplete
 
-useOpenCV: bool
-RUNNING_PYTHON_2: Literal[False]
-GRAYSCALE_DEFAULT: Literal[False]
+useOpenCV: Final[bool]
+RUNNING_PYTHON_2: Final = False
+GRAYSCALE_DEFAULT: Final = False
+scrotExists: Final[bool]
+# Meant to be overrisable for backward-compatibility
 USE_IMAGE_NOT_FOUND_EXCEPTION: bool
-scrotExists: bool
 
 class Box(NamedTuple):
     left: int
