@@ -3,22 +3,25 @@ from typing import Any, ClassVar
 
 from yaml.error import Mark
 
+# Any Unions: Avoid forcing the user to check for None when they know what Node was instanciated with
+# Using generics may be overkill without support for default Generics
+# Permissive Unions could also be useful here.
 class Node:
     tag: str
-    value: Any
-    start_mark: Mark | Incomplete
-    end_mark: Mark | Incomplete
+    value: Incomplete
+    start_mark: Mark | None | Any
+    end_mark: Mark | None | Any
     def __init__(self, tag: str, value, start_mark: Mark | None, end_mark: Mark | None) -> None: ...
 
 class ScalarNode(Node):
     id: ClassVar[str]
-    style: str | Incomplete
+    style: str | None | Any
     def __init__(
         self, tag: str, value, start_mark: Mark | None = ..., end_mark: Mark | None = ..., style: str | None = ...
     ) -> None: ...
 
 class CollectionNode(Node):
-    flow_style: bool | Incomplete
+    flow_style: bool | None | Any
     def __init__(
         self, tag: str, value, start_mark: Mark | None = ..., end_mark: Mark | None = ..., flow_style: bool | None = ...
     ) -> None: ...
