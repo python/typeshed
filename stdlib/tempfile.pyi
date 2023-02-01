@@ -127,7 +127,7 @@ else:
         ) -> IO[str]: ...
         @overload
         def TemporaryFile(
-            mode: _BytesMode = 'w+b',
+            mode: _BytesMode = "w+b",
             buffering: int = -1,
             encoding: str | None = None,
             newline: str | None = None,
@@ -139,7 +139,7 @@ else:
         ) -> IO[bytes]: ...
         @overload
         def TemporaryFile(
-            mode: str = 'w+b',
+            mode: str = "w+b",
             buffering: int = -1,
             encoding: str | None = None,
             newline: str | None = None,

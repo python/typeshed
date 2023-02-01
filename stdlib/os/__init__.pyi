@@ -774,7 +774,7 @@ def walk(
 if sys.platform != "win32":
     @overload
     def fwalk(
-        top: StrPath = '.',
+        top: StrPath = ".",
         topdown: bool = True,
         onerror: _OnError | None = None,
         *,
