@@ -221,7 +221,7 @@ def test_testcase_directory(
     result = run_testcases(package=package, version=version, platform=platform, tempdir=tempdir, verbosity=verbosity)
 
     if result.returncode:
-        if verbosity > Verbosity.QUIET:
+        if verbosity is Verbosity.QUIET:
             # We'll already have printed this if --verbosity QUIET wasn't passed.
             # If --verbosity QUIET was passed, only print this if there were errors.
             # If there are errors, the output is inscrutable if this isn't printed.
