@@ -760,7 +760,7 @@ def utime(
     path: FileDescriptorOrPath,
     times: tuple[int, int] | tuple[float, float] | None = None,
     *,
-    ns: tuple[int, int] = None,
+    ns: tuple[int, int] = ...,
     dir_fd: int | None = None,
     follow_symlinks: bool = True,
 ) -> None: ...
