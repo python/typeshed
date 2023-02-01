@@ -1330,8 +1330,8 @@ def eval(
 if sys.version_info >= (3, 11):
     def exec(
         __source: str | ReadableBuffer | CodeType,
-        __globals: dict[str, Any] | None = ...,
-        __locals: Mapping[str, object] | None = ...,
+        __globals: dict[str, Any] | None = None,
+        __locals: Mapping[str, object] | None = None,
         *,
         closure: tuple[_Cell, ...] | None = None,
     ) -> None: ...
