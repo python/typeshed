@@ -77,6 +77,7 @@ class Requirement:
     key: str
     extras: tuple[str, ...]
     specs: list[tuple[str, str]]
+    url: str
     # TODO: change this to packaging.markers.Marker | None once we can import
     #       packaging.markers
     marker: Incomplete | None
