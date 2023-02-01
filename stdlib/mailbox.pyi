@@ -105,7 +105,6 @@ class Mailbox(Generic[_MessageT]):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 class Maildir(Mailbox[MaildirMessage]):
-
     colon: str
     def __init__(
         self, dirname: StrPath, factory: Callable[[IO[Any]], MaildirMessage] | None = None, create: bool = True
