@@ -626,8 +626,8 @@ if sys.platform != "win32":
     def pread(__fd: int, __length: int, __offset: int) -> bytes: ...
     def pwrite(__fd: int, __buffer: ReadableBuffer, __offset: int) -> int: ...
     # In CI, stubtest sometimes reports that these are available on MacOS, sometimes not
-    def preadv(__fd: int, __buffers: SupportsLenAndGetItem[WriteableBuffer], __offset: int, __flags: int = ...) -> int: ...
-    def pwritev(__fd: int, __buffers: SupportsLenAndGetItem[ReadableBuffer], __offset: int, __flags: int = ...) -> int: ...
+    def preadv(__fd: int, __buffers: SupportsLenAndGetItem[WriteableBuffer], __offset: int, __flags: int = 0) -> int: ...
+    def pwritev(__fd: int, __buffers: SupportsLenAndGetItem[ReadableBuffer], __offset: int, __flags: int = 0) -> int: ...
     if sys.platform != "darwin":
         if sys.version_info >= (3, 10):
             RWF_APPEND: int  # docs say available on 3.7+, stubtest says otherwise
@@ -645,7 +645,7 @@ if sys.platform != "win32":
         count: int,
         headers: Sequence[ReadableBuffer] = ...,
         trailers: Sequence[ReadableBuffer] = ...,
-        flags: int = ...,
+        flags: int = 0,
     ) -> int: ...  # FreeBSD and Mac OS X only
     def readv(__fd: int, __buffers: SupportsLenAndGetItem[WriteableBuffer]) -> int: ...
     def writev(__fd: int, __buffers: SupportsLenAndGetItem[ReadableBuffer]) -> int: ...
@@ -774,21 +774,21 @@ def walk(
 if sys.platform != "win32":
     @overload
     def fwalk(
-        top: StrPath = ...,
-        topdown: bool = ...,
-        onerror: _OnError | None = ...,
+        top: StrPath = '.',
+        topdown: bool = True,
+        onerror: _OnError | None = None,
         *,
-        follow_symlinks: bool = ...,
-        dir_fd: int | None = ...,
+        follow_symlinks: bool = False,
+        dir_fd: int | None = None,
     ) -> Iterator[tuple[str, list[str], list[str], int]]: ...
     @overload
     def fwalk(
         top: BytesPath,
-        topdown: bool = ...,
-        onerror: _OnError | None = ...,
+        topdown: bool = True,
+        onerror: _OnError | None = None,
         *,
-        follow_symlinks: bool = ...,
-        dir_fd: int | None = ...,
+        follow_symlinks: bool = False,
+        dir_fd: int | None = None,
     ) -> Iterator[tuple[bytes, list[bytes], list[bytes], int]]: ...
     if sys.platform == "linux":
         def getxattr(path: FileDescriptorOrPath, attribute: StrOrBytesPath, *, follow_symlinks: bool = ...) -> bytes: ...

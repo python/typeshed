@@ -116,38 +116,38 @@ else:
         @overload
         def TemporaryFile(
             mode: _StrMode,
-            buffering: int = ...,
-            encoding: str | None = ...,
-            newline: str | None = ...,
-            suffix: AnyStr | None = ...,
-            prefix: AnyStr | None = ...,
-            dir: GenericPath[AnyStr] | None = ...,
+            buffering: int = -1,
+            encoding: str | None = None,
+            newline: str | None = None,
+            suffix: AnyStr | None = None,
+            prefix: AnyStr | None = None,
+            dir: GenericPath[AnyStr] | None = None,
             *,
-            errors: str | None = ...,
+            errors: str | None = None,
         ) -> IO[str]: ...
         @overload
         def TemporaryFile(
-            mode: _BytesMode = ...,
-            buffering: int = ...,
-            encoding: str | None = ...,
-            newline: str | None = ...,
-            suffix: AnyStr | None = ...,
-            prefix: AnyStr | None = ...,
-            dir: GenericPath[AnyStr] | None = ...,
+            mode: _BytesMode = 'w+b',
+            buffering: int = -1,
+            encoding: str | None = None,
+            newline: str | None = None,
+            suffix: AnyStr | None = None,
+            prefix: AnyStr | None = None,
+            dir: GenericPath[AnyStr] | None = None,
             *,
-            errors: str | None = ...,
+            errors: str | None = None,
         ) -> IO[bytes]: ...
         @overload
         def TemporaryFile(
-            mode: str = ...,
-            buffering: int = ...,
-            encoding: str | None = ...,
-            newline: str | None = ...,
-            suffix: AnyStr | None = ...,
-            prefix: AnyStr | None = ...,
-            dir: GenericPath[AnyStr] | None = ...,
+            mode: str = 'w+b',
+            buffering: int = -1,
+            encoding: str | None = None,
+            newline: str | None = None,
+            suffix: AnyStr | None = None,
+            prefix: AnyStr | None = None,
+            dir: GenericPath[AnyStr] | None = None,
             *,
-            errors: str | None = ...,
+            errors: str | None = None,
         ) -> IO[Any]: ...
     else:
         @overload
