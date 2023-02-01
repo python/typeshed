@@ -13,5 +13,5 @@ def docker_build(context: Context) -> None:
 
 
 @task(docker_build)
-def docker_push(context: Context) -> None:
+def docker_push(context: Context) -> None:  # type: ignore
     pass
