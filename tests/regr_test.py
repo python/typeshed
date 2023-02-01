@@ -15,13 +15,13 @@ from itertools import product
 from pathlib import Path
 from typing_extensions import TypeAlias
 
+from parse_metadata import get_recursive_requirements
 from utils import (
     PackageInfo,
     VenvInfo,
     colored,
     get_all_testcase_directories,
     get_mypy_req,
-    get_recursive_requirements,
     make_venv,
     print_error,
     print_success_msg,
@@ -221,7 +221,7 @@ def test_testcase_directory(
     result = run_testcases(package=package, version=version, platform=platform, tempdir=tempdir, verbosity=verbosity)
 
     if result.returncode:
-        if verbosity > Verbosity.QUIET:
+        if verbosity is Verbosity.QUIET:
             # We'll already have printed this if --verbosity QUIET wasn't passed.
             # If --verbosity QUIET was passed, only print this if there were errors.
             # If there are errors, the output is inscrutable if this isn't printed.
