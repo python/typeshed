@@ -35,7 +35,6 @@ else:
 
 if sys.version_info < (3, 11):
     class _SSLPipe:
-
         max_size: ClassVar[int]
 
         _context: ssl.SSLContext
@@ -64,7 +63,6 @@ if sys.version_info < (3, 11):
         def feed_appdata(self, data: bytes, offset: int = 0) -> tuple[list[bytes], int]: ...
 
 class _SSLProtocolTransport(transports._FlowControlMixin, transports.Transport):
-
     _sendfile_compatible: ClassVar[constants._SendfileMode]
 
     _loop: events.AbstractEventLoop

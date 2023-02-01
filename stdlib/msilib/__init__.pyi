@@ -24,7 +24,6 @@ if sys.platform == "win32":
     knownbits: Literal[0x3FFF]
 
     class Table:
-
         name: str
         fields: list[tuple[int, str, int]]
         def __init__(self, name: str) -> None: ...
@@ -50,7 +49,6 @@ if sys.platform == "win32":
     def gen_uuid() -> str: ...
 
     class CAB:
-
         name: str
         files: list[tuple[str, str]]
         filenames: set[str]
@@ -62,7 +60,6 @@ if sys.platform == "win32":
     _directories: set[str]
 
     class Directory:
-
         db: _Database
         cab: CAB
         basedir: str
@@ -98,12 +95,10 @@ if sys.platform == "win32":
         def remove_pyc(self) -> None: ...
 
     class Binary:
-
         name: str
         def __init__(self, fname: str) -> None: ...
 
     class Feature:
-
         id: str
         def __init__(
             self,
@@ -120,7 +115,6 @@ if sys.platform == "win32":
         def set_current(self) -> None: ...
 
     class Control:
-
         dlg: Dialog
         name: str
         def __init__(self, dlg: Dialog, name: str) -> None: ...
@@ -129,14 +123,12 @@ if sys.platform == "win32":
         def condition(self, action: str, condition: str) -> None: ...
 
     class RadioButtonGroup(Control):
-
         property: str
         index: int
         def __init__(self, dlg: Dialog, name: str, property: str) -> None: ...
         def add(self, name: str, x: int, y: int, w: int, h: int, text: str, value: str | None = None) -> None: ...
 
     class Dialog:
-
         db: _Database
         name: str
         x: int
