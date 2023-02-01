@@ -26,14 +26,13 @@ from typing_extensions import Annotated, TypeAlias
 
 import tomli
 
+from parse_metadata import PackageDependencies, get_recursive_requirements
 from utils import (
     VERSIONS_RE as VERSION_LINE_RE,
-    PackageDependencies,
     VenvInfo,
     colored,
     get_gitignore_spec,
     get_mypy_req,
-    get_recursive_requirements,
     make_venv,
     print_error,
     print_success_msg,
@@ -434,7 +433,7 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
 
     venv_start_time = time.perf_counter()
 
-    with concurrent.futures.ThreadPoolExecutor() as executor:
+    with concurrent.futures.ProcessPoolExecutor() as executor:
         venv_info_futures = [
             executor.submit(setup_venv_for_external_requirements_set, requirements_set, tempdir)
             for requirements_set in external_requirements_to_distributions
