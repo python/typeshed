@@ -25,7 +25,6 @@ def loop(timeout: float = 30.0, use_poll: bool = False, map: _MapType | None = N
 # Not really subclass of socket.socket; it's only delegation.
 # It is not covariant to it.
 class dispatcher:
-
     debug: bool
     connected: bool
     accepting: bool
