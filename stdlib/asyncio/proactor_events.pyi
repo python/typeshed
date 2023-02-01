@@ -57,7 +57,6 @@ class _ProactorWritePipeTransport(_ProactorBaseWritePipeTransport): ...
 class _ProactorDuplexPipeTransport(_ProactorReadPipeTransport, _ProactorBaseWritePipeTransport, transports.Transport): ...
 
 class _ProactorSocketTransport(_ProactorReadPipeTransport, _ProactorBaseWritePipeTransport, transports.Transport):
-
     _sendfile_compatible: ClassVar[constants._SendfileMode]
     def __init__(
         self,
