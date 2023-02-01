@@ -380,7 +380,13 @@ class SSLContext:
         post_handshake_auth: bool
     if sys.version_info >= (3, 10):
         security_level: int
-    def __new__(cls: type[Self], protocol: int = ..., *args: Any, **kwargs: Any) -> Self: ...
+    if sys.version_info >= (3, 10):
+        # Using the default (None) for the `protocol` parameter is deprecated,
+        # but there isn't a good way of marking that in the stub unless/until PEP 702 is accepted
+        def __new__(cls: type[Self], protocol: int | None = None, *args: Any, **kwargs: Any) -> Self: ...
+    else:
+        def __new__(cls: type[Self], protocol: int = ..., *args: Any, **kwargs: Any) -> Self: ...
+
     def cert_store_stats(self) -> dict[str, int]: ...
     def load_cert_chain(
         self, certfile: StrOrBytesPath, keyfile: StrOrBytesPath | None = None, password: _PasswordType | None = None
