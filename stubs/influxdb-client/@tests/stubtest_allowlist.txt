@@ -7,7 +7,3 @@ influxdb_client.client.write_api_async.DEFAULT_WRITE_PRECISION
 
 # Metaclass problem inherited from urllib3.
 influxdb_client.client.write.retry.WritesRetry
-
-# Requires numpy and pandas to be installed.
-influxdb_client.client.util.date_utils_pandas
-influxdb_client.extras

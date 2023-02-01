@@ -43,7 +43,7 @@ jobs:
           cache: pip
           cache-dependency-path: requirements-tests.txt
       - name: Install dependencies
-        run: pip install $(grep tomli== requirements-tests.txt) $(grep mypy== requirements-tests.txt)
+        run: pip install $(grep mypy== requirements-tests.txt)
       - name: Run stubtest
         run: python tests/stubtest_stdlib.py
 

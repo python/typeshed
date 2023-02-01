@@ -11,27 +11,25 @@ import tempfile
 from pathlib import Path
 from typing import NoReturn
 
-import tomli
+from parse_metadata import get_recursive_requirements, read_metadata
 from utils import colored, get_mypy_req, make_venv, print_error, print_success_msg
 
 
 def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: bool = False) -> bool:
-    with open(dist / "METADATA.toml", encoding="UTF-8") as f:
-        metadata = dict(tomli.loads(f.read()))
+    dist_name = dist.name
+    metadata = read_metadata(dist_name)
+    print(f"{dist_name}... ", end="")
 
-    print(f"{dist.name}... ", end="")
-
-    stubtest_meta = metadata.get("tool", {}).get("stubtest", {})
-    if stubtest_meta.get("skip", False):
+    stubtest_settings = metadata.stubtest_settings
+    if stubtest_settings.skipped:
         print(colored("skipping", "yellow"))
         return True
 
-    platforms_to_test = stubtest_meta.get("platforms", ["linux"])
-    if sys.platform not in platforms_to_test:
+    if sys.platform not in stubtest_settings.platforms:
         if specified_stubs_only:
             print(colored("skipping (platform not specified in METADATA.toml)", "yellow"))
             return True
-        print(colored(f"Note: {dist.name} is not currently tested on {sys.platform} in typeshed's CI.", "yellow"))
+        print(colored(f"Note: {dist_name} is not currently tested on {sys.platform} in typeshed's CI.", "yellow"))
 
     with tempfile.TemporaryDirectory() as tmp:
         venv_dir = Path(tmp)
@@ -40,12 +38,8 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
         except Exception:
             print_error("fail")
             raise
-        dist_version = metadata["version"]
-        extras = stubtest_meta.get("extras", [])
-        assert isinstance(dist_version, str)
-        assert isinstance(extras, list)
-        dist_extras = ", ".join(extras)
-        dist_req = f"{dist.name}[{dist_extras}]=={dist_version}"
+        dist_extras = ", ".join(stubtest_settings.extras)
+        dist_req = f"{dist_name}[{dist_extras}]=={metadata.version}"
 
         # If @tests/requirements-stubtest.txt exists, run "pip install" on it.
         req_path = dist / "@tests" / "requirements-stubtest.txt"
@@ -57,11 +51,13 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
                 print_command_failure("Failed to install requirements", e)
                 return False
 
+        requirements = get_recursive_requirements(dist_name)
+
         # We need stubtest to be able to import the package, so install mypy into the venv
         # Hopefully mypy continues to not need too many dependencies
         # TODO: Maybe find a way to cache these in CI
         dists_to_install = [dist_req, get_mypy_req()]
-        dists_to_install.extend(metadata.get("requires", []))
+        dists_to_install.extend(requirements.external_pkgs)  # Internal requirements are added to MYPYPATH
         pip_cmd = [pip_exe, "install"] + dists_to_install
         try:
             subprocess.run(pip_cmd, check=True, capture_output=True)
@@ -69,7 +65,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
             print_command_failure("Failed to install", e)
             return False
 
-        ignore_missing_stub = ["--ignore-missing-stub"] if stubtest_meta.get("ignore_missing_stub", True) else []
+        ignore_missing_stub = ["--ignore-missing-stub"] if stubtest_settings.ignore_missing_stub else []
         packages_to_check = [d.name for d in dist.iterdir() if d.is_dir() and d.name.isidentifier()]
         modules_to_check = [d.stem for d in dist.iterdir() if d.is_file() and d.suffix == ".pyi"]
         stubtest_cmd = [
@@ -84,13 +80,16 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
             *modules_to_check,
         ]
 
+        stubs_dir = dist.parent
+        mypypath_items = [str(dist)] + [str(stubs_dir / pkg) for pkg in requirements.typeshed_pkgs]
+        mypypath = os.pathsep.join(mypypath_items)
         # For packages that need a display, we need to pass at least $DISPLAY
         # to stubtest. $DISPLAY is set by xvfb-run in CI.
         #
         # It seems that some other environment variables are needed too,
         # because the CI fails if we pass only os.environ["DISPLAY"]. I didn't
         # "bisect" to see which variables are actually needed.
-        stubtest_env = os.environ | {"MYPYPATH": str(dist), "MYPY_FORCE_COLOR": "1"}
+        stubtest_env = os.environ | {"MYPYPATH": mypypath, "MYPY_FORCE_COLOR": "1"}
 
         allowlist_path = dist / "@tests/stubtest_allowlist.txt"
         if allowlist_path.exists():
@@ -103,7 +102,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
             subprocess.run(stubtest_cmd, env=stubtest_env, check=True, capture_output=True)
         except subprocess.CalledProcessError as e:
             print_error("fail")
-            print_commands(dist, pip_cmd, stubtest_cmd)
+            print_commands(dist, pip_cmd, stubtest_cmd, mypypath)
             print_command_output(e)
 
             print("Ran with the following environment:", file=sys.stderr)
@@ -125,15 +124,15 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
             print_success_msg()
 
     if verbose:
-        print_commands(dist, pip_cmd, stubtest_cmd)
+        print_commands(dist, pip_cmd, stubtest_cmd, mypypath)
 
     return True
 
 
-def print_commands(dist: Path, pip_cmd: list[str], stubtest_cmd: list[str]) -> None:
+def print_commands(dist: Path, pip_cmd: list[str], stubtest_cmd: list[str], mypypath: str) -> None:
     print(file=sys.stderr)
     print(" ".join(pip_cmd), file=sys.stderr)
-    print(f"MYPYPATH={dist}", " ".join(stubtest_cmd), file=sys.stderr)
+    print(f"MYPYPATH={mypypath}", " ".join(stubtest_cmd), file=sys.stderr)
     print(file=sys.stderr)
 
 

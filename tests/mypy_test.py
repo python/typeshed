@@ -12,11 +12,12 @@ import sys
 import tempfile
 import time
 from collections import defaultdict
+from collections.abc import Sequence
 from dataclasses import dataclass
 from itertools import product
 from pathlib import Path
 from threading import Lock
-from typing import TYPE_CHECKING, Any, NamedTuple
+from typing import TYPE_CHECKING, Any, NamedTuple, Tuple
 
 if TYPE_CHECKING:
     from _typeshed import StrPath
@@ -24,14 +25,14 @@ if TYPE_CHECKING:
 from typing_extensions import Annotated, TypeAlias
 
 import tomli
+
+from parse_metadata import PackageDependencies, get_recursive_requirements
 from utils import (
     VERSIONS_RE as VERSION_LINE_RE,
-    PackageDependencies,
     VenvInfo,
     colored,
     get_gitignore_spec,
     get_mypy_req,
-    get_recursive_requirements,
     make_venv,
     print_error,
     print_success_msg,
@@ -52,7 +53,7 @@ DIRECTORIES_TO_TEST = [Path("stdlib"), Path("stubs")]
 
 ReturnCode: TypeAlias = int
 VersionString: TypeAlias = Annotated[str, "Must be one of the entries in SUPPORTED_VERSIONS"]
-VersionTuple: TypeAlias = tuple[int, int]
+VersionTuple: TypeAlias = Tuple[int, int]
 Platform: TypeAlias = Annotated[str, "Must be one of the entries in SUPPORTED_PLATFORMS"]
 
 
@@ -77,6 +78,21 @@ def valid_path(cmd_arg: str) -> Path:
 parser = argparse.ArgumentParser(
     description="Typecheck typeshed's stubs with mypy. Patterns are unanchored regexps on the full path."
 )
+if sys.version_info < (3, 8):
+
+    class ExtendAction(argparse.Action):
+        def __call__(
+            self,
+            parser: argparse.ArgumentParser,
+            namespace: argparse.Namespace,
+            values: Sequence[str],
+            option_string: object = None,
+        ) -> None:
+            items = getattr(namespace, self.dest) or []
+            items.extend(values)
+            setattr(namespace, self.dest, items)
+
+    parser.register("action", "extend", ExtendAction)
 parser.add_argument(
     "filter",
     type=valid_path,
@@ -247,7 +263,7 @@ def run_mypy(
             # Stub completion is checked by pyright (--allow-*-defs)
             "--allow-untyped-defs",
             "--allow-incomplete-defs",
-            "--allow-subclassing-any",  # TODO: Do we still need this now that non-types dependencies are allowed? (#5768)
+            "--allow-subclassing-any",  # See #9491
             "--enable-error-code",
             "ignore-without-code",
             "--config-file",
@@ -323,7 +339,7 @@ def test_third_party_distribution(
 
     mypypath = os.pathsep.join(str(Path("stubs", dist)) for dist in seen_dists)
     if args.verbose:
-        print(colored(f"\n{mypypath=}", "blue"))
+        print(colored(f"\nMYPYPATH={mypypath}", "blue"))
     code = run_mypy(
         args,
         configurations,
@@ -418,7 +434,7 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
 
     venv_start_time = time.perf_counter()
 
-    with concurrent.futures.ThreadPoolExecutor() as executor:
+    with concurrent.futures.ProcessPoolExecutor() as executor:
         venv_info_futures = [
             executor.submit(setup_venv_for_external_requirements_set, requirements_set, tempdir)
             for requirements_set in external_requirements_to_distributions

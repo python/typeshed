@@ -1,5 +1,4 @@
-PIL.FpxImagePlugin
+# Requires Pyside or PyQt to be installed.
+# Not worth adding to requirements-stubtest.txt
+# because it's only used as a base type and it's a long install.
 PIL.ImageQt.ImageQt
-PIL.ImageQt.QImage  # Does exist at runtime usually, but stubtest can't see it
-PIL.ImageQt.QPixmap  # Does exist at runtime usually, but stubtest can't see it
-PIL.MicImagePlugin
