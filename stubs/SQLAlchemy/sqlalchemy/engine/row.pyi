@@ -1,4 +1,4 @@
-import abc
+from abc import ABCMeta
 from collections.abc import ItemsView, KeysView, Mapping, Sequence, ValuesView
 from typing import Any
 
@@ -13,7 +13,7 @@ KEY_OBJECTS_ONLY: int
 KEY_OBJECTS_BUT_WARN: int
 KEY_OBJECTS_NO_WARN: int
 
-class Row(BaseRow, Sequence[Any], metaclass=abc.ABCMeta):
+class Row(BaseRow, Sequence[Any], metaclass=ABCMeta):
     @property
     def count(self): ...
     @property
@@ -28,7 +28,7 @@ class Row(BaseRow, Sequence[Any], metaclass=abc.ABCMeta):
     def __ne__(self, other): ...
     def keys(self): ...
 
-class LegacyRow(Row, metaclass=abc.ABCMeta):
+class LegacyRow(Row, metaclass=ABCMeta):
     def __contains__(self, key): ...
     def has_key(self, key): ...
     def items(self): ...

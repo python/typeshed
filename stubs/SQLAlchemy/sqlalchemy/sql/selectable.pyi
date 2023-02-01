@@ -2,7 +2,7 @@ from _typeshed import Incomplete, Self
 from typing import Any
 
 from .. import util
-from ..util import HasMemoized, memoized_property
+from ..util.langhelpers import HasMemoized, memoized_property
 from . import roles, traversals, visitors
 from .annotation import Annotated, SupportsCloneAnnotations
 from .base import CacheableOptions, CompileState, Executable, Generative, HasCompileState, Immutable
@@ -115,6 +115,14 @@ class Alias(roles.DMLTableRole, AliasedReturnsRows):
 
 class TableValuedAlias(Alias):
     __visit_name__: str
+    joins_implicitly: bool
+    def _init(
+        self,
+        selectable,
+        name: Incomplete | None = None,
+        table_value_type: Incomplete | None = None,
+        joins_implicitly: bool = False,
+    ) -> None: ...
     @HasMemoized.memoized_attribute
     def column(self): ...
     def alias(self, name: Incomplete | None = ...): ...  # type: ignore[override]

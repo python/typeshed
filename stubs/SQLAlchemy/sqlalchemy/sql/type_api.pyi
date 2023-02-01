@@ -2,6 +2,7 @@ from _typeshed import Incomplete
 from typing import Any, Generic, TypeVar
 
 from .. import util
+from ..sql.sqltypes import Boolean
 from . import operators
 from .base import SchemaEventTarget
 from .visitors import Traversible, TraversibleType
@@ -26,6 +27,7 @@ class TypeEngine(Traversible):
         def operate(self, op, *other, **kwargs): ...
         def reverse_operate(self, op, other, **kwargs): ...
         def __reduce__(self): ...
+        BOOLEANTYPE: Boolean
     hashable: bool
     comparator_factory: Any
     sort_key_function: Any

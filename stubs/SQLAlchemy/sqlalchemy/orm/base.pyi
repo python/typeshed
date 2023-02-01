@@ -1,6 +1,6 @@
 from typing import Any
 
-from ..util import memoized_property
+from ..util.langhelpers import memoized_property
 
 PASSIVE_NO_RESULT: Any
 PASSIVE_CLASS_MISMATCH: Any

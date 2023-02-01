@@ -1,13 +1,13 @@
-import abc
+from abc import ABC, ABCMeta, abstractmethod
 
 class ReversibleProxy: ...
 
-class StartableContext(abc.ABC, metaclass=abc.ABCMeta):
-    @abc.abstractmethod
+class StartableContext(ABC, metaclass=ABCMeta):
+    @abstractmethod
     async def start(self, is_ctxmanager: bool = ...): ...
     def __await__(self): ...
     async def __aenter__(self): ...
-    @abc.abstractmethod
+    @abstractmethod
     async def __aexit__(self, type_, value, traceback): ...
 
 class ProxyComparable(ReversibleProxy):

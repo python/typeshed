@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing import Any
 
-from ..util import HasMemoized, hybridmethod
+from ..util.langhelpers import HasMemoized, hybridmethod
 from . import base
 
 DEL_ATTR: Any
@@ -24,6 +24,7 @@ class ClassManager(HasMemoized, dict[Any, Any]):
     new_init: Any
     local_attrs: Any
     originals: Any
+    dispatch: Incomplete
     def __init__(self, class_) -> None: ...
     def __hash__(self) -> int: ...  # type: ignore[override]
     def __eq__(self, other): ...
@@ -67,6 +68,7 @@ class _SerializeManager:
     def __call__(self, state, inst, state_dict) -> None: ...
 
 class InstrumentationFactory:
+    dispatch: Incomplete
     def create_manager_for_cls(self, class_): ...
     def unregister(self, class_) -> None: ...
 
