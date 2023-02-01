@@ -1728,7 +1728,7 @@ if sys.version_info >= (3, 8):
 
 else:
     @overload
-    def sum(__iterable: Iterable[bool | _LiteralInteger], __start: int = ...) -> int: ...  # type: ignore[misc]
+    def sum(__iterable: Iterable[bool | _LiteralInteger], __start: int = 0) -> int: ...  # type: ignore[misc]
 
 @overload
 def sum(__iterable: Iterable[_SupportsSumNoDefaultT]) -> _SupportsSumNoDefaultT | Literal[0]: ...
