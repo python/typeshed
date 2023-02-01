@@ -728,29 +728,18 @@ class _ExceptionReportingCallback(Protocol):
 
 class Tk(Misc, Wm):
     master: None
-    # Make sure to keep __init__ in sync with other functions that use the same args.
-    # Use `git grep screenName` to find them
-    if sys.version_info >= (3, 9):
-        def __init__(
-            self,
-            screenName: str | None = None,
-            baseName: str | None = None,
-            className: str = "Tk",
-            useTk: bool = True,
-            sync: bool = False,
-            use: str | None = None,
-        ) -> None: ...
-    else:
-        def __init__(
-            self,
-            screenName: str | None = None,
-            baseName: str | None = None,
-            className: str = "Tk",
-            useTk: bool = ...,
-            sync: bool = ...,
-            use: str | None = None,
-        ) -> None: ...
-
+    def __init__(
+        # Make sure to keep in sync with other functions that use the same
+        # args.
+        # use `git grep screenName` to find them
+        self,
+        screenName: str | None = None,
+        baseName: str | None = None,
+        className: str = "Tk",
+        useTk: bool = True,
+        sync: bool = False,
+        use: str | None = None,
+    ) -> None: ...
     @overload
     def configure(
         self,
@@ -811,11 +800,7 @@ class Tk(Misc, Wm):
     def wantobjects(self, *args, **kwargs): ...
     def willdispatch(self): ...
 
-if sys.version_info >= (3, 9):
-    def Tcl(screenName: str | None = None, baseName: str | None = None, className: str = "Tk", useTk: bool = False) -> Tk: ...
-
-else:
-    def Tcl(screenName: str | None = None, baseName: str | None = None, className: str = "Tk", useTk: bool = ...) -> Tk: ...
+def Tcl(screenName: str | None = None, baseName: str | None = None, className: str = "Tk", useTk: bool = False) -> Tk: ...
 
 _InMiscTotal = TypedDict("_InMiscTotal", {"in": Misc})
 _InMiscNonTotal = TypedDict("_InMiscNonTotal", {"in": Misc}, total=False)
