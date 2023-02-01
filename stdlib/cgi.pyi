@@ -95,7 +95,7 @@ class FieldStorage:
         self,
         fp: IO[Any] | None = None,
         headers: Mapping[str, str] | Message | None = None,
-        outerboundary: bytes = ...,
+        outerboundary: bytes = b'',
         environ: SupportsGetItem[str, str] = ...,
         keep_blank_values: int = 0,
         strict_parsing: int = 0,
