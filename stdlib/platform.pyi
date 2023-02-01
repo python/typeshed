@@ -10,7 +10,12 @@ if sys.version_info >= (3, 8):
     def libc_ver(executable: str | None = None, lib: str = "", version: str = "", chunksize: int = 16384) -> tuple[str, str]: ...
 
 else:
-    def libc_ver(executable: str = 'C:\\Users\\alexw\\.conda\\envs\\py37\\python.exe', lib: str = "", version: str = "", chunksize: int = 16384) -> tuple[str, str]: ...
+    def libc_ver(
+        executable: str = "C:\\Users\\alexw\\.conda\\envs\\py37\\python.exe",
+        lib: str = "",
+        version: str = "",
+        chunksize: int = 16384,
+    ) -> tuple[str, str]: ...
 
 if sys.version_info < (3, 8):
     def linux_distribution(
