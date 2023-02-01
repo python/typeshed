@@ -20,7 +20,7 @@ useOpenCV: Final[bool]
 RUNNING_PYTHON_2: Final = False
 GRAYSCALE_DEFAULT: Final = False
 scrotExists: Final[bool]
-# Meant to be overrisable for backward-compatibility
+# Meant to be overridable for backward-compatibility
 USE_IMAGE_NOT_FOUND_EXCEPTION: bool
 
 class Box(NamedTuple):
