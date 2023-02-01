@@ -736,8 +736,8 @@ class Tk(Misc, Wm):
         screenName: str | None = None,
         baseName: str | None = None,
         className: str = "Tk",
-        useTk: bool = ...,
-        sync: bool = ...,
+        useTk: bool = True,
+        sync: bool = False,
         use: str | None = None,
     ) -> None: ...
     @overload
@@ -800,7 +800,7 @@ class Tk(Misc, Wm):
     def wantobjects(self, *args, **kwargs): ...
     def willdispatch(self): ...
 
-def Tcl(screenName: str | None = None, baseName: str | None = None, className: str = "Tk", useTk: bool = ...) -> Tk: ...
+def Tcl(screenName: str | None = None, baseName: str | None = None, className: str = "Tk", useTk: bool = False) -> Tk: ...
 
 _InMiscTotal = TypedDict("_InMiscTotal", {"in": Misc})
 _InMiscNonTotal = TypedDict("_InMiscNonTotal", {"in": Misc}, total=False)
