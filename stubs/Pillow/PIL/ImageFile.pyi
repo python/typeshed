@@ -31,10 +31,10 @@ class StubImageFile(ImageFile):
     def load(self) -> None: ...
 
 class Parser:
-    incremental: Any | None
-    image: Any | None
-    data: Any | None
-    decoder: Any | None
+    incremental: Incomplete | None
+    image: Incomplete | None
+    data: Incomplete | None
+    decoder: Incomplete | None
     offset: int
     finished: bool
     def reset(self) -> None: ...

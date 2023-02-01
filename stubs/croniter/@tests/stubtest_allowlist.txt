@@ -1,5 +1,0 @@
-# missing from stub
-croniter.croniter.EXPANDERS
-croniter.croniter.HashExpander
-croniter.croniter.VALID_LEN_EXPRESSION
-croniter.croniter.timedelta_to_seconds

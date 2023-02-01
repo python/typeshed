@@ -602,9 +602,13 @@ class MutableMapping(Mapping[_KT, _VT], Generic[_KT, _VT]):
     def pop(self, __key: _KT, default: _VT | _T) -> _VT | _T: ...
     def popitem(self) -> tuple[_KT, _VT]: ...
     # This overload should be allowed only if the value type is compatible with None.
-    # Keep OrderedDict.setdefault in line with MutableMapping.setdefault, modulo positional-only differences.
+    #
+    # Keep the following methods in line with MutableMapping.setdefault, modulo positional-only differences:
+    # -- collections.OrderedDict.setdefault
+    # -- collections.ChainMap.setdefault
+    # -- weakref.WeakKeyDictionary.setdefault
     @overload
-    def setdefault(self: MutableMapping[_KT, _T | None], __key: _KT) -> _T | None: ...
+    def setdefault(self: MutableMapping[_KT, _T | None], __key: _KT, __default: None = None) -> _T | None: ...
     @overload
     def setdefault(self, __key: _KT, __default: _VT) -> _VT: ...
     # 'update' used to take a Union, but using overloading is better.
@@ -737,7 +741,7 @@ if sys.version_info >= (3, 9):
 
 else:
     def get_type_hints(
-        obj: _get_type_hints_obj_allowed_types, globalns: dict[str, Any] | None = ..., localns: dict[str, Any] | None = ...
+        obj: _get_type_hints_obj_allowed_types, globalns: dict[str, Any] | None = None, localns: dict[str, Any] | None = None
     ) -> dict[str, Any]: ...
 
 if sys.version_info >= (3, 8):
@@ -825,7 +829,7 @@ class ForwardRef:
         # The module and is_class arguments were added in later Python 3.9 versions.
         def __init__(self, arg: str, is_argument: bool = True, module: Any | None = None, *, is_class: bool = False) -> None: ...
     else:
-        def __init__(self, arg: str, is_argument: bool = ...) -> None: ...
+        def __init__(self, arg: str, is_argument: bool = True) -> None: ...
 
     if sys.version_info >= (3, 9):
         def _evaluate(
