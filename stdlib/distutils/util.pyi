@@ -25,7 +25,10 @@ def byte_compile(
 ) -> None: ...
 def rfc822_escape(header: str) -> str: ...
 def run_2to3(
-    files: Iterable[str], fixer_names: Iterable[str] | None = None, options: Mapping[str, Any] | None = None, explicit: Unused = None
+    files: Iterable[str],
+    fixer_names: Iterable[str] | None = None,
+    options: Mapping[str, Any] | None = None,
+    explicit: Unused = None,
 ) -> None: ...
 def copydir_run_2to3(
     src: StrPath,
