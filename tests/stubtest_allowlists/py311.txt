@@ -47,11 +47,6 @@ weakref.WeakValueDictionary.update
 unittest.TestCase.__init_subclass__
 unittest.case.TestCase.__init_subclass__
 
-# stubtest complains that in 3.10 the default argument is inconsistent with the annotation,
-# but in 3.10+ calling the function without the default argument is in fact deprecated,
-# so it's better to ignore stubtest
-ssl.SSLContext.__new__
-
 # ==========
 # Related to positional-only arguments
 # ==========
@@ -101,6 +96,8 @@ types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
 weakref.ProxyType.__reversed__  # Doesn't really exist
 inspect._ParameterKind.description  # Still exists, but stubtest can't see it
+asyncio.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
+asyncio.base_events.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 
 # C signature is broader than what is actually accepted
 ast.Bytes.__new__

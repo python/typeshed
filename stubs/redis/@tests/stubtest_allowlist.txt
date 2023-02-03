@@ -1,5 +1,4 @@
 redis.client.Pipeline.transaction  # instance attribute has same name as superclass method
-redis.ocsp  # requires cryptography to be installed
 
 # async def mismatch problems
 redis.asyncio.client.Pipeline.command_info
@@ -71,3 +70,5 @@ redis.commands.core.SortedSetCommands
 redis.commands.core.StreamCommands
 redis.commands.json.Pipeline
 redis.commands.timeseries.Pipeline
+redis.asyncio.cluster.ClusterPipeline
+redis.asyncio.cluster.RedisCluster
