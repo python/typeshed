@@ -413,15 +413,25 @@ rule is that they should be as concise as possible.  Specifically:
 * use variable annotations instead of type comments, even for stubs
   that target older versions of Python.
 
-Stub files should only contain information necessary for the type
-checker, and leave out unnecessary detail:
-* for arguments with a default, use `...` instead of the actual
-  default;
-* for arguments that default to `None`, use `Foo | None` explicitly
-  (see below for details);
-* use `float` instead of `int | float`.
+The primary users for stub files are type checkers,
+so stub files should generally only contain information necessary for the type
+checker, and leave out unnecessary detail.
+However, stubs also have other use cases:
+* stub files are often used as a data source for IDEs,
+  which will often use the signature in a stub to provide information
+  on functions or classes in tooltip messages.
+* stubs can serve as useful documentation to human readers,
+  as well as machine-readable sources of data.
+
+As such, we recommend that default values be retained for "simple" default values
+(e.g. bools, ints, bytes, strings, and floats are all permitted).
+Use `= ...` for more complex default values,
+rather than trying to exactly reproduce the default at runtime.
 
 Some further tips for good type hints:
+* for arguments that default to `None`, use `Foo | None` explicitly for the type annotation;
+* use `float` instead of `int | float` for parameter annotations
+  (see [PEP 484](https://peps.python.org/pep-0484/#the-numeric-tower) for motivation).
 * use built-in generics (`list`, `dict`, `tuple`, `set`), instead
   of importing them from `typing`.
 * use `X | Y` instead of `Union[X, Y]` and `X | None`, instead of
