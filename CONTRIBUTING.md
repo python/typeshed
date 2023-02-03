@@ -497,7 +497,7 @@ When submitting new stubs, it is not necessary to annotate all arguments, return
 ```python
 from _typeshed import Incomplete
 
-field: Incomplete  # unannotated 
+field: Incomplete  # unannotated
 
 def foo(x): ...  # unannotated argument and return type
 ```
