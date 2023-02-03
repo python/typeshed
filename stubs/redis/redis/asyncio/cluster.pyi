@@ -1,5 +1,5 @@
 from _typeshed import Incomplete, Self
-from collections.abc import Awaitable, Callable, Mapping, Sequence
+from collections.abc import Awaitable, Callable, Mapping
 from typing import Any, Generic
 
 from redis.asyncio.client import ResponseCallbackT
