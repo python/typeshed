@@ -425,7 +425,7 @@ However, stubs also have other use cases:
 
 As such, we recommend that default values be retained for "simple" default values
 (e.g. bools, ints, bytes, strings, and floats are all permitted).
-Use `= ...` for more complex default values, 
+Use `= ...` for more complex default values,
 rather than trying to exactly reproduce the default at runtime.
 
 Some further tips for good type hints:
