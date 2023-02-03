@@ -492,7 +492,9 @@ into any of those categories, use your best judgement.
 
 ### Incomplete annotations
 
-When submitting new stubs, it is not necessary to annotate all arguments, return types, and fields. Such items should either be left unannotated or use `_typeshed.Incomplete` if this is not possible:
+When submitting new stubs, it is not necessary to annotate all arguments,
+return types, and fields. Such items should either be left unannotated or
+use `_typeshed.Incomplete` if this is not possible:
 
 ```python
 from _typeshed import Incomplete
@@ -510,7 +512,11 @@ def foo(x: Incomplete | None = None) -> list[Incomplete]: ...
 
 ### `Any` vs. `Incomplete`
 
-While `Incomplete` is a type alias of `Any`, they serve difference purposes: `Incomplete` is a placeholder where a proper type might be substituted. It's a "to do" item and should be replaced if possible. `Any` is used when it's not possible to accurately type an item using the current type system. It should be used sparingly.
+While `Incomplete` is a type alias of `Any`, they serve difference purposes:
+`Incomplete` is a placeholder where a proper type might be substituted.
+It's a "to do" item and should be replaced if possible. `Any` is used when
+it's not possible to accurately type an item using the current type system.
+It should be used sparingly.
 
 ## Submitting Changes
 
