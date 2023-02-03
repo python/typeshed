@@ -423,12 +423,9 @@ However, stubs also have other use cases:
 * stubs can serve as useful documentation to human readers,
   as well as machine-readable sources of data.
 
-As such, typeshed's policy on some issues of style has been revised.
-Whereas typeshed used to recommend omitting default values
-for function and method parameters,
-we now recommend that default values be retained for "simple" default values
-(e.g. bools, ints, bytes, strings, and floats are all now permitted).
-For more complex default values, we recommend to use `= ...`
+As such, we recommend that default values be retained for "simple" default values
+(e.g. bools, ints, bytes, strings, and floats are all permitted).
+Use `= ...` for more complex default values, 
 rather than trying to exactly reproduce the default at runtime.
 
 Some further tips for good type hints:
