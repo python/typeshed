@@ -1,11 +1,12 @@
-from _typeshed import Self
-from collections.abc import Awaitable, Mapping
+from _typeshed import Incomplete, Self
+from collections.abc import Awaitable, Callable, Mapping, Sequence
 from typing import Any, Generic
 
 from redis.asyncio.client import ResponseCallbackT
 from redis.asyncio.connection import BaseParser, Connection, Encoder
+from redis.asyncio.parser import CommandsParser
 from redis.client import AbstractRedis
-from redis.cluster import AbstractRedisCluster
+from redis.cluster import AbstractRedisCluster, LoadBalancer
 
 # TODO: add  AsyncRedisClusterCommands stubs
 # from redis.commands import AsyncRedisClusterCommands
@@ -18,6 +19,19 @@ from redis.typing import AnyKeyT, EncodableT, KeyT
 class ClusterParser(BaseParser): ...
 
 class RedisCluster(AbstractRedis, AbstractRedisCluster, Generic[_StrType]):  # TODO: AsyncRedisClusterCommands
+    retry: Retry | None
+    connection_kwargs: dict[str, Any]
+    nodes_manager: NodesManager
+    encoder: Encoder
+    read_from_replicas: bool
+    reinitialize_steps: int
+    cluster_error_retry_attempts: int
+    reinitialize_counter: int
+    commands_parser: CommandsParser
+    node_flags: set[str]
+    command_flags: dict[str, str]
+    response_callbacks: Incomplete
+    result_callbacks: dict[str, Callable[[Incomplete, Incomplete], Incomplete]]
     def __init__(
         self,
         host: str | None = ...,
@@ -83,6 +97,14 @@ class RedisCluster(AbstractRedis, AbstractRedisCluster, Generic[_StrType]):  # T
     def from_url(cls: type[Self], url: str, **kwargs) -> Self: ...
 
 class ClusterNode:
+    host: str
+    port: str | int
+    name: str
+    server_type: str | None
+    max_connections: int
+    connection_class: type[Connection]
+    connection_kwargs: dict[str, Any]
+    response_callbacks: dict[Incomplete, Incomplete]
     def __init__(
         self,
         host: str,
@@ -102,6 +124,13 @@ class ClusterNode:
     async def execute_pipeline(self, commands: list[PipelineCommand]) -> bool: ...
 
 class NodesManager:
+    startup_nodes: dict[str, ClusterNode]
+    require_full_coverage: bool
+    connection_kwargs: dict[str, Any]
+    default_node: ClusterNode | None
+    nodes_cache: dict[str, ClusterNode]
+    slots_cache: dict[int, list[ClusterNode]]
+    read_load_balancer: LoadBalancer
     def __init__(
         self, startup_nodes: list[ClusterNode], require_full_coverage: bool, connection_kwargs: dict[str, Any]
     ) -> None: ...
@@ -127,4 +156,8 @@ class ClusterPipeline(AbstractRedis, AbstractRedisCluster, Generic[_StrType]):  
     def mset_nonatomic(self: Self, mapping: Mapping[AnyKeyT, EncodableT]) -> Self: ...
 
 class PipelineCommand:
+    args: Any
+    kwargs: Any
+    position: int
+    result: Exception | None | Any
     def __init__(self, position: int, *args: Any, **kwargs: Any) -> None: ...
