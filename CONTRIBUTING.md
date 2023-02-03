@@ -490,39 +490,27 @@ into any of those categories, use your best judgement.
 * Use `HasX` for protocols that have readable and/or writable attributes
   or getter/setter methods (e.g. `HasItems`, `HasFileno`).
 
-### Incomplete stubs
+### Incomplete annotations
 
-We accept partially annotated stubs, especially for larger packages.
-These should follow the following guidelines:
-
-* A package must include all public submodules, all public classes,
-  functions and methods, and all other public fields.
-* Included functions and methods must list all arguments, but the argument
-  types and the return type can be left unannotated or only be partially
-  annotated.
-* A type can be partially annotated by using the `_typeshed.Incomplete`
-  marker. Do not use `Incomplete` as the only type for argument or return
-  types. See below for an example.
-
-Example:
+When submitting new stubs, it is not necessary to annotate all arguments, return types, and fields. Such items should either be left unannotated or use `_typeshed.Incomplete` if this is not possible:
 
 ```python
 from _typeshed import Incomplete
 
-pub_field1: Incomplete  # unannotated field with required annotation
-pub_field2: list[Incomplete]  # partially annotated
+field: Incomplete  # unannotated 
 
-def pub_func(x: str, y, z: Incomplete | None = None) -> Any | None: ...
+def foo(x): ...  # unannotated argument and return type
 ```
 
-In this example, argument `x` is fully annotated and `y` is left unannotated.
-`Incomplete` is not used for `y`.
-`z` is partially annotated; `None` is one of the allowed types, but other
-types are allowed as well, but this needs further investigation. The return
-type is fully annotated. In this case, the return type was investigated and
-it was found that it can't be fully represented using the current type system,
-which is why `Any` was used. A return type that could potentially be improved
-would be annotated as `Incomplete | None`.
+`Incomplete` can also be used for partially known types:
+
+```python
+def foo(x: Incomplete | None = None) -> list[Incomplete]: ...
+```
+
+### `Any` vs. `Incomplete`
+
+While `Incomplete` is a type alias of `Any`, they serve difference purposes: `Incomplete` is a placeholder where a proper type might be substituted. It's a "to do" item and should be replaced if possible. `Any` is used when it's not possible to accurately type an item using the current type system. It should be used sparingly.
 
 ## Submitting Changes
 
