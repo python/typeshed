@@ -7,7 +7,6 @@ from collections.abc import Callable, Generator, Iterable, Sequence
 from typing import IO, Any, TypeVar, overload
 from typing_extensions import TypeAlias
 
-_LegacyVersion: TypeAlias = Incomplete  # from packaging.version
 _Version: TypeAlias = Incomplete  # from packaging.version
 
 _T = TypeVar("_T")
