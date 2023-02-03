@@ -107,14 +107,14 @@ if sys.platform != "win32":
         ) -> Server: ...
     else:
         async def open_unix_connection(
-            path: StrPath | None = ..., *, loop: events.AbstractEventLoop | None = ..., limit: int = ..., **kwds: Any
+            path: StrPath | None = None, *, loop: events.AbstractEventLoop | None = None, limit: int = 65536, **kwds: Any
         ) -> tuple[StreamReader, StreamWriter]: ...
         async def start_unix_server(
             client_connected_cb: _ClientConnectedCallback,
-            path: StrPath | None = ...,
+            path: StrPath | None = None,
             *,
-            loop: events.AbstractEventLoop | None = ...,
-            limit: int = ...,
+            loop: events.AbstractEventLoop | None = None,
+            limit: int = 65536,
             **kwds: Any,
         ) -> Server: ...
 
