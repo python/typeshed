@@ -1,7 +1,7 @@
 import enum
 import sys
 import types
-from _typeshed.dataclasses import DataclassInstance
+from _typeshed import DataclassInstance
 from builtins import type as Type  # alias to avoid name clashes with fields named "type"
 from collections.abc import Callable, Iterable, Mapping
 from typing import Any, Generic, Protocol, TypeVar, overload
