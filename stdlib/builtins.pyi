@@ -1235,7 +1235,7 @@ if sys.version_info >= (3, 8):
         filename: str | ReadableBuffer | _PathLike[Any],
         mode: str,
         flags: Literal[0],
-        dont_inherit: int = False,
+        dont_inherit: bool = False,
         optimize: int = -1,
         *,
         _feature_version: int = -1,
@@ -1246,7 +1246,7 @@ if sys.version_info >= (3, 8):
         filename: str | ReadableBuffer | _PathLike[Any],
         mode: str,
         *,
-        dont_inherit: int = False,
+        dont_inherit: bool = False,
         optimize: int = -1,
         _feature_version: int = -1,
     ) -> CodeType: ...
@@ -1256,7 +1256,7 @@ if sys.version_info >= (3, 8):
         filename: str | ReadableBuffer | _PathLike[Any],
         mode: str,
         flags: Literal[1024],
-        dont_inherit: int = False,
+        dont_inherit: bool = False,
         optimize: int = -1,
         *,
         _feature_version: int = -1,
@@ -1267,7 +1267,7 @@ if sys.version_info >= (3, 8):
         filename: str | ReadableBuffer | _PathLike[Any],
         mode: str,
         flags: int,
-        dont_inherit: int = False,
+        dont_inherit: bool = False,
         optimize: int = -1,
         *,
         _feature_version: int = -1,
@@ -1280,7 +1280,7 @@ else:
         filename: str | ReadableBuffer | _PathLike[Any],
         mode: str,
         flags: Literal[0],
-        dont_inherit: int = False,
+        dont_inherit: bool = False,
         optimize: int = -1,
     ) -> CodeType: ...
     @overload
@@ -1289,7 +1289,7 @@ else:
         filename: str | ReadableBuffer | _PathLike[Any],
         mode: str,
         *,
-        dont_inherit: int = False,
+        dont_inherit: bool = False,
         optimize: int = -1,
     ) -> CodeType: ...
     @overload
@@ -1298,7 +1298,7 @@ else:
         filename: str | ReadableBuffer | _PathLike[Any],
         mode: str,
         flags: Literal[1024],
-        dont_inherit: int = False,
+        dont_inherit: bool = False,
         optimize: int = -1,
     ) -> _ast.AST: ...
     @overload
@@ -1307,7 +1307,7 @@ else:
         filename: str | ReadableBuffer | _PathLike[Any],
         mode: str,
         flags: int,
-        dont_inherit: int = False,
+        dont_inherit: bool = False,
         optimize: int = -1,
     ) -> Any: ...
 
