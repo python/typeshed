@@ -1,5 +1,5 @@
 import sys
-from collections.abc import Sequence
+
 
 if sys.version_info >= (3, 9):
     __all__ = ["iskeyword", "issoftkeyword", "kwlist", "softkwlist"]
@@ -8,8 +8,8 @@ else:
 
 def iskeyword(s: str) -> bool: ...
 
-kwlist: Sequence[str]
+kwlist: list[str]
 
 if sys.version_info >= (3, 9):
     def issoftkeyword(s: str) -> bool: ...
-    softkwlist: Sequence[str]
+    softkwlist: list[str]
