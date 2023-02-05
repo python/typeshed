@@ -9,8 +9,13 @@ else:
 
 def iskeyword(s: str) -> bool: ...
 
+# a list at runtime, but you're not meant to mutate it;
+# type it as a sequence
 kwlist: Final[Sequence[str]]
 
 if sys.version_info >= (3, 9):
     def issoftkeyword(s: str) -> bool: ...
+
+    # a list at runtime, but you're not meant to mutate it;
+    # type it as a sequence
     softkwlist: Final[Sequence[str]]
