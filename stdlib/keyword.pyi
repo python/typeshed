@@ -1,5 +1,5 @@
 import sys
-from typing import Sequence, Final
+from typing import Final, Sequence
 
 if sys.version_info >= (3, 9):
     __all__ = ["iskeyword", "issoftkeyword", "kwlist", "softkwlist"]
