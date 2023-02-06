@@ -4,7 +4,7 @@ from urllib.response import addinfourl
 
 __all__ = ["URLError", "HTTPError", "ContentTooShortError"]
 
-class URLError(IOError):
+class URLError(OSError):
     reason: str | BaseException
     def __init__(self, reason: str | BaseException, filename: str | None = None) -> None: ...
 
