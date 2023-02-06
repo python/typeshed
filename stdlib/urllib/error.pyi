@@ -10,7 +10,7 @@ class URLError(IOError):
 
 class HTTPError(URLError, addinfourl):
     @property
-    def headers(self) -> Message: ...  # type: ignore[override]
+    def headers(self) -> Message: ...
     @headers.setter
     def headers(self, headers: Message) -> None: ...
     @property
