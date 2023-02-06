@@ -214,6 +214,7 @@ weakref.ReferenceType.*  # Alias for _weakref.ReferenceType, problems should be 
 weakref.WeakKeyDictionary.get
 weakref.WeakKeyDictionary.update
 weakref.WeakValueDictionary.get
+weakref.WeakValueDictionary.setdefault  # has a default value for the "default" argument, but always errors out if no value is supplied for the parameter by the user
 weakref.ref.*  # Alias for _weakref.ReferenceType, problems should be fixed there
 webbrowser.UnixBrowser.remote_action  # always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newtab  # always overridden in inheriting class

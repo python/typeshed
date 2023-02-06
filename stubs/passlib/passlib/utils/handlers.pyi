@@ -66,7 +66,7 @@ class HasEncodingContext(GenericHandler):
     def __init__(self, encoding: str | None = ..., **kwds) -> None: ...
 
 class HasUserContext(GenericHandler):
-    user: Any | None
+    user: Incomplete | None
     def __init__(self, user: Incomplete | None = ..., **kwds) -> None: ...
     @classmethod
     def hash(cls, secret, user: Incomplete | None = ..., **context): ...
@@ -110,7 +110,7 @@ class HasRounds(GenericHandler):
     min_desired_rounds: ClassVar[int | None]
     max_desired_rounds: ClassVar[int | None]
     default_rounds: ClassVar[int | None]
-    vary_rounds: ClassVar[Any | None]
+    vary_rounds: ClassVar[Incomplete | None]
     rounds: int
     @classmethod
     def using(  # type: ignore[override]

@@ -264,13 +264,13 @@ class CodeType:
         def replace(
             self,
             *,
-            co_argcount: int = ...,
-            co_posonlyargcount: int = ...,
-            co_kwonlyargcount: int = ...,
-            co_nlocals: int = ...,
-            co_stacksize: int = ...,
-            co_flags: int = ...,
-            co_firstlineno: int = ...,
+            co_argcount: int = -1,
+            co_posonlyargcount: int = -1,
+            co_kwonlyargcount: int = -1,
+            co_nlocals: int = -1,
+            co_stacksize: int = -1,
+            co_flags: int = -1,
+            co_firstlineno: int = -1,
             co_code: bytes = ...,
             co_consts: tuple[object, ...] = ...,
             co_names: tuple[str, ...] = ...,
@@ -285,13 +285,13 @@ class CodeType:
         def replace(
             self,
             *,
-            co_argcount: int = ...,
-            co_posonlyargcount: int = ...,
-            co_kwonlyargcount: int = ...,
-            co_nlocals: int = ...,
-            co_stacksize: int = ...,
-            co_flags: int = ...,
-            co_firstlineno: int = ...,
+            co_argcount: int = -1,
+            co_posonlyargcount: int = -1,
+            co_kwonlyargcount: int = -1,
+            co_nlocals: int = -1,
+            co_stacksize: int = -1,
+            co_flags: int = -1,
+            co_firstlineno: int = -1,
             co_code: bytes = ...,
             co_consts: tuple[object, ...] = ...,
             co_names: tuple[str, ...] = ...,
@@ -310,6 +310,7 @@ class MappingProxyType(Mapping[_KT, _VT_co], Generic[_KT, _VT_co]):
     def __getitem__(self, __key: _KT) -> _VT_co: ...
     def __iter__(self) -> Iterator[_KT]: ...
     def __len__(self) -> int: ...
+    def __eq__(self, __value: object) -> bool: ...
     def copy(self) -> dict[_KT, _VT_co]: ...
     def keys(self) -> KeysView[_KT]: ...
     def values(self) -> ValuesView[_VT_co]: ...

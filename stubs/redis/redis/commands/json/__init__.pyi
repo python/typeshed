@@ -8,7 +8,7 @@ class JSON(JSONCommands):
     MODULE_CALLBACKS: dict[str, Any]
     client: Any
     execute_command: Any
-    MODULE_VERSION: Any | None
+    MODULE_VERSION: Incomplete | None
     def __init__(self, client, version: Incomplete | None = ..., decoder=..., encoder=...) -> None: ...
     def pipeline(self, transaction: bool = ..., shard_hint: Incomplete | None = ...) -> Pipeline: ...
 
