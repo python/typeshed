@@ -84,7 +84,6 @@ _collections_abc.Iterable.__class_getitem__
 _collections_abc.MappingView.__class_getitem__
 _csv.Reader
 _csv.Writer
-asynchat.__warningregistry__  # Removal planned for 3.12, can add if someone needs this
 bdb.Breakpoint.clearBreakpoints
 distutils.util.get_host_platform
 inspect.Signature.from_builtin  # Removed in 3.11, can add if someone needs this
