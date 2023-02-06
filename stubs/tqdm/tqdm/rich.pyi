@@ -1,20 +1,29 @@
 from _typeshed import Incomplete, SupportsWrite
+from abc import ABC, abstractmethod
 from collections.abc import Iterable, Mapping
 from typing import Generic, NoReturn, TypeVar, overload
 
-from ._rich_shims import ProgressColumn
 from .std import tqdm as std_tqdm
 
 __all__ = ["tqdm_rich", "trrange", "tqdm", "trange"]
 
-class FractionColumn(ProgressColumn):
+# Actually rich.progress.ProgressColumn
+class _ProgressColumn(ABC):
+    max_refresh: float | None
+    def __init__(self, table_column: Incomplete | None = ...) -> None: ...
+    def get_table_column(self) -> Incomplete: ...
+    def __call__(self, task: Incomplete) -> Incomplete: ...
+    @abstractmethod
+    def render(self, task: Incomplete) -> Incomplete: ...
+
+class FractionColumn(_ProgressColumn):
     unit_scale: bool
     unit_divisor: int
 
     def __init__(self, unit_scale: bool = ..., unit_divisor: int = ...) -> None: ...
     def render(self, task): ...
 
-class RateColumn(ProgressColumn):
+class RateColumn(_ProgressColumn):
     unit: str
     unit_scale: bool
     unit_divisor: int
