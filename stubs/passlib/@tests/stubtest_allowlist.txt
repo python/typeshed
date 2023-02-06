@@ -43,9 +43,6 @@ passlib.handlers.oracle.oracle10g
 passlib.handlers.mysql
 passlib.handlers.mysql.mysq41
 
-# Mutable state because of the warnigns:
-passlib.utils.des.__warningregistry__
-
 # Compat tools are ignored:
 passlib.utils.compat.*
 
