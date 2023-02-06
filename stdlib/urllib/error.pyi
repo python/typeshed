@@ -11,6 +11,8 @@ class URLError(IOError):
 class HTTPError(URLError, addinfourl):
     @property
     def headers(self) -> Message: ...  # type: ignore[override]
+    @headers.setter
+    def headers(self, headers: Message) -> None: ...
     @property
     def reason(self) -> str: ...  # type: ignore[override]
     code: int
