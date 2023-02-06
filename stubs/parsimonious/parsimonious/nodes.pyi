@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterator, Sequence
 from re import Match
-from typing import Any, Generic, NoReturn, TypeVar
+from typing import Any, Generic, TypeVar
 
 from parsimonious.exceptions import VisitationError as VisitationError
 from parsimonious.expressions import Expression
