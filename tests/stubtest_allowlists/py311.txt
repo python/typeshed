@@ -13,10 +13,9 @@ _collections_abc.ValuesView.__reversed__
 _csv.Reader
 _csv.Writer
 argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group
-asynchat.__warningregistry__  # Removal planned for 3.12, can add if someone needs this
 configparser.LegacyInterpolation.__init__
 enum.Enum.__init__
-# TODO: The stub for enum is nothing like the implementation
+# TODO: The stub for enum.auto is nothing like the implementation
 enum.auto.__init__
 enum.auto.value
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
@@ -46,11 +45,6 @@ weakref.WeakValueDictionary.update
 # Runtime has *args, **kwargs, but will error if any are supplied
 unittest.TestCase.__init_subclass__
 unittest.case.TestCase.__init_subclass__
-
-# stubtest complains that in 3.10 the default argument is inconsistent with the annotation,
-# but in 3.10+ calling the function without the default argument is in fact deprecated,
-# so it's better to ignore stubtest
-ssl.SSLContext.__new__
 
 # ==========
 # Related to positional-only arguments

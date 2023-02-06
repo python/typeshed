@@ -73,7 +73,7 @@ class _CDataMeta(type):
     def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
 
 class _CData(metaclass=_CDataMeta):
-    _b_base: int
+    _b_base_: int
     _b_needsfree_: bool
     _objects: Mapping[Any, int] | None
     @classmethod
