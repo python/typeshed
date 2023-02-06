@@ -1,6 +1,10 @@
+import datetime
 from _typeshed import Incomplete
+from decimal import Decimal
 
 from openpyxl.styles.styleable import StyleableObject
+
+from typing_extensions import TypeAlias
 
 __docformat__: str
 TIME_TYPES: Incomplete
@@ -19,6 +23,11 @@ TYPE_ERROR: str
 TYPE_FORMULA_CACHE_STRING: str
 VALID_TYPES: Incomplete
 
+_Numeric: TypeAlias = int | float | Decimal | Incomplete  # numpy types
+_Time: TypeAlias = datetime.datetime | datetime.date | datetime.time | datetime.timedelta
+_String: TypeAlias = str | bytes
+_Value: TypeAlias = _Numeric | _Time | _String | bool | None
+
 def get_type(t, value): ...
 def get_time_format(t): ...
 
@@ -35,7 +44,7 @@ class Cell(StyleableObject):
         style_array: Incomplete | None = ...,
     ) -> None: ...
     @property
-    def coordinate(self): ...
+    def coordinate(self) -> str: ...
     @property
     def col_idx(self): ...
     @property
@@ -47,9 +56,9 @@ class Cell(StyleableObject):
     def check_string(self, value): ...
     def check_error(self, value): ...
     @property
-    def value(self): ...
+    def value(self) -> _Value: ...
     @value.setter
-    def value(self, value) -> None: ...
+    def value(self, value: _Value) -> None: ...
     @property
     def internal_value(self): ...
     @property

@@ -1,4 +1,8 @@
 from _typeshed import Incomplete
+from pathlib import Path
+from typing import BinaryIO
+
+from openpyxl.workbook.workbook import Workbook
 
 SUPPORTED_FORMATS: Incomplete
 
@@ -23,4 +27,6 @@ class ExcelReader:
     def read_worksheets(self) -> None: ...
     def read(self) -> None: ...
 
-def load_workbook(filename, read_only: bool = ..., keep_vba=..., data_only: bool = ..., keep_links: bool = ...): ...
+def load_workbook(
+    filename: str | Path | BinaryIO, read_only: bool = ..., keep_vba: bool = ..., data_only: bool = ..., keep_links: bool = ...
+) -> Workbook: ...

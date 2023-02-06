@@ -5,10 +5,10 @@ from openpyxl.descriptors import Strict
 from openpyxl.descriptors.serialisable import Serialisable
 
 class CellRange(Serialisable):  # type: ignore[misc]
-    min_col: Incomplete
-    min_row: Incomplete
-    max_col: Incomplete
-    max_row: Incomplete
+    min_col: int
+    min_row: int
+    max_col: int
+    max_row: int
     title: Incomplete
     def __init__(
         self,
@@ -60,7 +60,7 @@ class CellRange(Serialisable):  # type: ignore[misc]
     def right(self): ...
 
 class MultiCellRange(Strict):
-    ranges: Incomplete
+    ranges: list[CellRange]
     def __init__(self, ranges=...) -> None: ...
     def __contains__(self, coord): ...
     def add(self, coord) -> None: ...
