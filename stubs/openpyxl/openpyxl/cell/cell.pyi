@@ -1,10 +1,9 @@
 import datetime
 from _typeshed import Incomplete
 from decimal import Decimal
+from typing_extensions import TypeAlias
 
 from openpyxl.styles.styleable import StyleableObject
-
-from typing_extensions import TypeAlias
 
 __docformat__: str
 TIME_TYPES: Incomplete
