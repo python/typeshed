@@ -27,7 +27,6 @@ def check_new_syntax(tree: ast.AST, path: Path, stub: str) -> list[str]:
                 )
             self.generic_visit(node)
 
-    OldSyntaxFinder().visit(tree)
     IfFinder().visit(tree)
     return errors
 
