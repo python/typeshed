@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from typing import Any as _Any
 
 from ...sql import expression, sqltypes
@@ -11,7 +12,7 @@ class array(expression.ClauseList, expression.ColumnElement[_Any]):
     inherit_cache: bool
     type: _Any
     def __init__(self, clauses, **kw) -> None: ...
-    def self_group(self, against: _Any | None = ...): ...
+    def self_group(self, against: Incomplete | None = ...): ...
 
 CONTAINS: _Any
 CONTAINED_BY: _Any
@@ -27,7 +28,9 @@ class ARRAY(sqltypes.ARRAY):
     as_tuple: _Any
     dimensions: _Any
     zero_indexes: _Any
-    def __init__(self, item_type, as_tuple: bool = ..., dimensions: _Any | None = ..., zero_indexes: bool = ...) -> None: ...
+    def __init__(
+        self, item_type, as_tuple: bool = ..., dimensions: Incomplete | None = ..., zero_indexes: bool = ...
+    ) -> None: ...
     @property
     def hashable(self): ...
     @property
