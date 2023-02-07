@@ -49,7 +49,6 @@
         "stubs/Pillow",
         "stubs/prettytable",
         "stubs/protobuf",
-        "stubs/python-crontab",
         "stubs/google-cloud-ndb",
         "stubs/influxdb-client",
         "stubs/passlib",
