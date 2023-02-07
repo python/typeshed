@@ -113,7 +113,9 @@ class _Settings(TypedDict):
 
 class Session(SessionRedirectMixin):
     __attrs__: Any
-    headers: CaseInsensitiveDict[str | bytes]
+    # See https://github.com/psf/requests/issues/5020#issuecomment-989082461:
+    # requests sets this as a CaseInsensitiveDict, but users may set it to any MutableMapping
+    headers: MutableMapping[str, str | bytes]
     auth: _Auth | None
     proxies: _TextMapping
     # Don't complain if:
@@ -150,7 +152,7 @@ class Session(SessionRedirectMixin):
         stream: bool | None = ...,
         verify: _Verify | None = ...,
         cert: _Cert | None = ...,
-        json: Any | None = ...,
+        json: Incomplete | None = ...,
     ) -> Response: ...
     def get(
         self,
@@ -169,7 +171,7 @@ class Session(SessionRedirectMixin):
         stream: bool | None = ...,
         verify: _Verify | None = ...,
         cert: _Cert | None = ...,
-        json: Any | None = ...,
+        json: Incomplete | None = ...,
     ) -> Response: ...
     def options(
         self,
@@ -188,7 +190,7 @@ class Session(SessionRedirectMixin):
         stream: bool | None = ...,
         verify: _Verify | None = ...,
         cert: _Cert | None = ...,
-        json: Any | None = ...,
+        json: Incomplete | None = ...,
     ) -> Response: ...
     def head(
         self,
@@ -207,13 +209,13 @@ class Session(SessionRedirectMixin):
         stream: bool | None = ...,
         verify: _Verify | None = ...,
         cert: _Cert | None = ...,
-        json: Any | None = ...,
+        json: Incomplete | None = ...,
     ) -> Response: ...
     def post(
         self,
         url: str | bytes,
         data: _Data | None = ...,
-        json: Any | None = ...,
+        json: Incomplete | None = ...,
         *,
         params: _Params | None = ...,
         headers: _HeadersUpdateMapping | None = ...,
@@ -245,7 +247,7 @@ class Session(SessionRedirectMixin):
         stream: bool | None = ...,
         verify: _Verify | None = ...,
         cert: _Cert | None = ...,
-        json: Any | None = ...,
+        json: Incomplete | None = ...,
     ) -> Response: ...
     def patch(
         self,
@@ -264,7 +266,7 @@ class Session(SessionRedirectMixin):
         stream: bool | None = ...,
         verify: _Verify | None = ...,
         cert: _Cert | None = ...,
-        json: Any | None = ...,
+        json: Incomplete | None = ...,
     ) -> Response: ...
     def delete(
         self,
@@ -283,7 +285,7 @@ class Session(SessionRedirectMixin):
         stream: bool | None = ...,
         verify: _Verify | None = ...,
         cert: _Cert | None = ...,
-        json: Any | None = ...,
+        json: Incomplete | None = ...,
     ) -> Response: ...
     def send(
         self,

@@ -5,6 +5,7 @@ from socket import socket
 from typing import Any, ClassVar
 from typing_extensions import TypeAlias
 
+from .credentials import CredentialProvider
 from .retry import Retry
 
 ssl_available: bool
@@ -121,6 +122,7 @@ class Connection:
         username: str | None = ...,
         retry: Retry | None = ...,
         redis_connect_func: _ConnectFunc | None = ...,
+        credential_provider: CredentialProvider | None = ...,
     ) -> None: ...
     def __del__(self) -> None: ...
     def register_connect_callback(self, callback: _ConnectFunc) -> None: ...
@@ -143,27 +145,27 @@ class SSLConnection(Connection):
     certfile: Any
     cert_reqs: Any
     ca_certs: Any
-    ca_path: Any | None
+    ca_path: Incomplete | None
     check_hostname: bool
-    certificate_password: Any | None
+    certificate_password: Incomplete | None
     ssl_validate_ocsp: bool
     ssl_validate_ocsp_stapled: bool  # added in 4.1.1
-    ssl_ocsp_context: Any | None  # added in 4.1.1
-    ssl_ocsp_expected_cert: Any | None  # added in 4.1.1
+    ssl_ocsp_context: Incomplete | None  # added in 4.1.1
+    ssl_ocsp_expected_cert: Incomplete | None  # added in 4.1.1
     def __init__(
         self,
         ssl_keyfile=...,
         ssl_certfile=...,
         ssl_cert_reqs=...,
         ssl_ca_certs=...,
-        ssl_ca_data: Any | None = ...,
+        ssl_ca_data: Incomplete | None = ...,
         ssl_check_hostname: bool = ...,
-        ssl_ca_path: Any | None = ...,
-        ssl_password: Any | None = ...,
+        ssl_ca_path: Incomplete | None = ...,
+        ssl_password: Incomplete | None = ...,
         ssl_validate_ocsp: bool = ...,
         ssl_validate_ocsp_stapled: bool = ...,  # added in 4.1.1
-        ssl_ocsp_context: Any | None = ...,  # added in 4.1.1
-        ssl_ocsp_expected_cert: Any | None = ...,  # added in 4.1.1
+        ssl_ocsp_context: Incomplete | None = ...,  # added in 4.1.1
+        ssl_ocsp_expected_cert: Incomplete | None = ...,  # added in 4.1.1
         **kwargs,
     ) -> None: ...
 
@@ -187,6 +189,7 @@ class UnixDomainSocketConnection(Connection):
         client_name: str | None = ...,
         retry: Retry | None = ...,
         redis_connect_func: _ConnectFunc | None = ...,
+        credential_provider: CredentialProvider | None = ...,
     ) -> None: ...
 
 # TODO: make generic on `connection_class`

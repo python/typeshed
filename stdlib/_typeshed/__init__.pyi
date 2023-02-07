@@ -8,9 +8,10 @@ import mmap
 import pickle
 import sys
 from collections.abc import Awaitable, Callable, Iterable, Set as AbstractSet
+from dataclasses import Field
 from os import PathLike
 from types import FrameType, TracebackType
-from typing import Any, AnyStr, Generic, Protocol, TypeVar, Union
+from typing import Any, AnyStr, ClassVar, Generic, Protocol, TypeVar, Union
 from typing_extensions import Final, Literal, LiteralString, TypeAlias, final
 
 _KT = TypeVar("_KT")
@@ -35,6 +36,9 @@ AnyStr_co = TypeVar("AnyStr_co", str, bytes, covariant=True)  # noqa: Y001
 # use Incomplete instead of Any as a marker. For example, use
 # "Incomplete | None" instead of "Any | None".
 Incomplete: TypeAlias = Any
+
+# To describe a function parameter that is unused and will work with anything.
+Unused: TypeAlias = object
 
 # stable
 class IdentityFunction(Protocol):
@@ -205,6 +209,7 @@ class HasFileno(Protocol):
 
 FileDescriptor: TypeAlias = int  # stable
 FileDescriptorLike: TypeAlias = int | HasFileno  # stable
+FileDescriptorOrPath: TypeAlias = int | StrOrBytesPath
 
 # stable
 class SupportsRead(Protocol[_T_co]):
@@ -300,3 +305,10 @@ ProfileFunction: TypeAlias = Callable[[FrameType, str, Any], object]
 
 # Objects suitable to be passed to sys.settrace, threading.settrace, and similar
 TraceFunction: TypeAlias = Callable[[FrameType, str, Any], TraceFunction | None]
+
+# experimental
+# Might not work as expected for pyright, see
+#   https://github.com/python/typeshed/pull/9362
+#   https://github.com/microsoft/pyright/issues/4339
+class DataclassInstance(Protocol):
+    __dataclass_fields__: ClassVar[dict[str, Field[Any]]]
