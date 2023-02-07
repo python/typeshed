@@ -3,7 +3,7 @@ from _typeshed import structseq
 from collections.abc import Callable, Iterable
 from enum import IntEnum
 from types import FrameType
-from typing import Any, Union
+from typing import Any
 from typing_extensions import Final, Never, TypeAlias, final
 
 NSIG: int
@@ -62,7 +62,7 @@ SIG_DFL: Handlers
 SIG_IGN: Handlers
 
 _SIGNUM: TypeAlias = int | Signals
-_HANDLER: TypeAlias = Union[Callable[[int, FrameType | None], Any], int, Handlers, None]
+_HANDLER: TypeAlias = Callable[[int, FrameType | None], Any] | int | Handlers | None
 
 def default_int_handler(__signalnum: int, __frame: FrameType | None) -> Never: ...
 

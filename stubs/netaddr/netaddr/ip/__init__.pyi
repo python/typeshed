@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Self
 from abc import abstractmethod
 from collections.abc import Iterable, Iterator
-from typing import SupportsInt, Union, overload
+from typing import SupportsInt, overload
 from typing_extensions import Literal, SupportsIndex, TypeAlias
 
 from netaddr.core import DictDotLookup
@@ -38,7 +38,7 @@ class BaseIP:
     def version(self) -> Literal[4, 6]: ...
 
 _IPAddressAddr: TypeAlias = BaseIP | int | str
-_IPNetworkAddr: TypeAlias = Union[IPNetwork, IPAddress, tuple[int, int], str]
+_IPNetworkAddr: TypeAlias = IPNetwork | IPAddress | tuple[int, int] | str
 
 class IPAddress(BaseIP):
     def __init__(self, addr: _IPAddressAddr, version: Literal[4, 6] | None = ..., flags: int = ...) -> None: ...

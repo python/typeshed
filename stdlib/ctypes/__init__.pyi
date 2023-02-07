@@ -3,7 +3,7 @@ from _ctypes import RTLD_GLOBAL as RTLD_GLOBAL, RTLD_LOCAL as RTLD_LOCAL
 from _typeshed import ReadableBuffer, Self, WriteableBuffer
 from abc import abstractmethod
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
-from typing import Any, ClassVar, Generic, TypeVar, Union as _UnionT, overload
+from typing import Any, ClassVar, Generic, TypeVar, overload
 from typing_extensions import TypeAlias
 
 if sys.version_info >= (3, 9):
@@ -91,7 +91,7 @@ class _CanCastTo(_CData): ...
 class _PointerLike(_CanCastTo): ...
 
 _ECT: TypeAlias = Callable[[type[_CData] | None, _FuncPointer, tuple[_CData, ...]], _CData]
-_PF: TypeAlias = _UnionT[tuple[int], tuple[int, str], tuple[int, str, Any]]
+_PF: TypeAlias = tuple[int] | tuple[int, str] | tuple[int, str, Any]
 
 class _FuncPointer(_PointerLike, _CData):
     restype: type[_CData] | Callable[[int], Any] | None
