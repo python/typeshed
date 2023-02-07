@@ -6,20 +6,7 @@ from collections.abc import Callable, Container, Iterable, Mapping, Sequence, Se
 from contextlib import AbstractContextManager
 from re import Pattern
 from types import TracebackType
-from typing import (
-    Any,
-    AnyStr,
-    ClassVar,
-    Generic,
-    NamedTuple,
-    NoReturn,
-    Protocol,
-    SupportsAbs,
-    SupportsRound,
-    TypeVar,
-    Union,
-    overload,
-)
+from typing import Any, AnyStr, ClassVar, Generic, NamedTuple, NoReturn, Protocol, SupportsAbs, SupportsRound, TypeVar, overload
 from typing_extensions import ParamSpec, TypeAlias
 from warnings import WarningMessage
 
@@ -82,9 +69,9 @@ class SkipTest(Exception):
 class _SupportsAbsAndDunderGE(SupportsDunderGE[Any], SupportsAbs[Any], Protocol): ...
 
 if sys.version_info >= (3, 10):
-    _IsInstanceClassInfo: TypeAlias = Union[type, UnionType, tuple[type | UnionType | tuple[Any, ...], ...]]
+    _IsInstanceClassInfo: TypeAlias = type | UnionType | tuple[type | UnionType | tuple[Any, ...], ...]
 else:
-    _IsInstanceClassInfo: TypeAlias = Union[type, tuple[type | tuple[Any, ...], ...]]
+    _IsInstanceClassInfo: TypeAlias = type | tuple[type | tuple[Any, ...], ...]
 
 class TestCase:
     failureException: type[BaseException]
