@@ -192,7 +192,7 @@ class super:
 
 _PositiveInteger: TypeAlias = Literal[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
 _NegativeInteger: TypeAlias = Literal[-1, -2, -3, -4, -5, -6, -7, -8, -9, -10, -11, -12, -13, -14, -15, -16, -17, -18, -19, -20]
-_LiteralInteger: TypeAlias = _PositiveInteger | _NegativeInteger | Literal[0]
+_LiteralInteger = _PositiveInteger | _NegativeInteger | Literal[0]  # noqa: Y026  # TODO: Use TypeAlias once mypy bugs are fixed
 
 class int:
     @overload
@@ -1600,7 +1600,9 @@ class _SupportsPow3NoneOnly(Protocol[_E, _T_co]):
 class _SupportsPow3(Protocol[_E, _M, _T_co]):
     def __pow__(self, __other: _E, __modulo: _M) -> _T_co: ...
 
-_SupportsSomeKindOfPow: TypeAlias = _SupportsPow2[Any, Any] | _SupportsPow3NoneOnly[Any, Any] | _SupportsPow3[Any, Any, Any]
+_SupportsSomeKindOfPow = (  # noqa: Y026  # TODO: Use TypeAlias once mypy bugs are fixed
+    _SupportsPow2[Any, Any] | _SupportsPow3NoneOnly[Any, Any] | _SupportsPow3[Any, Any, Any]
+)
 
 if sys.version_info >= (3, 8):
     # TODO: `pow(int, int, Literal[0])` fails at runtime,
