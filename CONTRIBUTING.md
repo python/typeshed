@@ -368,40 +368,6 @@ introduced in, say, Python 3.7.4, your check:
 When your stub contains if statements for different Python versions,
 always put the code for the most recent Python version first.
 
-### Incomplete stubs
-
-We accept partial stubs, especially for larger packages. These need to
-follow the following guidelines:
-
-* Included functions and methods must list all arguments, but the arguments
-  can be left unannotated. Do not use `Any` to mark unannotated arguments
-  or return values.
-* Partial classes must include a `__getattr__()` method marked with an
-  `# incomplete` comment (see example below).
-* Partial modules (i.e. modules that are missing some or all classes,
-  functions, or attributes) must include a top-level `__getattr__()`
-  function marked with an `Incomplete` return type (see example below).
-* Partial packages (i.e. packages that are missing one or more sub-modules)
-  must have a `__init__.pyi` stub that is marked as incomplete (see above).
-  A better alternative is to create empty stubs for all sub-modules and
-  mark them as incomplete individually.
-
-Example of a partial module with a partial class `Foo` and a partially
-annotated function `bar()`:
-
-```python
-from _typeshed import Incomplete
-
-class Foo:
-    def __getattr__(self, name: str) -> Incomplete: ...
-    x: int
-    y: str
-
-def bar(x: str, y, *, z=...): ...
-
-def __getattr__(name: str) -> Incomplete: ...
-```
-
 ## Stub file coding style
 
 ### Syntax example
@@ -447,15 +413,25 @@ rule is that they should be as concise as possible.  Specifically:
 * use variable annotations instead of type comments, even for stubs
   that target older versions of Python.
 
-Stub files should only contain information necessary for the type
-checker, and leave out unnecessary detail:
-* for arguments with a default, use `...` instead of the actual
-  default;
-* for arguments that default to `None`, use `Foo | None` explicitly
-  (see below for details);
-* use `float` instead of `int | float`.
+The primary users for stub files are type checkers,
+so stub files should generally only contain information necessary for the type
+checker, and leave out unnecessary detail.
+However, stubs also have other use cases:
+* stub files are often used as a data source for IDEs,
+  which will often use the signature in a stub to provide information
+  on functions or classes in tooltip messages.
+* stubs can serve as useful documentation to human readers,
+  as well as machine-readable sources of data.
+
+As such, we recommend that default values be retained for "simple" default values
+(e.g. bools, ints, bytes, strings, and floats are all permitted).
+Use `= ...` for more complex default values,
+rather than trying to exactly reproduce the default at runtime.
 
 Some further tips for good type hints:
+* for arguments that default to `None`, use `Foo | None` explicitly for the type annotation;
+* use `float` instead of `int | float` for parameter annotations
+  (see [PEP 484](https://peps.python.org/pep-0484/#the-numeric-tower) for motivation).
 * use built-in generics (`list`, `dict`, `tuple`, `set`), instead
   of importing them from `typing`.
 * use `X | Y` instead of `Union[X, Y]` and `X | None`, instead of
@@ -524,6 +500,33 @@ into any of those categories, use your best judgement.
 * Use `HasX` for protocols that have readable and/or writable attributes
   or getter/setter methods (e.g. `HasItems`, `HasFileno`).
 
+### Incomplete annotations
+
+When submitting new stubs, it is not necessary to annotate all arguments,
+return types, and fields. Such items should either be left unannotated or
+use `_typeshed.Incomplete` if this is not possible:
+
+```python
+from _typeshed import Incomplete
+
+field: Incomplete  # unannotated
+
+def foo(x): ...  # unannotated argument and return type
+```
+
+`Incomplete` can also be used for partially known types:
+
+```python
+def foo(x: Incomplete | None = None) -> list[Incomplete]: ...
+```
+
+### `Any` vs. `Incomplete`
+
+While `Incomplete` is a type alias of `Any`, they serve difference purposes:
+`Incomplete` is a placeholder where a proper type might be substituted.
+It's a "to do" item and should be replaced if possible. `Any` is used when
+it's not possible to accurately type an item using the current type system.
+It should be used sparingly.
 
 ## Submitting Changes
 

@@ -178,6 +178,7 @@ def pixel(x: int, y: int) -> tuple[int, int, int]: ...
 def screenshot(imageFilename: StrOrBytesPath | None = None, region: tuple[int, int, int, int] | None = None) -> Image.Image: ...
 
 grab = screenshot
+
 # _locateAll_opencv
 @overload
 def locateAll(
