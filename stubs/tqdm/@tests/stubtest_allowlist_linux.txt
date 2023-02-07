@@ -1,2 +1,0 @@
-#Unintended re-export of the colorama module
-tqdm\._?utils\.colorama
