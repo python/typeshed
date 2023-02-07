@@ -6,6 +6,8 @@
         "stubs",
     ],
     "exclude": [
+        // test cases use a custom pyrightconfig file
+        "stubs/**/@tests/test_cases",
         "stdlib/distutils/command",
         "stdlib/lib2to3/refactor.pyi",
         "stdlib/_tkinter.pyi",

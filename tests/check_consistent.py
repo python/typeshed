@@ -65,9 +65,15 @@ def check_stubs() -> None:
         allowed = {"METADATA.toml", "README", "README.md", "README.rst", "@tests"}
         assert_consistent_filetypes(dist, kind=".pyi", allowed=allowed)
 
+        tests_dir = dist / "@tests"
+        if tests_dir.exists() and tests_dir.is_dir():
+            py_files_present = any(file.suffix == ".py" for file in tests_dir.iterdir())
+            error_message = "Test-case files must be in an `@tests/test_cases/` directory, not in the `@tests/` directory"
+            assert not py_files_present, error_message
+
 
 def check_test_cases() -> None:
-    for package_name, testcase_dir in get_all_testcase_directories():
+    for _, testcase_dir in get_all_testcase_directories():
         assert_consistent_filetypes(testcase_dir, kind=".py", allowed={"README.md"}, allow_nonidentifier_filenames=True)
         bad_test_case_filename = 'Files in a `test_cases` directory must have names starting with "check_"; got "{}"'
         for file in testcase_dir.rglob("*.py"):
@@ -75,14 +81,6 @@ def check_test_cases() -> None:
             with open(file, encoding="UTF-8") as f:
                 lines = {line.strip() for line in f}
             assert "from __future__ import annotations" in lines, "Test-case files should use modern typing syntax where possible"
-            if package_name != "stdlib":
-                pyright_setting_not_enabled_msg = (
-                    f'Third-party test-case file "{file}" must have '
-                    f'"# pyright: reportUnnecessaryTypeIgnoreComment=true" '
-                    f"at the top of the file"
-                )
-                has_pyright_setting_enabled = "# pyright: reportUnnecessaryTypeIgnoreComment=true" in lines
-                assert has_pyright_setting_enabled, pyright_setting_not_enabled_msg
 
 
 def check_no_symlinks() -> None:
