@@ -4,25 +4,32 @@ from __future__ import annotations
 
 import os
 import re
-from functools import cache
-from itertools import filterfalse
+import subprocess
+import sys
+import venv
+from collections.abc import Iterable
+from functools import lru_cache
 from pathlib import Path
 from typing import NamedTuple
+from typing_extensions import Annotated
 
-import pathspec  # type: ignore[import]
-import tomli
-
-
-def strip_comments(text: str) -> str:
-    return text.split("#")[0].strip()
-
+import pathspec
 
 try:
     from termcolor import colored as colored
 except ImportError:
 
-    def colored(s: str, _: str) -> str:  # type: ignore[misc]
-        return s
+    def colored(text: str, color: str | None = None, on_color: str | None = None, attrs: Iterable[str] | None = None) -> str:
+        return text
+
+
+# A backport of functools.cache for Python <3.9
+# This module is imported by mypy_test.py, which needs to run on 3.7 in CI
+cache = lru_cache(None)
+
+
+def strip_comments(text: str) -> str:
+    return text.split("#")[0].strip()
 
 
 def print_error(error: str, end: str = "\n", fix_path: tuple[str, str] = ("", "")) -> None:
@@ -38,29 +45,44 @@ def print_success_msg() -> None:
 
 
 # ====================================================================
-# Reading dependencies from METADATA.toml files
+# Dynamic venv creation
 # ====================================================================
 
 
+class VenvInfo(NamedTuple):
+    pip_exe: Annotated[str, "A path to the venv's pip executable"]
+    python_exe: Annotated[str, "A path to the venv's python executable"]
+
+    @staticmethod
+    def of_existing_venv(venv_dir: Path) -> VenvInfo:
+        if sys.platform == "win32":
+            pip = venv_dir / "Scripts" / "pip.exe"
+            python = venv_dir / "Scripts" / "python.exe"
+        else:
+            pip = venv_dir / "bin" / "pip"
+            python = venv_dir / "bin" / "python"
+
+        return VenvInfo(str(pip), str(python))
+
+
+def make_venv(venv_dir: Path) -> VenvInfo:
+    try:
+        venv.create(venv_dir, with_pip=True, clear=True)
+    except subprocess.CalledProcessError as e:
+        if "ensurepip" in e.cmd and b"KeyboardInterrupt" not in e.stdout.splitlines():
+            print_error(
+                "stubtest requires a Python installation with ensurepip. "
+                "If on Linux, you may need to install the python3-venv package."
+            )
+        raise
+
+    return VenvInfo.of_existing_venv(venv_dir)
+
+
 @cache
-def read_dependencies(distribution: str) -> tuple[str, ...]:
-    with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
-        data = tomli.load(f)
-    requires = data.get("requires", [])
-    assert isinstance(requires, list)
-    dependencies = []
-    for dependency in requires:
-        assert isinstance(dependency, str)
-        assert dependency.startswith("types-"), f"unrecognized dependency {dependency!r}"
-        dependencies.append(dependency[6:].split("<")[0])
-    return tuple(dependencies)
-
-
-def get_recursive_requirements(package_name: str, seen: set[str] | None = None) -> list[str]:
-    seen = seen if seen is not None else {package_name}
-    for dependency in filterfalse(seen.__contains__, read_dependencies(package_name)):
-        seen.update(get_recursive_requirements(dependency, seen))
-    return sorted(seen | {package_name})
+def get_mypy_req() -> str:
+    with open("requirements-tests.txt", encoding="UTF-8") as f:
+        return next(line.strip() for line in f if "mypy" in line)
 
 
 # ====================================================================
@@ -79,6 +101,10 @@ VERSIONS_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_.]*): ([23]\.\d{1,2})-([23]\.\d
 class PackageInfo(NamedTuple):
     name: str
     test_case_directory: Path
+
+    @property
+    def is_stdlib(self) -> bool:
+        return self.name == "stdlib"
 
 
 def testcase_dir_from_package_name(package_name: str) -> Path:
@@ -109,4 +135,4 @@ def spec_matches_path(spec: pathspec.PathSpec, path: Path) -> bool:
     normalized_path = path.as_posix()
     if path.is_dir():
         normalized_path += "/"
-    return spec.match_file(normalized_path)  # type: ignore[no-any-return]
+    return spec.match_file(normalized_path)

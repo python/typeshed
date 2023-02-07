@@ -1,14 +1,13 @@
 import importlib.abc
 import types
 import zipimport
-from _typeshed import Self
+from _typeshed import Incomplete, Self
 from abc import ABCMeta
 from collections.abc import Callable, Generator, Iterable, Sequence
 from typing import IO, Any, TypeVar, overload
 from typing_extensions import TypeAlias
 
-_LegacyVersion: TypeAlias = Any  # from packaging.version
-_Version: TypeAlias = Any  # from packaging.version
+_Version: TypeAlias = Incomplete  # from packaging.version
 
 _T = TypeVar("_T")
 _NestedStr: TypeAlias = str | Iterable[str | Iterable[Any]]
@@ -77,9 +76,10 @@ class Requirement:
     key: str
     extras: tuple[str, ...]
     specs: list[tuple[str, str]]
+    url: str | None
     # TODO: change this to packaging.markers.Marker | None once we can import
     #       packaging.markers
-    marker: Any | None
+    marker: Incomplete | None
     @staticmethod
     def parse(s: str | Iterable[str]) -> Requirement: ...
     def __contains__(self, item: Distribution | str | tuple[str, ...]) -> bool: ...
@@ -262,7 +262,8 @@ empty_provider: EmptyProvider
 class FileMetadata(EmptyProvider, IResourceProvider):
     def __init__(self, path_to_pkg_info: str) -> None: ...
 
-def parse_version(v: str) -> _Version | _LegacyVersion: ...
+parse_version = _Version
+
 def yield_lines(iterable: _NestedStr) -> Generator[str, None, None]: ...
 def split_sections(strs: _NestedStr) -> Generator[tuple[str | None, list[str]], None, None]: ...
 def safe_name(name: str) -> str: ...

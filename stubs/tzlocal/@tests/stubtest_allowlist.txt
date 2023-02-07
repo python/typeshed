@@ -1,2 +1,3 @@
+# Implementation details
 tzlocal.unix
 tzlocal.win32

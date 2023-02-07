@@ -8,33 +8,10 @@ requests.adapters.PoolManager.proxy_config
 requests.adapters.PoolManager.urlopen
 requests.adapters.Retry.DEFAULT
 
-# Unnecessary re-exported constants from requests.compat
-requests.adapters.basestring
-requests.auth.basestring
-requests.utils.basestring
-requests.utils.integer_types
-requests.models.basestring
-
-# Unnecessary re-exported constant
-# (you should access this as `requests.__version__` or `requests.__version__.__version__`,
-# not `requests.help.requests_version`)
-requests.help.requests_version
-
-# No reason to access this re-exported constant from `requests.sessions` instead of from `requests.utils`
-requests.sessions.DEFAULT_PORTS
-
-# Unnecessary re-exports of third-party modules
-requests.help.chardet
-requests.help.cryptography
-requests.help.pyopenssl
-requests.help.OpenSSL
-
 # Loop variables that leak into the global scope
 requests.packages.mod
 requests.packages.package
 requests.packages.target
 
-# Internal implementation details, not for public consumption
-requests.charset_normalizer_version
-requests.chardet_version
-requests.utils.HEADER_VALIDATORS
+# Metaclass differs:
+requests.adapters.Retry

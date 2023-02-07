@@ -1,6 +1,3 @@
-# Some arguments only exist on FreeBSD and MacOS
-aiofiles.os.sendfile
-
 # These all delegate using *args,**kwargs, but stubs use signature of
 # method they are being delegated to.
 aiofiles.threadpool.binary.AsyncBufferedIOBase.close
@@ -40,6 +37,7 @@ aiofiles.os.mkdir
 aiofiles.os.makedirs
 aiofiles.os.rmdir
 aiofiles.os.removedirs
+aiofiles.os.scandir
 aiofiles.ospath.exists
 aiofiles.ospath.isfile
 aiofiles.ospath.isdir
@@ -51,10 +49,17 @@ aiofiles.ospath.samefile
 aiofiles.ospath.sameopenfile
 
 # Same issues as above
+aiofiles.tempfile.temptypes.AsyncSpooledTemporaryFile.close
 aiofiles.tempfile.temptypes.AsyncSpooledTemporaryFile.fileno
 aiofiles.tempfile.temptypes.AsyncSpooledTemporaryFile.flush
 aiofiles.tempfile.temptypes.AsyncSpooledTemporaryFile.isatty
-aiofiles.tempfile.temptypes.AsyncSpooledTemporaryFile.newlines
 aiofiles.tempfile.temptypes.AsyncSpooledTemporaryFile.rollover
 aiofiles.tempfile.temptypes.AsyncSpooledTemporaryFile.tell
 aiofiles.tempfile.temptypes.AsyncTemporaryDirectory.cleanup
+
+# Metaclass differs:
+aiofiles.base.AiofilesContextManager
+aiofiles.tempfile.AiofilesContextManagerTempDir
+
+# Helper decorator, too complex to type
+aiofiles.os.wrap

@@ -173,7 +173,8 @@ async def release_contains_py_typed(release_to_download: PypiReleaseDownload, *,
 async def find_first_release_with_py_typed(pypi_info: PypiInfo, *, session: aiohttp.ClientSession) -> PypiReleaseDownload:
     release_iter = pypi_info.releases_in_descending_order()
     while await release_contains_py_typed(release := next(release_iter), session=session):
-        first_release_with_py_typed = release
+        if not release.version.is_prerelease:
+            first_release_with_py_typed = release
     return first_release_with_py_typed
 
 
@@ -578,7 +579,7 @@ def get_update_pr_body(update: Update, metadata: dict[str, Any]) -> str:
     if update.diff_analysis is not None:
         body += f"\n\n{update.diff_analysis}"
 
-    stubtest_will_run = not metadata.get("stubtest", {}).get("skip", False)
+    stubtest_will_run = not metadata.get("tool", {}).get("stubtest", {}).get("skip", False)
     if stubtest_will_run:
         body += textwrap.dedent(
             """

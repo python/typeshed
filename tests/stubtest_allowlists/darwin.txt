@@ -21,6 +21,11 @@ select.POLLMSG   # system dependent
 (posix.preadv)?
 (posix.pwritev)?
 
+# Platform differences that cannot be captured by the type system
+(posix.O_[A-Z_]+)?
+(posix.ST_[A-Z]+)?
+(termios.[A-Z0-9_]+)?
+
 # Exists at runtime, but missing from stubs
 distutils.msvccompiler.MSVCCompiler.get_msvc_paths
 distutils.msvccompiler.MSVCCompiler.set_path_env_var

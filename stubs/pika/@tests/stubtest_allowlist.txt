@@ -1,0 +1,30 @@
+# Inherited from stdlib's io module.
+pika.compat.StringIO.seek
+pika.compat.StringIO.truncate
+
+# Requires external libraries to be installed.
+pika\.adapters\.gevent_connection.*
+pika\.adapters\.tornado_connection.*
+pika\.adapters\.twisted_connection.*
+
+# Stubtest doesn't understand that a property alias is also read-only.
+pika.BlockingConnection.basic_nack
+pika.BlockingConnection.consumer_cancel_notify
+pika.BlockingConnection.exchange_exchange_bindings
+pika.BlockingConnection.publisher_confirms
+pika.adapters.BlockingConnection.basic_nack
+pika.adapters.BlockingConnection.consumer_cancel_notify
+pika.adapters.BlockingConnection.exchange_exchange_bindings
+pika.adapters.BlockingConnection.publisher_confirms
+pika.adapters.blocking_connection.BlockingConnection.basic_nack
+pika.adapters.blocking_connection.BlockingConnection.consumer_cancel_notify
+pika.adapters.blocking_connection.BlockingConnection.exchange_exchange_bindings
+pika.adapters.blocking_connection.BlockingConnection.publisher_confirms
+
+# The implementation has defaults for the arguments that would make the
+# created instances unusable, so we require the arguments in the stub.
+pika.spec.Queue.DeclareOk.__init__
+
+# Arguments have a sentinel default, which is not reflected in the stubs.
+pika.ConnectionParameters.__init__
+pika.connection.ConnectionParameters.__init__

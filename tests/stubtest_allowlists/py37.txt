@@ -24,7 +24,6 @@ collections.AsyncGenerator.ag_frame
 collections.AsyncGenerator.ag_running
 collections.Callable
 collections.Mapping.__reversed__  # Set to None at runtime for a better error message
-collections.UserString.maketrans
 contextvars.ContextVar.get
 distutils.command.bdist_wininst  # see #6523
 dummy_threading.Condition.acquire
@@ -47,7 +46,6 @@ typing._SpecialForm.__new__
 typing.runtime_checkable
 uuid.UUID.int
 uuid.UUID.is_safe
-uuid.getnode  # undocumented, unused parameter getters that was later removed
 xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495
 xml.etree.cElementTree.TreeBuilder.start  # bpo-39495
 
@@ -69,6 +67,10 @@ tempfile.SpooledTemporaryFile.readable
 tempfile.SpooledTemporaryFile.seekable
 tempfile.SpooledTemporaryFile.writable
 
+# Default values given in the stub are a white lie, see #9637
+tkinter.Tcl
+tkinter.Tk.__init__
+
 # Exists at runtime, but missing from stubs
 contextvars.ContextVar.__class_getitem__
 datetime.datetime_CAPI
@@ -78,14 +80,12 @@ distutils.cygwinccompiler.RE_VERSION
 distutils.dist.command_re
 distutils.fancy_getopt.longopt_re
 distutils.fancy_getopt.neg_alias_re
-distutils.core.DEBUG
 distutils.core.USAGE
 distutils.core.extension_keywords
 distutils.core.gen_usage
 distutils.core.setup_keywords
 dummy_threading.Lock
 dummy_threading.RLock
-dummy_threading.stack_size
 html.parser.HTMLParser.unescape
 platform.popen
 plistlib.Data.asBase64
@@ -94,7 +94,6 @@ ssl.OP_ENABLE_MIDDLEBOX_COMPAT
 ssl.Options.OP_ENABLE_MIDDLEBOX_COMPAT
 ssl.SSLObject.verify_client_post_handshake
 ssl.SSLSocket.verify_client_post_handshake
-stringprep.unicodedata  # re-exported from unicodedata
 tempfile.SpooledTemporaryFile.softspace
 tkinter.Tk.split
 tkinter.commondialog.[A-Z_]+
@@ -159,7 +158,6 @@ types.FunctionType.__get__
 types.LambdaType.__get__
 
 # Missing from distutils (deprecated, to be removed in 3.12)
-distutils.core.DEBUG
 distutils.core.USAGE
 distutils.core.extension_keywords
 distutils.core.gen_usage
@@ -187,7 +185,6 @@ distutils.core.Distribution.parse_command_line
 distutils.core.Distribution.print_command_list
 distutils.core.Distribution.reinitialize_command
 distutils.core.Distribution.run_commands
-distutils.cygwinccompiler.PIPE
 distutils.cygwinccompiler.is_cygwingcc
 distutils.dist.Distribution.announce
 distutils.dist.Distribution.common_usage

@@ -30,16 +30,15 @@ _weakref.CallableProxyType.__getattr__  # Should have all attributes of proxy
 _weakref.ProxyType.__getattr__  # Should have all attributes of proxy
 _weakref.ReferenceType.__call__  # C function default annotation is wrong
 _weakref.ReferenceType.__init__  # Runtime defines __new__ but stubtest thinks __init__ is also defined.
+argparse.ArgumentParser.__init__  # stubtest doesn't recognise the runtime default (a class) as being compatible with a callback protocol (the stub annotation)
 argparse.Namespace.__getattr__  # The whole point of this class is its attributes are dynamic
 asynchat.async_chat.encoding  # Removal planned for 3.12, can add if someone needs this
 asynchat.async_chat.use_encoding  # Removal planned for 3.12, can add if someone needs this
 asynchat.find_prefix_at_end  # Removal planned for 3.12, can add if someone needs this
-asyncio.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 # Condition functions are exported in __init__
 asyncio.Condition.acquire
 asyncio.Condition.locked
 asyncio.Condition.release
-asyncio.base_events.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 # Condition functions are exported in __init__
 asyncio.locks.Condition.acquire
 asyncio.locks.Condition.locked
@@ -134,7 +133,7 @@ lib2to3.pytree.NegatedPattern.match
 lib2to3.pytree.NegatedPattern.match_seq
 # LC_MESSAGES is sometimes present in __all__, sometimes not,
 # so stubtest will sometimes complain about exported names being different at runtime to the exported names in the stub
-(locale)?
+(locale.__all__)?
 multiprocessing.JoinableQueue
 multiprocessing.Queue
 multiprocessing.SimpleQueue
@@ -165,6 +164,7 @@ poplib.POP3_SSL.stls  # bad declaration of inherited function. See poplib.pyi
 pyexpat.expat_CAPI
 select.poll  # Depends on configuration
 selectors.DevpollSelector  # Depends on configuration
+shutil.rmtree  # stubtest doesn't like that we have this as an instance of a callback protocol instead of a function
 socketserver.BaseServer.RequestHandlerClass  # is defined as a property, because we need `Self` type
 socketserver.BaseServer.fileno  # implemented in derived classes
 socketserver.BaseServer.get_request  # implemented in derived classes
@@ -215,6 +215,7 @@ weakref.ReferenceType.*  # Alias for _weakref.ReferenceType, problems should be 
 weakref.WeakKeyDictionary.get
 weakref.WeakKeyDictionary.update
 weakref.WeakValueDictionary.get
+weakref.WeakValueDictionary.setdefault  # has a default value for the "default" argument, but always errors out if no value is supplied for the parameter by the user
 weakref.ref.*  # Alias for _weakref.ReferenceType, problems should be fixed there
 webbrowser.UnixBrowser.remote_action  # always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newtab  # always overridden in inheriting class
@@ -422,7 +423,6 @@ ssl.RAND_egd
 collections.abc.*  # Types are re-exported from _collections_abc, so errors should be fixed there
 distutils.command.check.SilentReporter  # only defined if docutils in installed
 hmac.HMAC.blocksize  # use block_size instead
-http.server.SimpleHTTPRequestHandler.__init__  # *args is expanded
 pickle.Pickler.memo  # undocumented implementation detail, has different type in C/Python implementations
 pickle.Unpickler.memo  # undocumented implementation detail, has different type in C/Python implementations
 re.Pattern.scanner  # Undocumented and not useful. #6405
@@ -438,6 +438,17 @@ types.WrapperDescriptorType.__get__
 # Various classes in typing aren't types at runtime. In addition, mypy thinks some special forms are tautologically defined.
 typing.[A-Z]\w+
 typing_extensions\..*
+
+# These are abstract properties at runtime,
+# but marking them as such in the stub breaks half the the typed-Python ecosystem (see #8726)
+typing.IO.closed
+typing.IO.mode
+typing.IO.name
+typing.TextIO.buffer
+typing.TextIO.encoding
+typing.TextIO.errors
+typing.TextIO.line_buffering
+typing.TextIO.newlines
 
 # Typing-related weirdness
 _collections_abc.Callable
@@ -483,17 +494,7 @@ turtle.ScrolledCanvas.find_all
 turtle.ScrolledCanvas.select_clear
 turtle.ScrolledCanvas.select_item
 
-# Unnecessary re-exports
-asyncore\.E[A-Z]+  # re-exported from errno
-asyncore.errorcode  # re-exported from errno
-email._header_value_parser.hexdigits
-logging.handlers.ST_[A-Z]+
-xml.dom.expatbuilder.EMPTY_NAMESPACE
-xml.dom.expatbuilder.EMPTY_PREFIX
-xml.dom.expatbuilder.XMLNS_NAMESPACE
-xml.dom.minidom.EMPTY_NAMESPACE
-xml.dom.minidom.EMPTY_PREFIX
-xml.dom.minidom.XMLNS_NAMESPACE
+# Unnecessary re-export
 xml.dom.minidom.StringTypes
 
 # __all__-related weirdness (see #6523)
@@ -534,10 +535,7 @@ xml.sax
 
 # Platform differences that cannot be captured by the type system
 os.O_[A-Z_]+
-(posix.O_[A-Z_]+)?
-(posix.ST_[A-Z]+)?
 socket.AF_DECnet
-(termios.[A-Z0-9_]+)?
 
 # Loadable SQLite extensions are disabled on GitHub runners
 (sqlite3(.dbapi2)?.Connection.enable_load_extension)?
@@ -605,6 +603,7 @@ wsgiref.handlers.BaseHandler.status
 # These would ideally be special-cased by type checkers; see https://github.com/python/mypy/issues/2220
 ctypes.Array.__iter__
 mmap.mmap.__iter__
+mmap.mmap.__contains__
 xml.etree.ElementTree.Element.__iter__
 xml.etree.cElementTree.Element.__iter__
 typing.IO.__iter__  # See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
@@ -647,11 +646,7 @@ distutils.ccompiler.compiler_class
 distutils.cmd.Command.dump_options
 distutils.cmd.Command.ensure_finalized
 distutils.command.bdist
-distutils.command.bdist_rpm.DEBUG
-distutils.command.build_ext.USER_BASE
-distutils.command.build_scripts.ST_MODE
 distutils.command.install.*
-distutils.command.install_scripts.ST_MODE
 distutils.core.Distribution.finalize_options
 distutils.core.Distribution.get_command_class
 distutils.core.Distribution.get_command_list
@@ -673,7 +668,6 @@ distutils.cygwinccompiler.check_config_h
 distutils.cygwinccompiler.get_msvcr
 distutils.cygwinccompiler.get_versions
 distutils.dir_util.ensure_relative
-distutils.dist.DEBUG
 distutils.dist.Distribution.finalize_options
 distutils.dist.Distribution.get_command_class
 distutils.dist.Distribution.get_command_list
@@ -714,7 +708,6 @@ distutils.msvccompiler.get_build_version
 distutils.msvccompiler.normalize_and_reduce_paths
 distutils.msvccompiler.read_keys
 distutils.msvccompiler.read_values
-distutils.spawn.DEBUG
 distutils.sysconfig.BASE_EXEC_PREFIX
 distutils.sysconfig.BASE_PREFIX
 distutils.sysconfig.build_flags
