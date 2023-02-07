@@ -435,7 +435,7 @@ Some further tips for good type hints:
 * use built-in generics (`list`, `dict`, `tuple`, `set`), instead
   of importing them from `typing`.
 * use `X | Y` instead of `Union[X, Y]` and `X | None`, instead of
-  `Optional[X]`, **except** when it is not possible due to mypy bugs (type aliases and base classes);
+  `Optional[X]`;
 * in Python 3 stubs, import collections (`Mapping`, `Iterable`, etc.)
   from `collections.abc` instead of `typing`;
 * avoid invariant collection types (`list`, `dict`) in argument
