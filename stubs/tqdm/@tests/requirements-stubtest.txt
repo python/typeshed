@@ -1,4 +1,4 @@
-tensorflow
-pandas
 dask
+pandas
 rich
+tensorflow

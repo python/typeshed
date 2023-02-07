@@ -1,0 +1,2 @@
+# Metaclass problem inherited from urllib3.
+influxdb_client.client.write.retry.WritesRetry

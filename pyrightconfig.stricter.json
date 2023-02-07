@@ -28,10 +28,8 @@
         "stubs/caldav",
         "stubs/cffi",
         "stubs/commonmark",
-        "stubs/cryptography",
         "stubs/dateparser",
         "stubs/docutils",
-        "stubs/ExifRead",
         "stubs/Flask-Migrate",
         "stubs/Flask-SQLAlchemy",
         "stubs/fpdf2",
@@ -50,11 +48,13 @@
         "stubs/prettytable",
         "stubs/protobuf",
         "stubs/google-cloud-ndb",
+        "stubs/influxdb-client",
         "stubs/passlib",
         "stubs/peewee",
         "stubs/pika",
         "stubs/psutil",
         "stubs/psycopg2",
+        "stubs/pyasn1",
         "stubs/pyflakes",
         "stubs/Pygments",
         "stubs/PyMySQL",
@@ -73,8 +73,14 @@
         "stubs/vobject",
     ],
     "typeCheckingMode": "strict",
+    "reportUnnecessaryTypeIgnoreComment": "error",
+    // Leave "type: ignore" comments to mypy
+    "enableTypeIgnoreComments": false,
+    // Stubs are allowed to use private variables
     "reportPrivateUsage": "none",
+    // TODO: Complete incomplete stubs
     "reportIncompleteStub": "none",
+    // Stubs don't need the actual modules to be installed
     "reportMissingModuleSource": "none",
     // Incompatible overrides and property type mismatches are out of typeshed's control
     // as they are inherited from the implementation.
