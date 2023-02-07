@@ -3,13 +3,13 @@ import sys
 import types
 from _typeshed import ReadableBuffer, Self
 from collections.abc import Iterable
-from typing import Any, Union
+from typing import Any
 from typing_extensions import SupportsIndex, TypeAlias
 
 __all__ = ["Client", "Listener", "Pipe", "wait"]
 
 # https://docs.python.org/3/library/multiprocessing.html#address-formats
-_Address: TypeAlias = Union[str, tuple[str, int]]
+_Address: TypeAlias = str | tuple[str, int]
 
 class _ConnectionBase:
     def __init__(self, handle: SupportsIndex, readable: bool = True, writable: bool = True) -> None: ...

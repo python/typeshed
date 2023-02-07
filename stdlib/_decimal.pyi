@@ -3,11 +3,11 @@ import sys
 from _typeshed import Self
 from collections.abc import Container, Sequence
 from types import TracebackType
-from typing import Any, ClassVar, NamedTuple, Union, overload
+from typing import Any, ClassVar, NamedTuple, overload
 from typing_extensions import Literal, TypeAlias
 
 _Decimal: TypeAlias = Decimal | int
-_DecimalNew: TypeAlias = Union[Decimal, float, str, tuple[int, Sequence[int], int]]
+_DecimalNew: TypeAlias = Decimal | float | str | tuple[int, Sequence[int], int]
 _ComparableNum: TypeAlias = Decimal | float | numbers.Rational
 
 __version__: str
