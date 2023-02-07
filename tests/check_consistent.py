@@ -67,7 +67,7 @@ def check_stubs() -> None:
 
         tests_dir = dist / "@tests"
         if tests_dir.exists() and tests_dir.is_dir():
-            py_files_present = bool([file for file in tests_dir.iterdir() if file.suffix == ".py"])
+            py_files_present = any(file.suffix == ".py" for file in tests_dir.iterdir())
             error_message = "Test-case files must be in an `@tests/test_cases/` directory, not in the `@tests/` directory"
             assert not py_files_present, error_message
 
