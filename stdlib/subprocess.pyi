@@ -994,7 +994,7 @@ if sys.version_info >= (3, 11):
     def check_call(
         args: _CMD,
         bufsize: int = ...,
-        executable: StrOrBytesPath = ...,
+        executable: StrOrBytesPath | None = None,
         stdin: _FILE = ...,
         stdout: _FILE = ...,
         stderr: _FILE = ...,
@@ -1025,7 +1025,7 @@ elif sys.version_info >= (3, 10):
     def check_call(
         args: _CMD,
         bufsize: int = ...,
-        executable: StrOrBytesPath = ...,
+        executable: StrOrBytesPath | None = None,
         stdin: _FILE = ...,
         stdout: _FILE = ...,
         stderr: _FILE = ...,
@@ -1055,7 +1055,7 @@ elif sys.version_info >= (3, 9):
     def check_call(
         args: _CMD,
         bufsize: int = ...,
-        executable: StrOrBytesPath = ...,
+        executable: StrOrBytesPath | None = None,
         stdin: _FILE = ...,
         stdout: _FILE = ...,
         stderr: _FILE = ...,
@@ -1083,7 +1083,7 @@ else:
     def check_call(
         args: _CMD,
         bufsize: int = ...,
-        executable: StrOrBytesPath = ...,
+        executable: StrOrBytesPath | None = None,
         stdin: _FILE = ...,
         stdout: _FILE = ...,
         stderr: _FILE = ...,
