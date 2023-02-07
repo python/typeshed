@@ -10,7 +10,6 @@ from pathlib import Path
 
 def check_new_syntax(tree: ast.AST, path: Path, stub: str) -> list[str]:
     errors = []
-    sourcelines = stub.splitlines()
 
     class IfFinder(ast.NodeVisitor):
         def visit_If(self, node: ast.If) -> None:
