@@ -113,7 +113,7 @@ else:
     SIGXCPU: Signals
     SIGXFSZ: Signals
 
-    class ItimerError(IOError): ...
+    class ItimerError(OSError): ...
     ITIMER_PROF: int
     ITIMER_REAL: int
     ITIMER_VIRTUAL: int
