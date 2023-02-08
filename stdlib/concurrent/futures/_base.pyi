@@ -1,6 +1,7 @@
+from typing_extensions import Self
 import sys
 import threading
-from _typeshed import Self, Unused
+from _typeshed import Unused
 from collections.abc import Callable, Iterable, Iterator, Sequence
 from logging import Logger
 from types import TracebackType
@@ -62,7 +63,7 @@ class Executor:
     else:
         def shutdown(self, wait: bool = True) -> None: ...
 
-    def __enter__(self: Self) -> Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> bool | None: ...

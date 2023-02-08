@@ -1,6 +1,6 @@
+from typing_extensions import Self
 import subprocess
 import sys
-from _typeshed import Self
 from collections.abc import Callable
 from types import TracebackType
 from typing import Any, AnyStr, Protocol
@@ -25,7 +25,7 @@ if sys.platform == "win32":
         else:
             def __del__(self) -> None: ...
 
-        def __enter__(self: Self) -> Self: ...
+        def __enter__(self) -> Self: ...
         def __exit__(self, t: type[BaseException] | None, v: BaseException | None, tb: TracebackType | None) -> None: ...
         @property
         def handle(self) -> int: ...
@@ -41,7 +41,7 @@ if sys.platform == "win32":
         # subprocess.Popen takes other positional-or-keyword arguments before
         # stdin.
         def __new__(
-            cls: type[Self],
+            cls,
             args: subprocess._CMD,
             stdin: subprocess._FILE | None = ...,
             stdout: subprocess._FILE | None = ...,

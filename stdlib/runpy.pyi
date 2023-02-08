@@ -1,4 +1,5 @@
-from _typeshed import Self, Unused
+from typing_extensions import Self
+from _typeshed import Unused
 from types import ModuleType
 from typing import Any
 
@@ -8,7 +9,7 @@ class _TempModule:
     mod_name: str
     module: ModuleType
     def __init__(self, mod_name: str) -> None: ...
-    def __enter__(self: Self) -> Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(self, *args: Unused) -> None: ...
 
 class _ModifiedArgv0:

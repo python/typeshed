@@ -1,7 +1,8 @@
+from typing_extensions import Self
 import enum
 import socket
 import sys
-from _typeshed import ReadableBuffer, Self, StrOrBytesPath, WriteableBuffer
+from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
 from collections.abc import Callable, Iterable
 from typing import Any, NamedTuple, overload
 from typing_extensions import Literal, TypeAlias, TypedDict, final
@@ -297,9 +298,9 @@ class _ASN1Object(NamedTuple):
     longname: str
     oid: str
     @classmethod
-    def fromnid(cls: type[Self], nid: int) -> Self: ...
+    def fromnid(cls, nid: int) -> Self: ...
     @classmethod
-    def fromname(cls: type[Self], name: str) -> Self: ...
+    def fromname(cls, name: str) -> Self: ...
 
 class Purpose(_ASN1Object, enum.Enum):
     SERVER_AUTH: _ASN1Object
@@ -383,9 +384,9 @@ class SSLContext:
     if sys.version_info >= (3, 10):
         # Using the default (None) for the `protocol` parameter is deprecated,
         # but there isn't a good way of marking that in the stub unless/until PEP 702 is accepted
-        def __new__(cls: type[Self], protocol: int | None = None, *args: Any, **kwargs: Any) -> Self: ...
+        def __new__(cls, protocol: int | None = None, *args: Any, **kwargs: Any) -> Self: ...
     else:
-        def __new__(cls: type[Self], protocol: int = ..., *args: Any, **kwargs: Any) -> Self: ...
+        def __new__(cls, protocol: int = ..., *args: Any, **kwargs: Any) -> Self: ...
 
     def cert_store_stats(self) -> dict[str, int]: ...
     def load_cert_chain(

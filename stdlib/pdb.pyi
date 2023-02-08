@@ -1,6 +1,6 @@
+from typing_extensions import Self
 import signal
 import sys
-from _typeshed import Self
 from bdb import Bdb
 from cmd import Cmd
 from collections.abc import Callable, Iterable, Mapping, Sequence
@@ -173,4 +173,4 @@ def getsourcelines(obj: _SourceObjectType) -> tuple[list[str], int]: ...
 def lasti2lineno(code: CodeType, lasti: int) -> int: ...
 
 class _rstr(str):
-    def __repr__(self: Self) -> Self: ...
+    def __repr__(self) -> Self: ...

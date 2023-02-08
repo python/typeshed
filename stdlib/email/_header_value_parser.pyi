@@ -1,5 +1,5 @@
+from typing_extensions import Self
 import sys
-from _typeshed import Self
 from collections.abc import Iterable, Iterator
 from email.errors import HeaderParseError, MessageDefect
 from email.policy import Policy
@@ -318,7 +318,7 @@ class Terminal(str):
     syntactic_break: bool
     token_type: str
     defects: list[MessageDefect]
-    def __new__(cls: type[Self], value: str, token_type: str) -> Self: ...
+    def __new__(cls, value: str, token_type: str) -> Self: ...
     def pprint(self) -> None: ...
     @property
     def all_defects(self) -> list[MessageDefect]: ...

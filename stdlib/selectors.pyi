@@ -1,5 +1,6 @@
+from typing_extensions import Self
 import sys
-from _typeshed import FileDescriptor, FileDescriptorLike, Self, Unused
+from _typeshed import FileDescriptor, FileDescriptorLike, Unused
 from abc import ABCMeta, abstractmethod
 from collections.abc import Mapping
 from typing import Any, NamedTuple
@@ -28,7 +29,7 @@ class BaseSelector(metaclass=ABCMeta):
     def get_key(self, fileobj: FileDescriptorLike) -> SelectorKey: ...
     @abstractmethod
     def get_map(self) -> Mapping[FileDescriptorLike, SelectorKey]: ...
-    def __enter__(self: Self) -> Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(self, *args: Unused) -> None: ...
 
 class SelectSelector(BaseSelector):

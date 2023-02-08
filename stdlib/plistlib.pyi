@@ -1,5 +1,6 @@
+from typing_extensions import Self
 import sys
-from _typeshed import ReadableBuffer, Self
+from _typeshed import ReadableBuffer
 from collections.abc import Mapping, MutableMapping
 from datetime import datetime
 from enum import Enum
@@ -100,7 +101,7 @@ if sys.version_info >= (3, 8):
         data: int
         def __init__(self, data: int) -> None: ...
         def __index__(self) -> int: ...
-        def __reduce__(self: Self) -> tuple[type[Self], tuple[int]]: ...
+        def __reduce__(self) -> tuple[type[Self], tuple[int]]: ...
         def __eq__(self, other: object) -> bool: ...
 
 class InvalidFileException(ValueError):

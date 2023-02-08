@@ -1,4 +1,4 @@
-from _typeshed import Self
+from typing_extensions import Self
 from queue import Queue
 from types import TracebackType
 from typing import Any
@@ -17,7 +17,7 @@ class Connection:
     recv_bytes: Any
     send: Any
     send_bytes: Any
-    def __enter__(self: Self) -> Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_value: BaseException | None, exc_tb: TracebackType | None
     ) -> None: ...
@@ -29,7 +29,7 @@ class Listener:
     _backlog_queue: Queue[Any] | None
     @property
     def address(self) -> Queue[Any] | None: ...
-    def __enter__(self: Self) -> Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_value: BaseException | None, exc_tb: TracebackType | None
     ) -> None: ...

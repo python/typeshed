@@ -1,7 +1,8 @@
+from typing_extensions import Self
 import bz2
 import io
 import sys
-from _typeshed import Self, StrOrBytesPath, StrPath
+from _typeshed import StrOrBytesPath, StrPath
 from builtins import list as _list, type as Type  # aliases to avoid name clashes with fields named "type" or "list"
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from gzip import _ReadableFileobj as _GzipReadableFileobj, _WritableFileobj as _GzipWritableFileobj
@@ -141,14 +142,14 @@ class TarFile:
         errorlevel: int | None = None,
         copybufsize: int | None = None,  # undocumented
     ) -> None: ...
-    def __enter__(self: Self) -> Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(
         self, type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
     ) -> None: ...
     def __iter__(self) -> Iterator[TarInfo]: ...
     @classmethod
     def open(
-        cls: type[Self],
+        cls,
         name: StrOrBytesPath | None = None,
         mode: str = "r",
         fileobj: IO[bytes] | None = None,  # depends on mode
@@ -166,7 +167,7 @@ class TarFile:
     ) -> Self: ...
     @classmethod
     def taropen(
-        cls: type[Self],
+        cls,
         name: StrOrBytesPath | None,
         mode: Literal["r", "a", "w", "x"] = "r",
         fileobj: _Fileobj | None = None,
@@ -184,7 +185,7 @@ class TarFile:
     @overload
     @classmethod
     def gzopen(
-        cls: type[Self],
+        cls,
         name: StrOrBytesPath | None,
         mode: Literal["r"] = "r",
         fileobj: _GzipReadableFileobj | None = None,
@@ -202,7 +203,7 @@ class TarFile:
     @overload
     @classmethod
     def gzopen(
-        cls: type[Self],
+        cls,
         name: StrOrBytesPath | None,
         mode: Literal["w", "x"],
         fileobj: _GzipWritableFileobj | None = None,
@@ -220,7 +221,7 @@ class TarFile:
     @overload
     @classmethod
     def bz2open(
-        cls: type[Self],
+        cls,
         name: StrOrBytesPath | None,
         mode: Literal["w", "x"],
         fileobj: _Bz2WritableFileobj | None = None,
@@ -238,7 +239,7 @@ class TarFile:
     @overload
     @classmethod
     def bz2open(
-        cls: type[Self],
+        cls,
         name: StrOrBytesPath | None,
         mode: Literal["r"] = "r",
         fileobj: _Bz2ReadableFileobj | None = None,
@@ -255,7 +256,7 @@ class TarFile:
     ) -> Self: ...
     @classmethod
     def xzopen(
-        cls: type[Self],
+        cls,
         name: StrOrBytesPath | None,
         mode: Literal["r", "w", "x"] = "r",
         fileobj: IO[bytes] | None = None,

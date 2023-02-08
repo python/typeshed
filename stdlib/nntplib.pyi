@@ -1,8 +1,9 @@
+from typing_extensions import Self
 import datetime
 import socket
 import ssl
 import sys
-from _typeshed import Self, Unused
+from _typeshed import Unused
 from builtins import list as _list  # conflicts with a method named "list"
 from collections.abc import Iterable
 from typing import IO, Any, NamedTuple
@@ -72,7 +73,7 @@ class NNTP:
         usenetrc: bool = False,
         timeout: float = ...,
     ) -> None: ...
-    def __enter__(self: Self) -> Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(self, *args: Unused) -> None: ...
     def getwelcome(self) -> str: ...
     def getcapabilities(self) -> dict[str, _list[str]]: ...

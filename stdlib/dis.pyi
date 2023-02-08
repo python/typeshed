@@ -1,6 +1,6 @@
+from typing_extensions import Self
 import sys
 import types
-from _typeshed import Self
 from collections.abc import Callable, Iterator
 from opcode import *  # `dis` re-exports it as a part of public API
 from typing import IO, Any, NamedTuple
@@ -83,14 +83,14 @@ class Bytecode:
         ) -> None: ...
         @classmethod
         def from_traceback(
-            cls: type[Self], tb: types.TracebackType, *, show_caches: bool = False, adaptive: bool = False
+            cls, tb: types.TracebackType, *, show_caches: bool = False, adaptive: bool = False
         ) -> Self: ...
     else:
         def __init__(
             self, x: _HaveCodeType | str, *, first_line: int | None = None, current_offset: int | None = None
         ) -> None: ...
         @classmethod
-        def from_traceback(cls: type[Self], tb: types.TracebackType) -> Self: ...
+        def from_traceback(cls, tb: types.TracebackType) -> Self: ...
 
     def __iter__(self) -> Iterator[Instruction]: ...
     def info(self) -> str: ...

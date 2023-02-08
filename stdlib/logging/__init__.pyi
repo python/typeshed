@@ -1,6 +1,7 @@
+from typing_extensions import Self
 import sys
 import threading
-from _typeshed import Self, StrPath, SupportsWrite
+from _typeshed import StrPath, SupportsWrite
 from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequence
 from io import TextIOWrapper
 from re import Pattern
@@ -110,7 +111,7 @@ class Logger(Filterer):
     def setLevel(self, level: _Level) -> None: ...
     def isEnabledFor(self, level: int) -> bool: ...
     def getEffectiveLevel(self) -> int: ...
-    def getChild(self: Self, suffix: str) -> Self: ...  # see python/typing#980
+    def getChild(self, suffix: str) -> Self: ...  # see python/typing#980
     if sys.version_info >= (3, 8):
         def debug(
             self,

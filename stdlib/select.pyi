@@ -1,5 +1,6 @@
+from typing_extensions import Self
 import sys
-from _typeshed import FileDescriptorLike, Self
+from _typeshed import FileDescriptorLike
 from collections.abc import Iterable
 from types import TracebackType
 from typing import Any
@@ -106,7 +107,7 @@ if sys.platform == "linux":
     @final
     class epoll:
         def __init__(self, sizehint: int = ..., flags: int = ...) -> None: ...
-        def __enter__(self: Self) -> Self: ...
+        def __enter__(self) -> Self: ...
         def __exit__(
             self,
             __exc_type: type[BaseException] | None = None,

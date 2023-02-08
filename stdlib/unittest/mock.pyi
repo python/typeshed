@@ -1,5 +1,5 @@
+from typing_extensions import Self
 import sys
-from _typeshed import Self
 from collections.abc import Awaitable, Callable, Coroutine, Iterable, Mapping, Sequence
 from contextlib import _GeneratorContextManager
 from types import TracebackType
@@ -68,7 +68,7 @@ _CallValue: TypeAlias = str | tuple[Any, ...] | Mapping[str, Any] | _ArgsKwargs 
 
 class _Call(tuple[Any, ...]):
     def __new__(
-        cls: type[Self],
+        cls,
         value: _CallValue = ...,
         name: str | None = "",
         parent: Any | None = None,
@@ -108,7 +108,7 @@ class Base:
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
 
 class NonCallableMock(Base, Any):
-    def __new__(__cls: type[Self], *args: Any, **kw: Any) -> Self: ...
+    def __new__(__cls, *args: Any, **kw: Any) -> Self: ...
     def __init__(
         self,
         spec: list[str] | object | type[object] | None = None,
@@ -437,9 +437,9 @@ def mock_open(mock: Any | None = None, read_data: Any = "") -> Any: ...
 
 class PropertyMock(Mock):
     if sys.version_info >= (3, 8):
-        def __get__(self: Self, obj: _T, obj_type: type[_T] | None = None) -> Self: ...
+        def __get__(self, obj: _T, obj_type: type[_T] | None = None) -> Self: ...
     else:
-        def __get__(self: Self, obj: _T, obj_type: type[_T] | None) -> Self: ...
+        def __get__(self, obj: _T, obj_type: type[_T] | None) -> Self: ...
 
     def __set__(self, obj: Any, value: Any) -> None: ...
 

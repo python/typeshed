@@ -1,5 +1,6 @@
+from typing_extensions import Self
 import sys
-from _typeshed import Self, SupportsRead, SupportsReadline
+from _typeshed import SupportsRead, SupportsReadline
 from collections.abc import Callable, Iterable, Iterator
 from socket import socket
 from ssl import SSLContext
@@ -36,7 +37,7 @@ class FTP:
     lastresp: str
     file: TextIO | None
     encoding: str
-    def __enter__(self: Self) -> Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> None: ...

@@ -1,8 +1,8 @@
+from typing_extensions import Self
 import dis
 import enum
 import sys
 import types
-from _typeshed import Self
 from collections import OrderedDict
 from collections.abc import AsyncGenerator, Awaitable, Callable, Coroutine, Generator, Mapping, Sequence, Set as AbstractSet
 from types import (
@@ -314,12 +314,12 @@ class Signature:
     def bind(self, *args: Any, **kwargs: Any) -> BoundArguments: ...
     def bind_partial(self, *args: Any, **kwargs: Any) -> BoundArguments: ...
     def replace(
-        self: Self, *, parameters: Sequence[Parameter] | type[_void] | None = ..., return_annotation: Any = ...
+        self, *, parameters: Sequence[Parameter] | type[_void] | None = ..., return_annotation: Any = ...
     ) -> Self: ...
     if sys.version_info >= (3, 10):
         @classmethod
         def from_callable(
-            cls: type[Self],
+            cls,
             obj: _IntrospectableCallable,
             *,
             follow_wrapped: bool = True,
@@ -329,7 +329,7 @@ class Signature:
         ) -> Self: ...
     else:
         @classmethod
-        def from_callable(cls: type[Self], obj: _IntrospectableCallable, *, follow_wrapped: bool = True) -> Self: ...
+        def from_callable(cls, obj: _IntrospectableCallable, *, follow_wrapped: bool = True) -> Self: ...
 
     def __eq__(self, other: object) -> bool: ...
 
@@ -372,7 +372,7 @@ class Parameter:
     @property
     def annotation(self) -> Any: ...
     def replace(
-        self: Self,
+        self,
         *,
         name: str | type[_void] = ...,
         kind: _ParameterKind | type[_void] = ...,
@@ -493,7 +493,7 @@ if sys.version_info >= (3, 11):
     class Traceback(_Traceback):
         positions: dis.Positions | None
         def __new__(
-            cls: type[Self],
+            cls,
             filename: str,
             lineno: int,
             function: str,
@@ -514,7 +514,7 @@ if sys.version_info >= (3, 11):
     class FrameInfo(_FrameInfo):
         positions: dis.Positions | None
         def __new__(
-            cls: type[Self],
+            cls,
             frame: FrameType,
             filename: str,
             lineno: int,

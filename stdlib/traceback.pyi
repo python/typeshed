@@ -1,5 +1,6 @@
+from typing_extensions import Self
 import sys
-from _typeshed import Self, SupportsWrite
+from _typeshed import SupportsWrite
 from collections.abc import Generator, Iterable, Iterator, Mapping
 from types import FrameType, TracebackType
 from typing import Any, overload
@@ -129,7 +130,7 @@ class TracebackException:
         ) -> None: ...
         @classmethod
         def from_exception(
-            cls: type[Self],
+            cls,
             exc: BaseException,
             *,
             limit: int | None = ...,
@@ -154,7 +155,7 @@ class TracebackException:
         ) -> None: ...
         @classmethod
         def from_exception(
-            cls: type[Self],
+            cls,
             exc: BaseException,
             *,
             limit: int | None = ...,
@@ -176,7 +177,7 @@ class TracebackException:
         ) -> None: ...
         @classmethod
         def from_exception(
-            cls: type[Self], exc: BaseException, *, limit: int | None = ..., lookup_lines: bool = ..., capture_locals: bool = ...
+            cls, exc: BaseException, *, limit: int | None = ..., lookup_lines: bool = ..., capture_locals: bool = ...
         ) -> Self: ...
 
     def __eq__(self, other: object) -> bool: ...

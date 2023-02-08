@@ -1,6 +1,7 @@
+from typing_extensions import Self
 import sys
 from _socket import _Address as _SourceAddress
-from _typeshed import ReadableBuffer, Self, _BufferWithLen
+from _typeshed import ReadableBuffer, _BufferWithLen
 from collections.abc import Sequence
 from email.message import Message as _Message
 from re import Pattern
@@ -95,7 +96,7 @@ class SMTP:
         timeout: float = ...,
         source_address: _SourceAddress | None = None,
     ) -> None: ...
-    def __enter__(self: Self) -> Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_value: BaseException | None, tb: TracebackType | None
     ) -> None: ...
