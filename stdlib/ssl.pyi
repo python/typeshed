@@ -3,7 +3,7 @@ import socket
 import sys
 from _typeshed import ReadableBuffer, Self, StrOrBytesPath, WriteableBuffer
 from collections.abc import Callable, Iterable
-from typing import Any, NamedTuple, Union, overload
+from typing import Any, NamedTuple, overload
 from typing_extensions import Literal, TypeAlias, TypedDict, final
 
 _PCTRTT: TypeAlias = tuple[tuple[str, str], ...]
@@ -11,7 +11,7 @@ _PCTRTTT: TypeAlias = tuple[_PCTRTT, ...]
 _PeerCertRetDictType: TypeAlias = dict[str, str | _PCTRTTT | _PCTRTT]
 _PeerCertRetType: TypeAlias = _PeerCertRetDictType | bytes | None
 _EnumRetType: TypeAlias = list[tuple[bytes, str, set[str] | bool]]
-_PasswordType: TypeAlias = Union[Callable[[], str | bytes | bytearray], str, bytes, bytearray]
+_PasswordType: TypeAlias = Callable[[], str | bytes | bytearray] | str | bytes | bytearray
 
 _SrvnmeCbType: TypeAlias = Callable[[SSLSocket | SSLObject, str | None, SSLSocket], int | None]
 

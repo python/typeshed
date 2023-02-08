@@ -7,7 +7,7 @@ from collections.abc import Callable, Iterable, Mapping
 from datetime import datetime
 from io import BytesIO
 from types import TracebackType
-from typing import Any, Protocol, Union, overload
+from typing import Any, Protocol, overload
 from typing_extensions import Literal, TypeAlias
 
 class _SupportsTimeTuple(Protocol):
@@ -31,7 +31,7 @@ _Marshallable: TypeAlias = (
     | Binary
 )
 _XMLDate: TypeAlias = int | datetime | tuple[int, ...] | time.struct_time
-_HostType: TypeAlias = Union[tuple[str, dict[str, str]], str]
+_HostType: TypeAlias = tuple[str, dict[str, str]] | str
 
 def escape(s: str) -> str: ...  # undocumented
 

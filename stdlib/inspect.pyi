@@ -25,7 +25,7 @@ from types import (
     TracebackType,
     WrapperDescriptorType,
 )
-from typing import Any, ClassVar, NamedTuple, Protocol, TypeVar, Union, overload
+from typing import Any, ClassVar, NamedTuple, Protocol, TypeVar, overload
 from typing_extensions import Literal, ParamSpec, TypeAlias, TypeGuard
 
 if sys.version_info >= (3, 11):
@@ -264,9 +264,9 @@ def isdatadescriptor(object: object) -> TypeGuard[_SupportsSet[Any, Any] | _Supp
 #
 # Retrieving source code
 #
-_SourceObjectType: TypeAlias = Union[
-    ModuleType, type[Any], MethodType, FunctionType, TracebackType, FrameType, CodeType, Callable[..., Any]
-]
+_SourceObjectType: TypeAlias = (
+    ModuleType | type[Any] | MethodType | FunctionType | TracebackType | FrameType | CodeType | Callable[..., Any]
+)
 
 def findsource(object: _SourceObjectType) -> tuple[list[str], int]: ...
 def getabsfile(object: _SourceObjectType, _filename: str | None = None) -> str: ...

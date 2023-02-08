@@ -1,6 +1,7 @@
 import _typeshed
 import collections  # Needed by aliases like DefaultDict, see mypy issue 2986
 import sys
+import typing_extensions
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import IdentityFunction, Incomplete, SupportsKeysAndGetItem
 from abc import ABCMeta, abstractmethod
@@ -719,7 +720,7 @@ class ByteString(Sequence[int], metaclass=ABCMeta): ...
 
 # Functions
 
-_get_type_hints_obj_allowed_types = (  # noqa: Y026  # TODO: Use TypeAlias once mypy bugs are fixed
+_get_type_hints_obj_allowed_types: typing_extensions.TypeAlias = (  # noqa: Y042
     object
     | Callable[..., Any]
     | FunctionType
@@ -783,7 +784,7 @@ class NamedTuple(tuple[Any, ...]):
     @overload
     def __init__(self, typename: str, fields: Iterable[tuple[str, Any]] = ...) -> None: ...
     @overload
-    def __init__(self, typename: str, fields: None = ..., **kwargs: Any) -> None: ...
+    def __init__(self, typename: str, fields: None = None, **kwargs: Any) -> None: ...
     @classmethod
     def _make(cls: Type[_T], iterable: Iterable[Any]) -> _T: ...
     if sys.version_info >= (3, 8):
