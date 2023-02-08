@@ -104,7 +104,7 @@ class LZMACompressor:
 
 class LZMAError(Exception): ...
 
-class LZMAFile(io.BufferedIOBase, IO[bytes]):
+class LZMAFile(io.BufferedIOBase, IO[bytes]):  # type: ignore[misc]  # incomptatible definitions of writelines in the 2 bases
     def __init__(
         self,
         filename: _PathOrFile | None = None,
