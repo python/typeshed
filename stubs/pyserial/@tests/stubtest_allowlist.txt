@@ -28,6 +28,12 @@ serial.urlhandler.protocol_spy.Serial.write
 
 # Error: is not present in stub
 # =============================
+# TODO: work through these and maybe add them
+serial.tools.list_ports_linux.SysFS
+serial.tools.list_ports_linux.comports
+serial.tools.list_ports_windows.SP_DEVINFO_DATA.\w+
+serial.tools.list_ports_windows.GUID.\w+
+
 # Python 2 compatibility
 serial.basestring
 serial.serialutil.basestring
@@ -67,7 +73,3 @@ serial.serialutil.SerialBase.setDTR
 serial.serialutil.SerialBase.setPort
 serial.serialutil.SerialBase.setRTS
 serial.serialutil.SerialBase.writeTimeout
-
-# Private aliases
-serial.serialposix.plat
-serial.tools.list_ports_posix.plat
