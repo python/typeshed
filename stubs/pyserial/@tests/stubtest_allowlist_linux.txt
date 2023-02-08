@@ -19,4 +19,4 @@ serial.serialposix.VTIMESerial.read
 # Error: is missing from the stub (intended to be private aliases)
 # ================================================================
 serial.tools.list_ports_posix.plat
-serial.tools.serialposix.plat
+serial.serialposix.plat

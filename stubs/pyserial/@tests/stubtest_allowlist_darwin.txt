@@ -2,7 +2,6 @@
 # =======================
 serial.serialwin32  # Windows only
 serial.win32  # Windows only
-serial.tools.list_ports_linux  # Linux only
 serial.tools.list_ports_windows  # Windows only
 
 # Error: is inconsistent
@@ -16,7 +15,12 @@ serial.serialposix.Serial.write
 serial.serialposix.PosixPollSerial.read
 serial.serialposix.VTIMESerial.read
 
-# Error: is missing from the stub (intended to be private aliases)
-# ================================================================
+# Error: is missing from the stub
+# ===============================
+# TODO: maybe add these
+serial.tools.list_ports_linux.SysFS
+serial.tools.list_ports_linux.comports
+
+# intended to be private aliases
 serial.tools.list_ports_posix.plat
-serial.tools.serialposix.plat
+serial.serialposix.plat
