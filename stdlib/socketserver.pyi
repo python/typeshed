@@ -4,7 +4,7 @@ from _socket import _Address, _RetAddress
 from _typeshed import ReadableBuffer, Self
 from collections.abc import Callable
 from socket import socket as _socket
-from typing import Any, BinaryIO, ClassVar, Union
+from typing import Any, BinaryIO, ClassVar
 from typing_extensions import TypeAlias
 
 __all__ = [
@@ -29,7 +29,7 @@ if sys.platform != "win32":
         "UnixStreamServer",
     ]
 
-_RequestType: TypeAlias = Union[_socket, tuple[bytes, _socket]]
+_RequestType: TypeAlias = _socket | tuple[bytes, _socket]
 _AfUnixAddress: TypeAlias = str | ReadableBuffer  # adddress acceptable for an AF_UNIX socket
 _AfInetAddress: TypeAlias = tuple[str | bytes | bytearray, int]  # address acceptable for an AF_INET socket
 

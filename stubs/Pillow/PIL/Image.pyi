@@ -2,7 +2,7 @@ from _typeshed import Incomplete, Self, SupportsRead, SupportsWrite
 from collections.abc import Callable, Iterable, Iterator, MutableMapping, Sequence
 from enum import IntEnum
 from pathlib import Path
-from typing import Any, ClassVar, Protocol, SupportsBytes, Union
+from typing import Any, ClassVar, Protocol, SupportsBytes
 from typing_extensions import Literal, TypeAlias
 
 from PIL.PyAccess import PyAccess
@@ -22,13 +22,13 @@ _Resample: TypeAlias = Literal[0, 1, 2, 3, 4, 5]
 _Size: TypeAlias = tuple[int, int]
 _Box: TypeAlias = tuple[int, int, int, int]
 
-_ConversionMatrix: TypeAlias = Union[
-    tuple[float, float, float, float], tuple[float, float, float, float, float, float, float, float, float, float, float, float],
-]
+_ConversionMatrix: TypeAlias = (
+    tuple[float, float, float, float] | tuple[float, float, float, float, float, float, float, float, float, float, float, float]
+)
 # `str` values are only accepted if mode="RGB" for an `Image` object
 # `float` values are only accepted for certain modes such as "F"
 # See https://pillow.readthedocs.io/en/stable/reference/Image.html#PIL.Image.new
-_Color: TypeAlias = Union[int, tuple[int], tuple[int, int, int], tuple[int, int, int, int], str, float, tuple[float]]
+_Color: TypeAlias = int | tuple[int] | tuple[int, int, int] | tuple[int, int, int, int] | str | float | tuple[float]
 
 class _Writeable(SupportsWrite[bytes], Protocol):
     def seek(self, __offset: int) -> Any: ...

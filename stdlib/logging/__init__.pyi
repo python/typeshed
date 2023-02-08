@@ -7,7 +7,7 @@ from re import Pattern
 from string import Template
 from time import struct_time
 from types import FrameType, TracebackType
-from typing import Any, ClassVar, Generic, TextIO, TypeVar, Union, overload
+from typing import Any, ClassVar, Generic, TextIO, TypeVar, overload
 from typing_extensions import Literal, TypeAlias
 
 if sys.version_info >= (3, 11):
@@ -61,7 +61,7 @@ __all__ = [
 if sys.version_info >= (3, 11):
     __all__ += ["getLevelNamesMapping"]
 
-_SysExcInfoType: TypeAlias = Union[tuple[type[BaseException], BaseException, TracebackType | None], tuple[None, None, None]]
+_SysExcInfoType: TypeAlias = tuple[type[BaseException], BaseException, TracebackType | None] | tuple[None, None, None]
 _ExcInfoType: TypeAlias = None | bool | _SysExcInfoType | BaseException
 _ArgsType: TypeAlias = tuple[object, ...] | Mapping[str, object]
 _FilterType: TypeAlias = Filter | Callable[[LogRecord], bool]

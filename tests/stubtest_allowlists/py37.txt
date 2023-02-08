@@ -67,6 +67,10 @@ tempfile.SpooledTemporaryFile.readable
 tempfile.SpooledTemporaryFile.seekable
 tempfile.SpooledTemporaryFile.writable
 
+# Default values given in the stub are a white lie, see #9637
+tkinter.Tcl
+tkinter.Tk.__init__
+
 # Exists at runtime, but missing from stubs
 contextvars.ContextVar.__class_getitem__
 datetime.datetime_CAPI
@@ -76,7 +80,6 @@ distutils.cygwinccompiler.RE_VERSION
 distutils.dist.command_re
 distutils.fancy_getopt.longopt_re
 distutils.fancy_getopt.neg_alias_re
-distutils.core.DEBUG
 distutils.core.USAGE
 distutils.core.extension_keywords
 distutils.core.gen_usage
@@ -91,7 +94,6 @@ ssl.OP_ENABLE_MIDDLEBOX_COMPAT
 ssl.Options.OP_ENABLE_MIDDLEBOX_COMPAT
 ssl.SSLObject.verify_client_post_handshake
 ssl.SSLSocket.verify_client_post_handshake
-stringprep.unicodedata  # re-exported from unicodedata
 tempfile.SpooledTemporaryFile.softspace
 tkinter.Tk.split
 tkinter.commondialog.[A-Z_]+
@@ -156,7 +158,6 @@ types.FunctionType.__get__
 types.LambdaType.__get__
 
 # Missing from distutils (deprecated, to be removed in 3.12)
-distutils.core.DEBUG
 distutils.core.USAGE
 distutils.core.extension_keywords
 distutils.core.gen_usage
@@ -184,7 +185,6 @@ distutils.core.Distribution.parse_command_line
 distutils.core.Distribution.print_command_list
 distutils.core.Distribution.reinitialize_command
 distutils.core.Distribution.run_commands
-distutils.cygwinccompiler.PIPE
 distutils.cygwinccompiler.is_cygwingcc
 distutils.dist.Distribution.announce
 distutils.dist.Distribution.common_usage
