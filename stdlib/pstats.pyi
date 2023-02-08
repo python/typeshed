@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import sys
 from _typeshed import StrOrBytesPath
 from collections.abc import Iterable
@@ -6,7 +5,7 @@ from cProfile import Profile as _cProfile
 from enum import Enum
 from profile import Profile
 from typing import IO, Any, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 
 if sys.version_info >= (3, 9):
     __all__ = ["Stats", "SortKey", "FunctionProfile", "StatsProfile"]

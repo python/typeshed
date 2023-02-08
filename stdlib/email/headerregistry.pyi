@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import sys
 import types
 from collections.abc import Iterable, Mapping
@@ -15,7 +14,7 @@ from email._header_value_parser import (
 from email.errors import MessageDefect
 from email.policy import Policy
 from typing import Any, ClassVar, Protocol
-from typing_extensions import Literal
+from typing_extensions import Literal, Self
 
 class BaseHeader(str):
     # max_count is actually more of an abstract ClassVar (not defined on the base class, but expected to be defined in subclasses)

@@ -1,10 +1,9 @@
-from typing_extensions import Self
 import sys
 from _typeshed import AnyStr_co, StrOrBytesPath
 from collections.abc import Callable, Iterable, Iterator
 from types import TracebackType
 from typing import IO, Any, AnyStr, Generic, Protocol, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

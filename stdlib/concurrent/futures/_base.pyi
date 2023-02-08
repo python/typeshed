@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import sys
 import threading
 from _typeshed import Unused
@@ -6,7 +5,7 @@ from collections.abc import Callable, Iterable, Iterator, Sequence
 from logging import Logger
 from types import TracebackType
 from typing import Any, Generic, TypeVar, overload
-from typing_extensions import Literal, ParamSpec, SupportsIndex
+from typing_extensions import Literal, ParamSpec, Self, SupportsIndex
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

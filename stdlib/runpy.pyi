@@ -1,7 +1,7 @@
-from typing_extensions import Self
 from _typeshed import Unused
 from types import ModuleType
 from typing import Any
+from typing_extensions import Self
 
 __all__ = ["run_module", "run_path"]
 

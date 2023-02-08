@@ -1,9 +1,8 @@
-from typing_extensions import Self
 import sys
 from _typeshed import ReadableBuffer
 from collections.abc import Callable, Set as AbstractSet
 from typing import Protocol
-from typing_extensions import final
+from typing_extensions import Self, final
 
 if sys.version_info >= (3, 11):
     __all__ = (

@@ -1,10 +1,9 @@
-from typing_extensions import Self
 import subprocess
 import sys
 from collections.abc import Callable
 from types import TracebackType
 from typing import Any, AnyStr, Protocol
-from typing_extensions import Literal
+from typing_extensions import Literal, Self
 
 if sys.platform == "win32":
     __all__ = ("pipe", "Popen", "PIPE", "PipeHandle")

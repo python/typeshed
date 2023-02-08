@@ -1,8 +1,7 @@
-from typing_extensions import Self
 import sys
 from collections.abc import Container, Iterable, Iterator
 from typing import Any, Generic, SupportsInt, TypeVar, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 
 # Undocumented length constants
 IPV4LENGTH: Literal[32]

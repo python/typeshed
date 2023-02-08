@@ -1,10 +1,10 @@
-from typing_extensions import Self
 import sys
 from _typeshed import ReadableBuffer
 from collections.abc import Callable, Iterable
 from email.message import Message
 from types import TracebackType
 from typing import IO, Any, BinaryIO
+from typing_extensions import Self
 
 __all__ = ["addbase", "addclosehook", "addinfo", "addinfourl"]
 

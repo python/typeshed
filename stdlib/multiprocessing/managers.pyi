@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import queue
 import sys
 import threading
@@ -6,7 +5,7 @@ from _typeshed import SupportsKeysAndGetItem, SupportsRichComparison, SupportsRi
 from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping, MutableSequence, Sequence
 from types import TracebackType
 from typing import Any, AnyStr, ClassVar, Generic, TypeVar, overload
-from typing_extensions import SupportsIndex, TypeAlias
+from typing_extensions import Self, SupportsIndex, TypeAlias
 
 from .connection import Connection
 from .context import BaseContext

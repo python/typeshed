@@ -1,8 +1,7 @@
-from typing_extensions import Self
 import sys
 from collections.abc import Callable, Iterable, Iterator
 from typing import Any, Generic, SupportsComplex, SupportsFloat, SupportsInt, TypeVar, overload
-from typing_extensions import Literal, SupportsIndex, TypeAlias
+from typing_extensions import Literal, Self, SupportsIndex, TypeAlias
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

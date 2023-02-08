@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import sys
 import threading
 from _typeshed import StrPath, SupportsWrite
@@ -9,7 +8,7 @@ from string import Template
 from time import struct_time
 from types import FrameType, TracebackType
 from typing import Any, ClassVar, Generic, TextIO, TypeVar, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 
 if sys.version_info >= (3, 11):
     from types import GenericAlias

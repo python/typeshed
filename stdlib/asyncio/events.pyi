@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import ssl
 import sys
 from _typeshed import FileDescriptorLike, ReadableBuffer, StrPath, Unused, WriteableBuffer
@@ -7,7 +6,7 @@ from collections.abc import Awaitable, Callable, Coroutine, Generator, Sequence
 from contextvars import Context
 from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
 from typing import IO, Any, Protocol, TypeVar, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 
 from .base_events import Server
 from .futures import Future

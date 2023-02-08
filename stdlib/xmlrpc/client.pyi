@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import gzip
 import http.client
 import sys
@@ -9,7 +8,7 @@ from datetime import datetime
 from io import BytesIO
 from types import TracebackType
 from typing import Any, Protocol, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 
 class _SupportsTimeTuple(Protocol):
     def timetuple(self) -> time.struct_time: ...

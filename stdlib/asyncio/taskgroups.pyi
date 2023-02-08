@@ -1,10 +1,10 @@
 # This only exists in 3.11+. See VERSIONS.
 
-from typing_extensions import Self
 from collections.abc import Coroutine, Generator
 from contextvars import Context
 from types import TracebackType
 from typing import Any, TypeVar
+from typing_extensions import Self
 
 from .tasks import Task
 

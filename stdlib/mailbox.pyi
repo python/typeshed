@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import email.message
 import io
 import sys
@@ -7,7 +6,7 @@ from abc import ABCMeta, abstractmethod
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from types import TracebackType
 from typing import IO, Any, AnyStr, Generic, Protocol, TypeVar, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

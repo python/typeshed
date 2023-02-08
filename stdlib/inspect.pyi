@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import dis
 import enum
 import sys
@@ -26,7 +25,7 @@ from types import (
     WrapperDescriptorType,
 )
 from typing import Any, ClassVar, NamedTuple, Protocol, TypeVar, overload
-from typing_extensions import Literal, ParamSpec, TypeAlias, TypeGuard
+from typing_extensions import Literal, ParamSpec, Self, TypeAlias, TypeGuard
 
 if sys.version_info >= (3, 11):
     __all__ = [
@@ -313,9 +312,7 @@ class Signature:
     def return_annotation(self) -> Any: ...
     def bind(self, *args: Any, **kwargs: Any) -> BoundArguments: ...
     def bind_partial(self, *args: Any, **kwargs: Any) -> BoundArguments: ...
-    def replace(
-        self, *, parameters: Sequence[Parameter] | type[_void] | None = ..., return_annotation: Any = ...
-    ) -> Self: ...
+    def replace(self, *, parameters: Sequence[Parameter] | type[_void] | None = ..., return_annotation: Any = ...) -> Self: ...
     if sys.version_info >= (3, 10):
         @classmethod
         def from_callable(

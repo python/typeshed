@@ -1,8 +1,8 @@
-from typing_extensions import Self
 import sys
 from _typeshed import ReadableBuffer, Unused
 from collections.abc import Iterable, Iterator, Sized
 from typing import NoReturn, overload
+from typing_extensions import Self
 
 ACCESS_DEFAULT: int
 ACCESS_READ: int

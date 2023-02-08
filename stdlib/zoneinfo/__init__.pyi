@@ -1,8 +1,8 @@
-from typing_extensions import Self
 from _typeshed import StrPath
 from collections.abc import Iterable, Sequence
 from datetime import datetime, timedelta, tzinfo
 from typing import Any, Protocol
+from typing_extensions import Self
 
 __all__ = ["ZoneInfo", "reset_tzpath", "available_timezones", "TZPATH", "ZoneInfoNotFoundError", "InvalidTZPathWarning"]
 

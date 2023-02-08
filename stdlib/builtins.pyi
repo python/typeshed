@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import _ast
 import _typeshed
 import sys
@@ -55,7 +54,7 @@ from typing import (  # noqa: Y022
     overload,
     type_check_only,
 )
-from typing_extensions import Literal, LiteralString, SupportsIndex, TypeAlias, TypeGuard, final
+from typing_extensions import Literal, LiteralString, Self, SupportsIndex, TypeAlias, TypeGuard, final
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -169,7 +168,9 @@ class type:
     @overload
     def __new__(cls, __o: object) -> type: ...
     @overload
-    def __new__(cls: _typeshed.Self, __name: str, __bases: tuple[type, ...], __namespace: dict[str, Any], **kwds: Any) -> _typeshed.Self: ...
+    def __new__(
+        cls: _typeshed.Self, __name: str, __bases: tuple[type, ...], __namespace: dict[str, Any], **kwds: Any
+    ) -> _typeshed.Self: ...
     def __call__(self, *args: Any, **kwds: Any) -> Any: ...
     def __subclasses__(self: _typeshed.Self) -> list[_typeshed.Self]: ...
     # Note: the documentation doesn't specify what the return type is, the standard
@@ -373,9 +374,7 @@ class complex:
         def __new__(cls, real: str | SupportsComplex | SupportsFloat | SupportsIndex | complex) -> Self: ...
     else:
         @overload
-        def __new__(
-            cls, real: complex | SupportsComplex | SupportsFloat = ..., imag: complex | SupportsFloat = ...
-        ) -> Self: ...
+        def __new__(cls, real: complex | SupportsComplex | SupportsFloat = ..., imag: complex | SupportsFloat = ...) -> Self: ...
         @overload
         def __new__(cls, real: str | SupportsComplex | SupportsFloat | complex) -> Self: ...
 
@@ -2058,9 +2057,7 @@ if sys.version_info >= (3, 11):
             self, __condition: type[_ExceptionT] | tuple[type[_ExceptionT], ...]
         ) -> ExceptionGroup[_ExceptionT] | None: ...
         @overload
-        def subgroup(
-            self, __condition: Callable[[_ExceptionT_co | Self], bool]
-        ) -> ExceptionGroup[_ExceptionT_co] | None: ...
+        def subgroup(self, __condition: Callable[[_ExceptionT_co | Self], bool]) -> ExceptionGroup[_ExceptionT_co] | None: ...
         @overload  # type: ignore[override]
         def split(
             self, __condition: type[_ExceptionT] | tuple[type[_ExceptionT], ...]

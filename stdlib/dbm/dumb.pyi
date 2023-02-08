@@ -1,7 +1,6 @@
-from typing_extensions import Self
 from collections.abc import Iterator, MutableMapping
 from types import TracebackType
-from typing_extensions import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 __all__ = ["error", "open"]
 

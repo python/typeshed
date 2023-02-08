@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import abc
 import builtins
 import codecs
@@ -8,7 +7,7 @@ from collections.abc import Callable, Iterable, Iterator
 from os import _Opener
 from types import TracebackType
 from typing import IO, Any, BinaryIO, TextIO
-from typing_extensions import Literal
+from typing_extensions import Literal, Self
 
 __all__ = [
     "BlockingIOError",

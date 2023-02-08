@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import sys
 from _typeshed import SupportsGetItem, SupportsItemAccess, Unused
 from builtins import list as _list, type as _type
@@ -6,6 +5,7 @@ from collections.abc import Iterable, Iterator, Mapping
 from email.message import Message
 from types import TracebackType
 from typing import IO, Any, Protocol
+from typing_extensions import Self
 
 __all__ = [
     "MiniFieldStorage",

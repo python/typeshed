@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import sys
 from _typeshed import (
     OpenBinaryMode,
@@ -15,7 +14,7 @@ from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWra
 from os import PathLike, stat_result
 from types import TracebackType
 from typing import IO, Any, BinaryIO, overload
-from typing_extensions import Literal
+from typing_extensions import Literal, Self
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

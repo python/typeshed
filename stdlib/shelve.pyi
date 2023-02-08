@@ -1,8 +1,8 @@
-from typing_extensions import Self
 from collections.abc import Iterator, MutableMapping
 from dbm import _TFlags
 from types import TracebackType
 from typing import Any, TypeVar, overload
+from typing_extensions import Self
 
 __all__ = ["Shelf", "BsdDbShelf", "DbfilenameShelf", "open"]
 

@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import email.message
 import io
 import ssl
@@ -7,7 +6,7 @@ from _typeshed import ReadableBuffer, SupportsRead, WriteableBuffer
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from socket import socket
 from typing import Any, BinaryIO, TypeVar, overload
-from typing_extensions import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 __all__ = [
     "HTTPResponse",

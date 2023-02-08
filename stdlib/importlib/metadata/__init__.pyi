@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import abc
 import pathlib
 import sys
@@ -10,6 +9,7 @@ from os import PathLike
 from pathlib import Path
 from re import Pattern
 from typing import Any, ClassVar, NamedTuple, overload
+from typing_extensions import Self
 
 __all__ = [
     "Distribution",

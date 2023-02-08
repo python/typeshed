@@ -1,10 +1,9 @@
-from typing_extensions import Self
 import sys
 from collections.abc import Awaitable, Callable, Coroutine, Iterable, Mapping, Sequence
 from contextlib import _GeneratorContextManager
 from types import TracebackType
 from typing import Any, Generic, TypeVar, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 
 _T = TypeVar("_T")
 _TT = TypeVar("_TT", bound=type[Any])
@@ -68,12 +67,7 @@ _CallValue: TypeAlias = str | tuple[Any, ...] | Mapping[str, Any] | _ArgsKwargs 
 
 class _Call(tuple[Any, ...]):
     def __new__(
-        cls,
-        value: _CallValue = ...,
-        name: str | None = "",
-        parent: Any | None = None,
-        two: bool = False,
-        from_kall: bool = True,
+        cls, value: _CallValue = ..., name: str | None = "", parent: Any | None = None, two: bool = False, from_kall: bool = True
     ) -> Self: ...
     name: Any
     parent: Any

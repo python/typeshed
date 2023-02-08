@@ -1,8 +1,7 @@
-from typing_extensions import Self
 import sys
 from _typeshed import ReadableBuffer, Unused
 from typing import IO, Any, BinaryIO, NamedTuple, NoReturn, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 
 if sys.version_info >= (3, 9):
     __all__ = ["open", "Error", "Wave_read", "Wave_write"]

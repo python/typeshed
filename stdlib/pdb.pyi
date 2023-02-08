@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import signal
 import sys
 from bdb import Bdb
@@ -7,7 +6,7 @@ from collections.abc import Callable, Iterable, Mapping, Sequence
 from inspect import _SourceObjectType
 from types import CodeType, FrameType, TracebackType
 from typing import IO, Any, ClassVar, TypeVar
-from typing_extensions import ParamSpec
+from typing_extensions import ParamSpec, Self
 
 __all__ = ["run", "pm", "Pdb", "runeval", "runctx", "runcall", "set_trace", "post_mortem", "help"]
 

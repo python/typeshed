@@ -1,9 +1,8 @@
-from typing_extensions import Self
 import sys
 from collections.abc import Awaitable, Callable, Generator, Iterable
 from concurrent.futures._base import Error, Future as _ConcurrentFuture
 from typing import Any, TypeVar
-from typing_extensions import Literal, TypeGuard
+from typing_extensions import Literal, Self, TypeGuard
 
 from .events import AbstractEventLoop
 

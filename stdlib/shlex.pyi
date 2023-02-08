@@ -1,7 +1,7 @@
-from typing_extensions import Self
 import sys
 from collections.abc import Iterable
 from typing import TextIO
+from typing_extensions import Self
 
 if sys.version_info >= (3, 8):
     __all__ = ["shlex", "split", "quote", "join"]

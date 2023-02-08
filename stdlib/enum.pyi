@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import _typeshed
 import sys
 import types
@@ -7,7 +6,7 @@ from abc import ABCMeta
 from builtins import property as _builtins_property
 from collections.abc import Iterable, Iterator, Mapping
 from typing import Any, Generic, TypeVar, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 
 __all__ = ["EnumMeta", "Enum", "IntEnum", "Flag", "IntFlag", "auto", "unique"]
 
@@ -92,7 +91,9 @@ class EnumMeta(ABCMeta):
             **kwds: Any,
         ) -> _typeshed.Self: ...
     elif sys.version_info >= (3, 9):
-        def __new__(metacls: _typeshed.Self, cls: str, bases: tuple[type, ...], classdict: _EnumDict, **kwds: Any) -> _typeshed.Self: ...
+        def __new__(
+            metacls: _typeshed.Self, cls: str, bases: tuple[type, ...], classdict: _EnumDict, **kwds: Any
+        ) -> _typeshed.Self: ...
     else:
         def __new__(metacls: _typeshed.Self, cls: str, bases: tuple[type, ...], classdict: _EnumDict) -> _typeshed.Self: ...
 

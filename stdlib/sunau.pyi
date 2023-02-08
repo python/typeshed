@@ -1,8 +1,7 @@
-from typing_extensions import Self
 import sys
 from _typeshed import Unused
 from typing import IO, Any, NamedTuple, NoReturn, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 
 _File: TypeAlias = str | IO[bytes]
 

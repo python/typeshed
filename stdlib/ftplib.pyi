@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import sys
 from _typeshed import SupportsRead, SupportsReadline
 from collections.abc import Callable, Iterable, Iterator
@@ -6,7 +5,7 @@ from socket import socket
 from ssl import SSLContext
 from types import TracebackType
 from typing import Any, TextIO
-from typing_extensions import Literal
+from typing_extensions import Literal, Self
 
 __all__ = ["FTP", "error_reply", "error_temp", "error_perm", "error_proto", "all_errors", "FTP_TLS"]
 

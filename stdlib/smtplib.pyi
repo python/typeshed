@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import sys
 from _socket import _Address as _SourceAddress
 from _typeshed import ReadableBuffer, _BufferWithLen
@@ -9,7 +8,7 @@ from socket import socket
 from ssl import SSLContext
 from types import TracebackType
 from typing import Any, Protocol, overload
-from typing_extensions import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 __all__ = [
     "SMTPException",

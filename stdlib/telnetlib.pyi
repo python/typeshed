@@ -1,9 +1,9 @@
-from typing_extensions import Self
 import socket
 from collections.abc import Callable, Sequence
 from re import Match, Pattern
 from types import TracebackType
 from typing import Any
+from typing_extensions import Self
 
 __all__ = ["Telnet"]
 

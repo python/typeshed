@@ -1,9 +1,8 @@
-from typing_extensions import Self
 import io
 from _typeshed import ReadableBuffer, StrOrBytesPath
 from collections.abc import Mapping, Sequence
 from typing import IO, Any, TextIO, overload
-from typing_extensions import Literal, TypeAlias, final
+from typing_extensions import Literal, Self, TypeAlias, final
 
 __all__ = [
     "CHECK_NONE",

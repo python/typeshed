@@ -1,7 +1,6 @@
 # Ideally, we'd just do "from _socket import *". Unfortunately, socket
 # overrides some definitions from _socket incompatibly. mypy incorrectly
 # prefers the definitions from _socket over those defined here.
-from typing_extensions import Self
 import _socket
 import sys
 from _socket import (
@@ -118,7 +117,7 @@ from collections.abc import Iterable
 from enum import IntEnum, IntFlag
 from io import BufferedReader, BufferedRWPair, BufferedWriter, IOBase, RawIOBase, TextIOWrapper
 from typing import Any, Protocol, overload
-from typing_extensions import Literal
+from typing_extensions import Literal, Self
 
 if sys.platform != "darwin" or sys.version_info >= (3, 9):
     from _socket import (

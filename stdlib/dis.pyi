@@ -1,10 +1,9 @@
-from typing_extensions import Self
 import sys
 import types
 from collections.abc import Callable, Iterator
 from opcode import *  # `dis` re-exports it as a part of public API
 from typing import IO, Any, NamedTuple
-from typing_extensions import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 __all__ = [
     "code_info",
@@ -82,9 +81,7 @@ class Bytecode:
             adaptive: bool = False,
         ) -> None: ...
         @classmethod
-        def from_traceback(
-            cls, tb: types.TracebackType, *, show_caches: bool = False, adaptive: bool = False
-        ) -> Self: ...
+        def from_traceback(cls, tb: types.TracebackType, *, show_caches: bool = False, adaptive: bool = False) -> Self: ...
     else:
         def __init__(
             self, x: _HaveCodeType | str, *, first_line: int | None = None, current_offset: int | None = None

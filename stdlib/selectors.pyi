@@ -1,10 +1,9 @@
-from typing_extensions import Self
 import sys
 from _typeshed import FileDescriptor, FileDescriptorLike, Unused
 from abc import ABCMeta, abstractmethod
 from collections.abc import Mapping
 from typing import Any, NamedTuple
-from typing_extensions import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 _EventMask: TypeAlias = int
 

@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import sys
 from _typeshed import (
     AnyStr_co,
@@ -26,7 +25,7 @@ from contextlib import AbstractContextManager
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper as _TextIOWrapper
 from subprocess import Popen
 from typing import IO, Any, AnyStr, BinaryIO, Generic, NoReturn, Protocol, TypeVar, overload, runtime_checkable
-from typing_extensions import Final, Literal, TypeAlias, final
+from typing_extensions import Final, Literal, Self, TypeAlias, final
 
 from . import path as _path
 

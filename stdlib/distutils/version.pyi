@@ -1,6 +1,6 @@
-from typing_extensions import Self
 from abc import abstractmethod
 from re import Pattern
+from typing_extensions import Self
 
 class Version:
     def __eq__(self, other: object) -> bool: ...

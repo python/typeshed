@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import sys
 import types
 from _codecs import *
@@ -6,7 +5,7 @@ from _typeshed import ReadableBuffer
 from abc import abstractmethod
 from collections.abc import Callable, Generator, Iterable
 from typing import Any, BinaryIO, Protocol, TextIO
-from typing_extensions import Literal
+from typing_extensions import Literal, Self
 
 __all__ = [
     "register",

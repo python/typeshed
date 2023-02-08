@@ -1,10 +1,10 @@
-from typing_extensions import Self
 import sys
 from _typeshed import ReadableBuffer
 from collections.abc import Mapping, MutableMapping
 from datetime import datetime
 from enum import Enum
 from typing import IO, Any
+from typing_extensions import Self
 
 if sys.version_info >= (3, 9):
     __all__ = ["InvalidFileException", "FMT_XML", "FMT_BINARY", "load", "dump", "loads", "dumps", "UID"]

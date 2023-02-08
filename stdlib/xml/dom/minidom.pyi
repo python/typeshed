@@ -1,8 +1,7 @@
-from typing_extensions import Self
 import sys
 import xml.dom
 from _typeshed import Incomplete, ReadableBuffer, SupportsRead, SupportsWrite
-from typing_extensions import Literal
+from typing_extensions import Literal, Self
 from xml.dom.xmlbuilder import DocumentLS, DOMImplementationLS
 from xml.sax.xmlreader import XMLReader
 

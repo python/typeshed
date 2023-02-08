@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import sys
 
 # actually csv.Dialect is a different class to _csv.Dialect at runtime, but for typing purposes, they're identical
@@ -25,7 +24,7 @@ from _csv import (
 from _typeshed import SupportsWrite
 from collections.abc import Collection, Iterable, Iterator, Mapping, Sequence
 from typing import Any, Generic, TypeVar, overload
-from typing_extensions import Literal
+from typing_extensions import Literal, Self
 
 if sys.version_info >= (3, 8):
     from builtins import dict as _DictReadMapping

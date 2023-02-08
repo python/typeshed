@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import sqlite3
 import sys
 from _typeshed import Incomplete, ReadableBuffer, StrOrBytesPath, SupportsLenAndGetItem, Unused
@@ -6,7 +5,7 @@ from collections.abc import Callable, Generator, Iterable, Iterator, Mapping
 from datetime import date, datetime, time
 from types import TracebackType
 from typing import Any, Protocol, TypeVar, overload
-from typing_extensions import Literal, SupportsIndex, TypeAlias, final
+from typing_extensions import Literal, Self, SupportsIndex, TypeAlias, final
 
 _T = TypeVar("_T")
 _CursorT = TypeVar("_CursorT", bound=Cursor)

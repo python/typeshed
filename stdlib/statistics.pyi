@@ -1,11 +1,10 @@
-from typing_extensions import Self
 import sys
 from _typeshed import SupportsRichComparisonT
 from collections.abc import Hashable, Iterable, Sequence
 from decimal import Decimal
 from fractions import Fraction
 from typing import Any, NamedTuple, SupportsFloat, TypeVar
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 
 __all__ = [
     "StatisticsError",

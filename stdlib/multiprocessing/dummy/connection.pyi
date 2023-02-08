@@ -1,8 +1,7 @@
-from typing_extensions import Self
 from queue import Queue
 from types import TracebackType
 from typing import Any
-from typing_extensions import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 __all__ = ["Client", "Listener", "Pipe"]
 

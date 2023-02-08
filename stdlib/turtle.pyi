@@ -1,8 +1,7 @@
-from typing_extensions import Self
 from collections.abc import Callable, Sequence
 from tkinter import Canvas, Frame, Misc, PhotoImage, Scrollbar
 from typing import Any, ClassVar, overload
-from typing_extensions import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 __all__ = [
     "ScrolledCanvas",

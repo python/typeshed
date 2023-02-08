@@ -1,11 +1,10 @@
-from typing_extensions import Self
 import sys
 from collections.abc import Iterable, Iterator
 from email.errors import HeaderParseError, MessageDefect
 from email.policy import Policy
 from re import Pattern
 from typing import Any
-from typing_extensions import Final
+from typing_extensions import Final, Self
 
 WSP: Final[set[str]]
 CFWS_LEADER: Final[set[str]]

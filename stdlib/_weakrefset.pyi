@@ -1,7 +1,7 @@
-from typing_extensions import Self
 import sys
 from collections.abc import Iterable, Iterator, MutableSet
 from typing import Any, Generic, TypeVar, overload
+from typing_extensions import Self
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

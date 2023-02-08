@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import sys
 import types
 from _socket import _Address, _RetAddress
@@ -6,7 +5,7 @@ from _typeshed import ReadableBuffer
 from collections.abc import Callable
 from socket import socket as _socket
 from typing import Any, BinaryIO, ClassVar
-from typing_extensions import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 __all__ = [
     "BaseServer",

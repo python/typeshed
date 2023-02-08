@@ -1,11 +1,10 @@
-from typing_extensions import Self
 import socket
 import sys
 import types
 from _typeshed import ReadableBuffer
 from collections.abc import Iterable
 from typing import Any
-from typing_extensions import SupportsIndex, TypeAlias
+from typing_extensions import Self, SupportsIndex, TypeAlias
 
 __all__ = ["Client", "Listener", "Pipe", "wait"]
 
