@@ -16,10 +16,20 @@ TIME_FORMATS: dict[_TimeTypes, str]
 STRING_TYPES: tuple[type[str], type[bytes]]
 _StringTypes: TypeAlias = str | bytes
 # mypy will simplify the type. Pyright fully expands it.
-KNOWN_TYPES = NUMERIC_TYPES + TIME_TYPES + STRING_TYPES + (bool, type(None))  # noqa: F821,Y026
+KNOWN_TYPES = NUMERIC_TYPES + TIME_TYPES + STRING_TYPES + (bool, type(None))  # noqa: F821,Y015
 _KnownTypes: TypeAlias = _NumericTypes | _TimeTypes | _StringTypes | bool | None
 ILLEGAL_CHARACTERS_RE: Pattern[str]
-ERROR_CODES: Final = ("#NULL!", "#DIV/0!", "#VALUE!", "#REF!", "#NAME?", "#NUM!", "#N/A")
+ERROR_CODES: Final[
+    tuple[
+        Literal["#NULL!"],
+        Literal["#DIV/0!"],
+        Literal["#VALUE!"],
+        Literal["#REF!"],
+        Literal["#NAME?"],
+        Literal["#NUM!"],
+        Literal["#N/A"],
+    ]
+]
 TYPE_STRING: Final = "s"
 TYPE_FORMULA: Final = "f"
 TYPE_NUMERIC: Final = "n"
@@ -29,7 +39,11 @@ TYPE_INLINE: Final = "inlineStr"
 TYPE_ERROR: Final = "e"
 TYPE_FORMULA_CACHE_STRING: Final = "str"
 
-VALID_TYPES = (TYPE_STRING, TYPE_FORMULA, TYPE_NUMERIC, TYPE_BOOL, TYPE_NULL, TYPE_INLINE, TYPE_ERROR, TYPE_FORMULA_CACHE_STRING)
+VALID_TYPES: Final[
+    tuple[
+        Literal["s"], Literal["f"], Literal["n"], Literal["b"], Literal["n"], Literal["inlineStr"], Literal["e"], Literal["str"]
+    ]
+]
 
 def get_type(t, value) -> Literal["n", "s", "d", None]: ...
 def get_time_format(t) -> str: ...

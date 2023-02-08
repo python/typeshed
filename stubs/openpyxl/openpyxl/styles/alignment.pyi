@@ -6,11 +6,22 @@ from openpyxl.descriptors.serialisable import Serialisable
 
 _Unused: TypeAlias = object
 
-horizontal_alignments: Final = ("general", "left", "center", "right", "fill", "justify", "centerContinuous", "distributed")
+horizontal_alignments: Final[
+    tuple[
+        Literal["general"],
+        Literal["left"],
+        Literal["center"],
+        Literal["right"],
+        Literal["fill"],
+        Literal["justify"],
+        Literal["centerContinuous"],
+        Literal["distributed"],
+    ]
+]
 _HorizontalAlignementsType: TypeAlias = Literal[
     "general", "left", "center", "right", "fill", "justify", "centerContinuous", "distributed"
 ]
-vertical_aligments: Final = ("top", "center", "bottom", "justify", "distributed")
+vertical_aligments: Final[tuple[Literal["top"], Literal["center"], Literal["bottom"], Literal["justify"], Literal["distributed"]]]
 _VerticalAlignementsType: TypeAlias = Literal["top", "center", "bottom", "justify", "distributed"]
 
 class Alignment(Serialisable):

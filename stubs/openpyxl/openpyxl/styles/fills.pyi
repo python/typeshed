@@ -32,26 +32,28 @@ FILL_PATTERN_LIGHTUP: Final = "lightUp"
 FILL_PATTERN_LIGHTVERTICAL: Final = "lightVertical"
 FILL_PATTERN_MEDIUMGRAY: Final = "mediumGray"
 
-fills: Final = (
-    FILL_SOLID,
-    FILL_PATTERN_DARKDOWN,
-    FILL_PATTERN_DARKGRAY,
-    FILL_PATTERN_DARKGRID,
-    FILL_PATTERN_DARKHORIZONTAL,
-    FILL_PATTERN_DARKTRELLIS,
-    FILL_PATTERN_DARKUP,
-    FILL_PATTERN_DARKVERTICAL,
-    FILL_PATTERN_GRAY0625,
-    FILL_PATTERN_GRAY125,
-    FILL_PATTERN_LIGHTDOWN,
-    FILL_PATTERN_LIGHTGRAY,
-    FILL_PATTERN_LIGHTGRID,
-    FILL_PATTERN_LIGHTHORIZONTAL,
-    FILL_PATTERN_LIGHTTRELLIS,
-    FILL_PATTERN_LIGHTUP,
-    FILL_PATTERN_LIGHTVERTICAL,
-    FILL_PATTERN_MEDIUMGRAY,
-)
+fills: Final[
+    tuple[
+        Literal["solid"],
+        Literal["darkDown"],
+        Literal["darkGray"],
+        Literal["darkGrid"],
+        Literal["darkHorizontal"],
+        Literal["darkTrellis"],
+        Literal["darkUp"],
+        Literal["darkVertical"],
+        Literal["gray0625"],
+        Literal["gray125"],
+        Literal["lightDown"],
+        Literal["lightGray"],
+        Literal["lightGrid"],
+        Literal["lightHorizontal"],
+        Literal["lightTrellis"],
+        Literal["lightUp"],
+        Literal["lightVertical"],
+        Literal["mediumGray"],
+    ]
+]
 _FillsType: TypeAlias = Literal[
     "none",
     "solid",
