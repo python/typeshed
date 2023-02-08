@@ -7,6 +7,7 @@ from sqlalchemy.engine.base import Engine
 from sqlalchemy.engine.default import DefaultDialect
 from sqlalchemy.engine.url import URL
 from sqlalchemy.pool.base import Pool
+from sqlalchemy.testing import config
 from sqlalchemy.testing.provision import (
     configure_follower,
     create_db,
@@ -57,4 +58,4 @@ temp_table_keyword_args(url, engine)
 prepare_for_drop_tables(url, unused)
 stop_test_class_outside_fixtures(url, unused, type)
 get_temp_table_name(url, unused, "")
-set_default_schema_on_connection(url, unused, unused)
+set_default_schema_on_connection(config, unused, unused)
