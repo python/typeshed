@@ -2,7 +2,7 @@ import collections.abc
 from _typeshed import Self
 from collections.abc import Callable, Mapping
 from re import Pattern
-from typing import Any, Union
+from typing import Any
 from typing_extensions import TypeAlias
 
 from parsimonious.exceptions import ParseError
@@ -10,7 +10,7 @@ from parsimonious.grammar import Grammar
 from parsimonious.nodes import Node
 from parsimonious.utils import StrAndRepr
 
-_CALLABLE_RETURN_TYPE: TypeAlias = Union[int, tuple[int, list[Node]], Node, None]
+_CALLABLE_RETURN_TYPE: TypeAlias = int | tuple[int, list[Node]] | Node | None
 _CALLABLE_TYPE: TypeAlias = (
     Callable[[str, int], _CALLABLE_RETURN_TYPE]
     | Callable[[str, int, Mapping[tuple[int, int], Node], ParseError, Grammar], _CALLABLE_RETURN_TYPE]

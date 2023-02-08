@@ -132,7 +132,7 @@ class Distribution:
     @overload
     @classmethod
     def discover(
-        cls, *, context: None = ..., name: str | None = ..., path: list[str] = ..., **kwargs: Any
+        cls, *, context: None = None, name: str | None = ..., path: list[str] = ..., **kwargs: Any
     ) -> Iterable[Distribution]: ...
     @staticmethod
     def at(path: StrPath) -> PathDistribution: ...
@@ -185,7 +185,7 @@ def distribution(distribution_name: str) -> Distribution: ...
 def distributions(*, context: DistributionFinder.Context) -> Iterable[Distribution]: ...
 @overload
 def distributions(
-    *, context: None = ..., name: str | None = ..., path: list[str] = ..., **kwargs: Any
+    *, context: None = None, name: str | None = ..., path: list[str] = ..., **kwargs: Any
 ) -> Iterable[Distribution]: ...
 
 if sys.version_info >= (3, 10):

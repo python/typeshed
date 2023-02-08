@@ -1,6 +1,4 @@
 ctypes.GetLastError  # Is actually a pointer
-distutils.archive_util.getgrnam
-distutils.archive_util.getpwnam
 distutils.msvccompiler.HKEYS
 locale.[A-Z0-9_]+  # Constants that should be moved to _locale and re-exported conditionally
 locale.nl_langinfo  # Function that should be moved to _locale and re-exported conditionally
@@ -14,7 +12,6 @@ selectors.KqueueSelector
 signal.SIGEMT
 signal.SIGINFO
 winsound.SND_APPLICATION
-xmlrpc.server.fcntl
 
 # Exists at runtime, but missing from stubs
 _msi.MSIError
