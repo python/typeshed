@@ -3,7 +3,7 @@ from _ctypes import RTLD_GLOBAL as RTLD_GLOBAL, RTLD_LOCAL as RTLD_LOCAL
 from _typeshed import ReadableBuffer, Self, WriteableBuffer
 from abc import abstractmethod
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
-from typing import Any, ClassVar, Generic, TypeVar, Union as _UnionT, overload
+from typing import Any, ClassVar, Generic, TypeVar, overload
 from typing_extensions import TypeAlias
 
 if sys.version_info >= (3, 9):
@@ -26,14 +26,19 @@ class CDLL:
             self,
             name: str | None,
             mode: int = ...,
-            handle: int | None = ...,
-            use_errno: bool = ...,
-            use_last_error: bool = ...,
-            winmode: int | None = ...,
+            handle: int | None = None,
+            use_errno: bool = False,
+            use_last_error: bool = False,
+            winmode: int | None = None,
         ) -> None: ...
     else:
         def __init__(
-            self, name: str | None, mode: int = ..., handle: int | None = ..., use_errno: bool = ..., use_last_error: bool = ...
+            self,
+            name: str | None,
+            mode: int = ...,
+            handle: int | None = None,
+            use_errno: bool = False,
+            use_last_error: bool = False,
         ) -> None: ...
 
     def __getattr__(self, name: str) -> _NamedFuncPointer: ...
@@ -64,11 +69,11 @@ class _CDataMeta(type):
     # By default mypy complains about the following two methods, because strictly speaking cls
     # might not be a Type[_CT]. However this can never actually happen, because the only class that
     # uses _CDataMeta as its metaclass is _CData. So it's safe to ignore the errors here.
-    def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc]
-    def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc]
+    def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+    def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
 
 class _CData(metaclass=_CDataMeta):
-    _b_base: int
+    _b_base_: int
     _b_needsfree_: bool
     _objects: Mapping[Any, int] | None
     @classmethod
@@ -86,7 +91,7 @@ class _CanCastTo(_CData): ...
 class _PointerLike(_CanCastTo): ...
 
 _ECT: TypeAlias = Callable[[type[_CData] | None, _FuncPointer, tuple[_CData, ...]], _CData]
-_PF: TypeAlias = _UnionT[tuple[int], tuple[int, str], tuple[int, str, Any]]
+_PF: TypeAlias = tuple[int] | tuple[int, str] | tuple[int, str, Any]
 
 class _FuncPointer(_PointerLike, _CData):
     restype: type[_CData] | Callable[[int], Any] | None
@@ -136,11 +141,11 @@ def byref(obj: _CData, offset: int = ...) -> _CArgObject: ...
 _CastT = TypeVar("_CastT", bound=_CanCastTo)
 
 def cast(obj: _CData | _CArgObject | int, typ: type[_CastT]) -> _CastT: ...
-def create_string_buffer(init: int | bytes, size: int | None = ...) -> Array[c_char]: ...
+def create_string_buffer(init: int | bytes, size: int | None = None) -> Array[c_char]: ...
 
 c_buffer = create_string_buffer
 
-def create_unicode_buffer(init: int | str, size: int | None = ...) -> Array[c_wchar]: ...
+def create_unicode_buffer(init: int | str, size: int | None = None) -> Array[c_wchar]: ...
 
 if sys.platform == "win32":
     def DllCanUnloadNow() -> int: ...
@@ -178,12 +183,12 @@ if sys.platform == "win32":
     def set_last_error(value: int) -> int: ...
 
 def sizeof(obj_or_type: _CData | type[_CData]) -> int: ...
-def string_at(address: _CVoidConstPLike, size: int = ...) -> bytes: ...
+def string_at(address: _CVoidConstPLike, size: int = -1) -> bytes: ...
 
 if sys.platform == "win32":
-    def WinError(code: int | None = ..., descr: str | None = ...) -> OSError: ...
+    def WinError(code: int | None = None, descr: str | None = None) -> OSError: ...
 
-def wstring_at(address: _CVoidConstPLike, size: int = ...) -> str: ...
+def wstring_at(address: _CVoidConstPLike, size: int = -1) -> str: ...
 
 class _SimpleCData(Generic[_T], _CData):
     value: _T

@@ -1,2 +1,2 @@
 # "cls" argument has wrong name in implementation.
-openpyxl.descriptors.slots.AutoSlotProperties.__new__ 
+openpyxl.descriptors.slots.AutoSlotProperties.__new__
