@@ -1,2 +1,2 @@
-version = "67.1.*"
+version = "67.2.*"
 requires = ["types-docutils"]
