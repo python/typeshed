@@ -15,3 +15,8 @@ serial.serialposix.Serial.read
 serial.serialposix.Serial.write
 serial.serialposix.PosixPollSerial.read
 serial.serialposix.VTIMESerial.read
+
+# Error: is missing from the stub (intended to be private aliases)
+# ================================================================
+serial.tools.list_ports_posix.plat
+serial.tools.serialposix.plat

@@ -22,3 +22,7 @@ serial.win32.N11_OVERLAPPED4DOLLAR_48E.\w+
 serial.win32.N11_OVERLAPPED4DOLLAR_484DOLLAR_49E.\w+
 serial.win32.CreateEventW
 serial.win32.CreateFileW
+serial.tools.list_ports_linux.SysFS
+serial.tools.list_ports_linux.comports
+serial.tools.list_ports_windows.SP_DEVINFO_DATA.\w+
+serial.tools.list_ports_windows.GUID.\w+
