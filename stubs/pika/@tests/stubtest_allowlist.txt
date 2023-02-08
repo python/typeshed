@@ -25,12 +25,6 @@ pika.adapters.blocking_connection.BlockingConnection.publisher_confirms
 # created instances unusable, so we require the arguments in the stub.
 pika.spec.Queue.DeclareOk.__init__
 
-# Flagged by stubtest for unknown reasons.
-pika.data.PY2
-pika.data.basestring
-pika.spec.str_or_bytes
-pika.validators.basestring
-
 # Arguments have a sentinel default, which is not reflected in the stubs.
 pika.ConnectionParameters.__init__
 pika.connection.ConnectionParameters.__init__

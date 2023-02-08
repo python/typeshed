@@ -18,24 +18,15 @@
 #     F403   import *' used; unable to detect undefined names
 #     F405   defined from star imports
 
-# Rules that we'd like to enable in the future:
-#     Y037   Use PEP 604 syntax instead of `typing.Union` and `typing.Optional`.
-#            Currently can't be enabled due to a few lingering bugs in mypy regarding
-#            PEP 604 type aliases (see #4819).
-
-# Outdated rules in flake8-pyi that should possibly be deprecated altogether:
-#     Y011   All default values for typed function arguments must be `...`
-#     Y015   Attribute must not have a default value other than `...`
-
 [flake8]
 per-file-ignores =
   *.py: E203, E301, E302, E305, E501
-  *.pyi: B, E301, E302, E305, E501, E701, E741, F401, F403, F405, F822, Y011, Y015, Y037
+  *.pyi: B, E301, E302, E305, E501, E701, E741, F401, F403, F405, F822
   # Since typing.pyi defines "overload" this is not recognized by flake8 as typing.overload.
   # Unfortunately, flake8 does not allow to "noqa" just a specific error inside the file itself.
   # https://github.com/PyCQA/flake8/issues/1079
   #     F811 redefinition of unused '...'
-  stdlib/typing.pyi: B, E301, E302, E305, E501, E701, E741, F401, F403, F405, F811, F822, Y011, Y015, Y037
+  stdlib/typing.pyi: B, E301, E302, E305, E501, E701, E741, F401, F403, F405, F811, F822
   # Generated protobuf files include docstrings
   *_pb2.pyi: B, E301, E302, E305, E501, E701, Y021, Y026
 
