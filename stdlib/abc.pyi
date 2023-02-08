@@ -14,11 +14,11 @@ class ABCMeta(type):
     __abstractmethods__: frozenset[str]
     if sys.version_info >= (3, 11):
         def __new__(
-            __mcls: _typeshed.Self, __name: str, __bases: tuple[type, ...], __namespace: dict[str, Any], **kwargs: Any
+            __mcls: type[_typeshed.Self], __name: str, __bases: tuple[type, ...], __namespace: dict[str, Any], **kwargs: Any
         ) -> _typeshed.Self: ...
     else:
         def __new__(
-            mcls: _typeshed.Self, name: str, bases: tuple[type, ...], namespace: dict[str, Any], **kwargs: Any
+            mcls: type[_typeshed.Self], name: str, bases: tuple[type, ...], namespace: dict[str, Any], **kwargs: Any
         ) -> _typeshed.Self: ...
 
     def __instancecheck__(cls: ABCMeta, instance: Any) -> bool: ...

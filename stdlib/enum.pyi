@@ -81,7 +81,7 @@ class _EnumDict(dict[str, Any]):
 class EnumMeta(ABCMeta):
     if sys.version_info >= (3, 11):
         def __new__(
-            metacls: _typeshed.Self,
+            metacls: type[_typeshed.Self],
             cls: str,
             bases: tuple[type, ...],
             classdict: _EnumDict,
@@ -92,10 +92,10 @@ class EnumMeta(ABCMeta):
         ) -> _typeshed.Self: ...
     elif sys.version_info >= (3, 9):
         def __new__(
-            metacls: _typeshed.Self, cls: str, bases: tuple[type, ...], classdict: _EnumDict, **kwds: Any
+            metacls: type[_typeshed.Self], cls: str, bases: tuple[type, ...], classdict: _EnumDict, **kwds: Any
         ) -> _typeshed.Self: ...
     else:
-        def __new__(metacls: _typeshed.Self, cls: str, bases: tuple[type, ...], classdict: _EnumDict) -> _typeshed.Self: ...
+        def __new__(metacls: type[_typeshed.Self], cls: str, bases: tuple[type, ...], classdict: _EnumDict) -> _typeshed.Self: ...
 
     if sys.version_info >= (3, 9):
         @classmethod
