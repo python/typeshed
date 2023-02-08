@@ -1,4 +1,5 @@
 from typing_extensions import Self
+import _typeshed
 import sys
 from _typeshed import SupportsWrite
 from collections.abc import Callable
@@ -14,10 +15,10 @@ class ABCMeta(type):
     __abstractmethods__: frozenset[str]
     if sys.version_info >= (3, 11):
         def __new__(
-            __mcls, __name: str, __bases: tuple[type, ...], __namespace: dict[str, Any], **kwargs: Any
-        ) -> Self: ...
+            __mcls: _typeshed.Self, __name: str, __bases: tuple[type, ...], __namespace: dict[str, Any], **kwargs: Any
+        ) -> _typeshed.Self: ...
     else:
-        def __new__(mcls, name: str, bases: tuple[type, ...], namespace: dict[str, Any], **kwargs: Any) -> Self: ...
+        def __new__(mcls: _typeshed.Self, name: str, bases: tuple[type, ...], namespace: dict[str, Any], **kwargs: Any) -> _typeshed.Self: ...
 
     def __instancecheck__(cls: ABCMeta, instance: Any) -> bool: ...
     def __subclasscheck__(cls: ABCMeta, subclass: type) -> bool: ...

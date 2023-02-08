@@ -1,4 +1,5 @@
 from typing_extensions import Self
+import _typeshed
 import sys
 import types
 from _typeshed import SupportsKeysAndGetItem, Unused
@@ -81,7 +82,7 @@ class _EnumDict(dict[str, Any]):
 class EnumMeta(ABCMeta):
     if sys.version_info >= (3, 11):
         def __new__(
-            metacls,
+            metacls: _typeshed.Self,
             cls: str,
             bases: tuple[type, ...],
             classdict: _EnumDict,
@@ -89,11 +90,11 @@ class EnumMeta(ABCMeta):
             boundary: FlagBoundary | None = None,
             _simple: bool = False,
             **kwds: Any,
-        ) -> Self: ...
+        ) -> _typeshed.Self: ...
     elif sys.version_info >= (3, 9):
-        def __new__(metacls, cls: str, bases: tuple[type, ...], classdict: _EnumDict, **kwds: Any) -> Self: ...
+        def __new__(metacls: _typeshed.Self, cls: str, bases: tuple[type, ...], classdict: _EnumDict, **kwds: Any) -> _typeshed.Self: ...
     else:
-        def __new__(metacls, cls: str, bases: tuple[type, ...], classdict: _EnumDict) -> Self: ...
+        def __new__(metacls: _typeshed.Self, cls: str, bases: tuple[type, ...], classdict: _EnumDict) -> _typeshed.Self: ...
 
     if sys.version_info >= (3, 9):
         @classmethod
@@ -227,7 +228,7 @@ class Flag(Enum):
 
 if sys.version_info >= (3, 11):
     # The body of the class is the same, but the base classes are different.
-    class IntFlag(int, ReprEnum, Flag, boundary=KEEP):
+    class IntFlag(int, ReprEnum, Flag, boundary=KEEP):  # type: ignore[misc]  # complaints about incompatible bases
         def __new__(cls, value: int) -> Self: ...
         def __or__(self, other: int) -> Self: ...
         def __and__(self, other: int) -> Self: ...
@@ -237,7 +238,7 @@ if sys.version_info >= (3, 11):
         __rxor__ = __xor__
 
 else:
-    class IntFlag(int, Flag):
+    class IntFlag(int, Flag):  # type: ignore[misc]  # complaints about incompatible bases
         def __new__(cls, value: int) -> Self: ...
         def __or__(self, other: int) -> Self: ...
         def __and__(self, other: int) -> Self: ...
