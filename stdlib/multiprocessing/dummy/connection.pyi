@@ -1,14 +1,14 @@
 from _typeshed import Self
 from queue import Queue
 from types import TracebackType
-from typing import Any, Union
+from typing import Any
 from typing_extensions import TypeAlias
 
 __all__ = ["Client", "Listener", "Pipe"]
 
 families: list[None]
 
-_Address: TypeAlias = Union[str, tuple[str, int]]
+_Address: TypeAlias = str | tuple[str, int]
 
 class Connection:
     _in: Any

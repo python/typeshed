@@ -13,10 +13,9 @@ _collections_abc.ValuesView.__reversed__
 _csv.Reader
 _csv.Writer
 argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group
-asynchat.__warningregistry__  # Removal planned for 3.12, can add if someone needs this
 configparser.LegacyInterpolation.__init__
 enum.Enum.__init__
-# TODO: The stub for enum is nothing like the implementation
+# TODO: The stub for enum.auto is nothing like the implementation
 enum.auto.__init__
 enum.auto.value
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve

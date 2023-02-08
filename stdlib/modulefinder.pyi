@@ -23,7 +23,6 @@ class Module:  # undocumented
     def __init__(self, name: str, file: str | None = None, path: str | None = None) -> None: ...
 
 class ModuleFinder:
-
     modules: dict[str, Module]
     path: list[str]  # undocumented
     badmodules: dict[str, dict[str, int]]  # undocumented

@@ -530,8 +530,8 @@ def fdopen(
     mode: OpenBinaryMode,
     buffering: Literal[0],
     encoding: None = None,
-    errors: None = ...,
-    newline: None = ...,
+    errors: None = None,
+    newline: None = None,
     closefd: bool = ...,
     opener: _Opener | None = ...,
 ) -> FileIO: ...
@@ -541,8 +541,8 @@ def fdopen(
     mode: OpenBinaryModeUpdating,
     buffering: Literal[-1, 1] = -1,
     encoding: None = None,
-    errors: None = ...,
-    newline: None = ...,
+    errors: None = None,
+    newline: None = None,
     closefd: bool = ...,
     opener: _Opener | None = ...,
 ) -> BufferedRandom: ...
@@ -552,8 +552,8 @@ def fdopen(
     mode: OpenBinaryModeWriting,
     buffering: Literal[-1, 1] = -1,
     encoding: None = None,
-    errors: None = ...,
-    newline: None = ...,
+    errors: None = None,
+    newline: None = None,
     closefd: bool = ...,
     opener: _Opener | None = ...,
 ) -> BufferedWriter: ...
@@ -563,8 +563,8 @@ def fdopen(
     mode: OpenBinaryModeReading,
     buffering: Literal[-1, 1] = -1,
     encoding: None = None,
-    errors: None = ...,
-    newline: None = ...,
+    errors: None = None,
+    newline: None = None,
     closefd: bool = ...,
     opener: _Opener | None = ...,
 ) -> BufferedReader: ...
@@ -574,8 +574,8 @@ def fdopen(
     mode: OpenBinaryMode,
     buffering: int = -1,
     encoding: None = None,
-    errors: None = ...,
-    newline: None = ...,
+    errors: None = None,
+    newline: None = None,
     closefd: bool = ...,
     opener: _Opener | None = ...,
 ) -> BinaryIO: ...
@@ -604,7 +604,7 @@ if sys.platform != "win32" and sys.version_info >= (3, 11):
     def login_tty(__fd: int) -> None: ...
 
 def lseek(__fd: int, __position: int, __how: int) -> int: ...
-def open(path: StrOrBytesPath, flags: int, mode: int = 511, *, dir_fd: int | None = None) -> int: ...
+def open(path: StrOrBytesPath, flags: int, mode: int = 0o777, *, dir_fd: int | None = None) -> int: ...
 def pipe() -> tuple[int, int]: ...
 def read(__fd: int, __length: int) -> bytes: ...
 
@@ -626,8 +626,8 @@ if sys.platform != "win32":
     def pread(__fd: int, __length: int, __offset: int) -> bytes: ...
     def pwrite(__fd: int, __buffer: ReadableBuffer, __offset: int) -> int: ...
     # In CI, stubtest sometimes reports that these are available on MacOS, sometimes not
-    def preadv(__fd: int, __buffers: SupportsLenAndGetItem[WriteableBuffer], __offset: int, __flags: int = ...) -> int: ...
-    def pwritev(__fd: int, __buffers: SupportsLenAndGetItem[ReadableBuffer], __offset: int, __flags: int = ...) -> int: ...
+    def preadv(__fd: int, __buffers: SupportsLenAndGetItem[WriteableBuffer], __offset: int, __flags: int = 0) -> int: ...
+    def pwritev(__fd: int, __buffers: SupportsLenAndGetItem[ReadableBuffer], __offset: int, __flags: int = 0) -> int: ...
     if sys.platform != "darwin":
         if sys.version_info >= (3, 10):
             RWF_APPEND: int  # docs say available on 3.7+, stubtest says otherwise
@@ -645,7 +645,7 @@ if sys.platform != "win32":
         count: int,
         headers: Sequence[ReadableBuffer] = ...,
         trailers: Sequence[ReadableBuffer] = ...,
-        flags: int = ...,
+        flags: int = 0,
     ) -> int: ...  # FreeBSD and Mac OS X only
     def readv(__fd: int, __buffers: SupportsLenAndGetItem[WriteableBuffer]) -> int: ...
     def writev(__fd: int, __buffers: SupportsLenAndGetItem[ReadableBuffer]) -> int: ...
@@ -707,15 +707,15 @@ def link(
     follow_symlinks: bool = True,
 ) -> None: ...
 def lstat(path: StrOrBytesPath, *, dir_fd: int | None = None) -> stat_result: ...
-def mkdir(path: StrOrBytesPath, mode: int = 511, *, dir_fd: int | None = None) -> None: ...
+def mkdir(path: StrOrBytesPath, mode: int = 0o777, *, dir_fd: int | None = None) -> None: ...
 
 if sys.platform != "win32":
-    def mkfifo(path: StrOrBytesPath, mode: int = 438, *, dir_fd: int | None = None) -> None: ...  # Unix only
+    def mkfifo(path: StrOrBytesPath, mode: int = 0o666, *, dir_fd: int | None = None) -> None: ...  # Unix only
 
-def makedirs(name: StrOrBytesPath, mode: int = 511, exist_ok: bool = False) -> None: ...
+def makedirs(name: StrOrBytesPath, mode: int = 0o777, exist_ok: bool = False) -> None: ...
 
 if sys.platform != "win32":
-    def mknod(path: StrOrBytesPath, mode: int = 384, device: int = 0, *, dir_fd: int | None = None) -> None: ...
+    def mknod(path: StrOrBytesPath, mode: int = 0o600, device: int = 0, *, dir_fd: int | None = None) -> None: ...
     def major(__device: int) -> int: ...
     def minor(__device: int) -> int: ...
     def makedev(__major: int, __minor: int) -> int: ...
@@ -774,33 +774,33 @@ def walk(
 if sys.platform != "win32":
     @overload
     def fwalk(
-        top: StrPath = ...,
-        topdown: bool = ...,
-        onerror: _OnError | None = ...,
+        top: StrPath = ".",
+        topdown: bool = True,
+        onerror: _OnError | None = None,
         *,
-        follow_symlinks: bool = ...,
-        dir_fd: int | None = ...,
+        follow_symlinks: bool = False,
+        dir_fd: int | None = None,
     ) -> Iterator[tuple[str, list[str], list[str], int]]: ...
     @overload
     def fwalk(
         top: BytesPath,
-        topdown: bool = ...,
-        onerror: _OnError | None = ...,
+        topdown: bool = True,
+        onerror: _OnError | None = None,
         *,
-        follow_symlinks: bool = ...,
-        dir_fd: int | None = ...,
+        follow_symlinks: bool = False,
+        dir_fd: int | None = None,
     ) -> Iterator[tuple[bytes, list[bytes], list[bytes], int]]: ...
     if sys.platform == "linux":
-        def getxattr(path: FileDescriptorOrPath, attribute: StrOrBytesPath, *, follow_symlinks: bool = ...) -> bytes: ...
-        def listxattr(path: FileDescriptorOrPath | None = ..., *, follow_symlinks: bool = ...) -> list[str]: ...
-        def removexattr(path: FileDescriptorOrPath, attribute: StrOrBytesPath, *, follow_symlinks: bool = ...) -> None: ...
+        def getxattr(path: FileDescriptorOrPath, attribute: StrOrBytesPath, *, follow_symlinks: bool = True) -> bytes: ...
+        def listxattr(path: FileDescriptorOrPath | None = None, *, follow_symlinks: bool = True) -> list[str]: ...
+        def removexattr(path: FileDescriptorOrPath, attribute: StrOrBytesPath, *, follow_symlinks: bool = True) -> None: ...
         def setxattr(
             path: FileDescriptorOrPath,
             attribute: StrOrBytesPath,
             value: ReadableBuffer,
-            flags: int = ...,
+            flags: int = 0,
             *,
-            follow_symlinks: bool = ...,
+            follow_symlinks: bool = True,
         ) -> None: ...
 
 def abort() -> NoReturn: ...
@@ -983,7 +983,7 @@ if sys.platform != "win32":
     def sysconf(__name: str | int) -> int: ...
 
 if sys.platform == "linux":
-    def getrandom(size: int, flags: int = ...) -> bytes: ...
+    def getrandom(size: int, flags: int = 0) -> bytes: ...
 
 def urandom(__size: int) -> bytes: ...
 
