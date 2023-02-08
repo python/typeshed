@@ -1,12 +1,12 @@
-from typing import Any
+from typing import Any, Protocol
 
 requirements: Any
 db: Any
 db_url: Any
 db_opts: Any
 file_config: Any
-test_schema: Any
-test_schema_2: Any
+test_schema: str
+test_schema_2: str
 any_async: bool
 ident: str
 
@@ -15,6 +15,15 @@ def combinations_list(arg_iterable, **kw): ...
 def fixture(*arg, **kw): ...
 def get_current_test_name(): ...
 def mark_base_test_class(): ...
+
+# Matches the intersection of the config module and the Config class
+class _ConfigProtocol(Protocol):  # noqa: Y046
+    db: Any
+    db_opts: Any
+    file_config: Any
+    test_schema: str
+    test_schema_2: str
+    def skip_test(self, msg) -> None: ...
 
 class Config:
     db: Any

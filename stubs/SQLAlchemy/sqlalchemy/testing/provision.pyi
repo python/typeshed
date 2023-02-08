@@ -1,13 +1,12 @@
 from _typeshed import Incomplete, Self
 from collections.abc import Callable
 from logging import Logger
-from types import ModuleType
 from typing import Any, Generic, NoReturn, TypeVar
 from typing_extensions import TypeAlias
 
 from ..engine.interfaces import Connectable
 from ..engine.url import URL
-from .config import Config
+from .config import Config, _ConfigProtocol
 
 _Unused: TypeAlias = object
 _S = TypeVar("_S", bound=str)
@@ -30,7 +29,7 @@ class register(Generic[_F]):
     def init(cls: type[Self], fn: _F) -> Self: ...
     def for_db(self: Self, *dbnames: str) -> Callable[[_F], Self]: ...
     # Impossible to specify the args from the generic Callable in the current type system
-    def __call__(self, cfg: str | URL | ModuleType, *arg: Any) -> str | URL | None: ...  # AnyOf[str | URL | None]
+    def __call__(self, cfg: str | URL | _ConfigProtocol, *arg: Any) -> str | URL | None: ...  # AnyOf[str | URL | None]
 
 @register.init
 def generate_driver_url(url: _U, driver: str, query_str: str) -> _U | None: ...
@@ -60,7 +59,5 @@ def prepare_for_drop_tables(config: _Unused, connection: _Unused) -> None: ...
 def stop_test_class_outside_fixtures(config: _Unused, db: _Unused, testcls: _Unused) -> None: ...
 @register.init  # type: ignore[type-var]  # False-positive, _S is bound to str
 def get_temp_table_name(cfg: _Unused, eng: _Unused, base_name: _S) -> _S: ...
-
-# Expects the "sqlalchemy.testing.provision.config" module
 @register.init
-def set_default_schema_on_connection(cfg: ModuleType, dbapi_connection: _Unused, schema_name: _Unused) -> NoReturn: ...
+def set_default_schema_on_connection(cfg: _ConfigProtocol, dbapi_connection: _Unused, schema_name: _Unused) -> NoReturn: ...
