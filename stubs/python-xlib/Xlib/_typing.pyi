@@ -1,4 +1,3 @@
-from _typeshed import FileDescriptor, StrOrBytesPath
 from collections.abc import Callable
 from typing import TypeVar
 from typing_extensions import TypeAlias
@@ -9,4 +8,3 @@ from Xlib.protocol.rq import Request
 _T = TypeVar("_T")
 ErrorHandler: TypeAlias = Callable[[XError, Request | None], _T]
 Unused: TypeAlias = object
-OpenFile: TypeAlias = StrOrBytesPath | FileDescriptor

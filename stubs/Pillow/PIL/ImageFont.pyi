@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, StrOrBytesPath, SupportsRead
+from _typeshed import FileDescriptorOrPath, Incomplete, SupportsRead
 from typing import Any, Protocol
 from typing_extensions import Literal
 
@@ -109,7 +109,7 @@ class TransposedFont:
     def getsize(self, text: str | bytes, *args, **kwargs) -> tuple[int, int]: ...
     def getmask(self, text: str | bytes, mode: str = ..., *args, **kwargs): ...
 
-def load(filename: StrOrBytesPath | int) -> ImageFont: ...
+def load(filename: FileDescriptorOrPath) -> ImageFont: ...
 def truetype(
     font: str | bytes | SupportsRead[bytes] | None = ...,
     size: int = ...,
