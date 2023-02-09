@@ -1,9 +1,9 @@
 import sys
 import types
-from _typeshed import IdentityFunction, Self, SupportsAllComparisons, SupportsItems
+from _typeshed import IdentityFunction, SupportsAllComparisons, SupportsItems
 from collections.abc import Callable, Hashable, Iterable, Sequence, Sized
 from typing import Any, Generic, NamedTuple, TypeVar, overload
-from typing_extensions import Literal, TypeAlias, final
+from typing_extensions import Literal, Self, TypeAlias, final
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -79,7 +79,7 @@ class partial(Generic[_T]):
     def args(self) -> tuple[Any, ...]: ...
     @property
     def keywords(self) -> dict[str, Any]: ...
-    def __new__(cls: type[Self], __func: Callable[..., _T], *args: Any, **kwargs: Any) -> Self: ...
+    def __new__(cls, __func: Callable[..., _T], *args: Any, **kwargs: Any) -> Self: ...
     def __call__(__self, *args: Any, **kwargs: Any) -> _T: ...
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
