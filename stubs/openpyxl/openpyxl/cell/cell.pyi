@@ -15,8 +15,10 @@ _TimeTypes: TypeAlias = datetime.datetime | datetime.date | datetime.time | date
 TIME_FORMATS: dict[_TimeTypes, str]
 STRING_TYPES: tuple[type[str], type[bytes]]
 _StringTypes: TypeAlias = str | bytes
-# mypy will simplify the type. Pyright fully expands it.
-KNOWN_TYPES = NUMERIC_TYPES + TIME_TYPES + STRING_TYPES + (bool, type(None))  # noqa: F821,Y015
+# We could get the exact tuple length and order with the following line, ignoring Y015
+# But pytype doesn't support it and mypy oversimplifies the type. Pyright fully expands it.
+# KNOWN_TYPES = NUMERIC_TYPES + TIME_TYPES + STRING_TYPES + (bool, type(None))
+KNOWN_TYPES: tuple[_KnownTypes, ...]
 _KnownTypes: TypeAlias = _NumericTypes | _TimeTypes | _StringTypes | bool | None
 ILLEGAL_CHARACTERS_RE: Pattern[str]
 ERROR_CODES: Final[
