@@ -3,6 +3,7 @@ from _typeshed import Incomplete, Self, SupportsItems, Unused
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from datetime import datetime, timedelta
 from re import Pattern
+from types import TracebackType
 from typing import Any, ClassVar, Generic, TypeVar, overload
 from typing_extensions import Literal, TypeAlias
 
@@ -340,7 +341,9 @@ class PubSub:
         encoder: Incomplete | None = ...,
     ) -> None: ...
     def __enter__(self: Self) -> Self: ...
-    def __exit__(self, exc_type: Unused, exc_value: Unused, traceback: Unused) -> None: ...
+    def __exit__(
+        self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None
+    ) -> None: ...
     def __del__(self): ...
     channels: Any
     patterns: Any

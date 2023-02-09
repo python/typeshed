@@ -1,6 +1,7 @@
-from _typeshed import Self, Unused
+from _typeshed import Self
 from hashlib import _Hash
 from logging import Logger, LogRecord
+from types import TracebackType
 from typing import IO, AnyStr, Protocol
 
 from paramiko.config import SSHConfig, SSHConfigDict
@@ -32,7 +33,9 @@ def constant_time_bytes_eq(a: AnyStr, b: AnyStr) -> bool: ...
 
 class ClosingContextManager:
     def __enter__(self: Self) -> Self: ...
-    def __exit__(self, type: Unused, value: Unused, traceback: Unused) -> None: ...
+    def __exit__(
+        self, type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
+    ) -> None: ...
 
 def clamp_value(minimum: int, val: int, maximum: int) -> int: ...
 

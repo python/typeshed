@@ -1,11 +1,12 @@
 import re
 import subprocess
-from _typeshed import Incomplete, Self, Unused
+from _typeshed import Incomplete, Self
 from builtins import range as _range
 from collections import OrderedDict
 from collections.abc import Callable, Generator, Iterable, Iterator
 from datetime import datetime
 from logging import Logger
+from types import TracebackType
 from typing import Any
 from typing_extensions import SupportsIndex, TypeAlias
 
@@ -46,7 +47,9 @@ class CronTab:
         self, user: _User = ..., tab: str | None = ..., tabfile: str | None = ..., log: CronLog | str | None = ...
     ) -> None: ...
     def __enter__(self: Self) -> Self: ...
-    def __exit__(self, exc_type: Unused, exc_val: Unused, exc_tb: Unused) -> None: ...
+    def __exit__(
+        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
+    ) -> None: ...
     @property
     def log(self) -> CronLog: ...
     @property

@@ -1,7 +1,8 @@
-from _typeshed import Self, Unused
+from _typeshed import Self
 from collections.abc import Callable, Sequence
 from contextlib import AbstractContextManager
 from stat import S_IMODE as S_IMODE
+from types import TracebackType
 from typing import IO
 from typing_extensions import Literal, TypeAlias
 
@@ -123,4 +124,6 @@ class Connection:
     def remote_server_key(self) -> paramiko.PKey: ...
     def __del__(self) -> None: ...
     def __enter__(self: Self) -> Self: ...
-    def __exit__(self, etype: Unused, value: Unused, traceback: Unused) -> None: ...
+    def __exit__(
+        self, etype: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
+    ) -> None: ...

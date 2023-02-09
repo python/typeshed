@@ -1,5 +1,6 @@
 from _collections_abc import Generator, dict_keys
-from _typeshed import Incomplete, ReadableBuffer, Self, Unused
+from _typeshed import Incomplete, ReadableBuffer, Self
+from types import TracebackType
 from typing_extensions import Literal, TypeAlias
 
 from pyasn1.type.base import Asn1Item
@@ -115,7 +116,9 @@ class Connection:
     @property
     def usage(self): ...
     def __enter__(self: Self) -> Self: ...
-    def __exit__(self, exc_type: type[BaseException] | None, exc_val: Unused, exc_tb: Unused) -> Literal[False] | None: ...
+    def __exit__(
+        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
+    ) -> Literal[False] | None: ...
     def bind(self, read_server_info: bool = ..., controls: Incomplete | None = ...): ...
     def rebind(
         self,

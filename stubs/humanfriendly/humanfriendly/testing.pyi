@@ -1,5 +1,6 @@
 import unittest
-from _typeshed import Incomplete, Unused
+from _typeshed import Incomplete
+from types import TracebackType
 from typing import Any
 
 from humanfriendly.compat import StringIO
@@ -15,7 +16,12 @@ class CallableTimedOut(Exception): ...
 
 class ContextManager:
     def __enter__(self): ...
-    def __exit__(self, exc_type: Unused = ..., exc_value: Unused = ..., traceback: Unused = ...) -> None: ...
+    def __exit__(
+        self,
+        exc_type: type[BaseException] | None = ...,
+        exc_value: BaseException | None = ...,
+        traceback: TracebackType | None = ...,
+    ) -> None: ...
 
 class PatchedAttribute(ContextManager):
     object_to_patch: Any
@@ -59,7 +65,7 @@ class MockedProgram(CustomSearchPath):
     program_signal_file: Any
     def __init__(self, name, returncode: int = ..., script: Incomplete | None = ...) -> None: ...
     def __enter__(self): ...
-    def __exit__(self, *args: object, **kw: object): ...
+    def __exit__(self, *args: object, **kw): ...
 
 class CaptureOutput(ContextManager):
     stdin: Any
