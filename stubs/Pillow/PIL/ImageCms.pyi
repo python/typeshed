@@ -1,5 +1,5 @@
-from enum import IntEnum
 from _typeshed import Incomplete
+from enum import IntEnum
 from typing import Any
 from typing_extensions import Literal
 

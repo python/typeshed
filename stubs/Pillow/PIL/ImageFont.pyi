@@ -1,7 +1,7 @@
-from enum import IntEnum
 from _typeshed import FileDescriptorOrPath, Incomplete, SupportsRead
-from typing import Any, Protocol
-from typing_extensions import Literal, TypeAlias
+from enum import IntEnum
+from typing import Protocol
+from typing_extensions import Literal
 
 class Layout(IntEnum):
     BASIC: Literal[0]
