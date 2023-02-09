@@ -11,7 +11,6 @@ from _typeshed import (
     OpenBinaryModeWriting,
     OpenTextMode,
     ReadableBuffer,
-    Self,
     StrOrBytesPath,
     StrPath,
     SupportsLenAndGetItem,
@@ -26,7 +25,7 @@ from contextlib import AbstractContextManager
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper as _TextIOWrapper
 from subprocess import Popen
 from typing import IO, Any, AnyStr, BinaryIO, Generic, NoReturn, Protocol, TypeVar, overload, runtime_checkable
-from typing_extensions import Final, Literal, TypeAlias, final
+from typing_extensions import Final, Literal, Self, TypeAlias, final
 
 from . import path as _path
 
@@ -245,9 +244,9 @@ class _Environ(MutableMapping[AnyStr, AnyStr], Generic[AnyStr]):
         # overloading MutableMapping.update in stdlib/typing.pyi
         # The type: ignore is needed due to incompatible __or__/__ior__ signatures
         @overload  # type: ignore[misc]
-        def __ior__(self: Self, other: Mapping[AnyStr, AnyStr]) -> Self: ...
+        def __ior__(self, other: Mapping[AnyStr, AnyStr]) -> Self: ...
         @overload
-        def __ior__(self: Self, other: Iterable[tuple[AnyStr, AnyStr]]) -> Self: ...
+        def __ior__(self, other: Iterable[tuple[AnyStr, AnyStr]]) -> Self: ...
 
 environ: _Environ[str]
 if sys.platform != "win32":
@@ -958,7 +957,7 @@ if sys.platform != "win32":
     class sched_param(structseq[int], tuple[int]):
         if sys.version_info >= (3, 10):
             __match_args__: Final = ("sched_priority",)
-        def __new__(cls: type[Self], sched_priority: int) -> Self: ...
+        def __new__(cls, sched_priority: int) -> Self: ...
         @property
         def sched_priority(self) -> int: ...
 
@@ -1001,7 +1000,7 @@ if sys.version_info >= (3, 8):
             path: str | None
             def __init__(self, path: str | None, cookie: _T, remove_dll_directory: Callable[[_T], object]) -> None: ...
             def close(self) -> None: ...
-            def __enter__(self: Self) -> Self: ...
+            def __enter__(self) -> Self: ...
             def __exit__(self, *args: Unused) -> None: ...
 
         def add_dll_directory(path: str) -> _AddedDllDirectory: ...
