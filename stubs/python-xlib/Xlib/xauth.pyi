@@ -1,4 +1,4 @@
-from Xlib._typing import FileDescriptorOrPath
+from _typeshed import FileDescriptorOrPath
 
 FamilyInternet: int
 FamilyDECnet: int
