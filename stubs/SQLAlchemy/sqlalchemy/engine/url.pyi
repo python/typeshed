@@ -6,11 +6,14 @@ from typing_extensions import TypeAlias
 from ..util import immutabledict
 from .interfaces import Dialect
 
+# object that produces a password when called with str()
+_PasswordObject: TypeAlias = object
+
 # stub-only helper class
 class _URLTuple(NamedTuple):
     drivername: str
     username: str | None
-    password: str | object | None  # object that produces a password when called with str()
+    password: str | _PasswordObject | None
     host: str | None
     port: int | None
     database: str | None
@@ -24,7 +27,7 @@ class URL(_URLTuple):
         cls,
         drivername: str,
         username: str | None = ...,
-        password: str | object | None = ...,  # object that produces a password when called with str()
+        password: str | _PasswordObject | None = None,
         host: str | None = ...,
         port: int | None = ...,
         database: str | None = ...,
@@ -34,7 +37,7 @@ class URL(_URLTuple):
         self: Self,
         drivername: str | None = ...,
         username: str | None = ...,
-        password: str | object | None = ...,
+        password: str | _PasswordObject | None = None,
         host: str | None = ...,
         port: int | None = ...,
         database: str | None = ...,
