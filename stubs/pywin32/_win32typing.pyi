@@ -1,9 +1,8 @@
 # Not available at runtime. Contains type definitions that are otherwise not exposed and not part of a specific module.
-from typing_extensions import Self
 from _typeshed import Incomplete
 from collections.abc import Iterable
 from typing import overload
-from typing_extensions import Literal, final
+from typing_extensions import Literal, Self, final
 
 class ArgNotFound: ...
 class PyOleEmpty: ...

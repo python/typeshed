@@ -1,6 +1,6 @@
-from typing_extensions import Self
 from _typeshed import Incomplete, StrOrBytesPath, SupportsItems
 from typing import Any
+from typing_extensions import Self
 
 class CryptPolicy:
     @classmethod

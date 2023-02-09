@@ -1,7 +1,7 @@
-from typing_extensions import Self
 from _typeshed import Incomplete
 from collections.abc import Generator, Sequence
 from typing import NamedTuple
+from typing_extensions import Self
 
 from ..connection import Parameters
 from ..data import _ArgumentMapping

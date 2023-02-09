@@ -1,6 +1,6 @@
-from typing_extensions import Self
 from collections.abc import Mapping
 from typing import Any
+from typing_extensions import Self
 
 class _TokenType(tuple[str, ...]):
     parent: _TokenType | None

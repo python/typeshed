@@ -1,8 +1,7 @@
-from typing_extensions import Self
 from _collections_abc import Generator, dict_keys
-from _typeshed import Incomplete, ReadableBuffer 
+from _typeshed import Incomplete, ReadableBuffer
 from types import TracebackType
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 
 from pyasn1.type.base import Asn1Item
 

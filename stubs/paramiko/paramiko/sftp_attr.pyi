@@ -1,5 +1,5 @@
-from typing_extensions import Self
 from os import stat_result
+from typing_extensions import Self
 
 class SFTPAttributes:
     FLAG_SIZE: int

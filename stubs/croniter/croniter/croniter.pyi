@@ -1,11 +1,10 @@
-from typing_extensions import Self
 import datetime
 from _typeshed import ReadableBuffer
 from collections import OrderedDict
 from collections.abc import Iterator
 from re import Match, Pattern
 from typing import Any, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 
 _RetType: TypeAlias = type[float | datetime.datetime]
 

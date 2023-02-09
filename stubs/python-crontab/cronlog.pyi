@@ -1,8 +1,8 @@
-from typing_extensions import Self
 from _typeshed import StrOrBytesPath
 from codecs import StreamReaderWriter
 from collections.abc import Generator, Iterator
 from types import TracebackType
+from typing_extensions import Self
 
 MATCHER: str
 

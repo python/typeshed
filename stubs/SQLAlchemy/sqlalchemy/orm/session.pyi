@@ -1,7 +1,7 @@
-from typing_extensions import Self
 from _typeshed import Incomplete
 from collections.abc import Mapping
 from typing import Any, TypeVar, overload
+from typing_extensions import Self
 
 from ..engine.base import Connection
 from ..engine.result import Result

@@ -1,5 +1,5 @@
-from typing_extensions import Self
 from _typeshed import Incomplete
+from typing_extensions import Self
 
 from influxdb_client import HealthCheck, InvokableScriptsApi, Ready
 from influxdb_client.client._base import _BaseClient

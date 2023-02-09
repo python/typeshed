@@ -1,9 +1,8 @@
-from typing_extensions import Self
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Iterator
 from re import Pattern
 from typing import Any, Generic, TypeVar, overload
-from typing_extensions import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 from . import BeautifulSoup
 from .builder import TreeBuilder

@@ -1,5 +1,5 @@
-
 from typing_extensions import Self
+
 import opentracing
 
 class SpanContext(opentracing.SpanContext):

@@ -1,9 +1,8 @@
-from typing_extensions import Self
 import logging
 from collections.abc import Collection
 from types import TracebackType
 from typing import Any, ClassVar, NamedTuple
-from typing_extensions import Literal
+from typing_extensions import Literal, Self
 
 from .. import exceptions
 from ..connectionpool import ConnectionPool

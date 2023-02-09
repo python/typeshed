@@ -1,8 +1,7 @@
-from typing_extensions import Self
 from _typeshed import Incomplete
 from collections.abc import Iterator
 from typing import Any, Generic, TypeVar
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 
 from ..sql.annotation import SupportsCloneAnnotations
 from ..sql.base import Executable
@@ -67,12 +66,7 @@ class Query(_SelectFromElements, SupportsCloneAnnotations, HasPrefixes, HasSuffi
     def get_execution_options(self): ...
     def execution_options(self, **kwargs) -> Self: ...
     def with_for_update(
-        self,
-        read: bool = ...,
-        nowait: bool = ...,
-        of: Incomplete | None = ...,
-        skip_locked: bool = ...,
-        key_share: bool = ...,
+        self, read: bool = ..., nowait: bool = ..., of: Incomplete | None = ..., skip_locked: bool = ..., key_share: bool = ...
     ) -> Self: ...
     def params(self, *args, **kwargs) -> Self: ...
     def where(self, *criterion): ...

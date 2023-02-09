@@ -1,5 +1,5 @@
-from typing_extensions import Self
 from typing import Any
+from typing_extensions import Self
 
 class Key:
     # Enable when we can use stubs from installed dependencies,

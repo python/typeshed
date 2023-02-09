@@ -1,8 +1,8 @@
-from typing_extensions import Self
 from hashlib import _Hash
 from logging import Logger, LogRecord
 from types import TracebackType
 from typing import IO, AnyStr, Protocol
+from typing_extensions import Self
 
 from paramiko.config import SSHConfig, SSHConfigDict
 from paramiko.hostkeys import HostKeys

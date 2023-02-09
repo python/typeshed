@@ -1,7 +1,7 @@
-from typing_extensions import Self
 from collections.abc import Coroutine, Generator, Iterator
 from types import CodeType, FrameType, TracebackType, coroutine
 from typing import Any, Generic, TypeVar
+from typing_extensions import Self
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)

@@ -3,9 +3,8 @@
 # For example: `Pattern` and `Match` are not exported
 # and are redefined in `regex.regex module.
 
-from typing_extensions import Self
 from typing import Any, AnyStr, Generic
-from typing_extensions import final
+from typing_extensions import Self, final
 
 from .regex import Match, Pattern
 

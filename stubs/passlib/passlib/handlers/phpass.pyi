@@ -1,5 +1,5 @@
-from typing_extensions import Self
 from typing import ClassVar
+from typing_extensions import Self
 
 import passlib.utils.handlers as uh
 

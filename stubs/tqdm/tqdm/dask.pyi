@@ -1,7 +1,7 @@
-from typing_extensions import Self
 from _typeshed import Incomplete
 from collections.abc import Callable
 from typing import ClassVar
+from typing_extensions import Self
 
 __all__ = ["TqdmCallback"]
 

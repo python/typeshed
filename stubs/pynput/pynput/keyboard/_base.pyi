@@ -1,9 +1,9 @@
-from typing_extensions import Self
 import contextlib
 import enum
 import sys
 from collections.abc import Callable, Iterable, Iterator
 from typing import Any, ClassVar
+from typing_extensions import Self
 
 from pynput._util import AbstractListener
 

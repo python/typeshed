@@ -1,4 +1,3 @@
-from typing_extensions import Self
 from _typeshed import Incomplete, Unused
 from abc import ABCMeta
 from builtins import bool as _bool
@@ -6,7 +5,7 @@ from collections.abc import Callable, Iterable, Iterator, Sequence
 from contextlib import contextmanager
 from enum import Enum
 from typing import Any, NoReturn, overload
-from typing_extensions import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 import numpy
 

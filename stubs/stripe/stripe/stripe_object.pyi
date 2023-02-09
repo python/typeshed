@@ -1,7 +1,7 @@
-from typing_extensions import Self
 import json
 from _typeshed import Incomplete
 from typing import Any
+from typing_extensions import Self
 
 from stripe import api_requestor as api_requestor
 

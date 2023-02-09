@@ -1,7 +1,7 @@
-from typing_extensions import Self
 from _typeshed import Incomplete
 from collections.abc import Generator
 from enum import Enum
+from typing_extensions import Self
 
 from influxdb_client.client.flux_table import TableList
 

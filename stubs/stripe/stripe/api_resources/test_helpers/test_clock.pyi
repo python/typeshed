@@ -1,6 +1,5 @@
-from typing_extensions import Self
 from typing import Any
-from typing_extensions import Literal
+from typing_extensions import Literal, Self
 
 from stripe.api_resources.abstract import CreateableAPIResource, DeletableAPIResource, ListableAPIResource
 

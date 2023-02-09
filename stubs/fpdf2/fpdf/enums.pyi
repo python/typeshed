@@ -1,6 +1,5 @@
-from typing_extensions import Self
 from enum import Enum, Flag, IntEnum, IntFlag
-from typing_extensions import Literal
+from typing_extensions import Literal, Self
 
 from .syntax import Name
 

@@ -1,8 +1,8 @@
-from typing_extensions import Self
 from _typeshed import Incomplete
 from collections.abc import Mapping
 from socket import socket as _socket
 from typing import Any, AnyStr, Generic, TypeVar, overload
+from typing_extensions import Self
 
 from .charset import charset_by_id as charset_by_id, charset_by_name as charset_by_name
 from .constants import CLIENT as CLIENT, COMMAND as COMMAND, FIELD_TYPE as FIELD_TYPE, SERVER_STATUS as SERVER_STATUS

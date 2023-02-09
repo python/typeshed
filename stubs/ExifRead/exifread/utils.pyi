@@ -1,7 +1,7 @@
-from typing_extensions import Self
 from collections.abc import Mapping
 from fractions import Fraction
 from typing import Any, TypeVar, overload
+from typing_extensions import Self
 
 _T = TypeVar("_T")
 

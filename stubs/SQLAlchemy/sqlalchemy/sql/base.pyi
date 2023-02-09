@@ -1,7 +1,7 @@
-from typing_extensions import Self
 from _typeshed import Incomplete
 from collections.abc import MutableMapping
 from typing import Any, ClassVar
+from typing_extensions import Self
 
 from .. import util
 from ..util import HasMemoized, hybridmethod, memoized_property

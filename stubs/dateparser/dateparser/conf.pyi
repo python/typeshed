@@ -1,6 +1,6 @@
-from typing_extensions import Self
 from _typeshed import Incomplete
 from typing import Any
+from typing_extensions import Self
 
 class Settings:
     def __new__(cls, *args, **kw) -> Self: ...

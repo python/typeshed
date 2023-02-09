@@ -1,6 +1,6 @@
-from typing_extensions import Self
 from types import TracebackType
 from typing import Any
+from typing_extensions import Self
 
 from . import _mysql, cursors
 from ._exceptions import (

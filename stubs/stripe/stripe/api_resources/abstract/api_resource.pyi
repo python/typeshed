@@ -1,5 +1,5 @@
-from typing_extensions import Self
 from _typeshed import Incomplete
+from typing_extensions import Self
 
 from stripe import api_requestor as api_requestor, error as error
 from stripe.stripe_object import StripeObject as StripeObject

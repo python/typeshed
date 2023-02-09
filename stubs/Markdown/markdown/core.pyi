@@ -1,7 +1,6 @@
-from typing_extensions import Self
 from collections.abc import Callable, Mapping, Sequence
 from typing import Any, ClassVar, Protocol
-from typing_extensions import Literal
+from typing_extensions import Literal, Self
 from xml.etree.ElementTree import Element
 
 from .blockparser import BlockParser

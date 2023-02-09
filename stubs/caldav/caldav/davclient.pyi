@@ -1,7 +1,6 @@
-from typing_extensions import Self
 from collections.abc import Iterable, Mapping
 from typing import Any
-from typing_extensions import TypeAlias
+from typing_extensions import Self, TypeAlias
 from urllib.parse import ParseResult, SplitResult
 
 from requests.auth import AuthBase

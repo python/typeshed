@@ -1,6 +1,6 @@
-from typing_extensions import Self
 from _typeshed import Incomplete
 from typing import Any, NoReturn
+from typing_extensions import Self
 
 from .Image import Image
 

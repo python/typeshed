@@ -1,10 +1,10 @@
-from typing_extensions import Self
 import itertools
 import logging
 import threading
 from _typeshed import Incomplete, SupportsKeysAndGetItem
 from collections.abc import Generator, Iterable
 from typing import ClassVar, NamedTuple, TypeVar
+from typing_extensions import Self
 
 class NullHandler(logging.Handler):
     def emit(self, record) -> None: ...

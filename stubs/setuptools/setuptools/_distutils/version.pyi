@@ -1,5 +1,5 @@
-from typing_extensions import Self
 from re import Pattern
+from typing_extensions import Self
 
 class Version:
     def __init__(self, vstring: str | None = ...) -> None: ...

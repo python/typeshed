@@ -1,11 +1,10 @@
-from typing_extensions import Self
 import sys
 import threading
 from collections.abc import Callable
 from queue import Queue
 from types import ModuleType, TracebackType
 from typing import Any, ClassVar, Generic, TypeVar
-from typing_extensions import ParamSpec, TypedDict
+from typing_extensions import ParamSpec, Self, TypedDict
 
 _T = TypeVar("_T")
 _AbstractListener_T = TypeVar("_AbstractListener_T", bound=AbstractListener)

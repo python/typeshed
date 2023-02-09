@@ -1,11 +1,10 @@
-from typing_extensions import Self
 from _typeshed import Incomplete
 from _typeshed.dbapi import DBAPIConnection
 from abc import abstractmethod
 from collections.abc import Callable, Mapping
 from types import TracebackType
 from typing import Any, TypeVar, overload
-from typing_extensions import Concatenate, ParamSpec, TypeAlias
+from typing_extensions import Concatenate, ParamSpec, Self, TypeAlias
 
 from ..log import Identified, _EchoFlag, echo_property
 from ..pool import Pool

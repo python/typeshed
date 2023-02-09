@@ -1,8 +1,7 @@
-from typing_extensions import Self
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable
 from typing import Any, Generic, TypeVar, overload
-from typing_extensions import ParamSpec
+from typing_extensions import ParamSpec, Self
 
 from .config import Config
 from .context import Context

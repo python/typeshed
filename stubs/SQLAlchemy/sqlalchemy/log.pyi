@@ -1,7 +1,6 @@
-from typing_extensions import Self
 from logging import Logger
 from typing import Any, TypeVar, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 
 _ClsT = TypeVar("_ClsT", bound=type)
 _EchoFlag: TypeAlias = bool | Literal["debug"] | None

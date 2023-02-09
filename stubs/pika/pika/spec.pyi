@@ -1,7 +1,6 @@
-from typing_extensions import Self
 from _typeshed import Incomplete
 from typing import ClassVar
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 
 from .amqp_object import Class, Method, Properties
 

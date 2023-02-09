@@ -1,9 +1,8 @@
-from typing_extensions import Self
 import datetime
 from _typeshed import Incomplete
 from collections.abc import Iterable, Iterator, Mapping, Sequence
 from typing import Any, TypeVar, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 from urllib.parse import ParseResult, SplitResult
 
 from vobject.base import VBase

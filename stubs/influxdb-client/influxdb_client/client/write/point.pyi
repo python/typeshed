@@ -1,10 +1,9 @@
-from typing_extensions import Self
 from _typeshed import Incomplete, SupportsGetItem, SupportsItems
 from collections.abc import Iterable
 from datetime import datetime, timedelta
 from numbers import Integral
 from typing import Any
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 
 from influxdb_client.domain.write_precision import _WritePrecision
 

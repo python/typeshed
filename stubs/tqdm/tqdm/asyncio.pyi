@@ -1,7 +1,7 @@
-from typing_extensions import Self
 from _typeshed import Incomplete, SupportsWrite
 from collections.abc import Awaitable, Callable, Generator, Iterable, Iterator, Mapping
 from typing import Generic, NoReturn, TypeVar, overload
+from typing_extensions import Self
 
 from .std import tqdm as std_tqdm
 

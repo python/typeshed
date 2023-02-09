@@ -1,9 +1,8 @@
-from typing_extensions import Self
 import contextlib
 from _typeshed import Incomplete, SupportsWrite
 from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping
 from typing import Any, ClassVar, Generic, NoReturn, TypeVar, overload
-from typing_extensions import Literal
+from typing_extensions import Literal, Self
 
 from ._monitor import TMonitor
 from .utils import Comparable

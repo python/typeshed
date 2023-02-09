@@ -1,7 +1,6 @@
-from typing_extensions import Self
 from _typeshed import Incomplete
 from typing import Any, Generic, TypeVar
-from typing_extensions import Literal
+from typing_extensions import Literal, Self
 
 from .. import util
 from ..util import HasMemoized, memoized_property

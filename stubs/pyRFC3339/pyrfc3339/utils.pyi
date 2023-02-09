@@ -1,6 +1,6 @@
-from typing_extensions import Self
 from datetime import datetime, timedelta, tzinfo
 from typing import Any
+from typing_extensions import Self
 
 class FixedOffset(tzinfo):
     def __init__(self, hours: float, minutes: float) -> None: ...

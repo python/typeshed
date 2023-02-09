@@ -1,6 +1,6 @@
-from typing_extensions import Self
 from re import Pattern
 from typing import IO
+from typing_extensions import Self
 
 from paramiko.message import Message
 

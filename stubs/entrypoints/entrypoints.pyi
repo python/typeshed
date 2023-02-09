@@ -1,8 +1,8 @@
-from typing_extensions import Self
 import sys
 from collections.abc import Iterator, Sequence
 from configparser import ConfigParser
 from typing import Any
+from typing_extensions import Self
 
 if sys.version_info >= (3, 8):
     from re import Pattern

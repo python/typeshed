@@ -1,6 +1,6 @@
-from typing_extensions import Self
 from _typeshed import Incomplete
 from typing import Any
+from typing_extensions import Self
 
 from ...util import memoized_property
 from .base import ReversibleProxy, StartableContext

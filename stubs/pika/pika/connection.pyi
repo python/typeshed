@@ -1,9 +1,8 @@
-from typing_extensions import Self
 import abc
 from _typeshed import Incomplete
 from collections.abc import Callable
 from logging import Logger
-from typing_extensions import Final
+from typing_extensions import Final, Self
 
 from .callback import CallbackManager
 from .channel import Channel
@@ -159,9 +158,7 @@ class Connection(AbstractBase, metaclass=abc.ABCMeta):
         internal_connection_workflow: bool = ...,
     ) -> None: ...
     def add_on_close_callback(self, callback: Callable[[Self, BaseException], object]) -> None: ...
-    def add_on_connection_blocked_callback(
-        self, callback: Callable[[Self, Method[SpecConnection.Blocked]], object]
-    ) -> None: ...
+    def add_on_connection_blocked_callback(self, callback: Callable[[Self, Method[SpecConnection.Blocked]], object]) -> None: ...
     def add_on_connection_unblocked_callback(
         self, callback: Callable[[Self, Method[SpecConnection.Unblocked]], object]
     ) -> None: ...

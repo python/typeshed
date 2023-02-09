@@ -1,5 +1,5 @@
-
 from typing_extensions import Self
+
 class weekday:
     def __init__(self, weekday: int, n: int | None = ...) -> None: ...
     def __call__(self, n: int) -> Self: ...

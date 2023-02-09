@@ -1,7 +1,6 @@
-from typing_extensions import Self
 from collections.abc import Iterator
 from typing import Any, ClassVar, Generic, TypeVar
-from typing_extensions import Literal
+from typing_extensions import Literal, Self
 
 from stripe.stripe_object import StripeObject
 

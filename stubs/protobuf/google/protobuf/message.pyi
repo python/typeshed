@@ -1,6 +1,6 @@
-from typing_extensions import Self
 from collections.abc import Sequence
 from typing import Any, TypeVar
+from typing_extensions import Self
 
 from .descriptor import Descriptor, FieldDescriptor
 from .internal.extension_dict import _ExtensionDict, _ExtensionFieldDescriptor

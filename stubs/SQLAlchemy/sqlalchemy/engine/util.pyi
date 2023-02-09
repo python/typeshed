@@ -1,7 +1,7 @@
-from typing_extensions import Self
 from collections.abc import Callable
 from types import TracebackType
 from typing import Any
+from typing_extensions import Self
 
 def connection_memoize(key: str) -> Callable[..., Any]: ...
 

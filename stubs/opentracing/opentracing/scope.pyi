@@ -1,5 +1,5 @@
-from typing_extensions import Self
 from types import TracebackType
+from typing_extensions import Self
 
 from .scope_manager import ScopeManager
 from .span import Span

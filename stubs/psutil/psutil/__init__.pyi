@@ -1,10 +1,9 @@
-from typing_extensions import Self
 import sys
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Iterator
 from contextlib import AbstractContextManager
 from typing import Any, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 
 from psutil._common import (
     AIX as AIX,

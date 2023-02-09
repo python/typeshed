@@ -1,11 +1,10 @@
-from typing_extensions import Self
 import abc
 import sys
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import IdentityFunction
 from collections.abc import Mapping
 from typing import Any, ClassVar, Generic, TypeVar, overload, type_check_only
-from typing_extensions import Never
+from typing_extensions import Never, Self
 
 _T = TypeVar("_T")
 _U = TypeVar("_U")

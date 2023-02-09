@@ -1,8 +1,7 @@
-from typing_extensions import Self
 from _typeshed import Incomplete, ReadableBuffer, SupportsRichComparison, SupportsTrunc
 from collections.abc import Callable, Generator
 from typing import SupportsInt
-from typing_extensions import SupportsIndex, TypeAlias
+from typing_extensions import Self, SupportsIndex, TypeAlias
 
 from pyasn1.type import base, constraint, namedtype, namedval
 from pyasn1.type.tag import TagSet

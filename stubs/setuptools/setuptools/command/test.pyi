@@ -1,8 +1,8 @@
-from typing_extensions import Self
 from _typeshed import Incomplete
 from collections.abc import Callable
 from types import ModuleType
 from typing import Any, Generic, TypeVar, overload
+from typing_extensions import Self
 from unittest import TestLoader, TestSuite
 
 from setuptools import Command

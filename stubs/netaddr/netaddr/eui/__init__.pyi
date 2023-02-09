@@ -1,6 +1,5 @@
-from typing_extensions import Self
 from typing import ClassVar, SupportsInt, overload
-from typing_extensions import Literal, SupportsIndex
+from typing_extensions import Literal, Self, SupportsIndex
 
 from netaddr.core import DictDotLookup
 from netaddr.ip import IPAddress

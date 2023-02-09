@@ -1,7 +1,7 @@
-from typing_extensions import Self
 from _typeshed import Incomplete
 from collections.abc import Generator, KeysView
 from typing import Any
+from typing_extensions import Self
 
 from ..sql.base import InPlaceGenerative
 from .row import Row

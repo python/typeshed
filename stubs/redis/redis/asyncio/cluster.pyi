@@ -1,7 +1,7 @@
-from typing_extensions import Self
 from _typeshed import Incomplete
 from collections.abc import Awaitable, Callable, Mapping
 from typing import Any, Generic
+from typing_extensions import Self
 
 from redis.asyncio.client import ResponseCallbackT
 from redis.asyncio.connection import BaseParser, Connection, Encoder

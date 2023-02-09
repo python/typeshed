@@ -1,8 +1,8 @@
-from typing_extensions import Self
 import collections.abc
 from _typeshed import Incomplete, SupportsKeysAndGetItem
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from typing import Any, Generic, NoReturn, TypeVar, overload
+from typing_extensions import Self
 
 from ..cimmutabledict import immutabledict as immutabledict
 

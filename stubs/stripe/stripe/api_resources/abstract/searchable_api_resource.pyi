@@ -1,5 +1,5 @@
-from typing_extensions import Self
 from collections.abc import Iterator
+from typing_extensions import Self
 
 from stripe.api_resources.abstract.api_resource import APIResource as APIResource
 from stripe.api_resources.search_result_object import SearchResultObject

@@ -1,7 +1,7 @@
-from typing_extensions import Self
 import threading
 from _typeshed import ReadableBuffer
 from collections.abc import Callable
+from typing_extensions import Self
 
 from serial import Serial
 

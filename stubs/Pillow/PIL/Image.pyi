@@ -1,10 +1,9 @@
-from typing_extensions import Self
 from _typeshed import Incomplete, SupportsRead, SupportsWrite
 from collections.abc import Callable, Iterable, Iterator, MutableMapping, Sequence
 from enum import IntEnum
 from pathlib import Path
 from typing import Any, ClassVar, Protocol, SupportsBytes
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 
 from PIL.PyAccess import PyAccess
 

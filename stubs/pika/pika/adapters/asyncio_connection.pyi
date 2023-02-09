@@ -1,8 +1,8 @@
-from typing_extensions import Self
 from _typeshed import Incomplete
 from asyncio import AbstractEventLoop
 from collections.abc import Callable
 from logging import Logger
+from typing_extensions import Self
 
 from ..connection import Parameters
 from .base_connection import BaseConnection

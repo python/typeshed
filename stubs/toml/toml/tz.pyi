@@ -1,6 +1,6 @@
-from typing_extensions import Self
 from datetime import datetime, timedelta, tzinfo
 from typing import Any
+from typing_extensions import Self
 
 class TomlTz(tzinfo):
     def __init__(self, toml_offset: str) -> None: ...

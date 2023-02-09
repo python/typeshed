@@ -1,7 +1,6 @@
-from typing_extensions import Self
 from datetime import date, datetime, timedelta
 from typing import SupportsFloat, TypeVar, overload
-from typing_extensions import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 from ._common import weekday
 

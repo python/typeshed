@@ -1,10 +1,10 @@
-from typing_extensions import Self
 import builtins
 import ctypes
 import sys
 from _typeshed import Incomplete
 from types import TracebackType
 from typing import Any
+from typing_extensions import Self
 
 if sys.platform == "win32":
     def format_system_message(errno: int) -> str | None: ...

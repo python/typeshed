@@ -1,7 +1,7 @@
-from typing_extensions import Self
 from _typeshed import Incomplete
 from types import TracebackType
 from typing import Any, ClassVar, Protocol
+from typing_extensions import Self
 
 from redis.client import Redis
 

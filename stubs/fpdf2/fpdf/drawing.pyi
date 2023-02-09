@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import decimal
 from _typeshed import Incomplete
 from collections import OrderedDict
@@ -6,7 +5,7 @@ from collections.abc import Callable, Generator, Iterator
 from contextlib import contextmanager
 from re import Pattern
 from typing import Any, ClassVar, NamedTuple, TypeVar
-from typing_extensions import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 from .syntax import Name, Raw
 

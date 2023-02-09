@@ -1,10 +1,9 @@
-from typing_extensions import Self
 from _typeshed import Incomplete
 from collections.abc import Callable, Coroutine, Mapping, Sequence
 from contextlib import AbstractContextManager
 from types import TracebackType
 from typing import Any, Generic, TypeVar, overload
-from typing_extensions import Literal
+from typing_extensions import Literal, Self
 
 _F = TypeVar("_F", bound=Callable[..., Any])
 _AF = TypeVar("_AF", bound=Callable[..., Coroutine[Any, Any, Any]])

@@ -1,5 +1,5 @@
-from typing_extensions import Self
 from collections.abc import Iterator, Mapping, MutableMapping
+from typing_extensions import Self
 
 from paramiko.pkey import PKey
 

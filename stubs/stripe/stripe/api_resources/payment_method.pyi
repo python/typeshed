@@ -1,5 +1,5 @@
-
 from typing_extensions import Self
+
 from stripe.api_resources.abstract import (
     CreateableAPIResource as CreateableAPIResource,
     ListableAPIResource as ListableAPIResource,

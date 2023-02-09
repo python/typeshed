@@ -1,9 +1,8 @@
-from typing_extensions import Self
 import sys
 from _typeshed import ReadableBuffer
 from collections.abc import Callable, Mapping
 from typing import Any, AnyStr, Generic, TypeVar, overload
-from typing_extensions import Literal, final
+from typing_extensions import Literal, Self, final
 
 from . import _regex
 from ._regex_core import *

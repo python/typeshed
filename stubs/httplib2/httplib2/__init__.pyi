@@ -1,8 +1,8 @@
-from typing_extensions import Self
 import http.client
 from _typeshed import Incomplete
 from collections.abc import Generator
 from typing import Any, ClassVar
+from typing_extensions import Self
 
 from .error import *
 

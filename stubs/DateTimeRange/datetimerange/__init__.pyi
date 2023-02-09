@@ -1,7 +1,7 @@
-from typing_extensions import Self
 import datetime
 from collections.abc import Iterable
 from typing import ClassVar
+from typing_extensions import Self
 
 from dateutil.relativedelta import relativedelta
 

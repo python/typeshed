@@ -1,7 +1,7 @@
-from typing_extensions import Self
 import abc
 from _typeshed import Incomplete
 from typing import Any, ClassVar
+from typing_extensions import Self
 
 from passlib.ifc import PasswordHash
 from passlib.utils.binary import BASE64_CHARS, HASH64_CHARS, LOWER_HEX_CHARS, PADDED_BASE64_CHARS, UPPER_HEX_CHARS

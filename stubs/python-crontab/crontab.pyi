@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import re
 import subprocess
 from _typeshed import Incomplete
@@ -9,7 +8,7 @@ from datetime import datetime
 from logging import Logger
 from types import TracebackType
 from typing import Any
-from typing_extensions import SupportsIndex, TypeAlias
+from typing_extensions import Self, SupportsIndex, TypeAlias
 
 from cronlog import CronLog
 

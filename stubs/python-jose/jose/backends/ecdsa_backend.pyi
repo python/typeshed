@@ -1,7 +1,7 @@
-from typing_extensions import Self
 from collections.abc import Callable
 from hashlib import _Hash
 from typing import Any
+from typing_extensions import Self
 
 from .base import Key
 

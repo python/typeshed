@@ -1,7 +1,7 @@
-from typing_extensions import Self
 from abc import abstractmethod
 from collections.abc import Mapping
 from typing import Any, overload
+from typing_extensions import Self
 
 from .base import _Executable
 from .cursor import CursorResult

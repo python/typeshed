@@ -1,8 +1,7 @@
-from typing_extensions import Self
 from _typeshed import Incomplete, SupportsItems, SupportsRead
 from collections.abc import Callable, Iterable, Mapping, MutableMapping
 from typing import Any
-from typing_extensions import TypeAlias, TypedDict
+from typing_extensions import Self, TypeAlias, TypedDict
 
 from urllib3._collections import RecentlyUsedContainer
 

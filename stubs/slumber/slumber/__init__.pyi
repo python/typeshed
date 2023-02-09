@@ -1,5 +1,5 @@
-from typing_extensions import Self
 from typing import Any
+from typing_extensions import Self
 
 from requests import Response, Session
 from requests.sessions import _Auth, _Data, _Files

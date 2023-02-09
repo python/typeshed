@@ -1,9 +1,8 @@
-from typing_extensions import Self
 import io
 from collections.abc import Iterable, Iterator, Mapping
 from http.client import HTTPMessage as _HttplibHTTPMessage, HTTPResponse as _HttplibHTTPResponse
 from typing import IO, Any
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 
 from urllib3.connectionpool import HTTPConnection
 

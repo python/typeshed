@@ -1,7 +1,6 @@
-from typing_extensions import Self
 from collections.abc import Iterable, Iterator
 from typing import NoReturn
-from typing_extensions import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 from netaddr.ip import IPAddress, IPNetwork, IPRange, _IPNetworkAddr
 

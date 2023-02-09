@@ -1,5 +1,5 @@
-from typing_extensions import Self
 from typing import Any
+from typing_extensions import Self
 
 from ..span import Span
 from ..tracer import Tracer

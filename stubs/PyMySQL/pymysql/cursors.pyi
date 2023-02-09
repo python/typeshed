@@ -1,6 +1,6 @@
-from typing_extensions import Self
 from collections.abc import Iterable, Iterator
 from typing import Any
+from typing_extensions import Self
 
 from .connections import Connection
 

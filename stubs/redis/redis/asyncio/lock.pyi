@@ -1,8 +1,8 @@
-from typing_extensions import Self
 import threading
 from collections.abc import Awaitable
 from types import SimpleNamespace, TracebackType
 from typing import Any, ClassVar
+from typing_extensions import Self
 
 from redis.asyncio import Redis
 from redis.commands.core import AsyncScript

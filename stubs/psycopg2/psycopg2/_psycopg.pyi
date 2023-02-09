@@ -1,8 +1,7 @@
-from typing_extensions import Self
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from types import TracebackType
 from typing import Any, TypeVar, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 
 import psycopg2
 import psycopg2.extensions

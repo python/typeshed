@@ -1,9 +1,9 @@
-from typing_extensions import Self
 import codecs
 import sys
 import threading
 from collections.abc import Iterable
 from typing import Any, BinaryIO, TextIO
+from typing_extensions import Self
 
 from serial import Serial
 

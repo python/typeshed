@@ -1,7 +1,7 @@
-from typing_extensions import Self
 from collections.abc import Iterable
 from re import Pattern
 from typing import IO
+from typing_extensions import Self
 
 from paramiko.ssh_exception import ConfigParseError as ConfigParseError, CouldNotCanonicalize as CouldNotCanonicalize
 

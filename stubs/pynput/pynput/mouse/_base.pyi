@@ -1,9 +1,9 @@
-from typing_extensions import Self
 import enum
 import sys
 from collections.abc import Callable
 from types import TracebackType
 from typing import Any
+from typing_extensions import Self
 
 from pynput._util import AbstractListener
 

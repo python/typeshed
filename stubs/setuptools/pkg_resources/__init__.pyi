@@ -1,4 +1,3 @@
-from typing_extensions import Self
 import importlib.abc
 import types
 import zipimport
@@ -6,7 +5,7 @@ from _typeshed import Incomplete
 from abc import ABCMeta
 from collections.abc import Callable, Generator, Iterable, Sequence
 from typing import IO, Any, TypeVar, overload
-from typing_extensions import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 _Version: TypeAlias = Incomplete  # from packaging.version
 

@@ -1,8 +1,7 @@
-from typing_extensions import Self
 from _typeshed import SupportsItems
 from collections.abc import Iterable, Mapping, Sequence
 from typing import Any, NamedTuple
-from typing_extensions import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 from ..util import immutabledict
 from .interfaces import Dialect
