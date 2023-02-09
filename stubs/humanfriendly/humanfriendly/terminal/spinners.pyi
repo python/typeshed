@@ -1,5 +1,4 @@
-from _typeshed import Incomplete
-from types import TracebackType
+from _typeshed import Incomplete, Unused
 from typing import Any
 
 GLYPHS: Any
@@ -20,12 +19,7 @@ class Spinner:
     def sleep(self) -> None: ...
     def clear(self) -> None: ...
     def __enter__(self): ...
-    def __exit__(
-        self,
-        exc_type: type[BaseException] | None = ...,
-        exc_value: BaseException | None = ...,
-        traceback: TracebackType | None = ...,
-    ) -> None: ...
+    def __exit__(self, exc_type: Unused = ..., exc_value: Unused = ..., traceback: Unused = ...) -> None: ...
 
 class AutomaticSpinner:
     label: Any
@@ -34,9 +28,4 @@ class AutomaticSpinner:
     subprocess: Any
     def __init__(self, label, show_time: bool = ...) -> None: ...
     def __enter__(self) -> None: ...
-    def __exit__(
-        self,
-        exc_type: type[BaseException] | None = ...,
-        exc_value: BaseException | None = ...,
-        traceback: TracebackType | None = ...,
-    ) -> None: ...
+    def __exit__(self, exc_type: Unused = ..., exc_value: Unused = ..., traceback: Unused = ...) -> None: ...

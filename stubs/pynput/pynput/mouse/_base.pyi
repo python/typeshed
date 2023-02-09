@@ -1,8 +1,7 @@
 import enum
 import sys
-from _typeshed import Self
+from _typeshed import Self, Unused
 from collections.abc import Callable
-from types import TracebackType
 from typing import Any
 
 from pynput._util import AbstractListener
@@ -56,9 +55,7 @@ class Controller:
     def move(self, dx: int, dy: int) -> None: ...
     def click(self, button: Button, count: int = ...) -> None: ...
     def __enter__(self: Self) -> Self: ...
-    def __exit__(
-        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
-    ) -> None: ...
+    def __exit__(self, exc_type: Unused, exc_val: Unused, exc_tb: Unused) -> None: ...
 
 class Listener(AbstractListener):
     if sys.platform == "win32":

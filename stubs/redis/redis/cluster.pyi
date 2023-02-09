@@ -1,7 +1,6 @@
-from _typeshed import Incomplete, Self
+from _typeshed import Incomplete, Self, Unused
 from collections.abc import Callable, Iterable, Sequence
 from threading import Lock
-from types import TracebackType
 from typing import Any, ClassVar, Generic, NoReturn, Protocol
 from typing_extensions import Literal
 
@@ -72,9 +71,7 @@ class RedisCluster(AbstractRedisCluster, RedisClusterCommands[_StrType], Generic
         **kwargs,
     ) -> None: ...
     def __enter__(self: Self) -> Self: ...
-    def __exit__(
-        self, type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
-    ) -> None: ...
+    def __exit__(self, type: Unused, value: Unused, traceback: Unused) -> None: ...
     def __del__(self) -> None: ...
     def disconnect_connection_pools(self) -> None: ...
     @classmethod

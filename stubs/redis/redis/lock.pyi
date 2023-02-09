@@ -1,5 +1,4 @@
-from _typeshed import Incomplete, Self
-from types import TracebackType
+from _typeshed import Incomplete, Self, Unused
 from typing import Any, ClassVar, Protocol
 
 from redis.client import Redis
@@ -27,9 +26,7 @@ class Lock:
     ) -> None: ...
     def register_scripts(self) -> None: ...
     def __enter__(self: Self) -> Self: ...
-    def __exit__(
-        self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None
-    ) -> bool | None: ...
+    def __exit__(self, exc_type: Unused, exc_value: Unused, traceback: Unused) -> bool | None: ...
     def acquire(
         self,
         sleep: float | None = ...,

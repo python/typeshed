@@ -1,8 +1,7 @@
 import builtins
 import ctypes
 import sys
-from _typeshed import Incomplete, Self
-from types import TracebackType
+from _typeshed import Incomplete, Self, Unused
 from typing import Any
 
 if sys.platform == "win32":
@@ -38,9 +37,7 @@ if sys.platform == "win32":
         def seek(self, pos: int) -> None: ...
         def write(self, msg: bytes) -> None: ...
         def read(self, n: int) -> bytes: ...
-        def __exit__(
-            self, exc_type: type[BaseException] | None, exc_val: BaseException | None, tb: TracebackType | None
-        ) -> None: ...
+        def __exit__(self, exc_type: Unused, exc_val: Unused, tb: Unused) -> None: ...
     READ_CONTROL: int
     STANDARD_RIGHTS_REQUIRED: int
     STANDARD_RIGHTS_READ: int
