@@ -1,7 +1,6 @@
 import abc
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Self
 from collections.abc import Callable
-from typing_extensions import Self
 
 from ..adapters.utils import nbio_interface
 from ..connection import Connection
@@ -10,7 +9,7 @@ LOGGER: Incomplete
 
 class BaseConnection(Connection, metaclass=abc.ABCMeta):
     def __init__(
-        self,
+        self: Self,
         parameters,
         on_open_callback: Callable[[Self], object] | None,
         on_open_error_callback: Callable[[Self, BaseException], object] | None,
