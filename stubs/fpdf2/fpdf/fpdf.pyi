@@ -297,10 +297,10 @@ class FPDF:
     ) -> None: ...
     def add_font(
         self,
-        family: str | None = ...,
-        style: _FontStyle = ...,
-        fname: str | PurePath | None = ...,
-        uni: bool | Literal["DEPRECATED"] = ...,
+        family: str | None = None,
+        style: _FontStyle = "",
+        fname: str | PurePath | None = None,
+        uni: bool | Literal["DEPRECATED"] = "DEPRECATED",
     ) -> None: ...
     def set_font(self, family: str | None = ..., style: _FontStyles = ..., size: int = ...) -> None: ...
     def set_font_size(self, size: float) -> None: ...
