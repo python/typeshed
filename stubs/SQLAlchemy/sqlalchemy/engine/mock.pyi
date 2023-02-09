@@ -1,4 +1,4 @@
-from _typeshed import Self
+from typing_extensions import Self
 from abc import abstractmethod
 from collections.abc import Mapping
 from typing import Any, overload
@@ -11,7 +11,7 @@ from .url import URL
 class MockConnection(Connectable):
     def __init__(self, dialect: Dialect, execute) -> None: ...
     @property
-    def engine(self: Self) -> Self: ...  # type: ignore[override]
+    def engine(self) -> Self: ...  # type: ignore[override]
     @property
     def dialect(self) -> Dialect: ...
     @property

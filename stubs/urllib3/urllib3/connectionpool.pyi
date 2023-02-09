@@ -1,5 +1,5 @@
+from typing_extensions import Self
 import queue
-from _typeshed import Self
 from collections.abc import Mapping
 from logging import Logger
 from types import TracebackType
@@ -47,7 +47,7 @@ class ConnectionPool:
     host: str
     port: int | None
     def __init__(self, host: str, port: int | None = ...) -> None: ...
-    def __enter__(self: Self) -> Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> Literal[False]: ...

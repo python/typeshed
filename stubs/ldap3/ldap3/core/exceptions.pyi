@@ -1,12 +1,13 @@
+from typing_extensions import Self
 import socket
-from _typeshed import Incomplete, Self
+from _typeshed import Incomplete
 from typing import Any
 
 class LDAPException(Exception): ...
 
 class LDAPOperationResult(LDAPException):
     def __new__(
-        cls: type[Self],
+        cls,
         result: Incomplete | None = ...,
         description: Incomplete | None = ...,
         dn: Incomplete | None = ...,

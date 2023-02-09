@@ -1,4 +1,5 @@
-from _typeshed import Incomplete, Self, SupportsWrite
+from typing_extensions import Self
+from _typeshed import Incomplete, SupportsWrite
 from collections.abc import Awaitable, Callable, Generator, Iterable, Iterator, Mapping
 from typing import Generic, NoReturn, TypeVar, overload
 
@@ -13,7 +14,7 @@ class tqdm_asyncio(Generic[_T], std_tqdm[_T]):
     iterable_next: Callable[[], _T | Awaitable[_T]]
     iterable_iterator: Iterator[_T]
 
-    def __aiter__(self: Self) -> Self: ...
+    def __aiter__(self) -> Self: ...
     async def __anext__(self) -> Awaitable[_T]: ...
     def send(self, *args, **kwargs): ...
     @classmethod

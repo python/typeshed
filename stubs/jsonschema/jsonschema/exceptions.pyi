@@ -1,4 +1,5 @@
-from _typeshed import Incomplete, Self, SupportsRichComparison
+from typing_extensions import Self
+from _typeshed import Incomplete, SupportsRichComparison
 from collections import deque
 from collections.abc import Callable, Container, Iterable, Sequence
 from typing import Any
@@ -40,7 +41,7 @@ class _Error(Exception):
         type_checker: _utils.Unset | TypeChecker = ...,
     ) -> None: ...
     @classmethod
-    def create_from(cls: type[Self], other: _Error) -> Self: ...
+    def create_from(cls, other: _Error) -> Self: ...
     @property
     def absolute_path(self) -> Sequence[str | int]: ...
     @property

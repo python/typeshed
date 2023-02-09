@@ -1,4 +1,5 @@
-from _typeshed import Incomplete, Self
+from typing_extensions import Self
+from _typeshed import Incomplete
 from collections.abc import Callable, Coroutine, Mapping, Sequence
 from contextlib import AbstractContextManager
 from types import TracebackType
@@ -45,7 +46,7 @@ DEFAULT: _SentinelObject
 
 class _Call(tuple[Any, ...]):
     def __new__(
-        cls: type[Self],
+        cls,
         value: Any = ...,
         name: Incomplete | None = ...,
         parent: Incomplete | None = ...,
@@ -83,7 +84,7 @@ class Base:
 
 class NonCallableMock(Base, Any):
     def __new__(
-        cls: type[Self],
+        cls,
         spec: list[str] | object | type[object] | None = ...,
         wraps: Incomplete | None = ...,
         name: str | None = ...,
@@ -371,7 +372,7 @@ class _SpecState:
 def mock_open(mock: Incomplete | None = ..., read_data: Any = ...) -> Any: ...
 
 class PropertyMock(Mock):
-    def __get__(self: Self, obj: _T, obj_type: type[_T] | None = ...) -> Self: ...
+    def __get__(self, obj: _T, obj_type: type[_T] | None = ...) -> Self: ...
     def __set__(self, obj: Any, value: Any) -> None: ...
 
 def seal(mock: Any) -> None: ...

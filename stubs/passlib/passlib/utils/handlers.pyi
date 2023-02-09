@@ -1,5 +1,6 @@
+from typing_extensions import Self
 import abc
-from _typeshed import Incomplete, Self
+from _typeshed import Incomplete
 from typing import Any, ClassVar
 
 from passlib.ifc import PasswordHash
@@ -20,13 +21,13 @@ def render_mc3(ident, rounds, salt, checksum, sep=..., rounds_base: int = ...): 
 
 class MinimalHandler(PasswordHash, metaclass=abc.ABCMeta):
     @classmethod
-    def using(cls: Self, relaxed: bool = ...) -> type[Self]: ...  # type: ignore[override]
+    def using(cls, relaxed: bool = ...) -> type[Self]: ...  # type: ignore[override]
 
 class TruncateMixin(MinimalHandler, metaclass=abc.ABCMeta):
     truncate_error: ClassVar[bool]
     truncate_verify_reject: ClassVar[bool]
     @classmethod
-    def using(cls: type[Self], truncate_error: object = ..., *, relaxed: bool = ...) -> type[Self]: ...  # type: ignore[override]
+    def using(cls, truncate_error: object = ..., *, relaxed: bool = ...) -> type[Self]: ...  # type: ignore[override]
 
 class GenericHandler(MinimalHandler):
     setting_kwds: ClassVar[tuple[str, ...]]
@@ -40,7 +41,7 @@ class GenericHandler(MinimalHandler):
     @classmethod
     def identify(cls, hash: str | bytes) -> bool: ...
     @classmethod
-    def from_string(cls: type[Self], hash: str | bytes, **context: Any) -> Self: ...
+    def from_string(cls, hash: str | bytes, **context: Any) -> Self: ...
     def to_string(self) -> str: ...
     @classmethod
     def hash(cls, secret: str | bytes, **kwds: Any) -> str: ...

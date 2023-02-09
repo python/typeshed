@@ -1,5 +1,6 @@
+from typing_extensions import Self
 import abc
-from _typeshed import Incomplete, Self
+from _typeshed import Incomplete
 from typing import Any
 
 ConnectionError: Any
@@ -38,7 +39,7 @@ class _InProcessGlobalCache(GlobalCache):
 class RedisCache(GlobalCache):
     transient_errors: Any
     @classmethod
-    def from_environment(cls: type[Self], strict_read: bool = ..., strict_write: bool = ...) -> Self: ...
+    def from_environment(cls, strict_read: bool = ..., strict_write: bool = ...) -> Self: ...
     redis: Any
     strict_read: Any
     strict_write: Any
@@ -61,7 +62,7 @@ class MemcacheCache(GlobalCache):
     transient_errors: Any
     @classmethod
     def from_environment(
-        cls: type[Self], max_pool_size: int = ..., strict_read: bool = ..., strict_write: bool = ...
+        cls, max_pool_size: int = ..., strict_read: bool = ..., strict_write: bool = ...
     ) -> Self: ...
     client: Any
     strict_read: Any

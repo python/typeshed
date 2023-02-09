@@ -1,4 +1,4 @@
-from _typeshed import Self
+from typing_extensions import Self
 from typing import Any, overload
 from typing_extensions import final
 
@@ -85,7 +85,7 @@ WCHAR_YES: int
 
 @final
 class IBM_DBClientInfo:
-    def __new__(cls: type[Self], *args: object, **kwargs: object) -> Self: ...
+    def __new__(cls, *args: object, **kwargs: object) -> Self: ...
     APPL_CODEPAGE: int
     CONN_CODEPAGE: int
     DATA_SOURCE_NAME: str
@@ -97,11 +97,11 @@ class IBM_DBClientInfo:
 
 @final
 class IBM_DBConnection:
-    def __new__(cls: type[Self], *args: object, **kwargs: object) -> Self: ...
+    def __new__(cls, *args: object, **kwargs: object) -> Self: ...
 
 @final
 class IBM_DBServerInfo:
-    def __new__(cls: type[Self], *args: object, **kwargs: object) -> Self: ...
+    def __new__(cls, *args: object, **kwargs: object) -> Self: ...
     DBMS_NAME: str
     DBMS_VER: str
     DB_CODEPAGE: int
@@ -127,7 +127,7 @@ class IBM_DBServerInfo:
 
 @final
 class IBM_DBStatement:
-    def __new__(cls: type[Self], *args: object, **kwargs: object) -> Self: ...
+    def __new__(cls, *args: object, **kwargs: object) -> Self: ...
 
 def active(__connection: IBM_DBConnection | None) -> bool: ...
 def autocommit(__connection: IBM_DBConnection, __value: int = ...) -> int | bool: ...

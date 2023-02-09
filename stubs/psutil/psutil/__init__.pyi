@@ -1,5 +1,6 @@
+from typing_extensions import Self
 import sys
-from _typeshed import Incomplete, Self
+from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Iterator
 from contextlib import AbstractContextManager
 from typing import Any, overload
@@ -217,7 +218,7 @@ class Process:
 
 class Popen(Process):
     def __init__(self, *args, **kwargs) -> None: ...
-    def __enter__(self: Self) -> Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(self, *args, **kwargs) -> None: ...
     def __getattribute__(self, name: str) -> Any: ...
 

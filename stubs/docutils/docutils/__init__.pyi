@@ -1,4 +1,4 @@
-from _typeshed import Self
+from typing_extensions import Self
 from typing import Any, ClassVar, NamedTuple
 
 __docformat__: str
@@ -14,7 +14,7 @@ class _VersionInfo(NamedTuple):
 
 class VersionInfo(_VersionInfo):
     def __new__(
-        cls: type[Self],
+        cls,
         major: int = ...,
         minor: int = ...,
         micro: int = ...,

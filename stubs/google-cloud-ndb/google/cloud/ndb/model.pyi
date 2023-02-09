@@ -1,5 +1,5 @@
+from typing_extensions import Self
 import datetime
-from _typeshed import Self
 from collections.abc import Callable, Iterable, Sequence
 from typing import Any, NoReturn
 from typing_extensions import Literal, TypeAlias
@@ -27,7 +27,7 @@ class _NotEqualMixin:
 _Direction: TypeAlias = Literal["asc", "desc"]
 
 class IndexProperty(_NotEqualMixin):
-    def __new__(cls: type[Self], name: str, direction: _Direction) -> Self: ...
+    def __new__(cls, name: str, direction: _Direction) -> Self: ...
     @property
     def name(self) -> str: ...
     @property
@@ -36,7 +36,7 @@ class IndexProperty(_NotEqualMixin):
     def __hash__(self) -> int: ...
 
 class Index(_NotEqualMixin):
-    def __new__(cls: type[Self], kind: str, properties: list[IndexProperty], ancestor: bool) -> Self: ...
+    def __new__(cls, kind: str, properties: list[IndexProperty], ancestor: bool) -> Self: ...
     @property
     def kind(self) -> str: ...
     @property
@@ -59,7 +59,7 @@ class IndexState(_NotEqualMixin):
 
 class ModelAdapter:
     # This actually returns NoReturn, but mypy can't handle that
-    def __new__(cls: type[Self], *args, **kwargs) -> Self: ...
+    def __new__(cls, *args, **kwargs) -> Self: ...
 
 def make_connection(*args, **kwargs) -> NoReturn: ...
 

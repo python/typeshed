@@ -1,4 +1,4 @@
-from _typeshed import Self
+from typing_extensions import Self
 from typing import ClassVar
 
 import passlib.utils.handlers as uh
@@ -13,7 +13,7 @@ class Pbkdf2DigestHandler(uh.HasRounds, uh.HasRawSalt, uh.HasRawChecksum, uh.Gen
     max_rounds: ClassVar[int]
     rounds_cost: ClassVar[str]
     @classmethod
-    def from_string(cls: type[Self], hash: str | bytes) -> Self: ...  # type: ignore[override]
+    def from_string(cls, hash: str | bytes) -> Self: ...  # type: ignore[override]
 
 # dynamically created by create_pbkdf2_hash()
 class pbkdf2_sha1(Pbkdf2DigestHandler):

@@ -1,4 +1,5 @@
-from _typeshed import Incomplete, Self
+from typing_extensions import Self
+from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Sequence
 from typing import Any
 from typing_extensions import Literal, TypeAlias
@@ -122,14 +123,14 @@ class Color3DLUT(MultibandFilter):
     ) -> None: ...
     @classmethod
     def generate(
-        cls: type[Self],
+        cls,
         size: int | tuple[int, int, int],
         callback: Callable[[float, float, float], Iterable[float]],
         channels: int = ...,
         target_mode: str | None = ...,
     ) -> Self: ...
     def transform(
-        self: Self,
+        self,
         callback: Callable[..., Iterable[float]],
         with_normals: bool = ...,
         channels: Literal[3, 4] | None = ...,

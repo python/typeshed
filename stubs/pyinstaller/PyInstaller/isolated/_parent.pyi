@@ -1,4 +1,4 @@
-from _typeshed import Self
+from typing_extensions import Self
 from collections.abc import Callable
 from types import TracebackType
 from typing import TypeVar
@@ -10,7 +10,7 @@ _P = ParamSpec("_P")
 
 class Python:
     def __init__(self, strict_mode: bool | None = None) -> None: ...
-    def __enter__(self: Self) -> Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> None: ...

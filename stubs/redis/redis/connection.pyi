@@ -1,4 +1,5 @@
-from _typeshed import Incomplete, Self
+from typing_extensions import Self
+from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Mapping
 from queue import Queue
 from socket import socket
@@ -199,7 +200,7 @@ class ConnectionPool:
     max_connections: int
     pid: int
     @classmethod
-    def from_url(cls: type[Self], url: str, *, db: int = ..., decode_components: bool = ..., **kwargs) -> Self: ...
+    def from_url(cls, url: str, *, db: int = ..., decode_components: bool = ..., **kwargs) -> Self: ...
     def __init__(
         self, connection_class: type[Connection] = ..., max_connections: int | None = ..., **connection_kwargs
     ) -> None: ...

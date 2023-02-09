@@ -1,5 +1,5 @@
+from typing_extensions import Self
 import logging
-from _typeshed import Self
 from collections.abc import Collection
 from types import TracebackType
 from typing import Any, ClassVar, NamedTuple
@@ -62,7 +62,7 @@ class Retry:
         remove_headers_on_redirect: Collection[str] = ...,
         method_whitelist: Collection[str] | None = ...,
     ) -> None: ...
-    def new(self: Self, **kw: Any) -> Self: ...
+    def new(self, **kw: Any) -> Self: ...
     @classmethod
     def from_int(
         cls, retries: Retry | bool | int | None, redirect: bool | int | None = ..., default: Retry | bool | int | None = ...
