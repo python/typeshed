@@ -1,6 +1,6 @@
 import sys
 import threading
-from _typeshed import Self, StrPath, SupportsWrite
+from _typeshed import StrPath, SupportsWrite
 from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequence
 from io import TextIOWrapper
 from re import Pattern
@@ -8,7 +8,7 @@ from string import Template
 from time import struct_time
 from types import FrameType, TracebackType
 from typing import Any, ClassVar, Generic, TextIO, TypeVar, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 
 if sys.version_info >= (3, 11):
     from types import GenericAlias
@@ -110,7 +110,7 @@ class Logger(Filterer):
     def setLevel(self, level: _Level) -> None: ...
     def isEnabledFor(self, level: int) -> bool: ...
     def getEffectiveLevel(self) -> int: ...
-    def getChild(self: Self, suffix: str) -> Self: ...  # see python/typing#980
+    def getChild(self, suffix: str) -> Self: ...  # see python/typing#980
     if sys.version_info >= (3, 8):
         def debug(
             self,

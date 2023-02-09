@@ -1,13 +1,13 @@
 import logging
 import sys
 import unittest.result
-from _typeshed import Self, SupportsDunderGE, SupportsDunderGT, SupportsDunderLE, SupportsDunderLT, SupportsRSub, SupportsSub
+from _typeshed import SupportsDunderGE, SupportsDunderGT, SupportsDunderLE, SupportsDunderLT, SupportsRSub, SupportsSub
 from collections.abc import Callable, Container, Iterable, Mapping, Sequence, Set as AbstractSet
 from contextlib import AbstractContextManager
 from re import Pattern
 from types import TracebackType
 from typing import Any, AnyStr, ClassVar, Generic, NamedTuple, NoReturn, Protocol, SupportsAbs, SupportsRound, TypeVar, overload
-from typing_extensions import ParamSpec, TypeAlias
+from typing_extensions import ParamSpec, Self, TypeAlias
 from warnings import WarningMessage
 
 if sys.version_info >= (3, 9):
@@ -304,7 +304,7 @@ class FunctionTestCase(TestCase):
 
 class _AssertRaisesContext(Generic[_E]):
     exception: _E
-    def __enter__(self: Self) -> Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_value: BaseException | None, tb: TracebackType | None
     ) -> bool: ...
@@ -316,7 +316,7 @@ class _AssertWarnsContext:
     filename: str
     lineno: int
     warnings: list[WarningMessage]
-    def __enter__(self: Self) -> Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_value: BaseException | None, tb: TracebackType | None
     ) -> None: ...

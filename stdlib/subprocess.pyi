@@ -1,9 +1,9 @@
 import sys
-from _typeshed import ReadableBuffer, Self, StrOrBytesPath
+from _typeshed import ReadableBuffer, StrOrBytesPath
 from collections.abc import Callable, Collection, Iterable, Mapping, Sequence
 from types import TracebackType
 from typing import IO, Any, AnyStr, Generic, TypeVar, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -2560,7 +2560,7 @@ class Popen(Generic[AnyStr]):
     def send_signal(self, sig: int) -> None: ...
     def terminate(self) -> None: ...
     def kill(self) -> None: ...
-    def __enter__(self: Self) -> Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(
         self, exc_type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
     ) -> None: ...
