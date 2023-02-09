@@ -146,7 +146,7 @@ class NodesManager:
         require_full_coverage: bool = False,
         lock: Lock | None = None,
         dynamic_startup_nodes: bool = True,
-        connection_pool_class: type[ConnectionPool] = ConnectionPool,
+        connection_pool_class: type[ConnectionPool] = ...,
         **kwargs,  # TODO: same type as connection_kwargs
     ) -> None: ...
     def get_node(
