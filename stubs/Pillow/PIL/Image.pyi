@@ -42,9 +42,9 @@ class DecompressionBombError(Exception): ...
 
 MAX_IMAGE_PIXELS: int | None
 
-LINEAR: Literal[2]  # deprecated
-CUBIC: Literal[3]  # deprecated
-ANTIALIAS: Literal[1]  # deprecated
+LINEAR: Literal[Resampling.BILINEAR]  # deprecated
+CUBIC: Literal[Resampling.BICUBIC]  # deprecated
+ANTIALIAS: Literal[Resampling.LANCZOS]  # deprecated
 
 class Transpose(IntEnum):
     FLIP_LEFT_RIGHT: Literal[0]
@@ -193,7 +193,7 @@ class Image:
     def quantize(
         self,
         colors: int = ...,
-        method: Literal[0, 1, 2, 3] | None = ...,
+        method: Quantize | Literal[0, 1, 2, 3] | None = ...,
         kmeans: int = ...,
         palette: Image | None = ...,
         dither: int = ...,

@@ -1,6 +1,6 @@
+from _typeshed import FileDescriptorOrPath
 from typing_extensions import Final
 
-from Xlib._typing import OpenFile
 from Xlib.X import (
     FamilyChaos as FamilyChaos,
     FamilyDECnet as FamilyDECnet,
