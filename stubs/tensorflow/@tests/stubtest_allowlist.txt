@@ -37,11 +37,7 @@ tensorflow.initializers
 
 # Layer constructor's always have **kwargs, but only allow a few specific values. PEP 692
 # would allow us to specify this with **kwargs and remove the need for these exceptions.
-tensorflow.keras.layers.Dense.__init__
-tensorflow.keras.layers.BatchNormalization.__init__
-tensorflow.keras.layers.ReLU.__init__
-tensorflow.keras.layers.Dropout.__init__
-tensorflow.keras.layers.Embedding.__init__
+tensorflow.keras.layers.*.__init__
 
 # __call__ in tensorflow classes often allow keyword usage, but
 # when you subclass those classes it is not expected to handle keyword case. As an example,

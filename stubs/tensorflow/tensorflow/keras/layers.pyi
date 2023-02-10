@@ -4,7 +4,7 @@ from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
 import tensorflow as tf
-from tensorflow import DTypeLike, Tensor, Variable, VariableAggregation, VariableSynchronization, _TensorCompatible
+from tensorflow import Tensor, Variable, VariableAggregation, VariableSynchronization, _TensorCompatible
 from tensorflow._aliases import _AnyArray, _ContainerGeneric
 from tensorflow.keras.activations import _Activation
 from tensorflow.keras.constraints import _Constraint
@@ -31,7 +31,7 @@ class InputSpec:
         axes: dict[int, int | None] | None = None,
         allow_last_axis_squeeze: bool = False,
         name: str | None = None,
-    ): ...
+    ) -> None: ...
     def get_config(self) -> dict[str, Any]: ...
     @classmethod
     def from_config(cls, config: dict[str, Any]) -> type[Self]: ...
@@ -48,7 +48,7 @@ class Layer(Generic[_InputT, _OutputT], tf.Module):
     @trainable.setter
     def trainable(self, value: bool) -> None: ...
     def __init__(
-        self, trainable: bool = True, name: str | None = None, dtype: DTypeLike | None = None, dynamic: bool = False
+        self, trainable: bool = True, name: str | None = None, dtype: tf._DTypeLike | None = None, dynamic: bool = False
     ) -> None: ...
 
     # *args/**kwargs are allowed, but have obscure footguns and tensorflow documentation discourages their usage.
@@ -105,7 +105,7 @@ class Layer(Generic[_InputT, _OutputT], tf.Module):
 # all layer constructors.
 
 # TODO: Replace last Any after adding tf.keras.mixed_precision.Policy.
-_LayerDtype = tf._DTypeLike | dict[str, Any] | Any
+_LayerDtype: TypeAlias = tf._DTypeLike | dict[str, Any] | Any
 
 # Layer's compute_output_shape commonly have instance as first argument name instead of self.
 # This is an artifact of actual implementation commonly uses a decorator to define it.
@@ -150,7 +150,7 @@ class BatchNormalization(Layer[tf.Tensor, tf.Tensor]):
         dtype: _LayerDtype = None,
         dynamic: bool = False,
         name: str | None = None,
-    ): ...
+    ) -> None: ...
 
 class ReLU(Layer[tf.Tensor, tf.Tensor]):
     def __init__(
@@ -191,7 +191,7 @@ class Embedding(Layer[tf.Tensor, tf.Tensor]):
         dtype: _LayerDtype = None,
         dynamic: bool = False,
         name: str | None = None,
-    ): ...
+    ) -> None: ...
     def build(instance, input_shape: tf.TensorShape) -> None: ...
     def compute_output_shape(instance, input_shape: tf.TensorShape) -> tf.TensorShape: ...
 
