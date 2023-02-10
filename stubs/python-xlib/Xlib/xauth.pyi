@@ -1,3 +1,4 @@
+from _typeshed import FileDescriptorOrPath
 from typing_extensions import Final
 
 from Xlib.X import (
@@ -12,7 +13,7 @@ FamilyLocal: Final = 256
 
 class Xauthority:
     entries: list[tuple[bytes, bytes, bytes, bytes, bytes]]
-    def __init__(self, filename: OpenFile | None = None) -> None: ...
+    def __init__(self, filename: FileDescriptorOrPath | None = None) -> None: ...
     def __len__(self) -> int: ...
     def __getitem__(self, i: int) -> tuple[bytes, bytes, bytes, bytes, bytes]: ...
     def get_best_auth(
