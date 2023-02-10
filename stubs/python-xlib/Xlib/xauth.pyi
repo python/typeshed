@@ -1,4 +1,3 @@
-from _typeshed import FileDescriptorOrPath
 from typing_extensions import Final
 
 from Xlib.X import (
