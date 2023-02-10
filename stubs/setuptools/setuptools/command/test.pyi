@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, Self
+from _typeshed import Incomplete, Self, Unused
 from collections.abc import Callable
 from types import ModuleType
 from typing import Any, Generic, TypeVar, overload
@@ -16,9 +16,9 @@ class NonDataProperty(Generic[_T]):
     fget: Callable[..., _T]
     def __init__(self, fget: Callable[..., _T]) -> None: ...
     @overload
-    def __get__(self: Self, obj: None, objtype: object = ...) -> Self: ...
+    def __get__(self: Self, obj: None, objtype: Unused = None) -> Self: ...
     @overload
-    def __get__(self, obj: Any, objtype: object = ...) -> _T: ...
+    def __get__(self, obj: Any, objtype: Unused = None) -> _T: ...
 
 class test(Command):
     description: str
