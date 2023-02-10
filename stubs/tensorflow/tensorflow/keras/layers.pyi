@@ -4,7 +4,7 @@ from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
 import tensorflow as tf
-from tensorflow import DTypeLike, Tensor, Variable, _TensorCompatible
+from tensorflow import DTypeLike, Tensor, Variable, VariableAggregation, VariableSynchronization, _TensorCompatible
 from tensorflow._aliases import _AnyArray, _ContainerGeneric
 from tensorflow.keras.activations import _Activation
 from tensorflow.keras.constraints import _Constraint
@@ -54,8 +54,8 @@ class Layer(Generic[_InputT, _OutputT], tf.Module):
     # *args/**kwargs are allowed, but have obscure footguns and tensorflow documentation discourages their usage.
     # First argument will automatically be cast to layer's compute dtype, but any other tensor arguments will not be.
     # Also various tensorflow tools/apis can misbehave if they encounter a layer with *args/**kwargs.
-    def __call__(self, inputs: _InputT, /, *, training: bool = False, mask: _TensorCompatible | None = None) -> _OutputT: ...
-    def call(self, inputs: _InputT, /) -> _OutputT: ...
+    def __call__(self, inputs: _InputT, *, training: bool = False, mask: _TensorCompatible | None = None) -> _OutputT: ...
+    def call(self, __inputs: _InputT) -> _OutputT: ...
 
     # input_shape's real type depends on _InputT, but we can't express that without HKT.
     # For example _InputT tf.Tensor -> tf.TensorShape, _InputT dict[str, tf.Tensor] -> dict[str, tf.TensorShape].
@@ -71,8 +71,11 @@ class Layer(Generic[_InputT, _OutputT], tf.Module):
         dtype: tf._DTypeLike | None = None,
         initializer: _Initializer | None = None,
         regularizer: _Regularizer = None,
-        constraint: _Constraint = None,
         trainable: bool | None = None,
+        constraint: _Constraint = None,
+        use_resource: bool | None = None,
+        synchronization: VariableSynchronization = ...,
+        aggregation: VariableAggregation = ...,
     ) -> tf.Variable: ...
     def add_loss(self, losses: tf.Tensor | Sequence[tf.Tensor] | Callable[[], tf.Tensor]) -> None: ...
     def count_params(self) -> int: ...
@@ -90,9 +93,23 @@ class Layer(Generic[_InputT, _OutputT], tf.Module):
     def set_weights(self, weights: Sequence[_AnyArray]) -> None: ...
     def get_config(self) -> dict[str, Any]: ...
     @classmethod
-    def from_config(cls: type[Self], config: dict[str, Any]) -> Self: ...
-    def __getattr__(name: str) -> Incomplete: ...
+    def from_config(cls, config: dict[str, Any]) -> Self: ...
+    def __getattr__(self, name: str) -> Incomplete: ...
 
+# Every layer has trainable, dtype, name, and dynamic. At runtime these
+# are mainly handled with **kwargs, passed up and then validated.
+# In actual implementation there's 12 allowed keyword arguments, but only
+# 4 are documented and other 8 are mainly internal. The other 8 can be found
+# https://github.com/keras-team/keras/blob/e6784e4302c7b8cd116b74a784f4b78d60e83c26/keras/engine/base_layer.py#L329
+# PEP 692 support would be very helpful here and allow removing stubtest allowlist for
+# all layer constructors.
+
+# TODO: Replace last Any after adding tf.keras.mixed_precision.Policy.
+_LayerDtype = tf._DTypeLike | dict[str, Any] | Any
+
+# Layer's compute_output_shape commonly have instance as first argument name instead of self.
+# This is an artifact of actual implementation commonly uses a decorator to define it.
+# Layer.build has same weirdness sometimes.
 class Dense(Layer[tf.Tensor, tf.Tensor]):
     input_spec: InputSpec
     def __init__(
@@ -107,6 +124,9 @@ class Dense(Layer[tf.Tensor, tf.Tensor]):
         activity_regularizer: _Regularizer = None,
         kernel_constraint: _Constraint = None,
         bias_constraint: _Constraint = None,
+        trainable: bool = True,
+        dtype: _LayerDtype = None,
+        dynamic: bool = False,
         name: str | None = None,
     ) -> None: ...
 
@@ -126,6 +146,9 @@ class BatchNormalization(Layer[tf.Tensor, tf.Tensor]):
         gamma_regularizer: _Regularizer = None,
         beta_constraint: _Constraint = None,
         gamma_constraint: _Constraint = None,
+        trainable: bool = True,
+        dtype: _LayerDtype = None,
+        dynamic: bool = False,
         name: str | None = None,
     ): ...
 
@@ -135,8 +158,12 @@ class ReLU(Layer[tf.Tensor, tf.Tensor]):
         max_value: float | None = None,
         negative_slope: float | None = 0.0,
         threshold: float | None = 0.0,
+        trainable: bool = True,
+        dtype: _LayerDtype = None,
+        dynamic: bool = False,
         name: str | None = None,
     ) -> None: ...
+    def compute_output_shape(instance, input_shape: tf.TensorShape) -> tf.TensorShape: ...
 
 class Dropout(Layer[tf.Tensor, tf.Tensor]):
     def __init__(
@@ -144,6 +171,9 @@ class Dropout(Layer[tf.Tensor, tf.Tensor]):
         rate: float,
         noise_shape: _TensorCompatible | Sequence[int | None] | None = None,
         seed: int | None = None,
+        trainable: bool = True,
+        dtype: _LayerDtype = None,
+        dynamic: bool = False,
         name: str | None = None,
     ) -> None: ...
 
@@ -157,7 +187,12 @@ class Embedding(Layer[tf.Tensor, tf.Tensor]):
         embeddings_constraint: _Constraint = None,
         mask_zero: bool = False,
         input_length: int | None = None,
+        trainable: bool = True,
+        dtype: _LayerDtype = None,
+        dynamic: bool = False,
         name: str | None = None,
     ): ...
+    def build(instance, input_shape: tf.TensorShape) -> None: ...
+    def compute_output_shape(instance, input_shape: tf.TensorShape) -> tf.TensorShape: ...
 
 def __getattr__(name: str) -> Incomplete: ...
