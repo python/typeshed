@@ -7,7 +7,12 @@
     ],
     "typeCheckingMode": "strict",
     // Extra strict settings
+    "reportShadowedImports": "error",
+    "reportCallInDefaultInitializer": "error",
+    "reportImplicitStringConcatenation": "error",
+    "reportMissingSuperCall": "error",
     "reportPropertyTypeMismatch": "error",
+    "reportUninitializedInstanceVariable": "error",
     "reportUnnecessaryTypeIgnoreComment": "error",
     // Using unspecific "type ignore" comments in test_cases.
     // See https://github.com/python/typeshed/pull/8083

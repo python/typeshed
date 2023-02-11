@@ -17,9 +17,15 @@
     "reportUnknownParameterType": "none",
     "reportUnknownVariableType": "none",
     // Extra strict settings
+    "reportCallInDefaultInitializer": "error",
+    "reportImplicitStringConcatenation": "error",
+    "reportMissingSuperCall": "error",
+    "reportUninitializedInstanceVariable": "error",
     "reportUnnecessaryTypeIgnoreComment": "error",
     // Leave "type: ignore" comments to mypy
     "enableTypeIgnoreComments": false,
+    // stdlib stubs trigger reportShadowedImports
+    "reportShadowedImports": "none",
     // Stubs are allowed to use private variables
     "reportPrivateUsage": "none",
     // Stubs don't need the actual modules to be installed
