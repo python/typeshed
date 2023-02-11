@@ -52,7 +52,7 @@ def main() -> None:
         type=str.lower,
         choices=_RUN_STUBTEST_CHOICES,
         default=None,
-        help="Run or skip stubtest without prompt. Only use this if you trust the packag you are testing.",
+        help="Run or skip stubtest without prompt. Only use this if you trust the package you are testing.",
     )
     parser.add_argument(
         "path", type=str, help="Path of the stub to test in format <folder>/<stub>, from teh root of the project."
