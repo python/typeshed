@@ -9,6 +9,7 @@ from typing import Any, NoReturn, TypeVar, overload
 from typing_extensions import ParamSpec, TypeAlias
 
 import numpy
+from tensorflow import initializers as initializers, keras as keras, math as math
 
 # Explicit import of DType is covered by the wildcard, but
 # is necessary to avoid a crash in pytype.
