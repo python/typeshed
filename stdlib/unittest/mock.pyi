@@ -3,7 +3,7 @@ from collections.abc import Awaitable, Callable, Coroutine, Iterable, Mapping, S
 from contextlib import _GeneratorContextManager
 from types import TracebackType
 from typing import Any, Generic, TypeVar, overload
-from typing_extensions import Literal, Self, TypeAlias
+from typing_extensions import Final, Literal, Self, TypeAlias
 
 _T = TypeVar("_T")
 _TT = TypeVar("_TT", bound=type[Any])
@@ -47,7 +47,7 @@ else:
         "seal",
     )
 
-__version__: str
+__version__: Final[str]
 
 FILTER_DIR: Any
 
