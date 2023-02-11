@@ -1,5 +1,5 @@
 from collections.abc import Sequence
-from typing_extensions import Final
+from typing_extensions import Final, Literal
 
 from Xlib._typing import Unused
 from Xlib.display import Display
@@ -8,7 +8,8 @@ from Xlib.xobject import resource
 
 RES_MAJOR_VERSION: Final = 1
 RES_MINOR_VERSION: Final = 2
-extname: Final = "X-Resource"
+# TODO: Can't use the assignement form of Final-Literal until https://github.com/google/pytype/issues/1369 is fixed
+extname: Final[Literal["X-Resource"]]
 ResQueryVersion: Final = 0
 ResQueryClients: Final = 1
 ResQueryClientResources: Final = 2
