@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import argparse
 import json
 import os
 import re
@@ -24,6 +25,7 @@ _FAILED = colored("Failed", "red")
 # We're using the oldest supported version because it's the most likely to produce errors
 # due to unsupported syntax, feature, or bug in a tool.
 _PYTHON_VERSION = "3.7"
+_RUN_STUBTEST_CHOICES = {"yes", "no", "y", "n"}
 
 
 def _parse_jsonc(json_text: str) -> str:
@@ -44,11 +46,21 @@ def _get_strict_params(stub_path: str) -> list[str]:
 
 
 def main() -> None:
-    try:
-        path = sys.argv[1]
-    except IndexError:
-        print("Missing path argument in format <folder>/<stub>", file=sys.stderr)
-        sys.exit(1)
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--run-stubtest",
+        type=str.lower,
+        choices=_RUN_STUBTEST_CHOICES,
+        default=None,
+        help="Run or skip stubtest without prompt. Only use this if you trust the packag you are testing.",
+    )
+    parser.add_argument(
+        "path", type=str, help="Path of the stub to test in format <folder>/<stub>, from teh root of the project."
+    )
+    args = parser.parse_args()
+    path: str = args.path
+    run_stubtest: str | None = args.run_stubtest
+
     assert os.path.exists(path), rf"Path {path} does not exist."
     path_tokens = Path(path).parts
     assert len(path_tokens) == 2, "Path argument should be in format <folder>/<stub>."
@@ -99,15 +111,16 @@ def main() -> None:
             print("\nRunning stubtest...")
             stubtest_result = subprocess.run([sys.executable, "tests/stubtest_stdlib.py", stub])
         else:
-            run_stubtest_query = (
-                f"\nRun stubtest for {stub!r} (Y/N)?\n\n"
-                "NOTE: Running third-party stubtest involves downloading and executing arbitrary code from PyPI.\n"
-                f"Only run stubtest if you trust the {stub!r} package.\n"
-            )
-            run_stubtest_answer = input(colored(run_stubtest_query, "yellow")).lower()
-            while run_stubtest_answer not in {"yes", "no", "y", "n"}:
-                run_stubtest_answer = input(colored("Invalid response; please try again.\n", "red")).lower()
-            if run_stubtest_answer in {"yes", "y"}:
+            if run_stubtest is None:
+                run_stubtest_query = (
+                    f"\nRun stubtest for {stub!r} (Y/N)?\n\n"
+                    "NOTE: Running third-party stubtest involves downloading and executing arbitrary code from PyPI.\n"
+                    f"Only run stubtest if you trust the {stub!r} package.\n"
+                )
+                run_stubtest = input(colored(run_stubtest_query, "yellow")).lower()
+            while run_stubtest not in _RUN_STUBTEST_CHOICES:
+                run_stubtest = input(colored("Invalid response; please try again.\n", "red")).lower()
+            if run_stubtest in {"yes", "y"}:
                 print("\nRunning stubtest.")
                 stubtest_result = subprocess.run([sys.executable, "tests/stubtest_third_party.py", stub])
             else:
