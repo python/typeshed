@@ -6,12 +6,15 @@
         "stubs/**/@tests/test_cases"
     ],
     "typeCheckingMode": "strict",
+    // Extra strict settings
+    "reportPropertyTypeMismatch": "error",
+    "reportUnnecessaryTypeIgnoreComment": "error",
     // Using unspecific "type ignore" comments in test_cases.
     // See https://github.com/python/typeshed/pull/8083
     "enableTypeIgnoreComments": true,
-    "reportPropertyTypeMismatch": "error",
-    "reportUnnecessaryTypeIgnoreComment": "error",
+    // Stubs don't need the actual modules to be installed
     "reportMissingModuleSource": "none",
+    // Stubs are allowed to use private variables. We may want to test those.
     "reportPrivateUsage": "none",
     // isinstance checks are still needed when validating inputs outside of typeshed's control
     "reportUnnecessaryIsInstance": "none",
