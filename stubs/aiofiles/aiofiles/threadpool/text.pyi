@@ -2,7 +2,7 @@ from _typeshed import FileDescriptorOrPath
 from collections.abc import Iterable
 from typing import BinaryIO
 
-from ..base import AsyncBase
+from ..base import AsyncBase, AsyncIndirectBase
 
 class AsyncTextIOWrapper(AsyncBase[str]):
     async def close(self) -> None: ...
@@ -37,3 +37,5 @@ class AsyncTextIOWrapper(AsyncBase[str]):
     def name(self) -> FileDescriptorOrPath: ...
     @property
     def mode(self) -> str: ...
+
+class AsyncTextIndirectIOWrapper(AsyncIndirectBase[str], AsyncTextIOWrapper): ...

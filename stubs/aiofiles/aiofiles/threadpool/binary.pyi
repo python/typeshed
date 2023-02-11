@@ -2,8 +2,10 @@ from _typeshed import FileDescriptorOrPath, ReadableBuffer, WriteableBuffer
 from collections.abc import Iterable
 from io import FileIO
 
-from ..base import AsyncBase
+from ..base import AsyncBase, AsyncIndirectBase
 
+# This class does not exist at runtime and instead these methods are
+# all dynamically patched in.
 class _UnknownAsyncBinaryIO(AsyncBase[bytes]):
     async def close(self) -> None: ...
     async def flush(self) -> None: ...
@@ -34,8 +36,15 @@ class AsyncBufferedIOBase(_UnknownAsyncBinaryIO):
     @property
     def raw(self) -> FileIO: ...
 
+class AsyncIndirectBufferedIOBase(AsyncIndirectBase[bytes], AsyncBufferedIOBase): ...
+
 class AsyncBufferedReader(AsyncBufferedIOBase):
+    async def peek(self, __size: int = ...) -> bytes: ...
+
+class AsyncIndirectBufferedReader(AsyncIndirectBase[bytes], AsyncBufferedIOBase):
     async def peek(self, __size: int = ...) -> bytes: ...
 
 class AsyncFileIO(_UnknownAsyncBinaryIO):
     async def readall(self) -> bytes: ...
+
+class AsyncIndirectFileIO(AsyncIndirectBase[bytes], AsyncFileIO): ...

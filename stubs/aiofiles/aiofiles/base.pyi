@@ -1,7 +1,7 @@
 from _typeshed import Self
-from collections.abc import Coroutine, Generator, Iterator
+from collections.abc import Callable, Coroutine, Generator, Iterator
 from types import CodeType, FrameType, TracebackType, coroutine
-from typing import Any, Generic, TypeVar
+from typing import Any, BinaryIO, Generic, TextIO, TypeVar
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
@@ -12,6 +12,9 @@ class AsyncBase(Generic[_T]):
     def __init__(self, file: str, loop: Any, executor: Any) -> None: ...
     def __aiter__(self: Self) -> Self: ...
     async def __anext__(self) -> _T: ...
+
+class AsyncIndirectBase(AsyncBase[_T]):
+    def __init__(self, name: str, loop: Any, executor: Any, indirect: Callable[[], TextIO | BinaryIO]) -> None: ...
 
 class AiofilesContextManager(Generic[_T_co, _T_contra, _V_co]):
     def __init__(self, coro: Coroutine[_T_co, _T_contra, _V_co]) -> None: ...
