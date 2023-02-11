@@ -278,9 +278,7 @@ if sys.platform == "win32":
 
 def intern(__string: str) -> str: ...
 def is_finalizing() -> bool: ...
-
-__breakpointhook__: Final = breakpointhook  # Contains the original value of breakpointhook
-
+def __breakpointhook__(*args: Any, **kwargs: Any) -> Any: ...  # Contains the original value of breakpointhook
 def breakpointhook(*args: Any, **kwargs: Any) -> Any: ...
 
 if sys.platform != "win32":
