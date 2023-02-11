@@ -91,7 +91,7 @@ jobs:
             PYTHON_EXECUTABLE="python"
           fi
 
-          $PYTHON_EXECUTABLE tests/stubtest_third_party.py --specified-stubs-only --num-shards 4 --shard-index ${{ matrix.shard-index }}
+          $PYTHON_EXECUTABLE tests/stubtest_third_party.py --specified-platforms-only --num-shards 4 --shard-index ${{ matrix.shard-index }}
   stub-uploader:
     name: Run the stub_uploader tests
     runs-on: ubuntu-latest
