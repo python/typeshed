@@ -19,12 +19,12 @@
     // Extra strict settings
     "reportCallInDefaultInitializer": "error",
     "reportImplicitStringConcatenation": "error",
-    "reportUninitializedInstanceVariable": "error",
     "reportUnnecessaryTypeIgnoreComment": "error",
     // Leave "type: ignore" comments to mypy
     "enableTypeIgnoreComments": false,
-    // Too strict and has no effect in stubs
+    // No effect in stubs
     "reportMissingSuperCall": "none",
+    "reportUninitializedInstanceVariable": "none",
     // stdlib stubs trigger reportShadowedImports
     "reportShadowedImports": "none",
     // Stubs are allowed to use private variables
