@@ -7,16 +7,17 @@
     ],
     "typeCheckingMode": "strict",
     // Extra strict settings
-    "reportShadowedImports": "error",
+    "reportShadowedImports": "error", // Don't accidentally name a file something that shadows stdlib
     "reportCallInDefaultInitializer": "error",
     "reportImplicitStringConcatenation": "error",
-    "reportMissingSuperCall": "error",
     "reportPropertyTypeMismatch": "error",
     "reportUninitializedInstanceVariable": "error",
     "reportUnnecessaryTypeIgnoreComment": "error",
     // Using unspecific "type ignore" comments in test_cases.
     // See https://github.com/python/typeshed/pull/8083
     "enableTypeIgnoreComments": true,
+    // Too strict and not needed for type testing
+    "reportMissingSuperCall": "none",
     // Stubs don't need the actual modules to be installed
     "reportMissingModuleSource": "none",
     // Stubs are allowed to use private variables. We may want to test those.
