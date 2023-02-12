@@ -5,7 +5,7 @@ from typing_extensions import Self, TypeAlias
 
 import tensorflow as tf
 from tensorflow import Tensor, Variable, VariableAggregation, VariableSynchronization, _TensorCompatible
-from tensorflow._aliases import _AnyArray, _ContainerGeneric
+from tensorflow._aliases import _AnyArray
 from tensorflow.keras.activations import _Activation
 from tensorflow.keras.constraints import _Constraint
 from tensorflow.keras.initializers import _Initializer
@@ -36,12 +36,13 @@ class InputSpec:
     @classmethod
     def from_config(cls, config: dict[str, Any]) -> type[Self]: ...
 
-_InputSpecs: TypeAlias = _ContainerGeneric[InputSpec]
-
 # Most layers have input and output type of just Tensor and when we support default type variables,
 # maybe worth trying.
 class Layer(Generic[_InputT, _OutputT], tf.Module):
-    input_spec: _InputSpecs
+    # The most general type is _ContainerGeneric[InputSpec] as it really
+    # depends on _InputT. For most Layers it is just InputSpec
+    # though. Maybe describable with HKT?
+    input_spec: InputSpec | Any
 
     @property
     def trainable(self) -> bool: ...
@@ -111,7 +112,6 @@ _LayerDtype: TypeAlias = tf._DTypeLike | dict[str, Any] | Any
 # This is an artifact of actual implementation commonly uses a decorator to define it.
 # Layer.build has same weirdness sometimes.
 class Dense(Layer[tf.Tensor, tf.Tensor]):
-    input_spec: InputSpec
     def __init__(
         self,
         units: int,
