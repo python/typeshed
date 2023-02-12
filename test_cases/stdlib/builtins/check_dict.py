@@ -18,7 +18,10 @@ _VT = TypeVar("_VT")
 
 
 class KeysAndGetItem(Generic[_KT, _VT]):
-    data: dict[_KT, _VT] = {}
+    data: dict[_KT, _VT]
+
+    def __init__(self, data: dict[_KT, _VT]):
+        self.data = data
 
     def keys(self) -> Iterable[_KT]:
         return self.data.keys()
@@ -27,11 +30,11 @@ class KeysAndGetItem(Generic[_KT, _VT]):
         return self.data[__k]
 
 
-kt1: KeysAndGetItem[int, str] = KeysAndGetItem()
+kt1: KeysAndGetItem[int, str] = KeysAndGetItem({0: ""})
 assert_type(dict(kt1), Dict[int, str])
 dict(kt1, arg="a")  # type: ignore
 
-kt2: KeysAndGetItem[str, int] = KeysAndGetItem()
+kt2: KeysAndGetItem[str, int] = KeysAndGetItem({"": 0})
 assert_type(dict(kt2, arg=1), Dict[str, int])
 
 
