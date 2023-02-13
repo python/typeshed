@@ -29,14 +29,20 @@ default_parser_list: list[str]
 
 if sys.version_info >= (3, 8):
     def make_parser(parser_list: Iterable[str] = ...) -> XMLReader: ...
+    def parse(
+        source: StrPath | _SupportsReadClose[bytes] | _SupportsReadClose[str],
+        handler: ContentHandler,
+        errorHandler: ErrorHandler = ...,
+    ) -> None: ...
 
 else:
     def make_parser(parser_list: list[str] = ...) -> XMLReader: ...
+    def parse(
+        source: str | _SupportsReadClose[bytes] | _SupportsReadClose[str],
+        handler: ContentHandler,
+        errorHandler: ErrorHandler = ...,
+    ) -> None: ...
 
-def parse(
-    source: StrPath | _SupportsReadClose[bytes] | _SupportsReadClose[str],
-    handler: ContentHandler,
-    errorHandler: ErrorHandler = ...,
-) -> None: ...
+
 def parseString(string: ReadableBuffer | str, handler: ContentHandler, errorHandler: ErrorHandler | None = ...) -> None: ...
 def _create_parser(parser_name: str) -> XMLReader: ...
