@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Callable
 from typing import TypeVar
+from typing_extensions import Final
 
 from ...sql import functions as sqlfunc, sqltypes
 from ...sql.elements import BinaryExpression
@@ -36,47 +37,47 @@ class HSTORE(sqltypes.Indexable, sqltypes.Concatenable, sqltypes.TypeEngine):
 class hstore(sqlfunc.GenericFunction):
     @memoized_property
     def type(self) -> type[HSTORE]: ...  # type: ignore[override]  # @memoized_property causes override issue
-    name = "hstore"
-    inherit_cache = True
+    name: Final = "hstore"
+    inherit_cache: bool
 
 class _HStoreDefinedFunction(sqlfunc.GenericFunction):
     @memoized_property
     def type(self) -> type[sqltypes.Boolean]: ...  # type: ignore[override]  # @memoized_property causes override issue
-    name = "defined"
-    inherit_cache = True
+    name: Final = "defined"
+    inherit_cache: bool
 
 class _HStoreDeleteFunction(sqlfunc.GenericFunction):
     @memoized_property
     def type(self) -> type[HSTORE]: ...  # type: ignore[override]  # @memoized_property causes override issue
-    name = "delete"
-    inherit_cache = True
+    name: Final = "delete"
+    inherit_cache: bool
 
 class _HStoreSliceFunction(sqlfunc.GenericFunction):
     @memoized_property
     def type(self) -> type[HSTORE]: ...  # type: ignore[override]  # @memoized_property causes override issue
-    name = "slice"
-    inherit_cache = True
+    name: Final = "slice"
+    inherit_cache: bool
 
 class _HStoreKeysFunction(sqlfunc.GenericFunction):
     @memoized_property
     def type(self) -> ARRAY: ...  # type: ignore[override]  # @memoized_property causes override issue
-    name = "akeys"
-    inherit_cache = True
+    name: Final = "akeys"
+    inherit_cache: bool
 
 class _HStoreValsFunction(sqlfunc.GenericFunction):
     @memoized_property
     def type(self) -> ARRAY: ...  # type: ignore[override]  # @memoized_property causes override issue
-    name = "avals"
-    inherit_cache = True
+    name: Final = "avals"
+    inherit_cache: bool
 
 class _HStoreArrayFunction(sqlfunc.GenericFunction):
     @memoized_property
     def type(self) -> ARRAY: ...  # type: ignore[override]  # @memoized_property causes override issue
-    name = "hstore_to_array"
-    inherit_cache = True
+    name: Final = "hstore_to_array"
+    inherit_cache: bool
 
 class _HStoreMatrixFunction(sqlfunc.GenericFunction):
     @memoized_property
     def type(self) -> ARRAY: ...  # type: ignore[override]  # @memoized_property causes override issue
-    name = "hstore_to_matrix"
-    inherit_cache = True
+    name: Final = "hstore_to_matrix"
+    inherit_cache: bool
