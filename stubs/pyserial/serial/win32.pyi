@@ -6,7 +6,7 @@ from typing_extensions import TypeAlias
 if sys.platform == "win32":
     def is_64bit() -> bool: ...
 
-    ULONG_PTR: TypeAlias = c_int64 | c_ulong
+    ULONG_PTR: c_int64 | c_ulong
 
     class _SECURITY_ATTRIBUTES(Structure): ...
     LPSECURITY_ATTRIBUTES: type[_Pointer[_SECURITY_ATTRIBUTES]]

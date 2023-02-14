@@ -1,4 +1,4 @@
-from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
+from collections.abc import Callable, Iterable, Iterator, Mapping
 from re import Pattern
 from typing import Any, TypeVar, overload
 from typing_extensions import TypeAlias
@@ -119,7 +119,7 @@ def serialize(
 ) -> _Yaml: ...
 @overload
 def dump_all(
-    documents: Sequence[Any],
+    documents: Iterable[Any],
     stream: _WriteStream[Any],
     Dumper=...,
     default_style: str | None = ...,
@@ -138,7 +138,7 @@ def dump_all(
 ) -> None: ...
 @overload
 def dump_all(
-    documents: Sequence[Any],
+    documents: Iterable[Any],
     stream: None = ...,
     Dumper=...,
     default_style: str | None = ...,
@@ -197,7 +197,7 @@ def dump(
 ) -> _Yaml: ...
 @overload
 def safe_dump_all(
-    documents: Sequence[Any],
+    documents: Iterable[Any],
     stream: _WriteStream[Any],
     *,
     default_style: str | None = ...,
@@ -216,7 +216,7 @@ def safe_dump_all(
 ) -> None: ...
 @overload
 def safe_dump_all(
-    documents: Sequence[Any],
+    documents: Iterable[Any],
     stream: None = ...,
     *,
     default_style: str | None = ...,
