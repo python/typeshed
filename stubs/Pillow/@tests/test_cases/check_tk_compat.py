@@ -1,4 +1,6 @@
 # Verify that ImageTK images are valid to pass to TK code.
+from __future__ import annotations
+
 import tkinter
 
 from PIL import ImageTk
