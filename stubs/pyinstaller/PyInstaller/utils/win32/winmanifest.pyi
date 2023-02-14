@@ -6,12 +6,11 @@ from xml.dom.minidom import Document as _Document, Element as _Element, Node
 def getChildElementsByTagName(self: Node, tagName: str) -> list[Element]: ...
 def getFirstChildElementByTagName(self: Node, tagName: str) -> Element | None: ...
 
-# Those pyright errors need to be fixed upstream
 class Document(_Document):
     cE = _Document.createElement
     cT = _Document.createTextNode
-    aChild = _Document.appendChild  # pyright: ignore[reportUnknownMemberType, reportUnknownVariableType]
-    getEByTN = _Document.getElementsByTagName  # pyright: ignore[reportUnknownMemberType, reportUnknownVariableType]
+    aChild = _Document.appendChild
+    getEByTN = _Document.getElementsByTagName
     getCEByTN = getChildElementsByTagName
     getFCEByTN = getFirstChildElementByTagName
 
@@ -19,8 +18,8 @@ class Element(_Element):
     getA = _Element.getAttribute
     remA = _Element.removeAttribute
     setA = _Element.setAttribute
-    aChild = _Element.appendChild  # pyright: ignore[reportUnknownMemberType, reportUnknownVariableType]
-    getEByTN = _Element.getElementsByTagName  # pyright: ignore[reportUnknownMemberType, reportUnknownVariableType]
+    aChild = _Element.appendChild
+    getEByTN = _Element.getElementsByTagName
     getCEByTN = getChildElementsByTagName
     getFCEByTN = getFirstChildElementByTagName
 
