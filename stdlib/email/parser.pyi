@@ -1,9 +1,9 @@
+from _typeshed import SupportsRead
 from collections.abc import Callable
 from email.feedparser import BytesFeedParser as BytesFeedParser, FeedParser as FeedParser
 from email.message import Message
 from email.policy import Policy
-from typing import IO, BinaryIO
-from _typeshed import SupportsRead
+from typing import IO
 
 __all__ = ["Parser", "HeaderParser", "BytesParser", "BytesHeaderParser", "FeedParser", "BytesFeedParser"]
 
