@@ -8,7 +8,7 @@ from types import CodeType
 from typing import ClassVar
 from typing_extensions import Final, Literal, TypeAlias
 
-from PyInstaller.archive.pyz_crypto import PyiBlockCipher
+from PyInstaller.building import _PyiBlockCipher
 from PyInstaller.building.build_main import Analysis
 from PyInstaller.building.datastruct import TOC, Target, _TOCTuple
 from PyInstaller.building.splash import Splash
@@ -52,11 +52,11 @@ else:
 
 class PYZ(Target):
     name: str
-    cipher: PyiBlockCipher | None
+    cipher: _PyiBlockCipher
     dependencies: list[tuple[_TOCTuple]]  # type: ignore[assignment]
     toc: TOC
     code_dict: dict[str, CodeType]
-    def __init__(self, *tocs: TOC, name: str | None = None, cipher: PyiBlockCipher | None = None) -> None: ...
+    def __init__(self, *tocs: TOC, name: str | None = None, cipher: _PyiBlockCipher = None) -> None: ...
     def assemble(self) -> None: ...
 
 class PKG(Target):
@@ -73,7 +73,7 @@ class PKG(Target):
     entitlements_file: FileDescriptorOrPath | None
     def __init__(
         self,
-        toc,
+        toc: TOC,
         name: str | None = None,
         cdict: Mapping[str, bool] | None = None,
         exclude_binaries: bool = False,

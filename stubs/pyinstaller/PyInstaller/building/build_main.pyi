@@ -2,7 +2,7 @@ from _typeshed import Incomplete, StrPath
 from collections.abc import Iterable
 from typing import Any
 
-from PyInstaller.archive.pyz_crypto import PyiBlockCipher
+from PyInstaller.building import _PyiBlockCipher
 from PyInstaller.building.datastruct import TOC, Target
 
 # Referenced in: https://pyinstaller.org/en/stable/hooks.html#PyInstaller.utils.hooks.get_hook_config
@@ -34,7 +34,7 @@ class Analysis(Target):
         hooksconfig: dict[str, dict[str, Any]] | None = None,
         excludes: Incomplete | None = None,
         runtime_hooks: Incomplete | None = None,
-        cipher: PyiBlockCipher | None = None,
+        cipher: _PyiBlockCipher = None,
         win_no_prefer_redirects: bool = False,
         win_private_assemblies: bool = False,
         noarchive: bool = False,

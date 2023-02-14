@@ -1,7 +1,7 @@
 from _typeshed import SliceableBuffer
 from collections.abc import Sequence
 from typing import Protocol
-from typing_extensions import TypeAlias
+from typing_extensions import Literal, TypeAlias
 
 _FourIntSequence: TypeAlias = Sequence[int] | tuple[int, int, int, int]
 _TwoIntSequence: TypeAlias = Sequence[int] | tuple[int, int]
@@ -21,8 +21,8 @@ class VSVersionInfo:
     def __str__(self, indent: str = "") -> str: ...
 
 class FixedFileInfo:
-    sig: int = 0xFEEF04BD
-    strucVersion: int = 0x10000
+    sig: Literal[0xFEEF04BD]
+    strucVersion: Literal[0x10000]
     fileVersionMS: int
     fileVersionLS: int
     productVersionMS: int
