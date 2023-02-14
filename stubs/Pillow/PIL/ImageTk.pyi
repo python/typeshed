@@ -1,7 +1,7 @@
 import _tkinter
 import tkinter
-from _typeshed import Incomplete, ReadableBuffer, StrOrBytesPath, SupportsRead
-from typing import overload
+from _typeshed import ReadableBuffer, StrOrBytesPath, SupportsRead
+from typing import Any
 
 from PIL.Image import Image, _Box, _Mode, _Size
 
@@ -15,6 +15,8 @@ class PhotoImage:
         file: StrOrBytesPath | SupportsRead[bytes] = ...,
         data: ReadableBuffer = ...,
         # These are the same as tkinter.PhotoImage:
+        name: str | None = None,
+        cnf: dict[str, Any] = ...,
         format: str = ...,
         gamma: float = ...,
         height: int = ...,
@@ -29,7 +31,21 @@ class PhotoImage:
 
 class BitmapImage:
     tk: _tkinter.TkappType  # Not actually present, but required for tkinter._Image protocol
-    def __init__(self, image: Image | None = None, **kw: Incomplete) -> None: ...
+    def __init__(
+        self,
+        image: Image | None = None,
+        *,
+        file: StrOrBytesPath | SupportsRead[bytes] = ...,
+        data: ReadableBuffer = ...,
+        # These are the same as tkinter.Bitmap:
+        name: str | None = None,
+        cnf: dict[str, Any] = ...,
+        master: tkinter.Misc | _tkinter.TkappType | None = None,
+        background: tkinter._Color = ...,
+        foreground: tkinter._Color = ...,
+        maskdata: str = ...,
+        maskfile: StrOrBytesPath = ...,
+    ) -> None: ...
     def __del__(self) -> None: ...
     def width(self) -> int: ...
     def height(self) -> int: ...
