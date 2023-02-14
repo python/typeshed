@@ -9,8 +9,8 @@ class PhotoImage:
     tk: _tkinter.TkappType
     def __init__(
         self,
-        image: Image | _Mode | None = ...,
-        size: _Size | None = ...,
+        image: Image | _Mode | None = None,
+        size: _Size | None = None,
         *,
         file: StrOrBytesPath | SupportsRead[bytes] = ...,
         data: ReadableBuffer = ...,
@@ -29,7 +29,7 @@ class PhotoImage:
 
 class BitmapImage:
     tk: _tkinter.TkappType  # Not actually present, but required for tkinter._Image protocol
-    def __init__(self, image: Image | None = ..., **kw: Incomplete) -> None: ...
+    def __init__(self, image: Image | None = None, **kw: Incomplete) -> None: ...
     def __del__(self) -> None: ...
     def width(self) -> int: ...
     def height(self) -> int: ...
