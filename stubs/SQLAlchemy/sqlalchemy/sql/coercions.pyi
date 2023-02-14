@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator, Iterable
-from typing import Any, Protocol, TypeVar, Union, overload
+from typing import Any, Protocol, TypeVar, overload
 from typing_extensions import TypeAlias
 
 from ..orm.decl_api import _DeclarativeBase
@@ -24,19 +24,19 @@ class _CallableWithCode(Protocol):
 # For use in other modules so we don't have to redefine all overloads
 # incomplete: This TypeAlias is a bit of a "catch-all" for elements passed to coercions.expect .
 # Still better than using Any/Incomplete when the coercable types are uncertain.
-_CoercibleElement: TypeAlias = Union[  # noqa: Y047
-    roles.SQLRole,
-    lambdas.PyWrapper[Any],  # Any PyWrapper will do
-    _CallableWithCode,
-    str,
-    traversals.HasCacheKey,
-    ExecutableOption,
-    roles.JoinTargetRole,
-    bool,
+_CoercibleElement: TypeAlias = (  # noqa: Y047
+    roles.SQLRole
+    | lambdas.PyWrapper[Any]  # Any PyWrapper will do
+    | _CallableWithCode
+    | str
+    | traversals.HasCacheKey
+    | ExecutableOption
+    | roles.JoinTargetRole
+    | bool
     # TODO: Added these extra for mypy_primer, validate if they should be there
-    ColumnOperators[Any],
-    type[_DeclarativeBase],
-]
+    | ColumnOperators[Any]
+    | type[_DeclarativeBase]
+)
 
 _T = TypeVar("_T")
 _Unused: TypeAlias = object
