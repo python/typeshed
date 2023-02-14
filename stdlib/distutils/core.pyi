@@ -1,8 +1,17 @@
+from _typeshed import Incomplete
 from collections.abc import Mapping
 from distutils.cmd import Command as Command
 from distutils.dist import Distribution as Distribution
 from distutils.extension import Extension as Extension
-from typing import Any
+from os import PathLike
+from typing import Any, AnyStr
+
+USAGE: str
+
+def gen_usage(script_name: PathLike[AnyStr]) -> str: ...
+
+setup_keywords: Incomplete
+extension_keywords: Incomplete
 
 def setup(
     *,
