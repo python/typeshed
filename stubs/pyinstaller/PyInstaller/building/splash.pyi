@@ -1,13 +1,14 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, StrPath
+from collections.abc import Iterable
 
-from PyInstaller.building.datastruct import Target
+from PyInstaller.building.datastruct import TOC, Target, _TOCTuple
 
-splash_requirements: Incomplete
+splash_requirements: list[str]
 
 # Referenced in https://pyinstaller.org/en/stable/spec-files.html#example-merge-spec-file
 # Not to be imported during runtime, but is the type reference for spec files which are executed as python code
 class Splash(Target):
-    image_file: Incomplete
+    image_file: str
     full_tk: Incomplete
     name: Incomplete
     script_name: Incomplete
@@ -23,8 +24,8 @@ class Splash(Target):
     uses_tkinter: Incomplete
     script: Incomplete
     splash_requirements: Incomplete
-    binaries: Incomplete
-    def __init__(self, image_file, binaries, datas, **kwargs) -> None: ...
-    def assemble(self): ...
+    binaries: TOC
+    def __init__(self, image_file: StrPath, binaries: TOC, datas: Iterable[_TOCTuple], **kwargs: Incomplete) -> None: ...
+    def assemble(self) -> None: ...
     def test_tk_version(self) -> None: ...
-    def generate_script(self): ...
+    def generate_script(self) -> str: ...

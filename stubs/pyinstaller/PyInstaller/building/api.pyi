@@ -53,7 +53,7 @@ else:
 class PYZ(Target):
     name: str
     cipher: _PyiBlockCipher
-    dependencies: list[tuple[_TOCTuple]]  # type: ignore[assignment]
+    dependencies: list[_TOCTuple]  # type: ignore[assignment]
     toc: TOC
     code_dict: dict[str, CodeType]
     def __init__(self, *tocs: TOC, name: str | None = None, cipher: _PyiBlockCipher = None) -> None: ...
