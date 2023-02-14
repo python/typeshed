@@ -1,8 +1,5 @@
 parsimonious.nodes.RuleDecoratorMeta.__new__
 
-# Re-export:
-parsimonious.nodes.version_info
-
 # Magic:
 parsimonious.adhoc_expression
 

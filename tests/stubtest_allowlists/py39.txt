@@ -34,7 +34,6 @@ collections.ValuesView.__reversed__
 contextlib.AbstractAsyncContextManager.__class_getitem__
 contextlib.AbstractContextManager.__class_getitem__
 distutils.command.bdist_wininst  # see #6523
-distutils.core.DEBUG
 distutils.core.USAGE
 distutils.core.extension_keywords
 distutils.core.gen_usage
@@ -112,7 +111,6 @@ multiprocessing.managers.SharedMemoryServer.public
 multiprocessing.managers.SharedMemoryServer.release_segment
 multiprocessing.managers.SharedMemoryServer.shutdown
 multiprocessing.managers.SharedMemoryServer.track_segment
-stringprep.unicodedata  # re-exported from unicodedata
 types.GenericAlias.__mro_entries__
 typing._SpecialForm.__mro_entries__
 
@@ -172,7 +170,6 @@ types.FunctionType.__get__
 types.LambdaType.__get__
 
 # Missing from distutils (deprecated, to be removed in 3.12)
-distutils.core.DEBUG
 distutils.core.USAGE
 distutils.core.extension_keywords
 distutils.core.gen_usage
@@ -200,7 +197,6 @@ distutils.core.Distribution.parse_command_line
 distutils.core.Distribution.print_command_list
 distutils.core.Distribution.reinitialize_command
 distutils.core.Distribution.run_commands
-distutils.cygwinccompiler.PIPE
 distutils.cygwinccompiler.is_cygwingcc
 distutils.dist.Distribution.announce
 distutils.dist.Distribution.common_usage

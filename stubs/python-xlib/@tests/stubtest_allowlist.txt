@@ -20,9 +20,5 @@ Xlib.protocol.rq.*.name
 # Structs generate their attributes (@type_check_only)
 Xlib.protocol.rq.Struct.__getattr__
 
-# Iteration variable bleed into the global scope
+# Iteration variable that bleeds into the global scope
 Xlib.protocol.rq.c
-# Re-exports from six
-Xlib.ext.xinput.integer_types
-Xlib.protocol.display.PY3
-Xlib.protocol.rq.PY3

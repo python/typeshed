@@ -428,9 +428,11 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         keys: Sequence[str] | None = ...,
         channels: Iterable[ChannelT] | None = ...,
         selectors: Iterable[tuple[str, KeyT]] | None = ...,
-        reset: bool = ...,
-        reset_keys: bool = ...,
-        reset_passwords: bool = ...,
+        reset: bool = False,
+        reset_keys: bool = False,
+        reset_channels: bool = False,
+        reset_passwords: bool = False,
+        **kwargs: _CommandOptions,
     ) -> Pipeline[_StrType]: ...
     def acl_users(self) -> Pipeline[_StrType]: ...  # type: ignore[override]
     def acl_whoami(self) -> Pipeline[_StrType]: ...  # type: ignore[override]
