@@ -5,7 +5,7 @@ from typing import Any
 
 from PIL.Image import Image, _Box, _Mode, _Size
 
-class PhotoImage:
+class PhotoImage(tkinter._PhotoImageLike):
     tk: _tkinter.TkappType
     def __init__(
         self,
@@ -29,8 +29,7 @@ class PhotoImage:
     # box is deprecated and unused
     def paste(self, im: Image, box: _Box | None = ...) -> None: ...
 
-class BitmapImage:
-    tk: _tkinter.TkappType  # Not actually present, but required for tkinter._Image protocol
+class BitmapImage(tkinter._BitmapImageLike):
     def __init__(
         self,
         image: Image | None = None,
