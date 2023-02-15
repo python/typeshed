@@ -72,7 +72,8 @@
         "stubs/tqdm",
         "stubs/ttkthemes",
         "stubs/urllib3",
-        "stubs/vobject",
+        "stubs/vobject",,
+        "stubs/xtea"
     ],
     "typeCheckingMode": "strict",
     // TODO: Complete incomplete stubs

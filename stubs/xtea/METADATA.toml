@@ -1,0 +1,5 @@
+version = "0.7.*"
+requires = ["pep272_encryption"]
+
+[tool.stubtest]
+ignore_missing_stub = false
