@@ -1,8 +1,8 @@
-from _typeshed import Incomplete, ReadableBuffer, Self, SupportsGetItem, SupportsTrunc
+from _typeshed import Incomplete, ReadableBuffer, SupportsGetItem, SupportsTrunc
 from builtins import type as _type
 from collections.abc import Callable, Iterable, Iterator, Sequence
 from typing import Any, Generic, NoReturn, SupportsInt, TypeVar, overload
-from typing_extensions import Literal, ParamSpec, SupportsIndex, TypeAlias
+from typing_extensions import Literal, ParamSpec, Self, SupportsIndex, TypeAlias
 
 from .. import util
 from ..engine import Connection, Engine
@@ -183,7 +183,7 @@ class TextClause(
     key: Any
     text: str
     def __init__(self, text: str, bind: Engine | Connection | None = None) -> None: ...
-    def bindparams(self: Self, *binds: BindParameter[Incomplete], **names_to_values) -> Self: ...
+    def bindparams(self, *binds: BindParameter[Incomplete], **names_to_values) -> Self: ...
     def columns(self, *cols: ColumnClause, **types: TypeEngine | _type[TypeEngine] | None) -> TextualSelect: ...
     @property
     def type(self) -> NullType: ...
