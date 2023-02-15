@@ -3227,6 +3227,7 @@ class Image:
     def width(self) -> int: ...
 
 class PhotoImage(Image):
+    # This should be kept in sync with PIL.ImageTK.PhotoImage.__init__()
     def __init__(
         self,
         name: str | None = None,
@@ -3279,6 +3280,7 @@ class PhotoImage(Image):
         def transparency_set(self, x: int, y: int, boolean: bool) -> None: ...
 
 class BitmapImage(Image):
+    # This should be kept in sync with PIL.ImageTK.BitmapImage.__init__()
     def __init__(
         self,
         name: Incomplete | None = None,

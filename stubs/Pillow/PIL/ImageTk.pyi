@@ -14,7 +14,7 @@ class PhotoImage:
         *,
         file: StrOrBytesPath | SupportsRead[bytes] = ...,
         data: ReadableBuffer = ...,
-        # These are the same as tkinter.PhotoImage:
+        # These are forwarded to tkinter.PhotoImage.__init__():
         name: str | None = None,
         cnf: dict[str, Any] = ...,
         format: str = ...,
@@ -37,7 +37,7 @@ class BitmapImage:
         *,
         file: StrOrBytesPath | SupportsRead[bytes] = ...,
         data: ReadableBuffer = ...,
-        # These are the same as tkinter.Bitmap:
+        # These are forwarded to tkinter.Bitmap.__init__():
         name: str | None = None,
         cnf: dict[str, Any] = ...,
         master: tkinter.Misc | _tkinter.TkappType | None = None,
