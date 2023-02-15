@@ -263,7 +263,9 @@ def run_mypy(
             # Stub completion is checked by pyright (--allow-*-defs)
             "--allow-untyped-defs",
             "--allow-incomplete-defs",
-            "--allow-subclassing-any",  # See #9491
+            # See https://github.com/python/typeshed/pull/9491#issuecomment-1381574946
+            # for discussion and reasoning to keep "--allow-subclassing-any"
+            "--allow-subclassing-any",
             "--enable-error-code",
             "ignore-without-code",
             "--config-file",
