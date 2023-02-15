@@ -3210,16 +3210,13 @@ class OptionMenu(Menubutton):
 # which don't share a class hierachy. The actual API is a __str__() which returns a valid name,
 # not something that type checkers can detect.
 @type_check_only
-class _Image:
-    pass
+class _Image: ...
 
 @type_check_only
-class _BitmapImageLike(_Image):
-    pass
+class _BitmapImageLike(_Image): ...
 
 @type_check_only
-class _PhotoImageLike(_Image):
-    pass
+class _PhotoImageLike(_Image): ...
 
 class Image(_Image):
     name: Incomplete
