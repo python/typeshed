@@ -1,9 +1,9 @@
 import sys
-from _typeshed import FileDescriptorLike, Self
+from _typeshed import FileDescriptorLike
 from collections.abc import Iterable
 from types import TracebackType
 from typing import Any
-from typing_extensions import final
+from typing_extensions import Self, final
 
 if sys.platform != "win32":
     PIPE_BUF: int
@@ -106,12 +106,12 @@ if sys.platform == "linux":
     @final
     class epoll:
         def __init__(self, sizehint: int = ..., flags: int = ...) -> None: ...
-        def __enter__(self: Self) -> Self: ...
+        def __enter__(self) -> Self: ...
         def __exit__(
             self,
-            __exc_type: type[BaseException] | None = ...,
+            __exc_type: type[BaseException] | None = None,
             __exc_val: BaseException | None = ...,
-            __exc_tb: TracebackType | None = ...,
+            __exc_tb: TracebackType | None = None,
         ) -> None: ...
         def close(self) -> None: ...
         closed: bool
@@ -119,7 +119,7 @@ if sys.platform == "linux":
         def register(self, fd: FileDescriptorLike, eventmask: int = ...) -> None: ...
         def modify(self, fd: FileDescriptorLike, eventmask: int) -> None: ...
         def unregister(self, fd: FileDescriptorLike) -> None: ...
-        def poll(self, timeout: float | None = ..., maxevents: int = ...) -> list[tuple[int, int]]: ...
+        def poll(self, timeout: float | None = None, maxevents: int = -1) -> list[tuple[int, int]]: ...
         @classmethod
         def fromfd(cls, __fd: FileDescriptorLike) -> epoll: ...
     EPOLLERR: int

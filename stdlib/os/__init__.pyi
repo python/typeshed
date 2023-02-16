@@ -11,7 +11,6 @@ from _typeshed import (
     OpenBinaryModeWriting,
     OpenTextMode,
     ReadableBuffer,
-    Self,
     StrOrBytesPath,
     StrPath,
     SupportsLenAndGetItem,
@@ -26,7 +25,7 @@ from contextlib import AbstractContextManager
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper as _TextIOWrapper
 from subprocess import Popen
 from typing import IO, Any, AnyStr, BinaryIO, Generic, NoReturn, Protocol, TypeVar, overload, runtime_checkable
-from typing_extensions import Final, Literal, TypeAlias, final
+from typing_extensions import Final, Literal, Self, TypeAlias, final
 
 from . import path as _path
 
@@ -245,9 +244,9 @@ class _Environ(MutableMapping[AnyStr, AnyStr], Generic[AnyStr]):
         # overloading MutableMapping.update in stdlib/typing.pyi
         # The type: ignore is needed due to incompatible __or__/__ior__ signatures
         @overload  # type: ignore[misc]
-        def __ior__(self: Self, other: Mapping[AnyStr, AnyStr]) -> Self: ...
+        def __ior__(self, other: Mapping[AnyStr, AnyStr]) -> Self: ...
         @overload
-        def __ior__(self: Self, other: Iterable[tuple[AnyStr, AnyStr]]) -> Self: ...
+        def __ior__(self, other: Iterable[tuple[AnyStr, AnyStr]]) -> Self: ...
 
 environ: _Environ[str]
 if sys.platform != "win32":
@@ -530,8 +529,8 @@ def fdopen(
     mode: OpenBinaryMode,
     buffering: Literal[0],
     encoding: None = None,
-    errors: None = ...,
-    newline: None = ...,
+    errors: None = None,
+    newline: None = None,
     closefd: bool = ...,
     opener: _Opener | None = ...,
 ) -> FileIO: ...
@@ -541,8 +540,8 @@ def fdopen(
     mode: OpenBinaryModeUpdating,
     buffering: Literal[-1, 1] = -1,
     encoding: None = None,
-    errors: None = ...,
-    newline: None = ...,
+    errors: None = None,
+    newline: None = None,
     closefd: bool = ...,
     opener: _Opener | None = ...,
 ) -> BufferedRandom: ...
@@ -552,8 +551,8 @@ def fdopen(
     mode: OpenBinaryModeWriting,
     buffering: Literal[-1, 1] = -1,
     encoding: None = None,
-    errors: None = ...,
-    newline: None = ...,
+    errors: None = None,
+    newline: None = None,
     closefd: bool = ...,
     opener: _Opener | None = ...,
 ) -> BufferedWriter: ...
@@ -563,8 +562,8 @@ def fdopen(
     mode: OpenBinaryModeReading,
     buffering: Literal[-1, 1] = -1,
     encoding: None = None,
-    errors: None = ...,
-    newline: None = ...,
+    errors: None = None,
+    newline: None = None,
     closefd: bool = ...,
     opener: _Opener | None = ...,
 ) -> BufferedReader: ...
@@ -574,8 +573,8 @@ def fdopen(
     mode: OpenBinaryMode,
     buffering: int = -1,
     encoding: None = None,
-    errors: None = ...,
-    newline: None = ...,
+    errors: None = None,
+    newline: None = None,
     closefd: bool = ...,
     opener: _Opener | None = ...,
 ) -> BinaryIO: ...
@@ -604,7 +603,7 @@ if sys.platform != "win32" and sys.version_info >= (3, 11):
     def login_tty(__fd: int) -> None: ...
 
 def lseek(__fd: int, __position: int, __how: int) -> int: ...
-def open(path: StrOrBytesPath, flags: int, mode: int = 511, *, dir_fd: int | None = None) -> int: ...
+def open(path: StrOrBytesPath, flags: int, mode: int = 0o777, *, dir_fd: int | None = None) -> int: ...
 def pipe() -> tuple[int, int]: ...
 def read(__fd: int, __length: int) -> bytes: ...
 
@@ -707,15 +706,15 @@ def link(
     follow_symlinks: bool = True,
 ) -> None: ...
 def lstat(path: StrOrBytesPath, *, dir_fd: int | None = None) -> stat_result: ...
-def mkdir(path: StrOrBytesPath, mode: int = 511, *, dir_fd: int | None = None) -> None: ...
+def mkdir(path: StrOrBytesPath, mode: int = 0o777, *, dir_fd: int | None = None) -> None: ...
 
 if sys.platform != "win32":
-    def mkfifo(path: StrOrBytesPath, mode: int = 438, *, dir_fd: int | None = None) -> None: ...  # Unix only
+    def mkfifo(path: StrOrBytesPath, mode: int = 0o666, *, dir_fd: int | None = None) -> None: ...  # Unix only
 
-def makedirs(name: StrOrBytesPath, mode: int = 511, exist_ok: bool = False) -> None: ...
+def makedirs(name: StrOrBytesPath, mode: int = 0o777, exist_ok: bool = False) -> None: ...
 
 if sys.platform != "win32":
-    def mknod(path: StrOrBytesPath, mode: int = 384, device: int = 0, *, dir_fd: int | None = None) -> None: ...
+    def mknod(path: StrOrBytesPath, mode: int = 0o600, device: int = 0, *, dir_fd: int | None = None) -> None: ...
     def major(__device: int) -> int: ...
     def minor(__device: int) -> int: ...
     def makedev(__major: int, __minor: int) -> int: ...
@@ -791,16 +790,16 @@ if sys.platform != "win32":
         dir_fd: int | None = None,
     ) -> Iterator[tuple[bytes, list[bytes], list[bytes], int]]: ...
     if sys.platform == "linux":
-        def getxattr(path: FileDescriptorOrPath, attribute: StrOrBytesPath, *, follow_symlinks: bool = ...) -> bytes: ...
-        def listxattr(path: FileDescriptorOrPath | None = ..., *, follow_symlinks: bool = ...) -> list[str]: ...
-        def removexattr(path: FileDescriptorOrPath, attribute: StrOrBytesPath, *, follow_symlinks: bool = ...) -> None: ...
+        def getxattr(path: FileDescriptorOrPath, attribute: StrOrBytesPath, *, follow_symlinks: bool = True) -> bytes: ...
+        def listxattr(path: FileDescriptorOrPath | None = None, *, follow_symlinks: bool = True) -> list[str]: ...
+        def removexattr(path: FileDescriptorOrPath, attribute: StrOrBytesPath, *, follow_symlinks: bool = True) -> None: ...
         def setxattr(
             path: FileDescriptorOrPath,
             attribute: StrOrBytesPath,
             value: ReadableBuffer,
-            flags: int = ...,
+            flags: int = 0,
             *,
-            follow_symlinks: bool = ...,
+            follow_symlinks: bool = True,
         ) -> None: ...
 
 def abort() -> NoReturn: ...
@@ -958,7 +957,7 @@ if sys.platform != "win32":
     class sched_param(structseq[int], tuple[int]):
         if sys.version_info >= (3, 10):
             __match_args__: Final = ("sched_priority",)
-        def __new__(cls: type[Self], sched_priority: int) -> Self: ...
+        def __new__(cls, sched_priority: int) -> Self: ...
         @property
         def sched_priority(self) -> int: ...
 
@@ -983,7 +982,7 @@ if sys.platform != "win32":
     def sysconf(__name: str | int) -> int: ...
 
 if sys.platform == "linux":
-    def getrandom(size: int, flags: int = ...) -> bytes: ...
+    def getrandom(size: int, flags: int = 0) -> bytes: ...
 
 def urandom(__size: int) -> bytes: ...
 
@@ -1001,7 +1000,7 @@ if sys.version_info >= (3, 8):
             path: str | None
             def __init__(self, path: str | None, cookie: _T, remove_dll_directory: Callable[[_T], object]) -> None: ...
             def close(self) -> None: ...
-            def __enter__(self: Self) -> Self: ...
+            def __enter__(self) -> Self: ...
             def __exit__(self, *args: Unused) -> None: ...
 
         def add_dll_directory(path: str) -> _AddedDllDirectory: ...

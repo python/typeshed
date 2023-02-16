@@ -5,35 +5,28 @@
         "stdlib",
         "stubs",
     ],
-    "typeCheckingMode": "basic",
-    "strictListInference": true,
-    "strictDictionaryInference": true,
-    "strictSetInference": true,
-    "reportFunctionMemberAccess": "error",
-    "reportMissingTypeStubs": "error",
-    "reportUnusedImport": "error",
-    "reportUnusedClass": "error",
-    "reportUnusedFunction": "error",
-    "reportUnusedVariable": "error",
-    "reportDuplicateImport": "error",
-    "reportUntypedFunctionDecorator": "error",
-    "reportUntypedClassDecorator": "error",
-    "reportUntypedBaseClass": "error",
-    "reportUntypedNamedTuple": "error",
-    "reportConstantRedefinition": "error",
-    "reportInvalidStringEscapeSequence": "error",
-    "reportUnknownArgumentType": "error",
-    "reportUnknownLambdaType": "error",
-    "reportMissingTypeArgument": "error",
-    "reportInvalidStubStatement": "error",
-    "reportInvalidTypeVarUse": "error",
-    "reportUnsupportedDunderAll": "error",
-    "reportInconsistentConstructor": "error",
-    "reportTypeCommentUsage": "error",
-    "reportUnnecessaryComparison": "error",
+    "exclude": [
+        // test cases use a custom config file
+        "stubs/**/@tests/test_cases"
+    ],
+    "typeCheckingMode": "strict",
+    // Allowed in base settings for incomplete stubs, checked in stricter settings
+    "reportIncompleteStub": "none",
+    "reportMissingParameterType": "none",
+    "reportUnknownMemberType": "none",
+    "reportUnknownParameterType": "none",
+    "reportUnknownVariableType": "none",
+    // Extra strict settings
+    "reportCallInDefaultInitializer": "error",
+    "reportImplicitStringConcatenation": "error",
     "reportUnnecessaryTypeIgnoreComment": "error",
     // Leave "type: ignore" comments to mypy
     "enableTypeIgnoreComments": false,
+    // No effect in stubs
+    "reportMissingSuperCall": "none",
+    "reportUninitializedInstanceVariable": "none",
+    // stdlib stubs trigger reportShadowedImports
+    "reportShadowedImports": "none",
     // Stubs are allowed to use private variables
     "reportPrivateUsage": "none",
     // Stubs don't need the actual modules to be installed

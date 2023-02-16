@@ -6,6 +6,8 @@
         "stubs",
     ],
     "exclude": [
+        // test cases use a custom pyrightconfig file
+        "stubs/**/@tests/test_cases",
         "stdlib/distutils/command",
         "stdlib/lib2to3/refactor.pyi",
         "stdlib/_tkinter.pyi",
@@ -47,7 +49,6 @@
         "stubs/Pillow",
         "stubs/prettytable",
         "stubs/protobuf",
-        "stubs/python-crontab",
         "stubs/google-cloud-ndb",
         "stubs/influxdb-client",
         "stubs/passlib",
@@ -74,13 +75,21 @@
         "stubs/vobject",
     ],
     "typeCheckingMode": "strict",
+    // TODO: Complete incomplete stubs
+    "reportIncompleteStub": "none",
+    // Extra strict settings
+    "reportCallInDefaultInitializer": "error",
+    "reportImplicitStringConcatenation": "error",
     "reportUnnecessaryTypeIgnoreComment": "error",
     // Leave "type: ignore" comments to mypy
     "enableTypeIgnoreComments": false,
+    // No effect in stubs
+    "reportMissingSuperCall": "none",
+    "reportUninitializedInstanceVariable": "none",
+    // stdlib stubs trigger reportShadowedImports
+    "reportShadowedImports": "none",
     // Stubs are allowed to use private variables
     "reportPrivateUsage": "none",
-    // TODO: Complete incomplete stubs
-    "reportIncompleteStub": "none",
     // Stubs don't need the actual modules to be installed
     "reportMissingModuleSource": "none",
     // Incompatible overrides and property type mismatches are out of typeshed's control
