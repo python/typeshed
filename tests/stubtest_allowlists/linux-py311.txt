@@ -17,5 +17,4 @@ signal.SIGSTKFLT
 signal.Signals.SIGSTKFLT
 signal.sigtimedwait
 signal.sigwaitinfo
-select.epoll.register
 xxlimited.Xxo.x_exports
