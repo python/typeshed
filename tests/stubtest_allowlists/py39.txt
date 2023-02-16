@@ -18,6 +18,7 @@ asyncio.base_events.BaseEventLoop.subprocess_exec # BaseEventLoop adds several p
 asyncio.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
 builtins.float.__setformat__  # Internal method for CPython test suite
+builtins.input  # Incorrect default value in text signature, fixed in 3.10
 collections.AsyncGenerator.asend  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
 collections.AsyncGenerator.__anext__  # async at runtime, deliberately not in the stub, see #7491
 collections.AsyncGenerator.aclose  # async at runtime, deliberately not in the stub, see #7491
