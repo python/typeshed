@@ -1,11 +1,11 @@
-from typing_extensions import Literal
-from typing import SupportsBytes
 from _typeshed import ReadableBuffer
+from typing import SupportsBytes
+from typing_extensions import Literal
 
 PY_3: bool
 
-def to_bytes(integer: int, length: int, byteorder: Literal["big", "little"] ) -> bytes: ...
-def from_bytes(bytesarray: SupportsBytes | ReadableBuffer, byteorder: Literal["big", "little"] ) -> int: ...
+def to_bytes(integer: int, length: int, byteorder: Literal["big", "little"]) -> bytes: ...
+def from_bytes(bytesarray: SupportsBytes | ReadableBuffer, byteorder: Literal["big", "little"]) -> int: ...
 
 class Counter:
     byteorder: str
