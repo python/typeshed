@@ -33,12 +33,6 @@ repos:
           - "flake8-bugbear==23.1.20" # must match requirements-tests.txt
           - "flake8-noqa==1.3.0" # must match requirements-tests.txt
           - "flake8-pyi==23.1.2" # must match requirements-tests.txt
-  - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v3.0.0-alpha.4
-    python_requirement: false
-    hooks:
-      - id: prettier
-        types_or: [yaml]
 
 ci:
   autofix_commit_msg: "[pre-commit.ci] auto fixes from pre-commit.com hooks"
