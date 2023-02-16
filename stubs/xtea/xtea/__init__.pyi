@@ -1,3 +1,4 @@
+from _typeshed import ReadableBuffer
 from collections.abc import Callable
 
 from pep272_encryption import PEP272Cipher
