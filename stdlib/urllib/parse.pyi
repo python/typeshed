@@ -192,7 +192,9 @@ def urljoin(base: AnyStr, url: AnyStr | None, allow_fragments: bool = True) -> A
 @overload
 def urlparse(url: str, scheme: str = "", allow_fragments: bool = True) -> ParseResult: ...
 @overload
-def urlparse(url: bytes | bytearray, scheme: bytes | bytearray | None | Literal[""] = "", allow_fragments: bool = True) -> ParseResultBytes: ...
+def urlparse(
+    url: bytes | bytearray, scheme: bytes | bytearray | None | Literal[""] = "", allow_fragments: bool = True
+) -> ParseResultBytes: ...
 @overload
 def urlparse(
     url: None, scheme: bytes | bytearray | None | Literal[""] = "", allow_fragments: bool = True
@@ -208,7 +210,9 @@ if sys.version_info >= (3, 11):
 
 else:
     @overload
-    def urlsplit(url: bytes | bytearray, scheme: bytes | bytearray | None | Literal[""] = "", allow_fragments: bool = True) -> SplitResultBytes: ...
+    def urlsplit(
+        url: bytes | bytearray, scheme: bytes | bytearray | None | Literal[""] = "", allow_fragments: bool = True
+    ) -> SplitResultBytes: ...
     @overload
     def urlsplit(
         url: None, scheme: bytes | bytearray | None | Literal[""] = "", allow_fragments: bool = True
