@@ -200,7 +200,10 @@ def urlsplit(url: str, scheme: str = "", allow_fragments: bool = True) -> SplitR
 
 if sys.version_info >= (3, 11):
     @overload
-    def urlsplit(url: bytes | None, scheme: bytes | None | Literal[""] = "", allow_fragments: bool = True) -> SplitResultBytes: ...
+    def urlsplit(
+        url: bytes | None, scheme: bytes | None | Literal[""] = "", allow_fragments: bool = True
+    ) -> SplitResultBytes: ...
+
 else:
     @overload
     def urlsplit(
