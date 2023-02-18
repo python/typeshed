@@ -170,13 +170,12 @@ async def release_contains_py_typed(release_to_download: PypiReleaseDownload, *,
         raise AssertionError(f"Unknown package type: {packagetype!r}")
 
 
-async def find_first_release_with_py_typed(
-    pypi_info: PypiInfo, latest_release: PypiReleaseDownload, *, session: aiohttp.ClientSession
-) -> PypiReleaseDownload | None:
-    if not (await release_contains_py_typed(latest_release, session=session)):
+async def find_first_release_with_py_typed(pypi_info: PypiInfo, *, session: aiohttp.ClientSession) -> PypiReleaseDownload | None:
+    release_iter = pypi_info.releases_in_descending_order()
+    # If the latest release is not py.typed, assume none are.
+    if not (await release_contains_py_typed(release := next(release_iter), session=session)):
         return None
 
-    release_iter = pypi_info.releases_in_descending_order()
     first_release_with_py_typed: PypiReleaseDownload | None = None
     while await release_contains_py_typed(release := next(release_iter), session=session):
         if not release.version.is_prerelease:
