@@ -170,8 +170,9 @@ async def release_contains_py_typed(release_to_download: PypiReleaseDownload, *,
         raise AssertionError(f"Unknown package type: {packagetype!r}")
 
 
-async def find_first_release_with_py_typed(pypi_info: PypiInfo, *, session: aiohttp.ClientSession) -> PypiReleaseDownload:
+async def find_first_release_with_py_typed(pypi_info: PypiInfo, *, session: aiohttp.ClientSession) -> PypiReleaseDownload | None:
     release_iter = pypi_info.releases_in_descending_order()
+    first_release_with_py_typed: PypiReleaseDownload | None = None
     while await release_contains_py_typed(release := next(release_iter), session=session):
         if not release.version.is_prerelease:
             first_release_with_py_typed = release
@@ -418,10 +419,12 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
     if latest_version in spec:
         return NoUpdate(stub_info.distribution, "up to date")
 
+    obsolete_since: PypiReleaseDownload | None = None
     is_obsolete = await release_contains_py_typed(latest_release, session=session)
     if is_obsolete:
-        first_release_with_py_typed = await find_first_release_with_py_typed(pypi_info, session=session)
-        relevant_version = version_obsolete_since = first_release_with_py_typed.version
+        obsolete_since = await find_first_release_with_py_typed(pypi_info, session=session)
+        assert obsolete_since is not None
+        relevant_version = obsolete_since.version
     else:
         relevant_version = latest_version
 
@@ -437,21 +440,19 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
     if diff_info is not None:
         github_repo_path, old_tag, new_tag, diff_url = diff_info
         links["Diff"] = diff_url
+        diff_analysis = await analyze_diff(
+            github_repo_path=github_repo_path, stub_path=stub_path, old_tag=old_tag, new_tag=new_tag, session=session
+        )
+    else:
+        diff_analysis = None
 
-    if is_obsolete:
+    if obsolete_since:
         return Obsolete(
             stub_info.distribution,
             stub_path,
-            obsolete_since_version=str(version_obsolete_since),
-            obsolete_since_date=first_release_with_py_typed.upload_date,
+            obsolete_since_version=str(obsolete_since.version),
+            obsolete_since_date=obsolete_since.upload_date,
             links=links,
-        )
-
-    if diff_info is None:
-        diff_analysis: DiffAnalysis | None = None
-    else:
-        diff_analysis = await analyze_diff(
-            github_repo_path=github_repo_path, stub_path=stub_path, old_tag=old_tag, new_tag=new_tag, session=session
         )
 
     return Update(
