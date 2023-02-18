@@ -173,7 +173,7 @@ async def release_contains_py_typed(release_to_download: PypiReleaseDownload, *,
 async def find_first_release_with_py_typed(
     pypi_info: PypiInfo, latest_release: PypiReleaseDownload, *, session: aiohttp.ClientSession
 ) -> PypiReleaseDownload | None:
-    if await release_contains_py_typed(latest_release, session=session):
+    if not (await release_contains_py_typed(latest_release, session=session)):
         return None
 
     release_iter = pypi_info.releases_in_descending_order()
