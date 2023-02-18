@@ -423,7 +423,7 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
     if latest_version in spec:
         return NoUpdate(stub_info.distribution, "up to date")
 
-    obsolete_since = await find_first_release_with_py_typed(pypi_info, latest_release, session=session)
+    obsolete_since = await find_first_release_with_py_typed(pypi_info, session=session)
     relevant_version = obsolete_since.version if obsolete_since else latest_version
 
     project_urls = pypi_info.info["project_urls"] or {}
