@@ -5,10 +5,11 @@ from typing import Any, ClassVar, TypeVar
 from typing_extensions import TypeAlias
 
 from yaml.error import MarkedYAMLError
-from yaml.loader import BaseLoader, FullLoader, Loader, SafeLoader, UnsafeLoader
 from yaml.nodes import MappingNode, Node, ScalarNode, SequenceNode
 
-_L = TypeVar("_L", bound=Loader | BaseLoader | FullLoader | SafeLoader | UnsafeLoader)
+from .loader import _Loader
+
+_L = TypeVar("_L", bound=_Loader)
 _N = TypeVar("_N", bound=Node)
 
 _Scalar: TypeAlias = str | int | float | bool | None
