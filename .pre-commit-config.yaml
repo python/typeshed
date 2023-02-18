@@ -33,6 +33,8 @@ repos:
           - "flake8-bugbear==23.1.20" # must match requirements-tests.txt
           - "flake8-noqa==1.3.0" # must match requirements-tests.txt
           - "flake8-pyi==23.1.2" # must match requirements-tests.txt
+        types: [file]
+        types_or: [python, pyi]
 
 ci:
   autofix_commit_msg: "[pre-commit.ci] auto fixes from pre-commit.com hooks"
