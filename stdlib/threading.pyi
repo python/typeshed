@@ -2,7 +2,7 @@ import sys
 from _typeshed import ProfileFunction, TraceFunction
 from collections.abc import Callable, Iterable, Mapping
 from types import TracebackType
-from typing import Any, TypeVar
+from typing import Any, TypeVar, final
 
 _T = TypeVar("_T")
 
@@ -101,6 +101,7 @@ class Thread:
 class _DummyThread(Thread):
     def __init__(self) -> None: ...
 
+@final
 class Lock:
     def __enter__(self) -> bool: ...
     def __exit__(
