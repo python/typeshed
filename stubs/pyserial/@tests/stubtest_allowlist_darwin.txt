@@ -16,13 +16,6 @@ serial.serialposix.Serial.write
 serial.serialposix.PosixPollSerial.read
 serial.serialposix.VTIMESerial.read
 
-# Error: is missing from the stub
-# ===============================
-# Linux specific implementations not guaranteed to be available on other platforms. They
-# may be importable but this is only by chance and may break in the future.
-serial.tools.list_ports_linux.SysFS
-serial.tools.list_ports_linux.comports
-
 # intended to be private aliases
 serial.tools.list_ports_posix.plat
 serial.serialposix.plat

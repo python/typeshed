@@ -11,10 +11,3 @@ serial.tools.list_ports_posix  # Posix only
 # names.
 serial.serialwin32.Serial.read
 serial.serialwin32.Serial.write
-
-# Missing from the stub
-# =====================
-# Linux specific implementations not guaranteed to be available on other platforms. They
-# may be importable but this is only by chance and may break in the future.
-serial.tools.list_ports_linux.SysFS
-serial.tools.list_ports_linux.comports
