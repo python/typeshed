@@ -9,7 +9,7 @@ def check_setdefault_method() -> None:
     d2: dict[int, str | None] = {}
     d3: dict[int, Any] = {}
 
-    d.setdefault(1)  # type: ignore
+    d.setdefault(1)  # type: ignore[call-arg]
     assert_type(d.setdefault(1, "x"), str)
     assert_type(d2.setdefault(1), Union[str, None])
     assert_type(d2.setdefault(1, None), Union[str, None])

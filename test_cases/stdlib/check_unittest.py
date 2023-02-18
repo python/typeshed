@@ -22,11 +22,11 @@ case.assertAlmostEqual(2.4, 2.41, places=8)
 case.assertAlmostEqual(2.4, 2.41, delta=0.02)
 case.assertAlmostEqual(2.4, 2.41, None, "foo", 0.02)
 
-case.assertAlmostEqual(2.4, 2.41, places=9, delta=0.02)  # type: ignore
-case.assertAlmostEqual("foo", "bar")  # type: ignore
-case.assertAlmostEqual(datetime(1999, 1, 2), datetime(1999, 1, 2, microsecond=1))  # type: ignore
-case.assertAlmostEqual(Decimal("0.4"), Fraction(1, 2))  # type: ignore
-case.assertAlmostEqual(complex(2, 3), Decimal("0.9"))  # type: ignore
+case.assertAlmostEqual(2.4, 2.41, places=9, delta=0.02)  # type: ignore[call-overload]
+case.assertAlmostEqual("foo", "bar")  # type: ignore[call-overload]
+case.assertAlmostEqual(datetime(1999, 1, 2), datetime(1999, 1, 2, microsecond=1))  # type: ignore[arg-type]
+case.assertAlmostEqual(Decimal("0.4"), Fraction(1, 2))  # type: ignore[misc]
+case.assertAlmostEqual(complex(2, 3), Decimal("0.9"))  # type: ignore[misc]
 
 ###
 # Tests for assertNotAlmostEqual
@@ -38,11 +38,11 @@ case.assertAlmostEqual(3.14, complex(5, 6))
 case.assertNotAlmostEqual(datetime(1999, 1, 2), datetime(1999, 1, 2, microsecond=1), delta=timedelta(hours=1))
 case.assertNotAlmostEqual(datetime(1999, 1, 2), datetime(1999, 1, 2, microsecond=1), None, "foo", timedelta(hours=1))
 
-case.assertNotAlmostEqual(2.4, 2.41, places=9, delta=0.02)  # type: ignore
-case.assertNotAlmostEqual("foo", "bar")  # type: ignore
-case.assertNotAlmostEqual(datetime(1999, 1, 2), datetime(1999, 1, 2, microsecond=1))  # type: ignore
-case.assertNotAlmostEqual(Decimal("0.4"), Fraction(1, 2))  # type: ignore
-case.assertNotAlmostEqual(complex(2, 3), Decimal("0.9"))  # type: ignore
+case.assertNotAlmostEqual(2.4, 2.41, places=9, delta=0.02)  # type: ignore[call-overload]
+case.assertNotAlmostEqual("foo", "bar")  # type: ignore[call-overload]
+case.assertNotAlmostEqual(datetime(1999, 1, 2), datetime(1999, 1, 2, microsecond=1))  # type: ignore[arg-type]
+case.assertNotAlmostEqual(Decimal("0.4"), Fraction(1, 2))  # type: ignore[misc]
+case.assertNotAlmostEqual(complex(2, 3), Decimal("0.9"))  # type: ignore[misc]
 
 ###
 # Tests for assertGreater
@@ -81,8 +81,8 @@ case.assertGreater(object(), Spam())
 case.assertGreater(Ham(), Ham())
 case.assertGreater(Bacon(), Bacon())
 
-case.assertGreater(object(), object())  # type: ignore
-case.assertGreater(datetime(1999, 1, 2), 1)  # type: ignore
-case.assertGreater(Spam(), Eggs())  # type: ignore
-case.assertGreater(Ham(), Bacon())  # type: ignore
-case.assertGreater(Bacon(), Ham())  # type: ignore
+case.assertGreater(object(), object())  # type: ignore[call-overload]
+case.assertGreater(datetime(1999, 1, 2), 1)  # type: ignore[misc]
+case.assertGreater(Spam(), Eggs())  # type: ignore[call-overload]
+case.assertGreater(Ham(), Bacon())  # type: ignore[call-overload]
+case.assertGreater(Bacon(), Ham())  # type: ignore[misc]

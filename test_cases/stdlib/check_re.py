@@ -22,5 +22,5 @@ def check_search_with_AnyStr(pattern: re.Pattern[t.AnyStr], string: t.AnyStr) ->
 
 
 def check_no_ReadableBuffer_false_negatives() -> None:
-    re.compile("foo").search(bytearray(b"foo"))  # type: ignore
-    re.compile("foo").search(mmap.mmap(0, 10))  # type: ignore
+    re.compile("foo").search(bytearray(b"foo"))  # type: ignore[arg-type]
+    re.compile("foo").search(mmap.mmap(0, 10))  # type: ignore[arg-type]

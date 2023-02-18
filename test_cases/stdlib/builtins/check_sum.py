@@ -29,7 +29,7 @@ assert_type(sum([3, 5], 4), int)
 
 assert_type(sum([True, False]), int)
 assert_type(sum([True, False], True), int)
-assert_type(sum(literal_list), int)
+assert_type(sum(literal_list), int)  # type: ignore[assert-type]
 
 assert_type(sum([["foo"], ["bar"]], ["baz"]), List[str])
 

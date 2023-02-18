@@ -43,24 +43,24 @@ def test_other_isdataclass_overloads(x: type, y: object) -> None:
     # TODO: pyright correctly emits an error on this, but mypy does not -- why?
     # dc.fields(x)
 
-    dc.fields(y)  # type: ignore
+    dc.fields(y)
 
-    dc.asdict(x)  # type: ignore
-    dc.asdict(y)  # type: ignore
+    dc.asdict(x)
+    dc.asdict(y)
 
-    dc.astuple(x)  # type: ignore
-    dc.astuple(y)  # type: ignore
+    dc.astuple(x)
+    dc.astuple(y)
 
-    dc.replace(x)  # type: ignore
-    dc.replace(y)  # type: ignore
+    dc.replace(x)
+    dc.replace(y)
 
     if dc.is_dataclass(x):
         assert_type(dc.fields(x), Tuple[dc.Field[Any], ...])
         # These should cause type checkers to emit errors
         # due to the fact it's a dataclass class, not an instance
-        dc.asdict(x)  # type: ignore
-        dc.astuple(x)  # type: ignore
-        dc.replace(x)  # type: ignore
+        dc.asdict(x)
+        dc.astuple(x)
+        dc.replace(x)
 
     if dc.is_dataclass(y):
         assert_type(dc.fields(y), Tuple[dc.Field[Any], ...])
