@@ -170,12 +170,13 @@ async def release_contains_py_typed(release_to_download: PypiReleaseDownload, *,
         raise AssertionError(f"Unknown package type: {packagetype!r}")
 
 
-async def find_first_release_with_py_typed(pypi_info: PypiInfo, *, session: aiohttp.ClientSession) -> PypiReleaseDownload | None:
+async def find_first_release_with_py_typed(pypi_info: PypiInfo, *, session: aiohttp.ClientSession) -> PypiReleaseDownload:
     release_iter = pypi_info.releases_in_descending_order()
     first_release_with_py_typed: PypiReleaseDownload | None = None
     while await release_contains_py_typed(release := next(release_iter), session=session):
         if not release.version.is_prerelease:
             first_release_with_py_typed = release
+    assert first_release_with_py_typed is not None, f"{pypi_info.distribution} has no non-prerelease `py.typed` version"
     return first_release_with_py_typed
 
 
@@ -420,10 +421,8 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
         return NoUpdate(stub_info.distribution, "up to date")
 
     obsolete_since: PypiReleaseDownload | None = None
-    is_obsolete = await release_contains_py_typed(latest_release, session=session)
-    if is_obsolete:
+    if await release_contains_py_typed(latest_release, session=session):
         obsolete_since = await find_first_release_with_py_typed(pypi_info, session=session)
-        assert obsolete_since is not None
         relevant_version = obsolete_since.version
     else:
         relevant_version = latest_version
@@ -438,8 +437,7 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
 
     diff_info = await get_diff_info(session, stub_info, pypi_info, relevant_version)
     if diff_info is not None:
-        *_, diff_url = diff_info
-        links["Diff"] = diff_url
+        links["Diff"] = diff_info.diff_url
 
     if obsolete_since:
         return Obsolete(
@@ -453,9 +451,12 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
     if diff_info is None:
         diff_analysis: DiffAnalysis | None = None
     else:
-        github_repo_path, old_tag, new_tag, _ = diff_info
         diff_analysis = await analyze_diff(
-            github_repo_path=github_repo_path, stub_path=stub_path, old_tag=old_tag, new_tag=new_tag, session=session
+            github_repo_path=diff_info.repo_path,
+            stub_path=stub_path,
+            old_tag=diff_info.old_tag,
+            new_tag=diff_info.new_tag,
+            session=session,
         )
 
     return Update(
