@@ -438,13 +438,8 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
 
     diff_info = await get_diff_info(session, stub_info, pypi_info, relevant_version)
     if diff_info is not None:
-        github_repo_path, old_tag, new_tag, diff_url = diff_info
+        *_, diff_url = diff_info
         links["Diff"] = diff_url
-        diff_analysis = await analyze_diff(
-            github_repo_path=github_repo_path, stub_path=stub_path, old_tag=old_tag, new_tag=new_tag, session=session
-        )
-    else:
-        diff_analysis = None
 
     if obsolete_since:
         return Obsolete(
@@ -453,6 +448,14 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
             obsolete_since_version=str(obsolete_since.version),
             obsolete_since_date=obsolete_since.upload_date,
             links=links,
+        )
+
+    if diff_info is None:
+        diff_analysis: DiffAnalysis | None = None
+    else:
+        github_repo_path, old_tag, new_tag, _ = diff_info
+        diff_analysis = await analyze_diff(
+            github_repo_path=github_repo_path, stub_path=stub_path, old_tag=old_tag, new_tag=new_tag, session=session
         )
 
     return Update(
