@@ -1,3 +1,13 @@
+# The following rules come from plugins that are not used by typeshed.
+# Since typeshed stubs them, they can still be expected to be found in a
+# developer's venv for intellisense and reference reasons
+#     A      flake8-builtins
+#     D      flake8-docstrings
+#     N8     pep8-naming
+#     SIM    flake8-simplify
+#     RST    flake8-rst-docstrings
+#     TYP    flake8-typing-imports
+
 # The following rules are incompatible with or enforced by black:
 #     E203   whitespace before ':' -- scripts only
 #     E301   expected 1 blank line
@@ -18,22 +28,18 @@
 #     F403   import *' used; unable to detect undefined names
 #     F405   defined from star imports
 
-# Rules that we'd like to enable in the future:
-#     Y037   Use PEP 604 syntax instead of `typing.Union` and `typing.Optional`.
-#            Currently can't be enabled due to a few lingering bugs in mypy regarding
-#            PEP 604 type aliases (see #4819).
-
 [flake8]
+extend-ignore = A, D, N8, SIM, RST, TYP, E301, E302, E305, E501
 per-file-ignores =
-  *.py: E203, E301, E302, E305, E501
-  *.pyi: B, E301, E302, E305, E501, E701, E741, F401, F403, F405, F822, Y037
+  *.py: E203
+  *.pyi: B, E701, E741, F401, F403, F405, F822
   # Since typing.pyi defines "overload" this is not recognized by flake8 as typing.overload.
   # Unfortunately, flake8 does not allow to "noqa" just a specific error inside the file itself.
   # https://github.com/PyCQA/flake8/issues/1079
   #     F811 redefinition of unused '...'
-  stdlib/typing.pyi: B, E301, E302, E305, E501, E701, E741, F401, F403, F405, F811, F822, Y037
+  stdlib/typing.pyi: B, E701, E741, F401, F403, F405, F811, F822
   # Generated protobuf files include docstrings
-  *_pb2.pyi: B, E301, E302, E305, E501, E701, Y021, Y026
+  *_pb2.pyi: B, E701, Y021, Y026
 
 exclude = .venv*,.git
 noqa_require_code = true
