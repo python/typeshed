@@ -428,13 +428,6 @@ pickle.Unpickler.memo  # undocumented implementation detail, has different type 
 re.Pattern.scanner  # Undocumented and not useful. #6405
 tempfile._TemporaryFileWrapper.[\w_]+  # Dynamically specified by __getattr__, and thus don't exist on the class
 
-# Runtime signature is incorrect (https://github.com/python/cpython/issues/93021)
-types.ClassMethodDescriptorType.__get__
-types.GetSetDescriptorType.__get__
-types.MemberDescriptorType.__get__
-types.MethodDescriptorType.__get__
-types.WrapperDescriptorType.__get__
-
 # Various classes in typing aren't types at runtime. In addition, mypy thinks some special forms are tautologically defined.
 typing.[A-Z]\w+
 typing_extensions\..*
