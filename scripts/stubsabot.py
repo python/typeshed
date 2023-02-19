@@ -171,15 +171,15 @@ async def release_contains_py_typed(release_to_download: PypiReleaseDownload, *,
 
 
 async def find_first_release_with_py_typed(pypi_info: PypiInfo, *, session: aiohttp.ClientSession) -> PypiReleaseDownload | None:
-    release_iter = pypi_info.releases_in_descending_order()
+    release_iter = (release for release in pypi_info.releases_in_descending_order() if not release.version.is_prerelease)
+    latest_release = next(release_iter)
     # If the latest release is not py.typed, assume none are.
-    if not (await release_contains_py_typed(release := next(release_iter), session=session)):
+    if not (await release_contains_py_typed(latest_release, session=session)):
         return None
 
-    first_release_with_py_typed: PypiReleaseDownload | None = None
+    first_release_with_py_typed = latest_release
     while await release_contains_py_typed(release := next(release_iter), session=session):
-        if not release.version.is_prerelease:
-            first_release_with_py_typed = release
+        first_release_with_py_typed = release
     return first_release_with_py_typed
 
 
