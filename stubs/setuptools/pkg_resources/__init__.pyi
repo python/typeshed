@@ -132,7 +132,7 @@ def get_distribution(dist: _PkgReqType) -> DistInfoDistribution: ...
 
 class Distribution(IResourceProvider, IMetadataProvider):
     PKG_INFO: ClassVar[str]
-    # Initialized to None, but is not meant to be instanciated directly
+    # Initialized to None, but is not meant to be instantiated directly
     egg_info: str
     location: str
     project_name: str
