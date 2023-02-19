@@ -49,12 +49,12 @@ def main() -> None:
     parser.add_argument(
         "--run-stubtest",
         action="store_true",
-        help="Run stubtest for the selected package(s). Running stubtest may download and execute arbitrary code from PyPI: "
-        + "only use this option if you trust the package you are testing.",
+        help=(
+            "Run stubtest for the selected package(s). Running stubtest may download and execute arbitrary code from PyPI: "
+            "only use this option if you trust the package you are testing."
+        ),
     )
-    parser.add_argument(
-        "path", type=str, help="Path of the stub to test in format <folder>/<stub>, from teh root of the project."
-    )
+    parser.add_argument("path", help="Path of the stub to test in format <folder>/<stub>, from the root of the project.")
     args = parser.parse_args()
     path: str = args.path
     run_stubtest: bool = args.run_stubtest
