@@ -1,10 +1,8 @@
-from _typeshed import Incomplete
 from collections.abc import Mapping
 from distutils.cmd import Command as Command
 from distutils.dist import Distribution as Distribution
 from distutils.extension import Extension as Extension
-from os import PathLike
-from typing import Any, AnyStr
+from typing import Any
 
 USAGE: str
 

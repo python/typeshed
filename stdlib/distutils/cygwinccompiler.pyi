@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from distutils.unixccompiler import UnixCCompiler
 from distutils.version import LooseVersion
 from typing_extensions import Literal
