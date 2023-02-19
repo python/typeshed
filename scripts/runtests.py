@@ -113,6 +113,7 @@ def main() -> None:
             stubtest_result = subprocess.run([sys.executable, "tests/stubtest_stdlib.py", stub])
         else:
             if run_stubtest:
+                print("\nRunning stubtest...")
                 stubtest_result = subprocess.run([sys.executable, "tests/stubtest_third_party.py", stub])
             else:
                 print(
