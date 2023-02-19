@@ -1,10 +1,8 @@
-import re
 from _typeshed import Incomplete
 from collections.abc import Container, Iterable, Iterator, Sequence
 from re import Pattern
 
 from html5lib.filters.base import Filter
-from html5lib.treewalkers.base import TreeWalker
 
 from .callbacks import _Attrs, _Callback
 from .html5lib_shim import Filter
