@@ -4,7 +4,6 @@ import sys
 
 if sys.version_info >= (3, 8):
     from functools import cached_property
-    from typing import cast
     from typing_extensions import assert_type
 
     class A:
@@ -22,7 +21,8 @@ if sys.version_info >= (3, 8):
         def x(self) -> int:
             return 0
 
-    b = B()
-    assert_type(b.x, int)
-    b.x = cast(int, 4)
-    assert_type(b.x, int)
+    def check_cached_property_settable(x: int) -> None:
+        b = B()
+        assert_type(b.x, int)
+        b.x = x
+        assert_type(b.x, int)
