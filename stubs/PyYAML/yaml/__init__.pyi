@@ -27,7 +27,7 @@ _T = TypeVar("_T")
 _Constructor = TypeVar("_Constructor", bound=BaseConstructor)
 _Representer = TypeVar("_Representer", bound=BaseRepresenter)
 
-__with_libyaml__: Any
+__with_libyaml__: bool
 __version__: str
 
 def warnings(settings=...): ...
