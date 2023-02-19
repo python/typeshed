@@ -61,11 +61,14 @@ def main() -> None:
     path: str = args.path
     run_stubtest: str | None = args.run_stubtest
 
-    assert os.path.exists(path), rf"Path {path} does not exist."
     path_tokens = Path(path).parts
-    assert len(path_tokens) == 2, "Path argument should be in format <folder>/<stub>."
+    if len(path_tokens) != 2:
+        parser.error("'path' argument should be in format <folder>/<stub>.")
     folder, stub = path_tokens
-    assert folder in {"stdlib", "stubs"}, "Only the 'stdlib' and 'stubs' folders are supported."
+    if folder not in {"stdlib", "stubs"}:
+        parser.error("Only the 'stdlib' and 'stubs' folders are supported.")
+    if not os.path.exists(path):
+        parser.error(rf"'path' {path} does not exist.")
     stubtest_result: subprocess.CompletedProcess[bytes] | None = None
     pytype_result: subprocess.CompletedProcess[bytes] | None = None
 
