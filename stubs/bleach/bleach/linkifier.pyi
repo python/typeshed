@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
 from collections.abc import Container, Iterable, Iterator, Sequence
 from re import Pattern
+from typing import Any
+from typing_extensions import TypeAlias
 
 from html5lib.filters.base import Filter
 
