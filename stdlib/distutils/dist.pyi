@@ -1,9 +1,10 @@
 from _typeshed import FileDescriptorOrPath, Incomplete, SupportsWrite
 from collections.abc import Iterable, Mapping
 from distutils.cmd import Command
+from re import Pattern
 from typing import IO, Any
 
-command_re: re.Pattern[str]
+command_re: Pattern[str]
 
 class DistributionMetadata:
     def __init__(self, path: FileDescriptorOrPath | None = None) -> None: ...

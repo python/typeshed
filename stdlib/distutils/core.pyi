@@ -1,3 +1,4 @@
+from _typeshed import StrOrBytesPath
 from collections.abc import Mapping
 from distutils.cmd import Command as Command
 from distutils.dist import Distribution as Distribution

@@ -1,5 +1,6 @@
 from distutils.unixccompiler import UnixCCompiler
 from distutils.version import LooseVersion
+from re import Pattern
 from typing_extensions import Literal
 
 def get_msvcr() -> list[str] | None: ...
@@ -13,7 +14,7 @@ CONFIG_H_UNCERTAIN: str
 
 def check_config_h() -> tuple[Literal["ok", "not ok", "uncertain"], str]: ...
 
-RE_VERSION: re.Pattern[bytes]
+RE_VERSION: Pattern[bytes]
 
 def get_versions() -> tuple[LooseVersion | None, ...]: ...
 def is_cygwingcc() -> bool: ...

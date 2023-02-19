@@ -1,4 +1,5 @@
 from collections.abc import Iterable, Mapping
+from re import Pattern
 from typing import Any, overload
 from typing_extensions import TypeAlias
 
@@ -6,8 +7,8 @@ _Option: TypeAlias = tuple[str, str | None, str]
 _GR: TypeAlias = tuple[list[str], OptionDummy]
 
 longopt_pat: str
-longopt_re: re.Pattern[str]
-neg_alias_re: re.Pattern[str]
+longopt_re: Pattern[str]
+neg_alias_re: Pattern[str]
 longopt_xlate: dict[int, int]
 
 class FancyGetopt:
