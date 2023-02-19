@@ -49,17 +49,16 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--run-stubtest",
-        type=str.lower,
-        choices=_RUN_STUBTEST_CHOICES,
-        default=None,
-        help="Run or skip stubtest without prompt. Only use this if you trust the packag you are testing.",
+        action="store_true",
+        help="Run stubtest for the selected package(s). Running stubtest may download and execute arbitrary code from PyPI: "
+        + "only use this option if you trust the package you are testing.",
     )
     parser.add_argument(
         "path", type=str, help="Path of the stub to test in format <folder>/<stub>, from teh root of the project."
     )
     args = parser.parse_args()
     path: str = args.path
-    run_stubtest: str | None = args.run_stubtest
+    run_stubtest: bool = args.run_stubtest
 
     path_tokens = Path(path).parts
     if len(path_tokens) != 2:
@@ -114,20 +113,17 @@ def main() -> None:
             print("\nRunning stubtest...")
             stubtest_result = subprocess.run([sys.executable, "tests/stubtest_stdlib.py", stub])
         else:
-            if run_stubtest is None:
-                run_stubtest_query = (
-                    f"\nRun stubtest for {stub!r} (Y/N)?\n\n"
-                    "NOTE: Running third-party stubtest involves downloading and executing arbitrary code from PyPI.\n"
-                    f"Only run stubtest if you trust the {stub!r} package.\n"
-                )
-                run_stubtest = input(colored(run_stubtest_query, "yellow")).lower()
-            while run_stubtest not in _RUN_STUBTEST_CHOICES:
-                run_stubtest = input(colored("Invalid response; please try again.\n", "red")).lower()
-            if run_stubtest in {"yes", "y"}:
-                print("\nRunning stubtest.")
+            if run_stubtest:
                 stubtest_result = subprocess.run([sys.executable, "tests/stubtest_third_party.py", stub])
             else:
-                print(colored(f"\nSkipping stubtest for {stub!r}...", "yellow"))
+                print(
+                    colored(
+                        f"\nSkipping stubtest for {stub!r}..."
+                        + "\nNOTE: Running third-party stubtest involves downloading and executing arbitrary code from PyPI."
+                        + f"\nOnly run stubtest if you trust the {stub!r} package.",
+                        "yellow",
+                    )
+                )
     else:
         print(colored("\nSkipping stubtest since mypy failed.", "yellow"))
 
