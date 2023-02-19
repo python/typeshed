@@ -6,23 +6,8 @@ serial.tools.list_ports_posix  # Posix only
 
 # Error: is inconsistent
 # ======================
-# These are positional only argument in the stub because they inherit from io.RawIOBase
-# but at runtime they are normal arguments that don't have consistent names.
+# Methods defined with positional-only argument in the stub because they inherit from
+# io.RawIOBase but at runtime they are normal arguments that don't have consistent
+# names.
 serial.serialwin32.Serial.read
 serial.serialwin32.Serial.write
-
-# Missing from the stub (TODO: add these)
-# =======================================
-serial.win32._SECURITY_ATTRIBUTES.\w+
-serial.win32._OVERLAPPED.\w+
-serial.win32._DCB.\w+
-serial.win32._COMSTAT.\w+
-serial.win32._COMMTIMEOUTS.\w+
-serial.win32.N11_OVERLAPPED4DOLLAR_48E.\w+
-serial.win32.N11_OVERLAPPED4DOLLAR_484DOLLAR_49E.\w+
-serial.win32.CreateEventW
-serial.win32.CreateFileW
-serial.tools.list_ports_linux.SysFS
-serial.tools.list_ports_linux.comports
-serial.tools.list_ports_windows.SP_DEVINFO_DATA.\w+
-serial.tools.list_ports_windows.GUID.\w+
