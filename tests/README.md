@@ -46,6 +46,9 @@ be selected. A summary of the results will be printed to the terminal.
 You must provide a single argument which is a path to the stubs to test, like
 so: `stdlib/os` or `stubs/requests`.
 
+Run `python scripts/runtests.py --help` for information on the various configuration options
+for this script.
+
 ## mypy\_test.py
 
 Run using:
