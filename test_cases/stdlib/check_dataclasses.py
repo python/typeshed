@@ -65,9 +65,9 @@ def check_other_isdataclass_overloads(x: type, y: object) -> None:
         # Pyright, however, handles ClassVar members in protocols differently.
         # See https://github.com/microsoft/pyright/issues/4339
         #
-        # dc.asdict(x)  # type: ignore
-        # dc.astuple(x)  # type: ignore
-        # dc.replace(x)  # type: ignore
+        # dc.asdict(x)
+        # dc.astuple(x)
+        # dc.replace(x)
 
     if dc.is_dataclass(y):
         assert_type(y, Union["DataclassInstance", Type["DataclassInstance"]])
@@ -78,9 +78,9 @@ def check_other_isdataclass_overloads(x: type, y: object) -> None:
         # Pyright, however, handles ClassVar members in protocols differently.
         # See https://github.com/microsoft/pyright/issues/4339
         #
-        # dc.asdict(y)  # type: ignore
-        # dc.astuple(y)  # type: ignore
-        # dc.replace(y)  # type: ignore
+        # dc.asdict(y)
+        # dc.astuple(y)
+        # dc.replace(y)
 
     if dc.is_dataclass(y) and not isinstance(y, type):
         assert_type(y, "DataclassInstance")
