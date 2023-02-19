@@ -41,7 +41,7 @@ def reduce(function: Callable[[_T, _T], _T], sequence: Iterable[_T]) -> _T: ...
 class _CacheInfo(NamedTuple):
     hits: int
     misses: int
-    maxsize: int
+    maxsize: int | None
     currsize: int
 
 @final
