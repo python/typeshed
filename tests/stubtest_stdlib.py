@@ -13,9 +13,7 @@ import sys
 import tempfile
 from pathlib import Path
 
-from packaging.requirements import Requirement
-
-from utils import make_venv, print_error
+from utils import get_mypy_req, make_venv, print_error
 
 
 def run_stubtest(typeshed_dir: Path) -> int:
@@ -32,15 +30,7 @@ def run_stubtest(typeshed_dir: Path) -> int:
             raise
 
         # Install the same mypy version as in "requirements-tests.txt"
-        with Path("requirements-tests.txt").open() as requirements_txt:
-            mypy_requirement = next(
-                (
-                    Requirement(requirement.split("#")[0])
-                    for requirement in requirements_txt.readlines()
-                    if requirement.startswith("mypy")
-                )
-            )
-        pip_cmd = [pip_exe, "install", str(mypy_requirement)]
+        pip_cmd = [pip_exe, "install", get_mypy_req()]
         try:
             subprocess.run(pip_cmd, check=True, capture_output=True)
         except subprocess.CalledProcessError as e:
