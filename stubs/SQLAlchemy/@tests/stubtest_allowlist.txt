@@ -24,6 +24,7 @@ sqlalchemy.util.WeakSequence.__init__
 # not always present
 sqlalchemy.engine.Engine.logging_name  # initialized if not None
 sqlalchemy.engine.base.Engine.logging_name  # initialized if not None
+sqlalchemy.sql.lambdas.PyWrapper.__clause_element__
 sqlalchemy.testing.util.non_refcount_gc_collect
 
 # replaced at runtime
@@ -58,10 +59,7 @@ sqlalchemy.testing.provision.stop_test_class_outside_fixtures
 sqlalchemy.testing.provision.temp_table_keyword_args
 sqlalchemy.testing.provision.update_db_opts
 
-# requires other packages
-sqlalchemy.testing.plugin.pytestplugin
-
-# can't be imported
+# KeyError/AttributeError on import due to dynamic initialization from a different module
 sqlalchemy.testing.fixtures
 sqlalchemy.testing.pickleable
 sqlalchemy.testing.plugin.bootstrap
@@ -528,6 +526,7 @@ sqlalchemy.dialects.postgresql.Insert
 sqlalchemy.dialects.postgresql.JSON
 sqlalchemy.dialects.postgresql.JSONB
 sqlalchemy.dialects.postgresql.MACADDR
+sqlalchemy.dialects.postgresql.MACADDR8
 sqlalchemy.dialects.postgresql.MONEY
 sqlalchemy.dialects.postgresql.NUMERIC
 sqlalchemy.dialects.postgresql.NUMRANGE
@@ -582,6 +581,7 @@ sqlalchemy.dialects.postgresql.base.INET
 sqlalchemy.dialects.postgresql.base.INTEGER
 sqlalchemy.dialects.postgresql.base.INTERVAL
 sqlalchemy.dialects.postgresql.base.MACADDR
+sqlalchemy.dialects.postgresql.base.MACADDR8
 sqlalchemy.dialects.postgresql.base.MONEY
 sqlalchemy.dialects.postgresql.base.NUMERIC
 sqlalchemy.dialects.postgresql.base.OID

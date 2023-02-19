@@ -1,4 +1,5 @@
 import enum
+from _typeshed import Incomplete
 from collections.abc import Iterable
 from typing import Any, NamedTuple
 
@@ -83,7 +84,20 @@ class pmem(NamedTuple):
     peak_pagefile: Any
     private: Any
 
-pfullmem: Any
+class pfullmem(NamedTuple):
+    rss: Incomplete
+    vms: Incomplete
+    num_page_faults: Incomplete
+    peak_wset: Incomplete
+    wset: Incomplete
+    peak_paged_pool: Incomplete
+    paged_pool: Incomplete
+    peak_nonpaged_pool: Incomplete
+    nonpaged_pool: Incomplete
+    pagefile: Incomplete
+    peak_pagefile: Incomplete
+    private: Incomplete
+    uss: Incomplete
 
 class pmmap_grouped(NamedTuple):
     path: Any
@@ -145,7 +159,7 @@ pid_exists: Any
 ppid_map: Any
 
 def is_permission_err(exc): ...
-def convert_oserror(exc, pid: Any | None = ..., name: Any | None = ...): ...
+def convert_oserror(exc, pid: Incomplete | None = ..., name: Incomplete | None = ...): ...
 def wrap_exceptions(fun): ...
 def retry_error_partial_copy(fun): ...
 
@@ -164,7 +178,7 @@ class Process:
     def memory_maps(self) -> None: ...
     def kill(self): ...
     def send_signal(self, sig) -> None: ...
-    def wait(self, timeout: Any | None = ...): ...
+    def wait(self, timeout: Incomplete | None = ...): ...
     def username(self): ...
     def create_time(self): ...
     def num_threads(self): ...

@@ -1,1 +1,2 @@
-version = "65.6.*"
+version = "67.3.*"
+requires = ["types-docutils"]

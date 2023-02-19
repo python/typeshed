@@ -11,6 +11,8 @@ ast.Ellipsis.__new__
 ast.NameConstant.__new__
 ast.Num.__new__
 ast.Str.__new__
+asyncio.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
+asyncio.base_events.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 asyncio.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
 asyncio.locks._ContextManagerMixin.__enter__  # Always raises; deliberately omitted from the stub
@@ -18,6 +20,7 @@ asyncio.locks._ContextManagerMixin.__exit__  # Always raises; deliberately omitt
 asyncio.transports.WriteTransport.get_write_buffer_limits  # Documented. Exists in subclasses, but not in WriteTransport itself
 asyncio.WriteTransport.get_write_buffer_limits  # Documented. Exists in subclasses, but not in WriteTransport itself
 builtins.float.__set_format__  # Internal method for CPython test suite
+builtins.input  # Incorrect default value in text signature, fixed in 3.10
 collections.AsyncGenerator.asend  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
 collections.AsyncGenerator.__anext__  # async at runtime, deliberately not in the stub, see #7491
 collections.AsyncGenerator.aclose  # async at runtime, deliberately not in the stub, see #7491
@@ -32,7 +35,6 @@ collections.KeysView.__reversed__
 collections.ValuesView.__reversed__
 collections.Mapping.__reversed__  # Set to None at runtime for a better error message
 distutils.command.bdist_wininst  # see #6523
-distutils.core.DEBUG
 distutils.core.USAGE
 distutils.core.extension_keywords
 distutils.core.gen_usage
@@ -87,6 +89,10 @@ tempfile.SpooledTemporaryFile.readable
 tempfile.SpooledTemporaryFile.seekable
 tempfile.SpooledTemporaryFile.writable
 
+# Default values given in the stub are a white lie, see #9637
+tkinter.Tcl
+tkinter.Tk.__init__
+
 # Exists at runtime, but missing from stubs
 contextvars.ContextVar.__class_getitem__
 datetime.datetime_CAPI
@@ -100,7 +106,6 @@ distutils.fancy_getopt.neg_alias_re
 dummy_threading.ExceptHookArgs
 dummy_threading.Lock
 dummy_threading.RLock
-dummy_threading.stack_size
 html.parser.HTMLParser.unescape
 multiprocessing.managers.SharedMemoryServer.create
 multiprocessing.managers.SharedMemoryServer.list_segments
@@ -110,7 +115,6 @@ multiprocessing.managers.SharedMemoryServer.shutdown
 multiprocessing.managers.SharedMemoryServer.track_segment
 plistlib.Data.asBase64
 plistlib.Data.fromBase64
-stringprep.unicodedata  # re-exported from unicodedata
 tempfile.SpooledTemporaryFile.softspace
 tkinter.Tk.split
 tkinter.commondialog.[A-Z_]+
@@ -162,7 +166,6 @@ builtins.memoryview.cast  # inspect.signature is incorrect about shape being kw-
 # C signature is broader than what is actually accepted
 queue.SimpleQueue.__init__
 
-uuid.getnode  # undocumented, unused parameter getters that was later removed
 types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
 
 # Runtime signature is incorrect (https://github.com/python/cpython/issues/93021)
@@ -173,7 +176,6 @@ types.FunctionType.__get__
 types.LambdaType.__get__
 
 # Missing from distutils (deprecated, to be removed in 3.12)
-distutils.core.DEBUG
 distutils.core.USAGE
 distutils.core.extension_keywords
 distutils.core.gen_usage
@@ -201,7 +203,6 @@ distutils.core.Distribution.parse_command_line
 distutils.core.Distribution.print_command_list
 distutils.core.Distribution.reinitialize_command
 distutils.core.Distribution.run_commands
-distutils.cygwinccompiler.PIPE
 distutils.cygwinccompiler.is_cygwingcc
 distutils.dist.Distribution.announce
 distutils.dist.Distribution.common_usage

@@ -6,6 +6,8 @@
         "stubs",
     ],
     "exclude": [
+        // test cases use a custom pyrightconfig file
+        "stubs/**/@tests/test_cases",
         "stdlib/distutils/command",
         "stdlib/lib2to3/refactor.pyi",
         "stdlib/_tkinter.pyi",
@@ -27,7 +29,6 @@
         "stubs/caldav",
         "stubs/cffi",
         "stubs/commonmark",
-        "stubs/cryptography",
         "stubs/dateparser",
         "stubs/docutils",
         "stubs/Flask-Migrate",
@@ -47,13 +48,14 @@
         "stubs/Pillow",
         "stubs/prettytable",
         "stubs/protobuf",
-        "stubs/python-crontab",
         "stubs/google-cloud-ndb",
+        "stubs/influxdb-client",
         "stubs/passlib",
         "stubs/peewee",
         "stubs/pika",
         "stubs/psutil",
         "stubs/psycopg2",
+        "stubs/pyasn1",
         "stubs/pyflakes",
         "stubs/Pygments",
         "stubs/PyMySQL",
@@ -72,8 +74,22 @@
         "stubs/vobject",
     ],
     "typeCheckingMode": "strict",
-    "reportPrivateUsage": "none",
+    // TODO: Complete incomplete stubs
     "reportIncompleteStub": "none",
+    // Extra strict settings
+    "reportCallInDefaultInitializer": "error",
+    "reportImplicitStringConcatenation": "error",
+    "reportUnnecessaryTypeIgnoreComment": "error",
+    // Leave "type: ignore" comments to mypy
+    "enableTypeIgnoreComments": false,
+    // No effect in stubs
+    "reportMissingSuperCall": "none",
+    "reportUninitializedInstanceVariable": "none",
+    // stdlib stubs trigger reportShadowedImports
+    "reportShadowedImports": "none",
+    // Stubs are allowed to use private variables
+    "reportPrivateUsage": "none",
+    // Stubs don't need the actual modules to be installed
     "reportMissingModuleSource": "none",
     // Incompatible overrides and property type mismatches are out of typeshed's control
     // as they are inherited from the implementation.

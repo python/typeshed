@@ -1,40 +1,51 @@
+from _typeshed import Incomplete
 from collections.abc import Callable, Container, Iterable, Iterator
 from re import Pattern
-from typing import Any
+from typing import Protocol
 from typing_extensions import TypeAlias
 
 from html5lib.filters.base import Filter
 from html5lib.filters.sanitizer import Filter as SanitizerFilter
 from html5lib.treewalkers.base import TreeWalker
 
+from . import _HTMLAttrKey
 from .css_sanitizer import CSSSanitizer
 from .html5lib_shim import BleachHTMLParser, BleachHTMLSerializer
 from .linkifier import _Token
 
-ALLOWED_TAGS: list[str]
+ALLOWED_TAGS: frozenset[str]
 ALLOWED_ATTRIBUTES: dict[str, list[str]]
-ALLOWED_PROTOCOLS: list[str]
+ALLOWED_PROTOCOLS: frozenset[str]
 
 INVISIBLE_CHARACTERS: str
 INVISIBLE_CHARACTERS_RE: Pattern[str]
 INVISIBLE_REPLACEMENT_CHAR: str
 
+# A html5lib Filter class
+class _Filter(Protocol):
+    def __call__(self, *, source: BleachSanitizerFilter) -> Incomplete: ...
+
+_AttributeFilter: TypeAlias = Callable[[str, str, str], bool]
+_AttributeDict: TypeAlias = dict[str, list[str] | _AttributeFilter] | dict[str, list[str]] | dict[str, _AttributeFilter]
+_Attributes: TypeAlias = _AttributeFilter | _AttributeDict | list[str]
+_TreeWalker: TypeAlias = Callable[[Incomplete], Incomplete]
+
 class Cleaner:
-    tags: Container[str]
+    tags: Iterable[str]
     attributes: _Attributes
-    protocols: Container[str]
+    protocols: Iterable[str]
     strip: bool
     strip_comments: bool
     filters: Iterable[Filter]
     css_sanitizer: CSSSanitizer | None
     parser: BleachHTMLParser
-    walker: Any
+    walker: _TreeWalker
     serializer: BleachHTMLSerializer
     def __init__(
         self,
-        tags: Container[str] = ...,
+        tags: Iterable[str] = ...,
         attributes: _Attributes = ...,
-        protocols: Container[str] = ...,
+        protocols: Iterable[str] = ...,
         strip: bool = ...,
         strip_comments: bool = ...,
         filters: Iterable[Filter] | None = ...,
@@ -42,26 +53,30 @@ class Cleaner:
     ) -> None: ...
     def clean(self, text: str) -> str: ...
 
-_AttributeFilter: TypeAlias = Callable[[str, str, str], bool]
-_AttributeDict: TypeAlias = dict[str, list[str] | _AttributeFilter] | dict[str, list[str]] | dict[str, _AttributeFilter]
-_Attributes: TypeAlias = _AttributeFilter | _AttributeDict | list[str]
-
 def attribute_filter_factory(attributes: _Attributes) -> _AttributeFilter: ...
 
 class BleachSanitizerFilter(SanitizerFilter):
+    allowed_tags: frozenset[str]
+    allowed_protocols: frozenset[str]
     attr_filter: _AttributeFilter
-    strip_disallowed_elements: bool
+    strip_disallowed_tags: bool
     strip_html_comments: bool
+    attr_val_is_uri: frozenset[_HTMLAttrKey]
+    svg_attr_val_allows_ref: frozenset[_HTMLAttrKey]
+    svg_allow_local_href: frozenset[_HTMLAttrKey]
+    css_sanitizer: CSSSanitizer | None
     def __init__(
         self,
         source: TreeWalker,
-        allowed_elements: Container[str] = ...,
+        allowed_tags: Iterable[str] = ...,
         attributes: _Attributes = ...,
-        allowed_protocols: Container[str] = ...,
-        strip_disallowed_elements: bool = ...,
-        strip_html_comments: bool = ...,
-        css_sanitizer: CSSSanitizer | None = ...,
-        **kwargs: Any,
+        allowed_protocols: Iterable[str] = ...,
+        attr_val_is_uri: frozenset[_HTMLAttrKey] = ...,
+        svg_attr_val_allows_ref: frozenset[_HTMLAttrKey] = ...,
+        svg_allow_local_href: frozenset[_HTMLAttrKey] = ...,
+        strip_disallowed_tags: bool = False,
+        strip_html_comments: bool = True,
+        css_sanitizer: CSSSanitizer | None = None,
     ) -> None: ...
     def sanitize_stream(self, token_iterator: Iterable[_Token]) -> Iterator[_Token]: ...
     def merge_characters(self, token_iterator: Iterable[_Token]) -> Iterator[_Token]: ...

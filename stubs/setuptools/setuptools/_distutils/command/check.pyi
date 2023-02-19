@@ -1,19 +1,19 @@
+from _typeshed import Incomplete
 from typing import Any
-from typing_extensions import TypeAlias
+
+import docutils.utils
 
 from ..cmd import Command
 
-_Reporter: TypeAlias = Any  # really docutils.utils.Reporter
-
 # Only defined if docutils is installed.
-class SilentReporter(_Reporter):
+class SilentReporter(docutils.utils.Reporter):
     messages: Any
     def __init__(
         self,
         source,
         report_level,
         halt_level,
-        stream: Any | None = ...,
+        stream: Incomplete | None = ...,
         debug: int = ...,
         encoding: str = ...,
         error_handler: str = ...,
