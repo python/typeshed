@@ -8,10 +8,10 @@ from typing import Any, AnyStr
 
 USAGE: str
 
-def gen_usage(script_name: PathLike[AnyStr]) -> str: ...
+def gen_usage(script_name: StrOrBytesPath) -> str: ...
 
-setup_keywords: Incomplete
-extension_keywords: Incomplete
+setup_keywords: tuple[str, ...]
+extension_keywords: tuple[str, ...]
 
 def setup(
     *,

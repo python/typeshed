@@ -3,7 +3,7 @@ from collections.abc import Iterable, Mapping
 from distutils.cmd import Command
 from typing import IO, Any
 
-command_re: Incomplete
+command_re: re.Pattern[str]
 
 class DistributionMetadata:
     def __init__(self, path: FileDescriptorOrPath | None = None) -> None: ...

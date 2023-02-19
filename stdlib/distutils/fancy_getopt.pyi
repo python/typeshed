@@ -7,9 +7,9 @@ _Option: TypeAlias = tuple[str, str | None, str]
 _GR: TypeAlias = tuple[list[str], OptionDummy]
 
 longopt_pat: str
-longopt_re: Incomplete
-neg_alias_re: Incomplete
-longopt_xlate: Incomplete
+longopt_re: re.Pattern[str]
+neg_alias_re: re.Pattern[str]
+longopt_xlate: dict[int, int]
 
 class FancyGetopt:
     def __init__(self, option_table: list[_Option] | None = None) -> None: ...
@@ -25,7 +25,7 @@ def fancy_getopt(
     options: list[_Option], negative_opt: Mapping[_Option, _Option], object: Any, args: list[str] | None
 ) -> list[str] | _GR: ...
 
-WS_TRANS: Incomplete
+WS_TRANS: dict[int, str]
 
 def wrap_text(text: str, width: int) -> list[str]: ...
 def translate_longopt(opt: str) -> str: ...
