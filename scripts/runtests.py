@@ -54,9 +54,7 @@ def main() -> None:
             "only use this option if you trust the package you are testing."
         ),
     )
-    parser.add_argument(
-        "path", help="Path of the stub to test in format <folder>/<stub>, from the root of the project."
-    )
+    parser.add_argument("path", help="Path of the stub to test in format <folder>/<stub>, from the root of the project.")
     args = parser.parse_args()
     path: str = args.path
     run_stubtest: bool = args.run_stubtest
