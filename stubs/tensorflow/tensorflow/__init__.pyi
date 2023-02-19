@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, Self, Unused
+from _typeshed import Incomplete, Unused
 from abc import ABCMeta
 from builtins import bool as _bool
 from collections.abc import Callable, Iterable, Iterator, Sequence
@@ -6,7 +6,7 @@ from contextlib import contextmanager
 from enum import Enum
 from types import TracebackType
 from typing import Any, NoReturn, TypeVar, overload
-from typing_extensions import ParamSpec, TypeAlias
+from typing_extensions import ParamSpec, Self, TypeAlias
 
 import numpy
 from tensorflow import initializers as initializers, keras as keras, math as math
@@ -224,7 +224,7 @@ class Graph:
     def add_to_collection(self, name: str, value: object) -> None: ...
     def add_to_collections(self, names: Iterable[str] | str, value: object) -> None: ...
     @contextmanager
-    def as_default(self: Self) -> Iterator[Self]: ...
+    def as_default(self) -> Iterator[Self]: ...
     def finalize(self) -> None: ...
     def get_tensor_by_name(self, name: str) -> Tensor: ...
     def get_operation_by_name(self, name: str) -> Operation: ...

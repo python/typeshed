@@ -3,14 +3,14 @@ import sys
 from collections.abc import Container, Sequence
 from types import TracebackType
 from typing import Any, ClassVar, NamedTuple, overload
-from typing_extensions import Literal, Self, TypeAlias
+from typing_extensions import Final, Literal, Self, TypeAlias
 
 _Decimal: TypeAlias = Decimal | int
 _DecimalNew: TypeAlias = Decimal | float | str | tuple[int, Sequence[int], int]
 _ComparableNum: TypeAlias = Decimal | float | numbers.Rational
 
-__version__: str
-__libmpdec_version__: str
+__version__: Final[str]
+__libmpdec_version__: Final[str]
 
 class DecimalTuple(NamedTuple):
     sign: int
