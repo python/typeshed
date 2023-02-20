@@ -165,7 +165,6 @@ pyexpat.expat_CAPI
 select.poll  # Depends on configuration
 selectors.DevpollSelector  # Depends on configuration
 shutil.rmtree  # stubtest doesn't like that we have this as an instance of a callback protocol instead of a function
-socketserver.BaseServer.RequestHandlerClass  # is defined as a property, because we need `Self` type
 socketserver.BaseServer.fileno  # implemented in derived classes
 socketserver.BaseServer.get_request  # implemented in derived classes
 socketserver.BaseServer.server_bind  # implemented in derived classes
