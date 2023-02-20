@@ -715,7 +715,7 @@ class TextIO(IO[str]):
     @abstractmethod
     def __enter__(self) -> TextIO: ...
 
-class ByteString(Sequence[int], metaclass=ABCMeta): ...
+ByteString = bytes | bytearray | memoryview
 
 # Functions
 
