@@ -68,10 +68,11 @@ class SkipTest(Exception):
 
 class _SupportsAbsAndDunderGE(SupportsDunderGE[Any], SupportsAbs[Any], Protocol): ...
 
+# Keep this alias in sync with builtins._ClassInfo
 if sys.version_info >= (3, 10):
-    _IsInstanceClassInfo: TypeAlias = type | UnionType | tuple[type | UnionType | tuple[Any, ...], ...]
+    _IsInstanceClassInfo: TypeAlias = type | UnionType | tuple[_IsInstanceClassInfo, ...]
 else:
-    _IsInstanceClassInfo: TypeAlias = type | tuple[type | tuple[Any, ...], ...]
+    _IsInstanceClassInfo: TypeAlias = type | tuple[_IsInstanceClassInfo, ...]
 
 class TestCase:
     failureException: type[BaseException]
