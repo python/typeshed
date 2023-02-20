@@ -1394,7 +1394,7 @@ def iter(__function: Callable[[], _T | None], __sentinel: None) -> Iterator[_T]:
 @overload
 def iter(__function: Callable[[], _T], __sentinel: object) -> Iterator[_T]: ...
 
-# Keep this alias in sync with unittest.case._IsInstanceClassInfo
+# Keep this alias in sync with unittest.case._ClassInfo
 if sys.version_info >= (3, 10):
     _ClassInfo: TypeAlias = type | types.UnionType | tuple[_ClassInfo, ...]
 else:
