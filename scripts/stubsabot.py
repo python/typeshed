@@ -19,8 +19,8 @@ import zipfile
 from collections.abc import Iterator, Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Annotated, Any, ClassVar, NamedTuple, TypeVar
-from typing_extensions import TypeAlias
+from typing import Annotated, Any, ClassVar, NamedTuple
+from typing_extensions import Self, TypeAlias
 
 import aiohttp
 import packaging.specifiers
@@ -29,11 +29,8 @@ import tomli
 import tomlkit
 from termcolor import colored
 
-ActionLevelSelf = TypeVar("ActionLevelSelf", bound="ActionLevel")
-
-
 class ActionLevel(enum.IntEnum):
-    def __new__(cls: type[ActionLevelSelf], value: int, doc: str) -> ActionLevelSelf:
+    def __new__(cls, value: int, doc: str) -> Self:
         member = int.__new__(cls, value)
         member._value_ = value
         member.__doc__ = doc
