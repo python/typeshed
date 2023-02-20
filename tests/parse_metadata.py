@@ -135,6 +135,7 @@ _KNOWN_METADATA_TOOL_FIELDS: Final = {
         "extras",
         "ignore_missing_stub",
         "platforms",
+        "stubtest_requirements",
     }
 }
 _DIST_NAME_RE: Final = re.compile(r"^[a-z0-9]([a-z0-9._-]*[a-z0-9])?$", re.IGNORECASE)
