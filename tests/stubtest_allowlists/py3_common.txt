@@ -165,7 +165,6 @@ pyexpat.expat_CAPI
 select.poll  # Depends on configuration
 selectors.DevpollSelector  # Depends on configuration
 shutil.rmtree  # stubtest doesn't like that we have this as an instance of a callback protocol instead of a function
-socketserver.BaseServer.RequestHandlerClass  # is defined as a property, because we need `Self` type
 socketserver.BaseServer.fileno  # implemented in derived classes
 socketserver.BaseServer.get_request  # implemented in derived classes
 socketserver.BaseServer.server_bind  # implemented in derived classes
@@ -427,13 +426,6 @@ pickle.Pickler.memo  # undocumented implementation detail, has different type in
 pickle.Unpickler.memo  # undocumented implementation detail, has different type in C/Python implementations
 re.Pattern.scanner  # Undocumented and not useful. #6405
 tempfile._TemporaryFileWrapper.[\w_]+  # Dynamically specified by __getattr__, and thus don't exist on the class
-
-# Runtime signature is incorrect (https://github.com/python/cpython/issues/93021)
-types.ClassMethodDescriptorType.__get__
-types.GetSetDescriptorType.__get__
-types.MemberDescriptorType.__get__
-types.MethodDescriptorType.__get__
-types.WrapperDescriptorType.__get__
 
 # Various classes in typing aren't types at runtime. In addition, mypy thinks some special forms are tautologically defined.
 typing.[A-Z]\w+
