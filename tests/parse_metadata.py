@@ -48,6 +48,7 @@ class StubtestSettings:
     extras: list[str]
     ignore_missing_stub: bool
     platforms: list[str]
+    stubtest_requirements: list[str]
 
     def system_requirements_for_platform(self, platform: str) -> list[str]:
         assert platform in _STUBTEST_PLATFORM_MAPPING, f"Unrecognised platform {platform!r}"
@@ -69,6 +70,7 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
     extras = data.get("extras", [])
     ignore_missing_stub = data.get("ignore_missing_stub", True)
     specified_platforms = data.get("platforms", ["linux"])
+    stubtest_requirements = data.get("stubtest_requirements", [])
 
     assert type(skipped) is bool
     assert type(ignore_missing_stub) is bool
@@ -79,6 +81,7 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
     assert _is_list_of_strings(brew_dependencies)
     assert _is_list_of_strings(choco_dependencies)
     assert _is_list_of_strings(extras)
+    assert _is_list_of_strings(stubtest_requirements)
 
     unrecognised_platforms = set(specified_platforms) - _STUBTEST_PLATFORM_MAPPING.keys()
     assert not unrecognised_platforms, f"Unrecognised platforms specified for {distribution!r}: {unrecognised_platforms}"
@@ -98,6 +101,7 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
         extras=extras,
         ignore_missing_stub=ignore_missing_stub,
         platforms=specified_platforms,
+        stubtest_requirements=stubtest_requirements,
     )
 
 

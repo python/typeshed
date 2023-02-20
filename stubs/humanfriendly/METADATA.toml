@@ -2,3 +2,4 @@ version = "10.0.*"
 
 [tool.stubtest]
 ignore_missing_stub = false
+stubtest_requirements = ["docutils", "mock"]

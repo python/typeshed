@@ -1,4 +1,4 @@
 # Requires Pyside or PyQt to be installed.
-# Not worth adding to requirements-stubtest.txt
+# Not worth adding to tool.stubtest.stubtest_requirements
 # because it's only used as a base type and it's a long install.
 PIL.ImageQt.ImageQt
