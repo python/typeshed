@@ -36,7 +36,6 @@ from typing import (  # noqa: Y022
     IO,
     Any,
     BinaryIO,
-    ByteString,
     ClassVar,
     Generic,
     Mapping,
@@ -587,7 +586,7 @@ class str(Sequence[str]):
     def __rmul__(self, __n: SupportsIndex) -> str: ...  # type: ignore[misc]
     def __getnewargs__(self) -> tuple[str]: ...
 
-class bytes(ByteString):
+class bytes:
     @overload
     def __new__(cls, __o: Iterable[SupportsIndex] | SupportsIndex | SupportsBytes | ReadableBuffer) -> Self: ...
     @overload
@@ -690,7 +689,7 @@ class bytes(ByteString):
     if sys.version_info >= (3, 11):
         def __bytes__(self) -> bytes: ...
 
-class bytearray(MutableSequence[int], ByteString):
+class bytearray(MutableSequence[int]):
     @overload
     def __init__(self) -> None: ...
     @overload
