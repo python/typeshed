@@ -170,16 +170,17 @@ By default, stubtest emits an error if a public object is present at runtime
 but missing from the stub. However, this behaviour can be disabled using the
 `--ignore-missing-stub` option.
 
-Many third-party stubs packages in typeshed are currently incomplete, and so by
-default, `stubtest_third_party.py` runs stubtest with the
+Most third-party stubs packages in typeshed are currently complete (as far as stubtest is
+concerned), and so by default, `stubtest_third_party.py` does not run stubtest with the
 `--ignore-missing-stub` option to test our third-party stubs. However, this
-option is not used if the distribution has `ignore_missing_stub = false` in the
+option is used if the distribution has `ignore_missing_stub = true` in the
 `tool.stubtest` section of its `tests/METADATA.toml` file. This setting
-indicates that the package is considered "complete", for example:
-https://github.com/python/typeshed/blob/6950c3237065e6e2a9b64810765fec716252d52a/stubs/emoji/METADATA.toml#L3-L4
+indicates that the package is considered "incomplete", for example:
+<!-- TODO: Change to permalink once this is merged -->
+<https://github.com/python/typeshed/blob/main/stubs/setuptools/METADATA.toml#L5>
 
-You can help make typeshed's stubs more complete by adding
-`ignore_missing_stub = false` to the `tests/METADATA.toml` file for a
+You can help make typeshed's stubs more complete by removing
+`ignore_missing_stub = true` from the `tests/METADATA.toml` file for a
 third-party stubs distribution, running stubtest, and then adding things that
 stubtest reports to be missing to the stub. However, note that not *everything*
 that stubtest reports to be missing should necessarily be added to the stub.
