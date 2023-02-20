@@ -190,7 +190,7 @@ def run_mypy(args, configurations, major, minor, files, *, custom_typeshed=False
             print("running", " ".join(sys.argv))
         if not args.dry_run:
             try:
-                mypy_main("", sys.stdout, sys.stderr)
+                mypy_main(stdout=sys.stdout, stderr=sys.stderr)
             except SystemExit as err:
                 return err.code
         return 0
