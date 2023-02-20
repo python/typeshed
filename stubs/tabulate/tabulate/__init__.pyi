@@ -6,10 +6,13 @@ from .version import __version__ as __version__
 
 __all__ = ["tabulate", "tabulate_formats", "simple_separated_format"]
 
-MIN_PADDING: Final = 2
-PRESERVE_WHITESPACE: Final = False
-WIDE_CHARS_MODE: Final[bool]
-SEPARATING_LINE: Final = "\001"
+# These constants are meant to be configurable
+# https://github.com/astanin/python-tabulate#text-formatting
+PRESERVE_WHITESPACE: bool
+MIN_PADDING: int
+# https://github.com/astanin/python-tabulate#wide-fullwidth-cjk-symbols
+WIDE_CHARS_MODE: bool
+SEPARATING_LINE: str
 
 class Line(NamedTuple):
     begin: str
