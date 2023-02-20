@@ -3,3 +3,4 @@ requires = ["types-docutils", "types-setuptools"]
 
 [tool.stubtest]
 stubtest_requirements = ["sphinx"]
+ignore_missing_stub = true

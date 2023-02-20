@@ -68,7 +68,7 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
     brew_dependencies = data.get("brew_dependencies", [])
     choco_dependencies = data.get("choco_dependencies", [])
     extras = data.get("extras", [])
-    ignore_missing_stub = data.get("ignore_missing_stub", True)
+    ignore_missing_stub = data.get("ignore_missing_stub", False)
     specified_platforms = data.get("platforms", ["linux"])
     stubtest_requirements = data.get("stubtest_requirements", [])
 
