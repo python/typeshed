@@ -1,15 +1,15 @@
 from collections.abc import Callable, Container, Iterable, Mapping, Sequence
 from typing import Any, NamedTuple
-from typing_extensions import TypeAlias
+from typing_extensions import Final, Self, TypeAlias
 
-__version__: str
+from .version import __version__ as __version__
 
-LATEX_ESCAPE_RULES: dict[str, str]
-MIN_PADDING: int
-PRESERVE_WHITESPACE: bool
-WIDE_CHARS_MODE: bool
-multiline_formats: dict[str, str]
-tabulate_formats: list[str]
+__all__ = ["tabulate", "tabulate_formats", "simple_separated_format"]
+
+MIN_PADDING: Final = 2
+PRESERVE_WHITESPACE: Final = False
+WIDE_CHARS_MODE: Final[bool]
+SEPARATING_LINE: Final = "\001"
 
 class Line(NamedTuple):
     begin: str
@@ -35,6 +35,10 @@ class TableFormat(NamedTuple):
     padding: int
     with_header_hide: Container[str] | None
 
+LATEX_ESCAPE_RULES: Final[dict[str, str]]
+tabulate_formats: list[str]
+multiline_formats: dict[str, str]
+
 def simple_separated_format(separator: str) -> TableFormat: ...
 def tabulate(
     tabular_data: Mapping[str, Iterable[Any]] | Iterable[Iterable[Any]],
@@ -52,3 +56,7 @@ def tabulate(
     rowalign: str | Iterable[str] | None = ...,
     maxheadercolwidths: int | Iterable[int] | None = ...,
 ) -> str: ...
+
+class JupyterHTMLStr(str):
+    @property
+    def str(self) -> Self: ...
