@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Generator, Iterable, Iterator
 from datetime import datetime
+from typing import overload
 from typing_extensions import Literal
 
 from openpyxl.cell.cell import Cell
@@ -68,26 +69,84 @@ class Worksheet(_WorkbookChild):
     def calculate_dimension(self) -> str: ...
     @property
     def dimensions(self) -> str: ...
+    @overload
+    def iter_rows(
+        self, min_row: int | None, max_row: int | None, min_col: int | None, max_col: int | None, values_only: Literal[True]
+    ) -> Generator[tuple[str | float | datetime | None, ...], None, None]: ...
+    @overload
+    def iter_rows(
+        self,
+        min_row: int | None = None,
+        max_row: int | None = None,
+        min_col: int | None = None,
+        max_col: int | None = None,
+        *,
+        values_only: Literal[True],
+    ) -> Generator[tuple[str | float | datetime | None, ...], None, None]: ...
+    @overload
     def iter_rows(
         self,
         min_row: int | None = ...,
         max_row: int | None = ...,
         min_col: int | None = ...,
         max_col: int | None = ...,
-        values_only: bool = ...,
-    ) -> Generator[Cell | str | float | datetime | None, None, None]: ...
+        values_only: Literal[False] = False,
+    ) -> Generator[tuple[Cell, ...], None, None]: ...
+    @overload
+    def iter_rows(
+        self, min_row: int | None, max_row: int | None, min_col: int | None, max_col: int | None, values_only: bool
+    ) -> Generator[tuple[Cell | str | float | datetime | None, ...], None, None]: ...
+    @overload
+    def iter_rows(
+        self,
+        min_row: int | None = None,
+        max_row: int | None = None,
+        min_col: int | None = None,
+        max_col: int | None = None,
+        *,
+        values_only: bool,
+    ) -> Generator[tuple[Cell | str | float | datetime | None, ...], None, None]: ...
     @property
     def rows(self) -> Generator[Cell, None, None]: ...
     @property
     def values(self) -> Generator[str | float | datetime | None, None, None]: ...
+    @overload
+    def iter_cols(
+        self, min_col: int | None, max_col: int | None, min_row: int | None, max_row: int | None, values_only: Literal[True]
+    ) -> Generator[tuple[str | float | datetime | None, ...], None, None]: ...
+    @overload
+    def iter_cols(
+        self,
+        min_col: int | None = None,
+        max_col: int | None = None,
+        min_row: int | None = None,
+        max_row: int | None = None,
+        *,
+        values_only: Literal[True],
+    ) -> Generator[tuple[str | float | datetime | None, ...], None, None]: ...
+    @overload
     def iter_cols(
         self,
         min_col: int | None = ...,
         max_col: int | None = ...,
         min_row: int | None = ...,
         max_row: int | None = ...,
-        values_only: bool = ...,
-    ) -> Generator[Cell | str | float | datetime | None, None, None]: ...
+        values_only: Literal[False] = False,
+    ) -> Generator[tuple[Cell, ...], None, None]: ...
+    @overload
+    def iter_cols(
+        self, min_col: int | None, max_col: int | None, min_row: int | None, max_row: int | None, values_only: bool
+    ) -> Generator[tuple[Cell | str | float | datetime | None, ...], None, None]: ...
+    @overload
+    def iter_cols(
+        self,
+        min_col: int | None = None,
+        max_col: int | None = None,
+        min_row: int | None = None,
+        max_row: int | None = None,
+        *,
+        values_only: bool,
+    ) -> Generator[tuple[Cell | str | float | datetime | None, ...], None, None]: ...
     @property
     def columns(self) -> Generator[Cell, None, None]: ...
     def set_printer_settings(self, paper_size: int, orientation: None | Literal["default", "portrait", "landscape"]) -> None: ...
