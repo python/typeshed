@@ -27,6 +27,7 @@ collections.AsyncGenerator.ag_await
 collections.AsyncGenerator.ag_code
 collections.AsyncGenerator.ag_frame
 collections.AsyncGenerator.ag_running
+collections.ByteString
 collections.Callable
 collections.Mapping.__reversed__  # Set to None at runtime for a better error message
 collections.ItemsView.__reversed__
