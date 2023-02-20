@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, SupportsRead
+from _typeshed import Incomplete, StrPath, SupportsRead
 
 from openpyxl.chartsheet.chartsheet import Chartsheet
 from openpyxl.packaging.relationship import Relationship
@@ -30,7 +30,7 @@ class ExcelReader:
     def read(self) -> None: ...
 
 def load_workbook(
-    filename: SupportsRead[bytes] | str,
+    filename: SupportsRead[bytes] | StrPath,
     read_only: bool = ...,
     keep_vba: bool = ...,
     data_only: bool = ...,
