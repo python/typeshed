@@ -6,6 +6,7 @@ from typing import (  # noqa: Y022,Y038
     AsyncIterable as AsyncIterable,
     AsyncIterator as AsyncIterator,
     Awaitable as Awaitable,
+    ByteString as ByteString,
     Callable as Callable,
     Collection as Collection,
     Container as Container,
