@@ -207,7 +207,6 @@ types.SimpleNamespace.__init__  # class doesn't accept positional arguments but 
 typing.IO.__next__  # Added because IO streams are iterable. See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
 typing.type_check_only  # typing decorator that is not available at runtime
 unittest.mock.patch  # It's a complicated overload and I haven't been able to figure out why stubtest doesn't like it
-urllib.parse._DefragResultBase.__new__  # Generic NamedTuple is problematic in mypy, so regular tuple was used. See https://github.com/python/mypy/issues/685
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__  # Args are passed as is to super, so super args are specified
 weakref.CallableProxyType.__getattr__  # Should have all attributes of proxy
 weakref.ProxyType.__getattr__  # Should have all attributes of proxy
