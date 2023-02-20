@@ -40,6 +40,7 @@ distutils.core.extension_keywords
 distutils.core.gen_usage
 distutils.core.setup_keywords
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
+functools.cached_property.__set__  # Stub is a while lie; see comments in the stub
 gettext.install
 gettext.translation
 hmac.new  # Stub is a white lie; see comments in the stub
