@@ -8,7 +8,6 @@ from Xlib.xobject import resource
 
 RES_MAJOR_VERSION: Final = 1
 RES_MINOR_VERSION: Final = 2
-# TODO: Can't use the assignement form of Final-Literal until https://github.com/google/pytype/issues/1369 is fixed
 extname: Final = "X-Resource"
 ResQueryVersion: Final = 0
 ResQueryClients: Final = 1

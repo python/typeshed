@@ -5,7 +5,6 @@ from Xlib.display import Display
 from Xlib.protocol import request, rq
 from Xlib.xobject import drawable
 
-# TODO: Can't use the assignement form of Final-Literal until https://github.com/google/pytype/issues/1369 is fixed
 extname: Final = "MIT-SCREEN-SAVER"
 NotifyMask: Final = 1
 CycleMask: Final = 2

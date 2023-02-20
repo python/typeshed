@@ -5,7 +5,6 @@ from Xlib.display import Display
 from Xlib.protocol import rq
 from Xlib.xobject import resource
 
-# TODO: Can't use the assignement form of Final-Literal until https://github.com/google/pytype/issues/1369 is fixed
 extname: Final = "NV-CONTROL"
 
 def query_target_count(self: Display | resource.Resource, target: Target) -> int: ...

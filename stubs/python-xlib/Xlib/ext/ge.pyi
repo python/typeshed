@@ -5,7 +5,6 @@ from Xlib.display import Display
 from Xlib.protocol import rq
 from Xlib.xobject import resource
 
-# TODO: Can't use the assignement form of Final-Literal until https://github.com/google/pytype/issues/1369 is fixed
 extname: Final = "Generic Event Extension"
 GenericEventCode: Final = 35
 
