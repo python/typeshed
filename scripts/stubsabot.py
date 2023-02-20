@@ -29,6 +29,7 @@ import tomli
 import tomlkit
 from termcolor import colored
 
+
 class ActionLevel(enum.IntEnum):
     def __new__(cls, value: int, doc: str) -> Self:
         member = int.__new__(cls, value)
