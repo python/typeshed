@@ -586,7 +586,7 @@ class str(Sequence[str]):
     def __rmul__(self, __n: SupportsIndex) -> str: ...  # type: ignore[misc]
     def __getnewargs__(self) -> tuple[str]: ...
 
-class bytes:
+class bytes(Sequence[int]):
     @overload
     def __new__(cls, __o: Iterable[SupportsIndex] | SupportsIndex | SupportsBytes | ReadableBuffer) -> Self: ...
     @overload
