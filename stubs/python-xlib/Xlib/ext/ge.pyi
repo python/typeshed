@@ -1,4 +1,4 @@
-from typing_extensions import Final, Literal
+from typing_extensions import Final
 
 from Xlib._typing import Unused
 from Xlib.display import Display
@@ -6,7 +6,7 @@ from Xlib.protocol import rq
 from Xlib.xobject import resource
 
 # TODO: Can't use the assignement form of Final-Literal until https://github.com/google/pytype/issues/1369 is fixed
-extname: Final[Literal["Generic Event Extension"]]
+extname: Final = "Generic Event Extension"
 GenericEventCode: Final = 35
 
 class GEQueryVersion(rq.ReplyRequest): ...

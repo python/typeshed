@@ -1,4 +1,4 @@
-from typing_extensions import Final, Literal
+from typing_extensions import Final
 
 from Xlib._typing import ErrorHandler
 from Xlib.display import Display
@@ -6,7 +6,7 @@ from Xlib.protocol import request, rq
 from Xlib.xobject import drawable
 
 # TODO: Can't use the assignement form of Final-Literal until https://github.com/google/pytype/issues/1369 is fixed
-extname: Final[Literal["MIT-SCREEN-SAVER"]]
+extname: Final = "MIT-SCREEN-SAVER"
 NotifyMask: Final = 1
 CycleMask: Final = 2
 StateOff: Final = 0
