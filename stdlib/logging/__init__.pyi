@@ -1,12 +1,12 @@
 import sys
 import threading
-from _typeshed import OptExcInfo, StrPath, SupportsWrite
+from _typeshed import StrPath, SupportsWrite
 from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequence
 from io import TextIOWrapper
 from re import Pattern
 from string import Template
 from time import struct_time
-from types import FrameType
+from types import FrameType, TracebackType
 from typing import Any, ClassVar, Generic, TextIO, TypeVar, overload
 from typing_extensions import Literal, Self, TypeAlias
 
@@ -61,7 +61,8 @@ __all__ = [
 if sys.version_info >= (3, 11):
     __all__ += ["getLevelNamesMapping"]
 
-_ExcInfoType: TypeAlias = None | bool | OptExcInfo | BaseException
+_SysExcInfoType: TypeAlias = tuple[type[BaseException], BaseException, TracebackType | None] | tuple[None, None, None]
+_ExcInfoType: TypeAlias = None | bool | _SysExcInfoType | BaseException
 _ArgsType: TypeAlias = tuple[object, ...] | Mapping[str, object]
 _FilterType: TypeAlias = Filter | Callable[[LogRecord], bool]
 _Level: TypeAlias = int | str
@@ -286,7 +287,7 @@ class Logger(Filterer):
         lno: int,
         msg: object,
         args: _ArgsType,
-        exc_info: OptExcInfo | None,
+        exc_info: _SysExcInfoType | None,
         func: str | None = None,
         extra: Mapping[str, object] | None = None,
         sinfo: str | None = None,
@@ -353,7 +354,7 @@ class Formatter:
 
     def format(self, record: LogRecord) -> str: ...
     def formatTime(self, record: LogRecord, datefmt: str | None = None) -> str: ...
-    def formatException(self, ei: OptExcInfo) -> str: ...
+    def formatException(self, ei: _SysExcInfoType) -> str: ...
     def formatMessage(self, record: LogRecord) -> str: ...  # undocumented
     def formatStack(self, stack_info: str) -> str: ...
     def usesTime(self) -> bool: ...  # undocumented
@@ -377,7 +378,7 @@ class LogRecord:
     args: _ArgsType | None
     asctime: str
     created: float
-    exc_info: OptExcInfo | None
+    exc_info: _SysExcInfoType | None
     exc_text: str | None
     filename: str
     funcName: str
@@ -405,7 +406,7 @@ class LogRecord:
         lineno: int,
         msg: object,
         args: _ArgsType | None,
-        exc_info: OptExcInfo | None,
+        exc_info: _SysExcInfoType | None,
         func: str | None = None,
         sinfo: str | None = None,
     ) -> None: ...
