@@ -30,20 +30,10 @@ def run_stubtest(typeshed_dir: Path) -> int:
             raise
 
         # Install the same mypy version as in "requirements-tests.txt"
-        pip_cmd = [pip_exe, "install", get_mypy_req()]
-        try:
-            subprocess.run(pip_cmd, check=True, capture_output=True)
-        except subprocess.CalledProcessError as e:
-            print_command_failure("Failed to install mypy", e)
-            return e.returncode
+        subprocess.run([pip_exe, "install", get_mypy_req()], check=True)
 
         # Uninstall setuptools from the venv so we can test stdlib's distutils
-        pip_cmd = [pip_exe, "uninstall", "-y", "setuptools"]
-        try:
-            subprocess.run(pip_cmd, check=True, capture_output=True)
-        except subprocess.CalledProcessError as e:
-            print_command_failure("Failed to uninstall setuptools", e)
-            return e.returncode
+        subprocess.run([pip_exe, "uninstall", "-y", "setuptools"], check=True)
 
         cmd = [
             python_exe,
@@ -82,19 +72,6 @@ def run_stubtest(typeshed_dir: Path) -> int:
         else:
             print("stubtest succeeded", file=sys.stderr)
             return 0
-
-
-def print_command_failure(message: str, e: subprocess.CalledProcessError) -> None:
-    print_error("fail")
-    print(file=sys.stderr)
-    print(message, file=sys.stderr)
-    print_command_output(e)
-
-
-def print_command_output(e: subprocess.CalledProcessError | subprocess.CompletedProcess[bytes]) -> None:
-    print(e.stdout.decode(), end="", file=sys.stderr)
-    print(e.stderr.decode(), end="", file=sys.stderr)
-    print(file=sys.stderr)
 
 
 if __name__ == "__main__":
