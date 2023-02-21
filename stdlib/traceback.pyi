@@ -132,12 +132,12 @@ class TracebackException:
             cls,
             exc: BaseException,
             *,
-            limit: int | None = ...,
-            lookup_lines: bool = ...,
-            capture_locals: bool = ...,
-            compact: bool = ...,
-            max_group_width: int = ...,
-            max_group_depth: int = ...,
+            limit: int | None = None,
+            lookup_lines: bool = True,
+            capture_locals: bool = False,
+            compact: bool = False,
+            max_group_width: int = 15,
+            max_group_depth: int = 10,
         ) -> Self: ...
     elif sys.version_info >= (3, 10):
         def __init__(
