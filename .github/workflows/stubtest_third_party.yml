@@ -12,7 +12,10 @@ permissions:
   contents: read
 
 env:
-  HOMEBREW_NO_INSTALL_CLEANUP: 1 # Speedup brew install. Environments are isolated, no need to cleanup old versions
+  # A few env vars to speedup brew install
+  HOMEBREW_NO_ANALYTICS: 1
+  HOMEBREW_NO_AUTOUPDATE: 1
+  HOMEBREW_NO_INSTALL_CLEANUP: 1 # Environments are isolated, no need to cleanup old versions
   NONINTERACTIVE: 1 # Required for brew install on CI
   PIP_DISABLE_PIP_VERSION_CHECK: 1
   FORCE_COLOR: 1

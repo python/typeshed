@@ -168,8 +168,7 @@ shutil.rmtree  # stubtest doesn't like that we have this as an instance of a cal
 socketserver.BaseServer.fileno  # implemented in derived classes
 socketserver.BaseServer.get_request  # implemented in derived classes
 socketserver.BaseServer.server_bind  # implemented in derived classes
-ssl.Purpose.__new__  # You cannot override __new__ in NamedTuple and runtime uses namedtuple.
-ssl._ASN1Object.__new__  # You cannot override __new__ in NamedTuple and runtime uses namedtuple.
+ssl.Purpose.__new__  # the multiple inheritance confuses mypy
 (sys.get_int_max_str_digits)?  # Added in a patch release, backported to all security branches, but has yet to find its way to all GitHub Actions images
 sys.implementation  # Actually SimpleNamespace but then you wouldn't have convenient attributes
 (sys.set_int_max_str_digits)?  # Added in a patch release, backported to all security branches, but has yet to find its way to all GitHub Actions images
@@ -206,7 +205,6 @@ types.SimpleNamespace.__init__  # class doesn't accept positional arguments but 
 typing.IO.__next__  # Added because IO streams are iterable. See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
 typing.type_check_only  # typing decorator that is not available at runtime
 unittest.mock.patch  # It's a complicated overload and I haven't been able to figure out why stubtest doesn't like it
-urllib.parse._DefragResultBase.__new__  # Generic NamedTuple is problematic in mypy, so regular tuple was used. See https://github.com/python/mypy/issues/685
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__  # Args are passed as is to super, so super args are specified
 weakref.CallableProxyType.__getattr__  # Should have all attributes of proxy
 weakref.ProxyType.__getattr__  # Should have all attributes of proxy
