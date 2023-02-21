@@ -675,22 +675,46 @@ if sys.version_info >= (3, 8):
 
 else:
     def debug(
-        msg: object, *args: object, exc_info: _ExcInfoType = None, stack_info: bool = False, extra: Mapping[str, object] | None = None
+        msg: object,
+        *args: object,
+        exc_info: _ExcInfoType = None,
+        stack_info: bool = False,
+        extra: Mapping[str, object] | None = None,
     ) -> None: ...
     def info(
-        msg: object, *args: object, exc_info: _ExcInfoType = None, stack_info: bool = False, extra: Mapping[str, object] | None = None
+        msg: object,
+        *args: object,
+        exc_info: _ExcInfoType = None,
+        stack_info: bool = False,
+        extra: Mapping[str, object] | None = None,
     ) -> None: ...
     def warning(
-        msg: object, *args: object, exc_info: _ExcInfoType = None, stack_info: bool = False, extra: Mapping[str, object] | None = None
+        msg: object,
+        *args: object,
+        exc_info: _ExcInfoType = None,
+        stack_info: bool = False,
+        extra: Mapping[str, object] | None = None,
     ) -> None: ...
     def warn(
-        msg: object, *args: object, exc_info: _ExcInfoType = None, stack_info: bool = False, extra: Mapping[str, object] | None = None
+        msg: object,
+        *args: object,
+        exc_info: _ExcInfoType = None,
+        stack_info: bool = False,
+        extra: Mapping[str, object] | None = None,
     ) -> None: ...
     def error(
-        msg: object, *args: object, exc_info: _ExcInfoType = None, stack_info: bool = False, extra: Mapping[str, object] | None = None
+        msg: object,
+        *args: object,
+        exc_info: _ExcInfoType = None,
+        stack_info: bool = False,
+        extra: Mapping[str, object] | None = None,
     ) -> None: ...
     def critical(
-        msg: object, *args: object, exc_info: _ExcInfoType = None, stack_info: bool = False, extra: Mapping[str, object] | None = None
+        msg: object,
+        *args: object,
+        exc_info: _ExcInfoType = None,
+        stack_info: bool = False,
+        extra: Mapping[str, object] | None = None,
     ) -> None: ...
     def exception(
         msg: object,

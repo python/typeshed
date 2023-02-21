@@ -90,7 +90,7 @@ class Distribution:
     have_run: Incomplete
     want_user_cfg: bool
     def dump_option_dicts(
-        self, header: Incomplete | None = None, commands: Incomplete | None = None, indent: str = ''
+        self, header: Incomplete | None = None, commands: Incomplete | None = None, indent: str = ""
     ) -> None: ...
     def find_config_files(self): ...
     commands: Incomplete
