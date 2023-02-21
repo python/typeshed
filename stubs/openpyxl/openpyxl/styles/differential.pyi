@@ -1,13 +1,10 @@
-from _typeshed import Incomplete
-from typing_extensions import TypeAlias
+from _typeshed import Incomplete, Unused
 
 from openpyxl.descriptors.sequence import _Sequence
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles import Alignment, Border, Fill, Font, Protection
 
 from .numbers import NumberFormat
-
-_Unused: TypeAlias = object
 
 class DifferentialStyle(Serialisable):
     tagname: str
@@ -35,7 +32,7 @@ class DifferentialStyleList(Serialisable):
     dxf: _Sequence[DifferentialStyle]
     styles: Incomplete
     __attrs__: Incomplete
-    def __init__(self, dxf: _Sequence[DifferentialStyle] = ..., count: _Unused = ...) -> None: ...
+    def __init__(self, dxf: _Sequence[DifferentialStyle] = ..., count: Unused = ...) -> None: ...
     def append(self, dxf: DifferentialStyle) -> None: ...
     def add(self, dxf: DifferentialStyle) -> int: ...
     def __bool__(self) -> bool: ...

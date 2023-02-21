@@ -32,7 +32,7 @@ class DefinedName(Serialisable):
     value: Incomplete
     def __init__(
         self,
-        name: Incomplete | None = ...,
+        name: str,
         comment: Incomplete | None = ...,
         customMenu: Incomplete | None = ...,
         description: Incomplete | None = ...,

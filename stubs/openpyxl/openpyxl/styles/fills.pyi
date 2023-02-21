@@ -1,4 +1,4 @@
-from _typeshed import Self
+from _typeshed import Self, Unused
 from collections.abc import Generator, Sequence
 from typing_extensions import Final, Literal, TypeAlias
 
@@ -9,8 +9,6 @@ from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.xml.functions import _Element
 
 from .colors import Color
-
-_Unused: TypeAlias = object
 
 FILL_NONE: Final = "none"
 FILL_SOLID: Final = "solid"
@@ -99,7 +97,7 @@ class PatternFill(Fill):
         start_color: Color | None = ...,
         end_color: Color | None = ...,
     ) -> None: ...
-    def to_tree(self, tagname: _Unused = ..., idx: _Unused = ...): ...  # type: ignore[override]
+    def to_tree(self, tagname: Unused = ..., idx: Unused = ...): ...  # type: ignore[override]
 
 DEFAULT_EMPTY_FILL: PatternFill
 DEFAULT_GRAY_FILL: PatternFill
@@ -154,5 +152,5 @@ class GradientFill(Fill):
     ) -> None: ...
     def __iter__(self) -> Generator[tuple[str, str], None, None]: ...
     def to_tree(  # type: ignore[override]
-        self, tagname: _Unused = ..., namespace: _Unused = ..., idx: _Unused = ...
+        self, tagname: Unused = ..., namespace: Unused = ..., idx: Unused = ...
     ) -> _Element: ...

@@ -1,8 +1,7 @@
-from _typeshed import Self
+from _typeshed import Self, Unused
 from collections.abc import Generator
 from re import Pattern
 from typing import TypeVar, overload
-from typing_extensions import TypeAlias
 
 from openpyxl.descriptors import Typed
 from openpyxl.descriptors.base import _BoolSetter, _FloatSetter, _IntegerSetter
@@ -10,7 +9,6 @@ from openpyxl.descriptors.sequence import _Sequence
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.colors import SystemColor
 
-_Unused: TypeAlias = object
 _S = TypeVar("_S", bound=Serialisable)
 
 COLOR_INDEX: tuple[
@@ -116,7 +114,7 @@ class Color(Serialisable):
         theme: _IntegerSetter | None = ...,
         tint: _FloatSetter = ...,
         index: _IntegerSetter | None = ...,
-        type: _Unused = ...,
+        type: Unused = ...,
     ) -> None: ...
     @property
     def value(self) -> str | float | bool: ...

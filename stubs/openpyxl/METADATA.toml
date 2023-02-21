@@ -1,5 +1,2 @@
 version = "3.0.*"
-requires = ["lxml-stubs", "types-pillow", "numpy"]
-
-[tool.stubtest]
-ignore_missing_stub = false
+requires = ["lxml-stubs", "numpy", "types-pillow"]

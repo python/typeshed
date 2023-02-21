@@ -1,13 +1,11 @@
 # This file does not exist at runtime. It is a helper file to overload imports in openpyxl.xml.functions
 # TODO: Create missing stubs and add missing types upstream
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from collections.abc import Iterator
 from typing import overload
 from typing_extensions import TypeAlias
 
 from lxml.etree import _AnyStr, _Element
-
-_Unused: TypeAlias = object
 
 # lxml re-definitions are a mix of lxml-stubs and pylance
 # defusedxml stubs are missing. But we can still represent them.
@@ -28,7 +26,7 @@ def fromstring(text, forbid_dtd: bool = ..., forbid_entities: bool = ..., forbid
 # from et_xmlfile.xmlfile import xmlfile
 class _et_xmlfile_xmlfile:
     def __init__(
-        self, output_file: Incomplete | str, buffered: _Unused = ..., encoding: _Unused = ..., close: bool = ...
+        self, output_file: Incomplete | str, buffered: Unused = ..., encoding: _Unused = ..., close: bool = ...
     ) -> None: ...
     def __enter__(self) -> Incomplete: ...
     def __exit__(self, type: object, value: object, traceback: object) -> None: ...

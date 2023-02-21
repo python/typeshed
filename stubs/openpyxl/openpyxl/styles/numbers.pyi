@@ -1,14 +1,13 @@
+from _typeshed import Unused
 from re import Pattern
 from typing import overload
-from typing_extensions import Literal, TypeAlias, TypeGuard
+from typing_extensions import Literal, TypeGuard
 
 from openpyxl.descriptors import String
 from openpyxl.descriptors.base import _IntegerSetter
 from openpyxl.descriptors.sequence import _Sequence
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.named_styles import NamedStyle
-
-_Unused: TypeAlias = object
 
 BUILTIN_FORMATS: dict[int, str]
 BUILTIN_FORMATS_MAX_SIZE: int
@@ -78,7 +77,7 @@ class NumberFormatList(Serialisable):  # type: ignore[misc]
     numFmt: _Sequence[NumberFormat]
     __elements__: tuple[str, ...]
     __attrs__: tuple[str, ...]
-    def __init__(self, count: _Unused = ..., numFmt: _Sequence[NumberFormat] = ...) -> None: ...
+    def __init__(self, count: Unused = ..., numFmt: _Sequence[NumberFormat] = ...) -> None: ...
     @property
     def count(self) -> int: ...
     def __getitem__(self, idx) -> NumberFormat: ...

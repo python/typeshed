@@ -1,10 +1,9 @@
+from _typeshed import Unused
 from collections.abc import Generator
 from typing_extensions import Final, Literal, TypeAlias
 
 from openpyxl.descriptors.base import _BoolSetter, _FloatSetter
 from openpyxl.descriptors.serialisable import Serialisable
-
-_Unused: TypeAlias = object
 
 horizontal_alignments: Final[
     tuple[
@@ -71,6 +70,6 @@ class Alignment(Serialisable):
         text_rotation: int | None = ...,
         wrap_text: _BoolSetter = ...,
         shrink_to_fit: _BoolSetter = ...,
-        mergeCell: _Unused = ...,
+        mergeCell: Unused = ...,
     ) -> None: ...
     def __iter__(self) -> Generator[tuple[str, str], None, None]: ...

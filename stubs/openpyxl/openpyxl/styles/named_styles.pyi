@@ -1,5 +1,6 @@
+from _typeshed import Unused
 from collections.abc import Generator
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal
 
 from openpyxl.descriptors.base import _BoolSetter, _IntegerSetter
 from openpyxl.descriptors.excel import ExtensionList
@@ -13,8 +14,6 @@ from .cell_style import CellStyle, StyleArray
 from .fills import Fill, PatternFill
 from .fonts import Font
 from .protection import Protection
-
-_Unused: TypeAlias = object
 
 class NamedStyle(Serialisable):  # type: ignore[misc]
     font: Font
@@ -43,7 +42,7 @@ class NamedStyle(Serialisable):  # type: ignore[misc]
         protection: Protection = ...,
         builtinId: _IntegerSetter | None = ...,
         hidden: _BoolSetter = ...,
-        xfId: _Unused = ...,
+        xfId: Unused = ...,
     ) -> None: ...
     def __setattr__(self, attr: str, value) -> None: ...
     def __iter__(self) -> Generator[tuple[Literal["name", "builtinId", "hidden", "xfId"], str], None, None]: ...
@@ -93,14 +92,14 @@ class _NamedCellStyle(Serialisable):
         iLevel: _IntegerSetter | None = ...,
         hidden: _BoolSetter = ...,
         customBuiltin: _BoolSetter = ...,
-        extLst: _Unused = ...,
+        extLst: Unused = ...,
     ) -> None: ...
 
 class _NamedCellStyleList(Serialisable):
     tagname: str
     cellStyle: _Sequence[_NamedCellStyle]
     __attrs__: tuple[str, ...]
-    def __init__(self, count: _Unused = ..., cellStyle: _Sequence[_NamedCellStyle] = ...) -> None: ...
+    def __init__(self, count: Unused = ..., cellStyle: _Sequence[_NamedCellStyle] = ...) -> None: ...
     @property
     def count(self) -> int: ...
     @property

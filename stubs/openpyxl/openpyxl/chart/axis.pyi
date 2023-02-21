@@ -1,6 +1,6 @@
-from _typeshed import Incomplete, Self
+from _typeshed import Incomplete, Self, Unused
 from abc import abstractmethod
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal
 
 from openpyxl.chart.data_source import NumFmt
 from openpyxl.chart.title import Title
@@ -12,8 +12,6 @@ from openpyxl.xml.functions import _Element
 from .layout import Layout
 from .shapes import GraphicalProperties
 from .text import RichText, Text
-
-_Unused: TypeAlias = object
 
 class ChartLines(Serialisable):
     tagname: str
@@ -44,7 +42,7 @@ class Scaling(Serialisable):
         orientation: Literal["maxMin", "minMax"] = ...,
         max: _FloatSetter | None = ...,
         min: _FloatSetter | None = ...,
-        extLst: _Unused = ...,
+        extLst: Unused = ...,
     ) -> None: ...
 
 class _BaseAxis(Serialisable):
@@ -158,7 +156,7 @@ class DisplayUnitsLabelList(Serialisable):
             None,
         ] = ...,
         dispUnitsLbl: DisplayUnitsLabel | None = ...,
-        extLst: _Unused = ...,
+        extLst: Unused = ...,
     ) -> None: ...
 
 class NumericAxis(_BaseAxis):
@@ -181,7 +179,7 @@ class NumericAxis(_BaseAxis):
         majorUnit: _FloatSetter | None = ...,
         minorUnit: _FloatSetter | None = ...,
         dispUnits: DisplayUnitsLabelList | None = ...,
-        extLst: _Unused = ...,
+        extLst: Unused = ...,
         axId: _IntegerSetter = ...,
         scaling: Scaling | None = ...,
         delete: _BoolSetter = ...,
@@ -235,7 +233,7 @@ class TextAxis(_BaseAxis):
         tickLblSkip: _IntegerSetter | None = ...,
         tickMarkSkip: _IntegerSetter | None = ...,
         noMultiLvlLbl: _BoolSetter = ...,
-        extLst: _Unused = ...,
+        extLst: Unused = ...,
         axId: _IntegerSetter = ...,
         scaling: Scaling | None = ...,
         delete: _BoolSetter = ...,
@@ -321,7 +319,7 @@ class SeriesAxis(_BaseAxis):
         self,
         tickLblSkip: _IntegerSetter | None = ...,
         tickMarkSkip: _IntegerSetter | None = ...,
-        extLst: _Unused = ...,
+        extLst: Unused = ...,
         axId: _IntegerSetter = ...,
         scaling: Scaling | None = ...,
         delete: _BoolSetter = ...,

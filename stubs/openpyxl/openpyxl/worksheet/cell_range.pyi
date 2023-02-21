@@ -1,12 +1,9 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from collections.abc import Generator
 from typing import overload
-from typing_extensions import TypeAlias
 
 from openpyxl.descriptors import Strict
 from openpyxl.descriptors.serialisable import Serialisable
-
-_Unused: TypeAlias = object
 
 class CellRange(Serialisable):  # type: ignore[misc]
     min_col: Incomplete
@@ -24,10 +21,10 @@ class CellRange(Serialisable):  # type: ignore[misc]
     def __init__(
         self,
         range_string: str,
-        min_col: _Unused = ...,
-        min_row: _Unused = ...,
-        max_col: _Unused = ...,
-        max_row: _Unused = ...,
+        min_col: Unused = ...,
+        min_row: Unused = ...,
+        max_col: Unused = ...,
+        max_row: Unused = ...,
         title: Incomplete | None = ...,
     ) -> None: ...
     @property
