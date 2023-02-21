@@ -36,7 +36,7 @@ jobs:
       matrix:
         # tkinter doesn't import on macOS-12
         os: ["ubuntu-latest", "windows-latest", "macos-11"]
-        python-version: ["3.7", "3.8", "3.9", "3.10.10", "3.11.2"]  # TODO: unpin micro versions
+        python-version: ["3.7", "3.8", "3.9", "3.10.10", "3.11.2"] # TODO: unpin micro versions
       fail-fast: false
 
     steps:
@@ -69,7 +69,6 @@ jobs:
           cache: pip
           cache-dependency-path: |
             requirements-tests.txt
-            stubs/**/@tests/requirements-stubtest.txt
             stubs/**/METADATA.toml
       - name: Install dependencies
         run: pip install -r requirements-tests.txt
