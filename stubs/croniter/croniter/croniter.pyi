@@ -1,10 +1,21 @@
 import datetime
-from _typeshed import Self
+from _typeshed import ReadableBuffer
+from collections import OrderedDict
 from collections.abc import Iterator
-from typing import Any
-from typing_extensions import Literal, TypeAlias
+from re import Match, Pattern
+from typing import Any, overload
+from typing_extensions import Literal, Self, TypeAlias
 
 _RetType: TypeAlias = type[float | datetime.datetime]
+
+step_search_re: Pattern[str]
+only_int_re: Pattern[str]
+star_or_int_re: Pattern[str]
+special_weekday_re: Pattern[str]
+hash_expression_re: Pattern[str]
+VALID_LEN_EXPRESSION: list[int]
+
+def timedelta_to_seconds(td: datetime.timedelta) -> float: ...
 
 class CroniterError(ValueError): ...
 class CroniterBadTypeRangeError(TypeError): ...
@@ -58,7 +69,7 @@ class croniter(Iterator[Any]):
     def get_prev(self, ret_type: _RetType | None = ...) -> Any: ...
     def get_current(self, ret_type: _RetType | None = ...) -> Any: ...
     def set_current(self, start_time: float | datetime.datetime | None, force: bool = ...) -> float: ...
-    def __iter__(self: Self) -> Self: ...
+    def __iter__(self) -> Self: ...
     def next(
         self, ret_type: _RetType | None = ..., start_time: float | datetime.datetime | None = ..., is_prev: bool | None = ...
     ) -> Any: ...
@@ -83,3 +94,42 @@ def croniter_range(
     exclude_ends: bool = ...,
     _croniter: type[croniter] | None = ...,
 ) -> Iterator[Any]: ...
+
+class HashExpander:
+    cron: croniter
+    def __init__(self, cronit: croniter) -> None: ...
+    @overload
+    def do(
+        self,
+        idx: int,
+        hash_type: Literal["r"],
+        hash_id: None = None,
+        range_end: int | None = None,
+        range_begin: int | None = None,
+    ) -> int: ...
+    @overload
+    def do(
+        self, idx: int, hash_type: str, hash_id: ReadableBuffer, range_end: int | None = None, range_begin: int | None = None
+    ) -> int: ...
+    @overload
+    def do(
+        self,
+        idx: int,
+        hash_type: str = "h",
+        *,
+        hash_id: ReadableBuffer,
+        range_end: int | None = None,
+        range_begin: int | None = None,
+    ) -> int: ...
+    def match(self, efl: object, idx: object, expr: str, hash_id: object = None, **kw: object) -> Match[str] | None: ...
+    def expand(
+        self,
+        efl: object,
+        idx: int,
+        expr: str,
+        hash_id: ReadableBuffer | None = None,
+        match: Match[str] | None | Literal[""] = "",
+        **kw: object,
+    ) -> str: ...
+
+EXPANDERS: OrderedDict[str, HashExpander]

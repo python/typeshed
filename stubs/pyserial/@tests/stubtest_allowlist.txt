@@ -67,7 +67,3 @@ serial.serialutil.SerialBase.setDTR
 serial.serialutil.SerialBase.setPort
 serial.serialutil.SerialBase.setRTS
 serial.serialutil.SerialBase.writeTimeout
-
-# Private aliases
-serial.serialposix.plat
-serial.tools.list_ports_posix.plat
