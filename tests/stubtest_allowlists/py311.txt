@@ -139,7 +139,3 @@ typing._TypedDict.values
 
 # White lies around defaults
 dataclasses.KW_ONLY
-
-# stubtest confuses stdlib distutils with setuptools-bundled distutils (#8410),
-# and the whole directory is going to be removed in 3.12 anyway
-distutils\..*

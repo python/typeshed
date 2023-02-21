@@ -9,6 +9,7 @@
         // test cases use a custom pyrightconfig file
         "stubs/**/@tests/test_cases",
         "stdlib/distutils/command",
+        "stdlib/distutils/dist.pyi",
         "stdlib/lib2to3/fixer_base.pyi",
         "stdlib/lib2to3/fixes/*.pyi",
         "stdlib/_tkinter.pyi",
