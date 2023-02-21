@@ -19,8 +19,8 @@ import zipfile
 from collections.abc import Iterator, Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Annotated, Any, ClassVar, NamedTuple, TypeVar
-from typing_extensions import TypeAlias
+from typing import Annotated, Any, ClassVar, NamedTuple
+from typing_extensions import Self, TypeAlias
 
 import aiohttp
 import packaging.specifiers
@@ -29,11 +29,9 @@ import tomli
 import tomlkit
 from termcolor import colored
 
-ActionLevelSelf = TypeVar("ActionLevelSelf", bound="ActionLevel")
-
 
 class ActionLevel(enum.IntEnum):
-    def __new__(cls: type[ActionLevelSelf], value: int, doc: str) -> ActionLevelSelf:
+    def __new__(cls, value: int, doc: str) -> Self:
         member = int.__new__(cls, value)
         member._value_ = value
         member.__doc__ = doc
@@ -170,11 +168,16 @@ async def release_contains_py_typed(release_to_download: PypiReleaseDownload, *,
         raise AssertionError(f"Unknown package type: {packagetype!r}")
 
 
-async def find_first_release_with_py_typed(pypi_info: PypiInfo, *, session: aiohttp.ClientSession) -> PypiReleaseDownload:
-    release_iter = pypi_info.releases_in_descending_order()
+async def find_first_release_with_py_typed(pypi_info: PypiInfo, *, session: aiohttp.ClientSession) -> PypiReleaseDownload | None:
+    release_iter = (release for release in pypi_info.releases_in_descending_order() if not release.version.is_prerelease)
+    latest_release = next(release_iter)
+    # If the latest release is not py.typed, assume none are.
+    if not (await release_contains_py_typed(latest_release, session=session)):
+        return None
+
+    first_release_with_py_typed = latest_release
     while await release_contains_py_typed(release := next(release_iter), session=session):
-        if not release.version.is_prerelease:
-            first_release_with_py_typed = release
+        first_release_with_py_typed = release
     return first_release_with_py_typed
 
 
@@ -418,12 +421,8 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
     if latest_version in spec:
         return NoUpdate(stub_info.distribution, "up to date")
 
-    is_obsolete = await release_contains_py_typed(latest_release, session=session)
-    if is_obsolete:
-        first_release_with_py_typed = await find_first_release_with_py_typed(pypi_info, session=session)
-        relevant_version = version_obsolete_since = first_release_with_py_typed.version
-    else:
-        relevant_version = latest_version
+    obsolete_since = await find_first_release_with_py_typed(pypi_info, session=session)
+    relevant_version = obsolete_since.version if obsolete_since else latest_version
 
     project_urls = pypi_info.info["project_urls"] or {}
     maybe_links: dict[str, str | None] = {
@@ -435,15 +434,14 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
 
     diff_info = await get_diff_info(session, stub_info, pypi_info, relevant_version)
     if diff_info is not None:
-        github_repo_path, old_tag, new_tag, diff_url = diff_info
-        links["Diff"] = diff_url
+        links["Diff"] = diff_info.diff_url
 
-    if is_obsolete:
+    if obsolete_since:
         return Obsolete(
             stub_info.distribution,
             stub_path,
-            obsolete_since_version=str(version_obsolete_since),
-            obsolete_since_date=first_release_with_py_typed.upload_date,
+            obsolete_since_version=str(obsolete_since.version),
+            obsolete_since_date=obsolete_since.upload_date,
             links=links,
         )
 
@@ -451,7 +449,11 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
         diff_analysis: DiffAnalysis | None = None
     else:
         diff_analysis = await analyze_diff(
-            github_repo_path=github_repo_path, stub_path=stub_path, old_tag=old_tag, new_tag=new_tag, session=session
+            github_repo_path=diff_info.repo_path,
+            stub_path=stub_path,
+            old_tag=diff_info.old_tag,
+            new_tag=diff_info.new_tag,
+            session=session,
         )
 
     return Update(
