@@ -165,12 +165,10 @@ pyexpat.expat_CAPI
 select.poll  # Depends on configuration
 selectors.DevpollSelector  # Depends on configuration
 shutil.rmtree  # stubtest doesn't like that we have this as an instance of a callback protocol instead of a function
-socketserver.BaseServer.RequestHandlerClass  # is defined as a property, because we need `Self` type
 socketserver.BaseServer.fileno  # implemented in derived classes
 socketserver.BaseServer.get_request  # implemented in derived classes
 socketserver.BaseServer.server_bind  # implemented in derived classes
-ssl.Purpose.__new__  # You cannot override __new__ in NamedTuple and runtime uses namedtuple.
-ssl._ASN1Object.__new__  # You cannot override __new__ in NamedTuple and runtime uses namedtuple.
+ssl.Purpose.__new__  # the multiple inheritance confuses mypy
 (sys.get_int_max_str_digits)?  # Added in a patch release, backported to all security branches, but has yet to find its way to all GitHub Actions images
 sys.implementation  # Actually SimpleNamespace but then you wouldn't have convenient attributes
 (sys.set_int_max_str_digits)?  # Added in a patch release, backported to all security branches, but has yet to find its way to all GitHub Actions images
@@ -207,7 +205,6 @@ types.SimpleNamespace.__init__  # class doesn't accept positional arguments but 
 typing.IO.__next__  # Added because IO streams are iterable. See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
 typing.type_check_only  # typing decorator that is not available at runtime
 unittest.mock.patch  # It's a complicated overload and I haven't been able to figure out why stubtest doesn't like it
-urllib.parse._DefragResultBase.__new__  # Generic NamedTuple is problematic in mypy, so regular tuple was used. See https://github.com/python/mypy/issues/685
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__  # Args are passed as is to super, so super args are specified
 weakref.CallableProxyType.__getattr__  # Should have all attributes of proxy
 weakref.ProxyType.__getattr__  # Should have all attributes of proxy
@@ -428,13 +425,6 @@ pickle.Unpickler.memo  # undocumented implementation detail, has different type 
 re.Pattern.scanner  # Undocumented and not useful. #6405
 tempfile._TemporaryFileWrapper.[\w_]+  # Dynamically specified by __getattr__, and thus don't exist on the class
 
-# Runtime signature is incorrect (https://github.com/python/cpython/issues/93021)
-types.ClassMethodDescriptorType.__get__
-types.GetSetDescriptorType.__get__
-types.MemberDescriptorType.__get__
-types.MethodDescriptorType.__get__
-types.WrapperDescriptorType.__get__
-
 # Various classes in typing aren't types at runtime. In addition, mypy thinks some special forms are tautologically defined.
 typing.[A-Z]\w+
 typing_extensions\..*
@@ -643,19 +633,8 @@ distutils.ccompiler.CCompiler.src_extensions
 distutils.ccompiler.CCompiler.static_lib_extension
 distutils.ccompiler.CCompiler.static_lib_format
 distutils.ccompiler.compiler_class
-distutils.cmd.Command.dump_options
-distutils.cmd.Command.ensure_finalized
 distutils.command.bdist
 distutils.command.install.*
-distutils.core.Distribution.finalize_options
-distutils.core.Distribution.get_command_class
-distutils.core.Distribution.get_command_list
-distutils.core.Distribution.handle_display_options
-distutils.core.Distribution.print_commands
-distutils.core.Distribution.run_command
-distutils.cygwinccompiler.CONFIG_H_NOTOK
-distutils.cygwinccompiler.CONFIG_H_OK
-distutils.cygwinccompiler.CONFIG_H_UNCERTAIN
 distutils.cygwinccompiler.CygwinCCompiler.compiler_type
 distutils.cygwinccompiler.CygwinCCompiler.exe_extension
 distutils.cygwinccompiler.CygwinCCompiler.obj_extension
@@ -664,22 +643,12 @@ distutils.cygwinccompiler.CygwinCCompiler.shared_lib_format
 distutils.cygwinccompiler.CygwinCCompiler.static_lib_extension
 distutils.cygwinccompiler.CygwinCCompiler.static_lib_format
 distutils.cygwinccompiler.Mingw32CCompiler.compiler_type
-distutils.cygwinccompiler.check_config_h
-distutils.cygwinccompiler.get_msvcr
-distutils.cygwinccompiler.get_versions
 distutils.dir_util.ensure_relative
-distutils.dist.Distribution.finalize_options
-distutils.dist.Distribution.get_command_class
-distutils.dist.Distribution.get_command_list
-distutils.dist.Distribution.handle_display_options
-distutils.dist.Distribution.print_commands
-distutils.dist.Distribution.run_command
 distutils.dist.DistributionMetadata.set_classifiers
 distutils.dist.DistributionMetadata.set_keywords
 distutils.dist.DistributionMetadata.set_platforms
 distutils.dist.fix_help_options
 distutils.extension.read_setup_file
-distutils.fancy_getopt.WS_TRANS
 distutils.fancy_getopt.FancyGetopt.add_option
 distutils.fancy_getopt.FancyGetopt.get_attr_name
 distutils.fancy_getopt.FancyGetopt.has_option
@@ -687,9 +656,6 @@ distutils.fancy_getopt.FancyGetopt.print_help
 distutils.fancy_getopt.FancyGetopt.set_aliases
 distutils.fancy_getopt.FancyGetopt.set_negative_aliases
 distutils.fancy_getopt.FancyGetopt.set_option_table
-distutils.fancy_getopt.longopt_pat
-distutils.fancy_getopt.longopt_xlate
-distutils.fancy_getopt.translate_longopt
 distutils.msvccompiler.MSVCCompiler.compiler_type
 distutils.msvccompiler.MSVCCompiler.exe_extension
 distutils.msvccompiler.MSVCCompiler.executables
@@ -708,13 +674,9 @@ distutils.msvccompiler.get_build_version
 distutils.msvccompiler.normalize_and_reduce_paths
 distutils.msvccompiler.read_keys
 distutils.msvccompiler.read_values
-distutils.sysconfig.BASE_EXEC_PREFIX
-distutils.sysconfig.BASE_PREFIX
 distutils.sysconfig.build_flags
 distutils.sysconfig.parse_config_h
 distutils.sysconfig.parse_makefile
-distutils.sysconfig.project_base
-distutils.sysconfig.python_build
 distutils.text_file.TextFile.default_options
 distutils.text_file.TextFile.error
 distutils.text_file.TextFile.gen_error

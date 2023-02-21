@@ -81,8 +81,8 @@ def make_venv(venv_dir: Path) -> VenvInfo:
 
 @cache
 def get_mypy_req() -> str:
-    with open("requirements-tests.txt", encoding="UTF-8") as f:
-        return next(line.strip() for line in f if "mypy" in line)
+    with open("requirements-tests.txt", encoding="UTF-8") as requirements_file:
+        return next(strip_comments(line) for line in requirements_file if "mypy" in line)
 
 
 # ====================================================================

@@ -20,6 +20,7 @@ enum.auto.__init__
 enum.auto.value
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 ftplib.FTP.trust_server_pasv_ipv4_address
+functools.cached_property.__set__  # Stub is a while lie; see comments in the stub
 ipaddress.IPv4Interface.hostmask
 ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
@@ -138,7 +139,3 @@ typing._TypedDict.values
 
 # White lies around defaults
 dataclasses.KW_ONLY
-
-# stubtest confuses stdlib distutils with setuptools-bundled distutils (#8410),
-# and the whole directory is going to be removed in 3.12 anyway
-distutils\..*
