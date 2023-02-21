@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal
 
 from openpyxl.descriptors.serialisable import Serialisable
 
@@ -23,7 +24,11 @@ class ChildSheet(Serialisable):
     state: Incomplete
     id: Incomplete
     def __init__(
-        self, name: Incomplete | None = ..., sheetId: Incomplete | None = ..., state: str = ..., id: Incomplete | None = ...
+        self,
+        name: Incomplete | None = ...,
+        sheetId: Incomplete | None = ...,
+        state: Literal["visible", "hidden", "veryHidden"] = ...,
+        id: Incomplete | None = ...,
     ) -> None: ...
 
 class PivotCache(Serialisable):

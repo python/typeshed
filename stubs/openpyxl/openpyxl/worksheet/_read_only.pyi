@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal
 
 def read_dimension(source): ...
 
@@ -13,7 +14,7 @@ class ReadOnlyWorksheet:
     __iter__: Incomplete
     parent: Incomplete
     title: Incomplete
-    sheet_state: str
+    sheet_state: Literal["visible"]
     def __init__(self, parent_workbook, title, worksheet_path, shared_strings) -> None: ...
     def calculate_dimension(self, force: bool = ...): ...
     def reset_dimensions(self) -> None: ...

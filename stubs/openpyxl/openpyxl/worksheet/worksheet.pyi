@@ -1,6 +1,5 @@
 from _typeshed import Incomplete, Unused
 from collections.abc import Generator, Iterable, Iterator
-from datetime import datetime
 from types import GeneratorType
 from typing import overload
 from typing_extensions import Literal, TypeAlias
@@ -79,7 +78,7 @@ class Worksheet(_WorkbookChild):
     @overload
     def iter_rows(
         self, min_row: int | None, max_row: int | None, min_col: int | None, max_col: int | None, values_only: Literal[True]
-    ) -> Generator[tuple[str | float | datetime | None, ...], None, None]: ...
+    ) -> Generator[tuple[_KnownTypes, ...], None, None]: ...
     @overload
     def iter_rows(
         self,

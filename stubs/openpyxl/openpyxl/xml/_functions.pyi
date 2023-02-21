@@ -1,5 +1,6 @@
 # This file does not exist at runtime. It is a helper file to overload imports in openpyxl.xml.functions
-# TODO: Create missing stubs and add missing types upstream
+# TODO: Add missing types in lxml-stubs and et_xmlfile and figure out how to import lxml-stubs
+# NOTE: openpyxl already depends on et_xmlfile, but depending on defusedxml is overkill for our needs.
 from _typeshed import Incomplete, Unused
 from collections.abc import Iterator
 from typing import overload
@@ -26,7 +27,7 @@ def fromstring(text, forbid_dtd: bool = ..., forbid_entities: bool = ..., forbid
 # from et_xmlfile.xmlfile import xmlfile
 class _et_xmlfile_xmlfile:
     def __init__(
-        self, output_file: Incomplete | str, buffered: Unused = ..., encoding: _Unused = ..., close: bool = ...
+        self, output_file: Incomplete | str, buffered: Unused = ..., encoding: Unused = ..., close: bool = ...
     ) -> None: ...
     def __enter__(self) -> Incomplete: ...
     def __exit__(self, type: object, value: object, traceback: object) -> None: ...
