@@ -1,0 +1,22 @@
+# Some methods are dynamically patched onto to instances as they
+# may depend on whether code is executed in graph/eager/v1/v2/etc.
+# Tensorflow supports multiple modes of execution which changes some
+# of the attributes/methods/even class hierachies.
+tensorflow.Tensor.__int__
+tensorflow.Tensor.numpy
+tensorflow.Tensor.__index__
+# Incomplete
+tensorflow.sparse.SparseTensor.__getattr__
+tensorflow.SparseTensor.__getattr__
+tensorflow.TensorShape.__getattr__
+tensorflow.dtypes.DType.__getattr__
+tensorflow.RaggedTensor.__getattr__
+tensorflow.DType.__getattr__
+tensorflow.Graph.__getattr__
+tensorflow.Operation.__getattr__
+tensorflow.Variable.__getattr__
+# Internal undocumented API
+tensorflow.RaggedTensor.__init__
+# Has an undocumented extra argument that tf.Variable which acts like subclass
+# (by dynamically patching tf.Tensor methods) does not preserve.
+tensorflow.Tensor.__getitem__

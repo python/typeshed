@@ -10,6 +10,9 @@ permissions:
   issues: write
   pull-requests: write
 
+env:
+  FORCE_COLOR: 1
+
 jobs:
   stubsabot:
     name: Upgrade stubs with stubsabot

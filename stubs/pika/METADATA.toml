@@ -1,5 +1,6 @@
 version = "1.3.*"
-upload = false  # https://github.com/python/typeshed/issues/9246
-
-[tool.stubtest]
-ignore_missing_stub = false
+stub_distribution = "types-pika-ts" # https://github.com/python/typeshed/issues/9246
+extra_description = """\
+The `types-pika` package contains alternate, more complete type stubs, that \
+are maintained outside of typeshed.\
+"""

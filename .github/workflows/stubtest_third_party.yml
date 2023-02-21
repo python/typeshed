@@ -3,17 +3,23 @@ name: Third-party stubtest
 on:
   pull_request:
     paths:
-      - 'stubs/**'
-      - '.github/workflows/stubtest_third_party.yml'
-      - 'tests/**'
+      - "stubs/**"
+      - ".github/workflows/stubtest_third_party.yml"
+      - "tests/**"
       # When requirements.txt changes, we run `daily.yml`, which includes third-party stubtest
 
 permissions:
   contents: read
 
 env:
+  # A few env vars to speedup brew install
+  HOMEBREW_NO_ANALYTICS: 1
+  HOMEBREW_NO_AUTOUPDATE: 1
+  HOMEBREW_NO_INSTALL_CLEANUP: 1 # Environments are isolated, no need to cleanup old versions
+  NONINTERACTIVE: 1 # Required for brew install on CI
   PIP_DISABLE_PIP_VERSION_CHECK: 1
   FORCE_COLOR: 1
+  TERM: xterm-256color # needed for FORCE_COLOR to work on mypy on Ubuntu, see https://github.com/python/mypy/issues/13817
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
@@ -39,7 +45,6 @@ jobs:
           cache: pip
           cache-dependency-path: |
             requirements-tests.txt
-            stubs/**/@tests/requirements-stubtest.txt
             stubs/**/METADATA.toml
       - name: Install dependencies
         run: pip install -r requirements-tests.txt
@@ -57,7 +62,7 @@ jobs:
 
           if [ -n "$STUBS" ]; then
             echo "Testing $STUBS..."
-            PACKAGES=$(python tests/get_packages.py $STUBS)
+            PACKAGES=$(python tests/get_stubtest_system_requirements.py $STUBS)
 
             if [ "${{ runner.os }}" = "Linux" ]; then
               if [ -n "$PACKAGES" ]; then
@@ -65,11 +70,11 @@ jobs:
                 sudo apt update && sudo apt install -y $PACKAGES
               fi
 
-              xvfb-run python tests/stubtest_third_party.py --specified-stubs-only $STUBS
+              PYTHON_EXECUTABLE="xvfb-run python"
             else
               if [ "${{ runner.os }}" = "macOS" ] && [ -n "$PACKAGES" ]; then
                 echo "Installing Homebrew packages: $PACKAGES"
-                NONINTERACTIVE=1 brew install $PACKAGES
+                brew install $PACKAGES
               fi
 
               if [ "${{ runner.os }}" = "Windows" ] && [ -n "$PACKAGES" ]; then
@@ -77,8 +82,10 @@ jobs:
                 choco install -y $PACKAGES
               fi
 
-              python tests/stubtest_third_party.py --specified-stubs-only $STUBS
+              PYTHON_EXECUTABLE="python"
             fi
+
+            $PYTHON_EXECUTABLE tests/stubtest_third_party.py --specified-stubs-only $STUBS
           else
             echo "Nothing to test"
           fi

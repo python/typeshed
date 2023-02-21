@@ -1,18 +1,20 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import argparse
 import json
 import os
 import re
 import subprocess
 import sys
 from pathlib import Path
+from typing import Iterable
 
 try:
     from termcolor import colored
 except ImportError:
 
-    def colored(text: str, color: str = "") -> str:  # type: ignore[misc]
+    def colored(text: str, color: str | None = None, on_color: str | None = None, attrs: Iterable[str] | None = None) -> str:
         return text
 
 
@@ -43,16 +45,28 @@ def _get_strict_params(stub_path: str) -> list[str]:
 
 
 def main() -> None:
-    try:
-        path = sys.argv[1]
-    except IndexError:
-        print("Missing path argument in format <folder>/<stub>", file=sys.stderr)
-        sys.exit(1)
-    assert os.path.exists(path), rf"Path {path} does not exist."
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--run-stubtest",
+        action="store_true",
+        help=(
+            "Run stubtest for the selected package(s). Running stubtest may download and execute arbitrary code from PyPI: "
+            "only use this option if you trust the package you are testing."
+        ),
+    )
+    parser.add_argument("path", help="Path of the stub to test in format <folder>/<stub>, from the root of the project.")
+    args = parser.parse_args()
+    path: str = args.path
+    run_stubtest: bool = args.run_stubtest
+
     path_tokens = Path(path).parts
-    assert len(path_tokens) == 2, "Path argument should be in format <folder>/<stub>."
+    if len(path_tokens) != 2:
+        parser.error("'path' argument should be in format <folder>/<stub>.")
     folder, stub = path_tokens
-    assert folder in {"stdlib", "stubs"}, "Only the 'stdlib' and 'stubs' folders are supported."
+    if folder not in {"stdlib", "stubs"}:
+        parser.error("Only the 'stdlib' and 'stubs' folders are supported.")
+    if not os.path.exists(path):
+        parser.error(rf"'path' {path} does not exist.")
     stubtest_result: subprocess.CompletedProcess[bytes] | None = None
     pytype_result: subprocess.CompletedProcess[bytes] | None = None
 
@@ -98,19 +112,18 @@ def main() -> None:
             print("\nRunning stubtest...")
             stubtest_result = subprocess.run([sys.executable, "tests/stubtest_stdlib.py", stub])
         else:
-            run_stubtest_query = (
-                f"\nRun stubtest for {stub!r} (Y/N)?\n\n"
-                "NOTE: Running third-party stubtest involves downloading and executing arbitrary code from PyPI.\n"
-                f"Only run stubtest if you trust the {stub!r} package.\n"
-            )
-            run_stubtest_answer = input(colored(run_stubtest_query, "yellow")).lower()
-            while run_stubtest_answer not in {"yes", "no", "y", "n"}:
-                run_stubtest_answer = input(colored("Invalid response; please try again.\n", "red")).lower()
-            if run_stubtest_answer in {"yes", "y"}:
-                print("\nRunning stubtest.")
+            if run_stubtest:
+                print("\nRunning stubtest...")
                 stubtest_result = subprocess.run([sys.executable, "tests/stubtest_third_party.py", stub])
             else:
-                print(colored(f"\nSkipping stubtest for {stub!r}...", "yellow"))
+                print(
+                    colored(
+                        f"\nSkipping stubtest for {stub!r}..."
+                        + "\nNOTE: Running third-party stubtest involves downloading and executing arbitrary code from PyPI."
+                        + f"\nOnly run stubtest if you trust the {stub!r} package.",
+                        "yellow",
+                    )
+                )
     else:
         print(colored("\nSkipping stubtest since mypy failed.", "yellow"))
 
