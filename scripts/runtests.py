@@ -7,8 +7,8 @@ import os
 import re
 import subprocess
 import sys
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Iterable
 
 try:
     from termcolor import colored
@@ -176,7 +176,7 @@ def main() -> None:
         print("stubtest:", _SKIPPED)
     else:
         print("stubtest:", _SUCCESS if stubtest_result.returncode == 0 else _FAILED)
-    if pytype_result is None:
+    if not pytype_result:
         print("pytype:", _SKIPPED)
     else:
         print("pytype:", _SUCCESS if pytype_result.returncode == 0 else _FAILED)

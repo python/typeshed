@@ -1,0 +1,23 @@
+{
+    "$schema": "https://raw.githubusercontent.com/microsoft/pyright/main/packages/vscode-pyright/schemas/pyrightconfig.schema.json",
+    "typeshedPath": ".",
+    "include": [
+        "scripts",
+        "tests",
+    ],
+    "typeCheckingMode": "strict",
+    // Runtime libraries used by typeshed are not all py.typed
+    "useLibraryCodeForTypes": true,
+    // Extra strict settings
+    "reportMissingModuleSource": "error",
+    "reportShadowedImports": "error",
+    "reportCallInDefaultInitializer": "error",
+    "reportImplicitStringConcatenation": "error",
+    "reportPropertyTypeMismatch": "error",
+    "reportUninitializedInstanceVariable": "error",
+    "reportUnnecessaryTypeIgnoreComment": "error",
+    // Leave "type: ignore" comments to mypy
+    "enableTypeIgnoreComments": false,
+    // Too strict
+    "reportMissingSuperCall": "none",
+}

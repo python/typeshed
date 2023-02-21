@@ -4,12 +4,14 @@ import zipimport
 from _typeshed import Incomplete
 from abc import ABCMeta
 from collections.abc import Callable, Generator, Iterable, Sequence
-from typing import IO, Any, TypeVar, overload
-from typing_extensions import Self, TypeAlias
+from re import Pattern
+from typing import IO, Any, ClassVar, TypeVar, overload
+from typing_extensions import Literal, Self, TypeAlias
 
 _Version: TypeAlias = Incomplete  # from packaging.version
 
 _T = TypeVar("_T")
+_D = TypeVar("_D", bound=Distribution)
 _NestedStr: TypeAlias = str | Iterable[str | Iterable[Any]]
 _InstallerType: TypeAlias = Callable[[Requirement], Distribution | None]
 _EPDistType: TypeAlias = Distribution | Requirement | str
@@ -68,6 +70,10 @@ class Environment:
     def obtain(self, requirement: Requirement, installer: Callable[[Requirement], _T]) -> _T: ...
     def scan(self, search_path: Sequence[str] | None = ...) -> None: ...
 
+class DistInfoDistribution(Distribution):
+    PKG_INFO: ClassVar[Literal["METADATA"]]
+    EQEQ: ClassVar[Pattern[str]]
+
 def parse_requirements(strs: str | Iterable[str]) -> Generator[Requirement, None, None]: ...
 
 class Requirement:
@@ -119,10 +125,15 @@ class EntryPoint:
     def resolve(self) -> Any: ...
 
 def find_distributions(path_item: str, only: bool = ...) -> Generator[Distribution, None, None]: ...
-def get_distribution(dist: Requirement | str | Distribution) -> Distribution: ...
+@overload
+def get_distribution(dist: _D) -> _D: ...
+@overload
+def get_distribution(dist: _PkgReqType) -> DistInfoDistribution: ...
 
 class Distribution(IResourceProvider, IMetadataProvider):
-    PKG_INFO: str
+    PKG_INFO: ClassVar[str]
+    # Initialized to None, but is not meant to be instanciated directly
+    egg_info: str
     location: str
     project_name: str
     @property

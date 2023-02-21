@@ -10,6 +10,7 @@ import re
 import sys
 import urllib.parse
 from pathlib import Path
+from typing import TypedDict
 
 import yaml
 from packaging.requirements import Requirement
@@ -93,7 +94,7 @@ def check_no_symlinks() -> None:
 
 
 def check_versions() -> None:
-    versions = set()
+    versions = set[str]()
     with open("stdlib/VERSIONS", encoding="UTF-8") as f:
         data = f.read().splitlines()
     for line in data:
@@ -115,7 +116,7 @@ def check_versions() -> None:
 
 
 def _find_stdlib_modules() -> set[str]:
-    modules = set()
+    modules = set[str]()
     for path, _, files in os.walk("stdlib"):
         for filename in files:
             base_module = ".".join(os.path.normpath(path).split(os.sep)[1:])
@@ -140,11 +141,21 @@ def get_txt_requirements() -> dict[str, SpecifierSet]:
         return {requirement.name: requirement.specifier for requirement in requirements}
 
 
+class PreCommitConfigRepos(TypedDict):
+    hooks: list[dict[str, str]]
+    repo: str
+    rev: str
+
+
+class PreCommitConfig(TypedDict):
+    repos: list[PreCommitConfigRepos]
+
+
 def get_precommit_requirements() -> dict[str, SpecifierSet]:
     with open(".pre-commit-config.yaml", encoding="UTF-8") as precommit_file:
         precommit = precommit_file.read()
-    yam = yaml.load(precommit, Loader=yaml.Loader)
-    precommit_requirements = {}
+    yam: PreCommitConfig = yaml.load(precommit, Loader=yaml.Loader)
+    precommit_requirements = dict[str, SpecifierSet]()
     for repo in yam["repos"]:
         if not repo.get("python_requirement", True):
             continue

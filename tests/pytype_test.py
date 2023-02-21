@@ -19,10 +19,15 @@ import traceback
 from collections.abc import Iterable, Sequence
 
 import pkg_resources
-from pytype import config as pytype_config, load_pytd  # type: ignore[import]
-from pytype.imports import typeshed  # type: ignore[import]
 
 from parse_metadata import read_dependencies
+
+assert sys.platform != "win32"
+# Lack of pytype typing
+# pyright: reportUnknownVariableType=false, reportUnknownMemberType=false, reportUnknownArgumentType=false, reportMissingTypeStubs=false
+# pytype is not py.typed https://github.com/google/pytype/issues/1325
+from pytype import config as pytype_config, load_pytd  # type: ignore[import]  # noqa: E402
+from pytype.imports import typeshed  # type: ignore[import]  # noqa: E402
 
 TYPESHED_SUBDIRS = ["stdlib", "stubs"]
 TYPESHED_HOME = "TYPESHED_HOME"
@@ -155,7 +160,11 @@ def get_missing_modules(files_to_test: Sequence[str]) -> Iterable[str]:
     for distribution in stub_distributions:
         for pkg in read_dependencies(distribution).external_pkgs:
             # See https://stackoverflow.com/a/54853084
-            top_level_file = os.path.join(pkg_resources.get_distribution(pkg).egg_info, "top_level.txt")  # type: ignore[attr-defined]
+            top_level_file = os.path.join(
+                # Fixed in #9747
+                pkg_resources.get_distribution(pkg).egg_info,  # type: ignore[attr-defined]  # pyright: ignore[reportGeneralTypeIssues]
+                "top_level.txt",
+            )
             with open(top_level_file) as f:
                 missing_modules.update(f.read().splitlines())
     return missing_modules

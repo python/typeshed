@@ -42,7 +42,7 @@ from utils import (
 
 # Fail early if mypy isn't installed
 try:
-    import mypy  # noqa: F401
+    import mypy  # pyright: ignore[reportUnusedImport]  # noqa: F401
 except ImportError:
     print_error("Cannot import mypy. Did you install it?")
     sys.exit(1)
@@ -57,6 +57,7 @@ VersionTuple: TypeAlias = Tuple[int, int]
 Platform: TypeAlias = Annotated[str, "Must be one of the entries in SUPPORTED_PLATFORMS"]
 
 
+@dataclass
 class CommandLineArgs(argparse.Namespace):
     verbose: int
     filter: list[Path]
@@ -158,7 +159,7 @@ def match(path: Path, args: TestConfig) -> bool:
 
 
 def parse_versions(fname: StrPath) -> dict[str, tuple[VersionTuple, VersionTuple]]:
-    result = {}
+    result: dict[str, tuple[VersionTuple, VersionTuple]] = {}
     with open(fname, encoding="UTF-8") as f:
         for line in f:
             line = strip_comments(line)
@@ -209,7 +210,8 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
     with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
         data = tomli.load(f)
 
-    mypy_tests_conf = data.get("mypy-tests")
+    # TODO: This could be added to parse_metadata.py, but is currently unused
+    mypy_tests_conf: dict[str, dict[str, dict[str, dict[str, Any]]]] = data.get("mypy-tests", {})
     if not mypy_tests_conf:
         return
 
@@ -531,7 +533,7 @@ def test_typeshed(code: int, args: TestConfig, tempdir: Path) -> TestResults:
 
 
 def main() -> None:
-    args = parser.parse_args(namespace=CommandLineArgs())
+    args = parser.parse_args(namespace=CommandLineArgs)
     versions = args.python_version or SUPPORTED_VERSIONS
     platforms = args.platform or [sys.platform]
     filter = args.filter or DIRECTORIES_TO_TEST
