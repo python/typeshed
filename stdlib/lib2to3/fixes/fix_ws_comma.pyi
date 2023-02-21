@@ -6,7 +6,6 @@ from ..pytree import Leaf
 
 class FixWsComma(fixer_base.BaseFix):
     BM_compatible: ClassVar[Literal[False]]
-    explicit: bool
     PATTERN: ClassVar[LiteralString]
     COMMA: Leaf
     COLON: Leaf

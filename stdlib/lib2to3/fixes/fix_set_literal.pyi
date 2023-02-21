@@ -4,6 +4,5 @@ from typing_extensions import Literal, LiteralString
 
 class FixSetLiteral(fixer_base.BaseFix):
     BM_compatible: ClassVar[Literal[True]]
-    explicit: bool
     PATTERN: ClassVar[LiteralString]
     def transform(self, node, results): ...

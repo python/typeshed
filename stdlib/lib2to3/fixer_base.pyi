@@ -9,13 +9,14 @@ _N = TypeVar("_N", bound=Base)
 
 class BaseFix:
     PATTERN: ClassVar[LiteralString | None]
+    pattern: Incomplete | None
     pattern_tree: Incomplete | None
     options: Incomplete | None
     filename: Incomplete | None
     numbers: Incomplete
     used_names: Incomplete
     order: ClassVar[Literal["post", "pre"]]
-    explicit: bool
+    explicit: ClassVar[bool]
     run_order: ClassVar[int]
     keep_line_order: ClassVar[bool]
     BM_compatible: ClassVar[bool]

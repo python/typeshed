@@ -8,7 +8,6 @@ TYPE: str
 
 class FixIdioms(fixer_base.BaseFix):
     BM_compatible: ClassVar[Literal[False]]
-    explicit: bool
     PATTERN: ClassVar[LiteralString]
     def match(self, node): ...
     def transform(self, node, results): ...
