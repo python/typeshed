@@ -42,6 +42,7 @@ dummy_threading.Thread.native_id
 dummy_threading.local.__new__
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 ftplib.FTP.trust_server_pasv_ipv4_address  # Dangerous to use, intentionally undocumented, intentionally missing from typeshed. #6154
+functools.cached_property.__set__  # Stub is a while lie; see comments in the stub
 gettext.install  # codeset default value is ['unspecified'] so can't be specified
 gettext.translation  # codeset default value is ['unspecified'] so can't be specified
 hmac.new  # Stub is a white lie; see comments in the stub
@@ -163,3 +164,8 @@ builtins.property.__get__
 builtins.staticmethod.__get__
 types.FunctionType.__get__
 types.LambdaType.__get__
+types.ClassMethodDescriptorType.__get__
+types.GetSetDescriptorType.__get__
+types.MemberDescriptorType.__get__
+types.MethodDescriptorType.__get__
+types.WrapperDescriptorType.__get__

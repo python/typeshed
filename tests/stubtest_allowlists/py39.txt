@@ -36,6 +36,7 @@ contextlib.AbstractAsyncContextManager.__class_getitem__
 contextlib.AbstractContextManager.__class_getitem__
 distutils.command.bdist_wininst  # see #6523
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
+functools.cached_property.__set__  # Stub is a while lie; see comments in the stub
 gettext.install
 gettext.translation
 hmac.new  # Stub is a white lie; see comments in the stub
@@ -158,3 +159,8 @@ builtins.property.__get__
 builtins.staticmethod.__get__
 types.FunctionType.__get__
 types.LambdaType.__get__
+types.ClassMethodDescriptorType.__get__
+types.GetSetDescriptorType.__get__
+types.MemberDescriptorType.__get__
+types.MethodDescriptorType.__get__
+types.WrapperDescriptorType.__get__
