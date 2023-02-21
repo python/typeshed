@@ -1,5 +1,5 @@
 from _typeshed import Incomplete, StrPath
-from collections.abc import Iterator, Sequence
+from collections.abc import Iterator
 from datetime import datetime
 from typing import IO
 
