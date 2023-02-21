@@ -157,10 +157,10 @@ class TracebackException:
             cls,
             exc: BaseException,
             *,
-            limit: int | None = ...,
-            lookup_lines: bool = ...,
-            capture_locals: bool = ...,
-            compact: bool = ...,
+            limit: int | None = None,
+            lookup_lines: bool = True,
+            capture_locals: bool = False,
+            compact: bool = False,
         ) -> Self: ...
     else:
         def __init__(
