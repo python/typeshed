@@ -2,8 +2,6 @@ from typing import Any
 
 from ..cmd import Command
 
-PYTHON_SOURCE_EXTENSION: str
-
 class install_lib(Command):
     description: str
     user_options: Any

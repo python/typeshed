@@ -1,7 +1,8 @@
 from _typeshed import FileDescriptorOrPath, SupportsWrite
 from collections.abc import Iterable, Mapping
-from distutils.cmd import Command
 from typing import IO, Any
+
+from setuptools._distutils.cmd import Command
 
 class DistributionMetadata:
     def __init__(self, path: FileDescriptorOrPath | None = ...) -> None: ...

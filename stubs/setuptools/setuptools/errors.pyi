@@ -1,3 +1,3 @@
-from distutils.errors import DistutilsError
+from setuptools._distutils.errors import DistutilsError
 
 class RemovedCommandError(DistutilsError, RuntimeError): ...

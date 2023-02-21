@@ -1,5 +1,6 @@
-import distutils.command.install as orig
 from typing import Any
+
+import setuptools._distutils.command.install as orig
 
 class install(orig.install):
     user_options: Any

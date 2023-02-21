@@ -4,8 +4,6 @@ from ..cmd import Command
 
 extension_name_re: Any
 
-def show_compilers() -> None: ...
-
 class build_ext(Command):
     description: str
     sep_by: Any
