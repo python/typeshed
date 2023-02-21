@@ -57,15 +57,19 @@ def run_mypy_as_subprocess(directory: str, platform: str, version: str) -> Retur
         "--no-error-summary",
         "--enable-error-code",
         "ignore-without-code",
+        "--enable-error-code",
+        "possibly-undefined",
+        "--enable-error-code",
+        "redundant-expr",
     ]
     if directory == "tests" and platform == "win32":
         command.extend(["--exclude", "tests/pytype_test.py"])
-    result = subprocess.run(command, capture_output=True)
+    result = subprocess.run(command, capture_output=True, text=True)
     stdout, stderr = result.stdout, result.stderr
     if stderr:
-        print_error(stderr.decode())
+        print_error(stderr)
     if stdout:
-        print_error(stdout.decode())
+        print_error(stdout)
     return result.returncode
 
 
