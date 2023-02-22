@@ -191,7 +191,7 @@ def read_metadata(distribution: str) -> StubMetadata:
     uploaded_to_pypi = data.get("upload", True)
     assert type(uploaded_to_pypi) is bool
 
-    empty_tools: dict[str, set[str]] = {}
+    empty_tools: dict[str, dict[str, object]] = {}
     tools_settings = data.get("tool", empty_tools)
     assert isinstance(tools_settings, dict)
     assert tools_settings.keys() <= _KNOWN_METADATA_TOOL_FIELDS.keys(), f"Unrecognised tool for {distribution!r}"

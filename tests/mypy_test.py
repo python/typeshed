@@ -211,7 +211,7 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
         data = tomli.load(f)
 
     # TODO: This could be added to parse_metadata.py, but is currently unused
-    mypy_tests_conf: dict[str, dict[str, dict[str, dict[str, Any]]]] = data.get("mypy-tests", {})
+    mypy_tests_conf: dict[str, Any] = data.get("mypy-tests", {})
     if not mypy_tests_conf:
         return
 

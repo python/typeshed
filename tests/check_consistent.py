@@ -155,7 +155,7 @@ def get_precommit_requirements() -> dict[str, SpecifierSet]:
     with open(".pre-commit-config.yaml", encoding="UTF-8") as precommit_file:
         precommit = precommit_file.read()
     yam: PreCommitConfig = yaml.load(precommit, Loader=yaml.Loader)
-    precommit_requirements = dict[str, SpecifierSet]()
+    precommit_requirements: dict[str, SpecifierSet] = {}
     for repo in yam["repos"]:
         if not repo.get("python_requirement", True):
             continue
