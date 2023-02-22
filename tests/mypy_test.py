@@ -533,7 +533,7 @@ def test_typeshed(code: int, args: TestConfig, tempdir: Path) -> TestResults:
 
 
 def main() -> None:
-    args = parser.parse_args(namespace=CommandLineArgs)
+    args = parser.parse_args(namespace=CommandLineArgs())
     versions = args.python_version or SUPPORTED_VERSIONS
     platforms = args.platform or [sys.platform]
     filter = args.filter or DIRECTORIES_TO_TEST
