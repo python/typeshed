@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Lack of pytype typing
+# pyright: reportUnknownVariableType=false, reportUnknownMemberType=false, reportUnknownArgumentType=false, reportMissingTypeStubs=false
 """Test runner for typeshed.
 
 Depends on pytype being installed.
@@ -23,8 +25,6 @@ import pkg_resources
 from parse_metadata import read_dependencies
 
 assert sys.platform != "win32"
-# Lack of pytype typing
-# pyright: reportUnknownVariableType=false, reportUnknownMemberType=false, reportUnknownArgumentType=false, reportMissingTypeStubs=false
 # pytype is not py.typed https://github.com/google/pytype/issues/1325
 from pytype import config as pytype_config, load_pytd  # type: ignore[import]  # noqa: E402
 from pytype.imports import typeshed  # type: ignore[import]  # noqa: E402
