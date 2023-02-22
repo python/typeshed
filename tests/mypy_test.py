@@ -223,8 +223,8 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
         assert module_name is not None, f"{section_name} should have a module_name key"
         assert isinstance(module_name, str), f"{section_name} should be a key-value pair"
 
-        values = mypy_section.get("values", {})
-        assert values is not None, f"{section_name} should have a values section"
+        assert "values" in mypy_section, f"{section_name} should have a values section"
+        values: dict[str, dict[str, Any]] = mypy_section["values"]
         assert isinstance(values, dict), "values should be a section"
 
         configurations.append(MypyDistConf(module_name, values.copy()))
