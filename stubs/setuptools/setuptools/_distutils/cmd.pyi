@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import Incomplete
 from abc import abstractmethod
 from collections.abc import Callable, Iterable
 
@@ -37,7 +37,7 @@ class Command:
         preserve_mode: int = ...,
         preserve_times: int = ...,
         link: str | None = ...,
-        level: Unused = ...,
+        level: int = ...,
     ) -> tuple[str, bool]: ...  # level is not used
     def copy_tree(
         self,
@@ -46,10 +46,10 @@ class Command:
         preserve_mode: int = ...,
         preserve_times: int = ...,
         preserve_symlinks: int = ...,
-        level: Unused = ...,
+        level: int = ...,
     ) -> list[str]: ...  # level is not used
-    def move_file(self, src: str, dst: str, level: Unused = ...) -> str: ...  # level is not used
-    def spawn(self, cmd: Iterable[str], search_path: int = ..., level: Unused = ...) -> None: ...  # level is not used
+    def move_file(self, src: str, dst: str, level: int = ...) -> str: ...  # level is not used
+    def spawn(self, cmd: Iterable[str], search_path: int = ..., level: int = ...) -> None: ...  # level is not used
     def make_archive(
         self,
         base_name: str,
