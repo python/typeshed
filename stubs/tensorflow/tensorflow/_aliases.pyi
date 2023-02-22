@@ -9,6 +9,6 @@ from typing_extensions import TypeAlias
 import numpy
 
 _T1 = TypeVar("_T1")
-_ContainerGeneric: TypeAlias = Mapping[str, _ContainerGeneric[_T1]] | Sequence[_ContainerGeneric[_T1]] | _T1
+ContainerGeneric: TypeAlias = Mapping[str, ContainerGeneric[_T1]] | Sequence[ContainerGeneric[_T1]] | _T1
 
-_AnyArray: TypeAlias = numpy.ndarray[Any, Any]  # noqa: Y047
+AnyArray: TypeAlias = numpy.ndarray[Any, Any]
