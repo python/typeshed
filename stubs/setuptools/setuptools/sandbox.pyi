@@ -1,6 +1,6 @@
 from typing import Any
 
-from setuptools._distutils.errors import DistutilsError
+from ._distutils.errors import DistutilsError
 
 class UnpickleableException(Exception):
     @staticmethod

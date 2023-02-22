@@ -1,8 +1,8 @@
+from _typeshed import Incomplete, Unused
 from abc import abstractmethod
 from collections.abc import Callable, Iterable
-from typing import Any
 
-from setuptools._distutils.dist import Distribution
+from .dist import Distribution
 
 class Command:
     sub_commands: list[tuple[str, Callable[[Command], bool] | None]]
@@ -26,7 +26,9 @@ class Command:
     def run_command(self, command: str) -> None: ...
     def get_sub_commands(self) -> list[str]: ...
     def warn(self, msg: str) -> None: ...
-    def execute(self, func: Callable[..., object], args: Iterable[Any], msg: str | None = ..., level: int = ...) -> None: ...
+    def execute(
+        self, func: Callable[..., object], args: Iterable[Incomplete], msg: str | None = ..., level: int = ...
+    ) -> None: ...
     def mkpath(self, name: str, mode: int = ...) -> None: ...
     def copy_file(
         self,
@@ -35,7 +37,7 @@ class Command:
         preserve_mode: int = ...,
         preserve_times: int = ...,
         link: str | None = ...,
-        level: Any = ...,
+        level: Unused = ...,
     ) -> tuple[str, bool]: ...  # level is not used
     def copy_tree(
         self,
@@ -44,10 +46,10 @@ class Command:
         preserve_mode: int = ...,
         preserve_times: int = ...,
         preserve_symlinks: int = ...,
-        level: Any = ...,
+        level: Unused = ...,
     ) -> list[str]: ...  # level is not used
-    def move_file(self, src: str, dst: str, level: Any = ...) -> str: ...  # level is not used
-    def spawn(self, cmd: Iterable[str], search_path: int = ..., level: Any = ...) -> None: ...  # level is not used
+    def move_file(self, src: str, dst: str, level: Unused = ...) -> str: ...  # level is not used
+    def spawn(self, cmd: Iterable[str], search_path: int = ..., level: Unused = ...) -> None: ...  # level is not used
     def make_archive(
         self,
         base_name: str,
@@ -62,8 +64,8 @@ class Command:
         infiles: str | list[str] | tuple[str, ...],
         outfile: str,
         func: Callable[..., object],
-        args: list[Any],
+        args: list[Incomplete],
         exec_msg: str | None = ...,
         skip_msg: str | None = ...,
-        level: Any = ...,
+        level: int = ...,
     ) -> None: ...  # level is not used

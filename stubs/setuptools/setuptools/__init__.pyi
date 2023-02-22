@@ -3,10 +3,11 @@ from collections.abc import Iterable, Mapping, Sequence
 from typing import Any
 
 from setuptools._deprecation_warning import SetuptoolsDeprecationWarning as SetuptoolsDeprecationWarning
-from setuptools._distutils.cmd import Command as _Command
 from setuptools.depends import Require as Require
 from setuptools.dist import Distribution as Distribution
 from setuptools.extension import Extension as Extension
+
+from ._distutils.cmd import Command as _Command
 
 __version__: str
 

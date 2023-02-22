@@ -1,6 +1,6 @@
 from typing import Any
 
-import setuptools._distutils.command.sdist as orig
+from .._distutils.command import sdist as orig
 
 def walk_revctrl(dirname: str = ...) -> None: ...
 

@@ -1,5 +1,14 @@
 version = "67.3.*"
 requires = ["types-docutils"]
+extra_description = """\
+Having [setuptools](https://pypi.org/project/setuptools/) installed results in incorrect \
+[distutils](https://docs.python.org/3/distutils/introduction.html) typing. \
+`types-setuptools` makes no attempt at correcting this issue. As of \
+`setuptools>=60.0.0`, you [should not be using `distutils` directly](\
+https://setuptools.pypa.io/en/latest/deprecated/distutils-legacy.html). \
+`distutils` is deprecated as of Python 3.10 and will be fully removed in Python 3.12. \
+(see [PEP 632](https://peps.python.org/pep-0632/))
+"""
 
 [tool.stubtest]
 ignore_missing_stub = true

@@ -1,8 +1,8 @@
 from _typeshed import FileDescriptorOrPath, SupportsWrite
 from collections.abc import Iterable, Mapping
-from typing import IO, Any
+from typing import IO
 
-from setuptools._distutils.cmd import Command
+from .cmd import Command
 
 class DistributionMetadata:
     def __init__(self, path: FileDescriptorOrPath | None = ...) -> None: ...
@@ -54,7 +54,7 @@ class DistributionMetadata:
 class Distribution:
     cmdclass: dict[str, type[Command]]
     metadata: DistributionMetadata
-    def __init__(self, attrs: Mapping[str, Any] | None = ...) -> None: ...
+    def __init__(self, attrs: Mapping[str, object] | None = ...) -> None: ...
     def get_option_dict(self, command: str) -> dict[str, tuple[str, str]]: ...
     def parse_config_files(self, filenames: Iterable[str] | None = ...) -> None: ...
     def get_command_obj(self, command: str, create: bool = ...) -> Command | None: ...

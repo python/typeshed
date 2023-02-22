@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from typing import ClassVar
 
-from setuptools._distutils.cmd import Command
+from .cmd import Command
 
 class PyPIRCCommand(Command):
     DEFAULT_REPOSITORY: ClassVar[str]

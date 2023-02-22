@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing import Any
 
-from setuptools._distutils.errors import DistutilsError
+from ._distutils.errors import DistutilsError
 
 class UnrecognizedFormat(DistutilsError): ...
 

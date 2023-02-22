@@ -1,7 +1,8 @@
 from _typeshed import Incomplete
 
 from setuptools import SetuptoolsDeprecationWarning
-from setuptools._distutils.dist import Distribution as _Distribution
+
+from ._distutils.dist import Distribution as _Distribution
 
 class Distribution(_Distribution):
     def patch_missing_pkg_info(self, attrs) -> None: ...

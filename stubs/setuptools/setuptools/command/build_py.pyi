@@ -1,6 +1,6 @@
 from typing import Any
 
-import setuptools._distutils.command.build_py as orig
+from .._distutils.command import build_py as orig
 
 def make_writable(target) -> None: ...
 
