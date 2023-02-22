@@ -15,6 +15,6 @@ pyyaml==6.0
 termcolor>=2
 tomli==2.0.1
 tomlkit==0.11.6
-types-pyyaml
+types-pyyaml>=6.0.12.7
 types-setuptools
 typing-extensions
