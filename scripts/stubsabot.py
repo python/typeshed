@@ -584,8 +584,7 @@ def get_update_pr_body(update: Update, metadata: dict[str, Any]) -> str:
     # Loss of type due to infered [dict[Unknown, Unknown]]
     # scripts/stubsabot.py can't import tests/parse_metadata
     stubtest_will_run = (
-        not metadata.get("tool", {}).get("stubtest", {})
-        .get("skip", False)  # pyright: ignore[reportUnknownMemberType]
+        not metadata.get("tool", {}).get("stubtest", {}).get("skip", False)  # pyright: ignore[reportUnknownMemberType]
     )
     if stubtest_will_run:
         body += textwrap.dedent(
