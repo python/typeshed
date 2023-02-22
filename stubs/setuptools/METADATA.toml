@@ -1,5 +1,4 @@
 version = "67.3.*"
-requires = ["types-docutils"]
 extra_description = """\
 Having [setuptools](https://pypi.org/project/setuptools/) installed results in incorrect \
 [distutils](https://docs.python.org/3/distutils/introduction.html) typing. \
