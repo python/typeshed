@@ -32,9 +32,7 @@ from termcolor import colored
 
 class ActionLevel(enum.IntEnum):
     def __new__(cls, value: int, doc: str) -> Self:
-        # Fails type-checking since updating "Self" types in #9694
-        # See: https://github.com/microsoft/pyright/issues/4668
-        member: Self = int.__new__(cls, value)  # pyright: ignore[reportGeneralTypeIssues]
+        member = int.__new__(cls, value)
         member._value_ = value
         member.__doc__ = doc
         return member
@@ -583,11 +581,10 @@ def get_update_pr_body(update: Update, metadata: dict[str, Any]) -> str:
     if update.diff_analysis is not None:
         body += f"\n\n{update.diff_analysis}"
 
+    # Loss of type due to infered [dict[Unknown, Unknown]]
+    # scripts/stubsabot.py can't import tests/parse_metadata
     stubtest_will_run = (
-        not metadata.get("tool", {}).get("stubtest", {})
-        # Loss of type due to infered [dict[Unknown, Unknown]]
-        # scripts/stubsabot.py can't import tests/parse_metadata
-        .get("skip", False)  # pyright: ignore[reportUnknownMemberType]
+        not metadata.get("tool", {}).get("stubtest", {}).get("skip", False)  # pyright: ignore[reportUnknownMemberType]
     )
     if stubtest_will_run:
         body += textwrap.dedent(
