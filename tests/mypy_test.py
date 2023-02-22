@@ -57,8 +57,8 @@ VersionTuple: TypeAlias = Tuple[int, int]
 Platform: TypeAlias = Annotated[str, "Must be one of the entries in SUPPORTED_PLATFORMS"]
 
 
-@dataclass
-class CommandLineArgs(argparse.Namespace):
+@dataclass(init=False)
+class CommandLineArgs:
     verbose: int
     filter: list[Path]
     exclude: list[Path] | None
@@ -223,7 +223,8 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
         assert module_name is not None, f"{section_name} should have a module_name key"
         assert isinstance(module_name, str), f"{section_name} should be a key-value pair"
 
-        values = mypy_section.get("values")
+        empty_values: dict[str, dict[str, Any]] = {}
+        values = mypy_section.get("values", empty_values)
         assert values is not None, f"{section_name} should have a values section"
         assert isinstance(values, dict), "values should be a section"
 
