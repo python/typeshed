@@ -12,7 +12,6 @@
     "reportMissingModuleSource": "error",
     "reportShadowedImports": "error",
     "reportCallInDefaultInitializer": "error",
-    "reportImplicitStringConcatenation": "error",
     "reportPropertyTypeMismatch": "error",
     "reportUninitializedInstanceVariable": "error",
     "reportUnnecessaryTypeIgnoreComment": "error",
@@ -20,4 +19,6 @@
     "enableTypeIgnoreComments": false,
     // Too strict
     "reportMissingSuperCall": "none",
+    // More of a lint. Unwanted.
+    "reportImplicitStringConcatenation": "none",
 }

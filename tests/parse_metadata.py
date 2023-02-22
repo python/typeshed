@@ -1,5 +1,5 @@
 # This module is made specifically to abstract away those type errors
-# pyright: reportUnknownVariableType=false, reportUnknownArgumentType=false
+# pyright: reportUnknownVariableType=false, reportUnknownArgumentType=false, reportUnknownMemberType=false
 
 """Tools to help parse and validate information stored in METADATA.toml files."""
 from __future__ import annotations
@@ -9,7 +9,7 @@ import re
 from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, NamedTuple
+from typing import NamedTuple
 from typing_extensions import Annotated, Final, TypeGuard, final
 
 import tomli
@@ -154,7 +154,7 @@ def read_metadata(distribution: str) -> StubMetadata:
     given in the `requires` field, for example.
     """
     with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
-        data: dict[str, Any] = tomli.load(f)
+        data: dict[str, object] = tomli.load(f)
 
     unknown_metadata_fields = data.keys() - _KNOWN_METADATA_FIELDS
     assert not unknown_metadata_fields, f"Unexpected keys in METADATA.toml for {distribution!r}: {unknown_metadata_fields}"

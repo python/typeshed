@@ -22,7 +22,7 @@ def check_new_syntax(tree: ast.AST, path: Path, stub: str) -> list[str]:
                 new_syntax = "if " + ast.unparse(node.test).replace("<", ">=", 1)
                 errors.append(
                     f"{path}:{node.lineno}: When using if/else with sys.version_info, "
-                    + f"put the code for new Python versions first, e.g. `{new_syntax}`"
+                    f"put the code for new Python versions first, e.g. `{new_syntax}`"
                 )
             self.generic_visit(node)
 

@@ -67,4 +67,4 @@ jobs:
           version: ${{ steps.pyright_version.outputs.value }}
           python-platform: ${{ matrix.python-platform }}
           python-version: "3.9"
-          project: ./pyrightconfig.typeshed.json
+          project: ./pyrightconfig.scripts_and_tests.json

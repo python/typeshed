@@ -8,7 +8,6 @@
     "typeCheckingMode": "strict",
     // Extra strict settings
     "reportShadowedImports": "error", // Don't accidentally name a file something that shadows stdlib
-    "reportImplicitStringConcatenation": "error",
     "reportUninitializedInstanceVariable": "error",
     "reportUnnecessaryTypeIgnoreComment": "error",
     // Using unspecific `type: ignore` comments in test_cases.
@@ -30,4 +29,6 @@
     "reportUnnecessaryIsInstance": "none",
     // The name of the self/cls parameter is out of typeshed's control.
     "reportSelfClsParameterName": "none",
+    // More of a lint. Unwanted.
+    "reportImplicitStringConcatenation": "none",
 }
