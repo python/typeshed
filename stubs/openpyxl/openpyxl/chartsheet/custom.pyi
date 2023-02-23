@@ -1,13 +1,13 @@
 from _typeshed import Incomplete
-from typing_extensions import Literal
 
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.worksheet.worksheet import _SheetVisibilityType
 
 class CustomChartsheetView(Serialisable):
     tagname: str
     guid: Incomplete
     scale: Incomplete
-    state: Literal["visible", "hidden", "veryHidden"]
+    state: _SheetVisibilityType
     zoomToFit: Incomplete
     pageMargins: Incomplete
     pageSetup: Incomplete
@@ -17,7 +17,7 @@ class CustomChartsheetView(Serialisable):
         self,
         guid: Incomplete | None = ...,
         scale: Incomplete | None = ...,
-        state: Literal["visible", "hidden", "veryHidden"] = ...,
+        state: _SheetVisibilityType = ...,
         zoomToFit: Incomplete | None = ...,
         pageMargins: Incomplete | None = ...,
         pageSetup: Incomplete | None = ...,

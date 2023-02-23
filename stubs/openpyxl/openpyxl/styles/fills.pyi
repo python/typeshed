@@ -30,30 +30,8 @@ FILL_PATTERN_LIGHTUP: Final = "lightUp"
 FILL_PATTERN_LIGHTVERTICAL: Final = "lightVertical"
 FILL_PATTERN_MEDIUMGRAY: Final = "mediumGray"
 
-fills: Final[
-    tuple[
-        Literal["solid"],
-        Literal["darkDown"],
-        Literal["darkGray"],
-        Literal["darkGrid"],
-        Literal["darkHorizontal"],
-        Literal["darkTrellis"],
-        Literal["darkUp"],
-        Literal["darkVertical"],
-        Literal["gray0625"],
-        Literal["gray125"],
-        Literal["lightDown"],
-        Literal["lightGray"],
-        Literal["lightGrid"],
-        Literal["lightHorizontal"],
-        Literal["lightTrellis"],
-        Literal["lightUp"],
-        Literal["lightVertical"],
-        Literal["mediumGray"],
-    ]
-]
+fills: Final[tuple[_FillsType, ...]]
 _FillsType: TypeAlias = Literal[
-    "none",
     "solid",
     "darkDown",
     "darkGray",
@@ -90,10 +68,10 @@ class PatternFill(Fill):
     end_color = bgColor  # noqa: F821
     def __init__(
         self,
-        patternType: _FillsType | None = ...,
+        patternType: _FillsType | Literal["none", None] = ...,
         fgColor: Color = ...,
         bgColor: Color = ...,
-        fill_type: _FillsType | None = ...,
+        fill_type: _FillsType | Literal["none", None] = ...,
         start_color: Color | None = ...,
         end_color: Color | None = ...,
     ) -> None: ...

@@ -11,7 +11,7 @@ from openpyxl.workbook.child import _WorkbookChild
 from openpyxl.worksheet.hyperlink import Hyperlink
 
 __docformat__: str
-TIME_TYPES: tuple[type[datetime.datetime], type[datetime.date], type[datetime.time], type[datetime.timedelta]]
+TIME_TYPES: tuple[type[_TimeTypes], ...]
 _TimeTypes: TypeAlias = datetime.datetime | datetime.date | datetime.time | datetime.timedelta
 TIME_FORMATS: dict[_TimeTypes, str]
 STRING_TYPES: tuple[type[str], type[bytes]]
@@ -22,17 +22,7 @@ _StringTypes: TypeAlias = str | bytes
 KNOWN_TYPES: tuple[_KnownTypes, ...]
 _KnownTypes: TypeAlias = _NumericTypes | _TimeTypes | _StringTypes | bool | None
 ILLEGAL_CHARACTERS_RE: Pattern[str]
-ERROR_CODES: Final[
-    tuple[
-        Literal["#NULL!"],
-        Literal["#DIV/0!"],
-        Literal["#VALUE!"],
-        Literal["#REF!"],
-        Literal["#NAME?"],
-        Literal["#NUM!"],
-        Literal["#N/A"],
-    ]
-]
+ERROR_CODES: Final[tuple[str, ...]]
 TYPE_STRING: Final = "s"
 TYPE_FORMULA: Final = "f"
 TYPE_NUMERIC: Final = "n"
@@ -42,11 +32,7 @@ TYPE_INLINE: Final = "inlineStr"
 TYPE_ERROR: Final = "e"
 TYPE_FORMULA_CACHE_STRING: Final = "str"
 
-VALID_TYPES: Final[
-    tuple[
-        Literal["s"], Literal["f"], Literal["n"], Literal["b"], Literal["n"], Literal["inlineStr"], Literal["e"], Literal["str"]
-    ]
-]
+VALID_TYPES: Final[tuple[str, ...]]
 
 def get_type(t: type, value: _KnownTypes) -> Literal["n", "s", "d", None]: ...
 def get_time_format(t: _TimeTypes) -> str: ...

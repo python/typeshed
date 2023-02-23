@@ -15,14 +15,6 @@ from xml.etree.ElementTree import (
     register_namespace as register_namespace,
 )
 
-import lxml.etree
-from lxml.etree import (  # type: ignore[assignment,no-redef]  # noqa: F811  # Implied overload
-    Element as Element,
-    QName as QName,
-    SubElement as SubElement,
-    _ElementOrTree,
-)
-
 from ._functions import (  # type: ignore[assignment,no-redef]  # noqa: F811  # Implied overload
     fromstring as fromstring,
     iterparse as iterparse,
@@ -30,8 +22,18 @@ from ._functions import (  # type: ignore[assignment,no-redef]  # noqa: F811  # 
     xmlfile as xmlfile,
 )
 
+# TODO: Figure out how to import lxml-stubs
+# import lxml.etree
+# from lxml.etree import (  # type: ignore[assignment,no-redef]  # noqa: F811  # Implied overload
+#     Element as Element,
+#     QName as QName,
+#     SubElement as SubElement,
+#     _ElementOrTree,
+# )
+# _Element: TypeAlias = lxml.etree._Element | xml.etree.ElementTree.Element  # noqa: Y047
+
 # Referenced outside this module
-_Element: TypeAlias = lxml.etree._Element | xml.etree.ElementTree.Element  # noqa: Y047
+_Element: TypeAlias = xml.etree.ElementTree.Element  # noqa: Y047
 
 NS_REGEX: Pattern[str]
 
@@ -61,7 +63,7 @@ else:
 # But made partial, removing encoding arg
 @overload
 def tostring(
-    element_or_tree: _ElementOrTree,
+    element_or_tree,
     method: str = ...,
     xml_declaration: bool = ...,
     pretty_print: bool = ...,

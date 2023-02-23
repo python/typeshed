@@ -6,8 +6,6 @@ from collections.abc import Iterator
 from typing import overload
 from typing_extensions import TypeAlias
 
-from lxml.etree import _AnyStr, _Element
-
 # lxml re-definitions are a mix of lxml-stubs and pylance
 # defusedxml stubs are missing. But we can still represent them.
 
@@ -18,7 +16,7 @@ def register_namespace(prefix, uri): ...
 # from lxml.etree import fromstring
 # But made partial, removing parser arg
 @overload
-def fromstring(text: _AnyStr, *, base_url: _AnyStr = ...) -> _Element: ...  # type: ignore[misc]  # Overlap with incompatible return types
+def fromstring(text: str | bytes, *, base_url: str | bytes = ...): ...  # type: ignore[misc]  # Overlap with incompatible return types
 
 # from defusedxml.ElementTree import fromstring
 @overload

@@ -1,2 +1,2 @@
 version = "3.0.*"
-requires = ["lxml-stubs", "numpy", "types-pillow"]
+requires = ["numpy", "types-pillow"]

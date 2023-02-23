@@ -1,10 +1,11 @@
 from _typeshed import Incomplete
 
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.worksheet.worksheet import _SheetVisibilityType
 
 class BookView(Serialisable):
     tagname: str
-    visibility: Incomplete
+    visibility: _SheetVisibilityType
     minimized: Incomplete
     showHorizontalScroll: Incomplete
     showVerticalScroll: Incomplete
@@ -21,7 +22,7 @@ class BookView(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        visibility: str = ...,
+        visibility: _SheetVisibilityType = ...,
         minimized: bool = ...,
         showHorizontalScroll: bool = ...,
         showVerticalScroll: bool = ...,

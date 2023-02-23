@@ -1,9 +1,9 @@
 from _typeshed import Incomplete
-from typing_extensions import Literal
 
 from openpyxl import _Decodable
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.workbook.child import _WorkbookChild
+from openpyxl.worksheet.worksheet import _SheetVisibilityType
 
 class Chartsheet(_WorkbookChild, Serialisable):
     tagname: str
@@ -19,7 +19,7 @@ class Chartsheet(_WorkbookChild, Serialisable):
     picture: Incomplete
     webPublishItems: Incomplete
     extLst: Incomplete
-    sheet_state: Literal["visible", "hidden", "veryHidden"]
+    sheet_state: _SheetVisibilityType
     headerFooter: Incomplete
     HeaderFooter: Incomplete
     __elements__: Incomplete
@@ -40,7 +40,7 @@ class Chartsheet(_WorkbookChild, Serialisable):
         extLst: Incomplete | None = ...,
         parent: Incomplete | None = ...,
         title: str | _Decodable = ...,
-        sheet_state: Literal["visible", "hidden", "veryHidden"] = ...,
+        sheet_state: _SheetVisibilityType = ...,
     ) -> None: ...
     def add_chart(self, chart) -> None: ...
     def to_tree(self): ...

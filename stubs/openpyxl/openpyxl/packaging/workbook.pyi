@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
-from typing_extensions import Literal
 
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.worksheet.worksheet import _SheetVisibilityType
 
 class FileRecoveryProperties(Serialisable):
     tagname: str
@@ -21,13 +21,13 @@ class ChildSheet(Serialisable):
     tagname: str
     name: Incomplete
     sheetId: Incomplete
-    state: Incomplete
+    state: _SheetVisibilityType
     id: Incomplete
     def __init__(
         self,
         name: Incomplete | None = ...,
         sheetId: Incomplete | None = ...,
-        state: Literal["visible", "hidden", "veryHidden"] = ...,
+        state: _SheetVisibilityType = ...,
         id: Incomplete | None = ...,
     ) -> None: ...
 

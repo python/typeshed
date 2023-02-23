@@ -1,6 +1,6 @@
 from _typeshed import Incomplete, Self, Unused
 from abc import abstractmethod
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.chart.data_source import NumFmt
 from openpyxl.chart.title import Title
@@ -12,6 +12,8 @@ from openpyxl.xml.functions import _Element
 from .layout import Layout
 from .shapes import GraphicalProperties
 from .text import RichText, Text
+
+_AxisTickMarkType: TypeAlias = Literal["cross", "in", "out", None]
 
 class ChartLines(Serialisable):
     tagname: str
@@ -61,8 +63,8 @@ class _BaseAxis(Serialisable):
     title: Title | None
     numFmt: NumFmt | None
     number_format = numFmt  # noqa: F821
-    majorTickMark: Literal["cross", "in", "out", None]
-    minorTickMark: Literal["cross", "in", "out", None]
+    majorTickMark: _AxisTickMarkType
+    minorTickMark: _AxisTickMarkType
     tickLblPos: Literal["high", "low", "nextTo", None]
     spPr: GraphicalProperties | None
     graphicalProperties = spPr  # noqa: F821
@@ -88,8 +90,8 @@ class _BaseAxis(Serialisable):
         minorGridlines: ChartLines | None,
         title: Title | None,
         numFmt: Incomplete | None,
-        majorTickMark: Literal["cross", "in", "out", None],
-        minorTickMark: Literal["cross", "in", "out", None],
+        majorTickMark: _AxisTickMarkType,
+        minorTickMark: _AxisTickMarkType,
         tickLblPos: Literal["high", "low", "nextTo", None],
         spPr: GraphicalProperties | None,
         txPr: RichText | None,
@@ -119,42 +121,33 @@ class DisplayUnitsLabel(Serialisable):
         txPr: RichText | None = ...,
     ) -> None: ...
 
+_BuiltInUnitType: TypeAlias = Literal[
+    "hundreds",
+    "thousands",
+    "tenThousands",
+    "hundredThousands",
+    "millions",
+    "tenMillions",
+    "hundredMillions",
+    "billions",
+    "trillions",
+    None,
+]
+
 class DisplayUnitsLabelList(Serialisable):
     tagname: str
     @property
     def custUnit(self) -> float | None: ...
     @custUnit.setter
     def custUnit(self, __value: _FloatSetter | None) -> None: ...
-    builtInUnit: Literal[
-        "hundreds",
-        "thousands",
-        "tenThousands",
-        "hundredThousands",
-        "millions",
-        "tenMillions",
-        "hundredMillions",
-        "billions",
-        "trillions",
-        None,
-    ]
+    builtInUnit: _BuiltInUnitType
     dispUnitsLbl: DisplayUnitsLabel | None
     extLst: ExtensionList | None
     __elements__: tuple[str, ...]
     def __init__(
         self,
         custUnit: float | None = ...,
-        builtInUnit: Literal[
-            "hundreds",
-            "thousands",
-            "tenThousands",
-            "hundredThousands",
-            "millions",
-            "tenMillions",
-            "hundredMillions",
-            "billions",
-            "trillions",
-            None,
-        ] = ...,
+        builtInUnit: _BuiltInUnitType = ...,
         dispUnitsLbl: DisplayUnitsLabel | None = ...,
         extLst: Unused = ...,
     ) -> None: ...
@@ -188,8 +181,8 @@ class NumericAxis(_BaseAxis):
         minorGridlines: ChartLines | None = ...,
         title: Title | None = ...,
         numFmt: Incomplete | None = ...,
-        majorTickMark: Literal["cross", "in", "out", None] = ...,
-        minorTickMark: Literal["cross", "in", "out", None] = ...,
+        majorTickMark: _AxisTickMarkType = ...,
+        minorTickMark: _AxisTickMarkType = ...,
         tickLblPos: Literal["high", "low", "nextTo", None] = ...,
         spPr: GraphicalProperties | None = ...,
         txPr: RichText | None = ...,
@@ -242,8 +235,8 @@ class TextAxis(_BaseAxis):
         minorGridlines: ChartLines | None = ...,
         title: Title | None = ...,
         numFmt: Incomplete | None = ...,
-        majorTickMark: Literal["cross", "in", "out", None] = ...,
-        minorTickMark: Literal["cross", "in", "out", None] = ...,
+        majorTickMark: _AxisTickMarkType = ...,
+        minorTickMark: _AxisTickMarkType = ...,
         tickLblPos: Literal["high", "low", "nextTo", None] = ...,
         spPr: GraphicalProperties | None = ...,
         txPr: RichText | None = ...,
@@ -251,6 +244,8 @@ class TextAxis(_BaseAxis):
         crosses: Literal["autoZero", "max", "min", None] = ...,
         crossesAt: _FloatSetter | None = ...,
     ) -> None: ...
+
+_TimeUnitType: TypeAlias = Literal["days", "months", "years", None]
 
 class DateAxis(TextAxis):
     tagname: str
@@ -262,28 +257,28 @@ class DateAxis(TextAxis):
     def lblOffset(self) -> int | None: ...
     @lblOffset.setter
     def lblOffset(self, __value: _IntegerSetter | None) -> None: ...
-    baseTimeUnit: Literal["days", "months", "years", None]
+    baseTimeUnit: _TimeUnitType
     @property
     def majorUnit(self) -> float | None: ...
     @majorUnit.setter
     def majorUnit(self, __value: _FloatSetter | None) -> None: ...
-    majorTimeUnit: Literal["days", "months", "years", None]
+    majorTimeUnit: _TimeUnitType
     @property
     def minorUnit(self) -> float | None: ...
     @minorUnit.setter
     def minorUnit(self, __value: _FloatSetter | None) -> None: ...
-    minorTimeUnit: Literal["days", "months", "years", None]
+    minorTimeUnit: _TimeUnitType
     extLst: ExtensionList | None
     __elements__: tuple[str, ...]
     def __init__(
         self,
         auto: _BoolSetter = ...,
         lblOffset: _IntegerSetter | None = ...,
-        baseTimeUnit: Literal["days", "months", "years", None] = ...,
+        baseTimeUnit: _TimeUnitType = ...,
         majorUnit: _FloatSetter | None = ...,
-        majorTimeUnit: Literal["days", "months", "years", None] = ...,
+        majorTimeUnit: _TimeUnitType = ...,
         minorUnit: _FloatSetter | None = ...,
-        minorTimeUnit: Literal["days", "months", "years", None] = ...,
+        minorTimeUnit: _TimeUnitType = ...,
         extLst: ExtensionList | None = ...,
         axId: _IntegerSetter = ...,
         scaling: Scaling | None = ...,
@@ -293,8 +288,8 @@ class DateAxis(TextAxis):
         minorGridlines: ChartLines | None = ...,
         title: Title | None = ...,
         numFmt: Incomplete | None = ...,
-        majorTickMark: Literal["cross", "in", "out", None] = ...,
-        minorTickMark: Literal["cross", "in", "out", None] = ...,
+        majorTickMark: _AxisTickMarkType = ...,
+        minorTickMark: _AxisTickMarkType = ...,
         tickLblPos: Literal["high", "low", "nextTo", None] = ...,
         spPr: GraphicalProperties | None = ...,
         txPr: RichText | None = ...,
@@ -328,8 +323,8 @@ class SeriesAxis(_BaseAxis):
         minorGridlines: ChartLines | None = ...,
         title: Title | None = ...,
         numFmt: Incomplete | None = ...,
-        majorTickMark: Literal["cross", "in", "out", None] = ...,
-        minorTickMark: Literal["cross", "in", "out", None] = ...,
+        majorTickMark: _AxisTickMarkType = ...,
+        minorTickMark: _AxisTickMarkType = ...,
         tickLblPos: Literal["high", "low", "nextTo", None] = ...,
         spPr: GraphicalProperties | None = ...,
         txPr: RichText | None = ...,

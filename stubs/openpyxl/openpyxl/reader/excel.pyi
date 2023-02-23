@@ -1,13 +1,13 @@
 from _typeshed import Incomplete, StrPath
 from typing import IO
-from typing_extensions import Final, Literal
+from typing_extensions import Final
 from zipfile import ZipFile
 
 from openpyxl.chartsheet.chartsheet import Chartsheet
 from openpyxl.packaging.relationship import Relationship
 from openpyxl.workbook.workbook import Workbook
 
-SUPPORTED_FORMATS: Final[tuple[Literal[".xlsx"], Literal[".xlsm"], Literal[".xltx"], Literal[".xltm"]]]
+SUPPORTED_FORMATS: Final[tuple[str, ...]]
 
 class ExcelReader:
     archive: ZipFile

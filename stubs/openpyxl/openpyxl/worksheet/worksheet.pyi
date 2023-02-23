@@ -2,7 +2,7 @@ from _typeshed import Incomplete, Unused
 from collections.abc import Generator, Iterable, Iterator
 from types import GeneratorType
 from typing import overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Final, Literal, TypeAlias
 
 from openpyxl import _Decodable
 from openpyxl.cell.cell import Cell, MergedCell, _KnownTypes
@@ -17,15 +17,16 @@ from openpyxl.worksheet.table import Table, TableList
 from openpyxl.worksheet.views import SheetView
 
 _Cell: TypeAlias = Cell | MergedCell
+_SheetVisibilityType: TypeAlias = Literal["visible", "hidden", "veryHidden"]  # noqa: Y047  # Used in other modules
 
 class Worksheet(_WorkbookChild):
     mime_type: str
     BREAK_NONE: int
     BREAK_ROW: int
     BREAK_COLUMN: int
-    SHEETSTATE_VISIBLE: str
-    SHEETSTATE_HIDDEN: str
-    SHEETSTATE_VERYHIDDEN: str
+    SHEETSTATE_VISIBLE: Final = "visible"
+    SHEETSTATE_HIDDEN: Final = "hidden"
+    SHEETSTATE_VERYHIDDEN: Final = "veryHidden"
     PAPERSIZE_LETTER: str
     PAPERSIZE_LETTER_SMALL: str
     PAPERSIZE_TABLOID: str
