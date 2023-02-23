@@ -258,6 +258,7 @@ class NullProvider:
     egg_name: str | None
     egg_info: str | None
     loader: types._LoaderProtocol | None
+    module_path: str | None
 
     def __init__(self, module) -> None: ...
     def get_resource_filename(self, manager, resource_name) -> str: ...
@@ -274,22 +275,27 @@ class NullProvider:
     def run_script(self, script_name: str, namespace: dict[str, Any]) -> None: ...
 
 class EggProvider(NullProvider):
-    egg_name: str
-    egg_info: str
     egg_root: str
 
 class DefaultProvider(EggProvider): ...
 
 class PathMetadata(DefaultProvider, IResourceProvider):
     egg_info: str
+    module_path: str
     def __init__(self, path: str, egg_info: str) -> None: ...
 
-class ZipProvider(EggProvider): ...
+class ZipProvider(EggProvider):
+    eagers: list[str] | None
+    zip_pre: str
 
 class EggMetadata(ZipProvider, IResourceProvider):
+    loader: types._LoaderProtocol
+    module_path: str
     def __init__(self, zipimporter: zipimport.zipimporter) -> None: ...
 
-class EmptyProvider(NullProvider): ...
+class EmptyProvider(NullProvider):
+    module_path: None
+    def __init__(self) -> None: ...
 
 empty_provider: EmptyProvider
 
