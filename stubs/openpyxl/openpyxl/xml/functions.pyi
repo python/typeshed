@@ -24,13 +24,13 @@ from ._functions import (  # type: ignore[assignment,no-redef]  # noqa: F811  # 
 
 # TODO: Figure out how to import lxml-stubs
 # import lxml.etree
-# from lxml.etree import (  # type: ignore[assignment,no-redef]  # noqa: F811  # Implied overload
+# from lxml.etree import (  # type: ignore[assignment,no-redef]   # Implied overload
 #     Element as Element,
 #     QName as QName,
 #     SubElement as SubElement,
 #     _ElementOrTree,
 # )
-# _Element: TypeAlias = lxml.etree._Element | xml.etree.ElementTree.Element  # noqa: Y047
+# _Element: TypeAlias = lxml.etree._Element | xml.etree.ElementTree.Element
 
 # Referenced outside this module
 _Element: TypeAlias = xml.etree.ElementTree.Element  # noqa: Y047

@@ -1,21 +1,21 @@
+import sys
 from decimal import Decimal
+from typing import Any
 from typing_extensions import TypeAlias
 
 import numpy
-import numpy._typing
 
-NUMERIC_TYPES: tuple[
-    Decimal | type[int | float | numpy.bool_ | numpy.floating[numpy._typing.NBitBase] | numpy.integer[numpy._typing.NBitBase]],
-    ...,
-]
+if sys.version_info < (3, 7):
+    _NBitBase: Any
+else:
+    import numpy._typing
+
+    _NBitBase: TypeAlias = numpy._typing.NBitBase
+
+NUMERIC_TYPES: tuple[Decimal | type[int | float | numpy.bool_ | numpy.floating[_NBitBase] | numpy.integer[_NBitBase]], ...]
 
 # Referenced outside this module
 _NumericTypes: TypeAlias = (  # noqa: Y047
-    int
-    | float
-    | Decimal
-    | type[numpy.bool_]
-    | type[numpy.floating[numpy._typing.NBitBase]]
-    | type[numpy.integer[numpy._typing.NBitBase]]
+    int | float | Decimal | type[numpy.bool_] | type[numpy.floating[_NBitBase]] | type[numpy.integer[_NBitBase]]
 )
 NUMPY: bool
