@@ -1,9 +1,10 @@
 import codecs
 import sys
 import threading
-from _typeshed import Self, Unused
+from _typeshed import Unused
 from collections.abc import Iterable
 from typing import Any, BinaryIO, TextIO
+from typing_extensions import Self
 
 from serial import Serial
 
@@ -19,7 +20,7 @@ class ConsoleBase:
     def write_bytes(self, byte_string: bytes) -> None: ...
     def write(self, text: str) -> None: ...
     def cancel(self) -> None: ...
-    def __enter__(self: Self) -> Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(self, *args: Unused, **kwargs: Unused) -> None: ...
 
 if sys.platform == "win32":

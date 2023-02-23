@@ -3,7 +3,7 @@ from collections.abc import Awaitable, Callable, Coroutine, Iterable, Mapping, S
 from contextlib import _GeneratorContextManager
 from types import TracebackType
 from typing import Any, Generic, TypeVar, overload
-from typing_extensions import Literal, Self, TypeAlias
+from typing_extensions import Final, Literal, Self, TypeAlias
 
 _T = TypeVar("_T")
 _TT = TypeVar("_TT", bound=type[Any])
@@ -47,7 +47,7 @@ else:
         "seal",
     )
 
-__version__: str
+__version__: Final[str]
 
 FILTER_DIR: Any
 
@@ -101,6 +101,8 @@ class _CallList(list[_Call]):
 class Base:
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
 
+# We subclass with "Any" because mocks are explicitly designed to stand in for other types,
+# something that can't be expressed with our static type system.
 class NonCallableMock(Base, Any):
     def __new__(__cls, *args: Any, **kw: Any) -> Self: ...
     def __init__(

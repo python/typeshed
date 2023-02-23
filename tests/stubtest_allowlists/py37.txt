@@ -13,6 +13,7 @@ asyncio.transports.WriteTransport.get_write_buffer_limits  # Documented. Exists 
 asyncio.WriteTransport.get_write_buffer_limits  # Documented. Exists in subclasses, but not in WriteTransport itself
 builtins.float.__set_format__  # Internal method for CPython test suite
 builtins.str.maketrans
+builtins.input  # Incorrect default value in text signature, fixed in 3.10
 cmath.log
 collections.AsyncGenerator.asend  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
 collections.AsyncGenerator.__anext__  # async at runtime, deliberately not in the stub, see #7491
@@ -31,7 +32,6 @@ dummy_threading.Condition.release
 dummy_threading.Event.isSet
 dummy_threading.local.__new__
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
-hmac.HMAC.__init__
 inspect.Signature.from_builtin  # Removed in 3.11, can add if someone needs this
 inspect.Signature.from_function  # Removed in 3.11, can add if someone needs this
 ipaddress._BaseNetwork.__init__
@@ -74,16 +74,6 @@ tkinter.Tk.__init__
 # Exists at runtime, but missing from stubs
 contextvars.ContextVar.__class_getitem__
 datetime.datetime_CAPI
-distutils.sysconfig.expand_makefile_vars
-distutils.sysconfig.get_python_version
-distutils.cygwinccompiler.RE_VERSION
-distutils.dist.command_re
-distutils.fancy_getopt.longopt_re
-distutils.fancy_getopt.neg_alias_re
-distutils.core.USAGE
-distutils.core.extension_keywords
-distutils.core.gen_usage
-distutils.core.setup_keywords
 dummy_threading.Lock
 dummy_threading.RLock
 html.parser.HTMLParser.unescape
@@ -156,54 +146,8 @@ builtins.property.__get__
 builtins.staticmethod.__get__
 types.FunctionType.__get__
 types.LambdaType.__get__
-
-# Missing from distutils (deprecated, to be removed in 3.12)
-distutils.core.USAGE
-distutils.core.extension_keywords
-distutils.core.gen_usage
-distutils.core.setup_keywords
-distutils.core.Command.dump_options
-distutils.core.Command.ensure_finalized
-distutils.core.Distribution.announce
-distutils.core.Distribution.common_usage
-distutils.core.Distribution.display_option_names
-distutils.core.Distribution.display_options
-distutils.core.Distribution.dump_option_dicts
-distutils.core.Distribution.find_config_files
-distutils.core.Distribution.get_command_packages
-distutils.core.Distribution.global_options
-distutils.core.Distribution.has_c_libraries
-distutils.core.Distribution.has_data_files
-distutils.core.Distribution.has_ext_modules
-distutils.core.Distribution.has_headers
-distutils.core.Distribution.has_modules
-distutils.core.Distribution.has_pure_modules
-distutils.core.Distribution.has_scripts
-distutils.core.Distribution.is_pure
-distutils.core.Distribution.negative_opt
-distutils.core.Distribution.parse_command_line
-distutils.core.Distribution.print_command_list
-distutils.core.Distribution.reinitialize_command
-distutils.core.Distribution.run_commands
-distutils.cygwinccompiler.is_cygwingcc
-distutils.dist.Distribution.announce
-distutils.dist.Distribution.common_usage
-distutils.dist.Distribution.display_option_names
-distutils.dist.Distribution.display_options
-distutils.dist.Distribution.dump_option_dicts
-distutils.dist.Distribution.find_config_files
-distutils.dist.Distribution.get_command_packages
-distutils.dist.Distribution.global_options
-distutils.dist.Distribution.has_c_libraries
-distutils.dist.Distribution.has_data_files
-distutils.dist.Distribution.has_ext_modules
-distutils.dist.Distribution.has_headers
-distutils.dist.Distribution.has_modules
-distutils.dist.Distribution.has_pure_modules
-distutils.dist.Distribution.has_scripts
-distutils.dist.Distribution.is_pure
-distutils.dist.Distribution.negative_opt
-distutils.dist.Distribution.parse_command_line
-distutils.dist.Distribution.print_command_list
-distutils.dist.Distribution.reinitialize_command
-distutils.dist.Distribution.run_commands
+types.ClassMethodDescriptorType.__get__
+types.GetSetDescriptorType.__get__
+types.MemberDescriptorType.__get__
+types.MethodDescriptorType.__get__
+types.WrapperDescriptorType.__get__

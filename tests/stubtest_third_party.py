@@ -41,10 +41,9 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
         dist_extras = ", ".join(stubtest_settings.extras)
         dist_req = f"{dist_name}[{dist_extras}]=={metadata.version}"
 
-        # If @tests/requirements-stubtest.txt exists, run "pip install" on it.
-        req_path = dist / "@tests" / "requirements-stubtest.txt"
-        if req_path.exists():
-            pip_cmd = [pip_exe, "install", "-r", str(req_path)]
+        # If tool.stubtest.stubtest_requirements exists, run "pip install" on it.
+        if stubtest_settings.stubtest_requirements:
+            pip_cmd = [pip_exe, "install"] + stubtest_settings.stubtest_requirements
             try:
                 subprocess.run(pip_cmd, check=True, capture_output=True)
             except subprocess.CalledProcessError as e:

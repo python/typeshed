@@ -1,3 +1,6 @@
+# This module is made specifically to abstract away those type errors
+# pyright: reportUnknownVariableType=false, reportUnknownArgumentType=false, reportUnknownMemberType=false
+
 """Tools to help parse and validate information stored in METADATA.toml files."""
 from __future__ import annotations
 
@@ -48,6 +51,7 @@ class StubtestSettings:
     extras: list[str]
     ignore_missing_stub: bool
     platforms: list[str]
+    stubtest_requirements: list[str]
 
     def system_requirements_for_platform(self, platform: str) -> list[str]:
         assert platform in _STUBTEST_PLATFORM_MAPPING, f"Unrecognised platform {platform!r}"
@@ -67,8 +71,9 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
     brew_dependencies = data.get("brew_dependencies", [])
     choco_dependencies = data.get("choco_dependencies", [])
     extras = data.get("extras", [])
-    ignore_missing_stub = data.get("ignore_missing_stub", True)
+    ignore_missing_stub = data.get("ignore_missing_stub", False)
     specified_platforms = data.get("platforms", ["linux"])
+    stubtest_requirements = data.get("stubtest_requirements", [])
 
     assert type(skipped) is bool
     assert type(ignore_missing_stub) is bool
@@ -79,6 +84,7 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
     assert _is_list_of_strings(brew_dependencies)
     assert _is_list_of_strings(choco_dependencies)
     assert _is_list_of_strings(extras)
+    assert _is_list_of_strings(stubtest_requirements)
 
     unrecognised_platforms = set(specified_platforms) - _STUBTEST_PLATFORM_MAPPING.keys()
     assert not unrecognised_platforms, f"Unrecognised platforms specified for {distribution!r}: {unrecognised_platforms}"
@@ -98,6 +104,7 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
         extras=extras,
         ignore_missing_stub=ignore_missing_stub,
         platforms=specified_platforms,
+        stubtest_requirements=stubtest_requirements,
     )
 
 
@@ -131,6 +138,7 @@ _KNOWN_METADATA_TOOL_FIELDS: Final = {
         "extras",
         "ignore_missing_stub",
         "platforms",
+        "stubtest_requirements",
     }
 }
 _DIST_NAME_RE: Final = re.compile(r"^[a-z0-9]([a-z0-9._-]*[a-z0-9])?$", re.IGNORECASE)
@@ -183,7 +191,8 @@ def read_metadata(distribution: str) -> StubMetadata:
     uploaded_to_pypi = data.get("upload", True)
     assert type(uploaded_to_pypi) is bool
 
-    tools_settings = data.get("tool", {})
+    empty_tools: dict[str, dict[str, object]] = {}
+    tools_settings = data.get("tool", empty_tools)
     assert isinstance(tools_settings, dict)
     assert tools_settings.keys() <= _KNOWN_METADATA_TOOL_FIELDS.keys(), f"Unrecognised tool for {distribution!r}"
     for tool, tk in _KNOWN_METADATA_TOOL_FIELDS.items():
@@ -229,7 +238,8 @@ def read_dependencies(distribution: str) -> PackageDependencies:
     If a typeshed stub is removed, this function will consider it to be an external dependency.
     """
     pypi_name_to_typeshed_name_mapping = get_pypi_name_to_typeshed_name_mapping()
-    typeshed, external = [], []
+    typeshed: list[str] = []
+    external: list[str] = []
     for dependency in read_metadata(distribution).requires:
         maybe_typeshed_dependency = Requirement(dependency).name
         if maybe_typeshed_dependency in pypi_name_to_typeshed_name_mapping:
