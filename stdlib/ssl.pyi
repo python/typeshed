@@ -291,11 +291,14 @@ ALERT_DESCRIPTION_UNSUPPORTED_CERTIFICATE: AlertDescription
 ALERT_DESCRIPTION_UNSUPPORTED_EXTENSION: AlertDescription
 ALERT_DESCRIPTION_USER_CANCELLED: AlertDescription
 
-class _ASN1Object(NamedTuple):
+class _ASN1ObjectBase(NamedTuple):
     nid: int
     shortname: str
     longname: str
     oid: str
+
+class _ASN1Object(_ASN1ObjectBase):
+    def __new__(cls, oid: str) -> Self: ...
     @classmethod
     def fromnid(cls, nid: int) -> Self: ...
     @classmethod
