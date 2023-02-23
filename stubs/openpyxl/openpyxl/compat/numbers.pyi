@@ -5,12 +5,12 @@ from typing_extensions import TypeAlias
 
 import numpy
 
-if sys.version_info < (3, 7):
-    _NBitBase: Any
-else:
+if sys.version_info >= (3, 8):
     import numpy._typing
 
     _NBitBase: TypeAlias = numpy._typing.NBitBase
+else:
+    _NBitBase: TypeAlias = Any
 
 NUMERIC_TYPES: tuple[Decimal | type[int | float | numpy.bool_ | numpy.floating[_NBitBase] | numpy.integer[_NBitBase]], ...]
 
