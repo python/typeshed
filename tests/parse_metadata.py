@@ -1,3 +1,6 @@
+# This module is made specifically to abstract away those type errors
+# pyright: reportUnknownVariableType=false, reportUnknownArgumentType=false, reportUnknownMemberType=false
+
 """Tools to help parse and validate information stored in METADATA.toml files."""
 from __future__ import annotations
 
@@ -188,7 +191,8 @@ def read_metadata(distribution: str) -> StubMetadata:
     uploaded_to_pypi = data.get("upload", True)
     assert type(uploaded_to_pypi) is bool
 
-    tools_settings = data.get("tool", {})
+    empty_tools: dict[str, dict[str, object]] = {}
+    tools_settings = data.get("tool", empty_tools)
     assert isinstance(tools_settings, dict)
     assert tools_settings.keys() <= _KNOWN_METADATA_TOOL_FIELDS.keys(), f"Unrecognised tool for {distribution!r}"
     for tool, tk in _KNOWN_METADATA_TOOL_FIELDS.items():
@@ -234,7 +238,8 @@ def read_dependencies(distribution: str) -> PackageDependencies:
     If a typeshed stub is removed, this function will consider it to be an external dependency.
     """
     pypi_name_to_typeshed_name_mapping = get_pypi_name_to_typeshed_name_mapping()
-    typeshed, external = [], []
+    typeshed: list[str] = []
+    external: list[str] = []
     for dependency in read_metadata(distribution).requires:
         maybe_typeshed_dependency = Requirement(dependency).name
         if maybe_typeshed_dependency in pypi_name_to_typeshed_name_mapping:
