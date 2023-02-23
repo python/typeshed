@@ -70,7 +70,7 @@ class BaseServer:
 class TCPServer(BaseServer):
     if sys.version_info >= (3, 11):
         allow_reuse_port: bool
-    server_address: _AfInetAddress  # type: ignore[assignment]
+    server_address: _AfInetAddress
     def __init__(
         self,
         server_address: _AfInetAddress,
