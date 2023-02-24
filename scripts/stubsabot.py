@@ -581,11 +581,8 @@ def get_update_pr_body(update: Update, metadata: dict[str, Any]) -> str:
     if update.diff_analysis is not None:
         body += f"\n\n{update.diff_analysis}"
 
-    # Loss of type due to inferred [dict[Unknown, Unknown]]
-    # scripts/stubsabot.py can't import tests/parse_metadata
-    stubtest_will_run = (
-        not metadata.get("tool", {}).get("stubtest", {}).get("skip", False)  # pyright: ignore[reportUnknownMemberType]
-    )
+    stubtest_settings: dict[str, Any] = metadata.get("tool", {}).get("stubtest", {})
+    stubtest_will_run = not stubtest_settings.get("skip", False)
     if stubtest_will_run:
         body += textwrap.dedent(
             """
