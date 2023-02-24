@@ -20,6 +20,11 @@ from types import (
 )
 from typing_extensions import Never as _Never, ParamSpec as _ParamSpec, final as _final
 
+if sys.version_info >= (3, 10):
+    from types import UnionType
+if sys.version_info >= (3, 9):
+    from types import GenericAlias
+
 __all__ = [
     "AbstractSet",
     "Any",
@@ -741,12 +746,26 @@ if sys.version_info >= (3, 9):
 
 else:
     def get_type_hints(
-        obj: _get_type_hints_obj_allowed_types, globalns: dict[str, Any] | None = None, localns: dict[str, Any] | None = None
+        obj: _get_type_hints_obj_allowed_types,
+        globalns: dict[str, Any] | None = None,
+        localns: dict[str, Any] | None = None,
     ) -> dict[str, Any]: ...
 
+def get_args(tp: Any) -> tuple[Any, ...]: ...
+
 if sys.version_info >= (3, 8):
-    def get_origin(tp: Any) -> Any | None: ...
-    def get_args(tp: Any) -> tuple[Any, ...]: ...
+    if sys.version_info >= (3, 10):
+        @overload
+        def get_origin(tp: ParamSpecArgs | ParamSpecKwargs) -> ParamSpec: ...
+        @overload
+        def get_origin(tp: UnionType) -> type[UnionType]: ...
+    if sys.version_info >= (3, 9):
+        @overload
+        def get_origin(tp: GenericAlias) -> type: ...
+        @overload
+        def get_origin(tp: Any) -> Any | None: ...
+    else:
+        def get_origin(tp: Any) -> Any | None: ...
 
 @overload
 def cast(typ: Type[_T], val: Any) -> _T: ...

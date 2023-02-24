@@ -5,7 +5,6 @@ import typing
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import IdentityFunction, Incomplete
 from collections.abc import Iterable
-from types import GenericAlias, UnionType
 from typing import (  # noqa: Y022,Y039
     TYPE_CHECKING as TYPE_CHECKING,
     Any as Any,
@@ -32,6 +31,11 @@ from typing import (  # noqa: Y022,Y039
     overload as overload,
     type_check_only,
 )
+
+if sys.version_info >= (3, 10):
+    from types import UnionType
+if sys.version_info >= (3, 9):
+    from types import GenericAlias
 
 __all__ = [
     "Any",
@@ -156,16 +160,19 @@ def get_type_hints(
     include_extras: bool = False,
 ) -> dict[str, Any]: ...
 def get_args(tp: Any) -> tuple[Any, ...]: ...
+
 if sys.version_info >= (3, 10):
     @overload
     def get_origin(tp: ParamSpecArgs | ParamSpecKwargs) -> ParamSpec: ...
     @overload
     def get_origin(tp: UnionType) -> type[UnionType]: ...
+
 if sys.version_info >= (3, 9):
     @overload
     def get_origin(tp: GenericAlias) -> type: ...
     @overload
     def get_origin(tp: Any) -> Any | None: ...
+
 else:
     def get_origin(tp: Any) -> Any | None: ...
 
