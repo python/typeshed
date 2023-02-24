@@ -1,11 +1,11 @@
 import abc
 import collections
 import sys
-from types import GenericAlias, UnionType
 import typing
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import IdentityFunction, Incomplete
 from collections.abc import Iterable
+from types import GenericAlias, UnionType
 from typing import (  # noqa: Y022,Y039
     TYPE_CHECKING as TYPE_CHECKING,
     Any as Any,
