@@ -1,6 +1,7 @@
 import abc
 import collections
 import sys
+from types import GenericAlias, UnionType
 import typing
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import IdentityFunction, Incomplete
@@ -155,6 +156,13 @@ def get_type_hints(
     include_extras: bool = False,
 ) -> dict[str, Any]: ...
 def get_args(tp: Any) -> tuple[Any, ...]: ...
+@overload
+def get_origin(tp: GenericAlias) -> type: ...
+@overload
+def get_origin(tp: ParamSpecArgs | ParamSpecKwargs) -> ParamSpec: ...
+@overload
+def get_origin(tp: UnionType) -> type[UnionType]: ...
+@overload
 def get_origin(tp: Any) -> Any | None: ...
 
 Annotated: _SpecialForm
