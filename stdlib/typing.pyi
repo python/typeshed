@@ -765,7 +765,6 @@ if sys.version_info >= (3, 8):
     else:
         def get_origin(tp: Any) -> Any | None: ...
 
-
 @overload
 def cast(typ: Type[_T], val: Any) -> _T: ...
 @overload
