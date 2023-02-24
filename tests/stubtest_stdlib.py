@@ -23,7 +23,7 @@ def run_stubtest(typeshed_dir: Path) -> int:
     combined_allowlist = f"{sys.platform}-py{sys.version_info.major}{sys.version_info.minor}.txt"
     with tempfile.TemporaryDirectory() as tmp:
         venv_dir = Path(tmp)
-        print("Setting up an isolated virtual environment...")
+        print("Setting up an isolated virtual environment...", file=sys.stderr)
         try:
             pip_exe, python_exe = make_venv(venv_dir)
         except Exception:
@@ -33,17 +33,17 @@ def run_stubtest(typeshed_dir: Path) -> int:
         # Install the same mypy version as in "requirements-tests.txt"
         try:
             install_command = [pip_exe, "install", get_mypy_req()]
-            ret = subprocess.run(install_command, check=True, text=True, capture_output=True)
+            subprocess.run(install_command, check=True, text=True, capture_output=True)
         except subprocess.CalledProcessError as e:
-            print(e.stderr)
+            print(e.stderr, file=sys.stderr)
             raise
 
         # Uninstall setuptools from the venv so we can test stdlib's distutils
         try:
             uninstall_command = [pip_exe, "uninstall", "-y", "setuptools"]
-            ret = subprocess.run(uninstall_command, check=True, text=True, capture_output=True)
+            subprocess.run(uninstall_command, check=True, text=True, capture_output=True)
         except subprocess.CalledProcessError as e:
-            print(e.stderr)
+            print(e.stderr, file=sys.stderr)
             raise
 
         cmd = [
