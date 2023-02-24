@@ -169,9 +169,10 @@ if sys.version_info >= (3, 10):
 if sys.version_info >= (3, 9):
     @overload
     def get_origin(tp: GenericAlias) -> type: ...
-
-@overload
-def get_origin(tp: Any) -> Any | None: ...
+    @overload
+    def get_origin(tp: Any) -> Any | None: ...
+else:
+    def get_origin(tp: Any) -> Any | None: ...
 
 Annotated: _SpecialForm
 _AnnotatedAlias: Any  # undocumented
