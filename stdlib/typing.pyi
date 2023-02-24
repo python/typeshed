@@ -746,9 +746,7 @@ if sys.version_info >= (3, 9):
 
 else:
     def get_type_hints(
-        obj: _get_type_hints_obj_allowed_types,
-        globalns: dict[str, Any] | None = None,
-        localns: dict[str, Any] | None = None,
+        obj: _get_type_hints_obj_allowed_types, globalns: dict[str, Any] | None = None, localns: dict[str, Any] | None = None
     ) -> dict[str, Any]: ...
 
 def get_args(tp: Any) -> tuple[Any, ...]: ...
