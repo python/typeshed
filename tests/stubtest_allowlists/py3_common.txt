@@ -144,13 +144,10 @@ multiprocessing.managers.SyncManager.Namespace
 multiprocessing.managers.SyncManager.RLock
 multiprocessing.queues.JoinableQueue.__init__
 multiprocessing.queues.Queue.__init__
-multiprocessing.queues.Queue.put_nowait
 multiprocessing.queues.SimpleQueue.__init__
-multiprocessing.queues.SimpleQueue.put
 multiprocessing.synchronize.Barrier.__init__
 multiprocessing.synchronize.Condition.acquire
 multiprocessing.synchronize.Condition.release
-multiprocessing.synchronize.Event.__init__
 multiprocessing.synchronize.SemLock.__init__
 multiprocessing.synchronize.SemLock.acquire
 multiprocessing.synchronize.SemLock.release
