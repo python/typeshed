@@ -1,11 +1,13 @@
 from _typeshed import Incomplete
 from abc import abstractmethod
 from collections.abc import Callable, Iterable
+from typing import ClassVar
+from typing_extensions import Self
 
 from .dist import Distribution
 
 class Command:
-    sub_commands: list[tuple[str, Callable[[Command], bool] | None]]
+    sub_commands: ClassVar[list[tuple[str, Callable[[Self], bool] | None]]]
     def __init__(self, dist: Distribution) -> None: ...
     @abstractmethod
     def initialize_options(self) -> None: ...

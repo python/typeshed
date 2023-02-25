@@ -9,7 +9,6 @@ class sdist(Command):
     boolean_options: Incomplete
     help_options: Incomplete
     negative_opt: Incomplete
-    sub_commands: Incomplete
     READMES: Incomplete
     template: Incomplete
     manifest: Incomplete

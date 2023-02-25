@@ -4,7 +4,6 @@ from ..config import PyPIRCCommand
 
 class register(PyPIRCCommand):
     description: str
-    sub_commands: list[tuple[str, Incomplete]]
     list_classifiers: int
     strict: int
     def initialize_options(self) -> None: ...
