@@ -289,7 +289,7 @@ class ZipProvider(EggProvider):
     zip_pre: str
 
 class EggMetadata(ZipProvider, IResourceProvider):
-    loader: types._LoaderProtocol
+    loader: zipimport.zipimporter
     module_path: str
     def __init__(self, zipimporter: zipimport.zipimporter) -> None: ...
 
