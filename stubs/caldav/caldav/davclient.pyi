@@ -1,5 +1,5 @@
-from _typeshed import Unused
 from collections.abc import Iterable, Mapping
+from types import TracebackType
 from typing import Any
 from typing_extensions import Self, TypeAlias
 from urllib.parse import ParseResult, SplitResult
@@ -51,7 +51,9 @@ class DAVClient:
         ssl_cert: str | tuple[str, str] | None = ...,
     ) -> None: ...
     def __enter__(self) -> Self: ...
-    def __exit__(self, exc_type: Unused, exc_value: Unused, traceback: Unused) -> None: ...
+    def __exit__(
+        self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None
+    ) -> None: ...
     def principal(self, *, url: str | ParseResult | SplitResult | URL | None = ...) -> Principal: ...
     def calendar(
         self,

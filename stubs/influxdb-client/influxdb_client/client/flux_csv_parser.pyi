@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import Incomplete
 from collections.abc import Generator
 from enum import Enum
 from types import TracebackType
@@ -47,7 +47,9 @@ class FluxCsvParser:
         response_metadata_mode: FluxResponseMetadataMode = ...,
     ) -> None: ...
     def __enter__(self) -> Self: ...
-    def __exit__(self, exc_type: Unused, exc_val: Unused, exc_tb: Unused) -> None: ...
+    def __exit__(
+        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
+    ) -> None: ...
     async def __aenter__(self) -> Self: ...
     async def __aexit__(
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None

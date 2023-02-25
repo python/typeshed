@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import Incomplete
 from types import TracebackType
 from typing import Any
 from typing_extensions import Self
@@ -56,7 +56,9 @@ class AsyncSession(ReversibleProxy):
     @classmethod
     async def close_all(cls): ...
     async def __aenter__(self) -> Self: ...
-    async def __aexit__(self, type_: Unused, value: Unused, traceback: Unused) -> None: ...
+    async def __aexit__(
+        self, type_: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
+    ) -> None: ...
     # proxied from Session
     identity_map: Any
     autoflush: Any

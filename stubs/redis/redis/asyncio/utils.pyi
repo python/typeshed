@@ -1,4 +1,4 @@
-from _typeshed import Unused
+from types import TracebackType
 from typing import Any, Generic
 
 from redis.asyncio.client import Pipeline, Redis
@@ -10,4 +10,6 @@ class pipeline(Generic[_StrType]):
     p: Pipeline[_StrType]
     def __init__(self, redis_obj: Redis[_StrType]) -> None: ...
     async def __aenter__(self) -> Pipeline[_StrType]: ...
-    async def __aexit__(self, exc_type: Unused, exc_value: Unused, traceback: Unused) -> None: ...
+    async def __aexit__(
+        self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None
+    ) -> None: ...

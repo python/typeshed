@@ -1,6 +1,7 @@
 import threading
-from _typeshed import ReadableBuffer, Unused
+from _typeshed import ReadableBuffer
 from collections.abc import Callable
+from types import TracebackType
 from typing_extensions import Self
 
 from serial import Serial
@@ -42,4 +43,6 @@ class ReaderThread(threading.Thread):
     def close(self) -> None: ...
     def connect(self) -> tuple[Self, Protocol]: ...
     def __enter__(self) -> Protocol: ...
-    def __exit__(self, __exc_type: Unused, __exc_val: Unused, __exc_tb: Unused) -> None: ...
+    def __exit__(
+        self, __exc_type: type[BaseException] | None, __exc_val: BaseException | None, __exc_tb: TracebackType | None
+    ) -> None: ...

@@ -1,5 +1,5 @@
-from _typeshed import Unused
 from collections.abc import MutableMapping
+from types import TracebackType
 from typing import Any, NoReturn, TypeVar
 
 _KT = TypeVar("_KT")
@@ -7,7 +7,9 @@ _VT = TypeVar("_VT")
 
 class RLock:
     def __enter__(self): ...
-    def __exit__(self, exc_type: Unused, exc_value: Unused, traceback: Unused) -> None: ...
+    def __exit__(
+        self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None
+    ) -> None: ...
 
 class RecentlyUsedContainer(MutableMapping[_KT, _VT]):
     ContainerCls: Any

@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import Incomplete
 from types import TracebackType
 from typing import Any
 
@@ -40,7 +40,9 @@ class AsyncConnection(ProxyComparable, StartableContext, AsyncConnectable):
     async def stream_scalars(self, statement, parameters: Incomplete | None = ..., execution_options=...): ...
     async def run_sync(self, fn, *arg, **kw): ...
     def __await__(self): ...
-    async def __aexit__(self, type_: Unused, value: Unused, traceback: Unused) -> None: ...
+    async def __aexit__(
+        self, type_: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
+    ) -> None: ...
     # proxied from Connection
     dialect: Any
     @property
