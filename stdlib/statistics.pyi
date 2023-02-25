@@ -123,9 +123,7 @@ if sys.version_info >= (3, 10):
         intercept: float
 
 if sys.version_info >= (3, 11):
-    def linear_regression(
-        __regressor: Sequence[_Number], __dependent_variable: Sequence[_Number], *, proportional: bool = False
-    ) -> LinearRegression: ...
+    def linear_regression(__x: Sequence[_Number], __y: Sequence[_Number], *, proportional: bool = False) -> LinearRegression: ...
 
 elif sys.version_info >= (3, 10):
     def linear_regression(__x: Sequence[_Number], __y: Sequence[_Number]) -> LinearRegression: ...
