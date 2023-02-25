@@ -1,5 +1,5 @@
 import logging
-from _typeshed import Incomplete, Unused
+from _typeshed import Incomplete
 from collections.abc import Iterable
 from enum import Enum
 from types import TracebackType
