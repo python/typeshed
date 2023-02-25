@@ -15,11 +15,12 @@ ReturnCode: TypeAlias = int
 SUPPORTED_PLATFORMS = ("linux", "darwin", "win32")
 SUPPORTED_VERSIONS = ("3.11", "3.10", "3.9")
 DIRECTORIES_TO_TEST = ("scripts", "tests")
+EMPTY: list[str] = []
 
 parser = argparse.ArgumentParser(description="Run mypy on typeshed's own code in the `scripts` and `tests` directories.")
 parser.add_argument(
     "dir",
-    choices=DIRECTORIES_TO_TEST + ([],),
+    choices=DIRECTORIES_TO_TEST + (EMPTY,),
     nargs="*",
     action="extend",
     help=f"Test only these top-level typeshed directories (defaults to {DIRECTORIES_TO_TEST!r})",
