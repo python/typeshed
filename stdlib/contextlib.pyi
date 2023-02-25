@@ -66,7 +66,7 @@ class _GeneratorContextManager(AbstractContextManager[_T_co], ContextDecorator, 
     kwds: dict[str, Any]
     if sys.version_info >= (3, 9):
         def __exit__(
-            self, typ: typ[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
+            self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
         ) -> bool | None: ...
     else:
         def __exit__(
