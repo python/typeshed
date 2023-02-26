@@ -1,7 +1,8 @@
-from distutils.errors import DistutilsError
 from types import TracebackType
 from typing import Any
 from typing_extensions import Literal
+
+from ._distutils.errors import DistutilsError
 
 class UnpickleableException(Exception):
     @staticmethod
