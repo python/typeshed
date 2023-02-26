@@ -1,7 +1,7 @@
 # Some methods are dynamically patched onto to instances as they
 # may depend on whether code is executed in graph/eager/v1/v2/etc.
 # Tensorflow supports multiple modes of execution which changes some
-# of the attributes/methods/even class hierachies.
+# of the attributes/methods/even class hierarchies.
 tensorflow.Tensor.__int__
 tensorflow.Tensor.numpy
 tensorflow.Tensor.__index__

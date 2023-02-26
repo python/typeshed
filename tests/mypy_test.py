@@ -42,7 +42,7 @@ from utils import (
 
 # Fail early if mypy isn't installed
 try:
-    import mypy  # noqa: F401
+    import mypy  # pyright: ignore[reportUnusedImport]  # noqa: F401
 except ImportError:
     print_error("Cannot import mypy. Did you install it?")
     sys.exit(1)
@@ -57,7 +57,8 @@ VersionTuple: TypeAlias = Tuple[int, int]
 Platform: TypeAlias = Annotated[str, "Must be one of the entries in SUPPORTED_PLATFORMS"]
 
 
-class CommandLineArgs(argparse.Namespace):
+@dataclass(init=False)
+class CommandLineArgs:
     verbose: int
     filter: list[Path]
     exclude: list[Path] | None
@@ -158,7 +159,7 @@ def match(path: Path, args: TestConfig) -> bool:
 
 
 def parse_versions(fname: StrPath) -> dict[str, tuple[VersionTuple, VersionTuple]]:
-    result = {}
+    result: dict[str, tuple[VersionTuple, VersionTuple]] = {}
     with open(fname, encoding="UTF-8") as f:
         for line in f:
             line = strip_comments(line)
@@ -209,7 +210,8 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
     with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
         data = tomli.load(f)
 
-    mypy_tests_conf = data.get("mypy-tests")
+    # TODO: This could be added to parse_metadata.py, but is currently unused
+    mypy_tests_conf: dict[str, dict[str, Any]] = data.get("mypy-tests", {})
     if not mypy_tests_conf:
         return
 
@@ -221,8 +223,8 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
         assert module_name is not None, f"{section_name} should have a module_name key"
         assert isinstance(module_name, str), f"{section_name} should be a key-value pair"
 
-        values = mypy_section.get("values")
-        assert values is not None, f"{section_name} should have a values section"
+        assert "values" in mypy_section, f"{section_name} should have a values section"
+        values: dict[str, dict[str, Any]] = mypy_section["values"]
         assert isinstance(values, dict), "values should be a section"
 
         configurations.append(MypyDistConf(module_name, values.copy()))
@@ -263,7 +265,9 @@ def run_mypy(
             # Stub completion is checked by pyright (--allow-*-defs)
             "--allow-untyped-defs",
             "--allow-incomplete-defs",
-            "--allow-subclassing-any",  # See #9491
+            # See https://github.com/python/typeshed/pull/9491#issuecomment-1381574946
+            # for discussion and reasoning to keep "--allow-subclassing-any"
+            "--allow-subclassing-any",
             "--enable-error-code",
             "ignore-without-code",
             "--config-file",

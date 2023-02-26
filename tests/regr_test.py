@@ -160,7 +160,7 @@ def run_testcases(
     if not testcasedir_already_setup:
         setup_testcase_dir(package, tempdir=tempdir, new_test_case_dir=new_test_case_dir, verbosity=verbosity)
 
-    # "--enable-error-code ignore-without-code" is purposefully ommited.
+    # "--enable-error-code ignore-without-code" is purposefully omitted.
     # See https://github.com/python/typeshed/pull/8083
     flags = [
         "--python-version",

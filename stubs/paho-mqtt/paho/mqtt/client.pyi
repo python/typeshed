@@ -3,9 +3,9 @@ import socket as _socket
 import ssl as _ssl
 import time
 import types
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from collections.abc import Callable
-from typing import Any, Optional, TypeVar
+from typing import Any, TypeVar
 from typing_extensions import TypeAlias
 
 from .matcher import MQTTMatcher as MQTTMatcher
@@ -92,7 +92,7 @@ _Payload: TypeAlias = str | bytes | bytearray | float
 _ExtraHeader: TypeAlias = dict[str, str] | Callable[[dict[str, str]], dict[str, str]]
 _OnLog: TypeAlias = Callable[[Client, _UserData, int, str], object]
 _OnConnect: TypeAlias = Callable[[Client, _UserData, dict[str, int], int], object]
-_OnConnectV5: TypeAlias = Callable[[Client, _UserData, dict[str, int], ReasonCodes, Optional[Properties]], object]
+_OnConnectV5: TypeAlias = Callable[[Client, _UserData, dict[str, int], ReasonCodes, Properties | None], object]
 _TOnConnect = TypeVar("_TOnConnect", _OnConnect, _OnConnectV5)
 _OnConnectFail: TypeAlias = Callable[[Client, _UserData], object]
 _OnSubscribe: TypeAlias = Callable[[Client, _UserData, int, tuple[int]], object]
@@ -104,7 +104,7 @@ _OnUnsubscribe: TypeAlias = Callable[[Client, _UserData, int], object]
 _OnUnsubscribeV5: TypeAlias = Callable[[Client, _UserData, int, Properties, list[ReasonCodes] | ReasonCodes], object]
 _TOnUnsubscribe = TypeVar("_TOnUnsubscribe", _OnUnsubscribe, _OnUnsubscribeV5)
 _OnDisconnect: TypeAlias = Callable[[Client, _UserData, int], object]
-_OnDisconnectV5: TypeAlias = Callable[[Client, _UserData, Optional[ReasonCodes], Optional[Properties]], object]
+_OnDisconnectV5: TypeAlias = Callable[[Client, _UserData, ReasonCodes | None, Properties | None], object]
 _TOnDisconnect = TypeVar("_TOnDisconnect", _OnDisconnect, _OnDisconnectV5)
 _OnSocket: TypeAlias = Callable[[Client, _UserData, _Socket | WebsocketWrapper | None], object]
 
@@ -225,7 +225,7 @@ class Client:
     def loop_misc(self) -> int: ...
     def max_inflight_messages_set(self, inflight: int) -> None: ...
     def max_queued_messages_set(self, queue_size: int) -> Client: ...
-    def message_retry_set(self, retry: object) -> None: ...
+    def message_retry_set(self, retry: Unused) -> None: ...
     def user_data_set(self, userdata: _UserData) -> None: ...
     def will_set(
         self, topic: str, payload: _Payload | None = ..., qos: int = ..., retain: bool = ..., properties: Properties | None = ...
