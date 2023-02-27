@@ -1,8 +1,8 @@
+from _typeshed import Incomplete
 from collections.abc import Iterable, Mapping
 from types import TracebackType
 from typing_extensions import Self, TypeAlias
 from urllib.parse import ParseResult, SplitResult
-from _typeshed import Incomplete
 
 from requests.auth import AuthBase
 from requests.models import Response
