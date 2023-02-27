@@ -63,7 +63,6 @@ class SerialBase(io.RawIOBase):
         inter_byte_timeout: float | None = ...,
         exclusive: float | None = ...,
     ) -> None: ...
-    def read(self, __size: int = ...) -> bytes: ...  # same as io.RawIOBase.read but always returns bytes
     @property
     def port(self) -> str | None: ...
     @port.setter
