@@ -10,8 +10,4 @@ caldav.davclient.DAVClient.url
 caldav.davclient.DAVResponse.headers
 caldav.elements.base.BaseElement.children
 
-# Stubtest is missing argument "cal_url", which does not exist at runtime
-caldav.Principal.calendar
-caldav.objects.Principal.calendar
-
 .*.findprop
