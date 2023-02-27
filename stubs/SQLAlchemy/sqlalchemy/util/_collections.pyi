@@ -1,7 +1,8 @@
 import collections.abc
-from _typeshed import Incomplete, Self, SupportsKeysAndGetItem
+from _typeshed import Incomplete, SupportsKeysAndGetItem, Unused
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from typing import Any, Generic, NoReturn, TypeVar, overload
+from typing_extensions import Self
 
 from ..cimmutabledict import immutabledict as immutabledict
 
@@ -15,9 +16,9 @@ collections_abc = collections.abc
 EMPTY_SET: frozenset[Any]
 
 class ImmutableContainer:
-    def __delitem__(self, *arg: object, **kw: object) -> NoReturn: ...
-    def __setitem__(self, *arg: object, **kw: object) -> NoReturn: ...
-    def __setattr__(self, *arg: object, **kw: object) -> NoReturn: ...
+    def __delitem__(self, *arg: Unused, **kw: Unused) -> NoReturn: ...
+    def __setitem__(self, *arg: Unused, **kw: Unused) -> NoReturn: ...
+    def __setattr__(self, *arg: Unused, **kw: Unused) -> NoReturn: ...
 
 @overload
 def coerce_to_immutabledict(d: None) -> immutabledict[Any, Any]: ...
@@ -82,21 +83,21 @@ class OrderedSet(set[_T], Generic[_T]):
     def __getitem__(self, key: int) -> _T: ...
     def __iter__(self) -> Iterator[_T]: ...
     def __add__(self, other: Iterable[_S]) -> OrderedSet[_S | _T]: ...
-    def update(self: Self, iterable: Iterable[_T]) -> Self: ...  # type: ignore[override]
+    def update(self, iterable: Iterable[_T]) -> Self: ...  # type: ignore[override]
     __ior__ = update  # type: ignore[assignment]
     def union(self, other: Iterable[_S]) -> OrderedSet[_S | _T]: ...  # type: ignore[override]
     __or__ = union  # type: ignore[assignment]  # pyright: ignore[reportGeneralTypeIssues]
-    def intersection(self: Self, other: Iterable[Any]) -> Self: ...  # type: ignore[override]
-    __and__ = intersection  # type: ignore[assignment]  # pyright: ignore[reportGeneralTypeIssues]
+    def intersection(self, other: Iterable[Any]) -> Self: ...  # type: ignore[override]
+    __and__ = intersection
     def symmetric_difference(self, other: Iterable[_S]) -> OrderedSet[_S | _T]: ...
     __xor__ = symmetric_difference  # type: ignore[assignment]  # pyright: ignore[reportGeneralTypeIssues]
-    def difference(self: Self, other: Iterable[Any]) -> Self: ...  # type: ignore[override]
-    __sub__ = difference  # type: ignore[assignment]  # pyright: ignore[reportGeneralTypeIssues]
-    def intersection_update(self: Self, other: Iterable[Any]) -> Self: ...  # type: ignore[override]
+    def difference(self, other: Iterable[Any]) -> Self: ...  # type: ignore[override]
+    __sub__ = difference
+    def intersection_update(self, other: Iterable[Any]) -> Self: ...  # type: ignore[override]
     __iand__ = intersection_update  # type: ignore[assignment]
-    def symmetric_difference_update(self: Self, other: Iterable[_T]) -> Self: ...  # type: ignore[override]
+    def symmetric_difference_update(self, other: Iterable[_T]) -> Self: ...  # type: ignore[override]
     __ixor__ = symmetric_difference_update  # type: ignore[assignment]
-    def difference_update(self: Self, other: Iterable[Any]) -> Self: ...  # type: ignore[override]
+    def difference_update(self, other: Iterable[Any]) -> Self: ...  # type: ignore[override]
     __isub__ = difference_update  # type: ignore[assignment]
 
 class IdentitySet:

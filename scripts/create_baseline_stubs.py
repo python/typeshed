@@ -71,14 +71,7 @@ def create_metadata(stub_dir: str, version: str) -> None:
         return
     print(f"Writing {filename}")
     with open(filename, "w", encoding="UTF-8") as file:
-        file.write(
-            f"""\
-version = "{version}.*"
-
-[tool.stubtest]
-ignore_missing_stub = false
-"""
-        )
+        file.write(f'version = "{version}.*"')
 
 
 def add_pyright_exclusion(stub_dir: str) -> None:

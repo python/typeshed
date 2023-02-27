@@ -15,11 +15,12 @@ ReturnCode: TypeAlias = int
 SUPPORTED_PLATFORMS = ("linux", "darwin", "win32")
 SUPPORTED_VERSIONS = ("3.11", "3.10", "3.9")
 DIRECTORIES_TO_TEST = ("scripts", "tests")
+EMPTY: list[str] = []
 
 parser = argparse.ArgumentParser(description="Run mypy on typeshed's own code in the `scripts` and `tests` directories.")
 parser.add_argument(
     "dir",
-    choices=DIRECTORIES_TO_TEST + ([],),
+    choices=DIRECTORIES_TO_TEST + (EMPTY,),
     nargs="*",
     action="extend",
     help=f"Test only these top-level typeshed directories (defaults to {DIRECTORIES_TO_TEST!r})",
@@ -57,15 +58,18 @@ def run_mypy_as_subprocess(directory: str, platform: str, version: str) -> Retur
         "--no-error-summary",
         "--enable-error-code",
         "ignore-without-code",
+        "--enable-error-code",
+        "possibly-undefined",
+        "--enable-error-code",
+        "redundant-expr",
     ]
     if directory == "tests" and platform == "win32":
         command.extend(["--exclude", "tests/pytype_test.py"])
-    result = subprocess.run(command, capture_output=True)
-    stdout, stderr = result.stdout, result.stderr
-    if stderr:
-        print_error(stderr.decode())
-    if stdout:
-        print_error(stdout.decode())
+    result = subprocess.run(command, capture_output=True, text=True)
+    if result.stderr:
+        print_error(result.stderr)
+    if result.stdout:
+        print_error(result.stdout)
     return result.returncode
 
 

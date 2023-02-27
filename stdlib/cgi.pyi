@@ -1,10 +1,11 @@
 import sys
-from _typeshed import Self, SupportsGetItem, SupportsItemAccess, Unused
+from _typeshed import SupportsGetItem, SupportsItemAccess, Unused
 from builtins import list as _list, type as _type
 from collections.abc import Iterable, Iterator, Mapping
 from email.message import Message
 from types import TracebackType
 from typing import IO, Any, Protocol
+from typing_extensions import Self
 
 __all__ = [
     "MiniFieldStorage",
@@ -95,7 +96,7 @@ class FieldStorage:
         self,
         fp: IO[Any] | None = None,
         headers: Mapping[str, str] | Message | None = None,
-        outerboundary: bytes = ...,
+        outerboundary: bytes = b"",
         environ: SupportsGetItem[str, str] = ...,
         keep_blank_values: int = 0,
         strict_parsing: int = 0,
@@ -105,7 +106,7 @@ class FieldStorage:
         max_num_fields: int | None = None,
         separator: str = "&",
     ) -> None: ...
-    def __enter__(self: Self) -> Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(self, *args: Unused) -> None: ...
     def __iter__(self) -> Iterator[str]: ...
     def __getitem__(self, key: str) -> Any: ...

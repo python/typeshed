@@ -58,13 +58,13 @@ if sys.version_info >= (3, 8):
         *,
         out: None = None,
         from_file: _FileRead | None = None,
-        with_comments: bool = ...,
-        strip_text: bool = ...,
-        rewrite_prefixes: bool = ...,
-        qname_aware_tags: Iterable[str] | None = ...,
-        qname_aware_attrs: Iterable[str] | None = ...,
-        exclude_attrs: Iterable[str] | None = ...,
-        exclude_tags: Iterable[str] | None = ...,
+        with_comments: bool = False,
+        strip_text: bool = False,
+        rewrite_prefixes: bool = False,
+        qname_aware_tags: Iterable[str] | None = None,
+        qname_aware_attrs: Iterable[str] | None = None,
+        exclude_attrs: Iterable[str] | None = None,
+        exclude_tags: Iterable[str] | None = None,
     ) -> str: ...
     @overload
     def canonicalize(
@@ -72,13 +72,13 @@ if sys.version_info >= (3, 8):
         *,
         out: SupportsWrite[str],
         from_file: _FileRead | None = None,
-        with_comments: bool = ...,
-        strip_text: bool = ...,
-        rewrite_prefixes: bool = ...,
-        qname_aware_tags: Iterable[str] | None = ...,
-        qname_aware_attrs: Iterable[str] | None = ...,
-        exclude_attrs: Iterable[str] | None = ...,
-        exclude_tags: Iterable[str] | None = ...,
+        with_comments: bool = False,
+        strip_text: bool = False,
+        rewrite_prefixes: bool = False,
+        qname_aware_tags: Iterable[str] | None = None,
+        qname_aware_attrs: Iterable[str] | None = None,
+        exclude_attrs: Iterable[str] | None = None,
+        exclude_tags: Iterable[str] | None = None,
     ) -> None: ...
 
 class Element:
@@ -321,7 +321,7 @@ class TreeBuilder:
     if sys.version_info >= (3, 8):
         # These two methods have pos-only parameters in the C implementation
         def comment(self, __text: str | None) -> Element: ...
-        def pi(self, __target: str, __text: str | None = ...) -> Element: ...
+        def pi(self, __target: str, __text: str | None = None) -> Element: ...
 
 if sys.version_info >= (3, 8):
     class C14NWriterTarget:

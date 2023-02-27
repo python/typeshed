@@ -1,9 +1,9 @@
 import ssl
 import sys
-from _typeshed import Self, StrPath
+from _typeshed import StrPath
 from collections.abc import AsyncIterator, Awaitable, Callable, Iterable, Sequence
 from typing import Any
-from typing_extensions import SupportsIndex, TypeAlias
+from typing_extensions import Self, SupportsIndex, TypeAlias
 
 from . import events, protocols, transports
 from .base_events import Server
@@ -107,14 +107,14 @@ if sys.platform != "win32":
         ) -> Server: ...
     else:
         async def open_unix_connection(
-            path: StrPath | None = ..., *, loop: events.AbstractEventLoop | None = ..., limit: int = ..., **kwds: Any
+            path: StrPath | None = None, *, loop: events.AbstractEventLoop | None = None, limit: int = 65536, **kwds: Any
         ) -> tuple[StreamReader, StreamWriter]: ...
         async def start_unix_server(
             client_connected_cb: _ClientConnectedCallback,
-            path: StrPath | None = ...,
+            path: StrPath | None = None,
             *,
-            loop: events.AbstractEventLoop | None = ...,
-            limit: int = ...,
+            loop: events.AbstractEventLoop | None = None,
+            limit: int = 65536,
             **kwds: Any,
         ) -> Server: ...
 
@@ -163,8 +163,8 @@ class StreamReader(AsyncIterator[bytes]):
     def feed_data(self, data: Iterable[SupportsIndex]) -> None: ...
     async def readline(self) -> bytes: ...
     # Can be any buffer that supports len(); consider changing to a Protocol if PEP 688 is accepted
-    async def readuntil(self, separator: bytes | bytearray | memoryview = ...) -> bytes: ...
+    async def readuntil(self, separator: bytes | bytearray | memoryview = b"\n") -> bytes: ...
     async def read(self, n: int = -1) -> bytes: ...
     async def readexactly(self, n: int) -> bytes: ...
-    def __aiter__(self: Self) -> Self: ...
+    def __aiter__(self) -> Self: ...
     async def __anext__(self) -> bytes: ...

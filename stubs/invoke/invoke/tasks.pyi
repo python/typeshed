@@ -1,7 +1,7 @@
-from _typeshed import Incomplete, Self
+from _typeshed import Incomplete
 from collections.abc import Callable, Iterable
 from typing import Any, Generic, TypeVar, overload
-from typing_extensions import ParamSpec
+from typing_extensions import ParamSpec, Self
 
 from .config import Config
 from .context import Context
@@ -10,8 +10,6 @@ from .parser import Argument
 _P = ParamSpec("_P")
 _R_co = TypeVar("_R_co", covariant=True)
 _TaskT = TypeVar("_TaskT", bound=Task[..., Any])
-
-NO_DEFAULT: object
 
 class Task(Generic[_P, _R_co]):
     body: Callable[_P, _R_co]
@@ -107,7 +105,7 @@ class Call:
         kwargs: dict[str, Any] | None = ...,
     ) -> None: ...
     def __getattr__(self, name: str) -> Any: ...
-    def __deepcopy__(self: Self, memo: Any) -> Self: ...
+    def __deepcopy__(self, memo: Any) -> Self: ...
     def __eq__(self, other: Call) -> bool: ...  # type: ignore[override]
     def make_context(self, config: Config) -> Context: ...
     def clone_data(self): ...

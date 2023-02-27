@@ -1,10 +1,10 @@
 import io
 import sys
-from _typeshed import BytesPath, GenericPath, Self, StrPath, WriteableBuffer
+from _typeshed import BytesPath, GenericPath, StrPath, WriteableBuffer
 from collections.abc import Iterable, Iterator
 from types import TracebackType
 from typing import IO, Any, AnyStr, Generic, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -116,38 +116,38 @@ else:
         @overload
         def TemporaryFile(
             mode: _StrMode,
-            buffering: int = ...,
-            encoding: str | None = ...,
-            newline: str | None = ...,
-            suffix: AnyStr | None = ...,
-            prefix: AnyStr | None = ...,
-            dir: GenericPath[AnyStr] | None = ...,
+            buffering: int = -1,
+            encoding: str | None = None,
+            newline: str | None = None,
+            suffix: AnyStr | None = None,
+            prefix: AnyStr | None = None,
+            dir: GenericPath[AnyStr] | None = None,
             *,
-            errors: str | None = ...,
+            errors: str | None = None,
         ) -> IO[str]: ...
         @overload
         def TemporaryFile(
-            mode: _BytesMode = ...,
-            buffering: int = ...,
-            encoding: str | None = ...,
-            newline: str | None = ...,
-            suffix: AnyStr | None = ...,
-            prefix: AnyStr | None = ...,
-            dir: GenericPath[AnyStr] | None = ...,
+            mode: _BytesMode = "w+b",
+            buffering: int = -1,
+            encoding: str | None = None,
+            newline: str | None = None,
+            suffix: AnyStr | None = None,
+            prefix: AnyStr | None = None,
+            dir: GenericPath[AnyStr] | None = None,
             *,
-            errors: str | None = ...,
+            errors: str | None = None,
         ) -> IO[bytes]: ...
         @overload
         def TemporaryFile(
-            mode: str = ...,
-            buffering: int = ...,
-            encoding: str | None = ...,
-            newline: str | None = ...,
-            suffix: AnyStr | None = ...,
-            prefix: AnyStr | None = ...,
-            dir: GenericPath[AnyStr] | None = ...,
+            mode: str = "w+b",
+            buffering: int = -1,
+            encoding: str | None = None,
+            newline: str | None = None,
+            suffix: AnyStr | None = None,
+            prefix: AnyStr | None = None,
+            dir: GenericPath[AnyStr] | None = None,
             *,
-            errors: str | None = ...,
+            errors: str | None = None,
         ) -> IO[Any]: ...
     else:
         @overload
@@ -186,7 +186,7 @@ class _TemporaryFileWrapper(Generic[AnyStr], IO[AnyStr]):
     name: str
     delete: bool
     def __init__(self, file: IO[AnyStr], name: str, delete: bool = True) -> None: ...
-    def __enter__(self: Self) -> Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(self, exc: type[BaseException] | None, value: BaseException | None, tb: TracebackType | None) -> None: ...
     def __getattr__(self, name: str) -> Any: ...
     def close(self) -> None: ...
@@ -369,7 +369,7 @@ class SpooledTemporaryFile(IO[AnyStr], _SpooledTemporaryFileBase):
         ) -> None: ...
 
     def rollover(self) -> None: ...
-    def __enter__(self: Self) -> Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(self, exc: type[BaseException] | None, value: BaseException | None, tb: TracebackType | None) -> None: ...
     # These methods are copied from the abstract methods of IO, because
     # SpooledTemporaryFile implements IO.

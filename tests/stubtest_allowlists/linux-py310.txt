@@ -14,7 +14,6 @@ _?curses.color_pair
 (os|posix).splice
 signal.sigtimedwait
 signal.sigwaitinfo
-select.epoll.register
 
 # ==========
 # Allowlist entries that cannot or should not be fixed

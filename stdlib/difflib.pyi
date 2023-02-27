@@ -57,9 +57,8 @@ class SequenceMatcher(Generic[_T]):
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
-# mypy thinks the signatures of the overloads overlap, but the types still work fine
 @overload
-def get_close_matches(word: AnyStr, possibilities: Iterable[AnyStr], n: int = 3, cutoff: float = 0.6) -> list[AnyStr]: ...  # type: ignore[misc]
+def get_close_matches(word: AnyStr, possibilities: Iterable[AnyStr], n: int = 3, cutoff: float = 0.6) -> list[AnyStr]: ...
 @overload
 def get_close_matches(
     word: Sequence[_T], possibilities: Iterable[Sequence[_T]], n: int = 3, cutoff: float = 0.6
@@ -132,10 +131,10 @@ def diff_bytes(
     dfunc: Callable[[Sequence[str], Sequence[str], str, str, str, str, int, str], Iterator[str]],
     a: Iterable[bytes | bytearray],
     b: Iterable[bytes | bytearray],
-    fromfile: bytes | bytearray = ...,
-    tofile: bytes | bytearray = ...,
-    fromfiledate: bytes | bytearray = ...,
-    tofiledate: bytes | bytearray = ...,
+    fromfile: bytes | bytearray = b"",
+    tofile: bytes | bytearray = b"",
+    fromfiledate: bytes | bytearray = b"",
+    tofiledate: bytes | bytearray = b"",
     n: int = 3,
-    lineterm: bytes | bytearray = ...,
+    lineterm: bytes | bytearray = b"\n",
 ) -> Iterator[bytes]: ...
