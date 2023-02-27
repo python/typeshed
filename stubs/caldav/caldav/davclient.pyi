@@ -49,7 +49,7 @@ class DAVClient:
         timeout: _Timeout | None = None,
         ssl_verify_cert: bool | str = True,
         ssl_cert: str | tuple[str, str] | None = None,
-        headers: dict[str, str] = {},
+        headers: dict[str, str] = ...,
     ) -> None: ...
     def __enter__(self) -> Self: ...
     def __exit__(
