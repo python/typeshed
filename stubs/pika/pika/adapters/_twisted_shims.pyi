@@ -82,9 +82,7 @@ _CallbackOrderedArguments: TypeAlias = tuple[object, ...]
 _CallbackKeywordArguments: TypeAlias = Mapping[str, object]
 _CallbackChain: TypeAlias = tuple[
     tuple[DeferredCallback | Literal[_Sentinel._CONTINUE], _CallbackOrderedArguments, _CallbackKeywordArguments],
-    tuple[
-        DeferredErrback | DeferredCallback, Literal[_Sentinel._CONTINUE], _CallbackOrderedArguments, _CallbackKeywordArguments,
-    ],
+    tuple[DeferredErrback | DeferredCallback, Literal[_Sentinel._CONTINUE], _CallbackOrderedArguments, _CallbackKeywordArguments],
 ]
 _DeferredResultT = TypeVar("_DeferredResultT", contravariant=True)
 _NextDeferredResultT = TypeVar("_NextDeferredResultT", covariant=True)
