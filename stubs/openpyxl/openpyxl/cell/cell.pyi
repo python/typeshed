@@ -11,16 +11,13 @@ from openpyxl.workbook.child import _WorkbookChild
 from openpyxl.worksheet.hyperlink import Hyperlink
 
 __docformat__: str
-TIME_TYPES: tuple[type[_TimeTypes], ...]
 _TimeTypes: TypeAlias = datetime.datetime | datetime.date | datetime.time | datetime.timedelta
-TIME_FORMATS: dict[_TimeTypes, str]
+TIME_TYPES: tuple[type[_TimeTypes], ...]
+TIME_FORMATS: dict[type[_TimeTypes], str]
 STRING_TYPES: tuple[type[str], type[bytes]]
 _StringTypes: TypeAlias = str | bytes
-# We could get the exact tuple length and order with the following line, ignoring Y015
-# But pytype doesn't support it and mypy oversimplifies the type. Pyright fully expands it.
-# KNOWN_TYPES = NUMERIC_TYPES + TIME_TYPES + STRING_TYPES + (bool, type(None))
-KNOWN_TYPES: tuple[_KnownTypes, ...]
 _KnownTypes: TypeAlias = _NumericTypes | _TimeTypes | _StringTypes | bool | None
+KNOWN_TYPES: tuple[type[_KnownTypes], ...]
 ILLEGAL_CHARACTERS_RE: Pattern[str]
 ERROR_CODES: Final[tuple[str, ...]]
 TYPE_STRING: Final = "s"

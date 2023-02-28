@@ -30,7 +30,6 @@ FILL_PATTERN_LIGHTUP: Final = "lightUp"
 FILL_PATTERN_LIGHTVERTICAL: Final = "lightVertical"
 FILL_PATTERN_MEDIUMGRAY: Final = "mediumGray"
 
-fills: Final[tuple[_FillsType, ...]]
 _FillsType: TypeAlias = Literal[
     "solid",
     "darkDown",
@@ -51,6 +50,7 @@ _FillsType: TypeAlias = Literal[
     "lightVertical",
     "mediumGray",
 ]
+fills: Final[tuple[_FillsType, ...]]
 
 class Fill(Serialisable):
     tagname: str

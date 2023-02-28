@@ -5,12 +5,12 @@ from typing_extensions import Final, Literal, TypeAlias
 from openpyxl.descriptors.base import _BoolSetter, _FloatSetter
 from openpyxl.descriptors.serialisable import Serialisable
 
-horizontal_alignments: Final[tuple[_HorizontalAlignementsType, ...]]
-_HorizontalAlignementsType: TypeAlias = Literal[
+_HorizontalAlignmentsType: TypeAlias = Literal[
     "general", "left", "center", "right", "fill", "justify", "centerContinuous", "distributed"
 ]
-vertical_aligments: Final[tuple[_VerticalAlignementsType, ...]]
-_VerticalAlignementsType: TypeAlias = Literal["top", "center", "bottom", "justify", "distributed"]
+horizontal_alignments: Final[tuple[_HorizontalAlignmentsType, ...]]
+_VerticalAlignmentsType: TypeAlias = Literal["top", "center", "bottom", "justify", "distributed"]
+vertical_aligments: Final[tuple[_VerticalAlignmentsType, ...]]
 
 class Alignment(Serialisable):
     tagname: str

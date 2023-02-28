@@ -12,10 +12,10 @@ if sys.version_info >= (3, 8):
 else:
     _NBitBase: TypeAlias = Any
 
-NUMERIC_TYPES: tuple[Decimal | type[int | float | numpy.bool_ | numpy.floating[_NBitBase] | numpy.integer[_NBitBase]], ...]
+NUMERIC_TYPES: tuple[type[int | float | Decimal | numpy.bool_ | numpy.floating[_NBitBase] | numpy.integer[_NBitBase]], ...]
 
 # Referenced outside this module
 _NumericTypes: TypeAlias = (  # noqa: Y047
-    int | float | Decimal | type[numpy.bool_] | type[numpy.floating[_NBitBase]] | type[numpy.integer[_NBitBase]]
+    int | float | Decimal | type[numpy.bool_ | numpy.floating[_NBitBase] | numpy.integer[_NBitBase]]
 )
 NUMPY: bool

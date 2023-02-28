@@ -10,7 +10,7 @@ openpyxl.xml.functions.xmlfile
 
 # Inconsistent __init__ because
 # - using the default value results in an error because of the runtime type-guards
-# - or, keyword arguments are explicitely specified
+# - or, keyword arguments are explicitly specified
 openpyxl.cell.text.PhoneticProperties.__init__
 openpyxl.cell.text.PhoneticText.__init__
 openpyxl.chart.axis._BaseAxis.__init__
