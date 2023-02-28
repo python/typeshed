@@ -4,7 +4,7 @@ from openpyxl.descriptors.base import _IntegerSetter
 from openpyxl.descriptors.sequence import _Sequence
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.colors import Color
-from openpyxl.styles.fonts import Font
+from openpyxl.styles.fonts import Font, _UnderlineType
 
 class PhoneticProperties(Serialisable):
     tagname: str
@@ -53,7 +53,7 @@ class InlineFont(Font):
         extend: bool | None = ...,
         color: Color | None = ...,
         sz: float | None = ...,
-        u: Literal["single", "double", "singleAccounting", "doubleAccounting", None] = ...,
+        u: _UnderlineType = ...,
         vertAlign: Literal["superscript", "subscript", "baseline", None] = ...,
         scheme: Literal["major", "minor", None] = ...,
     ) -> None: ...

@@ -1,6 +1,6 @@
-from _typeshed import Self, Unused
+from _typeshed import Unused
 from collections.abc import Generator, Sequence
-from typing_extensions import Final, Literal, TypeAlias
+from typing_extensions import Final, Literal, Self, TypeAlias
 
 from openpyxl.descriptors import Sequence as SequenceDescriptor
 from openpyxl.descriptors.base import _FloatSetter
@@ -55,7 +55,7 @@ _FillsType: TypeAlias = Literal[
 class Fill(Serialisable):
     tagname: str
     @classmethod
-    def from_tree(cls: Self, el: _Element) -> Self: ...
+    def from_tree(cls, el: _Element) -> Self: ...
 
 class PatternFill(Fill):
     tagname: str

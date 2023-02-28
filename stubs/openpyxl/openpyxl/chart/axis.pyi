@@ -1,6 +1,6 @@
-from _typeshed import Incomplete, Self, Unused
+from _typeshed import Incomplete, Unused
 from abc import abstractmethod
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 
 from openpyxl.chart.data_source import NumFmt
 from openpyxl.chart.title import Title
@@ -191,7 +191,7 @@ class NumericAxis(_BaseAxis):
         crossesAt: _FloatSetter | None = ...,
     ) -> None: ...
     @classmethod
-    def from_tree(cls: Self, node: _Element) -> Self: ...
+    def from_tree(cls, node: _Element) -> Self: ...
 
 class TextAxis(_BaseAxis):
     tagname: str

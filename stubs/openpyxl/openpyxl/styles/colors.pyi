@@ -1,7 +1,8 @@
-from _typeshed import Self, Unused
+from _typeshed import Unused
 from collections.abc import Generator
 from re import Pattern
 from typing import TypeVar, overload
+from typing_extensions import Self
 
 from openpyxl.descriptors import Typed
 from openpyxl.descriptors.base import _BoolSetter, _FloatSetter, _IntegerSetter
@@ -59,7 +60,7 @@ class Color(Serialisable):
     @property
     def index(self) -> str | float | bool: ...
     @overload
-    def __add__(self: Self, other: Color) -> Self: ...
+    def __add__(self, other: Color) -> Self: ...
     @overload
     def __add__(self, other: _S) -> _S: ...
 

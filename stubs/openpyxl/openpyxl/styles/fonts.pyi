@@ -1,11 +1,12 @@
-from _typeshed import Self
-from typing_extensions import Final, Literal
+from typing_extensions import Final, Literal, Self, TypeAlias
 
 from openpyxl.descriptors.base import _BoolSetter, _FloatSetter, _IntegerSetter
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.xml.functions import _Element
 
 from .colors import Color
+
+_UnderlineType: TypeAlias = Literal["single", "double", "singleAccounting", "doubleAccounting", None]
 
 class Font(Serialisable):
     UNDERLINE_DOUBLE: Final = "double"
@@ -57,7 +58,7 @@ class Font(Serialisable):
     def extend(self) -> bool | None: ...
     @extend.setter
     def extend(self, __value: _BoolSetter) -> None: ...
-    u: Literal["single", "double", "singleAccounting", "doubleAccounting", None]
+    u: _UnderlineType
     underline = u  # noqa: F821
     vertAlign: Literal["superscript", "subscript", "baseline", None]
     color: Color | None
@@ -73,7 +74,7 @@ class Font(Serialisable):
         b: _BoolSetter = ...,
         i: _BoolSetter = ...,
         charset: _IntegerSetter | None = ...,
-        u: Literal["single", "double", "singleAccounting", "doubleAccounting", None] = ...,
+        u: _UnderlineType = ...,
         strike: _BoolSetter = ...,
         color: Color | None = ...,
         scheme: Literal["major", "minor", None] = ...,
@@ -82,7 +83,7 @@ class Font(Serialisable):
         bold: _BoolSetter = ...,
         italic: _BoolSetter = ...,
         strikethrough: _BoolSetter = ...,
-        underline: Literal["single", "double", "singleAccounting", "doubleAccounting", None] = ...,
+        underline: _UnderlineType = ...,
         vertAlign: Literal["superscript", "subscript", "baseline", None] = ...,
         outline: _BoolSetter = ...,
         shadow: _BoolSetter = ...,
@@ -90,6 +91,6 @@ class Font(Serialisable):
         extend: _BoolSetter = ...,
     ) -> None: ...
     @classmethod
-    def from_tree(cls: Self, node: _Element) -> Self: ...
+    def from_tree(cls, node: _Element) -> Self: ...
 
 DEFAULT_FONT: Font
