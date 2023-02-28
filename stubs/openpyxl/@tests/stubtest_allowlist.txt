@@ -1,8 +1,5 @@
 # The actual runtime definition depends on what else is installed
 # (lxml, defusedxml, et_xmlfile, numpy, ...)
-openpyxl.compat.NUMERIC_TYPES
-openpyxl.compat.numbers.NUMERIC_TYPES
-openpyxl.cell.cell.NUMERIC_TYPES
 openpyxl.xml._functions
 openpyxl.xml.functions.Element.__iter__
 openpyxl.xml.functions.tostring
@@ -150,6 +147,7 @@ openpyxl.chart.axis.TextAxis.txPr
 openpyxl.chartsheet.chartsheet.Chartsheet.sheet_state
 openpyxl.chartsheet.Chartsheet.sheet_state
 openpyxl.chartsheet.custom.CustomChartsheetView.state
+openpyxl.packaging.workbook.ChildSheet.state
 openpyxl.styles.alignment.Alignment.horizontal
 openpyxl.styles.alignment.Alignment.shrink_to_fit
 openpyxl.styles.alignment.Alignment.text_rotation
@@ -260,3 +258,4 @@ openpyxl.styles.PatternFill.start_color
 openpyxl.styles.Side.border_style
 openpyxl.styles.Side.color
 openpyxl.styles.Side.style
+openpyxl.workbook.views.BookView.visibility

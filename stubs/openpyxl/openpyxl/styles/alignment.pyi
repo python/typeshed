@@ -15,8 +15,8 @@ vertical_aligments: Final[tuple[_VerticalAlignmentsType, ...]]
 class Alignment(Serialisable):
     tagname: str
     __fields__: tuple[str, ...]
-    horizontal: _HorizontalAlignementsType | None
-    vertical: _VerticalAlignementsType | None
+    horizontal: _HorizontalAlignmentsType | None
+    vertical: _VerticalAlignmentsType | None
     textRotation: int | None
     text_rotation = textRotation  # noqa: F821
     @property
@@ -47,8 +47,8 @@ class Alignment(Serialisable):
     def readingOrder(self, __value: _FloatSetter) -> None: ...
     def __init__(
         self,
-        horizontal: _HorizontalAlignementsType | None = ...,
-        vertical: _VerticalAlignementsType | None = ...,
+        horizontal: _HorizontalAlignmentsType | None = ...,
+        vertical: _VerticalAlignmentsType | None = ...,
         textRotation: float | None = ...,
         wrapText: _BoolSetter = ...,
         shrinkToFit: _BoolSetter = ...,

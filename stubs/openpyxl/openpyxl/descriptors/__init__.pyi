@@ -1,13 +1,13 @@
-from typing_extensions import Self
+from _typeshed import Self
 
 from .base import *
 from .sequence import Sequence as Sequence
 
 class MetaStrict(type):
-    def __new__(cls, clsname: str, bases: tuple[type, ...], methods: dict[str, Descriptor]) -> Self: ...
+    def __new__(cls: type[Self], clsname: str, bases: tuple[type, ...], methods: dict[str, Descriptor]) -> Self: ...
 
 class MetaSerialisable(type):
-    def __new__(cls, clsname: str, bases: tuple[type, ...], methods: dict[str, Descriptor]) -> Self: ...
+    def __new__(cls: type[Self], clsname: str, bases: tuple[type, ...], methods: dict[str, Descriptor]) -> Self: ...
 
 class Strict(metaclass=MetaStrict): ...
 
