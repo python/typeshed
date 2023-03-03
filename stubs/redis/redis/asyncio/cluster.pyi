@@ -9,8 +9,7 @@ from redis.asyncio.parser import CommandsParser
 from redis.client import AbstractRedis
 from redis.cluster import AbstractRedisCluster, LoadBalancer
 
-# TODO: add  AsyncRedisClusterCommands stubs
-# from redis.commands import AsyncRedisClusterCommands
+from redis.commands import AsyncRedisClusterCommands
 from redis.commands.core import _StrType
 from redis.credentials import CredentialProvider
 from redis.retry import Retry
@@ -19,7 +18,7 @@ from redis.typing import AnyKeyT, EncodableT, KeyT
 # It uses `DefaultParser` in real life, but it is a dynamic base class.
 class ClusterParser(BaseParser): ...
 
-class RedisCluster(AbstractRedis, AbstractRedisCluster, Generic[_StrType]):  # TODO: AsyncRedisClusterCommands
+class RedisCluster(AbstractRedis, AbstractRedisCluster, AsyncRedisClusterCommands[_StrType], Generic[_StrType]):
     retry: Retry | None
     connection_kwargs: dict[str, Any]
     nodes_manager: NodesManager
@@ -142,7 +141,7 @@ class NodesManager:
     async def initialize(self) -> None: ...
     async def close(self, attr: str = ...) -> None: ...
 
-class ClusterPipeline(AbstractRedis, AbstractRedisCluster, Generic[_StrType]):  # TODO: AsyncRedisClusterCommands
+class ClusterPipeline(AbstractRedis, AbstractRedisCluster, AsyncRedisClusterCommands[_StrType], Generic[_StrType]):
     def __init__(self, client: RedisCluster[_StrType]) -> None: ...
     async def initialize(self) -> Self: ...
     async def __aenter__(self) -> Self: ...

@@ -1,7 +1,18 @@
 from _typeshed import Incomplete
 from typing import Generic
 
-from .core import ACLCommands, DataAccessCommands, ManagementCommands, PubSubCommands, _StrType
+from .core import (
+    ACLCommands,
+    AsyncACLCommands,
+    AsyncDataAccessCommands,
+    AsyncFunctionCommands,
+    AsyncManagementCommands,
+    AsyncScriptCommands,
+    DataAccessCommands,
+    ManagementCommands,
+    PubSubCommands,
+    _StrType,
+)
 
 class ClusterMultiKeyCommands:
     def mget_nonatomic(self, keys, *args): ...
@@ -11,10 +22,14 @@ class ClusterMultiKeyCommands:
     def touch(self, *keys): ...
     def unlink(self, *keys): ...
 
+class AsyncClusterMultiKeyCommands(ClusterMultiKeyCommands): ...
+
 class ClusterManagementCommands(ManagementCommands):
     def slaveof(self, *args, **kwargs) -> None: ...
     def replicaof(self, *args, **kwargs) -> None: ...
     def swapdb(self, *args, **kwargs) -> None: ...
+
+class AsyncClusterManagementCommands(ClusterManagementCommands, AsyncManagementCommands): ...
 
 class ClusterDataAccessCommands(DataAccessCommands[_StrType], Generic[_StrType]):
     def stralgo(
@@ -29,6 +44,8 @@ class ClusterDataAccessCommands(DataAccessCommands[_StrType], Generic[_StrType])
         withmatchlen: bool = ...,
         **kwargs,
     ): ...
+
+class AsyncClusterDataAccessCommands(ClusterDataAccessCommands[_StrType], AsyncDataAccessCommands[_StrType]): ...
 
 class RedisClusterCommands(
     ClusterMultiKeyCommands,
@@ -59,3 +76,13 @@ class RedisClusterCommands(
     read_from_replicas: bool
     def readonly(self, target_nodes: Incomplete | None = ...): ...
     def readwrite(self, target_nodes: Incomplete | None = ...): ...
+
+
+class AsyncRedisClusterCommands(
+    AsyncClusterMultiKeyCommands,
+    AsyncClusterManagementCommands,
+    AsyncACLCommands[_StrType],
+    AsyncClusterDataAccessCommands[_StrType],
+    AsyncScriptCommands[_StrType],
+    AsyncFunctionCommands,
+): ...
