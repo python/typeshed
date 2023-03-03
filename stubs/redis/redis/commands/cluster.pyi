@@ -77,7 +77,6 @@ class RedisClusterCommands(
     def readonly(self, target_nodes: Incomplete | None = ...): ...
     def readwrite(self, target_nodes: Incomplete | None = ...): ...
 
-
 class AsyncRedisClusterCommands(
     AsyncClusterMultiKeyCommands,
     AsyncClusterManagementCommands,
