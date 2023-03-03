@@ -10,7 +10,6 @@ T_co = TypeVar("T_co", covariant=True)
 
 
 def my_decorator(func: Callable[P, T_co]) -> Callable[P, T_co]:
-
     @wraps(func)
     def wrapper(*args: P.args, **kwargs: P.kwargs) -> T_co:
         print(args)
