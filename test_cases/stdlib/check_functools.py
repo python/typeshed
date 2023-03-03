@@ -10,14 +10,18 @@ T_co = TypeVar("T_co", covariant=True)
 
 
 def my_decorator(func: Callable[P, T_co]) -> Callable[P, T_co]:
-    func_name = func.__name__
 
     @wraps(func)
-    def wrapper(*args: P.args, **kwargs: P.kwargs):
+    def wrapper(*args: P.args, **kwargs: P.kwargs) -> T_co:
         print(args)
         return func(*args, **kwargs)
 
-    wrapper.__name__ = func_name
+    # verify that the wrapped function has all these attributes
+    wrapper.__annotations__ = func.__annotations__
+    wrapper.__doc__ = func.__doc__
+    wrapper.__module__ = func.__module__
+    wrapper.__name__ = func.__name__
+    wrapper.__qualname__ = func.__qualname__
     return wrapper
 
 
