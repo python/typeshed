@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import sys
 from functools import wraps
-from typing import Callable, ParamSpec, TypeVar
+from typing import Callable, TypeVar
 from typing_extensions import ParamSpec, assert_type
 
 P = ParamSpec("P")
