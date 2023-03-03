@@ -1,10 +1,28 @@
 from __future__ import annotations
 
 import sys
+from functools import wraps
+from typing import Callable, ParamSpec, TypeVar
+from typing_extensions import ParamSpec, assert_type
+
+P = ParamSpec("P")
+T_co = TypeVar("T_co", covariant=True)
+
+
+def my_decorator(func: Callable[P, T_co]) -> Callable[P, T_co]:
+    func_name = func.__name__
+
+    @wraps(func)
+    def wrapper(*args: P.args, **kwargs: P.kwargs):
+        print(args)
+        return func(*args, **kwargs)
+
+    wrapper.__name__ = func_name
+    return wrapper
+
 
 if sys.version_info >= (3, 8):
     from functools import cached_property
-    from typing_extensions import assert_type
 
     class A:
         def __init__(self, x: int):
