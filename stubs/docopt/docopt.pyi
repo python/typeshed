@@ -8,6 +8,7 @@ __version__: str
 _Argv: TypeAlias = Iterable[str] | str
 
 class DocoptLanguageError(Exception): ...
+
 class DocoptExit(SystemExit):
     def __init__(self, message: str = ""): ...
 
