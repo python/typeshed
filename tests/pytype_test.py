@@ -161,9 +161,8 @@ def get_missing_modules(files_to_test: Sequence[str]) -> Iterable[str]:
         for pkg in read_dependencies(distribution).external_pkgs:
             # See https://stackoverflow.com/a/54853084
             top_level_file = os.path.join(
-                # Fixed in #9747
-                pkg_resources.get_distribution(pkg).egg_info,  # type: ignore[attr-defined]  # pyright: ignore[reportGeneralTypeIssues]
-                "top_level.txt",
+                pkg_resources.get_distribution(pkg).egg_info,  # type: ignore[arg-type]  # pyright: ignore[reportGeneralTypeIssues]
+                "top_level.txt",  # pyright: ignore[reportGeneralTypeIssues]
             )
             with open(top_level_file) as f:
                 missing_modules.update(f.read().splitlines())
