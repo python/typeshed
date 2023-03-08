@@ -1,5 +1,5 @@
 # This module is made specifically to abstract away those type errors
-# pyright: reportUnknownVariableType=false, reportUnknownArgumentType=false, reportUnknownMemberType=false
+# pyright: reportUnknownVariableType=false, reportUnknownArgumentType=false
 
 """Tools to help parse and validate information stored in METADATA.toml files."""
 from __future__ import annotations
@@ -66,14 +66,14 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
     with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
         data: dict[str, object] = tomli.load(f).get("tool", {}).get("stubtest", {})
 
-    skipped = data.get("skip", False)
-    apt_dependencies = data.get("apt_dependencies", [])
-    brew_dependencies = data.get("brew_dependencies", [])
-    choco_dependencies = data.get("choco_dependencies", [])
-    extras = data.get("extras", [])
-    ignore_missing_stub = data.get("ignore_missing_stub", False)
-    specified_platforms = data.get("platforms", ["linux"])
-    stubtest_requirements = data.get("stubtest_requirements", [])
+    skipped: object = data.get("skip", False)
+    apt_dependencies: object = data.get("apt_dependencies", [])
+    brew_dependencies: object = data.get("brew_dependencies", [])
+    choco_dependencies: object = data.get("choco_dependencies", [])
+    extras: object = data.get("extras", [])
+    ignore_missing_stub: object = data.get("ignore_missing_stub", False)
+    specified_platforms: object = data.get("platforms", ["linux"])
+    stubtest_requirements: object = data.get("stubtest_requirements", [])
 
     assert type(skipped) is bool
     assert type(ignore_missing_stub) is bool
@@ -165,7 +165,7 @@ def read_metadata(distribution: str) -> StubMetadata:
     # Check that the version parses
     Version(version[:-2] if version.endswith(".*") else version)
 
-    requires = data.get("requires", [])
+    requires: object = data.get("requires", [])
     assert isinstance(requires, list)
     for req in requires:
         assert isinstance(req, str), f"Invalid requirement {req!r} for {distribution!r}"
@@ -174,7 +174,7 @@ def read_metadata(distribution: str) -> StubMetadata:
         # Check that the requirement parses
         Requirement(req)
 
-    extra_description = data.get("extra_description")
+    extra_description: object = data.get("extra_description")
     assert isinstance(extra_description, (str, type(None)))
 
     if "stub_distribution" in data:
@@ -184,19 +184,19 @@ def read_metadata(distribution: str) -> StubMetadata:
     else:
         stub_distribution = f"types-{distribution}"
 
-    obsolete_since = data.get("obsolete_since")
+    obsolete_since: object = data.get("obsolete_since")
     assert isinstance(obsolete_since, (str, type(None)))
-    no_longer_updated = data.get("no_longer_updated", False)
+    no_longer_updated: object = data.get("no_longer_updated", False)
     assert type(no_longer_updated) is bool
-    uploaded_to_pypi = data.get("upload", True)
+    uploaded_to_pypi: object = data.get("upload", True)
     assert type(uploaded_to_pypi) is bool
 
-    empty_tools: dict[str, dict[str, object]] = {}
-    tools_settings = data.get("tool", empty_tools)
+    empty_tools: dict[object, object] = {}
+    tools_settings: object = data.get("tool", empty_tools)
     assert isinstance(tools_settings, dict)
     assert tools_settings.keys() <= _KNOWN_METADATA_TOOL_FIELDS.keys(), f"Unrecognised tool for {distribution!r}"
     for tool, tk in _KNOWN_METADATA_TOOL_FIELDS.items():
-        settings_for_tool = tools_settings.get(tool, {})
+        settings_for_tool: object = tools_settings.get(tool, {})  # pyright: ignore[reportUnknownMemberType]
         assert isinstance(settings_for_tool, dict)
         for key in settings_for_tool:
             assert key in tk, f"Unrecognised {tool} key {key!r} for {distribution!r}"
