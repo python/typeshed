@@ -1,7 +1,11 @@
+import sys
 from _typeshed import StrPath, Unused
 from collections.abc import Callable, Container, Iterable, Mapping
 from typing import Any
 from typing_extensions import Literal
+
+if sys.version_info >= (3, 8):
+    def get_host_platform() -> str: ...
 
 def get_platform() -> str: ...
 def convert_path(pathname: str) -> str: ...
@@ -25,15 +29,18 @@ def byte_compile(
 ) -> None: ...
 def rfc822_escape(header: str) -> str: ...
 def run_2to3(
-    files: Iterable[str], fixer_names: Iterable[str] | None = ..., options: Mapping[str, Any] | None = ..., explicit: Unused = ...
+    files: Iterable[str],
+    fixer_names: Iterable[str] | None = None,
+    options: Mapping[str, Any] | None = None,
+    explicit: Unused = None,
 ) -> None: ...
 def copydir_run_2to3(
     src: StrPath,
     dest: StrPath,
-    template: str | None = ...,
-    fixer_names: Iterable[str] | None = ...,
-    options: Mapping[str, Any] | None = ...,
-    explicit: Container[str] | None = ...,
+    template: str | None = None,
+    fixer_names: Iterable[str] | None = None,
+    options: Mapping[str, Any] | None = None,
+    explicit: Container[str] | None = None,
 ) -> list[str]: ...
 
 class Mixin2to3:

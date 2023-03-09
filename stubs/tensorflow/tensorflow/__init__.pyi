@@ -1,17 +1,56 @@
-from _typeshed import Incomplete, Self, Unused
+from _typeshed import Incomplete, Unused
 from abc import ABCMeta
 from builtins import bool as _bool
 from collections.abc import Callable, Iterable, Iterator, Sequence
 from contextlib import contextmanager
 from enum import Enum
 from typing import Any, NoReturn, overload
-from typing_extensions import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 import numpy
+
+# Explicit import of DType is covered by the wildcard, but
+# is necessary to avoid a crash in pytype.
 from tensorflow.dtypes import *
+from tensorflow.dtypes import DType as DType
 
 # Most tf.math functions are exported as tf, but sadly not all are.
-from tensorflow.math import abs as abs
+from tensorflow.math import (
+    abs as abs,
+    add as add,
+    add_n as add_n,
+    argmax as argmax,
+    argmin as argmin,
+    cos as cos,
+    cosh as cosh,
+    divide as divide,
+    equal as equal,
+    greater as greater,
+    greater_equal as greater_equal,
+    less as less,
+    less_equal as less_equal,
+    logical_and as logical_and,
+    logical_not as logical_not,
+    logical_or as logical_or,
+    maximum as maximum,
+    minimum as minimum,
+    multiply as multiply,
+    not_equal as not_equal,
+    pow as pow,
+    reduce_max as reduce_max,
+    reduce_mean as reduce_mean,
+    reduce_min as reduce_min,
+    reduce_prod as reduce_prod,
+    reduce_sum as reduce_sum,
+    sigmoid as sigmoid,
+    sign as sign,
+    sin as sin,
+    sinh as sinh,
+    sqrt as sqrt,
+    square as square,
+    subtract as subtract,
+    tanh as tanh,
+)
 from tensorflow.sparse import SparseTensor
 
 # Tensors ideally should be a generic type, but properly typing data type/shape
@@ -183,12 +222,35 @@ class Graph:
     def add_to_collection(self, name: str, value: object) -> None: ...
     def add_to_collections(self, names: Iterable[str] | str, value: object) -> None: ...
     @contextmanager
-    def as_default(self: Self) -> Iterator[Self]: ...
+    def as_default(self) -> Iterator[Self]: ...
     def finalize(self) -> None: ...
     def get_tensor_by_name(self, name: str) -> Tensor: ...
     def get_operation_by_name(self, name: str) -> Operation: ...
     def get_operations(self) -> list[Operation]: ...
     def get_name_scope(self) -> str: ...
     def __getattr__(self, name: str) -> Incomplete: ...
+
+class IndexedSlices(metaclass=ABCMeta):
+    def __init__(self, values: Tensor, indices: Tensor, dense_shape: None | Tensor = None) -> None: ...
+    @property
+    def values(self) -> Tensor: ...
+    @property
+    def indices(self) -> Tensor: ...
+    @property
+    def dense_shape(self) -> None | Tensor: ...
+    @property
+    def shape(self) -> TensorShape: ...
+    @property
+    def dtype(self) -> DType: ...
+    @property
+    def name(self) -> str: ...
+    @property
+    def op(self) -> Operation: ...
+    @property
+    def graph(self) -> Graph: ...
+    @property
+    def device(self) -> str: ...
+    def __neg__(self) -> IndexedSlices: ...
+    def consumers(self) -> list[Operation]: ...
 
 def __getattr__(name: str) -> Incomplete: ...

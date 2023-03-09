@@ -1,12 +1,12 @@
 import email.message
 import io
 import sys
-from _typeshed import Self, StrPath, SupportsNoArgReadline, SupportsRead
+from _typeshed import StrPath, SupportsNoArgReadline, SupportsRead
 from abc import ABCMeta, abstractmethod
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from types import TracebackType
 from typing import IO, Any, AnyStr, Generic, Protocol, TypeVar, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -105,7 +105,6 @@ class Mailbox(Generic[_MessageT]):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
 
 class Maildir(Mailbox[MaildirMessage]):
-
     colon: str
     def __init__(
         self, dirname: StrPath, factory: Callable[[IO[Any]], MaildirMessage] | None = None, create: bool = True
@@ -236,7 +235,7 @@ class _ProxyFile(Generic[AnyStr]):
     def tell(self) -> int: ...
     def seek(self, offset: int, whence: int = 0) -> None: ...
     def close(self) -> None: ...
-    def __enter__(self: Self) -> Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(self, exc_type: type[BaseException] | None, exc: BaseException | None, tb: TracebackType | None) -> None: ...
     def readable(self) -> bool: ...
     def writable(self) -> bool: ...
