@@ -3,7 +3,6 @@ from collections.abc import Callable, Iterable, Iterator
 from typing import Any, overload
 
 class BaseRow:
-    @overload
     def __init__(
         self,
         __parent,
