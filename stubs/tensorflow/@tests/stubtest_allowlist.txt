@@ -57,3 +57,10 @@ tensorflow.keras.constraints.Constraint.__call__
 # Layer class does good deal of __new__ magic and actually returns one of two different internal
 # types depending on tensorflow execution mode. This feels like implementation internal.
 tensorflow.keras.layers.Layer.__new__
+
+# build/compute_output_shape are marked positional only in stubs
+# as argument name is inconsistent across layer's and looks like
+# an implementation detail as documentation never mentions the
+# disagreements.
+tensorflow.keras.layers.*.build
+tensorflow.keras.layers.*.compute_output_shape

@@ -60,11 +60,11 @@ class Layer(Generic[_InputT, _OutputT], tf.Module):
 
     # input_shape's real type depends on _InputT, but we can't express that without HKT.
     # For example _InputT tf.Tensor -> tf.TensorShape, _InputT dict[str, tf.Tensor] -> dict[str, tf.TensorShape].
-    def build(self, input_shape: Any) -> None: ...
+    def build(self, input_shape: Any, /) -> None: ...
     @overload
-    def compute_output_shape(self: Layer[tf.Tensor, tf.Tensor], input_shape: tf.TensorShape) -> tf.TensorShape: ...
+    def compute_output_shape(self: Layer[tf.Tensor, tf.Tensor], input_shape: tf.TensorShape, /) -> tf.TensorShape: ...
     @overload
-    def compute_output_shape(self, input_shape: Any) -> Any: ...
+    def compute_output_shape(self, input_shape: Any, /) -> Any: ...
     def add_weight(
         self,
         name: str | None = None,
@@ -110,7 +110,7 @@ _LayerDtype: TypeAlias = tf._DTypeLike | dict[str, Any] | Any
 
 # Layer's compute_output_shape commonly have instance as first argument name instead of self.
 # This is an artifact of actual implementation commonly uses a decorator to define it.
-# Layer.build has same weirdness sometimes.
+# Layer.build has same weirdness sometimes. For both marked as positional only.
 class Dense(Layer[tf.Tensor, tf.Tensor]):
     def __init__(
         self,
@@ -163,7 +163,6 @@ class ReLU(Layer[tf.Tensor, tf.Tensor]):
         dynamic: bool = False,
         name: str | None = None,
     ) -> None: ...
-    def compute_output_shape(instance, input_shape: tf.TensorShape) -> tf.TensorShape: ...
 
 class Dropout(Layer[tf.Tensor, tf.Tensor]):
     def __init__(
@@ -192,7 +191,5 @@ class Embedding(Layer[tf.Tensor, tf.Tensor]):
         dynamic: bool = False,
         name: str | None = None,
     ) -> None: ...
-    def build(instance, input_shape: tf.TensorShape) -> None: ...
-    def compute_output_shape(instance, input_shape: tf.TensorShape) -> tf.TensorShape: ...
 
 def __getattr__(name: str) -> Incomplete: ...
