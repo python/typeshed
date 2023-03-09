@@ -14,14 +14,12 @@ KEY_OBJECTS_ONLY: int
 KEY_OBJECTS_BUT_WARN: int
 KEY_OBJECTS_NO_WARN: int
 
-# BaseRow.__getitem__ and Sequence.__getitem__ are incompatible, since BaseRow
-# does not support slices.
-class Row(BaseRow, Sequence[Any]):  # type: ignore[misc]
+class Row(BaseRow, Sequence[Any]):
     # The count and index methods are inherited from Sequence.
     # If the result set contains columns with the same names, these
     # fields contains their respective values, instead. We don't reflect
     # this in the stubs.
-    __hash__ = BaseRow.__hash__
+    __hash__ = BaseRow.__hash__  # type: ignore[assignment]
     def __lt__(self, other: Row | tuple[Any, ...]) -> bool: ...
     def __le__(self, other: Row | tuple[Any, ...]) -> bool: ...
     def __ge__(self, other: Row | tuple[Any, ...]) -> bool: ...
