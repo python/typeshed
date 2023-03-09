@@ -3,8 +3,14 @@ from collections.abc import Callable, Iterable, Iterator
 from typing import Any
 
 class BaseRow:
+    @overload
     def __init__(
-        self, parent, processors: Iterable[Callable[[Any], Any] | None] | None, keymap, key_style, data: Iterable[Any]
+        self,
+        __parent,
+        __processors: Iterable[Callable[[Any], Any]] | None,
+        __keymap: dict[Incomplete, Incomplete],
+        __key_style: int,
+        __row: Sequence[Any],
     ) -> None: ...
     def __reduce__(self) -> tuple[Incomplete, tuple[Incomplete, Incomplete]]: ...
     def __iter__(self) -> Iterator[Any]: ...
