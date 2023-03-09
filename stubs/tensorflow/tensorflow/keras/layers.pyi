@@ -7,7 +7,7 @@ import tensorflow as tf
 from tensorflow import Tensor, Variable, VariableAggregation, VariableSynchronization, _TensorCompatible
 from tensorflow._aliases import AnyArray
 from tensorflow.keras.activations import _Activation
-from tensorflow.keras.constraints import _Constraint
+from tensorflow.keras.constraints import Constraint
 from tensorflow.keras.initializers import _Initializer
 from tensorflow.keras.regularizers import _Regularizer
 
@@ -60,11 +60,11 @@ class Layer(Generic[_InputT, _OutputT], tf.Module):
 
     # input_shape's real type depends on _InputT, but we can't express that without HKT.
     # For example _InputT tf.Tensor -> tf.TensorShape, _InputT dict[str, tf.Tensor] -> dict[str, tf.TensorShape].
-    def build(self, input_shape: Any, /) -> None: ...
+    def build(self, __input_shape: Any) -> None: ...
     @overload
-    def compute_output_shape(self: Layer[tf.Tensor, tf.Tensor], input_shape: tf.TensorShape, /) -> tf.TensorShape: ...
+    def compute_output_shape(self: Layer[tf.Tensor, tf.Tensor], __input_shape: tf.TensorShape) -> tf.TensorShape: ...
     @overload
-    def compute_output_shape(self, input_shape: Any, /) -> Any: ...
+    def compute_output_shape(self, __input_shape: Any) -> Any: ...
     def add_weight(
         self,
         name: str | None = None,
@@ -107,6 +107,8 @@ class Layer(Generic[_InputT, _OutputT], tf.Module):
 
 # TODO: Replace last Any after adding tf.keras.mixed_precision.Policy.
 _LayerDtype: TypeAlias = tf._DTypeLike | dict[str, Any] | Any
+
+_Constraint: TypeAlias = str | dict[str, Any] | Constraint | None
 
 # Layer's compute_output_shape commonly have instance as first argument name instead of self.
 # This is an artifact of actual implementation commonly uses a decorator to define it.
