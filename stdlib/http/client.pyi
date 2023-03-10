@@ -101,7 +101,8 @@ class HTTPMessage(email.message.Message):
 
 def parse_headers(fp: io.BufferedIOBase, _class: Callable[[], email.message.Message] = ...) -> HTTPMessage: ...
 
-class HTTPResponse(io.BufferedIOBase, BinaryIO):  # type: ignore[misc]  # https://github.com/python/mypy/issues/14002
+# superclasses have incompatible write and writelines methods
+class HTTPResponse(io.BufferedIOBase, BinaryIO):  # type: ignore[misc]
     msg: HTTPMessage
     headers: HTTPMessage
     version: int

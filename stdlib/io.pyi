@@ -90,7 +90,7 @@ class BufferedIOBase(IOBase):
     def read(self, __size: int | None = ...) -> bytes: ...
     def read1(self, __size: int = ...) -> bytes: ...
 
-class FileIO(RawIOBase, BinaryIO):  # type: ignore[misc]  # https://github.com/python/mypy/issues/14002
+class FileIO(RawIOBase, BinaryIO):  # type: ignore[misc]
     mode: str
     name: FileDescriptorOrPath  # type: ignore[assignment]
     def __init__(
@@ -102,7 +102,7 @@ class FileIO(RawIOBase, BinaryIO):  # type: ignore[misc]  # https://github.com/p
     def read(self, __size: int = -1) -> bytes: ...
     def __enter__(self) -> Self: ...
 
-class BytesIO(BufferedIOBase, BinaryIO):  # type: ignore[misc]  # https://github.com/python/mypy/issues/14002
+class BytesIO(BufferedIOBase, BinaryIO):  # type: ignore[misc]
     def __init__(self, initial_bytes: ReadableBuffer = ...) -> None: ...
     # BytesIO does not contain a "name" field. This workaround is necessary
     # to allow BytesIO sub-classes to add this field, as it is defined
@@ -113,18 +113,18 @@ class BytesIO(BufferedIOBase, BinaryIO):  # type: ignore[misc]  # https://github
     def getbuffer(self) -> memoryview: ...
     def read1(self, __size: int | None = -1) -> bytes: ...
 
-class BufferedReader(BufferedIOBase, BinaryIO):  # type: ignore[misc]  # https://github.com/python/mypy/issues/14002
+# superclasses have incompatible write and writelines methods
+class BufferedReader(BufferedIOBase, BinaryIO):  # type: ignore[misc]
     def __enter__(self) -> Self: ...
     def __init__(self, raw: RawIOBase, buffer_size: int = ...) -> None: ...
     def peek(self, __size: int = 0) -> bytes: ...
 
-class BufferedWriter(BufferedIOBase, BinaryIO):  # type: ignore[misc]  # https://github.com/python/mypy/issues/14002
+class BufferedWriter(BufferedIOBase, BinaryIO):  # type: ignore[misc]
     def __enter__(self) -> Self: ...
     def __init__(self, raw: RawIOBase, buffer_size: int = ...) -> None: ...
-    # https://github.com/python/mypy/issues/14002
-    def write(self, __buffer: ReadableBuffer) -> int: ...  # type: ignore[override]
+    def write(self, __buffer: ReadableBuffer) -> int: ...
 
-class BufferedRandom(BufferedReader, BufferedWriter):  # type: ignore[misc]  # https://github.com/python/mypy/issues/14002
+class BufferedRandom(BufferedReader, BufferedWriter):  # type: ignore[misc]
     def __enter__(self) -> Self: ...
     def seek(self, __target: int, __whence: int = 0) -> int: ...  # stubtest needs this
 
@@ -145,7 +145,7 @@ class TextIOBase(IOBase):
     def readlines(self, __hint: int = -1) -> list[str]: ...  # type: ignore[override]
     def read(self, __size: int | None = ...) -> str: ...
 
-class TextIOWrapper(TextIOBase, TextIO):  # type: ignore[misc]  # https://github.com/python/mypy/issues/14002
+class TextIOWrapper(TextIOBase, TextIO):  # type: ignore[misc]
     def __init__(
         self,
         buffer: IO[bytes],
