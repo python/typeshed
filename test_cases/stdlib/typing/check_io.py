@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import mmap
 from typing import IO, AnyStr
 
