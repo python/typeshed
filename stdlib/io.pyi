@@ -177,6 +177,7 @@ class TextIOWrapper(TextIOBase, TextIO):  # type: ignore[misc]
     def __iter__(self) -> Iterator[str]: ...  # type: ignore[override]
     def __next__(self) -> str: ...  # type: ignore[override]
     def writelines(self, __lines: Iterable[str]) -> None: ...  # type: ignore[override]
+    def write(self, __s: str) -> int: ...  # type: ignore[override]
     def readline(self, __size: int = -1) -> str: ...  # type: ignore[override]
     def readlines(self, __hint: int = -1) -> list[str]: ...  # type: ignore[override]
     def seek(self, __cookie: int, __whence: int = 0) -> int: ...  # stubtest needs this
