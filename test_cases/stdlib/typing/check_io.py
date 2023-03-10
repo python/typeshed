@@ -1,5 +1,5 @@
 import pickle
-from typing import AnyStr, IO
+from typing import IO, AnyStr
 
 
 def check_write(io_bytes: IO[bytes], io_str: IO[str], io_anystr: IO[AnyStr], any_str: AnyStr, buf: pickle.PickleBuffer) -> None:
