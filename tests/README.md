@@ -46,6 +46,9 @@ be selected. A summary of the results will be printed to the terminal.
 You must provide a single argument which is a path to the stubs to test, like
 so: `stdlib/os` or `stubs/requests`.
 
+Run `python scripts/runtests.py --help` for information on the various configuration options
+for this script.
+
 ## mypy\_test.py
 
 Run using:
@@ -159,7 +162,7 @@ directly, with
 
 For each distribution, stubtest ignores definitions listed in a `@tests/stubtest_allowlist.txt` file,
 relative to the distribution. Additional packages that are needed to run stubtest for a
-distribution can be added to `@tests/requirements-stubtest.txt`.
+distribution can be added to `tool.stubtest.stubtest_requirements` in `METADATA.toml`.
 
 ### Using stubtest to find objects missing from the stubs
 
@@ -167,16 +170,13 @@ By default, stubtest emits an error if a public object is present at runtime
 but missing from the stub. However, this behaviour can be disabled using the
 `--ignore-missing-stub` option.
 
-Many third-party stubs packages in typeshed are currently incomplete, and so by
-default, `stubtest_third_party.py` runs stubtest with the
-`--ignore-missing-stub` option to test our third-party stubs. However, this
-option is not used if the distribution has `ignore_missing_stub = false` in the
-`tool.stubtest` section of its `tests/METADATA.toml` file. This setting
-indicates that the package is considered "complete", for example:
-https://github.com/python/typeshed/blob/6950c3237065e6e2a9b64810765fec716252d52a/stubs/emoji/METADATA.toml#L3-L4
+If a distribution has `ignore_missing_stub = true` in the `[tool.stubtest]` section of its
+`tests/METADATA.toml` file, `stubtest_third_party.py` will test that distribution with the
+`--ignore-missing-stub option`. This indicates that the stubs for this distribution are
+considered "incomplete".
 
-You can help make typeshed's stubs more complete by adding
-`ignore_missing_stub = false` to the `tests/METADATA.toml` file for a
+You can help make typeshed's stubs more complete by removing
+`ignore_missing_stub = true` from the `tests/METADATA.toml` file for a
 third-party stubs distribution, running stubtest, and then adding things that
 stubtest reports to be missing to the stub. However, note that not *everything*
 that stubtest reports to be missing should necessarily be added to the stub.

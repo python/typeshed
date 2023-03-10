@@ -1,8 +1,8 @@
 import sys
-from _typeshed import Self
+from _typeshed import Unused
 from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from typing import Any, NoReturn, overload
-from typing_extensions import Literal
+from typing_extensions import Literal, Self
 
 import numpy
 from _cffi_backend import _CDataBase
@@ -80,8 +80,8 @@ class Client:
         servername: str | None = ...,
         session_id: str | None = ...,
     ) -> None: ...
-    def __enter__(self: Self) -> Self: ...
-    def __exit__(self, *args: object) -> None: ...
+    def __enter__(self) -> Self: ...
+    def __exit__(self, *args: Unused) -> None: ...
     @property
     def name(self) -> str: ...
     @property
