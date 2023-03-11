@@ -82,6 +82,16 @@ VersionString: TypeAlias = str
 ReleaseDownload: TypeAlias = dict[str, Any]
 
 
+def _best_effort_version(version: VersionString) -> packaging.version.Version:
+    try:
+        return packaging.version.Version(version)
+    except packaging.version.InvalidVersion:
+        # packaging.version.Version no longer parses legacy versions
+        try:
+            return packaging.version.Version(version.replace("-", "+"))
+        except packaging.version.InvalidVersion:
+            return packaging.version.Version("0")
+
 @dataclass
 class PypiInfo:
     distribution: str
@@ -104,7 +114,7 @@ class PypiInfo:
         return self.get_release(version=self.info["version"])
 
     def releases_in_descending_order(self) -> Iterator[PypiReleaseDownload]:
-        for version in sorted(self.releases, key=packaging.version.Version, reverse=True):
+        for version in sorted(self.releases, key=_best_effort_version, reverse=True):
             yield self.get_release(version=version)
 
 
