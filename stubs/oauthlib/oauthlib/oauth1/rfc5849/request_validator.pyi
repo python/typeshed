@@ -54,8 +54,8 @@ class RequestValidator:
         timestamp,
         nonce: str,
         request: Request,
-        request_token: Incomplete | None = ...,
-        access_token: Incomplete | None = ...,
+        request_token: str | None = None,
+        access_token: str | None = None,
     ) -> bool: ...
     def validate_redirect_uri(self, client_key: str, redirect_uri, request: Request) -> bool: ...
     def validate_requested_realms(self, client_key: str, realms: list[str], request: Request) -> bool: ...
