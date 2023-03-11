@@ -1,6 +1,3 @@
-from _typeshed import Incomplete
-from collections.abc import Iterable
-
 from ...common import Request
 
 class RequestValidator:
