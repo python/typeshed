@@ -92,6 +92,7 @@ def _best_effort_version(version: VersionString) -> packaging.version.Version:
         except packaging.version.InvalidVersion:
             return packaging.version.Version("0")
 
+
 @dataclass
 class PypiInfo:
     distribution: str
