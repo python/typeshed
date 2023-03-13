@@ -1,4 +1,7 @@
-webob.Response.set_cookie
+# Error: is not present in stub
+# =============================
+# These are plain strings, regex strings or compiled regex patterns
+# which are used internally for parsing, so they should not be public API
 webob.acceptparse.Accept.accept_compiled_re
 webob.acceptparse.Accept.accept_ext_compiled_re
 webob.acceptparse.Accept.accept_ext_re
@@ -29,8 +32,36 @@ webob.acceptparse.AcceptLanguage.accept_language_compiled_re
 webob.acceptparse.AcceptLanguage.lang_range_n_weight_compiled_re
 webob.acceptparse.AcceptLanguage.lang_range_n_weight_re
 webob.acceptparse.AcceptLanguage.lang_range_re
-webob.acceptparse.MIMEAccept
 webob.acceptparse.OWS_re
+webob.acceptparse.qvalue_re
+webob.acceptparse.tchar_re
+webob.acceptparse.token_compiled_re
+webob.acceptparse.token_re
+webob.acceptparse.weight_re
+webob.cachecontrol.need_quote_re
+webob.cachecontrol.token_re
+webob.client.SendRequest.MULTILINE_RE
+
+webob.acceptparse.MIMEAccept  # Deprecated API
+
+# PY2 compat stuff that has already been removed upstream
+webob.compat
+webob.multidict.MultiDict.iteritems
+webob.multidict.MultiDict.iterkeys
+webob.multidict.MultiDict.itervalues
+webob.multidict.NestedMultiDict.iteritems
+webob.multidict.NestedMultiDict.iterkeys
+webob.multidict.NestedMultiDict.itervalues
+
+# Error: is inconsistent
+# ======================
+# set_cookie has a deprecated argument `expires` which has been removed upstream
+webob.Response.set_cookie
+webob.response.Response.set_cookie
+
+# These methods have been moved from their subclasses to the shared hidden superclass
+# since the method signatures are the same, so this saves some copy pasta and should
+# not affect type checking or runtime behavior in any way
 webob.acceptparse._AcceptCharsetInvalidOrNoHeader.__add__
 webob.acceptparse._AcceptCharsetInvalidOrNoHeader.__radd__
 webob.acceptparse._AcceptCharsetInvalidOrNoHeader.copy
@@ -48,11 +79,11 @@ webob.acceptparse._AcceptLanguageInvalidOrNoHeader.__radd__
 webob.acceptparse._AcceptLanguageInvalidOrNoHeader.copy
 webob.acceptparse._AcceptLanguageInvalidOrNoHeader.lookup
 webob.acceptparse._AcceptLanguageInvalidOrNoHeader.parsed
-webob.acceptparse.qvalue_re
-webob.acceptparse.tchar_re
-webob.acceptparse.token_compiled_re
-webob.acceptparse.token_re
-webob.acceptparse.weight_re
+
+# These are here due to the slightly more strict nature of the type annotation
+# of these desriptors for type checking, it does not really have any runtime
+# consequences since `_IntValueProperty` derives from `value_property` and
+# only makes `__set__` slightly more strict.
 webob.cachecontrol.CacheControl.max_age
 webob.cachecontrol.CacheControl.max_stale
 webob.cachecontrol.CacheControl.min_fresh
@@ -62,27 +93,40 @@ webob.cachecontrol.CacheControl.stale_if_error
 webob.cachecontrol.CacheControl.stale_while_revalidate
 webob.cachecontrol.CacheControl.update_dict
 webob.cachecontrol.UpdateDict.setdefault
-webob.cachecontrol.need_quote_re
-webob.cachecontrol.token_re
-webob.client.SendRequest.MULTILINE_RE
-webob.compat
-webob.multidict.MultiDict.iteritems
-webob.multidict.MultiDict.iterkeys
-webob.multidict.MultiDict.itervalues
-webob.multidict.NestedMultiDict.clear
-webob.multidict.NestedMultiDict.iteritems
-webob.multidict.NestedMultiDict.iterkeys
-webob.multidict.NestedMultiDict.itervalues
+
+# These need to be ignored due to how WebOb decided to let people know that
+# that certain methods on `NestedMultiDict` and `NoVars` should not be called
+# since these are immutable, compared to a MultiDict, but should be used
+# interchangeably in some parts of the API. So they re-use generic functions
+# that accept any parameters and assign them to methods which should still
+# satisfy the same interface. The type annotations provide proper annotations
+# for these methods with `NoReturn` instead.
 webob.multidict.NestedMultiDict.popitem
+webob.multidict.NestedMultiDict.clear
 webob.multidict.NoVars.add
 webob.multidict.NoVars.clear
 webob.multidict.NoVars.pop
 webob.multidict.NoVars.popitem
 webob.multidict.NoVars.setdefault
 webob.multidict.NoVars.update
+
+# The `DEFAULT` parameter on these dunder methods don't really make sense as
+# part of the public API, so they have been removed from the stubs
 webob.request.AdhocAttrMixin.__delattr__
 webob.request.AdhocAttrMixin.__getattr__
 webob.request.AdhocAttrMixin.__setattr__
+
+# BaseRequest has a bunch of named parameters that have been deprecated and
+# removed upstream, since there's a `**kwargs` anyways, it doesn't really
+# make sense to annotate them and pretend they're part of the API.
 webob.request.BaseRequest.__init__
-webob.response.Response.set_cookie
+
+# Error: is not present at runtime
+# =============================
+# This attribute is set on the instance instead of the class in the `__init__`
+# so the type annotation is technically wrong, however I am unsure about
+# whether the ResponseBodyFile would satisfy some of the IO Protocols if
+# `write` was defined as a Callable instance attribute. It's hard to come up
+# with a use-case where the distinction matters, besides inherting from
+# the class and overwriting the __init__ forgetting to populate `write`.
 webob.response.ResponseBodyFile.write
