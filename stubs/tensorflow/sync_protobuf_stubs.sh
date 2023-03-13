@@ -22,8 +22,8 @@ pushd repository &> /dev/null
     pushd tensorflow &> /dev/null
         git checkout v"$TENSORFLOW_VERSION"
 
-        # Folders here cover the more commonly used protobufs externally.
-        # Tensorflow has more protobufs and can be added if requested.
+        # Folders here cover the more commonly used protobufs externally and
+        # there dependencies. Tensorflow has more protobufs and can be added if requested.
         protoc --mypy_out "relax_strict_optional_primitives:$REPO_ROOT/stubs/tensorflow" \
             tensorflow/core/protobuf/*.proto \
             tensorflow/core/protobuf/tpu/*.proto \
@@ -31,7 +31,12 @@ pushd repository &> /dev/null
             tensorflow/core/util/*.proto \
             tensorflow/core/example/*.proto \
             tensorflow/python/keras/protobuf/*.proto \
-            tensorflow/tsl/protobuf/*.proto
+            tensorflow/tsl/protobuf/*.proto \
+            tensorflow/compiler/xla/*.proto \
+            tensorflow/compiler/xla/stream_executor/*.proto \
+            tensorflow/compiler/xla/service/*.proto \
+            tensorflow/compiler/xla/pjrt/*.proto \
+            tensorflow/compiler/xla/pjrt/distributed/*.proto
     popd &> /dev/null
 popd &> /dev/null
 
