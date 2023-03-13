@@ -30,7 +30,8 @@ pushd repository &> /dev/null
             tensorflow/core/framework/*.proto \
             tensorflow/core/util/*.proto \
             tensorflow/core/example/*.proto \
-            tensorflow/python/keras/protobuf/*.proto
+            tensorflow/python/keras/protobuf/*.proto \
+            tensorflow/tsl/protobuf/*.proto
     popd &> /dev/null
 popd &> /dev/null
 
