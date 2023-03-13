@@ -188,8 +188,8 @@ class Response:
     def app_iter_range(self, start: int, stop: int | None) -> AppIterRange: ...
 
 class ResponseBodyFile:
-    mode: Literal["wb"] = "wb"
-    closed: Literal[False] = False
+    mode: Literal["wb"]
+    closed: Literal[False]
     response: Response
     def __init__(self, response: Response): ...
     @property
