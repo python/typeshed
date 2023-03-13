@@ -7,7 +7,8 @@ set -euxo pipefail
 # mypy-protobuf. Should be run like ./sync_protobuf_stubs.sh 2.11.0.
 # Generally, new minor versions are a good time to update the stubs.
 cd "$(dirname "$0")" > /dev/null
-REPO_ROOT="$(realpath "$(dirname "${BASH_SOURCE[0]}")"/../..)"
+cd ../stubs/tensorflow
+REPO_ROOT="$(realpath "$(dirname "${BASH_SOURCE[0]}")"/..)"
 
 
 # This version should be consistent with the version in METADATA.toml.
