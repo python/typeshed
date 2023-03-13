@@ -34,10 +34,12 @@ pushd repository &> /dev/null
             tensorflow/tsl/protobuf/*.proto \
             tensorflow/compiler/xla/*.proto \
             tensorflow/compiler/xla/stream_executor/*.proto \
-            tensorflow/compiler/xla/service/*.proto \
-            tensorflow/compiler/xla/pjrt/*.proto \
-            tensorflow/compiler/xla/pjrt/distributed/*.proto
+            tensorflow/compiler/xla/service/*.proto
     popd &> /dev/null
 popd &> /dev/null
 
 rm -rf repository/
+# These protos exist in a folder with protos used in python, but are not
+# included in the python wheel. They are likely only used for other
+# language builds.
+rm tensorflow/core/protobuf/coordination_service_pb2.pyi
