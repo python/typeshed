@@ -1,9 +1,10 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 
 from webob.request import Request
 
 class wsgify:
-    RequestClass = Request
+    RequestClass: ClassVar[type[Request]]
     func: Incomplete
     args: Incomplete
     kwargs: Incomplete
