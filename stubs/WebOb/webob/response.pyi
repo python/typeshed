@@ -1,8 +1,8 @@
 from _typeshed import Incomplete, SupportsItems, SupportsRead
 from collections.abc import Callable, Iterable, Iterator, Sequence
 from datetime import timedelta
-from typing import IO, Any, Literal, NoReturn, Protocol, overload
-from typing_extensions import TypeAlias, TypedDict
+from typing import IO, Any, NoReturn, Protocol
+from typing_extensions import Literal, TypeAlias, TypedDict
 
 from webob.byterange import ContentRange
 from webob.cachecontrol import _ResponseCacheControl
@@ -46,6 +46,17 @@ class _ResponseCacheControlDict(TypedDict, total=False):
 _HTTPHeader: TypeAlias = tuple[str, str]
 _StartResponse: TypeAlias = Callable[[str, list[_HTTPHeader]], None]
 _WSGIApplication: TypeAlias = Callable[[dict[str, Any], _StartResponse], Iterator[bytes]]
+_ContentRangeParams: TypeAlias = (
+    ContentRange
+    | list[int | None]
+    | tuple[int, int]
+    | tuple[None, None]
+    | tuple[int, int, int | None]
+    | tuple[None, None, int | None]
+    | str
+    | bytes
+    | None
+)
 
 class Response:
     default_content_type: str
@@ -77,21 +88,13 @@ class Response:
     @property
     def headerlist(self) -> list[_HTTPHeader]: ...
     @headerlist.setter
-    @overload
-    def headerlist(self, value: Iterable[tuple[str, str]]) -> None: ...
-    @headerlist.setter
-    @overload
-    def headerlist(self, value: SupportsItems[str, str]) -> None: ...
+    def headerlist(self, value: Iterable[tuple[str, str]] | SupportsItems[str, str]) -> None: ...
     @headerlist.deleter
     def headerlist(self) -> None: ...
     @property
     def headers(self) -> ResponseHeaders: ...
     @headers.setter
-    @overload
-    def headers(self, value: SupportsItems[str, str]) -> None: ...
-    @headers.setter
-    @overload
-    def headers(self, value: Iterable[tuple[str, str]]) -> None: ...
+    def headers(self, value: SupportsItems[str, str] | Iterable[tuple[str, str]]) -> None: ...
     body: bytes
     json: Any
     json_body: Any
@@ -120,26 +123,7 @@ class Response:
     @property
     def content_range(self) -> ContentRange: ...
     @content_range.setter
-    @overload
-    def content_range(self, value: str | bytes | None) -> None: ...
-    @content_range.setter
-    @overload
-    def content_range(self, value: ContentRange) -> None: ...
-    @content_range.setter
-    @overload
-    def content_range(self, value: list[int | None]) -> None: ...
-    @content_range.setter
-    @overload
-    def content_range(self, value: tuple[int, int]) -> None: ...
-    @content_range.setter
-    @overload
-    def content_range(self, value: tuple[None, None]) -> None: ...
-    @content_range.setter
-    @overload
-    def content_range(self, value: tuple[int, int, int | None]) -> None: ...
-    @content_range.setter
-    @overload
-    def content_range(self, value: tuple[None, None, int | None]) -> None: ...
+    def content_range(self, value: _ContentRangeParams) -> None: ...
     @content_range.deleter
     def content_range(self) -> None: ...
     date: _DateProperty[str | bytes]
@@ -148,9 +132,7 @@ class Response:
     @property
     def etag(self) -> str | None: ...
     @etag.setter
-    def etag(self, value: str | None) -> None: ...
-    @etag.setter
-    def etag(self, value: tuple[str, bool]) -> None: ...
+    def etag(self, value: tuple[str, bool] | str | None) -> None: ...
     @etag.deleter
     def etag(self) -> None: ...
     @property
@@ -163,14 +145,7 @@ class Response:
     @property
     def www_authenticate(self) -> _authorization | None: ...
     @www_authenticate.setter
-    @overload
-    def www_authenticate(self, value: str | bytes | None): ...
-    @www_authenticate.setter
-    @overload
-    def www_authenticate(self, value: tuple[str, str | dict[str, str]]): ...
-    @www_authenticate.setter
-    @overload
-    def www_authenticate(self, value: list[str | dict[str, str]]): ...
+    def www_authenticate(self, value: tuple[str, str | dict[str, str]] | list[Any] | str | bytes | None): ...
     @www_authenticate.deleter
     def www_authenticate(self) -> None: ...
     charset: str | None
@@ -200,14 +175,7 @@ class Response:
     @property
     def cache_control(self) -> _ResponseCacheControl: ...
     @cache_control.setter
-    @overload
-    def cache_control(self, value: str | bytes | None) -> None: ...
-    @cache_control.setter
-    @overload
-    def cache_control(self, value: _ResponseCacheControl) -> None: ...
-    @cache_control.setter
-    @overload
-    def cache_control(self, value: _ResponseCacheControlDict) -> None: ...
+    def cache_control(self, value: _ResponseCacheControl | _ResponseCacheControlDict | str | bytes | None) -> None: ...
     @property
     def cache_expires(self) -> _ResponseCacheExpires: ...
     @cache_expires.setter

@@ -1,8 +1,8 @@
 from _typeshed import Incomplete, SupportsItems, SupportsKeysAndGetItem
 from collections.abc import Iterable, Iterator
 from string import Template
-from typing import Any, Literal, Protocol
-from typing_extensions import Self
+from typing import Any, Protocol
+from typing_extensions import Literal, Self
 
 from webob.response import Response, _StartResponse, _WSGIApplication
 
