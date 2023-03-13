@@ -84,6 +84,5 @@ webob.request.AdhocAttrMixin.__delattr__
 webob.request.AdhocAttrMixin.__getattr__
 webob.request.AdhocAttrMixin.__setattr__
 webob.request.BaseRequest.__init__
-webob.request.NoDefault
 webob.response.Response.set_cookie
 webob.response.ResponseBodyFile.write

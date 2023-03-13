@@ -42,7 +42,7 @@ class _RequestCacheControlDict(TypedDict, total=False):
 
 class _NoDefault: ...
 
-NoDefault: TypeAlias = _NoDefault
+NoDefault: _NoDefault
 
 class BaseRequest:
     request_body_tempfile_limit: ClassVar[int]
