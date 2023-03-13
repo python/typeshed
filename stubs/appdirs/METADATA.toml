@@ -1,1 +1,8 @@
 version = "1.4.*"
+no_longer_updated = true
+extra_description = """\
+The `appdirs` package has been deprecated in favour of the `platformdirs`\
+package, which ships with a `py.typed` file. Users should migrate their\
+`appdirs` code to use `platformdirs` instead, which will remove the need for\
+the `types-appdirs` package.\
+"""
