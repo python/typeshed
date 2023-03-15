@@ -1,6 +1,6 @@
+from collections.abc import Mapping
 from typing import Any
 
-from collections.abc import Mapping
 from setuptools import dist
 
 class SetupRequirementsError(BaseException):
