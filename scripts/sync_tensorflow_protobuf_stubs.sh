@@ -4,7 +4,7 @@ set -euxo pipefail
 # Partly based on scripts/generate_proto_stubs.sh.
 
 # Generates the protobuf stubs for the given tensorflow version using
-# mypy-protobuf. Should be run like ./sync_protobuf_stubs.sh
+# mypy-protobuf. Should be run like ./sync_tensorflow_protobuf_stubs.sh
 # Generally, new minor versions are a good time to update the stubs.
 cd "$(dirname "$0")" > /dev/null
 cd ../stubs/tensorflow
@@ -28,7 +28,7 @@ pushd repository &> /dev/null
         git checkout v"$TENSORFLOW_VERSION"
 
         # Folders here cover the more commonly used protobufs externally and
-        # there dependencies. Tensorflow has more protobufs and can be added if requested.
+        # their dependencies. Tensorflow has more protobufs and can be added if requested.
         protoc --mypy_out "relax_strict_optional_primitives:$REPO_ROOT/stubs/tensorflow" \
             tensorflow/core/protobuf/*.proto \
             tensorflow/core/protobuf/tpu/*.proto \
