@@ -7,7 +7,6 @@ from openpyxl import _Decodable
 from openpyxl.chartsheet.chartsheet import Chartsheet
 from openpyxl.styles.named_styles import NamedStyle
 from openpyxl.workbook.child import _WorkbookChild
-from openpyxl.workbook.defined_name import DefinedName
 from openpyxl.worksheet._read_only import ReadOnlyWorksheet
 from openpyxl.worksheet._write_only import WriteOnlyWorksheet
 from openpyxl.worksheet.worksheet import Worksheet

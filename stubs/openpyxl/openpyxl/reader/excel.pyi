@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, StrPath, SupportsRead
+from _typeshed import Incomplete, StrPath
 from typing import IO
 from typing_extensions import Final
 from zipfile import ZipFile

@@ -75,7 +75,7 @@ class WorkSheetParser:
         epoch: datetime = ...,
         date_formats: Container[int] = ...,
         timedelta_formats: Container[int] = ...,
-        rich_text: bool = False
+        rich_text: bool = False,
     ) -> None: ...
     def parse(self) -> Generator[Incomplete, None, None]: ...
     def parse_dimensions(self) -> tuple[int, int, int, int]: ...
@@ -98,7 +98,12 @@ class WorksheetReader:
     parser: WorkSheetParser
     tables: list[Incomplete]
     def __init__(
-        self, ws: Worksheet, xml_source: ZipExtFile | str, shared_strings: Sequence[str] | None, data_only: bool | None, rich_text: bool
+        self,
+        ws: Worksheet,
+        xml_source: ZipExtFile | str,
+        shared_strings: Sequence[str] | None,
+        data_only: bool | None,
+        rich_text: bool,
     ) -> None: ...
     def bind_cells(self) -> None: ...
     def bind_formatting(self) -> None: ...
