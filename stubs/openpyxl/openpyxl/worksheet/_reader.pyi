@@ -1,7 +1,6 @@
 import datetime
 from _typeshed import Incomplete
 from collections.abc import Container, Generator, Sequence
-from datetime import datetime
 from typing import Any
 from zipfile import ZipExtFile
 
@@ -45,7 +44,7 @@ CUSTOM_VIEWS_TAG: str
 class WorkSheetParser:
     min_row: Incomplete | None
     min_col: Incomplete | None
-    epoch: datetime
+    epoch: datetime.datetime
     source: ZipExtFile | str
     shared_strings: Sequence[str]
     data_only: bool
@@ -72,7 +71,7 @@ class WorkSheetParser:
         src: ZipExtFile | str,
         shared_strings: Sequence[str],
         data_only: bool = False,
-        epoch: datetime = ...,
+        epoch: datetime.datetime = ...,
         date_formats: Container[int] = ...,
         timedelta_formats: Container[int] = ...,
         rich_text: bool = False,
