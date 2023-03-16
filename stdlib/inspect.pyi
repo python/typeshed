@@ -161,7 +161,7 @@ TPFLAGS_IS_ABSTRACT: Literal[1048576]
 
 modulesbyfile: dict[str, Any]
 
-_GetMembersPredicateTypeGuard: TypeAlias = Callable[[_T], TypeGuard[_T]]
+_GetMembersPredicateTypeGuard: TypeAlias = Callable[[Any], TypeGuard[_T]]
 _GetMembersPredicate: TypeAlias = Callable[[Any], bool]
 _GetMembersReturnTypeGuard: TypeAlias = list[tuple[str, _T]]
 _GetMembersReturn: TypeAlias = list[tuple[str, Any]]
