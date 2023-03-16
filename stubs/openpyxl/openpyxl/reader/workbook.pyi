@@ -5,7 +5,6 @@ from openpyxl.packaging.relationship import Relationship, RelationshipList
 from openpyxl.packaging.workbook import ChildSheet, PivotCache
 from openpyxl.pivot.cache import CacheDefinition
 from openpyxl.workbook import Workbook
-from openpyxl.workbook.workbook import Workbook
 
 class WorkbookParser:
     archive: ZipFile
