@@ -10,7 +10,7 @@ from .coco import COCO
 _NDArray: TypeAlias = Incomplete
 _TIOU: TypeAlias = Literal["segm", "bbox", "keypoints"]
 
-class _EvaluationResult(TypedDict):
+class _ImageEvaluationResult(TypedDict):
     image_id: int
     category_id: int
     aRng: list[int]
@@ -27,10 +27,21 @@ class _EvaluationResult(TypedDict):
     dtIgnore: _NDArray
     # dtIgnore: npt.NDArray[np.float64]
 
+class _EvaluationResult(TypedDict):
+    params: Params
+    counts: list[int]
+    date: str
+    # precision: npt.NDArray[np.float64]
+    precision: _NDArray
+    # recall: npt.NDArray[np.float64]
+    recall: _NDArray
+    # scores: npt.NDArray[np.float64]
+    scores: _NDArray
+
 class COCOeval:
     cocoGt: COCO
     cocoDt: COCO
-    evalImgs: list[_EvaluationResult]
+    evalImgs: list[_ImageEvaluationResult]
     eval: _EvaluationResult
     params: Params
     stats: _NDArray
@@ -53,7 +64,7 @@ class Params:
     recThrs: _NDArray
     # recThrs: npt.NDArray[np.float64]
     maxDets: list[int]
-    areaRng: list[int]
+    areaRng: list[list[int | float]]
     areaRngLbl: list[str]
     useCats: int
     kpt_oks_sigmas: _NDArray
