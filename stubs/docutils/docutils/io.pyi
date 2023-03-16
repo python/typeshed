@@ -5,6 +5,7 @@ from _typeshed import (
     OpenTextModeReading,
     OpenTextModeWriting,
     SupportsWrite,
+    Unused,
 )
 from re import Pattern
 from typing import Any, ClassVar
@@ -14,8 +15,8 @@ from docutils import TransformSpec
 
 __docformat__: str
 
-class InputError(IOError): ...
-class OutputError(IOError): ...
+class InputError(OSError): ...
+class OutputError(OSError): ...
 
 def check_encoding(stream: Any, encoding: str) -> bool | None: ...
 def error_string(err: BaseException) -> str: ...
@@ -35,8 +36,8 @@ class Output(TransformSpec):
     default_destination_path: ClassVar[str | None]
     def __init__(
         self,
-        destination: Any | None = ...,
-        destination_path: Any | None = ...,
+        destination: Incomplete | None = ...,
+        destination_path: Incomplete | None = ...,
         encoding: str | None = ...,
         error_handler: str = ...,
     ) -> None: ...
@@ -58,8 +59,8 @@ class ErrorOutput:
 class FileInput(Input):
     def __init__(
         self,
-        source: Any | None = ...,
-        source_path: Any | None = ...,
+        source: Incomplete | None = ...,
+        source_path: Incomplete | None = ...,
         encoding: str | None = ...,
         error_handler: str = ...,
         autoclose: bool = ...,
@@ -88,7 +89,7 @@ class NullInput(Input):
 
 class NullOutput(Output):
     default_destination_path: ClassVar[str]
-    def write(self, data: object) -> None: ...
+    def write(self, data: Unused) -> None: ...
 
 class DocTreeInput(Input):
     default_source_path: ClassVar[str]

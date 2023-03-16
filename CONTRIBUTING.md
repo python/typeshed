@@ -46,14 +46,16 @@ virtual environment. If you're not familiar with what it is and how it works,
 please refer to this
 [documentation](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/).
 
+Note that some tests require extra setup steps to install the required dependencies.
+
 ### Linux/Mac OS
 
-On Linux and Mac OS, you will be able to run the full test suite on Python 3.8,
+On Linux and Mac OS, you will be able to run the full test suite on Python
 3.9 or 3.10.
 To install the necessary requirements, run the following commands from a
 terminal window:
 
-```
+```bash
 $ python3 -m venv .venv
 $ source .venv/bin/activate
 (.venv)$ pip install -U pip
@@ -73,11 +75,11 @@ WSL, follow the Linux/Mac OS instructions above.
 If you do not wish to install WSL, run the following commands from a Windows
 terminal to install all non-pytype requirements:
 
-```
+```powershell
 > python -m venv .venv
-> ".venv/scripts/activate"
+> .venv\scripts\activate
 (.venv) > pip install -U pip
-(.venv) > pip install -r requirements-tests.txt
+(.venv) > pip install -r "requirements-tests.txt"
 ```
 
 ## Code formatting
@@ -93,10 +95,10 @@ right away and add a commit to your PR.
 That being said, if you *want* to run the checks locally when you commit,
 you're free to do so. Either run `pycln`, `black` and `isort` manually...
 
-```
-pycln --config=pyproject.toml .
-isort .
-black .
+```bash
+$ pycln --config=pyproject.toml .
+$ isort .
+$ black .
 ```
 
 ...Or install the pre-commit hooks: please refer to the
@@ -107,8 +109,8 @@ Our code is also linted using `flake8`, with plugins `flake8-pyi`,
 flake8 before filing a PR is not required. However, if you wish to run flake8
 locally, install the test dependencies as outlined above, and then run:
 
-```
-flake8 .
+```bash
+(.venv3)$ flake8 .
 ```
 
 ## Where to make changes
@@ -176,6 +178,9 @@ supported:
 * `extra_description` (optional): Can be used to add a custom description to
   the package's long description. It should be a multi-line string in
   Markdown format.
+* `stub_distribution` (optional): Distribution name to be uploaded to PyPI.
+  This defaults to `types-<distribution>` and should only be set in special
+  cases.
 * `obsolete_since` (optional): This field is part of our process for
   [removing obsolete third-party libraries](#third-party-library-removal-policy).
   It contains the first version of the corresponding library that ships
@@ -183,6 +188,9 @@ supported:
 * `no_longer_updated` (optional): This field is set to `true` before removing
   stubs for other reasons than the upstream library shipping with type
   information.
+* `upload` (optional): This field is set to `false` to prevent automatic
+  uploads to PyPI. This should only used in special cases, e.g. when the stubs
+  break the upload.
 
 In addition, we specify configuration for stubtest in the `tool.stubtest` table.
 This has the following keys:
@@ -190,13 +198,19 @@ This has the following keys:
   package. Please avoid setting this to `true`, and add a comment if you have
   to.
 * `apt_dependencies` (default: `[]`): A list of Ubuntu APT packages
-  that need to be installed for stubtest to run successfully. These are
-  usually packages needed to pip install the implementation distribution.
+  that need to be installed for stubtest to run successfully.
+* `brew_dependencies` (default: `[]`): A list of MacOS Homebrew packages
+  that need to be installed for stubtest to run successfully
+* `choco_dependencies` (default: `[]`): A list of Windows Chocolatey packages
+  that need to be installed for stubtest to run successfully
 * `platforms` (default: `["linux"]`): A list of OSes on which to run stubtest.
   Can contain `win32`, `linux`, and `darwin` values.
   If not specified, stubtest is run only on `linux`.
   Only add extra OSes to the test
   if there are platform-specific branches in a stubs package.
+
+`*_dependencies` are usually packages needed to `pip install` the implementation
+distribution.
 
 The format of all `METADATA.toml` files can be checked by running
 `python3 ./tests/check_consistent.py`.
@@ -236,7 +250,7 @@ To get started, fork typeshed, clone your fork, and then
 You can then install the library with `pip` into the virtualenv and run the script,
 replacing `libraryname` with the name of the library below:
 
-```
+```bash
 (.venv3)$ pip install libraryname
 (.venv3)$ python3 scripts/create_baseline_stubs.py libraryname
 ```
@@ -354,40 +368,6 @@ introduced in, say, Python 3.7.4, your check:
 When your stub contains if statements for different Python versions,
 always put the code for the most recent Python version first.
 
-### Incomplete stubs
-
-We accept partial stubs, especially for larger packages. These need to
-follow the following guidelines:
-
-* Included functions and methods must list all arguments, but the arguments
-  can be left unannotated. Do not use `Any` to mark unannotated arguments
-  or return values.
-* Partial classes must include a `__getattr__()` method marked with an
-  `# incomplete` comment (see example below).
-* Partial modules (i.e. modules that are missing some or all classes,
-  functions, or attributes) must include a top-level `__getattr__()`
-  function marked with an `Incomplete` return type (see example below).
-* Partial packages (i.e. packages that are missing one or more sub-modules)
-  must have a `__init__.pyi` stub that is marked as incomplete (see above).
-  A better alternative is to create empty stubs for all sub-modules and
-  mark them as incomplete individually.
-
-Example of a partial module with a partial class `Foo` and a partially
-annotated function `bar()`:
-
-```python
-from _typeshed import Incomplete
-
-class Foo:
-    def __getattr__(self, name: str) -> Incomplete: ...
-    x: int
-    y: str
-
-def bar(x: str, y, *, z=...): ...
-
-def __getattr__(name: str) -> Incomplete: ...
-```
-
 ## Stub file coding style
 
 ### Syntax example
@@ -433,19 +413,29 @@ rule is that they should be as concise as possible.  Specifically:
 * use variable annotations instead of type comments, even for stubs
   that target older versions of Python.
 
-Stub files should only contain information necessary for the type
-checker, and leave out unnecessary detail:
-* for arguments with a default, use `...` instead of the actual
-  default;
-* for arguments that default to `None`, use `Foo | None` explicitly
-  (see below for details);
-* use `float` instead of `int | float`.
+The primary users for stub files are type checkers,
+so stub files should generally only contain information necessary for the type
+checker, and leave out unnecessary detail.
+However, stubs also have other use cases:
+* stub files are often used as a data source for IDEs,
+  which will often use the signature in a stub to provide information
+  on functions or classes in tooltip messages.
+* stubs can serve as useful documentation to human readers,
+  as well as machine-readable sources of data.
+
+As such, we recommend that default values be retained for "simple" default values
+(e.g. bools, ints, bytes, strings, and floats are all permitted).
+Use `= ...` for more complex default values,
+rather than trying to exactly reproduce the default at runtime.
 
 Some further tips for good type hints:
+* for arguments that default to `None`, use `Foo | None` explicitly for the type annotation;
+* use `float` instead of `int | float` for parameter annotations
+  (see [PEP 484](https://peps.python.org/pep-0484/#the-numeric-tower) for motivation).
 * use built-in generics (`list`, `dict`, `tuple`, `set`), instead
   of importing them from `typing`.
 * use `X | Y` instead of `Union[X, Y]` and `X | None`, instead of
-  `Optional[X]`, **except** when it is not possible due to mypy bugs (type aliases and base classes);
+  `Optional[X]`;
 * in Python 3 stubs, import collections (`Mapping`, `Iterable`, etc.)
   from `collections.abc` instead of `typing`;
 * avoid invariant collection types (`list`, `dict`) in argument
@@ -455,6 +445,11 @@ Some further tips for good type hints:
   platform-dependent APIs;
 * use mypy error codes for mypy-specific `# type: ignore` annotations,
   e.g. `# type: ignore[override]` for Liskov Substitution Principle violations.
+* use pyright error codes for pyright-specific suppressions,
+  e.g. `# pyright: ignore[reportGeneralTypeIssues]`.
+  - pyright is configured to discard `# type: ignore` annotations.
+  If you need both on the same line, mypy's annotation needs to go first,
+  e.g. `# type: ignore[override]  # pyright: ignore[reportGeneralTypeIssues]`.
 
 Imports in stubs are considered private (not part of the exported API)
 unless:
@@ -505,6 +500,33 @@ into any of those categories, use your best judgement.
 * Use `HasX` for protocols that have readable and/or writable attributes
   or getter/setter methods (e.g. `HasItems`, `HasFileno`).
 
+### Incomplete annotations
+
+When submitting new stubs, it is not necessary to annotate all arguments,
+return types, and fields. Such items should either be left unannotated or
+use `_typeshed.Incomplete` if this is not possible:
+
+```python
+from _typeshed import Incomplete
+
+field: Incomplete  # unannotated
+
+def foo(x): ...  # unannotated argument and return type
+```
+
+`Incomplete` can also be used for partially known types:
+
+```python
+def foo(x: Incomplete | None = None) -> list[Incomplete]: ...
+```
+
+### `Any` vs. `Incomplete`
+
+While `Incomplete` is a type alias of `Any`, they serve difference purposes:
+`Incomplete` is a placeholder where a proper type might be substituted.
+It's a "to do" item and should be replaced if possible. `Any` is used when
+it's not possible to accurately type an item using the current type system.
+It should be used sparingly.
 
 ## Submitting Changes
 

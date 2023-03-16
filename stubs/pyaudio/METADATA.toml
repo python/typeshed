@@ -1,6 +1,7 @@
 version = "0.2.*"
 
 [tool.stubtest]
-ignore_missing_stub = false
-platforms = ["linux"]
+# linux and win32 are equivalent
+platforms = ["darwin", "linux"]
 apt_dependencies = ["portaudio19-dev"]
+brew_dependencies = ["portaudio"]
