@@ -1,25 +1,34 @@
 from _typeshed import Incomplete
 from collections.abc import Generator, Iterable, Iterator
 from datetime import datetime
-from typing import overload
-from typing_extensions import Literal
+from typing import Any, overload
+from typing_extensions import Final, Literal
 
 from openpyxl.cell.cell import Cell
+from openpyxl.formatting.formatting import ConditionalFormattingList
 from openpyxl.workbook.child import _WorkbookChild
+from openpyxl.workbook.defined_name import DefinedNameDict
 from openpyxl.workbook.workbook import Workbook
-from openpyxl.worksheet.cell_range import CellRange
-from openpyxl.worksheet.datavalidation import DataValidation
+from openpyxl.worksheet.cell_range import CellRange, MultiCellRange
+from openpyxl.worksheet.datavalidation import DataValidation, DataValidationList
+from openpyxl.worksheet.dimensions import ColumnDimension, DimensionHolder, RowDimension, SheetFormatProperties
+from openpyxl.worksheet.filters import AutoFilter
+from openpyxl.worksheet.page import PageMargins, PrintOptions, PrintPageSetup
+from openpyxl.worksheet.pagebreak import ColBreak, RowBreak
+from openpyxl.worksheet.properties import WorksheetProperties
+from openpyxl.worksheet.protection import SheetProtection
+from openpyxl.worksheet.scenario import ScenarioList
 from openpyxl.worksheet.table import Table, TableList
-from openpyxl.worksheet.views import SheetView
+from openpyxl.worksheet.views import SheetView, SheetViewList
 
 class Worksheet(_WorkbookChild):
     mime_type: str
     BREAK_NONE: int
     BREAK_ROW: int
     BREAK_COLUMN: int
-    SHEETSTATE_VISIBLE: str
-    SHEETSTATE_HIDDEN: str
-    SHEETSTATE_VERYHIDDEN: str
+    SHEETSTATE_VISIBLE: Final = "visible"
+    SHEETSTATE_HIDDEN: Final = "hidden"
+    SHEETSTATE_VERYHIDDEN: Final = "veryHidden"
     PAPERSIZE_LETTER: str
     PAPERSIZE_LETTER_SMALL: str
     PAPERSIZE_TABLOID: str
@@ -33,6 +42,27 @@ class Worksheet(_WorkbookChild):
     PAPERSIZE_A5: str
     ORIENTATION_PORTRAIT: str
     ORIENTATION_LANDSCAPE: str
+
+    row_dimensions: DimensionHolder[RowDimension]
+    column_dimensions: DimensionHolder[ColumnDimension]
+    row_breaks: RowBreak
+    col_breaks: ColBreak
+    merged_cells: MultiCellRange
+    data_validations: DataValidationList
+    sheet_state: Literal["visible", "hidden", "veryHidden"]
+    page_setup: PrintPageSetup
+    print_options: PrintOptions
+    page_margins: PageMargins
+    views: SheetViewList
+    protection: SheetProtection
+    defined_names: DefinedNameDict
+    auto_filter: AutoFilter
+    conditional_formatting: ConditionalFormattingList
+    legacy_drawing: Incomplete | None
+    sheet_properties: WorksheetProperties
+    sheet_format: SheetFormatProperties
+    scenarios: ScenarioList
+
     def __init__(self, parent: Workbook, title: str | None = ...) -> None: ...
     @property
     def sheet_view(self) -> SheetView: ...
@@ -49,7 +79,10 @@ class Worksheet(_WorkbookChild):
     @freeze_panes.setter
     def freeze_panes(self, topLeftCell: Incomplete | None = ...) -> None: ...
     def cell(self, row: int, column: int, value: str | None = ...) -> Cell: ...
-    def __getitem__(self, key: str | int | slice) -> Cell | tuple[Cell, ...]: ...
+    @overload
+    def __getitem__(self, key: int | slice) -> tuple[Cell, ...]: ...
+    @overload
+    def __getitem__(self, key: str) -> Any: ...  # Cell | tuple[Cell, ...]
     def __setitem__(self, key: str, value: str) -> None: ...
     def __iter__(self) -> Iterator[Cell]: ...
     def __delitem__(self, key: str) -> None: ...
