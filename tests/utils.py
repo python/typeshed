@@ -81,8 +81,8 @@ def make_venv(venv_dir: Path) -> VenvInfo:
 
 @cache
 def get_mypy_req() -> str:
-    with open("requirements-tests.txt", encoding="UTF-8") as f:
-        return next(line.strip() for line in f if "mypy" in line)
+    with open("requirements-tests.txt", encoding="UTF-8") as requirements_file:
+        return next(strip_comments(line) for line in requirements_file if "mypy" in line)
 
 
 # ====================================================================
@@ -135,4 +135,6 @@ def spec_matches_path(spec: pathspec.PathSpec, path: Path) -> bool:
     normalized_path = path.as_posix()
     if path.is_dir():
         normalized_path += "/"
-    return spec.match_file(normalized_path)
+    # pathspec.PathSpec.match_file has partially Unknown file parameter
+    # https://github.com/cpburnz/python-pathspec/pull/75
+    return spec.match_file(normalized_path)  # pyright: ignore[reportUnknownMemberType]

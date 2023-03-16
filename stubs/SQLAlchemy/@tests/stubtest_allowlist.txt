@@ -7,6 +7,12 @@ sqlalchemy.engine.base.Engine.logging_name  # initialized if not None
 sqlalchemy.sql.lambdas.PyWrapper.__clause_element__
 sqlalchemy.testing.util.non_refcount_gc_collect
 
+# potentially replaced at runtime
+sqlalchemy.engine.Row.count
+sqlalchemy.engine.Row.index
+sqlalchemy.engine.row.Row.count
+sqlalchemy.engine.row.Row.index
+
 # abstract fields not present at runtime
 sqlalchemy.engine.Transaction.connection
 sqlalchemy.engine.Transaction.is_active

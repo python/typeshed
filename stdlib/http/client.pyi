@@ -101,7 +101,7 @@ class HTTPMessage(email.message.Message):
 
 def parse_headers(fp: io.BufferedIOBase, _class: Callable[[], email.message.Message] = ...) -> HTTPMessage: ...
 
-class HTTPResponse(io.BufferedIOBase, BinaryIO):
+class HTTPResponse(io.BufferedIOBase, BinaryIO):  # type: ignore[misc]  # incompatible method definitions in the base classes
     msg: HTTPMessage
     headers: HTTPMessage
     version: int
@@ -174,7 +174,7 @@ class HTTPConnection:
 
 class HTTPSConnection(HTTPConnection):
     # Can be `None` if `.connect()` was not called:
-    sock: ssl.SSLSocket | Any  # type: ignore[override]
+    sock: ssl.SSLSocket | Any
     def __init__(
         self,
         host: str,

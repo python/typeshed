@@ -1,7 +1,7 @@
-from _typeshed import Incomplete, Self, SupportsItems, SupportsRead
+from _typeshed import Incomplete, SupportsItems, SupportsRead, Unused
 from collections.abc import Callable, Iterable, Mapping, MutableMapping
 from typing import Any
-from typing_extensions import TypeAlias, TypedDict
+from typing_extensions import Self, TypeAlias, TypedDict
 
 from urllib3._collections import RecentlyUsedContainer
 
@@ -133,8 +133,8 @@ class Session(SessionRedirectMixin):
     adapters: MutableMapping[Any, Any]
     redirect_cache: RecentlyUsedContainer[Any, Any]
     def __init__(self) -> None: ...
-    def __enter__(self: Self) -> Self: ...
-    def __exit__(self, *args) -> None: ...
+    def __enter__(self) -> Self: ...
+    def __exit__(self, *args: Unused) -> None: ...
     def prepare_request(self, request: Request) -> PreparedRequest: ...
     def request(
         self,

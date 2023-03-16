@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Lack of pytype typing
+# pyright: reportUnknownVariableType=false, reportUnknownMemberType=false, reportUnknownArgumentType=false, reportMissingTypeStubs=false
 """Test runner for typeshed.
 
 Depends on pytype being installed.
@@ -19,10 +21,13 @@ import traceback
 from collections.abc import Iterable, Sequence
 
 import pkg_resources
-from pytype import config as pytype_config, load_pytd  # type: ignore[import]
-from pytype.imports import typeshed  # type: ignore[import]
 
 from parse_metadata import read_dependencies
+
+assert sys.platform != "win32"
+# pytype is not py.typed https://github.com/google/pytype/issues/1325
+from pytype import config as pytype_config, load_pytd  # type: ignore[import]  # noqa: E402
+from pytype.imports import typeshed  # type: ignore[import]  # noqa: E402
 
 TYPESHED_SUBDIRS = ["stdlib", "stubs"]
 TYPESHED_HOME = "TYPESHED_HOME"
@@ -154,8 +159,10 @@ def get_missing_modules(files_to_test: Sequence[str]) -> Iterable[str]:
     missing_modules = set()
     for distribution in stub_distributions:
         for pkg in read_dependencies(distribution).external_pkgs:
+            egg_info = pkg_resources.get_distribution(pkg).egg_info
+            assert isinstance(egg_info, str)
             # See https://stackoverflow.com/a/54853084
-            top_level_file = os.path.join(pkg_resources.get_distribution(pkg).egg_info, "top_level.txt")  # type: ignore[attr-defined]
+            top_level_file = os.path.join(egg_info, "top_level.txt")
             with open(top_level_file) as f:
                 missing_modules.update(f.read().splitlines())
     return missing_modules

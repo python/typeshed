@@ -1,4 +1,6 @@
-from _typeshed import Incomplete, Self
+from _typeshed import Incomplete
+from types import TracebackType
+from typing_extensions import Self
 
 from influxdb_client import HealthCheck, InvokableScriptsApi, Ready
 from influxdb_client.client._base import _BaseClient
@@ -41,8 +43,10 @@ class InfluxDBClient(_BaseClient):
         retries: bool | Incomplete = ...,
         profilers: Incomplete | None = ...,
     ) -> None: ...
-    def __enter__(self: Self) -> Self: ...
-    def __exit__(self, exc_type: object, exc_value: object, traceback: object) -> None: ...
+    def __enter__(self) -> Self: ...
+    def __exit__(
+        self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None
+    ) -> None: ...
     @classmethod
     def from_config_file(cls, config_file: str = ..., debug: Incomplete | None = ..., enable_gzip: bool = ..., **kwargs): ...
     @classmethod

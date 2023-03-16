@@ -18,7 +18,10 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  HOMEBREW_NO_INSTALL_CLEANUP: 1 # Speedup brew install. Environments are isolated, no need to cleanup old versions
+  # A few env vars to speedup brew install
+  HOMEBREW_NO_ANALYTICS: 1
+  HOMEBREW_NO_AUTOUPDATE: 1
+  HOMEBREW_NO_INSTALL_CLEANUP: 1 # Environments are isolated, no need to cleanup old versions
   NONINTERACTIVE: 1 # Required for brew install on CI
   PIP_DISABLE_PIP_VERSION_CHECK: 1
   FORCE_COLOR: 1
@@ -33,7 +36,7 @@ jobs:
       matrix:
         # tkinter doesn't import on macOS-12
         os: ["ubuntu-latest", "windows-latest", "macos-11"]
-        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+        python-version: ["3.7", "3.8", "3.9", "3.10.10", "3.11.2"] # TODO: unpin micro versions
       fail-fast: false
 
     steps:
@@ -45,7 +48,7 @@ jobs:
           cache: pip
           cache-dependency-path: requirements-tests.txt
       - name: Install dependencies
-        run: pip install $(grep mypy== requirements-tests.txt)
+        run: pip install -r requirements-tests.txt
       - name: Run stubtest
         run: python tests/stubtest_stdlib.py
 
@@ -66,7 +69,6 @@ jobs:
           cache: pip
           cache-dependency-path: |
             requirements-tests.txt
-            stubs/**/@tests/requirements-stubtest.txt
             stubs/**/METADATA.toml
       - name: Install dependencies
         run: pip install -r requirements-tests.txt
@@ -93,7 +95,7 @@ jobs:
             PYTHON_EXECUTABLE="python"
           fi
 
-          $PYTHON_EXECUTABLE tests/stubtest_third_party.py --specified-stubs-only --num-shards 4 --shard-index ${{ matrix.shard-index }}
+          $PYTHON_EXECUTABLE tests/stubtest_third_party.py --specified-platforms-only --num-shards 4 --shard-index ${{ matrix.shard-index }}
   stub-uploader:
     name: Run the stub_uploader tests
     runs-on: ubuntu-latest
