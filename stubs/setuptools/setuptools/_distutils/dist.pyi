@@ -72,7 +72,7 @@ class Distribution:
     command_packages: list[str] | None
     script_name: str | None
     script_args: list[str] | None
-    command_options: dict[str, dict[tuple[str, str]]] | None
+    command_options: dict[str, dict[str, tuple[str, str]]] | None
     dist_files: list[tuple[str, str, str]]
     packages: Incomplete
     package_data: Incomplete
