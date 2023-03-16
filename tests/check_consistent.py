@@ -8,21 +8,23 @@ from __future__ import annotations
 import os
 import re
 import sys
+import urllib.parse
 from pathlib import Path
+from typing import TypedDict
 
-import tomli
 import yaml
 from packaging.requirements import Requirement
 from packaging.specifiers import SpecifierSet
-from packaging.version import Version
+
+from parse_metadata import read_metadata
 from utils import VERSIONS_RE, get_all_testcase_directories, get_gitignore_spec, spec_matches_path, strip_comments
 
-metadata_keys = {"version", "requires", "extra_description", "obsolete_since", "no_longer_updated", "tool"}
-tool_keys = {"stubtest": {"skip", "apt_dependencies", "extras", "ignore_missing_stub"}}
 extension_descriptions = {".pyi": "stub", ".py": ".py"}
 
 
-def assert_consistent_filetypes(directory: Path, *, kind: str, allowed: set[str]) -> None:
+def assert_consistent_filetypes(
+    directory: Path, *, kind: str, allowed: set[str], allow_nonidentifier_filenames: bool = False
+) -> None:
     """Check that given directory contains only valid Python files of a certain kind."""
     allowed_paths = {Path(f) for f in allowed}
     contents = list(directory.iterdir())
@@ -35,7 +37,8 @@ def assert_consistent_filetypes(directory: Path, *, kind: str, allowed: set[str]
             # Note if a subdirectory is allowed, we will not check its contents
             continue
         if entry.is_file():
-            assert entry.stem.isidentifier(), f'Files must be valid modules, got: "{entry}"'
+            if not allow_nonidentifier_filenames:
+                assert entry.stem.isidentifier(), f'Files must be valid modules, got: "{entry}"'
             bad_filetype = f'Only {extension_descriptions[kind]!r} files allowed in the "{directory}" directory; got: {entry}'
             assert entry.suffix == kind, bad_filetype
         else:
@@ -63,23 +66,22 @@ def check_stubs() -> None:
         allowed = {"METADATA.toml", "README", "README.md", "README.rst", "@tests"}
         assert_consistent_filetypes(dist, kind=".pyi", allowed=allowed)
 
+        tests_dir = dist / "@tests"
+        if tests_dir.exists() and tests_dir.is_dir():
+            py_files_present = any(file.suffix == ".py" for file in tests_dir.iterdir())
+            error_message = "Test-case files must be in an `@tests/test_cases/` directory, not in the `@tests/` directory"
+            assert not py_files_present, error_message
+
 
 def check_test_cases() -> None:
-    for package_name, testcase_dir in get_all_testcase_directories():
-        assert_consistent_filetypes(testcase_dir, kind=".py", allowed={"README.md"})
+    for _, testcase_dir in get_all_testcase_directories():
+        assert_consistent_filetypes(testcase_dir, kind=".py", allowed={"README.md"}, allow_nonidentifier_filenames=True)
         bad_test_case_filename = 'Files in a `test_cases` directory must have names starting with "check_"; got "{}"'
         for file in testcase_dir.rglob("*.py"):
             assert file.stem.startswith("check_"), bad_test_case_filename.format(file)
-            if package_name != "stdlib":
-                with open(file, encoding="UTF-8") as f:
-                    lines = {line.strip() for line in f}
-                pyright_setting_not_enabled_msg = (
-                    f'Third-party test-case file "{file}" must have '
-                    f'"# pyright: reportUnnecessaryTypeIgnoreComment=true" '
-                    f"at the top of the file"
-                )
-                has_pyright_setting_enabled = "# pyright: reportUnnecessaryTypeIgnoreComment=true" in lines
-                assert has_pyright_setting_enabled, pyright_setting_not_enabled_msg
+            with open(file, encoding="UTF-8") as f:
+                lines = {line.strip() for line in f}
+            assert "from __future__ import annotations" in lines, "Test-case files should use modern typing syntax where possible"
 
 
 def check_no_symlinks() -> None:
@@ -92,7 +94,7 @@ def check_no_symlinks() -> None:
 
 
 def check_versions() -> None:
-    versions = set()
+    versions = set[str]()
     with open("stdlib/VERSIONS", encoding="UTF-8") as f:
         data = f.read().splitlines()
     for line in data:
@@ -114,7 +116,7 @@ def check_versions() -> None:
 
 
 def _find_stdlib_modules() -> set[str]:
-    modules = set()
+    modules = set[str]()
     for path, _, files in os.walk("stdlib"):
         for filename in files:
             base_module = ".".join(os.path.normpath(path).split(os.sep)[1:])
@@ -128,28 +130,8 @@ def _find_stdlib_modules() -> set[str]:
 
 def check_metadata() -> None:
     for distribution in os.listdir("stubs"):
-        with open(os.path.join("stubs", distribution, "METADATA.toml"), encoding="UTF-8") as f:
-            data = tomli.loads(f.read())
-        assert "version" in data, f"Missing version for {distribution}"
-        version = data["version"]
-        msg = f"Unsupported version {repr(version)}"
-        assert isinstance(version, str), msg
-        # Check that the version parses
-        Version(version.removesuffix(".*"))
-        for key in data:
-            assert key in metadata_keys, f"Unexpected key {key} for {distribution}"
-        assert isinstance(data.get("requires", []), list), f"Invalid requires value for {distribution}"
-        for dep in data.get("requires", []):
-            assert isinstance(dep, str), f"Invalid requirement {repr(dep)} for {distribution}"
-            for space in " \t\n":
-                assert space not in dep, f"For consistency, requirement should not have whitespace: {dep}"
-            # Check that the requirement parses
-            Requirement(dep)
-
-        assert set(data.get("tool", [])).issubset(tool_keys.keys()), f"Unrecognised tool for {distribution}"
-        for tool, tk in tool_keys.items():
-            for key in data.get("tool", {}).get(tool, {}):
-                assert key in tk, f"Unrecognised {tool} key {key} for {distribution}"
+        # This function does various sanity checks for METADATA.toml files
+        read_metadata(distribution)
 
 
 def get_txt_requirements() -> dict[str, SpecifierSet]:
@@ -159,15 +141,28 @@ def get_txt_requirements() -> dict[str, SpecifierSet]:
         return {requirement.name: requirement.specifier for requirement in requirements}
 
 
+class PreCommitConfigRepos(TypedDict):
+    hooks: list[dict[str, str]]
+    repo: str
+    rev: str
+
+
+class PreCommitConfig(TypedDict):
+    repos: list[PreCommitConfigRepos]
+
+
 def get_precommit_requirements() -> dict[str, SpecifierSet]:
     with open(".pre-commit-config.yaml", encoding="UTF-8") as precommit_file:
         precommit = precommit_file.read()
-    yam = yaml.load(precommit, Loader=yaml.Loader)
-    precommit_requirements = {}
+    yam: PreCommitConfig = yaml.load(precommit, Loader=yaml.Loader)
+    precommit_requirements: dict[str, SpecifierSet] = {}
     for repo in yam["repos"]:
+        if not repo.get("python_requirement", True):
+            continue
         hook = repo["hooks"][0]
-        package_name, package_rev = hook["id"], repo["rev"]
-        package_specifier = SpecifierSet(f"=={package_rev.removeprefix('v')}")
+        package_name = Path(urllib.parse.urlparse(repo["repo"]).path).name
+        package_rev = repo["rev"].removeprefix("v")
+        package_specifier = SpecifierSet(f"=={package_rev}")
         precommit_requirements[package_name] = package_specifier
         for additional_req in hook.get("additional_dependencies", []):
             req = Requirement(additional_req)
@@ -180,7 +175,7 @@ def check_requirements() -> None:
     precommit_requirements = get_precommit_requirements()
     no_txt_entry_msg = "All pre-commit requirements must also be listed in `requirements-tests.txt` (missing {requirement!r})"
     for requirement, specifier in precommit_requirements.items():
-        assert requirement in requirements_txt_requirements, no_txt_entry_msg.format(requirement)
+        assert requirement in requirements_txt_requirements, no_txt_entry_msg.format(requirement=requirement)
         specifier_mismatch = (
             f'Specifier "{specifier}" for {requirement!r} in `.pre-commit-config.yaml` '
             f'does not match specifier "{requirements_txt_requirements[requirement]}" in `requirements-tests.txt`'

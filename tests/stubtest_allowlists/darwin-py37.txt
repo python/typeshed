@@ -1,6 +1,5 @@
 ctypes.wintypes
 pwd.getpwnam
-webbrowser.MacOSXOSAScript.__init__
 
 # ==========
 # Allowlist entries that cannot or should not be fixed

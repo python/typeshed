@@ -1,7 +1,7 @@
-from _typeshed import Self
+from _typeshed import Incomplete
 from collections.abc import Callable, Iterable
 from typing import Any, Generic, TypeVar, overload
-from typing_extensions import ParamSpec
+from typing_extensions import ParamSpec, Self
 
 from .config import Config
 from .context import Context
@@ -10,8 +10,6 @@ from .parser import Argument
 _P = ParamSpec("_P")
 _R_co = TypeVar("_R_co", covariant=True)
 _TaskT = TypeVar("_TaskT", bound=Task[..., Any])
-
-NO_DEFAULT: object
 
 class Task(Generic[_P, _R_co]):
     body: Callable[_P, _R_co]
@@ -26,8 +24,8 @@ class Task(Generic[_P, _R_co]):
     incrementable: Iterable[str]
     auto_shortflags: bool
     help: dict[str, str]
-    pre: Iterable[Task[..., Any]]
-    post: Iterable[Task[..., Any]]
+    pre: Iterable[Task[..., Any] | Call]
+    post: Iterable[Task[..., Any] | Call]
     times_called: int
     autoprint: bool
     def __init__(
@@ -40,15 +38,15 @@ class Task(Generic[_P, _R_co]):
         default: bool = ...,
         auto_shortflags: bool = ...,
         help: dict[str, str] | None = ...,
-        pre: Iterable[Task[..., Any]] | None = ...,
-        post: Iterable[Task[..., Any]] | None = ...,
+        pre: Iterable[Task[..., Any] | Call] | None = ...,
+        post: Iterable[Task[..., Any] | Call] | None = ...,
         autoprint: bool = ...,
         iterable: Iterable[str] | None = ...,
         incrementable: Iterable[str] | None = ...,
     ) -> None: ...
     @property
     def name(self): ...
-    def __eq__(self, other: Task) -> bool: ...  # type: ignore[override]
+    def __eq__(self, other: Task[Incomplete, Incomplete]) -> bool: ...  # type: ignore[override]
     def __hash__(self) -> int: ...
     def __call__(self, *args: _P.args, **kwargs: _P.kwargs) -> _R_co: ...
     @property
@@ -60,7 +58,7 @@ class Task(Generic[_P, _R_co]):
 
 @overload
 def task(
-    *args: Task[..., Any],
+    *args: Task[..., Any] | Call,
     name: str | None = ...,
     aliases: tuple[str, ...] = ...,
     positional: Iterable[str] | None = ...,
@@ -68,15 +66,15 @@ def task(
     default: bool = ...,
     auto_shortflags: bool = ...,
     help: dict[str, str] | None = ...,
-    pre: list[Task[..., Any]] | None = ...,
-    post: list[Task[..., Any]] | None = ...,
+    pre: list[Task[..., Any] | Call] | None = ...,
+    post: list[Task[..., Any] | Call] | None = ...,
     autoprint: bool = ...,
     iterable: Iterable[str] | None = ...,
     incrementable: Iterable[str] | None = ...,
 ) -> Callable[[Callable[_P, _R_co]], Task[_P, _R_co]]: ...
 @overload
 def task(
-    *args: Task[..., Any],
+    *args: Task[..., Any] | Call,
     name: str | None = ...,
     aliases: tuple[str, ...] = ...,
     positional: Iterable[str] | None = ...,
@@ -84,8 +82,8 @@ def task(
     default: bool = ...,
     auto_shortflags: bool = ...,
     help: dict[str, str] | None = ...,
-    pre: list[Task[..., Any]] | None = ...,
-    post: list[Task[..., Any]] | None = ...,
+    pre: list[Task[..., Any] | Call] | None = ...,
+    post: list[Task[..., Any] | Call] | None = ...,
     autoprint: bool = ...,
     iterable: Iterable[str] | None = ...,
     incrementable: Iterable[str] | None = ...,
@@ -107,7 +105,7 @@ class Call:
         kwargs: dict[str, Any] | None = ...,
     ) -> None: ...
     def __getattr__(self, name: str) -> Any: ...
-    def __deepcopy__(self: Self, memo: Any) -> Self: ...
+    def __deepcopy__(self, memo: Any) -> Self: ...
     def __eq__(self, other: Call) -> bool: ...  # type: ignore[override]
     def make_context(self, config: Config) -> Context: ...
     def clone_data(self): ...

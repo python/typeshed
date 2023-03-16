@@ -1,9 +1,10 @@
 from _typeshed import Incomplete
 from collections.abc import Callable
 from re import Pattern
-from typing import NamedTuple
 
-from .drawing import Point
+from fpdf.drawing import PaintedPath
+
+from ._fonttools_shims import BasePen, _TTGlyphSet
 
 __pdoc__: dict[str, bool]
 
@@ -56,37 +57,14 @@ class ShapeBuilder:
 
 def convert_transforms(tfstr): ...
 
-class SVGSmoothCubicCurve(NamedTuple):
-    c2: Point
-    end: Point
-    @classmethod
-    def from_path_points(cls, path, c2x, c2y, ex, ey): ...
-    def render(self, path_gsds, style, last_item, initial_point): ...
-    def render_debug(self, path_gsds, style, last_item, initial_point, debug_stream, pfx): ...
+class PathPen(BasePen):
+    pdf_path: PaintedPath
+    last_was_line_to: bool
+    first_is_move: bool | None
+    def __init__(self, pdf_path: PaintedPath, glyphSet: _TTGlyphSet | None = ...): ...
+    def arcTo(self, rx, ry, rotation, arc, sweep, end) -> None: ...
 
-class SVGRelativeSmoothCubicCurve(NamedTuple):
-    c2: Point
-    end: Point
-    @classmethod
-    def from_path_points(cls, path, c2x, c2y, ex, ey): ...
-    def render(self, path_gsds, style, last_item, initial_point): ...
-    def render_debug(self, path_gsds, style, last_item, initial_point, debug_stream, pfx): ...
-
-class SVGSmoothQuadraticCurve(NamedTuple):
-    end: Point
-    @classmethod
-    def from_path_points(cls, path, ex, ey): ...
-    def render(self, path_gsds, style, last_item, initial_point): ...
-    def render_debug(self, path_gsds, style, last_item, initial_point, debug_stream, pfx): ...
-
-class SVGRelativeSmoothQuadraticCurve(NamedTuple):
-    end: Point
-    @classmethod
-    def from_path_points(cls, path, ex, ey): ...
-    def render(self, path_gsds, style, last_item, initial_point): ...
-    def render_debug(self, path_gsds, style, last_item, initial_point, debug_stream, pfx): ...
-
-def svg_path_converter(pdf_path, svg_path) -> None: ...
+def svg_path_converter(pdf_path: PaintedPath, svg_path: str) -> None: ...
 
 class SVGObject:
     @classmethod

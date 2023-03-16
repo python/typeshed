@@ -1,4 +1,2 @@
 version = "3.4.*"
-
-[tool.stubtest]
-ignore_missing_stub = false
+obsolete_since = "3.5.0" # Released on 2022-10-28

@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from collections.abc import Callable, Mapping, Sequence
 from typing import Any
 
@@ -8,7 +9,7 @@ class FunctionItem(ExternalItem):
     function: Callable[..., Any]
     args: Sequence[Any]
     kwargs: Mapping[str, Any]
-    return_value: Any | None
+    return_value: Incomplete | None
     def __init__(
         self,
         text: str,
@@ -17,6 +18,7 @@ class FunctionItem(ExternalItem):
         kwargs: Mapping[str, Any] | None = ...,
         menu: ConsoleMenu | None = ...,
         should_exit: bool = ...,
+        menu_char: str | None = None,
     ) -> None: ...
     def action(self) -> None: ...
     def clean_up(self) -> None: ...

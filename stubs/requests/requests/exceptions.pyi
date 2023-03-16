@@ -2,7 +2,7 @@ from urllib3.exceptions import HTTPError as BaseHTTPError
 
 from .models import Request, Response
 
-class RequestException(IOError):
+class RequestException(OSError):
     response: Response | None
     request: Request | None
     def __init__(self, *args, **kwargs) -> None: ...

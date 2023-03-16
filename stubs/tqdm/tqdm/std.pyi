@@ -1,9 +1,11 @@
 import contextlib
-from _typeshed import Incomplete, Self, SupportsWrite
+from _typeshed import Incomplete, SupportsWrite
 from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping
+from types import TracebackType
 from typing import Any, ClassVar, Generic, NoReturn, TypeVar, overload
-from typing_extensions import Literal
+from typing_extensions import Literal, Self
 
+from ._monitor import TMonitor
 from .utils import Comparable
 
 __all__ = [
@@ -31,6 +33,7 @@ _T = TypeVar("_T")
 
 class tqdm(Generic[_T], Iterable[_T], Comparable):
     monitor_interval: ClassVar[int]
+    monitor: ClassVar[TMonitor | None]
 
     @staticmethod
     def format_sizeof(num: float, suffix: str = ..., divisor: float = ...) -> str: ...
@@ -70,7 +73,7 @@ class tqdm(Generic[_T], Iterable[_T], Comparable):
         maxinterval: float = ...,
         miniters: float | None = ...,
         ascii: bool | str | None = ...,
-        disable: bool = ...,
+        disable: bool | None = ...,
         unit: str = ...,
         unit_scale: bool | float = ...,
         dynamic_ncols: bool = ...,
@@ -80,7 +83,7 @@ class tqdm(Generic[_T], Iterable[_T], Comparable):
         position: int | None = ...,
         postfix: Mapping[str, object] | str | None = ...,
         unit_divisor: float = ...,
-        write_bytes: bool | None = ...,
+        write_bytes: bool = False,
         lock_args: tuple[bool | None, float | None] | tuple[bool | None] | None = ...,
         nrows: int | None = ...,
         colour: str | None = ...,
@@ -101,7 +104,7 @@ class tqdm(Generic[_T], Iterable[_T], Comparable):
         maxinterval: float = ...,
         miniters: float | None = ...,
         ascii: bool | str | None = ...,
-        disable: bool = ...,
+        disable: bool | None = ...,
         unit: str = ...,
         unit_scale: bool | float = ...,
         dynamic_ncols: bool = ...,
@@ -119,7 +122,7 @@ class tqdm(Generic[_T], Iterable[_T], Comparable):
         gui: bool = ...,
         **kwargs,
     ) -> None: ...
-    def __new__(cls: type[Self], *_, **__) -> Self: ...
+    def __new__(cls, *_, **__) -> Self: ...
     @classmethod
     def write(cls, s: str, file: SupportsWrite[str] | None = ..., end: str = ..., nolock: bool = ...) -> None: ...
     @classmethod
@@ -143,7 +146,7 @@ class tqdm(Generic[_T], Iterable[_T], Comparable):
         maxinterval: float = ...,
         miniters: float | None = ...,
         ascii: bool | str | None = ...,
-        disable: bool = ...,
+        disable: bool | None = ...,
         unit: str = ...,
         unit_scale: bool | float = ...,
         dynamic_ncols: bool = ...,
@@ -193,12 +196,13 @@ class tqdm(Generic[_T], Iterable[_T], Comparable):
     start_t: Incomplete
 
     def __bool__(self) -> bool: ...
-    def __nonzero__(self) -> bool: ...
     def __len__(self) -> int: ...
     def __reversed__(self) -> Iterator[_T]: ...
     def __contains__(self, item: object) -> bool: ...
-    def __enter__(self: Self) -> Self: ...
-    def __exit__(self, exc_type: object, exc_value: object, traceback: object) -> None: ...
+    def __enter__(self) -> Self: ...
+    def __exit__(
+        self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None
+    ) -> None: ...
     def __del__(self) -> None: ...
     def __hash__(self) -> int: ...
     def __iter__(self) -> Iterator[_T]: ...
@@ -238,7 +242,7 @@ def trange(
     maxinterval: float = ...,
     miniters: float | None = ...,
     ascii: bool | str | None = ...,
-    disable: bool = ...,
+    disable: bool | None = ...,
     unit: str = ...,
     unit_scale: bool | float = ...,
     dynamic_ncols: bool = ...,
@@ -267,7 +271,7 @@ def trange(
     maxinterval: float = ...,
     miniters: float | None = ...,
     ascii: bool | str | None = ...,
-    disable: bool = ...,
+    disable: bool | None = ...,
     unit: str = ...,
     unit_scale: bool | float = ...,
     dynamic_ncols: bool = ...,
