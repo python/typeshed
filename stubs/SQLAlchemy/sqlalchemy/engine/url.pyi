@@ -22,7 +22,7 @@ class _URLTuple(NamedTuple):
 _Query: TypeAlias = Mapping[str, str | Sequence[str]] | Sequence[tuple[str, str | Sequence[str]]]
 
 class URL(_URLTuple):
-    def __new__(self: type[Self], *arg, **kw) -> Self | URL: ...
+    def __new__(self, *arg, **kw) -> Self | URL: ...
     @classmethod
     def create(
         cls,
