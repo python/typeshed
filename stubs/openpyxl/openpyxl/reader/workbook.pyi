@@ -6,6 +6,8 @@ from openpyxl.packaging.workbook import ChildSheet, PivotCache
 from openpyxl.pivot.cache import CacheDefinition
 from openpyxl.workbook.workbook import Workbook
 
+from openpyxl.workbook import Workbook
+
 class WorkbookParser:
     archive: ZipFile
     workbook_part_name: str

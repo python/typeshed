@@ -82,6 +82,17 @@ VersionString: TypeAlias = str
 ReleaseDownload: TypeAlias = dict[str, Any]
 
 
+def _best_effort_version(version: VersionString) -> packaging.version.Version:
+    try:
+        return packaging.version.Version(version)
+    except packaging.version.InvalidVersion:
+        # packaging.version.Version no longer parses legacy versions
+        try:
+            return packaging.version.Version(version.replace("-", "+"))
+        except packaging.version.InvalidVersion:
+            return packaging.version.Version("0")
+
+
 @dataclass
 class PypiInfo:
     distribution: str
@@ -104,7 +115,7 @@ class PypiInfo:
         return self.get_release(version=self.info["version"])
 
     def releases_in_descending_order(self) -> Iterator[PypiReleaseDownload]:
-        for version in sorted(self.releases, key=packaging.version.Version, reverse=True):
+        for version in sorted(self.releases, key=_best_effort_version, reverse=True):
             yield self.get_release(version=version)
 
 
@@ -581,11 +592,8 @@ def get_update_pr_body(update: Update, metadata: dict[str, Any]) -> str:
     if update.diff_analysis is not None:
         body += f"\n\n{update.diff_analysis}"
 
-    # Loss of type due to infered [dict[Unknown, Unknown]]
-    # scripts/stubsabot.py can't import tests/parse_metadata
-    stubtest_will_run = (
-        not metadata.get("tool", {}).get("stubtest", {}).get("skip", False)  # pyright: ignore[reportUnknownMemberType]
-    )
+    stubtest_settings: dict[str, Any] = metadata.get("tool", {}).get("stubtest", {})
+    stubtest_will_run = not stubtest_settings.get("skip", False)
     if stubtest_will_run:
         body += textwrap.dedent(
             """

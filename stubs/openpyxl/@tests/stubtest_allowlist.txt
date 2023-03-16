@@ -5,6 +5,9 @@ openpyxl.xml.functions.Element.__iter__
 openpyxl.xml.functions.tostring
 openpyxl.xml.functions.xmlfile
 
+# Requires numpy to be installed
+openpyxl.utils.dataframe
+
 # Inconsistent __init__ because
 # - using the default value results in an error because of the runtime type-guards
 # - or, keyword arguments are explicitly specified
