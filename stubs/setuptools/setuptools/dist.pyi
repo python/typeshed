@@ -1,8 +1,7 @@
 from collections.abc import Generator, Iterable, Mapping
 from typing import Any
 
-from setuptools import SetuptoolsDeprecationWarning
-from setuptools import Command
+from setuptools import Command, SetuptoolsDeprecationWarning
 
 from ._distutils.dist import Distribution as _Distribution
 
