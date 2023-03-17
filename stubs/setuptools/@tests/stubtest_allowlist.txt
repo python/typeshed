@@ -27,7 +27,10 @@ pkg_resources.to_filename
 pkg_resources.PathMetadata.egg_info
 pkg_resources.EggMetadata.loader
 
-# Dynamically created
+# 1 used for True as a default value
+setuptools._distutils.dist.Distribution.get_command_obj
+
+# Dynamically created in __init__
 setuptools._distutils.dist.Distribution.get_.*
 
 # Uncomment once ignore_missing_stub is turned off
