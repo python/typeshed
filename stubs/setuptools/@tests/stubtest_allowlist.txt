@@ -28,7 +28,7 @@ pkg_resources.PathMetadata.egg_info
 pkg_resources.EggMetadata.loader
 
 # Dynamically created
-setuptools._distutils.dist.Distribution.get_*
+setuptools._distutils.dist.Distribution.get_.*
 
 # Uncomment once ignore_missing_stub is turned off
 # # Not supported by typeshed
