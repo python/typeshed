@@ -84,8 +84,8 @@ ctypes.memmove  # CFunctionType
 ctypes.memset  # CFunctionType
 ctypes.string_at  # docstring argument name is wrong
 ctypes.wstring_at  # docstring argument name is wrong
+distutils.core.Distribution.get_command_obj  # 1 used for True
 distutils.command.bdist_packager  # It exists in docs as package name but not in code except as a mention in a comment.
-distutils.dist.Distribution.get_command_obj  # 1 used for True
 distutils.version.Version._cmp  # class should have declared this
 distutils.version.Version.parse  # class should have declared this
 enum.Enum._generate_next_value_
