@@ -520,6 +520,10 @@ xml.dom
 xml.etree
 xml.sax
 
+# Dynamically created
+distutils.dist.Distribution.get_.*
+distutils.core.Distribution.get_.*
+
 # Platform differences that cannot be captured by the type system
 os.O_[A-Z_]+
 socket.AF_DECnet
