@@ -1,4 +1,4 @@
-from collections.abc import Generator, Iterable, Mapping
+from collections.abc import Iterable, Mapping
 from typing import Any
 
 from setuptools import Command, SetuptoolsDeprecationWarning
