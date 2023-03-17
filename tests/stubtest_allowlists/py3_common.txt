@@ -523,8 +523,27 @@ xml.etree
 xml.sax
 
 # Dynamically created
-distutils.dist.Distribution.get_.*
-distutils.core.Distribution.get_.*
+distutils.(dist|core).Distribution.get_name
+distutils.(dist|core).Distribution.get_version
+distutils.(dist|core).Distribution.get_fullname
+distutils.(dist|core).Distribution.get_author
+distutils.(dist|core).Distribution.get_author_email
+distutils.(dist|core).Distribution.get_maintainer
+distutils.(dist|core).Distribution.get_maintainer_email
+distutils.(dist|core).Distribution.get_contact
+distutils.(dist|core).Distribution.get_contact_email
+distutils.(dist|core).Distribution.get_url
+distutils.(dist|core).Distribution.get_license
+distutils.(dist|core).Distribution.get_licence
+distutils.(dist|core).Distribution.get_description
+distutils.(dist|core).Distribution.get_long_description
+distutils.(dist|core).Distribution.get_keywords
+distutils.(dist|core).Distribution.get_platforms
+distutils.(dist|core).Distribution.get_classifiers
+distutils.(dist|core).Distribution.get_download_url
+distutils.(dist|core).Distribution.get_requires
+distutils.(dist|core).Distribution.get_provides
+distutils.(dist|core).Distribution.get_obsoletes
 
 # Platform differences that cannot be captured by the type system
 os.O_[A-Z_]+

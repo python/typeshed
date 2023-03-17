@@ -31,7 +31,27 @@ pkg_resources.EggMetadata.loader
 setuptools._distutils.dist.Distribution.get_command_obj
 
 # Dynamically created in __init__
-setuptools._distutils.dist.Distribution.get_.*
+setuptools._distutils.dist.Distribution.get_name
+setuptools._distutils.dist.Distribution.get_version
+setuptools._distutils.dist.Distribution.get_fullname
+setuptools._distutils.dist.Distribution.get_author
+setuptools._distutils.dist.Distribution.get_author_email
+setuptools._distutils.dist.Distribution.get_maintainer
+setuptools._distutils.dist.Distribution.get_maintainer_email
+setuptools._distutils.dist.Distribution.get_contact
+setuptools._distutils.dist.Distribution.get_contact_email
+setuptools._distutils.dist.Distribution.get_url
+setuptools._distutils.dist.Distribution.get_license
+setuptools._distutils.dist.Distribution.get_licence
+setuptools._distutils.dist.Distribution.get_description
+setuptools._distutils.dist.Distribution.get_long_description
+setuptools._distutils.dist.Distribution.get_keywords
+setuptools._distutils.dist.Distribution.get_platforms
+setuptools._distutils.dist.Distribution.get_classifiers
+setuptools._distutils.dist.Distribution.get_download_url
+setuptools._distutils.dist.Distribution.get_requires
+setuptools._distutils.dist.Distribution.get_provides
+setuptools._distutils.dist.Distribution.get_obsoletes
 
 # Uncomment once ignore_missing_stub is turned off
 # # Not supported by typeshed
