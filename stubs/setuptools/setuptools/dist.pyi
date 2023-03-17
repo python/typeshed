@@ -1,4 +1,4 @@
-from collections.abc import Iterable, Mapping, MutableMapping, Iterator
+from collections.abc import Iterable, Iterator, Mapping, MutableMapping
 from typing import Any
 
 from setuptools import Command, SetuptoolsDeprecationWarning
