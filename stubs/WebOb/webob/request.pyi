@@ -19,7 +19,7 @@ from typing_extensions import Literal, Self, TypeAlias, TypedDict
 from webob.acceptparse import _AcceptCharsetProperty, _AcceptEncodingProperty, _AcceptLanguageProperty, _AcceptProperty
 from webob.cachecontrol import _RequestCacheControl
 from webob.cookies import RequestCookies
-from webob.descriptors import _authorization, _DateProperty
+from webob.descriptors import _AsymmetricProperty, _AsymmetricPropertyWithDelete, _authorization, _DateProperty
 from webob.etag import IfRange, IfRangeDate, _ETagProperty
 from webob.headers import EnvironHeaders
 from webob.multidict import GetDict, MultiDict, NestedMultiDict, NoVars
@@ -40,12 +40,17 @@ class _RequestCacheControlDict(TypedDict, total=False):
     no_transform: bool
     max_age: int
 
+class _FieldStorageWithFile(FieldStorage):
+    file: IO[bytes]
+    filename: str
+
 class _NoDefault: ...
 
 NoDefault: _NoDefault
 
 class BaseRequest:
     request_body_tempfile_limit: ClassVar[int]
+    environ: dict[str, Any]
     method: _HTTPMethod
     def __init__(self, environ: dict[str, Any], **kw: Any) -> None: ...
     def encget(self, key: str, default: Any = ..., encattr: str | None = ...) -> Any: ...
@@ -91,10 +96,7 @@ class BaseRequest:
     uscript_name: str  # bw compat
     upath_info = path_info  # bw compat
     content_type: str | None
-    @property
-    def headers(self) -> EnvironHeaders: ...
-    @headers.setter
-    def headers(self, value: SupportsItems[str, str] | Iterable[tuple[str, str]]) -> None: ...
+    headers: _AsymmetricProperty[EnvironHeaders, SupportsItems[str, str] | Iterable[tuple[str, str]]]
     @property
     def client_addr(self) -> str | None: ...
     @property
@@ -126,15 +128,12 @@ class BaseRequest:
     json_body: Any
     text: str
     @property
-    def POST(self) -> MultiDict[str, str] | NoVars: ...
+    def POST(self) -> MultiDict[str, str | _FieldStorageWithFile] | NoVars: ...
     @property
     def GET(self) -> GetDict: ...
     @property
-    def params(self) -> NestedMultiDict[str, str]: ...
-    @property
-    def cookies(self) -> RequestCookies: ...
-    @cookies.setter
-    def cookies(self, val: SupportsKeysAndGetItem[str, str] | Iterable[tuple[str, str]]) -> None: ...
+    def params(self) -> NestedMultiDict[str, str | _FieldStorageWithFile]: ...
+    cookies: _AsymmetricProperty[RequestCookies, SupportsKeysAndGetItem[str, str] | Iterable[tuple[str, str]]]
     def copy(self) -> Self: ...
     def copy_get(self) -> Self: ...
     @property
@@ -151,25 +150,20 @@ class BaseRequest:
     accept_charset: _AcceptCharsetProperty
     accept_encoding: _AcceptEncodingProperty
     accept_language: _AcceptLanguageProperty
-    @property
-    def authorization(self) -> _authorization | None: ...
-    @authorization.setter
-    def authorization(self, value: tuple[str, str | dict[str, str]] | list[Any] | str | bytes | None): ...
-    @authorization.deleter
-    def authorization(self) -> None: ...
-    @property
-    def cache_control(self) -> _RequestCacheControl: ...
-    @cache_control.setter
-    def cache_control(self, value: _RequestCacheControl | _RequestCacheControlDict | str | bytes | None) -> None: ...
+    authorization: _AsymmetricPropertyWithDelete[
+        _authorization | None, tuple[str, str | dict[str, str]] | list[Any] | str | bytes | None
+    ]
+    cache_control: _AsymmetricPropertyWithDelete[
+        _RequestCacheControl | None, _RequestCacheControl | _RequestCacheControlDict | str | bytes | None
+    ]
     if_match: _ETagProperty
     if_none_match: _ETagProperty
     date: _DateProperty[str]
     if_modified_since: _DateProperty[str]
     if_unmodified_since: _DateProperty[str]
-    @property
-    def if_range(self) -> IfRange | IfRangeDate: ...
-    @if_range.setter
-    def if_range(self, value: IfRange | IfRangeDate | datetime.datetime | datetime.date | str | None) -> None: ...
+    if_range: _AsymmetricPropertyWithDelete[
+        IfRange | IfRangeDate | None, IfRange | IfRangeDate | datetime.datetime | datetime.date | str | None
+    ]
     max_forwards: int | None
     pragma: str | None
     range: Incomplete

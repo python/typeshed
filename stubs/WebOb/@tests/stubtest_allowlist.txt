@@ -41,6 +41,8 @@ webob.acceptparse.weight_re
 webob.cachecontrol.need_quote_re
 webob.cachecontrol.token_re
 webob.client.SendRequest.MULTILINE_RE
+webob.descriptors.CHARSET_RE
+webob.descriptors.SCHEME_RE
 
 webob.acceptparse.MIMEAccept  # Deprecated API
 
@@ -52,6 +54,7 @@ webob.multidict.MultiDict.itervalues
 webob.multidict.NestedMultiDict.iteritems
 webob.multidict.NestedMultiDict.iterkeys
 webob.multidict.NestedMultiDict.itervalues
+webob.multidict.NoVars.iterkeys
 
 # Error: is inconsistent
 # ======================
@@ -103,12 +106,8 @@ webob.cachecontrol.UpdateDict.setdefault
 # for these methods with `NoReturn` instead.
 webob.multidict.NestedMultiDict.popitem
 webob.multidict.NestedMultiDict.clear
-webob.multidict.NoVars.add
 webob.multidict.NoVars.clear
-webob.multidict.NoVars.pop
 webob.multidict.NoVars.popitem
-webob.multidict.NoVars.setdefault
-webob.multidict.NoVars.update
 
 # The `DEFAULT` parameter on these dunder methods don't really make sense as
 # part of the public API, so they have been removed from the stubs
@@ -123,10 +122,15 @@ webob.request.BaseRequest.__init__
 
 # Error: is not present at runtime
 # =============================
+# This attribute is there to help mypy type narrow NoVars based on its static
+# falsyness, so it's to make it possible to narrow the type union in request.POST
+# without importing MultiDict or NoVars
+webob.multidict.NoVars.__bool__
+
 # This attribute is set on the instance instead of the class in the `__init__`
 # so the type annotation is technically wrong, however I am unsure about
 # whether the ResponseBodyFile would satisfy some of the IO Protocols if
 # `write` was defined as a Callable instance attribute. It's hard to come up
 # with a use-case where the distinction matters, besides inherting from
-# the class and overwriting the __init__ forgetting to populate `write`.
+# the class and overwriting the __init__ and forgetting to populate `write`.
 webob.response.ResponseBodyFile.write
