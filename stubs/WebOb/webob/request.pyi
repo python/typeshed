@@ -17,6 +17,7 @@ from typing import IO, Any, ClassVar, Protocol, TypeVar, overload
 from typing_extensions import Literal, Self, TypeAlias, TypedDict
 
 from webob.acceptparse import _AcceptCharsetProperty, _AcceptEncodingProperty, _AcceptLanguageProperty, _AcceptProperty
+from webob.byterange import Range
 from webob.cachecontrol import _RequestCacheControl
 from webob.cookies import RequestCookies
 from webob.descriptors import _AsymmetricProperty, _AsymmetricPropertyWithDelete, _authorization, _DateProperty
@@ -150,23 +151,21 @@ class BaseRequest:
     accept_charset: _AcceptCharsetProperty
     accept_encoding: _AcceptEncodingProperty
     accept_language: _AcceptLanguageProperty
-    authorization: _AsymmetricPropertyWithDelete[
-        _authorization | None, tuple[str, str | dict[str, str]] | list[Any] | str | bytes | None
-    ]
+    authorization: _AsymmetricPropertyWithDelete[_authorization | None, tuple[str, str | dict[str, str]] | list[Any] | str | None]
     cache_control: _AsymmetricPropertyWithDelete[
-        _RequestCacheControl | None, _RequestCacheControl | _RequestCacheControlDict | str | bytes | None
+        _RequestCacheControl | None, _RequestCacheControl | _RequestCacheControlDict | str | None
     ]
     if_match: _ETagProperty
     if_none_match: _ETagProperty
-    date: _DateProperty[str]
-    if_modified_since: _DateProperty[str]
-    if_unmodified_since: _DateProperty[str]
+    date: _DateProperty
+    if_modified_since: _DateProperty
+    if_unmodified_since: _DateProperty
     if_range: _AsymmetricPropertyWithDelete[
         IfRange | IfRangeDate | None, IfRange | IfRangeDate | datetime.datetime | datetime.date | str | None
     ]
     max_forwards: int | None
     pragma: str | None
-    range: Incomplete
+    range: _AsymmetricPropertyWithDelete[Range, tuple[int, int | None] | list[int | None] | str | None]
     referer: str | None
     referrer: str | None
     user_agent: str | None
@@ -195,7 +194,7 @@ class BaseRequest:
         cls,
         path,
         environ: dict[str, None] | None = ...,
-        base_url: Incomplete | None = ...,
+        base_url: str | None = ...,
         headers: Mapping[str, str] | None = ...,
         POST: str | bytes | Mapping[Any, Any] | Mapping[Any, _ListOrTuple[Any]] | None = ...,
         **kw,

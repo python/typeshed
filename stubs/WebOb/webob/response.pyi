@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, SupportsItems, SupportsRead
+from _typeshed import SupportsItems, SupportsRead
 from collections.abc import Callable, Iterable, Iterator, Sequence
 from datetime import timedelta
 from typing import IO, Any, NoReturn, Protocol
@@ -6,14 +6,7 @@ from typing_extensions import Literal, TypeAlias, TypedDict
 
 from webob.byterange import ContentRange
 from webob.cachecontrol import _ResponseCacheControl
-from webob.descriptors import (
-    _AsymmetricProperty,
-    _AsymmetricPropertyWithDelete,
-    _authorization,
-    _DateProperty,
-    _ListProperty,
-    _SimpleProperty,
-)
+from webob.descriptors import _AsymmetricProperty, _AsymmetricPropertyWithDelete, _authorization, _DateProperty, _ListProperty
 from webob.headers import ResponseHeaders
 from webob.request import Request
 
@@ -61,7 +54,6 @@ _ContentRangeParams: TypeAlias = (
     | tuple[int, int, int | None]
     | tuple[None, None, int | None]
     | str
-    | bytes
     | None
 )
 
@@ -83,9 +75,9 @@ class Response:
         headerlist: list[_HTTPHeader] | None = ...,
         app_iter: Iterator[bytes] | None = ...,
         content_type: str | None = ...,
-        conditional_response: Incomplete | None = ...,
+        conditional_response: bool | None = ...,
         charset: str = ...,
-        **kw,
+        **kw: Any,
     ) -> None: ...
     @classmethod
     def from_file(cls, fp: IO[str]) -> Response: ...
@@ -106,28 +98,28 @@ class Response:
     content_length: int | None
     def write(self, text) -> None: ...
     app_iter: Iterator[bytes]
-    allow: _ListProperty[str | bytes]
-    vary: _ListProperty[str | bytes]
-    content_encoding: _SimpleProperty[str | bytes]
-    content_language: _ListProperty[str | bytes]
-    content_location: _SimpleProperty[str | bytes]
-    content_md5: _SimpleProperty[str | bytes]
-    content_disposition: _SimpleProperty[str | bytes]
-    accept_ranges: _SimpleProperty[str | bytes]
+    allow: _ListProperty
+    vary: _ListProperty
+    content_encoding: str | None
+    content_language: _ListProperty
+    content_location: str | None
+    content_md5: str | None
+    content_disposition: str | None
+    accept_ranges: str | None
     content_range: _AsymmetricPropertyWithDelete[ContentRange | None, _ContentRangeParams]
-    date: _DateProperty[str | bytes]
-    expires: _DateProperty[str | bytes]
-    last_modified: _DateProperty[str | bytes]
+    date: _DateProperty
+    expires: _DateProperty
+    last_modified: _DateProperty
     etag: _AsymmetricPropertyWithDelete[str | None, tuple[str, bool] | str | None]
     @property
     def etag_strong(self) -> str | None: ...
-    location: _SimpleProperty[str | bytes]
-    pragma: _SimpleProperty[str | bytes]
+    location: str | None
+    pragma: str | None
     age: int | None
-    retry_after: _DateProperty[str | bytes]
-    server: _SimpleProperty[str | bytes]
+    retry_after: _DateProperty
+    server: str | None
     www_authenticate: _AsymmetricPropertyWithDelete[
-        _authorization | None, tuple[str, str | dict[str, str]] | list[Any] | str | bytes | None
+        _authorization | None, tuple[str, str | dict[str, str]] | list[Any] | str | None
     ]
     charset: str | None
     content_type: str | None
@@ -148,9 +140,7 @@ class Response:
     def delete_cookie(self, name: str, path: str = ..., domain: str | None = ...) -> None: ...
     def unset_cookie(self, name: str, strict: bool = ...) -> None: ...
     def merge_cookies(self, resp: Response | _WSGIApplication) -> None: ...
-    cache_control: _AsymmetricProperty[
-        _ResponseCacheControl, _ResponseCacheControl | _ResponseCacheControlDict | str | bytes | None
-    ]
+    cache_control: _AsymmetricProperty[_ResponseCacheControl, _ResponseCacheControl | _ResponseCacheControlDict | str | None]
     cache_expires: _AsymmetricProperty[_ResponseCacheExpires, timedelta | int | bool | None]
     def encode_content(self, encoding: Literal["gzip", "identity"] = ..., lazy: bool = ...) -> None: ...
     def decode_content(self) -> None: ...
