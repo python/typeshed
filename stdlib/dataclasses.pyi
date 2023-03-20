@@ -289,7 +289,7 @@ else:
         cls_name: str,
         fields: Iterable[str | tuple[str, type] | tuple[str, type, Any]],
         *,
-        bases: tuple[type, ...] = ...,
+        bases: tuple[type, ...] = (),
         namespace: dict[str, Any] | None = None,
         init: bool = True,
         repr: bool = True,
