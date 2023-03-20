@@ -174,7 +174,7 @@ class ProcessPoolExecutor(Executor):
             max_workers: int | None = None,
             mp_context: BaseContext | None = None,
             initializer: Callable[..., object] | None = None,
-            initargs: tuple[Any, ...] = ...,
+            initargs: tuple[Any, ...] = (),
             *,
             max_tasks_per_child: int | None = None,
         ) -> None: ...

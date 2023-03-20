@@ -50,8 +50,8 @@ class DummyProcess(threading.Thread):
         group: Any = None,
         target: Callable[..., object] | None = None,
         name: str | None = None,
-        args: Iterable[Any] = ...,
-        kwargs: Mapping[str, Any] = ...,
+        args: Iterable[Any] = (),
+        kwargs: Mapping[str, Any] = {},
     ) -> None: ...
 
 Process = DummyProcess
@@ -70,7 +70,7 @@ class Value:
 def Array(typecode: Any, sequence: Sequence[Any], lock: Any = True) -> array.array[Any]: ...
 def Manager() -> Any: ...
 def Pool(
-    processes: int | None = None, initializer: Callable[..., object] | None = None, initargs: Iterable[Any] = ...
+    processes: int | None = None, initializer: Callable[..., object] | None = None, initargs: Iterable[Any] = ()
 ) -> Any: ...
 def active_children() -> list[Any]: ...
 
