@@ -1,9 +1,8 @@
 import sys
-from _typeshed import SupportsIndex
 from abc import abstractmethod
 from time import struct_time
 from typing import ClassVar, NamedTuple, NoReturn, TypeVar, overload
-from typing_extensions import Literal, Self, TypeAlias, final
+from typing_extensions import Literal, Self, SupportsIndex, TypeAlias, final
 
 if sys.version_info >= (3, 11):
     __all__ = ("date", "datetime", "time", "timedelta", "timezone", "tzinfo", "MINYEAR", "MAXYEAR", "UTC")
