@@ -174,7 +174,7 @@ class ProcessPoolExecutor(Executor):
             max_workers: int | None = None,
             mp_context: BaseContext | None = None,
             initializer: Callable[..., object] | None = None,
-            initargs: tuple[Any, ...] = ...,
+            initargs: tuple[Any, ...] = (),
             *,
             max_tasks_per_child: int | None = None,
         ) -> None: ...
@@ -184,7 +184,7 @@ class ProcessPoolExecutor(Executor):
             max_workers: int | None = None,
             mp_context: BaseContext | None = None,
             initializer: Callable[..., object] | None = None,
-            initargs: tuple[Any, ...] = ...,
+            initargs: tuple[Any, ...] = (),
         ) -> None: ...
     if sys.version_info >= (3, 9):
         def _start_executor_manager_thread(self) -> None: ...
