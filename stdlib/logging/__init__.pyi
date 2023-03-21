@@ -404,7 +404,7 @@ class LogRecord:
         level: int,
         pathname: str,
         lineno: int,
-        msg: object,
+        msg: str,
         args: _ArgsType | None,
         exc_info: _SysExcInfoType | None,
         func: str | None = None,
