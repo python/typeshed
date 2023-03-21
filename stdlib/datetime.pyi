@@ -10,7 +10,6 @@ elif sys.version_info >= (3, 9):
     __all__ = ("date", "datetime", "time", "timedelta", "timezone", "tzinfo", "MINYEAR", "MAXYEAR")
 
 _D = TypeVar("_D", bound=date)
-_IntLike: TypeAlias = int | SupportsIndex
 
 MINYEAR: Literal[1]
 MAXYEAR: Literal[9999]
@@ -50,7 +49,7 @@ class date:
     min: ClassVar[date]
     max: ClassVar[date]
     resolution: ClassVar[timedelta]
-    def __new__(cls, year: _IntLike, month: _IntLike, day: _IntLike) -> Self: ...
+    def __new__(cls, year: SupportsIndex, month: SupportsIndex, day: SupportsIndex) -> Self: ...
     @classmethod
     def fromtimestamp(cls, __timestamp: float) -> Self: ...
     @classmethod
@@ -82,7 +81,7 @@ class date:
     def isoformat(self) -> str: ...
     def timetuple(self) -> struct_time: ...
     def toordinal(self) -> int: ...
-    def replace(self, year: _IntLike = ..., month: _IntLike = ..., day: _IntLike = ...) -> Self: ...
+    def replace(self, year: SupportsIndex = ..., month: SupportsIndex = ..., day: SupportsIndex = ...) -> Self: ...
     def __le__(self, __value: date) -> bool: ...
     def __lt__(self, __value: date) -> bool: ...
     def __ge__(self, __value: date) -> bool: ...
@@ -120,10 +119,10 @@ class time:
     resolution: ClassVar[timedelta]
     def __new__(
         cls,
-        hour: _IntLike = ...,
-        minute: _IntLike = ...,
-        second: _IntLike = ...,
-        microsecond: _IntLike = ...,
+        hour: SupportsIndex = ...,
+        minute: SupportsIndex = ...,
+        second: SupportsIndex = ...,
+        microsecond: SupportsIndex = ...,
         tzinfo: _TzInfo | None = ...,
         *,
         fold: int = ...,
@@ -161,10 +160,10 @@ class time:
     def dst(self) -> timedelta | None: ...
     def replace(
         self,
-        hour: _IntLike = ...,
-        minute: _IntLike = ...,
-        second: _IntLike = ...,
-        microsecond: _IntLike = ...,
+        hour: SupportsIndex = ...,
+        minute: SupportsIndex = ...,
+        second: SupportsIndex = ...,
+        microsecond: SupportsIndex = ...,
         tzinfo: _TzInfo | None = ...,
         *,
         fold: int = ...,
@@ -224,13 +223,13 @@ class datetime(date):
     max: ClassVar[datetime]
     def __new__(
         cls,
-        year: _IntLike,
-        month: _IntLike,
-        day: _IntLike,
-        hour: _IntLike = ...,
-        minute: _IntLike = ...,
-        second: _IntLike = ...,
-        microsecond: _IntLike = ...,
+        year: SupportsIndex,
+        month: SupportsIndex,
+        day: SupportsIndex,
+        hour: SupportsIndex = ...,
+        minute: SupportsIndex = ...,
+        second: SupportsIndex = ...,
+        microsecond: SupportsIndex = ...,
         tzinfo: _TzInfo | None = ...,
         *,
         fold: int = ...,
@@ -281,13 +280,13 @@ class datetime(date):
     def timetz(self) -> _Time: ...
     def replace(
         self,
-        year: _IntLike = ...,
-        month: _IntLike = ...,
-        day: _IntLike = ...,
-        hour: _IntLike = ...,
-        minute: _IntLike = ...,
-        second: _IntLike = ...,
-        microsecond: _IntLike = ...,
+        year: SupportsIndex = ...,
+        month: SupportsIndex = ...,
+        day: SupportsIndex = ...,
+        hour: SupportsIndex = ...,
+        minute: SupportsIndex = ...,
+        second: SupportsIndex = ...,
+        microsecond: SupportsIndex = ...,
         tzinfo: _TzInfo | None = ...,
         *,
         fold: int = ...,
