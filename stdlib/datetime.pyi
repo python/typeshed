@@ -3,6 +3,7 @@ from abc import abstractmethod
 from time import struct_time
 from typing import ClassVar, NamedTuple, NoReturn, TypeVar, overload
 from typing_extensions import Literal, Self, TypeAlias, final
+from _typeshed import SupportsIndex
 
 if sys.version_info >= (3, 11):
     __all__ = ("date", "datetime", "time", "timedelta", "timezone", "tzinfo", "MINYEAR", "MAXYEAR", "UTC")
@@ -10,6 +11,7 @@ elif sys.version_info >= (3, 9):
     __all__ = ("date", "datetime", "time", "timedelta", "timezone", "tzinfo", "MINYEAR", "MAXYEAR")
 
 _D = TypeVar("_D", bound=date)
+_IntLike: TypeAlias = int | SupportsIndex
 
 MINYEAR: Literal[1]
 MAXYEAR: Literal[9999]
@@ -49,7 +51,7 @@ class date:
     min: ClassVar[date]
     max: ClassVar[date]
     resolution: ClassVar[timedelta]
-    def __new__(cls, year: int, month: int, day: int) -> Self: ...
+    def __new__(cls, year: _IntLike, month: _IntLike, day: _IntLike) -> Self: ...
     @classmethod
     def fromtimestamp(cls, __timestamp: float) -> Self: ...
     @classmethod
@@ -81,7 +83,7 @@ class date:
     def isoformat(self) -> str: ...
     def timetuple(self) -> struct_time: ...
     def toordinal(self) -> int: ...
-    def replace(self, year: int = ..., month: int = ..., day: int = ...) -> Self: ...
+    def replace(self, year: _IntLike = ..., month: _IntLike = ..., day: _IntLike = ...) -> Self: ...
     def __le__(self, __value: date) -> bool: ...
     def __lt__(self, __value: date) -> bool: ...
     def __ge__(self, __value: date) -> bool: ...
@@ -119,10 +121,10 @@ class time:
     resolution: ClassVar[timedelta]
     def __new__(
         cls,
-        hour: int = ...,
-        minute: int = ...,
-        second: int = ...,
-        microsecond: int = ...,
+        hour: _IntLike = ...,
+        minute: _IntLike = ...,
+        second: _IntLike = ...,
+        microsecond: _IntLike = ...,
         tzinfo: _TzInfo | None = ...,
         *,
         fold: int = ...,
@@ -160,10 +162,10 @@ class time:
     def dst(self) -> timedelta | None: ...
     def replace(
         self,
-        hour: int = ...,
-        minute: int = ...,
-        second: int = ...,
-        microsecond: int = ...,
+        hour: _IntLike = ...,
+        minute: _IntLike = ...,
+        second: _IntLike = ...,
+        microsecond: _IntLike = ...,
         tzinfo: _TzInfo | None = ...,
         *,
         fold: int = ...,
@@ -223,13 +225,13 @@ class datetime(date):
     max: ClassVar[datetime]
     def __new__(
         cls,
-        year: int,
-        month: int,
-        day: int,
-        hour: int = ...,
-        minute: int = ...,
-        second: int = ...,
-        microsecond: int = ...,
+        year: _IntLike,
+        month: _IntLike,
+        day: _IntLike,
+        hour: _IntLike = ...,
+        minute: _IntLike = ...,
+        second: _IntLike = ...,
+        microsecond: _IntLike = ...,
         tzinfo: _TzInfo | None = ...,
         *,
         fold: int = ...,
@@ -280,13 +282,13 @@ class datetime(date):
     def timetz(self) -> _Time: ...
     def replace(
         self,
-        year: int = ...,
-        month: int = ...,
-        day: int = ...,
-        hour: int = ...,
-        minute: int = ...,
-        second: int = ...,
-        microsecond: int = ...,
+        year: _IntLike = ...,
+        month: _IntLike = ...,
+        day: _IntLike = ...,
+        hour: _IntLike = ...,
+        minute: _IntLike = ...,
+        second: _IntLike = ...,
+        microsecond: _IntLike = ...,
         tzinfo: _TzInfo | None = ...,
         *,
         fold: int = ...,
