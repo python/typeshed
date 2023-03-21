@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, SupportsItems, SupportsKeysAndGetItem
+from _typeshed import SupportsItems, SupportsKeysAndGetItem
 from collections.abc import Iterable, Iterator
 from string import Template
 from typing import Any, Protocol
@@ -22,8 +22,8 @@ class WSGIHTTPException(Response, HTTPException):
     plain_template_obj: Template
     html_template_obj: Template
     empty_body: bool
-    detail: Incomplete
-    comment: Incomplete
+    detail: str | None
+    comment: str | None
     def __init__(
         self,
         detail: str | None = ...,
