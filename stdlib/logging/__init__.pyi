@@ -389,7 +389,7 @@ class LogRecord:
     msecs: float
     # Only created when logging.Formatter.format is called. See #6132.
     message: str
-    msg: str
+    msg: object
     name: str
     pathname: str
     process: int | None
@@ -404,7 +404,7 @@ class LogRecord:
         level: int,
         pathname: str,
         lineno: int,
-        msg: str,
+        msg: object,
         args: _ArgsType | None,
         exc_info: _SysExcInfoType | None,
         func: str | None = None,
