@@ -1,4 +1,5 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
+from abc import abstractmethod
 from collections.abc import Callable, Iterable, Mapping
 from queue import Queue
 from socket import socket
@@ -80,37 +81,25 @@ class Encoder:
     def encode(self, value: _Encodable) -> bytes: ...
     def decode(self, value: str | bytes | memoryview, force: bool = ...) -> str: ...
 
-class Connection:
+class AbstractConnection:
     pid: int
-    host: str
-    port: int
     db: int
-    username: str | None
-    password: str | None
     client_name: str | None
-    socket_timeout: float | None
-    socket_connect_timeout: float | None
-    socket_keepalive: bool
-    socket_keepalive_options: Mapping[str, int | str]
-    socket_type: int
+    credential_provider: CredentialProvider | None
+    password: str | None
+    username: str | None
     retry_on_timeout: bool
     retry_on_error: list[type[Exception]]
     retry: Retry
+    health_check_interval: int
+    next_health_check: int
     redis_connect_func: _ConnectFunc | None
     encoder: Encoder
-    next_health_check: int
-    health_check_interval: int
+
     def __init__(
         self,
-        host: str = "localhost",
-        port: int = 6379,
         db: int = 0,
         password: str | None = None,
-        socket_timeout: float | None = None,
-        socket_connect_timeout: float | None = None,
-        socket_keepalive: bool = False,
-        socket_keepalive_options: Mapping[str, int | str] | None = None,
-        socket_type: int = 0,
         retry_on_timeout: bool = False,
         retry_on_error: list[type[Exception]] = ...,
         encoding: str = "utf-8",
@@ -126,21 +115,58 @@ class Connection:
         credential_provider: CredentialProvider | None = None,
         command_packer: Incomplete | None = None,
     ) -> None: ...
-    def __del__(self) -> None: ...
+    @abstractmethod
+    def repr_pieces(self) -> list[tuple[str, Any]]: ...
     def register_connect_callback(self, callback: _ConnectFunc) -> None: ...
     def clear_connect_callbacks(self) -> None: ...
     def set_parser(self, parser_class: type[BaseParser]) -> None: ...
     def connect(self) -> None: ...
     def on_connect(self) -> None: ...
-    def disconnect(self, *args: object) -> None: ...  # 'args' added in redis 4.1.2
+    def disconnect(self, *args: Unused) -> None: ...  # 'args' added in redis 4.1.2
     def check_health(self) -> None: ...
-    def send_packed_command(self, command: str | Iterable[str], check_health: bool = ...) -> None: ...
+    def send_packed_command(self, command: str | Iterable[str], check_health: bool = True) -> None: ...
     def send_command(self, *args, **kwargs) -> None: ...
-    def can_read(self, timeout: float | None = ...) -> bool: ...
-    def read_response(self, disable_decoding: bool = ...) -> Any: ...  # `str | bytes` or `list[str | bytes]`
+    def can_read(self, timeout: float | None = 0) -> bool: ...
+    def read_response(self, disable_decoding: bool = False) -> Any: ...  # `str | bytes` or `list[str | bytes]`
     def pack_command(self, *args) -> list[bytes]: ...
     def pack_commands(self, commands: Iterable[Iterable[Incomplete]]) -> list[bytes]: ...
-    def repr_pieces(self) -> list[tuple[str, str]]: ...
+
+class Connection(AbstractConnection):
+    host: str
+    port: int
+    socket_timeout: float | None
+    socket_connect_timeout: float | None
+    socket_keepalive: bool
+    socket_keepalive_options: Mapping[str, int | str]
+    socket_type: int
+    def __init__(
+        self,
+        host: str = "localhost",
+        port: int = 6379,
+        socket_timeout: float | None = None,
+        socket_connect_timeout: float | None = None,
+        socket_keepalive: bool = False,
+        socket_keepalive_options: Mapping[str, int | str] | None = None,
+        socket_type: int = 0,
+        *,
+        db: int = 0,
+        password: str | None = None,
+        retry_on_timeout: bool = False,
+        retry_on_error: list[type[Exception]] = ...,
+        encoding: str = "utf-8",
+        encoding_errors: str = "strict",
+        decode_responses: bool = False,
+        parser_class: type[BaseParser] = ...,
+        socket_read_size: int = 65536,
+        health_check_interval: int = 0,
+        client_name: str | None = None,
+        username: str | None = None,
+        retry: Retry | None = None,
+        redis_connect_func: _ConnectFunc | None = None,
+        credential_provider: CredentialProvider | None = None,
+        command_packer: Incomplete | None = None,
+    ) -> None: ...
+    def repr_pieces(self) -> list[tuple[str, Any]]: ...
 
 class SSLConnection(Connection):
     keyfile: Any
@@ -168,32 +194,56 @@ class SSLConnection(Connection):
         ssl_validate_ocsp_stapled: bool = ...,  # added in 4.1.1
         ssl_ocsp_context: Incomplete | None = ...,  # added in 4.1.1
         ssl_ocsp_expected_cert: Incomplete | None = ...,  # added in 4.1.1
-        **kwargs,
-    ) -> None: ...
-
-class UnixDomainSocketConnection(Connection):
-    path: str
-    def __init__(
-        self,
-        path: str = "",
-        db: int = 0,
-        username: str | None = None,
-        password: str | None = None,
+        *,
+        host: str = "localhost",
+        port: int = 6379,
         socket_timeout: float | None = None,
+        socket_connect_timeout: float | None = None,
+        socket_keepalive: bool = False,
+        socket_keepalive_options: Mapping[str, int | str] | None = None,
+        socket_type: int = 0,
+        db: int = 0,
+        password: str | None = None,
+        retry_on_timeout: bool = False,
+        retry_on_error: list[type[Exception]] = ...,
         encoding: str = "utf-8",
         encoding_errors: str = "strict",
         decode_responses: bool = False,
-        retry_on_timeout: bool = False,
-        retry_on_error: list[type[Exception]] = ...,
         parser_class: type[BaseParser] = ...,
         socket_read_size: int = 65536,
         health_check_interval: int = 0,
         client_name: str | None = None,
+        username: str | None = None,
         retry: Retry | None = None,
         redis_connect_func: _ConnectFunc | None = None,
         credential_provider: CredentialProvider | None = None,
         command_packer: Incomplete | None = None,
     ) -> None: ...
+
+class UnixDomainSocketConnection(AbstractConnection):
+    path: str
+    def __init__(
+        self,
+        path: str = "",
+        *,
+        db: int = 0,
+        password: str | None = None,
+        retry_on_timeout: bool = False,
+        retry_on_error: list[type[Exception]] = ...,
+        encoding: str = "utf-8",
+        encoding_errors: str = "strict",
+        decode_responses: bool = False,
+        parser_class: type[BaseParser] = ...,
+        socket_read_size: int = 65536,
+        health_check_interval: int = 0,
+        client_name: str | None = None,
+        username: str | None = None,
+        retry: Retry | None = None,
+        redis_connect_func: _ConnectFunc | None = None,
+        credential_provider: CredentialProvider | None = None,
+        command_packer: Incomplete | None = None,
+    ) -> None: ...
+    def repr_pieces(self) -> list[tuple[str, Any]]: ...
 
 # TODO: make generic on `connection_class`
 class ConnectionPool:
@@ -207,7 +257,7 @@ class ConnectionPool:
         self, connection_class: type[Connection] = ..., max_connections: int | None = ..., **connection_kwargs
     ) -> None: ...
     def reset(self) -> None: ...
-    def get_connection(self, command_name: object, *keys, **options: _ConnectionPoolOptions) -> Connection: ...
+    def get_connection(self, command_name: Unused, *keys, **options: _ConnectionPoolOptions) -> Connection: ...
     def make_connection(self) -> Connection: ...
     def release(self, connection: Connection) -> None: ...
     def disconnect(self, inuse_connections: bool = ...) -> None: ...
