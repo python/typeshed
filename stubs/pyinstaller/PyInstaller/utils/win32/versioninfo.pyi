@@ -3,8 +3,8 @@ from collections.abc import Sequence
 from typing import Protocol
 from typing_extensions import Literal, TypeAlias
 
-_FourIntSequence: TypeAlias = Sequence[int] | tuple[int, int, int, int]
-_TwoIntSequence: TypeAlias = Sequence[int] | tuple[int, int]
+_FourIntSequence: TypeAlias = Sequence[int]
+_TwoIntSequence: TypeAlias = Sequence[int]
 
 class _Kid(Protocol):
     def toRaw(self) -> bytes: ...

@@ -15,19 +15,16 @@ from PyInstaller.building.splash import Splash
 from PyInstaller.utils.win32.versioninfo import VSVersionInfo
 from PyInstaller.utils.win32.winmanifest import Manifest
 
-if sys.platform == "linux":
+if sys.platform == "darwin":
     _TargetArch: TypeAlias = Literal["x86_64", "arm64", "universal2"]
     _SuportedTargetArchParam: TypeAlias = _TargetArch | None
+    _CodesignIdentity: TypeAlias = str | None
+    _CodesignIdentityParam: TypeAlias = str | None
 else:
     _TargetArch: TypeAlias = None
     _SuportedTargetArchParam: TypeAlias = object
-
-if sys.platform == "darwin":
-    _CodesignIdentiy: TypeAlias = str | None
-    _CodesignIdentiyParam: TypeAlias = str | None
-else:
-    _CodesignIdentiy: TypeAlias = None
-    _CodesignIdentiyParam: TypeAlias = object
+    _CodesignIdentity: TypeAlias = None
+    _CodesignIdentityParam: TypeAlias = object
 
 if sys.platform == "win32":
     _Icon: TypeAlias = list[StrPath] | str
@@ -62,14 +59,14 @@ class PYZ(Target):
 class PKG(Target):
     xformdict: ClassVar[dict[str, str]]
     toc: TOC
-    cdict: Mapping[str, bool] | None
+    cdict: Mapping[str, bool]
     name: str
     exclude_binaries: bool
     strip_binaries: bool
     upx_binaries: bool
     upx_exclude: Iterable[str]
-    target_arch: _TargetArch
-    codesign_identity: _CodesignIdentiy
+    target_arch: _TargetArch | None
+    codesign_identity: _CodesignIdentity
     entitlements_file: FileDescriptorOrPath | None
     def __init__(
         self,
@@ -81,7 +78,7 @@ class PKG(Target):
         upx_binaries: bool = False,
         upx_exclude: Iterable[str] | None = None,
         target_arch: _SuportedTargetArchParam = None,
-        codesign_identity: _CodesignIdentiyParam = None,
+        codesign_identity: _CodesignIdentityParam = None,
         entitlements_file: FileDescriptorOrPath | None = None,
     ) -> None: ...
     def assemble(self) -> None: ...
@@ -106,7 +103,7 @@ class EXE(Target):
     uac_uiaccess: bool
     argv_emulation: bool
     target_arch: _TargetArch
-    codesign_identity: _CodesignIdentiy
+    codesign_identity: _CodesignIdentity
     entitlements_file: FileDescriptorOrPath | None
     upx: bool
     pkgname: str
@@ -118,7 +115,7 @@ class EXE(Target):
         self,
         *args: Iterable[_TOCTuple] | PYZ | Splash,
         exclude_binaries: bool = False,
-        bootloader_ignore_signalss: bool = False,
+        bootloader_ignore_signals: bool = False,
         console: bool = True,
         disable_windowed_traceback: bool = False,
         debug: bool = False,
@@ -136,8 +133,8 @@ class EXE(Target):
         uac_uiaccess: bool = False,
         argv_emulation: bool = False,
         target_arch: _SuportedTargetArchParam = None,
-        codesign_identity: _CodesignIdentiyParam,
-        entitlements_file: FileDescriptorOrPath | None,
+        codesign_identity: _CodesignIdentityParam = None,
+        entitlements_file: FileDescriptorOrPath | None = None,
         upx: bool = False,
         cdict: Mapping[str, bool] | None = None,
     ) -> None: ...
@@ -148,8 +145,8 @@ class COLLECT(Target):
     strip_binaries: bool
     upx_exclude: Iterable[str]
     console: bool
-    target_arch: _TargetArch
-    codesign_identity: _CodesignIdentiy
+    target_arch: _TargetArch | None
+    codesign_identity: _CodesignIdentity
     entitlements_file: FileDescriptorOrPath | None
     upx_binaries: bool
     name: str
