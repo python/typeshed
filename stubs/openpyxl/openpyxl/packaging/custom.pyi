@@ -2,9 +2,8 @@ from _typeshed import Incomplete
 from collections.abc import Iterator
 from typing_extensions import Self
 
-from openpyxl.descriptors import Bool, DateTime, Float, Integer, Strict, Sequence, String
+from openpyxl.descriptors import Bool, DateTime, Float, Integer, Sequence, Strict, String
 from openpyxl.descriptors.nested import NestedText
-from openpyxl.descriptors.serialisable import Serialisable
 
 class NestedBoolText(Bool, NestedText): ...
 
