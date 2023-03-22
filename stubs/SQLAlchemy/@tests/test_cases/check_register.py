@@ -38,7 +38,7 @@ class Foo:
     pass
 
 
-# The decorator changes the first parameter to "cfg: str | URL | _ConfigProtocol"
+# Test that the decorator changes the first parameter to "cfg: str | URL | _ConfigProtocol"
 @register.init
 def no_args(__foo: Foo) -> None:
     pass
