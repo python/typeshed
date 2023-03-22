@@ -1,43 +1,47 @@
-from .cell_range import MultiCellRange
 from _typeshed import Incomplete
-from openpyxl.descriptors import Strict
+from re import Pattern
+from typing_extensions import Self
+
+from openpyxl.descriptors import Integer, Strict, String
 from openpyxl.utils.cell import SHEETRANGE_RE as SHEETRANGE_RE
 
+from .cell_range import MultiCellRange
+
 COL_RANGE: str
-COL_RANGE_RE: Incomplete
+COL_RANGE_RE: Pattern[str]
 ROW_RANGE: str
-ROW_RANGE_RE: Incomplete
-TITLES_REGEX: Incomplete
-PRINT_AREA_RE: Incomplete
+ROW_RANGE_RE: Pattern[str]
+TITLES_REGEX: Pattern[str]
+PRINT_AREA_RE: Pattern[str]
 
 class ColRange(Strict):
-    min_col: Incomplete
-    max_col: Incomplete
+    min_col: String
+    max_col: String
     def __init__(
-        self, range_string: Incomplete | None = ..., min_col: Incomplete | None = ..., max_col: Incomplete | None = ...
+        self, range_string: Incomplete | None = None, min_col: Incomplete | None = None, max_col: Incomplete | None = None
     ) -> None: ...
-    def __eq__(self, other): ...
+    def __eq__(self, other: object) -> bool: ...
 
 class RowRange(Strict):
-    min_row: Incomplete
-    max_row: Incomplete
+    min_row: Integer
+    max_row: Integer
     def __init__(
-        self, range_string: Incomplete | None = ..., min_row: Incomplete | None = ..., max_row: Incomplete | None = ...
+        self, range_string: Incomplete | None = None, min_row: Incomplete | None = None, max_row: Incomplete | None = None
     ) -> None: ...
-    def __eq__(self, other): ...
+    def __eq__(self, other: object) -> bool: ...
 
 class PrintTitles(Strict):
     cols: Incomplete
     rows: Incomplete
-    title: Incomplete
-    def __init__(self, cols: Incomplete | None = ..., rows: Incomplete | None = ..., title: str = ...) -> None: ...
+    title: String
+    def __init__(self, cols: Incomplete | None = None, rows: Incomplete | None = None, title: str = "") -> None: ...
     @classmethod
-    def from_string(cls, value): ...
-    def __eq__(self, other): ...
+    def from_string(cls, value) -> Self: ...
+    def __eq__(self, other: object) -> bool: ...
 
 class PrintArea(MultiCellRange):
-    @classmethod
-    def from_string(cls, value): ...
     title: str
-    def __init__(self, ranges=..., title: str = ...) -> None: ...
+    @classmethod
+    def from_string(cls, value) -> Self: ...
+    def __init__(self, ranges=(), title: str = "") -> None: ...
     def __eq__(self, other): ...
