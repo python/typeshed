@@ -72,6 +72,9 @@ WRAPPER_UPDATES: tuple[Literal["__dict__"]]
 class _Wrapped(Generic[_PWrapped, _RWrapped, _PWrapper, _RWapper]):
     __wrapped__: Callable[_PWrapped, _RWrapped]
     def __call__(self, *args: _PWrapper.args, **kwargs: _PWrapper.kwargs) -> _RWapper: ...
+    # as with ``Callable``, we'll assume that these attributes exist
+    __name__: str
+    __qualname__: str
 
 class _Wrapper(Generic[_PWrapped, _RWrapped]):
     def __call__(self, f: Callable[_PWrapper, _RWapper]) -> _Wrapped[_PWrapped, _RWrapped, _PWrapper, _RWapper]: ...
@@ -79,11 +82,13 @@ class _Wrapper(Generic[_PWrapped, _RWrapped]):
 def update_wrapper(
     wrapper: Callable[_PWrapper, _RWapper],
     wrapped: Callable[_PWrapped, _RWrapped],
-    assigned: Sequence[str] = ...,
-    updated: Sequence[str] = ...,
+    assigned: Sequence[str] = ("__module__", "__name__", "__qualname__", "__doc__", "__annotations__"),
+    updated: Sequence[str] = ("__dict__",),
 ) -> _Wrapped[_PWrapped, _RWrapped, _PWrapper, _RWapper]: ...
 def wraps(
-    wrapped: Callable[_PWrapped, _RWrapped], assigned: Sequence[str] = ..., updated: Sequence[str] = ...
+    wrapped: Callable[_PWrapped, _RWrapped],
+    assigned: Sequence[str] = ("__module__", "__name__", "__qualname__", "__doc__", "__annotations__"),
+    updated: Sequence[str] = ("__dict__",),
 ) -> _Wrapper[_PWrapped, _RWrapped]: ...
 def total_ordering(cls: type[_T]) -> type[_T]: ...
 def cmp_to_key(mycmp: Callable[[_T, _T], int]) -> Callable[[_T], SupportsAllComparisons]: ...

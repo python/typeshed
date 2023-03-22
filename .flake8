@@ -39,7 +39,7 @@ per-file-ignores =
   #     F811 redefinition of unused '...'
   stdlib/typing.pyi: B, E701, E741, F401, F403, F405, F811, F822
   # Generated protobuf files include docstrings
-  *_pb2.pyi: B, E701, Y021, Y026
+  *_pb2.pyi: B, E701, E741, F401, F403, F405, F822, Y021, Y026, Y053, Y054
 
 exclude = .venv*,.git
 noqa_require_code = true

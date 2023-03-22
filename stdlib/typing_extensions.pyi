@@ -70,6 +70,7 @@ __all__ = [
     "assert_never",
     "assert_type",
     "dataclass_transform",
+    "deprecated",
     "final",
     "IntVar",
     "is_typeddict",
@@ -244,7 +245,7 @@ else:
         order_default: bool = False,
         kw_only_default: bool = False,
         frozen_default: bool = False,
-        field_specifiers: tuple[type[Any] | Callable[..., Any], ...] = ...,
+        field_specifiers: tuple[type[Any] | Callable[..., Any], ...] = (),
         **kwargs: object,
     ) -> IdentityFunction: ...
 
@@ -326,3 +327,4 @@ class TypeVarTuple:
     def __iter__(self) -> Any: ...  # Unpack[Self]
 
 def override(__arg: _F) -> _F: ...
+def deprecated(__msg: str, *, category: type[Warning] | None = ..., stacklevel: int = 1) -> Callable[[_T], _T]: ...

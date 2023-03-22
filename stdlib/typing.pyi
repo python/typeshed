@@ -2,7 +2,7 @@ import collections  # Needed by aliases like DefaultDict, see mypy issue 2986
 import sys
 import typing_extensions
 from _collections_abc import dict_items, dict_keys, dict_values
-from _typeshed import IdentityFunction, Incomplete, SupportsKeysAndGetItem
+from _typeshed import IdentityFunction, Incomplete, ReadableBuffer, SupportsKeysAndGetItem
 from abc import ABCMeta, abstractmethod
 from contextlib import AbstractAsyncContextManager, AbstractContextManager
 from re import Match as Match, Pattern as Pattern
@@ -593,7 +593,7 @@ class Mapping(Collection[_KT], Generic[_KT, _VT_co]):
     def items(self) -> ItemsView[_KT, _VT_co]: ...
     def keys(self) -> KeysView[_KT]: ...
     def values(self) -> ValuesView[_VT_co]: ...
-    def __contains__(self, __o: object) -> bool: ...
+    def __contains__(self, __key: object) -> bool: ...
 
 class MutableMapping(Mapping[_KT, _VT], Generic[_KT, _VT]):
     @abstractmethod
@@ -687,8 +687,22 @@ class IO(Iterator[AnyStr], Generic[AnyStr]):
     @abstractmethod
     def writable(self) -> bool: ...
     @abstractmethod
+    @overload
+    def write(self: IO[str], __s: str) -> int: ...
+    @abstractmethod
+    @overload
+    def write(self: IO[bytes], __s: ReadableBuffer) -> int: ...
+    @abstractmethod
+    @overload
     def write(self, __s: AnyStr) -> int: ...
     @abstractmethod
+    @overload
+    def writelines(self: IO[str], __lines: Iterable[str]) -> None: ...
+    @abstractmethod
+    @overload
+    def writelines(self: IO[bytes], __lines: Iterable[ReadableBuffer]) -> None: ...
+    @abstractmethod
+    @overload
     def writelines(self, __lines: Iterable[AnyStr]) -> None: ...
     @abstractmethod
     def __next__(self) -> AnyStr: ...
@@ -698,7 +712,7 @@ class IO(Iterator[AnyStr], Generic[AnyStr]):
     def __enter__(self) -> IO[AnyStr]: ...
     @abstractmethod
     def __exit__(
-        self, __t: Type[BaseException] | None, __value: BaseException | None, __traceback: TracebackType | None
+        self, __type: Type[BaseException] | None, __value: BaseException | None, __traceback: TracebackType | None
     ) -> None: ...
 
 class BinaryIO(IO[bytes]):
@@ -784,7 +798,7 @@ if sys.version_info >= (3, 11):
         order_default: bool = False,
         kw_only_default: bool = False,
         frozen_default: bool = False,  # on 3.11, runtime accepts it as part of kwargs
-        field_specifiers: tuple[type[Any] | Callable[..., Any], ...] = ...,
+        field_specifiers: tuple[type[Any] | Callable[..., Any], ...] = (),
         **kwargs: Any,
     ) -> IdentityFunction: ...
 
