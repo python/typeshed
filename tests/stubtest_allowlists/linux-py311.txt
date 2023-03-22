@@ -13,9 +13,6 @@ mmap.MAP_STACK
 (os|posix).eventfd_read
 (os|posix).eventfd_write
 (os|posix).splice
-signal.SIGSTKFLT
-signal.Signals.SIGSTKFLT
 signal.sigtimedwait
 signal.sigwaitinfo
-select.epoll.register
 xxlimited.Xxo.x_exports

@@ -6,7 +6,7 @@ from enum import Enum
 from tkinter.constants import *
 from tkinter.font import _FontDescription
 from types import TracebackType
-from typing import Any, Generic, NamedTuple, Protocol, TypeVar, overload
+from typing import Any, Generic, NamedTuple, Protocol, TypeVar, overload, type_check_only
 from typing_extensions import Literal, TypeAlias, TypedDict
 
 if sys.version_info >= (3, 9):
@@ -504,7 +504,7 @@ class Misc:
     def grid_columnconfigure(
         self,
         index: _GridIndex,
-        cnf: _GridIndexInfo = ...,
+        cnf: _GridIndexInfo = {},
         *,
         minsize: _ScreenUnits = ...,
         pad: _ScreenUnits = ...,
@@ -514,7 +514,7 @@ class Misc:
     def grid_rowconfigure(
         self,
         index: _GridIndex,
-        cnf: _GridIndexInfo = ...,
+        cnf: _GridIndexInfo = {},
         *,
         minsize: _ScreenUnits = ...,
         pad: _ScreenUnits = ...,
@@ -666,7 +666,7 @@ class Wm:
     iconmask = wm_iconmask
     def wm_iconname(self, newName: Incomplete | None = None) -> str: ...
     iconname = wm_iconname
-    def wm_iconphoto(self, default: bool, __image1: Image, *args: Image) -> None: ...
+    def wm_iconphoto(self, default: bool, __image1: _PhotoImageLike | str, *args: _PhotoImageLike | str) -> None: ...
     iconphoto = wm_iconphoto
     def wm_iconposition(self, x: int | None = None, y: int | None = None) -> tuple[int, int] | None: ...
     iconposition = wm_iconposition
@@ -825,7 +825,7 @@ class Pack:
     # replaced by **kwargs.
     def pack_configure(
         self,
-        cnf: Mapping[str, Any] | None = ...,
+        cnf: Mapping[str, Any] | None = {},
         *,
         after: Misc = ...,
         anchor: _Anchor = ...,
@@ -861,7 +861,7 @@ class _PlaceInfo(_InMiscNonTotal):  # empty dict if widget hasn't been placed
 class Place:
     def place_configure(
         self,
-        cnf: Mapping[str, Any] | None = ...,
+        cnf: Mapping[str, Any] | None = {},
         *,
         anchor: _Anchor = ...,
         bordermode: Literal["inside", "outside", "ignore"] = ...,
@@ -896,7 +896,7 @@ class _GridInfo(_InMiscNonTotal):  # empty dict if widget hasn't been gridded
 class Grid:
     def grid_configure(
         self,
-        cnf: Mapping[str, Any] | None = ...,
+        cnf: Mapping[str, Any] | None = {},
         *,
         column: int = ...,
         columnspan: int = ...,
@@ -920,7 +920,7 @@ class Grid:
 class BaseWidget(Misc):
     master: Misc
     widgetName: Incomplete
-    def __init__(self, master, widgetName, cnf=..., kw=..., extra=...) -> None: ...
+    def __init__(self, master, widgetName, cnf={}, kw={}, extra=()) -> None: ...
     def destroy(self) -> None: ...
 
 # This class represents any widget except Toplevel or Tk.
@@ -947,7 +947,7 @@ class Toplevel(BaseWidget, Wm):
     def __init__(
         self,
         master: Misc | None = None,
-        cnf: dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = {},
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -1003,7 +1003,7 @@ class Button(Widget):
     def __init__(
         self,
         master: Misc | None = None,
-        cnf: dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = {},
         *,
         activebackground: _Color = ...,
         activeforeground: _Color = ...,
@@ -1100,7 +1100,7 @@ class Canvas(Widget, XView, YView):
     def __init__(
         self,
         master: Misc | None = None,
-        cnf: dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = {},
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -1721,7 +1721,7 @@ class Canvas(Widget, XView, YView):
     if sys.version_info >= (3, 8):
         def moveto(self, tagOrId: str | _CanvasItemId, x: Literal[""] | float = "", y: Literal[""] | float = "") -> None: ...
 
-    def postscript(self, cnf=..., **kw): ...
+    def postscript(self, cnf={}, **kw): ...
     # tkinter does:
     #    lower = tag_lower
     #    lift = tkraise = tag_raise
@@ -1746,7 +1746,7 @@ class Checkbutton(Widget):
     def __init__(
         self,
         master: Misc | None = None,
-        cnf: dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = {},
         *,
         activebackground: _Color = ...,
         activeforeground: _Color = ...,
@@ -1865,7 +1865,7 @@ class Entry(Widget, XView):
     def __init__(
         self,
         master: Misc | None = None,
-        cnf: dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = {},
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -1976,7 +1976,7 @@ class Frame(Widget):
     def __init__(
         self,
         master: Misc | None = None,
-        cnf: dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = {},
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -2028,7 +2028,7 @@ class Label(Widget):
     def __init__(
         self,
         master: Misc | None = None,
-        cnf: dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = {},
         *,
         activebackground: _Color = ...,
         activeforeground: _Color = ...,
@@ -2108,7 +2108,7 @@ class Listbox(Widget, XView, YView):
     def __init__(
         self,
         master: Misc | None = None,
-        cnf: dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = {},
         *,
         activestyle: Literal["dotbox", "none", "underline"] = ...,
         background: _Color = ...,
@@ -2221,7 +2221,7 @@ class Menu(Widget):
     def __init__(
         self,
         master: Misc | None = None,
-        cnf: dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = {},
         *,
         activebackground: _Color = ...,
         activeborderwidth: _ScreenUnits = ...,
@@ -2281,11 +2281,11 @@ class Menu(Widget):
     config = configure
     def tk_popup(self, x: int, y: int, entry: str | int = "") -> None: ...
     def activate(self, index: str | int) -> None: ...
-    def add(self, itemType, cnf=..., **kw): ...  # docstring says "Internal function."
-    def insert(self, index, itemType, cnf=..., **kw): ...  # docstring says "Internal function."
+    def add(self, itemType, cnf={}, **kw): ...  # docstring says "Internal function."
+    def insert(self, index, itemType, cnf={}, **kw): ...  # docstring says "Internal function."
     def add_cascade(
         self,
-        cnf: dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = {},
         *,
         accelerator: str = ...,
         activebackground: _Color = ...,
@@ -2306,7 +2306,7 @@ class Menu(Widget):
     ) -> None: ...
     def add_checkbutton(
         self,
-        cnf: dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = {},
         *,
         accelerator: str = ...,
         activebackground: _Color = ...,
@@ -2332,7 +2332,7 @@ class Menu(Widget):
     ) -> None: ...
     def add_command(
         self,
-        cnf: dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = {},
         *,
         accelerator: str = ...,
         activebackground: _Color = ...,
@@ -2352,7 +2352,7 @@ class Menu(Widget):
     ) -> None: ...
     def add_radiobutton(
         self,
-        cnf: dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = {},
         *,
         accelerator: str = ...,
         activebackground: _Color = ...,
@@ -2375,11 +2375,11 @@ class Menu(Widget):
         value: Any = ...,
         variable: Variable = ...,
     ) -> None: ...
-    def add_separator(self, cnf: dict[str, Any] | None = ..., *, background: _Color = ...) -> None: ...
+    def add_separator(self, cnf: dict[str, Any] | None = {}, *, background: _Color = ...) -> None: ...
     def insert_cascade(
         self,
         index: str | int,
-        cnf: dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = {},
         *,
         accelerator: str = ...,
         activebackground: _Color = ...,
@@ -2401,7 +2401,7 @@ class Menu(Widget):
     def insert_checkbutton(
         self,
         index: str | int,
-        cnf: dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = {},
         *,
         accelerator: str = ...,
         activebackground: _Color = ...,
@@ -2428,7 +2428,7 @@ class Menu(Widget):
     def insert_command(
         self,
         index: str | int,
-        cnf: dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = {},
         *,
         accelerator: str = ...,
         activebackground: _Color = ...,
@@ -2449,7 +2449,7 @@ class Menu(Widget):
     def insert_radiobutton(
         self,
         index: str | int,
-        cnf: dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = {},
         *,
         accelerator: str = ...,
         activebackground: _Color = ...,
@@ -2472,7 +2472,7 @@ class Menu(Widget):
         value: Any = ...,
         variable: Variable = ...,
     ) -> None: ...
-    def insert_separator(self, index: str | int, cnf: dict[str, Any] | None = ..., *, background: _Color = ...) -> None: ...
+    def insert_separator(self, index: str | int, cnf: dict[str, Any] | None = {}, *, background: _Color = ...) -> None: ...
     def delete(self, index1: str | int, index2: str | int | None = None) -> None: ...
     def entrycget(self, index: str | int, option: str) -> Any: ...
     def entryconfigure(
@@ -2491,7 +2491,7 @@ class Menubutton(Widget):
     def __init__(
         self,
         master: Misc | None = None,
-        cnf: dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = {},
         *,
         activebackground: _Color = ...,
         activeforeground: _Color = ...,
@@ -2577,7 +2577,7 @@ class Message(Widget):
     def __init__(
         self,
         master: Misc | None = None,
-        cnf: dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = {},
         *,
         anchor: _Anchor = ...,
         aspect: int = ...,
@@ -2640,7 +2640,7 @@ class Radiobutton(Widget):
     def __init__(
         self,
         master: Misc | None = None,
-        cnf: dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = {},
         *,
         activebackground: _Color = ...,
         activeforeground: _Color = ...,
@@ -2744,7 +2744,7 @@ class Scale(Widget):
     def __init__(
         self,
         master: Misc | None = None,
-        cnf: dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = {},
         *,
         activebackground: _Color = ...,
         background: _Color = ...,
@@ -2835,7 +2835,7 @@ class Scrollbar(Widget):
     def __init__(
         self,
         master: Misc | None = None,
-        cnf: dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = {},
         *,
         activebackground: _Color = ...,
         activerelief: _Relief = ...,
@@ -2907,7 +2907,7 @@ class Text(Widget, XView, YView):
     def __init__(
         self,
         master: Misc | None = None,
-        cnf: dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = {},
         *,
         autoseparators: bool = ...,
         background: _Color = ...,
@@ -3078,7 +3078,7 @@ class Text(Widget, XView, YView):
     # TODO: image_* methods
     def image_cget(self, index, option): ...
     def image_configure(self, index, cnf: Incomplete | None = None, **kw): ...
-    def image_create(self, index, cnf=..., **kw): ...
+    def image_create(self, index, cnf={}, **kw): ...
     def image_names(self): ...
     def index(self, index: _TextIndex) -> str: ...
     def insert(self, index: _TextIndex, chars: str, *args: str | list[str] | tuple[str, ...]) -> None: ...
@@ -3092,7 +3092,7 @@ class Text(Widget, XView, YView):
     def mark_next(self, index: _TextIndex) -> str | None: ...
     def mark_previous(self, index: _TextIndex) -> str | None: ...
     # **kw of peer_create is same as the kwargs of Text.__init__
-    def peer_create(self, newPathName: str | Text, cnf: dict[str, Any] = ..., **kw) -> None: ...
+    def peer_create(self, newPathName: str | Text, cnf: dict[str, Any] = {}, **kw) -> None: ...
     def peer_names(self) -> tuple[_tkinter.Tcl_Obj, ...]: ...
     def replace(self, index1: _TextIndex, index2: _TextIndex, chars: str, *args: str | list[str] | tuple[str, ...]) -> None: ...
     def scan_mark(self, x: int, y: int) -> None: ...
@@ -3181,7 +3181,7 @@ class Text(Widget, XView, YView):
     def window_cget(self, index, option): ...
     def window_configure(self, index, cnf: Incomplete | None = None, **kw): ...
     window_config = window_configure
-    def window_create(self, index, cnf=..., **kw) -> None: ...
+    def window_create(self, index, cnf={}, **kw) -> None: ...
     def window_names(self): ...
     def yview_pickplace(self, *what): ...  # deprecated
 
@@ -3206,16 +3206,23 @@ class OptionMenu(Menubutton):
     # configure, config, cget are inherited from Menubutton
     # destroy and __getitem__ are overridden, signature does not change
 
-class _Image(Protocol):
-    tk: _tkinter.TkappType
-    def height(self) -> int: ...
-    def width(self) -> int: ...
+# Marker to indicate that it is a valid bitmap/photo image. PIL implements compatible versions
+# which don't share a class hierarchy. The actual API is a __str__() which returns a valid name,
+# not something that type checkers can detect.
+@type_check_only
+class _Image: ...
 
-class Image:
+@type_check_only
+class _BitmapImageLike(_Image): ...
+
+@type_check_only
+class _PhotoImageLike(_Image): ...
+
+class Image(_Image):
     name: Incomplete
     tk: _tkinter.TkappType
     def __init__(
-        self, imgtype, name: Incomplete | None = None, cnf=..., master: Misc | _tkinter.TkappType | None = None, **kw
+        self, imgtype, name: Incomplete | None = None, cnf={}, master: Misc | _tkinter.TkappType | None = None, **kw
     ) -> None: ...
     def __del__(self) -> None: ...
     def __setitem__(self, key, value) -> None: ...
@@ -3226,11 +3233,12 @@ class Image:
     def type(self): ...
     def width(self) -> int: ...
 
-class PhotoImage(Image):
+class PhotoImage(Image, _PhotoImageLike):
+    # This should be kept in sync with PIL.ImageTK.PhotoImage.__init__()
     def __init__(
         self,
         name: str | None = None,
-        cnf: dict[str, Any] = ...,
+        cnf: dict[str, Any] = {},
         master: Misc | _tkinter.TkappType | None = None,
         *,
         data: str | bytes = ...,  # not same as data argument of put()
@@ -3278,11 +3286,12 @@ class PhotoImage(Image):
         def transparency_get(self, x: int, y: int) -> bool: ...
         def transparency_set(self, x: int, y: int, boolean: bool) -> None: ...
 
-class BitmapImage(Image):
+class BitmapImage(Image, _BitmapImageLike):
+    # This should be kept in sync with PIL.ImageTK.BitmapImage.__init__()
     def __init__(
         self,
         name: Incomplete | None = None,
-        cnf: dict[str, Any] = ...,
+        cnf: dict[str, Any] = {},
         master: Misc | _tkinter.TkappType | None = None,
         *,
         background: _Color = ...,
@@ -3300,7 +3309,7 @@ class Spinbox(Widget, XView):
     def __init__(
         self,
         master: Misc | None = None,
-        cnf: dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = {},
         *,
         activebackground: _Color = ...,
         background: _Color = ...,
@@ -3440,7 +3449,7 @@ class LabelFrame(Widget):
     def __init__(
         self,
         master: Misc | None = None,
-        cnf: dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = {},
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
@@ -3505,7 +3514,7 @@ class PanedWindow(Widget):
     def __init__(
         self,
         master: Misc | None = None,
-        cnf: dict[str, Any] | None = ...,
+        cnf: dict[str, Any] | None = {},
         *,
         background: _Color = ...,
         bd: _ScreenUnits = ...,
