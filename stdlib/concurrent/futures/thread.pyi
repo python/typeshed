@@ -50,10 +50,10 @@ class ThreadPoolExecutor(Executor):
     _work_queue: queue.SimpleQueue[_WorkItem[Any]]
     def __init__(
         self,
-        max_workers: int | None = ...,
-        thread_name_prefix: str = ...,
-        initializer: Callable[..., object] | None = ...,
-        initargs: tuple[Any, ...] = ...,
+        max_workers: int | None = None,
+        thread_name_prefix: str = "",
+        initializer: Callable[..., object] | None = None,
+        initargs: tuple[Any, ...] = (),
     ) -> None: ...
     def _adjust_thread_count(self) -> None: ...
     def _initializer_failed(self) -> None: ...

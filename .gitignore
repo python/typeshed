@@ -60,7 +60,9 @@ analyze.py
 # Editor backup files
 *~
 .*.sw?
-.vscode/
+.vscode/*
+!.vscode/settings.default.json
+!.vscode/extensions.json
 .idea/
 .venv*/
 

@@ -1,8 +1,9 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from collections.abc import Callable
 from html.parser import HTMLParser
 from logging import Logger
 from re import Match, Pattern
+from typing import ClassVar
 from typing_extensions import Final
 
 from fpdf import FPDF
@@ -24,6 +25,7 @@ def px2mm(px: float) -> float: ...
 def color_as_decimal(color: str | None = ...) -> tuple[int, int, int] | None: ...
 
 class HTML2FPDF(HTMLParser):
+    HTML_UNCLOSED_TAGS: ClassVar[tuple[str, ...]]
     pdf: Incomplete
     image_map: Incomplete
     li_tag_indent: Incomplete
@@ -55,16 +57,18 @@ class HTML2FPDF(HTMLParser):
     heading_sizes: Incomplete
     heading_above: float
     heading_below: float
+    warn_on_tags_not_matching: bool
     def __init__(
         self,
         pdf: FPDF,
-        image_map: Callable[[str], str] | None = ...,
-        li_tag_indent: int = ...,
-        dd_tag_indent: int = ...,
-        table_line_separators: bool = ...,
+        image_map: Callable[[str], str] | None = None,
+        li_tag_indent: int = 5,
+        dd_tag_indent: int = 10,
+        table_line_separators: bool = False,
         ul_bullet_char: str = ...,
-        heading_sizes: Incomplete | None = ...,
-        **_: object,
+        heading_sizes: Incomplete | None = None,
+        warn_on_tags_not_matching: bool = True,
+        **_: Unused,
     ): ...
     def width2unit(self, length): ...
     def handle_data(self, data) -> None: ...

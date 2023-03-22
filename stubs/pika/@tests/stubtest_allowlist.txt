@@ -2,11 +2,6 @@
 pika.compat.StringIO.seek
 pika.compat.StringIO.truncate
 
-# Requires external libraries to be installed.
-pika\.adapters\.gevent_connection.*
-pika\.adapters\.tornado_connection.*
-pika\.adapters\.twisted_connection.*
-
 # Stubtest doesn't understand that a property alias is also read-only.
 pika.BlockingConnection.basic_nack
 pika.BlockingConnection.consumer_cancel_notify
@@ -24,12 +19,6 @@ pika.adapters.blocking_connection.BlockingConnection.publisher_confirms
 # The implementation has defaults for the arguments that would make the
 # created instances unusable, so we require the arguments in the stub.
 pika.spec.Queue.DeclareOk.__init__
-
-# Flagged by stubtest for unknown reasons.
-pika.data.PY2
-pika.data.basestring
-pika.spec.str_or_bytes
-pika.validators.basestring
 
 # Arguments have a sentinel default, which is not reflected in the stubs.
 pika.ConnectionParameters.__init__

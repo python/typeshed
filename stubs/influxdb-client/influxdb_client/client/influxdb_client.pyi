@@ -1,4 +1,6 @@
 from _typeshed import Incomplete
+from types import TracebackType
+from typing_extensions import Self
 
 from influxdb_client import HealthCheck, InvokableScriptsApi, Ready
 from influxdb_client.client._base import _BaseClient
@@ -10,7 +12,7 @@ from influxdb_client.client.organizations_api import OrganizationsApi
 from influxdb_client.client.query_api import QueryApi, QueryOptions
 from influxdb_client.client.tasks_api import TasksApi
 from influxdb_client.client.users_api import UsersApi
-from influxdb_client.client.write_api import WriteApi
+from influxdb_client.client.write_api import PointSettings, WriteApi, WriteOptions
 
 logger: Incomplete
 
@@ -18,22 +20,38 @@ class InfluxDBClient(_BaseClient):
     api_client: Incomplete
     def __init__(
         self,
-        url,
+        url: str,
         token: str | None = ...,
-        debug: Incomplete | None = ...,
+        debug: bool | None = ...,
         timeout: int = ...,
         enable_gzip: bool = ...,
         org: str | None = ...,
         default_tags: dict[Incomplete, Incomplete] | None = ...,
-        **kwargs,
+        *,
+        verify_ssl: bool = ...,
+        ssl_ca_cert: Incomplete | None = ...,
+        cert_file: Incomplete | None = ...,
+        cert_key_file: Incomplete | None = ...,
+        cert_key_password: Incomplete | None = ...,
+        ssl_context: Incomplete | None = ...,
+        proxy: Incomplete | None = ...,
+        proxy_headers: Incomplete | None = ...,
+        connection_pool_maxsize: int = ...,
+        username: Incomplete | None = ...,
+        password: Incomplete | None = ...,
+        auth_basic: bool = ...,
+        retries: bool | Incomplete = ...,
+        profilers: Incomplete | None = ...,
     ) -> None: ...
-    def __enter__(self): ...
-    def __exit__(self, exc_type, exc_value, traceback) -> None: ...
+    def __enter__(self) -> Self: ...
+    def __exit__(
+        self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None
+    ) -> None: ...
     @classmethod
     def from_config_file(cls, config_file: str = ..., debug: Incomplete | None = ..., enable_gzip: bool = ..., **kwargs): ...
     @classmethod
     def from_env_properties(cls, debug: Incomplete | None = ..., enable_gzip: bool = ..., **kwargs): ...
-    def write_api(self, write_options=..., point_settings=..., **kwargs) -> WriteApi: ...
+    def write_api(self, write_options: WriteOptions = ..., point_settings: PointSettings = ..., **kwargs) -> WriteApi: ...
     def query_api(self, query_options: QueryOptions = ...) -> QueryApi: ...
     def invokable_scripts_api(self) -> InvokableScriptsApi: ...
     def close(self) -> None: ...
