@@ -8,10 +8,10 @@ from Xlib.xobject import drawable, resource
 extname: Final = "XFIXES"
 XFixesSelectionNotify: Final = 0
 XFixesCursorNotify: Final = 1
-XFixesSetSelectionOwnerNotifyMask: Final = 1
-XFixesSelectionWindowDestroyNotifyMask: Final = 2
-XFixesSelectionClientCloseNotifyMask: Final = 4
-XFixesDisplayCursorNotifyMask: Final = 8
+XFixesSetSelectionOwnerNotifyMask: Final = 0x1
+XFixesSelectionWindowDestroyNotifyMask: Final = 0x2
+XFixesSelectionClientCloseNotifyMask: Final = 0x4
+XFixesDisplayCursorNotifyMask: Final = 0x1
 XFixesSetSelectionOwnerNotify: Final = 0
 XFixesSelectionWindowDestroyNotify: Final = 1
 XFixesSelectionClientCloseNotify: Final = 2

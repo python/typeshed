@@ -41,8 +41,8 @@ class SizeOf(rq.LengthOf):
     def __init__(self, name: str | list[str] | tuple[str, ...], size: int, item_size: int) -> None: ...
     def parse_value(self, length: int, display: Unused) -> int: ...  # type: ignore[override]
 
-ClientXIDMask: int
-LocalClientPIDMask: int
+ClientXIDMask: Final = 0x1
+LocalClientPIDMask: Final = 0x2
 ClientIdSpec: rq.Struct
 ClientIdValue: rq.Struct
 
