@@ -1,4 +1,6 @@
-from typing import Any, Iterable, Mapping, Sequence
+from typing import Any
+from collections.abc import Iterable, Mapping, Sequence
+from typing_extensions import TypeAlias
 
 from . import fields
 
@@ -6,8 +8,8 @@ RequestField = fields.RequestField
 
 writer: Any
 
-_TYPE_FIELDS_SEQUENCE = Sequence[tuple[str, _TYPE_FIELD_VALUE_TUPLE] | RequestField]
-_TYPE_FIELDS = _TYPE_FIELDS_SEQUENCE | Mapping[str, _TYPE_FIELD_VALUE_TUPLE]
+_TYPE_FIELDS_SEQUENCE: TypeAlias = Sequence[tuple[str, fields._FieldValueTuple] | RequestField]
+_TYPE_FIELDS: TypeAlias = _TYPE_FIELDS_SEQUENCE | Mapping[str, fields._FieldValueTuple]
 
 def choose_boundary() -> str: ...
 def iter_field_objects(fields: _TYPE_FIELDS) -> Iterable[RequestField]: ...
