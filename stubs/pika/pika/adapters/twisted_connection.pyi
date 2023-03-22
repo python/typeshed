@@ -1,20 +1,26 @@
+# twisted is optional and self-contained in this module.
+# We don't want to force it as a dependency but that means we also can't test it with type-checkers given the current setup.
+
 from _typeshed import Incomplete
 from typing import NamedTuple, TypeVar
 
 import pika.connection
 from pika.adapters.utils import nbio_interface
-
-from ._twisted_shims import Deferred, DeferredQueue, DelayedCall, Failure, ITransport, Protocol
+from twisted.internet.base import DelayedCall  # type: ignore[import]  # pyright: ignore[reportMissingImports]
+from twisted.internet.defer import Deferred, DeferredQueue  # type: ignore[import]  # pyright: ignore[reportMissingImports]
+from twisted.internet.interfaces import ITransport  # type: ignore[import]  # pyright: ignore[reportMissingImports]
+from twisted.internet.protocol import Protocol  # type: ignore[import]  # pyright: ignore[reportMissingImports]
+from twisted.python.failure import Failure  # type: ignore[import]  # pyright: ignore[reportMissingImports]
 
 _T = TypeVar("_T")
 
 LOGGER: Incomplete
 
-class ClosableDeferredQueue(DeferredQueue[_T]):
+class ClosableDeferredQueue(DeferredQueue[_T]):  # pyright: ignore[reportUntypedBaseClass]
     closed: Failure | BaseException | None
     def __init__(self, size: Incomplete | None = ..., backlog: Incomplete | None = ...) -> None: ...
     # Returns a Deferred with an error if fails. None if success
-    def put(self, obj: _T) -> Deferred[Failure | BaseException] | None: ...  # type: ignore[override]
+    def put(self, obj: _T) -> Deferred[Failure | BaseException] | None: ...  # type: ignore[override]  # pyright: ignore[reportInvalidTypeVarUse]
     def get(self) -> Deferred[Failure | BaseException | _T]: ...
     pending: Incomplete
     def close(self, reason: BaseException | None) -> None: ...
@@ -120,7 +126,7 @@ class _TwistedConnectionAdapter(pika.connection.Connection):
     def connection_lost(self, error: Exception) -> None: ...
     def data_received(self, data) -> None: ...
 
-class TwistedProtocolConnection(Protocol):
+class TwistedProtocolConnection(Protocol):  # pyright: ignore[reportUntypedBaseClass]
     ready: Deferred[None] | None
     closed: Deferred[None] | Failure | BaseException | None
     def __init__(self, parameters: Incomplete | None = ..., custom_reactor: Incomplete | None = ...) -> None: ...
