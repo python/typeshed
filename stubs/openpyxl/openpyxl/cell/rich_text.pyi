@@ -1,11 +1,8 @@
 from collections.abc import Iterable
-from typing import Protocol, overload
+from typing import Any, TypeAlias, overload
 from typing_extensions import Self
 
 from openpyxl.descriptors import Strict, String, Typed
-
-class _HasStr(Protocol):
-    def __str__(self) -> str: ...  # noqa: Y029
 
 class TextBlock(Strict):
     font: Typed
@@ -13,6 +10,10 @@ class TextBlock(Strict):
 
     def __init__(self, font: Typed, text: String) -> None: ...
     def __eq__(self, other: TextBlock) -> bool: ...  # type: ignore[override]
+
+# CellRichText accepts any object, which can be converted to a string,
+# which is every object.
+_HasStr: TypeAlias = Any
 
 class CellRichText(list[_HasStr]):
     @overload
