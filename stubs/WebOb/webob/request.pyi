@@ -9,8 +9,9 @@ from _typeshed import (
     SupportsNoArgReadline,
     SupportsRead,
 )
+from _typeshed.wsgi import WSGIApplication, WSGIEnvironment
 from cgi import FieldStorage
-from collections.abc import Iterable, Iterator, Mapping
+from collections.abc import Iterable, Mapping
 from re import Pattern
 from tempfile import _TemporaryFileWrapper
 from typing import IO, Any, ClassVar, Protocol, TypeVar, overload
@@ -24,7 +25,7 @@ from webob.descriptors import _AsymmetricProperty, _AsymmetricPropertyWithDelete
 from webob.etag import IfRange, IfRangeDate, _ETagProperty
 from webob.headers import EnvironHeaders
 from webob.multidict import GetDict, MultiDict, NestedMultiDict, NoVars
-from webob.response import Response, _HTTPHeader, _WSGIApplication
+from webob.response import Response, _HTTPHeader
 
 _T = TypeVar("_T")
 _HTTPMethod: TypeAlias = Literal["GET", "HEAD", "POST", "PUT", "DELETE", "PATCH"]
@@ -51,9 +52,9 @@ NoDefault: _NoDefault
 
 class BaseRequest:
     request_body_tempfile_limit: ClassVar[int]
-    environ: dict[str, Any]
+    environ: WSGIEnvironment
     method: _HTTPMethod
-    def __init__(self, environ: dict[str, Any], **kw: Any) -> None: ...
+    def __init__(self, environ: WSGIEnvironment, **kw: Any) -> None: ...
     def encget(self, key: str, default: Any = ..., encattr: str | None = ...) -> Any: ...
     def encset(self, key: str, val: Any, encattr: str | None = ...) -> None: ...
     @property
@@ -179,16 +180,16 @@ class BaseRequest:
     def from_file(cls, fp: _SupportsReadAndNoArgReadline): ...
     @overload
     def call_application(
-        self, application: _WSGIApplication, catch_exc_info: Literal[False] = ...
-    ) -> tuple[str, list[_HTTPHeader], Iterator[bytes]]: ...
+        self, application: WSGIApplication, catch_exc_info: Literal[False] = ...
+    ) -> tuple[str, list[_HTTPHeader], Iterable[bytes]]: ...
     @overload
     def call_application(
-        self, application: _WSGIApplication, catch_exc_info: Literal[True]
-    ) -> tuple[str, list[_HTTPHeader], Iterator[bytes], ExcInfo | None]: ...
+        self, application: WSGIApplication, catch_exc_info: Literal[True]
+    ) -> tuple[str, list[_HTTPHeader], Iterable[bytes], ExcInfo | None]: ...
     ResponseClass: type[Response]
-    def send(self, application: _WSGIApplication | None = ..., catch_exc_info: bool = ...) -> Response: ...
+    def send(self, application: WSGIApplication | None = ..., catch_exc_info: bool = ...) -> Response: ...
     get_response = send
-    def make_default_send_app(self) -> _WSGIApplication: ...
+    def make_default_send_app(self) -> WSGIApplication: ...
     @classmethod
     def blank(
         cls,
