@@ -4,13 +4,11 @@ from collections.abc import Iterable
 from typing import IO, Any
 from typing_extensions import Literal
 
-import webob.static  # type:ignore  # pyright:ignore[reportMissingTypeStubs]  # FIXME: Remove once types-WebOb exists
+# FIXME: Remove import ignores once types-WebOb exists
+import webob.static  # type: ignore[import]  # pyright: ignore[reportMissingTypeStubs]
 from fanstatic.core import Library
 from fanstatic.registry import LibraryRegistry
-from webob import (  # type:ignore  # pyright:ignore[reportMissingTypeStubs]  # FIXME: Remove once types-WebOb exists
-    Request,
-    Response,
-)
+from webob import Request, Response  # type: ignore[import]  # pyright: ignore[reportMissingTypeStubs]
 
 MINUTE_IN_SECONDS: Literal[60]
 HOUR_IN_SECONDS: Literal[3600]
@@ -18,12 +16,12 @@ DAY_IN_SECONDS: Literal[86400]
 YEAR_IN_SECONDS: int
 FOREVER: int
 
-class BundleApp(webob.static.FileApp):  # pyright:ignore[reportUntypedBaseClass]
+class BundleApp(webob.static.FileApp):  # pyright: ignore[reportUntypedBaseClass]
     filenames: list[str]
     def __init__(self, rootpath: str, bundle: IO[bytes], filenames: Iterable[StrOrBytesPath]) -> None: ...
     def __call__(self, req: Request) -> Response: ...
 
-class LibraryPublisher(webob.static.DirectoryApp):  # pyright:ignore[reportUntypedBaseClass]
+class LibraryPublisher(webob.static.DirectoryApp):  # pyright: ignore[reportUntypedBaseClass]
     ignores: list[str]
     library: Library
     cached_apps: dict[str, webob.static.FileApp]

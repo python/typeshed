@@ -6,10 +6,9 @@ from typing_extensions import Literal, TypedDict
 
 from fanstatic.core import Dependable, NeededResources, Resource
 from fanstatic.inclusion import Inclusion
-from webob import (  # type:ignore  # pyright:ignore[reportMissingTypeStubs]  # FIXME: Remove once types-WebOb exists
-    Request,
-    Response,
-)
+
+# FIXME: Remove import ignores once types-WebOb exists
+from webob import Request, Response  # type: ignore[import]  # pyright: ignore[reportMissingTypeStubs]
 
 class _NeededResourcesConfig(TypedDict, total=False):
     versioning: bool
