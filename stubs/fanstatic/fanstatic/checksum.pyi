@@ -1,0 +1,9 @@
+from _typeshed import Incomplete
+from collections.abc import Generator
+
+VCS_NAMES: Incomplete
+IGNORED_EXTENSIONS: Incomplete
+
+def list_directory(path, include_directories: bool = ...) -> Generator[Incomplete, None, None]: ...
+def mtime(path): ...
+def md5(path): ...

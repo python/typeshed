@@ -33,6 +33,7 @@
         "stubs/commonmark",
         "stubs/dateparser",
         "stubs/docutils",
+        "stubs/fanstatic",
         "stubs/Flask-Migrate",
         "stubs/Flask-SQLAlchemy",
         "stubs/fpdf2",

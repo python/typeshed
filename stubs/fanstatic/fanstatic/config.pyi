@@ -1,0 +1,6 @@
+from _typeshed import Incomplete
+
+BOOL_CONFIG: Incomplete
+
+def asbool(obj): ...
+def convert_config(config): ...
