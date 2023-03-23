@@ -72,7 +72,7 @@ class RowDimension(Dimension):
 class ColumnDimension(Dimension):
     width: Float
     bestFit: Bool
-    auto_size: bool
+    auto_size: Alias
     index: String  # type: ignore[assignment]
     min: Integer
     max: Integer
