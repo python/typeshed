@@ -1,4 +1,4 @@
-version = "2.11.*"
+version = "2.12.*"
 # requires a version of numpy with a `py.typed` file
 requires = ["numpy>=1.20", "types-protobuf"]
 
