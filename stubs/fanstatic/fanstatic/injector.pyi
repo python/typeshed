@@ -8,7 +8,7 @@ from fanstatic.core import Dependable, NeededResources, Resource
 from fanstatic.inclusion import Inclusion
 
 # FIXME: Remove import ignores once types-WebOb exists
-from webob import Request, Response  # type: ignore[import]  # pyright: ignore[reportMissingTypeStubs]
+from webob import Request, Response  # type: ignore[import]  # pyright: ignore[reportMissingImports]
 
 class _NeededResourcesConfig(TypedDict, total=False):
     versioning: bool

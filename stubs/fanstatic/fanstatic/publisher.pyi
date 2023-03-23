@@ -5,10 +5,10 @@ from typing import IO, Any
 from typing_extensions import Literal
 
 # FIXME: Remove import ignores once types-WebOb exists
-import webob.static  # type: ignore[import]  # pyright: ignore[reportMissingTypeStubs]
+import webob.static  # type: ignore[import]  # pyright: ignore[reportMissingImports]
 from fanstatic.core import Library
 from fanstatic.registry import LibraryRegistry
-from webob import Request, Response  # type: ignore[import]  # pyright: ignore[reportMissingTypeStubs]
+from webob import Request, Response  # type: ignore[import]  # pyright: ignore[reportMissingImports]
 
 MINUTE_IN_SECONDS: Literal[60]
 HOUR_IN_SECONDS: Literal[3600]
