@@ -23,7 +23,7 @@ class UUID:
         int: _Int | None = None,
         version: _Int | None = None,
         *,
-        is_safe: SafeUUID = ...,
+        is_safe: SafeUUID = SafeUUID.unknown,
     ) -> None: ...
     @property
     def is_safe(self) -> SafeUUID: ...
