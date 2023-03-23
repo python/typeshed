@@ -1,11 +1,11 @@
 from _typeshed import StrOrBytesPath
+from _typeshed.wsgi import StartResponse, WSGIApplication
 from collections.abc import Iterable
 from typing import IO, Any
 from typing_extensions import Literal
 
 import webob.static  # type:ignore  # pyright:ignore[reportMissingTypeStubs]  # FIXME: Remove once types-WebOb exists
 from fanstatic.core import Library
-from fanstatic.injector import _StartResponse, _WSGIApplication
 from fanstatic.registry import LibraryRegistry
 from webob import (  # type:ignore  # pyright:ignore[reportMissingTypeStubs]  # FIXME: Remove once types-WebOb exists
     Request,
@@ -37,12 +37,12 @@ class Publisher:
     def __call__(self, request: Request) -> Response: ...
 
 class Delegator:
-    app: _WSGIApplication
+    app: WSGIApplication
     publisher: Publisher
     publisher_signature: str
     trigger: str
-    def __init__(self, app: _WSGIApplication, publisher: Publisher, publisher_signature: str = ...) -> None: ...
+    def __init__(self, app: WSGIApplication, publisher: Publisher, publisher_signature: str = ...) -> None: ...
     def is_resource(self, request: Request) -> bool: ...
-    def __call__(self, environ: dict[str, Any], start_response: _StartResponse) -> Iterable[bytes]: ...
+    def __call__(self, environ: dict[str, Any], start_response: StartResponse) -> Iterable[bytes]: ...
 
 def make_publisher(global_config) -> Publisher: ...

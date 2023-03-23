@@ -1,8 +1,8 @@
+from _typeshed.wsgi import StartResponse, WSGIApplication, WSGIEnvironment
 from abc import abstractmethod
-from collections.abc import Callable, Iterable
-from sys import _OptExcInfo
-from typing import Any, Protocol
-from typing_extensions import Literal, TypeAlias, TypedDict
+from collections.abc import Iterable
+from typing import Any
+from typing_extensions import Literal, TypedDict
 
 from fanstatic.core import Dependable, NeededResources, Resource
 from fanstatic.inclusion import Inclusion
@@ -20,23 +20,16 @@ class _NeededResourcesConfig(TypedDict, total=False):
     publisher_signature: str
     resources: Iterable[Dependable] | None
 
-class _StartResponse(Protocol):
-    def __call__(
-        self, __status: str, __headers: list[tuple[str, str]], __exc_info: _OptExcInfo | None = ...
-    ) -> Callable[[bytes], object]: ...
-
-_WSGIApplication: TypeAlias = Callable[[dict[str, Any], _StartResponse], Iterable[bytes]]
-
 CONTENT_TYPES: list[str]
 
 class Injector:
-    app: _WSGIApplication
+    app: WSGIApplication
     config: _NeededResourcesConfig
     injector: InjectorPlugin
     def __init__(
-        self, app: _WSGIApplication, injector: InjectorPlugin | None = ..., **config: Any
+        self, app: WSGIApplication, injector: InjectorPlugin | None = ..., **config: Any
     ) -> None: ...  # FIXME: Switch to Unpack[_NeededResourcesConfig]
-    def __call__(self, environ: dict[str, Any], start_response: _StartResponse) -> Iterable[bytes]: ...
+    def __call__(self, environ: WSGIEnvironment, start_response: StartResponse) -> Iterable[bytes]: ...
 
 class InjectorPlugin:
     @property
@@ -53,4 +46,4 @@ class TopBottomInjector(InjectorPlugin):
     def __init__(self, options: Any) -> None: ...  # FIXME: Use Unpack
     def group(self, needed: NeededResources) -> tuple[Inclusion, Inclusion]: ...
 
-def make_injector(app: _WSGIApplication, global_config: Any, **local_config: Any) -> Injector: ...
+def make_injector(app: WSGIApplication, global_config: Any, **local_config: Any) -> Injector: ...
