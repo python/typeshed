@@ -1,6 +1,6 @@
 from _typeshed import Incomplete, Unused
-from collections.abc import Callable, Generator
-from typing import Generic, TypeVar
+from collections.abc import Callable, Iterator
+from typing import ClassVar, Generic, TypeVar
 from typing_extensions import Self
 
 from openpyxl.descriptors import Strict
@@ -14,7 +14,7 @@ from openpyxl.xml.functions import Element
 _DimT = TypeVar("_DimT", bound=Dimension)
 
 class Dimension(Strict, StyleableObject):
-    __fields__: tuple[str, ...]
+    __fields__: ClassVar[tuple[str, ...]]
 
     index: Integer
     hidden: Bool
@@ -33,12 +33,10 @@ class Dimension(Strict, StyleableObject):
         visible: bool = True,
         style: Incomplete | None = None,
     ) -> None: ...
-    def __iter__(self) -> Generator[tuple[str, str], None, None]: ...
+    def __iter__(self) -> Iterator[tuple[str, str]]: ...
     def __copy__(self) -> Self: ...
 
 class RowDimension(Dimension):
-    __fields__: tuple[str, ...]
-
     r: Alias
     s: Alias
     ht: Float
@@ -74,12 +72,11 @@ class RowDimension(Dimension):
 class ColumnDimension(Dimension):
     width: Float
     bestFit: Bool
-    auto_size: Alias
+    auto_size: bool
     index: String  # type: ignore[assignment]
     min: Integer
     max: Integer
     collapsed: Bool
-    __fields__: tuple[str, ...]
 
     def __init__(
         self,
@@ -105,7 +102,7 @@ class ColumnDimension(Dimension):
 
 class DimensionHolder(BoundDictionary[str, _DimT], Generic[_DimT]):
     worksheet: Worksheet
-    max_outline: Incomplete | None
+    max_outline: int | None
     default_factory: Callable[[], _DimT] | None
 
     def __init__(

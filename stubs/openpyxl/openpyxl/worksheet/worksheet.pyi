@@ -4,7 +4,7 @@ from datetime import datetime
 from typing import Any, overload
 from typing_extensions import Final, Literal
 
-from openpyxl.cell.cell import Cell
+from openpyxl.cell.cell import Cell, _CellValue
 from openpyxl.formatting.formatting import ConditionalFormattingList
 from openpyxl.workbook.child import _WorkbookChild
 from openpyxl.workbook.defined_name import DefinedNameDict
@@ -137,7 +137,7 @@ class Worksheet(_WorkbookChild):
     @property
     def rows(self) -> Generator[tuple[Cell, ...], None, None]: ...
     @property
-    def values(self) -> Generator[tuple[str | float | datetime | None, ...], None, None]: ...
+    def values(self) -> Generator[tuple[_CellValue, ...], None, None]: ...
     @overload
     def iter_cols(
         self, min_col: int | None, max_col: int | None, min_row: int | None, max_row: int | None, values_only: Literal[True]
