@@ -1,4 +1,5 @@
 from _typeshed import SupportsItems, SupportsKeysAndGetItem
+from _typeshed.wsgi import WSGIEnvironment
 from cgi import FieldStorage
 from collections.abc import Collection, Iterable, Iterator, MutableMapping
 from typing import Any, NoReturn, TypeVar, overload
@@ -63,11 +64,11 @@ class MultiDict(MutableMapping[_KT, _VT]):
     def items(self) -> Iterator[tuple[_KT, _VT]]: ...  # type:ignore[override]
 
 class GetDict(MultiDict[str, str]):
-    env: dict[str, Any]
+    env: WSGIEnvironment
     @overload
-    def __init__(self, data: SupportsItems[str, str], env: dict[str, Any]) -> None: ...
+    def __init__(self, data: SupportsItems[str, str], env: WSGIEnvironment) -> None: ...
     @overload
-    def __init__(self, data: Iterable[tuple[str, str]], env: dict[str, Any]) -> None: ...
+    def __init__(self, data: Iterable[tuple[str, str]], env: WSGIEnvironment) -> None: ...
     def on_change(self) -> None: ...
 
 class NestedMultiDict(MultiDict[_KT, _VT]):

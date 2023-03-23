@@ -1,7 +1,8 @@
 from _typeshed import Incomplete
+from _typeshed.wsgi import WSGIEnvironment
 from collections.abc import ItemsView, Iterator, KeysView, MutableMapping, ValuesView
 from datetime import date, datetime, timedelta
-from typing import Any, TypeVar, overload
+from typing import TypeVar, overload
 from typing_extensions import Literal
 
 from webob.descriptors import _AsymmetricProperty
@@ -9,7 +10,7 @@ from webob.descriptors import _AsymmetricProperty
 _T = TypeVar("_T")
 
 class RequestCookies(MutableMapping[str, str]):
-    def __init__(self, environ: dict[str, Any]) -> None: ...
+    def __init__(self, environ: WSGIEnvironment) -> None: ...
     def __setitem__(self, name: str, value: str) -> None: ...
     def __getitem__(self, name: str) -> str: ...
     @overload
