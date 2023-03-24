@@ -1,6 +1,5 @@
 from _typeshed import Incomplete, Unused
 from collections.abc import Generator, Iterable, Iterator
-from datetime import datetime
 from types import GeneratorType
 from typing import Any, overload
 from typing_extensions import Final, Literal, TypeAlias

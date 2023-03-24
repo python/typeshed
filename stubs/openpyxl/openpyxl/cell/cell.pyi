@@ -1,5 +1,4 @@
 import datetime
-from _typeshed import Incomplete, ReadableBuffer
 from decimal import Decimal
 from re import Pattern
 from typing import overload
@@ -7,7 +6,7 @@ from typing_extensions import Final, Literal, TypeAlias
 
 from openpyxl.cell.rich_text import CellRichText
 from openpyxl.comments.comments import Comment
-from openpyxl.compat.numbers import NUMERIC_TYPES as NUMERIC_TYPES, _NumericTypes
+from openpyxl.compat.numbers import NUMERIC_TYPES as NUMERIC_TYPES
 from openpyxl.styles.cell_style import StyleArray
 from openpyxl.styles.styleable import StyleableObject
 from openpyxl.workbook.child import _WorkbookChild
