@@ -4,6 +4,7 @@ from _typeshed import Incomplete
 from re import Pattern
 from typing import overload
 from typing_extensions import TypeAlias
+from xml.etree.ElementTree import Element as Element  # possibly also imported from lxml
 
 # mypy will default to the first import. Pyright will automatically overload
 from xml.etree.ElementTree import (

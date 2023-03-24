@@ -262,3 +262,7 @@ openpyxl.styles.Side.border_style
 openpyxl.styles.Side.color
 openpyxl.styles.Side.style
 openpyxl.workbook.views.BookView.visibility
+
+# Element can be imported from lxml or xml.etree, so the attributes can
+# differ at runtime.
+openpyxl.xml.functions.Element.*

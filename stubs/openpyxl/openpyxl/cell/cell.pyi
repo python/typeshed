@@ -1,25 +1,32 @@
 import datetime
-from _typeshed import ReadableBuffer
+from _typeshed import Incomplete, ReadableBuffer
+from decimal import Decimal
 from re import Pattern
+from typing import overload
 from typing_extensions import Final, Literal, TypeAlias
 
+from openpyxl.cell.rich_text import CellRichText
 from openpyxl.comments.comments import Comment
 from openpyxl.compat.numbers import NUMERIC_TYPES as NUMERIC_TYPES, _NumericTypes
 from openpyxl.styles.cell_style import StyleArray
 from openpyxl.styles.styleable import StyleableObject
 from openpyxl.workbook.child import _WorkbookChild
+from openpyxl.worksheet.formula import ArrayFormula, DataTableFormula
 from openpyxl.worksheet.hyperlink import Hyperlink
 
-__docformat__: str
 _TimeTypes: TypeAlias = datetime.datetime | datetime.date | datetime.time | datetime.timedelta
-TIME_TYPES: tuple[type[_TimeTypes], ...]
+_CellValue: TypeAlias = (  # if numpy is installed also numpy bool and number types
+    bool | float | Decimal | str | CellRichText | _TimeTypes | DataTableFormula | ArrayFormula
+)
+
+TIME_TYPES: tuple[type, ...]
 TIME_FORMATS: dict[type[_TimeTypes], str]
-STRING_TYPES: tuple[type[str], type[bytes]]
-_StringTypes: TypeAlias = str | bytes
-_KnownTypes: TypeAlias = _NumericTypes | _TimeTypes | _StringTypes | bool | None
-KNOWN_TYPES: tuple[type[_KnownTypes], ...]
+STRING_TYPES: tuple[type, ...]
+KNOWN_TYPES: tuple[type, ...]
+
 ILLEGAL_CHARACTERS_RE: Pattern[str]
 ERROR_CODES: Final[tuple[str, ...]]
+
 TYPE_STRING: Final = "s"
 TYPE_FORMULA: Final = "f"
 TYPE_NUMERIC: Final = "n"
@@ -31,7 +38,7 @@ TYPE_FORMULA_CACHE_STRING: Final = "str"
 
 VALID_TYPES: Final[tuple[str, ...]]
 
-def get_type(t: type, value: _KnownTypes) -> Literal["n", "s", "d", None]: ...
+def get_type(t: type, value: object) -> Literal["n", "s", "d", "f", None]: ...
 def get_time_format(t: _TimeTypes) -> str: ...
 
 class Cell(StyleableObject):
@@ -43,7 +50,7 @@ class Cell(StyleableObject):
         worksheet: _WorkbookChild,
         row: int | None = ...,
         column: int | None = ...,
-        value: _KnownTypes = ...,
+        value: _CellValue | bytes | None = ...,
         style_array: StyleArray | None = ...,
     ) -> None: ...
     @property
@@ -56,14 +63,17 @@ class Cell(StyleableObject):
     def encoding(self) -> str: ...
     @property
     def base_date(self) -> datetime.datetime: ...
-    def check_string(self, value: ReadableBuffer): ...
+    @overload
+    def check_string(self, value: None) -> None: ...
+    @overload
+    def check_string(self, value: str | bytes) -> str: ...
     def check_error(self, value: object) -> str: ...
     @property
-    def value(self) -> _KnownTypes: ...
+    def value(self) -> _CellValue: ...
     @value.setter
-    def value(self, value: _KnownTypes) -> None: ...
+    def value(self, value: _CellValue | bytes | None) -> None: ...
     @property
-    def internal_value(self) -> _KnownTypes: ...
+    def internal_value(self) -> _CellValue: ...
     @property
     def hyperlink(self) -> Hyperlink | None: ...
     @hyperlink.setter
@@ -85,6 +95,6 @@ class MergedCell(StyleableObject):
     def __init__(self, worksheet: _WorkbookChild, row: int | None = ..., column: int | None = ...) -> None: ...
     @property
     def coordinate(self) -> str: ...
-    value: _KnownTypes
+    value: _CellValue | bytes | None
 
-def WriteOnlyCell(ws: _WorkbookChild | None = ..., value: _KnownTypes = ...) -> Cell: ...
+def WriteOnlyCell(ws: _WorkbookChild | None = ..., value: _CellValue | bytes | None = ...) -> Cell: ...
