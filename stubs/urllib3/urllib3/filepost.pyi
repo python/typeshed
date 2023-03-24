@@ -1,5 +1,5 @@
-from typing import Any
 from collections.abc import Iterable, Mapping, Sequence
+from typing import Any
 from typing_extensions import TypeAlias
 
 from . import fields
