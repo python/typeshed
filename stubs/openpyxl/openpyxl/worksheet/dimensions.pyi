@@ -82,7 +82,7 @@ class ColumnDimension(Dimension):
         self,
         worksheet: Worksheet,
         index: str = "A",
-        width: int = ...,
+        width: int = 13,
         bestFit: bool = False,
         hidden: bool = False,
         outlineLevel: int = 0,
@@ -124,20 +124,20 @@ class SheetFormatProperties(Serialisable):
     outlineLevelCol: Incomplete
     def __init__(
         self,
-        baseColWidth: int = ...,
-        defaultColWidth: Incomplete | None = ...,
-        defaultRowHeight: int = ...,
-        customHeight: Incomplete | None = ...,
-        zeroHeight: Incomplete | None = ...,
-        thickTop: Incomplete | None = ...,
-        thickBottom: Incomplete | None = ...,
-        outlineLevelRow: Incomplete | None = ...,
-        outlineLevelCol: Incomplete | None = ...,
+        baseColWidth: int = 8,
+        defaultColWidth: Incomplete | None = None,
+        defaultRowHeight: int = 15,
+        customHeight: Incomplete | None = None,
+        zeroHeight: Incomplete | None = None,
+        thickTop: Incomplete | None = None,
+        thickBottom: Incomplete | None = None,
+        outlineLevelRow: Incomplete | None = None,
+        outlineLevelCol: Incomplete | None = None,
     ) -> None: ...
 
 class SheetDimension(Serialisable):
     tagname: str
     ref: Incomplete
-    def __init__(self, ref: Incomplete | None = ...) -> None: ...
+    def __init__(self, ref: Incomplete | None = None) -> None: ...
     @property
     def boundaries(self): ...
