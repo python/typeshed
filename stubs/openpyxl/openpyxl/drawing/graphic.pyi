@@ -39,7 +39,7 @@ class GraphicData(Serialisable):
     namespace: Incomplete
     uri: Incomplete
     chart: Incomplete
-    def __init__(self, uri="http://schemas.openxmlformats.org/drawingml/2006/chart", chart: Incomplete | None = None) -> None: ...
+    def __init__(self, uri: str = ..., chart: Incomplete | None = None) -> None: ...
 
 class GraphicObject(Serialisable):
     tagname: str
