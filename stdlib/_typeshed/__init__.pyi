@@ -8,7 +8,7 @@ import mmap
 import pickle
 import sys
 from collections.abc import Awaitable, Callable, Iterable, Set as AbstractSet
-from dataclasses import Field
+from dataclasses import Field, _DataclassParams
 from os import PathLike
 from types import FrameType, TracebackType
 from typing import Any, AnyStr, ClassVar, Generic, Protocol, TypeVar
@@ -311,4 +311,5 @@ TraceFunction: TypeAlias = Callable[[FrameType, str, Any], TraceFunction | None]
 #   https://github.com/python/typeshed/pull/9362
 #   https://github.com/microsoft/pyright/issues/4339
 class DataclassInstance(Protocol):
-    __dataclass_fields__: ClassVar[dict[str, Field[Any]]]
+    __dataclass_fields__: ClassVar[dict[str, Field[Any]]]  # undocumented
+    __dataclass_params__: ClassVar[_DataclassParams]  # undocumented

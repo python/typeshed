@@ -26,6 +26,7 @@ __all__ = [
     "make_dataclass",
     "replace",
     "is_dataclass",
+    "_DataclassParams",
 ]
 
 if sys.version_info >= (3, 10):
@@ -300,3 +301,11 @@ else:
     ) -> type: ...
 
 def replace(__obj: _DataclassT, **changes: Any) -> _DataclassT: ...
+
+class _DataclassParams:  # undocumented
+    init: bool
+    repr: bool
+    eq: bool
+    order: bool
+    unsafe_hash: bool
+    frozen: bool
