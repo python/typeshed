@@ -90,7 +90,7 @@ class DefaultDialect(interfaces.Dialect):  # type: ignore[misc]
     def __init__(
         self,
         convert_unicode: bool = False,
-        encoding: str = 'utf-8',
+        encoding: str = "utf-8",
         paramstyle: Incomplete | None = None,
         dbapi: Incomplete | None = None,
         implicit_returning: Incomplete | None = None,

@@ -52,7 +52,7 @@ def declarative_base(
     metadata: MetaData | None = None,
     mapper: Incomplete | None = None,
     cls: type[Any] | tuple[type[Any], ...] = ...,
-    name: str = 'Base',
+    name: str = "Base",
     constructor: Callable[..., None] = ...,
     class_registry: dict[str, type[Any]] | None = None,
 ) -> type[_DeclarativeBase]: ...
@@ -62,7 +62,7 @@ def declarative_base(
     metadata: MetaData | None = None,
     mapper: Incomplete | None = None,
     cls: type[Any] | tuple[type[Any], ...] = ...,
-    name: str = 'Base',
+    name: str = "Base",
     constructor: Callable[..., None] = ...,
     class_registry: dict[str, type[Any]] | None = None,
     *,
@@ -96,14 +96,14 @@ class registry:
     def dispose(self, cascade: bool = False) -> None: ...
     @overload
     def generate_base(
-        self, mapper: Incomplete | None = None, cls: type[Any] | tuple[type[Any], ...] = ..., name: str = 'Base'
+        self, mapper: Incomplete | None = None, cls: type[Any] | tuple[type[Any], ...] = ..., name: str = "Base"
     ) -> type[_DeclarativeBase]: ...
     @overload
     def generate_base(
         self,
         mapper: Incomplete | None = None,
         cls: type[Any] | tuple[type[Any], ...] = ...,
-        name: str = 'Base',
+        name: str = "Base",
         *,
         metaclass: _DeclarativeBaseMeta[_DeclT],
     ) -> _DeclT: ...

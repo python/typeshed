@@ -45,7 +45,7 @@ class GeoFilter(Filter):
     KILOMETERS: str
     FEET: str
     MILES: str
-    def __init__(self, field, lon, lat, radius, unit='km') -> None: ...
+    def __init__(self, field, lon, lat, radius, unit="km") -> None: ...
 
 class SortbyField:
     args: Any

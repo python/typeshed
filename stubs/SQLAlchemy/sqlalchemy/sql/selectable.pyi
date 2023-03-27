@@ -45,8 +45,8 @@ class HasSuffixes:
     def suffix_with(self, *expr, **kw) -> Self: ...
 
 class HasHints:
-    def with_statement_hint(self, text, dialect_name: str = '*'): ...
-    def with_hint(self, selectable, text: str, dialect_name: str = '*') -> Self: ...
+    def with_statement_hint(self, text, dialect_name: str = "*"): ...
+    def with_hint(self, selectable, text: str, dialect_name: str = "*") -> Self: ...
 
 class FromClause(roles.AnonymizedFromClauseRole, Selectable):
     __visit_name__: str
@@ -183,7 +183,12 @@ class ForUpdateArg(ClauseElement):
     key_share: Any
     of: Any
     def __init__(
-        self, nowait: bool = False, read: bool = False, of: Incomplete | None = None, skip_locked: bool = False, key_share: bool = False
+        self,
+        nowait: bool = False,
+        read: bool = False,
+        of: Incomplete | None = None,
+        skip_locked: bool = False,
+        key_share: bool = False,
     ) -> None: ...
 
 class Values(Generative, FromClause):
@@ -252,7 +257,12 @@ class GenerativeSelect(DeprecatedSelectBaseGenerations, SelectBase):
         bind: Incomplete | None = None,
     ) -> None: ...
     def with_for_update(
-        self, nowait: bool = False, read: bool = False, of: Incomplete | None = None, skip_locked: bool = False, key_share: bool = False
+        self,
+        nowait: bool = False,
+        read: bool = False,
+        of: Incomplete | None = None,
+        skip_locked: bool = False,
+        key_share: bool = False,
     ) -> Self: ...
     def get_label_style(self): ...
     def set_label_style(self, style): ...

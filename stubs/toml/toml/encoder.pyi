@@ -30,13 +30,13 @@ class TomlPreserveInlineDictEncoder(TomlEncoder[_MappingT]):
 class TomlArraySeparatorEncoder(TomlEncoder[_MappingT]):
     separator: str
     @overload
-    def __init__(self, _dict: type[_MappingT], preserve: bool = False, separator: str = ',') -> None: ...
+    def __init__(self, _dict: type[_MappingT], preserve: bool = False, separator: str = ",") -> None: ...
     @overload
     def __init__(
         self: TomlArraySeparatorEncoder[dict[str, Any]],
         _dict: type[dict[str, Any]] = ...,
         preserve: bool = False,
-        separator: str = ',',
+        separator: str = ",",
     ) -> None: ...
     def dump_list(self, v: Iterable[Any]) -> str: ...
 

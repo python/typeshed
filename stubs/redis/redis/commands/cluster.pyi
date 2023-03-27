@@ -22,7 +22,7 @@ class ClusterDataAccessCommands(DataAccessCommands[_StrType], Generic[_StrType])
         algo,
         value1,
         value2,
-        specific_argument: str = 'strings',
+        specific_argument: str = "strings",
         len: bool = False,
         idx: bool = False,
         minmatchlen: Incomplete | None = None,

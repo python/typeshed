@@ -51,7 +51,9 @@ iter_entry_points = working_set.iter_entry_points
 add_activation_listener = working_set.subscribe
 
 class Environment:
-    def __init__(self, search_path: Sequence[str] | None = None, platform: str | None = 'win-amd64', python: str | None = '3.11') -> None: ...
+    def __init__(
+        self, search_path: Sequence[str] | None = None, platform: str | None = "win-amd64", python: str | None = "3.11"
+    ) -> None: ...
     def __getitem__(self, project_name: str) -> list[Distribution]: ...
     def __iter__(self) -> Generator[str, None, None]: ...
     def add(self, dist: Distribution) -> None: ...
@@ -152,7 +154,7 @@ class Distribution(NullProvider, IResourceProvider, IMetadataProvider):
         metadata: _MetadataType = None,
         project_name: str | None = None,
         version: str | None = None,
-        py_version: str = '3.11',
+        py_version: str = "3.11",
         platform: str | None = None,
         precedence: int = 3,
     ) -> None: ...

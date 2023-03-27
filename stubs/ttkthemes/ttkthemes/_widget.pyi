@@ -22,5 +22,5 @@ class ThemedWidget:
         hue: float = 1.0,
         preserve_transparency: bool = True,
         output_dir: StrPath | None = None,
-        advanced_name: str = 'advanced',
+        advanced_name: str = "advanced",
     ) -> None: ...

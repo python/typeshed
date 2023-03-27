@@ -35,7 +35,7 @@ class Redis(AbstractRedis, RedisModuleCommands, AsyncCoreCommands[_StrType], Asy
     def __init__(
         self,
         *,
-        host: str = 'localhost',
+        host: str = "localhost",
         port: int = 6379,
         db: str | int = 0,
         password: str | None = None,
@@ -45,15 +45,15 @@ class Redis(AbstractRedis, RedisModuleCommands, AsyncCoreCommands[_StrType], Asy
         socket_keepalive_options: Mapping[int, int | bytes] | None = None,
         connection_pool: ConnectionPool | None = None,
         unix_socket_path: str | None = None,
-        encoding: str = 'utf-8',
-        encoding_errors: str = 'strict',
+        encoding: str = "utf-8",
+        encoding_errors: str = "strict",
         decode_responses: bool = False,
         retry_on_timeout: bool = False,
         retry_on_error: list[type[RedisError]] | None = None,
         ssl: bool = False,
         ssl_keyfile: str | None = None,
         ssl_certfile: str | None = None,
-        ssl_cert_reqs: str = 'required',
+        ssl_cert_reqs: str = "required",
         ssl_ca_certs: str | None = None,
         ssl_ca_data: str | None = None,
         ssl_check_hostname: bool = False,
@@ -286,17 +286,21 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def incr(self, name: _Key, amount: int = 1) -> Any: ...  # type: ignore[override]
     def incrby(self, name: _Key, amount: int = 1) -> Any: ...  # type: ignore[override]
     def incrbyfloat(self, name: _Key, amount: float = 1.0) -> Any: ...  # type: ignore[override]
-    def keys(self, pattern: _Key = '*', **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
+    def keys(self, pattern: _Key = "*", **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def lmove(  # type: ignore[override]
-        self, first_list: _Key, second_list: _Key, src: Literal["LEFT", "RIGHT"] = 'LEFT', dest: Literal["LEFT", "RIGHT"] = 'RIGHT'
+        self,
+        first_list: _Key,
+        second_list: _Key,
+        src: Literal["LEFT", "RIGHT"] = "LEFT",
+        dest: Literal["LEFT", "RIGHT"] = "RIGHT",
     ) -> Any: ...
     def blmove(  # type: ignore[override]
         self,
         first_list: _Key,
         second_list: _Key,
         timeout: float,
-        src: Literal["LEFT", "RIGHT"] = 'LEFT',
-        dest: Literal["LEFT", "RIGHT"] = 'RIGHT',
+        src: Literal["LEFT", "RIGHT"] = "LEFT",
+        dest: Literal["LEFT", "RIGHT"] = "RIGHT",
     ) -> Any: ...
     def mget(self, keys: _Key | Iterable[_Key], *args: _Key) -> Any: ...  # type: ignore[override]
     def mset(self, mapping: Mapping[_Key, _Value]) -> Any: ...  # type: ignore[override]
@@ -347,7 +351,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         algo,
         value1,
         value2,
-        specific_argument: str = 'strings',
+        specific_argument: str = "strings",
         len: bool = False,
         idx: bool = False,
         minmatchlen: Incomplete | None = None,
@@ -431,7 +435,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         member: Incomplete | None = None,
         longitude: Incomplete | None = None,
         latitude: Incomplete | None = None,
-        unit: str = 'm',
+        unit: str = "m",
         radius: Incomplete | None = None,
         width: Incomplete | None = None,
         height: Incomplete | None = None,
@@ -449,7 +453,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         member: Incomplete | None = None,
         longitude: Incomplete | None = None,
         latitude: Incomplete | None = None,
-        unit: str = 'm',
+        unit: str = "m",
         radius: Incomplete | None = None,
         width: Incomplete | None = None,
         height: Incomplete | None = None,
@@ -584,7 +588,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         self,
         name,
         fields,
-        id: str = '*',
+        id: str = "*",
         maxlen=None,
         approximate: bool = True,
         nomkstream: bool = False,
@@ -597,15 +601,25 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         groupname,
         consumername,
         min_idle_time,
-        start_id: StreamIdT = '0-0',
+        start_id: StreamIdT = "0-0",
         count: Incomplete | None = None,
         justid: bool = False,
     ) -> Any: ...
     def xclaim(  # type: ignore[override]
-        self, name, groupname, consumername, min_idle_time, message_ids, idle=None, time=None, retrycount=None, force=False, justid=False
+        self,
+        name,
+        groupname,
+        consumername,
+        min_idle_time,
+        message_ids,
+        idle=None,
+        time=None,
+        retrycount=None,
+        force=False,
+        justid=False,
     ) -> Any: ...
     def xdel(self, name, *ids) -> Any: ...  # type: ignore[override]
-    def xgroup_create(self, name, groupname, id: str = '$', mkstream: bool = False, entries_read: int | None = None) -> Any: ...  # type: ignore[override]
+    def xgroup_create(self, name, groupname, id: str = "$", mkstream: bool = False, entries_read: int | None = None) -> Any: ...  # type: ignore[override]
     def xgroup_delconsumer(self, name, groupname, consumername) -> Any: ...  # type: ignore[override]
     def xgroup_destroy(self, name, groupname) -> Any: ...  # type: ignore[override]
     def xgroup_createconsumer(self, name, groupname, consumername) -> Any: ...  # type: ignore[override]
@@ -618,12 +632,18 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def xpending_range(  # type: ignore[override]
         self, name: _Key, groupname, min, max, count: int, consumername: Incomplete | None = None, idle: int | None = None
     ) -> Any: ...
-    def xrange(self, name, min: str = '-', max: str = '+', count: Incomplete | None = None) -> Any: ...  # type: ignore[override]
+    def xrange(self, name, min: str = "-", max: str = "+", count: Incomplete | None = None) -> Any: ...  # type: ignore[override]
     def xread(self, streams, count: Incomplete | None = None, block: Incomplete | None = None) -> Any: ...  # type: ignore[override]
     def xreadgroup(  # type: ignore[override]
-        self, groupname, consumername, streams, count: Incomplete | None = None, block: Incomplete | None = None, noack: bool = False
+        self,
+        groupname,
+        consumername,
+        streams,
+        count: Incomplete | None = None,
+        block: Incomplete | None = None,
+        noack: bool = False,
     ) -> Any: ...
-    def xrevrange(self, name, max: str = '+', min: str = '-', count: Incomplete | None = None) -> Any: ...  # type: ignore[override]
+    def xrevrange(self, name, max: str = "+", min: str = "-", count: Incomplete | None = None) -> Any: ...  # type: ignore[override]
     def xtrim(  # type: ignore[override]
         self, name, maxlen: int | None = None, approximate: bool = True, minid: Incomplete | None = None, limit: int | None = None
     ) -> Any: ...
@@ -876,7 +896,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     def command(self, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def command_info(self, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def command_count(self, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
-    def config_get(self, pattern: PatternT = '*', *args: PatternT, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
+    def config_get(self, pattern: PatternT = "*", *args: PatternT, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def config_set(self, name: KeyT, value: EncodableT, *args: KeyT | EncodableT, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def config_resetstat(self, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def config_rewrite(self, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
@@ -940,7 +960,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     # endregion
     # region pubsub commands
     def publish(self, channel: _Key, message: _Key, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
-    def pubsub_channels(self, pattern: _Key = '*', **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
+    def pubsub_channels(self, pattern: _Key = "*", **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def pubsub_numpat(self, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     def pubsub_numsub(self, *args: _Key, **kwargs: _CommandOptions) -> Any: ...  # type: ignore[override]
     # endregion

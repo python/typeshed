@@ -36,7 +36,7 @@ class tqdm(Generic[_T], Iterable[_T], Comparable):
     monitor: ClassVar[TMonitor | None]
 
     @staticmethod
-    def format_sizeof(num: float, suffix: str = '', divisor: float = 1000) -> str: ...
+    def format_sizeof(num: float, suffix: str = "", divisor: float = 1000) -> str: ...
     @staticmethod
     def format_interval(t: float) -> str: ...
     @staticmethod
@@ -49,9 +49,9 @@ class tqdm(Generic[_T], Iterable[_T], Comparable):
         total: float,
         elapsed: float,
         ncols: int | None = None,
-        prefix: str | None = '',
+        prefix: str | None = "",
         ascii: bool | str | None = False,
-        unit: str | None = 'it',
+        unit: str | None = "it",
         unit_scale: bool | float | None = False,
         rate: float | None = None,
         bar_format: str | None = None,
@@ -74,7 +74,7 @@ class tqdm(Generic[_T], Iterable[_T], Comparable):
         miniters: float | None = None,
         ascii: bool | str | None = None,
         disable: bool | None = False,
-        unit: str = 'it',
+        unit: str = "it",
         unit_scale: bool | float = False,
         dynamic_ncols: bool = False,
         smoothing: float = 0.3,
@@ -105,7 +105,7 @@ class tqdm(Generic[_T], Iterable[_T], Comparable):
         miniters: float | None = None,
         ascii: bool | str | None = None,
         disable: bool | None = False,
-        unit: str = 'it',
+        unit: str = "it",
         unit_scale: bool | float = False,
         dynamic_ncols: bool = False,
         smoothing: float = 0.3,
@@ -124,7 +124,7 @@ class tqdm(Generic[_T], Iterable[_T], Comparable):
     ) -> None: ...
     def __new__(cls, *_, **__) -> Self: ...
     @classmethod
-    def write(cls, s: str, file: SupportsWrite[str] | None = None, end: str = '\n', nolock: bool = False) -> None: ...
+    def write(cls, s: str, file: SupportsWrite[str] | None = None, end: str = "\n", nolock: bool = False) -> None: ...
     @classmethod
     def external_write_mode(
         cls, file: SupportsWrite[str] | None = None, nolock: bool = False
@@ -217,7 +217,7 @@ class tqdm(Generic[_T], Iterable[_T], Comparable):
     def set_description(self, desc: str | None = None, refresh: bool | None = True) -> None: ...
     def set_description_str(self, desc: str | None = None, refresh: bool | None = True) -> None: ...
     def set_postfix(self, ordered_dict: Mapping[str, object] | None = None, refresh: bool | None = True, **kwargs) -> None: ...
-    def set_postfix_str(self, s: str = '', refresh: bool = True) -> None: ...
+    def set_postfix_str(self, s: str = "", refresh: bool = True) -> None: ...
     def moveto(self, n) -> None: ...
     @property
     def format_dict(self) -> MutableMapping[str, Any]: ...

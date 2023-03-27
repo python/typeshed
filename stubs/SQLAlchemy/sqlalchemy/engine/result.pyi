@@ -101,7 +101,9 @@ class FrozenResult:
 class IteratorResult(Result):
     iterator: Any
     raw: Any
-    def __init__(self, cursor_metadata, iterator, raw: Incomplete | None = None, _source_supports_scalars: bool = False) -> None: ...
+    def __init__(
+        self, cursor_metadata, iterator, raw: Incomplete | None = None, _source_supports_scalars: bool = False
+    ) -> None: ...
 
 def null_result() -> IteratorResult: ...
 

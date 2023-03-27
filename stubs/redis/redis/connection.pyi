@@ -184,7 +184,7 @@ class SSLConnection(Connection):
         self,
         ssl_keyfile=None,
         ssl_certfile=None,
-        ssl_cert_reqs='required',
+        ssl_cert_reqs="required",
         ssl_ca_certs=None,
         ssl_ca_data: Incomplete | None = None,
         ssl_check_hostname: bool = False,

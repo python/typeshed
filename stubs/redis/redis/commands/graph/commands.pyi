@@ -5,7 +5,12 @@ class GraphCommands:
     def commit(self): ...
     version: Any
     def query(
-        self, q, params: Incomplete | None = None, timeout: Incomplete | None = None, read_only: bool = False, profile: bool = False
+        self,
+        q,
+        params: Incomplete | None = None,
+        timeout: Incomplete | None = None,
+        read_only: bool = False,
+        profile: bool = False,
     ): ...
     def merge(self, pattern): ...
     def delete(self): ...

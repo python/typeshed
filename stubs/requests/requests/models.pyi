@@ -66,7 +66,17 @@ class Request(RequestHooksMixin):
     auth: Any
     cookies: Any
     def __init__(
-        self, method=None, url=None, headers=None, files=None, data=None, params=None, auth=None, cookies=None, hooks=None, json=None
+        self,
+        method=None,
+        url=None,
+        headers=None,
+        files=None,
+        data=None,
+        params=None,
+        auth=None,
+        cookies=None,
+        hooks=None,
+        json=None,
     ) -> None: ...
     def prepare(self) -> PreparedRequest: ...
 
@@ -78,7 +88,17 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
     hooks: Any
     def __init__(self) -> None: ...
     def prepare(
-        self, method=None, url=None, headers=None, files=None, data=None, params=None, auth=None, cookies=None, hooks=None, json=None
+        self,
+        method=None,
+        url=None,
+        headers=None,
+        files=None,
+        data=None,
+        params=None,
+        auth=None,
+        cookies=None,
+        hooks=None,
+        json=None,
     ) -> None: ...
     def copy(self) -> PreparedRequest: ...
     def prepare_method(self, method) -> None: ...
@@ -86,7 +106,7 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
     def prepare_headers(self, headers) -> None: ...
     def prepare_body(self, data, files, json=None) -> None: ...
     def prepare_content_length(self, body) -> None: ...
-    def prepare_auth(self, auth, url='') -> None: ...
+    def prepare_auth(self, auth, url="") -> None: ...
     def prepare_cookies(self, cookies) -> None: ...
     def prepare_hooks(self, hooks) -> None: ...
 

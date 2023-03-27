@@ -63,7 +63,7 @@ class RelationshipProperty(StrategizedProperty):
         post_update: bool = False,
         cascade: bool = False,
         viewonly: bool = False,
-        lazy: str = 'select',
+        lazy: str = "select",
         collection_class: Incomplete | None = None,
         passive_deletes=False,
         passive_updates=True,

@@ -54,8 +54,8 @@ class RedisCluster(AbstractRedis, AbstractRedisCluster, Generic[_StrType]):  # T
         password: str | None = None,
         client_name: str | None = None,
         # Encoding related kwargs
-        encoding: str = 'utf-8',
-        encoding_errors: str = 'strict',
+        encoding: str = "utf-8",
+        encoding_errors: str = "strict",
         decode_responses: bool = False,
         # Connection related kwargs
         health_check_interval: float = 0,
@@ -69,7 +69,7 @@ class RedisCluster(AbstractRedis, AbstractRedisCluster, Generic[_StrType]):  # T
         ssl: bool = False,
         ssl_ca_certs: str | None = None,
         ssl_ca_data: str | None = None,
-        ssl_cert_reqs: str = 'required',
+        ssl_cert_reqs: str = "required",
         ssl_certfile: str | None = None,
         ssl_check_hostname: bool = False,
         ssl_keyfile: str | None = None,
@@ -143,7 +143,7 @@ class NodesManager:
     def get_node_from_slot(self, slot: int, read_from_replicas: bool = False) -> ClusterNode: ...
     def get_nodes_by_server_type(self, server_type: str) -> list[ClusterNode]: ...
     async def initialize(self) -> None: ...
-    async def close(self, attr: str = 'nodes_cache') -> None: ...
+    async def close(self, attr: str = "nodes_cache") -> None: ...
 
 class ClusterPipeline(AbstractRedis, AbstractRedisCluster, Generic[_StrType]):  # TODO: AsyncRedisClusterCommands
     def __init__(self, client: RedisCluster[_StrType]) -> None: ...

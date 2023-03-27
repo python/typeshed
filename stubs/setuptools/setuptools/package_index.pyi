@@ -36,7 +36,13 @@ class PackageIndex(Environment):
     to_scan: Any
     opener: Any
     def __init__(
-        self, index_url: str = 'https://pypi.org/simple/', hosts=('*',), ca_bundle: Incomplete | None = None, verify_ssl: bool = True, *args, **kw
+        self,
+        index_url: str = "https://pypi.org/simple/",
+        hosts=("*",),
+        ca_bundle: Incomplete | None = None,
+        verify_ssl: bool = True,
+        *args,
+        **kw,
     ) -> None: ...
     def process_url(self, url, retrieve: bool = False) -> None: ...
     def process_filename(self, fn, nested: bool = False) -> None: ...
