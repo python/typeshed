@@ -67,8 +67,7 @@ class Catalog:
         self,
         locale: str | Locale | None = None,
         domain: str | None = None,
-        header_comment: str
-        | None = "# Translations template for PROJECT.\n# Copyright (C) YEAR ORGANIZATION\n# This file is distributed under the same license as the PROJECT project.\n# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n#",
+        header_comment: str | None = ...,
         project: str | None = None,
         version: str | None = None,
         copyright_holder: str | None = None,
