@@ -20,16 +20,16 @@ def format_datetime(
     datetime: _Instant = None,
     format: _PredefinedTimeFormat | str = "medium",
     tzinfo: tzinfo | None = None,
-    locale: Locale | str | None = None,
+    locale: Locale | str | None = ...,
 ) -> str: ...
 def format_date(
-    date: date | None = None, format: _PredefinedTimeFormat | str = "medium", locale: Locale | str | None = None
+    date: date | None = None, format: _PredefinedTimeFormat | str = "medium", locale: Locale | str | None = ...
 ) -> str: ...
 def format_time(
     time: time | datetime | float | None = None,
     format: _PredefinedTimeFormat | str = "medium",
     tzinfo: tzinfo | None = None,
-    locale: Locale | str | None = None,
+    locale: Locale | str | None = ...,
 ) -> str: ...
 def format_timedelta(
     delta: timedelta | int,
@@ -37,10 +37,10 @@ def format_timedelta(
     threshold: float = 0.85,
     add_direction: bool = False,
     format: Literal["narrow", "short", "medium", "long"] = "long",
-    locale: Locale | str | None = None,
+    locale: Locale | str | None = ...,
 ) -> str: ...
 def format_skeleton(
-    skeleton: str, datetime: _Instant = None, tzinfo: tzinfo | None = None, fuzzy: bool = True, locale: Locale | str | None = None
+    skeleton: str, datetime: _Instant = None, tzinfo: tzinfo | None = None, fuzzy: bool = True, locale: Locale | str | None = ...
 ) -> str: ...
 def format_interval(
     start: _Instant,
@@ -48,7 +48,7 @@ def format_interval(
     skeleton: str | None = None,
     tzinfo: tzinfo | None = None,
     fuzzy: bool = True,
-    locale: Locale | str | None = None,
+    locale: Locale | str | None = ...,
 ) -> str: ...
 
 # Timezone Functionality
@@ -59,20 +59,20 @@ def get_timezone(zone: tzinfo) -> tzinfo: ...
 def get_timezone_gmt(
     datetime: _Instant = None,
     width: Literal["long", "short", "iso8601", "iso8601_short"] = "long",
-    locale: Locale | str | None = None,
+    locale: Locale | str | None = ...,
     return_z: bool = False,
 ) -> str: ...
 
 _DtOrTzinfo: TypeAlias = datetime | tzinfo | str | int | time | None
 
 def get_timezone_location(
-    dt_or_tzinfo: _DtOrTzinfo = None, locale: Locale | str | None = None, return_city: bool = False
+    dt_or_tzinfo: _DtOrTzinfo = None, locale: Locale | str | None = ..., return_city: bool = False
 ) -> str: ...
 def get_timezone_name(
     dt_or_tzinfo: _DtOrTzinfo = None,
     width: Literal["long", "short"] = "long",
     uncommon: bool = False,
-    locale: Locale | str | None = None,
+    locale: Locale | str | None = ...,
     zone_variant: Literal["generic", "daylight", "standard"] | None = None,
     return_zone: bool = False,
 ) -> str: ...
@@ -104,33 +104,31 @@ class TimezoneTransition:
 
 # Data Access
 def get_period_names(
-    width: Literal["abbreviated", "narrow", "wide"] = "wide",
-    context: _Context = "stand-alone",
-    locale: Locale | str | None = None,
+    width: Literal["abbreviated", "narrow", "wide"] = "wide", context: _Context = "stand-alone", locale: Locale | str | None = ...
 ) -> LocaleDataDict: ...
 def get_day_names(
     width: Literal["abbreviated", "narrow", "short", "wide"] = "wide",
     context: _Context = "format",
-    locale: Locale | str | None = None,
+    locale: Locale | str | None = ...,
 ) -> LocaleDataDict: ...
 def get_month_names(
-    width: Literal["abbreviated", "narrow", "wide"] = "wide", context: _Context = "format", locale: Locale | str | None = None
+    width: Literal["abbreviated", "narrow", "wide"] = "wide", context: _Context = "format", locale: Locale | str | None = ...
 ) -> LocaleDataDict: ...
 def get_quarter_names(
-    width: Literal["abbreviated", "narrow", "wide"] = "wide", context: _Context = "format", locale: Locale | str | None = None
+    width: Literal["abbreviated", "narrow", "wide"] = "wide", context: _Context = "format", locale: Locale | str | None = ...
 ) -> LocaleDataDict: ...
 def get_era_names(
-    width: Literal["abbreviated", "narrow", "wide"] = "wide", locale: Locale | str | None = None
+    width: Literal["abbreviated", "narrow", "wide"] = "wide", locale: Locale | str | None = ...
 ) -> LocaleDataDict: ...
-def get_date_format(format: _PredefinedTimeFormat = "medium", locale: Locale | str | None = None) -> DateTimePattern: ...
-def get_datetime_format(format: _PredefinedTimeFormat = "medium", locale: Locale | str | None = None) -> DateTimePattern: ...
-def get_time_format(format: _PredefinedTimeFormat = "medium", locale: Locale | str | None = None) -> DateTimePattern: ...
+def get_date_format(format: _PredefinedTimeFormat = "medium", locale: Locale | str | None = ...) -> DateTimePattern: ...
+def get_datetime_format(format: _PredefinedTimeFormat = "medium", locale: Locale | str | None = ...) -> DateTimePattern: ...
+def get_time_format(format: _PredefinedTimeFormat = "medium", locale: Locale | str | None = ...) -> DateTimePattern: ...
 
 class ParseError(ValueError): ...
 
 # Basic Parsing
-def parse_date(string: str, locale: Locale | str | None = None, format: _PredefinedTimeFormat = "medium") -> date: ...
-def parse_time(string: str, locale: Locale | str | None = None, format: _PredefinedTimeFormat = "medium") -> time: ...
+def parse_date(string: str, locale: Locale | str | None = ..., format: _PredefinedTimeFormat = "medium") -> date: ...
+def parse_time(string: str, locale: Locale | str | None = ..., format: _PredefinedTimeFormat = "medium") -> time: ...
 def parse_pattern(pattern: str) -> DateTimePattern: ...
 
 # Undocumented
@@ -143,7 +141,7 @@ time_ = time
 TIMEDELTA_UNITS: tuple[tuple[str, int], ...]
 
 def get_period_id(
-    time: _Instant, tzinfo: BaseTzInfo | None = None, type: Literal["selection"] | None = None, locale: Locale | str | None = None
+    time: _Instant, tzinfo: BaseTzInfo | None = None, type: Literal["selection"] | None = None, locale: Locale | str | None = ...
 ): ...
 
 class DateTimePattern:

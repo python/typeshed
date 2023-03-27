@@ -8,5 +8,5 @@ DEFAULT_LOCALE: str | None
 def format_list(
     lst: Iterable[str],
     style: Literal["standard", "standard-short", "or", "or-short", "unit", "unit-short", "unit-narrow"] = "standard",
-    locale: Locale | str | None = None,
+    locale: Locale | str | None = ...,
 ) -> str: ...
