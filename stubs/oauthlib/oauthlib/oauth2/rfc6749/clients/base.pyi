@@ -28,8 +28,8 @@ class Client:
     def __init__(
         self,
         client_id,
-        default_token_placement='auth_header',
-        token_type: str = 'Bearer',
+        default_token_placement="auth_header",
+        token_type: str = "Bearer",
         access_token: Incomplete | None = None,
         refresh_token: Incomplete | None = None,
         mac_key: Incomplete | None = None,
@@ -52,7 +52,7 @@ class Client:
     def add_token(
         self,
         uri,
-        http_method: str = 'GET',
+        http_method: str = "GET",
         body: Incomplete | None = None,
         headers: Incomplete | None = None,
         token_placement: Incomplete | None = None,
@@ -72,18 +72,24 @@ class Client:
         authorization_response: Incomplete | None = None,
         redirect_url: Incomplete | None = None,
         state: Incomplete | None = None,
-        body: str = '',
+        body: str = "",
         **kwargs,
     ): ...
     def prepare_refresh_token_request(
-        self, token_url, refresh_token: Incomplete | None = None, body: str = '', scope: Incomplete | None = None, **kwargs
+        self, token_url, refresh_token: Incomplete | None = None, body: str = "", scope: Incomplete | None = None, **kwargs
     ): ...
     def prepare_token_revocation_request(
-        self, revocation_url, token, token_type_hint: str = 'access_token', body: str = '', callback: Incomplete | None = None, **kwargs
+        self,
+        revocation_url,
+        token,
+        token_type_hint: str = "access_token",
+        body: str = "",
+        callback: Incomplete | None = None,
+        **kwargs,
     ): ...
     def parse_request_body_response(self, body, scope: Incomplete | None = None, **kwargs): ...
     def prepare_refresh_body(
-        self, body: str = '', refresh_token: Incomplete | None = None, scope: Incomplete | None = None, **kwargs
+        self, body: str = "", refresh_token: Incomplete | None = None, scope: Incomplete | None = None, **kwargs
     ): ...
     def create_code_verifier(self, length: int) -> str: ...
     def create_code_challenge(self, code_verifier: str, code_challenge_method: str | None = None) -> str: ...

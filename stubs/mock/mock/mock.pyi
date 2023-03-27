@@ -47,7 +47,7 @@ class _Call(tuple[Any, ...]):
     def __new__(
         cls,
         value: Any = (),
-        name: Incomplete | None = '',
+        name: Incomplete | None = "",
         parent: Incomplete | None = None,
         two: bool = False,
         from_kall: bool = True,
@@ -92,7 +92,7 @@ class NonCallableMock(Base, Any):
         spec_set: list[str] | object | type[object] | None = None,
         parent: NonCallableMock | None = None,
         _spec_state: Incomplete | None = None,
-        _new_name: str = '',
+        _new_name: str = "",
         _new_parent: NonCallableMock | None = None,
         _spec_as_instance: bool = False,
         _eat_self: bool | None = None,
@@ -107,7 +107,7 @@ class NonCallableMock(Base, Any):
         spec_set: list[str] | object | type[object] | None = None,
         parent: NonCallableMock | None = None,
         _spec_state: Incomplete | None = None,
-        _new_name: str = '',
+        _new_name: str = "",
         _new_parent: NonCallableMock | None = None,
         _spec_as_instance: bool = False,
         _eat_self: bool | None = None,
@@ -115,11 +115,11 @@ class NonCallableMock(Base, Any):
         **kwargs: Any,
     ) -> None: ...
     def __getattr__(self, name: str) -> Any: ...
-    def _calls_repr(self, prefix: str = 'Calls') -> str: ...
+    def _calls_repr(self, prefix: str = "Calls") -> str: ...
     def assert_called_with(_mock_self, *args: Any, **kwargs: Any) -> None: ...
     def assert_not_called(_mock_self) -> None: ...
     def assert_called_once_with(_mock_self, *args: Any, **kwargs: Any) -> None: ...
-    def _format_mock_failure_message(self, args: Any, kwargs: Any, action: str = 'call') -> str: ...
+    def _format_mock_failure_message(self, args: Any, kwargs: Any, action: str = "call") -> str: ...
     def assert_called(_mock_self) -> None: ...
     def assert_called_once(_mock_self) -> None: ...
     def reset_mock(self, visited: Any = None, *, return_value: bool = False, side_effect: bool = False) -> None: ...
@@ -153,7 +153,7 @@ class CallableMixin(Base):
         spec_set: Incomplete | None = None,
         parent: Incomplete | None = None,
         _spec_state: Incomplete | None = None,
-        _new_name: Any = '',
+        _new_name: Any = "",
         _new_parent: Incomplete | None = None,
         **kwargs: Any,
     ) -> None: ...
@@ -370,7 +370,7 @@ class _SpecState:
         instance: Any = False,
     ) -> None: ...
 
-def mock_open(mock: Incomplete | None = None, read_data: Any = '') -> Any: ...
+def mock_open(mock: Incomplete | None = None, read_data: Any = "") -> Any: ...
 
 class PropertyMock(Mock):
     def __get__(self, obj: _T, obj_type: type[_T] | None = None) -> Self: ...

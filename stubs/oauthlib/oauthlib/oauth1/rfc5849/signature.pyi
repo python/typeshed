@@ -6,7 +6,7 @@ log: Any
 def signature_base_string(http_method: str, base_str_uri: str, normalized_encoded_request_parameters: str) -> str: ...
 def base_string_uri(uri: str, host: str | None = None) -> str: ...
 def collect_parameters(
-    uri_query: str = '',
+    uri_query: str = "",
     body: Incomplete | None = None,
     headers: Incomplete | None = None,
     exclude_oauth_signature: bool = True,

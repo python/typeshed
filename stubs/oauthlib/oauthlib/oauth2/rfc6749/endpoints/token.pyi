@@ -19,7 +19,7 @@ class TokenEndpoint(BaseEndpoint):
     def create_token_response(
         self,
         uri,
-        http_method: str = 'POST',
+        http_method: str = "POST",
         body: Incomplete | None = None,
         headers: Incomplete | None = None,
         credentials: Incomplete | None = None,

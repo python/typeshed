@@ -16,7 +16,7 @@ class ResourceEndpoint(BaseEndpoint):
     def verify_request(
         self,
         uri,
-        http_method: str = 'GET',
+        http_method: str = "GET",
         body: Incomplete | None = None,
         headers: Incomplete | None = None,
         scopes: Incomplete | None = None,

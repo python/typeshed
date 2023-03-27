@@ -10,7 +10,7 @@ class AccessTokenEndpoint(BaseEndpoint):
     def create_access_token_response(
         self,
         uri,
-        http_method: str = 'GET',
+        http_method: str = "GET",
         body: Incomplete | None = None,
         headers: Incomplete | None = None,
         credentials: Incomplete | None = None,

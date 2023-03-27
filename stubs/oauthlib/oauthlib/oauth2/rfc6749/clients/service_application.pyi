@@ -27,7 +27,7 @@ class ServiceApplicationClient(Client):
         expires_at: Incomplete | None = None,
         issued_at: Incomplete | None = None,
         extra_claims: Incomplete | None = None,
-        body: str = '',
+        body: str = "",
         scope: Incomplete | None = None,
         include_client_id: bool = False,
         **kwargs,

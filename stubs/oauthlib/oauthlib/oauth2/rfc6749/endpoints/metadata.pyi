@@ -12,7 +12,7 @@ class MetadataEndpoint(BaseEndpoint):
     claims: Any
     def __init__(self, endpoints, claims={}, raise_errors: bool = True) -> None: ...
     def create_metadata_response(
-        self, uri, http_method: str = 'GET', body: Incomplete | None = None, headers: Incomplete | None = None
+        self, uri, http_method: str = "GET", body: Incomplete | None = None, headers: Incomplete | None = None
     ): ...
     def validate_metadata(
         self, array, key, is_required: bool = False, is_list: bool = False, is_url: bool = False, is_issuer: bool = False

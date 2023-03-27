@@ -14,14 +14,14 @@ class WebApplicationClient(Client):
         scope: Incomplete | None = None,
         state: Incomplete | None = None,
         code_challenge: str | None = None,
-        code_challenge_method: str | None = 'plain',
+        code_challenge_method: str | None = "plain",
         **kwargs,
     ): ...
     def prepare_request_body(
         self,
         code: Incomplete | None = None,
         redirect_uri: Incomplete | None = None,
-        body: str = '',
+        body: str = "",
         include_client_id: bool = True,
         code_verifier: str | None = None,
         **kwargs,
