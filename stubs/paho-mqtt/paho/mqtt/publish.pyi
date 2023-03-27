@@ -33,15 +33,15 @@ class _Proxy(TypedDict):
 
 def multiple(
     msgs: Iterable[_Msg],
-    hostname: str = 'localhost',
+    hostname: str = "localhost",
     port: int = 1883,
-    client_id: str = '',
+    client_id: str = "",
     keepalive: int = 60,
     will: _Msg | None = None,
     auth: _Auth | None = None,
     tls: _TLS | None = None,
     protocol: int = 4,
-    transport: str = 'tcp',
+    transport: str = "tcp",
     proxy_args: _Proxy | None = None,
 ) -> None: ...
 def single(
@@ -49,14 +49,14 @@ def single(
     payload: _Payload | None = None,
     qos: int | None = 0,
     retain: bool | None = False,
-    hostname: str = 'localhost',
+    hostname: str = "localhost",
     port: int = 1883,
-    client_id: str = '',
+    client_id: str = "",
     keepalive: int = 60,
     will: _Msg | None = None,
     auth: _Auth | None = None,
     tls: _TLS | None = None,
     protocol: int = 4,
-    transport: str = 'tcp',
+    transport: str = "tcp",
     proxy_args: _Proxy | None = None,
 ) -> None: ...

@@ -34,7 +34,7 @@ class Channel:
     def add_on_return_callback(self, callback) -> None: ...
     def basic_ack(self, delivery_tag: int = 0, multiple: bool = False) -> None: ...
     def basic_cancel(
-        self, consumer_tag: str = '', callback: Callable[[Method[Basic.CancelOk]], object] | None = None
+        self, consumer_tag: str = "", callback: Callable[[Method[Basic.CancelOk]], object] | None = None
     ) -> None: ...
     def basic_consume(
         self,
@@ -51,7 +51,12 @@ class Channel:
     ) -> None: ...
     def basic_nack(self, delivery_tag: int = 0, multiple: bool = False, requeue: bool = True) -> None: ...
     def basic_publish(
-        self, exchange: str, routing_key: str, body: str | bytes, properties: BasicProperties | None = None, mandatory: bool = False
+        self,
+        exchange: str,
+        routing_key: str,
+        body: str | bytes,
+        properties: BasicProperties | None = None,
+        mandatory: bool = False,
     ) -> None: ...
     def basic_qos(
         self,
@@ -61,8 +66,10 @@ class Channel:
         callback: Callable[[Method[Basic.QosOk]], object] | None = None,
     ) -> None: ...
     def basic_reject(self, delivery_tag: int = 0, requeue: bool = True) -> None: ...
-    def basic_recover(self, requeue: bool = False, callback: Callable[[Method[Basic.RecoverOk]], object] | None = None) -> None: ...
-    def close(self, reply_code: int = 0, reply_text: str = 'Normal shutdown') -> None: ...
+    def basic_recover(
+        self, requeue: bool = False, callback: Callable[[Method[Basic.RecoverOk]], object] | None = None
+    ) -> None: ...
+    def close(self, reply_code: int = 0, reply_text: str = "Normal shutdown") -> None: ...
     def confirm_delivery(
         self,
         ack_nack_callback: Callable[[Method[Basic.Ack | Basic.Nack]], object],
@@ -74,7 +81,7 @@ class Channel:
         self,
         destination: str,
         source: str,
-        routing_key: str = '',
+        routing_key: str = "",
         arguments: _ArgumentMapping | None = None,
         callback: Callable[[Method[Exchange.BindOk]], object] | None = None,
     ) -> None: ...
@@ -99,7 +106,7 @@ class Channel:
         self,
         destination: str | None = None,
         source: str | None = None,
-        routing_key: str = '',
+        routing_key: str = "",
         arguments: _ArgumentMapping | None = None,
         callback: Callable[[Method[Exchange.UnbindOk]], object] | None = None,
     ) -> None: ...

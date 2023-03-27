@@ -183,7 +183,7 @@ class Checker:
     def __init__(
         self,
         tree: ast.AST,
-        filename: str = '(none)',
+        filename: str = "(none)",
         builtins: Iterable[str] | None = None,
         withDoctest: bool = False,
         file_tokens: tuple[Any, ...] = (),

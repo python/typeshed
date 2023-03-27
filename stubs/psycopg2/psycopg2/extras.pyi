@@ -213,7 +213,11 @@ class HstoreAdapter:
     def get_oids(cls, conn_or_curs): ...
 
 def register_hstore(
-    conn_or_curs, globally: bool = False, unicode: bool = False, oid: Incomplete | None = None, array_oid: Incomplete | None = None
+    conn_or_curs,
+    globally: bool = False,
+    unicode: bool = False,
+    oid: Incomplete | None = None,
+    array_oid: Incomplete | None = None,
 ) -> None: ...
 
 class CompositeCaster:

@@ -15,7 +15,7 @@ class _CommonFile:
         new: bool = False,
         autoload: bool = True,
         autosave: bool = False,
-        encoding: str = 'utf-8',
+        encoding: str = "utf-8",
         return_unicode=True,
     ) -> None: ...
     @property

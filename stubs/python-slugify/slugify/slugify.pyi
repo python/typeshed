@@ -1,7 +1,7 @@
 from collections.abc import Iterable
 
 def smart_truncate(
-    string: str, max_length: int = 0, word_boundary: bool = False, separator: str = ' ', save_order: bool = False
+    string: str, max_length: int = 0, word_boundary: bool = False, separator: str = " ", save_order: bool = False
 ) -> str: ...
 def slugify(
     text: str,
@@ -10,7 +10,7 @@ def slugify(
     hexadecimal: bool = True,
     max_length: int = 0,
     word_boundary: bool = False,
-    separator: str = '-',
+    separator: str = "-",
     save_order: bool = False,
     stopwords: Iterable[str] = (),
     regex_pattern: str | None = None,

@@ -117,9 +117,7 @@ class Color3DLUT(MultibandFilter):
     channels: int
     mode: str | None
     table: Any
-    def __init__(
-        self, size: int | Iterable[int], table, channels: int = 3, target_mode: str | None = None, **kwargs
-    ) -> None: ...
+    def __init__(self, size: int | Iterable[int], table, channels: int = 3, target_mode: str | None = None, **kwargs) -> None: ...
     @classmethod
     def generate(
         cls,

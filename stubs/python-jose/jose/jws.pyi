@@ -9,7 +9,7 @@ def sign(
     # key as dict instance, instead of a Mapping
     key: str | bytes | dict[str, Any] | Key,
     headers: Mapping[str, Any] | None = None,
-    algorithm: str = 'HS256',
+    algorithm: str = "HS256",
 ) -> str: ...
 def verify(
     token: str | bytes,

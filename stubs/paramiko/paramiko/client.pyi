@@ -58,7 +58,7 @@ class SSHClient(ClosingContextManager):
     ) -> tuple[ChannelStdinFile, ChannelFile, ChannelStderrFile]: ...
     def invoke_shell(
         self,
-        term: str = 'vt100',
+        term: str = "vt100",
         width: int = 80,
         height: int = 24,
         width_pixels: int = 0,

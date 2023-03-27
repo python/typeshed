@@ -93,7 +93,9 @@ class IFDRational(Rational):
 class ImageFileDirectory_v2(MutableMapping[int, Any]):
     group: int | None
     tagtype: dict[int, int]
-    def __init__(self, ifh: bytes = b'II*\x00\x00\x00\x00\x00', prefix: bytes | None = None, group: int | None = None) -> None: ...
+    def __init__(
+        self, ifh: bytes = b"II*\x00\x00\x00\x00\x00", prefix: bytes | None = None, group: int | None = None
+    ) -> None: ...
     @property
     def prefix(self) -> bytes: ...
     @property

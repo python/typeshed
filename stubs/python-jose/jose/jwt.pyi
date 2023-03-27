@@ -7,7 +7,7 @@ def encode(
     claims: MutableMapping[str, Any],
     # Internally it calls jws.sign() that expects a key dict instance instead of Mapping
     key: str | bytes | dict[str, Any] | Key,
-    algorithm: str = 'HS256',
+    algorithm: str = "HS256",
     headers: Mapping[str, Any] | None = None,
     access_token: str | None = None,
 ) -> str: ...

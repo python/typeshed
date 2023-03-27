@@ -5,9 +5,9 @@ from re import Match
 class Store:
     def __init__(
         self,
-        gpg_bin: str = 'gpg2',
-        git_bin: str = 'git',
-        store_dir: str = '~/.password-store',
+        gpg_bin: str = "gpg2",
+        git_bin: str = "git",
+        store_dir: str = "~/.password-store",
         use_agent: bool = True,
         interactive: bool = False,
         verbose: bool = False,

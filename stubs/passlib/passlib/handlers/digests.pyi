@@ -7,7 +7,7 @@ class HexDigestHash(uh.StaticHandler):
     checksum_chars: ClassVar[str]
     supported: ClassVar[bool]
 
-def create_hex_hash(digest, module='passlib.handlers.digests', django_name: Incomplete | None = None, required: bool = True): ...
+def create_hex_hash(digest, module="passlib.handlers.digests", django_name: Incomplete | None = None, required: bool = True): ...
 
 hex_md4: Any
 hex_md5: Any
@@ -23,7 +23,7 @@ class htdigest(uh.MinimalHandler):
     @classmethod
     def hash(cls, secret, user, realm, encoding: Incomplete | None = None): ...  # type: ignore[override]
     @classmethod
-    def verify(cls, secret, hash, user, realm, encoding: str = 'utf-8'): ...  # type: ignore[override]
+    def verify(cls, secret, hash, user, realm, encoding: str = "utf-8"): ...  # type: ignore[override]
     @classmethod
     def identify(cls, hash): ...
     @classmethod

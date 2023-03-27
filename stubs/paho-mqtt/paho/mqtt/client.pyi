@@ -112,7 +112,7 @@ class WebsocketConnectionError(ValueError): ...
 
 def error_string(mqtt_errno: int) -> str: ...
 def connack_string(connack_code: int) -> str: ...
-def base62(num: int, base: str = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', padding: int = 1) -> str: ...
+def base62(num: int, base: str = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", padding: int = 1) -> str: ...
 def topic_matches_sub(sub: str, topic: str) -> bool: ...
 
 class MQTTMessageInfo:
@@ -136,7 +136,7 @@ class MQTTMessage:
     retain: bool
     info: MQTTMessageInfo
     properties: Properties | None
-    def __init__(self, mid: int = 0, topic: bytes | bytearray = b'') -> None: ...
+    def __init__(self, mid: int = 0, topic: bytes | bytearray = b"") -> None: ...
     def __eq__(self, other: object) -> bool: ...
     def __ne__(self, other: object) -> bool: ...
     @property
@@ -148,16 +148,16 @@ class Client:
     suppress_exceptions: bool
     def __init__(
         self,
-        client_id: str | None = '',
+        client_id: str | None = "",
         clean_session: bool | None = None,
         userdata: _UserData | None = None,
         protocol: int = 4,
-        transport: str = 'tcp',
+        transport: str = "tcp",
         reconnect_on_failure: bool = True,
     ) -> None: ...
     def __del__(self) -> None: ...
-    def reinitialise(self, client_id: str = '', clean_session: bool = True, userdata: _UserData | None = None) -> None: ...
-    def ws_set_options(self, path: str = '/mqtt', headers: _ExtraHeader | None = None) -> None: ...
+    def reinitialise(self, client_id: str = "", clean_session: bool = True, userdata: _UserData | None = None) -> None: ...
+    def ws_set_options(self, path: str = "/mqtt", headers: _ExtraHeader | None = None) -> None: ...
     def tls_set_context(self, context: _ssl.SSLContext | None = None) -> None: ...
     def tls_set(
         self,
@@ -178,7 +178,7 @@ class Client:
         host: str,
         port: int = 1883,
         keepalive: int = 60,
-        bind_address: str = '',
+        bind_address: str = "",
         bind_port: int = 0,
         clean_start: int = 3,
         properties: Properties | None = None,
@@ -187,7 +187,7 @@ class Client:
         self,
         domain: str | None = None,
         keepalive: int = 60,
-        bind_address: str = '',
+        bind_address: str = "",
         clean_start: int = 3,
         properties: Properties | None = None,
     ) -> int: ...
@@ -196,7 +196,7 @@ class Client:
         host: str,
         port: int = 1883,
         keepalive: int = 60,
-        bind_address: str = '',
+        bind_address: str = "",
         bind_port: int = 0,
         clean_start: int = 3,
         properties: Properties | None = None,
@@ -205,7 +205,12 @@ class Client:
     def reconnect(self) -> int: ...
     def loop(self, timeout: float = 1.0, max_packets: int = 1) -> int: ...
     def publish(
-        self, topic: str, payload: _Payload | None = None, qos: int = 0, retain: bool = False, properties: Properties | None = None
+        self,
+        topic: str,
+        payload: _Payload | None = None,
+        qos: int = 0,
+        retain: bool = False,
+        properties: Properties | None = None,
     ) -> MQTTMessageInfo: ...
     def username_pw_set(self, username: str, password: str | bytes | bytearray | None = None) -> None: ...
     def enable_bridge_mode(self) -> None: ...
@@ -228,7 +233,12 @@ class Client:
     def message_retry_set(self, retry: Unused) -> None: ...
     def user_data_set(self, userdata: _UserData) -> None: ...
     def will_set(
-        self, topic: str, payload: _Payload | None = None, qos: int = 0, retain: bool = False, properties: Properties | None = None
+        self,
+        topic: str,
+        payload: _Payload | None = None,
+        qos: int = 0,
+        retain: bool = False,
+        properties: Properties | None = None,
     ) -> None: ...
     def will_clear(self) -> None: ...
     def socket(self) -> _Socket | WebsocketWrapper: ...

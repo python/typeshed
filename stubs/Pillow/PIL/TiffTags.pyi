@@ -13,7 +13,7 @@ class TagInfo(_TagInfo):
     def __new__(
         cls,
         value: Incomplete | None = None,
-        name: str = 'unknown',
+        name: str = "unknown",
         type: _TagType | None = None,
         length: int | None = None,
         enum: dict[str, int] | None = None,

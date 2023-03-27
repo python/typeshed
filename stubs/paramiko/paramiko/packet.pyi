@@ -35,7 +35,13 @@ class Packetizer:
         etm: bool = False,
     ) -> None: ...
     def set_inbound_cipher(
-        self, block_engine: Cipher[Incomplete], block_size: int, mac_engine: _Hash, mac_size: int, mac_key: bytes, etm: bool = False
+        self,
+        block_engine: Cipher[Incomplete],
+        block_size: int,
+        mac_engine: _Hash,
+        mac_size: int,
+        mac_key: bytes,
+        etm: bool = False,
     ) -> None: ...
     def set_outbound_compressor(self, compressor: ZlibCompressor) -> None: ...
     def set_inbound_compressor(self, compressor: ZlibDecompressor) -> None: ...

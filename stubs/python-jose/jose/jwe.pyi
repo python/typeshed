@@ -7,8 +7,8 @@ def encrypt(
     # Internally it's passed down to jwk.construct(), which explicitly checks for
     # key as dict instance, instead of a Mapping
     key: str | bytes | dict[str, Any] | Key,
-    encryption: str = 'A256GCM',
-    algorithm: str = 'dir',
+    encryption: str = "A256GCM",
+    algorithm: str = "dir",
     zip: str | None = None,
     cty: str | None = None,
     kid: str | None = None,

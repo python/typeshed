@@ -15,7 +15,7 @@ class _Font(Protocol):
 
 class ImageFont:
     def getsize(self, text: str | bytes, *args, **kwargs) -> tuple[int, int]: ...
-    def getmask(self, text: str | bytes, mode: str = '', direction=..., features=...): ...
+    def getmask(self, text: str | bytes, mode: str = "", direction=..., features=...): ...
 
 class FreeTypeFont:
     path: str | bytes | SupportsRead[bytes] | None
@@ -28,7 +28,7 @@ class FreeTypeFont:
         font: str | bytes | SupportsRead[bytes] | None = None,
         size: int = 10,
         index: int = 0,
-        encoding: str = '',
+        encoding: str = "",
         layout_engine: Layout | None = None,
     ) -> None: ...
     def getname(self) -> tuple[str, str]: ...
@@ -36,7 +36,7 @@ class FreeTypeFont:
     def getlength(
         self,
         text: str | bytes,
-        mode: str = '',
+        mode: str = "",
         direction: Literal["ltr", "rtl", "ttb"] | None = None,
         features: Incomplete | None = None,
         language: str | None = None,
@@ -44,7 +44,7 @@ class FreeTypeFont:
     def getbbox(
         self,
         text: str | bytes,
-        mode: str = '',
+        mode: str = "",
         direction=None,
         features=None,
         language: str | None = None,
@@ -72,7 +72,7 @@ class FreeTypeFont:
     def getmask(
         self,
         text: str | bytes,
-        mode: str = '',
+        mode: str = "",
         direction: Literal["ltr", "rtl", "ttb"] | None = None,
         features: Incomplete | None = None,
         language: str | None = None,
@@ -84,7 +84,7 @@ class FreeTypeFont:
     def getmask2(
         self,
         text: str | bytes,
-        mode: str = '',
+        mode: str = "",
         fill=...,
         direction: Literal["ltr", "rtl", "ttb"] | None = None,
         features: Incomplete | None = None,
@@ -112,14 +112,14 @@ class FreeTypeFont:
 class TransposedFont:
     def __init__(self, font: _Font, orientation: int | None = None) -> None: ...
     def getsize(self, text: str | bytes, *args, **kwargs) -> tuple[int, int]: ...
-    def getmask(self, text: str | bytes, mode: str = '', *args, **kwargs): ...
+    def getmask(self, text: str | bytes, mode: str = "", *args, **kwargs): ...
 
 def load(filename: FileDescriptorOrPath) -> ImageFont: ...
 def truetype(
     font: str | bytes | SupportsRead[bytes] | None = None,
     size: int = 10,
     index: int = 0,
-    encoding: str = '',
+    encoding: str = "",
     layout_engine: Layout | None = None,
 ) -> FreeTypeFont: ...
 def load_path(filename: str | bytes) -> ImageFont: ...

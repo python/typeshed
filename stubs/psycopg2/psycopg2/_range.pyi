@@ -3,7 +3,7 @@ from typing import Any
 
 class Range:
     def __init__(
-        self, lower: Incomplete | None = None, upper: Incomplete | None = None, bounds: str = '[)', empty: bool = False
+        self, lower: Incomplete | None = None, upper: Incomplete | None = None, bounds: str = "[)", empty: bool = False
     ) -> None: ...
     @property
     def lower(self): ...

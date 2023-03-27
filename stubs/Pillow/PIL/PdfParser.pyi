@@ -94,7 +94,7 @@ class PdfParser:
         f: Incomplete | None = None,
         buf: Incomplete | None = None,
         start_offset: int = 0,
-        mode: str = 'rb',
+        mode: str = "rb",
     ) -> None: ...
     def __enter__(self): ...
     def __exit__(
