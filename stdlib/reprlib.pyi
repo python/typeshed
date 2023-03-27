@@ -2,13 +2,12 @@ import sys
 from array import array
 from collections import deque
 from collections.abc import Callable
-from typing import Any, TypeVar
+from typing import Any
 from typing_extensions import TypeAlias
 
 __all__ = ["Repr", "repr", "recursive_repr"]
 
-_T = TypeVar("_T")
-_ReprFunc: TypeAlias = Callable[[_T], str]
+_ReprFunc: TypeAlias = Callable[[Any], str]
 
 def recursive_repr(fillvalue: str = "...") -> Callable[[_ReprFunc], _ReprFunc]: ...
 
