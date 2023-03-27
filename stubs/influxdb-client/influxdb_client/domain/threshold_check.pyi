@@ -8,7 +8,7 @@ class ThresholdCheck(CheckDiscriminator):
     discriminator: Incomplete
     def __init__(
         self,
-        type: str = 'threshold',
+        type: str = "threshold",
         thresholds: Incomplete | None = None,
         every: Incomplete | None = None,
         offset: Incomplete | None = None,

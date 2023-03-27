@@ -52,7 +52,7 @@ class Reader(Cursor):
         connection,
         object_def,
         base,
-        query: str = '',
+        query: str = "",
         components_in_and: bool = True,
         sub_tree: bool = True,
         get_operational_attributes: bool = False,

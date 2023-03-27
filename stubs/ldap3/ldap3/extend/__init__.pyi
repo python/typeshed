@@ -19,8 +19,8 @@ class StandardExtendedOperations(ExtendedOperationContainer):
         self,
         search_base,
         search_filter,
-        search_scope='SUBTREE',
-        dereference_aliases='ALWAYS',
+        search_scope="SUBTREE",
+        dereference_aliases="ALWAYS",
         attributes: Incomplete | None = None,
         size_limit: int = 0,
         time_limit: int = 0,
@@ -33,11 +33,11 @@ class StandardExtendedOperations(ExtendedOperationContainer):
     ): ...
     def persistent_search(
         self,
-        search_base: str = '',
-        search_filter: str = '(objectclass=*)',
-        search_scope='SUBTREE',
-        dereference_aliases='NEVER',
-        attributes='*',
+        search_base: str = "",
+        search_filter: str = "(objectclass=*)",
+        search_scope="SUBTREE",
+        dereference_aliases="NEVER",
+        attributes="*",
         size_limit: int = 0,
         time_limit: int = 0,
         controls: Incomplete | None = None,
@@ -52,11 +52,11 @@ class StandardExtendedOperations(ExtendedOperationContainer):
     ): ...
     def funnel_search(
         self,
-        search_base: str = '',
-        search_filter: str = '',
-        search_scope='SUBTREE',
-        dereference_aliases='NEVER',
-        attributes='*',
+        search_base: str = "",
+        search_filter: str = "",
+        search_scope="SUBTREE",
+        dereference_aliases="NEVER",
+        attributes="*",
         size_limit: int = 0,
         time_limit: int = 0,
         controls: Incomplete | None = None,
@@ -81,8 +81,8 @@ class MicrosoftExtendedOperations(ExtendedOperationContainer):
     def dir_sync(
         self,
         sync_base,
-        sync_filter: str = '(objectclass=*)',
-        attributes='*',
+        sync_filter: str = "(objectclass=*)",
+        attributes="*",
         cookie: Incomplete | None = None,
         object_security: bool = False,
         ancestors_first: bool = True,
@@ -96,7 +96,12 @@ class MicrosoftExtendedOperations(ExtendedOperationContainer):
     def add_members_to_groups(self, members, groups, fix: bool = True): ...
     def remove_members_from_groups(self, members, groups, fix: bool = True): ...
     def persistent_search(
-        self, search_base: str = '', search_scope='SUBTREE', attributes='*', streaming: bool = True, callback: Incomplete | None = None
+        self,
+        search_base: str = "",
+        search_scope="SUBTREE",
+        attributes="*",
+        streaming: bool = True,
+        callback: Incomplete | None = None,
     ): ...
 
 class ExtendedOperationsRoot(ExtendedOperationContainer):

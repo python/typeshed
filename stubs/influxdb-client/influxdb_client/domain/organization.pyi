@@ -12,7 +12,7 @@ class Organization:
         description: Incomplete | None = None,
         created_at: Incomplete | None = None,
         updated_at: Incomplete | None = None,
-        status: str = 'active',
+        status: str = "active",
     ) -> None: ...
     @property
     def links(self): ...

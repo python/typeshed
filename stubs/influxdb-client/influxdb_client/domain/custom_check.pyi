@@ -8,7 +8,7 @@ class CustomCheck(CheckDiscriminator):
     discriminator: Incomplete
     def __init__(
         self,
-        type: str = 'custom',
+        type: str = "custom",
         id: Incomplete | None = None,
         name: Incomplete | None = None,
         org_id: Incomplete | None = None,

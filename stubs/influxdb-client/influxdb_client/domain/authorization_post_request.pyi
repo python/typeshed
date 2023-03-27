@@ -11,7 +11,7 @@ class AuthorizationPostRequest(AuthorizationUpdateRequest):
         org_id: Incomplete | None = None,
         user_id: Incomplete | None = None,
         permissions: Incomplete | None = None,
-        status: str = 'active',
+        status: str = "active",
         description: Incomplete | None = None,
     ) -> None: ...
     @property

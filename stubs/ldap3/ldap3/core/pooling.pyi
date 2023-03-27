@@ -33,7 +33,7 @@ class ServerPool:
     def __init__(
         self,
         servers: Incomplete | None = None,
-        pool_strategy='ROUND_ROBIN',
+        pool_strategy="ROUND_ROBIN",
         active: bool = True,
         exhaust: bool = False,
         single_state: bool = True,

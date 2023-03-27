@@ -8,7 +8,7 @@ class TelegramNotificationRule(TelegramNotificationRuleBase):
     discriminator: Incomplete
     def __init__(
         self,
-        type: str = 'telegram',
+        type: str = "telegram",
         message_template: Incomplete | None = None,
         parse_mode: Incomplete | None = None,
         disable_web_page_preview: Incomplete | None = None,

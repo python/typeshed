@@ -5,7 +5,11 @@ class User:
     attribute_map: Incomplete
     discriminator: Incomplete
     def __init__(
-        self, id: Incomplete | None = None, oauth_id: Incomplete | None = None, name: Incomplete | None = None, status: str = 'active'
+        self,
+        id: Incomplete | None = None,
+        oauth_id: Incomplete | None = None,
+        name: Incomplete | None = None,
+        status: str = "active",
     ) -> None: ...
     @property
     def id(self): ...

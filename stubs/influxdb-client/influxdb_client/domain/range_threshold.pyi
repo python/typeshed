@@ -8,7 +8,7 @@ class RangeThreshold(ThresholdBase):
     discriminator: Incomplete
     def __init__(
         self,
-        type: str = 'range',
+        type: str = "range",
         min: Incomplete | None = None,
         max: Incomplete | None = None,
         within: Incomplete | None = None,

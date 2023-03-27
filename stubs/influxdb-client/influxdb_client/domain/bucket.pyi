@@ -8,7 +8,7 @@ class Bucket:
         self,
         links: Incomplete | None = None,
         id: Incomplete | None = None,
-        type: str = 'user',
+        type: str = "user",
         name: Incomplete | None = None,
         description: Incomplete | None = None,
         org_id: Incomplete | None = None,

@@ -18,7 +18,7 @@ class Authorization(AuthorizationUpdateRequest):
         user: Incomplete | None = None,
         org: Incomplete | None = None,
         links: Incomplete | None = None,
-        status: str = 'active',
+        status: str = "active",
         description: Incomplete | None = None,
     ) -> None: ...
     @property

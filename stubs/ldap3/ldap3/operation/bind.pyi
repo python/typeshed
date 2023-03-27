@@ -3,7 +3,7 @@ from _typeshed import Incomplete
 def bind_operation(
     version,
     authentication,
-    name: str = '',
+    name: str = "",
     password: Incomplete | None = None,
     sasl_mechanism: Incomplete | None = None,
     sasl_credentials: Incomplete | None = None,
@@ -12,8 +12,8 @@ def bind_operation(
 def bind_request_to_dict(request): ...
 def bind_response_operation(
     result_code,
-    matched_dn: str = '',
-    diagnostic_message: str = '',
+    matched_dn: str = "",
+    diagnostic_message: str = "",
     referral: Incomplete | None = None,
     server_sasl_credentials: Incomplete | None = None,
 ): ...

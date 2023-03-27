@@ -8,7 +8,7 @@ class HTTPNotificationRule(HTTPNotificationRuleBase):
     discriminator: Incomplete
     def __init__(
         self,
-        type: str = 'http',
+        type: str = "http",
         url: Incomplete | None = None,
         latest_completed: Incomplete | None = None,
         last_run_status: Incomplete | None = None,

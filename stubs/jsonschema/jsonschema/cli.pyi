@@ -28,5 +28,17 @@ class _PlainFormatter:
 parser: Any
 
 def parse_args(args): ...
-def main(args=['--typeshed-packages', 'stubs/JACK-Client', 'stubs/ibm-db', 'stubs/influxdb-client', 'stubs/invoke', 'stubs/jmespath', 'stubs/jsonschema', 'stubs/keyboard', 'stubs/ldap3']) -> None: ...
+def main(
+    args=[
+        "--typeshed-packages",
+        "stubs/JACK-Client",
+        "stubs/ibm-db",
+        "stubs/influxdb-client",
+        "stubs/invoke",
+        "stubs/jmespath",
+        "stubs/jsonschema",
+        "stubs/keyboard",
+        "stubs/ldap3",
+    ]
+) -> None: ...
 def run(arguments, stdout=..., stderr=..., stdin=...): ...

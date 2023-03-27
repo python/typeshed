@@ -8,7 +8,7 @@ class SMTPNotificationRule(SMTPNotificationRuleBase):
     discriminator: Incomplete
     def __init__(
         self,
-        type: str = 'smtp',
+        type: str = "smtp",
         subject_template: Incomplete | None = None,
         body_template: Incomplete | None = None,
         to: Incomplete | None = None,

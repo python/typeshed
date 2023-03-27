@@ -25,11 +25,11 @@ class Server:
         port: int | None = None,
         use_ssl: bool = False,
         allowed_referral_hosts: Incomplete | None = None,
-        get_info: Literal["NO_INFO", "DSA", "SCHEMA", "ALL"] = 'SCHEMA',
+        get_info: Literal["NO_INFO", "DSA", "SCHEMA", "ALL"] = "SCHEMA",
         tls: Incomplete | None = None,
         formatter: Incomplete | None = None,
         connect_timeout: Incomplete | None = None,
-        mode: Literal["IP_SYSTEM_DEFAULT", "IP_V4_ONLY", "IP_V6_ONLY", "IP_V4_PREFERRED", "IP_V6_PREFERRED"] = 'IP_V6_PREFERRED',
+        mode: Literal["IP_SYSTEM_DEFAULT", "IP_V4_ONLY", "IP_V6_ONLY", "IP_V4_PREFERRED", "IP_V6_PREFERRED"] = "IP_V6_PREFERRED",
         validator: Incomplete | None = None,
     ) -> None: ...
     @property

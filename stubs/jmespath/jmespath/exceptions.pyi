@@ -9,7 +9,9 @@ class ParseError(JMESPathError):
     token_type: str
     msg: str
     expression: str | None
-    def __init__(self, lex_position: int, token_value: str, token_type: str, msg: str = 'Invalid jmespath expression') -> None: ...
+    def __init__(
+        self, lex_position: int, token_value: str, token_type: str, msg: str = "Invalid jmespath expression"
+    ) -> None: ...
 
 class IncompleteExpressionError(ParseError):
     # When ParseError is used directly, the token always have a non-null value and type

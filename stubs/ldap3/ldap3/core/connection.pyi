@@ -69,7 +69,7 @@ class Connection:
         server: Server | str | _ServerSequence | ServerPool,
         user: str | None = None,
         password: str | None = None,
-        auto_bind: Literal["DEFAULT", "NONE", "NO_TLS", "TLS_BEFORE_BIND", "TLS_AFTER_BIND"] = 'DEFAULT',
+        auto_bind: Literal["DEFAULT", "NONE", "NO_TLS", "TLS_BEFORE_BIND", "TLS_AFTER_BIND"] = "DEFAULT",
         version: int = 3,
         authentication: Literal["ANONYMOUS", "SIMPLE", "SASL", "NTLM"] | None = None,
         client_strategy: Literal[
@@ -83,7 +83,7 @@ class Connection:
             "MOCK_SYNC",
             "MOCK_ASYNC",
             "ASYNC_STREAM",
-        ] = 'SYNC',
+        ] = "SYNC",
         auto_referrals: bool = True,
         auto_range: bool = True,
         sasl_mechanism: str | None = None,
@@ -135,8 +135,8 @@ class Connection:
         self,
         search_base: str,
         search_filter: str,
-        search_scope: Literal["BASE", "LEVEL", "SUBTREE"] = 'SUBTREE',
-        dereference_aliases: Literal["NEVER", "SEARCH", "FINDING_BASE", "ALWAYS"] = 'ALWAYS',
+        search_scope: Literal["BASE", "LEVEL", "SUBTREE"] = "SUBTREE",
+        dereference_aliases: Literal["NEVER", "SEARCH", "FINDING_BASE", "ALWAYS"] = "ALWAYS",
         attributes: Incomplete | None = None,
         size_limit: int = 0,
         time_limit: int = 0,
@@ -155,7 +155,12 @@ class Connection:
     def delete(self, dn, controls: Incomplete | None = None): ...
     def modify(self, dn, changes, controls: Incomplete | None = None): ...
     def modify_dn(
-        self, dn, relative_dn, delete_old_dn: bool = True, new_superior: Incomplete | None = None, controls: Incomplete | None = None
+        self,
+        dn,
+        relative_dn,
+        delete_old_dn: bool = True,
+        new_superior: Incomplete | None = None,
+        controls: Incomplete | None = None,
     ): ...
     def abandon(self, message_id, controls: Incomplete | None = None): ...
     def extended(

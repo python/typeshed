@@ -8,7 +8,7 @@ class SlackNotificationRule(SlackNotificationRuleBase):
     discriminator: Incomplete
     def __init__(
         self,
-        type: str = 'slack',
+        type: str = "slack",
         channel: Incomplete | None = None,
         message_template: Incomplete | None = None,
         latest_completed: Incomplete | None = None,

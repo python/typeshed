@@ -8,7 +8,7 @@ class PagerDutyNotificationRule(PagerDutyNotificationRuleBase):
     discriminator: Incomplete
     def __init__(
         self,
-        type: str = 'pagerduty',
+        type: str = "pagerduty",
         message_template: Incomplete | None = None,
         latest_completed: Incomplete | None = None,
         last_run_status: Incomplete | None = None,

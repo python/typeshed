@@ -31,6 +31,6 @@ class WriteApiAsync(_BaseWriteApi):
         | Iterable[_NamedTuple]
         | _DataClass
         | Iterable[_DataClass] = None,
-        write_precision: _WritePrecision = 'ns',
+        write_precision: _WritePrecision = "ns",
         **kwargs,
     ) -> bool: ...

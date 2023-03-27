@@ -8,7 +8,7 @@ class DeadmanCheck(CheckDiscriminator):
     discriminator: Incomplete
     def __init__(
         self,
-        type: str = 'deadman',
+        type: str = "deadman",
         time_since: Incomplete | None = None,
         stale_time: Incomplete | None = None,
         report_zero: Incomplete | None = None,

@@ -12,7 +12,7 @@ class LegacyAuthorizationPostRequest(AuthorizationUpdateRequest):
         user_id: Incomplete | None = None,
         token: Incomplete | None = None,
         permissions: Incomplete | None = None,
-        status: str = 'active',
+        status: str = "active",
         description: Incomplete | None = None,
     ) -> None: ...
     @property

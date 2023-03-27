@@ -8,11 +8,11 @@ class ResourceOwner(UserResponse):
     discriminator: Incomplete
     def __init__(
         self,
-        role: str = 'owner',
+        role: str = "owner",
         id: Incomplete | None = None,
         oauth_id: Incomplete | None = None,
         name: Incomplete | None = None,
-        status: str = 'active',
+        status: str = "active",
         links: Incomplete | None = None,
     ) -> None: ...
     @property

@@ -171,11 +171,11 @@ class Result:
     hide: tuple[Literal["stdout", "stderr"], ...]
     def __init__(
         self,
-        stdout: str = '',
-        stderr: str = '',
+        stdout: str = "",
+        stderr: str = "",
         encoding: str | None = None,
-        command: str = '',
-        shell: str = '',
+        command: str = "",
+        shell: str = "",
         env=None,
         exited: int = 0,
         pty: bool = False,

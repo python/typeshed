@@ -17,10 +17,10 @@ class SlackNotificationEndpoint(NotificationEndpointDiscriminator):
         updated_at: Incomplete | None = None,
         description: Incomplete | None = None,
         name: Incomplete | None = None,
-        status: str = 'active',
+        status: str = "active",
         labels: Incomplete | None = None,
         links: Incomplete | None = None,
-        type: str = 'slack',
+        type: str = "slack",
     ) -> None: ...
     @property
     def url(self): ...

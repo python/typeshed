@@ -9,7 +9,7 @@ class UserResponse:
         id: Incomplete | None = None,
         oauth_id: Incomplete | None = None,
         name: Incomplete | None = None,
-        status: str = 'active',
+        status: str = "active",
         links: Incomplete | None = None,
     ) -> None: ...
     @property
