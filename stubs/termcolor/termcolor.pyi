@@ -8,7 +8,7 @@ COLORS: dict[str, int]
 HIGHLIGHTS: dict[str, int]
 RESET: str
 
-def colored(text: str, color: str | None = ..., on_color: str | None = ..., attrs: Iterable[str] | None = ...) -> str: ...
+def colored(text: str, color: str | None = None, on_color: str | None = None, attrs: Iterable[str] | None = None) -> str: ...
 def cprint(
-    text: str, color: str | None = ..., on_color: str | None = ..., attrs: Iterable[str] | None = ..., **kwargs: Any
+    text: str, color: str | None = None, on_color: str | None = None, attrs: Iterable[str] | None = None, **kwargs: Any
 ) -> None: ...
