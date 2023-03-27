@@ -63,8 +63,8 @@ class Lifecycle(list[Rule]):
     def add_rule(
         self,
         id: Incomplete | None = None,
-        prefix: str = '',
-        status: str = 'Enabled',
+        prefix: str = "",
+        status: str = "Enabled",
         expiration: Incomplete | None = None,
         transition: Incomplete | None = None,
     ): ...

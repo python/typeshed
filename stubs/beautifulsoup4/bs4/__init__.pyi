@@ -37,7 +37,7 @@ class BeautifulSoup(Tag):
     markup: str
     def __init__(
         self,
-        markup: str | bytes | SupportsRead[str] | SupportsRead[bytes] = '',
+        markup: str | bytes | SupportsRead[str] | SupportsRead[bytes] = "",
         features: str | Sequence[str] | None = None,
         builder: TreeBuilder | type[TreeBuilder] | None = None,
         parse_only: SoupStrainer | None = None,
@@ -86,7 +86,7 @@ class BeautifulSoup(Tag):
     def handle_endtag(self, name, nsprefix: Incomplete | None = None) -> None: ...
     def handle_data(self, data) -> None: ...
     def decode(  # type: ignore[override]
-        self, pretty_print: bool = False, eventual_encoding: str = 'utf-8', formatter: str | Formatter = 'minimal'
+        self, pretty_print: bool = False, eventual_encoding: str = "utf-8", formatter: str | Formatter = "minimal"
     ): ...  # missing some arguments
 
 class BeautifulStoneSoup(BeautifulSoup): ...

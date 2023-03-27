@@ -6,9 +6,9 @@ from .key import Key
 
 def bucket_lister(
     bucket,
-    prefix: str = '',
-    delimiter: str = '',
-    marker: str = '',
+    prefix: str = "",
+    delimiter: str = "",
+    marker: str = "",
     headers: Incomplete | None = None,
     encoding_type: Incomplete | None = None,
 ): ...
@@ -23,9 +23,9 @@ class BucketListResultSet(Iterable[Key]):
     def __init__(
         self,
         bucket: Incomplete | None = None,
-        prefix: str = '',
-        delimiter: str = '',
-        marker: str = '',
+        prefix: str = "",
+        delimiter: str = "",
+        marker: str = "",
         headers: Incomplete | None = None,
         encoding_type: Incomplete | None = None,
     ) -> None: ...
@@ -33,10 +33,10 @@ class BucketListResultSet(Iterable[Key]):
 
 def versioned_bucket_lister(
     bucket,
-    prefix: str = '',
-    delimiter: str = '',
-    key_marker: str = '',
-    version_id_marker: str = '',
+    prefix: str = "",
+    delimiter: str = "",
+    key_marker: str = "",
+    version_id_marker: str = "",
     headers: Incomplete | None = None,
     encoding_type: Incomplete | None = None,
 ): ...
@@ -52,10 +52,10 @@ class VersionedBucketListResultSet:
     def __init__(
         self,
         bucket: Incomplete | None = None,
-        prefix: str = '',
-        delimiter: str = '',
-        key_marker: str = '',
-        version_id_marker: str = '',
+        prefix: str = "",
+        delimiter: str = "",
+        key_marker: str = "",
+        version_id_marker: str = "",
         headers: Incomplete | None = None,
         encoding_type: Incomplete | None = None,
     ) -> None: ...
@@ -63,8 +63,8 @@ class VersionedBucketListResultSet:
 
 def multipart_upload_lister(
     bucket,
-    key_marker: str = '',
-    upload_id_marker: str = '',
+    key_marker: str = "",
+    upload_id_marker: str = "",
     headers: Incomplete | None = None,
     encoding_type: Incomplete | None = None,
 ): ...
@@ -78,8 +78,8 @@ class MultiPartUploadListResultSet:
     def __init__(
         self,
         bucket: Incomplete | None = None,
-        key_marker: str = '',
-        upload_id_marker: str = '',
+        key_marker: str = "",
+        upload_id_marker: str = "",
         headers: Incomplete | None = None,
         encoding_type: Incomplete | None = None,
     ) -> None: ...

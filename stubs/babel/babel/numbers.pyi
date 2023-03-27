@@ -44,7 +44,11 @@ def format_decimal(
     group_separator: bool = True,
 ): ...
 def format_compact_decimal(
-    number: float, *, format_type: Literal["short", "long"] = 'short', locale: Locale | str | None = None, fraction_digits: int = 0
+    number: float,
+    *,
+    format_type: Literal["short", "long"] = "short",
+    locale: Locale | str | None = None,
+    fraction_digits: int = 0,
 ) -> str: ...
 
 class UnknownCurrencyFormatError(KeyError): ...
@@ -55,7 +59,7 @@ def format_currency(
     format: str | None = None,
     locale: Locale | str | None = None,
     currency_digits: bool = True,
-    format_type: Literal["name", "standard", "accounting"] = 'standard',
+    format_type: Literal["name", "standard", "accounting"] = "standard",
     decimal_quantization: bool = True,
     group_separator: bool = True,
 ) -> str: ...

@@ -39,25 +39,25 @@ class Bucket:
     ) -> Key: ...
     def list(
         self,
-        prefix: str = '',
-        delimiter: str = '',
-        marker: str = '',
+        prefix: str = "",
+        delimiter: str = "",
+        marker: str = "",
         headers: dict[str, str] | None = None,
         encoding_type: Incomplete | None = None,
     ) -> BucketListResultSet: ...
     def list_versions(
         self,
-        prefix: str = '',
-        delimiter: str = '',
-        key_marker: str = '',
-        version_id_marker: str = '',
+        prefix: str = "",
+        delimiter: str = "",
+        key_marker: str = "",
+        version_id_marker: str = "",
         headers: dict[str, str] | None = None,
         encoding_type: str | None = None,
     ) -> BucketListResultSet: ...
     def list_multipart_uploads(
         self,
-        key_marker: str = '',
-        upload_id_marker: str = '',
+        key_marker: str = "",
+        upload_id_marker: str = "",
         headers: dict[str, str] | None = None,
         encoding_type: Incomplete | None = None,
     ): ...
@@ -70,13 +70,15 @@ class Bucket:
     def generate_url(
         self,
         expires_in,
-        method: str = 'GET',
+        method: str = "GET",
         headers: dict[str, str] | None = None,
         force_http: bool = False,
         response_headers: dict[str, str] | None = None,
         expires_in_absolute: bool = False,
     ): ...
-    def delete_keys(self, keys, quiet: bool = False, mfa_token: Incomplete | None = None, headers: dict[str, str] | None = None): ...
+    def delete_keys(
+        self, keys, quiet: bool = False, mfa_token: Incomplete | None = None, headers: dict[str, str] | None = None
+    ): ...
     def delete_key(
         self,
         key_name,
@@ -91,33 +93,33 @@ class Bucket:
         src_key_name,
         metadata: Incomplete | None = None,
         src_version_id: Incomplete | None = None,
-        storage_class: str = 'STANDARD',
+        storage_class: str = "STANDARD",
         preserve_acl: bool = False,
         encrypt_key: bool = False,
         headers: dict[str, str] | None = None,
         query_args: Incomplete | None = None,
     ): ...
     def set_canned_acl(
-        self, acl_str, key_name: str = '', headers: dict[str, str] | None = None, version_id: Incomplete | None = None
+        self, acl_str, key_name: str = "", headers: dict[str, str] | None = None, version_id: Incomplete | None = None
     ): ...
-    def get_xml_acl(self, key_name: str = '', headers: dict[str, str] | None = None, version_id: Incomplete | None = None): ...
+    def get_xml_acl(self, key_name: str = "", headers: dict[str, str] | None = None, version_id: Incomplete | None = None): ...
     def set_xml_acl(
         self,
         acl_str,
-        key_name: str = '',
+        key_name: str = "",
         headers: dict[str, str] | None = None,
         version_id: Incomplete | None = None,
-        query_args: str = 'acl',
+        query_args: str = "acl",
     ): ...
     def set_acl(
-        self, acl_or_str, key_name: str = '', headers: dict[str, str] | None = None, version_id: Incomplete | None = None
+        self, acl_or_str, key_name: str = "", headers: dict[str, str] | None = None, version_id: Incomplete | None = None
     ): ...
-    def get_acl(self, key_name: str = '', headers: dict[str, str] | None = None, version_id: Incomplete | None = None): ...
+    def get_acl(self, key_name: str = "", headers: dict[str, str] | None = None, version_id: Incomplete | None = None): ...
     def set_subresource(
-        self, subresource, value, key_name: str = '', headers: dict[str, str] | None = None, version_id: Incomplete | None = None
+        self, subresource, value, key_name: str = "", headers: dict[str, str] | None = None, version_id: Incomplete | None = None
     ): ...
     def get_subresource(
-        self, subresource, key_name: str = '', headers: dict[str, str] | None = None, version_id: Incomplete | None = None
+        self, subresource, key_name: str = "", headers: dict[str, str] | None = None, version_id: Incomplete | None = None
     ): ...
     def make_public(self, recursive: bool = False, headers: dict[str, str] | None = None): ...
     def add_email_grant(self, permission, email_address, recursive: bool = False, headers: dict[str, str] | None = None): ...
@@ -133,13 +135,13 @@ class Bucket:
     def get_location(self): ...
     def set_xml_logging(self, logging_str, headers: dict[str, str] | None = None): ...
     def enable_logging(
-        self, target_bucket, target_prefix: str = '', grants: Incomplete | None = None, headers: dict[str, str] | None = None
+        self, target_bucket, target_prefix: str = "", grants: Incomplete | None = None, headers: dict[str, str] | None = None
     ): ...
     def disable_logging(self, headers: dict[str, str] | None = None): ...
     def get_logging_status(self, headers: dict[str, str] | None = None): ...
     def set_as_logging_target(self, headers: dict[str, str] | None = None): ...
     def get_request_payment(self, headers: dict[str, str] | None = None): ...
-    def set_request_payment(self, payer: str = 'BucketOwner', headers: dict[str, str] | None = None): ...
+    def set_request_payment(self, payer: str = "BucketOwner", headers: dict[str, str] | None = None): ...
     def configure_versioning(
         self, versioning, mfa_delete: bool = False, mfa_token: Incomplete | None = None, headers: dict[str, str] | None = None
     ): ...
@@ -185,6 +187,6 @@ class Bucket:
     def delete(self, headers: dict[str, str] | None = None): ...
     def get_tags(self): ...
     def get_xml_tags(self): ...
-    def set_xml_tags(self, tag_str, headers: dict[str, str] | None = None, query_args: str = 'tagging'): ...
+    def set_xml_tags(self, tag_str, headers: dict[str, str] | None = None, query_args: str = "tagging"): ...
     def set_tags(self, tags, headers: dict[str, str] | None = None): ...
     def delete_tags(self, headers: dict[str, str] | None = None): ...

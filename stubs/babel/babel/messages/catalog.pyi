@@ -22,7 +22,7 @@ class Message:
     def __init__(
         self,
         id: str,
-        string: str = '',
+        string: str = "",
         locations: Iterable[tuple[str, int]] = (),
         flags: Iterable[str] = (),
         auto_comments: Iterable[str] = (),
@@ -67,7 +67,8 @@ class Catalog:
         self,
         locale: str | Locale | None = None,
         domain: str | None = None,
-        header_comment: str | None = '# Translations template for PROJECT.\n# Copyright (C) YEAR ORGANIZATION\n# This file is distributed under the same license as the PROJECT project.\n# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n#',
+        header_comment: str
+        | None = "# Translations template for PROJECT.\n# Copyright (C) YEAR ORGANIZATION\n# This file is distributed under the same license as the PROJECT project.\n# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n#",
         project: str | None = None,
         version: str | None = None,
         copyright_holder: str | None = None,
@@ -121,6 +122,10 @@ class Catalog:
     def get(self, id: _MessageID, context: str | None = None): ...
     def delete(self, id, context: str | None = None) -> None: ...
     def update(
-        self, template: Catalog, no_fuzzy_matching: bool = False, update_header_comment: bool = False, keep_user_comments: bool = True
+        self,
+        template: Catalog,
+        no_fuzzy_matching: bool = False,
+        update_header_comment: bool = False,
+        keep_user_comments: bool = True,
     ) -> None: ...
     def is_identical(self, other: Catalog) -> bool: ...

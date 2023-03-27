@@ -14,7 +14,7 @@ class MultiSelectMenu(ConsoleMenu):
         epilogue_text: str | None = None,
         ack_item_completion: bool = True,
         show_exit_option: bool = True,
-        exit_option_text: str = 'Exit',
+        exit_option_text: str = "Exit",
         clear_screen: bool = True,
     ) -> None: ...
     def append_item(self, item: MenuItem) -> None: ...

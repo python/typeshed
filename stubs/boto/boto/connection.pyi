@@ -77,8 +77,8 @@ class AWSAuthConnection:
         proxy_pass: Incomplete | None = None,
         debug: int = 0,
         https_connection_factory: Incomplete | None = None,
-        path: str = '/',
-        provider: str = 'aws',
+        path: str = "/",
+        provider: str = "aws",
         security_token: Incomplete | None = None,
         suppress_consec_slashes: bool = True,
         validate_certs: bool = True,
@@ -101,7 +101,7 @@ class AWSAuthConnection:
     def secret_key(self): ...
     @property
     def profile_name(self): ...
-    def get_path(self, path: str = '/'): ...
+    def get_path(self, path: str = "/"): ...
     def server_name(self, port: Incomplete | None = None): ...
     proxy: Any
     proxy_port: Any
@@ -127,7 +127,7 @@ class AWSAuthConnection:
         auth_path,
         params: Incomplete | None = None,
         headers: Incomplete | None = None,
-        data: str = '',
+        data: str = "",
         host: Incomplete | None = None,
     ): ...
     def make_request(
@@ -135,7 +135,7 @@ class AWSAuthConnection:
         method,
         path,
         headers: Incomplete | None = None,
-        data: str = '',
+        data: str = "",
         host: Incomplete | None = None,
         auth_path: Incomplete | None = None,
         sender: Incomplete | None = None,
@@ -161,18 +161,18 @@ class AWSQueryConnection(AWSAuthConnection):
         host: Incomplete | None = None,
         debug: int = 0,
         https_connection_factory: Incomplete | None = None,
-        path: str = '/',
+        path: str = "/",
         security_token: Incomplete | None = None,
         validate_certs: bool = True,
         profile_name: Incomplete | None = None,
-        provider: str = 'aws',
+        provider: str = "aws",
     ) -> None: ...
     def get_utf8_value(self, value): ...
     def make_request(  # type: ignore[override]
-        self, action, params: Incomplete | None = None, path: str = '/', verb: str = 'GET', *args, **kwargs
+        self, action, params: Incomplete | None = None, path: str = "/", verb: str = "GET", *args, **kwargs
     ): ...
     def build_list_params(self, params, items, label): ...
     def build_complex_list_params(self, params, items, label, names): ...
-    def get_list(self, action, params, markers, path: str = '/', parent: Incomplete | None = None, verb: str = 'GET'): ...
-    def get_object(self, action, params, cls, path: str = '/', parent: Incomplete | None = None, verb: str = 'GET'): ...
-    def get_status(self, action, params, path: str = '/', parent: Incomplete | None = None, verb: str = 'GET'): ...
+    def get_list(self, action, params, markers, path: str = "/", parent: Incomplete | None = None, verb: str = "GET"): ...
+    def get_object(self, action, params, cls, path: str = "/", parent: Incomplete | None = None, verb: str = "GET"): ...
+    def get_status(self, action, params, path: str = "/", parent: Incomplete | None = None, verb: str = "GET"): ...

@@ -18,7 +18,7 @@ class Formatter(EntitySubstitution):
         self,
         language: str | None = None,
         entity_substitution: _EntitySubstitution | None = None,
-        void_element_close_prefix: str = '/',
+        void_element_close_prefix: str = "/",
         cdata_containing_tags: list[str] | None = None,
         empty_attributes_are_booleans: bool = False,
         indent: int = 1,

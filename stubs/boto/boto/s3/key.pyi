@@ -48,14 +48,14 @@ class Key:
     def open_read(
         self,
         headers: dict[str, str] | None = None,
-        query_args: str = '',
+        query_args: str = "",
         override_num_retries: Incomplete | None = None,
         response_headers: dict[str, str] | None = None,
     ): ...
     def open_write(self, headers: dict[str, str] | None = None, override_num_retries: Incomplete | None = None): ...
     def open(
         self,
-        mode: str = 'r',
+        mode: str = "r",
         headers: dict[str, str] | None = None,
         query_args: Incomplete | None = None,
         override_num_retries: Incomplete | None = None,
@@ -94,7 +94,7 @@ class Key:
     def generate_url(
         self,
         expires_in,
-        method: str = 'GET',
+        method: str = "GET",
         headers: dict[str, str] | None = None,
         query_auth: bool = True,
         force_http: bool = False,

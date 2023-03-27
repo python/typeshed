@@ -11,10 +11,10 @@ def assert_case_insensitive(f): ...
 
 class _CallingFormat:
     def get_bucket_server(self, server, bucket): ...
-    def build_url_base(self, connection, protocol, server, bucket, key: str = ''): ...
+    def build_url_base(self, connection, protocol, server, bucket, key: str = ""): ...
     def build_host(self, server, bucket): ...
-    def build_auth_path(self, bucket, key: str = ''): ...
-    def build_path_base(self, bucket, key: str = ''): ...
+    def build_auth_path(self, bucket, key: str = ""): ...
+    def build_path_base(self, bucket, key: str = ""): ...
 
 class SubdomainCallingFormat(_CallingFormat):
     def get_bucket_server(self, server, bucket): ...
@@ -24,10 +24,10 @@ class VHostCallingFormat(_CallingFormat):
 
 class OrdinaryCallingFormat(_CallingFormat):
     def get_bucket_server(self, server, bucket): ...
-    def build_path_base(self, bucket, key: str = ''): ...
+    def build_path_base(self, bucket, key: str = ""): ...
 
 class ProtocolIndependentOrdinaryCallingFormat(OrdinaryCallingFormat):
-    def build_url_base(self, connection, protocol, server, bucket, key: str = ''): ...
+    def build_url_base(self, connection, protocol, server, bucket, key: str = ""): ...
 
 class Location:
     DEFAULT: str
@@ -64,9 +64,9 @@ class S3Connection(AWSAuthConnection):
         host: Any = ...,
         debug: int = 0,
         https_connection_factory: Incomplete | None = None,
-        calling_format: Any = 'boto.s3.connection.SubdomainCallingFormat',
-        path: str = '/',
-        provider: str = 'aws',
+        calling_format: Any = "boto.s3.connection.SubdomainCallingFormat",
+        path: str = "/",
+        provider: str = "aws",
         bucket_class: type[Bucket] = ...,
         security_token: Incomplete | None = None,
         suppress_consec_slashes: bool = True,
@@ -86,18 +86,18 @@ class S3Connection(AWSAuthConnection):
         acl: Incomplete | None = None,
         success_action_redirect: Incomplete | None = None,
         max_content_length: Incomplete | None = None,
-        http_method: str = 'http',
+        http_method: str = "http",
         fields: Incomplete | None = None,
         conditions: Incomplete | None = None,
-        storage_class: str = 'STANDARD',
+        storage_class: str = "STANDARD",
         server_side_encryption: Incomplete | None = None,
     ): ...
     def generate_url_sigv4(
         self,
         expires_in,
         method,
-        bucket: str = '',
-        key: str = '',
+        bucket: str = "",
+        key: str = "",
         headers: dict[str, str] | None = None,
         force_http: bool = False,
         response_headers: dict[str, str] | None = None,
@@ -108,8 +108,8 @@ class S3Connection(AWSAuthConnection):
         self,
         expires_in,
         method,
-        bucket: str = '',
-        key: str = '',
+        bucket: str = "",
+        key: str = "",
         headers: dict[str, str] | None = None,
         query_auth: bool = True,
         force_http: bool = False,
@@ -123,16 +123,16 @@ class S3Connection(AWSAuthConnection):
     def head_bucket(self, bucket_name, headers: dict[str, str] | None = None): ...
     def lookup(self, bucket_name, validate: bool = True, headers: dict[str, str] | None = None): ...
     def create_bucket(
-        self, bucket_name, headers: dict[str, str] | None = None, location: Any = '', policy: Incomplete | None = None
+        self, bucket_name, headers: dict[str, str] | None = None, location: Any = "", policy: Incomplete | None = None
     ): ...
     def delete_bucket(self, bucket, headers: dict[str, str] | None = None): ...
     def make_request(  # type: ignore[override]
         self,
         method,
-        bucket: str = '',
-        key: str = '',
+        bucket: str = "",
+        key: str = "",
         headers: Incomplete | None = None,
-        data: str = '',
+        data: str = "",
         query_args: Incomplete | None = None,
         sender: Incomplete | None = None,
         override_num_retries: Incomplete | None = None,

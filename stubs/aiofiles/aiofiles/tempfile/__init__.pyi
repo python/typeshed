@@ -55,7 +55,7 @@ def NamedTemporaryFile(
 # Buffered binary reading/updating: AsyncBufferedReader
 @overload
 def NamedTemporaryFile(
-    mode: OpenBinaryModeReading | OpenBinaryModeUpdating = 'w+b',
+    mode: OpenBinaryModeReading | OpenBinaryModeUpdating = "w+b",
     buffering: Literal[-1, 1] = -1,
     encoding: None = None,
     newline: None = None,
@@ -113,7 +113,7 @@ def TemporaryFile(
 # Buffered binary reading/updating: AsyncBufferedReader
 @overload
 def TemporaryFile(
-    mode: OpenBinaryModeReading | OpenBinaryModeUpdating = 'w+b',
+    mode: OpenBinaryModeReading | OpenBinaryModeUpdating = "w+b",
     buffering: Literal[-1, 1] = -1,
     encoding: None = None,
     newline: None = None,
@@ -171,7 +171,7 @@ def SpooledTemporaryFile(
 @overload
 def SpooledTemporaryFile(
     max_size: int = 0,
-    mode: OpenBinaryMode = 'w+b',
+    mode: OpenBinaryMode = "w+b",
     *,
     buffering: Literal[0],
     encoding: None = None,
@@ -200,7 +200,7 @@ def SpooledTemporaryFile(
 @overload
 def SpooledTemporaryFile(
     max_size: int = 0,
-    mode: OpenBinaryModeReading | OpenBinaryModeUpdating = 'w+b',
+    mode: OpenBinaryModeReading | OpenBinaryModeUpdating = "w+b",
     buffering: Literal[-1, 1] = -1,
     encoding: None = None,
     newline: None = None,

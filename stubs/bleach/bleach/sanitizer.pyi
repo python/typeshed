@@ -40,7 +40,7 @@ class Cleaner:
     def __init__(
         self,
         tags: Iterable[str] = ...,
-        attributes: _Attributes = {'a': ['href', 'title'], 'abbr': ['title'], 'acronym': ['title']},
+        attributes: _Attributes = {"a": ["href", "title"], "abbr": ["title"], "acronym": ["title"]},
         protocols: Iterable[str] = ...,
         strip: bool = False,
         strip_comments: bool = True,
@@ -65,7 +65,7 @@ class BleachSanitizerFilter(SanitizerFilter):
         self,
         source,
         allowed_tags: Iterable[str] = ...,
-        attributes: _Attributes = {'a': ['href', 'title'], 'abbr': ['title'], 'acronym': ['title']},
+        attributes: _Attributes = {"a": ["href", "title"], "abbr": ["title"], "acronym": ["title"]},
         allowed_protocols: Iterable[str] = ...,
         attr_val_is_uri: frozenset[_HTMLAttrKey] = ...,
         svg_attr_val_allows_ref: frozenset[_HTMLAttrKey] = ...,

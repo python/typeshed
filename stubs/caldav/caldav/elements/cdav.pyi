@@ -35,7 +35,7 @@ class ParamFilter(NamedBaseElement):
 
 class TextMatch(ValuedBaseElement):
     tag: ClassVar[str]
-    def __init__(self, value, collation: str = 'i;octet', negate: bool = False) -> None: ...
+    def __init__(self, value, collation: str = "i;octet", negate: bool = False) -> None: ...
 
 class TimeRange(BaseElement):
     tag: ClassVar[str]

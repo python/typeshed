@@ -23,12 +23,16 @@ class DateTimeRange:
         self,
         start_datetime: datetime.datetime | str | None = None,
         end_datetime: datetime.datetime | str | None = None,
-        start_time_format: str = '%Y-%m-%dT%H:%M:%S%z',
-        end_time_format: str = '%Y-%m-%dT%H:%M:%S%z',
+        start_time_format: str = "%Y-%m-%dT%H:%M:%S%z",
+        end_time_format: str = "%Y-%m-%dT%H:%M:%S%z",
     ) -> None: ...
     @classmethod
     def from_range_text(
-        cls, range_text: str, separator: str = '\\s+\\-\\s+', start_time_format: str | None = None, end_time_format: str | None = None
+        cls,
+        range_text: str,
+        separator: str = "\\s+\\-\\s+",
+        start_time_format: str | None = None,
+        end_time_format: str | None = None,
     ) -> DateTimeRange: ...
     def __eq__(self, other: object) -> bool: ...
     def __ne__(self, other: object) -> bool: ...

@@ -29,7 +29,11 @@ class DateSearchWithDetection:
     def __init__(self) -> None: ...
     language_detector: Any
     def detect_language(
-        self, text, languages, settings: Incomplete | None = None, detect_languages_function: _DetectLanguagesFunction | None = None
+        self,
+        text,
+        languages,
+        settings: Incomplete | None = None,
+        detect_languages_function: _DetectLanguagesFunction | None = None,
     ): ...
     def search_dates(
         self,

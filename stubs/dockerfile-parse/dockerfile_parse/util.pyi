@@ -25,7 +25,10 @@ def extract_key_values(
     env_replace: bool, args: Mapping[str, str], envs: Mapping[str, str], instruction_value: str
 ) -> list[tuple[str, str]]: ...
 def get_key_val_dictionary(
-    instruction_value: str, env_replace: bool = False, args: Mapping[str, str] | None = None, envs: Mapping[str, str] | None = None
+    instruction_value: str,
+    env_replace: bool = False,
+    args: Mapping[str, str] | None = None,
+    envs: Mapping[str, str] | None = None,
 ) -> dict[str, str]: ...
 
 class Context:

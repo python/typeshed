@@ -86,8 +86,8 @@ class Calendar(DAVObject):
         self,
         start,
         end: datetime.datetime | None = None,
-        compfilter: Literal["VEVENT"] | None = 'VEVENT',
-        expand: bool | Literal["maybe"] = 'maybe',
+        compfilter: Literal["VEVENT"] | None = "VEVENT",
+        expand: bool | Literal["maybe"] = "maybe",
     ): ...
     @overload
     def date_search(
@@ -95,12 +95,17 @@ class Calendar(DAVObject):
         start: datetime.datetime,
         end: datetime.datetime | None = None,
         compfilter: Literal["VEVENT"] = "VEVENT",
-        expand: bool | Literal["maybe"] = 'maybe',
+        expand: bool | Literal["maybe"] = "maybe",
         verify_expand: bool = False,
     ) -> list[Event]: ...
     @overload
     def date_search(
-        self, start: datetime.datetime, *, compfilter: None, expand: bool | Literal["maybe"] = 'maybe', verify_expand: bool = False
+        self,
+        start: datetime.datetime,
+        *,
+        compfilter: None,
+        expand: bool | Literal["maybe"] = "maybe",
+        verify_expand: bool = False,
     ) -> list[CalendarObjectResource]: ...
     @overload
     def date_search(
@@ -108,7 +113,7 @@ class Calendar(DAVObject):
         start: datetime.datetime,
         end: datetime.datetime | None,
         compfilter: None,
-        expand: bool | Literal["maybe"] = 'maybe',
+        expand: bool | Literal["maybe"] = "maybe",
         verify_expand: bool = False,
     ) -> list[CalendarObjectResource]: ...
     @overload
@@ -165,7 +170,9 @@ class Calendar(DAVObject):
         status=...,
     ) -> tuple[CalendarQuery, _CompClass]: ...
     def freebusy_request(self, start: datetime.datetime, end: datetime.datetime) -> FreeBusy: ...
-    def todos(self, sort_keys: Iterable[str] = ('due', 'priority'), include_completed: bool = False, sort_key: str | None = None) -> list[Todo]: ...
+    def todos(
+        self, sort_keys: Iterable[str] = ("due", "priority"), include_completed: bool = False, sort_key: str | None = None
+    ) -> list[Todo]: ...
     def event_by_url(self, href, data: Incomplete | None = None) -> Event: ...
     def object_by_uid(self, uid: str, comp_filter: CompFilter | None = None, comp_class: _CompClass | None = None) -> Event: ...
     def todo_by_uid(self, uid: str) -> CalendarObjectResource: ...
@@ -249,5 +256,5 @@ class Todo(CalendarObjectResource):
         self,
         completion_timestamp: datetime.datetime | None = None,
         handle_rrule: bool = False,
-        rrule_mode: Literal["safe", "this_and_future"] = 'safe',
+        rrule_mode: Literal["safe", "this_and_future"] = "safe",
     ) -> None: ...

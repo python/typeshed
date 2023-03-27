@@ -14,7 +14,7 @@ class _VersionInfo(NamedTuple):
 
 class VersionInfo(_VersionInfo):
     def __new__(
-        cls, major: int = 0, minor: int = 0, micro: int = 0, releaselevel: str = 'final', serial: int = 0, release: bool = True
+        cls, major: int = 0, minor: int = 0, micro: int = 0, releaselevel: str = "final", serial: int = 0, release: bool = True
     ) -> Self: ...
 
 __version_info__: VersionInfo

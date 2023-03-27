@@ -16,14 +16,14 @@ class SelectionMenu(ConsoleMenu):
         prologue_text: str | None = None,
         epilogue_text: str | None = None,
         show_exit_option: bool = True,
-        exit_option_text: str = 'Exit',
+        exit_option_text: str = "Exit",
         clear_screen: bool = True,
     ) -> None: ...
     @classmethod
     def get_selection(
         cls,
         strings: Iterable[str],
-        title: str = 'Select an option',
+        title: str = "Select an option",
         subtitle: str | None = None,
         show_exit_option: bool = True,
         _menu: ConsoleMenu | None = None,

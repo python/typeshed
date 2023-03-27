@@ -33,7 +33,7 @@ class ConsoleMenu:
         epilogue_text: str | Callable[[], str] | None = None,
         clear_screen: bool = True,
         show_exit_option: bool = True,
-        exit_option_text: str = 'Exit',
+        exit_option_text: str = "Exit",
         exit_menu_char: str | None = None,
     ) -> None: ...
     @property
