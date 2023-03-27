@@ -9,9 +9,7 @@ class Name:
     additional: Any
     prefix: Any
     suffix: Any
-    def __init__(
-        self, family: str = '', given: str = '', additional: str = '', prefix: str = '', suffix: str = ''
-    ) -> None: ...
+    def __init__(self, family: str = "", given: str = "", additional: str = "", prefix: str = "", suffix: str = "") -> None: ...
     @staticmethod
     def toString(val): ...
     def __eq__(self, other): ...
@@ -26,16 +24,16 @@ class Address:
     country: Any
     def __init__(
         self,
-        street: str = '',
-        city: str = '',
-        region: str = '',
-        code: str = '',
-        country: str = '',
-        box: str = '',
-        extended: str = '',
+        street: str = "",
+        city: str = "",
+        region: str = "",
+        code: str = "",
+        country: str = "",
+        box: str = "",
+        extended: str = "",
     ) -> None: ...
     @staticmethod
-    def toString(val, join_char: str = '\n'): ...
+    def toString(val, join_char: str = "\n"): ...
     lines: Any
     one_line: Any
     def __eq__(self, other): ...

@@ -52,7 +52,7 @@ class HTTPResponse(io.IOBase):
     length_remaining: int | None
     def __init__(
         self,
-        body: _TYPE_BODY = '',
+        body: _TYPE_BODY = "",
         headers: Mapping[str, str] | Mapping[bytes, bytes] | None = None,
         status: int = 0,
         version: int = 0,

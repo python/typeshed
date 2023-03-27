@@ -48,7 +48,9 @@ class VerifiedHTTPSConnection(HTTPSConnection):
     key_file: Any
     cert_file: Any
     assert_hostname: Any
-    def set_cert(self, key_file=None, cert_file=None, cert_reqs=None, ca_certs=None, assert_hostname=None, assert_fingerprint=None): ...
+    def set_cert(
+        self, key_file=None, cert_file=None, cert_reqs=None, ca_certs=None, assert_hostname=None, assert_fingerprint=None
+    ): ...
     sock: Any
     auto_open: Any
     is_verified: Any
