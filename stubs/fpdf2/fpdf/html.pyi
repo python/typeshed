@@ -22,7 +22,7 @@ TRAILING_SPACE: Pattern[str]
 COLOR_DICT: Final[dict[str, str]]
 
 def px2mm(px: float) -> float: ...
-def color_as_decimal(color: str | None = '#000000') -> tuple[int, int, int] | None: ...
+def color_as_decimal(color: str | None = "#000000") -> tuple[int, int, int] | None: ...
 
 class HTML2FPDF(HTMLParser):
     HTML_UNCLOSED_TAGS: ClassVar[tuple[str, ...]]
@@ -65,7 +65,7 @@ class HTML2FPDF(HTMLParser):
         li_tag_indent: int = 5,
         dd_tag_indent: int = 10,
         table_line_separators: bool = False,
-        ul_bullet_char: str = '\x95',
+        ul_bullet_char: str = "\x95",
         heading_sizes: Incomplete | None = None,
         warn_on_tags_not_matching: bool = True,
         **_: Unused,

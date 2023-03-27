@@ -14,7 +14,7 @@ class FlexTemplate:
     elements: Any
     keys: Any
     def load_elements(self, elements) -> None: ...
-    def parse_csv(self, infile, delimiter: str = ',', decimal_sep: str = '.', encoding: Incomplete | None = None): ...
+    def parse_csv(self, infile, delimiter: str = ",", decimal_sep: str = ".", encoding: Incomplete | None = None): ...
     def __setitem__(self, name, value) -> None: ...
     set: Any
     def __contains__(self, name): ...
@@ -27,14 +27,14 @@ class Template(FlexTemplate):
         self,
         infile: Incomplete | None = None,
         elements: Incomplete | None = None,
-        format: str = 'A4',
-        orientation: str = 'portrait',
-        unit: str = 'mm',
-        title: str = '',
-        author: str = '',
-        subject: str = '',
-        creator: str = '',
-        keywords: str = '',
+        format: str = "A4",
+        orientation: str = "portrait",
+        unit: str = "mm",
+        title: str = "",
+        author: str = "",
+        subject: str = "",
+        creator: str = "",
+        keywords: str = "",
     ) -> None: ...
     def add_page(self) -> None: ...
     def render(self, outfile: Incomplete | None = None, dest: Incomplete | None = None) -> None: ...  # type: ignore[override]

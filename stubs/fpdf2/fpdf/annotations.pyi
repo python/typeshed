@@ -62,7 +62,7 @@ class PDFEmbeddedFile(PDFContentStream):
         self,
         basename: str,
         contents: bytes,
-        desc: str = '',
+        desc: str = "",
         creation_date: datetime | None = None,
         modification_date: datetime | None = None,
         compress: bool = False,

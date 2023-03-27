@@ -143,9 +143,9 @@ class FPDF:
 
     def __init__(
         self,
-        orientation: _Orientation = 'portrait',
-        unit: _Unit | float = 'mm',
-        format: _Format | tuple[float, float] = 'A4',
+        orientation: _Orientation = "portrait",
+        unit: _Unit | float = "mm",
+        format: _Format | tuple[float, float] = "A4",
         font_cache_dir: Literal["DEPRECATED"] = "DEPRECATED",
     ) -> None: ...
     # The following definition crashes stubtest 0.991, but seems to be fixed
@@ -187,7 +187,7 @@ class FPDF:
     def set_display_mode(
         self,
         zoom: Literal["fullpage", "fullwidth", "real", "default"] | float,
-        layout: Literal["single", "continuous", "two", "default"] = 'continuous',
+        layout: Literal["single", "continuous", "two", "default"] = "continuous",
     ) -> None: ...
     def set_compression(self, compress: bool) -> None: ...
     title: str
@@ -208,11 +208,11 @@ class FPDF:
     def set_xmp_metadata(self, xmp_metadata: str) -> None: ...
     def set_doc_option(self, opt: str, value: str) -> None: ...
     def set_image_filter(self, image_filter: str) -> None: ...
-    def alias_nb_pages(self, alias: str = '{nb}') -> None: ...
+    def alias_nb_pages(self, alias: str = "{nb}") -> None: ...
     def add_page(
         self,
-        orientation: _Orientation = '',
-        format: _Format | tuple[float, float] = '',
+        orientation: _Orientation = "",
+        format: _Format | tuple[float, float] = "",
         same: bool = False,
         duration: int = 0,
         transition: Incomplete | None = None,
@@ -234,9 +234,15 @@ class FPDF:
     def set_dash_pattern(self, dash: float = 0, gap: float = 0, phase: float = 0) -> None: ...
     def line(self, x1: float, y1: float, x2: float, y2: float) -> None: ...
     def polyline(
-        self, point_list: list[tuple[float, float]], fill: bool = False, polygon: bool = False, style: RenderStyle | str | None = None
+        self,
+        point_list: list[tuple[float, float]],
+        fill: bool = False,
+        polygon: bool = False,
+        style: RenderStyle | str | None = None,
     ) -> None: ...
-    def polygon(self, point_list: list[tuple[float, float]], fill: bool = False, style: RenderStyle | str | None = None) -> None: ...
+    def polygon(
+        self, point_list: list[tuple[float, float]], fill: bool = False, style: RenderStyle | str | None = None
+    ) -> None: ...
     def dashed_line(self, x1, y1, x2, y2, dash_length: int = 1, space_length: int = 1) -> None: ...
     def rect(
         self,
@@ -302,7 +308,7 @@ class FPDF:
         fname: str | PurePath | None = None,
         uni: bool | Literal["DEPRECATED"] = "DEPRECATED",
     ) -> None: ...
-    def set_font(self, family: str | None = None, style: _FontStyles = '', size: int = 0) -> None: ...
+    def set_font(self, family: str | None = None, style: _FontStyles = "", size: int = 0) -> None: ...
     def set_font_size(self, size: float) -> None: ...
     def set_char_spacing(self, spacing: float) -> None: ...
     def set_stretching(self, stretching: float) -> None: ...
@@ -355,8 +361,8 @@ class FPDF:
     def highlight(
         self,
         text: str,
-        title: str = '',
-        type: TextMarkupType | str = 'Highlight',
+        title: str = "",
+        type: TextMarkupType | str = "Highlight",
         color: tuple[float, float, float] = (1, 1, 0),
         modification_time: datetime.datetime | None = None,
     ) -> _GeneratorContextManager[None]: ...
@@ -366,7 +372,7 @@ class FPDF:
         type: str,
         text: str,
         quad_points: Sequence[int],
-        title: str = '',
+        title: str = "",
         color: tuple[float, float, float] = (1, 1, 0),
         modification_time: datetime.datetime | None = None,
         page: int | None = None,
@@ -374,12 +380,12 @@ class FPDF:
     def ink_annotation(
         self,
         coords: Iterable[Incomplete],
-        contents: str = '',
-        title: str = '',
+        contents: str = "",
+        title: str = "",
         color: Sequence[float] = (1, 1, 0),
         border_width: int = 1,
     ) -> AnnotationDict: ...
-    def text(self, x: float, y: float, txt: str = '') -> None: ...
+    def text(self, x: float, y: float, txt: str = "") -> None: ...
     def rotate(self, angle: float, x: float | None = None, y: float | None = None) -> None: ...
     def rotation(self, angle: float, x: float | None = None, y: float | None = None) -> _GeneratorContextManager[None]: ...
     def skew(
@@ -403,13 +409,13 @@ class FPDF:
         self,
         w: float | None = None,
         h: float | None = None,
-        txt: str = '',
+        txt: str = "",
         border: bool | Literal[0, 1] | str = 0,
-        ln: int | Literal["DEPRECATED"] = 'DEPRECATED',
+        ln: int | Literal["DEPRECATED"] = "DEPRECATED",
         align: str | Align = ...,
         fill: bool = False,
-        link: str = '',
-        center: bool | Literal["DEPRECATED"] = 'DEPRECATED',
+        link: str = "",
+        center: bool | Literal["DEPRECATED"] = "DEPRECATED",
         markdown: bool = False,
         new_x: XPos | str = ...,
         new_y: YPos | str = ...,
@@ -419,20 +425,20 @@ class FPDF:
         self,
         w: float,
         h: float | None = None,
-        txt: str = '',
+        txt: str = "",
         border: bool | Literal[0, 1] | str = 0,
         align: str | Align = ...,
         fill: bool = False,
         split_only: bool = False,
-        link: str | int = '',
-        ln: int | Literal["DEPRECATED"] = 'DEPRECATED',
+        link: str | int = "",
+        ln: int | Literal["DEPRECATED"] = "DEPRECATED",
         max_line_height: float | None = None,
         markdown: bool = False,
         print_sh: bool = False,
         new_x: XPos | str = ...,
         new_y: YPos | str = ...,
     ): ...
-    def write(self, h: float | None = None, txt: str = '', link: str = '', print_sh: bool = False) -> None: ...
+    def write(self, h: float | None = None, txt: str = "", link: str = "", print_sh: bool = False) -> None: ...
     def image(
         self,
         name: str | Image.Image | BytesIO | StrPath,
@@ -461,7 +467,7 @@ class FPDF:
         self,
         pkcs_filepath: str,
         password: bytes | None = None,
-        hashalgo: str = 'sha256',
+        hashalgo: str = "sha256",
         contact_info: str | None = None,
         location: str | None = None,
         signing_time: datetime.datetime | None = None,
@@ -473,7 +479,7 @@ class FPDF:
         key,
         cert,
         extra_certs: Sequence[Incomplete] = (),
-        hashalgo: str = 'sha256',
+        hashalgo: str = "sha256",
         contact_info: str | None = None,
         location: str | None = None,
         signing_time: datetime.datetime | None = None,

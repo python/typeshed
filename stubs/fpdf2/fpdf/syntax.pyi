@@ -11,10 +11,10 @@ _T = TypeVar("_T")
 def clear_empty_fields(d): ...
 def create_dictionary_string(
     dict_,
-    open_dict: str = '<<',
-    close_dict: str = '>>',
-    field_join: str = '\n',
-    key_value_join: str = ' ',
+    open_dict: str = "<<",
+    close_dict: str = ">>",
+    field_join: str = "\n",
+    key_value_join: str = " ",
     has_empty_fields: bool = False,
 ): ...
 def create_list_string(list_): ...
@@ -66,5 +66,5 @@ class DestinationXYZ(Destination):
     left: float
     zoom: float | Literal["null"]
     page_ref: Incomplete | None
-    def __init__(self, page: int, top: float, left: float = 0, zoom: float | Literal["null"] = 'null') -> None: ...
+    def __init__(self, page: int, top: float, left: float = 0, zoom: float | Literal["null"] = "null") -> None: ...
     def serialize(self) -> str: ...

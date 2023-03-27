@@ -8,7 +8,7 @@ logger: Logger
 
 def process_file(
     fh: Reader,
-    stop_tag: str = 'UNDEF',
+    stop_tag: str = "UNDEF",
     details: bool = True,
     strict: bool = False,
     debug: bool = False,

@@ -61,7 +61,7 @@ class HTMLBinaryInputStream(HTMLUnicodeInputStream):
         transport_encoding: Incomplete | None = None,
         same_origin_parent_encoding: Incomplete | None = None,
         likely_encoding: Incomplete | None = None,
-        default_encoding: str = 'windows-1252',
+        default_encoding: str = "windows-1252",
         useChardet: bool = True,
     ) -> None: ...
     dataStream: Any

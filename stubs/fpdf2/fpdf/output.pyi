@@ -31,7 +31,12 @@ class PDFFont(PDFObject):
     font_descriptor: Incomplete | None
     c_i_d_to_g_i_d_map: Incomplete | None
     def __init__(
-        self, subtype: str, base_font: str, encoding: str | None = None, d_w: Incomplete | None = None, w: Incomplete | None = None
+        self,
+        subtype: str,
+        base_font: str,
+        encoding: str | None = None,
+        d_w: Incomplete | None = None,
+        w: Incomplete | None = None,
     ) -> None: ...
 
 class PDFFontDescriptor(PDFObject):
