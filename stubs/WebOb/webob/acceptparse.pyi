@@ -267,7 +267,7 @@ class AcceptLanguageValidHeader(AcceptLanguage):
         self,
         language_tags: Iterable[str],
         default_range: str | None = None,
-        default_tag: str | None = None,
+        default_tag: str = ...,
         default: str | Callable[[], str | None] | None = None,
     ) -> str | None: ...
     @overload
@@ -276,7 +276,7 @@ class AcceptLanguageValidHeader(AcceptLanguage):
         language_tags: Iterable[str],
         default_range: str | None = None,
         default_tag: str | None = None,
-        default: str | Callable[[], str | None] | None = None,
+        default: str | Callable[[], str | None] = ...,
     ) -> str | None: ...
     def quality(self, offer: str) -> float | None: ...
 
@@ -299,7 +299,7 @@ class _AcceptLanguageInvalidOrNoHeader(AcceptLanguage):
         self,
         language_tags: Iterable[str],
         default_range: str | None = None,
-        default_tag: str | None = None,
+        default_tag: str = ...,
         default: str | Callable[[], str | None] | None = None,
     ) -> str | None: ...
     @overload
@@ -308,7 +308,7 @@ class _AcceptLanguageInvalidOrNoHeader(AcceptLanguage):
         language_tags: Iterable[str],
         default_range: str | None = None,
         default_tag: str | None = None,
-        default: str | Callable[[], str | None] | None = None,
+        default: str | Callable[[], str | None] = ...,
     ) -> str | None: ...
     def quality(self, offer: str) -> float | None: ...
 
