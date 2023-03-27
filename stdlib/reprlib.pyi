@@ -1,12 +1,14 @@
+import sys
 from array import array
 from collections import deque
 from collections.abc import Callable
-from typing import Any
+from typing import Any, TypeVar
 from typing_extensions import TypeAlias
 
 __all__ = ["Repr", "repr", "recursive_repr"]
 
-_ReprFunc: TypeAlias = Callable[[Any], str]
+_T = TypeVar("_T")
+_ReprFunc: TypeAlias = Callable[[_T], str]
 
 def recursive_repr(fillvalue: str = "...") -> Callable[[_ReprFunc], _ReprFunc]: ...
 
@@ -22,6 +24,32 @@ class Repr:
     maxlong: int
     maxstring: int
     maxother: int
+    if sys.version_info >= (3, 11):
+        fillvalue: str
+    if sys.version_info >= (3, 12):
+        indent: str | int | None
+
+    if sys.version_info >= (3, 12):
+        def __init__(
+            self,
+            *,
+            maxlevel: int = ...,
+            maxtuple: int = ...,
+            maxlist: int = ...,
+            maxarray: int = ...,
+            maxdict: int = ...,
+            maxset: int = ...,
+            maxfrozenset: int = ...,
+            maxdeque: int = ...,
+            maxstring: int = ...,
+            maxlong: int = ...,
+            maxother: int = ...,
+            fillvalue: str = ...,
+            indent: str | int | None = ...,
+        ) -> None: ...
+    else:
+        def __init__(self) -> None: ...
+
     def repr(self, x: Any) -> str: ...
     def repr1(self, x: Any, level: int) -> str: ...
     def repr_tuple(self, x: tuple[Any, ...], level: int) -> str: ...
