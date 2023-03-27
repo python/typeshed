@@ -10,7 +10,7 @@ class Name:
     prefix: Any
     suffix: Any
     def __init__(
-        self, family: str = ..., given: str = ..., additional: str = ..., prefix: str = ..., suffix: str = ...
+        self, family: str = '', given: str = '', additional: str = '', prefix: str = '', suffix: str = ''
     ) -> None: ...
     @staticmethod
     def toString(val): ...
@@ -26,16 +26,16 @@ class Address:
     country: Any
     def __init__(
         self,
-        street: str = ...,
-        city: str = ...,
-        region: str = ...,
-        code: str = ...,
-        country: str = ...,
-        box: str = ...,
-        extended: str = ...,
+        street: str = '',
+        city: str = '',
+        region: str = '',
+        code: str = '',
+        country: str = '',
+        box: str = '',
+        extended: str = '',
     ) -> None: ...
     @staticmethod
-    def toString(val, join_char: str = ...): ...
+    def toString(val, join_char: str = '\n'): ...
     lines: Any
     one_line: Any
     def __eq__(self, other): ...
@@ -84,7 +84,7 @@ class Photo(VCardTextBehavior):
 def toListOrString(string): ...
 def splitFields(string): ...
 def toList(stringOrList): ...
-def serializeFields(obj, order: Incomplete | None = ...): ...
+def serializeFields(obj, order: Incomplete | None = None): ...
 
 NAME_ORDER: Any
 ADDRESS_ORDER: Any
