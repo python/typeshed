@@ -14,24 +14,24 @@ empty_msgid_warning: str
 @overload
 def extract_from_dir(
     dirname: AnyStr | PathLike[AnyStr],
-    method_map: Iterable[tuple[str, str]] = ...,
-    options_map: SupportsItems[str, dict[str, Any]] | None = ...,
-    keywords: Mapping[str, _Keyword] = ...,
-    comment_tags: Collection[str] = ...,
-    callback: Callable[[AnyStr, str, dict[str, Any]], object] | None = ...,
-    strip_comment_tags: bool = ...,
-    directory_filter: Callable[[str], bool] | None = ...,
+    method_map: Iterable[tuple[str, str]] = [('**.py', 'python')],
+    options_map: SupportsItems[str, dict[str, Any]] | None = None,
+    keywords: Mapping[str, _Keyword] = {'_': None, 'gettext': None, 'ngettext': (1, 2), 'ugettext': None, 'ungettext': (1, 2), 'dgettext': (2,), 'dngettext': (2, 3), 'N_': None, 'pgettext': ((1, 'c'), 2), 'npgettext': ((1, 'c'), 2, 3)},
+    comment_tags: Collection[str] = (),
+    callback: Callable[[AnyStr, str, dict[str, Any]], object] | None = None,
+    strip_comment_tags: bool = False,
+    directory_filter: Callable[[str], bool] | None = None,
 ) -> Generator[tuple[AnyStr, int, str | tuple[str, ...], list[str], str | None], None, None]: ...
 @overload
 def extract_from_dir(
-    dirname: None = ...,  # No dirname causes os.getcwd() to be used, producing str.
-    method_map: Iterable[tuple[str, str]] = ...,
-    options_map: SupportsItems[str, dict[str, Any]] | None = ...,
-    keywords: Mapping[str, _Keyword] = ...,
-    comment_tags: Collection[str] = ...,
-    callback: Callable[[str, str, dict[str, Any]], object] | None = ...,
-    strip_comment_tags: bool = ...,
-    directory_filter: Callable[[str], bool] | None = ...,
+    dirname: None = None,  # No dirname causes os.getcwd() to be used, producing str.
+    method_map: Iterable[tuple[str, str]] = [('**.py', 'python')],
+    options_map: SupportsItems[str, dict[str, Any]] | None = None,
+    keywords: Mapping[str, _Keyword] = {'_': None, 'gettext': None, 'ngettext': (1, 2), 'ugettext': None, 'ungettext': (1, 2), 'dgettext': (2,), 'dngettext': (2, 3), 'N_': None, 'pgettext': ((1, 'c'), 2), 'npgettext': ((1, 'c'), 2, 3)},
+    comment_tags: Collection[str] = (),
+    callback: Callable[[str, str, dict[str, Any]], object] | None = None,
+    strip_comment_tags: bool = False,
+    directory_filter: Callable[[str], bool] | None = None,
 ) -> Generator[tuple[str, int, str | tuple[str, ...], list[str], str | None], None, None]: ...
 def check_and_call_extract_file(
     filepath: AnyStr | PathLike[AnyStr],
@@ -41,15 +41,15 @@ def check_and_call_extract_file(
     keywords: Mapping[str, _Keyword],
     comment_tags: Collection[str],
     strip_comment_tags,
-    dirpath: Incomplete | None = ...,
+    dirpath: Incomplete | None = None,
 ) -> Generator[tuple[AnyStr, int, str | tuple[str, ...], list[str], str | None], None, None]: ...
 def extract_from_file(
     method,
     filename: AnyStr | PathLike[AnyStr],
-    keywords: Mapping[str, _Keyword] = ...,
-    comment_tags: Collection[str] = ...,
-    options: dict[str, Any] | None = ...,
-    strip_comment_tags: bool = ...,
+    keywords: Mapping[str, _Keyword] = {'_': None, 'gettext': None, 'ngettext': (1, 2), 'ugettext': None, 'ungettext': (1, 2), 'dgettext': (2,), 'dngettext': (2, 3), 'N_': None, 'pgettext': ((1, 'c'), 2), 'npgettext': ((1, 'c'), 2, 3)},
+    comment_tags: Collection[str] = (),
+    options: dict[str, Any] | None = None,
+    strip_comment_tags: bool = False,
 ) -> list[tuple[AnyStr, int, str | tuple[str, ...], list[str], str | None]]: ...
 
 class _FileObj(SupportsRead[bytes], SupportsReadline[bytes], Protocol):
@@ -59,10 +59,10 @@ class _FileObj(SupportsRead[bytes], SupportsReadline[bytes], Protocol):
 def extract(
     method,
     fileobj: _FileObj,
-    keywords: Mapping[str, _Keyword] = ...,
-    comment_tags: Collection[str] = ...,
-    options: dict[str, Any] | None = ...,
-    strip_comment_tags: bool = ...,
+    keywords: Mapping[str, _Keyword] = {'_': None, 'gettext': None, 'ngettext': (1, 2), 'ugettext': None, 'ungettext': (1, 2), 'dgettext': (2,), 'dngettext': (2, 3), 'N_': None, 'pgettext': ((1, 'c'), 2), 'npgettext': ((1, 'c'), 2, 3)},
+    comment_tags: Collection[str] = (),
+    options: dict[str, Any] | None = None,
+    strip_comment_tags: bool = False,
 ) -> Iterable[tuple[int, str | tuple[str, ...], list[str], str | None]]: ...
 def extract_nothing(
     fileobj: _FileObj, keywords: Mapping[str, _Keyword], comment_tags: Collection[str], options: dict[str, Any]
