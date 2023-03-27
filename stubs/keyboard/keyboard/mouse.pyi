@@ -47,9 +47,10 @@ def drag(start_x: int, start_y: int, end_x: int, end_y: int, absolute: bool = Tr
 def on_button(
     callback: Callable[..., None],
     args: _Ts = (),
-    buttons: list[_MouseButton] | tuple[_MouseButton, ...] | _MouseButton = ("left", "middle", "right", "x", "x2"),
-    # Darwin and Linux don't have "double", yet the defaults includes it
-    types: list[_MouseEventType] | tuple[_MouseEventType, ...] | _MouseEventType = ("up", "down", "double"),  # type: ignore[assignment]
+    # Omitting default: Darwin has no x and x2
+    buttons: list[_MouseButton] | tuple[_MouseButton, ...] | _MouseButton = ...,
+    # Omitting default: Darwin and Linux don't have "double", yet the defaults includes it
+    types: list[_MouseEventType] | tuple[_MouseEventType, ...] | _MouseEventType = ...,
 ) -> _Callback: ...
 def on_click(callback: Callable[..., None], args: _Ts = ()) -> _Callback: ...
 def on_double_click(callback: Callable[..., None], args: _Ts = ()) -> _Callback: ...
@@ -57,8 +58,8 @@ def on_right_click(callback: Callable[..., None], args: _Ts = ()) -> _Callback: 
 def on_middle_click(callback: Callable[..., None], args: _Ts = ()) -> _Callback: ...
 def wait(
     button: _MouseButton = "left",
-    # Darwin and Linux don't have "double", yet the defaults includes it
-    target_types: tuple[_MouseEventType, ...] = ("up", "down", "double"),  # type: ignore[assignment]
+    # Omitting default: Darwin and Linux don't have "double", yet the defaults includes it
+    target_types: tuple[_MouseEventType, ...] = ...,
 ) -> None: ...
 
 if sys.platform == "win32":
