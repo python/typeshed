@@ -14,7 +14,7 @@ class RequestCookies(MutableMapping[str, str]):
     def __setitem__(self, name: str, value: str) -> None: ...
     def __getitem__(self, name: str) -> str: ...
     @overload
-    def get(self, name: str, default: None = ...) -> str | None: ...
+    def get(self, name: str, default: None = None) -> str | None: ...
     @overload
     def get(self, name: str, default: str | _T) -> str | _T: ...
     def __delitem__(self, name: str) -> None: ...
@@ -27,13 +27,13 @@ class RequestCookies(MutableMapping[str, str]):
     def clear(self) -> None: ...
 
 class Cookie(dict[str, Morsel]):
-    def __init__(self, input: Incomplete | None = ...) -> None: ...
-    def load(self, data: bytes) -> None: ...
+    def __init__(self, input: str | None = None) -> None: ...
+    def load(self, data: str) -> None: ...
     def add(self, key: str | bytes, val: str | bytes) -> Morsel: ...
     def __setitem__(self, key: str | bytes, val: str | bytes) -> Morsel: ...  # type:ignore[override]
-    def serialize(self, full: bool = ...) -> str: ...
+    def serialize(self, full: bool = True) -> str: ...
     def values(self) -> list[Morsel]: ...  # type:ignore[override]
-    def __str__(self, full: bool = ...) -> str: ...
+    def __str__(self, full: bool = True) -> str: ...
 
 class Morsel(dict[bytes, bytes | bool | None]):
     name: bytes
@@ -62,19 +62,19 @@ class Morsel(dict[bytes, bytes | bool | None]):
     @secure.setter
     def secure(self, v: bool) -> None: ...
     samesite: _AsymmetricProperty[bytes | None, Literal["strict", "lax", "none"] | None]
-    def serialize(self, full: bool = ...) -> str: ...
-    def __str__(self, full: bool = ...) -> str: ...
+    def serialize(self, full: bool = True) -> str: ...
+    def __str__(self, full: bool = True) -> str: ...
 
 def make_cookie(
     name: str | bytes,
     value: str | bytes | None,
-    max_age: int | timedelta | None = ...,
-    path: str = ...,
-    domain: str | None = ...,
-    secure: bool = ...,
-    httponly: bool = ...,
-    comment: str | None = ...,
-    samesite: Literal["strict", "lax", "none"] | None = ...,
+    max_age: int | timedelta | None = None,
+    path: str = "/",
+    domain: str | None = None,
+    secure: bool = False,
+    httponly: bool = False,
+    comment: str | None = None,
+    samesite: Literal["strict", "lax", "none"] | None = None,
 ) -> str: ...
 
 class JSONSerializer:
@@ -83,7 +83,7 @@ class JSONSerializer:
 
 class Base64Serializer:
     serializer: Incomplete
-    def __init__(self, serializer: Incomplete | None = ...) -> None: ...
+    def __init__(self, serializer: Incomplete | None = None) -> None: ...
     def dumps(self, appstruct): ...
     def loads(self, bstruct): ...
 
@@ -95,7 +95,7 @@ class SignedSerializer:
     digestmod: Incomplete
     digest_size: Incomplete
     serializer: Incomplete
-    def __init__(self, secret, salt, hashalg: str = ..., serializer: Incomplete | None = ...) -> None: ...
+    def __init__(self, secret, salt, hashalg: str = "sha512", serializer: Incomplete | None = None) -> None: ...
     def dumps(self, appstruct): ...
     def loads(self, bstruct): ...
 
@@ -112,13 +112,13 @@ class CookieProfile:
     def __init__(
         self,
         cookie_name,
-        secure: bool = ...,
-        max_age: Incomplete | None = ...,
-        httponly: Incomplete | None = ...,
-        samesite: Incomplete | None = ...,
-        path: str = ...,
-        domains: Incomplete | None = ...,
-        serializer: Incomplete | None = ...,
+        secure: bool = False,
+        max_age: Incomplete | None = None,
+        httponly: Incomplete | None = None,
+        samesite: Incomplete | None = None,
+        path: str = "/",
+        domains: Incomplete | None = None,
+        serializer: Incomplete | None = None,
     ) -> None: ...
     def __call__(self, request): ...
     def bind(self, request): ...
@@ -136,13 +136,13 @@ class SignedCookieProfile(CookieProfile):
         secret,
         salt,
         cookie_name,
-        secure: bool = ...,
-        max_age: Incomplete | None = ...,
-        httponly: bool = ...,
-        samesite: Incomplete | None = ...,
-        path: str = ...,
-        domains: Incomplete | None = ...,
-        hashalg: str = ...,
-        serializer: Incomplete | None = ...,
+        secure: bool = False,
+        max_age: Incomplete | None = None,
+        httponly: bool = False,
+        samesite: Incomplete | None = None,
+        path: str = "/",
+        domains: Incomplete | None = None,
+        hashalg: str = "sha512",
+        serializer: Incomplete | None = None,
     ) -> None: ...
     def bind(self, request): ...

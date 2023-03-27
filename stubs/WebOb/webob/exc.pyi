@@ -27,11 +27,11 @@ class WSGIHTTPException(Response, HTTPException):
     comment: str | None
     def __init__(
         self,
-        detail: str | None = ...,
-        headers: SupportsItems[str, str] | SupportsKeysAndGetItem[str, str] | Iterable[tuple[str, str]] | None = ...,
-        comment: str | None = ...,
-        body_template: str | None = ...,
-        json_formatter: _JSONFormatter | None = ...,
+        detail: str | None = None,
+        headers: SupportsItems[str, str] | SupportsKeysAndGetItem[str, str] | Iterable[tuple[str, str]] | None = None,
+        comment: str | None = None,
+        body_template: str | None = None,
+        json_formatter: _JSONFormatter | None = None,
         **kw: Any,
     ) -> None: ...
     def plain_body(self, environ: WSGIEnvironment) -> str: ...
@@ -63,12 +63,12 @@ class _HTTPMove(HTTPRedirection):
     add_slash: bool
     def __init__(
         self,
-        detail: str | None = ...,
-        headers: str | None = ...,
-        comment: str | None = ...,
-        body_template: str | None = ...,
-        location: str | None = ...,
-        add_slash: bool = ...,
+        detail: str | None = None,
+        headers: str | None = None,
+        comment: str | None = None,
+        body_template: str | None = None,
+        location: str | None = None,
+        add_slash: bool = False,
     ) -> None: ...
 
 class HTTPMultipleChoices(_HTTPMove): ...
