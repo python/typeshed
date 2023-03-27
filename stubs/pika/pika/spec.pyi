@@ -56,8 +56,8 @@ class Connection(Class):
             version_major: int = 0,
             version_minor: int = 9,
             server_properties: Incomplete | None = None,
-            mechanisms: _str = "PLAIN",
-            locales: _str = "en_US",
+            mechanisms: _str = ...,
+            locales: _str = ...,
         ) -> None: ...
         @property
         def synchronous(self): ...
@@ -73,9 +73,9 @@ class Connection(Class):
         def __init__(
             self,
             client_properties: Incomplete | None = None,
-            mechanism: _str = "PLAIN",
+            mechanism: _str = ...,
             response: Incomplete | None = None,
-            locale: _str = "en_US",
+            locale: _str = ...,
         ) -> None: ...
         @property
         def synchronous(self): ...
@@ -127,7 +127,7 @@ class Connection(Class):
         virtual_host: Incomplete
         capabilities: Incomplete
         insist: Incomplete
-        def __init__(self, virtual_host: _str = "/", capabilities: _str = "", insist: bool = False) -> None: ...
+        def __init__(self, virtual_host: _str = ..., capabilities: _str = ..., insist: bool = False) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = 0): ...
@@ -136,7 +136,7 @@ class Connection(Class):
     class OpenOk(Method):
         INDEX: ClassVar[int]
         known_hosts: Incomplete
-        def __init__(self, known_hosts: _str = "") -> None: ...
+        def __init__(self, known_hosts: _str = ...) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = 0): ...
@@ -151,7 +151,7 @@ class Connection(Class):
         def __init__(
             self,
             reply_code: Incomplete | None = None,
-            reply_text: _str = "",
+            reply_text: _str = ...,
             class_id: Incomplete | None = None,
             method_id: Incomplete | None = None,
         ) -> None: ...
@@ -171,7 +171,7 @@ class Connection(Class):
     class Blocked(Method):
         INDEX: ClassVar[int]
         reason: Incomplete
-        def __init__(self, reason: _str = "") -> None: ...
+        def __init__(self, reason: _str = ...) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = 0): ...
@@ -210,7 +210,7 @@ class Channel(Class):
     class Open(Method):
         INDEX: ClassVar[int]
         out_of_band: Incomplete
-        def __init__(self, out_of_band: _str = "") -> None: ...
+        def __init__(self, out_of_band: _str = ...) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = 0): ...
@@ -219,7 +219,7 @@ class Channel(Class):
     class OpenOk(Method):
         INDEX: ClassVar[int]
         channel_id: Incomplete
-        def __init__(self, channel_id: _str = "") -> None: ...
+        def __init__(self, channel_id: _str = ...) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = 0): ...
@@ -252,7 +252,7 @@ class Channel(Class):
         def __init__(
             self,
             reply_code: Incomplete | None = None,
-            reply_text: _str = "",
+            reply_text: _str = ...,
             class_id: Incomplete | None = None,
             method_id: Incomplete | None = None,
         ) -> None: ...
@@ -282,7 +282,7 @@ class Access(Class):
         read: Incomplete
         def __init__(
             self,
-            realm: _str = "/data",
+            realm: _str = ...,
             exclusive: bool = False,
             passive: bool = True,
             active: bool = True,
@@ -377,7 +377,7 @@ class Exchange(Class):
             ticket: int = 0,
             destination: Incomplete | None = None,
             source: Incomplete | None = None,
-            routing_key: _str = "",
+            routing_key: _str = ...,
             nowait: bool = False,
             arguments: Incomplete | None = None,
         ) -> None: ...
@@ -407,7 +407,7 @@ class Exchange(Class):
             ticket: int = 0,
             destination: Incomplete | None = None,
             source: Incomplete | None = None,
-            routing_key: _str = "",
+            routing_key: _str = ...,
             nowait: bool = False,
             arguments: Incomplete | None = None,
         ) -> None: ...
@@ -440,7 +440,7 @@ class Queue(Class):
         def __init__(
             self,
             ticket: int = 0,
-            queue: _str = "",
+            queue: _str = ...,
             passive: bool = False,
             durable: bool = False,
             exclusive: bool = False,
@@ -475,9 +475,9 @@ class Queue(Class):
         def __init__(
             self,
             ticket: int = 0,
-            queue: _str = "",
+            queue: _str = ...,
             exchange: Incomplete | None = None,
-            routing_key: _str = "",
+            routing_key: _str = ...,
             nowait: bool = False,
             arguments: Incomplete | None = None,
         ) -> None: ...
@@ -499,7 +499,7 @@ class Queue(Class):
         ticket: Incomplete
         queue: Incomplete
         nowait: Incomplete
-        def __init__(self, ticket: int = 0, queue: _str = "", nowait: bool = False) -> None: ...
+        def __init__(self, ticket: int = 0, queue: _str = ..., nowait: bool = False) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = 0): ...
@@ -522,7 +522,7 @@ class Queue(Class):
         if_empty: Incomplete
         nowait: Incomplete
         def __init__(
-            self, ticket: int = 0, queue: _str = "", if_unused: bool = False, if_empty: bool = False, nowait: bool = False
+            self, ticket: int = 0, queue: _str = ..., if_unused: bool = False, if_empty: bool = False, nowait: bool = False
         ) -> None: ...
         @property
         def synchronous(self): ...
@@ -548,9 +548,9 @@ class Queue(Class):
         def __init__(
             self,
             ticket: int = 0,
-            queue: _str = "",
+            queue: _str = ...,
             exchange: Incomplete | None = None,
-            routing_key: _str = "",
+            routing_key: _str = ...,
             arguments: Incomplete | None = None,
         ) -> None: ...
         @property
@@ -601,8 +601,8 @@ class Basic(Class):
         def __init__(
             self,
             ticket: int = 0,
-            queue: _str = "",
-            consumer_tag: _str = "",
+            queue: _str = ...,
+            consumer_tag: _str = ...,
             no_local: bool = False,
             no_ack: bool = False,
             exclusive: bool = False,
@@ -650,7 +650,7 @@ class Basic(Class):
         mandatory: Incomplete
         immediate: Incomplete
         def __init__(
-            self, ticket: int = 0, exchange: _str = "", routing_key: _str = "", mandatory: bool = False, immediate: bool = False
+            self, ticket: int = 0, exchange: _str = ..., routing_key: _str = ..., mandatory: bool = False, immediate: bool = False
         ) -> None: ...
         @property
         def synchronous(self): ...
@@ -666,7 +666,7 @@ class Basic(Class):
         def __init__(
             self,
             reply_code: Incomplete | None = None,
-            reply_text: _str = "",
+            reply_text: _str = ...,
             exchange: Incomplete | None = None,
             routing_key: Incomplete | None = None,
         ) -> None: ...
@@ -700,7 +700,7 @@ class Basic(Class):
         ticket: Incomplete
         queue: Incomplete
         no_ack: Incomplete
-        def __init__(self, ticket: int = 0, queue: _str = "", no_ack: bool = False) -> None: ...
+        def __init__(self, ticket: int = 0, queue: _str = ..., no_ack: bool = False) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = 0): ...
@@ -729,7 +729,7 @@ class Basic(Class):
     class GetEmpty(Method):
         INDEX: ClassVar[int]
         cluster_id: Incomplete
-        def __init__(self, cluster_id: _str = "") -> None: ...
+        def __init__(self, cluster_id: _str = ...) -> None: ...
         @property
         def synchronous(self): ...
         def decode(self, encoded, offset: int = 0): ...
