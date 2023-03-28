@@ -11,10 +11,10 @@ from waitress.task import Task, ThreadedTaskDispatcher
 
 def create_server(
     application: Any,
-    map: Incomplete | None = ...,
-    _start: bool = ...,
-    _sock: socket | None = ...,
-    _dispatcher: ThreadedTaskDispatcher | None = ...,
+    map: Incomplete | None = None,
+    _start: bool = True,
+    _sock: socket | None = None,
+    _dispatcher: ThreadedTaskDispatcher | None = None,
     **kw: Any,
 ) -> MultiSocketServer | BaseWSGIServer: ...
 
@@ -26,10 +26,10 @@ class MultiSocketServer:
     task_dispatcher: ThreadedTaskDispatcher = ...
     def __init__(
         self,
-        map: Incomplete | None = ...,
-        adj: Adjustments | None = ...,
-        effective_listen: Sequence[tuple[str, int]] | None = ...,
-        dispatcher: ThreadedTaskDispatcher | None = ...,
+        map: Incomplete | None = None,
+        adj: Adjustments | None = None,
+        effective_listen: Sequence[tuple[str, int]] | None = None,
+        dispatcher: ThreadedTaskDispatcher | None = None,
     ) -> None: ...
     def print_listen(self, format_str: str) -> None: ...
     def run(self) -> None: ...
@@ -52,13 +52,13 @@ class BaseWSGIServer(wasyncore.dispatcher):
     def __init__(
         self,
         application: Any,
-        map: Incomplete | None = ...,
-        _start: bool = ...,
-        _sock: Incomplete | None = ...,
-        dispatcher: ThreadedTaskDispatcher | None = ...,
-        adj: Adjustments | None = ...,
-        sockinfo: Incomplete | None = ...,
-        bind_socket: bool = ...,
+        map: Incomplete | None = None,
+        _start: bool = True,
+        _sock: Incomplete | None = None,
+        dispatcher: ThreadedTaskDispatcher | None = None,
+        adj: Adjustments | None = None,
+        sockinfo: Incomplete | None = None,
+        bind_socket: bool = True,
         **kw: Any,
     ) -> None: ...
     def bind_server_socket(self) -> None: ...
