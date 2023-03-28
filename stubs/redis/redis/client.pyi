@@ -99,6 +99,7 @@ class Redis(AbstractRedis, RedisModuleCommands, CoreCommands[_StrType], Sentinel
         errors: str | None = ...,
         decode_responses: Literal[True],
         retry_on_timeout: bool = ...,
+        retry_on_error: list[type[RedisError]] | None = ...,
         ssl: bool = ...,
         ssl_keyfile: str | None = ...,
         ssl_certfile: str | None = ...,
@@ -110,6 +111,7 @@ class Redis(AbstractRedis, RedisModuleCommands, CoreCommands[_StrType], Sentinel
         health_check_interval: float = ...,
         client_name: str | None = ...,
         username: str | None = ...,
+        retry: Retry | None = ...,
     ) -> Redis[str]: ...
     @overload
     @classmethod
@@ -133,6 +135,7 @@ class Redis(AbstractRedis, RedisModuleCommands, CoreCommands[_StrType], Sentinel
         errors: str | None = ...,
         decode_responses: Literal[False] = ...,
         retry_on_timeout: bool = ...,
+        retry_on_error: list[type[RedisError]] | None = ...,
         ssl: bool = ...,
         ssl_keyfile: str | None = ...,
         ssl_certfile: str | None = ...,
@@ -144,6 +147,7 @@ class Redis(AbstractRedis, RedisModuleCommands, CoreCommands[_StrType], Sentinel
         health_check_interval: float = ...,
         client_name: str | None = ...,
         username: str | None = ...,
+        retry: Retry | None = ...,
     ) -> Redis[bytes]: ...
     connection_pool: Any
     response_callbacks: Any
