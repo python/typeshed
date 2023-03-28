@@ -40,8 +40,8 @@ class BitmapImage(tkinter._BitmapImageLike):
         name: str | None = None,
         cnf: dict[str, Any] = ...,
         master: tkinter.Misc | _tkinter.TkappType | None = None,
-        background: tkinter._Color = ...,
-        foreground: tkinter._Color = ...,
+        background: str = ...,
+        foreground: str = ...,
         maskdata: str = ...,
         maskfile: StrOrBytesPath = ...,
     ) -> None: ...
