@@ -1,3 +1,4 @@
+import builtins
 from _typeshed import Incomplete
 from typing import ClassVar
 from typing_extensions import Literal, Self, TypeAlias
@@ -5,8 +6,8 @@ from typing_extensions import Literal, Self, TypeAlias
 from .amqp_object import Class, Method, Properties
 
 # Ouch. Since str = bytes at runtime, we need a type alias for "str".
-_str: TypeAlias = str  # noqa: Y042
-str = bytes
+_str: TypeAlias = builtins.str  # noqa: Y042
+str = builtins.bytes
 
 PROTOCOL_VERSION: Incomplete
 PORT: int
