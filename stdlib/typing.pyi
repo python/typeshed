@@ -167,12 +167,6 @@ _T = TypeVar("_T")
 
 def overload(func: _F) -> _F: ...
 
-# Unlike the vast majority module-level objects in stub files,
-# these `_SpecialForm` objects in typing need the default value `= ...`,
-# due to the fact that they are used elswhere in the same file.
-# Otherwise, flake8 erroneously flags them as undefined.
-# `_SpecialForm` objects in typing.py that are not used elswhere in the same file
-# do not need the default value assignment.
 Union: _SpecialForm
 Generic: _SpecialForm
 # Protocol is only present in 3.8 and later, but mypy needs it unconditionally
