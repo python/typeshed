@@ -28,11 +28,15 @@
 #     F403   import *' used; unable to detect undefined names
 #     F405   defined from star imports
 
+# The following rule works around a pyflakes problem, but is caught by our
+# type checker tests:
+#     F821   undefined name
+
 [flake8]
 extend-ignore = A, D, N8, SIM, RST, TYP, E301, E302, E305, E501
 per-file-ignores =
   *.py: E203
-  *.pyi: B, E701, E741, F401, F403, F405, F822
+  *.pyi: B, E701, E741, F401, F403, F405, F821, F822
   # Since typing.pyi defines "overload" this is not recognized by flake8 as typing.overload.
   # Unfortunately, flake8 does not allow to "noqa" just a specific error inside the file itself.
   # https://github.com/PyCQA/flake8/issues/1079
