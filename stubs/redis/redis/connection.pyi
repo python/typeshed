@@ -222,9 +222,11 @@ class SSLConnection(Connection):
 
 class UnixDomainSocketConnection(AbstractConnection):
     path: str
+    socket_timeout: float | None
     def __init__(
         self,
         path: str = "",
+        socket_timeout: float | None = None,
         *,
         db: int = 0,
         password: str | None = None,
