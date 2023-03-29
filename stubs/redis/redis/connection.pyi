@@ -222,9 +222,11 @@ class SSLConnection(Connection):
 
 class UnixDomainSocketConnection(AbstractConnection):
     path: str
+    socket_timeout: float | None
     def __init__(
         self,
         path: str = "",
+        socket_timeout: float | None = None,
         *,
         db: int = 0,
         password: str | None = None,
@@ -254,7 +256,7 @@ class ConnectionPool:
     @classmethod
     def from_url(cls, url: str, *, db: int = ..., decode_components: bool = ..., **kwargs) -> Self: ...
     def __init__(
-        self, connection_class: type[Connection] = ..., max_connections: int | None = None, **connection_kwargs
+        self, connection_class: type[AbstractConnection] = ..., max_connections: int | None = None, **connection_kwargs
     ) -> None: ...
     def reset(self) -> None: ...
     def get_connection(self, command_name: Unused, *keys, **options: _ConnectionPoolOptions) -> Connection: ...
