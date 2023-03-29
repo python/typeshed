@@ -8,7 +8,7 @@ from fanstatic.core import Dependable, NeededResources, Resource
 from fanstatic.inclusion import Inclusion
 
 # FIXME: Remove import ignores once types-WebOb exists
-from webob import Request, Response  # type: ignore[import]  # pyright: ignore[reportMissingImports]
+from webob import Request, Response  # type: ignore[import]  # pyright: ignore[reportMissingTypeStubs]
 
 class _NeededResourcesConfig(TypedDict, total=False):
     versioning: bool
@@ -26,7 +26,7 @@ class Injector:
     config: _NeededResourcesConfig
     injector: InjectorPlugin
     def __init__(
-        self, app: WSGIApplication, injector: InjectorPlugin | None = ..., **config: Any
+        self, app: WSGIApplication, injector: InjectorPlugin | None = None, **config: Any
     ) -> None: ...  # FIXME: Switch to Unpack[_NeededResourcesConfig]
     def __call__(self, environ: WSGIEnvironment, start_response: StartResponse) -> Iterable[bytes]: ...
 

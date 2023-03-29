@@ -1,20 +1,22 @@
-from _typeshed import Incomplete
+from collections.abc import Iterable
 
-def bundle_resources(resources): ...
-def rollup_resources(resources): ...
-def sort_resources(resources): ...
+from fanstatic.core import Bundle, NeededResources, Resource
+
+def bundle_resources(resources: Iterable[Resource]) -> list[Resource | Bundle]: ...
+def rollup_resources(resources: Iterable[Resource]) -> set[Resource]: ...
+def sort_resources(resources: Iterable[Resource]) -> list[Resource]: ...
 
 class Inclusion:
-    needed: Incomplete
-    resources: Incomplete
+    needed: NeededResources
+    resources: list[Resource | Bundle]
     def __init__(
         self,
-        needed,
-        resources: Incomplete | None = ...,
-        compile: bool = ...,
-        bundle: bool = ...,
-        mode: Incomplete | None = ...,
-        rollup: bool = ...,
+        needed: NeededResources,
+        resources: Iterable[Resource] | None = None,
+        compile: bool = False,
+        bundle: bool = False,
+        mode: str | None = None,
+        rollup: bool = False,
     ) -> None: ...
     def __len__(self) -> int: ...
-    def render(self): ...
+    def render(self) -> str: ...
