@@ -1,4 +1,3 @@
-from collections.abc import Callable
 from io import BufferedIOBase, BufferedRandom, BytesIO
 from typing import Any
 
