@@ -41,9 +41,9 @@ per-file-ignores =
   # Unfortunately, flake8 does not allow to "noqa" just a specific error inside the file itself.
   # https://github.com/PyCQA/flake8/issues/1079
   #     F811 redefinition of unused '...'
-  stdlib/typing.pyi: B, E701, E741, F401, F403, F405, F811, F822
+  stdlib/typing.pyi: B, E701, E741, F401, F403, F405, F811, F821, F822
   # Generated protobuf files include docstrings
-  *_pb2.pyi: B, E701, E741, F401, F403, F405, F822, Y021, Y026, Y053, Y054
+  *_pb2.pyi: B, E701, E741, F401, F403, F405, F821, F822, Y021, Y026, Y053, Y054
 
 exclude = .venv*,.git
 noqa_require_code = true
