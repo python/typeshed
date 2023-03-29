@@ -1,5 +1,11 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
+from typing_extensions import Literal
 
+from openpyxl.chart.layout import Layout
+from openpyxl.chart.shapes import GraphicalProperties
+from openpyxl.chart.text import RichText
+from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
 class DataTable(Serialisable):
@@ -8,10 +14,10 @@ class DataTable(Serialisable):
     showVertBorder: Incomplete
     showOutline: Incomplete
     showKeys: Incomplete
-    spPr: Incomplete
+    spPr: Typed[GraphicalProperties, Literal[True]]
     graphicalProperties: Incomplete
-    txPr: Incomplete
-    extLst: Incomplete
+    txPr: Typed[RichText, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -19,18 +25,18 @@ class DataTable(Serialisable):
         showVertBorder: Incomplete | None = None,
         showOutline: Incomplete | None = None,
         showKeys: Incomplete | None = None,
-        spPr: Incomplete | None = None,
-        txPr: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        spPr: GraphicalProperties | None = None,
+        txPr: RichText | None = None,
+        extLst: Unused = None,
     ) -> None: ...
 
 class PlotArea(Serialisable):
     tagname: str
-    layout: Incomplete
-    dTable: Incomplete
-    spPr: Incomplete
+    layout: Typed[Layout, Literal[True]]
+    dTable: Typed[DataTable, Literal[True]]
+    spPr: Typed[GraphicalProperties, Literal[True]]
     graphicalProperties: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     areaChart: Incomplete
     area3DChart: Incomplete
     lineChart: Incomplete
@@ -54,12 +60,12 @@ class PlotArea(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        layout: Incomplete | None = None,
-        dTable: Incomplete | None = None,
-        spPr: Incomplete | None = None,
+        layout: Layout | None = None,
+        dTable: DataTable | None = None,
+        spPr: GraphicalProperties | None = None,
         _charts=(),
         _axes=(),
-        extLst: Incomplete | None = None,
+        extLst: Unused = None,
     ) -> None: ...
     def to_tree(self, tagname: Incomplete | None = None, idx: Incomplete | None = None, namespace: Incomplete | None = None): ...
     @classmethod

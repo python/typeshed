@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Typed
 from openpyxl.descriptors.serialisable import Serialisable
 
 class Index(Serialisable):
@@ -15,9 +17,9 @@ class Tuple(Serialisable):  # type: ignore[misc]
 
 class TupleList(Serialisable):  # type: ignore[misc]
     c: Incomplete
-    tpl: Incomplete
+    tpl: Typed[Tuple, Literal[False]]
     __elements__: Incomplete
-    def __init__(self, c: Incomplete | None = None, tpl: Incomplete | None = None) -> None: ...
+    def __init__(self, c: Incomplete | None, tpl: Tuple) -> None: ...
 
 class Missing(Serialisable):
     tagname: str
@@ -87,7 +89,7 @@ class Number(Serialisable):
 
 class Error(Serialisable):
     tagname: str
-    tpls: Incomplete
+    tpls: Typed[TupleList, Literal[True]]
     x: Incomplete
     v: Incomplete
     u: Incomplete
@@ -103,7 +105,7 @@ class Error(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        tpls: Incomplete | None = None,
+        tpls: TupleList | None = None,
         x=(),
         v: Incomplete | None = None,
         u: Incomplete | None = None,

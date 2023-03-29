@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Typed
 from openpyxl.descriptors.serialisable import Serialisable
 
 from .colors import ColorChoice
@@ -35,11 +37,9 @@ class Color(Serialisable): ...
 
 class ColorChangeEffect(Serialisable):
     useA: Incomplete
-    clrFrom: Incomplete
-    clrTo: Incomplete
-    def __init__(
-        self, useA: Incomplete | None = None, clrFrom: Incomplete | None = None, clrTo: Incomplete | None = None
-    ) -> None: ...
+    clrFrom: Typed[Color, Literal[False]]
+    clrTo: Typed[Color, Literal[False]]
+    def __init__(self, useA: Incomplete | None, clrFrom: Color, clrTo: Color) -> None: ...
 
 class BlurEffect(Serialisable):
     rad: Incomplete
@@ -64,8 +64,8 @@ class EffectContainer(Serialisable):
     def __init__(self, type: Incomplete | None = None, name: Incomplete | None = None) -> None: ...
 
 class AlphaModulateEffect(Serialisable):
-    cont: Incomplete
-    def __init__(self, cont: Incomplete | None = None) -> None: ...
+    cont: Typed[EffectContainer, Literal[False]]
+    def __init__(self, cont: EffectContainer) -> None: ...
 
 class AlphaInverseEffect(Serialisable): ...
 class AlphaFloorEffect(Serialisable): ...
@@ -186,23 +186,23 @@ class SoftEdgesEffect(Serialisable):
     def __init__(self, rad: Incomplete | None = None) -> None: ...
 
 class EffectList(Serialisable):
-    blur: Incomplete
-    fillOverlay: Incomplete
-    glow: Incomplete
-    innerShdw: Incomplete
-    outerShdw: Incomplete
-    prstShdw: Incomplete
-    reflection: Incomplete
-    softEdge: Incomplete
+    blur: Typed[BlurEffect, Literal[True]]
+    fillOverlay: Typed[FillOverlayEffect, Literal[True]]
+    glow: Typed[GlowEffect, Literal[True]]
+    innerShdw: Typed[InnerShadowEffect, Literal[True]]
+    outerShdw: Typed[OuterShadow, Literal[True]]
+    prstShdw: Typed[PresetShadowEffect, Literal[True]]
+    reflection: Typed[ReflectionEffect, Literal[True]]
+    softEdge: Typed[SoftEdgesEffect, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
-        blur: Incomplete | None = None,
-        fillOverlay: Incomplete | None = None,
-        glow: Incomplete | None = None,
-        innerShdw: Incomplete | None = None,
-        outerShdw: Incomplete | None = None,
-        prstShdw: Incomplete | None = None,
-        reflection: Incomplete | None = None,
-        softEdge: Incomplete | None = None,
+        blur: BlurEffect | None = None,
+        fillOverlay: FillOverlayEffect | None = None,
+        glow: GlowEffect | None = None,
+        innerShdw: InnerShadowEffect | None = None,
+        outerShdw: OuterShadow | None = None,
+        prstShdw: PresetShadowEffect | None = None,
+        reflection: ReflectionEffect | None = None,
+        softEdge: SoftEdgesEffect | None = None,
     ) -> None: ...

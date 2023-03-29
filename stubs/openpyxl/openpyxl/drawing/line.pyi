@@ -1,6 +1,10 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.drawing.fill import GradientFillProperties, PatternFillProperties
 
 class LineEndProperties(Serialisable):
     tagname: str
@@ -33,17 +37,17 @@ class LineProperties(Serialisable):
     algn: Incomplete
     noFill: Incomplete
     solidFill: Incomplete
-    gradFill: Incomplete
-    pattFill: Incomplete
+    gradFill: Typed[GradientFillProperties, Literal[True]]
+    pattFill: Typed[PatternFillProperties, Literal[True]]
     prstDash: Incomplete
     dashStyle: Incomplete
-    custDash: Incomplete
+    custDash: Typed[DashStop, Literal[True]]
     round: Incomplete
     bevel: Incomplete
     miter: Incomplete
-    headEnd: Incomplete
-    tailEnd: Incomplete
-    extLst: Incomplete
+    headEnd: Typed[LineEndProperties, Literal[True]]
+    tailEnd: Typed[LineEndProperties, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -53,14 +57,14 @@ class LineProperties(Serialisable):
         algn: Incomplete | None = None,
         noFill: Incomplete | None = None,
         solidFill: Incomplete | None = None,
-        gradFill: Incomplete | None = None,
-        pattFill: Incomplete | None = None,
+        gradFill: GradientFillProperties | None = None,
+        pattFill: PatternFillProperties | None = None,
         prstDash: Incomplete | None = None,
-        custDash: Incomplete | None = None,
+        custDash: DashStop | None = None,
         round: Incomplete | None = None,
         bevel: Incomplete | None = None,
         miter: Incomplete | None = None,
-        headEnd: Incomplete | None = None,
-        tailEnd: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        headEnd: LineEndProperties | None = None,
+        tailEnd: LineEndProperties | None = None,
+        extLst: Unused = None,
     ) -> None: ...

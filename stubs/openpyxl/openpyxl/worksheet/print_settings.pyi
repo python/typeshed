@@ -1,8 +1,9 @@
 from _typeshed import Incomplete
 from re import Pattern
-from typing_extensions import Self
+from typing_extensions import Literal, Self
 
 from openpyxl.descriptors import Integer, Strict, String
+from openpyxl.descriptors.base import Typed
 from openpyxl.utils.cell import SHEETRANGE_RE as SHEETRANGE_RE
 
 from .cell_range import MultiCellRange
@@ -31,10 +32,10 @@ class RowRange(Strict):
     def __eq__(self, other: object) -> bool: ...
 
 class PrintTitles(Strict):
-    cols: Incomplete
-    rows: Incomplete
+    cols: Typed[ColRange, Literal[True]]
+    rows: Typed[RowRange, Literal[True]]
     title: String
-    def __init__(self, cols: Incomplete | None = None, rows: Incomplete | None = None, title: str = "") -> None: ...
+    def __init__(self, cols: ColRange | None = None, rows: RowRange | None = None, title: str = "") -> None: ...
     @classmethod
     def from_string(cls, value) -> Self: ...
     def __eq__(self, other: object) -> bool: ...

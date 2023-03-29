@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal
 
 from openpyxl.descriptors import Typed
+from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
 PRESET_COLORS: Incomplete
@@ -13,9 +15,9 @@ class SystemColor(Serialisable):
     namespace: Incomplete
     tint: Incomplete
     shade: Incomplete
-    comp: Incomplete
-    inv: Incomplete
-    gray: Incomplete
+    comp: Typed[Transform, Literal[True]]
+    inv: Typed[Transform, Literal[True]]
+    gray: Typed[Transform, Literal[True]]
     alpha: Incomplete
     alphaOff: Incomplete
     alphaMod: Incomplete
@@ -37,8 +39,8 @@ class SystemColor(Serialisable):
     blue: Incomplete
     blueOff: Incomplete
     blueMod: Incomplete
-    gamma: Incomplete
-    invGamma: Incomplete
+    gamma: Typed[Transform, Literal[True]]
+    invGamma: Typed[Transform, Literal[True]]
     val: Incomplete
     lastClr: Incomplete
     __elements__: Incomplete
@@ -48,9 +50,9 @@ class SystemColor(Serialisable):
         lastClr: Incomplete | None = None,
         tint: Incomplete | None = None,
         shade: Incomplete | None = None,
-        comp: Incomplete | None = None,
-        inv: Incomplete | None = None,
-        gray: Incomplete | None = None,
+        comp: Transform | None = None,
+        inv: Transform | None = None,
+        gray: Transform | None = None,
         alpha: Incomplete | None = None,
         alphaOff: Incomplete | None = None,
         alphaMod: Incomplete | None = None,
@@ -72,8 +74,8 @@ class SystemColor(Serialisable):
         blue: Incomplete | None = None,
         blueOff: Incomplete | None = None,
         blueMod: Incomplete | None = None,
-        gamma: Incomplete | None = None,
-        invGamma: Incomplete | None = None,
+        gamma: Transform | None = None,
+        invGamma: Transform | None = None,
     ) -> None: ...
 
 class HSLColor(Serialisable):
@@ -159,22 +161,22 @@ class SchemeColor(Serialisable):
 class ColorChoice(Serialisable):
     tagname: str
     namespace: Incomplete
-    scrgbClr: Incomplete
+    scrgbClr: Typed[RGBPercent, Literal[True]]
     RGBPercent: Incomplete
     srgbClr: Incomplete
     RGB: Incomplete
-    hslClr: Incomplete
-    sysClr: Incomplete
-    schemeClr: Incomplete
+    hslClr: Typed[HSLColor, Literal[True]]
+    sysClr: Typed[SystemColor, Literal[True]]
+    schemeClr: Typed[SystemColor, Literal[True]]
     prstClr: Incomplete
     __elements__: Incomplete
     def __init__(
         self,
-        scrgbClr: Incomplete | None = None,
+        scrgbClr: RGBPercent | None = None,
         srgbClr: Incomplete | None = None,
-        hslClr: Incomplete | None = None,
-        sysClr: Incomplete | None = None,
-        schemeClr: Incomplete | None = None,
+        hslClr: HSLColor | None = None,
+        sysClr: SystemColor | None = None,
+        schemeClr: SystemColor | None = None,
         prstClr: Incomplete | None = None,
     ) -> None: ...
 
@@ -192,7 +194,7 @@ class ColorMapping(Serialisable):
     accent6: Incomplete
     hlink: Incomplete
     folHlink: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     def __init__(
         self,
         bg1: str = "lt1",
@@ -207,10 +209,10 @@ class ColorMapping(Serialisable):
         accent6: str = "accent6",
         hlink: str = "hlink",
         folHlink: str = "folHlink",
-        extLst: Incomplete | None = None,
+        extLst: ExtensionList | None = None,
     ) -> None: ...
 
 class ColorChoiceDescriptor(Typed):
-    expected_type: Incomplete
-    allow_none: bool
+    expected_type: type[ColorChoice]
+    allow_none: Literal[True]
     def __set__(self, instance, value) -> None: ...

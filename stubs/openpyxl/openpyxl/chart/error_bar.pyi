@@ -1,5 +1,10 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
+from typing_extensions import Literal
 
+from openpyxl.chart.data_source import NumDataSource
+from openpyxl.chart.shapes import GraphicalProperties
+from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
 class ErrorBars(Serialisable):
@@ -11,12 +16,12 @@ class ErrorBars(Serialisable):
     errValType: Incomplete
     size: Incomplete
     noEndCap: Incomplete
-    plus: Incomplete
-    minus: Incomplete
+    plus: Typed[NumDataSource, Literal[True]]
+    minus: Typed[NumDataSource, Literal[True]]
     val: Incomplete
-    spPr: Incomplete
+    spPr: Typed[GraphicalProperties, Literal[True]]
     graphicalProperties: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -24,9 +29,9 @@ class ErrorBars(Serialisable):
         errBarType: str = "both",
         errValType: str = "fixedVal",
         noEndCap: Incomplete | None = None,
-        plus: Incomplete | None = None,
-        minus: Incomplete | None = None,
+        plus: NumDataSource | None = None,
+        minus: NumDataSource | None = None,
         val: Incomplete | None = None,
-        spPr: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        spPr: GraphicalProperties | None = None,
+        extLst: Unused = None,
     ) -> None: ...

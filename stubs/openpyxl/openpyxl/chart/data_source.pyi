@@ -1,5 +1,9 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
+from typing import NoReturn, overload
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.nested import NestedText
 from openpyxl.descriptors.serialisable import Serialisable
 
@@ -25,21 +29,19 @@ class NumData(Serialisable):  # type: ignore[misc]
     formatCode: Incomplete
     ptCount: Incomplete
     pt: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
-        self, formatCode: Incomplete | None = None, ptCount: Incomplete | None = None, pt=(), extLst: Incomplete | None = None
+        self, formatCode: Incomplete | None = None, ptCount: Incomplete | None = None, pt=(), extLst: Unused = None
     ) -> None: ...
 
 class NumRef(Serialisable):  # type: ignore[misc]
     f: Incomplete
     ref: Incomplete
-    numCache: Incomplete
-    extLst: Incomplete
+    numCache: Typed[NumData, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
-    def __init__(
-        self, f: Incomplete | None = None, numCache: Incomplete | None = None, extLst: Incomplete | None = None
-    ) -> None: ...
+    def __init__(self, f: Incomplete | None = None, numCache: NumData | None = None, extLst: Unused = None) -> None: ...
 
 class StrVal(Serialisable):
     tagname: str
@@ -51,24 +53,22 @@ class StrData(Serialisable):
     tagname: str
     ptCount: Incomplete
     pt: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
-    def __init__(self, ptCount: Incomplete | None = None, pt=(), extLst: Incomplete | None = None) -> None: ...
+    def __init__(self, ptCount: Incomplete | None = None, pt=(), extLst: Unused = None) -> None: ...
 
 class StrRef(Serialisable):
     tagname: str
     f: Incomplete
-    strCache: Incomplete
-    extLst: Incomplete
+    strCache: Typed[StrData, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
-    def __init__(
-        self, f: Incomplete | None = None, strCache: Incomplete | None = None, extLst: Incomplete | None = None
-    ) -> None: ...
+    def __init__(self, f: Incomplete | None = None, strCache: StrData | None = None, extLst: Unused = None) -> None: ...
 
 class NumDataSource(Serialisable):  # type: ignore[misc]
-    numRef: Incomplete
-    numLit: Incomplete
-    def __init__(self, numRef: Incomplete | None = None, numLit: Incomplete | None = None) -> None: ...
+    numRef: Typed[NumRef, Literal[True]]
+    numLit: Typed[NumData, Literal[True]]
+    def __init__(self, numRef: NumRef | None = None, numLit: NumData | None = None) -> None: ...
 
 class Level(Serialisable):
     tagname: str
@@ -80,32 +80,37 @@ class MultiLevelStrData(Serialisable):
     tagname: str
     ptCount: Incomplete
     lvl: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
-    def __init__(self, ptCount: Incomplete | None = None, lvl=(), extLst: Incomplete | None = None) -> None: ...
+    def __init__(self, ptCount: Incomplete | None = None, lvl=(), extLst: Unused = None) -> None: ...
 
 class MultiLevelStrRef(Serialisable):
     tagname: str
     f: Incomplete
-    multiLvlStrCache: Incomplete
-    extLst: Incomplete
+    multiLvlStrCache: Typed[MultiLevelStrData, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
-        self, f: Incomplete | None = None, multiLvlStrCache: Incomplete | None = None, extLst: Incomplete | None = None
+        self, f: Incomplete | None = None, multiLvlStrCache: MultiLevelStrData | None = None, extLst: Unused = None
     ) -> None: ...
 
 class AxDataSource(Serialisable):
     tagname: str
-    numRef: Incomplete
-    numLit: Incomplete
-    strRef: Incomplete
-    strLit: Incomplete
-    multiLvlStrRef: Incomplete
+    numRef: Typed[NumRef, Literal[True]]
+    numLit: Typed[NumData, Literal[True]]
+    strRef: Typed[StrRef, Literal[True]]
+    strLit: Typed[StrData, Literal[True]]
+    multiLvlStrRef: Typed[MultiLevelStrRef, Literal[True]]
+    @overload
+    def __init__(
+        self, numRef: None = None, numLit: None = None, strRef: None = None, strLit: None = None, multiLvlStrRef: None = None
+    ) -> NoReturn: ...
+    @overload
     def __init__(
         self,
-        numRef: Incomplete | None = None,
-        numLit: Incomplete | None = None,
-        strRef: Incomplete | None = None,
-        strLit: Incomplete | None = None,
-        multiLvlStrRef: Incomplete | None = None,
+        numRef: NumRef | None = None,
+        numLit: NumData | None = None,
+        strRef: StrRef | None = None,
+        strLit: StrData | None = None,
+        multiLvlStrRef: MultiLevelStrRef | None = None,
     ) -> None: ...

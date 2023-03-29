@@ -1,6 +1,12 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Typed
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.drawing.connector import Shape
+from openpyxl.drawing.graphic import GraphicFrame, GroupShape
+from openpyxl.drawing.picture import PictureFrame
+from openpyxl.drawing.xdr import XDRPoint2D, XDRPositiveSize2D
 
 class AnchorClientData(Serialisable):
     fLocksWithSheet: Incomplete
@@ -16,32 +22,32 @@ class AnchorMarker(Serialisable):
     def __init__(self, col: int = 0, colOff: int = 0, row: int = 0, rowOff: int = 0) -> None: ...
 
 class _AnchorBase(Serialisable):
-    sp: Incomplete
+    sp: Typed[Shape, Literal[True]]
     shape: Incomplete
-    grpSp: Incomplete
+    grpSp: Typed[GroupShape, Literal[True]]
     groupShape: Incomplete
-    graphicFrame: Incomplete
-    cxnSp: Incomplete
+    graphicFrame: Typed[GraphicFrame, Literal[True]]
+    cxnSp: Typed[Shape, Literal[True]]
     connectionShape: Incomplete
-    pic: Incomplete
+    pic: Typed[PictureFrame, Literal[True]]
     contentPart: Incomplete
-    clientData: Incomplete
+    clientData: Typed[AnchorClientData, Literal[False]]
     __elements__: Incomplete
     def __init__(
         self,
-        clientData: Incomplete | None = None,
-        sp: Incomplete | None = None,
-        grpSp: Incomplete | None = None,
-        graphicFrame: Incomplete | None = None,
-        cxnSp: Incomplete | None = None,
-        pic: Incomplete | None = None,
+        clientData: AnchorClientData | None = None,
+        sp: Shape | None = None,
+        grpSp: GroupShape | None = None,
+        graphicFrame: GraphicFrame | None = None,
+        cxnSp: Shape | None = None,
+        pic: PictureFrame | None = None,
         contentPart: Incomplete | None = None,
     ) -> None: ...
 
 class AbsoluteAnchor(_AnchorBase):
     tagname: str
-    pos: Incomplete
-    ext: Incomplete
+    pos: Typed[XDRPoint2D, Literal[False]]
+    ext: Typed[XDRPositiveSize2D, Literal[False]]
     sp: Incomplete
     grpSp: Incomplete
     graphicFrame: Incomplete
@@ -50,11 +56,11 @@ class AbsoluteAnchor(_AnchorBase):
     contentPart: Incomplete
     clientData: Incomplete
     __elements__: Incomplete
-    def __init__(self, pos: Incomplete | None = None, ext: Incomplete | None = None, **kw) -> None: ...
+    def __init__(self, pos: XDRPoint2D | None = None, ext: XDRPositiveSize2D | None = None, **kw) -> None: ...
 
 class OneCellAnchor(_AnchorBase):
     tagname: str
-    ext: Incomplete
+    ext: Typed[XDRPositiveSize2D, Literal[False]]
     sp: Incomplete
     grpSp: Incomplete
     graphicFrame: Incomplete
@@ -63,12 +69,12 @@ class OneCellAnchor(_AnchorBase):
     contentPart: Incomplete
     clientData: Incomplete
     __elements__: Incomplete
-    def __init__(self, _from: Incomplete | None = None, ext: Incomplete | None = None, **kw) -> None: ...
+    def __init__(self, _from: AnchorMarker | None = None, ext: XDRPositiveSize2D | None = None, **kw) -> None: ...
 
 class TwoCellAnchor(_AnchorBase):
     tagname: str
     editAs: Incomplete
-    to: Incomplete
+    to: Typed[AnchorMarker, Literal[False]]
     sp: Incomplete
     grpSp: Incomplete
     graphicFrame: Incomplete
@@ -78,7 +84,7 @@ class TwoCellAnchor(_AnchorBase):
     clientData: Incomplete
     __elements__: Incomplete
     def __init__(
-        self, editAs: Incomplete | None = None, _from: Incomplete | None = None, to: Incomplete | None = None, **kw
+        self, editAs: Incomplete | None = None, _from: AnchorMarker | None = None, to: AnchorMarker | None = None, **kw
     ) -> None: ...
 
 class SpreadsheetDrawing(Serialisable):

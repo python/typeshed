@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Typed
 from openpyxl.descriptors.serialisable import Serialisable
 
 class Extension(Serialisable):
@@ -42,6 +44,6 @@ class IgnoredError(Serialisable):
 class IgnoredErrors(Serialisable):
     tagname: str
     ignoredError: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
-    def __init__(self, ignoredError=(), extLst: Incomplete | None = None) -> None: ...
+    def __init__(self, ignoredError=(), extLst: ExtensionList | None = None) -> None: ...

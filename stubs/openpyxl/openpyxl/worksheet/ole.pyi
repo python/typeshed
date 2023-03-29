@@ -1,17 +1,20 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Typed
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.drawing.spreadsheet_drawing import AnchorMarker
 
 class ObjectAnchor(Serialisable):
     tagname: str
-    to: Incomplete
+    to: Typed[AnchorMarker, Literal[False]]
     moveWithCells: Incomplete
     sizeWithCells: Incomplete
     z_order: Incomplete
     def __init__(
         self,
-        _from: Incomplete | None = None,
-        to: Incomplete | None = None,
+        _from: AnchorMarker,
+        to: AnchorMarker,
         moveWithCells: bool = False,
         sizeWithCells: bool = False,
         z_order: Incomplete | None = None,
@@ -19,7 +22,7 @@ class ObjectAnchor(Serialisable):
 
 class ObjectPr(Serialisable):
     tagname: str
-    anchor: Incomplete
+    anchor: Typed[ObjectAnchor, Literal[False]]
     locked: Incomplete
     defaultSize: Incomplete
     disabled: Incomplete
@@ -33,7 +36,7 @@ class ObjectPr(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        anchor: Incomplete | None = None,
+        anchor: ObjectAnchor,
         locked: bool = True,
         defaultSize: bool = True,
         _print: bool = True,
@@ -49,7 +52,7 @@ class ObjectPr(Serialisable):
 
 class OleObject(Serialisable):
     tagname: str
-    objectPr: Incomplete
+    objectPr: Typed[ObjectPr, Literal[True]]
     progId: Incomplete
     dvAspect: Incomplete
     link: Incomplete
@@ -59,7 +62,7 @@ class OleObject(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        objectPr: Incomplete | None = None,
+        objectPr: ObjectPr | None = None,
         progId: Incomplete | None = None,
         dvAspect: str = "DVASPECT_CONTENT",
         link: Incomplete | None = None,

@@ -1,6 +1,13 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Set, Typed
+from openpyxl.descriptors.excel import Coordinate, ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.drawing.effect import Color, EffectContainer, EffectList
+from openpyxl.drawing.fill import BlipFillProperties, GradientFillProperties, PatternFillProperties
+from openpyxl.drawing.geometry import Scene3D
+from openpyxl.drawing.line import LineProperties
 
 class EmbeddedWAVAudioFile(Serialisable):  # type: ignore[misc]
     name: Incomplete
@@ -16,8 +23,8 @@ class Hyperlink(Serialisable):
     history: Incomplete
     highlightClick: Incomplete
     endSnd: Incomplete
-    snd: Incomplete
-    extLst: Incomplete
+    snd: Typed[EmbeddedWAVAudioFile, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
     id: Incomplete
     __elements__: Incomplete
     def __init__(
@@ -29,8 +36,8 @@ class Hyperlink(Serialisable):
         history: Incomplete | None = None,
         highlightClick: Incomplete | None = None,
         endSnd: Incomplete | None = None,
-        snd: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        snd: EmbeddedWAVAudioFile | None = None,
+        extLst: ExtensionList | None = None,
         id: Incomplete | None = None,
     ) -> None: ...
 
@@ -71,26 +78,26 @@ class CharacterProperties(Serialisable):
     smtClean: Incomplete
     smtId: Incomplete
     bmk: Incomplete
-    ln: Incomplete
-    highlight: Incomplete
-    latin: Incomplete
-    ea: Incomplete
-    cs: Incomplete
-    sym: Incomplete
-    hlinkClick: Incomplete
-    hlinkMouseOver: Incomplete
+    ln: Typed[LineProperties, Literal[True]]
+    highlight: Typed[Color, Literal[True]]
+    latin: Typed[Font, Literal[True]]
+    ea: Typed[Font, Literal[True]]
+    cs: Typed[Font, Literal[True]]
+    sym: Typed[Font, Literal[True]]
+    hlinkClick: Typed[Hyperlink, Literal[True]]
+    hlinkMouseOver: Typed[Hyperlink, Literal[True]]
     rtl: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     noFill: Incomplete
     solidFill: Incomplete
-    gradFill: Incomplete
-    blipFill: Incomplete
-    pattFill: Incomplete
+    gradFill: Typed[GradientFillProperties, Literal[True]]
+    blipFill: Typed[BlipFillProperties, Literal[True]]
+    pattFill: Typed[PatternFillProperties, Literal[True]]
     grpFill: Incomplete
-    effectLst: Incomplete
-    effectDag: Incomplete
+    effectLst: Typed[EffectList, Literal[True]]
+    effectDag: Typed[EffectContainer, Literal[True]]
     uLnTx: Incomplete
-    uLn: Incomplete
+    uLn: Typed[LineProperties, Literal[True]]
     uFillTx: Incomplete
     uFill: Incomplete
     __elements__: Incomplete
@@ -115,37 +122,37 @@ class CharacterProperties(Serialisable):
         smtClean: Incomplete | None = None,
         smtId: Incomplete | None = None,
         bmk: Incomplete | None = None,
-        ln: Incomplete | None = None,
-        highlight: Incomplete | None = None,
-        latin: Incomplete | None = None,
-        ea: Incomplete | None = None,
-        cs: Incomplete | None = None,
-        sym: Incomplete | None = None,
-        hlinkClick: Incomplete | None = None,
-        hlinkMouseOver: Incomplete | None = None,
+        ln: LineProperties | None = None,
+        highlight: Color | None = None,
+        latin: Font | None = None,
+        ea: Font | None = None,
+        cs: Font | None = None,
+        sym: Font | None = None,
+        hlinkClick: Hyperlink | None = None,
+        hlinkMouseOver: Hyperlink | None = None,
         rtl: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        extLst: ExtensionList | None = None,
         noFill: Incomplete | None = None,
         solidFill: Incomplete | None = None,
-        gradFill: Incomplete | None = None,
-        blipFill: Incomplete | None = None,
-        pattFill: Incomplete | None = None,
+        gradFill: GradientFillProperties | None = None,
+        blipFill: BlipFillProperties | None = None,
+        pattFill: PatternFillProperties | None = None,
         grpFill: Incomplete | None = None,
-        effectLst: Incomplete | None = None,
-        effectDag: Incomplete | None = None,
+        effectLst: EffectList | None = None,
+        effectDag: EffectContainer | None = None,
         uLnTx: Incomplete | None = None,
-        uLn: Incomplete | None = None,
+        uLn: LineProperties | None = None,
         uFillTx: Incomplete | None = None,
         uFill: Incomplete | None = None,
     ) -> None: ...
 
 class TabStop(Serialisable):  # type: ignore[misc]
-    pos: Incomplete
-    algn: Incomplete
-    def __init__(self, pos: Incomplete | None = None, algn: Incomplete | None = None) -> None: ...
+    pos: Typed[Coordinate, Literal[True]]
+    algn: Typed[Set, Literal[False]]
+    def __init__(self, pos: Coordinate | None = None, algn: Set | None = None) -> None: ...
 
 class TabStopList(Serialisable):  # type: ignore[misc]
-    tab: Incomplete
+    tab: Typed[TabStop, Literal[True]]
     def __init__(self, tab: Incomplete | None = None) -> None: ...
 
 class Spacing(Serialisable):
@@ -173,19 +180,19 @@ class ParagraphProperties(Serialisable):
     fontAlgn: Incomplete
     latinLnBrk: Incomplete
     hangingPunct: Incomplete
-    lnSpc: Incomplete
-    spcBef: Incomplete
-    spcAft: Incomplete
-    tabLst: Incomplete
-    defRPr: Incomplete
-    extLst: Incomplete
+    lnSpc: Typed[Spacing, Literal[True]]
+    spcBef: Typed[Spacing, Literal[True]]
+    spcAft: Typed[Spacing, Literal[True]]
+    tabLst: Typed[TabStopList, Literal[True]]
+    defRPr: Typed[CharacterProperties, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
     buClrTx: Incomplete
-    buClr: Incomplete
+    buClr: Typed[Color, Literal[True]]
     buSzTx: Incomplete
     buSzPct: Incomplete
     buSzPts: Incomplete
     buFontTx: Incomplete
-    buFont: Incomplete
+    buFont: Typed[Font, Literal[True]]
     buNone: Incomplete
     buAutoNum: Incomplete
     buChar: Incomplete
@@ -204,19 +211,19 @@ class ParagraphProperties(Serialisable):
         fontAlgn: Incomplete | None = None,
         latinLnBrk: Incomplete | None = None,
         hangingPunct: Incomplete | None = None,
-        lnSpc: Incomplete | None = None,
-        spcBef: Incomplete | None = None,
-        spcAft: Incomplete | None = None,
-        tabLst: Incomplete | None = None,
-        defRPr: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        lnSpc: Spacing | None = None,
+        spcBef: Spacing | None = None,
+        spcAft: Spacing | None = None,
+        tabLst: TabStopList | None = None,
+        defRPr: CharacterProperties | None = None,
+        extLst: ExtensionList | None = None,
         buClrTx: Incomplete | None = None,
-        buClr: Incomplete | None = None,
+        buClr: Color | None = None,
         buSzTx: Incomplete | None = None,
         buSzPct: Incomplete | None = None,
         buSzPts: Incomplete | None = None,
         buFontTx: Incomplete | None = None,
-        buFont: Incomplete | None = None,
+        buFont: Font | None = None,
         buNone: Incomplete | None = None,
         buAutoNum: Incomplete | None = None,
         buChar: Incomplete | None = None,
@@ -226,84 +233,84 @@ class ParagraphProperties(Serialisable):
 class ListStyle(Serialisable):
     tagname: str
     namespace: Incomplete
-    defPPr: Incomplete
-    lvl1pPr: Incomplete
-    lvl2pPr: Incomplete
-    lvl3pPr: Incomplete
-    lvl4pPr: Incomplete
-    lvl5pPr: Incomplete
-    lvl6pPr: Incomplete
-    lvl7pPr: Incomplete
-    lvl8pPr: Incomplete
-    lvl9pPr: Incomplete
-    extLst: Incomplete
+    defPPr: Typed[ParagraphProperties, Literal[True]]
+    lvl1pPr: Typed[ParagraphProperties, Literal[True]]
+    lvl2pPr: Typed[ParagraphProperties, Literal[True]]
+    lvl3pPr: Typed[ParagraphProperties, Literal[True]]
+    lvl4pPr: Typed[ParagraphProperties, Literal[True]]
+    lvl5pPr: Typed[ParagraphProperties, Literal[True]]
+    lvl6pPr: Typed[ParagraphProperties, Literal[True]]
+    lvl7pPr: Typed[ParagraphProperties, Literal[True]]
+    lvl8pPr: Typed[ParagraphProperties, Literal[True]]
+    lvl9pPr: Typed[ParagraphProperties, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
-        defPPr: Incomplete | None = None,
-        lvl1pPr: Incomplete | None = None,
-        lvl2pPr: Incomplete | None = None,
-        lvl3pPr: Incomplete | None = None,
-        lvl4pPr: Incomplete | None = None,
-        lvl5pPr: Incomplete | None = None,
-        lvl6pPr: Incomplete | None = None,
-        lvl7pPr: Incomplete | None = None,
-        lvl8pPr: Incomplete | None = None,
-        lvl9pPr: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        defPPr: ParagraphProperties | None = None,
+        lvl1pPr: ParagraphProperties | None = None,
+        lvl2pPr: ParagraphProperties | None = None,
+        lvl3pPr: ParagraphProperties | None = None,
+        lvl4pPr: ParagraphProperties | None = None,
+        lvl5pPr: ParagraphProperties | None = None,
+        lvl6pPr: ParagraphProperties | None = None,
+        lvl7pPr: ParagraphProperties | None = None,
+        lvl8pPr: ParagraphProperties | None = None,
+        lvl9pPr: ParagraphProperties | None = None,
+        extLst: ParagraphProperties | None = None,
     ) -> None: ...
 
 class RegularTextRun(Serialisable):
     tagname: str
     namespace: Incomplete
-    rPr: Incomplete
+    rPr: Typed[CharacterProperties, Literal[True]]
     properties: Incomplete
     t: Incomplete
     value: Incomplete
     __elements__: Incomplete
-    def __init__(self, rPr: Incomplete | None = None, t: str = "") -> None: ...
+    def __init__(self, rPr: CharacterProperties | None = None, t: str = "") -> None: ...
 
 class LineBreak(Serialisable):
     tagname: str
     namespace: Incomplete
-    rPr: Incomplete
+    rPr: Typed[CharacterProperties, Literal[True]]
     __elements__: Incomplete
-    def __init__(self, rPr: Incomplete | None = None) -> None: ...
+    def __init__(self, rPr: CharacterProperties | None = None) -> None: ...
 
 class TextField(Serialisable):
     id: Incomplete
     type: Incomplete
-    rPr: Incomplete
-    pPr: Incomplete
+    rPr: Typed[CharacterProperties, Literal[True]]
+    pPr: Typed[CharacterProperties, Literal[True]]
     t: Incomplete
     __elements__: Incomplete
     def __init__(
         self,
         id: Incomplete | None = None,
         type: Incomplete | None = None,
-        rPr: Incomplete | None = None,
-        pPr: Incomplete | None = None,
+        rPr: CharacterProperties | None = None,
+        pPr: CharacterProperties | None = None,
         t: Incomplete | None = None,
     ) -> None: ...
 
 class Paragraph(Serialisable):
     tagname: str
     namespace: Incomplete
-    pPr: Incomplete
+    pPr: Typed[ParagraphProperties, Literal[True]]
     properties: Incomplete
-    endParaRPr: Incomplete
+    endParaRPr: Typed[CharacterProperties, Literal[True]]
     r: Incomplete
     text: Incomplete
-    br: Incomplete
-    fld: Incomplete
+    br: Typed[LineBreak, Literal[True]]
+    fld: Typed[TextField, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
-        pPr: Incomplete | None = None,
-        endParaRPr: Incomplete | None = None,
+        pPr: ParagraphProperties | None = None,
+        endParaRPr: CharacterProperties | None = None,
         r: Incomplete | None = None,
-        br: Incomplete | None = None,
-        fld: Incomplete | None = None,
+        br: LineBreak | None = None,
+        fld: TextField | None = None,
     ) -> None: ...
 
 class GeomGuide(Serialisable):
@@ -316,9 +323,9 @@ class GeomGuideList(Serialisable):
     def __init__(self, gd: Incomplete | None = None) -> None: ...
 
 class PresetTextShape(Serialisable):
-    prst: Incomplete
-    avLst: Incomplete
-    def __init__(self, prst: Incomplete | None = None, avLst: Incomplete | None = None) -> None: ...
+    prst: Typed[Set, Literal[False]]
+    avLst: Typed[GeomGuideList, Literal[True]]
+    def __init__(self, prst: Set, avLst: GeomGuideList | None = None) -> None: ...
 
 class TextNormalAutofit(Serialisable):
     fontScale: Incomplete
@@ -347,9 +354,9 @@ class RichTextProperties(Serialisable):
     forceAA: Incomplete
     upright: Incomplete
     compatLnSpc: Incomplete
-    prstTxWarp: Incomplete
-    scene3d: Incomplete
-    extLst: Incomplete
+    prstTxWarp: Typed[PresetTextShape, Literal[True]]
+    scene3d: Typed[Scene3D, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
     noAutofit: Incomplete
     normAutofit: Incomplete
     spAutoFit: Incomplete

@@ -1,6 +1,11 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.pivot.fields import Error, Missing, Number, Text, TupleList
+from openpyxl.pivot.table import PivotArea
 
 class MeasureDimensionMap(Serialisable):
     tagname: str
@@ -37,7 +42,7 @@ class CalculatedMember(Serialisable):
     parent: Incomplete
     solveOrder: Incomplete
     set: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -48,22 +53,18 @@ class CalculatedMember(Serialisable):
         parent: Incomplete | None = None,
         solveOrder: Incomplete | None = None,
         set: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        extLst: ExtensionList | None = None,
     ) -> None: ...
 
 class CalculatedItem(Serialisable):
     tagname: str
     field: Incomplete
     formula: Incomplete
-    pivotArea: Incomplete
-    extLst: Incomplete
+    pivotArea: Typed[PivotArea, Literal[False]]
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
-        self,
-        field: Incomplete | None = None,
-        formula: Incomplete | None = None,
-        pivotArea: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        self, field: Incomplete | None, formula: Incomplete | None, pivotArea: PivotArea, extLst: Incomplete | None = None
     ) -> None: ...
 
 class ServerFormat(Serialisable):
@@ -84,16 +85,16 @@ class ServerFormatList(Serialisable):
 class Query(Serialisable):
     tagname: str
     mdx: Incomplete
-    tpls: Incomplete
+    tpls: Typed[TupleList, Literal[True]]
     __elements__: Incomplete
-    def __init__(self, mdx: Incomplete | None = None, tpls: Incomplete | None = None) -> None: ...
+    def __init__(self, mdx: Incomplete | None = None, tpls: TupleList | None = None) -> None: ...
 
 class QueryCache(Serialisable):
     tagname: str
     count: Incomplete
-    query: Incomplete
+    query: Typed[Query, Literal[False]]
     __elements__: Incomplete
-    def __init__(self, count: Incomplete | None = None, query: Incomplete | None = None) -> None: ...
+    def __init__(self, count: Incomplete | None, query: Query) -> None: ...
 
 class OLAPSet(Serialisable):
     tagname: str
@@ -102,8 +103,8 @@ class OLAPSet(Serialisable):
     setDefinition: Incomplete
     sortType: Incomplete
     queryFailed: Incomplete
-    tpls: Incomplete
-    sortByTuple: Incomplete
+    tpls: Typed[TupleList, Literal[True]]
+    sortByTuple: Typed[TupleList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -112,48 +113,41 @@ class OLAPSet(Serialisable):
         setDefinition: Incomplete | None = None,
         sortType: Incomplete | None = None,
         queryFailed: Incomplete | None = None,
-        tpls: Incomplete | None = None,
-        sortByTuple: Incomplete | None = None,
+        tpls: TupleList | None = None,
+        sortByTuple: TupleList | None = None,
     ) -> None: ...
 
 class OLAPSets(Serialisable):  # type: ignore[misc]
     count: Incomplete
-    set: Incomplete
+    set: Typed[OLAPSet, Literal[False]]
     __elements__: Incomplete
-    def __init__(self, count: Incomplete | None = None, set: Incomplete | None = None) -> None: ...
+    def __init__(self, count: Incomplete | None, set: OLAPSet) -> None: ...
 
 class PCDSDTCEntries(Serialisable):
     tagname: str
     count: Incomplete
-    m: Incomplete
-    n: Incomplete
-    e: Incomplete
-    s: Incomplete
+    m: Typed[Missing, Literal[False]]
+    n: Typed[Number, Literal[False]]
+    e: Typed[Error, Literal[False]]
+    s: Typed[Text, Literal[False]]
     __elements__: Incomplete
-    def __init__(
-        self,
-        count: Incomplete | None = None,
-        m: Incomplete | None = None,
-        n: Incomplete | None = None,
-        e: Incomplete | None = None,
-        s: Incomplete | None = None,
-    ) -> None: ...
+    def __init__(self, count: Incomplete | None, m: Missing, n: Number, e: Error, s: Text) -> None: ...
 
 class TupleCache(Serialisable):
     tagname: str
-    entries: Incomplete
-    sets: Incomplete
-    queryCache: Incomplete
-    serverFormats: Incomplete
-    extLst: Incomplete
+    entries: Typed[PCDSDTCEntries, Literal[True]]
+    sets: Typed[OLAPSets, Literal[True]]
+    queryCache: Typed[QueryCache, Literal[True]]
+    serverFormats: Typed[ServerFormatList, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
-        entries: Incomplete | None = None,
-        sets: Incomplete | None = None,
-        queryCache: Incomplete | None = None,
-        serverFormats: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        entries: PCDSDTCEntries | None = None,
+        sets: OLAPSets | None = None,
+        queryCache: QueryCache | None = None,
+        serverFormats: ServerFormatList | None = None,
+        extLst: ExtensionList | None = None,
     ) -> None: ...
 
 class PCDKPI(Serialisable):
@@ -192,9 +186,9 @@ class GroupMember(Serialisable):
 
 class GroupMembers(Serialisable):  # type: ignore[misc]
     count: Incomplete
-    groupMember: Incomplete
+    groupMember: Typed[GroupMember, Literal[False]]
     __elements__: Incomplete
-    def __init__(self, count: Incomplete | None = None, groupMember: Incomplete | None = None) -> None: ...
+    def __init__(self, count: GroupMember, groupMember: Incomplete | None = None) -> None: ...
 
 class LevelGroup(Serialisable):
     tagname: str
@@ -203,24 +197,24 @@ class LevelGroup(Serialisable):
     caption: Incomplete
     uniqueParent: Incomplete
     id: Incomplete
-    groupMembers: Incomplete
+    groupMembers: Typed[GroupMembers, Literal[False]]
     __elements__: Incomplete
     def __init__(
         self,
-        name: Incomplete | None = None,
-        uniqueName: Incomplete | None = None,
-        caption: Incomplete | None = None,
-        uniqueParent: Incomplete | None = None,
-        id: Incomplete | None = None,
-        groupMembers: Incomplete | None = None,
+        name: Incomplete | None,
+        uniqueName: Incomplete | None,
+        caption: Incomplete | None,
+        uniqueParent: Incomplete | None,
+        id: Incomplete | None,
+        groupMembers: GroupMembers,
     ) -> None: ...
 
 class Groups(Serialisable):
     tagname: str
     count: Incomplete
-    group: Incomplete
+    group: Typed[LevelGroup, Literal[False]]
     __elements__: Incomplete
-    def __init__(self, count: Incomplete | None = None, group: Incomplete | None = None) -> None: ...
+    def __init__(self, count: Incomplete | None, group: LevelGroup) -> None: ...
 
 class GroupLevel(Serialisable):
     tagname: str
@@ -228,8 +222,8 @@ class GroupLevel(Serialisable):
     caption: Incomplete
     user: Incomplete
     customRollUp: Incomplete
-    groups: Incomplete
-    extLst: Incomplete
+    groups: Typed[Groups, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -237,15 +231,15 @@ class GroupLevel(Serialisable):
         caption: Incomplete | None = None,
         user: Incomplete | None = None,
         customRollUp: Incomplete | None = None,
-        groups: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        groups: Groups | None = None,
+        extLst: ExtensionList | None = None,
     ) -> None: ...
 
 class GroupLevels(Serialisable):  # type: ignore[misc]
     count: Incomplete
-    groupLevel: Incomplete
+    groupLevel: Typed[GroupLevel, Literal[False]]
     __elements__: Incomplete
-    def __init__(self, count: Incomplete | None = None, groupLevel: Incomplete | None = None) -> None: ...
+    def __init__(self, count: Incomplete | None, groupLevel: GroupLevel) -> None: ...
 
 class FieldUsage(Serialisable):
     tagname: str
@@ -254,9 +248,9 @@ class FieldUsage(Serialisable):
 
 class FieldsUsage(Serialisable):  # type: ignore[misc]
     count: Incomplete
-    fieldUsage: Incomplete
+    fieldUsage: Typed[FieldUsage, Literal[True]]
     __elements__: Incomplete
-    def __init__(self, count: Incomplete | None = None, fieldUsage: Incomplete | None = None) -> None: ...
+    def __init__(self, count: Incomplete | None = None, fieldUsage: FieldUsage | None = None) -> None: ...
 
 class CacheHierarchy(Serialisable):
     tagname: str
@@ -282,9 +276,9 @@ class CacheHierarchy(Serialisable):
     unbalanced: Incomplete
     unbalancedGroup: Incomplete
     hidden: Incomplete
-    fieldsUsage: Incomplete
-    groupLevels: Incomplete
-    extLst: Incomplete
+    fieldsUsage: Typed[FieldsUsage, Literal[True]]
+    groupLevels: Typed[GroupLevels, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -310,9 +304,9 @@ class CacheHierarchy(Serialisable):
         unbalanced: Incomplete | None = None,
         unbalancedGroup: Incomplete | None = None,
         hidden: Incomplete | None = None,
-        fieldsUsage: Incomplete | None = None,
-        groupLevels: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        fieldsUsage: FieldsUsage | None = None,
+        groupLevels: GroupLevels | None = None,
+        extLst: ExtensionList | None = None,
     ) -> None: ...
 
 class GroupItems(Serialisable):
@@ -362,17 +356,17 @@ class FieldGroup(Serialisable):
     tagname: str
     par: Incomplete
     base: Incomplete
-    rangePr: Incomplete
-    discretePr: Incomplete
-    groupItems: Incomplete
+    rangePr: Typed[RangePr, Literal[True]]
+    discretePr: Typed[DiscretePr, Literal[True]]
+    groupItems: Typed[GroupItems, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
         par: Incomplete | None = None,
         base: Incomplete | None = None,
-        rangePr: Incomplete | None = None,
-        discretePr: Incomplete | None = None,
-        groupItems: Incomplete | None = None,
+        rangePr: RangePr | None = None,
+        discretePr: DiscretePr | None = None,
+        groupItems: GroupItems | None = None,
     ) -> None: ...
 
 class SharedItems(Serialisable):
@@ -420,10 +414,10 @@ class SharedItems(Serialisable):
 
 class CacheField(Serialisable):
     tagname: str
-    sharedItems: Incomplete
-    fieldGroup: Incomplete
+    sharedItems: Typed[SharedItems, Literal[True]]
+    fieldGroup: Typed[FieldGroup, Literal[True]]
     mpMap: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     name: Incomplete
     caption: Incomplete
     propertyName: Incomplete
@@ -440,10 +434,10 @@ class CacheField(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        sharedItems: Incomplete | None = None,
-        fieldGroup: Incomplete | None = None,
+        sharedItems: SharedItems | None = None,
+        fieldGroup: FieldGroup | None = None,
         mpMap: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        extLst: ExtensionList | None = None,
         name: Incomplete | None = None,
         caption: Incomplete | None = None,
         propertyName: Incomplete | None = None,
@@ -513,17 +507,17 @@ class CacheSource(Serialisable):
     tagname: str
     type: Incomplete
     connectionId: Incomplete
-    worksheetSource: Incomplete
-    consolidation: Incomplete
-    extLst: Incomplete
+    worksheetSource: Typed[WorksheetSource, Literal[True]]
+    consolidation: Typed[Consolidation, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
         type: Incomplete | None = None,
         connectionId: Incomplete | None = None,
-        worksheetSource: Incomplete | None = None,
-        consolidation: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        worksheetSource: WorksheetSource | None = None,
+        consolidation: Consolidation | None = None,
+        extLst: ExtensionList | None = None,
     ) -> None: ...
 
 class CacheDefinition(Serialisable):
@@ -546,10 +540,10 @@ class CacheDefinition(Serialisable):
     minRefreshableVersion: Incomplete
     recordCount: Incomplete
     upgradeOnRefresh: Incomplete
-    tupleCache: Incomplete
+    tupleCache: Typed[TupleCache, Literal[True]]
     supportSubquery: Incomplete
     supportAdvancedDrill: Incomplete
-    cacheSource: Incomplete
+    cacheSource: Typed[CacheSource, Literal[True]]
     cacheFields: Incomplete
     cacheHierarchies: Incomplete
     kpis: Incomplete
@@ -558,30 +552,30 @@ class CacheDefinition(Serialisable):
     dimensions: Incomplete
     measureGroups: Incomplete
     maps: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     id: Incomplete
     __elements__: Incomplete
     def __init__(
         self,
-        invalid: Incomplete | None = None,
-        saveData: Incomplete | None = None,
-        refreshOnLoad: Incomplete | None = None,
-        optimizeMemory: Incomplete | None = None,
-        enableRefresh: Incomplete | None = None,
-        refreshedBy: Incomplete | None = None,
-        refreshedDate: Incomplete | None = None,
-        refreshedDateIso: Incomplete | None = None,
-        backgroundQuery: Incomplete | None = None,
-        missingItemsLimit: Incomplete | None = None,
-        createdVersion: Incomplete | None = None,
-        refreshedVersion: Incomplete | None = None,
-        minRefreshableVersion: Incomplete | None = None,
-        recordCount: Incomplete | None = None,
-        upgradeOnRefresh: Incomplete | None = None,
-        tupleCache: Incomplete | None = None,
-        supportSubquery: Incomplete | None = None,
-        supportAdvancedDrill: Incomplete | None = None,
-        cacheSource: Incomplete | None = None,
+        invalid: Incomplete | None,
+        saveData: Incomplete | None,
+        refreshOnLoad: Incomplete | None,
+        optimizeMemory: Incomplete | None,
+        enableRefresh: Incomplete | None,
+        refreshedBy: Incomplete | None,
+        refreshedDate: Incomplete | None,
+        refreshedDateIso: Incomplete | None,
+        backgroundQuery: Incomplete | None,
+        missingItemsLimit: Incomplete | None,
+        createdVersion: Incomplete | None,
+        refreshedVersion: Incomplete | None,
+        minRefreshableVersion: Incomplete | None,
+        recordCount: Incomplete | None,
+        upgradeOnRefresh: Incomplete | None,
+        tupleCache: TupleCache | None,
+        supportSubquery: Incomplete | None,
+        supportAdvancedDrill: Incomplete | None,
+        cacheSource: CacheSource,
         cacheFields=(),
         cacheHierarchies=(),
         kpis=(),
@@ -590,7 +584,7 @@ class CacheDefinition(Serialisable):
         dimensions=(),
         measureGroups=(),
         maps=(),
-        extLst: Incomplete | None = None,
+        extLst: ExtensionList | None = None,
         id: Incomplete | None = None,
     ) -> None: ...
     def to_tree(self): ...

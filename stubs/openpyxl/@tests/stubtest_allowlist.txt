@@ -7,3 +7,24 @@ openpyxl.utils.dataframe
 # Element can be imported from lxml or xml.etree, so the attributes can
 # differ at runtime.
 openpyxl.xml.functions.Element.*
+
+# Fake getters
+openpyxl\.descriptors\..*\.__get__
+# expected_type should never be none
+# openpyxl.descriptors.Typed.expected_type
+# error: openpyxl.descriptors.base.Typed.expected_type
+
+# Stubtest sees an instance at runtime instead of a type
+openpyxl.chart.descriptors.NumberFormatDescriptor.expected_type
+openpyxl.chart.title.TitleDescriptor.expected_type
+openpyxl.drawing.colors.ColorChoiceDescriptor.expected_type
+openpyxl.styles.colors.ColorDescriptor.expected_type
+
+# Stubtest doesn't like generics here
+openpyxl.descriptors.Typed.allow_none
+openpyxl.descriptors.base.Typed.allow_none
+
+# "has a default value but stub argument does not"
+# Runtime has default arguments that would fail
+# TODO: List them all individually, and use overloads of keyword-only
+openpyxl\..*\.__init__

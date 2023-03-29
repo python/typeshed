@@ -1,7 +1,12 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from array import array
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.styles.alignment import Alignment
+from openpyxl.styles.protection import Protection
 
 class ArrayDescriptor:
     key: Incomplete
@@ -41,9 +46,9 @@ class CellStyle(Serialisable):
     # Overwritten by properties below
     # applyAlignment: Bool
     # applyProtection: Bool
-    alignment: Incomplete
-    protection: Incomplete
-    extLst: Incomplete
+    alignment: Typed[Alignment, Literal[True]]
+    protection: Typed[Protection, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     __attrs__: Incomplete
     def __init__(
@@ -59,11 +64,11 @@ class CellStyle(Serialisable):
         applyFont: Incomplete | None = None,
         applyFill: Incomplete | None = None,
         applyBorder: Incomplete | None = None,
-        applyAlignment: Incomplete | None = None,
-        applyProtection: Incomplete | None = None,
-        alignment: Incomplete | None = None,
-        protection: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        applyAlignment: Unused = None,
+        applyProtection: Unused = None,
+        alignment: Alignment | None = None,
+        protection: Protection | None = None,
+        extLst: Unused = None,
     ) -> None: ...
     def to_array(self): ...
     @classmethod

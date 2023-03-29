@@ -1,5 +1,8 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
 class ManualLayout(Serialisable):
@@ -15,7 +18,7 @@ class ManualLayout(Serialisable):
     width: Incomplete
     h: Incomplete
     height: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -28,12 +31,12 @@ class ManualLayout(Serialisable):
         y: Incomplete | None = None,
         w: Incomplete | None = None,
         h: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        extLst: Unused = None,
     ) -> None: ...
 
 class Layout(Serialisable):
     tagname: str
-    manualLayout: Incomplete
-    extLst: Incomplete
+    manualLayout: Typed[ManualLayout, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
-    def __init__(self, manualLayout: Incomplete | None = None, extLst: Incomplete | None = None) -> None: ...
+    def __init__(self, manualLayout: ManualLayout | None = None, extLst: Unused = None) -> None: ...

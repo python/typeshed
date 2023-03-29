@@ -1,6 +1,11 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from abc import abstractmethod
+from typing_extensions import Literal
 
+from openpyxl.chart.layout import Layout
+from openpyxl.chart.legend import Legend
+from openpyxl.chart.shapes import GraphicalProperties
+from openpyxl.descriptors.base import Typed
 from openpyxl.descriptors.serialisable import Serialisable
 
 class AxId(Serialisable):  # type: ignore[misc]
@@ -10,8 +15,8 @@ class AxId(Serialisable):  # type: ignore[misc]
 def PlotArea(): ...
 
 class ChartBase(Serialisable):
-    legend: Incomplete
-    layout: Incomplete
+    legend: Typed[Legend, Literal[True]]
+    layout: Typed[Layout, Literal[True]]
     roundedCorners: Incomplete
     axId: Incomplete
     visible_cells_only: Incomplete
@@ -24,13 +29,13 @@ class ChartBase(Serialisable):
     height: float
     style: Incomplete
     mime_type: str
-    graphical_properties: Incomplete
+    graphical_properties: Typed[GraphicalProperties, Literal[True]]
     __elements__: Incomplete
     plot_area: Incomplete
     pivotSource: Incomplete
     pivotFormats: Incomplete
     idx_base: int
-    def __init__(self, axId=(), **kw) -> None: ...
+    def __init__(self, axId=(), **kw: Unused) -> None: ...
     def __hash__(self) -> int: ...
     def __iadd__(self, other): ...
     def to_tree(self, namespace: Incomplete | None = None, tagname: Incomplete | None = None, idx: Incomplete | None = None): ...  # type: ignore[override]

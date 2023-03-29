@@ -1,10 +1,13 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Typed
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.worksheet.ole import ObjectAnchor
 
 class ControlProperty(Serialisable):
     tagname: str
-    anchor: Incomplete
+    anchor: Typed[ObjectAnchor, Literal[False]]
     locked: Incomplete
     defaultSize: Incomplete
     disabled: Incomplete
@@ -22,7 +25,7 @@ class ControlProperty(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        anchor: Incomplete | None = None,
+        anchor: ObjectAnchor,
         locked: bool = True,
         defaultSize: bool = True,
         _print: bool = True,
@@ -42,12 +45,12 @@ class ControlProperty(Serialisable):
 
 class Control(Serialisable):
     tagname: str
-    controlPr: Incomplete
+    controlPr: Typed[ControlProperty, Literal[True]]
     shapeId: Incomplete
     name: Incomplete
     __elements__: Incomplete
     def __init__(
-        self, controlPr: Incomplete | None = None, shapeId: Incomplete | None = None, name: Incomplete | None = None
+        self, controlPr: ControlProperty | None = None, shapeId: Incomplete | None = None, name: Incomplete | None = None
     ) -> None: ...
 
 class Controls(Serialisable):

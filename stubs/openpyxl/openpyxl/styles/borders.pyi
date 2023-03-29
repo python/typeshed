@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Typed
 from openpyxl.descriptors.serialisable import Serialisable
 
 BORDER_NONE: Incomplete
@@ -30,34 +32,34 @@ class Border(Serialisable):
     tagname: str
     __fields__: Incomplete
     __elements__: Incomplete
-    start: Incomplete
-    end: Incomplete
-    left: Incomplete
-    right: Incomplete
-    top: Incomplete
-    bottom: Incomplete
-    diagonal: Incomplete
-    vertical: Incomplete
-    horizontal: Incomplete
+    start: Typed[Side, Literal[True]]
+    end: Typed[Side, Literal[True]]
+    left: Typed[Side, Literal[True]]
+    right: Typed[Side, Literal[True]]
+    top: Typed[Side, Literal[True]]
+    bottom: Typed[Side, Literal[True]]
+    diagonal: Typed[Side, Literal[True]]
+    vertical: Typed[Side, Literal[True]]
+    horizontal: Typed[Side, Literal[True]]
     outline: Incomplete
     diagonalUp: Incomplete
     diagonalDown: Incomplete
     diagonal_direction: Incomplete
     def __init__(
         self,
-        left: Incomplete | None = None,
-        right: Incomplete | None = None,
-        top: Incomplete | None = None,
-        bottom: Incomplete | None = None,
-        diagonal: Incomplete | None = None,
+        left: Side | None = None,
+        right: Side | None = None,
+        top: Side | None = None,
+        bottom: Side | None = None,
+        diagonal: Side | None = None,
         diagonal_direction: Incomplete | None = None,
-        vertical: Incomplete | None = None,
-        horizontal: Incomplete | None = None,
+        vertical: Side | None = None,
+        horizontal: Side | None = None,
         diagonalUp: bool = False,
         diagonalDown: bool = False,
         outline: bool = True,
-        start: Incomplete | None = None,
-        end: Incomplete | None = None,
+        start: Side | None = None,
+        end: Side | None = None,
     ) -> None: ...
     def __iter__(self): ...
 

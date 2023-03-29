@@ -1,19 +1,24 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.drawing.geometry import GroupTransform2D, Scene3D
+from openpyxl.drawing.text import Hyperlink
 
 class GroupShapeProperties(Serialisable):
     tagname: str
     bwMode: Incomplete
-    xfrm: Incomplete
-    scene3d: Incomplete
-    extLst: Incomplete
+    xfrm: Typed[GroupTransform2D, Literal[True]]
+    scene3d: Typed[Scene3D, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
     def __init__(
         self,
         bwMode: Incomplete | None = None,
-        xfrm: Incomplete | None = None,
-        scene3d: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        xfrm: GroupTransform2D | None = None,
+        scene3d: Scene3D | None = None,
+        extLst: ExtensionList | None = None,
     ) -> None: ...
 
 class GroupLocking(Serialisable):
@@ -30,7 +35,7 @@ class GroupLocking(Serialisable):
     noEditPoints: Incomplete
     noAdjustHandles: Incomplete
     noChangeShapeType: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -45,26 +50,24 @@ class GroupLocking(Serialisable):
         noEditPoints: Incomplete | None = None,
         noAdjustHandles: Incomplete | None = None,
         noChangeShapeType: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        extLst: Unused = None,
     ) -> None: ...
 
 class NonVisualGroupDrawingShapeProps(Serialisable):
     tagname: str
-    grpSpLocks: Incomplete
-    extLst: Incomplete
+    grpSpLocks: Typed[GroupLocking, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
-    def __init__(self, grpSpLocks: Incomplete | None = None, extLst: Incomplete | None = None) -> None: ...
+    def __init__(self, grpSpLocks: Incomplete | None = None, extLst: Unused = None) -> None: ...
 
 class NonVisualDrawingShapeProps(Serialisable):
     tagname: str
-    spLocks: Incomplete
+    spLocks: Typed[GroupLocking, Literal[True]]
     txBax: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     txBox: Incomplete
-    def __init__(
-        self, spLocks: Incomplete | None = None, txBox: Incomplete | None = None, extLst: Incomplete | None = None
-    ) -> None: ...
+    def __init__(self, spLocks: Incomplete | None = None, txBox: Incomplete | None = None, extLst: Unused = None) -> None: ...
 
 class NonVisualDrawingProps(Serialisable):
     tagname: str
@@ -73,9 +76,9 @@ class NonVisualDrawingProps(Serialisable):
     descr: Incomplete
     hidden: Incomplete
     title: Incomplete
-    hlinkClick: Incomplete
-    hlinkHover: Incomplete
-    extLst: Incomplete
+    hlinkClick: Typed[Hyperlink, Literal[True]]
+    hlinkHover: Typed[Hyperlink, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -84,14 +87,14 @@ class NonVisualDrawingProps(Serialisable):
         descr: Incomplete | None = None,
         hidden: Incomplete | None = None,
         title: Incomplete | None = None,
-        hlinkClick: Incomplete | None = None,
-        hlinkHover: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        hlinkClick: Hyperlink | None = None,
+        hlinkHover: Hyperlink | None = None,
+        extLst: ExtensionList | None = None,
     ) -> None: ...
 
 class NonVisualGroupShape(Serialisable):
     tagname: str
-    cNvPr: Incomplete
-    cNvGrpSpPr: Incomplete
+    cNvPr: Typed[NonVisualDrawingProps, Literal[False]]
+    cNvGrpSpPr: Typed[NonVisualGroupDrawingShapeProps, Literal[False]]
     __elements__: Incomplete
-    def __init__(self, cNvPr: Incomplete | None = None, cNvGrpSpPr: Incomplete | None = None) -> None: ...
+    def __init__(self, cNvPr: NonVisualDrawingProps, cNvGrpSpPr: NonVisualGroupDrawingShapeProps) -> None: ...

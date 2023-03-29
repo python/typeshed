@@ -1,7 +1,11 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
+from typing_extensions import Literal
 
 from openpyxl.descriptors import String
+from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.worksheet.filters import AutoFilter, SortState
 
 TABLESTYLES: Incomplete
 PIVOTSTYLES: Incomplete
@@ -28,7 +32,7 @@ class XMLColumnProps(Serialisable):
     xpath: Incomplete
     denormalized: Incomplete
     xmlDataType: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -36,7 +40,7 @@ class XMLColumnProps(Serialisable):
         xpath: Incomplete | None = None,
         denormalized: Incomplete | None = None,
         xmlDataType: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        extLst: Unused = None,
     ) -> None: ...
 
 class TableFormula(Serialisable):
@@ -60,10 +64,10 @@ class TableColumn(Serialisable):
     headerRowCellStyle: Incomplete
     dataCellStyle: Incomplete
     totalsRowCellStyle: Incomplete
-    calculatedColumnFormula: Incomplete
-    totalsRowFormula: Incomplete
-    xmlColumnPr: Incomplete
-    extLst: Incomplete
+    calculatedColumnFormula: Typed[TableFormula, Literal[True]]
+    totalsRowFormula: Typed[TableFormula, Literal[True]]
+    xmlColumnPr: Typed[XMLColumnProps, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -79,10 +83,10 @@ class TableColumn(Serialisable):
         headerRowCellStyle: Incomplete | None = None,
         dataCellStyle: Incomplete | None = None,
         totalsRowCellStyle: Incomplete | None = None,
-        calculatedColumnFormula: Incomplete | None = None,
-        totalsRowFormula: Incomplete | None = None,
-        xmlColumnPr: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        calculatedColumnFormula: TableFormula | None = None,
+        totalsRowFormula: TableFormula | None = None,
+        xmlColumnPr: XMLColumnProps | None = None,
+        extLst: ExtensionList | None = None,
     ) -> None: ...
     def __iter__(self): ...
     @classmethod
@@ -116,11 +120,11 @@ class Table(Serialisable):
     dataCellStyle: Incomplete
     totalsRowCellStyle: Incomplete
     connectionId: Incomplete
-    autoFilter: Incomplete
-    sortState: Incomplete
+    autoFilter: Typed[AutoFilter, Literal[True]]
+    sortState: Typed[SortState, Literal[True]]
     tableColumns: Incomplete
-    tableStyleInfo: Incomplete
-    extLst: Incomplete
+    tableStyleInfo: Typed[TableStyleInfo, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -146,11 +150,11 @@ class Table(Serialisable):
         dataCellStyle: Incomplete | None = None,
         totalsRowCellStyle: Incomplete | None = None,
         connectionId: Incomplete | None = None,
-        autoFilter: Incomplete | None = None,
-        sortState: Incomplete | None = None,
+        autoFilter: AutoFilter | None = None,
+        sortState: SortState | None = None,
         tableColumns=(),
-        tableStyleInfo: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        tableStyleInfo: TableStyleInfo | None = None,
+        extLst: Unused = None,
     ) -> None: ...
     def to_tree(self): ...
     @property

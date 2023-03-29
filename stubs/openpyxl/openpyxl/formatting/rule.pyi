@@ -1,7 +1,11 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
+from typing_extensions import Literal
 
 from openpyxl.descriptors import Float
+from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.styles.differential import DifferentialStyle
 
 class ValueDescriptor(Float):
     expected_type: Incomplete
@@ -12,11 +16,9 @@ class FormatObject(Serialisable):
     type: Incomplete
     val: Incomplete
     gte: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
-    def __init__(
-        self, type, val: Incomplete | None = None, gte: Incomplete | None = None, extLst: Incomplete | None = None
-    ) -> None: ...
+    def __init__(self, type, val: Incomplete | None = None, gte: Incomplete | None = None, extLst: Unused = None) -> None: ...
 
 class RuleType(Serialisable):  # type: ignore[misc]
     cfvo: Incomplete
@@ -78,11 +80,11 @@ class Rule(Serialisable):
     stdDev: Incomplete
     equalAverage: Incomplete
     formula: Incomplete
-    colorScale: Incomplete
-    dataBar: Incomplete
-    iconSet: Incomplete
-    extLst: Incomplete
-    dxf: Incomplete
+    colorScale: Typed[ColorScale, Literal[True]]
+    dataBar: Typed[DataBar, Literal[True]]
+    iconSet: Typed[IconSet, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
+    dxf: Typed[DifferentialStyle, Literal[True]]
     __elements__: Incomplete
     __attrs__: Incomplete
     def __init__(
@@ -101,11 +103,11 @@ class Rule(Serialisable):
         stdDev: Incomplete | None = None,
         equalAverage: Incomplete | None = None,
         formula=(),
-        colorScale: Incomplete | None = None,
-        dataBar: Incomplete | None = None,
-        iconSet: Incomplete | None = None,
-        extLst: Incomplete | None = None,
-        dxf: Incomplete | None = None,
+        colorScale: ColorScale | None = None,
+        dataBar: DataBar | None = None,
+        iconSet: IconSet | None = None,
+        extLst: Unused = None,
+        dxf: DifferentialStyle | None = None,
     ) -> None: ...
 
 def ColorScaleRule(

@@ -1,5 +1,8 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
 class BookView(Serialisable):
@@ -17,7 +20,7 @@ class BookView(Serialisable):
     firstSheet: Incomplete
     activeTab: Incomplete
     autoFilterDateGrouping: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -34,7 +37,7 @@ class BookView(Serialisable):
         firstSheet: int = 0,
         activeTab: int = 0,
         autoFilterDateGrouping: bool = True,
-        extLst: Incomplete | None = None,
+        extLst: Unused = None,
     ) -> None: ...
 
 class CustomWorkbookView(Serialisable):
@@ -63,7 +66,7 @@ class CustomWorkbookView(Serialisable):
     showStatusbar: Incomplete
     showComments: Incomplete
     showObjects: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -91,5 +94,5 @@ class CustomWorkbookView(Serialisable):
         showStatusbar: Incomplete | None = None,
         showComments: str = "commIndicator",
         showObjects: str = "all",
-        extLst: Incomplete | None = None,
+        extLst: Unused = None,
     ) -> None: ...

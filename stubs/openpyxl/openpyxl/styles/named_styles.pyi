@@ -1,14 +1,22 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.styles.alignment import Alignment
+from openpyxl.styles.borders import Border
+from openpyxl.styles.fills import Fill
+from openpyxl.styles.fonts import Font
+from openpyxl.styles.protection import Protection
 
 class NamedStyle(Serialisable):  # type: ignore[misc]
-    font: Incomplete
-    fill: Incomplete
-    border: Incomplete
-    alignment: Incomplete
+    font: Typed[Font, Literal[False]]
+    fill: Typed[Fill, Literal[False]]
+    border: Typed[Border, Literal[False]]
+    alignment: Typed[Alignment, Literal[False]]
     number_format: Incomplete
-    protection: Incomplete
+    protection: Typed[Protection, Literal[False]]
     builtinId: Incomplete
     hidden: Incomplete
     # Overwritten by property below
@@ -17,12 +25,12 @@ class NamedStyle(Serialisable):  # type: ignore[misc]
     def __init__(
         self,
         name: str = "Normal",
-        font=None,
-        fill=None,
-        border=None,
-        alignment=None,
+        font: Font | None = None,
+        fill: Fill | None = None,
+        border: Border | None = None,
+        alignment: Alignment | None = None,
         number_format: Incomplete | None = None,
-        protection=None,
+        protection: Protection | None = None,
         builtinId: Incomplete | None = None,
         hidden: bool = False,
         xfId: Incomplete | None = None,
@@ -50,7 +58,7 @@ class _NamedCellStyle(Serialisable):
     iLevel: Incomplete
     hidden: Incomplete
     customBuiltin: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -60,7 +68,7 @@ class _NamedCellStyle(Serialisable):
         iLevel: Incomplete | None = None,
         hidden: Incomplete | None = None,
         customBuiltin: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        extLst: Unused = None,
     ) -> None: ...
 
 class _NamedCellStyleList(Serialisable):

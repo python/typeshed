@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Typed
 from openpyxl.descriptors.serialisable import Serialisable
 
 class Outline(Serialisable):
@@ -34,8 +36,8 @@ class WorksheetProperties(Serialisable):
     transitionEvaluation: Incomplete
     transitionEntry: Incomplete
     tabColor: Incomplete
-    outlinePr: Incomplete
-    pageSetUpPr: Incomplete
+    outlinePr: Typed[Outline, Literal[True]]
+    pageSetUpPr: Typed[PageSetupProperties, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -49,6 +51,6 @@ class WorksheetProperties(Serialisable):
         transitionEvaluation: Incomplete | None = None,
         transitionEntry: Incomplete | None = None,
         tabColor: Incomplete | None = None,
-        outlinePr: Incomplete | None = None,
-        pageSetUpPr: Incomplete | None = None,
+        outlinePr: Outline | None = None,
+        pageSetUpPr: PageSetupProperties | None = None,
     ) -> None: ...

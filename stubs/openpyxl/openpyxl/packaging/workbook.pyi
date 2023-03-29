@@ -1,6 +1,15 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.workbook.defined_name import DefinedNameList
+from openpyxl.workbook.function_group import FunctionGroupList
+from openpyxl.workbook.properties import CalcProperties, FileVersion, WorkbookProperties
+from openpyxl.workbook.protection import FileSharing, WorkbookProtection
+from openpyxl.workbook.smart_tags import SmartTagList, SmartTagProperties
+from openpyxl.workbook.web import WebPublishing, WebPublishObjectList
 
 class FileRecoveryProperties(Serialisable):
     tagname: str
@@ -39,51 +48,51 @@ class PivotCache(Serialisable):
 class WorkbookPackage(Serialisable):
     tagname: str
     conformance: Incomplete
-    fileVersion: Incomplete
-    fileSharing: Incomplete
-    workbookPr: Incomplete
+    fileVersion: Typed[FileVersion, Literal[True]]
+    fileSharing: Typed[FileSharing, Literal[True]]
+    workbookPr: Typed[WorkbookProperties, Literal[True]]
     properties: Incomplete
-    workbookProtection: Incomplete
+    workbookProtection: Typed[WorkbookProtection, Literal[True]]
     bookViews: Incomplete
     sheets: Incomplete
-    functionGroups: Incomplete
+    functionGroups: Typed[FunctionGroupList, Literal[True]]
     externalReferences: Incomplete
-    definedNames: Incomplete
-    calcPr: Incomplete
+    definedNames: Typed[DefinedNameList, Literal[True]]
+    calcPr: Typed[CalcProperties, Literal[True]]
     oleSize: Incomplete
     customWorkbookViews: Incomplete
     pivotCaches: Incomplete
-    smartTagPr: Incomplete
-    smartTagTypes: Incomplete
-    webPublishing: Incomplete
-    fileRecoveryPr: Incomplete
-    webPublishObjects: Incomplete
-    extLst: Incomplete
+    smartTagPr: Typed[SmartTagProperties, Literal[True]]
+    smartTagTypes: Typed[SmartTagList, Literal[True]]
+    webPublishing: Typed[WebPublishing, Literal[True]]
+    fileRecoveryPr: Typed[FileRecoveryProperties, Literal[True]]
+    webPublishObjects: Typed[WebPublishObjectList, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
     Ignorable: Incomplete
     __elements__: Incomplete
     def __init__(
         self,
         conformance: Incomplete | None = None,
-        fileVersion: Incomplete | None = None,
-        fileSharing: Incomplete | None = None,
-        workbookPr: Incomplete | None = None,
-        workbookProtection: Incomplete | None = None,
+        fileVersion: FileVersion | None = None,
+        fileSharing: FileSharing | None = None,
+        workbookPr: WorkbookProperties | None = None,
+        workbookProtection: WorkbookProtection | None = None,
         bookViews=(),
         sheets=(),
-        functionGroups: Incomplete | None = None,
+        functionGroups: FunctionGroupList | None = None,
         externalReferences=(),
-        definedNames: Incomplete | None = None,
-        calcPr: Incomplete | None = None,
+        definedNames: DefinedNameList | None = None,
+        calcPr: CalcProperties | None = None,
         oleSize: Incomplete | None = None,
         customWorkbookViews=(),
         pivotCaches=(),
-        smartTagPr: Incomplete | None = None,
-        smartTagTypes: Incomplete | None = None,
-        webPublishing: Incomplete | None = None,
-        fileRecoveryPr: Incomplete | None = None,
-        webPublishObjects: Incomplete | None = None,
-        extLst: Incomplete | None = None,
-        Ignorable: Incomplete | None = None,
+        smartTagPr: SmartTagProperties | None = None,
+        smartTagTypes: SmartTagList | None = None,
+        webPublishing: WebPublishing | None = None,
+        fileRecoveryPr: FileRecoveryProperties | None = None,
+        webPublishObjects: WebPublishObjectList | None = None,
+        extLst: Unused = None,
+        Ignorable: Unused = None,
     ) -> None: ...
     def to_tree(self): ...
     @property

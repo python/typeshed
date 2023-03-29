@@ -1,5 +1,8 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
 class SortCondition(Serialisable):
@@ -29,7 +32,7 @@ class SortState(Serialisable):
     sortMethod: Incomplete
     ref: Incomplete
     sortCondition: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -38,7 +41,7 @@ class SortState(Serialisable):
         sortMethod: Incomplete | None = None,
         ref: Incomplete | None = None,
         sortCondition=(),
-        extLst: Incomplete | None = None,
+        extLst: Unused = None,
     ) -> None: ...
     def __bool__(self) -> bool: ...
 
@@ -133,26 +136,26 @@ class FilterColumn(Serialisable):
     col_id: Incomplete
     hiddenButton: Incomplete
     showButton: Incomplete
-    filters: Incomplete
-    top10: Incomplete
-    customFilters: Incomplete
-    dynamicFilter: Incomplete
-    colorFilter: Incomplete
-    iconFilter: Incomplete
-    extLst: Incomplete
+    filters: Typed[Filters, Literal[True]]
+    top10: Typed[Top10, Literal[True]]
+    customFilters: Typed[CustomFilters, Literal[True]]
+    dynamicFilter: Typed[DynamicFilter, Literal[True]]
+    colorFilter: Typed[ColorFilter, Literal[True]]
+    iconFilter: Typed[IconFilter, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
         colId: Incomplete | None = None,
         hiddenButton: Incomplete | None = False,
         showButton: Incomplete | None = True,
-        filters: Incomplete | None = None,
-        top10: Incomplete | None = None,
-        customFilters: Incomplete | None = None,
-        dynamicFilter: Incomplete | None = None,
-        colorFilter: Incomplete | None = None,
-        iconFilter: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        filters: Filters | None = None,
+        top10: Top10 | None = None,
+        customFilters: CustomFilters | None = None,
+        dynamicFilter: DynamicFilter | None = None,
+        colorFilter: ColorFilter | None = None,
+        iconFilter: IconFilter | None = None,
+        extLst: Unused = None,
         blank: Incomplete | None = None,
         vals: Incomplete | None = None,
     ) -> None: ...
@@ -161,15 +164,11 @@ class AutoFilter(Serialisable):
     tagname: str
     ref: Incomplete
     filterColumn: Incomplete
-    sortState: Incomplete
-    extLst: Incomplete
+    sortState: Typed[SortState, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
-        self,
-        ref: Incomplete | None = None,
-        filterColumn=(),
-        sortState: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        self, ref: Incomplete | None = None, filterColumn=(), sortState: SortState | None = None, extLst: Unused = None
     ) -> None: ...
     def __bool__(self) -> bool: ...
     def add_filter_column(self, col_id, vals, blank: bool = False) -> None: ...

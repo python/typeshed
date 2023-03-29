@@ -1,6 +1,11 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from collections.abc import Generator
+from typing_extensions import Literal
 
+from openpyxl.cell.text import Text
+from openpyxl.comments.author import AuthorList
+from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
 class Properties(Serialisable):
@@ -46,8 +51,8 @@ class CommentRecord(Serialisable):
     authorId: Incomplete
     guid: Incomplete
     shapeId: Incomplete
-    text: Incomplete
-    commentPr: Incomplete
+    text: Typed[Text, Literal[False]]
+    commentPr: Typed[Properties, Literal[True]]
     author: Incomplete
     __elements__: Incomplete
     __attrs__: Incomplete
@@ -59,8 +64,8 @@ class CommentRecord(Serialisable):
         authorId: int = 0,
         guid: Incomplete | None = None,
         shapeId: int = 0,
-        text: Incomplete | None = None,
-        commentPr: Incomplete | None = None,
+        text: Text | None = None,
+        commentPr: Properties | None = None,
         author: Incomplete | None = None,
         height: int = 79,
         width: int = 144,
@@ -72,14 +77,12 @@ class CommentRecord(Serialisable):
 
 class CommentSheet(Serialisable):
     tagname: str
-    authors: Incomplete
+    authors: Typed[AuthorList, Literal[False]]
     commentList: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     mime_type: str
     __elements__: Incomplete
-    def __init__(
-        self, authors: Incomplete | None = None, commentList: Incomplete | None = None, extLst: Incomplete | None = None
-    ) -> None: ...
+    def __init__(self, authors: AuthorList, commentList: Incomplete | None = None, extLst: Unused = None) -> None: ...
     def to_tree(self): ...
     @property
     def comments(self) -> Generator[Incomplete, None, None]: ...

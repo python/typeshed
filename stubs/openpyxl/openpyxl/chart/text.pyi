@@ -1,23 +1,27 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal
 
+from openpyxl.chart.data_source import StrRef
+from openpyxl.descriptors.base import Typed
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.drawing.text import ListStyle, RichTextProperties
 
 class RichText(Serialisable):
     tagname: str
-    bodyPr: Incomplete
+    bodyPr: Typed[RichTextProperties, Literal[False]]
     properties: Incomplete
-    lstStyle: Incomplete
+    lstStyle: Typed[ListStyle, Literal[True]]
     p: Incomplete
     paragraphs: Incomplete
     __elements__: Incomplete
     def __init__(
-        self, bodyPr: Incomplete | None = None, lstStyle: Incomplete | None = None, p: Incomplete | None = None
+        self, bodyPr: RichTextProperties | None = None, lstStyle: ListStyle | None = None, p: Incomplete | None = None
     ) -> None: ...
 
 class Text(Serialisable):
     tagname: str
-    strRef: Incomplete
-    rich: Incomplete
+    strRef: Typed[StrRef, Literal[True]]
+    rich: Typed[RichText, Literal[True]]
     __elements__: Incomplete
-    def __init__(self, strRef: Incomplete | None = None, rich: Incomplete | None = None) -> None: ...
+    def __init__(self, strRef: StrRef | None = None, rich: RichText | None = None) -> None: ...
     def to_tree(self, tagname: Incomplete | None = None, idx: Incomplete | None = None, namespace: Incomplete | None = None): ...

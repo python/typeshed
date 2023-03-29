@@ -1,5 +1,8 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
 class Pane(Serialisable):  # type: ignore[misc]
@@ -49,7 +52,7 @@ class SheetView(Serialisable):
     zoomToFit: Incomplete
     workbookViewId: Incomplete
     selection: Incomplete
-    pane: Incomplete
+    pane: Typed[Pane, Literal[True]]
     def __init__(
         self,
         windowProtection: Incomplete | None = None,
@@ -73,12 +76,12 @@ class SheetView(Serialisable):
         zoomToFit: Incomplete | None = None,
         workbookViewId: int = 0,
         selection: Incomplete | None = None,
-        pane: Incomplete | None = None,
+        pane: Pane | None = None,
     ) -> None: ...
 
 class SheetViewList(Serialisable):
     tagname: str
     sheetView: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
-    def __init__(self, sheetView: Incomplete | None = None, extLst: Incomplete | None = None) -> None: ...
+    def __init__(self, sheetView: Incomplete | None = None, extLst: Unused = None) -> None: ...

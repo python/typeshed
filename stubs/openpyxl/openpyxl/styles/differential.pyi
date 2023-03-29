@@ -1,26 +1,31 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.styles import Alignment, Border, Fill, Font, Protection
+from openpyxl.styles.numbers import NumberFormat
 
 class DifferentialStyle(Serialisable):
     tagname: str
     __elements__: Incomplete
-    font: Incomplete
-    numFmt: Incomplete
-    fill: Incomplete
-    alignment: Incomplete
-    border: Incomplete
-    protection: Incomplete
-    extLst: Incomplete
+    font: Typed[Font, Literal[True]]
+    numFmt: Typed[NumberFormat, Literal[True]]
+    fill: Typed[Fill, Literal[True]]
+    alignment: Typed[Alignment, Literal[True]]
+    border: Typed[Border, Literal[True]]
+    protection: Typed[Protection, Literal[True]]
+    extLst: ExtensionList | None
     def __init__(
         self,
-        font: Incomplete | None = None,
-        numFmt: Incomplete | None = None,
-        fill: Incomplete | None = None,
-        alignment: Incomplete | None = None,
-        border: Incomplete | None = None,
-        protection: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        font: Font | None = None,
+        numFmt: NumberFormat | None = None,
+        fill: Fill | None = None,
+        alignment: Alignment | None = None,
+        border: Border | None = None,
+        protection: Protection | None = None,
+        extLst: ExtensionList | None = None,
     ) -> None: ...
 
 class DifferentialStyleList(Serialisable):

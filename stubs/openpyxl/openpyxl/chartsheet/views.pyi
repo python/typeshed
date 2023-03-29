@@ -1,5 +1,8 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
 class ChartsheetView(Serialisable):
@@ -8,7 +11,7 @@ class ChartsheetView(Serialisable):
     zoomScale: Incomplete
     workbookViewId: Incomplete
     zoomToFit: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -16,12 +19,12 @@ class ChartsheetView(Serialisable):
         zoomScale: Incomplete | None = None,
         workbookViewId: int = 0,
         zoomToFit: Incomplete | None = True,
-        extLst: Incomplete | None = None,
+        extLst: Unused = None,
     ) -> None: ...
 
 class ChartsheetViewList(Serialisable):
     tagname: str
     sheetView: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
-    def __init__(self, sheetView: Incomplete | None = None, extLst: Incomplete | None = None) -> None: ...
+    def __init__(self, sheetView: Incomplete | None = None, extLst: Unused = None) -> None: ...

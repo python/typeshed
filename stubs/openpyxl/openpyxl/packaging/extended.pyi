@@ -1,5 +1,7 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Typed
 from openpyxl.descriptors.serialisable import Serialisable
 
 def get_version(): ...
@@ -33,15 +35,15 @@ class ExtendedProperties(Serialisable):
     HiddenSlides: Incomplete
     MMClips: Incomplete
     ScaleCrop: Incomplete
-    HeadingPairs: Incomplete
-    TitlesOfParts: Incomplete
+    HeadingPairs: Typed[VectorVariant, Literal[True]]
+    TitlesOfParts: Typed[VectorLpstr, Literal[True]]
     LinksUpToDate: Incomplete
     CharactersWithSpaces: Incomplete
     SharedDoc: Incomplete
     HyperlinkBase: Incomplete
-    HLinks: Incomplete
+    HLinks: Typed[VectorVariant, Literal[True]]
     HyperlinksChanged: Incomplete
-    DigSig: Incomplete
+    DigSig: Typed[DigSigBlob, Literal[True]]
     Application: Incomplete
     AppVersion: Incomplete
     DocSecurity: Incomplete
@@ -63,15 +65,15 @@ class ExtendedProperties(Serialisable):
         HiddenSlides: Incomplete | None = None,
         MMClips: Incomplete | None = None,
         ScaleCrop: Incomplete | None = None,
-        HeadingPairs: Incomplete | None = None,
-        TitlesOfParts: Incomplete | None = None,
+        HeadingPairs: Unused = None,
+        TitlesOfParts: Unused = None,
         LinksUpToDate: Incomplete | None = None,
         CharactersWithSpaces: Incomplete | None = None,
         SharedDoc: Incomplete | None = None,
         HyperlinkBase: Incomplete | None = None,
-        HLinks: Incomplete | None = None,
+        HLinks: Unused = None,
         HyperlinksChanged: Incomplete | None = None,
-        DigSig: Incomplete | None = None,
+        DigSig: Unused = None,
         Application: str = "Microsoft Excel",
         AppVersion: Incomplete | None = None,
         DocSecurity: Incomplete | None = None,

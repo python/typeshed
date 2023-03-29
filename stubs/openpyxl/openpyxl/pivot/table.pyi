@@ -1,6 +1,10 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.worksheet.filters import AutoFilter
 
 class HierarchyUsage(Serialisable):
     tagname: str
@@ -38,31 +42,31 @@ class PivotFilter(Serialisable):
     description: Incomplete
     stringValue1: Incomplete
     stringValue2: Incomplete
-    autoFilter: Incomplete
-    extLst: Incomplete
+    autoFilter: Typed[AutoFilter, Literal[False]]
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
-        fld: Incomplete | None = None,
-        mpFld: Incomplete | None = None,
-        type: Incomplete | None = None,
-        evalOrder: Incomplete | None = None,
-        id: Incomplete | None = None,
-        iMeasureHier: Incomplete | None = None,
-        iMeasureFld: Incomplete | None = None,
-        name: Incomplete | None = None,
-        description: Incomplete | None = None,
-        stringValue1: Incomplete | None = None,
-        stringValue2: Incomplete | None = None,
-        autoFilter: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        fld: Incomplete | None,
+        mpFld: Incomplete | None,
+        type: Incomplete | None,
+        evalOrder: Incomplete | None,
+        id: Incomplete | None,
+        iMeasureHier: Incomplete | None,
+        iMeasureFld: Incomplete | None,
+        name: Incomplete | None,
+        description: Incomplete | None,
+        stringValue1: Incomplete | None,
+        stringValue2: Incomplete | None,
+        autoFilter: AutoFilter,
+        extLst: ExtensionList | None = None,
     ) -> None: ...
 
 class PivotFilters(Serialisable):  # type: ignore[misc]
     count: Incomplete
-    filter: Incomplete
+    filter: Typed[PivotFilter, Literal[True]]
     __elements__: Incomplete
-    def __init__(self, count: Incomplete | None = None, filter: Incomplete | None = None) -> None: ...
+    def __init__(self, count: Incomplete | None = None, filter: PivotFilter | None = None) -> None: ...
 
 class PivotTableStyle(Serialisable):
     tagname: str
@@ -129,8 +133,8 @@ class PivotHierarchy(Serialisable):
     includeNewItemsInFilter: Incomplete
     caption: Incomplete
     mps: Incomplete
-    members: Incomplete
-    extLst: Incomplete
+    members: Typed[MemberList, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -146,8 +150,8 @@ class PivotHierarchy(Serialisable):
         includeNewItemsInFilter: Incomplete | None = None,
         caption: Incomplete | None = None,
         mps=(),
-        members: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        members: MemberList | None = None,
+        extLst: ExtensionList | None = None,
     ) -> None: ...
 
 class Reference(Serialisable):
@@ -169,7 +173,7 @@ class Reference(Serialisable):
     varSubtotal: Incomplete
     varPSubtotal: Incomplete
     x: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -191,7 +195,7 @@ class Reference(Serialisable):
         varSubtotal: Incomplete | None = None,
         varPSubtotal: Incomplete | None = None,
         x: Incomplete | None = (),
-        extLst: Incomplete | None = None,
+        extLst: ExtensionList | None = None,
     ) -> None: ...
     @property
     def count(self): ...
@@ -199,7 +203,7 @@ class Reference(Serialisable):
 class PivotArea(Serialisable):
     tagname: str
     references: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     field: Incomplete
     type: Incomplete
     dataOnly: Incomplete
@@ -216,7 +220,7 @@ class PivotArea(Serialisable):
     def __init__(
         self,
         references=(),
-        extLst: Incomplete | None = None,
+        extLst: ExtensionList | None = None,
         field: Incomplete | None = None,
         type: str = "normal",
         dataOnly: bool = True,
@@ -236,14 +240,10 @@ class ChartFormat(Serialisable):
     chart: Incomplete
     format: Incomplete
     series: Incomplete
-    pivotArea: Incomplete
+    pivotArea: Typed[PivotArea, Literal[False]]
     __elements__: Incomplete
     def __init__(
-        self,
-        chart: Incomplete | None = None,
-        format: Incomplete | None = None,
-        series: Incomplete | None = None,
-        pivotArea: Incomplete | None = None,
+        self, chart: Incomplete | None, format: Incomplete | None, series: Incomplete | None, pivotArea: PivotArea
     ) -> None: ...
 
 class ConditionalFormat(Serialisable):
@@ -252,7 +252,7 @@ class ConditionalFormat(Serialisable):
     type: Incomplete
     priority: Incomplete
     pivotAreas: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -260,22 +260,28 @@ class ConditionalFormat(Serialisable):
         type: Incomplete | None = None,
         priority: Incomplete | None = None,
         pivotAreas=(),
-        extLst: Incomplete | None = None,
+        extLst: ExtensionList | None = None,
     ) -> None: ...
+
+class ConditionalFormatList(Serialisable):
+    tagname: str
+    conditionalFormat: Incomplete
+    __attrs__: Incomplete
+    def __init__(self, conditionalFormat=..., count: Incomplete | None = ...) -> None: ...
+    def by_priority(self): ...
+    @property
+    def count(self): ...
+    def to_tree(self, tagname: Incomplete | None = ...): ...  # type: ignore[override]
 
 class Format(Serialisable):
     tagname: str
     action: Incomplete
     dxfId: Incomplete
-    pivotArea: Incomplete
-    extLst: Incomplete
+    pivotArea: Typed[PivotArea, Literal[False]]
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
-        self,
-        action: str = "formatting",
-        dxfId: Incomplete | None = None,
-        pivotArea: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        self, action: str, dxfId: Incomplete | None, pivotArea: PivotArea, extLst: ExtensionList | None = None
     ) -> None: ...
 
 class DataField(Serialisable):
@@ -287,7 +293,7 @@ class DataField(Serialisable):
     baseField: Incomplete
     baseItem: Incomplete
     numFmtId: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -298,7 +304,7 @@ class DataField(Serialisable):
         baseField: int = -1,
         baseItem: int = 1048832,
         numFmtId: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        extLst: ExtensionList | None = None,
     ) -> None: ...
 
 class PageField(Serialisable):
@@ -308,7 +314,7 @@ class PageField(Serialisable):
     hier: Incomplete
     name: Incomplete
     cap: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -317,7 +323,7 @@ class PageField(Serialisable):
         hier: Incomplete | None = None,
         name: Incomplete | None = None,
         cap: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        extLst: ExtensionList | None = None,
     ) -> None: ...
 
 class RowColItem(Serialisable):
@@ -335,9 +341,9 @@ class RowColField(Serialisable):
     def __init__(self, x: Incomplete | None = None) -> None: ...
 
 class AutoSortScope(Serialisable):  # type: ignore[misc]
-    pivotArea: Incomplete
+    pivotArea: Typed[PivotArea, Literal[False]]
     __elements__: Incomplete
-    def __init__(self, pivotArea: Incomplete | None = None) -> None: ...
+    def __init__(self, pivotArea: PivotArea) -> None: ...
 
 class FieldItem(Serialisable):
     tagname: str
@@ -370,8 +376,8 @@ class FieldItem(Serialisable):
 class PivotField(Serialisable):
     tagname: str
     items: Incomplete
-    autoSortScope: Incomplete
-    extLst: Incomplete
+    autoSortScope: Typed[AutoSortScope, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
     name: Incomplete
     axis: Incomplete
     dataField: Incomplete
@@ -424,7 +430,7 @@ class PivotField(Serialisable):
     def __init__(
         self,
         items=(),
-        autoSortScope: Incomplete | None = None,
+        autoSortScope: AutoSortScope | None = None,
         name: Incomplete | None = None,
         axis: Incomplete | None = None,
         dataField: Incomplete | None = None,
@@ -473,7 +479,7 @@ class PivotField(Serialisable):
         showPropTip: Incomplete | None = None,
         showPropAsCaption: Incomplete | None = None,
         defaultAttributeDrillState: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        extLst: ExtensionList | None = None,
     ) -> None: ...
 
 class Location(Serialisable):
@@ -567,7 +573,7 @@ class TableDefinition(Serialisable):
     applyPatternFormats: Incomplete
     applyAlignmentFormats: Incomplete
     applyWidthHeightFormats: Incomplete
-    location: Incomplete
+    location: Typed[Location, Literal[False]]
     pivotFields: Incomplete
     rowFields: Incomplete
     rowItems: Incomplete
@@ -576,87 +582,87 @@ class TableDefinition(Serialisable):
     pageFields: Incomplete
     dataFields: Incomplete
     formats: Incomplete
-    conditionalFormats: Incomplete
+    conditionalFormats: Typed[ConditionalFormatList, Literal[True]]
     chartFormats: Incomplete
     pivotHierarchies: Incomplete
-    pivotTableStyleInfo: Incomplete
+    pivotTableStyleInfo: Typed[PivotTableStyle, Literal[True]]
     filters: Incomplete
-    rowHierarchiesUsage: Incomplete
-    colHierarchiesUsage: Incomplete
-    extLst: Incomplete
+    rowHierarchiesUsage: Typed[RowHierarchiesUsage, Literal[True]]
+    colHierarchiesUsage: Typed[ColHierarchiesUsage, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
     id: Incomplete
     __elements__: Incomplete
     def __init__(
         self,
-        name: Incomplete | None = None,
-        cacheId: Incomplete | None = None,
-        dataOnRows: bool = False,
-        dataPosition: Incomplete | None = None,
-        dataCaption: Incomplete | None = None,
-        grandTotalCaption: Incomplete | None = None,
-        errorCaption: Incomplete | None = None,
-        showError: bool = False,
-        missingCaption: Incomplete | None = None,
-        showMissing: bool = True,
-        pageStyle: Incomplete | None = None,
-        pivotTableStyle: Incomplete | None = None,
-        vacatedStyle: Incomplete | None = None,
-        tag: Incomplete | None = None,
-        updatedVersion: int = 0,
-        minRefreshableVersion: int = 0,
-        asteriskTotals: bool = False,
-        showItems: bool = True,
-        editData: bool = False,
-        disableFieldList: bool = False,
-        showCalcMbrs: bool = True,
-        visualTotals: bool = True,
-        showMultipleLabel: bool = True,
-        showDataDropDown: bool = True,
-        showDrill: bool = True,
-        printDrill: bool = False,
-        showMemberPropertyTips: bool = True,
-        showDataTips: bool = True,
-        enableWizard: bool = True,
-        enableDrill: bool = True,
-        enableFieldProperties: bool = True,
-        preserveFormatting: bool = True,
-        useAutoFormatting: bool = False,
-        pageWrap: int = 0,
-        pageOverThenDown: bool = False,
-        subtotalHiddenItems: bool = False,
-        rowGrandTotals: bool = True,
-        colGrandTotals: bool = True,
-        fieldPrintTitles: bool = False,
-        itemPrintTitles: bool = False,
-        mergeItem: bool = False,
-        showDropZones: bool = True,
-        createdVersion: int = 0,
-        indent: int = 1,
-        showEmptyRow: bool = False,
-        showEmptyCol: bool = False,
-        showHeaders: bool = True,
-        compact: bool = True,
-        outline: bool = False,
-        outlineData: bool = False,
-        compactData: bool = True,
-        published: bool = False,
-        gridDropZones: bool = False,
-        immersive: bool = True,
-        multipleFieldFilters: Incomplete | None = None,
-        chartFormat: int = 0,
-        rowHeaderCaption: Incomplete | None = None,
-        colHeaderCaption: Incomplete | None = None,
-        fieldListSortAscending: Incomplete | None = None,
-        mdxSubqueries: Incomplete | None = None,
-        customListSort: Incomplete | None = None,
-        autoFormatId: Incomplete | None = None,
-        applyNumberFormats: bool = False,
-        applyBorderFormats: bool = False,
-        applyFontFormats: bool = False,
-        applyPatternFormats: bool = False,
-        applyAlignmentFormats: bool = False,
-        applyWidthHeightFormats: bool = False,
-        location: Incomplete | None = None,
+        name: Incomplete | None,
+        cacheId: Incomplete | None,
+        dataOnRows: bool,
+        dataPosition: Incomplete | None,
+        dataCaption: Incomplete | None,
+        grandTotalCaption: Incomplete | None,
+        errorCaption: Incomplete | None,
+        showError: bool,
+        missingCaption: Incomplete | None,
+        showMissing: bool,
+        pageStyle: Incomplete | None,
+        pivotTableStyle: Incomplete | None,
+        vacatedStyle: Incomplete | None,
+        tag: Incomplete | None,
+        updatedVersion: int,
+        minRefreshableVersion: int,
+        asteriskTotals: bool,
+        showItems: bool,
+        editData: bool,
+        disableFieldList: bool,
+        showCalcMbrs: bool,
+        visualTotals: bool,
+        showMultipleLabel: bool,
+        showDataDropDown: bool,
+        showDrill: bool,
+        printDrill: bool,
+        showMemberPropertyTips: bool,
+        showDataTips: bool,
+        enableWizard: bool,
+        enableDrill: bool,
+        enableFieldProperties: bool,
+        preserveFormatting: bool,
+        useAutoFormatting: bool,
+        pageWrap: int,
+        pageOverThenDown: bool,
+        subtotalHiddenItems: bool,
+        rowGrandTotals: bool,
+        colGrandTotals: bool,
+        fieldPrintTitles: bool,
+        itemPrintTitles: bool,
+        mergeItem: bool,
+        showDropZones: bool,
+        createdVersion: int,
+        indent: int,
+        showEmptyRow: bool,
+        showEmptyCol: bool,
+        showHeaders: bool,
+        compact: bool,
+        outline: bool,
+        outlineData: bool,
+        compactData: bool,
+        published: bool,
+        gridDropZones: bool,
+        immersive: bool,
+        multipleFieldFilters: Incomplete | None,
+        chartFormat: int,
+        rowHeaderCaption: Incomplete | None,
+        colHeaderCaption: Incomplete | None,
+        fieldListSortAscending: Incomplete | None,
+        mdxSubqueries: Incomplete | None,
+        customListSort: Incomplete | None,
+        autoFormatId: Incomplete | None,
+        applyNumberFormats: bool,
+        applyBorderFormats: bool,
+        applyFontFormats: bool,
+        applyPatternFormats: bool,
+        applyAlignmentFormats: bool,
+        applyWidthHeightFormats: bool,
+        location: Location | None,
         pivotFields=(),
         rowFields=(),
         rowItems=(),
@@ -665,14 +671,14 @@ class TableDefinition(Serialisable):
         pageFields=(),
         dataFields=(),
         formats=(),
-        conditionalFormats=None,
+        conditionalFormats: ConditionalFormatList | None = None,
         chartFormats=(),
         pivotHierarchies=(),
-        pivotTableStyleInfo: Incomplete | None = None,
+        pivotTableStyleInfo: PivotTableStyle | None = None,
         filters=(),
-        rowHierarchiesUsage: Incomplete | None = None,
-        colHierarchiesUsage: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        rowHierarchiesUsage: RowHierarchiesUsage | None = None,
+        colHierarchiesUsage: ColHierarchiesUsage | None = None,
+        extLst: ExtensionList | None = None,
         id: Incomplete | None = None,
     ) -> None: ...
     def to_tree(self): ...

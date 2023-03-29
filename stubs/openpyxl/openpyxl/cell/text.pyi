@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Typed
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.fonts import Font
 
@@ -59,12 +61,12 @@ class InlineFont(Font):
 
 class RichText(Serialisable):
     tagname: str
-    rPr: Incomplete
+    rPr: Typed[InlineFont, Literal[True]]
     font: Incomplete
     t: Incomplete
     text: Incomplete
     __elements__: Incomplete
-    def __init__(self, rPr: Incomplete | None = None, t: Incomplete | None = None) -> None: ...
+    def __init__(self, rPr: InlineFont | None = None, t: Incomplete | None = None) -> None: ...
 
 class Text(Serialisable):
     tagname: str
@@ -74,9 +76,9 @@ class Text(Serialisable):
     formatted: Incomplete
     rPh: Incomplete
     phonetic: Incomplete
-    phoneticPr: Incomplete
+    phoneticPr: Typed[PhoneticProperties, Literal[True]]
     PhoneticProperties: Incomplete
     __elements__: Incomplete
-    def __init__(self, t: Incomplete | None = None, r=(), rPh=(), phoneticPr: Incomplete | None = None) -> None: ...
+    def __init__(self, t: Incomplete | None = None, r=(), rPh=(), phoneticPr: PhoneticProperties | None = None) -> None: ...
     @property
     def content(self): ...

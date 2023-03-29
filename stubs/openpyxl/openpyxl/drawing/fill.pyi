@@ -1,19 +1,42 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.drawing.colors import ColorChoice, HSLColor, RGBPercent, SchemeColor, SystemColor
+from openpyxl.drawing.effect import (
+    AlphaBiLevelEffect,
+    AlphaCeilingEffect,
+    AlphaFloorEffect,
+    AlphaInverseEffect,
+    AlphaModulateEffect,
+    AlphaModulateFixedEffect,
+    AlphaReplaceEffect,
+    BiLevelEffect,
+    BlurEffect,
+    ColorChangeEffect,
+    ColorReplaceEffect,
+    DuotoneEffect,
+    FillOverlayEffect,
+    GrayscaleEffect,
+    HSLEffect,
+    LuminanceEffect,
+    TintEffect,
+)
 
 class PatternFillProperties(Serialisable):
     tagname: str
     namespace: Incomplete
     prst: Incomplete
     preset: Incomplete
-    fgClr: Incomplete
+    fgClr: Typed[ColorChoice, Literal[True]]
     foreground: Incomplete
-    bgClr: Incomplete
+    bgClr: Typed[ColorChoice, Literal[True]]
     background: Incomplete
     __elements__: Incomplete
     def __init__(
-        self, prst: Incomplete | None = None, fgClr: Incomplete | None = None, bgClr: Incomplete | None = None
+        self, prst: Incomplete | None = None, fgClr: ColorChoice | None = None, bgClr: ColorChoice | None = None
     ) -> None: ...
 
 class RelativeRect(Serialisable):
@@ -34,30 +57,30 @@ class RelativeRect(Serialisable):
 class StretchInfoProperties(Serialisable):
     tagname: str
     namespace: Incomplete
-    fillRect: Incomplete
-    def __init__(self, fillRect=...) -> None: ...
+    fillRect: Typed[RelativeRect, Literal[True]]
+    def __init__(self, fillRect: RelativeRect = ...) -> None: ...
 
 class GradientStop(Serialisable):
     tagname: str
     namespace: Incomplete
     pos: Incomplete
-    scrgbClr: Incomplete
+    scrgbClr: Typed[RGBPercent, Literal[True]]
     RGBPercent: Incomplete
     srgbClr: Incomplete
     RGB: Incomplete
-    hslClr: Incomplete
-    sysClr: Incomplete
-    schemeClr: Incomplete
+    hslClr: Typed[HSLColor, Literal[True]]
+    sysClr: Typed[SystemColor, Literal[True]]
+    schemeClr: Typed[SchemeColor, Literal[True]]
     prstClr: Incomplete
     __elements__: Incomplete
     def __init__(
         self,
         pos: Incomplete | None = None,
-        scrgbClr: Incomplete | None = None,
+        scrgbClr: RGBPercent | None = None,
         srgbClr: Incomplete | None = None,
-        hslClr: Incomplete | None = None,
-        sysClr: Incomplete | None = None,
-        schemeClr: Incomplete | None = None,
+        hslClr: HSLColor | None = None,
+        sysClr: SystemColor | None = None,
+        schemeClr: SchemeColor | None = None,
         prstClr: Incomplete | None = None,
     ) -> None: ...
 
@@ -72,8 +95,8 @@ class PathShadeProperties(Serialisable):
     tagname: str
     namespace: Incomplete
     path: Incomplete
-    fillToRect: Incomplete
-    def __init__(self, path: Incomplete | None = None, fillToRect: Incomplete | None = None) -> None: ...
+    fillToRect: Typed[RelativeRect, Literal[True]]
+    def __init__(self, path: Incomplete | None = None, fillToRect: RelativeRect | None = None) -> None: ...
 
 class GradientFillProperties(Serialisable):
     tagname: str
@@ -82,39 +105,39 @@ class GradientFillProperties(Serialisable):
     rotWithShape: Incomplete
     gsLst: Incomplete
     stop_list: Incomplete
-    lin: Incomplete
+    lin: Typed[LinearShadeProperties, Literal[True]]
     linear: Incomplete
-    path: Incomplete
-    tileRect: Incomplete
+    path: Typed[PathShadeProperties, Literal[True]]
+    tileRect: Typed[RelativeRect, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
         flip: Incomplete | None = None,
         rotWithShape: Incomplete | None = None,
         gsLst=(),
-        lin: Incomplete | None = None,
-        path: Incomplete | None = None,
-        tileRect: Incomplete | None = None,
+        lin: LinearShadeProperties | None = None,
+        path: PathShadeProperties | None = None,
+        tileRect: RelativeRect | None = None,
     ) -> None: ...
 
 class SolidColorFillProperties(Serialisable):
     tagname: str
-    scrgbClr: Incomplete
+    scrgbClr: Typed[RGBPercent, Literal[True]]
     RGBPercent: Incomplete
     srgbClr: Incomplete
     RGB: Incomplete
-    hslClr: Incomplete
-    sysClr: Incomplete
-    schemeClr: Incomplete
+    hslClr: Typed[HSLColor, Literal[True]]
+    sysClr: Typed[SystemColor, Literal[True]]
+    schemeClr: Typed[SchemeColor, Literal[True]]
     prstClr: Incomplete
     __elements__: Incomplete
     def __init__(
         self,
-        scrgbClr: Incomplete | None = None,
+        scrgbClr: RGBPercent | None = None,
         srgbClr: Incomplete | None = None,
-        hslClr: Incomplete | None = None,
-        sysClr: Incomplete | None = None,
-        schemeClr: Incomplete | None = None,
+        hslClr: HSLColor | None = None,
+        sysClr: SystemColor | None = None,
+        schemeClr: SchemeColor | None = None,
         prstClr: Incomplete | None = None,
     ) -> None: ...
 
@@ -134,24 +157,24 @@ class Blip(Serialisable):
     noAdjustHandles: Incomplete
     noChangeArrowheads: Incomplete
     noChangeShapeType: Incomplete
-    extLst: Incomplete
-    alphaBiLevel: Incomplete
-    alphaCeiling: Incomplete
-    alphaFloor: Incomplete
-    alphaInv: Incomplete
-    alphaMod: Incomplete
-    alphaModFix: Incomplete
-    alphaRepl: Incomplete
-    biLevel: Incomplete
-    blur: Incomplete
-    clrChange: Incomplete
-    clrRepl: Incomplete
-    duotone: Incomplete
-    fillOverlay: Incomplete
-    grayscl: Incomplete
-    hsl: Incomplete
-    lum: Incomplete
-    tint: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
+    alphaBiLevel: Typed[AlphaBiLevelEffect, Literal[True]]
+    alphaCeiling: Typed[AlphaCeilingEffect, Literal[True]]
+    alphaFloor: Typed[AlphaFloorEffect, Literal[True]]
+    alphaInv: Typed[AlphaInverseEffect, Literal[True]]
+    alphaMod: Typed[AlphaModulateEffect, Literal[True]]
+    alphaModFix: Typed[AlphaModulateFixedEffect, Literal[True]]
+    alphaRepl: Typed[AlphaReplaceEffect, Literal[True]]
+    biLevel: Typed[BiLevelEffect, Literal[True]]
+    blur: Typed[BlurEffect, Literal[True]]
+    clrChange: Typed[ColorChangeEffect, Literal[True]]
+    clrRepl: Typed[ColorReplaceEffect, Literal[True]]
+    duotone: Typed[DuotoneEffect, Literal[True]]
+    fillOverlay: Typed[FillOverlayEffect, Literal[True]]
+    grayscl: Typed[GrayscaleEffect, Literal[True]]
+    hsl: Typed[HSLEffect, Literal[True]]
+    lum: Typed[LuminanceEffect, Literal[True]]
+    tint: Typed[TintEffect, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -168,24 +191,24 @@ class Blip(Serialisable):
         noAdjustHandles: Incomplete | None = None,
         noChangeArrowheads: Incomplete | None = None,
         noChangeShapeType: Incomplete | None = None,
-        extLst: Incomplete | None = None,
-        alphaBiLevel: Incomplete | None = None,
-        alphaCeiling: Incomplete | None = None,
-        alphaFloor: Incomplete | None = None,
-        alphaInv: Incomplete | None = None,
-        alphaMod: Incomplete | None = None,
-        alphaModFix: Incomplete | None = None,
-        alphaRepl: Incomplete | None = None,
-        biLevel: Incomplete | None = None,
-        blur: Incomplete | None = None,
-        clrChange: Incomplete | None = None,
-        clrRepl: Incomplete | None = None,
-        duotone: Incomplete | None = None,
-        fillOverlay: Incomplete | None = None,
-        grayscl: Incomplete | None = None,
-        hsl: Incomplete | None = None,
-        lum: Incomplete | None = None,
-        tint: Incomplete | None = None,
+        extLst: ExtensionList | None = None,
+        alphaBiLevel: AlphaBiLevelEffect | None = None,
+        alphaCeiling: AlphaCeilingEffect | None = None,
+        alphaFloor: AlphaFloorEffect | None = None,
+        alphaInv: AlphaInverseEffect | None = None,
+        alphaMod: AlphaModulateEffect | None = None,
+        alphaModFix: AlphaModulateFixedEffect | None = None,
+        alphaRepl: AlphaReplaceEffect | None = None,
+        biLevel: BiLevelEffect | None = None,
+        blur: BlurEffect | None = None,
+        clrChange: ColorChangeEffect | None = None,
+        clrRepl: ColorReplaceEffect | None = None,
+        duotone: DuotoneEffect | None = None,
+        fillOverlay: FillOverlayEffect | None = None,
+        grayscl: GrayscaleEffect | None = None,
+        hsl: HSLEffect | None = None,
+        lum: LuminanceEffect | None = None,
+        tint: TintEffect | None = None,
     ) -> None: ...
 
 class TileInfoProperties(Serialisable):
@@ -209,17 +232,17 @@ class BlipFillProperties(Serialisable):
     tagname: str
     dpi: Incomplete
     rotWithShape: Incomplete
-    blip: Incomplete
-    srcRect: Incomplete
-    tile: Incomplete
-    stretch: Incomplete
+    blip: Typed[Blip, Literal[True]]
+    srcRect: Typed[RelativeRect, Literal[True]]
+    tile: Typed[TileInfoProperties, Literal[True]]
+    stretch: Typed[StretchInfoProperties, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
         dpi: Incomplete | None = None,
         rotWithShape: Incomplete | None = None,
-        blip: Incomplete | None = None,
-        tile: Incomplete | None = None,
-        stretch=...,
-        srcRect: Incomplete | None = None,
+        blip: Blip | None = None,
+        tile: TileInfoProperties | None = None,
+        stretch: StretchInfoProperties = ...,
+        srcRect: RelativeRect | None = None,
     ) -> None: ...

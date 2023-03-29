@@ -1,33 +1,38 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
+from typing_extensions import Literal
 
+from openpyxl.chart.layout import Layout
+from openpyxl.chart.shapes import GraphicalProperties
+from openpyxl.chart.text import RichText, Text
 from openpyxl.descriptors import Typed
+from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
 class Title(Serialisable):
     tagname: str
-    tx: Incomplete
+    tx: Typed[Text, Literal[True]]
     text: Incomplete
-    layout: Incomplete
+    layout: Typed[Layout, Literal[True]]
     overlay: Incomplete
-    spPr: Incomplete
+    spPr: Typed[GraphicalProperties, Literal[True]]
     graphicalProperties: Incomplete
-    txPr: Incomplete
+    txPr: Typed[RichText, Literal[True]]
     body: Incomplete
-    extLst: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
-        tx: Incomplete | None = None,
-        layout: Incomplete | None = None,
+        tx: Text | None = None,
+        layout: Layout | None = None,
         overlay: Incomplete | None = None,
-        spPr: Incomplete | None = None,
-        txPr: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        spPr: GraphicalProperties | None = None,
+        txPr: RichText | None = None,
+        extLst: Unused = None,
     ) -> None: ...
 
 def title_maker(text): ...
 
 class TitleDescriptor(Typed):
-    expected_type: Incomplete
-    allow_none: bool
+    expected_type: type[Title]
+    allow_none: Literal[True]
     def __set__(self, instance, value) -> None: ...

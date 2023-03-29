@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal
 
 from openpyxl.descriptors import Strict
+from openpyxl.descriptors.base import Typed
 from openpyxl.descriptors.serialisable import Serialisable
 
 FONT_PATTERN: str
@@ -26,12 +28,15 @@ class _HeaderFooterPart(Strict):
     def from_str(cls, text): ...
 
 class HeaderFooterItem(Strict):
-    left: Incomplete
-    center: Incomplete
+    left: Typed[_HeaderFooterPart, Literal[False]]
+    center: Typed[_HeaderFooterPart, Literal[False]]
     centre: Incomplete
-    right: Incomplete
+    right: Typed[_HeaderFooterPart, Literal[False]]
     def __init__(
-        self, left: Incomplete | None = None, right: Incomplete | None = None, center: Incomplete | None = None
+        self,
+        left: _HeaderFooterPart | None = None,
+        right: _HeaderFooterPart | None = None,
+        center: _HeaderFooterPart | None = None,
     ) -> None: ...
     def __bool__(self) -> bool: ...
     def to_tree(self, tagname): ...
@@ -44,12 +49,12 @@ class HeaderFooter(Serialisable):
     differentFirst: Incomplete
     scaleWithDoc: Incomplete
     alignWithMargins: Incomplete
-    oddHeader: Incomplete
-    oddFooter: Incomplete
-    evenHeader: Incomplete
-    evenFooter: Incomplete
-    firstHeader: Incomplete
-    firstFooter: Incomplete
+    oddHeader: Typed[HeaderFooterItem, Literal[True]]
+    oddFooter: Typed[HeaderFooterItem, Literal[True]]
+    evenHeader: Typed[HeaderFooterItem, Literal[True]]
+    evenFooter: Typed[HeaderFooterItem, Literal[True]]
+    firstHeader: Typed[HeaderFooterItem, Literal[True]]
+    firstFooter: Typed[HeaderFooterItem, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -57,11 +62,11 @@ class HeaderFooter(Serialisable):
         differentFirst: Incomplete | None = None,
         scaleWithDoc: Incomplete | None = None,
         alignWithMargins: Incomplete | None = None,
-        oddHeader: Incomplete | None = None,
-        oddFooter: Incomplete | None = None,
-        evenHeader: Incomplete | None = None,
-        evenFooter: Incomplete | None = None,
-        firstHeader: Incomplete | None = None,
-        firstFooter: Incomplete | None = None,
+        oddHeader: HeaderFooterItem | None = None,
+        oddFooter: HeaderFooterItem | None = None,
+        evenHeader: HeaderFooterItem | None = None,
+        evenFooter: HeaderFooterItem | None = None,
+        firstHeader: HeaderFooterItem | None = None,
+        firstFooter: HeaderFooterItem | None = None,
     ) -> None: ...
     def __bool__(self) -> bool: ...

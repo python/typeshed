@@ -1,6 +1,10 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Typed
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.worksheet.header_footer import HeaderFooter
+from openpyxl.worksheet.page import PrintPageSetup
 
 class PageMargins(Serialisable):
     tagname: str
@@ -20,10 +24,13 @@ class PageMargins(Serialisable):
 
 class PrintSettings(Serialisable):
     tagname: str
-    headerFooter: Incomplete
-    pageMargins: Incomplete
-    pageSetup: Incomplete
+    headerFooter: Typed[HeaderFooter, Literal[True]]
+    pageMargins: Typed[PageMargins, Literal[True]]
+    pageSetup: Typed[PrintPageSetup, Literal[True]]
     __elements__: Incomplete
     def __init__(
-        self, headerFooter: Incomplete | None = None, pageMargins: Incomplete | None = None, pageSetup: Incomplete | None = None
+        self,
+        headerFooter: HeaderFooter | None = None,
+        pageMargins: PageMargins | None = None,
+        pageSetup: PrintPageSetup | None = None,
     ) -> None: ...

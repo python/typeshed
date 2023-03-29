@@ -1,17 +1,49 @@
 from _typeshed import Incomplete
+from datetime import datetime
+from typing import Any, Generic, TypeVar, overload
+from typing_extensions import Literal
 
-class Descriptor:
-    name: Incomplete
+_T = TypeVar("_T")
+_N = TypeVar("_N", bound=bool)
+
+class Descriptor(Generic[_T]):
+    name: Incomplete | None
     def __init__(self, name: Incomplete | None = None, **kw) -> None: ...
-    def __set__(self, instance, value) -> None: ...
+    def __get__(self, obj: Any, objtype: type | None = None) -> _T: ...
+    def __set__(self, obj: Any, value: _T) -> None: ...
 
-class Typed(Descriptor):
-    expected_type: Incomplete
-    allow_none: bool
+class Typed(Descriptor[_T], Generic[_T, _N]):
+    expected_type: type[_T]
+    allow_none: _N
     nested: bool
     __doc__: Incomplete
-    def __init__(self, *args, **kw) -> None: ...
-    def __set__(self, instance, value) -> None: ...
+
+    @overload
+    def __init__(
+        self: Typed[_T, Literal[True]],
+        name: Incomplete | None = None,
+        *,
+        expected_type: type[_T] | tuple[type[_T], ...],
+        allow_none: Literal[True],
+        nested: bool = False,
+    ) -> None: ...
+    @overload
+    def __init__(
+        self: Typed[_T, Literal[False]],
+        name: Incomplete | None = None,
+        *,
+        expected_type: type[_T] | tuple[type[_T], ...],
+        allow_none: Literal[False] = False,
+        nested: bool = False,
+    ) -> None: ...
+    @overload
+    def __get__(self: Typed[_T, Literal[True]], obj: Any, objtype: type | None = None) -> _T | None: ...
+    @overload
+    def __get__(self: Typed[_T, Literal[False]], obj: Any, objtype: type | None = None) -> _T: ...
+    @overload
+    def __set__(self: Typed[_T, Literal[True]], obj: Any, value: _T | None) -> None: ...
+    @overload
+    def __set__(self: Typed[_T, Literal[False]], obj: Any, value: _T) -> None: ...
 
 class Convertible(Typed):
     def __set__(self, instance, value) -> None: ...
@@ -50,15 +82,15 @@ class Bool(Convertible):
     def __set__(self, instance, value) -> None: ...
 
 class String(Typed):
-    expected_type: Incomplete
+    expected_type: type[str]
 
 class Text(String, Convertible): ...
 
 class ASCII(Typed):
-    expected_type: Incomplete
+    expected_type: type[bytes]
 
 class Tuple(Typed):
-    expected_type: Incomplete
+    expected_type: type[tuple[Any, ...]]
 
 class Length(Descriptor):
     def __init__(self, name: Incomplete | None = None, **kw) -> None: ...
@@ -81,5 +113,5 @@ class MatchPattern(Descriptor):
     def __set__(self, instance, value) -> None: ...
 
 class DateTime(Typed):
-    expected_type: Incomplete
+    expected_type: type[datetime]
     def __set__(self, instance, value) -> None: ...

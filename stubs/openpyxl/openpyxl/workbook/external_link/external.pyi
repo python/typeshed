@@ -1,6 +1,9 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Typed
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.packaging.relationship import Relationship
 
 class ExternalCell(Serialisable):  # type: ignore[misc]
     r: Incomplete
@@ -45,31 +48,27 @@ class ExternalDefinedName(Serialisable):
 
 class ExternalBook(Serialisable):
     tagname: str
-    sheetNames: Incomplete
+    sheetNames: Typed[ExternalSheetNames, Literal[True]]
     definedNames: Incomplete
-    sheetDataSet: Incomplete
+    sheetDataSet: Typed[ExternalSheetDataSet, Literal[True]]
     id: Incomplete
     __elements__: Incomplete
     def __init__(
         self,
-        sheetNames: Incomplete | None = None,
+        sheetNames: ExternalSheetNames | None = None,
         definedNames=(),
-        sheetDataSet: Incomplete | None = None,
+        sheetDataSet: ExternalSheetDataSet | None = None,
         id: Incomplete | None = None,
     ) -> None: ...
 
 class ExternalLink(Serialisable):
     tagname: str
     mime_type: str
-    externalBook: Incomplete
-    file_link: Incomplete
+    externalBook: Typed[ExternalBook, Literal[True]]
+    file_link: Typed[Relationship, Literal[True]]
     __elements__: Incomplete
     def __init__(
-        self,
-        externalBook: Incomplete | None = None,
-        ddeLink: Incomplete | None = None,
-        oleLink: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        self, externalBook: ExternalBook | None = None, ddeLink: Unused = None, oleLink: Unused = None, extLst: Unused = None
     ) -> None: ...
     def to_tree(self): ...
     @property
