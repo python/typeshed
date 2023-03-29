@@ -3,7 +3,7 @@ from _typeshed import SupportsWrite
 from collections.abc import Callable, Sequence
 from re import Pattern
 from types import TracebackType
-from typing import Any, TextIO
+from typing import Any, ClassVar, TextIO
 from typing_extensions import TypeAlias
 
 if sys.platform == "win32":
@@ -29,15 +29,15 @@ _WinTermCall: TypeAlias = Callable[[int | None, bool, bool], None]
 _WinTermCallDict: TypeAlias = dict[int, tuple[_WinTermCall] | tuple[_WinTermCall, int] | tuple[_WinTermCall, int, bool]]
 
 class AnsiToWin32:
-    ANSI_CSI_RE: Pattern[str] = ...
-    ANSI_OSC_RE: Pattern[str] = ...
-    wrapped: TextIO = ...
-    autoreset: bool = ...
-    stream: StreamWrapper = ...
-    strip: bool = ...
-    convert: bool = ...
-    win32_calls: _WinTermCallDict = ...
-    on_stderr: bool = ...
+    ANSI_CSI_RE: ClassVar[Pattern[str]]
+    ANSI_OSC_RE: ClassVar[Pattern[str]]
+    wrapped: TextIO
+    autoreset: bool
+    stream: StreamWrapper
+    strip: bool
+    convert: bool
+    win32_calls: _WinTermCallDict
+    on_stderr: bool
     def __init__(
         self, wrapped: TextIO, convert: bool | None = None, strip: bool | None = None, autoreset: bool = False
     ) -> None: ...

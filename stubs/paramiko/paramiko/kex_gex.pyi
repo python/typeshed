@@ -16,7 +16,7 @@ class KexGex:
     min_bits: int
     max_bits: int
     preferred_bits: int
-    hash_algo: Callable[[ReadableBuffer], _Hash] = ...
+    hash_algo: Callable[[ReadableBuffer], _Hash]
     transport: Transport
     p: int | None
     q: int | None
@@ -31,4 +31,4 @@ class KexGex:
 
 class KexGexSHA256(KexGex):
     name: str
-    hash_algo: Callable[[ReadableBuffer], _Hash] = ...
+    hash_algo: Callable[[ReadableBuffer], _Hash]

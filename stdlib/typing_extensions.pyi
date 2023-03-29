@@ -113,7 +113,7 @@ class _SpecialForm:
 # typing.Protocol and typing_extensions.Protocol so they can properly
 # warn users about potential runtime exceptions when using typing.Protocol
 # on older versions of Python.
-Protocol: _SpecialForm = ...
+Protocol: _SpecialForm
 
 def runtime_checkable(cls: _TC) -> _TC: ...
 
