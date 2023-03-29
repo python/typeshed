@@ -100,8 +100,6 @@ class SystemRandom(Random):
     def getstate(self, *args: Any, **kwds: Any) -> NoReturn: ...
     def setstate(self, *args: Any, **kwds: Any) -> NoReturn: ...
 
-# ----- random function stubs -----
-
 _inst: Random
 seed = _inst.seed
 random = _inst.random
