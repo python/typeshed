@@ -29,8 +29,8 @@ _WinTermCall: TypeAlias = Callable[[int | None, bool, bool], None]
 _WinTermCallDict: TypeAlias = dict[int, tuple[_WinTermCall] | tuple[_WinTermCall, int] | tuple[_WinTermCall, int, bool]]
 
 class AnsiToWin32:
-    ANSI_CSI_RE: Pattern[str]
-    ANSI_OSC_RE: Pattern[str]
+    ANSI_CSI_RE: ClassVar[Pattern[str]]
+    ANSI_OSC_RE: ClassVar[Pattern[str]]
     wrapped: TextIO
     autoreset: bool
     stream: StreamWrapper
