@@ -102,7 +102,7 @@ class SystemRandom(Random):
 
 # ----- random function stubs -----
 
-_inst: Random = ...
+_inst: Random
 seed = _inst.seed
 random = _inst.random
 uniform = _inst.uniform

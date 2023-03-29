@@ -173,14 +173,14 @@ def overload(func: _F) -> _F: ...
 # Otherwise, flake8 erroneously flags them as undefined.
 # `_SpecialForm` objects in typing.py that are not used elswhere in the same file
 # do not need the default value assignment.
-Union: _SpecialForm = ...
-Generic: _SpecialForm = ...
+Union: _SpecialForm
+Generic: _SpecialForm
 # Protocol is only present in 3.8 and later, but mypy needs it unconditionally
-Protocol: _SpecialForm = ...
-Callable: _SpecialForm = ...
-Type: _SpecialForm = ...
-NoReturn: _SpecialForm = ...
-ClassVar: _SpecialForm = ...
+Protocol: _SpecialForm
+Callable: _SpecialForm
+Type: _SpecialForm
+NoReturn: _SpecialForm
+ClassVar: _SpecialForm
 
 Optional: _SpecialForm
 Tuple: _SpecialForm
@@ -193,7 +193,7 @@ if sys.version_info >= (3, 8):
 
 if sys.version_info >= (3, 11):
     Self: _SpecialForm
-    Never: _SpecialForm = ...
+    Never: _SpecialForm
     Unpack: _SpecialForm
     Required: _SpecialForm
     NotRequired: _SpecialForm
