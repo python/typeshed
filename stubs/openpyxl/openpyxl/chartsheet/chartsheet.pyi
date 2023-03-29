@@ -7,7 +7,7 @@ from openpyxl.chartsheet.protection import ChartsheetProtection
 from openpyxl.chartsheet.publish import WebPublishItems
 from openpyxl.chartsheet.relation import DrawingHF, SheetBackgroundPicture
 from openpyxl.chartsheet.views import ChartsheetViewList
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Set, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.workbook.child import _WorkbookChild
@@ -29,7 +29,7 @@ class Chartsheet(_WorkbookChild, Serialisable):
     picture: Typed[SheetBackgroundPicture, Literal[True]]
     webPublishItems: Typed[WebPublishItems, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    sheet_state: Incomplete
+    sheet_state: Set(values=("visible", "hidden", "veryHidden"))
     headerFooter: Typed[HeaderFooter, Literal[False]]
     HeaderFooter: Incomplete
     __elements__: Incomplete

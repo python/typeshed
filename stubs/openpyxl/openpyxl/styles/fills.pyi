@@ -1,28 +1,52 @@
 from _typeshed import Incomplete
+from typing_extensions import Final, Literal, TypeAlias
 
 from openpyxl.descriptors import Sequence
+from openpyxl.descriptors.base import NoneSet, Set
 from openpyxl.descriptors.serialisable import Serialisable
 
-FILL_NONE: str
-FILL_SOLID: str
-FILL_PATTERN_DARKDOWN: str
-FILL_PATTERN_DARKGRAY: str
-FILL_PATTERN_DARKGRID: str
-FILL_PATTERN_DARKHORIZONTAL: str
-FILL_PATTERN_DARKTRELLIS: str
-FILL_PATTERN_DARKUP: str
-FILL_PATTERN_DARKVERTICAL: str
-FILL_PATTERN_GRAY0625: str
-FILL_PATTERN_GRAY125: str
-FILL_PATTERN_LIGHTDOWN: str
-FILL_PATTERN_LIGHTGRAY: str
-FILL_PATTERN_LIGHTGRID: str
-FILL_PATTERN_LIGHTHORIZONTAL: str
-FILL_PATTERN_LIGHTTRELLIS: str
-FILL_PATTERN_LIGHTUP: str
-FILL_PATTERN_LIGHTVERTICAL: str
-FILL_PATTERN_MEDIUMGRAY: str
-fills: Incomplete
+FILL_NONE: Final = "none"
+FILL_SOLID: Final = "solid"
+FILL_PATTERN_DARKDOWN: Final = "darkDown"
+FILL_PATTERN_DARKGRAY: Final = "darkGray"
+FILL_PATTERN_DARKGRID: Final = "darkGrid"
+FILL_PATTERN_DARKHORIZONTAL: Final = "darkHorizontal"
+FILL_PATTERN_DARKTRELLIS: Final = "darkTrellis"
+FILL_PATTERN_DARKUP: Final = "darkUp"
+FILL_PATTERN_DARKVERTICAL: Final = "darkVertical"
+FILL_PATTERN_GRAY0625: Final = "gray0625"
+FILL_PATTERN_GRAY125: Final = "gray125"
+FILL_PATTERN_LIGHTDOWN: Final = "lightDown"
+FILL_PATTERN_LIGHTGRAY: Final = "lightGray"
+FILL_PATTERN_LIGHTGRID: Final = "lightGrid"
+FILL_PATTERN_LIGHTHORIZONTAL: Final = "lightHorizontal"
+FILL_PATTERN_LIGHTTRELLIS: Final = "lightTrellis"
+FILL_PATTERN_LIGHTUP: Final = "lightUp"
+FILL_PATTERN_LIGHTVERTICAL: Final = "lightVertical"
+FILL_PATTERN_MEDIUMGRAY: Final = "mediumGray"
+
+_FillsType: TypeAlias = Literal[
+    "none",
+    "solid",
+    "darkDown",
+    "darkGray",
+    "darkGrid",
+    "darkHorizontal",
+    "darkTrellis",
+    "darkUp",
+    "darkVertical",
+    "gray0625",
+    "gray125",
+    "lightDown",
+    "lightGray",
+    "lightGrid",
+    "lightHorizontal",
+    "lightTrellis",
+    "lightUp",
+    "lightVertical",
+    "mediumGray",
+]
+fills: tuple[_FillsType, ...]
 
 class Fill(Serialisable):
     tagname: str
@@ -32,7 +56,7 @@ class Fill(Serialisable):
 class PatternFill(Fill):
     tagname: str
     __elements__: Incomplete
-    patternType: Incomplete
+    patternType: NoneSet[_FillsType]
     fill_type: Incomplete
     fgColor: Incomplete
     start_color: Incomplete
@@ -64,7 +88,7 @@ class StopList(Sequence):
 
 class GradientFill(Fill):
     tagname: str
-    type: Incomplete
+    type: Set(values=("linear", "path"))
     fill_type: Incomplete
     degree: Incomplete
     left: Incomplete

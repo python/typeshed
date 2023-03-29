@@ -5,7 +5,7 @@ from openpyxl.descriptors.serialisable import Serialisable
 class FunctionGroup(Serialisable):
     tagname: str
     name: Incomplete
-    def __init__(self, name: Incomplete | None = None) -> None: ...
+    def __init__(self, name: str | None = None) -> None: ...
 
 class FunctionGroupList(Serialisable):
     tagname: str

@@ -15,7 +15,7 @@ class PivotSource(Serialisable):
     fmtId: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
-    def __init__(self, name: Incomplete | None = None, fmtId: Incomplete | None = None, extLst: Unused = None) -> None: ...
+    def __init__(self, name: str | None = None, fmtId: Incomplete | None = None, extLst: Unused = None) -> None: ...
 
 class PivotFormat(Serialisable):
     tagname: str

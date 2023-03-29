@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import NoneSet, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.workbook.defined_name import DefinedNameList
@@ -29,7 +29,7 @@ class ChildSheet(Serialisable):
     tagname: str
     name: Incomplete
     sheetId: Incomplete
-    state: Incomplete
+    state: NoneSet(values=(["visible", "hidden", "veryHidden"]))
     id: Incomplete
     def __init__(
         self,
@@ -47,7 +47,7 @@ class PivotCache(Serialisable):
 
 class WorkbookPackage(Serialisable):
     tagname: str
-    conformance: Incomplete
+    conformance: NoneSet(values=["strict", "transitional"])
     fileVersion: Typed[FileVersion, Literal[True]]
     fileSharing: Typed[FileSharing, Literal[True]]
     workbookPr: Typed[WorkbookProperties, Literal[True]]

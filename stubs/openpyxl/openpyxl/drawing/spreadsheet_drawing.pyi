@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import NoneSet, Typed
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.connector import Shape
 from openpyxl.drawing.graphic import GraphicFrame, GroupShape
@@ -73,7 +73,7 @@ class OneCellAnchor(_AnchorBase):
 
 class TwoCellAnchor(_AnchorBase):
     tagname: str
-    editAs: Incomplete
+    editAs: NoneSet(values=(["twoCell", "oneCell", "absolute"]))
     to: Typed[AnchorMarker, Literal[False]]
     sp: Incomplete
     grpSp: Incomplete

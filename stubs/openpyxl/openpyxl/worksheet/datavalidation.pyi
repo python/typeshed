@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 
+from openpyxl.descriptors.base import NoneSet
 from openpyxl.descriptors.serialisable import Serialisable
 
 def collapse_cell_addresses(cells, input_ranges=()): ...
@@ -22,10 +23,26 @@ class DataValidation(Serialisable):
     prompt: Incomplete
     formula1: Incomplete
     formula2: Incomplete
-    type: Incomplete
-    errorStyle: Incomplete
-    imeMode: Incomplete
-    operator: Incomplete
+    type: NoneSet(values=("whole", "decimal", "list", "date", "time", "textLength", "custom"))
+    errorStyle: NoneSet(values=("stop", "warning", "information"))
+    imeMode: NoneSet(
+        values=(
+            "noControl",
+            "off",
+            "on",
+            "disabled",
+            "hiragana",
+            "fullKatakana",
+            "halfKatakana",
+            "fullAlpha",
+            "halfAlpha",
+            "fullHangul",
+            "halfHangul",
+        )
+    )
+    operator: NoneSet(
+        values=("between", "notBetween", "equal", "notEqual", "lessThan", "lessThanOrEqual", "greaterThan", "greaterThanOrEqual")
+    )
     validation_type: Incomplete
     def __init__(
         self,

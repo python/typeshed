@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 
+from openpyxl.descriptors.base import NoneSet
 from openpyxl.descriptors.serialisable import Serialisable
 
 class WebPublishObject(Serialisable):
@@ -37,7 +38,23 @@ class WebPublishing(Serialisable):
     longFileNames: Incomplete
     vml: Incomplete
     allowPng: Incomplete
-    targetScreenSize: Incomplete
+    targetScreenSize: NoneSet(
+        values=(
+            [
+                "544x376",
+                "640x480",
+                "720x512",
+                "800x600",
+                "1024x768",
+                "1152x882",
+                "1152x900",
+                "1280x1024",
+                "1600x1200",
+                "1800x1440",
+                "1920x1200",
+            ]
+        )
+    )
     dpi: Incomplete
     codePage: Incomplete
     characterSet: Incomplete

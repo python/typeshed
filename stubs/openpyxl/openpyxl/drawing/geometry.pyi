@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import NoneSet, Set, Typed
 from openpyxl.descriptors.excel import Coordinate, ExtensionList, Percentage
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.colors import Color
@@ -75,7 +75,72 @@ class SphereCoords(Serialisable):
 
 class Camera(Serialisable):
     tagname: str
-    prst: Incomplete
+    prst: Set(
+        values=[
+            "legacyObliqueTopLeft",
+            "legacyObliqueTop",
+            "legacyObliqueTopRight",
+            "legacyObliqueLeft",
+            "legacyObliqueFront",
+            "legacyObliqueRight",
+            "legacyObliqueBottomLeft",
+            "legacyObliqueBottom",
+            "legacyObliqueBottomRight",
+            "legacyPerspectiveTopLeft",
+            "legacyPerspectiveTop",
+            "legacyPerspectiveTopRight",
+            "legacyPerspectiveLeft",
+            "legacyPerspectiveFront",
+            "legacyPerspectiveRight",
+            "legacyPerspectiveBottomLeft",
+            "legacyPerspectiveBottom",
+            "legacyPerspectiveBottomRight",
+            "orthographicFront",
+            "isometricTopUp",
+            "isometricTopDown",
+            "isometricBottomUp",
+            "isometricBottomDown",
+            "isometricLeftUp",
+            "isometricLeftDown",
+            "isometricRightUp",
+            "isometricRightDown",
+            "isometricOffAxis1Left",
+            "isometricOffAxis1Right",
+            "isometricOffAxis1Top",
+            "isometricOffAxis2Left",
+            "isometricOffAxis2Right",
+            "isometricOffAxis2Top",
+            "isometricOffAxis3Left",
+            "isometricOffAxis3Right",
+            "isometricOffAxis3Bottom",
+            "isometricOffAxis4Left",
+            "isometricOffAxis4Right",
+            "isometricOffAxis4Bottom",
+            "obliqueTopLeft",
+            "obliqueTop",
+            "obliqueTopRight",
+            "obliqueLeft",
+            "obliqueRight",
+            "obliqueBottomLeft",
+            "obliqueBottom",
+            "obliqueBottomRight",
+            "perspectiveFront",
+            "perspectiveLeft",
+            "perspectiveRight",
+            "perspectiveAbove",
+            "perspectiveBelow",
+            "perspectiveAboveLeftFacing",
+            "perspectiveAboveRightFacing",
+            "perspectiveContrastingLeftFacing",
+            "perspectiveContrastingRightFacing",
+            "perspectiveHeroicLeftFacing",
+            "perspectiveHeroicRightFacing",
+            "perspectiveHeroicExtremeLeftFacing",
+            "perspectiveHeroicExtremeRightFacing",
+            "perspectiveRelaxed",
+            "perspectiveRelaxedModerately",
+        ]
+    )
     fov: Incomplete
     zoom: Typed[Percentage, Literal[True]]
     rot: Typed[SphereCoords, Literal[True]]
@@ -89,8 +154,38 @@ class Camera(Serialisable):
 
 class LightRig(Serialisable):
     tagname: str
-    rig: Incomplete
-    dir: Incomplete
+    rig: Set(
+        values=[
+            "legacyFlat1",
+            "legacyFlat2",
+            "legacyFlat3",
+            "legacyFlat4",
+            "legacyNormal1",
+            "legacyNormal2",
+            "legacyNormal3",
+            "legacyNormal4",
+            "legacyHarsh1",
+            "legacyHarsh2",
+            "legacyHarsh3",
+            "legacyHarsh4",
+            "threePt",
+            "balanced",
+            "soft",
+            "harsh",
+            "flood",
+            "contrasting",
+            "morning",
+            "sunrise",
+            "sunset",
+            "chilly",
+            "freezing",
+            "flat",
+            "twoPt",
+            "glow",
+            "brightRoom",
+        ]
+    )
+    dir: Set(values=(["tl", "t", "tr", "l", "r", "bl", "b", "br"]))
     rot: Typed[SphereCoords, Literal[True]]
     def __init__(self, rig: Incomplete | None = None, dir: Incomplete | None = None, rot: SphereCoords | None = None) -> None: ...
 
@@ -128,7 +223,22 @@ class Bevel(Serialisable):
     tagname: str
     w: Incomplete
     h: Incomplete
-    prst: Incomplete
+    prst: NoneSet(
+        values=[
+            "relaxedInset",
+            "circle",
+            "slope",
+            "cross",
+            "angle",
+            "softRound",
+            "convex",
+            "coolSlant",
+            "divot",
+            "riblet",
+            "hardEdge",
+            "artDeco",
+        ]
+    )
     def __init__(self, w: Incomplete | None = None, h: Incomplete | None = None, prst: Incomplete | None = None) -> None: ...
 
 class Shape3D(Serialisable):
@@ -136,7 +246,25 @@ class Shape3D(Serialisable):
     z: Typed[Coordinate, Literal[True]]
     extrusionH: Incomplete
     contourW: Incomplete
-    prstMaterial: Incomplete
+    prstMaterial: NoneSet(
+        values=[
+            "legacyMatte",
+            "legacyPlastic",
+            "legacyMetal",
+            "legacyWireframe",
+            "matte",
+            "plastic",
+            "metal",
+            "warmMatte",
+            "translucentPowder",
+            "powder",
+            "dkEdge",
+            "softEdge",
+            "clear",
+            "flat",
+            "softmetal",
+        ]
+    )
     bevelT: Typed[Bevel, Literal[True]]
     bevelB: Typed[Bevel, Literal[True]]
     extrusionClr: Typed[Color, Literal[True]]
@@ -158,7 +286,7 @@ class Shape3D(Serialisable):
 class Path2D(Serialisable):
     w: Incomplete
     h: Incomplete
-    fill: Incomplete
+    fill: NoneSet(values=(["norm", "lighten", "lightenLess", "darken", "darkenLess"]))
     stroke: Incomplete
     extrusionOk: Incomplete
     def __init__(
@@ -202,7 +330,7 @@ class AdjustHandleList(Serialisable): ...
 class GeomGuide(Serialisable):
     name: Incomplete
     fmla: Incomplete
-    def __init__(self, name: Incomplete | None = None, fmla: Incomplete | None = None) -> None: ...
+    def __init__(self, name: str | None = None, fmla: Incomplete | None = None) -> None: ...
 
 class GeomGuideList(Serialisable):
     gd: Typed[GeomGuide, Literal[True]]
@@ -227,12 +355,204 @@ class CustomGeometry2D(Serialisable):
 
 class PresetGeometry2D(Serialisable):
     namespace: Incomplete
-    prst: Incomplete
+    prst: Set(
+        values=(
+            [
+                "line",
+                "lineInv",
+                "triangle",
+                "rtTriangle",
+                "rect",
+                "diamond",
+                "parallelogram",
+                "trapezoid",
+                "nonIsoscelesTrapezoid",
+                "pentagon",
+                "hexagon",
+                "heptagon",
+                "octagon",
+                "decagon",
+                "dodecagon",
+                "star4",
+                "star5",
+                "star6",
+                "star7",
+                "star8",
+                "star10",
+                "star12",
+                "star16",
+                "star24",
+                "star32",
+                "roundRect",
+                "round1Rect",
+                "round2SameRect",
+                "round2DiagRect",
+                "snipRoundRect",
+                "snip1Rect",
+                "snip2SameRect",
+                "snip2DiagRect",
+                "plaque",
+                "ellipse",
+                "teardrop",
+                "homePlate",
+                "chevron",
+                "pieWedge",
+                "pie",
+                "blockArc",
+                "donut",
+                "noSmoking",
+                "rightArrow",
+                "leftArrow",
+                "upArrow",
+                "downArrow",
+                "stripedRightArrow",
+                "notchedRightArrow",
+                "bentUpArrow",
+                "leftRightArrow",
+                "upDownArrow",
+                "leftUpArrow",
+                "leftRightUpArrow",
+                "quadArrow",
+                "leftArrowCallout",
+                "rightArrowCallout",
+                "upArrowCallout",
+                "downArrowCallout",
+                "leftRightArrowCallout",
+                "upDownArrowCallout",
+                "quadArrowCallout",
+                "bentArrow",
+                "uturnArrow",
+                "circularArrow",
+                "leftCircularArrow",
+                "leftRightCircularArrow",
+                "curvedRightArrow",
+                "curvedLeftArrow",
+                "curvedUpArrow",
+                "curvedDownArrow",
+                "swooshArrow",
+                "cube",
+                "can",
+                "lightningBolt",
+                "heart",
+                "sun",
+                "moon",
+                "smileyFace",
+                "irregularSeal1",
+                "irregularSeal2",
+                "foldedCorner",
+                "bevel",
+                "frame",
+                "halfFrame",
+                "corner",
+                "diagStripe",
+                "chord",
+                "arc",
+                "leftBracket",
+                "rightBracket",
+                "leftBrace",
+                "rightBrace",
+                "bracketPair",
+                "bracePair",
+                "straightConnector1",
+                "bentConnector2",
+                "bentConnector3",
+                "bentConnector4",
+                "bentConnector5",
+                "curvedConnector2",
+                "curvedConnector3",
+                "curvedConnector4",
+                "curvedConnector5",
+                "callout1",
+                "callout2",
+                "callout3",
+                "accentCallout1",
+                "accentCallout2",
+                "accentCallout3",
+                "borderCallout1",
+                "borderCallout2",
+                "borderCallout3",
+                "accentBorderCallout1",
+                "accentBorderCallout2",
+                "accentBorderCallout3",
+                "wedgeRectCallout",
+                "wedgeRoundRectCallout",
+                "wedgeEllipseCallout",
+                "cloudCallout",
+                "cloud",
+                "ribbon",
+                "ribbon2",
+                "ellipseRibbon",
+                "ellipseRibbon2",
+                "leftRightRibbon",
+                "verticalScroll",
+                "horizontalScroll",
+                "wave",
+                "doubleWave",
+                "plus",
+                "flowChartProcess",
+                "flowChartDecision",
+                "flowChartInputOutput",
+                "flowChartPredefinedProcess",
+                "flowChartInternalStorage",
+                "flowChartDocument",
+                "flowChartMultidocument",
+                "flowChartTerminator",
+                "flowChartPreparation",
+                "flowChartManualInput",
+                "flowChartManualOperation",
+                "flowChartConnector",
+                "flowChartPunchedCard",
+                "flowChartPunchedTape",
+                "flowChartSummingJunction",
+                "flowChartOr",
+                "flowChartCollate",
+                "flowChartSort",
+                "flowChartExtract",
+                "flowChartMerge",
+                "flowChartOfflineStorage",
+                "flowChartOnlineStorage",
+                "flowChartMagneticTape",
+                "flowChartMagneticDisk",
+                "flowChartMagneticDrum",
+                "flowChartDisplay",
+                "flowChartDelay",
+                "flowChartAlternateProcess",
+                "flowChartOffpageConnector",
+                "actionButtonBlank",
+                "actionButtonHome",
+                "actionButtonHelp",
+                "actionButtonInformation",
+                "actionButtonForwardNext",
+                "actionButtonBackPrevious",
+                "actionButtonEnd",
+                "actionButtonBeginning",
+                "actionButtonReturn",
+                "actionButtonDocument",
+                "actionButtonSound",
+                "actionButtonMovie",
+                "gear6",
+                "gear9",
+                "funnel",
+                "mathPlus",
+                "mathMinus",
+                "mathMultiply",
+                "mathDivide",
+                "mathEqual",
+                "mathNotEqual",
+                "cornerTabs",
+                "squareTabs",
+                "plaqueTabs",
+                "chartX",
+                "chartStar",
+                "chartPlus",
+            ]
+        )
+    )
     avLst: Typed[GeomGuideList, Literal[True]]
     def __init__(self, prst: Incomplete | None = None, avLst: GeomGuideList | None = None) -> None: ...
 
 class FontReference(Serialisable):
-    idx: Incomplete
+    idx: NoneSet(values=(["major", "minor"]))
     def __init__(self, idx: Incomplete | None = None) -> None: ...
 
 class StyleMatrixReference(Serialisable):

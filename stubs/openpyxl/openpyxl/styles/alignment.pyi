@@ -1,16 +1,23 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal, TypeAlias
 
+from openpyxl.descriptors.base import NoneSet
 from openpyxl.descriptors.serialisable import Serialisable
 
-horizontal_alignments: Incomplete
-vertical_aligments: Incomplete
+_HorizontalAlignmentsType: TypeAlias = Literal[
+    "general", "left", "center", "right", "fill", "justify", "centerContinuous", "distributed"
+]
+_VerticalAlignmentsType: TypeAlias = Literal["top", "center", "bottom", "justify", "distributed"]
+
+horizontal_alignments: tuple[_HorizontalAlignmentsType, ...]
+vertical_aligments: tuple[_VerticalAlignmentsType, ...]
 
 class Alignment(Serialisable):
     tagname: str
     __fields__: Incomplete
-    horizontal: Incomplete
-    vertical: Incomplete
-    textRotation: Incomplete
+    horizontal: NoneSet[_HorizontalAlignmentsType]
+    vertical: NoneSet[_VerticalAlignmentsType]
+    textRotation: NoneSet[int]
     text_rotation: Incomplete
     wrapText: Incomplete
     wrap_text: Incomplete

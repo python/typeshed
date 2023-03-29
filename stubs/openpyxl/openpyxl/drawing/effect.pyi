@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Set, Typed
 from openpyxl.descriptors.serialisable import Serialisable
 
 from .colors import ColorChoice
@@ -28,7 +28,7 @@ class GrayscaleEffect(Serialisable):
     tagname: str
 
 class FillOverlayEffect(Serialisable):
-    blend: Incomplete
+    blend: Set(values=(["over", "mult", "screen", "darken", "lighten"]))
     def __init__(self, blend: Incomplete | None = None) -> None: ...
 
 class DuotoneEffect(Serialisable): ...
@@ -59,7 +59,7 @@ class AlphaModulateFixedEffect(Serialisable):
     def __init__(self, amt: Incomplete | None = None) -> None: ...
 
 class EffectContainer(Serialisable):
-    type: Incomplete
+    type: Set(values=(["sib", "tree"]))
     name: Incomplete
     def __init__(self, type: Incomplete | None = None, name: Incomplete | None = None) -> None: ...
 
@@ -110,7 +110,7 @@ class OuterShadow(ColorChoice):
     sy: Incomplete
     kx: Incomplete
     ky: Incomplete
-    algn: Incomplete
+    algn: Set(values=["tl", "t", "tr", "l", "ctr", "r", "bl", "b", "br"])
     rotWithShape: Incomplete
     scrgbClr: Incomplete
     srgbClr: Incomplete
@@ -134,7 +134,32 @@ class OuterShadow(ColorChoice):
     ) -> None: ...
 
 class PresetShadowEffect(ColorChoice):
-    prst: Incomplete
+    prst: Set(
+        values=(
+            [
+                "shdw1",
+                "shdw2",
+                "shdw3",
+                "shdw4",
+                "shdw5",
+                "shdw6",
+                "shdw7",
+                "shdw8",
+                "shdw9",
+                "shdw10",
+                "shdw11",
+                "shdw12",
+                "shdw13",
+                "shdw14",
+                "shdw15",
+                "shdw16",
+                "shdw17",
+                "shdw18",
+                "shdw19",
+                "shdw20",
+            ]
+        )
+    )
     dist: Incomplete
     dir: Incomplete
     scrgbClr: Incomplete
@@ -161,7 +186,7 @@ class ReflectionEffect(Serialisable):
     sy: Incomplete
     kx: Incomplete
     ky: Incomplete
-    algn: Incomplete
+    algn: Set(values=(["tl", "t", "tr", "l", "ctr", "r", "bl", "b", "br"]))
     rotWithShape: Incomplete
     def __init__(
         self,

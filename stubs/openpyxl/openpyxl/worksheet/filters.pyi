@@ -1,18 +1,40 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import NoneSet, Set, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
 class SortCondition(Serialisable):
     tagname: str
     descending: Incomplete
-    sortBy: Incomplete
+    sortBy: NoneSet(values=(["value", "cellColor", "fontColor", "icon"]))
     ref: Incomplete
     customList: Incomplete
     dxfId: Incomplete
-    iconSet: Incomplete
+    iconSet: NoneSet(
+        values=(
+            [
+                "3Arrows",
+                "3ArrowsGray",
+                "3Flags",
+                "3TrafficLights1",
+                "3TrafficLights2",
+                "3Signs",
+                "3Symbols",
+                "3Symbols2",
+                "4Arrows",
+                "4ArrowsGray",
+                "4RedToBlack",
+                "4Rating",
+                "4TrafficLights",
+                "5Arrows",
+                "5ArrowsGray",
+                "5Rating",
+                "5Quarters",
+            ]
+        )
+    )
     iconId: Incomplete
     def __init__(
         self,
@@ -29,7 +51,7 @@ class SortState(Serialisable):
     tagname: str
     columnSort: Incomplete
     caseSensitive: Incomplete
-    sortMethod: Incomplete
+    sortMethod: NoneSet(values=(["stroke", "pinYin"]))
     ref: Incomplete
     sortCondition: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
@@ -47,7 +69,29 @@ class SortState(Serialisable):
 
 class IconFilter(Serialisable):
     tagname: str
-    iconSet: Incomplete
+    iconSet: Set(
+        values=(
+            [
+                "3Arrows",
+                "3ArrowsGray",
+                "3Flags",
+                "3TrafficLights1",
+                "3TrafficLights2",
+                "3Signs",
+                "3Symbols",
+                "3Symbols2",
+                "4Arrows",
+                "4ArrowsGray",
+                "4RedToBlack",
+                "4Rating",
+                "4TrafficLights",
+                "5Arrows",
+                "5ArrowsGray",
+                "5Rating",
+                "5Quarters",
+            ]
+        )
+    )
     iconId: Incomplete
     def __init__(self, iconSet: Incomplete | None = None, iconId: Incomplete | None = None) -> None: ...
 
@@ -59,7 +103,47 @@ class ColorFilter(Serialisable):
 
 class DynamicFilter(Serialisable):
     tagname: str
-    type: Incomplete
+    type: Set(
+        values=(
+            [
+                "null",
+                "aboveAverage",
+                "belowAverage",
+                "tomorrow",
+                "today",
+                "yesterday",
+                "nextWeek",
+                "thisWeek",
+                "lastWeek",
+                "nextMonth",
+                "thisMonth",
+                "lastMonth",
+                "nextQuarter",
+                "thisQuarter",
+                "lastQuarter",
+                "nextYear",
+                "thisYear",
+                "lastYear",
+                "yearToDate",
+                "Q1",
+                "Q2",
+                "Q3",
+                "Q4",
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6",
+                "M7",
+                "M8",
+                "M9",
+                "M10",
+                "M11",
+                "M12",
+            ]
+        )
+    )
     val: Incomplete
     valIso: Incomplete
     maxVal: Incomplete
@@ -75,7 +159,7 @@ class DynamicFilter(Serialisable):
 
 class CustomFilter(Serialisable):
     tagname: str
-    operator: Incomplete
+    operator: NoneSet(values=(["equal", "lessThan", "lessThanOrEqual", "notEqual", "greaterThanOrEqual", "greaterThan"]))
     val: Incomplete
     def __init__(self, operator: Incomplete | None = None, val: Incomplete | None = None) -> None: ...
 
@@ -107,7 +191,7 @@ class DateGroupItem(Serialisable):
     hour: Incomplete
     minute: Incomplete
     second: Incomplete
-    dateTimeGrouping: Incomplete
+    dateTimeGrouping: Set(values=(["year", "month", "day", "hour", "minute", "second"]))
     def __init__(
         self,
         year: Incomplete | None = None,
@@ -122,7 +206,23 @@ class DateGroupItem(Serialisable):
 class Filters(Serialisable):
     tagname: str
     blank: Incomplete
-    calendarType: Incomplete
+    calendarType: NoneSet(
+        values=[
+            "gregorian",
+            "gregorianUs",
+            "gregorianMeFrench",
+            "gregorianArabic",
+            "hijri",
+            "hebrew",
+            "taiwan",
+            "japan",
+            "thai",
+            "korea",
+            "saka",
+            "gregorianXlitEnglish",
+            "gregorianXlitFrench",
+        ]
+    )
     filter: Incomplete
     dateGroupItem: Incomplete
     __elements__: Incomplete

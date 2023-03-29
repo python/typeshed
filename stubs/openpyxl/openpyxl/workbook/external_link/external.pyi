@@ -1,13 +1,13 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import NoneSet, Typed
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.packaging.relationship import Relationship
 
 class ExternalCell(Serialisable):  # type: ignore[misc]
     r: Incomplete
-    t: Incomplete
+    t: NoneSet(values=(["b", "d", "n", "e", "s", "str", "inlineStr"]))
     vm: Incomplete
     v: Incomplete
     def __init__(

@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import NoneSet, Set, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
@@ -9,8 +9,8 @@ class Pane(Serialisable):  # type: ignore[misc]
     xSplit: Incomplete
     ySplit: Incomplete
     topLeftCell: Incomplete
-    activePane: Incomplete
-    state: Incomplete
+    activePane: Set(values=("bottomRight", "topRight", "bottomLeft", "topLeft"))
+    state: Set(values=("split", "frozen", "frozenSplit"))
     def __init__(
         self,
         xSplit: Incomplete | None = None,
@@ -21,7 +21,7 @@ class Pane(Serialisable):  # type: ignore[misc]
     ) -> None: ...
 
 class Selection(Serialisable):  # type: ignore[misc]
-    pane: Incomplete
+    pane: NoneSet(values=("bottomRight", "topRight", "bottomLeft", "topLeft"))
     activeCell: Incomplete
     activeCellId: Incomplete
     sqref: Incomplete
@@ -42,7 +42,7 @@ class SheetView(Serialisable):
     showOutlineSymbols: Incomplete
     defaultGridColor: Incomplete
     showWhiteSpace: Incomplete
-    view: Incomplete
+    view: NoneSet(values=("normal", "pageBreakPreview", "pageLayout"))
     topLeftCell: Incomplete
     colorId: Incomplete
     zoomScale: Incomplete

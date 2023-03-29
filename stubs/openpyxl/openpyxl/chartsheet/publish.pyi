@@ -1,12 +1,13 @@
 from _typeshed import Incomplete
 
+from openpyxl.descriptors.base import Set
 from openpyxl.descriptors.serialisable import Serialisable
 
 class WebPublishItem(Serialisable):
     tagname: str
     id: Incomplete
     divId: Incomplete
-    sourceType: Incomplete
+    sourceType: Set(values=(["sheet", "printArea", "autoFilter", "range", "chart", "pivotTable", "query", "label"]))
     sourceRef: Incomplete
     sourceObject: Incomplete
     destinationFile: Incomplete

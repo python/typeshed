@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Set, Typed
+from openpyxl.descriptors.base import NoneSet, Set, Typed
 from openpyxl.descriptors.excel import Coordinate, ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.effect import Color, EffectContainer, EffectList
@@ -11,7 +11,7 @@ from openpyxl.drawing.line import LineProperties
 
 class EmbeddedWAVAudioFile(Serialisable):  # type: ignore[misc]
     name: Incomplete
-    def __init__(self, name: Incomplete | None = None) -> None: ...
+    def __init__(self, name: str | None = None) -> None: ...
 
 class Hyperlink(Serialisable):
     tagname: str
@@ -65,10 +65,32 @@ class CharacterProperties(Serialisable):
     sz: Incomplete
     b: Incomplete
     i: Incomplete
-    u: Incomplete
-    strike: Incomplete
+    u: NoneSet(
+        values=(
+            [
+                "words",
+                "sng",
+                "dbl",
+                "heavy",
+                "dotted",
+                "dottedHeavy",
+                "dash",
+                "dashHeavy",
+                "dashLong",
+                "dashLongHeavy",
+                "dotDash",
+                "dotDashHeavy",
+                "dotDotDash",
+                "dotDotDashHeavy",
+                "wavy",
+                "wavyHeavy",
+                "wavyDbl",
+            ]
+        )
+    )
+    strike: NoneSet(values=(["noStrike", "sngStrike", "dblStrike"]))
     kern: Incomplete
-    cap: Incomplete
+    cap: NoneSet(values=(["small", "all"]))
     spc: Incomplete
     normalizeH: Incomplete
     baseline: Incomplete
@@ -148,7 +170,7 @@ class CharacterProperties(Serialisable):
 
 class TabStop(Serialisable):  # type: ignore[misc]
     pos: Typed[Coordinate, Literal[True]]
-    algn: Typed[Set, Literal[False]]
+    algn: Typed[Set[Literal["l", "ctr", "r", "dec"]], Literal[False]]
     def __init__(self, pos: Coordinate | None = None, algn: Set | None = None) -> None: ...
 
 class TabStopList(Serialisable):  # type: ignore[misc]
@@ -162,7 +184,53 @@ class Spacing(Serialisable):
     def __init__(self, spcPct: Incomplete | None = None, spcPts: Incomplete | None = None) -> None: ...
 
 class AutonumberBullet(Serialisable):
-    type: Incomplete
+    type: Set(
+        values=(
+            [
+                "alphaLcParenBoth",
+                "alphaUcParenBoth",
+                "alphaLcParenR",
+                "alphaUcParenR",
+                "alphaLcPeriod",
+                "alphaUcPeriod",
+                "arabicParenBoth",
+                "arabicParenR",
+                "arabicPeriod",
+                "arabicPlain",
+                "romanLcParenBoth",
+                "romanUcParenBoth",
+                "romanLcParenR",
+                "romanUcParenR",
+                "romanLcPeriod",
+                "romanUcPeriod",
+                "circleNumDbPlain",
+                "circleNumWdBlackPlain",
+                "circleNumWdWhitePlain",
+                "arabicDbPeriod",
+                "arabicDbPlain",
+                "ea1ChsPeriod",
+                "ea1ChsPlain",
+                "ea1ChtPeriod",
+                "ea1ChtPlain",
+                "ea1JpnChsDbPeriod",
+                "ea1JpnKorPlain",
+                "ea1JpnKorPeriod",
+                "arabic1Minus",
+                "arabic2Minus",
+                "hebrew2Minus",
+                "thaiAlphaPeriod",
+                "thaiAlphaParenR",
+                "thaiAlphaParenBoth",
+                "thaiNumPeriod",
+                "thaiNumParenR",
+                "thaiNumParenBoth",
+                "hindiAlphaPeriod",
+                "hindiNumPeriod",
+                "hindiNumParenR",
+                "hindiAlpha1Period",
+            ]
+        )
+    )
     startAt: Incomplete
     def __init__(self, type: Incomplete | None = None, startAt: Incomplete | None = None) -> None: ...
 
@@ -173,11 +241,11 @@ class ParagraphProperties(Serialisable):
     marR: Incomplete
     lvl: Incomplete
     indent: Incomplete
-    algn: Incomplete
+    algn: NoneSet(values=(["l", "ctr", "r", "just", "justLow", "dist", "thaiDist"]))
     defTabSz: Incomplete
     rtl: Incomplete
     eaLnBrk: Incomplete
-    fontAlgn: Incomplete
+    fontAlgn: NoneSet(values=(["auto", "t", "ctr", "base", "b"]))
     latinLnBrk: Incomplete
     hangingPunct: Incomplete
     lnSpc: Typed[Spacing, Literal[True]]
@@ -316,14 +384,61 @@ class Paragraph(Serialisable):
 class GeomGuide(Serialisable):
     name: Incomplete
     fmla: Incomplete
-    def __init__(self, name: Incomplete | None = None, fmla: Incomplete | None = None) -> None: ...
+    def __init__(self, name: str | None = None, fmla: Incomplete | None = None) -> None: ...
 
 class GeomGuideList(Serialisable):
     gd: Incomplete
     def __init__(self, gd: Incomplete | None = None) -> None: ...
 
 class PresetTextShape(Serialisable):
-    prst: Typed[Set, Literal[False]]
+    prst: Typed[
+        Set[
+            Literal[
+                "textNoShape",
+                "textPlain",
+                "textStop",
+                "textTriangle",
+                "textTriangleInverted",
+                "textChevron",
+                "textChevronInverted",
+                "textRingInside",
+                "textRingOutside",
+                "textArchUp",
+                "textArchDown",
+                "textCircle",
+                "textButton",
+                "textArchUpPour",
+                "textArchDownPour",
+                "textCirclePour",
+                "textButtonPour",
+                "textCurveUp",
+                "textCurveDown",
+                "textCanUp",
+                "textCanDown",
+                "textWave1",
+                "textWave2",
+                "textDoubleWave1",
+                "textWave4",
+                "textInflate",
+                "textDeflate",
+                "textInflateBottom",
+                "textDeflateBottom",
+                "textInflateTop",
+                "textDeflateTop",
+                "textDeflateInflate",
+                "textDeflateInflateDeflate",
+                "textFadeRight",
+                "textFadeLeft",
+                "textFadeUp",
+                "textFadeDown",
+                "textSlantUp",
+                "textSlantDown",
+                "textCascadeUp",
+                "textCascadeDown",
+            ]
+        ],
+        Literal[False],
+    ]
     avLst: Typed[GeomGuideList, Literal[True]]
     def __init__(self, prst: Set, avLst: GeomGuideList | None = None) -> None: ...
 
@@ -337,10 +452,10 @@ class RichTextProperties(Serialisable):
     namespace: Incomplete
     rot: Incomplete
     spcFirstLastPara: Incomplete
-    vertOverflow: Incomplete
-    horzOverflow: Incomplete
-    vert: Incomplete
-    wrap: Incomplete
+    vertOverflow: NoneSet(values=(["overflow", "ellipsis", "clip"]))
+    horzOverflow: NoneSet(values=(["overflow", "clip"]))
+    vert: NoneSet(values=(["horz", "vert", "vert270", "wordArtVert", "eaVert", "mongolianVert", "wordArtVertRtl"]))
+    wrap: NoneSet(values=(["none", "square"]))
     lIns: Incomplete
     tIns: Incomplete
     rIns: Incomplete
@@ -349,7 +464,7 @@ class RichTextProperties(Serialisable):
     spcCol: Incomplete
     rtlCol: Incomplete
     fromWordArt: Incomplete
-    anchor: Incomplete
+    anchor: NoneSet(values=(["t", "ctr", "b", "just", "dist"]))
     anchorCtr: Incomplete
     forceAA: Incomplete
     upright: Incomplete

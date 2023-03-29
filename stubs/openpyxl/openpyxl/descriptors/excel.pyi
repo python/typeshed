@@ -20,7 +20,7 @@ class Percentage(MinMax):
     pattern: str
     min: int
     max: int
-    def __set__(self, instance, value) -> None: ...
+    def __set__(self, instance: Serialisable, value) -> None: ...
 
 class Extension(Serialisable):
     uri: Incomplete
@@ -43,4 +43,4 @@ class Guid(MatchPattern):
 class CellRange(MatchPattern):
     pattern: str
     allow_none: bool
-    def __set__(self, instance, value) -> None: ...
+    def __set__(self, instance: Serialisable, value) -> None: ...

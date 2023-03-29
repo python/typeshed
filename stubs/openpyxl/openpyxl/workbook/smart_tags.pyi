@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 
+from openpyxl.descriptors.base import NoneSet
 from openpyxl.descriptors.serialisable import Serialisable
 
 class SmartTag(Serialisable):
@@ -20,5 +21,5 @@ class SmartTagList(Serialisable):
 class SmartTagProperties(Serialisable):
     tagname: str
     embed: Incomplete
-    show: Incomplete
+    show: NoneSet(values=(["all", "noIndicator"]))
     def __init__(self, embed: Incomplete | None = None, show: Incomplete | None = None) -> None: ...

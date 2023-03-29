@@ -5,7 +5,7 @@ from typing_extensions import Literal
 from openpyxl.chart.layout import Layout
 from openpyxl.chart.legend import Legend
 from openpyxl.chart.shapes import GraphicalProperties
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Set, Typed
 from openpyxl.descriptors.serialisable import Serialisable
 
 class AxId(Serialisable):  # type: ignore[misc]
@@ -20,7 +20,7 @@ class ChartBase(Serialisable):
     roundedCorners: Incomplete
     axId: Incomplete
     visible_cells_only: Incomplete
-    display_blanks: Incomplete
+    display_blanks: Set(values=["span", "gap", "zero"])
     ser: Incomplete
     series: Incomplete
     title: Incomplete

@@ -1,11 +1,11 @@
 from _typeshed import Incomplete
 
-from . import _Serialiasable
+from openpyxl.descriptors import MetaSerialisable
 
 KEYWORDS: Incomplete
 seq_types: Incomplete
 
-class Serialisable(_Serialiasable):
+class Serialisable(metaclass=MetaSerialisable):
     __attrs__: Incomplete
     __nested__: Incomplete
     __elements__: Incomplete

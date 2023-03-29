@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import NoneSet, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.geometry import GroupTransform2D, Scene3D
@@ -9,7 +9,9 @@ from openpyxl.drawing.text import Hyperlink
 
 class GroupShapeProperties(Serialisable):
     tagname: str
-    bwMode: Incomplete
+    bwMode: NoneSet(
+        values=(["clr", "auto", "gray", "ltGray", "invGray", "grayWhite", "blackGray", "blackWhite", "black", "white", "hidden"])
+    )
     xfrm: Typed[GroupTransform2D, Literal[True]]
     scene3d: Typed[Scene3D, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]

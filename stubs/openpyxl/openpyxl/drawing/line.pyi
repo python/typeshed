@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import NoneSet, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.fill import GradientFillProperties, PatternFillProperties
@@ -9,9 +9,9 @@ from openpyxl.drawing.fill import GradientFillProperties, PatternFillProperties
 class LineEndProperties(Serialisable):
     tagname: str
     namespace: Incomplete
-    type: Incomplete
-    w: Incomplete
-    len: Incomplete
+    type: NoneSet(values=(["none", "triangle", "stealth", "diamond", "oval", "arrow"]))
+    w: NoneSet(values=(["sm", "med", "lg"]))
+    len: NoneSet(values=(["sm", "med", "lg"]))
     def __init__(self, type: Incomplete | None = None, w: Incomplete | None = None, len: Incomplete | None = None) -> None: ...
 
 class DashStop(Serialisable):
@@ -32,9 +32,9 @@ class LineProperties(Serialisable):
     namespace: Incomplete
     w: Incomplete
     width: Incomplete
-    cap: Incomplete
-    cmpd: Incomplete
-    algn: Incomplete
+    cap: NoneSet(values=(["rnd", "sq", "flat"]))
+    cmpd: NoneSet(values=(["sng", "dbl", "thickThin", "thinThick", "tri"]))
+    algn: NoneSet(values=(["ctr", "in"]))
     noFill: Incomplete
     solidFill: Incomplete
     gradFill: Typed[GradientFillProperties, Literal[True]]

@@ -1,15 +1,15 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import NoneSet, Typed
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.fonts import Font
 
 class PhoneticProperties(Serialisable):
     tagname: str
     fontId: Incomplete
-    type: Incomplete
-    alignment: Incomplete
+    type: NoneSet(values=(["halfwidthKatakana", "fullwidthKatakana", "Hiragana", "noConversion"]))
+    alignment: NoneSet(values=(["noControl", "left", "center", "distributed"]))
     def __init__(
         self, fontId: Incomplete | None = None, type: Incomplete | None = None, alignment: Incomplete | None = None
     ) -> None: ...

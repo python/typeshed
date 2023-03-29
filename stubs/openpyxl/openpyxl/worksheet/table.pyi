@@ -2,7 +2,7 @@ from _typeshed import Incomplete, Unused
 from typing_extensions import Literal
 
 from openpyxl.descriptors import String
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import NoneSet, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.filters import AutoFilter, SortState
@@ -55,7 +55,7 @@ class TableColumn(Serialisable):
     id: Incomplete
     uniqueName: Incomplete
     name: Incomplete
-    totalsRowFunction: Incomplete
+    totalsRowFunction: NoneSet(values=(["sum", "min", "max", "average", "count", "countNums", "stdDev", "var", "custom"]))
     totalsRowLabel: Incomplete
     queryTableFieldId: Incomplete
     headerRowDxfId: Incomplete
@@ -93,7 +93,7 @@ class TableColumn(Serialisable):
     def from_tree(cls, node): ...
 
 class TableNameDescriptor(String):
-    def __set__(self, instance, value) -> None: ...
+    def __set__(self, instance: Serialisable, value) -> None: ...
 
 class Table(Serialisable):
     mime_type: str
@@ -103,7 +103,7 @@ class Table(Serialisable):
     displayName: Incomplete
     comment: Incomplete
     ref: Incomplete
-    tableType: Incomplete
+    tableType: NoneSet(values=(["worksheet", "xml", "queryTable"]))
     headerRowCount: Incomplete
     insertRow: Incomplete
     insertRowShift: Incomplete

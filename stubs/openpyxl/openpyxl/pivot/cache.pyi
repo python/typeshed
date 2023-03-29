@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Set, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.pivot.fields import Error, Missing, Number, Text, TupleList
@@ -17,7 +17,7 @@ class MeasureGroup(Serialisable):
     tagname: str
     name: Incomplete
     caption: Incomplete
-    def __init__(self, name: Incomplete | None = None, caption: Incomplete | None = None) -> None: ...
+    def __init__(self, name: str | None = None, caption: Incomplete | None = None) -> None: ...
 
 class PivotDimension(Serialisable):
     tagname: str
@@ -334,7 +334,7 @@ class RangePr(Serialisable):
     tagname: str
     autoStart: Incomplete
     autoEnd: Incomplete
-    groupBy: Incomplete
+    groupBy: Set(values=(["range", "seconds", "minutes", "hours", "days", "months", "quarters", "years"]))
     startNum: Incomplete
     endNum: Incomplete
     startDate: Incomplete
@@ -476,7 +476,7 @@ class RangeSet(Serialisable):
 class PageItem(Serialisable):
     tagname: str
     name: Incomplete
-    def __init__(self, name: Incomplete | None = None) -> None: ...
+    def __init__(self, name: str | None = None) -> None: ...
 
 class Page(Serialisable):
     tagname: str
@@ -505,7 +505,7 @@ class WorksheetSource(Serialisable):
 
 class CacheSource(Serialisable):
     tagname: str
-    type: Incomplete
+    type: Set(values=(["worksheet", "external", "consolidation", "scenario"]))
     connectionId: Incomplete
     worksheetSource: Typed[WorksheetSource, Literal[True]]
     consolidation: Typed[Consolidation, Literal[True]]

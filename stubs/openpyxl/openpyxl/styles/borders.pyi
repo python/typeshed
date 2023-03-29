@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import NoneSet, Typed
 from openpyxl.descriptors.serialisable import Serialisable
 
 BORDER_NONE: Incomplete
@@ -22,7 +22,23 @@ BORDER_THIN: str
 class Side(Serialisable):  # type: ignore[misc]
     __fields__: Incomplete
     color: Incomplete
-    style: Incomplete
+    style: NoneSet(
+        values=(
+            "dashDot",
+            "dashDotDot",
+            "dashed",
+            "dotted",
+            "double",
+            "hair",
+            "medium",
+            "mediumDashDot",
+            "mediumDashDotDot",
+            "mediumDashed",
+            "slantDashDot",
+            "thick",
+            "thin",
+        )
+    )
     border_style: Incomplete
     def __init__(
         self, style: Incomplete | None = None, color: Incomplete | None = None, border_style: Incomplete | None = None

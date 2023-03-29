@@ -14,7 +14,7 @@ openpyxl\.descriptors\..*\.__get__
 # openpyxl.descriptors.Typed.expected_type
 # error: openpyxl.descriptors.base.Typed.expected_type
 
-# Stubtest sees an instance at runtime instead of a type
+# Stubtest sees <class T> and type[T] as different: https://github.com/python/mypy/issues/13316
 openpyxl.chart.descriptors.NumberFormatDescriptor.expected_type
 openpyxl.chart.title.TitleDescriptor.expected_type
 openpyxl.drawing.colors.ColorChoiceDescriptor.expected_type

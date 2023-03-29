@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Set, Typed
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.spreadsheet_drawing import AnchorMarker
 
@@ -54,9 +54,9 @@ class OleObject(Serialisable):
     tagname: str
     objectPr: Typed[ObjectPr, Literal[True]]
     progId: Incomplete
-    dvAspect: Incomplete
+    dvAspect: Set(values=(["DVASPECT_CONTENT", "DVASPECT_ICON"]))
     link: Incomplete
-    oleUpdate: Incomplete
+    oleUpdate: Set(values=(["OLEUPDATE_ALWAYS", "OLEUPDATE_ONCALL"]))
     autoLoad: Incomplete
     shapeId: Incomplete
     __elements__: Incomplete

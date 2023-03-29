@@ -2,6 +2,7 @@ from _typeshed import Incomplete
 from typing_extensions import Literal
 
 from openpyxl.descriptors import Typed
+from openpyxl.descriptors.base import Set
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
@@ -41,7 +42,40 @@ class SystemColor(Serialisable):
     blueMod: Incomplete
     gamma: Typed[Transform, Literal[True]]
     invGamma: Typed[Transform, Literal[True]]
-    val: Incomplete
+    val: Set[
+        Literal[
+            "scrollBar",
+            "background",
+            "activeCaption",
+            "inactiveCaption",
+            "menu",
+            "window",
+            "windowFrame",
+            "menuText",
+            "windowText",
+            "captionText",
+            "activeBorder",
+            "inactiveBorder",
+            "appWorkspace",
+            "highlight",
+            "highlightText",
+            "btnFace",
+            "btnShadow",
+            "grayText",
+            "btnText",
+            "inactiveCaptionText",
+            "btnHighlight",
+            "3dDkShadow",
+            "3dLight",
+            "infoText",
+            "infoBk",
+            "hotLight",
+            "gradientActiveCaption",
+            "gradientInactiveCaption",
+            "menuHighlight",
+            "menuBar",
+        ]
+    ]
     lastClr: Incomplete
     __elements__: Incomplete
     def __init__(
@@ -123,7 +157,27 @@ class SchemeColor(Serialisable):
     blueMod: Incomplete
     gamma: Incomplete
     invGamma: Incomplete
-    val: Incomplete
+    val: Set[
+        Literal[
+            "bg1",
+            "tx1",
+            "bg2",
+            "tx2",
+            "accent1",
+            "accent2",
+            "accent3",
+            "accent4",
+            "accent5",
+            "accent6",
+            "hlink",
+            "folHlink",
+            "phClr",
+            "dk1",
+            "lt1",
+            "dk2",
+            "lt2",
+        ]
+    ]
     __elements__: Incomplete
     def __init__(
         self,
@@ -180,20 +234,25 @@ class ColorChoice(Serialisable):
         prstClr: Incomplete | None = None,
     ) -> None: ...
 
+_ColorSetType = Literal[
+    "dk1", "lt1", "dk2", "lt2", "accent1", "accent2", "accent3", "accent4", "accent5", "accent6", "hlink", "folHlink"
+]
+_COLOR_SET: tuple[_ColorSetType, ...]
+
 class ColorMapping(Serialisable):
     tagname: str
-    bg1: Incomplete
-    tx1: Incomplete
-    bg2: Incomplete
-    tx2: Incomplete
-    accent1: Incomplete
-    accent2: Incomplete
-    accent3: Incomplete
-    accent4: Incomplete
-    accent5: Incomplete
-    accent6: Incomplete
-    hlink: Incomplete
-    folHlink: Incomplete
+    bg1: Set[_ColorSetType]
+    tx1: Set[_ColorSetType]
+    bg2: Set[_ColorSetType]
+    tx2: Set[_ColorSetType]
+    accent1: Set[_ColorSetType]
+    accent2: Set[_ColorSetType]
+    accent3: Set[_ColorSetType]
+    accent4: Set[_ColorSetType]
+    accent5: Set[_ColorSetType]
+    accent6: Set[_ColorSetType]
+    hlink: Set[_ColorSetType]
+    folHlink: Set[_ColorSetType]
     extLst: Typed[ExtensionList, Literal[True]]
     def __init__(
         self,
@@ -215,4 +274,4 @@ class ColorMapping(Serialisable):
 class ColorChoiceDescriptor(Typed):
     expected_type: type[ColorChoice]
     allow_none: Literal[True]
-    def __set__(self, instance, value) -> None: ...
+    def __set__(self, instance: Serialisable, value) -> None: ...

@@ -11,7 +11,7 @@ aRGB_REGEX: Incomplete
 
 class RGB(Typed):
     expected_type: type[str]
-    def __set__(self, instance, value) -> None: ...
+    def __set__(self, instance: Serialisable, value) -> None: ...
 
 class Color(Serialisable):
     tagname: str
@@ -42,7 +42,7 @@ class Color(Serialisable):
 
 class ColorDescriptor(Typed):
     expected_type: type[Color]
-    def __set__(self, instance, value) -> None: ...
+    def __set__(self, instance: Serialisable, value) -> None: ...
 
 class RgbColor(Serialisable):
     tagname: str

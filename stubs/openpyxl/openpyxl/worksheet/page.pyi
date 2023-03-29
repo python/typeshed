@@ -1,10 +1,11 @@
 from _typeshed import Incomplete
 
+from openpyxl.descriptors.base import NoneSet
 from openpyxl.descriptors.serialisable import Serialisable
 
 class PrintPageSetup(Serialisable):
     tagname: str
-    orientation: Incomplete
+    orientation: NoneSet(values=("default", "portrait", "landscape"))
     paperSize: Incomplete
     scale: Incomplete
     fitToHeight: Incomplete
@@ -13,12 +14,12 @@ class PrintPageSetup(Serialisable):
     useFirstPageNumber: Incomplete
     paperHeight: Incomplete
     paperWidth: Incomplete
-    pageOrder: Incomplete
+    pageOrder: NoneSet(values=("downThenOver", "overThenDown"))
     usePrinterDefaults: Incomplete
     blackAndWhite: Incomplete
     draft: Incomplete
-    cellComments: Incomplete
-    errors: Incomplete
+    cellComments: NoneSet(values=("asDisplayed", "atEnd"))
+    errors: NoneSet(values=("displayed", "blank", "dash", "NA"))
     horizontalDpi: Incomplete
     verticalDpi: Incomplete
     copies: Incomplete

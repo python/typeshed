@@ -1,10 +1,44 @@
 from _typeshed import Incomplete
 
+from openpyxl.descriptors.base import Set
 from openpyxl.descriptors.serialisable import Serialisable
 
 class TableStyleElement(Serialisable):
     tagname: str
-    type: Incomplete
+    type: Set(
+        values=(
+            [
+                "wholeTable",
+                "headerRow",
+                "totalRow",
+                "firstColumn",
+                "lastColumn",
+                "firstRowStripe",
+                "secondRowStripe",
+                "firstColumnStripe",
+                "secondColumnStripe",
+                "firstHeaderCell",
+                "lastHeaderCell",
+                "firstTotalCell",
+                "lastTotalCell",
+                "firstSubtotalColumn",
+                "secondSubtotalColumn",
+                "thirdSubtotalColumn",
+                "firstSubtotalRow",
+                "secondSubtotalRow",
+                "thirdSubtotalRow",
+                "blankRow",
+                "firstColumnSubheading",
+                "secondColumnSubheading",
+                "thirdColumnSubheading",
+                "firstRowSubheading",
+                "secondRowSubheading",
+                "thirdRowSubheading",
+                "pageFieldLabels",
+                "pageFieldValues",
+            ]
+        )
+    )
     size: Incomplete
     dxfId: Incomplete
     def __init__(

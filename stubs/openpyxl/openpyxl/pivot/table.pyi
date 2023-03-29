@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import NoneSet, Set, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.filters import AutoFilter
@@ -33,7 +33,78 @@ class PivotFilter(Serialisable):
     tagname: str
     fld: Incomplete
     mpFld: Incomplete
-    type: Incomplete
+    type: Set(
+        values=(
+            [
+                "unknown",
+                "count",
+                "percent",
+                "sum",
+                "captionEqual",
+                "captionNotEqual",
+                "captionBeginsWith",
+                "captionNotBeginsWith",
+                "captionEndsWith",
+                "captionNotEndsWith",
+                "captionContains",
+                "captionNotContains",
+                "captionGreaterThan",
+                "captionGreaterThanOrEqual",
+                "captionLessThan",
+                "captionLessThanOrEqual",
+                "captionBetween",
+                "captionNotBetween",
+                "valueEqual",
+                "valueNotEqual",
+                "valueGreaterThan",
+                "valueGreaterThanOrEqual",
+                "valueLessThan",
+                "valueLessThanOrEqual",
+                "valueBetween",
+                "valueNotBetween",
+                "dateEqual",
+                "dateNotEqual",
+                "dateOlderThan",
+                "dateOlderThanOrEqual",
+                "dateNewerThan",
+                "dateNewerThanOrEqual",
+                "dateBetween",
+                "dateNotBetween",
+                "tomorrow",
+                "today",
+                "yesterday",
+                "nextWeek",
+                "thisWeek",
+                "lastWeek",
+                "nextMonth",
+                "thisMonth",
+                "lastMonth",
+                "nextQuarter",
+                "thisQuarter",
+                "lastQuarter",
+                "nextYear",
+                "thisYear",
+                "lastYear",
+                "yearToDate",
+                "Q1",
+                "Q2",
+                "Q3",
+                "Q4",
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6",
+                "M7",
+                "M8",
+                "M9",
+                "M10",
+                "M11",
+                "M12",
+            ]
+        )
+    )
     evalOrder: Incomplete
     id: Incomplete
     iMeasureHier: Incomplete
@@ -205,7 +276,7 @@ class PivotArea(Serialisable):
     references: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
     field: Incomplete
-    type: Incomplete
+    type: NoneSet(values=(["normal", "data", "all", "origin", "button", "topEnd", "topRight"]))
     dataOnly: Incomplete
     labelOnly: Incomplete
     grandRow: Incomplete
@@ -214,7 +285,7 @@ class PivotArea(Serialisable):
     outline: Incomplete
     offset: Incomplete
     collapsedLevelsAreSubtotals: Incomplete
-    axis: Incomplete
+    axis: NoneSet(values=(["axisRow", "axisCol", "axisPage", "axisValues"]))
     fieldPosition: Incomplete
     __elements__: Incomplete
     def __init__(
@@ -248,8 +319,8 @@ class ChartFormat(Serialisable):
 
 class ConditionalFormat(Serialisable):
     tagname: str
-    scope: Incomplete
-    type: Incomplete
+    scope: Set(values=(["selection", "data", "field"]))
+    type: NoneSet(values=(["all", "row", "column"]))
     priority: Incomplete
     pivotAreas: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
@@ -275,7 +346,7 @@ class ConditionalFormatList(Serialisable):
 
 class Format(Serialisable):
     tagname: str
-    action: Incomplete
+    action: NoneSet(values=(["blank", "formatting", "drill", "formula"]))
     dxfId: Incomplete
     pivotArea: Typed[PivotArea, Literal[False]]
     extLst: Typed[ExtensionList, Literal[True]]
@@ -288,8 +359,22 @@ class DataField(Serialisable):
     tagname: str
     name: Incomplete
     fld: Incomplete
-    subtotal: Incomplete
-    showDataAs: Incomplete
+    subtotal: Set(values=(["average", "count", "countNums", "max", "min", "product", "stdDev", "stdDevp", "sum", "var", "varp"]))
+    showDataAs: Set(
+        values=(
+            [
+                "normal",
+                "difference",
+                "percent",
+                "percentDiff",
+                "runTotal",
+                "percentOfRow",
+                "percentOfCol",
+                "percentOfTotal",
+                "index",
+            ]
+        )
+    )
     baseField: Incomplete
     baseItem: Incomplete
     numFmtId: Incomplete
@@ -328,7 +413,27 @@ class PageField(Serialisable):
 
 class RowColItem(Serialisable):
     tagname: str
-    t: Incomplete
+    t: Set(
+        values=(
+            [
+                "data",
+                "default",
+                "sum",
+                "countA",
+                "avg",
+                "max",
+                "min",
+                "product",
+                "count",
+                "stdDev",
+                "stdDevP",
+                "var",
+                "varP",
+                "grand",
+                "blank",
+            ]
+        )
+    )
     r: Incomplete
     i: Incomplete
     x: Incomplete
@@ -348,7 +453,27 @@ class AutoSortScope(Serialisable):  # type: ignore[misc]
 class FieldItem(Serialisable):
     tagname: str
     n: Incomplete
-    t: Incomplete
+    t: Set(
+        values=(
+            [
+                "data",
+                "default",
+                "sum",
+                "countA",
+                "avg",
+                "max",
+                "min",
+                "product",
+                "count",
+                "stdDev",
+                "stdDevP",
+                "var",
+                "varP",
+                "grand",
+                "blank",
+            ]
+        )
+    )
     h: Incomplete
     s: Incomplete
     sd: Incomplete
@@ -379,7 +504,7 @@ class PivotField(Serialisable):
     autoSortScope: Typed[AutoSortScope, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     name: Incomplete
-    axis: Incomplete
+    axis: NoneSet(values=(["axisRow", "axisCol", "axisPage", "axisValues"]))
     dataField: Incomplete
     subtotalCaption: Incomplete
     showDropDowns: Incomplete
@@ -406,7 +531,7 @@ class PivotField(Serialisable):
     measureFilter: Incomplete
     includeNewItemsInFilter: Incomplete
     itemPageCount: Incomplete
-    sortType: Incomplete
+    sortType: Set(values=(["manual", "ascending", "descending"]))
     dataSourceSort: Incomplete
     nonAutoSortDefault: Incomplete
     rankBy: Incomplete

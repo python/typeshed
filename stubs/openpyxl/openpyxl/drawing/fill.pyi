@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import NoneSet, Set, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.colors import ColorChoice, HSLColor, RGBPercent, SchemeColor, SystemColor
@@ -28,7 +28,66 @@ from openpyxl.drawing.effect import (
 class PatternFillProperties(Serialisable):
     tagname: str
     namespace: Incomplete
-    prst: Incomplete
+    prst: NoneSet(
+        values=(
+            [
+                "pct5",
+                "pct10",
+                "pct20",
+                "pct25",
+                "pct30",
+                "pct40",
+                "pct50",
+                "pct60",
+                "pct70",
+                "pct75",
+                "pct80",
+                "pct90",
+                "horz",
+                "vert",
+                "ltHorz",
+                "ltVert",
+                "dkHorz",
+                "dkVert",
+                "narHorz",
+                "narVert",
+                "dashHorz",
+                "dashVert",
+                "cross",
+                "dnDiag",
+                "upDiag",
+                "ltDnDiag",
+                "ltUpDiag",
+                "dkDnDiag",
+                "dkUpDiag",
+                "wdDnDiag",
+                "wdUpDiag",
+                "dashDnDiag",
+                "dashUpDiag",
+                "diagCross",
+                "smCheck",
+                "lgCheck",
+                "smGrid",
+                "lgGrid",
+                "dotGrid",
+                "smConfetti",
+                "lgConfetti",
+                "horzBrick",
+                "diagBrick",
+                "solidDmnd",
+                "openDmnd",
+                "dotDmnd",
+                "plaid",
+                "sphere",
+                "weave",
+                "divot",
+                "shingle",
+                "wave",
+                "trellis",
+                "zigZag",
+            ]
+        )
+    )
     preset: Incomplete
     fgClr: Typed[ColorChoice, Literal[True]]
     foreground: Incomplete
@@ -94,14 +153,14 @@ class LinearShadeProperties(Serialisable):
 class PathShadeProperties(Serialisable):
     tagname: str
     namespace: Incomplete
-    path: Incomplete
+    path: Set(values=(["shape", "circle", "rect"]))
     fillToRect: Typed[RelativeRect, Literal[True]]
     def __init__(self, path: Incomplete | None = None, fillToRect: RelativeRect | None = None) -> None: ...
 
 class GradientFillProperties(Serialisable):
     tagname: str
     namespace: Incomplete
-    flip: Incomplete
+    flip: NoneSet(values=(["x", "y", "xy"]))
     rotWithShape: Incomplete
     gsLst: Incomplete
     stop_list: Incomplete
@@ -144,7 +203,7 @@ class SolidColorFillProperties(Serialisable):
 class Blip(Serialisable):
     tagname: str
     namespace: Incomplete
-    cstate: Incomplete
+    cstate: NoneSet(values=(["email", "screen", "print", "hqprint"]))
     embed: Incomplete
     link: Incomplete
     noGrp: Incomplete
@@ -216,8 +275,8 @@ class TileInfoProperties(Serialisable):
     ty: Incomplete
     sx: Incomplete
     sy: Incomplete
-    flip: Incomplete
-    algn: Incomplete
+    flip: NoneSet(values=(["x", "y", "xy"]))
+    algn: Set(values=(["tl", "t", "tr", "l", "ctr", "r", "bl", "b", "br"]))
     def __init__(
         self,
         tx: Incomplete | None = None,

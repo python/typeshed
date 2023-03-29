@@ -4,7 +4,7 @@ from typing_extensions import Literal
 
 from openpyxl.cell.text import Text
 from openpyxl.comments.author import AuthorList
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Set, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
@@ -16,8 +16,8 @@ class Properties(Serialisable):
     autoFill: Incomplete
     autoLine: Incomplete
     altText: Incomplete
-    textHAlign: Incomplete
-    textVAlign: Incomplete
+    textHAlign: Set(values=(["left", "center", "right", "justify", "distributed"]))
+    textVAlign: Set(values=(["top", "center", "bottom", "justify", "distributed"]))
     lockText: Incomplete
     justLastX: Incomplete
     autoScale: Incomplete

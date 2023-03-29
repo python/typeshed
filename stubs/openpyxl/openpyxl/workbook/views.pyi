@@ -1,13 +1,13 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import NoneSet, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
 class BookView(Serialisable):
     tagname: str
-    visibility: Incomplete
+    visibility: NoneSet(values=(["visible", "hidden", "veryHidden"]))
     minimized: Incomplete
     showHorizontalScroll: Incomplete
     showVerticalScroll: Incomplete
@@ -64,8 +64,8 @@ class CustomWorkbookView(Serialisable):
     activeSheetId: Incomplete
     showFormulaBar: Incomplete
     showStatusbar: Incomplete
-    showComments: Incomplete
-    showObjects: Incomplete
+    showComments: NoneSet(values=(["commNone", "commIndicator", "commIndAndComment"]))
+    showObjects: NoneSet(values=(["all", "placeholders"]))
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(

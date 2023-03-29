@@ -1,19 +1,20 @@
 from _typeshed import Incomplete
 
+from openpyxl.descriptors.base import NoneSet
 from openpyxl.descriptors.serialisable import Serialisable
 
 class WorkbookProperties(Serialisable):
     tagname: str
     date1904: Incomplete
     dateCompatibility: Incomplete
-    showObjects: Incomplete
+    showObjects: NoneSet(values=(["all", "placeholders"]))
     showBorderUnselectedTables: Incomplete
     filterPrivacy: Incomplete
     promptedSolutions: Incomplete
     showInkAnnotation: Incomplete
     backupFile: Incomplete
     saveExternalLinkValues: Incomplete
-    updateLinks: Incomplete
+    updateLinks: NoneSet(values=(["userSet", "never", "always"]))
     codeName: Incomplete
     hidePivotFieldList: Incomplete
     showPivotChartFilter: Incomplete
@@ -49,9 +50,9 @@ class WorkbookProperties(Serialisable):
 class CalcProperties(Serialisable):
     tagname: str
     calcId: Incomplete
-    calcMode: Incomplete
+    calcMode: NoneSet(values=(["manual", "auto", "autoNoTable"]))
     fullCalcOnLoad: Incomplete
-    refMode: Incomplete
+    refMode: NoneSet(values=(["A1", "R1C1"]))
     iterate: Incomplete
     iterateCount: Incomplete
     iterateDelta: Incomplete
