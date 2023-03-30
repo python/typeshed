@@ -2,5 +2,5 @@
 dj_database_url.key
 
 # Many stubtest false positives for a runtime TypedDict, see https://github.com/python/mypy/issues/14983
-dj_databse_url.DBConfig
+dj_database_url.DBConfig
 dj_database_url.DBConfig.__new__
