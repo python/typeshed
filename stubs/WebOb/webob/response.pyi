@@ -95,7 +95,7 @@ class Response:
     ubody: str  # deprecated
     body_file: _AsymmetricPropertyWithDelete[ResponseBodyFile, SupportsRead[bytes]]
     content_length: int | None
-    def write(self, text) -> None: ...
+    def write(self, text: str | bytes) -> None: ...
     app_iter: Iterator[bytes]
     allow: _ListProperty
     vary: _ListProperty

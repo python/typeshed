@@ -177,7 +177,7 @@ class BaseRequest:
     @classmethod
     def from_text(cls, s: str) -> Self: ...
     @classmethod
-    def from_file(cls, fp: _SupportsReadAndNoArgReadline): ...
+    def from_file(cls, fp: _SupportsReadAndNoArgReadline) -> Self: ...
     @overload
     def call_application(
         self, application: WSGIApplication, catch_exc_info: Literal[False] = False
@@ -193,7 +193,7 @@ class BaseRequest:
     @classmethod
     def blank(
         cls,
-        path,
+        path: str,
         environ: dict[str, None] | None = None,
         base_url: str | None = None,
         headers: Mapping[str, str] | None = None,
