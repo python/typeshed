@@ -1,5 +1,5 @@
 from _typeshed import Incomplete, Unused
-from collections.abc import Iterable
+from collections.abc import Iterable, Sized
 from datetime import datetime
 from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Literal
@@ -8,6 +8,7 @@ from openpyxl.descriptors.serialisable import Serialisable
 
 _T = TypeVar("_T")
 _N = TypeVar("_N", bound=bool)
+_L = TypeVar("_L", bound=Sized)
 
 class Descriptor(Generic[_T]):
     name: str | None
@@ -95,9 +96,9 @@ class ASCII(Typed):
 class Tuple(Typed):
     expected_type: type[tuple[Any, ...]]
 
-class Length(Descriptor):
-    def __init__(self, name: str | None = None, **kw) -> None: ...
-    def __set__(self, instance: Serialisable, value) -> None: ...
+class Length(Descriptor[_L]):
+    def __init__(self, name: Unused = None, *, length: int) -> None: ...
+    def __set__(self, instance: Serialisable, value: _L) -> None: ...
 
 class Default(Typed):
     def __init__(self, name: str | None = None, **kw) -> None: ...
