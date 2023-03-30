@@ -1,12 +1,15 @@
 from _typeshed import Incomplete, Unused
 from collections.abc import Generator
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.cell.text import Text
 from openpyxl.comments.author import AuthorList
 from openpyxl.descriptors.base import Set, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
+
+_PropertiesTextHAlign: TypeAlias = Literal["left", "center", "right", "justify", "distributed"]
+_PropertiesTextVAlign: TypeAlias = Literal["top", "center", "bottom", "justify", "distributed"]
 
 class Properties(Serialisable):
     locked: Incomplete
@@ -16,8 +19,8 @@ class Properties(Serialisable):
     autoFill: Incomplete
     autoLine: Incomplete
     altText: Incomplete
-    textHAlign: Set(values=(["left", "center", "right", "justify", "distributed"]))
-    textVAlign: Set(values=(["top", "center", "bottom", "justify", "distributed"]))
+    textHAlign: Set[_PropertiesTextHAlign]
+    textVAlign: Set[_PropertiesTextVAlign]
     lockText: Incomplete
     justLastX: Incomplete
     autoScale: Incomplete
@@ -27,16 +30,16 @@ class Properties(Serialisable):
     anchor: Incomplete
     def __init__(
         self,
-        locked: Incomplete | None = None,
-        defaultSize: Incomplete | None = None,
-        _print: Incomplete | None = None,
-        disabled: Incomplete | None = None,
-        uiObject: Incomplete | None = None,
-        autoFill: Incomplete | None = None,
-        autoLine: Incomplete | None = None,
-        altText: Incomplete | None = None,
-        textHAlign: Incomplete | None = None,
-        textVAlign: Incomplete | None = None,
+        locked: Incomplete | None,
+        defaultSize: Incomplete | None,
+        _print: Incomplete | None,
+        disabled: Incomplete | None,
+        uiObject: Incomplete | None,
+        autoFill: Incomplete | None,
+        autoLine: Incomplete | None,
+        altText: Incomplete | None,
+        textHAlign: _PropertiesTextHAlign,
+        textVAlign: _PropertiesTextVAlign,
         lockText: Incomplete | None = None,
         justLastX: Incomplete | None = None,
         autoScale: Incomplete | None = None,

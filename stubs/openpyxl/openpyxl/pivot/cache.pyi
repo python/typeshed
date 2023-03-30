@@ -1,11 +1,14 @@
 from _typeshed import Incomplete
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Set, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.pivot.fields import Error, Missing, Number, Text, TupleList
 from openpyxl.pivot.table import PivotArea
+
+_RangePrGroupBy: TypeAlias = Literal["range", "seconds", "minutes", "hours", "days", "months", "quarters", "years"]
+_CacheSourceType: TypeAlias = Literal["worksheet", "external", "consolidation", "scenario"]
 
 class MeasureDimensionMap(Serialisable):
     tagname: str
@@ -334,7 +337,7 @@ class RangePr(Serialisable):
     tagname: str
     autoStart: Incomplete
     autoEnd: Incomplete
-    groupBy: Set(values=(["range", "seconds", "minutes", "hours", "days", "months", "quarters", "years"]))
+    groupBy: Set[_RangePrGroupBy]
     startNum: Incomplete
     endNum: Incomplete
     startDate: Incomplete
@@ -344,7 +347,7 @@ class RangePr(Serialisable):
         self,
         autoStart: bool = True,
         autoEnd: bool = True,
-        groupBy: str = "range",
+        groupBy: _RangePrGroupBy = "range",
         startNum: Incomplete | None = None,
         endNum: Incomplete | None = None,
         startDate: Incomplete | None = None,
@@ -505,7 +508,7 @@ class WorksheetSource(Serialisable):
 
 class CacheSource(Serialisable):
     tagname: str
-    type: Set(values=(["worksheet", "external", "consolidation", "scenario"]))
+    type: Set[_CacheSourceType]
     connectionId: Incomplete
     worksheetSource: Typed[WorksheetSource, Literal[True]]
     consolidation: Typed[Consolidation, Literal[True]]
@@ -513,7 +516,7 @@ class CacheSource(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        type: Incomplete | None = None,
+        type: _CacheSourceType,
         connectionId: Incomplete | None = None,
         worksheetSource: WorksheetSource | None = None,
         consolidation: Consolidation | None = None,

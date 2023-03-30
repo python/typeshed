@@ -1,49 +1,105 @@
 from _typeshed import Incomplete, Unused
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import NoneSet, Set, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
+_SortConditionSortBy: TypeAlias = Literal["value", "cellColor", "fontColor", "icon"]
+_IconSet: TypeAlias = Literal[
+    "3Arrows",
+    "3ArrowsGray",
+    "3Flags",
+    "3TrafficLights1",
+    "3TrafficLights2",
+    "3Signs",
+    "3Symbols",
+    "3Symbols2",
+    "4Arrows",
+    "4ArrowsGray",
+    "4RedToBlack",
+    "4Rating",
+    "4TrafficLights",
+    "5Arrows",
+    "5ArrowsGray",
+    "5Rating",
+    "5Quarters",
+]
+_SortStateSortMethod: TypeAlias = Literal["stroke", "pinYin"]
+_CustomFilterOperator: TypeAlias = Literal[
+    "equal", "lessThan", "lessThanOrEqual", "notEqual", "greaterThanOrEqual", "greaterThan"
+]
+_FiltersCalendarType: TypeAlias = Literal[
+    "gregorian",
+    "gregorianUs",
+    "gregorianMeFrench",
+    "gregorianArabic",
+    "hijri",
+    "hebrew",
+    "taiwan",
+    "japan",
+    "thai",
+    "korea",
+    "saka",
+    "gregorianXlitEnglish",
+    "gregorianXlitFrench",
+]
+_DynamicFilterType: TypeAlias = Literal[
+    "null",
+    "aboveAverage",
+    "belowAverage",
+    "tomorrow",
+    "today",
+    "yesterday",
+    "nextWeek",
+    "thisWeek",
+    "lastWeek",
+    "nextMonth",
+    "thisMonth",
+    "lastMonth",
+    "nextQuarter",
+    "thisQuarter",
+    "lastQuarter",
+    "nextYear",
+    "thisYear",
+    "lastYear",
+    "yearToDate",
+    "Q1",
+    "Q2",
+    "Q3",
+    "Q4",
+    "M1",
+    "M2",
+    "M3",
+    "M4",
+    "M5",
+    "M6",
+    "M7",
+    "M8",
+    "M9",
+    "M10",
+    "M11",
+    "M12",
+]
+_DateGroupItemDateTimeGrouping: TypeAlias = Literal["year", "month", "day", "hour", "minute", "second"]
+
 class SortCondition(Serialisable):
     tagname: str
     descending: Incomplete
-    sortBy: NoneSet(values=(["value", "cellColor", "fontColor", "icon"]))
+    sortBy: NoneSet[_SortConditionSortBy]
     ref: Incomplete
     customList: Incomplete
     dxfId: Incomplete
-    iconSet: NoneSet(
-        values=(
-            [
-                "3Arrows",
-                "3ArrowsGray",
-                "3Flags",
-                "3TrafficLights1",
-                "3TrafficLights2",
-                "3Signs",
-                "3Symbols",
-                "3Symbols2",
-                "4Arrows",
-                "4ArrowsGray",
-                "4RedToBlack",
-                "4Rating",
-                "4TrafficLights",
-                "5Arrows",
-                "5ArrowsGray",
-                "5Rating",
-                "5Quarters",
-            ]
-        )
-    )
+    iconSet: NoneSet[_IconSet]
     iconId: Incomplete
     def __init__(
         self,
         ref: Incomplete | None = None,
         descending: Incomplete | None = None,
-        sortBy: Incomplete | None = None,
+        sortBy: _SortConditionSortBy | Literal["none"] | None = None,
         customList: Incomplete | None = None,
         dxfId: Incomplete | None = None,
-        iconSet: Incomplete | None = None,
+        iconSet: _IconSet | Literal["none"] | None = None,
         iconId: Incomplete | None = None,
     ) -> None: ...
 
@@ -51,7 +107,7 @@ class SortState(Serialisable):
     tagname: str
     columnSort: Incomplete
     caseSensitive: Incomplete
-    sortMethod: NoneSet(values=(["stroke", "pinYin"]))
+    sortMethod: NoneSet[_SortStateSortMethod]
     ref: Incomplete
     sortCondition: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
@@ -60,7 +116,7 @@ class SortState(Serialisable):
         self,
         columnSort: Incomplete | None = None,
         caseSensitive: Incomplete | None = None,
-        sortMethod: Incomplete | None = None,
+        sortMethod: _SortStateSortMethod | Literal["none"] | None = None,
         ref: Incomplete | None = None,
         sortCondition=(),
         extLst: Unused = None,
@@ -69,31 +125,9 @@ class SortState(Serialisable):
 
 class IconFilter(Serialisable):
     tagname: str
-    iconSet: Set(
-        values=(
-            [
-                "3Arrows",
-                "3ArrowsGray",
-                "3Flags",
-                "3TrafficLights1",
-                "3TrafficLights2",
-                "3Signs",
-                "3Symbols",
-                "3Symbols2",
-                "4Arrows",
-                "4ArrowsGray",
-                "4RedToBlack",
-                "4Rating",
-                "4TrafficLights",
-                "5Arrows",
-                "5ArrowsGray",
-                "5Rating",
-                "5Quarters",
-            ]
-        )
-    )
+    iconSet: Set[_IconSet]
     iconId: Incomplete
-    def __init__(self, iconSet: Incomplete | None = None, iconId: Incomplete | None = None) -> None: ...
+    def __init__(self, iconSet: _IconSet, iconId: Incomplete | None = None) -> None: ...
 
 class ColorFilter(Serialisable):
     tagname: str
@@ -103,54 +137,14 @@ class ColorFilter(Serialisable):
 
 class DynamicFilter(Serialisable):
     tagname: str
-    type: Set(
-        values=(
-            [
-                "null",
-                "aboveAverage",
-                "belowAverage",
-                "tomorrow",
-                "today",
-                "yesterday",
-                "nextWeek",
-                "thisWeek",
-                "lastWeek",
-                "nextMonth",
-                "thisMonth",
-                "lastMonth",
-                "nextQuarter",
-                "thisQuarter",
-                "lastQuarter",
-                "nextYear",
-                "thisYear",
-                "lastYear",
-                "yearToDate",
-                "Q1",
-                "Q2",
-                "Q3",
-                "Q4",
-                "M1",
-                "M2",
-                "M3",
-                "M4",
-                "M5",
-                "M6",
-                "M7",
-                "M8",
-                "M9",
-                "M10",
-                "M11",
-                "M12",
-            ]
-        )
-    )
+    type: Set[_DynamicFilterType]
     val: Incomplete
     valIso: Incomplete
     maxVal: Incomplete
     maxValIso: Incomplete
     def __init__(
         self,
-        type: Incomplete | None = None,
+        type: _DynamicFilterType,
         val: Incomplete | None = None,
         valIso: Incomplete | None = None,
         maxVal: Incomplete | None = None,
@@ -159,9 +153,11 @@ class DynamicFilter(Serialisable):
 
 class CustomFilter(Serialisable):
     tagname: str
-    operator: NoneSet(values=(["equal", "lessThan", "lessThanOrEqual", "notEqual", "greaterThanOrEqual", "greaterThan"]))
+    operator: NoneSet[_CustomFilterOperator]
     val: Incomplete
-    def __init__(self, operator: Incomplete | None = None, val: Incomplete | None = None) -> None: ...
+    def __init__(
+        self, operator: _CustomFilterOperator | Literal["none"] | None = None, val: Incomplete | None = None
+    ) -> None: ...
 
 class CustomFilters(Serialisable):
     tagname: str
@@ -191,43 +187,31 @@ class DateGroupItem(Serialisable):
     hour: Incomplete
     minute: Incomplete
     second: Incomplete
-    dateTimeGrouping: Set(values=(["year", "month", "day", "hour", "minute", "second"]))
+    dateTimeGrouping: Set[_DateGroupItemDateTimeGrouping]
     def __init__(
         self,
-        year: Incomplete | None = None,
-        month: Incomplete | None = None,
-        day: Incomplete | None = None,
-        hour: Incomplete | None = None,
-        minute: Incomplete | None = None,
-        second: Incomplete | None = None,
-        dateTimeGrouping: Incomplete | None = None,
+        year: Incomplete | None,
+        month: Incomplete | None,
+        day: Incomplete | None,
+        hour: Incomplete | None,
+        minute: Incomplete | None,
+        second: Incomplete | None,
+        dateTimeGrouping: _DateGroupItemDateTimeGrouping,
     ) -> None: ...
 
 class Filters(Serialisable):
     tagname: str
     blank: Incomplete
-    calendarType: NoneSet(
-        values=[
-            "gregorian",
-            "gregorianUs",
-            "gregorianMeFrench",
-            "gregorianArabic",
-            "hijri",
-            "hebrew",
-            "taiwan",
-            "japan",
-            "thai",
-            "korea",
-            "saka",
-            "gregorianXlitEnglish",
-            "gregorianXlitFrench",
-        ]
-    )
+    calendarType: NoneSet[_FiltersCalendarType]
     filter: Incomplete
     dateGroupItem: Incomplete
     __elements__: Incomplete
     def __init__(
-        self, blank: Incomplete | None = None, calendarType: Incomplete | None = None, filter=(), dateGroupItem=()
+        self,
+        blank: Incomplete | None = None,
+        calendarType: _FiltersCalendarType | Literal["none"] | None = None,
+        filter=(),
+        dateGroupItem=(),
     ) -> None: ...
 
 class FilterColumn(Serialisable):

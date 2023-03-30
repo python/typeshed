@@ -1,9 +1,12 @@
 from _typeshed import Incomplete
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Set, Typed
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.spreadsheet_drawing import AnchorMarker
+
+_OleObjectDvAspect: TypeAlias = Literal["DVASPECT_CONTENT", "DVASPECT_ICON"]
+_OleObjectOleUpdate: TypeAlias = Literal["OLEUPDATE_ALWAYS", "OLEUPDATE_ONCALL"]
 
 class ObjectAnchor(Serialisable):
     tagname: str
@@ -54,19 +57,19 @@ class OleObject(Serialisable):
     tagname: str
     objectPr: Typed[ObjectPr, Literal[True]]
     progId: Incomplete
-    dvAspect: Set(values=(["DVASPECT_CONTENT", "DVASPECT_ICON"]))
+    dvAspect: Set[_OleObjectDvAspect]
     link: Incomplete
-    oleUpdate: Set(values=(["OLEUPDATE_ALWAYS", "OLEUPDATE_ONCALL"]))
+    oleUpdate: Set[_OleObjectOleUpdate]
     autoLoad: Incomplete
     shapeId: Incomplete
     __elements__: Incomplete
     def __init__(
         self,
-        objectPr: ObjectPr | None = None,
-        progId: Incomplete | None = None,
-        dvAspect: str = "DVASPECT_CONTENT",
-        link: Incomplete | None = None,
-        oleUpdate: Incomplete | None = None,
+        objectPr: ObjectPr | None,
+        progId: Incomplete | None,
+        dvAspect: _OleObjectDvAspect,
+        link: Incomplete | None,
+        oleUpdate: _OleObjectOleUpdate,
         autoLoad: bool = False,
         shapeId: Incomplete | None = None,
     ) -> None: ...

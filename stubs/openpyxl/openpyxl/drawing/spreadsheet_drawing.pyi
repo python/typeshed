@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import NoneSet, Typed
 from openpyxl.descriptors.serialisable import Serialisable
@@ -7,6 +7,8 @@ from openpyxl.drawing.connector import Shape
 from openpyxl.drawing.graphic import GraphicFrame, GroupShape
 from openpyxl.drawing.picture import PictureFrame
 from openpyxl.drawing.xdr import XDRPoint2D, XDRPositiveSize2D
+
+_TwoCellAnchorEditAs: TypeAlias = Literal["twoCell", "oneCell", "absolute"]
 
 class AnchorClientData(Serialisable):
     fLocksWithSheet: Incomplete
@@ -73,7 +75,7 @@ class OneCellAnchor(_AnchorBase):
 
 class TwoCellAnchor(_AnchorBase):
     tagname: str
-    editAs: NoneSet(values=(["twoCell", "oneCell", "absolute"]))
+    editAs: NoneSet[_TwoCellAnchorEditAs]
     to: Typed[AnchorMarker, Literal[False]]
     sp: Incomplete
     grpSp: Incomplete
@@ -84,7 +86,11 @@ class TwoCellAnchor(_AnchorBase):
     clientData: Incomplete
     __elements__: Incomplete
     def __init__(
-        self, editAs: Incomplete | None = None, _from: AnchorMarker | None = None, to: AnchorMarker | None = None, **kw
+        self,
+        editAs: _TwoCellAnchorEditAs | Literal["none"] | None = None,
+        _from: AnchorMarker | None = None,
+        to: AnchorMarker | None = None,
+        **kw,
     ) -> None: ...
 
 class SpreadsheetDrawing(Serialisable):

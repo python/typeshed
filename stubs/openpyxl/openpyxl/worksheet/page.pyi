@@ -1,11 +1,17 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import NoneSet
 from openpyxl.descriptors.serialisable import Serialisable
 
+_PrintPageSetupOrientation: TypeAlias = Literal["default", "portrait", "landscape"]
+_PrintPageSetupPageOrder: TypeAlias = Literal["downThenOver", "overThenDown"]
+_PrintPageSetupCellComments: TypeAlias = Literal["asDisplayed", "atEnd"]
+_PrintPageSetupErrors: TypeAlias = Literal["displayed", "blank", "dash", "NA"]
+
 class PrintPageSetup(Serialisable):
     tagname: str
-    orientation: NoneSet(values=("default", "portrait", "landscape"))
+    orientation: NoneSet[_PrintPageSetupOrientation]
     paperSize: Incomplete
     scale: Incomplete
     fitToHeight: Incomplete
@@ -14,12 +20,12 @@ class PrintPageSetup(Serialisable):
     useFirstPageNumber: Incomplete
     paperHeight: Incomplete
     paperWidth: Incomplete
-    pageOrder: NoneSet(values=("downThenOver", "overThenDown"))
+    pageOrder: NoneSet[_PrintPageSetupPageOrder]
     usePrinterDefaults: Incomplete
     blackAndWhite: Incomplete
     draft: Incomplete
-    cellComments: NoneSet(values=("asDisplayed", "atEnd"))
-    errors: NoneSet(values=("displayed", "blank", "dash", "NA"))
+    cellComments: NoneSet[_PrintPageSetupCellComments]
+    errors: NoneSet[_PrintPageSetupErrors]
     horizontalDpi: Incomplete
     verticalDpi: Incomplete
     copies: Incomplete
@@ -27,7 +33,7 @@ class PrintPageSetup(Serialisable):
     def __init__(
         self,
         worksheet: Incomplete | None = None,
-        orientation: Incomplete | None = None,
+        orientation: _PrintPageSetupOrientation | Literal["none"] | None = None,
         paperSize: Incomplete | None = None,
         scale: Incomplete | None = None,
         fitToHeight: Incomplete | None = None,
@@ -36,12 +42,12 @@ class PrintPageSetup(Serialisable):
         useFirstPageNumber: Incomplete | None = None,
         paperHeight: Incomplete | None = None,
         paperWidth: Incomplete | None = None,
-        pageOrder: Incomplete | None = None,
+        pageOrder: _PrintPageSetupPageOrder | Literal["none"] | None = None,
         usePrinterDefaults: Incomplete | None = None,
         blackAndWhite: Incomplete | None = None,
         draft: Incomplete | None = None,
-        cellComments: Incomplete | None = None,
-        errors: Incomplete | None = None,
+        cellComments: _PrintPageSetupCellComments | Literal["none"] | None = None,
+        errors: _PrintPageSetupErrors | Literal["none"] | None = None,
         horizontalDpi: Incomplete | None = None,
         verticalDpi: Incomplete | None = None,
         copies: Incomplete | None = None,

@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import NoneSet, Set, Typed
 from openpyxl.descriptors.excel import ExtensionList
@@ -25,69 +25,71 @@ from openpyxl.drawing.effect import (
     TintEffect,
 )
 
+_PatternFillPropertiesPrst: TypeAlias = Literal[
+    "pct5",
+    "pct10",
+    "pct20",
+    "pct25",
+    "pct30",
+    "pct40",
+    "pct50",
+    "pct60",
+    "pct70",
+    "pct75",
+    "pct80",
+    "pct90",
+    "horz",
+    "vert",
+    "ltHorz",
+    "ltVert",
+    "dkHorz",
+    "dkVert",
+    "narHorz",
+    "narVert",
+    "dashHorz",
+    "dashVert",
+    "cross",
+    "dnDiag",
+    "upDiag",
+    "ltDnDiag",
+    "ltUpDiag",
+    "dkDnDiag",
+    "dkUpDiag",
+    "wdDnDiag",
+    "wdUpDiag",
+    "dashDnDiag",
+    "dashUpDiag",
+    "diagCross",
+    "smCheck",
+    "lgCheck",
+    "smGrid",
+    "lgGrid",
+    "dotGrid",
+    "smConfetti",
+    "lgConfetti",
+    "horzBrick",
+    "diagBrick",
+    "solidDmnd",
+    "openDmnd",
+    "dotDmnd",
+    "plaid",
+    "sphere",
+    "weave",
+    "divot",
+    "shingle",
+    "wave",
+    "trellis",
+    "zigZag",
+]
+_PropertiesFlip: TypeAlias = Literal["x", "y", "xy"]
+_TileInfoPropertiesAlgn: TypeAlias = Literal["tl", "t", "tr", "l", "ctr", "r", "bl", "b", "br"]
+_BlipCstate: TypeAlias = Literal["email", "screen", "print", "hqprint"]
+_PathShadePropertiesPath: TypeAlias = Literal["shape", "circle", "rect"]
+
 class PatternFillProperties(Serialisable):
     tagname: str
     namespace: Incomplete
-    prst: NoneSet(
-        values=(
-            [
-                "pct5",
-                "pct10",
-                "pct20",
-                "pct25",
-                "pct30",
-                "pct40",
-                "pct50",
-                "pct60",
-                "pct70",
-                "pct75",
-                "pct80",
-                "pct90",
-                "horz",
-                "vert",
-                "ltHorz",
-                "ltVert",
-                "dkHorz",
-                "dkVert",
-                "narHorz",
-                "narVert",
-                "dashHorz",
-                "dashVert",
-                "cross",
-                "dnDiag",
-                "upDiag",
-                "ltDnDiag",
-                "ltUpDiag",
-                "dkDnDiag",
-                "dkUpDiag",
-                "wdDnDiag",
-                "wdUpDiag",
-                "dashDnDiag",
-                "dashUpDiag",
-                "diagCross",
-                "smCheck",
-                "lgCheck",
-                "smGrid",
-                "lgGrid",
-                "dotGrid",
-                "smConfetti",
-                "lgConfetti",
-                "horzBrick",
-                "diagBrick",
-                "solidDmnd",
-                "openDmnd",
-                "dotDmnd",
-                "plaid",
-                "sphere",
-                "weave",
-                "divot",
-                "shingle",
-                "wave",
-                "trellis",
-                "zigZag",
-            ]
-        )
-    )
+    prst: NoneSet[_PatternFillPropertiesPrst]
     preset: Incomplete
     fgClr: Typed[ColorChoice, Literal[True]]
     foreground: Incomplete
@@ -95,7 +97,10 @@ class PatternFillProperties(Serialisable):
     background: Incomplete
     __elements__: Incomplete
     def __init__(
-        self, prst: Incomplete | None = None, fgClr: ColorChoice | None = None, bgClr: ColorChoice | None = None
+        self,
+        prst: _PatternFillPropertiesPrst | Literal["none"] | None = None,
+        fgClr: ColorChoice | None = None,
+        bgClr: ColorChoice | None = None,
     ) -> None: ...
 
 class RelativeRect(Serialisable):
@@ -153,14 +158,14 @@ class LinearShadeProperties(Serialisable):
 class PathShadeProperties(Serialisable):
     tagname: str
     namespace: Incomplete
-    path: Set(values=(["shape", "circle", "rect"]))
+    path: Set[_PathShadePropertiesPath]
     fillToRect: Typed[RelativeRect, Literal[True]]
-    def __init__(self, path: Incomplete | None = None, fillToRect: RelativeRect | None = None) -> None: ...
+    def __init__(self, path: _PathShadePropertiesPath, fillToRect: RelativeRect | None = None) -> None: ...
 
 class GradientFillProperties(Serialisable):
     tagname: str
     namespace: Incomplete
-    flip: NoneSet(values=(["x", "y", "xy"]))
+    flip: NoneSet[_PropertiesFlip]
     rotWithShape: Incomplete
     gsLst: Incomplete
     stop_list: Incomplete
@@ -171,7 +176,7 @@ class GradientFillProperties(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        flip: Incomplete | None = None,
+        flip: _PropertiesFlip | Literal["none"] | None = None,
         rotWithShape: Incomplete | None = None,
         gsLst=(),
         lin: LinearShadeProperties | None = None,
@@ -203,7 +208,7 @@ class SolidColorFillProperties(Serialisable):
 class Blip(Serialisable):
     tagname: str
     namespace: Incomplete
-    cstate: NoneSet(values=(["email", "screen", "print", "hqprint"]))
+    cstate: NoneSet[_BlipCstate]
     embed: Incomplete
     link: Incomplete
     noGrp: Incomplete
@@ -237,7 +242,7 @@ class Blip(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        cstate: Incomplete | None = None,
+        cstate: _BlipCstate | Literal["none"] | None = None,
         embed: Incomplete | None = None,
         link: Incomplete | None = None,
         noGrp: Incomplete | None = None,
@@ -275,16 +280,16 @@ class TileInfoProperties(Serialisable):
     ty: Incomplete
     sx: Incomplete
     sy: Incomplete
-    flip: NoneSet(values=(["x", "y", "xy"]))
-    algn: Set(values=(["tl", "t", "tr", "l", "ctr", "r", "bl", "b", "br"]))
+    flip: NoneSet[_PropertiesFlip]
+    algn: Set[_TileInfoPropertiesAlgn]
     def __init__(
         self,
-        tx: Incomplete | None = None,
-        ty: Incomplete | None = None,
-        sx: Incomplete | None = None,
-        sy: Incomplete | None = None,
-        flip: Incomplete | None = None,
-        algn: Incomplete | None = None,
+        tx: Incomplete | None,
+        ty: Incomplete | None,
+        sx: Incomplete | None,
+        sy: Incomplete | None,
+        flip: _PropertiesFlip | Literal["none"] | None,
+        algn: _TileInfoPropertiesAlgn,
     ) -> None: ...
 
 class BlipFillProperties(Serialisable):

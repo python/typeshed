@@ -1,7 +1,27 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import NoneSet
 from openpyxl.descriptors.serialisable import Serialisable
+
+_DataValidationType: TypeAlias = Literal["whole", "decimal", "list", "date", "time", "textLength", "custom"]
+_DataValidationErrorStyle: TypeAlias = Literal["stop", "warning", "information"]
+_DataValidationImeMode: TypeAlias = Literal[
+    "noControl",
+    "off",
+    "on",
+    "disabled",
+    "hiragana",
+    "fullKatakana",
+    "halfKatakana",
+    "fullAlpha",
+    "halfAlpha",
+    "fullHangul",
+    "halfHangul",
+]
+_DataValidationOperator: TypeAlias = Literal[
+    "between", "notBetween", "equal", "notEqual", "lessThan", "lessThanOrEqual", "greaterThan", "greaterThanOrEqual"
+]
 
 def collapse_cell_addresses(cells, input_ranges=()): ...
 def expand_cell_ranges(range_string): ...
@@ -23,30 +43,14 @@ class DataValidation(Serialisable):
     prompt: Incomplete
     formula1: Incomplete
     formula2: Incomplete
-    type: NoneSet(values=("whole", "decimal", "list", "date", "time", "textLength", "custom"))
-    errorStyle: NoneSet(values=("stop", "warning", "information"))
-    imeMode: NoneSet(
-        values=(
-            "noControl",
-            "off",
-            "on",
-            "disabled",
-            "hiragana",
-            "fullKatakana",
-            "halfKatakana",
-            "fullAlpha",
-            "halfAlpha",
-            "fullHangul",
-            "halfHangul",
-        )
-    )
-    operator: NoneSet(
-        values=("between", "notBetween", "equal", "notEqual", "lessThan", "lessThanOrEqual", "greaterThan", "greaterThanOrEqual")
-    )
+    type: NoneSet[_DataValidationType]
+    errorStyle: NoneSet[_DataValidationErrorStyle]
+    imeMode: NoneSet[_DataValidationImeMode]
+    operator: NoneSet[_DataValidationOperator]
     validation_type: Incomplete
     def __init__(
         self,
-        type: Incomplete | None = None,
+        type: _DataValidationType | Literal["none"] | None = None,
         formula1: Incomplete | None = None,
         formula2: Incomplete | None = None,
         showErrorMessage: bool = False,
@@ -55,12 +59,12 @@ class DataValidation(Serialisable):
         allowBlank: Incomplete | None = False,
         sqref=(),
         promptTitle: Incomplete | None = None,
-        errorStyle: Incomplete | None = None,
+        errorStyle: _DataValidationErrorStyle | Literal["none"] | None = None,
         error: Incomplete | None = None,
         prompt: Incomplete | None = None,
         errorTitle: Incomplete | None = None,
-        imeMode: Incomplete | None = None,
-        operator: Incomplete | None = None,
+        imeMode: _DataValidationImeMode | Literal["none"] | None = None,
+        operator: _DataValidationOperator | Literal["none"] | None = None,
         allow_blank: Incomplete | None = False,
     ) -> None: ...
     def add(self, cell) -> None: ...

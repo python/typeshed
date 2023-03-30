@@ -25,6 +25,7 @@ FILL_PATTERN_LIGHTUP: Final = "lightUp"
 FILL_PATTERN_LIGHTVERTICAL: Final = "lightVertical"
 FILL_PATTERN_MEDIUMGRAY: Final = "mediumGray"
 
+_GradientFillType: TypeAlias = Literal["linear", "path"]
 _FillsType: TypeAlias = Literal[
     "none",
     "solid",
@@ -88,7 +89,7 @@ class StopList(Sequence):
 
 class GradientFill(Fill):
     tagname: str
-    type: Set(values=("linear", "path"))
+    type: Set[_GradientFillType]
     fill_type: Incomplete
     degree: Incomplete
     left: Incomplete
@@ -97,7 +98,14 @@ class GradientFill(Fill):
     bottom: Incomplete
     stop: Incomplete
     def __init__(
-        self, type: str = "linear", degree: int = 0, left: int = 0, right: int = 0, top: int = 0, bottom: int = 0, stop=()
+        self,
+        type: _GradientFillType = "linear",
+        degree: int = 0,
+        left: int = 0,
+        right: int = 0,
+        top: int = 0,
+        bottom: int = 0,
+        stop=(),
     ) -> None: ...
     def __iter__(self): ...
     def to_tree(self, tagname: Incomplete | None = None, namespace: Incomplete | None = None, idx: Incomplete | None = None): ...  # type: ignore[override]

@@ -1,13 +1,17 @@
 from _typeshed import Incomplete, Unused
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import NoneSet, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
+_BookViewVilibility: TypeAlias = Literal["visible", "hidden", "veryHidden"]
+_CustomWorkbookViewShowComments: TypeAlias = Literal["commNone", "commIndicator", "commIndAndComment"]
+_CustomWorkbookViewShowObjects: TypeAlias = Literal["all", "placeholders"]
+
 class BookView(Serialisable):
     tagname: str
-    visibility: NoneSet(values=(["visible", "hidden", "veryHidden"]))
+    visibility: NoneSet[_BookViewVilibility]
     minimized: Incomplete
     showHorizontalScroll: Incomplete
     showVerticalScroll: Incomplete
@@ -24,7 +28,7 @@ class BookView(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        visibility: str = "visible",
+        visibility: _BookViewVilibility | Literal["none"] | None = "visible",
         minimized: bool = False,
         showHorizontalScroll: bool = True,
         showVerticalScroll: bool = True,
@@ -64,8 +68,8 @@ class CustomWorkbookView(Serialisable):
     activeSheetId: Incomplete
     showFormulaBar: Incomplete
     showStatusbar: Incomplete
-    showComments: NoneSet(values=(["commNone", "commIndicator", "commIndAndComment"]))
-    showObjects: NoneSet(values=(["all", "placeholders"]))
+    showComments: NoneSet[_CustomWorkbookViewShowComments]
+    showObjects: NoneSet[_CustomWorkbookViewShowObjects]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
@@ -92,7 +96,7 @@ class CustomWorkbookView(Serialisable):
         activeSheetId: Incomplete | None = None,
         showFormulaBar: Incomplete | None = None,
         showStatusbar: Incomplete | None = None,
-        showComments: str = "commIndicator",
-        showObjects: str = "all",
+        showComments: _CustomWorkbookViewShowComments | Literal["none"] | None = "commIndicator",
+        showObjects: _CustomWorkbookViewShowObjects | Literal["none"] | None = "all",
         extLst: Unused = None,
     ) -> None: ...

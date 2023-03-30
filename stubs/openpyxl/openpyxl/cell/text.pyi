@@ -1,17 +1,23 @@
 from _typeshed import Incomplete
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import NoneSet, Typed
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.fonts import Font
 
+_PhoneticPropertiesType: TypeAlias = Literal["halfwidthKatakana", "fullwidthKatakana", "Hiragana", "noConversion"]
+_PhoneticPropertiesAlignment: TypeAlias = Literal["noControl", "left", "center", "distributed"]
+
 class PhoneticProperties(Serialisable):
     tagname: str
     fontId: Incomplete
-    type: NoneSet(values=(["halfwidthKatakana", "fullwidthKatakana", "Hiragana", "noConversion"]))
-    alignment: NoneSet(values=(["noControl", "left", "center", "distributed"]))
+    type: NoneSet[_PhoneticPropertiesType]
+    alignment: NoneSet[_PhoneticPropertiesAlignment]
     def __init__(
-        self, fontId: Incomplete | None = None, type: Incomplete | None = None, alignment: Incomplete | None = None
+        self,
+        fontId: Incomplete | None = None,
+        type: _PhoneticPropertiesType | Literal["none"] | None = None,
+        alignment: _PhoneticPropertiesAlignment | Literal["none"] | None = None,
     ) -> None: ...
 
 class PhoneticText(Serialisable):

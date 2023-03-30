@@ -1,5 +1,5 @@
 from _typeshed import Incomplete, Unused
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import NoneSet, Typed
 from openpyxl.descriptors.excel import ExtensionList
@@ -10,6 +10,9 @@ from openpyxl.workbook.properties import CalcProperties, FileVersion, WorkbookPr
 from openpyxl.workbook.protection import FileSharing, WorkbookProtection
 from openpyxl.workbook.smart_tags import SmartTagList, SmartTagProperties
 from openpyxl.workbook.web import WebPublishing, WebPublishObjectList
+
+_ChildSheetState: TypeAlias = Literal["visible", "hidden", "veryHidden"]
+_WorkbookPackageConformance: TypeAlias = Literal["strict", "transitional"]
 
 class FileRecoveryProperties(Serialisable):
     tagname: str
@@ -29,13 +32,13 @@ class ChildSheet(Serialisable):
     tagname: str
     name: Incomplete
     sheetId: Incomplete
-    state: NoneSet(values=(["visible", "hidden", "veryHidden"]))
+    state: NoneSet[_ChildSheetState]
     id: Incomplete
     def __init__(
         self,
         name: Incomplete | None = None,
         sheetId: Incomplete | None = None,
-        state: str = "visible",
+        state: _ChildSheetState | Literal["none"] | None = "visible",
         id: Incomplete | None = None,
     ) -> None: ...
 
@@ -47,7 +50,7 @@ class PivotCache(Serialisable):
 
 class WorkbookPackage(Serialisable):
     tagname: str
-    conformance: NoneSet(values=["strict", "transitional"])
+    conformance: NoneSet[_WorkbookPackageConformance]
     fileVersion: Typed[FileVersion, Literal[True]]
     fileSharing: Typed[FileSharing, Literal[True]]
     workbookPr: Typed[WorkbookProperties, Literal[True]]
@@ -72,7 +75,7 @@ class WorkbookPackage(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        conformance: Incomplete | None = None,
+        conformance: _WorkbookPackageConformance | Literal["none"] | None = None,
         fileVersion: FileVersion | None = None,
         fileSharing: FileSharing | None = None,
         workbookPr: WorkbookProperties | None = None,

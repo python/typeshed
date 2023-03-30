@@ -1,5 +1,5 @@
 from _typeshed import Incomplete, Unused
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import NoneSet, Typed
 from openpyxl.descriptors.serialisable import Serialisable
@@ -7,11 +7,13 @@ from openpyxl.drawing.fill import GradientFillProperties, PatternFillProperties
 from openpyxl.drawing.geometry import CustomGeometry2D, PresetGeometry2D, Scene3D, Shape3D, Transform2D
 from openpyxl.drawing.line import LineProperties
 
+_GraphicalPropertiesBwMode: TypeAlias = Literal[
+    "clr", "auto", "gray", "ltGray", "invGray", "grayWhite", "blackGray", "blackWhite", "black", "white", "hidden"
+]
+
 class GraphicalProperties(Serialisable):
     tagname: str
-    bwMode: NoneSet(
-        values=(["clr", "auto", "gray", "ltGray", "invGray", "grayWhite", "blackGray", "blackWhite", "black", "white", "hidden"])
-    )
+    bwMode: NoneSet[_GraphicalPropertiesBwMode]
     xfrm: Typed[Transform2D, Literal[True]]
     transform: Incomplete
     custGeom: Typed[CustomGeometry2D, Literal[True]]
@@ -29,7 +31,7 @@ class GraphicalProperties(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        bwMode: Incomplete | None = None,
+        bwMode: _GraphicalPropertiesBwMode | Literal["none"] | None = None,
         xfrm: Transform2D | None = None,
         noFill: Incomplete | None = None,
         solidFill: Incomplete | None = None,

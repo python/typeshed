@@ -1,10 +1,65 @@
 from _typeshed import Incomplete
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors import Typed
 from openpyxl.descriptors.base import Set
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
+
+_ColorSetType: TypeAlias = Literal[
+    "dk1", "lt1", "dk2", "lt2", "accent1", "accent2", "accent3", "accent4", "accent5", "accent6", "hlink", "folHlink"
+]
+_SystemColorVal: TypeAlias = Literal[
+    "scrollBar",
+    "background",
+    "activeCaption",
+    "inactiveCaption",
+    "menu",
+    "window",
+    "windowFrame",
+    "menuText",
+    "windowText",
+    "captionText",
+    "activeBorder",
+    "inactiveBorder",
+    "appWorkspace",
+    "highlight",
+    "highlightText",
+    "btnFace",
+    "btnShadow",
+    "grayText",
+    "btnText",
+    "inactiveCaptionText",
+    "btnHighlight",
+    "3dDkShadow",
+    "3dLight",
+    "infoText",
+    "infoBk",
+    "hotLight",
+    "gradientActiveCaption",
+    "gradientInactiveCaption",
+    "menuHighlight",
+    "menuBar",
+]
+_SchemeColorVal: TypeAlias = Literal[
+    "bg1",
+    "tx1",
+    "bg2",
+    "tx2",
+    "accent1",
+    "accent2",
+    "accent3",
+    "accent4",
+    "accent5",
+    "accent6",
+    "hlink",
+    "folHlink",
+    "phClr",
+    "dk1",
+    "lt1",
+    "dk2",
+    "lt2",
+]
 
 PRESET_COLORS: Incomplete
 SCHEME_COLORS: Incomplete
@@ -42,45 +97,12 @@ class SystemColor(Serialisable):
     blueMod: Incomplete
     gamma: Typed[Transform, Literal[True]]
     invGamma: Typed[Transform, Literal[True]]
-    val: Set[
-        Literal[
-            "scrollBar",
-            "background",
-            "activeCaption",
-            "inactiveCaption",
-            "menu",
-            "window",
-            "windowFrame",
-            "menuText",
-            "windowText",
-            "captionText",
-            "activeBorder",
-            "inactiveBorder",
-            "appWorkspace",
-            "highlight",
-            "highlightText",
-            "btnFace",
-            "btnShadow",
-            "grayText",
-            "btnText",
-            "inactiveCaptionText",
-            "btnHighlight",
-            "3dDkShadow",
-            "3dLight",
-            "infoText",
-            "infoBk",
-            "hotLight",
-            "gradientActiveCaption",
-            "gradientInactiveCaption",
-            "menuHighlight",
-            "menuBar",
-        ]
-    ]
+    val: Set[_SystemColorVal]
     lastClr: Incomplete
     __elements__: Incomplete
     def __init__(
         self,
-        val: str = "windowText",
+        val: _SystemColorVal = "windowText",
         lastClr: Incomplete | None = None,
         tint: Incomplete | None = None,
         shade: Incomplete | None = None,
@@ -157,59 +179,39 @@ class SchemeColor(Serialisable):
     blueMod: Incomplete
     gamma: Incomplete
     invGamma: Incomplete
-    val: Set[
-        Literal[
-            "bg1",
-            "tx1",
-            "bg2",
-            "tx2",
-            "accent1",
-            "accent2",
-            "accent3",
-            "accent4",
-            "accent5",
-            "accent6",
-            "hlink",
-            "folHlink",
-            "phClr",
-            "dk1",
-            "lt1",
-            "dk2",
-            "lt2",
-        ]
-    ]
+    val: Set[_SchemeColorVal]
     __elements__: Incomplete
     def __init__(
         self,
-        tint: Incomplete | None = None,
-        shade: Incomplete | None = None,
-        comp: Incomplete | None = None,
-        inv: Incomplete | None = None,
-        gray: Incomplete | None = None,
-        alpha: Incomplete | None = None,
-        alphaOff: Incomplete | None = None,
-        alphaMod: Incomplete | None = None,
-        hue: Incomplete | None = None,
-        hueOff: Incomplete | None = None,
-        hueMod: Incomplete | None = None,
-        sat: Incomplete | None = None,
-        satOff: Incomplete | None = None,
-        satMod: Incomplete | None = None,
-        lum: Incomplete | None = None,
-        lumOff: Incomplete | None = None,
-        lumMod: Incomplete | None = None,
-        red: Incomplete | None = None,
-        redOff: Incomplete | None = None,
-        redMod: Incomplete | None = None,
-        green: Incomplete | None = None,
-        greenOff: Incomplete | None = None,
-        greenMod: Incomplete | None = None,
-        blue: Incomplete | None = None,
-        blueOff: Incomplete | None = None,
-        blueMod: Incomplete | None = None,
-        gamma: Incomplete | None = None,
-        invGamma: Incomplete | None = None,
-        val: Incomplete | None = None,
+        tint: Incomplete | None,
+        shade: Incomplete | None,
+        comp: Incomplete | None,
+        inv: Incomplete | None,
+        gray: Incomplete | None,
+        alpha: Incomplete | None,
+        alphaOff: Incomplete | None,
+        alphaMod: Incomplete | None,
+        hue: Incomplete | None,
+        hueOff: Incomplete | None,
+        hueMod: Incomplete | None,
+        sat: Incomplete | None,
+        satOff: Incomplete | None,
+        satMod: Incomplete | None,
+        lum: Incomplete | None,
+        lumOff: Incomplete | None,
+        lumMod: Incomplete | None,
+        red: Incomplete | None,
+        redOff: Incomplete | None,
+        redMod: Incomplete | None,
+        green: Incomplete | None,
+        greenOff: Incomplete | None,
+        greenMod: Incomplete | None,
+        blue: Incomplete | None,
+        blueOff: Incomplete | None,
+        blueMod: Incomplete | None,
+        gamma: Incomplete | None,
+        invGamma: Incomplete | None,
+        val: _SchemeColorVal,
     ) -> None: ...
 
 class ColorChoice(Serialisable):
@@ -234,9 +236,6 @@ class ColorChoice(Serialisable):
         prstClr: Incomplete | None = None,
     ) -> None: ...
 
-_ColorSetType = Literal[
-    "dk1", "lt1", "dk2", "lt2", "accent1", "accent2", "accent3", "accent4", "accent5", "accent6", "hlink", "folHlink"
-]
 _COLOR_SET: tuple[_ColorSetType, ...]
 
 class ColorMapping(Serialisable):

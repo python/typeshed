@@ -1,10 +1,108 @@
 from _typeshed import Incomplete
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import NoneSet, Set, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.filters import AutoFilter
+
+_PivotAreaType: TypeAlias = Literal["normal", "data", "all", "origin", "button", "topEnd", "topRight"]
+_PivotAxis: TypeAlias = Literal["axisRow", "axisCol", "axisPage", "axisValues"]
+_ConditionalFormatType: TypeAlias = Literal["all", "row", "column"]
+_FormatAction: TypeAlias = Literal["blank", "formatting", "drill", "formula"]
+_PivotFilterType: TypeAlias = Literal[
+    "unknown",
+    "count",
+    "percent",
+    "sum",
+    "captionEqual",
+    "captionNotEqual",
+    "captionBeginsWith",
+    "captionNotBeginsWith",
+    "captionEndsWith",
+    "captionNotEndsWith",
+    "captionContains",
+    "captionNotContains",
+    "captionGreaterThan",
+    "captionGreaterThanOrEqual",
+    "captionLessThan",
+    "captionLessThanOrEqual",
+    "captionBetween",
+    "captionNotBetween",
+    "valueEqual",
+    "valueNotEqual",
+    "valueGreaterThan",
+    "valueGreaterThanOrEqual",
+    "valueLessThan",
+    "valueLessThanOrEqual",
+    "valueBetween",
+    "valueNotBetween",
+    "dateEqual",
+    "dateNotEqual",
+    "dateOlderThan",
+    "dateOlderThanOrEqual",
+    "dateNewerThan",
+    "dateNewerThanOrEqual",
+    "dateBetween",
+    "dateNotBetween",
+    "tomorrow",
+    "today",
+    "yesterday",
+    "nextWeek",
+    "thisWeek",
+    "lastWeek",
+    "nextMonth",
+    "thisMonth",
+    "lastMonth",
+    "nextQuarter",
+    "thisQuarter",
+    "lastQuarter",
+    "nextYear",
+    "thisYear",
+    "lastYear",
+    "yearToDate",
+    "Q1",
+    "Q2",
+    "Q3",
+    "Q4",
+    "M1",
+    "M2",
+    "M3",
+    "M4",
+    "M5",
+    "M6",
+    "M7",
+    "M8",
+    "M9",
+    "M10",
+    "M11",
+    "M12",
+]
+_ConditionalFormatScope: TypeAlias = Literal["selection", "data", "field"]
+_DataFieldSubtotal: TypeAlias = Literal[
+    "average", "count", "countNums", "max", "min", "product", "stdDev", "stdDevp", "sum", "var", "varp"
+]
+_DataFieldShowDataAs: TypeAlias = Literal[
+    "normal", "difference", "percent", "percentDiff", "runTotal", "percentOfRow", "percentOfCol", "percentOfTotal", "index"
+]
+_ItemType: TypeAlias = Literal[
+    "data",
+    "default",
+    "sum",
+    "countA",
+    "avg",
+    "max",
+    "min",
+    "product",
+    "count",
+    "stdDev",
+    "stdDevP",
+    "var",
+    "varP",
+    "grand",
+    "blank",
+]
+_PivotFieldSortType: TypeAlias = Literal["manual", "ascending", "descending"]
 
 class HierarchyUsage(Serialisable):
     tagname: str
@@ -33,78 +131,7 @@ class PivotFilter(Serialisable):
     tagname: str
     fld: Incomplete
     mpFld: Incomplete
-    type: Set(
-        values=(
-            [
-                "unknown",
-                "count",
-                "percent",
-                "sum",
-                "captionEqual",
-                "captionNotEqual",
-                "captionBeginsWith",
-                "captionNotBeginsWith",
-                "captionEndsWith",
-                "captionNotEndsWith",
-                "captionContains",
-                "captionNotContains",
-                "captionGreaterThan",
-                "captionGreaterThanOrEqual",
-                "captionLessThan",
-                "captionLessThanOrEqual",
-                "captionBetween",
-                "captionNotBetween",
-                "valueEqual",
-                "valueNotEqual",
-                "valueGreaterThan",
-                "valueGreaterThanOrEqual",
-                "valueLessThan",
-                "valueLessThanOrEqual",
-                "valueBetween",
-                "valueNotBetween",
-                "dateEqual",
-                "dateNotEqual",
-                "dateOlderThan",
-                "dateOlderThanOrEqual",
-                "dateNewerThan",
-                "dateNewerThanOrEqual",
-                "dateBetween",
-                "dateNotBetween",
-                "tomorrow",
-                "today",
-                "yesterday",
-                "nextWeek",
-                "thisWeek",
-                "lastWeek",
-                "nextMonth",
-                "thisMonth",
-                "lastMonth",
-                "nextQuarter",
-                "thisQuarter",
-                "lastQuarter",
-                "nextYear",
-                "thisYear",
-                "lastYear",
-                "yearToDate",
-                "Q1",
-                "Q2",
-                "Q3",
-                "Q4",
-                "M1",
-                "M2",
-                "M3",
-                "M4",
-                "M5",
-                "M6",
-                "M7",
-                "M8",
-                "M9",
-                "M10",
-                "M11",
-                "M12",
-            ]
-        )
-    )
+    type: Set[_PivotFilterType]
     evalOrder: Incomplete
     id: Incomplete
     iMeasureHier: Incomplete
@@ -120,7 +147,7 @@ class PivotFilter(Serialisable):
         self,
         fld: Incomplete | None,
         mpFld: Incomplete | None,
-        type: Incomplete | None,
+        type: _PivotFilterType,
         evalOrder: Incomplete | None,
         id: Incomplete | None,
         iMeasureHier: Incomplete | None,
@@ -276,7 +303,7 @@ class PivotArea(Serialisable):
     references: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
     field: Incomplete
-    type: NoneSet(values=(["normal", "data", "all", "origin", "button", "topEnd", "topRight"]))
+    type: NoneSet[_PivotAreaType]
     dataOnly: Incomplete
     labelOnly: Incomplete
     grandRow: Incomplete
@@ -285,7 +312,7 @@ class PivotArea(Serialisable):
     outline: Incomplete
     offset: Incomplete
     collapsedLevelsAreSubtotals: Incomplete
-    axis: NoneSet(values=(["axisRow", "axisCol", "axisPage", "axisValues"]))
+    axis: NoneSet[_PivotAxis]
     fieldPosition: Incomplete
     __elements__: Incomplete
     def __init__(
@@ -293,7 +320,7 @@ class PivotArea(Serialisable):
         references=(),
         extLst: ExtensionList | None = None,
         field: Incomplete | None = None,
-        type: str = "normal",
+        type: _PivotAreaType | Literal["none"] | None = "normal",
         dataOnly: bool = True,
         labelOnly: Incomplete | None = None,
         grandRow: Incomplete | None = None,
@@ -302,7 +329,7 @@ class PivotArea(Serialisable):
         outline: bool = True,
         offset: Incomplete | None = None,
         collapsedLevelsAreSubtotals: Incomplete | None = None,
-        axis: Incomplete | None = None,
+        axis: _PivotAxis | Literal["none"] | None = None,
         fieldPosition: Incomplete | None = None,
     ) -> None: ...
 
@@ -319,16 +346,16 @@ class ChartFormat(Serialisable):
 
 class ConditionalFormat(Serialisable):
     tagname: str
-    scope: Set(values=(["selection", "data", "field"]))
-    type: NoneSet(values=(["all", "row", "column"]))
+    scope: Set[_ConditionalFormatScope]
+    type: NoneSet[_ConditionalFormatType]
     priority: Incomplete
     pivotAreas: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
-        scope: Incomplete | None = "selection",
-        type: Incomplete | None = None,
+        scope: _ConditionalFormatScope = "selection",
+        type: _ConditionalFormatType | Literal["none"] | None = None,
         priority: Incomplete | None = None,
         pivotAreas=(),
         extLst: ExtensionList | None = None,
@@ -346,35 +373,25 @@ class ConditionalFormatList(Serialisable):
 
 class Format(Serialisable):
     tagname: str
-    action: NoneSet(values=(["blank", "formatting", "drill", "formula"]))
+    action: NoneSet[_FormatAction]
     dxfId: Incomplete
     pivotArea: Typed[PivotArea, Literal[False]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
-        self, action: str, dxfId: Incomplete | None, pivotArea: PivotArea, extLst: ExtensionList | None = None
+        self,
+        action: _FormatAction | Literal["none"] | None,
+        dxfId: Incomplete | None,
+        pivotArea: PivotArea,
+        extLst: ExtensionList | None = None,
     ) -> None: ...
 
 class DataField(Serialisable):
     tagname: str
     name: Incomplete
     fld: Incomplete
-    subtotal: Set(values=(["average", "count", "countNums", "max", "min", "product", "stdDev", "stdDevp", "sum", "var", "varp"]))
-    showDataAs: Set(
-        values=(
-            [
-                "normal",
-                "difference",
-                "percent",
-                "percentDiff",
-                "runTotal",
-                "percentOfRow",
-                "percentOfCol",
-                "percentOfTotal",
-                "index",
-            ]
-        )
-    )
+    subtotal: Set[_DataFieldSubtotal]
+    showDataAs: Set[_DataFieldShowDataAs]
     baseField: Incomplete
     baseItem: Incomplete
     numFmtId: Incomplete
@@ -413,32 +430,12 @@ class PageField(Serialisable):
 
 class RowColItem(Serialisable):
     tagname: str
-    t: Set(
-        values=(
-            [
-                "data",
-                "default",
-                "sum",
-                "countA",
-                "avg",
-                "max",
-                "min",
-                "product",
-                "count",
-                "stdDev",
-                "stdDevP",
-                "var",
-                "varP",
-                "grand",
-                "blank",
-            ]
-        )
-    )
+    t: Set[_ItemType]
     r: Incomplete
     i: Incomplete
     x: Incomplete
     __elements__: Incomplete
-    def __init__(self, t: str = "data", r: int = 0, i: int = 0, x=()) -> None: ...
+    def __init__(self, t: _ItemType = "data", r: int = 0, i: int = 0, x=()) -> None: ...
 
 class RowColField(Serialisable):
     tagname: str
@@ -453,27 +450,7 @@ class AutoSortScope(Serialisable):  # type: ignore[misc]
 class FieldItem(Serialisable):
     tagname: str
     n: Incomplete
-    t: Set(
-        values=(
-            [
-                "data",
-                "default",
-                "sum",
-                "countA",
-                "avg",
-                "max",
-                "min",
-                "product",
-                "count",
-                "stdDev",
-                "stdDevP",
-                "var",
-                "varP",
-                "grand",
-                "blank",
-            ]
-        )
-    )
+    t: Set[_ItemType]
     h: Incomplete
     s: Incomplete
     sd: Incomplete
@@ -486,7 +463,7 @@ class FieldItem(Serialisable):
     def __init__(
         self,
         n: Incomplete | None = None,
-        t: str = "data",
+        t: _ItemType = "data",
         h: Incomplete | None = None,
         s: Incomplete | None = None,
         sd: bool = True,
@@ -504,7 +481,7 @@ class PivotField(Serialisable):
     autoSortScope: Typed[AutoSortScope, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     name: Incomplete
-    axis: NoneSet(values=(["axisRow", "axisCol", "axisPage", "axisValues"]))
+    axis: NoneSet[_PivotAxis]
     dataField: Incomplete
     subtotalCaption: Incomplete
     showDropDowns: Incomplete
@@ -531,7 +508,7 @@ class PivotField(Serialisable):
     measureFilter: Incomplete
     includeNewItemsInFilter: Incomplete
     itemPageCount: Incomplete
-    sortType: Set(values=(["manual", "ascending", "descending"]))
+    sortType: Set[_PivotFieldSortType]
     dataSourceSort: Incomplete
     nonAutoSortDefault: Incomplete
     rankBy: Incomplete
@@ -557,7 +534,7 @@ class PivotField(Serialisable):
         items=(),
         autoSortScope: AutoSortScope | None = None,
         name: Incomplete | None = None,
-        axis: Incomplete | None = None,
+        axis: _PivotAxis | Literal["none"] | None = None,
         dataField: Incomplete | None = None,
         subtotalCaption: Incomplete | None = None,
         showDropDowns: bool = True,
@@ -584,7 +561,7 @@ class PivotField(Serialisable):
         measureFilter: Incomplete | None = None,
         includeNewItemsInFilter: Incomplete | None = None,
         itemPageCount: int = 10,
-        sortType: str = "manual",
+        sortType: _PivotFieldSortType = "manual",
         dataSourceSort: Incomplete | None = None,
         nonAutoSortDefault: Incomplete | None = None,
         rankBy: Incomplete | None = None,

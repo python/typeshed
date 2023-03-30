@@ -1,10 +1,36 @@
 from _typeshed import Incomplete
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Set, Typed
 from openpyxl.descriptors.serialisable import Serialisable
 
 from .colors import ColorChoice
+
+_FillOverlayEffectBlend: TypeAlias = Literal["over", "mult", "screen", "darken", "lighten"]
+_EffectContainerType: TypeAlias = Literal["sib", "tree"]
+_Algn: TypeAlias = Literal["tl", "t", "tr", "l", "ctr", "r", "bl", "b", "br"]
+_PresetShadowEffectPrst: TypeAlias = Literal[
+    "shdw1",
+    "shdw2",
+    "shdw3",
+    "shdw4",
+    "shdw5",
+    "shdw6",
+    "shdw7",
+    "shdw8",
+    "shdw9",
+    "shdw10",
+    "shdw11",
+    "shdw12",
+    "shdw13",
+    "shdw14",
+    "shdw15",
+    "shdw16",
+    "shdw17",
+    "shdw18",
+    "shdw19",
+    "shdw20",
+]
 
 class TintEffect(Serialisable):
     tagname: str
@@ -28,8 +54,8 @@ class GrayscaleEffect(Serialisable):
     tagname: str
 
 class FillOverlayEffect(Serialisable):
-    blend: Set(values=(["over", "mult", "screen", "darken", "lighten"]))
-    def __init__(self, blend: Incomplete | None = None) -> None: ...
+    blend: Set[_FillOverlayEffectBlend]
+    def __init__(self, blend: _FillOverlayEffectBlend) -> None: ...
 
 class DuotoneEffect(Serialisable): ...
 class ColorReplaceEffect(Serialisable): ...
@@ -59,9 +85,9 @@ class AlphaModulateFixedEffect(Serialisable):
     def __init__(self, amt: Incomplete | None = None) -> None: ...
 
 class EffectContainer(Serialisable):
-    type: Set(values=(["sib", "tree"]))
+    type: Set[_EffectContainerType]
     name: Incomplete
-    def __init__(self, type: Incomplete | None = None, name: Incomplete | None = None) -> None: ...
+    def __init__(self, type: _EffectContainerType, name: Incomplete | None = None) -> None: ...
 
 class AlphaModulateEffect(Serialisable):
     cont: Typed[EffectContainer, Literal[False]]
@@ -110,7 +136,7 @@ class OuterShadow(ColorChoice):
     sy: Incomplete
     kx: Incomplete
     ky: Incomplete
-    algn: Set(values=["tl", "t", "tr", "l", "ctr", "r", "bl", "b", "br"])
+    algn: Set[_Algn]
     rotWithShape: Incomplete
     scrgbClr: Incomplete
     srgbClr: Incomplete
@@ -121,45 +147,20 @@ class OuterShadow(ColorChoice):
     __elements__: Incomplete
     def __init__(
         self,
-        blurRad: Incomplete | None = None,
-        dist: Incomplete | None = None,
-        dir: Incomplete | None = None,
-        sx: Incomplete | None = None,
-        sy: Incomplete | None = None,
-        kx: Incomplete | None = None,
-        ky: Incomplete | None = None,
-        algn: Incomplete | None = None,
+        blurRad: Incomplete | None,
+        dist: Incomplete | None,
+        dir: Incomplete | None,
+        sx: Incomplete | None,
+        sy: Incomplete | None,
+        kx: Incomplete | None,
+        ky: Incomplete | None,
+        algn: _Algn,
         rotWithShape: Incomplete | None = None,
         **kw,
     ) -> None: ...
 
 class PresetShadowEffect(ColorChoice):
-    prst: Set(
-        values=(
-            [
-                "shdw1",
-                "shdw2",
-                "shdw3",
-                "shdw4",
-                "shdw5",
-                "shdw6",
-                "shdw7",
-                "shdw8",
-                "shdw9",
-                "shdw10",
-                "shdw11",
-                "shdw12",
-                "shdw13",
-                "shdw14",
-                "shdw15",
-                "shdw16",
-                "shdw17",
-                "shdw18",
-                "shdw19",
-                "shdw20",
-            ]
-        )
-    )
+    prst: Set[_PresetShadowEffectPrst]
     dist: Incomplete
     dir: Incomplete
     scrgbClr: Incomplete
@@ -170,7 +171,7 @@ class PresetShadowEffect(ColorChoice):
     prstClr: Incomplete
     __elements__: Incomplete
     def __init__(
-        self, prst: Incomplete | None = None, dist: Incomplete | None = None, dir: Incomplete | None = None, **kw
+        self, prst: _PresetShadowEffectPrst, dist: Incomplete | None = None, dir: Incomplete | None = None, **kw
     ) -> None: ...
 
 class ReflectionEffect(Serialisable):
@@ -186,23 +187,23 @@ class ReflectionEffect(Serialisable):
     sy: Incomplete
     kx: Incomplete
     ky: Incomplete
-    algn: Set(values=(["tl", "t", "tr", "l", "ctr", "r", "bl", "b", "br"]))
+    algn: Set[_Algn]
     rotWithShape: Incomplete
     def __init__(
         self,
-        blurRad: Incomplete | None = None,
-        stA: Incomplete | None = None,
-        stPos: Incomplete | None = None,
-        endA: Incomplete | None = None,
-        endPos: Incomplete | None = None,
-        dist: Incomplete | None = None,
-        dir: Incomplete | None = None,
-        fadeDir: Incomplete | None = None,
-        sx: Incomplete | None = None,
-        sy: Incomplete | None = None,
-        kx: Incomplete | None = None,
-        ky: Incomplete | None = None,
-        algn: Incomplete | None = None,
+        blurRad: Incomplete | None,
+        stA: Incomplete | None,
+        stPos: Incomplete | None,
+        endA: Incomplete | None,
+        endPos: Incomplete | None,
+        dist: Incomplete | None,
+        dir: Incomplete | None,
+        fadeDir: Incomplete | None,
+        sx: Incomplete | None,
+        sy: Incomplete | None,
+        kx: Incomplete | None,
+        ky: Incomplete | None,
+        algn: _Algn,
         rotWithShape: Incomplete | None = None,
     ) -> None: ...
 

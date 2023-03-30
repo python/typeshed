@@ -1,17 +1,23 @@
 from _typeshed import Incomplete, Unused
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import NoneSet, Typed
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.packaging.relationship import Relationship
 
+_ExternalCellType: TypeAlias = Literal["b", "d", "n", "e", "s", "str", "inlineStr"]
+
 class ExternalCell(Serialisable):  # type: ignore[misc]
     r: Incomplete
-    t: NoneSet(values=(["b", "d", "n", "e", "s", "str", "inlineStr"]))
+    t: NoneSet[_ExternalCellType]
     vm: Incomplete
     v: Incomplete
     def __init__(
-        self, r: Incomplete | None = None, t: Incomplete | None = None, vm: Incomplete | None = None, v: Incomplete | None = None
+        self,
+        r: Incomplete | None = None,
+        t: _ExternalCellType | Literal["none"] | None = None,
+        vm: Incomplete | None = None,
+        v: Incomplete | None = None,
     ) -> None: ...
 
 class ExternalRow(Serialisable):  # type: ignore[misc]

@@ -1,18 +1,29 @@
 from _typeshed import Incomplete, Unused
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import NoneSet, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.fill import GradientFillProperties, PatternFillProperties
 
+_LineEndPropertiesType: TypeAlias = Literal["none", "triangle", "stealth", "diamond", "oval", "arrow"]
+_LineEndPropertiesWLen: TypeAlias = Literal["sm", "med", "lg"]
+_LinePropertiesCap: TypeAlias = Literal["rnd", "sq", "flat"]
+_LinePropertiesCmpd: TypeAlias = Literal["sng", "dbl", "thickThin", "thinThick", "tri"]
+_LinePropertiesAlgn: TypeAlias = Literal["ctr", "in"]
+
 class LineEndProperties(Serialisable):
     tagname: str
     namespace: Incomplete
-    type: NoneSet(values=(["none", "triangle", "stealth", "diamond", "oval", "arrow"]))
-    w: NoneSet(values=(["sm", "med", "lg"]))
-    len: NoneSet(values=(["sm", "med", "lg"]))
-    def __init__(self, type: Incomplete | None = None, w: Incomplete | None = None, len: Incomplete | None = None) -> None: ...
+    type: NoneSet[_LineEndPropertiesType]
+    w: NoneSet[_LineEndPropertiesWLen]
+    len: NoneSet[_LineEndPropertiesWLen]
+    def __init__(
+        self,
+        type: _LineEndPropertiesType | Literal["none"] | None = None,
+        w: _LineEndPropertiesWLen | Literal["none"] | None = None,
+        len: _LineEndPropertiesWLen | Literal["none"] | None = None,
+    ) -> None: ...
 
 class DashStop(Serialisable):
     tagname: str
@@ -32,9 +43,9 @@ class LineProperties(Serialisable):
     namespace: Incomplete
     w: Incomplete
     width: Incomplete
-    cap: NoneSet(values=(["rnd", "sq", "flat"]))
-    cmpd: NoneSet(values=(["sng", "dbl", "thickThin", "thinThick", "tri"]))
-    algn: NoneSet(values=(["ctr", "in"]))
+    cap: NoneSet[_LinePropertiesCap]
+    cmpd: NoneSet[_LinePropertiesCmpd]
+    algn: NoneSet[_LinePropertiesAlgn]
     noFill: Incomplete
     solidFill: Incomplete
     gradFill: Typed[GradientFillProperties, Literal[True]]
@@ -52,9 +63,9 @@ class LineProperties(Serialisable):
     def __init__(
         self,
         w: Incomplete | None = None,
-        cap: Incomplete | None = None,
-        cmpd: Incomplete | None = None,
-        algn: Incomplete | None = None,
+        cap: _LinePropertiesCap | Literal["none"] | None = None,
+        cmpd: _LinePropertiesCmpd | Literal["none"] | None = None,
+        algn: _LinePropertiesAlgn | Literal["none"] | None = None,
         noFill: Incomplete | None = None,
         solidFill: Incomplete | None = None,
         gradFill: GradientFillProperties | None = None,

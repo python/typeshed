@@ -1,20 +1,26 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import NoneSet
 from openpyxl.descriptors.serialisable import Serialisable
+
+_WorkbookPropertiesShowObjects: TypeAlias = Literal["all", "placeholders"]
+_WorkbookPropertiesUpdateLinks: TypeAlias = Literal["userSet", "never", "always"]
+_CalcPropertiesCalcMode: TypeAlias = Literal["manual", "auto", "autoNoTable"]
+_CalcPropertiesRefMode: TypeAlias = Literal["A1", "R1C1"]
 
 class WorkbookProperties(Serialisable):
     tagname: str
     date1904: Incomplete
     dateCompatibility: Incomplete
-    showObjects: NoneSet(values=(["all", "placeholders"]))
+    showObjects: NoneSet[_WorkbookPropertiesShowObjects]
     showBorderUnselectedTables: Incomplete
     filterPrivacy: Incomplete
     promptedSolutions: Incomplete
     showInkAnnotation: Incomplete
     backupFile: Incomplete
     saveExternalLinkValues: Incomplete
-    updateLinks: NoneSet(values=(["userSet", "never", "always"]))
+    updateLinks: NoneSet[_WorkbookPropertiesUpdateLinks]
     codeName: Incomplete
     hidePivotFieldList: Incomplete
     showPivotChartFilter: Incomplete
@@ -28,14 +34,14 @@ class WorkbookProperties(Serialisable):
         self,
         date1904: Incomplete | None = None,
         dateCompatibility: Incomplete | None = None,
-        showObjects: Incomplete | None = None,
+        showObjects: _WorkbookPropertiesShowObjects | Literal["none"] | None = None,
         showBorderUnselectedTables: Incomplete | None = None,
         filterPrivacy: Incomplete | None = None,
         promptedSolutions: Incomplete | None = None,
         showInkAnnotation: Incomplete | None = None,
         backupFile: Incomplete | None = None,
         saveExternalLinkValues: Incomplete | None = None,
-        updateLinks: Incomplete | None = None,
+        updateLinks: _WorkbookPropertiesUpdateLinks | Literal["none"] | None = None,
         codeName: Incomplete | None = None,
         hidePivotFieldList: Incomplete | None = None,
         showPivotChartFilter: Incomplete | None = None,
@@ -50,9 +56,9 @@ class WorkbookProperties(Serialisable):
 class CalcProperties(Serialisable):
     tagname: str
     calcId: Incomplete
-    calcMode: NoneSet(values=(["manual", "auto", "autoNoTable"]))
+    calcMode: NoneSet[_CalcPropertiesCalcMode]
     fullCalcOnLoad: Incomplete
-    refMode: NoneSet(values=(["A1", "R1C1"]))
+    refMode: NoneSet[_CalcPropertiesRefMode]
     iterate: Incomplete
     iterateCount: Incomplete
     iterateDelta: Incomplete
@@ -65,9 +71,9 @@ class CalcProperties(Serialisable):
     def __init__(
         self,
         calcId: int = 124519,
-        calcMode: Incomplete | None = None,
+        calcMode: _CalcPropertiesCalcMode | Literal["none"] | None = None,
         fullCalcOnLoad: bool = True,
-        refMode: Incomplete | None = None,
+        refMode: _CalcPropertiesRefMode | Literal["none"] | None = None,
         iterate: Incomplete | None = None,
         iterateCount: Incomplete | None = None,
         iterateDelta: Incomplete | None = None,

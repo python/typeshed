@@ -1,13 +1,18 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Set
 from openpyxl.descriptors.serialisable import Serialisable
+
+_WebPublishItemSourceType: TypeAlias = Literal[
+    "sheet", "printArea", "autoFilter", "range", "chart", "pivotTable", "query", "label"
+]
 
 class WebPublishItem(Serialisable):
     tagname: str
     id: Incomplete
     divId: Incomplete
-    sourceType: Set(values=(["sheet", "printArea", "autoFilter", "range", "chart", "pivotTable", "query", "label"]))
+    sourceType: Set[_WebPublishItemSourceType]
     sourceRef: Incomplete
     sourceObject: Incomplete
     destinationFile: Incomplete
@@ -15,9 +20,9 @@ class WebPublishItem(Serialisable):
     autoRepublish: Incomplete
     def __init__(
         self,
-        id: Incomplete | None = None,
-        divId: Incomplete | None = None,
-        sourceType: Incomplete | None = None,
+        id: Incomplete | None,
+        divId: Incomplete | None,
+        sourceType: _WebPublishItemSourceType,
         sourceRef: Incomplete | None = None,
         sourceObject: Incomplete | None = None,
         destinationFile: Incomplete | None = None,

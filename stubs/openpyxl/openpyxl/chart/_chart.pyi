@@ -1,12 +1,14 @@
 from _typeshed import Incomplete, Unused
 from abc import abstractmethod
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.chart.layout import Layout
 from openpyxl.chart.legend import Legend
 from openpyxl.chart.shapes import GraphicalProperties
 from openpyxl.descriptors.base import Set, Typed
 from openpyxl.descriptors.serialisable import Serialisable
+
+_ChartBaseDisplayBlanks: TypeAlias = Literal["span", "gap", "zero"]
 
 class AxId(Serialisable):  # type: ignore[misc]
     val: Incomplete
@@ -20,7 +22,7 @@ class ChartBase(Serialisable):
     roundedCorners: Incomplete
     axId: Incomplete
     visible_cells_only: Incomplete
-    display_blanks: Set(values=["span", "gap", "zero"])
+    display_blanks: Set[_ChartBaseDisplayBlanks]
     ser: Incomplete
     series: Incomplete
     title: Incomplete

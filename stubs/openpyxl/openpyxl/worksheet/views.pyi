@@ -1,32 +1,40 @@
 from _typeshed import Incomplete, Unused
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import NoneSet, Set, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
+_Pane: TypeAlias = Literal["bottomRight", "topRight", "bottomLeft", "topLeft"]
+_SheetViewView: TypeAlias = Literal["normal", "pageBreakPreview", "pageLayout"]
+_PaneState: TypeAlias = Literal["split", "frozen", "frozenSplit"]
+
 class Pane(Serialisable):  # type: ignore[misc]
     xSplit: Incomplete
     ySplit: Incomplete
     topLeftCell: Incomplete
-    activePane: Set(values=("bottomRight", "topRight", "bottomLeft", "topLeft"))
-    state: Set(values=("split", "frozen", "frozenSplit"))
+    activePane: Set[_Pane]
+    state: Set[_PaneState]
     def __init__(
         self,
         xSplit: Incomplete | None = None,
         ySplit: Incomplete | None = None,
         topLeftCell: Incomplete | None = None,
-        activePane: str = "topLeft",
-        state: str = "split",
+        activePane: _Pane = "topLeft",
+        state: _PaneState = "split",
     ) -> None: ...
 
 class Selection(Serialisable):  # type: ignore[misc]
-    pane: NoneSet(values=("bottomRight", "topRight", "bottomLeft", "topLeft"))
+    pane: NoneSet[_Pane]
     activeCell: Incomplete
     activeCellId: Incomplete
     sqref: Incomplete
     def __init__(
-        self, pane: Incomplete | None = None, activeCell: str = "A1", activeCellId: Incomplete | None = None, sqref: str = "A1"
+        self,
+        pane: _Pane | Literal["none"] | None = None,
+        activeCell: str = "A1",
+        activeCellId: Incomplete | None = None,
+        sqref: str = "A1",
     ) -> None: ...
 
 class SheetView(Serialisable):
@@ -42,7 +50,7 @@ class SheetView(Serialisable):
     showOutlineSymbols: Incomplete
     defaultGridColor: Incomplete
     showWhiteSpace: Incomplete
-    view: NoneSet(values=("normal", "pageBreakPreview", "pageLayout"))
+    view: NoneSet[_SheetViewView]
     topLeftCell: Incomplete
     colorId: Incomplete
     zoomScale: Incomplete
@@ -66,7 +74,7 @@ class SheetView(Serialisable):
         showOutlineSymbols: Incomplete | None = None,
         defaultGridColor: Incomplete | None = None,
         showWhiteSpace: Incomplete | None = None,
-        view: Incomplete | None = None,
+        view: _SheetViewView | Literal["none"] | None = None,
         topLeftCell: Incomplete | None = None,
         colorId: Incomplete | None = None,
         zoomScale: Incomplete | None = None,

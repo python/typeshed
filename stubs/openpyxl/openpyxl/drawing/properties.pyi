@@ -1,5 +1,5 @@
 from _typeshed import Incomplete, Unused
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import NoneSet, Typed
 from openpyxl.descriptors.excel import ExtensionList
@@ -7,17 +7,19 @@ from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.geometry import GroupTransform2D, Scene3D
 from openpyxl.drawing.text import Hyperlink
 
+_GroupShapePropertiesBwMode: TypeAlias = Literal[
+    "clr", "auto", "gray", "ltGray", "invGray", "grayWhite", "blackGray", "blackWhite", "black", "white", "hidden"
+]
+
 class GroupShapeProperties(Serialisable):
     tagname: str
-    bwMode: NoneSet(
-        values=(["clr", "auto", "gray", "ltGray", "invGray", "grayWhite", "blackGray", "blackWhite", "black", "white", "hidden"])
-    )
+    bwMode: NoneSet[_GroupShapePropertiesBwMode]
     xfrm: Typed[GroupTransform2D, Literal[True]]
     scene3d: Typed[Scene3D, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     def __init__(
         self,
-        bwMode: Incomplete | None = None,
+        bwMode: _GroupShapePropertiesBwMode | Literal["none"] | None = None,
         xfrm: GroupTransform2D | None = None,
         scene3d: Scene3D | None = None,
         extLst: ExtensionList | None = None,

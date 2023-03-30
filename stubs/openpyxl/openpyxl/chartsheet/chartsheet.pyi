@@ -1,5 +1,5 @@
 from _typeshed import Incomplete, Unused
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.chartsheet.custom import CustomChartsheetViews
 from openpyxl.chartsheet.properties import ChartsheetProperties
@@ -15,6 +15,8 @@ from openpyxl.worksheet.drawing import Drawing
 from openpyxl.worksheet.header_footer import HeaderFooter
 from openpyxl.worksheet.page import PageMargins, PrintPageSetup
 
+_ChartsheetSheetState: TypeAlias = Literal["visible", "hidden", "veryHidden"]
+
 class Chartsheet(_WorkbookChild, Serialisable):
     tagname: str
     mime_type: str
@@ -29,7 +31,7 @@ class Chartsheet(_WorkbookChild, Serialisable):
     picture: Typed[SheetBackgroundPicture, Literal[True]]
     webPublishItems: Typed[WebPublishItems, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    sheet_state: Set(values=("visible", "hidden", "veryHidden"))
+    sheet_state: Set[_ChartsheetSheetState]
     headerFooter: Typed[HeaderFooter, Literal[False]]
     HeaderFooter: Incomplete
     __elements__: Incomplete
@@ -50,7 +52,7 @@ class Chartsheet(_WorkbookChild, Serialisable):
         extLst: Unused = None,
         parent: Incomplete | None = None,
         title: str = "",
-        sheet_state: str = "visible",
+        sheet_state: _ChartsheetSheetState = "visible",
     ) -> None: ...
     def add_chart(self, chart) -> None: ...
     def to_tree(self): ...

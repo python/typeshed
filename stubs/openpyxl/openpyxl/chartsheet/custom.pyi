@@ -1,16 +1,18 @@
 from _typeshed import Incomplete
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Set, Typed
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.header_footer import HeaderFooter
 from openpyxl.worksheet.page import PageMargins, PrintPageSetup
 
+_CustomChartsheetViewState: TypeAlias = Literal["visible", "hidden", "veryHidden"]
+
 class CustomChartsheetView(Serialisable):
     tagname: str
     guid: Incomplete
     scale: Incomplete
-    state: Set(values=(["visible", "hidden", "veryHidden"]))
+    state: Set[_CustomChartsheetViewState]
     zoomToFit: Incomplete
     pageMargins: Typed[PageMargins, Literal[True]]
     pageSetup: Typed[PrintPageSetup, Literal[True]]
@@ -20,7 +22,7 @@ class CustomChartsheetView(Serialisable):
         self,
         guid: Incomplete | None = None,
         scale: Incomplete | None = None,
-        state: str = "visible",
+        state: _CustomChartsheetViewState = "visible",
         zoomToFit: Incomplete | None = None,
         pageMargins: PageMargins | None = None,
         pageSetup: PrintPageSetup | None = None,

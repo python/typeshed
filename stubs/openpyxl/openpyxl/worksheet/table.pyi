@@ -1,11 +1,16 @@
 from _typeshed import Incomplete, Unused
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors import String
 from openpyxl.descriptors.base import NoneSet, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.filters import AutoFilter, SortState
+
+_TableColumnTotalsRowFunction: TypeAlias = Literal[
+    "sum", "min", "max", "average", "count", "countNums", "stdDev", "var", "custom"
+]
+_TableTableType: TypeAlias = Literal["worksheet", "xml", "queryTable"]
 
 TABLESTYLES: Incomplete
 PIVOTSTYLES: Incomplete
@@ -55,7 +60,7 @@ class TableColumn(Serialisable):
     id: Incomplete
     uniqueName: Incomplete
     name: Incomplete
-    totalsRowFunction: NoneSet(values=(["sum", "min", "max", "average", "count", "countNums", "stdDev", "var", "custom"]))
+    totalsRowFunction: NoneSet[_TableColumnTotalsRowFunction]
     totalsRowLabel: Incomplete
     queryTableFieldId: Incomplete
     headerRowDxfId: Incomplete
@@ -74,7 +79,7 @@ class TableColumn(Serialisable):
         id: Incomplete | None = None,
         uniqueName: Incomplete | None = None,
         name: Incomplete | None = None,
-        totalsRowFunction: Incomplete | None = None,
+        totalsRowFunction: _TableColumnTotalsRowFunction | Literal["none"] | None = None,
         totalsRowLabel: Incomplete | None = None,
         queryTableFieldId: Incomplete | None = None,
         headerRowDxfId: Incomplete | None = None,
@@ -103,7 +108,7 @@ class Table(Serialisable):
     displayName: Incomplete
     comment: Incomplete
     ref: Incomplete
-    tableType: NoneSet(values=(["worksheet", "xml", "queryTable"]))
+    tableType: NoneSet[_TableTableType]
     headerRowCount: Incomplete
     insertRow: Incomplete
     insertRowShift: Incomplete
@@ -133,7 +138,7 @@ class Table(Serialisable):
         ref: Incomplete | None = None,
         name: Incomplete | None = None,
         comment: Incomplete | None = None,
-        tableType: Incomplete | None = None,
+        tableType: _TableTableType | Literal["none"] | None = None,
         headerRowCount: int = 1,
         insertRow: Incomplete | None = None,
         insertRowShift: Incomplete | None = None,
