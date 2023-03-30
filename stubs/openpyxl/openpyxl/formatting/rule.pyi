@@ -80,7 +80,7 @@ class FormatObject(Serialisable):
         self, type: _FormatObjectType, val: Incomplete | None = None, gte: Incomplete | None = None, extLst: Unused = None
     ) -> None: ...
 
-class RuleType(Serialisable):  # type: ignore[misc]
+class RuleType(Serialisable):
     cfvo: Incomplete
 
 class IconSet(RuleType):

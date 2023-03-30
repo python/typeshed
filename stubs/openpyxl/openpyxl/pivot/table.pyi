@@ -160,7 +160,7 @@ class PivotFilter(Serialisable):
         extLst: ExtensionList | None = None,
     ) -> None: ...
 
-class PivotFilters(Serialisable):  # type: ignore[misc]
+class PivotFilters(Serialisable):
     count: Incomplete
     filter: Typed[PivotFilter, Literal[True]]
     __elements__: Incomplete
@@ -442,7 +442,7 @@ class RowColField(Serialisable):
     x: Incomplete
     def __init__(self, x: Incomplete | None = None) -> None: ...
 
-class AutoSortScope(Serialisable):  # type: ignore[misc]
+class AutoSortScope(Serialisable):
     pivotArea: Typed[PivotArea, Literal[False]]
     __elements__: Incomplete
     def __init__(self, pivotArea: PivotArea) -> None: ...

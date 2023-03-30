@@ -7,7 +7,7 @@ from openpyxl.packaging.relationship import Relationship
 
 _ExternalCellType: TypeAlias = Literal["b", "d", "n", "e", "s", "str", "inlineStr"]
 
-class ExternalCell(Serialisable):  # type: ignore[misc]
+class ExternalCell(Serialisable):
     r: Incomplete
     t: NoneSet[_ExternalCellType]
     vm: Incomplete
@@ -20,25 +20,25 @@ class ExternalCell(Serialisable):  # type: ignore[misc]
         v: Incomplete | None = None,
     ) -> None: ...
 
-class ExternalRow(Serialisable):  # type: ignore[misc]
+class ExternalRow(Serialisable):
     r: Incomplete
     cell: Incomplete
     __elements__: Incomplete
     def __init__(self, r=(), cell: Incomplete | None = None) -> None: ...
 
-class ExternalSheetData(Serialisable):  # type: ignore[misc]
+class ExternalSheetData(Serialisable):
     sheetId: Incomplete
     refreshError: Incomplete
     row: Incomplete
     __elements__: Incomplete
     def __init__(self, sheetId: Incomplete | None = None, refreshError: Incomplete | None = None, row=()) -> None: ...
 
-class ExternalSheetDataSet(Serialisable):  # type: ignore[misc]
+class ExternalSheetDataSet(Serialisable):
     sheetData: Incomplete
     __elements__: Incomplete
     def __init__(self, sheetData: Incomplete | None = None) -> None: ...
 
-class ExternalSheetNames(Serialisable):  # type: ignore[misc]
+class ExternalSheetNames(Serialisable):
     sheetName: Incomplete
     __elements__: Incomplete
     def __init__(self, sheetName=()) -> None: ...

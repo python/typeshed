@@ -127,7 +127,7 @@ _PresetTextShapePrst: TypeAlias = Literal[
     "textCascadeDown",
 ]
 
-class EmbeddedWAVAudioFile(Serialisable):  # type: ignore[misc]
+class EmbeddedWAVAudioFile(Serialisable):
     name: Incomplete
     def __init__(self, name: str | None = None) -> None: ...
 
@@ -264,12 +264,12 @@ class CharacterProperties(Serialisable):
         uFill: Incomplete | None = None,
     ) -> None: ...
 
-class TabStop(Serialisable):  # type: ignore[misc]
+class TabStop(Serialisable):
     pos: Typed[Coordinate, Literal[True]]
     algn: Typed[Set[_TabStopAlgn], Literal[False]]
     def __init__(self, pos: Coordinate | None = None, algn: Set[_TabStopAlgn] | None = None) -> None: ...
 
-class TabStopList(Serialisable):  # type: ignore[misc]
+class TabStopList(Serialisable):
     tab: Typed[TabStop, Literal[True]]
     def __init__(self, tab: Incomplete | None = None) -> None: ...
 

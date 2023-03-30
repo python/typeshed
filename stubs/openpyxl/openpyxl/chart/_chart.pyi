@@ -10,7 +10,7 @@ from openpyxl.descriptors.serialisable import Serialisable
 
 _ChartBaseDisplayBlanks: TypeAlias = Literal["span", "gap", "zero"]
 
-class AxId(Serialisable):  # type: ignore[misc]
+class AxId(Serialisable):
     val: Incomplete
     def __init__(self, val) -> None: ...
 

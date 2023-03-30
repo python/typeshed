@@ -7,7 +7,7 @@ from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.nested import NestedText
 from openpyxl.descriptors.serialisable import Serialisable
 
-class NumFmt(Serialisable):  # type: ignore[misc]
+class NumFmt(Serialisable):
     formatCode: Incomplete
     sourceLinked: Incomplete
     def __init__(self, formatCode: Incomplete | None = None, sourceLinked: bool = False) -> None: ...
@@ -17,7 +17,7 @@ class NumberValueDescriptor(NestedText):
     expected_type: Incomplete
     def __set__(self, instance: Serialisable, value) -> None: ...
 
-class NumVal(Serialisable):  # type: ignore[misc]
+class NumVal(Serialisable):
     idx: Incomplete
     formatCode: Incomplete
     v: Incomplete
@@ -25,7 +25,7 @@ class NumVal(Serialisable):  # type: ignore[misc]
         self, idx: Incomplete | None = None, formatCode: Incomplete | None = None, v: Incomplete | None = None
     ) -> None: ...
 
-class NumData(Serialisable):  # type: ignore[misc]
+class NumData(Serialisable):
     formatCode: Incomplete
     ptCount: Incomplete
     pt: Incomplete
@@ -35,7 +35,7 @@ class NumData(Serialisable):  # type: ignore[misc]
         self, formatCode: Incomplete | None = None, ptCount: Incomplete | None = None, pt=(), extLst: Unused = None
     ) -> None: ...
 
-class NumRef(Serialisable):  # type: ignore[misc]
+class NumRef(Serialisable):
     f: Incomplete
     ref: Incomplete
     numCache: Typed[NumData, Literal[True]]
@@ -65,7 +65,7 @@ class StrRef(Serialisable):
     __elements__: Incomplete
     def __init__(self, f: Incomplete | None = None, strCache: StrData | None = None, extLst: Unused = None) -> None: ...
 
-class NumDataSource(Serialisable):  # type: ignore[misc]
+class NumDataSource(Serialisable):
     numRef: Typed[NumRef, Literal[True]]
     numLit: Typed[NumData, Literal[True]]
     def __init__(self, numRef: NumRef | None = None, numLit: NumData | None = None) -> None: ...

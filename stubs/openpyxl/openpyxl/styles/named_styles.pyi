@@ -10,7 +10,7 @@ from openpyxl.styles.fills import Fill
 from openpyxl.styles.fonts import Font
 from openpyxl.styles.protection import Protection
 
-class NamedStyle(Serialisable):  # type: ignore[misc]
+class NamedStyle(Serialisable):
     font: Typed[Font, Literal[False]]
     fill: Typed[Fill, Literal[False]]
     border: Typed[Border, Literal[False]]

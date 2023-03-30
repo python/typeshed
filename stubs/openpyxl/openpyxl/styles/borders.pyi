@@ -35,7 +35,7 @@ BORDER_SLANTDASHDOT: str
 BORDER_THICK: str
 BORDER_THIN: str
 
-class Side(Serialisable):  # type: ignore[misc]
+class Side(Serialisable):
     __fields__: Incomplete
     color: Incomplete
     style: NoneSet[_SideStyle]

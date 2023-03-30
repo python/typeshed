@@ -9,7 +9,7 @@ _Pane: TypeAlias = Literal["bottomRight", "topRight", "bottomLeft", "topLeft"]
 _SheetViewView: TypeAlias = Literal["normal", "pageBreakPreview", "pageLayout"]
 _PaneState: TypeAlias = Literal["split", "frozen", "frozenSplit"]
 
-class Pane(Serialisable):  # type: ignore[misc]
+class Pane(Serialisable):
     xSplit: Incomplete
     ySplit: Incomplete
     topLeftCell: Incomplete
@@ -24,7 +24,7 @@ class Pane(Serialisable):  # type: ignore[misc]
         state: _PaneState = "split",
     ) -> None: ...
 
-class Selection(Serialisable):  # type: ignore[misc]
+class Selection(Serialisable):
     pane: NoneSet[_Pane]
     activeCell: Incomplete
     activeCellId: Incomplete

@@ -4,7 +4,7 @@ from collections.abc import Generator
 from openpyxl.descriptors import Strict
 from openpyxl.descriptors.serialisable import Serialisable
 
-class CellRange(Serialisable):  # type: ignore[misc]
+class CellRange(Serialisable):
     min_col: Incomplete
     min_row: Incomplete
     max_col: Incomplete

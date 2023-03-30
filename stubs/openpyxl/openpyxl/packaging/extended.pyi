@@ -6,15 +6,15 @@ from openpyxl.descriptors.serialisable import Serialisable
 
 def get_version(): ...
 
-class DigSigBlob(Serialisable):  # type: ignore[misc]
+class DigSigBlob(Serialisable):
     __elements__: Incomplete
     __attrs__: Incomplete
 
-class VectorLpstr(Serialisable):  # type: ignore[misc]
+class VectorLpstr(Serialisable):
     __elements__: Incomplete
     __attrs__: Incomplete
 
-class VectorVariant(Serialisable):  # type: ignore[misc]
+class VectorVariant(Serialisable):
     __elements__: Incomplete
     __attrs__: Incomplete
 

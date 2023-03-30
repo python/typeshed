@@ -120,7 +120,7 @@ class OLAPSet(Serialisable):
         sortByTuple: TupleList | None = None,
     ) -> None: ...
 
-class OLAPSets(Serialisable):  # type: ignore[misc]
+class OLAPSets(Serialisable):
     count: Incomplete
     set: Typed[OLAPSet, Literal[False]]
     __elements__: Incomplete
@@ -187,7 +187,7 @@ class GroupMember(Serialisable):
     group: Incomplete
     def __init__(self, uniqueName: Incomplete | None = None, group: Incomplete | None = None) -> None: ...
 
-class GroupMembers(Serialisable):  # type: ignore[misc]
+class GroupMembers(Serialisable):
     count: Incomplete
     groupMember: Typed[GroupMember, Literal[False]]
     __elements__: Incomplete
@@ -238,7 +238,7 @@ class GroupLevel(Serialisable):
         extLst: ExtensionList | None = None,
     ) -> None: ...
 
-class GroupLevels(Serialisable):  # type: ignore[misc]
+class GroupLevels(Serialisable):
     count: Incomplete
     groupLevel: Typed[GroupLevel, Literal[False]]
     __elements__: Incomplete
@@ -249,7 +249,7 @@ class FieldUsage(Serialisable):
     x: Incomplete
     def __init__(self, x: Incomplete | None = None) -> None: ...
 
-class FieldsUsage(Serialisable):  # type: ignore[misc]
+class FieldsUsage(Serialisable):
     count: Incomplete
     fieldUsage: Typed[FieldUsage, Literal[True]]
     __elements__: Incomplete

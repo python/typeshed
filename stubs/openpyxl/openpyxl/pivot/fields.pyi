@@ -9,13 +9,13 @@ class Index(Serialisable):
     v: Incomplete
     def __init__(self, v: int = 0) -> None: ...
 
-class Tuple(Serialisable):  # type: ignore[misc]
+class Tuple(Serialisable):
     fld: Incomplete
     hier: Incomplete
     item: Incomplete
     def __init__(self, fld: Incomplete | None = None, hier: Incomplete | None = None, item: Incomplete | None = None) -> None: ...
 
-class TupleList(Serialisable):  # type: ignore[misc]
+class TupleList(Serialisable):
     c: Incomplete
     tpl: Typed[Tuple, Literal[False]]
     __elements__: Incomplete
