@@ -28,7 +28,7 @@ def parse(
     conn_health_checks: bool = ...,
     ssl_require: bool = ...,
     test_options: dict[Incomplete, Incomplete] | None = ...,
-) -> _DBConfig: ...
+) -> DBConfig: ...
 def config(
     env: str = ...,
     default: str | None = ...,
@@ -37,4 +37,4 @@ def config(
     conn_health_checks: bool = ...,
     ssl_require: bool = ...,
     test_options: dict[Incomplete, Incomplete] | None = ...,
-) -> _DBConfig: ...
+) -> DBConfig: ...
