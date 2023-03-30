@@ -6,7 +6,7 @@ DEFAULT_ENV: str
 SCHEMES: dict[str, str]
 
 # From https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-class _DBConfig(TypedDict, total=False):
+class DBConfig(TypedDict, total=False):
     ATOMIC_REQUESTS: bool
     AUTOCOMMIT: bool
     CONN_MAX_AGE: int
