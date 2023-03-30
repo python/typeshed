@@ -1,6 +1,9 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Convertible, _ConvertibleToMultiCellRange
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.worksheet.cell_range import MultiCellRange
 
 class InputCells(Serialisable):
     tagname: str
@@ -46,10 +49,14 @@ class ScenarioList(Serialisable):
     scenario: Incomplete
     current: Incomplete
     show: Incomplete
-    sqref: Incomplete
+    sqref: Convertible[MultiCellRange, Literal[True]]
     __elements__: Incomplete
     def __init__(
-        self, scenario=(), current: Incomplete | None = None, show: Incomplete | None = None, sqref: Incomplete | None = None
+        self,
+        scenario=(),
+        current: Incomplete | None = None,
+        show: Incomplete | None = None,
+        sqref: _ConvertibleToMultiCellRange | None = None,
     ) -> None: ...
     def append(self, scenario) -> None: ...
     def __bool__(self) -> bool: ...

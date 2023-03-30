@@ -10,9 +10,6 @@ openpyxl.xml.functions.Element.*
 
 # Fake getters
 openpyxl\.descriptors\..*\.__get__
-# expected_type should never be none
-# openpyxl.descriptors.Typed.expected_type
-# error: openpyxl.descriptors.base.Typed.expected_type
 
 # Stubtest sees <class T> and type[T] as different: https://github.com/python/mypy/issues/13316
 openpyxl.chart.descriptors.NumberFormatDescriptor.expected_type
@@ -21,10 +18,12 @@ openpyxl.drawing.colors.ColorChoiceDescriptor.expected_type
 openpyxl.styles.colors.ColorDescriptor.expected_type
 
 # Stubtest doesn't like generics here
-openpyxl.descriptors.Typed.allow_none
-openpyxl.descriptors.base.Typed.allow_none
-openpyxl.descriptors.MatchPattern.allow_none
-openpyxl.descriptors.base.MatchPattern.allow_none
+openpyxl.descriptors\.(base\.)?Typed.allow_none
+openpyxl.descriptors\.(base\.)?MatchPattern.allow_none
+openpyxl.descriptors\.(base\.)?Max.allow_none
+openpyxl.descriptors\.(base\.)?Min.allow_none
+openpyxl.descriptors\.(base\.)?MinMax.allow_none
+openpyxl.descriptors\.(base\.)?nested.NestedMinMax.allow_none
 
 # "has a default value but stub argument does not"
 # Runtime has default arguments that would fail

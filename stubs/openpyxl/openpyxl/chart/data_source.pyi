@@ -15,7 +15,7 @@ class NumFmt(Serialisable):
 class NumberValueDescriptor(NestedText):
     allow_none: bool
     expected_type: Incomplete
-    def __set__(self, instance: Serialisable, value) -> None: ...
+    def __set__(self, instance: Serialisable, value) -> None: ...  # type: ignore[override]
 
 class NumVal(Serialisable):
     idx: Incomplete

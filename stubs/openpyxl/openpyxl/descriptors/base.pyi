@@ -1,16 +1,21 @@
-from _typeshed import Incomplete, ReadableBuffer, Unused
+from _typeshed import Incomplete, ReadableBuffer, SupportsTrunc, Unused
 from collections.abc import Iterable, Sized
 from datetime import datetime
 from re import Pattern
-from typing import Any, Generic, TypeVar, overload
-from typing_extensions import Literal
+from typing import Any, Generic, SupportsFloat, SupportsInt, TypeVar, overload
+from typing_extensions import Literal, SupportsIndex, TypeAlias
 
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.drawing.fill import Blip
+from openpyxl.worksheet.cell_range import CellRange, MultiCellRange
 
 _T = TypeVar("_T")
 _P = TypeVar("_P", bound=str | ReadableBuffer)
 _N = TypeVar("_N", bound=bool)
 _L = TypeVar("_L", bound=Sized)
+_ConvertibleToMultiCellRange: TypeAlias = MultiCellRange | str | Iterable[CellRange]
+_ConvertibleToInt: TypeAlias = str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc
+_ConvertibleToFloat: TypeAlias = SupportsFloat | SupportsIndex | str | ReadableBuffer
 
 class Descriptor(Generic[_T]):
     name: str | None
@@ -51,22 +56,168 @@ class Typed(Descriptor[_T], Generic[_T, _N]):
     @overload
     def __set__(self: Typed[_T, Literal[False]], instance: Serialisable, value: _T) -> None: ...
 
-class Convertible(Typed):
-    def __set__(self, instance: Serialisable, value) -> None: ...
+class Convertible(Typed[_T, _N]):
+    @overload
+    def __init__(
+        self: Convertible[_T, Literal[True]],
+        name: str | None = None,
+        *,
+        expected_type: type[_T] | tuple[type[_T], ...],
+        allow_none: Literal[True],
+        nested: bool = False,
+    ) -> None: ...
+    @overload
+    def __init__(
+        self: Convertible[_T, Literal[False]],
+        name: str | None = None,
+        *,
+        expected_type: type[_T] | tuple[type[_T], ...],
+        allow_none: Literal[False] = False,
+        nested: bool = False,
+    ) -> None: ...
+    # NOTE: It is currently impossible to make a generic based on the parameter type of another generic
+    # So we implement explicitely the types used internally
+    # MultiCellRange
+    @overload
+    def __set__(
+        self: Convertible[MultiCellRange, Literal[True]], instance: Serialisable, value: _ConvertibleToMultiCellRange | None
+    ) -> None: ...
+    @overload
+    def __set__(
+        self: Convertible[MultiCellRange, Literal[False]], instance: Serialisable, value: _ConvertibleToMultiCellRange
+    ) -> None: ...
+    # str | Blip
+    @overload
+    def __set__(
+        self: Convertible[str, bool] | Convertible[Blip, bool], instance: Serialisable, value: object  # Not[None] when _N = False
+    ) -> None: ...
+    # bool
+    @overload
+    def __set__(self: Convertible[bool, Literal[True]], instance: Serialisable, value: _ConvertibleToBool | None) -> None: ...
+    @overload
+    def __set__(self: Convertible[bool, Literal[False]], instance: Serialisable, value: _ConvertibleToBool) -> None: ...
+    # int
+    @overload
+    def __set__(self: Convertible[int, Literal[True]], instance: Serialisable, value: int | _ConvertibleToInt | None) -> None: ...
+    @overload
+    def __set__(self: Convertible[int, Literal[False]], instance: Serialisable, value: int | _ConvertibleToInt) -> None: ...
+    # float
+    @overload
+    def __set__(
+        self: Convertible[float, Literal[True]], instance: Serialisable, value: float | _ConvertibleToFloat | None
+    ) -> None: ...
+    @overload
+    def __set__(self: Convertible[float, Literal[False]], instance: Serialisable, value: float | _ConvertibleToFloat) -> None: ...
+    # Anything else
+    @overload
+    def __set__(self: Convertible[_T, Literal[True]], instance: Serialisable, value: _T | int | Any | None) -> None: ...
 
-class Max(Convertible):
-    expected_type: Incomplete
-    allow_none: bool
-    def __init__(self, **kw) -> None: ...
-    def __set__(self, instance: Serialisable, value) -> None: ...
+class Max(Convertible[_M, _N], Generic[_M, _N]):
+    expected_type: type[_M]
+    allow_none: _N
+    @overload
+    def __init__(
+        self: Max[int, Literal[True]], *, expected_type: _ExpectedTypeParam[int], allow_none: Literal[True], max: float
+    ) -> None: ...
+    @overload
+    def __init__(
+        self: Max[int, Literal[False]], *, expected_type: _ExpectedTypeParam[int], allow_none: Literal[False] = False, max: float
+    ) -> None: ...
+    # mypy can't infer type from `expected_type = float` (pyright can), so we have to add extra overloads
+    @overload
+    def __init__(
+        self: Max[float, Literal[True]], *, expected_type: _ExpectedTypeParam[float] = ..., allow_none: Literal[True], max: float
+    ) -> None: ...
+    @overload
+    def __init__(
+        self: Max[float, Literal[False]],
+        *,
+        expected_type: _ExpectedTypeParam[float] = ...,
+        allow_none: Literal[False] = False,
+        max: float,
+    ) -> None: ...
+    @overload  # type:ignore[override]  # Different restrictions
+    def __set__(self: Max[int, Literal[True]], instance: Serialisable, value: _ConvertibleToInt | None) -> None: ...
+    @overload
+    def __set__(self: Max[int, Literal[False]], instance: Serialisable, value: _ConvertibleToInt) -> None: ...
+    @overload
+    def __set__(self: Max[float, Literal[True]], instance: Serialisable, value: _ConvertibleToFloat | None) -> None: ...
+    @overload
+    def __set__(self: Max[float, Literal[False]], instance: Serialisable, value: _ConvertibleToFloat) -> None: ...
 
-class Min(Convertible):
-    expected_type: Incomplete
-    allow_none: bool
-    def __init__(self, **kw) -> None: ...
-    def __set__(self, instance: Serialisable, value) -> None: ...
+class Min(Convertible[_M, _N], Generic[_M, _N]):
+    expected_type: type[_M]
+    allow_none: _N
+    @overload
+    def __init__(
+        self: Min[int, Literal[True]], *, expected_type: _ExpectedTypeParam[int], allow_none: Literal[True], max: float
+    ) -> None: ...
+    @overload
+    def __init__(
+        self: Min[int, Literal[False]], *, expected_type: _ExpectedTypeParam[int], allow_none: Literal[False] = False, max: float
+    ) -> None: ...
+    # mypy can't infer type from `expected_type = float` (pyright can), so we have to add extra overloads
+    @overload
+    def __init__(
+        self: Min[float, Literal[True]], *, expected_type: _ExpectedTypeParam[float] = ..., allow_none: Literal[True], max: float
+    ) -> None: ...
+    @overload
+    def __init__(
+        self: Min[float, Literal[False]],
+        *,
+        expected_type: _ExpectedTypeParam[float] = ...,
+        allow_none: Literal[False] = False,
+        max: float,
+    ) -> None: ...
+    @overload  # type:ignore[override]  # Different restrictions
+    def __set__(self: Min[int, Literal[True]], instance: Serialisable, value: _ConvertibleToInt | None) -> None: ...
+    @overload
+    def __set__(self: Min[int, Literal[False]], instance: Serialisable, value: _ConvertibleToInt) -> None: ...
+    @overload
+    def __set__(self: Min[float, Literal[True]], instance: Serialisable, value: _ConvertibleToFloat | None) -> None: ...
+    @overload
+    def __set__(self: Min[float, Literal[False]], instance: Serialisable, value: _ConvertibleToFloat) -> None: ...
 
-class MinMax(Min, Max): ...
+class MinMax(Min[_M, _N], Max[_M, _N], Generic[_M, _N]):
+    expected_type: type[_M]
+    allow_none: _N
+    @overload
+    def __init__(
+        self: MinMax[int, Literal[True]],
+        *,
+        expected_type: _ExpectedTypeParam[int],
+        allow_none: Literal[True],
+        min: float,
+        max: float,
+    ) -> None: ...
+    @overload
+    def __init__(
+        self: MinMax[int, Literal[False]],
+        *,
+        expected_type: _ExpectedTypeParam[int],
+        allow_none: Literal[False] = False,
+        min: float,
+        max: float,
+    ) -> None: ...
+    # mypy can't infer type from `expected_type = float` (pyright can), so we have to add extra overloads
+    @overload
+    def __init__(
+        self: MinMax[float, Literal[True]],
+        *,
+        expected_type: _ExpectedTypeParam[float] = ...,
+        allow_none: Literal[True],
+        min: float,
+        max: float,
+    ) -> None: ...
+    @overload
+    def __init__(
+        self: MinMax[float, Literal[False]],
+        *,
+        expected_type: _ExpectedTypeParam[float] = ...,
+        allow_none: Literal[False] = False,
+        min: float,
+        max: float,
+    ) -> None: ...
 
 class Set(Descriptor[_T]):
     __doc__: str

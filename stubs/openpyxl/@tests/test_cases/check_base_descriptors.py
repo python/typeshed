@@ -2,16 +2,16 @@
 # mypy: disable-error-code=assert-type
 from __future__ import annotations
 
-from typing import Any, Union
+from _typeshed import ReadableBuffer
+from typing import Any, List, Tuple, Union
 from typing_extensions import Literal, assert_type
 
-from openpyxl.descriptors.base import Descriptor, NoneSet, Set, Typed
+from openpyxl.descriptors.base import Convertible, Descriptor, Length, MatchPattern, NoneSet, Set, Typed
 from openpyxl.descriptors.serialisable import Serialisable
 
 
 class WithDescriptors(Serialisable):
-    # Specifically testing infered type without non-runtime type hints
-    descriptor = Descriptor()  # type: ignore[var-annotated]
+    descriptor = Descriptor[str]()
 
     typed_default = Typed(expected_type=str)
     typed_not_none = Typed(expected_type=str, allow_none=False)
@@ -24,8 +24,23 @@ class WithDescriptors(Serialisable):
     noneset_tuple = NoneSet(values=("a", 1, 0.0))
     noneset_list = NoneSet(values=["a", 1, 0.0])
 
+    length_list = Length[List[str]](length=1)
+    length_tuple = Length[Tuple[str, str]](length=1)  # Can't validate tuple length in a generic manner
+    length_invalid = Length[object](length=1)  # type: ignore
+
+    match_pattern_str_default = MatchPattern(pattern="")
+    match_pattern_str = MatchPattern(pattern="", allow_none=False)
+    match_pattern_str_none = MatchPattern(pattern="", allow_none=True)
+    match_pattern_bytes_default = MatchPattern(pattern=b"")
+    match_pattern_bytes = MatchPattern(pattern=b"", allow_none=False)
+    match_pattern_bytes_none = MatchPattern(pattern=b"", allow_none=True)
+
+    convertible_default = Convertible(expected_type=int)
+    convertible_not_none = Convertible(expected_type=int, allow_none=False)
+    convertible_none = Convertible(expected_type=int, allow_none=True)
+
     # Test inferred annotation
-    assert_type(descriptor, Descriptor[Any])
+    assert_type(descriptor, Descriptor[str])
 
     assert_type(typed_default, Typed[str, Literal[False]])
     assert_type(typed_not_none, Typed[str, Literal[False]])
@@ -38,6 +53,20 @@ class WithDescriptors(Serialisable):
     assert_type(noneset_tuple, NoneSet[Union[Literal["a", 1], float]])
     assert_type(noneset_list, NoneSet[Union[str, float]])  # int and float are merged in generic unions
 
+    assert_type(length_list, Length[list[str]])
+    assert_type(length_tuple, Length[tuple[str, str]])
+
+    assert_type(match_pattern_str_default, MatchPattern[str, Literal[False]])
+    assert_type(match_pattern_str, MatchPattern[str, Literal[False]])
+    assert_type(match_pattern_str_none, MatchPattern[str, Literal[True]])
+    assert_type(match_pattern_bytes_default, MatchPattern[ReadableBuffer, Literal[False]])
+    assert_type(match_pattern_bytes, MatchPattern[ReadableBuffer, Literal[False]])
+    assert_type(match_pattern_bytes_none, MatchPattern[ReadableBuffer, Literal[True]])
+
+    assert_type(convertible_default, Convertible[int, Literal[False]])
+    assert_type(convertible_not_none, Convertible[int, Literal[False]])
+    assert_type(convertible_none, Convertible[int, Literal[True]])
+
 
 with_descriptors = WithDescriptors()
 
@@ -49,27 +78,41 @@ class NotSerialisable:
 
 NotSerialisable().descriptor = None  # type: ignore
 
+
 # Test getters
-assert_type(with_descriptors.descriptor, Any)
-assert_type(with_descriptors.typed_default, str)
+assert_type(with_descriptors.descriptor, str)
+
+assert_type(with_descriptors.typed_not_none, str)
 assert_type(with_descriptors.typed_none, Union[str, None])
+
 assert_type(with_descriptors.set_tuple, Union[Literal["a", 1], float])
 assert_type(with_descriptors.set_tuple_none, Union[Literal["a", 1, None], float])
 assert_type(with_descriptors.set_list, Union[str, int, float])  # Literals are [generified, *idk the right word] in non-tuples
 assert_type(with_descriptors.set_tuple_none, Union[Literal["a", 1, None], float])
+
 assert_type(with_descriptors.noneset_tuple, Union[Literal["a", 1], float, None])
 assert_type(with_descriptors.noneset_list, Union[str, float, None])  # int and float are merged in generic unions
 
+assert_type(with_descriptors.length_list, list[str])
+assert_type(with_descriptors.length_tuple, tuple[str, str])
+
+assert_type(with_descriptors.match_pattern_str, str)
+assert_type(with_descriptors.match_pattern_str_none, Union[str, None])
+assert_type(with_descriptors.match_pattern_bytes, ReadableBuffer)
+assert_type(with_descriptors.match_pattern_bytes_none, Union[ReadableBuffer, None])
+
+assert_type(with_descriptors.convertible_default, int)
+assert_type(with_descriptors.convertible_not_none, int)
+assert_type(with_descriptors.convertible_none, Union[int, None])
+
+
 # Test setters (expected type, None, unexpected type)
-with_descriptors.descriptor = object()
-with_descriptors.descriptor = None
-with_descriptors.descriptor = type
+with_descriptors.descriptor = ""
+with_descriptors.descriptor = None  # type: ignore
+with_descriptors.descriptor = 0  # type: ignore
 
-with_descriptors.typed_default = ""
-with_descriptors.typed_default = None  # pyright: ignore[reportGeneralTypeIssues] # false negative in mypy
-with_descriptors.typed_default = 0  # type: ignore
 
-with_descriptors.typed_none = ""
+with_descriptors.typed_not_none = ""
 with_descriptors.typed_not_none = None  # pyright: ignore[reportGeneralTypeIssues] # false negative in mypy
 with_descriptors.typed_not_none = 0  # type: ignore
 
@@ -112,3 +155,47 @@ with_descriptors.noneset_list = 0.0
 with_descriptors.noneset_list = None
 with_descriptors.noneset_list = "none"
 with_descriptors.noneset_list = object()  # pyright: ignore[reportGeneralTypeIssues] # false negative in mypy
+
+
+# NOTE: Can't validate tuple length in a generic manner
+with_descriptors.length_list = ["a", "a"]
+with_descriptors.length_list = None  # type: ignore
+with_descriptors.length_list = ("a", "a")  # type: ignore
+with_descriptors.length_list = ""  # type: ignore
+
+with_descriptors.length_tuple = ("a", "a")
+with_descriptors.length_tuple = None  # type: ignore
+with_descriptors.length_tuple = ["a", "a"]  # type: ignore
+with_descriptors.length_tuple = ""  # type: ignore
+
+
+with_descriptors.match_pattern_str = ""
+with_descriptors.match_pattern_str = b""  # type: ignore
+with_descriptors.match_pattern_str = None  # pyright: ignore[reportGeneralTypeIssues] # false negative in mypy
+with_descriptors.match_pattern_str = 0  # type: ignore
+
+with_descriptors.match_pattern_str_none = ""
+with_descriptors.match_pattern_str_none = b""  # type: ignore
+with_descriptors.match_pattern_str_none = None
+with_descriptors.match_pattern_str_none = 0  # type: ignore
+
+with_descriptors.match_pattern_bytes = ""  # type: ignore
+with_descriptors.match_pattern_bytes = b""
+with_descriptors.match_pattern_bytes = None  # pyright: ignore[reportGeneralTypeIssues] # false negative in mypy
+with_descriptors.match_pattern_bytes = 0  # type: ignore
+
+with_descriptors.match_pattern_bytes_none = ""  # type: ignore
+with_descriptors.match_pattern_bytes_none = b""
+with_descriptors.match_pattern_bytes_none = None
+with_descriptors.match_pattern_bytes_none = 0  # type: ignore
+
+
+with_descriptors.convertible_not_none = 0
+with_descriptors.convertible_not_none = "0"
+with_descriptors.convertible_not_none = None  # pyright: ignore[reportGeneralTypeIssues] # false negative in mypy
+with_descriptors.convertible_not_none = object()  # pyright: ignore[reportGeneralTypeIssues] # false negative in mypy
+
+with_descriptors.convertible_none = 0
+with_descriptors.convertible_none = "0"
+with_descriptors.convertible_none = None
+with_descriptors.convertible_none = object()  # FIXME: False positive(?) in pyright and mypy

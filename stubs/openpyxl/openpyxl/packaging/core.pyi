@@ -4,7 +4,8 @@ from openpyxl.descriptors import DateTime
 from openpyxl.descriptors.nested import NestedText
 from openpyxl.descriptors.serialisable import Serialisable
 
-class NestedDateTime(DateTime, NestedText):
+# Does not reimplement the relevant methods, so runtime also has incompatible supertypes
+class NestedDateTime(DateTime, NestedText):  # type: ignore[misc]
     expected_type: Incomplete
     def to_tree(
         self, tagname: Incomplete | None = None, value: Incomplete | None = None, namespace: Incomplete | None = None
