@@ -23,6 +23,8 @@ openpyxl.styles.colors.ColorDescriptor.expected_type
 # Stubtest doesn't like generics here
 openpyxl.descriptors.Typed.allow_none
 openpyxl.descriptors.base.Typed.allow_none
+openpyxl.descriptors.MatchPattern.allow_none
+openpyxl.descriptors.base.MatchPattern.allow_none
 
 # "has a default value but stub argument does not"
 # Runtime has default arguments that would fail

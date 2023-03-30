@@ -1,12 +1,14 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import Incomplete, ReadableBuffer, Unused
 from collections.abc import Iterable, Sized
 from datetime import datetime
+from re import Pattern
 from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Literal
 
 from openpyxl.descriptors.serialisable import Serialisable
 
 _T = TypeVar("_T")
+_P = TypeVar("_P", bound=str | ReadableBuffer)
 _N = TypeVar("_N", bound=bool)
 _L = TypeVar("_L", bound=Sized)
 
@@ -110,11 +112,46 @@ class Alias(Descriptor):
     def __set__(self, instance: Serialisable, value) -> None: ...
     def __get__(self, instance: Serialisable, cls: Unused): ...
 
-class MatchPattern(Descriptor):
-    allow_none: bool
-    test_pattern: Incomplete
-    def __init__(self, name: str | None = None, **kw) -> None: ...
-    def __set__(self, instance: Serialisable, value) -> None: ...
+class MatchPattern(Descriptor[_P], Generic[_P, _N]):
+    allow_none: _N
+    test_pattern: Pattern[bytes] | Pattern[str]
+
+    @overload  # str
+    def __init__(
+        self: MatchPattern[str, Literal[True]], name: str | None = None, *, pattern: str | Pattern[str], allow_none: Literal[True]
+    ) -> None: ...
+    @overload  # str | None
+    def __init__(
+        self: MatchPattern[str, Literal[False]],
+        name: str | None = None,
+        *,
+        pattern: str | Pattern[str],
+        allow_none: Literal[False] = False,
+    ) -> None: ...
+    @overload  # bytes
+    def __init__(
+        self: MatchPattern[ReadableBuffer, Literal[True]],
+        name: str | None = None,
+        *,
+        pattern: bytes | Pattern[bytes],
+        allow_none: Literal[True],
+    ) -> None: ...
+    @overload  # bytes | None
+    def __init__(
+        self: MatchPattern[ReadableBuffer, Literal[False]],
+        name: str | None = None,
+        *,
+        pattern: bytes | Pattern[bytes],
+        allow_none: Literal[False] = False,
+    ) -> None: ...
+    @overload
+    def __get__(self: MatchPattern[_P, Literal[True]], instance: Serialisable, objtype: type | None = None) -> _P | None: ...
+    @overload
+    def __get__(self: MatchPattern[_P, Literal[False]], instance: Serialisable, objtype: type | None = None) -> _P: ...
+    @overload
+    def __set__(self: MatchPattern[_P, Literal[True]], instance: Serialisable, value: _P | None) -> None: ...
+    @overload
+    def __set__(self: MatchPattern[_P, Literal[False]], instance: Serialisable, value: _P) -> None: ...
 
 class DateTime(Typed):
     expected_type: type[datetime]

@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from typing_extensions import Literal
 
 from openpyxl.descriptors import Strict
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import MatchPattern, Typed
 from openpyxl.descriptors.serialisable import Serialisable
 
 FONT_PATTERN: str
@@ -15,13 +15,13 @@ class _HeaderFooterPart(Strict):
     font: Incomplete
     size: Incomplete
     RGB: str
-    color: Incomplete
+    color: MatchPattern[str, Literal[True]]
     def __init__(
         self,
         text: Incomplete | None = None,
         font: Incomplete | None = None,
         size: Incomplete | None = None,
-        color: Incomplete | None = None,
+        color: str | None = None,
     ) -> None: ...
     def __bool__(self) -> bool: ...
     @classmethod
