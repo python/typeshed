@@ -2,7 +2,7 @@ import collections  # Needed by aliases like DefaultDict, see mypy issue 2986
 import sys
 import typing_extensions
 from _collections_abc import dict_items, dict_keys, dict_values
-from _typeshed import IdentityFunction, Incomplete, SupportsKeysAndGetItem
+from _typeshed import IdentityFunction, Incomplete, ReadableBuffer, SupportsKeysAndGetItem
 from abc import ABCMeta, abstractmethod
 from contextlib import AbstractAsyncContextManager, AbstractContextManager
 from re import Match as Match, Pattern as Pattern
@@ -167,20 +167,14 @@ _T = TypeVar("_T")
 
 def overload(func: _F) -> _F: ...
 
-# Unlike the vast majority module-level objects in stub files,
-# these `_SpecialForm` objects in typing need the default value `= ...`,
-# due to the fact that they are used elswhere in the same file.
-# Otherwise, flake8 erroneously flags them as undefined.
-# `_SpecialForm` objects in typing.py that are not used elswhere in the same file
-# do not need the default value assignment.
-Union: _SpecialForm = ...
-Generic: _SpecialForm = ...
+Union: _SpecialForm
+Generic: _SpecialForm
 # Protocol is only present in 3.8 and later, but mypy needs it unconditionally
-Protocol: _SpecialForm = ...
-Callable: _SpecialForm = ...
-Type: _SpecialForm = ...
-NoReturn: _SpecialForm = ...
-ClassVar: _SpecialForm = ...
+Protocol: _SpecialForm
+Callable: _SpecialForm
+Type: _SpecialForm
+NoReturn: _SpecialForm
+ClassVar: _SpecialForm
 
 Optional: _SpecialForm
 Tuple: _SpecialForm
@@ -193,7 +187,7 @@ if sys.version_info >= (3, 8):
 
 if sys.version_info >= (3, 11):
     Self: _SpecialForm
-    Never: _SpecialForm = ...
+    Never: _SpecialForm
     Unpack: _SpecialForm
     Required: _SpecialForm
     NotRequired: _SpecialForm
@@ -687,8 +681,22 @@ class IO(Iterator[AnyStr], Generic[AnyStr]):
     @abstractmethod
     def writable(self) -> bool: ...
     @abstractmethod
+    @overload
+    def write(self: IO[str], __s: str) -> int: ...
+    @abstractmethod
+    @overload
+    def write(self: IO[bytes], __s: ReadableBuffer) -> int: ...
+    @abstractmethod
+    @overload
     def write(self, __s: AnyStr) -> int: ...
     @abstractmethod
+    @overload
+    def writelines(self: IO[str], __lines: Iterable[str]) -> None: ...
+    @abstractmethod
+    @overload
+    def writelines(self: IO[bytes], __lines: Iterable[ReadableBuffer]) -> None: ...
+    @abstractmethod
+    @overload
     def writelines(self, __lines: Iterable[AnyStr]) -> None: ...
     @abstractmethod
     def __next__(self) -> AnyStr: ...
@@ -784,7 +792,7 @@ if sys.version_info >= (3, 11):
         order_default: bool = False,
         kw_only_default: bool = False,
         frozen_default: bool = False,  # on 3.11, runtime accepts it as part of kwargs
-        field_specifiers: tuple[type[Any] | Callable[..., Any], ...] = ...,
+        field_specifiers: tuple[type[Any] | Callable[..., Any], ...] = (),
         **kwargs: Any,
     ) -> IdentityFunction: ...
 
