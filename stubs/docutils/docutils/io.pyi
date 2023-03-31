@@ -5,6 +5,7 @@ from _typeshed import (
     OpenTextModeReading,
     OpenTextModeWriting,
     SupportsWrite,
+    Unused,
 )
 from re import Pattern
 from typing import Any, ClassVar
@@ -35,10 +36,10 @@ class Output(TransformSpec):
     default_destination_path: ClassVar[str | None]
     def __init__(
         self,
-        destination: Incomplete | None = ...,
-        destination_path: Incomplete | None = ...,
-        encoding: str | None = ...,
-        error_handler: str = ...,
+        destination: Incomplete | None = None,
+        destination_path: Incomplete | None = None,
+        encoding: str | None = None,
+        error_handler: str = "strict",
     ) -> None: ...
     def write(self, data: str) -> Any: ...  # returns bytes or str
     def encode(self, data: str) -> Any: ...  # returns bytes or str
@@ -46,10 +47,10 @@ class Output(TransformSpec):
 class ErrorOutput:
     def __init__(
         self,
-        destination: str | SupportsWrite[str] | SupportsWrite[bytes] | Literal[False] | None = ...,
-        encoding: str | None = ...,
-        encoding_errors: str = ...,
-        decoding_errors: str = ...,
+        destination: str | SupportsWrite[str] | SupportsWrite[bytes] | Literal[False] | None = None,
+        encoding: str | None = None,
+        encoding_errors: str = "backslashreplace",
+        decoding_errors: str = "replace",
     ) -> None: ...
     def write(self, data: str | bytes | Exception) -> None: ...
     def close(self) -> None: ...
@@ -58,12 +59,12 @@ class ErrorOutput:
 class FileInput(Input):
     def __init__(
         self,
-        source: Incomplete | None = ...,
-        source_path: Incomplete | None = ...,
-        encoding: str | None = ...,
-        error_handler: str = ...,
-        autoclose: bool = ...,
-        mode: OpenTextModeReading | OpenBinaryModeReading = ...,
+        source: Incomplete | None = None,
+        source_path: Incomplete | None = None,
+        encoding: str | None = None,
+        error_handler: str = "strict",
+        autoclose: bool = True,
+        mode: OpenTextModeReading | OpenBinaryModeReading = "r",
     ) -> None: ...
     def read(self) -> str: ...
     def readlines(self) -> list[str]: ...
@@ -88,7 +89,7 @@ class NullInput(Input):
 
 class NullOutput(Output):
     default_destination_path: ClassVar[str]
-    def write(self, data: object) -> None: ...
+    def write(self, data: Unused) -> None: ...
 
 class DocTreeInput(Input):
     default_source_path: ClassVar[str]

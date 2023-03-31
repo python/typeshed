@@ -1,4 +1,6 @@
-from _typeshed import Incomplete, Self
+from _typeshed import Incomplete
+from types import TracebackType
+from typing_extensions import Self
 
 from influxdb_client.client._base import _BaseClient
 from influxdb_client.client.delete_api_async import DeleteApiAsync
@@ -14,11 +16,11 @@ class InfluxDBClientAsync(_BaseClient):
     def __init__(
         self,
         url: str,
-        token: str | None = ...,
-        org: str | None = ...,
-        debug: bool | None = ...,
-        timeout: int = ...,
-        enable_gzip: bool = ...,
+        token: str | None = None,
+        org: str | None = None,
+        debug: bool | None = None,
+        timeout: int = 10000,
+        enable_gzip: bool = False,
         *,
         verify_ssl: bool = ...,
         ssl_ca_cert: Incomplete | None = ...,
@@ -35,13 +37,17 @@ class InfluxDBClientAsync(_BaseClient):
         retries: bool | Incomplete = ...,
         profilers: Incomplete | None = ...,
     ) -> None: ...
-    async def __aenter__(self: Self) -> Self: ...
-    async def __aexit__(self, exc_type: object, exc: object, tb: object) -> None: ...
+    async def __aenter__(self) -> Self: ...
+    async def __aexit__(
+        self, exc_type: type[BaseException] | None, exc: BaseException | None, tb: TracebackType | None
+    ) -> None: ...
     async def close(self) -> None: ...
     @classmethod
-    def from_config_file(cls, config_file: str = ..., debug: Incomplete | None = ..., enable_gzip: bool = ..., **kwargs): ...
+    def from_config_file(
+        cls, config_file: str = "config.ini", debug: Incomplete | None = None, enable_gzip: bool = False, **kwargs
+    ): ...
     @classmethod
-    def from_env_properties(cls, debug: Incomplete | None = ..., enable_gzip: bool = ..., **kwargs): ...
+    def from_env_properties(cls, debug: Incomplete | None = None, enable_gzip: bool = False, **kwargs): ...
     async def ping(self) -> bool: ...
     async def version(self) -> str: ...
     async def build(self) -> str: ...

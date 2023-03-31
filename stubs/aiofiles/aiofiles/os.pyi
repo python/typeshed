@@ -1,22 +1,19 @@
 import sys
-from _typeshed import GenericPath, StrOrBytesPath
+from _typeshed import FileDescriptorOrPath, GenericPath, StrOrBytesPath
 from asyncio.events import AbstractEventLoop
 from collections.abc import Sequence
 from os import _ScandirIterator, stat_result
 from typing import Any, AnyStr, overload
-from typing_extensions import TypeAlias
 
 from aiofiles import ospath
 
 path = ospath
 
-_FdOrAnyPath: TypeAlias = int | StrOrBytesPath
-
 async def stat(
-    path: _FdOrAnyPath,
+    path: FileDescriptorOrPath,
     *,
-    dir_fd: int | None = ...,
-    follow_symlinks: bool = ...,
+    dir_fd: int | None = None,
+    follow_symlinks: bool = True,
     loop: AbstractEventLoop | None = ...,
     executor: Any = ...,
 ) -> stat_result: ...
@@ -24,8 +21,8 @@ async def rename(
     src: StrOrBytesPath,
     dst: StrOrBytesPath,
     *,
-    src_dir_fd: int | None = ...,
-    dst_dir_fd: int | None = ...,
+    src_dir_fd: int | None = None,
+    dst_dir_fd: int | None = None,
     loop: AbstractEventLoop | None = ...,
     executor: Any = ...,
 ) -> None: ...
@@ -33,26 +30,26 @@ async def replace(
     src: StrOrBytesPath,
     dst: StrOrBytesPath,
     *,
-    src_dir_fd: int | None = ...,
-    dst_dir_fd: int | None = ...,
+    src_dir_fd: int | None = None,
+    dst_dir_fd: int | None = None,
     loop: AbstractEventLoop | None = ...,
     executor: Any = ...,
 ) -> None: ...
 async def remove(
-    path: StrOrBytesPath, *, dir_fd: int | None = ..., loop: AbstractEventLoop | None = ..., executor: Any = ...
+    path: StrOrBytesPath, *, dir_fd: int | None = None, loop: AbstractEventLoop | None = ..., executor: Any = ...
 ) -> None: ...
 async def mkdir(
-    path: StrOrBytesPath, mode: int = ..., *, dir_fd: int | None = ..., loop: AbstractEventLoop | None = ..., executor: Any = ...
+    path: StrOrBytesPath, mode: int = 511, *, dir_fd: int | None = None, loop: AbstractEventLoop | None = ..., executor: Any = ...
 ) -> None: ...
 async def makedirs(
-    name: StrOrBytesPath, mode: int = ..., exist_ok: bool = ..., *, loop: AbstractEventLoop | None = ..., executor: Any = ...
+    name: StrOrBytesPath, mode: int = 511, exist_ok: bool = False, *, loop: AbstractEventLoop | None = ..., executor: Any = ...
 ) -> None: ...
 async def rmdir(
-    path: StrOrBytesPath, *, dir_fd: int | None = ..., loop: AbstractEventLoop | None = ..., executor: Any = ...
+    path: StrOrBytesPath, *, dir_fd: int | None = None, loop: AbstractEventLoop | None = ..., executor: Any = ...
 ) -> None: ...
 async def removedirs(name: StrOrBytesPath, *, loop: AbstractEventLoop | None = ..., executor: Any = ...) -> None: ...
 @overload
-async def scandir(path: None = ..., *, loop: AbstractEventLoop | None = ..., executor: Any = ...) -> _ScandirIterator[str]: ...
+async def scandir(path: None = None, *, loop: AbstractEventLoop | None = ..., executor: Any = ...) -> _ScandirIterator[str]: ...
 @overload
 async def scandir(path: int, *, loop: AbstractEventLoop | None = ..., executor: Any = ...) -> _ScandirIterator[str]: ...
 @overload

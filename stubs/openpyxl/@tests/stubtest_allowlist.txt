@@ -1,2 +1,9 @@
 # "cls" argument has wrong name in implementation.
 openpyxl.descriptors.slots.AutoSlotProperties.__new__
+
+# Requires numpy to be installed
+openpyxl.utils.dataframe
+
+# Element can be imported from lxml or xml.etree, so the attributes can
+# differ at runtime.
+openpyxl.xml.functions.Element.*

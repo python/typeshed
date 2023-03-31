@@ -1,18 +1,34 @@
 from _typeshed import Incomplete
+from enum import IntEnum
 from typing import Any
+from typing_extensions import Literal
 
 from .Image import ImagePointHandler
 
 DESCRIPTION: str
 VERSION: str
 core: Any
-INTENT_PERCEPTUAL: int
-INTENT_RELATIVE_COLORIMETRIC: int
-INTENT_SATURATION: int
-INTENT_ABSOLUTE_COLORIMETRIC: int
-DIRECTION_INPUT: int
-DIRECTION_OUTPUT: int
-DIRECTION_PROOF: int
+
+class Intent(IntEnum):
+    PERCEPTUAL: int
+    RELATIVE_COLORIMETRIC: int
+    SATURATION: int
+    ABSOLUTE_COLORIMETRIC: int
+
+INTENT_PERCEPTUAL: Literal[Intent.PERCEPTUAL]
+INTENT_RELATIVE_COLORIMETRIC: Literal[Intent.RELATIVE_COLORIMETRIC]
+INTENT_SATURATION: Literal[Intent.SATURATION]
+INTENT_ABSOLUTE_COLORIMETRIC: Literal[Intent.ABSOLUTE_COLORIMETRIC]
+
+class Direction(IntEnum):
+    INPUT: int
+    OUTPUT: int
+    PROOF: int
+
+DIRECTION_INPUT: Literal[Direction.INPUT]
+DIRECTION_OUTPUT: Literal[Direction.OUTPUT]
+DIRECTION_PROOF: Literal[Direction.PROOF]
+
 FLAGS: Any
 
 class ImageCmsProfile:
@@ -31,15 +47,15 @@ class ImageCmsTransform(ImagePointHandler):
         input_mode,
         output_mode,
         intent=...,
-        proof: Incomplete | None = ...,
+        proof: Incomplete | None = None,
         proof_intent=...,
-        flags: int = ...,
+        flags: int = 0,
     ) -> None: ...
     def point(self, im): ...
-    def apply(self, im, imOut: Incomplete | None = ...): ...
+    def apply(self, im, imOut: Incomplete | None = None): ...
     def apply_in_place(self, im): ...
 
-def get_display_profile(handle: Incomplete | None = ...): ...
+def get_display_profile(handle: Incomplete | None = None): ...
 
 class PyCMSError(Exception): ...
 
@@ -48,21 +64,21 @@ def profileToProfile(
     inputProfile,
     outputProfile,
     renderingIntent=...,
-    outputMode: Incomplete | None = ...,
-    inPlace: bool = ...,
-    flags: int = ...,
+    outputMode: Incomplete | None = None,
+    inPlace: bool = False,
+    flags: int = 0,
 ): ...
 def getOpenProfile(profileFilename): ...
-def buildTransform(inputProfile, outputProfile, inMode, outMode, renderingIntent=..., flags: int = ...): ...
+def buildTransform(inputProfile, outputProfile, inMode, outMode, renderingIntent=..., flags: int = 0): ...
 def buildProofTransform(
-    inputProfile, outputProfile, proofProfile, inMode, outMode, renderingIntent=..., proofRenderingIntent=..., flags=...
+    inputProfile, outputProfile, proofProfile, inMode, outMode, renderingIntent=..., proofRenderingIntent=..., flags=16384
 ): ...
 
 buildTransformFromOpenProfiles = buildTransform
 buildProofTransformFromOpenProfiles = buildProofTransform
 
-def applyTransform(im, transform, inPlace: bool = ...): ...
-def createProfile(colorSpace, colorTemp: int = ...): ...
+def applyTransform(im, transform, inPlace: bool = False): ...
+def createProfile(colorSpace, colorTemp: int = -1): ...
 def getProfileName(profile): ...
 def getProfileInfo(profile): ...
 def getProfileCopyright(profile): ...

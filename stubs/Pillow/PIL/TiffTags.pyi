@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Any, NamedTuple, Union
+from typing import Any, NamedTuple
 from typing_extensions import Literal, TypeAlias
 
 class _TagInfo(NamedTuple):
@@ -12,15 +12,15 @@ class _TagInfo(NamedTuple):
 class TagInfo(_TagInfo):
     def __new__(
         cls,
-        value: Incomplete | None = ...,
-        name: str = ...,
-        type: _TagType | None = ...,
-        length: int | None = ...,
-        enum: dict[str, int] | None = ...,
+        value: Incomplete | None = None,
+        name: str = "unknown",
+        type: _TagType | None = None,
+        length: int | None = None,
+        enum: dict[str, int] | None = None,
     ): ...
     def cvt_enum(self, value): ...
 
-def lookup(tag: int, group: int | None = ...) -> _TagInfo: ...
+def lookup(tag: int, group: int | None = None) -> _TagInfo: ...
 
 BYTE: Literal[1]
 ASCII: Literal[2]
@@ -37,7 +37,7 @@ DOUBLE: Literal[12]
 IFD: Literal[13]
 
 _TagType: TypeAlias = Literal[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-_TagTuple: TypeAlias = Union[tuple[str, _TagType, int], tuple[str, _TagInfo, int, dict[str, int]]]
+_TagTuple: TypeAlias = tuple[str, _TagType, int] | tuple[str, _TagInfo, int, dict[str, int]]
 
 TAGS_V2: dict[int, _TagTuple]
 TAGS_V2_GROUPS: dict[int, dict[int, _TagTuple]]

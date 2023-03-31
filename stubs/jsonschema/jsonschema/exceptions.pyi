@@ -1,8 +1,8 @@
-from _typeshed import Incomplete, Self, SupportsRichComparison
+from _typeshed import Incomplete, SupportsRichComparison
 from collections import deque
 from collections.abc import Callable, Container, Iterable, Sequence
 from typing import Any
-from typing_extensions import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 from jsonschema import _utils, protocols
 from jsonschema._types import TypeChecker
@@ -29,18 +29,18 @@ class _Error(Exception):
         self,
         message: str,
         validator: _utils.Unset | None | protocols.Validator = ...,
-        path: Sequence[str | int] = ...,
-        cause: Incomplete | None = ...,
-        context: Sequence[ValidationError] = ...,
+        path: Sequence[str | int] = (),
+        cause: Incomplete | None = None,
+        context: Sequence[ValidationError] = (),
         validator_value=...,
         instance: Any = ...,
         schema: Any = ...,
-        schema_path: Sequence[str | int] = ...,
-        parent: _Error | None = ...,
+        schema_path: Sequence[str | int] = (),
+        parent: _Error | None = None,
         type_checker: _utils.Unset | TypeChecker = ...,
     ) -> None: ...
     @classmethod
-    def create_from(cls: type[Self], other: _Error) -> Self: ...
+    def create_from(cls, other: _Error) -> Self: ...
     @property
     def absolute_path(self) -> Sequence[str | int]: ...
     @property
@@ -70,11 +70,11 @@ class UnknownType(Exception):
 class FormatError(Exception):
     message: Any
     cause: Any
-    def __init__(self, message, cause: Incomplete | None = ...) -> None: ...
+    def __init__(self, message, cause: Incomplete | None = None) -> None: ...
 
 class ErrorTree:
     errors: Any
-    def __init__(self, errors=...) -> None: ...
+    def __init__(self, errors=()) -> None: ...
     def __contains__(self, index): ...
     def __getitem__(self, index): ...
     def __setitem__(self, index, value) -> None: ...

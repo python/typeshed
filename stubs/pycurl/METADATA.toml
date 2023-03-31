@@ -1,7 +1,6 @@
 version = "7.45.2"
 
 [tool.stubtest]
-ignore_missing_stub = false
 # Install on Windows requires building PycURL from source
 #
 # Install on MacOS is too complicated for the CI and does not work with stubtest:
@@ -11,6 +10,6 @@ ignore_missing_stub = false
 # % pip install --compile --install-option="--with-openssl" pycurl
 # TODO: Test on Windows and/or MacOS once wheels are available.
 platforms = ["linux"]
-apt_dependencies = ["libcurl4-openssl-dev"]
+apt_dependencies = ["libcurl4-openssl-dev", "libssl-dev"]
 # No need to install on the CI. Leaving here as information for MacOS contributors.
 # brew_dependencies = ["openssl"]

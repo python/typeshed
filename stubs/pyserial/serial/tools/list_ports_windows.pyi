@@ -23,8 +23,17 @@ if sys.platform == "win32":
     ACCESS_MASK = DWORD
     REGSAM = ACCESS_MASK
 
-    class GUID(ctypes.Structure): ...
-    class SP_DEVINFO_DATA(ctypes.Structure): ...
+    class GUID(ctypes.Structure):
+        Data1: ctypes._CField
+        Data2: ctypes._CField
+        Data3: ctypes._CField
+        Data4: ctypes._CField
+
+    class SP_DEVINFO_DATA(ctypes.Structure):
+        cbSize: ctypes._CField
+        ClassGuid: ctypes._CField
+        DevInst: ctypes._CField
+        Reserved: ctypes._CField
     PSP_DEVINFO_DATA: type[ctypes._Pointer[SP_DEVINFO_DATA]]
     PSP_DEVICE_INTERFACE_DETAIL_DATA = ctypes.c_void_p
     setupapi: ctypes.WinDLL
@@ -60,8 +69,8 @@ if sys.platform == "win32":
         child_devinst: ctypes._CData,
         child_vid: int | None,
         child_pid: int | None,
-        depth: int = ...,
-        last_serial_number: str | None = ...,
+        depth: int = 0,
+        last_serial_number: str | None = None,
     ) -> str: ...
     def iterate_comports() -> Generator[ListPortInfo, None, None]: ...
-    def comports(include_links: bool = ...) -> list[ListPortInfo]: ...
+    def comports(include_links: bool = False) -> list[ListPortInfo]: ...

@@ -2,22 +2,8 @@
 sqlalchemy.ext.mypy.*
 # test suites
 sqlalchemy.testing.suite
-# Unintended re-exports
-sqlalchemy.testing.plugin.plugin_base.logging
 # Leaked re-exports from the compat module
-sqlalchemy.dialects.mysql.pymysql.py3k
-sqlalchemy.engine.result.py2k
-sqlalchemy.log.py311
-sqlalchemy.log.py38
-sqlalchemy.sql.traversals.py37
-sqlalchemy.testing.mock.py3k
-sqlalchemy.testing.util.has_refcount_gc
-sqlalchemy.testing.util.py2k
 sqlalchemy.util.quote
-sqlalchemy.util._collections.binary_types
-sqlalchemy.util._collections.py2k
-sqlalchemy.util._collections.py37
-sqlalchemy.util._collections.string_types
 
 # Expanding keyword arguments in stubs
 sqlalchemy.ext.declarative.as_declarative
