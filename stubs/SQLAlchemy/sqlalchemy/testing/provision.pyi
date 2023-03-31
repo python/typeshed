@@ -1,8 +1,8 @@
-from _typeshed import Incomplete, Self
+from _typeshed import Incomplete
 from collections.abc import Callable
 from logging import Logger
 from typing import Any, Generic, NoReturn, TypeVar
-from typing_extensions import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 from ..engine.interfaces import Connectable
 from ..engine.url import URL
@@ -26,8 +26,8 @@ def reap_dbs(idents_file) -> None: ...
 class register(Generic[_F]):
     fns: dict[str, _F]
     @classmethod
-    def init(cls: type[Self], fn: _F) -> Self: ...
-    def for_db(self: Self, *dbnames: str) -> Callable[[_F], Self]: ...
+    def init(cls, fn: _F) -> Self: ...
+    def for_db(self, *dbnames: str) -> Callable[[_F], Self]: ...
     # Impossible to specify the args from the generic Callable in the current type system
     def __call__(self, cfg: str | URL, *arg: Any) -> str | URL | None: ...  # AnyOf[str | URL | None]
 
