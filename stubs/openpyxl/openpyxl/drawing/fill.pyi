@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import NoneSet, Set, Typed
+from openpyxl.descriptors.base import MinMax, NoneSet, Set, Typed, _ConvertibleToFloat
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.colors import ColorChoice, HSLColor, RGBPercent, SchemeColor, SystemColor
@@ -127,7 +127,7 @@ class StretchInfoProperties(Serialisable):
 class GradientStop(Serialisable):
     tagname: str
     namespace: Incomplete
-    pos: Incomplete
+    pos: MinMax[float, Literal[True]]
     scrgbClr: Typed[RGBPercent, Literal[True]]
     RGBPercent: Incomplete
     srgbClr: Incomplete
@@ -139,7 +139,7 @@ class GradientStop(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        pos: Incomplete | None = None,
+        pos: _ConvertibleToFloat | None = None,
         scrgbClr: RGBPercent | None = None,
         srgbClr: Incomplete | None = None,
         hslClr: HSLColor | None = None,

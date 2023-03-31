@@ -6,7 +6,7 @@ from _typeshed import ReadableBuffer
 from typing import Any, List, Tuple, Union
 from typing_extensions import Literal, assert_type
 
-from openpyxl.descriptors.base import Convertible, Descriptor, Length, MatchPattern, NoneSet, Set, Typed
+from openpyxl.descriptors.base import Convertible, Descriptor, Length, MatchPattern, MinMax, NoneSet, Set, Typed
 from openpyxl.descriptors.serialisable import Serialisable
 
 
@@ -39,6 +39,13 @@ class WithDescriptors(Serialisable):
     convertible_not_none = Convertible(expected_type=int, allow_none=False)
     convertible_none = Convertible(expected_type=int, allow_none=True)
 
+    # NOTE: min and max params are independent of expected_type since int and floats can always be compared together
+    minmax_default = MinMax(min=0, max=0)
+    minmax_float = MinMax(min=0, max=0, expected_type=float, allow_none=False)
+    minmax_float_none = MinMax(min=0, max=0, expected_type=float, allow_none=True)
+    minmax_int = MinMax(min=0.0, max=0.0, expected_type=int, allow_none=False)
+    minmax_int_none = MinMax(min=0.0, max=0.0, expected_type=int, allow_none=True)
+
     # Test inferred annotation
     assert_type(descriptor, Descriptor[str])
 
@@ -66,6 +73,12 @@ class WithDescriptors(Serialisable):
     assert_type(convertible_default, Convertible[int, Literal[False]])
     assert_type(convertible_not_none, Convertible[int, Literal[False]])
     assert_type(convertible_none, Convertible[int, Literal[True]])
+
+    assert_type(minmax_default, MinMax[float, Literal[False]])
+    assert_type(minmax_float, MinMax[float, Literal[False]])
+    assert_type(minmax_float_none, MinMax[float, Literal[True]])
+    assert_type(minmax_int, MinMax[int, Literal[False]])
+    assert_type(minmax_int_none, MinMax[int, Literal[True]])
 
 
 with_descriptors = WithDescriptors()
@@ -101,9 +114,13 @@ assert_type(with_descriptors.match_pattern_str_none, Union[str, None])
 assert_type(with_descriptors.match_pattern_bytes, ReadableBuffer)
 assert_type(with_descriptors.match_pattern_bytes_none, Union[ReadableBuffer, None])
 
-assert_type(with_descriptors.convertible_default, int)
 assert_type(with_descriptors.convertible_not_none, int)
 assert_type(with_descriptors.convertible_none, Union[int, None])
+
+assert_type(with_descriptors.minmax_float, float)
+assert_type(with_descriptors.minmax_float_none, Union[float, None])
+assert_type(with_descriptors.minmax_int, int)
+assert_type(with_descriptors.minmax_int_none, Union[int, None])
 
 
 # Test setters (expected type, None, unexpected type)
@@ -199,3 +216,27 @@ with_descriptors.convertible_none = 0
 with_descriptors.convertible_none = "0"
 with_descriptors.convertible_none = None
 with_descriptors.convertible_none = object()  # FIXME: False positive(?) in pyright and mypy
+
+with_descriptors.minmax_float = 0
+with_descriptors.minmax_float = "0"
+with_descriptors.minmax_float = 0.0
+with_descriptors.minmax_float = None  # pyright: ignore[reportGeneralTypeIssues] # false negative in mypy
+with_descriptors.minmax_float = object()  # type: ignore
+
+with_descriptors.minmax_float_none = 0
+with_descriptors.minmax_float_none = "0"
+with_descriptors.minmax_float_none = 0.0
+with_descriptors.minmax_float_none = None
+with_descriptors.minmax_float_none = object()  # type: ignore
+
+with_descriptors.minmax_int = 0
+with_descriptors.minmax_int = "0"
+with_descriptors.minmax_int = 0.0
+with_descriptors.minmax_int = None  # pyright: ignore[reportGeneralTypeIssues] # false negative in mypy
+with_descriptors.minmax_int = object()  # type: ignore
+
+with_descriptors.minmax_int_none = 0
+with_descriptors.minmax_int_none = "0"
+with_descriptors.minmax_int_none = 0.0
+with_descriptors.minmax_int_none = None
+with_descriptors.minmax_int_none = object()  # type: ignore

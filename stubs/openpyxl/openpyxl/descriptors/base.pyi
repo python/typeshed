@@ -10,12 +10,15 @@ from openpyxl.drawing.fill import Blip
 from openpyxl.worksheet.cell_range import CellRange, MultiCellRange
 
 _T = TypeVar("_T")
-_P = TypeVar("_P", bound=str | ReadableBuffer)
+_P = TypeVar("_P", str, ReadableBuffer)
 _N = TypeVar("_N", bound=bool)
 _L = TypeVar("_L", bound=Sized)
+_M = TypeVar("_M", int, float)
+
 _ConvertibleToMultiCellRange: TypeAlias = MultiCellRange | str | Iterable[CellRange]
-_ConvertibleToInt: TypeAlias = str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc
-_ConvertibleToFloat: TypeAlias = SupportsFloat | SupportsIndex | str | ReadableBuffer
+_ConvertibleToInt: TypeAlias = int | str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc
+_ConvertibleToFloat: TypeAlias = float | SupportsFloat | SupportsIndex | str | ReadableBuffer
+_ExpectedTypeParam: TypeAlias = type[_T] | tuple[type[_T], ...]
 
 class Descriptor(Generic[_T]):
     name: str | None
@@ -34,7 +37,7 @@ class Typed(Descriptor[_T], Generic[_T, _N]):
         self: Typed[_T, Literal[True]],
         name: str | None = None,
         *,
-        expected_type: type[_T] | tuple[type[_T], ...],
+        expected_type: _ExpectedTypeParam[_T],
         allow_none: Literal[True],
         nested: bool = False,
     ) -> None: ...
@@ -43,7 +46,7 @@ class Typed(Descriptor[_T], Generic[_T, _N]):
         self: Typed[_T, Literal[False]],
         name: str | None = None,
         *,
-        expected_type: type[_T] | tuple[type[_T], ...],
+        expected_type: _ExpectedTypeParam[_T],
         allow_none: Literal[False] = False,
         nested: bool = False,
     ) -> None: ...
@@ -62,7 +65,7 @@ class Convertible(Typed[_T, _N]):
         self: Convertible[_T, Literal[True]],
         name: str | None = None,
         *,
-        expected_type: type[_T] | tuple[type[_T], ...],
+        expected_type: _ExpectedTypeParam[_T],
         allow_none: Literal[True],
         nested: bool = False,
     ) -> None: ...
@@ -71,7 +74,7 @@ class Convertible(Typed[_T, _N]):
         self: Convertible[_T, Literal[False]],
         name: str | None = None,
         *,
-        expected_type: type[_T] | tuple[type[_T], ...],
+        expected_type: _ExpectedTypeParam[_T],
         allow_none: Literal[False] = False,
         nested: bool = False,
     ) -> None: ...
@@ -98,16 +101,14 @@ class Convertible(Typed[_T, _N]):
     def __set__(self: Convertible[bool, Literal[False]], instance: Serialisable, value: _ConvertibleToBool) -> None: ...
     # int
     @overload
-    def __set__(self: Convertible[int, Literal[True]], instance: Serialisable, value: int | _ConvertibleToInt | None) -> None: ...
+    def __set__(self: Convertible[int, Literal[True]], instance: Serialisable, value: _ConvertibleToInt | None) -> None: ...
     @overload
-    def __set__(self: Convertible[int, Literal[False]], instance: Serialisable, value: int | _ConvertibleToInt) -> None: ...
+    def __set__(self: Convertible[int, Literal[False]], instance: Serialisable, value: _ConvertibleToInt) -> None: ...
     # float
     @overload
-    def __set__(
-        self: Convertible[float, Literal[True]], instance: Serialisable, value: float | _ConvertibleToFloat | None
-    ) -> None: ...
+    def __set__(self: Convertible[float, Literal[True]], instance: Serialisable, value: _ConvertibleToFloat | None) -> None: ...
     @overload
-    def __set__(self: Convertible[float, Literal[False]], instance: Serialisable, value: float | _ConvertibleToFloat) -> None: ...
+    def __set__(self: Convertible[float, Literal[False]], instance: Serialisable, value: _ConvertibleToFloat) -> None: ...
     # Anything else
     @overload
     def __set__(self: Convertible[_T, Literal[True]], instance: Serialisable, value: _T | int | Any | None) -> None: ...

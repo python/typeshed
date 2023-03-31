@@ -1,7 +1,13 @@
 from _typeshed import Incomplete
+from typing import TypeVar, overload
+from typing_extensions import Literal
+
+from openpyxl.descriptors.base import _ConvertibleToFloat
 
 from . import Integer, MatchPattern, MinMax, String
 from .serialisable import Serialisable
+
+_N = TypeVar("_N", bound=bool)
 
 class HexBinary(MatchPattern):
     pattern: str
@@ -16,11 +22,14 @@ class TextPoint(MinMax):
 
 Coordinate = Integer
 
-class Percentage(MinMax):
+class Percentage(MinMax[float, _N]):
     pattern: str
-    min: int
-    max: int
-    def __set__(self, instance: Serialisable, value) -> None: ...
+    min: float
+    max: float
+    @overload  # type:ignore[override]  # Different restrictions
+    def __set__(self: Percentage[Literal[True]], instance: Serialisable, value: _ConvertibleToFloat | None) -> None: ...
+    @overload
+    def __set__(self: Percentage[Literal[False]], instance: Serialisable, value: _ConvertibleToFloat) -> None: ...
 
 class Extension(Serialisable):
     uri: Incomplete

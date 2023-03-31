@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import NoneSet, Set, Typed
+from openpyxl.descriptors.base import MinMax, NoneSet, Set, Typed, _ConvertibleToFloat
 from openpyxl.descriptors.excel import Coordinate, ExtensionList, Percentage
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.colors import Color
@@ -504,9 +504,9 @@ class AdjPoint2D(Serialisable):
     def __init__(self, x: Incomplete | None = None, y: Incomplete | None = None) -> None: ...
 
 class ConnectionSite(Serialisable):
-    ang: Incomplete
+    ang: MinMax[float, Literal[False]]
     pos: Typed[AdjPoint2D, Literal[False]]
-    def __init__(self, ang: Incomplete | None, pos: AdjPoint2D) -> None: ...
+    def __init__(self, ang: _ConvertibleToFloat, pos: AdjPoint2D) -> None: ...
 
 class ConnectionSiteList(Serialisable):
     cxn: Typed[ConnectionSite, Literal[True]]

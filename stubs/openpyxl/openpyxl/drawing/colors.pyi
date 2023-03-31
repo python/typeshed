@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors import Typed
-from openpyxl.descriptors.base import Set
+from openpyxl.descriptors.base import MinMax, Set, _ConvertibleToFloat
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
@@ -137,16 +137,16 @@ class SystemColor(Serialisable):
 class HSLColor(Serialisable):
     tagname: str
     hue: Incomplete
-    sat: Incomplete
-    lum: Incomplete
-    def __init__(self, hue: Incomplete | None = None, sat: Incomplete | None = None, lum: Incomplete | None = None) -> None: ...
+    sat: MinMax[float, Literal[False]]
+    lum: MinMax[float, Literal[False]]
+    def __init__(self, hue: Incomplete | None, sat: _ConvertibleToFloat, lum: _ConvertibleToFloat) -> None: ...
 
 class RGBPercent(Serialisable):
     tagname: str
-    r: Incomplete
-    g: Incomplete
-    b: Incomplete
-    def __init__(self, r: Incomplete | None = None, g: Incomplete | None = None, b: Incomplete | None = None) -> None: ...
+    r: MinMax[float, Literal[False]]
+    g: MinMax[float, Literal[False]]
+    b: MinMax[float, Literal[False]]
+    def __init__(self, r: _ConvertibleToFloat, g: _ConvertibleToFloat, b: _ConvertibleToFloat) -> None: ...
 
 class SchemeColor(Serialisable):
     tagname: str

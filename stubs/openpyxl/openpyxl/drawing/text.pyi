@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import NoneSet, Set, Typed
+from openpyxl.descriptors.base import MinMax, NoneSet, Set, Typed, _ConvertibleToFloat
 from openpyxl.descriptors.excel import Coordinate, ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.effect import Color, EffectContainer, EffectList
@@ -164,13 +164,13 @@ class Font(Serialisable):
     namespace: Incomplete
     typeface: Incomplete
     panose: Incomplete
-    pitchFamily: Incomplete
+    pitchFamily: MinMax[float, Literal[True]]
     charset: Incomplete
     def __init__(
         self,
         typeface: Incomplete | None = None,
         panose: Incomplete | None = None,
-        pitchFamily: Incomplete | None = None,
+        pitchFamily: _ConvertibleToFloat | None = None,
         charset: Incomplete | None = None,
     ) -> None: ...
 
@@ -180,7 +180,7 @@ class CharacterProperties(Serialisable):
     kumimoji: Incomplete
     lang: Incomplete
     altLang: Incomplete
-    sz: Incomplete
+    sz: MinMax[float, Literal[True]]
     b: Incomplete
     i: Incomplete
     u: NoneSet[_CharacterPropertiesU]
@@ -224,7 +224,7 @@ class CharacterProperties(Serialisable):
         kumimoji: Incomplete | None = None,
         lang: Incomplete | None = None,
         altLang: Incomplete | None = None,
-        sz: Incomplete | None = None,
+        sz: _ConvertibleToFloat | None = None,
         b: Incomplete | None = None,
         i: Incomplete | None = None,
         u: _CharacterPropertiesU | Literal["none"] | None = None,

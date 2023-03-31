@@ -5,7 +5,7 @@ from typing_extensions import Literal, TypeAlias
 from openpyxl.chart.layout import Layout
 from openpyxl.chart.legend import Legend
 from openpyxl.chart.shapes import GraphicalProperties
-from openpyxl.descriptors.base import Set, Typed
+from openpyxl.descriptors.base import MinMax, Set, Typed
 from openpyxl.descriptors.serialisable import Serialisable
 
 _ChartBaseDisplayBlanks: TypeAlias = Literal["span", "gap", "zero"]
@@ -29,7 +29,7 @@ class ChartBase(Serialisable):
     anchor: str
     width: int
     height: float
-    style: Incomplete
+    style: MinMax[float, Literal[True]]
     mime_type: str
     graphical_properties: Typed[GraphicalProperties, Literal[True]]
     __elements__: Incomplete

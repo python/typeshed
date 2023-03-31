@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import NoneSet
+from openpyxl.descriptors.base import Min, MinMax, NoneSet, _ConvertibleToFloat
 from openpyxl.descriptors.serialisable import Serialisable
 
 _HorizontalAlignmentsType: TypeAlias = Literal[
@@ -23,10 +23,10 @@ class Alignment(Serialisable):
     wrap_text: Incomplete
     shrinkToFit: Incomplete
     shrink_to_fit: Incomplete
-    indent: Incomplete
-    relativeIndent: Incomplete
+    indent: MinMax[float, Literal[False]]
+    relativeIndent: MinMax[float, Literal[False]]
     justifyLastLine: Incomplete
-    readingOrder: Incomplete
+    readingOrder: Min[float, Literal[False]]
     def __init__(
         self,
         horizontal: Incomplete | None = None,
@@ -34,10 +34,10 @@ class Alignment(Serialisable):
         textRotation: int = 0,
         wrapText: Incomplete | None = None,
         shrinkToFit: Incomplete | None = None,
-        indent: int = 0,
-        relativeIndent: int = 0,
+        indent: _ConvertibleToFloat = 0,
+        relativeIndent: _ConvertibleToFloat = 0,
         justifyLastLine: Incomplete | None = None,
-        readingOrder: int = 0,
+        readingOrder: _ConvertibleToFloat = 0,
         text_rotation: Incomplete | None = None,
         wrap_text: Incomplete | None = None,
         shrink_to_fit: Incomplete | None = None,

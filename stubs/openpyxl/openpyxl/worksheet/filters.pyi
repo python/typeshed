@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import NoneSet, Set, Typed
+from openpyxl.descriptors.base import MinMax, NoneSet, Set, Typed, _ConvertibleToFloat
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
@@ -182,19 +182,19 @@ class Top10(Serialisable):
 class DateGroupItem(Serialisable):
     tagname: str
     year: Incomplete
-    month: Incomplete
-    day: Incomplete
-    hour: Incomplete
-    minute: Incomplete
+    month: MinMax[float, Literal[True]]
+    day: MinMax[float, Literal[True]]
+    hour: MinMax[float, Literal[True]]
+    minute: MinMax[float, Literal[True]]
     second: Incomplete
     dateTimeGrouping: Set[_DateGroupItemDateTimeGrouping]
     def __init__(
         self,
         year: Incomplete | None,
-        month: Incomplete | None,
-        day: Incomplete | None,
-        hour: Incomplete | None,
-        minute: Incomplete | None,
+        month: _ConvertibleToFloat | None,
+        day: _ConvertibleToFloat | None,
+        hour: _ConvertibleToFloat | None,
+        minute: _ConvertibleToFloat | None,
         second: Incomplete | None,
         dateTimeGrouping: _DateGroupItemDateTimeGrouping,
     ) -> None: ...

@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from typing_extensions import Final, Literal, TypeAlias
 
 from openpyxl.descriptors import Sequence
-from openpyxl.descriptors.base import NoneSet, Set
+from openpyxl.descriptors.base import MinMax, NoneSet, Set, _ConvertibleToFloat
 from openpyxl.descriptors.serialisable import Serialisable
 
 FILL_NONE: Final = "none"
@@ -79,9 +79,9 @@ DEFAULT_GRAY_FILL: Incomplete
 
 class Stop(Serialisable):
     tagname: str
-    position: Incomplete
+    position: MinMax[float, Literal[False]]
     color: Incomplete
-    def __init__(self, color, position) -> None: ...
+    def __init__(self, color, position: _ConvertibleToFloat) -> None: ...
 
 class StopList(Sequence):
     expected_type: Incomplete
