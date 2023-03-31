@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import NoneSet
+from openpyxl.descriptors.base import Bool, NoneSet, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 _SmartTagPropertiesShow: TypeAlias = Literal["all", "noIndicator"]
@@ -23,8 +23,8 @@ class SmartTagList(Serialisable):
 
 class SmartTagProperties(Serialisable):
     tagname: str
-    embed: Incomplete
+    embed: Bool[Literal[True]]
     show: NoneSet[_SmartTagPropertiesShow]
     def __init__(
-        self, embed: Incomplete | None = None, show: _SmartTagPropertiesShow | Literal["none"] | None = None
+        self, embed: _ConvertibleToBool | None = None, show: _SmartTagPropertiesShow | Literal["none"] | None = None
     ) -> None: ...

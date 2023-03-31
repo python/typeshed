@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Bool, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.protection import _Protected
 
@@ -9,14 +11,14 @@ class ChartsheetProtection(Serialisable, _Protected):
     hashValue: Incomplete
     saltValue: Incomplete
     spinCount: Incomplete
-    content: Incomplete
-    objects: Incomplete
+    content: Bool[Literal[True]]
+    objects: Bool[Literal[True]]
     __attrs__: Incomplete
     password: Incomplete
     def __init__(
         self,
-        content: Incomplete | None = None,
-        objects: Incomplete | None = None,
+        content: _ConvertibleToBool | None = None,
+        objects: _ConvertibleToBool | None = None,
         hashValue: Incomplete | None = None,
         spinCount: Incomplete | None = None,
         saltValue: Incomplete | None = None,

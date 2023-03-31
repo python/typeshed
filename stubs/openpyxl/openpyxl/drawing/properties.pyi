@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import NoneSet, Typed
+from openpyxl.descriptors.base import Bool, NoneSet, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.geometry import GroupTransform2D, Scene3D
@@ -28,32 +28,32 @@ class GroupShapeProperties(Serialisable):
 class GroupLocking(Serialisable):
     tagname: str
     namespace: Incomplete
-    noGrp: Incomplete
-    noUngrp: Incomplete
-    noSelect: Incomplete
-    noRot: Incomplete
-    noChangeAspect: Incomplete
-    noMove: Incomplete
-    noResize: Incomplete
-    noChangeArrowheads: Incomplete
-    noEditPoints: Incomplete
-    noAdjustHandles: Incomplete
-    noChangeShapeType: Incomplete
+    noGrp: Bool[Literal[True]]
+    noUngrp: Bool[Literal[True]]
+    noSelect: Bool[Literal[True]]
+    noRot: Bool[Literal[True]]
+    noChangeAspect: Bool[Literal[True]]
+    noMove: Bool[Literal[True]]
+    noResize: Bool[Literal[True]]
+    noChangeArrowheads: Bool[Literal[True]]
+    noEditPoints: Bool[Literal[True]]
+    noAdjustHandles: Bool[Literal[True]]
+    noChangeShapeType: Bool[Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
-        noGrp: Incomplete | None = None,
-        noUngrp: Incomplete | None = None,
-        noSelect: Incomplete | None = None,
-        noRot: Incomplete | None = None,
-        noChangeAspect: Incomplete | None = None,
-        noChangeArrowheads: Incomplete | None = None,
-        noMove: Incomplete | None = None,
-        noResize: Incomplete | None = None,
-        noEditPoints: Incomplete | None = None,
-        noAdjustHandles: Incomplete | None = None,
-        noChangeShapeType: Incomplete | None = None,
+        noGrp: _ConvertibleToBool | None = None,
+        noUngrp: _ConvertibleToBool | None = None,
+        noSelect: _ConvertibleToBool | None = None,
+        noRot: _ConvertibleToBool | None = None,
+        noChangeAspect: _ConvertibleToBool | None = None,
+        noChangeArrowheads: _ConvertibleToBool | None = None,
+        noMove: _ConvertibleToBool | None = None,
+        noResize: _ConvertibleToBool | None = None,
+        noEditPoints: _ConvertibleToBool | None = None,
+        noAdjustHandles: _ConvertibleToBool | None = None,
+        noChangeShapeType: _ConvertibleToBool | None = None,
         extLst: Unused = None,
     ) -> None: ...
 
@@ -67,18 +67,20 @@ class NonVisualGroupDrawingShapeProps(Serialisable):
 class NonVisualDrawingShapeProps(Serialisable):
     tagname: str
     spLocks: Typed[GroupLocking, Literal[True]]
-    txBax: Incomplete
+    txBax: Bool[Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     txBox: Incomplete
-    def __init__(self, spLocks: Incomplete | None = None, txBox: Incomplete | None = None, extLst: Unused = None) -> None: ...
+    def __init__(
+        self, spLocks: Incomplete | None = None, txBox: _ConvertibleToBool | None = None, extLst: Unused = None
+    ) -> None: ...
 
 class NonVisualDrawingProps(Serialisable):
     tagname: str
     id: Incomplete
     name: Incomplete
     descr: Incomplete
-    hidden: Incomplete
+    hidden: Bool[Literal[True]]
     title: Incomplete
     hlinkClick: Typed[Hyperlink, Literal[True]]
     hlinkHover: Typed[Hyperlink, Literal[True]]
@@ -89,7 +91,7 @@ class NonVisualDrawingProps(Serialisable):
         id: Incomplete | None = None,
         name: Incomplete | None = None,
         descr: Incomplete | None = None,
-        hidden: Incomplete | None = None,
+        hidden: _ConvertibleToBool | None = None,
         title: Incomplete | None = None,
         hlinkClick: Hyperlink | None = None,
         hlinkHover: Hyperlink | None = None,

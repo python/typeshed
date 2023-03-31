@@ -4,6 +4,7 @@ from typing_extensions import Literal
 from openpyxl.chart.shapes import GraphicalProperties
 from openpyxl.chart.text import RichText
 from openpyxl.descriptors import Typed
+from openpyxl.descriptors.base import Bool, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.geometry import ShapeStyle
@@ -43,14 +44,14 @@ class ConnectorShape(Serialisable):
     spPr: Typed[GraphicalProperties, Literal[False]]
     style: Typed[ShapeStyle, Literal[True]]
     macro: Incomplete
-    fPublished: Incomplete
+    fPublished: Bool[Literal[True]]
     def __init__(
         self,
         nvCxnSpPr: ConnectorNonVisual,
         spPr: GraphicalProperties,
         style: ShapeStyle | None = None,
         macro: Incomplete | None = None,
-        fPublished: Incomplete | None = None,
+        fPublished: _ConvertibleToBool | None = None,
     ) -> None: ...
 
 class ShapeMeta(Serialisable):
@@ -62,8 +63,8 @@ class ShapeMeta(Serialisable):
 class Shape(Serialisable):
     macro: Incomplete
     textlink: Incomplete
-    fPublished: Incomplete
-    fLocksText: Incomplete
+    fPublished: Bool[Literal[True]]
+    fLocksText: Bool[Literal[True]]
     nvSpPr: Typed[ShapeMeta, Literal[True]]
     meta: Incomplete
     spPr: Typed[GraphicalProperties, Literal[False]]
@@ -74,8 +75,8 @@ class Shape(Serialisable):
         self,
         macro: Incomplete | None,
         textlink: Incomplete | None,
-        fPublished: Incomplete | None,
-        fLocksText: Incomplete | None,
+        fPublished: _ConvertibleToBool | None,
+        fLocksText: _ConvertibleToBool | None,
         nvSpPr: ShapeMeta | None,
         spPr: GraphicalProperties,
         style: ShapeStyle | None = None,

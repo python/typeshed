@@ -15,10 +15,12 @@ _N = TypeVar("_N", bound=bool)
 _L = TypeVar("_L", bound=Sized)
 _M = TypeVar("_M", int, float)
 
+_ExpectedTypeParam: TypeAlias = type[_T] | tuple[type[_T], ...]
 _ConvertibleToMultiCellRange: TypeAlias = MultiCellRange | str | Iterable[CellRange]
 _ConvertibleToInt: TypeAlias = int | str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc
 _ConvertibleToFloat: TypeAlias = float | SupportsFloat | SupportsIndex | str | ReadableBuffer
-_ExpectedTypeParam: TypeAlias = type[_T] | tuple[type[_T], ...]
+# Since everything is convertible to a bool, this restricts to only intended expected types, allowing None restrictions
+_ConvertibleToBool: TypeAlias = bool | str | int
 
 class Descriptor(Generic[_T]):
     name: str | None
@@ -97,8 +99,6 @@ class Convertible(Typed[_T, _N]):
     # bool
     @overload
     def __set__(self: Convertible[bool, Literal[True]], instance: Serialisable, value: _ConvertibleToBool | None) -> None: ...
-    @overload
-    def __set__(self: Convertible[bool, Literal[False]], instance: Serialisable, value: _ConvertibleToBool) -> None: ...
     # int
     @overload
     def __set__(self: Convertible[int, Literal[True]], instance: Serialisable, value: _ConvertibleToInt | None) -> None: ...
@@ -235,9 +235,17 @@ class Integer(Convertible):
 class Float(Convertible):
     expected_type: Incomplete
 
-class Bool(Convertible):
-    expected_type: Incomplete
-    def __set__(self, instance: Serialisable, value) -> None: ...
+class Bool(Convertible[bool, _N]):
+    expected_type: type[bool]
+    allow_none: _N
+    @overload
+    def __init__(self: Bool[Literal[True]], name: str | None = None, *, allow_none: Literal[True]) -> None: ...
+    @overload
+    def __init__(self: Bool[Literal[False]], name: str | None = None, *, allow_none: Literal[False] = False) -> None: ...
+    @overload  # type:ignore[override]  # Different restrictions
+    def __set__(self: Bool[Literal[True]], instance: Serialisable, value: _ConvertibleToBool | None) -> None: ...
+    @overload
+    def __set__(self: Bool[Literal[False]], instance: Serialisable, value: _ConvertibleToBool) -> None: ...
 
 class String(Typed):
     expected_type: type[str]

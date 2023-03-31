@@ -1,22 +1,22 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Convertible, _ConvertibleToMultiCellRange
+from openpyxl.descriptors.base import Bool, Convertible, _ConvertibleToBool, _ConvertibleToMultiCellRange
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.cell_range import MultiCellRange
 
 class InputCells(Serialisable):
     tagname: str
     r: Incomplete
-    deleted: Incomplete
-    undone: Incomplete
+    deleted: Bool[Literal[True]]
+    undone: Bool[Literal[True]]
     val: Incomplete
     numFmtId: Incomplete
     def __init__(
         self,
         r: Incomplete | None = None,
-        deleted: bool = False,
-        undone: bool = False,
+        deleted: _ConvertibleToBool | None = False,
+        undone: _ConvertibleToBool | None = False,
         val: Incomplete | None = None,
         numFmtId: Incomplete | None = None,
     ) -> None: ...
@@ -25,8 +25,8 @@ class Scenario(Serialisable):
     tagname: str
     inputCells: Incomplete
     name: Incomplete
-    locked: Incomplete
-    hidden: Incomplete
+    locked: Bool[Literal[True]]
+    hidden: Bool[Literal[True]]
     user: Incomplete
     comment: Incomplete
     __elements__: Incomplete
@@ -35,8 +35,8 @@ class Scenario(Serialisable):
         self,
         inputCells=(),
         name: Incomplete | None = None,
-        locked: bool = False,
-        hidden: bool = False,
+        locked: _ConvertibleToBool | None = False,
+        hidden: _ConvertibleToBool | None = False,
         count: Incomplete | None = None,
         user: Incomplete | None = None,
         comment: Incomplete | None = None,

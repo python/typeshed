@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import NoneSet, Typed
+from openpyxl.descriptors.base import Bool, NoneSet, Typed, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.connector import Shape
 from openpyxl.drawing.graphic import GraphicFrame, GroupShape
@@ -11,9 +11,11 @@ from openpyxl.drawing.xdr import XDRPoint2D, XDRPositiveSize2D
 _TwoCellAnchorEditAs: TypeAlias = Literal["twoCell", "oneCell", "absolute"]
 
 class AnchorClientData(Serialisable):
-    fLocksWithSheet: Incomplete
-    fPrintsWithSheet: Incomplete
-    def __init__(self, fLocksWithSheet: Incomplete | None = None, fPrintsWithSheet: Incomplete | None = None) -> None: ...
+    fLocksWithSheet: Bool[Literal[True]]
+    fPrintsWithSheet: Bool[Literal[True]]
+    def __init__(
+        self, fLocksWithSheet: _ConvertibleToBool | None = None, fPrintsWithSheet: _ConvertibleToBool | None = None
+    ) -> None: ...
 
 class AnchorMarker(Serialisable):
     tagname: str

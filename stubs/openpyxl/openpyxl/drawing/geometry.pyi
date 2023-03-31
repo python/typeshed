@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import MinMax, NoneSet, Set, Typed, _ConvertibleToFloat
+from openpyxl.descriptors.base import Bool, MinMax, NoneSet, Set, Typed, _ConvertibleToBool, _ConvertibleToFloat
 from openpyxl.descriptors.excel import Coordinate, ExtensionList, Percentage
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.colors import Color
@@ -343,8 +343,8 @@ class Transform2D(Serialisable):
     tagname: str
     namespace: Incomplete
     rot: Incomplete
-    flipH: Incomplete
-    flipV: Incomplete
+    flipH: Bool[Literal[True]]
+    flipV: Bool[Literal[True]]
     off: Typed[Point2D, Literal[True]]
     ext: Typed[PositiveSize2D, Literal[True]]
     chOff: Typed[Point2D, Literal[True]]
@@ -353,8 +353,8 @@ class Transform2D(Serialisable):
     def __init__(
         self,
         rot: Incomplete | None = None,
-        flipH: Incomplete | None = None,
-        flipV: Incomplete | None = None,
+        flipH: _ConvertibleToBool | None = None,
+        flipV: _ConvertibleToBool | None = None,
         off: Point2D | None = None,
         ext: PositiveSize2D | None = None,
         chOff: Point2D | None = None,
@@ -365,8 +365,8 @@ class GroupTransform2D(Serialisable):
     tagname: str
     namespace: Incomplete
     rot: Incomplete
-    flipH: Incomplete
-    flipV: Incomplete
+    flipH: Bool[Literal[True]]
+    flipV: Bool[Literal[True]]
     off = Typed(expected_type=Point2D, allow_none=True)
     ext = Typed(expected_type=PositiveSize2D, allow_none=True)
     chOff = Typed(expected_type=Point2D, allow_none=True)
@@ -375,8 +375,8 @@ class GroupTransform2D(Serialisable):
     def __init__(
         self,
         rot: int = 0,
-        flipH: Incomplete | None = None,
-        flipV: Incomplete | None = None,
+        flipH: _ConvertibleToBool | None = None,
+        flipV: _ConvertibleToBool | None = None,
         off: Point2D | None = None,
         ext: PositiveSize2D | None = None,
         chOff: Point2D | None = None,
@@ -474,15 +474,15 @@ class Path2D(Serialisable):
     w: Incomplete
     h: Incomplete
     fill: NoneSet[_Path2DFill]
-    stroke: Incomplete
-    extrusionOk: Incomplete
+    stroke: Bool[Literal[True]]
+    extrusionOk: Bool[Literal[True]]
     def __init__(
         self,
         w: Incomplete | None = None,
         h: Incomplete | None = None,
         fill: _Path2DFill | Literal["none"] | None = None,
-        stroke: Incomplete | None = None,
-        extrusionOk: Incomplete | None = None,
+        stroke: _ConvertibleToBool | None = None,
+        extrusionOk: _ConvertibleToBool | None = None,
     ) -> None: ...
 
 class Path2DList(Serialisable):

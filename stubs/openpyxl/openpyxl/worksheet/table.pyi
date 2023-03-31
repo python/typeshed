@@ -2,7 +2,7 @@ from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors import String
-from openpyxl.descriptors.base import NoneSet, Typed
+from openpyxl.descriptors.base import Bool, NoneSet, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.filters import AutoFilter, SortState
@@ -18,24 +18,24 @@ PIVOTSTYLES: Incomplete
 class TableStyleInfo(Serialisable):
     tagname: str
     name: Incomplete
-    showFirstColumn: Incomplete
-    showLastColumn: Incomplete
-    showRowStripes: Incomplete
-    showColumnStripes: Incomplete
+    showFirstColumn: Bool[Literal[True]]
+    showLastColumn: Bool[Literal[True]]
+    showRowStripes: Bool[Literal[True]]
+    showColumnStripes: Bool[Literal[True]]
     def __init__(
         self,
         name: Incomplete | None = None,
-        showFirstColumn: Incomplete | None = None,
-        showLastColumn: Incomplete | None = None,
-        showRowStripes: Incomplete | None = None,
-        showColumnStripes: Incomplete | None = None,
+        showFirstColumn: _ConvertibleToBool | None = None,
+        showLastColumn: _ConvertibleToBool | None = None,
+        showRowStripes: _ConvertibleToBool | None = None,
+        showColumnStripes: _ConvertibleToBool | None = None,
     ) -> None: ...
 
 class XMLColumnProps(Serialisable):
     tagname: str
     mapId: Incomplete
     xpath: Incomplete
-    denormalized: Incomplete
+    denormalized: Bool[Literal[True]]
     xmlDataType: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
@@ -43,17 +43,17 @@ class XMLColumnProps(Serialisable):
         self,
         mapId: Incomplete | None = None,
         xpath: Incomplete | None = None,
-        denormalized: Incomplete | None = None,
+        denormalized: _ConvertibleToBool | None = None,
         xmlDataType: Incomplete | None = None,
         extLst: Unused = None,
     ) -> None: ...
 
 class TableFormula(Serialisable):
     tagname: str
-    array: Incomplete
+    array: Bool[Literal[True]]
     attr_text: Incomplete
     text: Incomplete
-    def __init__(self, array: Incomplete | None = None, attr_text: Incomplete | None = None) -> None: ...
+    def __init__(self, array: _ConvertibleToBool | None = None, attr_text: Incomplete | None = None) -> None: ...
 
 class TableColumn(Serialisable):
     tagname: str
@@ -110,11 +110,11 @@ class Table(Serialisable):
     ref: Incomplete
     tableType: NoneSet[_TableTableType]
     headerRowCount: Incomplete
-    insertRow: Incomplete
-    insertRowShift: Incomplete
+    insertRow: Bool[Literal[True]]
+    insertRowShift: Bool[Literal[True]]
     totalsRowCount: Incomplete
-    totalsRowShown: Incomplete
-    published: Incomplete
+    totalsRowShown: Bool[Literal[True]]
+    published: Bool[Literal[True]]
     headerRowDxfId: Incomplete
     dataDxfId: Incomplete
     totalsRowDxfId: Incomplete
@@ -140,11 +140,11 @@ class Table(Serialisable):
         comment: Incomplete | None = None,
         tableType: _TableTableType | Literal["none"] | None = None,
         headerRowCount: int = 1,
-        insertRow: Incomplete | None = None,
-        insertRowShift: Incomplete | None = None,
+        insertRow: _ConvertibleToBool | None = None,
+        insertRowShift: _ConvertibleToBool | None = None,
         totalsRowCount: Incomplete | None = None,
-        totalsRowShown: Incomplete | None = None,
-        published: Incomplete | None = None,
+        totalsRowShown: _ConvertibleToBool | None = None,
+        published: _ConvertibleToBool | None = None,
         headerRowDxfId: Incomplete | None = None,
         dataDxfId: Incomplete | None = None,
         totalsRowDxfId: Incomplete | None = None,

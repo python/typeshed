@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Bool, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.alignment import Alignment
@@ -18,7 +18,7 @@ class NamedStyle(Serialisable):
     number_format: Incomplete
     protection: Typed[Protection, Literal[False]]
     builtinId: Incomplete
-    hidden: Incomplete
+    hidden: Bool[Literal[True]]
     # Overwritten by property below
     # xfId: Integer
     name: Incomplete
@@ -32,8 +32,8 @@ class NamedStyle(Serialisable):
         number_format: Incomplete | None = None,
         protection: Protection | None = None,
         builtinId: Incomplete | None = None,
-        hidden: bool = False,
-        xfId: Incomplete | None = None,
+        hidden: _ConvertibleToBool | None = False,
+        xfId: Unused = None,
     ) -> None: ...
     def __setattr__(self, attr: str, value) -> None: ...
     def __iter__(self): ...
@@ -56,8 +56,8 @@ class _NamedCellStyle(Serialisable):
     xfId: Incomplete
     builtinId: Incomplete
     iLevel: Incomplete
-    hidden: Incomplete
-    customBuiltin: Incomplete
+    hidden: Bool[Literal[True]]
+    customBuiltin: Bool[Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
@@ -66,8 +66,8 @@ class _NamedCellStyle(Serialisable):
         xfId: Incomplete | None = None,
         builtinId: Incomplete | None = None,
         iLevel: Incomplete | None = None,
-        hidden: Incomplete | None = None,
-        customBuiltin: Incomplete | None = None,
+        hidden: _ConvertibleToBool | None = None,
+        customBuiltin: _ConvertibleToBool | None = None,
         extLst: Unused = None,
     ) -> None: ...
 

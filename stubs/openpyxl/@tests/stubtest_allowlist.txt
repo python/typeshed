@@ -24,6 +24,7 @@ openpyxl.descriptors\.(base\.)?Max.allow_none
 openpyxl.descriptors\.(base\.)?Min.allow_none
 openpyxl.descriptors\.(base\.)?MinMax.allow_none
 openpyxl.descriptors\.(base\.)?nested.NestedMinMax.allow_none
+openpyxl.descriptors\.(base\.)?Bool.allow_none
 
 # "has a default value but stub argument does not"
 # Runtime has default arguments that would fail

@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Bool, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 class WorkbookProtection(Serialisable):
@@ -8,11 +10,11 @@ class WorkbookProtection(Serialisable):
     workbookPasswordCharacterSet: Incomplete
     revision_password: Incomplete
     revisionsPasswordCharacterSet: Incomplete
-    lockStructure: Incomplete
+    lockStructure: Bool[Literal[True]]
     lock_structure: Incomplete
-    lockWindows: Incomplete
+    lockWindows: Bool[Literal[True]]
     lock_windows: Incomplete
-    lockRevision: Incomplete
+    lockRevision: Bool[Literal[True]]
     lock_revision: Incomplete
     revisionsAlgorithmName: Incomplete
     revisionsHashValue: Incomplete
@@ -29,9 +31,9 @@ class WorkbookProtection(Serialisable):
         workbookPasswordCharacterSet: Incomplete | None = None,
         revisionsPassword: Incomplete | None = None,
         revisionsPasswordCharacterSet: Incomplete | None = None,
-        lockStructure: Incomplete | None = None,
-        lockWindows: Incomplete | None = None,
-        lockRevision: Incomplete | None = None,
+        lockStructure: _ConvertibleToBool | None = None,
+        lockWindows: _ConvertibleToBool | None = None,
+        lockRevision: _ConvertibleToBool | None = None,
         revisionsAlgorithmName: Incomplete | None = None,
         revisionsHashValue: Incomplete | None = None,
         revisionsSaltValue: Incomplete | None = None,
@@ -58,7 +60,7 @@ DocumentSecurity = WorkbookProtection
 
 class FileSharing(Serialisable):
     tagname: str
-    readOnlyRecommended: Incomplete
+    readOnlyRecommended: Bool[Literal[True]]
     userName: Incomplete
     reservationPassword: Incomplete
     algorithmName: Incomplete
@@ -67,7 +69,7 @@ class FileSharing(Serialisable):
     spinCount: Incomplete
     def __init__(
         self,
-        readOnlyRecommended: Incomplete | None = None,
+        readOnlyRecommended: _ConvertibleToBool | None = None,
         userName: Incomplete | None = None,
         reservationPassword: Incomplete | None = None,
         algorithmName: Incomplete | None = None,

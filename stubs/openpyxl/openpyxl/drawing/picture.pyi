@@ -2,7 +2,7 @@ from _typeshed import Incomplete, Unused
 from typing_extensions import Literal
 
 from openpyxl.chart.shapes import GraphicalProperties
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Bool, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.fill import BlipFillProperties
@@ -12,43 +12,43 @@ from openpyxl.drawing.properties import NonVisualDrawingProps
 class PictureLocking(Serialisable):
     tagname: str
     namespace: Incomplete
-    noCrop: Incomplete
-    noGrp: Incomplete
-    noSelect: Incomplete
-    noRot: Incomplete
-    noChangeAspect: Incomplete
-    noMove: Incomplete
-    noResize: Incomplete
-    noEditPoints: Incomplete
-    noAdjustHandles: Incomplete
-    noChangeArrowheads: Incomplete
-    noChangeShapeType: Incomplete
+    noCrop: Bool[Literal[True]]
+    noGrp: Bool[Literal[True]]
+    noSelect: Bool[Literal[True]]
+    noRot: Bool[Literal[True]]
+    noChangeAspect: Bool[Literal[True]]
+    noMove: Bool[Literal[True]]
+    noResize: Bool[Literal[True]]
+    noEditPoints: Bool[Literal[True]]
+    noAdjustHandles: Bool[Literal[True]]
+    noChangeArrowheads: Bool[Literal[True]]
+    noChangeShapeType: Bool[Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
-        noCrop: Incomplete | None = None,
-        noGrp: Incomplete | None = None,
-        noSelect: Incomplete | None = None,
-        noRot: Incomplete | None = None,
-        noChangeAspect: Incomplete | None = None,
-        noMove: Incomplete | None = None,
-        noResize: Incomplete | None = None,
-        noEditPoints: Incomplete | None = None,
-        noAdjustHandles: Incomplete | None = None,
-        noChangeArrowheads: Incomplete | None = None,
-        noChangeShapeType: Incomplete | None = None,
+        noCrop: _ConvertibleToBool | None = None,
+        noGrp: _ConvertibleToBool | None = None,
+        noSelect: _ConvertibleToBool | None = None,
+        noRot: _ConvertibleToBool | None = None,
+        noChangeAspect: _ConvertibleToBool | None = None,
+        noMove: _ConvertibleToBool | None = None,
+        noResize: _ConvertibleToBool | None = None,
+        noEditPoints: _ConvertibleToBool | None = None,
+        noAdjustHandles: _ConvertibleToBool | None = None,
+        noChangeArrowheads: _ConvertibleToBool | None = None,
+        noChangeShapeType: _ConvertibleToBool | None = None,
         extLst: Unused = None,
     ) -> None: ...
 
 class NonVisualPictureProperties(Serialisable):
     tagname: str
-    preferRelativeResize: Incomplete
+    preferRelativeResize: Bool[Literal[True]]
     picLocks: Typed[PictureLocking, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
-        self, preferRelativeResize: Incomplete | None = None, picLocks: Incomplete | None = None, extLst: Unused = None
+        self, preferRelativeResize: _ConvertibleToBool | None = None, picLocks: Incomplete | None = None, extLst: Unused = None
     ) -> None: ...
 
 class PictureNonVisual(Serialisable):
@@ -63,7 +63,7 @@ class PictureNonVisual(Serialisable):
 class PictureFrame(Serialisable):
     tagname: str
     macro: Incomplete
-    fPublished: Incomplete
+    fPublished: Bool[Literal[True]]
     nvPicPr: Typed[PictureNonVisual, Literal[False]]
     blipFill: Typed[BlipFillProperties, Literal[False]]
     spPr: Typed[GraphicalProperties, Literal[False]]
@@ -73,7 +73,7 @@ class PictureFrame(Serialisable):
     def __init__(
         self,
         macro: Incomplete | None = None,
-        fPublished: Incomplete | None = None,
+        fPublished: _ConvertibleToBool | None = None,
         nvPicPr: PictureNonVisual | None = None,
         blipFill: BlipFillProperties | None = None,
         spPr: GraphicalProperties | None = None,

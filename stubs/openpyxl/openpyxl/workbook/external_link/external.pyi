@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import NoneSet, Typed
+from openpyxl.descriptors.base import Bool, NoneSet, Typed, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.packaging.relationship import Relationship
 
@@ -28,10 +28,10 @@ class ExternalRow(Serialisable):
 
 class ExternalSheetData(Serialisable):
     sheetId: Incomplete
-    refreshError: Incomplete
+    refreshError: Bool[Literal[True]]
     row: Incomplete
     __elements__: Incomplete
-    def __init__(self, sheetId: Incomplete | None = None, refreshError: Incomplete | None = None, row=()) -> None: ...
+    def __init__(self, sheetId: Incomplete | None = None, refreshError: _ConvertibleToBool | None = None, row=()) -> None: ...
 
 class ExternalSheetDataSet(Serialisable):
     sheetData: Incomplete

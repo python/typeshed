@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from typing_extensions import Literal
 
 from openpyxl.descriptors import Strict
-from openpyxl.descriptors.base import MatchPattern, Typed
+from openpyxl.descriptors.base import Bool, MatchPattern, Typed, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 FONT_PATTERN: str
@@ -45,10 +45,10 @@ class HeaderFooterItem(Strict):
 
 class HeaderFooter(Serialisable):
     tagname: str
-    differentOddEven: Incomplete
-    differentFirst: Incomplete
-    scaleWithDoc: Incomplete
-    alignWithMargins: Incomplete
+    differentOddEven: Bool[Literal[True]]
+    differentFirst: Bool[Literal[True]]
+    scaleWithDoc: Bool[Literal[True]]
+    alignWithMargins: Bool[Literal[True]]
     oddHeader: Typed[HeaderFooterItem, Literal[True]]
     oddFooter: Typed[HeaderFooterItem, Literal[True]]
     evenHeader: Typed[HeaderFooterItem, Literal[True]]
@@ -58,10 +58,10 @@ class HeaderFooter(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        differentOddEven: Incomplete | None = None,
-        differentFirst: Incomplete | None = None,
-        scaleWithDoc: Incomplete | None = None,
-        alignWithMargins: Incomplete | None = None,
+        differentOddEven: _ConvertibleToBool | None = None,
+        differentFirst: _ConvertibleToBool | None = None,
+        scaleWithDoc: _ConvertibleToBool | None = None,
+        alignWithMargins: _ConvertibleToBool | None = None,
         oddHeader: HeaderFooterItem | None = None,
         oddFooter: HeaderFooterItem | None = None,
         evenHeader: HeaderFooterItem | None = None,

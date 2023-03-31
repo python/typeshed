@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import NoneSet, Typed
+from openpyxl.descriptors.base import Bool, NoneSet, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.workbook.defined_name import DefinedNameList
@@ -16,16 +16,16 @@ _WorkbookPackageConformance: TypeAlias = Literal["strict", "transitional"]
 
 class FileRecoveryProperties(Serialisable):
     tagname: str
-    autoRecover: Incomplete
-    crashSave: Incomplete
-    dataExtractLoad: Incomplete
-    repairLoad: Incomplete
+    autoRecover: Bool[Literal[True]]
+    crashSave: Bool[Literal[True]]
+    dataExtractLoad: Bool[Literal[True]]
+    repairLoad: Bool[Literal[True]]
     def __init__(
         self,
-        autoRecover: Incomplete | None = None,
-        crashSave: Incomplete | None = None,
-        dataExtractLoad: Incomplete | None = None,
-        repairLoad: Incomplete | None = None,
+        autoRecover: _ConvertibleToBool | None = None,
+        crashSave: _ConvertibleToBool | None = None,
+        dataExtractLoad: _ConvertibleToBool | None = None,
+        repairLoad: _ConvertibleToBool | None = None,
     ) -> None: ...
 
 class ChildSheet(Serialisable):

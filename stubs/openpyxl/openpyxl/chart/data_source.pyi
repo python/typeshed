@@ -2,15 +2,15 @@ from _typeshed import Incomplete, Unused
 from typing import NoReturn, overload
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Bool, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.nested import NestedText
 from openpyxl.descriptors.serialisable import Serialisable
 
 class NumFmt(Serialisable):
     formatCode: Incomplete
-    sourceLinked: Incomplete
-    def __init__(self, formatCode: Incomplete | None = None, sourceLinked: bool = False) -> None: ...
+    sourceLinked: Bool[Literal[False]]
+    def __init__(self, formatCode: Incomplete | None = None, sourceLinked: _ConvertibleToBool = False) -> None: ...
 
 class NumberValueDescriptor(NestedText):
     allow_none: bool

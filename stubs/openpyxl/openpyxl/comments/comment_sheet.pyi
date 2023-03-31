@@ -4,48 +4,49 @@ from typing_extensions import Literal, TypeAlias
 
 from openpyxl.cell.text import Text
 from openpyxl.comments.author import AuthorList
-from openpyxl.descriptors.base import Set, Typed
+from openpyxl.descriptors.base import Bool, Set, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.worksheet.ole import ObjectAnchor
 
 _PropertiesTextHAlign: TypeAlias = Literal["left", "center", "right", "justify", "distributed"]
 _PropertiesTextVAlign: TypeAlias = Literal["top", "center", "bottom", "justify", "distributed"]
 
 class Properties(Serialisable):
-    locked: Incomplete
-    defaultSize: Incomplete
-    disabled: Incomplete
-    uiObject: Incomplete
-    autoFill: Incomplete
-    autoLine: Incomplete
+    locked: Bool[Literal[True]]
+    defaultSize: Bool[Literal[True]]
+    disabled: Bool[Literal[True]]
+    uiObject: Bool[Literal[True]]
+    autoFill: Bool[Literal[True]]
+    autoLine: Bool[Literal[True]]
     altText: Incomplete
     textHAlign: Set[_PropertiesTextHAlign]
     textVAlign: Set[_PropertiesTextVAlign]
-    lockText: Incomplete
-    justLastX: Incomplete
-    autoScale: Incomplete
-    rowHidden: Incomplete
-    colHidden: Incomplete
+    lockText: Bool[Literal[True]]
+    justLastX: Bool[Literal[True]]
+    autoScale: Bool[Literal[True]]
+    rowHidden: Bool[Literal[True]]
+    colHidden: Bool[Literal[True]]
     __elements__: Incomplete
-    anchor: Incomplete
+    anchor: ObjectAnchor | None
     def __init__(
         self,
-        locked: Incomplete | None,
-        defaultSize: Incomplete | None,
-        _print: Incomplete | None,
-        disabled: Incomplete | None,
-        uiObject: Incomplete | None,
-        autoFill: Incomplete | None,
-        autoLine: Incomplete | None,
+        locked: _ConvertibleToBool | None,
+        defaultSize: _ConvertibleToBool | None,
+        _print: _ConvertibleToBool | None,
+        disabled: _ConvertibleToBool | None,
+        uiObject: _ConvertibleToBool | None,
+        autoFill: _ConvertibleToBool | None,
+        autoLine: _ConvertibleToBool | None,
         altText: Incomplete | None,
         textHAlign: _PropertiesTextHAlign,
         textVAlign: _PropertiesTextVAlign,
-        lockText: Incomplete | None = None,
-        justLastX: Incomplete | None = None,
-        autoScale: Incomplete | None = None,
-        rowHidden: Incomplete | None = None,
-        colHidden: Incomplete | None = None,
-        anchor: Incomplete | None = None,
+        lockText: _ConvertibleToBool | None = None,
+        justLastX: _ConvertibleToBool | None = None,
+        autoScale: _ConvertibleToBool | None = None,
+        rowHidden: _ConvertibleToBool | None = None,
+        colHidden: _ConvertibleToBool | None = None,
+        anchor: ObjectAnchor | None = None,
     ) -> None: ...
 
 class CommentRecord(Serialisable):

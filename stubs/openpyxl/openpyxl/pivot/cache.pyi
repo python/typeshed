@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Set, Typed
+from openpyxl.descriptors.base import Bool, Set, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.pivot.fields import Error, Missing, Number, Text, TupleList
@@ -24,13 +24,13 @@ class MeasureGroup(Serialisable):
 
 class PivotDimension(Serialisable):
     tagname: str
-    measure: Incomplete
+    measure: Bool[Literal[False]]
     name: Incomplete
     uniqueName: Incomplete
     caption: Incomplete
     def __init__(
         self,
-        measure: Incomplete | None = None,
+        measure: _ConvertibleToBool,
         name: Incomplete | None = None,
         uniqueName: Incomplete | None = None,
         caption: Incomplete | None = None,
@@ -44,18 +44,18 @@ class CalculatedMember(Serialisable):
     hierarchy: Incomplete
     parent: Incomplete
     solveOrder: Incomplete
-    set: Incomplete
+    set: Bool[Literal[False]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
-        name: Incomplete | None = None,
-        mdx: Incomplete | None = None,
-        memberName: Incomplete | None = None,
-        hierarchy: Incomplete | None = None,
-        parent: Incomplete | None = None,
-        solveOrder: Incomplete | None = None,
-        set: Incomplete | None = None,
+        name: Incomplete | None,
+        mdx: Incomplete | None,
+        memberName: Incomplete | None,
+        hierarchy: Incomplete | None,
+        parent: Incomplete | None,
+        solveOrder: Incomplete | None,
+        set: _ConvertibleToBool,
         extLst: ExtensionList | None = None,
     ) -> None: ...
 
@@ -105,17 +105,17 @@ class OLAPSet(Serialisable):
     maxRank: Incomplete
     setDefinition: Incomplete
     sortType: Incomplete
-    queryFailed: Incomplete
+    queryFailed: Bool[Literal[False]]
     tpls: Typed[TupleList, Literal[True]]
     sortByTuple: Typed[TupleList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
-        count: Incomplete | None = None,
-        maxRank: Incomplete | None = None,
-        setDefinition: Incomplete | None = None,
-        sortType: Incomplete | None = None,
-        queryFailed: Incomplete | None = None,
+        count: Incomplete | None,
+        maxRank: Incomplete | None,
+        setDefinition: Incomplete | None,
+        sortType: Incomplete | None,
+        queryFailed: _ConvertibleToBool,
         tpls: TupleList | None = None,
         sortByTuple: TupleList | None = None,
     ) -> None: ...
@@ -184,8 +184,8 @@ class PCDKPI(Serialisable):
 class GroupMember(Serialisable):
     tagname: str
     uniqueName: Incomplete
-    group: Incomplete
-    def __init__(self, uniqueName: Incomplete | None = None, group: Incomplete | None = None) -> None: ...
+    group: Bool[Literal[False]]
+    def __init__(self, uniqueName: Incomplete | None, group: _ConvertibleToBool) -> None: ...
 
 class GroupMembers(Serialisable):
     count: Incomplete
@@ -223,17 +223,17 @@ class GroupLevel(Serialisable):
     tagname: str
     uniqueName: Incomplete
     caption: Incomplete
-    user: Incomplete
-    customRollUp: Incomplete
+    user: Bool[Literal[False]]
+    customRollUp: Bool[Literal[False]]
     groups: Typed[Groups, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
-        uniqueName: Incomplete | None = None,
-        caption: Incomplete | None = None,
-        user: Incomplete | None = None,
-        customRollUp: Incomplete | None = None,
+        uniqueName: Incomplete | None,
+        caption: Incomplete | None,
+        user: _ConvertibleToBool,
+        customRollUp: _ConvertibleToBool,
         groups: Groups | None = None,
         extLst: ExtensionList | None = None,
     ) -> None: ...
@@ -259,54 +259,54 @@ class CacheHierarchy(Serialisable):
     tagname: str
     uniqueName: Incomplete
     caption: Incomplete
-    measure: Incomplete
-    set: Incomplete
+    measure: Bool[Literal[False]]
+    set: Bool[Literal[False]]
     parentSet: Incomplete
     iconSet: Incomplete
-    attribute: Incomplete
-    time: Incomplete
-    keyAttribute: Incomplete
+    attribute: Bool[Literal[False]]
+    time: Bool[Literal[False]]
+    keyAttribute: Bool[Literal[False]]
     defaultMemberUniqueName: Incomplete
     allUniqueName: Incomplete
     allCaption: Incomplete
     dimensionUniqueName: Incomplete
     displayFolder: Incomplete
     measureGroup: Incomplete
-    measures: Incomplete
+    measures: Bool[Literal[False]]
     count: Incomplete
-    oneField: Incomplete
+    oneField: Bool[Literal[False]]
     memberValueDatatype: Incomplete
-    unbalanced: Incomplete
-    unbalancedGroup: Incomplete
-    hidden: Incomplete
+    unbalanced: Bool[Literal[True]]
+    unbalancedGroup: Bool[Literal[True]]
+    hidden: Bool[Literal[False]]
     fieldsUsage: Typed[FieldsUsage, Literal[True]]
     groupLevels: Typed[GroupLevels, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
-        uniqueName: str = "",
-        caption: Incomplete | None = None,
-        measure: Incomplete | None = None,
-        set: Incomplete | None = None,
-        parentSet: Incomplete | None = None,
-        iconSet: int = 0,
-        attribute: Incomplete | None = None,
-        time: Incomplete | None = None,
-        keyAttribute: Incomplete | None = None,
-        defaultMemberUniqueName: Incomplete | None = None,
-        allUniqueName: Incomplete | None = None,
-        allCaption: Incomplete | None = None,
-        dimensionUniqueName: Incomplete | None = None,
-        displayFolder: Incomplete | None = None,
-        measureGroup: Incomplete | None = None,
-        measures: Incomplete | None = None,
-        count: Incomplete | None = None,
-        oneField: Incomplete | None = None,
-        memberValueDatatype: Incomplete | None = None,
-        unbalanced: Incomplete | None = None,
-        unbalancedGroup: Incomplete | None = None,
-        hidden: Incomplete | None = None,
+        uniqueName: str,
+        caption: Incomplete | None,
+        measure: _ConvertibleToBool,
+        set: _ConvertibleToBool,
+        parentSet: Incomplete | None,
+        iconSet: int,
+        attribute: _ConvertibleToBool,
+        time: _ConvertibleToBool,
+        keyAttribute: _ConvertibleToBool,
+        defaultMemberUniqueName: Incomplete | None,
+        allUniqueName: Incomplete | None,
+        allCaption: Incomplete | None,
+        dimensionUniqueName: Incomplete | None,
+        displayFolder: Incomplete | None,
+        measureGroup: Incomplete | None,
+        measures: _ConvertibleToBool,
+        count: Incomplete | None,
+        oneField: _ConvertibleToBool,
+        memberValueDatatype: Incomplete | None,
+        unbalanced: _ConvertibleToBool | None,
+        unbalancedGroup: _ConvertibleToBool | None,
+        hidden: _ConvertibleToBool,
         fieldsUsage: FieldsUsage | None = None,
         groupLevels: GroupLevels | None = None,
         extLst: ExtensionList | None = None,
@@ -335,8 +335,8 @@ class DiscretePr(Serialisable):
 
 class RangePr(Serialisable):
     tagname: str
-    autoStart: Incomplete
-    autoEnd: Incomplete
+    autoStart: Bool[Literal[True]]
+    autoEnd: Bool[Literal[True]]
     groupBy: Set[_RangePrGroupBy]
     startNum: Incomplete
     endNum: Incomplete
@@ -345,8 +345,8 @@ class RangePr(Serialisable):
     groupInterval: Incomplete
     def __init__(
         self,
-        autoStart: bool = True,
-        autoEnd: bool = True,
+        autoStart: _ConvertibleToBool | None = True,
+        autoEnd: _ConvertibleToBool | None = True,
         groupBy: _RangePrGroupBy = "range",
         startNum: Incomplete | None = None,
         endNum: Incomplete | None = None,
@@ -380,37 +380,37 @@ class SharedItems(Serialisable):
     e: Incomplete
     s: Incomplete
     d: Incomplete
-    containsSemiMixedTypes: Incomplete
-    containsNonDate: Incomplete
-    containsDate: Incomplete
-    containsString: Incomplete
-    containsBlank: Incomplete
-    containsMixedTypes: Incomplete
-    containsNumber: Incomplete
-    containsInteger: Incomplete
+    containsSemiMixedTypes: Bool[Literal[True]]
+    containsNonDate: Bool[Literal[True]]
+    containsDate: Bool[Literal[True]]
+    containsString: Bool[Literal[True]]
+    containsBlank: Bool[Literal[True]]
+    containsMixedTypes: Bool[Literal[True]]
+    containsNumber: Bool[Literal[True]]
+    containsInteger: Bool[Literal[True]]
     minValue: Incomplete
     maxValue: Incomplete
     minDate: Incomplete
     maxDate: Incomplete
-    longText: Incomplete
+    longText: Bool[Literal[True]]
     __attrs__: Incomplete
     def __init__(
         self,
         _fields=(),
-        containsSemiMixedTypes: Incomplete | None = None,
-        containsNonDate: Incomplete | None = None,
-        containsDate: Incomplete | None = None,
-        containsString: Incomplete | None = None,
-        containsBlank: Incomplete | None = None,
-        containsMixedTypes: Incomplete | None = None,
-        containsNumber: Incomplete | None = None,
-        containsInteger: Incomplete | None = None,
+        containsSemiMixedTypes: _ConvertibleToBool | None = None,
+        containsNonDate: _ConvertibleToBool | None = None,
+        containsDate: _ConvertibleToBool | None = None,
+        containsString: _ConvertibleToBool | None = None,
+        containsBlank: _ConvertibleToBool | None = None,
+        containsMixedTypes: _ConvertibleToBool | None = None,
+        containsNumber: _ConvertibleToBool | None = None,
+        containsInteger: _ConvertibleToBool | None = None,
         minValue: Incomplete | None = None,
         maxValue: Incomplete | None = None,
         minDate: Incomplete | None = None,
         maxDate: Incomplete | None = None,
         count: Incomplete | None = None,
-        longText: Incomplete | None = None,
+        longText: _ConvertibleToBool | None = None,
     ) -> None: ...
     @property
     def count(self): ...
@@ -424,16 +424,16 @@ class CacheField(Serialisable):
     name: Incomplete
     caption: Incomplete
     propertyName: Incomplete
-    serverField: Incomplete
-    uniqueList: Incomplete
+    serverField: Bool[Literal[True]]
+    uniqueList: Bool[Literal[True]]
     numFmtId: Incomplete
     formula: Incomplete
     sqlType: Incomplete
     hierarchy: Incomplete
     level: Incomplete
-    databaseField: Incomplete
+    databaseField: Bool[Literal[True]]
     mappingCount: Incomplete
-    memberPropertyField: Incomplete
+    memberPropertyField: Bool[Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -444,16 +444,16 @@ class CacheField(Serialisable):
         name: Incomplete | None = None,
         caption: Incomplete | None = None,
         propertyName: Incomplete | None = None,
-        serverField: Incomplete | None = None,
-        uniqueList: bool = True,
+        serverField: _ConvertibleToBool | None = None,
+        uniqueList: _ConvertibleToBool | None = True,
         numFmtId: Incomplete | None = None,
         formula: Incomplete | None = None,
         sqlType: int = 0,
         hierarchy: int = 0,
         level: int = 0,
-        databaseField: bool = True,
+        databaseField: _ConvertibleToBool | None = True,
         mappingCount: Incomplete | None = None,
-        memberPropertyField: Incomplete | None = None,
+        memberPropertyField: _ConvertibleToBool | None = None,
     ) -> None: ...
 
 class RangeSet(Serialisable):
@@ -491,11 +491,11 @@ class Page(Serialisable):
 
 class Consolidation(Serialisable):
     tagname: str
-    autoPage: Incomplete
+    autoPage: Bool[Literal[True]]
     pages: Incomplete
     rangeSets: Incomplete
     __elements__: Incomplete
-    def __init__(self, autoPage: Incomplete | None = None, pages=(), rangeSets=()) -> None: ...
+    def __init__(self, autoPage: _ConvertibleToBool | None = None, pages=(), rangeSets=()) -> None: ...
 
 class WorksheetSource(Serialisable):
     tagname: str
@@ -528,24 +528,24 @@ class CacheDefinition(Serialisable):
     rel_type: str
     records: Incomplete
     tagname: str
-    invalid: Incomplete
-    saveData: Incomplete
-    refreshOnLoad: Incomplete
-    optimizeMemory: Incomplete
-    enableRefresh: Incomplete
+    invalid: Bool[Literal[True]]
+    saveData: Bool[Literal[True]]
+    refreshOnLoad: Bool[Literal[True]]
+    optimizeMemory: Bool[Literal[True]]
+    enableRefresh: Bool[Literal[True]]
     refreshedBy: Incomplete
     refreshedDate: Incomplete
     refreshedDateIso: Incomplete
-    backgroundQuery: Incomplete
+    backgroundQuery: Bool[Literal[True]]
     missingItemsLimit: Incomplete
     createdVersion: Incomplete
     refreshedVersion: Incomplete
     minRefreshableVersion: Incomplete
     recordCount: Incomplete
-    upgradeOnRefresh: Incomplete
+    upgradeOnRefresh: Bool[Literal[True]]
     tupleCache: Typed[TupleCache, Literal[True]]
-    supportSubquery: Incomplete
-    supportAdvancedDrill: Incomplete
+    supportSubquery: Bool[Literal[True]]
+    supportAdvancedDrill: Bool[Literal[True]]
     cacheSource: Typed[CacheSource, Literal[True]]
     cacheFields: Incomplete
     cacheHierarchies: Incomplete
@@ -560,24 +560,24 @@ class CacheDefinition(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        invalid: Incomplete | None,
-        saveData: Incomplete | None,
-        refreshOnLoad: Incomplete | None,
-        optimizeMemory: Incomplete | None,
-        enableRefresh: Incomplete | None,
+        invalid: _ConvertibleToBool | None,
+        saveData: _ConvertibleToBool | None,
+        refreshOnLoad: _ConvertibleToBool | None,
+        optimizeMemory: _ConvertibleToBool | None,
+        enableRefresh: _ConvertibleToBool | None,
         refreshedBy: Incomplete | None,
         refreshedDate: Incomplete | None,
         refreshedDateIso: Incomplete | None,
-        backgroundQuery: Incomplete | None,
+        backgroundQuery: _ConvertibleToBool | None,
         missingItemsLimit: Incomplete | None,
         createdVersion: Incomplete | None,
         refreshedVersion: Incomplete | None,
         minRefreshableVersion: Incomplete | None,
         recordCount: Incomplete | None,
-        upgradeOnRefresh: Incomplete | None,
+        upgradeOnRefresh: _ConvertibleToBool | None,
         tupleCache: TupleCache | None,
-        supportSubquery: Incomplete | None,
-        supportAdvancedDrill: Incomplete | None,
+        supportSubquery: _ConvertibleToBool | None,
+        supportAdvancedDrill: _ConvertibleToBool | None,
         cacheSource: CacheSource,
         cacheFields=(),
         cacheHierarchies=(),

@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import MinMax, NoneSet, Set, Typed, _ConvertibleToFloat
+from openpyxl.descriptors.base import Bool, MinMax, NoneSet, Set, Typed, _ConvertibleToBool, _ConvertibleToFloat
 from openpyxl.descriptors.excel import Coordinate, ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.effect import Color, EffectContainer, EffectList
@@ -138,9 +138,9 @@ class Hyperlink(Serialisable):
     action: Incomplete
     tgtFrame: Incomplete
     tooltip: Incomplete
-    history: Incomplete
-    highlightClick: Incomplete
-    endSnd: Incomplete
+    history: Bool[Literal[True]]
+    highlightClick: Bool[Literal[True]]
+    endSnd: Bool[Literal[True]]
     snd: Typed[EmbeddedWAVAudioFile, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     id: Incomplete
@@ -151,9 +151,9 @@ class Hyperlink(Serialisable):
         action: Incomplete | None = None,
         tgtFrame: Incomplete | None = None,
         tooltip: Incomplete | None = None,
-        history: Incomplete | None = None,
-        highlightClick: Incomplete | None = None,
-        endSnd: Incomplete | None = None,
+        history: _ConvertibleToBool | None = None,
+        highlightClick: _ConvertibleToBool | None = None,
+        endSnd: _ConvertibleToBool | None = None,
         snd: EmbeddedWAVAudioFile | None = None,
         extLst: ExtensionList | None = None,
         id: Incomplete | None = None,
@@ -177,23 +177,23 @@ class Font(Serialisable):
 class CharacterProperties(Serialisable):
     tagname: str
     namespace: Incomplete
-    kumimoji: Incomplete
+    kumimoji: Bool[Literal[True]]
     lang: Incomplete
     altLang: Incomplete
     sz: MinMax[float, Literal[True]]
-    b: Incomplete
-    i: Incomplete
+    b: Bool[Literal[True]]
+    i: Bool[Literal[True]]
     u: NoneSet[_CharacterPropertiesU]
     strike: NoneSet[_CharacterPropertiesStrike]
     kern: Incomplete
     cap: NoneSet[_CharacterPropertiesCap]
     spc: Incomplete
-    normalizeH: Incomplete
+    normalizeH: Bool[Literal[True]]
     baseline: Incomplete
-    noProof: Incomplete
-    dirty: Incomplete
-    err: Incomplete
-    smtClean: Incomplete
+    noProof: Bool[Literal[True]]
+    dirty: Bool[Literal[True]]
+    err: Bool[Literal[True]]
+    smtClean: Bool[Literal[True]]
     smtId: Incomplete
     bmk: Incomplete
     ln: Typed[LineProperties, Literal[True]]
@@ -221,23 +221,23 @@ class CharacterProperties(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        kumimoji: Incomplete | None = None,
+        kumimoji: _ConvertibleToBool | None = None,
         lang: Incomplete | None = None,
         altLang: Incomplete | None = None,
         sz: _ConvertibleToFloat | None = None,
-        b: Incomplete | None = None,
-        i: Incomplete | None = None,
+        b: _ConvertibleToBool | None = None,
+        i: _ConvertibleToBool | None = None,
         u: _CharacterPropertiesU | Literal["none"] | None = None,
         strike: _CharacterPropertiesStrike | Literal["none"] | None = None,
         kern: Incomplete | None = None,
         cap: _CharacterPropertiesCap | Literal["none"] | None = None,
         spc: Incomplete | None = None,
-        normalizeH: Incomplete | None = None,
+        normalizeH: _ConvertibleToBool | None = None,
         baseline: Incomplete | None = None,
-        noProof: Incomplete | None = None,
-        dirty: Incomplete | None = None,
-        err: Incomplete | None = None,
-        smtClean: Incomplete | None = None,
+        noProof: _ConvertibleToBool | None = None,
+        dirty: _ConvertibleToBool | None = None,
+        err: _ConvertibleToBool | None = None,
+        smtClean: _ConvertibleToBool | None = None,
         smtId: Incomplete | None = None,
         bmk: Incomplete | None = None,
         ln: LineProperties | None = None,
@@ -293,11 +293,11 @@ class ParagraphProperties(Serialisable):
     indent: Incomplete
     algn: NoneSet[_ParagraphPropertiesAlgn]
     defTabSz: Incomplete
-    rtl: Incomplete
-    eaLnBrk: Incomplete
+    rtl: Bool[Literal[True]]
+    eaLnBrk: Bool[Literal[True]]
     fontAlgn: NoneSet[_ParagraphPropertiesFontAlgn]
-    latinLnBrk: Incomplete
-    hangingPunct: Incomplete
+    latinLnBrk: Bool[Literal[True]]
+    hangingPunct: Bool[Literal[True]]
     lnSpc: Typed[Spacing, Literal[True]]
     spcBef: Typed[Spacing, Literal[True]]
     spcAft: Typed[Spacing, Literal[True]]
@@ -324,11 +324,11 @@ class ParagraphProperties(Serialisable):
         indent: Incomplete | None = None,
         algn: _ParagraphPropertiesAlgn | Literal["none"] | None = None,
         defTabSz: Incomplete | None = None,
-        rtl: Incomplete | None = None,
-        eaLnBrk: Incomplete | None = None,
+        rtl: _ConvertibleToBool | None = None,
+        eaLnBrk: _ConvertibleToBool | None = None,
         fontAlgn: _ParagraphPropertiesFontAlgn | Literal["none"] | None = None,
-        latinLnBrk: Incomplete | None = None,
-        hangingPunct: Incomplete | None = None,
+        latinLnBrk: _ConvertibleToBool | None = None,
+        hangingPunct: _ConvertibleToBool | None = None,
         lnSpc: Spacing | None = None,
         spcBef: Spacing | None = None,
         spcAft: Spacing | None = None,
@@ -454,7 +454,7 @@ class RichTextProperties(Serialisable):
     tagname: str
     namespace: Incomplete
     rot: Incomplete
-    spcFirstLastPara: Incomplete
+    spcFirstLastPara: Bool[Literal[True]]
     vertOverflow: NoneSet[_RichTextPropertiesVertOverflow]
     horzOverflow: NoneSet[_RichTextPropertiesHorzOverflow]
     vert: NoneSet[_RichTextPropertiesVert]
@@ -465,13 +465,13 @@ class RichTextProperties(Serialisable):
     bIns: Incomplete
     numCol: Incomplete
     spcCol: Incomplete
-    rtlCol: Incomplete
-    fromWordArt: Incomplete
+    rtlCol: Bool[Literal[True]]
+    fromWordArt: Bool[Literal[True]]
     anchor: NoneSet[_RichTextPropertiesAnchor]
-    anchorCtr: Incomplete
-    forceAA: Incomplete
-    upright: Incomplete
-    compatLnSpc: Incomplete
+    anchorCtr: Bool[Literal[True]]
+    forceAA: Bool[Literal[True]]
+    upright: Bool[Literal[True]]
+    compatLnSpc: Bool[Literal[True]]
     prstTxWarp: Typed[PresetTextShape, Literal[True]]
     scene3d: Typed[Scene3D, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
@@ -483,7 +483,7 @@ class RichTextProperties(Serialisable):
     def __init__(
         self,
         rot: Incomplete | None = None,
-        spcFirstLastPara: Incomplete | None = None,
+        spcFirstLastPara: _ConvertibleToBool | None = None,
         vertOverflow: _RichTextPropertiesVertOverflow | Literal["none"] | None = None,
         horzOverflow: _RichTextPropertiesHorzOverflow | Literal["none"] | None = None,
         vert: _RichTextPropertiesVert | Literal["none"] | None = None,
@@ -494,13 +494,13 @@ class RichTextProperties(Serialisable):
         bIns: Incomplete | None = None,
         numCol: Incomplete | None = None,
         spcCol: Incomplete | None = None,
-        rtlCol: Incomplete | None = None,
-        fromWordArt: Incomplete | None = None,
+        rtlCol: _ConvertibleToBool | None = None,
+        fromWordArt: _ConvertibleToBool | None = None,
         anchor: _RichTextPropertiesAnchor | Literal["none"] | None = None,
-        anchorCtr: Incomplete | None = None,
-        forceAA: Incomplete | None = None,
-        upright: Incomplete | None = None,
-        compatLnSpc: Incomplete | None = None,
+        anchorCtr: _ConvertibleToBool | None = None,
+        forceAA: _ConvertibleToBool | None = None,
+        upright: _ConvertibleToBool | None = None,
+        compatLnSpc: _ConvertibleToBool | None = None,
         prstTxWarp: Incomplete | None = None,
         scene3d: Incomplete | None = None,
         extLst: Incomplete | None = None,

@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import MinMax, NoneSet, Set, Typed, _ConvertibleToFloat
+from openpyxl.descriptors.base import Bool, MinMax, NoneSet, Set, Typed, _ConvertibleToBool, _ConvertibleToFloat
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
@@ -85,7 +85,7 @@ _DateGroupItemDateTimeGrouping: TypeAlias = Literal["year", "month", "day", "hou
 
 class SortCondition(Serialisable):
     tagname: str
-    descending: Incomplete
+    descending: Bool[Literal[True]]
     sortBy: NoneSet[_SortConditionSortBy]
     ref: Incomplete
     customList: Incomplete
@@ -95,7 +95,7 @@ class SortCondition(Serialisable):
     def __init__(
         self,
         ref: Incomplete | None = None,
-        descending: Incomplete | None = None,
+        descending: _ConvertibleToBool | None = None,
         sortBy: _SortConditionSortBy | Literal["none"] | None = None,
         customList: Incomplete | None = None,
         dxfId: Incomplete | None = None,
@@ -105,8 +105,8 @@ class SortCondition(Serialisable):
 
 class SortState(Serialisable):
     tagname: str
-    columnSort: Incomplete
-    caseSensitive: Incomplete
+    columnSort: Bool[Literal[True]]
+    caseSensitive: Bool[Literal[True]]
     sortMethod: NoneSet[_SortStateSortMethod]
     ref: Incomplete
     sortCondition: Incomplete
@@ -114,8 +114,8 @@ class SortState(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        columnSort: Incomplete | None = None,
-        caseSensitive: Incomplete | None = None,
+        columnSort: _ConvertibleToBool | None = None,
+        caseSensitive: _ConvertibleToBool | None = None,
         sortMethod: _SortStateSortMethod | Literal["none"] | None = None,
         ref: Incomplete | None = None,
         sortCondition=(),
@@ -132,8 +132,8 @@ class IconFilter(Serialisable):
 class ColorFilter(Serialisable):
     tagname: str
     dxfId: Incomplete
-    cellColor: Incomplete
-    def __init__(self, dxfId: Incomplete | None = None, cellColor: Incomplete | None = None) -> None: ...
+    cellColor: Bool[Literal[True]]
+    def __init__(self, dxfId: Incomplete | None = None, cellColor: _ConvertibleToBool | None = None) -> None: ...
 
 class DynamicFilter(Serialisable):
     tagname: str
@@ -161,20 +161,21 @@ class CustomFilter(Serialisable):
 
 class CustomFilters(Serialisable):
     tagname: str
+    _and: Bool[Literal[True]]  # Not private. Avoids name clash
     customFilter: Incomplete
     __elements__: Incomplete
-    def __init__(self, _and: Incomplete | None = False, customFilter=()) -> None: ...
+    def __init__(self, _and: _ConvertibleToBool | None = False, customFilter=()) -> None: ...
 
 class Top10(Serialisable):
     tagname: str
-    top: Incomplete
-    percent: Incomplete
+    top: Bool[Literal[True]]
+    percent: Bool[Literal[True]]
     val: Incomplete
     filterVal: Incomplete
     def __init__(
         self,
-        top: Incomplete | None = None,
-        percent: Incomplete | None = None,
+        top: _ConvertibleToBool | None = None,
+        percent: _ConvertibleToBool | None = None,
         val: Incomplete | None = None,
         filterVal: Incomplete | None = None,
     ) -> None: ...
@@ -201,14 +202,14 @@ class DateGroupItem(Serialisable):
 
 class Filters(Serialisable):
     tagname: str
-    blank: Incomplete
+    blank: Bool[Literal[True]]
     calendarType: NoneSet[_FiltersCalendarType]
     filter: Incomplete
     dateGroupItem: Incomplete
     __elements__: Incomplete
     def __init__(
         self,
-        blank: Incomplete | None = None,
+        blank: _ConvertibleToBool | None = None,
         calendarType: _FiltersCalendarType | Literal["none"] | None = None,
         filter=(),
         dateGroupItem=(),
@@ -218,8 +219,8 @@ class FilterColumn(Serialisable):
     tagname: str
     colId: Incomplete
     col_id: Incomplete
-    hiddenButton: Incomplete
-    showButton: Incomplete
+    hiddenButton: Bool[Literal[True]]
+    showButton: Bool[Literal[True]]
     filters: Typed[Filters, Literal[True]]
     top10: Typed[Top10, Literal[True]]
     customFilters: Typed[CustomFilters, Literal[True]]
@@ -231,8 +232,8 @@ class FilterColumn(Serialisable):
     def __init__(
         self,
         colId: Incomplete | None = None,
-        hiddenButton: Incomplete | None = False,
-        showButton: Incomplete | None = True,
+        hiddenButton: _ConvertibleToBool | None = False,
+        showButton: _ConvertibleToBool | None = True,
         filters: Filters | None = None,
         top10: Top10 | None = None,
         customFilters: CustomFilters | None = None,

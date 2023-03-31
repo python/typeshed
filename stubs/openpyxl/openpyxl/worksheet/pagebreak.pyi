@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Bool, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 class Break(Serialisable):
@@ -7,9 +9,16 @@ class Break(Serialisable):
     id: Incomplete
     min: Incomplete
     max: Incomplete
-    man: Incomplete
-    pt: Incomplete
-    def __init__(self, id: int = 0, min: int = 0, max: int = 16383, man: bool = True, pt: Incomplete | None = None) -> None: ...
+    man: Bool[Literal[True]]
+    pt: Bool[Literal[True]]
+    def __init__(
+        self,
+        id: int = 0,
+        min: int = 0,
+        max: int = 16383,
+        man: _ConvertibleToBool | None = True,
+        pt: _ConvertibleToBool | None = None,
+    ) -> None: ...
 
 class RowBreak(Serialisable):
     tagname: str

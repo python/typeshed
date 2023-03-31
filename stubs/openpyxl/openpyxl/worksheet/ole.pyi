@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Set, Typed
+from openpyxl.descriptors.base import Bool, Set, Typed, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.spreadsheet_drawing import AnchorMarker
 
@@ -11,46 +11,47 @@ _OleObjectOleUpdate: TypeAlias = Literal["OLEUPDATE_ALWAYS", "OLEUPDATE_ONCALL"]
 class ObjectAnchor(Serialisable):
     tagname: str
     to: Typed[AnchorMarker, Literal[False]]
-    moveWithCells: Incomplete
-    sizeWithCells: Incomplete
+    moveWithCells: Bool[Literal[True]]
+    sizeWithCells: Bool[Literal[True]]
     z_order: Incomplete
     def __init__(
         self,
         _from: AnchorMarker,
         to: AnchorMarker,
-        moveWithCells: bool = False,
-        sizeWithCells: bool = False,
+        moveWithCells: _ConvertibleToBool | None = False,
+        sizeWithCells: _ConvertibleToBool | None = False,
         z_order: Incomplete | None = None,
     ) -> None: ...
 
 class ObjectPr(Serialisable):
     tagname: str
     anchor: Typed[ObjectAnchor, Literal[False]]
-    locked: Incomplete
-    defaultSize: Incomplete
-    disabled: Incomplete
-    uiObject: Incomplete
-    autoFill: Incomplete
-    autoLine: Incomplete
-    autoPict: Incomplete
+    locked: Bool[Literal[True]]
+    defaultSize: Bool[Literal[True]]
+    _print: Bool[Literal[True]]
+    disabled: Bool[Literal[True]]
+    uiObject: Bool[Literal[True]]
+    autoFill: Bool[Literal[True]]
+    autoLine: Bool[Literal[True]]
+    autoPict: Bool[Literal[True]]
     macro: Incomplete
     altText: Incomplete
-    dde: Incomplete
+    dde: Bool[Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
         anchor: ObjectAnchor,
-        locked: bool = True,
-        defaultSize: bool = True,
-        _print: bool = True,
-        disabled: bool = False,
-        uiObject: bool = False,
-        autoFill: bool = True,
-        autoLine: bool = True,
-        autoPict: bool = True,
+        locked: _ConvertibleToBool | None = True,
+        defaultSize: _ConvertibleToBool | None = True,
+        _print: _ConvertibleToBool | None = True,
+        disabled: _ConvertibleToBool | None = False,
+        uiObject: _ConvertibleToBool | None = False,
+        autoFill: _ConvertibleToBool | None = True,
+        autoLine: _ConvertibleToBool | None = True,
+        autoPict: _ConvertibleToBool | None = True,
         macro: Incomplete | None = None,
         altText: Incomplete | None = None,
-        dde: bool = False,
+        dde: _ConvertibleToBool | None = False,
     ) -> None: ...
 
 class OleObject(Serialisable):
@@ -60,7 +61,7 @@ class OleObject(Serialisable):
     dvAspect: Set[_OleObjectDvAspect]
     link: Incomplete
     oleUpdate: Set[_OleObjectOleUpdate]
-    autoLoad: Incomplete
+    autoLoad: Bool[Literal[True]]
     shapeId: Incomplete
     __elements__: Incomplete
     def __init__(
@@ -70,7 +71,7 @@ class OleObject(Serialisable):
         dvAspect: _OleObjectDvAspect,
         link: Incomplete | None,
         oleUpdate: _OleObjectOleUpdate,
-        autoLoad: bool = False,
+        autoLoad: _ConvertibleToBool | None = False,
         shapeId: Incomplete | None = None,
     ) -> None: ...
 

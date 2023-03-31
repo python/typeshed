@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Min, MinMax, NoneSet, _ConvertibleToFloat
+from openpyxl.descriptors.base import Bool, Min, MinMax, NoneSet, _ConvertibleToBool, _ConvertibleToFloat
 from openpyxl.descriptors.serialisable import Serialisable
 
 _HorizontalAlignmentsType: TypeAlias = Literal[
@@ -19,24 +19,24 @@ class Alignment(Serialisable):
     vertical: NoneSet[_VerticalAlignmentsType]
     textRotation: NoneSet[int]
     text_rotation: Incomplete
-    wrapText: Incomplete
+    wrapText: Bool[Literal[True]]
     wrap_text: Incomplete
-    shrinkToFit: Incomplete
+    shrinkToFit: Bool[Literal[True]]
     shrink_to_fit: Incomplete
     indent: MinMax[float, Literal[False]]
     relativeIndent: MinMax[float, Literal[False]]
-    justifyLastLine: Incomplete
+    justifyLastLine: Bool[Literal[True]]
     readingOrder: Min[float, Literal[False]]
     def __init__(
         self,
         horizontal: Incomplete | None = None,
         vertical: Incomplete | None = None,
         textRotation: int = 0,
-        wrapText: Incomplete | None = None,
-        shrinkToFit: Incomplete | None = None,
+        wrapText: _ConvertibleToBool | None = None,
+        shrinkToFit: _ConvertibleToBool | None = None,
         indent: _ConvertibleToFloat = 0,
         relativeIndent: _ConvertibleToFloat = 0,
-        justifyLastLine: Incomplete | None = None,
+        justifyLastLine: _ConvertibleToBool | None = None,
         readingOrder: _ConvertibleToFloat = 0,
         text_rotation: Incomplete | None = None,
         wrap_text: Incomplete | None = None,

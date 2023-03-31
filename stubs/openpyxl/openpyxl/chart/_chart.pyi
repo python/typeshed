@@ -5,7 +5,7 @@ from typing_extensions import Literal, TypeAlias
 from openpyxl.chart.layout import Layout
 from openpyxl.chart.legend import Legend
 from openpyxl.chart.shapes import GraphicalProperties
-from openpyxl.descriptors.base import MinMax, Set, Typed
+from openpyxl.descriptors.base import Bool, MinMax, Set, Typed
 from openpyxl.descriptors.serialisable import Serialisable
 
 _ChartBaseDisplayBlanks: TypeAlias = Literal["span", "gap", "zero"]
@@ -19,9 +19,9 @@ def PlotArea(): ...
 class ChartBase(Serialisable):
     legend: Typed[Legend, Literal[True]]
     layout: Typed[Layout, Literal[True]]
-    roundedCorners: Incomplete
+    roundedCorners: Bool[Literal[True]]
     axId: Incomplete
-    visible_cells_only: Incomplete
+    visible_cells_only: Bool[Literal[True]]
     display_blanks: Set[_ChartBaseDisplayBlanks]
     ser: Incomplete
     series: Incomplete

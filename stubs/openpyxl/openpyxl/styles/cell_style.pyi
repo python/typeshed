@@ -2,7 +2,7 @@ from _typeshed import Incomplete, Unused
 from array import array
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Bool, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.alignment import Alignment
@@ -37,15 +37,15 @@ class CellStyle(Serialisable):
     fillId: Incomplete
     borderId: Incomplete
     xfId: Incomplete
-    quotePrefix: Incomplete
-    pivotButton: Incomplete
-    applyNumberFormat: Incomplete
-    applyFont: Incomplete
-    applyFill: Incomplete
-    applyBorder: Incomplete
+    quotePrefix: Bool[Literal[True]]
+    pivotButton: Bool[Literal[True]]
+    applyNumberFormat: Bool[Literal[True]]
+    applyFont: Bool[Literal[True]]
+    applyFill: Bool[Literal[True]]
+    applyBorder: Bool[Literal[True]]
     # Overwritten by properties below
-    # applyAlignment: Bool
-    # applyProtection: Bool
+    # applyAlignment: Bool[Literal[True]]
+    # applyProtection: Bool[Literal[True]]
     alignment: Typed[Alignment, Literal[True]]
     protection: Typed[Protection, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
@@ -58,12 +58,12 @@ class CellStyle(Serialisable):
         fillId: int = 0,
         borderId: int = 0,
         xfId: Incomplete | None = None,
-        quotePrefix: Incomplete | None = None,
-        pivotButton: Incomplete | None = None,
-        applyNumberFormat: Incomplete | None = None,
-        applyFont: Incomplete | None = None,
-        applyFill: Incomplete | None = None,
-        applyBorder: Incomplete | None = None,
+        quotePrefix: _ConvertibleToBool | None = None,
+        pivotButton: _ConvertibleToBool | None = None,
+        applyNumberFormat: _ConvertibleToBool | None = None,
+        applyFont: _ConvertibleToBool | None = None,
+        applyFill: _ConvertibleToBool | None = None,
+        applyBorder: _ConvertibleToBool | None = None,
         applyAlignment: Unused = None,
         applyProtection: Unused = None,
         alignment: Alignment | None = None,

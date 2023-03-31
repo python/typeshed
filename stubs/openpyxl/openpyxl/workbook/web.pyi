@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import NoneSet
+from openpyxl.descriptors.base import Bool, NoneSet, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 _WebPublishingTargetScreenSize: TypeAlias = Literal[
@@ -25,7 +25,7 @@ class WebPublishObject(Serialisable):
     sourceObject: Incomplete
     destinationFile: Incomplete
     title: Incomplete
-    autoRepublish: Incomplete
+    autoRepublish: Bool[Literal[True]]
     def __init__(
         self,
         id: Incomplete | None = None,
@@ -33,7 +33,7 @@ class WebPublishObject(Serialisable):
         sourceObject: Incomplete | None = None,
         destinationFile: Incomplete | None = None,
         title: Incomplete | None = None,
-        autoRepublish: Incomplete | None = None,
+        autoRepublish: _ConvertibleToBool | None = None,
     ) -> None: ...
 
 class WebPublishObjectList(Serialisable):
@@ -48,22 +48,22 @@ class WebPublishObjectList(Serialisable):
 
 class WebPublishing(Serialisable):
     tagname: str
-    css: Incomplete
-    thicket: Incomplete
-    longFileNames: Incomplete
-    vml: Incomplete
-    allowPng: Incomplete
+    css: Bool[Literal[True]]
+    thicket: Bool[Literal[True]]
+    longFileNames: Bool[Literal[True]]
+    vml: Bool[Literal[True]]
+    allowPng: Bool[Literal[True]]
     targetScreenSize: NoneSet[_WebPublishingTargetScreenSize]
     dpi: Incomplete
     codePage: Incomplete
     characterSet: Incomplete
     def __init__(
         self,
-        css: Incomplete | None = None,
-        thicket: Incomplete | None = None,
-        longFileNames: Incomplete | None = None,
-        vml: Incomplete | None = None,
-        allowPng: Incomplete | None = None,
+        css: _ConvertibleToBool | None = None,
+        thicket: _ConvertibleToBool | None = None,
+        longFileNames: _ConvertibleToBool | None = None,
+        vml: _ConvertibleToBool | None = None,
+        allowPng: _ConvertibleToBool | None = None,
         targetScreenSize: _WebPublishingTargetScreenSize | Literal["none"] | None = "800x600",
         dpi: Incomplete | None = None,
         codePage: Incomplete | None = None,

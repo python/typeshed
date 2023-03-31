@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import NoneSet, Set, Typed
+from openpyxl.descriptors.base import Bool, NoneSet, Set, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
@@ -39,17 +39,17 @@ class Selection(Serialisable):
 
 class SheetView(Serialisable):
     tagname: str
-    windowProtection: Incomplete
-    showFormulas: Incomplete
-    showGridLines: Incomplete
-    showRowColHeaders: Incomplete
-    showZeros: Incomplete
-    rightToLeft: Incomplete
-    tabSelected: Incomplete
-    showRuler: Incomplete
-    showOutlineSymbols: Incomplete
-    defaultGridColor: Incomplete
-    showWhiteSpace: Incomplete
+    windowProtection: Bool[Literal[True]]
+    showFormulas: Bool[Literal[True]]
+    showGridLines: Bool[Literal[True]]
+    showRowColHeaders: Bool[Literal[True]]
+    showZeros: Bool[Literal[True]]
+    rightToLeft: Bool[Literal[True]]
+    tabSelected: Bool[Literal[True]]
+    showRuler: Bool[Literal[True]]
+    showOutlineSymbols: Bool[Literal[True]]
+    defaultGridColor: Bool[Literal[True]]
+    showWhiteSpace: Bool[Literal[True]]
     view: NoneSet[_SheetViewView]
     topLeftCell: Incomplete
     colorId: Incomplete
@@ -57,23 +57,23 @@ class SheetView(Serialisable):
     zoomScaleNormal: Incomplete
     zoomScaleSheetLayoutView: Incomplete
     zoomScalePageLayoutView: Incomplete
-    zoomToFit: Incomplete
+    zoomToFit: Bool[Literal[True]]
     workbookViewId: Incomplete
     selection: Incomplete
     pane: Typed[Pane, Literal[True]]
     def __init__(
         self,
-        windowProtection: Incomplete | None = None,
-        showFormulas: Incomplete | None = None,
-        showGridLines: Incomplete | None = None,
-        showRowColHeaders: Incomplete | None = None,
-        showZeros: Incomplete | None = None,
-        rightToLeft: Incomplete | None = None,
-        tabSelected: Incomplete | None = None,
-        showRuler: Incomplete | None = None,
-        showOutlineSymbols: Incomplete | None = None,
-        defaultGridColor: Incomplete | None = None,
-        showWhiteSpace: Incomplete | None = None,
+        windowProtection: _ConvertibleToBool | None = None,
+        showFormulas: _ConvertibleToBool | None = None,
+        showGridLines: _ConvertibleToBool | None = None,
+        showRowColHeaders: _ConvertibleToBool | None = None,
+        showZeros: _ConvertibleToBool | None = None,
+        rightToLeft: _ConvertibleToBool | None = None,
+        tabSelected: _ConvertibleToBool | None = None,
+        showRuler: _ConvertibleToBool | None = None,
+        showOutlineSymbols: _ConvertibleToBool | None = None,
+        defaultGridColor: _ConvertibleToBool | None = None,
+        showWhiteSpace: _ConvertibleToBool | None = None,
         view: _SheetViewView | Literal["none"] | None = None,
         topLeftCell: Incomplete | None = None,
         colorId: Incomplete | None = None,
@@ -81,7 +81,7 @@ class SheetView(Serialisable):
         zoomScaleNormal: Incomplete | None = None,
         zoomScaleSheetLayoutView: Incomplete | None = None,
         zoomScalePageLayoutView: Incomplete | None = None,
-        zoomToFit: Incomplete | None = None,
+        zoomToFit: _ConvertibleToBool | None = None,
         workbookViewId: int = 0,
         selection: Incomplete | None = None,
         pane: Pane | None = None,

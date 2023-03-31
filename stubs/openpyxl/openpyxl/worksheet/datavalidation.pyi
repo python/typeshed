@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Convertible, NoneSet, _ConvertibleToMultiCellRange
+from openpyxl.descriptors.base import Bool, Convertible, NoneSet, _ConvertibleToBool, _ConvertibleToMultiCellRange
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.cell_range import MultiCellRange
 
@@ -32,11 +32,11 @@ class DataValidation(Serialisable):
     sqref: Convertible[MultiCellRange, Literal[False]]
     cells: Incomplete
     ranges: Incomplete
-    showErrorMessage: Incomplete
-    showDropDown: Incomplete
+    showDropDown: Bool[Literal[True]]
     hide_drop_down: Incomplete
-    showInputMessage: Incomplete
-    allowBlank: Incomplete
+    showInputMessage: Bool[Literal[True]]
+    showErrorMessage: Bool[Literal[True]]
+    allowBlank: Bool[Literal[True]]
     allow_blank: Incomplete
     errorTitle: Incomplete
     error: Incomplete
@@ -54,10 +54,10 @@ class DataValidation(Serialisable):
         type: _DataValidationType | Literal["none"] | None = None,
         formula1: Incomplete | None = None,
         formula2: Incomplete | None = None,
-        showErrorMessage: bool = False,
-        showInputMessage: bool = False,
-        showDropDown: Incomplete | None = False,
-        allowBlank: Incomplete | None = False,
+        showErrorMessage: _ConvertibleToBool | None = False,
+        showInputMessage: _ConvertibleToBool | None = False,
+        showDropDown: _ConvertibleToBool | None = False,
+        allowBlank: _ConvertibleToBool | None = False,
         sqref: _ConvertibleToMultiCellRange = (),
         promptTitle: Incomplete | None = None,
         errorStyle: _DataValidationErrorStyle | Literal["none"] | None = None,
@@ -73,7 +73,7 @@ class DataValidation(Serialisable):
 
 class DataValidationList(Serialisable):
     tagname: str
-    disablePrompts: Incomplete
+    disablePrompts: Bool[Literal[True]]
     xWindow: Incomplete
     yWindow: Incomplete
     dataValidation: Incomplete
@@ -81,7 +81,7 @@ class DataValidationList(Serialisable):
     __attrs__: Incomplete
     def __init__(
         self,
-        disablePrompts: Incomplete | None = None,
+        disablePrompts: _ConvertibleToBool | None = None,
         xWindow: Incomplete | None = None,
         yWindow: Incomplete | None = None,
         count: Incomplete | None = None,

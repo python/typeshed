@@ -2,7 +2,7 @@ from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors import Float
-from openpyxl.descriptors.base import NoneSet, Set, Typed
+from openpyxl.descriptors.base import Bool, NoneSet, Set, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.differential import DifferentialStyle
@@ -67,17 +67,17 @@ _RuleType: TypeAlias = Literal[
 
 class ValueDescriptor(Float):
     expected_type: Incomplete
-    def __set__(self, instance: Serialisable, value) -> None: ...
+    def __set__(self, instance: Serialisable, value) -> None: ...  # type: ignore[override]
 
 class FormatObject(Serialisable):
     tagname: str
     type: Set[_FormatObjectType]
     val: Incomplete
-    gte: Incomplete
+    gte: Bool[Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
-        self, type: _FormatObjectType, val: Incomplete | None = None, gte: Incomplete | None = None, extLst: Unused = None
+        self, type: _FormatObjectType, val: Incomplete | None = None, gte: _ConvertibleToBool | None = None, extLst: Unused = None
     ) -> None: ...
 
 class RuleType(Serialisable):
@@ -86,17 +86,17 @@ class RuleType(Serialisable):
 class IconSet(RuleType):
     tagname: str
     iconSet: NoneSet[_IconSetIconSet]
-    showValue: Incomplete
-    percent: Incomplete
-    reverse: Incomplete
+    showValue: Bool[Literal[True]]
+    percent: Bool[Literal[True]]
+    reverse: Bool[Literal[True]]
     __elements__: Incomplete
     cfvo: Incomplete
     def __init__(
         self,
         iconSet: _IconSetIconSet | Literal["none"] | None = None,
-        showValue: Incomplete | None = None,
-        percent: Incomplete | None = None,
-        reverse: Incomplete | None = None,
+        showValue: _ConvertibleToBool | None = None,
+        percent: _ConvertibleToBool | None = None,
+        reverse: _ConvertibleToBool | None = None,
         cfvo: Incomplete | None = None,
     ) -> None: ...
 
@@ -104,7 +104,7 @@ class DataBar(RuleType):
     tagname: str
     minLength: Incomplete
     maxLength: Incomplete
-    showValue: Incomplete
+    showValue: Bool[Literal[True]]
     color: Incomplete
     __elements__: Incomplete
     cfvo: Incomplete
@@ -112,7 +112,7 @@ class DataBar(RuleType):
         self,
         minLength: Incomplete | None = None,
         maxLength: Incomplete | None = None,
-        showValue: Incomplete | None = None,
+        showValue: _ConvertibleToBool | None = None,
         cfvo: Incomplete | None = None,
         color: Incomplete | None = None,
     ) -> None: ...
@@ -129,16 +129,16 @@ class Rule(Serialisable):
     type: Set[_RuleType]
     dxfId: Incomplete
     priority: Incomplete
-    stopIfTrue: Incomplete
-    aboveAverage: Incomplete
-    percent: Incomplete
-    bottom: Incomplete
+    stopIfTrue: Bool[Literal[True]]
+    aboveAverage: Bool[Literal[True]]
+    percent: Bool[Literal[True]]
+    bottom: Bool[Literal[True]]
     operator: NoneSet[_RuleOperator]
     text: Incomplete
     timePeriod: NoneSet[_RuleTimePeriod]
     rank: Incomplete
     stdDev: Incomplete
-    equalAverage: Incomplete
+    equalAverage: Bool[Literal[True]]
     formula: Incomplete
     colorScale: Typed[ColorScale, Literal[True]]
     dataBar: Typed[DataBar, Literal[True]]
@@ -152,16 +152,16 @@ class Rule(Serialisable):
         type: _RuleType,
         dxfId: Incomplete | None = None,
         priority: int = 0,
-        stopIfTrue: Incomplete | None = None,
-        aboveAverage: Incomplete | None = None,
-        percent: Incomplete | None = None,
-        bottom: Incomplete | None = None,
+        stopIfTrue: _ConvertibleToBool | None = None,
+        aboveAverage: _ConvertibleToBool | None = None,
+        percent: _ConvertibleToBool | None = None,
+        bottom: _ConvertibleToBool | None = None,
         operator: _RuleOperator | Literal["none"] | None = None,
         text: Incomplete | None = None,
         timePeriod: _RuleTimePeriod | Literal["none"] | None = None,
         rank: Incomplete | None = None,
         stdDev: Incomplete | None = None,
-        equalAverage: Incomplete | None = None,
+        equalAverage: _ConvertibleToBool | None = None,
         formula=(),
         colorScale: ColorScale | None = None,
         dataBar: DataBar | None = None,

@@ -1,7 +1,7 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import NoneSet, Set, Typed
+from openpyxl.descriptors.base import Bool, NoneSet, Set, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.filters import AutoFilter
@@ -169,19 +169,19 @@ class PivotFilters(Serialisable):
 class PivotTableStyle(Serialisable):
     tagname: str
     name: Incomplete
-    showRowHeaders: Incomplete
-    showColHeaders: Incomplete
-    showRowStripes: Incomplete
-    showColStripes: Incomplete
-    showLastColumn: Incomplete
+    showRowHeaders: Bool[Literal[False]]
+    showColHeaders: Bool[Literal[False]]
+    showRowStripes: Bool[Literal[False]]
+    showColStripes: Bool[Literal[False]]
+    showLastColumn: Bool[Literal[False]]
     def __init__(
         self,
-        name: Incomplete | None = None,
-        showRowHeaders: Incomplete | None = None,
-        showColHeaders: Incomplete | None = None,
-        showRowStripes: Incomplete | None = None,
-        showColStripes: Incomplete | None = None,
-        showLastColumn: Incomplete | None = None,
+        name: Incomplete | None,
+        showRowHeaders: _ConvertibleToBool,
+        showColHeaders: _ConvertibleToBool,
+        showRowStripes: _ConvertibleToBool,
+        showColStripes: _ConvertibleToBool,
+        showLastColumn: _ConvertibleToBool,
     ) -> None: ...
 
 class MemberList(Serialisable):
@@ -196,9 +196,9 @@ class MemberList(Serialisable):
 class MemberProperty(Serialisable):
     tagname: str
     name: Incomplete
-    showCell: Incomplete
-    showTip: Incomplete
-    showAsCaption: Incomplete
+    showCell: Bool[Literal[True]]
+    showTip: Bool[Literal[True]]
+    showAsCaption: Bool[Literal[True]]
     nameLen: Incomplete
     pPos: Incomplete
     pLen: Incomplete
@@ -207,9 +207,9 @@ class MemberProperty(Serialisable):
     def __init__(
         self,
         name: Incomplete | None = None,
-        showCell: Incomplete | None = None,
-        showTip: Incomplete | None = None,
-        showAsCaption: Incomplete | None = None,
+        showCell: _ConvertibleToBool | None = None,
+        showTip: _ConvertibleToBool | None = None,
+        showAsCaption: _ConvertibleToBool | None = None,
         nameLen: Incomplete | None = None,
         pPos: Incomplete | None = None,
         pLen: Incomplete | None = None,
@@ -219,16 +219,16 @@ class MemberProperty(Serialisable):
 
 class PivotHierarchy(Serialisable):
     tagname: str
-    outline: Incomplete
-    multipleItemSelectionAllowed: Incomplete
-    subtotalTop: Incomplete
-    showInFieldList: Incomplete
-    dragToRow: Incomplete
-    dragToCol: Incomplete
-    dragToPage: Incomplete
-    dragToData: Incomplete
-    dragOff: Incomplete
-    includeNewItemsInFilter: Incomplete
+    outline: Bool[Literal[False]]
+    multipleItemSelectionAllowed: Bool[Literal[False]]
+    subtotalTop: Bool[Literal[False]]
+    showInFieldList: Bool[Literal[False]]
+    dragToRow: Bool[Literal[False]]
+    dragToCol: Bool[Literal[False]]
+    dragToPage: Bool[Literal[False]]
+    dragToData: Bool[Literal[False]]
+    dragOff: Bool[Literal[False]]
+    includeNewItemsInFilter: Bool[Literal[False]]
     caption: Incomplete
     mps: Incomplete
     members: Typed[MemberList, Literal[True]]
@@ -236,16 +236,16 @@ class PivotHierarchy(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        outline: Incomplete | None = None,
-        multipleItemSelectionAllowed: Incomplete | None = None,
-        subtotalTop: Incomplete | None = None,
-        showInFieldList: Incomplete | None = None,
-        dragToRow: Incomplete | None = None,
-        dragToCol: Incomplete | None = None,
-        dragToPage: Incomplete | None = None,
-        dragToData: Incomplete | None = None,
-        dragOff: Incomplete | None = None,
-        includeNewItemsInFilter: Incomplete | None = None,
+        outline: _ConvertibleToBool,
+        multipleItemSelectionAllowed: _ConvertibleToBool,
+        subtotalTop: _ConvertibleToBool,
+        showInFieldList: _ConvertibleToBool,
+        dragToRow: _ConvertibleToBool,
+        dragToCol: _ConvertibleToBool,
+        dragToPage: _ConvertibleToBool,
+        dragToData: _ConvertibleToBool,
+        dragOff: _ConvertibleToBool,
+        includeNewItemsInFilter: _ConvertibleToBool,
         caption: Incomplete | None = None,
         mps=(),
         members: MemberList | None = None,
@@ -255,43 +255,43 @@ class PivotHierarchy(Serialisable):
 class Reference(Serialisable):
     tagname: str
     field: Incomplete
-    selected: Incomplete
-    byPosition: Incomplete
-    relative: Incomplete
-    defaultSubtotal: Incomplete
-    sumSubtotal: Incomplete
-    countASubtotal: Incomplete
-    avgSubtotal: Incomplete
-    maxSubtotal: Incomplete
-    minSubtotal: Incomplete
-    productSubtotal: Incomplete
-    countSubtotal: Incomplete
-    stdDevSubtotal: Incomplete
-    stdDevPSubtotal: Incomplete
-    varSubtotal: Incomplete
-    varPSubtotal: Incomplete
+    selected: Bool[Literal[True]]
+    byPosition: Bool[Literal[True]]
+    relative: Bool[Literal[True]]
+    defaultSubtotal: Bool[Literal[True]]
+    sumSubtotal: Bool[Literal[True]]
+    countASubtotal: Bool[Literal[True]]
+    avgSubtotal: Bool[Literal[True]]
+    maxSubtotal: Bool[Literal[True]]
+    minSubtotal: Bool[Literal[True]]
+    productSubtotal: Bool[Literal[True]]
+    countSubtotal: Bool[Literal[True]]
+    stdDevSubtotal: Bool[Literal[True]]
+    stdDevPSubtotal: Bool[Literal[True]]
+    varSubtotal: Bool[Literal[True]]
+    varPSubtotal: Bool[Literal[True]]
     x: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
         field: Incomplete | None = None,
-        count: Incomplete | None = None,
-        selected: Incomplete | None = None,
-        byPosition: Incomplete | None = None,
-        relative: Incomplete | None = None,
-        defaultSubtotal: Incomplete | None = None,
-        sumSubtotal: Incomplete | None = None,
-        countASubtotal: Incomplete | None = None,
-        avgSubtotal: Incomplete | None = None,
-        maxSubtotal: Incomplete | None = None,
-        minSubtotal: Incomplete | None = None,
-        productSubtotal: Incomplete | None = None,
-        countSubtotal: Incomplete | None = None,
-        stdDevSubtotal: Incomplete | None = None,
-        stdDevPSubtotal: Incomplete | None = None,
-        varSubtotal: Incomplete | None = None,
-        varPSubtotal: Incomplete | None = None,
+        count: Unused = None,
+        selected: _ConvertibleToBool | None = None,
+        byPosition: _ConvertibleToBool | None = None,
+        relative: _ConvertibleToBool | None = None,
+        defaultSubtotal: _ConvertibleToBool | None = None,
+        sumSubtotal: _ConvertibleToBool | None = None,
+        countASubtotal: _ConvertibleToBool | None = None,
+        avgSubtotal: _ConvertibleToBool | None = None,
+        maxSubtotal: _ConvertibleToBool | None = None,
+        minSubtotal: _ConvertibleToBool | None = None,
+        productSubtotal: _ConvertibleToBool | None = None,
+        countSubtotal: _ConvertibleToBool | None = None,
+        stdDevSubtotal: _ConvertibleToBool | None = None,
+        stdDevPSubtotal: _ConvertibleToBool | None = None,
+        varSubtotal: _ConvertibleToBool | None = None,
+        varPSubtotal: _ConvertibleToBool | None = None,
         x: Incomplete | None = (),
         extLst: ExtensionList | None = None,
     ) -> None: ...
@@ -304,14 +304,14 @@ class PivotArea(Serialisable):
     extLst: Typed[ExtensionList, Literal[True]]
     field: Incomplete
     type: NoneSet[_PivotAreaType]
-    dataOnly: Incomplete
-    labelOnly: Incomplete
-    grandRow: Incomplete
-    grandCol: Incomplete
-    cacheIndex: Incomplete
-    outline: Incomplete
+    dataOnly: Bool[Literal[True]]
+    labelOnly: Bool[Literal[True]]
+    grandRow: Bool[Literal[True]]
+    grandCol: Bool[Literal[True]]
+    cacheIndex: Bool[Literal[True]]
+    outline: Bool[Literal[True]]
     offset: Incomplete
-    collapsedLevelsAreSubtotals: Incomplete
+    collapsedLevelsAreSubtotals: Bool[Literal[True]]
     axis: NoneSet[_PivotAxis]
     fieldPosition: Incomplete
     __elements__: Incomplete
@@ -321,14 +321,14 @@ class PivotArea(Serialisable):
         extLst: ExtensionList | None = None,
         field: Incomplete | None = None,
         type: _PivotAreaType | Literal["none"] | None = "normal",
-        dataOnly: bool = True,
-        labelOnly: Incomplete | None = None,
-        grandRow: Incomplete | None = None,
-        grandCol: Incomplete | None = None,
-        cacheIndex: Incomplete | None = None,
-        outline: bool = True,
+        dataOnly: _ConvertibleToBool | None = True,
+        labelOnly: _ConvertibleToBool | None = None,
+        grandRow: _ConvertibleToBool | None = None,
+        grandCol: _ConvertibleToBool | None = None,
+        cacheIndex: _ConvertibleToBool | None = None,
+        outline: _ConvertibleToBool | None = True,
         offset: Incomplete | None = None,
-        collapsedLevelsAreSubtotals: Incomplete | None = None,
+        collapsedLevelsAreSubtotals: _ConvertibleToBool | None = None,
         axis: _PivotAxis | Literal["none"] | None = None,
         fieldPosition: Incomplete | None = None,
     ) -> None: ...
@@ -337,11 +337,11 @@ class ChartFormat(Serialisable):
     tagname: str
     chart: Incomplete
     format: Incomplete
-    series: Incomplete
+    series: Bool[Literal[False]]
     pivotArea: Typed[PivotArea, Literal[False]]
     __elements__: Incomplete
     def __init__(
-        self, chart: Incomplete | None, format: Incomplete | None, series: Incomplete | None, pivotArea: PivotArea
+        self, chart: Incomplete | None, format: Incomplete | None, series: _ConvertibleToBool, pivotArea: PivotArea
     ) -> None: ...
 
 class ConditionalFormat(Serialisable):
@@ -451,28 +451,28 @@ class FieldItem(Serialisable):
     tagname: str
     n: Incomplete
     t: Set[_ItemType]
-    h: Incomplete
-    s: Incomplete
-    sd: Incomplete
-    f: Incomplete
-    m: Incomplete
-    c: Incomplete
+    h: Bool[Literal[True]]
+    s: Bool[Literal[True]]
+    sd: Bool[Literal[True]]
+    f: Bool[Literal[True]]
+    m: Bool[Literal[True]]
+    c: Bool[Literal[True]]
     x: Incomplete
-    d: Incomplete
-    e: Incomplete
+    d: Bool[Literal[True]]
+    e: Bool[Literal[True]]
     def __init__(
         self,
         n: Incomplete | None = None,
         t: _ItemType = "data",
-        h: Incomplete | None = None,
-        s: Incomplete | None = None,
-        sd: bool = True,
-        f: Incomplete | None = None,
-        m: Incomplete | None = None,
-        c: Incomplete | None = None,
+        h: _ConvertibleToBool | None = None,
+        s: _ConvertibleToBool | None = None,
+        sd: _ConvertibleToBool | None = True,
+        f: _ConvertibleToBool | None = None,
+        m: _ConvertibleToBool | None = None,
+        c: _ConvertibleToBool | None = None,
         x: Incomplete | None = None,
-        d: Incomplete | None = None,
-        e: Incomplete | None = None,
+        d: _ConvertibleToBool | None = None,
+        e: _ConvertibleToBool | None = None,
     ) -> None: ...
 
 class PivotField(Serialisable):
@@ -482,52 +482,52 @@ class PivotField(Serialisable):
     extLst: Typed[ExtensionList, Literal[True]]
     name: Incomplete
     axis: NoneSet[_PivotAxis]
-    dataField: Incomplete
+    dataField: Bool[Literal[True]]
     subtotalCaption: Incomplete
-    showDropDowns: Incomplete
-    hiddenLevel: Incomplete
+    showDropDowns: Bool[Literal[True]]
+    hiddenLevel: Bool[Literal[True]]
     uniqueMemberProperty: Incomplete
-    compact: Incomplete
-    allDrilled: Incomplete
+    compact: Bool[Literal[True]]
+    allDrilled: Bool[Literal[True]]
     numFmtId: Incomplete
-    outline: Incomplete
-    subtotalTop: Incomplete
-    dragToRow: Incomplete
-    dragToCol: Incomplete
-    multipleItemSelectionAllowed: Incomplete
-    dragToPage: Incomplete
-    dragToData: Incomplete
-    dragOff: Incomplete
-    showAll: Incomplete
-    insertBlankRow: Incomplete
-    serverField: Incomplete
-    insertPageBreak: Incomplete
-    autoShow: Incomplete
-    topAutoShow: Incomplete
-    hideNewItems: Incomplete
-    measureFilter: Incomplete
-    includeNewItemsInFilter: Incomplete
+    outline: Bool[Literal[True]]
+    subtotalTop: Bool[Literal[True]]
+    dragToRow: Bool[Literal[True]]
+    dragToCol: Bool[Literal[True]]
+    multipleItemSelectionAllowed: Bool[Literal[True]]
+    dragToPage: Bool[Literal[True]]
+    dragToData: Bool[Literal[True]]
+    dragOff: Bool[Literal[True]]
+    showAll: Bool[Literal[True]]
+    insertBlankRow: Bool[Literal[True]]
+    serverField: Bool[Literal[True]]
+    insertPageBreak: Bool[Literal[True]]
+    autoShow: Bool[Literal[True]]
+    topAutoShow: Bool[Literal[True]]
+    hideNewItems: Bool[Literal[True]]
+    measureFilter: Bool[Literal[True]]
+    includeNewItemsInFilter: Bool[Literal[True]]
     itemPageCount: Incomplete
     sortType: Set[_PivotFieldSortType]
-    dataSourceSort: Incomplete
-    nonAutoSortDefault: Incomplete
+    dataSourceSort: Bool[Literal[True]]
+    nonAutoSortDefault: Bool[Literal[True]]
     rankBy: Incomplete
-    defaultSubtotal: Incomplete
-    sumSubtotal: Incomplete
-    countASubtotal: Incomplete
-    avgSubtotal: Incomplete
-    maxSubtotal: Incomplete
-    minSubtotal: Incomplete
-    productSubtotal: Incomplete
-    countSubtotal: Incomplete
-    stdDevSubtotal: Incomplete
-    stdDevPSubtotal: Incomplete
-    varSubtotal: Incomplete
-    varPSubtotal: Incomplete
-    showPropCell: Incomplete
-    showPropTip: Incomplete
-    showPropAsCaption: Incomplete
-    defaultAttributeDrillState: Incomplete
+    defaultSubtotal: Bool[Literal[True]]
+    sumSubtotal: Bool[Literal[True]]
+    countASubtotal: Bool[Literal[True]]
+    avgSubtotal: Bool[Literal[True]]
+    maxSubtotal: Bool[Literal[True]]
+    minSubtotal: Bool[Literal[True]]
+    productSubtotal: Bool[Literal[True]]
+    countSubtotal: Bool[Literal[True]]
+    stdDevSubtotal: Bool[Literal[True]]
+    stdDevPSubtotal: Bool[Literal[True]]
+    varSubtotal: Bool[Literal[True]]
+    varPSubtotal: Bool[Literal[True]]
+    showPropCell: Bool[Literal[True]]
+    showPropTip: Bool[Literal[True]]
+    showPropAsCaption: Bool[Literal[True]]
+    defaultAttributeDrillState: Bool[Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -535,53 +535,53 @@ class PivotField(Serialisable):
         autoSortScope: AutoSortScope | None = None,
         name: Incomplete | None = None,
         axis: _PivotAxis | Literal["none"] | None = None,
-        dataField: Incomplete | None = None,
+        dataField: _ConvertibleToBool | None = None,
         subtotalCaption: Incomplete | None = None,
-        showDropDowns: bool = True,
-        hiddenLevel: Incomplete | None = None,
+        showDropDowns: _ConvertibleToBool | None = True,
+        hiddenLevel: _ConvertibleToBool | None = None,
         uniqueMemberProperty: Incomplete | None = None,
-        compact: bool = True,
-        allDrilled: Incomplete | None = None,
+        compact: _ConvertibleToBool | None = True,
+        allDrilled: _ConvertibleToBool | None = None,
         numFmtId: Incomplete | None = None,
-        outline: bool = True,
-        subtotalTop: bool = True,
-        dragToRow: bool = True,
-        dragToCol: bool = True,
-        multipleItemSelectionAllowed: Incomplete | None = None,
-        dragToPage: bool = True,
-        dragToData: bool = True,
-        dragOff: bool = True,
-        showAll: bool = True,
-        insertBlankRow: Incomplete | None = None,
-        serverField: Incomplete | None = None,
-        insertPageBreak: Incomplete | None = None,
-        autoShow: Incomplete | None = None,
-        topAutoShow: bool = True,
-        hideNewItems: Incomplete | None = None,
-        measureFilter: Incomplete | None = None,
-        includeNewItemsInFilter: Incomplete | None = None,
+        outline: _ConvertibleToBool | None = True,
+        subtotalTop: _ConvertibleToBool | None = True,
+        dragToRow: _ConvertibleToBool | None = True,
+        dragToCol: _ConvertibleToBool | None = True,
+        multipleItemSelectionAllowed: _ConvertibleToBool | None = None,
+        dragToPage: _ConvertibleToBool | None = True,
+        dragToData: _ConvertibleToBool | None = True,
+        dragOff: _ConvertibleToBool | None = True,
+        showAll: _ConvertibleToBool | None = True,
+        insertBlankRow: _ConvertibleToBool | None = None,
+        serverField: _ConvertibleToBool | None = None,
+        insertPageBreak: _ConvertibleToBool | None = None,
+        autoShow: _ConvertibleToBool | None = None,
+        topAutoShow: _ConvertibleToBool | None = True,
+        hideNewItems: _ConvertibleToBool | None = None,
+        measureFilter: _ConvertibleToBool | None = None,
+        includeNewItemsInFilter: _ConvertibleToBool | None = None,
         itemPageCount: int = 10,
         sortType: _PivotFieldSortType = "manual",
-        dataSourceSort: Incomplete | None = None,
-        nonAutoSortDefault: Incomplete | None = None,
+        dataSourceSort: _ConvertibleToBool | None = None,
+        nonAutoSortDefault: _ConvertibleToBool | None = None,
         rankBy: Incomplete | None = None,
-        defaultSubtotal: bool = True,
-        sumSubtotal: Incomplete | None = None,
-        countASubtotal: Incomplete | None = None,
-        avgSubtotal: Incomplete | None = None,
-        maxSubtotal: Incomplete | None = None,
-        minSubtotal: Incomplete | None = None,
-        productSubtotal: Incomplete | None = None,
-        countSubtotal: Incomplete | None = None,
-        stdDevSubtotal: Incomplete | None = None,
-        stdDevPSubtotal: Incomplete | None = None,
-        varSubtotal: Incomplete | None = None,
-        varPSubtotal: Incomplete | None = None,
-        showPropCell: Incomplete | None = None,
-        showPropTip: Incomplete | None = None,
-        showPropAsCaption: Incomplete | None = None,
-        defaultAttributeDrillState: Incomplete | None = None,
-        extLst: ExtensionList | None = None,
+        defaultSubtotal: _ConvertibleToBool | None = True,
+        sumSubtotal: _ConvertibleToBool | None = None,
+        countASubtotal: _ConvertibleToBool | None = None,
+        avgSubtotal: _ConvertibleToBool | None = None,
+        maxSubtotal: _ConvertibleToBool | None = None,
+        minSubtotal: _ConvertibleToBool | None = None,
+        productSubtotal: _ConvertibleToBool | None = None,
+        countSubtotal: _ConvertibleToBool | None = None,
+        stdDevSubtotal: _ConvertibleToBool | None = None,
+        stdDevPSubtotal: _ConvertibleToBool | None = None,
+        varSubtotal: _ConvertibleToBool | None = None,
+        varPSubtotal: _ConvertibleToBool | None = None,
+        showPropCell: _ConvertibleToBool | None = None,
+        showPropTip: _ConvertibleToBool | None = None,
+        showPropAsCaption: _ConvertibleToBool | None = None,
+        defaultAttributeDrillState: _ConvertibleToBool | None = None,
+        extLst: Unused = None,
     ) -> None: ...
 
 class Location(Serialisable):
@@ -609,72 +609,72 @@ class TableDefinition(Serialisable):
     cache: Incomplete
     name: Incomplete
     cacheId: Incomplete
-    dataOnRows: Incomplete
+    dataOnRows: Bool[Literal[False]]
     dataPosition: Incomplete
     dataCaption: Incomplete
     grandTotalCaption: Incomplete
     errorCaption: Incomplete
-    showError: Incomplete
+    showError: Bool[Literal[False]]
     missingCaption: Incomplete
-    showMissing: Incomplete
+    showMissing: Bool[Literal[False]]
     pageStyle: Incomplete
     pivotTableStyle: Incomplete
     vacatedStyle: Incomplete
     tag: Incomplete
     updatedVersion: Incomplete
     minRefreshableVersion: Incomplete
-    asteriskTotals: Incomplete
-    showItems: Incomplete
-    editData: Incomplete
-    disableFieldList: Incomplete
-    showCalcMbrs: Incomplete
-    visualTotals: Incomplete
-    showMultipleLabel: Incomplete
-    showDataDropDown: Incomplete
-    showDrill: Incomplete
-    printDrill: Incomplete
-    showMemberPropertyTips: Incomplete
-    showDataTips: Incomplete
-    enableWizard: Incomplete
-    enableDrill: Incomplete
-    enableFieldProperties: Incomplete
-    preserveFormatting: Incomplete
-    useAutoFormatting: Incomplete
+    asteriskTotals: Bool[Literal[False]]
+    showItems: Bool[Literal[False]]
+    editData: Bool[Literal[False]]
+    disableFieldList: Bool[Literal[False]]
+    showCalcMbrs: Bool[Literal[False]]
+    visualTotals: Bool[Literal[False]]
+    showMultipleLabel: Bool[Literal[False]]
+    showDataDropDown: Bool[Literal[False]]
+    showDrill: Bool[Literal[False]]
+    printDrill: Bool[Literal[False]]
+    showMemberPropertyTips: Bool[Literal[False]]
+    showDataTips: Bool[Literal[False]]
+    enableWizard: Bool[Literal[False]]
+    enableDrill: Bool[Literal[False]]
+    enableFieldProperties: Bool[Literal[False]]
+    preserveFormatting: Bool[Literal[False]]
+    useAutoFormatting: Bool[Literal[False]]
     pageWrap: Incomplete
-    pageOverThenDown: Incomplete
-    subtotalHiddenItems: Incomplete
-    rowGrandTotals: Incomplete
-    colGrandTotals: Incomplete
-    fieldPrintTitles: Incomplete
-    itemPrintTitles: Incomplete
-    mergeItem: Incomplete
-    showDropZones: Incomplete
+    pageOverThenDown: Bool[Literal[False]]
+    subtotalHiddenItems: Bool[Literal[False]]
+    rowGrandTotals: Bool[Literal[False]]
+    colGrandTotals: Bool[Literal[False]]
+    fieldPrintTitles: Bool[Literal[False]]
+    itemPrintTitles: Bool[Literal[False]]
+    mergeItem: Bool[Literal[False]]
+    showDropZones: Bool[Literal[False]]
     createdVersion: Incomplete
     indent: Incomplete
-    showEmptyRow: Incomplete
-    showEmptyCol: Incomplete
-    showHeaders: Incomplete
-    compact: Incomplete
-    outline: Incomplete
-    outlineData: Incomplete
-    compactData: Incomplete
-    published: Incomplete
-    gridDropZones: Incomplete
-    immersive: Incomplete
-    multipleFieldFilters: Incomplete
+    showEmptyRow: Bool[Literal[False]]
+    showEmptyCol: Bool[Literal[False]]
+    showHeaders: Bool[Literal[False]]
+    compact: Bool[Literal[False]]
+    outline: Bool[Literal[False]]
+    outlineData: Bool[Literal[False]]
+    compactData: Bool[Literal[False]]
+    published: Bool[Literal[False]]
+    gridDropZones: Bool[Literal[False]]
+    immersive: Bool[Literal[False]]
+    multipleFieldFilters: Bool[Literal[False]]
     chartFormat: Incomplete
     rowHeaderCaption: Incomplete
     colHeaderCaption: Incomplete
-    fieldListSortAscending: Incomplete
-    mdxSubqueries: Incomplete
-    customListSort: Incomplete
+    fieldListSortAscending: Bool[Literal[False]]
+    mdxSubqueries: Bool[Literal[False]]
+    customListSort: Bool[Literal[True]]
     autoFormatId: Incomplete
-    applyNumberFormats: Incomplete
-    applyBorderFormats: Incomplete
-    applyFontFormats: Incomplete
-    applyPatternFormats: Incomplete
-    applyAlignmentFormats: Incomplete
-    applyWidthHeightFormats: Incomplete
+    applyNumberFormats: Bool[Literal[False]]
+    applyBorderFormats: Bool[Literal[False]]
+    applyFontFormats: Bool[Literal[False]]
+    applyPatternFormats: Bool[Literal[False]]
+    applyAlignmentFormats: Bool[Literal[False]]
+    applyWidthHeightFormats: Bool[Literal[False]]
     location: Typed[Location, Literal[False]]
     pivotFields: Incomplete
     rowFields: Incomplete
@@ -698,72 +698,72 @@ class TableDefinition(Serialisable):
         self,
         name: Incomplete | None,
         cacheId: Incomplete | None,
-        dataOnRows: bool,
+        dataOnRows: _ConvertibleToBool,
         dataPosition: Incomplete | None,
         dataCaption: Incomplete | None,
         grandTotalCaption: Incomplete | None,
         errorCaption: Incomplete | None,
-        showError: bool,
+        showError: _ConvertibleToBool,
         missingCaption: Incomplete | None,
-        showMissing: bool,
+        showMissing: _ConvertibleToBool,
         pageStyle: Incomplete | None,
         pivotTableStyle: Incomplete | None,
         vacatedStyle: Incomplete | None,
         tag: Incomplete | None,
         updatedVersion: int,
         minRefreshableVersion: int,
-        asteriskTotals: bool,
-        showItems: bool,
-        editData: bool,
-        disableFieldList: bool,
-        showCalcMbrs: bool,
-        visualTotals: bool,
-        showMultipleLabel: bool,
-        showDataDropDown: bool,
-        showDrill: bool,
-        printDrill: bool,
-        showMemberPropertyTips: bool,
-        showDataTips: bool,
-        enableWizard: bool,
-        enableDrill: bool,
-        enableFieldProperties: bool,
-        preserveFormatting: bool,
-        useAutoFormatting: bool,
+        asteriskTotals: _ConvertibleToBool,
+        showItems: _ConvertibleToBool,
+        editData: _ConvertibleToBool,
+        disableFieldList: _ConvertibleToBool,
+        showCalcMbrs: _ConvertibleToBool,
+        visualTotals: _ConvertibleToBool,
+        showMultipleLabel: _ConvertibleToBool,
+        showDataDropDown: _ConvertibleToBool,
+        showDrill: _ConvertibleToBool,
+        printDrill: _ConvertibleToBool,
+        showMemberPropertyTips: _ConvertibleToBool,
+        showDataTips: _ConvertibleToBool,
+        enableWizard: _ConvertibleToBool,
+        enableDrill: _ConvertibleToBool,
+        enableFieldProperties: _ConvertibleToBool,
+        preserveFormatting: _ConvertibleToBool,
+        useAutoFormatting: _ConvertibleToBool,
         pageWrap: int,
-        pageOverThenDown: bool,
-        subtotalHiddenItems: bool,
-        rowGrandTotals: bool,
-        colGrandTotals: bool,
-        fieldPrintTitles: bool,
-        itemPrintTitles: bool,
-        mergeItem: bool,
-        showDropZones: bool,
+        pageOverThenDown: _ConvertibleToBool,
+        subtotalHiddenItems: _ConvertibleToBool,
+        rowGrandTotals: _ConvertibleToBool,
+        colGrandTotals: _ConvertibleToBool,
+        fieldPrintTitles: _ConvertibleToBool,
+        itemPrintTitles: _ConvertibleToBool,
+        mergeItem: _ConvertibleToBool,
+        showDropZones: _ConvertibleToBool,
         createdVersion: int,
         indent: int,
-        showEmptyRow: bool,
-        showEmptyCol: bool,
-        showHeaders: bool,
-        compact: bool,
-        outline: bool,
-        outlineData: bool,
-        compactData: bool,
-        published: bool,
-        gridDropZones: bool,
-        immersive: bool,
-        multipleFieldFilters: Incomplete | None,
+        showEmptyRow: _ConvertibleToBool,
+        showEmptyCol: _ConvertibleToBool,
+        showHeaders: _ConvertibleToBool,
+        compact: _ConvertibleToBool,
+        outline: _ConvertibleToBool,
+        outlineData: _ConvertibleToBool,
+        compactData: _ConvertibleToBool,
+        published: _ConvertibleToBool,
+        gridDropZones: _ConvertibleToBool,
+        immersive: _ConvertibleToBool,
+        multipleFieldFilters: _ConvertibleToBool,
         chartFormat: int,
         rowHeaderCaption: Incomplete | None,
         colHeaderCaption: Incomplete | None,
-        fieldListSortAscending: Incomplete | None,
-        mdxSubqueries: Incomplete | None,
-        customListSort: Incomplete | None,
+        fieldListSortAscending: _ConvertibleToBool,
+        mdxSubqueries: _ConvertibleToBool,
+        customListSort: _ConvertibleToBool | None,
         autoFormatId: Incomplete | None,
-        applyNumberFormats: bool,
-        applyBorderFormats: bool,
-        applyFontFormats: bool,
-        applyPatternFormats: bool,
-        applyAlignmentFormats: bool,
-        applyWidthHeightFormats: bool,
+        applyNumberFormats: _ConvertibleToBool,
+        applyBorderFormats: _ConvertibleToBool,
+        applyFontFormats: _ConvertibleToBool,
+        applyPatternFormats: _ConvertibleToBool,
+        applyAlignmentFormats: _ConvertibleToBool,
+        applyWidthHeightFormats: _ConvertibleToBool,
         location: Location | None,
         pivotFields=(),
         rowFields=(),

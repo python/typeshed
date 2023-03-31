@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Bool, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 class _Protected:
@@ -11,23 +13,23 @@ class _Protected:
 
 class SheetProtection(Serialisable, _Protected):
     tagname: str
-    sheet: Incomplete
+    sheet: Bool[Literal[False]]
     enabled: Incomplete
-    objects: Incomplete
-    scenarios: Incomplete
-    formatCells: Incomplete
-    formatColumns: Incomplete
-    formatRows: Incomplete
-    insertColumns: Incomplete
-    insertRows: Incomplete
-    insertHyperlinks: Incomplete
-    deleteColumns: Incomplete
-    deleteRows: Incomplete
-    selectLockedCells: Incomplete
-    selectUnlockedCells: Incomplete
-    sort: Incomplete
-    autoFilter: Incomplete
-    pivotTables: Incomplete
+    objects: Bool[Literal[False]]
+    scenarios: Bool[Literal[False]]
+    formatCells: Bool[Literal[False]]
+    formatColumns: Bool[Literal[False]]
+    formatRows: Bool[Literal[False]]
+    insertColumns: Bool[Literal[False]]
+    insertRows: Bool[Literal[False]]
+    insertHyperlinks: Bool[Literal[False]]
+    deleteColumns: Bool[Literal[False]]
+    deleteRows: Bool[Literal[False]]
+    selectLockedCells: Bool[Literal[False]]
+    selectUnlockedCells: Bool[Literal[False]]
+    sort: Bool[Literal[False]]
+    autoFilter: Bool[Literal[False]]
+    pivotTables: Bool[Literal[False]]
     saltValue: Incomplete
     spinCount: Incomplete
     algorithmName: Incomplete
@@ -36,22 +38,22 @@ class SheetProtection(Serialisable, _Protected):
     password: Incomplete
     def __init__(
         self,
-        sheet: bool = False,
-        objects: bool = False,
-        scenarios: bool = False,
-        formatCells: bool = True,
-        formatRows: bool = True,
-        formatColumns: bool = True,
-        insertColumns: bool = True,
-        insertRows: bool = True,
-        insertHyperlinks: bool = True,
-        deleteColumns: bool = True,
-        deleteRows: bool = True,
-        selectLockedCells: bool = False,
-        selectUnlockedCells: bool = False,
-        sort: bool = True,
-        autoFilter: bool = True,
-        pivotTables: bool = True,
+        sheet: _ConvertibleToBool = False,
+        objects: _ConvertibleToBool = False,
+        scenarios: _ConvertibleToBool = False,
+        formatCells: _ConvertibleToBool = True,
+        formatRows: _ConvertibleToBool = True,
+        formatColumns: _ConvertibleToBool = True,
+        insertColumns: _ConvertibleToBool = True,
+        insertRows: _ConvertibleToBool = True,
+        insertHyperlinks: _ConvertibleToBool = True,
+        deleteColumns: _ConvertibleToBool = True,
+        deleteRows: _ConvertibleToBool = True,
+        selectLockedCells: _ConvertibleToBool = False,
+        selectUnlockedCells: _ConvertibleToBool = False,
+        sort: _ConvertibleToBool = True,
+        autoFilter: _ConvertibleToBool = True,
+        pivotTables: _ConvertibleToBool = True,
         password: Incomplete | None = None,
         algorithmName: Incomplete | None = None,
         saltValue: Incomplete | None = None,

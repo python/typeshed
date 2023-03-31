@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Set
+from openpyxl.descriptors.base import Bool, Set, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 _WebPublishItemSourceType: TypeAlias = Literal[
@@ -17,7 +17,7 @@ class WebPublishItem(Serialisable):
     sourceObject: Incomplete
     destinationFile: Incomplete
     title: Incomplete
-    autoRepublish: Incomplete
+    autoRepublish: Bool[Literal[True]]
     def __init__(
         self,
         id: Incomplete | None,
@@ -27,7 +27,7 @@ class WebPublishItem(Serialisable):
         sourceObject: Incomplete | None = None,
         destinationFile: Incomplete | None = None,
         title: Incomplete | None = None,
-        autoRepublish: Incomplete | None = None,
+        autoRepublish: _ConvertibleToBool | None = None,
     ) -> None: ...
 
 class WebPublishItems(Serialisable):

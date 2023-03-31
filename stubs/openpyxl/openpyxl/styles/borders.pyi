@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import NoneSet, Typed
+from openpyxl.descriptors.base import Bool, NoneSet, Typed, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 _SideStyle: TypeAlias = Literal[
@@ -60,9 +60,9 @@ class Border(Serialisable):
     diagonal: Typed[Side, Literal[True]]
     vertical: Typed[Side, Literal[True]]
     horizontal: Typed[Side, Literal[True]]
-    outline: Incomplete
-    diagonalUp: Incomplete
-    diagonalDown: Incomplete
+    outline: Bool[Literal[False]]
+    diagonalUp: Bool[Literal[False]]
+    diagonalDown: Bool[Literal[False]]
     diagonal_direction: Incomplete
     def __init__(
         self,
@@ -74,9 +74,9 @@ class Border(Serialisable):
         diagonal_direction: Incomplete | None = None,
         vertical: Side | None = None,
         horizontal: Side | None = None,
-        diagonalUp: bool = False,
-        diagonalDown: bool = False,
-        outline: bool = True,
+        diagonalUp: _ConvertibleToBool = False,
+        diagonalDown: _ConvertibleToBool = False,
+        outline: _ConvertibleToBool = True,
         start: Side | None = None,
         end: Side | None = None,
     ) -> None: ...

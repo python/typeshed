@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Set, Typed
+from openpyxl.descriptors.base import Bool, Set, Typed, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 from .colors import ColorChoice
@@ -62,15 +62,15 @@ class ColorReplaceEffect(Serialisable): ...
 class Color(Serialisable): ...
 
 class ColorChangeEffect(Serialisable):
-    useA: Incomplete
+    useA: Bool[Literal[True]]
     clrFrom: Typed[Color, Literal[False]]
     clrTo: Typed[Color, Literal[False]]
-    def __init__(self, useA: Incomplete | None, clrFrom: Color, clrTo: Color) -> None: ...
+    def __init__(self, useA: _ConvertibleToBool | None, clrFrom: Color, clrTo: Color) -> None: ...
 
 class BlurEffect(Serialisable):
     rad: Incomplete
-    grow: Incomplete
-    def __init__(self, rad: Incomplete | None = None, grow: Incomplete | None = None) -> None: ...
+    grow: Bool[Literal[True]]
+    def __init__(self, rad: Incomplete | None = None, grow: _ConvertibleToBool | None = None) -> None: ...
 
 class BiLevelEffect(Serialisable):
     thresh: Incomplete
@@ -137,7 +137,7 @@ class OuterShadow(ColorChoice):
     kx: Incomplete
     ky: Incomplete
     algn: Set[_Algn]
-    rotWithShape: Incomplete
+    rotWithShape: Bool[Literal[True]]
     scrgbClr: Incomplete
     srgbClr: Incomplete
     hslClr: Incomplete
@@ -155,7 +155,7 @@ class OuterShadow(ColorChoice):
         kx: Incomplete | None,
         ky: Incomplete | None,
         algn: _Algn,
-        rotWithShape: Incomplete | None = None,
+        rotWithShape: _ConvertibleToBool | None = None,
         **kw,
     ) -> None: ...
 
@@ -188,7 +188,7 @@ class ReflectionEffect(Serialisable):
     kx: Incomplete
     ky: Incomplete
     algn: Set[_Algn]
-    rotWithShape: Incomplete
+    rotWithShape: Bool[Literal[True]]
     def __init__(
         self,
         blurRad: Incomplete | None,
@@ -204,7 +204,7 @@ class ReflectionEffect(Serialisable):
         kx: Incomplete | None,
         ky: Incomplete | None,
         algn: _Algn,
-        rotWithShape: Incomplete | None = None,
+        rotWithShape: _ConvertibleToBool | None = None,
     ) -> None: ...
 
 class SoftEdgesEffect(Serialisable):

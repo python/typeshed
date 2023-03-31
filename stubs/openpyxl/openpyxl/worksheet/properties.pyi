@@ -1,40 +1,40 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Bool, Typed, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 class Outline(Serialisable):
     tagname: str
-    applyStyles: Incomplete
-    summaryBelow: Incomplete
-    summaryRight: Incomplete
-    showOutlineSymbols: Incomplete
+    applyStyles: Bool[Literal[True]]
+    summaryBelow: Bool[Literal[True]]
+    summaryRight: Bool[Literal[True]]
+    showOutlineSymbols: Bool[Literal[True]]
     def __init__(
         self,
-        applyStyles: Incomplete | None = None,
-        summaryBelow: Incomplete | None = None,
-        summaryRight: Incomplete | None = None,
-        showOutlineSymbols: Incomplete | None = None,
+        applyStyles: _ConvertibleToBool | None = None,
+        summaryBelow: _ConvertibleToBool | None = None,
+        summaryRight: _ConvertibleToBool | None = None,
+        showOutlineSymbols: _ConvertibleToBool | None = None,
     ) -> None: ...
 
 class PageSetupProperties(Serialisable):
     tagname: str
-    autoPageBreaks: Incomplete
-    fitToPage: Incomplete
-    def __init__(self, autoPageBreaks: Incomplete | None = None, fitToPage: Incomplete | None = None) -> None: ...
+    autoPageBreaks: Bool[Literal[True]]
+    fitToPage: Bool[Literal[True]]
+    def __init__(self, autoPageBreaks: _ConvertibleToBool | None = None, fitToPage: _ConvertibleToBool | None = None) -> None: ...
 
 class WorksheetProperties(Serialisable):
     tagname: str
     codeName: Incomplete
-    enableFormatConditionsCalculation: Incomplete
-    filterMode: Incomplete
-    published: Incomplete
-    syncHorizontal: Incomplete
+    enableFormatConditionsCalculation: Bool[Literal[True]]
+    filterMode: Bool[Literal[True]]
+    published: Bool[Literal[True]]
+    syncHorizontal: Bool[Literal[True]]
     syncRef: Incomplete
-    syncVertical: Incomplete
-    transitionEvaluation: Incomplete
-    transitionEntry: Incomplete
+    syncVertical: Bool[Literal[True]]
+    transitionEvaluation: Bool[Literal[True]]
+    transitionEntry: Bool[Literal[True]]
     tabColor: Incomplete
     outlinePr: Typed[Outline, Literal[True]]
     pageSetUpPr: Typed[PageSetupProperties, Literal[True]]
@@ -42,14 +42,14 @@ class WorksheetProperties(Serialisable):
     def __init__(
         self,
         codeName: Incomplete | None = None,
-        enableFormatConditionsCalculation: Incomplete | None = None,
-        filterMode: Incomplete | None = None,
-        published: Incomplete | None = None,
-        syncHorizontal: Incomplete | None = None,
+        enableFormatConditionsCalculation: _ConvertibleToBool | None = None,
+        filterMode: _ConvertibleToBool | None = None,
+        published: _ConvertibleToBool | None = None,
+        syncHorizontal: _ConvertibleToBool | None = None,
         syncRef: Incomplete | None = None,
-        syncVertical: Incomplete | None = None,
-        transitionEvaluation: Incomplete | None = None,
-        transitionEntry: Incomplete | None = None,
+        syncVertical: _ConvertibleToBool | None = None,
+        transitionEvaluation: _ConvertibleToBool | None = None,
+        transitionEntry: _ConvertibleToBool | None = None,
         tabColor: Incomplete | None = None,
         outlinePr: Outline | None = None,
         pageSetUpPr: PageSetupProperties | None = None,

@@ -1,11 +1,15 @@
 from _typeshed import Incomplete
 from collections.abc import Iterator
-from typing_extensions import Self
+from typing import TypeVar
+from typing_extensions import Literal, Self
 
 from openpyxl.descriptors import Bool, DateTime, Float, Integer, Sequence, Strict, String
 from openpyxl.descriptors.nested import NestedText
 
-class NestedBoolText(Bool, NestedText): ...
+_N = TypeVar("_N", bound=bool)
+
+# Does not reimplement anything, so runtime also has incompatible supertypes
+class NestedBoolText(Bool[_N], NestedText): ...  # type: ignore[misc]
 
 class _TypedProperty(Strict):
     name: String
@@ -26,7 +30,7 @@ class DateTimeProperty(_TypedProperty):
     value: DateTime
 
 class BoolProperty(_TypedProperty):
-    value: Bool
+    value: Bool[Literal[False]]
 
 class LinkProperty(_TypedProperty):
     value: String

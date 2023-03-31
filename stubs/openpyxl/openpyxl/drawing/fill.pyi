@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import MinMax, NoneSet, Set, Typed, _ConvertibleToFloat
+from openpyxl.descriptors.base import Bool, MinMax, NoneSet, Set, Typed, _ConvertibleToBool, _ConvertibleToFloat
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.colors import ColorChoice, HSLColor, RGBPercent, SchemeColor, SystemColor
@@ -152,8 +152,8 @@ class LinearShadeProperties(Serialisable):
     tagname: str
     namespace: Incomplete
     ang: Incomplete
-    scaled: Incomplete
-    def __init__(self, ang: Incomplete | None = None, scaled: Incomplete | None = None) -> None: ...
+    scaled: Bool[Literal[True]]
+    def __init__(self, ang: Incomplete | None = None, scaled: _ConvertibleToBool | None = None) -> None: ...
 
 class PathShadeProperties(Serialisable):
     tagname: str
@@ -166,7 +166,7 @@ class GradientFillProperties(Serialisable):
     tagname: str
     namespace: Incomplete
     flip: NoneSet[_PropertiesFlip]
-    rotWithShape: Incomplete
+    rotWithShape: Bool[Literal[True]]
     gsLst: Incomplete
     stop_list: Incomplete
     lin: Typed[LinearShadeProperties, Literal[True]]
@@ -177,7 +177,7 @@ class GradientFillProperties(Serialisable):
     def __init__(
         self,
         flip: _PropertiesFlip | Literal["none"] | None = None,
-        rotWithShape: Incomplete | None = None,
+        rotWithShape: _ConvertibleToBool | None = None,
         gsLst=(),
         lin: LinearShadeProperties | None = None,
         path: PathShadeProperties | None = None,
@@ -211,16 +211,16 @@ class Blip(Serialisable):
     cstate: NoneSet[_BlipCstate]
     embed: Incomplete
     link: Incomplete
-    noGrp: Incomplete
-    noSelect: Incomplete
-    noRot: Incomplete
-    noChangeAspect: Incomplete
-    noMove: Incomplete
-    noResize: Incomplete
-    noEditPoints: Incomplete
-    noAdjustHandles: Incomplete
-    noChangeArrowheads: Incomplete
-    noChangeShapeType: Incomplete
+    noGrp: Bool[Literal[True]]
+    noSelect: Bool[Literal[True]]
+    noRot: Bool[Literal[True]]
+    noChangeAspect: Bool[Literal[True]]
+    noMove: Bool[Literal[True]]
+    noResize: Bool[Literal[True]]
+    noEditPoints: Bool[Literal[True]]
+    noAdjustHandles: Bool[Literal[True]]
+    noChangeArrowheads: Bool[Literal[True]]
+    noChangeShapeType: Bool[Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     alphaBiLevel: Typed[AlphaBiLevelEffect, Literal[True]]
     alphaCeiling: Typed[AlphaCeilingEffect, Literal[True]]
@@ -245,16 +245,16 @@ class Blip(Serialisable):
         cstate: _BlipCstate | Literal["none"] | None = None,
         embed: Incomplete | None = None,
         link: Incomplete | None = None,
-        noGrp: Incomplete | None = None,
-        noSelect: Incomplete | None = None,
-        noRot: Incomplete | None = None,
-        noChangeAspect: Incomplete | None = None,
-        noMove: Incomplete | None = None,
-        noResize: Incomplete | None = None,
-        noEditPoints: Incomplete | None = None,
-        noAdjustHandles: Incomplete | None = None,
-        noChangeArrowheads: Incomplete | None = None,
-        noChangeShapeType: Incomplete | None = None,
+        noGrp: _ConvertibleToBool | None = None,
+        noSelect: _ConvertibleToBool | None = None,
+        noRot: _ConvertibleToBool | None = None,
+        noChangeAspect: _ConvertibleToBool | None = None,
+        noMove: _ConvertibleToBool | None = None,
+        noResize: _ConvertibleToBool | None = None,
+        noEditPoints: _ConvertibleToBool | None = None,
+        noAdjustHandles: _ConvertibleToBool | None = None,
+        noChangeArrowheads: _ConvertibleToBool | None = None,
+        noChangeShapeType: _ConvertibleToBool | None = None,
         extLst: ExtensionList | None = None,
         alphaBiLevel: AlphaBiLevelEffect | None = None,
         alphaCeiling: AlphaCeilingEffect | None = None,
@@ -295,7 +295,7 @@ class TileInfoProperties(Serialisable):
 class BlipFillProperties(Serialisable):
     tagname: str
     dpi: Incomplete
-    rotWithShape: Incomplete
+    rotWithShape: Bool[Literal[True]]
     blip: Typed[Blip, Literal[True]]
     srcRect: Typed[RelativeRect, Literal[True]]
     tile: Typed[TileInfoProperties, Literal[True]]
@@ -304,7 +304,7 @@ class BlipFillProperties(Serialisable):
     def __init__(
         self,
         dpi: Incomplete | None = None,
-        rotWithShape: Incomplete | None = None,
+        rotWithShape: _ConvertibleToBool | None = None,
         blip: Blip | None = None,
         tile: TileInfoProperties | None = None,
         stretch: StretchInfoProperties = ...,

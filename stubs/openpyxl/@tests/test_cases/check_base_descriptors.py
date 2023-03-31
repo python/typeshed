@@ -6,7 +6,7 @@ from _typeshed import ReadableBuffer
 from typing import Any, List, Tuple, Union
 from typing_extensions import Literal, assert_type
 
-from openpyxl.descriptors.base import Convertible, Descriptor, Length, MatchPattern, MinMax, NoneSet, Set, Typed
+from openpyxl.descriptors.base import Bool, Convertible, Descriptor, Length, MatchPattern, MinMax, NoneSet, Set, Typed
 from openpyxl.descriptors.serialisable import Serialisable
 
 
@@ -46,6 +46,10 @@ class WithDescriptors(Serialisable):
     minmax_int = MinMax(min=0.0, max=0.0, expected_type=int, allow_none=False)
     minmax_int_none = MinMax(min=0.0, max=0.0, expected_type=int, allow_none=True)
 
+    boolean_default = Bool()
+    boolean_not_none = Bool(allow_none=False)
+    boolean_none = Bool(allow_none=True)
+
     # Test inferred annotation
     assert_type(descriptor, Descriptor[str])
 
@@ -79,6 +83,10 @@ class WithDescriptors(Serialisable):
     assert_type(minmax_float_none, MinMax[float, Literal[True]])
     assert_type(minmax_int, MinMax[int, Literal[False]])
     assert_type(minmax_int_none, MinMax[int, Literal[True]])
+
+    assert_type(boolean_default, Bool[Literal[False]])
+    assert_type(boolean_not_none, Bool[Literal[False]])
+    assert_type(boolean_none, Bool[Literal[True]])
 
 
 with_descriptors = WithDescriptors()
@@ -122,6 +130,9 @@ assert_type(with_descriptors.minmax_float_none, Union[float, None])
 assert_type(with_descriptors.minmax_int, int)
 assert_type(with_descriptors.minmax_int_none, Union[int, None])
 
+assert_type(with_descriptors.boolean_not_none, bool)
+assert_type(with_descriptors.boolean_none, Union[bool, None])
+
 
 # Test setters (expected type, None, unexpected type)
 with_descriptors.descriptor = ""
@@ -136,6 +147,7 @@ with_descriptors.typed_not_none = 0  # type: ignore
 with_descriptors.typed_none = ""
 with_descriptors.typed_none = None
 with_descriptors.typed_none = 0  # type: ignore
+
 
 # NOTE: Can't check Set for literal int wen used with a float because any int is a vlaid float
 with_descriptors.set_tuple = "a"
@@ -217,6 +229,7 @@ with_descriptors.convertible_none = "0"
 with_descriptors.convertible_none = None
 with_descriptors.convertible_none = object()  # FIXME: False positive(?) in pyright and mypy
 
+
 with_descriptors.minmax_float = 0
 with_descriptors.minmax_float = "0"
 with_descriptors.minmax_float = 0.0
@@ -240,3 +253,18 @@ with_descriptors.minmax_int_none = "0"
 with_descriptors.minmax_int_none = 0.0
 with_descriptors.minmax_int_none = None
 with_descriptors.minmax_int_none = object()  # type: ignore
+
+
+with_descriptors.boolean_not_none = False
+with_descriptors.boolean_not_none = "0"
+with_descriptors.boolean_not_none = 0
+with_descriptors.boolean_not_none = None  # pyright: ignore[reportGeneralTypeIssues] # false negative in mypy
+with_descriptors.boolean_not_none = 0.0  # type: ignore
+with_descriptors.boolean_not_none = object()  # type: ignore
+
+with_descriptors.boolean_none = False
+with_descriptors.boolean_none = "0"
+with_descriptors.boolean_none = 0
+with_descriptors.boolean_none = None
+with_descriptors.boolean_none = 0.0  # type: ignore
+with_descriptors.boolean_none = object()  # type: ignore

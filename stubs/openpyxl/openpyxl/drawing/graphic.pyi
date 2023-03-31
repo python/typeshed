@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Bool, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.picture import PictureFrame
@@ -10,21 +10,21 @@ from openpyxl.drawing.relation import ChartRelation
 from openpyxl.drawing.xdr import XDRTransform2D
 
 class GraphicFrameLocking(Serialisable):
-    noGrp: Incomplete
-    noDrilldown: Incomplete
-    noSelect: Incomplete
-    noChangeAspect: Incomplete
-    noMove: Incomplete
-    noResize: Incomplete
+    noGrp: Bool[Literal[True]]
+    noDrilldown: Bool[Literal[True]]
+    noSelect: Bool[Literal[True]]
+    noChangeAspect: Bool[Literal[True]]
+    noMove: Bool[Literal[True]]
+    noResize: Bool[Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     def __init__(
         self,
-        noGrp: Incomplete | None = None,
-        noDrilldown: Incomplete | None = None,
-        noSelect: Incomplete | None = None,
-        noChangeAspect: Incomplete | None = None,
-        noMove: Incomplete | None = None,
-        noResize: Incomplete | None = None,
+        noGrp: _ConvertibleToBool | None = None,
+        noDrilldown: _ConvertibleToBool | None = None,
+        noSelect: _ConvertibleToBool | None = None,
+        noChangeAspect: _ConvertibleToBool | None = None,
+        noMove: _ConvertibleToBool | None = None,
+        noResize: _ConvertibleToBool | None = None,
         extLst: ExtensionList | None = None,
     ) -> None: ...
 
@@ -60,7 +60,7 @@ class GraphicFrame(Serialisable):
     xfrm: Typed[XDRTransform2D, Literal[False]]
     graphic: Typed[GraphicObject, Literal[False]]
     macro: Incomplete
-    fPublished: Incomplete
+    fPublished: Bool[Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -68,7 +68,7 @@ class GraphicFrame(Serialisable):
         xfrm: XDRTransform2D | None = None,
         graphic: GraphicObject | None = None,
         macro: Incomplete | None = None,
-        fPublished: Incomplete | None = None,
+        fPublished: _ConvertibleToBool | None = None,
     ) -> None: ...
 
 class GroupShape(Serialisable):

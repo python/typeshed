@@ -2,8 +2,10 @@ from _typeshed import Incomplete
 from collections import defaultdict
 from collections.abc import Generator
 from re import Pattern
+from typing_extensions import Literal
 
 from openpyxl.descriptors import Sequence
+from openpyxl.descriptors.base import Bool, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 RESERVED: frozenset[str]
@@ -18,14 +20,14 @@ class DefinedName(Serialisable):
     help: Incomplete
     statusBar: Incomplete
     localSheetId: Incomplete
-    hidden: Incomplete
-    function: Incomplete
-    vbProcedure: Incomplete
-    xlm: Incomplete
+    hidden: Bool[Literal[True]]
+    function: Bool[Literal[True]]
+    vbProcedure: Bool[Literal[True]]
+    xlm: Bool[Literal[True]]
     functionGroupId: Incomplete
     shortcutKey: Incomplete
-    publishToServer: Incomplete
-    workbookParameter: Incomplete
+    publishToServer: Bool[Literal[True]]
+    workbookParameter: Bool[Literal[True]]
     attr_text: Incomplete
     value: Incomplete
     def __init__(
@@ -37,14 +39,14 @@ class DefinedName(Serialisable):
         help: Incomplete | None = None,
         statusBar: Incomplete | None = None,
         localSheetId: Incomplete | None = None,
-        hidden: Incomplete | None = None,
-        function: Incomplete | None = None,
-        vbProcedure: Incomplete | None = None,
-        xlm: Incomplete | None = None,
+        hidden: _ConvertibleToBool | None = None,
+        function: _ConvertibleToBool | None = None,
+        vbProcedure: _ConvertibleToBool | None = None,
+        xlm: _ConvertibleToBool | None = None,
         functionGroupId: Incomplete | None = None,
         shortcutKey: Incomplete | None = None,
-        publishToServer: Incomplete | None = None,
-        workbookParameter: Incomplete | None = None,
+        publishToServer: _ConvertibleToBool | None = None,
+        workbookParameter: _ConvertibleToBool | None = None,
         attr_text: Incomplete | None = None,
     ) -> None: ...
     @property

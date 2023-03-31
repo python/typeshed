@@ -1,21 +1,21 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Bool, Typed, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.ole import ObjectAnchor
 
 class ControlProperty(Serialisable):
     tagname: str
     anchor: Typed[ObjectAnchor, Literal[False]]
-    locked: Incomplete
-    defaultSize: Incomplete
-    disabled: Incomplete
-    recalcAlways: Incomplete
-    uiObject: Incomplete
-    autoFill: Incomplete
-    autoLine: Incomplete
-    autoPict: Incomplete
+    locked: Bool[Literal[True]]
+    defaultSize: Bool[Literal[True]]
+    disabled: Bool[Literal[True]]
+    recalcAlways: Bool[Literal[True]]
+    uiObject: Bool[Literal[True]]
+    autoFill: Bool[Literal[True]]
+    autoLine: Bool[Literal[True]]
+    autoPict: Bool[Literal[True]]
     macro: Incomplete
     altText: Incomplete
     linkedCell: Incomplete
@@ -26,15 +26,15 @@ class ControlProperty(Serialisable):
     def __init__(
         self,
         anchor: ObjectAnchor,
-        locked: bool = True,
-        defaultSize: bool = True,
-        _print: bool = True,
-        disabled: bool = False,
-        recalcAlways: bool = False,
-        uiObject: bool = False,
-        autoFill: bool = True,
-        autoLine: bool = True,
-        autoPict: bool = True,
+        locked: _ConvertibleToBool | None = True,
+        defaultSize: _ConvertibleToBool | None = True,
+        _print: _ConvertibleToBool | None = True,
+        disabled: _ConvertibleToBool | None = False,
+        recalcAlways: _ConvertibleToBool | None = False,
+        uiObject: _ConvertibleToBool | None = False,
+        autoFill: _ConvertibleToBool | None = True,
+        autoLine: _ConvertibleToBool | None = True,
+        autoPict: _ConvertibleToBool | None = True,
         macro: Incomplete | None = None,
         altText: Incomplete | None = None,
         linkedCell: Incomplete | None = None,
