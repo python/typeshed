@@ -19,7 +19,7 @@ class ChartLines(Serialisable):
     tagname: str
     spPr: GraphicalProperties | None
     graphicalProperties = spPr  # noqa: F821
-    def __init__(self, spPr: GraphicalProperties | None = ...) -> None: ...
+    def __init__(self, spPr: GraphicalProperties | None = None) -> None: ...
 
 class Scaling(Serialisable):
     tagname: str
@@ -40,11 +40,11 @@ class Scaling(Serialisable):
     __elements__: tuple[str, ...]
     def __init__(
         self,
-        logBase: _FloatSetter | None = ...,
-        orientation: Literal["maxMin", "minMax"] = ...,
-        max: _FloatSetter | None = ...,
-        min: _FloatSetter | None = ...,
-        extLst: Unused = ...,
+        logBase: _FloatSetter | None = None,
+        orientation: Literal["maxMin", "minMax"] = "minMax",
+        max: _FloatSetter | None = None,
+        min: _FloatSetter | None = None,
+        extLst: Unused = None,
     ) -> None: ...
 
 class _BaseAxis(Serialisable):
@@ -96,8 +96,8 @@ class _BaseAxis(Serialisable):
         spPr: GraphicalProperties | None,
         txPr: RichText | None,
         crossAx: _IntegerSetter,
-        crosses: Literal["autoZero", "max", "min", None] = ...,
-        crossesAt: _FloatSetter | None = ...,
+        crosses: Literal["autoZero", "max", "min", None] = None,
+        crossesAt: _FloatSetter | None = None,
     ) -> None: ...
     @property
     @abstractmethod
@@ -115,10 +115,10 @@ class DisplayUnitsLabel(Serialisable):
     __elements__: tuple[str, ...]
     def __init__(
         self,
-        layout: Layout | None = ...,
-        tx: Text | None = ...,
-        spPr: GraphicalProperties | None = ...,
-        txPr: RichText | None = ...,
+        layout: Layout | None = None,
+        tx: Text | None = None,
+        spPr: GraphicalProperties | None = None,
+        txPr: RichText | None = None,
     ) -> None: ...
 
 _BuiltInUnitType: TypeAlias = Literal[
@@ -146,10 +146,10 @@ class DisplayUnitsLabelList(Serialisable):
     __elements__: tuple[str, ...]
     def __init__(
         self,
-        custUnit: float | None = ...,
-        builtInUnit: _BuiltInUnitType = ...,
-        dispUnitsLbl: DisplayUnitsLabel | None = ...,
-        extLst: Unused = ...,
+        custUnit: float | None = None,
+        builtInUnit: _BuiltInUnitType = None,
+        dispUnitsLbl: DisplayUnitsLabel | None = None,
+        extLst: Unused = None,
     ) -> None: ...
 
 class NumericAxis(_BaseAxis):
@@ -168,11 +168,11 @@ class NumericAxis(_BaseAxis):
     __elements__: tuple[str, ...]
     def __init__(
         self,
-        crossBetween: Literal["between", "midCat", None] = ...,
-        majorUnit: _FloatSetter | None = ...,
-        minorUnit: _FloatSetter | None = ...,
-        dispUnits: DisplayUnitsLabelList | None = ...,
-        extLst: Unused = ...,
+        crossBetween: Literal["between", "midCat", None] = None,
+        majorUnit: _FloatSetter | None = None,
+        minorUnit: _FloatSetter | None = None,
+        dispUnits: DisplayUnitsLabelList | None = None,
+        extLst: Unused = None,
         axId: _IntegerSetter = ...,
         scaling: Scaling | None = ...,
         delete: _BoolSetter = ...,
@@ -220,13 +220,13 @@ class TextAxis(_BaseAxis):
     __elements__: tuple[str, ...]
     def __init__(
         self,
-        auto: _BoolSetter = ...,
-        lblAlgn: Literal["ctr", "l", "r", None] = ...,
-        lblOffset: _FloatSetter = ...,
-        tickLblSkip: _IntegerSetter | None = ...,
-        tickMarkSkip: _IntegerSetter | None = ...,
-        noMultiLvlLbl: _BoolSetter = ...,
-        extLst: Unused = ...,
+        auto: _BoolSetter = None,
+        lblAlgn: Literal["ctr", "l", "r", None] = None,
+        lblOffset: _FloatSetter = 100,
+        tickLblSkip: _IntegerSetter | None = None,
+        tickMarkSkip: _IntegerSetter | None = None,
+        noMultiLvlLbl: _BoolSetter = None,
+        extLst: Unused = None,
         axId: _IntegerSetter = ...,
         scaling: Scaling | None = ...,
         delete: _BoolSetter = ...,
@@ -272,14 +272,14 @@ class DateAxis(TextAxis):
     __elements__: tuple[str, ...]
     def __init__(
         self,
-        auto: _BoolSetter = ...,
-        lblOffset: _IntegerSetter | None = ...,
-        baseTimeUnit: _TimeUnitType = ...,
-        majorUnit: _FloatSetter | None = ...,
-        majorTimeUnit: _TimeUnitType = ...,
-        minorUnit: _FloatSetter | None = ...,
-        minorTimeUnit: _TimeUnitType = ...,
-        extLst: ExtensionList | None = ...,
+        auto: _BoolSetter = None,
+        lblOffset: _IntegerSetter | None = None,
+        baseTimeUnit: _TimeUnitType = None,
+        majorUnit: _FloatSetter | None = None,
+        majorTimeUnit: _TimeUnitType = None,
+        minorUnit: _FloatSetter | None = None,
+        minorTimeUnit: _TimeUnitType = None,
+        extLst: ExtensionList | None = None,
         axId: _IntegerSetter = ...,
         scaling: Scaling | None = ...,
         delete: _BoolSetter = ...,
@@ -312,9 +312,9 @@ class SeriesAxis(_BaseAxis):
     __elements__: tuple[str, ...]
     def __init__(
         self,
-        tickLblSkip: _IntegerSetter | None = ...,
-        tickMarkSkip: _IntegerSetter | None = ...,
-        extLst: Unused = ...,
+        tickLblSkip: _IntegerSetter | None = None,
+        tickMarkSkip: _IntegerSetter | None = None,
+        extLst: Unused = None,
         axId: _IntegerSetter = ...,
         scaling: Scaling | None = ...,
         delete: _BoolSetter = ...,

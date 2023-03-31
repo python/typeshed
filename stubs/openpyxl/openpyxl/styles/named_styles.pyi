@@ -88,18 +88,18 @@ class _NamedCellStyle(Serialisable):
         self,
         name: str,
         xfId: _IntegerSetter,
-        builtinId: _IntegerSetter | None = ...,
-        iLevel: _IntegerSetter | None = ...,
-        hidden: _BoolSetter = ...,
-        customBuiltin: _BoolSetter = ...,
-        extLst: Unused = ...,
+        builtinId: _IntegerSetter | None = None,
+        iLevel: _IntegerSetter | None = None,
+        hidden: _BoolSetter = None,
+        customBuiltin: _BoolSetter = None,
+        extLst: Unused = None,
     ) -> None: ...
 
 class _NamedCellStyleList(Serialisable):
     tagname: str
     cellStyle: _Sequence[_NamedCellStyle]
     __attrs__: tuple[str, ...]
-    def __init__(self, count: Unused = ..., cellStyle: _Sequence[_NamedCellStyle] = ...) -> None: ...
+    def __init__(self, count: Unused = None, cellStyle: _Sequence[_NamedCellStyle] = ()) -> None: ...
     @property
     def count(self) -> int: ...
     @property

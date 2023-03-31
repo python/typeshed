@@ -18,13 +18,13 @@ class DifferentialStyle(Serialisable):
     extLst: _Sequence[Incomplete] | None
     def __init__(
         self,
-        font: Font | None = ...,
-        numFmt: NumberFormat | None = ...,
-        fill: Fill | None = ...,
-        alignment: Alignment | None = ...,
-        border: Border | None = ...,
-        protection: Protection | None = ...,
-        extLst: _Sequence[Incomplete] | None = ...,
+        font: Font | None = None,
+        numFmt: NumberFormat | None = None,
+        fill: Fill | None = None,
+        alignment: Alignment | None = None,
+        border: Border | None = None,
+        protection: Protection | None = None,
+        extLst: _Sequence[Incomplete] | None = None,
     ) -> None: ...
 
 class DifferentialStyleList(Serialisable):
@@ -32,7 +32,7 @@ class DifferentialStyleList(Serialisable):
     dxf: _Sequence[DifferentialStyle]
     styles: Incomplete
     __attrs__: Incomplete
-    def __init__(self, dxf: _Sequence[DifferentialStyle] = ..., count: Unused = ...) -> None: ...
+    def __init__(self, dxf: _Sequence[DifferentialStyle] = (), count: Unused = None) -> None: ...
     def append(self, dxf: DifferentialStyle) -> None: ...
     def add(self, dxf: DifferentialStyle) -> int: ...
     def __bool__(self) -> bool: ...

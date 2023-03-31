@@ -44,13 +44,13 @@ class Color(Serialisable):
     type: str
     def __init__(
         self,
-        rgb: str = ...,
-        indexed: _IntegerSetter | None = ...,
-        auto: _BoolSetter = ...,
-        theme: _IntegerSetter | None = ...,
-        tint: _FloatSetter = ...,
-        index: _IntegerSetter | None = ...,
-        type: Unused = ...,
+        rgb: str = "00000000",
+        indexed: _IntegerSetter | None = None,
+        auto: _BoolSetter = None,
+        theme: _IntegerSetter | None = None,
+        tint: _FloatSetter = 0.0,
+        index: _IntegerSetter | None = None,
+        type: Unused = "rgb",
     ) -> None: ...
     @property
     def value(self) -> str | float | bool: ...
@@ -78,7 +78,7 @@ class ColorList(Serialisable):
     indexedColors: _Sequence[RgbColor]
     mruColors: _Sequence[Color]
     __elements__: tuple[str, ...]
-    def __init__(self, indexedColors: _Sequence[RgbColor] = ..., mruColors: _Sequence[Color] = ...) -> None: ...
+    def __init__(self, indexedColors: _Sequence[RgbColor] = (), mruColors: _Sequence[Color] = ()) -> None: ...
     def __bool__(self) -> bool: ...
     @property
     def index(self) -> list[str]: ...

@@ -17,8 +17,8 @@ class PhoneticProperties(Serialisable):
     def __init__(
         self,
         fontId: _IntegerSetter,
-        type: Literal["halfwidthKatakana", "fullwidthKatakana", "Hiragana", "noConversion", None] = ...,
-        alignment: Literal["noControl", "left", "center", "distributed", None] = ...,
+        type: Literal["halfwidthKatakana", "fullwidthKatakana", "Hiragana", "noConversion", None] = None,
+        alignment: Literal["noControl", "left", "center", "distributed", None] = None,
     ) -> None: ...
 
 class PhoneticText(Serialisable):
@@ -41,21 +41,21 @@ class InlineFont(Font):
     __elements__: tuple[str, ...]
     def __init__(
         self,
-        rFont: str | None = ...,
-        charset: int | None = ...,
-        family: float | None = ...,
-        b: bool | None = ...,
-        i: bool | None = ...,
-        strike: bool | None = ...,
-        outline: bool | None = ...,
-        shadow: bool | None = ...,
-        condense: bool | None = ...,
-        extend: bool | None = ...,
-        color: Color | None = ...,
-        sz: float | None = ...,
-        u: _UnderlineType = ...,
-        vertAlign: Literal["superscript", "subscript", "baseline", None] = ...,
-        scheme: Literal["major", "minor", None] = ...,
+        rFont: str | None = None,
+        charset: int | None = None,
+        family: float | None = None,
+        b: bool | None = None,
+        i: bool | None = None,
+        strike: bool | None = None,
+        outline: bool | None = None,
+        shadow: bool | None = None,
+        condense: bool | None = None,
+        extend: bool | None = None,
+        color: Color | None = None,
+        sz: float | None = None,
+        u: _UnderlineType = None,
+        vertAlign: Literal["superscript", "subscript", "baseline", None] = None,
+        scheme: Literal["major", "minor", None] = None,
     ) -> None: ...
 
 class RichText(Serialisable):
@@ -65,7 +65,7 @@ class RichText(Serialisable):
     t: str | None
     text = t  # noqa: F821
     __elements__: tuple[str, ...]
-    def __init__(self, rPr: InlineFont | None = ..., t: str | None = ...) -> None: ...
+    def __init__(self, rPr: InlineFont | None = None, t: str | None = None) -> None: ...
 
 _PhoneticProperties: TypeAlias = PhoneticProperties
 
@@ -82,10 +82,10 @@ class Text(Serialisable):
     __elements__: tuple[str, ...]
     def __init__(
         self,
-        t: str | None = ...,
-        r: _Sequence[RichText] | None = ...,
-        rPh: _Sequence[RichText] | None = ...,
-        phoneticPr: _PhoneticProperties | None = ...,
+        t: str | None = None,
+        r: _Sequence[RichText] | None = (),
+        rPh: _Sequence[RichText] | None = (),
+        phoneticPr: _PhoneticProperties | None = None,
     ) -> None: ...
     @property
     def content(self) -> str: ...

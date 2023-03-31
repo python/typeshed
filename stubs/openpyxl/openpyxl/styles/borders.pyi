@@ -43,7 +43,7 @@ class Side(Serialisable):  # type: ignore[misc]
     style: _StyleType | None
     border_style = style  # noqa: F821
     def __init__(
-        self, style: _StyleType | None = ..., color: Color | None = ..., border_style: _StyleType | None = ...
+        self, style: _StyleType | None = None, color: Color | None = None, border_style: _StyleType | None = None
     ) -> None: ...
 
 class Border(Serialisable):
@@ -74,19 +74,19 @@ class Border(Serialisable):
     diagonal_direction: Incomplete | None
     def __init__(
         self,
-        left: Side | None = ...,
-        right: Side | None = ...,
-        top: Side | None = ...,
-        bottom: Side | None = ...,
-        diagonal: Side | None = ...,
-        diagonal_direction: Incomplete | None = ...,
-        vertical: Side | None = ...,
-        horizontal: Side | None = ...,
-        diagonalUp: _BoolSetter = ...,
-        diagonalDown: _BoolSetter = ...,
-        outline: _BoolSetter = ...,
-        start: Side | None = ...,
-        end: Side | None = ...,
+        left: Side | None = None,
+        right: Side | None = None,
+        top: Side | None = None,
+        bottom: Side | None = None,
+        diagonal: Side | None = None,
+        diagonal_direction: Incomplete | None = None,
+        vertical: Side | None = None,
+        horizontal: Side | None = None,
+        diagonalUp: _BoolSetter = False,
+        diagonalDown: _BoolSetter = False,
+        outline: _BoolSetter = True,
+        start: Side | None = None,
+        end: Side | None = None,
     ) -> None: ...
     def __iter__(self) -> Generator[tuple[str, str], None, None]: ...
 

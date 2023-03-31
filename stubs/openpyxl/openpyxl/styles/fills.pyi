@@ -68,14 +68,14 @@ class PatternFill(Fill):
     end_color = bgColor  # noqa: F821
     def __init__(
         self,
-        patternType: _FillsType | Literal["none", None] = ...,
+        patternType: _FillsType | Literal["none", None] = None,
         fgColor: Color = ...,
         bgColor: Color = ...,
-        fill_type: _FillsType | Literal["none", None] = ...,
-        start_color: Color | None = ...,
-        end_color: Color | None = ...,
+        fill_type: _FillsType | Literal["none", None] = None,
+        start_color: Color | None = None,
+        end_color: Color | None = None,
     ) -> None: ...
-    def to_tree(self, tagname: Unused = ..., idx: Unused = ...): ...  # type: ignore[override]
+    def to_tree(self, tagname: Unused = None, idx: Unused = None): ...  # type: ignore[override]
 
 DEFAULT_EMPTY_FILL: PatternFill
 DEFAULT_GRAY_FILL: PatternFill
@@ -120,15 +120,15 @@ class GradientFill(Fill):
     stop: _Sequence[Stop]
     def __init__(
         self,
-        type: Literal["linear", "path"] = ...,
-        degree: _FloatSetter = ...,
-        left: _FloatSetter = ...,
-        right: _FloatSetter = ...,
-        top: _FloatSetter = ...,
-        bottom: _FloatSetter = ...,
-        stop: _Sequence[Stop] = ...,
+        type: Literal["linear", "path"] = "linear",
+        degree: _FloatSetter = 0,
+        left: _FloatSetter = 0,
+        right: _FloatSetter = 0,
+        top: _FloatSetter = 0,
+        bottom: _FloatSetter = 0,
+        stop: _Sequence[Stop] = (),
     ) -> None: ...
     def __iter__(self) -> Generator[tuple[str, str], None, None]: ...
     def to_tree(  # type: ignore[override]
-        self, tagname: Unused = ..., namespace: Unused = ..., idx: Unused = ...
+        self, tagname: Unused = None, namespace: Unused = None, idx: Unused = None
     ) -> _Element: ...

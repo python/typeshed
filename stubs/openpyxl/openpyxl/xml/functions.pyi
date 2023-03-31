@@ -46,9 +46,9 @@ if sys.version_info >= (3, 8):
     @overload
     def tostring(
         element: xml.etree.ElementTree.Element,
-        method: str | None = ...,
+        method: str | None = "xml",
         *,
-        xml_declaration: bool | None = ...,
+        xml_declaration: bool | None = None,
         default_namespace: str | None = ...,
         short_empty_elements: bool = ...,
     ) -> str: ...
