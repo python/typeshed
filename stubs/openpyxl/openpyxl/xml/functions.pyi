@@ -6,7 +6,7 @@ from typing import overload
 from typing_extensions import TypeAlias
 
 # mypy will default to the first import. Pyright will automatically overload
-from xml.etree.ElementTree import (
+from xml.etree.ElementTree import (  # possibly also imported from lxml
     Element as Element,
     QName as QName,
     SubElement as SubElement,
