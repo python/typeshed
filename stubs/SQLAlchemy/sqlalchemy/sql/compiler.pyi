@@ -1,7 +1,10 @@
 from _typeshed import Incomplete
 from typing import NamedTuple
 
+from sqlalchemy.util.langhelpers import EnsureKWArgType
+
 from ..sql.base import CompileState
+from ..util import memoized_property
 from ..util.langhelpers import EnsureKWArgType, memoized_property
 from . import elements
 

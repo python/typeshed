@@ -54,10 +54,6 @@ sqlalchemy.testing.fixtures
 sqlalchemy.testing.pickleable
 sqlalchemy.testing.plugin.bootstrap
 
-# unclear problems
-sqlalchemy.orm.instrumentation.instrumentation_finders
-sqlalchemy.dialects.mysql.asyncmy.AsyncAdapt_asyncmy_dbapi.Binary
-
 # method arguments starting with double underscores in the implementation trips up stubtest
 sqlalchemy.testing.resolve_lambda
 sqlalchemy.testing.util.resolve_lambda
@@ -74,10 +70,10 @@ sqlalchemy.sql.quoted_name.upper
 sqlalchemy.orm.ColumnProperty.Comparator.__clause_element__
 sqlalchemy.orm.properties.ColumnProperty.Comparator.__clause_element__
 
-# Same error as in stdlib due to it being re-erported
+# Same error as in stdlib due to it being re-exported
+sqlalchemy.dialects.mysql.asyncmy.AsyncAdapt_asyncmy_dbapi.Binary
 sqlalchemy.util.compat.StringIO.seek
 sqlalchemy.util.compat.StringIO.truncate
 sqlalchemy.util.StringIO.seek
 sqlalchemy.util.StringIO.truncate
-# Re-export from unittest.mock, so it inherits the same stubtest issues
 sqlalchemy.testing.mock.patch

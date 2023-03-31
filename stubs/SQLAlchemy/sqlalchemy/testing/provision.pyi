@@ -6,7 +6,7 @@ from typing_extensions import Self
 
 from ..engine.interfaces import Connectable
 from ..engine.url import URL
-from ..testing.config import Config
+from .config import Config, _ConfigProtocol
 
 _S = TypeVar("_S", bound=str)
 _U = TypeVar("_U", bound=URL)
@@ -28,7 +28,7 @@ class register(Generic[_F]):
     def init(cls, fn: _F) -> Self: ...
     def for_db(self, *dbnames: str) -> Callable[[_F], Self]: ...
     # Impossible to specify the args from the generic Callable in the current type system
-    def __call__(self, cfg: str | URL, *arg: Any) -> str | URL | None: ...  # AnyOf[str | URL | None]
+    def __call__(self, cfg: str | URL | _ConfigProtocol, *arg: Any) -> str | URL | None: ...  # AnyOf[str | URL | None]
 
 @register.init
 def generate_driver_url(url: _U, driver: str, query_str: str) -> _U | None: ...
@@ -59,4 +59,4 @@ def stop_test_class_outside_fixtures(config: Unused, db: Unused, testcls: Unused
 @register.init  # type: ignore[type-var]  # False-positive, _S is bound to str
 def get_temp_table_name(cfg: Unused, eng: Unused, base_name: _S) -> _S: ...
 @register.init
-def set_default_schema_on_connection(cfg, dbapi_connection: Unused, schema_name: Unused) -> NoReturn: ...
+def set_default_schema_on_connection(cfg: _ConfigProtocol, dbapi_connection: Unused, schema_name: Unused) -> NoReturn: ...

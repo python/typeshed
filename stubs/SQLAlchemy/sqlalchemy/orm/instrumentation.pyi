@@ -6,6 +6,8 @@ from . import base
 
 DEL_ATTR: Any
 
+instrumentation_finders: Any
+
 class ClassManager(HasMemoized, dict[Any, Any]):
     MANAGER_ATTR: Any
     STATE_ATTR: Any
