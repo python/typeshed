@@ -1,5 +1,6 @@
 from abc import abstractmethod
-from typing import Any, Sequence
+from collections.abc import Sequence
+from typing import Any
 from typing_extensions import Self
 
 import tensorflow as tf
