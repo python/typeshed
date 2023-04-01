@@ -2,7 +2,7 @@ from _typeshed import Incomplete, Unused
 from typing_extensions import Literal
 
 from openpyxl.chart.shapes import GraphicalProperties
-from openpyxl.descriptors.base import Bool, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.fill import BlipFillProperties
@@ -67,7 +67,7 @@ class PictureFrame(Serialisable):
     nvPicPr: Typed[PictureNonVisual, Literal[False]]
     blipFill: Typed[BlipFillProperties, Literal[False]]
     spPr: Typed[GraphicalProperties, Literal[False]]
-    graphicalProperties: Incomplete
+    graphicalProperties: Alias
     style: Typed[ShapeStyle, Literal[True]]
     __elements__: Incomplete
     def __init__(

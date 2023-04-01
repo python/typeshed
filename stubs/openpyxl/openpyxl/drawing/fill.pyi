@@ -1,10 +1,10 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, MinMax, NoneSet, Set, Typed, _ConvertibleToBool, _ConvertibleToFloat
+from openpyxl.descriptors.base import Alias, Bool, MinMax, NoneSet, Set, Typed, _ConvertibleToBool, _ConvertibleToFloat
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
-from openpyxl.drawing.colors import ColorChoice, HSLColor, RGBPercent, SchemeColor, SystemColor
+from openpyxl.drawing.colors import ColorChoice, HSLColor, RGBPercent as _RGBPercent, SchemeColor, SystemColor
 from openpyxl.drawing.effect import (
     AlphaBiLevelEffect,
     AlphaCeilingEffect,
@@ -90,11 +90,11 @@ class PatternFillProperties(Serialisable):
     tagname: str
     namespace: Incomplete
     prst: NoneSet[_PatternFillPropertiesPrst]
-    preset: Incomplete
+    preset: Alias
     fgClr: Typed[ColorChoice, Literal[True]]
-    foreground: Incomplete
+    foreground: Alias
     bgClr: Typed[ColorChoice, Literal[True]]
-    background: Incomplete
+    background: Alias
     __elements__: Incomplete
     def __init__(
         self,
@@ -107,13 +107,13 @@ class RelativeRect(Serialisable):
     tagname: str
     namespace: Incomplete
     l: Incomplete
-    left: Incomplete
+    left: Alias
     t: Incomplete
-    top: Incomplete
+    top: Alias
     r: Incomplete
-    right: Incomplete
+    right: Alias
     b: Incomplete
-    bottom: Incomplete
+    bottom: Alias
     def __init__(
         self, l: Incomplete | None = None, t: Incomplete | None = None, r: Incomplete | None = None, b: Incomplete | None = None
     ) -> None: ...
@@ -128,10 +128,10 @@ class GradientStop(Serialisable):
     tagname: str
     namespace: Incomplete
     pos: MinMax[float, Literal[True]]
-    scrgbClr: Typed[RGBPercent, Literal[True]]
-    RGBPercent: Incomplete
+    scrgbClr: Typed[_RGBPercent, Literal[True]]
+    RGBPercent: Alias
     srgbClr: Incomplete
-    RGB: Incomplete
+    RGB: Alias
     hslClr: Typed[HSLColor, Literal[True]]
     sysClr: Typed[SystemColor, Literal[True]]
     schemeClr: Typed[SchemeColor, Literal[True]]
@@ -140,7 +140,7 @@ class GradientStop(Serialisable):
     def __init__(
         self,
         pos: _ConvertibleToFloat | None = None,
-        scrgbClr: RGBPercent | None = None,
+        scrgbClr: _RGBPercent | None = None,
         srgbClr: Incomplete | None = None,
         hslClr: HSLColor | None = None,
         sysClr: SystemColor | None = None,
@@ -168,9 +168,9 @@ class GradientFillProperties(Serialisable):
     flip: NoneSet[_PropertiesFlip]
     rotWithShape: Bool[Literal[True]]
     gsLst: Incomplete
-    stop_list: Incomplete
+    stop_list: Alias
     lin: Typed[LinearShadeProperties, Literal[True]]
-    linear: Incomplete
+    linear: Alias
     path: Typed[PathShadeProperties, Literal[True]]
     tileRect: Typed[RelativeRect, Literal[True]]
     __elements__: Incomplete
@@ -186,10 +186,10 @@ class GradientFillProperties(Serialisable):
 
 class SolidColorFillProperties(Serialisable):
     tagname: str
-    scrgbClr: Typed[RGBPercent, Literal[True]]
-    RGBPercent: Incomplete
+    scrgbClr: Typed[_RGBPercent, Literal[True]]
+    RGBPercent: Alias
     srgbClr: Incomplete
-    RGB: Incomplete
+    RGB: Alias
     hslClr: Typed[HSLColor, Literal[True]]
     sysClr: Typed[SystemColor, Literal[True]]
     schemeClr: Typed[SchemeColor, Literal[True]]
@@ -197,7 +197,7 @@ class SolidColorFillProperties(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        scrgbClr: RGBPercent | None = None,
+        scrgbClr: _RGBPercent | None = None,
         srgbClr: Incomplete | None = None,
         hslClr: HSLColor | None = None,
         sysClr: SystemColor | None = None,

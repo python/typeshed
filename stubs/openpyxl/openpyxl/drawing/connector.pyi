@@ -4,7 +4,7 @@ from typing_extensions import Literal
 from openpyxl.chart.shapes import GraphicalProperties
 from openpyxl.chart.text import RichText
 from openpyxl.descriptors import Typed
-from openpyxl.descriptors.base import Bool, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.geometry import ShapeStyle
@@ -66,9 +66,9 @@ class Shape(Serialisable):
     fPublished: Bool[Literal[True]]
     fLocksText: Bool[Literal[True]]
     nvSpPr: Typed[ShapeMeta, Literal[True]]
-    meta: Incomplete
+    meta: Alias
     spPr: Typed[GraphicalProperties, Literal[False]]
-    graphicalProperties: Incomplete
+    graphicalProperties: Alias
     style: Typed[ShapeStyle, Literal[True]]
     txBody: Typed[RichText, Literal[True]]
     def __init__(

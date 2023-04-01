@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, NoneSet, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, NoneSet, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.workbook.defined_name import DefinedNameList
@@ -54,7 +54,7 @@ class WorkbookPackage(Serialisable):
     fileVersion: Typed[FileVersion, Literal[True]]
     fileSharing: Typed[FileSharing, Literal[True]]
     workbookPr: Typed[WorkbookProperties, Literal[True]]
-    properties: Incomplete
+    properties: Alias
     workbookProtection: Typed[WorkbookProtection, Literal[True]]
     bookViews: Incomplete
     sheets: Incomplete

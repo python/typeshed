@@ -3,21 +3,21 @@ from typing_extensions import Literal
 
 from openpyxl.chart.picture import PictureOptions
 from openpyxl.chart.shapes import GraphicalProperties
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Alias, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
 class View3D(Serialisable):
     tagname: str
     rotX: Incomplete
-    x_rotation: Incomplete
+    x_rotation: Alias
     hPercent: Incomplete
-    height_percent: Incomplete
+    height_percent: Alias
     rotY: Incomplete
-    y_rotation: Incomplete
+    y_rotation: Alias
     depthPercent: Incomplete
     rAngAx: Incomplete
-    right_angle_axes: Incomplete
+    right_angle_axes: Alias
     perspective: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
@@ -36,7 +36,7 @@ class Surface(Serialisable):
     tagname: str
     thickness: Incomplete
     spPr: Typed[GraphicalProperties, Literal[True]]
-    graphicalProperties: Incomplete
+    graphicalProperties: Alias
     pictureOptions: Typed[PictureOptions, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete

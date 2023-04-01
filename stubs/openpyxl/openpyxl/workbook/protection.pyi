@@ -1,21 +1,21 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Bool, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 class WorkbookProtection(Serialisable):
     tagname: str
-    workbook_password: Incomplete
+    workbook_password: Alias
     workbookPasswordCharacterSet: Incomplete
-    revision_password: Incomplete
+    revision_password: Alias
     revisionsPasswordCharacterSet: Incomplete
     lockStructure: Bool[Literal[True]]
-    lock_structure: Incomplete
+    lock_structure: Alias
     lockWindows: Bool[Literal[True]]
-    lock_windows: Incomplete
+    lock_windows: Alias
     lockRevision: Bool[Literal[True]]
-    lock_revision: Incomplete
+    lock_revision: Alias
     revisionsAlgorithmName: Incomplete
     revisionsHashValue: Incomplete
     revisionsSaltValue: Incomplete

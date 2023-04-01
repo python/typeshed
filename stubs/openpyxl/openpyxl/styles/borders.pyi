@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, NoneSet, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, NoneSet, Typed, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 _SideStyle: TypeAlias = Literal[
@@ -39,7 +39,7 @@ class Side(Serialisable):
     __fields__: Incomplete
     color: Incomplete
     style: NoneSet[_SideStyle]
-    border_style: Incomplete
+    border_style: Alias
     def __init__(
         self,
         style: _SideStyle | Literal["none"] | None = None,

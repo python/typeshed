@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import NoneSet, Typed
+from openpyxl.descriptors.base import Alias, NoneSet, Typed
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.fonts import Font
 
@@ -20,12 +20,14 @@ class PhoneticProperties(Serialisable):
         alignment: _PhoneticPropertiesAlignment | Literal["none"] | None = None,
     ) -> None: ...
 
+_PhoneticProperties: TypeAlias = PhoneticProperties
+
 class PhoneticText(Serialisable):
     tagname: str
     sb: Incomplete
     eb: Incomplete
     t: Incomplete
-    text: Incomplete
+    text: Alias
     def __init__(self, sb: Incomplete | None = None, eb: Incomplete | None = None, t: Incomplete | None = None) -> None: ...
 
 class InlineFont(Font):
@@ -68,23 +70,23 @@ class InlineFont(Font):
 class RichText(Serialisable):
     tagname: str
     rPr: Typed[InlineFont, Literal[True]]
-    font: Incomplete
+    font: Alias
     t: Incomplete
-    text: Incomplete
+    text: Alias
     __elements__: Incomplete
     def __init__(self, rPr: InlineFont | None = None, t: Incomplete | None = None) -> None: ...
 
 class Text(Serialisable):
     tagname: str
     t: Incomplete
-    plain: Incomplete
+    plain: Alias
     r: Incomplete
-    formatted: Incomplete
+    formatted: Alias
     rPh: Incomplete
-    phonetic: Incomplete
-    phoneticPr: Typed[PhoneticProperties, Literal[True]]
-    PhoneticProperties: Incomplete
+    phonetic: Alias
+    phoneticPr: Typed[_PhoneticProperties, Literal[True]]
+    PhoneticProperties: Alias
     __elements__: Incomplete
-    def __init__(self, t: Incomplete | None = None, r=(), rPh=(), phoneticPr: PhoneticProperties | None = None) -> None: ...
+    def __init__(self, t: Incomplete | None = None, r=(), rPh=(), phoneticPr: _PhoneticProperties | None = None) -> None: ...
     @property
     def content(self): ...

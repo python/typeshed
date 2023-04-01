@@ -4,7 +4,7 @@ from typing_extensions import Literal
 
 from openpyxl.chart.axis import NumericAxis, SeriesAxis, TextAxis
 from openpyxl.chart.shapes import GraphicalProperties
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Alias, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
@@ -15,7 +15,7 @@ class BandFormat(Serialisable):
     tagname: str
     idx: Incomplete
     spPr: Typed[GraphicalProperties, Literal[True]]
-    graphicalProperties: Incomplete
+    graphicalProperties: Alias
     __elements__: Incomplete
     def __init__(self, idx: int = 0, spPr: GraphicalProperties | None = None) -> None: ...
 

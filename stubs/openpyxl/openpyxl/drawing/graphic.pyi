@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Bool, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.picture import PictureFrame
@@ -73,9 +73,9 @@ class GraphicFrame(Serialisable):
 
 class GroupShape(Serialisable):
     nvGrpSpPr: Typed[NonVisualGroupShape, Literal[False]]
-    nonVisualProperties: Incomplete
+    nonVisualProperties: Alias
     grpSpPr: Typed[GroupShapeProperties, Literal[False]]
-    visualProperties: Incomplete
+    visualProperties: Alias
     pic: Typed[PictureFrame, Literal[True]]
     __elements__: Incomplete
     def __init__(

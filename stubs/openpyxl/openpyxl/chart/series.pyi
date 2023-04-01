@@ -8,7 +8,7 @@ from openpyxl.chart.marker import Marker
 from openpyxl.chart.picture import PictureOptions
 from openpyxl.chart.shapes import GraphicalProperties
 from openpyxl.chart.trendline import Trendline
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Alias, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
@@ -18,7 +18,7 @@ class SeriesLabel(Serialisable):
     tagname: str
     strRef: Typed[StrRef, Literal[True]]
     v: Incomplete
-    value: Incomplete
+    value: Alias
     __elements__: Incomplete
     def __init__(self, strRef: StrRef | None = None, v: Incomplete | None = None) -> None: ...
 
@@ -27,18 +27,18 @@ class Series(Serialisable):
     idx: Incomplete
     order: Incomplete
     tx: Typed[SeriesLabel, Literal[True]]
-    title: Incomplete
+    title: Alias
     spPr: Typed[GraphicalProperties, Literal[True]]
     graphicalProperties: Incomplete
     pictureOptions: Typed[PictureOptions, Literal[True]]
     dPt: Incomplete
-    data_points: Incomplete
+    data_points: Alias
     dLbls: Typed[DataLabelList, Literal[True]]
-    labels: Incomplete
+    labels: Alias
     trendline: Typed[Trendline, Literal[True]]
     errBars: Typed[ErrorBars, Literal[True]]
     cat: Typed[AxDataSource, Literal[True]]
-    identifiers: Incomplete
+    identifiers: Alias
     val: Typed[NumDataSource, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     invertIfNegative: Incomplete
@@ -46,7 +46,7 @@ class Series(Serialisable):
     xVal: Typed[AxDataSource, Literal[True]]
     yVal: Typed[NumDataSource, Literal[True]]
     bubbleSize: Typed[NumDataSource, Literal[True]]
-    zVal: Incomplete
+    zVal: Alias
     bubble3D: Incomplete
     marker: Typed[Marker, Literal[True]]
     smooth: Incomplete

@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from typing_extensions import Final, Literal, TypeAlias
 
 from openpyxl.descriptors import Sequence
-from openpyxl.descriptors.base import MinMax, NoneSet, Set, _ConvertibleToFloat
+from openpyxl.descriptors.base import Alias, MinMax, NoneSet, Set, _ConvertibleToFloat
 from openpyxl.descriptors.serialisable import Serialisable
 
 FILL_NONE: Final = "none"
@@ -58,11 +58,11 @@ class PatternFill(Fill):
     tagname: str
     __elements__: Incomplete
     patternType: NoneSet[_FillsType]
-    fill_type: Incomplete
+    fill_type: Alias
     fgColor: Incomplete
-    start_color: Incomplete
+    start_color: Alias
     bgColor: Incomplete
-    end_color: Incomplete
+    end_color: Alias
     def __init__(
         self,
         patternType: Incomplete | None = None,
@@ -90,7 +90,7 @@ class StopList(Sequence):
 class GradientFill(Fill):
     tagname: str
     type: Set[_GradientFillType]
-    fill_type: Incomplete
+    fill_type: Alias
     degree: Incomplete
     left: Incomplete
     right: Incomplete

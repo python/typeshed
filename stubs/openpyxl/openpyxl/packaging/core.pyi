@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 
 from openpyxl.descriptors import DateTime
+from openpyxl.descriptors.base import Alias
 from openpyxl.descriptors.nested import NestedText
 from openpyxl.descriptors.serialisable import Serialisable
 
@@ -26,7 +27,7 @@ class DocumentProperties(Serialisable):
     lastPrinted: Incomplete
     revision: Incomplete
     version: Incomplete
-    last_modified_by: Incomplete
+    last_modified_by: Alias
     subject: Incomplete
     title: Incomplete
     creator: Incomplete

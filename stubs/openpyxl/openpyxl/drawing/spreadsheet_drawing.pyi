@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, NoneSet, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, NoneSet, Typed, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.connector import Shape
 from openpyxl.drawing.graphic import GraphicFrame, GroupShape
@@ -27,12 +27,12 @@ class AnchorMarker(Serialisable):
 
 class _AnchorBase(Serialisable):
     sp: Typed[Shape, Literal[True]]
-    shape: Incomplete
+    shape: Alias
     grpSp: Typed[GroupShape, Literal[True]]
-    groupShape: Incomplete
+    groupShape: Alias
     graphicFrame: Typed[GraphicFrame, Literal[True]]
     cxnSp: Typed[Shape, Literal[True]]
-    connectionShape: Incomplete
+    connectionShape: Alias
     pic: Typed[PictureFrame, Literal[True]]
     contentPart: Incomplete
     clientData: Typed[AnchorClientData, Literal[False]]

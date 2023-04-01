@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 
+from openpyxl.descriptors.base import Alias
 from openpyxl.descriptors.serialisable import Serialisable
 
 class SheetBackgroundPicture(Serialisable):
@@ -10,41 +11,41 @@ class SheetBackgroundPicture(Serialisable):
 class DrawingHF(Serialisable):
     id: Incomplete
     lho: Incomplete
-    leftHeaderOddPages: Incomplete
+    leftHeaderOddPages: Alias
     lhe: Incomplete
-    leftHeaderEvenPages: Incomplete
+    leftHeaderEvenPages: Alias
     lhf: Incomplete
-    leftHeaderFirstPage: Incomplete
+    leftHeaderFirstPage: Alias
     cho: Incomplete
-    centerHeaderOddPages: Incomplete
+    centerHeaderOddPages: Alias
     che: Incomplete
-    centerHeaderEvenPages: Incomplete
+    centerHeaderEvenPages: Alias
     chf: Incomplete
-    centerHeaderFirstPage: Incomplete
+    centerHeaderFirstPage: Alias
     rho: Incomplete
-    rightHeaderOddPages: Incomplete
+    rightHeaderOddPages: Alias
     rhe: Incomplete
-    rightHeaderEvenPages: Incomplete
+    rightHeaderEvenPages: Alias
     rhf: Incomplete
-    rightHeaderFirstPage: Incomplete
+    rightHeaderFirstPage: Alias
     lfo: Incomplete
-    leftFooterOddPages: Incomplete
+    leftFooterOddPages: Alias
     lfe: Incomplete
-    leftFooterEvenPages: Incomplete
+    leftFooterEvenPages: Alias
     lff: Incomplete
-    leftFooterFirstPage: Incomplete
+    leftFooterFirstPage: Alias
     cfo: Incomplete
-    centerFooterOddPages: Incomplete
+    centerFooterOddPages: Alias
     cfe: Incomplete
-    centerFooterEvenPages: Incomplete
+    centerFooterEvenPages: Alias
     cff: Incomplete
-    centerFooterFirstPage: Incomplete
+    centerFooterFirstPage: Alias
     rfo: Incomplete
-    rightFooterOddPages: Incomplete
+    rightFooterOddPages: Alias
     rfe: Incomplete
-    rightFooterEvenPages: Incomplete
+    rightFooterEvenPages: Alias
     rff: Incomplete
-    rightFooterFirstPage: Incomplete
+    rightFooterFirstPage: Alias
     def __init__(
         self,
         id: Incomplete | None = None,

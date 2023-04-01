@@ -4,7 +4,7 @@ from typing_extensions import Literal
 
 from openpyxl.chart.axis import ChartLines, NumericAxis, SeriesAxis, TextAxis
 from openpyxl.chart.label import DataLabelList
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Alias, Typed
 from openpyxl.descriptors.excel import ExtensionList
 
 from ._3d import _3DBase
@@ -12,12 +12,12 @@ from ._chart import ChartBase
 
 class _BarChartBase(ChartBase):
     barDir: Incomplete
-    type: Incomplete
+    type: Alias
     grouping: Incomplete
     varyColors: Incomplete
     ser: Incomplete
     dLbls: Typed[DataLabelList, Literal[True]]
-    dataLabels: Incomplete
+    dataLabels: Alias
     __elements__: Incomplete
     def __init__(
         self,

@@ -5,7 +5,7 @@ from typing_extensions import Literal
 from openpyxl.chart.axis import ChartLines, NumericAxis, _BaseAxis
 from openpyxl.chart.label import DataLabelList
 from openpyxl.chart.updown_bars import UpDownBars
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Alias, Typed
 from openpyxl.descriptors.excel import ExtensionList
 
 from ._chart import ChartBase
@@ -15,7 +15,7 @@ class _LineChartBase(ChartBase):
     varyColors: Incomplete
     ser: Incomplete
     dLbls: Typed[DataLabelList, Literal[True]]
-    dataLabels: Incomplete
+    dataLabels: Alias
     dropLines: Typed[ChartLines, Literal[True]]
     __elements__: Incomplete
     def __init__(

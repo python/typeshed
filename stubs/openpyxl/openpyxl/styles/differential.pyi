@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Alias, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles import Alignment, Border, Fill, Font, Protection
@@ -31,7 +31,7 @@ class DifferentialStyle(Serialisable):
 class DifferentialStyleList(Serialisable):
     tagname: str
     dxf: Incomplete
-    styles: Incomplete
+    styles: Alias
     __attrs__: Incomplete
     def __init__(self, dxf=(), count: Incomplete | None = None) -> None: ...
     def append(self, dxf) -> None: ...

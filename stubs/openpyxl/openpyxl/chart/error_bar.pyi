@@ -3,24 +3,24 @@ from typing_extensions import Literal
 
 from openpyxl.chart.data_source import NumDataSource
 from openpyxl.chart.shapes import GraphicalProperties
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Alias, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
 class ErrorBars(Serialisable):
     tagname: str
     errDir: Incomplete
-    direction: Incomplete
+    direction: Alias
     errBarType: Incomplete
-    style: Incomplete
+    style: Alias
     errValType: Incomplete
-    size: Incomplete
+    size: Alias
     noEndCap: Incomplete
     plus: Typed[NumDataSource, Literal[True]]
     minus: Typed[NumDataSource, Literal[True]]
     val: Incomplete
     spPr: Typed[GraphicalProperties, Literal[True]]
-    graphicalProperties: Incomplete
+    graphicalProperties: Alias
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(

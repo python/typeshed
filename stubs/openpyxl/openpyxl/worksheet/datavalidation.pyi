@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, Convertible, NoneSet, _ConvertibleToBool, _ConvertibleToMultiCellRange
+from openpyxl.descriptors.base import Alias, Bool, Convertible, NoneSet, _ConvertibleToBool, _ConvertibleToMultiCellRange
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.cell_range import MultiCellRange
 
@@ -30,14 +30,14 @@ def expand_cell_ranges(range_string): ...
 class DataValidation(Serialisable):
     tagname: str
     sqref: Convertible[MultiCellRange, Literal[False]]
-    cells: Incomplete
-    ranges: Incomplete
+    cells: Alias
+    ranges: Alias
     showDropDown: Bool[Literal[True]]
-    hide_drop_down: Incomplete
+    hide_drop_down: Alias
     showInputMessage: Bool[Literal[True]]
     showErrorMessage: Bool[Literal[True]]
     allowBlank: Bool[Literal[True]]
-    allow_blank: Incomplete
+    allow_blank: Alias
     errorTitle: Incomplete
     error: Incomplete
     promptTitle: Incomplete
@@ -48,7 +48,7 @@ class DataValidation(Serialisable):
     errorStyle: NoneSet[_DataValidationErrorStyle]
     imeMode: NoneSet[_DataValidationImeMode]
     operator: NoneSet[_DataValidationOperator]
-    validation_type: Incomplete
+    validation_type: Alias
     def __init__(
         self,
         type: _DataValidationType | Literal["none"] | None = None,

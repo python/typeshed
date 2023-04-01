@@ -4,7 +4,7 @@ from typing_extensions import Literal
 
 from openpyxl.chart.axis import ChartLines
 from openpyxl.chart.label import DataLabelList
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Alias, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
@@ -14,7 +14,7 @@ class _PieChartBase(ChartBase):
     varyColors: Incomplete
     ser: Incomplete
     dLbls: Typed[DataLabelList, Literal[True]]
-    dataLabels: Incomplete
+    dataLabels: Alias
     __elements__: Incomplete
     def __init__(self, varyColors: bool = True, ser=(), dLbls: DataLabelList | None = None) -> None: ...
     @property
@@ -62,14 +62,14 @@ class ProjectedPieChart(_PieChartBase):
     ser: Incomplete
     dLbls: Incomplete
     ofPieType: Incomplete
-    type: Incomplete
+    type: Alias
     gapWidth: Incomplete
     splitType: Incomplete
     splitPos: Incomplete
     custSplit: Typed[CustomSplit, Literal[True]]
     secondPieSize: Incomplete
     serLines: Typed[ChartLines, Literal[True]]
-    join_lines: Incomplete
+    join_lines: Alias
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(

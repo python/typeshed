@@ -8,7 +8,7 @@ from openpyxl.chart.print_settings import PrintSettings
 from openpyxl.chart.shapes import GraphicalProperties
 from openpyxl.chart.text import RichText
 from openpyxl.chart.title import Title
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Alias, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.colors import ColorMapping
@@ -80,9 +80,9 @@ class ChartSpace(Serialisable):
     protection: Typed[Protection, Literal[True]]
     chart: Typed[ChartContainer, Literal[False]]
     spPr: Typed[GraphicalProperties, Literal[True]]
-    graphicalProperties: Incomplete
+    graphicalProperties: Alias
     txPr: Typed[RichText, Literal[True]]
-    textProperties: Incomplete
+    textProperties: Alias
     externalData: Typed[ExternalData, Literal[True]]
     printSettings: Typed[PrintSettings, Literal[True]]
     userShapes: Incomplete

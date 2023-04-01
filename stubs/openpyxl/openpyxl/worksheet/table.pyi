@@ -2,7 +2,7 @@ from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors import String
-from openpyxl.descriptors.base import Bool, NoneSet, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, NoneSet, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.filters import AutoFilter, SortState
@@ -52,7 +52,7 @@ class TableFormula(Serialisable):
     tagname: str
     array: Bool[Literal[True]]
     attr_text: Incomplete
-    text: Incomplete
+    text: Alias
     def __init__(self, array: _ConvertibleToBool | None = None, attr_text: Incomplete | None = None) -> None: ...
 
 class TableColumn(Serialisable):

@@ -5,7 +5,7 @@ from openpyxl.chart.data_source import NumFmt
 from openpyxl.chart.layout import Layout
 from openpyxl.chart.shapes import GraphicalProperties
 from openpyxl.chart.text import RichText, Text
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Alias, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
@@ -15,9 +15,9 @@ class TrendlineLabel(Serialisable):
     tx: Typed[Text, Literal[True]]
     numFmt: Typed[NumFmt, Literal[True]]
     spPr: Typed[GraphicalProperties, Literal[True]]
-    graphicalProperties: Incomplete
+    graphicalProperties: Alias
     txPr: Typed[RichText, Literal[True]]
-    textProperties: Incomplete
+    textProperties: Alias
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
@@ -34,7 +34,7 @@ class Trendline(Serialisable):
     tagname: str
     name: Incomplete
     spPr: Typed[ExtensionList, Literal[True]]
-    graphicalProperties: Incomplete
+    graphicalProperties: Alias
     trendlineType: Incomplete
     order: Incomplete
     period: Incomplete

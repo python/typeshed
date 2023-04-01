@@ -2,17 +2,17 @@ from _typeshed import Incomplete
 from typing_extensions import Literal
 
 from openpyxl.chart.data_source import StrRef
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Alias, Typed
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.text import ListStyle, RichTextProperties
 
 class RichText(Serialisable):
     tagname: str
     bodyPr: Typed[RichTextProperties, Literal[False]]
-    properties: Incomplete
+    properties: Alias
     lstStyle: Typed[ListStyle, Literal[True]]
     p: Incomplete
-    paragraphs: Incomplete
+    paragraphs: Alias
     __elements__: Incomplete
     def __init__(
         self, bodyPr: RichTextProperties | None = None, lstStyle: ListStyle | None = None, p: Incomplete | None = None

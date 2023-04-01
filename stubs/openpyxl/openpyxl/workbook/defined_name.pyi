@@ -5,7 +5,7 @@ from re import Pattern
 from typing_extensions import Literal
 
 from openpyxl.descriptors import Sequence
-from openpyxl.descriptors.base import Bool, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 RESERVED: frozenset[str]
@@ -29,7 +29,7 @@ class DefinedName(Serialisable):
     publishToServer: Bool[Literal[True]]
     workbookParameter: Bool[Literal[True]]
     attr_text: Incomplete
-    value: Incomplete
+    value: Alias
     def __init__(
         self,
         name: Incomplete | None = None,

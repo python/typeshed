@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import MinMax, NoneSet, Typed, _ConvertibleToFloat
+from openpyxl.descriptors.base import Alias, MinMax, NoneSet, Typed, _ConvertibleToFloat
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.fill import GradientFillProperties, PatternFillProperties
@@ -29,9 +29,9 @@ class DashStop(Serialisable):
     tagname: str
     namespace: Incomplete
     d: Incomplete
-    length: Incomplete
+    length: Alias
     sp: Incomplete
-    space: Incomplete
+    space: Alias
     def __init__(self, d: int = 0, sp: int = 0) -> None: ...
 
 class DashStopList(Serialisable):
@@ -42,7 +42,7 @@ class LineProperties(Serialisable):
     tagname: str
     namespace: Incomplete
     w: MinMax[float, Literal[True]]
-    width: Incomplete
+    width: Alias
     cap: NoneSet[_LinePropertiesCap]
     cmpd: NoneSet[_LinePropertiesCmpd]
     algn: NoneSet[_LinePropertiesAlgn]
@@ -51,7 +51,7 @@ class LineProperties(Serialisable):
     gradFill: Typed[GradientFillProperties, Literal[True]]
     pattFill: Typed[PatternFillProperties, Literal[True]]
     prstDash: Incomplete
-    dashStyle: Incomplete
+    dashStyle: Alias
     custDash: Typed[DashStop, Literal[True]]
     round: Incomplete
     bevel: Incomplete

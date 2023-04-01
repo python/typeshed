@@ -1,16 +1,17 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 
+from openpyxl.descriptors.base import Alias
 from openpyxl.descriptors.serialisable import Serialisable
 
 class Relationship(Serialisable):
     tagname: str
     Type: Incomplete
     Target: Incomplete
-    target: Incomplete
+    target: Alias
     TargetMode: Incomplete
     Id: Incomplete
-    id: Incomplete
+    id: Alias
     def __init__(
         self,
         Id: Incomplete | None = None,

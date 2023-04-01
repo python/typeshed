@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, MinMax, NoneSet, Set, Typed, _ConvertibleToBool, _ConvertibleToFloat
+from openpyxl.descriptors.base import Alias, Bool, MinMax, NoneSet, Set, Typed, _ConvertibleToBool, _ConvertibleToFloat
 from openpyxl.descriptors.excel import Coordinate, ExtensionList, Percentage
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.colors import Color
@@ -334,9 +334,9 @@ class PositiveSize2D(Serialisable):
     tagname: str
     namespace: Incomplete
     cx: Incomplete
-    width: Incomplete
+    width: Alias
     cy: Incomplete
-    height: Incomplete
+    height: Alias
     def __init__(self, cx: Incomplete | None = None, cy: Incomplete | None = None) -> None: ...
 
 class Transform2D(Serialisable):

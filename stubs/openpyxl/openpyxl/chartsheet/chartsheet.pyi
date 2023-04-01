@@ -7,12 +7,12 @@ from openpyxl.chartsheet.protection import ChartsheetProtection
 from openpyxl.chartsheet.publish import WebPublishItems
 from openpyxl.chartsheet.relation import DrawingHF, SheetBackgroundPicture
 from openpyxl.chartsheet.views import ChartsheetViewList
-from openpyxl.descriptors.base import Set, Typed
+from openpyxl.descriptors.base import Alias, Set, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.workbook.child import _WorkbookChild
 from openpyxl.worksheet.drawing import Drawing
-from openpyxl.worksheet.header_footer import HeaderFooter
+from openpyxl.worksheet.header_footer import HeaderFooter as _HeaderFooter
 from openpyxl.worksheet.page import PageMargins, PrintPageSetup
 
 _ChartsheetSheetState: TypeAlias = Literal["visible", "hidden", "veryHidden"]
@@ -32,8 +32,8 @@ class Chartsheet(_WorkbookChild, Serialisable):
     webPublishItems: Typed[WebPublishItems, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     sheet_state: Set[_ChartsheetSheetState]
-    headerFooter: Typed[HeaderFooter, Literal[False]]
-    HeaderFooter: Incomplete
+    headerFooter: Typed[_HeaderFooter, Literal[False]]
+    HeaderFooter: Alias
     __elements__: Incomplete
     __attrs__: Incomplete
     def __init__(
@@ -44,7 +44,7 @@ class Chartsheet(_WorkbookChild, Serialisable):
         customSheetViews: CustomChartsheetViews | None = None,
         pageMargins: PageMargins | None = None,
         pageSetup: PrintPageSetup | None = None,
-        headerFooter: HeaderFooter | None = None,
+        headerFooter: _HeaderFooter | None = None,
         drawing: Unused = None,
         drawingHF: DrawingHF | None = None,
         picture: SheetBackgroundPicture | None = None,

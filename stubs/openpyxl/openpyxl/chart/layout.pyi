@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Alias, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
@@ -15,9 +15,9 @@ class ManualLayout(Serialisable):
     x: Incomplete
     y: Incomplete
     w: Incomplete
-    width: Incomplete
+    width: Alias
     h: Incomplete
-    height: Incomplete
+    height: Alias
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(

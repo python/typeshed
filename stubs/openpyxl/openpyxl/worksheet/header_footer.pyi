@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from typing_extensions import Literal
 
 from openpyxl.descriptors import Strict
-from openpyxl.descriptors.base import Bool, MatchPattern, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, MatchPattern, Typed, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 FONT_PATTERN: str
@@ -30,7 +30,7 @@ class _HeaderFooterPart(Strict):
 class HeaderFooterItem(Strict):
     left: Typed[_HeaderFooterPart, Literal[False]]
     center: Typed[_HeaderFooterPart, Literal[False]]
-    centre: Incomplete
+    centre: Alias
     right: Typed[_HeaderFooterPart, Literal[False]]
     def __init__(
         self,

@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import NoneSet, Typed
+from openpyxl.descriptors.base import Alias, NoneSet, Typed
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.fill import GradientFillProperties, PatternFillProperties
 from openpyxl.drawing.geometry import CustomGeometry2D, PresetGeometry2D, Scene3D, Shape3D, Transform2D
@@ -15,7 +15,7 @@ class GraphicalProperties(Serialisable):
     tagname: str
     bwMode: NoneSet[_GraphicalPropertiesBwMode]
     xfrm: Typed[Transform2D, Literal[True]]
-    transform: Incomplete
+    transform: Alias
     custGeom: Typed[CustomGeometry2D, Literal[True]]
     prstGeom: Typed[PresetGeometry2D, Literal[True]]
     noFill: Incomplete
@@ -23,10 +23,10 @@ class GraphicalProperties(Serialisable):
     gradFill: Typed[GradientFillProperties, Literal[True]]
     pattFill: Typed[PatternFillProperties, Literal[True]]
     ln: Typed[LineProperties, Literal[True]]
-    line: Incomplete
+    line: Alias
     scene3d: Typed[Scene3D, Literal[True]]
     sp3d: Typed[Shape3D, Literal[True]]
-    shape3D: Incomplete
+    shape3D: Alias
     extLst: Typed[Incomplete, Literal[True]]
     __elements__: Incomplete
     def __init__(

@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors import Typed
-from openpyxl.descriptors.base import MinMax, Set, _ConvertibleToFloat
+from openpyxl.descriptors.base import Alias, MinMax, Set, _ConvertibleToFloat
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
@@ -148,6 +148,8 @@ class RGBPercent(Serialisable):
     b: MinMax[float, Literal[False]]
     def __init__(self, r: _ConvertibleToFloat, g: _ConvertibleToFloat, b: _ConvertibleToFloat) -> None: ...
 
+_RGBPercent: TypeAlias = RGBPercent
+
 class SchemeColor(Serialisable):
     tagname: str
     namespace: Incomplete
@@ -217,10 +219,10 @@ class SchemeColor(Serialisable):
 class ColorChoice(Serialisable):
     tagname: str
     namespace: Incomplete
-    scrgbClr: Typed[RGBPercent, Literal[True]]
-    RGBPercent: Incomplete
+    scrgbClr: Typed[_RGBPercent, Literal[True]]
+    RGBPercent: Alias
     srgbClr: Incomplete
-    RGB: Incomplete
+    RGB: Alias
     hslClr: Typed[HSLColor, Literal[True]]
     sysClr: Typed[SystemColor, Literal[True]]
     schemeClr: Typed[SystemColor, Literal[True]]
@@ -228,7 +230,7 @@ class ColorChoice(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        scrgbClr: RGBPercent | None = None,
+        scrgbClr: _RGBPercent | None = None,
         srgbClr: Incomplete | None = None,
         hslClr: HSLColor | None = None,
         sysClr: SystemColor | None = None,

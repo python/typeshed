@@ -1,17 +1,17 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Bool, Convertible, _ConvertibleToBool, _ConvertibleToMultiCellRange
+from openpyxl.descriptors.base import Alias, Bool, Convertible, _ConvertibleToBool, _ConvertibleToMultiCellRange
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.cell_range import MultiCellRange
 
 class ConditionalFormatting(Serialisable):
     tagname: str
     sqref: Convertible[MultiCellRange, Literal[False]]
-    cells: Incomplete
+    cells: Alias
     pivot: Bool[Literal[True]]
     cfRule: Incomplete
-    rules: Incomplete
+    rules: Alias
     def __init__(
         self, sqref: _ConvertibleToMultiCellRange = (), pivot: _ConvertibleToBool | None = None, cfRule=(), extLst: Unused = None
     ) -> None: ...

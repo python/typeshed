@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, MinMax, NoneSet, Set, Typed, _ConvertibleToBool, _ConvertibleToFloat
+from openpyxl.descriptors.base import Alias, Bool, MinMax, NoneSet, Set, Typed, _ConvertibleToBool, _ConvertibleToFloat
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
@@ -218,7 +218,7 @@ class Filters(Serialisable):
 class FilterColumn(Serialisable):
     tagname: str
     colId: Incomplete
-    col_id: Incomplete
+    col_id: Alias
     hiddenButton: Bool[Literal[True]]
     showButton: Bool[Literal[True]]
     filters: Typed[Filters, Literal[True]]

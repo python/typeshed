@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Alias, Typed
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.header_footer import HeaderFooter
 from openpyxl.worksheet.page import PrintPageSetup
@@ -9,13 +9,13 @@ from openpyxl.worksheet.page import PrintPageSetup
 class PageMargins(Serialisable):
     tagname: str
     l: Incomplete
-    left: Incomplete
+    left: Alias
     r: Incomplete
-    right: Incomplete
+    right: Alias
     t: Incomplete
-    top: Incomplete
+    top: Alias
     b: Incomplete
-    bottom: Incomplete
+    bottom: Alias
     header: Incomplete
     footer: Incomplete
     def __init__(

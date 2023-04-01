@@ -93,7 +93,7 @@ class ColumnDimension(Dimension):
         max: int | None = None,
         customWidth: Unused = False,
         visible: bool | None = None,
-        auto_size: bool | None = None,
+        auto_size: _ConvertibleToBool | None = None,
     ) -> None: ...
     @property
     def customWidth(self) -> bool: ...

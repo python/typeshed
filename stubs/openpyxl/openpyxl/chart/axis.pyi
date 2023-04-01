@@ -5,14 +5,14 @@ from typing_extensions import Literal
 from openpyxl.chart.layout import Layout
 from openpyxl.chart.shapes import GraphicalProperties
 from openpyxl.chart.text import RichText, Text
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Alias, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
 class ChartLines(Serialisable):
     tagname: str
     spPr: Typed[GraphicalProperties, Literal[True]]
-    graphicalProperties: Incomplete
+    graphicalProperties: Alias
     def __init__(self, spPr: GraphicalProperties | None = None) -> None: ...
 
 class Scaling(Serialisable):
@@ -41,14 +41,14 @@ class _BaseAxis(Serialisable):
     minorGridlines: Typed[ChartLines, Literal[True]]
     title: Incomplete
     numFmt: Incomplete
-    number_format: Incomplete
+    number_format: Alias
     majorTickMark: Incomplete
     minorTickMark: Incomplete
     tickLblPos: Incomplete
     spPr: Typed[GraphicalProperties, Literal[True]]
-    graphicalProperties: Incomplete
+    graphicalProperties: Alias
     txPr: Typed[RichText, Literal[True]]
-    textProperties: Incomplete
+    textProperties: Alias
     crossAx: Incomplete
     crosses: Incomplete
     crossesAt: Incomplete
@@ -80,11 +80,11 @@ class DisplayUnitsLabel(Serialisable):
     tagname: str
     layout: Typed[Layout, Literal[True]]
     tx: Typed[Text, Literal[True]]
-    text: Incomplete
+    text: Alias
     spPr: Typed[GraphicalProperties, Literal[True]]
-    graphicalProperties: Incomplete
+    graphicalProperties: Alias
     txPr: Typed[RichText, Literal[True]]
-    textPropertes: Incomplete
+    textPropertes: Alias
     __elements__: Incomplete
     def __init__(
         self,

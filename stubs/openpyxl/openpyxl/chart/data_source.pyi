@@ -2,7 +2,7 @@ from _typeshed import Incomplete, Unused
 from typing import NoReturn, overload
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Bool, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.nested import NestedText
 from openpyxl.descriptors.serialisable import Serialisable
@@ -37,7 +37,7 @@ class NumData(Serialisable):
 
 class NumRef(Serialisable):
     f: Incomplete
-    ref: Incomplete
+    ref: Alias
     numCache: Typed[NumData, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete

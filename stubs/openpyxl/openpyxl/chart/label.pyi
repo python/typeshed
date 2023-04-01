@@ -4,18 +4,18 @@ from typing_extensions import Literal
 
 from openpyxl.chart.shapes import GraphicalProperties
 from openpyxl.chart.text import RichText
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Alias, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable as Serialisable
 
 class _DataLabelBase(Serialisable):
     numFmt: Incomplete
     spPr: Typed[GraphicalProperties, Literal[True]]
-    graphicalProperties: Incomplete
+    graphicalProperties: Alias
     txPr: Typed[RichText, Literal[True]]
-    textProperties: Incomplete
+    textProperties: Alias
     dLblPos: Incomplete
-    position: Incomplete
+    position: Alias
     showLegendKey: Incomplete
     showVal: Incomplete
     showCatName: Incomplete

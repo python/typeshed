@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Bool, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 class _Protected:
@@ -14,7 +14,7 @@ class _Protected:
 class SheetProtection(Serialisable, _Protected):
     tagname: str
     sheet: Bool[Literal[False]]
-    enabled: Incomplete
+    enabled: Alias
     objects: Bool[Literal[False]]
     scenarios: Bool[Literal[False]]
     formatCells: Bool[Literal[False]]

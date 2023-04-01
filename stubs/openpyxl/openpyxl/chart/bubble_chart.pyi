@@ -3,7 +3,7 @@ from typing_extensions import Literal
 
 from openpyxl.chart.axis import NumericAxis
 from openpyxl.chart.label import DataLabelList
-from openpyxl.descriptors.base import Typed
+from openpyxl.descriptors.base import Alias, Typed
 from openpyxl.descriptors.excel import ExtensionList
 
 from ._chart import ChartBase
@@ -13,7 +13,7 @@ class BubbleChart(ChartBase):
     varyColors: Incomplete
     ser: Incomplete
     dLbls: Typed[DataLabelList, Literal[True]]
-    dataLabels: Incomplete
+    dataLabels: Alias
     bubble3D: Incomplete
     bubbleScale: Incomplete
     showNegBubbles: Incomplete

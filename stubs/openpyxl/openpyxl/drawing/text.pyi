@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, MinMax, NoneSet, Set, Typed, _ConvertibleToBool, _ConvertibleToFloat
+from openpyxl.descriptors.base import Alias, Bool, MinMax, NoneSet, Set, Typed, _ConvertibleToBool, _ConvertibleToFloat
 from openpyxl.descriptors.excel import Coordinate, ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.effect import Color, EffectContainer, EffectList
@@ -382,9 +382,9 @@ class RegularTextRun(Serialisable):
     tagname: str
     namespace: Incomplete
     rPr: Typed[CharacterProperties, Literal[True]]
-    properties: Incomplete
+    properties: Alias
     t: Incomplete
-    value: Incomplete
+    value: Alias
     __elements__: Incomplete
     def __init__(self, rPr: CharacterProperties | None = None, t: str = "") -> None: ...
 
@@ -415,10 +415,10 @@ class Paragraph(Serialisable):
     tagname: str
     namespace: Incomplete
     pPr: Typed[ParagraphProperties, Literal[True]]
-    properties: Incomplete
+    properties: Alias
     endParaRPr: Typed[CharacterProperties, Literal[True]]
     r: Incomplete
-    text: Incomplete
+    text: Alias
     br: Typed[LineBreak, Literal[True]]
     fld: Typed[TextField, Literal[True]]
     __elements__: Incomplete

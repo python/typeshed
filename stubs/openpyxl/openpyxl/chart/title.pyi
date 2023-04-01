@@ -5,19 +5,20 @@ from openpyxl.chart.layout import Layout
 from openpyxl.chart.shapes import GraphicalProperties
 from openpyxl.chart.text import RichText, Text
 from openpyxl.descriptors import Typed
+from openpyxl.descriptors.base import Alias
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
 class Title(Serialisable):
     tagname: str
     tx: Typed[Text, Literal[True]]
-    text: Incomplete
+    text: Alias
     layout: Typed[Layout, Literal[True]]
     overlay: Incomplete
     spPr: Typed[GraphicalProperties, Literal[True]]
-    graphicalProperties: Incomplete
+    graphicalProperties: Alias
     txPr: Typed[RichText, Literal[True]]
-    body: Incomplete
+    body: Alias
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
