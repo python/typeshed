@@ -15,6 +15,7 @@ _PropertiesTextVAlign: TypeAlias = Literal["top", "center", "bottom", "justify",
 class Properties(Serialisable):
     locked: Bool[Literal[True]]
     defaultSize: Bool[Literal[True]]
+    _print: Bool[Literal[True]]  # Not private. Avoids name clash
     disabled: Bool[Literal[True]]
     uiObject: Bool[Literal[True]]
     autoFill: Bool[Literal[True]]

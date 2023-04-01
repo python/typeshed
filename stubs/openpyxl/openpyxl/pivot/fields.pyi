@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Bool, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, Integer, Typed, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 class Index(Serialisable):
@@ -29,6 +29,7 @@ class Missing(Serialisable):
     f: Bool[Literal[True]]
     c: Incomplete
     cp: Incomplete
+    _in: Integer  # Not private. Avoids name clash
     bc: Incomplete
     fc: Incomplete
     i: Bool[Literal[True]]
@@ -62,6 +63,7 @@ class Number(Serialisable):
     f: Bool[Literal[True]]
     c: Incomplete
     cp: Incomplete
+    _in: Integer  # Not private. Avoids name clash
     bc: Incomplete
     fc: Incomplete
     i: Bool[Literal[True]]
@@ -96,6 +98,7 @@ class Error(Serialisable):
     f: Bool[Literal[True]]
     c: Incomplete
     cp: Incomplete
+    _in: Integer  # Not private. Avoids name clash
     bc: Incomplete
     fc: Incomplete
     i: Bool[Literal[True]]
@@ -149,6 +152,7 @@ class Text(Serialisable):
     f: Bool[Literal[True]]
     c: Incomplete
     cp: Incomplete
+    _in: Integer  # Not private. Avoids name clash
     bc: Incomplete
     fc: Incomplete
     i: Bool[Literal[True]]

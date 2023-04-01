@@ -10,6 +10,7 @@ class ControlProperty(Serialisable):
     anchor: Typed[ObjectAnchor, Literal[False]]
     locked: Bool[Literal[True]]
     defaultSize: Bool[Literal[True]]
+    _print: Bool[Literal[True]]  # Not private. Avoids name clash
     disabled: Bool[Literal[True]]
     recalcAlways: Bool[Literal[True]]
     uiObject: Bool[Literal[True]]

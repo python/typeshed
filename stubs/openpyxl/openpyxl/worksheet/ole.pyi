@@ -10,6 +10,7 @@ _OleObjectOleUpdate: TypeAlias = Literal["OLEUPDATE_ALWAYS", "OLEUPDATE_ONCALL"]
 
 class ObjectAnchor(Serialisable):
     tagname: str
+    _from: Typed[AnchorMarker, Literal[False]]  # Not private. Avoids name clash
     to: Typed[AnchorMarker, Literal[False]]
     moveWithCells: Bool[Literal[True]]
     sizeWithCells: Bool[Literal[True]]
@@ -28,7 +29,7 @@ class ObjectPr(Serialisable):
     anchor: Typed[ObjectAnchor, Literal[False]]
     locked: Bool[Literal[True]]
     defaultSize: Bool[Literal[True]]
-    _print: Bool[Literal[True]]
+    _print: Bool[Literal[True]]  # Not private. Avoids name clash
     disabled: Bool[Literal[True]]
     uiObject: Bool[Literal[True]]
     autoFill: Bool[Literal[True]]

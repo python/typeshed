@@ -64,6 +64,7 @@ class AbsoluteAnchor(_AnchorBase):
 
 class OneCellAnchor(_AnchorBase):
     tagname: str
+    _from: Typed[AnchorMarker, Literal[False]]  # Not private. Avoids name clash
     ext: Typed[XDRPositiveSize2D, Literal[False]]
     sp: Incomplete
     grpSp: Incomplete
@@ -78,6 +79,7 @@ class OneCellAnchor(_AnchorBase):
 class TwoCellAnchor(_AnchorBase):
     tagname: str
     editAs: NoneSet[_TwoCellAnchorEditAs]
+    _from: Typed[AnchorMarker, Literal[False]]  # Not private. Avoids name clash
     to: Typed[AnchorMarker, Literal[False]]
     sp: Incomplete
     grpSp: Incomplete
