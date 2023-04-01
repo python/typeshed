@@ -1,5 +1,6 @@
 version = "0.1.*"
 requires = ["types-Pillow"]
+no_longer_updated = true
 
 [tool.stubtest]
 ignore_missing_stub = true
