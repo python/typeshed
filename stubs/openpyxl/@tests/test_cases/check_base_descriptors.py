@@ -3,10 +3,11 @@
 from __future__ import annotations
 
 from _typeshed import ReadableBuffer
+from datetime import date, datetime, time
 from typing import Any, List, Tuple, Union
 from typing_extensions import Literal, assert_type
 
-from openpyxl.descriptors.base import Bool, Convertible, Descriptor, Length, MatchPattern, MinMax, NoneSet, Set, Typed
+from openpyxl.descriptors.base import Bool, Convertible, DateTime, Descriptor, Length, MatchPattern, MinMax, NoneSet, Set, Typed
 from openpyxl.descriptors.serialisable import Serialisable
 
 
@@ -50,6 +51,10 @@ class WithDescriptors(Serialisable):
     boolean_not_none = Bool(allow_none=False)
     boolean_none = Bool(allow_none=True)
 
+    datetime_default = DateTime()
+    datetime_not_none = DateTime(allow_none=False)
+    datetime_none = DateTime(allow_none=True)
+
     # Test inferred annotation
     assert_type(descriptor, Descriptor[str])
 
@@ -87,6 +92,10 @@ class WithDescriptors(Serialisable):
     assert_type(boolean_default, Bool[Literal[False]])
     assert_type(boolean_not_none, Bool[Literal[False]])
     assert_type(boolean_none, Bool[Literal[True]])
+
+    assert_type(datetime_default, DateTime[Literal[False]])
+    assert_type(datetime_not_none, DateTime[Literal[False]])
+    assert_type(datetime_none, DateTime[Literal[True]])
 
 
 with_descriptors = WithDescriptors()
@@ -132,6 +141,9 @@ assert_type(with_descriptors.minmax_int_none, Union[int, None])
 
 assert_type(with_descriptors.boolean_not_none, bool)
 assert_type(with_descriptors.boolean_none, Union[bool, None])
+
+assert_type(with_descriptors.datetime_not_none, datetime)
+assert_type(with_descriptors.datetime_none, Union[datetime, None])
 
 
 # Test setters (expected type, None, unexpected type)
@@ -268,3 +280,18 @@ with_descriptors.boolean_none = 0
 with_descriptors.boolean_none = None
 with_descriptors.boolean_none = 0.0  # type: ignore
 with_descriptors.boolean_none = object()  # type: ignore
+
+
+with_descriptors.datetime_not_none = datetime(0, 0, 0)
+with_descriptors.datetime_not_none = ""
+with_descriptors.datetime_not_none = None  # pyright: ignore[reportGeneralTypeIssues] # false negative in mypy
+with_descriptors.datetime_not_none = 0  # type: ignore
+with_descriptors.datetime_not_none = date(0, 0, 0)  # type: ignore
+with_descriptors.datetime_not_none = time()  # type: ignore
+
+with_descriptors.datetime_none = datetime(0, 0, 0)
+with_descriptors.datetime_none = ""
+with_descriptors.datetime_none = None
+with_descriptors.datetime_none = 0  # type: ignore
+with_descriptors.datetime_none = date(0, 0, 0)  # type: ignore
+with_descriptors.datetime_none = time()  # type: ignore

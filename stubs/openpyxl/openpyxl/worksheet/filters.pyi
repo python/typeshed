@@ -1,7 +1,8 @@
 from _typeshed import Incomplete, Unused
+from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Alias, Bool, MinMax, NoneSet, Set, Typed, _ConvertibleToBool, _ConvertibleToFloat
+from openpyxl.descriptors.base import Alias, Bool, DateTime, MinMax, NoneSet, Set, Typed, _ConvertibleToBool, _ConvertibleToFloat
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
@@ -139,16 +140,16 @@ class DynamicFilter(Serialisable):
     tagname: str
     type: Set[_DynamicFilterType]
     val: Incomplete
-    valIso: Incomplete
+    valIso: DateTime[Literal[True]]
     maxVal: Incomplete
-    maxValIso: Incomplete
+    maxValIso: DateTime[Literal[True]]
     def __init__(
         self,
         type: _DynamicFilterType,
         val: Incomplete | None = None,
-        valIso: Incomplete | None = None,
+        valIso: datetime | str | None = None,
         maxVal: Incomplete | None = None,
-        maxValIso: Incomplete | None = None,
+        maxValIso: datetime | str | None = None,
     ) -> None: ...
 
 class CustomFilter(Serialisable):

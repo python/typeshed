@@ -27,7 +27,7 @@ class StringProperty(_TypedProperty):
     value: String
 
 class DateTimeProperty(_TypedProperty):
-    value: DateTime
+    value: DateTime[Literal[False]]
 
 class BoolProperty(_TypedProperty):
     value: Bool[Literal[False]]

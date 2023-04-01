@@ -1,7 +1,8 @@
 from _typeshed import Incomplete
+from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, Set, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, DateTime, Set, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.pivot.fields import Error, Missing, Number, Text, TupleList
@@ -340,8 +341,8 @@ class RangePr(Serialisable):
     groupBy: Set[_RangePrGroupBy]
     startNum: Incomplete
     endNum: Incomplete
-    startDate: Incomplete
-    endDate: Incomplete
+    startDate: DateTime[Literal[True]]
+    endDate: DateTime[Literal[True]]
     groupInterval: Incomplete
     def __init__(
         self,
@@ -350,8 +351,8 @@ class RangePr(Serialisable):
         groupBy: _RangePrGroupBy = "range",
         startNum: Incomplete | None = None,
         endNum: Incomplete | None = None,
-        startDate: Incomplete | None = None,
-        endDate: Incomplete | None = None,
+        startDate: datetime | str | None = None,
+        endDate: datetime | str | None = None,
         groupInterval: int = 1,
     ) -> None: ...
 
@@ -390,8 +391,8 @@ class SharedItems(Serialisable):
     containsInteger: Bool[Literal[True]]
     minValue: Incomplete
     maxValue: Incomplete
-    minDate: Incomplete
-    maxDate: Incomplete
+    minDate: DateTime[Literal[True]]
+    maxDate: DateTime[Literal[True]]
     longText: Bool[Literal[True]]
     __attrs__: Incomplete
     def __init__(
@@ -407,8 +408,8 @@ class SharedItems(Serialisable):
         containsInteger: _ConvertibleToBool | None = None,
         minValue: Incomplete | None = None,
         maxValue: Incomplete | None = None,
-        minDate: Incomplete | None = None,
-        maxDate: Incomplete | None = None,
+        minDate: datetime | str | None = None,
+        maxDate: datetime | str | None = None,
         count: Incomplete | None = None,
         longText: _ConvertibleToBool | None = None,
     ) -> None: ...
@@ -535,7 +536,7 @@ class CacheDefinition(Serialisable):
     enableRefresh: Bool[Literal[True]]
     refreshedBy: Incomplete
     refreshedDate: Incomplete
-    refreshedDateIso: Incomplete
+    refreshedDateIso: DateTime[Literal[True]]
     backgroundQuery: Bool[Literal[True]]
     missingItemsLimit: Incomplete
     createdVersion: Incomplete
@@ -567,7 +568,7 @@ class CacheDefinition(Serialisable):
         enableRefresh: _ConvertibleToBool | None,
         refreshedBy: Incomplete | None,
         refreshedDate: Incomplete | None,
-        refreshedDateIso: Incomplete | None,
+        refreshedDateIso: datetime | str | None,
         backgroundQuery: _ConvertibleToBool | None,
         missingItemsLimit: Incomplete | None,
         createdVersion: Incomplete | None,
