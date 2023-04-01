@@ -252,19 +252,21 @@ class String(Typed):
 
 class Text(String, Convertible): ...
 
-class ASCII(Typed):
+class ASCII(Typed[bytes, _N]):  # unused
     expected_type: type[bytes]
 
-class Tuple(Typed):
+class Tuple(Typed[tuple[Any, ...], _N]):  # unused
     expected_type: type[tuple[Any, ...]]
 
 class Length(Descriptor[_L]):
     def __init__(self, name: Unused = None, *, length: int) -> None: ...
     def __set__(self, instance: Serialisable, value: _L) -> None: ...
 
-class Default(Typed):
-    def __init__(self, name: str | None = None, **kw) -> None: ...
-    def __call__(self): ...
+class Default(Typed[_T, _N]):  # unused
+    def __init__(
+        self, name: Unused = None, *, expected_type: _ExpectedTypeParam[_T], allow_none: bool = False, defaults: Unused = {}
+    ) -> None: ...
+    def __call__(self) -> _T: ...
 
 # Note: Aliases types can't be infered. Anyway an alias means there's another option
 # incomplete: Make it generic with explicit getter/setter type arguments ?
