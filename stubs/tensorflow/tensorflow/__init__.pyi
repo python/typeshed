@@ -283,6 +283,10 @@ class Module:
     @classmethod
     def with_name_scope(cls, method: Callable[_P, _R]) -> Callable[_P, _R]: ...
 
+class UnconnectedGradients(Enum):
+    NONE = "none"
+    ZERO = "zero"
+
 class GradientTape:
     def __init__(self, persistent: _bool = False, watch_accessed_variables: _bool = True): ...
     def __enter__(self) -> GradientTape: ...
@@ -290,19 +294,35 @@ class GradientTape:
     # Higher kinded types would be nice here and these overloads are a way to simulate some of them.
     @overload
     def gradient(
-        self, target: ContainerTensors, sources: TensorLike, output_gradients: list[Tensor] | None = None
+        self,
+        target: ContainerTensors,
+        sources: TensorLike,
+        output_gradients: list[Tensor] | None = None,
+        unconnected_gradients: UnconnectedGradients = ...,
     ) -> Gradients: ...
     @overload
     def gradient(
-        self, target: ContainerTensors, sources: Sequence[Tensor], output_gradients: list[Tensor] | None = None
+        self,
+        target: ContainerTensors,
+        sources: Sequence[Tensor],
+        output_gradients: list[Tensor] | None = None,
+        unconnected_gradients: UnconnectedGradients = ...,
     ) -> list[Gradients]: ...
     @overload
     def gradient(
-        self, target: ContainerTensors, sources: Mapping[str, Tensor], output_gradients: list[Tensor] | None = None
+        self,
+        target: ContainerTensors,
+        sources: Mapping[str, Tensor],
+        output_gradients: list[Tensor] | None = None,
+        unconnected_gradients: UnconnectedGradients = ...,
     ) -> dict[str, Gradients]: ...
     @overload
     def gradient(
-        self, target: ContainerTensors, sources: ContainerTensors, output_gradients: list[Tensor] | None = None
+        self,
+        target: ContainerTensors,
+        sources: ContainerTensors,
+        output_gradients: list[Tensor] | None = None,
+        unconnected_gradients: UnconnectedGradients = ...,
     ) -> ContainerGradients: ...
     @contextmanager
     def stop_recording(self) -> Iterator[None]: ...

@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from abc import abstractmethod
 from collections.abc import Callable, Iterable
 from typing import Any
 from typing_extensions import Self, TypeAlias
@@ -17,6 +18,7 @@ _GradientTransformer: TypeAlias = (
     Iterable[Callable[[list[tuple[Gradients, tf.Variable]]], list[tuple[Gradients, tf.Variable]]]] | None
 )
 
+# kwargs here and in other optimizers can be given better type after Unpack[TypedDict] is supported.
 class Optimizer(Trackable):
     _name: str
     _iterations: tf.Variable | None
@@ -26,12 +28,10 @@ class Optimizer(Trackable):
     learning_rate: _LearningRate
     def __init__(
         self,
-        name: str | None = None,
+        name: str,
         gradient_aggregator: _GradientAggregator = None,
         gradient_transformers: _GradientTransformer = None,
-        clipvalue: float | None = None,
-        clipnorm: float | None = None,
-        global_clipnorm: float | None = None,
+        **kwargs: Any,
     ) -> None: ...
     def _create_all_weights(self, var_list: Iterable[tf.Variable]) -> None: ...
     @property
@@ -46,6 +46,7 @@ class Optimizer(Trackable):
         name: str,
         shape: _Shape,
         dtype: _Dtype = None,
+        initializer: _Initializer = "zeros",
         trainable: None | bool = None,
         synchronization: tf.VariableSynchronization = ...,
         aggregation: tf.VariableAggregation = ...,
@@ -58,6 +59,7 @@ class Optimizer(Trackable):
     ) -> tf.Operation | None: ...
     @classmethod
     def from_config(cls, config: dict[str, Any], custom_objects: dict[str, type] | None = None) -> Self: ...
+    @abstractmethod
     def get_config(self) -> dict[str, Any]: ...
     def get_slot(self, var: tf.Variable, slot_name: str) -> tf.Variable: ...
     def get_slot_names(self) -> list[str]: ...
@@ -82,24 +84,28 @@ class Adam(Optimizer):
         beta_2: float = 0.999,
         epsilon: float = 1e-07,
         amsgrad: bool = False,
-        name: str | None = "Adam",
+        name: str = "Adam",
+        **kwargs: Any,
     ) -> None: ...
+    def get_config(self) -> dict[str, Any]: ...
 
 class Adagrad(Optimizer):
     _initial_accumulator_value: float
 
-class SGD(Optimizer):
     def __init__(
         self,
-        learning_rate: _LearningRate = 0.01,
-        momentum: float = 0.0,
-        nesterov: bool = False,
-        name: str | None = None,
-        clipvalue: float | None = None,
-        clipnorm: float | None = None,
-        global_clipnorm: float | None = None,
-        gradient_aggregator: _GradientAggregator = None,
-        gradient_transformers: _GradientTransformer = None,
+        learning_rate: _LearningRate = 0.001,
+        initial_accumulator_value: float = 0.1,
+        epsilon: float = 1e-7,
+        name: str = "Adagrad",
+        **kwargs: Any,
     ) -> None: ...
+    def get_config(self) -> dict[str, Any]: ...
+
+class SGD(Optimizer):
+    def __init__(
+        self, learning_rate: _LearningRate = 0.01, momentum: float = 0.0, nesterov: bool = False, name: str = "SGD", **kwargs: Any
+    ) -> None: ...
+    def get_config(self) -> dict[str, Any]: ...
 
 def __getattr__(name: str) -> Incomplete: ...

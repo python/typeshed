@@ -16,13 +16,15 @@ tensorflow.Graph.__getattr__
 tensorflow.Operation.__getattr__
 tensorflow.Variable.__getattr__
 tensorflow.keras.layers.Layer.__getattr__
+tensorflow.GradientTape.__getattr__
 # Internal undocumented API
 tensorflow.RaggedTensor.__init__
 # Has an undocumented extra argument that tf.Variable which acts like subclass
 # (by dynamically patching tf.Tensor methods) does not preserve.
 tensorflow.Tensor.__getitem__
-# stub internal utility
+# stub internal utilities
 tensorflow._aliases
+tensorflow._internal
 
 # Tensorflow imports are cursed.
 # import tensorflow.initializers
