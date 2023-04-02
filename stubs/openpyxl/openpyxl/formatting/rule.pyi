@@ -2,7 +2,7 @@ from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors import Float
-from openpyxl.descriptors.base import Bool, NoneSet, Set, String, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, Integer, NoneSet, Set, String, Typed, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.differential import DifferentialStyle
@@ -102,16 +102,16 @@ class IconSet(RuleType):
 
 class DataBar(RuleType):
     tagname: str
-    minLength: Incomplete
-    maxLength: Incomplete
+    minLength: Integer[Literal[True]]
+    maxLength: Integer[Literal[True]]
     showValue: Bool[Literal[True]]
     color: Incomplete
     __elements__: Incomplete
     cfvo: Incomplete
     def __init__(
         self,
-        minLength: Incomplete | None = None,
-        maxLength: Incomplete | None = None,
+        minLength: _ConvertibleToInt | None = None,
+        maxLength: _ConvertibleToInt | None = None,
         showValue: _ConvertibleToBool | None = None,
         cfvo: Incomplete | None = None,
         color: Incomplete | None = None,
@@ -127,8 +127,8 @@ class ColorScale(RuleType):
 class Rule(Serialisable):
     tagname: str
     type: Set[_RuleType]
-    dxfId: Incomplete
-    priority: Incomplete
+    dxfId: Integer[Literal[True]]
+    priority: Integer[Literal[False]]
     stopIfTrue: Bool[Literal[True]]
     aboveAverage: Bool[Literal[True]]
     percent: Bool[Literal[True]]
@@ -136,8 +136,8 @@ class Rule(Serialisable):
     operator: NoneSet[_RuleOperator]
     text: String[Literal[True]]
     timePeriod: NoneSet[_RuleTimePeriod]
-    rank: Incomplete
-    stdDev: Incomplete
+    rank: Integer[Literal[True]]
+    stdDev: Integer[Literal[True]]
     equalAverage: Bool[Literal[True]]
     formula: Incomplete
     colorScale: Typed[ColorScale, Literal[True]]
@@ -150,8 +150,8 @@ class Rule(Serialisable):
     def __init__(
         self,
         type: _RuleType,
-        dxfId: Incomplete | None = None,
-        priority: int = 0,
+        dxfId: _ConvertibleToInt | None = None,
+        priority: _ConvertibleToInt = 0,
         stopIfTrue: _ConvertibleToBool | None = None,
         aboveAverage: _ConvertibleToBool | None = None,
         percent: _ConvertibleToBool | None = None,
@@ -159,8 +159,8 @@ class Rule(Serialisable):
         operator: _RuleOperator | Literal["none"] | None = None,
         text: str | None = None,
         timePeriod: _RuleTimePeriod | Literal["none"] | None = None,
-        rank: Incomplete | None = None,
-        stdDev: Incomplete | None = None,
+        rank: _ConvertibleToInt | None = None,
+        stdDev: _ConvertibleToInt | None = None,
         equalAverage: _ConvertibleToBool | None = None,
         formula=(),
         colorScale: ColorScale | None = None,

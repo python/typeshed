@@ -1,7 +1,18 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, Float, NoneSet, Set, String, Typed, _ConvertibleToBool, _ConvertibleToFloat
+from openpyxl.descriptors.base import (
+    Bool,
+    Float,
+    Integer,
+    NoneSet,
+    Set,
+    String,
+    Typed,
+    _ConvertibleToBool,
+    _ConvertibleToFloat,
+    _ConvertibleToInt,
+)
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
@@ -27,13 +38,13 @@ class Pane(Serialisable):
 class Selection(Serialisable):
     pane: NoneSet[_Pane]
     activeCell: String[Literal[True]]
-    activeCellId: Incomplete
+    activeCellId: Integer[Literal[True]]
     sqref: String[Literal[True]]
     def __init__(
         self,
         pane: _Pane | Literal["none"] | None = None,
         activeCell: str | None = "A1",
-        activeCellId: Incomplete | None = None,
+        activeCellId: _ConvertibleToInt | None = None,
         sqref: str | None = "A1",
     ) -> None: ...
 
@@ -52,13 +63,13 @@ class SheetView(Serialisable):
     showWhiteSpace: Bool[Literal[True]]
     view: NoneSet[_SheetViewView]
     topLeftCell: String[Literal[True]]
-    colorId: Incomplete
-    zoomScale: Incomplete
-    zoomScaleNormal: Incomplete
-    zoomScaleSheetLayoutView: Incomplete
-    zoomScalePageLayoutView: Incomplete
+    colorId: Integer[Literal[True]]
+    zoomScale: Integer[Literal[True]]
+    zoomScaleNormal: Integer[Literal[True]]
+    zoomScaleSheetLayoutView: Integer[Literal[True]]
+    zoomScalePageLayoutView: Integer[Literal[True]]
     zoomToFit: Bool[Literal[True]]
-    workbookViewId: Incomplete
+    workbookViewId: Integer[Literal[True]]
     selection: Incomplete
     pane: Typed[Pane, Literal[True]]
     def __init__(
@@ -76,13 +87,13 @@ class SheetView(Serialisable):
         showWhiteSpace: _ConvertibleToBool | None = None,
         view: _SheetViewView | Literal["none"] | None = None,
         topLeftCell: str | None = None,
-        colorId: Incomplete | None = None,
-        zoomScale: Incomplete | None = None,
-        zoomScaleNormal: Incomplete | None = None,
-        zoomScaleSheetLayoutView: Incomplete | None = None,
-        zoomScalePageLayoutView: Incomplete | None = None,
+        colorId: _ConvertibleToInt | None = None,
+        zoomScale: _ConvertibleToInt | None = None,
+        zoomScaleNormal: _ConvertibleToInt | None = None,
+        zoomScaleSheetLayoutView: _ConvertibleToInt | None = None,
+        zoomScalePageLayoutView: _ConvertibleToInt | None = None,
         zoomToFit: _ConvertibleToBool | None = None,
-        workbookViewId: int = 0,
+        workbookViewId: _ConvertibleToInt | None = 0,
         selection: Incomplete | None = None,
         pane: Pane | None = None,
     ) -> None: ...

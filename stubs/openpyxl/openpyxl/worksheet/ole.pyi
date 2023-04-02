@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, Set, String, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, Integer, Set, String, Typed, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.spreadsheet_drawing import AnchorMarker
 
@@ -14,14 +14,14 @@ class ObjectAnchor(Serialisable):
     to: Typed[AnchorMarker, Literal[False]]
     moveWithCells: Bool[Literal[True]]
     sizeWithCells: Bool[Literal[True]]
-    z_order: Incomplete
+    z_order: Integer[Literal[True]]
     def __init__(
         self,
         _from: AnchorMarker,
         to: AnchorMarker,
         moveWithCells: _ConvertibleToBool | None = False,
         sizeWithCells: _ConvertibleToBool | None = False,
-        z_order: Incomplete | None = None,
+        z_order: _ConvertibleToInt | None = None,
     ) -> None: ...
 
 class ObjectPr(Serialisable):
@@ -63,7 +63,7 @@ class OleObject(Serialisable):
     link: String[Literal[True]]
     oleUpdate: Set[_OleObjectOleUpdate]
     autoLoad: Bool[Literal[True]]
-    shapeId: Incomplete
+    shapeId: Integer[Literal[False]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -72,8 +72,8 @@ class OleObject(Serialisable):
         dvAspect: _OleObjectDvAspect,
         link: str | None,
         oleUpdate: _OleObjectOleUpdate,
-        autoLoad: _ConvertibleToBool | None = False,
-        shapeId: Incomplete | None = None,
+        autoLoad: _ConvertibleToBool | None,
+        shapeId: _ConvertibleToInt,
     ) -> None: ...
 
 class OleObjects(Serialisable):

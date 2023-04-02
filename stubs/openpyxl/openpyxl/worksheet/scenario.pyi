@@ -1,7 +1,15 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Bool, Convertible, String, _ConvertibleToBool, _ConvertibleToMultiCellRange
+from openpyxl.descriptors.base import (
+    Bool,
+    Convertible,
+    Integer,
+    String,
+    _ConvertibleToBool,
+    _ConvertibleToInt,
+    _ConvertibleToMultiCellRange,
+)
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.cell_range import MultiCellRange
 
@@ -11,14 +19,14 @@ class InputCells(Serialisable):
     deleted: Bool[Literal[True]]
     undone: Bool[Literal[True]]
     val: String[Literal[False]]
-    numFmtId: Incomplete
+    numFmtId: Integer[Literal[True]]
     def __init__(
         self,
         r: str,
         deleted: _ConvertibleToBool | None,
         undone: _ConvertibleToBool | None,
         val: str,
-        numFmtId: Incomplete | None = None,
+        numFmtId: _ConvertibleToInt | None = None,
     ) -> None: ...
 
 class Scenario(Serialisable):
@@ -47,15 +55,15 @@ class Scenario(Serialisable):
 class ScenarioList(Serialisable):
     tagname: str
     scenario: Incomplete
-    current: Incomplete
-    show: Incomplete
+    current: Integer[Literal[True]]
+    show: Integer[Literal[True]]
     sqref: Convertible[MultiCellRange, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
         scenario=(),
-        current: Incomplete | None = None,
-        show: Incomplete | None = None,
+        current: _ConvertibleToInt | None = None,
+        show: _ConvertibleToInt | None = None,
         sqref: _ConvertibleToMultiCellRange | None = None,
     ) -> None: ...
     def append(self, scenario) -> None: ...

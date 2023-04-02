@@ -2,7 +2,18 @@ from _typeshed import Incomplete, Unused
 from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, DateTime, Float, Set, String, Typed, _ConvertibleToBool, _ConvertibleToFloat
+from openpyxl.descriptors.base import (
+    Bool,
+    DateTime,
+    Float,
+    Integer,
+    Set,
+    String,
+    Typed,
+    _ConvertibleToBool,
+    _ConvertibleToFloat,
+    _ConvertibleToInt,
+)
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.pivot.fields import Error, Missing, Number, Text, TupleList
@@ -13,9 +24,9 @@ _CacheSourceType: TypeAlias = Literal["worksheet", "external", "consolidation", 
 
 class MeasureDimensionMap(Serialisable):
     tagname: str
-    measureGroup: Incomplete
-    dimension: Incomplete
-    def __init__(self, measureGroup: Incomplete | None = None, dimension: Incomplete | None = None) -> None: ...
+    measureGroup: Integer[Literal[True]]
+    dimension: Integer[Literal[True]]
+    def __init__(self, measureGroup: _ConvertibleToInt | None = None, dimension: _ConvertibleToInt | None = None) -> None: ...
 
 class MeasureGroup(Serialisable):
     tagname: str
@@ -38,7 +49,7 @@ class CalculatedMember(Serialisable):
     memberName: String[Literal[False]]
     hierarchy: String[Literal[False]]
     parent: String[Literal[False]]
-    solveOrder: Incomplete
+    solveOrder: Integer[Literal[False]]
     set: Bool[Literal[False]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
@@ -49,20 +60,20 @@ class CalculatedMember(Serialisable):
         memberName: str,
         hierarchy: str,
         parent: str,
-        solveOrder: Incomplete | None,
+        solveOrder: _ConvertibleToInt,
         set: _ConvertibleToBool,
         extLst: ExtensionList | None = None,
     ) -> None: ...
 
 class CalculatedItem(Serialisable):
     tagname: str
-    field: Incomplete
+    field: Integer[Literal[True]]
     formula: String[Literal[False]]
     pivotArea: Typed[PivotArea, Literal[False]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
-        self, field: Incomplete | None, formula: str, pivotArea: PivotArea, extLst: Incomplete | None = None
+        self, field: _ConvertibleToInt | None, formula: str, pivotArea: PivotArea, extLst: Incomplete | None = None
     ) -> None: ...
 
 class ServerFormat(Serialisable):
@@ -89,15 +100,15 @@ class Query(Serialisable):
 
 class QueryCache(Serialisable):
     tagname: str
-    count: Incomplete
+    count: Integer[Literal[False]]
     query: Typed[Query, Literal[False]]
     __elements__: Incomplete
-    def __init__(self, count: Incomplete | None, query: Query) -> None: ...
+    def __init__(self, count: _ConvertibleToInt, query: Query) -> None: ...
 
 class OLAPSet(Serialisable):
     tagname: str
-    count: Incomplete
-    maxRank: Incomplete
+    count: Integer[Literal[False]]
+    maxRank: Integer[Literal[False]]
     setDefinition: String[Literal[False]]
     sortType: Incomplete
     queryFailed: Bool[Literal[False]]
@@ -106,8 +117,8 @@ class OLAPSet(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        count: Incomplete | None,
-        maxRank: Incomplete | None,
+        count: _ConvertibleToInt,
+        maxRank: _ConvertibleToInt,
         setDefinition: str,
         sortType: Incomplete | None,
         queryFailed: _ConvertibleToBool,
@@ -116,20 +127,20 @@ class OLAPSet(Serialisable):
     ) -> None: ...
 
 class OLAPSets(Serialisable):
-    count: Incomplete
+    count: Integer[Literal[False]]
     set: Typed[OLAPSet, Literal[False]]
     __elements__: Incomplete
-    def __init__(self, count: Incomplete | None, set: OLAPSet) -> None: ...
+    def __init__(self, count: _ConvertibleToInt, set: OLAPSet) -> None: ...
 
 class PCDSDTCEntries(Serialisable):
     tagname: str
-    count: Incomplete
+    count: Integer[Literal[False]]
     m: Typed[Missing, Literal[False]]
     n: Typed[Number, Literal[False]]
     e: Typed[Error, Literal[False]]
     s: Typed[Text, Literal[False]]
     __elements__: Incomplete
-    def __init__(self, count: Incomplete | None, m: Missing, n: Number, e: Error, s: Text) -> None: ...
+    def __init__(self, count: _ConvertibleToInt, m: Missing, n: Number, e: Error, s: Text) -> None: ...
 
 class TupleCache(Serialisable):
     tagname: str
@@ -183,10 +194,10 @@ class GroupMember(Serialisable):
     def __init__(self, uniqueName: str, group: _ConvertibleToBool) -> None: ...
 
 class GroupMembers(Serialisable):
-    count: Incomplete
+    count: Integer[Literal[False]]
     groupMember: Typed[GroupMember, Literal[False]]
     __elements__: Incomplete
-    def __init__(self, count: GroupMember, groupMember: Incomplete | None = None) -> None: ...
+    def __init__(self, count: _ConvertibleToInt, groupMember: GroupMember) -> None: ...
 
 class LevelGroup(Serialisable):
     tagname: str
@@ -194,19 +205,19 @@ class LevelGroup(Serialisable):
     uniqueName: String[Literal[False]]
     caption: String[Literal[False]]
     uniqueParent: String[Literal[False]]
-    id: Incomplete
+    id: Integer[Literal[False]]
     groupMembers: Typed[GroupMembers, Literal[False]]
     __elements__: Incomplete
     def __init__(
-        self, name: str, uniqueName: str, caption: str, uniqueParent: str, id: Incomplete | None, groupMembers: GroupMembers
+        self, name: str, uniqueName: str, caption: str, uniqueParent: str, id: _ConvertibleToInt, groupMembers: GroupMembers
     ) -> None: ...
 
 class Groups(Serialisable):
     tagname: str
-    count: Incomplete
+    count: Integer[Literal[False]]
     group: Typed[LevelGroup, Literal[False]]
     __elements__: Incomplete
-    def __init__(self, count: Incomplete | None, group: LevelGroup) -> None: ...
+    def __init__(self, count: _ConvertibleToInt, group: LevelGroup) -> None: ...
 
 class GroupLevel(Serialisable):
     tagname: str
@@ -228,21 +239,21 @@ class GroupLevel(Serialisable):
     ) -> None: ...
 
 class GroupLevels(Serialisable):
-    count: Incomplete
+    count: Integer[Literal[False]]
     groupLevel: Typed[GroupLevel, Literal[False]]
     __elements__: Incomplete
-    def __init__(self, count: Incomplete | None, groupLevel: GroupLevel) -> None: ...
+    def __init__(self, count: _ConvertibleToInt, groupLevel: GroupLevel) -> None: ...
 
 class FieldUsage(Serialisable):
     tagname: str
-    x: Incomplete
-    def __init__(self, x: Incomplete | None = None) -> None: ...
+    x: Integer[Literal[False]]
+    def __init__(self, x: _ConvertibleToInt) -> None: ...
 
 class FieldsUsage(Serialisable):
-    count: Incomplete
+    count: Integer[Literal[False]]
     fieldUsage: Typed[FieldUsage, Literal[True]]
     __elements__: Incomplete
-    def __init__(self, count: Incomplete | None = None, fieldUsage: FieldUsage | None = None) -> None: ...
+    def __init__(self, count: _ConvertibleToInt, fieldUsage: FieldUsage | None = None) -> None: ...
 
 class CacheHierarchy(Serialisable):
     tagname: str
@@ -250,8 +261,8 @@ class CacheHierarchy(Serialisable):
     caption: String[Literal[True]]
     measure: Bool[Literal[False]]
     set: Bool[Literal[False]]
-    parentSet: Incomplete
-    iconSet: Incomplete
+    parentSet: Integer[Literal[True]]
+    iconSet: Integer[Literal[False]]
     attribute: Bool[Literal[False]]
     time: Bool[Literal[False]]
     keyAttribute: Bool[Literal[False]]
@@ -262,9 +273,9 @@ class CacheHierarchy(Serialisable):
     displayFolder: String[Literal[True]]
     measureGroup: String[Literal[True]]
     measures: Bool[Literal[False]]
-    count: Incomplete
+    count: Integer[Literal[False]]
     oneField: Bool[Literal[False]]
-    memberValueDatatype: Incomplete
+    memberValueDatatype: Integer[Literal[True]]
     unbalanced: Bool[Literal[True]]
     unbalancedGroup: Bool[Literal[True]]
     hidden: Bool[Literal[False]]
@@ -278,8 +289,8 @@ class CacheHierarchy(Serialisable):
         caption: str | None,
         measure: _ConvertibleToBool,
         set: _ConvertibleToBool,
-        parentSet: Incomplete | None,
-        iconSet: int,
+        parentSet: _ConvertibleToInt | None,
+        iconSet: _ConvertibleToInt,
         attribute: _ConvertibleToBool,
         time: _ConvertibleToBool,
         keyAttribute: _ConvertibleToBool,
@@ -290,9 +301,9 @@ class CacheHierarchy(Serialisable):
         displayFolder: str | None,
         measureGroup: str | None,
         measures: _ConvertibleToBool,
-        count: Incomplete | None,
+        count: _ConvertibleToInt,
         oneField: _ConvertibleToBool,
-        memberValueDatatype: Incomplete | None,
+        memberValueDatatype: _ConvertibleToInt | None,
         unbalanced: _ConvertibleToBool | None,
         unbalancedGroup: _ConvertibleToBool | None,
         hidden: _ConvertibleToBool,
@@ -317,10 +328,10 @@ class GroupItems(Serialisable):
 
 class DiscretePr(Serialisable):
     tagname: str
-    count: Incomplete
+    count: Integer[Literal[False]]
     x: Incomplete
     __elements__: Incomplete
-    def __init__(self, count: Incomplete | None = None, x: Incomplete | None = None) -> None: ...
+    def __init__(self, count: _ConvertibleToInt, x: Incomplete | None = None) -> None: ...
 
 class RangePr(Serialisable):
     tagname: str
@@ -346,16 +357,16 @@ class RangePr(Serialisable):
 
 class FieldGroup(Serialisable):
     tagname: str
-    par: Incomplete
-    base: Incomplete
+    par: Integer[Literal[True]]
+    base: Integer[Literal[True]]
     rangePr: Typed[RangePr, Literal[True]]
     discretePr: Typed[DiscretePr, Literal[True]]
     groupItems: Typed[GroupItems, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
-        par: Incomplete | None = None,
-        base: Incomplete | None = None,
+        par: _ConvertibleToInt | None = None,
+        base: _ConvertibleToInt | None = None,
         rangePr: RangePr | None = None,
         discretePr: DiscretePr | None = None,
         groupItems: GroupItems | None = None,
@@ -415,13 +426,13 @@ class CacheField(Serialisable):
     propertyName: String[Literal[True]]
     serverField: Bool[Literal[True]]
     uniqueList: Bool[Literal[True]]
-    numFmtId: Incomplete
+    numFmtId: Integer[Literal[True]]
     formula: String[Literal[True]]
-    sqlType: Incomplete
-    hierarchy: Incomplete
-    level: Incomplete
+    sqlType: Integer[Literal[True]]
+    hierarchy: Integer[Literal[True]]
+    level: Integer[Literal[True]]
     databaseField: Bool[Literal[True]]
-    mappingCount: Incomplete
+    mappingCount: Integer[Literal[True]]
     memberPropertyField: Bool[Literal[True]]
     __elements__: Incomplete
     def __init__(
@@ -435,31 +446,31 @@ class CacheField(Serialisable):
         propertyName: str | None = None,
         serverField: _ConvertibleToBool | None = None,
         uniqueList: _ConvertibleToBool | None = True,
-        numFmtId: Incomplete | None = None,
+        numFmtId: _ConvertibleToInt | None = None,
         formula: str | None = None,
-        sqlType: int = 0,
-        hierarchy: int = 0,
-        level: int = 0,
+        sqlType: _ConvertibleToInt | None = 0,
+        hierarchy: _ConvertibleToInt | None = 0,
+        level: _ConvertibleToInt | None = 0,
         databaseField: _ConvertibleToBool | None = True,
-        mappingCount: Incomplete | None = None,
+        mappingCount: _ConvertibleToInt | None = None,
         memberPropertyField: _ConvertibleToBool | None = None,
     ) -> None: ...
 
 class RangeSet(Serialisable):
     tagname: str
-    i1: Incomplete
-    i2: Incomplete
-    i3: Incomplete
-    i4: Incomplete
+    i1: Integer[Literal[True]]
+    i2: Integer[Literal[True]]
+    i3: Integer[Literal[True]]
+    i4: Integer[Literal[True]]
     ref: String[Literal[False]]
     name: String[Literal[True]]
     sheet: String[Literal[True]]
     def __init__(
         self,
-        i1: Incomplete | None,
-        i2: Incomplete | None,
-        i3: Incomplete | None,
-        i4: Incomplete | None,
+        i1: _ConvertibleToInt | None,
+        i2: _ConvertibleToInt | None,
+        i3: _ConvertibleToInt | None,
+        i4: _ConvertibleToInt | None,
         ref: str,
         name: str | None = None,
         sheet: str | None = None,
@@ -496,7 +507,7 @@ class WorksheetSource(Serialisable):
 class CacheSource(Serialisable):
     tagname: str
     type: Set[_CacheSourceType]
-    connectionId: Incomplete
+    connectionId: Integer[Literal[True]]
     worksheetSource: Typed[WorksheetSource, Literal[True]]
     consolidation: Typed[Consolidation, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
@@ -504,7 +515,7 @@ class CacheSource(Serialisable):
     def __init__(
         self,
         type: _CacheSourceType,
-        connectionId: Incomplete | None = None,
+        connectionId: _ConvertibleToInt | None = None,
         worksheetSource: WorksheetSource | None = None,
         consolidation: Consolidation | None = None,
         extLst: ExtensionList | None = None,
@@ -524,11 +535,11 @@ class CacheDefinition(Serialisable):
     refreshedDate: Float[Literal[True]]
     refreshedDateIso: DateTime[Literal[True]]
     backgroundQuery: Bool[Literal[True]]
-    missingItemsLimit: Incomplete
-    createdVersion: Incomplete
-    refreshedVersion: Incomplete
-    minRefreshableVersion: Incomplete
-    recordCount: Incomplete
+    missingItemsLimit: Integer[Literal[True]]
+    createdVersion: Integer[Literal[True]]
+    refreshedVersion: Integer[Literal[True]]
+    minRefreshableVersion: Integer[Literal[True]]
+    recordCount: Integer[Literal[True]]
     upgradeOnRefresh: Bool[Literal[True]]
     tupleCache: Typed[TupleCache, Literal[True]]
     supportSubquery: Bool[Literal[True]]
@@ -556,11 +567,11 @@ class CacheDefinition(Serialisable):
         refreshedDate: _ConvertibleToFloat | None,
         refreshedDateIso: datetime | str | None,
         backgroundQuery: _ConvertibleToBool | None,
-        missingItemsLimit: Incomplete | None,
-        createdVersion: Incomplete | None,
-        refreshedVersion: Incomplete | None,
-        minRefreshableVersion: Incomplete | None,
-        recordCount: Incomplete | None,
+        missingItemsLimit: _ConvertibleToInt | None,
+        createdVersion: _ConvertibleToInt | None,
+        refreshedVersion: _ConvertibleToInt | None,
+        minRefreshableVersion: _ConvertibleToInt | None,
+        recordCount: _ConvertibleToInt | None,
         upgradeOnRefresh: _ConvertibleToBool | None,
         tupleCache: TupleCache | None,
         supportSubquery: _ConvertibleToBool | None,

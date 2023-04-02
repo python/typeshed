@@ -2,7 +2,7 @@ from _typeshed import Incomplete, Unused
 from typing_extensions import Literal
 
 from openpyxl.descriptors import Typed
-from openpyxl.descriptors.base import Bool, MinMax, String, _ConvertibleToBool, _ConvertibleToFloat
+from openpyxl.descriptors.base import Bool, Integer, MinMax, String, _ConvertibleToBool, _ConvertibleToFloat, _ConvertibleToInt
 from openpyxl.descriptors.serialisable import Serialisable
 
 COLOR_INDEX: Incomplete
@@ -18,19 +18,19 @@ class RGB(Typed):
 class Color(Serialisable):
     tagname: str
     rgb: Incomplete
-    indexed: Incomplete
+    indexed: Integer[Literal[False]]
     auto: Bool[Literal[False]]
-    theme: Incomplete
+    theme: Integer[Literal[False]]
     tint: MinMax[float, Literal[False]]
     type: String[Literal[False]]
     def __init__(
         self,
         rgb="00000000",
-        indexed: Incomplete | None = None,
+        indexed: _ConvertibleToInt | None = None,
         auto: _ConvertibleToBool | None = None,
-        theme: Incomplete | None = None,
+        theme: _ConvertibleToInt | None = None,
         tint: _ConvertibleToFloat = 0.0,
-        index: Incomplete | None = None,
+        index: _ConvertibleToInt | None = None,
         type: Unused = "rgb",
     ) -> None: ...
     @property

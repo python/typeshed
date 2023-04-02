@@ -28,6 +28,7 @@ openpyxl\.descriptors\.(base\.)?Bool\.allow_none
 openpyxl\.descriptors\.(base\.)?DateTime\.allow_none
 openpyxl\.descriptors\.(base\.)?String\.allow_none
 openpyxl\.descriptors\.(base\.)?Float\.allow_none
+openpyxl\.descriptors\.(base\.)?Integer\.allow_none
 
 # "has a default value but stub argument does not"
 # Runtime has default arguments that would fail

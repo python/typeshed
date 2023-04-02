@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Alias, Bool, String, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, Integer, String, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.serialisable import Serialisable
 
 class WorkbookProtection(Serialisable):
@@ -19,11 +19,11 @@ class WorkbookProtection(Serialisable):
     revisionsAlgorithmName: String[Literal[True]]
     revisionsHashValue: Incomplete
     revisionsSaltValue: Incomplete
-    revisionsSpinCount: Incomplete
+    revisionsSpinCount: Integer[Literal[True]]
     workbookAlgorithmName: String[Literal[True]]
     workbookHashValue: Incomplete
     workbookSaltValue: Incomplete
-    workbookSpinCount: Incomplete
+    workbookSpinCount: Integer[Literal[True]]
     __attrs__: Incomplete
     def __init__(
         self,
@@ -37,11 +37,11 @@ class WorkbookProtection(Serialisable):
         revisionsAlgorithmName: str | None = None,
         revisionsHashValue: Incomplete | None = None,
         revisionsSaltValue: Incomplete | None = None,
-        revisionsSpinCount: Incomplete | None = None,
+        revisionsSpinCount: _ConvertibleToInt | None = None,
         workbookAlgorithmName: str | None = None,
         workbookHashValue: Incomplete | None = None,
         workbookSaltValue: Incomplete | None = None,
-        workbookSpinCount: Incomplete | None = None,
+        workbookSpinCount: _ConvertibleToInt | None = None,
     ) -> None: ...
     def set_workbook_password(self, value: str = "", already_hashed: bool = False) -> None: ...
     @property
@@ -66,7 +66,7 @@ class FileSharing(Serialisable):
     algorithmName: String[Literal[True]]
     hashValue: Incomplete
     saltValue: Incomplete
-    spinCount: Incomplete
+    spinCount: Integer[Literal[True]]
     def __init__(
         self,
         readOnlyRecommended: _ConvertibleToBool | None = None,
@@ -75,5 +75,5 @@ class FileSharing(Serialisable):
         algorithmName: str | None = None,
         hashValue: Incomplete | None = None,
         saltValue: Incomplete | None = None,
-        spinCount: Incomplete | None = None,
+        spinCount: _ConvertibleToInt | None = None,
     ) -> None: ...

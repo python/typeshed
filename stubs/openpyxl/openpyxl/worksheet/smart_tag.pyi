@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Bool, String, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, Integer, String, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.serialisable import Serialisable
 
 class CellSmartTagPr(Serialisable):
@@ -13,14 +13,14 @@ class CellSmartTagPr(Serialisable):
 class CellSmartTag(Serialisable):
     tagname: str
     cellSmartTagPr: Incomplete
-    type: Incomplete
+    type: Integer[Literal[False]]
     deleted: Bool[Literal[True]]
     xmlBased: Bool[Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
-        cellSmartTagPr=(),
-        type: Incomplete | None = None,
+        cellSmartTagPr,
+        type: _ConvertibleToInt,
         deleted: _ConvertibleToBool | None = False,
         xmlBased: _ConvertibleToBool | None = False,
     ) -> None: ...

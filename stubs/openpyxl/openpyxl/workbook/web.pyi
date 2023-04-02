@@ -1,7 +1,7 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, NoneSet, String, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, Integer, NoneSet, String, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.serialisable import Serialisable
 
 _WebPublishingTargetScreenSize: TypeAlias = Literal[
@@ -20,7 +20,7 @@ _WebPublishingTargetScreenSize: TypeAlias = Literal[
 
 class WebPublishObject(Serialisable):
     tagname: str
-    id: Incomplete
+    id: Integer[Literal[False]]
     divId: String[Literal[False]]
     sourceObject: String[Literal[True]]
     destinationFile: String[Literal[False]]
@@ -28,7 +28,7 @@ class WebPublishObject(Serialisable):
     autoRepublish: Bool[Literal[True]]
     def __init__(
         self,
-        id: Incomplete | None,
+        id: _ConvertibleToInt,
         divId: str,
         sourceObject: str | None,
         destinationFile: str,
@@ -42,7 +42,7 @@ class WebPublishObjectList(Serialisable):
     # count: Integer
     webPublishObject: Incomplete
     __elements__: Incomplete
-    def __init__(self, count: Incomplete | None = None, webPublishObject=()) -> None: ...
+    def __init__(self, count: Unused = None, webPublishObject=()) -> None: ...
     @property
     def count(self): ...
 
@@ -54,8 +54,8 @@ class WebPublishing(Serialisable):
     vml: Bool[Literal[True]]
     allowPng: Bool[Literal[True]]
     targetScreenSize: NoneSet[_WebPublishingTargetScreenSize]
-    dpi: Incomplete
-    codePage: Incomplete
+    dpi: Integer[Literal[True]]
+    codePage: Integer[Literal[True]]
     characterSet: String[Literal[True]]
     def __init__(
         self,
@@ -65,7 +65,7 @@ class WebPublishing(Serialisable):
         vml: _ConvertibleToBool | None = None,
         allowPng: _ConvertibleToBool | None = None,
         targetScreenSize: _WebPublishingTargetScreenSize | Literal["none"] | None = "800x600",
-        dpi: Incomplete | None = None,
-        codePage: Incomplete | None = None,
+        dpi: _ConvertibleToInt | None = None,
+        codePage: _ConvertibleToInt | None = None,
         characterSet: str | None = None,
     ) -> None: ...

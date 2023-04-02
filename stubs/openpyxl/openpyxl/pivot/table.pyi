@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, NoneSet, Set, String, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, Integer, NoneSet, Set, String, Typed, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.filters import AutoFilter
@@ -106,8 +106,8 @@ _PivotFieldSortType: TypeAlias = Literal["manual", "ascending", "descending"]
 
 class HierarchyUsage(Serialisable):
     tagname: str
-    hierarchyUsage: Incomplete
-    def __init__(self, hierarchyUsage: Incomplete | None = None) -> None: ...
+    hierarchyUsage: Integer[Literal[False]]
+    def __init__(self, hierarchyUsage: _ConvertibleToInt) -> None: ...
 
 class ColHierarchiesUsage(Serialisable):
     tagname: str
@@ -129,13 +129,13 @@ class RowHierarchiesUsage(Serialisable):
 
 class PivotFilter(Serialisable):
     tagname: str
-    fld: Incomplete
-    mpFld: Incomplete
+    fld: Integer[Literal[False]]
+    mpFld: Integer[Literal[True]]
     type: Set[_PivotFilterType]
-    evalOrder: Incomplete
-    id: Incomplete
-    iMeasureHier: Incomplete
-    iMeasureFld: Incomplete
+    evalOrder: Integer[Literal[True]]
+    id: Integer[Literal[False]]
+    iMeasureHier: Integer[Literal[True]]
+    iMeasureFld: Integer[Literal[True]]
     name: String[Literal[True]]
     description: String[Literal[True]]
     stringValue1: String[Literal[True]]
@@ -145,13 +145,13 @@ class PivotFilter(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        fld: Incomplete | None,
-        mpFld: Incomplete | None,
+        fld: _ConvertibleToInt,
+        mpFld: _ConvertibleToInt | None,
         type: _PivotFilterType,
-        evalOrder: Incomplete | None,
-        id: Incomplete | None,
-        iMeasureHier: Incomplete | None,
-        iMeasureFld: Incomplete | None,
+        evalOrder: _ConvertibleToInt | None,
+        id: _ConvertibleToInt,
+        iMeasureHier: _ConvertibleToInt | None,
+        iMeasureFld: _ConvertibleToInt | None,
         name: str | None,
         description: str | None,
         stringValue1: str | None,
@@ -161,10 +161,10 @@ class PivotFilter(Serialisable):
     ) -> None: ...
 
 class PivotFilters(Serialisable):
-    count: Incomplete
+    count: Integer[Literal[False]]
     filter: Typed[PivotFilter, Literal[True]]
     __elements__: Incomplete
-    def __init__(self, count: Incomplete | None = None, filter: PivotFilter | None = None) -> None: ...
+    def __init__(self, count: _ConvertibleToInt, filter: PivotFilter | None = None) -> None: ...
 
 class PivotTableStyle(Serialisable):
     tagname: str
@@ -186,10 +186,10 @@ class PivotTableStyle(Serialisable):
 
 class MemberList(Serialisable):
     tagname: str
-    level: Incomplete
+    level: Integer[Literal[True]]
     member: Incomplete
     __elements__: Incomplete
-    def __init__(self, count: Incomplete | None = None, level: Incomplete | None = None, member=()) -> None: ...
+    def __init__(self, count: Incomplete | None = None, level: _ConvertibleToInt | None = None, member=()) -> None: ...
     @property
     def count(self): ...
 
@@ -199,22 +199,22 @@ class MemberProperty(Serialisable):
     showCell: Bool[Literal[True]]
     showTip: Bool[Literal[True]]
     showAsCaption: Bool[Literal[True]]
-    nameLen: Incomplete
-    pPos: Incomplete
-    pLen: Incomplete
-    level: Incomplete
-    field: Incomplete
+    nameLen: Integer[Literal[True]]
+    pPos: Integer[Literal[True]]
+    pLen: Integer[Literal[True]]
+    level: Integer[Literal[True]]
+    field: Integer[Literal[False]]
     def __init__(
         self,
-        name: str | None = None,
-        showCell: _ConvertibleToBool | None = None,
-        showTip: _ConvertibleToBool | None = None,
-        showAsCaption: _ConvertibleToBool | None = None,
-        nameLen: Incomplete | None = None,
-        pPos: Incomplete | None = None,
-        pLen: Incomplete | None = None,
-        level: Incomplete | None = None,
-        field: Incomplete | None = None,
+        name: str | None,
+        showCell: _ConvertibleToBool | None,
+        showTip: _ConvertibleToBool | None,
+        showAsCaption: _ConvertibleToBool | None,
+        nameLen: _ConvertibleToInt | None,
+        pPos: _ConvertibleToInt | None,
+        pLen: _ConvertibleToInt | None,
+        level: _ConvertibleToInt | None,
+        field: _ConvertibleToInt,
     ) -> None: ...
 
 class PivotHierarchy(Serialisable):
@@ -254,7 +254,7 @@ class PivotHierarchy(Serialisable):
 
 class Reference(Serialisable):
     tagname: str
-    field: Incomplete
+    field: Integer[Literal[True]]
     selected: Bool[Literal[True]]
     byPosition: Bool[Literal[True]]
     relative: Bool[Literal[True]]
@@ -275,7 +275,7 @@ class Reference(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        field: Incomplete | None = None,
+        field: _ConvertibleToInt | None = None,
         count: Unused = None,
         selected: _ConvertibleToBool | None = None,
         byPosition: _ConvertibleToBool | None = None,
@@ -302,7 +302,7 @@ class PivotArea(Serialisable):
     tagname: str
     references: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
-    field: Incomplete
+    field: Integer[Literal[True]]
     type: NoneSet[_PivotAreaType]
     dataOnly: Bool[Literal[True]]
     labelOnly: Bool[Literal[True]]
@@ -313,13 +313,13 @@ class PivotArea(Serialisable):
     offset: String[Literal[True]]
     collapsedLevelsAreSubtotals: Bool[Literal[True]]
     axis: NoneSet[_PivotAxis]
-    fieldPosition: Incomplete
+    fieldPosition: Integer[Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
         references=(),
         extLst: ExtensionList | None = None,
-        field: Incomplete | None = None,
+        field: _ConvertibleToInt | None = None,
         type: _PivotAreaType | Literal["none"] | None = "normal",
         dataOnly: _ConvertibleToBool | None = True,
         labelOnly: _ConvertibleToBool | None = None,
@@ -330,33 +330,33 @@ class PivotArea(Serialisable):
         offset: str | None = None,
         collapsedLevelsAreSubtotals: _ConvertibleToBool | None = None,
         axis: _PivotAxis | Literal["none"] | None = None,
-        fieldPosition: Incomplete | None = None,
+        fieldPosition: _ConvertibleToInt | None = None,
     ) -> None: ...
 
 class ChartFormat(Serialisable):
     tagname: str
-    chart: Incomplete
-    format: Incomplete
+    chart: Integer[Literal[False]]
+    format: Integer[Literal[False]]
     series: Bool[Literal[False]]
     pivotArea: Typed[PivotArea, Literal[False]]
     __elements__: Incomplete
     def __init__(
-        self, chart: Incomplete | None, format: Incomplete | None, series: _ConvertibleToBool, pivotArea: PivotArea
+        self, chart: _ConvertibleToInt, format: _ConvertibleToInt, series: _ConvertibleToBool, pivotArea: PivotArea
     ) -> None: ...
 
 class ConditionalFormat(Serialisable):
     tagname: str
     scope: Set[_ConditionalFormatScope]
     type: NoneSet[_ConditionalFormatType]
-    priority: Incomplete
+    priority: Integer[Literal[False]]
     pivotAreas: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
-        scope: _ConditionalFormatScope = "selection",
-        type: _ConditionalFormatType | Literal["none"] | None = None,
-        priority: Incomplete | None = None,
+        scope: _ConditionalFormatScope,
+        type: _ConditionalFormatType | Literal["none"] | None,
+        priority: _ConvertibleToInt,
         pivotAreas=(),
         extLst: ExtensionList | None = None,
     ) -> None: ...
@@ -374,14 +374,14 @@ class ConditionalFormatList(Serialisable):
 class Format(Serialisable):
     tagname: str
     action: NoneSet[_FormatAction]
-    dxfId: Incomplete
+    dxfId: Integer[Literal[True]]
     pivotArea: Typed[PivotArea, Literal[False]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
         action: _FormatAction | Literal["none"] | None,
-        dxfId: Incomplete | None,
+        dxfId: _ConvertibleToInt | None,
         pivotArea: PivotArea,
         extLst: ExtensionList | None = None,
     ) -> None: ...
@@ -389,40 +389,40 @@ class Format(Serialisable):
 class DataField(Serialisable):
     tagname: str
     name: String[Literal[True]]
-    fld: Incomplete
+    fld: Integer[Literal[False]]
     subtotal: Set[_DataFieldSubtotal]
     showDataAs: Set[_DataFieldShowDataAs]
-    baseField: Incomplete
-    baseItem: Incomplete
-    numFmtId: Incomplete
+    baseField: Integer[Literal[False]]
+    baseItem: Integer[Literal[False]]
+    numFmtId: Integer[Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
-        name: str | None = None,
-        fld: Incomplete | None = None,
+        name: str | None,
+        fld: _ConvertibleToInt,
         subtotal: str = "sum",
         showDataAs: str = "normal",
-        baseField: int = -1,
-        baseItem: int = 1048832,
-        numFmtId: Incomplete | None = None,
+        baseField: _ConvertibleToInt = -1,
+        baseItem: _ConvertibleToInt = 1048832,
+        numFmtId: _ConvertibleToInt | None = None,
         extLst: ExtensionList | None = None,
     ) -> None: ...
 
 class PageField(Serialisable):
     tagname: str
-    fld: Incomplete
-    item: Incomplete
-    hier: Incomplete
+    fld: Integer[Literal[False]]
+    item: Integer[Literal[True]]
+    hier: Integer[Literal[True]]
     name: String[Literal[True]]
     cap: String[Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
-        fld: Incomplete | None = None,
-        item: Incomplete | None = None,
-        hier: Incomplete | None = None,
+        fld: _ConvertibleToInt,
+        item: _ConvertibleToInt | None = None,
+        hier: _ConvertibleToInt | None = None,
         name: str | None = None,
         cap: str | None = None,
         extLst: ExtensionList | None = None,
@@ -431,16 +431,16 @@ class PageField(Serialisable):
 class RowColItem(Serialisable):
     tagname: str
     t: Set[_ItemType]
-    r: Incomplete
-    i: Incomplete
+    r: Integer[Literal[False]]
+    i: Integer[Literal[False]]
     x: Incomplete
     __elements__: Incomplete
-    def __init__(self, t: _ItemType = "data", r: int = 0, i: int = 0, x=()) -> None: ...
+    def __init__(self, t: _ItemType = "data", r: _ConvertibleToInt = 0, i: _ConvertibleToInt = 0, x=()) -> None: ...
 
 class RowColField(Serialisable):
     tagname: str
-    x: Incomplete
-    def __init__(self, x: Incomplete | None = None) -> None: ...
+    x: Integer[Literal[False]]
+    def __init__(self, x: _ConvertibleToInt) -> None: ...
 
 class AutoSortScope(Serialisable):
     pivotArea: Typed[PivotArea, Literal[False]]
@@ -457,7 +457,7 @@ class FieldItem(Serialisable):
     f: Bool[Literal[True]]
     m: Bool[Literal[True]]
     c: Bool[Literal[True]]
-    x: Incomplete
+    x: Integer[Literal[True]]
     d: Bool[Literal[True]]
     e: Bool[Literal[True]]
     def __init__(
@@ -470,7 +470,7 @@ class FieldItem(Serialisable):
         f: _ConvertibleToBool | None = None,
         m: _ConvertibleToBool | None = None,
         c: _ConvertibleToBool | None = None,
-        x: Incomplete | None = None,
+        x: _ConvertibleToInt | None = None,
         d: _ConvertibleToBool | None = None,
         e: _ConvertibleToBool | None = None,
     ) -> None: ...
@@ -489,7 +489,7 @@ class PivotField(Serialisable):
     uniqueMemberProperty: String[Literal[True]]
     compact: Bool[Literal[True]]
     allDrilled: Bool[Literal[True]]
-    numFmtId: Incomplete
+    numFmtId: Integer[Literal[True]]
     outline: Bool[Literal[True]]
     subtotalTop: Bool[Literal[True]]
     dragToRow: Bool[Literal[True]]
@@ -507,11 +507,11 @@ class PivotField(Serialisable):
     hideNewItems: Bool[Literal[True]]
     measureFilter: Bool[Literal[True]]
     includeNewItemsInFilter: Bool[Literal[True]]
-    itemPageCount: Incomplete
+    itemPageCount: Integer[Literal[True]]
     sortType: Set[_PivotFieldSortType]
     dataSourceSort: Bool[Literal[True]]
     nonAutoSortDefault: Bool[Literal[True]]
-    rankBy: Incomplete
+    rankBy: Integer[Literal[True]]
     defaultSubtotal: Bool[Literal[True]]
     sumSubtotal: Bool[Literal[True]]
     countASubtotal: Bool[Literal[True]]
@@ -542,7 +542,7 @@ class PivotField(Serialisable):
         uniqueMemberProperty: str | None = None,
         compact: _ConvertibleToBool | None = True,
         allDrilled: _ConvertibleToBool | None = None,
-        numFmtId: Incomplete | None = None,
+        numFmtId: _ConvertibleToInt | None = None,
         outline: _ConvertibleToBool | None = True,
         subtotalTop: _ConvertibleToBool | None = True,
         dragToRow: _ConvertibleToBool | None = True,
@@ -560,11 +560,11 @@ class PivotField(Serialisable):
         hideNewItems: _ConvertibleToBool | None = None,
         measureFilter: _ConvertibleToBool | None = None,
         includeNewItemsInFilter: _ConvertibleToBool | None = None,
-        itemPageCount: int = 10,
+        itemPageCount: _ConvertibleToInt | None = 10,
         sortType: _PivotFieldSortType = "manual",
         dataSourceSort: _ConvertibleToBool | None = None,
         nonAutoSortDefault: _ConvertibleToBool | None = None,
-        rankBy: Incomplete | None = None,
+        rankBy: _ConvertibleToInt | None = None,
         defaultSubtotal: _ConvertibleToBool | None = True,
         sumSubtotal: _ConvertibleToBool | None = None,
         countASubtotal: _ConvertibleToBool | None = None,
@@ -587,19 +587,19 @@ class PivotField(Serialisable):
 class Location(Serialisable):
     tagname: str
     ref: String[Literal[False]]
-    firstHeaderRow: Incomplete
-    firstDataRow: Incomplete
-    firstDataCol: Incomplete
-    rowPageCount: Incomplete
-    colPageCount: Incomplete
+    firstHeaderRow: Integer[Literal[False]]
+    firstDataRow: Integer[Literal[False]]
+    firstDataCol: Integer[Literal[False]]
+    rowPageCount: Integer[Literal[True]]
+    colPageCount: Integer[Literal[True]]
     def __init__(
         self,
         ref: str,
-        firstHeaderRow: Incomplete | None = None,
-        firstDataRow: Incomplete | None = None,
-        firstDataCol: Incomplete | None = None,
-        rowPageCount: Incomplete | None = None,
-        colPageCount: Incomplete | None = None,
+        firstHeaderRow: _ConvertibleToInt,
+        firstDataRow: _ConvertibleToInt,
+        firstDataCol: _ConvertibleToInt,
+        rowPageCount: _ConvertibleToInt | None = None,
+        colPageCount: _ConvertibleToInt | None = None,
     ) -> None: ...
 
 class TableDefinition(Serialisable):
@@ -608,9 +608,9 @@ class TableDefinition(Serialisable):
     tagname: str
     cache: Incomplete
     name: String[Literal[False]]
-    cacheId: Incomplete
+    cacheId: Integer[Literal[False]]
     dataOnRows: Bool[Literal[False]]
-    dataPosition: Incomplete
+    dataPosition: Integer[Literal[True]]
     dataCaption: String[Literal[False]]
     grandTotalCaption: String[Literal[True]]
     errorCaption: String[Literal[True]]
@@ -621,8 +621,8 @@ class TableDefinition(Serialisable):
     pivotTableStyle: String[Literal[True]]
     vacatedStyle: String[Literal[True]]
     tag: String[Literal[True]]
-    updatedVersion: Incomplete
-    minRefreshableVersion: Incomplete
+    updatedVersion: Integer[Literal[False]]
+    minRefreshableVersion: Integer[Literal[False]]
     asteriskTotals: Bool[Literal[False]]
     showItems: Bool[Literal[False]]
     editData: Bool[Literal[False]]
@@ -640,7 +640,7 @@ class TableDefinition(Serialisable):
     enableFieldProperties: Bool[Literal[False]]
     preserveFormatting: Bool[Literal[False]]
     useAutoFormatting: Bool[Literal[False]]
-    pageWrap: Incomplete
+    pageWrap: Integer[Literal[False]]
     pageOverThenDown: Bool[Literal[False]]
     subtotalHiddenItems: Bool[Literal[False]]
     rowGrandTotals: Bool[Literal[False]]
@@ -649,8 +649,8 @@ class TableDefinition(Serialisable):
     itemPrintTitles: Bool[Literal[False]]
     mergeItem: Bool[Literal[False]]
     showDropZones: Bool[Literal[False]]
-    createdVersion: Incomplete
-    indent: Incomplete
+    createdVersion: Integer[Literal[False]]
+    indent: Integer[Literal[False]]
     showEmptyRow: Bool[Literal[False]]
     showEmptyCol: Bool[Literal[False]]
     showHeaders: Bool[Literal[False]]
@@ -662,13 +662,13 @@ class TableDefinition(Serialisable):
     gridDropZones: Bool[Literal[False]]
     immersive: Bool[Literal[False]]
     multipleFieldFilters: Bool[Literal[False]]
-    chartFormat: Incomplete
+    chartFormat: Integer[Literal[False]]
     rowHeaderCaption: String[Literal[True]]
     colHeaderCaption: String[Literal[True]]
     fieldListSortAscending: Bool[Literal[False]]
     mdxSubqueries: Bool[Literal[False]]
     customListSort: Bool[Literal[True]]
-    autoFormatId: Incomplete
+    autoFormatId: Integer[Literal[True]]
     applyNumberFormats: Bool[Literal[False]]
     applyBorderFormats: Bool[Literal[False]]
     applyFontFormats: Bool[Literal[False]]
@@ -697,9 +697,9 @@ class TableDefinition(Serialisable):
     def __init__(
         self,
         name: str,
-        cacheId: Incomplete | None,
+        cacheId: _ConvertibleToInt,
         dataOnRows: _ConvertibleToBool,
-        dataPosition: Incomplete | None,
+        dataPosition: _ConvertibleToInt | None,
         dataCaption: str,
         grandTotalCaption: str | None,
         errorCaption: str | None,
@@ -710,8 +710,8 @@ class TableDefinition(Serialisable):
         pivotTableStyle: str | None,
         vacatedStyle: str | None,
         tag: str | None,
-        updatedVersion: int,
-        minRefreshableVersion: int,
+        updatedVersion: _ConvertibleToInt,
+        minRefreshableVersion: _ConvertibleToInt,
         asteriskTotals: _ConvertibleToBool,
         showItems: _ConvertibleToBool,
         editData: _ConvertibleToBool,
@@ -729,7 +729,7 @@ class TableDefinition(Serialisable):
         enableFieldProperties: _ConvertibleToBool,
         preserveFormatting: _ConvertibleToBool,
         useAutoFormatting: _ConvertibleToBool,
-        pageWrap: int,
+        pageWrap: _ConvertibleToInt,
         pageOverThenDown: _ConvertibleToBool,
         subtotalHiddenItems: _ConvertibleToBool,
         rowGrandTotals: _ConvertibleToBool,
@@ -738,8 +738,8 @@ class TableDefinition(Serialisable):
         itemPrintTitles: _ConvertibleToBool,
         mergeItem: _ConvertibleToBool,
         showDropZones: _ConvertibleToBool,
-        createdVersion: int,
-        indent: int,
+        createdVersion: _ConvertibleToInt,
+        indent: _ConvertibleToInt,
         showEmptyRow: _ConvertibleToBool,
         showEmptyCol: _ConvertibleToBool,
         showHeaders: _ConvertibleToBool,
@@ -751,13 +751,13 @@ class TableDefinition(Serialisable):
         gridDropZones: _ConvertibleToBool,
         immersive: _ConvertibleToBool,
         multipleFieldFilters: _ConvertibleToBool,
-        chartFormat: int,
+        chartFormat: _ConvertibleToInt,
         rowHeaderCaption: str | None,
         colHeaderCaption: str | None,
         fieldListSortAscending: _ConvertibleToBool,
         mdxSubqueries: _ConvertibleToBool,
         customListSort: _ConvertibleToBool | None,
-        autoFormatId: Incomplete | None,
+        autoFormatId: _ConvertibleToInt | None,
         applyNumberFormats: _ConvertibleToBool,
         applyBorderFormats: _ConvertibleToBool,
         applyFontFormats: _ConvertibleToBool,

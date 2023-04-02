@@ -7,6 +7,7 @@ from openpyxl.descriptors.base import (
     Bool,
     DateTime,
     Float,
+    Integer,
     MinMax,
     NoneSet,
     Set,
@@ -14,6 +15,7 @@ from openpyxl.descriptors.base import (
     Typed,
     _ConvertibleToBool,
     _ConvertibleToFloat,
+    _ConvertibleToInt,
 )
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
@@ -102,18 +104,18 @@ class SortCondition(Serialisable):
     sortBy: NoneSet[_SortConditionSortBy]
     ref: Incomplete
     customList: String[Literal[True]]
-    dxfId: Incomplete
+    dxfId: Integer[Literal[True]]
     iconSet: NoneSet[_IconSet]
-    iconId: Incomplete
+    iconId: Integer[Literal[True]]
     def __init__(
         self,
         ref: Incomplete | None = None,
         descending: _ConvertibleToBool | None = None,
         sortBy: _SortConditionSortBy | Literal["none"] | None = None,
         customList: str | None = None,
-        dxfId: Incomplete | None = None,
+        dxfId: _ConvertibleToInt | None = None,
         iconSet: _IconSet | Literal["none"] | None = None,
-        iconId: Incomplete | None = None,
+        iconId: _ConvertibleToInt | None = None,
     ) -> None: ...
 
 class SortState(Serialisable):
@@ -139,14 +141,14 @@ class SortState(Serialisable):
 class IconFilter(Serialisable):
     tagname: str
     iconSet: Set[_IconSet]
-    iconId: Incomplete
-    def __init__(self, iconSet: _IconSet, iconId: Incomplete | None = None) -> None: ...
+    iconId: Integer[Literal[True]]
+    def __init__(self, iconSet: _IconSet, iconId: _ConvertibleToInt | None = None) -> None: ...
 
 class ColorFilter(Serialisable):
     tagname: str
-    dxfId: Incomplete
+    dxfId: Integer[Literal[True]]
     cellColor: Bool[Literal[True]]
-    def __init__(self, dxfId: Incomplete | None = None, cellColor: _ConvertibleToBool | None = None) -> None: ...
+    def __init__(self, dxfId: _ConvertibleToInt | None = None, cellColor: _ConvertibleToBool | None = None) -> None: ...
 
 class DynamicFilter(Serialisable):
     tagname: str
@@ -195,21 +197,21 @@ class Top10(Serialisable):
 
 class DateGroupItem(Serialisable):
     tagname: str
-    year: Incomplete
+    year: Integer[Literal[False]]
     month: MinMax[float, Literal[True]]
     day: MinMax[float, Literal[True]]
     hour: MinMax[float, Literal[True]]
     minute: MinMax[float, Literal[True]]
-    second: Incomplete
+    second: Integer[Literal[True]]
     dateTimeGrouping: Set[_DateGroupItemDateTimeGrouping]
     def __init__(
         self,
-        year: Incomplete | None,
+        year: _ConvertibleToInt,
         month: _ConvertibleToFloat | None,
         day: _ConvertibleToFloat | None,
         hour: _ConvertibleToFloat | None,
         minute: _ConvertibleToFloat | None,
-        second: Incomplete | None,
+        second: _ConvertibleToInt | None,
         dateTimeGrouping: _DateGroupItemDateTimeGrouping,
     ) -> None: ...
 
@@ -230,7 +232,7 @@ class Filters(Serialisable):
 
 class FilterColumn(Serialisable):
     tagname: str
-    colId: Incomplete
+    colId: Integer[Literal[False]]
     col_id: Alias
     hiddenButton: Bool[Literal[True]]
     showButton: Bool[Literal[True]]
@@ -244,7 +246,7 @@ class FilterColumn(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        colId: Incomplete | None = None,
+        colId: _ConvertibleToInt,
         hiddenButton: _ConvertibleToBool | None = False,
         showButton: _ConvertibleToBool | None = True,
         filters: Filters | None = None,

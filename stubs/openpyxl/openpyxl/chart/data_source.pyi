@@ -2,7 +2,7 @@ from _typeshed import Incomplete, Unused
 from typing import NoReturn, overload
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Alias, Bool, String, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, Integer, String, Typed, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.nested import NestedText
 from openpyxl.descriptors.serialisable import Serialisable
@@ -18,12 +18,10 @@ class NumberValueDescriptor(NestedText):
     def __set__(self, instance: Serialisable, value) -> None: ...  # type: ignore[override]
 
 class NumVal(Serialisable):
-    idx: Incomplete
+    idx: Integer[Literal[False]]
     formatCode: Incomplete
     v: Incomplete
-    def __init__(
-        self, idx: Incomplete | None = None, formatCode: Incomplete | None = None, v: Incomplete | None = None
-    ) -> None: ...
+    def __init__(self, idx: _ConvertibleToInt, formatCode: Incomplete | None = None, v: Incomplete | None = None) -> None: ...
 
 class NumData(Serialisable):
     formatCode: Incomplete
@@ -45,9 +43,9 @@ class NumRef(Serialisable):
 
 class StrVal(Serialisable):
     tagname: str
-    idx: Incomplete
+    idx: Integer[Literal[False]]
     v: Incomplete
-    def __init__(self, idx: int = 0, v: Incomplete | None = None) -> None: ...
+    def __init__(self, idx: _ConvertibleToInt = 0, v: Incomplete | None = None) -> None: ...
 
 class StrData(Serialisable):
     tagname: str
@@ -78,11 +76,11 @@ class Level(Serialisable):
 
 class MultiLevelStrData(Serialisable):
     tagname: str
-    ptCount: Incomplete
+    ptCount: Integer[Literal[True]]
     lvl: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
-    def __init__(self, ptCount: Incomplete | None = None, lvl=(), extLst: Unused = None) -> None: ...
+    def __init__(self, ptCount: _ConvertibleToInt | None = None, lvl=(), extLst: Unused = None) -> None: ...
 
 class MultiLevelStrRef(Serialisable):
     tagname: str

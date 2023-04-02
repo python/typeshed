@@ -1,7 +1,19 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Alias, Bool, MinMax, NoneSet, Set, String, Typed, _ConvertibleToBool, _ConvertibleToFloat
+from openpyxl.descriptors.base import (
+    Alias,
+    Bool,
+    Integer,
+    MinMax,
+    NoneSet,
+    Set,
+    String,
+    Typed,
+    _ConvertibleToBool,
+    _ConvertibleToFloat,
+    _ConvertibleToInt,
+)
 from openpyxl.descriptors.excel import Coordinate, ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.effect import Color, EffectContainer, EffectList
@@ -165,13 +177,13 @@ class Font(Serialisable):
     typeface: String[Literal[False]]
     panose: Incomplete
     pitchFamily: MinMax[float, Literal[True]]
-    charset: Incomplete
+    charset: Integer[Literal[True]]
     def __init__(
         self,
         typeface: str,
         panose: Incomplete | None = None,
         pitchFamily: _ConvertibleToFloat | None = None,
-        charset: Incomplete | None = None,
+        charset: _ConvertibleToInt | None = None,
     ) -> None: ...
 
 class CharacterProperties(Serialisable):
@@ -185,16 +197,16 @@ class CharacterProperties(Serialisable):
     i: Bool[Literal[True]]
     u: NoneSet[_CharacterPropertiesU]
     strike: NoneSet[_CharacterPropertiesStrike]
-    kern: Incomplete
+    kern: Integer[Literal[True]]
     cap: NoneSet[_CharacterPropertiesCap]
-    spc: Incomplete
+    spc: Integer[Literal[True]]
     normalizeH: Bool[Literal[True]]
-    baseline: Incomplete
+    baseline: Integer[Literal[True]]
     noProof: Bool[Literal[True]]
     dirty: Bool[Literal[True]]
     err: Bool[Literal[True]]
     smtClean: Bool[Literal[True]]
-    smtId: Incomplete
+    smtId: Integer[Literal[True]]
     bmk: String[Literal[True]]
     ln: Typed[LineProperties, Literal[True]]
     highlight: Typed[Color, Literal[True]]
@@ -229,16 +241,16 @@ class CharacterProperties(Serialisable):
         i: _ConvertibleToBool | None = None,
         u: _CharacterPropertiesU | Literal["none"] | None = None,
         strike: _CharacterPropertiesStrike | Literal["none"] | None = None,
-        kern: Incomplete | None = None,
+        kern: _ConvertibleToInt | None = None,
         cap: _CharacterPropertiesCap | Literal["none"] | None = None,
-        spc: Incomplete | None = None,
+        spc: _ConvertibleToInt | None = None,
         normalizeH: _ConvertibleToBool | None = None,
-        baseline: Incomplete | None = None,
+        baseline: _ConvertibleToInt | None = None,
         noProof: _ConvertibleToBool | None = None,
         dirty: _ConvertibleToBool | None = None,
         err: _ConvertibleToBool | None = None,
         smtClean: _ConvertibleToBool | None = None,
-        smtId: Incomplete | None = None,
+        smtId: _ConvertibleToInt | None = None,
         bmk: str | None = None,
         ln: LineProperties | None = None,
         highlight: Color | None = None,
@@ -281,18 +293,18 @@ class Spacing(Serialisable):
 
 class AutonumberBullet(Serialisable):
     type: Set[_AutonumberBulletType]
-    startAt: Incomplete
-    def __init__(self, type: _AutonumberBulletType, startAt: Incomplete | None = None) -> None: ...
+    startAt: Integer[Literal[False]]
+    def __init__(self, type: _AutonumberBulletType, startAt: _ConvertibleToInt) -> None: ...
 
 class ParagraphProperties(Serialisable):
     tagname: str
     namespace: Incomplete
-    marL: Incomplete
-    marR: Incomplete
-    lvl: Incomplete
-    indent: Incomplete
+    marL: Integer[Literal[True]]
+    marR: Integer[Literal[True]]
+    lvl: Integer[Literal[True]]
+    indent: Integer[Literal[True]]
     algn: NoneSet[_ParagraphPropertiesAlgn]
-    defTabSz: Incomplete
+    defTabSz: Integer[Literal[True]]
     rtl: Bool[Literal[True]]
     eaLnBrk: Bool[Literal[True]]
     fontAlgn: NoneSet[_ParagraphPropertiesFontAlgn]
@@ -318,12 +330,12 @@ class ParagraphProperties(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        marL: Incomplete | None = None,
-        marR: Incomplete | None = None,
-        lvl: Incomplete | None = None,
-        indent: Incomplete | None = None,
+        marL: _ConvertibleToInt | None = None,
+        marR: _ConvertibleToInt | None = None,
+        lvl: _ConvertibleToInt | None = None,
+        indent: _ConvertibleToInt | None = None,
         algn: _ParagraphPropertiesAlgn | Literal["none"] | None = None,
-        defTabSz: Incomplete | None = None,
+        defTabSz: _ConvertibleToInt | None = None,
         rtl: _ConvertibleToBool | None = None,
         eaLnBrk: _ConvertibleToBool | None = None,
         fontAlgn: _ParagraphPropertiesFontAlgn | Literal["none"] | None = None,
@@ -446,25 +458,25 @@ class PresetTextShape(Serialisable):
     def __init__(self, prst: Set[_PresetTextShapePrst], avLst: GeomGuideList | None = None) -> None: ...
 
 class TextNormalAutofit(Serialisable):
-    fontScale: Incomplete
-    lnSpcReduction: Incomplete
-    def __init__(self, fontScale: Incomplete | None = None, lnSpcReduction: Incomplete | None = None) -> None: ...
+    fontScale: Integer[Literal[False]]
+    lnSpcReduction: Integer[Literal[False]]
+    def __init__(self, fontScale: _ConvertibleToInt, lnSpcReduction: _ConvertibleToInt) -> None: ...
 
 class RichTextProperties(Serialisable):
     tagname: str
     namespace: Incomplete
-    rot: Incomplete
+    rot: Integer[Literal[True]]
     spcFirstLastPara: Bool[Literal[True]]
     vertOverflow: NoneSet[_RichTextPropertiesVertOverflow]
     horzOverflow: NoneSet[_RichTextPropertiesHorzOverflow]
     vert: NoneSet[_RichTextPropertiesVert]
     wrap: NoneSet[_RichTextPropertiesWrap]
-    lIns: Incomplete
-    tIns: Incomplete
-    rIns: Incomplete
-    bIns: Incomplete
-    numCol: Incomplete
-    spcCol: Incomplete
+    lIns: Integer[Literal[True]]
+    tIns: Integer[Literal[True]]
+    rIns: Integer[Literal[True]]
+    bIns: Integer[Literal[True]]
+    numCol: Integer[Literal[True]]
+    spcCol: Integer[Literal[True]]
     rtlCol: Bool[Literal[True]]
     fromWordArt: Bool[Literal[True]]
     anchor: NoneSet[_RichTextPropertiesAnchor]
@@ -482,18 +494,18 @@ class RichTextProperties(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        rot: Incomplete | None = None,
+        rot: _ConvertibleToInt | None = None,
         spcFirstLastPara: _ConvertibleToBool | None = None,
         vertOverflow: _RichTextPropertiesVertOverflow | Literal["none"] | None = None,
         horzOverflow: _RichTextPropertiesHorzOverflow | Literal["none"] | None = None,
         vert: _RichTextPropertiesVert | Literal["none"] | None = None,
         wrap: _RichTextPropertiesWrap | Literal["none"] | None = None,
-        lIns: Incomplete | None = None,
-        tIns: Incomplete | None = None,
-        rIns: Incomplete | None = None,
-        bIns: Incomplete | None = None,
-        numCol: Incomplete | None = None,
-        spcCol: Incomplete | None = None,
+        lIns: _ConvertibleToInt | None = None,
+        tIns: _ConvertibleToInt | None = None,
+        rIns: _ConvertibleToInt | None = None,
+        bIns: _ConvertibleToInt | None = None,
+        numCol: _ConvertibleToInt | None = None,
+        spcCol: _ConvertibleToInt | None = None,
         rtlCol: _ConvertibleToBool | None = None,
         fromWordArt: _ConvertibleToBool | None = None,
         anchor: _RichTextPropertiesAnchor | Literal["none"] | None = None,

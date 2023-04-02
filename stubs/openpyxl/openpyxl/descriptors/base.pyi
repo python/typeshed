@@ -229,8 +229,13 @@ class NoneSet(Set[_T | None]):
     def __init__(self, name: str | None = None, *, values: Iterable[_T | None]) -> None: ...
     def __set__(self, instance: Serialisable, value: _T | Literal["none"] | None) -> None: ...
 
-class Integer(Convertible):
-    expected_type: Incomplete
+class Integer(Convertible[int, _N]):
+    allow_none: _N
+    expected_type: type[int]
+    @overload
+    def __init__(self: Integer[Literal[True]], name: str | None = None, *, allow_none: Literal[True]) -> None: ...
+    @overload
+    def __init__(self: Integer[Literal[False]], name: str | None = None, *, allow_none: Literal[False] = False) -> None: ...
 
 class Float(Convertible[float, _N]):
     allow_none: _N

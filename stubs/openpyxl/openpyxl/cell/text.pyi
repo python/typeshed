@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Alias, NoneSet, Typed
+from openpyxl.descriptors.base import Alias, Integer, NoneSet, Typed, _ConvertibleToInt
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.fonts import Font
 
@@ -10,12 +10,12 @@ _PhoneticPropertiesAlignment: TypeAlias = Literal["noControl", "left", "center",
 
 class PhoneticProperties(Serialisable):
     tagname: str
-    fontId: Incomplete
+    fontId: Integer[Literal[False]]
     type: NoneSet[_PhoneticPropertiesType]
     alignment: NoneSet[_PhoneticPropertiesAlignment]
     def __init__(
         self,
-        fontId: Incomplete | None = None,
+        fontId: _ConvertibleToInt,
         type: _PhoneticPropertiesType | Literal["none"] | None = None,
         alignment: _PhoneticPropertiesAlignment | Literal["none"] | None = None,
     ) -> None: ...
@@ -24,11 +24,11 @@ _PhoneticProperties: TypeAlias = PhoneticProperties
 
 class PhoneticText(Serialisable):
     tagname: str
-    sb: Incomplete
-    eb: Incomplete
+    sb: Integer[Literal[False]]
+    eb: Integer[Literal[False]]
     t: Incomplete
     text: Alias
-    def __init__(self, sb: Incomplete | None = None, eb: Incomplete | None = None, t: Incomplete | None = None) -> None: ...
+    def __init__(self, sb: _ConvertibleToInt, eb: _ConvertibleToInt, t: Incomplete | None = None) -> None: ...
 
 class InlineFont(Font):
     tagname: str

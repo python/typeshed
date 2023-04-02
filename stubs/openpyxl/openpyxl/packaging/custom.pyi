@@ -33,7 +33,7 @@ class _TypedProperty(Strict, Generic[_T]):
     def __eq__(self, other: _TypedProperty[Any]) -> bool: ...  # type: ignore[override]
 
 class IntProperty(_TypedProperty[_ConvertibleToInt]):
-    value: Integer
+    value: Integer[Literal[False]]
 
 class FloatProperty(_TypedProperty[_ConvertibleToFloat]):
     value: Float[Literal[False]]

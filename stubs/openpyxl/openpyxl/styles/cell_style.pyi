@@ -2,7 +2,7 @@ from _typeshed import Incomplete, Unused
 from array import array
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Bool, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, Integer, Typed, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.alignment import Alignment
@@ -32,11 +32,11 @@ class StyleArray(array[Incomplete]):
 
 class CellStyle(Serialisable):
     tagname: str
-    numFmtId: Incomplete
-    fontId: Incomplete
-    fillId: Incomplete
-    borderId: Incomplete
-    xfId: Incomplete
+    numFmtId: Integer[Literal[False]]
+    fontId: Integer[Literal[False]]
+    fillId: Integer[Literal[False]]
+    borderId: Integer[Literal[False]]
+    xfId: Integer[Literal[True]]
     quotePrefix: Bool[Literal[True]]
     pivotButton: Bool[Literal[True]]
     applyNumberFormat: Bool[Literal[True]]
@@ -53,11 +53,11 @@ class CellStyle(Serialisable):
     __attrs__: Incomplete
     def __init__(
         self,
-        numFmtId: int = 0,
-        fontId: int = 0,
-        fillId: int = 0,
-        borderId: int = 0,
-        xfId: Incomplete | None = None,
+        numFmtId: _ConvertibleToInt = 0,
+        fontId: _ConvertibleToInt = 0,
+        fillId: _ConvertibleToInt = 0,
+        borderId: _ConvertibleToInt = 0,
+        xfId: _ConvertibleToInt | None = None,
         quotePrefix: _ConvertibleToBool | None = None,
         pivotButton: _ConvertibleToBool | None = None,
         applyNumberFormat: _ConvertibleToBool | None = None,
@@ -87,7 +87,7 @@ class CellStyleList(Serialisable):
     alignment: Incomplete
     protection: Incomplete
     __elements__: Incomplete
-    def __init__(self, count: Incomplete | None = None, xf=()) -> None: ...
+    def __init__(self, count: Unused = None, xf=()) -> None: ...
     @property
     def count(self): ...
     def __getitem__(self, idx): ...

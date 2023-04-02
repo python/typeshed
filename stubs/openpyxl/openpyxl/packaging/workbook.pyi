@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Alias, Bool, NoneSet, String, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, Integer, NoneSet, String, Typed, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.workbook.defined_name import DefinedNameList
@@ -31,22 +31,22 @@ class FileRecoveryProperties(Serialisable):
 class ChildSheet(Serialisable):
     tagname: str
     name: String[Literal[False]]
-    sheetId: Incomplete
+    sheetId: Integer[Literal[False]]
     state: NoneSet[_ChildSheetState]
     id: Incomplete
     def __init__(
         self,
         name: str,
-        sheetId: Incomplete | None = None,
+        sheetId: _ConvertibleToInt,
         state: _ChildSheetState | Literal["none"] | None = "visible",
         id: Incomplete | None = None,
     ) -> None: ...
 
 class PivotCache(Serialisable):
     tagname: str
-    cacheId: Incomplete
+    cacheId: Integer[Literal[False]]
     id: Incomplete
-    def __init__(self, cacheId: Incomplete | None = None, id: Incomplete | None = None) -> None: ...
+    def __init__(self, cacheId: _ConvertibleToInt, id: Incomplete | None = None) -> None: ...
 
 class WorkbookPackage(Serialisable):
     tagname: str

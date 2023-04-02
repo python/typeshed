@@ -5,7 +5,7 @@ from re import Pattern
 from typing_extensions import Literal
 
 from openpyxl.descriptors import Sequence
-from openpyxl.descriptors.base import Alias, Bool, String, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, Integer, String, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.serialisable import Serialisable
 
 RESERVED: frozenset[str]
@@ -19,12 +19,12 @@ class DefinedName(Serialisable):
     description: String[Literal[True]]
     help: String[Literal[True]]
     statusBar: String[Literal[True]]
-    localSheetId: Incomplete
+    localSheetId: Integer[Literal[True]]
     hidden: Bool[Literal[True]]
     function: Bool[Literal[True]]
     vbProcedure: Bool[Literal[True]]
     xlm: Bool[Literal[True]]
-    functionGroupId: Incomplete
+    functionGroupId: Integer[Literal[True]]
     shortcutKey: String[Literal[True]]
     publishToServer: Bool[Literal[True]]
     workbookParameter: Bool[Literal[True]]
@@ -38,12 +38,12 @@ class DefinedName(Serialisable):
         description: str | None = None,
         help: str | None = None,
         statusBar: str | None = None,
-        localSheetId: Incomplete | None = None,
+        localSheetId: _ConvertibleToInt | None = None,
         hidden: _ConvertibleToBool | None = None,
         function: _ConvertibleToBool | None = None,
         vbProcedure: _ConvertibleToBool | None = None,
         xlm: _ConvertibleToBool | None = None,
-        functionGroupId: Incomplete | None = None,
+        functionGroupId: _ConvertibleToInt | None = None,
         shortcutKey: str | None = None,
         publishToServer: _ConvertibleToBool | None = None,
         workbookParameter: _ConvertibleToBool | None = None,

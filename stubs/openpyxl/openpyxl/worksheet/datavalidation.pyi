@@ -1,7 +1,17 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Alias, Bool, Convertible, NoneSet, String, _ConvertibleToBool, _ConvertibleToMultiCellRange
+from openpyxl.descriptors.base import (
+    Alias,
+    Bool,
+    Convertible,
+    Integer,
+    NoneSet,
+    String,
+    _ConvertibleToBool,
+    _ConvertibleToInt,
+    _ConvertibleToMultiCellRange,
+)
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.cell_range import MultiCellRange
 
@@ -74,16 +84,16 @@ class DataValidation(Serialisable):
 class DataValidationList(Serialisable):
     tagname: str
     disablePrompts: Bool[Literal[True]]
-    xWindow: Incomplete
-    yWindow: Incomplete
+    xWindow: Integer[Literal[True]]
+    yWindow: Integer[Literal[True]]
     dataValidation: Incomplete
     __elements__: Incomplete
     __attrs__: Incomplete
     def __init__(
         self,
         disablePrompts: _ConvertibleToBool | None = None,
-        xWindow: Incomplete | None = None,
-        yWindow: Incomplete | None = None,
+        xWindow: _ConvertibleToInt | None = None,
+        yWindow: _ConvertibleToInt | None = None,
         count: Incomplete | None = None,
         dataValidation=(),
     ) -> None: ...

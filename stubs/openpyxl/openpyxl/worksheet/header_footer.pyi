@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from typing_extensions import Literal
 
 from openpyxl.descriptors import Strict
-from openpyxl.descriptors.base import Alias, Bool, MatchPattern, String, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, Integer, MatchPattern, String, Typed, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.serialisable import Serialisable
 
 FONT_PATTERN: str
@@ -13,11 +13,11 @@ FORMAT_REGEX: Incomplete
 class _HeaderFooterPart(Strict):
     text: String[Literal[True]]
     font: String[Literal[True]]
-    size: Incomplete
+    size: Integer[Literal[True]]
     RGB: str
     color: MatchPattern[str, Literal[True]]
     def __init__(
-        self, text: str | None = None, font: str | None = None, size: Incomplete | None = None, color: str | None = None
+        self, text: str | None = None, font: str | None = None, size: _ConvertibleToInt | None = None, color: str | None = None
     ) -> None: ...
     def __bool__(self) -> bool: ...
     @classmethod

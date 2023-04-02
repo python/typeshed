@@ -5,14 +5,14 @@ from typing_extensions import Literal, TypeAlias
 from openpyxl.chart.layout import Layout
 from openpyxl.chart.legend import Legend
 from openpyxl.chart.shapes import GraphicalProperties
-from openpyxl.descriptors.base import Alias, Bool, MinMax, Set, Typed
+from openpyxl.descriptors.base import Alias, Bool, Integer, MinMax, Set, Typed, _ConvertibleToInt
 from openpyxl.descriptors.serialisable import Serialisable
 
 _ChartBaseDisplayBlanks: TypeAlias = Literal["span", "gap", "zero"]
 
 class AxId(Serialisable):
-    val: Incomplete
-    def __init__(self, val) -> None: ...
+    val: Integer[Literal[False]]
+    def __init__(self, val: _ConvertibleToInt) -> None: ...
 
 def PlotArea(): ...
 

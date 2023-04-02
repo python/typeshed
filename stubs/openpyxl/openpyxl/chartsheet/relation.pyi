@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Alias
+from openpyxl.descriptors.base import Alias, Integer, _ConvertibleToInt
 from openpyxl.descriptors.serialisable import Serialisable
 
 class SheetBackgroundPicture(Serialisable):
@@ -10,61 +11,61 @@ class SheetBackgroundPicture(Serialisable):
 
 class DrawingHF(Serialisable):
     id: Incomplete
-    lho: Incomplete
+    lho: Integer[Literal[True]]
     leftHeaderOddPages: Alias
-    lhe: Incomplete
+    lhe: Integer[Literal[True]]
     leftHeaderEvenPages: Alias
-    lhf: Incomplete
+    lhf: Integer[Literal[True]]
     leftHeaderFirstPage: Alias
-    cho: Incomplete
+    cho: Integer[Literal[True]]
     centerHeaderOddPages: Alias
-    che: Incomplete
+    che: Integer[Literal[True]]
     centerHeaderEvenPages: Alias
-    chf: Incomplete
+    chf: Integer[Literal[True]]
     centerHeaderFirstPage: Alias
-    rho: Incomplete
+    rho: Integer[Literal[True]]
     rightHeaderOddPages: Alias
-    rhe: Incomplete
+    rhe: Integer[Literal[True]]
     rightHeaderEvenPages: Alias
-    rhf: Incomplete
+    rhf: Integer[Literal[True]]
     rightHeaderFirstPage: Alias
-    lfo: Incomplete
+    lfo: Integer[Literal[True]]
     leftFooterOddPages: Alias
-    lfe: Incomplete
+    lfe: Integer[Literal[True]]
     leftFooterEvenPages: Alias
-    lff: Incomplete
+    lff: Integer[Literal[True]]
     leftFooterFirstPage: Alias
-    cfo: Incomplete
+    cfo: Integer[Literal[True]]
     centerFooterOddPages: Alias
-    cfe: Incomplete
+    cfe: Integer[Literal[True]]
     centerFooterEvenPages: Alias
-    cff: Incomplete
+    cff: Integer[Literal[True]]
     centerFooterFirstPage: Alias
-    rfo: Incomplete
+    rfo: Integer[Literal[True]]
     rightFooterOddPages: Alias
-    rfe: Incomplete
+    rfe: Integer[Literal[True]]
     rightFooterEvenPages: Alias
-    rff: Incomplete
+    rff: Integer[Literal[True]]
     rightFooterFirstPage: Alias
     def __init__(
         self,
         id: Incomplete | None = None,
-        lho: Incomplete | None = None,
-        lhe: Incomplete | None = None,
-        lhf: Incomplete | None = None,
-        cho: Incomplete | None = None,
-        che: Incomplete | None = None,
-        chf: Incomplete | None = None,
-        rho: Incomplete | None = None,
-        rhe: Incomplete | None = None,
-        rhf: Incomplete | None = None,
-        lfo: Incomplete | None = None,
-        lfe: Incomplete | None = None,
-        lff: Incomplete | None = None,
-        cfo: Incomplete | None = None,
-        cfe: Incomplete | None = None,
-        cff: Incomplete | None = None,
-        rfo: Incomplete | None = None,
-        rfe: Incomplete | None = None,
-        rff: Incomplete | None = None,
+        lho: _ConvertibleToInt | None = None,
+        lhe: _ConvertibleToInt | None = None,
+        lhf: _ConvertibleToInt | None = None,
+        cho: _ConvertibleToInt | None = None,
+        che: _ConvertibleToInt | None = None,
+        chf: _ConvertibleToInt | None = None,
+        rho: _ConvertibleToInt | None = None,
+        rhe: _ConvertibleToInt | None = None,
+        rhf: _ConvertibleToInt | None = None,
+        lfo: _ConvertibleToInt | None = None,
+        lfe: _ConvertibleToInt | None = None,
+        lff: _ConvertibleToInt | None = None,
+        cfo: _ConvertibleToInt | None = None,
+        cfe: _ConvertibleToInt | None = None,
+        cff: _ConvertibleToInt | None = None,
+        rfo: _ConvertibleToInt | None = None,
+        rfe: _ConvertibleToInt | None = None,
+        rff: _ConvertibleToInt | None = None,
     ) -> None: ...

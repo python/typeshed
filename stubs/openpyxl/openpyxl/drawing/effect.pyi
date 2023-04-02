@@ -1,7 +1,17 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, Float, Set, String, Typed, _ConvertibleToBool, _ConvertibleToFloat
+from openpyxl.descriptors.base import (
+    Bool,
+    Float,
+    Integer,
+    Set,
+    String,
+    Typed,
+    _ConvertibleToBool,
+    _ConvertibleToFloat,
+    _ConvertibleToInt,
+)
 from openpyxl.descriptors.serialisable import Serialisable
 
 from .colors import ColorChoice
@@ -34,21 +44,21 @@ _PresetShadowEffectPrst: TypeAlias = Literal[
 
 class TintEffect(Serialisable):
     tagname: str
-    hue: Incomplete
-    amt: Incomplete
-    def __init__(self, hue: int = 0, amt: int = 0) -> None: ...
+    hue: Integer[Literal[False]]
+    amt: Integer[Literal[False]]
+    def __init__(self, hue: _ConvertibleToInt = 0, amt: _ConvertibleToInt = 0) -> None: ...
 
 class LuminanceEffect(Serialisable):
     tagname: str
-    bright: Incomplete
-    contrast: Incomplete
-    def __init__(self, bright: int = 0, contrast: int = 0) -> None: ...
+    bright: Integer[Literal[False]]
+    contrast: Integer[Literal[False]]
+    def __init__(self, bright: _ConvertibleToInt = 0, contrast: _ConvertibleToInt = 0) -> None: ...
 
 class HSLEffect(Serialisable):
-    hue: Incomplete
-    sat: Incomplete
-    lum: Incomplete
-    def __init__(self, hue: Incomplete | None = None, sat: Incomplete | None = None, lum: Incomplete | None = None) -> None: ...
+    hue: Integer[Literal[False]]
+    sat: Integer[Literal[False]]
+    lum: Integer[Literal[False]]
+    def __init__(self, hue: _ConvertibleToInt, sat: _ConvertibleToInt, lum: _ConvertibleToInt) -> None: ...
 
 class GrayscaleEffect(Serialisable):
     tagname: str
@@ -73,16 +83,16 @@ class BlurEffect(Serialisable):
     def __init__(self, rad: _ConvertibleToFloat, grow: _ConvertibleToBool | None = None) -> None: ...
 
 class BiLevelEffect(Serialisable):
-    thresh: Incomplete
-    def __init__(self, thresh: Incomplete | None = None) -> None: ...
+    thresh: Integer[Literal[False]]
+    def __init__(self, thresh: _ConvertibleToInt) -> None: ...
 
 class AlphaReplaceEffect(Serialisable):
-    a: Incomplete
-    def __init__(self, a: Incomplete | None = None) -> None: ...
+    a: Integer[Literal[False]]
+    def __init__(self, a: _ConvertibleToInt) -> None: ...
 
 class AlphaModulateFixedEffect(Serialisable):
-    amt: Incomplete
-    def __init__(self, amt: Incomplete | None = None) -> None: ...
+    amt: Integer[Literal[False]]
+    def __init__(self, amt: _ConvertibleToInt) -> None: ...
 
 class EffectContainer(Serialisable):
     type: Set[_EffectContainerType]
@@ -98,8 +108,8 @@ class AlphaFloorEffect(Serialisable): ...
 class AlphaCeilingEffect(Serialisable): ...
 
 class AlphaBiLevelEffect(Serialisable):
-    thresh: Incomplete
-    def __init__(self, thresh: Incomplete | None = None) -> None: ...
+    thresh: Integer[Literal[False]]
+    def __init__(self, thresh: _ConvertibleToInt) -> None: ...
 
 class GlowEffect(ColorChoice):
     rad: Float[Literal[False]]
@@ -115,7 +125,7 @@ class GlowEffect(ColorChoice):
 class InnerShadowEffect(ColorChoice):
     blurRad: Float[Literal[False]]
     dist: Float[Literal[False]]
-    dir: Incomplete
+    dir: Integer[Literal[False]]
     scrgbClr: Incomplete
     srgbClr: Incomplete
     hslClr: Incomplete
@@ -123,17 +133,17 @@ class InnerShadowEffect(ColorChoice):
     schemeClr: Incomplete
     prstClr: Incomplete
     __elements__: Incomplete
-    def __init__(self, blurRad: _ConvertibleToFloat, dist: _ConvertibleToFloat, dir: Incomplete | None = None, **kw) -> None: ...
+    def __init__(self, blurRad: _ConvertibleToFloat, dist: _ConvertibleToFloat, dir: _ConvertibleToInt, **kw) -> None: ...
 
 class OuterShadow(ColorChoice):
     tagname: str
     blurRad: Float[Literal[True]]
     dist: Float[Literal[True]]
-    dir: Incomplete
-    sx: Incomplete
-    sy: Incomplete
-    kx: Incomplete
-    ky: Incomplete
+    dir: Integer[Literal[True]]
+    sx: Integer[Literal[True]]
+    sy: Integer[Literal[True]]
+    kx: Integer[Literal[True]]
+    ky: Integer[Literal[True]]
     algn: Set[_Algn]
     rotWithShape: Bool[Literal[True]]
     scrgbClr: Incomplete
@@ -147,11 +157,11 @@ class OuterShadow(ColorChoice):
         self,
         blurRad: _ConvertibleToFloat | None,
         dist: _ConvertibleToFloat | None,
-        dir: Incomplete | None,
-        sx: Incomplete | None,
-        sy: Incomplete | None,
-        kx: Incomplete | None,
-        ky: Incomplete | None,
+        dir: _ConvertibleToInt | None,
+        sx: _ConvertibleToInt | None,
+        sy: _ConvertibleToInt | None,
+        kx: _ConvertibleToInt | None,
+        ky: _ConvertibleToInt | None,
         algn: _Algn,
         rotWithShape: _ConvertibleToBool | None = None,
         **kw,
@@ -160,7 +170,7 @@ class OuterShadow(ColorChoice):
 class PresetShadowEffect(ColorChoice):
     prst: Set[_PresetShadowEffectPrst]
     dist: Float[Literal[False]]
-    dir: Incomplete
+    dir: Integer[Literal[False]]
     scrgbClr: Incomplete
     srgbClr: Incomplete
     hslClr: Incomplete
@@ -168,37 +178,37 @@ class PresetShadowEffect(ColorChoice):
     schemeClr: Incomplete
     prstClr: Incomplete
     __elements__: Incomplete
-    def __init__(self, prst: _PresetShadowEffectPrst, dist: _ConvertibleToFloat, dir: Incomplete | None = None, **kw) -> None: ...
+    def __init__(self, prst: _PresetShadowEffectPrst, dist: _ConvertibleToFloat, dir: _ConvertibleToInt, **kw) -> None: ...
 
 class ReflectionEffect(Serialisable):
     blurRad: Float[Literal[False]]
-    stA: Incomplete
-    stPos: Incomplete
-    endA: Incomplete
-    endPos: Incomplete
+    stA: Integer[Literal[False]]
+    stPos: Integer[Literal[False]]
+    endA: Integer[Literal[False]]
+    endPos: Integer[Literal[False]]
     dist: Float[Literal[False]]
-    dir: Incomplete
-    fadeDir: Incomplete
-    sx: Incomplete
-    sy: Incomplete
-    kx: Incomplete
-    ky: Incomplete
+    dir: Integer[Literal[False]]
+    fadeDir: Integer[Literal[False]]
+    sx: Integer[Literal[False]]
+    sy: Integer[Literal[False]]
+    kx: Integer[Literal[False]]
+    ky: Integer[Literal[False]]
     algn: Set[_Algn]
     rotWithShape: Bool[Literal[True]]
     def __init__(
         self,
         blurRad: _ConvertibleToFloat,
-        stA: Incomplete | None,
-        stPos: Incomplete | None,
-        endA: Incomplete | None,
-        endPos: Incomplete | None,
+        stA: _ConvertibleToInt,
+        stPos: _ConvertibleToInt,
+        endA: _ConvertibleToInt,
+        endPos: _ConvertibleToInt,
         dist: _ConvertibleToFloat,
-        dir: Incomplete | None,
-        fadeDir: Incomplete | None,
-        sx: Incomplete | None,
-        sy: Incomplete | None,
-        kx: Incomplete | None,
-        ky: Incomplete | None,
+        dir: _ConvertibleToInt,
+        fadeDir: _ConvertibleToInt,
+        sx: _ConvertibleToInt,
+        sy: _ConvertibleToInt,
+        kx: _ConvertibleToInt,
+        ky: _ConvertibleToInt,
         algn: _Algn,
         rotWithShape: _ConvertibleToBool | None = None,
     ) -> None: ...

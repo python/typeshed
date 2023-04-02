@@ -13,6 +13,7 @@ from openpyxl.descriptors.base import (
     DateTime,
     Descriptor,
     Float,
+    Integer,
     Length,
     MatchPattern,
     MinMax,
@@ -76,6 +77,10 @@ class WithDescriptors(Serialisable):
     float_not_none = Float(allow_none=False)
     float_none = Float(allow_none=True)
 
+    integer_default = Integer()
+    integer_not_none = Integer(allow_none=False)
+    integer_none = Integer(allow_none=True)
+
     # Test inferred annotation
     assert_type(descriptor, Descriptor[str])
 
@@ -125,6 +130,10 @@ class WithDescriptors(Serialisable):
     assert_type(float_default, Float[Literal[False]])
     assert_type(float_not_none, Float[Literal[False]])
     assert_type(float_none, Float[Literal[True]])
+
+    assert_type(integer_default, Integer[Literal[False]])
+    assert_type(integer_not_none, Integer[Literal[False]])
+    assert_type(integer_none, Integer[Literal[True]])
 
 
 with_descriptors = WithDescriptors()
@@ -179,6 +188,9 @@ assert_type(with_descriptors.string_none, Union[str, None])
 
 assert_type(with_descriptors.float_not_none, float)
 assert_type(with_descriptors.float_none, Union[float, None])
+
+assert_type(with_descriptors.integer_not_none, int)
+assert_type(with_descriptors.integer_none, Union[int, None])
 
 
 # Test setters (expected type, None, unexpected type)
@@ -344,11 +356,28 @@ with_descriptors.string_none = 0  # type: ignore
 with_descriptors.float_not_none = 0
 with_descriptors.float_not_none = 0.0
 with_descriptors.float_not_none = "0"
+with_descriptors.float_not_none = b"0"
 with_descriptors.float_not_none = None  # pyright: ignore[reportGeneralTypeIssues] # false negative in mypy
 with_descriptors.float_not_none = object()  # pyright: ignore[reportGeneralTypeIssues] # false negative in mypy
 
 with_descriptors.float_none = 0
 with_descriptors.float_none = 0.0
 with_descriptors.float_none = "0"
+with_descriptors.float_none = b"0"
 with_descriptors.float_none = None
 with_descriptors.float_none = object()  # FIXME: False positive(?) in pyright and mypy
+
+
+with_descriptors.integer_not_none = 0
+with_descriptors.integer_not_none = 0.0
+with_descriptors.integer_not_none = "0"
+with_descriptors.integer_not_none = b"0"
+with_descriptors.integer_not_none = None  # pyright: ignore[reportGeneralTypeIssues] # false negative in mypy
+with_descriptors.integer_not_none = object()  # pyright: ignore[reportGeneralTypeIssues] # false negative in mypy
+
+with_descriptors.integer_none = 0
+with_descriptors.integer_none = 0.0
+with_descriptors.integer_none = "0"
+with_descriptors.integer_none = b"0"
+with_descriptors.integer_none = None
+with_descriptors.integer_none = object()  # FIXME: False positive(?) in pyright and mypy

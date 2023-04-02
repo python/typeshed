@@ -4,7 +4,7 @@ from typing_extensions import Literal, TypeAlias
 
 from openpyxl.cell.text import Text
 from openpyxl.comments.author import AuthorList
-from openpyxl.descriptors.base import Bool, Set, String, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, Integer, Set, String, Typed, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.ole import ObjectAnchor
@@ -53,9 +53,9 @@ class Properties(Serialisable):
 class CommentRecord(Serialisable):
     tagname: str
     ref: String[Literal[False]]
-    authorId: Incomplete
+    authorId: Integer[Literal[False]]
     guid: Incomplete
-    shapeId: Incomplete
+    shapeId: Integer[Literal[True]]
     text: Typed[Text, Literal[False]]
     commentPr: Typed[Properties, Literal[True]]
     author: String[Literal[True]]
@@ -66,9 +66,9 @@ class CommentRecord(Serialisable):
     def __init__(
         self,
         ref: str = "",
-        authorId: int = 0,
+        authorId: _ConvertibleToInt = 0,
         guid: Incomplete | None = None,
-        shapeId: int = 0,
+        shapeId: _ConvertibleToInt | None = 0,
         text: Text | None = None,
         commentPr: Properties | None = None,
         author: str | None = None,

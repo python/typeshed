@@ -1,21 +1,21 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Bool, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, Integer, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.serialisable import Serialisable
 
 class Break(Serialisable):
     tagname: str
-    id: Incomplete
-    min: Incomplete
-    max: Incomplete
+    id: Integer[Literal[True]]
+    min: Integer[Literal[True]]
+    max: Integer[Literal[True]]
     man: Bool[Literal[True]]
     pt: Bool[Literal[True]]
     def __init__(
         self,
-        id: int = 0,
-        min: int = 0,
-        max: int = 16383,
+        id: _ConvertibleToInt | None = 0,
+        min: _ConvertibleToInt | None = 0,
+        max: _ConvertibleToInt | None = 16383,
         man: _ConvertibleToBool | None = True,
         pt: _ConvertibleToBool | None = None,
     ) -> None: ...
@@ -28,7 +28,7 @@ class RowBreak(Serialisable):
     brk: Incomplete
     __elements__: Incomplete
     __attrs__: Incomplete
-    def __init__(self, count: Incomplete | None = None, manualBreakCount: Incomplete | None = None, brk=()) -> None: ...
+    def __init__(self, count: Unused = None, manualBreakCount: Unused = None, brk=()) -> None: ...
     def __bool__(self) -> bool: ...
     def __len__(self) -> int: ...
     @property

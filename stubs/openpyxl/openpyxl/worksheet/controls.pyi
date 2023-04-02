@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Bool, String, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, Integer, String, Typed, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.ole import ObjectAnchor
 
@@ -47,12 +47,10 @@ class ControlProperty(Serialisable):
 class Control(Serialisable):
     tagname: str
     controlPr: Typed[ControlProperty, Literal[True]]
-    shapeId: Incomplete
+    shapeId: Integer[Literal[False]]
     name: String[Literal[True]]
     __elements__: Incomplete
-    def __init__(
-        self, controlPr: ControlProperty | None = None, shapeId: Incomplete | None = None, name: str | None = None
-    ) -> None: ...
+    def __init__(self, controlPr: ControlProperty | None, shapeId: _ConvertibleToInt, name: str | None = None) -> None: ...
 
 class Controls(Serialisable):
     tagname: str

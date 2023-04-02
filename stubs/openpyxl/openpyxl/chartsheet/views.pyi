@@ -1,23 +1,23 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Bool, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, Integer, Typed, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
 class ChartsheetView(Serialisable):
     tagname: str
     tabSelected: Bool[Literal[True]]
-    zoomScale: Incomplete
-    workbookViewId: Incomplete
+    zoomScale: Integer[Literal[True]]
+    workbookViewId: Integer[Literal[False]]
     zoomToFit: Bool[Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
         tabSelected: _ConvertibleToBool | None = None,
-        zoomScale: Incomplete | None = None,
-        workbookViewId: int = 0,
+        zoomScale: _ConvertibleToInt | None = None,
+        workbookViewId: _ConvertibleToInt = 0,
         zoomToFit: _ConvertibleToBool | None = True,
         extLst: Unused = None,
     ) -> None: ...

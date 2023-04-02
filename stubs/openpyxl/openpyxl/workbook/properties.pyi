@@ -1,7 +1,16 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, Float, NoneSet, String, _ConvertibleToBool, _ConvertibleToFloat
+from openpyxl.descriptors.base import (
+    Bool,
+    Float,
+    Integer,
+    NoneSet,
+    String,
+    _ConvertibleToBool,
+    _ConvertibleToFloat,
+    _ConvertibleToInt,
+)
 from openpyxl.descriptors.serialisable import Serialisable
 
 _WorkbookPropertiesShowObjects: TypeAlias = Literal["all", "placeholders"]
@@ -29,7 +38,7 @@ class WorkbookProperties(Serialisable):
     checkCompatibility: Bool[Literal[True]]
     autoCompressPictures: Bool[Literal[True]]
     refreshAllConnections: Bool[Literal[True]]
-    defaultThemeVersion: Incomplete
+    defaultThemeVersion: Integer[Literal[True]]
     def __init__(
         self,
         date1904: _ConvertibleToBool | None = None,
@@ -50,38 +59,38 @@ class WorkbookProperties(Serialisable):
         checkCompatibility: _ConvertibleToBool | None = None,
         autoCompressPictures: _ConvertibleToBool | None = None,
         refreshAllConnections: _ConvertibleToBool | None = None,
-        defaultThemeVersion: Incomplete | None = None,
+        defaultThemeVersion: _ConvertibleToInt | None = None,
     ) -> None: ...
 
 class CalcProperties(Serialisable):
     tagname: str
-    calcId: Incomplete
+    calcId: Integer[Literal[False]]
     calcMode: NoneSet[_CalcPropertiesCalcMode]
     fullCalcOnLoad: Bool[Literal[True]]
     refMode: NoneSet[_CalcPropertiesRefMode]
     iterate: Bool[Literal[True]]
-    iterateCount: Incomplete
+    iterateCount: Integer[Literal[True]]
     iterateDelta: Float[Literal[True]]
     fullPrecision: Bool[Literal[True]]
     calcCompleted: Bool[Literal[True]]
     calcOnSave: Bool[Literal[True]]
     concurrentCalc: Bool[Literal[True]]
-    concurrentManualCount: Incomplete
+    concurrentManualCount: Integer[Literal[True]]
     forceFullCalc: Bool[Literal[True]]
     def __init__(
         self,
-        calcId: int = 124519,
+        calcId: _ConvertibleToInt = 124519,
         calcMode: _CalcPropertiesCalcMode | Literal["none"] | None = None,
         fullCalcOnLoad: _ConvertibleToBool | None = True,
         refMode: _CalcPropertiesRefMode | Literal["none"] | None = None,
         iterate: _ConvertibleToBool | None = None,
-        iterateCount: Incomplete | None = None,
+        iterateCount: _ConvertibleToInt | None = None,
         iterateDelta: _ConvertibleToFloat | None = None,
         fullPrecision: _ConvertibleToBool | None = None,
         calcCompleted: _ConvertibleToBool | None = None,
         calcOnSave: _ConvertibleToBool | None = None,
         concurrentCalc: _ConvertibleToBool | None = None,
-        concurrentManualCount: Incomplete | None = None,
+        concurrentManualCount: _ConvertibleToInt | None = None,
         forceFullCalc: _ConvertibleToBool | None = None,
     ) -> None: ...
 

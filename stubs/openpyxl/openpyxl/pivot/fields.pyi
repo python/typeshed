@@ -1,25 +1,36 @@
 from _typeshed import Incomplete
+from datetime import datetime
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Bool, Float, Integer, String, Typed, _ConvertibleToBool, _ConvertibleToFloat
+from openpyxl.descriptors.base import (
+    Bool,
+    DateTime,
+    Float,
+    Integer,
+    String,
+    Typed,
+    _ConvertibleToBool,
+    _ConvertibleToFloat,
+    _ConvertibleToInt,
+)
 from openpyxl.descriptors.serialisable import Serialisable
 
 class Index(Serialisable):
     tagname: str
-    v: Incomplete
-    def __init__(self, v: int = 0) -> None: ...
+    v: Integer[Literal[True]]
+    def __init__(self, v: _ConvertibleToInt | None = 0) -> None: ...
 
 class Tuple(Serialisable):
-    fld: Incomplete
-    hier: Incomplete
-    item: Incomplete
-    def __init__(self, fld: Incomplete | None = None, hier: Incomplete | None = None, item: Incomplete | None = None) -> None: ...
+    fld: Integer[Literal[True]]
+    hier: Integer[Literal[True]]
+    item: Integer[Literal[True]]
+    def __init__(self, fld: _ConvertibleToInt, hier: _ConvertibleToInt, item: _ConvertibleToInt) -> None: ...
 
 class TupleList(Serialisable):
-    c: Incomplete
+    c: Integer[Literal[True]]
     tpl: Typed[Tuple, Literal[False]]
     __elements__: Incomplete
-    def __init__(self, c: Incomplete | None, tpl: Tuple) -> None: ...
+    def __init__(self, c: _ConvertibleToInt | None, tpl: Tuple) -> None: ...
 
 class Missing(Serialisable):
     tagname: str
@@ -28,8 +39,8 @@ class Missing(Serialisable):
     u: Bool[Literal[True]]
     f: Bool[Literal[True]]
     c: String[Literal[True]]
-    cp: Incomplete
-    _in: Integer  # Not private. Avoids name clash
+    cp: Integer[Literal[True]]
+    _in: Integer[Literal[True]]  # Not private. Avoids name clash
     bc: Incomplete
     fc: Incomplete
     i: Bool[Literal[True]]
@@ -44,8 +55,8 @@ class Missing(Serialisable):
         u: _ConvertibleToBool | None = None,
         f: _ConvertibleToBool | None = None,
         c: str | None = None,
-        cp: Incomplete | None = None,
-        _in: Incomplete | None = None,
+        cp: _ConvertibleToInt | None = None,
+        _in: _ConvertibleToInt | None = None,
         bc: Incomplete | None = None,
         fc: Incomplete | None = None,
         i: _ConvertibleToBool | None = None,
@@ -62,8 +73,8 @@ class Number(Serialisable):
     u: Bool[Literal[True]]
     f: Bool[Literal[True]]
     c: String[Literal[True]]
-    cp: Incomplete
-    _in: Integer  # Not private. Avoids name clash
+    cp: Integer[Literal[True]]
+    _in: Integer[Literal[True]]  # Not private. Avoids name clash
     bc: Incomplete
     fc: Incomplete
     i: Bool[Literal[True]]
@@ -79,8 +90,8 @@ class Number(Serialisable):
         u: _ConvertibleToBool | None = None,
         f: _ConvertibleToBool | None = None,
         c: str | None = None,
-        cp: Incomplete | None = None,
-        _in: Incomplete | None = None,
+        cp: _ConvertibleToInt | None = None,
+        _in: _ConvertibleToInt | None = None,
         bc: Incomplete | None = None,
         fc: Incomplete | None = None,
         i: _ConvertibleToBool | None = None,
@@ -97,8 +108,8 @@ class Error(Serialisable):
     u: Bool[Literal[True]]
     f: Bool[Literal[True]]
     c: String[Literal[True]]
-    cp: Incomplete
-    _in: Integer  # Not private. Avoids name clash
+    cp: Integer[Literal[True]]
+    _in: Integer[Literal[True]]  # Not private. Avoids name clash
     bc: Incomplete
     fc: Incomplete
     i: Bool[Literal[True]]
@@ -114,8 +125,8 @@ class Error(Serialisable):
         u: _ConvertibleToBool | None = None,
         f: _ConvertibleToBool | None = None,
         c: str | None = None,
-        cp: Incomplete | None = None,
-        _in: Incomplete | None = None,
+        cp: _ConvertibleToInt | None = None,
+        _in: _ConvertibleToInt | None = None,
         bc: Incomplete | None = None,
         fc: Incomplete | None = None,
         i: _ConvertibleToBool | None = None,
@@ -131,7 +142,7 @@ class Boolean(Serialisable):
     u: Bool[Literal[True]]
     f: Bool[Literal[True]]
     c: String[Literal[True]]
-    cp: Incomplete
+    cp: Integer[Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
@@ -140,7 +151,7 @@ class Boolean(Serialisable):
         u: _ConvertibleToBool | None = None,
         f: _ConvertibleToBool | None = None,
         c: str | None = None,
-        cp: Incomplete | None = None,
+        cp: _ConvertibleToInt | None = None,
     ) -> None: ...
 
 class Text(Serialisable):
@@ -151,8 +162,8 @@ class Text(Serialisable):
     u: Bool[Literal[True]]
     f: Bool[Literal[True]]
     c: String[Literal[True]]
-    cp: Incomplete
-    _in: Integer  # Not private. Avoids name clash
+    cp: Integer[Literal[True]]
+    _in: Integer[Literal[True]]  # Not private. Avoids name clash
     bc: Incomplete
     fc: Incomplete
     i: Bool[Literal[True]]
@@ -168,8 +179,8 @@ class Text(Serialisable):
         u: _ConvertibleToBool | None = None,
         f: _ConvertibleToBool | None = None,
         c: Incomplete | None = None,
-        cp: Incomplete | None = None,
-        _in: Incomplete | None = None,
+        cp: _ConvertibleToInt | None = None,
+        _in: _ConvertibleToInt | None = None,
         bc: Incomplete | None = None,
         fc: Incomplete | None = None,
         i: _ConvertibleToBool | None = None,
@@ -181,18 +192,18 @@ class Text(Serialisable):
 class DateTimeField(Serialisable):
     tagname: str
     x: Incomplete
-    v: Incomplete
+    v: DateTime[Literal[False]]
     u: Bool[Literal[True]]
     f: Bool[Literal[True]]
     c: String[Literal[True]]
-    cp: Incomplete
+    cp: Integer[Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
         x=(),
-        v: Incomplete | None = None,
+        v: datetime | str | None = None,
         u: _ConvertibleToBool | None = None,
         f: _ConvertibleToBool | None = None,
-        c: Incomplete | None = None,
-        cp: Incomplete | None = None,
+        c: str | None = None,
+        cp: _ConvertibleToInt | None = None,
     ) -> None: ...

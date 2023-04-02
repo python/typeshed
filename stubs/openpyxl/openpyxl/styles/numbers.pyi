@@ -1,7 +1,8 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from typing_extensions import Literal
 
 from openpyxl.descriptors import String
+from openpyxl.descriptors.base import Integer, _ConvertibleToInt
 from openpyxl.descriptors.serialisable import Serialisable
 
 BUILTIN_FORMATS: Incomplete
@@ -58,9 +59,9 @@ class NumberFormatDescriptor(String):
     def __set__(self, instance: Serialisable, value) -> None: ...
 
 class NumberFormat(Serialisable):
-    numFmtId: Incomplete
+    numFmtId: Integer[Literal[False]]
     formatCode: String[Literal[False]]
-    def __init__(self, numFmtId: Incomplete | None, formatCode: str) -> None: ...
+    def __init__(self, numFmtId: _ConvertibleToInt, formatCode: str) -> None: ...
 
 class NumberFormatList(Serialisable):
     # Overwritten by property below
@@ -68,7 +69,7 @@ class NumberFormatList(Serialisable):
     numFmt: Incomplete
     __elements__: Incomplete
     __attrs__: Incomplete
-    def __init__(self, count: Incomplete | None = None, numFmt=()) -> None: ...
+    def __init__(self, count: Unused = None, numFmt=()) -> None: ...
     @property
     def count(self): ...
     def __getitem__(self, idx): ...

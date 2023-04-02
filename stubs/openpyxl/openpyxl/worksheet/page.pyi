@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, Float, NoneSet, _ConvertibleToBool, _ConvertibleToFloat
+from openpyxl.descriptors.base import Bool, Float, Integer, NoneSet, _ConvertibleToBool, _ConvertibleToFloat, _ConvertibleToInt
 from openpyxl.descriptors.serialisable import Serialisable
 
 _PrintPageSetupOrientation: TypeAlias = Literal["default", "portrait", "landscape"]
@@ -12,11 +12,11 @@ _PrintPageSetupErrors: TypeAlias = Literal["displayed", "blank", "dash", "NA"]
 class PrintPageSetup(Serialisable):
     tagname: str
     orientation: NoneSet[_PrintPageSetupOrientation]
-    paperSize: Incomplete
-    scale: Incomplete
-    fitToHeight: Incomplete
-    fitToWidth: Incomplete
-    firstPageNumber: Incomplete
+    paperSize: Integer[Literal[True]]
+    scale: Integer[Literal[True]]
+    fitToHeight: Integer[Literal[True]]
+    fitToWidth: Integer[Literal[True]]
+    firstPageNumber: Integer[Literal[True]]
     useFirstPageNumber: Bool[Literal[True]]
     paperHeight: Incomplete
     paperWidth: Incomplete
@@ -26,19 +26,19 @@ class PrintPageSetup(Serialisable):
     draft: Bool[Literal[True]]
     cellComments: NoneSet[_PrintPageSetupCellComments]
     errors: NoneSet[_PrintPageSetupErrors]
-    horizontalDpi: Incomplete
-    verticalDpi: Incomplete
-    copies: Incomplete
+    horizontalDpi: Integer[Literal[True]]
+    verticalDpi: Integer[Literal[True]]
+    copies: Integer[Literal[True]]
     id: Incomplete
     def __init__(
         self,
         worksheet: Incomplete | None = None,
         orientation: _PrintPageSetupOrientation | Literal["none"] | None = None,
-        paperSize: Incomplete | None = None,
-        scale: Incomplete | None = None,
-        fitToHeight: Incomplete | None = None,
-        fitToWidth: Incomplete | None = None,
-        firstPageNumber: Incomplete | None = None,
+        paperSize: _ConvertibleToInt | None = None,
+        scale: _ConvertibleToInt | None = None,
+        fitToHeight: _ConvertibleToInt | None = None,
+        fitToWidth: _ConvertibleToInt | None = None,
+        firstPageNumber: _ConvertibleToInt | None = None,
         useFirstPageNumber: _ConvertibleToBool | None = None,
         paperHeight: Incomplete | None = None,
         paperWidth: Incomplete | None = None,
@@ -48,9 +48,9 @@ class PrintPageSetup(Serialisable):
         draft: _ConvertibleToBool | None = None,
         cellComments: _PrintPageSetupCellComments | Literal["none"] | None = None,
         errors: _PrintPageSetupErrors | Literal["none"] | None = None,
-        horizontalDpi: Incomplete | None = None,
-        verticalDpi: Incomplete | None = None,
-        copies: Incomplete | None = None,
+        horizontalDpi: _ConvertibleToInt | None = None,
+        verticalDpi: _ConvertibleToInt | None = None,
+        copies: _ConvertibleToInt | None = None,
         id: Incomplete | None = None,
     ) -> None: ...
     def __bool__(self) -> bool: ...

@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 
 from openpyxl.descriptors.serialisable import Serialisable
 
@@ -19,7 +19,7 @@ class MergeCells(Serialisable):
     mergeCell: Incomplete
     __elements__: Incomplete
     __attrs__: Incomplete
-    def __init__(self, count: Incomplete | None = None, mergeCell=()) -> None: ...
+    def __init__(self, count: Unused = None, mergeCell=()) -> None: ...
     @property
     def count(self): ...
 

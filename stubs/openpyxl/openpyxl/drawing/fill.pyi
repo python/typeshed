@@ -1,7 +1,18 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Alias, Bool, MinMax, NoneSet, Set, Typed, _ConvertibleToBool, _ConvertibleToFloat
+from openpyxl.descriptors.base import (
+    Alias,
+    Bool,
+    Integer,
+    MinMax,
+    NoneSet,
+    Set,
+    Typed,
+    _ConvertibleToBool,
+    _ConvertibleToFloat,
+    _ConvertibleToInt,
+)
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.colors import ColorChoice, HSLColor, RGBPercent as _RGBPercent, SchemeColor, SystemColor
@@ -151,9 +162,9 @@ class GradientStop(Serialisable):
 class LinearShadeProperties(Serialisable):
     tagname: str
     namespace: Incomplete
-    ang: Incomplete
+    ang: Integer[Literal[False]]
     scaled: Bool[Literal[True]]
-    def __init__(self, ang: Incomplete | None = None, scaled: _ConvertibleToBool | None = None) -> None: ...
+    def __init__(self, ang: _ConvertibleToInt, scaled: _ConvertibleToBool | None = None) -> None: ...
 
 class PathShadeProperties(Serialisable):
     tagname: str
@@ -276,25 +287,25 @@ class Blip(Serialisable):
     ) -> None: ...
 
 class TileInfoProperties(Serialisable):
-    tx: Incomplete
-    ty: Incomplete
-    sx: Incomplete
-    sy: Incomplete
+    tx: Integer[Literal[True]]
+    ty: Integer[Literal[True]]
+    sx: Integer[Literal[True]]
+    sy: Integer[Literal[True]]
     flip: NoneSet[_PropertiesFlip]
     algn: Set[_TileInfoPropertiesAlgn]
     def __init__(
         self,
-        tx: Incomplete | None,
-        ty: Incomplete | None,
-        sx: Incomplete | None,
-        sy: Incomplete | None,
+        tx: _ConvertibleToInt | None,
+        ty: _ConvertibleToInt | None,
+        sx: _ConvertibleToInt | None,
+        sy: _ConvertibleToInt | None,
         flip: _PropertiesFlip | Literal["none"] | None,
         algn: _TileInfoPropertiesAlgn,
     ) -> None: ...
 
 class BlipFillProperties(Serialisable):
     tagname: str
-    dpi: Incomplete
+    dpi: Integer[Literal[True]]
     rotWithShape: Bool[Literal[True]]
     blip: Typed[Blip, Literal[True]]
     srcRect: Typed[RelativeRect, Literal[True]]
@@ -303,7 +314,7 @@ class BlipFillProperties(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        dpi: Incomplete | None = None,
+        dpi: _ConvertibleToInt | None = None,
         rotWithShape: _ConvertibleToBool | None = None,
         blip: Blip | None = None,
         tile: TileInfoProperties | None = None,

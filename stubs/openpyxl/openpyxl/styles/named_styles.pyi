@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Bool, String, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, Integer, String, Typed, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.alignment import Alignment
@@ -17,7 +17,7 @@ class NamedStyle(Serialisable):
     alignment: Typed[Alignment, Literal[False]]
     number_format: Incomplete
     protection: Typed[Protection, Literal[False]]
-    builtinId: Incomplete
+    builtinId: Integer[Literal[True]]
     hidden: Bool[Literal[True]]
     # Overwritten by property below
     # xfId: Integer
@@ -31,7 +31,7 @@ class NamedStyle(Serialisable):
         alignment: Alignment | None = None,
         number_format: Incomplete | None = None,
         protection: Protection | None = None,
-        builtinId: Incomplete | None = None,
+        builtinId: _ConvertibleToInt | None = None,
         hidden: _ConvertibleToBool | None = False,
         xfId: Unused = None,
     ) -> None: ...
@@ -53,9 +53,9 @@ class NamedStyleList(list[Incomplete]):
 class _NamedCellStyle(Serialisable):
     tagname: str
     name: String[Literal[False]]
-    xfId: Incomplete
-    builtinId: Incomplete
-    iLevel: Incomplete
+    xfId: Integer[Literal[False]]
+    builtinId: Integer[Literal[True]]
+    iLevel: Integer[Literal[True]]
     hidden: Bool[Literal[True]]
     customBuiltin: Bool[Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
@@ -63,9 +63,9 @@ class _NamedCellStyle(Serialisable):
     def __init__(
         self,
         name: str,
-        xfId: Incomplete | None = None,
-        builtinId: Incomplete | None = None,
-        iLevel: Incomplete | None = None,
+        xfId: _ConvertibleToInt,
+        builtinId: _ConvertibleToInt | None = None,
+        iLevel: _ConvertibleToInt | None = None,
         hidden: _ConvertibleToBool | None = None,
         customBuiltin: _ConvertibleToBool | None = None,
         extLst: Unused = None,
@@ -77,7 +77,7 @@ class _NamedCellStyleList(Serialisable):
     # count: Integer
     cellStyle: Incomplete
     __attrs__: Incomplete
-    def __init__(self, count: Incomplete | None = None, cellStyle=()) -> None: ...
+    def __init__(self, count: Unused = None, cellStyle=()) -> None: ...
     @property
     def count(self): ...
     @property
