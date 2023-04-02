@@ -146,8 +146,8 @@ class Boolean(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        x,
-        v: _ConvertibleToBool,
+        x=(),
+        v: _ConvertibleToBool = None,
         u: _ConvertibleToBool | None = None,
         f: _ConvertibleToBool | None = None,
         c: str | None = None,

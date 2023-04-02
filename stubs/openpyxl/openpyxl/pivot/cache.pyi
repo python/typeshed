@@ -61,7 +61,7 @@ class CalculatedMember(Serialisable):
         hierarchy: str,
         parent: str,
         solveOrder: _ConvertibleToInt,
-        set: _ConvertibleToBool,
+        set: _ConvertibleToBool = None,
         extLst: ExtensionList | None = None,
     ) -> None: ...
 
@@ -191,7 +191,7 @@ class GroupMember(Serialisable):
     tagname: str
     uniqueName: String[Literal[False]]
     group: Bool[Literal[False]]
-    def __init__(self, uniqueName: str, group: _ConvertibleToBool) -> None: ...
+    def __init__(self, uniqueName: str, group: _ConvertibleToBool = None) -> None: ...
 
 class GroupMembers(Serialisable):
     count: Integer[Literal[False]]
@@ -232,8 +232,8 @@ class GroupLevel(Serialisable):
         self,
         uniqueName: str,
         caption: str,
-        user: _ConvertibleToBool,
-        customRollUp: _ConvertibleToBool,
+        user: _ConvertibleToBool = None,
+        customRollUp: _ConvertibleToBool = None,
         groups: Groups | None = None,
         extLst: ExtensionList | None = None,
     ) -> None: ...
@@ -302,11 +302,11 @@ class CacheHierarchy(Serialisable):
         measureGroup: str | None,
         measures: _ConvertibleToBool,
         count: _ConvertibleToInt,
-        oneField: _ConvertibleToBool,
-        memberValueDatatype: _ConvertibleToInt | None,
-        unbalanced: _ConvertibleToBool | None,
-        unbalancedGroup: _ConvertibleToBool | None,
-        hidden: _ConvertibleToBool,
+        oneField: _ConvertibleToBool = None,
+        memberValueDatatype: _ConvertibleToInt | None = None,
+        unbalanced: _ConvertibleToBool | None = None,
+        unbalancedGroup: _ConvertibleToBool | None = None,
+        hidden: _ConvertibleToBool = None,
         fieldsUsage: FieldsUsage | None = None,
         groupLevels: GroupLevels | None = None,
         extLst: ExtensionList | None = None,

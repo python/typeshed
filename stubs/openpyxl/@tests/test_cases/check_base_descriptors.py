@@ -317,7 +317,7 @@ with_descriptors.minmax_int_none = object()  # type: ignore
 with_descriptors.bool_not_none = False
 with_descriptors.bool_not_none = "0"
 with_descriptors.bool_not_none = 0
-with_descriptors.bool_not_none = None  # pyright: ignore[reportGeneralTypeIssues] # false negative in mypy
+with_descriptors.bool_not_none = None
 with_descriptors.bool_not_none = 0.0  # type: ignore
 with_descriptors.bool_not_none = object()  # type: ignore
 

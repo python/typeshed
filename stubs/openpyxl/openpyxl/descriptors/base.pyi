@@ -19,8 +19,8 @@ _ExpectedTypeParam: TypeAlias = type[_T] | tuple[type[_T], ...]
 _ConvertibleToMultiCellRange: TypeAlias = MultiCellRange | str | Iterable[CellRange]
 _ConvertibleToInt: TypeAlias = int | str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc
 _ConvertibleToFloat: TypeAlias = float | SupportsFloat | SupportsIndex | str | ReadableBuffer
-# Since everything is convertible to a bool, this restricts to only intended expected types, allowing None restrictions
-_ConvertibleToBool: TypeAlias = bool | str | int
+# Since everything is convertible to a bool, this restricts to only intended expected types
+_ConvertibleToBool: TypeAlias = bool | str | int | None  # True | False | "true" | "t" | "false" | "f" | 1 | 0 | None
 
 class Descriptor(Generic[_T]):
     name: str | None
@@ -98,7 +98,7 @@ class Convertible(Typed[_T, _N]):
     ) -> None: ...
     # bool
     @overload
-    def __set__(self: Convertible[bool, Literal[True]], instance: Serialisable, value: _ConvertibleToBool | None) -> None: ...
+    def __set__(self: Convertible[bool, bool], instance: Serialisable, value: _ConvertibleToBool) -> None: ...
     # int
     @overload
     def __set__(self: Convertible[int, Literal[True]], instance: Serialisable, value: _ConvertibleToInt | None) -> None: ...
@@ -113,7 +113,7 @@ class Convertible(Typed[_T, _N]):
     @overload
     def __set__(self: Convertible[_T, Literal[True]], instance: Serialisable, value: _T | int | Any | None) -> None: ...
 
-class Max(Convertible[_M, _N], Generic[_M, _N]):
+class Max(Convertible[_M, _N]):
     expected_type: type[_M]
     allow_none: _N
     @overload
@@ -146,7 +146,7 @@ class Max(Convertible[_M, _N], Generic[_M, _N]):
     @overload
     def __set__(self: Max[float, Literal[False]], instance: Serialisable, value: _ConvertibleToFloat) -> None: ...
 
-class Min(Convertible[_M, _N], Generic[_M, _N]):
+class Min(Convertible[_M, _N]):
     expected_type: type[_M]
     allow_none: _N
     @overload
@@ -179,7 +179,7 @@ class Min(Convertible[_M, _N], Generic[_M, _N]):
     @overload
     def __set__(self: Min[float, Literal[False]], instance: Serialisable, value: _ConvertibleToFloat) -> None: ...
 
-class MinMax(Min[_M, _N], Max[_M, _N], Generic[_M, _N]):
+class MinMax(Min[_M, _N], Max[_M, _N]):
     expected_type: type[_M]
     allow_none: _N
     @overload
@@ -252,10 +252,9 @@ class Bool(Convertible[bool, _N]):
     def __init__(self: Bool[Literal[True]], name: str | None = None, *, allow_none: Literal[True]) -> None: ...
     @overload
     def __init__(self: Bool[Literal[False]], name: str | None = None, *, allow_none: Literal[False] = False) -> None: ...
-    @overload  # type:ignore[override]  # Different restrictions
-    def __set__(self: Bool[Literal[True]], instance: Serialisable, value: _ConvertibleToBool | None) -> None: ...
-    @overload
-    def __set__(self: Bool[Literal[False]], instance: Serialisable, value: _ConvertibleToBool) -> None: ...
+    def __set__(  # type:ignore[override]  # Different restrictions
+        self: Bool[Literal[True]], instance: Serialisable, value: _ConvertibleToBool | None
+    ) -> None: ...
 
 class String(Typed[str, _N]):
     allow_none: _N
@@ -334,7 +333,7 @@ class MatchPattern(Descriptor[_P], Generic[_P, _N]):
     @overload
     def __set__(self: MatchPattern[_P, Literal[False]], instance: Serialisable, value: _P) -> None: ...
 
-class DateTime(Typed[datetime, _N], Generic[_N]):
+class DateTime(Typed[datetime, _N]):
     allow_none: _N
     expected_type: type[datetime]
     @overload
