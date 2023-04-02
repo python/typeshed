@@ -4,17 +4,17 @@ from typing import Any
 from typing_extensions import Self, TypeAlias
 
 import tensorflow as tf
+from tensorflow._aliases import Gradients
 from tensorflow._internal import Trackable
 from tensorflow.keras.optimizers import schedules as schedules
 
 _Initializer: TypeAlias = str | Callable[[], tf.Tensor] | dict[str, Any]
 _Shape: TypeAlias = tf.TensorShape | Iterable[int | None]
 _Dtype: TypeAlias = tf.DType | str | None
-_Gradients: TypeAlias = tf.Tensor | tf.IndexedSlices
 _LearningRate: TypeAlias = float | tf.Tensor | schedules.LearningRateSchedule | Callable[[], float | tf.Tensor]
-_GradientAggregator: TypeAlias = Callable[[list[tuple[_Gradients, tf.Variable]]], list[tuple[_Gradients, tf.Variable]]] | None
+_GradientAggregator: TypeAlias = Callable[[list[tuple[Gradients, tf.Variable]]], list[tuple[Gradients, tf.Variable]]] | None
 _GradientTransformer: TypeAlias = (
-    Iterable[Callable[[list[tuple[_Gradients, tf.Variable]]], list[tuple[_Gradients, tf.Variable]]]] | None
+    Iterable[Callable[[list[tuple[Gradients, tf.Variable]]], list[tuple[Gradients, tf.Variable]]]] | None
 )
 
 class Optimizer(Trackable):
@@ -52,12 +52,12 @@ class Optimizer(Trackable):
     ) -> tf.Variable: ...
     def apply_gradients(
         self,
-        grads_and_vars: Iterable[tuple[_Gradients, tf.Variable]],
+        grads_and_vars: Iterable[tuple[Gradients, tf.Variable]],
         name: str | None = None,
         experimental_aggregate_gradients: bool = True,
     ) -> tf.Operation | None: ...
     @classmethod
-    def from_config(cls: type[Self], config: dict[str, Any], custom_objects: dict[str, type] | None = None) -> Self: ...
+    def from_config(cls, config: dict[str, Any], custom_objects: dict[str, type] | None = None) -> Self: ...
     def get_config(self) -> dict[str, Any]: ...
     def get_slot(self, var: tf.Variable, slot_name: str) -> tf.Variable: ...
     def get_slot_names(self) -> list[str]: ...

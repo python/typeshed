@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from abc import ABCMeta
 from builtins import bool as _bool
-from collections.abc import Callable, Iterable, Iterator, Sequence
+from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from contextlib import contextmanager
 from enum import Enum
 from types import TracebackType
@@ -10,6 +10,7 @@ from typing_extensions import ParamSpec, Self, TypeAlias
 
 import numpy
 from tensorflow import initializers as initializers, keras as keras, math as math
+from tensorflow._aliases import ContainerGradients, ContainerTensors, ContainerTensorsLike, Gradients, TensorLike
 
 # Explicit import of DType is covered by the wildcard, but
 # is necessary to avoid a crash in pytype.
@@ -53,7 +54,7 @@ from tensorflow.math import (
     subtract as subtract,
     tanh as tanh,
 )
-from tensorflow.sparse import SparseTensor
+from tensorflow.sparse import SparseTensor as SparseTensor
 
 # Tensors ideally should be a generic type, but properly typing data type/shape
 # will be a lot of work. Until we have good non-generic tensorflow stubs,
@@ -281,5 +282,33 @@ class Module:
     def submodules(self) -> Sequence[Module]: ...
     @classmethod
     def with_name_scope(cls, method: Callable[_P, _R]) -> Callable[_P, _R]: ...
+
+class GradientTape:
+    def __init__(self, persistent: _bool = False, watch_accessed_variables: _bool = True): ...
+    def __enter__(self) -> GradientTape: ...
+    def __exit__(self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None) -> None: ...
+    # Higher kinded types would be nice here and these overloads are a way to simulate some of them.
+    @overload
+    def gradient(
+        self, target: ContainerTensors, sources: TensorLike, output_gradients: list[Tensor] | None = None
+    ) -> Gradients: ...
+    @overload
+    def gradient(
+        self, target: ContainerTensors, sources: Sequence[Tensor], output_gradients: list[Tensor] | None = None
+    ) -> list[Gradients]: ...
+    @overload
+    def gradient(
+        self, target: ContainerTensors, sources: Mapping[str, Tensor], output_gradients: list[Tensor] | None = None
+    ) -> dict[str, Gradients]: ...
+    @overload
+    def gradient(
+        self, target: ContainerTensors, sources: ContainerTensors, output_gradients: list[Tensor] | None = None
+    ) -> ContainerGradients: ...
+    @contextmanager
+    def stop_recording(self) -> Iterator[None]: ...
+    def reset(self) -> None: ...
+    def watch(self, tensor: ContainerTensorsLike) -> None: ...
+    def watched_variables(self) -> tuple[Variable, ...]: ...
+    def __getattr__(self, name: str) -> Incomplete: ...
 
 def __getattr__(name: str) -> Incomplete: ...
