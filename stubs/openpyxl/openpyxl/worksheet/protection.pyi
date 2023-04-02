@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Alias, Bool, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, String, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 class _Protected:
@@ -32,7 +32,7 @@ class SheetProtection(Serialisable, _Protected):
     pivotTables: Bool[Literal[False]]
     saltValue: Incomplete
     spinCount: Incomplete
-    algorithmName: Incomplete
+    algorithmName: String[Literal[True]]
     hashValue: Incomplete
     __attrs__: Incomplete
     password: Incomplete
@@ -55,7 +55,7 @@ class SheetProtection(Serialisable, _Protected):
         autoFilter: _ConvertibleToBool = True,
         pivotTables: _ConvertibleToBool = True,
         password: Incomplete | None = None,
-        algorithmName: Incomplete | None = None,
+        algorithmName: str | None = None,
         saltValue: Incomplete | None = None,
         spinCount: Incomplete | None = None,
         hashValue: Incomplete | None = None,

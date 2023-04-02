@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, Set, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, Set, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 from .colors import ColorChoice
@@ -86,8 +86,8 @@ class AlphaModulateFixedEffect(Serialisable):
 
 class EffectContainer(Serialisable):
     type: Set[_EffectContainerType]
-    name: Incomplete
-    def __init__(self, type: _EffectContainerType, name: Incomplete | None = None) -> None: ...
+    name: String[Literal[True]]
+    def __init__(self, type: _EffectContainerType, name: str | None = None) -> None: ...
 
 class AlphaModulateEffect(Serialisable):
     cont: Typed[EffectContainer, Literal[False]]

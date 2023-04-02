@@ -1,5 +1,6 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from re import Pattern
+from typing import overload
 from typing_extensions import Literal, Self
 
 from openpyxl.descriptors import Integer, Strict, String
@@ -16,11 +17,12 @@ TITLES_REGEX: Pattern[str]
 PRINT_AREA_RE: Pattern[str]
 
 class ColRange(Strict):
-    min_col: String
-    max_col: String
-    def __init__(
-        self, range_string: Incomplete | None = None, min_col: Incomplete | None = None, max_col: Incomplete | None = None
-    ) -> None: ...
+    min_col: String[Literal[False]]
+    max_col: String[Literal[False]]
+    @overload
+    def __init__(self, range_string: None = None, *, min_col: str, max_col: str) -> None: ...
+    @overload
+    def __init__(self, range_string: Incomplete, min_col: Unused = None, max_col: Unused = None) -> None: ...
     def __eq__(self, other: object) -> bool: ...
 
 class RowRange(Strict):
@@ -34,7 +36,7 @@ class RowRange(Strict):
 class PrintTitles(Strict):
     cols: Typed[ColRange, Literal[True]]
     rows: Typed[RowRange, Literal[True]]
-    title: String
+    title: String[Literal[False]]
     def __init__(self, cols: ColRange | None = None, rows: RowRange | None = None, title: str = "") -> None: ...
     @classmethod
     def from_string(cls, value) -> Self: ...

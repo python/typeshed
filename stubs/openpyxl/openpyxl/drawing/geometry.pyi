@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Alias, Bool, MinMax, NoneSet, Set, Typed, _ConvertibleToBool, _ConvertibleToFloat
+from openpyxl.descriptors.base import Alias, Bool, MinMax, NoneSet, Set, String, Typed, _ConvertibleToBool, _ConvertibleToFloat
 from openpyxl.descriptors.excel import Coordinate, ExtensionList, Percentage
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.colors import Color
@@ -515,9 +515,9 @@ class ConnectionSiteList(Serialisable):
 class AdjustHandleList(Serialisable): ...
 
 class GeomGuide(Serialisable):
-    name: Incomplete
-    fmla: Incomplete
-    def __init__(self, name: str | None = None, fmla: Incomplete | None = None) -> None: ...
+    name: String[Literal[False]]
+    fmla: String[Literal[False]]
+    def __init__(self, name: str, fmla: str) -> None: ...
 
 class GeomGuideList(Serialisable):
     gd: Typed[GeomGuide, Literal[True]]

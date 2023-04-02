@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, Set, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, Set, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.spreadsheet_drawing import AnchorMarker
 
@@ -35,32 +35,32 @@ class ObjectPr(Serialisable):
     autoFill: Bool[Literal[True]]
     autoLine: Bool[Literal[True]]
     autoPict: Bool[Literal[True]]
-    macro: Incomplete
-    altText: Incomplete
+    macro: String[Literal[False]]
+    altText: String[Literal[True]]
     dde: Bool[Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
         anchor: ObjectAnchor,
-        locked: _ConvertibleToBool | None = True,
-        defaultSize: _ConvertibleToBool | None = True,
-        _print: _ConvertibleToBool | None = True,
-        disabled: _ConvertibleToBool | None = False,
-        uiObject: _ConvertibleToBool | None = False,
-        autoFill: _ConvertibleToBool | None = True,
-        autoLine: _ConvertibleToBool | None = True,
-        autoPict: _ConvertibleToBool | None = True,
-        macro: Incomplete | None = None,
-        altText: Incomplete | None = None,
+        locked: _ConvertibleToBool | None,
+        defaultSize: _ConvertibleToBool | None,
+        _print: _ConvertibleToBool | None,
+        disabled: _ConvertibleToBool | None,
+        uiObject: _ConvertibleToBool | None,
+        autoFill: _ConvertibleToBool | None,
+        autoLine: _ConvertibleToBool | None,
+        autoPict: _ConvertibleToBool | None,
+        macro: str,
+        altText: str | None = None,
         dde: _ConvertibleToBool | None = False,
     ) -> None: ...
 
 class OleObject(Serialisable):
     tagname: str
     objectPr: Typed[ObjectPr, Literal[True]]
-    progId: Incomplete
+    progId: String[Literal[True]]
     dvAspect: Set[_OleObjectDvAspect]
-    link: Incomplete
+    link: String[Literal[True]]
     oleUpdate: Set[_OleObjectOleUpdate]
     autoLoad: Bool[Literal[True]]
     shapeId: Incomplete
@@ -68,9 +68,9 @@ class OleObject(Serialisable):
     def __init__(
         self,
         objectPr: ObjectPr | None,
-        progId: Incomplete | None,
+        progId: str | None,
         dvAspect: _OleObjectDvAspect,
-        link: Incomplete | None,
+        link: str | None,
         oleUpdate: _OleObjectOleUpdate,
         autoLoad: _ConvertibleToBool | None = False,
         shapeId: Incomplete | None = None,

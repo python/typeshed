@@ -4,7 +4,7 @@ from typing_extensions import Literal
 from openpyxl.chart.shapes import GraphicalProperties
 from openpyxl.chart.text import RichText
 from openpyxl.descriptors import Typed
-from openpyxl.descriptors.base import Alias, Bool, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, String, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.geometry import ShapeStyle
@@ -43,14 +43,14 @@ class ConnectorShape(Serialisable):
     nvCxnSpPr: Typed[ConnectorNonVisual, Literal[False]]
     spPr: Typed[GraphicalProperties, Literal[False]]
     style: Typed[ShapeStyle, Literal[True]]
-    macro: Incomplete
+    macro: String[Literal[True]]
     fPublished: Bool[Literal[True]]
     def __init__(
         self,
         nvCxnSpPr: ConnectorNonVisual,
         spPr: GraphicalProperties,
         style: ShapeStyle | None = None,
-        macro: Incomplete | None = None,
+        macro: str | None = None,
         fPublished: _ConvertibleToBool | None = None,
     ) -> None: ...
 
@@ -61,8 +61,8 @@ class ShapeMeta(Serialisable):
     def __init__(self, cNvPr: NonVisualDrawingProps, cNvSpPr: NonVisualDrawingShapeProps) -> None: ...
 
 class Shape(Serialisable):
-    macro: Incomplete
-    textlink: Incomplete
+    macro: String[Literal[True]]
+    textlink: String[Literal[True]]
     fPublished: Bool[Literal[True]]
     fLocksText: Bool[Literal[True]]
     nvSpPr: Typed[ShapeMeta, Literal[True]]
@@ -73,8 +73,8 @@ class Shape(Serialisable):
     txBody: Typed[RichText, Literal[True]]
     def __init__(
         self,
-        macro: Incomplete | None,
-        textlink: Incomplete | None,
+        macro: str | None,
+        textlink: str | None,
         fPublished: _ConvertibleToBool | None,
         fLocksText: _ConvertibleToBool | None,
         nvSpPr: ShapeMeta | None,

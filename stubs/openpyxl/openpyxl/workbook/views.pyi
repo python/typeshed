@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, NoneSet, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, NoneSet, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
@@ -46,7 +46,7 @@ class BookView(Serialisable):
 
 class CustomWorkbookView(Serialisable):
     tagname: str
-    name: Incomplete
+    name: String[Literal[False]]
     guid: Incomplete
     autoUpdate: Bool[Literal[True]]
     mergeInterval: Incomplete
@@ -74,7 +74,7 @@ class CustomWorkbookView(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        name: Incomplete | None = None,
+        name: str,
         guid: Incomplete | None = None,
         autoUpdate: _ConvertibleToBool | None = None,
         mergeInterval: Incomplete | None = None,

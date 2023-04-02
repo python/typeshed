@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, NoneSet, Set, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, NoneSet, Set, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
@@ -12,29 +12,29 @@ _PaneState: TypeAlias = Literal["split", "frozen", "frozenSplit"]
 class Pane(Serialisable):
     xSplit: Incomplete
     ySplit: Incomplete
-    topLeftCell: Incomplete
+    topLeftCell: String[Literal[True]]
     activePane: Set[_Pane]
     state: Set[_PaneState]
     def __init__(
         self,
         xSplit: Incomplete | None = None,
         ySplit: Incomplete | None = None,
-        topLeftCell: Incomplete | None = None,
+        topLeftCell: str | None = None,
         activePane: _Pane = "topLeft",
         state: _PaneState = "split",
     ) -> None: ...
 
 class Selection(Serialisable):
     pane: NoneSet[_Pane]
-    activeCell: Incomplete
+    activeCell: String[Literal[True]]
     activeCellId: Incomplete
-    sqref: Incomplete
+    sqref: String[Literal[True]]
     def __init__(
         self,
         pane: _Pane | Literal["none"] | None = None,
-        activeCell: str = "A1",
+        activeCell: str | None = "A1",
         activeCellId: Incomplete | None = None,
-        sqref: str = "A1",
+        sqref: str | None = "A1",
     ) -> None: ...
 
 class SheetView(Serialisable):
@@ -51,7 +51,7 @@ class SheetView(Serialisable):
     defaultGridColor: Bool[Literal[True]]
     showWhiteSpace: Bool[Literal[True]]
     view: NoneSet[_SheetViewView]
-    topLeftCell: Incomplete
+    topLeftCell: String[Literal[True]]
     colorId: Incomplete
     zoomScale: Incomplete
     zoomScaleNormal: Incomplete
@@ -75,7 +75,7 @@ class SheetView(Serialisable):
         defaultGridColor: _ConvertibleToBool | None = None,
         showWhiteSpace: _ConvertibleToBool | None = None,
         view: _SheetViewView | Literal["none"] | None = None,
-        topLeftCell: Incomplete | None = None,
+        topLeftCell: str | None = None,
         colorId: Incomplete | None = None,
         zoomScale: Incomplete | None = None,
         zoomScaleNormal: Incomplete | None = None,

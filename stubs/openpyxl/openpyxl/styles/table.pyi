@@ -1,7 +1,7 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Set
+from openpyxl.descriptors.base import Set, String
 from openpyxl.descriptors.serialisable import Serialisable
 
 _TableStyleElementType: TypeAlias = Literal[
@@ -44,7 +44,7 @@ class TableStyleElement(Serialisable):
 
 class TableStyle(Serialisable):
     tagname: str
-    name: Incomplete
+    name: String[Literal[False]]
     pivot: Incomplete
     table: Incomplete
     count: Incomplete
@@ -52,7 +52,7 @@ class TableStyle(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        name: Incomplete | None = None,
+        name: str,
         pivot: Incomplete | None = None,
         table: Incomplete | None = None,
         count: Incomplete | None = None,
@@ -61,16 +61,16 @@ class TableStyle(Serialisable):
 
 class TableStyleList(Serialisable):
     tagname: str
-    defaultTableStyle: Incomplete
-    defaultPivotStyle: Incomplete
+    defaultTableStyle: String[Literal[True]]
+    defaultPivotStyle: String[Literal[True]]
     tableStyle: Incomplete
     __elements__: Incomplete
     __attrs__: Incomplete
     def __init__(
         self,
-        count: Incomplete | None = None,
-        defaultTableStyle: str = "TableStyleMedium9",
-        defaultPivotStyle: str = "PivotStyleLight16",
+        count: Unused = None,
+        defaultTableStyle: str | None = "TableStyleMedium9",
+        defaultPivotStyle: str | None = "PivotStyleLight16",
         tableStyle=(),
     ) -> None: ...
     @property

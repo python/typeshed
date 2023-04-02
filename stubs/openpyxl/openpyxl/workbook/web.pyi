@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, NoneSet, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, NoneSet, String, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 _WebPublishingTargetScreenSize: TypeAlias = Literal[
@@ -21,18 +21,18 @@ _WebPublishingTargetScreenSize: TypeAlias = Literal[
 class WebPublishObject(Serialisable):
     tagname: str
     id: Incomplete
-    divId: Incomplete
-    sourceObject: Incomplete
-    destinationFile: Incomplete
-    title: Incomplete
+    divId: String[Literal[False]]
+    sourceObject: String[Literal[True]]
+    destinationFile: String[Literal[False]]
+    title: String[Literal[True]]
     autoRepublish: Bool[Literal[True]]
     def __init__(
         self,
-        id: Incomplete | None = None,
-        divId: Incomplete | None = None,
-        sourceObject: Incomplete | None = None,
-        destinationFile: Incomplete | None = None,
-        title: Incomplete | None = None,
+        id: Incomplete | None,
+        divId: str,
+        sourceObject: str | None,
+        destinationFile: str,
+        title: str | None = None,
         autoRepublish: _ConvertibleToBool | None = None,
     ) -> None: ...
 
@@ -56,7 +56,7 @@ class WebPublishing(Serialisable):
     targetScreenSize: NoneSet[_WebPublishingTargetScreenSize]
     dpi: Incomplete
     codePage: Incomplete
-    characterSet: Incomplete
+    characterSet: String[Literal[True]]
     def __init__(
         self,
         css: _ConvertibleToBool | None = None,
@@ -67,5 +67,5 @@ class WebPublishing(Serialisable):
         targetScreenSize: _WebPublishingTargetScreenSize | Literal["none"] | None = "800x600",
         dpi: Incomplete | None = None,
         codePage: Incomplete | None = None,
-        characterSet: Incomplete | None = None,
+        characterSet: str | None = None,
     ) -> None: ...

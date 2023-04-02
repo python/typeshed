@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Alias, Bool, MinMax, NoneSet, Set, Typed, _ConvertibleToBool, _ConvertibleToFloat
+from openpyxl.descriptors.base import Alias, Bool, MinMax, NoneSet, Set, String, Typed, _ConvertibleToBool, _ConvertibleToFloat
 from openpyxl.descriptors.excel import Coordinate, ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.effect import Color, EffectContainer, EffectList
@@ -128,16 +128,16 @@ _PresetTextShapePrst: TypeAlias = Literal[
 ]
 
 class EmbeddedWAVAudioFile(Serialisable):
-    name: Incomplete
+    name: String[Literal[True]]
     def __init__(self, name: str | None = None) -> None: ...
 
 class Hyperlink(Serialisable):
     tagname: str
     namespace: Incomplete
-    invalidUrl: Incomplete
-    action: Incomplete
-    tgtFrame: Incomplete
-    tooltip: Incomplete
+    invalidUrl: String[Literal[True]]
+    action: String[Literal[True]]
+    tgtFrame: String[Literal[True]]
+    tooltip: String[Literal[True]]
     history: Bool[Literal[True]]
     highlightClick: Bool[Literal[True]]
     endSnd: Bool[Literal[True]]
@@ -147,10 +147,10 @@ class Hyperlink(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        invalidUrl: Incomplete | None = None,
-        action: Incomplete | None = None,
-        tgtFrame: Incomplete | None = None,
-        tooltip: Incomplete | None = None,
+        invalidUrl: str | None = None,
+        action: str | None = None,
+        tgtFrame: str | None = None,
+        tooltip: str | None = None,
         history: _ConvertibleToBool | None = None,
         highlightClick: _ConvertibleToBool | None = None,
         endSnd: _ConvertibleToBool | None = None,
@@ -162,13 +162,13 @@ class Hyperlink(Serialisable):
 class Font(Serialisable):
     tagname: str
     namespace: Incomplete
-    typeface: Incomplete
+    typeface: String[Literal[False]]
     panose: Incomplete
     pitchFamily: MinMax[float, Literal[True]]
     charset: Incomplete
     def __init__(
         self,
-        typeface: Incomplete | None = None,
+        typeface: str,
         panose: Incomplete | None = None,
         pitchFamily: _ConvertibleToFloat | None = None,
         charset: Incomplete | None = None,
@@ -178,8 +178,8 @@ class CharacterProperties(Serialisable):
     tagname: str
     namespace: Incomplete
     kumimoji: Bool[Literal[True]]
-    lang: Incomplete
-    altLang: Incomplete
+    lang: String[Literal[True]]
+    altLang: String[Literal[True]]
     sz: MinMax[float, Literal[True]]
     b: Bool[Literal[True]]
     i: Bool[Literal[True]]
@@ -195,7 +195,7 @@ class CharacterProperties(Serialisable):
     err: Bool[Literal[True]]
     smtClean: Bool[Literal[True]]
     smtId: Incomplete
-    bmk: Incomplete
+    bmk: String[Literal[True]]
     ln: Typed[LineProperties, Literal[True]]
     highlight: Typed[Color, Literal[True]]
     latin: Typed[Font, Literal[True]]
@@ -222,8 +222,8 @@ class CharacterProperties(Serialisable):
     def __init__(
         self,
         kumimoji: _ConvertibleToBool | None = None,
-        lang: Incomplete | None = None,
-        altLang: Incomplete | None = None,
+        lang: str | None = None,
+        altLang: str | None = None,
         sz: _ConvertibleToFloat | None = None,
         b: _ConvertibleToBool | None = None,
         i: _ConvertibleToBool | None = None,
@@ -239,7 +239,7 @@ class CharacterProperties(Serialisable):
         err: _ConvertibleToBool | None = None,
         smtClean: _ConvertibleToBool | None = None,
         smtId: Incomplete | None = None,
-        bmk: Incomplete | None = None,
+        bmk: str | None = None,
         ln: LineProperties | None = None,
         highlight: Color | None = None,
         latin: Font | None = None,
@@ -396,19 +396,19 @@ class LineBreak(Serialisable):
     def __init__(self, rPr: CharacterProperties | None = None) -> None: ...
 
 class TextField(Serialisable):
-    id: Incomplete
-    type: Incomplete
+    id: String[Literal[False]]
+    type: String[Literal[True]]
     rPr: Typed[CharacterProperties, Literal[True]]
     pPr: Typed[CharacterProperties, Literal[True]]
-    t: Incomplete
+    t: String[Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
-        id: Incomplete | None = None,
-        type: Incomplete | None = None,
+        id: str,
+        type: str | None = None,
         rPr: CharacterProperties | None = None,
         pPr: CharacterProperties | None = None,
-        t: Incomplete | None = None,
+        t: str | None = None,
     ) -> None: ...
 
 class Paragraph(Serialisable):
@@ -432,9 +432,9 @@ class Paragraph(Serialisable):
     ) -> None: ...
 
 class GeomGuide(Serialisable):
-    name: Incomplete
-    fmla: Incomplete
-    def __init__(self, name: str | None = None, fmla: Incomplete | None = None) -> None: ...
+    name: String[Literal[False]]
+    fmla: String[Literal[False]]
+    def __init__(self, name: str, fmla: str) -> None: ...
 
 class GeomGuideList(Serialisable):
     gd: Incomplete

@@ -17,14 +17,14 @@ PIVOTSTYLES: Incomplete
 
 class TableStyleInfo(Serialisable):
     tagname: str
-    name: Incomplete
+    name: String[Literal[True]]
     showFirstColumn: Bool[Literal[True]]
     showLastColumn: Bool[Literal[True]]
     showRowStripes: Bool[Literal[True]]
     showColumnStripes: Bool[Literal[True]]
     def __init__(
         self,
-        name: Incomplete | None = None,
+        name: str | None = None,
         showFirstColumn: _ConvertibleToBool | None = None,
         showLastColumn: _ConvertibleToBool | None = None,
         showRowStripes: _ConvertibleToBool | None = None,
@@ -34,17 +34,17 @@ class TableStyleInfo(Serialisable):
 class XMLColumnProps(Serialisable):
     tagname: str
     mapId: Incomplete
-    xpath: Incomplete
+    xpath: String[Literal[False]]
     denormalized: Bool[Literal[True]]
-    xmlDataType: Incomplete
+    xmlDataType: String[Literal[False]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
-        mapId: Incomplete | None = None,
-        xpath: Incomplete | None = None,
-        denormalized: _ConvertibleToBool | None = None,
-        xmlDataType: Incomplete | None = None,
+        mapId: Incomplete | None,
+        xpath: str,
+        denormalized: _ConvertibleToBool | None,
+        xmlDataType: str,
         extLst: Unused = None,
     ) -> None: ...
 
@@ -58,17 +58,17 @@ class TableFormula(Serialisable):
 class TableColumn(Serialisable):
     tagname: str
     id: Incomplete
-    uniqueName: Incomplete
-    name: Incomplete
+    uniqueName: String[Literal[True]]
+    name: String[Literal[False]]
     totalsRowFunction: NoneSet[_TableColumnTotalsRowFunction]
-    totalsRowLabel: Incomplete
+    totalsRowLabel: String[Literal[True]]
     queryTableFieldId: Incomplete
     headerRowDxfId: Incomplete
     dataDxfId: Incomplete
     totalsRowDxfId: Incomplete
-    headerRowCellStyle: Incomplete
-    dataCellStyle: Incomplete
-    totalsRowCellStyle: Incomplete
+    headerRowCellStyle: String[Literal[True]]
+    dataCellStyle: String[Literal[True]]
+    totalsRowCellStyle: String[Literal[True]]
     calculatedColumnFormula: Typed[TableFormula, Literal[True]]
     totalsRowFormula: Typed[TableFormula, Literal[True]]
     xmlColumnPr: Typed[XMLColumnProps, Literal[True]]
@@ -76,18 +76,18 @@ class TableColumn(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        id: Incomplete | None = None,
-        uniqueName: Incomplete | None = None,
-        name: Incomplete | None = None,
+        id: Incomplete | None,
+        uniqueName: str | None,
+        name: str,
         totalsRowFunction: _TableColumnTotalsRowFunction | Literal["none"] | None = None,
-        totalsRowLabel: Incomplete | None = None,
+        totalsRowLabel: str | None = None,
         queryTableFieldId: Incomplete | None = None,
         headerRowDxfId: Incomplete | None = None,
         dataDxfId: Incomplete | None = None,
         totalsRowDxfId: Incomplete | None = None,
-        headerRowCellStyle: Incomplete | None = None,
-        dataCellStyle: Incomplete | None = None,
-        totalsRowCellStyle: Incomplete | None = None,
+        headerRowCellStyle: str | None = None,
+        dataCellStyle: str | None = None,
+        totalsRowCellStyle: str | None = None,
         calculatedColumnFormula: TableFormula | None = None,
         totalsRowFormula: TableFormula | None = None,
         xmlColumnPr: XMLColumnProps | None = None,
@@ -104,9 +104,9 @@ class Table(Serialisable):
     mime_type: str
     tagname: str
     id: Incomplete
-    name: Incomplete
+    name: String[Literal[True]]
     displayName: Incomplete
-    comment: Incomplete
+    comment: String[Literal[True]]
     ref: Incomplete
     tableType: NoneSet[_TableTableType]
     headerRowCount: Incomplete
@@ -121,9 +121,9 @@ class Table(Serialisable):
     headerRowBorderDxfId: Incomplete
     tableBorderDxfId: Incomplete
     totalsRowBorderDxfId: Incomplete
-    headerRowCellStyle: Incomplete
-    dataCellStyle: Incomplete
-    totalsRowCellStyle: Incomplete
+    headerRowCellStyle: String[Literal[True]]
+    dataCellStyle: String[Literal[True]]
+    totalsRowCellStyle: String[Literal[True]]
     connectionId: Incomplete
     autoFilter: Typed[AutoFilter, Literal[True]]
     sortState: Typed[SortState, Literal[True]]
@@ -136,8 +136,8 @@ class Table(Serialisable):
         id: int = 1,
         displayName: Incomplete | None = None,
         ref: Incomplete | None = None,
-        name: Incomplete | None = None,
-        comment: Incomplete | None = None,
+        name: str | None = None,
+        comment: str | None = None,
         tableType: _TableTableType | Literal["none"] | None = None,
         headerRowCount: int = 1,
         insertRow: _ConvertibleToBool | None = None,
@@ -151,9 +151,9 @@ class Table(Serialisable):
         headerRowBorderDxfId: Incomplete | None = None,
         tableBorderDxfId: Incomplete | None = None,
         totalsRowBorderDxfId: Incomplete | None = None,
-        headerRowCellStyle: Incomplete | None = None,
-        dataCellStyle: Incomplete | None = None,
-        totalsRowCellStyle: Incomplete | None = None,
+        headerRowCellStyle: str | None = None,
+        dataCellStyle: str | None = None,
+        totalsRowCellStyle: str | None = None,
         connectionId: Incomplete | None = None,
         autoFilter: AutoFilter | None = None,
         sortState: SortState | None = None,

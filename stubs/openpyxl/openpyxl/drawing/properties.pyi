@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, NoneSet, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, NoneSet, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.geometry import GroupTransform2D, Scene3D
@@ -78,21 +78,21 @@ class NonVisualDrawingShapeProps(Serialisable):
 class NonVisualDrawingProps(Serialisable):
     tagname: str
     id: Incomplete
-    name: Incomplete
-    descr: Incomplete
+    name: String[Literal[False]]
+    descr: String[Literal[True]]
     hidden: Bool[Literal[True]]
-    title: Incomplete
+    title: String[Literal[True]]
     hlinkClick: Typed[Hyperlink, Literal[True]]
     hlinkHover: Typed[Hyperlink, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
     def __init__(
         self,
-        id: Incomplete | None = None,
-        name: Incomplete | None = None,
-        descr: Incomplete | None = None,
+        id: Incomplete | None,
+        name: str,
+        descr: str | None = None,
         hidden: _ConvertibleToBool | None = None,
-        title: Incomplete | None = None,
+        title: str | None = None,
         hlinkClick: Hyperlink | None = None,
         hlinkHover: Hyperlink | None = None,
         extLst: ExtensionList | None = None,

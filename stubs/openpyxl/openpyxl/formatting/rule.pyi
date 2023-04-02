@@ -2,7 +2,7 @@ from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors import Float
-from openpyxl.descriptors.base import Bool, NoneSet, Set, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, NoneSet, Set, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.differential import DifferentialStyle
@@ -134,7 +134,7 @@ class Rule(Serialisable):
     percent: Bool[Literal[True]]
     bottom: Bool[Literal[True]]
     operator: NoneSet[_RuleOperator]
-    text: Incomplete
+    text: String[Literal[True]]
     timePeriod: NoneSet[_RuleTimePeriod]
     rank: Incomplete
     stdDev: Incomplete
@@ -157,7 +157,7 @@ class Rule(Serialisable):
         percent: _ConvertibleToBool | None = None,
         bottom: _ConvertibleToBool | None = None,
         operator: _RuleOperator | Literal["none"] | None = None,
-        text: Incomplete | None = None,
+        text: str | None = None,
         timePeriod: _RuleTimePeriod | Literal["none"] | None = None,
         rank: Incomplete | None = None,
         stdDev: Incomplete | None = None,

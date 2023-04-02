@@ -247,16 +247,23 @@ class Bool(Convertible[bool, _N]):
     @overload
     def __set__(self: Bool[Literal[False]], instance: Serialisable, value: _ConvertibleToBool) -> None: ...
 
-class String(Typed):
+class String(Typed[str, _N]):
+    allow_none: _N
     expected_type: type[str]
+    @overload
+    def __init__(self: String[Literal[True]], name: str | None = None, *, allow_none: Literal[True]) -> None: ...
+    @overload
+    def __init__(self: String[Literal[False]], name: str | None = None, *, allow_none: Literal[False] = False) -> None: ...
 
-class Text(String, Convertible): ...
+class Text(String[_N], Convertible[str, _N]): ...  # unused
 
 class ASCII(Typed[bytes, _N]):  # unused
     expected_type: type[bytes]
+    def __init__(self, name: str | None = None, *, allow_none: bool = False) -> None: ...
 
 class Tuple(Typed[tuple[Any, ...], _N]):  # unused
     expected_type: type[tuple[Any, ...]]
+    def __init__(self, name: str | None = None, *, allow_none: bool = False) -> None: ...
 
 class Length(Descriptor[_L]):
     def __init__(self, name: Unused = None, *, length: int) -> None: ...

@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Alias, Bool, Convertible, NoneSet, _ConvertibleToBool, _ConvertibleToMultiCellRange
+from openpyxl.descriptors.base import Alias, Bool, Convertible, NoneSet, String, _ConvertibleToBool, _ConvertibleToMultiCellRange
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.cell_range import MultiCellRange
 
@@ -38,10 +38,10 @@ class DataValidation(Serialisable):
     showErrorMessage: Bool[Literal[True]]
     allowBlank: Bool[Literal[True]]
     allow_blank: Alias
-    errorTitle: Incomplete
-    error: Incomplete
-    promptTitle: Incomplete
-    prompt: Incomplete
+    errorTitle: String[Literal[True]]
+    error: String[Literal[True]]
+    promptTitle: String[Literal[True]]
+    prompt: String[Literal[True]]
     formula1: Incomplete
     formula2: Incomplete
     type: NoneSet[_DataValidationType]
@@ -59,11 +59,11 @@ class DataValidation(Serialisable):
         showDropDown: _ConvertibleToBool | None = False,
         allowBlank: _ConvertibleToBool | None = False,
         sqref: _ConvertibleToMultiCellRange = (),
-        promptTitle: Incomplete | None = None,
+        promptTitle: str | None = None,
         errorStyle: _DataValidationErrorStyle | Literal["none"] | None = None,
-        error: Incomplete | None = None,
-        prompt: Incomplete | None = None,
-        errorTitle: Incomplete | None = None,
+        error: str | None = None,
+        prompt: str | None = None,
+        errorTitle: str | None = None,
         imeMode: _DataValidationImeMode | Literal["none"] | None = None,
         operator: _DataValidationOperator | Literal["none"] | None = None,
         allow_blank: Incomplete | None = False,

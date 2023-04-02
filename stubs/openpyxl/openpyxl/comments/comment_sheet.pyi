@@ -4,7 +4,7 @@ from typing_extensions import Literal, TypeAlias
 
 from openpyxl.cell.text import Text
 from openpyxl.comments.author import AuthorList
-from openpyxl.descriptors.base import Bool, Set, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, Set, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.ole import ObjectAnchor
@@ -20,7 +20,7 @@ class Properties(Serialisable):
     uiObject: Bool[Literal[True]]
     autoFill: Bool[Literal[True]]
     autoLine: Bool[Literal[True]]
-    altText: Incomplete
+    altText: String[Literal[True]]
     textHAlign: Set[_PropertiesTextHAlign]
     textVAlign: Set[_PropertiesTextVAlign]
     lockText: Bool[Literal[True]]
@@ -39,7 +39,7 @@ class Properties(Serialisable):
         uiObject: _ConvertibleToBool | None,
         autoFill: _ConvertibleToBool | None,
         autoLine: _ConvertibleToBool | None,
-        altText: Incomplete | None,
+        altText: str | None,
         textHAlign: _PropertiesTextHAlign,
         textVAlign: _PropertiesTextVAlign,
         lockText: _ConvertibleToBool | None = None,
@@ -52,13 +52,13 @@ class Properties(Serialisable):
 
 class CommentRecord(Serialisable):
     tagname: str
-    ref: Incomplete
+    ref: String[Literal[False]]
     authorId: Incomplete
     guid: Incomplete
     shapeId: Incomplete
     text: Typed[Text, Literal[False]]
     commentPr: Typed[Properties, Literal[True]]
-    author: Incomplete
+    author: String[Literal[True]]
     __elements__: Incomplete
     __attrs__: Incomplete
     height: Incomplete
@@ -71,7 +71,7 @@ class CommentRecord(Serialisable):
         shapeId: int = 0,
         text: Text | None = None,
         commentPr: Properties | None = None,
-        author: Incomplete | None = None,
+        author: str | None = None,
         height: int = 79,
         width: int = 144,
     ) -> None: ...

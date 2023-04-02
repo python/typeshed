@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Alias, Bool, NoneSet, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, NoneSet, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.workbook.defined_name import DefinedNameList
@@ -30,13 +30,13 @@ class FileRecoveryProperties(Serialisable):
 
 class ChildSheet(Serialisable):
     tagname: str
-    name: Incomplete
+    name: String[Literal[False]]
     sheetId: Incomplete
     state: NoneSet[_ChildSheetState]
     id: Incomplete
     def __init__(
         self,
-        name: Incomplete | None = None,
+        name: str,
         sheetId: Incomplete | None = None,
         state: _ChildSheetState | Literal["none"] | None = "visible",
         id: Incomplete | None = None,

@@ -1,20 +1,20 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, NoneSet, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, NoneSet, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.packaging.relationship import Relationship
 
 _ExternalCellType: TypeAlias = Literal["b", "d", "n", "e", "s", "str", "inlineStr"]
 
 class ExternalCell(Serialisable):
-    r: Incomplete
+    r: String[Literal[False]]
     t: NoneSet[_ExternalCellType]
     vm: Incomplete
     v: Incomplete
     def __init__(
         self,
-        r: Incomplete | None = None,
+        r: str,
         t: _ExternalCellType | Literal["none"] | None = None,
         vm: Incomplete | None = None,
         v: Incomplete | None = None,
@@ -45,12 +45,10 @@ class ExternalSheetNames(Serialisable):
 
 class ExternalDefinedName(Serialisable):
     tagname: str
-    name: Incomplete
-    refersTo: Incomplete
+    name: String[Literal[False]]
+    refersTo: String[Literal[True]]
     sheetId: Incomplete
-    def __init__(
-        self, name: Incomplete | None = None, refersTo: Incomplete | None = None, sheetId: Incomplete | None = None
-    ) -> None: ...
+    def __init__(self, name: str, refersTo: str | None = None, sheetId: Incomplete | None = None) -> None: ...
 
 class ExternalBook(Serialisable):
     tagname: str

@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Bool, Integer, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, Integer, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 class Index(Serialisable):
@@ -27,7 +27,7 @@ class Missing(Serialisable):
     x: Incomplete
     u: Bool[Literal[True]]
     f: Bool[Literal[True]]
-    c: Incomplete
+    c: String[Literal[True]]
     cp: Incomplete
     _in: Integer  # Not private. Avoids name clash
     bc: Incomplete
@@ -43,7 +43,7 @@ class Missing(Serialisable):
         x=(),
         u: _ConvertibleToBool | None = None,
         f: _ConvertibleToBool | None = None,
-        c: Incomplete | None = None,
+        c: str | None = None,
         cp: Incomplete | None = None,
         _in: Incomplete | None = None,
         bc: Incomplete | None = None,
@@ -61,7 +61,7 @@ class Number(Serialisable):
     v: Incomplete
     u: Bool[Literal[True]]
     f: Bool[Literal[True]]
-    c: Incomplete
+    c: String[Literal[True]]
     cp: Incomplete
     _in: Integer  # Not private. Avoids name clash
     bc: Incomplete
@@ -78,7 +78,7 @@ class Number(Serialisable):
         v: Incomplete | None = None,
         u: _ConvertibleToBool | None = None,
         f: _ConvertibleToBool | None = None,
-        c: Incomplete | None = None,
+        c: str | None = None,
         cp: Incomplete | None = None,
         _in: Incomplete | None = None,
         bc: Incomplete | None = None,
@@ -93,10 +93,10 @@ class Error(Serialisable):
     tagname: str
     tpls: Typed[TupleList, Literal[True]]
     x: Incomplete
-    v: Incomplete
+    v: String[Literal[False]]
     u: Bool[Literal[True]]
     f: Bool[Literal[True]]
-    c: Incomplete
+    c: String[Literal[True]]
     cp: Incomplete
     _in: Integer  # Not private. Avoids name clash
     bc: Incomplete
@@ -108,12 +108,12 @@ class Error(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        tpls: TupleList | None = None,
-        x=(),
-        v: Incomplete | None = None,
+        tpls: TupleList | None,
+        x,
+        v: str,
         u: _ConvertibleToBool | None = None,
         f: _ConvertibleToBool | None = None,
-        c: Incomplete | None = None,
+        c: str | None = None,
         cp: Incomplete | None = None,
         _in: Incomplete | None = None,
         bc: Incomplete | None = None,
@@ -130,7 +130,7 @@ class Boolean(Serialisable):
     v: Bool[Literal[False]]
     u: Bool[Literal[True]]
     f: Bool[Literal[True]]
-    c: Incomplete
+    c: String[Literal[True]]
     cp: Incomplete
     __elements__: Incomplete
     def __init__(
@@ -139,7 +139,7 @@ class Boolean(Serialisable):
         v: _ConvertibleToBool,
         u: _ConvertibleToBool | None = None,
         f: _ConvertibleToBool | None = None,
-        c: Incomplete | None = None,
+        c: str | None = None,
         cp: Incomplete | None = None,
     ) -> None: ...
 
@@ -147,10 +147,10 @@ class Text(Serialisable):
     tagname: str
     tpls: Incomplete
     x: Incomplete
-    v: Incomplete
+    v: String[Literal[False]]
     u: Bool[Literal[True]]
     f: Bool[Literal[True]]
-    c: Incomplete
+    c: String[Literal[True]]
     cp: Incomplete
     _in: Integer  # Not private. Avoids name clash
     bc: Incomplete
@@ -184,7 +184,7 @@ class DateTimeField(Serialisable):
     v: Incomplete
     u: Bool[Literal[True]]
     f: Bool[Literal[True]]
-    c: Incomplete
+    c: String[Literal[True]]
     cp: Incomplete
     __elements__: Incomplete
     def __init__(

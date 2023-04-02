@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Bool, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.alignment import Alignment
@@ -21,7 +21,7 @@ class NamedStyle(Serialisable):
     hidden: Bool[Literal[True]]
     # Overwritten by property below
     # xfId: Integer
-    name: Incomplete
+    name: String[Literal[False]]
     def __init__(
         self,
         name: str = "Normal",
@@ -52,7 +52,7 @@ class NamedStyleList(list[Incomplete]):
 
 class _NamedCellStyle(Serialisable):
     tagname: str
-    name: Incomplete
+    name: String[Literal[False]]
     xfId: Incomplete
     builtinId: Incomplete
     iLevel: Incomplete
@@ -62,7 +62,7 @@ class _NamedCellStyle(Serialisable):
     __elements__: Incomplete
     def __init__(
         self,
-        name: Incomplete | None = None,
+        name: str,
         xfId: Incomplete | None = None,
         builtinId: Incomplete | None = None,
         iLevel: Incomplete | None = None,

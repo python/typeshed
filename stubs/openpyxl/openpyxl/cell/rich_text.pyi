@@ -7,7 +7,7 @@ from openpyxl.descriptors import Strict, String, Typed
 
 class TextBlock(Strict):
     font: Typed[InlineFont, Literal[False]]
-    text: String
+    text: String[Literal[False]]
 
     def __init__(self, font: InlineFont, text: str) -> None: ...
     def __eq__(self, other: TextBlock) -> bool: ...  # type: ignore[override]

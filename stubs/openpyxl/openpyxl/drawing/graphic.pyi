@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Alias, Bool, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.picture import PictureFrame
@@ -44,7 +44,7 @@ class NonVisualGraphicFrame(Serialisable):
 class GraphicData(Serialisable):
     tagname: str
     namespace: Incomplete
-    uri: Incomplete
+    uri: String[Literal[False]]
     chart: Typed[ChartRelation, Literal[True]]
     def __init__(self, uri: str = ..., chart: ChartRelation | None = None) -> None: ...
 
@@ -59,7 +59,7 @@ class GraphicFrame(Serialisable):
     nvGraphicFramePr: Typed[NonVisualGraphicFrame, Literal[False]]
     xfrm: Typed[XDRTransform2D, Literal[False]]
     graphic: Typed[GraphicObject, Literal[False]]
-    macro: Incomplete
+    macro: String[Literal[True]]
     fPublished: Bool[Literal[True]]
     __elements__: Incomplete
     def __init__(
@@ -67,7 +67,7 @@ class GraphicFrame(Serialisable):
         nvGraphicFramePr: NonVisualGraphicFrame | None = None,
         xfrm: XDRTransform2D | None = None,
         graphic: GraphicObject | None = None,
-        macro: Incomplete | None = None,
+        macro: str | None = None,
         fPublished: _ConvertibleToBool | None = None,
     ) -> None: ...
 

@@ -32,8 +32,8 @@ class Percentage(MinMax[float, _N]):
     def __set__(self: Percentage[Literal[False]], instance: Serialisable, value: _ConvertibleToFloat) -> None: ...
 
 class Extension(Serialisable):
-    uri: Incomplete
-    def __init__(self, uri: Incomplete | None = None) -> None: ...
+    uri: String[Literal[False]]
+    def __init__(self, uri: str) -> None: ...
 
 class ExtensionList(Serialisable):
     ext: Incomplete

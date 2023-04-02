@@ -1,11 +1,13 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import String
 from openpyxl.descriptors.serialisable import Serialisable
 
 class FunctionGroup(Serialisable):
     tagname: str
-    name: Incomplete
-    def __init__(self, name: str | None = None) -> None: ...
+    name: String[Literal[False]]
+    def __init__(self, name: str) -> None: ...
 
 class FunctionGroupList(Serialisable):
     tagname: str

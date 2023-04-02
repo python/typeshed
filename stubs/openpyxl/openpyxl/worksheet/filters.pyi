@@ -2,7 +2,18 @@ from _typeshed import Incomplete, Unused
 from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Alias, Bool, DateTime, MinMax, NoneSet, Set, Typed, _ConvertibleToBool, _ConvertibleToFloat
+from openpyxl.descriptors.base import (
+    Alias,
+    Bool,
+    DateTime,
+    MinMax,
+    NoneSet,
+    Set,
+    String,
+    Typed,
+    _ConvertibleToBool,
+    _ConvertibleToFloat,
+)
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
@@ -89,7 +100,7 @@ class SortCondition(Serialisable):
     descending: Bool[Literal[True]]
     sortBy: NoneSet[_SortConditionSortBy]
     ref: Incomplete
-    customList: Incomplete
+    customList: String[Literal[True]]
     dxfId: Incomplete
     iconSet: NoneSet[_IconSet]
     iconId: Incomplete
@@ -98,7 +109,7 @@ class SortCondition(Serialisable):
         ref: Incomplete | None = None,
         descending: _ConvertibleToBool | None = None,
         sortBy: _SortConditionSortBy | Literal["none"] | None = None,
-        customList: Incomplete | None = None,
+        customList: str | None = None,
         dxfId: Incomplete | None = None,
         iconSet: _IconSet | Literal["none"] | None = None,
         iconId: Incomplete | None = None,

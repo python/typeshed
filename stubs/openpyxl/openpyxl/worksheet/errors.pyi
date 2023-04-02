@@ -1,13 +1,13 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Bool, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 class Extension(Serialisable):
     tagname: str
-    uri: Incomplete
-    def __init__(self, uri: Incomplete | None = None) -> None: ...
+    uri: String[Literal[True]]
+    def __init__(self, uri: str | None = None) -> None: ...
 
 class ExtensionList(Serialisable):
     tagname: str

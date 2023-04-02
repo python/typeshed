@@ -1,26 +1,26 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Alias, Bool, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, String, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 class WorkbookProtection(Serialisable):
     tagname: str
     workbook_password: Alias
-    workbookPasswordCharacterSet: Incomplete
+    workbookPasswordCharacterSet: String[Literal[True]]
     revision_password: Alias
-    revisionsPasswordCharacterSet: Incomplete
+    revisionsPasswordCharacterSet: String[Literal[True]]
     lockStructure: Bool[Literal[True]]
     lock_structure: Alias
     lockWindows: Bool[Literal[True]]
     lock_windows: Alias
     lockRevision: Bool[Literal[True]]
     lock_revision: Alias
-    revisionsAlgorithmName: Incomplete
+    revisionsAlgorithmName: String[Literal[True]]
     revisionsHashValue: Incomplete
     revisionsSaltValue: Incomplete
     revisionsSpinCount: Incomplete
-    workbookAlgorithmName: Incomplete
+    workbookAlgorithmName: String[Literal[True]]
     workbookHashValue: Incomplete
     workbookSaltValue: Incomplete
     workbookSpinCount: Incomplete
@@ -28,17 +28,17 @@ class WorkbookProtection(Serialisable):
     def __init__(
         self,
         workbookPassword: Incomplete | None = None,
-        workbookPasswordCharacterSet: Incomplete | None = None,
+        workbookPasswordCharacterSet: str | None = None,
         revisionsPassword: Incomplete | None = None,
-        revisionsPasswordCharacterSet: Incomplete | None = None,
+        revisionsPasswordCharacterSet: str | None = None,
         lockStructure: _ConvertibleToBool | None = None,
         lockWindows: _ConvertibleToBool | None = None,
         lockRevision: _ConvertibleToBool | None = None,
-        revisionsAlgorithmName: Incomplete | None = None,
+        revisionsAlgorithmName: str | None = None,
         revisionsHashValue: Incomplete | None = None,
         revisionsSaltValue: Incomplete | None = None,
         revisionsSpinCount: Incomplete | None = None,
-        workbookAlgorithmName: Incomplete | None = None,
+        workbookAlgorithmName: str | None = None,
         workbookHashValue: Incomplete | None = None,
         workbookSaltValue: Incomplete | None = None,
         workbookSpinCount: Incomplete | None = None,
@@ -61,18 +61,18 @@ DocumentSecurity = WorkbookProtection
 class FileSharing(Serialisable):
     tagname: str
     readOnlyRecommended: Bool[Literal[True]]
-    userName: Incomplete
+    userName: String[Literal[True]]
     reservationPassword: Incomplete
-    algorithmName: Incomplete
+    algorithmName: String[Literal[True]]
     hashValue: Incomplete
     saltValue: Incomplete
     spinCount: Incomplete
     def __init__(
         self,
         readOnlyRecommended: _ConvertibleToBool | None = None,
-        userName: Incomplete | None = None,
+        userName: str | None = None,
         reservationPassword: Incomplete | None = None,
-        algorithmName: Incomplete | None = None,
+        algorithmName: str | None = None,
         hashValue: Incomplete | None = None,
         saltValue: Incomplete | None = None,
         spinCount: Incomplete | None = None,

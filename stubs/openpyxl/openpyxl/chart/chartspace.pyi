@@ -8,7 +8,7 @@ from openpyxl.chart.print_settings import PrintSettings
 from openpyxl.chart.shapes import GraphicalProperties
 from openpyxl.chart.text import RichText
 from openpyxl.chart.title import Title
-from openpyxl.descriptors.base import Alias, Typed
+from openpyxl.descriptors.base import Alias, String, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.colors import ColorMapping
@@ -66,8 +66,8 @@ class Protection(Serialisable):
 class ExternalData(Serialisable):
     tagname: str
     autoUpdate: Incomplete
-    id: Incomplete
-    def __init__(self, autoUpdate: Incomplete | None = None, id: Incomplete | None = None) -> None: ...
+    id: String[Literal[False]]
+    def __init__(self, autoUpdate: Incomplete | None, id: str) -> None: ...
 
 class ChartSpace(Serialisable):
     tagname: str

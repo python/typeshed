@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, NoneSet, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, NoneSet, String, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 _WorkbookPropertiesShowObjects: TypeAlias = Literal["all", "placeholders"]
@@ -21,7 +21,7 @@ class WorkbookProperties(Serialisable):
     backupFile: Bool[Literal[True]]
     saveExternalLinkValues: Bool[Literal[True]]
     updateLinks: NoneSet[_WorkbookPropertiesUpdateLinks]
-    codeName: Incomplete
+    codeName: String[Literal[True]]
     hidePivotFieldList: Bool[Literal[True]]
     showPivotChartFilter: Bool[Literal[True]]
     allowRefreshQuery: Bool[Literal[True]]
@@ -42,7 +42,7 @@ class WorkbookProperties(Serialisable):
         backupFile: _ConvertibleToBool | None = None,
         saveExternalLinkValues: _ConvertibleToBool | None = None,
         updateLinks: _WorkbookPropertiesUpdateLinks | Literal["none"] | None = None,
-        codeName: Incomplete | None = None,
+        codeName: str | None = None,
         hidePivotFieldList: _ConvertibleToBool | None = None,
         showPivotChartFilter: _ConvertibleToBool | None = None,
         allowRefreshQuery: _ConvertibleToBool | None = None,
@@ -87,16 +87,16 @@ class CalcProperties(Serialisable):
 
 class FileVersion(Serialisable):
     tagname: str
-    appName: Incomplete
-    lastEdited: Incomplete
-    lowestEdited: Incomplete
-    rupBuild: Incomplete
+    appName: String[Literal[True]]
+    lastEdited: String[Literal[True]]
+    lowestEdited: String[Literal[True]]
+    rupBuild: String[Literal[True]]
     codeName: Incomplete
     def __init__(
         self,
-        appName: Incomplete | None = None,
-        lastEdited: Incomplete | None = None,
-        lowestEdited: Incomplete | None = None,
-        rupBuild: Incomplete | None = None,
+        appName: str | None = None,
+        lastEdited: str | None = None,
+        lowestEdited: str | None = None,
+        rupBuild: str | None = None,
         codeName: Incomplete | None = None,
     ) -> None: ...

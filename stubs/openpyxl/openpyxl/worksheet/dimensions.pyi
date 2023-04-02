@@ -73,7 +73,7 @@ class ColumnDimension(Dimension):
     width: Float
     bestFit: Bool[Literal[False]]
     auto_size: Alias
-    index: String  # type: ignore[assignment]
+    index: String[Literal[False]]  # type:ignore[assignment]
     min: Integer
     max: Integer
     collapsed: Bool[Literal[False]]
@@ -137,7 +137,7 @@ class SheetFormatProperties(Serialisable):
 
 class SheetDimension(Serialisable):
     tagname: str
-    ref: Incomplete
-    def __init__(self, ref: Incomplete | None = None) -> None: ...
+    ref: String[Literal[False]]
+    def __init__(self, ref: str) -> None: ...
     @property
     def boundaries(self): ...
