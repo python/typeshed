@@ -12,6 +12,7 @@ from openpyxl.descriptors.base import (
     Convertible,
     DateTime,
     Descriptor,
+    Float,
     Length,
     MatchPattern,
     MinMax,
@@ -59,9 +60,9 @@ class WithDescriptors(Serialisable):
     minmax_int = MinMax(min=0.0, max=0.0, expected_type=int, allow_none=False)
     minmax_int_none = MinMax(min=0.0, max=0.0, expected_type=int, allow_none=True)
 
-    boolean_default = Bool()
-    boolean_not_none = Bool(allow_none=False)
-    boolean_none = Bool(allow_none=True)
+    bool_default = Bool()
+    bool_not_none = Bool(allow_none=False)
+    bool_none = Bool(allow_none=True)
 
     datetime_default = DateTime()
     datetime_not_none = DateTime(allow_none=False)
@@ -70,6 +71,10 @@ class WithDescriptors(Serialisable):
     string_default = String()
     string_not_none = String(allow_none=False)
     string_none = String(allow_none=True)
+
+    float_default = Float()
+    float_not_none = Float(allow_none=False)
+    float_none = Float(allow_none=True)
 
     # Test inferred annotation
     assert_type(descriptor, Descriptor[str])
@@ -105,9 +110,9 @@ class WithDescriptors(Serialisable):
     assert_type(minmax_int, MinMax[int, Literal[False]])
     assert_type(minmax_int_none, MinMax[int, Literal[True]])
 
-    assert_type(boolean_default, Bool[Literal[False]])
-    assert_type(boolean_not_none, Bool[Literal[False]])
-    assert_type(boolean_none, Bool[Literal[True]])
+    assert_type(bool_default, Bool[Literal[False]])
+    assert_type(bool_not_none, Bool[Literal[False]])
+    assert_type(bool_none, Bool[Literal[True]])
 
     assert_type(datetime_default, DateTime[Literal[False]])
     assert_type(datetime_not_none, DateTime[Literal[False]])
@@ -116,6 +121,10 @@ class WithDescriptors(Serialisable):
     assert_type(string_default, String[Literal[False]])
     assert_type(string_not_none, String[Literal[False]])
     assert_type(string_none, String[Literal[True]])
+
+    assert_type(float_default, Float[Literal[False]])
+    assert_type(float_not_none, Float[Literal[False]])
+    assert_type(float_none, Float[Literal[True]])
 
 
 with_descriptors = WithDescriptors()
@@ -159,14 +168,17 @@ assert_type(with_descriptors.minmax_float_none, Union[float, None])
 assert_type(with_descriptors.minmax_int, int)
 assert_type(with_descriptors.minmax_int_none, Union[int, None])
 
-assert_type(with_descriptors.boolean_not_none, bool)
-assert_type(with_descriptors.boolean_none, Union[bool, None])
+assert_type(with_descriptors.bool_not_none, bool)
+assert_type(with_descriptors.bool_none, Union[bool, None])
 
 assert_type(with_descriptors.datetime_not_none, datetime)
 assert_type(with_descriptors.datetime_none, Union[datetime, None])
 
 assert_type(with_descriptors.string_not_none, str)
 assert_type(with_descriptors.string_none, Union[str, None])
+
+assert_type(with_descriptors.float_not_none, float)
+assert_type(with_descriptors.float_none, Union[float, None])
 
 
 # Test setters (expected type, None, unexpected type)
@@ -290,19 +302,19 @@ with_descriptors.minmax_int_none = None
 with_descriptors.minmax_int_none = object()  # type: ignore
 
 
-with_descriptors.boolean_not_none = False
-with_descriptors.boolean_not_none = "0"
-with_descriptors.boolean_not_none = 0
-with_descriptors.boolean_not_none = None  # pyright: ignore[reportGeneralTypeIssues] # false negative in mypy
-with_descriptors.boolean_not_none = 0.0  # type: ignore
-with_descriptors.boolean_not_none = object()  # type: ignore
+with_descriptors.bool_not_none = False
+with_descriptors.bool_not_none = "0"
+with_descriptors.bool_not_none = 0
+with_descriptors.bool_not_none = None  # pyright: ignore[reportGeneralTypeIssues] # false negative in mypy
+with_descriptors.bool_not_none = 0.0  # type: ignore
+with_descriptors.bool_not_none = object()  # type: ignore
 
-with_descriptors.boolean_none = False
-with_descriptors.boolean_none = "0"
-with_descriptors.boolean_none = 0
-with_descriptors.boolean_none = None
-with_descriptors.boolean_none = 0.0  # type: ignore
-with_descriptors.boolean_none = object()  # type: ignore
+with_descriptors.bool_none = False
+with_descriptors.bool_none = "0"
+with_descriptors.bool_none = 0
+with_descriptors.bool_none = None
+with_descriptors.bool_none = 0.0  # type: ignore
+with_descriptors.bool_none = object()  # type: ignore
 
 
 with_descriptors.datetime_not_none = datetime(0, 0, 0)
@@ -327,3 +339,16 @@ with_descriptors.string_not_none = 0  # type: ignore
 with_descriptors.string_none = ""
 with_descriptors.string_none = None
 with_descriptors.string_none = 0  # type: ignore
+
+
+with_descriptors.float_not_none = 0
+with_descriptors.float_not_none = 0.0
+with_descriptors.float_not_none = "0"
+with_descriptors.float_not_none = None  # pyright: ignore[reportGeneralTypeIssues] # false negative in mypy
+with_descriptors.float_not_none = object()  # pyright: ignore[reportGeneralTypeIssues] # false negative in mypy
+
+with_descriptors.float_none = 0
+with_descriptors.float_none = 0.0
+with_descriptors.float_none = "0"
+with_descriptors.float_none = None
+with_descriptors.float_none = object()  # FIXME: False positive(?) in pyright and mypy

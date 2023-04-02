@@ -4,7 +4,7 @@ from typing import ClassVar, Generic, TypeVar
 from typing_extensions import Literal, Self
 
 from openpyxl.descriptors import Strict
-from openpyxl.descriptors.base import Alias, Bool, Float, Integer, String, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, Float, Integer, String, _ConvertibleToBool, _ConvertibleToFloat
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.styleable import StyleableObject
 from openpyxl.utils.bound_dictionary import BoundDictionary
@@ -39,7 +39,7 @@ class Dimension(Strict, StyleableObject):
 class RowDimension(Dimension):
     r: Alias
     s: Alias
-    ht: Float
+    ht: Float[Literal[True]]
     height: Alias
     thickBot: Bool[Literal[False]]
     thickTop: Bool[Literal[False]]
@@ -48,7 +48,7 @@ class RowDimension(Dimension):
         self,
         worksheet: Worksheet,
         index: int,
-        ht: Incomplete | None,
+        ht: _ConvertibleToFloat | None,
         customHeight: Unused,
         s: Incomplete | None,
         customFormat: Unused,
@@ -70,7 +70,7 @@ class RowDimension(Dimension):
     def customHeight(self) -> bool: ...
 
 class ColumnDimension(Dimension):
-    width: Float
+    width: Float[Literal[False]]
     bestFit: Bool[Literal[False]]
     auto_size: Alias
     index: String[Literal[False]]  # type:ignore[assignment]
@@ -82,7 +82,7 @@ class ColumnDimension(Dimension):
         self,
         worksheet: Worksheet,
         index: str = "A",
-        width: int = 13,
+        width: _ConvertibleToFloat = 13,
         bestFit: _ConvertibleToBool = False,
         hidden: bool = False,
         outlineLevel: int = 0,
@@ -114,8 +114,8 @@ class DimensionHolder(BoundDictionary[str, _DimT], Generic[_DimT]):
 class SheetFormatProperties(Serialisable):
     tagname: str
     baseColWidth: Incomplete
-    defaultColWidth: Incomplete
-    defaultRowHeight: Incomplete
+    defaultColWidth: Float[Literal[True]]
+    defaultRowHeight: Float[Literal[False]]
     customHeight: Bool[Literal[True]]
     zeroHeight: Bool[Literal[True]]
     thickTop: Bool[Literal[True]]
@@ -125,8 +125,8 @@ class SheetFormatProperties(Serialisable):
     def __init__(
         self,
         baseColWidth: int = 8,
-        defaultColWidth: Incomplete | None = None,
-        defaultRowHeight: int = 15,
+        defaultColWidth: _ConvertibleToFloat | None = None,
+        defaultRowHeight: _ConvertibleToFloat = 15,
         customHeight: _ConvertibleToBool | None = None,
         zeroHeight: _ConvertibleToBool | None = None,
         thickTop: _ConvertibleToBool | None = None,

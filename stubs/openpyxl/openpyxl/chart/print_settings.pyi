@@ -1,25 +1,31 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Alias, Typed
+from openpyxl.descriptors.base import Alias, Float, Typed, _ConvertibleToFloat
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.header_footer import HeaderFooter
 from openpyxl.worksheet.page import PrintPageSetup
 
 class PageMargins(Serialisable):
     tagname: str
-    l: Incomplete
+    l: Float[Literal[False]]
     left: Alias
-    r: Incomplete
+    r: Float[Literal[False]]
     right: Alias
-    t: Incomplete
+    t: Float[Literal[False]]
     top: Alias
-    b: Incomplete
+    b: Float[Literal[False]]
     bottom: Alias
-    header: Incomplete
-    footer: Incomplete
+    header: Float[Literal[False]]
+    footer: Float[Literal[False]]
     def __init__(
-        self, l: float = 0.75, r: float = 0.75, t: int = 1, b: int = 1, header: float = 0.5, footer: float = 0.5
+        self,
+        l: _ConvertibleToFloat = 0.75,
+        r: _ConvertibleToFloat = 0.75,
+        t: _ConvertibleToFloat = 1,
+        b: _ConvertibleToFloat = 1,
+        header: _ConvertibleToFloat = 0.5,
+        footer: _ConvertibleToFloat = 0.5,
     ) -> None: ...
 
 class PrintSettings(Serialisable):

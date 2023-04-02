@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, NoneSet, String, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, Float, NoneSet, String, _ConvertibleToBool, _ConvertibleToFloat
 from openpyxl.descriptors.serialisable import Serialisable
 
 _WorkbookPropertiesShowObjects: TypeAlias = Literal["all", "placeholders"]
@@ -61,7 +61,7 @@ class CalcProperties(Serialisable):
     refMode: NoneSet[_CalcPropertiesRefMode]
     iterate: Bool[Literal[True]]
     iterateCount: Incomplete
-    iterateDelta: Incomplete
+    iterateDelta: Float[Literal[True]]
     fullPrecision: Bool[Literal[True]]
     calcCompleted: Bool[Literal[True]]
     calcOnSave: Bool[Literal[True]]
@@ -76,7 +76,7 @@ class CalcProperties(Serialisable):
         refMode: _CalcPropertiesRefMode | Literal["none"] | None = None,
         iterate: _ConvertibleToBool | None = None,
         iterateCount: Incomplete | None = None,
-        iterateDelta: Incomplete | None = None,
+        iterateDelta: _ConvertibleToFloat | None = None,
         fullPrecision: _ConvertibleToBool | None = None,
         calcCompleted: _ConvertibleToBool | None = None,
         calcOnSave: _ConvertibleToBool | None = None,

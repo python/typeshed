@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, Set, String, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, Float, Set, String, Typed, _ConvertibleToBool, _ConvertibleToFloat
 from openpyxl.descriptors.serialisable import Serialisable
 
 from .colors import ColorChoice
@@ -68,9 +68,9 @@ class ColorChangeEffect(Serialisable):
     def __init__(self, useA: _ConvertibleToBool | None, clrFrom: Color, clrTo: Color) -> None: ...
 
 class BlurEffect(Serialisable):
-    rad: Incomplete
+    rad: Float[Literal[False]]
     grow: Bool[Literal[True]]
-    def __init__(self, rad: Incomplete | None = None, grow: _ConvertibleToBool | None = None) -> None: ...
+    def __init__(self, rad: _ConvertibleToFloat, grow: _ConvertibleToBool | None = None) -> None: ...
 
 class BiLevelEffect(Serialisable):
     thresh: Incomplete
@@ -102,7 +102,7 @@ class AlphaBiLevelEffect(Serialisable):
     def __init__(self, thresh: Incomplete | None = None) -> None: ...
 
 class GlowEffect(ColorChoice):
-    rad: Incomplete
+    rad: Float[Literal[False]]
     scrgbClr: Incomplete
     srgbClr: Incomplete
     hslClr: Incomplete
@@ -110,11 +110,11 @@ class GlowEffect(ColorChoice):
     schemeClr: Incomplete
     prstClr: Incomplete
     __elements__: Incomplete
-    def __init__(self, rad: Incomplete | None = None, **kw) -> None: ...
+    def __init__(self, rad: _ConvertibleToFloat, **kw) -> None: ...
 
 class InnerShadowEffect(ColorChoice):
-    blurRad: Incomplete
-    dist: Incomplete
+    blurRad: Float[Literal[False]]
+    dist: Float[Literal[False]]
     dir: Incomplete
     scrgbClr: Incomplete
     srgbClr: Incomplete
@@ -123,14 +123,12 @@ class InnerShadowEffect(ColorChoice):
     schemeClr: Incomplete
     prstClr: Incomplete
     __elements__: Incomplete
-    def __init__(
-        self, blurRad: Incomplete | None = None, dist: Incomplete | None = None, dir: Incomplete | None = None, **kw
-    ) -> None: ...
+    def __init__(self, blurRad: _ConvertibleToFloat, dist: _ConvertibleToFloat, dir: Incomplete | None = None, **kw) -> None: ...
 
 class OuterShadow(ColorChoice):
     tagname: str
-    blurRad: Incomplete
-    dist: Incomplete
+    blurRad: Float[Literal[True]]
+    dist: Float[Literal[True]]
     dir: Incomplete
     sx: Incomplete
     sy: Incomplete
@@ -147,8 +145,8 @@ class OuterShadow(ColorChoice):
     __elements__: Incomplete
     def __init__(
         self,
-        blurRad: Incomplete | None,
-        dist: Incomplete | None,
+        blurRad: _ConvertibleToFloat | None,
+        dist: _ConvertibleToFloat | None,
         dir: Incomplete | None,
         sx: Incomplete | None,
         sy: Incomplete | None,
@@ -161,7 +159,7 @@ class OuterShadow(ColorChoice):
 
 class PresetShadowEffect(ColorChoice):
     prst: Set[_PresetShadowEffectPrst]
-    dist: Incomplete
+    dist: Float[Literal[False]]
     dir: Incomplete
     scrgbClr: Incomplete
     srgbClr: Incomplete
@@ -170,17 +168,15 @@ class PresetShadowEffect(ColorChoice):
     schemeClr: Incomplete
     prstClr: Incomplete
     __elements__: Incomplete
-    def __init__(
-        self, prst: _PresetShadowEffectPrst, dist: Incomplete | None = None, dir: Incomplete | None = None, **kw
-    ) -> None: ...
+    def __init__(self, prst: _PresetShadowEffectPrst, dist: _ConvertibleToFloat, dir: Incomplete | None = None, **kw) -> None: ...
 
 class ReflectionEffect(Serialisable):
-    blurRad: Incomplete
+    blurRad: Float[Literal[False]]
     stA: Incomplete
     stPos: Incomplete
     endA: Incomplete
     endPos: Incomplete
-    dist: Incomplete
+    dist: Float[Literal[False]]
     dir: Incomplete
     fadeDir: Incomplete
     sx: Incomplete
@@ -191,12 +187,12 @@ class ReflectionEffect(Serialisable):
     rotWithShape: Bool[Literal[True]]
     def __init__(
         self,
-        blurRad: Incomplete | None,
+        blurRad: _ConvertibleToFloat,
         stA: Incomplete | None,
         stPos: Incomplete | None,
         endA: Incomplete | None,
         endPos: Incomplete | None,
-        dist: Incomplete | None,
+        dist: _ConvertibleToFloat,
         dir: Incomplete | None,
         fadeDir: Incomplete | None,
         sx: Incomplete | None,
@@ -208,8 +204,8 @@ class ReflectionEffect(Serialisable):
     ) -> None: ...
 
 class SoftEdgesEffect(Serialisable):
-    rad: Incomplete
-    def __init__(self, rad: Incomplete | None = None) -> None: ...
+    rad: Float[Literal[False]]
+    def __init__(self, rad: _ConvertibleToFloat) -> None: ...
 
 class EffectList(Serialisable):
     blur: Typed[BlurEffect, Literal[True]]

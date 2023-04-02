@@ -6,6 +6,7 @@ from openpyxl.descriptors.base import (
     Alias,
     Bool,
     DateTime,
+    Float,
     MinMax,
     NoneSet,
     Set,
@@ -150,16 +151,16 @@ class ColorFilter(Serialisable):
 class DynamicFilter(Serialisable):
     tagname: str
     type: Set[_DynamicFilterType]
-    val: Incomplete
+    val: Float[Literal[True]]
     valIso: DateTime[Literal[True]]
-    maxVal: Incomplete
+    maxVal: Float[Literal[True]]
     maxValIso: DateTime[Literal[True]]
     def __init__(
         self,
         type: _DynamicFilterType,
-        val: Incomplete | None = None,
+        val: _ConvertibleToFloat | None = None,
         valIso: datetime | str | None = None,
-        maxVal: Incomplete | None = None,
+        maxVal: _ConvertibleToFloat | None = None,
         maxValIso: datetime | str | None = None,
     ) -> None: ...
 
@@ -182,14 +183,14 @@ class Top10(Serialisable):
     tagname: str
     top: Bool[Literal[True]]
     percent: Bool[Literal[True]]
-    val: Incomplete
-    filterVal: Incomplete
+    val: Float[Literal[False]]
+    filterVal: Float[Literal[True]]
     def __init__(
         self,
-        top: _ConvertibleToBool | None = None,
-        percent: _ConvertibleToBool | None = None,
-        val: Incomplete | None = None,
-        filterVal: Incomplete | None = None,
+        top: _ConvertibleToBool | None,
+        percent: _ConvertibleToBool | None,
+        val: _ConvertibleToFloat,
+        filterVal: _ConvertibleToFloat | None = None,
     ) -> None: ...
 
 class DateGroupItem(Serialisable):

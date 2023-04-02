@@ -1,8 +1,8 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, DateTime, Set, String, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, DateTime, Float, Set, String, Typed, _ConvertibleToBool, _ConvertibleToFloat
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.pivot.fields import Error, Missing, Number, Text, TupleList
@@ -327,21 +327,21 @@ class RangePr(Serialisable):
     autoStart: Bool[Literal[True]]
     autoEnd: Bool[Literal[True]]
     groupBy: Set[_RangePrGroupBy]
-    startNum: Incomplete
-    endNum: Incomplete
+    startNum: Float[Literal[True]]
+    endNum: Float[Literal[True]]
     startDate: DateTime[Literal[True]]
     endDate: DateTime[Literal[True]]
-    groupInterval: Incomplete
+    groupInterval: Float[Literal[True]]
     def __init__(
         self,
         autoStart: _ConvertibleToBool | None = True,
         autoEnd: _ConvertibleToBool | None = True,
         groupBy: _RangePrGroupBy = "range",
-        startNum: Incomplete | None = None,
-        endNum: Incomplete | None = None,
+        startNum: _ConvertibleToFloat | None = None,
+        endNum: _ConvertibleToFloat | None = None,
         startDate: datetime | str | None = None,
         endDate: datetime | str | None = None,
-        groupInterval: int = 1,
+        groupInterval: _ConvertibleToFloat | None = 1,
     ) -> None: ...
 
 class FieldGroup(Serialisable):
@@ -377,8 +377,8 @@ class SharedItems(Serialisable):
     containsMixedTypes: Bool[Literal[True]]
     containsNumber: Bool[Literal[True]]
     containsInteger: Bool[Literal[True]]
-    minValue: Incomplete
-    maxValue: Incomplete
+    minValue: Float[Literal[True]]
+    maxValue: Float[Literal[True]]
     minDate: DateTime[Literal[True]]
     maxDate: DateTime[Literal[True]]
     longText: Bool[Literal[True]]
@@ -394,11 +394,11 @@ class SharedItems(Serialisable):
         containsMixedTypes: _ConvertibleToBool | None = None,
         containsNumber: _ConvertibleToBool | None = None,
         containsInteger: _ConvertibleToBool | None = None,
-        minValue: Incomplete | None = None,
-        maxValue: Incomplete | None = None,
+        minValue: _ConvertibleToFloat | None = None,
+        maxValue: _ConvertibleToFloat | None = None,
         minDate: datetime | str | None = None,
         maxDate: datetime | str | None = None,
-        count: Incomplete | None = None,
+        count: Unused = None,
         longText: _ConvertibleToBool | None = None,
     ) -> None: ...
     @property
@@ -521,7 +521,7 @@ class CacheDefinition(Serialisable):
     optimizeMemory: Bool[Literal[True]]
     enableRefresh: Bool[Literal[True]]
     refreshedBy: String[Literal[True]]
-    refreshedDate: Incomplete
+    refreshedDate: Float[Literal[True]]
     refreshedDateIso: DateTime[Literal[True]]
     backgroundQuery: Bool[Literal[True]]
     missingItemsLimit: Incomplete
@@ -553,7 +553,7 @@ class CacheDefinition(Serialisable):
         optimizeMemory: _ConvertibleToBool | None,
         enableRefresh: _ConvertibleToBool | None,
         refreshedBy: str | None,
-        refreshedDate: Incomplete | None,
+        refreshedDate: _ConvertibleToFloat | None,
         refreshedDateIso: datetime | str | None,
         backgroundQuery: _ConvertibleToBool | None,
         missingItemsLimit: Incomplete | None,

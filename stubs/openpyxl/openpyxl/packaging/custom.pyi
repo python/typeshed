@@ -26,7 +26,9 @@ class NestedBoolText(Bool[_N], NestedText): ...  # type: ignore[misc]
 class _TypedProperty(Strict, Generic[_T]):
     name: String[Literal[False]]
     # Since this is internal, just list all possible values
-    value: Integer | Float | String[Literal[True]] | DateTime[Literal[False]] | Bool[Literal[False]] | String[Literal[False]]
+    value: Integer[Literal[False]] | Float[Literal[False]] | String[Literal[True]] | DateTime[Literal[False]] | Bool[
+        Literal[False]
+    ] | String[Literal[False]]
     def __init__(self, name: str, value: _T) -> None: ...
     def __eq__(self, other: _TypedProperty[Any]) -> bool: ...  # type: ignore[override]
 
@@ -34,7 +36,7 @@ class IntProperty(_TypedProperty[_ConvertibleToInt]):
     value: Integer
 
 class FloatProperty(_TypedProperty[_ConvertibleToFloat]):
-    value: Float
+    value: Float[Literal[False]]
 
 class StringProperty(_TypedProperty[str | None]):
     value: String[Literal[True]]

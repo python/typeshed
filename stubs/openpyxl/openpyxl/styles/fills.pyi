@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from typing_extensions import Final, Literal, TypeAlias
 
 from openpyxl.descriptors import Sequence
-from openpyxl.descriptors.base import Alias, MinMax, NoneSet, Set, _ConvertibleToFloat
+from openpyxl.descriptors.base import Alias, Float, MinMax, NoneSet, Set, _ConvertibleToFloat
 from openpyxl.descriptors.serialisable import Serialisable
 
 FILL_NONE: Final = "none"
@@ -91,20 +91,20 @@ class GradientFill(Fill):
     tagname: str
     type: Set[_GradientFillType]
     fill_type: Alias
-    degree: Incomplete
-    left: Incomplete
-    right: Incomplete
-    top: Incomplete
-    bottom: Incomplete
+    degree: Float[Literal[False]]
+    left: Float[Literal[False]]
+    right: Float[Literal[False]]
+    top: Float[Literal[False]]
+    bottom: Float[Literal[False]]
     stop: Incomplete
     def __init__(
         self,
         type: _GradientFillType = "linear",
-        degree: int = 0,
-        left: int = 0,
-        right: int = 0,
-        top: int = 0,
-        bottom: int = 0,
+        degree: _ConvertibleToFloat = 0,
+        left: _ConvertibleToFloat = 0,
+        right: _ConvertibleToFloat = 0,
+        top: _ConvertibleToFloat = 0,
+        bottom: _ConvertibleToFloat = 0,
         stop=(),
     ) -> None: ...
     def __iter__(self): ...

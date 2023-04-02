@@ -232,8 +232,13 @@ class NoneSet(Set[_T | None]):
 class Integer(Convertible):
     expected_type: Incomplete
 
-class Float(Convertible):
-    expected_type: Incomplete
+class Float(Convertible[float, _N]):
+    allow_none: _N
+    expected_type: type[float]
+    @overload
+    def __init__(self: Float[Literal[True]], name: str | None = None, *, allow_none: Literal[True]) -> None: ...
+    @overload
+    def __init__(self: Float[Literal[False]], name: str | None = None, *, allow_none: Literal[False] = False) -> None: ...
 
 class Bool(Convertible[bool, _N]):
     expected_type: type[bool]

@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, NoneSet, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, Float, NoneSet, _ConvertibleToBool, _ConvertibleToFloat
 from openpyxl.descriptors.serialisable import Serialisable
 
 _PrintPageSetupOrientation: TypeAlias = Literal["default", "portrait", "landscape"]
@@ -86,12 +86,18 @@ class PrintOptions(Serialisable):
 
 class PageMargins(Serialisable):
     tagname: str
-    left: Incomplete
-    right: Incomplete
-    top: Incomplete
-    bottom: Incomplete
-    header: Incomplete
-    footer: Incomplete
+    left: Float[Literal[False]]
+    right: Float[Literal[False]]
+    top: Float[Literal[False]]
+    bottom: Float[Literal[False]]
+    header: Float[Literal[False]]
+    footer: Float[Literal[False]]
     def __init__(
-        self, left: float = 0.75, right: float = 0.75, top: int = 1, bottom: int = 1, header: float = 0.5, footer: float = 0.5
+        self,
+        left: _ConvertibleToFloat = 0.75,
+        right: _ConvertibleToFloat = 0.75,
+        top: _ConvertibleToFloat = 1,
+        bottom: _ConvertibleToFloat = 1,
+        header: _ConvertibleToFloat = 0.5,
+        footer: _ConvertibleToFloat = 0.5,
     ) -> None: ...

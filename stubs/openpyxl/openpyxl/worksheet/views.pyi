@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, NoneSet, Set, String, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, Float, NoneSet, Set, String, Typed, _ConvertibleToBool, _ConvertibleToFloat
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
@@ -10,15 +10,15 @@ _SheetViewView: TypeAlias = Literal["normal", "pageBreakPreview", "pageLayout"]
 _PaneState: TypeAlias = Literal["split", "frozen", "frozenSplit"]
 
 class Pane(Serialisable):
-    xSplit: Incomplete
-    ySplit: Incomplete
+    xSplit: Float[Literal[True]]
+    ySplit: Float[Literal[True]]
     topLeftCell: String[Literal[True]]
     activePane: Set[_Pane]
     state: Set[_PaneState]
     def __init__(
         self,
-        xSplit: Incomplete | None = None,
-        ySplit: Incomplete | None = None,
+        xSplit: _ConvertibleToFloat | None = None,
+        ySplit: _ConvertibleToFloat | None = None,
         topLeftCell: str | None = None,
         activePane: _Pane = "topLeft",
         state: _PaneState = "split",
