@@ -37,8 +37,8 @@ class WithDescriptors(Serialisable):
     noneset_tuple = NoneSet(values=("a", 1, 0.0))
     noneset_list = NoneSet(values=["a", 1, 0.0])
 
-    length_list = Length[List[str]](length=1)
     length_tuple = Length[Tuple[str, str]](length=1)  # Can't validate tuple length in a generic manner
+    length_list = Length[List[str]](length=1)
     length_invalid = Length[object](length=1)  # type: ignore
 
     match_pattern_str_default = MatchPattern(pattern="")
@@ -93,8 +93,8 @@ class WithDescriptors(Serialisable):
     assert_type(noneset_tuple, NoneSet[Union[Literal["a", 1], float]])  # type: ignore[assert-type]  # False-positive in mypy
     assert_type(noneset_list, NoneSet[Union[str, float]])  # type: ignore[assert-type]  # False-positive in mypy# int and float are merged in generic unions
 
-    assert_type(length_list, Length[list[str]])
     assert_type(length_tuple, Length[tuple[str, str]])
+    assert_type(length_list, Length[list[str]])
 
     assert_type(match_pattern_str_default, MatchPattern[str, Literal[False]])
     assert_type(match_pattern_str, MatchPattern[str, Literal[False]])
@@ -152,15 +152,14 @@ assert_type(with_descriptors.typed_not_none, str)  # type: ignore[assert-type]  
 assert_type(with_descriptors.typed_none, Union[str, None])
 
 assert_type(with_descriptors.set_tuple, Union[Literal["a", 1], float])  # type: ignore[assert-type]  # False-positive in mypy
-assert_type(with_descriptors.set_tuple_none, Union[Literal["a", 1, None], float])  # type: ignore[assert-type]  # False-positive in mypy
 assert_type(with_descriptors.set_list, Union[str, int, float])  # type: ignore[assert-type]  # False-positive in mypy  # Literals are simplified in non-tuples
 assert_type(with_descriptors.set_tuple_none, Union[Literal["a", 1, None], float])  # type: ignore[assert-type]  # False-positive in mypy
 
 assert_type(with_descriptors.noneset_tuple, Union[Literal["a", 1], float, None])  # type: ignore[assert-type]  # False-positive in mypy
 assert_type(with_descriptors.noneset_list, Union[str, float, None])  # type: ignore[assert-type]  # False-positive in mypy  # int and float are merged in generic unions
 
-assert_type(with_descriptors.length_list, list[str])
 assert_type(with_descriptors.length_tuple, tuple[str, str])
+assert_type(with_descriptors.length_list, list[str])
 
 assert_type(with_descriptors.match_pattern_str, str)  # type: ignore[assert-type]  # False-positive in mypy
 assert_type(with_descriptors.match_pattern_str_none, Union[str, None])
@@ -228,6 +227,7 @@ with_descriptors.set_tuple_none = None
 with_descriptors.set_tuple_none = "none"  # pyright: ignore[reportGeneralTypeIssues] # false negative in mypy
 with_descriptors.set_tuple_none = object()  # pyright: ignore[reportGeneralTypeIssues] # false negative in mypy
 
+
 with_descriptors.noneset_tuple = "a"
 with_descriptors.noneset_tuple = 0
 with_descriptors.noneset_tuple = 0.0
@@ -244,15 +244,15 @@ with_descriptors.noneset_list = object()  # pyright: ignore[reportGeneralTypeIss
 
 
 # NOTE: Can't validate tuple length in a generic manner
-with_descriptors.length_list = ["a", "a"]
-with_descriptors.length_list = None  # type: ignore
-with_descriptors.length_list = ("a", "a")  # type: ignore
-with_descriptors.length_list = ""  # type: ignore
-
 with_descriptors.length_tuple = ("a", "a")
 with_descriptors.length_tuple = None  # type: ignore
 with_descriptors.length_tuple = ["a", "a"]  # type: ignore
 with_descriptors.length_tuple = ""  # type: ignore
+
+with_descriptors.length_list = ["a", "a"]
+with_descriptors.length_list = None  # type: ignore
+with_descriptors.length_list = ("a", "a")  # type: ignore
+with_descriptors.length_list = ""  # type: ignore
 
 
 with_descriptors.match_pattern_str = ""
