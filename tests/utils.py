@@ -135,4 +135,6 @@ def spec_matches_path(spec: pathspec.PathSpec, path: Path) -> bool:
     normalized_path = path.as_posix()
     if path.is_dir():
         normalized_path += "/"
-    return spec.match_file(normalized_path)
+    # pathspec.PathSpec.match_file has partially Unknown file parameter
+    # https://github.com/cpburnz/python-pathspec/pull/75
+    return spec.match_file(normalized_path)  # pyright: ignore[reportUnknownMemberType]

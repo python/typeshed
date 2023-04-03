@@ -1,3 +1,0 @@
-# failed to import, ModuleNotFoundError: No module named 'fcntl'
-# https://github.com/python-xlib/python-xlib/pull/217
-Xlib.support.unix_connect

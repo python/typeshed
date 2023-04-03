@@ -14,12 +14,14 @@ ReturnCode: TypeAlias = int
 
 SUPPORTED_PLATFORMS = ("linux", "darwin", "win32")
 SUPPORTED_VERSIONS = ("3.11", "3.10", "3.9")
+LOWEST_SUPPORTED_VERSION = min(SUPPORTED_VERSIONS, key=lambda x: int(x.split(".")[1]))
 DIRECTORIES_TO_TEST = ("scripts", "tests")
+EMPTY: list[str] = []
 
 parser = argparse.ArgumentParser(description="Run mypy on typeshed's own code in the `scripts` and `tests` directories.")
 parser.add_argument(
     "dir",
-    choices=DIRECTORIES_TO_TEST + ([],),
+    choices=DIRECTORIES_TO_TEST + (EMPTY,),
     nargs="*",
     action="extend",
     help=f"Test only these top-level typeshed directories (defaults to {DIRECTORIES_TO_TEST!r})",
@@ -37,7 +39,7 @@ parser.add_argument(
     choices=SUPPORTED_VERSIONS,
     nargs="*",
     action="extend",
-    help="Run mypy for certain Python versions (defaults to sys.version_info[:2])",
+    help=f"Run mypy for certain Python versions (defaults to {LOWEST_SUPPORTED_VERSION!r})",
 )
 
 
@@ -76,7 +78,7 @@ def main() -> ReturnCode:
     args = parser.parse_args()
     directories = args.dir or DIRECTORIES_TO_TEST
     platforms = args.platform or [sys.platform]
-    versions = args.python_version or [f"3.{sys.version_info[1]}"]
+    versions = args.python_version or [LOWEST_SUPPORTED_VERSION]
 
     code = 0
 
