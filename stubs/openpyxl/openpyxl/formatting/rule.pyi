@@ -66,7 +66,7 @@ _RuleType: TypeAlias = Literal[
 ]
 
 class ValueDescriptor(Float[Incomplete]):
-    expected_type: Incomplete
+    expected_type: type[Incomplete]
     def __set__(self, instance: Serialisable | Strict, value) -> None: ...  # type: ignore[override]
 
 class FormatObject(Serialisable):

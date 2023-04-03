@@ -18,10 +18,9 @@ from openpyxl.descriptors.base import (
 from openpyxl.descriptors.nested import NestedText
 
 _T = TypeVar("_T")
-_N = TypeVar("_N", bound=bool)
 
 # Does not reimplement anything, so runtime also has incompatible supertypes
-class NestedBoolText(Bool[_N], NestedText): ...  # type: ignore[misc]
+class NestedBoolText(Bool[Incomplete], NestedText): ...  # type: ignore[misc]
 
 class _TypedProperty(Strict, Generic[_T]):
     name: String[Literal[False]]

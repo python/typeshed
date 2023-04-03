@@ -1,3 +1,5 @@
+# Needed until mypy issues are solved
+# pyright: reportUnnecessaryTypeIgnoreComment=false
 from __future__ import annotations
 
 from _typeshed import ReadableBuffer
@@ -94,8 +96,8 @@ class WithDescriptors(Serialisable):
     assert_type(noneset_tuple, NoneSet[Union[Literal["a", 1], float]])  # type: ignore[assert-type]  # False-positive in mypy
     assert_type(noneset_list, NoneSet[Union[str, float]])  # type: ignore[assert-type]  # False-positive in mypy# int and float are merged in generic unions
 
-    assert_type(length_tuple, Length[tuple[str, str]])
-    assert_type(length_list, Length[list[str]])
+    assert_type(length_tuple, Length[Tuple[str, str]])
+    assert_type(length_list, Length[List[str]])
 
     assert_type(match_pattern_str_default, MatchPattern[str, Literal[False]])
     assert_type(match_pattern_str, MatchPattern[str, Literal[False]])
@@ -167,8 +169,8 @@ assert_type(with_descriptors.set_tuple_none, Union[Literal["a", 1, None], float]
 assert_type(with_descriptors.noneset_tuple, Union[Literal["a", 1], float, None])  # type: ignore[assert-type]  # False-positive in mypy
 assert_type(with_descriptors.noneset_list, Union[str, float, None])  # type: ignore[assert-type]  # False-positive in mypy  # int and float are merged in generic unions
 
-assert_type(with_descriptors.length_tuple, tuple[str, str])
-assert_type(with_descriptors.length_list, list[str])
+assert_type(with_descriptors.length_tuple, Tuple[str, str])
+assert_type(with_descriptors.length_list, List[str])
 
 assert_type(with_descriptors.match_pattern_str, str)  # type: ignore[assert-type]  # False-positive in mypy
 assert_type(with_descriptors.match_pattern_str_none, Union[str, None])
@@ -265,23 +267,23 @@ with_descriptors.length_list = ""  # type: ignore
 
 
 with_descriptors.match_pattern_str = ""
-with_descriptors.match_pattern_str = b""  # type: ignore
 with_descriptors.match_pattern_str = None  # pyright: ignore[reportGeneralTypeIssues] # false negative in mypy
+with_descriptors.match_pattern_str = b""  # type: ignore
 with_descriptors.match_pattern_str = 0  # type: ignore
 
 with_descriptors.match_pattern_str_none = ""
-with_descriptors.match_pattern_str_none = b""  # type: ignore
 with_descriptors.match_pattern_str_none = None
+with_descriptors.match_pattern_str_none = b""  # type: ignore
 with_descriptors.match_pattern_str_none = 0  # type: ignore
 
-with_descriptors.match_pattern_bytes = ""  # type: ignore
 with_descriptors.match_pattern_bytes = b""
 with_descriptors.match_pattern_bytes = None  # pyright: ignore[reportGeneralTypeIssues] # false negative in mypy
+with_descriptors.match_pattern_bytes = ""  # type: ignore
 with_descriptors.match_pattern_bytes = 0  # type: ignore
 
-with_descriptors.match_pattern_bytes_none = ""  # type: ignore
 with_descriptors.match_pattern_bytes_none = b""
 with_descriptors.match_pattern_bytes_none = None
+with_descriptors.match_pattern_bytes_none = ""  # type: ignore
 with_descriptors.match_pattern_bytes_none = 0  # type: ignore
 
 

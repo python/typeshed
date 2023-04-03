@@ -2,12 +2,10 @@ from _typeshed import Incomplete
 from typing import TypeVar
 
 from openpyxl.descriptors import Strict
+from openpyxl.descriptors.base import Bool, Convertible, Descriptor, Float, Integer, MinMax, NoneSet, Set, String
 from openpyxl.descriptors.serialisable import Serialisable
 
-from .base import Bool, Convertible, Descriptor, Float, Integer, MinMax, NoneSet, Set, String
-
-_N = TypeVar("_N", bound=bool)
-_M = TypeVar("_M", int, float)
+_T = TypeVar("_T")
 
 # NOTE: # type: ignore[misc]: Class does not reimplement the relevant methods, so runtime also has incompatible supertypes
 
@@ -37,10 +35,7 @@ class NestedBool(NestedValue, Bool[Incomplete]):  # type: ignore[misc]
 
 class NestedNoneSet(Nested, NoneSet[Incomplete]): ...
 class NestedSet(Nested, Set[Incomplete]): ...
-
-class NestedMinMax(Nested, MinMax[_M, _N]):  # type: ignore[misc]
-    expected_type: type[_M]
-    allow_none: _N
+class NestedMinMax(Nested, MinMax[Incomplete, Incomplete]): ...  # type: ignore[misc]
 
 class EmptyTag(Nested, Bool[Incomplete]):  # type: ignore[misc]
     def from_tree(self, node): ...

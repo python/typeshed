@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import TypeVar
 from typing_extensions import Literal
 
 from openpyxl.chart.data_source import NumFmt
@@ -7,14 +6,12 @@ from openpyxl.descriptors import Strict, Typed
 from openpyxl.descriptors.nested import NestedMinMax
 from openpyxl.descriptors.serialisable import Serialisable
 
-_M = TypeVar("_M", int, float)
-
-class NestedGapAmount(NestedMinMax[_M, Incomplete]):
+class NestedGapAmount(NestedMinMax):
     allow_none: bool
     min: float
     max: float
 
-class NestedOverlap(NestedMinMax[_M, Incomplete]):
+class NestedOverlap(NestedMinMax):
     allow_none: bool
     min: float
     max: float

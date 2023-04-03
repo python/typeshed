@@ -84,7 +84,7 @@ class Stop(Serialisable):
     def __init__(self, color, position: _ConvertibleToFloat) -> None: ...
 
 class StopList(Sequence):
-    expected_type: Incomplete
+    expected_type: type[Incomplete]
     def __set__(self, obj, values) -> None: ...
 
 class GradientFill(Fill):
