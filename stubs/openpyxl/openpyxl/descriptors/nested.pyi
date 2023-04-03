@@ -1,11 +1,8 @@
 from _typeshed import Incomplete
-from typing import TypeVar
 
 from openpyxl.descriptors import Strict
 from openpyxl.descriptors.base import Bool, Convertible, Descriptor, Float, Integer, MinMax, NoneSet, Set, String
 from openpyxl.descriptors.serialisable import Serialisable
-
-_T = TypeVar("_T")
 
 # NOTE: # type: ignore[misc]: Class does not reimplement the relevant methods, so runtime also has incompatible supertypes
 

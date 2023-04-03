@@ -18,17 +18,16 @@ openpyxl.drawing.colors.ColorChoiceDescriptor.expected_type
 openpyxl.styles.colors.ColorDescriptor.expected_type
 
 # Stubtest doesn't like generics here
-openpyxl\.descriptors\.(base\.)?Typed\.allow_none
+openpyxl\.descriptors\.(base\.)?Bool\.allow_none
+openpyxl\.descriptors\.(base\.)?DateTime\.allow_none
+openpyxl\.descriptors\.(base\.)?Float\.allow_none
+openpyxl\.descriptors\.(base\.)?Integer\.allow_none
 openpyxl\.descriptors\.(base\.)?MatchPattern\.allow_none
 openpyxl\.descriptors\.(base\.)?Max\.allow_none
 openpyxl\.descriptors\.(base\.)?Min\.allow_none
 openpyxl\.descriptors\.(base\.)?MinMax\.allow_none
-openpyxl\.descriptors\.(base\.)?nested.NestedMinMax\.allow_none
-openpyxl\.descriptors\.(base\.)?Bool\.allow_none
-openpyxl\.descriptors\.(base\.)?DateTime\.allow_none
 openpyxl\.descriptors\.(base\.)?String\.allow_none
-openpyxl\.descriptors\.(base\.)?Float\.allow_none
-openpyxl\.descriptors\.(base\.)?Integer\.allow_none
+openpyxl\.descriptors\.(base\.)?Typed\.allow_none
 
 # "has a default value but stub argument does not"
 # Runtime has default arguments that would fail
