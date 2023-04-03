@@ -1,3 +1,5 @@
+from _typeshed import StrPath
+from lib2to3.pytree import Node
 from typing import ClassVar
 from typing_extensions import Literal, LiteralString
 
@@ -10,7 +12,7 @@ class FixNext(fixer_base.BaseFix):
     PATTERN: ClassVar[LiteralString]
     order: ClassVar[Literal["pre"]]
     shadowed_next: bool
-    def start_tree(self, tree, filename) -> None: ...
+    def start_tree(self, tree: Node, filename: StrPath) -> None: ...
     def transform(self, node, results) -> None: ...
 
 def is_assign_target(node): ...

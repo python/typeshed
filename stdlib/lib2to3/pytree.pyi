@@ -47,6 +47,8 @@ class Node(Base):
     fixers_applied: MutableSequence[BaseFix] | None
     # Is Unbound until set in refactor.RefactoringTool
     future_features: frozenset[Incomplete]
+    # Is Unbound until set in pgen2.parse.Parser.pop
+    used_names: set[str]
     def __init__(
         self,
         type: int,
