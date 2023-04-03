@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from typing import TypeVar
 from typing_extensions import Literal
 
-from . import Integer, MatchPattern, MinMax, String
+from . import Integer, MatchPattern, MinMax, Strict, String
 from .serialisable import Serialisable
 
 _N = TypeVar("_N", bound=bool)
@@ -25,7 +25,7 @@ class Percentage(MinMax[float, Incomplete]):
     pattern: str
     min: float
     max: float
-    def __set__(self, instance: Serialisable, value: Incomplete) -> None: ...
+    def __set__(self, instance: Serialisable | Strict, value: Incomplete) -> None: ...
 
 class Extension(Serialisable):
     uri: String[Literal[False]]
@@ -48,4 +48,4 @@ class Guid(MatchPattern[str, Incomplete]):
 class CellRange(MatchPattern[str, Incomplete]):
     pattern: str
     allow_none: bool
-    def __set__(self, instance: Serialisable, value) -> None: ...
+    def __set__(self, instance: Serialisable | Strict, value) -> None: ...

@@ -2,6 +2,7 @@ from _typeshed import Incomplete, Unused
 from array import array
 from typing_extensions import Literal
 
+from openpyxl.descriptors import Strict
 from openpyxl.descriptors.base import Bool, Integer, Typed, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
@@ -11,8 +12,8 @@ from openpyxl.styles.protection import Protection
 class ArrayDescriptor:
     key: Incomplete
     def __init__(self, key) -> None: ...
-    def __get__(self, instance: Serialisable, cls: Unused): ...
-    def __set__(self, instance: Serialisable, value) -> None: ...
+    def __get__(self, instance: Serialisable | Strict, cls: Unused): ...
+    def __set__(self, instance: Serialisable | Strict, value) -> None: ...
 
 class StyleArray(array[Incomplete]):
     tagname: str

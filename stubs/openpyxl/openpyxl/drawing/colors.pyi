@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from typing import overload
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors import Typed
+from openpyxl.descriptors import Strict, Typed
 from openpyxl.descriptors.base import Alias, Integer, MinMax, Set, _ConvertibleToFloat, _ConvertibleToInt
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
@@ -311,4 +311,4 @@ class ColorMapping(Serialisable):
 class ColorChoiceDescriptor(Typed[ColorChoice, Incomplete]):
     expected_type: type[ColorChoice]
     allow_none: Literal[True]
-    def __set__(self, instance: Serialisable, value) -> None: ...
+    def __set__(self, instance: Serialisable | Strict, value) -> None: ...

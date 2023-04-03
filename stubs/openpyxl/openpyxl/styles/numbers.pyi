@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal
 
-from openpyxl.descriptors import String
+from openpyxl.descriptors import Strict, String
 from openpyxl.descriptors.base import Integer, _ConvertibleToInt
 from openpyxl.descriptors.serialisable import Serialisable
 
@@ -56,7 +56,7 @@ def builtin_format_code(index): ...
 def builtin_format_id(fmt): ...
 
 class NumberFormatDescriptor(String[Incomplete]):
-    def __set__(self, instance: Serialisable, value) -> None: ...
+    def __set__(self, instance: Serialisable | Strict, value) -> None: ...
 
 class NumberFormat(Serialisable):
     numFmtId: Integer[Literal[False]]

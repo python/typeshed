@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal
 
-from openpyxl.descriptors import Typed
+from openpyxl.descriptors import Strict, Typed
 from openpyxl.descriptors.base import Bool, Integer, MinMax, String, _ConvertibleToBool, _ConvertibleToFloat, _ConvertibleToInt
 from openpyxl.descriptors.serialisable import Serialisable
 
@@ -13,7 +13,7 @@ aRGB_REGEX: Incomplete
 
 class RGB(Typed[str, Incomplete]):
     expected_type: type[str]
-    def __set__(self, instance: Serialisable, value) -> None: ...
+    def __set__(self, instance: Serialisable | Strict, value) -> None: ...
 
 class Color(Serialisable):
     tagname: str
@@ -44,7 +44,7 @@ class Color(Serialisable):
 
 class ColorDescriptor(Typed[Color, Incomplete]):
     expected_type: type[Color]
-    def __set__(self, instance: Serialisable, value) -> None: ...
+    def __set__(self, instance: Serialisable | Strict, value) -> None: ...
 
 class RgbColor(Serialisable):
     tagname: str

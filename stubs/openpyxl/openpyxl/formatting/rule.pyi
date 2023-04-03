@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors import Float
+from openpyxl.descriptors import Float, Strict
 from openpyxl.descriptors.base import Bool, Integer, NoneSet, Set, String, Typed, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
@@ -67,7 +67,7 @@ _RuleType: TypeAlias = Literal[
 
 class ValueDescriptor(Float[Incomplete]):
     expected_type: Incomplete
-    def __set__(self, instance: Serialisable, value) -> None: ...  # type: ignore[override]
+    def __set__(self, instance: Serialisable | Strict, value) -> None: ...  # type: ignore[override]
 
 class FormatObject(Serialisable):
     tagname: str

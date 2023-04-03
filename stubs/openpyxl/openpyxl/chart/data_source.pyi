@@ -2,6 +2,7 @@ from _typeshed import Incomplete, Unused
 from typing import NoReturn, overload
 from typing_extensions import Literal
 
+from openpyxl.descriptors import Strict
 from openpyxl.descriptors.base import Alias, Bool, Integer, String, Typed, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.nested import NestedText
@@ -15,7 +16,7 @@ class NumFmt(Serialisable):
 class NumberValueDescriptor(NestedText):
     allow_none: bool
     expected_type: Incomplete
-    def __set__(self, instance: Serialisable, value) -> None: ...  # type: ignore[override]
+    def __set__(self, instance: Serialisable | Strict, value) -> None: ...  # type: ignore[override]
 
 class NumVal(Serialisable):
     idx: Integer[Literal[False]]

@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from typing import TypeVar
 
+from openpyxl.descriptors import Strict
 from openpyxl.descriptors.serialisable import Serialisable
 
 from .base import Bool, Convertible, Descriptor, Float, Integer, MinMax, NoneSet, Set, String
@@ -13,7 +14,7 @@ _M = TypeVar("_M", int, float)
 class Nested(Descriptor[Incomplete]):
     nested: bool
     attribute: str
-    def __set__(self, instance: Serialisable, value) -> None: ...
+    def __set__(self, instance: Serialisable | Strict, value) -> None: ...
     def from_tree(self, node): ...
     def to_tree(
         self, tagname: Incomplete | None = None, value: Incomplete | None = None, namespace: Incomplete | None = None

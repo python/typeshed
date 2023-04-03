@@ -2,7 +2,7 @@ from _typeshed import Incomplete, Unused
 from typing import overload
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors import String
+from openpyxl.descriptors import Strict, String
 from openpyxl.descriptors.base import Alias, Bool, Integer, NoneSet, Typed, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
@@ -132,7 +132,7 @@ class TableColumn(Serialisable):
     def from_tree(cls, node): ...
 
 class TableNameDescriptor(String[Incomplete]):
-    def __set__(self, instance: Serialisable, value) -> None: ...
+    def __set__(self, instance: Serialisable | Strict, value) -> None: ...
 
 class Table(Serialisable):
     mime_type: str

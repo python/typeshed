@@ -4,7 +4,7 @@ from typing_extensions import Literal
 from openpyxl.chart.layout import Layout
 from openpyxl.chart.shapes import GraphicalProperties
 from openpyxl.chart.text import RichText, Text
-from openpyxl.descriptors import Typed
+from openpyxl.descriptors import Strict, Typed
 from openpyxl.descriptors.base import Alias
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
@@ -36,4 +36,4 @@ def title_maker(text): ...
 class TitleDescriptor(Typed[Title, Incomplete]):
     expected_type: type[Title]
     allow_none: Literal[True]
-    def __set__(self, instance: Serialisable, value) -> None: ...
+    def __set__(self, instance: Serialisable | Strict, value) -> None: ...

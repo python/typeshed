@@ -5,6 +5,7 @@ from datetime import date, datetime, time
 from typing import Any, List, Tuple, Union
 from typing_extensions import Literal, assert_type
 
+from openpyxl.descriptors import Strict
 from openpyxl.descriptors.base import (
     Bool,
     Convertible,
@@ -143,6 +144,14 @@ class NotSerialisable:
 
 
 NotSerialisable().descriptor = None  # type: ignore
+
+
+# Test with Strict subclass
+class WithDescriptorsStrict(Strict):
+    descriptor = Descriptor[Any]()
+
+
+WithDescriptorsStrict().descriptor = None
 
 
 # Test getters
