@@ -1,5 +1,6 @@
 from _typeshed import Incomplete, Unused
 from datetime import datetime
+from typing import overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import (
@@ -187,6 +188,16 @@ class Top10(Serialisable):
     percent: Bool[Literal[True]]
     val: Float[Literal[False]]
     filterVal: Float[Literal[True]]
+    @overload
+    def __init__(
+        self,
+        top: _ConvertibleToBool | None = None,
+        percent: _ConvertibleToBool | None = None,
+        *,
+        val: _ConvertibleToFloat,
+        filterVal: _ConvertibleToFloat | None = None,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         top: _ConvertibleToBool | None,
@@ -204,6 +215,19 @@ class DateGroupItem(Serialisable):
     minute: MinMax[float, Literal[True]]
     second: Integer[Literal[True]]
     dateTimeGrouping: Set[_DateGroupItemDateTimeGrouping]
+    @overload
+    def __init__(
+        self,
+        year: _ConvertibleToInt,
+        month: _ConvertibleToFloat | None = None,
+        day: _ConvertibleToFloat | None = None,
+        hour: _ConvertibleToFloat | None = None,
+        minute: _ConvertibleToFloat | None = None,
+        second: _ConvertibleToInt | None = None,
+        *,
+        dateTimeGrouping: _DateGroupItemDateTimeGrouping,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         year: _ConvertibleToInt,

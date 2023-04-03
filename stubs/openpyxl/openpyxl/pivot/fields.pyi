@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from datetime import datetime
+from typing import overload
 from typing_extensions import Literal
 
 from openpyxl.descriptors.base import (
@@ -21,15 +22,18 @@ class Index(Serialisable):
     def __init__(self, v: _ConvertibleToInt | None = 0) -> None: ...
 
 class Tuple(Serialisable):
-    fld: Integer[Literal[True]]
-    hier: Integer[Literal[True]]
-    item: Integer[Literal[True]]
+    fld: Integer[Literal[False]]
+    hier: Integer[Literal[False]]
+    item: Integer[Literal[False]]
     def __init__(self, fld: _ConvertibleToInt, hier: _ConvertibleToInt, item: _ConvertibleToInt) -> None: ...
 
 class TupleList(Serialisable):
     c: Integer[Literal[True]]
     tpl: Typed[Tuple, Literal[False]]
     __elements__: Incomplete
+    @overload
+    def __init__(self, c: _ConvertibleToInt | None = None, *, tpl: Tuple) -> None: ...
+    @overload
     def __init__(self, c: _ConvertibleToInt | None, tpl: Tuple) -> None: ...
 
 class Missing(Serialisable):
@@ -82,6 +86,26 @@ class Number(Serialisable):
     st: Bool[Literal[True]]
     b: Bool[Literal[True]]
     __elements__: Incomplete
+    @overload
+    def __init__(
+        self,
+        tpls=(),
+        x=(),
+        *,
+        v: _ConvertibleToFloat,
+        u: _ConvertibleToBool | None = None,
+        f: _ConvertibleToBool | None = None,
+        c: str | None = None,
+        cp: _ConvertibleToInt | None = None,
+        _in: _ConvertibleToInt | None = None,
+        bc: Incomplete | None = None,
+        fc: Incomplete | None = None,
+        i: _ConvertibleToBool | None = None,
+        un: _ConvertibleToBool | None = None,
+        st: _ConvertibleToBool | None = None,
+        b: _ConvertibleToBool | None = None,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         tpls,
@@ -117,6 +141,26 @@ class Error(Serialisable):
     st: Bool[Literal[True]]
     b: Bool[Literal[True]]
     __elements__: Incomplete
+    @overload
+    def __init__(
+        self,
+        tpls: TupleList | None = None,
+        x=(),
+        *,
+        v: str,
+        u: _ConvertibleToBool | None = None,
+        f: _ConvertibleToBool | None = None,
+        c: str | None = None,
+        cp: _ConvertibleToInt | None = None,
+        _in: _ConvertibleToInt | None = None,
+        bc: Incomplete | None = None,
+        fc: Incomplete | None = None,
+        i: _ConvertibleToBool | None = None,
+        un: _ConvertibleToBool | None = None,
+        st: _ConvertibleToBool | None = None,
+        b: _ConvertibleToBool | None = None,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         tpls: TupleList | None,

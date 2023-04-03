@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import overload
 from typing_extensions import Literal
 
 from openpyxl.chart.legend import Legend
@@ -67,6 +68,9 @@ class ExternalData(Serialisable):
     tagname: str
     autoUpdate: Incomplete
     id: String[Literal[False]]
+    @overload
+    def __init__(self, autoUpdate: Incomplete | None = None, *, id: str) -> None: ...
+    @overload
     def __init__(self, autoUpdate: Incomplete | None, id: str) -> None: ...
 
 class ChartSpace(Serialisable):
@@ -88,6 +92,7 @@ class ChartSpace(Serialisable):
     userShapes: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
+    @overload
     def __init__(
         self,
         date1904: Incomplete | None = None,
@@ -97,7 +102,26 @@ class ChartSpace(Serialisable):
         clrMapOvr: ColorMapping | None = None,
         pivotSource: PivotSource | None = None,
         protection: Protection | None = None,
-        chart: ChartContainer = ...,
+        *,
+        chart: ChartContainer,
+        spPr: GraphicalProperties | None = None,
+        txPr: RichText | None = None,
+        externalData: ExternalData | None = None,
+        printSettings: PrintSettings | None = None,
+        userShapes: Incomplete | None = None,
+        extLst: Unused = None,
+    ) -> None: ...
+    @overload
+    def __init__(
+        self,
+        date1904: Incomplete | None,
+        lang: Incomplete | None,
+        roundedCorners: Incomplete | None,
+        style: Incomplete | None,
+        clrMapOvr: ColorMapping | None,
+        pivotSource: PivotSource | None,
+        protection: Protection | None,
+        chart: ChartContainer,
         spPr: GraphicalProperties | None = None,
         txPr: RichText | None = None,
         externalData: ExternalData | None = None,

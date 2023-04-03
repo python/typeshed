@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Bool, Integer, NoneSet, String, Typed, _ConvertibleToBool, _ConvertibleToInt
@@ -72,6 +73,37 @@ class CustomWorkbookView(Serialisable):
     showObjects: NoneSet[_CustomWorkbookViewShowObjects]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
+    @overload
+    def __init__(
+        self,
+        name: str,
+        guid: Incomplete | None = None,
+        autoUpdate: _ConvertibleToBool | None = None,
+        mergeInterval: _ConvertibleToInt | None = None,
+        changesSavedWin: _ConvertibleToBool | None = None,
+        onlySync: _ConvertibleToBool | None = None,
+        personalView: _ConvertibleToBool | None = None,
+        includePrintSettings: _ConvertibleToBool | None = None,
+        includeHiddenRowCol: _ConvertibleToBool | None = None,
+        maximized: _ConvertibleToBool | None = None,
+        minimized: _ConvertibleToBool | None = None,
+        showHorizontalScroll: _ConvertibleToBool | None = None,
+        showVerticalScroll: _ConvertibleToBool | None = None,
+        showSheetTabs: _ConvertibleToBool | None = None,
+        *,
+        xWindow: _ConvertibleToInt,
+        yWindow: _ConvertibleToInt,
+        windowWidth: _ConvertibleToInt,
+        windowHeight: _ConvertibleToInt,
+        tabRatio: _ConvertibleToInt | None = None,
+        activeSheetId: _ConvertibleToInt,
+        showFormulaBar: _ConvertibleToBool | None = None,
+        showStatusbar: _ConvertibleToBool | None = None,
+        showComments: _CustomWorkbookViewShowComments | Literal["none"] | None = "commIndicator",
+        showObjects: _CustomWorkbookViewShowObjects | Literal["none"] | None = "all",
+        extLst: Unused = None,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         name: str,

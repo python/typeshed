@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import (
@@ -545,6 +546,18 @@ class CustomGeometry2D(Serialisable):
     cxnLst: Typed[ConnectionSiteList, Literal[True]]
     pathLst: Typed[Path2DList, Literal[False]]
     rect: GeomRect | None
+    @overload
+    def __init__(
+        self,
+        avLst: GeomGuideList | None = None,
+        gdLst: GeomGuideList | None = None,
+        ahLst: AdjustHandleList | None = None,
+        cxnLst: ConnectionSiteList | None = None,
+        rect: Unused = None,
+        *,
+        pathLst: Path2DList,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         avLst: GeomGuideList | None,

@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Bool, NoneSet, String, Typed, _ConvertibleToBool
@@ -86,6 +87,20 @@ class NonVisualDrawingProps(Serialisable):
     hlinkHover: Typed[Hyperlink, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
+    @overload
+    def __init__(
+        self,
+        id: Incomplete | None = None,
+        *,
+        name: str,
+        descr: str | None = None,
+        hidden: _ConvertibleToBool | None = None,
+        title: str | None = None,
+        hlinkClick: Hyperlink | None = None,
+        hlinkHover: Hyperlink | None = None,
+        extLst: ExtensionList | None = None,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         id: Incomplete | None,

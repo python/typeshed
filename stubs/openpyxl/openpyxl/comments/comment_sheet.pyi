@@ -1,5 +1,6 @@
 from _typeshed import Incomplete, Unused
 from collections.abc import Generator
+from typing import overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.cell.text import Text
@@ -30,6 +31,28 @@ class Properties(Serialisable):
     colHidden: Bool[Literal[True]]
     __elements__: Incomplete
     anchor: ObjectAnchor | None
+    @overload
+    def __init__(
+        self,
+        locked: _ConvertibleToBool | None = None,
+        defaultSize: _ConvertibleToBool | None = None,
+        _print: _ConvertibleToBool | None = None,
+        disabled: _ConvertibleToBool | None = None,
+        uiObject: _ConvertibleToBool | None = None,
+        autoFill: _ConvertibleToBool | None = None,
+        autoLine: _ConvertibleToBool | None = None,
+        altText: str | None = None,
+        *,
+        textHAlign: _PropertiesTextHAlign,
+        textVAlign: _PropertiesTextVAlign,
+        lockText: _ConvertibleToBool | None = None,
+        justLastX: _ConvertibleToBool | None = None,
+        autoScale: _ConvertibleToBool | None = None,
+        rowHidden: _ConvertibleToBool | None = None,
+        colHidden: _ConvertibleToBool | None = None,
+        anchor: ObjectAnchor | None = None,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         locked: _ConvertibleToBool | None,

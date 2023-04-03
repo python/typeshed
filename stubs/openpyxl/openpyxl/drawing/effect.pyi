@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import (
@@ -75,6 +76,9 @@ class ColorChangeEffect(Serialisable):
     useA: Bool[Literal[True]]
     clrFrom: Typed[Color, Literal[False]]
     clrTo: Typed[Color, Literal[False]]
+    @overload
+    def __init__(self, useA: _ConvertibleToBool | None = None, *, clrFrom: Color, clrTo: Color) -> None: ...
+    @overload
     def __init__(self, useA: _ConvertibleToBool | None, clrFrom: Color, clrTo: Color) -> None: ...
 
 class BlurEffect(Serialisable):
@@ -153,6 +157,22 @@ class OuterShadow(ColorChoice):
     schemeClr: Incomplete
     prstClr: Incomplete
     __elements__: Incomplete
+    @overload
+    def __init__(
+        self,
+        blurRad: _ConvertibleToFloat | None = None,
+        dist: _ConvertibleToFloat | None = None,
+        dir: _ConvertibleToInt | None = None,
+        sx: _ConvertibleToInt | None = None,
+        sy: _ConvertibleToInt | None = None,
+        kx: _ConvertibleToInt | None = None,
+        ky: _ConvertibleToInt | None = None,
+        *,
+        algn: _Algn,
+        rotWithShape: _ConvertibleToBool | None = None,
+        **kw,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         blurRad: _ConvertibleToFloat | None,

@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors import Typed
@@ -183,6 +184,41 @@ class SchemeColor(Serialisable):
     invGamma: Incomplete
     val: Set[_SchemeColorVal]
     __elements__: Incomplete
+    @overload
+    def __init__(
+        self,
+        tint: Incomplete | None = None,
+        shade: Incomplete | None = None,
+        comp: Incomplete | None = None,
+        inv: Incomplete | None = None,
+        gray: Incomplete | None = None,
+        alpha: Incomplete | None = None,
+        alphaOff: Incomplete | None = None,
+        alphaMod: Incomplete | None = None,
+        hue: Incomplete | None = None,
+        hueOff: Incomplete | None = None,
+        hueMod: Incomplete | None = None,
+        sat: Incomplete | None = None,
+        satOff: Incomplete | None = None,
+        satMod: Incomplete | None = None,
+        lum: Incomplete | None = None,
+        lumOff: Incomplete | None = None,
+        lumMod: Incomplete | None = None,
+        red: Incomplete | None = None,
+        redOff: Incomplete | None = None,
+        redMod: Incomplete | None = None,
+        green: Incomplete | None = None,
+        greenOff: Incomplete | None = None,
+        greenMod: Incomplete | None = None,
+        blue: Incomplete | None = None,
+        blueOff: Incomplete | None = None,
+        blueMod: Incomplete | None = None,
+        gamma: Incomplete | None = None,
+        invGamma: Incomplete | None = None,
+        *,
+        val: _SchemeColorVal,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         tint: Incomplete | None,

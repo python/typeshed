@@ -52,7 +52,6 @@ class RowDimension(Dimension):
     height: Alias
     thickBot: Bool[Literal[False]]
     thickTop: Bool[Literal[False]]
-
     def __init__(
         self,
         worksheet: Worksheet,

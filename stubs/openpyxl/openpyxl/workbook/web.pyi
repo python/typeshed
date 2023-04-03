@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Bool, Integer, NoneSet, String, _ConvertibleToBool, _ConvertibleToInt
@@ -26,6 +27,18 @@ class WebPublishObject(Serialisable):
     destinationFile: String[Literal[False]]
     title: String[Literal[True]]
     autoRepublish: Bool[Literal[True]]
+    @overload
+    def __init__(
+        self,
+        id: _ConvertibleToInt,
+        divId: str,
+        sourceObject: str | None = None,
+        *,
+        destinationFile: str,
+        title: str | None = None,
+        autoRepublish: _ConvertibleToBool | None = None,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         id: _ConvertibleToInt,

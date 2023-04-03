@@ -295,11 +295,12 @@ class TileInfoProperties(Serialisable):
     algn: Set[_TileInfoPropertiesAlgn]
     def __init__(
         self,
-        tx: _ConvertibleToInt | None,
-        ty: _ConvertibleToInt | None,
-        sx: _ConvertibleToInt | None,
-        sy: _ConvertibleToInt | None,
-        flip: _PropertiesFlip | Literal["none"] | None,
+        tx: _ConvertibleToInt | None = None,
+        ty: _ConvertibleToInt | None = None,
+        sx: _ConvertibleToInt | None = None,
+        sy: _ConvertibleToInt | None = None,
+        flip: _PropertiesFlip | Literal["none"] | None = None,
+        *,
         algn: _TileInfoPropertiesAlgn,
     ) -> None: ...
 

@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import overload
 from typing_extensions import Literal
 
 from openpyxl.chart.shapes import GraphicalProperties
@@ -71,6 +72,20 @@ class Shape(Serialisable):
     graphicalProperties: Alias
     style: Typed[ShapeStyle, Literal[True]]
     txBody: Typed[RichText, Literal[True]]
+    @overload
+    def __init__(
+        self,
+        macro: str | None = None,
+        textlink: str | None = None,
+        fPublished: _ConvertibleToBool | None = None,
+        fLocksText: _ConvertibleToBool | None = None,
+        nvSpPr: ShapeMeta | None = None,
+        *,
+        spPr: GraphicalProperties,
+        style: ShapeStyle | None = None,
+        txBody: RichText | None = None,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         macro: str | None,

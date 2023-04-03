@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors import String
@@ -39,6 +40,17 @@ class XMLColumnProps(Serialisable):
     xmlDataType: String[Literal[False]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
+    @overload
+    def __init__(
+        self,
+        mapId: _ConvertibleToInt,
+        xpath: str,
+        denormalized: _ConvertibleToBool | None = None,
+        *,
+        xmlDataType: str,
+        extLst: Unused = None,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         mapId: _ConvertibleToInt,
@@ -74,6 +86,28 @@ class TableColumn(Serialisable):
     xmlColumnPr: Typed[XMLColumnProps, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
+    @overload
+    def __init__(
+        self,
+        id: _ConvertibleToInt,
+        uniqueName: str | None = None,
+        *,
+        name: str,
+        totalsRowFunction: _TableColumnTotalsRowFunction | Literal["none"] | None = None,
+        totalsRowLabel: str | None = None,
+        queryTableFieldId: _ConvertibleToInt | None = None,
+        headerRowDxfId: _ConvertibleToInt | None = None,
+        dataDxfId: _ConvertibleToInt | None = None,
+        totalsRowDxfId: _ConvertibleToInt | None = None,
+        headerRowCellStyle: str | None = None,
+        dataCellStyle: str | None = None,
+        totalsRowCellStyle: str | None = None,
+        calculatedColumnFormula: TableFormula | None = None,
+        totalsRowFormula: TableFormula | None = None,
+        xmlColumnPr: XMLColumnProps | None = None,
+        extLst: ExtensionList | None = None,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         id: _ConvertibleToInt,

@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import overload
 from typing_extensions import Literal
 
 from openpyxl.descriptors.base import (
@@ -20,6 +21,18 @@ class InputCells(Serialisable):
     undone: Bool[Literal[True]]
     val: String[Literal[False]]
     numFmtId: Integer[Literal[True]]
+
+    @overload
+    def __init__(
+        self,
+        r: str,
+        deleted: _ConvertibleToBool | None = False,
+        undone: _ConvertibleToBool | None = False,
+        *,
+        val: str,
+        numFmtId: _ConvertibleToInt | None = None,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         r: str,
@@ -39,6 +52,19 @@ class Scenario(Serialisable):
     comment: String[Literal[True]]
     __elements__: Incomplete
     __attrs__: Incomplete
+    @overload
+    def __init__(
+        self,
+        inputCells=(),
+        *,
+        name: str,
+        locked: _ConvertibleToBool | None = False,
+        hidden: _ConvertibleToBool | None = False,
+        count: Unused = None,
+        user: str | None = None,
+        comment: str | None = None,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         inputCells,

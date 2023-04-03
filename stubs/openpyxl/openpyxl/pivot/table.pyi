@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Bool, Integer, NoneSet, Set, String, Typed, _ConvertibleToBool, _ConvertibleToInt
@@ -143,6 +144,25 @@ class PivotFilter(Serialisable):
     autoFilter: Typed[AutoFilter, Literal[False]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
+    @overload
+    def __init__(
+        self,
+        fld: _ConvertibleToInt,
+        mpFld: _ConvertibleToInt | None = None,
+        *,
+        type: _PivotFilterType,
+        evalOrder: _ConvertibleToInt | None = None,
+        id: _ConvertibleToInt,
+        iMeasureHier: _ConvertibleToInt | None = None,
+        iMeasureFld: _ConvertibleToInt | None = None,
+        name: str | None = None,
+        description: str | None = None,
+        stringValue1: str | None = None,
+        stringValue2: str | None = None,
+        autoFilter: AutoFilter,
+        extLst: ExtensionList | None = None,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         fld: _ConvertibleToInt,
@@ -204,6 +224,21 @@ class MemberProperty(Serialisable):
     pLen: Integer[Literal[True]]
     level: Integer[Literal[True]]
     field: Integer[Literal[False]]
+    @overload
+    def __init__(
+        self,
+        name: str | None = None,
+        showCell: _ConvertibleToBool | None = None,
+        showTip: _ConvertibleToBool | None = None,
+        showAsCaption: _ConvertibleToBool | None = None,
+        nameLen: _ConvertibleToInt | None = None,
+        pPos: _ConvertibleToInt | None = None,
+        pLen: _ConvertibleToInt | None = None,
+        level: _ConvertibleToInt | None = None,
+        *,
+        field: _ConvertibleToInt,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         name: str | None,
@@ -340,6 +375,11 @@ class ChartFormat(Serialisable):
     series: Bool[Literal[False]]
     pivotArea: Typed[PivotArea, Literal[False]]
     __elements__: Incomplete
+    @overload
+    def __init__(
+        self, chart: _ConvertibleToInt, format: _ConvertibleToInt, series: _ConvertibleToBool = None, *, pivotArea: PivotArea
+    ) -> None: ...
+    @overload
     def __init__(
         self, chart: _ConvertibleToInt, format: _ConvertibleToInt, series: _ConvertibleToBool, pivotArea: PivotArea
     ) -> None: ...
@@ -352,6 +392,17 @@ class ConditionalFormat(Serialisable):
     pivotAreas: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
+    @overload
+    def __init__(
+        self,
+        scope: _ConditionalFormatScope = "selection",
+        type: _ConditionalFormatType | Literal["none"] | None = None,
+        *,
+        priority: _ConvertibleToInt,
+        pivotAreas=(),
+        extLst: ExtensionList | None = None,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         scope: _ConditionalFormatScope,
@@ -378,6 +429,16 @@ class Format(Serialisable):
     pivotArea: Typed[PivotArea, Literal[False]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
+    @overload
+    def __init__(
+        self,
+        action: _FormatAction | Literal["none"] | None = "formatting",
+        dxfId: _ConvertibleToInt | None = None,
+        *,
+        pivotArea: PivotArea,
+        extLst: ExtensionList | None = None,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         action: _FormatAction | Literal["none"] | None,
@@ -397,6 +458,20 @@ class DataField(Serialisable):
     numFmtId: Integer[Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
+    @overload
+    def __init__(
+        self,
+        name: str | None = None,
+        *,
+        fld: _ConvertibleToInt,
+        subtotal: str = "sum",
+        showDataAs: str = "normal",
+        baseField: _ConvertibleToInt = -1,
+        baseItem: _ConvertibleToInt = 1048832,
+        numFmtId: _ConvertibleToInt | None = None,
+        extLst: ExtensionList | None = None,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         name: str | None,
@@ -694,6 +769,98 @@ class TableDefinition(Serialisable):
     extLst: Typed[ExtensionList, Literal[True]]
     id: Incomplete
     __elements__: Incomplete
+    @overload
+    def __init__(
+        self,
+        name: str,
+        cacheId: _ConvertibleToInt,
+        dataOnRows: _ConvertibleToBool = False,
+        dataPosition: _ConvertibleToInt | None = None,
+        *,
+        dataCaption: str,
+        grandTotalCaption: str | None = None,
+        errorCaption: str | None = None,
+        showError: _ConvertibleToBool = False,
+        missingCaption: str | None = None,
+        showMissing: _ConvertibleToBool = True,
+        pageStyle: str | None = None,
+        pivotTableStyle: str | None = None,
+        vacatedStyle: str | None = None,
+        tag: str | None = None,
+        updatedVersion: _ConvertibleToInt = 0,
+        minRefreshableVersion: _ConvertibleToInt = 0,
+        asteriskTotals: _ConvertibleToBool = False,
+        showItems: _ConvertibleToBool = True,
+        editData: _ConvertibleToBool = False,
+        disableFieldList: _ConvertibleToBool = False,
+        showCalcMbrs: _ConvertibleToBool = True,
+        visualTotals: _ConvertibleToBool = True,
+        showMultipleLabel: _ConvertibleToBool = True,
+        showDataDropDown: _ConvertibleToBool = True,
+        showDrill: _ConvertibleToBool = True,
+        printDrill: _ConvertibleToBool = False,
+        showMemberPropertyTips: _ConvertibleToBool = True,
+        showDataTips: _ConvertibleToBool = True,
+        enableWizard: _ConvertibleToBool = True,
+        enableDrill: _ConvertibleToBool = True,
+        enableFieldProperties: _ConvertibleToBool = True,
+        preserveFormatting: _ConvertibleToBool = True,
+        useAutoFormatting: _ConvertibleToBool = False,
+        pageWrap: _ConvertibleToInt = 0,
+        pageOverThenDown: _ConvertibleToBool = False,
+        subtotalHiddenItems: _ConvertibleToBool = False,
+        rowGrandTotals: _ConvertibleToBool = True,
+        colGrandTotals: _ConvertibleToBool = True,
+        fieldPrintTitles: _ConvertibleToBool = False,
+        itemPrintTitles: _ConvertibleToBool = False,
+        mergeItem: _ConvertibleToBool = False,
+        showDropZones: _ConvertibleToBool = True,
+        createdVersion: _ConvertibleToInt = 0,
+        indent: _ConvertibleToInt = 1,
+        showEmptyRow: _ConvertibleToBool = False,
+        showEmptyCol: _ConvertibleToBool = False,
+        showHeaders: _ConvertibleToBool = True,
+        compact: _ConvertibleToBool = True,
+        outline: _ConvertibleToBool = False,
+        outlineData: _ConvertibleToBool = False,
+        compactData: _ConvertibleToBool = True,
+        published: _ConvertibleToBool = False,
+        gridDropZones: _ConvertibleToBool = False,
+        immersive: _ConvertibleToBool = True,
+        multipleFieldFilters: _ConvertibleToBool = None,
+        chartFormat: _ConvertibleToInt = 0,
+        rowHeaderCaption: str | None = None,
+        colHeaderCaption: str | None = None,
+        fieldListSortAscending: _ConvertibleToBool = None,
+        mdxSubqueries: _ConvertibleToBool = None,
+        customListSort: _ConvertibleToBool | None = None,
+        autoFormatId: _ConvertibleToInt | None = None,
+        applyNumberFormats: _ConvertibleToBool = False,
+        applyBorderFormats: _ConvertibleToBool = False,
+        applyFontFormats: _ConvertibleToBool = False,
+        applyPatternFormats: _ConvertibleToBool = False,
+        applyAlignmentFormats: _ConvertibleToBool = False,
+        applyWidthHeightFormats: _ConvertibleToBool = False,
+        location: Location,
+        pivotFields=(),
+        rowFields=(),
+        rowItems=(),
+        colFields=(),
+        colItems=(),
+        pageFields=(),
+        dataFields=(),
+        formats=(),
+        conditionalFormats: ConditionalFormatList | None = None,
+        chartFormats=(),
+        pivotHierarchies=(),
+        pivotTableStyleInfo: PivotTableStyle | None = None,
+        filters=(),
+        rowHierarchiesUsage: RowHierarchiesUsage | None = None,
+        colHierarchiesUsage: ColHierarchiesUsage | None = None,
+        extLst: ExtensionList | None = None,
+        id: Incomplete | None = None,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         name: str,

@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Bool, Integer, Set, String, Typed, _ConvertibleToBool, _ConvertibleToInt
@@ -39,6 +40,24 @@ class ObjectPr(Serialisable):
     altText: String[Literal[True]]
     dde: Bool[Literal[True]]
     __elements__: Incomplete
+    @overload
+    def __init__(
+        self,
+        anchor: ObjectAnchor,
+        locked: _ConvertibleToBool | None = None,
+        defaultSize: _ConvertibleToBool | None = None,
+        _print: _ConvertibleToBool | None = None,
+        disabled: _ConvertibleToBool | None = None,
+        uiObject: _ConvertibleToBool | None = None,
+        autoFill: _ConvertibleToBool | None = None,
+        autoLine: _ConvertibleToBool | None = None,
+        autoPict: _ConvertibleToBool | None = None,
+        *,
+        macro: str,
+        altText: str | None = None,
+        dde: _ConvertibleToBool | None = False,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         anchor: ObjectAnchor,
@@ -65,6 +84,19 @@ class OleObject(Serialisable):
     autoLoad: Bool[Literal[True]]
     shapeId: Integer[Literal[False]]
     __elements__: Incomplete
+    @overload
+    def __init__(
+        self,
+        objectPr: ObjectPr | None = None,
+        progId: str | None = None,
+        dvAspect: _OleObjectDvAspect = "DVASPECT_CONTENT",
+        link: str | None = None,
+        *,
+        oleUpdate: _OleObjectOleUpdate,
+        autoLoad: _ConvertibleToBool | None = False,
+        shapeId: _ConvertibleToInt,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         objectPr: ObjectPr | None,

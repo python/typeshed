@@ -1,5 +1,6 @@
 from _typeshed import Incomplete, Unused
 from datetime import datetime
+from typing import overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import (
@@ -40,6 +41,9 @@ class PivotDimension(Serialisable):
     name: String[Literal[False]]
     uniqueName: String[Literal[False]]
     caption: String[Literal[False]]
+    @overload
+    def __init__(self, measure: _ConvertibleToBool = None, *, name: str, uniqueName: str, caption: str) -> None: ...
+    @overload
     def __init__(self, measure: _ConvertibleToBool, name: str, uniqueName: str, caption: str) -> None: ...
 
 class CalculatedMember(Serialisable):
@@ -62,7 +66,7 @@ class CalculatedMember(Serialisable):
         parent: str,
         solveOrder: _ConvertibleToInt,
         set: _ConvertibleToBool = None,
-        extLst: ExtensionList | None = None,
+        extLst: Unused = None,
     ) -> None: ...
 
 class CalculatedItem(Serialisable):
@@ -72,6 +76,11 @@ class CalculatedItem(Serialisable):
     pivotArea: Typed[PivotArea, Literal[False]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
+    @overload
+    def __init__(
+        self, field: _ConvertibleToInt | None = None, *, formula: str, pivotArea: PivotArea, extLst: Incomplete | None = None
+    ) -> None: ...
+    @overload
     def __init__(
         self, field: _ConvertibleToInt | None, formula: str, pivotArea: PivotArea, extLst: Incomplete | None = None
     ) -> None: ...
@@ -120,8 +129,8 @@ class OLAPSet(Serialisable):
         count: _ConvertibleToInt,
         maxRank: _ConvertibleToInt,
         setDefinition: str,
-        sortType: Incomplete | None,
-        queryFailed: _ConvertibleToBool,
+        sortType: Incomplete | None = None,
+        queryFailed: _ConvertibleToBool = None,
         tpls: TupleList | None = None,
         sortByTuple: TupleList | None = None,
     ) -> None: ...
@@ -172,6 +181,23 @@ class PCDKPI(Serialisable):
     trend: String[Literal[False]]
     weight: String[Literal[False]]
     time: String[Literal[False]]
+    @overload
+    def __init__(
+        self,
+        uniqueName: str,
+        caption: str | None = None,
+        *,
+        displayFolder: str,
+        measureGroup: str,
+        parent: str,
+        value: str,
+        goal: str,
+        status: str,
+        trend: str,
+        weight: str,
+        time: str,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         uniqueName: str,
@@ -283,6 +309,37 @@ class CacheHierarchy(Serialisable):
     groupLevels: Typed[GroupLevels, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: Incomplete
+    @overload
+    def __init__(
+        self,
+        uniqueName: str = "",
+        caption: str | None = None,
+        measure: _ConvertibleToBool = None,
+        set: _ConvertibleToBool = None,
+        parentSet: _ConvertibleToInt | None = None,
+        iconSet: _ConvertibleToInt = 0,
+        attribute: _ConvertibleToBool = None,
+        time: _ConvertibleToBool = None,
+        keyAttribute: _ConvertibleToBool = None,
+        defaultMemberUniqueName: str | None = None,
+        allUniqueName: str | None = None,
+        allCaption: str | None = None,
+        dimensionUniqueName: str | None = None,
+        displayFolder: str | None = None,
+        measureGroup: str | None = None,
+        measures: _ConvertibleToBool = None,
+        *,
+        count: _ConvertibleToInt,
+        oneField: _ConvertibleToBool = None,
+        memberValueDatatype: _ConvertibleToInt | None = None,
+        unbalanced: _ConvertibleToBool | None = None,
+        unbalancedGroup: _ConvertibleToBool | None = None,
+        hidden: _ConvertibleToBool = None,
+        fieldsUsage: FieldsUsage | None = None,
+        groupLevels: GroupLevels | None = None,
+        extLst: ExtensionList | None = None,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         uniqueName: str,
@@ -435,6 +492,29 @@ class CacheField(Serialisable):
     mappingCount: Integer[Literal[True]]
     memberPropertyField: Bool[Literal[True]]
     __elements__: Incomplete
+    @overload
+    def __init__(
+        self,
+        sharedItems: SharedItems | None = None,
+        fieldGroup: FieldGroup | None = None,
+        mpMap: Incomplete | None = None,
+        extLst: ExtensionList | None = None,
+        *,
+        name: str,
+        caption: str | None = None,
+        propertyName: str | None = None,
+        serverField: _ConvertibleToBool | None = None,
+        uniqueList: _ConvertibleToBool | None = True,
+        numFmtId: _ConvertibleToInt | None = None,
+        formula: str | None = None,
+        sqlType: _ConvertibleToInt | None = 0,
+        hierarchy: _ConvertibleToInt | None = 0,
+        level: _ConvertibleToInt | None = 0,
+        databaseField: _ConvertibleToBool | None = True,
+        mappingCount: _ConvertibleToInt | None = None,
+        memberPropertyField: _ConvertibleToBool | None = None,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         sharedItems: SharedItems | None,
@@ -465,6 +545,19 @@ class RangeSet(Serialisable):
     ref: String[Literal[False]]
     name: String[Literal[True]]
     sheet: String[Literal[True]]
+    @overload
+    def __init__(
+        self,
+        i1: _ConvertibleToInt | None = None,
+        i2: _ConvertibleToInt | None = None,
+        i3: _ConvertibleToInt | None = None,
+        i4: _ConvertibleToInt | None = None,
+        *,
+        ref: str,
+        name: str | None = None,
+        sheet: str | None = None,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         i1: _ConvertibleToInt | None,
@@ -556,6 +649,41 @@ class CacheDefinition(Serialisable):
     extLst: Typed[ExtensionList, Literal[True]]
     id: Incomplete
     __elements__: Incomplete
+    @overload
+    def __init__(
+        self,
+        invalid: _ConvertibleToBool | None = None,
+        saveData: _ConvertibleToBool | None = None,
+        refreshOnLoad: _ConvertibleToBool | None = None,
+        optimizeMemory: _ConvertibleToBool | None = None,
+        enableRefresh: _ConvertibleToBool | None = None,
+        refreshedBy: str | None = None,
+        refreshedDate: _ConvertibleToFloat | None = None,
+        refreshedDateIso: datetime | str | None = None,
+        backgroundQuery: _ConvertibleToBool | None = None,
+        missingItemsLimit: _ConvertibleToInt | None = None,
+        createdVersion: _ConvertibleToInt | None = None,
+        refreshedVersion: _ConvertibleToInt | None = None,
+        minRefreshableVersion: _ConvertibleToInt | None = None,
+        recordCount: _ConvertibleToInt | None = None,
+        upgradeOnRefresh: _ConvertibleToBool | None = None,
+        tupleCache: TupleCache | None = None,
+        supportSubquery: _ConvertibleToBool | None = None,
+        supportAdvancedDrill: _ConvertibleToBool | None = None,
+        *,
+        cacheSource: CacheSource,
+        cacheFields=(),
+        cacheHierarchies=(),
+        kpis=(),
+        calculatedItems=(),
+        calculatedMembers=(),
+        dimensions=(),
+        measureGroups=(),
+        maps=(),
+        extLst: ExtensionList | None = None,
+        id: Incomplete | None = None,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         invalid: _ConvertibleToBool | None,

@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import overload
 from typing_extensions import Literal
 
 from openpyxl.descriptors.base import Bool, Integer, String, _ConvertibleToBool, _ConvertibleToInt
@@ -17,6 +18,16 @@ class CellSmartTag(Serialisable):
     deleted: Bool[Literal[True]]
     xmlBased: Bool[Literal[True]]
     __elements__: Incomplete
+    @overload
+    def __init__(
+        self,
+        cellSmartTagPr=(),
+        *,
+        type: _ConvertibleToInt,
+        deleted: _ConvertibleToBool | None = False,
+        xmlBased: _ConvertibleToBool | None = False,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         cellSmartTagPr,
