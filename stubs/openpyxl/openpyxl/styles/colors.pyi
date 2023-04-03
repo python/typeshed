@@ -11,7 +11,7 @@ WHITE: Incomplete
 BLUE: Incomplete
 aRGB_REGEX: Incomplete
 
-class RGB(Typed):
+class RGB(Typed[str, Incomplete]):
     expected_type: type[str]
     def __set__(self, instance: Serialisable, value) -> None: ...
 
@@ -42,7 +42,7 @@ class Color(Serialisable):
     def index(self): ...
     def __add__(self, other): ...
 
-class ColorDescriptor(Typed):
+class ColorDescriptor(Typed[Color, Incomplete]):
     expected_type: type[Color]
     def __set__(self, instance: Serialisable, value) -> None: ...
 

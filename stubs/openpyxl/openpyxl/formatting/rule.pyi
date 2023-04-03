@@ -65,7 +65,7 @@ _RuleType: TypeAlias = Literal[
     "aboveAverage",
 ]
 
-class ValueDescriptor(Float):
+class ValueDescriptor(Float[Incomplete]):
     expected_type: Incomplete
     def __set__(self, instance: Serialisable, value) -> None: ...  # type: ignore[override]
 

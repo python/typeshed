@@ -277,9 +277,9 @@ class CharacterProperties(Serialisable):
     ) -> None: ...
 
 class TabStop(Serialisable):
-    pos: Typed[Coordinate, Literal[True]]
+    pos: Typed[Coordinate[bool], Literal[True]]
     algn: Typed[Set[_TabStopAlgn], Literal[False]]
-    def __init__(self, pos: Coordinate | None = None, algn: Set[_TabStopAlgn] | None = None) -> None: ...
+    def __init__(self, pos: Coordinate[bool] | None = None, algn: Set[_TabStopAlgn] | None = None) -> None: ...
 
 class TabStopList(Serialisable):
     tab: Typed[TabStop, Literal[True]]

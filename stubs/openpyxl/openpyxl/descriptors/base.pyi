@@ -69,7 +69,6 @@ class Convertible(Typed[_T, _N]):
         *,
         expected_type: _ExpectedTypeParam[_T],
         allow_none: Literal[True],
-        nested: bool = False,
     ) -> None: ...
     @overload
     def __init__(
@@ -78,7 +77,6 @@ class Convertible(Typed[_T, _N]):
         *,
         expected_type: _ExpectedTypeParam[_T],
         allow_none: Literal[False] = False,
-        nested: bool = False,
     ) -> None: ...
     # NOTE: It is currently impossible to make a generic based on the parameter type of another generic
     # So we implement explicitely the types used internally
@@ -116,6 +114,7 @@ class Convertible(Typed[_T, _N]):
 class Max(Convertible[_M, _N]):
     expected_type: type[_M]
     allow_none: _N
+    max: float
     @overload
     def __init__(
         self: Max[int, Literal[True]], *, expected_type: _ExpectedTypeParam[int], allow_none: Literal[True], max: float
@@ -149,18 +148,19 @@ class Max(Convertible[_M, _N]):
 class Min(Convertible[_M, _N]):
     expected_type: type[_M]
     allow_none: _N
+    min: float
     @overload
     def __init__(
-        self: Min[int, Literal[True]], *, expected_type: _ExpectedTypeParam[int], allow_none: Literal[True], max: float
+        self: Min[int, Literal[True]], *, expected_type: _ExpectedTypeParam[int], allow_none: Literal[True], min: float
     ) -> None: ...
     @overload
     def __init__(
-        self: Min[int, Literal[False]], *, expected_type: _ExpectedTypeParam[int], allow_none: Literal[False] = False, max: float
+        self: Min[int, Literal[False]], *, expected_type: _ExpectedTypeParam[int], allow_none: Literal[False] = False, min: float
     ) -> None: ...
     # mypy can't infer type from `expected_type = float` (pyright can), so we have to add extra overloads
     @overload
     def __init__(
-        self: Min[float, Literal[True]], *, expected_type: _ExpectedTypeParam[float] = ..., allow_none: Literal[True], max: float
+        self: Min[float, Literal[True]], *, expected_type: _ExpectedTypeParam[float] = ..., allow_none: Literal[True], min: float
     ) -> None: ...
     @overload
     def __init__(
@@ -168,7 +168,7 @@ class Min(Convertible[_M, _N]):
         *,
         expected_type: _ExpectedTypeParam[float] = ...,
         allow_none: Literal[False] = False,
-        max: float,
+        min: float,
     ) -> None: ...
     @overload  # type:ignore[override]  # Different restrictions
     def __set__(self: Min[int, Literal[True]], instance: Serialisable, value: _ConvertibleToInt | None) -> None: ...
@@ -222,6 +222,7 @@ class MinMax(Min[_M, _N], Max[_M, _N]):
 
 class Set(Descriptor[_T]):
     __doc__: str
+    values: Iterable[_T]
     def __init__(self, name: str | None = None, *, values: Iterable[_T]) -> None: ...
     def __set__(self, instance: Serialisable, value: _T) -> None: ...
 
@@ -295,6 +296,7 @@ class Alias(Descriptor[Incomplete]):
 class MatchPattern(Descriptor[_P], Generic[_P, _N]):
     allow_none: _N
     test_pattern: Pattern[bytes] | Pattern[str]
+    pattern: str | Pattern[str] | bytes | Pattern[bytes]
 
     @overload  # str
     def __init__(

@@ -10,8 +10,6 @@
         "stubs/**/@tests/test_cases"
     ],
     "typeCheckingMode": "strict",
-    // TODO: Temporary until complete. Revert before PR!
-    "reportMissingTypeArgument": "information",
     // Allowed in base settings for incomplete stubs, checked in stricter settings
     "reportIncompleteStub": "none",
     "reportMissingParameterType": "none",

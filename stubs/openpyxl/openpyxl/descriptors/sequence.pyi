@@ -6,7 +6,7 @@ from openpyxl.descriptors.serialisable import Serialisable
 
 from .base import Alias, Descriptor
 
-class Sequence(Descriptor):
+class Sequence(Descriptor[Incomplete]):
     expected_type: Incomplete
     seq_types: Incomplete
     idx_base: int

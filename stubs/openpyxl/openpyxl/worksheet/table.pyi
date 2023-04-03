@@ -97,7 +97,7 @@ class TableColumn(Serialisable):
     @classmethod
     def from_tree(cls, node): ...
 
-class TableNameDescriptor(String):
+class TableNameDescriptor(String[Incomplete]):
     def __set__(self, instance: Serialisable, value) -> None: ...
 
 class Table(Serialisable):

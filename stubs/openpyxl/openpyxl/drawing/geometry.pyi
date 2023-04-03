@@ -463,7 +463,7 @@ class Bevel(Serialisable):
 
 class Shape3D(Serialisable):
     namespace: Incomplete
-    z: Typed[Coordinate, Literal[True]]
+    z: Typed[Coordinate[bool], Literal[True]]
     extrusionH: Integer[Literal[True]]
     contourW: Integer[Literal[True]]
     prstMaterial: NoneSet[_Shape3DPrstMaterial]
@@ -474,7 +474,7 @@ class Shape3D(Serialisable):
     extLst: Typed[ExtensionList, Literal[True]]
     def __init__(
         self,
-        z: Coordinate | None = None,
+        z: Coordinate[bool] | None = None,
         extrusionH: _ConvertibleToInt | None = None,
         contourW: _ConvertibleToInt | None = None,
         prstMaterial: _Shape3DPrstMaterial | Literal["none"] | None = None,

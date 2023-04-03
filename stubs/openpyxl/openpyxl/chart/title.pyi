@@ -33,7 +33,7 @@ class Title(Serialisable):
 
 def title_maker(text): ...
 
-class TitleDescriptor(Typed):
+class TitleDescriptor(Typed[Title, Incomplete]):
     expected_type: type[Title]
     allow_none: Literal[True]
     def __set__(self, instance: Serialisable, value) -> None: ...

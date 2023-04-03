@@ -272,7 +272,7 @@ class ColorMapping(Serialisable):
         extLst: ExtensionList | None = None,
     ) -> None: ...
 
-class ColorChoiceDescriptor(Typed):
+class ColorChoiceDescriptor(Typed[ColorChoice, Incomplete]):
     expected_type: type[ColorChoice]
     allow_none: Literal[True]
     def __set__(self, instance: Serialisable, value) -> None: ...
