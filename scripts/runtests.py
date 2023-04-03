@@ -19,6 +19,9 @@ except ImportError:
 
 
 _STRICTER_CONFIG_FILE = "pyrightconfig.stricter.json"
+_TESTS_CONFIG_FILE = "pyrightconfig.testcases.json"
+_NPX_ERROR_PATTERN = r"error (runn|find)ing npx"
+_NPX_ERROR_MESSAGE = colored("\nSkipping Pyright tests: npx is not installed or can't be run!", "yellow")
 _SUCCESS = colored("Success", "green")
 _SKIPPED = colored("Skipped", "yellow")
 _FAILED = colored("Failed", "red")
@@ -89,20 +92,44 @@ def main() -> None:
     print("\nRunning check_new_syntax.py...")
     check_new_syntax_result = subprocess.run([sys.executable, "tests/check_new_syntax.py"])
 
-    print(f"\nRunning Pyright on Python {_PYTHON_VERSION}...")
+    strict_params = _get_strict_params(path)
+    print(f"\nRunning Pyright ({'stricter' if strict_params else 'base' } configs) for Python {_PYTHON_VERSION}...")
     pyright_result = subprocess.run(
-        [sys.executable, "tests/pyright_test.py", path, "--pythonversion", _PYTHON_VERSION] + _get_strict_params(path),
+        [sys.executable, "tests/pyright_test.py", path, "--pythonversion", _PYTHON_VERSION] + strict_params,
         stderr=subprocess.PIPE,
         text=True,
     )
-    if re.match(r"error (runn|find)ing npx", pyright_result.stderr):
-        print(colored("\nSkipping Pyright tests: npx is not installed or can't be run!", "yellow"))
+    if re.match(_NPX_ERROR_PATTERN, pyright_result.stderr):
+        print(_NPX_ERROR_MESSAGE)
         pyright_returncode = 0
         pyright_skipped = True
     else:
         print(pyright_result.stderr)
         pyright_returncode = pyright_result.returncode
         pyright_skipped = False
+
+    print(f"\nRunning Pyright regression tests for Python {_PYTHON_VERSION}...")
+    pyright_testcases_result = subprocess.run(
+        [
+            sys.executable,
+            "tests/pyright_test.py",
+            Path(path) / "@tests",
+            "--pythonversion",
+            _PYTHON_VERSION,
+            "-p",
+            _TESTS_CONFIG_FILE,
+        ],
+        stderr=subprocess.PIPE,
+        text=True,
+    )
+    if re.match(_NPX_ERROR_PATTERN, pyright_testcases_result.stderr):
+        print(_NPX_ERROR_MESSAGE)
+        pyright_testcases_returncode = 0
+        pyright_testcases_skipped = True
+    else:
+        print(pyright_result.stderr)
+        pyright_testcases_returncode = pyright_testcases_result.returncode
+        pyright_testcases_skipped = False
 
     print(f"\nRunning mypy for Python {_PYTHON_VERSION}...")
     mypy_result = subprocess.run([sys.executable, "tests/mypy_test.py", path, "--python-version", _PYTHON_VERSION])
@@ -153,6 +180,7 @@ def main() -> None:
             check_consistent_result.returncode,
             check_new_syntax_result.returncode,
             pyright_returncode,
+            pyright_testcases_returncode,
             mypy_result.returncode,
             getattr(stubtest_result, "returncode", 0),
             getattr(pytype_result, "returncode", 0),
@@ -171,6 +199,10 @@ def main() -> None:
         print("Pyright:", _SKIPPED)
     else:
         print("Pyright:", _SUCCESS if pyright_returncode == 0 else _FAILED)
+    if pyright_testcases_skipped:
+        print("Pyright regression tests:", _SKIPPED)
+    else:
+        print("Pyright regression tests:", _SUCCESS if pyright_testcases_returncode == 0 else _FAILED)
     print("mypy:", _SUCCESS if mypy_result.returncode == 0 else _FAILED)
     if stubtest_result is None:
         print("stubtest:", _SKIPPED)
