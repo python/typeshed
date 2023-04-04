@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from re import Pattern
-from typing import Any, ClassVar
+from typing import ClassVar
 
 from markdown.extensions import Extension
 from markdown.preprocessors import Preprocessor

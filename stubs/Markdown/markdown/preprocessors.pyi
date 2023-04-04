@@ -1,4 +1,3 @@
-from re import Pattern
 from typing import Any
 
 from . import util

@@ -1,5 +1,5 @@
 from re import Pattern
-from typing import Any, ClassVar
+from typing import ClassVar
 
 from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
