@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from abc import abstractmethod
 from collections.abc import Callable, Iterable
 from threading import local
@@ -120,8 +119,8 @@ class Resource(Renderable, Asset):
         depends: Iterable[Dependable] | None = None,
         supersedes: list[Resource] | None = None,
         bottom: bool = False,
-        renderer: Incomplete | None = None,
-        debug: Incomplete | None = None,
+        renderer: _Renderer | None = None,
+        debug: str | Resource | None = None,
         dont_bundle: bool = False,
         minified: str | Resource | None = None,
         minifier: Minifier = ...,
