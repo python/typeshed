@@ -32,7 +32,7 @@ class BeautifulSoup(Tag):
     element_classes: Any
     builder: TreeBuilder
     is_xml: bool
-    known_xml: bool
+    known_xml: bool | None
     parse_only: SoupStrainer | None
     markup: str
     def __init__(
