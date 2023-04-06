@@ -201,8 +201,8 @@ class _int_info(structseq[int], tuple[int, int, int, int]):
     @property
     def str_digits_check_threshold(self) -> int: ...
 
-_ThreadInfoName = Literal["nt", "pthread", "pthread-stubs", "solaris"]
-_ThreadInfoLock = Literal["semaphore", "mutex+cond"] | None
+_ThreadInfoName: TypeAlias = Literal["nt", "pthread", "pthread-stubs", "solaris"]
+_ThreadInfoLock: TypeAlias = Literal["semaphore", "mutex+cond"] | None
 
 @final
 class _thread_info(_UninstantiableStructseq, tuple[_ThreadInfoName, _ThreadInfoLock, str | None]):
