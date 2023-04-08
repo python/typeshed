@@ -5,7 +5,6 @@ from pathlib import Path
 from typing import Any, ClassVar, Protocol, SupportsBytes
 from typing_extensions import Literal, Self, TypeAlias
 
-
 from ._imaging import (
     DEFAULT_STRATEGY as DEFAULT_STRATEGY,
     FILTERED as FILTERED,
