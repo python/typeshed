@@ -3,6 +3,8 @@ from collections.abc import Callable, Iterable, Iterator, MutableMapping, Sequen
 from enum import IntEnum
 from pathlib import Path
 from typing import Any, ClassVar, Protocol, SupportsBytes
+
+from PIL.PyAccess import PyAccess
 from typing_extensions import Literal, Self, TypeAlias
 
 from ._imaging import (
