@@ -10,6 +10,9 @@ stubs/mysqlclient/MySQLdb/__init__.pyi
 stubs/mysqlclient/MySQLdb/connections.pyi
 stubs/mysqlclient/MySQLdb/cursors.pyi
 
+# twisted not installed during tests
+stubs/pika/pika/adapters/twisted_connection.pyi
+
 # _pb2.pyi have some constructs that break pytype
 # Eg
 # pytype.pyi.parser.ParseError:   File: "/Users/nipunn/src/typeshed/third_party/2and3/google/protobuf/descriptor_pb2.pyi", line 195
@@ -39,6 +42,85 @@ stubs/protobuf/google/protobuf/text_format.pyi
 stubs/protobuf/google/protobuf/timestamp_pb2.pyi
 stubs/protobuf/google/protobuf/type_pb2.pyi
 stubs/protobuf/google/protobuf/wrappers_pb2.pyi
+
+stubs/tensorflow/tensorflow/compiler/xla/service/hlo_pb2.pyi
+stubs/tensorflow/tensorflow/compiler/xla/xla_data_pb2.pyi
+stubs/tensorflow/tensorflow/core/example/example_parser_configuration_pb2.pyi
+stubs/tensorflow/tensorflow/core/example/example_pb2.pyi
+stubs/tensorflow/tensorflow/core/example/feature_pb2.pyi
+stubs/tensorflow/tensorflow/core/framework/allocation_description_pb2.pyi
+stubs/tensorflow/tensorflow/core/framework/api_def_pb2.pyi
+stubs/tensorflow/tensorflow/core/framework/attr_value_pb2.pyi
+stubs/tensorflow/tensorflow/core/framework/cost_graph_pb2.pyi
+stubs/tensorflow/tensorflow/core/framework/dataset_metadata_pb2.pyi
+stubs/tensorflow/tensorflow/core/framework/dataset_options_pb2.pyi
+stubs/tensorflow/tensorflow/core/framework/device_attributes_pb2.pyi
+stubs/tensorflow/tensorflow/core/framework/full_type_pb2.pyi
+stubs/tensorflow/tensorflow/core/framework/function_pb2.pyi
+stubs/tensorflow/tensorflow/core/framework/graph_pb2.pyi
+stubs/tensorflow/tensorflow/core/framework/graph_transfer_info_pb2.pyi
+stubs/tensorflow/tensorflow/core/framework/kernel_def_pb2.pyi
+stubs/tensorflow/tensorflow/core/framework/log_memory_pb2.pyi
+stubs/tensorflow/tensorflow/core/framework/model_pb2.pyi
+stubs/tensorflow/tensorflow/core/framework/node_def_pb2.pyi
+stubs/tensorflow/tensorflow/core/framework/op_def_pb2.pyi
+stubs/tensorflow/tensorflow/core/framework/reader_base_pb2.pyi
+stubs/tensorflow/tensorflow/core/framework/resource_handle_pb2.pyi
+stubs/tensorflow/tensorflow/core/framework/step_stats_pb2.pyi
+stubs/tensorflow/tensorflow/core/framework/summary_pb2.pyi
+stubs/tensorflow/tensorflow/core/framework/tensor_description_pb2.pyi
+stubs/tensorflow/tensorflow/core/framework/tensor_pb2.pyi
+stubs/tensorflow/tensorflow/core/framework/tensor_shape_pb2.pyi
+stubs/tensorflow/tensorflow/core/framework/tensor_slice_pb2.pyi
+stubs/tensorflow/tensorflow/core/framework/types_pb2.pyi
+stubs/tensorflow/tensorflow/core/framework/variable_pb2.pyi
+stubs/tensorflow/tensorflow/core/framework/versions_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/bfc_memory_map_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/cluster_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/composite_tensor_variant_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/config_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/control_flow_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/coordination_config_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/core_platform_payloads_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/data_service_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/debug_event_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/debug_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/device_filters_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/device_properties_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/distributed_runtime_payloads_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/error_codes_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/fingerprint_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/graph_debug_info_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/meta_graph_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/named_tensor_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/queue_runner_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/remote_tensor_handle_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/rewriter_config_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/saved_model_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/saved_object_graph_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/saver_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/service_config_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/snapshot_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/struct_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/tensor_bundle_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/tensorflow_server_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/tpu/compilation_result_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/tpu/dynamic_padding_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/tpu/optimization_parameters_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/tpu/topology_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/tpu/tpu_embedding_configuration_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/trackable_object_graph_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/transport_options_pb2.pyi
+stubs/tensorflow/tensorflow/core/protobuf/verifier_config_pb2.pyi
+stubs/tensorflow/tensorflow/core/util/event_pb2.pyi
+stubs/tensorflow/tensorflow/core/util/memmapped_file_system_pb2.pyi
+stubs/tensorflow/tensorflow/core/util/saved_tensor_slice_pb2.pyi
+stubs/tensorflow/tensorflow/core/util/test_log_pb2.pyi
+stubs/tensorflow/tensorflow/python/keras/protobuf/projector_config_pb2.pyi
+stubs/tensorflow/tensorflow/python/keras/protobuf/saved_metadata_pb2.pyi
+stubs/tensorflow/tensorflow/python/keras/protobuf/versions_pb2.pyi
+stubs/tensorflow/tensorflow/tsl/protobuf/error_codes_pb2.pyi
+stubs/tensorflow/tensorflow/tsl/protobuf/histogram_pb2.pyi
 
 # pytype doesn't support inner classes properly
 stubs/SQLAlchemy/sqlalchemy/databases/__init__.pyi

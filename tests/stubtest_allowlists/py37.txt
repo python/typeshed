@@ -32,7 +32,6 @@ dummy_threading.Condition.release
 dummy_threading.Event.isSet
 dummy_threading.local.__new__
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
-hmac.HMAC.__init__
 inspect.Signature.from_builtin  # Removed in 3.11, can add if someone needs this
 inspect.Signature.from_function  # Removed in 3.11, can add if someone needs this
 ipaddress._BaseNetwork.__init__

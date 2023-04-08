@@ -15,7 +15,7 @@ from parse_metadata import get_recursive_requirements, read_metadata
 from utils import colored, get_mypy_req, make_venv, print_error, print_success_msg
 
 
-def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: bool = False) -> bool:
+def run_stubtest(dist: Path, *, verbose: bool = False, specified_platforms_only: bool = False) -> bool:
     dist_name = dist.name
     metadata = read_metadata(dist_name)
     print(f"{dist_name}... ", end="")
@@ -26,7 +26,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_stubs_only: boo
         return True
 
     if sys.platform not in stubtest_settings.platforms:
-        if specified_stubs_only:
+        if specified_platforms_only:
             print(colored("skipping (platform not specified in METADATA.toml)", "yellow"))
             return True
         print(colored(f"Note: {dist_name} is not currently tested on {sys.platform} in typeshed's CI.", "yellow"))
@@ -154,7 +154,7 @@ def main() -> NoReturn:
     parser.add_argument("--num-shards", type=int, default=1)
     parser.add_argument("--shard-index", type=int, default=0)
     parser.add_argument(
-        "--specified-stubs-only",
+        "--specified-platforms-only",
         action="store_true",
         help="skip the test if the current platform is not specified in METADATA.toml/tool.stubtest.platforms",
     )
@@ -171,7 +171,7 @@ def main() -> NoReturn:
     for i, dist in enumerate(dists):
         if i % args.num_shards != args.shard_index:
             continue
-        if not run_stubtest(dist, verbose=args.verbose, specified_stubs_only=args.specified_stubs_only):
+        if not run_stubtest(dist, verbose=args.verbose, specified_platforms_only=args.specified_platforms_only):
             result = 1
     sys.exit(result)
 
