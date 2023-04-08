@@ -62,6 +62,7 @@
         "stubs/PyMySQL",
         "stubs/python-dateutil",
         "stubs/python-jose",
+        "stubs/python-periphery",
         "stubs/pywin32",
         "stubs/PyYAML",
         "stubs/redis",
