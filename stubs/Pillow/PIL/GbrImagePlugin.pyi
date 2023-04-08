@@ -1,12 +1,11 @@
 from typing import Any, ClassVar
 from typing_extensions import Literal
 
-from ._imaging import _PixelAccess
+from ._imaging import _PixelAccessor
 from .ImageFile import ImageFile
-from .PyAccess import PyAccess
 
 class GbrImageFile(ImageFile):
     format: ClassVar[Literal["GBR"]]
     format_description: ClassVar[str]
     im: Any
-    def load(self) -> _PixelAccess | PyAccess: ...
+    def load(self) -> _PixelAccessor: ...

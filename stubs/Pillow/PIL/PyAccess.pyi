@@ -1,10 +1,12 @@
 from logging import Logger
 from typing import Any
 
+from PIL._imaging import _PixelAccessoror
+
 ffi: Any
 logger: Logger
 
-class PyAccess:
+class PyAccess(_PixelAccessoror):
     readonly: Any
     image8: Any
     image32: Any

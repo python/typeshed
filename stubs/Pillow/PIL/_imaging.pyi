@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Sequence
-from typing import Any
+from typing import Protocol
 from typing_extensions import Literal
 
 DEFAULT_STRATEGY: Literal[0]
@@ -9,17 +9,19 @@ HUFFMAN_ONLY: Literal[2]
 RLE: Literal[3]
 FIXED: Literal[4]
 
-class _PixelAccess:
-    # As well as the C extension source, this is also documented at
-    # Pillow's docs/reference/PixelAccess.rst, e.g.
-    # https://github.com/python-pillow/Pillow/blob/main/docs/reference/PixelAccess.rst
-    # The name is prefixed here with an underscore as PixelAccess is not
-    # runtime-importable.
-
-    def __setitem__(self, xy: tuple[int, int], color) -> None: ...
-    def __getitem__(self, xy: tuple[int, int]) -> Any: ...
-    def putpixel(self, xy: tuple[int, int], color) -> None: ...
-    def getpixel(self, xy: tuple[int, int]) -> Any: ...
+class _PixelAccessor(Protocol):  # noqa: Y046
+    # PIL has two concrete types for accessing an image's pixels by coordinate lookup:
+    # PixelAccess (written in C; not runtime-importable) and PyAccess (written in
+    # Python + cffi; is runtime-importable). PixelAccess came first. PyAccess was added
+    # in later to support PyPy, but otherwise is intended to expose the same interface
+    # PixelAccess.
+    #
+    # This protocol describes that interface.
+    # TODO: should the color args and getter return types be _Color?
+    def __setitem__(self, xy: tuple[int, int], color: Incomplete) -> None: ...
+    def __getitem__(self, xy: tuple[int, int]) -> Incomplete: ...
+    def putpixel(self, xy: tuple[int, int], color: Incomplete) -> None: ...
+    def getpixel(self, xy: tuple[int, int]) -> Incomplete: ...
 
 class _Path:
     def __getattr__(self, item: str) -> Incomplete: ...

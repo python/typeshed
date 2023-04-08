@@ -5,7 +5,6 @@ from pathlib import Path
 from typing import Any, ClassVar, Protocol, SupportsBytes
 from typing_extensions import Literal, Self, TypeAlias
 
-from PIL.PyAccess import PyAccess
 
 from ._imaging import (
     DEFAULT_STRATEGY as DEFAULT_STRATEGY,
@@ -13,7 +12,7 @@ from ._imaging import (
     FIXED as FIXED,
     HUFFMAN_ONLY as HUFFMAN_ONLY,
     RLE as RLE,
-    _PixelAccess,
+    _PixelAccessor,
 )
 from .ImageFilter import Filter
 from .ImagePalette import ImagePalette
@@ -181,7 +180,7 @@ class Image:
     def tobytes(self, encoder_name: str = "raw", *args) -> bytes: ...
     def tobitmap(self, name: str = "image") -> bytes: ...
     def frombytes(self, data: bytes, decoder_name: str = "raw", *args) -> None: ...
-    def load(self) -> _PixelAccess | PyAccess: ...
+    def load(self) -> _PixelAccessor: ...
     def verify(self) -> None: ...
     def convert(
         self,
