@@ -11,9 +11,14 @@ _RetType: TypeAlias = type[float | datetime.datetime]
 step_search_re: Pattern[str]
 only_int_re: Pattern[str]
 star_or_int_re: Pattern[str]
-special_weekday_re: Pattern[str]
+special_dow_re: Pattern[str]
 hash_expression_re: Pattern[str]
 VALID_LEN_EXPRESSION: list[int]
+ALPHAS: dict[str, int]
+DOW_ALPHAS: dict[str, int]
+MONTHS: str
+M_ALPHAS: dict[str, int]
+WEEKDAYS: str
 
 def timedelta_to_seconds(td: datetime.timedelta) -> float: ...
 
