@@ -4,7 +4,7 @@ from collections import OrderedDict
 from collections.abc import Iterator
 from re import Match, Pattern
 from typing import Any, overload
-from typing_extensions import Literal, Self, TypeAlias
+from typing_extensions import Final, Literal, Self, TypeAlias
 
 _RetType: TypeAlias = type[float | datetime.datetime]
 
@@ -13,12 +13,12 @@ only_int_re: Pattern[str]
 star_or_int_re: Pattern[str]
 special_dow_re: Pattern[str]
 hash_expression_re: Pattern[str]
-VALID_LEN_EXPRESSION: list[int]
-ALPHAS: dict[str, int]
-DOW_ALPHAS: dict[str, int]
-MONTHS: str
-M_ALPHAS: dict[str, int]
-WEEKDAYS: str
+VALID_LEN_EXPRESSION: Final[list[int]]
+ALPHAS: Final[dict[str, int]]
+DOW_ALPHAS: Final[dict[str, int]]
+MONTHS: Final[str]
+M_ALPHAS: Final[dict[str, int]]
+WEEKDAYS: Final[str]
 
 def timedelta_to_seconds(td: datetime.timedelta) -> float: ...
 
