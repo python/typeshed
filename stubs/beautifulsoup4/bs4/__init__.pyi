@@ -1,6 +1,6 @@
 from _typeshed import Incomplete, SupportsRead
 from collections.abc import Sequence
-from typing import Any
+from typing import Any, Iterator
 from typing_extensions import Self
 
 from .builder import ParserRejectedMarkup as ParserRejectedMarkup, TreeBuilder, XMLParsedAsHTMLWarning as XMLParsedAsHTMLWarning
