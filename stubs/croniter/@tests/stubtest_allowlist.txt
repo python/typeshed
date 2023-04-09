@@ -1,0 +1,4 @@
+# Remove after
+# https://github.com/kiorky/croniter/pull/36
+# is merged:
+croniter.croniter.i
