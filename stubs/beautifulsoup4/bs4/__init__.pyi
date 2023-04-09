@@ -86,7 +86,10 @@ class BeautifulSoup(Tag):
     def handle_endtag(self, name, nsprefix: Incomplete | None = None) -> None: ...
     def handle_data(self, data) -> None: ...
     def decode(  # type: ignore[override]
-        self, pretty_print: bool = False, eventual_encoding: str = "utf-8", formatter: str | Formatter = "minimal",
+        self,
+        pretty_print: bool = False,
+        eventual_encoding: str = "utf-8",
+        formatter: str | Formatter = "minimal",
         iterator: Iterator[PageElement] | None = None,
     ): ...  # missing some arguments
 
