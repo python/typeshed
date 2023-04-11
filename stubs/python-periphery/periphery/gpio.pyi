@@ -43,7 +43,7 @@ class GPIO:
     inverted: bool
 
 class CdevGPIO(GPIO):
-    def __init__(
+    def __init__(  # pyright: ignore [reportInconsistentConstructor]
         self,
         path: str,
         line: int | str,
