@@ -1,10 +1,14 @@
 from _typeshed import SupportsRead
 from collections.abc import Callable
-from typing import Any
+from datetime import datetime, date, time
+from typing import Any, TypeAlias
 
 __all__ = ("loads", "load", "TOMLDecodeError")
 
 class TOMLDecodeError(ValueError): ...
 
-def load(__fp: SupportsRead[bytes], *, parse_float: Callable[[str], Any] = ...) -> dict[str, Any]: ...
-def loads(__s: str, *, parse_float: Callable[[str], Any] = ...) -> dict[str, Any]: ...
+TOMLValue: TypeAlias = int | float | str | bool | list['TOMLValue'] | \
+                       dict['TOMLValue', 'TOMLValue'] | datetime | date | time
+
+def load(__fp: SupportsRead[bytes], *, parse_float: Callable[[str], Any] = ...) -> dict[str, TOMLValue]: ...
+def loads(__s: str, *, parse_float: Callable[[str], Any] = ...) -> dict[str, TOMLValue]: ...
