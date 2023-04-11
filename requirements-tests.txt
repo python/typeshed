@@ -1,20 +1,20 @@
 aiohttp==3.8.4
 black==23.3.0                                     # must match .pre-commit-config.yaml
 flake8==6.0.0; python_version >= "3.8"            # must match .pre-commit-config.yaml
-flake8-bugbear==23.3.12; python_version >= "3.8"  # must match .pre-commit-config.yaml
+flake8-bugbear==23.3.23; python_version >= "3.8"  # must match .pre-commit-config.yaml
 flake8-noqa==1.3.1; python_version >= "3.8"       # must match .pre-commit-config.yaml
-flake8-pyi==23.3.1; python_version >= "3.8"       # must match .pre-commit-config.yaml
+flake8-pyi==23.4.0; python_version >= "3.8"       # must match .pre-commit-config.yaml
 isort==5.12.0; python_version >= "3.8"            # must match .pre-commit-config.yaml
-mypy==1.1.1
+mypy==1.2.0
 packaging==23.0
 pathspec>=0.10.3
 pre-commit-hooks==4.4.0                           # must match .pre-commit-config.yaml
 pycln==2.1.3                                      # must match .pre-commit-config.yaml
-pytype==2023.3.13; platform_system != "Windows" and python_version < "3.11"
+pytype==2023.3.31; platform_system != "Windows" and python_version < "3.11"
 pyyaml==6.0
 termcolor>=2
 tomli==2.0.1
-tomlkit==0.11.6
+tomlkit==0.11.7
 types-pyyaml>=6.0.12.7
 types-setuptools>=67.5.0.0
 typing-extensions
