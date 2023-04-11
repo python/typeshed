@@ -1,10 +1,8 @@
-from ctypes import Structure
 from types import TracebackType
 
 KERNEL_VERSION: tuple[int, int]
 
 class SPIError(IOError): ...
-class _CSpiIocTransfer(Structure): ...
 
 class SPI:
     def __init__(

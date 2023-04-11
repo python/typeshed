@@ -1,4 +1,3 @@
-from ctypes import Structure
 from types import TracebackType
 from typing import Any
 
@@ -43,27 +42,22 @@ class GPIO:
     drive: str
     inverted: bool
 
-class _CGpiochipInfo(Structure): ...
-class _CGpiolineInfo(Structure): ...
-class _CGpiohandleRequest(Structure): ...
-class _CGpiohandleData(Structure): ...
-class _CGpioeventRequest(Structure): ...
-class _CGpioeventData(Structure): ...
-
 class CdevGPIO(GPIO):
     def __init__(
         self,
         path: str,
         line: int | str,
         direction: str,
-        edge: str,
-        bias: str,
-        drive: str,
+        edge: str = ...,
+        bias: str = ...,
+        drive: str = ...,
         inverted: bool = ...,
         label: str | None = ...,
     ) -> None: ...
+    def __new__(self, path: str, line: int | str, direction: str, **kwargs: Any) -> CdevGPIO: ...  # noqa: Y034
 
 class SysfsGPIO(GPIO):
     GPIO_OPEN_RETRIES: int
     GPIO_OPEN_DELAY: float
     def __init__(self, line: int, direction: str) -> None: ...
+    def __new__(self, line: int, direction: str) -> SysfsGPIO: ...  # noqa: Y034
