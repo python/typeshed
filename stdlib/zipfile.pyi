@@ -222,9 +222,6 @@ class ZipInfo:
     def is_dir(self) -> bool: ...
     def FileHeader(self, zip64: bool | None = None) -> bytes: ...
 
-class _PathOpenProtocol(Protocol):
-    def __call__(self, mode: _ReadWriteMode = ..., pwd: bytes | None = ..., *, force_zip64: bool = ...) -> IO[bytes]: ...
-
 if sys.version_info >= (3, 8):
     class Path:
         @property
