@@ -1,5 +1,5 @@
 from types import TracebackType
-from typing import Any
+from typing import Any, ClassVar
 
 KERNEL_VERSION: tuple[int, int]
 
@@ -57,7 +57,7 @@ class CdevGPIO(GPIO):
     def __new__(self, path: str, line: int | str, direction: str, **kwargs: Any) -> CdevGPIO: ...  # noqa: Y034
 
 class SysfsGPIO(GPIO):
-    GPIO_OPEN_RETRIES: int
-    GPIO_OPEN_DELAY: float
+    GPIO_OPEN_RETRIES: ClassVar[int]
+    GPIO_OPEN_DELAY: ClassVar[float]
     def __init__(self, line: int, direction: str) -> None: ...
     def __new__(self, line: int, direction: str) -> SysfsGPIO: ...  # noqa: Y034

@@ -1,10 +1,11 @@
 from types import TracebackType
+from typing import ClassVar
 
 class PWMError(IOError): ...
 
 class PWM:
-    PWM_STAT_RETRIES: int
-    PWM_STAT_DELAY: float
+    PWM_STAT_RETRIES: ClassVar[int]
+    PWM_STAT_DELAY: ClassVar[float]
     def __init__(self, chip: int, channel: int) -> None: ...
     def __del__(self) -> None: ...
     def __enter__(self) -> PWM: ...  # noqa: Y034
