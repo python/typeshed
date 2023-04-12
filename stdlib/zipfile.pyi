@@ -258,6 +258,7 @@ if sys.version_info >= (3, 8):
                 pwd: bytes | None = None,
                 encoding: str | None = None,
                 force_zip64: bool = ...,
+                **kwargs: Any,
             ) -> IO[bytes]: ...
 
         def iterdir(self) -> Iterator[Path]: ...
