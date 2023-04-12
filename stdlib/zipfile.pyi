@@ -247,6 +247,7 @@ if sys.version_info >= (3, 8):
             def open(
                 self,
                 mode: _ReadWriteBinaryMode = "r",
+                *,
                 pwd: bytes | None = None,
                 encoding: str | None = None,
                 force_zip64: bool = ...,
@@ -254,7 +255,7 @@ if sys.version_info >= (3, 8):
             ) -> IO[bytes]: ...
         else:
             def open(
-                self, mode: _ReadWriteMode = "r", pwd: bytes | None = None, encoding: str | None = None, force_zip64: bool = ...
+                self, mode: _ReadWriteMode = "r", *, pwd: bytes | None = None, encoding: str | None = None, force_zip64: bool = ...
             ) -> IO[bytes]: ...
 
         def iterdir(self) -> Iterator[Path]: ...
