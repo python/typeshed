@@ -243,22 +243,13 @@ if sys.version_info >= (3, 8):
             def stem(self) -> str: ...
 
         def __init__(self, root: ZipFile | StrPath | IO[bytes], at: str = "") -> None: ...
-        if sys.version_info >= (3, 10):
+        if sys.version_info >= (3, 9):
             def open(
                 self,
                 mode: _ReadWriteBinaryMode = "r",
                 encoding: str | None = None,
                 *args: Any,
                 pwd: bytes | None = None,
-                **kwargs: Any,
-            ) -> IO[bytes]: ...
-        elif sys.version_info >= (3, 9):
-            def open(
-                self,
-                mode: _ReadWriteBinaryMode = "r",
-                *args: Any,
-                pwd: bytes | None = None,
-                encoding: str | None = None,
                 **kwargs: Any,
             ) -> IO[bytes]: ...
         else:
