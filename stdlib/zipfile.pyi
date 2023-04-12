@@ -109,7 +109,7 @@ class ZipFile:
         def __init__(
             self,
             file: StrPath | IO[bytes],
-            mode: _ZipFileMode = "r",
+            mode: Literal["r"] = "r",
             compression: int = 0,
             allowZip64: bool = True,
             compresslevel: int | None = None,
@@ -223,15 +223,7 @@ class ZipInfo:
     def FileHeader(self, zip64: bool | None = None) -> bytes: ...
 
 class _PathOpenProtocol(Protocol):
-    def __call__(
-        self,
-        mode: _ReadWriteMode = "r",
-        *args: Any,
-        pwd: bytes | None = None,
-        encoding: str | None = None,
-        force_zip64: bool = ...,
-        **kwargs: Any,
-    ) -> IO[bytes]: ...
+    def __call__(self, mode: _ReadWriteMode = "r", pwd: bytes | None = ..., *, force_zip64: bool = ...) -> IO[bytes]: ...
 
 if sys.version_info >= (3, 8):
     class Path:
@@ -251,14 +243,22 @@ if sys.version_info >= (3, 8):
             def stem(self) -> str: ...
 
         def __init__(self, root: ZipFile | StrPath | IO[bytes], at: str = "") -> None: ...
-        if sys.version_info >= (3, 9):
+        if sys.version_info >= (3, 10):
+            def open(
+                self,
+                mode: _ReadWriteBinaryMode = "r",
+                encoding: str | None = None,
+                *args: Any,
+                pwd: bytes | None = None,
+                **kwargs: Any,
+            ) -> IO[bytes]: ...
+        elif sys.version_info >= (3, 9):
             def open(
                 self,
                 mode: _ReadWriteBinaryMode = "r",
                 *args: Any,
                 pwd: bytes | None = None,
                 encoding: str | None = None,
-                force_zip64: bool = ...,
                 **kwargs: Any,
             ) -> IO[bytes]: ...
         else:
