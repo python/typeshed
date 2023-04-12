@@ -247,7 +247,7 @@ if sys.version_info >= (3, 8):
             def open(
                 self,
                 mode: _ReadWriteBinaryMode = "r",
-                *,
+                *args: Any,
                 pwd: bytes | None = None,
                 encoding: str | None = None,
                 force_zip64: bool = ...,
@@ -257,7 +257,7 @@ if sys.version_info >= (3, 8):
             def open(
                 self,
                 mode: _ReadWriteMode = "r",
-                *,
+                *args: Any,
                 pwd: bytes | None = None,
                 encoding: str | None = None,
                 force_zip64: bool = ...,
