@@ -2,7 +2,6 @@ from _typeshed import Incomplete
 from collections.abc import Callable
 from typing import IO, Any, AnyStr
 
-
 __version__: str
 
 def encode(
