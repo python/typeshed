@@ -159,7 +159,13 @@ class ZipFile:
     def infolist(self) -> list[ZipInfo]: ...
     def namelist(self) -> list[str]: ...
     def open(
-        self, name: str | ZipInfo, mode: _ReadWriteBinaryMode = "r", pwd: bytes | None = None, *, force_zip64: bool = False, encoding: str | None = None
+        self,
+        name: str | ZipInfo,
+        mode: _ReadWriteBinaryMode = "r",
+        pwd: bytes | None = None,
+        *,
+        force_zip64: bool = False,
+        encoding: str | None = None,
     ) -> IO[bytes]: ...
     def extract(self, member: str | ZipInfo, path: StrPath | None = None, pwd: bytes | None = None) -> str: ...
     def extractall(
