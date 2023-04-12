@@ -109,7 +109,7 @@ class ZipFile:
         def __init__(
             self,
             file: StrPath | IO[bytes],
-            mode: Literal["r"] = "r",
+            mode: _ZipFileMode = "r",
             compression: int = 0,
             allowZip64: bool = True,
             compresslevel: int | None = None,
@@ -159,13 +159,7 @@ class ZipFile:
     def infolist(self) -> list[ZipInfo]: ...
     def namelist(self) -> list[str]: ...
     def open(
-        self,
-        name: str | ZipInfo,
-        mode: _ReadWriteBinaryMode = "r",
-        pwd: bytes | None = None,
-        *,
-        force_zip64: bool = False,
-        encoding: str | None = None,
+        self, name: str | ZipInfo, mode: _ReadWriteMode = "r", pwd: bytes | None = None, *, force_zip64: bool = False
     ) -> IO[bytes]: ...
     def extract(self, member: str | ZipInfo, path: StrPath | None = None, pwd: bytes | None = None) -> str: ...
     def extractall(
@@ -251,7 +245,12 @@ if sys.version_info >= (3, 8):
         def __init__(self, root: ZipFile | StrPath | IO[bytes], at: str = "") -> None: ...
         if sys.version_info >= (3, 9):
             def open(
-                self, mode: _ReadWriteBinaryMode = "r", *args: Any, pwd: bytes | None = None, **kwargs: Any
+                self,
+                mode: _ReadWriteBinaryMode = "r",
+                *args: Any,
+                pwd: bytes | None = None,
+                encoding: str | None = None,
+                **kwargs: Any,
             ) -> IO[bytes]: ...
         else:
             @property
