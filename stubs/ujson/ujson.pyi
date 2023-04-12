@@ -1,4 +1,7 @@
+from _typeshed import Incomplete
+from collections.abc import Callable
 from typing import IO, Any, AnyStr
+
 
 __version__: str
 
@@ -12,8 +15,8 @@ def encode(
     indent: int = ...,
     allow_nan: bool = ...,
     reject_bytes: bool = ...,
-    default: Any = ...,
-    separators: Any = ...,
+    default: Callable[[Incomplete], Incomplete] | None = None,
+    separators: tuple[str, str] | None = None,
 ) -> str: ...
 def dumps(
     obj: Any,
@@ -25,8 +28,8 @@ def dumps(
     indent: int = ...,
     allow_nan: bool = ...,
     reject_bytes: bool = ...,
-    default: Any = ...,
-    separators: Any = ...,
+    default: Callable[[Incomplete], Incomplete] | None = None,
+    separators: tuple[str, str] | None = None,
 ) -> str: ...
 def dump(
     obj: Any,
@@ -39,8 +42,8 @@ def dump(
     indent: int = ...,
     allow_nan: bool = ...,
     reject_bytes: bool = ...,
-    default: Any = ...,
-    separators: Any = ...,
+    default: Callable[[Incomplete], Incomplete] | None = None,
+    separators: tuple[str, str] | None = None,
 ) -> None: ...
 def decode(s: AnyStr, precise_float: bool = ...) -> Any: ...
 def loads(s: AnyStr, precise_float: bool = ...) -> Any: ...
