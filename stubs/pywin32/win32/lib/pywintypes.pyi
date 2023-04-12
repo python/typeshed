@@ -1,8 +1,8 @@
 # Can't generate with stubgen because:
 # "KeyError: 'pywintypes'"
-from typing import NoReturn
 from _typeshed import Incomplete
 from datetime import datetime
+from typing import NoReturn
 from typing_extensions import Literal
 
 import _win32typing
