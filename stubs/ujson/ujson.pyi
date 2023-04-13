@@ -33,6 +33,7 @@ def dumps(
 def dump(
     obj: Any,
     fp: IO[str],
+    *,
     ensure_ascii: bool = ...,
     double_precision: int = ...,
     encode_html_chars: bool = ...,
