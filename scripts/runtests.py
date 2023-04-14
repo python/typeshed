@@ -19,7 +19,7 @@ except ImportError:
 
 
 _STRICTER_CONFIG_FILE = "pyrightconfig.stricter.json"
-_TESTS_CONFIG_FILE = "pyrightconfig.testcases.json"
+_TESTCASES_CONFIG_FILE = "pyrightconfig.testcases.json"
 _NPX_ERROR_PATTERN = r"error (runn|find)ing npx"
 _NPX_ERROR_MESSAGE = colored("\nSkipping Pyright tests: npx is not installed or can't be run!", "yellow")
 _SUCCESS = colored("Success", "green")
@@ -113,13 +113,13 @@ def main() -> None:
         [
             sys.executable,
             "tests/pyright_test.py",
-            Path(path) / "@tests",
+            Path(path) / "@tests" / "test_cases",
             "--pythonversion",
             _PYTHON_VERSION,
             "-p",
-            _TESTS_CONFIG_FILE,
+            _TESTCASES_CONFIG_FILE,
         ],
-        stderr=subprocess.PIPE,
+        capture_output=True,
         text=True,
     )
     if re.match(_NPX_ERROR_PATTERN, pyright_testcases_result.stderr):
