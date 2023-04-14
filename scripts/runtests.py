@@ -150,7 +150,7 @@ def main() -> None:
         command = [
             sys.executable,
             "tests/pyright_test.py",
-            test_cases_path,
+            str(test_cases_path),
             "--pythonversion",
             _PYTHON_VERSION,
             "-p",
