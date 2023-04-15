@@ -133,14 +133,14 @@ class hybridmethod:
     def classlevel(self, func): ...
 
 class _symbol(int):
-    def __new__(  # noqa: Y034  # Excplicitely instanciates _symbol
+    def __new__(  # noqa: Y034  # Explicitly instantiates _symbol
         self, name, doc: Incomplete | None = None, canonical: Incomplete | None = None
     ) -> _symbol: ...
     def __reduce__(self): ...
 
 class symbol:
     symbols: Any
-    def __new__(  # type: ignore[misc]  # Excplicitely instanciates _symbol
+    def __new__(  # type: ignore[misc]  # Explicitly instantiates _symbol
         cls, name, doc: Incomplete | None = None, canonical: Incomplete | None = None
     ) -> _symbol: ...
     @classmethod
