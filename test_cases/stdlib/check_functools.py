@@ -49,13 +49,18 @@ if sys.version_info >= (3, 8):
         assert_type(b.x, int)
 
     # https://github.com/python/typeshed/issues/10048
-    class Parent: ...
-    class Child(Parent): ...
+    class Parent:
+        ...
+
+    class Child(Parent):
+        ...
 
     class X:
         @cached_property
-        def some(self) -> Parent: ...
+        def some(self) -> Parent:
+            ...
 
     class Y(X):
         @cached_property
-        def some(self) -> Child: ...  # safe override
+        def some(self) -> Child:
+            ...  # safe override
