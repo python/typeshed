@@ -72,26 +72,28 @@ class SparseFeature(NamedTuple):
     already_sorted: bool = False
 
 class RaggedFeature(NamedTuple):
-    class RowSplits(NamedTuple):
+    # Mypy doesn't support nested NamedTuples, but runtime they actually do use
+    # nested collections.namedtuple.
+    class RowSplits(NamedTuple):  # type: ignore[misc]
         key: str
 
-    class RowLengths(NamedTuple):
+    class RowLengths(NamedTuple):  # type: ignore[misc]
         key: str
 
-    class RowStarts(NamedTuple):
+    class RowStarts(NamedTuple):  # type: ignore[misc]
         key: str
 
-    class RowLimits(NamedTuple):
+    class RowLimits(NamedTuple):  # type: ignore[misc]
         key: str
 
-    class ValueRowIds(NamedTuple):
+    class ValueRowIds(NamedTuple):  # type: ignore[misc]
         key: str
 
-    class UniformRowLength(NamedTuple):
+    class UniformRowLength(NamedTuple):  # type: ignore[misc]
         length: int
     dtype: _DTypeLike
     value_key: str | None = None
-    partitions: tuple[RowSplits | RowLengths | RowStarts | RowLimits | ValueRowIds | UniformRowLength, ...] = ()
+    partitions: tuple[RowSplits | RowLengths | RowStarts | RowLimits | ValueRowIds | UniformRowLength, ...] = ()  # type: ignore[name-defined]
     row_splits_dtype: _DTypeLike = ...
     validate: bool = False
 
