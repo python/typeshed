@@ -94,7 +94,8 @@ class RaggedFeature(NamedTuple):
     dtype: _DTypeLike
     value_key: str | None = None
     partitions: tuple[RowSplits | RowLengths | RowStarts | RowLimits | ValueRowIds | UniformRowLength, ...] = ()  # type: ignore[name-defined]
-    row_splits_dtype: _DTypeLike = ...
+    # Bug in pyright.
+    row_splits_dtype: _DTypeLike = ...  # pyright: ignore[reportUnknownVariableType]
     validate: bool = False
 
 def parse_example(
