@@ -43,7 +43,7 @@ class WorkingSet:
         self, plugin_env: Environment, full_env: Environment | None = None, fallback: bool = True
     ) -> tuple[list[Distribution], dict[Distribution, Exception]]: ...
 
-working_set: WorkingSet = ...
+working_set: WorkingSet
 
 require = working_set.require
 run_script = working_set.run_script
