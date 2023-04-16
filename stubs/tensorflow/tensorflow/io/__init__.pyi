@@ -64,7 +64,7 @@ class FixedLenFeature(NamedTuple):
 class FixedLenSequenceFeature(NamedTuple):
     shape: _ShapeLike
     dtype: _DTypeLike
-    allow_missing: bool = False
+    allow_missing: bool = ...  # pyright: ignore[reportUnknownVariableType]
     default_value: _TensorCompatible | None = ...  # pyright: ignore[reportUnknownVariableType]
 
 class VarLenFeature(NamedTuple):
@@ -98,10 +98,10 @@ class RaggedFeature(NamedTuple):
     class UniformRowLength(NamedTuple):  # type: ignore[misc]
         length: int
     dtype: _DTypeLike
-    value_key: str | None = None
-    partitions: tuple[RowSplits | RowLengths | RowStarts | RowLimits | ValueRowIds | UniformRowLength, ...] = ()  # type: ignore[name-defined]
+    value_key: str | None = ...  # pyright: ignore[reportUnknownVariableType]
+    partitions: tuple[RowSplits | RowLengths | RowStarts | RowLimits | ValueRowIds | UniformRowLength, ...] = ...  # type: ignore[name-defined] # pyright: ignore[reportUnknownVariableType]
     row_splits_dtype: _DTypeLike = ...  # pyright: ignore[reportUnknownVariableType]
-    validate: bool = False
+    validate: bool = ...  # pyright: ignore[reportUnknownVariableType]
 
 def parse_example(
     serialized: _TensorCompatible, features: _FeatureSpecs, example_names: Iterable[str] | None = None, name: str | None = None

@@ -8,6 +8,9 @@
     "exclude": [
         // test cases use a custom config file
         "stubs/**/@tests/test_cases",
+        // Bug in pyright that can't be ignored as it passes this one,
+        // but fails pyrightconfig.stricter.json. Can be removed after
+        // upgrading to 1.1.304 and removing ignores.
         "stubs/tensorflow/tensorflow/io/__init__.pyi",
     ],
     "typeCheckingMode": "strict",
