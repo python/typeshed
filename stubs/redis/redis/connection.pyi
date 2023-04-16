@@ -57,7 +57,7 @@ class PythonParser(BaseParser):
     def on_connect(self, connection: Connection) -> None: ...
     def on_disconnect(self) -> None: ...
     def can_read(self, timeout: float | None) -> bool: ...
-    def read_response(self, disable_decoding: bool = ...) -> Any: ...  # `str | bytes` or `list[str | bytes]`
+    def read_response(self, disable_decoding: bool = False) -> Any: ...  # `str | bytes` or `list[str | bytes]`
 
 class HiredisParser(BaseParser):
     socket_read_size: int
@@ -66,8 +66,8 @@ class HiredisParser(BaseParser):
     def on_connect(self, connection: Connection, **kwargs) -> None: ...
     def on_disconnect(self) -> None: ...
     def can_read(self, timeout: float | None) -> bool: ...
-    def read_from_socket(self, timeout: float | None = ..., raise_on_timeout: bool = ...) -> bool: ...
-    def read_response(self, disable_decoding: bool = ...) -> Any: ...  # `str | bytes` or `list[str | bytes]`
+    def read_from_socket(self, timeout: float | None = ..., raise_on_timeout: bool = True) -> bool: ...
+    def read_response(self, disable_decoding: bool = False) -> Any: ...  # `str | bytes` or `list[str | bytes]`
 
 DefaultParser: type[BaseParser]  # Hiredis or PythonParser
 
@@ -79,7 +79,7 @@ class Encoder:
     decode_responses: bool
     def __init__(self, encoding: str, encoding_errors: str, decode_responses: bool) -> None: ...
     def encode(self, value: _Encodable) -> bytes: ...
-    def decode(self, value: str | bytes | memoryview, force: bool = ...) -> str: ...
+    def decode(self, value: str | bytes | memoryview, force: bool = False) -> str: ...
 
 class AbstractConnection:
     pid: int
@@ -182,18 +182,18 @@ class SSLConnection(Connection):
     ssl_ocsp_expected_cert: Incomplete | None  # added in 4.1.1
     def __init__(
         self,
-        ssl_keyfile=...,
-        ssl_certfile=...,
-        ssl_cert_reqs=...,
-        ssl_ca_certs=...,
-        ssl_ca_data: Incomplete | None = ...,
-        ssl_check_hostname: bool = ...,
-        ssl_ca_path: Incomplete | None = ...,
-        ssl_password: Incomplete | None = ...,
-        ssl_validate_ocsp: bool = ...,
-        ssl_validate_ocsp_stapled: bool = ...,  # added in 4.1.1
-        ssl_ocsp_context: Incomplete | None = ...,  # added in 4.1.1
-        ssl_ocsp_expected_cert: Incomplete | None = ...,  # added in 4.1.1
+        ssl_keyfile=None,
+        ssl_certfile=None,
+        ssl_cert_reqs="required",
+        ssl_ca_certs=None,
+        ssl_ca_data: Incomplete | None = None,
+        ssl_check_hostname: bool = False,
+        ssl_ca_path: Incomplete | None = None,
+        ssl_password: Incomplete | None = None,
+        ssl_validate_ocsp: bool = False,
+        ssl_validate_ocsp_stapled: bool = False,  # added in 4.1.1
+        ssl_ocsp_context: Incomplete | None = None,  # added in 4.1.1
+        ssl_ocsp_expected_cert: Incomplete | None = None,  # added in 4.1.1
         *,
         host: str = "localhost",
         port: int = 6379,
@@ -222,9 +222,11 @@ class SSLConnection(Connection):
 
 class UnixDomainSocketConnection(AbstractConnection):
     path: str
+    socket_timeout: float | None
     def __init__(
         self,
         path: str = "",
+        socket_timeout: float | None = None,
         *,
         db: int = 0,
         password: str | None = None,
@@ -254,13 +256,13 @@ class ConnectionPool:
     @classmethod
     def from_url(cls, url: str, *, db: int = ..., decode_components: bool = ..., **kwargs) -> Self: ...
     def __init__(
-        self, connection_class: type[Connection] = ..., max_connections: int | None = ..., **connection_kwargs
+        self, connection_class: type[AbstractConnection] = ..., max_connections: int | None = None, **connection_kwargs
     ) -> None: ...
     def reset(self) -> None: ...
     def get_connection(self, command_name: Unused, *keys, **options: _ConnectionPoolOptions) -> Connection: ...
     def make_connection(self) -> Connection: ...
     def release(self, connection: Connection) -> None: ...
-    def disconnect(self, inuse_connections: bool = ...) -> None: ...
+    def disconnect(self, inuse_connections: bool = True) -> None: ...
     def get_encoder(self) -> Encoder: ...
     def owns_connection(self, connection: Connection) -> bool: ...
 
@@ -270,8 +272,8 @@ class BlockingConnectionPool(ConnectionPool):
     pool: Queue[Connection | None]  # might not be defined
     def __init__(
         self,
-        max_connections: int = ...,
-        timeout: float = ...,
+        max_connections: int = 50,
+        timeout: float = 20,
         connection_class: type[Connection] = ...,
         queue_class: type[Queue[Any]] = ...,
         **connection_kwargs,
