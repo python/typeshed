@@ -2,9 +2,9 @@ from _typeshed import Incomplete
 from typing import Any, Generic, TypeVar
 
 from .. import util
-from ..sql.sqltypes import Boolean
 from . import operators
 from .base import SchemaEventTarget
+from .sqltypes import Boolean
 from .visitors import Traversible, TraversibleType
 
 _T = TypeVar("_T")

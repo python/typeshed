@@ -2,9 +2,10 @@ from _typeshed import Incomplete
 from typing import TypeVar
 
 from ..schema import Table
-from ..sql.compiler import _CompileLabel
-from ..sql.crud import _multiparam_column
-from ..sql.elements import (
+from ..util import immutabledict
+from .compiler import _CompileLabel
+from .crud import _multiparam_column
+from .elements import (
     AnnotatedColumnElement as _ElementsAnnotatedColumnElement,
     AsBoolean,
     BinaryExpression,
@@ -36,7 +37,7 @@ from ..sql.elements import (
     _label_reference,
     _textual_label_reference,
 )
-from ..sql.functions import (
+from .functions import (
     AnsiFunction,
     Function,
     FunctionAsBinary,
@@ -76,8 +77,8 @@ from ..sql.functions import (
     sysdate,
     user,
 )
-from ..sql.schema import Column
-from ..sql.selectable import (
+from .schema import Column
+from .selectable import (
     CTE,
     Alias,
     AliasedReturnsRows,
@@ -95,7 +96,6 @@ from ..sql.selectable import (
     Values,
     _OffsetLimitParam,
 )
-from ..util import immutabledict
 
 _T = TypeVar("_T")
 
