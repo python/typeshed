@@ -50,16 +50,22 @@ class TFRecordWriter:
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> None: ...
 
+# Default ignores are because of bug in pyright fixed in
+# this [issue](https://github.com/microsoft/pyright/issues/4962) and can be removed after
+# the next release. Also remove exclude from pyrightconfig.json since this error
+# happens only in stricter one.
+# Also defaults are missing here because pytype crashes when a default is present reported
+# in this [issue](https://github.com/google/pytype/issues/1410#issue-1669793588)
 class FixedLenFeature(NamedTuple):
     shape: _ShapeLike
     dtype: _DTypeLike
-    default_value: _TensorCompatible | None = None
+    default_value: _TensorCompatible | None = ...  # pyright: ignore[reportUnknownVariableType]
 
 class FixedLenSequenceFeature(NamedTuple):
     shape: _ShapeLike
     dtype: _DTypeLike
     allow_missing: bool = False
-    default_value: _TensorCompatible | None = None
+    default_value: _TensorCompatible | None = ...  # pyright: ignore[reportUnknownVariableType]
 
 class VarLenFeature(NamedTuple):
     dtype: _DTypeLike
@@ -69,7 +75,7 @@ class SparseFeature(NamedTuple):
     value_key: str
     dtype: _DTypeLike
     size: int | list[int]
-    already_sorted: bool = False
+    already_sorted: bool = ...  # pyright: ignore[reportUnknownVariableType]
 
 class RaggedFeature(NamedTuple):
     # Mypy doesn't support nested NamedTuples, but runtime they actually do use
@@ -94,7 +100,6 @@ class RaggedFeature(NamedTuple):
     dtype: _DTypeLike
     value_key: str | None = None
     partitions: tuple[RowSplits | RowLengths | RowStarts | RowLimits | ValueRowIds | UniformRowLength, ...] = ()  # type: ignore[name-defined]
-    # Bug in pyright.
     row_splits_dtype: _DTypeLike = ...  # pyright: ignore[reportUnknownVariableType]
     validate: bool = False
 
