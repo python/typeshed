@@ -2,12 +2,12 @@ from collections.abc import Callable, Iterable, Sequence
 
 import tensorflow as tf
 from tensorflow import _ShapeLike
-from tensorflow.python.feature_column import feature_column_v2 as fc
+from tensorflow.python.feature_column import feature_column_v2 as fc, sequence_feature_column as seq_fc
 
 def numeric_column(
     key: str,
     shape: _ShapeLike = (1,),
-    default_value: float = 0.0,
+    default_value: float | None = None,
     dtype: tf.DType = ...,
     normalizer_fn: Callable[[tf.Tensor], tf.Tensor] | None = None,
 ) -> fc.NumericColumn: ...
@@ -43,15 +43,16 @@ def categorical_column_with_vocabulary_file(
     key: str,
     vocabulary_file: str,
     vocabulary_size: int | None = None,
-    num_oov_buckets: int = 0,
-    default_value: str | int | None = None,
     dtype: tf.DType = ...,
+    default_value: str | int | None = None,
+    num_oov_buckets: int = 0,
+    file_format: str | None = None,
 ) -> fc.VocabularyFileCategoricalColumn: ...
 def categorical_column_with_vocabulary_list(
     key: str,
     vocabulary_list: Sequence[str] | Sequence[int],
     dtype: tf.DType | None = None,
-    default_value: str | int | None = None,
+    default_value: str | int | None = -1,
     num_oov_buckets: int = 0,
 ) -> fc.VocabularyListCategoricalColumn: ...
 def indicator_column(categorical_column: fc.CategoricalColumn) -> fc.IndicatorColumn: ...
@@ -67,7 +68,7 @@ def sequence_numeric_column(
     default_value: float = 0.0,
     dtype: tf.DType = ...,
     normalizer_fn: Callable[[tf.Tensor], tf.Tensor] | None = None,
-) -> fc.SequenceNumericColumn: ...
+) -> seq_fc.SequenceNumericColumn: ...
 def sequence_categorical_column_with_identity(
     key: str, num_buckets: int, default_value: int | None = None
 ) -> fc.SequenceCategoricalColumn: ...
@@ -86,7 +87,7 @@ def sequence_categorical_column_with_vocabulary_list(
     key: str,
     vocabulary_list: Sequence[str] | Sequence[int],
     dtype: tf.DType | None = None,
-    default_value: str | int | None = None,
+    default_value: str | int | None = -1,
     num_oov_buckets: int = 0,
 ) -> fc.SequenceCategoricalColumn: ...
 def make_parse_example_spec(
