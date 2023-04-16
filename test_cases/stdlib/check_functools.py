@@ -58,9 +58,9 @@ if sys.version_info >= (3, 8):
     class X:
         @cached_property
         def some(self) -> Parent:
-            ...
+            return Parent()
 
     class Y(X):
         @cached_property
-        def some(self) -> Child:
-            ...  # safe override
+        def some(self) -> Child:  # safe override
+            return Child()
