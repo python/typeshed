@@ -1,6 +1,7 @@
-from _typeshed import Incomplete, Self, SupportsGetItem
+from _typeshed import Incomplete, SupportsGetItem
 from collections.abc import Callable, Sequence
 from typing import NoReturn, TypeVar, overload
+from typing_extensions import Self
 
 from ...sql import expression, sqltypes
 from ...sql.elements import BinaryExpression, Grouping
@@ -23,13 +24,13 @@ class array(expression.ClauseList, expression.ColumnElement[Incomplete]):
     def __init__(self, clauses, **kw) -> None: ...
     @overload  # type: ignore[override]  # Actual return type
     def self_group(  # type: ignore[misc]  # Actual return type
-        self: Self,
+        self,
         against: Callable[[Incomplete], Incomplete]
         | Callable[[Sequence[_V], slice], Sequence[_V]]
         | Callable[[SupportsGetItem[_K, _V], _K], _V],
     ) -> Grouping | Self: ...
     @overload
-    def self_group(self: Self, against: object = ...) -> Self: ...
+    def self_group(self, against: object = ...) -> Self: ...
 
 CONTAINS: Incomplete
 CONTAINED_BY: Incomplete

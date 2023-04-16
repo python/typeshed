@@ -1,6 +1,7 @@
-from _typeshed import Incomplete, Self
+from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Mapping
 from typing import Any, Protocol
+from typing_extensions import Self
 
 from ..engine import Connection, Engine
 from ..engine.cursor import CursorResult
@@ -31,10 +32,10 @@ class DDLElement(roles.DDLRole, Executable, _DDLCompiles):
     dialect: str | tuple[str] | list[str] | set[str] | None
     callable_: _DDLCallable | None
     def execute(self, bind: Engine | Connection | None = ..., target: Incomplete | None = ...) -> CursorResult: ...
-    def against(self: Self, target: SchemaItem) -> Self: ...
+    def against(self, target: SchemaItem) -> Self: ...
     state: Any
     def execute_if(
-        self: Self,
+        self,
         dialect: str | tuple[str] | list[str] | set[str] | None = ...,
         callable_: _DDLCallable | None = ...,
         state: Incomplete | None = ...,

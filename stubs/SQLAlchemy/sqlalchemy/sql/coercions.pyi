@@ -39,7 +39,7 @@ _CoercibleElement: TypeAlias = (  # noqa: Y047
 )
 
 _T = TypeVar("_T")
-_Unused: TypeAlias = object
+from _typeshed import Unused
 
 _ExpectColExpressionCollectionResult: TypeAlias = (
     Generator[tuple[_T, Column, str | None, Column], None, None]
@@ -61,8 +61,8 @@ def expect(
     role: roles.AllowsLambdaRole,
     element: _CallableWithCode,
     apply_propagate_attrs: Incomplete | None = ...,
-    argname: _Unused = ...,
-    post_inspect: _Unused = ...,
+    argname: Unused = ...,
+    post_inspect: Unused = ...,
     **kw,
 ) -> lambdas.LambdaElement: ...
 @overload

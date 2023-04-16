@@ -1,7 +1,6 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from abc import ABCMeta
 from typing import Any
-from typing_extensions import TypeAlias
 
 from ...engine import default
 from ...sql import compiler
@@ -36,8 +35,6 @@ from .types import (
     VARCHAR as VARCHAR,
     YEAR as YEAR,
 )
-
-_Unused: TypeAlias = object
 
 AUTOCOMMIT_RE: Any
 SET_RE: Any
@@ -105,7 +102,7 @@ class MySQLCompiler(compiler.SQLCompiler, metaclass=ABCMeta):
     def update_limit_clause(self, update_stmt): ...
     def update_tables_clause(self, update_stmt, from_table, extra_froms, **kw): ...
     def update_from_clause(
-        self, update_stmt: _Unused, from_table: _Unused, extra_froms: _Unused, from_hints: _Unused, **kw: _Unused
+        self, update_stmt: Unused, from_table: Unused, extra_froms: Unused, from_hints: Unused, **kw: Unused
     ) -> str | None: ...
     def delete_table_clause(self, delete_stmt, from_table, extra_froms): ...
     def delete_extra_from_clause(self, delete_stmt, from_table, extra_froms, from_hints, **kw): ...

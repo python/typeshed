@@ -1,10 +1,10 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from _typeshed.dbapi import DBAPIConnection
 from abc import abstractmethod
 from collections.abc import Callable, Mapping
 from types import TracebackType
 from typing import Any, TypeVar, overload
-from typing_extensions import Concatenate, ParamSpec, Self, TypeAlias
+from typing_extensions import Concatenate, ParamSpec, Self
 
 from ..log import Identified, _EchoFlag, echo_property
 from ..pool import Pool
@@ -12,8 +12,6 @@ from .cursor import CursorResult
 from .interfaces import Connectable as Connectable, Dialect, ExceptionContext, _Executable
 from .url import URL
 from .util import TransactionalContext
-
-_Unused: TypeAlias = object
 
 _T = TypeVar("_T")
 _P = ParamSpec("_P")
@@ -100,7 +98,7 @@ class ExceptionContextImpl(ExceptionContext):
         sqlalchemy_exception,
         engine,
         connection,
-        cursor: _Unused,
+        cursor: Unused,
         statement,
         parameters,
         context,

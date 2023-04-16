@@ -1,8 +1,8 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from abc import ABCMeta, abstractmethod
 from collections.abc import Iterable, MutableMapping
 from typing import Any, ClassVar, NoReturn
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
 
 from .. import util
 from ..engine.base import Connection, Engine
@@ -17,8 +17,6 @@ from .traversals import (
     MemoizedHasCacheKey as MemoizedHasCacheKey,
 )
 from .visitors import ExternalTraversal
-
-_Unused: TypeAlias = object
 
 coercions: Any
 elements: Any
@@ -161,9 +159,9 @@ class DedupeColumnCollection(ColumnCollection, metaclass=ABCMeta):
 
 class ImmutableColumnCollection(util.ImmutableContainer, ColumnCollection, metaclass=ABCMeta):
     def __init__(self, collection: ColumnCollection) -> None: ...
-    def add(self, *arg: _Unused, **kw: _Unused) -> NoReturn: ...
-    def extend(self, *arg: _Unused, **kw: _Unused) -> NoReturn: ...
-    def remove(self, *arg: _Unused, **kw: _Unused) -> NoReturn: ...
+    def add(self, *arg: Unused, **kw: Unused) -> NoReturn: ...
+    def extend(self, *arg: Unused, **kw: Unused) -> NoReturn: ...
+    def remove(self, *arg: Unused, **kw: Unused) -> NoReturn: ...
     def __getstate__(self) -> dict[str, ColumnCollection]: ...
     def __setstate__(self, state: dict[str, ColumnCollection]) -> None: ...
 

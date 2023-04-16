@@ -1,12 +1,9 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from typing import Any, ClassVar, NoReturn
-from typing_extensions import TypeAlias
 
 from ..sql import sqltypes
 from ..util import memoized_property
 from . import interfaces
-
-_Unused: TypeAlias = object
 
 AUTOCOMMIT_REGEXP: Any
 SERVER_SIDE_CURSOR_RE: Any
@@ -103,7 +100,7 @@ class DefaultDialect(interfaces.Dialect):
         label_length: Incomplete | None = ...,
         compiler_linting=...,
         server_side_cursors: bool = ...,
-        **kwargs: _Unused,
+        **kwargs: Unused,
     ) -> None: ...
     @property
     def dialect_description(self): ...

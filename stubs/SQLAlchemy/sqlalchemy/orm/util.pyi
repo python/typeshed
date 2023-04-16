@@ -1,6 +1,5 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from typing import Any, overload
-from typing_extensions import TypeAlias
 
 from ..sql import base as sql_base, expression, util as sql_util
 from ..sql.annotation import SupportsCloneAnnotations
@@ -20,8 +19,6 @@ from .base import (
     state_str as state_str,
 )
 from .interfaces import CriteriaOption, ORMColumnsClauseRole, ORMEntityColumnsClauseRole, ORMFromClauseRole
-
-_Unused: TypeAlias = object
 
 all_cascades: Any
 
@@ -114,7 +111,7 @@ class LoaderCriteriaOption(CriteriaOption):
         self,
         entity_or_base,
         where_criteria,
-        loader_only: _Unused = ...,
+        loader_only: Unused = ...,
         include_aliases: bool = ...,
         propagate_to_loaders: bool = ...,
         track_closure_variables: bool = ...,

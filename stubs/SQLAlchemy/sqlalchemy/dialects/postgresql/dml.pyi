@@ -1,5 +1,6 @@
-from _typeshed import Incomplete, Self
+from _typeshed import Incomplete
 from typing import Any
+from typing_extensions import Self
 
 from ...sql.dml import Insert as StandardInsert
 from ...sql.elements import ClauseElement
@@ -11,7 +12,7 @@ class Insert(StandardInsert):
     @memoized_property
     def excluded(self): ...
     def on_conflict_do_update(
-        self: Self,
+        self,
         constraint: Incomplete | None = ...,
         index_elements: Incomplete | None = ...,
         index_where: Incomplete | None = ...,
@@ -19,10 +20,7 @@ class Insert(StandardInsert):
         where: Incomplete | None = ...,
     ) -> Self: ...
     def on_conflict_do_nothing(
-        self: Self,
-        constraint: Incomplete | None = ...,
-        index_elements: Incomplete | None = ...,
-        index_where: Incomplete | None = ...,
+        self, constraint: Incomplete | None = ..., index_elements: Incomplete | None = ..., index_where: Incomplete | None = ...
     ) -> Self: ...
 
 insert: Any

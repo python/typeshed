@@ -43,7 +43,7 @@ class BaseRow(Iterable[_T_co]):
 # class BaseRow(Iterable[_T_co], Generic[_T_co, _KS]):
 #     @overload
 #     def __init__(
-#         self: Self,
+#         self
 #         __parent: ResultMetaData,
 #         __processors: Iterable[Callable[[Self], Incomplete]] | None,
 #         __keymap: dict[Incomplete, Incomplete],
@@ -52,7 +52,7 @@ class BaseRow(Iterable[_T_co]):
 #     ) -> None: ...
 #     @overload
 #     def __init__(
-#         self: Self,
+#         self
 #         __parent: ResultMetaData | None,
 #         __processors: Iterable[Callable[[Self], Incomplete]] | None,
 #         __keymap: dict[Incomplete, Incomplete],

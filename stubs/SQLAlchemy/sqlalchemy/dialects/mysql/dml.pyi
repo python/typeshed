@@ -1,5 +1,5 @@
-from _typeshed import Self
 from typing import Any
+from typing_extensions import Self
 
 from ...sql.dml import Insert as StandardInsert
 from ...sql.elements import ClauseElement
@@ -12,7 +12,7 @@ class Insert(StandardInsert):
     def inserted(self): ...
     @memoized_property
     def inserted_alias(self): ...
-    def on_duplicate_key_update(self: Self, *args, **kw) -> Self: ...
+    def on_duplicate_key_update(self, *args, **kw) -> Self: ...
 
 insert: Any
 

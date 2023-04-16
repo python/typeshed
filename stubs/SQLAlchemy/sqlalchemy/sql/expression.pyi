@@ -1,7 +1,7 @@
-from _typeshed import Incomplete, ReadableBuffer, SupportsTrunc
+from _typeshed import Incomplete, ReadableBuffer, SupportsTrunc, Unused
 from collections.abc import Callable
 from typing import SupportsInt, TypeVar, overload
-from typing_extensions import SupportsIndex, TypeAlias
+from typing_extensions import SupportsIndex
 
 from ..sql.coercions import _CoercibleElement
 from ..sql.type_api import TypeEngine
@@ -84,7 +84,6 @@ from .selectable import (
 from .traversals import CacheKey as CacheKey
 from .visitors import Traversible, Visitable as Visitable
 
-_Unused: TypeAlias = object
 _T = TypeVar("_T")
 
 __all__ = [
@@ -245,7 +244,7 @@ def case(*whens: tuple[ClauseElement, Incomplete], value: Incomplete | None = No
 def cast(expression, type_: TypeEngine | type[TypeEngine] | None) -> Cast: ...
 def cte(selectable, name=None, recursive=False) -> CTE: ...
 def values(*columns, **kw) -> Values: ...
-def extract(field, expr: ClauseElement, **kwargs: _Unused) -> Extract: ...
+def extract(field, expr: ClauseElement, **kwargs: Unused) -> Extract: ...
 def tuple_(*clauses: ColumnElement[Incomplete], **kw) -> Tuple: ...
 def except_(*selects, **kwargs) -> CompoundSelect: ...
 def except_all(*selects, **kwargs) -> CompoundSelect: ...

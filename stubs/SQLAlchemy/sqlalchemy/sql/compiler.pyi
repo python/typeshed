@@ -1,18 +1,16 @@
-from _typeshed import Incomplete, Self
+from _typeshed import Incomplete, Unused
 from abc import abstractmethod
 from collections.abc import Iterable, Mapping
 from operator import attrgetter
 from re import Pattern
 from typing import NamedTuple, NoReturn, TypeVar
-from typing_extensions import TypeAlias
+from typing_extensions import Self
 
 from ..engine.default import DefaultDialect
 from ..engine.interfaces import Dialect
 from ..sql.base import prefix_anon_map
 from ..util import EnsureKWArgType, OrderedDict, memoized_property
 from .elements import BindParameter, ClauseElement, ColumnElement, quoted_name
-
-_Unused: TypeAlias = object
 
 _Q = TypeVar("_Q", str, quoted_name)
 
@@ -100,7 +98,7 @@ class _CompileLabel(ColumnElement[Incomplete]):
     def proxy_set(self): ...
     @property
     def type(self): ...
-    def self_group(self: Self, **kw: _Unused) -> Self: ...  # type: ignore[override]  # Different params
+    def self_group(self, **kw: Unused) -> Self: ...  # type: ignore[override]  # Different params
 
 class SQLCompiler(Compiled):
     extract_map: dict[str, str]
@@ -152,7 +150,7 @@ class SQLCompiler(Compiled):
     def prefetch(self) -> list[Incomplete]: ...
     def is_subquery(self) -> bool: ...
     @property
-    def sql_compiler(self: Self) -> Self: ...
+    def sql_compiler(self) -> Self: ...
     def construct_params(  # type: ignore[override]
         self,
         params: Mapping[str, Incomplete] | None = ...,

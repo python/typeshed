@@ -1,6 +1,7 @@
-from _typeshed import Incomplete, Self
+from _typeshed import Incomplete
 from abc import ABCMeta
 from typing import Any
+from typing_extensions import Self
 
 from ..util import memoized_property
 from .result import Result, ResultMetaData
@@ -120,7 +121,7 @@ class BaseCursorResult:
 class CursorResult(BaseCursorResult, Result):
     def merge(self, *others): ...
     def close(self) -> None: ...
-    def yield_per(self: Self, num) -> Self: ...
+    def yield_per(self, num) -> Self: ...
 
 class LegacyCursorResult(CursorResult):
     def close(self) -> None: ...

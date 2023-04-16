@@ -1,7 +1,7 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from collections.abc import Callable, Iterable
 from typing import Any, TypeVar
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal
 
 from ..orm.mapper import (
     Mapper as Mapper,
@@ -88,14 +88,13 @@ from .util import (
     with_polymorphic as with_polymorphic,
 )
 
-_Unused: TypeAlias = object
 _OB = TypeVar("_OB", str, Column, Callable[[], Incomplete])
 
 def create_session(bind: Incomplete | None = ..., **kwargs): ...
 def with_loader_criteria(
     entity_or_base,
     where_criteria,
-    loader_only: _Unused = ...,
+    loader_only: Unused = ...,
     include_aliases: bool = ...,
     propagate_to_loaders: bool = ...,
     track_closure_variables: bool = ...,
