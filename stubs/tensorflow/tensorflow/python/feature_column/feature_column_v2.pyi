@@ -2,7 +2,7 @@
 # public functions in tf.feature_column. As they are undocumented internals while some
 # common methods are included, they are incomplete and do not have getattr Incomplete fallback.
 from _typeshed import Incomplete
-from abc import ABC, abstractmethod
+from abc import ABC, ABCMeta, abstractmethod
 from collections.abc import Callable, Sequence
 from typing_extensions import Literal, Self, TypeAlias
 
@@ -25,8 +25,8 @@ class FeatureColumn(ABC):
     @abstractmethod
     def parents(self) -> list[FeatureColumn | str]: ...
 
-class DenseColumn(FeatureColumn, ABC): ...
-class SequenceDenseColumn(FeatureColumn, ABC): ...
+class DenseColumn(FeatureColumn, metaclass=ABCMeta): ...
+class SequenceDenseColumn(FeatureColumn, metaclass=ABCMeta): ...
 
 # These classes are mostly subclasses of collections.namedtuple but we can't use
 # typing.NamedTuple because they use multiple inheritance with other non namedtuple classes.
