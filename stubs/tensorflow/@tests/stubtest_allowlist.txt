@@ -24,7 +24,6 @@ tensorflow.RaggedTensor.__init__
 tensorflow.Tensor.__getitem__
 # stub internal utilities
 tensorflow._aliases
-tensorflow._internal
 
 # Tensorflow imports are cursed.
 # import tensorflow.initializers

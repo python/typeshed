@@ -6,8 +6,8 @@ from typing_extensions import Self, TypeAlias
 
 import tensorflow as tf
 from tensorflow._aliases import Gradients
-from tensorflow._internal import Trackable
 from tensorflow.keras.optimizers import schedules as schedules
+from tensorflow.python.trackable.base import Trackable
 
 _Initializer: TypeAlias = str | Callable[[], tf.Tensor] | dict[str, Any]
 _Shape: TypeAlias = tf.TensorShape | Iterable[int | None]
@@ -18,7 +18,7 @@ _GradientTransformer: TypeAlias = (
     Iterable[Callable[[list[tuple[Gradients, tf.Variable]]], list[tuple[Gradients, tf.Variable]]]] | None
 )
 
-# kwargs here and in other optimizers can be given better type after Unpack[TypedDict] is supported.
+# kwargs here and in other optimizers can be given better type after Unpack[TypedDict], PEP 692, is supported.
 class Optimizer(Trackable):
     _name: str
     _iterations: tf.Variable | None

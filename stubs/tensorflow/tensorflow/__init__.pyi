@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from abc import ABCMeta
 from builtins import bool as _bool
-from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
+from collections.abc import Callable, Generator, Iterable, Iterator, Mapping, Sequence
 from contextlib import contextmanager
 from enum import Enum
 from types import TracebackType
@@ -54,6 +54,7 @@ from tensorflow.math import (
     subtract as subtract,
     tanh as tanh,
 )
+from tensorflow.python.trackable.autotrackable import AutoTrackable
 from tensorflow.sparse import SparseTensor as SparseTensor
 
 # Tensors ideally should be a generic type, but properly typing data type/shape
@@ -264,7 +265,7 @@ class name_scope:
 _P = ParamSpec("_P")
 _R = TypeVar("_R")
 
-class Module:
+class Module(AutoTrackable):
     def __init__(self, name: str | None = None) -> None: ...
     @property
     def name(self) -> str: ...
@@ -325,7 +326,7 @@ class GradientTape:
         unconnected_gradients: UnconnectedGradients = ...,
     ) -> ContainerGradients: ...
     @contextmanager
-    def stop_recording(self) -> Iterator[None]: ...
+    def stop_recording(self) -> Generator[None, None, None]: ...
     def reset(self) -> None: ...
     def watch(self, tensor: ContainerTensorsLike) -> None: ...
     def watched_variables(self) -> tuple[Variable, ...]: ...
