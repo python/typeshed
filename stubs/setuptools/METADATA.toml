@@ -1,4 +1,5 @@
 version = "67.6.*"
 
 [tool.stubtest]
-platforms = ["darwin", "linux", "win32"]
+# darwin is equivalent to linux for OS-specific methods
+platforms = ["linux", "win32"]
