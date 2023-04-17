@@ -1,27 +1,18 @@
-pkg_resources.Distribution.__cmp__
-pkg_resources.Distribution.activate
-pkg_resources.Distribution.get_entry_map
-pkg_resources.EggMetadata.__init__
-pkg_resources.Environment.best_match
-pkg_resources.Environment.obtain
-pkg_resources.FileMetadata.__init__
+# These are used like protocols, but forgot to specify "self" as the first method param
+pkg_resources.IResourceProvider.get_resource_filename
+pkg_resources.IResourceProvider.get_resource_stream
+pkg_resources.IResourceProvider.get_resource_string
+pkg_resources.IResourceProvider.has_resource
+pkg_resources.IResourceProvider.resource_isdir
+pkg_resources.IResourceProvider.resource_listdir
 pkg_resources.IMetadataProvider.get_metadata
 pkg_resources.IMetadataProvider.get_metadata_lines
 pkg_resources.IMetadataProvider.has_metadata
 pkg_resources.IMetadataProvider.metadata_isdir
 pkg_resources.IMetadataProvider.metadata_listdir
 pkg_resources.IMetadataProvider.run_script
+# @type_check_only
 pkg_resources.IResourceManager
-pkg_resources.Requirement.__init__
-pkg_resources.WorkingSet.find_plugins
-pkg_resources.WorkingSet.resolve
-pkg_resources.WorkingSet.subscribe
-pkg_resources.declare_namespace
-pkg_resources.fixup_namespace_packages
-pkg_resources.get_entry_map
-pkg_resources.get_provider
-pkg_resources.split_sections
-pkg_resources.to_filename
 
 # Is always set in __init__
 pkg_resources.PathMetadata.egg_info
@@ -53,16 +44,24 @@ setuptools._distutils.dist.Distribution.get_requires
 setuptools._distutils.dist.Distribution.get_provides
 setuptools._distutils.dist.Distribution.get_obsoletes
 
-# Uncomment once ignore_missing_stub is turned off
-# # Not supported by typeshed
-# setuptools.py34compat
+# Not supported by typeshed
+setuptools.py34compat
+setuptools.command.py36compat
 
-# # Private modules
-# setuptools.config._validate_pyproject.*
-# setuptools.build_meta._BuildMetaBackend.*
+# Private modules
+setuptools.config._validate_pyproject.*
+setuptools.command.build_py.build_py.existing_egg_info_dir
 
-# # Vendored and modified version of stdlib's distutils. Basically implementation details
-# setuptools._distutils.*
-# # Other vendored code
-# setuptools._vendor.*
-# pkg_resources._vendor.*
+# Loop variable leak
+setuptools.sandbox.AbstractSandbox.name
+
+# Vendored and modified version of stdlib's distutils. Basically implementation details
+setuptools._distutils.*
+# Other vendored code
+setuptools._vendor.*
+pkg_resources._vendor.*
+# Deprecated in favor of importlib.resources, importlib.metadata and their backports
+# So like distutils, we only add what we need to reference.
+pkg_resources.AvailableDistributions
+pkg_resources.ResourceManager
+pkg_resources.extern

@@ -1,21 +1,26 @@
 from abc import abstractmethod
-from collections.abc import Iterable, Mapping, Sequence
+from collections.abc import Mapping, Sequence
 from typing import Any
 
-from setuptools._deprecation_warning import SetuptoolsDeprecationWarning as SetuptoolsDeprecationWarning
-from setuptools.depends import Require as Require
-from setuptools.dist import Distribution as Distribution
-from setuptools.extension import Extension as Extension
-
+from ._deprecation_warning import SetuptoolsDeprecationWarning as SetuptoolsDeprecationWarning
 from ._distutils.cmd import Command as _Command
+from .depends import Require as Require
+from .discovery import PackageFinder, PEP420PackageFinder
+from .dist import Distribution as Distribution
+from .extension import Extension as Extension
+
+__all__ = [
+    "setup",
+    "Distribution",
+    "Command",
+    "Extension",
+    "Require",
+    "SetuptoolsDeprecationWarning",
+    "find_packages",
+    "find_namespace_packages",
+]
 
 __version__: str
-
-class PackageFinder:
-    @classmethod
-    def find(cls, where: str = ".", exclude: Iterable[str] = (), include: Iterable[str] = ("*",)) -> list[str]: ...
-
-class PEP420PackageFinder(PackageFinder): ...
 
 find_packages = PackageFinder.find
 find_namespace_packages = PEP420PackageFinder.find
