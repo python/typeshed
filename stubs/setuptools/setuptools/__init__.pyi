@@ -1,11 +1,11 @@
 from abc import abstractmethod
-from collections.abc import Mapping, Sequence
+from collections.abc import Iterable, Mapping, Sequence
 from typing import Any
 
 from ._deprecation_warning import SetuptoolsDeprecationWarning as SetuptoolsDeprecationWarning
 from ._distutils.cmd import Command as _Command
 from .depends import Require as Require
-from .discovery import PackageFinder, PEP420PackageFinder
+from .discovery import _Path
 from .dist import Distribution as Distribution
 from .extension import Extension as Extension
 
@@ -22,9 +22,11 @@ __all__ = [
 
 __version__: str
 
-find_packages = PackageFinder.find
-find_namespace_packages = PEP420PackageFinder.find
-
+# Pytype fails with the following:
+# find_packages = PackageFinder.find
+# find_namespace_packages = PEP420PackageFinder.find
+def find_packages(where: _Path = ".", exclude: Iterable[str] = (), include: Iterable[str] = ("*",)) -> list[str]: ...
+def find_namespace_packages(where: _Path = ".", exclude: Iterable[str] = (), include: Iterable[str] = ("*",)) -> list[str]: ...
 def setup(
     *,
     name: str = ...,
