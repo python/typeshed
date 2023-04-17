@@ -139,7 +139,9 @@ class DictConfigurator(BaseConfigurator):
     def add_filters(self, filterer: Filterer, filters: Iterable[_FilterType]) -> None: ...  # undocumented
     def configure_handler(self, config: _HandlerConfiguration) -> Handler | Any: ...  # undocumented
     def add_handlers(self, logger: Logger, handlers: Iterable[str]) -> None: ...  # undocumented
-    def common_logger_config(self, logger: Logger, config: _LoggerConfiguration, incremental: bool = False) -> None: ...  # undocumented
+    def common_logger_config(
+        self, logger: Logger, config: _LoggerConfiguration, incremental: bool = False
+    ) -> None: ...  # undocumented
     def configure_logger(self, name: str, config: _LoggerConfiguration, incremental: bool = False) -> None: ...  # undocumented
     def configure_root(self, config: _LoggerConfiguration, incremental: bool = False) -> None: ...  # undocumented
 
