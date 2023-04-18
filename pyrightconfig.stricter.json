@@ -72,8 +72,7 @@
         "stubs/tqdm",
         "stubs/ttkthemes",
         "stubs/urllib3",
-        "stubs/vobject",,
-        "stubs/whichcraft"
+        "stubs/vobject",
     ],
     "typeCheckingMode": "strict",
     // TODO: Complete incomplete stubs
