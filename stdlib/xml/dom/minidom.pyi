@@ -1,7 +1,7 @@
 import sys
 import xml.dom
 from _typeshed import Incomplete, ReadableBuffer, SupportsRead, SupportsWrite
-from typing import NoReturn, TypeVar
+from typing import NoReturn, TypeVar, overload
 from typing_extensions import Literal, Self
 from xml.dom.minicompat import NodeList
 from xml.dom.xmlbuilder import DocumentLS, DOMImplementationLS
@@ -30,13 +30,65 @@ class Node(xml.dom.Node):
     def localName(self) -> str | None: ...
     def __bool__(self) -> Literal[True]: ...
     if sys.version_info >= (3, 9):
-        def toxml(self, encoding: str | None = None, standalone: bool | None = None) -> str: ...
+        @overload
+        def toxml(self, encoding: str, standalone: bool | None = None) -> bytes: ...
+        @overload
+        def toxml(self, encoding: None = None, standalone: bool | None = None) -> str: ...
+        def toxml(self,
+            encoding: str | None = None,
+            standalone: bool | None = None,
+        ) -> str | bytes: ...
+
+        @overload
         def toprettyxml(
-            self, indent: str = "\t", newl: str = "\n", encoding: str | None = None, standalone: bool | None = None
+            self,
+            indent: str = "\t",
+            newl: str = "\n",
+            encoding: str = ...,
+            standalone: bool | None = None,
+        ) -> bytes: ...
+        @overload
+        def toprettyxml(
+            self,
+            indent: str = "\t",
+            newl: str = "\n",
+            encoding: None = None,
+            standalone: bool | None = None,
+        ) -> str: ...
+        def toprettyxml(
+            self,
+            indent: str = "\t",
+            newl: str = "\n",
+            encoding: str | None = None,
+            standalone: bool | None = None,
         ) -> str: ...
     else:
-        def toxml(self, encoding: str | None = None): ...
-        def toprettyxml(self, indent: str = "\t", newl: str = "\n", encoding: str | None = None): ...
+        @overload
+        def toxml(self, encoding: str) -> bytes: ...
+        @overload
+        def toxml(self, encoding: None = None) -> str: ...
+        def toxml(self, encoding: str | None = None) -> str | bytes: ...
+
+        @overload
+        def toprettyxml(
+            self,
+            indent: str = "\t",
+            newl: str = "\n",
+            encoding: str = ...,
+        ) -> bytes: ...
+        @overload
+        def toprettyxml(
+            self,
+            indent: str = "\t",
+            newl: str = "\n",
+            encoding: None = None,
+        ) -> str: ...
+        def toprettyxml(
+            self,
+            indent: str = "\t",
+            newl: str = "\n",
+            encoding: str | None = None,
+        ) -> str | bytes: ...
 
     def hasChildNodes(self) -> bool: ...
     def insertBefore(self, newChild, refChild): ...
