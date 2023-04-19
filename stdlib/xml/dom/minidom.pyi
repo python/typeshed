@@ -34,29 +34,65 @@ class Node(xml.dom.Node):
         def toxml(self, encoding: str, standalone: bool | None = None) -> bytes: ...
         @overload
         def toxml(self, encoding: None = None, standalone: bool | None = None) -> str: ...
-        def toxml(self, encoding: str | None = None, standalone: bool | None = None) -> str | bytes: ...
         @overload
         def toprettyxml(
-            self, indent: str = "\t", newl: str = "\n", encoding: str = ..., standalone: bool | None = None
+            self,
+            indent: str = "\t",
+            newl: str = "\n",
+            # Handle any case where encoding is not provided or where it is passed with None
+            encoding: None = None,
+            standalone: bool | None = None,
+        ) -> str: ...
+        @overload
+        def toprettyxml(
+            self,
+            indent: str,
+            newl: str,
+            # Handle cases where encoding is passed as str *positionally*
+            encoding: str,
+            standalone: bool | None = None,
         ) -> bytes: ...
         @overload
         def toprettyxml(
-            self, indent: str = "\t", newl: str = "\n", encoding: None = None, standalone: bool | None = None
-        ) -> str: ...
-        def toprettyxml(
-            self, indent: str = "\t", newl: str = "\n", encoding: str | None = None, standalone: bool | None = None
-        ) -> str: ...
+            self,
+            indent: str = "\t",
+            newl: str = "\n",
+            # Handle all cases where encoding is passed as a keyword argument; because standalone
+            # comes after, it will also have to be a keyword arg if encoding is
+            *,
+            encoding: str,
+            standalone: bool | None = None,
+        ) -> bytes: ...
     else:
         @overload
         def toxml(self, encoding: str) -> bytes: ...
         @overload
         def toxml(self, encoding: None = None) -> str: ...
-        def toxml(self, encoding: str | None = None) -> str | bytes: ...
         @overload
-        def toprettyxml(self, indent: str = "\t", newl: str = "\n", encoding: str = ...) -> bytes: ...
+        def toprettyxml(
+            self,
+            indent: str = "\t",
+            newl: str = "\n",
+            # Handle any case where encoding is not provided or where it is passed with None
+            encoding: None = None,
+        ) -> str: ...
         @overload
-        def toprettyxml(self, indent: str = "\t", newl: str = "\n", encoding: None = None) -> str: ...
-        def toprettyxml(self, indent: str = "\t", newl: str = "\n", encoding: str | None = None) -> str | bytes: ...
+        def toprettyxml(
+            self,
+            indent: str,
+            newl: str,
+            # Handle cases where encoding is passed as str *positionally*
+            encoding: str,
+        ) -> bytes: ...
+        @overload
+        def toprettyxml(
+            self,
+            indent: str = "\t",
+            newl: str = "\n",
+            # Handle all cases where encoding is passed as a keyword argument
+            *,
+            encoding: str,
+        ) -> bytes: ...
 
     def hasChildNodes(self) -> bool: ...
     def insertBefore(self, newChild, refChild): ...
