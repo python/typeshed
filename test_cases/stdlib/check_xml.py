@@ -1,5 +1,4 @@
 import sys
-
 from typing_extensions import assert_type
 from xml.dom.minidom import Document
 
