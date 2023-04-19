@@ -1,5 +1,5 @@
-from xml.dom.minidom import Document
 from typing_extensions import assert_type
+from xml.dom.minidom import Document
 
 document = Document()
 
