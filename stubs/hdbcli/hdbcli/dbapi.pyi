@@ -18,7 +18,7 @@ class Connection:
         self,
         address: str,
         port: int,
-        username: str,
+        user: str,
         password: str,
         autocommit: bool = ...,
         packetsize: int | None = ...,
