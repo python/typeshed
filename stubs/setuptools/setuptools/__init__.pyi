@@ -5,6 +5,7 @@ from typing import Any
 from setuptools.depends import Require as Require
 from setuptools.dist import Distribution as Distribution
 from setuptools.extension import Extension as Extension
+from setuptools.warnings import SetuptoolsDeprecationWarning as SetuptoolsDeprecationWarning
 
 from ._distutils.cmd import Command as _Command
 
