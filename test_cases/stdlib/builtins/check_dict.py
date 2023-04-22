@@ -50,9 +50,9 @@ i2: Iterable[tuple[str, int]] = [("a", 1), ("b", 2)]
 assert_type(dict(i2, arg=1), Dict[str, int])
 
 i3: Iterable[str] = ["a.b"]
-assert_type(dict(string.split(".") for string in i3), Dict[str, str])
 i4: Iterable[bytes] = [b"a.b"]
-assert_type(dict(string.split(b".") for string in i3), Dict[bytes, bytes])
+assert_type(dict(string.split(".") for string in i3), Dict[str, str])
+assert_type(dict(string.split(b".") for string in i4), Dict[bytes, bytes])
 
 dict(["foo", "bar", "baz"])  # type: ignore
 dict([b"foo", b"bar", b"baz"])  # type: ignore
