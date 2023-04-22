@@ -8,7 +8,7 @@ class SetuptoolsWarning(UserWarning):
         see_docs: str | None = None,
         see_url: str | None = None,
         stacklevel: int = 2,
-        **kwargs
+        **kwargs,
     ) -> None: ...
 
 class InformationOnly(SetuptoolsWarning): ...
