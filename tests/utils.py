@@ -15,10 +15,10 @@ from typing_extensions import Annotated
 import pathspec
 
 try:
-    from termcolor import colored as colored
+    from termcolor import colored as colored  # pyright: ignore[reportGeneralTypeIssues]
 except ImportError:
 
-    def colored(text: str, color: str | None = None, **kwargs: Any) -> str:  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+    def colored(text: str, color: str | None = None, **kwargs: Any) -> str:  # type: ignore[misc]
         return text
 
 
