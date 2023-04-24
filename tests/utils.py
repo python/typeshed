@@ -12,6 +12,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import NamedTuple
 from typing_extensions import Annotated
+from typing import Any
 
 import pathspec
 
@@ -22,11 +23,7 @@ except ImportError:
     def colored(
         text: str,
         color: str | None = None,
-        on_color: str | None = None,
-        attrs: Iterable[str] | None = None,
-        *,
-        no_color: bool | None = None,
-        force_color: bool | None = None,
+        **kwargs: Any,
     ) -> str:
         return text
 

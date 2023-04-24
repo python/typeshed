@@ -9,6 +9,7 @@ import subprocess
 import sys
 from collections.abc import Iterable
 from pathlib import Path
+from typing import Any
 
 try:
     from termcolor import colored
@@ -17,11 +18,7 @@ except ImportError:
     def colored(
         text: str,
         color: str | None = None,
-        on_color: str | None = None,
-        attrs: Iterable[str] | None = None,
-        *,
-        no_color: bool | None = None,
-        force_color: bool | None = None,
+        **kwargs: Any,
     ) -> str:
         return text
 
