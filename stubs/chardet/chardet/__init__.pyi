@@ -1,5 +1,3 @@
-import sys
-
 from typing_extensions import TypedDict
 
 from .universaldetector import UniversalDetector as UniversalDetector, _FinalResultType, _IntermediateResultType
