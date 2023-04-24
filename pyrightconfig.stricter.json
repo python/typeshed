@@ -48,7 +48,6 @@
         "stubs/oauthlib",
         "stubs/openpyxl",
         "stubs/Pillow",
-        "stubs/prettytable",
         "stubs/protobuf",
         "stubs/google-cloud-ndb",
         "stubs/influxdb-client",
