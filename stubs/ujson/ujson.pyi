@@ -1,6 +1,6 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, SupportsRead, SupportsWrite
 from collections.abc import Callable
-from typing import IO, Any, AnyStr
+from typing import Any, AnyStr
 
 __version__: str
 
@@ -32,7 +32,7 @@ def dumps(
 ) -> str: ...
 def dump(
     obj: Any,
-    fp: IO[str],
+    fp: SupportsWrite[str],
     *,
     ensure_ascii: bool = ...,
     double_precision: int = ...,
@@ -47,6 +47,6 @@ def dump(
 ) -> None: ...
 def decode(s: AnyStr, precise_float: bool = ...) -> Any: ...
 def loads(s: AnyStr, precise_float: bool = ...) -> Any: ...
-def load(fp: IO[AnyStr], precise_float: bool = ...) -> Any: ...
+def load(fp: SupportsRead[AnyStr], precise_float: bool = ...) -> Any: ...
 
 class JSONDecodeError(ValueError): ...
