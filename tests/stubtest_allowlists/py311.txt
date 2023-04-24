@@ -21,6 +21,7 @@ enum.auto.value
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 ftplib.FTP.trust_server_pasv_ipv4_address
 functools.cached_property.__set__  # Stub is a white lie; see comments in the stub
+functools._lru_cache_wrapper.cache_parameters  # Cannot be detected statically
 ipaddress.IPv4Interface.hostmask
 ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
