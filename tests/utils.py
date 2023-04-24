@@ -19,7 +19,7 @@ try:
     from termcolor import colored as colored
 except ImportError:
 
-    def colored(text: str, color: str | None = None, on_color: str | None = None, attrs: Iterable[str] | None = None) -> str:
+    def colored(text: str, color: str | None = None, on_color: str | None = None, attrs: Iterable[str] | None = None, *, no_color: bool | None = None, force_color: bool | None = None) -> str:
         return text
 
 
