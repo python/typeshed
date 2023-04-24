@@ -45,7 +45,7 @@ class _CacheInfo(NamedTuple):
     misses: int
     maxsize: int | None
     currsize: int
-        
+
 if sys.version_info >= (3, 9):
     class _CacheParameters(TypedDict):
         maxsize: int
@@ -59,6 +59,7 @@ class _lru_cache_wrapper(Generic[_T]):
     def cache_clear(self) -> None: ...
     if sys.version_info >= (3, 9):
         def cache_parameters(self) -> _CacheParameters: ...
+
     def __copy__(self) -> _lru_cache_wrapper[_T]: ...
     def __deepcopy__(self, __memo: Any) -> _lru_cache_wrapper[_T]: ...
 
