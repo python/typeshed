@@ -1,4 +1,4 @@
-from collections.abc import Callable, Iterable, Mapping Sequence
+from collections.abc import Callable, Iterable, Mapping, Sequence
 from logging import Logger
 from socket import socket
 from threading import Condition, Event, Lock, Thread
