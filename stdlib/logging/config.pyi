@@ -5,7 +5,7 @@ from configparser import RawConfigParser
 from re import Pattern
 from threading import Thread
 from typing import IO, Any, overload
-from typing_extensions import Literal, SupportsIndex TypedDict
+from typing_extensions import Literal, SupportsIndex, TypedDict
 
 from . import Filter, Filterer, Formatter, Handler, Logger, _FilterType, _FormatStyle, _Level
 
