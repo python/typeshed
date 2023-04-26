@@ -623,9 +623,7 @@ async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession
         branch_name = f"{BRANCH_PREFIX}/{normalize(update.distribution)}"
         subprocess.check_call(["git", "checkout", "-B", branch_name, "origin/main"])
         with open(update.stub_path / "METADATA.toml", "rb") as f:
-            # tomlkit.load has partially unknown IO type
-            # https://github.com/sdispater/tomlkit/pull/272
-            meta = tomlkit.load(f)  # pyright: ignore[reportUnknownMemberType]
+            meta = tomlkit.load(f)
         meta["version"] = update.new_version_spec
         with open(update.stub_path / "METADATA.toml", "w", encoding="UTF-8") as f:
             # tomlkit.dump has partially unknown IO type
@@ -652,9 +650,7 @@ async def suggest_typeshed_obsolete(obsolete: Obsolete, session: aiohttp.ClientS
         branch_name = f"{BRANCH_PREFIX}/{normalize(obsolete.distribution)}"
         subprocess.check_call(["git", "checkout", "-B", branch_name, "origin/main"])
         with open(obsolete.stub_path / "METADATA.toml", "rb") as f:
-            # tomlkit.load has partially unknown IO type
-            # https://github.com/sdispater/tomlkit/pull/272
-            meta = tomlkit.load(f)  # pyright: ignore[reportUnknownMemberType]
+            meta = tomlkit.load(f)
         obs_string = tomlkit.string(obsolete.obsolete_since_version)
         obs_string.comment(f"Released on {obsolete.obsolete_since_date.date().isoformat()}")
         meta["obsolete_since"] = obs_string
