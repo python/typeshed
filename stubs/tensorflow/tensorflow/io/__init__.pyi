@@ -78,7 +78,7 @@ class SparseFeature(NamedTuple):
     already_sorted: bool = ...  # pyright: ignore[reportUnknownVariableType]
 
 class RaggedFeature(NamedTuple):
-    # Mypy doesn't support nested NamedTuples, but runtime they actually do use
+    # Mypy doesn't support nested NamedTuples, but at runtime they actually do use
     # nested collections.namedtuple.
     class RowSplits(NamedTuple):  # type: ignore[misc]
         key: str
