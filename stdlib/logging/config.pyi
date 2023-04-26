@@ -5,14 +5,9 @@ from configparser import RawConfigParser
 from re import Pattern
 from threading import Thread
 from typing import IO, Any, overload
-from typing_extensions import SupportsIndex, TypeAlias
+from typing_extensions import Literal, SupportsIndex TypedDict
 
 from . import Filter, Filterer, Formatter, Handler, Logger, _FilterType, _FormatStyle, _Level
-
-if sys.version_info >= (3, 8):
-    from typing import Literal, TypedDict
-else:
-    from typing_extensions import Literal, TypedDict
 
 DEFAULT_LOGGING_CONFIG_PORT: int
 RESET_ERROR: int  # undocumented
