@@ -50,22 +50,19 @@ class TFRecordWriter:
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> None: ...
 
-# Default ignores are because of bug in pyright fixed in
-# this [issue](https://github.com/microsoft/pyright/issues/4962) and can be removed after
-# the next release. Also remove exclude from pyrightconfig.json since this error
-# happens only in stricter one.
 # Also defaults are missing here because pytype crashes when a default is present reported
-# in this [issue](https://github.com/google/pytype/issues/1410#issue-1669793588)
+# in this [issue](https://github.com/google/pytype/issues/1410#issue-1669793588). After
+# next release the defaults can be added back.
 class FixedLenFeature(NamedTuple):
     shape: _ShapeLike
     dtype: _DTypeLike
-    default_value: _TensorCompatible | None = ...  # pyright: ignore[reportUnknownVariableType]
+    default_value: _TensorCompatible | None = ...
 
 class FixedLenSequenceFeature(NamedTuple):
     shape: _ShapeLike
     dtype: _DTypeLike
-    allow_missing: bool = ...  # pyright: ignore[reportUnknownVariableType]
-    default_value: _TensorCompatible | None = ...  # pyright: ignore[reportUnknownVariableType]
+    allow_missing: bool = ...
+    default_value: _TensorCompatible | None = ...
 
 class VarLenFeature(NamedTuple):
     dtype: _DTypeLike
@@ -75,7 +72,7 @@ class SparseFeature(NamedTuple):
     value_key: str
     dtype: _DTypeLike
     size: int | list[int]
-    already_sorted: bool = ...  # pyright: ignore[reportUnknownVariableType]
+    already_sorted: bool = ...
 
 class RaggedFeature(NamedTuple):
     # Mypy doesn't support nested NamedTuples, but at runtime they actually do use
@@ -98,10 +95,10 @@ class RaggedFeature(NamedTuple):
     class UniformRowLength(NamedTuple):  # type: ignore[misc]
         length: int
     dtype: _DTypeLike
-    value_key: str | None = ...  # pyright: ignore[reportUnknownVariableType]
-    partitions: tuple[RowSplits | RowLengths | RowStarts | RowLimits | ValueRowIds | UniformRowLength, ...] = ...  # type: ignore[name-defined] # pyright: ignore[reportUnknownVariableType]
-    row_splits_dtype: _DTypeLike = ...  # pyright: ignore[reportUnknownVariableType]
-    validate: bool = ...  # pyright: ignore[reportUnknownVariableType]
+    value_key: str | None = ...
+    partitions: tuple[RowSplits | RowLengths | RowStarts | RowLimits | ValueRowIds | UniformRowLength, ...] = ...
+    row_splits_dtype: _DTypeLike = ...
+    validate: bool = ...
 
 def parse_example(
     serialized: _TensorCompatible, features: _FeatureSpecs, example_names: Iterable[str] | None = None, name: str | None = None
