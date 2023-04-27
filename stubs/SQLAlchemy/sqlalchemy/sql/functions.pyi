@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing import Any
 
-from ..util import HasMemoized
+from ..util.langhelpers import HasMemoized
 from .base import Executable, Generative
 from .elements import BinaryExpression, ColumnElement, NamedColumn
 from .selectable import FromClause, TableValuedAlias
@@ -87,7 +87,7 @@ class Function(FunctionElement):
 class _GenericMeta(TraversibleType):
     def __init__(cls, clsname, bases, clsdict) -> None: ...
 
-class GenericFunction:
+class GenericFunction(Function, metaclass=_GenericMeta):
     name: Incomplete
     identifier: Incomplete
     coerce_arguments: bool

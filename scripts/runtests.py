@@ -7,18 +7,22 @@ import os
 import re
 import subprocess
 import sys
-from collections.abc import Iterable
 from pathlib import Path
+from typing import Any
 
 try:
-    from termcolor import colored
+    from termcolor import colored  # pyright: ignore[reportGeneralTypeIssues]
 except ImportError:
 
-    def colored(text: str, color: str | None = None, on_color: str | None = None, attrs: Iterable[str] | None = None) -> str:
+    def colored(text: str, color: str | None = None, **kwargs: Any) -> str:  # type: ignore[misc]
         return text
 
 
 _STRICTER_CONFIG_FILE = "pyrightconfig.stricter.json"
+_TESTCASES_CONFIG_FILE = "pyrightconfig.testcases.json"
+_TESTCASES = "test_cases"
+_NPX_ERROR_PATTERN = r"error (runn|find)ing npx"
+_NPX_ERROR_MESSAGE = colored("\nSkipping Pyright tests: npx is not installed or can't be run!", "yellow")
 _SUCCESS = colored("Success", "green")
 _SKIPPED = colored("Skipped", "yellow")
 _FAILED = colored("Failed", "red")
@@ -89,14 +93,15 @@ def main() -> None:
     print("\nRunning check_new_syntax.py...")
     check_new_syntax_result = subprocess.run([sys.executable, "tests/check_new_syntax.py"])
 
-    print(f"\nRunning Pyright on Python {_PYTHON_VERSION}...")
+    strict_params = _get_strict_params(path)
+    print(f"\nRunning Pyright ({'stricter' if strict_params else 'base' } configs) for Python {_PYTHON_VERSION}...")
     pyright_result = subprocess.run(
-        [sys.executable, "tests/pyright_test.py", path, "--pythonversion", _PYTHON_VERSION] + _get_strict_params(path),
-        stderr=subprocess.PIPE,
+        [sys.executable, "tests/pyright_test.py", path, "--pythonversion", _PYTHON_VERSION] + strict_params,
+        capture_output=True,
         text=True,
     )
-    if re.match(r"error (runn|find)ing npx", pyright_result.stderr):
-        print(colored("\nSkipping Pyright tests: npx is not installed or can't be run!", "yellow"))
+    if re.match(_NPX_ERROR_PATTERN, pyright_result.stderr):
+        print(_NPX_ERROR_MESSAGE)
         pyright_returncode = 0
         pyright_skipped = True
     else:
@@ -133,19 +138,47 @@ def main() -> None:
         print("\nRunning pytype...")
         pytype_result = subprocess.run([sys.executable, "tests/pytype_test.py", path])
 
-    print(f"\nRunning regression tests for Python {_PYTHON_VERSION}...")
-    regr_test_result = subprocess.run(
-        [sys.executable, "tests/regr_test.py", "stdlib" if folder == "stdlib" else stub, "--python-version", _PYTHON_VERSION],
-        stderr=subprocess.PIPE,
-        text=True,
-    )
-    # No test means they all ran successfully (0 out of 0). Not all 3rd-party stubs have regression tests.
-    if "No test cases found" in regr_test_result.stderr:
+    test_cases_path = Path(path) / "@tests" / _TESTCASES if folder == "stubs" else Path(_TESTCASES)
+    if not test_cases_path.exists():
+        # No test means they all ran successfully (0 out of 0). Not all 3rd-party stubs have regression tests.
+        print(colored(f"\nRegression tests: No {_TESTCASES} folder for {stub!r}!", "green"))
+        pyright_testcases_returncode = 0
+        pyright_testcases_skipped = False
         regr_test_returncode = 0
-        print(colored(f"\nNo test cases found for {stub!r}!", "green"))
     else:
-        regr_test_returncode = regr_test_result.returncode
-        print(regr_test_result.stderr)
+        print(f"\nRunning Pyright regression tests for Python {_PYTHON_VERSION}...")
+        command = [
+            sys.executable,
+            "tests/pyright_test.py",
+            str(test_cases_path),
+            "--pythonversion",
+            _PYTHON_VERSION,
+            "-p",
+            _TESTCASES_CONFIG_FILE,
+        ]
+        pyright_testcases_result = subprocess.run(command, capture_output=True, text=True)
+        if re.match(_NPX_ERROR_PATTERN, pyright_testcases_result.stderr):
+            print(_NPX_ERROR_MESSAGE)
+            pyright_testcases_returncode = 0
+            pyright_testcases_skipped = True
+        else:
+            print(pyright_result.stderr)
+            pyright_testcases_returncode = pyright_testcases_result.returncode
+            pyright_testcases_skipped = False
+
+        print(f"\nRunning mypy regression tests for Python {_PYTHON_VERSION}...")
+        regr_test_result = subprocess.run(
+            [sys.executable, "tests/regr_test.py", "stdlib" if folder == "stdlib" else stub, "--python-version", _PYTHON_VERSION],
+            capture_output=True,
+            text=True,
+        )
+        # No test means they all ran successfully (0 out of 0). Not all 3rd-party stubs have regression tests.
+        if "No test cases found" in regr_test_result.stderr:
+            regr_test_returncode = 0
+            print(colored(f"\nNo test cases found for {stub!r}!", "green"))
+        else:
+            regr_test_returncode = regr_test_result.returncode
+            print(regr_test_result.stderr)
 
     any_failure = any(
         [
@@ -156,6 +189,7 @@ def main() -> None:
             mypy_result.returncode,
             getattr(stubtest_result, "returncode", 0),
             getattr(pytype_result, "returncode", 0),
+            pyright_testcases_returncode,
             regr_test_returncode,
         ]
     )
@@ -180,7 +214,11 @@ def main() -> None:
         print("pytype:", _SKIPPED)
     else:
         print("pytype:", _SUCCESS if pytype_result.returncode == 0 else _FAILED)
-    print("Regression test:", _SUCCESS if regr_test_returncode == 0 else _FAILED)
+    if pyright_testcases_skipped:
+        print("Pyright regression tests:", _SKIPPED)
+    else:
+        print("Pyright regression tests:", _SUCCESS if pyright_testcases_returncode == 0 else _FAILED)
+    print("mypy regression test:", _SUCCESS if regr_test_returncode == 0 else _FAILED)
 
     sys.exit(int(any_failure))
 
