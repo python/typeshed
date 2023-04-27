@@ -1,6 +1,5 @@
 version = "1.36.*"
-# Requires a version of urllib3 with a `py.typed` file
-requires = ["urllib3>=2.0.0"]
+requires = ["types-urllib3"]
 
 [tool.stubtest]
 extras = ["extra"]
