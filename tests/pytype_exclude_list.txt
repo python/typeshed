@@ -195,3 +195,4 @@ stubs/Flask-SQLAlchemy/flask_sqlalchemy/utils.pyi
 # Uncertain why pytype is giving an error
 # pytype.pytd.visitors.ContainerError
 stubs/openpyxl/openpyxl/descriptors/nested.pyi
+stubs/SQLAlchemy/sqlalchemy/sql/annotation.pyi
