@@ -2,12 +2,12 @@ from abc import abstractmethod
 from collections.abc import Iterable, Mapping, Sequence
 from typing import Any
 
-from ._deprecation_warning import SetuptoolsDeprecationWarning as SetuptoolsDeprecationWarning
 from ._distutils.cmd import Command as _Command
 from .depends import Require as Require
 from .discovery import _Path
 from .dist import Distribution as Distribution
 from .extension import Extension as Extension
+from .warnings import SetuptoolsDeprecationWarning as SetuptoolsDeprecationWarning
 
 __all__ = [
     "setup",

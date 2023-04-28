@@ -7,14 +7,14 @@ import os
 import re
 import subprocess
 import sys
-from collections.abc import Iterable
 from pathlib import Path
+from typing import Any
 
 try:
-    from termcolor import colored
+    from termcolor import colored  # pyright: ignore[reportGeneralTypeIssues]
 except ImportError:
 
-    def colored(text: str, color: str | None = None, on_color: str | None = None, attrs: Iterable[str] | None = None) -> str:
+    def colored(text: str, color: str | None = None, **kwargs: Any) -> str:  # type: ignore[misc]
         return text
 
 

@@ -1,3 +1,10 @@
+# mypy plugin not supported in typeshed
+sqlalchemy.ext.mypy.*
+# test suites
+sqlalchemy.testing.suite
+# Leaked re-exports from the compat module
+sqlalchemy.util.quote
+
 # Expanding keyword arguments in stubs
 sqlalchemy.ext.declarative.as_declarative
 
@@ -25,9 +32,16 @@ sqlalchemy.engine.Connection.engine
 sqlalchemy.orm.Mapper.single
 sqlalchemy.orm.mapper.Mapper.single
 
-# uses @memoized_property at runtime, but we use @property for compatibility
+# Uses @memoized_property at runtime, but we use @property for compatibility
 sqlalchemy.engine.URL.normalized_query
 sqlalchemy.engine.url.URL.normalized_query
+# Uses @memoized_property, but that causes regr_test to raise 'Cannot determine type of "..." in base class "..."  [misc]'
+sqlalchemy.schema.SchemaItem.info
+sqlalchemy.sql.elements.AnnotatedColumnElement.info
+sqlalchemy.sql.elements.AnnotatedColumnElement.key
+sqlalchemy.sql.elements.AnnotatedColumnElement.name
+sqlalchemy.sql.elements.AnnotatedColumnElement.table
+sqlalchemy.sql.schema.SchemaItem.info
 
 # runtime has extra internal arguments that are inconsistent across micro versions
 sqlalchemy.testing.engines.testing_engine
@@ -62,8 +76,10 @@ sqlalchemy.sql.quoted_name.upper
 sqlalchemy.orm.ColumnProperty.Comparator.__clause_element__
 sqlalchemy.orm.properties.ColumnProperty.Comparator.__clause_element__
 
-# Same error as in stdlib due to it being re-erported
+# Same error as in stdlib due to it being re-exported
+sqlalchemy.dialects.mysql.asyncmy.AsyncAdapt_asyncmy_dbapi.Binary
 sqlalchemy.util.compat.StringIO.seek
 sqlalchemy.util.compat.StringIO.truncate
 sqlalchemy.util.StringIO.seek
 sqlalchemy.util.StringIO.truncate
+sqlalchemy.testing.mock.patch

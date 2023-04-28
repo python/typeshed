@@ -244,13 +244,6 @@ ctypes.c_voidp
 ctypes.util.test
 importlib.abc.Finder.find_module
 lib2to3.pgen2.grammar.Grammar.loads
-logging.config.BaseConfigurator
-logging.config.ConvertingDict
-logging.config.ConvertingList
-logging.config.ConvertingMixin
-logging.config.ConvertingTuple
-logging.config.DictConfigurator
-logging.config.dictConfigClass
 mimetypes.MimeTypes.add_type
 modulefinder.test
 multiprocessing.managers.Server.accepter
