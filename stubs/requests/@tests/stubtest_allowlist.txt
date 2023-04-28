@@ -1,5 +1,4 @@
 # Re-exports from urllib3 (should be fixed in those stubs, not here)
-requests.adapters.HTTPResponse.DECODER_ERROR_CLASSES
 requests.adapters.PoolManager.connection_from_context
 requests.adapters.PoolManager.connection_from_host
 requests.adapters.PoolManager.connection_from_pool_key
