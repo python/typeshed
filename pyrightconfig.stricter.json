@@ -30,6 +30,7 @@
         "stubs/beautifulsoup4",
         "stubs/braintree",
         "stubs/caldav",
+        "stubs/cefpython3",
         "stubs/cffi",
         "stubs/commonmark",
         "stubs/dateparser",
