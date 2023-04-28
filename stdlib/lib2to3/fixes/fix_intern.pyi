@@ -1,10 +1,10 @@
 from typing import ClassVar
-from typing_extensions import Literal, LiteralString
+from typing_extensions import Literal
 
 from .. import fixer_base
 
 class FixIntern(fixer_base.BaseFix):
     BM_compatible: ClassVar[Literal[True]]
     order: ClassVar[Literal["pre"]]
-    PATTERN: ClassVar[LiteralString]
+    PATTERN: ClassVar[str]
     def transform(self, node, results): ...

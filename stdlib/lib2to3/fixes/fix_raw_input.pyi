@@ -1,9 +1,9 @@
 from typing import ClassVar
-from typing_extensions import Literal, LiteralString
+from typing_extensions import Literal
 
 from .. import fixer_base
 
 class FixRawInput(fixer_base.BaseFix):
     BM_compatible: ClassVar[Literal[True]]
-    PATTERN: ClassVar[LiteralString]
+    PATTERN: ClassVar[str]
     def transform(self, node, results) -> None: ...

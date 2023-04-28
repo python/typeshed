@@ -2,14 +2,14 @@ from _typeshed import Incomplete, StrPath
 from abc import ABCMeta, abstractmethod
 from collections.abc import MutableMapping
 from typing import ClassVar, TypeVar
-from typing_extensions import Literal, LiteralString
+from typing_extensions import Literal
 
 from .pytree import Base, Leaf, Node
 
 _N = TypeVar("_N", bound=Base)
 
 class BaseFix:
-    PATTERN: ClassVar[LiteralString | None]
+    PATTERN: ClassVar[str | None]
     pattern: Incomplete | None
     pattern_tree: Incomplete | None
     options: Incomplete | None
@@ -38,6 +38,6 @@ class BaseFix:
     def finish_tree(self, tree: Node, filename: StrPath) -> None: ...
 
 class ConditionalFix(BaseFix, metaclass=ABCMeta):
-    skip_on: ClassVar[LiteralString | None]
+    skip_on: ClassVar[str | None]
     def start_tree(self, __tree: Node, __filename: StrPath) -> None: ...
     def should_skip(self, node: Base) -> bool: ...

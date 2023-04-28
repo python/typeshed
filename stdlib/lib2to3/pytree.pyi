@@ -13,7 +13,7 @@ _RawNode: TypeAlias = tuple[int, str, _Context, list[_NL] | None]
 
 HUGE: Final = 0x7FFFFFFF
 
-def type_repr(type_num: int) -> str: ...
+def type_repr(type_num: int) -> str | int: ...
 
 class Base:
     type: int
