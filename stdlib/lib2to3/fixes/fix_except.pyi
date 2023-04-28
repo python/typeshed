@@ -1,9 +1,9 @@
 from collections.abc import Generator, Iterable
-from lib2to3.pytree import Base
 from typing import ClassVar, TypeVar
 from typing_extensions import Literal
 
 from .. import fixer_base
+from .pytree import Base
 
 _N = TypeVar("_N", bound=Base)
 

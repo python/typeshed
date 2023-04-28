@@ -1,10 +1,11 @@
 from _typeshed import StrPath
 from collections.abc import Iterable
-from lib2to3.pgen2 import _Convert
-from lib2to3.pgen2.grammar import Grammar
-from lib2to3.pytree import _NL
 from logging import Logger
 from typing import IO
+
+from .pgen2 import _Convert
+from .pgen2.grammar import Grammar
+from .pytree import _NL
 
 __all__ = ["Driver", "load_grammar"]
 

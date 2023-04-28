@@ -1,9 +1,10 @@
 from _typeshed import Incomplete, SupportsGetItem
 from collections import defaultdict
 from collections.abc import Iterable
-from lib2to3.fixer_base import BaseFix
-from lib2to3.pytree import Leaf, Node
 from typing import TypeVar
+
+from .fixer_base import BaseFix
+from .pytree import Leaf, Node
 
 _T = TypeVar("_T")
 

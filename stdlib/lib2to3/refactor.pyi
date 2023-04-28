@@ -1,14 +1,14 @@
 from _typeshed import FileDescriptorOrPath, StrPath, SupportsGetItem
 from collections.abc import Container, Generator, Iterable, Mapping
-from lib2to3.btm_matcher import BottomMatcher
-from lib2to3.pgen2.driver import Driver
 from logging import Logger, _ExcInfoType
 from multiprocessing import JoinableQueue
 from multiprocessing.synchronize import Lock
 from typing import Any, ClassVar, NoReturn, overload
 from typing_extensions import Final
 
+from .btm_matcher import BottomMatcher
 from .fixer_base import BaseFix
+from .pgen2.driver import Driver
 from .pgen2.grammar import Grammar
 from .pytree import Node
 

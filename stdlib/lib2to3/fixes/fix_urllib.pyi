@@ -1,6 +1,7 @@
 from collections.abc import Generator
-from lib2to3.fixes.fix_imports import FixImports
 from typing_extensions import Literal
+
+from .fixes.fix_imports import FixImports
 
 MAPPING: dict[str, list[tuple[Literal["urllib.request", "urllib.parse", "urllib.error"], list[str]]]]
 

@@ -1,9 +1,9 @@
 from _typeshed import Incomplete, StrPath
-from lib2to3.pytree import Node
 from typing import ClassVar
 from typing_extensions import Literal
 
 from .. import fixer_base
+from .pytree import Node
 
 class FixXrange(fixer_base.BaseFix):
     BM_compatible: ClassVar[Literal[True]]
