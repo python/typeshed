@@ -3,9 +3,9 @@ from collections.abc import Iterable
 from logging import Logger
 from typing import IO
 
-from .pgen2 import _Convert
-from .pgen2.grammar import Grammar
-from .pytree import _NL
+from ..pytree import _NL
+from . import _Convert
+from .grammar import Grammar
 
 __all__ = ["Driver", "load_grammar"]
 

@@ -2,8 +2,8 @@ from _typeshed import Incomplete, StrPath
 from collections.abc import Iterable, Iterator
 from typing import IO, NoReturn, overload
 
-from .pgen2 import grammar
-from .pgen2.tokenize import _TokenInfo
+from . import grammar
+from .tokenize import _TokenInfo
 
 class PgenGrammar(grammar.Grammar): ...
 

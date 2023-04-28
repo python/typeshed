@@ -1,12 +1,9 @@
 from _typeshed import Incomplete, SupportsGetItem
 from collections import defaultdict
 from collections.abc import Iterable
-from typing import TypeVar
 
 from .fixer_base import BaseFix
 from .pytree import Leaf, Node
-
-_T = TypeVar("_T")
 
 class BMNode:
     count: Incomplete

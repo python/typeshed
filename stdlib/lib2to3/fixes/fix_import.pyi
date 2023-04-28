@@ -4,7 +4,7 @@ from typing import ClassVar
 from typing_extensions import Literal
 
 from .. import fixer_base
-from .pytree import Node
+from ..pytree import Node
 
 def traverse_imports(names) -> Generator[str, None, None]: ...
 

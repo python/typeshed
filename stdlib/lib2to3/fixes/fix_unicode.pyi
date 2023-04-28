@@ -3,7 +3,7 @@ from typing import ClassVar
 from typing_extensions import Literal
 
 from .. import fixer_base
-from .pytree import Node
+from ..pytree import Node
 
 class FixUnicode(fixer_base.BaseFix):
     BM_compatible: ClassVar[Literal[True]]

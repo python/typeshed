@@ -3,7 +3,7 @@ from typing import ClassVar, TypeVar
 from typing_extensions import Literal
 
 from .. import fixer_base
-from .pytree import Base
+from ..pytree import Base
 
 _N = TypeVar("_N", bound=Base)
 

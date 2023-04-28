@@ -3,7 +3,7 @@ from lib2to3 import fixer_base
 from typing import ClassVar
 from typing_extensions import Literal
 
-from .pytree import Node
+from ..pytree import Node
 
 class FixExitfunc(fixer_base.BaseFix):
     BM_compatible: ClassVar[Literal[True]]

@@ -1,7 +1,7 @@
 from collections.abc import Callable, Iterable, Iterator
 from typing_extensions import TypeAlias
 
-from .pgen2.token import *
+from .token import *
 
 __all__ = [
     "AMPER",

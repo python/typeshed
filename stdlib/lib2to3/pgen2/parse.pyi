@@ -2,9 +2,9 @@ from _typeshed import Incomplete
 from collections.abc import Sequence
 from typing_extensions import TypeAlias
 
-from .pgen2 import _Convert
-from .pgen2.grammar import _DFAS, Grammar
-from .pytree import _NL, _RawNode
+from ..pytree import _NL, _RawNode
+from . import _Convert
+from .grammar import _DFAS, Grammar
 
 _Context: TypeAlias = Sequence[Incomplete]
 
