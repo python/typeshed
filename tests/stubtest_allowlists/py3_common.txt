@@ -84,7 +84,9 @@ ctypes.memmove  # CFunctionType
 ctypes.memset  # CFunctionType
 ctypes.string_at  # docstring argument name is wrong
 ctypes.wstring_at  # docstring argument name is wrong
+distutils.core.Distribution.get_command_obj  # 1 used for True
 distutils.command.bdist_packager  # It exists in docs as package name but not in code except as a mention in a comment.
+distutils.dist.Distribution.get_command_obj  # 1 used for True
 distutils.version.Version._cmp  # class should have declared this
 distutils.version.Version.parse  # class should have declared this
 enum.Enum._generate_next_value_
@@ -144,13 +146,10 @@ multiprocessing.managers.SyncManager.Namespace
 multiprocessing.managers.SyncManager.RLock
 multiprocessing.queues.JoinableQueue.__init__
 multiprocessing.queues.Queue.__init__
-multiprocessing.queues.Queue.put_nowait
 multiprocessing.queues.SimpleQueue.__init__
-multiprocessing.queues.SimpleQueue.put
 multiprocessing.synchronize.Barrier.__init__
 multiprocessing.synchronize.Condition.acquire
 multiprocessing.synchronize.Condition.release
-multiprocessing.synchronize.Event.__init__
 multiprocessing.synchronize.SemLock.__init__
 multiprocessing.synchronize.SemLock.acquire
 multiprocessing.synchronize.SemLock.release
@@ -172,7 +171,6 @@ ssl.Purpose.__new__  # the multiple inheritance confuses mypy
 (sys.get_int_max_str_digits)?  # Added in a patch release, backported to all security branches, but has yet to find its way to all GitHub Actions images
 sys.implementation  # Actually SimpleNamespace but then you wouldn't have convenient attributes
 (sys.set_int_max_str_digits)?  # Added in a patch release, backported to all security branches, but has yet to find its way to all GitHub Actions images
-sys.thread_info
 tarfile.TarFile.errors  # errors is initialized for some reason as None even though it really only accepts str
 threading.Condition.acquire  # Condition functions are exported in __init__
 threading.Condition.release  # Condition functions are exported in __init__
@@ -246,13 +244,6 @@ ctypes.c_voidp
 ctypes.util.test
 importlib.abc.Finder.find_module
 lib2to3.pgen2.grammar.Grammar.loads
-logging.config.BaseConfigurator
-logging.config.ConvertingDict
-logging.config.ConvertingList
-logging.config.ConvertingMixin
-logging.config.ConvertingTuple
-logging.config.DictConfigurator
-logging.config.dictConfigClass
 mimetypes.MimeTypes.add_type
 modulefinder.test
 multiprocessing.managers.Server.accepter
@@ -522,6 +513,29 @@ email.utils
 xml.dom
 xml.etree
 xml.sax
+
+# Dynamically created
+distutils.(dist|core).Distribution.get_name
+distutils.(dist|core).Distribution.get_version
+distutils.(dist|core).Distribution.get_fullname
+distutils.(dist|core).Distribution.get_author
+distutils.(dist|core).Distribution.get_author_email
+distutils.(dist|core).Distribution.get_maintainer
+distutils.(dist|core).Distribution.get_maintainer_email
+distutils.(dist|core).Distribution.get_contact
+distutils.(dist|core).Distribution.get_contact_email
+distutils.(dist|core).Distribution.get_url
+distutils.(dist|core).Distribution.get_license
+distutils.(dist|core).Distribution.get_licence
+distutils.(dist|core).Distribution.get_description
+distutils.(dist|core).Distribution.get_long_description
+distutils.(dist|core).Distribution.get_keywords
+distutils.(dist|core).Distribution.get_platforms
+distutils.(dist|core).Distribution.get_classifiers
+distutils.(dist|core).Distribution.get_download_url
+distutils.(dist|core).Distribution.get_requires
+distutils.(dist|core).Distribution.get_provides
+distutils.(dist|core).Distribution.get_obsoletes
 
 # Platform differences that cannot be captured by the type system
 os.O_[A-Z_]+

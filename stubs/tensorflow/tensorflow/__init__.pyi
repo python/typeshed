@@ -1,13 +1,16 @@
 from _typeshed import Incomplete, Unused
 from abc import ABCMeta
 from builtins import bool as _bool
-from collections.abc import Callable, Iterable, Iterator, Sequence
+from collections.abc import Callable, Generator, Iterable, Iterator, Mapping, Sequence
 from contextlib import contextmanager
 from enum import Enum
-from typing import Any, NoReturn, overload
-from typing_extensions import Self, TypeAlias
+from types import TracebackType
+from typing import Any, NoReturn, TypeVar, overload
+from typing_extensions import ParamSpec, Self, TypeAlias
 
 import numpy
+from tensorflow import feature_column as feature_column, initializers as initializers, io as io, keras as keras, math as math
+from tensorflow._aliases import ContainerGradients, ContainerTensors, ContainerTensorsLike, Gradients, TensorLike
 
 # Explicit import of DType is covered by the wildcard, but
 # is necessary to avoid a crash in pytype.
@@ -51,7 +54,8 @@ from tensorflow.math import (
     subtract as subtract,
     tanh as tanh,
 )
-from tensorflow.sparse import SparseTensor
+from tensorflow.python.trackable.autotrackable import AutoTrackable
+from tensorflow.sparse import SparseTensor as SparseTensor
 
 # Tensors ideally should be a generic type, but properly typing data type/shape
 # will be a lot of work. Until we have good non-generic tensorflow stubs,
@@ -252,5 +256,80 @@ class IndexedSlices(metaclass=ABCMeta):
     def device(self) -> str: ...
     def __neg__(self) -> IndexedSlices: ...
     def consumers(self) -> list[Operation]: ...
+
+class name_scope:
+    def __init__(self, name: str) -> None: ...
+    def __enter__(self) -> str: ...
+    def __exit__(self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None) -> None: ...
+
+_P = ParamSpec("_P")
+_R = TypeVar("_R")
+
+class Module(AutoTrackable):
+    def __init__(self, name: str | None = None) -> None: ...
+    @property
+    def name(self) -> str: ...
+    @property
+    def name_scope(self) -> name_scope: ...
+    # Documentation only specifies these as returning Sequence. Actual
+    # implementation does tuple.
+    @property
+    def variables(self) -> Sequence[Variable]: ...
+    @property
+    def trainable_variables(self) -> Sequence[Variable]: ...
+    @property
+    def non_trainable_variables(self) -> Sequence[Variable]: ...
+    @property
+    def submodules(self) -> Sequence[Module]: ...
+    @classmethod
+    def with_name_scope(cls, method: Callable[_P, _R]) -> Callable[_P, _R]: ...
+
+class UnconnectedGradients(Enum):
+    NONE = "none"
+    ZERO = "zero"
+
+class GradientTape:
+    def __init__(self, persistent: _bool = False, watch_accessed_variables: _bool = True) -> None: ...
+    def __enter__(self) -> Self: ...
+    def __exit__(self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None) -> None: ...
+    # Higher kinded types would be nice here and these overloads are a way to simulate some of them.
+    @overload
+    def gradient(
+        self,
+        target: ContainerTensors,
+        sources: TensorLike,
+        output_gradients: list[Tensor] | None = None,
+        unconnected_gradients: UnconnectedGradients = ...,
+    ) -> Gradients: ...
+    @overload
+    def gradient(
+        self,
+        target: ContainerTensors,
+        sources: Sequence[Tensor],
+        output_gradients: list[Tensor] | None = None,
+        unconnected_gradients: UnconnectedGradients = ...,
+    ) -> list[Gradients]: ...
+    @overload
+    def gradient(
+        self,
+        target: ContainerTensors,
+        sources: Mapping[str, Tensor],
+        output_gradients: list[Tensor] | None = None,
+        unconnected_gradients: UnconnectedGradients = ...,
+    ) -> dict[str, Gradients]: ...
+    @overload
+    def gradient(
+        self,
+        target: ContainerTensors,
+        sources: ContainerTensors,
+        output_gradients: list[Tensor] | None = None,
+        unconnected_gradients: UnconnectedGradients = ...,
+    ) -> ContainerGradients: ...
+    @contextmanager
+    def stop_recording(self) -> Generator[None, None, None]: ...
+    def reset(self) -> None: ...
+    def watch(self, tensor: ContainerTensorsLike) -> None: ...
+    def watched_variables(self) -> tuple[Variable, ...]: ...
+    def __getattr__(self, name: str) -> Incomplete: ...
 
 def __getattr__(name: str) -> Incomplete: ...

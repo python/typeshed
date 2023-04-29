@@ -1,13 +1,10 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from abc import ABCMeta, abstractmethod
 from collections.abc import Callable
-from typing_extensions import TypeAlias
 
 from pyasn1.type import base, char, univ, useful
 from pyasn1.type.base import Asn1Type
 from pyasn1.type.tag import TagSet
-
-_Unused: TypeAlias = object
 
 class AbstractDecoder:
     protoComponent: Asn1Type | None
@@ -16,11 +13,11 @@ class AbstractDecoder:
         self,
         substrate,
         asn1Spec,
-        tagSet: TagSet | None = ...,
-        length: int | None = ...,
-        state: Incomplete | None = ...,
-        decodeFun: Callable[..., Incomplete] | None = ...,
-        substrateFun: Callable[..., Incomplete] | None = ...,
+        tagSet: TagSet | None = None,
+        length: int | None = None,
+        state: Incomplete | None = None,
+        decodeFun: Callable[..., Incomplete] | None = None,
+        substrateFun: Callable[..., Incomplete] | None = None,
         **options,
     ) -> None: ...
     # Abstract, but implementation is optional
@@ -28,11 +25,11 @@ class AbstractDecoder:
         self,
         substrate,
         asn1Spec,
-        tagSet: TagSet | None = ...,
-        length: int | None = ...,
-        state: Incomplete | None = ...,
-        decodeFun: Callable[..., Incomplete] | None = ...,
-        substrateFun: Callable[..., Incomplete] | None = ...,
+        tagSet: TagSet | None = None,
+        length: int | None = None,
+        state: Incomplete | None = None,
+        decodeFun: Callable[..., Incomplete] | None = None,
+        substrateFun: Callable[..., Incomplete] | None = None,
         **options,
     ) -> None: ...
 
@@ -46,22 +43,22 @@ class ExplicitTagDecoder(AbstractSimpleDecoder):
         self,
         substrate,
         asn1Spec,
-        tagSet: TagSet | None = ...,
-        length: int | None = ...,
-        state: _Unused = ...,
-        decodeFun: Callable[..., Incomplete] | None = ...,
-        substrateFun: Callable[..., Incomplete] | None = ...,
+        tagSet: TagSet | None = None,
+        length: int | None = None,
+        state: Unused = None,
+        decodeFun: Callable[..., Incomplete] | None = None,
+        substrateFun: Callable[..., Incomplete] | None = None,
         **options,
     ): ...
     def indefLenValueDecoder(
         self,
         substrate,
         asn1Spec,
-        tagSet: TagSet | None = ...,
-        length: int | None = ...,
-        state: _Unused = ...,
-        decodeFun: Callable[..., Incomplete] | None = ...,
-        substrateFun: Callable[..., Incomplete] | None = ...,
+        tagSet: TagSet | None = None,
+        length: int | None = None,
+        state: Unused = None,
+        decodeFun: Callable[..., Incomplete] | None = None,
+        substrateFun: Callable[..., Incomplete] | None = None,
         **options,
     ): ...
 
@@ -71,11 +68,11 @@ class IntegerDecoder(AbstractSimpleDecoder):
         self,
         substrate,
         asn1Spec,
-        tagSet: TagSet | None = ...,
-        length: int | None = ...,
-        state: _Unused = ...,
-        decodeFun: _Unused = ...,
-        substrateFun: _Unused = ...,
+        tagSet: TagSet | None = None,
+        length: int | None = None,
+        state: Unused = None,
+        decodeFun: Unused = None,
+        substrateFun: Unused = None,
         **options,
     ): ...
 
@@ -89,22 +86,22 @@ class BitStringDecoder(AbstractSimpleDecoder):
         self,
         substrate,
         asn1Spec,
-        tagSet: TagSet | None = ...,
-        length: int | None = ...,
-        state: _Unused = ...,
-        decodeFun: Callable[..., Incomplete] | None = ...,
-        substrateFun: Callable[..., Incomplete] | None = ...,
+        tagSet: TagSet | None = None,
+        length: int | None = None,
+        state: Unused = None,
+        decodeFun: Callable[..., Incomplete] | None = None,
+        substrateFun: Callable[..., Incomplete] | None = None,
         **options,
     ): ...
     def indefLenValueDecoder(
         self,
         substrate,
         asn1Spec,
-        tagSet: TagSet | None = ...,
-        length: int | None = ...,
-        state: _Unused = ...,
-        decodeFun: Callable[..., Incomplete] | None = ...,
-        substrateFun: Callable[..., Incomplete] | None = ...,
+        tagSet: TagSet | None = None,
+        length: int | None = None,
+        state: Unused = None,
+        decodeFun: Callable[..., Incomplete] | None = None,
+        substrateFun: Callable[..., Incomplete] | None = None,
         **options,
     ): ...
 
@@ -115,22 +112,22 @@ class OctetStringDecoder(AbstractSimpleDecoder):
         self,
         substrate,
         asn1Spec,
-        tagSet: TagSet | None = ...,
-        length: int | None = ...,
-        state: _Unused = ...,
-        decodeFun: Callable[..., Incomplete] | None = ...,
-        substrateFun: Callable[..., Incomplete] | None = ...,
+        tagSet: TagSet | None = None,
+        length: int | None = None,
+        state: Unused = None,
+        decodeFun: Callable[..., Incomplete] | None = None,
+        substrateFun: Callable[..., Incomplete] | None = None,
         **options,
     ): ...
     def indefLenValueDecoder(
         self,
         substrate,
         asn1Spec,
-        tagSet: TagSet | None = ...,
-        length: int | None = ...,
-        state: _Unused = ...,
-        decodeFun: Callable[..., Incomplete] | None = ...,
-        substrateFun: Callable[..., Incomplete] | None = ...,
+        tagSet: TagSet | None = None,
+        length: int | None = None,
+        state: Unused = None,
+        decodeFun: Callable[..., Incomplete] | None = None,
+        substrateFun: Callable[..., Incomplete] | None = None,
         **options,
     ): ...
 
@@ -140,11 +137,11 @@ class NullDecoder(AbstractSimpleDecoder):
         self,
         substrate,
         asn1Spec,
-        tagSet: TagSet | None = ...,
-        length: int | None = ...,
-        state: _Unused = ...,
-        decodeFun: _Unused = ...,
-        substrateFun: _Unused = ...,
+        tagSet: TagSet | None = None,
+        length: int | None = None,
+        state: Unused = None,
+        decodeFun: Unused = None,
+        substrateFun: Unused = None,
         **options,
     ): ...
 
@@ -154,11 +151,11 @@ class ObjectIdentifierDecoder(AbstractSimpleDecoder):
         self,
         substrate,
         asn1Spec,
-        tagSet: TagSet | None = ...,
-        length: int | None = ...,
-        state: _Unused = ...,
-        decodeFun: _Unused = ...,
-        substrateFun: _Unused = ...,
+        tagSet: TagSet | None = None,
+        length: int | None = None,
+        state: Unused = None,
+        decodeFun: Unused = None,
+        substrateFun: Unused = None,
         **options,
     ): ...
 
@@ -168,11 +165,11 @@ class RealDecoder(AbstractSimpleDecoder):
         self,
         substrate,
         asn1Spec,
-        tagSet: TagSet | None = ...,
-        length: int | None = ...,
-        state: _Unused = ...,
-        decodeFun: _Unused = ...,
-        substrateFun: _Unused = ...,
+        tagSet: TagSet | None = None,
+        length: int | None = None,
+        state: Unused = None,
+        decodeFun: Unused = None,
+        substrateFun: Unused = None,
         **options,
     ): ...
 
@@ -186,22 +183,22 @@ class UniversalConstructedTypeDecoder(AbstractConstructedDecoder):
         self,
         substrate,
         asn1Spec,
-        tagSet: TagSet | None = ...,
-        length: int | None = ...,
-        state: _Unused = ...,
-        decodeFun: Callable[..., Incomplete] | None = ...,
-        substrateFun: Callable[..., Incomplete] | None = ...,
+        tagSet: TagSet | None = None,
+        length: int | None = None,
+        state: Unused = None,
+        decodeFun: Callable[..., Incomplete] | None = None,
+        substrateFun: Callable[..., Incomplete] | None = None,
         **options,
     ): ...
     def indefLenValueDecoder(
         self,
         substrate,
         asn1Spec,
-        tagSet: TagSet | None = ...,
-        length: int | None = ...,
-        state: _Unused = ...,
-        decodeFun: Callable[..., Incomplete] | None = ...,
-        substrateFun: Callable[..., Incomplete] | None = ...,
+        tagSet: TagSet | None = None,
+        length: int | None = None,
+        state: Unused = None,
+        decodeFun: Callable[..., Incomplete] | None = None,
+        substrateFun: Callable[..., Incomplete] | None = None,
         **options,
     ): ...
 
@@ -231,22 +228,22 @@ class ChoiceDecoder(AbstractConstructedDecoder):
         self,
         substrate,
         asn1Spec,
-        tagSet: TagSet | None = ...,
-        length: int | None = ...,
-        state: Incomplete | None = ...,
-        decodeFun: Callable[..., Incomplete] | None = ...,
-        substrateFun: Callable[..., Incomplete] | None = ...,
+        tagSet: TagSet | None = None,
+        length: int | None = None,
+        state: Incomplete | None = None,
+        decodeFun: Callable[..., Incomplete] | None = None,
+        substrateFun: Callable[..., Incomplete] | None = None,
         **options,
     ): ...
     def indefLenValueDecoder(
         self,
         substrate,
         asn1Spec,
-        tagSet: TagSet | None = ...,
-        length: int | None = ...,
-        state: Incomplete | None = ...,
-        decodeFun: Callable[..., Incomplete] | None = ...,
-        substrateFun: Callable[..., Incomplete] | None = ...,
+        tagSet: TagSet | None = None,
+        length: int | None = None,
+        state: Incomplete | None = None,
+        decodeFun: Callable[..., Incomplete] | None = None,
+        substrateFun: Callable[..., Incomplete] | None = None,
         **options,
     ): ...
 
@@ -256,22 +253,22 @@ class AnyDecoder(AbstractSimpleDecoder):
         self,
         substrate,
         asn1Spec,
-        tagSet: TagSet | None = ...,
-        length: int | None = ...,
-        state: _Unused = ...,
-        decodeFun: _Unused = ...,
-        substrateFun: Callable[..., Incomplete] | None = ...,
+        tagSet: TagSet | None = None,
+        length: int | None = None,
+        state: Unused = None,
+        decodeFun: Unused = None,
+        substrateFun: Callable[..., Incomplete] | None = None,
         **options,
     ): ...
     def indefLenValueDecoder(
         self,
         substrate,
         asn1Spec,
-        tagSet: TagSet | None = ...,
-        length: int | None = ...,
-        state: _Unused = ...,
-        decodeFun: Callable[..., Incomplete] | None = ...,
-        substrateFun: Callable[..., Incomplete] | None = ...,
+        tagSet: TagSet | None = None,
+        length: int | None = None,
+        state: Unused = None,
+        decodeFun: Callable[..., Incomplete] | None = None,
+        substrateFun: Callable[..., Incomplete] | None = None,
         **options,
     ): ...
 
@@ -321,16 +318,16 @@ class Decoder:
     defaultErrorState: int
     defaultRawDecoder: AnyDecoder
     supportIndefLength: bool
-    def __init__(self, tagMap, typeMap=...) -> None: ...
+    def __init__(self, tagMap, typeMap={}) -> None: ...
     def __call__(
         self,
         substrate,
-        asn1Spec: Asn1Type | None = ...,
-        tagSet: TagSet | None = ...,
-        length: int | None = ...,
-        state=...,
-        decodeFun: _Unused = ...,
-        substrateFun: Callable[..., Incomplete] | None = ...,
+        asn1Spec: Asn1Type | None = None,
+        tagSet: TagSet | None = None,
+        length: int | None = None,
+        state=0,
+        decodeFun: Unused = None,
+        substrateFun: Callable[..., Incomplete] | None = None,
         **options,
     ): ...
 

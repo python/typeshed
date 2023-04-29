@@ -1,15 +1,13 @@
 from _typeshed import Incomplete
+from collections import defaultdict
 from collections.abc import Generator
+from re import Pattern
 
+from openpyxl.descriptors import Sequence
 from openpyxl.descriptors.serialisable import Serialisable
 
-RESERVED: Incomplete
-RESERVED_REGEX: Incomplete
-COL_RANGE: str
-COL_RANGE_RE: Incomplete
-ROW_RANGE: str
-ROW_RANGE_RE: Incomplete
-TITLES_REGEX: Incomplete
+RESERVED: frozenset[str]
+RESERVED_REGEX: Pattern[str]
 
 class DefinedName(Serialisable):
     tagname: str
@@ -32,22 +30,22 @@ class DefinedName(Serialisable):
     value: Incomplete
     def __init__(
         self,
-        name: Incomplete | None = ...,
-        comment: Incomplete | None = ...,
-        customMenu: Incomplete | None = ...,
-        description: Incomplete | None = ...,
-        help: Incomplete | None = ...,
-        statusBar: Incomplete | None = ...,
-        localSheetId: Incomplete | None = ...,
-        hidden: Incomplete | None = ...,
-        function: Incomplete | None = ...,
-        vbProcedure: Incomplete | None = ...,
-        xlm: Incomplete | None = ...,
-        functionGroupId: Incomplete | None = ...,
-        shortcutKey: Incomplete | None = ...,
-        publishToServer: Incomplete | None = ...,
-        workbookParameter: Incomplete | None = ...,
-        attr_text: Incomplete | None = ...,
+        name: Incomplete | None = None,
+        comment: Incomplete | None = None,
+        customMenu: Incomplete | None = None,
+        description: Incomplete | None = None,
+        help: Incomplete | None = None,
+        statusBar: Incomplete | None = None,
+        localSheetId: Incomplete | None = None,
+        hidden: Incomplete | None = None,
+        function: Incomplete | None = None,
+        vbProcedure: Incomplete | None = None,
+        xlm: Incomplete | None = None,
+        functionGroupId: Incomplete | None = None,
+        shortcutKey: Incomplete | None = None,
+        publishToServer: Incomplete | None = None,
+        workbookParameter: Incomplete | None = None,
+        attr_text: Incomplete | None = None,
     ) -> None: ...
     @property
     def type(self): ...
@@ -59,15 +57,12 @@ class DefinedName(Serialisable):
     def is_external(self): ...
     def __iter__(self): ...
 
+class DefinedNameDict(dict[str, DefinedName]):
+    def add(self, value: DefinedName) -> None: ...
+
 class DefinedNameList(Serialisable):
     tagname: str
-    definedName: Incomplete
-    def __init__(self, definedName=...) -> None: ...
-    def append(self, defn) -> None: ...
+    definedName: Sequence
+    def __init__(self, definedName=()) -> None: ...
+    def by_sheet(self) -> defaultdict[int, DefinedNameDict]: ...
     def __len__(self) -> int: ...
-    def __contains__(self, name): ...
-    def __getitem__(self, name): ...
-    def get(self, name, scope: Incomplete | None = ...): ...
-    def __delitem__(self, name) -> None: ...
-    def delete(self, name, scope: Incomplete | None = ...): ...
-    def localnames(self, scope): ...

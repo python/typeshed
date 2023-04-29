@@ -1,7 +1,6 @@
 from typing import Any
 
-from .. import util
-from ..util import HasMemoized
+from ..util.langhelpers import HasMemoized, MemoizedSlots
 from .visitors import ExtendedInternalTraversal, InternalTraversal
 
 SKIP_TRAVERSE: Any
@@ -106,7 +105,7 @@ class anon_map(dict[Any, Any]):
     def __init__(self) -> None: ...
     def __missing__(self, key): ...
 
-class TraversalComparatorStrategy(InternalTraversal, util.MemoizedSlots):
+class TraversalComparatorStrategy(InternalTraversal, MemoizedSlots):
     stack: Any
     cache: Any
     anon_map: Any
@@ -152,7 +151,7 @@ class TraversalComparatorStrategy(InternalTraversal, util.MemoizedSlots):
     def compare_bindparam(self, left, right, **kw): ...
 
 class ColIdentityComparatorStrategy(TraversalComparatorStrategy):
-    def compare_column_element(self, left, right, use_proxies: bool = ..., equivalents=..., **kw): ...
+    def compare_column_element(self, left, right, use_proxies: bool = True, equivalents=(), **kw): ...
     def compare_column(self, left, right, **kw): ...
     def compare_label(self, left, right, **kw): ...
     def compare_table(self, left, right, **kw): ...

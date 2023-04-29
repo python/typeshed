@@ -9,12 +9,7 @@ serial.tools.list_ports_windows  # Windows only
 # Methods defined with positional-only argument in the stub because they inherit from
 # io.RawIOBase but at runtime they are normal arguments that don't have consistent
 # names.
-serial.PosixPollSerial.read
-serial.VTIMESerial.read
-serial.serialposix.Serial.read
 serial.serialposix.Serial.write
-serial.serialposix.PosixPollSerial.read
-serial.serialposix.VTIMESerial.read
 
 # intended to be private aliases
 serial.tools.list_ports_posix.plat

@@ -1,4 +1,5 @@
 import datetime
+from _typeshed import Unused
 from collections.abc import Callable, Iterable, Sequence
 from typing import Any, NoReturn
 from typing_extensions import Literal, Self, TypeAlias
@@ -65,7 +66,7 @@ def make_connection(*args, **kwargs) -> NoReturn: ...
 class ModelAttribute: ...
 
 class _BaseValue(_NotEqualMixin):
-    b_val: object = ...
+    b_val: object
     def __init__(self, b_val) -> None: ...
     def __eq__(self, other) -> bool: ...
     def __hash__(self) -> int: ...
@@ -77,7 +78,7 @@ class Property(ModelAttribute):
         indexed: bool | None = ...,
         repeated: bool | None = ...,
         required: bool | None = ...,
-        default: object | None = ...,
+        default: object = None,
         choices: Iterable[object] | None = ...,
         validator: Callable[[Property, Any], object] | None = ...,
         verbose_name: str | None = ...,
@@ -109,7 +110,7 @@ class FloatProperty(Property):
     def __get__(self, entity: Model, unused_cls: type[Model] | None = ...) -> float | list[float] | None: ...
 
 class _CompressedValue(bytes):
-    z_val: bytes = ...
+    z_val: bytes
     def __init__(self, z_val: bytes) -> None: ...
     def __eq__(self, other: object) -> bool: ...
     def __hash__(self) -> NoReturn: ...
@@ -153,7 +154,7 @@ class JsonProperty(BlobProperty):
         indexed: bool | None = ...,
         repeated: bool | None = ...,
         required: bool | None = ...,
-        default: object | None = ...,
+        default: object = None,
         choices: Iterable[object] | None = ...,
         validator: Callable[[Property, Any], object] | None = ...,
         verbose_name: str | None = ...,
@@ -248,7 +249,7 @@ class MetaModel(type):
     def __init__(cls, name: str, bases, classdict) -> None: ...
 
 class Model(_NotEqualMixin, metaclass=MetaModel):
-    key: ModelKey = ...
+    key: ModelKey
     def __init__(_self, **kwargs) -> None: ...
     def __hash__(self) -> NoReturn: ...
     def __eq__(self, other: object) -> bool: ...
@@ -423,7 +424,7 @@ def get_multi_async(
     memcache_timeout: int | None = ...,
     max_memcache_items: int | None = ...,
     force_writes: bool | None = ...,
-    _options: object | None = ...,
+    _options: object = None,
 ) -> list[type[tasklets_module.Future]]: ...
 def get_multi(
     keys: Sequence[type[key_module.Key]],
@@ -441,7 +442,7 @@ def get_multi(
     memcache_timeout: int | None = ...,
     max_memcache_items: int | None = ...,
     force_writes: bool | None = ...,
-    _options: object | None = ...,
+    _options: object = None,
 ) -> list[type[Model] | None]: ...
 def put_multi_async(
     entities: list[type[Model]],
@@ -456,7 +457,7 @@ def put_multi_async(
     memcache_timeout: int | None = ...,
     max_memcache_items: int | None = ...,
     force_writes: bool | None = ...,
-    _options: object | None = ...,
+    _options: object = None,
 ) -> list[tasklets_module.Future]: ...
 def put_multi(
     entities: list[Model],
@@ -471,7 +472,7 @@ def put_multi(
     memcache_timeout: int | None = ...,
     max_memcache_items: int | None = ...,
     force_writes: bool | None = ...,
-    _options: object | None = ...,
+    _options: object = None,
 ) -> list[key_module.Key]: ...
 def delete_multi_async(
     keys: list[key_module.Key],
@@ -486,7 +487,7 @@ def delete_multi_async(
     memcache_timeout: int | None = ...,
     max_memcache_items: int | None = ...,
     force_writes: bool | None = ...,
-    _options: object | None = ...,
+    _options: object = None,
 ) -> list[tasklets_module.Future]: ...
 def delete_multi(
     keys: Sequence[key_module.Key],
@@ -501,7 +502,7 @@ def delete_multi(
     memcache_timeout: int | None = ...,
     max_memcache_items: int | None = ...,
     force_writes: bool | None = ...,
-    _options: object | None = ...,
+    _options: object = None,
 ) -> list[None]: ...
-def get_indexes_async(**options: object) -> NoReturn: ...
-def get_indexes(**options: object) -> NoReturn: ...
+def get_indexes_async(**options: Unused) -> NoReturn: ...
+def get_indexes(**options: Unused) -> NoReturn: ...
