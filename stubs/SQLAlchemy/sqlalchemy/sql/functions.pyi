@@ -29,7 +29,7 @@ from .elements import (
 from .selectable import FromClause, Select, TableValuedAlias
 from .visitors import TraversibleType
 
-def register_function(identifier, fn, package: str = '_default') -> None: ...
+def register_function(identifier, fn, package: str = "_default") -> None: ...
 
 class FunctionElement(Executable, ColumnElement[Any], FromClause, Generative):  # type: ignore[misc]
     packagenames: Incomplete

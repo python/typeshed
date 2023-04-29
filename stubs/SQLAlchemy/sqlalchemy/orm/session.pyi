@@ -70,7 +70,9 @@ class ORMExecuteState(MemoizedSlots):
 class SessionTransaction(TransactionalContext):
     session: Any
     nested: Any
-    def __init__(self, session, parent: SessionTransaction | None = None, nested: bool = False, autobegin: bool = False) -> None: ...
+    def __init__(
+        self, session, parent: SessionTransaction | None = None, nested: bool = False, autobegin: bool = False
+    ) -> None: ...
     @property
     def parent(self) -> SessionTransaction | None: ...
     @property

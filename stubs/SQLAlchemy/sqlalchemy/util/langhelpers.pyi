@@ -64,7 +64,7 @@ def monkeypatch_proxied_specials(
     from_cls,
     skip: Incomplete | None = None,
     only: Incomplete | None = None,
-    name: str = 'self.proxy',
+    name: str = "self.proxy",
     from_instance: Incomplete | None = None,
 ) -> None: ...
 def methods_equivalent(meth1, meth2): ...

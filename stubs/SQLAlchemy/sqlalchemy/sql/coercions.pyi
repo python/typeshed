@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from collections.abc import Generator, Iterable
 from typing import Any, Protocol, TypeVar, overload
 from typing_extensions import TypeAlias
@@ -39,7 +39,6 @@ _CoercibleElement: TypeAlias = (  # noqa: Y047
 )
 
 _T = TypeVar("_T")
-from _typeshed import Unused
 
 _ExpectColExpressionCollectionResult: TypeAlias = (
     Generator[tuple[_T, Column, str | None, Column], None, None]

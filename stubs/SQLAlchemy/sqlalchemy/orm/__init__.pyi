@@ -113,7 +113,7 @@ def relationship(
     post_update: bool = False,
     cascade: Iterable[str] | str | None | Literal[False] = False,
     viewonly: bool = False,
-    lazy: str = 'select',
+    lazy: str = "select",
     collection_class: Incomplete | None = None,
     passive_deletes: bool | str = False,
     passive_updates: bool = True,

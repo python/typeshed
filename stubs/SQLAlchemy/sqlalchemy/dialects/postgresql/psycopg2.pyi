@@ -73,7 +73,7 @@ class PGDialect_psycopg2(PGDialect):
         client_encoding: Incomplete | None = None,
         use_native_hstore: bool = True,
         use_native_uuid: bool = True,
-        executemany_mode: str = 'values_only',
+        executemany_mode: str = "values_only",
         executemany_batch_page_size: int = 100,
         executemany_values_page_size: int = 1000,
         **kwargs,

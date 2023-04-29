@@ -33,7 +33,7 @@ class CascadeOptions(frozenset[Any]):
     @classmethod
     def from_string(cls, arg): ...
 
-def polymorphic_union(table_map, typecolname, aliasname: str = 'p_union', cast_nulls: bool = True): ...
+def polymorphic_union(table_map, typecolname, aliasname: str = "p_union", cast_nulls: bool = True): ...
 def identity_key(*args, **kwargs): ...
 
 class ORMAdapter(sql_util.ColumnAdapter):
@@ -122,7 +122,11 @@ class LoaderCriteriaOption(CriteriaOption):
 
 @overload
 def aliased(  # type: ignore[misc]  # Incompatible return types
-    element: FromClause, alias: FromClause | None = None, name: str | None = None, flat: bool = False, adapt_on_names: bool = False
+    element: FromClause,
+    alias: FromClause | None = None,
+    name: str | None = None,
+    flat: bool = False,
+    adapt_on_names: bool = False,
 ) -> Alias | FromClause: ...
 @overload
 def aliased(
@@ -187,10 +191,17 @@ class _ORMJoin(expression.Join):
         full: bool = False,
         join_to_left: Incomplete | None = None,
     ): ...
-    def outerjoin(self, right, onclause: Incomplete | None = None, full: bool = False, join_to_left: Incomplete | None = None): ...
+    def outerjoin(
+        self, right, onclause: Incomplete | None = None, full: bool = False, join_to_left: Incomplete | None = None
+    ): ...
 
 def join(
-    left, right, onclause: Incomplete | None = None, isouter: bool = False, full: bool = False, join_to_left: Incomplete | None = None
+    left,
+    right,
+    onclause: Incomplete | None = None,
+    isouter: bool = False,
+    full: bool = False,
+    join_to_left: Incomplete | None = None,
 ): ...
 def outerjoin(left, right, onclause: Incomplete | None = None, full: bool = False, join_to_left: Incomplete | None = None): ...
 def with_parent(instance, prop, from_entity: Incomplete | None = None): ...

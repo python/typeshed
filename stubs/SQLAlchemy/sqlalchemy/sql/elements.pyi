@@ -414,9 +414,9 @@ class Slice(ColumnElement[Any]):
     @memoized_property
     def type(self) -> NullType: ...  # type: ignore[override]  # @memoized_property causes override issue
     def __init__(self, start, stop, step, _name: Incomplete | None = None) -> None: ...
-    # Must be operator.getitem
+    # Argument `against` must be operator.getitem
     def self_group(  # type: ignore[override]
-        self, against: Callable[[Sequence[_T], slice], Sequence[_T]] | Callable[[SupportsGetItem[_K, _V], _K], _V] = None
+        self, against: Callable[[Sequence[_T], slice], Sequence[_T]] | Callable[[SupportsGetItem[_K, _V], _K], _V] = ...
     ) -> Self: ...
 
 class IndexExpression(BinaryExpression):

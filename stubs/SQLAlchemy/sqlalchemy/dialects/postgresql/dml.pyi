@@ -20,7 +20,10 @@ class Insert(StandardInsert):
         where: Incomplete | None = None,
     ) -> Self: ...
     def on_conflict_do_nothing(
-        self, constraint: Incomplete | None = None, index_elements: Incomplete | None = None, index_where: Incomplete | None = None
+        self,
+        constraint: Incomplete | None = None,
+        index_elements: Incomplete | None = None,
+        index_where: Incomplete | None = None,
     ) -> Self: ...
 
 insert: Any
@@ -31,7 +34,10 @@ class OnConflictClause(ClauseElement):
     inferred_target_elements: Any
     inferred_target_whereclause: Any
     def __init__(
-        self, constraint: Incomplete | None = None, index_elements: Incomplete | None = None, index_where: Incomplete | None = None
+        self,
+        constraint: Incomplete | None = None,
+        index_elements: Incomplete | None = None,
+        index_where: Incomplete | None = None,
     ) -> None: ...
 
 class OnConflictDoNothing(OnConflictClause):

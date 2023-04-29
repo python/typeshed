@@ -104,7 +104,11 @@ class Numeric(_LookupExpressionAdapter, TypeEngine):
     decimal_return_scale: int | None
     asdecimal: bool
     def __init__(
-        self, precision: int | None = None, scale: int | None = None, decimal_return_scale: int | None = None, asdecimal: bool = True
+        self,
+        precision: int | None = None,
+        scale: int | None = None,
+        decimal_return_scale: int | None = None,
+        asdecimal: bool = True,
     ) -> None: ...
     def get_dbapi_type(self, dbapi): ...
     def literal_processor(self, dialect: Dialect) -> Callable[[float | decimal.Decimal], str]: ...
@@ -121,7 +125,9 @@ class Float(Numeric):
     precision: int | None
     asdecimal: bool
     decimal_return_scale: int | None
-    def __init__(self, precision: int | None = None, asdecimal: bool = False, decimal_return_scale: int | None = None) -> None: ...
+    def __init__(
+        self, precision: int | None = None, asdecimal: bool = False, decimal_return_scale: int | None = None
+    ) -> None: ...
     def result_processor(
         self, dialect: Dialect, coltype
     ) -> Callable[[Incomplete | None], float | decimal.Decimal | None] | None: ...
@@ -250,7 +256,9 @@ class Interval(Emulated, _AbstractInterval, TypeDecorator):  # type: ignore[misc
     native: bool
     second_precision: float | None
     day_precision: float | None
-    def __init__(self, native: bool = True, second_precision: float | None = None, day_precision: float | None = None) -> None: ...
+    def __init__(
+        self, native: bool = True, second_precision: float | None = None, day_precision: float | None = None
+    ) -> None: ...
     @property
     def python_type(self) -> type[timedelta]: ...
     def adapt_to_emulated(self, impltype: type[Incomplete], **kw): ...

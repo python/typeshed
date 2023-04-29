@@ -48,7 +48,7 @@ def testing_engine(  # type: ignore[misc]
     url: URL | str | None = None,
     options: Mapping[str, Any] | None = None,
     future: bool | None = None,
-    asyncio: Literal[False] = False,
+    asyncio: Literal[False] = ...,
     transfer_staticpool: bool = False,
 ) -> Engine: ...
 @overload

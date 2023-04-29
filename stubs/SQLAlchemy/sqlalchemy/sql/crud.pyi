@@ -1,11 +1,10 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from typing import Any, Generic, NoReturn, TypeVar
 
 from ..util.langhelpers import memoized_property
 from . import elements
 
 _T = TypeVar("_T")
-from _typeshed import Unused
 
 REQUIRED: Any
 

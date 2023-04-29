@@ -296,7 +296,7 @@ class MSDialect(default.DefaultDialect):
         self,
         query_timeout: Incomplete | None = None,
         use_scope_identity: bool = True,
-        schema_name: str = 'dbo',
+        schema_name: str = "dbo",
         isolation_level: Incomplete | None = None,
         deprecate_large_types: Incomplete | None = None,
         json_serializer: Incomplete | None = None,
