@@ -49,7 +49,7 @@ class UpdateBase(roles.DMLRole, HasCTE, HasCompileState, DialectKWArgs, HasPrefi
     def returning(self, *cols: ColumnElement[Incomplete] | Table) -> Self: ...
     @property
     def exported_columns(self): ...
-    def with_hint(self, text: str, selectable: _CoercibleElement | None = ..., dialect_name: str = ...) -> Self: ...
+    def with_hint(self, text: str, selectable: _CoercibleElement | None = None, dialect_name: str = '*') -> Self: ...
 
 class ValuesBase(UpdateBase):
     __visit_name__: str
@@ -67,17 +67,17 @@ class Insert(ValuesBase):
     def __init__(
         self,
         table: TableClause,
-        values: Incomplete | None = ...,
-        inline: bool = ...,
-        bind: Incomplete | None = ...,
-        prefixes: Incomplete | None = ...,
-        returning: Incomplete | None = ...,
-        return_defaults: bool = ...,
+        values: Incomplete | None = None,
+        inline: bool = False,
+        bind: Incomplete | None = None,
+        prefixes: Incomplete | None = None,
+        returning: Incomplete | None = None,
+        return_defaults: bool = False,
         **dialect_kw,
     ) -> None: ...
     def inline(self) -> Self: ...
     def from_select(
-        self, names: Iterable[str | Column], select: FromClause | Query[Incomplete], include_defaults: bool = ...
+        self, names: Iterable[str | Column], select: FromClause | Query[Incomplete], include_defaults: bool = True
     ) -> Self: ...
 
 class DMLWhereBase:
@@ -94,14 +94,14 @@ class Update(DMLWhereBase, ValuesBase):
     def __init__(
         self,
         table: TableClause,
-        whereclause: bool | str | Traversible | None = ...,
-        values: Incomplete | None = ...,
-        inline: bool = ...,
-        bind: Incomplete | None = ...,
-        prefixes: Incomplete | None = ...,
-        returning: Incomplete | None = ...,
-        return_defaults: bool = ...,
-        preserve_parameter_order: bool = ...,
+        whereclause: bool | str | Traversible | None = None,
+        values: Incomplete | None = None,
+        inline: bool = False,
+        bind: Incomplete | None = None,
+        prefixes: Incomplete | None = None,
+        returning: Incomplete | None = None,
+        return_defaults: bool = False,
+        preserve_parameter_order: bool = False,
         **dialect_kw,
     ) -> None: ...
     def ordered_values(self, *args) -> Self: ...
@@ -113,9 +113,9 @@ class Delete(DMLWhereBase, UpdateBase):
     def __init__(
         self,
         table: TableClause,
-        whereclause: bool | str | Traversible | None = ...,
-        bind: Incomplete | None = ...,
-        returning: Incomplete | None = ...,
-        prefixes: Incomplete | None = ...,
+        whereclause: bool | str | Traversible | None = None,
+        bind: Incomplete | None = None,
+        returning: Incomplete | None = None,
+        prefixes: Incomplete | None = None,
         **dialect_kw,
     ) -> None: ...

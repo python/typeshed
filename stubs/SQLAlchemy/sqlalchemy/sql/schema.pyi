@@ -41,17 +41,17 @@ class Table(DialectKWArgs, SchemaItem, TableClause):
     @property
     def bind(self) -> Engine | Connection | None: ...
     def add_is_dependent_on(self, table: Table) -> None: ...
-    def append_column(self, column: ColumnClause, replace_existing: bool = ...) -> None: ...  # type: ignore[override]
+    def append_column(self, column: ColumnClause, replace_existing: bool = False) -> None: ...  # type: ignore[override]
     def append_constraint(self, constraint: Constraint) -> None: ...
-    def exists(self, bind: Engine | Connection | None = ...): ...
-    def create(self, bind: Connectable | None = ..., checkfirst: bool = ...) -> None: ...
-    def drop(self, bind: Connectable | None = ..., checkfirst: bool = ...) -> None: ...
+    def exists(self, bind: Engine | Connection | None = None): ...
+    def create(self, bind: Connectable | None = None, checkfirst: bool = False) -> None: ...
+    def drop(self, bind: Connectable | None = None, checkfirst: bool = False) -> None: ...
     def to_metadata(
         self,
         metadata: MetaData,
         schema: str | _symbol | symbol = ...,
-        referred_schema_fn: Callable[[Table, str, ForeignKeyConstraint, str], str] | None = ...,
-        name: str | None = ...,
+        referred_schema_fn: Callable[[Table, str, ForeignKeyConstraint, str], str] | None = None,
+        name: str | None = None,
     ) -> Table: ...
     tometadata = to_metadata
 
@@ -178,20 +178,20 @@ class ForeignKey(DialectKWArgs, SchemaItem):
     def __init__(
         self,
         column: Column | str,
-        _constraint: ForeignKeyConstraint | None = ...,
-        use_alter: bool = ...,
-        name: str | None = ...,
-        onupdate: str | None = ...,
-        ondelete: str | None = ...,
-        deferrable: bool | None = ...,
-        initially: str | None = ...,
-        link_to_name: bool = ...,
-        match: str | None = ...,
-        info: Mapping[str, Incomplete] | None = ...,
-        _unresolvable: bool = ...,
+        _constraint: ForeignKeyConstraint | None = None,
+        use_alter: bool = False,
+        name: str | None = None,
+        onupdate: str | None = None,
+        ondelete: str | None = None,
+        deferrable: bool | None = None,
+        initially: str | None = None,
+        link_to_name: bool = False,
+        match: str | None = None,
+        info: Mapping[str, Incomplete] | None = None,
+        _unresolvable: bool = False,
         **dialect_kw,
     ) -> None: ...
-    def copy(self, schema: str | _symbol | symbol | None = ..., **kw: Unused) -> ForeignKey: ...
+    def copy(self, schema: str | _symbol | symbol | None = None, **kw: Unused) -> ForeignKey: ...
     @property
     def target_fullname(self) -> str: ...
     def references(self, table: Table) -> bool: ...
@@ -205,8 +205,8 @@ class DefaultGenerator(Executable, SchemaItem):
     is_server_default: bool
     column: Any
     for_update: Any
-    def __init__(self, for_update: bool = ...) -> None: ...
-    def execute(self, bind: Incomplete | None = ...): ...  # type: ignore[override]
+    def __init__(self, for_update: bool = False) -> None: ...
+    def execute(self, bind: Incomplete | None = None): ...  # type: ignore[override]
     @property
     def bind(self): ...
 
@@ -232,15 +232,15 @@ class IdentityOptions:
     order: Any
     def __init__(
         self,
-        start: Incomplete | None = ...,
-        increment: Incomplete | None = ...,
-        minvalue: Incomplete | None = ...,
-        maxvalue: Incomplete | None = ...,
-        nominvalue: Incomplete | None = ...,
-        nomaxvalue: Incomplete | None = ...,
-        cycle: Incomplete | None = ...,
-        cache: Incomplete | None = ...,
-        order: Incomplete | None = ...,
+        start: Incomplete | None = None,
+        increment: Incomplete | None = None,
+        minvalue: Incomplete | None = None,
+        maxvalue: Incomplete | None = None,
+        nominvalue: Incomplete | None = None,
+        nomaxvalue: Incomplete | None = None,
+        cycle: Incomplete | None = None,
+        cache: Incomplete | None = None,
+        order: Incomplete | None = None,
     ) -> None: ...
 
 class Sequence(IdentityOptions, DefaultGenerator):
@@ -254,22 +254,22 @@ class Sequence(IdentityOptions, DefaultGenerator):
     def __init__(
         self,
         name: str,
-        start: int | None = ...,
-        increment: int | None = ...,
-        minvalue: int | None = ...,
-        maxvalue: int | None = ...,
-        nominvalue: int | None = ...,
-        nomaxvalue: int | None = ...,
-        cycle: bool | None = ...,
-        schema: str | _symbol | symbol | None = ...,
-        cache: Incomplete | None = ...,
-        order: Incomplete | None = ...,
-        data_type: TypeEngine | type[TypeEngine] | None = ...,
-        optional: bool = ...,
-        quote: bool | None = ...,
-        metadata: MetaData | None = ...,
-        quote_schema: bool | None = ...,
-        for_update: bool = ...,
+        start: int | None = None,
+        increment: int | None = None,
+        minvalue: int | None = None,
+        maxvalue: int | None = None,
+        nominvalue: int | None = None,
+        nomaxvalue: int | None = None,
+        cycle: bool | None = None,
+        schema: str | _symbol | symbol | None = None,
+        cache: Incomplete | None = None,
+        order: Incomplete | None = None,
+        data_type: TypeEngine | type[TypeEngine] | None = None,
+        optional: bool = False,
+        quote: bool | None = None,
+        metadata: MetaData | None = None,
+        quote_schema: bool | None = None,
+        for_update: bool = False,
     ) -> None: ...
     @memoized_property
     def is_callable(self) -> bool: ...
@@ -278,8 +278,8 @@ class Sequence(IdentityOptions, DefaultGenerator):
     def next_value(self) -> functions.next_value: ...
     @property
     def bind(self) -> Engine | Connection | None: ...
-    def create(self, bind: Engine | Connection | None = ..., checkfirst: bool = ...) -> None: ...
-    def drop(self, bind: Engine | Connection | None = ..., checkfirst: bool = ...) -> None: ...
+    def create(self, bind: Engine | Connection | None = None, checkfirst: bool = True) -> None: ...
+    def drop(self, bind: Engine | Connection | None = None, checkfirst: bool = True) -> None: ...
 
 class FetchedValue(SchemaEventTarget):
     is_server_default: bool
@@ -287,13 +287,13 @@ class FetchedValue(SchemaEventTarget):
     has_argument: bool
     is_clause_element: bool
     for_update: bool
-    def __init__(self, for_update: bool = ...) -> None: ...
+    def __init__(self, for_update: bool = False) -> None: ...
 
 class DefaultClause(FetchedValue):
     has_argument: bool
     arg: Any
     reflected: bool
-    def __init__(self, arg: str | ClauseElement, for_update: bool = ..., _reflected: bool = ...) -> None: ...
+    def __init__(self, arg: str | ClauseElement, for_update: bool = False, _reflected: bool = False) -> None: ...
 
 class Constraint(DialectKWArgs, SchemaItem):
     __visit_name__: str
@@ -304,12 +304,12 @@ class Constraint(DialectKWArgs, SchemaItem):
     def info(self) -> Mapping[str, Incomplete] | None: ...  # type: ignore[override]  # @memoized_property causes override issue
     def __init__(
         self,
-        name: str | None = ...,
-        deferrable: bool | None = ...,
-        initially: str | None = ...,
-        _create_rule: Callable[[DDLCompiler], bool] | None = ...,
-        info: Mapping[str, Incomplete] | None = ...,
-        _type_bound: bool = ...,
+        name: str | None = None,
+        deferrable: bool | None = None,
+        initially: str | None = None,
+        _create_rule: Callable[[DDLCompiler], bool] | None = None,
+        info: Mapping[str, Incomplete] | None = None,
+        _type_bound: bool = False,
         **dialect_kw,
     ) -> None: ...
     @property
@@ -324,7 +324,7 @@ class ColumnCollectionMixin:
 class ColumnCollectionConstraint(ColumnCollectionMixin, Constraint):
     def __init__(self, *columns: str | Column, **kw) -> None: ...
     def __contains__(self, x) -> bool: ...
-    def copy(self, target_table: Incomplete | None = ..., **kw: Unused) -> Self: ...  # type: ignore[override]
+    def copy(self, target_table: Incomplete | None = None, **kw: Unused) -> Self: ...  # type: ignore[override]
     def contains_column(self, col: Column) -> bool: ...
     def __iter__(self) -> Iterator[Column]: ...
     def __len__(self) -> int: ...
@@ -335,19 +335,19 @@ class CheckConstraint(ColumnCollectionConstraint):
     def __init__(
         self,
         sqltext: _CoercibleElement,
-        name: str | None = ...,
-        deferrable: bool | None = ...,
-        initially: str | None = ...,
-        table: Table | None = ...,
-        info: Mapping[str, Incomplete] | None = ...,
-        _create_rule: Callable[[DDLCompiler], bool] | None = ...,
-        _autoattach: bool = ...,
-        _type_bound: bool = ...,
+        name: str | None = None,
+        deferrable: bool | None = None,
+        initially: str | None = None,
+        table: Table | None = None,
+        info: Mapping[str, Incomplete] | None = None,
+        _create_rule: Callable[[DDLCompiler], bool] | None = None,
+        _autoattach: bool = True,
+        _type_bound: bool = False,
         **kw,
     ) -> None: ...
     @property
     def is_column_level(self) -> bool: ...
-    def copy(self, target_table: Table | None = ..., **kw: Unused) -> CheckConstraint: ...  # type: ignore[override]
+    def copy(self, target_table: Table | None = None, **kw: Unused) -> CheckConstraint: ...  # type: ignore[override]
 
 class ForeignKeyConstraint(ColumnCollectionConstraint):
     __visit_name__: str
@@ -361,16 +361,16 @@ class ForeignKeyConstraint(ColumnCollectionConstraint):
         self,
         columns: ABCSequence[str],
         refcolumns: ABCSequence[str | Column],
-        name: str | None = ...,
-        onupdate: str | None = ...,
-        ondelete: str | None = ...,
-        deferrable: bool | None = ...,
-        initially: str | None = ...,
-        use_alter: bool = ...,
-        link_to_name: bool = ...,
-        match: str | None = ...,
-        table: Table | None = ...,
-        info: Mapping[str, Incomplete] | None = ...,
+        name: str | None = None,
+        onupdate: str | None = None,
+        ondelete: str | None = None,
+        deferrable: bool | None = None,
+        initially: str | None = None,
+        use_alter: bool = False,
+        link_to_name: bool = False,
+        match: str | None = None,
+        table: Table | None = None,
+        info: Mapping[str, Incomplete] | None = None,
         **dialect_kw,
     ) -> None: ...
     columns: Any
@@ -378,7 +378,7 @@ class ForeignKeyConstraint(ColumnCollectionConstraint):
     def referred_table(self) -> Table: ...
     @property
     def column_keys(self) -> list[str]: ...
-    def copy(self, schema: str | None = ..., target_table: Table | None = ..., **kw: Unused) -> ForeignKeyConstraint: ...  # type: ignore[override]
+    def copy(self, schema: str | None = None, target_table: Table | None = None, **kw: Unused) -> ForeignKeyConstraint: ...  # type: ignore[override]
 
 class PrimaryKeyConstraint(ColumnCollectionConstraint):
     __visit_name__: str
@@ -410,8 +410,8 @@ class Index(DialectKWArgs, ColumnCollectionMixin, SchemaItem):
     ) -> None: ...
     @property
     def bind(self) -> Engine | Connection | None: ...
-    def create(self, bind: Engine | Connection | None = ..., checkfirst: bool = ...) -> Self: ...
-    def drop(self, bind: Engine | Connection | None = ..., checkfirst: bool = ...) -> None: ...
+    def create(self, bind: Engine | Connection | None = None, checkfirst: bool = False) -> Self: ...
+    def drop(self, bind: Engine | Connection | None = None, checkfirst: bool = False) -> None: ...
 
 DEFAULT_NAMING_CONVENTION: immutabledict[str, str]
 
@@ -424,11 +424,11 @@ class MetaData(SchemaItem):
     def info(self) -> Mapping[str, Incomplete] | None: ...  # type: ignore[override]  # @memoized_property causes override issue
     def __init__(
         self,
-        bind: Engine | Connection | str | URL | None = ...,
-        schema: str | None = ...,
-        quote_schema: Incomplete | None = ...,
-        naming_convention: Mapping[str, str] | None = ...,
-        info: Mapping[str, Incomplete] | None = ...,
+        bind: Engine | Connection | str | URL | None = None,
+        schema: str | None = None,
+        quote_schema: Incomplete | None = None,
+        naming_convention: Mapping[str, str] | None = None,
+        info: Mapping[str, Incomplete] | None = None,
     ) -> None: ...
     def __contains__(self, table_or_key: str | Table) -> bool: ...
     def is_bound(self) -> bool: ...
@@ -439,20 +439,20 @@ class MetaData(SchemaItem):
     def sorted_tables(self) -> list[Table]: ...
     def reflect(
         self,
-        bind: Connectable | None = ...,
-        schema: str | None = ...,
-        views: bool = ...,
-        only: ABCSequence[str] | Callable[[str, MetaData], bool] | None = ...,
-        extend_existing: bool = ...,
-        autoload_replace: bool = ...,
-        resolve_fks: bool = ...,
+        bind: Connectable | None = None,
+        schema: str | None = None,
+        views: bool = False,
+        only: ABCSequence[str] | Callable[[str, MetaData], bool] | None = None,
+        extend_existing: bool = False,
+        autoload_replace: bool = True,
+        resolve_fks: bool = True,
         **dialect_kwargs,
     ) -> None: ...
     def create_all(
-        self, bind: Connectable | None = ..., tables: ABCSequence[Table] | None = ..., checkfirst: bool = ...
+        self, bind: Connectable | None = None, tables: ABCSequence[Table] | None = None, checkfirst: bool = True
     ) -> None: ...
     def drop_all(
-        self, bind: Connectable | None = ..., tables: ABCSequence[Table] | None = ..., checkfirst: bool = ...
+        self, bind: Connectable | None = None, tables: ABCSequence[Table] | None = None, checkfirst: bool = True
     ) -> None: ...
 
 class ThreadLocalMetaData(MetaData):
@@ -469,8 +469,8 @@ class Computed(FetchedValue, SchemaItem):
     sqltext: Any
     persisted: Any
     column: Any
-    def __init__(self, sqltext, persisted: Incomplete | None = ...) -> None: ...
-    def copy(self, target_table: Incomplete | None = ..., **kw: Unused) -> Computed: ...
+    def __init__(self, sqltext, persisted: Incomplete | None = None) -> None: ...
+    def copy(self, target_table: Incomplete | None = None, **kw: Unused) -> Computed: ...
 
 class Identity(IdentityOptions, FetchedValue, SchemaItem):
     __visit_name__: str
@@ -479,16 +479,16 @@ class Identity(IdentityOptions, FetchedValue, SchemaItem):
     column: Any
     def __init__(
         self,
-        always: bool = ...,
-        on_null: Incomplete | None = ...,
-        start: Incomplete | None = ...,
-        increment: Incomplete | None = ...,
-        minvalue: Incomplete | None = ...,
-        maxvalue: Incomplete | None = ...,
-        nominvalue: Incomplete | None = ...,
-        nomaxvalue: Incomplete | None = ...,
-        cycle: Incomplete | None = ...,
-        cache: Incomplete | None = ...,
-        order: Incomplete | None = ...,
+        always: bool = False,
+        on_null: Incomplete | None = None,
+        start: Incomplete | None = None,
+        increment: Incomplete | None = None,
+        minvalue: Incomplete | None = None,
+        maxvalue: Incomplete | None = None,
+        nominvalue: Incomplete | None = None,
+        nomaxvalue: Incomplete | None = None,
+        cycle: Incomplete | None = None,
+        cache: Incomplete | None = None,
+        order: Incomplete | None = None,
     ) -> None: ...
     def copy(self, **kw: Unused) -> Identity: ...

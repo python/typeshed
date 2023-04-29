@@ -186,59 +186,59 @@ def or_(*clauses: _CoercibleElement) -> ClauseElement | BooleanClauseList: ...
 def bindparam(
     key: str,
     value: _T | _symbol | symbol | None = None,
-    type_: TypeEngine | type[TypeEngine] | None = ...,
-    unique: bool = ...,
+    type_: TypeEngine | type[TypeEngine] | None = None,
+    unique: bool = False,
     required: bool | _symbol | symbol = ...,
-    quote: None = ...,
-    callable_: Callable[[], _T] | None = ...,
-    expanding: bool = ...,
-    isoutparam: bool = ...,
-    literal_execute: bool = ...,
-    _compared_to_operator: Incomplete | None = ...,
-    _compared_to_type: Incomplete | None = ...,
-    _is_crud: bool = ...,
+    quote: None = None,
+    callable_: Callable[[], _T] | None = None,
+    expanding: bool = False,
+    isoutparam: bool = False,
+    literal_execute: bool = False,
+    _compared_to_operator: Incomplete | None = None,
+    _compared_to_type: Incomplete | None = None,
+    _is_crud: bool = False,
 ) -> BindParameter[_T]: ...
 @overload
 def bindparam(
     key: object,
     *,
     value: _T | _symbol | symbol | None = None,
-    type_: TypeEngine | type[TypeEngine] | None = ...,
-    unique: bool = ...,
+    type_: TypeEngine | type[TypeEngine] | None = None,
+    unique: bool = False,
     required: bool | _symbol | symbol = ...,
     quote,
-    callable_: Callable[[], _T] | None = ...,
-    expanding: bool = ...,
-    isoutparam: bool = ...,
-    literal_execute: bool = ...,
-    _compared_to_operator: Incomplete | None = ...,
-    _compared_to_type: Incomplete | None = ...,
-    _is_crud: bool = ...,
+    callable_: Callable[[], _T] | None = None,
+    expanding: bool = False,
+    isoutparam: bool = False,
+    literal_execute: bool = False,
+    _compared_to_operator: Incomplete | None = None,
+    _compared_to_type: Incomplete | None = None,
+    _is_crud: bool = False,
 ) -> BindParameter[_T]: ...
 def select(*args, **kw) -> Select: ...
 def text(text, bind=None) -> TextClause: ...
 def table(name: str, *columns: ColumnClause, **kw) -> TableClause: ...
 def column(
-    text, type_: TypeEngine | type[TypeEngine] | None = ..., is_literal: bool = ..., _selectable: Incomplete | None = ...
+    text, type_: TypeEngine | type[TypeEngine] | None = None, is_literal: bool = False, _selectable: Incomplete | None = None
 ) -> ColumnClause: ...
 def over(
     element: FunctionElement | WithinGroup,
-    partition_by: _CoercibleElement | None = ...,
-    order_by: _CoercibleElement | None = ...,
+    partition_by: _CoercibleElement | None = None,
+    order_by: _CoercibleElement | None = None,
     range_: tuple[
         str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc | None,
         str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc | None,
     ]
-    | None = ...,
+    | None = None,
     rows: tuple[
         str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc | None,
         str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc | None,
     ]
-    | None = ...,
+    | None = None,
 ) -> Over: ...
 def within_group(element: FunctionElement, *order_by: _CoercibleElement) -> WithinGroup: ...
 def label(
-    name: str | _anonymous_label, element: ColumnElement[Incomplete], type_: TypeEngine | type[TypeEngine] | None = ...
+    name: str | _anonymous_label, element: ColumnElement[Incomplete], type_: TypeEngine | type[TypeEngine] | None = None
 ) -> Label: ...
 def case(*whens: tuple[ClauseElement, Incomplete], value: Incomplete | None = None, else_: Incomplete | None = None) -> Case: ...
 def cast(expression, type_: TypeEngine | type[TypeEngine] | None) -> Cast: ...
@@ -266,32 +266,32 @@ def join(left, right, onclause=None, isouter=False, full=False) -> Join: ...
 def outerjoin(left, right, onclause=None, full=False) -> Join: ...
 def insert(
     table: _CoercibleElement,
-    values: Incomplete | None = ...,
-    inline: bool = ...,
-    bind: Incomplete | None = ...,
-    prefixes: Incomplete | None = ...,
-    returning: Incomplete | None = ...,
-    return_defaults: bool = ...,
+    values: Incomplete | None = None,
+    inline: bool = False,
+    bind: Incomplete | None = None,
+    prefixes: Incomplete | None = None,
+    returning: Incomplete | None = None,
+    return_defaults: bool = False,
     **dialect_kw,
 ) -> Insert: ...
 def update(
     table: _CoercibleElement,
-    whereclause: bool | str | Traversible | None = ...,
-    values: Incomplete | None = ...,
-    inline: bool = ...,
-    bind: Incomplete | None = ...,
-    prefixes: Incomplete | None = ...,
-    returning: Incomplete | None = ...,
-    return_defaults: bool = ...,
-    preserve_parameter_order: bool = ...,
+    whereclause: bool | str | Traversible | None = None,
+    values: Incomplete | None = None,
+    inline: bool = False,
+    bind: Incomplete | None = None,
+    prefixes: Incomplete | None = None,
+    returning: Incomplete | None = None,
+    return_defaults: bool = False,
+    preserve_parameter_order: bool = False,
     **dialect_kw,
 ) -> Update: ...
 def delete(
     table: _CoercibleElement,
-    whereclause: bool | str | Traversible | None = ...,
-    bind: Incomplete | None = ...,
-    returning: Incomplete | None = ...,
-    prefixes: Incomplete | None = ...,
+    whereclause: bool | str | Traversible | None = None,
+    bind: Incomplete | None = None,
+    returning: Incomplete | None = None,
+    prefixes: Incomplete | None = None,
     **dialect_kw,
 ) -> Delete: ...
 def funcfilter(func: FunctionFilter, *criterion) -> FunctionFilter: ...

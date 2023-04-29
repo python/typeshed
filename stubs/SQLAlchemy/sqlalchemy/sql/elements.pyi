@@ -27,9 +27,9 @@ _V = TypeVar("_V")
 _P = ParamSpec("_P")
 
 def collate(expression, collation): ...
-def between(expr, lower_bound, upper_bound, symmetric: bool = ...): ...
-def literal(value, type_: Incomplete | None = ...): ...
-def outparam(key, type_: Incomplete | None = ...): ...
+def between(expr, lower_bound, upper_bound, symmetric: bool = False): ...
+def literal(value, type_: Incomplete | None = None): ...
+def outparam(key, type_: Incomplete | None = None): ...
 def not_(clause): ...
 
 class ClauseElement(roles.SQLRole, SupportsWrappingAnnotations, MemoizedHasCacheKey, HasCopyInternals, Traversible):
@@ -46,8 +46,8 @@ class ClauseElement(roles.SQLRole, SupportsWrappingAnnotations, MemoizedHasCache
     def params(self, *optionaldict, **kwargs): ...
     def compare(self, other: ClauseElement, **kw) -> bool: ...
     # This method is meant to be overriden
-    def self_group(self, against: _AnyOperator | None = ...) -> Self | Grouping: ...
-    def compile(self, bind: Incomplete | None = ..., dialect: Incomplete | None = ..., **kw): ...
+    def self_group(self, against: _AnyOperator | None = None) -> Self | Grouping: ...
+    def compile(self, bind: Incomplete | None = None, dialect: Incomplete | None = None, **kw): ...
     def __invert__(self): ...
     def __bool__(self) -> bool: ...
     def __nonzero__(self) -> bool: ...
@@ -81,7 +81,7 @@ class ColumnElement(
     @overload
     def self_group(self, against: Callable[[Incomplete], Incomplete]) -> Grouping: ...  # type: ignore[misc]  # Actual return type
     @overload
-    def self_group(self, against: object = ...) -> Self: ...
+    def self_group(self, against: object = None) -> Self: ...
     @memoized_property
     def type(self) -> TypeEngine | None: ...
     @HasMemoized.memoized_attribute
@@ -125,17 +125,17 @@ class BindParameter(roles.InElementRole, ColumnElement[_T], Generic[_T]):
         self,
         key: str,
         value: _T | _symbol | symbol | None = None,
-        type_: TypeEngine | _type[TypeEngine] | None = ...,
-        unique: bool = ...,
+        type_: TypeEngine | _type[TypeEngine] | None = None,
+        unique: bool = False,
         required: bool | _symbol | symbol = ...,
-        quote: None = ...,
-        callable_: Callable[[], _T] | None = ...,
-        expanding: bool = ...,
-        isoutparam: bool = ...,
-        literal_execute: bool = ...,
-        _compared_to_operator: Incomplete | None = ...,
-        _compared_to_type: Incomplete | None = ...,
-        _is_crud: bool = ...,
+        quote: None = None,
+        callable_: Callable[[], _T] | None = None,
+        expanding: bool = False,
+        isoutparam: bool = False,
+        literal_execute: bool = False,
+        _compared_to_operator: Incomplete | None = None,
+        _compared_to_type: Incomplete | None = None,
+        _is_crud: bool = False,
     ) -> None: ...
     @overload
     def __init__(
@@ -143,17 +143,17 @@ class BindParameter(roles.InElementRole, ColumnElement[_T], Generic[_T]):
         key: object,
         *,
         value: _T | _symbol | symbol | None = None,
-        type_: TypeEngine | _type[TypeEngine] | None = ...,
-        unique: bool = ...,
+        type_: TypeEngine | _type[TypeEngine] | None = None,
+        unique: bool = False,
         required: bool | _symbol | symbol = ...,
         quote: bool,
-        callable_: Callable[[], _T] | None = ...,
-        expanding: bool = ...,
-        isoutparam: bool = ...,
-        literal_execute: bool = ...,
-        _compared_to_operator: Incomplete | None = ...,
-        _compared_to_type: Incomplete | None = ...,
-        _is_crud: bool = ...,
+        callable_: Callable[[], _T] | None = None,
+        expanding: bool = False,
+        isoutparam: bool = False,
+        literal_execute: bool = False,
+        _compared_to_operator: Incomplete | None = None,
+        _compared_to_type: Incomplete | None = None,
+        _is_crud: bool = False,
     ) -> None: ...
     @property
     def effective_value(self) -> _T: ...
@@ -193,7 +193,7 @@ class TextClause(
         self, against: Callable[[Incomplete, Incomplete], Incomplete]
     ) -> Grouping | Self: ...
     @overload
-    def self_group(self, against: object = ...) -> Self: ...
+    def self_group(self, against: object = None) -> Self: ...
     # SelectStatementRole.subquery is an abstractmethod. But TextClause isn't abstract.
     def subquery(self) -> NoReturn | Subquery: ...
 
@@ -235,13 +235,13 @@ class ClauseList(roles.InElementRole, roles.OrderByRole, roles.ColumnsClauseRole
         operator: Callable[[Incomplete, Incomplete], Incomplete] = ...,
         group: bool = ...,
         group_contents: bool = ...,
-        _flatten_sub_clauses: Literal[False] = ...,
+        _flatten_sub_clauses: Literal[False] = False,
         _literal_as_text_role=...,
     ) -> None: ...
     def __iter__(self) -> Iterator[ClauseElement]: ...
     def __len__(self) -> int: ...
     def append(self, clause: ClauseElement) -> None: ...
-    def self_group(self, against: _AnyOperator | None = ...) -> Grouping | Self: ...
+    def self_group(self, against: _AnyOperator | None = None) -> Grouping | Self: ...
 
 class BooleanClauseList(ClauseList, ColumnElement[Any]):
     __visit_name__: str
@@ -266,7 +266,7 @@ class BooleanClauseList(ClauseList, ColumnElement[Any]):
     @classmethod
     def or_(cls, __clause1: _CoercibleElement, __clause2: _CoercibleElement, *clauses: _CoercibleElement) -> Self: ...
     def self_group(  # type: ignore[override]  # supertype has overloads
-        self, against: _AnyOperator | None = ...
+        self, against: _AnyOperator | None = None
     ) -> Grouping | Self: ...
 
 and_ = BooleanClauseList.and_
@@ -277,7 +277,7 @@ class Tuple(ClauseList, ColumnElement[Any]):
     @memoized_property
     def type(self) -> TupleType: ...  # type: ignore[override]  # Is always assigned TupleType
     def __init__(self, *clauses: ColumnElement[Incomplete], **kw) -> None: ...
-    def self_group(self, against: Unused = ...) -> Self: ...  # type: ignore[override]  # supertype has overloads
+    def self_group(self, against: Unused = None) -> Self: ...  # type: ignore[override]  # supertype has overloads
 
 class Case(ColumnElement[Any]):
     __visit_name__: str
@@ -290,7 +290,7 @@ class Case(ColumnElement[Any]):
         self, *whens: tuple[ClauseElement, Incomplete], value: Incomplete | None = None, else_: Incomplete | None = None
     ) -> None: ...
 
-def literal_column(text, type_: TypeEngine | _type[TypeEngine] | None = ...) -> ColumnClause: ...  # ColumnClause[TypeEngine[_T]]
+def literal_column(text, type_: TypeEngine | _type[TypeEngine] | None = None) -> ColumnClause: ...  # ColumnClause[TypeEngine[_T]]
 
 class Cast(WrapsColumnExpression, ColumnElement[Any]):
     __visit_name__: str
@@ -313,7 +313,7 @@ class TypeCoerce(WrapsColumnExpression, ColumnElement[Any]):
     @property
     def wrapped_column_expression(self): ...
     def self_group(  # type: ignore[override]  # supertype has overloads
-        self, against: _AnyOperator | None = ...
+        self, against: _AnyOperator | None = None
     ) -> TypeCoerce | Self: ...
 
 class Extract(ColumnElement[Any]):
@@ -345,13 +345,13 @@ class UnaryExpression(ColumnElement[Any]):
     def __init__(
         self,
         element,
-        operator: Callable[[Any, Any], Any] | Callable[[Incomplete], Incomplete] | None = ...,
-        modifier: Incomplete | None = ...,
-        type_: TypeEngine | _type[TypeEngine] | None = ...,
-        wraps_column_expression: bool = ...,
+        operator: Callable[[Any, Any], Any] | Callable[[Incomplete], Incomplete] | None = None,
+        modifier: Incomplete | None = None,
+        type_: TypeEngine | _type[TypeEngine] | None = None,
+        wraps_column_expression: bool = False,
     ) -> None: ...
     def self_group(  # type: ignore[override]  # supertype has overloads
-        self, against: _AnyOperator | None = ...
+        self, against: _AnyOperator | None = None
     ) -> Grouping | Self: ...
 
 class CollectionAggregate(UnaryExpression):
@@ -377,7 +377,7 @@ class AsBoolean(WrapsColumnExpression, UnaryExpression):
     ) -> None: ...
     @property
     def wrapped_column_expression(self) -> ColumnElement[Incomplete]: ...  # type: ignore[override]
-    def self_group(self, against: Unused = ...) -> Self: ...  # type: ignore[override]  # supertype has overloads
+    def self_group(self, against: Unused = None) -> Self: ...  # type: ignore[override]  # supertype has overloads
 
 class BinaryExpression(ColumnElement[Any]):
     __visit_name__: str
@@ -393,9 +393,9 @@ class BinaryExpression(ColumnElement[Any]):
         left: ClauseElement,
         right: ClauseElement,
         operator: Callable[[object, object], Any],
-        type_: TypeEngine | _type[TypeEngine] | None = ...,
-        negate: Callable[[object, object], Any] | None = ...,
-        modifiers: Incomplete | None = ...,
+        type_: TypeEngine | _type[TypeEngine] | None = None,
+        negate: Callable[[object, object], Any] | None = None,
+        modifiers: Incomplete | None = None,
     ) -> None: ...
     def __bool__(self) -> bool: ...
     def __nonzero__(self) -> bool: ...
@@ -404,7 +404,7 @@ class BinaryExpression(ColumnElement[Any]):
     @overload  # type: ignore[override]  # Actual return type
     def self_group(self, against: _AnyOperator) -> Grouping | Self: ...  # type: ignore[misc]  # supertype has more overloads
     @overload
-    def self_group(self, against: object = ...) -> Grouping: ...
+    def self_group(self, against: object = None) -> Grouping: ...
 
 class Slice(ColumnElement[Any]):
     __visit_name__: str
@@ -413,10 +413,10 @@ class Slice(ColumnElement[Any]):
     step: Any
     @memoized_property
     def type(self) -> NullType: ...  # type: ignore[override]  # @memoized_property causes override issue
-    def __init__(self, start, stop, step, _name: Incomplete | None = ...) -> None: ...
+    def __init__(self, start, stop, step, _name: Incomplete | None = None) -> None: ...
     # Must be operator.getitem
     def self_group(  # type: ignore[override]
-        self, against: Callable[[Sequence[_T], slice], Sequence[_T]] | Callable[[SupportsGetItem[_K, _V], _K], _V] = ...
+        self, against: Callable[[Sequence[_T], slice], Sequence[_T]] | Callable[[SupportsGetItem[_K, _V], _K], _V] = None
     ) -> Self: ...
 
 class IndexExpression(BinaryExpression):
@@ -424,7 +424,7 @@ class IndexExpression(BinaryExpression):
 
 class GroupedElement(ClauseElement):
     __visit_name__: str
-    def self_group(self, against: Unused = ...) -> Self: ...
+    def self_group(self, against: Unused = None) -> Self: ...
 
 class Grouping(GroupedElement, ColumnElement[Any]):  # type: ignore[misc]  # Supertypes' self_group differs
     element: ClauseElement
@@ -446,18 +446,18 @@ class Over(ColumnElement[Any]):
     def __init__(
         self,
         element: FunctionElement | WithinGroup,
-        partition_by: _CoercibleElement | None = ...,
-        order_by: _CoercibleElement | None = ...,
+        partition_by: _CoercibleElement | None = None,
+        order_by: _CoercibleElement | None = None,
         range_: tuple[
             str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc | None,
             str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc | None,
         ]
-        | None = ...,
+        | None = None,
         rows: tuple[
             str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc | None,
             str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc | None,
         ]
-        | None = ...,
+        | None = None,
     ) -> None: ...
     def __reduce__(self): ...
     @memoized_property
@@ -471,18 +471,18 @@ class WithinGroup(ColumnElement[Any]):
     def __reduce__(self): ...
     def over(
         self,
-        partition_by: _CoercibleElement | None = ...,
-        order_by: _CoercibleElement | None = ...,
+        partition_by: _CoercibleElement | None = None,
+        order_by: _CoercibleElement | None = None,
         range_: tuple[
             str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc | None,
             str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc | None,
         ]
-        | None = ...,
+        | None = None,
         rows: tuple[
             str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc | None,
             str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc | None,
         ]
-        | None = ...,
+        | None = None,
     ): ...
     @memoized_property
     def type(self) -> Incomplete: ...
@@ -495,23 +495,23 @@ class FunctionFilter(ColumnElement[Any]):
     def filter(self, *criterion) -> FunctionFilter: ...
     def over(
         self,
-        partition_by: _CoercibleElement | None = ...,
-        order_by: _CoercibleElement | None = ...,
+        partition_by: _CoercibleElement | None = None,
+        order_by: _CoercibleElement | None = None,
         range_: tuple[
             str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc | None,
             str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc | None,
         ]
-        | None = ...,
+        | None = None,
         rows: tuple[
             str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc | None,
             str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc | None,
         ]
-        | None = ...,
+        | None = None,
     ): ...
     @overload  # type: ignore[override]  # Actual return type
     def self_group(self, against: _AnyOperator) -> Grouping | Self: ...  # type: ignore[misc]  # Actual return type
     @overload
-    def self_group(self, against: object = ...) -> Grouping: ...
+    def self_group(self, against: object = None) -> Grouping: ...
     @memoized_property
     def type(self) -> Incomplete: ...
 
@@ -520,7 +520,7 @@ class Label(roles.LabeledColumnExprRole, ColumnElement[Any]):
     name: str | _anonymous_label
     key: str | _anonymous_label
     def __init__(
-        self, name: str, element: ColumnElement[Incomplete], type_: TypeEngine | _type[TypeEngine] | None = ...
+        self, name: str, element: ColumnElement[Incomplete], type_: TypeEngine | _type[TypeEngine] | None = None
     ) -> None: ...
     def __reduce__(self): ...
     @memoized_property
@@ -553,11 +553,11 @@ class ColumnClause(roles.DDLReferredColumnRole, roles.LabeledColumnExprRole, rol
     def __init__(
         self,
         text,
-        type_: TypeEngine | _type[TypeEngine] | None = ...,
-        is_literal: bool = ...,
-        _selectable: Incomplete | None = ...,
+        type_: TypeEngine | _type[TypeEngine] | None = None,
+        is_literal: bool = False,
+        _selectable: Incomplete | None = None,
     ) -> None: ...
-    def get_children(self, column_tables: bool = ..., **kw): ...  # type: ignore[override]  # Different parameter name
+    def get_children(self, column_tables: bool = False, **kw): ...  # type: ignore[override]  # Different parameter name
     @property
     def entity_namespace(self): ...
 
@@ -623,7 +623,7 @@ class conv(_truncated_label): ...
 
 class _anonymous_label(_truncated_label):
     @classmethod
-    def safe_construct(cls, seed, body, enclosing_label: Incomplete | None = ..., sanitize_key: bool = ...): ...
+    def safe_construct(cls, seed, body, enclosing_label: Incomplete | None = None, sanitize_key: bool = False): ...
     def __add__(self, other): ...
     def __radd__(self, other): ...
     def apply_map(self, map_): ...

@@ -20,7 +20,7 @@ class aggregate_order_by(expression.ColumnElement[Any]):
     def type(self) -> Incomplete: ...
     order_by: Any
     def __init__(self, target: _CoercibleElement, *order_by: _CoercibleElement) -> None: ...
-    def self_group(self, against: Unused = ...) -> Self: ...  # type: ignore[override]  # supertype has overloads
+    def self_group(self, against: Unused = None) -> Self: ...  # type: ignore[override]  # supertype has overloads
     def get_children(self, **kwargs: Unused) -> tuple[ColumnElement[Incomplete], Incomplete]: ...  # type: ignore[override]  # Different params
 
 class ExcludeConstraint(ColumnCollectionConstraint):

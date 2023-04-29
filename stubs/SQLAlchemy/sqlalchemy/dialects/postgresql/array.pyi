@@ -30,7 +30,7 @@ class array(expression.ClauseList, expression.ColumnElement[Incomplete]):
         | Callable[[SupportsGetItem[_K, _V], _K], _V],
     ) -> Grouping | Self: ...
     @overload
-    def self_group(self, against: object = ...) -> Self: ...
+    def self_group(self, against: object = None) -> Self: ...
 
 CONTAINS: Incomplete
 CONTAINED_BY: Incomplete
@@ -50,17 +50,17 @@ class ARRAY(sqltypes.ARRAY):
     def __init__(
         self,
         item_type: ARRAY,  # (Not[Array])
-        as_tuple: bool = ...,
-        dimensions: Incomplete | None = ...,
-        zero_indexes: bool = ...,
+        as_tuple: bool = False,
+        dimensions: Incomplete | None = None,
+        zero_indexes: bool = False,
     ) -> NoReturn: ...
     @overload
     def __init__(
         self,
         item_type: TypeEngine | type[TypeEngine],
-        as_tuple: bool = ...,
-        dimensions: Incomplete | None = ...,
-        zero_indexes: bool = ...,
+        as_tuple: bool = False,
+        dimensions: Incomplete | None = None,
+        zero_indexes: bool = False,
     ) -> None: ...
     @property
     def hashable(self): ...

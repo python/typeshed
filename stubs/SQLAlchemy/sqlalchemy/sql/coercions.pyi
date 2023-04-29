@@ -60,54 +60,54 @@ _StrRole: TypeAlias = roles.TruncatedLabelRole | _ReturnsStringKey  # & Not[_NoT
 def expect(
     role: roles.AllowsLambdaRole,
     element: _CallableWithCode,
-    apply_propagate_attrs: Incomplete | None = ...,
-    argname: Unused = ...,
-    post_inspect: Unused = ...,
+    apply_propagate_attrs: Incomplete | None = None,
+    argname: Unused = None,
+    post_inspect: Unused = False,
     **kw,
 ) -> lambdas.LambdaElement: ...
 @overload
 def expect(
     role: _StrRole,
     element: roles.SQLRole | str,
-    apply_propagate_attrs: Incomplete | None = ...,
-    argname: Incomplete | None = ...,
-    post_inspect: bool = ...,
+    apply_propagate_attrs: Incomplete | None = None,
+    argname: Incomplete | None = None,
+    post_inspect: bool = False,
     **kw,
 ) -> str: ...
 @overload
 def expect(
     role: roles.HasCacheKeyRole,
     element: roles.SQLRole | traversals.HasCacheKey,
-    apply_propagate_attrs: Incomplete | None = ...,
-    argname: Incomplete | None = ...,
-    post_inspect: bool = ...,
+    apply_propagate_attrs: Incomplete | None = None,
+    argname: Incomplete | None = None,
+    post_inspect: bool = False,
     **kw,
 ) -> Incomplete | traversals.HasCacheKey: ...
 @overload
 def expect(
     role: roles.ExecutableOptionRole,
     element: roles.SQLRole | ExecutableOption,
-    apply_propagate_attrs: Incomplete | None = ...,
-    argname: Incomplete | None = ...,
-    post_inspect: bool = ...,
+    apply_propagate_attrs: Incomplete | None = None,
+    argname: Incomplete | None = None,
+    post_inspect: bool = False,
     **kw,
 ) -> Incomplete | ExecutableOption: ...
 @overload
 def expect(
     role: roles.SQLRole,
     element: lambdas.PyWrapper[Any],
-    apply_propagate_attrs: Incomplete | None = ...,
-    argname: Incomplete | None = ...,
-    post_inspect: bool = ...,
+    apply_propagate_attrs: Incomplete | None = None,
+    argname: Incomplete | None = None,
+    post_inspect: bool = False,
     **kw,
 ) -> elements.ClauseElement: ...
 @overload
 def expect(
     role: roles.SQLRole,
     element: roles.SQLRole,
-    apply_propagate_attrs: Incomplete | None = ...,
-    argname: Incomplete | None = ...,
-    post_inspect: bool = ...,
+    apply_propagate_attrs: Incomplete | None = None,
+    argname: Incomplete | None = None,
+    post_inspect: bool = False,
     **kw,
 ): ...
 @overload
