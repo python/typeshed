@@ -1,4 +1,4 @@
-version = "66.1.*"
+version = "66.0.*"
 
 [tool.stubtest]
 platforms = ["win32", "linux", "darwin"]
