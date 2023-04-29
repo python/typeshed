@@ -1,7 +1,7 @@
 import sys
 from types import TracebackType
 from typing import Any
-from typing_extensions import Literal
+from typing_extensions import Literal, Self
 
 from ._distutils.errors import DistutilsError
 
@@ -12,7 +12,7 @@ class UnpickleableException(Exception):
     def dump(type, exc): ...
 
 class ExceptionSaver:
-    def __enter__(self): ...
+    def __enter__(self) -> Self: ...
     def __exit__(
         self, type: type[BaseException] | None, exc: BaseException | None, tb: TracebackType | None
     ) -> Literal[True] | None: ...

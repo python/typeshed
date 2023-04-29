@@ -1,8 +1,10 @@
 import os
 from _typeshed import Incomplete
-from typing_extensions import TypeAlias
+from types import TracebackType
+from typing_extensions import Self, TypeAlias
 
 from ..dist import Distribution
+from ..warnings import SetuptoolsWarning
 from . import expand
 
 _Path: TypeAlias = str | os.PathLike[Incomplete]
@@ -41,11 +43,10 @@ class _EnsurePackagesDiscovered(expand.EnsurePackagesDiscovered):
     def __init__(
         self, distribution: Distribution, project_cfg: dict[Incomplete, Incomplete], setuptools_cfg: dict[Incomplete, Incomplete]
     ) -> None: ...
-    def __enter__(self): ...
-    def __exit__(self, exc_type, exc_value, traceback): ...
+    def __enter__(self) -> Self: ...
+    def __exit__(
+        self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None
+    ): ...
 
-class _BetaConfiguration(UserWarning): ...
-
-class _InvalidFile(UserWarning):
-    @classmethod
-    def message(cls): ...
+class _BetaConfiguration(SetuptoolsWarning): ...
+class _InvalidFile(SetuptoolsWarning): ...

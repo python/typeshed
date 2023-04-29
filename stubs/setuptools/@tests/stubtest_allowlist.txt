@@ -11,8 +11,6 @@ pkg_resources.IMetadataProvider.has_metadata
 pkg_resources.IMetadataProvider.metadata_isdir
 pkg_resources.IMetadataProvider.metadata_listdir
 pkg_resources.IMetadataProvider.run_script
-# @type_check_only
-pkg_resources.IResourceManager
 
 # Is always set in __init__
 pkg_resources.PathMetadata.egg_info
