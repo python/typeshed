@@ -23,7 +23,7 @@ class JSONDecoder:
         parse_constant: Callable[[str], Any] | None = ...,
         strict: bool = ...,
         object_pairs_hook: Callable[[list[tuple[Any, Any]]], Any] | None = ...,
-        allow_nan: bool  ...,
+        allow_nan: bool = ...,
     ) -> None: ...
     def decode(self, s: str, _w: Callable[[str, int], Match[str]] = ..., _PY3: Literal[True] = ...) -> Any: ...
     def raw_decode(
