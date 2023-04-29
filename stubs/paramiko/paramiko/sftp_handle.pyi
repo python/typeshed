@@ -1,4 +1,5 @@
 from _typeshed import ReadableBuffer
+
 from paramiko.sftp_attr import SFTPAttributes
 from paramiko.util import ClosingContextManager
 
