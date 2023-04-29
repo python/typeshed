@@ -606,7 +606,6 @@ wsgiref.handlers.BaseHandler.status
 # Iterable classes that don't define __iter__ at runtime (usually iterable via __getitem__)
 # These would ideally be special-cased by type checkers; see https://github.com/python/mypy/issues/2220
 ctypes.Array.__iter__
-docutils.nodes.Element.__iter__
 mmap.mmap.__iter__
 mmap.mmap.__contains__
 xml.etree.ElementTree.Element.__iter__
