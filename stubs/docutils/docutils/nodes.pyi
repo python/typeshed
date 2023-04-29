@@ -1,7 +1,7 @@
 import xml.dom.minidom
 from _typeshed import Incomplete
 from abc import abstractmethod
-from collections.abc import Callable, Generator, Iterable, Sequence
+from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from typing import Any, ClassVar, Protocol, TypeVar, overload
 from typing_extensions import Literal, Self
 
@@ -82,6 +82,9 @@ class Element(Node):
     def __init__(self, rawsource: str = "", *children: Node, **attributes): ...
     def __len__(self) -> int: ...
     def __contains__(self, key: str | Node) -> bool: ...
+    # '__iter__' is added as workaround, since mypy doesn't support iterators defined using '__get_item__'
+    # see https://github.com/python/typeshed/pull/10099#issuecomment-1528789395
+    def __iter__(self) -> Iterator[Node]: ...
     @overload
     def __getitem__(self, key: str) -> Any: ...
     @overload
