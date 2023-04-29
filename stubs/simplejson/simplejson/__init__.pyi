@@ -149,8 +149,6 @@ def load(
     parse_constant: Callable[[str], Any] | None = ...,
     object_pairs_hook: Callable[[list[tuple[Any, Any]]], Any] | None = ...,
     use_decimal: bool = ...,
-    namedtuple_as_object: bool = ...,
-    tuple_as_array: bool = ...,
     allow_nan: bool = ...,
     **kw: Any,
 ) -> Any: ...
@@ -165,8 +163,6 @@ def load(
     parse_constant: Callable[[str], Any] | None = ...,
     object_pairs_hook: Callable[[list[tuple[Any, Any]]], Any] | None = ...,
     use_decimal: bool = ...,
-    namedtuple_as_object: bool = ...,
-    tuple_as_array: bool = ...,
     allow_nan: bool = ...,
 ) -> Any: ...
 def simple_first(kv: tuple[_T, object]) -> tuple[bool, _T]: ...
