@@ -2,15 +2,19 @@
 pyi_splash
 
 # Undocumented and clearly not meant to be exposed
+PyInstaller\..+?\.logger
 PyInstaller.__main__.generate_parser
 PyInstaller.__main__.run_build
 PyInstaller.__main__.run_makespec
 PyInstaller.utils.hooks.conda.lib_dir
 
 # A mix of modules meant to be private, and shallow incomplete type references for other modules
-PyInstaller.building.*
+PyInstaller\.building\.\w+?
+PyInstaller.building.build_main.*
+PyInstaller.building.datastruct.unique_name
 PyInstaller.depend.analysis.*
 PyInstaller.isolated._parent.*
+PyInstaller\.lib\.modulegraph\.modulegraph\.\w+?
 
 # Most modules are not meant to be used, yet are not marked as private
 PyInstaller.archive.*
@@ -23,7 +27,7 @@ PyInstaller.depend.imphook
 PyInstaller.depend.utils
 PyInstaller.exceptions
 PyInstaller.hooks.*
-PyInstaller.lib.*
+PyInstaller\.lib\.modulegraph\.\w+?
 PyInstaller.loader.*
 PyInstaller.log
 PyInstaller.utils.cliutils.*
@@ -37,4 +41,4 @@ PyInstaller.utils.misc
 PyInstaller.utils.osx
 PyInstaller.utils.run_tests
 PyInstaller.utils.tests
-PyInstaller.utils.win32.*
+PyInstaller\.utils\.win32\.\w+?

@@ -7,7 +7,7 @@ from ..orm.mapper import Mapper
 from ..orm.util import CascadeOptions
 from ..sql.elements import BinaryExpression
 from ..sql.schema import Column
-from ..util import memoized_property
+from ..util.langhelpers import memoized_property
 from .interfaces import PropComparator, StrategizedProperty
 
 _T = TypeVar("_T")

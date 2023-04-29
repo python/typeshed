@@ -11,8 +11,7 @@ from ..sql.functions import FunctionElement
 from ..sql.schema import ForeignKey
 from ..sql.selectable import Subquery, TableClause, TextualSelect
 from ..sql.type_api import TypeEngine
-from ..util import HasMemoized, memoized_property
-from ..util.langhelpers import _symbol, symbol
+from ..util.langhelpers import HasMemoized, _symbol, memoized_property, symbol
 from . import roles
 from .annotation import Annotated, SupportsWrappingAnnotations
 from .base import Executable, Immutable, SingletonConstant
@@ -141,11 +140,11 @@ class BindParameter(roles.InElementRole, ColumnElement[_T], Generic[_T]):
     def __init__(
         self,
         key: object,
-        *,
         value: _T | _symbol | symbol | None = None,
         type_: TypeEngine | _type[TypeEngine] | None = None,
         unique: bool = False,
         required: bool | _symbol | symbol = ...,
+        *,
         quote: bool,
         callable_: Callable[[], _T] | None = None,
         expanding: bool = False,
@@ -527,6 +526,7 @@ class Label(roles.LabeledColumnExprRole, ColumnElement[Any]):
     def type(self) -> TypeEngine | None: ...
     @HasMemoized.memoized_attribute
     def element(self) -> ColumnElement[Incomplete]: ...
+    def self_group(self, against=None) -> Label | Self: ...  # type: ignore[override]  # Actual return type
     @property
     def primary_key(self) -> bool: ...  # type: ignore[override]  # property overrides attribute
     @property

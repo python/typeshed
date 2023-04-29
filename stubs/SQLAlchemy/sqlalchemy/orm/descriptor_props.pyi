@@ -3,7 +3,7 @@ from collections.abc import Callable
 from typing import Any, ClassVar, TypeVar
 
 from ..sql.elements import BooleanClauseList, ColumnElement
-from ..util import memoized_property
+from ..util.langhelpers import memoized_property
 from . import util as orm_util
 from .interfaces import MapperProperty, PropComparator
 

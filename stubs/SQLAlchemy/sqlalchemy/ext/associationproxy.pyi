@@ -7,7 +7,7 @@ from ..orm import interfaces
 from ..sql.elements import BooleanClauseList, ColumnElement
 from ..sql.operators import ColumnOperators
 from ..sql.selectable import Exists
-from ..util import memoized_property
+from ..util.langhelpers import memoized_property
 
 _P = ParamSpec("_P")
 

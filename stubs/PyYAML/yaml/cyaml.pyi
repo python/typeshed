@@ -11,6 +11,7 @@ from .resolver import BaseResolver, Resolver
 __all__ = ["CBaseLoader", "CSafeLoader", "CFullLoader", "CUnsafeLoader", "CLoader", "CBaseDumper", "CSafeDumper", "CDumper"]
 
 _Readable: TypeAlias = SupportsRead[str | bytes]
+_CLoader: TypeAlias = CLoader | CBaseLoader | CFullLoader | CSafeLoader | CUnsafeLoader  # noqa: Y047  # Used in other modules
 
 class CBaseLoader(CParser, BaseConstructor, BaseResolver):
     def __init__(self, stream: str | bytes | _Readable) -> None: ...
@@ -31,38 +32,38 @@ class CBaseDumper(CEmitter, BaseRepresenter, BaseResolver):
     def __init__(
         self,
         stream: IO[Any],
-        default_style: str | None = ...,
-        default_flow_style: bool | None = ...,
-        canonical: Incomplete | None = ...,
-        indent: int | None = ...,
-        width: int | None = ...,
-        allow_unicode: Incomplete | None = ...,
-        line_break: str | None = ...,
-        encoding: str | None = ...,
-        explicit_start: Incomplete | None = ...,
-        explicit_end: Incomplete | None = ...,
-        version: Sequence[int] | None = ...,
-        tags: Mapping[str, str] | None = ...,
-        sort_keys: bool = ...,
+        default_style: str | None = None,
+        default_flow_style: bool | None = False,
+        canonical: Incomplete | None = None,
+        indent: int | None = None,
+        width: int | None = None,
+        allow_unicode: Incomplete | None = None,
+        line_break: str | None = None,
+        encoding: str | None = None,
+        explicit_start: Incomplete | None = None,
+        explicit_end: Incomplete | None = None,
+        version: Sequence[int] | None = None,
+        tags: Mapping[str, str] | None = None,
+        sort_keys: bool = True,
     ) -> None: ...
 
 class CDumper(CEmitter, SafeRepresenter, Resolver):
     def __init__(
         self,
         stream: IO[Any],
-        default_style: str | None = ...,
-        default_flow_style: bool = ...,
-        canonical: Incomplete | None = ...,
-        indent: int | None = ...,
-        width: int | None = ...,
-        allow_unicode: Incomplete | None = ...,
-        line_break: str | None = ...,
-        encoding: str | None = ...,
-        explicit_start: Incomplete | None = ...,
-        explicit_end: Incomplete | None = ...,
-        version: Sequence[int] | None = ...,
-        tags: Mapping[str, str] | None = ...,
-        sort_keys: bool = ...,
+        default_style: str | None = None,
+        default_flow_style: bool = False,
+        canonical: Incomplete | None = None,
+        indent: int | None = None,
+        width: int | None = None,
+        allow_unicode: Incomplete | None = None,
+        line_break: str | None = None,
+        encoding: str | None = None,
+        explicit_start: Incomplete | None = None,
+        explicit_end: Incomplete | None = None,
+        version: Sequence[int] | None = None,
+        tags: Mapping[str, str] | None = None,
+        sort_keys: bool = True,
     ) -> None: ...
 
 CSafeDumper = CDumper

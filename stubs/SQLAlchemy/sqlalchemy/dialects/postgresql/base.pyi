@@ -7,8 +7,7 @@ from ...engine import characteristics, default, reflection
 from ...schema import _CreateDropBase
 from ...sql import compiler, elements, sqltypes
 from ...sql.ddl import DDLBase
-from ...sql.type_api import TypeEngine
-from ...types import (
+from ...sql.sqltypes import (
     BIGINT as BIGINT,
     BOOLEAN as BOOLEAN,
     CHAR as CHAR,
@@ -21,6 +20,7 @@ from ...types import (
     TEXT as TEXT,
     VARCHAR as VARCHAR,
 )
+from ...sql.type_api import TypeEngine
 from ...util.langhelpers import memoized_property
 
 IDX_USING: Pattern[str]
@@ -184,6 +184,7 @@ class PGTypeCompiler(compiler.GenericTypeCompiler):
     def visit_INET(self, type_, **kw): ...
     def visit_CIDR(self, type_, **kw): ...
     def visit_MACADDR(self, type_, **kw): ...
+    def visit_MACADDR8(self, type_, **kw): ...
     def visit_MONEY(self, type_, **kw): ...
     def visit_OID(self, type_, **kw): ...
     def visit_REGCLASS(self, type_, **kw): ...

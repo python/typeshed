@@ -1,16 +1,21 @@
-from _typeshed import SupportsItems
+from _typeshed import SupportsItems, Unused
 from collections.abc import Iterable, Mapping, Sequence
 from typing import Any, NamedTuple
 from typing_extensions import Self, TypeAlias
 
-from ..util import immutabledict
+from sqlalchemy.util.langhelpers import memoized_property
+
+from ..util._collections import immutabledict
 from .interfaces import Dialect
+
+# object that produces a password when called with str()
+_PasswordObject: TypeAlias = object
 
 # stub-only helper class
 class _URLTuple(NamedTuple):
     drivername: str
     username: str | None
-    password: str | object | None  # object that produces a password when called with str()
+    password: str | _PasswordObject | None
     host: str | None
     port: int | None
     database: str | None
@@ -25,7 +30,7 @@ class URL(_URLTuple):
         cls,
         drivername: str,
         username: str | None = None,
-        password: str | object | None = None,  # object that produces a password when called with str()
+        password: str | _PasswordObject | None = None,
         host: str | None = None,
         port: int | None = None,
         database: str | None = None,
@@ -35,7 +40,7 @@ class URL(_URLTuple):
         self,
         drivername: str | None = None,
         username: str | None = None,
-        password: str | object | None = None,
+        password: str | _PasswordObject | None = None,
         host: str | None = None,
         port: int | None = None,
         database: str | None = None,
@@ -45,12 +50,12 @@ class URL(_URLTuple):
     def update_query_pairs(self, key_value_pairs: Iterable[tuple[str, str]], append: bool = False) -> Self: ...
     def update_query_dict(self, query_parameters: SupportsItems[str, str | Sequence[str]], append: bool = False) -> Self: ...
     def difference_update_query(self, names: Iterable[str]) -> URL: ...
-    @property
+    @memoized_property
     def normalized_query(self) -> immutabledict[str, tuple[str, ...]]: ...
     def __to_string__(self, hide_password: bool = True) -> str: ...
     def render_as_string(self, hide_password: bool = True) -> str: ...
     def __copy__(self) -> Self: ...
-    def __deepcopy__(self, memo: object) -> Self: ...
+    def __deepcopy__(self, memo: Unused) -> Self: ...
     def __hash__(self) -> int: ...
     def __eq__(self, other: object) -> bool: ...
     def __ne__(self, other: object) -> bool: ...

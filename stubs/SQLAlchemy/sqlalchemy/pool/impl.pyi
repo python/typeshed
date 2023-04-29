@@ -1,4 +1,4 @@
-from ..util import memoized_property
+from ..util.langhelpers import memoized_property
 from .base import Pool
 
 class QueuePool(Pool):

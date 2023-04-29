@@ -1,4 +1,4 @@
-from ..util import PluginLoader
+from ..util.langhelpers import PluginLoader
 from . import (
     firebird as firebird,
     mssql as mssql,

@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Mapping
+from types import TracebackType
 from typing import Any, TypeVar, overload
 from typing_extensions import Self
 
@@ -7,7 +8,7 @@ from ..engine.base import Connection
 from ..engine.result import Result
 from ..engine.util import TransactionalContext
 from ..sql.elements import ClauseElement
-from ..util import MemoizedSlots, memoized_property
+from ..util.langhelpers import MemoizedSlots, memoized_property
 from .query import Query
 
 _T = TypeVar("_T")
@@ -93,6 +94,7 @@ class Session(_SessionClassMethods):
     enable_baked_queries: Any
     autocommit: bool
     twophase: Any
+    dispatch: Incomplete
     def __init__(
         self,
         bind: Incomplete | None = None,
@@ -108,7 +110,9 @@ class Session(_SessionClassMethods):
     ) -> None: ...
     connection_callable: Any
     def __enter__(self) -> Self: ...
-    def __exit__(self, type_, value, traceback) -> None: ...
+    def __exit__(
+        self, type_: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
+    ) -> None: ...
     @property
     def transaction(self) -> SessionTransaction | None: ...
     def in_transaction(self): ...

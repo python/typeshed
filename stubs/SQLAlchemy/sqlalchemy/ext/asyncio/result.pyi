@@ -4,7 +4,7 @@ from typing_extensions import Self
 from ...engine.result import FilterResult
 
 class AsyncCommon(FilterResult):
-    async def close(self) -> None: ...
+    async def close(self) -> None: ...  # type: ignore[override]  # supertype is not async
 
 class AsyncResult(AsyncCommon):
     def __init__(self, real_result) -> None: ...

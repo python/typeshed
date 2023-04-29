@@ -3,7 +3,7 @@ from typing import Any
 
 from ...engine import default
 from ...sql import compiler, sqltypes
-from ...types import (
+from ...sql.sqltypes import (
     BLOB as BLOB,
     BOOLEAN as BOOLEAN,
     CHAR as CHAR,

@@ -8,7 +8,7 @@ from .. import util
 from ..engine.base import Connection, Engine
 from ..engine.cursor import CursorResult
 from ..sql.schema import Column
-from ..util import HasMemoized, hybridmethod, memoized_property
+from ..util.langhelpers import HasMemoized, hybridmethod, memoized_property
 from . import roles
 from .elements import ColumnElement
 from .traversals import (
@@ -114,7 +114,8 @@ class Executable(roles.StatementRole, Generative):
 class prefix_anon_map(dict[Any, Any]):
     def __missing__(self, key): ...
 
-class SchemaEventTarget: ...
+class SchemaEventTarget:
+    dispatch: Incomplete
 
 class SchemaVisitor(ExternalTraversal):
     __traverse_options__: Any

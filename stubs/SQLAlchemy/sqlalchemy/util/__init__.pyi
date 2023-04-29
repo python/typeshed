@@ -1,9 +1,16 @@
+import asyncio as asyncio
 import pickle as pickle
 import threading as threading
 from abc import ABC as ABC
-from collections import defaultdict as defaultdict
+from builtins import callable as callable, next as next
+from collections import defaultdict as defaultdict, namedtuple as namedtuple  # noqa: Y024  # Actual import
 from contextlib import contextmanager as contextmanager
-from functools import partial as partial, update_wrapper as update_wrapper
+from datetime import timezone as timezone
+from functools import partial as partial, reduce as reduce, update_wrapper as update_wrapper
+from io import StringIO as StringIO
+from itertools import zip_longest as zip_longest
+from typing import TYPE_CHECKING as TYPE_CHECKING
+from urllib.parse import parse_qsl as parse_qsl, quote_plus as quote_plus, unquote as unquote, unquote_plus as unquote_plus
 
 from ._collections import (
     EMPTY_DICT as EMPTY_DICT,
@@ -43,8 +50,6 @@ from ._collections import (
 )
 from ._preloaded import preload_module as preload_module, preloaded as preloaded
 from .compat import (
-    TYPE_CHECKING as TYPE_CHECKING,
-    StringIO as StringIO,
     arm as arm,
     b as b,
     b64decode as b64decode,
@@ -52,7 +57,6 @@ from .compat import (
     binary_type as binary_type,
     binary_types as binary_types,
     byte_buffer as byte_buffer,
-    callable as callable,
     cmp as cmp,
     cpython as cpython,
     dataclass_fields as dataclass_fields,
@@ -66,11 +70,8 @@ from .compat import (
     itertools_filter as itertools_filter,
     itertools_filterfalse as itertools_filterfalse,
     local_dataclass_fields as local_dataclass_fields,
-    namedtuple as namedtuple,
-    next as next,
     nullcontext as nullcontext,
     osx as osx,
-    parse_qsl as parse_qsl,
     perf_counter as perf_counter,
     print_ as print_,
     py2k as py2k,
@@ -82,24 +83,18 @@ from .compat import (
     py311 as py311,
     py312 as py312,
     pypy as pypy,
-    quote_plus as quote_plus,
+    quote as quote,
     raise_ as raise_,
     raise_from_cause as raise_from_cause,
-    reduce as reduce,
     reraise as reraise,
     string_types as string_types,
     text_type as text_type,
-    timezone as timezone,
     u as u,
     ue as ue,
-    unquote as unquote,
-    unquote_plus as unquote_plus,
     win32 as win32,
     with_metaclass as with_metaclass,
-    zip_longest as zip_longest,
 )
 from .concurrency import (
-    asyncio as asyncio,
     await_fallback as await_fallback,
     await_only as await_only,
     greenlet_spawn as greenlet_spawn,

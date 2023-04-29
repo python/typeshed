@@ -3,7 +3,7 @@ from typing import Any
 
 from ...engine import default, reflection
 from ...sql import compiler, sqltypes
-from ...types import (
+from ...sql.sqltypes import (
     BIGINT as BIGINT,
     BINARY as BINARY,
     CHAR as CHAR,

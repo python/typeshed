@@ -9,7 +9,9 @@ from typing_extensions import Self
 from ..engine.default import DefaultDialect
 from ..engine.interfaces import Dialect
 from ..sql.base import prefix_anon_map
-from ..util import EnsureKWArgType, OrderedDict, memoized_property
+from ..util._collections import OrderedDict
+from ..util.langhelpers import EnsureKWArgType, memoized_property
+from .base import CompileState
 from .elements import BindParameter, ClauseElement, ColumnElement, quoted_name
 
 _Q = TypeVar("_Q", str, quoted_name)
@@ -53,6 +55,7 @@ class Compiled:
     schema_translate_map: Incomplete  # Can be unbound
     execution_options: Incomplete
     compile_state: Incomplete
+    dml_compile_state: CompileState | None
     cache_key: Incomplete
     dialect: DefaultDialect
     preparer: IdentifierPreparer
@@ -120,6 +123,7 @@ class SQLCompiler(Compiled):
     update_prefetch: tuple[Incomplete, ...]
     postfetch_lastrowid: bool
     positiontup: Incomplete
+    positiontup_level: dict[str, int] | None
     inline: bool
     column_keys: Iterable[str] | None
     cache_key: Incomplete

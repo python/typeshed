@@ -1,6 +1,12 @@
+# mypy plugin not supported in typeshed
+sqlalchemy.ext.mypy.*
+# test suites
+sqlalchemy.testing.suite
+# Leaked re-exports from the compat module
+sqlalchemy.util.quote
+
 # Parameter's default value would always fail
 sqlalchemy.sql.elements.Slice.self_group
-
 # Expanding keyword arguments in stubs
 sqlalchemy.ext.declarative.as_declarative
 
@@ -12,6 +18,12 @@ sqlalchemy.engine.base.Engine.logging_name  # initialized if not None
 sqlalchemy.engine.Engine.logging_name  # initialized if not None
 sqlalchemy.sql.lambdas.PyWrapper.__clause_element__
 sqlalchemy.testing.util.non_refcount_gc_collect
+
+# potentially replaced at runtime
+sqlalchemy.engine.Row.count
+sqlalchemy.engine.Row.index
+sqlalchemy.engine.row.Row.count
+sqlalchemy.engine.row.Row.index
 
 # abstract fields not present at runtime
 sqlalchemy.engine.Transaction.connection
@@ -29,16 +41,20 @@ sqlalchemy.Column.key
 sqlalchemy.engine.base.Connection.engine
 sqlalchemy.engine.base.ExceptionContextImpl.is_disconnect
 sqlalchemy.engine.Connection.engine
+sqlalchemy.ForeignKeyConstraint.columns
 sqlalchemy.ForeignKeyConstraint.elements
 sqlalchemy.MetaData.tables
 sqlalchemy.orm.Mapper.concrete
 sqlalchemy.orm.mapper.Mapper.concrete
 sqlalchemy.orm.mapper.Mapper.non_primary
+sqlalchemy.orm.mapper.Mapper.single
 sqlalchemy.orm.Mapper.non_primary
+sqlalchemy.orm.Mapper.single
 sqlalchemy.schema.Column.foreign_keys
 sqlalchemy.schema.Column.key
 sqlalchemy.schema.ColumnCollectionConstraint.columns
 sqlalchemy.schema.ColumnCollectionMixin.columns
+sqlalchemy.schema.ForeignKeyConstraint.columns
 sqlalchemy.schema.ForeignKeyConstraint.elements
 sqlalchemy.schema.MetaData.tables
 sqlalchemy.schema.Table.constraints
@@ -56,6 +72,7 @@ sqlalchemy.sql.schema.Column.foreign_keys
 sqlalchemy.sql.schema.Column.key
 sqlalchemy.sql.schema.ColumnCollectionConstraint.columns
 sqlalchemy.sql.schema.ColumnCollectionMixin.columns
+sqlalchemy.sql.schema.ForeignKeyConstraint.columns
 sqlalchemy.sql.schema.ForeignKeyConstraint.elements
 sqlalchemy.sql.schema.MetaData.tables
 sqlalchemy.sql.schema.Table.constraints
@@ -65,12 +82,6 @@ sqlalchemy.sql.selectable.ColumnClause.key
 sqlalchemy.sql.selectable.TableValuedColumn.key
 sqlalchemy.Table.constraints
 sqlalchemy.Table.indexes
-sqlalchemy.orm.Mapper.single
-sqlalchemy.orm.mapper.Mapper.single
-
-# uses @memoized_property at runtime, but we use @property for compatibility
-sqlalchemy.engine.URL.normalized_query
-sqlalchemy.engine.url.URL.normalized_query
 
 # runtime has extra internal arguments that are inconsistent across micro versions
 sqlalchemy.testing.engines.testing_engine
@@ -108,8 +119,10 @@ sqlalchemy.sql.quoted_name.upper
 sqlalchemy.orm.ColumnProperty.Comparator.__clause_element__
 sqlalchemy.orm.properties.ColumnProperty.Comparator.__clause_element__
 
-# Same error as in stdlib due to it being re-erported
+# Same error as in stdlib due to it being re-exported
+sqlalchemy.dialects.mysql.asyncmy.AsyncAdapt_asyncmy_dbapi.Binary
 sqlalchemy.util.compat.StringIO.seek
 sqlalchemy.util.compat.StringIO.truncate
 sqlalchemy.util.StringIO.seek
 sqlalchemy.util.StringIO.truncate
+sqlalchemy.testing.mock.patch

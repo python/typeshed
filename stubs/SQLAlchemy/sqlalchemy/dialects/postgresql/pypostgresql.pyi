@@ -1,7 +1,7 @@
 from typing import Any
 
 from ...sql import sqltypes
-from ...util import memoized_property
+from ...util.langhelpers import memoized_property
 from .base import PGDialect, PGExecutionContext
 
 class PGNumeric(sqltypes.Numeric):

@@ -7,19 +7,18 @@ import re
 import subprocess
 import sys
 import venv
-from collections.abc import Iterable
 from functools import lru_cache
 from pathlib import Path
-from typing import NamedTuple
+from typing import Any, NamedTuple
 from typing_extensions import Annotated
 
 import pathspec
 
 try:
-    from termcolor import colored as colored
+    from termcolor import colored as colored  # pyright: ignore[reportGeneralTypeIssues]
 except ImportError:
 
-    def colored(text: str, color: str | None = None, on_color: str | None = None, attrs: Iterable[str] | None = None) -> str:
+    def colored(text: str, color: str | None = None, **kwargs: Any) -> str:  # type: ignore[misc]
         return text
 
 
@@ -81,8 +80,8 @@ def make_venv(venv_dir: Path) -> VenvInfo:
 
 @cache
 def get_mypy_req() -> str:
-    with open("requirements-tests.txt", encoding="UTF-8") as f:
-        return next(line.strip() for line in f if "mypy" in line)
+    with open("requirements-tests.txt", encoding="UTF-8") as requirements_file:
+        return next(strip_comments(line) for line in requirements_file if "mypy" in line)
 
 
 # ====================================================================
@@ -135,4 +134,6 @@ def spec_matches_path(spec: pathspec.PathSpec, path: Path) -> bool:
     normalized_path = path.as_posix()
     if path.is_dir():
         normalized_path += "/"
-    return spec.match_file(normalized_path)
+    # pathspec.PathSpec.match_file has partially Unknown file parameter
+    # https://github.com/cpburnz/python-pathspec/pull/75
+    return spec.match_file(normalized_path)  # pyright: ignore[reportUnknownMemberType]

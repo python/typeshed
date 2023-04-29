@@ -11,8 +11,7 @@ from ..sql.coercions import _CoercibleElement
 from ..sql.operators import _AnyOperator
 from ..sql.schema import Sequence
 from ..sql.type_api import TypeEngine
-from ..util import HasMemoized
-from ..util.langhelpers import memoized_property
+from ..util.langhelpers import HasMemoized, memoized_property
 from .base import ColumnCollection, Executable, Generative
 from .elements import (
     AsBoolean,

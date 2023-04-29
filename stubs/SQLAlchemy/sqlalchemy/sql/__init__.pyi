@@ -86,6 +86,7 @@ from .expression import (
     values as values,
     within_group as within_group,
 )
+from .visitors import ClauseVisitor as ClauseVisitor
 
 nullsfirst = nulls_first
 nullslast = nulls_last

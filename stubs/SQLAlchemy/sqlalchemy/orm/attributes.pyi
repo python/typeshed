@@ -4,7 +4,7 @@ from typing import Any, Generic, NamedTuple, TypeVar
 from typing_extensions import ParamSpec
 
 from ..sql import base as sql_base, roles, traversals
-from ..util import memoized_property
+from ..util.langhelpers import memoized_property
 from . import interfaces
 from .base import (
     ATTR_EMPTY as ATTR_EMPTY,
@@ -29,6 +29,8 @@ from .base import (
     PASSIVE_RETURN_NO_VALUE as PASSIVE_RETURN_NO_VALUE,
     RELATED_OBJECT_OK as RELATED_OBJECT_OK,
     SQL_OK as SQL_OK,
+    instance_dict as instance_dict,
+    instance_state as instance_state,
 )
 
 _T = TypeVar("_T")
@@ -54,6 +56,7 @@ class QueryableAttribute(
     key: Any
     impl: Any
     comparator: Any
+    dispatch: Incomplete
     def __init__(
         self,
         class_,

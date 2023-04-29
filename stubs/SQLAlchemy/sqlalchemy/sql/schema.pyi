@@ -11,8 +11,8 @@ from ..sql import functions
 from ..sql.coercions import _CoercibleElement
 from ..sql.compiler import DDLCompiler
 from ..sql.type_api import TypeEngine
-from ..util import FacadeDict, immutabledict, memoized_property
-from ..util.langhelpers import _symbol, symbol
+from ..util._collections import FacadeDict, immutabledict
+from ..util.langhelpers import _symbol, memoized_property, symbol
 from . import visitors
 from .base import ColumnCollection, DialectKWArgs, Executable, SchemaEventTarget
 from .elements import ClauseElement, ColumnClause, quoted_name
@@ -373,7 +373,6 @@ class ForeignKeyConstraint(ColumnCollectionConstraint):
         info: Mapping[str, Incomplete] | None = None,
         **dialect_kw,
     ) -> None: ...
-    columns: Any
     @property
     def referred_table(self) -> Table: ...
     @property

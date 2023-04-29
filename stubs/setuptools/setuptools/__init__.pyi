@@ -1,18 +1,19 @@
 from abc import abstractmethod
 from collections.abc import Iterable, Mapping, Sequence
-from distutils.core import Command as _Command
 from typing import Any
 
-from setuptools._deprecation_warning import SetuptoolsDeprecationWarning as SetuptoolsDeprecationWarning
 from setuptools.depends import Require as Require
 from setuptools.dist import Distribution as Distribution
 from setuptools.extension import Extension as Extension
+from setuptools.warnings import SetuptoolsDeprecationWarning as SetuptoolsDeprecationWarning
+
+from ._distutils.cmd import Command as _Command
 
 __version__: str
 
 class PackageFinder:
     @classmethod
-    def find(cls, where: str = ..., exclude: Iterable[str] = ..., include: Iterable[str] = ...) -> list[str]: ...
+    def find(cls, where: str = ".", exclude: Iterable[str] = (), include: Iterable[str] = ("*",)) -> list[str]: ...
 
 class PEP420PackageFinder(PackageFinder): ...
 
@@ -66,7 +67,7 @@ class Command(_Command):
     command_consumes_arguments: bool
     def __init__(self, dist: Distribution, **kw: Any) -> None: ...
     def ensure_string_list(self, option: str | list[str]) -> None: ...
-    def reinitialize_command(self, command: _Command | str, reinit_subcommands: int = ..., **kw: Any) -> _Command: ...
+    def reinitialize_command(self, command: _Command | str, reinit_subcommands: int = 0, **kw: Any) -> _Command: ...
     @abstractmethod
     def initialize_options(self) -> None: ...
     @abstractmethod

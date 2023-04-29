@@ -6,7 +6,7 @@ from typing_extensions import Literal
 from ...engine import default
 from ...sql import compiler, sqltypes
 from ...sql.elements import Cast
-from ...types import (
+from ...sql.sqltypes import (
     BIGINT as BIGINT,
     BINARY as BINARY,
     CHAR as CHAR,

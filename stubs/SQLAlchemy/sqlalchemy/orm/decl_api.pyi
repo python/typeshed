@@ -1,11 +1,11 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from collections.abc import Callable
 from typing import Any, ClassVar, TypeVar, overload
 from typing_extensions import TypeAlias
 
 from ..engine.interfaces import Connectable
 from ..sql.schema import MetaData
-from ..util import hybridproperty
+from ..util.langhelpers import hybridproperty
 from . import interfaces
 
 _ClsT = TypeVar("_ClsT", bound=type[Any])
@@ -13,7 +13,7 @@ _DeclT = TypeVar("_DeclT", bound=type[_DeclarativeBase])
 
 # Dynamic class as created by registry.generate_base() via DeclarativeMeta
 # or another metaclass. This class does not exist at runtime.
-class _DeclarativeBase(Any):  # super classes are dynamic
+class _DeclarativeBase(Any):  # type: ignore[misc]  # super classes are dynamic
     registry: ClassVar[registry]
     metadata: ClassVar[MetaData]
     __abstract__: ClassVar[bool]
@@ -28,7 +28,7 @@ _DeclarativeBaseMeta: TypeAlias = Callable[[str, tuple[type[Any], ...], dict[str
 def has_inherited_table(cls: type[Any]) -> bool: ...
 
 class DeclarativeMeta(type):
-    def __init__(cls, classname: str, bases: tuple[type[Any], ...], dict_: dict[str, Any], **kw: object) -> None: ...
+    def __init__(cls, classname: str, bases: tuple[type[Any], ...], dict_: dict[str, Any], **kw: Unused) -> None: ...
     def __setattr__(cls, key: str, value: Any) -> None: ...
     def __delattr__(cls, key: str) -> None: ...
 

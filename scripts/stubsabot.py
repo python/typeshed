@@ -19,8 +19,8 @@ import zipfile
 from collections.abc import Iterator, Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Annotated, Any, ClassVar, NamedTuple, TypeVar
-from typing_extensions import TypeAlias
+from typing import Annotated, Any, ClassVar, NamedTuple
+from typing_extensions import Self, TypeAlias
 
 import aiohttp
 import packaging.specifiers
@@ -29,11 +29,9 @@ import tomli
 import tomlkit
 from termcolor import colored
 
-ActionLevelSelf = TypeVar("ActionLevelSelf", bound="ActionLevel")
-
 
 class ActionLevel(enum.IntEnum):
-    def __new__(cls: type[ActionLevelSelf], value: int, doc: str) -> ActionLevelSelf:
+    def __new__(cls, value: int, doc: str) -> Self:
         member = int.__new__(cls, value)
         member._value_ = value
         member.__doc__ = doc
@@ -84,6 +82,17 @@ VersionString: TypeAlias = str
 ReleaseDownload: TypeAlias = dict[str, Any]
 
 
+def _best_effort_version(version: VersionString) -> packaging.version.Version:
+    try:
+        return packaging.version.Version(version)
+    except packaging.version.InvalidVersion:
+        # packaging.version.Version no longer parses legacy versions
+        try:
+            return packaging.version.Version(version.replace("-", "+"))
+        except packaging.version.InvalidVersion:
+            return packaging.version.Version("0")
+
+
 @dataclass
 class PypiInfo:
     distribution: str
@@ -106,7 +115,7 @@ class PypiInfo:
         return self.get_release(version=self.info["version"])
 
     def releases_in_descending_order(self) -> Iterator[PypiReleaseDownload]:
-        for version in sorted(self.releases, key=packaging.version.Version, reverse=True):
+        for version in sorted(self.releases, key=_best_effort_version, reverse=True):
             yield self.get_release(version=version)
 
 
@@ -170,11 +179,16 @@ async def release_contains_py_typed(release_to_download: PypiReleaseDownload, *,
         raise AssertionError(f"Unknown package type: {packagetype!r}")
 
 
-async def find_first_release_with_py_typed(pypi_info: PypiInfo, *, session: aiohttp.ClientSession) -> PypiReleaseDownload:
-    release_iter = pypi_info.releases_in_descending_order()
+async def find_first_release_with_py_typed(pypi_info: PypiInfo, *, session: aiohttp.ClientSession) -> PypiReleaseDownload | None:
+    release_iter = (release for release in pypi_info.releases_in_descending_order() if not release.version.is_prerelease)
+    latest_release = next(release_iter)
+    # If the latest release is not py.typed, assume none are.
+    if not (await release_contains_py_typed(latest_release, session=session)):
+        return None
+
+    first_release_with_py_typed = latest_release
     while await release_contains_py_typed(release := next(release_iter), session=session):
-        if not release.version.is_prerelease:
-            first_release_with_py_typed = release
+        first_release_with_py_typed = release
     return first_release_with_py_typed
 
 
@@ -238,7 +252,7 @@ async def get_github_repo_info(session: aiohttp.ClientSession, pypi_info: PypiIn
                 github_tags_info_url = f"https://api.github.com/repos/{url_path}/tags"
                 async with session.get(github_tags_info_url, headers=get_github_api_headers()) as response:
                     if response.status == 200:
-                        tags = await response.json()
+                        tags: list[dict[str, Any]] = await response.json()
                         assert isinstance(tags, list)
                         return GithubInfo(repo_path=url_path, tags=tags)
     return None
@@ -263,7 +277,7 @@ async def get_diff_info(
     if github_info is None:
         return None
 
-    versions_to_tags = {}
+    versions_to_tags: dict[packaging.version.Version, str] = {}
     for tag in github_info.tags:
         tag_name = tag["name"]
         # Some packages in typeshed (e.g. emoji) have tag names
@@ -375,7 +389,7 @@ class DiffAnalysis:
         return analysis
 
     def __str__(self) -> str:
-        data_points = []
+        data_points: list[str] = []
         if self.runtime_definitely_has_consistent_directory_structure_with_typeshed:
             data_points += [
                 self.describe_public_files_added(),
@@ -395,7 +409,7 @@ async def analyze_diff(
     url = f"https://api.github.com/repos/{github_repo_path}/compare/{old_tag}...{new_tag}"
     async with session.get(url, headers=get_github_api_headers()) as response:
         response.raise_for_status()
-        json_resp = await response.json()
+        json_resp: dict[str, list[FileInfo]] = await response.json()
         assert isinstance(json_resp, dict)
     # https://docs.github.com/en/rest/commits/commits#compare-two-commits
     py_files: list[FileInfo] = [file for file in json_resp["files"] if Path(file["filename"]).suffix == ".py"]
@@ -418,12 +432,8 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
     if latest_version in spec:
         return NoUpdate(stub_info.distribution, "up to date")
 
-    is_obsolete = await release_contains_py_typed(latest_release, session=session)
-    if is_obsolete:
-        first_release_with_py_typed = await find_first_release_with_py_typed(pypi_info, session=session)
-        relevant_version = version_obsolete_since = first_release_with_py_typed.version
-    else:
-        relevant_version = latest_version
+    obsolete_since = await find_first_release_with_py_typed(pypi_info, session=session)
+    relevant_version = obsolete_since.version if obsolete_since else latest_version
 
     project_urls = pypi_info.info["project_urls"] or {}
     maybe_links: dict[str, str | None] = {
@@ -435,15 +445,14 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
 
     diff_info = await get_diff_info(session, stub_info, pypi_info, relevant_version)
     if diff_info is not None:
-        github_repo_path, old_tag, new_tag, diff_url = diff_info
-        links["Diff"] = diff_url
+        links["Diff"] = diff_info.diff_url
 
-    if is_obsolete:
+    if obsolete_since:
         return Obsolete(
             stub_info.distribution,
             stub_path,
-            obsolete_since_version=str(version_obsolete_since),
-            obsolete_since_date=first_release_with_py_typed.upload_date,
+            obsolete_since_version=str(obsolete_since.version),
+            obsolete_since_date=obsolete_since.upload_date,
             links=links,
         )
 
@@ -451,7 +460,11 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
         diff_analysis: DiffAnalysis | None = None
     else:
         diff_analysis = await analyze_diff(
-            github_repo_path=github_repo_path, stub_path=stub_path, old_tag=old_tag, new_tag=new_tag, session=session
+            github_repo_path=diff_info.repo_path,
+            stub_path=stub_path,
+            old_tag=diff_info.old_tag,
+            new_tag=diff_info.new_tag,
+            session=session,
         )
 
     return Update(
@@ -579,7 +592,8 @@ def get_update_pr_body(update: Update, metadata: dict[str, Any]) -> str:
     if update.diff_analysis is not None:
         body += f"\n\n{update.diff_analysis}"
 
-    stubtest_will_run = not metadata.get("tool", {}).get("stubtest", {}).get("skip", False)
+    stubtest_settings: dict[str, Any] = metadata.get("tool", {}).get("stubtest", {})
+    stubtest_will_run = not stubtest_settings.get("skip", False)
     if stubtest_will_run:
         body += textwrap.dedent(
             """
@@ -612,7 +626,8 @@ async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession
             meta = tomlkit.load(f)
         meta["version"] = update.new_version_spec
         with open(update.stub_path / "METADATA.toml", "w", encoding="UTF-8") as f:
-            tomlkit.dump(meta, f)
+            # tomlkit.dump has partially unknown IO type
+            tomlkit.dump(meta, f)  # pyright: ignore[reportUnknownMemberType]
         body = get_update_pr_body(update, meta)
         subprocess.check_call(["git", "commit", "--all", "-m", f"{title}\n\n{body}"])
         if action_level <= ActionLevel.local:
@@ -640,7 +655,8 @@ async def suggest_typeshed_obsolete(obsolete: Obsolete, session: aiohttp.ClientS
         obs_string.comment(f"Released on {obsolete.obsolete_since_date.date().isoformat()}")
         meta["obsolete_since"] = obs_string
         with open(obsolete.stub_path / "METADATA.toml", "w", encoding="UTF-8") as f:
-            tomlkit.dump(meta, f)
+            # tomlkit.dump has partially unknown Mapping type
+            tomlkit.dump(meta, f)  # pyright: ignore[reportUnknownMemberType]
         body = "\n".join(f"{k}: {v}" for k, v in obsolete.links.items())
         subprocess.check_call(["git", "commit", "--all", "-m", f"{title}\n\n{body}"])
         if action_level <= ActionLevel.local:
@@ -725,7 +741,8 @@ async def main() -> None:
                     if isinstance(update, Update):
                         await suggest_typeshed_update(update, session, action_level=args.action_level)
                         continue
-                    if isinstance(update, Obsolete):
+                    # Redundant, but keeping for extra runtime validation
+                    if isinstance(update, Obsolete):  # pyright: ignore[reportUnnecessaryIsInstance]
                         await suggest_typeshed_obsolete(update, session, action_level=args.action_level)
                         continue
                 except RemoteConflict as e:

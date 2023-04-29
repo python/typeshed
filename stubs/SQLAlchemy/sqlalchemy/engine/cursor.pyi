@@ -3,7 +3,8 @@ from abc import ABCMeta
 from typing import Any
 from typing_extensions import Self
 
-from ..util import memoized_property
+from ..sql.compiler import RM_NAME as RM_NAME, RM_OBJECTS as RM_OBJECTS, RM_RENDERED_NAME as RM_RENDERED_NAME, RM_TYPE as RM_TYPE
+from ..util.langhelpers import memoized_property
 from .result import Result, ResultMetaData
 from .row import LegacyRow
 

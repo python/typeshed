@@ -1,4 +1,4 @@
-from abc import ABC as ABC, abstractmethod
+from abc import ABC, ABCMeta, abstractmethod
 from typing import Any
 from typing_extensions import Final
 
@@ -46,7 +46,7 @@ def before_test(test, test_module_name, test_class, test_name) -> None: ...
 def after_test(test) -> None: ...
 def after_test_fixtures(test) -> None: ...
 
-class FixtureFunctions(ABC):
+class FixtureFunctions(ABC, metaclass=ABCMeta):
     @abstractmethod
     def skip_test_exception(self, *arg, **kw): ...
     @abstractmethod

@@ -1,8 +1,7 @@
 from operator import attrgetter
 from typing import Any
 
-from ..util import memoized_property
-from ..util.langhelpers import _symbol
+from ..util.langhelpers import _symbol, memoized_property
 
 PASSIVE_NO_RESULT: Any
 PASSIVE_CLASS_MISMATCH: Any
@@ -27,8 +26,8 @@ PASSIVE_NO_FETCH: Any
 PASSIVE_NO_FETCH_RELATED: Any
 PASSIVE_ONLY_PERSISTENT: Any
 PASSIVE_MERGE: Any
-DEFAULT_MANAGER_ATTR: Any
-DEFAULT_STATE_ATTR: Any
+DEFAULT_MANAGER_ATTR: str
+DEFAULT_STATE_ATTR: str
 EXT_CONTINUE: Any
 EXT_STOP: Any
 EXT_SKIP: Any

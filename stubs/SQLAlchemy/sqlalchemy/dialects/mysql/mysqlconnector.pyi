@@ -1,7 +1,7 @@
 from abc import ABCMeta
 from typing import Any
 
-from ...util import memoized_property
+from ...util.langhelpers import memoized_property
 from .base import BIT, MySQLCompiler, MySQLDialect, MySQLIdentifierPreparer
 
 class MySQLCompiler_mysqlconnector(MySQLCompiler, metaclass=ABCMeta):

@@ -12,7 +12,7 @@ from ..sql.dml import Delete, Insert, Update
 from ..sql.functions import Function
 from ..sql.schema import ForeignKey
 from ..sql.type_api import TypeEngine
-from ..util import HasMemoized, memoized_property
+from ..util.langhelpers import HasMemoized, memoized_property
 from . import roles, traversals, visitors
 from .annotation import Annotated, SupportsCloneAnnotations
 from .base import (
@@ -149,6 +149,14 @@ class Alias(roles.DMLTableRole, AliasedReturnsRows, metaclass=ABCMeta):
 
 class TableValuedAlias(Alias, metaclass=ABCMeta):
     __visit_name__: str
+    joins_implicitly: bool
+    def _init(
+        self,
+        selectable,
+        name: Incomplete | None = None,
+        table_value_type: Incomplete | None = None,
+        joins_implicitly: bool = False,
+    ) -> None: ...
     @HasMemoized.memoized_attribute
     def column(self): ...
     def alias(self, name: Incomplete | None = None) -> TableValuedAlias: ...  # type: ignore[override]

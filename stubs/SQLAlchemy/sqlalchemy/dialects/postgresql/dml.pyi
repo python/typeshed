@@ -4,7 +4,7 @@ from typing_extensions import Self
 
 from ...sql.dml import Insert as StandardInsert
 from ...sql.elements import ClauseElement
-from ...util import memoized_property
+from ...util.langhelpers import memoized_property
 
 class Insert(StandardInsert):
     stringify_dialect: str
