@@ -1,12 +1,14 @@
 from re import Pattern
-from typing import IO
+from typing import IO, TypeVar
 from typing_extensions import Self
 
 from paramiko.message import Message
 
 OPENSSH_AUTH_MAGIC: bytes
 
-def _unpad_openssh(data: bytes) -> bytes: ...
+_BytesT = TypeVar("_BytesT", bound=bytes | bytearray)
+
+def _unpad_openssh(data: _BytesT) -> _BytesT: ...
 
 class PKey:
     public_blob: PublicBlob | None
