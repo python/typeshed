@@ -35,7 +35,7 @@ class PKey:
 
 class PublicBlob:
     key_type: str
-    key_blob: str
+    key_blob: bytes
     comment: str
     def __init__(self, type_: str, blob: bytes, comment: str | None = None) -> None: ...
     @classmethod
