@@ -14,8 +14,6 @@ urllib3.connectionpool.HTTPConnectionPool.urlopen
 urllib3.connectionpool.HTTPSConnectionPool.__init__
 urllib3.connectionpool.VerifiedHTTPSConnection.__init__
 urllib3.connectionpool.VerifiedHTTPSConnection.set_cert
-urllib3.packages.ssl_match_hostname
-urllib3.packages.ssl_match_hostname._implementation
 urllib3.poolmanager.PoolManager.connection_from_host
 urllib3.poolmanager.PoolManager.connection_from_url
 urllib3.poolmanager.PoolManager.urlopen
