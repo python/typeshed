@@ -9,9 +9,7 @@ from redis.asyncio.connection import BaseParser, Connection, Encoder
 from redis.asyncio.parser import CommandsParser
 from redis.client import AbstractRedis
 from redis.cluster import AbstractRedisCluster, LoadBalancer
-
-# TODO: add  AsyncRedisClusterCommands stubs
-# from redis.commands import AsyncRedisClusterCommands
+from redis.commands import AsyncRedisClusterCommands
 from redis.commands.core import _StrType
 from redis.credentials import CredentialProvider
 from redis.retry import Retry
@@ -20,7 +18,7 @@ from redis.typing import AnyKeyT, EncodableT, KeyT
 # It uses `DefaultParser` in real life, but it is a dynamic base class.
 class ClusterParser(BaseParser): ...
 
-class RedisCluster(AbstractRedis, AbstractRedisCluster, Generic[_StrType]):  # TODO: AsyncRedisClusterCommands
+class RedisCluster(AbstractRedis, AbstractRedisCluster, AsyncRedisClusterCommands, Generic[_StrType]):  # type:ignore[misc]
     retry: Retry | None
     connection_kwargs: dict[str, Any]
     nodes_manager: NodesManager
@@ -145,7 +143,7 @@ class NodesManager:
     async def initialize(self) -> None: ...
     async def close(self, attr: str = "nodes_cache") -> None: ...
 
-class ClusterPipeline(AbstractRedis, AbstractRedisCluster, Generic[_StrType]):  # TODO: AsyncRedisClusterCommands
+class ClusterPipeline(AbstractRedis, AbstractRedisCluster, AsyncRedisClusterCommands, Generic[_StrType]):  # type:ignore[misc]
     def __init__(self, client: RedisCluster[_StrType]) -> None: ...
     async def initialize(self) -> Self: ...
     async def __aenter__(self) -> Self: ...
@@ -161,7 +159,7 @@ class ClusterPipeline(AbstractRedis, AbstractRedisCluster, Generic[_StrType]):  
     def __len__(self) -> int: ...
     def execute_command(self, *args: KeyT | EncodableT, **kwargs: Any) -> Self: ...
     async def execute(self, raise_on_error: bool = True, allow_redirections: bool = True) -> list[Any]: ...
-    def mset_nonatomic(self, mapping: Mapping[AnyKeyT, EncodableT]) -> Self: ...
+    def mset_nonatomic(self, mapping: Mapping[AnyKeyT, EncodableT]) -> Self: ...  # type:ignore[override]
 
 class PipelineCommand:
     args: Any

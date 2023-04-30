@@ -232,7 +232,7 @@ def to_bool(value) -> bool | None: ...
 
 URL_QUERY_ARGUMENT_PARSERS: Mapping[str, Callable[..., object]]
 
-class ConnectKwargs(TypedDict):
+class ConnectKwargs(TypedDict, total=False):
     username: str
     password: str
     connection_class: type[Connection]

@@ -1,9 +1,28 @@
 from _typeshed import Incomplete
-from typing import Generic
+from collections.abc import AsyncIterator, Mapping
+from typing import Any, Generic
 
-from .core import ACLCommands, DataAccessCommands, ManagementCommands, PubSubCommands, _StrType
+from ..asyncio.connection import ConnectionPool as AsyncConnectionPool, Encoder as AsyncEncoder
+from ..connection import ConnectionPool, Encoder
+from ..typing import AnyKeyT, ClusterCommandsProtocol, EncodableT, KeysT, KeyT, PatternT
+from .core import (
+    ACLCommands,
+    AsyncACLCommands,
+    AsyncDataAccessCommands,
+    AsyncFunctionCommands,
+    AsyncManagementCommands,
+    AsyncScriptCommands,
+    DataAccessCommands,
+    ManagementCommands,
+    PubSubCommands,
+    _StrType,
+)
 
-class ClusterMultiKeyCommands:
+READ_COMMANDS: frozenset[str]
+
+class ClusterMultiKeyCommands(ClusterCommandsProtocol):
+    connection_pool: AsyncConnectionPool | ConnectionPool
+    encoder: AsyncEncoder | Encoder
     def mget_nonatomic(self, keys, *args): ...
     def mset_nonatomic(self, mapping): ...
     def exists(self, *keys): ...
@@ -11,10 +30,17 @@ class ClusterMultiKeyCommands:
     def touch(self, *keys): ...
     def unlink(self, *keys): ...
 
+class AsyncClusterMultiKeyCommands(ClusterMultiKeyCommands):
+    async def mget_nonatomic(self, keys: KeysT, *args: KeyT) -> list[Any | None]: ...
+    async def mset_nonatomic(self, mapping: Mapping[AnyKeyT, EncodableT]) -> list[bool]: ...
+
 class ClusterManagementCommands(ManagementCommands):
     def slaveof(self, *args, **kwargs) -> None: ...
     def replicaof(self, *args, **kwargs) -> None: ...
     def swapdb(self, *args, **kwargs) -> None: ...
+
+class AsyncClusterManagementCommands(ClusterManagementCommands, AsyncManagementCommands):  # type:ignore[misc]
+    async def cluster_delslots(self, *slots: EncodableT) -> list[bool]: ...
 
 class ClusterDataAccessCommands(DataAccessCommands[_StrType], Generic[_StrType]):
     def stralgo(
@@ -29,6 +55,13 @@ class ClusterDataAccessCommands(DataAccessCommands[_StrType], Generic[_StrType])
         withmatchlen: bool = False,
         **kwargs,
     ): ...
+
+class AsyncClusterDataAccessCommands(  # type:ignore[misc]
+    ClusterDataAccessCommands[Incomplete], AsyncDataAccessCommands[Incomplete]
+):
+    async def scan_iter(  # type:ignore[override]
+        self, match: PatternT | None = None, count: int | None = None, _type: str | None = None, **kwargs
+    ) -> AsyncIterator[Incomplete]: ...
 
 class RedisClusterCommands(
     ClusterMultiKeyCommands,
@@ -59,3 +92,12 @@ class RedisClusterCommands(
     read_from_replicas: bool
     def readonly(self, target_nodes: Incomplete | None = None): ...
     def readwrite(self, target_nodes: Incomplete | None = None): ...
+
+class AsyncRedisClusterCommands(  # type:ignore[misc]
+    AsyncClusterMultiKeyCommands,
+    AsyncClusterManagementCommands,
+    AsyncACLCommands[Incomplete],
+    AsyncClusterDataAccessCommands,
+    AsyncScriptCommands[Incomplete],
+    AsyncFunctionCommands,
+): ...

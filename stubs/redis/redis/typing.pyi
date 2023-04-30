@@ -1,10 +1,11 @@
-from collections.abc import Iterable
+from _typeshed import Incomplete
+from collections.abc import Awaitable, Iterable
 from datetime import datetime, timedelta
-from typing import Protocol, TypeVar
+from typing import Any, Protocol, TypeVar
 from typing_extensions import TypeAlias
 
-from redis.asyncio.connection import ConnectionPool as AsyncConnectionPool
-from redis.connection import ConnectionPool
+from .asyncio.connection import ConnectionPool as AsyncConnectionPool, Encoder as AsyncEncoder
+from .connection import ConnectionPool, Encoder
 
 # The following type aliases exist at runtime.
 EncodedT: TypeAlias = bytes | memoryview
@@ -32,3 +33,7 @@ AnyChannelT = TypeVar("AnyChannelT", bytes, str, memoryview)  # noqa: Y001
 class CommandsProtocol(Protocol):
     connection_pool: AsyncConnectionPool | ConnectionPool
     def execute_command(self, *args, **options): ...
+
+class ClusterCommandsProtocol(CommandsProtocol, Protocol):
+    encoder: AsyncEncoder | Encoder
+    def execute_command(self, *args, **options) -> Any | Awaitable[Incomplete]: ...
