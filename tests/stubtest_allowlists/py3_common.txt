@@ -332,7 +332,6 @@ turtle.ScrolledCanvas.onResize
 wave.Wave_read.initfp
 wave.Wave_write.initfp
 
-_ctypes.Array
 _ctypes.CFuncPtr
 _ctypes.POINTER
 _ctypes.PyObj_FromPtr
