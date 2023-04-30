@@ -2,4 +2,3 @@ version = "9.5.*"
 
 [tool.stubtest]
 stubtest_requirements = ["olefile"]
-ignore_missing_stub = true
