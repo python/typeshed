@@ -2,7 +2,7 @@ import sys
 from _typeshed import ReadableBuffer, WriteableBuffer
 from abc import abstractmethod
 from collections.abc import Iterable, Iterator, Mapping
-from ctypes import _CArgObject, _PointerLike, CDLL
+from ctypes import CDLL, _CArgObject, _PointerLike
 from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 

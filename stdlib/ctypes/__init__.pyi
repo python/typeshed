@@ -1,11 +1,11 @@
 import sys
 from _ctypes import (
+    RTLD_GLOBAL as RTLD_GLOBAL,
+    RTLD_LOCAL as RTLD_LOCAL,
+    Array as Array,
     _CData as _CData,
     _CDataMeta as _CDataMeta,
     _SimpleCData as _SimpleCData,
-    Array as Array,
-    RTLD_GLOBAL as RTLD_GLOBAL,
-    RTLD_LOCAL as RTLD_LOCAL,
 )
 from collections.abc import Callable, Sequence
 from typing import Any, ClassVar, Generic, TypeVar, overload
