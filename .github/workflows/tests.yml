@@ -124,10 +124,12 @@ jobs:
         with:
           python-version: "3.10"
           cache: pip
-          cache-dependency-path: requirements-tests.txt
+          cache-dependency-path: |
+            requirements-pyright.txt
+            stubs/**/METADATA.toml
       - name: Install external dependencies for 3rd-party stubs
         run: |
-          pip install -r requirements-tests.txt
+          pip install -r requirements-pyright.txt
           DEPENDENCIES=$(python tests/get_external_stub_requirements.py)
           if [ -n "$DEPENDENCIES" ]; then
             echo "Installing packages: $DEPENDENCIES"

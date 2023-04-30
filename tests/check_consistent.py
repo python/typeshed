@@ -9,6 +9,7 @@ import os
 import re
 import sys
 import urllib.parse
+from collections.abc import Iterator
 from pathlib import Path
 from typing import TypedDict
 
@@ -135,10 +136,14 @@ def check_metadata() -> None:
 
 
 def get_txt_requirements() -> dict[str, SpecifierSet]:
-    with open("requirements-tests.txt", encoding="UTF-8") as requirements_file:
-        stripped_lines = map(strip_comments, requirements_file)
-        requirements = map(Requirement, filter(None, stripped_lines))
-        return {requirement.name: requirement.specifier for requirement in requirements}
+    requirements: list[Requirement] = []
+    for requirements_path in ("requirements-tests.txt", "requirements-pyright.txt"):
+        with open(requirements_path, encoding="UTF-8") as requirements_file:
+            stripped_lines: Iterator[str] = map(strip_comments, requirements_file)
+            stripped_lines = filter(lambda line: not line.startswith("-r "), stripped_lines)
+            requirements.extend(map(Requirement, filter(None, stripped_lines)))
+
+    return {requirement.name: requirement.specifier for requirement in requirements}
 
 
 class PreCommitConfigRepos(TypedDict):

@@ -1,0 +1,7 @@
+# Don't install everything from requirements-tests.txt for pyright tests on CI
+# Only what's needed to run `get_external_stub_requirements.py`
+# We specifically need to avoid installing `types-*`
+packaging==23.1
+pathspec>=0.10.3
+tomli==2.0.1
+typing-extensions
