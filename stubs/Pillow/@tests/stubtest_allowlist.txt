@@ -6,7 +6,7 @@ PIL.__main__
 PIL.ImageQt.ImageQt
 
 # Only stubbing what's necessary from private modules
-PIL\._imaging\.\w+
+PIL\._imaging\.\w+?
 
 # Internal logger variable
 PIL\..+?\.logger
@@ -14,7 +14,6 @@ PIL\..+?\.logger
 # Loop variables leaked in global scope
 PIL.BmpImagePlugin.BmpImageFile.k
 PIL.BmpImagePlugin.BmpImageFile.v
-PIL.EpsImagePlugin.binary
 PIL.Image.enum
 PIL.Image.item
 PIL.ImageCms.flag
