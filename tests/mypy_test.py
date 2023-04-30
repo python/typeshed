@@ -76,6 +76,13 @@ def valid_path(cmd_arg: str) -> Path:
     return path
 
 
+def remove_dev_suffix(version: str) -> str:
+    """Helper function for argument-parsing"""
+    if version.endswith("-dev"):
+        return version[:-len("-dev")]
+    return version
+
+
 parser = argparse.ArgumentParser(
     description="Typecheck typeshed's stubs with mypy. Patterns are unanchored regexps on the full path."
 )
@@ -105,7 +112,7 @@ parser.add_argument("-v", "--verbose", action="count", default=0, help="More out
 parser.add_argument(
     "-p",
     "--python-version",
-    type=str,
+    type=remove_dev_suffix,
     choices=SUPPORTED_VERSIONS,
     nargs="*",
     action="extend",
