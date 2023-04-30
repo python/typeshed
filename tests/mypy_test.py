@@ -79,7 +79,7 @@ def valid_path(cmd_arg: str) -> Path:
 def remove_dev_suffix(version: str) -> str:
     """Helper function for argument-parsing"""
     if version.endswith("-dev"):
-        return version[:-len("-dev")]
+        return version[: -len("-dev")]
     return version
 
 
