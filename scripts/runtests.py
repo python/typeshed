@@ -97,7 +97,7 @@ def main() -> None:
     print(f"\nRunning Pyright ({'stricter' if strict_params else 'base' } configs) for Python {_PYTHON_VERSION}...")
     pyright_result = subprocess.run(
         [sys.executable, "tests/pyright_test.py", path, "--pythonversion", _PYTHON_VERSION] + strict_params,
-        capture_output=True,
+        stderr=subprocess.PIPE,
         text=True,
     )
     if re.match(_NPX_ERROR_PATTERN, pyright_result.stderr):
@@ -156,7 +156,7 @@ def main() -> None:
             "-p",
             _TESTCASES_CONFIG_FILE,
         ]
-        pyright_testcases_result = subprocess.run(command, capture_output=True, text=True)
+        pyright_testcases_result = subprocess.run(command, stderr=subprocess.PIPE, text=True)
         if re.match(_NPX_ERROR_PATTERN, pyright_testcases_result.stderr):
             print(_NPX_ERROR_MESSAGE)
             pyright_testcases_returncode = 0
@@ -169,7 +169,7 @@ def main() -> None:
         print(f"\nRunning mypy regression tests for Python {_PYTHON_VERSION}...")
         regr_test_result = subprocess.run(
             [sys.executable, "tests/regr_test.py", "stdlib" if folder == "stdlib" else stub, "--python-version", _PYTHON_VERSION],
-            capture_output=True,
+            stderr=subprocess.PIPE,
             text=True,
         )
         # No test means they all ran successfully (0 out of 0). Not all 3rd-party stubs have regression tests.
