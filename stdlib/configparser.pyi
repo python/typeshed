@@ -17,7 +17,6 @@ __all__ = [
     "ParsingError",
     "MissingSectionHeaderError",
     "ConfigParser",
-    "SafeConfigParser",
     "RawConfigParser",
     "Interpolation",
     "BasicInterpolation",
@@ -29,8 +28,8 @@ __all__ = [
     "MAX_INTERPOLATION_DEPTH",
 ]
 
-if sys.version_info >= (3, 12):
-    __all__.remove("SafeConfigParser")
+if sys.version_info < (3, 12):
+    __all__ += ["SafeConfigParser"]
 
 _Section: TypeAlias = Mapping[str, str]
 _Parser: TypeAlias = MutableMapping[str, _Section]
