@@ -339,8 +339,6 @@ _ctypes.POINTER
 _ctypes.PyObj_FromPtr
 _ctypes.Py_DECREF
 _ctypes.Py_INCREF
-_ctypes.Structure
-_ctypes.Union
 _ctypes.addressof
 _ctypes.alignment
 _ctypes.buffer_info
