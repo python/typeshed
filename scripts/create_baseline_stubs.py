@@ -158,7 +158,7 @@ def main() -> None:
 
     run_stubgen(package, stub_dir)
     run_stubdefaulter(stub_dir)
-    
+
     run_isort(stub_dir)
     run_black(stub_dir)
 
