@@ -3,9 +3,14 @@ from _ctypes import (
     RTLD_GLOBAL as RTLD_GLOBAL,
     RTLD_LOCAL as RTLD_LOCAL,
     Array as Array,
+    Structure as Structure,
+    Union as Union,
     _CData as _CData,
     _CDataMeta as _CDataMeta,
+    _CField as _CField,
     _SimpleCData as _SimpleCData,
+    _StructUnionBase as _StructUnionBase,
+    _StructUnionMeta as _StructUnionMeta,
 )
 from collections.abc import Callable, Sequence
 from typing import Any, ClassVar, Generic, TypeVar, overload
@@ -216,23 +221,5 @@ if sys.platform == "win32":
     class HRESULT(_SimpleCData[int]): ...  # TODO undocumented
 
 class py_object(_CanCastTo, _SimpleCData[_T]): ...
-
-class _CField:
-    offset: int
-    size: int
-
-class _StructUnionMeta(_CDataMeta):
-    _fields_: Sequence[tuple[str, type[_CData]] | tuple[str, type[_CData], int]]
-    _pack_: int
-    _anonymous_: Sequence[str]
-    def __getattr__(self, name: str) -> _CField: ...
-
-class _StructUnionBase(_CData, metaclass=_StructUnionMeta):
-    def __init__(self, *args: Any, **kw: Any) -> None: ...
-    def __getattr__(self, name: str) -> Any: ...
-    def __setattr__(self, name: str, value: Any) -> None: ...
-
-class Union(_StructUnionBase): ...
-class Structure(_StructUnionBase): ...
 class BigEndianStructure(Structure): ...
 class LittleEndianStructure(Structure): ...

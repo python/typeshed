@@ -1,7 +1,7 @@
 import sys
 from _typeshed import ReadableBuffer, WriteableBuffer
 from abc import abstractmethod
-from collections.abc import Iterable, Iterator, Mapping
+from collections.abc import Iterable, Iterator, Mapping, Sequence
 from ctypes import CDLL, _CArgObject, _PointerLike
 from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Self, TypeAlias
@@ -65,6 +65,24 @@ class _SimpleCData(Generic[_T], _CData):
     # The TypeVar can be unsolved here,
     # but we can't use overloads without creating many, many mypy false-positive errors
     def __init__(self, value: _T = ...) -> None: ...  # pyright: ignore[reportInvalidTypeVarUse]
+
+class _CField:
+    offset: int
+    size: int
+
+class _StructUnionMeta(_CDataMeta):
+    _fields_: Sequence[tuple[str, type[_CData]] | tuple[str, type[_CData], int]]
+    _pack_: int
+    _anonymous_: Sequence[str]
+    def __getattr__(self, name: str) -> _CField: ...
+
+class _StructUnionBase(_CData, metaclass=_StructUnionMeta):
+    def __init__(self, *args: Any, **kw: Any) -> None: ...
+    def __getattr__(self, name: str) -> Any: ...
+    def __setattr__(self, name: str, value: Any) -> None: ...
+
+class Union(_StructUnionBase): ...
+class Structure(_StructUnionBase): ...
 
 class Array(Generic[_CT], _CData):
     @property
