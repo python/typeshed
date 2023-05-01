@@ -50,6 +50,11 @@ def run_stubgen(package: str, output: str) -> None:
     subprocess.run(["stubgen", "-o", output, "-p", package, "--export-less"], check=True)
 
 
+def run_stubdefaulter(stub_dir: str) -> None:
+    print(f"Running stubdefaulter: stubdefaulter --packages {stub_dir}")
+    subprocess.run(["stubdefaulter", "--packages", stub_dir])
+
+
 def run_black(stub_dir: str) -> None:
     print(f"Running black: black {stub_dir}")
     subprocess.run(["black", stub_dir])
@@ -153,6 +158,7 @@ def main() -> None:
 
     run_stubgen(package, stub_dir)
 
+    run_stubdefaulter(stub_dir)
     run_isort(stub_dir)
     run_black(stub_dir)
 
