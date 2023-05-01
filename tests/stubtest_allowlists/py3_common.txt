@@ -78,7 +78,9 @@ csv.Dialect.skipinitialspace
 csv.DictReader.__init__  # runtime sig has *args but will error if more than 5 positional args are supplied
 csv.DictWriter.__init__  # runtime sig has *args but will error if more than 5 positional args are supplied
 ctypes.Array._type_  # _type_ and _length_ are abstract, https://github.com/python/typeshed/pull/6361
+_ctypes.Array._type_
 ctypes.Array._length_
+_ctypes.Array._length_
 ctypes.CDLL._FuncPtr  # None at class level but initialized in __init__ to this value
 ctypes.memmove  # CFunctionType
 ctypes.memset  # CFunctionType
@@ -244,13 +246,6 @@ ctypes.c_voidp
 ctypes.util.test
 importlib.abc.Finder.find_module
 lib2to3.pgen2.grammar.Grammar.loads
-logging.config.BaseConfigurator
-logging.config.ConvertingDict
-logging.config.ConvertingList
-logging.config.ConvertingMixin
-logging.config.ConvertingTuple
-logging.config.DictConfigurator
-logging.config.dictConfigClass
 mimetypes.MimeTypes.add_type
 modulefinder.test
 multiprocessing.managers.Server.accepter
@@ -339,14 +334,11 @@ turtle.ScrolledCanvas.onResize
 wave.Wave_read.initfp
 wave.Wave_write.initfp
 
-_ctypes.Array
 _ctypes.CFuncPtr
 _ctypes.POINTER
 _ctypes.PyObj_FromPtr
 _ctypes.Py_DECREF
 _ctypes.Py_INCREF
-_ctypes.Structure
-_ctypes.Union
 _ctypes.addressof
 _ctypes.alignment
 _ctypes.buffer_info
@@ -364,6 +356,7 @@ _ctypes.sizeof
 # ==========
 
 ctypes.Array.raw  # exists but stubtest can't see it; only available if _CT == c_char
+_ctypes.Array.raw
 
 _collections_abc.AsyncGenerator.asend  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
 _collections_abc.AsyncGenerator.__anext__  # async at runtime, deliberately not in the stub, see #7491
@@ -612,6 +605,7 @@ wsgiref.handlers.BaseHandler.status
 
 # Iterable classes that don't define __iter__ at runtime (usually iterable via __getitem__)
 # These would ideally be special-cased by type checkers; see https://github.com/python/mypy/issues/2220
+_ctypes.Array.__iter__
 ctypes.Array.__iter__
 mmap.mmap.__iter__
 mmap.mmap.__contains__

@@ -85,7 +85,7 @@ jobs:
     strategy:
       matrix:
         platform: ["linux", "win32", "darwin"]
-        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12-dev"]
       fail-fast: false
     steps:
       - uses: actions/checkout@v3
@@ -116,7 +116,7 @@ jobs:
     strategy:
       matrix:
         python-platform: ["Linux", "Windows", "Darwin"]
-        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
       fail-fast: false
     steps:
       - uses: actions/checkout@v3
@@ -125,15 +125,23 @@ jobs:
           python-version: "3.10"
           cache: pip
           cache-dependency-path: requirements-tests.txt
-      - name: Install external dependencies for 3rd-party stubs
+      - name: Install typeshed test-suite requirements
+        # Install these so we can run `get_external_stub_requirements.py`
+        run: pip install -r requirements-tests.txt
+      - name: Create an isolated venv for testing
+        run: python -m venv .venv
+      - name: Install 3rd-party stub dependencies
         run: |
-          pip install -r requirements-tests.txt
           DEPENDENCIES=$(python tests/get_external_stub_requirements.py)
           if [ -n "$DEPENDENCIES" ]; then
+            source .venv/bin/activate
             echo "Installing packages: $DEPENDENCIES"
             pip install $DEPENDENCIES
           fi
-      - run: pip freeze --all
+      - name: List 3rd-party stub dependencies installed
+        run: |
+          source .venv/bin/activate
+          pip freeze --all
       - name: Get pyright version
         uses: SebRollen/toml-action@v1.0.2
         id: pyright_version
@@ -147,6 +155,7 @@ jobs:
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
           no-comments: ${{ matrix.python-version != '3.10' || matrix.python-platform != 'Linux' }} # Having each job create the same comment is too noisy.
+          venv-path: .
       - name: Run pyright with stricter settings on some of the stubs
         uses: jakebailey/pyright-action@v1
         with:
@@ -154,6 +163,7 @@ jobs:
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
           no-comments: ${{ matrix.python-version != '3.10' || matrix.python-platform != 'Linux' }} # Having each job create the same comment is too noisy.
+          venv-path: .
           project: ./pyrightconfig.stricter.json
       - name: Run pyright on the test cases
         uses: jakebailey/pyright-action@v1
@@ -162,6 +172,7 @@ jobs:
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
           no-comments: ${{ matrix.python-version != '3.10' || matrix.python-platform != 'Linux' }} # Having each job create the same comment is too noisy.
+          venv-path: .
           project: ./pyrightconfig.testcases.json
 
   stub-uploader:
