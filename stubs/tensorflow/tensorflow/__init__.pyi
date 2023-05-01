@@ -1,16 +1,26 @@
 from _typeshed import Incomplete, Unused
-from abc import ABCMeta
+from abc import ABC, ABCMeta, abstractmethod
 from builtins import bool as _bool
 from collections.abc import Callable, Generator, Iterable, Iterator, Mapping, Sequence
 from contextlib import contextmanager
 from enum import Enum
 from types import TracebackType
-from typing import Any, NoReturn, TypeVar, overload
+from typing import Any, Generic, NoReturn, TypeVar, overload
 from typing_extensions import ParamSpec, Self, TypeAlias
 
 import numpy
-from tensorflow import feature_column as feature_column, initializers as initializers, io as io, keras as keras, math as math
+from google.protobuf.message import Message
+from tensorflow import (
+    data as data,
+    experimental as experimental,
+    feature_column as feature_column,
+    initializers as initializers,
+    io as io,
+    keras as keras,
+    math as math,
+)
 from tensorflow._aliases import ContainerGradients, ContainerTensors, ContainerTensorsLike, Gradients, TensorLike
+from tensorflow.core.protobuf import struct_pb2
 
 # Explicit import of DType is covered by the wildcard, but
 # is necessary to avoid a crash in pytype.
@@ -331,5 +341,67 @@ class GradientTape:
     def watch(self, tensor: ContainerTensorsLike) -> None: ...
     def watched_variables(self) -> tuple[Variable, ...]: ...
     def __getattr__(self, name: str) -> Incomplete: ...
+
+_SpecProto = TypeVar("_SpecProto", bound=Message)
+
+class TypeSpec(Generic[_SpecProto], ABC):
+    @property
+    @abstractmethod
+    def value_type(self) -> Any: ...
+    def experimental_as_proto(self) -> _SpecProto: ...
+    @classmethod
+    def experimental_from_proto(cls, proto: _SpecProto) -> Self: ...
+    @classmethod
+    def experimental_type_proto(cls) -> type[_SpecProto]: ...
+    def is_compatible_with(self, spec_or_value: Self | _TensorCompatible | SparseTensor | RaggedTensor) -> _bool: ...
+    # Incomplete as tf.types is not yet covered.
+    def is_subtype_of(self, other) -> _bool: ...
+    def most_specific_common_supertype(self, others: Sequence[Incomplete]) -> Self | None: ...
+    def most_specific_compatible_type(self, other: Self) -> Self: ...
+
+class TensorSpec(TypeSpec[struct_pb2.TensorSpecProto]):
+    def __init__(self, shape: _ShapeLike, dtype: _DTypeLike = ..., name: str | None = None) -> None: ...
+    @property
+    def value_type(self) -> Tensor: ...
+    @property
+    def shape(self) -> TensorShape: ...
+    @property
+    def dtype(self) -> DType: ...
+    @property
+    def name(self) -> str | None: ...
+    @classmethod
+    def from_spec(cls, spec: TypeSpec[Any], name: str | None = None) -> Self: ...
+    @classmethod
+    def from_tensor(cls, tensor: Tensor, name: str | None = None) -> Self: ...
+    def is_compatible_with(self, spec_or_tensor: Self | _TensorCompatible) -> _bool: ...  # type: ignore[override]
+
+class SparseTensorSpec(TypeSpec[struct_pb2.TypeSpecProto]):
+    def __init__(self, shape: _ShapeLike | None = None, dtype: _DTypeLike = ...) -> None: ...
+    @property
+    def value_type(self) -> SparseTensor: ...
+    @property
+    def shape(self) -> TensorShape: ...
+    @property
+    def dtype(self) -> DType: ...
+    @classmethod
+    def from_value(cls, value: SparseTensor) -> Self: ...
+
+class RaggedTensorSpec(TypeSpec[struct_pb2.TypeSpecProto]):
+    def __init__(
+        self,
+        shape: _ShapeLike | None = None,
+        dtype: _DTypeLike = ...,
+        ragged_rank: int | None = None,
+        row_splits_dtype: _DTypeLike = ...,
+        flat_values_spec: TypeSpec[Any] | None = None,
+    ): ...
+    @property
+    def value_type(self) -> RaggedTensor: ...
+    @property
+    def shape(self) -> TensorShape: ...
+    @property
+    def dtype(self) -> DType: ...
+    @classmethod
+    def from_value(cls, value: RaggedTensor) -> Self: ...
 
 def __getattr__(name: str) -> Incomplete: ...

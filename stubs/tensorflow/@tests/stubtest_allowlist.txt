@@ -18,9 +18,13 @@ tensorflow.Variable.__getattr__
 tensorflow.keras.layers.Layer.__getattr__
 tensorflow.python.feature_column.feature_column_v2.SharedEmbeddingColumnCreator.__getattr__
 tensorflow.GradientTape.__getattr__
+tensorflow.data.Dataset.__getattr__
+tensorflow.experimental.Optional.__getattr__
 
 # Internal undocumented API
 tensorflow.RaggedTensor.__init__
+tensorflow.data.Dataset.__init__
+
 # Has an undocumented extra argument that tf.Variable which acts like subclass
 # (by dynamically patching tf.Tensor methods) does not preserve.
 tensorflow.Tensor.__getitem__
