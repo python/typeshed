@@ -135,14 +135,13 @@ class Dataset(Generic[_T1], ABC):
     def prefetch(self, buffer_size: int, name: str | None = None) -> Dataset[_T1]: ...
     @staticmethod
     @overload
-    def range(stop: _ScalarTensorCompatible, /, output_type: DType = ..., name: str | None = None) -> Dataset[tf.Tensor]: ...
+    def range(__stop: _ScalarTensorCompatible, output_type: DType = ..., name: str | None = None) -> Dataset[tf.Tensor]: ...
     @staticmethod
     @overload
     def range(
-        start: _ScalarTensorCompatible,
-        stop: _ScalarTensorCompatible,
-        step: _ScalarTensorCompatible = 1,
-        /,
+        __start: _ScalarTensorCompatible,
+        __stop: _ScalarTensorCompatible,
+        __step: _ScalarTensorCompatible = 1,
         output_type: DType = ...,
         name: str | None = None,
     ) -> Dataset[tf.Tensor]: ...
