@@ -35,7 +35,7 @@ VENV_DIR = ".venv"
 TYPESHED = "typeshed"
 
 SUPPORTED_PLATFORMS = ["linux", "darwin", "win32"]
-SUPPORTED_VERSIONS = ["3.11", "3.10", "3.9", "3.8", "3.7"]
+SUPPORTED_VERSIONS = ["3.12", "3.11", "3.10", "3.9", "3.8", "3.7"]
 
 
 def package_with_test_cases(package_name: str) -> PackageInfo:
