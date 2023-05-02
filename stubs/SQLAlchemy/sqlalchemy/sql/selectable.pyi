@@ -482,5 +482,5 @@ class TextualSelect(SelectBase):
 
 TextAsFrom = TextualSelect
 
-class AnnotatedFromClause(Annotated):  # pyright: ignore[reportMissingTypeArgument]  # pytype issue
+class AnnotatedFromClause(Annotated):
     def __init__(self, element: FromClause, values) -> None: ...
