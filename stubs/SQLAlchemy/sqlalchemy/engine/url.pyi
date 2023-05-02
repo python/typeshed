@@ -3,9 +3,8 @@ from collections.abc import Iterable, Mapping, Sequence
 from typing import Any, NamedTuple
 from typing_extensions import Self, TypeAlias
 
-from sqlalchemy.util.langhelpers import memoized_property
-
 from ..util._collections import immutabledict
+from ..util.langhelpers import memoized_property
 from .interfaces import Dialect
 
 # object that produces a password when called with str()
