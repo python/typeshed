@@ -62,7 +62,7 @@ def run_black(stub_dir: str) -> None:
 
 def run_isort(stub_dir: str) -> None:
     print(f"Running isort: isort {stub_dir}")
-    subprocess.run(["python3", "-m", "isort", stub_dir])
+    subprocess.run([sys.executable, "-m", "isort", stub_dir])
 
 
 def create_metadata(stub_dir: str, version: str) -> None:
