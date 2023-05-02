@@ -5,7 +5,7 @@ from typing_extensions import SupportsIndex
 
 from ..sql.coercions import _CoercibleElement
 from ..sql.type_api import TypeEngine
-from ..util.langhelpers import _symbol, symbol
+from ..util.langhelpers import _DictLike, _symbol, symbol
 from .base import PARSE_AUTOCOMMIT as PARSE_AUTOCOMMIT, ColumnCollection as ColumnCollection, Executable as Executable
 from .dml import Delete as Delete, Insert as Insert, Update as Update, UpdateBase as UpdateBase, ValuesBase as ValuesBase
 from .elements import (
@@ -197,7 +197,7 @@ def bindparam(
     _compared_to_operator: Incomplete | None = None,
     _compared_to_type: Incomplete | None = None,
     _is_crud: bool = False,
-) -> BindParameter[_T]: ...
+) -> BindParameter[Incomplete]: ...
 @overload
 def bindparam(
     key: object,
@@ -206,7 +206,7 @@ def bindparam(
     type_: TypeEngine | type[TypeEngine] | None = None,
     unique: bool = False,
     required: bool | _symbol | symbol = ...,
-    quote,
+    quote: bool,
     callable_: Callable[[], _T] | None = None,
     expanding: bool = False,
     isoutparam: bool = False,
@@ -214,7 +214,7 @@ def bindparam(
     _compared_to_operator: Incomplete | None = None,
     _compared_to_type: Incomplete | None = None,
     _is_crud: bool = False,
-) -> BindParameter[_T]: ...
+) -> BindParameter[Incomplete]: ...
 def select(*args, **kw) -> Select: ...
 def text(text, bind=None) -> TextClause: ...
 def table(name: str, *columns: ColumnClause, **kw) -> TableClause: ...
@@ -240,7 +240,9 @@ def within_group(element: FunctionElement, *order_by: _CoercibleElement) -> With
 def label(
     name: str | _anonymous_label, element: ColumnElement[Incomplete], type_: TypeEngine | type[TypeEngine] | None = None
 ) -> Label: ...
-def case(*whens: tuple[ClauseElement, Incomplete], value: Incomplete | None = None, else_: Incomplete | None = None) -> Case: ...
+def case(
+    *whens: _DictLike[ClauseElement, Incomplete], value: Incomplete | None = None, else_: Incomplete | None = None
+) -> Case: ...
 def cast(expression, type_: TypeEngine | type[TypeEngine] | None) -> Cast: ...
 def cte(selectable, name=None, recursive=False) -> CTE: ...
 def values(*columns, **kw) -> Values: ...

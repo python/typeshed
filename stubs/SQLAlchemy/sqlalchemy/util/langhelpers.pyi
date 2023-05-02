@@ -1,12 +1,36 @@
-from _typeshed import Incomplete, Unused
-from collections.abc import Callable, Container, Iterable
+from _typeshed import Incomplete, SupportsItems, SupportsKeysAndGetItem, Unused
+from collections.abc import Callable, Container, Generator, Iterable, Iterator
 from types import TracebackType
-from typing import Any, Generic, TypeVar, overload
-from typing_extensions import Self
+from typing import Any, Generic, Protocol, TypeVar, overload
+from typing_extensions import Self, TypeAlias
 
 from . import compat
 
 _R = TypeVar("_R")
+_KT = TypeVar("_KT")
+_VT_co = TypeVar("_VT_co", covariant=True)
+
+class _SupportsKeysAndGet(Protocol[_KT, _VT_co]):
+    # Doesn't need to support defaults, will error out in dictlike_iteritems anyway
+    def get(self, __key: _KT) -> _VT_co | None: ...
+    def keys(self) -> Iterable[_KT]: ...
+
+class _SupportsIterKeysAndGet(Protocol[_KT, _VT_co]):
+    # Doesn't need to support defaults, will error out in dictlike_iteritems anyway
+    def get(self, __key: _KT) -> _VT_co | None: ...
+    def iterkeys(self) -> Iterator[_KT]: ...
+
+class _SupportsIterKeysAndGetItem(Protocol[_KT, _VT_co]):
+    def __getitem__(self, __key: _KT) -> _VT_co: ...
+    def iterkeys(self) -> Iterator[_KT]: ...
+
+_DictLike: TypeAlias = (  # noqa: Y047  # Used in other modules for dictlike_iteritems
+    SupportsItems[_KT, _VT_co]
+    | _SupportsKeysAndGet[_KT, _VT_co]
+    | _SupportsIterKeysAndGet[_KT, _VT_co]
+    | SupportsKeysAndGetItem[_KT, _VT_co]
+    | _SupportsIterKeysAndGetItem[_KT, _VT_co]
+)
 
 def md5_hex(x): ...
 
@@ -71,7 +95,12 @@ def monkeypatch_proxied_specials(
     from_instance: Incomplete | None = None,
 ) -> None: ...
 def methods_equivalent(meth1, meth2): ...
-def as_interface(obj, cls: Incomplete | None = None, methods: Incomplete | None = None, required: Incomplete | None = None): ...
+def as_interface(
+    obj: type | dict[Incomplete, Incomplete],
+    cls: Incomplete | None = None,
+    methods: Incomplete | None = None,
+    required: Incomplete | None = None,
+): ...
 
 class memoized_property(Generic[_R]):
     fget: Callable[..., _R]
@@ -113,7 +142,15 @@ def constructor_copy(obj, cls, *args, **kw): ...
 def counter(): ...
 def duck_type_collection(specimen, default: Incomplete | None = None): ...
 def assert_arg_type(arg, argtype, name): ...
-def dictlike_iteritems(dictlike): ...
+@overload
+def dictlike_iteritems(dictlike: SupportsItems[object, _R]) -> list[_R]: ...
+@overload
+def dictlike_iteritems(
+    dictlike: _SupportsIterKeysAndGet[_KT, _VT_co]
+    | _SupportsIterKeysAndGetItem[_KT, _VT_co]
+    | _SupportsKeysAndGet[_KT, _VT_co]
+    | SupportsKeysAndGetItem[_KT, _VT_co]
+) -> Generator[tuple[_KT, _VT_co], None, None]: ...
 
 class classproperty(property):
     __doc__: Any

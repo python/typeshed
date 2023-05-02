@@ -11,7 +11,7 @@ from ..sql.visitors import Traversible
 from . import roles
 from .base import CompileState, DialectKWArgs, Executable, HasCompileState
 from .elements import ClauseElement, ColumnElement
-from .selectable import FromClause, HasCTE, HasPrefixes, ReturnsRows, Selectable, TableClause
+from .selectable import FromClause, HasCTE, HasPrefixes, ReturnsRows, Select, Selectable, TableClause
 
 class DMLState(CompileState):
     isupdate: bool
@@ -85,7 +85,7 @@ class Insert(ValuesBase):
     ) -> None: ...
     def inline(self) -> Self: ...
     def from_select(
-        self, names: Iterable[str | Column], select: FromClause | Query[Incomplete], include_defaults: bool = True
+        self, names: Iterable[str | Column], select: Select | FromClause | Query[Incomplete], include_defaults: bool = True
     ) -> Self: ...
 
 class DMLWhereBase:

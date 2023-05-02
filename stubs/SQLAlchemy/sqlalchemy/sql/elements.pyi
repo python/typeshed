@@ -11,7 +11,7 @@ from ..sql.functions import FunctionElement
 from ..sql.schema import ForeignKey
 from ..sql.selectable import Subquery, TableClause, TextualSelect
 from ..sql.type_api import TypeEngine
-from ..util.langhelpers import HasMemoized, _symbol, memoized_property, symbol
+from ..util.langhelpers import HasMemoized, _DictLike, _symbol, memoized_property, symbol
 from . import roles
 from .annotation import Annotated, SupportsWrappingAnnotations
 from .base import Executable, Immutable, SingletonConstant
@@ -286,7 +286,7 @@ class Case(ColumnElement[Any]):
     whens: Any
     else_: Incomplete | None
     def __init__(
-        self, *whens: tuple[ClauseElement, Incomplete], value: Incomplete | None = None, else_: Incomplete | None = None
+        self, *whens: _DictLike[ClauseElement, Incomplete], value: Incomplete | None = None, else_: Incomplete | None = None
     ) -> None: ...
 
 def literal_column(text, type_: TypeEngine | _type[TypeEngine] | None = None) -> ColumnClause: ...  # ColumnClause[TypeEngine[_T]]
