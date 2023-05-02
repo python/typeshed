@@ -122,9 +122,15 @@ annotated_classes: dict[type[Incomplete], type[Annotated]] = ...  # pyright: ign
 
 # Everything below is dynamically generated at runtime
 
-class AnnotatedAlias(AnnotatedAliasedReturnsRows, Alias): ...
+class AnnotatedFromClause(_SelectableAnnotatedFromClause, FromClause): ...
 class AnnotatedAliasedReturnsRows(AnnotatedFromClause, AliasedReturnsRows): ...
+class AnnotatedAlias(AnnotatedAliasedReturnsRows, Alias): ...
+class AnnotatedColumnElement(_ElementsAnnotatedColumnElement, ColumnElement[_T]): ...  # type: ignore[misc]
+class AnnotatedFunctionElement(AnnotatedColumnElement[_T], FunctionElement): ...  # type: ignore[misc]
+class AnnotatedFunction(AnnotatedFunctionElement[_T], Function): ...  # type: ignore[misc]
+class AnnotatedGenericFunction(AnnotatedFunction[_T], GenericFunction): ...  # type: ignore[misc]
 class AnnotatedAnsiFunction(AnnotatedGenericFunction[_T], AnsiFunction): ...  # type: ignore[misc]
+class AnnotatedUnaryExpression(AnnotatedColumnElement[_T], UnaryExpression): ...  # type: ignore[misc]
 class AnnotatedAsBoolean(AnnotatedUnaryExpression[_T], AsBoolean): ...  # type: ignore[misc]
 class AnnotatedBinaryExpression(AnnotatedColumnElement[_T], BinaryExpression): ...  # type: ignore[misc]
 class AnnotatedBindParameter(AnnotatedColumnElement[_T], BindParameter[_T]): ...  # type: ignore[misc]
@@ -135,25 +141,20 @@ class AnnotatedCast(AnnotatedColumnElement[_T], Cast): ...  # type: ignore[misc]
 class AnnotatedClauseList(Annotated[_T], ClauseList): ...
 class AnnotatedCollationClause(AnnotatedColumnElement[_T], CollationClause): ...  # type: ignore[misc]
 class AnnotatedCollectionAggregate(AnnotatedUnaryExpression[_T], CollectionAggregate): ...  # type: ignore[misc]
-class AnnotatedColumn(AnnotatedColumnClause[_T], Column): ...  # type: ignore[misc]
+class AnnotatedNamedColumn(AnnotatedColumnElement[_T], NamedColumn): ...  # type: ignore[misc]
 class AnnotatedColumnClause(AnnotatedNamedColumn[_T], ColumnClause): ...  # type: ignore[misc]
-class AnnotatedColumnElement(_ElementsAnnotatedColumnElement, ColumnElement[_T]): ...  # type: ignore[misc]
+class AnnotatedColumn(AnnotatedColumnClause[_T], Column): ...  # type: ignore[misc]
 class AnnotatedExists(AnnotatedUnaryExpression[_T], Exists): ...  # type: ignore[misc]
 class AnnotatedExtract(AnnotatedColumnElement[_T], Extract): ...  # type: ignore[misc]
 class AnnotatedFalse_(AnnotatedColumnElement[_T], False_): ...  # type: ignore[misc]
-class AnnotatedFromClause(_SelectableAnnotatedFromClause, FromClause): ...
 class AnnotatedFromGrouping(AnnotatedFromClause, FromGrouping): ...
-class AnnotatedFunction(AnnotatedFunctionElement[_T], Function): ...  # type: ignore[misc]
 class AnnotatedFunctionAsBinary(AnnotatedBinaryExpression[_T], FunctionAsBinary): ...  # type: ignore[misc]
-class AnnotatedFunctionElement(AnnotatedColumnElement[_T], FunctionElement): ...  # type: ignore[misc]
 class AnnotatedFunctionFilter(AnnotatedColumnElement[_T], FunctionFilter): ...  # type: ignore[misc]
-class AnnotatedGenericFunction(AnnotatedFunction[_T], GenericFunction): ...  # type: ignore[misc]
 class AnnotatedGrouping(AnnotatedColumnElement[_T], Grouping): ...  # type: ignore[misc]
 class AnnotatedIndexExpression(AnnotatedBinaryExpression[_T], IndexExpression): ...  # type: ignore[misc]
 class AnnotatedJoin(AnnotatedFromClause, Join): ...
 class AnnotatedLabel(AnnotatedColumnElement[_T], Label): ...  # type: ignore[misc]
 class AnnotatedLateral(AnnotatedAliasedReturnsRows, Lateral): ...
-class AnnotatedNamedColumn(AnnotatedColumnElement[_T], NamedColumn): ...  # type: ignore[misc]
 class AnnotatedNull(AnnotatedColumnElement[_T], Null): ...  # type: ignore[misc]
 class AnnotatedOrderedSetAgg(AnnotatedGenericFunction[_T], OrderedSetAgg): ...  # type: ignore[misc]
 class AnnotatedOver(AnnotatedColumnElement[_T], Over): ...  # type: ignore[misc]
@@ -162,15 +163,14 @@ class AnnotatedScalarFunctionColumn(AnnotatedNamedColumn[_T], ScalarFunctionColu
 class AnnotatedScalarSelect(AnnotatedGrouping[_T], ScalarSelect): ...  # type: ignore[misc]
 class AnnotatedSlice(AnnotatedColumnElement[_T], Slice): ...  # type: ignore[misc]
 class AnnotatedSubquery(AnnotatedAliasedReturnsRows, Subquery): ...
-class AnnotatedTable(AnnotatedTableClause, Table): ...
 class AnnotatedTableClause(AnnotatedFromClause, TableClause): ...
+class AnnotatedTable(AnnotatedTableClause, Table): ...
 class AnnotatedTableSample(AnnotatedAliasedReturnsRows, TableSample): ...
 class AnnotatedTableValuedAlias(AnnotatedAlias, TableValuedAlias): ...
 class AnnotatedTableValuedColumn(AnnotatedNamedColumn[_T], TableValuedColumn): ...  # type: ignore[misc]
 class AnnotatedTrue_(AnnotatedColumnElement[_T], True_): ...  # type: ignore[misc]
 class AnnotatedTuple(AnnotatedColumnElement[_T], Tuple): ...  # type: ignore[misc]
 class AnnotatedTypeCoerce(AnnotatedColumnElement[_T], TypeCoerce): ...  # type: ignore[misc]
-class AnnotatedUnaryExpression(AnnotatedColumnElement[_T], UnaryExpression): ...  # type: ignore[misc]
 class AnnotatedValues(AnnotatedFromClause, Values): ...
 class AnnotatedWithinGroup(AnnotatedColumnElement[_T], WithinGroup): ...  # type: ignore[misc]
 class Annotated_CompileLabel(AnnotatedColumnElement[_T], _CompileLabel): ...  # type: ignore[misc]
