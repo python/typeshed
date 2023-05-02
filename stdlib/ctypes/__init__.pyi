@@ -2,6 +2,7 @@ import sys
 from _ctypes import (
     RTLD_GLOBAL as RTLD_GLOBAL,
     RTLD_LOCAL as RTLD_LOCAL,
+    ArgumentError as ArgumentError,
     Array as Array,
     Structure as Structure,
     Union as Union,
@@ -11,6 +12,12 @@ from _ctypes import (
     _SimpleCData as _SimpleCData,
     _StructUnionBase as _StructUnionBase,
     _StructUnionMeta as _StructUnionMeta,
+    addressof as addressof,
+    alignment as alignment,
+    get_errno as get_errno,
+    resize as resize,
+    set_errno as set_errno,
+    sizeof as sizeof,
 )
 from collections.abc import Callable, Sequence
 from typing import Any, ClassVar, Generic, TypeVar, overload
@@ -101,8 +108,6 @@ class _FuncPointer(_PointerLike, _CData):
 class _NamedFuncPointer(_FuncPointer):
     __name__: str
 
-class ArgumentError(Exception): ...
-
 def CFUNCTYPE(
     restype: type[_CData] | None, *argtypes: type[_CData], use_errno: bool = ..., use_last_error: bool = ...
 ) -> type[_FuncPointer]: ...
@@ -125,8 +130,6 @@ _CVoidPLike: TypeAlias = _PointerLike | Array[Any] | _CArgObject | int
 # when memmove(buf, b'foo', 4) was intended.
 _CVoidConstPLike: TypeAlias = _CVoidPLike | bytes
 
-def addressof(obj: _CData) -> int: ...
-def alignment(obj_or_type: _CData | type[_CData]) -> int: ...
 def byref(obj: _CData, offset: int = ...) -> _CArgObject: ...
 
 _CastT = TypeVar("_CastT", bound=_CanCastTo)
@@ -143,7 +146,6 @@ if sys.platform == "win32":
     def DllGetClassObject(rclsid: Any, riid: Any, ppv: Any) -> int: ...  # TODO not documented
     def GetLastError() -> int: ...
 
-def get_errno() -> int: ...
 def memmove(dst: _CVoidPLike, src: _CVoidConstPLike, count: int) -> int: ...
 def memset(dst: _CVoidPLike, c: int, count: int) -> int: ...
 def POINTER(type: type[_CT]) -> type[_Pointer[_CT]]: ...
@@ -162,9 +164,6 @@ class _Pointer(Generic[_CT], _PointerLike, _CData):
     def __setitem__(self, __key: int, __value: Any) -> None: ...
 
 def pointer(__arg: _CT) -> _Pointer[_CT]: ...
-def resize(obj: _CData, size: int) -> None: ...
-def set_errno(value: int) -> int: ...
-def sizeof(obj_or_type: _CData | type[_CData]) -> int: ...
 def string_at(address: _CVoidConstPLike, size: int = -1) -> bytes: ...
 
 if sys.platform == "win32":

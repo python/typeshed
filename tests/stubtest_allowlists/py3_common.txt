@@ -339,17 +339,11 @@ _ctypes.POINTER
 _ctypes.PyObj_FromPtr
 _ctypes.Py_DECREF
 _ctypes.Py_INCREF
-_ctypes.addressof
-_ctypes.alignment
 _ctypes.buffer_info
 _ctypes.byref
 _ctypes.call_cdeclfunction
 _ctypes.call_function
-_ctypes.get_errno
 _ctypes.pointer
-_ctypes.resize
-_ctypes.set_errno
-_ctypes.sizeof
 
 # ==========
 # Allowlist entries that cannot or should not be fixed
