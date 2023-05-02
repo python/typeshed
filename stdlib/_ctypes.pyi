@@ -38,6 +38,10 @@ if sys.platform == "win32":
     FUNCFLAG_HRESULT: int
     FUNCFLAG_STDCALL: int
 
+    def FormatError(code: int = ...) -> str: ...
+    def get_last_error() -> int: ...
+    def set_last_error(value: int) -> int: ...
+
 class _CDataMeta(type):
     # By default mypy complains about the following two methods, because strictly speaking cls
     # might not be a Type[_CT]. However this can never actually happen, because the only class that
