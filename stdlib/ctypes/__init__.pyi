@@ -6,9 +6,11 @@ from _ctypes import (
     Array as Array,
     Structure as Structure,
     Union as Union,
+    _CanCastTo as _CanCastTo,
     _CData as _CData,
     _CDataMeta as _CDataMeta,
     _CField as _CField,
+    _PointerLike as _PointerLike,
     _SimpleCData as _SimpleCData,
     _StructUnionBase as _StructUnionBase,
     _StructUnionMeta as _StructUnionMeta,
@@ -84,9 +86,6 @@ if sys.platform == "win32":
     oledll: LibraryLoader[OleDLL]
 pydll: LibraryLoader[PyDLL]
 pythonapi: PyDLL
-
-class _CanCastTo(_CData): ...
-class _PointerLike(_CanCastTo): ...
 
 _ECT: TypeAlias = Callable[[type[_CData] | None, _FuncPointer, tuple[_CData, ...]], _CData]
 _PF: TypeAlias = tuple[int] | tuple[int, str] | tuple[int, str, Any]

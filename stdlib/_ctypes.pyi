@@ -2,7 +2,7 @@ import sys
 from _typeshed import ReadableBuffer, WriteableBuffer
 from abc import abstractmethod
 from collections.abc import Iterable, Iterator, Mapping, Sequence
-from ctypes import CDLL, _CArgObject, _PointerLike
+from ctypes import CDLL, _CArgObject
 from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
@@ -69,6 +69,9 @@ class _SimpleCData(Generic[_T], _CData):
     # The TypeVar can be unsolved here,
     # but we can't use overloads without creating many, many mypy false-positive errors
     def __init__(self, value: _T = ...) -> None: ...  # pyright: ignore[reportInvalidTypeVarUse]
+
+class _CanCastTo(_CData): ...
+class _PointerLike(_CanCastTo): ...
 
 class _CField:
     offset: int
