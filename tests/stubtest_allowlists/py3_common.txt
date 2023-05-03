@@ -335,7 +335,6 @@ wave.Wave_read.initfp
 wave.Wave_write.initfp
 
 _ctypes.CFuncPtr
-_ctypes.POINTER
 _ctypes.PyObj_FromPtr
 _ctypes.Py_DECREF
 _ctypes.Py_INCREF
@@ -343,7 +342,6 @@ _ctypes.buffer_info
 _ctypes.byref
 _ctypes.call_cdeclfunction
 _ctypes.call_function
-_ctypes.pointer
 
 # ==========
 # Allowlist entries that cannot or should not be fixed
