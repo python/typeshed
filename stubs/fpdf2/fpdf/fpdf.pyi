@@ -452,7 +452,7 @@ class FPDF(GraphicsStateMixin):
         new_y: YPos | str = ...,
         wrapmode: WrapMode = ...,
         dry_run: bool = False,
-        output: MethodReturnValue = ...,
+        output: MethodReturnValue | str | int = ...,
     ): ...
     def write(
         self, h: float | None = None, txt: str = "", link: str = "", print_sh: bool = False, wrapmode: WrapMode = ...

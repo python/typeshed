@@ -13,7 +13,7 @@ from .fpdf import FPDF
 
 DEFAULT_HEADINGS_STYLE: FontFace
 
-@dataclass
+@dataclass(frozen=True)
 class RowLayoutInfo:
     height: int
     triggers_page_jump: bool
