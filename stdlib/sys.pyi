@@ -59,7 +59,7 @@ ps1: object
 ps2: object
 
 # TextIO is used instead of more specific types for the standard streams,
-# since they can be monkeypatched at runtime. At startup, the objects
+# since they are often monkeypatched at runtime. At startup, the objects
 # are initialized to instances of TextIOWrapper.
 #
 # To use methods from TextIOWrapper, use an isinstance check to ensure that
