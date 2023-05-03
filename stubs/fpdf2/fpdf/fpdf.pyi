@@ -19,6 +19,7 @@ from .enums import (
     AnnotationName,
     Corner,
     FileAttachmentAnnotationName,
+    MethodReturnValue,
     PageLayout,
     PathPaintRule,
     RenderStyle,
@@ -450,6 +451,8 @@ class FPDF(GraphicsStateMixin):
         new_x: XPos | str = ...,
         new_y: YPos | str = ...,
         wrapmode: WrapMode = ...,
+        dry_run: bool = False,
+        output: MethodReturnValue = ...,
     ): ...
     def write(
         self, h: float | None = None, txt: str = "", link: str = "", print_sh: bool = False, wrapmode: WrapMode = ...
