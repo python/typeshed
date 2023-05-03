@@ -57,9 +57,18 @@ if sys.version_info >= (3, 8):
     pycache_prefix: str | None
 ps1: object
 ps2: object
+
+# TextIO is used instead of more specific types for the following fields,
+# since they can be overridden at runtime. After startup, the fields
+# are set to TextIOWrapper. To use methods from TextIOWrapper, use an
+# isinstance check to ensure that the streams have not been overridden:
+#
+# if isinstance(sys.stdout, io.TextIOWrapper):
+#    sys.stdout.reconfigure(...)
 stdin: TextIO
 stdout: TextIO
 stderr: TextIO
+
 if sys.version_info >= (3, 10):
     stdlib_module_names: frozenset[str]
 
