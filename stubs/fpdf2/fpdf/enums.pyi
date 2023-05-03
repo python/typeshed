@@ -45,6 +45,11 @@ class TextEmphasis(CoerciveIntFlag):
     @property
     def style(self) -> str: ...
 
+class MethodReturnValue(CoerciveIntFlag):
+    PAGE_BREAK: int
+    LINES: int
+    HEIGHT: int
+
 class TableBordersLayout(CoerciveEnum):
     ALL: str
     NONE: str

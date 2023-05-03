@@ -1,5 +1,5 @@
-from _typeshed import Incomplete, Unused
-from collections.abc import Callable
+from _typeshed import Incomplete, SupportsKeysAndGetItem, Unused
+from collections.abc import Callable, Iterable
 from html.parser import HTMLParser
 from logging import Logger
 from re import Match, Pattern
@@ -10,7 +10,6 @@ from fpdf import FPDF
 
 __author__: Final[str]
 __copyright__: Final[str]
-__license__: Final[str]
 
 LOGGER: Logger
 BULLET_WIN1252: Final[str]
@@ -55,9 +54,10 @@ class HTML2FPDF(HTMLParser):
     theader_out: bool
     table_row_height: int
     heading_level: Incomplete
-    heading_sizes: Incomplete
+    heading_sizes: dict[str, int]
     heading_above: float
     heading_below: float
+    pre_code_font: str
     warn_on_tags_not_matching: bool
 
     # Not initialized in __init__:
@@ -72,7 +72,8 @@ class HTML2FPDF(HTMLParser):
         dd_tag_indent: int = 10,
         table_line_separators: bool = False,
         ul_bullet_char: str = "\x95",
-        heading_sizes: Incomplete | None = None,
+        heading_sizes: SupportsKeysAndGetItem[str, int] | Iterable[tuple[str, int]] | None = None,
+        pre_code_font: str = "courier",
         warn_on_tags_not_matching: bool = True,
         **_: Unused,
     ): ...
