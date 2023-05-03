@@ -5,7 +5,7 @@ from _ctypes import (
     RTLD_LOCAL as RTLD_LOCAL,
     ArgumentError as ArgumentError,
     Array as Array,
-    CFuncPtr as _FuncPointer,
+    CFuncPtr as _CFuncPtr,
     Structure as Structure,
     Union as Union,
     _CanCastTo as _CanCastTo,
@@ -90,6 +90,8 @@ if sys.platform == "win32":
     oledll: LibraryLoader[OleDLL]
 pydll: LibraryLoader[PyDLL]
 pythonapi: PyDLL
+
+class _FuncPointer(_CFuncPtr): ...
 
 class _NamedFuncPointer(_FuncPointer):
     __name__: str
