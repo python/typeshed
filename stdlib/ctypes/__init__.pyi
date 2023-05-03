@@ -8,6 +8,7 @@ from _ctypes import (
     Structure as Structure,
     Union as Union,
     _CanCastTo as _CanCastTo,
+    _CArgObject as _CArgObject,
     _CData as _CData,
     _CDataMeta as _CDataMeta,
     _CField as _CField,
@@ -18,6 +19,7 @@ from _ctypes import (
     _StructUnionMeta as _StructUnionMeta,
     addressof as addressof,
     alignment as alignment,
+    byref as byref,
     get_errno as get_errno,
     pointer as pointer,
     resize as resize,
@@ -120,8 +122,6 @@ if sys.platform == "win32":
 
 def PYFUNCTYPE(restype: type[_CData] | None, *argtypes: type[_CData]) -> type[_FuncPointer]: ...
 
-class _CArgObject: ...
-
 # Any type that can be implicitly converted to c_void_p when passed as a C function argument.
 # (bytes is not included here, see below.)
 _CVoidPLike: TypeAlias = _PointerLike | Array[Any] | _CArgObject | int
@@ -130,8 +130,6 @@ _CVoidPLike: TypeAlias = _PointerLike | Array[Any] | _CArgObject | int
 # and non-const pointers), but it catches errors like memmove(b'foo', buf, 4)
 # when memmove(buf, b'foo', 4) was intended.
 _CVoidConstPLike: TypeAlias = _CVoidPLike | bytes
-
-def byref(obj: _CData, offset: int = ...) -> _CArgObject: ...
 
 _CastT = TypeVar("_CastT", bound=_CanCastTo)
 
