@@ -36,7 +36,6 @@ if sys.version_info >= (3, 9):
 
 _T = TypeVar("_T")
 _DLLT = TypeVar("_DLLT", bound=CDLL)
-_CT = TypeVar("_CT", bound=_CData)
 
 DEFAULT_MODE: int
 
