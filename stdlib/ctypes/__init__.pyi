@@ -1,5 +1,6 @@
 import sys
 from _ctypes import (
+    POINTER as POINTER,
     RTLD_GLOBAL as RTLD_GLOBAL,
     RTLD_LOCAL as RTLD_LOCAL,
     ArgumentError as ArgumentError,
@@ -10,6 +11,7 @@ from _ctypes import (
     _CData as _CData,
     _CDataMeta as _CDataMeta,
     _CField as _CField,
+    _Pointer as _Pointer,
     _PointerLike as _PointerLike,
     _SimpleCData as _SimpleCData,
     _StructUnionBase as _StructUnionBase,
@@ -17,6 +19,7 @@ from _ctypes import (
     addressof as addressof,
     alignment as alignment,
     get_errno as get_errno,
+    pointer as pointer,
     resize as resize,
     set_errno as set_errno,
     sizeof as sizeof,
@@ -147,22 +150,6 @@ if sys.platform == "win32":
 
 def memmove(dst: _CVoidPLike, src: _CVoidConstPLike, count: int) -> int: ...
 def memset(dst: _CVoidPLike, c: int, count: int) -> int: ...
-def POINTER(type: type[_CT]) -> type[_Pointer[_CT]]: ...
-
-class _Pointer(Generic[_CT], _PointerLike, _CData):
-    _type_: type[_CT]
-    contents: _CT
-    @overload
-    def __init__(self) -> None: ...
-    @overload
-    def __init__(self, arg: _CT) -> None: ...
-    @overload
-    def __getitem__(self, __key: int) -> Any: ...
-    @overload
-    def __getitem__(self, __key: slice) -> list[Any]: ...
-    def __setitem__(self, __key: int, __value: Any) -> None: ...
-
-def pointer(__arg: _CT) -> _Pointer[_CT]: ...
 def string_at(address: _CVoidConstPLike, size: int = -1) -> bytes: ...
 
 if sys.platform == "win32":
