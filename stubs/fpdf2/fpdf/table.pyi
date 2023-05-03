@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from abc import abstractmethod
 from collections.abc import Iterable
 from dataclasses import dataclass
 from io import BytesIO
@@ -20,7 +19,7 @@ class Table:
     def __init__(
         self,
         fpdf: FPDF,
-        rows: Iterable[Incomplete] = (),
+        rows: Iterable[str] = (),
         *,
         align: str | Align = "CENTER",
         borders_layout: str | TableBordersLayout = ...,
@@ -63,5 +62,4 @@ class Cell:
     img_fill_width: bool
     colspan: int
 
-    @abstractmethod
     def write(self, text, align: Incomplete | None = None): ...

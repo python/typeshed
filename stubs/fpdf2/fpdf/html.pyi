@@ -62,7 +62,7 @@ class HTML2FPDF(HTMLParser):
 
     # Not initialized in __init__:
     font_face: Incomplete
-    h: Incomplete
+    h: float
 
     def __init__(
         self,

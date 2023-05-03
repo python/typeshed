@@ -2,7 +2,7 @@ import dataclasses
 from _typeshed import Incomplete
 from dataclasses import dataclass
 
-from .drawing import DeviceGray, DeviceRGB
+from .drawing import DeviceGray, DeviceRGB, Number
 from .enums import TextEmphasis
 
 @dataclass
@@ -10,8 +10,8 @@ class FontFace:
     family: str | None
     emphasis: TextEmphasis | None
     size_pt: int | None
-    color: int | tuple[Incomplete, ...] | DeviceGray | DeviceRGB | None
-    fill_color: int | tuple[Incomplete, ...] | DeviceGray | DeviceRGB | None
+    color: int | tuple[Number, Number, Number] | DeviceGray | DeviceRGB | None
+    fill_color: int | tuple[Number, Number, Number] | DeviceGray | DeviceRGB | None
 
     def __init__(
         self,
