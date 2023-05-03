@@ -26,6 +26,7 @@ def color_as_decimal(color: str | None = "#000000") -> tuple[int, int, int] | No
 
 class HTML2FPDF(HTMLParser):
     HTML_UNCLOSED_TAGS: ClassVar[tuple[str, ...]]
+
     pdf: Incomplete
     image_map: Incomplete
     li_tag_indent: Incomplete
@@ -58,6 +59,11 @@ class HTML2FPDF(HTMLParser):
     heading_above: float
     heading_below: float
     warn_on_tags_not_matching: bool
+
+    # Not initialized in __init__:
+    font_face: Incomplete
+    h: float
+
     def __init__(
         self,
         pdf: FPDF,
@@ -70,19 +76,9 @@ class HTML2FPDF(HTMLParser):
         warn_on_tags_not_matching: bool = True,
         **_: Unused,
     ): ...
-    def width2unit(self, length): ...
     def handle_data(self, data) -> None: ...
-    def box_shadow(self, w, h, bgcolor) -> None: ...
-    def output_table_header(self) -> None: ...
-    tfooter_out: bool
-    def output_table_footer(self) -> None: ...
-    def output_table_sep(self) -> None: ...
-    font_face: Incomplete
-    table_offset: Incomplete
     def handle_starttag(self, tag, attrs) -> None: ...
-    tbody: Incomplete
     def handle_endtag(self, tag) -> None: ...
-    h: Incomplete
     def set_font(self, face: Incomplete | None = None, size: Incomplete | None = None) -> None: ...
     def set_style(self, tag: Incomplete | None = None, enable: bool = False) -> None: ...
     def set_text_color(self, r: Incomplete | None = None, g: int = 0, b: int = 0) -> None: ...
