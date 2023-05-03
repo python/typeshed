@@ -27,8 +27,7 @@ from _ctypes import (
     set_errno as set_errno,
     sizeof as sizeof,
 )
-from collections.abc import Callable, Sequence
-from typing import Any, ClassVar, Generic, TypeVar, overload
+from typing import Any, ClassVar, Generic, TypeVar
 from typing_extensions import TypeAlias
 
 if sys.platform == "win32":
