@@ -18,8 +18,8 @@ class FontFace:
         family: str | None = None,
         emphasis: Incomplete | None = None,
         size_pt: int | None = None,
-        color: int | tuple[Incomplete, ...] | DeviceGray | DeviceRGB | None = None,
-        fill_color: int | tuple[Incomplete, ...] | DeviceGray | DeviceRGB | None = None,
+        color: int | tuple[Number, Number, Number] | DeviceGray | DeviceRGB | None = None,
+        fill_color: int | tuple[Number, Number, Number] | DeviceGray | DeviceRGB | None = None,
     ) -> None: ...
 
     replace = dataclasses.replace
