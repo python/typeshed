@@ -12,6 +12,7 @@ from _ctypes import (
     _CData as _CData,
     _CDataMeta as _CDataMeta,
     _CField as _CField,
+    _FuncPointer as _FuncPointer,
     _Pointer as _Pointer,
     _PointerLike as _PointerLike,
     _SimpleCData as _SimpleCData,
@@ -90,23 +91,6 @@ if sys.platform == "win32":
     oledll: LibraryLoader[OleDLL]
 pydll: LibraryLoader[PyDLL]
 pythonapi: PyDLL
-
-_ECT: TypeAlias = Callable[[type[_CData] | None, _FuncPointer, tuple[_CData, ...]], _CData]
-_PF: TypeAlias = tuple[int] | tuple[int, str] | tuple[int, str, Any]
-
-class _FuncPointer(_PointerLike, _CData):
-    restype: type[_CData] | Callable[[int], Any] | None
-    argtypes: Sequence[type[_CData]]
-    errcheck: _ECT
-    @overload
-    def __init__(self, address: int) -> None: ...
-    @overload
-    def __init__(self, callable: Callable[..., Any]) -> None: ...
-    @overload
-    def __init__(self, func_spec: tuple[str | int, CDLL], paramflags: tuple[_PF, ...] = ...) -> None: ...
-    @overload
-    def __init__(self, vtlb_index: int, name: str, paramflags: tuple[_PF, ...] = ..., iid: _Pointer[c_int] = ...) -> None: ...
-    def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 
 class _NamedFuncPointer(_FuncPointer):
     __name__: str
