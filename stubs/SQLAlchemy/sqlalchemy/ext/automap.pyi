@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from typing import Any
 
 def classname_for_table(base, tablename, table): ...
@@ -11,16 +12,16 @@ class AutomapBase:
     @classmethod
     def prepare(
         cls,
-        autoload_with: Any | None = ...,
-        engine: Any | None = ...,
-        reflect: bool = ...,
-        schema: Any | None = ...,
-        classname_for_table: Any | None = ...,
-        collection_class: Any | None = ...,
-        name_for_scalar_relationship: Any | None = ...,
-        name_for_collection_relationship: Any | None = ...,
-        generate_relationship: Any | None = ...,
+        autoload_with: Incomplete | None = None,
+        engine: Incomplete | None = None,
+        reflect: bool = False,
+        schema: Incomplete | None = None,
+        classname_for_table: Incomplete | None = None,
+        collection_class: Incomplete | None = None,
+        name_for_scalar_relationship: Incomplete | None = None,
+        name_for_collection_relationship: Incomplete | None = None,
+        generate_relationship: Incomplete | None = None,
         reflection_options=...,
     ) -> None: ...
 
-def automap_base(declarative_base: Any | None = ..., **kw): ...
+def automap_base(declarative_base: Incomplete | None = None, **kw): ...

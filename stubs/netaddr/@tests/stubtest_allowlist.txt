@@ -2,15 +2,6 @@
 # =============================
 netaddr.core.a  # This is a temporary module attribute used to detect python version
 
-# These are unnecessary re-exports
-netaddr.ip.INET_PTON
-netaddr.ip.N
-netaddr.ip.NOHOST
-netaddr.ip.P
-netaddr.ip.Z
-netaddr.ip.ZEROFILL
-
-
 # Error: is not present at runtime
 # ================================
 netaddr.ip.iana.XMLRecordParser.__getattr__  # __init__ has `self.__dict__.update(kwargs)`

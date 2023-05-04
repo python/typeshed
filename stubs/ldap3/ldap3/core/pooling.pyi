@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from typing import Any
 
 POOLING_STRATEGIES: Any
@@ -30,7 +31,12 @@ class ServerPool:
     single: Any
     strategy: Any
     def __init__(
-        self, servers: Any | None = ..., pool_strategy=..., active: bool = ..., exhaust: bool = ..., single_state: bool = ...
+        self,
+        servers: Incomplete | None = None,
+        pool_strategy="ROUND_ROBIN",
+        active: bool = True,
+        exhaust: bool = False,
+        single_state: bool = True,
     ) -> None: ...
     def __len__(self) -> int: ...
     def __getitem__(self, item): ...

@@ -8,8 +8,6 @@ cgi.parse_multipart
 urllib.parse.parse_qs
 urllib.parse.parse_qsl
 
-os.startfile
-
 # ==========
 # Allowlist entries that cannot or should not be fixed
 # ==========

@@ -1,4 +1,6 @@
-from _typeshed import Incomplete, Self
+from _typeshed import Incomplete
+from types import TracebackType
+from typing_extensions import Self
 
 from influxdb_client import HealthCheck, InvokableScriptsApi, Ready
 from influxdb_client.client._base import _BaseClient
@@ -19,12 +21,12 @@ class InfluxDBClient(_BaseClient):
     def __init__(
         self,
         url: str,
-        token: str | None = ...,
-        debug: bool | None = ...,
-        timeout: int = ...,
-        enable_gzip: bool = ...,
-        org: str | None = ...,
-        default_tags: dict[Incomplete, Incomplete] | None = ...,
+        token: str | None = None,
+        debug: bool | None = None,
+        timeout: int = 10000,
+        enable_gzip: bool = False,
+        org: str | None = None,
+        default_tags: dict[Incomplete, Incomplete] | None = None,
         *,
         verify_ssl: bool = ...,
         ssl_ca_cert: Incomplete | None = ...,
@@ -41,12 +43,16 @@ class InfluxDBClient(_BaseClient):
         retries: bool | Incomplete = ...,
         profilers: Incomplete | None = ...,
     ) -> None: ...
-    def __enter__(self: Self) -> Self: ...
-    def __exit__(self, exc_type: object, exc_value: object, traceback: object) -> None: ...
+    def __enter__(self) -> Self: ...
+    def __exit__(
+        self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None
+    ) -> None: ...
     @classmethod
-    def from_config_file(cls, config_file: str = ..., debug: Incomplete | None = ..., enable_gzip: bool = ..., **kwargs): ...
+    def from_config_file(
+        cls, config_file: str = "config.ini", debug: Incomplete | None = None, enable_gzip: bool = False, **kwargs
+    ): ...
     @classmethod
-    def from_env_properties(cls, debug: Incomplete | None = ..., enable_gzip: bool = ..., **kwargs): ...
+    def from_env_properties(cls, debug: Incomplete | None = None, enable_gzip: bool = False, **kwargs): ...
     def write_api(self, write_options: WriteOptions = ..., point_settings: PointSettings = ..., **kwargs) -> WriteApi: ...
     def query_api(self, query_options: QueryOptions = ...) -> QueryApi: ...
     def invokable_scripts_api(self) -> InvokableScriptsApi: ...

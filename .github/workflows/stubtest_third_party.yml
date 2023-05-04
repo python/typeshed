@@ -12,6 +12,11 @@ permissions:
   contents: read
 
 env:
+  # A few env vars to speedup brew install
+  HOMEBREW_NO_ANALYTICS: 1
+  HOMEBREW_NO_AUTOUPDATE: 1
+  HOMEBREW_NO_INSTALL_CLEANUP: 1 # Environments are isolated, no need to cleanup old versions
+  NONINTERACTIVE: 1 # Required for brew install on CI
   PIP_DISABLE_PIP_VERSION_CHECK: 1
   FORCE_COLOR: 1
   TERM: xterm-256color # needed for FORCE_COLOR to work on mypy on Ubuntu, see https://github.com/python/mypy/issues/13817
@@ -40,7 +45,6 @@ jobs:
           cache: pip
           cache-dependency-path: |
             requirements-tests.txt
-            stubs/**/@tests/requirements-stubtest.txt
             stubs/**/METADATA.toml
       - name: Install dependencies
         run: pip install -r requirements-tests.txt
@@ -70,7 +74,7 @@ jobs:
             else
               if [ "${{ runner.os }}" = "macOS" ] && [ -n "$PACKAGES" ]; then
                 echo "Installing Homebrew packages: $PACKAGES"
-                NONINTERACTIVE=1 brew install $PACKAGES
+                brew install $PACKAGES
               fi
 
               if [ "${{ runner.os }}" = "Windows" ] && [ -n "$PACKAGES" ]; then
@@ -81,7 +85,7 @@ jobs:
               PYTHON_EXECUTABLE="python"
             fi
 
-            $PYTHON_EXECUTABLE tests/stubtest_third_party.py --specified-stubs-only $STUBS
+            $PYTHON_EXECUTABLE tests/stubtest_third_party.py --specified-platforms-only $STUBS
           else
             echo "Nothing to test"
           fi

@@ -31,7 +31,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
+          python-version: "3.11"
       - name: Install dependencies
         run: pip install git+https://github.com/hauntsaninja/mypy_primer.git
       - name: Run mypy_primer

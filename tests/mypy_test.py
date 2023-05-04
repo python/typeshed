@@ -12,11 +12,12 @@ import sys
 import tempfile
 import time
 from collections import defaultdict
+from collections.abc import Sequence
 from dataclasses import dataclass
 from itertools import product
 from pathlib import Path
 from threading import Lock
-from typing import TYPE_CHECKING, Any, NamedTuple
+from typing import TYPE_CHECKING, Any, NamedTuple, Tuple
 
 if TYPE_CHECKING:
     from _typeshed import StrPath
@@ -24,14 +25,14 @@ if TYPE_CHECKING:
 from typing_extensions import Annotated, TypeAlias
 
 import tomli
+
+from parse_metadata import PackageDependencies, get_recursive_requirements
 from utils import (
     VERSIONS_RE as VERSION_LINE_RE,
-    PackageDependencies,
     VenvInfo,
     colored,
     get_gitignore_spec,
     get_mypy_req,
-    get_recursive_requirements,
     make_venv,
     print_error,
     print_success_msg,
@@ -41,22 +42,23 @@ from utils import (
 
 # Fail early if mypy isn't installed
 try:
-    import mypy  # noqa: F401
+    import mypy  # pyright: ignore[reportUnusedImport]  # noqa: F401
 except ImportError:
     print_error("Cannot import mypy. Did you install it?")
     sys.exit(1)
 
-SUPPORTED_VERSIONS = ["3.11", "3.10", "3.9", "3.8", "3.7"]
+SUPPORTED_VERSIONS = ["3.12", "3.11", "3.10", "3.9", "3.8", "3.7"]
 SUPPORTED_PLATFORMS = ("linux", "win32", "darwin")
 DIRECTORIES_TO_TEST = [Path("stdlib"), Path("stubs")]
 
 ReturnCode: TypeAlias = int
 VersionString: TypeAlias = Annotated[str, "Must be one of the entries in SUPPORTED_VERSIONS"]
-VersionTuple: TypeAlias = tuple[int, int]
+VersionTuple: TypeAlias = Tuple[int, int]
 Platform: TypeAlias = Annotated[str, "Must be one of the entries in SUPPORTED_PLATFORMS"]
 
 
-class CommandLineArgs(argparse.Namespace):
+@dataclass(init=False)
+class CommandLineArgs:
     verbose: int
     filter: list[Path]
     exclude: list[Path] | None
@@ -74,9 +76,31 @@ def valid_path(cmd_arg: str) -> Path:
     return path
 
 
+def remove_dev_suffix(version: str) -> str:
+    """Helper function for argument-parsing"""
+    if version.endswith("-dev"):
+        return version[: -len("-dev")]
+    return version
+
+
 parser = argparse.ArgumentParser(
     description="Typecheck typeshed's stubs with mypy. Patterns are unanchored regexps on the full path."
 )
+if sys.version_info < (3, 8):
+
+    class ExtendAction(argparse.Action):
+        def __call__(
+            self,
+            parser: argparse.ArgumentParser,
+            namespace: argparse.Namespace,
+            values: Sequence[str],
+            option_string: object = None,
+        ) -> None:
+            items = getattr(namespace, self.dest) or []
+            items.extend(values)
+            setattr(namespace, self.dest, items)
+
+    parser.register("action", "extend", ExtendAction)
 parser.add_argument(
     "filter",
     type=valid_path,
@@ -88,7 +112,7 @@ parser.add_argument("-v", "--verbose", action="count", default=0, help="More out
 parser.add_argument(
     "-p",
     "--python-version",
-    type=str,
+    type=remove_dev_suffix,
     choices=SUPPORTED_VERSIONS,
     nargs="*",
     action="extend",
@@ -142,7 +166,7 @@ def match(path: Path, args: TestConfig) -> bool:
 
 
 def parse_versions(fname: StrPath) -> dict[str, tuple[VersionTuple, VersionTuple]]:
-    result = {}
+    result: dict[str, tuple[VersionTuple, VersionTuple]] = {}
     with open(fname, encoding="UTF-8") as f:
         for line in f:
             line = strip_comments(line)
@@ -193,7 +217,8 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
     with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
         data = tomli.load(f)
 
-    mypy_tests_conf = data.get("mypy-tests")
+    # TODO: This could be added to parse_metadata.py, but is currently unused
+    mypy_tests_conf: dict[str, dict[str, Any]] = data.get("mypy-tests", {})
     if not mypy_tests_conf:
         return
 
@@ -205,8 +230,8 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
         assert module_name is not None, f"{section_name} should have a module_name key"
         assert isinstance(module_name, str), f"{section_name} should be a key-value pair"
 
-        values = mypy_section.get("values")
-        assert values is not None, f"{section_name} should have a values section"
+        assert "values" in mypy_section, f"{section_name} should have a values section"
+        values: dict[str, dict[str, Any]] = mypy_section["values"]
         assert isinstance(values, dict), "values should be a section"
 
         configurations.append(MypyDistConf(module_name, values.copy()))
@@ -247,7 +272,9 @@ def run_mypy(
             # Stub completion is checked by pyright (--allow-*-defs)
             "--allow-untyped-defs",
             "--allow-incomplete-defs",
-            "--allow-subclassing-any",  # TODO: Do we still need this now that non-types dependencies are allowed? (#5768)
+            # See https://github.com/python/typeshed/pull/9491#issuecomment-1381574946
+            # for discussion and reasoning to keep "--allow-subclassing-any"
+            "--allow-subclassing-any",
             "--enable-error-code",
             "ignore-without-code",
             "--config-file",
@@ -323,7 +350,7 @@ def test_third_party_distribution(
 
     mypypath = os.pathsep.join(str(Path("stubs", dist)) for dist in seen_dists)
     if args.verbose:
-        print(colored(f"\n{mypypath=}", "blue"))
+        print(colored(f"\nMYPYPATH={mypypath}", "blue"))
     code = run_mypy(
         args,
         configurations,
@@ -418,7 +445,7 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
 
     venv_start_time = time.perf_counter()
 
-    with concurrent.futures.ThreadPoolExecutor() as executor:
+    with concurrent.futures.ProcessPoolExecutor() as executor:
         venv_info_futures = [
             executor.submit(setup_venv_for_external_requirements_set, requirements_set, tempdir)
             for requirements_set in external_requirements_to_distributions

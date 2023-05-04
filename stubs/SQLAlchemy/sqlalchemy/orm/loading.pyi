@@ -1,18 +1,19 @@
+from _typeshed import Incomplete
 from typing import Any
 
 def instances(cursor, context): ...
-def merge_frozen_result(session, statement, frozen_result, load: bool = ...): ...
-def merge_result(query, iterator, load: bool = ...): ...
+def merge_frozen_result(session, statement, frozen_result, load: bool = True): ...
+def merge_result(query, iterator, load: bool = True): ...
 def get_from_identity(session, mapper, key, passive): ...
 def load_on_ident(
     session,
     statement,
     key,
-    load_options: Any | None = ...,
-    refresh_state: Any | None = ...,
-    with_for_update: Any | None = ...,
-    only_load_props: Any | None = ...,
-    no_autoflush: bool = ...,
+    load_options: Incomplete | None = None,
+    refresh_state: Incomplete | None = None,
+    with_for_update: Incomplete | None = None,
+    only_load_props: Incomplete | None = None,
+    no_autoflush: bool = False,
     bind_arguments=...,
     execution_options=...,
 ): ...
@@ -20,12 +21,12 @@ def load_on_pk_identity(
     session,
     statement,
     primary_key_identity,
-    load_options: Any | None = ...,
-    refresh_state: Any | None = ...,
-    with_for_update: Any | None = ...,
-    only_load_props: Any | None = ...,
-    identity_token: Any | None = ...,
-    no_autoflush: bool = ...,
+    load_options: Incomplete | None = None,
+    refresh_state: Incomplete | None = None,
+    with_for_update: Incomplete | None = None,
+    only_load_props: Incomplete | None = None,
+    identity_token: Incomplete | None = None,
+    no_autoflush: bool = False,
     bind_arguments=...,
     execution_options=...,
 ): ...

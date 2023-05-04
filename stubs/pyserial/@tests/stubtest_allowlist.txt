@@ -8,22 +8,15 @@ serial.serialjava  # No Java Communications API implementation found
 # ======================
 # These are positional only argument in the stub because they inherit from io.RawIOBase
 # but at runtime they are normal arguments that don't have consistent names.
-serial.Serial.read
 serial.Serial.write
 serial.SerialBase.readinto
 serial.serialutil.SerialBase.readinto
-serial.rfc2217.Serial.read
 serial.rfc2217.Serial.write
 serial.rs485.RS485.write
-serial.urlhandler.protocol_cp2110.Serial.read
 serial.urlhandler.protocol_cp2110.Serial.write
-serial.urlhandler.protocol_loop.Serial.read
 serial.urlhandler.protocol_loop.Serial.write
-serial.urlhandler.protocol_rfc2217.Serial.read
 serial.urlhandler.protocol_rfc2217.Serial.write
-serial.urlhandler.protocol_socket.Serial.read
 serial.urlhandler.protocol_socket.Serial.write
-serial.urlhandler.protocol_spy.Serial.read
 serial.urlhandler.protocol_spy.Serial.write
 
 # Error: is not present in stub
@@ -67,7 +60,3 @@ serial.serialutil.SerialBase.setDTR
 serial.serialutil.SerialBase.setPort
 serial.serialutil.SerialBase.setRTS
 serial.serialutil.SerialBase.writeTimeout
-
-# Private aliases
-serial.serialposix.plat
-serial.tools.list_ports_posix.plat

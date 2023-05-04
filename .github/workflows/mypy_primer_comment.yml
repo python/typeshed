@@ -50,9 +50,11 @@ jobs:
           script: |
             const fs = require('fs')
             let data = fs.readFileSync('fulldiff.txt', { encoding: 'utf8' })
-            // posting comment fails if too long, so truncate
-            if (data.length > 30000) {
-              let truncated_data = data.substring(0, 30000)
+
+            // Maximum comment length is 65536 characters. We need much less than 236 for extra text.
+            const MAX_LENGTH = 65300
+            if (data.length > MAX_LENGTH) {
+              let truncated_data = data.substring(0, MAX_LENGTH)
               let lines_truncated = data.split('\n').length - truncated_data.split('\n').length
               data = truncated_data + `\n\n... (truncated ${lines_truncated} lines) ...\n`
             }

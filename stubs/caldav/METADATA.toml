@@ -1,3 +1,6 @@
-version = "0.11.*"
+version = "1.2.*"
 # also types-lxml and types-icalendar when those stubs are added
 requires = ["types-requests", "types-vobject"]
+
+[tool.stubtest]
+ignore_missing_stub = true

@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from typing import Any, ClassVar
 
 class HasDescriptionCode:
@@ -21,7 +22,7 @@ class AmbiguousForeignKeysError(ArgumentError): ...
 class CircularDependencyError(SQLAlchemyError):
     cycles: Any
     edges: Any
-    def __init__(self, message, cycles, edges, msg: Any | None = ..., code: Any | None = ...) -> None: ...
+    def __init__(self, message, cycles, edges, msg: Incomplete | None = None, code: Incomplete | None = None) -> None: ...
     def __reduce__(self): ...
 
 class CompileError(SQLAlchemyError): ...
@@ -31,7 +32,7 @@ class UnsupportedCompilationError(CompileError):
     compiler: Any
     element_type: Any
     message: str | None
-    def __init__(self, compiler, element_type, message: str | None = ...) -> None: ...
+    def __init__(self, compiler, element_type, message: str | None = None) -> None: ...
     def __reduce__(self): ...
 
 class IdentifierError(SQLAlchemyError): ...
@@ -82,7 +83,14 @@ class StatementError(SQLAlchemyError):
     hide_parameters: Any
     detail: Any
     def __init__(
-        self, message, statement, params, orig, hide_parameters: bool = ..., code: Any | None = ..., ismulti: Any | None = ...
+        self,
+        message,
+        statement,
+        params,
+        orig,
+        hide_parameters: bool = False,
+        code: Incomplete | None = None,
+        ismulti: Incomplete | None = None,
     ) -> None: ...
     def add_detail(self, msg) -> None: ...
     def __reduce__(self): ...
@@ -96,10 +104,10 @@ class DBAPIError(StatementError):
         params,
         orig,
         dbapi_base_err,
-        hide_parameters: bool = ...,
-        connection_invalidated: bool = ...,
-        dialect: Any | None = ...,
-        ismulti: Any | None = ...,
+        hide_parameters: bool = False,
+        connection_invalidated: bool = False,
+        dialect: Incomplete | None = None,
+        ismulti: Incomplete | None = None,
     ): ...
     def __reduce__(self): ...
     connection_invalidated: Any
@@ -108,10 +116,10 @@ class DBAPIError(StatementError):
         statement,
         params,
         orig,
-        hide_parameters: bool = ...,
-        connection_invalidated: bool = ...,
-        code: Any | None = ...,
-        ismulti: Any | None = ...,
+        hide_parameters: bool = False,
+        connection_invalidated: bool = False,
+        code: Incomplete | None = None,
+        ismulti: Incomplete | None = None,
     ) -> None: ...
 
 class InterfaceError(DBAPIError): ...

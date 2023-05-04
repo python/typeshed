@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from typing import Any
 
 class AttrDef:
@@ -16,16 +17,16 @@ class AttrDef:
     def __init__(
         self,
         name,
-        key: Any | None = ...,
-        validate: Any | None = ...,
-        pre_query: Any | None = ...,
-        post_query: Any | None = ...,
+        key: Incomplete | None = None,
+        validate: Incomplete | None = None,
+        pre_query: Incomplete | None = None,
+        post_query: Incomplete | None = None,
         default=...,
-        dereference_dn: Any | None = ...,
-        description: Any | None = ...,
-        mandatory: bool = ...,
-        single_value: Any | None = ...,
-        alias: Any | None = ...,
+        dereference_dn: Incomplete | None = None,
+        description: Incomplete | None = None,
+        mandatory: bool = False,
+        single_value: Incomplete | None = None,
+        alias: Incomplete | None = None,
     ) -> None: ...
     def __eq__(self, other): ...
     def __lt__(self, other): ...

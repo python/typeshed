@@ -1,8 +1,3 @@
-# Unintended re-exports
-pyasn1.compat.binary.version_info
-pyasn1.compat.octets.version_info
-pyasn1.compat.string.version_info
-
 # type_check_only
 pyasn1.type.base.NoValue.plug
 

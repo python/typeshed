@@ -12,7 +12,6 @@ def test_iscoroutinefunction(
     z: Callable[[str, int], str | Awaitable[bytes]],
     xx: object,
 ) -> None:
-
     if iscoroutinefunction(x):
         assert_type(x, Callable[[str, int], Coroutine[str, int, bytes]])
 

@@ -1,5 +1,1 @@
 zxcvbn.__main__
-
-# re-exports:
-zxcvbn.scoring.ADJACENCY_GRAPHS
-zxcvbn.matching.FREQUENCY_LISTS
