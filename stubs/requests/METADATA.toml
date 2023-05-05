@@ -1,4 +1,4 @@
-version = "2.29.*"
+version = "2.30.*"
 requires = ["types-urllib3<1.27"] # keep in sync with requests's setup.py
 
 [tool.stubtest]
