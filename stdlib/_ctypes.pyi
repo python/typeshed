@@ -3,7 +3,7 @@ from _typeshed import ReadableBuffer, WriteableBuffer
 from abc import abstractmethod
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from ctypes import CDLL, c_int
-from typing import Any, Generic, TypeVar, overload
+from typing import Any, ClassVar, Generic, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
 if sys.version_info >= (3, 9):
@@ -100,7 +100,7 @@ class CFuncPtr(_PointerLike, _CData):
     restype: type[_CData] | Callable[[int], Any] | None
     argtypes: Sequence[type[_CData]]
     errcheck: _ECT
-    _flags_: int
+    _flags_: ClassVar[int]  # Abstract attribute that must be defined on subclasses
     @overload
     def __init__(self, address: int) -> None: ...
     @overload
