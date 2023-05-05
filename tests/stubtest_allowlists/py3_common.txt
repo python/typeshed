@@ -24,6 +24,7 @@ _collections_abc.Set.__rsub__
 _collections_abc.Set.__rxor__
 
 _csv.Dialect.__init__  # C __init__ signature is inaccurate
+_ctypes.CFuncPtr  # stubtest erroneously thinks it can't be subclassed
 _threading_local.local.__new__
 _weakref.ref.*  # Alias for _weakref.ReferenceType, problems should be fixed there
 _weakref.CallableProxyType.__getattr__  # Should have all attributes of proxy
