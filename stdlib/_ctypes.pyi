@@ -100,6 +100,7 @@ class CFuncPtr(_PointerLike, _CData):
     restype: type[_CData] | Callable[[int], Any] | None
     argtypes: Sequence[type[_CData]]
     errcheck: _ECT
+    _flags_: int
     @overload
     def __init__(self, address: int) -> None: ...
     @overload
