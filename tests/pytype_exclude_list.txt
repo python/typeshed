@@ -188,3 +188,6 @@ stubs/SQLAlchemy/sqlalchemy/sql/functions.pyi
 stubs/SQLAlchemy/sqlalchemy/sql/lambdas.pyi
 stubs/SQLAlchemy/sqlalchemy/sql/schema.pyi
 stubs/SQLAlchemy/sqlalchemy/sql/selectable.pyi
+# Uncertain why pytype is giving an error
+# pytype.pytd.visitors.ContainerError
+stubs/SQLAlchemy/sqlalchemy/sql/annotation.pyi

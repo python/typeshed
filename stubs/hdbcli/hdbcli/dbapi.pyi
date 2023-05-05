@@ -18,7 +18,7 @@ class Connection:
         self,
         address: str,
         port: int,
-        username: str,
+        user: str,
         password: str,
         autocommit: bool = ...,
         packetsize: int | None = ...,
@@ -95,6 +95,7 @@ class Cursor:
     def setpacketsize(self, value: int) -> None: ...
     def set_resultset_holdability(self, holdability: int) -> None: ...
     def setoutputsize(self, *args: Any, **kwargs: Any) -> None: ...
+    def setcommandinfo(self, command_info: str, line_number: int) -> None: ...
 
 class Warning(Exception):
     errorcode: int
@@ -129,8 +130,8 @@ def Binary(data: ReadableBuffer) -> memoryview: ...
 
 Decimal = decimal.Decimal
 
-NUMBER: type[int] | type[float] | type[complex]
-DATETIME: type[date] | type[time] | type[datetime]
+NUMBER: type[int | float | complex]
+DATETIME: type[date | time | datetime]
 STRING = str
 BINARY = memoryview
 ROWID = int

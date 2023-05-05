@@ -4,7 +4,7 @@ from typing import Any, ClassVar
 from typing_extensions import Self
 
 from .. import util
-from ..util import HasMemoized, hybridmethod, memoized_property
+from ..util.langhelpers import HasMemoized, hybridmethod, memoized_property
 from . import roles
 from .elements import ColumnElement
 from .traversals import (
@@ -73,7 +73,7 @@ class _MetaOptions(type):
     def __init__(cls, classname, bases, dict_) -> None: ...
     def __add__(self, other): ...
 
-class Options:
+class Options(metaclass=_MetaOptions):
     def __init__(self, **kw) -> None: ...
     def __add__(self, other): ...
     def __eq__(self, other): ...
@@ -110,7 +110,8 @@ class Executable(roles.StatementRole, Generative):
 class prefix_anon_map(dict[Any, Any]):
     def __missing__(self, key): ...
 
-class SchemaEventTarget: ...
+class SchemaEventTarget:
+    dispatch: Incomplete
 
 class SchemaVisitor(ClauseVisitor):
     __traverse_options__: Any

@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, ReadableBuffer
 from collections.abc import Callable, Iterable, Iterator
 from re import Pattern
 from typing import Any, Generic, TypeVar, overload
@@ -182,7 +182,7 @@ class NavigableString(str, PageElement):
     PREFIX: str
     SUFFIX: str
     known_xml: bool | None
-    def __new__(cls, value: str | bytes) -> Self: ...
+    def __new__(cls, value: str | ReadableBuffer) -> Self: ...
     def __copy__(self) -> Self: ...
     def __getnewargs__(self) -> tuple[str]: ...
     def output_ready(self, formatter: Formatter | str | None = "minimal") -> str: ...
@@ -299,7 +299,11 @@ class Tag(PageElement):
         errors: str = "xmlcharrefreplace",
     ) -> bytes: ...
     def decode(
-        self, indent_level: int | None = None, eventual_encoding: str = "utf-8", formatter: str | Formatter = "minimal"
+        self,
+        indent_level: int | None = None,
+        eventual_encoding: str = "utf-8",
+        formatter: str | Formatter = "minimal",
+        iterator: Iterator[PageElement] | None = None,
     ) -> str: ...
     @overload
     def prettify(self, encoding: str, formatter: str | Formatter = "minimal") -> bytes: ...
