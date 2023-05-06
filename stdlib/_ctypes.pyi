@@ -1,9 +1,9 @@
 import sys
 from _typeshed import ReadableBuffer, WriteableBuffer
 from abc import abstractmethod
-from collections.abc import Iterable, Iterator, Mapping, Sequence
-from ctypes import CDLL
-from typing import Any, Generic, TypeVar, overload
+from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
+from ctypes import CDLL, c_int
+from typing import Any, ClassVar, Generic, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
 if sys.version_info >= (3, 9):
@@ -92,6 +92,24 @@ def pointer(__arg: _CT) -> _Pointer[_CT]: ...
 class _CArgObject: ...
 
 def byref(obj: _CData, offset: int = ...) -> _CArgObject: ...
+
+_ECT: TypeAlias = Callable[[type[_CData] | None, CFuncPtr, tuple[_CData, ...]], _CData]
+_PF: TypeAlias = tuple[int] | tuple[int, str] | tuple[int, str, Any]
+
+class CFuncPtr(_PointerLike, _CData):
+    restype: type[_CData] | Callable[[int], Any] | None
+    argtypes: Sequence[type[_CData]]
+    errcheck: _ECT
+    _flags_: ClassVar[int]  # Abstract attribute that must be defined on subclasses
+    @overload
+    def __init__(self, address: int) -> None: ...
+    @overload
+    def __init__(self, callable: Callable[..., Any]) -> None: ...
+    @overload
+    def __init__(self, func_spec: tuple[str | int, CDLL], paramflags: tuple[_PF, ...] = ...) -> None: ...
+    @overload
+    def __init__(self, vtlb_index: int, name: str, paramflags: tuple[_PF, ...] = ..., iid: _Pointer[c_int] = ...) -> None: ...
+    def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 
 class _CField:
     offset: int
