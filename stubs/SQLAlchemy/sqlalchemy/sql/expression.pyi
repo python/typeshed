@@ -1,11 +1,11 @@
 from _typeshed import Incomplete, ReadableBuffer, SupportsTrunc, Unused
 from collections.abc import Callable
-from typing import Any, SupportsInt, TypeVar, overload
+from typing import SupportsInt, TypeVar, overload
 from typing_extensions import SupportsIndex
 
 from ..sql.coercions import _CoercibleElement
 from ..sql.type_api import TypeEngine
-from ..util.langhelpers import _DictLike, _symbol, symbol
+from ..util.langhelpers import _symbol, symbol
 from .base import PARSE_AUTOCOMMIT as PARSE_AUTOCOMMIT, ColumnCollection as ColumnCollection, Executable as Executable
 from .dml import Delete as Delete, Insert as Insert, Update as Update, UpdateBase as UpdateBase, ValuesBase as ValuesBase
 from .elements import (
@@ -242,7 +242,9 @@ def label(
 ) -> Label: ...
 
 # Variance issues with _CoercibleElements would make _DictLike too complex here.
-def case(*whens: _DictLike[Any, Incomplete], value: Incomplete | None = None, else_: Incomplete | None = None) -> Case: ...
+def case(
+    *whens: tuple[_CoercibleElement, _CoercibleElement], value: Incomplete | None = None, else_: Incomplete | None = None
+) -> Case: ...
 def cast(expression, type_: TypeEngine | type[TypeEngine] | None) -> Cast: ...
 def cte(selectable, name=None, recursive=False) -> CTE: ...
 def values(*columns, **kw) -> Values: ...
