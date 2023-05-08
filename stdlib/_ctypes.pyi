@@ -1,9 +1,9 @@
 import sys
 from _typeshed import ReadableBuffer, WriteableBuffer
 from abc import abstractmethod
-from collections.abc import Iterable, Iterator, Mapping, Sequence
-from ctypes import CDLL, _CArgObject, _PointerLike
-from typing import Any, Generic, TypeVar, overload
+from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
+from ctypes import CDLL
+from typing import Any, ClassVar, Generic, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
 if sys.version_info >= (3, 9):
@@ -69,6 +69,53 @@ class _SimpleCData(Generic[_T], _CData):
     # The TypeVar can be unsolved here,
     # but we can't use overloads without creating many, many mypy false-positive errors
     def __init__(self, value: _T = ...) -> None: ...  # pyright: ignore[reportInvalidTypeVarUse]
+
+class _CanCastTo(_CData): ...
+class _PointerLike(_CanCastTo): ...
+
+class _Pointer(Generic[_CT], _PointerLike, _CData):
+    _type_: type[_CT]
+    contents: _CT
+    @overload
+    def __init__(self) -> None: ...
+    @overload
+    def __init__(self, arg: _CT) -> None: ...
+    @overload
+    def __getitem__(self, __key: int) -> Any: ...
+    @overload
+    def __getitem__(self, __key: slice) -> list[Any]: ...
+    def __setitem__(self, __key: int, __value: Any) -> None: ...
+
+def POINTER(type: type[_CT]) -> type[_Pointer[_CT]]: ...
+def pointer(__arg: _CT) -> _Pointer[_CT]: ...
+
+class _CArgObject: ...
+
+def byref(obj: _CData, offset: int = ...) -> _CArgObject: ...
+
+_ECT: TypeAlias = Callable[[type[_CData] | None, CFuncPtr, tuple[_CData, ...]], _CData]
+_PF: TypeAlias = tuple[int] | tuple[int, str | None] | tuple[int, str | None, Any]
+
+class CFuncPtr(_PointerLike, _CData):
+    restype: type[_CData] | Callable[[int], Any] | None
+    argtypes: Sequence[type[_CData]]
+    errcheck: _ECT
+    _flags_: ClassVar[int]  # Abstract attribute that must be defined on subclasses
+    @overload
+    def __init__(self) -> None: ...
+    @overload
+    def __init__(self, __address: int) -> None: ...
+    @overload
+    def __init__(self, __callable: Callable[..., Any]) -> None: ...
+    @overload
+    def __init__(self, __func_spec: tuple[str | int, CDLL], __paramflags: tuple[_PF, ...] | None = ...) -> None: ...
+    if sys.platform == "win32":
+        @overload
+        def __init__(
+            self, __vtbl_index: int, __name: str, __paramflags: tuple[_PF, ...] | None = ..., __iid: _CData | None = ...
+        ) -> None: ...
+
+    def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 
 class _CField:
     offset: int

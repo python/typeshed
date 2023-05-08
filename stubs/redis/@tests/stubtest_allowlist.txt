@@ -19,6 +19,7 @@ redis.sentinel.Sentinel.slave_for
 # Metaclass differs:
 redis.RedisCluster
 redis.asyncio.Redis
+redis.asyncio.RedisCluster
 redis.asyncio.client.MonitorCommandInfo
 redis.asyncio.client.Pipeline
 redis.asyncio.client.Redis

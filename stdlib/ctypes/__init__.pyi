@@ -1,26 +1,33 @@
 import sys
 from _ctypes import (
+    POINTER as POINTER,
     RTLD_GLOBAL as RTLD_GLOBAL,
     RTLD_LOCAL as RTLD_LOCAL,
     ArgumentError as ArgumentError,
     Array as Array,
+    CFuncPtr as _CFuncPtr,
     Structure as Structure,
     Union as Union,
+    _CanCastTo as _CanCastTo,
+    _CArgObject as _CArgObject,
     _CData as _CData,
     _CDataMeta as _CDataMeta,
     _CField as _CField,
+    _Pointer as _Pointer,
+    _PointerLike as _PointerLike,
     _SimpleCData as _SimpleCData,
     _StructUnionBase as _StructUnionBase,
     _StructUnionMeta as _StructUnionMeta,
     addressof as addressof,
     alignment as alignment,
+    byref as byref,
     get_errno as get_errno,
+    pointer as pointer,
     resize as resize,
     set_errno as set_errno,
     sizeof as sizeof,
 )
-from collections.abc import Callable, Sequence
-from typing import Any, ClassVar, Generic, TypeVar, overload
+from typing import Any, ClassVar, Generic, TypeVar
 from typing_extensions import TypeAlias
 
 if sys.platform == "win32":
@@ -31,7 +38,6 @@ if sys.version_info >= (3, 9):
 
 _T = TypeVar("_T")
 _DLLT = TypeVar("_DLLT", bound=CDLL)
-_CT = TypeVar("_CT", bound=_CData)
 
 DEFAULT_MODE: int
 
@@ -85,25 +91,7 @@ if sys.platform == "win32":
 pydll: LibraryLoader[PyDLL]
 pythonapi: PyDLL
 
-class _CanCastTo(_CData): ...
-class _PointerLike(_CanCastTo): ...
-
-_ECT: TypeAlias = Callable[[type[_CData] | None, _FuncPointer, tuple[_CData, ...]], _CData]
-_PF: TypeAlias = tuple[int] | tuple[int, str] | tuple[int, str, Any]
-
-class _FuncPointer(_PointerLike, _CData):
-    restype: type[_CData] | Callable[[int], Any] | None
-    argtypes: Sequence[type[_CData]]
-    errcheck: _ECT
-    @overload
-    def __init__(self, address: int) -> None: ...
-    @overload
-    def __init__(self, callable: Callable[..., Any]) -> None: ...
-    @overload
-    def __init__(self, func_spec: tuple[str | int, CDLL], paramflags: tuple[_PF, ...] = ...) -> None: ...
-    @overload
-    def __init__(self, vtlb_index: int, name: str, paramflags: tuple[_PF, ...] = ..., iid: _Pointer[c_int] = ...) -> None: ...
-    def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
+class _FuncPointer(_CFuncPtr): ...
 
 class _NamedFuncPointer(_FuncPointer):
     __name__: str
@@ -119,8 +107,6 @@ if sys.platform == "win32":
 
 def PYFUNCTYPE(restype: type[_CData] | None, *argtypes: type[_CData]) -> type[_FuncPointer]: ...
 
-class _CArgObject: ...
-
 # Any type that can be implicitly converted to c_void_p when passed as a C function argument.
 # (bytes is not included here, see below.)
 _CVoidPLike: TypeAlias = _PointerLike | Array[Any] | _CArgObject | int
@@ -129,8 +115,6 @@ _CVoidPLike: TypeAlias = _PointerLike | Array[Any] | _CArgObject | int
 # and non-const pointers), but it catches errors like memmove(b'foo', buf, 4)
 # when memmove(buf, b'foo', 4) was intended.
 _CVoidConstPLike: TypeAlias = _CVoidPLike | bytes
-
-def byref(obj: _CData, offset: int = ...) -> _CArgObject: ...
 
 _CastT = TypeVar("_CastT", bound=_CanCastTo)
 
@@ -148,22 +132,6 @@ if sys.platform == "win32":
 
 def memmove(dst: _CVoidPLike, src: _CVoidConstPLike, count: int) -> int: ...
 def memset(dst: _CVoidPLike, c: int, count: int) -> int: ...
-def POINTER(type: type[_CT]) -> type[_Pointer[_CT]]: ...
-
-class _Pointer(Generic[_CT], _PointerLike, _CData):
-    _type_: type[_CT]
-    contents: _CT
-    @overload
-    def __init__(self) -> None: ...
-    @overload
-    def __init__(self, arg: _CT) -> None: ...
-    @overload
-    def __getitem__(self, __key: int) -> Any: ...
-    @overload
-    def __getitem__(self, __key: slice) -> list[Any]: ...
-    def __setitem__(self, __key: int, __value: Any) -> None: ...
-
-def pointer(__arg: _CT) -> _Pointer[_CT]: ...
 def string_at(address: _CVoidConstPLike, size: int = -1) -> bytes: ...
 
 if sys.platform == "win32":
