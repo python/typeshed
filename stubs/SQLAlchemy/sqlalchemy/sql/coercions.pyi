@@ -36,6 +36,7 @@ _CoercibleElement: TypeAlias = (  # noqa: Y047
     # TODO: Added these extra for mypy_primer, validate if they should be there
     | ColumnOperators[Any]
     | type[_DeclarativeBase]
+    | None
 )
 
 _T = TypeVar("_T")
