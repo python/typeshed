@@ -4,10 +4,11 @@ from types import TracebackType
 from typing import Any, TypeVar, overload
 from typing_extensions import Self
 
+from sqlalchemy.sql.coercions import _CoercibleElement
+
 from ..engine.base import Connection
 from ..engine.result import Result
 from ..engine.util import TransactionalContext
-from ..sql.elements import ClauseElement
 from ..util.langhelpers import MemoizedSlots, memoized_property
 from .query import Query
 
@@ -164,11 +165,11 @@ class Session(_SessionClassMethods):
         _sa_skip_for_implicit_returning: bool = False,
     ): ...
     @overload
-    def query(self, __entity: ClauseElement, **kwargs: Any) -> Query[Incomplete]: ...  # -> Query[tuple[_T]]
+    def query(self, *entities: type[_T], **kwargs: Any) -> Query[_T]: ...  # type: ignore[misc]
     @overload
-    def query(self, *entities: ClauseElement, **kwargs: Any) -> Query[tuple[Incomplete, ...]]: ...  # -> Query[tuple[_T, ...]]
+    def query(self, __entity: _CoercibleElement, **kwargs: Any) -> Query[Incomplete]: ...  # -> Query[tuple[_T]]
     @overload
-    def query(self, *entities: type[_T], **kwargs: Any) -> Query[_T]: ...
+    def query(self, *entities: _CoercibleElement, **kwargs: Any) -> Query[tuple[Incomplete, ...]]: ...  # -> Query[tuple[_T, ...]]
     @property
     def no_autoflush(self) -> None: ...
     def refresh(self, instance, attribute_names: Incomplete | None = None, with_for_update: Incomplete | None = None) -> None: ...
