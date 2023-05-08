@@ -17,9 +17,6 @@ redis.sentinel.Sentinel.master_for
 redis.sentinel.Sentinel.slave_for
 
 # Metaclass differs:
-redis.RedisCluster
-redis.asyncio.Redis
-redis.asyncio.RedisCluster
 # (runtime uses redis.compat.TypedDict)
 redis.asyncio.client.MonitorCommandInfo
 redis.asyncio.connection.ConnectKwargs
