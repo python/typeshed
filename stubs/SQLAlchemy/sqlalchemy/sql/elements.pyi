@@ -286,7 +286,7 @@ class Case(ColumnElement[Any]):
     whens: Any
     else_: Incomplete | None
     def __init__(
-        self, *whens: Iterable[_CoercibleElement], value: Incomplete | None = None, else_: Incomplete | None = None
+        self, *whens: Iterable[Incomplete], value: Incomplete | None = None, else_: Incomplete | None = None
     ) -> None: ...
 
 def literal_column(text, type_: TypeEngine | _type[TypeEngine] | None = None) -> ColumnClause: ...  # ColumnClause[TypeEngine[_T]]
