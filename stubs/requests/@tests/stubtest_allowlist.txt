@@ -1,16 +1,8 @@
 # Re-exports from urllib3 (should be fixed in those stubs, not here)
-requests.adapters.PoolManager.connection_from_context
-requests.adapters.PoolManager.connection_from_host
-requests.adapters.PoolManager.connection_from_pool_key
-requests.adapters.PoolManager.connection_from_url
-requests.adapters.PoolManager.proxy_config
-requests.adapters.PoolManager.urlopen
-requests.adapters.Retry.DEFAULT
+requests\.adapters\.PoolManager\..*
+requests\.adapters\.Retry\..*
 
 # Loop variables that leak into the global scope
 requests.packages.mod
 requests.packages.package
 requests.packages.target
-
-# Metaclass differs:
-requests.adapters.Retry
