@@ -123,11 +123,22 @@ class StubMetadata:
     obsolete_since: Annotated[str, "A string representing a specific version"] | None
     no_longer_updated: bool
     uploaded_to_pypi: Annotated[bool, "Whether or not a distribution is uploaded to PyPI"]
+    partial_stub: Annotated[bool, "Whether stub_uploader should distribute as a partial type stub."]
     stubtest_settings: StubtestSettings
 
 
 _KNOWN_METADATA_FIELDS: Final = frozenset(
-    {"version", "requires", "extra_description", "stub_distribution", "obsolete_since", "no_longer_updated", "upload", "tool"}
+    {
+        "version",
+        "requires",
+        "extra_description",
+        "stub_distribution",
+        "obsolete_since",
+        "no_longer_updated",
+        "upload",
+        "tool",
+        "partial_stub",
+    }
 )
 _KNOWN_METADATA_TOOL_FIELDS: Final = {
     "stubtest": {
@@ -190,6 +201,8 @@ def read_metadata(distribution: str) -> StubMetadata:
     assert type(no_longer_updated) is bool
     uploaded_to_pypi: object = data.get("upload", True)
     assert type(uploaded_to_pypi) is bool
+    partial_stub: object = data.get("partial_stub", True)
+    assert type(partial_stub) is bool
 
     empty_tools: dict[object, object] = {}
     tools_settings: object = data.get("tool", empty_tools)
@@ -209,6 +222,7 @@ def read_metadata(distribution: str) -> StubMetadata:
         obsolete_since=obsolete_since,
         no_longer_updated=no_longer_updated,
         uploaded_to_pypi=uploaded_to_pypi,
+        partial_stub=partial_stub,
         stubtest_settings=read_stubtest_settings(distribution),
     )
 

@@ -191,6 +191,11 @@ supported:
 * `upload` (optional): This field is set to `false` to prevent automatic
   uploads to PyPI. This should only used in special cases, e.g. when the stubs
   break the upload.
+* `partial_stub` (optional): This field is used to let stub_uploader know whether
+  to distribute a type stub package as
+  [partial](https://peps.python.org/pep-0561/#partial-stub-packages). This is for
+  3rd-party stubs that don't cover the entirerity of the package's public API.
+  In most cases, this field follows `stubtest_requirements`.
 
 In addition, we specify configuration for stubtest in the `tool.stubtest` table.
 This has the following keys:
