@@ -77,21 +77,11 @@ class Column(DialectKWArgs, SchemaItem, ColumnClause):
     identity: Incomplete | None
     @memoized_property
     def info(self) -> Mapping[str, Any]: ...
-    # FIXME: Only specifying TraversibleType in __init__ to work around a mypy bug!
-    # example from pandas.tests.io.tests_sql:
-    # ```python
-    # date_type = TEXT if dialect == "sqlite" else DateTime
-    # bool_type = Integer if dialect == "sqlite" else Boolean
-    # Column("DateCol", date_type)
-    # ```
-    # mypy thinks date_type is TraversibleType instead of Union[type[TEXT], type[DateTime]]
-    #
-    # If quote in kwargs, then name must not be None
     @overload
     def __init__(
         self,
         name: str,
-        type_: TypeEngine | type[TypeEngine] | None | visitors.TraversibleType,
+        type_: TypeEngine | type[TypeEngine] | None,
         *args,
         quote: bool | None,
         key: str = ...,

@@ -285,8 +285,9 @@ class Case(ColumnElement[Any]):
     def type(self) -> Incomplete | None: ...
     whens: Any
     else_: Incomplete | None
+    # Variance issues with _CoercibleElements would make _DictLike too complex here.
     def __init__(
-        self, *whens: _DictLike[_CoercibleElement, Incomplete], value: Incomplete | None = None, else_: Incomplete | None = None
+        self, *whens: _DictLike[Any, Incomplete], value: Incomplete | None = None, else_: Incomplete | None = None
     ) -> None: ...
 
 def literal_column(text, type_: TypeEngine | _type[TypeEngine] | None = None) -> ColumnClause: ...  # ColumnClause[TypeEngine[_T]]
@@ -306,7 +307,7 @@ class TypeCoerce(WrapsColumnExpression, ColumnElement[Any]):
     @memoized_property
     def type(self) -> TypeEngine | None: ...
     clause: Any
-    def __init__(self, expression: str | ColumnElement[Incomplete], type_: TypeEngine | _type[TypeEngine] | None) -> None: ...
+    def __init__(self, expression: _CoercibleElement, type_: TypeEngine | _type[TypeEngine] | None) -> None: ...
     @HasMemoized.memoized_attribute
     def typed_expression(self): ...
     @property
