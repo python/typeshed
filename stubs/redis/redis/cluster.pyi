@@ -69,7 +69,7 @@ class RedisCluster(AbstractRedisCluster, RedisClusterCommands[_StrType], Generic
         read_from_replicas: bool = False,
         dynamic_startup_nodes: bool = True,
         url: str | None = None,
-         address_remap: Callable[[str, int], tuple[str, int]] | None = None,
+        address_remap: Callable[[str, int], tuple[str, int]] | None = None,
         **kwargs,
     ) -> None: ...
     def __enter__(self) -> Self: ...

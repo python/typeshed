@@ -137,7 +137,10 @@ class NodesManager:
     slots_cache: dict[int, list[ClusterNode]]
     read_load_balancer: LoadBalancer
     def __init__(
-        self, startup_nodes: list[ClusterNode], require_full_coverage: bool, connection_kwargs: dict[str, Any],
+        self,
+        startup_nodes: list[ClusterNode],
+        require_full_coverage: bool,
+        connection_kwargs: dict[str, Any],
         address_remap: Callable[[str, int], tuple[str, int]] | None = None,
     ) -> None: ...
     def get_node(self, host: str | None = None, port: int | None = None, node_name: str | None = None) -> ClusterNode | None: ...
