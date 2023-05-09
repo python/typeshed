@@ -69,6 +69,7 @@ class RedisCluster(AbstractRedisCluster, RedisClusterCommands[_StrType], Generic
         read_from_replicas: bool = False,
         dynamic_startup_nodes: bool = True,
         url: str | None = None,
+         address_remap: Callable[[str, int], tuple[str, int]] | None = None,
         **kwargs,
     ) -> None: ...
     def __enter__(self) -> Self: ...
@@ -149,6 +150,7 @@ class NodesManager:
         lock: Lock | None = None,
         dynamic_startup_nodes: bool = True,
         connection_pool_class: type[ConnectionPool] = ...,
+        address_remap: Callable[[str, int], tuple[str, int]] | None = None,
         **kwargs,  # TODO: same type as connection_kwargs
     ) -> None: ...
     def get_node(
