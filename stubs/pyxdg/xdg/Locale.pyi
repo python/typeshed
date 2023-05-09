@@ -1,0 +1,6 @@
+regex: str
+
+def expand_languages(languages: list[str] | None = None) -> list[str]: ...
+def update(language: str | None = None) -> None: ...
+
+langs: list[str]
