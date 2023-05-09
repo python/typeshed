@@ -35,7 +35,7 @@ class IniFile:
     @overload
     def get(
         self, key: str, group: str | None, locale: bool, type: Literal["regex"], list: bool = False, strict: bool = False
-    ) -> re.Pattern | list[re.Pattern]: ...
+    ) -> re.Pattern[str] | list[re.Pattern[str]]: ...
     @overload
     def get(
         self,
