@@ -5,7 +5,6 @@ import sys
 from _typeshed import ReadableBuffer, StrPath
 from collections.abc import Callable
 from logging import FileHandler, Handler, LogRecord
-from queue import Queue, SimpleQueue
 from re import Pattern
 from socket import SocketKind, socket
 from typing import Any, ClassVar, Protocol, TypeVar
