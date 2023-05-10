@@ -3,7 +3,6 @@ import xml.dom
 from _typeshed import Unused
 from collections.abc import Collection, Iterable, Iterator
 from types import CodeType
-from typing import AnyStr
 from typing_extensions import Literal
 
 from .DesktopEntry import DesktopEntry
@@ -165,4 +164,4 @@ class MenuEntryCache:
     def add_menu_entries(self, dirs: Iterable[str], prefix: str = "", legacy: bool = False) -> None: ...
     def get_menu_entries(self, dirs: Collection[str], legacy: bool = True) -> list[MenuEntry]: ...
 
-def parse(filename: AnyStr | None = None, debug: bool = False) -> XMLMenuBuilder: ...
+def parse(filename: str | None = None, debug: bool = False) -> XMLMenuBuilder: ...

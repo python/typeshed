@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from os import PathLike
-from typing import AnyStr, overload
+from typing import overload
 from typing_extensions import TypeAlias
 
 from .Menu import Menu, MenuEntry, Separator, XMLMenuBuilder
@@ -13,8 +13,8 @@ class MenuEditor:
     tree: Incomplete
     parser: XMLMenuBuilder
     filenames: list[str]
-    def __init__(self, menu: Menu | None = None, filename: PathLike[AnyStr] | None = None, root: bool = False) -> None: ...
-    def parse(self, menu: Menu | None = None, filename: PathLike[AnyStr] | None = None, root: bool = False) -> None: ...
+    def __init__(self, menu: Menu | None = None, filename: PathLike[str] | None = None, root: bool = False) -> None: ...
+    def parse(self, menu: Menu | None = None, filename: PathLike[str] | None = None, root: bool = False) -> None: ...
     def save(self) -> None: ...
 
     # All "before" or "after" items can be one, the other, or neither, but not both.

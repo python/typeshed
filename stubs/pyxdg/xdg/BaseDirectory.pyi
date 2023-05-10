@@ -1,6 +1,5 @@
 from collections.abc import Iterator
 from os import PathLike
-from typing import AnyStr
 
 xdg_data_home: str
 xdg_data_dirs: list[str]
