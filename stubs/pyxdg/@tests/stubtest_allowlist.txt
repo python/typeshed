@@ -1,0 +1,1 @@
+xdg.IconTheme.basedir  # This is a side-effect of a for loop rather than an intended part of the API.

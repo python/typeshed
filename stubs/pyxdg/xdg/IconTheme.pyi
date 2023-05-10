@@ -3,8 +3,6 @@ from os import PathLike
 
 from xdg.IniFile import IniFile
 
-# basedir: Unused  # This is something that shouldn't be included since it's
-
 class IconTheme(IniFile):
     def __init__(self) -> None: ...
     dir: str
