@@ -123,7 +123,7 @@ class StubMetadata:
     obsolete_since: Annotated[str, "A string representing a specific version"] | None
     no_longer_updated: bool
     uploaded_to_pypi: Annotated[bool, "Whether or not a distribution is uploaded to PyPI"]
-    partial_stub: Annotated[bool, "Whether stub_uploader should distribute as a partial type stub."]
+    partial_stub: Annotated[bool, "Whether this is a partial type stub as per PEP 561."]
     stubtest_settings: StubtestSettings
 
 
