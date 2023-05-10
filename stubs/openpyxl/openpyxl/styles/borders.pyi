@@ -38,7 +38,7 @@ _SideStyle: TypeAlias = Literal[
 ]
 
 class Side(Serialisable):
-    __fields__: tuple[str, ...]
+    __fields__: ClassVar[tuple[str, ...]]
     color: Incomplete
     style: NoneSet[_SideStyle]
     border_style: Alias
