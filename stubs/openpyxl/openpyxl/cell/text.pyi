@@ -1,6 +1,6 @@
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import _IntegerSetter
+from openpyxl.descriptors.base import _ConvertibleToInt
 from openpyxl.descriptors.sequence import _Sequence
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.colors import Color
@@ -11,12 +11,12 @@ class PhoneticProperties(Serialisable):
     @property
     def fontId(self) -> int: ...
     @fontId.setter
-    def fontId(self, __value: _IntegerSetter | None) -> None: ...
+    def fontId(self, __value: _ConvertibleToInt | None) -> None: ...
     type: Literal["halfwidthKatakana", "fullwidthKatakana", "Hiragana", "noConversion", None]
     alignment: Literal["noControl", "left", "center", "distributed", None]
     def __init__(
         self,
-        fontId: _IntegerSetter,
+        fontId: _ConvertibleToInt,
         type: Literal["halfwidthKatakana", "fullwidthKatakana", "Hiragana", "noConversion", None] = None,
         alignment: Literal["noControl", "left", "center", "distributed", None] = None,
     ) -> None: ...
@@ -26,14 +26,14 @@ class PhoneticText(Serialisable):
     @property
     def sb(self) -> int: ...
     @sb.setter
-    def sb(self, __value: _IntegerSetter) -> None: ...
+    def sb(self, __value: _ConvertibleToInt) -> None: ...
     @property
     def eb(self) -> int: ...
     @eb.setter
-    def eb(self, __value: _IntegerSetter) -> None: ...
+    def eb(self, __value: _ConvertibleToInt) -> None: ...
     t: str
     text = t  # noqa: F821
-    def __init__(self, sb: _IntegerSetter, eb: _IntegerSetter, t: str) -> None: ...
+    def __init__(self, sb: _ConvertibleToInt, eb: _ConvertibleToInt, t: str) -> None: ...
 
 class InlineFont(Font):
     tagname: str

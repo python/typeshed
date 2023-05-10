@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Generator
 from typing_extensions import Final, Literal, TypeAlias
 
-from openpyxl.descriptors.base import _BoolSetter
+from openpyxl.descriptors.base import _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 from .colors import Color
@@ -62,15 +62,15 @@ class Border(Serialisable):
     @property
     def outline(self) -> bool: ...
     @outline.setter
-    def outline(self, __value: _BoolSetter) -> None: ...
+    def outline(self, __value: _ConvertibleToBool) -> None: ...
     @property
     def diagonalUp(self) -> bool: ...
     @diagonalUp.setter
-    def diagonalUp(self, __value: _BoolSetter) -> None: ...
+    def diagonalUp(self, __value: _ConvertibleToBool) -> None: ...
     @property
     def diagonalDown(self) -> bool: ...
     @diagonalDown.setter
-    def diagonalDown(self, __value: _BoolSetter) -> None: ...
+    def diagonalDown(self, __value: _ConvertibleToBool) -> None: ...
     diagonal_direction: Incomplete | None
     def __init__(
         self,
@@ -82,9 +82,9 @@ class Border(Serialisable):
         diagonal_direction: Incomplete | None = None,
         vertical: Side | None = None,
         horizontal: Side | None = None,
-        diagonalUp: _BoolSetter = False,
-        diagonalDown: _BoolSetter = False,
-        outline: _BoolSetter = True,
+        diagonalUp: _ConvertibleToBool = False,
+        diagonalDown: _ConvertibleToBool = False,
+        outline: _ConvertibleToBool = True,
         start: Side | None = None,
         end: Side | None = None,
     ) -> None: ...

@@ -4,7 +4,7 @@ from typing import overload
 from typing_extensions import Literal, TypeGuard
 
 from openpyxl.descriptors import String
-from openpyxl.descriptors.base import _IntegerSetter
+from openpyxl.descriptors.base import _ConvertibleToInt
 from openpyxl.descriptors.sequence import _Sequence
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.named_styles import NamedStyle
@@ -69,9 +69,9 @@ class NumberFormat(Serialisable):  # type: ignore[misc]
     @property
     def numFmtId(self) -> int: ...
     @numFmtId.setter
-    def numFmtId(self, __value: _IntegerSetter) -> None: ...
+    def numFmtId(self, __value: _ConvertibleToInt) -> None: ...
     formatCode: str
-    def __init__(self, numFmtId: _IntegerSetter, formatCode: str) -> None: ...
+    def __init__(self, numFmtId: _ConvertibleToInt, formatCode: str) -> None: ...
 
 class NumberFormatList(Serialisable):  # type: ignore[misc]
     numFmt: _Sequence[NumberFormat]

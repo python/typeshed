@@ -4,7 +4,7 @@ from typing_extensions import Literal, Self, TypeAlias
 
 from openpyxl.chart.data_source import NumFmt
 from openpyxl.chart.title import Title
-from openpyxl.descriptors.base import _BoolSetter, _FloatSetter, _IntegerSetter
+from openpyxl.descriptors.base import _ConvertibleToBool, _ConvertibleToFloat, _ConvertibleToInt
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.xml.functions import _Element
@@ -26,24 +26,24 @@ class Scaling(Serialisable):
     @property
     def logBase(self) -> float | None: ...
     @logBase.setter
-    def logBase(self, __value: _FloatSetter | None) -> None: ...
+    def logBase(self, __value: _ConvertibleToFloat | None) -> None: ...
     orientation: Literal["maxMin", "minMax"]
     @property
     def max(self) -> float | None: ...
     @max.setter
-    def max(self, __value: _FloatSetter | None) -> None: ...
+    def max(self, __value: _ConvertibleToFloat | None) -> None: ...
     @property
     def min(self) -> float | None: ...
     @min.setter
-    def min(self, __value: _FloatSetter | None) -> None: ...
+    def min(self, __value: _ConvertibleToFloat | None) -> None: ...
     extLst: ExtensionList | None
     __elements__: tuple[str, ...]
     def __init__(
         self,
-        logBase: _FloatSetter | None = None,
+        logBase: _ConvertibleToFloat | None = None,
         orientation: Literal["maxMin", "minMax"] = "minMax",
-        max: _FloatSetter | None = None,
-        min: _FloatSetter | None = None,
+        max: _ConvertibleToFloat | None = None,
+        min: _ConvertibleToFloat | None = None,
         extLst: Unused = None,
     ) -> None: ...
 
@@ -51,12 +51,12 @@ class _BaseAxis(Serialisable):
     @property
     def axId(self) -> int: ...
     @axId.setter
-    def axId(self, __value: _IntegerSetter) -> None: ...
+    def axId(self, __value: _ConvertibleToInt) -> None: ...
     scaling: Scaling
     @property
     def delete(self) -> bool: ...
     @delete.setter
-    def delete(self, __value: _BoolSetter) -> None: ...
+    def delete(self, __value: _ConvertibleToBool) -> None: ...
     axPos: Literal["b", "l", "r", "t"]
     majorGridlines: ChartLines | None
     minorGridlines: ChartLines | None
@@ -73,18 +73,18 @@ class _BaseAxis(Serialisable):
     @property
     def crossAx(self) -> int: ...
     @crossAx.setter
-    def crossAx(self, __value: _IntegerSetter) -> None: ...
+    def crossAx(self, __value: _ConvertibleToInt) -> None: ...
     crosses: Literal["autoZero", "max", "min", None]
     @property
     def crossesAt(self) -> float | None: ...
     @crossesAt.setter
-    def crossesAt(self, __value: _FloatSetter | None) -> None: ...
+    def crossesAt(self, __value: _ConvertibleToFloat | None) -> None: ...
     __elements__: tuple[str, ...]
     def __init__(
         self,
-        axId: _IntegerSetter,
+        axId: _ConvertibleToInt,
         scaling: Scaling | None,
-        delete: _BoolSetter,
+        delete: _ConvertibleToBool,
         axPos: str,
         majorGridlines: ChartLines | None,
         minorGridlines: ChartLines | None,
@@ -95,9 +95,9 @@ class _BaseAxis(Serialisable):
         tickLblPos: Literal["high", "low", "nextTo", None],
         spPr: GraphicalProperties | None,
         txPr: RichText | None,
-        crossAx: _IntegerSetter,
+        crossAx: _ConvertibleToInt,
         crosses: Literal["autoZero", "max", "min", None] = None,
-        crossesAt: _FloatSetter | None = None,
+        crossesAt: _ConvertibleToFloat | None = None,
     ) -> None: ...
     @property
     @abstractmethod
@@ -139,7 +139,7 @@ class DisplayUnitsLabelList(Serialisable):
     @property
     def custUnit(self) -> float | None: ...
     @custUnit.setter
-    def custUnit(self, __value: _FloatSetter | None) -> None: ...
+    def custUnit(self, __value: _ConvertibleToFloat | None) -> None: ...
     builtInUnit: _BuiltInUnitType
     dispUnitsLbl: DisplayUnitsLabel | None
     extLst: ExtensionList | None
@@ -158,24 +158,24 @@ class NumericAxis(_BaseAxis):
     @property
     def majorUnit(self) -> float | None: ...
     @majorUnit.setter
-    def majorUnit(self, __value: _FloatSetter | None) -> None: ...
+    def majorUnit(self, __value: _ConvertibleToFloat | None) -> None: ...
     @property
     def minorUnit(self) -> float | None: ...
     @minorUnit.setter
-    def minorUnit(self, __value: _FloatSetter | None) -> None: ...
+    def minorUnit(self, __value: _ConvertibleToFloat | None) -> None: ...
     dispUnits: DisplayUnitsLabelList | None
     extLst: ExtensionList | None
     __elements__: tuple[str, ...]
     def __init__(
         self,
         crossBetween: Literal["between", "midCat", None] = None,
-        majorUnit: _FloatSetter | None = None,
-        minorUnit: _FloatSetter | None = None,
+        majorUnit: _ConvertibleToFloat | None = None,
+        minorUnit: _ConvertibleToFloat | None = None,
         dispUnits: DisplayUnitsLabelList | None = None,
         extLst: Unused = None,
-        axId: _IntegerSetter = ...,
+        axId: _ConvertibleToInt = ...,
         scaling: Scaling | None = ...,
-        delete: _BoolSetter = ...,
+        delete: _ConvertibleToBool = ...,
         axPos: str = ...,
         majorGridlines: ChartLines | None = ...,
         minorGridlines: ChartLines | None = ...,
@@ -186,9 +186,9 @@ class NumericAxis(_BaseAxis):
         tickLblPos: Literal["high", "low", "nextTo", None] = ...,
         spPr: GraphicalProperties | None = ...,
         txPr: RichText | None = ...,
-        crossAx: _IntegerSetter = ...,
+        crossAx: _ConvertibleToInt = ...,
         crosses: Literal["autoZero", "max", "min", None] = ...,
-        crossesAt: _FloatSetter | None = ...,
+        crossesAt: _ConvertibleToFloat | None = ...,
     ) -> None: ...
     @classmethod
     def from_tree(cls, node: _Element) -> Self: ...
@@ -198,38 +198,38 @@ class TextAxis(_BaseAxis):
     @property
     def auto(self) -> bool | None: ...
     @auto.setter
-    def auto(self, __value: _BoolSetter) -> None: ...
+    def auto(self, __value: _ConvertibleToBool) -> None: ...
     lblAlgn: Literal["ctr", "l", "r", None]
     @property
     def lblOffset(self) -> float: ...
     @lblOffset.setter
-    def lblOffset(self, __value: _FloatSetter) -> None: ...
+    def lblOffset(self, __value: _ConvertibleToFloat) -> None: ...
     @property
     def tickLblSkip(self) -> int | None: ...
     @tickLblSkip.setter
-    def tickLblSkip(self, __value: _IntegerSetter | None) -> None: ...
+    def tickLblSkip(self, __value: _ConvertibleToInt | None) -> None: ...
     @property
     def tickMarkSkip(self) -> int | None: ...
     @tickMarkSkip.setter
-    def tickMarkSkip(self, __value: _IntegerSetter | None) -> None: ...
+    def tickMarkSkip(self, __value: _ConvertibleToInt | None) -> None: ...
     @property
     def noMultiLvlLbl(self) -> bool | None: ...
     @noMultiLvlLbl.setter
-    def noMultiLvlLbl(self, __value: _BoolSetter) -> None: ...
+    def noMultiLvlLbl(self, __value: _ConvertibleToBool) -> None: ...
     extLst: ExtensionList | None
     __elements__: tuple[str, ...]
     def __init__(
         self,
-        auto: _BoolSetter = None,
+        auto: _ConvertibleToBool = None,
         lblAlgn: Literal["ctr", "l", "r", None] = None,
-        lblOffset: _FloatSetter = 100,
-        tickLblSkip: _IntegerSetter | None = None,
-        tickMarkSkip: _IntegerSetter | None = None,
-        noMultiLvlLbl: _BoolSetter = None,
+        lblOffset: _ConvertibleToFloat = 100,
+        tickLblSkip: _ConvertibleToInt | None = None,
+        tickMarkSkip: _ConvertibleToInt | None = None,
+        noMultiLvlLbl: _ConvertibleToBool = None,
         extLst: Unused = None,
-        axId: _IntegerSetter = ...,
+        axId: _ConvertibleToInt = ...,
         scaling: Scaling | None = ...,
-        delete: _BoolSetter = ...,
+        delete: _ConvertibleToBool = ...,
         axPos: str = ...,
         majorGridlines: ChartLines | None = ...,
         minorGridlines: ChartLines | None = ...,
@@ -240,9 +240,9 @@ class TextAxis(_BaseAxis):
         tickLblPos: Literal["high", "low", "nextTo", None] = ...,
         spPr: GraphicalProperties | None = ...,
         txPr: RichText | None = ...,
-        crossAx: _IntegerSetter = ...,
+        crossAx: _ConvertibleToInt = ...,
         crosses: Literal["autoZero", "max", "min", None] = ...,
-        crossesAt: _FloatSetter | None = ...,
+        crossesAt: _ConvertibleToFloat | None = ...,
     ) -> None: ...
 
 _TimeUnitType: TypeAlias = Literal["days", "months", "years", None]
@@ -252,37 +252,37 @@ class DateAxis(TextAxis):
     @property
     def auto(self) -> bool | None: ...
     @auto.setter
-    def auto(self, __value: _BoolSetter) -> None: ...
+    def auto(self, __value: _ConvertibleToBool) -> None: ...
     @property  # type: ignore[override]
     def lblOffset(self) -> int | None: ...
     @lblOffset.setter
-    def lblOffset(self, __value: _IntegerSetter | None) -> None: ...
+    def lblOffset(self, __value: _ConvertibleToInt | None) -> None: ...
     baseTimeUnit: _TimeUnitType
     @property
     def majorUnit(self) -> float | None: ...
     @majorUnit.setter
-    def majorUnit(self, __value: _FloatSetter | None) -> None: ...
+    def majorUnit(self, __value: _ConvertibleToFloat | None) -> None: ...
     majorTimeUnit: _TimeUnitType
     @property
     def minorUnit(self) -> float | None: ...
     @minorUnit.setter
-    def minorUnit(self, __value: _FloatSetter | None) -> None: ...
+    def minorUnit(self, __value: _ConvertibleToFloat | None) -> None: ...
     minorTimeUnit: _TimeUnitType
     extLst: ExtensionList | None
     __elements__: tuple[str, ...]
     def __init__(
         self,
-        auto: _BoolSetter = None,
-        lblOffset: _IntegerSetter | None = None,
+        auto: _ConvertibleToBool = None,
+        lblOffset: _ConvertibleToInt | None = None,
         baseTimeUnit: _TimeUnitType = None,
-        majorUnit: _FloatSetter | None = None,
+        majorUnit: _ConvertibleToFloat | None = None,
         majorTimeUnit: _TimeUnitType = None,
-        minorUnit: _FloatSetter | None = None,
+        minorUnit: _ConvertibleToFloat | None = None,
         minorTimeUnit: _TimeUnitType = None,
         extLst: ExtensionList | None = None,
-        axId: _IntegerSetter = ...,
+        axId: _ConvertibleToInt = ...,
         scaling: Scaling | None = ...,
-        delete: _BoolSetter = ...,
+        delete: _ConvertibleToBool = ...,
         axPos: str = ...,
         majorGridlines: ChartLines | None = ...,
         minorGridlines: ChartLines | None = ...,
@@ -293,9 +293,9 @@ class DateAxis(TextAxis):
         tickLblPos: Literal["high", "low", "nextTo", None] = ...,
         spPr: GraphicalProperties | None = ...,
         txPr: RichText | None = ...,
-        crossAx: _IntegerSetter = ...,
+        crossAx: _ConvertibleToInt = ...,
         crosses: Literal["autoZero", "max", "min", None] = ...,
-        crossesAt: _FloatSetter | None = ...,
+        crossesAt: _ConvertibleToFloat | None = ...,
     ) -> None: ...
 
 class SeriesAxis(_BaseAxis):
@@ -303,21 +303,21 @@ class SeriesAxis(_BaseAxis):
     @property
     def tickLblSkip(self) -> int | None: ...
     @tickLblSkip.setter
-    def tickLblSkip(self, __value: _IntegerSetter | None) -> None: ...
+    def tickLblSkip(self, __value: _ConvertibleToInt | None) -> None: ...
     @property
     def tickMarkSkip(self) -> int | None: ...
     @tickMarkSkip.setter
-    def tickMarkSkip(self, __value: _IntegerSetter | None) -> None: ...
+    def tickMarkSkip(self, __value: _ConvertibleToInt | None) -> None: ...
     extLst: ExtensionList | None
     __elements__: tuple[str, ...]
     def __init__(
         self,
-        tickLblSkip: _IntegerSetter | None = None,
-        tickMarkSkip: _IntegerSetter | None = None,
+        tickLblSkip: _ConvertibleToInt | None = None,
+        tickMarkSkip: _ConvertibleToInt | None = None,
         extLst: Unused = None,
-        axId: _IntegerSetter = ...,
+        axId: _ConvertibleToInt = ...,
         scaling: Scaling | None = ...,
-        delete: _BoolSetter = ...,
+        delete: _ConvertibleToBool = ...,
         axPos: str = ...,
         majorGridlines: ChartLines | None = ...,
         minorGridlines: ChartLines | None = ...,
@@ -328,7 +328,7 @@ class SeriesAxis(_BaseAxis):
         tickLblPos: Literal["high", "low", "nextTo", None] = ...,
         spPr: GraphicalProperties | None = ...,
         txPr: RichText | None = ...,
-        crossAx: _IntegerSetter = ...,
+        crossAx: _ConvertibleToInt = ...,
         crosses: Literal["autoZero", "max", "min", None] = ...,
-        crossesAt: _FloatSetter | None = ...,
+        crossesAt: _ConvertibleToFloat | None = ...,
     ) -> None: ...

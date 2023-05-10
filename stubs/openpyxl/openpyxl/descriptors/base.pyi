@@ -4,9 +4,10 @@ from typing import Any, SupportsFloat, SupportsInt
 from typing_extensions import SupportsIndex, TypeAlias
 
 # Helper types for Convertible Descriptors
-_IntegerSetter: TypeAlias = str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc  # noqa: Y047
-_FloatSetter: TypeAlias = SupportsFloat | SupportsIndex | str | ReadableBuffer  # noqa: Y047
-_BoolSetter: TypeAlias = object  # noqa: Y047
+_ConvertibleToInt: TypeAlias = int | str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc
+_ConvertibleToFloat: TypeAlias = float | SupportsFloat | SupportsIndex | str | ReadableBuffer
+# Since everything is convertible to a bool, this restricts to only intended expected types
+_ConvertibleToBool: TypeAlias = bool | str | int | None  # True | False | "true" | "t" | "false" | "f" | 1 | 0 | None
 
 class Descriptor:
     name: Incomplete

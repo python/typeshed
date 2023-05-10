@@ -5,7 +5,7 @@ from typing import TypeVar, overload
 from typing_extensions import Self
 
 from openpyxl.descriptors import Typed
-from openpyxl.descriptors.base import _BoolSetter, _FloatSetter, _IntegerSetter
+from openpyxl.descriptors.base import _ConvertibleToBool, _ConvertibleToFloat, _ConvertibleToInt
 from openpyxl.descriptors.sequence import _Sequence
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.colors import SystemColor
@@ -28,28 +28,28 @@ class Color(Serialisable):
     @property
     def indexed(self) -> int: ...
     @indexed.setter
-    def indexed(self, __value: _IntegerSetter) -> None: ...
+    def indexed(self, __value: _ConvertibleToInt) -> None: ...
     @property
     def auto(self) -> bool: ...
     @auto.setter
-    def auto(self, __value: _BoolSetter) -> None: ...
+    def auto(self, __value: _ConvertibleToBool) -> None: ...
     @property
     def theme(self) -> int: ...
     @theme.setter
-    def theme(self, __value: _IntegerSetter) -> None: ...
+    def theme(self, __value: _ConvertibleToInt) -> None: ...
     @property
     def tint(self) -> float: ...
     @tint.setter
-    def tint(self, __value: _FloatSetter) -> None: ...
+    def tint(self, __value: _ConvertibleToFloat) -> None: ...
     type: str
     def __init__(
         self,
         rgb: str = "00000000",
-        indexed: _IntegerSetter | None = None,
-        auto: _BoolSetter = None,
-        theme: _IntegerSetter | None = None,
-        tint: _FloatSetter = 0.0,
-        index: _IntegerSetter | None = None,
+        indexed: _ConvertibleToInt | None = None,
+        auto: _ConvertibleToBool = None,
+        theme: _ConvertibleToInt | None = None,
+        tint: _ConvertibleToFloat = 0.0,
+        index: _ConvertibleToInt | None = None,
         type: Unused = "rgb",
     ) -> None: ...
     @property
