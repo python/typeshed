@@ -2,7 +2,7 @@ from os import PathLike
 from typing import overload
 from typing_extensions import TypeAlias
 
-from stdlib.xml.etree.ElementTree import ElementTree
+from xml.etree.ElementTree import ElementTree
 from .Menu import Menu, MenuEntry, Separator, XMLMenuBuilder
 
 _MenuItem: TypeAlias = Menu | MenuEntry | Separator
