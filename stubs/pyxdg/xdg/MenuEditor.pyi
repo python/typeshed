@@ -1,8 +1,8 @@
 from os import PathLike
 from typing import overload
 from typing_extensions import TypeAlias
-
 from xml.etree.ElementTree import ElementTree
+
 from .Menu import Menu, MenuEntry, Separator, XMLMenuBuilder
 
 _MenuItem: TypeAlias = Menu | MenuEntry | Separator
