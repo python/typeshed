@@ -1,4 +1,5 @@
 from typing import Protocol
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.compat.numbers import NUMPY as NUMPY
 from openpyxl.reader.excel import load_workbook as load_workbook
@@ -19,3 +20,5 @@ open = load_workbook
 # Utility type reused elsewhere
 class _Decodable(Protocol):  # noqa: Y046
     def decode(self, __encoding: str) -> str: ...
+
+_VisibilityType: TypeAlias = Literal["visible", "hidden", "veryHidden"]  # noqa: Y047

@@ -4,7 +4,7 @@ from types import GeneratorType
 from typing import Any, overload
 from typing_extensions import Final, Literal, TypeAlias
 
-from openpyxl import _Decodable
+from openpyxl import _Decodable, _VisibilityType
 from openpyxl.cell.cell import Cell, MergedCell, _CellValue
 from openpyxl.chart._chart import ChartBase
 from openpyxl.drawing.image import Image
@@ -25,7 +25,6 @@ from openpyxl.worksheet.table import Table, TableList
 from openpyxl.worksheet.views import SheetView, SheetViewList
 
 _Cell: TypeAlias = Cell | MergedCell
-_SheetVisibilityType: TypeAlias = Literal["visible", "hidden", "veryHidden"]  # noqa: Y047  # Used in other modules
 
 class Worksheet(_WorkbookChild):
     mime_type: str
@@ -56,7 +55,7 @@ class Worksheet(_WorkbookChild):
     col_breaks: ColBreak
     merged_cells: MultiCellRange
     data_validations: DataValidationList
-    sheet_state: Literal["visible", "hidden", "veryHidden"]
+    sheet_state: _VisibilityType
     page_setup: PrintPageSetup
     print_options: PrintOptions
     page_margins: PageMargins

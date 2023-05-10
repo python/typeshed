@@ -1,103 +1,80 @@
 from _typeshed import Incomplete, Unused
 from abc import abstractmethod
+from typing import ClassVar
 from typing_extensions import Literal, Self, TypeAlias
 
-from openpyxl.chart.data_source import NumFmt
-from openpyxl.chart.title import Title
-from openpyxl.descriptors.base import _ConvertibleToBool, _ConvertibleToFloat, _ConvertibleToInt
+from openpyxl.chart.layout import Layout
+from openpyxl.chart.shapes import GraphicalProperties
+from openpyxl.chart.text import RichText, Text
+from openpyxl.descriptors.base import Alias, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.xml.functions import _Element
-
-from .layout import Layout
-from .shapes import GraphicalProperties
-from .text import RichText, Text
 
 _AxisTickMarkType: TypeAlias = Literal["cross", "in", "out", None]
 
 class ChartLines(Serialisable):
     tagname: str
-    spPr: GraphicalProperties | None
-    graphicalProperties = spPr  # noqa: F821
+    spPr: Typed[GraphicalProperties, Literal[True]]
+    graphicalProperties: Alias
     def __init__(self, spPr: GraphicalProperties | None = None) -> None: ...
 
 class Scaling(Serialisable):
     tagname: str
-    @property
-    def logBase(self) -> float | None: ...
-    @logBase.setter
-    def logBase(self, __value: _ConvertibleToFloat | None) -> None: ...
-    orientation: Literal["maxMin", "minMax"]
-    @property
-    def max(self) -> float | None: ...
-    @max.setter
-    def max(self, __value: _ConvertibleToFloat | None) -> None: ...
-    @property
-    def min(self) -> float | None: ...
-    @min.setter
-    def min(self, __value: _ConvertibleToFloat | None) -> None: ...
-    extLst: ExtensionList | None
-    __elements__: tuple[str, ...]
+    logBase: Incomplete
+    orientation: Incomplete
+    max: Incomplete
+    min: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        logBase: _ConvertibleToFloat | None = None,
-        orientation: Literal["maxMin", "minMax"] = "minMax",
-        max: _ConvertibleToFloat | None = None,
-        min: _ConvertibleToFloat | None = None,
+        logBase: Incomplete | None = None,
+        orientation: str = "minMax",
+        max: Incomplete | None = None,
+        min: Incomplete | None = None,
         extLst: Unused = None,
     ) -> None: ...
 
 class _BaseAxis(Serialisable):
-    @property
-    def axId(self) -> int: ...
-    @axId.setter
-    def axId(self, __value: _ConvertibleToInt) -> None: ...
-    scaling: Scaling
-    @property
-    def delete(self) -> bool: ...
-    @delete.setter
-    def delete(self, __value: _ConvertibleToBool) -> None: ...
-    axPos: Literal["b", "l", "r", "t"]
-    majorGridlines: ChartLines | None
-    minorGridlines: ChartLines | None
-    title: Title | None
-    numFmt: NumFmt | None
-    number_format = numFmt  # noqa: F821
-    majorTickMark: _AxisTickMarkType
-    minorTickMark: _AxisTickMarkType
-    tickLblPos: Literal["high", "low", "nextTo", None]
-    spPr: GraphicalProperties | None
-    graphicalProperties = spPr  # noqa: F821
-    txPr: RichText | None
-    textProperties = txPr  # noqa: F821
-    @property
-    def crossAx(self) -> int: ...
-    @crossAx.setter
-    def crossAx(self, __value: _ConvertibleToInt) -> None: ...
-    crosses: Literal["autoZero", "max", "min", None]
-    @property
-    def crossesAt(self) -> float | None: ...
-    @crossesAt.setter
-    def crossesAt(self, __value: _ConvertibleToFloat | None) -> None: ...
-    __elements__: tuple[str, ...]
+    axId: Incomplete
+    scaling: Typed[Scaling, Literal[False]]
+    delete: Incomplete
+    axPos: Incomplete
+    majorGridlines: Typed[ChartLines, Literal[True]]
+    minorGridlines: Typed[ChartLines, Literal[True]]
+    title: Incomplete
+    numFmt: Incomplete
+    number_format: Alias
+    majorTickMark: Incomplete
+    minorTickMark: Incomplete
+    tickLblPos: Incomplete
+    spPr: Typed[GraphicalProperties, Literal[True]]
+    graphicalProperties: Alias
+    txPr: Typed[RichText, Literal[True]]
+    textProperties: Alias
+    crossAx: Incomplete
+    crosses: Incomplete
+    crossesAt: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        axId: _ConvertibleToInt,
-        scaling: Scaling | None,
-        delete: _ConvertibleToBool,
-        axPos: str,
-        majorGridlines: ChartLines | None,
-        minorGridlines: ChartLines | None,
-        title: Title | None,
-        numFmt: Incomplete | None,
-        majorTickMark: _AxisTickMarkType,
-        minorTickMark: _AxisTickMarkType,
-        tickLblPos: Literal["high", "low", "nextTo", None],
-        spPr: GraphicalProperties | None,
-        txPr: RichText | None,
-        crossAx: _ConvertibleToInt,
-        crosses: Literal["autoZero", "max", "min", None] = None,
-        crossesAt: _ConvertibleToFloat | None = None,
+        axId: Incomplete | None = None,
+        scaling: Scaling | None = None,
+        delete: Incomplete | None = None,
+        axPos: str = "l",
+        majorGridlines: ChartLines | None = None,
+        minorGridlines: ChartLines | None = None,
+        title: Incomplete | None = None,
+        numFmt: Incomplete | None = None,
+        majorTickMark: Incomplete | None = None,
+        minorTickMark: Incomplete | None = None,
+        tickLblPos: Incomplete | None = None,
+        spPr: GraphicalProperties | None = None,
+        txPr: RichText | None = None,
+        crossAx: Incomplete | None = None,
+        crosses: Incomplete | None = None,
+        crossesAt: Incomplete | None = None,
     ) -> None: ...
     @property
     @abstractmethod
@@ -105,14 +82,14 @@ class _BaseAxis(Serialisable):
 
 class DisplayUnitsLabel(Serialisable):
     tagname: str
-    layout: Layout | None
-    tx: Text | None
-    text = tx  # noqa: F821
-    spPr: GraphicalProperties | None
-    graphicalProperties = spPr  # noqa: F821
-    txPr: RichText | None
-    textPropertes = txPr  # noqa: F821
-    __elements__: tuple[str, ...]
+    layout: Typed[Layout, Literal[True]]
+    tx: Typed[Text, Literal[True]]
+    text: Alias
+    spPr: Typed[GraphicalProperties, Literal[True]]
+    graphicalProperties: Alias
+    txPr: Typed[RichText, Literal[True]]
+    textPropertes: Alias
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         layout: Layout | None = None,
@@ -136,199 +113,157 @@ _BuiltInUnitType: TypeAlias = Literal[
 
 class DisplayUnitsLabelList(Serialisable):
     tagname: str
-    @property
-    def custUnit(self) -> float | None: ...
-    @custUnit.setter
-    def custUnit(self, __value: _ConvertibleToFloat | None) -> None: ...
-    builtInUnit: _BuiltInUnitType
-    dispUnitsLbl: DisplayUnitsLabel | None
-    extLst: ExtensionList | None
-    __elements__: tuple[str, ...]
+    custUnit: Incomplete
+    builtInUnit: Incomplete
+    dispUnitsLbl: Typed[DisplayUnitsLabel, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        custUnit: float | None = None,
-        builtInUnit: _BuiltInUnitType = None,
+        custUnit: Incomplete | None = None,
+        builtInUnit: Incomplete | None = None,
         dispUnitsLbl: DisplayUnitsLabel | None = None,
         extLst: Unused = None,
     ) -> None: ...
 
 class NumericAxis(_BaseAxis):
     tagname: str
-    crossBetween: Literal["between", "midCat", None]
-    @property
-    def majorUnit(self) -> float | None: ...
-    @majorUnit.setter
-    def majorUnit(self, __value: _ConvertibleToFloat | None) -> None: ...
-    @property
-    def minorUnit(self) -> float | None: ...
-    @minorUnit.setter
-    def minorUnit(self, __value: _ConvertibleToFloat | None) -> None: ...
-    dispUnits: DisplayUnitsLabelList | None
-    extLst: ExtensionList | None
-    __elements__: tuple[str, ...]
+    axId: Incomplete
+    scaling: Incomplete
+    delete: Incomplete
+    axPos: Incomplete
+    majorGridlines: Incomplete
+    minorGridlines: Incomplete
+    title: Incomplete
+    numFmt: Incomplete
+    majorTickMark: Incomplete
+    minorTickMark: Incomplete
+    tickLblPos: Incomplete
+    spPr: Incomplete
+    txPr: Incomplete
+    crossAx: Incomplete
+    crosses: Incomplete
+    crossesAt: Incomplete
+    crossBetween: Incomplete
+    majorUnit: Incomplete
+    minorUnit: Incomplete
+    dispUnits: Typed[DisplayUnitsLabelList, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        crossBetween: Literal["between", "midCat", None] = None,
-        majorUnit: _ConvertibleToFloat | None = None,
-        minorUnit: _ConvertibleToFloat | None = None,
+        crossBetween: Incomplete | None = None,
+        majorUnit: Incomplete | None = None,
+        minorUnit: Incomplete | None = None,
         dispUnits: DisplayUnitsLabelList | None = None,
         extLst: Unused = None,
-        axId: _ConvertibleToInt = ...,
-        scaling: Scaling | None = ...,
-        delete: _ConvertibleToBool = ...,
-        axPos: str = ...,
-        majorGridlines: ChartLines | None = ...,
-        minorGridlines: ChartLines | None = ...,
-        title: Title | None = ...,
-        numFmt: Incomplete | None = ...,
-        majorTickMark: _AxisTickMarkType = ...,
-        minorTickMark: _AxisTickMarkType = ...,
-        tickLblPos: Literal["high", "low", "nextTo", None] = ...,
-        spPr: GraphicalProperties | None = ...,
-        txPr: RichText | None = ...,
-        crossAx: _ConvertibleToInt = ...,
-        crosses: Literal["autoZero", "max", "min", None] = ...,
-        crossesAt: _ConvertibleToFloat | None = ...,
+        **kw,
     ) -> None: ...
     @classmethod
     def from_tree(cls, node: _Element) -> Self: ...
 
 class TextAxis(_BaseAxis):
     tagname: str
-    @property
-    def auto(self) -> bool | None: ...
-    @auto.setter
-    def auto(self, __value: _ConvertibleToBool) -> None: ...
-    lblAlgn: Literal["ctr", "l", "r", None]
-    @property
-    def lblOffset(self) -> float: ...
-    @lblOffset.setter
-    def lblOffset(self, __value: _ConvertibleToFloat) -> None: ...
-    @property
-    def tickLblSkip(self) -> int | None: ...
-    @tickLblSkip.setter
-    def tickLblSkip(self, __value: _ConvertibleToInt | None) -> None: ...
-    @property
-    def tickMarkSkip(self) -> int | None: ...
-    @tickMarkSkip.setter
-    def tickMarkSkip(self, __value: _ConvertibleToInt | None) -> None: ...
-    @property
-    def noMultiLvlLbl(self) -> bool | None: ...
-    @noMultiLvlLbl.setter
-    def noMultiLvlLbl(self, __value: _ConvertibleToBool) -> None: ...
-    extLst: ExtensionList | None
-    __elements__: tuple[str, ...]
+    axId: Incomplete
+    scaling: Incomplete
+    delete: Incomplete
+    axPos: Incomplete
+    majorGridlines: Incomplete
+    minorGridlines: Incomplete
+    title: Incomplete
+    numFmt: Incomplete
+    majorTickMark: Incomplete
+    minorTickMark: Incomplete
+    tickLblPos: Incomplete
+    spPr: Incomplete
+    txPr: Incomplete
+    crossAx: Incomplete
+    crosses: Incomplete
+    crossesAt: Incomplete
+    auto: Incomplete
+    lblAlgn: Incomplete
+    lblOffset: Incomplete
+    tickLblSkip: Incomplete
+    tickMarkSkip: Incomplete
+    noMultiLvlLbl: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        auto: _ConvertibleToBool = None,
-        lblAlgn: Literal["ctr", "l", "r", None] = None,
-        lblOffset: _ConvertibleToFloat = 100,
-        tickLblSkip: _ConvertibleToInt | None = None,
-        tickMarkSkip: _ConvertibleToInt | None = None,
-        noMultiLvlLbl: _ConvertibleToBool = None,
+        auto: Incomplete | None = None,
+        lblAlgn: Incomplete | None = None,
+        lblOffset: int = 100,
+        tickLblSkip: Incomplete | None = None,
+        tickMarkSkip: Incomplete | None = None,
+        noMultiLvlLbl: Incomplete | None = None,
         extLst: Unused = None,
-        axId: _ConvertibleToInt = ...,
-        scaling: Scaling | None = ...,
-        delete: _ConvertibleToBool = ...,
-        axPos: str = ...,
-        majorGridlines: ChartLines | None = ...,
-        minorGridlines: ChartLines | None = ...,
-        title: Title | None = ...,
-        numFmt: Incomplete | None = ...,
-        majorTickMark: _AxisTickMarkType = ...,
-        minorTickMark: _AxisTickMarkType = ...,
-        tickLblPos: Literal["high", "low", "nextTo", None] = ...,
-        spPr: GraphicalProperties | None = ...,
-        txPr: RichText | None = ...,
-        crossAx: _ConvertibleToInt = ...,
-        crosses: Literal["autoZero", "max", "min", None] = ...,
-        crossesAt: _ConvertibleToFloat | None = ...,
+        **kw,
     ) -> None: ...
 
 _TimeUnitType: TypeAlias = Literal["days", "months", "years", None]
 
 class DateAxis(TextAxis):
     tagname: str
-    @property
-    def auto(self) -> bool | None: ...
-    @auto.setter
-    def auto(self, __value: _ConvertibleToBool) -> None: ...
-    @property  # type: ignore[override]
-    def lblOffset(self) -> int | None: ...
-    @lblOffset.setter
-    def lblOffset(self, __value: _ConvertibleToInt | None) -> None: ...
-    baseTimeUnit: _TimeUnitType
-    @property
-    def majorUnit(self) -> float | None: ...
-    @majorUnit.setter
-    def majorUnit(self, __value: _ConvertibleToFloat | None) -> None: ...
-    majorTimeUnit: _TimeUnitType
-    @property
-    def minorUnit(self) -> float | None: ...
-    @minorUnit.setter
-    def minorUnit(self, __value: _ConvertibleToFloat | None) -> None: ...
-    minorTimeUnit: _TimeUnitType
-    extLst: ExtensionList | None
-    __elements__: tuple[str, ...]
+    axId: Incomplete
+    scaling: Incomplete
+    delete: Incomplete
+    axPos: Incomplete
+    majorGridlines: Incomplete
+    minorGridlines: Incomplete
+    title: Incomplete
+    numFmt: Incomplete
+    majorTickMark: Incomplete
+    minorTickMark: Incomplete
+    tickLblPos: Incomplete
+    spPr: Incomplete
+    txPr: Incomplete
+    crossAx: Incomplete
+    crosses: Incomplete
+    crossesAt: Incomplete
+    auto: Incomplete
+    lblOffset: Incomplete
+    baseTimeUnit: Incomplete
+    majorUnit: Incomplete
+    majorTimeUnit: Incomplete
+    minorUnit: Incomplete
+    minorTimeUnit: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        auto: _ConvertibleToBool = None,
-        lblOffset: _ConvertibleToInt | None = None,
-        baseTimeUnit: _TimeUnitType = None,
-        majorUnit: _ConvertibleToFloat | None = None,
-        majorTimeUnit: _TimeUnitType = None,
-        minorUnit: _ConvertibleToFloat | None = None,
-        minorTimeUnit: _TimeUnitType = None,
-        extLst: ExtensionList | None = None,
-        axId: _ConvertibleToInt = ...,
-        scaling: Scaling | None = ...,
-        delete: _ConvertibleToBool = ...,
-        axPos: str = ...,
-        majorGridlines: ChartLines | None = ...,
-        minorGridlines: ChartLines | None = ...,
-        title: Title | None = ...,
-        numFmt: Incomplete | None = ...,
-        majorTickMark: _AxisTickMarkType = ...,
-        minorTickMark: _AxisTickMarkType = ...,
-        tickLblPos: Literal["high", "low", "nextTo", None] = ...,
-        spPr: GraphicalProperties | None = ...,
-        txPr: RichText | None = ...,
-        crossAx: _ConvertibleToInt = ...,
-        crosses: Literal["autoZero", "max", "min", None] = ...,
-        crossesAt: _ConvertibleToFloat | None = ...,
+        auto: Incomplete | None = None,
+        lblOffset: Incomplete | None = None,
+        baseTimeUnit: Incomplete | None = None,
+        majorUnit: Incomplete | None = None,
+        majorTimeUnit: Incomplete | None = None,
+        minorUnit: Incomplete | None = None,
+        minorTimeUnit: Incomplete | None = None,
+        extLst: Unused = None,
+        **kw,
     ) -> None: ...
 
 class SeriesAxis(_BaseAxis):
     tagname: str
-    @property
-    def tickLblSkip(self) -> int | None: ...
-    @tickLblSkip.setter
-    def tickLblSkip(self, __value: _ConvertibleToInt | None) -> None: ...
-    @property
-    def tickMarkSkip(self) -> int | None: ...
-    @tickMarkSkip.setter
-    def tickMarkSkip(self, __value: _ConvertibleToInt | None) -> None: ...
-    extLst: ExtensionList | None
-    __elements__: tuple[str, ...]
+    axId: Incomplete
+    scaling: Incomplete
+    delete: Incomplete
+    axPos: Incomplete
+    majorGridlines: Incomplete
+    minorGridlines: Incomplete
+    title: Incomplete
+    numFmt: Incomplete
+    majorTickMark: Incomplete
+    minorTickMark: Incomplete
+    tickLblPos: Incomplete
+    spPr: Incomplete
+    txPr: Incomplete
+    crossAx: Incomplete
+    crosses: Incomplete
+    crossesAt: Incomplete
+    tickLblSkip: Incomplete
+    tickMarkSkip: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
-        self,
-        tickLblSkip: _ConvertibleToInt | None = None,
-        tickMarkSkip: _ConvertibleToInt | None = None,
-        extLst: Unused = None,
-        axId: _ConvertibleToInt = ...,
-        scaling: Scaling | None = ...,
-        delete: _ConvertibleToBool = ...,
-        axPos: str = ...,
-        majorGridlines: ChartLines | None = ...,
-        minorGridlines: ChartLines | None = ...,
-        title: Title | None = ...,
-        numFmt: Incomplete | None = ...,
-        majorTickMark: _AxisTickMarkType = ...,
-        minorTickMark: _AxisTickMarkType = ...,
-        tickLblPos: Literal["high", "low", "nextTo", None] = ...,
-        spPr: GraphicalProperties | None = ...,
-        txPr: RichText | None = ...,
-        crossAx: _ConvertibleToInt = ...,
-        crosses: Literal["autoZero", "max", "min", None] = ...,
-        crossesAt: _ConvertibleToFloat | None = ...,
+        self, tickLblSkip: Incomplete | None = None, tickMarkSkip: Incomplete | None = None, extLst: Unused = None, **kw
     ) -> None: ...

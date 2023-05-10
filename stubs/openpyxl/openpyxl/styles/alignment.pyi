@@ -1,64 +1,48 @@
-from _typeshed import Unused
+from _typeshed import Incomplete
 from collections.abc import Generator
+from typing import ClassVar
 from typing_extensions import Final, Literal, TypeAlias
 
-from openpyxl.descriptors.base import _ConvertibleToBool, _ConvertibleToFloat
+from openpyxl.descriptors.base import Alias, Bool, Min, MinMax, NoneSet, _ConvertibleToBool, _ConvertibleToFloat
 from openpyxl.descriptors.serialisable import Serialisable
 
 _HorizontalAlignmentsType: TypeAlias = Literal[
     "general", "left", "center", "right", "fill", "justify", "centerContinuous", "distributed"
 ]
-horizontal_alignments: Final[tuple[_HorizontalAlignmentsType, ...]]
 _VerticalAlignmentsType: TypeAlias = Literal["top", "center", "bottom", "justify", "distributed"]
+
+horizontal_alignments: Final[tuple[_HorizontalAlignmentsType, ...]]
 vertical_aligments: Final[tuple[_VerticalAlignmentsType, ...]]
 
 class Alignment(Serialisable):
     tagname: str
-    __fields__: tuple[str, ...]
-    horizontal: _HorizontalAlignmentsType | None
-    vertical: _VerticalAlignmentsType | None
-    textRotation: int | None
-    text_rotation = textRotation  # noqa: F821
-    @property
-    def wrapText(self) -> bool | None: ...
-    @wrapText.setter
-    def wrapText(self, __value: _ConvertibleToBool) -> None: ...
-    wrap_text = wrapText
-    @property
-    def shrinkToFit(self) -> bool | None: ...
-    @shrinkToFit.setter
-    def shrinkToFit(self, __value: _ConvertibleToBool) -> None: ...
-    shrink_to_fit = shrinkToFit
-    @property
-    def indent(self) -> float: ...
-    @indent.setter
-    def indent(self, __value: _ConvertibleToFloat) -> None: ...
-    @property
-    def relativeIndent(self) -> float: ...
-    @relativeIndent.setter
-    def relativeIndent(self, __value: _ConvertibleToFloat) -> None: ...
-    @property
-    def justifyLastLine(self) -> bool | None: ...
-    @justifyLastLine.setter
-    def justifyLastLine(self, __value: _ConvertibleToBool) -> None: ...
-    @property
-    def readingOrder(self) -> float: ...
-    @readingOrder.setter
-    def readingOrder(self, __value: _ConvertibleToFloat) -> None: ...
+    __fields__: ClassVar[tuple[str, ...]]
+    horizontal: NoneSet[_HorizontalAlignmentsType]
+    vertical: NoneSet[_VerticalAlignmentsType]
+    textRotation: NoneSet[int]
+    text_rotation: Alias
+    wrapText: Bool[Literal[True]]
+    wrap_text: Alias
+    shrinkToFit: Bool[Literal[True]]
+    shrink_to_fit: Alias
+    indent: MinMax[float, Literal[False]]
+    relativeIndent: MinMax[float, Literal[False]]
+    justifyLastLine: Bool[Literal[True]]
+    readingOrder: Min[float, Literal[False]]
     def __init__(
         self,
-        horizontal: _HorizontalAlignmentsType | None = None,
-        vertical: _VerticalAlignmentsType | None = None,
-        textRotation: float | None = 0,
-        wrapText: _ConvertibleToBool = None,
-        shrinkToFit: _ConvertibleToBool = None,
+        horizontal: Incomplete | None = None,
+        vertical: Incomplete | None = None,
+        textRotation: int = 0,
+        wrapText: _ConvertibleToBool | None = None,
+        shrinkToFit: _ConvertibleToBool | None = None,
         indent: _ConvertibleToFloat = 0,
         relativeIndent: _ConvertibleToFloat = 0,
-        justifyLastLine: _ConvertibleToBool = None,
+        justifyLastLine: _ConvertibleToBool | None = None,
         readingOrder: _ConvertibleToFloat = 0,
-        text_rotation: int | None = None,
-        wrap_text: _ConvertibleToBool = None,
-        shrink_to_fit: _ConvertibleToBool = None,
-        mergeCell: Unused = None,
+        text_rotation: Incomplete | None = None,
+        wrap_text: Incomplete | None = None,
+        shrink_to_fit: Incomplete | None = None,
+        mergeCell: Incomplete | None = None,
     ) -> None: ...
     def __iter__(self) -> Generator[tuple[str, str], None, None]: ...

@@ -1,10 +1,10 @@
-from _typeshed import Unused
-from collections.abc import Generator, Sequence
+from _typeshed import Incomplete, Unused
+from collections.abc import Generator
+from typing import ClassVar
 from typing_extensions import Final, Literal, Self, TypeAlias
 
-from openpyxl.descriptors import Sequence as SequenceDescriptor
-from openpyxl.descriptors.base import _ConvertibleToFloat
-from openpyxl.descriptors.sequence import _Sequence
+from openpyxl.descriptors import Sequence, Strict
+from openpyxl.descriptors.base import Alias, Float, MinMax, NoneSet, Set, _ConvertibleToFloat
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.xml.functions import _Element
 
@@ -30,6 +30,7 @@ FILL_PATTERN_LIGHTUP: Final = "lightUp"
 FILL_PATTERN_LIGHTVERTICAL: Final = "lightVertical"
 FILL_PATTERN_MEDIUMGRAY: Final = "mediumGray"
 
+_GradientFillType: TypeAlias = Literal["linear", "path"]
 _FillsType: TypeAlias = Literal[
     "solid",
     "darkDown",
@@ -59,13 +60,13 @@ class Fill(Serialisable):
 
 class PatternFill(Fill):
     tagname: str
-    __elements__: tuple[str, ...]
-    patternType: _FillsType | None
-    fill_type = patternType  # noqa: F821
-    fgColor: Color
-    start_color = fgColor  # noqa: F821
-    bgColor: Color
-    end_color = bgColor  # noqa: F821
+    __elements__: ClassVar[tuple[str, ...]]
+    patternType: NoneSet[_FillsType]
+    fill_type: Alias
+    fgColor: Incomplete
+    start_color: Alias
+    bgColor: Incomplete
+    end_color: Alias
     def __init__(
         self,
         patternType: _FillsType | Literal["none", None] = None,
@@ -82,51 +83,33 @@ DEFAULT_GRAY_FILL: PatternFill
 
 class Stop(Serialisable):
     tagname: str
-    @property
-    def position(self) -> float: ...
-    @position.setter
-    def position(self, __value: _ConvertibleToFloat) -> None: ...
-    color: Color
-    def __init__(self, color: Color, position: _ConvertibleToFloat) -> None: ...
+    position: MinMax[float, Literal[False]]
+    color: Incomplete
+    def __init__(self, color, position: _ConvertibleToFloat) -> None: ...
 
-class StopList(SequenceDescriptor):
-    expected_type: type[Stop]
-    def __set__(self, obj: GradientFill, values: Sequence[Stop]) -> None: ...
+class StopList(Sequence):
+    expected_type: type[Incomplete]
+    def __set__(self, obj: Serialisable | Strict, values) -> None: ...
 
 class GradientFill(Fill):
     tagname: str
-    type: Literal["linear", "path"]
-    fill_type = type
-    @property
-    def degree(self) -> float: ...
-    @degree.setter
-    def degree(self, __value: _ConvertibleToFloat) -> None: ...
-    @property
-    def left(self) -> float: ...
-    @left.setter
-    def left(self, __value: _ConvertibleToFloat) -> None: ...
-    @property
-    def right(self) -> float: ...
-    @right.setter
-    def right(self, __value: _ConvertibleToFloat) -> None: ...
-    @property
-    def top(self) -> float: ...
-    @top.setter
-    def top(self, __value: _ConvertibleToFloat) -> None: ...
-    @property
-    def bottom(self) -> float: ...
-    @bottom.setter
-    def bottom(self, __value: _ConvertibleToFloat) -> None: ...
-    stop: _Sequence[Stop]
+    type: Set[_GradientFillType]
+    fill_type: Alias
+    degree: Float[Literal[False]]
+    left: Float[Literal[False]]
+    right: Float[Literal[False]]
+    top: Float[Literal[False]]
+    bottom: Float[Literal[False]]
+    stop: Incomplete
     def __init__(
         self,
-        type: Literal["linear", "path"] = "linear",
+        type: _GradientFillType = "linear",
         degree: _ConvertibleToFloat = 0,
         left: _ConvertibleToFloat = 0,
         right: _ConvertibleToFloat = 0,
         top: _ConvertibleToFloat = 0,
         bottom: _ConvertibleToFloat = 0,
-        stop: _Sequence[Stop] = (),
+        stop=(),
     ) -> None: ...
     def __iter__(self) -> Generator[tuple[str, str], None, None]: ...
     def to_tree(  # type: ignore[override]

@@ -1,14 +1,12 @@
-from _typeshed import Unused
+from _typeshed import Incomplete, Unused
 from collections.abc import Generator
 from re import Pattern
-from typing import TypeVar, overload
-from typing_extensions import Self
+from typing import ClassVar, TypeVar, overload
+from typing_extensions import Literal, Self
 
-from openpyxl.descriptors import Typed
-from openpyxl.descriptors.base import _ConvertibleToBool, _ConvertibleToFloat, _ConvertibleToInt
-from openpyxl.descriptors.sequence import _Sequence
+from openpyxl.descriptors import Strict, Typed
+from openpyxl.descriptors.base import Bool, Integer, MinMax, String, _ConvertibleToBool, _ConvertibleToFloat, _ConvertibleToInt
 from openpyxl.descriptors.serialisable import Serialisable
-from openpyxl.drawing.colors import SystemColor
 
 _S = TypeVar("_S", bound=Serialisable)
 
@@ -18,35 +16,23 @@ WHITE: str
 BLUE: str
 aRGB_REGEX: Pattern[str]
 
-class RGB(Typed):
+class RGB(Typed[str, Incomplete]):
     expected_type: type[str]
-    def __set__(self, instance: Color | SystemColor | RgbColor, value: str) -> None: ...
+    def __set__(self, instance: Serialisable | Strict, value) -> None: ...
 
 class Color(Serialisable):
     tagname: str
-    rgb: str
-    @property
-    def indexed(self) -> int: ...
-    @indexed.setter
-    def indexed(self, __value: _ConvertibleToInt) -> None: ...
-    @property
-    def auto(self) -> bool: ...
-    @auto.setter
-    def auto(self, __value: _ConvertibleToBool) -> None: ...
-    @property
-    def theme(self) -> int: ...
-    @theme.setter
-    def theme(self, __value: _ConvertibleToInt) -> None: ...
-    @property
-    def tint(self) -> float: ...
-    @tint.setter
-    def tint(self, __value: _ConvertibleToFloat) -> None: ...
-    type: str
+    rgb: Incomplete
+    indexed: Integer[Literal[False]]
+    auto: Bool[Literal[False]]
+    theme: Integer[Literal[False]]
+    tint: MinMax[float, Literal[False]]
+    type: String[Literal[False]]
     def __init__(
         self,
-        rgb: str = "00000000",
+        rgb="00000000",
         indexed: _ConvertibleToInt | None = None,
-        auto: _ConvertibleToBool = None,
+        auto: _ConvertibleToBool | None = None,
         theme: _ConvertibleToInt | None = None,
         tint: _ConvertibleToFloat = 0.0,
         index: _ConvertibleToInt | None = None,
@@ -64,21 +50,21 @@ class Color(Serialisable):
     @overload
     def __add__(self, other: _S) -> _S: ...
 
-class ColorDescriptor(Typed):
+class ColorDescriptor(Typed[Color, Incomplete]):
     expected_type: type[Color]
-    def __set__(self, instance: Serialisable, value: str | Color) -> None: ...
+    def __set__(self, instance: Serialisable | Strict, value) -> None: ...
 
 class RgbColor(Serialisable):
     tagname: str
-    rgb: str
+    rgb: RGB
     def __init__(self, rgb: str) -> None: ...
 
 class ColorList(Serialisable):
     tagname: str
-    indexedColors: _Sequence[RgbColor]
-    mruColors: _Sequence[Color]
-    __elements__: tuple[str, ...]
-    def __init__(self, indexedColors: _Sequence[RgbColor] = (), mruColors: _Sequence[Color] = ()) -> None: ...
+    indexedColors: Incomplete
+    mruColors: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
+    def __init__(self, indexedColors=(), mruColors=()) -> None: ...
     def __bool__(self) -> bool: ...
     @property
     def index(self) -> list[str]: ...

@@ -1,6 +1,8 @@
+from _typeshed import Incomplete
+from typing import ClassVar
 from typing_extensions import Final, Literal, Self, TypeAlias
 
-from openpyxl.descriptors.base import _ConvertibleToBool, _ConvertibleToFloat, _ConvertibleToInt
+from openpyxl.descriptors.base import Alias, _ConvertibleToBool, _ConvertibleToFloat, _ConvertibleToInt
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.xml.functions import _Element
 
@@ -13,60 +15,28 @@ class Font(Serialisable):
     UNDERLINE_DOUBLE_ACCOUNTING: Final = "doubleAccounting"
     UNDERLINE_SINGLE: Final = "single"
     UNDERLINE_SINGLE_ACCOUNTING: Final = "singleAccounting"
-    name: str | None
-    @property
-    def charset(self) -> int | None: ...
-    @charset.setter
-    def charset(self, __value: _ConvertibleToInt | None) -> None: ...
-    @property
-    def family(self) -> float | None: ...
-    @family.setter
-    def family(self, __value: _ConvertibleToFloat | None) -> None: ...
-    @property
-    def sz(self) -> float | None: ...
-    @sz.setter
-    def sz(self, __value: _ConvertibleToFloat | None) -> None: ...
-    size = sz
-    @property
-    def b(self) -> bool: ...
-    @b.setter
-    def b(self, __value: _ConvertibleToBool) -> None: ...
-    bold = b
-    @property
-    def i(self) -> bool: ...
-    @i.setter
-    def i(self, __value: _ConvertibleToBool) -> None: ...
-    italic = i
-    @property
-    def strike(self) -> bool | None: ...
-    @strike.setter
-    def strike(self, __value: _ConvertibleToBool) -> None: ...
-    strikethrough = strike
-    @property
-    def outline(self) -> bool | None: ...
-    @outline.setter
-    def outline(self, __value: _ConvertibleToBool) -> None: ...
-    @property
-    def shadow(self) -> bool | None: ...
-    @shadow.setter
-    def shadow(self, __value: _ConvertibleToBool) -> None: ...
-    @property
-    def condense(self) -> bool | None: ...
-    @condense.setter
-    def condense(self, __value: _ConvertibleToBool) -> None: ...
-    @property
-    def extend(self) -> bool | None: ...
-    @extend.setter
-    def extend(self, __value: _ConvertibleToBool) -> None: ...
-    u: _UnderlineType
-    underline = u  # noqa: F821
-    vertAlign: Literal["superscript", "subscript", "baseline", None]
-    color: Color | None
-    scheme: Literal["major", "minor", None]
-
+    name: Incomplete
+    charset: Incomplete
+    family: Incomplete
+    sz: Incomplete
+    size: Alias
+    b: Incomplete
+    bold: Alias
+    i: Incomplete
+    italic: Alias
+    strike: Incomplete
+    strikethrough: Alias
+    outline: Incomplete
+    shadow: Incomplete
+    condense: Incomplete
+    extend: Incomplete
+    u: Incomplete
+    underline: Alias
+    vertAlign: Incomplete
+    color: Incomplete
+    scheme: Incomplete
     tagname: str
-
-    __elements__: tuple[str, ...]
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         name: str | None = None,

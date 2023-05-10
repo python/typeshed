@@ -1,13 +1,11 @@
-from _typeshed import Unused
+from _typeshed import Incomplete, Unused
 from re import Pattern
-from typing import overload
+from typing import ClassVar, overload
 from typing_extensions import Literal, TypeGuard
 
-from openpyxl.descriptors import String
-from openpyxl.descriptors.base import _ConvertibleToInt
-from openpyxl.descriptors.sequence import _Sequence
+from openpyxl.descriptors import Strict, String
+from openpyxl.descriptors.base import Integer, _ConvertibleToInt
 from openpyxl.descriptors.serialisable import Serialisable
-from openpyxl.styles.named_styles import NamedStyle
 
 BUILTIN_FORMATS: dict[int, str]
 BUILTIN_FORMATS_MAX_SIZE: int
@@ -62,22 +60,21 @@ def is_builtin(fmt: str) -> bool: ...
 def builtin_format_code(index: int) -> str | None: ...
 def builtin_format_id(fmt): ...
 
-class NumberFormatDescriptor(String):
-    def __set__(self, instance: NamedStyle, value: str | None) -> None: ...
+class NumberFormatDescriptor(String[Incomplete]):
+    def __set__(self, instance: Serialisable | Strict, value) -> None: ...
 
-class NumberFormat(Serialisable):  # type: ignore[misc]
-    @property
-    def numFmtId(self) -> int: ...
-    @numFmtId.setter
-    def numFmtId(self, __value: _ConvertibleToInt) -> None: ...
-    formatCode: str
+class NumberFormat(Serialisable):
+    numFmtId: Integer[Literal[False]]
+    formatCode: String[Literal[False]]
     def __init__(self, numFmtId: _ConvertibleToInt, formatCode: str) -> None: ...
 
-class NumberFormatList(Serialisable):  # type: ignore[misc]
-    numFmt: _Sequence[NumberFormat]
-    __elements__: tuple[str, ...]
-    __attrs__: tuple[str, ...]
-    def __init__(self, count: Unused = None, numFmt: _Sequence[NumberFormat] = ()) -> None: ...
+class NumberFormatList(Serialisable):
+    # Overwritten by property below
+    # count: Integer
+    numFmt: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
+    __attrs__: ClassVar[tuple[str, ...]]
+    def __init__(self, count: Unused = None, numFmt=()) -> None: ...
     @property
     def count(self) -> int: ...
     def __getitem__(self, idx) -> NumberFormat: ...

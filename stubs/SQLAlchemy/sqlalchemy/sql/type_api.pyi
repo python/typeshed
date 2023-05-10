@@ -4,6 +4,7 @@ from typing import Any, Generic, TypeVar
 from .. import util
 from . import operators
 from .base import SchemaEventTarget
+from .sqltypes import Boolean
 from .visitors import Traversible, TraversibleType
 
 _T = TypeVar("_T")
@@ -11,6 +12,7 @@ _T = TypeVar("_T")
 BOOLEANTYPE: Any
 INTEGERTYPE: Any
 NULLTYPE: Any
+NUMERICTYPE: Any
 STRINGTYPE: Any
 MATCHTYPE: Any
 INDEXABLE: Any
@@ -26,6 +28,7 @@ class TypeEngine(Traversible):
         def operate(self, op, *other, **kwargs): ...
         def reverse_operate(self, op, other, **kwargs): ...
         def __reduce__(self): ...
+        BOOLEANTYPE: Boolean
     hashable: bool
     comparator_factory: Any
     sort_key_function: Any
@@ -55,7 +58,7 @@ class VisitableCheckKWArg(util.EnsureKWArgType, TraversibleType): ...
 class ExternalType:
     cache_ok: Any
 
-class UserDefinedType:
+class UserDefinedType(ExternalType, TypeEngine, metaclass=VisitableCheckKWArg):
     __visit_name__: str
     ensure_kwarg: str
     def coerce_compared_value(self, op, value): ...
