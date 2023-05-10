@@ -1,5 +1,5 @@
 import re
-from os import PathLike
+from _typeshed import StrPath
 from typing_extensions import Literal
 
 from xdg.IniFile import IniFile
@@ -7,8 +7,8 @@ from xdg.IniFile import IniFile
 class DesktopEntry(IniFile):
     defaultGroup: str
     content: dict[str, dict[str, str]]
-    def __init__(self, filename: PathLike[str] | str | None = None) -> None: ...
-    def parse(self, file: PathLike[str] | str) -> None: ...  # type: ignore[override]
+    def __init__(self, filename: StrPath | None = None) -> None: ...
+    def parse(self, file: StrPath) -> None: ...  # type: ignore[override]
     def findTryExec(self) -> str | None: ...
     def getType(self) -> str: ...
     def getVersion(self) -> float: ...

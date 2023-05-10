@@ -1,4 +1,4 @@
-from os import PathLike
+from _typeshed import StrPath
 from typing import overload
 from typing_extensions import TypeAlias
 from xml.etree.ElementTree import ElementTree
@@ -13,8 +13,8 @@ class MenuEditor:
     tree: ElementTree
     parser: XMLMenuBuilder
     filenames: list[str]
-    def __init__(self, menu: Menu | None = None, filename: PathLike[str] | str | None = None, root: bool = False) -> None: ...
-    def parse(self, menu: Menu | None = None, filename: PathLike[str] | str | None = None, root: bool = False) -> None: ...
+    def __init__(self, menu: Menu | None = None, filename: StrPath | None = None, root: bool = False) -> None: ...
+    def parse(self, menu: Menu | None = None, filename: StrPath | None = None, root: bool = False) -> None: ...
     def save(self) -> None: ...
 
     # All "before" or "after" items can be one, the other, or neither, but not both.
