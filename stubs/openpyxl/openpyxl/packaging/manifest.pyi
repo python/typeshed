@@ -1,21 +1,23 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import String
 from openpyxl.descriptors.serialisable import Serialisable
 
 mimetypes: Incomplete
 
 class FileExtension(Serialisable):
     tagname: str
-    Extension: Incomplete
-    ContentType: Incomplete
-    def __init__(self, Extension, ContentType) -> None: ...
+    Extension: String[Literal[False]]
+    ContentType: String[Literal[False]]
+    def __init__(self, Extension: str, ContentType: str) -> None: ...
 
 class Override(Serialisable):
     tagname: str
-    PartName: Incomplete
-    ContentType: Incomplete
-    def __init__(self, PartName, ContentType) -> None: ...
+    PartName: String[Literal[False]]
+    ContentType: String[Literal[False]]
+    def __init__(self, PartName: str, ContentType: str) -> None: ...
 
 DEFAULT_TYPES: Incomplete
 DEFAULT_OVERRIDE: Incomplete

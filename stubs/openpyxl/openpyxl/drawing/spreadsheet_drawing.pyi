@@ -1,11 +1,21 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal, TypeAlias
 
+from openpyxl.descriptors.base import Alias, Bool, NoneSet, Typed, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.drawing.connector import Shape
+from openpyxl.drawing.graphic import GraphicFrame, GroupShape
+from openpyxl.drawing.picture import PictureFrame
+from openpyxl.drawing.xdr import XDRPoint2D, XDRPositiveSize2D
+
+_TwoCellAnchorEditAs: TypeAlias = Literal["twoCell", "oneCell", "absolute"]
 
 class AnchorClientData(Serialisable):
-    fLocksWithSheet: Incomplete
-    fPrintsWithSheet: Incomplete
-    def __init__(self, fLocksWithSheet: Incomplete | None = None, fPrintsWithSheet: Incomplete | None = None) -> None: ...
+    fLocksWithSheet: Bool[Literal[True]]
+    fPrintsWithSheet: Bool[Literal[True]]
+    def __init__(
+        self, fLocksWithSheet: _ConvertibleToBool | None = None, fPrintsWithSheet: _ConvertibleToBool | None = None
+    ) -> None: ...
 
 class AnchorMarker(Serialisable):
     tagname: str
@@ -16,69 +26,75 @@ class AnchorMarker(Serialisable):
     def __init__(self, col: int = 0, colOff: int = 0, row: int = 0, rowOff: int = 0) -> None: ...
 
 class _AnchorBase(Serialisable):
+    sp: Typed[Shape, Literal[True]]
+    shape: Alias
+    grpSp: Typed[GroupShape, Literal[True]]
+    groupShape: Alias
+    graphicFrame: Typed[GraphicFrame, Literal[True]]
+    cxnSp: Typed[Shape, Literal[True]]
+    connectionShape: Alias
+    pic: Typed[PictureFrame, Literal[True]]
+    contentPart: Incomplete
+    clientData: Typed[AnchorClientData, Literal[False]]
+    __elements__: Incomplete
+    def __init__(
+        self,
+        clientData: AnchorClientData | None = None,
+        sp: Shape | None = None,
+        grpSp: GroupShape | None = None,
+        graphicFrame: GraphicFrame | None = None,
+        cxnSp: Shape | None = None,
+        pic: PictureFrame | None = None,
+        contentPart: Incomplete | None = None,
+    ) -> None: ...
+
+class AbsoluteAnchor(_AnchorBase):
+    tagname: str
+    pos: Typed[XDRPoint2D, Literal[False]]
+    ext: Typed[XDRPositiveSize2D, Literal[False]]
     sp: Incomplete
-    shape: Incomplete
     grpSp: Incomplete
-    groupShape: Incomplete
     graphicFrame: Incomplete
     cxnSp: Incomplete
-    connectionShape: Incomplete
+    pic: Incomplete
+    contentPart: Incomplete
+    clientData: Incomplete
+    __elements__: Incomplete
+    def __init__(self, pos: XDRPoint2D | None = None, ext: XDRPositiveSize2D | None = None, **kw) -> None: ...
+
+class OneCellAnchor(_AnchorBase):
+    tagname: str
+    _from: Typed[AnchorMarker, Literal[False]]  # Not private. Avoids name clash
+    ext: Typed[XDRPositiveSize2D, Literal[False]]
+    sp: Incomplete
+    grpSp: Incomplete
+    graphicFrame: Incomplete
+    cxnSp: Incomplete
+    pic: Incomplete
+    contentPart: Incomplete
+    clientData: Incomplete
+    __elements__: Incomplete
+    def __init__(self, _from: AnchorMarker | None = None, ext: XDRPositiveSize2D | None = None, **kw) -> None: ...
+
+class TwoCellAnchor(_AnchorBase):
+    tagname: str
+    editAs: NoneSet[_TwoCellAnchorEditAs]
+    _from: Typed[AnchorMarker, Literal[False]]  # Not private. Avoids name clash
+    to: Typed[AnchorMarker, Literal[False]]
+    sp: Incomplete
+    grpSp: Incomplete
+    graphicFrame: Incomplete
+    cxnSp: Incomplete
     pic: Incomplete
     contentPart: Incomplete
     clientData: Incomplete
     __elements__: Incomplete
     def __init__(
         self,
-        clientData: Incomplete | None = None,
-        sp: Incomplete | None = None,
-        grpSp: Incomplete | None = None,
-        graphicFrame: Incomplete | None = None,
-        cxnSp: Incomplete | None = None,
-        pic: Incomplete | None = None,
-        contentPart: Incomplete | None = None,
-    ) -> None: ...
-
-class AbsoluteAnchor(_AnchorBase):
-    tagname: str
-    pos: Incomplete
-    ext: Incomplete
-    sp: Incomplete
-    grpSp: Incomplete
-    graphicFrame: Incomplete
-    cxnSp: Incomplete
-    pic: Incomplete
-    contentPart: Incomplete
-    clientData: Incomplete
-    __elements__: Incomplete
-    def __init__(self, pos: Incomplete | None = None, ext: Incomplete | None = None, **kw) -> None: ...
-
-class OneCellAnchor(_AnchorBase):
-    tagname: str
-    ext: Incomplete
-    sp: Incomplete
-    grpSp: Incomplete
-    graphicFrame: Incomplete
-    cxnSp: Incomplete
-    pic: Incomplete
-    contentPart: Incomplete
-    clientData: Incomplete
-    __elements__: Incomplete
-    def __init__(self, _from: Incomplete | None = None, ext: Incomplete | None = None, **kw) -> None: ...
-
-class TwoCellAnchor(_AnchorBase):
-    tagname: str
-    editAs: Incomplete
-    to: Incomplete
-    sp: Incomplete
-    grpSp: Incomplete
-    graphicFrame: Incomplete
-    cxnSp: Incomplete
-    pic: Incomplete
-    contentPart: Incomplete
-    clientData: Incomplete
-    __elements__: Incomplete
-    def __init__(
-        self, editAs: Incomplete | None = None, _from: Incomplete | None = None, to: Incomplete | None = None, **kw
+        editAs: _TwoCellAnchorEditAs | Literal["none"] | None = None,
+        _from: AnchorMarker | None = None,
+        to: AnchorMarker | None = None,
+        **kw,
     ) -> None: ...
 
 class SpreadsheetDrawing(Serialisable):
