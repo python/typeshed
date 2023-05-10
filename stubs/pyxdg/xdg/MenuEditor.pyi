@@ -1,8 +1,8 @@
-from _typeshed import Incomplete
 from os import PathLike
 from typing import overload
 from typing_extensions import TypeAlias
 
+from stdlib.xml.etree.ElementTree import ElementTree
 from .Menu import Menu, MenuEntry, Separator, XMLMenuBuilder
 
 _MenuItem: TypeAlias = Menu | MenuEntry | Separator
@@ -10,7 +10,7 @@ _MenuItem: TypeAlias = Menu | MenuEntry | Separator
 class MenuEditor:
     menu: Menu
     filename: str
-    tree: Incomplete
+    tree: ElementTree
     parser: XMLMenuBuilder
     filenames: list[str]
     def __init__(self, menu: Menu | None = None, filename: PathLike[str] | None = None, root: bool = False) -> None: ...
