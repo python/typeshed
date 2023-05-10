@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 
+from openpyxl.descriptors.base import Alias
 from openpyxl.descriptors.serialisable import Serialisable
 
 class Font(Serialisable):
@@ -11,19 +12,19 @@ class Font(Serialisable):
     charset: Incomplete
     family: Incomplete
     sz: Incomplete
-    size: Incomplete
+    size: Alias
     b: Incomplete
-    bold: Incomplete
+    bold: Alias
     i: Incomplete
-    italic: Incomplete
+    italic: Alias
     strike: Incomplete
-    strikethrough: Incomplete
+    strikethrough: Alias
     outline: Incomplete
     shadow: Incomplete
     condense: Incomplete
     extend: Incomplete
     u: Incomplete
-    underline: Incomplete
+    underline: Alias
     vertAlign: Incomplete
     color: Incomplete
     scheme: Incomplete
