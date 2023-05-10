@@ -1,5 +1,5 @@
 from _typeshed import Incomplete, Unused
-from typing import overload
+from typing import ClassVar, overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Bool, Integer, NoneSet, String, Typed, _ConvertibleToBool, _ConvertibleToInt
@@ -26,7 +26,7 @@ class BookView(Serialisable):
     activeTab: Integer[Literal[True]]
     autoFilterDateGrouping: Bool[Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         visibility: _BookViewVilibility | Literal["none"] | None = "visible",
@@ -72,7 +72,7 @@ class CustomWorkbookView(Serialisable):
     showComments: NoneSet[_CustomWorkbookViewShowComments]
     showObjects: NoneSet[_CustomWorkbookViewShowObjects]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     @overload
     def __init__(
         self,

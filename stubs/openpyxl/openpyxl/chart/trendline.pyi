@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.chart.data_source import NumFmt
@@ -19,7 +20,7 @@ class TrendlineLabel(Serialisable):
     txPr: Typed[RichText, Literal[True]]
     textProperties: Alias
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         layout: Layout | None = None,
@@ -45,7 +46,7 @@ class Trendline(Serialisable):
     dispEq: Incomplete
     trendlineLbl: Typed[ExtensionList, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         name: str | None = None,

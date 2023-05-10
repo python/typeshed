@@ -1,5 +1,5 @@
 from _typeshed import Incomplete, Unused
-from typing import overload
+from typing import ClassVar, overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Bool, Integer, NoneSet, Set, String, Typed, _ConvertibleToBool, _ConvertibleToInt
@@ -113,8 +113,8 @@ class HierarchyUsage(Serialisable):
 class ColHierarchiesUsage(Serialisable):
     tagname: str
     colHierarchyUsage: Incomplete
-    __elements__: Incomplete
-    __attrs__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
+    __attrs__: ClassVar[tuple[str, ...]]
     def __init__(self, count: Incomplete | None = None, colHierarchyUsage=()) -> None: ...
     @property
     def count(self): ...
@@ -122,8 +122,8 @@ class ColHierarchiesUsage(Serialisable):
 class RowHierarchiesUsage(Serialisable):
     tagname: str
     rowHierarchyUsage: Incomplete
-    __elements__: Incomplete
-    __attrs__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
+    __attrs__: ClassVar[tuple[str, ...]]
     def __init__(self, count: Incomplete | None = None, rowHierarchyUsage=()) -> None: ...
     @property
     def count(self): ...
@@ -143,7 +143,7 @@ class PivotFilter(Serialisable):
     stringValue2: String[Literal[True]]
     autoFilter: Typed[AutoFilter, Literal[False]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     @overload
     def __init__(
         self,
@@ -183,7 +183,7 @@ class PivotFilter(Serialisable):
 class PivotFilters(Serialisable):
     count: Integer[Literal[False]]
     filter: Typed[PivotFilter, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, count: _ConvertibleToInt, filter: PivotFilter | None = None) -> None: ...
 
 class PivotTableStyle(Serialisable):
@@ -208,7 +208,7 @@ class MemberList(Serialisable):
     tagname: str
     level: Integer[Literal[True]]
     member: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, count: Incomplete | None = None, level: _ConvertibleToInt | None = None, member=()) -> None: ...
     @property
     def count(self): ...
@@ -268,7 +268,7 @@ class PivotHierarchy(Serialisable):
     mps: Incomplete
     members: Typed[MemberList, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         outline: _ConvertibleToBool = None,
@@ -307,7 +307,7 @@ class Reference(Serialisable):
     varPSubtotal: Bool[Literal[True]]
     x: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         field: _ConvertibleToInt | None = None,
@@ -349,7 +349,7 @@ class PivotArea(Serialisable):
     collapsedLevelsAreSubtotals: Bool[Literal[True]]
     axis: NoneSet[_PivotAxis]
     fieldPosition: Integer[Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         references=(),
@@ -374,7 +374,7 @@ class ChartFormat(Serialisable):
     format: Integer[Literal[False]]
     series: Bool[Literal[False]]
     pivotArea: Typed[PivotArea, Literal[False]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     @overload
     def __init__(
         self, chart: _ConvertibleToInt, format: _ConvertibleToInt, series: _ConvertibleToBool = None, *, pivotArea: PivotArea
@@ -391,7 +391,7 @@ class ConditionalFormat(Serialisable):
     priority: Integer[Literal[False]]
     pivotAreas: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     @overload
     def __init__(
         self,
@@ -415,7 +415,7 @@ class ConditionalFormat(Serialisable):
 class ConditionalFormatList(Serialisable):
     tagname: str
     conditionalFormat: Incomplete
-    __attrs__: Incomplete
+    __attrs__: ClassVar[tuple[str, ...]]
     def __init__(self, conditionalFormat=..., count: Incomplete | None = ...) -> None: ...
     def by_priority(self): ...
     @property
@@ -428,7 +428,7 @@ class Format(Serialisable):
     dxfId: Integer[Literal[True]]
     pivotArea: Typed[PivotArea, Literal[False]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     @overload
     def __init__(
         self,
@@ -457,7 +457,7 @@ class DataField(Serialisable):
     baseItem: Integer[Literal[False]]
     numFmtId: Integer[Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     @overload
     def __init__(
         self,
@@ -492,7 +492,7 @@ class PageField(Serialisable):
     name: String[Literal[True]]
     cap: String[Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         fld: _ConvertibleToInt,
@@ -509,7 +509,7 @@ class RowColItem(Serialisable):
     r: Integer[Literal[False]]
     i: Integer[Literal[False]]
     x: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, t: _ItemType = "data", r: _ConvertibleToInt = 0, i: _ConvertibleToInt = 0, x=()) -> None: ...
 
 class RowColField(Serialisable):
@@ -519,7 +519,7 @@ class RowColField(Serialisable):
 
 class AutoSortScope(Serialisable):
     pivotArea: Typed[PivotArea, Literal[False]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, pivotArea: PivotArea) -> None: ...
 
 class FieldItem(Serialisable):
@@ -603,7 +603,7 @@ class PivotField(Serialisable):
     showPropTip: Bool[Literal[True]]
     showPropAsCaption: Bool[Literal[True]]
     defaultAttributeDrillState: Bool[Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         items=(),
@@ -768,7 +768,7 @@ class TableDefinition(Serialisable):
     colHierarchiesUsage: Typed[ColHierarchiesUsage, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     id: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     @overload
     def __init__(
         self,

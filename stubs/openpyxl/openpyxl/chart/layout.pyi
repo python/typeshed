@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.descriptors.base import Alias, Typed
@@ -19,7 +20,7 @@ class ManualLayout(Serialisable):
     h: Incomplete
     height: Alias
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         layoutTarget: Incomplete | None = None,
@@ -38,5 +39,5 @@ class Layout(Serialisable):
     tagname: str
     manualLayout: Typed[ManualLayout, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, manualLayout: ManualLayout | None = None, extLst: Unused = None) -> None: ...

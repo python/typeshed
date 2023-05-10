@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.chart.axis import ChartLines
@@ -12,7 +13,7 @@ class UpDownBars(Serialisable):
     upBars: Typed[ChartLines, Literal[True]]
     downBars: Typed[ChartLines, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self, gapWidth: int = 150, upBars: ChartLines | None = None, downBars: ChartLines | None = None, extLst: Unused = None
     ) -> None: ...

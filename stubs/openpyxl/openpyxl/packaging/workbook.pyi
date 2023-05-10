@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Alias, Bool, Integer, NoneSet, String, Typed, _ConvertibleToBool, _ConvertibleToInt
@@ -72,7 +73,7 @@ class WorkbookPackage(Serialisable):
     webPublishObjects: Typed[WebPublishObjectList, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     Ignorable: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         conformance: _WorkbookPackageConformance | Literal["none"] | None = None,

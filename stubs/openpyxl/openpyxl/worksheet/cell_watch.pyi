@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.descriptors.base import String
@@ -12,5 +13,5 @@ class CellWatch(Serialisable):
 class CellWatches(Serialisable):
     tagname: str
     cellWatch: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, cellWatch=()) -> None: ...

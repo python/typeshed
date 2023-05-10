@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Alias, Integer, NoneSet, Typed, _ConvertibleToInt
@@ -47,7 +48,7 @@ class InlineFont(Font):
     u: Incomplete
     vertAlign: Incomplete
     scheme: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         rFont: Incomplete | None = None,
@@ -73,7 +74,7 @@ class RichText(Serialisable):
     font: Alias
     t: Incomplete
     text: Alias
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, rPr: InlineFont | None = None, t: Incomplete | None = None) -> None: ...
 
 class Text(Serialisable):
@@ -86,7 +87,7 @@ class Text(Serialisable):
     phonetic: Alias
     phoneticPr: Typed[_PhoneticProperties, Literal[True]]
     PhoneticProperties: Alias
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, t: Incomplete | None = None, r=(), rPh=(), phoneticPr: _PhoneticProperties | None = None) -> None: ...
     @property
     def content(self): ...

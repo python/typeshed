@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 
 from openpyxl.descriptors import DateTime
 from openpyxl.descriptors.base import Alias
@@ -36,7 +37,7 @@ class DocumentProperties(Serialisable):
     language: Incomplete
     created: Incomplete
     modified: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         category: Incomplete | None = None,

@@ -1,5 +1,5 @@
 from _typeshed import Incomplete, Unused
-from typing import overload
+from typing import ClassVar, overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Bool, Integer, NoneSet, String, _ConvertibleToBool, _ConvertibleToInt
@@ -54,7 +54,7 @@ class WebPublishObjectList(Serialisable):
     # Overwritten by property below
     # count: Integer
     webPublishObject: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, count: Unused = None, webPublishObject=()) -> None: ...
     @property
     def count(self): ...

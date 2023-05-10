@@ -1,6 +1,6 @@
 from _typeshed import Incomplete, Unused
 from collections.abc import Generator
-from typing import overload
+from typing import ClassVar, overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.cell.text import Text
@@ -29,7 +29,7 @@ class Properties(Serialisable):
     autoScale: Bool[Literal[True]]
     rowHidden: Bool[Literal[True]]
     colHidden: Bool[Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     anchor: ObjectAnchor | None
     @overload
     def __init__(
@@ -82,8 +82,8 @@ class CommentRecord(Serialisable):
     text: Typed[Text, Literal[False]]
     commentPr: Typed[Properties, Literal[True]]
     author: String[Literal[True]]
-    __elements__: Incomplete
-    __attrs__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
+    __attrs__: ClassVar[tuple[str, ...]]
     height: Incomplete
     width: Incomplete
     def __init__(
@@ -109,7 +109,7 @@ class CommentSheet(Serialisable):
     commentList: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
     mime_type: str
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, authors: AuthorList, commentList: Incomplete | None = None, extLst: Unused = None) -> None: ...
     def to_tree(self): ...
     @property

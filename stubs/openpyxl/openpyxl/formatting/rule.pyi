@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors import Float, Strict
@@ -75,7 +76,7 @@ class FormatObject(Serialisable):
     val: Incomplete
     gte: Bool[Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self, type: _FormatObjectType, val: Incomplete | None = None, gte: _ConvertibleToBool | None = None, extLst: Unused = None
     ) -> None: ...
@@ -89,7 +90,7 @@ class IconSet(RuleType):
     showValue: Bool[Literal[True]]
     percent: Bool[Literal[True]]
     reverse: Bool[Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     cfvo: Incomplete
     def __init__(
         self,
@@ -106,7 +107,7 @@ class DataBar(RuleType):
     maxLength: Integer[Literal[True]]
     showValue: Bool[Literal[True]]
     color: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     cfvo: Incomplete
     def __init__(
         self,
@@ -120,7 +121,7 @@ class DataBar(RuleType):
 class ColorScale(RuleType):
     tagname: str
     color: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     cfvo: Incomplete
     def __init__(self, cfvo: Incomplete | None = None, color: Incomplete | None = None) -> None: ...
 
@@ -145,8 +146,8 @@ class Rule(Serialisable):
     iconSet: Typed[IconSet, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     dxf: Typed[DifferentialStyle, Literal[True]]
-    __elements__: Incomplete
-    __attrs__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
+    __attrs__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         type: _RuleType,

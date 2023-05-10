@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Alias, Bool, NoneSet, Typed, _ConvertibleToBool
@@ -36,7 +37,7 @@ class _AnchorBase(Serialisable):
     pic: Typed[PictureFrame, Literal[True]]
     contentPart: Incomplete
     clientData: Typed[AnchorClientData, Literal[False]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         clientData: AnchorClientData | None = None,
@@ -59,7 +60,7 @@ class AbsoluteAnchor(_AnchorBase):
     pic: Incomplete
     contentPart: Incomplete
     clientData: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, pos: XDRPoint2D | None = None, ext: XDRPositiveSize2D | None = None, **kw) -> None: ...
 
 class OneCellAnchor(_AnchorBase):
@@ -73,7 +74,7 @@ class OneCellAnchor(_AnchorBase):
     pic: Incomplete
     contentPart: Incomplete
     clientData: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, _from: AnchorMarker | None = None, ext: XDRPositiveSize2D | None = None, **kw) -> None: ...
 
 class TwoCellAnchor(_AnchorBase):
@@ -88,7 +89,7 @@ class TwoCellAnchor(_AnchorBase):
     pic: Incomplete
     contentPart: Incomplete
     clientData: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         editAs: _TwoCellAnchorEditAs | Literal["none"] | None = None,
@@ -104,7 +105,7 @@ class SpreadsheetDrawing(Serialisable):
     twoCellAnchor: Incomplete
     oneCellAnchor: Incomplete
     absoluteAnchor: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     charts: Incomplete
     images: Incomplete
     def __init__(self, twoCellAnchor=(), oneCellAnchor=(), absoluteAnchor=()) -> None: ...

@@ -1,5 +1,5 @@
 from _typeshed import Incomplete, Unused
-from typing import overload
+from typing import ClassVar, overload
 from typing_extensions import Literal
 
 from openpyxl.descriptors.base import (
@@ -50,8 +50,8 @@ class Scenario(Serialisable):
     hidden: Bool[Literal[True]]
     user: String[Literal[True]]
     comment: String[Literal[True]]
-    __elements__: Incomplete
-    __attrs__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
+    __attrs__: ClassVar[tuple[str, ...]]
     @overload
     def __init__(
         self,
@@ -84,7 +84,7 @@ class ScenarioList(Serialisable):
     current: Integer[Literal[True]]
     show: Integer[Literal[True]]
     sqref: Convertible[MultiCellRange, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         scenario=(),

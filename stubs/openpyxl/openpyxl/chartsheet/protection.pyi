@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.descriptors.base import Bool, Integer, String, _ConvertibleToBool, _ConvertibleToInt
@@ -13,7 +14,7 @@ class ChartsheetProtection(Serialisable, _Protected):
     spinCount: Integer[Literal[True]]
     content: Bool[Literal[True]]
     objects: Bool[Literal[True]]
-    __attrs__: Incomplete
+    __attrs__: ClassVar[tuple[str, ...]]
     password: Incomplete
     def __init__(
         self,

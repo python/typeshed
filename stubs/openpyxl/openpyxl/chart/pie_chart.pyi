@@ -1,5 +1,6 @@
 from _typeshed import Incomplete, Unused
 from abc import abstractmethod
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.chart.axis import ChartLines
@@ -15,7 +16,7 @@ class _PieChartBase(ChartBase):
     ser: Incomplete
     dLbls: Typed[DataLabelList, Literal[True]]
     dataLabels: Alias
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, varyColors: bool = True, ser=(), dLbls: DataLabelList | None = None) -> None: ...
     @property
     @abstractmethod
@@ -28,7 +29,7 @@ class PieChart(_PieChartBase):
     dLbls: Incomplete
     firstSliceAng: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, firstSliceAng: int = 0, extLst: Unused = None, **kw) -> None: ...
 
 class PieChart3D(_PieChartBase):
@@ -37,7 +38,7 @@ class PieChart3D(_PieChartBase):
     ser: Incomplete
     dLbls: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
 
 class DoughnutChart(_PieChartBase):
     tagname: str
@@ -47,13 +48,13 @@ class DoughnutChart(_PieChartBase):
     firstSliceAng: Incomplete
     holeSize: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, firstSliceAng: int = 0, holeSize: int = 10, extLst: Unused = None, **kw) -> None: ...
 
 class CustomSplit(Serialisable):
     tagname: str
     secondPiePt: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, secondPiePt=()) -> None: ...
 
 class ProjectedPieChart(_PieChartBase):
@@ -71,7 +72,7 @@ class ProjectedPieChart(_PieChartBase):
     serLines: Typed[ChartLines, Literal[True]]
     join_lines: Alias
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         ofPieType: str = "pie",

@@ -1,5 +1,4 @@
-from _typeshed import Incomplete
-from typing import overload
+from typing import ClassVar, overload
 from typing_extensions import Literal
 
 from openpyxl.chart.shapes import GraphicalProperties
@@ -36,7 +35,7 @@ class NonVisualConnectorProperties(Serialisable):
 class ConnectorNonVisual(Serialisable):
     cNvPr: Typed[NonVisualDrawingProps, Literal[False]]
     cNvCxnSpPr: Typed[NonVisualConnectorProperties, Literal[False]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, cNvPr: NonVisualDrawingProps, cNvCxnSpPr: NonVisualConnectorProperties) -> None: ...
 
 class ConnectorShape(Serialisable):
