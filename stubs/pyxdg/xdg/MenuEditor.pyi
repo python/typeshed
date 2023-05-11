@@ -1,4 +1,4 @@
-from _typeshed import StrPath
+from _typeshed import StrPath, Unused
 from typing import overload
 from typing_extensions import TypeAlias
 from xml.etree.ElementTree import ElementTree
@@ -89,13 +89,9 @@ class MenuEditor:
         before: _MenuItem | None = None,
     ) -> MenuEntry: ...
     @overload
-    def moveMenu(
-        self, menu: Menu, oldparent: Menu | None, newparent: Menu | None, after: _MenuItem | None = None, before: None = None
-    ): ...
+    def moveMenu(self, menu: Menu, oldparent: Menu, newparent: Menu, after: _MenuItem | None = None, before: None = None): ...
     @overload
-    def moveMenu(
-        self, menu: Menu, oldparent: Menu | None, newparent: Menu | None, after: None = None, before: _MenuItem | None = None
-    ): ...
+    def moveMenu(self, menu: Menu, oldparent: Menu, newparent: Menu, after: None = None, before: _MenuItem | None = None): ...
     @overload
     def moveSeparator(
         self, separator: Separator, parent: Menu, after: _MenuItem | None = None, before: None = None
@@ -106,11 +102,11 @@ class MenuEditor:
     ) -> Separator: ...
     @overload
     def copyMenuEntry(
-        self, menuentry: MenuEntry, oldparent, newparent, after: _MenuItem | None = None, before: None = None
+        self, menuentry: MenuEntry, oldparent: Unused, newparent: Menu, after: _MenuItem | None = None, before: None = None
     ) -> MenuEntry: ...
     @overload
     def copyMenuEntry(
-        self, menuentry: MenuEntry, oldparent, newparent, after: None = None, before: _MenuItem | None = None
+        self, menuentry: MenuEntry, oldparent: Unused, newparent: Menu, after: None = None, before: _MenuItem | None = None
     ) -> MenuEntry: ...
     def editMenuEntry(
         self,
