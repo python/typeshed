@@ -18,7 +18,7 @@ class TOC(list[_TOCTuple]):
     def __sub__(self, other: Iterable[_TOCTuple]) -> TOC: ...
     def __rsub__(self, other: Iterable[_TOCTuple]) -> TOC: ...
     # slicing a TOC is not supported, but has a special case for slice(None, None, None)
-    def __setitem__(self, key: int | slice, value: Iterable[_TOCTuple]) -> None: ...  # type: ignore[override]
+    def __setitem__(self, key: int | slice[None, None, None], value: Iterable[_TOCTuple]) -> None: ...  # type: ignore[override]
 
 class Target:
     invcnum: ClassVar[int]

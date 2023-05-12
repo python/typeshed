@@ -1,6 +1,6 @@
 from _typeshed import _BufferWithLen
 from socket import socket
-from typing import TypeVar, overload
+from typing import Any, TypeVar, overload
 from typing_extensions import Literal
 
 from Xlib import error
@@ -19,7 +19,7 @@ class bytesview:
     @overload
     def __init__(self, data: _BufferWithLen, offset: int = 0, size: int | None = None) -> None: ...
     @overload
-    def __getitem__(self, key: slice) -> bytes: ...
+    def __getitem__(self, key: slice[Any, Any, Any]) -> bytes: ...
     @overload
     def __getitem__(self, key: int) -> int: ...
     def __len__(self) -> int: ...
