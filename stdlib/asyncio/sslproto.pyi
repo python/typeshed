@@ -66,7 +66,7 @@ class _SSLProtocolTransport(transports._FlowControlMixin, transports.Transport):
     _sendfile_compatible: ClassVar[constants._SendfileMode]
 
     _loop: events.AbstractEventLoop
-    if sys.version_info >= (3, 11, 1):
+    if sys.version_info >= (3, 11):
         _ssl_protocol: SSLProtocol | None
     else:
         _ssl_protocol: SSLProtocol
