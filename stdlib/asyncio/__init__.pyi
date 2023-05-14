@@ -39,5 +39,3 @@ if sys.version_info >= (3, 12):
     _CoroutineLike: TypeAlias = Coroutine[Any, Any, _T]  # noqa: Y047
 else:
     _CoroutineLike: TypeAlias = Generator[Any, None, _T] | Coroutine[Any, Any, _T]  # noqa: Y047
-
-    
