@@ -46,6 +46,11 @@ _FT = TypeVar("_FT", bound=Future[Any])
 _FutureLike: TypeAlias = Future[_T] | Generator[Any, None, _T] | Awaitable[_T]
 _TaskYieldType: TypeAlias = Future[object] | None
 
+if sys.version_info >= (3, 12):
+    _CoroutineLike: TypeAlias = Coroutine[Any, Any, _T]
+else:
+    _CoroutineLike: TypeAlias = Generator[Any, None, _T] | Coroutine[Any, Any, _T]
+
 FIRST_COMPLETED = concurrent.futures.FIRST_COMPLETED
 FIRST_EXCEPTION = concurrent.futures.FIRST_EXCEPTION
 ALL_COMPLETED = concurrent.futures.ALL_COMPLETED
@@ -311,21 +316,16 @@ class Task(Future[_T_co], Generic[_T_co]):  # type: ignore[type-var]  # pyright:
 
 def all_tasks(loop: AbstractEventLoop | None = None) -> set[Task[Any]]: ...
 
-if sys.version_info >= (3, 12):
+if sys.version_info >= (3, 11):
     def create_task(
-        coro: Coroutine[Any, Any, _T], *, name: str | None = None, context: Context | None = None
-    ) -> Task[_T]: ...
-
-elif sys.version_info >= (3, 11):
-    def create_task(
-        coro: Generator[Any, None, _T] | Coroutine[Any, Any, _T], *, name: str | None = None, context: Context | None = None
+        coro: _CoroutineLike[_T], *, name: str | None = None, context: Context | None = None
     ) -> Task[_T]: ...
 
 elif sys.version_info >= (3, 8):
-    def create_task(coro: Generator[Any, None, _T] | Coroutine[Any, Any, _T], *, name: str | None = None) -> Task[_T]: ...
+    def create_task(coro: _CoroutineLike[_T], *, name: str | None = None) -> Task[_T]: ...
 
 else:
-    def create_task(coro: Generator[Any, None, _T] | Coroutine[Any, Any, _T]) -> Task[_T]: ...
+    def create_task(coro: _CoroutineLike[_T]) -> Task[_T]: ...
 
 def current_task(loop: AbstractEventLoop | None = None) -> Task[Any] | None: ...
 def _enter_task(loop: AbstractEventLoop, task: Task[Any]) -> None: ...
