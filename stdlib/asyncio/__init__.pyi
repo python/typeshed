@@ -1,6 +1,9 @@
 import sys
 from collections.abc import Coroutine, Generator
+from typing import Any, TypeVar
 from typing_extensions import TypeAlias
+
+_T = TypeVar("_T")
 
 if sys.version_info >= (3, 12):
     _CoroutineLike: TypeAlias = Coroutine[Any, Any, _T]
