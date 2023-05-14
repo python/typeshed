@@ -11,7 +11,7 @@ from typing_extensions import Literal, Self, TypeAlias
 from .base_events import Server
 from .futures import Future
 from .protocols import BaseProtocol
-from .tasks import Task
+from .tasks import _CoroutineLike, Task
 from .transports import BaseTransport, DatagramTransport, ReadTransport, SubprocessTransport, Transport, WriteTransport
 from .unix_events import AbstractChildWatcher
 
@@ -155,16 +155,11 @@ class AbstractEventLoop:
     @abstractmethod
     def create_future(self) -> Future[Any]: ...
     # Tasks methods
-    if sys.version_info >= (3, 12):
-        @abstractmethod
-        def create_task(
-            self, coro: Coroutine[Any, Any, _T], *, name: str | None = None, context: Context | None = None
-        ) -> Task[_T]: ...
-    elif sys.version_info >= (3, 11):
+    if sys.version_info >= (3, 11):
         @abstractmethod
         def create_task(
             self,
-            coro: Coroutine[Any, Any, _T] | Generator[Any, None, _T],
+            coro: _CoroutineLike[_T],
             *,
             name: str | None = None,
             context: Context | None = None,
@@ -172,11 +167,11 @@ class AbstractEventLoop:
     elif sys.version_info >= (3, 8):
         @abstractmethod
         def create_task(
-            self, coro: Coroutine[Any, Any, _T] | Generator[Any, None, _T], *, name: str | None = None
+            self, coro: _CoroutineLike[_T], *, name: str | None = None
         ) -> Task[_T]: ...
     else:
         @abstractmethod
-        def create_task(self, coro: Coroutine[Any, Any, _T] | Generator[Any, None, _T]) -> Task[_T]: ...
+        def create_task(self, coro: _CoroutineLike[_T]) -> Task[_T]: ...
 
     @abstractmethod
     def set_task_factory(self, factory: _TaskFactory | None) -> None: ...

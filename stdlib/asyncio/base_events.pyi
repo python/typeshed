@@ -4,7 +4,7 @@ from _typeshed import FileDescriptorLike, ReadableBuffer, WriteableBuffer
 from asyncio.events import AbstractEventLoop, AbstractServer, Handle, TimerHandle, _TaskFactory
 from asyncio.futures import Future
 from asyncio.protocols import BaseProtocol
-from asyncio.tasks import Task
+from asyncio.tasks import _CoroutineLike, Task
 from asyncio.transports import BaseTransport, DatagramTransport, ReadTransport, SubprocessTransport, Transport, WriteTransport
 from collections.abc import Awaitable, Callable, Coroutine, Generator, Iterable, Sequence
 from contextvars import Context
@@ -85,18 +85,14 @@ class BaseEventLoop(AbstractEventLoop):
     # Future methods
     def create_future(self) -> Future[Any]: ...
     # Tasks methods
-    if sys.version_info >= (3, 12):
+    if sys.version_info >= (3, 11):
         def create_task(
-            self, coro: Coroutine[Any, Any, _T], *, name: object = None, context: Context | None = None
-        ) -> Task[_T]: ...
-    elif sys.version_info >= (3, 11):
-        def create_task(
-            self, coro: Coroutine[Any, Any, _T] | Generator[Any, None, _T], *, name: object = None, context: Context | None = None
+            self, coro: _CoroutineLike[_T], *, name: object = None, context: Context | None = None
         ) -> Task[_T]: ...
     elif sys.version_info >= (3, 8):
-        def create_task(self, coro: Coroutine[Any, Any, _T] | Generator[Any, None, _T], *, name: object = None) -> Task[_T]: ...
+        def create_task(self, coro: _CoroutineLike[_T], *, name: object = None) -> Task[_T]: ...
     else:
-        def create_task(self, coro: Coroutine[Any, Any, _T] | Generator[Any, None, _T]) -> Task[_T]: ...
+        def create_task(self, coro: _CoroutineLike[_T]) -> Task[_T]: ...
 
     def set_task_factory(self, factory: _TaskFactory | None) -> None: ...
     def get_task_factory(self) -> _TaskFactory | None: ...
