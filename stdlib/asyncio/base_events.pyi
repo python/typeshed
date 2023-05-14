@@ -7,7 +7,7 @@ from asyncio.futures import Future
 from asyncio.protocols import BaseProtocol
 from asyncio.tasks import Task
 from asyncio.transports import BaseTransport, DatagramTransport, ReadTransport, SubprocessTransport, Transport, WriteTransport
-from collections.abc import Awaitable, Callable, Generator, Iterable, Sequence
+from collections.abc import Callable, Iterable, Sequence
 from contextvars import Context
 from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
 from typing import IO, Any, TypeVar, overload

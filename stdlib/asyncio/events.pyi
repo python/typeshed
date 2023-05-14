@@ -2,7 +2,7 @@ import ssl
 import sys
 from _typeshed import FileDescriptorLike, ReadableBuffer, StrPath, Unused, WriteableBuffer
 from abc import ABCMeta, abstractmethod
-from collections.abc import Awaitable, Callable, Coroutine, Generator, Sequence
+from collections.abc import Callable, Coroutine, Generator, Sequence
 from contextvars import Context
 from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
 from typing import IO, Any, Protocol, TypeVar, overload
