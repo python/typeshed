@@ -158,11 +158,7 @@ class AbstractEventLoop:
     if sys.version_info >= (3, 12):
         @abstractmethod
         def create_task(
-            self,
-            coro: Coroutine[Any, Any, _T],
-            *,
-            name: str | None = None,
-            context: Context | None = None,
+            self, coro: Coroutine[Any, Any, _T], *, name: str | None = None, context: Context | None = None
         ) -> Task[_T]: ...
     elif sys.version_info >= (3, 11):
         @abstractmethod
