@@ -8,10 +8,11 @@ from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
 from typing import IO, Any, Protocol, TypeVar, overload
 from typing_extensions import Literal, Self, TypeAlias
 
+from . import _CoroutineLike
 from .base_events import Server
 from .futures import Future
 from .protocols import BaseProtocol
-from .tasks import Task, _CoroutineLike
+from .tasks import Task
 from .transports import BaseTransport, DatagramTransport, ReadTransport, SubprocessTransport, Transport, WriteTransport
 from .unix_events import AbstractChildWatcher
 

@@ -1,10 +1,11 @@
 import concurrent.futures
 import sys
-from collections.abc import Awaitable, Coroutine, Generator, Iterable, Iterator
+from collections.abc import Awaitable, Generator, Iterable, Iterator
 from types import FrameType
 from typing import Any, Generic, TextIO, TypeVar, overload
 from typing_extensions import Literal, TypeAlias
 
+from . import _CoroutineLike
 from .events import AbstractEventLoop
 from .futures import Future
 
@@ -45,11 +46,6 @@ _T5 = TypeVar("_T5")
 _FT = TypeVar("_FT", bound=Future[Any])
 _FutureLike: TypeAlias = Future[_T] | Generator[Any, None, _T] | Awaitable[_T]
 _TaskYieldType: TypeAlias = Future[object] | None
-
-if sys.version_info >= (3, 12):
-    _CoroutineLike: TypeAlias = Coroutine[Any, Any, _T]
-else:
-    _CoroutineLike: TypeAlias = Generator[Any, None, _T] | Coroutine[Any, Any, _T]
 
 FIRST_COMPLETED = concurrent.futures.FIRST_COMPLETED
 FIRST_EXCEPTION = concurrent.futures.FIRST_EXCEPTION

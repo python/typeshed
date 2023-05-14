@@ -1,10 +1,11 @@
 import ssl
 import sys
 from _typeshed import FileDescriptorLike, ReadableBuffer, WriteableBuffer
+from asyncio import _CoroutineLike
 from asyncio.events import AbstractEventLoop, AbstractServer, Handle, TimerHandle, _TaskFactory
 from asyncio.futures import Future
 from asyncio.protocols import BaseProtocol
-from asyncio.tasks import Task, _CoroutineLike
+from asyncio.tasks import Task
 from asyncio.transports import BaseTransport, DatagramTransport, ReadTransport, SubprocessTransport, Transport, WriteTransport
 from collections.abc import Awaitable, Callable, Generator, Iterable, Sequence
 from contextvars import Context

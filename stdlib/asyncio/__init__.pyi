@@ -1,4 +1,11 @@
 import sys
+from collections.abc import Coroutine, Generator
+from typing_extensions import TypeAlias
+
+if sys.version_info >= (3, 12):
+    _CoroutineLike: TypeAlias = Coroutine[Any, Any, _T]
+else:
+    _CoroutineLike: TypeAlias = Generator[Any, None, _T] | Coroutine[Any, Any, _T]
 
 # As at runtime, this depends on all submodules defining __all__ accurately.
 from .base_events import *
