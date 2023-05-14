@@ -5,7 +5,7 @@ from typing_extensions import TypeAlias
 
 _T = TypeVar("_T")
 
-# Aliases imported by multiple submodules in typeshed 
+# Aliases imported by multiple submodules in typeshed
 if sys.version_info >= (3, 12):
     _CoroutineLike: TypeAlias = Coroutine[Any, Any, _T]  # noqa: Y047
 else:
