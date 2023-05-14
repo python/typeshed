@@ -36,6 +36,6 @@ _T = TypeVar("_T")
 
 # Aliases imported by multiple submodules in typeshed
 if sys.version_info >= (3, 12):
-    _CoroutineLike: TypeAlias = Coroutine[Any, Any, _T]  # noqa: Y047
+    _CoroutineLike: TypeAlias = Coroutine[Any, Any, _T]
 else:
-    _CoroutineLike: TypeAlias = Generator[Any, None, _T] | Coroutine[Any, Any, _T]  # noqa: Y047
+    _CoroutineLike: TypeAlias = Generator[Any, None, _T] | Coroutine[Any, Any, _T]
