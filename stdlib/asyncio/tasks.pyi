@@ -275,11 +275,10 @@ else:
     ) -> tuple[set[Task[_T]], set[Task[_T]]]: ...
     async def wait_for(fut: _FutureLike[_T], timeout: float | None, *, loop: AbstractEventLoop | None = None) -> _T: ...
 
-
 if sys.version_info >= (3, 12):
-    _TaskCompatibleCoro: TypeAlias =  Coroutine[Any, Any, _T_co]
+    _TaskCompatibleCoro: TypeAlias = Coroutine[Any, Any, _T_co]
 else:
-    _TaskCompatibleCoro: TypeAlias =  Generator[_TaskYieldType, None, _T_co] | Awaitable[_T_co]
+    _TaskCompatibleCoro: TypeAlias = Generator[_TaskYieldType, None, _T_co] | Awaitable[_T_co]
 
 # mypy and pyright complain that a subclass of an invariant class shouldn't be covariant.
 # While this is true in general, here it's sort-of okay to have a covariant subclass,
@@ -288,16 +287,10 @@ else:
 class Task(Future[_T_co], Generic[_T_co]):  # type: ignore[type-var]  # pyright: ignore[reportGeneralTypeIssues]
     if sys.version_info >= (3, 8):
         def __init__(
-            self,
-            coro: _TaskCompatibleCoro[_T_co],
-            *,
-            loop: AbstractEventLoop = ...,
-            name: str | None = ...,
+            self, coro: _TaskCompatibleCoro[_T_co], *, loop: AbstractEventLoop = ..., name: str | None = ...
         ) -> None: ...
     else:
-        def __init__(
-            self, coro: _TaskCompatibleCoro[_T_co], *, loop: AbstractEventLoop = ...
-        ) -> None: ...
+        def __init__(self, coro: _TaskCompatibleCoro[_T_co], *, loop: AbstractEventLoop = ...) -> None: ...
     if sys.version_info >= (3, 8):
         def get_coro(self) -> _TaskCompatibleCoro[_T_co]: ...
         def get_name(self) -> str: ...
