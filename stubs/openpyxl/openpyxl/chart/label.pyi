@@ -1,5 +1,6 @@
 from _typeshed import Incomplete, Unused
 from abc import abstractmethod
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.chart.shapes import GraphicalProperties
@@ -25,7 +26,7 @@ class _DataLabelBase(Serialisable):
     showLeaderLines: Incomplete
     separator: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         numFmt: Incomplete | None = None,
@@ -62,7 +63,7 @@ class DataLabel(_DataLabelBase):
     showLeaderLines: Incomplete
     separator: Incomplete
     extLst: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, idx: int = 0, **kw) -> None: ...
 
 class DataLabelList(_DataLabelBase):
@@ -82,5 +83,5 @@ class DataLabelList(_DataLabelBase):
     showLeaderLines: Incomplete
     separator: Incomplete
     extLst: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, dLbl=(), delete: Incomplete | None = None, **kw) -> None: ...

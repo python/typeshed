@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import (
@@ -156,7 +157,7 @@ class Hyperlink(Serialisable):
     snd: Typed[EmbeddedWAVAudioFile, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     id: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         invalidUrl: str | None = None,
@@ -230,7 +231,7 @@ class CharacterProperties(Serialisable):
     uLn: Typed[LineProperties, Literal[True]]
     uFillTx: Incomplete
     uFill: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         kumimoji: _ConvertibleToBool | None = None,
@@ -288,7 +289,7 @@ class TabStopList(Serialisable):
 class Spacing(Serialisable):
     spcPct: Incomplete
     spcPts: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, spcPct: Incomplete | None = None, spcPts: Incomplete | None = None) -> None: ...
 
 class AutonumberBullet(Serialisable):
@@ -327,7 +328,7 @@ class ParagraphProperties(Serialisable):
     buAutoNum: Incomplete
     buChar: Incomplete
     buBlip: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         marL: _ConvertibleToInt | None = None,
@@ -374,7 +375,7 @@ class ListStyle(Serialisable):
     lvl8pPr: Typed[ParagraphProperties, Literal[True]]
     lvl9pPr: Typed[ParagraphProperties, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         defPPr: ParagraphProperties | None = None,
@@ -397,14 +398,14 @@ class RegularTextRun(Serialisable):
     properties: Alias
     t: Incomplete
     value: Alias
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, rPr: CharacterProperties | None = None, t: str = "") -> None: ...
 
 class LineBreak(Serialisable):
     tagname: str
     namespace: Incomplete
     rPr: Typed[CharacterProperties, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, rPr: CharacterProperties | None = None) -> None: ...
 
 class TextField(Serialisable):
@@ -413,7 +414,7 @@ class TextField(Serialisable):
     rPr: Typed[CharacterProperties, Literal[True]]
     pPr: Typed[CharacterProperties, Literal[True]]
     t: String[Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         id: str,
@@ -433,7 +434,7 @@ class Paragraph(Serialisable):
     text: Alias
     br: Typed[LineBreak, Literal[True]]
     fld: Typed[TextField, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         pPr: ParagraphProperties | None = None,
@@ -491,7 +492,7 @@ class RichTextProperties(Serialisable):
     normAutofit: Incomplete
     spAutoFit: Incomplete
     flatTx: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         rot: _ConvertibleToInt | None = None,

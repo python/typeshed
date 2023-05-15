@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.chart.picture import PictureOptions
@@ -14,7 +15,7 @@ class Marker(Serialisable):
     spPr: Typed[GraphicalProperties, Literal[True]]
     graphicalProperties: Alias
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         symbol: Incomplete | None = None,
@@ -34,7 +35,7 @@ class DataPoint(Serialisable):
     graphicalProperties: Alias
     pictureOptions: Typed[PictureOptions, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         idx: Incomplete | None = None,

@@ -1,5 +1,6 @@
 from _typeshed import Incomplete, Unused
 from abc import abstractmethod
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.chart.layout import Layout
@@ -22,7 +23,7 @@ class Scaling(Serialisable):
     max: Incomplete
     min: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         logBase: Incomplete | None = None,
@@ -52,7 +53,7 @@ class _BaseAxis(Serialisable):
     crossAx: Incomplete
     crosses: Incomplete
     crossesAt: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         axId: Incomplete | None = None,
@@ -85,7 +86,7 @@ class DisplayUnitsLabel(Serialisable):
     graphicalProperties: Alias
     txPr: Typed[RichText, Literal[True]]
     textPropertes: Alias
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         layout: Layout | None = None,
@@ -100,7 +101,7 @@ class DisplayUnitsLabelList(Serialisable):
     builtInUnit: Incomplete
     dispUnitsLbl: Typed[DisplayUnitsLabel, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         custUnit: Incomplete | None = None,
@@ -132,7 +133,7 @@ class NumericAxis(_BaseAxis):
     minorUnit: Incomplete
     dispUnits: Typed[DisplayUnitsLabelList, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         crossBetween: Incomplete | None = None,
@@ -170,7 +171,7 @@ class TextAxis(_BaseAxis):
     tickMarkSkip: Incomplete
     noMultiLvlLbl: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         auto: Incomplete | None = None,
@@ -209,7 +210,7 @@ class DateAxis(TextAxis):
     minorUnit: Incomplete
     minorTimeUnit: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         auto: Incomplete | None = None,
@@ -244,7 +245,7 @@ class SeriesAxis(_BaseAxis):
     tickLblSkip: Incomplete
     tickMarkSkip: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self, tickLblSkip: Incomplete | None = None, tickMarkSkip: Incomplete | None = None, extLst: Unused = None, **kw
     ) -> None: ...

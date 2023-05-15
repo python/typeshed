@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.chart.picture import PictureOptions
@@ -20,7 +21,7 @@ class View3D(Serialisable):
     right_angle_axes: Alias
     perspective: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         rotX: int = 15,
@@ -39,7 +40,7 @@ class Surface(Serialisable):
     graphicalProperties: Alias
     pictureOptions: Typed[PictureOptions, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         thickness: Incomplete | None = None,

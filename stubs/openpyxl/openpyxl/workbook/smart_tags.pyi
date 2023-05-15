@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Bool, NoneSet, String, _ConvertibleToBool
@@ -16,7 +17,7 @@ class SmartTag(Serialisable):
 class SmartTagList(Serialisable):
     tagname: str
     smartTagType: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, smartTagType=()) -> None: ...
 
 class SmartTagProperties(Serialisable):

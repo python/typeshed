@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import (
@@ -102,5 +103,5 @@ class SheetViewList(Serialisable):
     tagname: str
     sheetView: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, sheetView: Incomplete | None = None, extLst: Unused = None) -> None: ...

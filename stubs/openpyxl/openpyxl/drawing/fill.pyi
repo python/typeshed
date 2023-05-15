@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import (
@@ -106,7 +107,7 @@ class PatternFillProperties(Serialisable):
     foreground: Alias
     bgClr: Typed[ColorChoice, Literal[True]]
     background: Alias
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         prst: _PatternFillPropertiesPrst | Literal["none"] | None = None,
@@ -147,7 +148,7 @@ class GradientStop(Serialisable):
     sysClr: Typed[SystemColor, Literal[True]]
     schemeClr: Typed[SchemeColor, Literal[True]]
     prstClr: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         pos: _ConvertibleToFloat | None = None,
@@ -184,7 +185,7 @@ class GradientFillProperties(Serialisable):
     linear: Alias
     path: Typed[PathShadeProperties, Literal[True]]
     tileRect: Typed[RelativeRect, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         flip: _PropertiesFlip | Literal["none"] | None = None,
@@ -205,7 +206,7 @@ class SolidColorFillProperties(Serialisable):
     sysClr: Typed[SystemColor, Literal[True]]
     schemeClr: Typed[SchemeColor, Literal[True]]
     prstClr: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         scrgbClr: _RGBPercent | None = None,
@@ -250,7 +251,7 @@ class Blip(Serialisable):
     hsl: Typed[HSLEffect, Literal[True]]
     lum: Typed[LuminanceEffect, Literal[True]]
     tint: Typed[TintEffect, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         cstate: _BlipCstate | Literal["none"] | None = None,
@@ -312,7 +313,7 @@ class BlipFillProperties(Serialisable):
     srcRect: Typed[RelativeRect, Literal[True]]
     tile: Typed[TileInfoProperties, Literal[True]]
     stretch: Typed[StretchInfoProperties, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         dpi: _ConvertibleToInt | None = None,

@@ -1,6 +1,6 @@
 from _typeshed import Incomplete, Unused
 from datetime import datetime
-from typing import overload
+from typing import ClassVar, overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import (
@@ -127,7 +127,7 @@ class SortState(Serialisable):
     ref: Incomplete
     sortCondition: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         columnSort: _ConvertibleToBool | None = None,
@@ -179,7 +179,7 @@ class CustomFilters(Serialisable):
     tagname: str
     _and: Bool[Literal[True]]  # Not private. Avoids name clash
     customFilter: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, _and: _ConvertibleToBool | None = False, customFilter=()) -> None: ...
 
 class Top10(Serialisable):
@@ -245,7 +245,7 @@ class Filters(Serialisable):
     calendarType: NoneSet[_FiltersCalendarType]
     filter: Incomplete
     dateGroupItem: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         blank: _ConvertibleToBool | None = None,
@@ -267,7 +267,7 @@ class FilterColumn(Serialisable):
     colorFilter: Typed[ColorFilter, Literal[True]]
     iconFilter: Typed[IconFilter, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         colId: _ConvertibleToInt,
@@ -290,7 +290,7 @@ class AutoFilter(Serialisable):
     filterColumn: Incomplete
     sortState: Typed[SortState, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self, ref: Incomplete | None = None, filterColumn=(), sortState: SortState | None = None, extLst: Unused = None
     ) -> None: ...

@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import overload
+from typing import ClassVar, overload
 from typing_extensions import Literal
 
 from openpyxl.descriptors.base import Bool, Integer, String, Typed, _ConvertibleToBool, _ConvertibleToInt
@@ -24,7 +24,7 @@ class ControlProperty(Serialisable):
     listFillRange: String[Literal[True]]
     cf: String[Literal[True]]
     id: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         anchor: ObjectAnchor,
@@ -50,7 +50,7 @@ class Control(Serialisable):
     controlPr: Typed[ControlProperty, Literal[True]]
     shapeId: Integer[Literal[False]]
     name: String[Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     @overload
     def __init__(
         self, controlPr: ControlProperty | None = None, *, shapeId: _ConvertibleToInt, name: str | None = None
@@ -61,5 +61,5 @@ class Control(Serialisable):
 class Controls(Serialisable):
     tagname: str
     control: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, control=()) -> None: ...

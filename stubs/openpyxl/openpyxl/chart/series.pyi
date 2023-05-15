@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.chart.data_source import AxDataSource, NumDataSource, StrRef
@@ -19,7 +20,7 @@ class SeriesLabel(Serialisable):
     strRef: Typed[StrRef, Literal[True]]
     v: Incomplete
     value: Alias
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, strRef: StrRef | None = None, v: Incomplete | None = None) -> None: ...
 
 class Series(Serialisable):
@@ -51,7 +52,7 @@ class Series(Serialisable):
     marker: Typed[Marker, Literal[True]]
     smooth: Incomplete
     explosion: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         idx: int = 0,

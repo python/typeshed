@@ -1,5 +1,5 @@
 from _typeshed import Incomplete, Unused
-from typing import overload
+from typing import ClassVar, overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors import Strict, String
@@ -39,7 +39,7 @@ class XMLColumnProps(Serialisable):
     denormalized: Bool[Literal[True]]
     xmlDataType: String[Literal[False]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     @overload
     def __init__(
         self,
@@ -85,7 +85,7 @@ class TableColumn(Serialisable):
     totalsRowFormula: Typed[TableFormula, Literal[True]]
     xmlColumnPr: Typed[XMLColumnProps, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     @overload
     def __init__(
         self,
@@ -164,7 +164,7 @@ class Table(Serialisable):
     tableColumns: Incomplete
     tableStyleInfo: Typed[TableStyleInfo, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         id: _ConvertibleToInt = 1,
@@ -206,8 +206,8 @@ class TablePartList(Serialisable):
     # Overwritten by property below
     # count: Integer
     tablePart: Incomplete
-    __elements__: Incomplete
-    __attrs__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
+    __attrs__: ClassVar[tuple[str, ...]]
     def __init__(self, count: Unused = None, tablePart=()) -> None: ...
     def append(self, part) -> None: ...
     @property

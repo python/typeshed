@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.descriptors.base import Bool, Integer, Typed, _ConvertibleToBool, _ConvertibleToInt
@@ -12,7 +13,7 @@ class ChartsheetView(Serialisable):
     workbookViewId: Integer[Literal[False]]
     zoomToFit: Bool[Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         tabSelected: _ConvertibleToBool | None = None,
@@ -26,5 +27,5 @@ class ChartsheetViewList(Serialisable):
     tagname: str
     sheetView: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, sheetView: Incomplete | None = None, extLst: Unused = None) -> None: ...

@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.descriptors.base import Bool, String, Typed, _ConvertibleToBool
@@ -38,7 +39,7 @@ class WorksheetProperties(Serialisable):
     tabColor: Incomplete
     outlinePr: Typed[Outline, Literal[True]]
     pageSetUpPr: Typed[PageSetupProperties, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         codeName: str | None = None,

@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.descriptors.base import Integer, String, _ConvertibleToInt
@@ -13,5 +14,5 @@ class FunctionGroupList(Serialisable):
     tagname: str
     builtInGroupCount: Integer[Literal[True]]
     functionGroup: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, builtInGroupCount: _ConvertibleToInt | None = 16, functionGroup=()) -> None: ...

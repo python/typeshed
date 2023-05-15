@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Alias, Bool, NoneSet, Typed, _ConvertibleToBool
@@ -50,7 +51,7 @@ class Side(Serialisable):
 class Border(Serialisable):
     tagname: str
     __fields__: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     start: Typed[Side, Literal[True]]
     end: Typed[Side, Literal[True]]
     left: Typed[Side, Literal[True]]

@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.descriptors.base import Alias, Bool, String, Typed, _ConvertibleToBool
@@ -38,7 +39,7 @@ class NonVisualGraphicFrame(Serialisable):
     tagname: str
     cNvPr: Typed[ExtensionList, Literal[False]]
     cNvGraphicFramePr: Typed[ExtensionList, Literal[False]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, cNvPr: Incomplete | None = None, cNvGraphicFramePr: Incomplete | None = None) -> None: ...
 
 class GraphicData(Serialisable):
@@ -61,7 +62,7 @@ class GraphicFrame(Serialisable):
     graphic: Typed[GraphicObject, Literal[False]]
     macro: String[Literal[True]]
     fPublished: Bool[Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         nvGraphicFramePr: NonVisualGraphicFrame | None = None,
@@ -77,7 +78,8 @@ class GroupShape(Serialisable):
     grpSpPr: Typed[GroupShapeProperties, Literal[False]]
     visualProperties: Alias
     pic: Typed[PictureFrame, Literal[True]]
-    __elements__: Incomplete
+    # Source incorrectly uses a list here instead of a tuple
+    __elements__: ClassVar[list[str]]  # type: ignore[assignment]
     def __init__(
         self, nvGrpSpPr: NonVisualGroupShape, grpSpPr: GroupShapeProperties, pic: PictureFrame | None = None
     ) -> None: ...
