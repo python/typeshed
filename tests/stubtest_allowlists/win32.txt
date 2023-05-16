@@ -23,11 +23,8 @@ ssl.SSLSocket.recvmsg
 ssl.SSLSocket.recvmsg_into
 ssl.SSLSocket.sendmsg
 winreg.HKEYType.handle
-_ctypes.FormatError
 _ctypes.FreeLibrary
 _ctypes.LoadLibrary
-_ctypes.get_last_error
-_ctypes.set_last_error
 
 
 # ==========
