@@ -142,11 +142,14 @@ def find_stubs_in_paths(paths: Sequence[str]) -> list[str]:
 
 
 def get_missing_modules(files_to_test: Sequence[str]) -> Iterable[str]:
-    """Gets module names provided by typeshed-external dependencies.
+    """Get names of modules that should be treated as missing.
 
     Some typeshed stubs depend on dependencies outside of typeshed. Since pytype
     isn't able to read such dependencies, we instead declare them as "missing"
     modules, so that no errors are reported for them.
+
+    Similarly, pytype cannot parse files on its exclude list, so we also treat
+    those as missing.
     """
     stub_distributions = set()
     for fi in files_to_test:
@@ -165,6 +168,17 @@ def get_missing_modules(files_to_test: Sequence[str]) -> Iterable[str]:
             top_level_file = os.path.join(egg_info, "top_level.txt")
             with open(top_level_file) as f:
                 missing_modules.update(f.read().splitlines())
+    test_dir = os.path.dirname(__file__)
+    exclude_list = os.path.join(test_dir, "pytype_exclude_list.txt")
+    with open(exclude_list) as f:
+        excluded_files = f.readlines()
+        for fi in excluded_files:
+            if not fi.startswith(f"stubs{os.path.sep}"):
+                # Skips comments, empty lines, and stdlib files, which are in
+                # the exclude list because pytype has its own version.
+                continue
+            unused_stubs_prefix, unused_pkg, mod_path = fi.split(os.path.sep, 2)
+            missing_modules.add(os.path.splitext(mod_path)[0])
     return missing_modules
 
 
