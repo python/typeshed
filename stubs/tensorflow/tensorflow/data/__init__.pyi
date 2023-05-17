@@ -175,6 +175,7 @@ class Dataset(Generic[_T1], ABC):
         weights: _TensorCompatible | None = None,
         seed: int | None = None,
         stop_on_empty_dataset: bool = False,
+        rerandomize_each_iteration: bool | None = None,
     ) -> Dataset[_T1]: ...
     # Incomplete as tf.train.CheckpointOptions not yet covered.
     def save(
