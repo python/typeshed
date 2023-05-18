@@ -11,6 +11,14 @@ _XY: TypeAlias = Sequence[float | tuple[float, float]]
 _Outline: TypeAlias = Any
 
 class ImageDraw:
+    font: Incomplete
+    palette: Incomplete
+    im: Incomplete
+    draw: Incomplete
+    mode: Incomplete
+    ink: Incomplete
+    fontmode: str
+    fill: bool
     def __init__(self, im: Image, mode: str | None = None) -> None: ...
     def getfont(self): ...
     def arc(self, xy: _XY, start: float, end: float, fill: _Ink | None = None, width: float = 1) -> None: ...
@@ -54,6 +62,8 @@ class ImageDraw:
         fill: _Ink | None = None,
         outline: _Ink | None = None,
         width: float = 1,
+        *,
+        corners: tuple[bool, bool, bool, bool] | None = None,
     ) -> None: ...
     def text(
         self,

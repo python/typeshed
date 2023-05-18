@@ -34,7 +34,7 @@ class _BuildMetaBackend:
 class _BuildMetaLegacyBackend(_BuildMetaBackend):
     def run_setup(self, setup_script: str = "setup.py") -> None: ...
 
-_BACKEND: _BuildMetaBackend = ...
+_BACKEND: _BuildMetaBackend
 get_requires_for_build_wheel = _BACKEND.get_requires_for_build_wheel
 get_requires_for_build_sdist = _BACKEND.get_requires_for_build_sdist
 prepare_metadata_for_build_wheel = _BACKEND.prepare_metadata_for_build_wheel

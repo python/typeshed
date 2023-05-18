@@ -31,7 +31,8 @@ _ConnectFunc: TypeAlias = Callable[[Connection], object]
 
 class BaseParser:
     EXCEPTION_CLASSES: ClassVar[dict[str, type[Exception] | dict[str, type[Exception]]]]
-    def parse_error(self, response: str) -> Exception: ...
+    @classmethod
+    def parse_error(cls, response: str) -> Exception: ...
 
 class SocketBuffer:
     socket_read_size: int
@@ -127,7 +128,9 @@ class AbstractConnection:
     def send_packed_command(self, command: str | Iterable[str], check_health: bool = True) -> None: ...
     def send_command(self, *args, **kwargs) -> None: ...
     def can_read(self, timeout: float | None = 0) -> bool: ...
-    def read_response(self, disable_decoding: bool = False) -> Any: ...  # `str | bytes` or `list[str | bytes]`
+    def read_response(
+        self, disable_decoding: bool = False, *, disconnect_on_error: bool = True
+    ) -> Any: ...  # `str | bytes` or `list[str | bytes]`
     def pack_command(self, *args) -> list[bytes]: ...
     def pack_commands(self, commands: Iterable[Iterable[Incomplete]]) -> list[bytes]: ...
 
@@ -222,9 +225,11 @@ class SSLConnection(Connection):
 
 class UnixDomainSocketConnection(AbstractConnection):
     path: str
+    socket_timeout: float | None
     def __init__(
         self,
         path: str = "",
+        socket_timeout: float | None = None,
         *,
         db: int = 0,
         password: str | None = None,
@@ -254,7 +259,7 @@ class ConnectionPool:
     @classmethod
     def from_url(cls, url: str, *, db: int = ..., decode_components: bool = ..., **kwargs) -> Self: ...
     def __init__(
-        self, connection_class: type[Connection] = ..., max_connections: int | None = None, **connection_kwargs
+        self, connection_class: type[AbstractConnection] = ..., max_connections: int | None = None, **connection_kwargs
     ) -> None: ...
     def reset(self) -> None: ...
     def get_connection(self, command_name: Unused, *keys, **options: _ConnectionPoolOptions) -> Connection: ...

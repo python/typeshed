@@ -1,23 +1,23 @@
 import sys
-from typing import ClassVar
+from typing_extensions import Final
 
 if sys.platform == "win32":
     from . import win32
 
     class WinColor:
-        BLACK: ClassVar[int]
-        BLUE: ClassVar[int]
-        GREEN: ClassVar[int]
-        CYAN: ClassVar[int]
-        RED: ClassVar[int]
-        MAGENTA: ClassVar[int]
-        YELLOW: ClassVar[int]
-        GREY: ClassVar[int]
+        BLACK: Final = 0
+        BLUE: Final = 1
+        GREEN: Final = 2
+        CYAN: Final = 3
+        RED: Final = 4
+        MAGENTA: Final = 5
+        YELLOW: Final = 6
+        GREY: Final = 7
 
     class WinStyle:
-        NORMAL: ClassVar[int]
-        BRIGHT: ClassVar[int]
-        BRIGHT_BACKGROUND: ClassVar[int]
+        NORMAL: Final = 0x00
+        BRIGHT: Final = 0x08
+        BRIGHT_BACKGROUND: Final = 0x80
 
     class WinTerm:
         def __init__(self) -> None: ...

@@ -47,7 +47,7 @@ except ImportError:
     print_error("Cannot import mypy. Did you install it?")
     sys.exit(1)
 
-SUPPORTED_VERSIONS = ["3.11", "3.10", "3.9", "3.8", "3.7"]
+SUPPORTED_VERSIONS = ["3.12", "3.11", "3.10", "3.9", "3.8", "3.7"]
 SUPPORTED_PLATFORMS = ("linux", "win32", "darwin")
 DIRECTORIES_TO_TEST = [Path("stdlib"), Path("stubs")]
 
@@ -74,6 +74,13 @@ def valid_path(cmd_arg: str) -> Path:
     if not (path in DIRECTORIES_TO_TEST or any(directory in path.parents for directory in DIRECTORIES_TO_TEST)):
         raise argparse.ArgumentTypeError('mypy_test.py only tests the stubs found in the "stdlib" and "stubs" directories')
     return path
+
+
+def remove_dev_suffix(version: str) -> str:
+    """Helper function for argument-parsing"""
+    if version.endswith("-dev"):
+        return version[: -len("-dev")]
+    return version
 
 
 parser = argparse.ArgumentParser(
@@ -105,7 +112,7 @@ parser.add_argument("-v", "--verbose", action="count", default=0, help="More out
 parser.add_argument(
     "-p",
     "--python-version",
-    type=str,
+    type=remove_dev_suffix,
     choices=SUPPORTED_VERSIONS,
     nargs="*",
     action="extend",
