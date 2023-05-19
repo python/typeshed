@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Bool, Integer, NoneSet, String, Typed, _ConvertibleToBool, _ConvertibleToInt
@@ -23,24 +24,24 @@ class ExternalCell(Serialisable):
 class ExternalRow(Serialisable):
     r: Integer[Literal[False]]
     cell: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, r: _ConvertibleToInt, cell: Incomplete | None = None) -> None: ...
 
 class ExternalSheetData(Serialisable):
     sheetId: Integer[Literal[False]]
     refreshError: Bool[Literal[True]]
     row: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, sheetId: _ConvertibleToInt, refreshError: _ConvertibleToBool | None = None, row=()) -> None: ...
 
 class ExternalSheetDataSet(Serialisable):
     sheetData: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, sheetData: Incomplete | None = None) -> None: ...
 
 class ExternalSheetNames(Serialisable):
     sheetName: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, sheetName=()) -> None: ...
 
 class ExternalDefinedName(Serialisable):
@@ -56,7 +57,7 @@ class ExternalBook(Serialisable):
     definedNames: Incomplete
     sheetDataSet: Typed[ExternalSheetDataSet, Literal[True]]
     id: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         sheetNames: ExternalSheetNames | None = None,
@@ -70,7 +71,7 @@ class ExternalLink(Serialisable):
     mime_type: str
     externalBook: Typed[ExternalBook, Literal[True]]
     file_link: Typed[Relationship, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self, externalBook: ExternalBook | None = None, ddeLink: Unused = None, oleLink: Unused = None, extLst: Unused = None
     ) -> None: ...

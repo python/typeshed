@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.descriptors import Strict
@@ -51,7 +52,7 @@ class HeaderFooter(Serialisable):
     evenFooter: Typed[HeaderFooterItem, Literal[True]]
     firstHeader: Typed[HeaderFooterItem, Literal[True]]
     firstFooter: Typed[HeaderFooterItem, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         differentOddEven: _ConvertibleToBool | None = None,

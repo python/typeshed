@@ -1,5 +1,5 @@
 from _typeshed import Incomplete, Unused
-from typing import NoReturn, overload
+from typing import ClassVar, NoReturn, overload
 from typing_extensions import Literal
 
 from openpyxl.descriptors import Strict
@@ -29,7 +29,7 @@ class NumData(Serialisable):
     ptCount: Incomplete
     pt: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self, formatCode: Incomplete | None = None, ptCount: Incomplete | None = None, pt=(), extLst: Unused = None
     ) -> None: ...
@@ -39,7 +39,7 @@ class NumRef(Serialisable):
     ref: Alias
     numCache: Typed[NumData, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, f: Incomplete | None = None, numCache: NumData | None = None, extLst: Unused = None) -> None: ...
 
 class StrVal(Serialisable):
@@ -53,7 +53,7 @@ class StrData(Serialisable):
     ptCount: Incomplete
     pt: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, ptCount: Incomplete | None = None, pt=(), extLst: Unused = None) -> None: ...
 
 class StrRef(Serialisable):
@@ -61,7 +61,7 @@ class StrRef(Serialisable):
     f: Incomplete
     strCache: Typed[StrData, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, f: Incomplete | None = None, strCache: StrData | None = None, extLst: Unused = None) -> None: ...
 
 class NumDataSource(Serialisable):
@@ -72,7 +72,7 @@ class NumDataSource(Serialisable):
 class Level(Serialisable):
     tagname: str
     pt: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, pt=()) -> None: ...
 
 class MultiLevelStrData(Serialisable):
@@ -80,7 +80,7 @@ class MultiLevelStrData(Serialisable):
     ptCount: Integer[Literal[True]]
     lvl: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, ptCount: _ConvertibleToInt | None = None, lvl=(), extLst: Unused = None) -> None: ...
 
 class MultiLevelStrRef(Serialisable):
@@ -88,7 +88,7 @@ class MultiLevelStrRef(Serialisable):
     f: Incomplete
     multiLvlStrCache: Typed[MultiLevelStrData, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self, f: Incomplete | None = None, multiLvlStrCache: MultiLevelStrData | None = None, extLst: Unused = None
     ) -> None: ...

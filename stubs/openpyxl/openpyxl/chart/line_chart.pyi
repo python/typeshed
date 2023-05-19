@@ -1,5 +1,6 @@
 from _typeshed import Incomplete, Unused
 from abc import abstractmethod
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.chart.axis import ChartLines, NumericAxis, _BaseAxis
@@ -17,7 +18,7 @@ class _LineChartBase(ChartBase):
     dLbls: Typed[DataLabelList, Literal[True]]
     dataLabels: Alias
     dropLines: Typed[ChartLines, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         grouping: str = "standard",
@@ -45,7 +46,7 @@ class LineChart(_LineChartBase):
     extLst: Typed[ExtensionList, Literal[True]]
     x_axis: Typed[_BaseAxis, Literal[False]]
     y_axis: Typed[NumericAxis, Literal[False]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         hiLowLines: ChartLines | None = None,
@@ -72,7 +73,7 @@ class LineChart3D(_LineChartBase):
     x_axis: Typed[ExtensionList, Literal[False]]
     y_axis: Typed[ExtensionList, Literal[False]]
     z_axis: Typed[ExtensionList, Literal[False]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         gapDepth: Incomplete | None = None,

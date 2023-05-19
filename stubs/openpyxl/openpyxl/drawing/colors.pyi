@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import overload
+from typing import ClassVar, overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors import Strict, Typed
@@ -100,7 +100,7 @@ class SystemColor(Serialisable):
     invGamma: Typed[Transform, Literal[True]]
     val: Set[_SystemColorVal]
     lastClr: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         val: _SystemColorVal = "windowText",
@@ -183,7 +183,7 @@ class SchemeColor(Serialisable):
     gamma: Incomplete
     invGamma: Incomplete
     val: Set[_SchemeColorVal]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     @overload
     def __init__(
         self,
@@ -263,7 +263,7 @@ class ColorChoice(Serialisable):
     sysClr: Typed[SystemColor, Literal[True]]
     schemeClr: Typed[SystemColor, Literal[True]]
     prstClr: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         scrgbClr: _RGBPercent | None = None,

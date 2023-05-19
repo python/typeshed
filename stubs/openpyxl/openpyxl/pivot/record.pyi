@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.descriptors.base import Typed
@@ -32,8 +33,8 @@ class RecordList(Serialisable):
     tagname: str
     r: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
-    __attrs__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
+    __attrs__: ClassVar[tuple[str, ...]]
     def __init__(self, count: Unused = None, r=(), extLst: ExtensionList | None = None) -> None: ...
     @property
     def count(self): ...

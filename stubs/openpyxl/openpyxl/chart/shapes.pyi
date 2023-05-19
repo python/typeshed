@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Alias, NoneSet, Typed
@@ -28,7 +29,7 @@ class GraphicalProperties(Serialisable):
     sp3d: Typed[Shape3D, Literal[True]]
     shape3D: Alias
     extLst: Typed[Incomplete, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         bwMode: _GraphicalPropertiesBwMode | Literal["none"] | None = None,

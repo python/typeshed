@@ -1,5 +1,5 @@
 from _typeshed import Incomplete, Unused
-from typing import overload
+from typing import ClassVar, overload
 from typing_extensions import Literal
 
 from openpyxl.chart.legend import Legend
@@ -29,7 +29,7 @@ class ChartContainer(Serialisable):
     dispBlanksAs: Incomplete
     showDLblsOverMax: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         title: Title | None = None,
@@ -54,7 +54,7 @@ class Protection(Serialisable):
     formatting: Incomplete
     selection: Incomplete
     userInterface: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         chartObject: Incomplete | None = None,
@@ -91,7 +91,7 @@ class ChartSpace(Serialisable):
     printSettings: Typed[PrintSettings, Literal[True]]
     userShapes: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     @overload
     def __init__(
         self,

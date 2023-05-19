@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.descriptors.base import Bool, Integer, String, Typed, _ConvertibleToBool, _ConvertibleToInt
@@ -59,7 +60,7 @@ class _NamedCellStyle(Serialisable):
     hidden: Bool[Literal[True]]
     customBuiltin: Bool[Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         name: str,
@@ -76,7 +77,7 @@ class _NamedCellStyleList(Serialisable):
     # Overwritten by property below
     # count: Integer
     cellStyle: Incomplete
-    __attrs__: Incomplete
+    __attrs__: ClassVar[tuple[str, ...]]
     def __init__(self, count: Unused = None, cellStyle=()) -> None: ...
     @property
     def count(self): ...

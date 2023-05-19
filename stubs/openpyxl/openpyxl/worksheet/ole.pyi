@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import overload
+from typing import ClassVar, overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Bool, Integer, Set, String, Typed, _ConvertibleToBool, _ConvertibleToInt
@@ -39,7 +39,7 @@ class ObjectPr(Serialisable):
     macro: String[Literal[False]]
     altText: String[Literal[True]]
     dde: Bool[Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     @overload
     def __init__(
         self,
@@ -83,7 +83,7 @@ class OleObject(Serialisable):
     oleUpdate: Set[_OleObjectOleUpdate]
     autoLoad: Bool[Literal[True]]
     shapeId: Integer[Literal[False]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     @overload
     def __init__(
         self,
@@ -111,5 +111,5 @@ class OleObject(Serialisable):
 class OleObjects(Serialisable):
     tagname: str
     oleObject: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, oleObject=()) -> None: ...

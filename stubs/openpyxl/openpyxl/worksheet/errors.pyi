@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.descriptors.base import Bool, String, Typed, _ConvertibleToBool
@@ -12,7 +13,7 @@ class Extension(Serialisable):
 class ExtensionList(Serialisable):
     tagname: str
     ext: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, ext=()) -> None: ...
 
 class IgnoredError(Serialisable):
@@ -45,5 +46,5 @@ class IgnoredErrors(Serialisable):
     tagname: str
     ignoredError: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, ignoredError=(), extLst: ExtensionList | None = None) -> None: ...

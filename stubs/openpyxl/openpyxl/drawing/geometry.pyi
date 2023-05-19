@@ -1,5 +1,5 @@
 from _typeshed import Incomplete, Unused
-from typing import overload
+from typing import ClassVar, overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import (
@@ -363,7 +363,7 @@ class Transform2D(Serialisable):
     ext: Typed[PositiveSize2D, Literal[True]]
     chOff: Typed[Point2D, Literal[True]]
     chExt: Typed[PositiveSize2D, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         rot: _ConvertibleToInt | None = None,
@@ -385,7 +385,7 @@ class GroupTransform2D(Serialisable):
     ext = Typed(expected_type=PositiveSize2D, allow_none=True)
     chOff = Typed(expected_type=Point2D, allow_none=True)
     chExt = Typed(expected_type=PositiveSize2D, allow_none=True)
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         rot: _ConvertibleToInt | None = 0,

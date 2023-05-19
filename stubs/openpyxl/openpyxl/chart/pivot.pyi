@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.chart.label import DataLabel as _DataLabel
@@ -14,7 +15,7 @@ class PivotSource(Serialisable):
     name: Incomplete
     fmtId: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, name: str | None = None, fmtId: Incomplete | None = None, extLst: Unused = None) -> None: ...
 
 class PivotFormat(Serialisable):
@@ -28,7 +29,7 @@ class PivotFormat(Serialisable):
     dLbl: Typed[_DataLabel, Literal[True]]
     DataLabel: Alias
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         idx: int = 0,

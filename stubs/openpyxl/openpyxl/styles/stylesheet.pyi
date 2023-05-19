@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.descriptors.base import Typed
@@ -23,7 +24,7 @@ class Stylesheet(Serialisable):
     tableStyles: Typed[TableStyleList, Literal[True]]
     colors: Typed[ColorList, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     number_formats: Incomplete
     cell_styles: Incomplete
     alignments: Incomplete

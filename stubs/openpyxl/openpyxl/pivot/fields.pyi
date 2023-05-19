@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from datetime import datetime
-from typing import overload
+from typing import ClassVar, overload
 from typing_extensions import Literal
 
 from openpyxl.descriptors.base import (
@@ -30,7 +30,7 @@ class Tuple(Serialisable):
 class TupleList(Serialisable):
     c: Integer[Literal[True]]
     tpl: Typed[Tuple, Literal[False]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     @overload
     def __init__(self, c: _ConvertibleToInt | None = None, *, tpl: Tuple) -> None: ...
     @overload
@@ -51,7 +51,7 @@ class Missing(Serialisable):
     un: Bool[Literal[True]]
     st: Bool[Literal[True]]
     b: Bool[Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         tpls=(),
@@ -85,7 +85,7 @@ class Number(Serialisable):
     un: Bool[Literal[True]]
     st: Bool[Literal[True]]
     b: Bool[Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     @overload
     def __init__(
         self,
@@ -140,7 +140,7 @@ class Error(Serialisable):
     un: Bool[Literal[True]]
     st: Bool[Literal[True]]
     b: Bool[Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     @overload
     def __init__(
         self,
@@ -187,7 +187,7 @@ class Boolean(Serialisable):
     f: Bool[Literal[True]]
     c: String[Literal[True]]
     cp: Integer[Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         x=(),
@@ -214,7 +214,7 @@ class Text(Serialisable):
     un: Bool[Literal[True]]
     st: Bool[Literal[True]]
     b: Bool[Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         tpls=(),
@@ -241,7 +241,7 @@ class DateTimeField(Serialisable):
     f: Bool[Literal[True]]
     c: String[Literal[True]]
     cp: Integer[Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         x=(),

@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.descriptors.base import String
@@ -27,7 +28,7 @@ class Manifest(Serialisable):
     Default: Incomplete
     Override: Incomplete
     path: str
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, Default=(), Override=()) -> None: ...
     @property
     def filenames(self): ...

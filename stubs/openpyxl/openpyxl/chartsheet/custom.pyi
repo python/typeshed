@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import overload
+from typing import ClassVar, overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Bool, Integer, Set, Typed, _ConvertibleToBool, _ConvertibleToInt
@@ -18,7 +18,7 @@ class CustomChartsheetView(Serialisable):
     pageMargins: Typed[PageMargins, Literal[True]]
     pageSetup: Typed[PrintPageSetup, Literal[True]]
     headerFooter: Typed[HeaderFooter, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     @overload
     def __init__(
         self,
@@ -46,5 +46,5 @@ class CustomChartsheetView(Serialisable):
 class CustomChartsheetViews(Serialisable):
     tagname: str
     customSheetView: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, customSheetView: Incomplete | None = None) -> None: ...

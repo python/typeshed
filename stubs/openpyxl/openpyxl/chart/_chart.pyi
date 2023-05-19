@@ -1,5 +1,6 @@
 from _typeshed import Incomplete, Unused
 from abc import abstractmethod
+from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.chart.layout import Layout
@@ -32,7 +33,7 @@ class ChartBase(Serialisable):
     style: MinMax[float, Literal[True]]
     mime_type: str
     graphical_properties: Typed[GraphicalProperties, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     plot_area: Incomplete
     pivotSource: Incomplete
     pivotFormats: Incomplete

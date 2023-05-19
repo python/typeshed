@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.chart.axis import NumericAxis, TextAxis
@@ -18,7 +19,7 @@ class ScatterChart(ChartBase):
     extLst: Typed[ExtensionList, Literal[True]]
     x_axis: Typed[NumericAxis | TextAxis, Literal[False]]
     y_axis: Typed[NumericAxis, Literal[False]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         scatterStyle: Incomplete | None = None,

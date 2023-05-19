@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.descriptors import Strict, String
@@ -67,8 +68,8 @@ class NumberFormatList(Serialisable):
     # Overwritten by property below
     # count: Integer
     numFmt: Incomplete
-    __elements__: Incomplete
-    __attrs__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
+    __attrs__: ClassVar[tuple[str, ...]]
     def __init__(self, count: Unused = None, numFmt=()) -> None: ...
     @property
     def count(self): ...

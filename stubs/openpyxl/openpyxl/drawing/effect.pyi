@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import overload
+from typing import ClassVar, overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import (
@@ -123,7 +123,7 @@ class GlowEffect(ColorChoice):
     sysClr: Incomplete
     schemeClr: Incomplete
     prstClr: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, rad: _ConvertibleToFloat, **kw) -> None: ...
 
 class InnerShadowEffect(ColorChoice):
@@ -136,7 +136,7 @@ class InnerShadowEffect(ColorChoice):
     sysClr: Incomplete
     schemeClr: Incomplete
     prstClr: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, blurRad: _ConvertibleToFloat, dist: _ConvertibleToFloat, dir: _ConvertibleToInt, **kw) -> None: ...
 
 class OuterShadow(ColorChoice):
@@ -156,7 +156,7 @@ class OuterShadow(ColorChoice):
     sysClr: Incomplete
     schemeClr: Incomplete
     prstClr: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     @overload
     def __init__(
         self,
@@ -197,7 +197,7 @@ class PresetShadowEffect(ColorChoice):
     sysClr: Incomplete
     schemeClr: Incomplete
     prstClr: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, prst: _PresetShadowEffectPrst, dist: _ConvertibleToFloat, dir: _ConvertibleToInt, **kw) -> None: ...
 
 class ReflectionEffect(Serialisable):
@@ -246,7 +246,7 @@ class EffectList(Serialisable):
     prstShdw: Typed[PresetShadowEffect, Literal[True]]
     reflection: Typed[ReflectionEffect, Literal[True]]
     softEdge: Typed[SoftEdgesEffect, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         blur: BlurEffect | None = None,

@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import overload
+from typing import ClassVar, overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Bool, Integer, Set, String, _ConvertibleToBool, _ConvertibleToInt
@@ -49,5 +49,5 @@ class WebPublishItems(Serialisable):
     tagname: str
     count: Integer[Literal[True]]
     webPublishItem: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, count: _ConvertibleToInt | None = None, webPublishItem: Incomplete | None = None) -> None: ...

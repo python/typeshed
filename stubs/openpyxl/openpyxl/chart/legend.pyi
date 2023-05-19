@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.chart.layout import Layout
@@ -14,7 +15,7 @@ class LegendEntry(Serialisable):
     delete: Incomplete
     txPr: Typed[RichText, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, idx: int = 0, delete: bool = False, txPr: RichText | None = None, extLst: Unused = None) -> None: ...
 
 class Legend(Serialisable):
@@ -29,7 +30,7 @@ class Legend(Serialisable):
     txPr: Typed[RichText, Literal[True]]
     textProperties: Alias
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         legendPos: str = "r",
