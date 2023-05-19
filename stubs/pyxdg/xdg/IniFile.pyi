@@ -3,7 +3,7 @@ from collections.abc import Iterable, KeysView
 from typing import overload
 from typing_extensions import Literal
 
-def is_ascii(s): ...
+def is_ascii(s: str) -> bool: ...
 
 class IniFile:
     defaultGroup: str
