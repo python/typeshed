@@ -3,10 +3,9 @@ from collections.abc import Callable, Mapping
 from typing import Any, Generic, TypeVar, overload
 from typing_extensions import ParamSpec, Self
 
-from sqlalchemy.sql.coercions import _CoercibleElement
-
 from .. import util
 from ..engine.interfaces import Dialect
+from ..sql.coercions import _CoercibleElement
 from ..sql.elements import BindParameter, ColumnElement
 from ..sql.sqltypes import Boolean, Indexable, Integer, MatchType, NullType, String, TableValueType
 from . import operators

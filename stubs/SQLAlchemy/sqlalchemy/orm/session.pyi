@@ -4,11 +4,10 @@ from types import TracebackType
 from typing import Any, TypeVar, overload
 from typing_extensions import Self
 
-from sqlalchemy.sql.coercions import _CoercibleElement
-
 from ..engine.base import Connection
 from ..engine.result import Result
 from ..engine.util import TransactionalContext
+from ..sql.coercions import _CoercibleElement
 from ..util.langhelpers import MemoizedSlots, memoized_property
 from .query import Query
 
