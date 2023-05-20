@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 
 from openpyxl.descriptors.base import Alias
 from openpyxl.descriptors.serialisable import Serialisable
@@ -29,7 +30,7 @@ class Font(Serialisable):
     color: Incomplete
     scheme: Incomplete
     tagname: str
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         name: Incomplete | None = None,

@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.descriptors.base import Typed
@@ -7,16 +8,16 @@ from openpyxl.descriptors.serialisable import Serialisable
 def get_version(): ...
 
 class DigSigBlob(Serialisable):
-    __elements__: Incomplete
-    __attrs__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
+    __attrs__: ClassVar[tuple[str, ...]]
 
 class VectorLpstr(Serialisable):
-    __elements__: Incomplete
-    __attrs__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
+    __attrs__: ClassVar[tuple[str, ...]]
 
 class VectorVariant(Serialisable):
-    __elements__: Incomplete
-    __attrs__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
+    __attrs__: ClassVar[tuple[str, ...]]
 
 class ExtendedProperties(Serialisable):
     tagname: str
@@ -47,7 +48,7 @@ class ExtendedProperties(Serialisable):
     Application: Incomplete
     AppVersion: Incomplete
     DocSecurity: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         Template: Incomplete | None = None,

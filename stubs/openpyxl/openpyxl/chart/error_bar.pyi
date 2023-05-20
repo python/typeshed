@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.chart.data_source import NumDataSource
@@ -22,7 +23,7 @@ class ErrorBars(Serialisable):
     spPr: Typed[GraphicalProperties, Literal[True]]
     graphicalProperties: Alias
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         errDir: Incomplete | None = None,

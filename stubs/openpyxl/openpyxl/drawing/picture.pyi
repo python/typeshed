@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.chart.shapes import GraphicalProperties
@@ -24,7 +25,7 @@ class PictureLocking(Serialisable):
     noChangeArrowheads: Bool[Literal[True]]
     noChangeShapeType: Bool[Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         noCrop: _ConvertibleToBool | None = None,
@@ -46,7 +47,7 @@ class NonVisualPictureProperties(Serialisable):
     preferRelativeResize: Bool[Literal[True]]
     picLocks: Typed[PictureLocking, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self, preferRelativeResize: _ConvertibleToBool | None = None, picLocks: Incomplete | None = None, extLst: Unused = None
     ) -> None: ...
@@ -55,7 +56,7 @@ class PictureNonVisual(Serialisable):
     tagname: str
     cNvPr: Typed[NonVisualDrawingProps, Literal[False]]
     cNvPicPr: Typed[NonVisualPictureProperties, Literal[False]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self, cNvPr: NonVisualDrawingProps | None = None, cNvPicPr: NonVisualPictureProperties | None = None
     ) -> None: ...
@@ -69,7 +70,7 @@ class PictureFrame(Serialisable):
     spPr: Typed[GraphicalProperties, Literal[False]]
     graphicalProperties: Alias
     style: Typed[ShapeStyle, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         macro: str | None = None,

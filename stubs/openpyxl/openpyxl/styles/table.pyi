@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Bool, Integer, Set, String, _ConvertibleToBool, _ConvertibleToInt
@@ -51,7 +52,7 @@ class TableStyle(Serialisable):
     table: Bool[Literal[True]]
     count: Integer[Literal[True]]
     tableStyleElement: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         name: str,
@@ -66,8 +67,8 @@ class TableStyleList(Serialisable):
     defaultTableStyle: String[Literal[True]]
     defaultPivotStyle: String[Literal[True]]
     tableStyle: Incomplete
-    __elements__: Incomplete
-    __attrs__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
+    __attrs__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         count: Unused = None,

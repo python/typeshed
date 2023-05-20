@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.descriptors.base import String
@@ -12,7 +13,7 @@ class Hyperlink(Serialisable):
     display: String[Literal[True]]
     id: Incomplete
     target: String[Literal[True]]
-    __attrs__: Incomplete
+    __attrs__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         ref: str,

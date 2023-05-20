@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.descriptors import Strict, Typed
@@ -55,7 +56,7 @@ class ColorList(Serialisable):
     tagname: str
     indexedColors: Incomplete
     mruColors: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, indexedColors=(), mruColors=()) -> None: ...
     def __bool__(self) -> bool: ...
     @property

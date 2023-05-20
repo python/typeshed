@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import (
@@ -87,8 +88,8 @@ class DataValidationList(Serialisable):
     xWindow: Integer[Literal[True]]
     yWindow: Integer[Literal[True]]
     dataValidation: Incomplete
-    __elements__: Incomplete
-    __attrs__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
+    __attrs__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         disablePrompts: _ConvertibleToBool | None = None,

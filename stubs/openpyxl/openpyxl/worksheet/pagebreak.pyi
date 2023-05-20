@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.descriptors.base import Bool, Integer, _ConvertibleToBool, _ConvertibleToInt
@@ -26,8 +27,8 @@ class RowBreak(Serialisable):
     # count: Integer
     # manualBreakCount: Integer
     brk: Incomplete
-    __elements__: Incomplete
-    __attrs__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
+    __attrs__: ClassVar[tuple[str, ...]]
     def __init__(self, count: Unused = None, manualBreakCount: Unused = None, brk=()) -> None: ...
     def __bool__(self) -> bool: ...
     def __len__(self) -> int: ...
@@ -46,4 +47,4 @@ class ColBreak(RowBreak):
     @property
     def manualBreakCount(self): ...
     brk: Incomplete
-    __attrs__: Incomplete
+    __attrs__: ClassVar[tuple[str, ...]]

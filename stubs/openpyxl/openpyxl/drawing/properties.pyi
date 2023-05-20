@@ -1,5 +1,5 @@
 from _typeshed import Incomplete, Unused
-from typing import overload
+from typing import ClassVar, overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Bool, NoneSet, String, Typed, _ConvertibleToBool
@@ -41,7 +41,7 @@ class GroupLocking(Serialisable):
     noAdjustHandles: Bool[Literal[True]]
     noChangeShapeType: Bool[Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         noGrp: _ConvertibleToBool | None = None,
@@ -62,7 +62,7 @@ class NonVisualGroupDrawingShapeProps(Serialisable):
     tagname: str
     grpSpLocks: Typed[GroupLocking, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, grpSpLocks: Incomplete | None = None, extLst: Unused = None) -> None: ...
 
 class NonVisualDrawingShapeProps(Serialisable):
@@ -70,7 +70,7 @@ class NonVisualDrawingShapeProps(Serialisable):
     spLocks: Typed[GroupLocking, Literal[True]]
     txBax: Bool[Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     txBox: Incomplete
     def __init__(
         self, spLocks: Incomplete | None = None, txBox: _ConvertibleToBool | None = None, extLst: Unused = None
@@ -86,7 +86,8 @@ class NonVisualDrawingProps(Serialisable):
     hlinkClick: Typed[Hyperlink, Literal[True]]
     hlinkHover: Typed[Hyperlink, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    # Source incorrectly uses a list here instead of a tuple
+    __elements__: ClassVar[list[str]]  # type: ignore[assignment]
     @overload
     def __init__(
         self,
@@ -117,5 +118,5 @@ class NonVisualGroupShape(Serialisable):
     tagname: str
     cNvPr: Typed[NonVisualDrawingProps, Literal[False]]
     cNvGrpSpPr: Typed[NonVisualGroupDrawingShapeProps, Literal[False]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, cNvPr: NonVisualDrawingProps, cNvGrpSpPr: NonVisualGroupDrawingShapeProps) -> None: ...

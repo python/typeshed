@@ -1,5 +1,6 @@
 from _typeshed import Incomplete, Unused
 from array import array
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.descriptors import Strict
@@ -50,8 +51,8 @@ class CellStyle(Serialisable):
     alignment: Typed[Alignment, Literal[True]]
     protection: Typed[Protection, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
-    __attrs__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
+    __attrs__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         numFmtId: _ConvertibleToInt = 0,
@@ -81,13 +82,13 @@ class CellStyle(Serialisable):
 
 class CellStyleList(Serialisable):
     tagname: str
-    __attrs__: Incomplete
+    __attrs__: ClassVar[tuple[str, ...]]
     # Overwritten by property below
     # count: Integer
     xf: Incomplete
     alignment: Incomplete
     protection: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, count: Unused = None, xf=()) -> None: ...
     @property
     def count(self): ...

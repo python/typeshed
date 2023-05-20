@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 from typing_extensions import Final, Literal, TypeAlias
 
 from openpyxl.descriptors import Sequence
@@ -56,7 +57,7 @@ class Fill(Serialisable):
 
 class PatternFill(Fill):
     tagname: str
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     patternType: NoneSet[_FillsType]
     fill_type: Alias
     fgColor: Incomplete

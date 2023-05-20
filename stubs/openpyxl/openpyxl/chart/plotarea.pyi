@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.chart.layout import Layout
@@ -18,7 +19,7 @@ class DataTable(Serialisable):
     graphicalProperties: Alias
     txPr: Typed[RichText, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         showHorzBorder: Incomplete | None = None,
@@ -57,7 +58,7 @@ class PlotArea(Serialisable):
     catAx: Incomplete
     dateAx: Incomplete
     serAx: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         layout: Layout | None = None,

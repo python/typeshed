@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.descriptors.base import Alias, Bool, Integer, String, _ConvertibleToBool, _ConvertibleToInt
@@ -24,7 +25,7 @@ class WorkbookProtection(Serialisable):
     workbookHashValue: Incomplete
     workbookSaltValue: Incomplete
     workbookSpinCount: Integer[Literal[True]]
-    __attrs__: Incomplete
+    __attrs__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         workbookPassword: Incomplete | None = None,

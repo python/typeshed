@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Alias, Integer, MinMax, NoneSet, Typed, _ConvertibleToFloat, _ConvertibleToInt
@@ -59,7 +60,7 @@ class LineProperties(Serialisable):
     headEnd: Typed[LineEndProperties, Literal[True]]
     tailEnd: Typed[LineEndProperties, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         w: _ConvertibleToFloat | None = None,

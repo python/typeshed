@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.descriptors.base import Alias, Typed
@@ -9,7 +10,7 @@ from openpyxl.styles.numbers import NumberFormat
 
 class DifferentialStyle(Serialisable):
     tagname: str
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     font: Typed[Font, Literal[True]]
     numFmt: Typed[NumberFormat, Literal[True]]
     fill: Typed[Fill, Literal[True]]
@@ -32,7 +33,7 @@ class DifferentialStyleList(Serialisable):
     tagname: str
     dxf: Incomplete
     styles: Alias
-    __attrs__: Incomplete
+    __attrs__: ClassVar[tuple[str, ...]]
     def __init__(self, dxf=(), count: Incomplete | None = None) -> None: ...
     def append(self, dxf) -> None: ...
     def add(self, dxf): ...

@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.descriptors.base import Alias, Float, Typed, _ConvertibleToFloat
@@ -33,7 +33,7 @@ class PrintSettings(Serialisable):
     headerFooter: Typed[HeaderFooter, Literal[True]]
     pageMargins: Typed[PageMargins, Literal[True]]
     pageSetup: Typed[PrintPageSetup, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         headerFooter: HeaderFooter | None = None,

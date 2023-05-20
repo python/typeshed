@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.descriptors.base import Bool, String, Typed, _ConvertibleToBool
@@ -10,7 +10,7 @@ class ChartsheetProperties(Serialisable):
     published: Bool[Literal[True]]
     codeName: String[Literal[True]]
     tabColor: Typed[Color, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self, published: _ConvertibleToBool | None = None, codeName: str | None = None, tabColor: Color | None = None
     ) -> None: ...

@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal
 
 from openpyxl.chart.layout import Layout
@@ -20,7 +21,7 @@ class Title(Serialisable):
     txPr: Typed[RichText, Literal[True]]
     body: Alias
     extLst: Typed[ExtensionList, Literal[True]]
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         tx: Text | None = None,

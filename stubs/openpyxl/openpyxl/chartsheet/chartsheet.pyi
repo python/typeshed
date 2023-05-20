@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.chartsheet.custom import CustomChartsheetViews
@@ -34,8 +35,8 @@ class Chartsheet(_WorkbookChild, Serialisable):
     sheet_state: Set[_ChartsheetSheetState]
     headerFooter: Typed[_HeaderFooter, Literal[False]]
     HeaderFooter: Alias
-    __elements__: Incomplete
-    __attrs__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
+    __attrs__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         sheetPr: ChartsheetProperties | None = None,
