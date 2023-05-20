@@ -280,7 +280,7 @@ async def get_diff_info(
     versions_to_tags: dict[packaging.version.Version, str] = {}
     for tag in github_info.tags:
         tag_name = tag["name"]
-        # Some packages in typeshed (e.g. emoji) have tag names
+        # Some packages in typeshed have tag names
         # that are invalid to be passed to the Version() constructor,
         # e.g. v.1.4.2
         with contextlib.suppress(packaging.version.InvalidVersion):

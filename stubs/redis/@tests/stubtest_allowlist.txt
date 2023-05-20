@@ -20,10 +20,8 @@ redis.sentinel.Sentinel.slave_for
 redis.RedisCluster
 redis.asyncio.Redis
 redis.asyncio.RedisCluster
-redis.asyncio.client.MonitorCommandInfo
 redis.asyncio.client.Pipeline
 redis.asyncio.client.Redis
-redis.asyncio.connection.ConnectKwargs
 redis.client.Pipeline
 redis.client.Redis
 redis.cluster.ClusterPipeline
