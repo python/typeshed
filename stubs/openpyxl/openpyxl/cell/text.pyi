@@ -75,7 +75,7 @@ class RichText(Serialisable):
     t: Incomplete
     text: Alias
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, rPr: InlineFont | None = None, t=None) -> None: ...
+    def __init__(self, rPr: InlineFont | None = None, t: Incomplete | None = None) -> None: ...
 
 class Text(Serialisable):
     tagname: str
