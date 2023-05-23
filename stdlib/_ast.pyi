@@ -59,27 +59,39 @@ class Expression(mod):
 class stmt(AST): ...
 
 class FunctionDef(stmt):
-    if sys.version_info >= (3, 10):
+    if sys.version_info >= (3, 12):
+        __match_args__ = ("name", "type_params", "args", "body", "decorator_list", "returns", "type_comment")
+    elif sys.version_info >= (3, 10):
         __match_args__ = ("name", "args", "body", "decorator_list", "returns", "type_comment")
     name: _Identifier
+    if sys.version_info >= (3, 12):
+        type_params: list[type_param]
     args: arguments
     body: list[stmt]
     decorator_list: list[expr]
     returns: expr | None
 
 class AsyncFunctionDef(stmt):
-    if sys.version_info >= (3, 10):
+    if sys.version_info >= (3, 12):
+        __match_args__ = ("name", "type_params", "args", "body", "decorator_list", "returns", "type_comment")
+    elif sys.version_info >= (3, 10):
         __match_args__ = ("name", "args", "body", "decorator_list", "returns", "type_comment")
     name: _Identifier
+    if sys.version_info >= (3, 12):
+        type_params: list[type_param]
     args: arguments
     body: list[stmt]
     decorator_list: list[expr]
     returns: expr | None
 
 class ClassDef(stmt):
-    if sys.version_info >= (3, 10):
+    if sys.version_info >= (3, 12):
+        __match_args__ = ("name", "type_params", "bases", "keywords", "body", "decorator_list")
+    elif sys.version_info >= (3, 10):
         __match_args__ = ("name", "bases", "keywords", "body", "decorator_list")
     name: _Identifier
+    if sys.version_info >= (3, 12):
+        type_params: list[type_param]
     bases: list[expr]
     keywords: list[keyword]
     body: list[stmt]
@@ -571,3 +583,25 @@ if sys.version_info >= (3, 10):
     class MatchOr(pattern):
         __match_args__ = ("patterns",)
         patterns: list[pattern]
+
+if sys.version_info >= (3, 12):
+    class type_param(AST): ...
+
+    class TypeVar(type_param):
+        __match_args__ = ("name", "bound")
+        name: _Identifier
+        bound: expr | None
+
+    class ParamSpec(type_param):
+        __match_args__ = ("name",)
+        name: _Identifier
+
+    class TypeVarTuple(type_param):
+        __match_args__ = ("name",)
+        name: _Identifier
+
+    class TypeAlias(stmt):
+        __match_args__ = ("name", "typeparams", "value")
+        name: Name
+        type_params: list[type_param]
+        value: expr
