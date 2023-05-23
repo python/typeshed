@@ -2,7 +2,7 @@
 
 [![Tests](https://github.com/python/typeshed/actions/workflows/tests.yml/badge.svg)](https://github.com/python/typeshed/actions/workflows/tests.yml)
 [![Chat at https://gitter.im/python/typing](https://badges.gitter.im/python/typing.svg)](https://gitter.im/python/typing?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Pull Requests Welcome](https://img.shields.io/badge/pull%20requests-welcome-brightgreen.svg)](https://github.com/python/typeshed/blob/master/CONTRIBUTING.md)
+[![Pull Requests Welcome](https://img.shields.io/badge/pull%20requests-welcome-brightgreen.svg)](https://github.com/python/typeshed/blob/main/CONTRIBUTING.md)
 
 ## About
 
@@ -24,14 +24,18 @@ Typeshed supports Python versions 3.7 and up.
 
 ## Using
 
-If you're just using mypy (or pytype or PyCharm), as opposed to
+If you're just using a type checker ([mypy](https://github.com/python/mypy/),
+[pyright](https://github.com/microsoft/pyright),
+[pytype](https://github.com/google/pytype/), PyCharm, ...), as opposed to
 developing it, you don't need to interact with the typeshed repo at
-all: a copy of standard library part of typeshed is bundled with mypy.
+all: a copy of standard library part of typeshed is bundled with type checkers.
 And type stubs for third party packages and modules you are using can
 be installed from PyPI. For example, if you are using `six` and `requests`,
 you can install the type stubs using
 
-    $ pip install types-six types-requests
+```bash
+$ pip install types-six types-requests
+```
 
 These PyPI packages follow [PEP 561](http://www.python.org/dev/peps/pep-0561/)
 and are automatically released (multiple times a day, when needed) by
@@ -45,7 +49,7 @@ details, see the documentation for your type checker.
 typeshed includes a package `_typeshed` as part of the standard library.
 This package and its submodules contains utility types, but is not
 available at runtime. For more information about how to use this package,
-[see the `stdlib/_typeshed` directory](https://github.com/python/typeshed/tree/master/stdlib/_typeshed).
+[see the `stdlib/_typeshed` directory](https://github.com/python/typeshed/tree/main/stdlib/_typeshed).
 
 ## Discussion
 

@@ -1,17 +1,20 @@
-import builtins
-import collections
-import contextlib
 import itertools
 import operator
 import pickle as pickle
+import sys
 import threading as threading
+from _typeshed import Incomplete, Unused
 from abc import ABC as ABC
+from builtins import callable as callable, next as next
+from collections import namedtuple as namedtuple  # noqa: Y024  # Actual import
+from contextlib import contextmanager as contextmanager
 from datetime import timezone as timezone
 from functools import reduce as reduce
-from io import BytesIO as BytesIO, StringIO as StringIO
+from io import BytesIO, StringIO as StringIO
 from itertools import zip_longest as zip_longest
 from time import perf_counter as perf_counter
 from typing import TYPE_CHECKING as TYPE_CHECKING, Any, NamedTuple
+from typing_extensions import Final
 from urllib.parse import (
     parse_qsl as parse_qsl,
     quote as quote,
@@ -22,21 +25,28 @@ from urllib.parse import (
 
 byte_buffer = BytesIO
 
-py39: Any
-py38: Any
-py37: Any
-py3k: Any
-py2k: Any
-pypy: Any
-cpython: Any
-win32: Any
-osx: Any
-arm: Any
-has_refcount_gc: Any
-contextmanager = contextlib.contextmanager
+py312: bool
+py311: bool
+py310: bool
+py39: bool
+py38: bool
+py37: bool
+py3k: Final = True
+py2k: Final = False
+pypy: bool
+cpython: bool
+if sys.platform == "win32":
+    win32: Final = True
+else:
+    win32: Final = False
+if sys.platform == "darwin":
+    osx: Final = True
+else:
+    osx: Final = False
+arm: bool
+is64bit: bool
+has_refcount_gc: bool
 dottedgetter = operator.attrgetter
-namedtuple = collections.namedtuple  # noqa: Y024
-next = builtins.next
 
 class FullArgSpec(NamedTuple):
     args: Any
@@ -49,9 +59,9 @@ class FullArgSpec(NamedTuple):
 
 class nullcontext:
     enter_result: Any
-    def __init__(self, enter_result: Any | None = ...) -> None: ...
+    def __init__(self, enter_result: Incomplete | None = None) -> None: ...
     def __enter__(self): ...
-    def __exit__(self, *excinfo) -> None: ...
+    def __exit__(self, *excinfo: Unused) -> None: ...
 
 def inspect_getfullargspec(func): ...
 def importlib_metadata_get(group): ...
@@ -75,21 +85,19 @@ def b64decode(x): ...
 def b64encode(x): ...
 def decode_backslashreplace(text, encoding): ...
 def cmp(a, b): ...
-def raise_(exception, with_traceback: Any | None = ..., replace_context: Any | None = ..., from_: bool = ...) -> None: ...
+def raise_(
+    exception, with_traceback: Incomplete | None = None, replace_context: Incomplete | None = None, from_: bool = False
+) -> None: ...
 def u(s): ...
 def ue(s): ...
-
-callable = builtins.callable
-
-def safe_bytestring(text): ...
 def inspect_formatargspec(
     args,
-    varargs: Any | None = ...,
-    varkw: Any | None = ...,
-    defaults: Any | None = ...,
-    kwonlyargs=...,
-    kwonlydefaults=...,
-    annotations=...,
+    varargs: Incomplete | None = None,
+    varkw: Incomplete | None = None,
+    defaults: Incomplete | None = None,
+    kwonlyargs=(),
+    kwonlydefaults={},
+    annotations={},
     formatarg=...,
     formatvarargs=...,
     formatvarkw=...,
@@ -99,6 +107,6 @@ def inspect_formatargspec(
 ): ...
 def dataclass_fields(cls): ...
 def local_dataclass_fields(cls): ...
-def raise_from_cause(exception, exc_info: Any | None = ...) -> None: ...
-def reraise(tp, value, tb: Any | None = ..., cause: Any | None = ...) -> None: ...
+def raise_from_cause(exception, exc_info: Incomplete | None = None) -> None: ...
+def reraise(tp, value, tb: Incomplete | None = None, cause: Incomplete | None = None) -> None: ...
 def with_metaclass(meta, *bases, **kw): ...

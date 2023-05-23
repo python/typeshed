@@ -4,8 +4,7 @@ from http.client import HTTPConnection as _HTTPConnection, HTTPException as HTTP
 from typing import Any
 
 from . import exceptions, util
-from .packages import ssl_match_hostname
-from .util import ssl_
+from .util import ssl_, ssl_match_hostname
 
 class DummyConnection: ...
 
@@ -36,7 +35,7 @@ class HTTPSConnection(HTTPConnection):
     default_port: Any
     key_file: Any
     cert_file: Any
-    def __init__(self, host, port=..., key_file=..., cert_file=..., strict=..., timeout=..., **kw) -> None: ...
+    def __init__(self, host, port=None, key_file=None, cert_file=None, strict=None, timeout=..., **kw) -> None: ...
     sock: Any
     def connect(self): ...
 
@@ -48,7 +47,9 @@ class VerifiedHTTPSConnection(HTTPSConnection):
     key_file: Any
     cert_file: Any
     assert_hostname: Any
-    def set_cert(self, key_file=..., cert_file=..., cert_reqs=..., ca_certs=..., assert_hostname=..., assert_fingerprint=...): ...
+    def set_cert(
+        self, key_file=None, cert_file=None, cert_reqs=None, ca_certs=None, assert_hostname=None, assert_fingerprint=None
+    ): ...
     sock: Any
     auto_open: Any
     is_verified: Any

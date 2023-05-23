@@ -1,4 +1,6 @@
-version = "4.16.*"
+version = "4.17.*"
+partial_stub = true
 
 [tool.stubtest]
+ignore_missing_stub = true
 extras = ["format"]

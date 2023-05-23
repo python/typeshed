@@ -1,11 +1,11 @@
-from typing import Any
+from _typeshed import Incomplete
 
 class Comment:
-    content: Any
-    author: Any
-    height: Any
-    width: Any
-    def __init__(self, text, author, height: int = ..., width: int = ...) -> None: ...
+    content: Incomplete
+    author: Incomplete
+    height: Incomplete
+    width: Incomplete
+    def __init__(self, text, author, height: int = 79, width: int = 144) -> None: ...
     @property
     def parent(self): ...
     def __eq__(self, other): ...

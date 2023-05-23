@@ -1,2 +1,6 @@
-version = "1.11.*"
-requires = []
+version = "2.1.*"
+partial_stub = true
+
+[tool.stubtest]
+stubtest_requirements = ["protobuf==3.20.2"]
+ignore_missing_stub = true

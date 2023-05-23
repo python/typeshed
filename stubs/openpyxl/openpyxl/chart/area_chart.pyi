@@ -1,18 +1,30 @@
+from _typeshed import Incomplete, Unused
 from abc import abstractmethod
-from typing import Any
+from typing import ClassVar
+from typing_extensions import Literal
+
+from openpyxl.chart.axis import ChartLines, NumericAxis, SeriesAxis, TextAxis
+from openpyxl.chart.label import DataLabelList
+from openpyxl.descriptors.base import Alias, Typed
+from openpyxl.descriptors.excel import ExtensionList
 
 from ._chart import ChartBase
 
 class _AreaChartBase(ChartBase):
-    grouping: Any
-    varyColors: Any
-    ser: Any
-    dLbls: Any
-    dataLabels: Any
-    dropLines: Any
-    __elements__: Any
+    grouping: Incomplete
+    varyColors: Incomplete
+    ser: Incomplete
+    dLbls: Typed[DataLabelList, Literal[True]]
+    dataLabels: Alias
+    dropLines: Typed[ChartLines, Literal[True]]
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
-        self, grouping: str = ..., varyColors: Any | None = ..., ser=..., dLbls: Any | None = ..., dropLines: Any | None = ...
+        self,
+        grouping: str = "standard",
+        varyColors: Incomplete | None = None,
+        ser=(),
+        dLbls: DataLabelList | None = None,
+        dropLines: ChartLines | None = None,
     ) -> None: ...
     @property
     @abstractmethod
@@ -20,27 +32,27 @@ class _AreaChartBase(ChartBase):
 
 class AreaChart(_AreaChartBase):
     tagname: str
-    grouping: Any
-    varyColors: Any
-    ser: Any
-    dLbls: Any
-    dropLines: Any
-    x_axis: Any
-    y_axis: Any
-    extLst: Any
-    __elements__: Any
-    def __init__(self, axId: Any | None = ..., extLst: Any | None = ..., **kw) -> None: ...
+    grouping: Incomplete
+    varyColors: Incomplete
+    ser: Incomplete
+    dLbls: Incomplete
+    dropLines: Incomplete
+    x_axis: Typed[TextAxis, Literal[False]]
+    y_axis: Typed[NumericAxis, Literal[False]]
+    extLst: Typed[ExtensionList, Literal[True]]
+    __elements__: ClassVar[tuple[str, ...]]
+    def __init__(self, axId: Unused = None, extLst: Unused = None, **kw) -> None: ...
 
 class AreaChart3D(AreaChart):
     tagname: str
-    grouping: Any
-    varyColors: Any
-    ser: Any
-    dLbls: Any
-    dropLines: Any
-    gapDepth: Any
-    x_axis: Any
-    y_axis: Any
-    z_axis: Any
-    __elements__: Any
-    def __init__(self, gapDepth: Any | None = ..., **kw) -> None: ...
+    grouping: Incomplete
+    varyColors: Incomplete
+    ser: Incomplete
+    dLbls: Incomplete
+    dropLines: Incomplete
+    gapDepth: Incomplete
+    x_axis: Typed[TextAxis, Literal[False]]
+    y_axis: Typed[NumericAxis, Literal[False]]
+    z_axis: Typed[SeriesAxis, Literal[True]]
+    __elements__: ClassVar[tuple[str, ...]]
+    def __init__(self, gapDepth: Incomplete | None = None, **kw) -> None: ...

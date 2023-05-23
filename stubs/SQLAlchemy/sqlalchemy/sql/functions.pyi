@@ -1,20 +1,21 @@
+from _typeshed import Incomplete
 from typing import Any
 
-from ..util import HasMemoized
+from ..util.langhelpers import HasMemoized
 from .base import Executable, Generative
 from .elements import BinaryExpression, ColumnElement, NamedColumn
 from .selectable import FromClause, TableValuedAlias
 from .visitors import TraversibleType
 
-def register_function(identifier, fn, package: str = ...) -> None: ...
+def register_function(identifier, fn, package: str = "_default") -> None: ...
 
 class FunctionElement(Executable, ColumnElement[Any], FromClause, Generative):  # type: ignore[misc]
-    packagenames: Any
-    clause_expr: Any
+    packagenames: Incomplete
+    clause_expr: Incomplete
     def __init__(self, *clauses, **kwargs) -> None: ...
-    def scalar_table_valued(self, name, type_: Any | None = ...): ...
+    def scalar_table_valued(self, name, type_: Incomplete | None = None): ...
     def table_valued(self, *expr, **kw): ...
-    def column_valued(self, name: Any | None = ...): ...
+    def column_valued(self, name: str | None = None, joins_implicitly: bool = False): ...
     @property
     def columns(self): ...
     @property
@@ -22,28 +23,32 @@ class FunctionElement(Executable, ColumnElement[Any], FromClause, Generative):  
     @HasMemoized.memoized_attribute
     def clauses(self): ...
     def over(
-        self, partition_by: Any | None = ..., order_by: Any | None = ..., rows: Any | None = ..., range_: Any | None = ...
+        self,
+        partition_by: Incomplete | None = None,
+        order_by: Incomplete | None = None,
+        rows: Incomplete | None = None,
+        range_: Incomplete | None = None,
     ): ...
     def within_group(self, *order_by): ...
     def filter(self, *criterion): ...
     def as_comparison(self, left_index, right_index): ...
     def within_group_type(self, within_group) -> None: ...
-    def alias(self, name: str | None = ..., joins_implicitly: bool = ...) -> TableValuedAlias: ...  # type: ignore[override]
+    def alias(self, name: str | None = None, joins_implicitly: bool = False) -> TableValuedAlias: ...  # type: ignore[override]
     def select(self): ...
     def scalar(self): ...
     def execute(self): ...
-    def self_group(self, against: Any | None = ...): ...
+    def self_group(self, against: Incomplete | None = None): ...
     @property
     def entity_namespace(self): ...
 
 class FunctionAsBinary(BinaryExpression):
-    sql_function: Any
-    left_index: Any
-    right_index: Any
-    operator: Any
-    type: Any
-    negate: Any
-    modifiers: Any
+    sql_function: Incomplete
+    left_index: Incomplete
+    right_index: Incomplete
+    operator: Incomplete
+    type: Incomplete
+    negate: Incomplete
+    modifiers: Incomplete
     def __init__(self, fn, left_index, right_index) -> None: ...
     @property
     def left(self): ...
@@ -57,45 +62,45 @@ class FunctionAsBinary(BinaryExpression):
 class ScalarFunctionColumn(NamedColumn):
     __visit_name__: str
     is_literal: bool
-    table: Any
-    fn: Any
-    name: Any
-    type: Any
-    def __init__(self, fn, name, type_: Any | None = ...) -> None: ...
+    table: Incomplete
+    fn: Incomplete
+    name: Incomplete
+    type: Incomplete
+    def __init__(self, fn, name, type_: Incomplete | None = None) -> None: ...
 
 class _FunctionGenerator:
-    opts: Any
+    opts: Incomplete
     def __init__(self, **opts) -> None: ...
-    def __getattr__(self, name): ...
+    def __getattr__(self, name: str): ...
     def __call__(self, *c, **kwargs): ...
 
-func: Any
-modifier: Any
+func: Incomplete
+modifier: Incomplete
 
 class Function(FunctionElement):
     __visit_name__: str
-    type: Any
-    packagenames: Any
-    name: Any
+    type: Incomplete
+    packagenames: Incomplete
+    name: Incomplete
     def __init__(self, name, *clauses, **kw) -> None: ...
 
 class _GenericMeta(TraversibleType):
     def __init__(cls, clsname, bases, clsdict) -> None: ...
 
-class GenericFunction:
-    name: Any
-    identifier: Any
+class GenericFunction(Function, metaclass=_GenericMeta):
+    name: Incomplete
+    identifier: Incomplete
     coerce_arguments: bool
     inherit_cache: bool
-    packagenames: Any
-    clause_expr: Any
-    type: Any
+    packagenames: Incomplete
+    clause_expr: Incomplete
+    type: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...
 
 class next_value(GenericFunction):
-    type: Any
+    type: Incomplete
     name: str
-    sequence: Any
+    sequence: Incomplete
     def __init__(self, seq, **kw) -> None: ...
     def compare(self, other, **kw): ...
 
@@ -120,15 +125,15 @@ class sum(ReturnTypeFromArgs):
     inherit_cache: bool
 
 class now(GenericFunction):
-    type: Any
+    type: Incomplete
     inherit_cache: bool
 
 class concat(GenericFunction):
-    type: Any
+    type: Incomplete
     inherit_cache: bool
 
 class char_length(GenericFunction):
-    type: Any
+    type: Incomplete
     inherit_cache: bool
     def __init__(self, arg, **kwargs) -> None: ...
 
@@ -136,48 +141,48 @@ class random(GenericFunction):
     inherit_cache: bool
 
 class count(GenericFunction):
-    type: Any
+    type: Incomplete
     inherit_cache: bool
-    def __init__(self, expression: Any | None = ..., **kwargs) -> None: ...
+    def __init__(self, expression: Incomplete | None = None, **kwargs) -> None: ...
 
 class current_date(AnsiFunction):
-    type: Any
+    type: Incomplete
     inherit_cache: bool
 
 class current_time(AnsiFunction):
-    type: Any
+    type: Incomplete
     inherit_cache: bool
 
 class current_timestamp(AnsiFunction):
-    type: Any
+    type: Incomplete
     inherit_cache: bool
 
 class current_user(AnsiFunction):
-    type: Any
+    type: Incomplete
     inherit_cache: bool
 
 class localtime(AnsiFunction):
-    type: Any
+    type: Incomplete
     inherit_cache: bool
 
 class localtimestamp(AnsiFunction):
-    type: Any
+    type: Incomplete
     inherit_cache: bool
 
 class session_user(AnsiFunction):
-    type: Any
+    type: Incomplete
     inherit_cache: bool
 
 class sysdate(AnsiFunction):
-    type: Any
+    type: Incomplete
     inherit_cache: bool
 
 class user(AnsiFunction):
-    type: Any
+    type: Incomplete
     inherit_cache: bool
 
 class array_agg(GenericFunction):
-    type: Any
+    type: Incomplete
     inherit_cache: bool
     def __init__(self, *args, **kwargs) -> None: ...
 
@@ -198,19 +203,19 @@ class percentile_disc(OrderedSetAgg):
     inherit_cache: bool
 
 class rank(GenericFunction):
-    type: Any
+    type: Incomplete
     inherit_cache: bool
 
 class dense_rank(GenericFunction):
-    type: Any
+    type: Incomplete
     inherit_cache: bool
 
 class percent_rank(GenericFunction):
-    type: Any
+    type: Incomplete
     inherit_cache: bool
 
 class cume_dist(GenericFunction):
-    type: Any
+    type: Incomplete
     inherit_cache: bool
 
 class cube(GenericFunction):

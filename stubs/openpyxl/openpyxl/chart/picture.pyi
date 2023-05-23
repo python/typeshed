@@ -1,20 +1,21 @@
-from typing import Any
+from _typeshed import Incomplete
+from typing import ClassVar
 
 from openpyxl.descriptors.serialisable import Serialisable
 
 class PictureOptions(Serialisable):
     tagname: str
-    applyToFront: Any
-    applyToSides: Any
-    applyToEnd: Any
-    pictureFormat: Any
-    pictureStackUnit: Any
-    __elements__: Any
+    applyToFront: Incomplete
+    applyToSides: Incomplete
+    applyToEnd: Incomplete
+    pictureFormat: Incomplete
+    pictureStackUnit: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        applyToFront: Any | None = ...,
-        applyToSides: Any | None = ...,
-        applyToEnd: Any | None = ...,
-        pictureFormat: Any | None = ...,
-        pictureStackUnit: Any | None = ...,
+        applyToFront: Incomplete | None = None,
+        applyToSides: Incomplete | None = None,
+        applyToEnd: Incomplete | None = None,
+        pictureFormat: Incomplete | None = None,
+        pictureStackUnit: Incomplete | None = None,
     ) -> None: ...

@@ -23,6 +23,11 @@ selectors.DefaultSelector.fileno
 spwd.struct_spwd.sp_nam
 spwd.struct_spwd.sp_pwd
 
+# Platform differences that cannot be captured by the type system
+(posix.O_[A-Z_]+)?
+(posix.ST_[A-Z]+)?
+(termios.[A-Z0-9_]+)?
+
 _ctypes.dlclose
 _ctypes.dlopen
 _ctypes.dlsym

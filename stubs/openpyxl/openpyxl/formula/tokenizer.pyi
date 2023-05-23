@@ -1,21 +1,21 @@
-from typing import Any
+from _typeshed import Incomplete
 
 class TokenizerError(Exception): ...
 
 class Tokenizer:
-    SN_RE: Any
-    WSPACE_RE: Any
-    STRING_REGEXES: Any
-    ERROR_CODES: Any
+    SN_RE: Incomplete
+    WSPACE_RE: Incomplete
+    STRING_REGEXES: Incomplete
+    ERROR_CODES: Incomplete
     TOKEN_ENDERS: str
-    formula: Any
-    items: Any
-    token_stack: Any
+    formula: Incomplete
+    items: Incomplete
+    token_stack: Incomplete
     offset: int
-    token: Any
+    token: Incomplete
     def __init__(self, formula) -> None: ...
     def check_scientific_notation(self): ...
-    def assert_empty_token(self, can_follow=...) -> None: ...
+    def assert_empty_token(self, can_follow=()) -> None: ...
     def save_token(self) -> None: ...
     def render(self): ...
 
@@ -30,10 +30,10 @@ class Token:
     OP_IN: str
     OP_POST: str
     WSPACE: str
-    value: Any
-    type: Any
-    subtype: Any
-    def __init__(self, value, type_, subtype: str = ...) -> None: ...
+    value: Incomplete
+    type: Incomplete
+    subtype: Incomplete
+    def __init__(self, value, type_, subtype: str = "") -> None: ...
     TEXT: str
     NUMBER: str
     LOGICAL: str
@@ -44,7 +44,7 @@ class Token:
     OPEN: str
     CLOSE: str
     @classmethod
-    def make_subexp(cls, value, func: bool = ...): ...
+    def make_subexp(cls, value, func: bool = False): ...
     def get_closer(self): ...
     ARG: str
     ROW: str

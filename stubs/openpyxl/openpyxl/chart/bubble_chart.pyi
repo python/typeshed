@@ -1,30 +1,37 @@
-from typing import Any
+from _typeshed import Incomplete, Unused
+from typing import ClassVar
+from typing_extensions import Literal
+
+from openpyxl.chart.axis import NumericAxis
+from openpyxl.chart.label import DataLabelList
+from openpyxl.descriptors.base import Alias, Typed
+from openpyxl.descriptors.excel import ExtensionList
 
 from ._chart import ChartBase
 
 class BubbleChart(ChartBase):
     tagname: str
-    varyColors: Any
-    ser: Any
-    dLbls: Any
-    dataLabels: Any
-    bubble3D: Any
-    bubbleScale: Any
-    showNegBubbles: Any
-    sizeRepresents: Any
-    extLst: Any
-    x_axis: Any
-    y_axis: Any
-    __elements__: Any
+    varyColors: Incomplete
+    ser: Incomplete
+    dLbls: Typed[DataLabelList, Literal[True]]
+    dataLabels: Alias
+    bubble3D: Incomplete
+    bubbleScale: Incomplete
+    showNegBubbles: Incomplete
+    sizeRepresents: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
+    x_axis: Typed[NumericAxis, Literal[False]]
+    y_axis: Typed[NumericAxis, Literal[False]]
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        varyColors: Any | None = ...,
-        ser=...,
-        dLbls: Any | None = ...,
-        bubble3D: Any | None = ...,
-        bubbleScale: Any | None = ...,
-        showNegBubbles: Any | None = ...,
-        sizeRepresents: Any | None = ...,
-        extLst: Any | None = ...,
+        varyColors: Incomplete | None = None,
+        ser=(),
+        dLbls: DataLabelList | None = None,
+        bubble3D: Incomplete | None = None,
+        bubbleScale: Incomplete | None = None,
+        showNegBubbles: Incomplete | None = None,
+        sizeRepresents: Incomplete | None = None,
+        extLst: Unused = None,
         **kw,
     ) -> None: ...

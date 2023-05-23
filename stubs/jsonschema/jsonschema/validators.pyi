@@ -6,7 +6,7 @@ from typing_extensions import TypeAlias
 
 from ._format import FormatChecker
 from ._types import TypeChecker
-from ._utils import URIDict
+from ._utils import Unset, URIDict
 from .exceptions import ValidationError
 
 # these type aliases do not exist at runtime, they're only defined here in the stub
@@ -29,12 +29,12 @@ class _Validator:
     resolver: Any
     format_checker: Any
     evolve: Any
-    def __init__(self, schema: _Schema, resolver: Any | None = ..., format_checker: Any | None = ...) -> None: ...
+    def __init__(self, schema: _Schema, resolver: Incomplete | None = ..., format_checker: Incomplete | None = ...) -> None: ...
     @classmethod
-    def check_schema(cls, schema: _Schema) -> None: ...
+    def check_schema(cls, schema: _Schema, format_checker: FormatChecker | Unset = ...) -> None: ...
     def iter_errors(self, instance, _schema: _Schema | None = ...) -> Generator[Any, None, None]: ...
     def descend(
-        self, instance, schema: _Schema, path: Any | None = ..., schema_path: Any | None = ...
+        self, instance, schema: _Schema, path: Incomplete | None = ..., schema_path: Incomplete | None = ...
     ) -> Generator[Any, None, None]: ...
     def validate(self, *args, **kwargs) -> None: ...
     def is_type(self, instance, type): ...
@@ -43,15 +43,19 @@ class _Validator:
 def validates(version: str) -> Callable[..., Any]: ...
 def create(
     meta_schema: _Schema,
-    validators: Mapping[str, _ValidatorCallback] | tuple[()] = ...,
-    version: Any | None = ...,
+    validators: Mapping[str, _ValidatorCallback] | tuple[()] = (),
+    version: Incomplete | None = None,
     type_checker: TypeChecker = ...,
     format_checker: FormatChecker = ...,
     id_of: Callable[[_Schema], str] = ...,
     applicable_validators: Callable[[_Schema], Iterable[tuple[str, _ValidatorCallback]]] = ...,
 ) -> type[_Validator]: ...
 def extend(
-    validator, validators=..., version: Any | None = ..., type_checker: Any | None = ..., format_checker: Any | None = ...
+    validator,
+    validators=(),
+    version: Incomplete | None = None,
+    type_checker: Incomplete | None = None,
+    format_checker: Incomplete | None = None,
 ): ...
 
 # At runtime these are fields that are assigned the return values of create() calls.
@@ -74,10 +78,10 @@ class RefResolver:
         base_uri: str,
         referrer: dict[str, Any],
         store: SupportsKeysAndGetItem[str, str] | Iterable[tuple[str, str]] = ...,
-        cache_remote: bool = ...,
-        handlers: SupportsKeysAndGetItem[str, _Handler] | Iterable[tuple[str, _Handler]] = ...,
-        urljoin_cache: Any | None = ...,
-        remote_cache: Any | None = ...,
+        cache_remote: bool = True,
+        handlers: SupportsKeysAndGetItem[str, _Handler] | Iterable[tuple[str, _Handler]] = (),
+        urljoin_cache: Incomplete | None = None,
+        remote_cache: Incomplete | None = None,
     ) -> None: ...
     @classmethod
     def from_schema(cls, schema: _Schema, id_of=..., *args, **kwargs): ...
@@ -96,5 +100,5 @@ class RefResolver:
     def resolve_fragment(self, document, fragment): ...
     def resolve_remote(self, uri): ...
 
-def validate(instance: object, schema: _Schema, cls: type[_Validator] | None = ..., *args: Any, **kwargs: Any) -> None: ...
+def validate(instance: object, schema: _Schema, cls: type[_Validator] | None = None, *args: Any, **kwargs: Any) -> None: ...
 def validator_for(schema: _Schema | bool, default=...): ...
