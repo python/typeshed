@@ -30,7 +30,7 @@ from typing import (  # noqa: Y022,Y038
     Sized as Sized,
     TypeVar,
     ValuesView as ValuesView,
-    runtime_checkable
+    runtime_checkable,
 )
 from typing_extensions import final
 
