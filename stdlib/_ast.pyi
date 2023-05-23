@@ -1,6 +1,6 @@
 import sys
-from typing import Any, ClassVar
 import typing_extensions
+from typing import Any, ClassVar
 from typing_extensions import Literal
 
 PyCF_ONLY_AST: Literal[1024]
