@@ -1,5 +1,5 @@
-from abc import abstractmethod
 import sys
+from abc import abstractmethod
 from types import MappingProxyType
 from typing import (  # noqa: Y022,Y038
     AbstractSet as Set,
