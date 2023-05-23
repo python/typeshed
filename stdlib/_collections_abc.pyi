@@ -1,3 +1,4 @@
+from abc import abstractmethod
 import sys
 from types import MappingProxyType
 from typing import (  # noqa: Y022,Y038
