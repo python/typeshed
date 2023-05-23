@@ -888,7 +888,6 @@ def _type_repr(obj: object) -> str: ...
 
 if sys.version_info >= (3, 12):
     def override(__arg: _F) -> _F: ...
-
     @_final
     class TypeAliasType:
         def __init__(
