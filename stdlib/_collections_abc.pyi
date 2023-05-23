@@ -85,6 +85,7 @@ class dict_items(ItemsView[_KT_co, _VT_co], Generic[_KT_co, _VT_co]):  # undocum
         def mapping(self) -> MappingProxyType[_KT_co, _VT_co]: ...
 
 if sys.version_info >= (3, 12):
+    @runtime_checkable
     class Buffer(Protocol):
         @abstractmethod
         def __buffer__(self, __flags: int) -> memoryview: ...
