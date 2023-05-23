@@ -85,4 +85,5 @@ class dict_items(ItemsView[_KT_co, _VT_co], Generic[_KT_co, _VT_co]):  # undocum
 
 if sys.version_info >= (3, 12):
     class Buffer(Protocol):
+        @abstractmethod
         def __buffer__(self, __flags: int) -> memoryview: ...
