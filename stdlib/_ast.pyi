@@ -1,13 +1,13 @@
 import sys
 from typing import Any, ClassVar
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, TypeAlias as _TypeAlias
 
 PyCF_ONLY_AST: Literal[1024]
 if sys.version_info >= (3, 8):
     PyCF_TYPE_COMMENTS: Literal[4096]
     PyCF_ALLOW_TOP_LEVEL_AWAIT: Literal[8192]
 
-_Identifier: TypeAlias = str
+_Identifier: _TypeAlias = str
 
 class AST:
     if sys.version_info >= (3, 10):
