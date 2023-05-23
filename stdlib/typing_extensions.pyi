@@ -350,6 +350,7 @@ else:
     def override(__arg: _F) -> _F: ...
     def get_original_bases(__cls: type) -> tuple[Any, ...]: ...
 
+    @final
     class TypeAliasType:
         def __init__(
             self, name: str, value: Any, *, type_params: tuple[TypeVar | ParamSpec | TypeVarTuple, ...] = ()
