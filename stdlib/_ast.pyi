@@ -378,10 +378,10 @@ class Attribute(expr):
     ctx: expr_context
 
 if sys.version_info >= (3, 9):
-    _Slice: TypeAlias = expr
+    _Slice: _TypeAlias = expr
 else:
     class slice(AST): ...
-    _Slice: TypeAlias = slice
+    _Slice: _TypeAlias = slice
 
 class Slice(_Slice):
     if sys.version_info >= (3, 10):
@@ -538,7 +538,7 @@ if sys.version_info >= (3, 10):
 
     class pattern(AST): ...
     # Without the alias, Pyright complains variables named pattern are recursively defined
-    _Pattern: TypeAlias = pattern
+    _Pattern: _TypeAlias = pattern
 
     class match_case(AST):
         __match_args__ = ("pattern", "guard", "body")
