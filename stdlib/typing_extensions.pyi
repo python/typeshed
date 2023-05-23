@@ -25,17 +25,17 @@ from typing import (  # noqa: Y022,Y039
     NewType as NewType,
     NoReturn as NoReturn,
     Sequence,
+    SupportsAbs as SupportsAbs,
+    SupportsBytes as SupportsBytes,
+    SupportsComplex as SupportsComplex,
+    SupportsFloat as SupportsFloat,
+    SupportsInt as SupportsInt,
+    SupportsRound as SupportsRound,
     Text as Text,
     Type as Type,
     _Alias,
     overload as overload,
     type_check_only,
-    SupportsInt as SupportsInt,
-    SupportsFloat as SupportsFloat,
-    SupportsComplex as SupportsComplex,
-    SupportsBytes as SupportsBytes,
-    SupportsAbs as SupportsAbs,
-    SupportsRound as SupportsRound,
 )
 
 if sys.version_info >= (3, 10):
@@ -343,9 +343,9 @@ class TypeVarTuple:
 def deprecated(__msg: str, *, category: type[Warning] | None = ..., stacklevel: int = 1) -> Callable[[_T], _T]: ...
 
 if sys.version_info >= (3, 12):
-    from typing import override as override, TypeAliasType as TypeAliasType
-    from types import get_original_bases as get_original_bases
     from collections.abc import Buffer as Buffer
+    from types import get_original_bases as get_original_bases
+    from typing import TypeAliasType as TypeAliasType, override as override
 else:
     def override(__arg: _F) -> _F: ...
     def get_original_bases(__cls: type) -> tuple[Any, ...]: ...
