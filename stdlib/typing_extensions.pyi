@@ -1,6 +1,5 @@
 import abc
 import collections
-from re import A
 import sys
 import typing
 from _collections_abc import dict_items, dict_keys, dict_values
