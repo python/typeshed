@@ -349,7 +349,6 @@ if sys.version_info >= (3, 12):
 else:
     def override(__arg: _F) -> _F: ...
     def get_original_bases(__cls: type) -> tuple[Any, ...]: ...
-
     @final
     class TypeAliasType:
         def __init__(
