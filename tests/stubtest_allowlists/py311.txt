@@ -143,3 +143,5 @@ dataclasses.KW_ONLY
 
 # We pretend it's a read-only property for forward compatibility with 3.12
 typing.ParamSpec(Args|Kwargs).__origin__
+typing\.TypeVar\.__.*__
+typing\.ParamSpec\.__.*__
