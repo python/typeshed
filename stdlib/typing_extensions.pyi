@@ -22,7 +22,6 @@ from typing import (  # noqa: Y022,Y039
     DefaultDict as DefaultDict,
     Deque as Deque,
     Mapping,
-    NewType as NewType,
     NoReturn as NoReturn,
     Sequence,
     SupportsAbs as SupportsAbs,
@@ -97,6 +96,7 @@ __all__ = [
     "runtime_checkable",
     "Text",
     "TypeAlias",
+    "TypeAliasType",
     "TypeGuard",
     "TYPE_CHECKING",
     "Never",
@@ -106,6 +106,7 @@ __all__ = [
     "clear_overloads",
     "get_args",
     "get_origin",
+    "get_original_bases",
     "get_overloads",
     "get_type_hints",
 ]
@@ -196,10 +197,11 @@ class SupportsIndex(Protocol, metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def __index__(self) -> int: ...
 
-# New things in 3.10
+# New and changed things in 3.10
 if sys.version_info >= (3, 10):
     from typing import (
         Concatenate as Concatenate,
+        NewType as NewType,
         ParamSpecArgs as ParamSpecArgs,
         ParamSpecKwargs as ParamSpecKwargs,
         TypeAlias as TypeAlias,
@@ -207,18 +209,27 @@ if sys.version_info >= (3, 10):
         is_typeddict as is_typeddict,
     )
 else:
+    @final
     class ParamSpecArgs:
-        __origin__: ParamSpec
+        @property
+        def __origin__(self) -> ParamSpec: ...
         def __init__(self, origin: ParamSpec) -> None: ...
 
+    @final
     class ParamSpecKwargs:
-        __origin__: ParamSpec
+        @property
+        def __origin__(self) -> ParamSpec: ...
         def __init__(self, origin: ParamSpec) -> None: ...
 
     Concatenate: _SpecialForm
     TypeAlias: _SpecialForm
     TypeGuard: _SpecialForm
     def is_typeddict(tp: object) -> bool: ...
+
+    class NewType:
+        def __init__(self, name: str, tp: Any) -> None: ...
+        def __call__(self, __x: _T) -> _T: ...
+        __supertype__: type
 
 # New things in 3.11
 # NamedTuples are not new, but the ability to create generic NamedTuples is new in 3.11
