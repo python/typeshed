@@ -25,6 +25,12 @@ from typing import (  # noqa: Y022,Y039
     NewType as NewType,
     NoReturn as NoReturn,
     Sequence,
+    SupportsAbs as SupportsAbs,
+    SupportsBytes as SupportsBytes,
+    SupportsComplex as SupportsComplex,
+    SupportsFloat as SupportsFloat,
+    SupportsInt as SupportsInt,
+    SupportsRound as SupportsRound,
     Text as Text,
     Type as Type,
     _Alias,
@@ -39,6 +45,7 @@ if sys.version_info >= (3, 9):
 
 __all__ = [
     "Any",
+    "Buffer",
     "ClassVar",
     "Concatenate",
     "Final",
@@ -66,6 +73,12 @@ __all__ = [
     "OrderedDict",
     "TypedDict",
     "SupportsIndex",
+    "SupportsAbs",
+    "SupportsRound",
+    "SupportsBytes",
+    "SupportsComplex",
+    "SupportsFloat",
+    "SupportsInt",
     "Annotated",
     "assert_never",
     "assert_type",
@@ -272,16 +285,24 @@ else:
 
 # New things in 3.xx
 # The `default` parameter was added to TypeVar, ParamSpec, and TypeVarTuple (PEP 696)
-# The `infer_variance` parameter was added to TypeVar (PEP 695)
+# The `infer_variance` parameter was added to TypeVar in 3.12 (PEP 695)
 # typing_extensions.override (PEP 698)
 @final
 class TypeVar:
-    __name__: str
-    __bound__: Any | None
-    __constraints__: tuple[Any, ...]
-    __covariant__: bool
-    __contravariant__: bool
-    __default__: Any | None
+    @property
+    def __name__(self) -> str: ...
+    @property
+    def __bound__(self) -> Any | None: ...
+    @property
+    def __constraints__(self) -> tuple[Any, ...]: ...
+    @property
+    def __covariant__(self) -> bool: ...
+    @property
+    def __contravariant__(self) -> bool: ...
+    @property
+    def __infer_variance__(self) -> bool: ...
+    @property
+    def __default__(self) -> Any | None: ...
     def __init__(
         self,
         name: str,
@@ -300,11 +321,18 @@ class TypeVar:
 
 @final
 class ParamSpec:
-    __name__: str
-    __bound__: type[Any] | None
-    __covariant__: bool
-    __contravariant__: bool
-    __default__: type[Any] | None
+    @property
+    def __name__(self) -> str: ...
+    @property
+    def __bound__(self) -> Any | None: ...
+    @property
+    def __covariant__(self) -> bool: ...
+    @property
+    def __contravariant__(self) -> bool: ...
+    @property
+    def __infer_variance__(self) -> bool: ...
+    @property
+    def __default__(self) -> Any | None: ...
     def __init__(
         self,
         name: str,
@@ -321,10 +349,41 @@ class ParamSpec:
 
 @final
 class TypeVarTuple:
-    __name__: str
-    __default__: Any | None
+    @property
+    def __name__(self) -> str: ...
+    @property
+    def __default__(self) -> Any | None: ...
     def __init__(self, name: str, *, default: Any | None = None) -> None: ...
     def __iter__(self) -> Any: ...  # Unpack[Self]
 
-def override(__arg: _F) -> _F: ...
 def deprecated(__msg: str, *, category: type[Warning] | None = ..., stacklevel: int = 1) -> Callable[[_T], _T]: ...
+
+if sys.version_info >= (3, 12):
+    from collections.abc import Buffer as Buffer
+    from types import get_original_bases as get_original_bases
+    from typing import TypeAliasType as TypeAliasType, override as override
+else:
+    def override(__arg: _F) -> _F: ...
+    def get_original_bases(__cls: type) -> tuple[Any, ...]: ...
+    @final
+    class TypeAliasType:
+        def __init__(
+            self, name: str, value: Any, *, type_params: tuple[TypeVar | ParamSpec | TypeVarTuple, ...] = ()
+        ) -> None: ...
+        @property
+        def __value__(self) -> Any: ...
+        @property
+        def __type_params__(self) -> tuple[TypeVar | ParamSpec | TypeVarTuple, ...]: ...
+        @property
+        def __parameters__(self) -> tuple[Any, ...]: ...
+        @property
+        def __name__(self) -> str: ...
+        # It's writable on types, but not on instances of TypeAliasType.
+        @property
+        def __module__(self) -> str | None: ...  # type: ignore[override]
+        def __getitem__(self, parameters: Any) -> Any: ...
+        if sys.version_info >= (3, 10):
+            def __or__(self, right: Any) -> _SpecialForm: ...
+            def __ror__(self, left: Any) -> _SpecialForm: ...
+
+    class Buffer(abc.ABC): ...
