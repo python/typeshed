@@ -410,7 +410,6 @@ tempfile._TemporaryFileWrapper.[\w_]+  # Dynamically specified by __getattr__, a
 # Details of runtime definition don't need to be in stubs
 typing_extensions\._SpecialForm.*
 typing_extensions\.TypeVar.*
-typing_extensions\.TypeVarTuple.*
 typing_extensions\.ParamSpec.*
 typing\.Generic
 typing\.Protocol
@@ -419,7 +418,6 @@ typing\.Protocol
 typing_extensions\.Annotated
 typing_extensions\.NamedTuple
 typing_extensions\.LiteralString
-typing_extensions\.Final
 typing_extensions\.Coroutine
 typing_extensions\.Awaitable
 typing_extensions\.AsyncIterator
@@ -430,14 +428,12 @@ typing\.Sized
 typing\.Sequence
 typing\.Reversible
 typing\.Pattern
-typing\.NamedTuple
 typing\.MutableSet
 typing\.MutableSequence
 typing\.MutableMapping
 typing\.Match
 typing\.MappingView
 typing\.Mapping
-typing\.LiteralString
 typing\.KeysView
 typing\.Iterator
 typing\.Iterable
@@ -453,11 +449,7 @@ typing\.Awaitable
 typing\.AsyncIterator
 typing\.AsyncIterable
 typing\.AsyncGenerator
-typing\.Annotated
 typing\.AbstractSet
-
-# We lie in the stub and say it's read-only
-typing_extensions\.ParamSpec(Args|Kwargs)\.__origin__
 
 # Internal attributes
 .*\.__protocol_attrs__

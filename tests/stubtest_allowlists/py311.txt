@@ -137,6 +137,11 @@ typing._TypedDict.pop
 typing._TypedDict.setdefault
 typing._TypedDict.update
 typing._TypedDict.values
+typing_extensions\.TypeVarTuple.*
+typing_extensions\.Final
+typing\.NamedTuple
+typing\.LiteralString
+typing\.Annotated
 
 # White lies around defaults
 dataclasses.KW_ONLY
