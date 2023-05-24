@@ -211,12 +211,14 @@ if sys.version_info >= (3, 10):
 else:
     @final
     class ParamSpecArgs:
-        __origin__: ParamSpec
+        @property
+        def __origin__(self) -> ParamSpec: ...
         def __init__(self, origin: ParamSpec) -> None: ...
 
     @final
     class ParamSpecKwargs:
-        __origin__: ParamSpec
+        @property
+        def __origin__(self) -> ParamSpec: ...
         def __init__(self, origin: ParamSpec) -> None: ...
 
     Concatenate: _SpecialForm

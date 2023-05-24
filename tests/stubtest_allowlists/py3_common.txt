@@ -409,13 +409,14 @@ tempfile._TemporaryFileWrapper.[\w_]+  # Dynamically specified by __getattr__, a
 
 # Details of runtime definition don't need to be in stubs
 typing_extensions\._SpecialForm.*
-typing\._SpecialForm.*
 typing_extensions\.TypeVar.*
 typing_extensions\.TypeVarTuple.*
 typing_extensions\.ParamSpec.*
 typing\.Generic
+typing\.Protocol
 
 # Special primitives
+typing_extensions\.Annotated
 typing_extensions\.NamedTuple
 typing_extensions\.LiteralString
 typing_extensions\.Final
@@ -467,7 +468,7 @@ typing_extensions\.TypeAliasType\.__call__
 typing_extensions\.TypeAliasType\.__init_subclass__
 
 # We call them read-only properties, runtime implementation is slightly different
-typing_extensions\.TypeAliasType\.__(parameters|type_params|name|module)__
+typing_extensions\.TypeAliasType\.__(parameters|type_params|name|module|value)__
 
 # https://github.com/python/mypy/issues/15302
 typing_extensions\.deprecated

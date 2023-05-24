@@ -126,7 +126,7 @@ contextlib.AbstractAsyncContextManager.__class_getitem__
 contextlib.AbstractContextManager.__class_getitem__
 
 # Super-special typing primitives
-typing._SpecialForm.__mro_entries__
+typing\._SpecialForm.*
 typing._TypedDict.__delitem__
 typing._TypedDict.__ior__
 typing._TypedDict.__or__
