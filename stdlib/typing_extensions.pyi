@@ -289,13 +289,20 @@ else:
 # typing_extensions.override (PEP 698)
 @final
 class TypeVar:
-    __name__: str
-    __bound__: Any | None
-    __constraints__: tuple[Any, ...]
-    __covariant__: bool
-    __contravariant__: bool
-    __infer_variance__: bool
-    __default__: Any | None
+    @property
+    def __name__(self) -> str: ...
+    @property
+    def __bound__(self) -> Any | None: ...
+    @property
+    def __constraints__(self) -> tuple[Any, ...]: ...
+    @property
+    def __covariant__(self) -> bool: ...
+    @property
+    def __contravariant__(self) -> bool: ...
+    @property
+    def __infer_variance__(self) -> bool: ...
+    @property
+    def __default__(self) -> Any | None: ...
     def __init__(
         self,
         name: str,
@@ -314,11 +321,18 @@ class TypeVar:
 
 @final
 class ParamSpec:
-    __name__: str
-    __bound__: type[Any] | None
-    __covariant__: bool
-    __contravariant__: bool
-    __default__: type[Any] | None
+    @property
+    def __name__(self) -> str: ...
+    @property
+    def __bound__(self) -> Any | None: ...
+    @property
+    def __covariant__(self) -> bool: ...
+    @property
+    def __contravariant__(self) -> bool: ...
+    @property
+    def __infer_variance__(self) -> bool: ...
+    @property
+    def __default__(self) -> Any | None: ...
     def __init__(
         self,
         name: str,
@@ -335,8 +349,10 @@ class ParamSpec:
 
 @final
 class TypeVarTuple:
-    __name__: str
-    __default__: Any | None
+    @property
+    def __name__(self) -> str: ...
+    @property
+    def __default__(self) -> Any | None: ...
     def __init__(self, name: str, *, default: Any | None = None) -> None: ...
     def __iter__(self) -> Any: ...  # Unpack[Self]
 
@@ -362,6 +378,8 @@ else:
         def __parameters__(self) -> tuple[Any, ...]: ...
         @property
         def __name__(self) -> str: ...
+        @property
+        def __module__(self) -> str: ...
         def __getitem__(self, parameters: Any) -> Any: ...
         if sys.version_info >= (3, 10):
             def __or__(self, right: Any) -> _SpecialForm: ...
