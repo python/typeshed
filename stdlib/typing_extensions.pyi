@@ -97,6 +97,7 @@ __all__ = [
     "runtime_checkable",
     "Text",
     "TypeAlias",
+    "TypeAliasType",
     "TypeGuard",
     "TYPE_CHECKING",
     "Never",
@@ -106,6 +107,7 @@ __all__ = [
     "clear_overloads",
     "get_args",
     "get_origin",
+    "get_original_bases",
     "get_overloads",
     "get_type_hints",
 ]
@@ -207,10 +209,12 @@ if sys.version_info >= (3, 10):
         is_typeddict as is_typeddict,
     )
 else:
+    @final
     class ParamSpecArgs:
         __origin__: ParamSpec
         def __init__(self, origin: ParamSpec) -> None: ...
 
+    @final
     class ParamSpecKwargs:
         __origin__: ParamSpec
         def __init__(self, origin: ParamSpec) -> None: ...
