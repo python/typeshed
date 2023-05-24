@@ -22,7 +22,6 @@ from typing import (  # noqa: Y022,Y039
     DefaultDict as DefaultDict,
     Deque as Deque,
     Mapping,
-    NewType as NewType,
     NoReturn as NoReturn,
     Sequence,
     SupportsAbs as SupportsAbs,
@@ -198,10 +197,11 @@ class SupportsIndex(Protocol, metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def __index__(self) -> int: ...
 
-# New things in 3.10
+# New and changed things in 3.10
 if sys.version_info >= (3, 10):
     from typing import (
         Concatenate as Concatenate,
+        NewType as NewType,
         ParamSpecArgs as ParamSpecArgs,
         ParamSpecKwargs as ParamSpecKwargs,
         TypeAlias as TypeAlias,
@@ -225,6 +225,11 @@ else:
     TypeAlias: _SpecialForm
     TypeGuard: _SpecialForm
     def is_typeddict(tp: object) -> bool: ...
+
+    class NewType:
+        def __init__(self, name: str, tp: Any) -> None: ...
+        def __call__(self, __x: _T) -> _T: ...
+        __supertype__: type
 
 # New things in 3.11
 # NamedTuples are not new, but the ability to create generic NamedTuples is new in 3.11
