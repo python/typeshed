@@ -172,3 +172,8 @@ dataclasses.KW_ONLY
 
 # We pretend it's a read-only property for forward compatibility with 3.12
 typing.ParamSpec(Args|Kwargs).__origin__
+
+# https://github.com/python/mypy/issues/15302
+typing_extensions\.assert_never
+typing_extensions\.assert_type
+typing_extensions\.reveal_type

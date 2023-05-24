@@ -165,3 +165,8 @@ types.GetSetDescriptorType.__get__
 types.MemberDescriptorType.__get__
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__
+
+# https://github.com/python/mypy/issues/15302
+typing_extensions\.assert_never
+typing_extensions\.assert_type
+typing_extensions\.reveal_type

@@ -408,10 +408,11 @@ re.Pattern.scanner  # Undocumented and not useful. #6405
 tempfile._TemporaryFileWrapper.[\w_]+  # Dynamically specified by __getattr__, and thus don't exist on the class
 
 # Details of runtime definition don't need to be in stubs
-typing_extensions\._SpecialForm
-typing\._SpecialForm
-typing_extensions\.TypeVar
-typing_extensions\.TypeVarTuple
+typing_extensions\._SpecialForm.*
+typing\._SpecialForm.*
+typing_extensions\.TypeVar.*
+typing_extensions\.TypeVarTuple.*
+typing_extensions\.ParamSpec.*
 typing\.Generic
 
 # Special primitives
@@ -420,8 +421,10 @@ typing_extensions\.LiteralString
 typing_extensions\.Final
 typing_extensions\.Coroutine
 typing_extensions\.Awaitable
+typing_extensions\.AsyncIterator
 typing_extensions\.AsyncIterable
 typing_extensions\.AsyncGenerator
+typing\.ValuesView
 typing\.Sized
 typing\.Sequence
 typing\.Reversible
@@ -432,12 +435,14 @@ typing\.MutableSequence
 typing\.MutableMapping
 typing\.Match
 typing\.MappingView
+typing\.Mapping
 typing\.LiteralString
 typing\.KeysView
 typing\.Iterator
 typing\.Iterable
 typing\.ItemsView
 typing\.Hashable
+typing\.Generator
 typing\.Coroutine
 typing\.Collection
 typing\.Container
