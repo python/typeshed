@@ -243,12 +243,19 @@ if sys.version_info >= (3, 10):
             @property
             def __infer_variance__(self) -> bool: ...
             def __init__(
-                self, name: str, *, bound: Any | None = None, contravariant: bool = False, covariant: bool = False, infer_variance: bool = False
+                self,
+                name: str,
+                *,
+                bound: Any | None = None,
+                contravariant: bool = False,
+                covariant: bool = False,
+                infer_variance: bool = False,
             ) -> None: ...
         else:
             def __init__(
                 self, name: str, *, bound: Any | None = None, contravariant: bool = False, covariant: bool = False
             ) -> None: ...
+
         @property
         def args(self) -> ParamSpecArgs: ...
         @property
