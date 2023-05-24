@@ -177,6 +177,7 @@ typing.ParamSpec(Args|Kwargs).__origin__
 typing_extensions\.assert_never
 typing_extensions\.assert_type
 typing_extensions\.reveal_type
+typing.NewType.__call__
 
 # Super-special typing primitives
 typing_extensions\.Final

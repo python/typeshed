@@ -177,5 +177,3 @@ typing_extensions\.reveal_type
 
 # Super-special typing primitives
 typing_extensions\.Final
-typing\.NamedTuple
-typing\.Annotated
