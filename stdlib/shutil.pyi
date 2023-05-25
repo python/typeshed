@@ -88,21 +88,34 @@ else:
     ) -> _PathReturn: ...
 
 _OnErrorCallback: TypeAlias = Callable[[Callable[..., Any], Any, Any], object]
+_OnExcCallback: TypeAlias = Callable[[Callable[..., Any], Any, Exception], object]
 
 class _RmtreeType(Protocol):
     avoids_symlink_attacks: bool
-    if sys.version_info >= (3, 11):
+    if sys.version_info >= (3, 12):
         def __call__(
             self,
             path: StrOrBytesPath,
-            ignore_errors: bool = ...,
-            onerror: _OnErrorCallback | None = ...,
+            ignore_errors: bool = False,
+            onerror: _OnErrorCallback | None = None,
             *,
-            dir_fd: int | None = ...,
+            onexc: _OnExcCallback | None = None,
+            dir_fd: int | None = None,
+        ) -> None: ...
+    elif sys.version_info >= (3, 11):
+        def __call__(
+            self,
+            path: StrOrBytesPath,
+            ignore_errors: bool = False,
+            onerror: _OnErrorCallback | None = None,
+            *,
+            dir_fd: int | None = None,
         ) -> None: ...
 
     else:
-        def __call__(self, path: StrOrBytesPath, ignore_errors: bool = ..., onerror: _OnErrorCallback | None = ...) -> None: ...
+        def __call__(
+            self, path: StrOrBytesPath, ignore_errors: bool = False, onerror: _OnErrorCallback | None = None
+        ) -> None: ...
 
 rmtree: _RmtreeType
 
