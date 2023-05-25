@@ -870,6 +870,10 @@ class _TypedDict(Mapping[str, object], metaclass=ABCMeta):
     if sys.version_info >= (3, 9):
         __required_keys__: ClassVar[frozenset[str]]
         __optional_keys__: ClassVar[frozenset[str]]
+    # __orig_bases__ sometimes exists on <3.12, but not consistently,
+    # so we only add it to the stub on 3.12+
+    if sys.version_info >= (3, 12):
+        __orig_bases__: ClassVar[tuple[Any, ...]]
     def copy(self) -> typing_extensions.Self: ...
     # Using Never so that only calls using mypy plugin hook that specialize the signature
     # can go through.
