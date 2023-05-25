@@ -93,13 +93,24 @@ _OnExcCallback: TypeAlias = Callable[[Callable[..., Any], str, Exception], objec
 class _RmtreeType(Protocol):
     avoids_symlink_attacks: bool
     if sys.version_info >= (3, 12):
+        @overload
         def __call__(
             self,
             path: StrOrBytesPath,
             ignore_errors: bool = False,
             onerror: _OnErrorCallback | None = None,
             *,
-            onexc: _OnExcCallback | None = None,
+            onexc: None = None,
+            dir_fd: int | None = None,
+        ) -> None: ...
+        @overload
+        def __call__(
+            self,
+            path: StrOrBytesPath,
+            ignore_errors: bool = False,
+            onerror: None = None,
+            *,
+            onexc: _OnExcCallback,
             dir_fd: int | None = None,
         ) -> None: ...
     elif sys.version_info >= (3, 11):
