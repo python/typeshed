@@ -407,9 +407,68 @@ pickle.Unpickler.memo  # undocumented implementation detail, has different type 
 re.Pattern.scanner  # Undocumented and not useful. #6405
 tempfile._TemporaryFileWrapper.[\w_]+  # Dynamically specified by __getattr__, and thus don't exist on the class
 
-# Various classes in typing aren't types at runtime. In addition, mypy thinks some special forms are tautologically defined.
-typing.[A-Z]\w+
-typing_extensions\..*
+# Details of runtime definition don't need to be in stubs
+typing_extensions\._SpecialForm.*
+typing_extensions\.TypeVar.*
+typing_extensions\.ParamSpec.*
+typing\.Generic
+typing\.Protocol
+
+# Special primitives
+typing_extensions\.Annotated
+typing_extensions\.NamedTuple
+typing_extensions\.LiteralString
+typing_extensions\.Coroutine
+typing_extensions\.Awaitable
+typing_extensions\.AsyncIterator
+typing_extensions\.AsyncIterable
+typing_extensions\.AsyncGenerator
+typing\.ValuesView
+typing\.Sized
+typing\.Sequence
+typing\.Reversible
+typing\.Pattern
+typing\.MutableSet
+typing\.MutableSequence
+typing\.MutableMapping
+typing\.Match
+typing\.MappingView
+typing\.Mapping
+typing\.KeysView
+typing\.Iterator
+typing\.Iterable
+typing\.ItemsView
+typing\.Hashable
+typing\.Generator
+typing\.Coroutine
+typing\.Collection
+typing\.Container
+typing\.ByteString
+typing\.AwaitableGenerator
+typing\.Awaitable
+typing\.AsyncIterator
+typing\.AsyncIterable
+typing\.AsyncGenerator
+typing\.AbstractSet
+
+# Internal attributes
+.*\.__protocol_attrs__
+.*\.__callable_proto_members_only__
+
+# Exist at runtime for internal reasons, no need to put them in the stub
+typing_extensions\.TypeAliasType\.__call__
+typing_extensions\.TypeAliasType\.__init_subclass__
+
+typing_extensions.NewType.__mro_entries__  # just exists for an error message
+
+# We call them read-only properties, runtime implementation is slightly different
+typing_extensions\.TypeAliasType\.__(parameters|type_params|name|module|value)__
+
+# https://github.com/python/mypy/issues/15302
+typing_extensions.NewType.__call__
+typing_extensions\.deprecated
+typing_extensions\.get_original_bases
+typing_extensions\.override
 
 # These are abstract properties at runtime,
 # but marking them as such in the stub breaks half the the typed-Python ecosystem (see #8726)
