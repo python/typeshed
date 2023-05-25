@@ -407,6 +407,10 @@ pickle.Unpickler.memo  # undocumented implementation detail, has different type 
 re.Pattern.scanner  # Undocumented and not useful. #6405
 tempfile._TemporaryFileWrapper.[\w_]+  # Dynamically specified by __getattr__, and thus don't exist on the class
 
+# Removed undocumented and often mistakenly used _normalize parameter that was removed in 3.12
+# On 3.12, stubtest doesn't correctly combine the overload because parameter names mismatch
+fractions.Fraction.__new__
+
 # Details of runtime definition don't need to be in stubs
 typing_extensions\._SpecialForm.*
 typing_extensions\.TypeVar.*

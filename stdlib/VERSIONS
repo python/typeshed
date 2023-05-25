@@ -228,7 +228,7 @@ shlex: 2.7-
 shutil: 2.7-
 signal: 2.7-
 site: 2.7-
-smtpd: 2.7-
+smtpd: 2.7-3.11
 smtplib: 2.7-
 sndhdr: 2.7-
 socket: 2.7-
