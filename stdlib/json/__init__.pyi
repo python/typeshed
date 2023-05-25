@@ -1,5 +1,4 @@
 import sys
-
 from _typeshed import SupportsRead, SupportsWrite
 from collections.abc import Callable
 from typing import Any
