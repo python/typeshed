@@ -116,6 +116,7 @@ if sys.version_info >= (3, 8):
 
 if sys.version_info >= (3, 12):
     def correlation(__x: Sequence[_Number], __y: Sequence[_Number], *, method: str = "linear") -> float: ...
+
 elif sys.version_info >= (3, 10):
     def correlation(__x: Sequence[_Number], __y: Sequence[_Number]) -> float: ...
 
