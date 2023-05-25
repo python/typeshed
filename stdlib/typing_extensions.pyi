@@ -276,12 +276,12 @@ else:
 
     class NamedTuple(tuple[Any, ...]):
         if sys.version_info < (3, 8):
-            _field_types: collections.OrderedDict[str, type]
+            _field_types: ClassVar[collections.OrderedDict[str, type]]
         elif sys.version_info < (3, 9):
-            _field_types: dict[str, type]
-        _field_defaults: dict[str, Any]
-        _fields: tuple[str, ...]
-        _source: str
+            _field_types: ClassVar[dict[str, type]]
+        _field_defaults: ClassVar[dict[str, Any]]
+        _fields: ClassVar[tuple[str, ...]]
+        __orig_bases__: ClassVar[tuple[Any, ...]]
         @overload
         def __init__(self, typename: str, fields: Iterable[tuple[str, Any]] = ...) -> None: ...
         @overload
