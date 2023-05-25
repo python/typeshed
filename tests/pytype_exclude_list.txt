@@ -171,6 +171,7 @@ stubs/SQLAlchemy/sqlalchemy/dialects/sqlite/pysqlite.pyi
 stubs/SQLAlchemy/sqlalchemy/engine/cursor.pyi
 stubs/SQLAlchemy/sqlalchemy/engine/result.pyi
 stubs/SQLAlchemy/sqlalchemy/engine/row.pyi
+stubs/SQLAlchemy/sqlalchemy/ext/asyncio/events.pyi
 stubs/SQLAlchemy/sqlalchemy/ext/asyncio/result.pyi
 stubs/SQLAlchemy/sqlalchemy/ext/horizontal_shard.pyi
 stubs/SQLAlchemy/sqlalchemy/orm/attributes.pyi
