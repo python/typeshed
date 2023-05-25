@@ -167,10 +167,15 @@ def register_archive_format(
     name: str, function: Callable[[str, str], object], extra_args: None = None, description: str = ""
 ) -> None: ...
 def unregister_archive_format(name: str) -> None: ...
+
 if sys.version_info >= (3, 12):
-    def unpack_archive(filename: StrPath, extract_dir: StrPath | None = None, format: str | None = None, *, filter: str | None = None) -> None: ...
+    def unpack_archive(
+        filename: StrPath, extract_dir: StrPath | None = None, format: str | None = None, *, filter: str | None = None
+    ) -> None: ...
+
 else:
     def unpack_archive(filename: StrPath, extract_dir: StrPath | None = None, format: str | None = None) -> None: ...
+
 @overload
 def register_unpack_format(
     name: str,
