@@ -230,8 +230,8 @@ class SupportsWrite(Protocol[_T_contra]):
 ReadOnlyBuffer: TypeAlias = Buffer  # stable
 # Anything that implements the read-write buffer interface.
 WriteableBuffer: TypeAlias = Buffer
-# Same as _WriteableBuffer, but also includes read-only buffer types (like bytes).
-ReadableBuffer: TypeAlias = ReadOnlyBuffer | WriteableBuffer  # stable
+# Same as WriteableBuffer, but also includes read-only buffer types (like bytes).
+ReadableBuffer: TypeAlias = Buffer  # stable
 
 class SliceableBuffer(Buffer, Protocol):
     def __getitem__(self, __slice: slice) -> Sequence[int]: ...
