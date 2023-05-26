@@ -398,6 +398,7 @@ else:
             def __or__(self, right: Any) -> _SpecialForm: ...
             def __ror__(self, left: Any) -> _SpecialForm: ...
 
+    @runtime_checkable
     class Buffer(Protocol):
         # Not actually a Protocol at runtime; see
         # https://github.com/python/typeshed/issues/10224 for why we're defining it this way
