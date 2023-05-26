@@ -8,7 +8,7 @@ from dataclasses import Field
 from os import PathLike
 from types import FrameType, TracebackType
 from typing import Any, AnyStr, ClassVar, Generic, Protocol, TypeVar, overload
-from typing_extensions import Final, Literal, LiteralString, TypeAlias, final, Buffer
+from typing_extensions import Buffer, Final, Literal, LiteralString, TypeAlias, final
 
 _KT = TypeVar("_KT")
 _KT_co = TypeVar("_KT_co", covariant=True)
@@ -235,14 +235,17 @@ ReadableBuffer: TypeAlias = ReadOnlyBuffer | WriteableBuffer  # stable
 
 class SliceableBuffer(Buffer, Protocol):
     def __getitem__(self, __slice: slice) -> Sequence[int]: ...
+
 class IndexableBuffer(Buffer, Protocol):
     def __getitem__(self, __i: int) -> int: ...
+
 class SupportsGetItemBuffer(SliceableBuffer, IndexableBuffer, Protocol):
     def __contains__(self, __x: Any) -> bool: ...
     @overload
     def __getitem__(self, __slice: slice) -> Sequence[int]: ...
     @overload
     def __getitem__(self, __i: int) -> int: ...
+
 class SizedBuffer(Sized, Buffer, Protocol): ...
 
 # for compatibility with third-party stubs that may use this

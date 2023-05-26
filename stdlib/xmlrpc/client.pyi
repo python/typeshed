@@ -2,7 +2,7 @@ import gzip
 import http.client
 import sys
 import time
-from _typeshed import ReadableBuffer, SupportsRead, SupportsWrite, SizedBuffer
+from _typeshed import ReadableBuffer, SizedBuffer, SupportsRead, SupportsWrite
 from collections.abc import Callable, Iterable, Mapping
 from datetime import datetime
 from io import BytesIO

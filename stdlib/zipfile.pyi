@@ -1,6 +1,6 @@
 import io
 import sys
-from _typeshed import StrOrBytesPath, StrPath, SizedBuffer
+from _typeshed import SizedBuffer, StrOrBytesPath, StrPath
 from collections.abc import Callable, Iterable, Iterator
 from os import PathLike
 from types import TracebackType
