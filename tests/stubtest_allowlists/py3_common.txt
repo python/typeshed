@@ -774,3 +774,7 @@ pkgutil.ImpLoader.get_source
 pkgutil.ImpLoader.is_package
 pkgutil.ImpLoader.load_module
 pkgutil.ImpLoader.source
+
+# We lie about the existence of these methods
+.*.__buffer__
+.*.__release_buffer__
