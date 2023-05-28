@@ -1,4 +1,4 @@
 version = "66.0.*"
 
 [tool.stubtest]
-platforms = ["win32", "linux", "darwin"]
+skip = true # https://github.com/python/typeshed/pull/10096#issuecomment-1528821104
