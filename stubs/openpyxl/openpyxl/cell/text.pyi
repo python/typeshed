@@ -1,24 +1,35 @@
 from _typeshed import Incomplete
+from typing import ClassVar
+from typing_extensions import Literal, TypeAlias
 
+from openpyxl.descriptors.base import Alias, Integer, NoneSet, Typed, _ConvertibleToInt
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.fonts import Font
 
+_PhoneticPropertiesType: TypeAlias = Literal["halfwidthKatakana", "fullwidthKatakana", "Hiragana", "noConversion"]
+_PhoneticPropertiesAlignment: TypeAlias = Literal["noControl", "left", "center", "distributed"]
+
 class PhoneticProperties(Serialisable):
     tagname: str
-    fontId: Incomplete
-    type: Incomplete
-    alignment: Incomplete
+    fontId: Integer[Literal[False]]
+    type: NoneSet[_PhoneticPropertiesType]
+    alignment: NoneSet[_PhoneticPropertiesAlignment]
     def __init__(
-        self, fontId: Incomplete | None = ..., type: Incomplete | None = ..., alignment: Incomplete | None = ...
+        self,
+        fontId: _ConvertibleToInt,
+        type: _PhoneticPropertiesType | Literal["none"] | None = None,
+        alignment: _PhoneticPropertiesAlignment | Literal["none"] | None = None,
     ) -> None: ...
+
+_PhoneticProperties: TypeAlias = PhoneticProperties
 
 class PhoneticText(Serialisable):
     tagname: str
-    sb: Incomplete
-    eb: Incomplete
+    sb: Integer[Literal[False]]
+    eb: Integer[Literal[False]]
     t: Incomplete
-    text: Incomplete
-    def __init__(self, sb: Incomplete | None = ..., eb: Incomplete | None = ..., t: Incomplete | None = ...) -> None: ...
+    text: Alias
+    def __init__(self, sb: _ConvertibleToInt, eb: _ConvertibleToInt, t: Incomplete | None = None) -> None: ...
 
 class InlineFont(Font):
     tagname: str
@@ -37,46 +48,46 @@ class InlineFont(Font):
     u: Incomplete
     vertAlign: Incomplete
     scheme: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        rFont: Incomplete | None = ...,
-        charset: Incomplete | None = ...,
-        family: Incomplete | None = ...,
-        b: Incomplete | None = ...,
-        i: Incomplete | None = ...,
-        strike: Incomplete | None = ...,
-        outline: Incomplete | None = ...,
-        shadow: Incomplete | None = ...,
-        condense: Incomplete | None = ...,
-        extend: Incomplete | None = ...,
-        color: Incomplete | None = ...,
-        sz: Incomplete | None = ...,
-        u: Incomplete | None = ...,
-        vertAlign: Incomplete | None = ...,
-        scheme: Incomplete | None = ...,
+        rFont: Incomplete | None = None,
+        charset: Incomplete | None = None,
+        family: Incomplete | None = None,
+        b: Incomplete | None = None,
+        i: Incomplete | None = None,
+        strike: Incomplete | None = None,
+        outline: Incomplete | None = None,
+        shadow: Incomplete | None = None,
+        condense: Incomplete | None = None,
+        extend: Incomplete | None = None,
+        color: Incomplete | None = None,
+        sz: Incomplete | None = None,
+        u: Incomplete | None = None,
+        vertAlign: Incomplete | None = None,
+        scheme: Incomplete | None = None,
     ) -> None: ...
 
 class RichText(Serialisable):
     tagname: str
-    rPr: Incomplete
-    font: Incomplete
+    rPr: Typed[InlineFont, Literal[True]]
+    font: Alias
     t: Incomplete
-    text: Incomplete
-    __elements__: Incomplete
-    def __init__(self, rPr: Incomplete | None = ..., t: Incomplete | None = ...) -> None: ...
+    text: Alias
+    __elements__: ClassVar[tuple[str, ...]]
+    def __init__(self, rPr: InlineFont | None = None, t: Incomplete | None = None) -> None: ...
 
 class Text(Serialisable):
     tagname: str
     t: Incomplete
-    plain: Incomplete
+    plain: Alias
     r: Incomplete
-    formatted: Incomplete
+    formatted: Alias
     rPh: Incomplete
-    phonetic: Incomplete
-    phoneticPr: Incomplete
-    PhoneticProperties: Incomplete
-    __elements__: Incomplete
-    def __init__(self, t: Incomplete | None = ..., r=..., rPh=..., phoneticPr: Incomplete | None = ...) -> None: ...
+    phonetic: Alias
+    phoneticPr: Typed[_PhoneticProperties, Literal[True]]
+    PhoneticProperties: Alias
+    __elements__: ClassVar[tuple[str, ...]]
+    def __init__(self, t: Incomplete | None = None, r=(), rPh=(), phoneticPr: _PhoneticProperties | None = None) -> None: ...
     @property
     def content(self): ...

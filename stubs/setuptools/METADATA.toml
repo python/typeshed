@@ -1,2 +1,6 @@
-version = "67.3.*"
-requires = ["types-docutils"]
+version = "67.8.*"
+partial_stub = true
+
+[tool.stubtest]
+# darwin is equivalent to linux for OS-specific methods
+platforms = ["linux", "win32"]

@@ -1,15 +1,18 @@
 from collections.abc import Callable, Container, Iterable, Mapping, Sequence
 from typing import Any, NamedTuple
-from typing_extensions import TypeAlias
+from typing_extensions import Final, Self, TypeAlias
 
-__version__: str
+from .version import __version__ as __version__
 
-LATEX_ESCAPE_RULES: dict[str, str]
-MIN_PADDING: int
+__all__ = ["tabulate", "tabulate_formats", "simple_separated_format"]
+
+# These constants are meant to be configurable
+# https://github.com/astanin/python-tabulate#text-formatting
 PRESERVE_WHITESPACE: bool
+MIN_PADDING: int
+# https://github.com/astanin/python-tabulate#wide-fullwidth-cjk-symbols
 WIDE_CHARS_MODE: bool
-multiline_formats: dict[str, str]
-tabulate_formats: list[str]
+SEPARATING_LINE: str
 
 class Line(NamedTuple):
     begin: str
@@ -35,20 +38,28 @@ class TableFormat(NamedTuple):
     padding: int
     with_header_hide: Container[str] | None
 
+LATEX_ESCAPE_RULES: Final[dict[str, str]]
+tabulate_formats: list[str]
+multiline_formats: dict[str, str]
+
 def simple_separated_format(separator: str) -> TableFormat: ...
 def tabulate(
     tabular_data: Mapping[str, Iterable[Any]] | Iterable[Iterable[Any]],
-    headers: str | dict[str, str] | Sequence[str] = ...,
-    tablefmt: str | TableFormat = ...,
-    floatfmt: str | Iterable[str] = ...,
-    intfmt: str | Iterable[str] = ...,
-    numalign: str | None = ...,
-    stralign: str | None = ...,
-    missingval: str | Iterable[str] = ...,
-    showindex: str | bool | Iterable[Any] = ...,
-    disable_numparse: bool | Iterable[int] = ...,
-    colalign: Iterable[str | None] | None = ...,
-    maxcolwidths: int | Iterable[int | None] | None = ...,
-    rowalign: str | Iterable[str] | None = ...,
-    maxheadercolwidths: int | Iterable[int] | None = ...,
+    headers: str | dict[str, str] | Sequence[str] = (),
+    tablefmt: str | TableFormat = "simple",
+    floatfmt: str | Iterable[str] = "g",
+    intfmt: str | Iterable[str] = "",
+    numalign: str | None = "default",
+    stralign: str | None = "default",
+    missingval: str | Iterable[str] = "",
+    showindex: str | bool | Iterable[Any] = "default",
+    disable_numparse: bool | Iterable[int] = False,
+    colalign: Iterable[str | None] | None = None,
+    maxcolwidths: int | Iterable[int | None] | None = None,
+    rowalign: str | Iterable[str] | None = None,
+    maxheadercolwidths: int | Iterable[int] | None = None,
 ) -> str: ...
+
+class JupyterHTMLStr(str):
+    @property
+    def str(self) -> Self: ...

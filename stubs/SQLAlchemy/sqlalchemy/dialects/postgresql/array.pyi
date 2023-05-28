@@ -1,9 +1,7 @@
 from _typeshed import Incomplete
 from typing import Any as _Any
 
-import sqlalchemy.types as sqltypes
-
-from ...sql import expression
+from ...sql import expression, sqltypes
 
 def Any(other, arrexpr, operator=...): ...
 def All(other, arrexpr, operator=...): ...
@@ -14,7 +12,7 @@ class array(expression.ClauseList, expression.ColumnElement[_Any]):
     inherit_cache: bool
     type: _Any
     def __init__(self, clauses, **kw) -> None: ...
-    def self_group(self, against: Incomplete | None = ...): ...
+    def self_group(self, against: Incomplete | None = None): ...
 
 CONTAINS: _Any
 CONTAINED_BY: _Any
@@ -31,7 +29,7 @@ class ARRAY(sqltypes.ARRAY):
     dimensions: _Any
     zero_indexes: _Any
     def __init__(
-        self, item_type, as_tuple: bool = ..., dimensions: Incomplete | None = ..., zero_indexes: bool = ...
+        self, item_type, as_tuple: bool = False, dimensions: Incomplete | None = None, zero_indexes: bool = False
     ) -> None: ...
     @property
     def hashable(self): ...

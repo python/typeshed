@@ -1,15 +1,17 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 
-from . import _Serialiasable
+from openpyxl.descriptors import MetaSerialisable
 
 KEYWORDS: Incomplete
 seq_types: Incomplete
 
-class Serialisable(_Serialiasable):
-    __attrs__: Incomplete
-    __nested__: Incomplete
-    __elements__: Incomplete
-    __namespaced__: Incomplete
+class Serialisable(metaclass=MetaSerialisable):
+    # These dunders are always set at runtime by MetaSerialisable so they can't be None
+    __attrs__: ClassVar[tuple[str, ...]]
+    __nested__: ClassVar[tuple[str, ...]]
+    __elements__: ClassVar[tuple[str, ...]]
+    __namespaced__: ClassVar[tuple[tuple[str, str], ...]]
     idx_base: int
     @property
     # TODO: needs overrides in many sub-classes
@@ -18,7 +20,7 @@ class Serialisable(_Serialiasable):
     namespace: Incomplete
     @classmethod
     def from_tree(cls, node): ...
-    def to_tree(self, tagname: Incomplete | None = ..., idx: Incomplete | None = ..., namespace: Incomplete | None = ...): ...
+    def to_tree(self, tagname: Incomplete | None = None, idx: Incomplete | None = None, namespace: Incomplete | None = None): ...
     def __iter__(self): ...
     def __eq__(self, other): ...
     def __ne__(self, other): ...

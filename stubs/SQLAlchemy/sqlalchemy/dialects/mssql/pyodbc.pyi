@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from typing import Any
 
 from ...connectors.pyodbc import PyODBCConnector
-from ...types import DateTime, Float, Numeric
+from ...sql.sqltypes import DateTime, Float, Numeric
 from .base import BINARY, DATETIMEOFFSET, VARBINARY, MSDialect, MSExecutionContext
 
 class _ms_numeric_pyodbc:
@@ -37,9 +37,9 @@ class MSDialect_pyodbc(PyODBCConnector, MSDialect):
     description_encoding: Any
     use_scope_identity: Any
     fast_executemany: Any
-    def __init__(self, description_encoding: Incomplete | None = ..., fast_executemany: bool = ..., **params) -> None: ...
+    def __init__(self, description_encoding: Incomplete | None = None, fast_executemany: bool = False, **params) -> None: ...
     def on_connect(self): ...
-    def do_executemany(self, cursor, statement, parameters, context: Incomplete | None = ...) -> None: ...
+    def do_executemany(self, cursor, statement, parameters, context: Incomplete | None = None) -> None: ...
     def is_disconnect(self, e, connection, cursor): ...
 
 dialect = MSDialect_pyodbc

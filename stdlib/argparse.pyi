@@ -2,7 +2,7 @@ import sys
 from collections.abc import Callable, Generator, Iterable, Sequence
 from re import Pattern
 from typing import IO, Any, Generic, NewType, NoReturn, Protocol, TypeVar, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, Self, TypeAlias
 
 __all__ = [
     "ArgumentParser",
@@ -135,7 +135,7 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
             usage: str | None = None,
             description: str | None = None,
             epilog: str | None = None,
-            parents: Sequence[ArgumentParser] = ...,
+            parents: Sequence[ArgumentParser] = [],
             formatter_class: _FormatterClass = ...,
             prefix_chars: str = "-",
             fromfile_prefix_chars: str | None = None,
@@ -152,7 +152,7 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
             usage: str | None = None,
             description: str | None = None,
             epilog: str | None = None,
-            parents: Sequence[ArgumentParser] = ...,
+            parents: Sequence[ArgumentParser] = [],
             formatter_class: _FormatterClass = ...,
             prefix_chars: str = "-",
             fromfile_prefix_chars: str | None = None,
@@ -161,16 +161,11 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
             add_help: bool = True,
             allow_abbrev: bool = True,
         ) -> None: ...
-    # The type-ignores in these overloads should be temporary.  See:
-    # https://github.com/python/typeshed/pull/2643#issuecomment-442280277
+    # Ignore errors about overlapping overloads
     @overload
-    def parse_args(self, args: Sequence[str] | None = None) -> Namespace: ...
-    @overload
-    def parse_args(self, args: Sequence[str] | None, namespace: None) -> Namespace: ...  # type: ignore[misc]
+    def parse_args(self, args: Sequence[str] | None = None, namespace: None = None) -> Namespace: ...  # type: ignore[misc]
     @overload
     def parse_args(self, args: Sequence[str] | None, namespace: _N) -> _N: ...
-    @overload
-    def parse_args(self, *, namespace: None) -> Namespace: ...  # type: ignore[misc]
     @overload
     def parse_args(self, *, namespace: _N) -> _N: ...
     @overload
@@ -241,11 +236,19 @@ class HelpFormatter:
     _current_indent: int
     _level: int
     _action_max_length: int
-    _root_section: Any
-    _current_section: Any
+    _root_section: _Section
+    _current_section: _Section
     _whitespace_matcher: Pattern[str]
     _long_break_matcher: Pattern[str]
-    _Section: type[Any]  # Nested class
+
+    class _Section:
+        formatter: HelpFormatter
+        heading: str | None
+        parent: Self | None
+        items: list[tuple[Callable[..., str], Iterable[Any]]]
+        def __init__(self, formatter: HelpFormatter, parent: Self | None, heading: str | None = None) -> None: ...
+        def format_help(self) -> str: ...
+
     def __init__(self, prog: str, indent_increment: int = 2, max_help_position: int = 24, width: int | None = None) -> None: ...
     def _indent(self) -> None: ...
     def _dedent(self) -> None: ...
@@ -254,16 +257,16 @@ class HelpFormatter:
     def end_section(self) -> None: ...
     def add_text(self, text: str | None) -> None: ...
     def add_usage(
-        self, usage: str | None, actions: Iterable[Action], groups: Iterable[_ArgumentGroup], prefix: str | None = None
+        self, usage: str | None, actions: Iterable[Action], groups: Iterable[_MutuallyExclusiveGroup], prefix: str | None = None
     ) -> None: ...
     def add_argument(self, action: Action) -> None: ...
     def add_arguments(self, actions: Iterable[Action]) -> None: ...
     def format_help(self) -> str: ...
     def _join_parts(self, part_strings: Iterable[str]) -> str: ...
     def _format_usage(
-        self, usage: str | None, actions: Iterable[Action], groups: Iterable[_ArgumentGroup], prefix: str | None
+        self, usage: str | None, actions: Iterable[Action], groups: Iterable[_MutuallyExclusiveGroup], prefix: str | None
     ) -> str: ...
-    def _format_actions_usage(self, actions: Iterable[Action], groups: Iterable[_ArgumentGroup]) -> str: ...
+    def _format_actions_usage(self, actions: Iterable[Action], groups: Iterable[_MutuallyExclusiveGroup]) -> str: ...
     def _format_text(self, text: str) -> str: ...
     def _format_action(self, action: Action) -> str: ...
     def _format_action_invocation(self, action: Action) -> str: ...

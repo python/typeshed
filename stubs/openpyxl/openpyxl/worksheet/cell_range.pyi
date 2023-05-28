@@ -1,23 +1,39 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from collections.abc import Generator
+from typing import overload
+from typing_extensions import Literal
 
 from openpyxl.descriptors import Strict
+from openpyxl.descriptors.base import MinMax, _ConvertibleToInt
 from openpyxl.descriptors.serialisable import Serialisable
 
-class CellRange(Serialisable):  # type: ignore[misc]
-    min_col: Incomplete
-    min_row: Incomplete
-    max_col: Incomplete
-    max_row: Incomplete
+class CellRange(Serialisable):
+    min_col: MinMax[int, Literal[False]]
+    min_row: MinMax[int, Literal[False]]
+    max_col: MinMax[int, Literal[False]]
+    max_row: MinMax[int, Literal[False]]
     title: Incomplete
+
+    @overload
     def __init__(
         self,
-        range_string: Incomplete | None = ...,
-        min_col: Incomplete | None = ...,
-        min_row: Incomplete | None = ...,
-        max_col: Incomplete | None = ...,
-        max_row: Incomplete | None = ...,
-        title: Incomplete | None = ...,
+        range_string: Incomplete,
+        min_col: Unused = None,
+        min_row: Unused = None,
+        max_col: Unused = None,
+        max_row: Unused = None,
+        title: Incomplete | None = None,
+    ) -> None: ...
+    @overload
+    def __init__(
+        self,
+        range_string: None = None,
+        *,
+        min_col: _ConvertibleToInt,
+        min_row: _ConvertibleToInt,
+        max_col: _ConvertibleToInt,
+        max_row: _ConvertibleToInt,
+        title: Incomplete | None = None,
     ) -> None: ...
     @property
     def bounds(self): ...
@@ -30,7 +46,7 @@ class CellRange(Serialisable):  # type: ignore[misc]
     @property
     def cells(self): ...
     def __copy__(self): ...
-    def shift(self, col_shift: int = ..., row_shift: int = ...) -> None: ...
+    def shift(self, col_shift: int = 0, row_shift: int = 0) -> None: ...
     def __ne__(self, other): ...
     def __eq__(self, other): ...
     def issubset(self, other): ...
@@ -46,8 +62,8 @@ class CellRange(Serialisable):  # type: ignore[misc]
     def union(self, other): ...
     __or__: Incomplete
     def __iter__(self): ...
-    def expand(self, right: int = ..., down: int = ..., left: int = ..., up: int = ...) -> None: ...
-    def shrink(self, right: int = ..., bottom: int = ..., left: int = ..., top: int = ...) -> None: ...
+    def expand(self, right: int = 0, down: int = 0, left: int = 0, up: int = 0) -> None: ...
+    def shrink(self, right: int = 0, bottom: int = 0, left: int = 0, top: int = 0) -> None: ...
     @property
     def size(self): ...
     @property

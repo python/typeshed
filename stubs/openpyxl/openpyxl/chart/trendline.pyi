@@ -1,33 +1,41 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
+from typing import ClassVar
+from typing_extensions import Literal
 
+from openpyxl.chart.data_source import NumFmt
+from openpyxl.chart.layout import Layout
+from openpyxl.chart.shapes import GraphicalProperties
+from openpyxl.chart.text import RichText, Text
+from openpyxl.descriptors.base import Alias, String, Typed
+from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
 class TrendlineLabel(Serialisable):
     tagname: str
-    layout: Incomplete
-    tx: Incomplete
-    numFmt: Incomplete
-    spPr: Incomplete
-    graphicalProperties: Incomplete
-    txPr: Incomplete
-    textProperties: Incomplete
-    extLst: Incomplete
-    __elements__: Incomplete
+    layout: Typed[Layout, Literal[True]]
+    tx: Typed[Text, Literal[True]]
+    numFmt: Typed[NumFmt, Literal[True]]
+    spPr: Typed[GraphicalProperties, Literal[True]]
+    graphicalProperties: Alias
+    txPr: Typed[RichText, Literal[True]]
+    textProperties: Alias
+    extLst: Typed[ExtensionList, Literal[True]]
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        layout: Incomplete | None = ...,
-        tx: Incomplete | None = ...,
-        numFmt: Incomplete | None = ...,
-        spPr: Incomplete | None = ...,
-        txPr: Incomplete | None = ...,
-        extLst: Incomplete | None = ...,
+        layout: Layout | None = None,
+        tx: Text | None = None,
+        numFmt: NumFmt | None = None,
+        spPr: GraphicalProperties | None = None,
+        txPr: RichText | None = None,
+        extLst: Unused = None,
     ) -> None: ...
 
 class Trendline(Serialisable):
     tagname: str
-    name: Incomplete
-    spPr: Incomplete
-    graphicalProperties: Incomplete
+    name: String[Literal[True]]
+    spPr: Typed[ExtensionList, Literal[True]]
+    graphicalProperties: Alias
     trendlineType: Incomplete
     order: Incomplete
     period: Incomplete
@@ -36,21 +44,21 @@ class Trendline(Serialisable):
     intercept: Incomplete
     dispRSqr: Incomplete
     dispEq: Incomplete
-    trendlineLbl: Incomplete
-    extLst: Incomplete
-    __elements__: Incomplete
+    trendlineLbl: Typed[ExtensionList, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        name: Incomplete | None = ...,
-        spPr: Incomplete | None = ...,
-        trendlineType: str = ...,
-        order: Incomplete | None = ...,
-        period: Incomplete | None = ...,
-        forward: Incomplete | None = ...,
-        backward: Incomplete | None = ...,
-        intercept: Incomplete | None = ...,
-        dispRSqr: Incomplete | None = ...,
-        dispEq: Incomplete | None = ...,
-        trendlineLbl: Incomplete | None = ...,
-        extLst: Incomplete | None = ...,
+        name: str | None = None,
+        spPr: ExtensionList | None = None,
+        trendlineType: str = "linear",
+        order: Incomplete | None = None,
+        period: Incomplete | None = None,
+        forward: Incomplete | None = None,
+        backward: Incomplete | None = None,
+        intercept: Incomplete | None = None,
+        dispRSqr: Incomplete | None = None,
+        dispEq: Incomplete | None = None,
+        trendlineLbl: ExtensionList | None = None,
+        extLst: Unused = None,
     ) -> None: ...

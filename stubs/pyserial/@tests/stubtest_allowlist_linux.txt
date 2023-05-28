@@ -7,14 +7,10 @@ serial.tools.list_ports_windows  # Windows only
 
 # Error: is inconsistent
 # ======================
-# These are positional only argument in the stub because they inherit from io.RawIOBase
-# but at runtime they are normal arguments that don't have consistent names.
-serial.PosixPollSerial.read
-serial.VTIMESerial.read
-serial.serialposix.Serial.read
+# Methods defined with positional-only argument in the stub because they inherit from
+# io.RawIOBase but at runtime they are normal arguments that don't have consistent
+# names.
 serial.serialposix.Serial.write
-serial.serialposix.PosixPollSerial.read
-serial.serialposix.VTIMESerial.read
 
 # Error: is missing from the stub (intended to be private aliases)
 # ================================================================

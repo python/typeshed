@@ -1,16 +1,22 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from abc import abstractmethod
+from typing import ClassVar
+from typing_extensions import Literal
 
+from openpyxl.chart.shapes import GraphicalProperties
+from openpyxl.chart.text import RichText
+from openpyxl.descriptors.base import Alias, Typed
+from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable as Serialisable
 
 class _DataLabelBase(Serialisable):
     numFmt: Incomplete
-    spPr: Incomplete
-    graphicalProperties: Incomplete
-    txPr: Incomplete
-    textProperties: Incomplete
+    spPr: Typed[GraphicalProperties, Literal[True]]
+    graphicalProperties: Alias
+    txPr: Typed[RichText, Literal[True]]
+    textProperties: Alias
     dLblPos: Incomplete
-    position: Incomplete
+    position: Alias
     showLegendKey: Incomplete
     showVal: Incomplete
     showCatName: Incomplete
@@ -19,23 +25,23 @@ class _DataLabelBase(Serialisable):
     showBubbleSize: Incomplete
     showLeaderLines: Incomplete
     separator: Incomplete
-    extLst: Incomplete
-    __elements__: Incomplete
+    extLst: Typed[ExtensionList, Literal[True]]
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        numFmt: Incomplete | None = ...,
-        spPr: Incomplete | None = ...,
-        txPr: Incomplete | None = ...,
-        dLblPos: Incomplete | None = ...,
-        showLegendKey: Incomplete | None = ...,
-        showVal: Incomplete | None = ...,
-        showCatName: Incomplete | None = ...,
-        showSerName: Incomplete | None = ...,
-        showPercent: Incomplete | None = ...,
-        showBubbleSize: Incomplete | None = ...,
-        showLeaderLines: Incomplete | None = ...,
-        separator: Incomplete | None = ...,
-        extLst: Incomplete | None = ...,
+        numFmt: Incomplete | None = None,
+        spPr: GraphicalProperties | None = None,
+        txPr: RichText | None = None,
+        dLblPos: Incomplete | None = None,
+        showLegendKey: Incomplete | None = None,
+        showVal: Incomplete | None = None,
+        showCatName: Incomplete | None = None,
+        showSerName: Incomplete | None = None,
+        showPercent: Incomplete | None = None,
+        showBubbleSize: Incomplete | None = None,
+        showLeaderLines: Incomplete | None = None,
+        separator: Incomplete | None = None,
+        extLst: Unused = None,
     ) -> None: ...
     @property
     @abstractmethod
@@ -57,8 +63,8 @@ class DataLabel(_DataLabelBase):
     showLeaderLines: Incomplete
     separator: Incomplete
     extLst: Incomplete
-    __elements__: Incomplete
-    def __init__(self, idx: int = ..., **kw) -> None: ...
+    __elements__: ClassVar[tuple[str, ...]]
+    def __init__(self, idx: int = 0, **kw) -> None: ...
 
 class DataLabelList(_DataLabelBase):
     tagname: str
@@ -77,5 +83,5 @@ class DataLabelList(_DataLabelBase):
     showLeaderLines: Incomplete
     separator: Incomplete
     extLst: Incomplete
-    __elements__: Incomplete
-    def __init__(self, dLbl=..., delete: Incomplete | None = ..., **kw) -> None: ...
+    __elements__: ClassVar[tuple[str, ...]]
+    def __init__(self, dLbl=(), delete: Incomplete | None = None, **kw) -> None: ...

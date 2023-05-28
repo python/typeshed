@@ -1,20 +1,23 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
+from typing import ClassVar
+from typing_extensions import Literal
 
+from openpyxl.descriptors.base import Typed
 from openpyxl.descriptors.serialisable import Serialisable
 
 def get_version(): ...
 
-class DigSigBlob(Serialisable):  # type: ignore[misc]
-    __elements__: Incomplete
-    __attrs__: Incomplete
+class DigSigBlob(Serialisable):
+    __elements__: ClassVar[tuple[str, ...]]
+    __attrs__: ClassVar[tuple[str, ...]]
 
-class VectorLpstr(Serialisable):  # type: ignore[misc]
-    __elements__: Incomplete
-    __attrs__: Incomplete
+class VectorLpstr(Serialisable):
+    __elements__: ClassVar[tuple[str, ...]]
+    __attrs__: ClassVar[tuple[str, ...]]
 
-class VectorVariant(Serialisable):  # type: ignore[misc]
-    __elements__: Incomplete
-    __attrs__: Incomplete
+class VectorVariant(Serialisable):
+    __elements__: ClassVar[tuple[str, ...]]
+    __attrs__: ClassVar[tuple[str, ...]]
 
 class ExtendedProperties(Serialisable):
     tagname: str
@@ -33,47 +36,47 @@ class ExtendedProperties(Serialisable):
     HiddenSlides: Incomplete
     MMClips: Incomplete
     ScaleCrop: Incomplete
-    HeadingPairs: Incomplete
-    TitlesOfParts: Incomplete
+    HeadingPairs: Typed[VectorVariant, Literal[True]]
+    TitlesOfParts: Typed[VectorLpstr, Literal[True]]
     LinksUpToDate: Incomplete
     CharactersWithSpaces: Incomplete
     SharedDoc: Incomplete
     HyperlinkBase: Incomplete
-    HLinks: Incomplete
+    HLinks: Typed[VectorVariant, Literal[True]]
     HyperlinksChanged: Incomplete
-    DigSig: Incomplete
+    DigSig: Typed[DigSigBlob, Literal[True]]
     Application: Incomplete
     AppVersion: Incomplete
     DocSecurity: Incomplete
-    __elements__: Incomplete
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        Template: Incomplete | None = ...,
-        Manager: Incomplete | None = ...,
-        Company: Incomplete | None = ...,
-        Pages: Incomplete | None = ...,
-        Words: Incomplete | None = ...,
-        Characters: Incomplete | None = ...,
-        PresentationFormat: Incomplete | None = ...,
-        Lines: Incomplete | None = ...,
-        Paragraphs: Incomplete | None = ...,
-        Slides: Incomplete | None = ...,
-        Notes: Incomplete | None = ...,
-        TotalTime: Incomplete | None = ...,
-        HiddenSlides: Incomplete | None = ...,
-        MMClips: Incomplete | None = ...,
-        ScaleCrop: Incomplete | None = ...,
-        HeadingPairs: Incomplete | None = ...,
-        TitlesOfParts: Incomplete | None = ...,
-        LinksUpToDate: Incomplete | None = ...,
-        CharactersWithSpaces: Incomplete | None = ...,
-        SharedDoc: Incomplete | None = ...,
-        HyperlinkBase: Incomplete | None = ...,
-        HLinks: Incomplete | None = ...,
-        HyperlinksChanged: Incomplete | None = ...,
-        DigSig: Incomplete | None = ...,
-        Application: str = ...,
-        AppVersion: Incomplete | None = ...,
-        DocSecurity: Incomplete | None = ...,
+        Template: Incomplete | None = None,
+        Manager: Incomplete | None = None,
+        Company: Incomplete | None = None,
+        Pages: Incomplete | None = None,
+        Words: Incomplete | None = None,
+        Characters: Incomplete | None = None,
+        PresentationFormat: Incomplete | None = None,
+        Lines: Incomplete | None = None,
+        Paragraphs: Incomplete | None = None,
+        Slides: Incomplete | None = None,
+        Notes: Incomplete | None = None,
+        TotalTime: Incomplete | None = None,
+        HiddenSlides: Incomplete | None = None,
+        MMClips: Incomplete | None = None,
+        ScaleCrop: Incomplete | None = None,
+        HeadingPairs: Unused = None,
+        TitlesOfParts: Unused = None,
+        LinksUpToDate: Incomplete | None = None,
+        CharactersWithSpaces: Incomplete | None = None,
+        SharedDoc: Incomplete | None = None,
+        HyperlinkBase: Incomplete | None = None,
+        HLinks: Unused = None,
+        HyperlinksChanged: Incomplete | None = None,
+        DigSig: Unused = None,
+        Application: str = "Microsoft Excel",
+        AppVersion: Incomplete | None = None,
+        DocSecurity: Incomplete | None = None,
     ) -> None: ...
     def to_tree(self): ...
