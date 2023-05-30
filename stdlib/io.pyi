@@ -6,7 +6,7 @@ from _typeshed import FileDescriptorOrPath, ReadableBuffer, WriteableBuffer
 from collections.abc import Callable, Iterable, Iterator
 from os import _Opener
 from types import TracebackType
-from typing import IO, Any, BinaryIO, Protocol, TextIO
+from typing import IO, Any, BinaryIO, TextIO
 from typing_extensions import Literal, Self
 
 __all__ = [
