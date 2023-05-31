@@ -150,7 +150,7 @@ else:
         ) -> io.FileIO: ...
         @overload
         def TemporaryFile(
-            mode: OpenBinaryModeWriting = "w+b",
+            mode: OpenBinaryModeWriting,
             buffering: Literal[-1, 1] = -1,
             encoding: str | None = None,
             newline: str | None = None,
@@ -162,7 +162,7 @@ else:
         ) -> io.BufferedWriter: ...
         @overload
         def TemporaryFile(
-            mode: OpenBinaryModeReading = "w+b",
+            mode: OpenBinaryModeReading,
             buffering: Literal[-1, 1] = -1,
             encoding: str | None = None,
             newline: str | None = None,
@@ -200,62 +200,62 @@ else:
         @overload
         def TemporaryFile(
             mode: OpenTextMode,
-            buffering: int = ...,
-            encoding: str | None = ...,
-            newline: str | None = ...,
-            suffix: AnyStr | None = ...,
-            prefix: AnyStr | None = ...,
-            dir: GenericPath[AnyStr] | None = ...,
+            buffering: int = -1,
+            encoding: str | None = None,
+            newline: str | None = None,
+            suffix: AnyStr | None = None,
+            prefix: AnyStr | None = None,
+            dir: GenericPath[AnyStr] | None = None,
         ) -> io.TextIOWrapper: ...
         @overload
         def TemporaryFile(
             mode: OpenBinaryMode,
             buffering: Literal[0],
-            encoding: str | None = ...,
-            newline: str | None = ...,
-            suffix: AnyStr | None = ...,
-            prefix: AnyStr | None = ...,
-            dir: GenericPath[AnyStr] | None = ...,
+            encoding: str | None = None,
+            newline: str | None = None,
+            suffix: AnyStr | None = None,
+            prefix: AnyStr | None = None,
+            dir: GenericPath[AnyStr] | None = None,
         ) -> io.FileIO: ...
         @overload
         def TemporaryFile(
-            mode: OpenBinaryModeUpdating = ...,
-            buffering: Literal[-1, 1] = ...,
-            encoding: str | None = ...,
-            newline: str | None = ...,
-            suffix: AnyStr | None = ...,
-            prefix: AnyStr | None = ...,
-            dir: GenericPath[AnyStr] | None = ...,
+            mode: OpenBinaryModeUpdating = "w+b",
+            buffering: Literal[-1, 1] = -1,
+            encoding: str | None = None,
+            newline: str | None = None,
+            suffix: AnyStr | None = None,
+            prefix: AnyStr | None = None,
+            dir: GenericPath[AnyStr] | None = None,
         ) -> io.BufferedRandom: ...
         @overload
         def TemporaryFile(
-            mode: OpenBinaryModeWriting = ...,
-            buffering: Literal[-1, 1] = ...,
-            encoding: str | None = ...,
-            newline: str | None = ...,
-            suffix: AnyStr | None = ...,
-            prefix: AnyStr | None = ...,
-            dir: GenericPath[AnyStr] | None = ...,
+            mode: OpenBinaryModeWriting,
+            buffering: Literal[-1, 1] = -1,
+            encoding: str | None = None,
+            newline: str | None = None,
+            suffix: AnyStr | None = None,
+            prefix: AnyStr | None = None,
+            dir: GenericPath[AnyStr] | None = None,
         ) -> io.BufferedWriter: ...
         @overload
         def TemporaryFile(
-            mode: OpenBinaryModeReading = ...,
-            buffering: Literal[-1, 1] = ...,
-            encoding: str | None = ...,
-            newline: str | None = ...,
-            suffix: AnyStr | None = ...,
-            prefix: AnyStr | None = ...,
-            dir: GenericPath[AnyStr] | None = ...,
+            mode: OpenBinaryModeReading,
+            buffering: Literal[-1, 1] = -1,
+            encoding: str | None = None,
+            newline: str | None = None,
+            suffix: AnyStr | None = None,
+            prefix: AnyStr | None = None,
+            dir: GenericPath[AnyStr] | None = None,
         ) -> io.BufferedReader: ...
         @overload
         def TemporaryFile(
-            mode: str = ...,
-            buffering: int = ...,
-            encoding: str | None = ...,
-            newline: str | None = ...,
-            suffix: AnyStr | None = ...,
-            prefix: AnyStr | None = ...,
-            dir: GenericPath[AnyStr] | None = ...,
+            mode: str = "w+b",
+            buffering: int = -1,
+            encoding: str | None = None,
+            newline: str | None = None,
+            suffix: AnyStr | None = None,
+            prefix: AnyStr | None = None,
+            dir: GenericPath[AnyStr] | None = None,
         ) -> IO[Any]: ...
 
 class _TemporaryFileWrapper(Generic[AnyStr], IO[AnyStr]):
