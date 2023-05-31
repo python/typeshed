@@ -14,7 +14,7 @@ from _typeshed import (
 )
 from collections.abc import Iterable, Iterator
 from types import TracebackType
-from typing import IO, Any, AnyStr, BinaryIO, Generic, overload
+from typing import IO, Any, AnyStr, Generic, overload
 from typing_extensions import Literal, Self, TypeAlias
 
 if sys.version_info >= (3, 9):
@@ -195,7 +195,7 @@ else:
             dir: GenericPath[AnyStr] | None = None,
             *,
             errors: str | None = None,
-        ) -> BinaryIO: ...
+        ) -> IO[Any]: ...
     else:
         @overload
         def TemporaryFile(
@@ -256,7 +256,7 @@ else:
             suffix: AnyStr | None = ...,
             prefix: AnyStr | None = ...,
             dir: GenericPath[AnyStr] | None = ...,
-        ) -> BinaryIO: ...
+        ) -> IO[Any]: ...
 
 class _TemporaryFileWrapper(Generic[AnyStr], IO[AnyStr]):
     file: IO[AnyStr]  # io.TextIOWrapper, io.BufferedReader or io.BufferedWriter
