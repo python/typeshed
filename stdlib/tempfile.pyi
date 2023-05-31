@@ -1,9 +1,20 @@
 import io
 import sys
-from _typeshed import BytesPath, GenericPath, OpenBinaryMode, OpenTextMode, ReadableBuffer, StrPath, WriteableBuffer
+from _typeshed import (
+    BytesPath,
+    GenericPath,
+    OpenBinaryMode,
+    OpenBinaryModeReading,
+    OpenBinaryModeUpdating,
+    OpenBinaryModeWriting,
+    OpenTextMode,
+    ReadableBuffer,
+    StrPath,
+    WriteableBuffer,
+)
 from collections.abc import Iterable, Iterator
 from types import TracebackType
-from typing import IO, Any, AnyStr, Generic, overload
+from typing import IO, Any, AnyStr, BinaryIO, Generic, overload
 from typing_extensions import Literal, Self, TypeAlias
 
 if sys.version_info >= (3, 9):
@@ -139,7 +150,31 @@ else:
         ) -> io.FileIO: ...
         @overload
         def TemporaryFile(
-            mode: OpenBinaryMode = "w+b",
+            mode: OpenBinaryModeWriting = "w+b",
+            buffering: Literal[-1, 1] = -1,
+            encoding: str | None = None,
+            newline: str | None = None,
+            suffix: AnyStr | None = None,
+            prefix: AnyStr | None = None,
+            dir: GenericPath[AnyStr] | None = None,
+            *,
+            errors: str | None = None,
+        ) -> io.BufferedWriter: ...
+        @overload
+        def TemporaryFile(
+            mode: OpenBinaryModeReading = "w+b",
+            buffering: Literal[-1, 1] = -1,
+            encoding: str | None = None,
+            newline: str | None = None,
+            suffix: AnyStr | None = None,
+            prefix: AnyStr | None = None,
+            dir: GenericPath[AnyStr] | None = None,
+            *,
+            errors: str | None = None,
+        ) -> io.BufferedReader: ...
+        @overload
+        def TemporaryFile(
+            mode: OpenBinaryModeUpdating = "w+b",
             buffering: Literal[-1, 1] = -1,
             encoding: str | None = None,
             newline: str | None = None,
@@ -160,7 +195,7 @@ else:
             dir: GenericPath[AnyStr] | None = None,
             *,
             errors: str | None = None,
-        ) -> IO[Any]: ...
+        ) -> BinaryIO: ...
     else:
         @overload
         def TemporaryFile(
@@ -184,7 +219,7 @@ else:
         ) -> io.FileIO: ...
         @overload
         def TemporaryFile(
-            mode: OpenBinaryMode = ...,
+            mode: OpenBinaryModeUpdating = ...,
             buffering: Literal[-1, 1] = ...,
             encoding: str | None = ...,
             newline: str | None = ...,
@@ -194,6 +229,26 @@ else:
         ) -> io.BufferedRandom: ...
         @overload
         def TemporaryFile(
+            mode: OpenBinaryModeWriting = ...,
+            buffering: Literal[-1, 1] = ...,
+            encoding: str | None = ...,
+            newline: str | None = ...,
+            suffix: AnyStr | None = ...,
+            prefix: AnyStr | None = ...,
+            dir: GenericPath[AnyStr] | None = ...,
+        ) -> io.BufferedWriter: ...
+        @overload
+        def TemporaryFile(
+            mode: OpenBinaryModeReading = ...,
+            buffering: Literal[-1, 1] = ...,
+            encoding: str | None = ...,
+            newline: str | None = ...,
+            suffix: AnyStr | None = ...,
+            prefix: AnyStr | None = ...,
+            dir: GenericPath[AnyStr] | None = ...,
+        ) -> io.BufferedReader: ...
+        @overload
+        def TemporaryFile(
             mode: str = ...,
             buffering: int = ...,
             encoding: str | None = ...,
@@ -201,7 +256,7 @@ else:
             suffix: AnyStr | None = ...,
             prefix: AnyStr | None = ...,
             dir: GenericPath[AnyStr] | None = ...,
-        ) -> IO[Any]: ...
+        ) -> BinaryIO: ...
 
 class _TemporaryFileWrapper(Generic[AnyStr], IO[AnyStr]):
     file: IO[AnyStr]  # io.TextIOWrapper, io.BufferedReader or io.BufferedWriter
