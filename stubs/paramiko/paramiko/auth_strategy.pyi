@@ -1,13 +1,13 @@
 import abc
 from collections.abc import Callable, Iterator
+from logging import Logger
 from pathlib import Path
 from typing import NamedTuple
-from logging import Logger
 
-from paramiko.transport import Transport
+from paramiko.config import SSHConfig
 from paramiko.pkey import PKey
 from paramiko.ssh_exception import AuthenticationException
-from paramiko.config import SSHConfig
+from paramiko.transport import Transport
 
 class AuthSource:
     username: str

@@ -1,13 +1,13 @@
 from collections.abc import Iterable, Mapping
 from typing import NoReturn, Protocol
 
+from paramiko.auth_strategy import AuthStrategy
 from paramiko.channel import Channel, ChannelFile, ChannelStderrFile, ChannelStdinFile
 from paramiko.hostkeys import HostKeys
 from paramiko.pkey import PKey
 from paramiko.sftp_client import SFTPClient
 from paramiko.transport import Transport, _SocketLike
 from paramiko.util import ClosingContextManager
-from paramiko.auth_strategy import AuthStrategy
 
 class _TransportFactory(Protocol):
     def __call__(
