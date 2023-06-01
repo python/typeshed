@@ -321,7 +321,7 @@ if sys.version_info < (3, 9):
 
 if sys.version_info >= (3, 8):
     # Doesn't exist at runtime, but exported in the stubs so pytest etc. can annotate their code more easily.
-    class UnraisableHookArgs:
+    class UnraisableHookArgs(Protocol):
         exc_type: type[BaseException]
         exc_value: BaseException | None
         exc_traceback: TracebackType | None
