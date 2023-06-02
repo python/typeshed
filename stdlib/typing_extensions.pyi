@@ -148,6 +148,7 @@ class _TypedDict(Mapping[str, object], metaclass=abc.ABCMeta):
     __required_keys__: ClassVar[frozenset[str]]
     __optional_keys__: ClassVar[frozenset[str]]
     __total__: ClassVar[bool]
+    __orig_bases__: ClassVar[tuple[Any, ...]]
     def copy(self) -> Self: ...
     # Using Never so that only calls using mypy plugin hook that specialize the signature
     # can go through.
@@ -275,12 +276,12 @@ else:
 
     class NamedTuple(tuple[Any, ...]):
         if sys.version_info < (3, 8):
-            _field_types: collections.OrderedDict[str, type]
+            _field_types: ClassVar[collections.OrderedDict[str, type]]
         elif sys.version_info < (3, 9):
-            _field_types: dict[str, type]
-        _field_defaults: dict[str, Any]
-        _fields: tuple[str, ...]
-        _source: str
+            _field_types: ClassVar[dict[str, type]]
+        _field_defaults: ClassVar[dict[str, Any]]
+        _fields: ClassVar[tuple[str, ...]]
+        __orig_bases__: ClassVar[tuple[Any, ...]]
         @overload
         def __init__(self, typename: str, fields: Iterable[tuple[str, Any]] = ...) -> None: ...
         @overload
@@ -397,4 +398,8 @@ else:
             def __or__(self, right: Any) -> _SpecialForm: ...
             def __ror__(self, left: Any) -> _SpecialForm: ...
 
-    class Buffer(abc.ABC): ...
+    @runtime_checkable
+    class Buffer(Protocol):
+        # Not actually a Protocol at runtime; see
+        # https://github.com/python/typeshed/issues/10224 for why we're defining it this way
+        def __buffer__(self, __flags: int) -> memoryview: ...
