@@ -27,7 +27,6 @@ ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
 ipaddress._BaseNetwork.hostmask
 multiprocessing.spawn._main
-# pdb.getsourcelines  # Undocumented helper, was removed in 3.10.11
 pickle.Pickler.reducer_override  # implemented in C pickler
 # platform.uname_result's processor field is now dynamically made to exist
 platform.uname_result.__match_args__

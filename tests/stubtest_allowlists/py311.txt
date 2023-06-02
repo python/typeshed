@@ -33,7 +33,6 @@ multiprocessing.managers.SharedMemoryServer.release_segment
 multiprocessing.managers.SharedMemoryServer.shutdown
 multiprocessing.managers.SharedMemoryServer.track_segment
 multiprocessing.spawn._main
-# pdb.getsourcelines  # Undocumented helper, was removed in 3.11.3
 # platform.uname_result's processor field is now dynamically made to exist
 platform.uname_result.__match_args__
 platform.uname_result.__new__
