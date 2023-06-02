@@ -61,42 +61,42 @@ class stmt(AST): ...
 
 class FunctionDef(stmt):
     if sys.version_info >= (3, 12):
-        __match_args__ = ("name", "type_params", "args", "body", "decorator_list", "returns", "type_comment")
+        __match_args__ = ("name", "args", "body", "decorator_list", "returns", "type_comment", "type_params")
     elif sys.version_info >= (3, 10):
         __match_args__ = ("name", "args", "body", "decorator_list", "returns", "type_comment")
     name: _Identifier
-    if sys.version_info >= (3, 12):
-        type_params: list[type_param]
     args: arguments
     body: list[stmt]
     decorator_list: list[expr]
     returns: expr | None
+    if sys.version_info >= (3, 12):
+        type_params: list[type_param]
 
 class AsyncFunctionDef(stmt):
     if sys.version_info >= (3, 12):
-        __match_args__ = ("name", "type_params", "args", "body", "decorator_list", "returns", "type_comment")
+        __match_args__ = ("name", "args", "body", "decorator_list", "returns", "type_comment", "type_params")
     elif sys.version_info >= (3, 10):
         __match_args__ = ("name", "args", "body", "decorator_list", "returns", "type_comment")
     name: _Identifier
-    if sys.version_info >= (3, 12):
-        type_params: list[type_param]
     args: arguments
     body: list[stmt]
     decorator_list: list[expr]
     returns: expr | None
+    if sys.version_info >= (3, 12):
+        type_params: list[type_param]
 
 class ClassDef(stmt):
     if sys.version_info >= (3, 12):
-        __match_args__ = ("name", "type_params", "bases", "keywords", "body", "decorator_list")
+        __match_args__ = ("name", "bases", "keywords", "body", "decorator_list", "type_params")
     elif sys.version_info >= (3, 10):
         __match_args__ = ("name", "bases", "keywords", "body", "decorator_list")
     name: _Identifier
-    if sys.version_info >= (3, 12):
-        type_params: list[type_param]
     bases: list[expr]
     keywords: list[keyword]
     body: list[stmt]
     decorator_list: list[expr]
+    if sys.version_info >= (3, 12):
+        type_params: list[type_param]
 
 class Return(stmt):
     if sys.version_info >= (3, 10):
