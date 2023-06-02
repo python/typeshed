@@ -3,7 +3,6 @@ import sys
 from bdb import Bdb
 from cmd import Cmd
 from collections.abc import Callable, Iterable, Mapping, Sequence
-from inspect import _SourceObjectType
 from types import CodeType, FrameType, TracebackType
 from typing import IO, Any, ClassVar, TypeVar
 from typing_extensions import ParamSpec, Self
