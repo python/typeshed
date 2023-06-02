@@ -54,7 +54,18 @@ from typing import (  # noqa: Y022
     overload,
     type_check_only,
 )
-from typing_extensions import Concatenate, Literal, LiteralString, ParamSpec, Self, SupportsIndex, TypeAlias, TypeGuard, final
+from typing_extensions import (
+    Concatenate,
+    Literal,
+    LiteralString,
+    ParamSpec,
+    Self,
+    SupportsIndex,
+    TypeAlias,
+    TypeGuard,
+    TypeVarTuple,
+    final,
+)
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -189,7 +200,7 @@ class type:
         def __or__(self, __value: Any) -> types.UnionType: ...
         def __ror__(self, __value: Any) -> types.UnionType: ...
     if sys.version_info >= (3, 12):
-        __type_params__: tuple[object, ...]
+        __type_params__: tuple[TypeVar | ParamSpec | TypeVarTuple, ...]
 
 class super:
     @overload
@@ -965,6 +976,8 @@ class function:
     if sys.version_info >= (3, 10):
         @property
         def __builtins__(self) -> dict[str, Any]: ...
+    if sys.version_info >= (3, 12):
+        __type_params__: tuple[TypeVar | ParamSpec | TypeVarTuple, ...]
 
     __module__: str
     # mypy uses `builtins.function.__get__` to represent methods, properties, and getset_descriptors so we type the return as Any.
