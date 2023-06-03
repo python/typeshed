@@ -711,7 +711,6 @@ if sys.version_info >= (3, 12):
         HV_GUID_BROADCAST: int
         HV_GUID_CHILDREN: int
         HV_GUID_LOOPBACK: int
-        HV_GUID_LOOPBACK: int
     else:
         ETHERTYPE_ARP: int
         ETHERTYPE_IP: int
