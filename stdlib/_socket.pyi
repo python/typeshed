@@ -699,7 +699,7 @@ if sys.version_info >= (3, 12):
     IP_BLOCK_SOURCE: int
     IP_ADD_SOURCE_MEMBERSHIP: int
     IP_DROP_SOURCE_MEMBERSHIP: int
-    if sys.paltform == "win32":
+    if sys.platform == "win32":
         AF_HYPERV: int
         HV_PROTOCOL_RAW: int
         HVSOCKET_CONNECT_TIMEOUT: int
