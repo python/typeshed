@@ -438,6 +438,36 @@ if sys.platform == "win32":
         SIO_LOOPBACK_FAST_PATH as SIO_LOOPBACK_FAST_PATH,
         SIO_RCVALL as SIO_RCVALL,
     )
+if sys.version_info >= (3, 12):
+    from _socket import (
+        IP_PKTINFO as IP_PKTINFO,
+        IP_UNBLOCK_SOURCE as IP_UNBLOCK_SOURCE,
+        IP_BLOCK_SOURCE as IP_BLOCK_SOURCE,
+        IP_ADD_SOURCE_MEMBERSHIP as IP_ADD_SOURCE_MEMBERSHIP,
+        IP_DROP_SOURCE_MEMBERSHIP as IP_DROP_SOURCE_MEMBERSHIP,
+    )
+    if sys.platform == "win32":
+        from _socket import (
+            AF_HYPERV as AF_HYPERV,
+            HV_PROTOCOL_RAW as HV_PROTOCOL_RAW,
+            HVSOCKET_CONNECT_TIMEOUT as HVSOCKET_CONNECT_TIMEOUT,
+            HVSOCKET_CONNECT_TIMEOUT_MAX as HVSOCKET_CONNECT_TIMEOUT_MAX,
+            HVSOCKET_CONNECTED_SUSPEND as HVSOCKET_CONNECTED_SUSPEND,
+            HVSOCKET_ADDRESS_FLAG_PASSTHRU as HVSOCKET_ADDRESS_FLAG_PASSTHRU,
+            HV_GUID_ZERO as HV_GUID_ZERO,
+            HV_GUID_WILDCARD as HV_GUID_WILDCARD,
+            HV_GUID_BROADCAST as HV_GUID_BROADCAST,
+            HV_GUID_CHILDREN as HV_GUID_CHILDREN,
+            HV_GUID_LOOPBACK as HV_GUID_LOOPBACK,
+            HV_GUID_PARENT as HV_GUID_PARENT,
+        )
+    else:
+        from _socket import (
+            ETHERTYPE_ARP as ETHERTYPE_ARP,
+            ETHERTYPE_IP as ETHERTYPE_IP,
+            ETHERTYPE_IPV6 as ETHERTYPE_IPV6,
+            ETHERTYPE_VLAN as ETHERTYPE_VLAN,
+        )
 
 # Re-exported from errno
 EBADF: int
