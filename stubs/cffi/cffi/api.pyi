@@ -1,4 +1,3 @@
-from setuptools._distutils.core import Extension
 import sys
 import types
 from _typeshed import Incomplete, ReadableBuffer, WriteableBuffer
@@ -7,6 +6,7 @@ from typing import Any, TypeVar, overload
 from typing_extensions import Literal, TypeAlias
 
 import _cffi_backend
+from setuptools._distutils.core import Extension
 
 _T = TypeVar("_T")
 
