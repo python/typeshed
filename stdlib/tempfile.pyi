@@ -425,7 +425,28 @@ class SpooledTemporaryFile(IO[AnyStr], _SpooledTemporaryFileBase):
 
 class TemporaryDirectory(Generic[AnyStr]):
     name: AnyStr
-    if sys.version_info >= (3, 10):
+    if sys.version_info >= (3, 12):
+        @overload
+        def __init__(
+            self: TemporaryDirectory[str],
+            suffix: str | None = None,
+            prefix: str | None = None,
+            dir: StrPath | None = None,
+            ignore_cleanup_errors: bool = False,
+            *, 
+            delete: bool = True,
+        ) -> None: ...
+        @overload
+        def __init__(
+            self: TemporaryDirectory[bytes],
+            suffix: bytes | None = None,
+            prefix: bytes | None = None,
+            dir: BytesPath | None = None,
+            ignore_cleanup_errors: bool = False,
+            *, 
+            delete: bool = True,
+        ) -> None: ...
+    elif sys.version_info >= (3, 10):
         @overload
         def __init__(
             self: TemporaryDirectory[str],
