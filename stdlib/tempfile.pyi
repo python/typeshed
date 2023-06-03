@@ -433,7 +433,7 @@ class TemporaryDirectory(Generic[AnyStr]):
             prefix: str | None = None,
             dir: StrPath | None = None,
             ignore_cleanup_errors: bool = False,
-            *, 
+            *,
             delete: bool = True,
         ) -> None: ...
         @overload
@@ -443,7 +443,7 @@ class TemporaryDirectory(Generic[AnyStr]):
             prefix: bytes | None = None,
             dir: BytesPath | None = None,
             ignore_cleanup_errors: bool = False,
-            *, 
+            *,
             delete: bool = True,
         ) -> None: ...
     elif sys.version_info >= (3, 10):
