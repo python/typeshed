@@ -13,7 +13,10 @@ _collections_abc.ValuesView.__reversed__
 _csv.Reader
 _csv.Writer
 argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group
+bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
 configparser.LegacyInterpolation.__init__
+configparser.ParsingError.filename
+enum.Enum._generate_next_value_
 enum.Enum.__init__
 # TODO: The stub for enum.auto is nothing like the implementation
 enum.auto.__init__
@@ -22,6 +25,7 @@ fractions.Fraction.__new__  # overload is too complicated for stubtest to resolv
 ftplib.FTP.trust_server_pasv_ipv4_address
 functools.cached_property.__set__  # Stub is a white lie; see comments in the stub
 functools._lru_cache_wrapper.cache_parameters  # Cannot be detected statically
+importlib.abc.Finder.find_module
 ipaddress.IPv4Interface.hostmask
 ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
@@ -43,10 +47,17 @@ tkinter._VersionInfoType.__doc__
 typing.NewType.__call__
 typing.NewType.__mro_entries__
 weakref.WeakValueDictionary.update
+typing_extensions\.get_original_bases
 
 # Runtime has *args, **kwargs, but will error if any are supplied
 unittest.TestCase.__init_subclass__
 unittest.case.TestCase.__init_subclass__
+
+# Exist at runtime for internal reasons, no need to put them in the stub
+typing_extensions\.TypeAliasType\.__call__
+typing_extensions\.TypeAliasType\.__init_subclass__
+# We call them read-only properties, runtime implementation is slightly different
+typing_extensions\.TypeAliasType\.__(parameters|type_params|name|module|value)__
 
 # ==========
 # Related to positional-only arguments
@@ -149,3 +160,17 @@ dataclasses.KW_ONLY
 typing.ParamSpec(Args|Kwargs).__origin__
 typing\.TypeVar\.__.*__
 typing\.ParamSpec\.__.*__
+
+# We lie about the existence of these methods
+.*.__buffer__
+.*.__release_buffer__
+
+# Removed in 3.12
+distutils\..*
+asyncore.dispatcher.addr
+asyncore.dispatcher.handle_accepted
+asynchat.async_chat.encoding
+asynchat.async_chat.use_encoding
+asynchat.find_prefix_at_end
+pkgutil.ImpImporter\..*
+pkgutil.ImpLoader\..*

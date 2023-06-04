@@ -33,9 +33,6 @@ _weakref.ReferenceType.__call__  # C function default annotation is wrong
 _weakref.ReferenceType.__init__  # Runtime defines __new__ but stubtest thinks __init__ is also defined.
 argparse.ArgumentParser.__init__  # stubtest doesn't recognise the runtime default (a class) as being compatible with a callback protocol (the stub annotation)
 argparse.Namespace.__getattr__  # The whole point of this class is its attributes are dynamic
-asynchat.async_chat.encoding  # Removal planned for 3.12, can add if someone needs this
-asynchat.async_chat.use_encoding  # Removal planned for 3.12, can add if someone needs this
-asynchat.find_prefix_at_end  # Removal planned for 3.12, can add if someone needs this
 # Condition functions are exported in __init__
 asyncio.Condition.acquire
 asyncio.Condition.locked
@@ -53,7 +50,6 @@ builtins.function
 builtins.memoryview.__contains__  # C type that implements __getitem__
 builtins.object.__init__  # default C signature is incorrect
 builtins.type.__dict__  # read-only but not actually a property; stubtest thinks it's a mutable attribute.
-bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
 # The following CodecInfo properties are added in __new__
 codecs.CodecInfo.decode
 codecs.CodecInfo.encode
@@ -87,12 +83,6 @@ ctypes.memmove  # CFunctionType
 ctypes.memset  # CFunctionType
 ctypes.string_at  # docstring argument name is wrong
 ctypes.wstring_at  # docstring argument name is wrong
-distutils.core.Distribution.get_command_obj  # 1 used for True
-distutils.command.bdist_packager  # It exists in docs as package name but not in code except as a mention in a comment.
-distutils.dist.Distribution.get_command_obj  # 1 used for True
-distutils.version.Version._cmp  # class should have declared this
-distutils.version.Version.parse  # class should have declared this
-enum.Enum._generate_next_value_
 hashlib.sha3_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
 hashlib.shake_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
 http.HTTPStatus.description  # set in __new__
@@ -239,13 +229,11 @@ bz2.BZ2File.peek
 codecs.StreamReader.charbuffertype
 codecs.StreamReader.seek
 codecs.StreamWriter.seek
-configparser.ParsingError.filename
 configparser.RawConfigParser.converters
 ctypes.ARRAY
 ctypes.SetPointerType
 ctypes.c_voidp
 ctypes.util.test
-importlib.abc.Finder.find_module
 lib2to3.pgen2.grammar.Grammar.loads
 mimetypes.MimeTypes.add_type
 modulefinder.test
@@ -400,7 +388,6 @@ ssl.PROTOCOL_SSLv3
 ssl.RAND_egd
 
 collections.abc.*  # Types are re-exported from _collections_abc, so errors should be fixed there
-distutils.command.check.SilentReporter  # only defined if docutils in installed
 hmac.HMAC.blocksize  # use block_size instead
 pickle.Pickler.memo  # undocumented implementation detail, has different type in C/Python implementations
 pickle.Unpickler.memo  # undocumented implementation detail, has different type in C/Python implementations
@@ -459,19 +446,11 @@ typing\.AbstractSet
 .*\.__protocol_attrs__
 .*\.__callable_proto_members_only__
 
-# Exist at runtime for internal reasons, no need to put them in the stub
-typing_extensions\.TypeAliasType\.__call__
-typing_extensions\.TypeAliasType\.__init_subclass__
-
 typing_extensions.NewType.__mro_entries__  # just exists for an error message
-
-# We call them read-only properties, runtime implementation is slightly different
-typing_extensions\.TypeAliasType\.__(parameters|type_params|name|module|value)__
 
 # https://github.com/python/mypy/issues/15302
 typing_extensions.NewType.__call__
 typing_extensions\.deprecated
-typing_extensions\.get_original_bases
 typing_extensions\.override
 
 # These are abstract properties at runtime,
@@ -533,24 +512,6 @@ turtle.ScrolledCanvas.select_item
 xml.dom.minidom.StringTypes
 
 # __all__-related weirdness (see #6523)
-distutils.command.build
-distutils.command.build_py
-distutils.command.build_ext
-distutils.command.build_clib
-distutils.command.build_scripts
-distutils.command.clean
-distutils.command.install
-distutils.command.install_lib
-distutils.command.install_headers
-distutils.command.install_scripts
-distutils.command.install_data
-distutils.command.sdist
-distutils.command.register
-distutils.command.bdist
-distutils.command.bdist_dumb
-distutils.command.bdist_rpm
-distutils.command.check
-distutils.command.upload
 email.base64mime
 email.charset
 email.encoders
@@ -567,29 +528,6 @@ email.utils
 xml.dom
 xml.etree
 xml.sax
-
-# Dynamically created
-distutils.(dist|core).Distribution.get_name
-distutils.(dist|core).Distribution.get_version
-distutils.(dist|core).Distribution.get_fullname
-distutils.(dist|core).Distribution.get_author
-distutils.(dist|core).Distribution.get_author_email
-distutils.(dist|core).Distribution.get_maintainer
-distutils.(dist|core).Distribution.get_maintainer_email
-distutils.(dist|core).Distribution.get_contact
-distutils.(dist|core).Distribution.get_contact_email
-distutils.(dist|core).Distribution.get_url
-distutils.(dist|core).Distribution.get_license
-distutils.(dist|core).Distribution.get_licence
-distutils.(dist|core).Distribution.get_description
-distutils.(dist|core).Distribution.get_long_description
-distutils.(dist|core).Distribution.get_keywords
-distutils.(dist|core).Distribution.get_platforms
-distutils.(dist|core).Distribution.get_classifiers
-distutils.(dist|core).Distribution.get_download_url
-distutils.(dist|core).Distribution.get_requires
-distutils.(dist|core).Distribution.get_provides
-distutils.(dist|core).Distribution.get_obsoletes
 
 # Platform differences that cannot be captured by the type system
 os.O_[A-Z_]+
@@ -671,115 +609,3 @@ typing.IO.__iter__  # See https://github.com/python/typeshed/commit/97bc450acd60
 # As a side effect, this changes the definition of collections.abc.ByteString, which is okay,
 # because it's not an ABC that makes any sense and was deprecated in 3.12
 _collections_abc.ByteString
-
-# ==========
-# Missing from deprecated modules
-# Any of these can be added if someone needs them
-# ==========
-
-# Removal planned for 3.12
-asyncore.dispatcher.addr
-asyncore.dispatcher.handle_accepted
-# Missing from distutils module (deprecated, to be removed in 3.12)
-distutils.archive_util.ARCHIVE_FORMATS
-distutils.archive_util.check_archive_formats
-distutils.bcppcompiler.BCPPCompiler.compiler_type
-distutils.bcppcompiler.BCPPCompiler.exe_extension
-distutils.bcppcompiler.BCPPCompiler.executables
-distutils.bcppcompiler.BCPPCompiler.obj_extension
-distutils.bcppcompiler.BCPPCompiler.shared_lib_extension
-distutils.bcppcompiler.BCPPCompiler.shared_lib_format
-distutils.bcppcompiler.BCPPCompiler.src_extensions
-distutils.bcppcompiler.BCPPCompiler.static_lib_extension
-distutils.bcppcompiler.BCPPCompiler.static_lib_format
-distutils.ccompiler.CCompiler.EXECUTABLE
-distutils.ccompiler.CCompiler.SHARED_LIBRARY
-distutils.ccompiler.CCompiler.SHARED_OBJECT
-distutils.ccompiler.CCompiler.compiler_type
-distutils.ccompiler.CCompiler.exe_extension
-distutils.ccompiler.CCompiler.language_map
-distutils.ccompiler.CCompiler.language_order
-distutils.ccompiler.CCompiler.obj_extension
-distutils.ccompiler.CCompiler.set_executable
-distutils.ccompiler.CCompiler.shared_lib_extension
-distutils.ccompiler.CCompiler.shared_lib_format
-distutils.ccompiler.CCompiler.src_extensions
-distutils.ccompiler.CCompiler.static_lib_extension
-distutils.ccompiler.CCompiler.static_lib_format
-distutils.ccompiler.compiler_class
-distutils.command.bdist
-distutils.command.install.*
-distutils.cygwinccompiler.CygwinCCompiler.compiler_type
-distutils.cygwinccompiler.CygwinCCompiler.exe_extension
-distutils.cygwinccompiler.CygwinCCompiler.obj_extension
-distutils.cygwinccompiler.CygwinCCompiler.shared_lib_extension
-distutils.cygwinccompiler.CygwinCCompiler.shared_lib_format
-distutils.cygwinccompiler.CygwinCCompiler.static_lib_extension
-distutils.cygwinccompiler.CygwinCCompiler.static_lib_format
-distutils.cygwinccompiler.Mingw32CCompiler.compiler_type
-distutils.dir_util.ensure_relative
-distutils.dist.DistributionMetadata.set_classifiers
-distutils.dist.DistributionMetadata.set_keywords
-distutils.dist.DistributionMetadata.set_platforms
-distutils.dist.fix_help_options
-distutils.extension.read_setup_file
-distutils.fancy_getopt.FancyGetopt.add_option
-distutils.fancy_getopt.FancyGetopt.get_attr_name
-distutils.fancy_getopt.FancyGetopt.has_option
-distutils.fancy_getopt.FancyGetopt.print_help
-distutils.fancy_getopt.FancyGetopt.set_aliases
-distutils.fancy_getopt.FancyGetopt.set_negative_aliases
-distutils.fancy_getopt.FancyGetopt.set_option_table
-distutils.msvccompiler.MSVCCompiler.compiler_type
-distutils.msvccompiler.MSVCCompiler.exe_extension
-distutils.msvccompiler.MSVCCompiler.executables
-distutils.msvccompiler.MSVCCompiler.find_exe
-distutils.msvccompiler.MSVCCompiler.initialize
-distutils.msvccompiler.MSVCCompiler.obj_extension
-distutils.msvccompiler.MSVCCompiler.res_extension
-distutils.msvccompiler.MSVCCompiler.shared_lib_extension
-distutils.msvccompiler.MSVCCompiler.shared_lib_format
-distutils.msvccompiler.MSVCCompiler.src_extensions
-distutils.msvccompiler.MSVCCompiler.static_lib_extension
-distutils.msvccompiler.MSVCCompiler.static_lib_format
-distutils.msvccompiler.convert_mbcs
-distutils.msvccompiler.get_build_architecture
-distutils.msvccompiler.get_build_version
-distutils.msvccompiler.normalize_and_reduce_paths
-distutils.msvccompiler.read_keys
-distutils.msvccompiler.read_values
-distutils.sysconfig.build_flags
-distutils.sysconfig.parse_config_h
-distutils.sysconfig.parse_makefile
-distutils.text_file.TextFile.default_options
-distutils.text_file.TextFile.error
-distutils.text_file.TextFile.gen_error
-distutils.unixccompiler.UnixCCompiler.compiler_type
-distutils.unixccompiler.UnixCCompiler.dylib_lib_extension
-distutils.unixccompiler.UnixCCompiler.dylib_lib_format
-distutils.unixccompiler.UnixCCompiler.executables
-distutils.unixccompiler.UnixCCompiler.obj_extension
-distutils.unixccompiler.UnixCCompiler.shared_lib_extension
-distutils.unixccompiler.UnixCCompiler.shared_lib_format
-distutils.unixccompiler.UnixCCompiler.src_extensions
-distutils.unixccompiler.UnixCCompiler.static_lib_extension
-distutils.unixccompiler.UnixCCompiler.static_lib_format
-distutils.unixccompiler.UnixCCompiler.xcode_stub_lib_extension
-distutils.unixccompiler.UnixCCompiler.xcode_stub_lib_format
-distutils.util.grok_environment_error
-
-# Missing from pkgutil.ImpImporter/ImpLoader (both deprecated since 3.3, can add if someone needs it)
-pkgutil.ImpImporter.find_module
-pkgutil.ImpImporter.iter_modules
-pkgutil.ImpLoader.code
-pkgutil.ImpLoader.get_code
-pkgutil.ImpLoader.get_data
-pkgutil.ImpLoader.get_filename
-pkgutil.ImpLoader.get_source
-pkgutil.ImpLoader.is_package
-pkgutil.ImpLoader.load_module
-pkgutil.ImpLoader.source
-
-# We lie about the existence of these methods
-.*.__buffer__
-.*.__release_buffer__
