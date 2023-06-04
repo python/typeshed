@@ -359,7 +359,9 @@ multiprocessing.managers.DictProxy.popitem
 multiprocessing.managers.DictProxy.values
 
 multiprocessing.(dummy|managers).Namespace.__[gs]etattr__  # Any field can be set on Namespace
-# alias for a class defined elsewhere, mypy infers the variable has type `(*args) -> ForkingPickler` but stubtest infers the runtime type as <class ForkingPickler>
+# alias for a class defined elsewhere,
+# mypy infers the variable has type `(*args) -> ForkingPickler`
+# but stubtest infers the runtime type as <class ForkingPickler>
 multiprocessing.reduction.AbstractReducer.ForkingPickler
 
 # Items that depend on the existence and flags of SSL
@@ -471,7 +473,8 @@ sys.tracebacklimit
 
 sys.implementation  # Actually SimpleNamespace but then you wouldn't have convenient attributes
 
-# A factory function that returns 'most efficient lock'. Marking it as a function will make it harder for users to mark the Lock type.
+# A factory function that returns 'most efficient lock'.
+# Marking it as a function will make it impossible for users to use the Lock type as an annotation.
 threading.Lock
 threading.RLock
 multiprocessing.dummy.Lock
@@ -606,5 +609,7 @@ typing.IO.__iter__  # See https://github.com/python/typeshed/commit/97bc450acd60
 # so stubtest will sometimes complain about exported names being different at runtime to the exported names in the stub
 (locale.__all__)?
 
-(sys.get_int_max_str_digits)?  # Added in a patch release, backported to all security branches, but has yet to find its way to all GitHub Actions images
-(sys.set_int_max_str_digits)?  # Added in a patch release, backported to all security branches, but has yet to find its way to all GitHub Actions images
+# Added in a patch release, backported to all security branches,
+# but have yet to find their way to all GitHub Actions images
+(sys.get_int_max_str_digits)?
+(sys.set_int_max_str_digits)? 
