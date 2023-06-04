@@ -27,9 +27,6 @@ select.POLLMSG   # system dependent
 (termios.[A-Z0-9_]+)?
 
 # Exists at runtime, but missing from stubs
-distutils.msvccompiler.MSVCCompiler.get_msvc_paths
-distutils.msvccompiler.MSVCCompiler.set_path_env_var
-distutils.msvccompiler.MacroExpander
 mimetypes.MimeTypes.read_windows_registry
 selectors.DefaultSelector.fileno
 socket.PF_SYSTEM
