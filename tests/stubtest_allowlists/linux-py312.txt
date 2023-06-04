@@ -1,6 +1,3 @@
-mmap.MAP_STACK
-fcntl.FICLONE
-fcntl.FICLONERANGE
 (os|posix).CLONE_FILES
 (os|posix).CLONE_FS
 (os|posix).CLONE_NEWCGROUP
@@ -30,8 +27,14 @@ fcntl.FICLONERANGE
 (os|posix).SPLICE_F_MOVE
 (os|posix).SPLICE_F_NONBLOCK
 (os|posix).unshare
+fcntl.FICLONE
+fcntl.FICLONERANGE
+mmap.MAP_STACK
 signal.sigtimedwait
 signal.sigwaitinfo
-xxlimited.Xxo.x_exports
+ssl.OP_ENABLE_KTLS
+ssl.Options.OP_ENABLE_KTLS
 syslog.LOG_MASK
 syslog.LOG_UPTO
+syslog.setlogmask
+xxlimited.Xxo.x_exports

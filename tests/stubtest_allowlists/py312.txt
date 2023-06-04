@@ -148,8 +148,6 @@ posixpath.splitroot
 pydoc.HTMLRepr.__init__
 pydoc.TextRepr.__init__
 resource.prlimit
-signal.sigtimedwait
-signal.sigwaitinfo
 smtplib.SMTP.starttls
 smtplib.SMTP_SSL.__init__
 sqlite3.Connection.autocommit
@@ -197,9 +195,7 @@ sqlite3.enable_shared_cache
 sre_parse.Tokenizer.checkgroupname
 sre_parse.expand_template
 sre_parse.parse_template
-ssl.OP_ENABLE_KTLS
 ssl.OP_LEGACY_SERVER_CONNECT
-ssl.Options.OP_ENABLE_KTLS
 ssl.Options.OP_LEGACY_SERVER_CONNECT
 ssl.RAND_pseudo_bytes
 ssl.wrap_socket
@@ -207,7 +203,6 @@ sys.activate_stack_trampoline
 sys.deactivate_stack_trampoline
 sys.getunicodeinternedsize
 sys.is_stack_trampoline_active
-syslog.setlogmask
 tarfile.AbsoluteLinkError
 tarfile.AbsolutePathError
 tarfile.FilterError
@@ -272,7 +267,6 @@ urllib.request.HTTPSHandler.__init__
 uuid.main
 webbrowser.Galeon
 webbrowser.Grail
-xxlimited.Xxo.x_exports
 zipfile.Path.glob
 zipfile.Path.is_symlink
 zipfile.Path.match
