@@ -159,6 +159,9 @@ class Path(PurePath):
         # so it's safer to pretend they don't exist
         def owner(self) -> str: ...
         def group(self) -> str: ...
+
+    # This methods does "exist" on Windows, but always raises NotImplementedError on <3.12
+    if sys.platform != "win32" or sys.version_info >= (3, 12):
         def is_mount(self) -> bool: ...
 
     if sys.version_info >= (3, 9):
