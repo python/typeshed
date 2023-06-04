@@ -292,9 +292,6 @@ multiprocessing.managers.SharedMemoryServer.release_segment
 multiprocessing.managers.SharedMemoryServer.shutdown
 multiprocessing.managers.SharedMemoryServer.track_segment
 multiprocessing.spawn._main
-platform.uname_result.__match_args__
-platform.uname_result.__new__
-platform.uname_result.processor  # platform.uname_result's processor field is now dynamically made to exist
 queue.SimpleQueue.__init__
 sys.UnraisableHookArgs  # Not exported from sys
 tkinter._VersionInfoType.__doc__
@@ -379,14 +376,19 @@ queue.SimpleQueue.__init__
 xml.etree.ElementTree.XMLParser.__init__
 xml.etree.cElementTree.XMLParser.__init__
 
-# Runtime has *args, **kwargs, but will error if any are supplied
-unittest.TestCase.__init_subclass__
-unittest.case.TestCase.__init_subclass__
-
 # Treated an alias of a typing class in the stubs,
 # they are generic to type checkers anyway.
 contextlib.AbstractAsyncContextManager.__class_getitem__
 contextlib.AbstractContextManager.__class_getitem__
+
+# platform.uname_result's processor field is now dynamically made to exist
+platform.uname_result.__match_args__
+platform.uname_result.__new__
+platform.uname_result.processor
+
+# Runtime has *args, **kwargs, but will error if any are supplied
+unittest.TestCase.__init_subclass__
+unittest.case.TestCase.__init_subclass__
 
 # Super-special typing primitives
 typing\._SpecialForm.*
