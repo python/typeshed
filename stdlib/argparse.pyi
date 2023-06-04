@@ -102,9 +102,9 @@ class _ActionsContainer:
         title: str | None = None,
         description: str | None = None,
         *,
-        prefix_chars: str,
-        argument_default: Any,
-        conflict_handler: str,
+        prefix_chars: str = ...,
+        argument_default: Any = ...,
+        conflict_handler: str = ...,
     ) -> _ArgumentGroup: ...
     def add_mutually_exclusive_group(self, *, required: bool = False) -> _MutuallyExclusiveGroup: ...
     def _add_action(self, action: _ActionT) -> _ActionT: ...
