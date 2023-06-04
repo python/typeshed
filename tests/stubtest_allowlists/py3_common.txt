@@ -50,7 +50,6 @@ builtins.function
 builtins.memoryview.__contains__  # C type that implements __getitem__
 builtins.object.__init__  # default C signature is incorrect
 builtins.type.__dict__  # read-only but not actually a property; stubtest thinks it's a mutable attribute.
-bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
 # The following CodecInfo properties are added in __new__
 codecs.CodecInfo.decode
 codecs.CodecInfo.encode
@@ -84,7 +83,6 @@ ctypes.memmove  # CFunctionType
 ctypes.memset  # CFunctionType
 ctypes.string_at  # docstring argument name is wrong
 ctypes.wstring_at  # docstring argument name is wrong
-enum.Enum._generate_next_value_
 hashlib.sha3_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
 hashlib.shake_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
 http.HTTPStatus.description  # set in __new__
@@ -231,13 +229,11 @@ bz2.BZ2File.peek
 codecs.StreamReader.charbuffertype
 codecs.StreamReader.seek
 codecs.StreamWriter.seek
-configparser.ParsingError.filename
 configparser.RawConfigParser.converters
 ctypes.ARRAY
 ctypes.SetPointerType
 ctypes.c_voidp
 ctypes.util.test
-importlib.abc.Finder.find_module
 lib2to3.pgen2.grammar.Grammar.loads
 mimetypes.MimeTypes.add_type
 modulefinder.test
@@ -450,14 +446,7 @@ typing\.AbstractSet
 .*\.__protocol_attrs__
 .*\.__callable_proto_members_only__
 
-# Exist at runtime for internal reasons, no need to put them in the stub
-typing_extensions\.TypeAliasType\.__call__
-typing_extensions\.TypeAliasType\.__init_subclass__
-
 typing_extensions.NewType.__mro_entries__  # just exists for an error message
-
-# We call them read-only properties, runtime implementation is slightly different
-typing_extensions\.TypeAliasType\.__(parameters|type_params|name|module|value)__
 
 # https://github.com/python/mypy/issues/15302
 typing_extensions.NewType.__call__
