@@ -610,24 +610,3 @@ typing.IO.__iter__  # See https://github.com/python/typeshed/commit/97bc450acd60
 # As a side effect, this changes the definition of collections.abc.ByteString, which is okay,
 # because it's not an ABC that makes any sense and was deprecated in 3.12
 _collections_abc.ByteString
-
-# ==========
-# Missing from deprecated modules
-# Any of these can be added if someone needs them
-# ==========
-
-# Missing from pkgutil.ImpImporter/ImpLoader (both deprecated since 3.3, can add if someone needs it)
-pkgutil.ImpImporter.find_module
-pkgutil.ImpImporter.iter_modules
-pkgutil.ImpLoader.code
-pkgutil.ImpLoader.get_code
-pkgutil.ImpLoader.get_data
-pkgutil.ImpLoader.get_filename
-pkgutil.ImpLoader.get_source
-pkgutil.ImpLoader.is_package
-pkgutil.ImpLoader.load_module
-pkgutil.ImpLoader.source
-
-# We lie about the existence of these methods
-.*.__buffer__
-.*.__release_buffer__

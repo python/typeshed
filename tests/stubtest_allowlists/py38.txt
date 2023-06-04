@@ -188,8 +188,15 @@ typing_extensions\.reveal_type
 # Super-special typing primitives
 typing_extensions\.Final
 
+# We lie about the existence of these methods
+.*.__buffer__
+.*.__release_buffer__
+
+
 # Removed in 3.12
 distutils\..*
 asyncore.dispatcher.addr
 asyncore.dispatcher.handle_accepted
 asynchat.find_prefix_at_end
+pkgutil.ImpImporter\..*
+pkgutil.ImpLoader\..*

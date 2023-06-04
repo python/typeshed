@@ -160,8 +160,14 @@ typing.ParamSpec(Args|Kwargs).__origin__
 typing\.TypeVar\.__.*__
 typing\.ParamSpec\.__.*__
 
+# We lie about the existence of these methods
+.*.__buffer__
+.*.__release_buffer__
+
 # Removed in 3.12
 distutils\..*
 asyncore.dispatcher.addr
 asyncore.dispatcher.handle_accepted
 asynchat.find_prefix_at_end
+pkgutil.ImpImporter\..*
+pkgutil.ImpLoader\..*
