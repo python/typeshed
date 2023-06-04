@@ -57,7 +57,6 @@ def run_stubtest(typeshed_dir: Path) -> int:
             str(allowlist_dir / "py3_common.txt"),
             "--allowlist",
             str(allowlist_dir / version_allowlist),
-            "--generate-allowlist",
         ]
         if (allowlist_dir / platform_allowlist).exists():
             cmd += ["--allowlist", str(allowlist_dir / platform_allowlist)]

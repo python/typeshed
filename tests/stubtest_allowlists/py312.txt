@@ -1,7 +1,5 @@
 # Uncategorised, from Python 3.12
 _ctypes.SIZEOF_TIME_T
-_curses.color_pair
-_posixsubprocess.fork_exec
 _thread.daemon_threads_allowed
 argparse.BooleanOptionalAction.__init__
 array.array.__class_getitem__
@@ -41,7 +39,6 @@ configparser.ParsingError.__init__
 configparser.RawConfigParser.readfp
 configparser.__all__
 ctypes.c_time_t
-curses.color_pair
 datetime.__all__
 dis.__all__
 dis.hasarg
@@ -217,9 +214,6 @@ tokenize.FSTRING_END
 tokenize.FSTRING_MIDDLE
 tokenize.FSTRING_START
 tokenize.__all__
-tty.__all__
-tty.cfmakecbreak
-tty.cfmakeraw
 turtle.RawTurtle.teleport
 turtle.TNavigator.teleport
 turtle.TPen.teleport

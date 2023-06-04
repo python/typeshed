@@ -1,5 +1,7 @@
+_?curses.color_pair
 _curses.unget_wch
 _curses.window.get_wch
+_posixsubprocess.fork_exec
 _socket.ETHERTYPE_ARP
 _socket.ETHERTYPE_IP
 _socket.ETHERTYPE_IPV6
@@ -32,6 +34,10 @@ socket.IP_UNBLOCK_SOURCE
 socket.TCP_CONNECTION_INFO
 syslog.LOG_MASK
 syslog.LOG_UPTO
+syslog.setlogmask
+tty.__all__
+tty.cfmakecbreak
+tty.cfmakeraw
 xxlimited.Xxo.x_exports
 
 (dbm.gnu)?

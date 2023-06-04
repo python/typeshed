@@ -1,3 +1,5 @@
+_?curses.color_pair
+_posixsubprocess.fork_exec
 (os|posix).CLONE_FILES
 (os|posix).CLONE_FS
 (os|posix).CLONE_NEWCGROUP
@@ -38,4 +40,7 @@ ssl.Options.OP_ENABLE_KTLS
 syslog.LOG_MASK
 syslog.LOG_UPTO
 syslog.setlogmask
+tty.__all__
+tty.cfmakecbreak
+tty.cfmakeraw
 xxlimited.Xxo.x_exports
