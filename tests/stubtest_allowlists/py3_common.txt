@@ -424,8 +424,8 @@ typing\.AsyncGenerator
 typing\.AbstractSet
 
 # Internal attributes
-.*\.__protocol_attrs__
-.*\.__callable_proto_members_only__
+# .*\.__protocol_attrs__
+# .*\.__callable_proto_members_only__
 
 typing_extensions.NewType.__mro_entries__  # just exists for an error message
 

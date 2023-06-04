@@ -7,7 +7,6 @@ os.SF_NODISKIO
 os.SF_SYNC
 (os|posix).sched_param  # system dependent. Unclear if macos has it.
 posix.EX_NOTFOUND
-readline.append_history_file  # not defined in macos
 select.KQ_FILTER_NETDEV  # system dependent
 select.kqueue.__init__  # default C signature is wrong
 select.POLLMSG   # system dependent
@@ -20,6 +19,7 @@ select.POLLMSG   # system dependent
 (os.pwritev)?
 (posix.preadv)?
 (posix.pwritev)?
+# readline.append_history_file
 
 # Platform differences that cannot be captured by the type system
 (posix.O_[A-Z_]+)?
