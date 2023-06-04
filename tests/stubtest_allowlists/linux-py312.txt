@@ -1,5 +1,7 @@
 _?curses.color_pair
 mmap.MAP_STACK
+fcntl.FICLONE
+fcntl.FICLONERANGE
 (os|posix).CLONE_FILES
 (os|posix).CLONE_FS
 (os|posix).CLONE_NEWCGROUP
