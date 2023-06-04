@@ -77,7 +77,7 @@ if sys.version_info >= (3, 12):
         delete_on_close: bool = True,
     ) -> _TemporaryFileWrapper[Any]: ...
 
-if sys.version_info >= (3, 8):
+elif sys.version_info >= (3, 8):
     @overload
     def NamedTemporaryFile(
         mode: _StrMode,
