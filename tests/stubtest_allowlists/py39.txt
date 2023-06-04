@@ -176,3 +176,9 @@ typing_extensions\.reveal_type
 typing_extensions\.Final
 typing\.NamedTuple
 typing\.Annotated
+
+# Removed in 3.12
+distutils\..*
+asyncore.dispatcher.addr
+asyncore.dispatcher.handle_accepted
+asynchat.find_prefix_at_end

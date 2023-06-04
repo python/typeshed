@@ -178,3 +178,9 @@ typing_extensions\.reveal_type
 
 # Super-special typing primitives
 typing_extensions\.Final
+
+# Removed in 3.12
+distutils\..*
+asyncore.dispatcher.addr
+asyncore.dispatcher.handle_accepted
+asynchat.find_prefix_at_end

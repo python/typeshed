@@ -149,3 +149,9 @@ dataclasses.KW_ONLY
 typing.ParamSpec(Args|Kwargs).__origin__
 typing\.TypeVar\.__.*__
 typing\.ParamSpec\.__.*__
+
+# Removed in 3.12
+distutils\..*
+asyncore.dispatcher.addr
+asyncore.dispatcher.handle_accepted
+asynchat.find_prefix_at_end

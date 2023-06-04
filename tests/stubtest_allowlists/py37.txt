@@ -160,3 +160,9 @@ typing_extensions\.reveal_type
 
 # Doesn't exist at runtime
 typing\.Protocol
+
+# Removed in 3.12
+distutils\..*
+asyncore.dispatcher.addr
+asyncore.dispatcher.handle_accepted
+asynchat.find_prefix_at_end
