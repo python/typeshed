@@ -203,7 +203,6 @@ tarfile.__all__
 tarfile.data_filter
 tarfile.fully_trusted_filter
 tarfile.tar_filter
-tempfile.NamedTemporaryFile
 token.EXCLAMATION
 token.FSTRING_END
 token.FSTRING_MIDDLE
