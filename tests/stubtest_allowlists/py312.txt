@@ -115,15 +115,9 @@ os.path.__all__
 os.path.isjunction
 os.path.splitroot
 pathlib.Path.__init__
-pathlib.Path.exists
-pathlib.Path.glob
-pathlib.Path.is_junction
-pathlib.Path.rglob
 pathlib.PurePath.__init__
 pathlib.PurePath.is_relative_to
-pathlib.PurePath.match
 pathlib.PurePath.relative_to
-pathlib.PurePath.with_segments
 pdb.Pdb.set_convenience_variable
 pkgutil.ImpImporter
 pkgutil.ImpLoader
