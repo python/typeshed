@@ -407,6 +407,10 @@ pickle.Unpickler.memo  # undocumented implementation detail, has different type 
 re.Pattern.scanner  # Undocumented and not useful. #6405
 tempfile._TemporaryFileWrapper.[\w_]+  # Dynamically specified by __getattr__, and thus don't exist on the class
 
+# Removed undocumented and often mistakenly used _normalize parameter that was removed in 3.12
+# On 3.12, stubtest doesn't correctly combine the overload because parameter names mismatch
+fractions.Fraction.__new__
+
 # Details of runtime definition don't need to be in stubs
 typing_extensions\._SpecialForm.*
 typing_extensions\.TypeVar.*
@@ -663,6 +667,11 @@ xml.etree.ElementTree.Element.__iter__
 xml.etree.cElementTree.Element.__iter__
 typing.IO.__iter__  # See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
 
+# Pretend typing.ByteString is a Union, to better match its documented semantics.
+# As a side effect, this changes the definition of collections.abc.ByteString, which is okay,
+# because it's not an ABC that makes any sense and was deprecated in 3.12
+_collections_abc.ByteString
+
 # ==========
 # Missing from deprecated modules
 # Any of these can be added if someone needs them
@@ -770,3 +779,7 @@ pkgutil.ImpLoader.get_source
 pkgutil.ImpLoader.is_package
 pkgutil.ImpLoader.load_module
 pkgutil.ImpLoader.source
+
+# We lie about the existence of these methods
+.*.__buffer__
+.*.__release_buffer__
