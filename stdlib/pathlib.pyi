@@ -160,7 +160,8 @@ class Path(PurePath):
         def owner(self) -> str: ...
         def group(self) -> str: ...
 
-    # This methods does "exist" on Windows, but always raises NotImplementedError on <3.12
+    # This method does "exist" on Windows on <3.12, but always raises NotImplementedError
+    # On py312+, it works properly on Windows, as with all other platforms
     if sys.platform != "win32" or sys.version_info >= (3, 12):
         def is_mount(self) -> bool: ...
 
