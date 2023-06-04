@@ -11,8 +11,6 @@ _socket.IP_PKTINFO
 _socket.IP_UNBLOCK_SOURCE
 curses.unget_wch
 curses.window.get_wch
-fcntl.FICLONE
-fcntl.FICLONERANGE
 os.PRIO_DARWIN_BG
 os.PRIO_DARWIN_NONUI
 os.PRIO_DARWIN_PROCESS

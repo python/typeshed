@@ -104,7 +104,6 @@ logging.Logger.getChildren
 logging.__all__
 logging.getHandlerByName
 logging.getHandlerNames
-mmap.MAP_STACK
 multiprocessing.connection.deliver_challenge
 multiprocessing.queues.Queue.__class_getitem__
 ntpath.__all__
@@ -115,18 +114,9 @@ opcode.hasarg
 opcode.hasexc
 opcode.hasnargs
 os.DirEntry.is_junction
-os.eventfd
-os.eventfd_read
-os.eventfd_write
 os.path.__all__
 os.path.isjunction
 os.path.splitroot
-os.sendfile
-os.setns
-os.setresgid
-os.setresuid
-os.splice
-os.unshare
 pathlib.Path.__init__
 pathlib.Path.exists
 pathlib.Path.glob
@@ -147,7 +137,6 @@ posixpath.isjunction
 posixpath.splitroot
 pydoc.HTMLRepr.__init__
 pydoc.TextRepr.__init__
-resource.prlimit
 smtplib.SMTP.starttls
 smtplib.SMTP_SSL.__init__
 sqlite3.Connection.autocommit

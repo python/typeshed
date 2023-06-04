@@ -30,6 +30,7 @@
 fcntl.FICLONE
 fcntl.FICLONERANGE
 mmap.MAP_STACK
+resource.prlimit
 signal.sigtimedwait
 signal.sigwaitinfo
 ssl.OP_ENABLE_KTLS
