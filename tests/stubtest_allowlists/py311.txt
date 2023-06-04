@@ -47,6 +47,7 @@ tkinter._VersionInfoType.__doc__
 typing.NewType.__call__
 typing.NewType.__mro_entries__
 weakref.WeakValueDictionary.update
+typing_extensions\.get_original_bases
 
 # Runtime has *args, **kwargs, but will error if any are supplied
 unittest.TestCase.__init_subclass__

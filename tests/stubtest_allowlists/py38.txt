@@ -71,6 +71,7 @@ xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modu
 xml.etree.ElementTree.XMLParser.__init__  # Defined in C so has general signature
 xml.etree.cElementTree.TreeBuilder.start  # bpo-39495
 xml.etree.cElementTree.XMLParser.__init__  # Defined in C so has general signature
+typing_extensions\.get_original_bases
 
 # Exist at runtime for internal reasons, no need to put them in the stub
 typing_extensions\.TypeAliasType\.__call__

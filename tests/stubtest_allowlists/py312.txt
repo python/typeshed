@@ -280,6 +280,12 @@ zipfile.Path.relative_to
 zipfile.Path.rglob
 zoneinfo.ZoneInfo.from_file
 
+array.array.__release_buffer__
+builtins.bytearray.__release_buffer__
+builtins.memoryview.__release_buffer__
+mmap.mmap.__release_buffer__
+pickle.PickleBuffer.__release_buffer__
+
 # Errors that also existed on Python 3.11
 _collections_abc.AsyncGenerator.ag_await
 _collections_abc.AsyncGenerator.ag_code

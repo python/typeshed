@@ -75,6 +75,7 @@ typing._TypedDict.update
 typing._TypedDict.values
 weakref.ProxyType.__reversed__  # Doesn't really exist
 weakref.WeakValueDictionary.update
+typing_extensions\.get_original_bases
 
 # Exist at runtime for internal reasons, no need to put them in the stub
 typing_extensions\.TypeAliasType\.__call__
