@@ -5,7 +5,7 @@ from collections.abc import Callable, Generator, Iterable, Iterator, Mapping, Se
 from contextlib import contextmanager
 from enum import Enum
 from types import TracebackType
-from typing import Any, Generic, NoReturn, Protocol, TypeVar, overload
+from typing import Any, Generic, NoReturn, TypeVar, overload
 from typing_extensions import ParamSpec, Self, TypeAlias
 
 import numpy
@@ -81,14 +81,6 @@ _ScalarTensorCompatible: TypeAlias = Tensor | str | float | numpy.ndarray[Any, A
 _TensorCompatible: TypeAlias = _ScalarTensorCompatible | Sequence[_TensorCompatible]
 _ShapeLike: TypeAlias = TensorShape | Iterable[_ScalarTensorCompatible | None] | int | Tensor
 _DTypeLike: TypeAlias = DType | str | numpy.dtype[Any]
-
-class _KerasSerializable1(Protocol):
-    def get_config(self) -> dict[str, Any]: ...
-
-class _KerasSerializable2(Protocol):
-    __name__: str
-
-_KerasSerializable: TypeAlias = _KerasSerializable1 | _KerasSerializable2  # noqa: Y047
 
 class Tensor:
     def __init__(self, op: Operation, value_index: int, dtype: DType) -> None: ...
