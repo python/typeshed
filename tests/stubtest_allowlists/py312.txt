@@ -179,10 +179,6 @@ ssl.OP_LEGACY_SERVER_CONNECT
 ssl.Options.OP_LEGACY_SERVER_CONNECT
 ssl.RAND_pseudo_bytes
 ssl.wrap_socket
-sys.activate_stack_trampoline
-sys.deactivate_stack_trampoline
-sys.getunicodeinternedsize
-sys.is_stack_trampoline_active
 tarfile.AbsoluteLinkError
 tarfile.AbsolutePathError
 tarfile.FilterError
