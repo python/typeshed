@@ -26,6 +26,7 @@ from tensorflow.core.protobuf import struct_pb2
 # is necessary to avoid a crash in pytype.
 from tensorflow.dtypes import *
 from tensorflow.dtypes import DType as DType
+from tensorflow.keras import losses as losses
 
 # Most tf.math functions are exported as tf, but sadly not all are.
 from tensorflow.math import (
