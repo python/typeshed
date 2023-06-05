@@ -1,9 +1,9 @@
-from typing import Any
+from _typeshed import Incomplete
 
 from openpyxl.descriptors.serialisable import Serialisable
 
 class Protection(Serialisable):
     tagname: str
-    locked: Any
-    hidden: Any
-    def __init__(self, locked: bool = ..., hidden: bool = ...) -> None: ...
+    locked: Incomplete
+    hidden: Incomplete
+    def __init__(self, locked: bool = True, hidden: bool = False) -> None: ...

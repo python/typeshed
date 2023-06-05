@@ -1,8 +1,11 @@
 from abc import abstractmethod
 from logging import Logger
+from typing import Generic, TypeVar
 
 from .amqp_object import AMQPObject, Method as AMQPMethod
 from .spec import BasicProperties
+
+_M = TypeVar("_M", bound=AMQPMethod)
 
 LOGGER: Logger
 
@@ -13,9 +16,9 @@ class Frame(AMQPObject):
     @abstractmethod
     def marshal(self) -> bytes: ...
 
-class Method(Frame):
-    method: AMQPMethod
-    def __init__(self, channel_number: int, method: AMQPMethod) -> None: ...
+class Method(Frame, Generic[_M]):
+    method: _M
+    def __init__(self, channel_number: int, method: _M) -> None: ...
     def marshal(self) -> bytes: ...
 
 class Header(Frame):
@@ -38,7 +41,7 @@ class ProtocolHeader(AMQPObject):
     major: int
     minor: int
     revision: int
-    def __init__(self, major: int | None = ..., minor: int | None = ..., revision: int | None = ...) -> None: ...
+    def __init__(self, major: int | None = None, minor: int | None = None, revision: int | None = None) -> None: ...
     def marshal(self) -> bytes: ...
 
 def decode_frame(data_in: bytes) -> tuple[int, Frame | None]: ...

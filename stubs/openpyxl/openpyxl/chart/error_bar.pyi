@@ -1,32 +1,38 @@
-from typing import Any
+from _typeshed import Incomplete, Unused
+from typing import ClassVar
+from typing_extensions import Literal
 
+from openpyxl.chart.data_source import NumDataSource
+from openpyxl.chart.shapes import GraphicalProperties
+from openpyxl.descriptors.base import Alias, Typed
+from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
 class ErrorBars(Serialisable):
     tagname: str
-    errDir: Any
-    direction: Any
-    errBarType: Any
-    style: Any
-    errValType: Any
-    size: Any
-    noEndCap: Any
-    plus: Any
-    minus: Any
-    val: Any
-    spPr: Any
-    graphicalProperties: Any
-    extLst: Any
-    __elements__: Any
+    errDir: Incomplete
+    direction: Alias
+    errBarType: Incomplete
+    style: Alias
+    errValType: Incomplete
+    size: Alias
+    noEndCap: Incomplete
+    plus: Typed[NumDataSource, Literal[True]]
+    minus: Typed[NumDataSource, Literal[True]]
+    val: Incomplete
+    spPr: Typed[GraphicalProperties, Literal[True]]
+    graphicalProperties: Alias
+    extLst: Typed[ExtensionList, Literal[True]]
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        errDir: Any | None = ...,
-        errBarType: str = ...,
-        errValType: str = ...,
-        noEndCap: Any | None = ...,
-        plus: Any | None = ...,
-        minus: Any | None = ...,
-        val: Any | None = ...,
-        spPr: Any | None = ...,
-        extLst: Any | None = ...,
+        errDir: Incomplete | None = None,
+        errBarType: str = "both",
+        errValType: str = "fixedVal",
+        noEndCap: Incomplete | None = None,
+        plus: NumDataSource | None = None,
+        minus: NumDataSource | None = None,
+        val: Incomplete | None = None,
+        spPr: GraphicalProperties | None = None,
+        extLst: Unused = None,
     ) -> None: ...

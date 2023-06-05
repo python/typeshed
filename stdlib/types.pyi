@@ -16,8 +16,8 @@ from collections.abc import (
 from importlib.machinery import ModuleSpec
 
 # pytype crashes if types.MappingProxyType inherits from collections.abc.Mapping instead of typing.Mapping
-from typing import Any, ClassVar, Generic, Mapping, Protocol, TypeVar, overload  # noqa: Y027
-from typing_extensions import Literal, ParamSpec, final
+from typing import Any, ClassVar, Generic, Mapping, Protocol, TypeVar, overload  # noqa: Y022
+from typing_extensions import Literal, ParamSpec, TypeVarTuple, final
 
 __all__ = [
     "FunctionType",
@@ -56,6 +56,9 @@ if sys.version_info >= (3, 9):
 if sys.version_info >= (3, 10):
     __all__ += ["EllipsisType", "NoneType", "NotImplementedType", "UnionType"]
 
+if sys.version_info >= (3, 12):
+    __all__ += ["get_original_bases"]
+
 # Note, all classes "defined" here require special handling.
 
 _T1 = TypeVar("_T1")
@@ -68,6 +71,9 @@ _V_co = TypeVar("_V_co", covariant=True)
 
 @final
 class _Cell:
+    if sys.version_info >= (3, 8):
+        def __init__(self, __contents: object = ...) -> None: ...
+
     __hash__: ClassVar[None]  # type: ignore[assignment]
     cell_contents: Any
 
@@ -88,6 +94,8 @@ class FunctionType:
     if sys.version_info >= (3, 10):
         @property
         def __builtins__(self) -> dict[str, Any]: ...
+    if sys.version_info >= (3, 12):
+        __type_params__: tuple[TypeVar | ParamSpec | TypeVarTuple, ...]
 
     __module__: str
     def __init__(
@@ -100,9 +108,9 @@ class FunctionType:
     ) -> None: ...
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
     @overload
-    def __get__(self, obj: None, type: type) -> FunctionType: ...
+    def __get__(self, __instance: None, __owner: type) -> FunctionType: ...
     @overload
-    def __get__(self, obj: object, type: type | None = ...) -> MethodType: ...
+    def __get__(self, __instance: object, __owner: type | None = None) -> MethodType: ...
 
 LambdaType = FunctionType
 
@@ -238,13 +246,13 @@ class CodeType:
         def replace(
             self,
             *,
-            co_argcount: int = ...,
-            co_posonlyargcount: int = ...,
-            co_kwonlyargcount: int = ...,
-            co_nlocals: int = ...,
-            co_stacksize: int = ...,
-            co_flags: int = ...,
-            co_firstlineno: int = ...,
+            co_argcount: int = -1,
+            co_posonlyargcount: int = -1,
+            co_kwonlyargcount: int = -1,
+            co_nlocals: int = -1,
+            co_stacksize: int = -1,
+            co_flags: int = -1,
+            co_firstlineno: int = -1,
             co_code: bytes = ...,
             co_consts: tuple[object, ...] = ...,
             co_names: tuple[str, ...] = ...,
@@ -261,13 +269,13 @@ class CodeType:
         def replace(
             self,
             *,
-            co_argcount: int = ...,
-            co_posonlyargcount: int = ...,
-            co_kwonlyargcount: int = ...,
-            co_nlocals: int = ...,
-            co_stacksize: int = ...,
-            co_flags: int = ...,
-            co_firstlineno: int = ...,
+            co_argcount: int = -1,
+            co_posonlyargcount: int = -1,
+            co_kwonlyargcount: int = -1,
+            co_nlocals: int = -1,
+            co_stacksize: int = -1,
+            co_flags: int = -1,
+            co_firstlineno: int = -1,
             co_code: bytes = ...,
             co_consts: tuple[object, ...] = ...,
             co_names: tuple[str, ...] = ...,
@@ -282,13 +290,13 @@ class CodeType:
         def replace(
             self,
             *,
-            co_argcount: int = ...,
-            co_posonlyargcount: int = ...,
-            co_kwonlyargcount: int = ...,
-            co_nlocals: int = ...,
-            co_stacksize: int = ...,
-            co_flags: int = ...,
-            co_firstlineno: int = ...,
+            co_argcount: int = -1,
+            co_posonlyargcount: int = -1,
+            co_kwonlyargcount: int = -1,
+            co_nlocals: int = -1,
+            co_stacksize: int = -1,
+            co_flags: int = -1,
+            co_firstlineno: int = -1,
             co_code: bytes = ...,
             co_consts: tuple[object, ...] = ...,
             co_names: tuple[str, ...] = ...,
@@ -307,6 +315,7 @@ class MappingProxyType(Mapping[_KT, _VT_co], Generic[_KT, _VT_co]):
     def __getitem__(self, __key: _KT) -> _VT_co: ...
     def __iter__(self) -> Iterator[_KT]: ...
     def __len__(self) -> int: ...
+    def __eq__(self, __value: object) -> bool: ...
     def copy(self) -> dict[_KT, _VT_co]: ...
     def keys(self) -> KeysView[_KT]: ...
     def values(self) -> ValuesView[_VT_co]: ...
@@ -359,7 +368,7 @@ class GeneratorType(Generator[_T_co, _T_contra, _V_co]):
         self, __typ: type[BaseException], __val: BaseException | object = ..., __tb: TracebackType | None = ...
     ) -> _T_co: ...
     @overload
-    def throw(self, __typ: BaseException, __val: None = ..., __tb: TracebackType | None = ...) -> _T_co: ...
+    def throw(self, __typ: BaseException, __val: None = None, __tb: TracebackType | None = ...) -> _T_co: ...
 
 @final
 class AsyncGeneratorType(AsyncGenerator[_T_co, _T_contra]):
@@ -375,7 +384,7 @@ class AsyncGeneratorType(AsyncGenerator[_T_co, _T_contra]):
         self, __typ: type[BaseException], __val: BaseException | object = ..., __tb: TracebackType | None = ...
     ) -> _T_co: ...
     @overload
-    async def athrow(self, __typ: BaseException, __val: None = ..., __tb: TracebackType | None = ...) -> _T_co: ...
+    async def athrow(self, __typ: BaseException, __val: None = None, __tb: TracebackType | None = ...) -> _T_co: ...
     def aclose(self) -> Coroutine[Any, Any, None]: ...
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, __item: Any) -> GenericAlias: ...
@@ -398,7 +407,7 @@ class CoroutineType(Coroutine[_T_co, _T_contra, _V_co]):
         self, __typ: type[BaseException], __val: BaseException | object = ..., __tb: TracebackType | None = ...
     ) -> _T_co: ...
     @overload
-    def throw(self, __typ: BaseException, __val: None = ..., __tb: TracebackType | None = ...) -> _T_co: ...
+    def throw(self, __typ: BaseException, __val: None = None, __tb: TracebackType | None = ...) -> _T_co: ...
 
 class _StaticFunctionType:
     # Fictional type to correct the type of MethodType.__func__.
@@ -410,7 +419,7 @@ class _StaticFunctionType:
     # By wrapping FunctionType in _StaticFunctionType, we get the right result;
     # similar to wrapping a function in staticmethod() at runtime to prevent it
     # being bound as a method.
-    def __get__(self, obj: object | None, type: type | None) -> FunctionType: ...
+    def __get__(self, obj: object, type: type | None) -> FunctionType: ...
 
 @final
 class MethodType:
@@ -450,7 +459,7 @@ class WrapperDescriptorType:
     @property
     def __objclass__(self) -> type: ...
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
-    def __get__(self, __obj: Any, __type: type = ...) -> Any: ...
+    def __get__(self, __instance: Any, __owner: type | None = None) -> Any: ...
 
 @final
 class MethodWrapperType:
@@ -463,8 +472,8 @@ class MethodWrapperType:
     @property
     def __objclass__(self) -> type: ...
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
-    def __eq__(self, __other: object) -> bool: ...
-    def __ne__(self, __other: object) -> bool: ...
+    def __eq__(self, __value: object) -> bool: ...
+    def __ne__(self, __value: object) -> bool: ...
 
 @final
 class MethodDescriptorType:
@@ -475,7 +484,7 @@ class MethodDescriptorType:
     @property
     def __objclass__(self) -> type: ...
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
-    def __get__(self, obj: Any, type: type = ...) -> Any: ...
+    def __get__(self, __instance: Any, __owner: type | None = None) -> Any: ...
 
 @final
 class ClassMethodDescriptorType:
@@ -486,7 +495,7 @@ class ClassMethodDescriptorType:
     @property
     def __objclass__(self) -> type: ...
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
-    def __get__(self, obj: Any, type: type = ...) -> Any: ...
+    def __get__(self, __instance: Any, __owner: type | None = None) -> Any: ...
 
 @final
 class TracebackType:
@@ -532,9 +541,9 @@ class GetSetDescriptorType:
     def __qualname__(self) -> str: ...
     @property
     def __objclass__(self) -> type: ...
-    def __get__(self, __obj: Any, __type: type = ...) -> Any: ...
+    def __get__(self, __instance: Any, __owner: type | None = None) -> Any: ...
     def __set__(self, __instance: Any, __value: Any) -> None: ...
-    def __delete__(self, __obj: Any) -> None: ...
+    def __delete__(self, __instance: Any) -> None: ...
 
 @final
 class MemberDescriptorType:
@@ -544,20 +553,23 @@ class MemberDescriptorType:
     def __qualname__(self) -> str: ...
     @property
     def __objclass__(self) -> type: ...
-    def __get__(self, __obj: Any, __type: type = ...) -> Any: ...
+    def __get__(self, __instance: Any, __owner: type | None = None) -> Any: ...
     def __set__(self, __instance: Any, __value: Any) -> None: ...
-    def __delete__(self, __obj: Any) -> None: ...
+    def __delete__(self, __instance: Any) -> None: ...
 
 def new_class(
     name: str,
-    bases: Iterable[object] = ...,
-    kwds: dict[str, Any] | None = ...,
-    exec_body: Callable[[dict[str, Any]], object] | None = ...,
+    bases: Iterable[object] = (),
+    kwds: dict[str, Any] | None = None,
+    exec_body: Callable[[dict[str, Any]], object] | None = None,
 ) -> type: ...
 def resolve_bases(bases: Iterable[object]) -> tuple[Any, ...]: ...
 def prepare_class(
-    name: str, bases: tuple[type, ...] = ..., kwds: dict[str, Any] | None = ...
+    name: str, bases: tuple[type, ...] = (), kwds: dict[str, Any] | None = None
 ) -> tuple[type, dict[str, Any], dict[str, Any]]: ...
+
+if sys.version_info >= (3, 12):
+    def get_original_bases(__cls: type) -> tuple[Any, ...]: ...
 
 # Actually a different type, but `property` is special and we want that too.
 DynamicClassAttribute = property
@@ -569,7 +581,7 @@ _P = ParamSpec("_P")
 # it's not really an Awaitable, but can be used in an await expression. Real type: Generator & Awaitable
 # The type: ignore is due to overlapping overloads, not the use of ParamSpec
 @overload
-def coroutine(func: Callable[_P, Generator[_R, Any, Any]]) -> Callable[_P, Awaitable[_R]]: ...  # type: ignore[misc]
+def coroutine(func: Callable[_P, Generator[Any, Any, _R]]) -> Callable[_P, Awaitable[_R]]: ...  # type: ignore[misc]
 @overload
 def coroutine(func: _Fn) -> _Fn: ...
 
@@ -607,5 +619,5 @@ if sys.version_info >= (3, 10):
     class UnionType:
         @property
         def __args__(self) -> tuple[Any, ...]: ...
-        def __or__(self, __obj: Any) -> UnionType: ...
-        def __ror__(self, __obj: Any) -> UnionType: ...
+        def __or__(self, __value: Any) -> UnionType: ...
+        def __ror__(self, __value: Any) -> UnionType: ...

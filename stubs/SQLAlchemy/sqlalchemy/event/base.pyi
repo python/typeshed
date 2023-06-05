@@ -1,17 +1,18 @@
+from _typeshed import Incomplete
 from typing import Any
 
 class _UnpickleDispatch:
     def __call__(self, _instance_cls): ...
 
 class _Dispatch:
-    def __init__(self, parent, instance_cls: Any | None = ...) -> None: ...
+    def __init__(self, parent, instance_cls: Incomplete | None = None) -> None: ...
     def __getattr__(self, name: str): ...
     def __reduce__(self): ...
 
 class _EventMeta(type):
     def __init__(cls, classname, bases, dict_) -> None: ...
 
-class Events:
+class Events(metaclass=_EventMeta):
     dispatch: Any
 
 class _JoinedDispatcher:

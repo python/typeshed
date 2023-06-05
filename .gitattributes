@@ -3,3 +3,4 @@
 tests/stubtest_allowlists/*.txt linguist-language=ini
 tests/pytype_exclude_list.txt linguist-language=ini
 pyrightconfig*.json linguist-language=jsonc
+.vscode/*.json linguist-language=jsonc

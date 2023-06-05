@@ -1,1 +1,5 @@
-version = "2.0.*"
+version = "2.1.*"
+partial_stub = true
+
+[tool.stubtest]
+ignore_missing_stub = true

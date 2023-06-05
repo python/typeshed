@@ -1,14 +1,15 @@
 import abc
-from _typeshed import Incomplete, Self
+from _typeshed import Incomplete
 from collections.abc import Callable
 from logging import Logger
-from typing_extensions import Final
+from typing_extensions import Final, Self
 
 from .callback import CallbackManager
 from .channel import Channel
 from .compat import AbstractBase
 from .credentials import _Credentials
 from .frame import Method
+from .spec import Connection as SpecConnection
 
 PRODUCT: str
 LOGGER: Logger
@@ -129,7 +130,7 @@ class URLParameters(Parameters):
 class SSLOptions:
     context: Incomplete
     server_hostname: Incomplete
-    def __init__(self, context, server_hostname: Incomplete | None = ...) -> None: ...
+    def __init__(self, context, server_hostname: Incomplete | None = None) -> None: ...
 
 class Connection(AbstractBase, metaclass=abc.ABCMeta):
     ON_CONNECTION_CLOSED: Final[str]
@@ -149,25 +150,27 @@ class Connection(AbstractBase, metaclass=abc.ABCMeta):
     server_properties: Incomplete
     known_hosts: Incomplete
     def __init__(
-        self: Self,
-        parameters: Parameters | None = ...,
-        on_open_callback: Callable[[Self], object] | None = ...,
-        on_open_error_callback: Callable[[Self, BaseException], object] | None = ...,
-        on_close_callback: Callable[[Self, BaseException], object] | None = ...,
-        internal_connection_workflow: bool = ...,
+        self,
+        parameters: Parameters | None = None,
+        on_open_callback: Callable[[Self], object] | None = None,
+        on_open_error_callback: Callable[[Self, BaseException], object] | None = None,
+        on_close_callback: Callable[[Self, BaseException], object] | None = None,
+        internal_connection_workflow: bool = True,
     ) -> None: ...
-    def add_on_close_callback(self: Self, callback: Callable[[Self, BaseException], object]) -> None: ...
-    def add_on_connection_blocked_callback(self: Self, callback: Callable[[Self, Method], object]) -> None: ...
-    def add_on_connection_unblocked_callback(self: Self, callback: Callable[[Self, Method], object]) -> None: ...
-    def add_on_open_callback(self: Self, callback: Callable[[Self], object]) -> None: ...
+    def add_on_close_callback(self, callback: Callable[[Self, BaseException], object]) -> None: ...
+    def add_on_connection_blocked_callback(self, callback: Callable[[Self, Method[SpecConnection.Blocked]], object]) -> None: ...
+    def add_on_connection_unblocked_callback(
+        self, callback: Callable[[Self, Method[SpecConnection.Unblocked]], object]
+    ) -> None: ...
+    def add_on_open_callback(self, callback: Callable[[Self], object]) -> None: ...
     def add_on_open_error_callback(
-        self: Self, callback: Callable[[Self, BaseException], object], remove_default: bool = ...
+        self, callback: Callable[[Self, BaseException], object], remove_default: bool = True
     ) -> None: ...
     def channel(
-        self, channel_number: int | None = ..., on_open_callback: Callable[[Channel], object] | None = ...
+        self, channel_number: int | None = None, on_open_callback: Callable[[Channel], object] | None = None
     ) -> Channel: ...
-    def update_secret(self, new_secret, reason, callback: Incomplete | None = ...) -> None: ...
-    def close(self, reply_code: int = ..., reply_text: str = ...) -> None: ...
+    def update_secret(self, new_secret, reason, callback: Incomplete | None = None) -> None: ...
+    def close(self, reply_code: int = 200, reply_text: str = "Normal shutdown") -> None: ...
     @property
     def is_closed(self) -> bool: ...
     @property

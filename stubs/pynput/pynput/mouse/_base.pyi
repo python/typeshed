@@ -1,9 +1,9 @@
 import enum
 import sys
-from _typeshed import Self
 from collections.abc import Callable
 from types import TracebackType
 from typing import Any
+from typing_extensions import Self
 
 from pynput._util import AbstractListener
 
@@ -54,8 +54,8 @@ class Controller:
     def press(self, button: Button) -> None: ...
     def release(self, button: Button) -> None: ...
     def move(self, dx: int, dy: int) -> None: ...
-    def click(self, button: Button, count: int = ...) -> None: ...
-    def __enter__(self: Self) -> Self: ...
+    def click(self, button: Button, count: int = 1) -> None: ...
+    def __enter__(self) -> Self: ...
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> None: ...
@@ -86,9 +86,9 @@ class Listener(AbstractListener):
 
     def __init__(
         self,
-        on_move: Callable[[int, int], bool | None] | None = ...,
-        on_click: Callable[[int, int, Button, bool], bool | None] | None = ...,
-        on_scroll: Callable[[int, int, int, int], bool | None] | None = ...,
-        suppress: bool = ...,
+        on_move: Callable[[int, int], bool | None] | None = None,
+        on_click: Callable[[int, int, Button, bool], bool | None] | None = None,
+        on_scroll: Callable[[int, int, int, int], bool | None] | None = None,
+        suppress: bool = False,
         **kwargs: Any,
     ) -> None: ...

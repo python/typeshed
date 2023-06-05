@@ -1,0 +1,94 @@
+/*
+ * Copy this file as `.vscode/settings.json` to configure VSCode for this workspace.
+ * Unfortunately, VSCode doesn't (yet) offer any way to have "workspace defaults" or "user-worspace settings",
+ * so offering defaults to copy is the best we can do at the moment.
+ *
+ * ⚠ Disclaimer: The typeshed team doesn't commit to maintaining this file. It exists purely for your ease of use.
+*/
+{
+    // Don't format on save for formatters we don't explicitely control
+    "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": false
+    },
+    // Set file associations to support comments syntax highlight
+    "files.associations": {
+        "settings.default.json": "jsonc",
+        "pyrightconfig*.json": "jsonc",
+        ".flake8": "properties",
+        "stubtest_allowlist*.txt": "properties",
+        "**/stubtest_allowlists/*.txt": "properties",
+        "pytype_exclude_list.txt": "properties"
+    },
+    "files.exclude": {
+        "**/.mypy_cache": true
+    },
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "editor.comments.insertSpace": true,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    "editor.tabSize": 2,
+    "[json][jsonc][python]": {
+        "editor.tabSize": 4
+    },
+    "[markdown]": {
+        "editor.rulers": [
+            90,
+            130
+        ]
+    },
+    "[git-commit]": {
+        "editor.rulers": [
+            72
+        ]
+    },
+    "[yaml]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll": true
+        }
+    },
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.rulers": [
+            130
+        ],
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll": true,
+            "source.fixAll.unusedImports": true,
+            "source.fixAll.convertImportFormat": true,
+            "source.organizeImports": true
+        }
+    },
+    "isort.check": true,
+    // Using the dedicated black extension
+    "black-formatter.importStrategy": "fromEnvironment",
+    "python.formatting.provider": "none",
+    // Important to follow the config in pyrightconfig.json
+    "python.analysis.useLibraryCodeForTypes": false,
+    "python.analysis.extraPaths": [
+        "tests"
+    ],
+    "python.linting.enabled": true,
+    "python.linting.mypyEnabled": true,
+    "python.linting.mypyArgs": [
+        "--show-column-numbers",
+        "--no-pretty",
+        "--custom-typeshed-dir=${workspaceFolder}",
+        "--python-version=3.7"
+    ],
+    "isort.importStrategy": "fromEnvironment",
+    // Not using bandit
+    "python.linting.banditEnabled": false,
+    // Using dedicated Flake8 extension
+    "python.linting.flake8Enabled": false,
+    "python.linting.pycodestyleEnabled": false,
+    "python.linting.prospectorEnabled": false,
+    "python.linting.pylamaEnabled": false,
+    // Use the new dedicated extensions instead (and we're not using pylint)
+    "python.linting.pylintEnabled": false
+}

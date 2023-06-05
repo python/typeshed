@@ -1,14 +1,14 @@
 import sys
-from _typeshed import Incomplete, Self
-from typing_extensions import final
+from _typeshed import Incomplete
+from typing_extensions import Self, final
 
 version: str
 
 def global_init(option: int) -> None: ...
 def global_cleanup() -> None: ...
-def version_info() -> tuple[
-    int, str, int, str, int, str, int, str, tuple[str, ...], Incomplete | None, int, Incomplete | None
-]: ...
+def version_info() -> (
+    tuple[int, str, int, str, int, str, int, str, tuple[str, ...], Incomplete | None, int, Incomplete | None]
+): ...
 
 class error(Exception): ...
 
@@ -27,7 +27,7 @@ class Curl:
     def unsetopt(self, option: int) -> Incomplete: ...
     def pause(self, bitmask: Incomplete) -> Incomplete: ...
     def errstr(self) -> str: ...
-    def duphandle(self: Self) -> Self: ...
+    def duphandle(self) -> Self: ...
     def errstr_raw(self) -> bytes: ...
     def set_ca_certs(self, __value: bytes | str) -> None: ...
 
@@ -39,7 +39,7 @@ class CurlMulti:
     def setopt(self, option: int, value: Incomplete) -> None: ...
     def perform(self) -> tuple[Incomplete, int]: ...
     def fdset(self) -> tuple[list[Incomplete], list[Incomplete], list[Incomplete]]: ...
-    def select(self, timeout: float = ...) -> int: ...
+    def select(self, timeout: float) -> int: ...
     def info_read(self, max_objects: int = ...) -> tuple[int, list[Incomplete], list[Incomplete]]: ...
     def socket_action(self, sockfd: int, ev_bitmask: int) -> tuple[int, int]: ...
     def assign(self, __sockfd: int, __socket: Incomplete) -> Incomplete: ...
@@ -94,6 +94,7 @@ CURL_HTTP_VERSION_2: int
 CURL_HTTP_VERSION_2TLS: int
 CURL_HTTP_VERSION_2_0: int
 CURL_HTTP_VERSION_2_PRIOR_KNOWLEDGE: int
+CURL_HTTP_VERSION_3: int
 CURL_HTTP_VERSION_LAST: int
 CURL_HTTP_VERSION_NONE: int
 CURL_VERSION_ALTSVC: int
@@ -171,6 +172,7 @@ HEADEROPT: int
 HEADER_SEPARATE: int
 HEADER_SIZE: int
 HEADER_UNIFIED: int
+HTTP09_ALLOWED: int
 HTTP200ALIASES: int
 HTTPAUTH: int
 HTTPAUTH_ANY: int
@@ -381,6 +383,7 @@ PROXY_SSLKEY: int
 PROXY_SSLKEYTYPE: int
 PROXY_SSL_VERIFYHOST: int
 PROXY_SSL_VERIFYPEER: int
+PROXY_TLS13_CIPHERS: int
 PROXY_TRANSFER_MODE: int
 PUT: int
 QUOTE: int
@@ -506,6 +509,7 @@ TIMECONDITION_NONE: int
 TIMEOUT: int
 TIMEOUT_MS: int
 TIMEVALUE: int
+TLS13_CIPHERS: int
 TLSAUTH_PASSWORD: int
 TLSAUTH_TYPE: int
 TLSAUTH_USERNAME: int
