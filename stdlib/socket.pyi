@@ -449,7 +449,6 @@ if sys.version_info >= (3, 12):
 
     if sys.platform == "win32":
         from _socket import (
-            AF_HYPERV as AF_HYPERV,
             HV_GUID_BROADCAST as HV_GUID_BROADCAST,
             HV_GUID_CHILDREN as HV_GUID_CHILDREN,
             HV_GUID_LOOPBACK as HV_GUID_LOOPBACK,
@@ -520,6 +519,8 @@ class AddressFamily(IntEnum):
         AF_LINK: int
         if sys.platform != "darwin":
             AF_BLUETOOTH: int
+    if sys.platform == "win32" and sys.version_info >= (3, 12):
+        AF_HYPERV: int
 
 AF_INET = AddressFamily.AF_INET
 AF_INET6 = AddressFamily.AF_INET6
@@ -570,6 +571,9 @@ if sys.platform != "win32" or sys.version_info >= (3, 9):
     AF_LINK = AddressFamily.AF_LINK
     if sys.platform != "darwin":
         AF_BLUETOOTH = AddressFamily.AF_BLUETOOTH
+
+if sys.platform == "win32" and sys.version_info >= (3, 12):
+    AF_HYPERV = AddressFamily.AF_HYPERV
 
 class SocketKind(IntEnum):
     SOCK_STREAM: int

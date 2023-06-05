@@ -706,12 +706,12 @@ if sys.version_info >= (3, 12):
         HVSOCKET_CONNECT_TIMEOUT_MAX: int
         HVSOCKET_CONNECTED_SUSPEND: int
         HVSOCKET_ADDRESS_FLAG_PASSTHRU: int
-        HV_GUID_ZERO: int
-        HV_GUID_WILDCARD: int
-        HV_GUID_BROADCAST: int
-        HV_GUID_CHILDREN: int
-        HV_GUID_LOOPBACK: int
-        HV_GUID_PARENT: int
+        HV_GUID_ZERO: str
+        HV_GUID_WILDCARD: str
+        HV_GUID_BROADCAST: str
+        HV_GUID_CHILDREN: str
+        HV_GUID_LOOPBACK: str
+        HV_GUID_PARENT: str
     else:
         ETHERTYPE_ARP: int
         ETHERTYPE_IP: int
