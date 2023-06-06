@@ -50,7 +50,6 @@ enum.EnumMeta.__call__
 enum.EnumType.__call__
 enum.property.member
 ftplib.FTP_TLS.__init__
-functools.WRAPPER_ASSIGNMENTS
 functools.update_wrapper
 functools.wraps
 genericpath.__all__
