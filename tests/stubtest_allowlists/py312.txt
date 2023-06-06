@@ -267,7 +267,6 @@ _collections_abc.MappingView.__class_getitem__
 _collections_abc.ValuesView.__reversed__
 _csv.Reader
 _csv.Writer
-argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group
 configparser.LegacyInterpolation.__init__
 enum.Enum.__init__
 ftplib.FTP.trust_server_pasv_ipv4_address
@@ -330,6 +329,7 @@ os.path.join
 _ast.ImportFrom.level  # None on the class, but never None on instances
 _collections_abc.AsyncGenerator.athrow  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
 _weakref.ProxyType.__reversed__  # Doesn't really exist
+argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group  # deprecated, forwards arguments to super
 ast.ImportFrom.level  # None on the class, but never None on instances
 asyncio.base_events.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 asyncio.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
