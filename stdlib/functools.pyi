@@ -74,12 +74,12 @@ else:
 
 if sys.version_info >= (3, 12):
     WRAPPER_ASSIGNMENTS: tuple[
-        Literal['__module__'],
-        Literal['__name__'],
-        Literal['__qualname__'],
-        Literal['__doc__'],
-        Literal['__annotations__'],
-        Literal['__type_params__'],
+        Literal["__module__"],
+        Literal["__name__"],
+        Literal["__qualname__"],
+        Literal["__doc__"],
+        Literal["__annotations__"],
+        Literal["__type_params__"],
     ]
 else:
     WRAPPER_ASSIGNMENTS: tuple[
@@ -109,6 +109,7 @@ if sys.version_info >= (3, 12):
         assigned: Sequence[str] = ("__module__", "__name__", "__qualname__", "__doc__", "__annotations__", "__type_params__"),
         updated: Sequence[str] = ("__dict__",),
     ) -> _Wrapper[_PWrapped, _RWrapped]: ...
+
 else:
     def update_wrapper(
         wrapper: Callable[_PWrapper, _RWapper],
@@ -121,6 +122,7 @@ else:
         assigned: Sequence[str] = ("__module__", "__name__", "__qualname__", "__doc__", "__annotations__"),
         updated: Sequence[str] = ("__dict__",),
     ) -> _Wrapper[_PWrapped, _RWrapped]: ...
+
 def total_ordering(cls: type[_T]) -> type[_T]: ...
 def cmp_to_key(mycmp: Callable[[_T, _T], int]) -> Callable[[_T], SupportsAllComparisons]: ...
 
