@@ -147,7 +147,7 @@ class TextIOBase(IOBase):
 class TextIOWrapper(TextIOBase, TextIO):  # type: ignore[misc]  # incompatible definitions of write in the base classes
     def __init__(
         self,
-        buffer: IO[bytes],
+        buffer: BufferedIOBase,
         encoding: str | None = ...,
         errors: str | None = ...,
         newline: str | None = ...,
@@ -155,7 +155,7 @@ class TextIOWrapper(TextIOBase, TextIO):  # type: ignore[misc]  # incompatible d
         write_through: bool = ...,
     ) -> None: ...
     @property
-    def buffer(self) -> BinaryIO: ...
+    def buffer(self) -> BufferedIOBase: ...  # type: ignore[override]
     @property
     def closed(self) -> bool: ...
     @property
@@ -178,6 +178,7 @@ class TextIOWrapper(TextIOBase, TextIO):  # type: ignore[misc]  # incompatible d
     def writelines(self, __lines: Iterable[str]) -> None: ...  # type: ignore[override]
     def readline(self, __size: int = -1) -> str: ...  # type: ignore[override]
     def readlines(self, __hint: int = -1) -> list[str]: ...  # type: ignore[override]
+    def detach(self) -> BufferedIOBase: ...  # type: ignore[override]
     def seek(self, __cookie: int, __whence: int = 0) -> int: ...  # stubtest needs this
 
 class StringIO(TextIOWrapper):
