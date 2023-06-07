@@ -44,7 +44,7 @@ template: str
 if sys.version_info >= (3, 12):
     @overload
     def NamedTemporaryFile(
-        mode: _StrMode,
+        mode: OpenTextMode,
         buffering: int = -1,
         encoding: str | None = None,
         newline: str | None = None,
@@ -58,7 +58,7 @@ if sys.version_info >= (3, 12):
     ) -> _TemporaryFileWrapper[str]: ...
     @overload
     def NamedTemporaryFile(
-        mode: _BytesMode = "w+b",
+        mode: OpenBinaryMode = "w+b",
         buffering: int = -1,
         encoding: str | None = None,
         newline: str | None = None,
