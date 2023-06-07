@@ -1,4 +1,4 @@
-from _typeshed import StrOrBytesPath, StrPath, SupportsKeysAndGetItem
+from _typeshed import StrPath, SupportsKeysAndGetItem
 from collections.abc import Container, Iterable, Iterator, Mapping, MutableMapping, Sequence
 from typing import TypeVar, overload
 from typing_extensions import Literal, TypeAlias
@@ -51,6 +51,7 @@ default_dialect: Dialect
 
 class IniData(MutableMapping[str, str]):
     def __init__(self, mapping: Mapping[str, str] | None = ..., dialect: Dialect | None = ...) -> None: ...
+    dialect: Dialect
     @property
     def is_dirty(self) -> bool: ...
     def get_updated_lines(self, line_iter: Iterable[_Token] | None = ...) -> list[_Token]: ...
@@ -99,7 +100,10 @@ class IniData(MutableMapping[str, str]):
     def __delitem__(self, name: str) -> None: ...
 
 class IniFile(IniData):
-    def __init__(self, filename: StrOrBytesPath, encoding: str | None = ..., dialect: Dialect | None = ...) -> None: ...
+    def __init__(self, filename: StrPath, encoding: str | None = ..., dialect: Dialect | None = ...) -> None: ...
+    filename: str
+    encoding: str | None
+    is_new: bool
     def save(self, create_folder: bool = ...) -> None: ...
 
 class AppIniFile(IniFile):
