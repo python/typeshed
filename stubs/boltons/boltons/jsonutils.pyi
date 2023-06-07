@@ -11,9 +11,7 @@ def reverse_iter_lines(
     file_obj: IO[str], blocksize: int = ..., preseek: bool = ..., *, encoding: str
 ) -> Generator[str, None, None]: ...
 @overload
-def reverse_iter_lines(
-    file_obj: IO[str], blocksize: int, preseek: bool, encoding: str
-) -> Generator[str, None, None]: ...
+def reverse_iter_lines(file_obj: IO[str], blocksize: int, preseek: bool, encoding: str) -> Generator[str, None, None]: ...
 
 class JSONLIterator:
     ignore_errors: bool
