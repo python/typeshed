@@ -1,0 +1,8 @@
+# These are internal use and python 2 compatibility variables and functions
+inifile.PY2
+inifile.WIN
+inifile.integer_types
+inifile.iter_from_file
+inifile.iteritems
+inifile.reraise
+inifile.string_types
