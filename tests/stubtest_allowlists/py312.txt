@@ -35,9 +35,6 @@ enum.EnumMeta.__call__
 enum.EnumType.__call__
 enum.property.member
 ftplib.FTP_TLS.__init__
-functools.WRAPPER_ASSIGNMENTS
-functools.update_wrapper
-functools.wraps
 genericpath.__all__
 genericpath.islink
 gzip.GzipFile.filename
@@ -100,15 +97,9 @@ os.path.__all__
 os.path.isjunction
 os.path.splitroot
 pathlib.Path.__init__
-pathlib.Path.exists
-pathlib.Path.glob
-pathlib.Path.is_junction
-pathlib.Path.rglob
 pathlib.PurePath.__init__
 pathlib.PurePath.is_relative_to
-pathlib.PurePath.match
 pathlib.PurePath.relative_to
-pathlib.PurePath.with_segments
 pdb.Pdb.set_convenience_variable
 pkgutil.ImpImporter
 pkgutil.ImpLoader
@@ -170,10 +161,6 @@ ssl.OP_LEGACY_SERVER_CONNECT
 ssl.Options.OP_LEGACY_SERVER_CONNECT
 ssl.RAND_pseudo_bytes
 ssl.wrap_socket
-sys.activate_stack_trampoline
-sys.deactivate_stack_trampoline
-sys.getunicodeinternedsize
-sys.is_stack_trampoline_active
 tarfile.AbsoluteLinkError
 tarfile.AbsolutePathError
 tarfile.FilterError
@@ -188,7 +175,6 @@ tarfile.__all__
 tarfile.data_filter
 tarfile.fully_trusted_filter
 tarfile.tar_filter
-tempfile.NamedTemporaryFile
 token.EXCLAMATION
 token.FSTRING_END
 token.FSTRING_MIDDLE
@@ -263,20 +249,13 @@ _collections_abc.MappingView.__class_getitem__
 _collections_abc.ValuesView.__reversed__
 _csv.Reader
 _csv.Writer
-argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group
 configparser.LegacyInterpolation.__init__
 enum.Enum.__init__
-# TODO: The stub for enum.auto is nothing like the implementation
-enum.auto.__init__
-enum.auto.value
-fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 ftplib.FTP.trust_server_pasv_ipv4_address
-functools.cached_property.__set__  # Stub is a white lie; see comments in the stub
-functools._lru_cache_wrapper.cache_parameters  # Cannot be detected statically
-ipaddress.IPv4Interface.hostmask
-ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
 ipaddress._BaseNetwork.hostmask
+ipaddress.IPv4Interface.hostmask
+ipaddress.IPv6Interface.hostmask
 multiprocessing.managers.SharedMemoryServer.create
 multiprocessing.managers.SharedMemoryServer.list_segments
 multiprocessing.managers.SharedMemoryServer.public
@@ -284,20 +263,12 @@ multiprocessing.managers.SharedMemoryServer.release_segment
 multiprocessing.managers.SharedMemoryServer.shutdown
 multiprocessing.managers.SharedMemoryServer.track_segment
 multiprocessing.spawn._main
-# platform.uname_result's processor field is now dynamically made to exist
-platform.uname_result.__match_args__
-platform.uname_result.__new__
-platform.uname_result.processor
 queue.SimpleQueue.__init__
 sys.UnraisableHookArgs  # Not exported from sys
 tkinter._VersionInfoType.__doc__
 typing.NewType.__call__
 typing.NewType.__mro_entries__
 weakref.WeakValueDictionary.update
-
-# Runtime has *args, **kwargs, but will error if any are supplied
-unittest.TestCase.__init_subclass__
-unittest.case.TestCase.__init_subclass__
 
 # ==========
 # Related to positional-only arguments
@@ -337,19 +308,30 @@ os.path.join
 # Allowlist entries that cannot or should not be fixed
 # ==========
 
+_ast.ImportFrom.level  # None on the class, but never None on instances
 _collections_abc.AsyncGenerator.athrow  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
 _weakref.ProxyType.__reversed__  # Doesn't really exist
+argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group  # deprecated, forwards arguments to super
+ast.ImportFrom.level  # None on the class, but never None on instances
+asyncio.base_events.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
+asyncio.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 builtins.property.__set_name__  # Doesn't actually exist
+dataclasses.KW_ONLY  # white lies around defaults
+enum.auto.__init__  # The stub for enum.auto is nothing like the implementation
+enum.auto.value  # The stub for enum.auto is nothing like the implementation
+fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
+functools._lru_cache_wrapper.cache_parameters  # Cannot be detected statically
+functools.cached_property.__set__  # Stub is a white lie; see comments in the stub
 hmac.new  # Stub is a white lie; see comments in the stub
 http.HTTPMethod.description  # mutable instance attribute at runtime but we pretend it's a property
+inspect._ParameterKind.description  # Still exists, but stubtest can't see it
+os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all PathLike classes to implement class_getitem
 pickle.Pickler.reducer_override  # implemented in C pickler
+types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
 types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
 weakref.ProxyType.__reversed__  # Doesn't really exist
-inspect._ParameterKind.description  # Still exists, but stubtest can't see it
-asyncio.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
-asyncio.base_events.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 
 # C signature is broader than what is actually accepted
 ast.Bytes.__new__
@@ -366,15 +348,19 @@ queue.SimpleQueue.__init__
 xml.etree.ElementTree.XMLParser.__init__
 xml.etree.cElementTree.XMLParser.__init__
 
-os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all PathLike classes to implement class_getitem
-types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
-_ast.ImportFrom.level  # None on the class, but never None on instances
-ast.ImportFrom.level  # None on the class, but never None on instances
-
 # Treated an alias of a typing class in the stubs,
 # they are generic to type checkers anyway.
 contextlib.AbstractAsyncContextManager.__class_getitem__
 contextlib.AbstractContextManager.__class_getitem__
+
+# platform.uname_result's processor field is now dynamically made to exist
+platform.uname_result.__match_args__
+platform.uname_result.__new__
+platform.uname_result.processor
+
+# Runtime has *args, **kwargs, but will error if any are supplied
+unittest.TestCase.__init_subclass__
+unittest.case.TestCase.__init_subclass__
 
 # Super-special typing primitives
 typing\._SpecialForm.*
@@ -392,6 +378,3 @@ typing_extensions\.Final
 typing\.NamedTuple
 typing\.LiteralString
 typing\.Annotated
-
-# White lies around defaults
-dataclasses.KW_ONLY

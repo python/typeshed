@@ -97,8 +97,16 @@ class _ActionsContainer:
         version: str = ...,
         **kwargs: Any,
     ) -> Action: ...
-    def add_argument_group(self, *args: Any, **kwargs: Any) -> _ArgumentGroup: ...
-    def add_mutually_exclusive_group(self, **kwargs: Any) -> _MutuallyExclusiveGroup: ...
+    def add_argument_group(
+        self,
+        title: str | None = None,
+        description: str | None = None,
+        *,
+        prefix_chars: str = ...,
+        argument_default: Any = ...,
+        conflict_handler: str = ...,
+    ) -> _ArgumentGroup: ...
+    def add_mutually_exclusive_group(self, *, required: bool = False) -> _MutuallyExclusiveGroup: ...
     def _add_action(self, action: _ActionT) -> _ActionT: ...
     def _remove_action(self, action: Action) -> None: ...
     def _add_container_actions(self, container: _ActionsContainer) -> None: ...
@@ -350,7 +358,14 @@ class _ArgumentGroup(_ActionsContainer):
     title: str | None
     _group_actions: list[Action]
     def __init__(
-        self, container: _ActionsContainer, title: str | None = None, description: str | None = None, **kwargs: Any
+        self,
+        container: _ActionsContainer,
+        title: str | None = None,
+        description: str | None = None,
+        *,
+        prefix_chars: str = ...,
+        argument_default: Any = ...,
+        conflict_handler: str = ...,
     ) -> None: ...
 
 # undocumented
