@@ -25,10 +25,6 @@ configparser.RawConfigParser.readfp
 configparser.__all__
 ctypes.c_time_t
 datetime.__all__
-dis.__all__
-dis.hasarg
-dis.hasexc
-dis.hasnargs
 email.utils.localtime
 enum.Enum.__signature__
 enum.EnumMeta.__call__
@@ -87,10 +83,6 @@ multiprocessing.queues.Queue.__class_getitem__
 ntpath.__all__
 ntpath.isjunction
 ntpath.splitroot
-opcode.__all__
-opcode.hasarg
-opcode.hasexc
-opcode.hasnargs
 os.DirEntry.is_junction
 os.path.__all__
 os.path.isjunction
