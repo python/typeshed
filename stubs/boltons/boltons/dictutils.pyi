@@ -2,7 +2,7 @@ from _typeshed import SupportsKeysAndGetItem
 from binascii import Incomplete
 from collections.abc import Generator, ItemsView, Iterable, KeysView, ValuesView
 from typing import NoReturn, TypeVar
-from typing_extensions import TypeAlias, Self
+from typing_extensions import Self, TypeAlias
 
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")

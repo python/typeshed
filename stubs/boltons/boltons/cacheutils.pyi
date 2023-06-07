@@ -1,7 +1,7 @@
+import weakref
 from _typeshed import Incomplete, Self, SupportsItems, SupportsKeysAndGetItem
 from collections.abc import Callable, Generator, Hashable, Iterable, Iterator, Mapping
 from typing import Any, Generic, TypeVar, overload
-import weakref
 
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
