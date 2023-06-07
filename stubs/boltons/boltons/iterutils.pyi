@@ -71,6 +71,10 @@ guid_iter: Incomplete
 seq_guid_iter: Incomplete
 
 def soft_sorted(
-    iterable, first: Incomplete | None = None, last: Incomplete | None = None, key: Incomplete | None = None, reverse: bool = False
+    iterable,
+    first: Incomplete | None = None,
+    last: Incomplete | None = None,
+    key: Incomplete | None = None,
+    reverse: bool = False,
 ): ...
 def untyped_sorted(iterable, key: Incomplete | None = None, reverse: bool = False): ...

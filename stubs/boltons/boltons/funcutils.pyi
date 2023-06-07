@@ -22,7 +22,7 @@ class CachedInstancePartial(functools.partial[Incomplete]):
 
 partial = CachedInstancePartial
 
-def format_invocation(name: str = '', args=(), kwargs: Incomplete | None = None, **kw): ...
+def format_invocation(name: str = "", args=(), kwargs: Incomplete | None = None, **kw): ...
 def format_exp_repr(
     obj, pos_names, req_names: Incomplete | None = None, opt_names: Incomplete | None = None, opt_key: Incomplete | None = None
 ): ...
@@ -31,7 +31,12 @@ def format_nonexp_repr(
 ): ...
 def wraps(func, injected: Incomplete | None = None, expected: Incomplete | None = None, **kw): ...
 def update_wrapper(
-    wrapper, func, injected: Incomplete | None = None, expected: Incomplete | None = None, build_from: Incomplete | None = None, **kw
+    wrapper,
+    func,
+    injected: Incomplete | None = None,
+    expected: Incomplete | None = None,
+    build_from: Incomplete | None = None,
+    **kw,
 ): ...
 
 class FunctionBuilder:
