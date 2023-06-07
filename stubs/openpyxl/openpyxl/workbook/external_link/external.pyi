@@ -3,6 +3,7 @@ from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Bool, Integer, NoneSet, String, Typed, _ConvertibleToBool, _ConvertibleToInt
+from openpyxl.descriptors.nested import NestedText
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.packaging.relationship import Relationship
 
@@ -12,13 +13,9 @@ class ExternalCell(Serialisable):
     r: String[Literal[False]]
     t: NoneSet[_ExternalCellType]
     vm: Integer[Literal[True]]
-    v: Incomplete
+    v: NestedText[str, Literal[True]]
     def __init__(
-        self,
-        r: str,
-        t: _ExternalCellType | Literal["none"] | None = None,
-        vm: _ConvertibleToInt | None = None,
-        v: Incomplete | None = None,
+        self, r: str, t: _ExternalCellType | Literal["none"] | None = None, vm: _ConvertibleToInt | None = None, v: object = None
     ) -> None: ...
 
 class ExternalRow(Serialisable):

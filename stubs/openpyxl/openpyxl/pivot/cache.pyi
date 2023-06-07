@@ -16,6 +16,7 @@ from openpyxl.descriptors.base import (
     _ConvertibleToInt,
 )
 from openpyxl.descriptors.excel import ExtensionList
+from openpyxl.descriptors.nested import NestedInteger, _HasTagAndGet
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.pivot.fields import Error, Missing, Number, Text, TupleList
 from openpyxl.pivot.table import PivotArea
@@ -386,9 +387,11 @@ class GroupItems(Serialisable):
 class DiscretePr(Serialisable):
     tagname: str
     count: Integer[Literal[False]]
-    x: Incomplete
+    x: NestedInteger[Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, count: _ConvertibleToInt, x: Incomplete | None = None) -> None: ...
+    def __init__(
+        self, count: _ConvertibleToInt, x: _HasTagAndGet[_ConvertibleToInt | None] | _ConvertibleToInt | None = None
+    ) -> None: ...
 
 class RangePr(Serialisable):
     tagname: str
@@ -476,7 +479,7 @@ class CacheField(Serialisable):
     tagname: str
     sharedItems: Typed[SharedItems, Literal[True]]
     fieldGroup: Typed[FieldGroup, Literal[True]]
-    mpMap: Incomplete
+    mpMap: NestedInteger[Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     name: String[Literal[False]]
     caption: String[Literal[True]]
@@ -497,7 +500,7 @@ class CacheField(Serialisable):
         self,
         sharedItems: SharedItems | None = None,
         fieldGroup: FieldGroup | None = None,
-        mpMap: Incomplete | None = None,
+        mpMap: _HasTagAndGet[_ConvertibleToInt | None] | _ConvertibleToInt | None = None,
         extLst: ExtensionList | None = None,
         *,
         name: str,

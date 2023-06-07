@@ -5,16 +5,17 @@ from typing_extensions import Literal
 from openpyxl.chart.layout import Layout
 from openpyxl.chart.shapes import GraphicalProperties
 from openpyxl.chart.text import RichText
-from openpyxl.descriptors.base import Alias, Typed
+from openpyxl.descriptors.base import Alias, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
+from openpyxl.descriptors.nested import NestedBool, _HasTagAndGet
 from openpyxl.descriptors.serialisable import Serialisable
 
 class DataTable(Serialisable):
     tagname: str
-    showHorzBorder: Incomplete
-    showVertBorder: Incomplete
-    showOutline: Incomplete
-    showKeys: Incomplete
+    showHorzBorder: NestedBool[Literal[True]]
+    showVertBorder: NestedBool[Literal[True]]
+    showOutline: NestedBool[Literal[True]]
+    showKeys: NestedBool[Literal[True]]
     spPr: Typed[GraphicalProperties, Literal[True]]
     graphicalProperties: Alias
     txPr: Typed[RichText, Literal[True]]
@@ -22,10 +23,10 @@ class DataTable(Serialisable):
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        showHorzBorder: Incomplete | None = None,
-        showVertBorder: Incomplete | None = None,
-        showOutline: Incomplete | None = None,
-        showKeys: Incomplete | None = None,
+        showHorzBorder: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
+        showVertBorder: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
+        showOutline: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
+        showKeys: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
         spPr: GraphicalProperties | None = None,
         txPr: RichText | None = None,
         extLst: Unused = None,

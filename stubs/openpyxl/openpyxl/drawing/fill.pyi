@@ -15,8 +15,9 @@ from openpyxl.descriptors.base import (
     _ConvertibleToInt,
 )
 from openpyxl.descriptors.excel import ExtensionList
+from openpyxl.descriptors.nested import NestedNoneSet, NestedValue, _HasTagAndGet, _NestedNoneSetParam
 from openpyxl.descriptors.serialisable import Serialisable
-from openpyxl.drawing.colors import ColorChoice, HSLColor, RGBPercent as _RGBPercent, SchemeColor, SystemColor
+from openpyxl.drawing.colors import ColorChoice, HSLColor, RGBPercent as _RGBPercent, SchemeColor, SystemColor, _PresetColors
 from openpyxl.drawing.effect import (
     AlphaBiLevelEffect,
     AlphaCeilingEffect,
@@ -142,22 +143,22 @@ class GradientStop(Serialisable):
     pos: MinMax[float, Literal[True]]
     scrgbClr: Typed[_RGBPercent, Literal[True]]
     RGBPercent: Alias
-    srgbClr: Incomplete
+    srgbClr: NestedValue[_RGBPercent, Literal[True]]
     RGB: Alias
     hslClr: Typed[HSLColor, Literal[True]]
     sysClr: Typed[SystemColor, Literal[True]]
     schemeClr: Typed[SchemeColor, Literal[True]]
-    prstClr: Incomplete
+    prstClr: NestedNoneSet[_PresetColors]
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         pos: _ConvertibleToFloat | None = None,
         scrgbClr: _RGBPercent | None = None,
-        srgbClr: Incomplete | None = None,
+        srgbClr: _HasTagAndGet[_RGBPercent | None] | _RGBPercent | None | None = None,
         hslClr: HSLColor | None = None,
         sysClr: SystemColor | None = None,
         schemeClr: SchemeColor | None = None,
-        prstClr: Incomplete | None = None,
+        prstClr: _NestedNoneSetParam[_PresetColors] = None,
     ) -> None: ...
 
 class LinearShadeProperties(Serialisable):
@@ -200,21 +201,21 @@ class SolidColorFillProperties(Serialisable):
     tagname: str
     scrgbClr: Typed[_RGBPercent, Literal[True]]
     RGBPercent: Alias
-    srgbClr: Incomplete
+    srgbClr: NestedValue[_RGBPercent, Literal[True]]
     RGB: Alias
     hslClr: Typed[HSLColor, Literal[True]]
     sysClr: Typed[SystemColor, Literal[True]]
     schemeClr: Typed[SchemeColor, Literal[True]]
-    prstClr: Incomplete
+    prstClr: NestedNoneSet[_PresetColors]
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         scrgbClr: _RGBPercent | None = None,
-        srgbClr: Incomplete | None = None,
+        srgbClr: _HasTagAndGet[_RGBPercent | None] | _RGBPercent | None = None,
         hslClr: HSLColor | None = None,
         sysClr: SystemColor | None = None,
         schemeClr: SchemeColor | None = None,
-        prstClr: Incomplete | None = None,
+        prstClr: _NestedNoneSetParam[_PresetColors] = None,
     ) -> None: ...
 
 class Blip(Serialisable):

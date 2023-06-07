@@ -1,18 +1,21 @@
 from _typeshed import Incomplete, Unused
 from abc import abstractmethod
 from typing import ClassVar
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from openpyxl.chart.axis import ChartLines, NumericAxis, SeriesAxis, TextAxis
 from openpyxl.chart.label import DataLabelList
-from openpyxl.descriptors.base import Alias, Typed
+from openpyxl.descriptors.base import Alias, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
+from openpyxl.descriptors.nested import NestedBool, NestedSet, _HasTagAndGet
 
 from ._chart import ChartBase
 
+_AreaChartBaseGrouping: TypeAlias = Literal["percentStacked", "standard", "stacked"]
+
 class _AreaChartBase(ChartBase):
-    grouping: Incomplete
-    varyColors: Incomplete
+    grouping: NestedSet[_AreaChartBaseGrouping]
+    varyColors: NestedBool[Literal[True]]
     ser: Incomplete
     dLbls: Typed[DataLabelList, Literal[True]]
     dataLabels: Alias
@@ -20,8 +23,8 @@ class _AreaChartBase(ChartBase):
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        grouping: str = "standard",
-        varyColors: Incomplete | None = None,
+        grouping: _HasTagAndGet[_AreaChartBaseGrouping] | _AreaChartBaseGrouping = "standard",
+        varyColors: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
         ser=(),
         dLbls: DataLabelList | None = None,
         dropLines: ChartLines | None = None,

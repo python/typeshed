@@ -5,7 +5,7 @@ from typing_extensions import Literal
 from openpyxl.descriptors import Strict
 from openpyxl.descriptors.base import Alias, Bool, Integer, String, Typed, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.excel import ExtensionList
-from openpyxl.descriptors.nested import NestedText
+from openpyxl.descriptors.nested import NestedInteger, NestedText, _HasTagAndGet
 from openpyxl.descriptors.serialisable import Serialisable
 
 class NumFmt(Serialisable):
@@ -13,56 +13,62 @@ class NumFmt(Serialisable):
     sourceLinked: Bool[Literal[False]]
     def __init__(self, formatCode: str, sourceLinked: _ConvertibleToBool = False) -> None: ...
 
-class NumberValueDescriptor(NestedText):
+class NumberValueDescriptor(NestedText[Incomplete, Incomplete]):
     allow_none: bool
     expected_type: type[Incomplete]
     def __set__(self, instance: Serialisable | Strict, value) -> None: ...  # type: ignore[override]
 
 class NumVal(Serialisable):
     idx: Integer[Literal[False]]
-    formatCode: Incomplete
+    formatCode: NestedText[str, Literal[True]]
     v: Incomplete
-    def __init__(self, idx: _ConvertibleToInt, formatCode: Incomplete | None = None, v: Incomplete | None = None) -> None: ...
+    def __init__(self, idx: _ConvertibleToInt, formatCode: object = None, v: Incomplete | None = None) -> None: ...
 
 class NumData(Serialisable):
-    formatCode: Incomplete
-    ptCount: Incomplete
+    formatCode: NestedText[str, Literal[True]]
+    ptCount: NestedInteger[Literal[True]]
     pt: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
-        self, formatCode: Incomplete | None = None, ptCount: Incomplete | None = None, pt=(), extLst: Unused = None
+        self,
+        formatCode: object = None,
+        ptCount: _HasTagAndGet[_ConvertibleToInt | None] | _ConvertibleToInt | None = None,
+        pt=(),
+        extLst: Unused = None,
     ) -> None: ...
 
 class NumRef(Serialisable):
-    f: Incomplete
+    f: NestedText[str, Literal[False]]
     ref: Alias
     numCache: Typed[NumData, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, f: Incomplete | None = None, numCache: NumData | None = None, extLst: Unused = None) -> None: ...
+    def __init__(self, f: object = None, numCache: NumData | None = None, extLst: Unused = None) -> None: ...
 
 class StrVal(Serialisable):
     tagname: str
     idx: Integer[Literal[False]]
-    v: Incomplete
-    def __init__(self, idx: _ConvertibleToInt = 0, v: Incomplete | None = None) -> None: ...
+    v: NestedText[str, Literal[False]]
+    def __init__(self, idx: _ConvertibleToInt = 0, v: object = None) -> None: ...
 
 class StrData(Serialisable):
     tagname: str
-    ptCount: Incomplete
+    ptCount: NestedInteger[Literal[True]]
     pt: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, ptCount: Incomplete | None = None, pt=(), extLst: Unused = None) -> None: ...
+    def __init__(
+        self, ptCount: _HasTagAndGet[_ConvertibleToInt | None] | _ConvertibleToInt | None = None, pt=(), extLst: Unused = None
+    ) -> None: ...
 
 class StrRef(Serialisable):
     tagname: str
-    f: Incomplete
+    f: NestedText[str, Literal[True]]
     strCache: Typed[StrData, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, f: Incomplete | None = None, strCache: StrData | None = None, extLst: Unused = None) -> None: ...
+    def __init__(self, f: object = None, strCache: StrData | None = None, extLst: Unused = None) -> None: ...
 
 class NumDataSource(Serialisable):
     numRef: Typed[NumRef, Literal[True]]
@@ -85,13 +91,11 @@ class MultiLevelStrData(Serialisable):
 
 class MultiLevelStrRef(Serialisable):
     tagname: str
-    f: Incomplete
+    f: NestedText[str, Literal[False]]
     multiLvlStrCache: Typed[MultiLevelStrData, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(
-        self, f: Incomplete | None = None, multiLvlStrCache: MultiLevelStrData | None = None, extLst: Unused = None
-    ) -> None: ...
+    def __init__(self, f: object = None, multiLvlStrCache: MultiLevelStrData | None = None, extLst: Unused = None) -> None: ...
 
 class AxDataSource(Serialisable):
     tagname: str
