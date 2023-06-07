@@ -88,10 +88,6 @@ multiprocessing.queues.Queue.__class_getitem__
 ntpath.__all__
 ntpath.isjunction
 ntpath.splitroot
-opcode.__all__
-opcode.hasarg
-opcode.hasexc
-opcode.hasnargs
 os.DirEntry.is_junction
 os.path.__all__
 os.path.isjunction
