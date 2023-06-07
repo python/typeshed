@@ -15,7 +15,7 @@ from _typeshed import (
 from collections.abc import Iterable, Iterator
 from types import TracebackType
 from typing import IO, Any, AnyStr, Generic, overload
-from typing_extensions import Literal, Self, TypeAlias
+from typing_extensions import Literal, Self
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -40,8 +40,6 @@ __all__ = [
 TMP_MAX: int
 tempdir: str | None
 template: str
-
-_BytesMode: TypeAlias = OpenBinaryMode  # temp backwards compatibility for aiofiles  # noqa: Y047
 
 if sys.version_info >= (3, 12):
     @overload
