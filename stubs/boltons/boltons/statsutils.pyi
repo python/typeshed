@@ -1,4 +1,4 @@
-from binascii import Incomplete
+from _typeshed import Incomplete
 from collections.abc import Callable, Iterator
 from typing import Any
 
