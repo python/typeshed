@@ -15,7 +15,6 @@ __all__ = [
     "str",
     "atof",
     "atoi",
-    "format",
     "format_string",
     "currency",
     "normalize",
@@ -31,6 +30,9 @@ __all__ = [
 
 if sys.version_info >= (3, 11):
     __all__ += ["getencoding"]
+
+if sys.version_info < (3, 12):
+    __all__ += ["format"]
 
 # This module defines a function "str()", which is why "str" can't be used
 # as a type annotation or type alias.
