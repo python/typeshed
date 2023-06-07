@@ -78,7 +78,6 @@ inspect.__all__
 inspect.getasyncgenlocals
 inspect.getasyncgenstate
 inspect.markcoroutinefunction
-locale.format
 logging.Logger.getChildren
 logging.__all__
 logging.getHandlerByName
