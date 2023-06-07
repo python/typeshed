@@ -1,7 +1,5 @@
 from _typeshed import Incomplete
 
-unicode = str
-
 class UnsupportedData(TypeError): ...
 
 class InputType:

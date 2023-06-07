@@ -1,9 +1,3 @@
 # These names exist in __all__, but have no definition:
 boltons.strutils.int_list_complement
 boltons.strutils.int_list_to_int_tuples
-
-# error: boltons.ecoutils failed to import, AttributeError: module 'pprint' has no attribute '_safe_repr'
-# See https://github.com/mahmoud/boltons/issues/294
-# This bug is fixed only in the development version (on github).
-# In the PyPI repository version the bug is not fixed
-boltons.ecoutils
