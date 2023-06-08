@@ -180,7 +180,7 @@ else:
         ) -> io.TextIOWrapper: ...
         @overload
         def TemporaryFile(
-            mode: OpenBinaryMode,
+            mode: OpenBinaryMode = "w+b",
             buffering: Literal[0],
             encoding: str | None = None,
             newline: str | None = None,
@@ -251,7 +251,7 @@ else:
         ) -> io.TextIOWrapper: ...
         @overload
         def TemporaryFile(
-            mode: OpenBinaryMode,
+            mode: OpenBinaryMode = "w+b",
             buffering: Literal[0],
             encoding: str | None = None,
             newline: str | None = None,
