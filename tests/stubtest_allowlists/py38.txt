@@ -200,5 +200,3 @@ asyncore.dispatcher.handle_accepted
 asynchat.async_chat.encoding
 asynchat.async_chat.use_encoding
 asynchat.find_prefix_at_end
-pkgutil.ImpImporter\..*
-pkgutil.ImpLoader\..*
