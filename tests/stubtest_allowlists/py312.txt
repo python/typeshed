@@ -42,7 +42,6 @@ http.HTTPStatus.is_success
 http.client.HTTPConnection.get_proxy_response_headers
 http.client.HTTPSConnection.__init__
 imaplib.IMAP4_SSL.__init__
-imp
 importlib.abc.Finder
 importlib.abc.Loader.module_repr
 importlib.abc.MetaPathFinder.find_module
