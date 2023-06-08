@@ -112,7 +112,7 @@ dbm: 2.7-
 decimal: 2.7-
 difflib: 2.7-
 dis: 2.7-
-distutils: 2.7-
+distutils: 2.7-3.11
 distutils.command.bdist_msi: 2.7-3.10
 distutils.command.bdist_wininst: 2.7-3.9
 doctest: 2.7-
