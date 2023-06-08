@@ -182,7 +182,19 @@ else:
         ) -> io.TextIOWrapper: ...
         @overload
         def TemporaryFile(
-            mode: OpenBinaryMode = "w+b",
+            mode: OpenBinaryMode,
+            buffering: Literal[0],
+            encoding: str | None = None,
+            newline: str | None = None,
+            suffix: AnyStr | None = None,
+            prefix: AnyStr | None = None,
+            dir: GenericPath[AnyStr] | None = None,
+            *,
+            errors: str | None = None,
+        ) -> io.FileIO: ...
+        @overload
+        def TemporaryFile(
+            *,
             buffering: Literal[0],
             encoding: str | None = None,
             newline: str | None = None,
@@ -253,7 +265,17 @@ else:
         ) -> io.TextIOWrapper: ...
         @overload
         def TemporaryFile(
-            mode: OpenBinaryMode = "w+b",
+            mode: OpenBinaryMode,
+            buffering: Literal[0],
+            encoding: str | None = None,
+            newline: str | None = None,
+            suffix: AnyStr | None = None,
+            prefix: AnyStr | None = None,
+            dir: GenericPath[AnyStr] | None = None,
+        ) -> io.FileIO: ...
+        @overload
+        def TemporaryFile(
+            *,
             buffering: Literal[0],
             encoding: str | None = None,
             newline: str | None = None,
