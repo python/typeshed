@@ -84,7 +84,7 @@ webob.acceptparse._AcceptLanguageInvalidOrNoHeader.lookup
 webob.acceptparse._AcceptLanguageInvalidOrNoHeader.parsed
 
 # These are here due to the slightly more strict nature of the type annotation
-# of these desriptors for type checking, it does not really have any runtime
+# of these descriptors for type checking, it does not really have any runtime
 # consequences since `_IntValueProperty` derives from `value_property` and
 # only makes `__set__` slightly more strict.
 webob.cachecontrol.CacheControl.max_age
@@ -97,7 +97,7 @@ webob.cachecontrol.CacheControl.stale_while_revalidate
 webob.cachecontrol.CacheControl.update_dict
 webob.cachecontrol.UpdateDict.setdefault
 
-# These need to be ignored due to how WebOb decided to let people know that
+# These need to be ignored due to how WebOb decided to let people know
 # that certain methods on `NestedMultiDict` and `NoVars` should not be called
 # since these are immutable, compared to a MultiDict, but should be used
 # interchangeably in some parts of the API. So they re-use generic functions
