@@ -78,8 +78,6 @@ logging.Logger.getChildren
 logging.__all__
 logging.getHandlerByName
 logging.getHandlerNames
-multiprocessing.connection.deliver_challenge
-multiprocessing.queues.Queue.__class_getitem__
 ntpath.__all__
 ntpath.isjunction
 ntpath.splitroot
