@@ -160,16 +160,6 @@ tarfile.__all__
 tarfile.data_filter
 tarfile.fully_trusted_filter
 tarfile.tar_filter
-token.EXCLAMATION
-token.FSTRING_END
-token.FSTRING_MIDDLE
-token.FSTRING_START
-token.__all__
-tokenize.EXCLAMATION
-tokenize.FSTRING_END
-tokenize.FSTRING_MIDDLE
-tokenize.FSTRING_START
-tokenize.__all__
 turtle.RawTurtle.teleport
 turtle.TNavigator.teleport
 turtle.TPen.teleport
