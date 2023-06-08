@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import io
 from tempfile import TemporaryFile
 from typing_extensions import assert_type
