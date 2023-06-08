@@ -1,6 +1,5 @@
 # Uncategorised, from Python 3.12
 _ctypes.SIZEOF_TIME_T
-_thread.daemon_threads_allowed
 argparse.BooleanOptionalAction.__init__
 array.array.__class_getitem__
 asyncio.BaseEventLoop.create_connection
