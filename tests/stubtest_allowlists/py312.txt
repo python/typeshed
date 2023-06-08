@@ -91,9 +91,6 @@ pathlib.PurePath.__init__
 pathlib.PurePath.is_relative_to
 pathlib.PurePath.relative_to
 pdb.Pdb.set_convenience_variable
-pkgutil.ImpImporter
-pkgutil.ImpLoader
-pkgutil.__all__
 poplib.POP3_SSL.__init__
 posixpath.__all__
 posixpath.isjunction
