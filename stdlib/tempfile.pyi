@@ -199,7 +199,6 @@ else:
             suffix: AnyStr | None = None,
             prefix: AnyStr | None = None,
             dir: GenericPath[AnyStr] | None = None,
-            *,
             errors: str | None = None,
         ) -> io.FileIO: ...
         @overload
