@@ -152,7 +152,7 @@ if sys.platform == "win32":
         COPYFILE2_PROGRESS_PAUSE: Literal[4]
 
         COPY_FILE_FAIL_IF_EXISTS: Literal[0x1]
-        OPY_FILE_RESTARTABLE: Literal[0x2]
+        COPY_FILE_RESTARTABLE: Literal[0x2]
         COPY_FILE_OPEN_SOURCE_FOR_WRITE: Literal[0x4]
         COPY_FILE_ALLOW_DECRYPTED_DESTINATION: Literal[0x8]
         COPY_FILE_COPY_SYMLINK: Literal[0x800]
@@ -254,4 +254,4 @@ if sys.platform == "win32":
         def getbuffer(self) -> bytes | None: ...
 
     if sys.version_info >= (3, 12):
-        def CopyFile2(__src: str, __dst: str, __flags: int) -> int: ...
+        def CopyFile2(existing_file_name: str, new_file_name: str, flags: int, progress_routine: int | None = None) -> int: ...
