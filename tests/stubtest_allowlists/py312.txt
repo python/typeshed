@@ -190,7 +190,6 @@ unittest.runner.TextTestResult.__init__
 unittest.runner.TextTestRunner.__init__
 urllib.request.AbstractHTTPHandler.__init__
 urllib.request.HTTPSHandler.__init__
-uuid.main
 zipfile.Path.glob
 zipfile.Path.is_symlink
 zipfile.Path.match
