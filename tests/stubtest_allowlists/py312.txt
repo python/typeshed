@@ -1,5 +1,4 @@
 # Uncategorised, from Python 3.12
-_ctypes.SIZEOF_TIME_T
 argparse.BooleanOptionalAction.__init__
 array.array.__class_getitem__
 asyncio.BaseEventLoop.create_connection
@@ -22,7 +21,6 @@ collections.UserDict.get
 configparser.ParsingError.__init__
 configparser.RawConfigParser.readfp
 configparser.__all__
-ctypes.c_time_t
 datetime.__all__
 email.utils.localtime
 enum.Enum.__signature__
