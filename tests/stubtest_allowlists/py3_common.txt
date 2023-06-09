@@ -7,10 +7,8 @@
 _csv.Dialect.__init__  # C __init__ signature is inaccurate
 _ctypes.CFuncPtr  # stubtest erroneously thinks it can't be subclassed
 _threading_local.local.__new__
-builtins.dict.get
 builtins.ellipsis  # type is not exposed anywhere
 builtins.function
-collections.ChainMap.get  # Adding None to the underlying Mapping Union messed up mypy
 collections.ChainMap.fromkeys  # Runtime has *args which can really only be one argument
 collections.UserList.sort  # Runtime has *args but will error if any are supplied
 configparser.SectionProxy.__getattr__  # SectionProxy can have arbitrary attributes when custom converters are used
@@ -103,9 +101,7 @@ typing.IO.__next__  # Added because IO streams are iterable. See https://github.
 typing.type_check_only  # typing decorator that is not available at runtime
 unittest.mock.patch  # It's a complicated overload and I haven't been able to figure out why stubtest doesn't like it
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__  # Args are passed as is to super, so super args are specified
-weakref.WeakKeyDictionary.get
 weakref.WeakKeyDictionary.update
-weakref.WeakValueDictionary.get
 xml.parsers.expat.expat_CAPI
 
 # ==========
@@ -248,7 +244,6 @@ _collections_abc.Generator.gi_frame
 _collections_abc.Generator.gi_running
 _collections_abc.Generator.gi_yieldfrom
 _collections_abc.Mapping.__reversed__  # set to None at runtime for a better error message
-_collections_abc.Mapping.get  # Adding None to the Union messed up mypy
 _collections_abc.Sequence.index  # Supporting None in end is not mandatory
 
 # Adding these reflected dunders to `typing.AbstractSet` causes a large number of false-positives. See #7414.

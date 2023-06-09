@@ -28,7 +28,6 @@ collections.ByteString  # see comments in py3_common.txt
 collections.Callable
 collections.Mapping.__reversed__  # Set to None at runtime for a better error message
 configparser.ParsingError.filename
-contextvars.ContextVar.get
 dummy_threading.Condition.acquire
 dummy_threading.Condition.release
 dummy_threading.Event.isSet
@@ -68,7 +67,6 @@ collections.Generator.gi_code
 collections.Generator.gi_frame
 collections.Generator.gi_running
 collections.Generator.gi_yieldfrom
-collections.Mapping.get  # Adding None to the Union messed up mypy
 collections.Sequence.index  # Supporting None in end is not mandatory
 
 # SpooledTemporaryFile implements IO except these methods before Python 3.11
