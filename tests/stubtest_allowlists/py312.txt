@@ -21,7 +21,6 @@ collections.UserDict.get
 configparser.ParsingError.__init__
 configparser.RawConfigParser.readfp
 configparser.__all__
-ctypes.c_time_t
 datetime.__all__
 email.utils.localtime
 enum.Enum.__signature__
