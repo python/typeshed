@@ -163,7 +163,6 @@ turtle.TNavigator.teleport
 turtle.TPen.teleport
 turtle.__all__
 turtle.teleport
-types.AsyncGeneratorType.ag_suspended
 typing.ParamSpec.__mro_entries__
 typing.ParamSpecArgs.__mro_entries__
 typing.ParamSpecKwargs.__mro_entries__
