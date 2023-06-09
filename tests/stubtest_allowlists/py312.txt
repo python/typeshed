@@ -21,6 +21,7 @@ collections.UserDict.get
 configparser.ParsingError.__init__
 configparser.RawConfigParser.readfp
 configparser.__all__
+ctypes.c_time_t
 datetime.__all__
 email.utils.localtime
 enum.Enum.__signature__
@@ -194,12 +195,6 @@ zipfile.Path.match
 zipfile.Path.relative_to
 zipfile.Path.rglob
 zoneinfo.ZoneInfo.from_file
-
-array.array.__release_buffer__
-builtins.bytearray.__release_buffer__
-builtins.memoryview.__release_buffer__
-mmap.mmap.__release_buffer__
-pickle.PickleBuffer.__release_buffer__
 
 # Errors that also existed on Python 3.11
 _collections_abc.AsyncGenerator.ag_await
