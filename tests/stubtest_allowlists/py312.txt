@@ -30,11 +30,6 @@ enum.property.member
 genericpath.__all__
 genericpath.islink
 gzip.GzipFile.filename
-http.HTTPStatus.is_client_error
-http.HTTPStatus.is_informational
-http.HTTPStatus.is_redirection
-http.HTTPStatus.is_server_error
-http.HTTPStatus.is_success
 http.client.HTTPConnection.get_proxy_response_headers
 http.client.HTTPSConnection.__init__
 imaplib.IMAP4_SSL.__init__
