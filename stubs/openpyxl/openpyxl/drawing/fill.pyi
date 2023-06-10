@@ -154,7 +154,7 @@ class GradientStop(Serialisable):
         self,
         pos: _ConvertibleToFloat | None = None,
         scrgbClr: _RGBPercent | None = None,
-        srgbClr: _HasTagAndGet[_RGBPercent | None] | _RGBPercent | None | None = None,
+        srgbClr: _HasTagAndGet[_RGBPercent | None] | _RGBPercent | None = None,
         hslClr: HSLColor | None = None,
         sysClr: SystemColor | None = None,
         schemeClr: SchemeColor | None = None,
