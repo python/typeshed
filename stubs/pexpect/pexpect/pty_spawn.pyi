@@ -28,7 +28,7 @@ class spawn(SpawnBase):
         env: _Environ[Incomplete] | None = None,
         ignore_sighup: bool = False,
         echo: bool = True,
-        preexec_fn: Callable[[...], Incomplete] | None = None,
+        preexec_fn: Callable[[Incomplete], Incomplete] | None = None,
         encoding: str | None = None,
         codec_errors: str = "strict",
         dimensions: tuple[int, int] | None = None,
@@ -67,8 +67,8 @@ class spawn(SpawnBase):
     def interact(
         self,
         escape_character="\x1d",
-        input_filter: Callable[[...], Incomplete] | None = None,
-        output_filter: Callable[[...], Incomplete] | None = None,
+        input_filter: Callable[[Incomplete], Incomplete] | None = None,
+        output_filter: Callable[[Incomplete], Incomplete] | None = None,
     ) -> None: ...
 
 def spawnu(*args: str, **kwargs: str): ...

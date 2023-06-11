@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Callable
 
 PY3: bool
-text_type: Callable[[...], Incomplete]
+text_type: Callable[[Incomplete], Incomplete]
 
 class _NullCoder:
     @staticmethod
