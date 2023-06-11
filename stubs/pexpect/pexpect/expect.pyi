@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
-from io import StringIO, BytesIO
+from io import BytesIO, StringIO
+
 from expect import SpawnBase
 
 class searcher_string:
