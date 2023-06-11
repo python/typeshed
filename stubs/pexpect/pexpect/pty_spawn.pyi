@@ -1,16 +1,15 @@
 from _typeshed import Incomplete
 from io import TextIOWrapper
 from os import _Environ
-from typing import AnyStr, Callable, Sequence
-
-from ptyprocess.ptyprocess import use_native_pty_fork
+from typing import AnyStr
+from collections.abc import Sequence, Callable
 
 from .spawnbase import SpawnBase
 
 PY3: Incomplete
 
 class spawn(SpawnBase):
-    use_native_pty_fork: bool = use_native_pty_fork
+    use_native_pty_fork: bool
     STDIN_FILENO: Incomplete
     STDOUT_FILENO: Incomplete
     STDERR_FILENO: Incomplete

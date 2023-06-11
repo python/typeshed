@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Callable
+from collections.abc import Callable
 
 PY3: bool
 text_type: Callable
