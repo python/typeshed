@@ -25,10 +25,10 @@ class spawn(SpawnBase):
         searchwindowsize: int | None = None,
         logfile: TextIOWrapper | None = None,
         cwd: AnyStr | None = None,
-        env: _Environ | None = None,
+        env: _Environ[Incomplete] | None = None,
         ignore_sighup: bool = False,
         echo: bool = True,
-        preexec_fn: Callable | None = None,
+        preexec_fn: Callable[[...], Incomplete] | None = None,
         encoding: str | None = None,
         codec_errors: str = "strict",
         dimensions: tuple[int, int] | None = None,
@@ -65,7 +65,7 @@ class spawn(SpawnBase):
     def getwinsize(self): ...
     def setwinsize(self, rows, cols): ...
     def interact(
-        self, escape_character="\x1d", input_filter: Callable | None = None, output_filter: Callable | None = None
+        self, escape_character="\x1d", input_filter: Callable[[...], Incomplete] | None = None, output_filter: Callable[[...], Incomplete] | None = None
     ) -> None: ...
 
 def spawnu(*args: str, **kwargs: str): ...
