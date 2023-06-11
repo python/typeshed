@@ -1,8 +1,8 @@
 from _typeshed import Incomplete
+from collections.abc import Callable, Sequence
 from io import TextIOWrapper
 from os import _Environ
 from typing import AnyStr
-from collections.abc import Sequence, Callable
 
 from .spawnbase import SpawnBase
 
