@@ -55,7 +55,6 @@ from psutil._common import (
     pcputimes,
     pctxsw,
     pgids,
-    pio,
     pionice,
     popenfile,
     pthread,
@@ -133,6 +132,13 @@ else:
     class svmem(Any): ...
 
     def sensors_battery(): ...
+
+if sys.platform == "linux":
+    from ._pslinux import pio
+elif sys.platform == "win32":
+    from ._pswindows import pio
+else:
+    from ._common import pio
 
 AF_LINK: int
 version_info: tuple[int, int, int]
