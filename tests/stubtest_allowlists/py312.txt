@@ -188,7 +188,6 @@ zipfile.Path.is_symlink
 zipfile.Path.match
 zipfile.Path.relative_to
 zipfile.Path.rglob
-zoneinfo.ZoneInfo.from_file
 
 # Errors that also existed on Python 3.11
 _collections_abc.AsyncGenerator.ag_await
