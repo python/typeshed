@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+
 from openpyxl.worksheet.worksheet import Worksheet
 
 def read_dimension(source): ...
