@@ -44,14 +44,14 @@ class NonVisualGraphicFrame(Serialisable):
 
 class GraphicData(Serialisable):
     tagname: ClassVar[str]
-    namespace: Incomplete
+    namespace: ClassVar[str]
     uri: String[Literal[False]]
     chart: Typed[ChartRelation, Literal[True]]
     def __init__(self, uri: str = ..., chart: ChartRelation | None = None) -> None: ...
 
 class GraphicObject(Serialisable):
     tagname: ClassVar[str]
-    namespace: Incomplete
+    namespace: ClassVar[str]
     graphicData: Typed[GraphicData, Literal[False]]
     def __init__(self, graphicData: GraphicData | None = None) -> None: ...
 

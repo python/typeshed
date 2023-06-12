@@ -262,7 +262,7 @@ class Transform(Serialisable): ...
 
 class SystemColor(Serialisable):
     tagname: ClassVar[str]
-    namespace: Incomplete
+    namespace: ClassVar[str]
     tint: NestedInteger[Literal[True]]
     shade: NestedInteger[Literal[True]]
     comp: Typed[Transform, Literal[True]]
@@ -346,7 +346,7 @@ _RGBPercent: TypeAlias = RGBPercent
 
 class SchemeColor(Serialisable):
     tagname: ClassVar[str]
-    namespace: Incomplete
+    namespace: ClassVar[str]
     tint: NestedInteger[Literal[True]]
     shade: NestedInteger[Literal[True]]
     comp: EmptyTag[Literal[True]]
@@ -447,7 +447,7 @@ class SchemeColor(Serialisable):
 
 class ColorChoice(Serialisable):
     tagname: ClassVar[str]
-    namespace: Incomplete
+    namespace: ClassVar[str]
     scrgbClr: Typed[_RGBPercent, Literal[True]]
     RGBPercent: Alias
     srgbClr: NestedValue[_RGBPercent, Literal[True]]

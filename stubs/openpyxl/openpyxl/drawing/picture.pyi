@@ -12,7 +12,7 @@ from openpyxl.drawing.properties import NonVisualDrawingProps
 
 class PictureLocking(Serialisable):
     tagname: ClassVar[str]
-    namespace: Incomplete
+    namespace: ClassVar[str]
     noCrop: Bool[Literal[True]]
     noGrp: Bool[Literal[True]]
     noSelect: Bool[Literal[True]]

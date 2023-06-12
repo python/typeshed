@@ -10,14 +10,14 @@ from openpyxl.descriptors.serialisable import Serialisable
 # Does not reimplement the relevant methods, so runtime also has incompatible supertypes
 class NestedDateTime(DateTime[Incomplete], NestedText[Incomplete, Incomplete]):  # type: ignore[misc]
     expected_type: type[Incomplete]
-    def to_tree(self, tagname: str | None = None, value: Incomplete | None = None, namespace: Incomplete | None = None): ...
+    def to_tree(self, tagname: str | None = None, value: Incomplete | None = None, namespace: str | None = None): ...
 
 class QualifiedDateTime(NestedDateTime):
-    def to_tree(self, tagname: str | None = None, value: Incomplete | None = None, namespace: Incomplete | None = None): ...
+    def to_tree(self, tagname: str | None = None, value: Incomplete | None = None, namespace: str | None = None): ...
 
 class DocumentProperties(Serialisable):
     tagname: ClassVar[str]
-    namespace: Incomplete
+    namespace: ClassVar[str]
     category: NestedText[str, Literal[True]]
     contentStatus: NestedText[str, Literal[True]]
     keywords: NestedText[str, Literal[True]]

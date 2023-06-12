@@ -5,6 +5,6 @@ from openpyxl.descriptors.serialisable import Serialisable
 
 class ChartRelation(Serialisable):
     tagname: ClassVar[str]
-    namespace: Incomplete
+    namespace: ClassVar[str]
     id: Incomplete
     def __init__(self, id) -> None: ...

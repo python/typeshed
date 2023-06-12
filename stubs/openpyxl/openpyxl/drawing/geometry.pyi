@@ -339,14 +339,14 @@ _PresetGeometry2DPrst: TypeAlias = Literal[
 
 class Point2D(Serialisable):
     tagname: ClassVar[str]
-    namespace: Incomplete
+    namespace: ClassVar[str]
     x: Incomplete
     y: Incomplete
     def __init__(self, x: Incomplete | None = None, y: Incomplete | None = None) -> None: ...
 
 class PositiveSize2D(Serialisable):
     tagname: ClassVar[str]
-    namespace: Incomplete
+    namespace: ClassVar[str]
     cx: Integer[Literal[False]]
     width: Alias
     cy: Integer[Literal[False]]
@@ -355,7 +355,7 @@ class PositiveSize2D(Serialisable):
 
 class Transform2D(Serialisable):
     tagname: ClassVar[str]
-    namespace: Incomplete
+    namespace: ClassVar[str]
     rot: Integer[Literal[True]]
     flipH: Bool[Literal[True]]
     flipV: Bool[Literal[True]]
@@ -377,7 +377,7 @@ class Transform2D(Serialisable):
 
 class GroupTransform2D(Serialisable):
     tagname: ClassVar[str]
-    namespace: Incomplete
+    namespace: ClassVar[str]
     rot: Integer[Literal[True]]
     flipH: Bool[Literal[True]]
     flipV: Bool[Literal[True]]
@@ -463,7 +463,7 @@ class Bevel(Serialisable):
     def __init__(self, w: _ConvertibleToInt, h: _ConvertibleToInt, prst: _BevelPrst | Literal["none"] | None = None) -> None: ...
 
 class Shape3D(Serialisable):
-    namespace: Incomplete
+    namespace: ClassVar[str]
     z: Typed[Coordinate[bool], Literal[True]]
     extrusionH: Integer[Literal[True]]
     contourW: Integer[Literal[True]]
@@ -569,7 +569,7 @@ class CustomGeometry2D(Serialisable):
     ) -> None: ...
 
 class PresetGeometry2D(Serialisable):
-    namespace: Incomplete
+    namespace: ClassVar[str]
     prst: Set[_PresetGeometry2DPrst]
     avLst: Typed[GeomGuideList, Literal[True]]
     def __init__(self, prst: _PresetGeometry2DPrst, avLst: GeomGuideList | None = None) -> None: ...

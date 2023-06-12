@@ -101,7 +101,7 @@ _PathShadePropertiesPath: TypeAlias = Literal["shape", "circle", "rect"]
 
 class PatternFillProperties(Serialisable):
     tagname: ClassVar[str]
-    namespace: Incomplete
+    namespace: ClassVar[str]
     prst: NoneSet[_PatternFillPropertiesPrst]
     preset: Alias
     fgClr: Typed[ColorChoice, Literal[True]]
@@ -118,7 +118,7 @@ class PatternFillProperties(Serialisable):
 
 class RelativeRect(Serialisable):
     tagname: ClassVar[str]
-    namespace: Incomplete
+    namespace: ClassVar[str]
     l: Incomplete
     left: Alias
     t: Incomplete
@@ -133,13 +133,13 @@ class RelativeRect(Serialisable):
 
 class StretchInfoProperties(Serialisable):
     tagname: ClassVar[str]
-    namespace: Incomplete
+    namespace: ClassVar[str]
     fillRect: Typed[RelativeRect, Literal[True]]
     def __init__(self, fillRect: RelativeRect = ...) -> None: ...
 
 class GradientStop(Serialisable):
     tagname: ClassVar[str]
-    namespace: Incomplete
+    namespace: ClassVar[str]
     pos: MinMax[float, Literal[True]]
     scrgbClr: Typed[_RGBPercent, Literal[True]]
     RGBPercent: Alias
@@ -163,21 +163,21 @@ class GradientStop(Serialisable):
 
 class LinearShadeProperties(Serialisable):
     tagname: ClassVar[str]
-    namespace: Incomplete
+    namespace: ClassVar[str]
     ang: Integer[Literal[False]]
     scaled: Bool[Literal[True]]
     def __init__(self, ang: _ConvertibleToInt, scaled: _ConvertibleToBool | None = None) -> None: ...
 
 class PathShadeProperties(Serialisable):
     tagname: ClassVar[str]
-    namespace: Incomplete
+    namespace: ClassVar[str]
     path: Set[_PathShadePropertiesPath]
     fillToRect: Typed[RelativeRect, Literal[True]]
     def __init__(self, path: _PathShadePropertiesPath, fillToRect: RelativeRect | None = None) -> None: ...
 
 class GradientFillProperties(Serialisable):
     tagname: ClassVar[str]
-    namespace: Incomplete
+    namespace: ClassVar[str]
     flip: NoneSet[_PropertiesFlip]
     rotWithShape: Bool[Literal[True]]
     gsLst: Incomplete
@@ -220,7 +220,7 @@ class SolidColorFillProperties(Serialisable):
 
 class Blip(Serialisable):
     tagname: ClassVar[str]
-    namespace: Incomplete
+    namespace: ClassVar[str]
     cstate: NoneSet[_BlipCstate]
     embed: Incomplete
     link: Incomplete

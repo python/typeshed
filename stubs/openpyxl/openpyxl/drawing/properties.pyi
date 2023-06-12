@@ -28,7 +28,7 @@ class GroupShapeProperties(Serialisable):
 
 class GroupLocking(Serialisable):
     tagname: ClassVar[str]
-    namespace: Incomplete
+    namespace: ClassVar[str]
     noGrp: Bool[Literal[True]]
     noUngrp: Bool[Literal[True]]
     noSelect: Bool[Literal[True]]

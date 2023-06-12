@@ -30,10 +30,11 @@ class Descriptor(Generic[_T]):
     def __set__(self, instance: Serialisable | Strict, value: _T) -> None: ...
 
 class Typed(Descriptor[_T], Generic[_T, _N]):
+    __doc__: str
+    # Members optional in __init__
     expected_type: type[_T]
     allow_none: _N
     nested: bool
-    __doc__: Incomplete
 
     @overload
     def __init__(

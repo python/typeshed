@@ -4,7 +4,7 @@
 # These tests are essentially a mirror of check_base_descriptors
 from __future__ import annotations
 
-from typing import Any, Union, cast
+from typing import Union, cast
 from typing_extensions import Literal, assert_type
 
 from openpyxl.descriptors import Strict
@@ -32,7 +32,7 @@ element: _HasTagAndGet[str] = Element("")
 
 
 class WithDescriptors(Serialisable):
-    descriptor = Nested[str]()
+    descriptor = Nested(expected_type=str)
 
     set_tuple = NestedSet(values=("a", 1, 0.0))
     set_list = NestedSet(values=["a", 1, 0.0])
@@ -130,7 +130,7 @@ with_descriptors = WithDescriptors()
 
 # Test with missing subclass
 class NotSerialisable:
-    descriptor = Nested[Any]()
+    descriptor = Nested(expected_type=object)
 
 
 NotSerialisable().descriptor = None  # type: ignore
@@ -138,7 +138,7 @@ NotSerialisable().descriptor = None  # type: ignore
 
 # Test with Strict subclass
 class WithDescriptorsStrict(Strict):
-    descriptor = Nested[Any]()
+    descriptor = Nested(expected_type=object)
 
 
 WithDescriptorsStrict().descriptor = None
