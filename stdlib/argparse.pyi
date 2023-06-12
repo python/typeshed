@@ -169,6 +169,7 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
             add_help: bool = True,
             allow_abbrev: bool = True,
         ) -> None: ...
+
     @overload
     def parse_args(self, args: Sequence[str] | None = None, namespace: None = None) -> Namespace: ...  # type: ignore[misc]
     @overload
@@ -209,7 +210,7 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     def format_usage(self) -> str: ...
     def format_help(self) -> str: ...
     @overload
-    def parse_known_args(self, args: Sequence[str] | None = None, namespace: None = None) -> tuple[Namespace, list[str]]: ...   # type: ignore[misc]
+    def parse_known_args(self, args: Sequence[str] | None = None, namespace: None = None) -> tuple[Namespace, list[str]]: ...  # type: ignore[misc]
     @overload
     def parse_known_args(self, args: Sequence[str] | None, namespace: _N) -> tuple[_N, list[str]]: ...
     @overload
@@ -218,13 +219,13 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     def exit(self, status: int = 0, message: str | None = None) -> NoReturn: ...
     def error(self, message: str) -> NoReturn: ...
     @overload
-    def parse_intermixed_args(self, args: Sequence[str] | None = None, namespace: None = None) -> Namespace: ...   # type: ignore[misc]
+    def parse_intermixed_args(self, args: Sequence[str] | None = None, namespace: None = None) -> Namespace: ...  # type: ignore[misc]
     @overload
     def parse_intermixed_args(self, args: Sequence[str] | None, namespace: _N) -> _N: ...
     @overload
     def parse_intermixed_args(self, *, namespace: _N) -> _N: ...
     @overload
-    def parse_known_intermixed_args(self, args: Sequence[str] | None = None, namespace: None = None) -> tuple[Namespace, list[str]]: ...   # type: ignore[misc]
+    def parse_known_intermixed_args(self, args: Sequence[str] | None = None, namespace: None = None) -> tuple[Namespace, list[str]]: ...  # type: ignore[misc]
     @overload
     def parse_known_intermixed_args(self, args: Sequence[str] | None, namespace: _N) -> tuple[_N, list[str]]: ...
     @overload
