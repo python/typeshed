@@ -1,10 +1,11 @@
 from _typeshed import Incomplete
-from typing import ClassVar
+from typing import Any, ClassVar
+from typing_extensions import Final
 
 from openpyxl.descriptors import MetaSerialisable
 
-KEYWORDS: Incomplete
-seq_types: Incomplete
+KEYWORDS: Final[frozenset[str]]
+seq_types: Final[tuple[type[list[Any]], type[tuple[Any, ...]]]]
 
 class Serialisable(metaclass=MetaSerialisable):
     # These dunders are always set at runtime by MetaSerialisable so they can't be None

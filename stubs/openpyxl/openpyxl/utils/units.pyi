@@ -1,11 +1,11 @@
-from _typeshed import Incomplete
+from typing_extensions import Final
 
-DEFAULT_ROW_HEIGHT: float
-BASE_COL_WIDTH: int
-DEFAULT_COLUMN_WIDTH: Incomplete
-DEFAULT_LEFT_MARGIN: float
-DEFAULT_TOP_MARGIN: float
-DEFAULT_HEADER: float
+DEFAULT_ROW_HEIGHT: Final = 15.0
+BASE_COL_WIDTH: Final = 8
+DEFAULT_COLUMN_WIDTH: Final = 13
+DEFAULT_LEFT_MARGIN: Final = 0.7
+DEFAULT_TOP_MARGIN: Final = 0.7874
+DEFAULT_HEADER: Final = 0.3
 
 def inch_to_dxa(value): ...
 def dxa_to_inch(value): ...
