@@ -265,7 +265,7 @@ class Bool(Convertible[bool, _N]):
     @overload
     def __init__(self: Bool[Literal[False]], name: str | None = None, *, allow_none: Literal[False] = False) -> None: ...
     def __set__(  # type:ignore[override]  # Different restrictions
-        self: Bool[Literal[True]], instance: Serialisable | Strict, value: _ConvertibleToBool | None
+        self, instance: Serialisable | Strict, value: _ConvertibleToBool
     ) -> None: ...
 
 class String(Typed[str, _N]):

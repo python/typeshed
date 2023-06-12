@@ -3,62 +3,74 @@ from typing import ClassVar
 from typing_extensions import Final, Literal, Self, TypeAlias
 
 from openpyxl.descriptors.base import Alias, _ConvertibleToBool, _ConvertibleToFloat, _ConvertibleToInt
+from openpyxl.descriptors.nested import (
+    NestedBool,
+    NestedFloat,
+    NestedInteger,
+    NestedMinMax,
+    NestedNoneSet,
+    NestedString,
+    _HasTagAndGet,
+    _NestedNoneSetParam,
+)
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.xml.functions import _Element
 
 from .colors import Color
 
-_UnderlineType: TypeAlias = Literal["single", "double", "singleAccounting", "doubleAccounting", None]
+_FontU: TypeAlias = Literal["single", "double", "singleAccounting", "doubleAccounting"]
+_FontVertAlign: TypeAlias = Literal["superscript", "subscript", "baseline"]
+_FontScheme: TypeAlias = Literal["major", "minor"]
 
 class Font(Serialisable):
     UNDERLINE_DOUBLE: Final = "double"
     UNDERLINE_DOUBLE_ACCOUNTING: Final = "doubleAccounting"
     UNDERLINE_SINGLE: Final = "single"
     UNDERLINE_SINGLE_ACCOUNTING: Final = "singleAccounting"
-    name: Incomplete
-    charset: Incomplete
-    family: Incomplete
-    sz: Incomplete
+    name: NestedString[Literal[True]]
+    charset: NestedInteger[Literal[True]]
+    family: NestedMinMax[float, Literal[True]]
+    sz: NestedFloat[Literal[True]]
     size: Alias
-    b: Incomplete
+    b: NestedBool[Literal[False]]
     bold: Alias
-    i: Incomplete
+    i: NestedBool[Literal[False]]
     italic: Alias
-    strike: Incomplete
+    strike: NestedBool[Literal[True]]
     strikethrough: Alias
-    outline: Incomplete
-    shadow: Incomplete
-    condense: Incomplete
-    extend: Incomplete
-    u: Incomplete
+    outline: NestedBool[Literal[True]]
+    shadow: NestedBool[Literal[True]]
+    condense: NestedBool[Literal[True]]
+    extend: NestedBool[Literal[True]]
+    u: NestedNoneSet[_FontU]
     underline: Alias
-    vertAlign: Incomplete
+    vertAlign: NestedNoneSet[_FontVertAlign]
     color: Incomplete
-    scheme: Incomplete
+    scheme: NestedNoneSet[_FontScheme]
     tagname: str
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        name: str | None = None,
-        sz: _ConvertibleToFloat | None = None,
-        b: _ConvertibleToBool = None,
-        i: _ConvertibleToBool = None,
-        charset: _ConvertibleToInt | None = None,
-        u: _UnderlineType = None,
-        strike: _ConvertibleToBool = None,
+        name: object = None,
+        sz: _HasTagAndGet[_ConvertibleToFloat | None] | _ConvertibleToFloat | None = None,
+        b: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
+        i: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
+        charset: _HasTagAndGet[_ConvertibleToInt | None] | _ConvertibleToInt | None = None,
+        u: _NestedNoneSetParam[_FontU] = None,
+        strike: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
         color: Color | None = None,
-        scheme: Literal["major", "minor", None] = None,
-        family: _ConvertibleToFloat | None = None,
-        size: _ConvertibleToFloat | None = None,
-        bold: _ConvertibleToBool = None,
-        italic: _ConvertibleToBool = None,
-        strikethrough: _ConvertibleToBool = None,
-        underline: _UnderlineType = None,
-        vertAlign: Literal["superscript", "subscript", "baseline", None] = None,
-        outline: _ConvertibleToBool = None,
-        shadow: _ConvertibleToBool = None,
-        condense: _ConvertibleToBool = None,
-        extend: _ConvertibleToBool = None,
+        scheme: _NestedNoneSetParam[_FontScheme] = None,
+        family: _HasTagAndGet[_ConvertibleToFloat | None] | _ConvertibleToFloat | None = None,
+        size: _HasTagAndGet[_ConvertibleToFloat] | _ConvertibleToFloat | None = None,
+        bold: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool | None = None,
+        italic: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool | None = None,
+        strikethrough: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool | None = None,
+        underline: _NestedNoneSetParam[_FontU] = None,
+        vertAlign: _NestedNoneSetParam[_FontVertAlign] = None,
+        outline: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
+        shadow: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
+        condense: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
+        extend: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
     ) -> None: ...
     @classmethod
     def from_tree(cls, node: _Element) -> Self: ...

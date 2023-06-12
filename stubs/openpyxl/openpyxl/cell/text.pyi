@@ -3,6 +3,7 @@ from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Alias, Integer, NoneSet, Typed, _ConvertibleToInt
+from openpyxl.descriptors.nested import NestedString, NestedText
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.colors import Color
 from openpyxl.styles.fonts import Font, _UnderlineType
@@ -27,13 +28,13 @@ class PhoneticText(Serialisable):
     tagname: str
     sb: Integer[Literal[False]]
     eb: Integer[Literal[False]]
-    t: Incomplete
+    t: NestedText[str, Literal[False]]
     text: Alias
-    def __init__(self, sb: _ConvertibleToInt, eb: _ConvertibleToInt, t: Incomplete | None = None) -> None: ...
+    def __init__(self, sb: _ConvertibleToInt, eb: _ConvertibleToInt, t: object = None) -> None: ...
 
 class InlineFont(Font):
     tagname: str
-    rFont: Incomplete
+    rFont: NestedString[Literal[True]]
     charset: Incomplete
     family: Incomplete
     b: Incomplete
@@ -51,7 +52,7 @@ class InlineFont(Font):
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        rFont: str | None = None,
+        rFont: object = None,
         charset: int | None = None,
         family: float | None = None,
         b: bool | None = None,
@@ -72,14 +73,14 @@ class RichText(Serialisable):
     tagname: str
     rPr: Typed[InlineFont, Literal[True]]
     font: Alias
-    t: Incomplete
+    t: NestedText[str, Literal[True]]
     text: Alias
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, rPr: InlineFont | None = None, t: Incomplete | None = None) -> None: ...
+    def __init__(self, rPr: InlineFont | None = None, t: object = None) -> None: ...
 
 class Text(Serialisable):
     tagname: str
-    t: Incomplete
+    t: NestedText[str, Literal[True]]
     plain: Alias
     r: Incomplete
     formatted: Alias
@@ -88,6 +89,6 @@ class Text(Serialisable):
     phoneticPr: Typed[_PhoneticProperties, Literal[True]]
     PhoneticProperties: Alias
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, t: Incomplete | None = None, r=(), rPh=(), phoneticPr: _PhoneticProperties | None = None) -> None: ...
+    def __init__(self, t: object = None, r=(), rPh=(), phoneticPr: _PhoneticProperties | None = None) -> None: ...
     @property
     def content(self) -> str: ...

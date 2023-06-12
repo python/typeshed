@@ -2,7 +2,8 @@ from _typeshed import Incomplete
 from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Alias, Bool, NoneSet, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, NoneSet, Typed, _ConvertibleToBool, _ConvertibleToInt
+from openpyxl.descriptors.nested import NestedText
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.connector import Shape
 from openpyxl.drawing.graphic import GraphicFrame, GroupShape
@@ -20,11 +21,13 @@ class AnchorClientData(Serialisable):
 
 class AnchorMarker(Serialisable):
     tagname: str
-    col: Incomplete
-    colOff: Incomplete
-    row: Incomplete
-    rowOff: Incomplete
-    def __init__(self, col: int = 0, colOff: int = 0, row: int = 0, rowOff: int = 0) -> None: ...
+    col: NestedText[int, Literal[False]]
+    colOff: NestedText[int, Literal[False]]
+    row: NestedText[int, Literal[False]]
+    rowOff: NestedText[int, Literal[False]]
+    def __init__(
+        self, col: _ConvertibleToInt = 0, colOff: _ConvertibleToInt = 0, row: _ConvertibleToInt = 0, rowOff: _ConvertibleToInt = 0
+    ) -> None: ...
 
 class _AnchorBase(Serialisable):
     sp: Typed[Shape, Literal[True]]

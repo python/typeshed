@@ -5,6 +5,7 @@ from typing_extensions import Literal, TypeAlias
 from openpyxl import _VisibilityType
 from openpyxl.descriptors.base import Alias, Bool, Integer, NoneSet, String, Typed, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.excel import ExtensionList
+from openpyxl.descriptors.nested import NestedString
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.workbook.defined_name import DefinedNameList
 from openpyxl.workbook.function_group import FunctionGroupList
@@ -63,7 +64,7 @@ class WorkbookPackage(Serialisable):
     externalReferences: Incomplete
     definedNames: Typed[DefinedNameList, Literal[True]]
     calcPr: Typed[CalcProperties, Literal[True]]
-    oleSize: Incomplete
+    oleSize: NestedString[Literal[True]]
     customWorkbookViews: Incomplete
     pivotCaches: Incomplete
     smartTagPr: Typed[SmartTagProperties, Literal[True]]
@@ -72,7 +73,7 @@ class WorkbookPackage(Serialisable):
     fileRecoveryPr: Typed[FileRecoveryProperties, Literal[True]]
     webPublishObjects: Typed[WebPublishObjectList, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    Ignorable: Incomplete
+    Ignorable: NestedString[Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
@@ -87,7 +88,7 @@ class WorkbookPackage(Serialisable):
         externalReferences=(),
         definedNames: DefinedNameList | None = None,
         calcPr: CalcProperties | None = None,
-        oleSize: Incomplete | None = None,
+        oleSize: object = None,
         customWorkbookViews=(),
         pivotCaches=(),
         smartTagPr: SmartTagProperties | None = None,

@@ -39,10 +39,13 @@ openpyxl.cell.text.PhoneticProperties.__init__
 openpyxl.cell.text.PhoneticProperties.__init__
 openpyxl.cell.text.PhoneticText.__init__
 openpyxl.cell.text.PhoneticText.__init__
+openpyxl.chart.axis._BaseAxis.__init__
 openpyxl.chart.chartspace.ChartSpace.__init__
 openpyxl.chart.chartspace.ExternalData.__init__
 openpyxl.chart.data_source.NumFmt.__init__
 openpyxl.chart.data_source.NumVal.__init__
+openpyxl.chart.marker.DataPoint.__init__
+openpyxl.chart.pivot.PivotSource.__init__
 openpyxl.chartsheet.custom.CustomChartsheetView.__init__
 openpyxl.chartsheet.publish.WebPublishItem.__init__
 openpyxl.comments.comment_sheet.CommentSheet.__init__

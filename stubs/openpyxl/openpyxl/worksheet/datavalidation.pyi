@@ -13,6 +13,7 @@ from openpyxl.descriptors.base import (
     _ConvertibleToInt,
     _ConvertibleToMultiCellRange,
 )
+from openpyxl.descriptors.nested import NestedText
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.cell_range import MultiCellRange
 
@@ -53,8 +54,8 @@ class DataValidation(Serialisable):
     error: String[Literal[True]]
     promptTitle: String[Literal[True]]
     prompt: String[Literal[True]]
-    formula1: Incomplete
-    formula2: Incomplete
+    formula1: NestedText[str, Literal[True]]
+    formula2: NestedText[str, Literal[True]]
     type: NoneSet[_DataValidationType]
     errorStyle: NoneSet[_DataValidationErrorStyle]
     imeMode: NoneSet[_DataValidationImeMode]
@@ -63,8 +64,8 @@ class DataValidation(Serialisable):
     def __init__(
         self,
         type: _DataValidationType | Literal["none"] | None = None,
-        formula1: Incomplete | None = None,
-        formula2: Incomplete | None = None,
+        formula1: object = None,
+        formula2: object = None,
         showErrorMessage: _ConvertibleToBool | None = False,
         showInputMessage: _ConvertibleToBool | None = False,
         showDropDown: _ConvertibleToBool | None = False,
