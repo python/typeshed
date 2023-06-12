@@ -30,7 +30,7 @@ if sys.version_info >= (3, 9):
 _T = TypeVar("_T")
 _ActionT = TypeVar("_ActionT", bound=Action)
 _ArgumentParserT = TypeVar("_ArgumentParserT", bound=ArgumentParser)
-_N = TypeVar("_N")
+_N = TypeVar("_N", bound=Namespace)
 # more precisely, Literal["store", "store_const", "store_true",
 # "store_false", "append", "append_const", "count", "help", "version",
 # "extend"], but using this would make it hard to annotate callers
@@ -171,9 +171,9 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
         ) -> None: ...
     # Ignore errors about overlapping overloads
     @overload
-    def parse_args(self, args: Sequence[str] | None = None, namespace: None = None) -> Namespace: ...  # type: ignore[misc]
-    @overload
     def parse_args(self, args: Sequence[str] | None, namespace: _N) -> _N: ...
+    @overload
+    def parse_args(self, args: Sequence[str] | None = None, namespace: None = None) -> Namespace: ...
     @overload
     def parse_args(self, *, namespace: _N) -> _N: ...
     @overload
