@@ -9,13 +9,13 @@ from openpyxl.descriptors.serialisable import Serialisable
 mimetypes: Incomplete
 
 class FileExtension(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     Extension: String[Literal[False]]
     ContentType: String[Literal[False]]
     def __init__(self, Extension: str, ContentType: str) -> None: ...
 
 class Override(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     PartName: String[Literal[False]]
     ContentType: String[Literal[False]]
     def __init__(self, PartName: str, ContentType: str) -> None: ...
@@ -24,7 +24,7 @@ DEFAULT_TYPES: Incomplete
 DEFAULT_OVERRIDE: Incomplete
 
 class Manifest(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     Default: Incomplete
     Override: Incomplete
     path: str

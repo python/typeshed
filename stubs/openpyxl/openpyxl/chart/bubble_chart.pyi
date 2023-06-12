@@ -13,7 +13,7 @@ from ._chart import ChartBase
 _BubbleChartSizeRepresents: TypeAlias = Literal["area", "w"]
 
 class BubbleChart(ChartBase):
-    tagname: str
+    tagname: ClassVar[str]
     varyColors: NestedBool[Literal[True]]
     ser: Incomplete
     dLbls: Typed[DataLabelList, Literal[True]]

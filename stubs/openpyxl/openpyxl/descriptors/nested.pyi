@@ -33,7 +33,7 @@ class Nested(Descriptor[_T]):
     def __set__(self, instance: Serialisable | Strict, value: _HasTagAndGet[_T] | _T) -> None: ...
     def from_tree(self, node: _HasTagAndGet[_T]) -> _T: ...
     def to_tree(
-        self, tagname: Incomplete | None = None, value: Incomplete | None = None, namespace: Incomplete | None = None
+        self, tagname: str | None = None, value: Incomplete | None = None, namespace: Incomplete | None = None
     ) -> Element: ...
 
 class NestedValue(Nested[_T], Convertible[_T, _N]):  # type: ignore[misc]
@@ -150,7 +150,7 @@ class NestedText(NestedValue[_T, _N]):
     def __set__(self: NestedValue[_T, Literal[True]], instance: Serialisable | Strict, value: _T | int | Any | None) -> None: ...
     def from_tree(self, node: _HasTagAndText) -> str: ...  # type: ignore[override]
     def to_tree(
-        self, tagname: Incomplete | None = None, value: Incomplete | None = None, namespace: Incomplete | None = None
+        self, tagname: str | None = None, value: Incomplete | None = None, namespace: Incomplete | None = None
     ) -> Element: ...
 
 class NestedFloat(NestedValue[float, _N], Float[_N]):  # type: ignore[misc]
@@ -267,5 +267,5 @@ class EmptyTag(Nested[bool], Bool[_N]):  # type: ignore[misc]
     ) -> None: ...
     def from_tree(self, node: Unused) -> Literal[True]: ...  # type: ignore[override]  # Actual overriden return type
     def to_tree(
-        self, tagname: Incomplete | None = None, value: Incomplete | None = None, namespace: Incomplete | None = None
+        self, tagname: str | None = None, value: Incomplete | None = None, namespace: Incomplete | None = None
     ) -> Element: ...

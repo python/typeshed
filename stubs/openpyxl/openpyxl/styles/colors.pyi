@@ -17,7 +17,7 @@ class RGB(Typed[str, Incomplete]):
     def __set__(self, instance: Serialisable | Strict, value) -> None: ...
 
 class Color(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     rgb: Incomplete
     indexed: Integer[Literal[False]]
     auto: Bool[Literal[False]]
@@ -48,12 +48,12 @@ class ColorDescriptor(Typed[Color, Incomplete]):
     def __set__(self, instance: Serialisable | Strict, value) -> None: ...
 
 class RgbColor(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     rgb: Incomplete
     def __init__(self, rgb: Incomplete | None = None) -> None: ...
 
 class ColorList(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     indexedColors: Incomplete
     mruColors: Incomplete
     __elements__: ClassVar[tuple[str, ...]]

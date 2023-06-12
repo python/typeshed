@@ -18,7 +18,7 @@ from openpyxl.drawing.colors import ColorMapping
 _ChartContainerDispBlanksAs: TypeAlias = Literal["span", "gap", "zero"]
 
 class ChartContainer(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     title: Typed[Title, Literal[True]]
     autoTitleDeleted: NestedBool[Literal[True]]
     pivotFmts: Incomplete
@@ -51,7 +51,7 @@ class ChartContainer(Serialisable):
     ) -> None: ...
 
 class Protection(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     chartObject: NestedBool[Literal[True]]
     data: NestedBool[Literal[True]]
     formatting: NestedBool[Literal[True]]
@@ -68,7 +68,7 @@ class Protection(Serialisable):
     ) -> None: ...
 
 class ExternalData(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     autoUpdate: NestedBool[Literal[True]]
     id: String[Literal[False]]
     @overload
@@ -79,7 +79,7 @@ class ExternalData(Serialisable):
     def __init__(self, autoUpdate: Incomplete | None, id: str) -> None: ...
 
 class ChartSpace(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     date1904: NestedBool[Literal[True]]
     lang: NestedString[Literal[True]]
     roundedCorners: NestedBool[Literal[True]]

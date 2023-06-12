@@ -11,7 +11,7 @@ from openpyxl.descriptors.nested import NestedBool, _HasTagAndGet
 from openpyxl.descriptors.serialisable import Serialisable
 
 class DataTable(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     showHorzBorder: NestedBool[Literal[True]]
     showVertBorder: NestedBool[Literal[True]]
     showOutline: NestedBool[Literal[True]]
@@ -33,7 +33,7 @@ class DataTable(Serialisable):
     ) -> None: ...
 
 class PlotArea(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     layout: Typed[Layout, Literal[True]]
     dTable: Typed[DataTable, Literal[True]]
     spPr: Typed[GraphicalProperties, Literal[True]]
@@ -69,6 +69,6 @@ class PlotArea(Serialisable):
         _axes=(),
         extLst: Unused = None,
     ) -> None: ...
-    def to_tree(self, tagname: Incomplete | None = None, idx: Incomplete | None = None, namespace: Incomplete | None = None): ...
+    def to_tree(self, tagname: str | None = None, idx: Incomplete | None = None, namespace: Incomplete | None = None): ...
     @classmethod
     def from_tree(cls, node): ...

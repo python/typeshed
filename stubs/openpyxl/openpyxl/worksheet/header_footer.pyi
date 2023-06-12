@@ -41,7 +41,7 @@ class HeaderFooterItem(Strict):
     def from_tree(cls, node): ...
 
 class HeaderFooter(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     differentOddEven: Bool[Literal[True]]
     differentFirst: Bool[Literal[True]]
     scaleWithDoc: Bool[Literal[True]]
