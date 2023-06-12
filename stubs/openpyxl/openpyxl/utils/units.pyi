@@ -1,11 +1,11 @@
 from typing_extensions import Final
 
-DEFAULT_ROW_HEIGHT: Final = 15.0
+DEFAULT_ROW_HEIGHT: Final[float]
 BASE_COL_WIDTH: Final = 8
 DEFAULT_COLUMN_WIDTH: Final = 13
-DEFAULT_LEFT_MARGIN: Final = 0.7
-DEFAULT_TOP_MARGIN: Final = 0.7874
-DEFAULT_HEADER: Final = 0.3
+DEFAULT_LEFT_MARGIN: Final[float]
+DEFAULT_TOP_MARGIN: Final[float]
+DEFAULT_HEADER: Final[float]
 
 def inch_to_dxa(value): ...
 def dxa_to_inch(value): ...
