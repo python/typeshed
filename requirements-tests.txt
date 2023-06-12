@@ -14,7 +14,7 @@ pytype==2023.6.2; platform_system != "Windows" and python_version < "3.11"
 # Git support.
 pre-commit-hooks==4.4.0                           # must match .pre-commit-config.yaml
 
-# Utilities used by our various scripts.
+# Libraries used by our various scripts.
 aiohttp==3.8.4; python_version < "3.12"           # aiohttp can't be installed on 3.12 yet
 packaging==23.1
 pathspec>=0.11.1
