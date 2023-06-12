@@ -33,7 +33,7 @@ class Typed(Descriptor[_T], Generic[_T, _N]):
     expected_type: type[_T]
     allow_none: _N
     nested: bool
-    __doc__: Incomplete
+    __doc__: str
 
     @overload
     def __init__(

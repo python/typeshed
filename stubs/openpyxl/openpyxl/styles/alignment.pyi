@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Alias, Bool, Min, MinMax, NoneSet, _ConvertibleToBool, _ConvertibleToFloat
@@ -14,7 +15,7 @@ vertical_aligments: tuple[_VerticalAlignmentsType, ...]
 
 class Alignment(Serialisable):
     tagname: str
-    __fields__: Incomplete
+    __fields__: ClassVar[tuple[str, ...]]
     horizontal: NoneSet[_HorizontalAlignmentsType]
     vertical: NoneSet[_VerticalAlignmentsType]
     textRotation: NoneSet[int]
