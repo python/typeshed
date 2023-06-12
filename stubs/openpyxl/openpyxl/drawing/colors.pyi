@@ -409,7 +409,7 @@ class SchemeColor(Serialisable):
         gamma: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
         invGamma: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
         *,
-        val: _SchemeColorVal,
+        val: _SchemeColors,
     ) -> None: ...
     @overload
     def __init__(
@@ -442,7 +442,7 @@ class SchemeColor(Serialisable):
         blueMod: _HasTagAndGet[_ConvertibleToInt | None] | _ConvertibleToInt | None,
         gamma: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None,
         invGamma: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None,
-        val: _SchemeColorVal,
+        val: _SchemeColors,
     ) -> None: ...
 
 class ColorChoice(Serialisable):
