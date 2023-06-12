@@ -258,6 +258,9 @@ posixpath.join
 ntpath.join
 os.path.join
 
+# Pos-only argument had different "names" in different Python versions:
+zoneinfo.ZoneInfo.from_file
+
 # ==========
 # Allowlist entries that cannot or should not be fixed
 # ==========
