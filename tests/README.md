@@ -7,8 +7,10 @@ tests the stubs with [mypy](https://github.com/python/mypy/)
 [pyright](https://github.com/microsoft/pyright).
 - `tests/regr_test.py` runs mypy against the test cases for typeshed's
 stubs, guarding against accidental regressions.
-- `tests/check_consistent.py` checks certain files in typeshed remain
-consistent with each other.
+- `tests/check_consistent.py` checks that typeshed's directory
+structure and metadata files are correct.
+- `tests/check_new_syntax.py` contains linter-like checks to ensure
+that certain code conventions are followed.
 - `tests/stubtest_stdlib.py` checks standard library stubs against the
 objects at runtime.
 - `tests/stubtest_third_party.py` checks third-party stubs against the
