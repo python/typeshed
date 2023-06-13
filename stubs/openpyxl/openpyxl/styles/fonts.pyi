@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from typing import ClassVar
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Final, Literal, TypeAlias
 
 from openpyxl.descriptors.base import Alias, _ConvertibleToBool, _ConvertibleToFloat, _ConvertibleToInt
 from openpyxl.descriptors.nested import (
@@ -20,10 +20,10 @@ _FontVertAlign: TypeAlias = Literal["superscript", "subscript", "baseline"]
 _FontScheme: TypeAlias = Literal["major", "minor"]
 
 class Font(Serialisable):
-    UNDERLINE_DOUBLE: str
-    UNDERLINE_DOUBLE_ACCOUNTING: str
-    UNDERLINE_SINGLE: str
-    UNDERLINE_SINGLE_ACCOUNTING: str
+    UNDERLINE_DOUBLE: Final = "double"
+    UNDERLINE_DOUBLE_ACCOUNTING: Final = "doubleAccounting"
+    UNDERLINE_SINGLE: Final = "single"
+    UNDERLINE_SINGLE_ACCOUNTING: Final = "singleAccounting"
     name: NestedString[Literal[True]]
     charset: NestedInteger[Literal[True]]
     family: NestedMinMax[float, Literal[True]]
@@ -72,4 +72,4 @@ class Font(Serialisable):
     @classmethod
     def from_tree(cls, node): ...
 
-DEFAULT_FONT: Incomplete
+DEFAULT_FONT: Final[Font]

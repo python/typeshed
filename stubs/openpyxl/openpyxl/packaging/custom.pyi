@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Iterator
 from datetime import datetime
 from typing import Any, Generic, TypeVar
-from typing_extensions import Literal, Self
+from typing_extensions import Final, Literal, Self, TypeAlias
 
 from openpyxl.descriptors import Sequence, Strict
 from openpyxl.descriptors.base import (
@@ -49,8 +49,9 @@ class BoolProperty(_TypedProperty[_ConvertibleToBool]):
 class LinkProperty(_TypedProperty[str]):
     value: String[Literal[False]]
 
-CLASS_MAPPING: Incomplete
-XML_MAPPING: Incomplete
+_MappingPropertyType: TypeAlias = StringProperty | IntProperty | FloatProperty | DateTimeProperty | BoolProperty | LinkProperty
+CLASS_MAPPING: Final[dict[type[_MappingPropertyType], str]]
+XML_MAPPING: Final[dict[str, type[_MappingPropertyType]]]
 
 class CustomPropertyList(Strict):
     props: Sequence

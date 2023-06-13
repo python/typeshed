@@ -1,6 +1,6 @@
 from _typeshed import Incomplete, Unused
 from typing import ClassVar, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Final, Literal, TypeAlias
 
 from openpyxl.descriptors import Strict, String
 from openpyxl.descriptors.base import Alias, Bool, Integer, NoneSet, Typed, _ConvertibleToBool, _ConvertibleToInt
@@ -13,8 +13,8 @@ _TableColumnTotalsRowFunction: TypeAlias = Literal[
 ]
 _TableTableType: TypeAlias = Literal["worksheet", "xml", "queryTable"]
 
-TABLESTYLES: Incomplete
-PIVOTSTYLES: Incomplete
+TABLESTYLES: Final[tuple[str, ...]]
+PIVOTSTYLES: Final[tuple[str, ...]]
 
 class TableStyleInfo(Serialisable):
     tagname: ClassVar[str]

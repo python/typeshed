@@ -75,8 +75,8 @@ class PatternFill(Fill):
     ) -> None: ...
     def to_tree(self, tagname: str | None = None, idx: Incomplete | None = None): ...  # type: ignore[override]
 
-DEFAULT_EMPTY_FILL: Incomplete
-DEFAULT_GRAY_FILL: Incomplete
+DEFAULT_EMPTY_FILL: Final[PatternFill]
+DEFAULT_GRAY_FILL: Final[PatternFill]
 
 class Stop(Serialisable):
     tagname: ClassVar[str]

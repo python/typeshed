@@ -8,7 +8,7 @@ from typing import Union, cast
 from typing_extensions import Literal, assert_type
 
 from openpyxl.descriptors import Strict
-from openpyxl.descriptors.nested import (  # EmptyTag,
+from openpyxl.descriptors.nested import (
     EmptyTag,
     Nested,
     NestedBool,

@@ -1,16 +1,17 @@
 from _typeshed import Incomplete, Unused
+from re import Pattern
 from typing import ClassVar
-from typing_extensions import Literal
+from typing_extensions import Final, Literal
 
 from openpyxl.descriptors import Strict, Typed
 from openpyxl.descriptors.base import Bool, Integer, MinMax, String, _ConvertibleToBool, _ConvertibleToFloat, _ConvertibleToInt
 from openpyxl.descriptors.serialisable import Serialisable
 
-COLOR_INDEX: Incomplete
-BLACK: Incomplete
-WHITE: Incomplete
-BLUE: Incomplete
-aRGB_REGEX: Incomplete
+COLOR_INDEX: Final[tuple[str, ...]]
+BLACK: Final = "00000000"
+WHITE: Final = "00FFFFFF"
+BLUE: Final = "00FFFFFF"
+aRGB_REGEX: Final[Pattern[str]]
 
 class RGB(Typed[str, Incomplete]):
     expected_type: type[str]
