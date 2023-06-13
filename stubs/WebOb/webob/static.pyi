@@ -2,6 +2,7 @@ from _typeshed import StrOrBytesPath
 from collections.abc import Iterator
 from typing import IO, Any
 
+from webob.dec import wsgify
 from webob.request import Request
 from webob.response import Response
 
@@ -11,6 +12,7 @@ class FileApp:
     filename: StrOrBytesPath
     kw: dict[str, Any]
     def __init__(self, filename: StrOrBytesPath, **kw: Any) -> None: ...
+    @wsgify
     def __call__(self, req: Request) -> Response: ...
 
 class FileIter:
@@ -30,5 +32,6 @@ class DirectoryApp:
         self, path: StrOrBytesPath, index_page: str = "index.html", hide_index_with_redirect: bool = False, **kw: Any
     ) -> None: ...
     def make_fileapp(self, path: StrOrBytesPath) -> FileApp: ...
+    @wsgify
     def __call__(self, req: Request) -> Response | FileApp: ...
     def index(self, req: Request, path: StrOrBytesPath) -> Response | FileApp: ...
