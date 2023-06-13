@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 from typing import ClassVar
-from typing_extensions import Literal
+from typing_extensions import Final, Literal
 
 from openpyxl.descriptors.base import String
 from openpyxl.descriptors.serialisable import Serialisable
@@ -20,8 +20,8 @@ class Override(Serialisable):
     ContentType: String[Literal[False]]
     def __init__(self, PartName: str, ContentType: str) -> None: ...
 
-DEFAULT_TYPES: Incomplete
-DEFAULT_OVERRIDE: Incomplete
+DEFAULT_TYPES: Final[list[FileExtension]]
+DEFAULT_OVERRIDE: Final[list[Override]]
 
 class Manifest(Serialisable):
     tagname: str

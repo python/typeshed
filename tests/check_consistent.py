@@ -21,6 +21,10 @@ from utils import VERSIONS_RE, get_all_testcase_directories, get_gitignore_spec,
 
 extension_descriptions = {".pyi": "stub", ".py": ".py"}
 
+# These type checkers and linters must have exact versions in the requirements file to ensure
+# consistent CI runs.
+linters = {"black", "flake8", "flake8-bugbear", "flake8-noqa", "flake8-pyi", "isort", "mypy", "pycln", "pytype"}
+
 
 def assert_consistent_filetypes(
     directory: Path, *, kind: str, allowed: set[str], allow_nonidentifier_filenames: bool = False
@@ -170,7 +174,19 @@ def get_precommit_requirements() -> dict[str, SpecifierSet]:
     return precommit_requirements
 
 
-def check_requirements() -> None:
+def check_requirement_pins() -> None:
+    """Check that type checkers and linters are pinned to an exact version."""
+    requirements = get_txt_requirements()
+    for package in linters:
+        assert package in requirements, f"type checker/linter '{package}' not found in requirements-tests.txt"
+        spec = requirements[package]
+        assert len(spec) == 1, f"type checker/linter '{package}' has complex specifier in requirements-tests.txt"
+        msg = f"type checker/linter '{package}' is not pinned to an exact version in requirements-tests.txt"
+        assert str(spec).startswith("=="), msg
+
+
+def check_precommit_requirements() -> None:
+    """Check that the requirements in requirements-tests.txt and .pre-commit-config.yaml match."""
     requirements_txt_requirements = get_txt_requirements()
     precommit_requirements = get_precommit_requirements()
     no_txt_entry_msg = "All pre-commit requirements must also be listed in `requirements-tests.txt` (missing {requirement!r})"
@@ -191,4 +207,5 @@ if __name__ == "__main__":
     check_metadata()
     check_no_symlinks()
     check_test_cases()
-    check_requirements()
+    check_requirement_pins()
+    check_precommit_requirements()

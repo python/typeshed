@@ -2,14 +2,14 @@ from _typeshed import Incomplete
 from collections import defaultdict
 from collections.abc import Generator
 from re import Pattern
-from typing_extensions import Literal
+from typing_extensions import Final, Literal
 
 from openpyxl.descriptors import Sequence
 from openpyxl.descriptors.base import Alias, Bool, Integer, String, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.serialisable import Serialisable
 
-RESERVED: frozenset[str]
-RESERVED_REGEX: Pattern[str]
+RESERVED: Final[frozenset[str]]
+RESERVED_REGEX: Final[Pattern[str]]
 
 class DefinedName(Serialisable):
     tagname: str
