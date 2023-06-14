@@ -1,6 +1,4 @@
 # Uncategorised, from Python 3.12
-_ctypes.SIZEOF_TIME_T
-_thread.daemon_threads_allowed
 argparse.BooleanOptionalAction.__init__
 array.array.__class_getitem__
 asyncio.BaseEventLoop.create_connection
@@ -23,26 +21,18 @@ collections.UserDict.get
 configparser.ParsingError.__init__
 configparser.RawConfigParser.readfp
 configparser.__all__
-ctypes.c_time_t
 datetime.__all__
 email.utils.localtime
 enum.Enum.__signature__
 enum.EnumMeta.__call__
 enum.EnumType.__call__
 enum.property.member
-ftplib.FTP_TLS.__init__
 genericpath.__all__
 genericpath.islink
 gzip.GzipFile.filename
-http.HTTPStatus.is_client_error
-http.HTTPStatus.is_informational
-http.HTTPStatus.is_redirection
-http.HTTPStatus.is_server_error
-http.HTTPStatus.is_success
 http.client.HTTPConnection.get_proxy_response_headers
 http.client.HTTPSConnection.__init__
 imaplib.IMAP4_SSL.__init__
-imp
 importlib.abc.Finder
 importlib.abc.Loader.module_repr
 importlib.abc.MetaPathFinder.find_module
@@ -78,8 +68,6 @@ logging.Logger.getChildren
 logging.__all__
 logging.getHandlerByName
 logging.getHandlerNames
-multiprocessing.connection.deliver_challenge
-multiprocessing.queues.Queue.__class_getitem__
 ntpath.__all__
 ntpath.isjunction
 ntpath.splitroot
@@ -92,9 +80,6 @@ pathlib.PurePath.__init__
 pathlib.PurePath.is_relative_to
 pathlib.PurePath.relative_to
 pdb.Pdb.set_convenience_variable
-pkgutil.ImpImporter
-pkgutil.ImpLoader
-pkgutil.__all__
 poplib.POP3_SSL.__init__
 posixpath.__all__
 posixpath.isjunction
@@ -166,22 +151,11 @@ tarfile.__all__
 tarfile.data_filter
 tarfile.fully_trusted_filter
 tarfile.tar_filter
-token.EXCLAMATION
-token.FSTRING_END
-token.FSTRING_MIDDLE
-token.FSTRING_START
-token.__all__
-tokenize.EXCLAMATION
-tokenize.FSTRING_END
-tokenize.FSTRING_MIDDLE
-tokenize.FSTRING_START
-tokenize.__all__
 turtle.RawTurtle.teleport
 turtle.TNavigator.teleport
 turtle.TPen.teleport
 turtle.__all__
 turtle.teleport
-types.AsyncGeneratorType.ag_suspended
 typing.ParamSpec.__mro_entries__
 typing.ParamSpecArgs.__mro_entries__
 typing.ParamSpecKwargs.__mro_entries__
@@ -209,21 +183,11 @@ unittest.runner.TextTestResult.__init__
 unittest.runner.TextTestRunner.__init__
 urllib.request.AbstractHTTPHandler.__init__
 urllib.request.HTTPSHandler.__init__
-uuid.main
-webbrowser.Galeon
-webbrowser.Grail
 zipfile.Path.glob
 zipfile.Path.is_symlink
 zipfile.Path.match
 zipfile.Path.relative_to
 zipfile.Path.rglob
-zoneinfo.ZoneInfo.from_file
-
-array.array.__release_buffer__
-builtins.bytearray.__release_buffer__
-builtins.memoryview.__release_buffer__
-mmap.mmap.__release_buffer__
-pickle.PickleBuffer.__release_buffer__
 
 # Errors that also existed on Python 3.11
 _collections_abc.AsyncGenerator.ag_await
@@ -242,7 +206,6 @@ _csv.Reader
 _csv.Writer
 configparser.LegacyInterpolation.__init__
 enum.Enum.__init__
-ftplib.FTP.trust_server_pasv_ipv4_address
 ipaddress._BaseNetwork.broadcast_address
 ipaddress._BaseNetwork.hostmask
 ipaddress.IPv4Interface.hostmask
@@ -295,6 +258,9 @@ posixpath.join
 ntpath.join
 os.path.join
 
+# Pos-only parameters had different "names" in different Python versions:
+zoneinfo.ZoneInfo.from_file
+
 # ==========
 # Allowlist entries that cannot or should not be fixed
 # ==========
@@ -311,6 +277,7 @@ dataclasses.KW_ONLY  # white lies around defaults
 enum.auto.__init__  # The stub for enum.auto is nothing like the implementation
 enum.auto.value  # The stub for enum.auto is nothing like the implementation
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
+ftplib.FTP.trust_server_pasv_ipv4_address  # Dangerous to use, intentionally undocumented, intentionally missing from typeshed. #6154
 functools._lru_cache_wrapper.cache_parameters  # Cannot be detected statically
 functools.cached_property.__set__  # Stub is a white lie; see comments in the stub
 hmac.new  # Stub is a white lie; see comments in the stub
