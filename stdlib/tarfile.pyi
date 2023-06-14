@@ -25,6 +25,15 @@ __all__ = [
     "PAX_FORMAT",
     "DEFAULT_FORMAT",
     "open",
+    "fully_trusted_filter",
+    "data_filter",
+    "tar_filter",
+    "FilterError",
+    "AbsoluteLinkError",
+    "OutsideDestinationError",
+    "SpecialFileError",
+    "AbsolutePathError",
+    "LinkOutsideDestinationError",
 ]
 
 _FilterFunction: TypeAlias = Callable[[TarInfo, str], TarInfo | None]
