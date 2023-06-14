@@ -362,6 +362,8 @@ class HeaderError(TarError): ...
 
 if sys.version_info >= (3, 8):
     class FilterError(TarError):
+        # This attribute is only set directly on the subclasses, but the documentation guarantees
+        # that it is always present on FilterError.
         tarinfo: TarInfo
 
     class AbsolutePathError(FilterError):
