@@ -40,7 +40,7 @@ def collapse_cell_addresses(cells, input_ranges=()): ...
 def expand_cell_ranges(range_string): ...
 
 class DataValidation(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     sqref: Convertible[MultiCellRange, Literal[False]]
     cells: Alias
     ranges: Alias
@@ -84,7 +84,7 @@ class DataValidation(Serialisable):
     def __contains__(self, cell): ...
 
 class DataValidationList(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     disablePrompts: Bool[Literal[True]]
     xWindow: Integer[Literal[True]]
     yWindow: Integer[Literal[True]]
@@ -103,4 +103,4 @@ class DataValidationList(Serialisable):
     def count(self): ...
     def __len__(self) -> int: ...
     def append(self, dv) -> None: ...
-    def to_tree(self, tagname: Incomplete | None = None): ...  # type: ignore[override]
+    def to_tree(self, tagname: str | None = None): ...  # type: ignore[override]

@@ -14,7 +14,7 @@ _MarkerSymbol: TypeAlias = Literal[
 ]
 
 class Marker(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     symbol: NestedNoneSet[_MarkerSymbol]
     size: NestedMinMax[float, Literal[True]]
     spPr: Typed[GraphicalProperties, Literal[True]]
@@ -30,7 +30,7 @@ class Marker(Serialisable):
     ) -> None: ...
 
 class DataPoint(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     idx: NestedInteger[Literal[False]]
     invertIfNegative: NestedBool[Literal[True]]
     marker: Typed[Marker, Literal[True]]

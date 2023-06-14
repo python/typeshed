@@ -19,7 +19,7 @@ _SeriesShape: TypeAlias = Literal["cone", "coneToMax", "box", "cylinder", "pyram
 attribute_mapping: Incomplete
 
 class SeriesLabel(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     strRef: Typed[StrRef, Literal[True]]
     v: NestedText[str, Literal[True]]
     value: Alias
@@ -27,7 +27,7 @@ class SeriesLabel(Serialisable):
     def __init__(self, strRef: StrRef | None = None, v: object = None) -> None: ...
 
 class Series(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     idx: NestedInteger[Literal[False]]
     order: NestedInteger[Literal[False]]
     tx: Typed[SeriesLabel, Literal[True]]
@@ -80,7 +80,7 @@ class Series(Serialisable):
         explosion: _HasTagAndGet[_ConvertibleToInt | None] | _ConvertibleToInt | None = None,
         extLst: Unused = None,
     ) -> None: ...
-    def to_tree(self, tagname: Incomplete | None = None, idx: Incomplete | None = None): ...  # type: ignore[override]
+    def to_tree(self, tagname: str | None = None, idx: Incomplete | None = None): ...  # type: ignore[override]
 
 class XYSeries(Series):
     idx: Incomplete

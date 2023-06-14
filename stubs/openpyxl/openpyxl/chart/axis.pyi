@@ -1,5 +1,4 @@
 from _typeshed import Incomplete, Unused
-from abc import abstractmethod
 from typing import ClassVar, overload
 from typing_extensions import Literal, TypeAlias
 
@@ -41,13 +40,13 @@ _TextAxisLblAlgn: TypeAlias = Literal["ctr", "l", "r"]
 _DateAxisTimeUnit: TypeAlias = Literal["days", "months", "years"]
 
 class ChartLines(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     spPr: Typed[GraphicalProperties, Literal[True]]
     graphicalProperties: Alias
     def __init__(self, spPr: GraphicalProperties | None = None) -> None: ...
 
 class Scaling(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     logBase: NestedFloat[Literal[True]]
     orientation: NestedSet[_ScalingOrientation]
     max: NestedFloat[Literal[True]]
@@ -125,12 +124,9 @@ class _BaseAxis(Serialisable):
         crosses: Incomplete | None = None,
         crossesAt: _HasTagAndGet[_ConvertibleToFloat | None] | _ConvertibleToFloat | None = None,
     ) -> None: ...
-    @property
-    @abstractmethod
-    def tagname(self) -> str: ...
 
 class DisplayUnitsLabel(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     layout: Typed[Layout, Literal[True]]
     tx: Typed[Text, Literal[True]]
     text: Alias
@@ -148,7 +144,7 @@ class DisplayUnitsLabel(Serialisable):
     ) -> None: ...
 
 class DisplayUnitsLabelList(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     custUnit: NestedFloat[Literal[True]]
     builtInUnit: NestedNoneSet[_DisplayUnitsLabelListBuiltInUnit]
     dispUnitsLbl: Typed[DisplayUnitsLabel, Literal[True]]
@@ -166,7 +162,7 @@ class DisplayUnitsLabelList(Serialisable):
     ) -> None: ...
 
 class NumericAxis(_BaseAxis):
-    tagname: str
+    tagname: ClassVar[str]
     axId: Incomplete
     scaling: Incomplete
     delete: Incomplete
@@ -202,7 +198,7 @@ class NumericAxis(_BaseAxis):
     def from_tree(cls, node): ...
 
 class TextAxis(_BaseAxis):
-    tagname: str
+    tagname: ClassVar[str]
     axId: Incomplete
     scaling: Incomplete
     delete: Incomplete
@@ -240,7 +236,7 @@ class TextAxis(_BaseAxis):
     ) -> None: ...
 
 class DateAxis(TextAxis):
-    tagname: str
+    tagname: ClassVar[str]
     axId: Incomplete
     scaling: Incomplete
     delete: Incomplete
@@ -280,7 +276,7 @@ class DateAxis(TextAxis):
     ) -> None: ...
 
 class SeriesAxis(_BaseAxis):
-    tagname: str
+    tagname: ClassVar[str]
     axId: Incomplete
     scaling: Incomplete
     delete: Incomplete

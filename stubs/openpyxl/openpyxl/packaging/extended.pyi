@@ -21,7 +21,7 @@ class VectorVariant(Serialisable):
     __attrs__: ClassVar[tuple[str, ...]]
 
 class ExtendedProperties(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     Template: NestedText[str, Literal[True]]
     Manager: NestedText[str, Literal[True]]
     Company: NestedText[str, Literal[True]]

@@ -14,7 +14,7 @@ _GraphicalPropertiesBwMode: TypeAlias = Literal[
 ]
 
 class GraphicalProperties(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     bwMode: NoneSet[_GraphicalPropertiesBwMode]
     xfrm: Typed[Transform2D, Literal[True]]
     transform: Alias

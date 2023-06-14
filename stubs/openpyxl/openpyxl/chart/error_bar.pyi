@@ -14,7 +14,7 @@ _ErrorBarsErrValType: TypeAlias = Literal["cust", "fixedVal", "percentage", "std
 _ErrorBarsErrDir: TypeAlias = Literal["x", "y"]
 
 class ErrorBars(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     errDir: NestedNoneSet[_ErrorBarsErrDir]
     direction: Alias
     errBarType: NestedSet[_ErrorBarsErrBarType]

@@ -12,7 +12,7 @@ from openpyxl.descriptors.nested import NestedInteger, NestedText, _HasTagAndGet
 from openpyxl.descriptors.serialisable import Serialisable
 
 class PivotSource(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     name: NestedText[str, Literal[False]]
     fmtId: NestedInteger[Literal[False]]
     extLst: Typed[ExtensionList, Literal[True]]
@@ -27,7 +27,7 @@ class PivotSource(Serialisable):
     ) -> None: ...
 
 class PivotFormat(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     idx: NestedInteger[Literal[False]]
     spPr: Typed[GraphicalProperties, Literal[True]]
     graphicalProperties: Alias

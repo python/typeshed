@@ -27,8 +27,8 @@ _LinePropertiesPrstDash: TypeAlias = Literal[
 ]
 
 class LineEndProperties(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     type: NoneSet[_LineEndPropertiesType]
     w: NoneSet[_LineEndPropertiesWLen]
     len: NoneSet[_LineEndPropertiesWLen]
@@ -40,8 +40,8 @@ class LineEndProperties(Serialisable):
     ) -> None: ...
 
 class DashStop(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     d: Integer[Literal[False]]
     length: Alias
     sp: Integer[Literal[False]]
@@ -53,8 +53,8 @@ class DashStopList(Serialisable):
     def __init__(self, ds: Incomplete | None = None) -> None: ...
 
 class LineProperties(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     w: MinMax[float, Literal[True]]
     width: Alias
     cap: NoneSet[_LinePropertiesCap]
