@@ -1,5 +1,4 @@
 from _typeshed import Incomplete, Unused
-from abc import abstractmethod
 from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
@@ -35,12 +34,9 @@ class _PieChartBase(ChartBase):
         ser=(),
         dLbls: DataLabelList | None = None,
     ) -> None: ...
-    @property
-    @abstractmethod
-    def tagname(self) -> str: ...
 
 class PieChart(_PieChartBase):
-    tagname: str
+    tagname: ClassVar[str]
     varyColors: Incomplete
     ser: Incomplete
     dLbls: Incomplete
@@ -52,7 +48,7 @@ class PieChart(_PieChartBase):
     ) -> None: ...
 
 class PieChart3D(_PieChartBase):
-    tagname: str
+    tagname: ClassVar[str]
     varyColors: Incomplete
     ser: Incomplete
     dLbls: Incomplete
@@ -60,7 +56,7 @@ class PieChart3D(_PieChartBase):
     __elements__: ClassVar[tuple[str, ...]]
 
 class DoughnutChart(_PieChartBase):
-    tagname: str
+    tagname: ClassVar[str]
     varyColors: Incomplete
     ser: Incomplete
     dLbls: Incomplete
@@ -77,13 +73,13 @@ class DoughnutChart(_PieChartBase):
     ) -> None: ...
 
 class CustomSplit(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     secondPiePt: Incomplete
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, secondPiePt=()) -> None: ...
 
 class ProjectedPieChart(_PieChartBase):
-    tagname: str
+    tagname: ClassVar[str]
     varyColors: Incomplete
     ser: Incomplete
     dLbls: Incomplete

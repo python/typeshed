@@ -11,7 +11,7 @@ _ManualLayoutMode: TypeAlias = Literal["edge", "factor"]
 _ManualLayoutLayoutTarget: TypeAlias = Literal["inner", "outer"]
 
 class ManualLayout(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     layoutTarget: NestedNoneSet[_ManualLayoutLayoutTarget]
     xMode: NestedNoneSet[_ManualLayoutMode]
     yMode: NestedNoneSet[_ManualLayoutMode]
@@ -40,7 +40,7 @@ class ManualLayout(Serialisable):
     ) -> None: ...
 
 class Layout(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     manualLayout: Typed[ManualLayout, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]

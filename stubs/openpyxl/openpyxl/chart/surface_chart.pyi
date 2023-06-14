@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from abc import abstractmethod
 from typing import ClassVar
 from typing_extensions import Literal
 
@@ -14,7 +13,7 @@ from ._3d import _3DBase
 from ._chart import ChartBase
 
 class BandFormat(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     idx: NestedInteger[Literal[False]]
     spPr: Typed[GraphicalProperties, Literal[True]]
     graphicalProperties: Alias
@@ -24,7 +23,7 @@ class BandFormat(Serialisable):
     ) -> None: ...
 
 class BandFormatList(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     bandFmt: Incomplete
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, bandFmt=()) -> None: ...
@@ -41,12 +40,9 @@ class _SurfaceChartBase(ChartBase):
         bandFmts: BandFormatList | None = None,
         **kw,
     ) -> None: ...
-    @property
-    @abstractmethod
-    def tagname(self) -> str: ...
 
 class SurfaceChart3D(_SurfaceChartBase, _3DBase):
-    tagname: str
+    tagname: ClassVar[str]
     wireframe: Incomplete
     ser: Incomplete
     bandFmts: Incomplete
@@ -58,7 +54,7 @@ class SurfaceChart3D(_SurfaceChartBase, _3DBase):
     def __init__(self, **kw) -> None: ...
 
 class SurfaceChart(SurfaceChart3D):
-    tagname: str
+    tagname: ClassVar[str]
     wireframe: Incomplete
     ser: Incomplete
     bandFmts: Incomplete

@@ -13,7 +13,7 @@ from ._chart import ChartBase as ChartBase
 _ScatterChartScatterStyle: TypeAlias = Literal["line", "lineMarker", "marker", "smooth", "smoothMarker"]
 
 class ScatterChart(ChartBase):
-    tagname: str
+    tagname: ClassVar[str]
     scatterStyle: NestedNoneSet[_ScatterChartScatterStyle]
     varyColors: NestedBool[Literal[True]]
     ser: Incomplete

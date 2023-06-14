@@ -11,7 +11,7 @@ _PhoneticPropertiesType: TypeAlias = Literal["halfwidthKatakana", "fullwidthKata
 _PhoneticPropertiesAlignment: TypeAlias = Literal["noControl", "left", "center", "distributed"]
 
 class PhoneticProperties(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     fontId: Integer[Literal[False]]
     type: NoneSet[_PhoneticPropertiesType]
     alignment: NoneSet[_PhoneticPropertiesAlignment]
@@ -25,7 +25,7 @@ class PhoneticProperties(Serialisable):
 _PhoneticProperties: TypeAlias = PhoneticProperties
 
 class PhoneticText(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     sb: Integer[Literal[False]]
     eb: Integer[Literal[False]]
     t: NestedText[str, Literal[False]]
@@ -33,7 +33,7 @@ class PhoneticText(Serialisable):
     def __init__(self, sb: _ConvertibleToInt, eb: _ConvertibleToInt, t: object = None) -> None: ...
 
 class InlineFont(Font):
-    tagname: str
+    tagname: ClassVar[str]
     rFont: NestedString[Literal[True]]
     charset: Incomplete
     family: Incomplete
@@ -70,7 +70,7 @@ class InlineFont(Font):
     ) -> None: ...
 
 class RichText(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     rPr: Typed[InlineFont, Literal[True]]
     font: Alias
     t: NestedText[str, Literal[True]]
@@ -79,7 +79,7 @@ class RichText(Serialisable):
     def __init__(self, rPr: InlineFont | None = None, t: object = None) -> None: ...
 
 class Text(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     t: NestedText[str, Literal[True]]
     plain: Alias
     r: Incomplete

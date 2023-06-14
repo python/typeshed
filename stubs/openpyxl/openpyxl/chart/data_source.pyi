@@ -47,13 +47,13 @@ class NumRef(Serialisable):
     def __init__(self, f: object = None, numCache: NumData | None = None, extLst: Unused = None) -> None: ...
 
 class StrVal(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     idx: Integer[Literal[False]]
     v: NestedText[str, Literal[False]]
     def __init__(self, idx: _ConvertibleToInt = 0, v: object = None) -> None: ...
 
 class StrData(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     ptCount: NestedInteger[Literal[True]]
     pt: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
@@ -63,7 +63,7 @@ class StrData(Serialisable):
     ) -> None: ...
 
 class StrRef(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     f: NestedText[str, Literal[True]]
     strCache: Typed[StrData, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
@@ -76,13 +76,13 @@ class NumDataSource(Serialisable):
     def __init__(self, numRef: NumRef | None = None, numLit: NumData | None = None) -> None: ...
 
 class Level(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     pt: Incomplete
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, pt=()) -> None: ...
 
 class MultiLevelStrData(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     ptCount: Integer[Literal[True]]
     lvl: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
@@ -90,7 +90,7 @@ class MultiLevelStrData(Serialisable):
     def __init__(self, ptCount: _ConvertibleToInt | None = None, lvl=(), extLst: Unused = None) -> None: ...
 
 class MultiLevelStrRef(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     f: NestedText[str, Literal[False]]
     multiLvlStrCache: Typed[MultiLevelStrData, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
@@ -98,7 +98,7 @@ class MultiLevelStrRef(Serialisable):
     def __init__(self, f: object = None, multiLvlStrCache: MultiLevelStrData | None = None, extLst: Unused = None) -> None: ...
 
 class AxDataSource(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     numRef: Typed[NumRef, Literal[True]]
     numLit: Typed[NumData, Literal[True]]
     strRef: Typed[StrRef, Literal[True]]

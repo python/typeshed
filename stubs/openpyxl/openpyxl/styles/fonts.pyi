@@ -44,7 +44,7 @@ class Font(Serialisable):
     vertAlign: NestedNoneSet[_FontVertAlign]
     color: Incomplete
     scheme: NestedNoneSet[_FontScheme]
-    tagname: str
+    tagname: ClassVar[str]
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,

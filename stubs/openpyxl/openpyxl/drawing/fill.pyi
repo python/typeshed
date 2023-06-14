@@ -100,8 +100,8 @@ _BlipCstate: TypeAlias = Literal["email", "screen", "print", "hqprint"]
 _PathShadePropertiesPath: TypeAlias = Literal["shape", "circle", "rect"]
 
 class PatternFillProperties(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     prst: NoneSet[_PatternFillPropertiesPrst]
     preset: Alias
     fgClr: Typed[ColorChoice, Literal[True]]
@@ -117,8 +117,8 @@ class PatternFillProperties(Serialisable):
     ) -> None: ...
 
 class RelativeRect(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     l: Incomplete
     left: Alias
     t: Incomplete
@@ -132,14 +132,14 @@ class RelativeRect(Serialisable):
     ) -> None: ...
 
 class StretchInfoProperties(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     fillRect: Typed[RelativeRect, Literal[True]]
     def __init__(self, fillRect: RelativeRect = ...) -> None: ...
 
 class GradientStop(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     pos: MinMax[float, Literal[True]]
     scrgbClr: Typed[_RGBPercent, Literal[True]]
     RGBPercent: Alias
@@ -162,22 +162,22 @@ class GradientStop(Serialisable):
     ) -> None: ...
 
 class LinearShadeProperties(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     ang: Integer[Literal[False]]
     scaled: Bool[Literal[True]]
     def __init__(self, ang: _ConvertibleToInt, scaled: _ConvertibleToBool | None = None) -> None: ...
 
 class PathShadeProperties(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     path: Set[_PathShadePropertiesPath]
     fillToRect: Typed[RelativeRect, Literal[True]]
     def __init__(self, path: _PathShadePropertiesPath, fillToRect: RelativeRect | None = None) -> None: ...
 
 class GradientFillProperties(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     flip: NoneSet[_PropertiesFlip]
     rotWithShape: Bool[Literal[True]]
     gsLst: Incomplete
@@ -198,7 +198,7 @@ class GradientFillProperties(Serialisable):
     ) -> None: ...
 
 class SolidColorFillProperties(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     scrgbClr: Typed[_RGBPercent, Literal[True]]
     RGBPercent: Alias
     srgbClr: NestedValue[_RGBPercent, Literal[True]]
@@ -219,8 +219,8 @@ class SolidColorFillProperties(Serialisable):
     ) -> None: ...
 
 class Blip(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     cstate: NoneSet[_BlipCstate]
     embed: Incomplete
     link: Incomplete
@@ -307,7 +307,7 @@ class TileInfoProperties(Serialisable):
     ) -> None: ...
 
 class BlipFillProperties(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     dpi: Integer[Literal[True]]
     rotWithShape: Bool[Literal[True]]
     blip: Typed[Blip, Literal[True]]

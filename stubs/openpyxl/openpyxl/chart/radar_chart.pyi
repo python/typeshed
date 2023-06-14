@@ -13,7 +13,7 @@ from ._chart import ChartBase
 _RadarChartRadarStyle: TypeAlias = Literal["standard", "marker", "filled"]
 
 class RadarChart(ChartBase):
-    tagname: str
+    tagname: ClassVar[str]
     radarStyle: NestedSet[_RadarChartRadarStyle]
     type: Alias
     varyColors: NestedBool[Literal[True]]

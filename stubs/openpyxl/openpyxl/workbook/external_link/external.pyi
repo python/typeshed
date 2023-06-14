@@ -42,14 +42,14 @@ class ExternalSheetNames(Serialisable):
     def __init__(self, sheetName=()) -> None: ...
 
 class ExternalDefinedName(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     name: String[Literal[False]]
     refersTo: String[Literal[True]]
     sheetId: Integer[Literal[True]]
     def __init__(self, name: str, refersTo: str | None = None, sheetId: _ConvertibleToInt | None = None) -> None: ...
 
 class ExternalBook(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     sheetNames: Typed[ExternalSheetNames, Literal[True]]
     definedNames: Incomplete
     sheetDataSet: Typed[ExternalSheetDataSet, Literal[True]]
@@ -64,7 +64,7 @@ class ExternalBook(Serialisable):
     ) -> None: ...
 
 class ExternalLink(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     mime_type: str
     externalBook: Typed[ExternalBook, Literal[True]]
     file_link: Typed[Relationship, Literal[True]]
