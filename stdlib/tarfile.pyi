@@ -388,19 +388,20 @@ class TarInfo:
     def linkpath(self) -> str: ...
     @linkpath.setter
     def linkpath(self, linkname: str) -> None: ...
-    def replace(
-        self,
-        *,
-        name: str = ...,
-        mtime: int = ...,
-        mode: int = ...,
-        linkname: str = ...,
-        uid: int = ...,
-        gid: int = ...,
-        uname: str = ...,
-        gname: str = ...,
-        deep: bool = True,
-    ) -> Self: ...
+    if sys.version_info >= (3, 8):
+        def replace(
+            self,
+            *,
+            name: str = ...,
+            mtime: int = ...,
+            mode: int = ...,
+            linkname: str = ...,
+            uid: int = ...,
+            gid: int = ...,
+            uname: str = ...,
+            gname: str = ...,
+            deep: bool = True,
+        ) -> Self: ...
     def get_info(self) -> Mapping[str, str | int | bytes | Mapping[str, str]]: ...
     if sys.version_info >= (3, 8):
         def tobuf(self, format: int | None = 2, encoding: str | None = "utf-8", errors: str = "surrogateescape") -> bytes: ...
