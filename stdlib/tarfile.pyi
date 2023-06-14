@@ -1,6 +1,5 @@
 import bz2
 import io
-from logging import Filterer
 import sys
 from _typeshed import StrOrBytesPath, StrPath
 from builtins import list as _list  # aliases to avoid name clashes with fields named "type" or "list"
@@ -402,6 +401,7 @@ class TarInfo:
             gname: str = ...,
             deep: bool = True,
         ) -> Self: ...
+
     def get_info(self) -> Mapping[str, str | int | bytes | Mapping[str, str]]: ...
     if sys.version_info >= (3, 8):
         def tobuf(self, format: int | None = 2, encoding: str | None = "utf-8", errors: str = "surrogateescape") -> bytes: ...

@@ -2,9 +2,9 @@ import os
 import sys
 from _typeshed import BytesPath, FileDescriptorOrPath, StrOrBytesPath, StrPath, SupportsRead, SupportsWrite
 from collections.abc import Callable, Iterable, Sequence
+from tarfile import _TarfileFilter
 from typing import Any, AnyStr, NamedTuple, Protocol, TypeVar, overload
 from typing_extensions import TypeAlias
-from tarfile import _TarfileFilter
 
 __all__ = [
     "copyfileobj",
