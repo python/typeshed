@@ -25,16 +25,19 @@ __all__ = [
     "PAX_FORMAT",
     "DEFAULT_FORMAT",
     "open",
-    "fully_trusted_filter",
-    "data_filter",
-    "tar_filter",
-    "FilterError",
-    "AbsoluteLinkError",
-    "OutsideDestinationError",
-    "SpecialFileError",
-    "AbsolutePathError",
-    "LinkOutsideDestinationError",
 ]
+if sys.version_info >= (3, 12):
+    __all__ += [
+        "fully_trusted_filter",
+        "data_filter",
+        "tar_filter",
+        "FilterError",
+        "AbsoluteLinkError",
+        "OutsideDestinationError",
+        "SpecialFileError",
+        "AbsolutePathError",
+        "LinkOutsideDestinationError",
+    ]
 
 _FilterFunction: TypeAlias = Callable[[TarInfo, str], TarInfo | None]
 _TarfileFilter: TypeAlias = Literal["fully_trusted", "tar", "data"] | _FilterFunction
@@ -375,6 +378,10 @@ if sys.version_info >= (3, 8):
 
     class LinkOutsideDestinationError(FilterError):
         def __init__(self, tarinfo: TarInfo, path: str) -> None: ...
+
+    def fully_trusted_filter(member: TarInfo, dest_path: str) -> TarInfo: ...
+    def tar_filter(member: TarInfo, dest_path: str) -> TarInfo: ...
+    def data_filter(member: TarInfo, dest_path: str) -> TarInfo: ...
 
 class TarInfo:
     name: str
