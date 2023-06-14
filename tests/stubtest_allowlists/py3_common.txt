@@ -608,3 +608,18 @@ typing.IO.__iter__  # See https://github.com/python/typeshed/commit/97bc450acd60
 # LC_MESSAGES is sometimes present in __all__, sometimes not,
 # so stubtest will sometimes complain about exported names being different at runtime to the exported names in the stub
 (locale.__all__)?
+
+# Added or modified in a patch release, backported to all security branches,
+# but have yet to find their way to all GitHub Actions images
+(tarfile.tar_filter)?
+(tarfile.fully_trusted_filter)?
+(tarfile.data_filter)?
+(tarfile.TarFile.extractall)?
+(tarfile.TarFile.extract)?
+(tarfile.SpecialFileError)?
+(tarfile.OutsideDestinationError)?
+(tarfile.LinkOutsideDestinationError)?
+(tarfile.FilterError)?
+(tarfile.AbsolutePathError)?
+(tarfile.AbsoluteLinkError)?
+(shutil.unpack_archive)?
