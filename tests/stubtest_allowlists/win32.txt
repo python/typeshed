@@ -66,3 +66,8 @@ tty
 # pathlib functions that rely on modules that don't exist on Windows
 pathlib.Path.owner
 pathlib.Path.group
+
+# Added in a patch release, backported to all security branches,
+# but have yet to find their way to all GitHub Actions images
+(sys.get_int_max_str_digits)?
+(sys.set_int_max_str_digits)?
