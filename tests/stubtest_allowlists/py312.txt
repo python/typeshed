@@ -137,20 +137,6 @@ ssl.OP_LEGACY_SERVER_CONNECT
 ssl.Options.OP_LEGACY_SERVER_CONNECT
 ssl.RAND_pseudo_bytes
 ssl.wrap_socket
-tarfile.AbsoluteLinkError
-tarfile.AbsolutePathError
-tarfile.FilterError
-tarfile.LinkOutsideDestinationError
-tarfile.OutsideDestinationError
-tarfile.SpecialFileError
-tarfile.TarFile.extract
-tarfile.TarFile.extractall
-tarfile.TarFile.extraction_filter
-tarfile.TarInfo.replace
-tarfile.__all__
-tarfile.data_filter
-tarfile.fully_trusted_filter
-tarfile.tar_filter
 turtle.RawTurtle.teleport
 turtle.TNavigator.teleport
 turtle.TPen.teleport
@@ -336,3 +322,6 @@ typing_extensions\.Final
 typing\.NamedTuple
 typing\.LiteralString
 typing\.Annotated
+
+# Omit internal _KEEP argument
+tarfile.TarInfo.replace
