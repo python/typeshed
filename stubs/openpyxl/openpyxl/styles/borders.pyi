@@ -37,7 +37,7 @@ BORDER_THICK: Final = "thick"
 BORDER_THIN: Final = "thin"
 
 class Side(Serialisable):
-    __fields__: Incomplete
+    __fields__: ClassVar[tuple[str, ...]]
     color: Incomplete
     style: NoneSet[_SideStyle]
     border_style: Alias
@@ -50,7 +50,7 @@ class Side(Serialisable):
 
 class Border(Serialisable):
     tagname: ClassVar[str]
-    __fields__: Incomplete
+    __fields__: ClassVar[tuple[str, ...]]
     __elements__: ClassVar[tuple[str, ...]]
     start: Typed[Side, Literal[True]]
     end: Typed[Side, Literal[True]]
