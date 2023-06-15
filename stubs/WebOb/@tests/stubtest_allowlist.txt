@@ -56,6 +56,21 @@ webob.multidict.NestedMultiDict.iterkeys
 webob.multidict.NestedMultiDict.itervalues
 webob.multidict.NoVars.iterkeys
 
+# NoVars implements the MultiDict interface for better runtime errors
+# but it is annoying for type checking, so the methods that are not
+# valid to call on NoVars have been removed. In the future we would
+# like to switch to a @type_error() decorator
+webob.multidict.NoVars.__getitem__
+webob.multidict.NoVars.__setitem__
+webob.multidict.NoVars.__delitem__
+webob.multidict.NoVars.add
+webob.multidict.NoVars.setdefault
+webob.multidict.NoVars.update
+webob.multidict.NoVars.clear
+webob.multidict.NoVars.pop
+webob.multidict.NoVars.popitem
+webob.multidict.NoVars.getone
+
 # Error: is inconsistent
 # ======================
 # set_cookie has a deprecated argument `expires` which has been removed upstream
