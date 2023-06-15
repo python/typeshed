@@ -261,8 +261,8 @@ SCHEME_COLORS: Final[list[_SchemeColors]]
 class Transform(Serialisable): ...
 
 class SystemColor(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     tint: NestedInteger[Literal[True]]
     shade: NestedInteger[Literal[True]]
     comp: Typed[Transform, Literal[True]]
@@ -329,14 +329,14 @@ class SystemColor(Serialisable):
     ) -> None: ...
 
 class HSLColor(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     hue: Integer[Literal[False]]
     sat: MinMax[float, Literal[False]]
     lum: MinMax[float, Literal[False]]
     def __init__(self, hue: _ConvertibleToInt, sat: _ConvertibleToFloat, lum: _ConvertibleToFloat) -> None: ...
 
 class RGBPercent(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     r: MinMax[float, Literal[False]]
     g: MinMax[float, Literal[False]]
     b: MinMax[float, Literal[False]]
@@ -345,8 +345,8 @@ class RGBPercent(Serialisable):
 _RGBPercent: TypeAlias = RGBPercent
 
 class SchemeColor(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     tint: NestedInteger[Literal[True]]
     shade: NestedInteger[Literal[True]]
     comp: EmptyTag[Literal[True]]
@@ -446,8 +446,8 @@ class SchemeColor(Serialisable):
     ) -> None: ...
 
 class ColorChoice(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     scrgbClr: Typed[_RGBPercent, Literal[True]]
     RGBPercent: Alias
     srgbClr: NestedValue[_RGBPercent, Literal[True]]
@@ -470,7 +470,7 @@ class ColorChoice(Serialisable):
 _COLOR_SET: Final[tuple[_ColorSetType, ...]]
 
 class ColorMapping(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     bg1: Set[_ColorSetType]
     tx1: Set[_ColorSetType]
     bg2: Set[_ColorSetType]

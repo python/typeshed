@@ -8,7 +8,7 @@ from openpyxl.descriptors.serialisable import Serialisable
 _PictureOptionsPictureFormat: TypeAlias = Literal["stretch", "stack", "stackScale"]
 
 class PictureOptions(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     applyToFront: NestedBool[Literal[True]]
     applyToSides: NestedBool[Literal[True]]
     applyToEnd: NestedBool[Literal[True]]

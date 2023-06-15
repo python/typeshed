@@ -1,5 +1,4 @@
 from _typeshed import Incomplete, Unused
-from abc import abstractmethod
 from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
@@ -46,12 +45,9 @@ class _DataLabelBase(Serialisable):
         separator: object = None,
         extLst: Unused = None,
     ) -> None: ...
-    @property
-    @abstractmethod
-    def tagname(self) -> str: ...
 
 class DataLabel(_DataLabelBase):
-    tagname: str
+    tagname: ClassVar[str]
     idx: NestedInteger[Literal[False]]
     numFmt: Incomplete
     spPr: Incomplete
@@ -70,7 +66,7 @@ class DataLabel(_DataLabelBase):
     def __init__(self, idx: _HasTagAndGet[_ConvertibleToInt] | _ConvertibleToInt = 0, **kw) -> None: ...
 
 class DataLabelList(_DataLabelBase):
-    tagname: str
+    tagname: ClassVar[str]
     dLbl: Incomplete
     delete: NestedBool[Literal[True]]
     numFmt: Incomplete

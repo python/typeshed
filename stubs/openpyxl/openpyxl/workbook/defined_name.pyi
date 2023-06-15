@@ -2,6 +2,7 @@ from _typeshed import Incomplete
 from collections import defaultdict
 from collections.abc import Generator
 from re import Pattern
+from typing import ClassVar
 from typing_extensions import Final, Literal
 
 from openpyxl.descriptors import Sequence
@@ -12,7 +13,7 @@ RESERVED: Final[frozenset[str]]
 RESERVED_REGEX: Final[Pattern[str]]
 
 class DefinedName(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     name: String[Literal[False]]
     comment: String[Literal[True]]
     customMenu: String[Literal[True]]
@@ -63,7 +64,7 @@ class DefinedNameDict(dict[str, DefinedName]):
     def add(self, value: DefinedName) -> None: ...
 
 class DefinedNameList(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     definedName: Sequence
     def __init__(self, definedName=()) -> None: ...
     def by_sheet(self) -> defaultdict[int, DefinedNameDict]: ...

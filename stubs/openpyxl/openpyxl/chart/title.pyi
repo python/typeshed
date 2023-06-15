@@ -12,7 +12,7 @@ from openpyxl.descriptors.nested import NestedBool, _HasTagAndGet
 from openpyxl.descriptors.serialisable import Serialisable
 
 class Title(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     tx: Typed[Text, Literal[True]]
     text: Alias
     layout: Typed[Layout, Literal[True]]

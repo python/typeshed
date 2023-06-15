@@ -14,7 +14,7 @@ from openpyxl.descriptors.serialisable import Serialisable
 _TrendlineTrendlineType: TypeAlias = Literal["exp", "linear", "log", "movingAvg", "poly", "power"]
 
 class TrendlineLabel(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     layout: Typed[Layout, Literal[True]]
     tx: Typed[Text, Literal[True]]
     numFmt: Typed[NumFmt, Literal[True]]
@@ -35,7 +35,7 @@ class TrendlineLabel(Serialisable):
     ) -> None: ...
 
 class Trendline(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     name: String[Literal[True]]
     spPr: Typed[ExtensionList, Literal[True]]
     graphicalProperties: Alias

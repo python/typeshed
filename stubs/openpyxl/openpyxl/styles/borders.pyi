@@ -49,7 +49,7 @@ class Side(Serialisable):
     ) -> None: ...
 
 class Border(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     __fields__: ClassVar[tuple[str, ...]]
     __elements__: ClassVar[tuple[str, ...]]
     start: Typed[Side, Literal[True]]

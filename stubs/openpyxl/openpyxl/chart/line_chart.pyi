@@ -1,5 +1,4 @@
 from _typeshed import Incomplete, Unused
-from abc import abstractmethod
 from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
@@ -31,12 +30,9 @@ class _LineChartBase(ChartBase):
         dropLines: ChartLines | None = None,
         **kw,
     ) -> None: ...
-    @property
-    @abstractmethod
-    def tagname(self) -> str: ...
 
 class LineChart(_LineChartBase):
-    tagname: str
+    tagname: ClassVar[str]
     grouping: Incomplete
     varyColors: Incomplete
     ser: Incomplete
@@ -61,7 +57,7 @@ class LineChart(_LineChartBase):
     ) -> None: ...
 
 class LineChart3D(_LineChartBase):
-    tagname: str
+    tagname: ClassVar[str]
     grouping: Incomplete
     varyColors: Incomplete
     ser: Incomplete
