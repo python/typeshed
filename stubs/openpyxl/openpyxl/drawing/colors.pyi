@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from typing import ClassVar, overload
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Final, Literal, TypeAlias
 
 from openpyxl.descriptors import Strict, Typed
 from openpyxl.descriptors.base import Alias, Integer, MinMax, Set, _ConvertibleToBool, _ConvertibleToFloat, _ConvertibleToInt
@@ -43,7 +43,7 @@ _SystemColorVal: TypeAlias = Literal[
     "menuHighlight",
     "menuBar",
 ]
-_SchemeColorVal: TypeAlias = Literal[
+_SchemeColors: TypeAlias = Literal[
     "bg1",
     "tx1",
     "bg2",
@@ -255,14 +255,14 @@ _PresetColors: TypeAlias = Literal[
     "yellowGreen",
 ]
 
-PRESET_COLORS: list[_PresetColors]
-SCHEME_COLORS: Incomplete
+PRESET_COLORS: Final[list[_PresetColors]]
+SCHEME_COLORS: Final[list[_SchemeColors]]
 
 class Transform(Serialisable): ...
 
 class SystemColor(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     tint: NestedInteger[Literal[True]]
     shade: NestedInteger[Literal[True]]
     comp: Typed[Transform, Literal[True]]
@@ -329,14 +329,14 @@ class SystemColor(Serialisable):
     ) -> None: ...
 
 class HSLColor(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     hue: Integer[Literal[False]]
     sat: MinMax[float, Literal[False]]
     lum: MinMax[float, Literal[False]]
     def __init__(self, hue: _ConvertibleToInt, sat: _ConvertibleToFloat, lum: _ConvertibleToFloat) -> None: ...
 
 class RGBPercent(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     r: MinMax[float, Literal[False]]
     g: MinMax[float, Literal[False]]
     b: MinMax[float, Literal[False]]
@@ -345,8 +345,8 @@ class RGBPercent(Serialisable):
 _RGBPercent: TypeAlias = RGBPercent
 
 class SchemeColor(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     tint: NestedInteger[Literal[True]]
     shade: NestedInteger[Literal[True]]
     comp: EmptyTag[Literal[True]]
@@ -375,7 +375,7 @@ class SchemeColor(Serialisable):
     blueMod: NestedInteger[Literal[True]]
     gamma: EmptyTag[Literal[True]]
     invGamma: EmptyTag[Literal[True]]
-    val: Set[_SchemeColorVal]
+    val: Set[_SchemeColors]
     __elements__: ClassVar[tuple[str, ...]]
     @overload
     def __init__(
@@ -409,7 +409,7 @@ class SchemeColor(Serialisable):
         gamma: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
         invGamma: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
         *,
-        val: _SchemeColorVal,
+        val: _SchemeColors,
     ) -> None: ...
     @overload
     def __init__(
@@ -442,12 +442,12 @@ class SchemeColor(Serialisable):
         blueMod: _HasTagAndGet[_ConvertibleToInt | None] | _ConvertibleToInt | None,
         gamma: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None,
         invGamma: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None,
-        val: _SchemeColorVal,
+        val: _SchemeColors,
     ) -> None: ...
 
 class ColorChoice(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     scrgbClr: Typed[_RGBPercent, Literal[True]]
     RGBPercent: Alias
     srgbClr: NestedValue[_RGBPercent, Literal[True]]
@@ -467,10 +467,10 @@ class ColorChoice(Serialisable):
         prstClr: _NestedNoneSetParam[_PresetColors] = None,
     ) -> None: ...
 
-_COLOR_SET: tuple[_ColorSetType, ...]
+_COLOR_SET: Final[tuple[_ColorSetType, ...]]
 
 class ColorMapping(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     bg1: Set[_ColorSetType]
     tx1: Set[_ColorSetType]
     bg2: Set[_ColorSetType]

@@ -10,7 +10,7 @@ from openpyxl.descriptors.nested import NestedBool, NestedInteger, NestedMinMax,
 from openpyxl.descriptors.serialisable import Serialisable
 
 class View3D(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     rotX: NestedMinMax[float, Literal[True]]
     x_rotation: Alias
     hPercent: NestedMinMax[float, Literal[True]]
@@ -35,7 +35,7 @@ class View3D(Serialisable):
     ) -> None: ...
 
 class Surface(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     thickness: NestedInteger[Literal[True]]
     spPr: Typed[GraphicalProperties, Literal[True]]
     graphicalProperties: Alias
@@ -51,7 +51,7 @@ class Surface(Serialisable):
     ) -> None: ...
 
 class _3DBase(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     view3D: Typed[View3D, Literal[True]]
     floor: Typed[Surface, Literal[True]]
     sideWall: Typed[Surface, Literal[True]]

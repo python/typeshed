@@ -9,7 +9,7 @@ from openpyxl.worksheet.header_footer import HeaderFooter
 from openpyxl.worksheet.page import PageMargins, PrintPageSetup
 
 class CustomChartsheetView(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     guid: Incomplete
     scale: Integer[Literal[False]]
     state: Set[_VisibilityType]
@@ -43,7 +43,7 @@ class CustomChartsheetView(Serialisable):
     ) -> None: ...
 
 class CustomChartsheetViews(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     customSheetView: Incomplete
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, customSheetView: Incomplete | None = None) -> None: ...

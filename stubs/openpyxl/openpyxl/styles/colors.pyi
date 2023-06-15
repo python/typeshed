@@ -2,7 +2,7 @@ from _typeshed import Incomplete, Unused
 from collections.abc import Generator
 from re import Pattern
 from typing import ClassVar, TypeVar, overload
-from typing_extensions import Literal, Self
+from typing_extensions import Final, Literal, Self
 
 from openpyxl.descriptors import Strict, Typed
 from openpyxl.descriptors.base import Bool, Integer, MinMax, String, _ConvertibleToBool, _ConvertibleToFloat, _ConvertibleToInt
@@ -10,18 +10,18 @@ from openpyxl.descriptors.serialisable import Serialisable
 
 _S = TypeVar("_S", bound=Serialisable)
 
-COLOR_INDEX: tuple[str, ...]
-BLACK: str
-WHITE: str
-BLUE: str
-aRGB_REGEX: Pattern[str]
+COLOR_INDEX: Final[tuple[str, ...]]
+BLACK: Final = "00000000"
+WHITE: Final = "00FFFFFF"
+BLUE: Final = "00FFFFFF"
+aRGB_REGEX: Final[Pattern[str]]
 
 class RGB(Typed[str, Incomplete]):
     expected_type: type[str]
     def __set__(self, instance: Serialisable | Strict, value) -> None: ...
 
 class Color(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     rgb: Incomplete
     indexed: Integer[Literal[False]]
     auto: Bool[Literal[False]]
@@ -55,12 +55,12 @@ class ColorDescriptor(Typed[Color, Incomplete]):
     def __set__(self, instance: Serialisable | Strict, value) -> None: ...
 
 class RgbColor(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     rgb: RGB
     def __init__(self, rgb: str) -> None: ...
 
 class ColorList(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     indexedColors: Incomplete
     mruColors: Incomplete
     __elements__: ClassVar[tuple[str, ...]]

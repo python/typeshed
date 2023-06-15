@@ -6,14 +6,14 @@ from openpyxl.descriptors.base import Alias, Integer, NoneSet, Typed, _Convertib
 from openpyxl.descriptors.nested import NestedString, NestedText
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.colors import Color
-from openpyxl.styles.fonts import Font, _UnderlineType
+from openpyxl.styles.fonts import Font, _FontU
 
 _PhoneticPropertiesType: TypeAlias = Literal["halfwidthKatakana", "fullwidthKatakana", "Hiragana", "noConversion"]
 _PhoneticPropertiesAlignment: TypeAlias = Literal["noControl", "left", "center", "distributed"]
 _PhoneticProperties: TypeAlias = PhoneticProperties
 
 class PhoneticProperties(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     fontId: Integer[Literal[False]]
     type: NoneSet[_PhoneticPropertiesType]
     alignment: NoneSet[_PhoneticPropertiesAlignment]
@@ -25,7 +25,7 @@ class PhoneticProperties(Serialisable):
     ) -> None: ...
 
 class PhoneticText(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     sb: Integer[Literal[False]]
     eb: Integer[Literal[False]]
     t: NestedText[str, Literal[False]]
@@ -33,7 +33,7 @@ class PhoneticText(Serialisable):
     def __init__(self, sb: _ConvertibleToInt, eb: _ConvertibleToInt, t: object = None) -> None: ...
 
 class InlineFont(Font):
-    tagname: str
+    tagname: ClassVar[str]
     rFont: NestedString[Literal[True]]
     charset: Incomplete
     family: Incomplete
@@ -64,13 +64,13 @@ class InlineFont(Font):
         extend: bool | None = None,
         color: Color | None = None,
         sz: float | None = None,
-        u: _UnderlineType = None,
+        u: _FontU | None = None,
         vertAlign: Literal["superscript", "subscript", "baseline", None] = None,
         scheme: Literal["major", "minor", None] = None,
     ) -> None: ...
 
 class RichText(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     rPr: Typed[InlineFont, Literal[True]]
     font: Alias
     t: NestedText[str, Literal[True]]
@@ -79,7 +79,7 @@ class RichText(Serialisable):
     def __init__(self, rPr: InlineFont | None = None, t: object = None) -> None: ...
 
 class Text(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     t: NestedText[str, Literal[True]]
     plain: Alias
     r: Incomplete

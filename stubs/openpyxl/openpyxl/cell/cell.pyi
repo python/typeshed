@@ -1,4 +1,4 @@
-import datetime
+from datetime import date, datetime, time, timedelta
 from decimal import Decimal
 from re import Pattern
 from typing import overload
@@ -13,17 +13,18 @@ from openpyxl.workbook.child import _WorkbookChild
 from openpyxl.worksheet.formula import ArrayFormula, DataTableFormula
 from openpyxl.worksheet.hyperlink import Hyperlink
 
-_TimeTypes: TypeAlias = datetime.datetime | datetime.date | datetime.time | datetime.timedelta
+_TimeTypes: TypeAlias = datetime | date | time | timedelta
 _CellValue: TypeAlias = (  # if numpy is installed also numpy bool and number types
     bool | float | Decimal | str | CellRichText | _TimeTypes | DataTableFormula | ArrayFormula
 )
 
-TIME_TYPES: tuple[type, ...]
-TIME_FORMATS: dict[type[_TimeTypes], str]
-STRING_TYPES: tuple[type, ...]
-KNOWN_TYPES: tuple[type, ...]
+__docformat__: Final = "restructuredtext en"
+TIME_TYPES: Final[tuple[type, ...]]
+TIME_FORMATS: Final[dict[type[_TimeTypes], str]]
+STRING_TYPES: Final[tuple[type, ...]]
+KNOWN_TYPES: Final[tuple[type, ...]]
 
-ILLEGAL_CHARACTERS_RE: Pattern[str]
+ILLEGAL_CHARACTERS_RE: Final[Pattern[str]]
 ERROR_CODES: Final[tuple[str, ...]]
 
 TYPE_STRING: Final = "s"
@@ -61,7 +62,7 @@ class Cell(StyleableObject):
     @property
     def encoding(self) -> str: ...
     @property
-    def base_date(self) -> datetime.datetime: ...
+    def base_date(self) -> datetime: ...
     @overload
     def check_string(self, value: None) -> None: ...
     @overload

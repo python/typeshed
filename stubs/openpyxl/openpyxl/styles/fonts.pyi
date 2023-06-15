@@ -47,7 +47,7 @@ class Font(Serialisable):
     vertAlign: NestedNoneSet[_FontVertAlign]
     color: Incomplete
     scheme: NestedNoneSet[_FontScheme]
-    tagname: str
+    tagname: ClassVar[str]
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
@@ -75,4 +75,4 @@ class Font(Serialisable):
     @classmethod
     def from_tree(cls, node: _Element) -> Self: ...
 
-DEFAULT_FONT: Font
+DEFAULT_FONT: Final[Font]

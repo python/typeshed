@@ -1,5 +1,5 @@
 from decimal import Decimal
-from typing_extensions import TypeAlias
+from typing_extensions import Final, TypeAlias
 
 # NOTE: Can't specify numpy as a dependency because openpyxl doesn't declare it as one
 # import numpy
@@ -12,6 +12,6 @@ from typing_extensions import TypeAlias
 # _NumericTypes: TypeAlias = int | float | Decimal | numpy.bool_ | numpy.floating[_NBitBase] | numpy.integer[_NBitBase]
 
 _NumericTypes: TypeAlias = int | float | Decimal
-NUMERIC_TYPES: tuple[type[_NumericTypes], ...]
+NUMERIC_TYPES: Final[tuple[type[_NumericTypes], ...]]
 
-NUMPY: bool
+NUMPY: Final[bool]

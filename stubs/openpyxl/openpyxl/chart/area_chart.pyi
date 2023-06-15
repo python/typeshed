@@ -1,5 +1,4 @@
 from _typeshed import Incomplete, Unused
-from abc import abstractmethod
 from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
@@ -29,12 +28,9 @@ class _AreaChartBase(ChartBase):
         dLbls: DataLabelList | None = None,
         dropLines: ChartLines | None = None,
     ) -> None: ...
-    @property
-    @abstractmethod
-    def tagname(self) -> str: ...
 
 class AreaChart(_AreaChartBase):
-    tagname: str
+    tagname: ClassVar[str]
     grouping: Incomplete
     varyColors: Incomplete
     ser: Incomplete
@@ -47,7 +43,7 @@ class AreaChart(_AreaChartBase):
     def __init__(self, axId: Unused = None, extLst: Unused = None, **kw) -> None: ...
 
 class AreaChart3D(AreaChart):
-    tagname: str
+    tagname: ClassVar[str]
     grouping: Incomplete
     varyColors: Incomplete
     ser: Incomplete

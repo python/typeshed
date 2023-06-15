@@ -3,7 +3,7 @@ import xml.etree.ElementTree
 from _typeshed import Incomplete
 from re import Pattern
 from typing import overload
-from typing_extensions import TypeAlias
+from typing_extensions import Final, TypeAlias
 
 # mypy will default to the first import. Pyright will automatically overload
 from xml.etree.ElementTree import (  # possibly also imported from lxml
@@ -35,7 +35,7 @@ from ._functions import (  # type: ignore[assignment,no-redef]  # noqa: F811  # 
 # Referenced outside this module
 _Element: TypeAlias = xml.etree.ElementTree.Element  # noqa: Y047
 
-NS_REGEX: Pattern[str]
+NS_REGEX: Final[Pattern[str]]
 
 def localname(node): ...
 def whitespace(node) -> None: ...

@@ -1,5 +1,4 @@
 from _typeshed import Incomplete, Unused
-from abc import abstractmethod
 from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
@@ -34,12 +33,9 @@ class _BarChartBase(ChartBase):
         dLbls: DataLabelList | None = None,
         **kw,
     ) -> None: ...
-    @property
-    @abstractmethod
-    def tagname(self) -> str: ...
 
 class BarChart(_BarChartBase):
-    tagname: str
+    tagname: ClassVar[str]
     barDir: Incomplete
     grouping: Incomplete
     varyColors: Incomplete
@@ -63,7 +59,7 @@ class BarChart(_BarChartBase):
     ) -> None: ...
 
 class BarChart3D(_BarChartBase, _3DBase):
-    tagname: str
+    tagname: ClassVar[str]
     barDir: Incomplete
     grouping: Incomplete
     varyColors: Incomplete

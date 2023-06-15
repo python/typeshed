@@ -20,7 +20,7 @@ _WebPublishingTargetScreenSize: TypeAlias = Literal[
 ]
 
 class WebPublishObject(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     id: Integer[Literal[False]]
     divId: String[Literal[False]]
     sourceObject: String[Literal[True]]
@@ -50,7 +50,9 @@ class WebPublishObject(Serialisable):
     ) -> None: ...
 
 class WebPublishObjectList(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
+    # Overwritten by property below
+    # count: Integer
     webPublishObject: Incomplete
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, count: Unused = None, webPublishObject=()) -> None: ...
@@ -58,7 +60,7 @@ class WebPublishObjectList(Serialisable):
     def count(self) -> int: ...
 
 class WebPublishing(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     css: Bool[Literal[True]]
     thicket: Bool[Literal[True]]
     longFileNames: Bool[Literal[True]]

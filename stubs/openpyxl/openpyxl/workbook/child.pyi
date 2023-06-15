@@ -1,11 +1,12 @@
 from collections.abc import Iterable
 from re import Pattern
+from typing_extensions import Final
 
 from openpyxl import _Decodable
 from openpyxl.workbook.workbook import Workbook
 from openpyxl.worksheet.header_footer import HeaderFooter
 
-INVALID_TITLE_REGEX: Pattern[str]
+INVALID_TITLE_REGEX: Final[Pattern[str]]
 
 def avoid_duplicate_name(names: Iterable[str], value: str) -> str: ...
 

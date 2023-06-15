@@ -1,13 +1,14 @@
 from collections.abc import Generator
 from re import Pattern
+from typing_extensions import Final
 
-COORD_RE: Pattern[bytes]
-COL_RANGE: str
-ROW_RANGE: str
-RANGE_EXPR: str
-ABSOLUTE_RE: Pattern[bytes]
-SHEET_TITLE: str
-SHEETRANGE_RE: Pattern[bytes]
+COORD_RE: Final[Pattern[str]]
+COL_RANGE: Final = """[A-Z]{1,3}:[A-Z]{1,3}:"""
+ROW_RANGE: Final = r"""\d+:\d+:"""
+RANGE_EXPR: Final[str]
+ABSOLUTE_RE: Final[Pattern[str]]
+SHEET_TITLE: Final[str]
+SHEETRANGE_RE: Final[Pattern[str]]
 
 def get_column_interval(start: str | int, end: str | int) -> list[str]: ...
 def coordinate_from_string(coord_string: str) -> tuple[str, int]: ...

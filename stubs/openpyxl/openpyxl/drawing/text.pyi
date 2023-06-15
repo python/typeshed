@@ -146,8 +146,8 @@ class EmbeddedWAVAudioFile(Serialisable):
     def __init__(self, name: str | None = None) -> None: ...
 
 class Hyperlink(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     invalidUrl: String[Literal[True]]
     action: String[Literal[True]]
     tgtFrame: String[Literal[True]]
@@ -174,8 +174,8 @@ class Hyperlink(Serialisable):
     ) -> None: ...
 
 class Font(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     typeface: String[Literal[False]]
     panose: Incomplete
     pitchFamily: MinMax[float, Literal[True]]
@@ -189,8 +189,8 @@ class Font(Serialisable):
     ) -> None: ...
 
 class CharacterProperties(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     kumimoji: Bool[Literal[True]]
     lang: String[Literal[True]]
     altLang: String[Literal[True]]
@@ -303,8 +303,8 @@ class AutonumberBullet(Serialisable):
     def __init__(self, type: _AutonumberBulletType, startAt: _ConvertibleToInt) -> None: ...
 
 class ParagraphProperties(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     marL: Integer[Literal[True]]
     marR: Integer[Literal[True]]
     lvl: Integer[Literal[True]]
@@ -367,8 +367,8 @@ class ParagraphProperties(Serialisable):
     ) -> None: ...
 
 class ListStyle(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     defPPr: Typed[ParagraphProperties, Literal[True]]
     lvl1pPr: Typed[ParagraphProperties, Literal[True]]
     lvl2pPr: Typed[ParagraphProperties, Literal[True]]
@@ -397,8 +397,8 @@ class ListStyle(Serialisable):
     ) -> None: ...
 
 class RegularTextRun(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     rPr: Typed[CharacterProperties, Literal[True]]
     properties: Alias
     t: NestedText[str, Literal[False]]
@@ -407,8 +407,8 @@ class RegularTextRun(Serialisable):
     def __init__(self, rPr: CharacterProperties | None = None, t: object = "") -> None: ...
 
 class LineBreak(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     rPr: Typed[CharacterProperties, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, rPr: CharacterProperties | None = None) -> None: ...
@@ -430,8 +430,8 @@ class TextField(Serialisable):
     ) -> None: ...
 
 class Paragraph(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     pPr: Typed[ParagraphProperties, Literal[True]]
     properties: Alias
     endParaRPr: Typed[CharacterProperties, Literal[True]]
@@ -469,8 +469,8 @@ class TextNormalAutofit(Serialisable):
     def __init__(self, fontScale: _ConvertibleToInt, lnSpcReduction: _ConvertibleToInt) -> None: ...
 
 class RichTextProperties(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     rot: Integer[Literal[True]]
     spcFirstLastPara: Bool[Literal[True]]
     vertOverflow: NoneSet[_RichTextPropertiesVertOverflow]

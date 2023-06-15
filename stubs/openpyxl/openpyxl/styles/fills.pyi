@@ -54,12 +54,12 @@ _FillsType: TypeAlias = Literal[
 fills: Final[tuple[_FillsType, ...]]
 
 class Fill(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     @classmethod
     def from_tree(cls, el: _Element) -> Self: ...
 
 class PatternFill(Fill):
-    tagname: str
+    tagname: ClassVar[str]
     __elements__: ClassVar[tuple[str, ...]]
     patternType: NoneSet[_FillsType]
     fill_type: Alias
@@ -78,11 +78,11 @@ class PatternFill(Fill):
     ) -> None: ...
     def to_tree(self, tagname: Unused = None, idx: Unused = None): ...  # type: ignore[override]
 
-DEFAULT_EMPTY_FILL: PatternFill
-DEFAULT_GRAY_FILL: PatternFill
+DEFAULT_EMPTY_FILL: Final[PatternFill]
+DEFAULT_GRAY_FILL: Final[PatternFill]
 
 class Stop(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     position: MinMax[float, Literal[False]]
     color: Incomplete
     def __init__(self, color, position: _ConvertibleToFloat) -> None: ...
@@ -92,7 +92,7 @@ class StopList(Sequence):
     def __set__(self, obj: Serialisable | Strict, values) -> None: ...
 
 class GradientFill(Fill):
-    tagname: str
+    tagname: ClassVar[str]
     type: Set[_GradientFillType]
     fill_type: Alias
     degree: Float[Literal[False]]

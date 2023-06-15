@@ -6,21 +6,6 @@ from typing_extensions import Final, Literal, TypeAlias
 from openpyxl.descriptors.base import Alias, Bool, NoneSet, Typed, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
-BORDER_NONE: None
-BORDER_DASHDOT: Final = "dashDot"
-BORDER_DASHDOTDOT: Final = "dashDotDot"
-BORDER_DASHED: Final = "dashed"
-BORDER_DOTTED: Final = "dotted"
-BORDER_DOUBLE: Final = "double"
-BORDER_HAIR: Final = "hair"
-BORDER_MEDIUM: Final = "medium"
-BORDER_MEDIUMDASHDOT: Final = "mediumDashDot"
-BORDER_MEDIUMDASHDOTDOT: Final = "mediumDashDotDot"
-BORDER_MEDIUMDASHED: Final = "mediumDashed"
-BORDER_SLANTDASHDOT: Final = "slantDashDot"
-BORDER_THICK: Final = "thick"
-BORDER_THIN: Final = "thin"
-
 _SideStyle: TypeAlias = Literal[
     "dashDot",
     "dashDotDot",
@@ -37,6 +22,21 @@ _SideStyle: TypeAlias = Literal[
     "thin",
 ]
 
+BORDER_NONE: Final = None
+BORDER_DASHDOT: Final = "dashDot"
+BORDER_DASHDOTDOT: Final = "dashDotDot"
+BORDER_DASHED: Final = "dashed"
+BORDER_DOTTED: Final = "dotted"
+BORDER_DOUBLE: Final = "double"
+BORDER_HAIR: Final = "hair"
+BORDER_MEDIUM: Final = "medium"
+BORDER_MEDIUMDASHDOT: Final = "mediumDashDot"
+BORDER_MEDIUMDASHDOTDOT: Final = "mediumDashDotDot"
+BORDER_MEDIUMDASHED: Final = "mediumDashed"
+BORDER_SLANTDASHDOT: Final = "slantDashDot"
+BORDER_THICK: Final = "thick"
+BORDER_THIN: Final = "thin"
+
 class Side(Serialisable):
     __fields__: ClassVar[tuple[str, ...]]
     color: Incomplete
@@ -50,7 +50,7 @@ class Side(Serialisable):
     ) -> None: ...
 
 class Border(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     __fields__: ClassVar[tuple[str, ...]]
     __elements__: ClassVar[tuple[str, ...]]
     start: Typed[Side, Literal[True]]
@@ -84,4 +84,4 @@ class Border(Serialisable):
     ) -> None: ...
     def __iter__(self) -> Generator[tuple[str, str], None, None]: ...
 
-DEFAULT_BORDER: Border
+DEFAULT_BORDER: Final[Border]

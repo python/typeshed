@@ -17,7 +17,7 @@ from openpyxl.workbook.web import WebPublishing, WebPublishObjectList
 _WorkbookPackageConformance: TypeAlias = Literal["strict", "transitional"]
 
 class FileRecoveryProperties(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     autoRecover: Bool[Literal[True]]
     crashSave: Bool[Literal[True]]
     dataExtractLoad: Bool[Literal[True]]
@@ -31,7 +31,7 @@ class FileRecoveryProperties(Serialisable):
     ) -> None: ...
 
 class ChildSheet(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     name: String[Literal[False]]
     sheetId: Integer[Literal[False]]
     state: NoneSet[_VisibilityType]
@@ -45,13 +45,13 @@ class ChildSheet(Serialisable):
     ) -> None: ...
 
 class PivotCache(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     cacheId: Integer[Literal[False]]
     id: Incomplete
     def __init__(self, cacheId: _ConvertibleToInt, id: Incomplete | None = None) -> None: ...
 
 class WorkbookPackage(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     conformance: NoneSet[_WorkbookPackageConformance]
     fileVersion: Typed[FileVersion, Literal[True]]
     fileSharing: Typed[FileSharing, Literal[True]]

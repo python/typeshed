@@ -1,14 +1,10 @@
-from openpyxl.descriptors.base import _ConvertibleToBool
+from typing_extensions import Literal
+
+from openpyxl.descriptors.base import Bool, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 class Protection(Serialisable):
     tagname: str
-    @property
-    def locked(self) -> bool: ...
-    @locked.setter
-    def locked(self, __value: _ConvertibleToBool) -> None: ...
-    @property
-    def hidden(self) -> bool: ...
-    @hidden.setter
-    def hidden(self, __value: _ConvertibleToBool) -> None: ...
+    locked: Bool[Literal[False]]
+    hidden: Bool[Literal[False]]
     def __init__(self, locked: _ConvertibleToBool = True, hidden: _ConvertibleToBool = False) -> None: ...

@@ -5,7 +5,7 @@ from openpyxl.cell.cell import Cell
 from openpyxl.worksheet._write_only import WriteOnlyWorksheet
 from openpyxl.worksheet.worksheet import Worksheet
 
-ALL_TEMP_FILES: list[Incomplete]
+ALL_TEMP_FILES: list[str]
 
 def create_temporary_file(suffix: str = "") -> str: ...
 

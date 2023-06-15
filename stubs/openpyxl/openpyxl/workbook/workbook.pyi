@@ -2,6 +2,7 @@ import datetime
 from _typeshed import Incomplete, StrPath
 from collections.abc import Iterator
 from typing import IO
+from typing_extensions import Final
 
 from openpyxl import _Decodable
 from openpyxl.chartsheet.chartsheet import Chartsheet
@@ -11,7 +12,7 @@ from openpyxl.worksheet._read_only import ReadOnlyWorksheet
 from openpyxl.worksheet._write_only import WriteOnlyWorksheet
 from openpyxl.worksheet.worksheet import Worksheet
 
-INTEGER_TYPES: tuple[type[int]]
+INTEGER_TYPES: Final[tuple[type[int]]]
 
 class Workbook:
     template: bool

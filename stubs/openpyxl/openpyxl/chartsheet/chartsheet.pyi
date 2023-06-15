@@ -18,7 +18,7 @@ from openpyxl.worksheet.header_footer import HeaderFooter as _HeaderFooter
 from openpyxl.worksheet.page import PageMargins, PrintPageSetup
 
 class Chartsheet(_WorkbookChild, Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     mime_type: str
     sheetPr: Typed[ChartsheetProperties, Literal[True]]
     sheetViews: Typed[ChartsheetViewList, Literal[False]]

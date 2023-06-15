@@ -15,7 +15,7 @@ horizontal_alignments: Final[tuple[_HorizontalAlignmentsType, ...]]
 vertical_aligments: Final[tuple[_VerticalAlignmentsType, ...]]
 
 class Alignment(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     __fields__: ClassVar[tuple[str, ...]]
     horizontal: NoneSet[_HorizontalAlignmentsType]
     vertical: NoneSet[_VerticalAlignmentsType]

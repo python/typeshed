@@ -2,6 +2,7 @@ import datetime
 from _typeshed import Incomplete
 from collections.abc import Container, Generator, Sequence
 from typing import Any
+from typing_extensions import Final
 from zipfile import ZipExtFile
 
 from openpyxl.cell.cell import Cell
@@ -12,34 +13,34 @@ from openpyxl.worksheet.table import TablePartList
 from openpyxl.worksheet.worksheet import Worksheet
 from openpyxl.xml.functions import _Element
 
-CELL_TAG: str
-VALUE_TAG: str
-FORMULA_TAG: str
-MERGE_TAG: str
-INLINE_STRING: str
-COL_TAG: str
-ROW_TAG: str
-CF_TAG: str
-LEGACY_TAG: str
-PROT_TAG: str
-EXT_TAG: str
-HYPERLINK_TAG: str
-TABLE_TAG: str
-PRINT_TAG: str
-MARGINS_TAG: str
-PAGE_TAG: str
-HEADER_TAG: str
-FILTER_TAG: str
-VALIDATION_TAG: str
-PROPERTIES_TAG: str
-VIEWS_TAG: str
-FORMAT_TAG: str
-ROW_BREAK_TAG: str
-COL_BREAK_TAG: str
-SCENARIOS_TAG: str
-DATA_TAG: str
-DIMENSION_TAG: str
-CUSTOM_VIEWS_TAG: str
+CELL_TAG: Final[str]
+VALUE_TAG: Final[str]
+FORMULA_TAG: Final[str]
+MERGE_TAG: Final[str]
+INLINE_STRING: Final[str]
+COL_TAG: Final[str]
+ROW_TAG: Final[str]
+CF_TAG: Final[str]
+LEGACY_TAG: Final[str]
+PROT_TAG: Final[str]
+EXT_TAG: Final[str]
+HYPERLINK_TAG: Final[str]
+TABLE_TAG: Final[str]
+PRINT_TAG: Final[str]
+MARGINS_TAG: Final[str]
+PAGE_TAG: Final[str]
+HEADER_TAG: Final[str]
+FILTER_TAG: Final[str]
+VALIDATION_TAG: Final[str]
+PROPERTIES_TAG: Final[str]
+VIEWS_TAG: Final[str]
+FORMAT_TAG: Final[str]
+ROW_BREAK_TAG: Final[str]
+COL_BREAK_TAG: Final[str]
+SCENARIOS_TAG: Final[str]
+DATA_TAG: Final[str]
+DIMENSION_TAG: Final[str]
+CUSTOM_VIEWS_TAG: Final[str]
 
 class WorkSheetParser:
     min_row: Incomplete | None

@@ -56,7 +56,7 @@ class NamedStyleList(list[NamedStyle]):
     def append(self, style: NamedStyle) -> None: ...
 
 class _NamedCellStyle(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     name: String[Literal[False]]
     xfId: Integer[Literal[False]]
     builtinId: Integer[Literal[True]]
@@ -77,7 +77,7 @@ class _NamedCellStyle(Serialisable):
     ) -> None: ...
 
 class _NamedCellStyleList(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     # Overwritten by property below
     # count: Integer
     cellStyle: Incomplete

@@ -13,7 +13,7 @@ from openpyxl.descriptors.serialisable import Serialisable
 _LegendLegendPos: TypeAlias = Literal["b", "tr", "l", "r", "t"]
 
 class LegendEntry(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     idx: NestedInteger[Literal[False]]
     delete: NestedBool[Literal[False]]
     txPr: Typed[RichText, Literal[True]]
@@ -28,7 +28,7 @@ class LegendEntry(Serialisable):
     ) -> None: ...
 
 class Legend(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     legendPos: NestedSet[_LegendLegendPos]
     position: Alias
     legendEntry: Incomplete
