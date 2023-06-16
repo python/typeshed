@@ -12,13 +12,14 @@ _T_co = TypeVar("_T_co", covariant=True)
 
 # Useful protocols, see import comment in openpyxl/xml/functions.pyi
 
+# Comment from openpyxl.cell.rich_text.py
+# Usually an Element() from either lxml or xml.etree (has a 'tag' element)
 class _HasTag(Protocol):
     tag: Any  # AnyOf[str, None, Callable[..., AnyOf[str, None]]]
 
 class _HasText(Protocol):
     text: str
 
-# Usually an Element() from either lxml or xml.etree (has a 'tag' element)
 class _HasTagAndGet(_HasTag, Protocol[_T_co]):
     def get(self, __value: str) -> _T_co | None: ...
 
