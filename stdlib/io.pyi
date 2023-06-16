@@ -6,7 +6,7 @@ from _typeshed import FileDescriptorOrPath, ReadableBuffer, WriteableBuffer
 from collections.abc import Callable, Iterable, Iterator
 from os import _Opener
 from types import TracebackType
-from typing import IO, Any, BinaryIO, TextIO
+from typing import IO, Any, BinaryIO, Protocol, TextIO
 from typing_extensions import Literal, Self
 
 __all__ = [
@@ -144,10 +144,28 @@ class TextIOBase(IOBase):
     def readlines(self, __hint: int = -1) -> list[str]: ...  # type: ignore[override]
     def read(self, __size: int | None = ...) -> str: ...
 
+class _TextIOWrapperBuffer(Protocol):
+    def readable(self) -> bool: ...
+    def seekable(self) -> bool: ...
+    def writable(self) -> bool: ...
+    def isatty(self) -> bool: ...
+    def write(self, __s: bytes) -> object: ...
+    def flush(self) -> object: ...
+    def read(self, __n: int) -> ReadableBuffer: ...
+    def seek(self, __offset: int, __whence: int = ...) -> int: ...
+    def tell(self) -> int: ...
+    def truncate(self, __size: int | None = ...) -> int: ...
+    def fileno(self) -> int: ...
+    def close(self) -> None: ...
+    @property
+    def name(self) -> str: ...
+    @property
+    def closed(self) -> bool: ...
+
 class TextIOWrapper(TextIOBase, TextIO):  # type: ignore[misc]  # incompatible definitions of write in the base classes
     def __init__(
         self,
-        buffer: BufferedIOBase,
+        buffer: _TextIOWrapperBuffer,
         encoding: str | None = ...,
         errors: str | None = ...,
         newline: str | None = ...,
@@ -155,7 +173,7 @@ class TextIOWrapper(TextIOBase, TextIO):  # type: ignore[misc]  # incompatible d
         write_through: bool = ...,
     ) -> None: ...
     @property
-    def buffer(self) -> BufferedIOBase: ...  # type: ignore[override]
+    def buffer(self) -> _TextIOWrapperBuffer: ...  # type: ignore[override]
     @property
     def closed(self) -> bool: ...
     @property
@@ -178,7 +196,7 @@ class TextIOWrapper(TextIOBase, TextIO):  # type: ignore[misc]  # incompatible d
     def writelines(self, __lines: Iterable[str]) -> None: ...  # type: ignore[override]
     def readline(self, __size: int = -1) -> str: ...  # type: ignore[override]
     def readlines(self, __hint: int = -1) -> list[str]: ...  # type: ignore[override]
-    def detach(self) -> BufferedIOBase: ...  # type: ignore[override]
+    def detach(self) -> _TextIOWrapperBuffer: ...  # type: ignore[override]
     def seek(self, __cookie: int, __whence: int = 0) -> int: ...  # stubtest needs this
 
 class StringIO(TextIOWrapper):
