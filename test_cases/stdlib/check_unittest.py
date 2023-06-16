@@ -91,10 +91,12 @@ case.assertGreater(Bacon(), Ham())  # type: ignore
 # Tests for mock.patch
 ###
 
-from unittest.mock import patch, Mock
+from unittest.mock import Mock, patch
+
 
 @patch("sys.exit", new=Mock())
 def f(i: int) -> str:
     return "asdf"
+
 
 f("a")  # type: ignore
