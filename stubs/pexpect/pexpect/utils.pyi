@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 
-InterruptedError: Incomplete
 string_types: Incomplete
 
 def is_executable_file(path): ...
