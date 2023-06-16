@@ -71,6 +71,10 @@ webob.multidict.NoVars.pop
 webob.multidict.NoVars.popitem
 webob.multidict.NoVars.getone
 
+# ResponseBodyFile cannot be closed and emits an Exception, so we're better
+# off pretending the method doesn't exist
+webob.response.ResponseBodyFile.close
+
 # Error: is inconsistent
 # ======================
 # set_cookie has a deprecated argument `expires` which has been removed upstream
@@ -113,16 +117,14 @@ webob.cachecontrol.CacheControl.update_dict
 webob.cachecontrol.UpdateDict.setdefault
 
 # These need to be ignored due to how WebOb decided to let people know
-# that certain methods on `NestedMultiDict` and `NoVars` should not be called
-# since these are immutable, compared to a MultiDict, but should be used
+# that certain methods on `NestedMultiDict` should not be called since
+# they are immutable, compared to a MultiDict, but still can be used
 # interchangeably in some parts of the API. So they re-use generic functions
 # that accept any parameters and assign them to methods which should still
-# satisfy the same interface. The type annotations provide proper annotations
-# for these methods with `NoReturn` instead.
+# satisfy the same interface. The type annotations enforce the correct
+# input arguments instead of the generic ones.
 webob.multidict.NestedMultiDict.popitem
 webob.multidict.NestedMultiDict.clear
-webob.multidict.NoVars.clear
-webob.multidict.NoVars.popitem
 
 # The `DEFAULT` parameter on these dunder methods don't really make sense as
 # part of the public API, so they have been removed from the stubs
