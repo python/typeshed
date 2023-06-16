@@ -86,3 +86,15 @@ case.assertGreater(datetime(1999, 1, 2), 1)  # type: ignore
 case.assertGreater(Spam(), Eggs())  # type: ignore
 case.assertGreater(Ham(), Bacon())  # type: ignore
 case.assertGreater(Bacon(), Ham())  # type: ignore
+
+###
+# Tests for mock.patch
+###
+
+from unittest.mock import patch, Mock
+
+@patch("sys.exit", new=Mock())
+def f(i: int) -> str:
+    return "asdf"
+
+f("a")  # type: ignore
