@@ -8,7 +8,7 @@ ALL_TEMP_FILES: list[str]
 def create_temporary_file(suffix: str = ""): ...
 
 # WorksheetWriter.read has an explicit BytesIO branch. The rest of the restrictions come from xmlfile
-_OutType: TypeAlias = BytesIO | StrPath | str
+_OutType: TypeAlias = BytesIO | StrPath
 
 class WorksheetWriter:
     ws: Incomplete
