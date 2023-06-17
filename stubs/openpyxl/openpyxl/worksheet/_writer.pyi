@@ -1,16 +1,20 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, StrPath
 from collections.abc import Generator
-from typing import IO
+from io import BytesIO
+from typing_extensions import TypeAlias
 
 ALL_TEMP_FILES: list[str]
 
 def create_temporary_file(suffix: str = ""): ...
 
+# WorksheetWriter.read has an explicit BytesIO branch. The rest of the restrictions come from xmlfile
+_OutType: TypeAlias = BytesIO | StrPath | str
+
 class WorksheetWriter:
     ws: Incomplete
-    out: IO[str] | str
+    out: _OutType
     xf: Incomplete
-    def __init__(self, ws, out: IO[str] | str | None = None) -> None: ...
+    def __init__(self, ws, out: _OutType | None = None) -> None: ...
     def write_properties(self) -> None: ...
     def write_dimensions(self) -> None: ...
     def write_format(self) -> None: ...
