@@ -2,7 +2,7 @@ from abc import abstractmethod
 from collections.abc import Callable, Iterable
 from threading import local
 from types import ModuleType
-from typing_extensions import Literal, Never, TypeAlias
+from typing_extensions import Literal, TypeAlias
 
 from fanstatic.compiler import Compiler, Minifier
 
@@ -199,9 +199,6 @@ class NeededResources:
 class DummyNeededResources:
     def need(self, resource: Resource | Group, slots: dict[Slot, Resource] | None = None) -> None: ...
     def has_resources(self) -> Literal[False]: ...
-    def clear(self) -> Never: ...
-    def library_url(self, library: Library) -> Never: ...
-    def resources(self) -> Never: ...
 
 thread_local_needed_data: local
 

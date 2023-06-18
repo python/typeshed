@@ -7,6 +7,13 @@ fanstatic.Library.init_library_nr
 fanstatic.core.Asset.init_dependency_nr
 fanstatic.core.Library.init_library_nr
 
+# In order to catch errors where DummyNeededResources would be called
+# with clear/library_url/resources these methods were dropped from the
+# stub. We would prefer to use @type_error() once that is an option
+fanstatic.core.DummyNeededResources.clear
+fanstatic.core.DummyNeededResources.library_url
+fanstatic.core.DummyNeededResources.resources
+
 # Error: is inconsistent
 # ======================
 # The core API for Dependable is a bit annoying, since the base class
