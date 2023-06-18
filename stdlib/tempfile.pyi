@@ -384,10 +384,10 @@ class SpooledTemporaryFile(IO[AnyStr], _SpooledTemporaryFileBase):
     def encoding(self) -> str: ...  # undocumented
     @property
     def _file(self) -> io.BytesIO | io.TextIOWrapper:  # undocumented
-        if 'b' in self.mode:
+        if "b" in self.mode:
             return io.BytesIO
         else:
-            return io.TextIOWrapper     
+            return io.TextIOWrapper
     @property
     def newlines(self) -> str | tuple[str, ...] | None: ...  # undocumented
     # bytes needs to go first, as default mode is to open as bytes
@@ -552,10 +552,10 @@ class SpooledTemporaryFile(IO[AnyStr], _SpooledTemporaryFileBase):
     def seek(self, offset: int, whence: int = ...) -> int: ...
     def tell(self) -> int: ...
     def truncate(self, size: int | None = None) -> None: ...  # type: ignore[override]
-    @overload 
-    def _file(self) -> io.BytesIO : ...
     @overload
-    def _file(self) -> io.TextIOWrapper : ...
+    def _file(self) -> io.BytesIO: ...
+    @overload
+    def _file(self) -> io.TextIOWrapper: ...
     @overload
     def write(self: SpooledTemporaryFile[str], s: str) -> int: ...
     @overload
