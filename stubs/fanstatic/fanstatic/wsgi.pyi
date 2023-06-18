@@ -2,6 +2,7 @@ from _typeshed.wsgi import WSGIApplication
 from typing import Any
 
 import webob
+import webob.dec
 from fanstatic.core import Resource
 from fanstatic.injector import InjectorPlugin
 from fanstatic.publisher import Delegator

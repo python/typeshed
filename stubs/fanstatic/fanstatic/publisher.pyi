@@ -5,6 +5,8 @@ from typing import IO, Any
 from typing_extensions import Literal
 
 import webob
+import webob.dec
+import webob.static
 from fanstatic.core import Library
 from fanstatic.registry import LibraryRegistry
 
