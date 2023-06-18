@@ -19,6 +19,7 @@ FOREVER: int
 class BundleApp(webob.static.FileApp):
     filenames: list[str]
     def __init__(self, rootpath: str, bundle: IO[bytes], filenames: Iterable[StrOrBytesPath]) -> None: ...
+    @webob.dec.wsgify
     def __call__(self, req: webob.Request) -> webob.Response: ...
 
 class LibraryPublisher(webob.static.DirectoryApp):
@@ -27,7 +28,7 @@ class LibraryPublisher(webob.static.DirectoryApp):
     cached_apps: dict[str, webob.static.FileApp]
     def __init__(self, library: Library) -> None: ...
     @webob.dec.wsgify
-    def __call__(self, req: webob.static.Request) -> webob.Response: ...
+    def __call__(self, req: webob.Request) -> webob.Response: ...
 
 class Publisher:
     registry: LibraryRegistry
