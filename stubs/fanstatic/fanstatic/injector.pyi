@@ -4,9 +4,9 @@ from collections.abc import Iterable
 from typing import Any
 from typing_extensions import Literal, TypedDict
 
-import webob
 from fanstatic.core import Dependable, NeededResources, Resource
 from fanstatic.inclusion import Inclusion
+from webob import Request, Response
 
 class _NeededResourcesConfig(TypedDict, total=False):
     versioning: bool
@@ -35,7 +35,7 @@ class InjectorPlugin:
     def __init__(self, options: Any) -> None: ...  # FIXME: Use Unpack
     def make_inclusion(self, needed: NeededResources, resources: set[Resource] | None = None) -> Inclusion: ...
     def __call__(
-        self, html: bytes, needed: NeededResources, request: webob.Request | None = None, response: webob.Response | None = None
+        self, html: bytes, needed: NeededResources, request: Request | None = None, response: Response | None = None
     ) -> None: ...
 
 class TopBottomInjector(InjectorPlugin):
