@@ -17,6 +17,17 @@ class _NeededResourcesConfig(TypedDict, total=False):
     publisher_signature: str
     resources: Iterable[Dependable] | None
 
+class _InjectorPluginOptions(TypedDict, total=False):
+    compile: bool
+    bundle: bool
+    rollup: bool
+    debug: bool
+    minified: bool
+
+class _TopBottomInjectorPluginOptions(_InjectorPluginOptions, total=False):
+    bottom: bool
+    force_bottom: bool
+
 CONTENT_TYPES: list[str]
 
 class Injector:
@@ -32,7 +43,7 @@ class InjectorPlugin:
     @property
     @abstractmethod
     def name(self) -> str: ...
-    def __init__(self, options: Any) -> None: ...  # FIXME: Use Unpack
+    def __init__(self, options: _InjectorPluginOptions) -> None: ...
     def make_inclusion(self, needed: NeededResources, resources: set[Resource] | None = None) -> Inclusion: ...
     def __call__(
         self, html: bytes, needed: NeededResources, request: Request | None = None, response: Response | None = None
@@ -40,7 +51,7 @@ class InjectorPlugin:
 
 class TopBottomInjector(InjectorPlugin):
     name: Literal["topbottom"]
-    def __init__(self, options: Any) -> None: ...  # FIXME: Use Unpack
+    def __init__(self, options: _TopBottomInjectorPluginOptions) -> None: ...
     def group(self, needed: NeededResources) -> tuple[Inclusion, Inclusion]: ...
 
 def make_injector(app: WSGIApplication, global_config: Any, **local_config: Any) -> Injector: ...
