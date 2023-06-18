@@ -1,2 +1,2 @@
 version = "1.3.*"
-requires = ["types-setuptools", "WebOb"]
+requires = ["types-setuptools", "types-WebOb"]
