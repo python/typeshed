@@ -2,9 +2,9 @@ import dis
 import enum
 import sys
 import types
+from _typeshed import StrPath
 from collections import OrderedDict
 from collections.abc import AsyncGenerator, Awaitable, Callable, Coroutine, Generator, Mapping, Sequence, Set as AbstractSet
-from os import PathLike
 from types import (
     AsyncGeneratorType,
     BuiltinFunctionType,
@@ -178,7 +178,7 @@ if sys.version_info >= (3, 11):
     @overload
     def getmembers_static(object: object, predicate: _GetMembersPredicate | None = None) -> _GetMembersReturn: ...
 
-def getmodulename(path: PathLike[str]) -> str | None: ...
+def getmodulename(path: StrPath) -> str | None: ...
 def ismodule(object: object) -> TypeGuard[ModuleType]: ...
 def isclass(object: object) -> TypeGuard[type[Any]]: ...
 def ismethod(object: object) -> TypeGuard[MethodType]: ...
