@@ -76,6 +76,7 @@
         "stubs/ttkthemes",
         "stubs/urllib3",
         "stubs/vobject",
+        "stubs/WebOb"
     ],
     "typeCheckingMode": "strict",
     // TODO: Complete incomplete stubs
