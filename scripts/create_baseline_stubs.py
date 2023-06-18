@@ -50,6 +50,11 @@ def run_stubgen(package: str, output: str) -> None:
     subprocess.run(["stubgen", "-o", output, "-p", package, "--export-less"], check=True)
 
 
+def run_stubdefaulter(stub_dir: str) -> None:
+    print(f"Running stubdefaulter: stubdefaulter --packages {stub_dir}")
+    subprocess.run(["stubdefaulter", "--packages", stub_dir])
+
+
 def run_black(stub_dir: str) -> None:
     print(f"Running black: black {stub_dir}")
     subprocess.run(["black", stub_dir])
@@ -57,7 +62,7 @@ def run_black(stub_dir: str) -> None:
 
 def run_isort(stub_dir: str) -> None:
     print(f"Running isort: isort {stub_dir}")
-    subprocess.run(["python3", "-m", "isort", stub_dir])
+    subprocess.run([sys.executable, "-m", "isort", stub_dir])
 
 
 def create_metadata(stub_dir: str, version: str) -> None:
@@ -152,6 +157,7 @@ def main() -> None:
         sys.exit(f"Error: {package_dir} already exists (delete it first)")
 
     run_stubgen(package, stub_dir)
+    run_stubdefaulter(stub_dir)
 
     run_isort(stub_dir)
     run_black(stub_dir)

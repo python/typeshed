@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing import Any
 
-from ...util import memoized_property
+from ...util.langhelpers import memoized_property
 from .mysqldb import MySQLDialect_mysqldb
 
 class MySQLDialect_pymysql(MySQLDialect_mysqldb):
@@ -14,7 +14,7 @@ class MySQLDialect_pymysql(MySQLDialect_mysqldb):
     def supports_server_side_cursors(self): ...
     @classmethod
     def dbapi(cls): ...
-    def create_connect_args(self, url, _translate_args: Incomplete | None = ...): ...
+    def create_connect_args(self, url, _translate_args: Incomplete | None = None): ...
     def is_disconnect(self, e, connection, cursor): ...
 
 dialect = MySQLDialect_pymysql

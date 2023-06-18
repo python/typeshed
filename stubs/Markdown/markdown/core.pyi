@@ -32,6 +32,7 @@ class Markdown:
     tab_length: int
     block_level_elements: list[str]
     registeredExtensions: list[Extension]
+    ESCAPED_CHARS: list[str]
     def __init__(
         self,
         *,
@@ -49,7 +50,7 @@ class Markdown:
     def is_block_level(self, tag: str) -> bool: ...
     def convert(self, source: str) -> str: ...
     def convertFile(
-        self, input: str | _ReadableStream | None = ..., output: str | _WritableStream | None = ..., encoding: str | None = ...
+        self, input: str | _ReadableStream | None = None, output: str | _WritableStream | None = None, encoding: str | None = None
     ) -> Markdown: ...
 
 def markdown(

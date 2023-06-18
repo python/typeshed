@@ -1,8 +1,8 @@
 from _typeshed import Incomplete
 from typing import Any
 
-from sqlalchemy import types as sqltypes
-from sqlalchemy.dialects.sybase.base import SybaseDialect, SybaseExecutionContext, SybaseSQLCompiler
+from ...sql import sqltypes
+from .base import SybaseDialect, SybaseExecutionContext, SybaseSQLCompiler
 
 class _SybNumeric(sqltypes.Numeric):
     def result_processor(self, dialect, type_): ...
@@ -22,7 +22,7 @@ class SybaseDialect_pysybase(SybaseDialect):
     @classmethod
     def dbapi(cls): ...
     def create_connect_args(self, url): ...
-    def do_executemany(self, cursor, statement, parameters, context: Incomplete | None = ...) -> None: ...
+    def do_executemany(self, cursor, statement, parameters, context: Incomplete | None = None) -> None: ...
     def is_disconnect(self, e, connection, cursor): ...
 
 dialect = SybaseDialect_pysybase

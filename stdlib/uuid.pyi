@@ -73,9 +73,20 @@ else:
     def getnode(*, getters: Unused = None) -> int: ...  # undocumented
 
 def uuid1(node: _Int | None = None, clock_seq: _Int | None = None) -> UUID: ...
-def uuid3(namespace: UUID, name: str) -> UUID: ...
+
+if sys.version_info >= (3, 12):
+    def uuid3(namespace: UUID, name: str | bytes) -> UUID: ...
+
+else:
+    def uuid3(namespace: UUID, name: str) -> UUID: ...
+
 def uuid4() -> UUID: ...
-def uuid5(namespace: UUID, name: str) -> UUID: ...
+
+if sys.version_info >= (3, 12):
+    def uuid5(namespace: UUID, name: str | bytes) -> UUID: ...
+
+else:
+    def uuid5(namespace: UUID, name: str) -> UUID: ...
 
 NAMESPACE_DNS: UUID
 NAMESPACE_URL: UUID
@@ -85,3 +96,6 @@ RESERVED_NCS: str
 RFC_4122: str
 RESERVED_MICROSOFT: str
 RESERVED_FUTURE: str
+
+if sys.version_info >= (3, 12):
+    def main() -> None: ...

@@ -37,8 +37,8 @@ class QueryContext:
         params,
         session,
         load_options,
-        execution_options: Incomplete | None = ...,
-        bind_arguments: Incomplete | None = ...,
+        execution_options: Incomplete | None = None,
+        bind_arguments: Incomplete | None = None,
     ) -> None: ...
 
 class ORMCompileState(CompileState):
@@ -56,6 +56,7 @@ class ORMCompileState(CompileState):
 
 class ORMFromStatementCompileState(ORMCompileState):
     multi_row_eager_loaders: bool
+    eager_adding_joins: bool
     compound_eager_adapter: Any
     extra_criteria_entities: Any
     eager_joins: Any
@@ -78,6 +79,7 @@ class ORMFromStatementCompileState(ORMCompileState):
 
 class ORMSelectCompileState(ORMCompileState, SelectState):
     multi_row_eager_loaders: bool
+    eager_adding_joins: bool
     compound_eager_adapter: Any
     correlate: Any
     correlate_except: Any
@@ -142,8 +144,8 @@ class _BundleEntity(_QueryEntity):
         expr,
         entities_collection,
         is_current_entities: bool,
-        setup_entities: bool = ...,
-        parent_bundle: Incomplete | None = ...,
+        setup_entities: bool = True,
+        parent_bundle: Incomplete | None = None,
     ) -> None: ...
     @property
     def mapper(self): ...
@@ -178,7 +180,7 @@ class _RawColumnEntity(_ColumnEntity):
         entities_collection,
         raw_column_index,
         is_current_entities: bool,
-        parent_bundle: Incomplete | None = ...,
+        parent_bundle: Incomplete | None = None,
     ) -> None: ...
     def corresponds_to(self, entity): ...
     def setup_compile_state(self, compile_state) -> None: ...
@@ -200,7 +202,7 @@ class _ORMColumnEntity(_ColumnEntity):
         parententity,
         raw_column_index,
         is_current_entities: bool,
-        parent_bundle: Incomplete | None = ...,
+        parent_bundle: Incomplete | None = None,
     ) -> None: ...
     def corresponds_to(self, entity): ...
     def setup_compile_state(self, compile_state) -> None: ...

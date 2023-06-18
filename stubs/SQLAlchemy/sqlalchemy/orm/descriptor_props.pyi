@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from typing import Any, ClassVar, Generic, TypeVar
 
 from ..sql.operators import ColumnOperators
-from ..util import memoized_property
+from ..util.langhelpers import memoized_property
 from . import util as orm_util
 from .interfaces import MapperProperty, PropComparator
 
@@ -61,11 +61,11 @@ class SynonymProperty(DescriptorProperty):
     def __init__(
         self,
         name,
-        map_column: Incomplete | None = ...,
-        descriptor: Incomplete | None = ...,
-        comparator_factory: Incomplete | None = ...,
-        doc: Incomplete | None = ...,
-        info: Incomplete | None = ...,
+        map_column: Incomplete | None = None,
+        descriptor: Incomplete | None = None,
+        comparator_factory: Incomplete | None = None,
+        doc: Incomplete | None = None,
+        info: Incomplete | None = None,
     ) -> None: ...
     @property
     def uses_objects(self): ...
