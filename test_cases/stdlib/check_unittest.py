@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import unittest
+from collections.abc import Callable
 from datetime import datetime, timedelta
 from decimal import Decimal
 from fractions import Fraction
@@ -101,3 +102,16 @@ def f(i: int) -> str:
 
 assert_type(f(1), str)
 f("a")  # type: ignore
+
+
+@patch("sys.exit", new=Mock())
+class TestXYZ(unittest.TestCase):
+    attr: int = 5
+
+    @staticmethod
+    def method() -> int:
+        return 123
+
+
+assert_type(TestXYZ.attr, int)
+assert_type(TestXYZ.method, Callable[[], int])
