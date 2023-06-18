@@ -111,7 +111,7 @@ def testcase_dir_from_package_name(package_name: str) -> Path:
 
 
 def get_all_testcase_directories() -> list[PackageInfo]:
-    testcase_directories = []
+    testcase_directories: list[PackageInfo] = []
     for package_name in os.listdir("stubs"):
         potential_testcase_dir = testcase_dir_from_package_name(package_name)
         if potential_testcase_dir.is_dir():
