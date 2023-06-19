@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from io import BytesIO, StringIO
-from .exceptions import TIMEOUT, EOF
 
+from .exceptions import EOF, TIMEOUT
 from .spawnbase import SpawnBase
 
 class searcher_string:

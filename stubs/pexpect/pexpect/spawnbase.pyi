@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Callable
-from typing import AnyStr
 from re import Pattern
+from typing import AnyStr
 
 PY3: bool
 text_type: Callable[[Incomplete], Incomplete]
