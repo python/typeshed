@@ -351,11 +351,9 @@ class ModuleType:
     # using `builtins.__import__` or `importlib.import_module` less painful
     def __getattr__(self, name: str) -> Any: ...
 
-
 _YieldT_co = TypeVar("_YieldT_co", covariant=True)
 _SendT_contra = TypeVar("_SendT_contra", contravariant=True)
 _ReturnT_co = TypeVar("_ReturnT_co", covariant=True)
-
 
 @final
 class GeneratorType(Generator[_YieldT_co, _SendT_contra, _ReturnT_co]):

@@ -457,7 +457,10 @@ class Coroutine(Awaitable[_ReturnT_co], Generic[_YieldT_co, _SendT_contra, _Retu
 # The parameters correspond to Generator, but the 4th is the original type.
 @type_check_only
 class AwaitableGenerator(
-    Awaitable[_ReturnT_co], Generator[_YieldT_co, _SendT_contra, _ReturnT_co], Generic[_YieldT_co, _SendT_contra, _ReturnT_co, _S], metaclass=ABCMeta
+    Awaitable[_ReturnT_co],
+    Generator[_YieldT_co, _SendT_contra, _ReturnT_co],
+    Generic[_YieldT_co, _SendT_contra, _ReturnT_co, _S],
+    metaclass=ABCMeta,
 ): ...
 
 @runtime_checkable
