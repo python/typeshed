@@ -36,8 +36,6 @@ jobs:
       matrix:
         # tkinter doesn't import on macOS-12
         os: ["ubuntu-latest", "windows-latest", "macos-11"]
-        # TODO: unpin the micro version of 3.7 when this issue is resolved:
-        # https://github.com/actions/setup-python/issues/682
         python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
       fail-fast: false
 
