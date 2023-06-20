@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import unittest
-from collections.abc import Callable
 from datetime import datetime, timedelta
 from decimal import Decimal
 from fractions import Fraction
@@ -114,4 +113,4 @@ class TestXYZ(unittest.TestCase):
 
 
 assert_type(TestXYZ.attr, int)
-assert_type(TestXYZ.method, Callable[[], int])
+assert_type(TestXYZ.method(), int)
