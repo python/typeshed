@@ -113,3 +113,4 @@ class TestXYZ(unittest.TestCase):
 
 
 assert_type(TestXYZ.attr, int)
+assert_type(TestXYZ.method(), int)
