@@ -3,13 +3,14 @@ from collections.abc import Callable, Coroutine, Mapping, Sequence
 from contextlib import AbstractContextManager
 from types import TracebackType
 from typing import Any, Generic, TypeVar, overload
-from typing_extensions import Literal, Self
+from typing_extensions import Literal, ParamSpec, Self
 
 _F = TypeVar("_F", bound=Callable[..., Any])
 _AF = TypeVar("_AF", bound=Callable[..., Coroutine[Any, Any, Any]])
 _T = TypeVar("_T")
 _TT = TypeVar("_TT", bound=type[Any])
 _R = TypeVar("_R")
+_P = ParamSpec("_P")
 
 __all__ = (
     "Mock",
@@ -189,7 +190,7 @@ class _patch(Generic[_T]):
         unsafe: bool = False,
     ) -> None: ...
     def copy(self) -> _patch[_T]: ...
-    def __call__(self, func: Callable[..., _R]) -> Callable[..., _R]: ...
+    def __call__(self, func: Callable[_P, _R]) -> Callable[_P, _R]: ...
     def decorate_class(self, klass: _TT) -> _TT: ...
     def decorate_callable(self, func: _F) -> _F: ...
     def decorate_async_callable(self, func: _AF) -> _AF: ...
