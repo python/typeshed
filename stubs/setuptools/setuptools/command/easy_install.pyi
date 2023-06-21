@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
-from collections.abc import Iterator
+from collections.abc import Iterable, Iterator
+from typing import ClassVar
+from typing_extensions import TypedDict
 
 from pkg_resources import Environment
 
@@ -109,13 +111,17 @@ class RewritePthDistributions(PthDistributions):
     prelude: Incomplete
     postlude: Incomplete
 
+class _SplitArgs(TypedDict, total=False):
+    comments: bool
+    posix: bool
+
 class CommandSpec(list[str]):
-    options: Incomplete
-    split_args: Incomplete
+    options: list[Incomplete]
+    split_args: ClassVar[_SplitArgs]
     @classmethod
     def best(cls) -> type[CommandSpec]: ...
     @classmethod
-    def from_param(cls, param) -> CommandSpec: ...
+    def from_param(cls, param: str | CommandSpec | Iterable[str] | None) -> CommandSpec: ...
     @classmethod
     def from_environment(cls) -> CommandSpec: ...
     @classmethod
@@ -123,31 +129,22 @@ class CommandSpec(list[str]):
     def install_options(self, script_text: str) -> None: ...
     def as_header(self) -> str: ...
 
-class WindowsCommandSpec(CommandSpec):
-    split_args: Incomplete
+class WindowsCommandSpec(CommandSpec): ...
 
 class ScriptWriter:
-    template: Incomplete
-    command_spec_class: Incomplete
-    @classmethod
-    def get_script_args(cls, dist, executable: Incomplete | None = None, wininst: bool = False) -> Iterator[tuple[str, str]]: ...
-    @classmethod
-    def get_script_header(cls, script_text, executable: Incomplete | None = None, wininst: bool = False) -> str: ...
+    template: ClassVar[str]
+    command_spec_class: ClassVar[type[CommandSpec]]
     @classmethod
     def get_args(cls, dist, header: Incomplete | None = None) -> Iterator[tuple[str, str]]: ...
     @classmethod
-    def get_writer(cls, force_windows: bool) -> type[ScriptWriter]: ...
-    @classmethod
     def best(cls) -> type[ScriptWriter]: ...
     @classmethod
-    def get_header(cls, script_text: str = "", executable: Incomplete | None = None) -> str: ...
+    def get_header(cls, script_text: str = "", executable: str | CommandSpec | Iterable[str] | None = None) -> str: ...
 
 class WindowsScriptWriter(ScriptWriter):
-    command_spec_class: Incomplete
+    command_spec_class: ClassVar[type[WindowsCommandSpec]]
     @classmethod
-    def get_writer(cls): ...
-    @classmethod
-    def best(cls): ...
+    def best(cls) -> type[WindowsScriptWriter]: ...
 
 class WindowsExecutableLauncherWriter(WindowsScriptWriter): ...
 class EasyInstallDeprecationWarning(SetuptoolsDeprecationWarning): ...
