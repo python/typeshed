@@ -216,7 +216,7 @@ with_descriptors.typed_none = None
 with_descriptors.typed_none = 0  # type: ignore
 
 
-# NOTE: Can't check Set for literal int wen used with a float because any int is a vlaid float
+# NOTE: Can't check Set for literal int wen used with a float because any int is a valid float
 with_descriptors.set_tuple = "a"
 with_descriptors.set_tuple = 0
 with_descriptors.set_tuple = 0.0
@@ -295,7 +295,7 @@ with_descriptors.convertible_not_none = object()  # pyright: ignore[reportGenera
 with_descriptors.convertible_none = 0
 with_descriptors.convertible_none = "0"
 with_descriptors.convertible_none = None
-with_descriptors.convertible_none = object()  # FIXME: False positive(?) in pyright and mypy
+with_descriptors.convertible_none = object()  # FIXME: False negative(?) in pyright and mypy
 
 
 with_descriptors.minmax_float = 0
@@ -374,7 +374,7 @@ with_descriptors.float_none = 0.0
 with_descriptors.float_none = "0"
 with_descriptors.float_none = b"0"
 with_descriptors.float_none = None
-with_descriptors.float_none = object()  # FIXME: False positive(?) in pyright and mypy
+with_descriptors.float_none = object()  # FIXME: False negative(?) in pyright and mypy
 
 
 with_descriptors.integer_not_none = 0
@@ -389,4 +389,4 @@ with_descriptors.integer_none = 0.0
 with_descriptors.integer_none = "0"
 with_descriptors.integer_none = b"0"
 with_descriptors.integer_none = None
-with_descriptors.integer_none = object()  # FIXME: False positive(?) in pyright and mypy
+with_descriptors.integer_none = object()  # FIXME: False negative(?) in pyright and mypy
