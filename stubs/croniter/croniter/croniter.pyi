@@ -3,7 +3,7 @@ from _typeshed import Unused
 from collections import OrderedDict
 from collections.abc import Iterator
 from re import Match, Pattern
-from typing import Any, ClassVar, overload
+from typing import Any, overload
 from typing_extensions import Final, Literal, Never, Self, TypeAlias
 
 _RetType: TypeAlias = type[float | datetime.datetime]
@@ -12,15 +12,15 @@ _Expressions: TypeAlias = list[str]  # fixed-length list of 5 or 6 strings
 M_ALPHAS: Final[dict[str, int]]
 DOW_ALPHAS: Final[dict[str, int]]
 ALPHAS: Final[dict[str, int]]
-step_search_re: Pattern[str]
-only_int_re: Pattern[str]
+step_search_re: Final[Pattern[str]]
+only_int_re: Final[Pattern[str]]
 
 WEEKDAYS: Final[str]
 MONTHS: Final[str]
-star_or_int_re: Pattern[str]
-special_dow_re: Pattern[str]
-re_star: Pattern[str]
-hash_expression_re: Pattern[str]
+star_or_int_re: Final[Pattern[str]]
+special_dow_re: Final[Pattern[str]]
+re_star: Final[Pattern[str]]
+hash_expression_re: Final[Pattern[str]]
 VALID_LEN_EXPRESSION: Final[list[int]]
 EXPRESSIONS: dict[tuple[str, bytes], _Expressions]
 
