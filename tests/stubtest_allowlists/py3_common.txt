@@ -385,7 +385,7 @@ typing_extensions\.TypeVar.*
 typing_extensions\.ParamSpec.*
 typing(_extensions)?\.Generic
 typing\.Protocol
-typing\._TypedDict\..*
+typing_extensions\._TypedDict\..*
 
 # Special primitives
 typing_extensions\.Annotated
