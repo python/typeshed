@@ -383,12 +383,6 @@ class SpooledTemporaryFile(IO[AnyStr], _SpooledTemporaryFileBase):
     @property
     def encoding(self) -> str: ...  # undocumented
     @property
-    def _file(self) -> io.BytesIO | io.TextIOWrapper:  # undocumented
-        if "b" in self.mode:
-            return io.BytesIO
-        else:
-            return io.TextIOWrapper
-    @property
     def newlines(self) -> str | tuple[str, ...] | None: ...  # undocumented
     # bytes needs to go first, as default mode is to open as bytes
     if sys.version_info >= (3, 8):
