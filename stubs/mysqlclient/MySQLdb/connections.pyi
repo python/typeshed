@@ -18,7 +18,7 @@ from ._exceptions import (
 )
 
 # Any kind of object that can be passed to Connection.literal().
-# This allowed types depend on the defined encoders, but the following
+# The allowed types depend on the defined encoders, but the following
 # types are always allowed.
 _Literal: TypeAlias = str | bytearray | bytes | tuple[_Literal] | list[_Literal] | Any
 
