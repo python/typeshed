@@ -69,6 +69,7 @@
         "stubs/PyYAML",
         "stubs/redis",
         "stubs/requests",
+        "stubs/sagemaker",
         "stubs/setuptools",
         "stubs/SQLAlchemy",
         "stubs/stripe",

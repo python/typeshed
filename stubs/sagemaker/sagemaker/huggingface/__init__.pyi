@@ -1,0 +1,5 @@
+from sagemaker.huggingface.estimator import HuggingFace as HuggingFace
+from sagemaker.huggingface.llm_utils import get_huggingface_llm_image_uri as get_huggingface_llm_image_uri
+from sagemaker.huggingface.model import HuggingFaceModel as HuggingFaceModel, HuggingFacePredictor as HuggingFacePredictor
+from sagemaker.huggingface.processing import HuggingFaceProcessor as HuggingFaceProcessor
+from sagemaker.huggingface.training_compiler.config import TrainingCompilerConfig as TrainingCompilerConfig

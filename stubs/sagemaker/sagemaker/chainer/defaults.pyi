@@ -1,0 +1,1 @@
+LATEST_PY2_VERSION: str

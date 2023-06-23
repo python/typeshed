@@ -1,0 +1,3 @@
+from sagemaker.serverless.model import LambdaModel as LambdaModel
+from sagemaker.serverless.predictor import LambdaPredictor as LambdaPredictor
+from sagemaker.serverless.serverless_inference_config import ServerlessInferenceConfig as ServerlessInferenceConfig

@@ -1,0 +1,3 @@
+from _typeshed import Incomplete
+
+def git_clone_repo(git_config, entry_point, source_dir: Incomplete | None = None, dependencies: Incomplete | None = None): ...
