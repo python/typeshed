@@ -158,10 +158,10 @@ jobs:
             echo "Installing packages: $DEPENDENCIES"
             pip install $DEPENDENCIES
           fi
+      - name: Activate the isolated venv for the rest of the job
+        run: echo "$PWD/.venv/bin" >> $GITHUB_PATH
       - name: List 3rd-party stub dependencies installed
-        run: |
-          source .venv/bin/activate
-          pip freeze --all
+        run: pip freeze --all
       - name: Get pyright version
         uses: SebRollen/toml-action@v1.0.2
         id: pyright_version
@@ -175,7 +175,6 @@ jobs:
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
           no-comments: ${{ matrix.python-version != '3.11' || matrix.python-platform != 'Linux' }} # Having each job create the same comment is too noisy.
-          venv-path: .
       - name: Run pyright with stricter settings on some of the stubs
         uses: jakebailey/pyright-action@v1
         with:
@@ -183,7 +182,6 @@ jobs:
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
           no-comments: ${{ matrix.python-version != '3.11' || matrix.python-platform != 'Linux' }} # Having each job create the same comment is too noisy.
-          venv-path: .
           project: ./pyrightconfig.stricter.json
       - name: Run pyright on the test cases
         uses: jakebailey/pyright-action@v1
@@ -192,7 +190,6 @@ jobs:
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
           no-comments: ${{ matrix.python-version != '3.11' || matrix.python-platform != 'Linux' }} # Having each job create the same comment is too noisy.
-          venv-path: .
           project: ./pyrightconfig.testcases.json
 
   stub-uploader:
