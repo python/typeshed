@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from typing import Optional, Union
+from typing import Optional
 
 from sagemaker.model import Model
 from sagemaker.session import Session

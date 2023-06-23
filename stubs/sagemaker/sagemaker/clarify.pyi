@@ -2,7 +2,7 @@ import abc
 from _typeshed import Incomplete
 from abc import ABC, abstractmethod
 from enum import Enum
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional
 
 from sagemaker.network import NetworkConfig
 from sagemaker.processing import Processor

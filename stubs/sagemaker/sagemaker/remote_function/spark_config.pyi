@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional
 
 class SparkConfig:
     submit_jars: Optional[List[str]]

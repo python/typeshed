@@ -1,7 +1,7 @@
 import abc
 from _typeshed import Incomplete
 from enum import Enum
-from typing import Dict, List, Union
+from typing import Dict, List
 
 from sagemaker.workflow.entities import (
     DefaultEnumMeta,
@@ -45,29 +45,19 @@ class ConditionComparison(Condition):
     def __ge__(self, other): ...
 
 class ConditionEquals(ConditionComparison):
-    def __init__(
-        self, left: ConditionValueType | PrimitiveType, right: ConditionValueType | PrimitiveType
-    ) -> None: ...
+    def __init__(self, left: ConditionValueType | PrimitiveType, right: ConditionValueType | PrimitiveType) -> None: ...
 
 class ConditionGreaterThan(ConditionComparison):
-    def __init__(
-        self, left: ConditionValueType | PrimitiveType, right: ConditionValueType | PrimitiveType
-    ) -> None: ...
+    def __init__(self, left: ConditionValueType | PrimitiveType, right: ConditionValueType | PrimitiveType) -> None: ...
 
 class ConditionGreaterThanOrEqualTo(ConditionComparison):
-    def __init__(
-        self, left: ConditionValueType | PrimitiveType, right: ConditionValueType | PrimitiveType
-    ) -> None: ...
+    def __init__(self, left: ConditionValueType | PrimitiveType, right: ConditionValueType | PrimitiveType) -> None: ...
 
 class ConditionLessThan(ConditionComparison):
-    def __init__(
-        self, left: ConditionValueType | PrimitiveType, right: ConditionValueType | PrimitiveType
-    ) -> None: ...
+    def __init__(self, left: ConditionValueType | PrimitiveType, right: ConditionValueType | PrimitiveType) -> None: ...
 
 class ConditionLessThanOrEqualTo(ConditionComparison):
-    def __init__(
-        self, left: ConditionValueType | PrimitiveType, right: ConditionValueType | PrimitiveType
-    ) -> None: ...
+    def __init__(self, left: ConditionValueType | PrimitiveType, right: ConditionValueType | PrimitiveType) -> None: ...
 
 class ConditionIn(Condition):
     value: Incomplete
@@ -88,5 +78,5 @@ class ConditionOr(Condition):
     def to_request(self) -> RequestType: ...
 
 def primitive_or_expr(
-    value: ExecutionVariable | Expression | PrimitiveType | Parameter | Properties
+    value: ExecutionVariable | Expression | PrimitiveType | Parameter | Properties,
 ) -> Dict[str | str, PrimitiveType]: ...

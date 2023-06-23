@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from datetime import datetime
-from typing import List, Optional, Union
+from typing import List, Optional
 
 from boto3.session import Session as boto3_Session
 from sagemaker.model_card.evaluation_metric_parsers import EvaluationMetricTypeEnum

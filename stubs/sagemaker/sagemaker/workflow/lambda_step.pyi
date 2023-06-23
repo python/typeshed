@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from enum import Enum
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional
 
 from sagemaker.lambda_helper import Lambda
 from sagemaker.workflow.entities import DefaultEnumMeta, RequestType as RequestType

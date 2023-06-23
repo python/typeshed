@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Any, Dict, List, Optional, Sequence, Set, Union
+from typing import Any, Dict, List, Optional, Sequence, Set
 
 from sagemaker.session import Session
 from sagemaker.workflow.entities import Entity, RequestType as RequestType

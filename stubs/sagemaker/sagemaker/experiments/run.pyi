@@ -1,7 +1,7 @@
 import datetime
 from _typeshed import Incomplete
 from enum import Enum
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional
 
 from numpy import array
 from sagemaker import Session
@@ -54,9 +54,7 @@ class Run:
         is_output: bool = True,
         no_skill: Optional[int] = None,
     ): ...
-    def log_roc_curve(
-        self, y_true: list | array, y_score: list | array, title: Optional[str] = None, is_output: bool = True
-    ): ...
+    def log_roc_curve(self, y_true: list | array, y_score: list | array, title: Optional[str] = None, is_output: bool = True): ...
     def log_confusion_matrix(
         self, y_true: list | array, y_pred: list | array, title: Optional[str] = None, is_output: bool = True
     ): ...

@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional
 
 from sagemaker.workflow.pipeline_context import _ModelStepArguments
 from sagemaker.workflow.retry import RetryPolicy

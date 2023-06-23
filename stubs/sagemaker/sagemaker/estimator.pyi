@@ -1,7 +1,7 @@
 import abc
 from _typeshed import Incomplete
 from abc import abstractmethod
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional
 
 from sagemaker.debugger import (
     DEBUGGER_FLAG as DEBUGGER_FLAG,

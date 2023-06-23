@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from abc import ABCMeta
-from typing import Dict, List, Union
+from typing import Dict, List
 
 from sagemaker.workflow.entities import Expression, PipelineVariable
 

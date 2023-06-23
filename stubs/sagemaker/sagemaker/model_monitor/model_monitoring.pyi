@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Optional, Union
+from typing import Optional
 
 from sagemaker.model_monitor.dataset_format import MonitoringDatasetFormat
 from sagemaker.processing import ProcessingJob

@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional
 
 from sagemaker import Model, ModelMetrics
 from sagemaker.drift_check_baselines import DriftCheckBaselines

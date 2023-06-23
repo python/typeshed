@@ -1,6 +1,6 @@
 import abc
 from _typeshed import Incomplete
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional
 
 from sagemaker.drift_check_baselines import DriftCheckBaselines
 from sagemaker.inference_recommender.inference_recommender_mixin import InferenceRecommenderMixin

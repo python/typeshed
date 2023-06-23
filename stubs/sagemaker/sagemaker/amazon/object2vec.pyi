@@ -1,4 +1,4 @@
-from typing import Optional, Union
+from typing import Optional
 
 from sagemaker.amazon.amazon_estimator import AmazonAlgorithmEstimatorBase
 from sagemaker.amazon.hyperparameter import Hyperparameter as hp

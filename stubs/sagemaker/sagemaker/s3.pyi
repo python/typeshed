@@ -1,6 +1,5 @@
 import io
 from _typeshed import Incomplete
-from typing import Union
 
 from sagemaker.s3_utils import determine_bucket_and_prefix as determine_bucket_and_prefix
 

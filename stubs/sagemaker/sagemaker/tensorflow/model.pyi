@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional
 
 import sagemaker
 from sagemaker import ModelMetrics

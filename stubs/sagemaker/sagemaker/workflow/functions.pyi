@@ -1,4 +1,4 @@
-from typing import List, Union
+from typing import List
 
 from sagemaker.workflow.entities import PipelineVariable
 from sagemaker.workflow.properties import PropertyFile

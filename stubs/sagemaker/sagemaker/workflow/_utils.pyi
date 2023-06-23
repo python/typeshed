@@ -1,10 +1,9 @@
 from _typeshed import Incomplete
-from typing import List, Optional, Union
+from typing import List, Optional
 
 from sagemaker.estimator import EstimatorBase
 from sagemaker.workflow.entities import RequestType as RequestType
 from sagemaker.workflow.retry import RetryPolicy
-from sagemaker.workflow.step_collections import StepCollection
 from sagemaker.workflow.steps import ConfigurableRetryStep, Step, TrainingStep
 
 logger: Incomplete

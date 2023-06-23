@@ -4,7 +4,7 @@ import json
 from _typeshed import Incomplete
 from abc import ABC, abstractmethod
 from enum import Enum
-from typing import Any, List, Optional, Union
+from typing import Any, List, Optional
 
 from boto3.session import Session as Session
 

@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import List, Optional, Union
+from typing import List, Optional
 
 from sagemaker.workflow.entities import RequestType as RequestType
 from sagemaker.workflow.pipeline_context import _JobStepArguments

@@ -1,7 +1,7 @@
 import abc
 from _typeshed import Incomplete
 from enum import Enum
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional
 
 from sagemaker.estimator import EstimatorBase
 from sagemaker.inputs import CreateModelInput, FileSystemInput, TrainingInput, TransformInput
@@ -15,7 +15,6 @@ from sagemaker.workflow.functions import Join
 from sagemaker.workflow.pipeline_context import _JobStepArguments
 from sagemaker.workflow.properties import PropertyFile
 from sagemaker.workflow.retry import RetryPolicy
-from sagemaker.workflow.step_collections import StepCollection
 
 class StepTypeEnum(Enum, metaclass=DefaultEnumMeta):
     CONDITION: str

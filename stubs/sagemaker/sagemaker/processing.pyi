@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional
 
 from sagemaker.apiutils._base_types import ApiObject
 from sagemaker.dataset_definition.inputs import DatasetDefinition, S3Input

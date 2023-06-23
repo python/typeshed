@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import List, Optional, Union
+from typing import List, Optional
 
 from sagemaker.amazon.amazon_estimator import AmazonAlgorithmEstimatorBase
 from sagemaker.amazon.hyperparameter import Hyperparameter as hp

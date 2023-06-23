@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional
 
 class LineageEntityEnum(Enum):
     TRIAL: str

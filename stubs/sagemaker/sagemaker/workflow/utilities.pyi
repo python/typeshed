@@ -1,9 +1,8 @@
 from _typeshed import Incomplete
-from typing import List, Sequence, Set, Union
+from typing import List, Sequence, Set
 
 from sagemaker.workflow.entities import Entity, RequestType as RequestType
 from sagemaker.workflow.pipeline_context import _StepArguments
-from sagemaker.workflow.step_collections import StepCollection
 
 logger: Incomplete
 BUF_SIZE: int

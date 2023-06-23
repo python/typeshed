@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Optional, Union
+from typing import Optional
 
 from sagemaker import Model, Predictor, Session
 from sagemaker.workflow.entities import PipelineVariable

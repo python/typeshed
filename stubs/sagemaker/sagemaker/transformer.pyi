@@ -1,6 +1,6 @@
 import abc
 from _typeshed import Incomplete
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional
 
 from sagemaker.inputs import BatchDataCaptureConfig
 from sagemaker.job import _Job

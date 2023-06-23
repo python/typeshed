@@ -1,5 +1,5 @@
 import datetime
-from typing import Any, Dict, Sequence, Union
+from typing import Any, Dict, Sequence
 
 import pandas as pd
 from sagemaker import Session

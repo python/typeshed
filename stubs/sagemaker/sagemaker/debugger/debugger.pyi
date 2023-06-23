@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from abc import ABC
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional
 
 from sagemaker.workflow.entities import PipelineVariable
 
@@ -113,17 +113,13 @@ class TensorBoardOutputConfig:
     s3_output_path: Incomplete
     container_local_output_path: Incomplete
     def __init__(
-        self,
-        s3_output_path: str | PipelineVariable,
-        container_local_output_path: Optional[str | PipelineVariable] = None,
+        self, s3_output_path: str | PipelineVariable, container_local_output_path: Optional[str | PipelineVariable] = None
     ) -> None: ...
 
 class CollectionConfig:
     name: Incomplete
     parameters: Incomplete
-    def __init__(
-        self, name: str | PipelineVariable, parameters: Optional[Dict[str, str | PipelineVariable]] = None
-    ) -> None: ...
+    def __init__(self, name: str | PipelineVariable, parameters: Optional[Dict[str, str | PipelineVariable]] = None) -> None: ...
     def __eq__(self, other): ...
     def __ne__(self, other): ...
     def __hash__(self): ...

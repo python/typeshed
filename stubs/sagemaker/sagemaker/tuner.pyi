@@ -1,7 +1,7 @@
 import abc
 from _typeshed import Incomplete
 from enum import Enum
-from typing import Dict, List, Optional, Set, Union
+from typing import Dict, List, Optional, Set
 
 from sagemaker.amazon.amazon_estimator import FileSystemRecordSet, RecordSet
 from sagemaker.estimator import EstimatorBase

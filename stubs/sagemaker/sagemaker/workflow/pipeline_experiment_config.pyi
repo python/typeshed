@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Union
 
 from sagemaker.workflow.entities import Entity, Expression, RequestType as RequestType
 from sagemaker.workflow.execution_variables import ExecutionVariable

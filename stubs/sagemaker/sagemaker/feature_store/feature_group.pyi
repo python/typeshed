@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from multiprocessing.pool import AsyncResult as AsyncResult
-from typing import Any, Dict, List, Sequence, Union
+from typing import Any, Dict, List, Sequence
 
 from botocore.config import Config as Config
 from pandas import DataFrame as DataFrame
