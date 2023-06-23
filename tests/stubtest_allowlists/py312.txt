@@ -52,7 +52,6 @@ importlib.metadata._meta.PackageMetadata.get
 importlib.metadata._meta.SimplePath.__truediv__
 importlib.metadata._meta.SimplePath.parent
 importlib.resources.files
-importlib.util.allowing_all_extensions
 importlib.util.module_for_loader
 importlib.util.set_loader
 importlib.util.set_package
