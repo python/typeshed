@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from re import Pattern
 from types import TracebackType
 from typing import Any
 from typing_extensions import LiteralString, Self, TypeAlias
@@ -22,7 +23,7 @@ from ._exceptions import (
 # types are always allowed.
 _Literal: TypeAlias = str | bytearray | bytes | tuple[_Literal, ...] | list[_Literal] | Any
 
-re_numeric_part: Incomplete
+re_numeric_part: Pattern[str]
 
 def numeric_part(s): ...
 

@@ -1,9 +1,10 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable
+from re import Pattern
 
 from .connections import _Literal
 
-RE_INSERT_VALUES: Incomplete
+RE_INSERT_VALUES: Pattern[str]
 
 class BaseCursor:
     from ._exceptions import (
