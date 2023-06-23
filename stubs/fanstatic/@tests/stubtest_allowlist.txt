@@ -33,22 +33,9 @@ fanstatic.core.Group.depends
 fanstatic.core.Group.resources
 fanstatic.core.Group.supports
 
-# This is only inconsistent because the library authors set this
-# attribute to `None` on the class, so they could assign a docstring
-# to it. `__init__` will always populate this attribute with a `str`
-fanstatic.Library.path
-fanstatic.core.Library.path
-
-# These methods have been implemented using a generic function that
-# just raises an exception for any arguments, but since they're
-# supposed to mirror the API of NeededResources, we make that more
-# explicit in the type stubs
-fanstatic.core.DummyNeededResources.clear
-fanstatic.core.DummyNeededResources.resources
-
-# In order to make defining correct subclasses more easy, some of the
-# class properties have been changed to abstract properties, so we
-# force derived classes to explicitly set them
+# The API for Compiler has very much the same problem, so these are
+# some more attributes/methods that have been made abstract for the
+# purposes of type checking
 fanstatic.Compiler.name
 fanstatic.Compiler.source_extension
 fanstatic.Minifier.name
@@ -62,6 +49,12 @@ fanstatic.compiler.Minifier.source_extension
 fanstatic.compiler.Minifier.target_extension
 fanstatic.compiler.NullCompiler.name
 fanstatic.registry.Registry.ENTRY_POINT
+
+# This is only inconsistent because the library authors set this
+# attribute to `None` on the class, so they could assign a docstring
+# to it. `__init__` will always populate this attribute with a `str`
+fanstatic.Library.path
+fanstatic.core.Library.path
 
 # Error: is not present at runtime
 # ================================
