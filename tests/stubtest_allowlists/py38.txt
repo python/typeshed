@@ -202,3 +202,6 @@ asynchat.async_chat.use_encoding
 asynchat.find_prefix_at_end
 pkgutil.ImpImporter\..*
 pkgutil.ImpLoader\..*
+
+# Omit internal _KEEP argument
+tarfile.TarInfo.replace

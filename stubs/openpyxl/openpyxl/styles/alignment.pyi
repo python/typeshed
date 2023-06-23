@@ -15,7 +15,7 @@ vertical_aligments: tuple[_VerticalAlignmentsType, ...]
 
 class Alignment(Serialisable):
     tagname: ClassVar[str]
-    __fields__: Incomplete
+    __fields__: ClassVar[tuple[str, ...]]
     horizontal: NoneSet[_HorizontalAlignmentsType]
     vertical: NoneSet[_VerticalAlignmentsType]
     textRotation: NoneSet[int]
