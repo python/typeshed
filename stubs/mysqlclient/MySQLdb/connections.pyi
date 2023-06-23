@@ -1,5 +1,5 @@
+from _typeshed import Incomplete
 from types import TracebackType
-from typing import Any
 from typing_extensions import Self
 
 from . import _mysql, cursors
@@ -16,16 +16,16 @@ from ._exceptions import (
     Warning as Warning,
 )
 
-re_numeric_part: Any
+re_numeric_part: Incomplete
 
 def numeric_part(s): ...
 
 class Connection(_mysql.connection):
     default_cursor: type[cursors.Cursor]
     cursorclass: type[cursors.BaseCursor]
-    encoders: Any
+    encoders: Incomplete
     encoding: str
-    messages: Any
+    messages: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...
     def __enter__(self) -> Self: ...
     def __exit__(
