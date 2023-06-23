@@ -25,9 +25,9 @@ class NTM(AmazonAlgorithmEstimatorBase):
     learning_rate: hp
     def __init__(
         self,
-        role: Optional[Union[str, PipelineVariable]] = None,
-        instance_count: Optional[Union[int, PipelineVariable]] = None,
-        instance_type: Optional[Union[str, PipelineVariable]] = None,
+        role: Optional[str | PipelineVariable] = None,
+        instance_count: Optional[int | PipelineVariable] = None,
+        instance_type: Optional[str | PipelineVariable] = None,
         num_topics: Optional[int] = None,
         encoder_layers: Optional[List] = None,
         epochs: Optional[int] = None,
@@ -50,7 +50,7 @@ class NTMPredictor(Predictor):
 class NTMModel(Model):
     def __init__(
         self,
-        model_data: Union[str, PipelineVariable],
+        model_data: str | PipelineVariable,
         role: Optional[str] = None,
         sagemaker_session: Optional[Session] = None,
         **kwargs,

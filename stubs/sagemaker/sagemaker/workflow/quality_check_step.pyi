@@ -8,9 +8,9 @@ from sagemaker.workflow.step_collections import StepCollection
 from sagemaker.workflow.steps import CacheConfig, Step
 
 class QualityCheckConfig(ABC):
-    baseline_dataset: Union[str, PipelineVariable]
+    baseline_dataset: str | PipelineVariable
     dataset_format: dict
-    output_s3_uri: Union[str, PipelineVariable]
+    output_s3_uri: str | PipelineVariable
     post_analytics_processor_script: str
     def __init__(self, baseline_dataset, dataset_format, output_s3_uri, post_analytics_processor_script) -> None: ...
     def __lt__(self, other): ...
@@ -29,11 +29,11 @@ class DataQualityCheckConfig(QualityCheckConfig):
     def __ge__(self, other): ...
 
 class ModelQualityCheckConfig(QualityCheckConfig):
-    problem_type: Union[str, PipelineVariable]
-    inference_attribute: Union[str, PipelineVariable]
-    probability_attribute: Union[str, PipelineVariable]
-    ground_truth_attribute: Union[str, PipelineVariable]
-    probability_threshold_attribute: Union[str, PipelineVariable]
+    problem_type: str | PipelineVariable
+    inference_attribute: str | PipelineVariable
+    probability_attribute: str | PipelineVariable
+    ground_truth_attribute: str | PipelineVariable
+    probability_threshold_attribute: str | PipelineVariable
     def __init__(
         self,
         baseline_dataset,
@@ -66,16 +66,16 @@ class QualityCheckStep(Step):
         name: str,
         quality_check_config: QualityCheckConfig,
         check_job_config: CheckJobConfig,
-        skip_check: Union[bool, PipelineVariable] = False,
-        fail_on_violation: Union[bool, PipelineVariable] = True,
-        register_new_baseline: Union[bool, PipelineVariable] = False,
-        model_package_group_name: Union[str, PipelineVariable] = None,
-        supplied_baseline_statistics: Union[str, PipelineVariable] = None,
-        supplied_baseline_constraints: Union[str, PipelineVariable] = None,
+        skip_check: bool | PipelineVariable = False,
+        fail_on_violation: bool | PipelineVariable = True,
+        register_new_baseline: bool | PipelineVariable = False,
+        model_package_group_name: str | PipelineVariable = None,
+        supplied_baseline_statistics: str | PipelineVariable = None,
+        supplied_baseline_constraints: str | PipelineVariable = None,
         display_name: str = None,
         description: str = None,
         cache_config: CacheConfig = None,
-        depends_on: Optional[List[Union[str, Step, StepCollection]]] = None,
+        depends_on: Optional[List[str | Step | StepCollection]] = None,
     ) -> None: ...
     @property
     def arguments(self) -> RequestType: ...

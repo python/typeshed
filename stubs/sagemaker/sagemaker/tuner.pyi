@@ -34,7 +34,7 @@ class WarmStartTypes(Enum):
 class WarmStartConfig:
     type: Incomplete
     parents: Incomplete
-    def __init__(self, warm_start_type: WarmStartTypes, parents: Set[Union[str, PipelineVariable]]) -> None: ...
+    def __init__(self, warm_start_type: WarmStartTypes, parents: Set[str | PipelineVariable]) -> None: ...
     @classmethod
     def from_job_desc(cls, warm_start_config): ...
     def to_input_req(self): ...
@@ -60,9 +60,9 @@ class InstanceConfig:
     volume_size: Incomplete
     def __init__(
         self,
-        instance_count: Union[int, PipelineVariable] = None,
-        instance_type: Union[str, PipelineVariable] = None,
-        volume_size: Union[int, PipelineVariable] = 30,
+        instance_count: int | PipelineVariable = None,
+        instance_type: str | PipelineVariable = None,
+        volume_size: int | PipelineVariable = 30,
     ) -> None: ...
     @classmethod
     def from_job_desc(cls, instance_config): ...
@@ -119,31 +119,31 @@ class HyperparameterTuner:
     def __init__(
         self,
         estimator: EstimatorBase,
-        objective_metric_name: Union[str, PipelineVariable],
+        objective_metric_name: str | PipelineVariable,
         hyperparameter_ranges: Dict[str, ParameterRange],
-        metric_definitions: Optional[List[Dict[str, Union[str, PipelineVariable]]]] = None,
-        strategy: Union[str, PipelineVariable] = "Bayesian",
-        objective_type: Union[str, PipelineVariable] = "Maximize",
-        max_jobs: Union[int, PipelineVariable] = None,
-        max_parallel_jobs: Union[int, PipelineVariable] = 1,
-        max_runtime_in_seconds: Optional[Union[int, PipelineVariable]] = None,
-        tags: Optional[List[Dict[str, Union[str, PipelineVariable]]]] = None,
+        metric_definitions: Optional[List[Dict[str, str | PipelineVariable]]] = None,
+        strategy: str | PipelineVariable = "Bayesian",
+        objective_type: str | PipelineVariable = "Maximize",
+        max_jobs: int | PipelineVariable = None,
+        max_parallel_jobs: int | PipelineVariable = 1,
+        max_runtime_in_seconds: Optional[int | PipelineVariable] = None,
+        tags: Optional[List[Dict[str, str | PipelineVariable]]] = None,
         base_tuning_job_name: Optional[str] = None,
         warm_start_config: Optional[WarmStartConfig] = None,
         strategy_config: Optional[StrategyConfig] = None,
         completion_criteria_config: Optional[TuningJobCompletionCriteriaConfig] = None,
-        early_stopping_type: Union[str, PipelineVariable] = "Off",
+        early_stopping_type: str | PipelineVariable = "Off",
         estimator_name: Optional[str] = None,
         random_seed: Optional[int] = None,
         autotune: bool = False,
         hyperparameters_to_keep_static: Optional[List[str]] = None,
     ) -> None: ...
-    def override_resource_config(self, instance_configs: Union[List[InstanceConfig], Dict[str, List[InstanceConfig]]]): ...
+    def override_resource_config(self, instance_configs: List[InstanceConfig, Dict[str, List[InstanceConfig]]]): ...
     def fit(
         self,
-        inputs: Optional[Union[str, Dict, List, TrainingInput, FileSystemInput, RecordSet, FileSystemRecordSet]] = None,
+        inputs: Optional[str | Dict | List | TrainingInput | FileSystemInput | RecordSet | FileSystemRecordSet] = None,
         job_name: Optional[str] = None,
-        include_cls_metadata: Union[bool, Dict[str, bool]] = False,
+        include_cls_metadata: bool | Dict[str | bool] = False,
         estimator_kwargs: Optional[Dict[str, dict]] = None,
         wait: bool = True,
         **kwargs,

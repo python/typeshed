@@ -18,7 +18,7 @@ class S3Uploader:
     ): ...
     @staticmethod
     def upload_bytes(
-        b: Union[bytes, io.BytesIO], s3_uri, kms_key: Incomplete | None = None, sagemaker_session: Incomplete | None = None
+        b: bytes | io.BytesIO, s3_uri, kms_key: Incomplete | None = None, sagemaker_session: Incomplete | None = None
     ): ...
 
 class S3Downloader:

@@ -10,16 +10,16 @@ class TrainingInput:
     config: Incomplete
     def __init__(
         self,
-        s3_data: Union[str, PipelineVariable],
-        distribution: Optional[Union[str, PipelineVariable]] = None,
-        compression: Optional[Union[str, PipelineVariable]] = None,
-        content_type: Optional[Union[str, PipelineVariable]] = None,
-        record_wrapping: Optional[Union[str, PipelineVariable]] = None,
-        s3_data_type: Union[str, PipelineVariable] = "S3Prefix",
-        instance_groups: Optional[List[Union[str, PipelineVariable]]] = None,
-        input_mode: Optional[Union[str, PipelineVariable]] = None,
-        attribute_names: Optional[List[Union[str, PipelineVariable]]] = None,
-        target_attribute_name: Optional[Union[str, PipelineVariable]] = None,
+        s3_data: str | PipelineVariable,
+        distribution: Optional[str | PipelineVariable] = None,
+        compression: Optional[str | PipelineVariable] = None,
+        content_type: Optional[str | PipelineVariable] = None,
+        record_wrapping: Optional[str | PipelineVariable] = None,
+        s3_data_type: str | PipelineVariable = "S3Prefix",
+        instance_groups: Optional[List[str | PipelineVariable]] = None,
+        input_mode: Optional[str | PipelineVariable] = None,
+        attribute_names: Optional[List[str | PipelineVariable]] = None,
+        target_attribute_name: Optional[str | PipelineVariable] = None,
         shuffle_config: Optional["ShuffleConfig"] = None,
     ) -> None: ...
 

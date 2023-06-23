@@ -45,9 +45,9 @@ class Object2Vec(AmazonAlgorithmEstimatorBase):
     enc1_freeze_pretrained_embedding: hp
     def __init__(
         self,
-        role: Optional[Union[str, PipelineVariable]] = None,
-        instance_count: Optional[Union[int, PipelineVariable]] = None,
-        instance_type: Optional[Union[str, PipelineVariable]] = None,
+        role: Optional[str | PipelineVariable] = None,
+        instance_count: Optional[int | PipelineVariable] = None,
+        instance_type: Optional[str | PipelineVariable] = None,
         epochs: Optional[int] = None,
         enc0_max_seq_len: Optional[int] = None,
         enc0_vocab_size: Optional[int] = None,
@@ -88,7 +88,7 @@ class Object2Vec(AmazonAlgorithmEstimatorBase):
 class Object2VecModel(Model):
     def __init__(
         self,
-        model_data: Union[str, PipelineVariable],
+        model_data: str | PipelineVariable,
         role: Optional[str] = None,
         sagemaker_session: Optional[Session] = None,
         **kwargs,

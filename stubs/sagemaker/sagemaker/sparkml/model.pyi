@@ -12,7 +12,7 @@ class SparkMLPredictor(Predictor):
 class SparkMLModel(Model):
     def __init__(
         self,
-        model_data: Union[str, PipelineVariable],
+        model_data: str | PipelineVariable,
         role: Optional[str] = None,
         spark_version: str = "3.3",
         sagemaker_session: Optional[Session] = None,

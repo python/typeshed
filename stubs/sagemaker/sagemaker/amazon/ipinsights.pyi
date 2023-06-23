@@ -23,9 +23,9 @@ class IPInsights(AmazonAlgorithmEstimatorBase):
     weight_decay: hp
     def __init__(
         self,
-        role: Optional[Union[str, PipelineVariable]] = None,
-        instance_count: Optional[Union[int, PipelineVariable]] = None,
-        instance_type: Optional[Union[str, PipelineVariable]] = None,
+        role: Optional[str | PipelineVariable] = None,
+        instance_count: Optional[int | PipelineVariable] = None,
+        instance_type: Optional[str | PipelineVariable] = None,
         num_entity_vectors: Optional[int] = None,
         vector_dim: Optional[int] = None,
         batch_metrics_publish_interval: Optional[int] = None,
@@ -45,7 +45,7 @@ class IPInsightsPredictor(Predictor):
 class IPInsightsModel(Model):
     def __init__(
         self,
-        model_data: Union[str, PipelineVariable],
+        model_data: str | PipelineVariable,
         role: Optional[str] = None,
         sagemaker_session: Optional[Session] = None,
         **kwargs,

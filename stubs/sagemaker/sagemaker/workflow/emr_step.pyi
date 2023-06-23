@@ -34,7 +34,7 @@ class EMRStep(Step):
         description: str,
         cluster_id: str,
         step_config: EMRStepConfig,
-        depends_on: Optional[List[Union[str, Step, StepCollection]]] = None,
+        depends_on: Optional[List[str | Step | StepCollection]] = None,
         cache_config: CacheConfig = None,
         cluster_config: Dict[str, Any] = None,
         execution_role_arn: str = None,

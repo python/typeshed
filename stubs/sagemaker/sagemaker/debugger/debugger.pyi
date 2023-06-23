@@ -57,15 +57,15 @@ class Rule(RuleBase):
     def custom(
         cls,
         name: str,
-        image_uri: Union[str, PipelineVariable],
-        instance_type: Union[str, PipelineVariable],
-        volume_size_in_gb: Union[int, PipelineVariable],
+        image_uri: str | PipelineVariable,
+        instance_type: str | PipelineVariable,
+        volume_size_in_gb: int | PipelineVariable,
         source: Optional[str] = None,
-        rule_to_invoke: Optional[Union[str, PipelineVariable]] = None,
-        container_local_output_path: Optional[Union[str, PipelineVariable]] = None,
-        s3_output_path: Optional[Union[str, PipelineVariable]] = None,
-        other_trials_s3_input_paths: Optional[List[Union[str, PipelineVariable]]] = None,
-        rule_parameters: Optional[Dict[str, Union[str, PipelineVariable]]] = None,
+        rule_to_invoke: Optional[str | PipelineVariable] = None,
+        container_local_output_path: Optional[str | PipelineVariable] = None,
+        s3_output_path: Optional[str | PipelineVariable] = None,
+        other_trials_s3_input_paths: Optional[List[str | PipelineVariable]] = None,
+        rule_parameters: Optional[Dict[str, str | PipelineVariable]] = None,
         collections_to_save: Optional[List["CollectionConfig"]] = None,
         actions: Incomplete | None = None,
     ): ...
@@ -103,9 +103,9 @@ class DebuggerHookConfig:
     collection_configs: Incomplete
     def __init__(
         self,
-        s3_output_path: Optional[Union[str, PipelineVariable]] = None,
-        container_local_output_path: Optional[Union[str, PipelineVariable]] = None,
-        hook_parameters: Optional[Dict[str, Union[str, PipelineVariable]]] = None,
+        s3_output_path: Optional[str | PipelineVariable] = None,
+        container_local_output_path: Optional[str | PipelineVariable] = None,
+        hook_parameters: Optional[Dict[str, str | PipelineVariable]] = None,
         collection_configs: Optional[List["CollectionConfig"]] = None,
     ) -> None: ...
 
@@ -114,15 +114,15 @@ class TensorBoardOutputConfig:
     container_local_output_path: Incomplete
     def __init__(
         self,
-        s3_output_path: Union[str, PipelineVariable],
-        container_local_output_path: Optional[Union[str, PipelineVariable]] = None,
+        s3_output_path: str | PipelineVariable,
+        container_local_output_path: Optional[str | PipelineVariable] = None,
     ) -> None: ...
 
 class CollectionConfig:
     name: Incomplete
     parameters: Incomplete
     def __init__(
-        self, name: Union[str, PipelineVariable], parameters: Optional[Dict[str, Union[str, PipelineVariable]]] = None
+        self, name: str | PipelineVariable, parameters: Optional[Dict[str, str | PipelineVariable]] = None
     ) -> None: ...
     def __eq__(self, other): ...
     def __ne__(self, other): ...

@@ -21,7 +21,7 @@ class MultiDataModel(Model):
         name: str,
         model_data_prefix: str,
         model: Optional[Model] = None,
-        image_uri: Optional[Union[str, PipelineVariable]] = None,
+        image_uri: Optional[str | PipelineVariable] = None,
         role: Optional[str] = None,
         sagemaker_session: Optional[Session] = None,
         **kwargs,

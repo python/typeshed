@@ -37,7 +37,7 @@ class CallbackStep(Step):
         display_name: str = None,
         description: str = None,
         cache_config: CacheConfig = None,
-        depends_on: Optional[List[Union[str, Step, StepCollection]]] = None,
+        depends_on: Optional[List[str | Step | StepCollection]] = None,
     ) -> None: ...
     @property
     def arguments(self) -> RequestType: ...

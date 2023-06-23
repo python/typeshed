@@ -20,7 +20,7 @@ class ClarifyCheckConfig(ABC):
 
 class DataBiasCheckConfig(ClarifyCheckConfig):
     data_bias_config: BiasConfig
-    methods: Union[str, List[str]]
+    methods: str | List[str]
     def __init__(self, data_config, kms_key, monitoring_analysis_config_uri, data_bias_config, methods) -> None: ...
     def __lt__(self, other): ...
     def __le__(self, other): ...
@@ -31,7 +31,7 @@ class ModelBiasCheckConfig(ClarifyCheckConfig):
     data_bias_config: BiasConfig
     model_config: ModelConfig
     model_predicted_label_config: ModelPredictedLabelConfig
-    methods: Union[str, List[str]]
+    methods: str | List[str]
     def __init__(
         self,
         data_config,
@@ -50,7 +50,7 @@ class ModelBiasCheckConfig(ClarifyCheckConfig):
 class ModelExplainabilityCheckConfig(ClarifyCheckConfig):
     model_config: ModelConfig
     explainability_config: SHAPConfig
-    model_scores: Union[str, int, ModelPredictedLabelConfig]
+    model_scores: str | int | ModelPredictedLabelConfig
     def __init__(
         self, data_config, kms_key, monitoring_analysis_config_uri, model_config, explainability_config, model_scores
     ) -> None: ...
@@ -73,15 +73,15 @@ class ClarifyCheckStep(Step):
         name: str,
         clarify_check_config: ClarifyCheckConfig,
         check_job_config: CheckJobConfig,
-        skip_check: Union[bool, PipelineVariable] = False,
-        fail_on_violation: Union[bool, PipelineVariable] = True,
-        register_new_baseline: Union[bool, PipelineVariable] = False,
-        model_package_group_name: Union[str, PipelineVariable] = None,
-        supplied_baseline_constraints: Union[str, PipelineVariable] = None,
+        skip_check: bool | PipelineVariable = False,
+        fail_on_violation: bool | PipelineVariable = True,
+        register_new_baseline: bool | PipelineVariable = False,
+        model_package_group_name: str | PipelineVariable = None,
+        supplied_baseline_constraints: str | PipelineVariable = None,
         display_name: str = None,
         description: str = None,
         cache_config: CacheConfig = None,
-        depends_on: Optional[List[Union[str, Step, StepCollection]]] = None,
+        depends_on: Optional[List[str | Step | StepCollection]] = None,
     ) -> None: ...
     @property
     def arguments(self) -> RequestType: ...

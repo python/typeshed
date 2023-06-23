@@ -67,7 +67,7 @@ class FeatureGroup:
     DTYPE_TO_FEATURE_DEFINITION_CLS_MAP: Dict[str, FeatureTypeEnum]
     def create(
         self,
-        s3_uri: Union[str, bool],
+        s3_uri: str | bool,
         record_identifier_name: str,
         event_time_feature_name: str,
         role_arn: str = None,
@@ -105,7 +105,7 @@ class FeatureGroup:
         max_workers: int = 1,
         max_processes: int = 1,
         wait: bool = True,
-        timeout: Union[int, float] = None,
+        timeout: int | float = None,
         profile_name: str = None,
     ) -> IngestionManagerPandas: ...
     def athena_query(self) -> AthenaQuery: ...

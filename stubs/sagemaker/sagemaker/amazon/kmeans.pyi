@@ -23,9 +23,9 @@ class KMeans(AmazonAlgorithmEstimatorBase):
     eval_metrics: hp
     def __init__(
         self,
-        role: Optional[Union[str, PipelineVariable]] = None,
-        instance_count: Optional[Union[int, PipelineVariable]] = None,
-        instance_type: Optional[Union[str, PipelineVariable]] = None,
+        role: Optional[str | PipelineVariable] = None,
+        instance_count: Optional[int | PipelineVariable] = None,
+        instance_type: Optional[str | PipelineVariable] = None,
         k: Optional[int] = None,
         init_method: Optional[str] = None,
         max_iterations: Optional[int] = None,
@@ -35,7 +35,7 @@ class KMeans(AmazonAlgorithmEstimatorBase):
         half_life_time_size: Optional[int] = None,
         epochs: Optional[int] = None,
         center_factor: Optional[int] = None,
-        eval_metrics: Optional[List[Union[str, PipelineVariable]]] = None,
+        eval_metrics: Optional[List[str | PipelineVariable]] = None,
         **kwargs,
     ) -> None: ...
     def create_model(self, vpc_config_override="VPC_CONFIG_DEFAULT", **kwargs): ...
@@ -47,7 +47,7 @@ class KMeansPredictor(Predictor):
 class KMeansModel(Model):
     def __init__(
         self,
-        model_data: Union[str, PipelineVariable],
+        model_data: str | PipelineVariable,
         role: Optional[str] = None,
         sagemaker_session: Optional[Session] = None,
         **kwargs,

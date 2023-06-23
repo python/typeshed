@@ -45,13 +45,13 @@ class DataConfig:
         features: Optional[str] = None,
         dataset_type: str = "text/csv",
         s3_compression_type: str = "None",
-        joinsource: Optional[Union[str, int]] = None,
+        joinsource: Optional[str | int] = None,
         facet_dataset_uri: Optional[str] = None,
         facet_headers: Optional[List[str]] = None,
         predicted_label_dataset_uri: Optional[str] = None,
         predicted_label_headers: Optional[List[str]] = None,
-        predicted_label: Optional[Union[str, int]] = None,
-        excluded_columns: Optional[Union[List[int], List[str]]] = None,
+        predicted_label: Optional[str | int] = None,
+        excluded_columns: Optional[List[int, List[str]]] = None,
     ) -> None: ...
     def get_config(self): ...
 
@@ -59,9 +59,9 @@ class BiasConfig:
     analysis_config: Incomplete
     def __init__(
         self,
-        label_values_or_threshold: Union[int, float, str],
-        facet_name: Union[str, int, List[str], List[int]],
-        facet_values_or_threshold: Optional[Union[int, float, str]] = None,
+        label_values_or_threshold: int | float | str,
+        facet_name: str | int | List[str, List[int]],
+        facet_values_or_threshold: Optional[int | float | str] = None,
         group_name: Optional[str] = None,
     ) -> None: ...
     def get_config(self): ...
@@ -93,8 +93,8 @@ class ModelPredictedLabelConfig:
     predictor_config: Incomplete
     def __init__(
         self,
-        label: Optional[Union[str, int]] = None,
-        probability: Optional[Union[str, int]] = None,
+        label: Optional[str | int] = None,
+        probability: Optional[str | int] = None,
         probability_threshold: Optional[float] = None,
         label_headers: Optional[List[str]] = None,
     ) -> None: ...
@@ -132,7 +132,7 @@ class SHAPConfig(ExplainabilityConfig):
     shap_config: Incomplete
     def __init__(
         self,
-        baseline: Optional[Union[str, List, Dict]] = None,
+        baseline: Optional[str | List | Dict] = None,
         num_samples: Optional[int] = None,
         agg_method: Optional[str] = None,
         use_logit: bool = False,
@@ -169,7 +169,7 @@ class SageMakerClarifyProcessor(Processor):
         self,
         data_config: DataConfig,
         data_bias_config: BiasConfig,
-        methods: Union[str, List[str]] = "all",
+        methods: str | List[str] = "all",
         wait: bool = True,
         logs: bool = True,
         job_name: Optional[str] = None,
@@ -182,7 +182,7 @@ class SageMakerClarifyProcessor(Processor):
         data_bias_config: BiasConfig,
         model_config: Optional[ModelConfig] = None,
         model_predicted_label_config: Optional[ModelPredictedLabelConfig] = None,
-        methods: Union[str, List[str]] = "all",
+        methods: str | List[str] = "all",
         wait: bool = True,
         logs: bool = True,
         job_name: Optional[str] = None,
@@ -195,8 +195,8 @@ class SageMakerClarifyProcessor(Processor):
         bias_config: BiasConfig,
         model_config: Optional[ModelConfig] = None,
         model_predicted_label_config: Optional[ModelPredictedLabelConfig] = None,
-        pre_training_methods: Union[str, List[str]] = "all",
-        post_training_methods: Union[str, List[str]] = "all",
+        pre_training_methods: str | List[str] = "all",
+        post_training_methods: str | List[str] = "all",
         wait: bool = True,
         logs: bool = True,
         job_name: Optional[str] = None,
@@ -207,8 +207,8 @@ class SageMakerClarifyProcessor(Processor):
         self,
         data_config: DataConfig,
         model_config: ModelConfig,
-        explainability_config: Union[ExplainabilityConfig, List],
-        model_scores: Optional[Union[int, str, ModelPredictedLabelConfig]] = None,
+        explainability_config: ExplainabilityConfig | List,
+        model_scores: Optional[int | str | ModelPredictedLabelConfig] = None,
         wait: bool = True,
         logs: bool = True,
         job_name: Optional[str] = None,
@@ -219,10 +219,10 @@ class SageMakerClarifyProcessor(Processor):
         self,
         data_config: DataConfig,
         model_config: ModelConfig,
-        explainability_config: Union[ExplainabilityConfig, List[ExplainabilityConfig]],
+        explainability_config: ExplainabilityConfig | List[ExplainabilityConfig],
         bias_config: BiasConfig,
-        pre_training_methods: Union[str, List[str]] = "all",
-        post_training_methods: Union[str, List[str]] = "all",
+        pre_training_methods: str | List[str] = "all",
+        post_training_methods: str | List[str] = "all",
         model_predicted_label_config: ModelPredictedLabelConfig = None,
         wait: bool = True,
         logs: bool = True,
@@ -238,10 +238,10 @@ class _AnalysisConfigGenerator:
         data_config: DataConfig,
         model_config: ModelConfig,
         model_predicted_label_config: ModelPredictedLabelConfig,
-        explainability_config: Union[ExplainabilityConfig, List[ExplainabilityConfig]],
+        explainability_config: ExplainabilityConfig | List[ExplainabilityConfig],
         bias_config: BiasConfig,
-        pre_training_methods: Union[str, List[str]] = "all",
-        post_training_methods: Union[str, List[str]] = "all",
+        pre_training_methods: str | List[str] = "all",
+        post_training_methods: str | List[str] = "all",
     ): ...
     @classmethod
     def explainability(
@@ -249,17 +249,17 @@ class _AnalysisConfigGenerator:
         data_config: DataConfig,
         model_config: ModelConfig,
         model_predicted_label_config: ModelPredictedLabelConfig,
-        explainability_config: Union[ExplainabilityConfig, List[ExplainabilityConfig]],
+        explainability_config: ExplainabilityConfig | List[ExplainabilityConfig],
     ): ...
     @classmethod
-    def bias_pre_training(cls, data_config: DataConfig, bias_config: BiasConfig, methods: Union[str, List[str]]): ...
+    def bias_pre_training(cls, data_config: DataConfig, bias_config: BiasConfig, methods: str | List[str]): ...
     @classmethod
     def bias_post_training(
         cls,
         data_config: DataConfig,
         bias_config: BiasConfig,
         model_predicted_label_config: ModelPredictedLabelConfig,
-        methods: Union[str, List[str]],
+        methods: str | List[str],
         model_config: ModelConfig,
     ): ...
     @classmethod
@@ -269,8 +269,8 @@ class _AnalysisConfigGenerator:
         bias_config: BiasConfig,
         model_config: ModelConfig,
         model_predicted_label_config: ModelPredictedLabelConfig,
-        pre_training_methods: Union[str, List[str]] = "all",
-        post_training_methods: Union[str, List[str]] = "all",
+        pre_training_methods: str | List[str] = "all",
+        post_training_methods: str | List[str] = "all",
     ): ...
 
 class ProcessingOutputHandler:

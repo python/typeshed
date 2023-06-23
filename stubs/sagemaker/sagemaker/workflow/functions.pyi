@@ -17,7 +17,7 @@ class Join(PipelineVariable):
 
 class JsonGet(PipelineVariable):
     step_name: str
-    property_file: Union[PropertyFile, str]
+    property_file: PropertyFile | str
     json_path: str
     @property
     def expr(self): ...

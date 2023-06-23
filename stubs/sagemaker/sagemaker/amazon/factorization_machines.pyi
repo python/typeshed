@@ -37,9 +37,9 @@ class FactorizationMachines(AmazonAlgorithmEstimatorBase):
     factors_init_value: hp
     def __init__(
         self,
-        role: Optional[Union[str, PipelineVariable]] = None,
-        instance_count: Optional[Union[int, PipelineVariable]] = None,
-        instance_type: Optional[Union[str, PipelineVariable]] = None,
+        role: Optional[str | PipelineVariable] = None,
+        instance_count: Optional[int | PipelineVariable] = None,
+        instance_type: Optional[str | PipelineVariable] = None,
         num_factors: Optional[int] = None,
         predictor_type: Optional[str] = None,
         epochs: Optional[int] = None,
@@ -74,7 +74,7 @@ class FactorizationMachinesPredictor(Predictor):
 class FactorizationMachinesModel(Model):
     def __init__(
         self,
-        model_data: Union[str, PipelineVariable],
+        model_data: str | PipelineVariable,
         role: Optional[str] = None,
         sagemaker_session: Optional[Session] = None,
         **kwargs,

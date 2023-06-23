@@ -11,7 +11,7 @@ class FeatureStore:
     sagemaker_session: Session
     def create_dataset(
         self,
-        base: Union[FeatureGroup, pd.DataFrame],
+        base: FeatureGroup | pd.DataFrame,
         output_path: str,
         record_identifier_feature_name: str = None,
         event_time_identifier_feature_name: str = None,

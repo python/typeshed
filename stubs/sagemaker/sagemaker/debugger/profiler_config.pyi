@@ -13,8 +13,8 @@ class ProfilerConfig:
     disable_profiler: Incomplete
     def __init__(
         self,
-        s3_output_path: Optional[Union[str, PipelineVariable]] = None,
-        system_monitor_interval_millis: Optional[Union[int, PipelineVariable]] = None,
+        s3_output_path: Optional[str | PipelineVariable] = None,
+        system_monitor_interval_millis: Optional[int | PipelineVariable] = None,
         framework_profile_params: Optional[FrameworkProfile] = None,
-        disable_profiler: Optional[Union[str, PipelineVariable]] = False,
+        disable_profiler: Optional[str | PipelineVariable] = False,
     ) -> None: ...

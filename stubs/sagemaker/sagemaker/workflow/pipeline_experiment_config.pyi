@@ -10,8 +10,8 @@ class PipelineExperimentConfig(Entity):
     trial_name: Incomplete
     def __init__(
         self,
-        experiment_name: Union[str, Parameter, ExecutionVariable, Expression],
-        trial_name: Union[str, Parameter, ExecutionVariable, Expression],
+        experiment_name: str | Parameter | ExecutionVariable | Expression,
+        trial_name: str | Parameter | ExecutionVariable | Expression,
     ) -> None: ...
     def to_request(self) -> RequestType: ...
 

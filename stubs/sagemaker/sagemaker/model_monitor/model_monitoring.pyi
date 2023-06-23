@@ -338,7 +338,7 @@ class MonitoringInput:
     end_time_offset: str
     features_attribute: str
     inference_attribute: str
-    probability_attribute: Union[str, int]
+    probability_attribute: str | int
     probability_threshold_attribute: float
     def __init__(
         self,

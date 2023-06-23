@@ -16,11 +16,11 @@ class AmazonAlgorithmEstimatorBase(EstimatorBase, metaclass=abc.ABCMeta):
     DEFAULT_MINI_BATCH_SIZE: Optional[int]
     def __init__(
         self,
-        role: Optional[Union[str, PipelineVariable]] = None,
-        instance_count: Optional[Union[int, PipelineVariable]] = None,
-        instance_type: Optional[Union[str, PipelineVariable]] = None,
+        role: Optional[str | PipelineVariable] = None,
+        instance_count: Optional[int | PipelineVariable] = None,
+        instance_type: Optional[str | PipelineVariable] = None,
         data_location: Optional[str] = None,
-        enable_network_isolation: Union[bool, PipelineVariable] = False,
+        enable_network_isolation: bool | PipelineVariable = False,
         **kwargs,
     ) -> None: ...
     def training_image_uri(self): ...
@@ -52,11 +52,11 @@ class RecordSet:
     channel: Incomplete
     def __init__(
         self,
-        s3_data: Union[str, PipelineVariable],
+        s3_data: str | PipelineVariable,
         num_records: int,
         feature_dim: int,
-        s3_data_type: Union[str, PipelineVariable] = "ManifestFile",
-        channel: Union[str, PipelineVariable] = "train",
+        s3_data_type: str | PipelineVariable = "ManifestFile",
+        channel: str | PipelineVariable = "train",
     ) -> None: ...
     def data_channel(self): ...
     def records_s3_input(self): ...

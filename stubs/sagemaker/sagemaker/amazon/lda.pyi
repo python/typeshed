@@ -20,8 +20,8 @@ class LDA(AmazonAlgorithmEstimatorBase):
     tol: hp
     def __init__(
         self,
-        role: Optional[Union[str, PipelineVariable]] = None,
-        instance_type: Optional[Union[str, PipelineVariable]] = None,
+        role: Optional[str | PipelineVariable] = None,
+        instance_type: Optional[str | PipelineVariable] = None,
         num_topics: Optional[int] = None,
         alpha0: Optional[float] = None,
         max_restarts: Optional[int] = None,
@@ -37,7 +37,7 @@ class LDAPredictor(Predictor):
 class LDAModel(Model):
     def __init__(
         self,
-        model_data: Union[str, PipelineVariable],
+        model_data: str | PipelineVariable,
         role: Optional[str] = None,
         sagemaker_session: Optional[Session] = None,
         **kwargs,

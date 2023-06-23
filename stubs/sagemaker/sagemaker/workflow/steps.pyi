@@ -38,7 +38,7 @@ class Step(Entity, metaclass=abc.ABCMeta):
     display_name: Optional[str]
     description: Optional[str]
     step_type: StepTypeEnum
-    depends_on: Optional[List[Union[str, "Step", "StepCollection"]]]
+    depends_on: Optional[List[str | "Step" | "StepCollection"]]
     @property
     @abc.abstractmethod
     def arguments(self) -> RequestType: ...
@@ -48,7 +48,7 @@ class Step(Entity, metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def properties(self): ...
     def to_request(self) -> RequestType: ...
-    def add_depends_on(self, step_names: List[Union[str, "Step", "StepCollection"]]): ...
+    def add_depends_on(self, step_names: List[str | "Step" | "StepCollection"]): ...
     @property
     def ref(self) -> Dict[str, str]: ...
     def __init__(self, name, display_name, description, step_type, depends_on) -> None: ...
@@ -76,7 +76,7 @@ class ConfigurableRetryStep(Step, metaclass=abc.ABCMeta):
         step_type: StepTypeEnum,
         display_name: str = None,
         description: str = None,
-        depends_on: Optional[List[Union[str, Step, "StepCollection"]]] = None,
+        depends_on: Optional[List[str | Step | "StepCollection"]] = None,
         retry_policies: List[RetryPolicy] = None,
     ) -> None: ...
     def add_retry_policy(self, retry_policy: RetryPolicy): ...
@@ -95,9 +95,9 @@ class TrainingStep(ConfigurableRetryStep):
         estimator: EstimatorBase = None,
         display_name: str = None,
         description: str = None,
-        inputs: Union[TrainingInput, dict, str, FileSystemInput] = None,
+        inputs: TrainingInput | dict | str | FileSystemInput = None,
         cache_config: CacheConfig = None,
-        depends_on: Optional[List[Union[str, Step, "StepCollection"]]] = None,
+        depends_on: Optional[List[str | Step | "StepCollection"]] = None,
         retry_policies: List[RetryPolicy] = None,
     ) -> None: ...
     @property
@@ -114,9 +114,9 @@ class CreateModelStep(ConfigurableRetryStep):
         self,
         name: str,
         step_args: Optional[dict] = None,
-        model: Optional[Union[Model, PipelineModel]] = None,
+        model: Optional[Model | PipelineModel] = None,
         inputs: Optional[CreateModelInput] = None,
-        depends_on: Optional[List[Union[str, Step, "StepCollection"]]] = None,
+        depends_on: Optional[List[str | Step | "StepCollection"]] = None,
         retry_policies: Optional[List[RetryPolicy]] = None,
         display_name: Optional[str] = None,
         description: Optional[str] = None,
@@ -140,7 +140,7 @@ class TransformStep(ConfigurableRetryStep):
         display_name: str = None,
         description: str = None,
         cache_config: CacheConfig = None,
-        depends_on: Optional[List[Union[str, Step, "StepCollection"]]] = None,
+        depends_on: Optional[List[str | Step | "StepCollection"]] = None,
         retry_policies: List[RetryPolicy] = None,
     ) -> None: ...
     @property
@@ -173,7 +173,7 @@ class ProcessingStep(ConfigurableRetryStep):
         code: str = None,
         property_files: List[PropertyFile] = None,
         cache_config: CacheConfig = None,
-        depends_on: Optional[List[Union[str, Step, "StepCollection"]]] = None,
+        depends_on: Optional[List[str | Step | "StepCollection"]] = None,
         retry_policies: List[RetryPolicy] = None,
         kms_key: Incomplete | None = None,
     ) -> None: ...
@@ -199,7 +199,7 @@ class TuningStep(ConfigurableRetryStep):
         inputs: Incomplete | None = None,
         job_arguments: List[str] = None,
         cache_config: CacheConfig = None,
-        depends_on: Optional[List[Union[str, Step, "StepCollection"]]] = None,
+        depends_on: Optional[List[str | Step | "StepCollection"]] = None,
         retry_policies: List[RetryPolicy] = None,
     ) -> None: ...
     @property

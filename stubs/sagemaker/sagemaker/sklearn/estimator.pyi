@@ -12,12 +12,12 @@ class SKLearn(Framework):
     image_uri: Incomplete
     def __init__(
         self,
-        entry_point: Union[str, PipelineVariable],
+        entry_point: str | PipelineVariable,
         framework_version: Optional[str] = None,
         py_version: str = "py3",
-        source_dir: Optional[Union[str, PipelineVariable]] = None,
-        hyperparameters: Optional[Dict[str, Union[str, PipelineVariable]]] = None,
-        image_uri: Optional[Union[str, PipelineVariable]] = None,
+        source_dir: Optional[str | PipelineVariable] = None,
+        hyperparameters: Optional[Dict[str, str | PipelineVariable]] = None,
+        image_uri: Optional[str | PipelineVariable] = None,
         image_uri_region: Optional[str] = None,
         **kwargs,
     ) -> None: ...

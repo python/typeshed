@@ -30,9 +30,9 @@ class MetricsSource:
     content_digest: Incomplete
     def __init__(
         self,
-        content_type: Union[str, PipelineVariable],
-        s3_uri: Union[str, PipelineVariable],
-        content_digest: Optional[Union[str, PipelineVariable]] = None,
+        content_type: str | PipelineVariable,
+        s3_uri: str | PipelineVariable,
+        content_digest: Optional[str | PipelineVariable] = None,
     ) -> None: ...
 
 class FileSource:
@@ -41,7 +41,7 @@ class FileSource:
     content_digest: Incomplete
     def __init__(
         self,
-        s3_uri: Union[str, PipelineVariable],
-        content_digest: Optional[Union[str, PipelineVariable]] = None,
-        content_type: Optional[Union[str, PipelineVariable]] = None,
+        s3_uri: str | PipelineVariable,
+        content_digest: Optional[str | PipelineVariable] = None,
+        content_type: Optional[str | PipelineVariable] = None,
     ) -> None: ...

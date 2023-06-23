@@ -58,9 +58,9 @@ class LinearLearner(AmazonAlgorithmEstimatorBase):
     balance_multiclass_weights: hp
     def __init__(
         self,
-        role: Optional[Union[str, PipelineVariable]] = None,
-        instance_count: Optional[Union[int, PipelineVariable]] = None,
-        instance_type: Optional[Union[str, PipelineVariable]] = None,
+        role: Optional[str | PipelineVariable] = None,
+        instance_count: Optional[int | PipelineVariable] = None,
+        instance_type: Optional[str | PipelineVariable] = None,
         predictor_type: Optional[str] = None,
         binary_classifier_model_selection_criteria: Optional[str] = None,
         target_recall: Optional[float] = None,
@@ -113,7 +113,7 @@ class LinearLearnerPredictor(Predictor):
 class LinearLearnerModel(Model):
     def __init__(
         self,
-        model_data: Union[str, PipelineVariable],
+        model_data: str | PipelineVariable,
         role: Optional[str] = None,
         sagemaker_session: Optional[Session] = None,
         **kwargs,

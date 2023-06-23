@@ -36,7 +36,7 @@ class ModelOverview(_DefaultToRequestDict, _DefaultFromDict):
         model_id: Optional[str] = None,
         model_name: Optional[str] = None,
         model_description: Optional[str] = None,
-        model_version: Optional[Union[int, float]] = None,
+        model_version: Optional[int | float] = None,
         problem_type: Optional[str] = None,
         algorithm_type: Optional[str] = None,
         model_creator: Optional[str] = None,
@@ -58,7 +58,7 @@ class IntendedUses(_DefaultToRequestDict, _DefaultFromDict):
         purpose_of_model: Optional[str] = None,
         intended_uses: Optional[str] = None,
         factors_affecting_model_efficiency: Optional[str] = None,
-        risk_rating: Optional[Union[RiskRatingEnum, str]] = ...,
+        risk_rating: Optional[RiskRatingEnum | str] = ...,
         explanations_for_risk_rating: Optional[str] = None,
     ) -> None: ...
 
@@ -79,8 +79,8 @@ class Function(_DefaultToRequestDict, _DefaultFromDict):
     condition: Incomplete
     def __init__(
         self,
-        function: Optional[Union[ObjectiveFunctionEnum, str]] = None,
-        facet: Optional[Union[FacetEnum, str]] = None,
+        function: Optional[ObjectiveFunctionEnum | str] = None,
+        facet: Optional[FacetEnum | str] = None,
         condition: Optional[str] = None,
     ) -> None: ...
 
@@ -98,22 +98,22 @@ class Metric(_DefaultToRequestDict, _DefaultFromDict):
     def __init__(
         self,
         name: str,
-        type: Union[MetricTypeEnum, str],
-        value: Union[int, float, str, bool, List],
+        type: MetricTypeEnum | str,
+        value: int | float | str | bool | List,
         notes: Optional[str] = None,
-        x_axis_name: Optional[Union[str, list]] = None,
-        y_axis_name: Optional[Union[str, list]] = None,
+        x_axis_name: Optional[str | list] = None,
+        y_axis_name: Optional[str | list] = None,
     ) -> None: ...
     @property
     def value(self): ...
     @value.setter
-    def value(self, val: Union[int, float, str, bool, List]): ...
+    def value(self, val: int | float | str | bool | List): ...
 
 class TrainingMetric(_DefaultToRequestDict, _DefaultFromDict):
     name: Incomplete
     value: Incomplete
     notes: Incomplete
-    def __init__(self, name: str, value: Union[int, float], notes: Optional[str] = None) -> None: ...
+    def __init__(self, name: str, value: int | float, notes: Optional[str] = None) -> None: ...
 
 class HyperParameter(_DefaultToRequestDict, _DefaultFromDict):
     name: Incomplete
@@ -216,7 +216,7 @@ class ModelCard:
     def __init__(
         self,
         name: str,
-        status: Optional[Union[ModelCardStatusEnum, str]] = ...,
+        status: Optional[ModelCardStatusEnum | str] = ...,
         arn: Optional[str] = None,
         version: Optional[int] = None,
         created_time: Optional[datetime] = None,

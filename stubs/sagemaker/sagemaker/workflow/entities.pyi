@@ -3,8 +3,8 @@ from _typeshed import Incomplete
 from enum import EnumMeta
 from typing import Any, Dict, List, Union
 
-PrimitiveType = Union[str, int, bool, float, None]
-RequestType = Union[Dict[str, Any], List[Dict[str, Any]]]
+PrimitiveType = str | int | bool | float | None
+RequestType = Dict[str | Any, List[Dict[str, Any]]]
 
 class Entity(abc.ABC, metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -21,7 +21,7 @@ class Expression(abc.ABC, metaclass=abc.ABCMeta):
     def expr(self) -> RequestType: ...
 
 class PipelineVariable(Expression, metaclass=abc.ABCMeta):
-    def __add__(self, other: Union[Expression, PrimitiveType]): ...
+    def __add__(self, other: Expression | PrimitiveType): ...
     def __int__(self) -> int: ...
     def __float__(self) -> float: ...
     def to_string(self): ...

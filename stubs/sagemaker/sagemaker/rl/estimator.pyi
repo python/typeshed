@@ -30,14 +30,14 @@ class RLEstimator(Framework):
     framework_version: Incomplete
     def __init__(
         self,
-        entry_point: Union[str, PipelineVariable],
+        entry_point: str | PipelineVariable,
         toolkit: Optional[RLToolkit] = None,
         toolkit_version: Optional[str] = None,
         framework: Optional[Framework] = None,
-        source_dir: Optional[Union[str, PipelineVariable]] = None,
-        hyperparameters: Optional[Dict[str, Union[str, PipelineVariable]]] = None,
-        image_uri: Optional[Union[str, PipelineVariable]] = None,
-        metric_definitions: Optional[List[Dict[str, Union[str, PipelineVariable]]]] = None,
+        source_dir: Optional[str | PipelineVariable] = None,
+        hyperparameters: Optional[Dict[str, str | PipelineVariable]] = None,
+        image_uri: Optional[str | PipelineVariable] = None,
+        metric_definitions: Optional[List[Dict[str, str | PipelineVariable]]] = None,
         **kwargs,
     ) -> None: ...
     def create_model(

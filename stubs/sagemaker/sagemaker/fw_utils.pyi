@@ -27,10 +27,10 @@ GRAVITON_ALLOWED_FRAMEWORKS: Incomplete
 
 def validate_source_dir(script, directory): ...
 def validate_source_code_input_against_pipeline_variables(
-    entry_point: Optional[Union[str, PipelineVariable]] = None,
-    source_dir: Optional[Union[str, PipelineVariable]] = None,
+    entry_point: Optional[str | PipelineVariable] = None,
+    source_dir: Optional[str | PipelineVariable] = None,
     git_config: Optional[Dict[str, str]] = None,
-    enable_network_isolation: Union[bool, PipelineVariable] = False,
+    enable_network_isolation: bool | PipelineVariable = False,
 ): ...
 def parse_mp_parameters(params): ...
 def get_mp_parameters(distribution): ...

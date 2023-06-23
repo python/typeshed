@@ -70,8 +70,8 @@ class LineageFilter:
     properties: Incomplete
     def __init__(
         self,
-        entities: Optional[List[Union[LineageEntityEnum, str]]] = None,
-        sources: Optional[List[Union[LineageSourceEnum, str]]] = None,
+        entities: Optional[List[LineageEntityEnum | str]] = None,
+        sources: Optional[List[LineageSourceEnum | str]] = None,
         created_before: Optional[datetime] = None,
         created_after: Optional[datetime] = None,
         modified_before: Optional[datetime] = None,

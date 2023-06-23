@@ -56,7 +56,7 @@ class DJLModel(FrameworkModel):
         model_loading_timeout: Optional[int] = None,
         prediction_timeout: Optional[int] = None,
         entry_point: Optional[str] = None,
-        image_uri: Optional[Union[str, PipelineVariable]] = None,
+        image_uri: Optional[str | PipelineVariable] = None,
         predictor_cls: callable = ...,
         **kwargs,
     ) -> None: ...
@@ -145,7 +145,7 @@ class HuggingFaceAccelerateModel(DJLModel):
         role: str,
         number_of_partitions: Optional[int] = None,
         device_id: Optional[int] = None,
-        device_map: Optional[Union[str, Dict[str, str]]] = None,
+        device_map: Optional[str | Dict[str | str]] = None,
         load_in_8bit: bool = False,
         low_cpu_mem_usage: bool = False,
         **kwargs,

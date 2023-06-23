@@ -10,9 +10,9 @@ class ParameterRange:
     scaling_type: Incomplete
     def __init__(
         self,
-        min_value: Union[int, float, PipelineVariable],
-        max_value: Union[int, float, PipelineVariable],
-        scaling_type: Union[str, PipelineVariable] = "Auto",
+        min_value: int | float | PipelineVariable,
+        max_value: int | float | PipelineVariable,
+        scaling_type: str | PipelineVariable = "Auto",
     ) -> None: ...
     def is_valid(self, value): ...
     @classmethod

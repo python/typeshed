@@ -18,9 +18,9 @@ class PCA(AmazonAlgorithmEstimatorBase):
     extra_components: hp
     def __init__(
         self,
-        role: Optional[Union[str, PipelineVariable]] = None,
-        instance_count: Optional[Union[int, PipelineVariable]] = None,
-        instance_type: Optional[Union[str, PipelineVariable]] = None,
+        role: Optional[str | PipelineVariable] = None,
+        instance_count: Optional[int | PipelineVariable] = None,
+        instance_type: Optional[str | PipelineVariable] = None,
         num_components: Optional[int] = None,
         algorithm_mode: Optional[str] = None,
         subtract_mean: Optional[bool] = None,
@@ -35,7 +35,7 @@ class PCAPredictor(Predictor):
 class PCAModel(Model):
     def __init__(
         self,
-        model_data: Union[str, PipelineVariable],
+        model_data: str | PipelineVariable,
         role: Optional[str] = None,
         sagemaker_session: Optional[Session] = None,
         **kwargs,

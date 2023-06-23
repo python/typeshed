@@ -15,12 +15,12 @@ class ConditionStep(Step):
     def __init__(
         self,
         name: str,
-        depends_on: Optional[List[Union[str, Step, StepCollection]]] = None,
+        depends_on: Optional[List[str | Step | StepCollection]] = None,
         display_name: str = None,
         description: str = None,
         conditions: List[Condition] = None,
-        if_steps: List[Union[Step, StepCollection]] = None,
-        else_steps: List[Union[Step, StepCollection]] = None,
+        if_steps: List[Step | StepCollection] = None,
+        else_steps: List[Step | StepCollection] = None,
     ) -> None: ...
     @property
     def arguments(self) -> RequestType: ...
@@ -30,4 +30,4 @@ class ConditionStep(Step):
     def properties(self): ...
 
 class JsonGet(NewJsonGet):
-    def __init__(self, step: Step, property_file: Union[PropertyFile, str], json_path: str) -> None: ...
+    def __init__(self, step: Step, property_file: PropertyFile | str, json_path: str) -> None: ...

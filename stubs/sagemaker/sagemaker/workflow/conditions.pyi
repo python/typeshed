@@ -14,7 +14,7 @@ from sagemaker.workflow.execution_variables import ExecutionVariable
 from sagemaker.workflow.parameters import Parameter
 from sagemaker.workflow.properties import Properties
 
-ConditionValueType = Union[ExecutionVariable, Parameter, Properties]
+ConditionValueType = ExecutionVariable | Parameter | Properties
 
 class ConditionTypeEnum(Enum, metaclass=DefaultEnumMeta):
     EQ: str
@@ -35,8 +35,8 @@ class Condition(Entity, metaclass=abc.ABCMeta):
     def __ge__(self, other): ...
 
 class ConditionComparison(Condition):
-    left: Union[ConditionValueType, PrimitiveType]
-    right: Union[ConditionValueType, PrimitiveType]
+    left: ConditionValueType | PrimitiveType
+    right: ConditionValueType | PrimitiveType
     def to_request(self) -> RequestType: ...
     def __init__(self, condition_type, left, right) -> None: ...
     def __lt__(self, other): ...
@@ -46,34 +46,34 @@ class ConditionComparison(Condition):
 
 class ConditionEquals(ConditionComparison):
     def __init__(
-        self, left: Union[ConditionValueType, PrimitiveType], right: Union[ConditionValueType, PrimitiveType]
+        self, left: ConditionValueType | PrimitiveType, right: ConditionValueType | PrimitiveType
     ) -> None: ...
 
 class ConditionGreaterThan(ConditionComparison):
     def __init__(
-        self, left: Union[ConditionValueType, PrimitiveType], right: Union[ConditionValueType, PrimitiveType]
+        self, left: ConditionValueType | PrimitiveType, right: ConditionValueType | PrimitiveType
     ) -> None: ...
 
 class ConditionGreaterThanOrEqualTo(ConditionComparison):
     def __init__(
-        self, left: Union[ConditionValueType, PrimitiveType], right: Union[ConditionValueType, PrimitiveType]
+        self, left: ConditionValueType | PrimitiveType, right: ConditionValueType | PrimitiveType
     ) -> None: ...
 
 class ConditionLessThan(ConditionComparison):
     def __init__(
-        self, left: Union[ConditionValueType, PrimitiveType], right: Union[ConditionValueType, PrimitiveType]
+        self, left: ConditionValueType | PrimitiveType, right: ConditionValueType | PrimitiveType
     ) -> None: ...
 
 class ConditionLessThanOrEqualTo(ConditionComparison):
     def __init__(
-        self, left: Union[ConditionValueType, PrimitiveType], right: Union[ConditionValueType, PrimitiveType]
+        self, left: ConditionValueType | PrimitiveType, right: ConditionValueType | PrimitiveType
     ) -> None: ...
 
 class ConditionIn(Condition):
     value: Incomplete
     in_values: Incomplete
     def __init__(
-        self, value: Union[ConditionValueType, PrimitiveType], in_values: List[Union[ConditionValueType, PrimitiveType]]
+        self, value: ConditionValueType | PrimitiveType, in_values: List[ConditionValueType | PrimitiveType]
     ) -> None: ...
     def to_request(self) -> RequestType: ...
 
@@ -88,5 +88,5 @@ class ConditionOr(Condition):
     def to_request(self) -> RequestType: ...
 
 def primitive_or_expr(
-    value: Union[ExecutionVariable, Expression, PrimitiveType, Parameter, Properties]
-) -> Union[Dict[str, str], PrimitiveType]: ...
+    value: ExecutionVariable | Expression | PrimitiveType | Parameter | Properties
+) -> Dict[str | str, PrimitiveType]: ...
