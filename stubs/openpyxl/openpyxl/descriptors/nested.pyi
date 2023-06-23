@@ -74,14 +74,14 @@ class NestedValue(Nested[_T], Convertible[_T, _N]):  # type: ignore[misc]
     # str | Blip
     @overload
     def __set__(
-        self: NestedValue[str, bool] | NestedValue[Blip, bool],
+        self: NestedValue[str, _N] | NestedValue[Blip, _N],
         instance: Serialisable | Strict,
         value: object,  # Not[None] when _N = False
     ) -> None: ...
     # bool
     @overload
     def __set__(
-        self: NestedValue[bool, bool],
+        self: NestedValue[bool, _N],
         instance: Serialisable | Strict,
         value: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool,
     ) -> None: ...
@@ -145,7 +145,7 @@ class NestedText(NestedValue[_T, _N]):
     # str
     @overload
     def __set__(  # type: ignore[misc] # Incompatible return type because of NoReturn
-        self: NestedValue[str, bool], instance: Serialisable | Strict, value: object  # Not[None] when _N = False
+        self: NestedValue[str, _N], instance: Serialisable | Strict, value: object  # Not[None] when _N = False
     ) -> None: ...
     # int
     @overload
