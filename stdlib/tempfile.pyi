@@ -380,6 +380,7 @@ else:
 # It does not actually derive from IO[AnyStr], but it does mostly behave
 # like one.
 class SpooledTemporaryFile(IO[AnyStr], _SpooledTemporaryFileBase):
+    _file: IO[AnyStr]
     @property
     def encoding(self) -> str: ...  # undocumented
     @property
@@ -546,7 +547,6 @@ class SpooledTemporaryFile(IO[AnyStr], _SpooledTemporaryFileBase):
     def seek(self, offset: int, whence: int = ...) -> int: ...
     def tell(self) -> int: ...
     def truncate(self, size: int | None = None) -> None: ...  # type: ignore[override]
-    _file: IO[AnyStr]
     @overload
     def write(self: SpooledTemporaryFile[str], s: str) -> int: ...
     @overload
