@@ -56,30 +56,30 @@ class _JobSettings:
     def __init__(
         self,
         *,
-        dependencies: str = None,
-        pre_execution_commands: List[str] = None,
-        pre_execution_script: str = None,
-        environment_variables: Dict[str, str] = None,
-        image_uri: str = None,
-        include_local_workdir: bool = None,
+        dependencies: str | None = None,
+        pre_execution_commands: list[str] | None = None,
+        pre_execution_script: str | None = None,
+        environment_variables: dict[str, str] | None = None,
+        image_uri: str | None = None,
+        include_local_workdir: bool | None = None,
         instance_count: int = 1,
-        instance_type: str = None,
-        job_conda_env: str = None,
-        job_name_prefix: str = None,
+        instance_type: str | None = None,
+        job_conda_env: str | None = None,
+        job_name_prefix: str | None = None,
         keep_alive_period_in_seconds: int = 0,
         max_retry_attempts: int = 1,
         max_runtime_in_seconds: int = 86400,
-        role: str = None,
-        s3_kms_key: str = None,
-        s3_root_uri: str = None,
-        sagemaker_session: Session = None,
-        security_group_ids: List[str] = None,
-        subnets: List[str] = None,
-        tags: List[Tuple[str, str]] = None,
-        volume_kms_key: str = None,
+        role: str | None = None,
+        s3_kms_key: str | None = None,
+        s3_root_uri: str | None = None,
+        sagemaker_session: Session | None = None,
+        security_group_ids: list[str] | None = None,
+        subnets: list[str] | None = None,
+        tags: list[tuple[str, str]] | None = None,
+        volume_kms_key: str | None = None,
         volume_size: int = 30,
-        encrypt_inter_container_traffic: bool = None,
-        spark_config: SparkConfig = None,
+        encrypt_inter_container_traffic: bool | None = None,
+        spark_config: SparkConfig | None = None,
     ) -> None: ...
 
 class _Job:
@@ -94,7 +94,7 @@ class _Job:
     def start(job_settings: _JobSettings, func, func_args, func_kwargs, run_info: Incomplete | None = None): ...
     def describe(self): ...
     def stop(self) -> None: ...
-    def wait(self, timeout: int = None): ...
+    def wait(self, timeout: int | None = None): ...
 
 class _RunInfo:
     experiment_name: str

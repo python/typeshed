@@ -34,7 +34,7 @@ class WarmStartTypes(Enum):
 class WarmStartConfig:
     type: Incomplete
     parents: Incomplete
-    def __init__(self, warm_start_type: WarmStartTypes, parents: Set[str | PipelineVariable]) -> None: ...
+    def __init__(self, warm_start_type: WarmStartTypes, parents: set[str | PipelineVariable]) -> None: ...
     @classmethod
     def from_job_desc(cls, warm_start_config): ...
     def to_input_req(self): ...
@@ -60,8 +60,8 @@ class InstanceConfig:
     volume_size: Incomplete
     def __init__(
         self,
-        instance_count: int | PipelineVariable = None,
-        instance_type: str | PipelineVariable = None,
+        instance_count: int | PipelineVariable | None = None,
+        instance_type: str | PipelineVariable | None = None,
         volume_size: int | PipelineVariable = 30,
     ) -> None: ...
     @classmethod
@@ -74,9 +74,9 @@ class TuningJobCompletionCriteriaConfig:
     target_objective_metric_value: Incomplete
     def __init__(
         self,
-        max_number_of_training_jobs_not_improving: int = None,
-        complete_on_convergence: bool = None,
-        target_objective_metric_value: float = None,
+        max_number_of_training_jobs_not_improving: int | None = None,
+        complete_on_convergence: bool | None = None,
+        target_objective_metric_value: float | None = None,
     ) -> None: ...
     @classmethod
     def from_job_desc(cls, completion_criteria_config): ...
@@ -120,31 +120,31 @@ class HyperparameterTuner:
         self,
         estimator: EstimatorBase,
         objective_metric_name: str | PipelineVariable,
-        hyperparameter_ranges: Dict[str, ParameterRange],
-        metric_definitions: Optional[List[Dict[str, str | PipelineVariable]]] = None,
+        hyperparameter_ranges: dict[str, ParameterRange],
+        metric_definitions: list[dict[str, str | PipelineVariable]] | None = None,
         strategy: str | PipelineVariable = "Bayesian",
         objective_type: str | PipelineVariable = "Maximize",
-        max_jobs: int | PipelineVariable = None,
+        max_jobs: int | PipelineVariable | None = None,
         max_parallel_jobs: int | PipelineVariable = 1,
-        max_runtime_in_seconds: Optional[int | PipelineVariable] = None,
-        tags: Optional[List[Dict[str, str | PipelineVariable]]] = None,
-        base_tuning_job_name: Optional[str] = None,
-        warm_start_config: Optional[WarmStartConfig] = None,
-        strategy_config: Optional[StrategyConfig] = None,
-        completion_criteria_config: Optional[TuningJobCompletionCriteriaConfig] = None,
+        max_runtime_in_seconds: int | PipelineVariable | None = None,
+        tags: list[dict[str, str | PipelineVariable]] | None = None,
+        base_tuning_job_name: str | None = None,
+        warm_start_config: WarmStartConfig | None = None,
+        strategy_config: StrategyConfig | None = None,
+        completion_criteria_config: TuningJobCompletionCriteriaConfig | None = None,
         early_stopping_type: str | PipelineVariable = "Off",
-        estimator_name: Optional[str] = None,
-        random_seed: Optional[int] = None,
+        estimator_name: str | None = None,
+        random_seed: int | None = None,
         autotune: bool = False,
-        hyperparameters_to_keep_static: Optional[List[str]] = None,
+        hyperparameters_to_keep_static: list[str] | None = None,
     ) -> None: ...
-    def override_resource_config(self, instance_configs: List[InstanceConfig, Dict[str, List[InstanceConfig]]]): ...
+    def override_resource_config(self, instance_configs: list[InstanceConfig, dict[str, list[InstanceConfig]]]): ...
     def fit(
         self,
-        inputs: Optional[str | Dict | List | TrainingInput | FileSystemInput | RecordSet | FileSystemRecordSet] = None,
-        job_name: Optional[str] = None,
-        include_cls_metadata: bool | Dict[str | bool] = False,
-        estimator_kwargs: Optional[Dict[str, dict]] = None,
+        inputs: str | dict | list | TrainingInput | FileSystemInput | RecordSet | FileSystemRecordSet | None = None,
+        job_name: str | None = None,
+        include_cls_metadata: bool | dict[str | bool] = False,
+        estimator_kwargs: dict[str, dict] | None = None,
         wait: bool = True,
         **kwargs,
     ): ...

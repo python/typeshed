@@ -5,10 +5,10 @@ from sagemaker.session import Session
 
 def retrieve_default(
     endpoint_name: str,
-    sagemaker_session: Optional[Session] = None,
-    region: Optional[str] = None,
-    model_id: Optional[str] = None,
-    model_version: Optional[str] = None,
+    sagemaker_session: Session | None = None,
+    region: str | None = None,
+    model_id: str | None = None,
+    model_version: str | None = None,
     tolerate_vulnerable_model: bool = False,
     tolerate_deprecated_model: bool = False,
 ) -> Predictor: ...

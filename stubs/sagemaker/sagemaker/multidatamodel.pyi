@@ -20,10 +20,10 @@ class MultiDataModel(Model):
         self,
         name: str,
         model_data_prefix: str,
-        model: Optional[Model] = None,
-        image_uri: Optional[str | PipelineVariable] = None,
-        role: Optional[str] = None,
-        sagemaker_session: Optional[Session] = None,
+        model: Model | None = None,
+        image_uri: str | PipelineVariable | None = None,
+        role: str | None = None,
+        sagemaker_session: Session | None = None,
         **kwargs,
     ) -> None: ...
     def prepare_container_def(

@@ -13,8 +13,8 @@ class ProfilerConfig:
     disable_profiler: Incomplete
     def __init__(
         self,
-        s3_output_path: Optional[str | PipelineVariable] = None,
-        system_monitor_interval_millis: Optional[int | PipelineVariable] = None,
-        framework_profile_params: Optional[FrameworkProfile] = None,
-        disable_profiler: Optional[str | PipelineVariable] = False,
+        s3_output_path: str | PipelineVariable | None = None,
+        system_monitor_interval_millis: int | PipelineVariable | None = None,
+        framework_profile_params: FrameworkProfile | None = None,
+        disable_profiler: str | PipelineVariable | None = False,
     ) -> None: ...

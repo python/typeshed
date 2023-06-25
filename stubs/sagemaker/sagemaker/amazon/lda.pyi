@@ -20,13 +20,13 @@ class LDA(AmazonAlgorithmEstimatorBase):
     tol: hp
     def __init__(
         self,
-        role: Optional[str | PipelineVariable] = None,
-        instance_type: Optional[str | PipelineVariable] = None,
-        num_topics: Optional[int] = None,
-        alpha0: Optional[float] = None,
-        max_restarts: Optional[int] = None,
-        max_iterations: Optional[int] = None,
-        tol: Optional[float] = None,
+        role: str | PipelineVariable | None = None,
+        instance_type: str | PipelineVariable | None = None,
+        num_topics: int | None = None,
+        alpha0: float | None = None,
+        max_restarts: int | None = None,
+        max_iterations: int | None = None,
+        tol: float | None = None,
         **kwargs,
     ) -> None: ...
     def create_model(self, vpc_config_override="VPC_CONFIG_DEFAULT", **kwargs): ...
@@ -38,7 +38,7 @@ class LDAModel(Model):
     def __init__(
         self,
         model_data: str | PipelineVariable,
-        role: Optional[str] = None,
-        sagemaker_session: Optional[Session] = None,
+        role: str | None = None,
+        sagemaker_session: Session | None = None,
         **kwargs,
     ) -> None: ...

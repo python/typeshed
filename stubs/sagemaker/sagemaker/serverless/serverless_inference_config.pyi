@@ -6,5 +6,5 @@ class ServerlessInferenceConfig:
     max_concurrency: Incomplete
     provisioned_concurrency: Incomplete
     def __init__(
-        self, memory_size_in_mb: int = 2048, max_concurrency: int = 5, provisioned_concurrency: Optional[int] = None
+        self, memory_size_in_mb: int = 2048, max_concurrency: int = 5, provisioned_concurrency: int | None = None
     ) -> None: ...

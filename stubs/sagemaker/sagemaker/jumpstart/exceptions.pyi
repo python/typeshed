@@ -8,19 +8,19 @@ INVALID_MODEL_ID_ERROR_MSG: Incomplete
 
 class JumpStartHyperparametersError(ValueError):
     message: Incomplete
-    def __init__(self, message: Optional[str] = None) -> None: ...
+    def __init__(self, message: str | None = None) -> None: ...
 
 class VulnerableJumpStartModelError(ValueError):
     message: Incomplete
     def __init__(
         self,
-        model_id: Optional[str] = None,
-        version: Optional[str] = None,
-        vulnerabilities: Optional[List[str]] = None,
-        scope: Optional[JumpStartScriptScope] = None,
-        message: Optional[str] = None,
+        model_id: str | None = None,
+        version: str | None = None,
+        vulnerabilities: list[str] | None = None,
+        scope: JumpStartScriptScope | None = None,
+        message: str | None = None,
     ) -> None: ...
 
 class DeprecatedJumpStartModelError(ValueError):
     message: Incomplete
-    def __init__(self, model_id: Optional[str] = None, version: Optional[str] = None, message: Optional[str] = None) -> None: ...
+    def __init__(self, model_id: str | None = None, version: str | None = None, message: str | None = None) -> None: ...

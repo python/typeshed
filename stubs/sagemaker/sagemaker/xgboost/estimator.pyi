@@ -14,11 +14,11 @@ class XGBoost(Framework):
         self,
         entry_point: str | PipelineVariable,
         framework_version: str,
-        source_dir: Optional[str | PipelineVariable] = None,
-        hyperparameters: Optional[Dict[str, str | PipelineVariable]] = None,
+        source_dir: str | PipelineVariable | None = None,
+        hyperparameters: dict[str, str | PipelineVariable] | None = None,
         py_version: str = "py3",
-        image_uri: Optional[str | PipelineVariable] = None,
-        image_uri_region: Optional[str] = None,
+        image_uri: str | PipelineVariable | None = None,
+        image_uri_region: str | None = None,
         **kwargs,
     ) -> None: ...
     def create_model(

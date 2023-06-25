@@ -11,15 +11,15 @@ class TrainingInput:
     def __init__(
         self,
         s3_data: str | PipelineVariable,
-        distribution: Optional[str | PipelineVariable] = None,
-        compression: Optional[str | PipelineVariable] = None,
-        content_type: Optional[str | PipelineVariable] = None,
-        record_wrapping: Optional[str | PipelineVariable] = None,
+        distribution: str | PipelineVariable | None = None,
+        compression: str | PipelineVariable | None = None,
+        content_type: str | PipelineVariable | None = None,
+        record_wrapping: str | PipelineVariable | None = None,
         s3_data_type: str | PipelineVariable = "S3Prefix",
-        instance_groups: Optional[List[str | PipelineVariable]] = None,
-        input_mode: Optional[str | PipelineVariable] = None,
-        attribute_names: Optional[List[str | PipelineVariable]] = None,
-        target_attribute_name: Optional[str | PipelineVariable] = None,
+        instance_groups: list[str | PipelineVariable] | None = None,
+        input_mode: str | PipelineVariable | None = None,
+        attribute_names: list[str | PipelineVariable] | None = None,
+        target_attribute_name: str | PipelineVariable | None = None,
         shuffle_config: Optional["ShuffleConfig"] = None,
     ) -> None: ...
 
@@ -80,4 +80,4 @@ class BatchDataCaptureConfig:
     destination_s3_uri: Incomplete
     kms_key_id: Incomplete
     generate_inference_id: Incomplete
-    def __init__(self, destination_s3_uri: str, kms_key_id: str = None, generate_inference_id: bool = None) -> None: ...
+    def __init__(self, destination_s3_uri: str, kms_key_id: str | None = None, generate_inference_id: bool | None = None) -> None: ...

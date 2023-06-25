@@ -31,13 +31,13 @@ class RLEstimator(Framework):
     def __init__(
         self,
         entry_point: str | PipelineVariable,
-        toolkit: Optional[RLToolkit] = None,
-        toolkit_version: Optional[str] = None,
-        framework: Optional[Framework] = None,
-        source_dir: Optional[str | PipelineVariable] = None,
-        hyperparameters: Optional[Dict[str, str | PipelineVariable]] = None,
-        image_uri: Optional[str | PipelineVariable] = None,
-        metric_definitions: Optional[List[Dict[str, str | PipelineVariable]]] = None,
+        toolkit: RLToolkit | None = None,
+        toolkit_version: str | None = None,
+        framework: Framework | None = None,
+        source_dir: str | PipelineVariable | None = None,
+        hyperparameters: dict[str, str | PipelineVariable] | None = None,
+        image_uri: str | PipelineVariable | None = None,
+        metric_definitions: list[dict[str, str | PipelineVariable]] | None = None,
         **kwargs,
     ) -> None: ...
     def create_model(

@@ -17,7 +17,7 @@ class LambdaOutput:
     output_name: str
     output_type: LambdaOutputTypeEnum
     def to_request(self) -> RequestType: ...
-    def expr(self, step_name) -> Dict[str, str]: ...
+    def expr(self, step_name) -> dict[str, str]: ...
     def __init__(self, output_name, output_type) -> None: ...
     def __lt__(self, other): ...
     def __le__(self, other): ...
@@ -33,12 +33,12 @@ class LambdaStep(Step):
         self,
         name: str,
         lambda_func: Lambda,
-        display_name: str = None,
-        description: str = None,
-        inputs: dict = None,
-        outputs: List[LambdaOutput] = None,
-        cache_config: CacheConfig = None,
-        depends_on: Optional[List[str | Step | StepCollection]] = None,
+        display_name: str | None = None,
+        description: str | None = None,
+        inputs: dict | None = None,
+        outputs: list[LambdaOutput] | None = None,
+        cache_config: CacheConfig | None = None,
+        depends_on: list[str | Step | StepCollection] | None = None,
     ) -> None: ...
     @property
     def arguments(self) -> RequestType: ...

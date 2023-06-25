@@ -13,12 +13,12 @@ class SKLearn(Framework):
     def __init__(
         self,
         entry_point: str | PipelineVariable,
-        framework_version: Optional[str] = None,
+        framework_version: str | None = None,
         py_version: str = "py3",
-        source_dir: Optional[str | PipelineVariable] = None,
-        hyperparameters: Optional[Dict[str, str | PipelineVariable]] = None,
-        image_uri: Optional[str | PipelineVariable] = None,
-        image_uri_region: Optional[str] = None,
+        source_dir: str | PipelineVariable | None = None,
+        hyperparameters: dict[str, str | PipelineVariable] | None = None,
+        image_uri: str | PipelineVariable | None = None,
+        image_uri_region: str | None = None,
         **kwargs,
     ) -> None: ...
     def create_model(

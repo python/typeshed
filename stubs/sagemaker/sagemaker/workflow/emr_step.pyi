@@ -10,7 +10,7 @@ class EMRStepConfig:
     args: Incomplete
     main_class: Incomplete
     properties: Incomplete
-    def __init__(self, jar, args: List[str] = None, main_class: str = None, properties: List[dict] = None) -> None: ...
+    def __init__(self, jar, args: list[str] | None = None, main_class: str | None = None, properties: list[dict] | None = None) -> None: ...
     def to_request(self) -> RequestType: ...
 
 INSTANCES: str
@@ -34,10 +34,10 @@ class EMRStep(Step):
         description: str,
         cluster_id: str,
         step_config: EMRStepConfig,
-        depends_on: Optional[List[str | Step | StepCollection]] = None,
-        cache_config: CacheConfig = None,
-        cluster_config: Dict[str, Any] = None,
-        execution_role_arn: str = None,
+        depends_on: list[str | Step | StepCollection] | None = None,
+        cache_config: CacheConfig | None = None,
+        cluster_config: dict[str, Any] | None = None,
+        execution_role_arn: str | None = None,
     ) -> None: ...
     @property
     def arguments(self) -> RequestType: ...

@@ -23,18 +23,18 @@ class IPInsights(AmazonAlgorithmEstimatorBase):
     weight_decay: hp
     def __init__(
         self,
-        role: Optional[str | PipelineVariable] = None,
-        instance_count: Optional[int | PipelineVariable] = None,
-        instance_type: Optional[str | PipelineVariable] = None,
-        num_entity_vectors: Optional[int] = None,
-        vector_dim: Optional[int] = None,
-        batch_metrics_publish_interval: Optional[int] = None,
-        epochs: Optional[int] = None,
-        learning_rate: Optional[float] = None,
-        num_ip_encoder_layers: Optional[int] = None,
-        random_negative_sampling_rate: Optional[int] = None,
-        shuffled_negative_sampling_rate: Optional[int] = None,
-        weight_decay: Optional[float] = None,
+        role: str | PipelineVariable | None = None,
+        instance_count: int | PipelineVariable | None = None,
+        instance_type: str | PipelineVariable | None = None,
+        num_entity_vectors: int | None = None,
+        vector_dim: int | None = None,
+        batch_metrics_publish_interval: int | None = None,
+        epochs: int | None = None,
+        learning_rate: float | None = None,
+        num_ip_encoder_layers: int | None = None,
+        random_negative_sampling_rate: int | None = None,
+        shuffled_negative_sampling_rate: int | None = None,
+        weight_decay: float | None = None,
         **kwargs,
     ) -> None: ...
     def create_model(self, vpc_config_override="VPC_CONFIG_DEFAULT", **kwargs): ...
@@ -46,7 +46,7 @@ class IPInsightsModel(Model):
     def __init__(
         self,
         model_data: str | PipelineVariable,
-        role: Optional[str] = None,
-        sagemaker_session: Optional[Session] = None,
+        role: str | None = None,
+        sagemaker_session: Session | None = None,
         **kwargs,
     ) -> None: ...

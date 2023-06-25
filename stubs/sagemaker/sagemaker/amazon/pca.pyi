@@ -18,13 +18,13 @@ class PCA(AmazonAlgorithmEstimatorBase):
     extra_components: hp
     def __init__(
         self,
-        role: Optional[str | PipelineVariable] = None,
-        instance_count: Optional[int | PipelineVariable] = None,
-        instance_type: Optional[str | PipelineVariable] = None,
-        num_components: Optional[int] = None,
-        algorithm_mode: Optional[str] = None,
-        subtract_mean: Optional[bool] = None,
-        extra_components: Optional[int] = None,
+        role: str | PipelineVariable | None = None,
+        instance_count: int | PipelineVariable | None = None,
+        instance_type: str | PipelineVariable | None = None,
+        num_components: int | None = None,
+        algorithm_mode: str | None = None,
+        subtract_mean: bool | None = None,
+        extra_components: int | None = None,
         **kwargs,
     ) -> None: ...
     def create_model(self, vpc_config_override="VPC_CONFIG_DEFAULT", **kwargs): ...
@@ -36,7 +36,7 @@ class PCAModel(Model):
     def __init__(
         self,
         model_data: str | PipelineVariable,
-        role: Optional[str] = None,
-        sagemaker_session: Optional[Session] = None,
+        role: str | None = None,
+        sagemaker_session: Session | None = None,
         **kwargs,
     ) -> None: ...

@@ -16,12 +16,12 @@ class TensorFlow(Framework):
     compiler_config: Incomplete
     def __init__(
         self,
-        py_version: Optional[str] = None,
-        framework_version: Optional[str] = None,
-        model_dir: Optional[str | PipelineVariable] = None,
-        image_uri: Optional[str | PipelineVariable] = None,
-        distribution: Optional[Dict[str, str]] = None,
-        compiler_config: Optional[TrainingCompilerConfig] = None,
+        py_version: str | None = None,
+        framework_version: str | None = None,
+        model_dir: str | PipelineVariable | None = None,
+        image_uri: str | PipelineVariable | None = None,
+        distribution: dict[str, str] | None = None,
+        compiler_config: TrainingCompilerConfig | None = None,
         **kwargs,
     ) -> None: ...
     def create_model(

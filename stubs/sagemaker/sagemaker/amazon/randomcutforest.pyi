@@ -18,12 +18,12 @@ class RandomCutForest(AmazonAlgorithmEstimatorBase):
     feature_dim: hp
     def __init__(
         self,
-        role: Optional[str | PipelineVariable] = None,
-        instance_count: Optional[int | PipelineVariable] = None,
-        instance_type: Optional[str | PipelineVariable] = None,
-        num_samples_per_tree: Optional[int] = None,
-        num_trees: Optional[int] = None,
-        eval_metrics: Optional[List] = None,
+        role: str | PipelineVariable | None = None,
+        instance_count: int | PipelineVariable | None = None,
+        instance_type: str | PipelineVariable | None = None,
+        num_samples_per_tree: int | None = None,
+        num_trees: int | None = None,
+        eval_metrics: list | None = None,
         **kwargs,
     ) -> None: ...
     def create_model(self, vpc_config_override="VPC_CONFIG_DEFAULT", **kwargs): ...
@@ -35,7 +35,7 @@ class RandomCutForestModel(Model):
     def __init__(
         self,
         model_data: str | PipelineVariable,
-        role: Optional[str] = None,
-        sagemaker_session: Optional[Session] = None,
+        role: str | None = None,
+        sagemaker_session: Session | None = None,
         **kwargs,
     ) -> None: ...

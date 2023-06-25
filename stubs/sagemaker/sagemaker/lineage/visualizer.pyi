@@ -6,13 +6,13 @@ class LineageTableVisualizer:
     def __init__(self, sagemaker_session) -> None: ...
     def show(
         self,
-        trial_component_name: Optional[str] = None,
-        training_job_name: Optional[str] = None,
-        processing_job_name: Optional[str] = None,
-        pipeline_execution_step: Optional[object] = None,
-        model_package_arn: Optional[str] = None,
-        endpoint_arn: Optional[str] = None,
-        artifact_arn: Optional[str] = None,
-        context_arn: Optional[str] = None,
-        actions_arn: Optional[str] = None,
+        trial_component_name: str | None = None,
+        training_job_name: str | None = None,
+        processing_job_name: str | None = None,
+        pipeline_execution_step: object | None = None,
+        model_package_arn: str | None = None,
+        endpoint_arn: str | None = None,
+        artifact_arn: str | None = None,
+        context_arn: str | None = None,
+        actions_arn: str | None = None,
     ) -> DataFrame: ...

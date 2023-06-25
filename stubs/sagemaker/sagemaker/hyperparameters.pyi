@@ -6,17 +6,17 @@ from sagemaker.jumpstart.enums import HyperparameterValidationMode
 logger: Incomplete
 
 def retrieve_default(
-    region: Optional[str] = None,
-    model_id: Optional[str] = None,
-    model_version: Optional[str] = None,
+    region: str | None = None,
+    model_id: str | None = None,
+    model_version: str | None = None,
     include_container_hyperparameters: bool = False,
     tolerate_vulnerable_model: bool = False,
     tolerate_deprecated_model: bool = False,
-) -> Dict[str, str]: ...
+) -> dict[str, str]: ...
 def validate(
-    region: Optional[str] = None,
-    model_id: Optional[str] = None,
-    model_version: Optional[str] = None,
-    hyperparameters: Optional[dict] = None,
+    region: str | None = None,
+    model_id: str | None = None,
+    model_version: str | None = None,
+    hyperparameters: dict | None = None,
     validation_mode: HyperparameterValidationMode = ...,
 ) -> None: ...

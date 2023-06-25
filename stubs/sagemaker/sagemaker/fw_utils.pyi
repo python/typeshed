@@ -27,9 +27,9 @@ GRAVITON_ALLOWED_FRAMEWORKS: Incomplete
 
 def validate_source_dir(script, directory): ...
 def validate_source_code_input_against_pipeline_variables(
-    entry_point: Optional[str | PipelineVariable] = None,
-    source_dir: Optional[str | PipelineVariable] = None,
-    git_config: Optional[Dict[str, str]] = None,
+    entry_point: str | PipelineVariable | None = None,
+    source_dir: str | PipelineVariable | None = None,
+    git_config: dict[str, str] | None = None,
     enable_network_isolation: bool | PipelineVariable = False,
 ): ...
 def parse_mp_parameters(params): ...
@@ -44,7 +44,7 @@ def tar_and_upload_dir(
     dependencies: Incomplete | None = None,
     kms_key: Incomplete | None = None,
     s3_resource: Incomplete | None = None,
-    settings: Optional[SessionSettings] = None,
+    settings: SessionSettings | None = None,
 ) -> UploadedCode: ...
 def framework_name_from_image(image_uri): ...
 def framework_version_from_tag(image_tag): ...

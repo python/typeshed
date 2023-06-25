@@ -13,8 +13,8 @@ class SparkMLModel(Model):
     def __init__(
         self,
         model_data: str | PipelineVariable,
-        role: Optional[str] = None,
+        role: str | None = None,
         spark_version: str = "3.3",
-        sagemaker_session: Optional[Session] = None,
+        sagemaker_session: Session | None = None,
         **kwargs,
     ) -> None: ...

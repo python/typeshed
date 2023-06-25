@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
-from typing import Any, Dict, List, Optional, Sequence
+from typing import Any, Dict, List, Optional
+from collections.abc import Sequence
 
 from sagemaker.inputs import BatchDataCaptureConfig
 
@@ -31,8 +32,8 @@ class Session:
         default_bucket: Incomplete | None = None,
         settings=...,
         sagemaker_metrics_client: Incomplete | None = None,
-        sagemaker_config: dict = None,
-        default_bucket_prefix: str = None,
+        sagemaker_config: dict | None = None,
+        default_bucket_prefix: str | None = None,
     ) -> None: ...
     @property
     def boto_region_name(self): ...
@@ -74,7 +75,7 @@ class Session:
         enable_sagemaker_metrics: Incomplete | None = None,
         profiler_rule_configs: Incomplete | None = None,
         profiler_config: Incomplete | None = None,
-        environment: Optional[Dict[str, str]] = None,
+        environment: dict[str, str] | None = None,
         retry_strategy: Incomplete | None = None,
     ): ...
     def update_training_job(
@@ -92,7 +93,7 @@ class Session:
         resources,
         stopping_condition,
         app_specification,
-        environment: Optional[Dict[str, str]] = None,
+        environment: dict[str, str] | None = None,
         network_config: Incomplete | None = None,
         role_arn: Incomplete | None = None,
         tags: Incomplete | None = None,
@@ -161,20 +162,20 @@ class Session:
         self, monitoring_schedule_name: str, monitoring_alert_name: str, data_points_to_alert: int, evaluation_period: int
     ): ...
     def list_monitoring_alerts(
-        self, monitoring_schedule_name: str, next_token: Optional[str] = None, max_results: Optional[int] = 10
-    ) -> Dict: ...
+        self, monitoring_schedule_name: str, next_token: str | None = None, max_results: int | None = 10
+    ) -> dict: ...
     def list_monitoring_alert_history(
         self,
-        monitoring_schedule_name: Optional[str] = None,
-        monitoring_alert_name: Optional[str] = None,
-        sort_by: Optional[str] = "CreationTime",
-        sort_order: Optional[str] = "Descending",
-        next_token: Optional[str] = None,
-        max_results: Optional[int] = 10,
-        creation_time_before: Optional[str] = None,
-        creation_time_after: Optional[str] = None,
-        status_equals: Optional[str] = None,
-    ) -> Dict: ...
+        monitoring_schedule_name: str | None = None,
+        monitoring_alert_name: str | None = None,
+        sort_by: str | None = "CreationTime",
+        sort_order: str | None = "Descending",
+        next_token: str | None = None,
+        max_results: int | None = 10,
+        creation_time_before: str | None = None,
+        creation_time_after: str | None = None,
+        status_equals: str | None = None,
+    ) -> dict: ...
     def was_processing_job_successful(self, job_name): ...
     def describe_processing_job(self, job_name): ...
     def stop_processing_job(self, job_name) -> None: ...
@@ -286,11 +287,11 @@ class Session:
         output_config,
         resource_config,
         experiment_config,
-        env: Optional[Dict[str, str]] = None,
+        env: dict[str, str] | None = None,
         tags: Incomplete | None = None,
         data_processing: Incomplete | None = None,
         model_client_config: Incomplete | None = None,
-        batch_data_capture_config: BatchDataCaptureConfig = None,
+        batch_data_capture_config: BatchDataCaptureConfig | None = None,
     ): ...
     def create_model(
         self,
@@ -436,15 +437,15 @@ class Session:
         feature_group_name: str,
         record_identifier_name: str,
         event_time_feature_name: str,
-        feature_definitions: Sequence[Dict[str, str]],
-        role_arn: str = None,
-        online_store_config: Dict[str, str] = None,
-        offline_store_config: Dict[str, str] = None,
-        description: str = None,
-        tags: List[Dict[str, str]] = None,
-    ) -> Dict[str, Any]: ...
-    def describe_feature_group(self, feature_group_name: str, next_token: str = None) -> Dict[str, Any]: ...
-    def update_feature_group(self, feature_group_name: str, feature_additions: Sequence[Dict[str, str]]) -> Dict[str, Any]: ...
+        feature_definitions: Sequence[dict[str, str]],
+        role_arn: str | None = None,
+        online_store_config: dict[str, str] | None = None,
+        offline_store_config: dict[str, str] | None = None,
+        description: str | None = None,
+        tags: list[dict[str, str]] | None = None,
+    ) -> dict[str, Any]: ...
+    def describe_feature_group(self, feature_group_name: str, next_token: str | None = None) -> dict[str, Any]: ...
+    def update_feature_group(self, feature_group_name: str, feature_additions: Sequence[dict[str, str]]) -> dict[str, Any]: ...
     def list_feature_groups(
         self,
         name_contains,
@@ -456,37 +457,37 @@ class Session:
         sort_by,
         max_results,
         next_token,
-    ) -> Dict[str, Any]: ...
+    ) -> dict[str, Any]: ...
     def update_feature_metadata(
         self,
         feature_group_name: str,
         feature_name: str,
-        description: str = None,
-        parameter_additions: Sequence[Dict[str, str]] = None,
-        parameter_removals: Sequence[str] = None,
-    ) -> Dict[str, Any]: ...
-    def describe_feature_metadata(self, feature_group_name: str, feature_name: str) -> Dict[str, Any]: ...
+        description: str | None = None,
+        parameter_additions: Sequence[dict[str, str]] | None = None,
+        parameter_removals: Sequence[str] | None = None,
+    ) -> dict[str, Any]: ...
+    def describe_feature_metadata(self, feature_group_name: str, feature_name: str) -> dict[str, Any]: ...
     def search(
         self,
         resource: str,
-        search_expression: Dict[str, any] = None,
-        sort_by: str = None,
-        sort_order: str = None,
-        next_token: str = None,
-        max_results: int = None,
-    ) -> Dict[str, Any]: ...
-    def put_record(self, feature_group_name: str, record: Sequence[Dict[str, str]]): ...
+        search_expression: dict[str, any] | None = None,
+        sort_by: str | None = None,
+        sort_order: str | None = None,
+        next_token: str | None = None,
+        max_results: int | None = None,
+    ) -> dict[str, Any]: ...
+    def put_record(self, feature_group_name: str, record: Sequence[dict[str, str]]): ...
     def delete_record(
-        self, feature_group_name: str, record_identifier_value_as_string: str, event_time: str, deletion_mode: str = None
+        self, feature_group_name: str, record_identifier_value_as_string: str, event_time: str, deletion_mode: str | None = None
     ): ...
     def get_record(
         self, record_identifier_value_as_string: str, feature_group_name: str, feature_names: Sequence[str]
-    ) -> Dict[str, Sequence[Dict[str, str]]]: ...
-    def batch_get_record(self, identifiers: Sequence[Dict[str, Any]]) -> Dict[str, Any]: ...
+    ) -> dict[str, Sequence[dict[str, str]]]: ...
+    def batch_get_record(self, identifiers: Sequence[dict[str, Any]]) -> dict[str, Any]: ...
     def start_query_execution(
-        self, catalog: str, database: str, query_string: str, output_location: str, kms_key: str = None, workgroup: str = None
-    ) -> Dict[str, str]: ...
-    def get_query_execution(self, query_execution_id: str) -> Dict[str, Any]: ...
+        self, catalog: str, database: str, query_string: str, output_location: str, kms_key: str | None = None, workgroup: str | None = None
+    ) -> dict[str, str]: ...
+    def get_query_execution(self, query_execution_id: str) -> dict[str, Any]: ...
     def wait_for_athena_query(self, query_execution_id: str, poll: int = 5): ...
     def download_athena_query_result(self, bucket: str, prefix: str, query_execution_id: str, filename: str): ...
     def account_id(self) -> str: ...
@@ -494,24 +495,24 @@ class Session:
         self,
         role: str,
         sample_payload_url: str,
-        supported_content_types: List[str],
-        job_name: str = None,
+        supported_content_types: list[str],
+        job_name: str | None = None,
         job_type: str = "Default",
-        model_name: str = None,
-        model_package_version_arn: str = None,
-        job_duration_in_seconds: int = None,
-        nearest_model_name: str = None,
-        supported_instance_types: List[str] = None,
-        framework: str = None,
-        framework_version: str = None,
-        endpoint_configurations: List[Dict[str, any]] = None,
-        traffic_pattern: Dict[str, any] = None,
-        stopping_conditions: Dict[str, any] = None,
-        resource_limit: Dict[str, any] = None,
+        model_name: str | None = None,
+        model_package_version_arn: str | None = None,
+        job_duration_in_seconds: int | None = None,
+        nearest_model_name: str | None = None,
+        supported_instance_types: list[str] | None = None,
+        framework: str | None = None,
+        framework_version: str | None = None,
+        endpoint_configurations: list[dict[str, any]] | None = None,
+        traffic_pattern: dict[str, any] | None = None,
+        stopping_conditions: dict[str, any] | None = None,
+        resource_limit: dict[str, any] | None = None,
     ): ...
     def wait_for_inference_recommendations_job(
         self, job_name: str, poll: int = 120, log_level: str = "Verbose"
-    ) -> Dict[str, Any]: ...
+    ) -> dict[str, Any]: ...
 
 def get_model_package_args(
     content_types,
@@ -557,7 +558,7 @@ def get_create_model_package_request(
     sample_payload_url: Incomplete | None = None,
     task: Incomplete | None = None,
 ): ...
-def update_args(args: Dict[str, Any], **kwargs): ...
+def update_args(args: dict[str, Any], **kwargs): ...
 def container_def(
     image_uri,
     model_data_url: Incomplete | None = None,

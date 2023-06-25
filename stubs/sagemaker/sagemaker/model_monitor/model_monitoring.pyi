@@ -100,19 +100,19 @@ class ModelMonitor:
     def describe_schedule(self): ...
     def list_executions(self): ...
     def update_monitoring_alert(
-        self, monitoring_alert_name: str, data_points_to_alert: Optional[int], evaluation_period: Optional[int]
+        self, monitoring_alert_name: str, data_points_to_alert: int | None, evaluation_period: int | None
     ): ...
-    def list_monitoring_alerts(self, next_token: Optional[str] = None, max_results: Optional[int] = 10): ...
+    def list_monitoring_alerts(self, next_token: str | None = None, max_results: int | None = 10): ...
     def list_monitoring_alert_history(
         self,
-        monitoring_alert_name: Optional[str] = None,
-        sort_by: Optional[str] = "CreationTime",
-        sort_order: Optional[str] = "Descending",
-        next_token: Optional[str] = None,
-        max_results: Optional[int] = 10,
-        creation_time_before: Optional[str] = None,
-        creation_time_after: Optional[str] = None,
-        status_equals: Optional[str] = None,
+        monitoring_alert_name: str | None = None,
+        sort_by: str | None = "CreationTime",
+        sort_order: str | None = "Descending",
+        next_token: str | None = None,
+        max_results: int | None = 10,
+        creation_time_before: str | None = None,
+        creation_time_after: str | None = None,
+        status_equals: str | None = None,
     ): ...
     @classmethod
     def attach(cls, monitor_schedule_name, sagemaker_session: Incomplete | None = None): ...
@@ -367,12 +367,12 @@ class BatchTransformInput(MonitoringInput):
         dataset_format: MonitoringDatasetFormat,
         s3_input_mode: str = "File",
         s3_data_distribution_type: str = "FullyReplicated",
-        start_time_offset: str = None,
-        end_time_offset: str = None,
-        features_attribute: str = None,
-        inference_attribute: str = None,
-        probability_attribute: str = None,
-        probability_threshold_attribute: str = None,
+        start_time_offset: str | None = None,
+        end_time_offset: str | None = None,
+        features_attribute: str | None = None,
+        inference_attribute: str | None = None,
+        probability_attribute: str | None = None,
+        probability_threshold_attribute: str | None = None,
     ) -> None: ...
 
 class MonitoringOutput:

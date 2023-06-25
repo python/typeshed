@@ -50,15 +50,15 @@ class Vertex:
 
 class PyvisVisualizer:
     graph_styles: Incomplete
-    def __init__(self, graph_styles, pyvis_options: Optional[Dict[str, Any]] = None) -> None: ...
+    def __init__(self, graph_styles, pyvis_options: dict[str, Any] | None = None) -> None: ...
     def render(self, elements, path: str = "lineage_graph_pyvis.html"): ...
 
 class LineageQueryResult:
     edges: Incomplete
     vertices: Incomplete
     startarn: Incomplete
-    def __init__(self, edges: List[Edge] = None, vertices: List[Vertex] = None, startarn: List[str] = None) -> None: ...
-    def visualize(self, path: Optional[str] = "lineage_graph_pyvis.html", pyvis_options: Optional[Dict[str, Any]] = None): ...
+    def __init__(self, edges: list[Edge] | None = None, vertices: list[Vertex] | None = None, startarn: list[str] | None = None) -> None: ...
+    def visualize(self, path: str | None = "lineage_graph_pyvis.html", pyvis_options: dict[str, Any] | None = None): ...
 
 class LineageFilter:
     entities: Incomplete
@@ -70,22 +70,22 @@ class LineageFilter:
     properties: Incomplete
     def __init__(
         self,
-        entities: Optional[List[LineageEntityEnum | str]] = None,
-        sources: Optional[List[LineageSourceEnum | str]] = None,
-        created_before: Optional[datetime] = None,
-        created_after: Optional[datetime] = None,
-        modified_before: Optional[datetime] = None,
-        modified_after: Optional[datetime] = None,
-        properties: Optional[Dict[str, str]] = None,
+        entities: list[LineageEntityEnum | str] | None = None,
+        sources: list[LineageSourceEnum | str] | None = None,
+        created_before: datetime | None = None,
+        created_after: datetime | None = None,
+        modified_before: datetime | None = None,
+        modified_after: datetime | None = None,
+        properties: dict[str, str] | None = None,
     ) -> None: ...
 
 class LineageQuery:
     def __init__(self, sagemaker_session) -> None: ...
     def query(
         self,
-        start_arns: List[str],
+        start_arns: list[str],
         direction: LineageQueryDirectionEnum = ...,
         include_edges: bool = True,
-        query_filter: LineageFilter = None,
+        query_filter: LineageFilter | None = None,
         max_depth: int = 10,
     ) -> LineageQueryResult: ...

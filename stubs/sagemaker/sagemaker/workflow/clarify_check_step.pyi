@@ -20,7 +20,7 @@ class ClarifyCheckConfig(ABC):
 
 class DataBiasCheckConfig(ClarifyCheckConfig):
     data_bias_config: BiasConfig
-    methods: str | List[str]
+    methods: str | list[str]
     def __init__(self, data_config, kms_key, monitoring_analysis_config_uri, data_bias_config, methods) -> None: ...
     def __lt__(self, other): ...
     def __le__(self, other): ...
@@ -31,7 +31,7 @@ class ModelBiasCheckConfig(ClarifyCheckConfig):
     data_bias_config: BiasConfig
     model_config: ModelConfig
     model_predicted_label_config: ModelPredictedLabelConfig
-    methods: str | List[str]
+    methods: str | list[str]
     def __init__(
         self,
         data_config,
@@ -76,12 +76,12 @@ class ClarifyCheckStep(Step):
         skip_check: bool | PipelineVariable = False,
         fail_on_violation: bool | PipelineVariable = True,
         register_new_baseline: bool | PipelineVariable = False,
-        model_package_group_name: str | PipelineVariable = None,
-        supplied_baseline_constraints: str | PipelineVariable = None,
-        display_name: str = None,
-        description: str = None,
-        cache_config: CacheConfig = None,
-        depends_on: Optional[List[str | Step | StepCollection]] = None,
+        model_package_group_name: str | PipelineVariable | None = None,
+        supplied_baseline_constraints: str | PipelineVariable | None = None,
+        display_name: str | None = None,
+        description: str | None = None,
+        cache_config: CacheConfig | None = None,
+        depends_on: list[str | Step | StepCollection] | None = None,
     ) -> None: ...
     @property
     def arguments(self) -> RequestType: ...

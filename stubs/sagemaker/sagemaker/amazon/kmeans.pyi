@@ -23,19 +23,19 @@ class KMeans(AmazonAlgorithmEstimatorBase):
     eval_metrics: hp
     def __init__(
         self,
-        role: Optional[str | PipelineVariable] = None,
-        instance_count: Optional[int | PipelineVariable] = None,
-        instance_type: Optional[str | PipelineVariable] = None,
-        k: Optional[int] = None,
-        init_method: Optional[str] = None,
-        max_iterations: Optional[int] = None,
-        tol: Optional[float] = None,
-        num_trials: Optional[int] = None,
-        local_init_method: Optional[str] = None,
-        half_life_time_size: Optional[int] = None,
-        epochs: Optional[int] = None,
-        center_factor: Optional[int] = None,
-        eval_metrics: Optional[List[str | PipelineVariable]] = None,
+        role: str | PipelineVariable | None = None,
+        instance_count: int | PipelineVariable | None = None,
+        instance_type: str | PipelineVariable | None = None,
+        k: int | None = None,
+        init_method: str | None = None,
+        max_iterations: int | None = None,
+        tol: float | None = None,
+        num_trials: int | None = None,
+        local_init_method: str | None = None,
+        half_life_time_size: int | None = None,
+        epochs: int | None = None,
+        center_factor: int | None = None,
+        eval_metrics: list[str | PipelineVariable] | None = None,
         **kwargs,
     ) -> None: ...
     def create_model(self, vpc_config_override="VPC_CONFIG_DEFAULT", **kwargs): ...
@@ -48,7 +48,7 @@ class KMeansModel(Model):
     def __init__(
         self,
         model_data: str | PipelineVariable,
-        role: Optional[str] = None,
-        sagemaker_session: Optional[Session] = None,
+        role: str | None = None,
+        sagemaker_session: Session | None = None,
         **kwargs,
     ) -> None: ...

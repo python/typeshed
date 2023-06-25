@@ -34,10 +34,10 @@ class StepTypeEnum(Enum, metaclass=DefaultEnumMeta):
 
 class Step(Entity, metaclass=abc.ABCMeta):
     name: str
-    display_name: Optional[str]
-    description: Optional[str]
+    display_name: str | None
+    description: str | None
     step_type: StepTypeEnum
-    depends_on: Optional[List[str | "Step" | "StepCollection"]]
+    depends_on: list[str | "Step" | "StepCollection"] | None
     @property
     @abc.abstractmethod
     def arguments(self) -> RequestType: ...
@@ -47,9 +47,9 @@ class Step(Entity, metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def properties(self): ...
     def to_request(self) -> RequestType: ...
-    def add_depends_on(self, step_names: List[str | "Step" | "StepCollection"]): ...
+    def add_depends_on(self, step_names: list[str | "Step" | "StepCollection"]): ...
     @property
-    def ref(self) -> Dict[str, str]: ...
+    def ref(self) -> dict[str, str]: ...
     def __init__(self, name, display_name, description, step_type, depends_on) -> None: ...
     def __lt__(self, other): ...
     def __le__(self, other): ...
@@ -73,10 +73,10 @@ class ConfigurableRetryStep(Step, metaclass=abc.ABCMeta):
         self,
         name: str,
         step_type: StepTypeEnum,
-        display_name: str = None,
-        description: str = None,
-        depends_on: Optional[List[str | Step | "StepCollection"]] = None,
-        retry_policies: List[RetryPolicy] = None,
+        display_name: str | None = None,
+        description: str | None = None,
+        depends_on: list[str | Step | "StepCollection"] | None = None,
+        retry_policies: list[RetryPolicy] | None = None,
     ) -> None: ...
     def add_retry_policy(self, retry_policy: RetryPolicy): ...
     def to_request(self) -> RequestType: ...
@@ -90,14 +90,14 @@ class TrainingStep(ConfigurableRetryStep):
     def __init__(
         self,
         name: str,
-        step_args: _JobStepArguments = None,
-        estimator: EstimatorBase = None,
-        display_name: str = None,
-        description: str = None,
-        inputs: TrainingInput | dict | str | FileSystemInput = None,
-        cache_config: CacheConfig = None,
-        depends_on: Optional[List[str | Step | "StepCollection"]] = None,
-        retry_policies: List[RetryPolicy] = None,
+        step_args: _JobStepArguments | None = None,
+        estimator: EstimatorBase | None = None,
+        display_name: str | None = None,
+        description: str | None = None,
+        inputs: TrainingInput | dict | str | FileSystemInput | None = None,
+        cache_config: CacheConfig | None = None,
+        depends_on: list[str | Step | "StepCollection"] | None = None,
+        retry_policies: list[RetryPolicy] | None = None,
     ) -> None: ...
     @property
     def arguments(self) -> RequestType: ...
@@ -112,13 +112,13 @@ class CreateModelStep(ConfigurableRetryStep):
     def __init__(
         self,
         name: str,
-        step_args: Optional[dict] = None,
-        model: Optional[Model | PipelineModel] = None,
-        inputs: Optional[CreateModelInput] = None,
-        depends_on: Optional[List[str | Step | "StepCollection"]] = None,
-        retry_policies: Optional[List[RetryPolicy]] = None,
-        display_name: Optional[str] = None,
-        description: Optional[str] = None,
+        step_args: dict | None = None,
+        model: Model | PipelineModel | None = None,
+        inputs: CreateModelInput | None = None,
+        depends_on: list[str | Step | "StepCollection"] | None = None,
+        retry_policies: list[RetryPolicy] | None = None,
+        display_name: str | None = None,
+        description: str | None = None,
     ) -> None: ...
     @property
     def arguments(self) -> RequestType: ...
@@ -133,14 +133,14 @@ class TransformStep(ConfigurableRetryStep):
     def __init__(
         self,
         name: str,
-        step_args: _JobStepArguments = None,
-        transformer: Transformer = None,
-        inputs: TransformInput = None,
-        display_name: str = None,
-        description: str = None,
-        cache_config: CacheConfig = None,
-        depends_on: Optional[List[str | Step | "StepCollection"]] = None,
-        retry_policies: List[RetryPolicy] = None,
+        step_args: _JobStepArguments | None = None,
+        transformer: Transformer | None = None,
+        inputs: TransformInput | None = None,
+        display_name: str | None = None,
+        description: str | None = None,
+        cache_config: CacheConfig | None = None,
+        depends_on: list[str | Step | "StepCollection"] | None = None,
+        retry_policies: list[RetryPolicy] | None = None,
     ) -> None: ...
     @property
     def arguments(self) -> RequestType: ...
@@ -162,18 +162,18 @@ class ProcessingStep(ConfigurableRetryStep):
     def __init__(
         self,
         name: str,
-        step_args: _JobStepArguments = None,
-        processor: Processor = None,
-        display_name: str = None,
-        description: str = None,
-        inputs: List[ProcessingInput] = None,
-        outputs: List[ProcessingOutput] = None,
-        job_arguments: List[str] = None,
-        code: str = None,
-        property_files: List[PropertyFile] = None,
-        cache_config: CacheConfig = None,
-        depends_on: Optional[List[str | Step | "StepCollection"]] = None,
-        retry_policies: List[RetryPolicy] = None,
+        step_args: _JobStepArguments | None = None,
+        processor: Processor | None = None,
+        display_name: str | None = None,
+        description: str | None = None,
+        inputs: list[ProcessingInput] | None = None,
+        outputs: list[ProcessingOutput] | None = None,
+        job_arguments: list[str] | None = None,
+        code: str | None = None,
+        property_files: list[PropertyFile] | None = None,
+        cache_config: CacheConfig | None = None,
+        depends_on: list[str | Step | "StepCollection"] | None = None,
+        retry_policies: list[RetryPolicy] | None = None,
         kms_key: Incomplete | None = None,
     ) -> None: ...
     @property
@@ -191,15 +191,15 @@ class TuningStep(ConfigurableRetryStep):
     def __init__(
         self,
         name: str,
-        step_args: _JobStepArguments = None,
-        tuner: HyperparameterTuner = None,
-        display_name: str = None,
-        description: str = None,
+        step_args: _JobStepArguments | None = None,
+        tuner: HyperparameterTuner | None = None,
+        display_name: str | None = None,
+        description: str | None = None,
         inputs: Incomplete | None = None,
-        job_arguments: List[str] = None,
-        cache_config: CacheConfig = None,
-        depends_on: Optional[List[str | Step | "StepCollection"]] = None,
-        retry_policies: List[RetryPolicy] = None,
+        job_arguments: list[str] | None = None,
+        cache_config: CacheConfig | None = None,
+        depends_on: list[str | Step | "StepCollection"] | None = None,
+        retry_policies: list[RetryPolicy] | None = None,
     ) -> None: ...
     @property
     def arguments(self) -> RequestType: ...

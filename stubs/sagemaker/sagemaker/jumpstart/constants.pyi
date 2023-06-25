@@ -6,7 +6,7 @@ from sagemaker.base_serializers import BaseSerializer
 from sagemaker.jumpstart.enums import DeserializerType, MIMEType, SerializerType
 from sagemaker.jumpstart.types import JumpStartLaunchedRegionInfo
 
-JUMPSTART_LAUNCHED_REGIONS: Set[JumpStartLaunchedRegionInfo]
+JUMPSTART_LAUNCHED_REGIONS: set[JumpStartLaunchedRegionInfo]
 JUMPSTART_REGION_NAME_TO_LAUNCHED_REGION_DICT: Incomplete
 JUMPSTART_REGION_NAME_SET: Incomplete
 JUMPSTART_BUCKET_NAME_SET: Incomplete
@@ -21,8 +21,8 @@ ENV_VARIABLE_JUMPSTART_SCRIPT_ARTIFACT_BUCKET_OVERRIDE: str
 ENV_VARIABLE_JUMPSTART_MANIFEST_LOCAL_ROOT_DIR_OVERRIDE: str
 ENV_VARIABLE_JUMPSTART_SPECS_LOCAL_ROOT_DIR_OVERRIDE: str
 JUMPSTART_RESOURCE_BASE_NAME: str
-CONTENT_TYPE_TO_SERIALIZER_TYPE_MAP: Dict[MIMEType, SerializerType]
-ACCEPT_TYPE_TO_DESERIALIZER_TYPE_MAP: Dict[MIMEType, DeserializerType]
-SERIALIZER_TYPE_TO_CLASS_MAP: Dict[SerializerType, Type[BaseSerializer]]
-DESERIALIZER_TYPE_TO_CLASS_MAP: Dict[DeserializerType, Type[BaseDeserializer]]
+CONTENT_TYPE_TO_SERIALIZER_TYPE_MAP: dict[MIMEType, SerializerType]
+ACCEPT_TYPE_TO_DESERIALIZER_TYPE_MAP: dict[MIMEType, DeserializerType]
+SERIALIZER_TYPE_TO_CLASS_MAP: dict[SerializerType, type[BaseSerializer]]
+DESERIALIZER_TYPE_TO_CLASS_MAP: dict[DeserializerType, type[BaseDeserializer]]
 MODEL_ID_LIST_WEB_URL: str

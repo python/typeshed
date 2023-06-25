@@ -16,25 +16,25 @@ class JumpStartLaunchedRegionInfo(JumpStartDataHolderType):
     def __init__(self, content_bucket: str, region_name: str) -> None: ...
 
 class JumpStartModelHeader(JumpStartDataHolderType):
-    def __init__(self, header: Dict[str, str]) -> None: ...
-    def to_json(self) -> Dict[str, str]: ...
+    def __init__(self, header: dict[str, str]) -> None: ...
+    def to_json(self) -> dict[str, str]: ...
     model_id: Incomplete
     version: Incomplete
     min_version: Incomplete
     spec_key: Incomplete
-    def from_json(self, json_obj: Dict[str, str]) -> None: ...
+    def from_json(self, json_obj: dict[str, str]) -> None: ...
 
 class JumpStartECRSpecs(JumpStartDataHolderType):
-    def __init__(self, spec: Dict[str, Any]) -> None: ...
+    def __init__(self, spec: dict[str, Any]) -> None: ...
     framework: Incomplete
     framework_version: Incomplete
     py_version: Incomplete
     huggingface_transformers_version: Incomplete
-    def from_json(self, json_obj: Dict[str, Any]) -> None: ...
-    def to_json(self) -> Dict[str, Any]: ...
+    def from_json(self, json_obj: dict[str, Any]) -> None: ...
+    def to_json(self) -> dict[str, Any]: ...
 
 class JumpStartHyperparameter(JumpStartDataHolderType):
-    def __init__(self, spec: Dict[str, Any]) -> None: ...
+    def __init__(self, spec: dict[str, Any]) -> None: ...
     name: Incomplete
     type: Incomplete
     default: Incomplete
@@ -44,30 +44,30 @@ class JumpStartHyperparameter(JumpStartDataHolderType):
     max: Incomplete
     exclusive_min: Incomplete
     exclusive_max: Incomplete
-    def from_json(self, json_obj: Dict[str, Any]) -> None: ...
-    def to_json(self) -> Dict[str, Any]: ...
+    def from_json(self, json_obj: dict[str, Any]) -> None: ...
+    def to_json(self) -> dict[str, Any]: ...
 
 class JumpStartEnvironmentVariable(JumpStartDataHolderType):
-    def __init__(self, spec: Dict[str, Any]) -> None: ...
+    def __init__(self, spec: dict[str, Any]) -> None: ...
     name: Incomplete
     type: Incomplete
     default: Incomplete
     scope: Incomplete
     required_for_model_class: Incomplete
-    def from_json(self, json_obj: Dict[str, Any]) -> None: ...
-    def to_json(self) -> Dict[str, Any]: ...
+    def from_json(self, json_obj: dict[str, Any]) -> None: ...
+    def to_json(self) -> dict[str, Any]: ...
 
 class JumpStartPredictorSpecs(JumpStartDataHolderType):
-    def __init__(self, spec: Optional[Dict[str, Any]]) -> None: ...
+    def __init__(self, spec: dict[str, Any] | None) -> None: ...
     default_content_type: Incomplete
     supported_content_types: Incomplete
     default_accept_type: Incomplete
     supported_accept_types: Incomplete
-    def from_json(self, json_obj: Optional[Dict[str, Any]]) -> None: ...
-    def to_json(self) -> Dict[str, Any]: ...
+    def from_json(self, json_obj: dict[str, Any] | None) -> None: ...
+    def to_json(self) -> dict[str, Any]: ...
 
 class JumpStartModelSpecs(JumpStartDataHolderType):
-    def __init__(self, spec: Dict[str, Any]) -> None: ...
+    def __init__(self, spec: dict[str, Any]) -> None: ...
     model_id: Incomplete
     url: Incomplete
     version: Incomplete
@@ -106,8 +106,8 @@ class JumpStartModelSpecs(JumpStartDataHolderType):
     fit_kwargs: Incomplete
     training_volume_size: Incomplete
     training_enable_network_isolation: Incomplete
-    def from_json(self, json_obj: Dict[str, Any]) -> None: ...
-    def to_json(self) -> Dict[str, Any]: ...
+    def from_json(self, json_obj: dict[str, Any]) -> None: ...
+    def to_json(self) -> dict[str, Any]: ...
     def supports_prepacked_inference(self) -> bool: ...
     def supports_incremental_training(self) -> bool: ...
 
@@ -126,12 +126,12 @@ class JumpStartCachedS3ContentValue(JumpStartDataHolderType):
     md5_hash: Incomplete
     def __init__(
         self,
-        formatted_content: Dict[JumpStartVersionedModelId | JumpStartModelHeader, JumpStartModelSpecs],
-        md5_hash: Optional[str] = None,
+        formatted_content: dict[JumpStartVersionedModelId | JumpStartModelHeader, JumpStartModelSpecs],
+        md5_hash: str | None = None,
     ) -> None: ...
 
 class JumpStartKwargs(JumpStartDataHolderType):
-    SERIALIZATION_EXCLUSION_SET: Set[str]
+    SERIALIZATION_EXCLUSION_SET: set[str]
     def to_kwargs_dict(self): ...
 
 class JumpStartModelInitKwargs(JumpStartKwargs):
@@ -162,28 +162,28 @@ class JumpStartModelInitKwargs(JumpStartKwargs):
     def __init__(
         self,
         model_id: str,
-        model_version: Optional[str] = None,
-        region: Optional[str] = None,
-        instance_type: Optional[str] = None,
-        image_uri: Optional[str | Any] = None,
-        model_data: Optional[str | Any] = None,
-        role: Optional[str] = None,
-        predictor_cls: Optional[callable] = None,
-        env: Optional[Dict[str, str | Any]] = None,
-        name: Optional[str] = None,
-        vpc_config: Optional[Dict[str, List[str | Any]]] = None,
-        sagemaker_session: Optional[Any] = None,
+        model_version: str | None = None,
+        region: str | None = None,
+        instance_type: str | None = None,
+        image_uri: str | Any | None = None,
+        model_data: str | Any | None = None,
+        role: str | None = None,
+        predictor_cls: callable | None = None,
+        env: dict[str, str | Any] | None = None,
+        name: str | None = None,
+        vpc_config: dict[str, list[str | Any]] | None = None,
+        sagemaker_session: Any | None = None,
         enable_network_isolation: bool | Any = None,
-        model_kms_key: Optional[str] = None,
-        image_config: Optional[Dict[str, str | Any]] = None,
-        source_dir: Optional[str] = None,
-        code_location: Optional[str] = None,
-        entry_point: Optional[str] = None,
-        container_log_level: Optional[int | Any] = None,
-        dependencies: Optional[List[str]] = None,
-        git_config: Optional[Dict[str, str]] = None,
-        tolerate_vulnerable_model: Optional[bool] = None,
-        tolerate_deprecated_model: Optional[bool] = None,
+        model_kms_key: str | None = None,
+        image_config: dict[str, str | Any] | None = None,
+        source_dir: str | None = None,
+        code_location: str | None = None,
+        entry_point: str | None = None,
+        container_log_level: int | Any | None = None,
+        dependencies: list[str] | None = None,
+        git_config: dict[str, str] | None = None,
+        tolerate_vulnerable_model: bool | None = None,
+        tolerate_deprecated_model: bool | None = None,
     ) -> None: ...
 
 class JumpStartModelDeployKwargs(JumpStartKwargs):
@@ -213,27 +213,27 @@ class JumpStartModelDeployKwargs(JumpStartKwargs):
     def __init__(
         self,
         model_id: str,
-        model_version: Optional[str] = None,
-        region: Optional[str] = None,
-        initial_instance_count: Optional[int] = None,
-        instance_type: Optional[str] = None,
-        serializer: Optional[Any] = None,
-        deserializer: Optional[Any] = None,
-        accelerator_type: Optional[str] = None,
-        endpoint_name: Optional[str] = None,
-        tags: List[Dict[str, str]] = None,
-        kms_key: Optional[str] = None,
-        wait: Optional[bool] = None,
-        data_capture_config: Optional[Any] = None,
-        async_inference_config: Optional[Any] = None,
-        serverless_inference_config: Optional[Any] = None,
-        volume_size: Optional[int] = None,
-        model_data_download_timeout: Optional[int] = None,
-        container_startup_health_check_timeout: Optional[int] = None,
-        inference_recommendation_id: Optional[str] = None,
-        explainer_config: Optional[Any] = None,
-        tolerate_deprecated_model: Optional[bool] = None,
-        tolerate_vulnerable_model: Optional[bool] = None,
+        model_version: str | None = None,
+        region: str | None = None,
+        initial_instance_count: int | None = None,
+        instance_type: str | None = None,
+        serializer: Any | None = None,
+        deserializer: Any | None = None,
+        accelerator_type: str | None = None,
+        endpoint_name: str | None = None,
+        tags: list[dict[str, str]] | None = None,
+        kms_key: str | None = None,
+        wait: bool | None = None,
+        data_capture_config: Any | None = None,
+        async_inference_config: Any | None = None,
+        serverless_inference_config: Any | None = None,
+        volume_size: int | None = None,
+        model_data_download_timeout: int | None = None,
+        container_startup_health_check_timeout: int | None = None,
+        inference_recommendation_id: str | None = None,
+        explainer_config: Any | None = None,
+        tolerate_deprecated_model: bool | None = None,
+        tolerate_vulnerable_model: bool | None = None,
     ) -> None: ...
 
 class JumpStartEstimatorInitKwargs(JumpStartKwargs):
@@ -289,53 +289,53 @@ class JumpStartEstimatorInitKwargs(JumpStartKwargs):
     def __init__(
         self,
         model_id: str,
-        model_version: Optional[str] = None,
-        region: Optional[str] = None,
-        image_uri: Optional[str | Any] = None,
-        role: Optional[str] = None,
-        instance_count: Optional[int | Any] = None,
-        instance_type: Optional[str | Any] = None,
-        keep_alive_period_in_seconds: Optional[int | Any] = None,
-        volume_size: Optional[int | Any] = None,
-        volume_kms_key: Optional[str | Any] = None,
-        max_run: Optional[int | Any] = None,
-        input_mode: Optional[str | Any] = None,
-        output_path: Optional[str | Any] = None,
-        output_kms_key: Optional[str | Any] = None,
-        base_job_name: Optional[str] = None,
-        sagemaker_session: Optional[Any] = None,
-        hyperparameters: Optional[Dict[str, str | Any]] = None,
-        tags: Optional[List[Dict[str, str | Any]]] = None,
-        subnets: Optional[List[str | Any]] = None,
-        security_group_ids: Optional[List[str | Any]] = None,
-        model_uri: Optional[str] = None,
-        model_channel_name: Optional[str | Any] = None,
-        metric_definitions: Optional[List[Dict[str, str | Any]]] = None,
+        model_version: str | None = None,
+        region: str | None = None,
+        image_uri: str | Any | None = None,
+        role: str | None = None,
+        instance_count: int | Any | None = None,
+        instance_type: str | Any | None = None,
+        keep_alive_period_in_seconds: int | Any | None = None,
+        volume_size: int | Any | None = None,
+        volume_kms_key: str | Any | None = None,
+        max_run: int | Any | None = None,
+        input_mode: str | Any | None = None,
+        output_path: str | Any | None = None,
+        output_kms_key: str | Any | None = None,
+        base_job_name: str | None = None,
+        sagemaker_session: Any | None = None,
+        hyperparameters: dict[str, str | Any] | None = None,
+        tags: list[dict[str, str | Any]] | None = None,
+        subnets: list[str | Any] | None = None,
+        security_group_ids: list[str | Any] | None = None,
+        model_uri: str | None = None,
+        model_channel_name: str | Any | None = None,
+        metric_definitions: list[dict[str, str | Any]] | None = None,
         encrypt_inter_container_traffic: bool | Any = None,
-        use_spot_instances: Optional[bool | Any] = None,
-        max_wait: Optional[int | Any] = None,
-        checkpoint_s3_uri: Optional[str | Any] = None,
-        checkpoint_local_path: Optional[str | Any] = None,
+        use_spot_instances: bool | Any | None = None,
+        max_wait: int | Any | None = None,
+        checkpoint_s3_uri: str | Any | None = None,
+        checkpoint_local_path: str | Any | None = None,
         enable_network_isolation: bool | Any = None,
-        rules: Optional[List[Any]] = None,
-        debugger_hook_config: Optional[Any | bool] = None,
-        tensorboard_output_config: Optional[Any] = None,
-        enable_sagemaker_metrics: Optional[bool | Any] = None,
-        profiler_config: Optional[Any] = None,
-        disable_profiler: Optional[bool] = None,
-        environment: Optional[Dict[str, str | Any]] = None,
-        max_retry_attempts: Optional[int | Any] = None,
-        source_dir: Optional[str | Any] = None,
-        git_config: Optional[Dict[str, str]] = None,
-        container_log_level: Optional[int | Any] = None,
-        code_location: Optional[str] = None,
-        entry_point: Optional[str | Any] = None,
-        dependencies: Optional[List[str]] = None,
-        instance_groups: Optional[List[Any]] = None,
-        training_repository_access_mode: Optional[str | Any] = None,
-        training_repository_credentials_provider_arn: Optional[str | Any] = None,
-        tolerate_vulnerable_model: Optional[bool] = None,
-        tolerate_deprecated_model: Optional[bool] = None,
+        rules: list[Any] | None = None,
+        debugger_hook_config: Any | bool | None = None,
+        tensorboard_output_config: Any | None = None,
+        enable_sagemaker_metrics: bool | Any | None = None,
+        profiler_config: Any | None = None,
+        disable_profiler: bool | None = None,
+        environment: dict[str, str | Any] | None = None,
+        max_retry_attempts: int | Any | None = None,
+        source_dir: str | Any | None = None,
+        git_config: dict[str, str] | None = None,
+        container_log_level: int | Any | None = None,
+        code_location: str | None = None,
+        entry_point: str | Any | None = None,
+        dependencies: list[str] | None = None,
+        instance_groups: list[Any] | None = None,
+        training_repository_access_mode: str | Any | None = None,
+        training_repository_credentials_provider_arn: str | Any | None = None,
+        tolerate_vulnerable_model: bool | None = None,
+        tolerate_deprecated_model: bool | None = None,
     ) -> None: ...
 
 class JumpStartEstimatorFitKwargs(JumpStartKwargs):
@@ -353,15 +353,15 @@ class JumpStartEstimatorFitKwargs(JumpStartKwargs):
     def __init__(
         self,
         model_id: str,
-        model_version: Optional[str] = None,
-        region: Optional[str] = None,
-        inputs: Optional[str | Dict | Any | Any] = None,
-        wait: Optional[bool] = None,
-        logs: Optional[str] = None,
-        job_name: Optional[str] = None,
-        experiment_config: Optional[Dict[str, str]] = None,
-        tolerate_deprecated_model: Optional[bool] = None,
-        tolerate_vulnerable_model: Optional[bool] = None,
+        model_version: str | None = None,
+        region: str | None = None,
+        inputs: str | dict | Any | Any | None = None,
+        wait: bool | None = None,
+        logs: str | None = None,
+        job_name: str | None = None,
+        experiment_config: dict[str, str] | None = None,
+        tolerate_deprecated_model: bool | None = None,
+        tolerate_vulnerable_model: bool | None = None,
     ) -> None: ...
 
 class JumpStartEstimatorDeployKwargs(JumpStartKwargs):
@@ -408,42 +408,42 @@ class JumpStartEstimatorDeployKwargs(JumpStartKwargs):
     def __init__(
         self,
         model_id: str,
-        model_version: Optional[str] = None,
-        region: Optional[str] = None,
-        initial_instance_count: Optional[int] = None,
-        instance_type: Optional[str] = None,
-        serializer: Optional[Any] = None,
-        deserializer: Optional[Any] = None,
-        accelerator_type: Optional[str] = None,
-        endpoint_name: Optional[str] = None,
-        tags: List[Dict[str, str]] = None,
-        kms_key: Optional[str] = None,
-        wait: Optional[bool] = None,
-        data_capture_config: Optional[Any] = None,
-        async_inference_config: Optional[Any] = None,
-        serverless_inference_config: Optional[Any] = None,
-        volume_size: Optional[int] = None,
-        model_data_download_timeout: Optional[int] = None,
-        container_startup_health_check_timeout: Optional[int] = None,
-        inference_recommendation_id: Optional[str] = None,
-        explainer_config: Optional[Any] = None,
-        image_uri: Optional[str | Any] = None,
-        role: Optional[str] = None,
-        predictor_cls: Optional[callable] = None,
-        env: Optional[Dict[str, str | Any]] = None,
-        model_name: Optional[str] = None,
-        vpc_config: Optional[Dict[str, List[str | Any]]] = None,
-        sagemaker_session: Optional[Any] = None,
+        model_version: str | None = None,
+        region: str | None = None,
+        initial_instance_count: int | None = None,
+        instance_type: str | None = None,
+        serializer: Any | None = None,
+        deserializer: Any | None = None,
+        accelerator_type: str | None = None,
+        endpoint_name: str | None = None,
+        tags: list[dict[str, str]] | None = None,
+        kms_key: str | None = None,
+        wait: bool | None = None,
+        data_capture_config: Any | None = None,
+        async_inference_config: Any | None = None,
+        serverless_inference_config: Any | None = None,
+        volume_size: int | None = None,
+        model_data_download_timeout: int | None = None,
+        container_startup_health_check_timeout: int | None = None,
+        inference_recommendation_id: str | None = None,
+        explainer_config: Any | None = None,
+        image_uri: str | Any | None = None,
+        role: str | None = None,
+        predictor_cls: callable | None = None,
+        env: dict[str, str | Any] | None = None,
+        model_name: str | None = None,
+        vpc_config: dict[str, list[str | Any]] | None = None,
+        sagemaker_session: Any | None = None,
         enable_network_isolation: bool | Any = None,
-        model_kms_key: Optional[str] = None,
-        image_config: Optional[Dict[str, str | Any]] = None,
-        source_dir: Optional[str] = None,
-        code_location: Optional[str] = None,
-        entry_point: Optional[str] = None,
-        container_log_level: Optional[int | Any] = None,
-        dependencies: Optional[List[str]] = None,
-        git_config: Optional[Dict[str, str]] = None,
-        tolerate_deprecated_model: Optional[bool] = None,
-        tolerate_vulnerable_model: Optional[bool] = None,
+        model_kms_key: str | None = None,
+        image_config: dict[str, str | Any] | None = None,
+        source_dir: str | None = None,
+        code_location: str | None = None,
+        entry_point: str | None = None,
+        container_log_level: int | Any | None = None,
+        dependencies: list[str] | None = None,
+        git_config: dict[str, str] | None = None,
+        tolerate_deprecated_model: bool | None = None,
+        tolerate_vulnerable_model: bool | None = None,
         use_compiled_model: bool = False,
     ) -> None: ...

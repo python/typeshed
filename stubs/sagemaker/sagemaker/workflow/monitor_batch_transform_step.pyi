@@ -19,8 +19,8 @@ class MonitorBatchTransformStep(StepCollection):
         check_job_configuration: CheckJobConfig,
         monitor_before_transform: bool = False,
         fail_on_violation: bool | PipelineVariable = True,
-        supplied_baseline_statistics: str | PipelineVariable = None,
-        supplied_baseline_constraints: str | PipelineVariable = None,
-        display_name: Optional[str] = None,
-        description: Optional[str] = None,
+        supplied_baseline_statistics: str | PipelineVariable | None = None,
+        supplied_baseline_constraints: str | PipelineVariable | None = None,
+        display_name: str | None = None,
+        description: str | None = None,
     ) -> None: ...

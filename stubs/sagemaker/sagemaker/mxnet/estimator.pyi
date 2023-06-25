@@ -12,12 +12,12 @@ class MXNet(Framework):
     def __init__(
         self,
         entry_point: str | PipelineVariable,
-        framework_version: Optional[str] = None,
-        py_version: Optional[str] = None,
-        source_dir: Optional[str | PipelineVariable] = None,
-        hyperparameters: Optional[Dict[str, str | PipelineVariable]] = None,
-        image_uri: Optional[str | PipelineVariable] = None,
-        distribution: Optional[Dict[str, str]] = None,
+        framework_version: str | None = None,
+        py_version: str | None = None,
+        source_dir: str | PipelineVariable | None = None,
+        hyperparameters: dict[str, str | PipelineVariable] | None = None,
+        image_uri: str | PipelineVariable | None = None,
+        distribution: dict[str, str] | None = None,
         **kwargs,
     ) -> None: ...
     def create_model(

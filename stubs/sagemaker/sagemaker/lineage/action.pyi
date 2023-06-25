@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from datetime import datetime
-from typing import Iterator, List, Optional
+from typing import Optional
+from collections.abc import Iterator
 
 from sagemaker.apiutils import _base_types
 from sagemaker.lineage._api_types import ActionSource, ActionSummary
@@ -31,32 +32,32 @@ class Action(_base_types.Record):
     @classmethod
     def create(
         cls,
-        action_name: str = None,
-        source_uri: str = None,
-        source_type: str = None,
-        action_type: str = None,
-        description: str = None,
-        status: str = None,
-        properties: dict = None,
-        tags: dict = None,
-        sagemaker_session: Session = None,
+        action_name: str | None = None,
+        source_uri: str | None = None,
+        source_type: str | None = None,
+        action_type: str | None = None,
+        description: str | None = None,
+        status: str | None = None,
+        properties: dict | None = None,
+        tags: dict | None = None,
+        sagemaker_session: Session | None = None,
     ) -> Action: ...
     @classmethod
     def list(
         cls,
-        source_uri: Optional[str] = None,
-        action_type: Optional[str] = None,
-        created_after: Optional[datetime] = None,
-        created_before: Optional[datetime] = None,
-        sort_by: Optional[str] = None,
-        sort_order: Optional[str] = None,
-        sagemaker_session: Session = None,
-        max_results: Optional[int] = None,
-        next_token: Optional[str] = None,
+        source_uri: str | None = None,
+        action_type: str | None = None,
+        created_after: datetime | None = None,
+        created_before: datetime | None = None,
+        sort_by: str | None = None,
+        sort_order: str | None = None,
+        sagemaker_session: Session | None = None,
+        max_results: int | None = None,
+        next_token: str | None = None,
     ) -> Iterator[ActionSummary]: ...
-    def artifacts(self, direction: LineageQueryDirectionEnum = ...) -> List[Artifact]: ...
+    def artifacts(self, direction: LineageQueryDirectionEnum = ...) -> list[Artifact]: ...
 
 class ModelPackageApprovalAction(Action):
-    def datasets(self, direction: LineageQueryDirectionEnum = ...) -> List[Artifact]: ...
+    def datasets(self, direction: LineageQueryDirectionEnum = ...) -> list[Artifact]: ...
     def model_package(self): ...
-    def endpoints(self, direction: LineageQueryDirectionEnum = ...) -> List: ...
+    def endpoints(self, direction: LineageQueryDirectionEnum = ...) -> list: ...

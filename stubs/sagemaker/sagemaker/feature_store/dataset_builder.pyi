@@ -40,9 +40,9 @@ class JoinComparatorEnum(Enum):
     def __ge__(self, other): ...
 
 class FeatureGroupToBeMerged:
-    features: List[str]
-    included_feature_names: List[str]
-    projected_feature_names: List[str]
+    features: list[str]
+    included_feature_names: list[str]
+    projected_feature_names: list[str]
     catalog: str
     database: str
     table_name: str
@@ -76,9 +76,9 @@ class FeatureGroupToBeMerged:
 
 def construct_feature_group_to_be_merged(
     target_feature_group: FeatureGroup,
-    included_feature_names: List[str],
-    target_feature_name_in_base: str = None,
-    feature_name_in_target: str = None,
+    included_feature_names: list[str],
+    target_feature_name_in_base: str | None = None,
+    feature_name_in_target: str | None = None,
     join_comparator: JoinComparatorEnum = ...,
     join_type: JoinTypeEnum = ...,
 ) -> FeatureGroupToBeMerged: ...
@@ -87,9 +87,9 @@ class DatasetBuilder:
     def with_feature_group(
         self,
         feature_group: FeatureGroup,
-        target_feature_name_in_base: str = None,
-        included_feature_names: List[str] = None,
-        feature_name_in_target: str = None,
+        target_feature_name_in_base: str | None = None,
+        included_feature_names: list[str] | None = None,
+        feature_name_in_target: str | None = None,
         join_comparator: JoinComparatorEnum = ...,
         join_type: JoinTypeEnum = ...,
     ): ...
@@ -99,9 +99,9 @@ class DatasetBuilder:
     def with_number_of_recent_records_by_record_identifier(self, number_of_recent_records: int): ...
     def with_number_of_records_from_query_results(self, number_of_records: int): ...
     def as_of(self, timestamp: datetime.datetime): ...
-    def with_event_time_range(self, starting_timestamp: datetime.datetime = None, ending_timestamp: datetime.datetime = None): ...
-    def to_csv_file(self) -> Tuple[str, str]: ...
-    def to_dataframe(self) -> Tuple[pd.DataFrame, str]: ...
+    def with_event_time_range(self, starting_timestamp: datetime.datetime | None = None, ending_timestamp: datetime.datetime | None = None): ...
+    def to_csv_file(self) -> tuple[str, str]: ...
+    def to_dataframe(self) -> tuple[pd.DataFrame, str]: ...
     def __init__(
         self,
         sagemaker_session,

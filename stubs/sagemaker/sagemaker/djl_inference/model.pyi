@@ -21,7 +21,7 @@ class DJLPredictor(Predictor):
     def __init__(
         self,
         endpoint_name: str,
-        sagemaker_session: Session = None,
+        sagemaker_session: Session | None = None,
         serializer: BaseSerializer = ...,
         deserializer: BaseDeserializer = ...,
     ) -> None: ...
@@ -45,18 +45,18 @@ class DJLModel(FrameworkModel):
         self,
         model_id: str,
         role: str,
-        djl_version: Optional[str] = None,
-        task: Optional[str] = None,
+        djl_version: str | None = None,
+        task: str | None = None,
         dtype: str = "fp32",
-        number_of_partitions: Optional[int] = None,
-        min_workers: Optional[int] = None,
-        max_workers: Optional[int] = None,
-        job_queue_size: Optional[int] = None,
+        number_of_partitions: int | None = None,
+        min_workers: int | None = None,
+        max_workers: int | None = None,
+        job_queue_size: int | None = None,
         parallel_loading: bool = False,
-        model_loading_timeout: Optional[int] = None,
-        prediction_timeout: Optional[int] = None,
-        entry_point: Optional[str] = None,
-        image_uri: Optional[str | PipelineVariable] = None,
+        model_loading_timeout: int | None = None,
+        prediction_timeout: int | None = None,
+        entry_point: str | None = None,
+        image_uri: str | PipelineVariable | None = None,
         predictor_cls: callable = ...,
         **kwargs,
     ) -> None: ...
@@ -68,12 +68,12 @@ class DJLModel(FrameworkModel):
     def partition(
         self,
         instance_type: str,
-        s3_output_uri: str = None,
-        job_name: Optional[str] = None,
-        volume_kms_key: Optional[str] = None,
-        output_kms_key: Optional[str] = None,
+        s3_output_uri: str | None = None,
+        job_name: str | None = None,
+        volume_kms_key: str | None = None,
+        output_kms_key: str | None = None,
         use_spot_instances: bool = False,
-        max_wait: int = None,
+        max_wait: int | None = None,
         enable_network_isolation: bool = False,
     ): ...
     def deploy(
@@ -97,7 +97,7 @@ class DJLModel(FrameworkModel):
         accelerator_type: Incomplete | None = None,
         serverless_inference_config: Incomplete | None = None,
     ): ...
-    def generate_serving_properties(self, serving_properties: Incomplete | None = None) -> Dict[str, str]: ...
+    def generate_serving_properties(self, serving_properties: Incomplete | None = None) -> dict[str, str]: ...
     def serving_image_uri(self, region_name): ...
 
 class DeepSpeedModel(DJLModel):
@@ -113,24 +113,24 @@ class DeepSpeedModel(DJLModel):
         self,
         model_id: str,
         role: str,
-        tensor_parallel_degree: Optional[int] = None,
-        max_tokens: Optional[int] = None,
+        tensor_parallel_degree: int | None = None,
+        max_tokens: int | None = None,
         low_cpu_mem_usage: bool = False,
         enable_cuda_graph: bool = False,
         triangular_masking: bool = True,
         return_tuple: bool = True,
         **kwargs,
     ) -> None: ...
-    def generate_serving_properties(self, serving_properties: Incomplete | None = None) -> Dict[str, Any]: ...
+    def generate_serving_properties(self, serving_properties: Incomplete | None = None) -> dict[str, Any]: ...
     def partition(
         self,
         instance_type: str,
-        s3_output_uri: str = None,
-        job_name: Optional[str] = None,
-        volume_kms_key: Optional[str] = None,
-        output_kms_key: Optional[str] = None,
+        s3_output_uri: str | None = None,
+        job_name: str | None = None,
+        volume_kms_key: str | None = None,
+        output_kms_key: str | None = None,
         use_spot_instances: bool = False,
-        max_wait: int = None,
+        max_wait: int | None = None,
         enable_network_isolation: bool = False,
     ): ...
 
@@ -143,26 +143,26 @@ class HuggingFaceAccelerateModel(DJLModel):
         self,
         model_id: str,
         role: str,
-        number_of_partitions: Optional[int] = None,
-        device_id: Optional[int] = None,
-        device_map: Optional[str | Dict[str | str]] = None,
+        number_of_partitions: int | None = None,
+        device_id: int | None = None,
+        device_map: str | dict[str | str] | None = None,
         load_in_8bit: bool = False,
         low_cpu_mem_usage: bool = False,
         **kwargs,
     ) -> None: ...
-    def generate_serving_properties(self, serving_properties: Incomplete | None = None) -> Dict[str, str]: ...
+    def generate_serving_properties(self, serving_properties: Incomplete | None = None) -> dict[str, str]: ...
     def partition(
         self,
         instance_type: str,
-        s3_output_uri: str = None,
-        job_name: Optional[str] = None,
-        volume_kms_key: Optional[str] = None,
-        output_kms_key: Optional[str] = None,
+        s3_output_uri: str | None = None,
+        job_name: str | None = None,
+        volume_kms_key: str | None = None,
+        output_kms_key: str | None = None,
         use_spot_instances: bool = False,
-        max_wait: int = None,
+        max_wait: int | None = None,
         enable_network_isolation: bool = False,
     ): ...
 
 class FasterTransformerModel(DJLModel):
     number_of_partitions: Incomplete
-    def __init__(self, model_id: str, role: str, tensor_parallel_degree: Optional[int] = None, **kwargs) -> None: ...
+    def __init__(self, model_id: str, role: str, tensor_parallel_degree: int | None = None, **kwargs) -> None: ...

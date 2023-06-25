@@ -10,8 +10,8 @@ class MetadataProperties:
     project_id: Incomplete
     def __init__(
         self,
-        commit_id: Optional[str | PipelineVariable] = None,
-        repository: Optional[str | PipelineVariable] = None,
-        generated_by: Optional[str | PipelineVariable] = None,
-        project_id: Optional[str | PipelineVariable] = None,
+        commit_id: str | PipelineVariable | None = None,
+        repository: str | PipelineVariable | None = None,
+        generated_by: str | PipelineVariable | None = None,
+        project_id: str | PipelineVariable | None = None,
     ) -> None: ...

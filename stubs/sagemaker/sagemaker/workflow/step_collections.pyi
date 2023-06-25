@@ -10,8 +10,8 @@ from sagemaker.workflow.steps import Step
 
 class StepCollection:
     name: str
-    steps: List[Step]
-    def request_dicts(self) -> List[RequestType]: ...
+    steps: list[Step]
+    def request_dicts(self) -> list[RequestType]: ...
     @property
     def properties(self): ...
     def __init__(self, name, steps) -> None: ...
@@ -32,11 +32,11 @@ class RegisterModel(StepCollection):
         response_types,
         inference_instances: Incomplete | None = None,
         transform_instances: Incomplete | None = None,
-        estimator: EstimatorBase = None,
+        estimator: EstimatorBase | None = None,
         model_data: Incomplete | None = None,
-        depends_on: Optional[List[str | Step | StepCollection]] = None,
-        repack_model_step_retry_policies: List[RetryPolicy] = None,
-        register_model_step_retry_policies: List[RetryPolicy] = None,
+        depends_on: list[str | Step | StepCollection] | None = None,
+        repack_model_step_retry_policies: list[RetryPolicy] | None = None,
+        register_model_step_retry_policies: list[RetryPolicy] | None = None,
         model_package_group_name: Incomplete | None = None,
         model_metrics: Incomplete | None = None,
         approval_status: Incomplete | None = None,
@@ -45,7 +45,7 @@ class RegisterModel(StepCollection):
         display_name: Incomplete | None = None,
         description: Incomplete | None = None,
         tags: Incomplete | None = None,
-        model: Model | PipelineModel = None,
+        model: Model | PipelineModel | None = None,
         drift_check_baselines: Incomplete | None = None,
         customer_metadata_properties: Incomplete | None = None,
         domain: Incomplete | None = None,
@@ -70,8 +70,8 @@ class EstimatorTransformer(StepCollection):
         instance_count,
         instance_type,
         transform_inputs,
-        description: str = None,
-        display_name: str = None,
+        description: str | None = None,
+        display_name: str | None = None,
         image_uri: Incomplete | None = None,
         predictor_cls: Incomplete | None = None,
         env: Incomplete | None = None,
@@ -84,9 +84,9 @@ class EstimatorTransformer(StepCollection):
         max_payload: Incomplete | None = None,
         tags: Incomplete | None = None,
         volume_kms_key: Incomplete | None = None,
-        depends_on: Optional[List[str | Step | StepCollection]] = None,
-        repack_model_step_retry_policies: List[RetryPolicy] = None,
-        model_step_retry_policies: List[RetryPolicy] = None,
-        transform_step_retry_policies: List[RetryPolicy] = None,
+        depends_on: list[str | Step | StepCollection] | None = None,
+        repack_model_step_retry_policies: list[RetryPolicy] | None = None,
+        model_step_retry_policies: list[RetryPolicy] | None = None,
+        transform_step_retry_policies: list[RetryPolicy] | None = None,
         **kwargs,
     ) -> None: ...

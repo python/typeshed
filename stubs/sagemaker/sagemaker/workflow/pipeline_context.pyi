@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
-from typing import Callable, Optional
+from typing import Optional
+from collections.abc import Callable
 
 from sagemaker.local import LocalSession
 from sagemaker.session import Session
@@ -9,7 +10,7 @@ class _StepArguments:
     func: Incomplete
     func_args: Incomplete
     func_kwargs: Incomplete
-    def __init__(self, caller_name: str = None, func: Callable = None, *func_args, **func_kwargs) -> None: ...
+    def __init__(self, caller_name: str | None = None, func: Callable | None = None, *func_args, **func_kwargs) -> None: ...
 
 class _JobStepArguments(_StepArguments):
     args: Incomplete
@@ -37,13 +38,13 @@ class PipelineSession(Session):
         sagemaker_client: Incomplete | None = None,
         default_bucket: Incomplete | None = None,
         settings=...,
-        sagemaker_config: dict = None,
-        default_bucket_prefix: str = None,
+        sagemaker_config: dict | None = None,
+        default_bucket_prefix: str | None = None,
     ) -> None: ...
     @property
     def context(self): ...
     @context.setter
-    def context(self, value: Optional[_StepArguments] = ...): ...
+    def context(self, value: _StepArguments | None = ...): ...
     def init_model_step_arguments(self, model) -> None: ...
 
 class LocalPipelineSession(LocalSession, PipelineSession):

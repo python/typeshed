@@ -14,11 +14,11 @@ class AutoMLStep(ConfigurableRetryStep):
         self,
         name: str,
         step_args: _JobStepArguments,
-        display_name: str = None,
-        description: str = None,
-        cache_config: CacheConfig = None,
-        depends_on: Optional[List[str | Step | StepCollection]] = None,
-        retry_policies: List[RetryPolicy] = None,
+        display_name: str | None = None,
+        description: str | None = None,
+        cache_config: CacheConfig | None = None,
+        depends_on: list[str | Step | StepCollection] | None = None,
+        retry_policies: list[RetryPolicy] | None = None,
     ) -> None: ...
     @property
     def arguments(self) -> RequestType: ...

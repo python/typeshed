@@ -5,7 +5,7 @@ from sagemaker.workflow.properties import PropertyFile
 
 class Join(PipelineVariable):
     on: str
-    values: List
+    values: list
     def to_string(self) -> PipelineVariable: ...
     @property
     def expr(self): ...

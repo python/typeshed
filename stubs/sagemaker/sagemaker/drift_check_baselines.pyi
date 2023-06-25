@@ -15,13 +15,13 @@ class DriftCheckBaselines:
     explainability_config_file: Incomplete
     def __init__(
         self,
-        model_statistics: Optional[MetricsSource] = None,
-        model_constraints: Optional[MetricsSource] = None,
-        model_data_statistics: Optional[MetricsSource] = None,
-        model_data_constraints: Optional[MetricsSource] = None,
-        bias_config_file: Optional[FileSource] = None,
-        bias_pre_training_constraints: Optional[MetricsSource] = None,
-        bias_post_training_constraints: Optional[MetricsSource] = None,
-        explainability_constraints: Optional[MetricsSource] = None,
-        explainability_config_file: Optional[FileSource] = None,
+        model_statistics: MetricsSource | None = None,
+        model_constraints: MetricsSource | None = None,
+        model_data_statistics: MetricsSource | None = None,
+        model_data_constraints: MetricsSource | None = None,
+        bias_config_file: FileSource | None = None,
+        bias_pre_training_constraints: MetricsSource | None = None,
+        bias_post_training_constraints: MetricsSource | None = None,
+        explainability_constraints: MetricsSource | None = None,
+        explainability_config_file: FileSource | None = None,
     ) -> None: ...

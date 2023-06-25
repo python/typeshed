@@ -15,12 +15,12 @@ class ConditionStep(Step):
     def __init__(
         self,
         name: str,
-        depends_on: Optional[List[str | Step | StepCollection]] = None,
-        display_name: str = None,
-        description: str = None,
-        conditions: List[Condition] = None,
-        if_steps: List[Step | StepCollection] = None,
-        else_steps: List[Step | StepCollection] = None,
+        depends_on: list[str | Step | StepCollection] | None = None,
+        display_name: str | None = None,
+        description: str | None = None,
+        conditions: list[Condition] | None = None,
+        if_steps: list[Step | StepCollection] | None = None,
+        else_steps: list[Step | StepCollection] | None = None,
     ) -> None: ...
     @property
     def arguments(self) -> RequestType: ...

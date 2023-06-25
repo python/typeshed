@@ -10,8 +10,8 @@ class NetworkConfig:
     encrypt_inter_container_traffic: Incomplete
     def __init__(
         self,
-        enable_network_isolation: bool | PipelineVariable = None,
-        security_group_ids: Optional[List[str | PipelineVariable]] = None,
-        subnets: Optional[List[str | PipelineVariable]] = None,
-        encrypt_inter_container_traffic: Optional[bool | PipelineVariable] = None,
+        enable_network_isolation: bool | PipelineVariable | None = None,
+        security_group_ids: list[str | PipelineVariable] | None = None,
+        subnets: list[str | PipelineVariable] | None = None,
+        encrypt_inter_container_traffic: bool | PipelineVariable | None = None,
     ) -> None: ...

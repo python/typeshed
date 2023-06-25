@@ -4,7 +4,7 @@ from enum import EnumMeta
 from typing import Any, Dict, List
 
 PrimitiveType = str | int | bool | float | None
-RequestType = Dict[str | Any, List[Dict[str, Any]]]
+RequestType = dict[str | Any, list[dict[str, Any]]]
 
 class Entity(abc.ABC, metaclass=abc.ABCMeta):
     @abc.abstractmethod

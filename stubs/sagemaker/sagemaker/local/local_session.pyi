@@ -74,7 +74,7 @@ class LocalSession(Session):
         default_bucket: Incomplete | None = None,
         s3_endpoint_url: Incomplete | None = None,
         disable_local_code: bool = False,
-        sagemaker_config: dict = None,
+        sagemaker_config: dict | None = None,
         default_bucket_prefix: Incomplete | None = None,
     ) -> None: ...
     def logs_for_job(self, job_name, wait: bool = False, poll: int = 5, log_type: str = "All") -> None: ...

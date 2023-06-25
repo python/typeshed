@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
-from typing import Any, Dict, List, Optional, Sequence, Set
+from typing import Any, Dict, List, Optional, Set
+from collections.abc import Sequence
 
 from sagemaker.session import Session
 from sagemaker.workflow.entities import Entity, RequestType as RequestType
@@ -21,49 +22,49 @@ class Pipeline(Entity):
     def __init__(
         self,
         name: str = "",
-        parameters: Optional[Sequence[Parameter]] = None,
-        pipeline_experiment_config: Optional[PipelineExperimentConfig] = ...,
-        steps: Optional[Sequence[Step | StepCollection]] = None,
-        sagemaker_session: Optional[Session] = None,
+        parameters: Sequence[Parameter] | None = None,
+        pipeline_experiment_config: PipelineExperimentConfig | None = ...,
+        steps: Sequence[Step | StepCollection] | None = None,
+        sagemaker_session: Session | None = None,
     ) -> None: ...
     def to_request(self) -> RequestType: ...
     def create(
         self,
-        role_arn: str = None,
-        description: str = None,
-        tags: List[Dict[str, str]] = None,
-        parallelism_config: ParallelismConfiguration = None,
-    ) -> Dict[str, Any]: ...
-    def describe(self) -> Dict[str, Any]: ...
+        role_arn: str | None = None,
+        description: str | None = None,
+        tags: list[dict[str, str]] | None = None,
+        parallelism_config: ParallelismConfiguration | None = None,
+    ) -> dict[str, Any]: ...
+    def describe(self) -> dict[str, Any]: ...
     def update(
-        self, role_arn: str = None, description: str = None, parallelism_config: ParallelismConfiguration = None
-    ) -> Dict[str, Any]: ...
+        self, role_arn: str | None = None, description: str | None = None, parallelism_config: ParallelismConfiguration | None = None
+    ) -> dict[str, Any]: ...
     def upsert(
         self,
-        role_arn: str = None,
-        description: str = None,
-        tags: List[Dict[str, str]] = None,
-        parallelism_config: ParallelismConfiguration = None,
-    ) -> Dict[str, Any]: ...
-    def delete(self) -> Dict[str, Any]: ...
+        role_arn: str | None = None,
+        description: str | None = None,
+        tags: list[dict[str, str]] | None = None,
+        parallelism_config: ParallelismConfiguration | None = None,
+    ) -> dict[str, Any]: ...
+    def delete(self) -> dict[str, Any]: ...
     def start(
         self,
-        parameters: Dict[str, str | bool | int | float] = None,
-        execution_display_name: str = None,
-        execution_description: str = None,
-        parallelism_config: ParallelismConfiguration = None,
-        selective_execution_config: SelectiveExecutionConfig = None,
+        parameters: dict[str, str | bool | int | float] | None = None,
+        execution_display_name: str | None = None,
+        execution_description: str | None = None,
+        parallelism_config: ParallelismConfiguration | None = None,
+        selective_execution_config: SelectiveExecutionConfig | None = None,
     ): ...
     def definition(self) -> str: ...
     def list_executions(
-        self, sort_by: str = None, sort_order: str = None, max_results: int = None, next_token: str = None
-    ) -> Dict[str, Any]: ...
+        self, sort_by: str | None = None, sort_order: str | None = None, max_results: int | None = None, next_token: str | None = None
+    ) -> dict[str, Any]: ...
 
-def format_start_parameters(parameters: Dict[str, Any]) -> List[Dict[str, Any]]: ...
+def format_start_parameters(parameters: dict[str, Any]) -> list[dict[str, Any]]: ...
 def interpolate(
-    request_obj: RequestType, callback_output_to_step_map: Dict[str, str], lambda_output_to_step_map: Dict[str, str]
+    request_obj: RequestType, callback_output_to_step_map: dict[str, str], lambda_output_to_step_map: dict[str, str]
 ) -> RequestType: ...
-def update_args(args: Dict[str, Any], **kwargs): ...
+def update_args(args: dict[str, Any], **kwargs): ...
 
 class _PipelineExecution:
     arn: str
@@ -85,7 +86,7 @@ class PipelineGraph:
     @classmethod
     def from_pipeline(cls, pipeline: Pipeline): ...
     def is_cyclic(self) -> bool: ...
-    def get_steps_in_sub_dag(self, current_step: Step | StepCollection, sub_dag_steps: Set[str] = None) -> Set[str]: ...
+    def get_steps_in_sub_dag(self, current_step: Step | StepCollection, sub_dag_steps: set[str] | None = None) -> set[str]: ...
     stack: Incomplete
     def __iter__(self): ...
     def __next__(self) -> Step: ...

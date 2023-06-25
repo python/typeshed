@@ -18,8 +18,8 @@ class ModelStep(StepCollection):
         self,
         name: str,
         step_args: _ModelStepArguments,
-        depends_on: Optional[List[str | Step | StepCollection]] = None,
-        retry_policies: Optional[List[RetryPolicy, Dict[str, List[RetryPolicy]]]] = None,
-        display_name: Optional[str] = None,
-        description: Optional[str] = None,
+        depends_on: list[str | Step | StepCollection] | None = None,
+        retry_policies: list[RetryPolicy, dict[str, list[RetryPolicy]]] | None = None,
+        display_name: str | None = None,
+        description: str | None = None,
     ) -> None: ...

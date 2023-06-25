@@ -32,7 +32,7 @@ class MetricsSource:
         self,
         content_type: str | PipelineVariable,
         s3_uri: str | PipelineVariable,
-        content_digest: Optional[str | PipelineVariable] = None,
+        content_digest: str | PipelineVariable | None = None,
     ) -> None: ...
 
 class FileSource:
@@ -42,6 +42,6 @@ class FileSource:
     def __init__(
         self,
         s3_uri: str | PipelineVariable,
-        content_digest: Optional[str | PipelineVariable] = None,
-        content_type: Optional[str | PipelineVariable] = None,
+        content_digest: str | PipelineVariable | None = None,
+        content_type: str | PipelineVariable | None = None,
     ) -> None: ...

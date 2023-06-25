@@ -10,10 +10,10 @@ class FailStep(Step):
     def __init__(
         self,
         name: str,
-        error_message: str | PipelineVariable = None,
-        display_name: str = None,
-        description: str = None,
-        depends_on: Optional[List[str | Step | StepCollection]] = None,
+        error_message: str | PipelineVariable | None = None,
+        display_name: str | None = None,
+        description: str | None = None,
+        depends_on: list[str | Step | StepCollection] | None = None,
     ) -> None: ...
     @property
     def arguments(self) -> RequestType: ...

@@ -11,15 +11,15 @@ logger: Incomplete
 class AmazonAlgorithmEstimatorBase(EstimatorBase, metaclass=abc.ABCMeta):
     feature_dim: hp
     mini_batch_size: hp
-    repo_name: Optional[str]
-    repo_version: Optional[str]
-    DEFAULT_MINI_BATCH_SIZE: Optional[int]
+    repo_name: str | None
+    repo_version: str | None
+    DEFAULT_MINI_BATCH_SIZE: int | None
     def __init__(
         self,
-        role: Optional[str | PipelineVariable] = None,
-        instance_count: Optional[int | PipelineVariable] = None,
-        instance_type: Optional[str | PipelineVariable] = None,
-        data_location: Optional[str] = None,
+        role: str | PipelineVariable | None = None,
+        instance_count: int | PipelineVariable | None = None,
+        instance_type: str | PipelineVariable | None = None,
+        data_location: str | None = None,
         enable_network_isolation: bool | PipelineVariable = False,
         **kwargs,
     ) -> None: ...
@@ -36,11 +36,11 @@ class AmazonAlgorithmEstimatorBase(EstimatorBase, metaclass=abc.ABCMeta):
     def fit(
         self,
         records: RecordSet,
-        mini_batch_size: Optional[int] = None,
+        mini_batch_size: int | None = None,
         wait: bool = True,
         logs: bool = True,
-        job_name: Optional[str] = None,
-        experiment_config: Optional[Dict[str, str]] = None,
+        job_name: str | None = None,
+        experiment_config: dict[str, str] | None = None,
     ): ...
     def record_set(self, train, labels: Incomplete | None = None, channel: str = "train", encrypt: bool = False): ...
 

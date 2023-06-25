@@ -38,11 +38,11 @@ class StepRetryPolicy(RetryPolicy):
     exception_types: Incomplete
     def __init__(
         self,
-        exception_types: List[StepExceptionTypeEnum],
+        exception_types: list[StepExceptionTypeEnum],
         backoff_rate: float = 2.0,
         interval_seconds: int = 1,
-        max_attempts: int = None,
-        expire_after_mins: int = None,
+        max_attempts: int | None = None,
+        expire_after_mins: int | None = None,
     ) -> None: ...
     def to_request(self) -> RequestType: ...
     def __hash__(self): ...
@@ -51,12 +51,12 @@ class SageMakerJobStepRetryPolicy(RetryPolicy):
     exception_type_list: Incomplete
     def __init__(
         self,
-        exception_types: List[SageMakerJobExceptionTypeEnum] = None,
-        failure_reason_types: List[SageMakerJobExceptionTypeEnum] = None,
+        exception_types: list[SageMakerJobExceptionTypeEnum] | None = None,
+        failure_reason_types: list[SageMakerJobExceptionTypeEnum] | None = None,
         backoff_rate: float = 2.0,
         interval_seconds: int = 1,
-        max_attempts: int = None,
-        expire_after_mins: int = None,
+        max_attempts: int | None = None,
+        expire_after_mins: int | None = None,
     ) -> None: ...
     def to_request(self) -> RequestType: ...
     def __hash__(self): ...

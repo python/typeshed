@@ -18,7 +18,7 @@ logger: Incomplete
 
 class Environment(_DefaultToRequestDict, _DefaultFromDict):
     container_image: Incomplete
-    def __init__(self, container_image: List[str]) -> None: ...
+    def __init__(self, container_image: list[str]) -> None: ...
 
 class ModelOverview(_DefaultToRequestDict, _DefaultFromDict):
     model_artifact: Incomplete
@@ -33,19 +33,19 @@ class ModelOverview(_DefaultToRequestDict, _DefaultFromDict):
     model_owner: Incomplete
     def __init__(
         self,
-        model_id: Optional[str] = None,
-        model_name: Optional[str] = None,
-        model_description: Optional[str] = None,
-        model_version: Optional[int | float] = None,
-        problem_type: Optional[str] = None,
-        algorithm_type: Optional[str] = None,
-        model_creator: Optional[str] = None,
-        model_owner: Optional[str] = None,
-        model_artifact: Optional[List[str]] = None,
-        inference_environment: Optional[Environment] = None,
+        model_id: str | None = None,
+        model_name: str | None = None,
+        model_description: str | None = None,
+        model_version: int | float | None = None,
+        problem_type: str | None = None,
+        algorithm_type: str | None = None,
+        model_creator: str | None = None,
+        model_owner: str | None = None,
+        model_artifact: list[str] | None = None,
+        inference_environment: Environment | None = None,
     ) -> None: ...
     @classmethod
-    def from_model_name(cls, model_name: str, sagemaker_session: Session = None, **kwargs): ...
+    def from_model_name(cls, model_name: str, sagemaker_session: Session | None = None, **kwargs): ...
 
 class IntendedUses(_DefaultToRequestDict, _DefaultFromDict):
     risk_rating: Incomplete
@@ -55,11 +55,11 @@ class IntendedUses(_DefaultToRequestDict, _DefaultFromDict):
     explanations_for_risk_rating: Incomplete
     def __init__(
         self,
-        purpose_of_model: Optional[str] = None,
-        intended_uses: Optional[str] = None,
-        factors_affecting_model_efficiency: Optional[str] = None,
-        risk_rating: Optional[RiskRatingEnum | str] = ...,
-        explanations_for_risk_rating: Optional[str] = None,
+        purpose_of_model: str | None = None,
+        intended_uses: str | None = None,
+        factors_affecting_model_efficiency: str | None = None,
+        risk_rating: RiskRatingEnum | str | None = ...,
+        explanations_for_risk_rating: str | None = None,
     ) -> None: ...
 
 class BusinessDetails(_DefaultToRequestDict, _DefaultFromDict):
@@ -68,9 +68,9 @@ class BusinessDetails(_DefaultToRequestDict, _DefaultFromDict):
     line_of_business: Incomplete
     def __init__(
         self,
-        business_problem: Optional[str] = None,
-        business_stakeholders: Optional[str] = None,
-        line_of_business: Optional[str] = None,
+        business_problem: str | None = None,
+        business_stakeholders: str | None = None,
+        line_of_business: str | None = None,
     ) -> None: ...
 
 class Function(_DefaultToRequestDict, _DefaultFromDict):
@@ -79,15 +79,15 @@ class Function(_DefaultToRequestDict, _DefaultFromDict):
     condition: Incomplete
     def __init__(
         self,
-        function: Optional[ObjectiveFunctionEnum | str] = None,
-        facet: Optional[FacetEnum | str] = None,
-        condition: Optional[str] = None,
+        function: ObjectiveFunctionEnum | str | None = None,
+        facet: FacetEnum | str | None = None,
+        condition: str | None = None,
     ) -> None: ...
 
 class ObjectiveFunction(_DefaultToRequestDict, _DefaultFromDict):
     function: Incomplete
     notes: Incomplete
-    def __init__(self, function: Function, notes: Optional[str] = None) -> None: ...
+    def __init__(self, function: Function, notes: str | None = None) -> None: ...
 
 class Metric(_DefaultToRequestDict, _DefaultFromDict):
     type: Incomplete
@@ -99,21 +99,21 @@ class Metric(_DefaultToRequestDict, _DefaultFromDict):
         self,
         name: str,
         type: MetricTypeEnum | str,
-        value: int | float | str | bool | List,
-        notes: Optional[str] = None,
-        x_axis_name: Optional[str | list] = None,
-        y_axis_name: Optional[str | list] = None,
+        value: int | float | str | bool | list,
+        notes: str | None = None,
+        x_axis_name: str | list | None = None,
+        y_axis_name: str | list | None = None,
     ) -> None: ...
     @property
     def value(self): ...
     @value.setter
-    def value(self, val: int | float | str | bool | List): ...
+    def value(self, val: int | float | str | bool | list): ...
 
 class TrainingMetric(_DefaultToRequestDict, _DefaultFromDict):
     name: Incomplete
     value: Incomplete
     notes: Incomplete
-    def __init__(self, name: str, value: int | float, notes: Optional[str] = None) -> None: ...
+    def __init__(self, name: str, value: int | float, notes: str | None = None) -> None: ...
 
 class HyperParameter(_DefaultToRequestDict, _DefaultFromDict):
     name: Incomplete
@@ -130,13 +130,13 @@ class TrainingJobDetails(_DefaultToRequestDict, _DefaultFromDict):
     training_arn: Incomplete
     def __init__(
         self,
-        training_arn: Optional[str] = None,
-        training_datasets: Optional[List[str]] = None,
-        training_environment: Optional[Environment] = None,
-        training_metrics: Optional[List[TrainingMetric]] = None,
-        user_provided_training_metrics: Optional[List[TrainingMetric]] = None,
-        hyper_parameters: Optional[List[HyperParameter]] = None,
-        user_provided_hyper_parameters: Optional[List[HyperParameter]] = None,
+        training_arn: str | None = None,
+        training_datasets: list[str] | None = None,
+        training_environment: Environment | None = None,
+        training_metrics: list[TrainingMetric] | None = None,
+        user_provided_training_metrics: list[TrainingMetric] | None = None,
+        hyper_parameters: list[HyperParameter] | None = None,
+        user_provided_hyper_parameters: list[HyperParameter] | None = None,
     ) -> None: ...
 
 class TrainingDetails(_DefaultToRequestDict, _DefaultFromDict):
@@ -145,21 +145,21 @@ class TrainingDetails(_DefaultToRequestDict, _DefaultFromDict):
     training_observations: Incomplete
     def __init__(
         self,
-        objective_function: Optional[ObjectiveFunction] = None,
-        training_observations: Optional[str] = None,
-        training_job_details: Optional[TrainingJobDetails] = None,
+        objective_function: ObjectiveFunction | None = None,
+        training_observations: str | None = None,
+        training_job_details: TrainingJobDetails | None = None,
     ) -> None: ...
     @classmethod
-    def from_model_overview(cls, model_overview: ModelOverview, sagemaker_session: Session = None, **kwargs): ...
+    def from_model_overview(cls, model_overview: ModelOverview, sagemaker_session: Session | None = None, **kwargs): ...
     @classmethod
-    def from_training_job_name(cls, training_job_name: str, sagemaker_session: Session = None, **kwargs): ...
+    def from_training_job_name(cls, training_job_name: str, sagemaker_session: Session | None = None, **kwargs): ...
     def add_metric(self, metric: TrainingMetric): ...
     def add_parameter(self, parameter: HyperParameter): ...
 
 class MetricGroup(_DefaultToRequestDict, _DefaultFromDict):
     metric_data: Incomplete
     name: Incomplete
-    def __init__(self, name: str, metric_data: Optional[List[Metric]] = None) -> None: ...
+    def __init__(self, name: str, metric_data: list[Metric] | None = None) -> None: ...
     def add_metric(self, metric: Metric): ...
 
 class EvaluationJob(_DefaultToRequestDict, _DefaultFromDict):
@@ -172,11 +172,11 @@ class EvaluationJob(_DefaultToRequestDict, _DefaultFromDict):
     def __init__(
         self,
         name: str,
-        evaluation_observation: Optional[str] = None,
-        evaluation_job_arn: Optional[str] = None,
-        datasets: Optional[List[str]] = None,
-        metadata: Optional[dict] = None,
-        metric_groups: Optional[List[MetricGroup]] = None,
+        evaluation_observation: str | None = None,
+        evaluation_job_arn: str | None = None,
+        datasets: list[str] | None = None,
+        metadata: dict | None = None,
+        metric_groups: list[MetricGroup] | None = None,
     ) -> None: ...
     def get_metric_group(self, group_name): ...
     def add_metric_group(self, group_name: str): ...
@@ -189,9 +189,9 @@ class AdditionalInformation(_DefaultToRequestDict, _DefaultFromDict):
     custom_details: Incomplete
     def __init__(
         self,
-        ethical_considerations: Optional[str] = None,
-        caveats_and_recommendations: Optional[str] = None,
-        custom_details: Optional[dict] = None,
+        ethical_considerations: str | None = None,
+        caveats_and_recommendations: str | None = None,
+        custom_details: dict | None = None,
     ) -> None: ...
 
 class ModelCard:
@@ -216,28 +216,28 @@ class ModelCard:
     def __init__(
         self,
         name: str,
-        status: Optional[ModelCardStatusEnum | str] = ...,
-        arn: Optional[str] = None,
-        version: Optional[int] = None,
-        created_time: Optional[datetime] = None,
-        created_by: Optional[dict] = None,
-        last_modified_time: Optional[datetime] = None,
-        last_modified_by: Optional[dict] = None,
-        model_overview: Optional[ModelOverview] = None,
-        intended_uses: Optional[IntendedUses] = None,
-        business_details: Optional[BusinessDetails] = None,
-        training_details: Optional[TrainingDetails] = None,
-        evaluation_details: Optional[List[EvaluationJob]] = None,
-        additional_information: Optional[AdditionalInformation] = None,
-        sagemaker_session: Optional[Session] = None,
+        status: ModelCardStatusEnum | str | None = ...,
+        arn: str | None = None,
+        version: int | None = None,
+        created_time: datetime | None = None,
+        created_by: dict | None = None,
+        last_modified_time: datetime | None = None,
+        last_modified_by: dict | None = None,
+        model_overview: ModelOverview | None = None,
+        intended_uses: IntendedUses | None = None,
+        business_details: BusinessDetails | None = None,
+        training_details: TrainingDetails | None = None,
+        evaluation_details: list[EvaluationJob] | None = None,
+        additional_information: AdditionalInformation | None = None,
+        sagemaker_session: Session | None = None,
     ) -> None: ...
     def create(self): ...
     @classmethod
-    def load(cls, name: str, version: Optional[int] = None, sagemaker_session: Session = None): ...
+    def load(cls, name: str, version: int | None = None, sagemaker_session: Session | None = None): ...
     def update(self, **kwargs): ...
     def delete(self): ...
     def export_pdf(
-        self, s3_output_path: str, export_job_name: Optional[str] = None, model_card_version: Optional[int] = None
+        self, s3_output_path: str, export_job_name: str | None = None, model_card_version: int | None = None
     ): ...
     def list_export_jobs(self, **kwargs): ...
     def get_version_history(self, **kwargs): ...
@@ -259,14 +259,14 @@ class ModelCardExportJob:
         model_card_name: str,
         model_card_version: int,
         s3_output_path: str,
-        s3_export_artifacts: Optional[str] = None,
-        export_job_arn: Optional[str] = None,
-        sagemaker_session: Optional[Session] = None,
-        status: Optional[str] = None,
-        failure_reason: Optional[str] = None,
+        s3_export_artifacts: str | None = None,
+        export_job_arn: str | None = None,
+        sagemaker_session: Session | None = None,
+        status: str | None = None,
+        failure_reason: str | None = None,
     ) -> None: ...
     def create(self): ...
     @classmethod
-    def load(cls, export_job_arn: str, sagemaker_session: Session = None): ...
+    def load(cls, export_job_arn: str, sagemaker_session: Session | None = None): ...
     @staticmethod
-    def list_export_jobs(model_card_name: str, sagemaker_session: Optional[Session] = None, **kwargs): ...
+    def list_export_jobs(model_card_name: str, sagemaker_session: Session | None = None, **kwargs): ...

@@ -11,7 +11,7 @@ class ClarifyShapBaselineConfig:
     shap_baseline: Incomplete
     shap_baseline_uri: Incomplete
     def __init__(
-        self, mime_type: Optional[str] = "text/csv", shap_baseline: Optional[str] = None, shap_baseline_uri: Optional[str] = None
+        self, mime_type: str | None = "text/csv", shap_baseline: str | None = None, shap_baseline_uri: str | None = None
     ) -> None: ...
 
 class ClarifyShapConfig:
@@ -23,10 +23,10 @@ class ClarifyShapConfig:
     def __init__(
         self,
         shap_baseline_config: ClarifyShapBaselineConfig,
-        number_of_samples: Optional[int] = None,
-        seed: Optional[int] = None,
-        use_logit: Optional[bool] = False,
-        text_config: Optional[ClarifyTextConfig] = None,
+        number_of_samples: int | None = None,
+        seed: int | None = None,
+        use_logit: bool | None = False,
+        text_config: ClarifyTextConfig | None = None,
     ) -> None: ...
 
 class ClarifyInferenceConfig:
@@ -43,17 +43,17 @@ class ClarifyInferenceConfig:
     content_template: Incomplete
     def __init__(
         self,
-        feature_headers: Optional[List[str]] = None,
-        feature_types: Optional[List[str]] = None,
-        features_attribute: Optional[str] = None,
-        probability_index: Optional[int] = None,
-        probability_attribute: Optional[str] = None,
-        label_index: Optional[int] = None,
-        label_attribute: Optional[str] = None,
-        label_headers: Optional[List[str]] = None,
-        max_payload_in_mb: Optional[int] = 6,
-        max_record_count: Optional[int] = None,
-        content_template: Optional[str] = None,
+        feature_headers: list[str] | None = None,
+        feature_types: list[str] | None = None,
+        features_attribute: str | None = None,
+        probability_index: int | None = None,
+        probability_attribute: str | None = None,
+        label_index: int | None = None,
+        label_attribute: str | None = None,
+        label_headers: list[str] | None = None,
+        max_payload_in_mb: int | None = 6,
+        max_record_count: int | None = None,
+        content_template: str | None = None,
     ) -> None: ...
 
 class ClarifyExplainerConfig:
@@ -63,6 +63,6 @@ class ClarifyExplainerConfig:
     def __init__(
         self,
         shap_config: ClarifyShapConfig,
-        enable_explanations: Optional[str] = None,
-        inference_config: Optional[ClarifyInferenceConfig] = None,
+        enable_explanations: str | None = None,
+        inference_config: ClarifyInferenceConfig | None = None,
     ) -> None: ...

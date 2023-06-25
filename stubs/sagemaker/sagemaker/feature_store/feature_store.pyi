@@ -1,5 +1,6 @@
 import datetime
-from typing import Any, Dict, Sequence
+from typing import Any, Dict
+from collections.abc import Sequence
 
 import pandas as pd
 from sagemaker import Session
@@ -13,34 +14,34 @@ class FeatureStore:
         self,
         base: FeatureGroup | pd.DataFrame,
         output_path: str,
-        record_identifier_feature_name: str = None,
-        event_time_identifier_feature_name: str = None,
-        included_feature_names: Sequence[str] = None,
-        kms_key_id: str = None,
+        record_identifier_feature_name: str | None = None,
+        event_time_identifier_feature_name: str | None = None,
+        included_feature_names: Sequence[str] | None = None,
+        kms_key_id: str | None = None,
     ) -> DatasetBuilder: ...
     def list_feature_groups(
         self,
-        name_contains: str = None,
-        feature_group_status_equals: str = None,
-        offline_store_status_equals: str = None,
-        creation_time_after: datetime.datetime = None,
-        creation_time_before: datetime.datetime = None,
-        sort_order: str = None,
-        sort_by: str = None,
-        max_results: int = None,
-        next_token: str = None,
-    ) -> Dict[str, Any]: ...
-    def batch_get_record(self, identifiers: Sequence[Identifier]) -> Dict[str, Any]: ...
+        name_contains: str | None = None,
+        feature_group_status_equals: str | None = None,
+        offline_store_status_equals: str | None = None,
+        creation_time_after: datetime.datetime | None = None,
+        creation_time_before: datetime.datetime | None = None,
+        sort_order: str | None = None,
+        sort_by: str | None = None,
+        max_results: int | None = None,
+        next_token: str | None = None,
+    ) -> dict[str, Any]: ...
+    def batch_get_record(self, identifiers: Sequence[Identifier]) -> dict[str, Any]: ...
     def search(
         self,
         resource: ResourceEnum,
-        filters: Sequence[Filter] = None,
-        operator: SearchOperatorEnum = None,
-        sort_by: str = None,
-        sort_order: SortOrderEnum = None,
-        next_token: str = None,
-        max_results: int = None,
-    ) -> Dict[str, Any]: ...
+        filters: Sequence[Filter] | None = None,
+        operator: SearchOperatorEnum | None = None,
+        sort_by: str | None = None,
+        sort_order: SortOrderEnum | None = None,
+        next_token: str | None = None,
+        max_results: int | None = None,
+    ) -> dict[str, Any]: ...
     def __init__(self, sagemaker_session) -> None: ...
     def __lt__(self, other): ...
     def __le__(self, other): ...
