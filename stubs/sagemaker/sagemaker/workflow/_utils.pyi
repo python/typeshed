@@ -80,7 +80,7 @@ class _RegisterModelStep(ConfigurableRetryStep):
         compile_model_family: Incomplete | None = None,
         display_name: str | None = None,
         description: Incomplete | None = None,
-        depends_on: list[str | Step | "StepCollection"] | None = None,
+        depends_on: list[str | Step | StepCollection] | None = None,
         retry_policies: list[RetryPolicy] | None = None,
         tags: Incomplete | None = None,
         container_def_list: Incomplete | None = None,
