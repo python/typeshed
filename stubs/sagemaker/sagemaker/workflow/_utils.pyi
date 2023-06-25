@@ -1,8 +1,10 @@
 from _typeshed import Incomplete
+from typing import Any
 
 from sagemaker.estimator import EstimatorBase
 from sagemaker.workflow.entities import RequestType as RequestType
 from sagemaker.workflow.retry import RetryPolicy
+from sagemaker.workflow.step_collections import StepCollection
 from sagemaker.workflow.steps import ConfigurableRetryStep, Step, TrainingStep
 
 logger: Incomplete
@@ -25,8 +27,8 @@ class _RepackModelStep(TrainingStep):
         display_name: str | None = None,
         description: str | None = None,
         source_dir: str | None = None,
-        dependencies: list | None = None,
-        depends_on: list[str | Step | "StepCollection"] | None = None,
+        dependencies: list[str] | None = None,
+        depends_on: list[str | Step | StepCollection] | None = None,
         retry_policies: list[RetryPolicy] | None = None,
         subnets: Incomplete | None = None,
         security_group_ids: Incomplete | None = None,
@@ -63,11 +65,11 @@ class _RegisterModelStep(ConfigurableRetryStep):
     def __init__(
         self,
         name: str,
-        step_args: dict | None = None,
-        content_types: list | None = None,
-        response_types: list | None = None,
-        inference_instances: list | None = None,
-        transform_instances: list | None = None,
+        step_args: dict[Any, Any] | None = None,
+        content_types: list[Any] | None = None,
+        response_types: list[Any] | None = None,
+        inference_instances: list[Any] | None = None,
+        transform_instances: list[Any] | None = None,
         estimator: EstimatorBase | None = None,
         model_data: Incomplete | None = None,
         model_package_group_name: Incomplete | None = None,

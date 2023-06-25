@@ -9,8 +9,8 @@ class ParameterRange:
     scaling_type: Incomplete
     def __init__(
         self,
-        min_value: int | float | PipelineVariable,
-        max_value: int | float | PipelineVariable,
+        min_value: float | PipelineVariable,
+        max_value: float | PipelineVariable,
         scaling_type: str | PipelineVariable = "Auto",
     ) -> None: ...
     def is_valid(self, value): ...

@@ -106,7 +106,7 @@ class FeatureGroup:
         max_workers: int = 1,
         max_processes: int = 1,
         wait: bool = True,
-        timeout: int | float | None = None,
+        timeout: float | None = None,
         profile_name: str | None = None,
     ) -> IngestionManagerPandas: ...
     def athena_query(self) -> AthenaQuery: ...

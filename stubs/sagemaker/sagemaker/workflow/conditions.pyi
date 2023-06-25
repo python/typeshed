@@ -1,6 +1,7 @@
 import abc
 from _typeshed import Incomplete
 from enum import Enum
+from typing import TypeAlias
 
 from sagemaker.workflow.entities import (
     DefaultEnumMeta,
@@ -13,7 +14,7 @@ from sagemaker.workflow.execution_variables import ExecutionVariable
 from sagemaker.workflow.parameters import Parameter
 from sagemaker.workflow.properties import Properties
 
-ConditionValueType = ExecutionVariable | Parameter | Properties
+ConditionValueType: TypeAlias = ExecutionVariable | Parameter | Properties
 
 class ConditionTypeEnum(Enum, metaclass=DefaultEnumMeta):
     EQ: str
@@ -78,4 +79,4 @@ class ConditionOr(Condition):
 
 def primitive_or_expr(
     value: ExecutionVariable | Expression | PrimitiveType | Parameter | Properties,
-) -> dict[str | str, PrimitiveType]: ...
+) -> dict[str, str] | PrimitiveType: ...

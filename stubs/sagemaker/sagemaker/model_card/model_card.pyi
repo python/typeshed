@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from datetime import datetime
+from typing import Any
 
 from boto3.session import Session as boto3_Session
 from sagemaker.model_card.evaluation_metric_parsers import EvaluationMetricTypeEnum
@@ -35,7 +36,7 @@ class ModelOverview(_DefaultToRequestDict, _DefaultFromDict):
         model_id: str | None = None,
         model_name: str | None = None,
         model_description: str | None = None,
-        model_version: int | float | None = None,
+        model_version: float | None = None,
         problem_type: str | None = None,
         algorithm_type: str | None = None,
         model_creator: str | None = None,
@@ -95,21 +96,21 @@ class Metric(_DefaultToRequestDict, _DefaultFromDict):
         self,
         name: str,
         type: MetricTypeEnum | str,
-        value: int | float | str | bool | list,
+        value: float | str | bool | list[Any],
         notes: str | None = None,
-        x_axis_name: str | list | None = None,
-        y_axis_name: str | list | None = None,
+        x_axis_name: str | list[str] | None = None,
+        y_axis_name: str | list[str] | None = None,
     ) -> None: ...
     @property
     def value(self): ...
     @value.setter
-    def value(self, val: int | float | str | bool | list): ...
+    def value(self, val: float | str | bool | list[Any]): ...
 
 class TrainingMetric(_DefaultToRequestDict, _DefaultFromDict):
     name: Incomplete
     value: Incomplete
     notes: Incomplete
-    def __init__(self, name: str, value: int | float, notes: str | None = None) -> None: ...
+    def __init__(self, name: str, value: float, notes: str | None = None) -> None: ...
 
 class HyperParameter(_DefaultToRequestDict, _DefaultFromDict):
     name: Incomplete
@@ -171,7 +172,7 @@ class EvaluationJob(_DefaultToRequestDict, _DefaultFromDict):
         evaluation_observation: str | None = None,
         evaluation_job_arn: str | None = None,
         datasets: list[str] | None = None,
-        metadata: dict | None = None,
+        metadata: dict[Any, Any] | None = None,
         metric_groups: list[MetricGroup] | None = None,
     ) -> None: ...
     def get_metric_group(self, group_name): ...
@@ -187,7 +188,7 @@ class AdditionalInformation(_DefaultToRequestDict, _DefaultFromDict):
         self,
         ethical_considerations: str | None = None,
         caveats_and_recommendations: str | None = None,
-        custom_details: dict | None = None,
+        custom_details: dict[Any, Any] | None = None,
     ) -> None: ...
 
 class ModelCard:
@@ -216,9 +217,9 @@ class ModelCard:
         arn: str | None = None,
         version: int | None = None,
         created_time: datetime | None = None,
-        created_by: dict | None = None,
+        created_by: dict[Any, Any] | None = None,
         last_modified_time: datetime | None = None,
-        last_modified_by: dict | None = None,
+        last_modified_by: dict[Any, Any] | None = None,
         model_overview: ModelOverview | None = None,
         intended_uses: IntendedUses | None = None,
         business_details: BusinessDetails | None = None,

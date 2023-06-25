@@ -1,9 +1,11 @@
 from _typeshed import Incomplete
 from enum import Enum
 from typing import Any
+from collections.abc import Callable
+from sagemaker import Predictor
 
 class JumpStartDataHolderType:
-    def __eq__(self, other: Any) -> bool: ...
+    def __eq__(self, other: object) -> bool: ...
     def __hash__(self) -> int: ...
 
 class JumpStartS3FileType(str, Enum):
@@ -168,7 +170,7 @@ class JumpStartModelInitKwargs(JumpStartKwargs):
         image_uri: str | Any | None = None,
         model_data: str | Any | None = None,
         role: str | None = None,
-        predictor_cls: callable | None = None,
+        predictor_cls: Callable[..., Predictor] | Predictor | None = None,
         env: dict[str, str | Any] | None = None,
         name: str | None = None,
         vpc_config: dict[str, list[str | Any]] | None = None,
@@ -355,7 +357,7 @@ class JumpStartEstimatorFitKwargs(JumpStartKwargs):
         model_id: str,
         model_version: str | None = None,
         region: str | None = None,
-        inputs: str | dict | Any | Any | None = None,
+        inputs: str | dict[Any, Any] | None = None,
         wait: bool | None = None,
         logs: str | None = None,
         job_name: str | None = None,
@@ -429,7 +431,7 @@ class JumpStartEstimatorDeployKwargs(JumpStartKwargs):
         explainer_config: Any | None = None,
         image_uri: str | Any | None = None,
         role: str | None = None,
-        predictor_cls: callable | None = None,
+        predictor_cls: Callable[..., Predictor] | Predictor | None = None,
         env: dict[str, str | Any] | None = None,
         model_name: str | None = None,
         vpc_config: dict[str, list[str | Any]] | None = None,

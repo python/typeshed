@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Optional
 
 from sagemaker.workflow.entities import PipelineVariable
 
@@ -14,14 +13,14 @@ class ModelMetrics:
     explainability: Incomplete
     def __init__(
         self,
-        model_statistics: Optional["MetricsSource"] = None,
-        model_constraints: Optional["MetricsSource"] = None,
-        model_data_statistics: Optional["MetricsSource"] = None,
-        model_data_constraints: Optional["MetricsSource"] = None,
-        bias: Optional["MetricsSource"] = None,
-        explainability: Optional["MetricsSource"] = None,
-        bias_pre_training: Optional["MetricsSource"] = None,
-        bias_post_training: Optional["MetricsSource"] = None,
+        model_statistics: MetricsSource | None = None,
+        model_constraints: MetricsSource | None = None,
+        model_data_statistics: MetricsSource | None = None,
+        model_data_constraints: MetricsSource | None = None,
+        bias: MetricsSource | None = None,
+        explainability: MetricsSource | None = None,
+        bias_pre_training: MetricsSource | None = None,
+        bias_post_training: MetricsSource | None = None,
     ) -> None: ...
 
 class MetricsSource:

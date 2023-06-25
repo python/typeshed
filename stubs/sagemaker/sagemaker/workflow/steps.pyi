@@ -1,6 +1,7 @@
 import abc
 from _typeshed import Incomplete
 from enum import Enum
+from typing import Any
 
 from sagemaker.estimator import EstimatorBase
 from sagemaker.inputs import CreateModelInput, FileSystemInput, TrainingInput, TransformInput
@@ -14,6 +15,7 @@ from sagemaker.workflow.functions import Join
 from sagemaker.workflow.pipeline_context import _JobStepArguments
 from sagemaker.workflow.properties import PropertyFile
 from sagemaker.workflow.retry import RetryPolicy
+from sagemaker.workflow.step_collections import StepCollection
 
 class StepTypeEnum(Enum, metaclass=DefaultEnumMeta):
     CONDITION: str
@@ -36,7 +38,7 @@ class Step(Entity, metaclass=abc.ABCMeta):
     display_name: str | None
     description: str | None
     step_type: StepTypeEnum
-    depends_on: list[str | "Step" | "StepCollection"] | None
+    depends_on: list[str | Step | StepCollection] | None
     @property
     @abc.abstractmethod
     def arguments(self) -> RequestType: ...
@@ -46,7 +48,7 @@ class Step(Entity, metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def properties(self): ...
     def to_request(self) -> RequestType: ...
-    def add_depends_on(self, step_names: list[str | "Step" | "StepCollection"]): ...
+    def add_depends_on(self, step_names: list[str | Step | StepCollection]): ...
     @property
     def ref(self) -> dict[str, str]: ...
     def __init__(self, name, display_name, description, step_type, depends_on) -> None: ...
@@ -74,7 +76,7 @@ class ConfigurableRetryStep(Step, metaclass=abc.ABCMeta):
         step_type: StepTypeEnum,
         display_name: str | None = None,
         description: str | None = None,
-        depends_on: list[str | Step | "StepCollection"] | None = None,
+        depends_on: list[str | Step | StepCollection] | None = None,
         retry_policies: list[RetryPolicy] | None = None,
     ) -> None: ...
     def add_retry_policy(self, retry_policy: RetryPolicy): ...
@@ -93,9 +95,9 @@ class TrainingStep(ConfigurableRetryStep):
         estimator: EstimatorBase | None = None,
         display_name: str | None = None,
         description: str | None = None,
-        inputs: TrainingInput | dict | str | FileSystemInput | None = None,
+        inputs: TrainingInput | dict[str, str] | dict[str, TrainingInput] | str | FileSystemInput | None = None,
         cache_config: CacheConfig | None = None,
-        depends_on: list[str | Step | "StepCollection"] | None = None,
+        depends_on: list[str | Step | StepCollection] | None = None,
         retry_policies: list[RetryPolicy] | None = None,
     ) -> None: ...
     @property
@@ -111,10 +113,10 @@ class CreateModelStep(ConfigurableRetryStep):
     def __init__(
         self,
         name: str,
-        step_args: dict | None = None,
+        step_args: dict[Any, Any] | None = None,
         model: Model | PipelineModel | None = None,
         inputs: CreateModelInput | None = None,
-        depends_on: list[str | Step | "StepCollection"] | None = None,
+        depends_on: list[str | Step | StepCollection] | None = None,
         retry_policies: list[RetryPolicy] | None = None,
         display_name: str | None = None,
         description: str | None = None,
@@ -138,7 +140,7 @@ class TransformStep(ConfigurableRetryStep):
         display_name: str | None = None,
         description: str | None = None,
         cache_config: CacheConfig | None = None,
-        depends_on: list[str | Step | "StepCollection"] | None = None,
+        depends_on: list[str | Step | StepCollection] | None = None,
         retry_policies: list[RetryPolicy] | None = None,
     ) -> None: ...
     @property
@@ -171,7 +173,7 @@ class ProcessingStep(ConfigurableRetryStep):
         code: str | None = None,
         property_files: list[PropertyFile] | None = None,
         cache_config: CacheConfig | None = None,
-        depends_on: list[str | Step | "StepCollection"] | None = None,
+        depends_on: list[str | Step | StepCollection] | None = None,
         retry_policies: list[RetryPolicy] | None = None,
         kms_key: Incomplete | None = None,
     ) -> None: ...
@@ -197,7 +199,7 @@ class TuningStep(ConfigurableRetryStep):
         inputs: Incomplete | None = None,
         job_arguments: list[str] | None = None,
         cache_config: CacheConfig | None = None,
-        depends_on: list[str | Step | "StepCollection"] | None = None,
+        depends_on: list[str | Step | StepCollection] | None = None,
         retry_policies: list[RetryPolicy] | None = None,
     ) -> None: ...
     @property

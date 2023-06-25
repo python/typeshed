@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Optional
+from typing import Any, Literal
 
 from sagemaker.workflow.entities import PipelineVariable
 
@@ -20,7 +20,7 @@ class TrainingInput:
         input_mode: str | PipelineVariable | None = None,
         attribute_names: list[str | PipelineVariable] | None = None,
         target_attribute_name: str | PipelineVariable | None = None,
-        shuffle_config: Optional["ShuffleConfig"] = None,
+        shuffle_config: ShuffleConfig | None = None,
     ) -> None: ...
 
 class ShuffleConfig:
@@ -45,8 +45,8 @@ class TransformInput:
     input_filter: str
     output_filter: str
     join_source: str
-    model_client_config: dict
-    batch_data_capture_config: dict
+    model_client_config: dict[Literal['InvocationsTimeoutInSeconds', 'InvocationsMaxRetries'], int]
+    batch_data_capture_config: dict[Any, Any]
     def __init__(
         self,
         data,

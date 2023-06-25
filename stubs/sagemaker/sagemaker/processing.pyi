@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Optional
 
 from sagemaker.apiutils._base_types import ApiObject
 from sagemaker.dataset_definition.inputs import DatasetDefinition, S3Input
@@ -48,8 +47,8 @@ class Processor:
     ) -> None: ...
     def run(
         self,
-        inputs: list["ProcessingInput"] | None = None,
-        outputs: list["ProcessingOutput"] | None = None,
+        inputs: ProcessingInput | None = None,
+        outputs: ProcessingOutput | None = None,
         arguments: list[str | PipelineVariable] | None = None,
         wait: bool = True,
         logs: bool = True,
@@ -84,8 +83,8 @@ class ScriptProcessor(Processor):
     def run(
         self,
         code: str,
-        inputs: list["ProcessingInput"] | None = None,
-        outputs: list["ProcessingOutput"] | None = None,
+        inputs: ProcessingInput | None = None,
+        outputs: ProcessingOutput | None = None,
         arguments: list[str | PipelineVariable] | None = None,
         wait: bool = True,
         logs: bool = True,
@@ -156,7 +155,7 @@ class ProcessingOutput:
         output_name: str | PipelineVariable | None = None,
         s3_upload_mode: str | PipelineVariable = "EndOfJob",
         app_managed: bool | PipelineVariable = False,
-        feature_store_output: Optional["FeatureStoreOutput"] = None,
+        feature_store_output: FeatureStoreOutput | None = None,
     ) -> None: ...
 
 class RunArgs:

@@ -52,7 +52,7 @@ class Pipeline(Entity):
     def delete(self) -> dict[str, Any]: ...
     def start(
         self,
-        parameters: dict[str, str | bool | int | float] | None = None,
+        parameters: dict[str, str | bool | float] | None = None,
         execution_display_name: str | None = None,
         execution_description: str | None = None,
         parallelism_config: ParallelismConfiguration | None = None,

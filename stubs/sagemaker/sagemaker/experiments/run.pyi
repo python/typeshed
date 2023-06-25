@@ -1,9 +1,9 @@
 import datetime
 from _typeshed import Incomplete
 from enum import Enum
-from typing import Optional
+from typing import Any
 
-from numpy import array
+from numpy import ndarray
 from sagemaker import Session
 
 logger: Incomplete
@@ -38,25 +38,35 @@ class Run:
         experiment_display_name: str | None = None,
         run_display_name: str | None = None,
         tags: list[dict[str, str]] | None = None,
-        sagemaker_session: Optional["Session"] = None,
+        sagemaker_session: Session | None = None,
     ) -> None: ...
     @property
-    def experiment_config(self) -> dict: ...
-    def log_parameter(self, name: str, value: str | int | float): ...
-    def log_parameters(self, parameters: dict[str, str | int | float]): ...
+    def experiment_config(self) -> dict[Any, Any]: ...
+    def log_parameter(self, name: str, value: str | float): ...
+    def log_parameters(self, parameters: dict[str, str | float]): ...
     def log_metric(self, name: str, value: float, timestamp: datetime.datetime | None = None, step: int | None = None): ...
     def log_precision_recall(
         self,
-        y_true: list | array,
-        predicted_probabilities: list | array,
+        y_true: list[Any] | ndarray[Any, Any],
+        predicted_probabilities: list[Any] | ndarray[Any, Any],
         positive_label: str | int | None = None,
         title: str | None = None,
         is_output: bool = True,
         no_skill: int | None = None,
     ): ...
-    def log_roc_curve(self, y_true: list | array, y_score: list | array, title: str | None = None, is_output: bool = True): ...
+    def log_roc_curve(
+        self,
+        y_true: list[Any] | ndarray[Any, Any],
+        y_score: list[Any] | ndarray[Any, Any],
+        title: str | None = None,
+        is_output: bool = True,
+    ): ...
     def log_confusion_matrix(
-        self, y_true: list | array, y_pred: list | array, title: str | None = None, is_output: bool = True
+        self,
+        y_true: list[Any] | ndarray[Any, Any],
+        y_pred: list[Any] | ndarray[Any, Any],
+        title: str | None = None,
+        is_output: bool = True,
     ): ...
     def log_artifact(self, name: str, value: str, media_type: str | None = None, is_output: bool = True): ...
     def log_file(self, file_path: str, name: str | None = None, media_type: str | None = None, is_output: bool = True): ...
@@ -65,15 +75,15 @@ class Run:
     def __exit__(self, exc_type, exc_value, exc_traceback) -> None: ...
 
 def load_run(
-    run_name: str | None = None, experiment_name: str | None = None, sagemaker_session: Optional["Session"] = None
+    run_name: str | None = None, experiment_name: str | None = None, sagemaker_session: Session | None = None
 ) -> Run: ...
 def list_runs(
     experiment_name: str,
     created_before: datetime.datetime | None = None,
     created_after: datetime.datetime | None = None,
-    sagemaker_session: Optional["Session"] = None,
+    sagemaker_session: Session | None = None,
     max_results: int | None = None,
     next_token: str | None = None,
     sort_by: SortByType = ...,
     sort_order: SortOrderType = ...,
-) -> list: ...
+) -> list[Run]: ...

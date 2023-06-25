@@ -1,8 +1,9 @@
 from _typeshed import Incomplete
 from enum import Enum
 from typing import Any
+from collections.abc import Callable
+from sagemaker.base_predictor import Predictor
 
-from sagemaker import Predictor
 from sagemaker.deserializers import BaseDeserializer
 from sagemaker.model import FrameworkModel
 from sagemaker.serializers import BaseSerializer
@@ -57,7 +58,7 @@ class DJLModel(FrameworkModel):
         prediction_timeout: int | None = None,
         entry_point: str | None = None,
         image_uri: str | PipelineVariable | None = None,
-        predictor_cls: callable = ...,
+        predictor_cls: Callable[[str, Session], Predictor] | Predictor = ...,
         **kwargs,
     ) -> None: ...
     def package_for_edge(self, **_) -> None: ...
@@ -145,7 +146,7 @@ class HuggingFaceAccelerateModel(DJLModel):
         role: str,
         number_of_partitions: int | None = None,
         device_id: int | None = None,
-        device_map: str | dict[str | str] | None = None,
+        device_map: str | dict[str, str] | None = None,
         load_in_8bit: bool = False,
         low_cpu_mem_usage: bool = False,
         **kwargs,

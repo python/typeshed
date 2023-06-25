@@ -83,5 +83,5 @@ class ModelFilter(JumpStartDataHolderType):
 
 def parse_filter_string(filter_string: str) -> ModelFilter: ...
 def evaluate_filter_expression(
-    model_filter: ModelFilter, cached_model_value: str | bool | int | float | dict[str | Any, list[Any]]
+    model_filter: ModelFilter, cached_model_value: str | bool | float | dict[str, Any] | list[Any]
 ) -> BooleanValues: ...

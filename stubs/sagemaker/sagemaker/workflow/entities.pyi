@@ -1,10 +1,10 @@
 import abc
 from _typeshed import Incomplete
 from enum import EnumMeta
-from typing import Any
+from typing import Any, TypeAlias
 
-PrimitiveType = str | int | bool | float | None
-RequestType = dict[str | Any, list[dict[str, Any]]]
+PrimitiveType: TypeAlias = str | int | bool | float | None
+RequestType: TypeAlias = dict[str | Any, list[dict[str, Any]]]
 
 class Entity(abc.ABC, metaclass=abc.ABCMeta):
     @abc.abstractmethod

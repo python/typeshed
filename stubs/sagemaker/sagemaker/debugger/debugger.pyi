@@ -65,7 +65,7 @@ class Rule(RuleBase):
         s3_output_path: str | PipelineVariable | None = None,
         other_trials_s3_input_paths: list[str | PipelineVariable] | None = None,
         rule_parameters: dict[str, str | PipelineVariable] | None = None,
-        collections_to_save: list["CollectionConfig"] | None = None,
+        collections_to_save: list[CollectionConfig] | None = None,
         actions: Incomplete | None = None,
     ): ...
     def prepare_actions(self, training_job_name) -> None: ...
@@ -105,7 +105,7 @@ class DebuggerHookConfig:
         s3_output_path: str | PipelineVariable | None = None,
         container_local_output_path: str | PipelineVariable | None = None,
         hook_parameters: dict[str, str | PipelineVariable] | None = None,
-        collection_configs: list["CollectionConfig"] | None = None,
+        collection_configs: list[CollectionConfig] | None = None,
     ) -> None: ...
 
 class TensorBoardOutputConfig:

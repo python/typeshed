@@ -51,7 +51,7 @@ class DataConfig:
         predicted_label_dataset_uri: str | None = None,
         predicted_label_headers: list[str] | None = None,
         predicted_label: str | int | None = None,
-        excluded_columns: list[int, list[str]] | None = None,
+        excluded_columns: list[int] | list[str] | None = None,
     ) -> None: ...
     def get_config(self): ...
 
@@ -59,9 +59,10 @@ class BiasConfig:
     analysis_config: Incomplete
     def __init__(
         self,
-        label_values_or_threshold: int | float | str,
-        facet_name: str | int | list[str, list[int]],
-        facet_values_or_threshold: int | float | str | None = None,
+        label_values_or_threshold: float | str,
+        # Union[str, int, List[str], List[int]],
+        facet_name: str | int | list[str] | list[int],
+        facet_values_or_threshold: float | str | None = None,
         group_name: str | None = None,
     ) -> None: ...
     def get_config(self): ...
@@ -106,7 +107,7 @@ class ExplainabilityConfig(ABC, metaclass=abc.ABCMeta):
 
 class PDPConfig(ExplainabilityConfig):
     pdp_config: Incomplete
-    def __init__(self, features: list | None = None, grid_resolution: int = 15, top_k_features: int = 10) -> None: ...
+    def __init__(self, features: list[Any] | None = None, grid_resolution: int = 15, top_k_features: int = 10) -> None: ...
     def get_explainability_config(self): ...
 
 class TextConfig:
@@ -132,7 +133,7 @@ class SHAPConfig(ExplainabilityConfig):
     shap_config: Incomplete
     def __init__(
         self,
-        baseline: str | list | dict | None = None,
+        baseline: str | list[Any] | dict[Any, Any] | None = None,
         num_samples: int | None = None,
         agg_method: str | None = None,
         use_logit: bool = False,
@@ -207,7 +208,7 @@ class SageMakerClarifyProcessor(Processor):
         self,
         data_config: DataConfig,
         model_config: ModelConfig,
-        explainability_config: ExplainabilityConfig | list,
+        explainability_config: ExplainabilityConfig | list[ExplainabilityConfig],
         model_scores: int | str | ModelPredictedLabelConfig | None = None,
         wait: bool = True,
         logs: bool = True,
