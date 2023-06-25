@@ -45,7 +45,7 @@ class TransformInput:
     input_filter: str
     output_filter: str
     join_source: str
-    model_client_config: dict[Literal['InvocationsTimeoutInSeconds', 'InvocationsMaxRetries'], int]
+    model_client_config: dict[Literal["InvocationsTimeoutInSeconds", "InvocationsMaxRetries"], int]
     batch_data_capture_config: dict[Any, Any]
     def __init__(
         self,

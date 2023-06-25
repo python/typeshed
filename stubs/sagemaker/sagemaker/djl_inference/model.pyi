@@ -1,9 +1,9 @@
 from _typeshed import Incomplete
+from collections.abc import Callable
 from enum import Enum
 from typing import Any
-from collections.abc import Callable
-from sagemaker.base_predictor import Predictor
 
+from sagemaker.base_predictor import Predictor
 from sagemaker.deserializers import BaseDeserializer
 from sagemaker.model import FrameworkModel
 from sagemaker.serializers import BaseSerializer
