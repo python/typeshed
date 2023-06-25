@@ -1,6 +1,6 @@
 import abc
 from enum import Enum
-from typing import Any, Dict, List
+from typing import Any
 
 class Config(abc.ABC, metaclass=abc.ABCMeta):
     @abc.abstractmethod

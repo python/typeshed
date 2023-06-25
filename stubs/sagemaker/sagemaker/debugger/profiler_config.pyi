@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Optional
 
 from sagemaker.debugger.framework_profile import FrameworkProfile
 from sagemaker.workflow.entities import PipelineVariable

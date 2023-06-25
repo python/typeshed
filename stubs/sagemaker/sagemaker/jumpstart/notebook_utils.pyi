@@ -1,5 +1,3 @@
-from typing import List, Tuple
-
 from sagemaker.jumpstart.filters import Operator
 
 def extract_framework_task_model(model_id: str) -> tuple[str, str, str]: ...

@@ -1,6 +1,6 @@
 import abc
 from _typeshed import Incomplete
-from typing import Any, Tuple
+from typing import Any
 
 from sagemaker.deserializers import StreamDeserializer as StreamDeserializer, StringDeserializer as StringDeserializer
 

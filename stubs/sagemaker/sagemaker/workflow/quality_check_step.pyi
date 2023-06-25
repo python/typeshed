@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from abc import ABC
-from typing import List, Optional
 
 from sagemaker.workflow.check_job_config import CheckJobConfig
 from sagemaker.workflow.entities import PipelineVariable, RequestType as RequestType

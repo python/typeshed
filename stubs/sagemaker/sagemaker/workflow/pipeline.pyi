@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
-from typing import Any, Dict, List, Optional, Set
 from collections.abc import Sequence
+from typing import Any
 
 from sagemaker.session import Session
 from sagemaker.workflow.entities import Entity, RequestType as RequestType
@@ -37,7 +37,10 @@ class Pipeline(Entity):
     ) -> dict[str, Any]: ...
     def describe(self) -> dict[str, Any]: ...
     def update(
-        self, role_arn: str | None = None, description: str | None = None, parallelism_config: ParallelismConfiguration | None = None
+        self,
+        role_arn: str | None = None,
+        description: str | None = None,
+        parallelism_config: ParallelismConfiguration | None = None,
     ) -> dict[str, Any]: ...
     def upsert(
         self,
@@ -57,7 +60,11 @@ class Pipeline(Entity):
     ): ...
     def definition(self) -> str: ...
     def list_executions(
-        self, sort_by: str | None = None, sort_order: str | None = None, max_results: int | None = None, next_token: str | None = None
+        self,
+        sort_by: str | None = None,
+        sort_order: str | None = None,
+        max_results: int | None = None,
+        next_token: str | None = None,
     ) -> dict[str, Any]: ...
 
 def format_start_parameters(parameters: dict[str, Any]) -> list[dict[str, Any]]: ...

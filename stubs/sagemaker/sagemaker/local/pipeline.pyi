@@ -1,7 +1,6 @@
 import abc
 from _typeshed import Incomplete
 from abc import ABC, abstractmethod
-from typing import Dict
 
 from sagemaker.workflow.steps import Step
 

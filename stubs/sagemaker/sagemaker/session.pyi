@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
-from typing import Any, Dict, List, Optional
 from collections.abc import Sequence
+from typing import Any
 
 from sagemaker.inputs import BatchDataCaptureConfig
 
@@ -485,7 +485,13 @@ class Session:
     ) -> dict[str, Sequence[dict[str, str]]]: ...
     def batch_get_record(self, identifiers: Sequence[dict[str, Any]]) -> dict[str, Any]: ...
     def start_query_execution(
-        self, catalog: str, database: str, query_string: str, output_location: str, kms_key: str | None = None, workgroup: str | None = None
+        self,
+        catalog: str,
+        database: str,
+        query_string: str,
+        output_location: str,
+        kms_key: str | None = None,
+        workgroup: str | None = None,
     ) -> dict[str, str]: ...
     def get_query_execution(self, query_execution_id: str) -> dict[str, Any]: ...
     def wait_for_athena_query(self, query_execution_id: str, poll: int = 5): ...

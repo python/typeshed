@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from sagemaker.jumpstart.types import JumpStartModelHeader, JumpStartModelSpecs
 

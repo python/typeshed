@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from sagemaker.workflow.entities import RequestType as RequestType
 from sagemaker.workflow.step_collections import StepCollection
@@ -10,7 +10,9 @@ class EMRStepConfig:
     args: Incomplete
     main_class: Incomplete
     properties: Incomplete
-    def __init__(self, jar, args: list[str] | None = None, main_class: str | None = None, properties: list[dict] | None = None) -> None: ...
+    def __init__(
+        self, jar, args: list[str] | None = None, main_class: str | None = None, properties: list[dict] | None = None
+    ) -> None: ...
     def to_request(self) -> RequestType: ...
 
 INSTANCES: str

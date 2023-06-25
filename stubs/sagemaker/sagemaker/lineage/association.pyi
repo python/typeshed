@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
-from datetime import datetime
-from typing import Optional
 from collections.abc import Iterator
+from datetime import datetime
 
 from sagemaker.apiutils import _base_types
 from sagemaker.lineage._api_types import AssociationSummary
@@ -16,7 +15,11 @@ class Association(_base_types.Record):
     def set_tags(self, tags: Incomplete | None = None): ...
     @classmethod
     def create(
-        cls, source_arn: str, destination_arn: str, association_type: str | None = None, sagemaker_session: Incomplete | None = None
+        cls,
+        source_arn: str,
+        destination_arn: str,
+        association_type: str | None = None,
+        sagemaker_session: Incomplete | None = None,
     ) -> Association: ...
     @classmethod
     def list(

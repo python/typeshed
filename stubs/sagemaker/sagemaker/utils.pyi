@@ -1,7 +1,7 @@
 import abc
 from _typeshed import Incomplete
 from collections.abc import Generator
-from typing import Any, List, Optional
+from typing import Any
 
 ECR_URI_PATTERN: str
 MAX_BUCKET_PATHS_COUNT: int

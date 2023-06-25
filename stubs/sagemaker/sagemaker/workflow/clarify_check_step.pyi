@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from abc import ABC
-from typing import List, Optional
 
 from sagemaker.clarify import BiasConfig, DataConfig, ModelConfig, ModelPredictedLabelConfig, SHAPConfig
 from sagemaker.workflow.check_job_config import CheckJobConfig

@@ -1,5 +1,3 @@
-from typing import Dict, List, Optional
-
 class SparkConfig:
     submit_jars: list[str] | None
     submit_py_files: list[str] | None

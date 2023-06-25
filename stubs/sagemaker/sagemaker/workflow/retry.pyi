@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from enum import Enum
-from typing import List
 
 from sagemaker.workflow.entities import DefaultEnumMeta, Entity, RequestType as RequestType
 

@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import List, Optional
+from typing import Optional
 
 from sagemaker.workflow.entities import PipelineVariable
 
@@ -80,4 +80,6 @@ class BatchDataCaptureConfig:
     destination_s3_uri: Incomplete
     kms_key_id: Incomplete
     generate_inference_id: Incomplete
-    def __init__(self, destination_s3_uri: str, kms_key_id: str | None = None, generate_inference_id: bool | None = None) -> None: ...
+    def __init__(
+        self, destination_s3_uri: str, kms_key_id: str | None = None, generate_inference_id: bool | None = None
+    ) -> None: ...

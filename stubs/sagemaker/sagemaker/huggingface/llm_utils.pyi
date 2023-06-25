@@ -1,5 +1,3 @@
-from typing import Optional
-
 from sagemaker.session import Session
 
 def get_huggingface_llm_image_uri(

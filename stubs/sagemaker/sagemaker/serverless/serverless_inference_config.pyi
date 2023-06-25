@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Optional
 
 class ServerlessInferenceConfig:
     memory_size_in_mb: Incomplete

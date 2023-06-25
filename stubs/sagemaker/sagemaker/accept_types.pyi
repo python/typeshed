@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 def retrieve_options(
     region: str | None = None,
     model_id: str | None = None,

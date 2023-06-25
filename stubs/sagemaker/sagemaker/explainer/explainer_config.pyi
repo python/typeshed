@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Optional
 
 from sagemaker.explainer.clarify_explainer_config import ClarifyExplainerConfig
 

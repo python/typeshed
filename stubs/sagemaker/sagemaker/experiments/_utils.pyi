@@ -1,5 +1,3 @@
-from typing import Optional
-
 from sagemaker import Session
 from sagemaker.experiments._environment import _RunEnvironment
 

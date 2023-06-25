@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Dict, Set, Type
 
 from sagemaker.base_deserializers import BaseDeserializer
 from sagemaker.base_serializers import BaseSerializer

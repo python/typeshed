@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Optional
 from collections.abc import Callable
 
 from sagemaker.local import LocalSession

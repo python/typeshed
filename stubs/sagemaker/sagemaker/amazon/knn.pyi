@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Optional
 
 from sagemaker.amazon.amazon_estimator import AmazonAlgorithmEstimatorBase
 from sagemaker.amazon.hyperparameter import Hyperparameter as hp
@@ -43,9 +42,5 @@ class KNNPredictor(Predictor):
 
 class KNNModel(Model):
     def __init__(
-        self,
-        model_data: str | PipelineVariable,
-        role: str | None = None,
-        sagemaker_session: Session | None = None,
-        **kwargs,
+        self, model_data: str | PipelineVariable, role: str | None = None, sagemaker_session: Session | None = None, **kwargs
     ) -> None: ...

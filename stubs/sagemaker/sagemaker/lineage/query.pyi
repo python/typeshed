@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 class LineageEntityEnum(Enum):
     TRIAL: str
@@ -57,7 +57,9 @@ class LineageQueryResult:
     edges: Incomplete
     vertices: Incomplete
     startarn: Incomplete
-    def __init__(self, edges: list[Edge] | None = None, vertices: list[Vertex] | None = None, startarn: list[str] | None = None) -> None: ...
+    def __init__(
+        self, edges: list[Edge] | None = None, vertices: list[Vertex] | None = None, startarn: list[str] | None = None
+    ) -> None: ...
     def visualize(self, path: str | None = "lineage_graph_pyvis.html", pyvis_options: dict[str, Any] | None = None): ...
 
 class LineageFilter:

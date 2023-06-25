@@ -1,7 +1,6 @@
 import abc
 from _typeshed import Incomplete
 from enum import Enum
-from typing import Dict, List
 
 from sagemaker.workflow.entities import (
     DefaultEnumMeta,

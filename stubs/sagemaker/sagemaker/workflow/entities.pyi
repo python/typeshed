@@ -1,7 +1,7 @@
 import abc
 from _typeshed import Incomplete
 from enum import EnumMeta
-from typing import Any, Dict, List
+from typing import Any
 
 PrimitiveType = str | int | bool | float | None
 RequestType = dict[str | Any, list[dict[str, Any]]]

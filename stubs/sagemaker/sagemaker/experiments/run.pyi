@@ -1,7 +1,7 @@
 import datetime
 from _typeshed import Incomplete
 from enum import Enum
-from typing import Dict, List, Optional
+from typing import Optional
 
 from numpy import array
 from sagemaker import Session

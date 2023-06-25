@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import List, Optional
 
 from sagemaker.amazon.amazon_estimator import AmazonAlgorithmEstimatorBase
 from sagemaker.amazon.hyperparameter import Hyperparameter as hp
@@ -49,9 +48,5 @@ class NTMPredictor(Predictor):
 
 class NTMModel(Model):
     def __init__(
-        self,
-        model_data: str | PipelineVariable,
-        role: str | None = None,
-        sagemaker_session: Session | None = None,
-        **kwargs,
+        self, model_data: str | PipelineVariable, role: str | None = None, sagemaker_session: Session | None = None, **kwargs
     ) -> None: ...

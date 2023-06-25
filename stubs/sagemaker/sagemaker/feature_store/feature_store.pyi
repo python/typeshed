@@ -1,6 +1,6 @@
 import datetime
-from typing import Any, Dict
 from collections.abc import Sequence
+from typing import Any
 
 import pandas as pd
 from sagemaker import Session

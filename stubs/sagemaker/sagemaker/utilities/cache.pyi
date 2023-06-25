@@ -1,7 +1,7 @@
 import datetime
 from _typeshed import Incomplete
-from typing import Optional, TypeVar
 from collections.abc import Callable
+from typing import TypeVar
 
 KeyType = TypeVar("KeyType")
 ValType = TypeVar("ValType")

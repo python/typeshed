@@ -1,6 +1,5 @@
 import abc
 from _typeshed import Incomplete
-from typing import Dict, List, Optional
 
 from sagemaker.job import _Job
 from sagemaker.session import Session

@@ -1,5 +1,3 @@
-from typing import Optional
-
 from sagemaker.base_predictor import Predictor, PredictorBase as PredictorBase, RealTimePredictor as RealTimePredictor
 from sagemaker.session import Session
 

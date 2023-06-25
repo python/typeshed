@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from enum import Enum
-from typing import Any, Dict, List
+from typing import Any
 
 from sagemaker.jumpstart.types import JumpStartDataHolderType
 

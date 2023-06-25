@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Optional
 
 from sagemaker.workflow.check_job_config import CheckJobConfig
 from sagemaker.workflow.clarify_check_step import ClarifyCheckConfig

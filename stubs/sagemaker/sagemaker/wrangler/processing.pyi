@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Dict, List
 
 from sagemaker.network import NetworkConfig
 from sagemaker.processing import Processor

@@ -1,7 +1,6 @@
 import abc
 from _typeshed import Incomplete
 from enum import Enum
-from typing import Dict, List, Optional
 
 from sagemaker.estimator import EstimatorBase
 from sagemaker.inputs import CreateModelInput, FileSystemInput, TrainingInput, TransformInput

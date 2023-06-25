@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import List
 
 logger: Incomplete
 ENV_VARIABLE_ADMIN_CONFIG_OVERRIDE: str

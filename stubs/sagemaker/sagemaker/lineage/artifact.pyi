@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
-from datetime import datetime
-from typing import Optional
 from collections.abc import Iterator
+from datetime import datetime
 
 from sagemaker.apiutils import _base_types
 from sagemaker.lineage._api_types import ArtifactSource, ArtifactSummary

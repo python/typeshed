@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Any, Dict
+from typing import Any
 
 from sagemaker.feature_store.inputs import Config
 

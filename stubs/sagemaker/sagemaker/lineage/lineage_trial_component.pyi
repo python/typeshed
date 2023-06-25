@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import List
 
 from sagemaker.apiutils import _base_types
 from sagemaker.lineage.artifact import Artifact

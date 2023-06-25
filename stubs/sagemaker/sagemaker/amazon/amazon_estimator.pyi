@@ -1,6 +1,5 @@
 import abc
 from _typeshed import Incomplete
-from typing import Dict, Optional
 
 from sagemaker.amazon.hyperparameter import Hyperparameter as hp
 from sagemaker.estimator import EstimatorBase

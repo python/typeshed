@@ -1,5 +1,3 @@
-from typing import Dict, List, Optional
-
 from sagemaker import Session
 from sagemaker.network import NetworkConfig
 from sagemaker.processing import ScriptProcessor

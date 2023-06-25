@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from sagemaker.base_serializers import (
     BaseSerializer,
     CSVSerializer as CSVSerializer,

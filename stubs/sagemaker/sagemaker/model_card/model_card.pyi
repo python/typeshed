@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from datetime import datetime
-from typing import List, Optional
 
 from boto3.session import Session as boto3_Session
 from sagemaker.model_card.evaluation_metric_parsers import EvaluationMetricTypeEnum
@@ -67,10 +66,7 @@ class BusinessDetails(_DefaultToRequestDict, _DefaultFromDict):
     business_stakeholders: Incomplete
     line_of_business: Incomplete
     def __init__(
-        self,
-        business_problem: str | None = None,
-        business_stakeholders: str | None = None,
-        line_of_business: str | None = None,
+        self, business_problem: str | None = None, business_stakeholders: str | None = None, line_of_business: str | None = None
     ) -> None: ...
 
 class Function(_DefaultToRequestDict, _DefaultFromDict):
@@ -236,9 +232,7 @@ class ModelCard:
     def load(cls, name: str, version: int | None = None, sagemaker_session: Session | None = None): ...
     def update(self, **kwargs): ...
     def delete(self): ...
-    def export_pdf(
-        self, s3_output_path: str, export_job_name: str | None = None, model_card_version: int | None = None
-    ): ...
+    def export_pdf(self, s3_output_path: str, export_job_name: str | None = None, model_card_version: int | None = None): ...
     def list_export_jobs(self, **kwargs): ...
     def get_version_history(self, **kwargs): ...
 

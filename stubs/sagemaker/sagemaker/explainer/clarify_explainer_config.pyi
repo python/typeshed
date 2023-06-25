@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import List, Optional
 
 class ClarifyTextConfig:
     language: Incomplete

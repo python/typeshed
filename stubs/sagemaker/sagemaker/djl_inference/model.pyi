@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from enum import Enum
-from typing import Any, Dict, Optional
+from typing import Any
 
 from sagemaker import Predictor
 from sagemaker.deserializers import BaseDeserializer

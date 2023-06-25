@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Dict, List, Optional
 
 from sagemaker import session as session
 from sagemaker.async_inference.async_inference_config import AsyncInferenceConfig

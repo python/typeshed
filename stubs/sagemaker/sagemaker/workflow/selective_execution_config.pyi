@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import List
 
 from sagemaker.workflow.entities import RequestType as RequestType
 

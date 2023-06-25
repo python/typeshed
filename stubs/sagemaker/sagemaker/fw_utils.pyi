@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Dict, NamedTuple, Optional
+from typing import NamedTuple
 
 from sagemaker.session_settings import SessionSettings
 from sagemaker.workflow.entities import PipelineVariable

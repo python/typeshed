@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from sagemaker.base_deserializers import (
     BaseDeserializer,
     BytesDeserializer as BytesDeserializer,

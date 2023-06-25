@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from enum import Enum
-from typing import Dict, List, Optional
 
 from sagemaker.network import NetworkConfig
 from sagemaker.processing import ProcessingInput, ProcessingOutput, ScriptProcessor

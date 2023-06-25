@@ -1,6 +1,5 @@
 import datetime
 from _typeshed import Incomplete
-from typing import List, Optional
 
 import botocore
 from sagemaker.jumpstart.types import JumpStartModelHeader, JumpStartModelSpecs

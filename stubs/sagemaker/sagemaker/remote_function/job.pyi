@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Dict, List, Tuple
 
 from sagemaker.remote_function.spark_config import SparkConfig
 from sagemaker.session import Session
