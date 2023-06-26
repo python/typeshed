@@ -80,8 +80,8 @@ class Connection:
     username: Any
     client_name: Any
     password: Any
-    socket_timeout: Any
-    socket_connect_timeout: Any
+    socket_timeout: float | None
+    socket_connect_timeout: float | None
     socket_keepalive: Any
     socket_keepalive_options: Any
     socket_type: Any
@@ -194,8 +194,6 @@ class UnixDomainSocketConnection(Connection):
     username: Any
     client_name: Any
     password: Any
-    socket_timeout: Any
-    socket_connect_timeout: Any
     retry_on_timeout: Any
     retry_on_error: list[type[RedisError]]
     retry: Any

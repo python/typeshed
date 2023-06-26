@@ -89,6 +89,8 @@ class AbstractConnection:
     credential_provider: CredentialProvider | None
     password: str | None
     username: str | None
+    socket_timeout: float | None
+    socket_connect_timeout: float | None
     retry_on_timeout: bool
     retry_on_error: list[type[Exception]]
     retry: Retry
@@ -139,8 +141,6 @@ class AbstractConnection:
 class Connection(AbstractConnection):
     host: str
     port: int
-    socket_timeout: float | None
-    socket_connect_timeout: float | None
     socket_keepalive: bool
     socket_keepalive_options: Mapping[str, int | str]
     socket_type: int
@@ -227,7 +227,6 @@ class SSLConnection(Connection):
 
 class UnixDomainSocketConnection(AbstractConnection):
     path: str
-    socket_timeout: float | None
     def __init__(
         self,
         path: str = "",
