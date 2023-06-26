@@ -827,7 +827,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         withscores: bool = False,
         score_cast_func: Callable[[_StrType], Any] = ...,
     ) -> Any: ...
-    def zrank(self, name: _Key, value: _Value) -> Any: ...  # type: ignore[override]
+    def zrank(self, name: _Key, value: _Value, withscore: bool = False) -> Any: ...  # type: ignore[override]
     def zrem(self, name: _Key, *values: _Value) -> Any: ...  # type: ignore[override]
     def zremrangebylex(self, name: _Key, min: _Value, max: _Value) -> Any: ...  # type: ignore[override]
     def zremrangebyrank(self, name: _Key, min: int, max: int) -> Any: ...  # type: ignore[override]
