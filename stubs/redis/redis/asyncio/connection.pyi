@@ -15,8 +15,6 @@ from redis.typing import EncodableT, EncodedT
 
 _SSLVerifyMode: TypeAlias = Literal["none", "optional", "required"]
 
-hiredis: Any | None  # hiredis is an optional dependency
-
 SYM_STAR: Final[bytes]
 SYM_DOLLAR: Final[bytes]
 SYM_CRLF: Final[bytes]
