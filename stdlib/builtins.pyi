@@ -53,7 +53,7 @@ from typing import (  # noqa: Y022
     overload,
     type_check_only,
 )
-from typing_extensions import (  # type: ignore
+from typing_extensions import (
     Concatenate,
     Literal,
     LiteralString,
@@ -465,7 +465,7 @@ class str(Sequence[str]):
     @overload
     def format(self: LiteralString, *args: LiteralString, **kwargs: LiteralString) -> LiteralString: ...
     @overload
-    def format(self, *args: object, **kwargs: object) -> str: ...  # type: ignore
+    def format(self, *args: object, **kwargs: object) -> str: ...
     def format_map(self, map: _FormatMapMapping) -> str: ...
     def index(self, __sub: str, __start: SupportsIndex | None = ..., __end: SupportsIndex | None = ...) -> int: ...
     def isalnum(self) -> bool: ...
@@ -595,7 +595,7 @@ class str(Sequence[str]):
     @overload
     def __mod__(self: LiteralString, __value: LiteralString | tuple[LiteralString, ...]) -> LiteralString: ...
     @overload
-    def __mod__(self, __value: Any) -> str: ...  # type: ignore
+    def __mod__(self, __value: Any) -> str: ...
     @overload
     def __mul__(self: LiteralString, __value: SupportsIndex) -> LiteralString: ...
     @overload
