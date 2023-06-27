@@ -1,7 +1,6 @@
 {
     "$schema": "https://raw.githubusercontent.com/microsoft/pyright/main/packages/vscode-pyright/schemas/pyrightconfig.schema.json",
     "typeshedPath": ".",
-    "venv": ".venv",
     "include": [
         "stdlib",
         "stubs",
@@ -56,6 +55,7 @@
         "stubs/inifile",
         "stubs/passlib",
         "stubs/peewee",
+        "stubs/pexpect",
         "stubs/pika",
         "stubs/psutil",
         "stubs/psycopg2",
@@ -76,6 +76,7 @@
         "stubs/ttkthemes",
         "stubs/urllib3",
         "stubs/vobject",
+        "stubs/WebOb"
     ],
     "typeCheckingMode": "strict",
     // TODO: Complete incomplete stubs
