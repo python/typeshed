@@ -298,7 +298,7 @@ async def get_diff_info(
         return None
 
     try:
-        old_version = max(version for version in versions_to_tags if version in curr_specifier)
+        old_version = max(version for version in versions_to_tags if version in curr_specifier and version < pypi_version)
     except ValueError:
         return None
     else:
