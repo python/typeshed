@@ -18,7 +18,7 @@ from redis.exceptions import ResponseError
 from redis.retry import Retry
 from redis.typing import AnyKeyT, EncodableT, KeyT
 
-TargetNodesT = TypeVar("TargetNodesT", str, "ClusterNode", list["ClusterNode"], dict[Any, "ClusterNode"])  # noqa: Y001
+TargetNodesT = TypeVar("TargetNodesT", str, ClusterNode, list[ClusterNode], dict[Any, ClusterNode])  # noqa: Y001
 
 # It uses `DefaultParser` in real life, but it is a dynamic base class.
 class ClusterParser(BaseParser):
