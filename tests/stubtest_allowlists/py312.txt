@@ -22,7 +22,6 @@ configparser.ParsingError.__init__
 configparser.RawConfigParser.readfp
 configparser.__all__
 datetime.__all__
-email.utils.localtime
 enum.Enum.__signature__
 enum.EnumMeta.__call__
 enum.EnumType.__call__
@@ -52,7 +51,6 @@ importlib.metadata._meta.PackageMetadata.get
 importlib.metadata._meta.SimplePath.__truediv__
 importlib.metadata._meta.SimplePath.parent
 importlib.resources.files
-importlib.util.allowing_all_extensions
 importlib.util.module_for_loader
 importlib.util.set_loader
 importlib.util.set_package

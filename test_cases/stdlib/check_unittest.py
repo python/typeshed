@@ -4,6 +4,8 @@ import unittest
 from datetime import datetime, timedelta
 from decimal import Decimal
 from fractions import Fraction
+from typing_extensions import assert_type
+from unittest.mock import Mock, patch
 
 case = unittest.TestCase()
 
@@ -86,3 +88,29 @@ case.assertGreater(datetime(1999, 1, 2), 1)  # type: ignore
 case.assertGreater(Spam(), Eggs())  # type: ignore
 case.assertGreater(Ham(), Bacon())  # type: ignore
 case.assertGreater(Bacon(), Ham())  # type: ignore
+
+###
+# Tests for mock.patch
+###
+
+
+@patch("sys.exit", new=Mock())
+def f(i: int) -> str:
+    return "asdf"
+
+
+assert_type(f(1), str)
+f("a")  # type: ignore
+
+
+@patch("sys.exit", new=Mock())
+class TestXYZ(unittest.TestCase):
+    attr: int = 5
+
+    @staticmethod
+    def method() -> int:
+        return 123
+
+
+assert_type(TestXYZ.attr, int)
+assert_type(TestXYZ.method(), int)
