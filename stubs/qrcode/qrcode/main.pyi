@@ -1,11 +1,11 @@
 from _typeshed import Incomplete
-from typing import Dict, Generic, List, NamedTuple, Optional, Type, TypeVar, overload
-from typing_extensions import Literal
+from typing import Generic, NamedTuple, TypeVar, overload
+from typing_extensions import Literal, TypeAlias
 
 from qrcode.image.base import BaseImage
 
-ModulesType = List[List[Optional[bool]]]
-precomputed_qr_blanks: Dict[int, ModulesType]
+ModulesType: TypeAlias = list[list[bool | None]]
+precomputed_qr_blanks: dict[int, ModulesType]
 
 def make(data: Incomplete | None = None, **kwargs): ...
 def copy_2d_array(x): ...
@@ -22,8 +22,8 @@ class ActiveWithNeighbors(NamedTuple):
     SE: bool
     def __bool__(self) -> bool: ...
 
-GenericImage = TypeVar("GenericImage", bound=BaseImage)
-GenericImageLocal = TypeVar("GenericImageLocal", bound=BaseImage)
+GenericImage = TypeVar("GenericImage", bound=BaseImage)  # noqa: Y001
+GenericImageLocal = TypeVar("GenericImageLocal", bound=BaseImage)  # noqa: Y001
 
 class QRCode(Generic[GenericImage]):
     modules: ModulesType
@@ -37,7 +37,7 @@ class QRCode(Generic[GenericImage]):
         error_correction=0,
         box_size: int = 10,
         border: int = 4,
-        image_factory: Optional[Type[GenericImage]] = None,
+        image_factory: type[GenericImage] | None = None,
         mask_pattern: Incomplete | None = None,
     ) -> None: ...
     @property
@@ -59,7 +59,7 @@ class QRCode(Generic[GenericImage]):
     @overload
     def make_image(self, image_factory: Literal[None] = None, **kwargs) -> GenericImage: ...
     @overload
-    def make_image(self, image_factory: Type[GenericImageLocal] = None, **kwargs) -> GenericImageLocal: ...
+    def make_image(self, image_factory: type[GenericImageLocal] | None = None, **kwargs) -> GenericImageLocal: ...
     def is_constrained(self, row: int, col: int) -> bool: ...
     def setup_timing_pattern(self) -> None: ...
     def setup_position_adjust_pattern(self) -> None: ...

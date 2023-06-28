@@ -1,6 +1,5 @@
 import abc
 from _typeshed import Incomplete
-from typing import List
 
 from qrcode.image.styledpil import StyledPilImage
 from qrcode.image.styles.moduledrawers.base import QRModuleDrawer
@@ -41,7 +40,7 @@ class RoundedModuleDrawer(StyledPilQRModuleDrawer):
     SE_ROUND: Incomplete
     NE_ROUND: Incomplete
     def setup_corners(self) -> None: ...
-    def drawrect(self, box: List[List[int]], is_active: ActiveWithNeighbors): ...
+    def drawrect(self, box: list[list[int]], is_active: ActiveWithNeighbors): ...
 
 class VerticalBarsDrawer(StyledPilQRModuleDrawer):
     needs_neighbors: bool

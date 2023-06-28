@@ -1,15 +1,16 @@
 import abc
 from _typeshed import Incomplete
-from typing import Any, Dict, Optional, Tuple, Type, Union
+from typing import Any
+from typing_extensions import TypeAlias
 
 from qrcode.image.styles.moduledrawers.base import QRModuleDrawer
 from qrcode.main import ActiveWithNeighbors as ActiveWithNeighbors, QRCode
 
-DrawerAliases = Dict[str, Tuple[Type[QRModuleDrawer], Dict[str, Any]]]
+DrawerAliases: TypeAlias = dict[str, tuple[type[QRModuleDrawer], dict[str, Any]]]
 
 class BaseImage(metaclass=abc.ABCMeta):
-    kind: Optional[str]
-    allowed_kinds: Optional[Tuple[str]]
+    kind: str | None
+    allowed_kinds: tuple[str] | None
     needs_context: bool
     needs_processing: bool
     needs_drawrect: bool
@@ -21,7 +22,7 @@ class BaseImage(metaclass=abc.ABCMeta):
     def __init__(self, border, width, box_size, *args, **kwargs) -> None: ...
     @abc.abstractmethod
     def drawrect(self, row, col): ...
-    def drawrect_context(self, row: int, col: int, qr: QRCode): ...
+    def drawrect_context(self, row: int, col: int, qr: QRCode[Incomplete]): ...
     def process(self) -> None: ...
     @abc.abstractmethod
     def save(self, stream, kind: Incomplete | None = None): ...
@@ -34,7 +35,7 @@ class BaseImage(metaclass=abc.ABCMeta):
     def is_eye(self, row: int, col: int): ...
 
 class BaseImageWithDrawer(BaseImage, metaclass=abc.ABCMeta):
-    default_drawer_class: Type[QRModuleDrawer]
+    default_drawer_class: type[QRModuleDrawer]
     drawer_aliases: DrawerAliases
     def get_default_module_drawer(self) -> QRModuleDrawer: ...
     def get_default_eye_drawer(self) -> QRModuleDrawer: ...
@@ -42,12 +43,8 @@ class BaseImageWithDrawer(BaseImage, metaclass=abc.ABCMeta):
     module_drawer: QRModuleDrawer
     eye_drawer: QRModuleDrawer
     def __init__(
-        self,
-        *args,
-        module_drawer: Union[QRModuleDrawer, str, None] = None,
-        eye_drawer: Union[QRModuleDrawer, str, None] = None,
-        **kwargs,
+        self, *args, module_drawer: QRModuleDrawer | str | None = None, eye_drawer: QRModuleDrawer | str | None = None, **kwargs
     ) -> None: ...
-    def get_drawer(self, drawer: Union[QRModuleDrawer, str, None]) -> Optional[QRModuleDrawer]: ...
+    def get_drawer(self, drawer: QRModuleDrawer | str | None) -> QRModuleDrawer | None: ...
     def init_new_image(self): ...
-    def drawrect_context(self, row: int, col: int, qr: QRCode): ...
+    def drawrect_context(self, row: int, col: int, qr: QRCode[Incomplete]): ...
