@@ -1,1 +1,4 @@
 version = "7.4.*"
+
+[tool.stubtest]
+extras = ["lxml"]

@@ -3,9 +3,9 @@ from _typeshed import Incomplete
 from decimal import Decimal
 from typing import Optional, Type, Union, overload
 from typing_extensions import Literal
+from xml.etree.ElementTree import Element
 
 import qrcode.image.base
-from qrcode.compat.etree import ET
 from qrcode.image.styles.moduledrawers.base import QRModuleDrawer
 
 class SvgFragmentImage(qrcode.image.base.BaseImageWithDrawer, metaclass=abc.ABCMeta):
@@ -29,7 +29,7 @@ class SvgImage(SvgFragmentImage, metaclass=abc.ABCMeta):
 class SvgPathImage(SvgImage, metaclass=abc.ABCMeta):
     QR_PATH_STYLE: Incomplete
     needs_processing: bool
-    path: Optional[ET.Element]
+    path: Optional[Element]
     default_drawer_class: Type[QRModuleDrawer]
     drawer_aliases: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...

@@ -1,0 +1,5 @@
+# Internal modules
+qrcode\.compat
+qrcode\.compat\..*
+qrcode\.tests
+qrcode\.tests\..*
