@@ -1,5 +1,5 @@
 from _typeshed import Incomplete, Unused
-from collections.abc import AsyncIterator, Awaitable, Callable, Iterable, Mapping, MutableMapping, Sequence, Generator
+from collections.abc import AsyncIterator, Awaitable, Callable, Generator, Iterable, Mapping, MutableMapping, Sequence
 from datetime import datetime, timedelta
 from types import TracebackType
 from typing import Any, ClassVar, Generic, NoReturn, Protocol, overload
