@@ -3,7 +3,7 @@ from _typeshed import Incomplete
 
 from qrcode.image.styledpil import StyledPilImage
 from qrcode.image.styles.moduledrawers.base import QRModuleDrawer
-from qrcode.main import ActiveWithNeighbors as ActiveWithNeighbors
+from qrcode.main import ActiveWithNeighbors
 
 ANTIALIASING_FACTOR: int
 

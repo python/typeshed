@@ -4,7 +4,7 @@ from typing import Any
 from typing_extensions import TypeAlias
 
 from qrcode.image.styles.moduledrawers.base import QRModuleDrawer
-from qrcode.main import ActiveWithNeighbors as ActiveWithNeighbors, QRCode
+from qrcode.main import QRCode
 
 DrawerAliases: TypeAlias = dict[str, tuple[type[QRModuleDrawer], dict[str, Any]]]
 
