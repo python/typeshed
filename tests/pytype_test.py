@@ -24,10 +24,16 @@ import pkg_resources
 
 from parse_metadata import read_dependencies
 
-assert sys.platform != "win32"
+if sys.platform == "win32":
+    print("pytype does not support Windows.", file=sys.stderr)
+    sys.exit(1)
+if sys.version_info >= (3, 11):
+    print("pytype does not support Python 3.11+ yet.", file=sys.stderr)
+    sys.exit(1)
+
 # pytype is not py.typed https://github.com/google/pytype/issues/1325
-from pytype import config as pytype_config, load_pytd  # type: ignore[import]  # noqa: E402
-from pytype.imports import typeshed  # type: ignore[import]  # noqa: E402
+from pytype import config as pytype_config, load_pytd  # type: ignore[import]
+from pytype.imports import typeshed  # type: ignore[import]
 
 TYPESHED_SUBDIRS = ["stdlib", "stubs"]
 TYPESHED_HOME = "TYPESHED_HOME"

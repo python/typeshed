@@ -22,7 +22,6 @@ configparser.ParsingError.__init__
 configparser.RawConfigParser.readfp
 configparser.__all__
 datetime.__all__
-email.utils.localtime
 enum.Enum.__signature__
 enum.EnumMeta.__call__
 enum.EnumType.__call__

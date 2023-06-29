@@ -180,6 +180,10 @@ async def release_contains_py_typed(release_to_download: PypiReleaseDownload, *,
 
 
 async def find_first_release_with_py_typed(pypi_info: PypiInfo, *, session: aiohttp.ClientSession) -> PypiReleaseDownload | None:
+    """If the latest release is py.typed, return the first release that included a py.typed file.
+
+    If the latest release is not py.typed, return None.
+    """
     release_iter = (release for release in pypi_info.releases_in_descending_order() if not release.version.is_prerelease)
     latest_release = next(release_iter)
     # If the latest release is not py.typed, assume none are.
@@ -294,7 +298,7 @@ async def get_diff_info(
         return None
 
     try:
-        old_version = max(version for version in versions_to_tags if version in curr_specifier)
+        old_version = max(version for version in versions_to_tags if version in curr_specifier and version < pypi_version)
     except ValueError:
         return None
     else:
@@ -429,10 +433,10 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
     latest_release = pypi_info.get_latest_release()
     latest_version = latest_release.version
     spec = packaging.specifiers.SpecifierSet(f"=={stub_info.version_spec}")
-    if latest_version in spec:
+    obsolete_since = await find_first_release_with_py_typed(pypi_info, session=session)
+    if obsolete_since is None and latest_version in spec:
         return NoUpdate(stub_info.distribution, "up to date")
 
-    obsolete_since = await find_first_release_with_py_typed(pypi_info, session=session)
     relevant_version = obsolete_since.version if obsolete_since else latest_version
 
     project_urls = pypi_info.info["project_urls"] or {}
