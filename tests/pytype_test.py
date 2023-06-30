@@ -15,12 +15,12 @@ will also discover incorrect usage of imported modules.
 from __future__ import annotations
 
 import argparse
+import importlib.metadata
 import os
 import sys
 import traceback
+from collections import defaultdict
 from collections.abc import Iterable, Sequence
-
-import pkg_resources
 
 from parse_metadata import read_dependencies
 
@@ -165,15 +165,17 @@ def get_missing_modules(files_to_test: Sequence[str]) -> Iterable[str]:
         except ValueError:
             continue
         stub_distributions.add(parts[idx + 1])
+
+    dist_to_pkg_map = defaultdict(list)
+    for dist, pkg_list in importlib.metadata.packages_distributions().items():
+        for pkg in pkg_list:
+            dist_to_pkg_map[dist].append(pkg)
+
     missing_modules = set()
     for distribution in stub_distributions:
         for pkg in read_dependencies(distribution).external_pkgs:
-            egg_info = pkg_resources.get_distribution(pkg).egg_info
-            assert isinstance(egg_info, str)
-            # See https://stackoverflow.com/a/54853084
-            top_level_file = os.path.join(egg_info, "top_level.txt")
-            with open(top_level_file) as f:
-                missing_modules.update(f.read().splitlines())
+            missing_modules.update(dist_to_pkg_map[pkg])
+
     test_dir = os.path.dirname(__file__)
     exclude_list = os.path.join(test_dir, "pytype_exclude_list.txt")
     with open(exclude_list) as f:
