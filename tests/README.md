@@ -19,7 +19,7 @@ objects at runtime.
 in the `tests` and `scripts` directories.
 
 To run the tests, follow the [setup instructions](../CONTRIBUTING.md#preparing-the-environment)
-in the `CONTRIBUTING.md` document. In particular, you have to run with Python 3.9+.
+in the `CONTRIBUTING.md` document. In particular, you have to run with Python 3.10+.
 
 In order for `pytype_test` and `pyright_test` to work correctly, some third-party stubs
 may require extra dependencies external to typeshed to be installed in your virtual environment
@@ -72,7 +72,7 @@ for this script.
 
 Note: this test cannot be run on Windows
 systems unless you are using Windows Subsystem for Linux.
-It also requires a Python version < 3.11 as pytype does not yet support
+It can currently only be run on Python 3.10 as pytype does not yet support
 Python 3.11 and above.
 
 Run using:

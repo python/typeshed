@@ -25,4 +25,3 @@ typing-extensions==4.6.3
 
 # Type stubs used to type check our scripts.
 types-pyyaml>=6.0.12.7
-types-setuptools>=67.5.0.0
