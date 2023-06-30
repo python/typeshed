@@ -4,7 +4,7 @@ from typing import Any, TypeVar
 from typing_extensions import ParamSpec, TypeAlias
 
 import flask
-from flask_sqlalchemy import SQLAlchemy
+import flask_sqlalchemy
 
 _T = TypeVar("_T")
 _P = ParamSpec("_P")
@@ -20,13 +20,13 @@ class Config:  # should inherit from alembic.config.Config which is not possible
 
 class Migrate:
     configure_callbacks: list[_ConfigureCallback]
-    db: SQLAlchemy | None
+    db: flask_sqlalchemy.SQLAlchemy | None
     directory: str
     alembic_ctx_kwargs: dict[str, Any]
     def __init__(
         self,
         app: flask.Flask | None = None,
-        db: SQLAlchemy | None = None,
+        db: flask_sqlalchemy.SQLAlchemy | None = None,
         directory: str = "migrations",
         command: str = "db",
         compare_type: bool = True,
@@ -36,7 +36,7 @@ class Migrate:
     def init_app(
         self,
         app: flask.Flask,
-        db: SQLAlchemy | None = None,
+        db: flask_sqlalchemy.SQLAlchemy | None = None,
         directory: str | None = None,
         command: str | None = None,
         compare_type: bool | None = None,
