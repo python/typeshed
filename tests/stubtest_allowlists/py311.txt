@@ -17,6 +17,7 @@ configparser.LegacyInterpolation.__init__
 configparser.ParsingError.filename
 enum.Enum.__init__
 enum.Enum._generate_next_value_
+# Python3.11 used to dynamically add this method:
 enum.StrEnum._generate_next_value_
 importlib.abc.Finder.find_module
 ipaddress._BaseNetwork.broadcast_address
