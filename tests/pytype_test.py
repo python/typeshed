@@ -169,7 +169,7 @@ def get_missing_modules(files_to_test: Sequence[str]) -> Iterable[str]:
     dist_to_pkg_map = defaultdict(list)
     for dist, pkg_list in importlib.metadata.packages_distributions().items():
         for pkg in pkg_list:
-            dist_to_pkg_map[dist].append(pkg)
+            dist_to_pkg_map[pkg].append(dist)
 
     missing_modules = set()
     for distribution in stub_distributions:
