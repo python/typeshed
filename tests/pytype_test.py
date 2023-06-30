@@ -24,6 +24,8 @@ from collections.abc import Iterable, Sequence
 
 from parse_metadata import read_dependencies
 
+from packaging.requirements import Requirement
+
 if sys.platform == "win32":
     print("pytype does not support Windows.", file=sys.stderr)
     sys.exit(1)
@@ -173,7 +175,8 @@ def get_missing_modules(files_to_test: Sequence[str]) -> Iterable[str]:
 
     missing_modules = set()
     for distribution in stub_distributions:
-        for pkg in read_dependencies(distribution).external_pkgs:
+        for external_req in read_dependencies(distribution).external_pkgs:
+            pkg = Requirement(external_req).name
             missing_modules.update(dist_to_pkg_map[pkg])
 
     test_dir = os.path.dirname(__file__)
