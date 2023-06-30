@@ -22,9 +22,9 @@ import traceback
 from collections import defaultdict
 from collections.abc import Iterable, Sequence
 
-from parse_metadata import read_dependencies
-
 from packaging.requirements import Requirement
+
+from parse_metadata import read_dependencies
 
 if sys.platform == "win32":
     print("pytype does not support Windows.", file=sys.stderr)
