@@ -30,7 +30,6 @@ genericpath.__all__
 genericpath.islink
 gzip.GzipFile.filename
 http.client.HTTPConnection.get_proxy_response_headers
-http.client.HTTPSConnection.__init__
 imaplib.IMAP4_SSL.__init__
 importlib.abc.Finder
 importlib.abc.Loader.module_repr
