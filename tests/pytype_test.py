@@ -16,10 +16,10 @@ from __future__ import annotations
 
 import argparse
 import importlib.metadata
+import inspect
 import os
 import sys
 import traceback
-from collections import defaultdict
 from collections.abc import Iterable, Sequence
 
 from packaging.requirements import Requirement
@@ -29,8 +29,8 @@ from parse_metadata import read_dependencies
 if sys.platform == "win32":
     print("pytype does not support Windows.", file=sys.stderr)
     sys.exit(1)
-if sys.version_info[:2] != (3, 10):
-    print("pytype_test.py can currently only be run on Python 3.10.", file=sys.stderr)
+if sys.version_info >= (3, 11):
+    print("pytype does not support Python 3.11+ yet.", file=sys.stderr)
     sys.exit(1)
 
 # pytype is not py.typed https://github.com/google/pytype/issues/1325
@@ -149,6 +149,17 @@ def find_stubs_in_paths(paths: Sequence[str]) -> list[str]:
     return filenames
 
 
+def _get_pkgs_associated_with_requirement(req_name: str) -> list[str]:
+    dist = importlib.metadata.distribution(req_name)
+    toplevel_txt_contents = dist.read_text("top_level.txt")
+    if toplevel_txt_contents is not None:
+        return toplevel_txt_contents.split()
+    if dist.files is None:
+        raise RuntimeError("Can't read find the packages associated with requirement {req_name!r}")
+    maybe_modules = [f.parts[0] if len(f.parts) > 1 else inspect.getmodulename(f) for f in dist.files]
+    return [name for name in maybe_modules if name is not None and "." not in name]
+
+
 def get_missing_modules(files_to_test: Sequence[str]) -> Iterable[str]:
     """Get names of modules that should be treated as missing.
 
@@ -168,16 +179,12 @@ def get_missing_modules(files_to_test: Sequence[str]) -> Iterable[str]:
             continue
         stub_distributions.add(parts[idx + 1])
 
-    dist_to_pkg_map = defaultdict(list)
-    for dist, pkg_list in importlib.metadata.packages_distributions().items():
-        for pkg in pkg_list:
-            dist_to_pkg_map[pkg].append(dist)
-
     missing_modules = set()
     for distribution in stub_distributions:
         for external_req in read_dependencies(distribution).external_pkgs:
-            pkg = Requirement(external_req).name
-            missing_modules.update(dist_to_pkg_map[pkg])
+            req_name = Requirement(external_req).name
+            associated_packages = _get_pkgs_associated_with_requirement(req_name)
+            missing_modules.update(associated_packages)
 
     test_dir = os.path.dirname(__file__)
     exclude_list = os.path.join(test_dir, "pytype_exclude_list.txt")
