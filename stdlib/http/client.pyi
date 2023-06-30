@@ -1,6 +1,7 @@
 import email.message
 import io
 import ssl
+import sys
 import types
 from _typeshed import ReadableBuffer, SupportsRead, WriteableBuffer
 from collections.abc import Callable, Iterable, Iterator, Mapping
