@@ -29,8 +29,8 @@ from parse_metadata import read_dependencies
 if sys.platform == "win32":
     print("pytype does not support Windows.", file=sys.stderr)
     sys.exit(1)
-if sys.version_info >= (3, 11):
-    print("pytype does not support Python 3.11+ yet.", file=sys.stderr)
+if sys.version_info[:2] != (3, 10):
+    print("pytype_test.py can currently only be run on Python 3.10.", file=sys.stderr)
     sys.exit(1)
 
 # pytype is not py.typed https://github.com/google/pytype/issues/1325
