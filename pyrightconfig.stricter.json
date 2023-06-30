@@ -69,7 +69,6 @@
         "stubs/redis",
         "stubs/requests",
         "stubs/setuptools",
-        "stubs/SQLAlchemy",
         "stubs/stripe",
         "stubs/tqdm",
         "stubs/ttkthemes",
