@@ -5,6 +5,7 @@ import sys
 from typing_extensions import Literal, assert_type
 
 if sys.version_info >= (3, 11):
+
     class Foo(enum.StrEnum):
         X = enum.auto()
 
