@@ -137,6 +137,7 @@ if sys.version_info >= (3, 11):
             "AGEN_SUSPENDED",
             "getasyncgenlocals",
             "getasyncgenstate",
+            "BufferFlags",
         ]
 
 _P = ParamSpec("_P")
