@@ -5,10 +5,12 @@ from fractions import Fraction, _ComparableNum
 from numbers import Rational
 from types import TracebackType
 from typing import ClassVar, overload
-from typing_extensions import Final, Literal, SupportsIndex
+from typing_extensions import Final, Literal, SupportsIndex, TypeAlias
 
 from ._imaging import _PixelAccessor
 from .ImageFile import ImageFile
+
+_OpenInfo: TypeAlias = tuple[Literal[b"II", b"MM"], int, tuple[int, ...], int, tuple[int, ...], tuple[int, ...]]
 
 # These are meant to be overridable
 READ_LIBTIFF: bool
@@ -58,11 +60,11 @@ XMP: Final = 700
 JPEGQUALITY: Final = 65537
 IMAGEJ_META_DATA_BYTE_COUNTS: Final = 50838
 IMAGEJ_META_DATA: Final = 50839
-COMPRESSION_INFO: Incomplete
-COMPRESSION_INFO_REV: Incomplete
-OPEN_INFO: Incomplete
+COMPRESSION_INFO: Final[dict[int, str]]
+COMPRESSION_INFO_REV: Final[dict[str, int]]
+OPEN_INFO: Final[dict[_OpenInfo, tuple[str, str]]]
 MAX_SAMPLESPERPIXEL: Final = 6
-PREFIXES: Incomplete
+PREFIXES: Final[list[bytes]]
 
 class IFDRational(Rational):
     def __init__(self, value, denominator: int = 1) -> None: ...
