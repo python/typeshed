@@ -25,7 +25,7 @@ from types import (
     TracebackType,
     WrapperDescriptorType,
 )
-from typing import Any, ClassVar, NamedTuple, Protocol, TypeVar, overload, AsyncGenerator
+from typing import Any, AsyncGenerator, ClassVar, NamedTuple, Protocol, TypeVar, overload
 from typing_extensions import Literal, ParamSpec, Self, TypeAlias, TypeGuard
 
 if sys.version_info >= (3, 11):
@@ -376,12 +376,14 @@ class _ParameterKind(enum.IntEnum):
         def description(self) -> str: ...
 
 if sys.version_info >= (3, 12):
-    AGEN_CREATED: Literal['AGEN_CREATED']
-    AGEN_RUNNING: Literal['AGEN_RUNNING']
-    AGEN_SUSPENDED: Literal['AGEN_SUSPENDED']
-    AGEN_CLOSED: Literal['AGEN_CLOSED']
+    AGEN_CREATED: Literal["AGEN_CREATED"]
+    AGEN_RUNNING: Literal["AGEN_RUNNING"]
+    AGEN_SUSPENDED: Literal["AGEN_SUSPENDED"]
+    AGEN_CLOSED: Literal["AGEN_CLOSED"]
 
-    def getasyncgenstate(agen: AsyncGenerator[Any, Any]) -> Literal['AGEN_CREATED', 'AGEN_RUNNING', 'AGEN_SUSPENDED', 'AGEN_CLOSED']: ...
+    def getasyncgenstate(
+        agen: AsyncGenerator[Any, Any]
+    ) -> Literal["AGEN_CREATED", "AGEN_RUNNING", "AGEN_SUSPENDED", "AGEN_CLOSED"]: ...
     def getasyncgenlocals(agen: AsyncGeneratorType[Any, Any]) -> dict[str, Any]: ...
 
 class Parameter:
