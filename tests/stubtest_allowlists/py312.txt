@@ -53,14 +53,6 @@ importlib.resources.files
 importlib.util.module_for_loader
 importlib.util.set_loader
 importlib.util.set_package
-inspect.AGEN_CLOSED
-inspect.AGEN_CREATED
-inspect.AGEN_RUNNING
-inspect.AGEN_SUSPENDED
-inspect.__all__
-inspect.getasyncgenlocals
-inspect.getasyncgenstate
-inspect.markcoroutinefunction
 logging.Logger.getChildren
 logging.__all__
 logging.getHandlerByName
