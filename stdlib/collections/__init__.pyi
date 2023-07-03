@@ -1,6 +1,6 @@
 import sys
 from _collections_abc import dict_items, dict_keys, dict_values
-from _typeshed import SupportsKeysAndGetItem, SupportsItems, SupportsRichComparison, SupportsRichComparisonT
+from _typeshed import SupportsItems, SupportsKeysAndGetItem, SupportsRichComparison, SupportsRichComparisonT
 from typing import Any, Generic, NoReturn, TypeVar, overload
 from typing_extensions import Self, SupportsIndex, final
 
