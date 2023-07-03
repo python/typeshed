@@ -24,3 +24,6 @@ PIL.ImImagePlugin.i
 PIL.XVThumbImagePlugin.b
 PIL.XVThumbImagePlugin.g
 PIL.XVThumbImagePlugin.r
+
+# Forwarded arguments
+PIL\.TiffImagePlugin\.IFDRational\.__[a-z]+__
