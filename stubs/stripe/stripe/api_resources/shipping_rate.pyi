@@ -1,6 +1,3 @@
-from _typeshed import Incomplete
-from typing import NoReturn
-
 from stripe import api_requestor as api_requestor
 from stripe.api_resources.abstract import (
     CreateableAPIResource as CreateableAPIResource,
@@ -10,5 +7,3 @@ from stripe.api_resources.abstract import (
 
 class ShippingRate(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     OBJECT_NAME: str
-    @classmethod
-    def retrieve(cls, id, api_key: Incomplete | None = None, **params) -> NoReturn: ...
