@@ -1,5 +1,6 @@
+from _typeshed import Incomplete
 from enum import IntEnum
-from typing import Any, ClassVar
+from typing import ClassVar
 from typing_extensions import Literal
 
 from .ImageFile import ImageFile, PyDecoder, PyEncoder
@@ -39,7 +40,7 @@ class BlpImageFile(ImageFile):
     format_description: ClassVar[str]
 
 class _BLPBaseDecoder(PyDecoder):
-    magic: Any
+    magic: Incomplete
     def decode(self, buffer): ...
 
 class BLP1Decoder(_BLPBaseDecoder): ...

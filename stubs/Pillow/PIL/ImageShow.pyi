@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Any
 from typing_extensions import Literal
 
 def register(viewer, order: int = 1) -> None: ...
@@ -7,8 +6,8 @@ def show(image, title: Incomplete | None = None, **options): ...
 
 class Viewer:
     def show(self, image, **options): ...
-    format: Any
-    options: Any
+    format: Incomplete
+    options: Incomplete
     def get_format(self, image): ...
     def get_command(self, file, **options) -> None: ...
     def save_image(self, image): ...
@@ -17,18 +16,18 @@ class Viewer:
 
 class WindowsViewer(Viewer):
     format: str
-    options: Any
+    options: Incomplete
     def get_command(self, file, **options): ...
 
 class MacViewer(Viewer):
     format: str
-    options: Any
+    options: Incomplete
     def get_command(self, file, **options): ...
     def show_file(self, path: Incomplete | None = None, **options): ...
 
 class UnixViewer(Viewer):
     format: str
-    options: Any
+    options: Incomplete
     def get_command(self, file, **options): ...
     def show_file(self, path: Incomplete | None = None, **options): ...
 
