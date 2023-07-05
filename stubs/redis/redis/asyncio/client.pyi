@@ -588,7 +588,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         self,
         name,
         fields,
-        id: str = "*",
+        id: str | int | bytes | memoryview = "*",
         maxlen=None,
         approximate: bool = True,
         nomkstream: bool = False,
