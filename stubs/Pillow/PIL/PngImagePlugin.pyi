@@ -15,16 +15,9 @@ class Disposal(IntEnum):
     OP_BACKGROUND: int
     OP_PREVIOUS: int
 
-APNG_DISPOSE_OP_NONE: Literal[Disposal.OP_NONE]
-APNG_DISPOSE_OP_BACKGROUND: Literal[Disposal.OP_BACKGROUND]
-APNG_DISPOSE_OP_PREVIOUS: Literal[Disposal.OP_PREVIOUS]
-
 class Blend(IntEnum):
     OP_SOURCE: int
     OP_OVER: int
-
-APNG_BLEND_OP_SOURCE: Literal[Blend.OP_SOURCE]
-APNG_BLEND_OP_OVER: Literal[Blend.OP_OVER]
 
 class ChunkStream:
     fp: Incomplete
