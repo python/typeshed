@@ -245,7 +245,9 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     @overload
     def parse_known_intermixed_args(self, args: Sequence[str] | None = None, namespace: None = None) -> tuple[Namespace, list[str]]: ...  # type: ignore[misc]
     @overload
-    def parse_known_intermixed_args(self, args: Sequence[str] | None, namespace: _N | None) -> tuple[_N | Namespace, list[str]]: ...
+    def parse_known_intermixed_args(
+        self, args: Sequence[str] | None, namespace: _N | None
+    ) -> tuple[_N | Namespace, list[str]]: ...
     @overload
     def parse_known_intermixed_args(self, args: Sequence[str] | None, namespace: _N) -> tuple[_N, list[str]]: ...
     @overload
