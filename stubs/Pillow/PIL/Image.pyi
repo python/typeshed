@@ -169,10 +169,10 @@ _ImageState: TypeAlias = tuple[dict[str, Any], str, tuple[int, int], Any, bytes]
 class Image:
     format: ClassVar[str | None]
     format_description: ClassVar[str | None]
-    im: Any
+    im: Incomplete
     mode: _Mode
-    palette: Any
-    info: dict[Any, Any]
+    palette: Incomplete
+    info: dict[Incomplete, Incomplete]
     readonly: int
     pyaccess: PyAccess | None
     is_animated: bool  # not present on all Image objects

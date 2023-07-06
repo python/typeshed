@@ -1,24 +1,23 @@
 from _typeshed import Incomplete
-from typing import Any
 
 class Pen:
-    color: Any
-    width: Any
+    color: Incomplete
+    width: Incomplete
     def __init__(self, color, width: int = 1, opacity: int = 255) -> None: ...
 
 class Brush:
-    color: Any
+    color: Incomplete
     def __init__(self, color, opacity: int = 255) -> None: ...
 
 class Font:
-    color: Any
-    font: Any
+    color: Incomplete
+    font: Incomplete
     def __init__(self, color, file, size: int = 12) -> None: ...
 
 class Draw:
-    draw: Any
-    image: Any
-    transform: Any
+    draw: Incomplete
+    image: Incomplete
+    transform: Incomplete
     def __init__(self, image, size: Incomplete | None = None, color: Incomplete | None = None) -> None: ...
     def flush(self): ...
     def render(self, op, xy, pen, brush: Incomplete | None = None) -> None: ...
