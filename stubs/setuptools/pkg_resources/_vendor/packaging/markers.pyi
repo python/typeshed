@@ -1,10 +1,4 @@
-__all__ = [
-    "InvalidMarker",
-    "UndefinedComparison",
-    "UndefinedEnvironmentName",
-    "Marker",
-    "default_environment",
-]
+__all__ = ["InvalidMarker", "UndefinedComparison", "UndefinedEnvironmentName", "Marker", "default_environment"]
 
 class InvalidMarker(ValueError): ...
 class UndefinedComparison(ValueError): ...

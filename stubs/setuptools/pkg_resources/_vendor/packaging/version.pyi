@@ -3,7 +3,9 @@ from typing_extensions import Final
 __all__ = ["VERSION_PATTERN", "parse", "Version", "InvalidVersion"]
 
 def parse(version: str) -> Version: ...
+
 class InvalidVersion(ValueError): ...
+
 VERSION_PATTERN: Final[str]
 
 class _BaseVersion:

@@ -1,5 +1,5 @@
-from .specifiers import SpecifierSet
 from .markers import Marker
+from .specifiers import SpecifierSet
 
 class InvalidRequirement(ValueError): ...
 
