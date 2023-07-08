@@ -17,6 +17,8 @@ configparser.LegacyInterpolation.__init__
 configparser.ParsingError.filename
 enum.Enum.__init__
 enum.Enum._generate_next_value_
+# Not strictly speaking a staticmethod on 3.11, but it acts like one:
+enum.StrEnum._generate_next_value_
 importlib.abc.Finder.find_module
 ipaddress._BaseNetwork.broadcast_address
 ipaddress._BaseNetwork.hostmask
