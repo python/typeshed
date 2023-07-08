@@ -91,10 +91,6 @@ class Requirement(packaging_requirements.Requirement):
     key: str
     extras: tuple[str, ...]  # type: ignore[assignment]  # incompatible override of attribute on base class
     specs: list[tuple[str, str]]
-    url: str | None
-    # TODO: change this to packaging.markers.Marker | None once we can import
-    #       packaging.markers
-    marker: Incomplete | None
     def __init__(self, requirement_string: str) -> None: ...
     @staticmethod
     def parse(s: str | Iterable[str]) -> Requirement: ...
