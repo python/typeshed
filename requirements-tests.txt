@@ -25,4 +25,3 @@ typing_extensions @ git+https://github.com/python/typing_extensions.git
 
 # Type stubs used to type check our scripts.
 types-pyyaml>=6.0.12.7
-types-setuptools>=67.5.0.0
