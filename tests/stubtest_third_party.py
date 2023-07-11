@@ -98,10 +98,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_platforms_only:
         if platform_allowlist.exists():
             stubtest_cmd.extend(["--allowlist", str(platform_allowlist)])
 
-        # Perform some black magic in order to run stubtest inside uWSGI:
-        # we have to write the exit code from stubtest to a surrogate file
-        # because uwsgi --pyrun does not exit with the exitcode from the
-        # python script.
+        # Perform some black magic in order to run stubtest inside uWSGI
         if dist_name == "uWSGI":
             if not setup_uwsgi_stubtest_command(dist, venv_dir, stubtest_cmd):
                 return False
