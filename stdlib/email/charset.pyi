@@ -1,6 +1,6 @@
-from collections.abc import Iterator
+from collections.abc import Callable, Iterator
 from email.message import Message
-from typing import Callable, overload
+from typing import overload
 
 __all__ = ["Charset", "add_alias", "add_charset", "add_codec"]
 
