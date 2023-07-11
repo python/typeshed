@@ -152,23 +152,21 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
     uwsgi_script = venv_dir / "uwsgi_stubtest.py"
     wrapper_script = venv_dir / "uwsgi_wrapper.py"
     exit_code_surrogate = venv_dir / "exit_code"
-    with uwsgi_script.open(mode="w") as fp:
-        fp.write(
-            dedent(
-                f"""
-                import json
-                import os
-                import sys
-                from mypy.stubtest import main
+    uwsgi_script_contents = dedent(
+        f"""
+        import json
+        import os
+        import sys
+        from mypy.stubtest import main
 
-                sys.argv = json.loads(os.environ.get("STUBTEST_ARGS"))
-                exit_code = main()
-                with open("{exit_code_surrogate}", mode="w") as fp:
-                    fp.write(str(exit_code))
-                sys.exit(exit_code)
-                """
-            )
-        )
+        sys.argv = json.loads(os.environ.get("STUBTEST_ARGS"))
+        exit_code = main()
+        with open("{exit_code_surrogate}", mode="w") as fp:
+            fp.write(str(exit_code))
+        sys.exit(exit_code)
+        """
+    )
+    uwsgi_script.write_text(uwsgi_script_contents)
 
     if sys.platform == "win32":
         uwsgi_exe = venv_dir / "Scripts" / "uwsgi.exe"
@@ -182,32 +180,30 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
     # this wrapper script only forwards stdout, since stderr contains
     # a bunch of spam from uWSGI, if you want to debug the internal script
     # it's a good idea to forward stderr temporarily as well
-    with wrapper_script.open(mode="w") as fp:
-        fp.write(
-            dedent(
-                f"""
-                import json
-                import os
-                import subprocess
-                import sys
+    wrapper_script_contents = dedent(
+        f"""
+        import json
+        import os
+        import subprocess
+        import sys
 
-                stubtest_env = os.environ | {{"STUBTEST_ARGS": json.dumps(sys.argv)}}
-                uwsgi_cmd = [
-                    "{uwsgi_exe}",
-                    "--ini",
-                    "{uwsgi_ini}",
-                    "--spooler",
-                    "{venv_dir}",
-                    "--pyrun",
-                    "{uwsgi_script}",
-                ]
-                ret = subprocess.run(uwsgi_cmd, env=stubtest_env, capture_output=True)
-                print(ret.stdout.decode(), end="", file=sys.stdout)
-                with open("{exit_code_surrogate}", mode="r") as fp:
-                    sys.exit(int(fp.read()))
-                """
-            )
-        )
+        stubtest_env = os.environ | {{"STUBTEST_ARGS": json.dumps(sys.argv)}}
+        uwsgi_cmd = [
+            "{uwsgi_exe}",
+            "--ini",
+            "{uwsgi_ini}",
+            "--spooler",
+            "{venv_dir}",
+            "--pyrun",
+            "{uwsgi_script}",
+        ]
+        ret = subprocess.run(uwsgi_cmd, env=stubtest_env, capture_output=True)
+        print(ret.stdout.decode(), end="", file=sys.stdout)
+        with open("{exit_code_surrogate}", mode="r") as fp:
+            sys.exit(int(fp.read()))
+        """
+    )
+    wrapper_script.write_text(wrapper_script_contents)
 
     # modify stubtest_cmd to run our wrapper script instead
     del stubtest_cmd[1]
