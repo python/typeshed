@@ -91,6 +91,10 @@ ECANCELED: int  # undocumented
 ENOTRECOVERABLE: int  # undocumented
 EOWNERDEAD: int  # undocumented
 
+if sys.platform == "sunos5" or sys.platform == "solaris":
+    ELOCKUNMAPPED: int
+    ENOTACTIVE: int
+
 if sys.platform != "win32":
     ENOTBLK: int
     EMULTIHOP: int
