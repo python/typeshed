@@ -91,7 +91,7 @@ ECANCELED: int  # undocumented
 ENOTRECOVERABLE: int  # undocumented
 EOWNERDEAD: int  # undocumented
 
-if sys.platform == "sunos5" or sys.platform == "solaris":
+if sys.platform == "sunos5" or sys.platform == "solaris":  # noqa: Y008
     ELOCKUNMAPPED: int
     ENOTACTIVE: int
 
