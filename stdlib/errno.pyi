@@ -115,7 +115,7 @@ if sys.platform == "darwin":
     ERPCMISMATCH: int
     ESHLIBVERS: int
     if sys.version_info >= (3, 11):
-        EQFULL: int  # undocumented
+        EQFULL: int
 
 if sys.platform != "darwin":
     EDEADLOCK: int
