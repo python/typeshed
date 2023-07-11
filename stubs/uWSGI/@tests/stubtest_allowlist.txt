@@ -6,13 +6,6 @@ uwsgidecorators.erlang
 # This should really only be internal API, so we don't export it
 uwsgidecorators.harakiri.real_call
 
-# Error: is not present at runtime
-# uWSGI by default is not built with paths support when installing
-# through pip and setting up a custom build config just to test
-# this does not seem worth the trouble, so we just ignore this
-# one error
-uwsgi.route
-
 # Error: is inconsistent
 # ======================
 # This is a limitation of ParamSpec, we can't specify that the
