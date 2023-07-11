@@ -9,6 +9,7 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
+from textwrap import dedent
 from typing import NoReturn
 
 from parse_metadata import get_recursive_requirements, read_metadata
@@ -97,8 +98,61 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_platforms_only:
         if platform_allowlist.exists():
             stubtest_cmd.extend(["--allowlist", str(platform_allowlist)])
 
+        # Perform some black magic in order to run stubtest inside uWSGI
+        # we have to write the exit code from stubtest to a surrogate file
+        # because uwsgi --pyrun does not exit with the exitcode from the
+        # python script.
+        if dist_name == "uWSGI":
+            uwsgi_ini = dist / "@tests/uwsgi.ini"
+            if not uwsgi_ini.exists():
+                print_error("Did not find a uwsgi.ini for the uWSGI tests")
+                return False
+
+            runner_script = venv_dir / "uwsgi_stubtest.py"
+            exit_code_surrogate = venv_dir / "exit_code"
+            with runner_script.open(mode="w") as fp:
+                fp.write(
+                    dedent(
+                        f"""
+                import sys
+                from mypy.stubtest import main
+
+                sys.argv = {stubtest_cmd[2:]!r}
+                exit_code = main()
+                with open("{exit_code_surrogate}", mode="w") as fp:
+                    fp.write(str(exit_code))
+                sys.exit(exit_code)
+                """
+                    )
+                )
+
+            # FIXME: this is a bit fragile, can we think of a better
+            #        way of finding the executable inside the venv?
+            #        Is it maybe sufficient to prepend venv_dir to PATH
+            #        and then run shutil.which?
+            uwsgi_exe_name = "uwsgi.exe" if sys.platform == "win32" else "uwsgi"
+            stubtest_cmd = [
+                str(venv_dir / "bin" / uwsgi_exe_name),
+                "--ini",
+                str(uwsgi_ini),
+                "--spooler",
+                str(venv_dir),
+                "--pyrun",
+                str(runner_script),
+            ]
+        else:
+            exit_code_surrogate = None
+
         try:
-            subprocess.run(stubtest_cmd, env=stubtest_env, check=True, capture_output=True)
+            proc = subprocess.run(stubtest_cmd, env=stubtest_env, check=True, capture_output=True)
+            if exit_code_surrogate is not None and exit_code_surrogate.exists():
+                with open(exit_code_surrogate, mode="r") as fp:
+                    exit_code = int(fp.read())
+
+                if exit_code:
+                    # FIXME: Can we think of an elegant way to trim the uWSGI
+                    #        output? We only care about the stubtest output...
+                    raise subprocess.CalledProcessError(exit_code, stubtest_cmd, output=proc.stdout, stderr=proc.stderr)
         except subprocess.CalledProcessError as e:
             print_error("fail")
             print_commands(dist, pip_cmd, stubtest_cmd, mypypath)

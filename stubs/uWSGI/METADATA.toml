@@ -6,9 +6,3 @@ extra_description = """\
   and some parts of the API are only present when corresponding configuration options \
   have been enabled.
 """
-
-[tool.stubtest]
-# Running stubtest within uWSGI with all the correct configuration options for the entire
-# API to be accesible is a bit of a hassle, so for now we don't run stubtest. We would need
-# to modify tests/stubtest_third_party.py to special case uWSGI.
-skip = true
