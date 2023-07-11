@@ -98,7 +98,7 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_platforms_only:
         if platform_allowlist.exists():
             stubtest_cmd.extend(["--allowlist", str(platform_allowlist)])
 
-        # Perform some black magic in order to run stubtest inside uWSGI
+        # Perform some black magic in order to run stubtest inside uWSGI:
         # we have to write the exit code from stubtest to a surrogate file
         # because uwsgi --pyrun does not exit with the exitcode from the
         # python script.
@@ -137,13 +137,15 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_platforms_only:
     return True
 
 
-# Performs some black magic in order to run stubtest inside uWSGI
-# we have to write the exit code from stubtest to a surrogate file
-# because uwsgi --pyrun does not exit with the exitcode from the
-# python script. We have a second wrapper script that passed the
-# arguments along to the uWSGI script and retrieves the exit code
-# from the file, so it behaves like running stubtest normally would
 def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[str]) -> bool:
+    """Perform some black magic in order to run stubtest inside uWSGI.
+
+    We have to write the exit code from stubtest to a surrogate file
+    because uwsgi --pyrun does not exit with the exitcode from the
+    python script. We have a second wrapper script that passed the
+    arguments along to the uWSGI script and retrieves the exit code
+    from the file, so it behaves like running stubtest normally would.
+    """
     uwsgi_ini = dist / "@tests/uwsgi.ini"
     if not uwsgi_ini.exists():
         print_error("Did not find a uwsgi.ini for the uWSGI tests")
@@ -177,8 +179,8 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
         print_error("Did not find a uwsgi executable")
         return False
 
-    # this wrapper script only forwards stdout, since stderr contains
-    # a bunch of spam from uWSGI, if you want to debug the internal script
+    # This wrapper script only forwards stdout, since stderr contains
+    # a bunch of spam from uWSGI. If you want to debug the internal script,
     # it's a good idea to forward stderr temporarily as well
     wrapper_script_contents = dedent(
         f"""
@@ -205,9 +207,8 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
     )
     wrapper_script.write_text(wrapper_script_contents)
 
-    # modify stubtest_cmd to run our wrapper script instead
-    del stubtest_cmd[1]
-    stubtest_cmd[1] = str(wrapper_script)
+    # replace "-m mypy.stubtest" in stubtest_cmd with the path to our wrapper script
+    stubtest_cmd[1:3] = [str(wrapper_script)]
     return True
 
 
