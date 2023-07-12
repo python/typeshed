@@ -21,7 +21,6 @@ collections.UserDict.get
 configparser.ParsingError.__init__
 configparser.RawConfigParser.readfp
 configparser.__all__
-datetime.__all__
 enum.Enum.__signature__
 enum.EnumMeta.__call__
 enum.EnumType.__call__
