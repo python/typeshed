@@ -3,7 +3,7 @@ from collections.abc import Callable, Iterable, Iterator, MutableMapping, Sequen
 from enum import IntEnum
 from pathlib import Path
 from typing import Any, ClassVar, Protocol, SupportsBytes
-from typing_extensions import Final, Literal, Self, TypeAlias, TypeGuard
+from typing_extensions import Literal, Self, TypeAlias, TypeGuard
 
 from PIL.PyAccess import PyAccess
 
@@ -43,7 +43,7 @@ class DecompressionBombError(Exception): ...
 # be altered at runtime. See
 #     https://pillow.readthedocs.io/en/stable/reference/Image.html#PIL.Image.open
 # or the permalink
-#     https://github.com/python-pillow/Pillow/blob/10.0.0/docs/reference/Image.rst?plain=1#L54-L55 
+#     https://github.com/python-pillow/Pillow/blob/10.0.0/docs/reference/Image.rst?plain=1#L54-L55
 MAX_IMAGE_PIXELS: int | None
 
 USE_CFFI_ACCESS: bool
