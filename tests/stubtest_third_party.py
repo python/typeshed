@@ -181,9 +181,11 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
         print_error("Did not find a uwsgi executable")
         return False
 
-    # This wrapper script only forwards stdout, since stderr contains
-    # a bunch of spam from uWSGI. If you want to debug the internal script,
-    # it's a good idea to forward stderr temporarily as well
+    # It would be nice to reliably separate uWSGI output from
+    # the stubtest output, on linux it appears that stubtest
+    # will always go to stdout and uWSGI to stderr, but on
+    # MacOS they both go to stderr, for now we deal with the
+    # bit of extra spam
     wrapper_script_contents = dedent(
         f"""
         import json
@@ -202,8 +204,6 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
             "{uwsgi_script}",
         ]
         ret = subprocess.run(uwsgi_cmd, env=stubtest_env)
-        # TODO: revert this to only logging stdout
-        #print(ret.stdout.decode(), end="", file=sys.stdout)
         with open("{exit_code_surrogate}", mode="r") as fp:
             sys.exit(int(fp.read()))
         """

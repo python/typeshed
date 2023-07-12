@@ -1,0 +1,14 @@
+# Error: is not present at runtime
+# =============================
+# These function depend on modules which are not built into
+# the MacOS wheel by default, so we just ignore them for now
+# we don't want to pretend they don't exist, because people
+# could still configure a build with the required modules
+# manually
+uwsgi.SymbolsImporter is not present at runtime
+uwsgi.SymbolsZipImporter
+uwsgi.ZipImporter
+uwsgi.i_am_the_lord
+uwsgi.lord_scroll
+uwsgi.route
+uwsgi.scrolls
