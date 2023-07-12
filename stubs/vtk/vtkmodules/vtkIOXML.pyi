@@ -4,6 +4,7 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkIOXMLParser
+import vtkmodules.vtkIOCore
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")

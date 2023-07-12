@@ -2,6 +2,9 @@ from typing import Callable, TypeVar, Union
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkRenderingCore
+import vtkmodules.vtkCommonDataModel
+import vtkmodules.vtkCommonExecutionModel
+import vtkmodules.vtkFiltersCore
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")

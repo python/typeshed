@@ -109,60 +109,60 @@ class vtkExodusIICacheKey:
 
 class vtkExodusIIReader(vtkmodules.vtkCommonExecutionModel.vtkMultiBlockDataSetAlgorithm):
     class ObjectType(int): ...
-    ASSEMBLY: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    EDGE_BLOCK: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    EDGE_BLOCK_ATTRIB: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    EDGE_BLOCK_CONN: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    EDGE_ID: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    EDGE_MAP: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    EDGE_SET: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    EDGE_SET_CONN: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    ELEMENT_ID: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    ELEM_BLOCK: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    ELEM_BLOCK_ATTRIB: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    ELEM_BLOCK_EDGE_CONN: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    ELEM_BLOCK_ELEM_CONN: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    ELEM_BLOCK_FACE_CONN: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    ELEM_BLOCK_TEMPORAL: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    ELEM_MAP: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    ELEM_SET: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    ELEM_SET_CONN: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    ENTITY_COUNTS: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    FACE_BLOCK: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    FACE_BLOCK_ATTRIB: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    FACE_BLOCK_CONN: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    FACE_ID: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    FACE_MAP: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    FACE_SET: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    FACE_SET_CONN: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    GLOBAL: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    GLOBAL_CONN: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    GLOBAL_ELEMENT_ID: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    GLOBAL_NODE_ID: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    GLOBAL_TEMPORAL: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    HIERARCHY: vtkmodules.vtkRenderingOpenGL2.ObjectType
+    ASSEMBLY: ObjectType
+    EDGE_BLOCK: ObjectType
+    EDGE_BLOCK_ATTRIB: ObjectType
+    EDGE_BLOCK_CONN: ObjectType
+    EDGE_ID: ObjectType
+    EDGE_MAP: ObjectType
+    EDGE_SET: ObjectType
+    EDGE_SET_CONN: ObjectType
+    ELEMENT_ID: ObjectType
+    ELEM_BLOCK: ObjectType
+    ELEM_BLOCK_ATTRIB: ObjectType
+    ELEM_BLOCK_EDGE_CONN: ObjectType
+    ELEM_BLOCK_ELEM_CONN: ObjectType
+    ELEM_BLOCK_FACE_CONN: ObjectType
+    ELEM_BLOCK_TEMPORAL: ObjectType
+    ELEM_MAP: ObjectType
+    ELEM_SET: ObjectType
+    ELEM_SET_CONN: ObjectType
+    ENTITY_COUNTS: ObjectType
+    FACE_BLOCK: ObjectType
+    FACE_BLOCK_ATTRIB: ObjectType
+    FACE_BLOCK_CONN: ObjectType
+    FACE_ID: ObjectType
+    FACE_MAP: ObjectType
+    FACE_SET: ObjectType
+    FACE_SET_CONN: ObjectType
+    GLOBAL: ObjectType
+    GLOBAL_CONN: ObjectType
+    GLOBAL_ELEMENT_ID: ObjectType
+    GLOBAL_NODE_ID: ObjectType
+    GLOBAL_TEMPORAL: ObjectType
+    HIERARCHY: ObjectType
     ID_NOT_FOUND: int
-    IMPLICIT_ELEMENT_ID: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    IMPLICIT_NODE_ID: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    INFO_RECORDS: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    MATERIAL: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    NODAL: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    NODAL_COORDS: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    NODAL_SQUEEZEMAP: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    NODAL_TEMPORAL: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    NODE_ID: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    NODE_MAP: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    NODE_SET: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    NODE_SET_CONN: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    OBJECT_ID: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    PART: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    QA_RECORDS: vtkmodules.vtkRenderingOpenGL2.ObjectType
+    IMPLICIT_ELEMENT_ID: ObjectType
+    IMPLICIT_NODE_ID: ObjectType
+    INFO_RECORDS: ObjectType
+    MATERIAL: ObjectType
+    NODAL: ObjectType
+    NODAL_COORDS: ObjectType
+    NODAL_SQUEEZEMAP: ObjectType
+    NODAL_TEMPORAL: ObjectType
+    NODE_ID: ObjectType
+    NODE_MAP: ObjectType
+    NODE_SET: ObjectType
+    NODE_SET_CONN: ObjectType
+    OBJECT_ID: ObjectType
+    PART: ObjectType
+    QA_RECORDS: ObjectType
     SEARCH_TYPE_ELEMENT: int
     SEARCH_TYPE_ELEMENT_THEN_NODE: int
     SEARCH_TYPE_NODE: int
     SEARCH_TYPE_NODE_THEN_ELEMENT: int
-    SIDE_SET: vtkmodules.vtkRenderingOpenGL2.ObjectType
-    SIDE_SET_CONN: vtkmodules.vtkRenderingOpenGL2.ObjectType
+    SIDE_SET: ObjectType
+    SIDE_SET_CONN: ObjectType
     def AnimateModeShapesOff(self) -> None: ...
     def AnimateModeShapesOn(self) -> None: ...
     def ApplyDisplacementsOff(self) -> None: ...

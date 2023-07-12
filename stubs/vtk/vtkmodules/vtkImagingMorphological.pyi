@@ -4,6 +4,7 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkImagingCore
 import vtkmodules.vtkImagingGeneral
+import vtkmodules.vtkCommonDataModel
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")

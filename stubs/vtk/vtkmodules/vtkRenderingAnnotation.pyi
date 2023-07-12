@@ -3,6 +3,9 @@ from typing import Callable, MutableSequence, Sequence, Tuple, TypeVar, Union, o
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkRenderingCore
+import vtkmodules.vtkCommonDataModel
+import vtkmodules.vtkImagingColor
+import vtkmodules.vtkFiltersSources
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")

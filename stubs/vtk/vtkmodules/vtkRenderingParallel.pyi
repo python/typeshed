@@ -3,6 +3,9 @@ from typing import Callable, MutableSequence, Sequence, Tuple, TypeVar, Union, o
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingOpenGL2
+import vtkmodules.vtkCommonDataModel
+import vtkmodules.vtkParallelCore
+import vtkmodules.vtkFiltersParallel
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")
@@ -108,15 +111,15 @@ class vtkCompositeRGBAPass(vtkmodules.vtkRenderingCore.vtkRenderPass):
 
 class vtkParallelRenderManager(vtkmodules.vtkCommonCore.vtkObject):
     class Tags(int): ...
-    BOUNDS_TAG: vtkmodules.vtkParallelCore.Tags
-    COMPUTE_VISIBLE_PROP_BOUNDS_RMI_TAG: vtkmodules.vtkParallelCore.Tags
-    LIGHT_INFO_TAG: vtkmodules.vtkParallelCore.Tags
+    BOUNDS_TAG: Tags
+    COMPUTE_VISIBLE_PROP_BOUNDS_RMI_TAG: Tags
+    LIGHT_INFO_TAG: Tags
     LINEAR: int
     NEAREST: int
-    RENDER_RMI_TAG: vtkmodules.vtkParallelCore.Tags
-    REN_ID_TAG: vtkmodules.vtkParallelCore.Tags
-    REN_INFO_TAG: vtkmodules.vtkParallelCore.Tags
-    WIN_INFO_TAG: vtkmodules.vtkParallelCore.Tags
+    RENDER_RMI_TAG: Tags
+    REN_ID_TAG: Tags
+    REN_INFO_TAG: Tags
+    WIN_INFO_TAG: Tags
     def AddRenderer(self, __a: vtkmodules.vtkRenderingCore.vtkRenderer) -> None: ...
     def AutoImageReductionFactorOff(self) -> None: ...
     def AutoImageReductionFactorOn(self) -> None: ...

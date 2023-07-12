@@ -1,6 +1,8 @@
 from typing import Callable, TypeVar, Union, overload
 
 import vtkmodules.vtkCommonCore
+import vtkmodules.vtkCommonDataModel
+import vtkmodules.vtkIOCore
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")

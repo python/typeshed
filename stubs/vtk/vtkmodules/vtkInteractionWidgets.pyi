@@ -5,6 +5,14 @@ import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkFiltersSources
 import vtkmodules.vtkRenderingContext2D
 import vtkmodules.vtkRenderingCore
+import vtkmodules.vtkCommonDataModel
+import vtkmodules.vtkCommonTransforms
+import vtkmodules.vtkImagingCore
+import vtkmodules.vtkCommonComputationalGeometry
+import vtkmodules.vtkRenderingAnnotation
+import vtkmodules.vtkImagingHybrid
+import vtkmodules.vtkCommonMath
+import vtkmodules.vtkFiltersHybrid
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")
@@ -140,11 +148,11 @@ class vtkWidgetRepresentation(vtkmodules.vtkRenderingCore.vtkProp):
 
 class vtkHandleRepresentation(vtkWidgetRepresentation):
     class InteractionStateType(int): ...
-    Nearby: vtkmodules.vtkGeovisCore.InteractionStateType
-    Outside: vtkmodules.vtkGeovisCore.InteractionStateType
-    Scaling: vtkmodules.vtkGeovisCore.InteractionStateType
-    Selecting: vtkmodules.vtkGeovisCore.InteractionStateType
-    Translating: vtkmodules.vtkGeovisCore.InteractionStateType
+    Nearby: InteractionStateType
+    Outside: InteractionStateType
+    Scaling: InteractionStateType
+    Selecting: InteractionStateType
+    Translating: InteractionStateType
     def ActiveRepresentationOff(self) -> None: ...
     def ActiveRepresentationOn(self) -> None: ...
     def CheckConstraint(self, renderer: vtkmodules.vtkRenderingCore.vtkRenderer, pos: MutableSequence[float]) -> int: ...
@@ -259,15 +267,15 @@ class vtkAbstractPolygonalHandleRepresentation3D(vtkHandleRepresentation):
 
 class vtkCurveRepresentation(vtkWidgetRepresentation):
     class InteractionStateType(int): ...
-    Erasing: vtkmodules.vtkGeovisCore.InteractionStateType
-    Inserting: vtkmodules.vtkGeovisCore.InteractionStateType
-    Moving: vtkmodules.vtkGeovisCore.InteractionStateType
-    OnHandle: vtkmodules.vtkGeovisCore.InteractionStateType
-    OnLine: vtkmodules.vtkGeovisCore.InteractionStateType
-    Outside: vtkmodules.vtkGeovisCore.InteractionStateType
-    Pushing: vtkmodules.vtkGeovisCore.InteractionStateType
-    Scaling: vtkmodules.vtkGeovisCore.InteractionStateType
-    Spinning: vtkmodules.vtkGeovisCore.InteractionStateType
+    Erasing: InteractionStateType
+    Inserting: InteractionStateType
+    Moving: InteractionStateType
+    OnHandle: InteractionStateType
+    OnLine: InteractionStateType
+    Outside: InteractionStateType
+    Pushing: InteractionStateType
+    Scaling: InteractionStateType
+    Spinning: InteractionStateType
     def BuildRepresentation(self) -> None: ...
     def ClosedOff(self) -> None: ...
     def ClosedOn(self) -> None: ...
@@ -399,26 +407,26 @@ class vtkAbstractWidget(vtkmodules.vtkRenderingCore.vtkInteractorObserver):
 
 class vtkAffineRepresentation(vtkWidgetRepresentation):
     class InteractionStateType(int): ...
-    MoveOrigin: vtkmodules.vtkGeovisCore.InteractionStateType
-    MoveOriginX: vtkmodules.vtkGeovisCore.InteractionStateType
-    MoveOriginY: vtkmodules.vtkGeovisCore.InteractionStateType
-    Outside: vtkmodules.vtkGeovisCore.InteractionStateType
-    Rotate: vtkmodules.vtkGeovisCore.InteractionStateType
-    ScaleEEdge: vtkmodules.vtkGeovisCore.InteractionStateType
-    ScaleNE: vtkmodules.vtkGeovisCore.InteractionStateType
-    ScaleNEdge: vtkmodules.vtkGeovisCore.InteractionStateType
-    ScaleNW: vtkmodules.vtkGeovisCore.InteractionStateType
-    ScaleSE: vtkmodules.vtkGeovisCore.InteractionStateType
-    ScaleSEdge: vtkmodules.vtkGeovisCore.InteractionStateType
-    ScaleSW: vtkmodules.vtkGeovisCore.InteractionStateType
-    ScaleWEdge: vtkmodules.vtkGeovisCore.InteractionStateType
-    ShearEEdge: vtkmodules.vtkGeovisCore.InteractionStateType
-    ShearNEdge: vtkmodules.vtkGeovisCore.InteractionStateType
-    ShearSEdge: vtkmodules.vtkGeovisCore.InteractionStateType
-    ShearWEdge: vtkmodules.vtkGeovisCore.InteractionStateType
-    Translate: vtkmodules.vtkGeovisCore.InteractionStateType
-    TranslateX: vtkmodules.vtkGeovisCore.InteractionStateType
-    TranslateY: vtkmodules.vtkGeovisCore.InteractionStateType
+    MoveOrigin: InteractionStateType
+    MoveOriginX: InteractionStateType
+    MoveOriginY: InteractionStateType
+    Outside: InteractionStateType
+    Rotate: InteractionStateType
+    ScaleEEdge: InteractionStateType
+    ScaleNE: InteractionStateType
+    ScaleNEdge: InteractionStateType
+    ScaleNW: InteractionStateType
+    ScaleSE: InteractionStateType
+    ScaleSEdge: InteractionStateType
+    ScaleSW: InteractionStateType
+    ScaleWEdge: InteractionStateType
+    ShearEEdge: InteractionStateType
+    ShearNEdge: InteractionStateType
+    ShearSEdge: InteractionStateType
+    ShearWEdge: InteractionStateType
+    Translate: InteractionStateType
+    TranslateX: InteractionStateType
+    TranslateY: InteractionStateType
     def GetNumberOfGenerationsFromBase(self, type: str) -> int: ...
     @staticmethod
     def GetNumberOfGenerationsFromBaseType(type: str) -> int: ...
@@ -2370,15 +2378,15 @@ class vtkContourWidget(vtkAbstractWidget):
 
 class vtkCoordinateFrameRepresentation(vtkWidgetRepresentation):
     class InteractionStateType(int): ...
-    ModifyingLockerXVector: vtkmodules.vtkGeovisCore.InteractionStateType
-    ModifyingLockerYVector: vtkmodules.vtkGeovisCore.InteractionStateType
-    ModifyingLockerZVector: vtkmodules.vtkGeovisCore.InteractionStateType
-    Moving: vtkmodules.vtkGeovisCore.InteractionStateType
-    MovingOrigin: vtkmodules.vtkGeovisCore.InteractionStateType
-    Outside: vtkmodules.vtkGeovisCore.InteractionStateType
-    RotatingXVector: vtkmodules.vtkGeovisCore.InteractionStateType
-    RotatingYVector: vtkmodules.vtkGeovisCore.InteractionStateType
-    RotatingZVector: vtkmodules.vtkGeovisCore.InteractionStateType
+    ModifyingLockerXVector: InteractionStateType
+    ModifyingLockerYVector: InteractionStateType
+    ModifyingLockerZVector: InteractionStateType
+    Moving: InteractionStateType
+    MovingOrigin: InteractionStateType
+    Outside: InteractionStateType
+    RotatingXVector: InteractionStateType
+    RotatingYVector: InteractionStateType
+    RotatingZVector: InteractionStateType
     def BuildRepresentation(self) -> None: ...
     def ComputeInteractionState(self, X: int, Y: int, modify: int = 0) -> int: ...
     def EndWidgetInteraction(self, newEventPos: MutableSequence[float]) -> None: ...
@@ -2514,14 +2522,14 @@ class vtkDijkstraImageContourLineInterpolator(vtkContourLineInterpolator):
 
 class vtkDisplaySizedImplicitPlaneRepresentation(vtkWidgetRepresentation):
     class InteractionStateType(int): ...
-    Moving: vtkmodules.vtkGeovisCore.InteractionStateType
-    MovingOrigin: vtkmodules.vtkGeovisCore.InteractionStateType
-    MovingOutline: vtkmodules.vtkGeovisCore.InteractionStateType
-    Outside: vtkmodules.vtkGeovisCore.InteractionStateType
-    Pushing: vtkmodules.vtkGeovisCore.InteractionStateType
-    ResizeDiskRadius: vtkmodules.vtkGeovisCore.InteractionStateType
-    Rotating: vtkmodules.vtkGeovisCore.InteractionStateType
-    Scaling: vtkmodules.vtkGeovisCore.InteractionStateType
+    Moving: InteractionStateType
+    MovingOrigin: InteractionStateType
+    MovingOutline: InteractionStateType
+    Outside: InteractionStateType
+    Pushing: InteractionStateType
+    ResizeDiskRadius: InteractionStateType
+    Rotating: InteractionStateType
+    Scaling: InteractionStateType
     def BuildRepresentation(self) -> None: ...
     def BumpPlane(self, dir: int, factor: float) -> None: ...
     def ComplexInteraction(
@@ -3620,14 +3628,14 @@ class vtkImageTracerWidget(vtk3DWidget):
 
 class vtkImplicitCylinderRepresentation(vtkWidgetRepresentation):
     class InteractionStateType(int): ...
-    AdjustingRadius: vtkmodules.vtkGeovisCore.InteractionStateType
-    Moving: vtkmodules.vtkGeovisCore.InteractionStateType
-    MovingCenter: vtkmodules.vtkGeovisCore.InteractionStateType
-    MovingOutline: vtkmodules.vtkGeovisCore.InteractionStateType
-    Outside: vtkmodules.vtkGeovisCore.InteractionStateType
-    RotatingAxis: vtkmodules.vtkGeovisCore.InteractionStateType
-    Scaling: vtkmodules.vtkGeovisCore.InteractionStateType
-    TranslatingCenter: vtkmodules.vtkGeovisCore.InteractionStateType
+    AdjustingRadius: InteractionStateType
+    Moving: InteractionStateType
+    MovingCenter: InteractionStateType
+    MovingOutline: InteractionStateType
+    Outside: InteractionStateType
+    RotatingAxis: InteractionStateType
+    Scaling: InteractionStateType
+    TranslatingCenter: InteractionStateType
     def AlongXAxisOff(self) -> None: ...
     def AlongXAxisOn(self) -> None: ...
     def AlongYAxisOff(self) -> None: ...
@@ -3774,13 +3782,13 @@ class vtkImplicitCylinderWidget(vtkAbstractWidget):
 
 class vtkImplicitPlaneRepresentation(vtkWidgetRepresentation):
     class InteractionStateType(int): ...
-    Moving: vtkmodules.vtkGeovisCore.InteractionStateType
-    MovingOrigin: vtkmodules.vtkGeovisCore.InteractionStateType
-    MovingOutline: vtkmodules.vtkGeovisCore.InteractionStateType
-    Outside: vtkmodules.vtkGeovisCore.InteractionStateType
-    Pushing: vtkmodules.vtkGeovisCore.InteractionStateType
-    Rotating: vtkmodules.vtkGeovisCore.InteractionStateType
-    Scaling: vtkmodules.vtkGeovisCore.InteractionStateType
+    Moving: InteractionStateType
+    MovingOrigin: InteractionStateType
+    MovingOutline: InteractionStateType
+    Outside: InteractionStateType
+    Pushing: InteractionStateType
+    Rotating: InteractionStateType
+    Scaling: InteractionStateType
     def BuildRepresentation(self) -> None: ...
     def BumpPlane(self, dir: int, factor: float) -> None: ...
     def ComplexInteraction(
@@ -4346,8 +4354,8 @@ class vtkLogoWidget(vtkBorderWidget):
 
 class vtkMagnifierRepresentation(vtkWidgetRepresentation):
     class InteractionStateType(int): ...
-    Invisible: vtkmodules.vtkGeovisCore.InteractionStateType
-    Visible: vtkmodules.vtkGeovisCore.InteractionStateType
+    Invisible: InteractionStateType
+    Visible: InteractionStateType
     def AddViewProp(self, __a: vtkmodules.vtkRenderingCore.vtkProp) -> None: ...
     def BorderOff(self) -> None: ...
     def BorderOn(self) -> None: ...
@@ -4599,20 +4607,20 @@ class vtkOrientedPolygonalHandleRepresentation3D(vtkAbstractPolygonalHandleRepre
 
 class vtkParallelopipedRepresentation(vtkWidgetRepresentation):
     class InteractionStateType(int): ...
-    ChairMode: vtkmodules.vtkGeovisCore.InteractionStateType
-    Inside: vtkmodules.vtkGeovisCore.InteractionStateType
-    Outside: vtkmodules.vtkGeovisCore.InteractionStateType
-    RequestChairMode: vtkmodules.vtkGeovisCore.InteractionStateType
-    RequestResizeParallelopiped: vtkmodules.vtkGeovisCore.InteractionStateType
-    RequestResizeParallelopipedAlongAnAxis: vtkmodules.vtkGeovisCore.InteractionStateType
-    RequestRotateParallelopiped: vtkmodules.vtkGeovisCore.InteractionStateType
-    RequestScaleParallelopiped: vtkmodules.vtkGeovisCore.InteractionStateType
-    RequestTranslateParallelopiped: vtkmodules.vtkGeovisCore.InteractionStateType
-    ResizingParallelopiped: vtkmodules.vtkGeovisCore.InteractionStateType
-    ResizingParallelopipedAlongAnAxis: vtkmodules.vtkGeovisCore.InteractionStateType
-    RotatingParallelopiped: vtkmodules.vtkGeovisCore.InteractionStateType
-    ScalingParallelopiped: vtkmodules.vtkGeovisCore.InteractionStateType
-    TranslatingParallelopiped: vtkmodules.vtkGeovisCore.InteractionStateType
+    ChairMode: InteractionStateType
+    Inside: InteractionStateType
+    Outside: InteractionStateType
+    RequestChairMode: InteractionStateType
+    RequestResizeParallelopiped: InteractionStateType
+    RequestResizeParallelopipedAlongAnAxis: InteractionStateType
+    RequestRotateParallelopiped: InteractionStateType
+    RequestScaleParallelopiped: InteractionStateType
+    RequestTranslateParallelopiped: InteractionStateType
+    ResizingParallelopiped: InteractionStateType
+    ResizingParallelopipedAlongAnAxis: InteractionStateType
+    RotatingParallelopiped: InteractionStateType
+    ScalingParallelopiped: InteractionStateType
+    TranslatingParallelopiped: InteractionStateType
     def BuildRepresentation(self) -> None: ...
     def ComputeInteractionState(self, X: int, Y: int, modify: int = 0) -> int: ...
     def GetActors(self, pc: vtkmodules.vtkRenderingCore.vtkPropCollection) -> None: ...
@@ -4811,11 +4819,11 @@ class vtkPointCloudRepresentation(vtkWidgetRepresentation):
     class PickingModeType(int): ...
     class InteractionStateType(int): ...
     HARDWARE_PICKING: PickingModeType
-    Outside: vtkmodules.vtkGeovisCore.InteractionStateType
-    Over: vtkmodules.vtkGeovisCore.InteractionStateType
-    OverOutline: vtkmodules.vtkGeovisCore.InteractionStateType
+    Outside: InteractionStateType
+    Over: InteractionStateType
+    OverOutline: InteractionStateType
     SOFTWARE_PICKING: PickingModeType
-    Selecting: vtkmodules.vtkGeovisCore.InteractionStateType
+    Selecting: InteractionStateType
     def BuildRepresentation(self) -> None: ...
     def ComputeInteractionState(self, X: int, Y: int, modify: int = 0) -> int: ...
     def GetActors(self, pc: vtkmodules.vtkRenderingCore.vtkPropCollection) -> None: ...
@@ -5309,10 +5317,10 @@ class vtkProp3DButtonRepresentation(vtkButtonRepresentation):
 
 class vtkRectilinearWipeRepresentation(vtkWidgetRepresentation):
     class InteractionStateType(int): ...
-    MovingCenter: vtkmodules.vtkGeovisCore.InteractionStateType
-    MovingHPane: vtkmodules.vtkGeovisCore.InteractionStateType
-    MovingVPane: vtkmodules.vtkGeovisCore.InteractionStateType
-    Outside: vtkmodules.vtkGeovisCore.InteractionStateType
+    MovingCenter: InteractionStateType
+    MovingHPane: InteractionStateType
+    MovingVPane: InteractionStateType
+    Outside: InteractionStateType
     def BuildRepresentation(self) -> None: ...
     def ComputeInteractionState(self, X: int, Y: int, modify: int = 0) -> int: ...
     def GetActors2D(self, __a: vtkmodules.vtkRenderingCore.vtkPropCollection) -> None: ...

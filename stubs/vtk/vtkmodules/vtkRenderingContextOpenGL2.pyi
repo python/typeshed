@@ -2,6 +2,10 @@ from typing import Callable, MutableSequence, Sequence, TypeVar, Union, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkRenderingContext2D
+import vtkmodules.vtkRenderingCore
+import vtkmodules.vtkCommonDataModel
+import vtkmodules.vtkCommonMath
+import vtkmodules.vtkRenderingOpenGL2
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")

@@ -2,6 +2,8 @@ from typing import Callable, TypeVar, Union
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkIOXML
+import vtkmodules.vtkParallelCore
+import vtkmodules.vtkCommonDataModel
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")

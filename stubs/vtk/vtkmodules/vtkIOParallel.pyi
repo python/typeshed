@@ -6,6 +6,8 @@ import vtkmodules.vtkIOCore
 import vtkmodules.vtkIOGeometry
 import vtkmodules.vtkIOImage
 import vtkmodules.vtkIOLegacy
+import vtkmodules.vtkCommonDataModel
+import vtkmodules.vtkParallelCore
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")
