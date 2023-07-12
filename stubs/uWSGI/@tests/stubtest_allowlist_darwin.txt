@@ -5,7 +5,7 @@
 # we don't want to pretend they don't exist, because people
 # could still configure a build with the required modules
 # manually
-uwsgi.SymbolsImporter is not present at runtime
+uwsgi.SymbolsImporter
 uwsgi.SymbolsZipImporter
 uwsgi.ZipImporter
 uwsgi.i_am_the_lord
