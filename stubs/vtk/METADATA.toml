@@ -1,4 +1,4 @@
-version = "2.1.*"
+version = "9.2.6"
 requires = []
 partial_stub = true
 
