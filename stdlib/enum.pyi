@@ -237,6 +237,8 @@ if sys.version_info >= (3, 11):
         _value_: str
         @_magic_enum_attr
         def value(self) -> str: ...
+        @staticmethod
+        def _generate_next_value_(name: str, start: int, count: int, last_values: list[str]) -> str: ...
 
     class EnumCheck(StrEnum):
         CONTINUOUS: str

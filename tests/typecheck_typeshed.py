@@ -63,6 +63,8 @@ def run_mypy_as_subprocess(directory: str, platform: str, version: str) -> Retur
         "possibly-undefined",
         "--enable-error-code",
         "redundant-expr",
+        "--custom-typeshed-dir",
+        ".",
     ]
     if directory == "tests" and platform == "win32":
         command.extend(["--exclude", "tests/pytype_test.py"])

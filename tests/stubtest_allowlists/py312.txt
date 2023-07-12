@@ -29,7 +29,6 @@ genericpath.__all__
 genericpath.islink
 gzip.GzipFile.filename
 http.client.HTTPConnection.get_proxy_response_headers
-http.client.HTTPSConnection.__init__
 imaplib.IMAP4_SSL.__init__
 importlib.abc.Finder
 importlib.abc.Loader.module_repr
@@ -53,14 +52,6 @@ importlib.resources.files
 importlib.util.module_for_loader
 importlib.util.set_loader
 importlib.util.set_package
-inspect.AGEN_CLOSED
-inspect.AGEN_CREATED
-inspect.AGEN_RUNNING
-inspect.AGEN_SUSPENDED
-inspect.__all__
-inspect.getasyncgenlocals
-inspect.getasyncgenstate
-inspect.markcoroutinefunction
 logging.Logger.getChildren
 logging.__all__
 logging.getHandlerByName
