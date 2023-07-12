@@ -153,6 +153,10 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
         print_error("Did not find a uwsgi.ini for the uWSGI tests")
         return False
 
+    if sys.platform == "win32":
+        print_error("uWSGI is not supported on Windows")
+        return False
+
     uwsgi_script = venv_dir / "uwsgi_stubtest.py"
     wrapper_script = venv_dir / "uwsgi_wrapper.py"
     exit_code_surrogate = venv_dir / "exit_code"
@@ -172,11 +176,7 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
     )
     uwsgi_script.write_text(uwsgi_script_contents)
 
-    if sys.platform == "win32":
-        uwsgi_exe = venv_dir / "Scripts" / "uwsgi.exe"
-    else:
-        uwsgi_exe = venv_dir / "bin" / "uwsgi"
-
+    uwsgi_exe = venv_dir / "bin" / "uwsgi"
     if not uwsgi_exe.exists():
         print_error("Did not find a uwsgi executable")
         return False
