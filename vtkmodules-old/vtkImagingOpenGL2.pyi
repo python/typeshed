@@ -1,0 +1,23 @@
+from typing import overload, Any, Callable, TypeVar, Union
+from typing import Tuple, List, Sequence, MutableSequence
+
+Callback = Union[Callable[..., None], None]
+Buffer = TypeVar('Buffer')
+Pointer = TypeVar('Pointer')
+Template = TypeVar('Template')
+
+import vtkmodules.vtkCommonCore
+import vtkmodules.vtkImagingGeneral
+
+class vtkOpenGLImageGradient(vtkmodules.vtkImagingGeneral.vtkImageGradient):
+    def GetNumberOfGenerationsFromBase(self, type:str) -> int: ...
+    @staticmethod
+    def GetNumberOfGenerationsFromBaseType(type:str) -> int: ...
+    def IsA(self, type:str) -> int: ...
+    @staticmethod
+    def IsTypeOf(type:str) -> int: ...
+    def NewInstance(self) -> 'vtkOpenGLImageGradient': ...
+    @staticmethod
+    def SafeDownCast(o:'vtkObjectBase') -> 'vtkOpenGLImageGradient': ...
+    def SetRenderWindow(self, __a:'vtkRenderWindow') -> None: ...
+
