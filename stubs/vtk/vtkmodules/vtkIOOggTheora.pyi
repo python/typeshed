@@ -1,12 +1,12 @@
-import vtkmodules.vtkIOMovie
-import vtkmodules.vtkCommonCore
 from typing import Callable, TypeVar, Union
+
+import vtkmodules.vtkCommonCore
+import vtkmodules.vtkIOMovie
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
-
 
 class vtkOggTheoraWriter(vtkmodules.vtkIOMovie.vtkGenericMovieWriter):
     def End(self) -> None: ...
@@ -24,11 +24,8 @@ class vtkOggTheoraWriter(vtkmodules.vtkIOMovie.vtkGenericMovieWriter):
     @staticmethod
     def IsTypeOf(type: str) -> int: ...
     def NewInstance(self) -> vtkOggTheoraWriter: ...
-
     @staticmethod
-    def SafeDownCast(
-        o: vtkmodules.vtkCommonCore.vtkObjectBase) -> vtkOggTheoraWriter: ...
-
+    def SafeDownCast(o: vtkmodules.vtkCommonCore.vtkObjectBase) -> vtkOggTheoraWriter: ...
     def SetQuality(self, _arg: int) -> None: ...
     def SetRate(self, _arg: int) -> None: ...
     def SetSubsampling(self, _arg: int) -> None: ...

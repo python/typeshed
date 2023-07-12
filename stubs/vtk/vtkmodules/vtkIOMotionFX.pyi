@@ -1,12 +1,12 @@
-import vtkmodules.vtkCommonExecutionModel
-import vtkmodules.vtkCommonCore
 from typing import Callable, TypeVar, Union
+
+import vtkmodules.vtkCommonCore
+import vtkmodules.vtkCommonExecutionModel
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
-
 
 class vtkMotionFXCFGReader(vtkmodules.vtkCommonExecutionModel.vtkMultiBlockDataSetAlgorithm):
     def GetFileName(self) -> str: ...
@@ -20,10 +20,7 @@ class vtkMotionFXCFGReader(vtkmodules.vtkCommonExecutionModel.vtkMultiBlockDataS
     @staticmethod
     def IsTypeOf(type: str) -> int: ...
     def NewInstance(self) -> vtkMotionFXCFGReader: ...
-
     @staticmethod
-    def SafeDownCast(
-        o: vtkmodules.vtkCommonCore.vtkObjectBase) -> vtkMotionFXCFGReader: ...
-
+    def SafeDownCast(o: vtkmodules.vtkCommonCore.vtkObjectBase) -> vtkMotionFXCFGReader: ...
     def SetFileName(self, fname: str) -> None: ...
     def SetTimeResolution(self, _arg: int) -> None: ...

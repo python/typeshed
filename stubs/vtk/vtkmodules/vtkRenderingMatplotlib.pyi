@@ -1,12 +1,12 @@
-import vtkmodules.vtkRenderingFreeType
-import vtkmodules.vtkCommonCore
 from typing import Callable, MutableSequence, TypeVar, Union
+
+import vtkmodules.vtkCommonCore
+import vtkmodules.vtkRenderingFreeType
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
-
 
 class vtkMatplotlibMathTextUtilities(vtkmodules.vtkRenderingFreeType.vtkMathTextUtilities):
     def GetBoundingBox(
@@ -21,7 +21,6 @@ class vtkMatplotlibMathTextUtilities(vtkmodules.vtkRenderingFreeType.vtkMathText
     @staticmethod
     def IsTypeOf(type: str) -> int: ...
     def NewInstance(self) -> vtkMatplotlibMathTextUtilities: ...
-
     def RenderString(
         self,
         str: str,
@@ -30,13 +29,9 @@ class vtkMatplotlibMathTextUtilities(vtkmodules.vtkRenderingFreeType.vtkMathText
         dpi: int,
         textDims: MutableSequence[int] = ...,
     ) -> bool: ...
-
     @staticmethod
-    def SafeDownCast(
-        o: vtkmodules.vtkCommonCore.vtkObjectBase) -> vtkMatplotlibMathTextUtilities: ...
-
+    def SafeDownCast(o: vtkmodules.vtkCommonCore.vtkObjectBase) -> vtkMatplotlibMathTextUtilities: ...
     def SetScaleToPowerOfTwo(self, val: bool) -> None: ...
-
     def StringToPath(
         self, str: str, path: vtkmodules.vtkCommonDataModel.vtkPath, tprop: vtkmodules.vtkRenderingCore.vtkTextProperty, dpi: int
     ) -> bool: ...

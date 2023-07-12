@@ -1,12 +1,12 @@
-import vtkmodules.vtkCommonExecutionModel
-import vtkmodules.vtkCommonCore
 from typing import Callable, TypeVar, Union
+
+import vtkmodules.vtkCommonCore
+import vtkmodules.vtkCommonExecutionModel
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
-
 
 class vtkCityGMLReader(vtkmodules.vtkCommonExecutionModel.vtkMultiBlockDataSetAlgorithm):
     def GetBeginBuildingIndex(self) -> int: ...
@@ -24,11 +24,8 @@ class vtkCityGMLReader(vtkmodules.vtkCommonExecutionModel.vtkMultiBlockDataSetAl
     @staticmethod
     def IsTypeOf(type: str) -> int: ...
     def NewInstance(self) -> vtkCityGMLReader: ...
-
     @staticmethod
-    def SafeDownCast(
-        o: vtkmodules.vtkCommonCore.vtkObjectBase) -> vtkCityGMLReader: ...
-
+    def SafeDownCast(o: vtkmodules.vtkCommonCore.vtkObjectBase) -> vtkCityGMLReader: ...
     def SetBeginBuildingIndex(self, _arg: int) -> None: ...
     def SetEndBuildingIndex(self, _arg: int) -> None: ...
     def SetFileName(self, _arg: str) -> None: ...

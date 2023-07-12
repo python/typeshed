@@ -1,19 +1,16 @@
-import vtkmodules.vtkCommonExecutionModel
-import vtkmodules.vtkCommonCore
 from typing import Callable, TypeVar, Union
+
+import vtkmodules.vtkCommonCore
+import vtkmodules.vtkCommonExecutionModel
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
-
 class vtkFiberSurface(vtkmodules.vtkCommonExecutionModel.vtkPolyDataAlgorithm):
-    class BaseVertexType(int):
-        ...
-
-    class ClipVertexType(int):
-        ...
+    class BaseVertexType(int): ...
+    class ClipVertexType(int): ...
     bv_edge_01: BaseVertexType
     bv_edge_02: BaseVertexType
     bv_edge_03: BaseVertexType
@@ -42,10 +39,7 @@ class vtkFiberSurface(vtkmodules.vtkCommonExecutionModel.vtkPolyDataAlgorithm):
     @staticmethod
     def IsTypeOf(type: str) -> int: ...
     def NewInstance(self) -> vtkFiberSurface: ...
-
     @staticmethod
-    def SafeDownCast(
-        o: vtkmodules.vtkCommonCore.vtkObjectBase) -> vtkFiberSurface: ...
-
+    def SafeDownCast(o: vtkmodules.vtkCommonCore.vtkObjectBase) -> vtkFiberSurface: ...
     def SetField1(self, fieldName: str) -> None: ...
     def SetField2(self, fieldName: str) -> None: ...

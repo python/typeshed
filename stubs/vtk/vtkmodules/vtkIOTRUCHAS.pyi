@@ -1,12 +1,12 @@
-import vtkmodules.vtkCommonExecutionModel
-import vtkmodules.vtkCommonCore
 from typing import Callable, TypeVar, Union
+
+import vtkmodules.vtkCommonCore
+import vtkmodules.vtkCommonExecutionModel
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
-
 
 class vtkTRUCHASReader(vtkmodules.vtkCommonExecutionModel.vtkMultiBlockDataSetAlgorithm):
     @staticmethod
@@ -28,11 +28,8 @@ class vtkTRUCHASReader(vtkmodules.vtkCommonExecutionModel.vtkMultiBlockDataSetAl
     @staticmethod
     def IsTypeOf(type: str) -> int: ...
     def NewInstance(self) -> vtkTRUCHASReader: ...
-
     @staticmethod
-    def SafeDownCast(
-        o: vtkmodules.vtkCommonCore.vtkObjectBase) -> vtkTRUCHASReader: ...
-
+    def SafeDownCast(o: vtkmodules.vtkCommonCore.vtkObjectBase) -> vtkTRUCHASReader: ...
     def SetBlockArrayStatus(self, gridname: str, status: int) -> None: ...
     def SetCellArrayStatus(self, name: str, status: int) -> None: ...
     def SetFileName(self, _arg: str) -> None: ...

@@ -1,19 +1,16 @@
-import vtkmodules.vtkCommonExecutionModel
-import vtkmodules.vtkCommonCore
 from typing import Callable, TypeVar, Union
+
+import vtkmodules.vtkCommonCore
+import vtkmodules.vtkCommonExecutionModel
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
-
 class vtkSegYReader(vtkmodules.vtkCommonExecutionModel.vtkDataSetAlgorithm):
-    class VTKSegYCoordinateModes(int):
-        ...
-
-    class VTKSegYVerticalCRS(int):
-        ...
+    class VTKSegYCoordinateModes(int): ...
+    class VTKSegYVerticalCRS(int): ...
     VTK_SEGY_CDP: VTKSegYCoordinateModes
     VTK_SEGY_CUSTOM: VTKSegYCoordinateModes
     VTK_SEGY_SOURCE: VTKSegYCoordinateModes
@@ -37,11 +34,8 @@ class vtkSegYReader(vtkmodules.vtkCommonExecutionModel.vtkDataSetAlgorithm):
     @staticmethod
     def IsTypeOf(type: str) -> int: ...
     def NewInstance(self) -> vtkSegYReader: ...
-
     @staticmethod
-    def SafeDownCast(
-        o: vtkmodules.vtkCommonCore.vtkObjectBase) -> vtkSegYReader: ...
-
+    def SafeDownCast(o: vtkmodules.vtkCommonCore.vtkObjectBase) -> vtkSegYReader: ...
     def SetFileName(self, _arg: str) -> None: ...
     def SetForce2D(self, _arg: bool) -> None: ...
     def SetStructuredGrid(self, _arg: int) -> None: ...

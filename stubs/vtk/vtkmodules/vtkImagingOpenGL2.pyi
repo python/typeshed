@@ -1,12 +1,12 @@
-import vtkmodules.vtkImagingGeneral
-import vtkmodules.vtkCommonCore
 from typing import Callable, TypeVar, Union
+
+import vtkmodules.vtkCommonCore
+import vtkmodules.vtkImagingGeneral
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
-
 
 class vtkOpenGLImageGradient(vtkmodules.vtkImagingGeneral.vtkImageGradient):
     def GetNumberOfGenerationsFromBase(self, type: str) -> int: ...
@@ -16,10 +16,6 @@ class vtkOpenGLImageGradient(vtkmodules.vtkImagingGeneral.vtkImageGradient):
     @staticmethod
     def IsTypeOf(type: str) -> int: ...
     def NewInstance(self) -> vtkOpenGLImageGradient: ...
-
     @staticmethod
-    def SafeDownCast(
-        o: vtkmodules.vtkCommonCore.vtkObjectBase) -> vtkOpenGLImageGradient: ...
-
-    def SetRenderWindow(
-        self, __a: vtkmodules.vtkRenderingCore.vtkRenderWindow) -> None: ...
+    def SafeDownCast(o: vtkmodules.vtkCommonCore.vtkObjectBase) -> vtkOpenGLImageGradient: ...
+    def SetRenderWindow(self, __a: vtkmodules.vtkRenderingCore.vtkRenderWindow) -> None: ...

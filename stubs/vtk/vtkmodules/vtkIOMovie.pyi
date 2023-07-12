@@ -1,16 +1,15 @@
-import vtkmodules.vtkCommonExecutionModel
-import vtkmodules.vtkCommonCore
 from typing import Callable, TypeVar, Union
+
+import vtkmodules.vtkCommonCore
+import vtkmodules.vtkCommonExecutionModel
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
-
 class vtkGenericMovieWriter(vtkmodules.vtkCommonExecutionModel.vtkImageAlgorithm):
-    class MovieWriterErrorIds(int):
-        ...
+    class MovieWriterErrorIds(int): ...
     CanNotCompress: MovieWriterErrorIds
     CanNotFormat: MovieWriterErrorIds
     ChangedResolutionError: MovieWriterErrorIds
@@ -29,11 +28,8 @@ class vtkGenericMovieWriter(vtkmodules.vtkCommonExecutionModel.vtkImageAlgorithm
     @staticmethod
     def IsTypeOf(type: str) -> int: ...
     def NewInstance(self) -> vtkGenericMovieWriter: ...
-
     @staticmethod
-    def SafeDownCast(
-        o: vtkmodules.vtkCommonCore.vtkObjectBase) -> vtkGenericMovieWriter: ...
-
+    def SafeDownCast(o: vtkmodules.vtkCommonCore.vtkObjectBase) -> vtkGenericMovieWriter: ...
     def SetFileName(self, _arg: str) -> None: ...
     def Start(self) -> None: ...
     def Write(self) -> None: ...

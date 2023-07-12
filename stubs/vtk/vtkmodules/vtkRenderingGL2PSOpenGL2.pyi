@@ -1,12 +1,12 @@
-import vtkmodules.vtkRenderingOpenGL2
-import vtkmodules.vtkCommonCore
 from typing import Callable, MutableSequence, TypeVar, Union, overload
+
+import vtkmodules.vtkCommonCore
+import vtkmodules.vtkRenderingOpenGL2
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
-
 
 class vtkOpenGLGL2PSHelperImpl(vtkmodules.vtkRenderingOpenGL2.vtkOpenGLGL2PSHelper):
     def Draw3DPath(
@@ -18,10 +18,7 @@ class vtkOpenGLGL2PSHelperImpl(vtkmodules.vtkRenderingOpenGL2.vtkOpenGLGL2PSHelp
         ren: vtkmodules.vtkRenderingCore.vtkRenderer,
         label: str = ...,
     ) -> None: ...
-
-    def DrawImage(self, input: vtkmodules.vtkCommonDataModel.vtkImageData,
-                  pos: MutableSequence[float]) -> None: ...
-
+    def DrawImage(self, input: vtkmodules.vtkCommonDataModel.vtkImageData, pos: MutableSequence[float]) -> None: ...
     def DrawPath(
         self,
         path: vtkmodules.vtkCommonDataModel.vtkPath,
@@ -33,7 +30,6 @@ class vtkOpenGLGL2PSHelperImpl(vtkmodules.vtkRenderingOpenGL2.vtkOpenGLGL2PSHelp
         strokeWidth: float = -1,
         label: str = ...,
     ) -> None: ...
-
     def DrawString(
         self,
         str: str,
@@ -49,7 +45,6 @@ class vtkOpenGLGL2PSHelperImpl(vtkmodules.vtkRenderingOpenGL2.vtkOpenGLGL2PSHelp
     @staticmethod
     def IsTypeOf(type: str) -> int: ...
     def NewInstance(self) -> vtkOpenGLGL2PSHelperImpl: ...
-
     @overload
     def ProcessTransformFeedback(
         self,
@@ -57,7 +52,6 @@ class vtkOpenGLGL2PSHelperImpl(vtkmodules.vtkRenderingOpenGL2.vtkOpenGLGL2PSHelp
         ren: vtkmodules.vtkRenderingCore.vtkRenderer,
         act: vtkmodules.vtkRenderingCore.vtkActor,
     ) -> None: ...
-
     @overload
     def ProcessTransformFeedback(
         self,
@@ -65,7 +59,6 @@ class vtkOpenGLGL2PSHelperImpl(vtkmodules.vtkRenderingOpenGL2.vtkOpenGLGL2PSHelp
         ren: vtkmodules.vtkRenderingCore.vtkRenderer,
         col: MutableSequence[int],
     ) -> None: ...
-
     @overload
     def ProcessTransformFeedback(
         self,
@@ -73,7 +66,5 @@ class vtkOpenGLGL2PSHelperImpl(vtkmodules.vtkRenderingOpenGL2.vtkOpenGLGL2PSHelp
         ren: vtkmodules.vtkRenderingCore.vtkRenderer,
         col: MutableSequence[float],
     ) -> None: ...
-
     @staticmethod
-    def SafeDownCast(
-        o: vtkmodules.vtkCommonCore.vtkObjectBase) -> vtkOpenGLGL2PSHelperImpl: ...
+    def SafeDownCast(o: vtkmodules.vtkCommonCore.vtkObjectBase) -> vtkOpenGLGL2PSHelperImpl: ...
