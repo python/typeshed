@@ -201,8 +201,9 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
             "--pyrun",
             "{uwsgi_script}",
         ]
-        ret = subprocess.run(uwsgi_cmd, env=stubtest_env, capture_output=True)
-        print(ret.stdout.decode(), end="", file=sys.stdout)
+        ret = subprocess.run(uwsgi_cmd, env=stubtest_env)
+        # TODO: revert this to only logging stdout
+        #print(ret.stdout.decode(), end="", file=sys.stdout)
         with open("{exit_code_surrogate}", mode="r") as fp:
             sys.exit(int(fp.read()))
         """
