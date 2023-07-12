@@ -1,10 +1,10 @@
 from typing import Callable, MutableSequence, Sequence, Tuple, TypeVar, Union, overload
 
 import vtkmodules.vtkCommonCore
-import vtkmodules.vtkRenderingCore
-import vtkmodules.vtkRenderingHyperTreeGrid
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonMath
+import vtkmodules.vtkRenderingCore
+import vtkmodules.vtkRenderingHyperTreeGrid
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")

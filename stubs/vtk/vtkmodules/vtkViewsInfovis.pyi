@@ -3,15 +3,15 @@ from typing import Callable, MutableSequence, Sequence, Tuple, TypeVar, Union, o
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
-import vtkmodules.vtkInteractionStyle
-import vtkmodules.vtkRenderingContext2D
-import vtkmodules.vtkViewsCore
-import vtkmodules.vtkRenderingCore
-import vtkmodules.vtkInfovisLayout
 import vtkmodules.vtkCommonTransforms
 import vtkmodules.vtkFiltersStatistics
+import vtkmodules.vtkInfovisLayout
+import vtkmodules.vtkInteractionStyle
 import vtkmodules.vtkInteractionWidgets
+import vtkmodules.vtkRenderingContext2D
+import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingLabel
+import vtkmodules.vtkViewsCore
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")

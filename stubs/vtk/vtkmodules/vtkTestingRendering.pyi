@@ -1,9 +1,9 @@
 from typing import Callable, TypeVar, Union, overload
 
 import vtkmodules.vtkCommonCore
-import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
+import vtkmodules.vtkRenderingCore
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")

@@ -1,9 +1,9 @@
 from typing import Callable, MutableSequence, TypeVar, Union
 
 import vtkmodules.vtkCommonCore
-import vtkmodules.vtkRenderingFreeType
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkRenderingCore
+import vtkmodules.vtkRenderingFreeType
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")

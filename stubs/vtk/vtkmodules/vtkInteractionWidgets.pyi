@@ -1,18 +1,18 @@
 from typing import Callable, MutableSequence, Sequence, Tuple, TypeVar, Union, overload
 
+import vtkmodules.vtkCommonComputationalGeometry
 import vtkmodules.vtkCommonCore
+import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
+import vtkmodules.vtkCommonMath
+import vtkmodules.vtkCommonTransforms
+import vtkmodules.vtkFiltersHybrid
 import vtkmodules.vtkFiltersSources
+import vtkmodules.vtkImagingCore
+import vtkmodules.vtkImagingHybrid
+import vtkmodules.vtkRenderingAnnotation
 import vtkmodules.vtkRenderingContext2D
 import vtkmodules.vtkRenderingCore
-import vtkmodules.vtkCommonDataModel
-import vtkmodules.vtkCommonTransforms
-import vtkmodules.vtkImagingCore
-import vtkmodules.vtkCommonComputationalGeometry
-import vtkmodules.vtkRenderingAnnotation
-import vtkmodules.vtkImagingHybrid
-import vtkmodules.vtkCommonMath
-import vtkmodules.vtkFiltersHybrid
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")

@@ -1,8 +1,8 @@
 from typing import Callable, MutableSequence, Sequence, Tuple, TypeVar, Union, overload
 
 import vtkmodules.vtkCommonCore
-import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkCommonDataModel
+import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkCommonTransforms
 
 Callback = Union[Callable[..., None], None]
