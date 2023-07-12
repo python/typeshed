@@ -1,7 +1,7 @@
 import sys
-from typing import Any, Protocol
-from typing_extensions import TypeAlias
 from collections.abc import Callable
+from typing import Any
+from typing_extensions import TypeAlias
 
 if sys.version_info >= (3, 9):
     __all__ = ["getline", "clearcache", "checkcache", "lazycache"]
