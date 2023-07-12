@@ -203,7 +203,7 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
             "--pyrun",
             "{uwsgi_script}",
         ]
-        ret = subprocess.run(uwsgi_cmd, env=stubtest_env)
+        subprocess.run(uwsgi_cmd, env=stubtest_env)
         with open("{exit_code_surrogate}", mode="r") as fp:
             sys.exit(int(fp.read()))
         """
