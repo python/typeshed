@@ -142,6 +142,11 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
     python script. We have a second wrapper script that passed the
     arguments along to the uWSGI script and retrieves the exit code
     from the file, so it behaves like running stubtest normally would.
+
+    Both generated wrapper scripts are created inside `venv_dir`,
+    which itself is a subdirectory inside a temporary directory,
+    so both scripts will be cleaned up after this function
+    has been executed.
     """
     uwsgi_ini = dist / "@tests/uwsgi.ini"
     if not uwsgi_ini.exists():

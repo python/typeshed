@@ -6,3 +6,9 @@ extra_description = """\
   and some parts of the API are only present when corresponding configuration options \
   have been enabled.
 """
+
+[tool.stubtest]
+# Run stubtest on Windows as well,
+# to check that the uWSGI-specific parts of stubtest_third_party.py
+# also work on Windows
+platforms = ["linux", "win32"]
