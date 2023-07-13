@@ -95,19 +95,19 @@ case.assertGreater(Bacon(), Ham())  # type: ignore
 
 
 @patch("sys.exit")
-def f_default(i: int, mock: MagicMock) -> str:
+def f_default_new(i: int, mock: MagicMock) -> str:
     return "asdf"
 
 
 @patch("sys.exit", new=42)
-def f_new(i: int) -> str:
+def f_explicit_new(i: int) -> str:
     return "asdf"
 
 
-assert_type(f_default(1), str)
-f_default("a")  # Not an error due to ParamSpec limitations
-assert_type(f_new(1), str)
-f_new("a")  # type: ignore[arg-type]
+assert_type(f_default_new(1), str)
+f_default_new("a")  # Not an error due to ParamSpec limitations
+assert_type(f_explicit_new(1), str)
+f_explicit_new("a")  # type: ignore[arg-type]
 
 
 @patch("sys.exit", new=Mock())
