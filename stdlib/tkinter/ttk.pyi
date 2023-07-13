@@ -4,7 +4,7 @@ import tkinter
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable
 from tkinter.font import _FontDescription
-from typing import Any, Iterable, overload
+from typing import Any, overload
 from typing_extensions import Literal, TypeAlias, TypedDict
 
 __all__ = [
