@@ -2,9 +2,9 @@ import _tkinter
 import sys
 import tkinter
 from _typeshed import Incomplete
-from collections.abc import Callable
+from collections.abc import Callable, Iterable
 from tkinter.font import _FontDescription
-from typing import Any, overload
+from typing import Any, Iterable, overload
 from typing_extensions import Literal, TypeAlias, TypedDict
 
 __all__ = [
@@ -961,7 +961,7 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         master: tkinter.Misc | None = None,
         *,
         class_: str = ...,
-        columns: str | list[str] | tuple[str, ...] = ...,
+        columns: str | Iterable[int] | list[str] | tuple[str, ...] = ...,
         cursor: tkinter._Cursor = ...,
         displaycolumns: str | list[str] | tuple[str, ...] | list[int] | tuple[int, ...] = ...,
         height: int = ...,
@@ -983,7 +983,7 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         self,
         cnf: dict[str, Any] | None = None,
         *,
-        columns: str | list[str] | tuple[str, ...] = ...,
+        columns: str | Iterable[int] | list[str] | tuple[str, ...] = ...,
         cursor: tkinter._Cursor = ...,
         displaycolumns: str | list[str] | tuple[str, ...] | list[int] | tuple[int, ...] = ...,
         height: int = ...,
