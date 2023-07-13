@@ -179,7 +179,7 @@ _Compound: TypeAlias = Literal["top", "left", "center", "right", "bottom", "none
 _Cursor: TypeAlias = str | tuple[str] | tuple[str, str] | tuple[str, str, str] | tuple[str, str, str, str]
 # example when it's sequence:  entry['invalidcommand'] = [entry.register(print), '%P']
 _EntryValidateCommand: TypeAlias = str | list[str] | tuple[str, ...] | Callable[[], bool]
-_GridIndex: TypeAlias = int | str | Iterable[int]
+_GridIndex: TypeAlias = int | str
 _ImageSpec: TypeAlias = _Image | str  # str can be from e.g. tkinter.image_names()
 _Relief: TypeAlias = Literal["raised", "sunken", "flat", "ridge", "solid", "groove"]  # manual page: Tk_GetRelief
 _ScreenUnits: TypeAlias = str | float  # Often the right type instead of int. Manual page: Tk_GetPixels
@@ -500,7 +500,7 @@ class Misc:
     bbox = grid_bbox
     def grid_columnconfigure(
         self,
-        index: _GridIndex,
+        index: _GridIndex | list[str] | list[int] | list[str | int] | tuple[str | int, ...] = ...,
         cnf: _GridIndexInfo = {},
         *,
         minsize: _ScreenUnits = ...,
@@ -510,7 +510,7 @@ class Misc:
     ) -> _GridIndexInfo | Any: ...  # can be None but annoying to check
     def grid_rowconfigure(
         self,
-        index: _GridIndex,
+        index: _GridIndex | list[str] | list[int] | list[str | int] | tuple[str | int, ...] = ...,
         cnf: _GridIndexInfo = {},
         *,
         minsize: _ScreenUnits = ...,
