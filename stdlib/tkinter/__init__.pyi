@@ -510,7 +510,7 @@ class Misc:
     ) -> _GridIndexInfo | Any: ...  # can be None but annoying to check
     def grid_rowconfigure(
         self,
-        index: _GridIndex | list[str] | list[int] | list[str | int] | tuple[str | int, ...],
+        index: _GridIndex | list[int] | tuple[int, ...],
         cnf: _GridIndexInfo = {},
         *,
         minsize: _ScreenUnits = ...,
