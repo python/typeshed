@@ -983,7 +983,7 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         self,
         cnf: dict[str, Any] | None = None,
         *,
-        columns: str | Iterable[int] | list[str] | tuple[str, ...] = ...,
+        columns: str | list[str] | list[int] | list[str | int] | tuple[str | int, ...] = ...,
         cursor: tkinter._Cursor = ...,
         displaycolumns: str | list[str] | tuple[str, ...] | list[int] | tuple[int, ...] = ...,
         height: int = ...,
