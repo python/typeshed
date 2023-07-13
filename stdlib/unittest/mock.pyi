@@ -259,10 +259,15 @@ class _patch(Generic[_T]):
     def start(self) -> _T: ...
     def stop(self) -> None: ...
 
+if sys.version_info >= (3, 8):
+    _Mock: TypeAlias = MagicMock | AsyncMock
+else:
+    _Mock: TypeAlias = MagicMock
+
 # This class does not exist at runtime, it's a hack to make this work:
 #     @patch("foo")
 #     def bar(..., mock: MagicMock) -> None: ...
-class _patch_default_new(_patch[MagicMock]):
+class _patch_default_new(_patch[_Mock]):
     @overload
     def __call__(self, func: _TT) -> _TT: ...
     # Can't use the following as ParamSpec is only allowed as last parameter:
@@ -285,11 +290,6 @@ class _patch_dict:
     def __exit__(self, *args: object) -> Any: ...
     start: Any
     stop: Any
-
-if sys.version_info >= (3, 8):
-    _Mock: TypeAlias = MagicMock | AsyncMock
-else:
-    _Mock: TypeAlias = MagicMock
 
 # This class does not exist at runtime, it's a hack to add methods to the
 # patch() function.
