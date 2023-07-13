@@ -500,7 +500,7 @@ class Misc:
     bbox = grid_bbox
     def grid_columnconfigure(
         self,
-        index: _GridIndex | list[str] | list[int] | list[str | int] | tuple[str | int, ...],
+        index: _GridIndex | list[int] |tuple[int, ...],
         cnf: _GridIndexInfo = {},
         *,
         minsize: _ScreenUnits = ...,
