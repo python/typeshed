@@ -2,7 +2,7 @@ import sys
 from collections.abc import Awaitable, Callable, Coroutine, Iterable, Mapping, Sequence
 from contextlib import _GeneratorContextManager
 from types import TracebackType
-from typing import Any, Concatenate, Generic, TypeVar, overload
+from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Final, Literal, ParamSpec, Self, TypeAlias
 
 _T = TypeVar("_T")
