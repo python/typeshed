@@ -2,7 +2,7 @@ import sys
 from collections.abc import Awaitable, Callable, Coroutine, Iterable, Mapping, Sequence
 from contextlib import _GeneratorContextManager
 from types import TracebackType
-from typing import Any, Generic, TypeVar, overload
+from typing import Any, Concatenate, Generic, TypeVar, overload
 from typing_extensions import Final, Literal, ParamSpec, Self, TypeAlias
 
 _T = TypeVar("_T")
@@ -257,6 +257,14 @@ class _patch(Generic[_T]):
     def start(self) -> _T: ...
     def stop(self) -> None: ...
 
+class _patch_default_new(_patch[MagicMock]):
+    @overload
+    def __call__(self, func: _TT) -> _TT: ...
+    # Can't use the following as ParamSpec is only allowed as last parameter:
+    #   def __call__(self, func: Callable[_P, _R]) -> Callable[Concatenate[_P, MagicMock], _R]: ...
+    @overload
+    def __call__(self, func: Callable[..., _R]) -> Callable[..., _R]: ...
+
 class _patch_dict:
     in_dict: Any
     values: Any
@@ -307,7 +315,7 @@ class _patcher:
         autospec: Any | None = ...,
         new_callable: Any | None = ...,
         **kwargs: Any,
-    ) -> _patch[_Mock]: ...
+    ) -> _patch_default_new: ...
     @overload
     @staticmethod
     def object(  # type: ignore[misc]
