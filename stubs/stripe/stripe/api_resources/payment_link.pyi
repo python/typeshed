@@ -11,7 +11,14 @@ class PaymentLink(CreateableAPIResource, ListableAPIResource, UpdateableAPIResou
 
     @overload
     @classmethod
-    def list_line_items(cls, payment_link, api_key=None, stripe_version=None, stripe_account=None, **params): ...
+    def list_line_items(
+        cls,
+        payment_link: str,
+        api_key: str | None = None,
+        stripe_version: str | None = None,
+        stripe_account: str | None = None,
+        **params,
+    ): ...
     @overload
     @classmethod
-    def list_line_items(cls, idempotency_key=None, **params): ...
+    def list_line_items(cls, idempotency_key: str | None = None, **params): ...
