@@ -65,6 +65,7 @@ class EntryPoint(_EntryPointBase):
             attr: str = ...,
             extras: list[str] = ...,
         ) -> bool: ...  # undocumented
+
     def __hash__(self) -> int: ...
     def __eq__(self, other: object) -> bool: ...
 
