@@ -65,6 +65,8 @@ class EntryPoint(_EntryPointBase):
             attr: str = ...,
             extras: list[str] = ...,
         ) -> bool: ...  # undocumented
+    def __hash__(self) -> int: ...
+    def __eq__(self, other: object) -> bool: ...
 
 if sys.version_info >= (3, 10):
     class EntryPoints(list[EntryPoint]):  # use as list is deprecated since 3.10
