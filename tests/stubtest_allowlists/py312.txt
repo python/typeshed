@@ -72,8 +72,6 @@ poplib.POP3_SSL.__init__
 posixpath.__all__
 posixpath.isjunction
 posixpath.splitroot
-pydoc.HTMLRepr.__init__
-pydoc.TextRepr.__init__
 smtplib.SMTP.starttls
 smtplib.SMTP_SSL.__init__
 sqlite3.Connection.autocommit
