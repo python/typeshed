@@ -211,14 +211,14 @@ class vtkVRMenuRepresentation(vtkmodules.vtkInteractionWidgets.vtkWidgetRepresen
         iren: vtkmodules.vtkRenderingCore.vtkRenderWindowInteractor,
         widget: vtkmodules.vtkInteractionWidgets.vtkAbstractWidget,
         event: int,
-        calldata: Pointer,
+        calldata: _Pointer,
     ) -> None: ...
     def EndComplexInteraction(
         self,
         iren: vtkmodules.vtkRenderingCore.vtkRenderWindowInteractor,
         widget: vtkmodules.vtkInteractionWidgets.vtkAbstractWidget,
         event: int,
-        calldata: Pointer,
+        calldata: _Pointer,
     ) -> None: ...
     def GetCurrentOption(self) -> float: ...
     def GetNumberOfGenerationsFromBase(self, type: str) -> int: ...
@@ -242,7 +242,7 @@ class vtkVRMenuRepresentation(vtkmodules.vtkInteractionWidgets.vtkWidgetRepresen
         iren: vtkmodules.vtkRenderingCore.vtkRenderWindowInteractor,
         widget: vtkmodules.vtkInteractionWidgets.vtkAbstractWidget,
         event: int,
-        calldata: Pointer,
+        calldata: _Pointer,
     ) -> None: ...
 
 class vtkVRMenuWidget(vtkmodules.vtkInteractionWidgets.vtkAbstractWidget):
@@ -306,14 +306,14 @@ class vtkVRPanelRepresentation(vtkmodules.vtkInteractionWidgets.vtkWidgetReprese
         iren: vtkmodules.vtkRenderingCore.vtkRenderWindowInteractor,
         widget: vtkmodules.vtkInteractionWidgets.vtkAbstractWidget,
         event: int,
-        calldata: Pointer,
+        calldata: _Pointer,
     ) -> None: ...
     def ComputeComplexInteractionState(
         self,
         iren: vtkmodules.vtkRenderingCore.vtkRenderWindowInteractor,
         widget: vtkmodules.vtkInteractionWidgets.vtkAbstractWidget,
         event: int,
-        calldata: Pointer,
+        calldata: _Pointer,
         modify: int = 0,
     ) -> int: ...
     def EndComplexInteraction(
@@ -321,7 +321,7 @@ class vtkVRPanelRepresentation(vtkmodules.vtkInteractionWidgets.vtkWidgetReprese
         iren: vtkmodules.vtkRenderingCore.vtkRenderWindowInteractor,
         widget: vtkmodules.vtkInteractionWidgets.vtkAbstractWidget,
         event: int,
-        calldata: Pointer,
+        calldata: _Pointer,
     ) -> None: ...
     def GetAllowAdjustment(self) -> bool: ...
     def GetNumberOfGenerationsFromBase(self, type: str) -> int: ...
@@ -353,7 +353,7 @@ class vtkVRPanelRepresentation(vtkmodules.vtkInteractionWidgets.vtkWidgetReprese
         iren: vtkmodules.vtkRenderingCore.vtkRenderWindowInteractor,
         widget: vtkmodules.vtkInteractionWidgets.vtkAbstractWidget,
         event: int,
-        calldata: Pointer,
+        calldata: _Pointer,
     ) -> None: ...
 
 class vtkVRPanelWidget(vtkmodules.vtkInteractionWidgets.vtkAbstractWidget):
