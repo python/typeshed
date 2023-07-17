@@ -13,6 +13,7 @@ import vtkmodules.vtkRenderingContext2D
 import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingLabel
 import vtkmodules.vtkViewsCore
+import vtkmodules.vtkFiltersGeneral
 
 _Pointer = TypeVar("_Pointer")
 
@@ -218,7 +219,7 @@ class vtkRenderView(vtkmodules.vtkViewsCore.vtkRenderViewBase):
     def DisplayHoverTextOn(self) -> None: ...
     def GetDisplayHoverText(self) -> bool: ...
     @overload
-    def GetDisplaySize(self) -> Pointer: ...
+    def GetDisplaySize(self) -> _Pointer: ...
     @overload
     def GetDisplaySize(self, dsx: int, dsy: int) -> None: ...
     def GetIconSize(self) -> Tuple[int, int]: ...
@@ -680,9 +681,9 @@ class vtkRenderedRepresentation(vtkmodules.vtkViewsCore.vtkDataRepresentation):
 
 class vtkParallelCoordinatesRepresentation(vtkRenderedRepresentation):
     class InputPorts(int): ...
-    INPUT_DATA: vtkmodules.vtkFiltersStatistics.InputPorts
-    INPUT_TITLES: vtkmodules.vtkFiltersStatistics.InputPorts
-    NUM_INPUT_PORTS: vtkmodules.vtkFiltersStatistics.InputPorts
+    INPUT_DATA: InputPorts
+    INPUT_TITLES: InputPorts
+    NUM_INPUT_PORTS: InputPorts
 
     def AngleSelect(
         self, brushClass: int, brushOperator: int, p1: MutableSequence[float], p2: MutableSequence[float]

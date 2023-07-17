@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 193e9234b5cd03c53edc2ad7cc3da3a4d3c57372
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
 

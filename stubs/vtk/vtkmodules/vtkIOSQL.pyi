@@ -1,12 +1,12 @@
 from collections.abc import Callable
-from typing import TypeVar, Union, overload
+from typing import TypeVar, Union, overload, TypeAlias
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkIOCore
 
-Callback = Union[Callable[..., None], None]
+Callback: TypeAlias = Union[Callable[..., None], None]
 _Pointer = TypeVar("_Pointer")
 
 VTK_SQL_ALLBACKENDS: str

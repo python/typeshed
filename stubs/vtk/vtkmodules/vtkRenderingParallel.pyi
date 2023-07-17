@@ -1,5 +1,5 @@
 from collections.abc import Callable, MutableSequence, Sequence
-from typing import Tuple, Union, overload
+from typing import Tuple, Union, overload, TypeAlias
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
@@ -8,7 +8,7 @@ import vtkmodules.vtkParallelCore
 import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingOpenGL2
 
-Callback = Union[Callable[..., None], None]
+Callback: TypeAlias = Union[Callable[..., None], None]
 
 class vtkClientServerCompositePass(vtkmodules.vtkRenderingCore.vtkRenderPass):
     def GetController(self) -> vtkmodules.vtkParallelCore.vtkMultiProcessController: ...

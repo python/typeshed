@@ -1,5 +1,5 @@
 from collections.abc import Callable, MutableSequence, Sequence
-from typing import Tuple, TypeVar, Union, overload
+from typing import Tuple, TypeVar, Union, overload, TypeAlias
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
@@ -9,7 +9,7 @@ import vtkmodules.vtkInteractionWidgets
 import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingOpenGL2
 
-Callback = Union[Callable[..., None], None]
+Callback: TypeAlias = Union[Callable[..., None], None]
 _Pointer = TypeVar("_Pointer")
 
 class vtkOpenGLAvatar(vtkmodules.vtkRenderingCore.vtkAvatar):
