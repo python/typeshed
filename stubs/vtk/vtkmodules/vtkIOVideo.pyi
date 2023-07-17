@@ -1,10 +1,8 @@
 from collections.abc import MutableSequence, Sequence
-from typing import Tuple, TypeVar, overload
+from typing import Tuple, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
-
-Buffer = TypeVar("Buffer")
 
 class vtkVideoSource(vtkmodules.vtkCommonExecutionModel.vtkImageAlgorithm):
     def AutoAdvanceOff(self) -> None: ...

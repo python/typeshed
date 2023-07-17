@@ -1,9 +1,8 @@
 from collections.abc import Sequence
-from typing import TypeVar, overload
+from typing import Tuple, TypeVar, overload
 
 import vtkmodules.vtkCommonCore
 
-Buffer = TypeVar("Buffer")
 _Pointer = TypeVar("_Pointer")
 
 class vtkViewNode(vtkmodules.vtkCommonCore.vtkObject):
@@ -162,7 +161,7 @@ class vtkWindowNode(vtkViewNode):
     def GetNumberOfGenerationsFromBase(self, type: str) -> int: ...
     @staticmethod
     def GetNumberOfGenerationsFromBaseType(type: str) -> int: ...
-    def GetSize(self) -> Pointer: ...
+    def GetSize(self) -> _Pointer: ...
     def GetZBuffer(self) -> vtkmodules.vtkCommonCore.vtkFloatArray: ...
     def IsA(self, type: str) -> int: ...
     @staticmethod

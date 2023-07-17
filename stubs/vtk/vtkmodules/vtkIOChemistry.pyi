@@ -1,10 +1,8 @@
-from typing import TypeVar
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkCommonTransforms
-
 
 class vtkCMLMoleculeReader(vtkmodules.vtkCommonExecutionModel.vtkMoleculeAlgorithm):
     def GetFileName(self) -> str: ...

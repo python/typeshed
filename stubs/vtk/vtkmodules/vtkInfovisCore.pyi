@@ -1,10 +1,9 @@
 from collections.abc import MutableSequence
-from typing import Tuple, TypeVar, overload
+from typing import Tuple, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
-
 
 class vtkAddMembershipArray(vtkmodules.vtkCommonExecutionModel.vtkPassInputTypeAlgorithm):
     CELL_DATA: int

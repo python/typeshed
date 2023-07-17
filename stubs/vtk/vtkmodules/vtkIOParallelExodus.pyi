@@ -1,10 +1,9 @@
 from collections.abc import MutableSequence
-from typing import Tuple, TypeVar, overload
+from typing import Tuple, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkIOExodus
 import vtkmodules.vtkParallelCore
-
 
 class vtkPExodusIIReader(vtkmodules.vtkIOExodus.vtkExodusIIReader):
     def Broadcast(self, ctrl: vtkmodules.vtkParallelCore.vtkMultiProcessController) -> None: ...

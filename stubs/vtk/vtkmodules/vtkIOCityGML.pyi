@@ -1,8 +1,6 @@
-from typing import TypeVar
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
-
 
 class vtkCityGMLReader(vtkmodules.vtkCommonExecutionModel.vtkMultiBlockDataSetAlgorithm):
     def GetBeginBuildingIndex(self) -> int: ...

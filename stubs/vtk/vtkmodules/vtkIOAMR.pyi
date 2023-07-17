@@ -1,10 +1,8 @@
-from typing import TypeVar
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkParallelCore
-
 
 class vtkAMRBaseParticlesReader(vtkmodules.vtkCommonExecutionModel.vtkMultiBlockDataSetAlgorithm):
     def FilterLocationOff(self) -> None: ...

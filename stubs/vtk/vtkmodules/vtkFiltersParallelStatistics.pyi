@@ -1,10 +1,7 @@
-from typing import TypeVar
-
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkFiltersStatistics
 import vtkmodules.vtkParallelCore
-
 
 class vtkPAutoCorrelativeStatistics(vtkmodules.vtkFiltersStatistics.vtkAutoCorrelativeStatistics):
     def GetController(self) -> vtkmodules.vtkParallelCore.vtkMultiProcessController: ...

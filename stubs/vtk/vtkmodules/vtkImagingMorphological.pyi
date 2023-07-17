@@ -1,12 +1,11 @@
 from collections.abc import MutableSequence, Sequence
-from typing import Tuple, TypeVar, overload
+from typing import Tuple, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkImagingCore
 import vtkmodules.vtkImagingGeneral
-
 
 VTK_IMAGE_NON_MAXIMUM_SUPPRESSION_MAGNITUDE_INPUT: int
 VTK_IMAGE_NON_MAXIMUM_SUPPRESSION_VECTOR_INPUT: int

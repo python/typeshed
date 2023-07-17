@@ -1,8 +1,6 @@
-from typing import TypeVar
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
-
 
 class vtkCONVERGECFDReader(vtkmodules.vtkCommonExecutionModel.vtkPartitionedDataSetCollectionAlgorithm):
     def CanReadFile(self, fname: str) -> int: ...

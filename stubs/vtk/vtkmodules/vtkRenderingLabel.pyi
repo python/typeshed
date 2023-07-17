@@ -1,5 +1,5 @@
 from collections.abc import MutableSequence, Sequence
-from typing import Tuple, TypeVar, overload
+from typing import Tuple, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
@@ -7,8 +7,6 @@ import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkCommonTransforms
 import vtkmodules.vtkFiltersGeneral
 import vtkmodules.vtkRenderingCore
-
-Buffer = TypeVar("Buffer")
 
 VTK_LABEL_FIELD_DATA: int
 VTK_LABEL_IDS: int

@@ -1,8 +1,5 @@
-from typing import TypeVar
-
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
-
 
 class vtkPythonAlgorithm(vtkmodules.vtkCommonExecutionModel.vtkAlgorithm):
     def GetNumberOfGenerationsFromBase(self, type: str) -> int: ...

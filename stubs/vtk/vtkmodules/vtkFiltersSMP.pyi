@@ -1,9 +1,6 @@
-from typing import TypeVar
-
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkFiltersCore
-
 
 class vtkSMPContourGrid(vtkmodules.vtkFiltersCore.vtkContourGrid):
     def GetMergePieces(self) -> bool: ...

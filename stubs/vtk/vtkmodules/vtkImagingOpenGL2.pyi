@@ -1,9 +1,7 @@
-from typing import TypeVar
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkImagingGeneral
 import vtkmodules.vtkRenderingCore
-
 
 class vtkOpenGLImageGradient(vtkmodules.vtkImagingGeneral.vtkImageGradient):
     def GetNumberOfGenerationsFromBase(self, type: str) -> int: ...

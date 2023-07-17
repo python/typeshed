@@ -1,5 +1,5 @@
 from collections.abc import MutableSequence, Sequence
-from typing import TypeVar, overload
+from typing import overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
@@ -7,8 +7,6 @@ import vtkmodules.vtkCommonMath
 import vtkmodules.vtkRenderingContext2D
 import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingOpenGL2
-
-Buffer = TypeVar("Buffer")
 
 class vtkOpenGLContextActor(vtkmodules.vtkRenderingContext2D.vtkContextActor):
     def GetNumberOfGenerationsFromBase(self, type: str) -> int: ...

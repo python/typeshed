@@ -1,8 +1,6 @@
-from typing import TypeVar
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
-
 
 class vtkThreadedImageWriter(vtkmodules.vtkCommonCore.vtkObject):
     def EncodeAndWrite(self, image: vtkmodules.vtkCommonDataModel.vtkImageData, fileName: str) -> None: ...

@@ -1,10 +1,9 @@
 from collections.abc import Sequence
-from typing import Tuple, TypeVar, overload
+from typing import Tuple, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
-
 
 class vtkSILBuilder(vtkmodules.vtkCommonCore.vtkObject):
     def AddChildEdge(self, parent: int, child: int) -> int: ...

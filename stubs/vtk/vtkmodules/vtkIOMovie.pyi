@@ -1,8 +1,6 @@
-from typing import TypeVar
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
-
 
 class vtkGenericMovieWriter(vtkmodules.vtkCommonExecutionModel.vtkImageAlgorithm):
     class MovieWriterErrorIds(int): ...

@@ -1,8 +1,6 @@
-from typing import TypeVar
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkIOMovie
-
 
 class vtkOggTheoraWriter(vtkmodules.vtkIOMovie.vtkGenericMovieWriter):
     def End(self) -> None: ...

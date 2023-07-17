@@ -1,5 +1,5 @@
 from collections.abc import MutableSequence
-from typing import Tuple, TypeVar, overload
+from typing import Tuple, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
@@ -9,7 +9,6 @@ import vtkmodules.vtkCommonTransforms
 import vtkmodules.vtkIOCore
 import vtkmodules.vtkIOImage
 import vtkmodules.vtkRenderingCore
-
 
 class vtkMINCImageAttributes(vtkmodules.vtkCommonCore.vtkObject):
     @overload

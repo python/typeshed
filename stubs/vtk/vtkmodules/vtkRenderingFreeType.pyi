@@ -6,7 +6,6 @@ import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkRenderingCore
 
-Buffer = TypeVar("Buffer")
 _Pointer = TypeVar("_Pointer")
 
 class vtkFreeTypeStringToImage(vtkmodules.vtkRenderingCore.vtkStringToImage):

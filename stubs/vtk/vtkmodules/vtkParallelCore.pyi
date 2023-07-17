@@ -6,7 +6,6 @@ import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonSystem
 
 Callback = Union[Callable[..., None], None]
-Buffer = TypeVar("Buffer")
 _Pointer = TypeVar("_Pointer")
 
 class vtkCommunicator(vtkmodules.vtkCommonCore.vtkObject):

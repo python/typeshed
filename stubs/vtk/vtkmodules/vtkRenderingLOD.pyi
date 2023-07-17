@@ -1,11 +1,9 @@
-from typing import TypeVar
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkFiltersCore
 import vtkmodules.vtkRenderingCore
-
 
 class vtkLODActor(vtkmodules.vtkRenderingCore.vtkActor):
     def AddLODMapper(self, mapper: vtkmodules.vtkRenderingCore.vtkMapper) -> None: ...

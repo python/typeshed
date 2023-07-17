@@ -1,8 +1,6 @@
-from typing import TypeVar
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
-
 
 class vtkVeraOutReader(vtkmodules.vtkCommonExecutionModel.vtkRectilinearGridAlgorithm):
     def GetCellDataArraySelection(self) -> vtkmodules.vtkCommonCore.vtkDataArraySelection: ...

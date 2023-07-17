@@ -5,7 +5,6 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 
-
 VTK_ABS: int
 VTK_ADD: int
 VTK_ADDC: int

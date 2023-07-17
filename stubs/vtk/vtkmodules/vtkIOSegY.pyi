@@ -1,8 +1,6 @@
-from typing import TypeVar
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
-
 
 class vtkSegYReader(vtkmodules.vtkCommonExecutionModel.vtkDataSetAlgorithm):
     class VTKSegYCoordinateModes(int): ...

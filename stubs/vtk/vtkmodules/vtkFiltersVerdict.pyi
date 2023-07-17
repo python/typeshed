@@ -1,9 +1,6 @@
-from typing import TypeVar, overload
-
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
-
 
 class vtkCellQuality(vtkmodules.vtkCommonExecutionModel.vtkDataSetAlgorithm):
     def GetNumberOfGenerationsFromBase(self, type: str) -> int: ...

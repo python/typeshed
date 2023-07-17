@@ -1,5 +1,5 @@
 from collections.abc import MutableSequence, Sequence
-from typing import Tuple, TypeVar, overload
+from typing import Tuple, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
@@ -7,8 +7,6 @@ import vtkmodules.vtkCommonMath
 import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingOpenGL2
 import vtkmodules.vtkRenderingVolume
-
-Buffer = TypeVar("Buffer")
 
 class vtkMultiBlockUnstructuredGridVolumeMapper(vtkmodules.vtkRenderingVolume.vtkUnstructuredGridVolumeMapper):
     @overload

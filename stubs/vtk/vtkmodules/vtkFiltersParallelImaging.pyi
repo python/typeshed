@@ -1,12 +1,9 @@
-from typing import TypeVar
-
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkFiltersImaging
 import vtkmodules.vtkFiltersParallel
 import vtkmodules.vtkImagingCore
 import vtkmodules.vtkParallelCore
-
 
 class vtkExtractPiece(vtkmodules.vtkCommonExecutionModel.vtkCompositeDataSetAlgorithm):
     def GetNumberOfGenerationsFromBase(self, type: str) -> int: ...

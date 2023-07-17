@@ -1,11 +1,9 @@
-from typing import TypeVar, overload
+from typing import overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkRenderingCore
-
-Buffer = TypeVar("Buffer")
 
 VTK_SKIP_RETURN_CODE: int
 

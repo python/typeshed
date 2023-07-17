@@ -1,5 +1,5 @@
 from collections.abc import Callable, MutableSequence, Sequence
-from typing import Tuple, TypeVar, Union, overload
+from typing import Tuple, Union, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
@@ -9,7 +9,6 @@ import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingOpenGL2
 
 Callback = Union[Callable[..., None], None]
-Buffer = TypeVar("Buffer")
 
 class vtkClientServerCompositePass(vtkmodules.vtkRenderingCore.vtkRenderPass):
     def GetController(self) -> vtkmodules.vtkParallelCore.vtkMultiProcessController: ...

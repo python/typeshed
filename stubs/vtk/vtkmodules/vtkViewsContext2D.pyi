@@ -1,11 +1,9 @@
 from collections.abc import MutableSequence
-from typing import TypeVar
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkRenderingContext2D
 import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkViewsCore
-
 
 class vtkContextInteractorStyle(vtkmodules.vtkRenderingCore.vtkInteractorStyle):
     def GetNumberOfGenerationsFromBase(self, type: str) -> int: ...

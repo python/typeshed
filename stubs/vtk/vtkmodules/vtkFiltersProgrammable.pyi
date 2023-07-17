@@ -1,11 +1,11 @@
 from collections.abc import Callable
-from typing import Tuple, TypeVar, Union
+from typing import Tuple, TypeAlias, Union
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 
-Callback = Union[Callable[..., None], None]
+Callback: TypeAlias = Union[Callable[..., None], None]
 
 VTK_COLOR_BY_INPUT: int
 VTK_COLOR_BY_SOURCE: int
