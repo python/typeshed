@@ -4,8 +4,8 @@ from typing import Tuple, TypeVar, overload
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
-import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkFiltersGeneral
+import vtkmodules.vtkRenderingCore
 
 _Pointer = TypeVar("_Pointer")
 

@@ -5,7 +5,7 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkCommonTransforms
-import vtkmodules.vtkFiltersStatistics
+import vtkmodules.vtkFiltersGeneral
 import vtkmodules.vtkInfovisLayout
 import vtkmodules.vtkInteractionStyle
 import vtkmodules.vtkInteractionWidgets
@@ -13,7 +13,6 @@ import vtkmodules.vtkRenderingContext2D
 import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingLabel
 import vtkmodules.vtkViewsCore
-import vtkmodules.vtkFiltersGeneral
 
 _Pointer = TypeVar("_Pointer")
 
