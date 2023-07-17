@@ -1,5 +1,5 @@
-from collections.abc import Callable, MutableSequence
-from typing import TypeVar, Union
+from collections.abc import MutableSequence
+from typing import TypeVar
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkRenderingContext2D
