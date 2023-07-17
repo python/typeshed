@@ -1,4 +1,3 @@
-
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkIOLSDyna
 import vtkmodules.vtkParallelCore

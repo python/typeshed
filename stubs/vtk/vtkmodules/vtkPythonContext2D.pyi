@@ -1,4 +1,3 @@
-
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkRenderingContext2D
 

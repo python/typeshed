@@ -1,4 +1,3 @@
-
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkImagingGeneral
 import vtkmodules.vtkRenderingCore

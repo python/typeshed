@@ -1,3 +1,5 @@
+from typing import overload
+
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel

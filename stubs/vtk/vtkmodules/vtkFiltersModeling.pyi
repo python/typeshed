@@ -1,5 +1,5 @@
 from collections.abc import MutableSequence, Sequence
-from typing import Tuple, overload, TypeVar
+from typing import Tuple, TypeVar, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
