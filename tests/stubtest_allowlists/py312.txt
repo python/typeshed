@@ -74,14 +74,6 @@ posixpath.isjunction
 posixpath.splitroot
 smtplib.SMTP.starttls
 smtplib.SMTP_SSL.__init__
-sqlite3.Connection.autocommit
-sqlite3.Connection.getconfig
-sqlite3.Connection.setconfig
-sqlite3.dbapi2.Connection.autocommit
-sqlite3.dbapi2.Connection.getconfig
-sqlite3.dbapi2.Connection.setconfig
-sqlite3.dbapi2.enable_shared_cache
-sqlite3.enable_shared_cache
 sre_parse.Tokenizer.checkgroupname
 sre_parse.expand_template
 sre_parse.parse_template
