@@ -1,11 +1,10 @@
 from collections.abc import MutableSequence
-from typing import Tuple, TypeVar, overload
+from typing import Tuple, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkRenderingCore
-
 
 class vtkHyperTreeGridMapper(vtkmodules.vtkRenderingCore.vtkMapper):
     def FillInputPortInformation(self, port: int, info: vtkmodules.vtkCommonCore.vtkInformation) -> int: ...

@@ -1,11 +1,9 @@
 from collections.abc import MutableSequence
-from typing import TypeVar
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingFreeType
-
 
 class vtkMatplotlibMathTextUtilities(vtkmodules.vtkRenderingFreeType.vtkMathTextUtilities):
     def GetBoundingBox(

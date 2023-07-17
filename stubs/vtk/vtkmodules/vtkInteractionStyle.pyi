@@ -1,9 +1,8 @@
 from collections.abc import MutableSequence, Sequence
-from typing import Tuple, TypeVar, overload
+from typing import Tuple, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkRenderingCore
-
 
 VTKIS_ACTOR: int
 VTKIS_CAMERA: int

@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from typing import Tuple, TypeVar, Union
+from typing import Tuple, Union
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel

@@ -1,9 +1,6 @@
-from typing import TypeVar
-
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkIOLSDyna
 import vtkmodules.vtkParallelCore
-
 
 class vtkPLSDynaReader(vtkmodules.vtkIOLSDyna.vtkLSDynaReader):
     def CanReadFile(self, fname: str) -> int: ...

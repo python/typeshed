@@ -1,10 +1,9 @@
 from collections.abc import MutableSequence, Sequence
-from typing import Tuple, TypeVar, overload
+from typing import Tuple, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkImagingCore
-
 
 class vtkImageAccumulate(vtkmodules.vtkCommonExecutionModel.vtkImageAlgorithm):
     @overload

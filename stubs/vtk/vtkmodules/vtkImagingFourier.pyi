@@ -1,10 +1,9 @@
 from collections.abc import Sequence
-from typing import Tuple, TypeVar, overload
+from typing import Tuple, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkImagingCore
-
 
 class vtkImageButterworthHighPass(vtkmodules.vtkCommonExecutionModel.vtkThreadedImageAlgorithm):
     def GetCutOff(self) -> Tuple[float, float, float]: ...

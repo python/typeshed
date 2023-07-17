@@ -1,9 +1,8 @@
 from collections.abc import MutableSequence
-from typing import TypeVar, overload
+from typing import overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkRenderingCore
-
 
 class vtk3DSCamera_t:
     @overload

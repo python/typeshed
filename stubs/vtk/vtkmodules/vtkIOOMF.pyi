@@ -1,8 +1,5 @@
-from typing import TypeVar
-
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
-
 
 class vtkOMFReader(vtkmodules.vtkCommonExecutionModel.vtkDataObjectAlgorithm):
     def GetColumnMajorOrdering(self) -> bool: ...

@@ -1,10 +1,9 @@
 from collections.abc import Sequence
-from typing import Tuple, TypeVar, overload
+from typing import Tuple, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkIOXMLParser
-
 
 VTK_LSDYNA_BADFILE: int
 

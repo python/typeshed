@@ -7,7 +7,6 @@ import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkImagingCore
 import vtkmodules.vtkRenderingCore
 
-
 class vtkDepthImageToPointCloud(vtkmodules.vtkCommonExecutionModel.vtkPolyDataAlgorithm):
     def CullFarPointsOff(self) -> None: ...
     def CullFarPointsOn(self) -> None: ...

@@ -1,9 +1,8 @@
 from collections.abc import Sequence
-from typing import Tuple, TypeVar, overload
+from typing import Tuple, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkIOCore
-
 
 class vtkCesium3DTilesWriter(vtkmodules.vtkIOCore.vtkWriter):
     class InputType(int): ...

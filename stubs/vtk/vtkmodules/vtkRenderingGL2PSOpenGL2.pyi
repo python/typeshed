@@ -1,12 +1,11 @@
 from collections.abc import MutableSequence
-from typing import TypeVar, overload
+from typing import overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonMath
 import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingOpenGL2
-
 
 class vtkOpenGLGL2PSHelperImpl(vtkmodules.vtkRenderingOpenGL2.vtkOpenGLGL2PSHelper):
     def Draw3DPath(

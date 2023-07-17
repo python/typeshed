@@ -1,8 +1,5 @@
-from typing import TypeVar
-
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkRenderingContext2D
-
 
 class vtkPythonItem(vtkmodules.vtkRenderingContext2D.vtkContextItem):
     def GetNumberOfGenerationsFromBase(self, type: str) -> int: ...

@@ -1,12 +1,11 @@
 from collections.abc import MutableSequence, Sequence
-from typing import Tuple, TypeVar, overload
+from typing import Tuple, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingOpenGL2
-
 
 class vtkCompositeSurfaceLICMapper(vtkmodules.vtkRenderingOpenGL2.vtkCompositePolyDataMapper2):
     def GetLICInterface(self) -> vtkSurfaceLICInterface: ...

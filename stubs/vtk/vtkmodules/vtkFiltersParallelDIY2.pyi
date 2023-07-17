@@ -1,12 +1,11 @@
 from collections.abc import Sequence
-from typing import Tuple, TypeVar, overload
+from typing import Tuple, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkFiltersCore
 import vtkmodules.vtkParallelCore
-
 
 class vtkAdaptiveResampleToImage(vtkmodules.vtkCommonExecutionModel.vtkDataObjectAlgorithm):
     def GetController(self) -> vtkmodules.vtkParallelCore.vtkMultiProcessController: ...

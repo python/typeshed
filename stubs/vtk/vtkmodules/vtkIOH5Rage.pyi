@@ -1,9 +1,8 @@
-from typing import TypeVar, overload
+from typing import overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
-
 
 class vtkH5RageReader(vtkmodules.vtkCommonExecutionModel.vtkImageAlgorithm):
     def DisableAllPointArrays(self) -> None: ...

@@ -1,7 +1,6 @@
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
 
-
 class vtkTecplotTableReader(vtkmodules.vtkCommonExecutionModel.vtkTableAlgorithm):
     def GeneratePedigreeIdsOff(self) -> None: ...
     def GeneratePedigreeIdsOn(self) -> None: ...

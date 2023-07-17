@@ -1,12 +1,11 @@
 from collections.abc import MutableSequence, Sequence
-from typing import Tuple, TypeVar, overload
+from typing import Tuple, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkImagingCore
 import vtkmodules.vtkIOImage
-
 
 VTK_ACCUMULATION_MODE_MAX: int
 VTK_ACCUMULATION_MODE_MIN: int

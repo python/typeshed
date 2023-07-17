@@ -1,9 +1,7 @@
 from collections.abc import MutableSequence
-from typing import TypeVar
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkRenderingCore
-
 
 class vtkGenericRenderWindowInteractor(vtkmodules.vtkRenderingCore.vtkRenderWindowInteractor):
     def GetNumberOfGenerationsFromBase(self, type: str) -> int: ...

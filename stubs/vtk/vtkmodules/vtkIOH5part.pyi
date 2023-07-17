@@ -1,8 +1,5 @@
-from typing import TypeVar
-
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
-
 
 class vtkH5PartReader(vtkmodules.vtkCommonExecutionModel.vtkPolyDataAlgorithm):
     def CombineVectorComponentsOff(self) -> None: ...

@@ -1,11 +1,10 @@
-from typing import TypeVar, overload
+from typing import overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkIOLegacy
 import vtkmodules.vtkIOXML
-
 
 class vtkBiomTableReader(vtkmodules.vtkIOLegacy.vtkTableReader):
     def GetNumberOfGenerationsFromBase(self, type: str) -> int: ...

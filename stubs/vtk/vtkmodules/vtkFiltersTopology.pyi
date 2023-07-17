@@ -1,8 +1,5 @@
-from typing import TypeVar
-
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
-
 
 class vtkFiberSurface(vtkmodules.vtkCommonExecutionModel.vtkPolyDataAlgorithm):
     class BaseVertexType(int): ...

@@ -1,10 +1,9 @@
 from collections.abc import MutableSequence, Sequence
-from typing import Tuple, TypeVar, overload
+from typing import Tuple, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
-
 
 class vtkImageCanvasSource2D(vtkmodules.vtkCommonExecutionModel.vtkImageAlgorithm):
     def DrawCircle(self, c0: int, c1: int, radius: float) -> None: ...

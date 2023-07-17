@@ -1,11 +1,10 @@
 from collections.abc import Sequence
-from typing import Tuple, TypeVar, overload
+from typing import Tuple, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkImagingCore
-
 
 class vtkImageStencil(vtkmodules.vtkCommonExecutionModel.vtkThreadedImageAlgorithm):
     def GetBackgroundColor(self) -> Tuple[float, float, float, float]: ...

@@ -3,7 +3,6 @@ import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkIOXML
 import vtkmodules.vtkParallelCore
 
-
 class vtkXMLCompositeDataSetWriterHelper(vtkmodules.vtkCommonCore.vtkObject):
     def GetNumberOfGenerationsFromBase(self, type: str) -> int: ...
     @staticmethod

@@ -1,12 +1,11 @@
 from collections.abc import MutableSequence, Sequence
-from typing import Tuple, TypeVar, overload
+from typing import Tuple, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingVolume
-
 
 class vtkAMRVolumeMapper(vtkmodules.vtkRenderingVolume.vtkVolumeMapper):
     DefaultRenderMode: int

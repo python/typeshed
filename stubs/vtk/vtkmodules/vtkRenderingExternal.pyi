@@ -1,10 +1,9 @@
 from collections.abc import Sequence
-from typing import TypeVar, overload
+from typing import overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingOpenGL2
-
 
 class ExternalVTKWidget(vtkmodules.vtkCommonCore.vtkObject):
     def AddRenderer(self) -> vtkExternalOpenGLRenderer: ...

@@ -1,12 +1,11 @@
 from collections.abc import MutableSequence, Sequence
-from typing import Tuple, TypeVar, overload
+from typing import Tuple, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkCommonMath
 import vtkmodules.vtkIOCore
-
 
 VTK_FILE_BYTE_ORDER_BIG_ENDIAN: int
 VTK_FILE_BYTE_ORDER_LITTLE_ENDIAN: int
