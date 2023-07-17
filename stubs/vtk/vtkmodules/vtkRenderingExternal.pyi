@@ -5,7 +5,6 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingOpenGL2
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 class ExternalVTKWidget(vtkmodules.vtkCommonCore.vtkObject):

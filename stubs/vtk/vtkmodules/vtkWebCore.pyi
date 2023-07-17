@@ -6,7 +6,6 @@ import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkRenderingCore
 
 Buffer = TypeVar("Buffer")
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 class vtkDataEncoder(vtkmodules.vtkCommonCore.vtkObject):

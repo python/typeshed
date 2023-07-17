@@ -5,7 +5,6 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkImagingCore
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 class vtkImageHSIToRGB(vtkmodules.vtkCommonExecutionModel.vtkThreadedImageAlgorithm):

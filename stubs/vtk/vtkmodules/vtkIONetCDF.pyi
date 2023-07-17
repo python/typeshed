@@ -6,7 +6,6 @@ import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkIOCore
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 class vtkMPASReader(vtkmodules.vtkCommonExecutionModel.vtkUnstructuredGridAlgorithm):

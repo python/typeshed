@@ -6,7 +6,6 @@ import vtkmodules.vtkCommonTransforms
 import vtkmodules.vtkInteractionWidgets
 import vtkmodules.vtkRenderingCore
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 class vtkCompassRepresentation(vtkmodules.vtkInteractionWidgets.vtkContinuousValueWidgetRepresentation):

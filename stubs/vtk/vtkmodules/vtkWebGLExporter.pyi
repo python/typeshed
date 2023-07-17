@@ -8,7 +8,7 @@ import vtkmodules.vtkFiltersCore
 import vtkmodules.vtkIOExport
 import vtkmodules.vtkRenderingCore
 
-Pointer = TypeVar("Pointer")
+_Pointer = TypeVar("_Pointer")
 Template = TypeVar("Template")
 
 class WebGLObjectTypes(int): ...

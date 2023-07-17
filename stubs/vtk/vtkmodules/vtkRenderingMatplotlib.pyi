@@ -6,7 +6,6 @@ import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingFreeType
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 class vtkMatplotlibMathTextUtilities(vtkmodules.vtkRenderingFreeType.vtkMathTextUtilities):

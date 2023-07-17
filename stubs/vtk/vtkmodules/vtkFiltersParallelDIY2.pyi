@@ -7,7 +7,6 @@ import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkFiltersCore
 import vtkmodules.vtkParallelCore
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 class vtkAdaptiveResampleToImage(vtkmodules.vtkCommonExecutionModel.vtkDataObjectAlgorithm):

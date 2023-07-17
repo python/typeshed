@@ -8,7 +8,7 @@ import vtkmodules.vtkIOExport
 import vtkmodules.vtkRenderingContext2D
 import vtkmodules.vtkRenderingCore
 
-Pointer = TypeVar("Pointer")
+_Pointer = TypeVar("_Pointer")
 Template = TypeVar("Template")
 
 class vtkPDFContextDevice2D(vtkmodules.vtkRenderingContext2D.vtkContextDevice2D):

@@ -6,7 +6,6 @@ import vtkmodules.vtkIOExport
 import vtkmodules.vtkRenderingCore
 
 Buffer = TypeVar("Buffer")
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 class vtkGL2PSExporter(vtkmodules.vtkIOExport.vtkExporter):

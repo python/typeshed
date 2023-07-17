@@ -6,7 +6,6 @@ import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkCommonTransforms
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 class vtkCMLMoleculeReader(vtkmodules.vtkCommonExecutionModel.vtkMoleculeAlgorithm):

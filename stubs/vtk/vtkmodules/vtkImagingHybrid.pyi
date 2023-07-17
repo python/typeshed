@@ -7,7 +7,6 @@ import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkImagingCore
 import vtkmodules.vtkIOImage
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 VTK_ACCUMULATION_MODE_MAX: int

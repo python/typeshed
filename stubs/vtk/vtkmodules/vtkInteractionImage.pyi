@@ -9,7 +9,7 @@ import vtkmodules.vtkInteractionStyle
 import vtkmodules.vtkInteractionWidgets
 import vtkmodules.vtkRenderingCore
 
-Pointer = TypeVar("Pointer")
+_Pointer = TypeVar("_Pointer")
 Template = TypeVar("Template")
 
 class vtkImageViewer(vtkmodules.vtkCommonCore.vtkObject):

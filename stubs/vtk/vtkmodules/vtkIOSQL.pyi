@@ -7,7 +7,7 @@ import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkIOCore
 
 Callback = Union[Callable[..., None], None]
-Pointer = TypeVar("Pointer")
+_Pointer = TypeVar("_Pointer")
 Template = TypeVar("Template")
 
 VTK_SQL_ALLBACKENDS: str

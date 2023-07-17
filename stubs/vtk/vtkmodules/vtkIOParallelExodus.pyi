@@ -5,7 +5,6 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkIOExodus
 import vtkmodules.vtkParallelCore
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 class vtkPExodusIIReader(vtkmodules.vtkIOExodus.vtkExodusIIReader):

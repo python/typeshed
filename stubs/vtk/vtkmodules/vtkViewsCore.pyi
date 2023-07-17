@@ -6,7 +6,7 @@ import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkRenderingCore
 
-Pointer = TypeVar("Pointer")
+_Pointer = TypeVar("_Pointer")
 Template = TypeVar("Template")
 
 class vtkConvertSelectionDomain(vtkmodules.vtkCommonExecutionModel.vtkPassInputTypeAlgorithm):

@@ -4,7 +4,7 @@ import vtkmodules.vtkCommonCore
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")
-Pointer = TypeVar("Pointer")
+_Pointer = TypeVar("_Pointer")
 Template = TypeVar("Template")
 
 VTK_MAX_SPHERE_TREE_LEVELS: int

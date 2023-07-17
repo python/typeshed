@@ -7,7 +7,6 @@ import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkIOLegacy
 import vtkmodules.vtkIOXML
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 class vtkBiomTableReader(vtkmodules.vtkIOLegacy.vtkTableReader):

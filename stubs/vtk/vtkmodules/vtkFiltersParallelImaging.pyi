@@ -7,7 +7,6 @@ import vtkmodules.vtkFiltersParallel
 import vtkmodules.vtkImagingCore
 import vtkmodules.vtkParallelCore
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 class vtkExtractPiece(vtkmodules.vtkCommonExecutionModel.vtkCompositeDataSetAlgorithm):

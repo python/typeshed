@@ -10,7 +10,7 @@ import vtkmodules.vtkFiltersGeneral
 import vtkmodules.vtkRenderingCore
 
 Buffer = TypeVar("Buffer")
-Pointer = TypeVar("Pointer")
+_Pointer = TypeVar("_Pointer")
 Template = TypeVar("Template")
 
 class vtkAbstractContextBufferId(vtkmodules.vtkCommonCore.vtkObject):

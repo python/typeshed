@@ -14,7 +14,7 @@ import vtkmodules.vtkFiltersSources
 import vtkmodules.vtkFiltersTexture
 import vtkmodules.vtkParallelCore
 
-Pointer = TypeVar("Pointer")
+_Pointer = TypeVar("_Pointer")
 Template = TypeVar("Template")
 
 VTK_ITERATION_MODE_DIRECT_NB: int

@@ -8,7 +8,7 @@ import vtkmodules.vtkCommonMath
 import vtkmodules.vtkRenderingCore
 
 Buffer = TypeVar("Buffer")
-Pointer = TypeVar("Pointer")
+_Pointer = TypeVar("_Pointer")
 Template = TypeVar("Template")
 
 VTKKW_FPMM_SHIFT: int

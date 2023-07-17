@@ -8,7 +8,7 @@ import vtkmodules.vtkCommonMath
 import vtkmodules.vtkCommonTransforms
 import vtkmodules.vtkFiltersGeneral
 
-Pointer = TypeVar("Pointer")
+_Pointer = TypeVar("_Pointer")
 Template = TypeVar("Template")
 
 VTK_DIJKSTRA_EDGE_SEARCH: int

@@ -7,7 +7,6 @@ import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkImagingCore
 import vtkmodules.vtkRenderingCore
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 class vtkDepthImageToPointCloud(vtkmodules.vtkCommonExecutionModel.vtkPolyDataAlgorithm):

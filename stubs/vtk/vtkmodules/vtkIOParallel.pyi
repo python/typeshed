@@ -10,7 +10,7 @@ import vtkmodules.vtkIOImage
 import vtkmodules.vtkIOLegacy
 import vtkmodules.vtkParallelCore
 
-Pointer = TypeVar("Pointer")
+_Pointer = TypeVar("_Pointer")
 Template = TypeVar("Template")
 
 class vtkEnSightWriter(vtkmodules.vtkIOCore.vtkWriter):

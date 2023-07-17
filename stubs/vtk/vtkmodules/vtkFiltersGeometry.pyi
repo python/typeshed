@@ -5,7 +5,7 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 
-Pointer = TypeVar("Pointer")
+_Pointer = TypeVar("_Pointer")
 
 VTK_EDGE_OVERLAP: int
 VTK_NODE_OVERLAP: int

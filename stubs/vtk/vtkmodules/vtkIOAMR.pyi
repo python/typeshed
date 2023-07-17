@@ -6,7 +6,6 @@ import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkParallelCore
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 class vtkAMRBaseParticlesReader(vtkmodules.vtkCommonExecutionModel.vtkMultiBlockDataSetAlgorithm):

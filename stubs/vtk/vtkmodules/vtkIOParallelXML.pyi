@@ -6,7 +6,6 @@ import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkIOXML
 import vtkmodules.vtkParallelCore
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 class vtkXMLCompositeDataSetWriterHelper(vtkmodules.vtkCommonCore.vtkObject):

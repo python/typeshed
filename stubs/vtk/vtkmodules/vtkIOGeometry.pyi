@@ -7,7 +7,6 @@ import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkCommonMath
 import vtkmodules.vtkIOCore
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 VTK_FILE_BYTE_ORDER_BIG_ENDIAN: int

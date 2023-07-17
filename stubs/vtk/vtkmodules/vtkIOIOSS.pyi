@@ -6,7 +6,7 @@ import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkParallelCore
 
-Pointer = TypeVar("Pointer")
+_Pointer = TypeVar("_Pointer")
 Template = TypeVar("Template")
 
 class vtkIOSSReader(vtkmodules.vtkCommonExecutionModel.vtkReaderAlgorithm):

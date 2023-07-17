@@ -5,7 +5,6 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 MAX_CHILD: int

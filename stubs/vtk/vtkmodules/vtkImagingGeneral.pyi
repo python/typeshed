@@ -6,7 +6,6 @@ import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkImagingCore
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 VTK_EDT_SAITO: int

@@ -6,7 +6,6 @@ import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkFiltersStatistics
 import vtkmodules.vtkParallelCore
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 class vtkPAutoCorrelativeStatistics(vtkmodules.vtkFiltersStatistics.vtkAutoCorrelativeStatistics):

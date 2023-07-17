@@ -5,7 +5,6 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkImagingGeneral
 import vtkmodules.vtkRenderingCore
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 class vtkOpenGLImageGradient(vtkmodules.vtkImagingGeneral.vtkImageGradient):

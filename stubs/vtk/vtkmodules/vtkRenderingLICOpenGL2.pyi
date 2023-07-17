@@ -7,7 +7,6 @@ import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingOpenGL2
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 class vtkCompositeSurfaceLICMapper(vtkmodules.vtkRenderingOpenGL2.vtkCompositePolyDataMapper2):

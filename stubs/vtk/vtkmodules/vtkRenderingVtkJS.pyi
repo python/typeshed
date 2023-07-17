@@ -7,7 +7,6 @@ import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingOpenGL2
 import vtkmodules.vtkRenderingSceneGraph
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 class vtkVtkJSSceneGraphSerializer(vtkmodules.vtkCommonCore.vtkObject):

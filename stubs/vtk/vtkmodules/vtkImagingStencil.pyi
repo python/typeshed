@@ -6,7 +6,6 @@ import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkImagingCore
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 class vtkImageStencil(vtkmodules.vtkCommonExecutionModel.vtkThreadedImageAlgorithm):

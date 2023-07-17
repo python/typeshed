@@ -14,7 +14,7 @@ import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingLabel
 import vtkmodules.vtkViewsCore
 
-Pointer = TypeVar("Pointer")
+_Pointer = TypeVar("_Pointer")
 Template = TypeVar("Template")
 
 class vtkApplyColors(vtkmodules.vtkCommonExecutionModel.vtkPassInputTypeAlgorithm):

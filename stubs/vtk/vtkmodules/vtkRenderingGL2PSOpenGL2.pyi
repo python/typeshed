@@ -7,7 +7,6 @@ import vtkmodules.vtkCommonMath
 import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingOpenGL2
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 class vtkOpenGLGL2PSHelperImpl(vtkmodules.vtkRenderingOpenGL2.vtkOpenGLGL2PSHelper):

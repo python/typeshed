@@ -7,7 +7,6 @@ import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkFiltersCore
 import vtkmodules.vtkRenderingCore
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 class vtkLODActor(vtkmodules.vtkRenderingCore.vtkActor):

@@ -5,7 +5,6 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkIOLSDyna
 import vtkmodules.vtkParallelCore
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 class vtkPLSDynaReader(vtkmodules.vtkIOLSDyna.vtkLSDynaReader):

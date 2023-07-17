@@ -9,7 +9,7 @@ import vtkmodules.vtkCommonTransforms
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")
-Pointer = TypeVar("Pointer")
+_Pointer = TypeVar("_Pointer")
 Template = TypeVar("Template")
 
 VTKIS_ANIM_OFF: int

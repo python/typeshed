@@ -4,7 +4,6 @@ from typing import TypeVar, Union
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkRenderingContext2D
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 class vtkPythonItem(vtkmodules.vtkRenderingContext2D.vtkContextItem):

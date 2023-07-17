@@ -5,7 +5,6 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkFiltersCore
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 class vtkSMPContourGrid(vtkmodules.vtkFiltersCore.vtkContourGrid):

@@ -9,7 +9,7 @@ import vtkmodules.vtkRenderingHyperTreeGrid
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")
-Pointer = TypeVar("Pointer")
+_Pointer = TypeVar("_Pointer")
 Template = TypeVar("Template")
 
 class vtkCameraPass(vtkmodules.vtkRenderingCore.vtkRenderPass):

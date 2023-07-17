@@ -7,7 +7,6 @@ import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkIOCore
 import vtkmodules.vtkIOXMLParser
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 class vtkXMLReader(vtkmodules.vtkCommonExecutionModel.vtkAlgorithm):

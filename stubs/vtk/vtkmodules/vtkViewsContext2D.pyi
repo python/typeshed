@@ -6,7 +6,6 @@ import vtkmodules.vtkRenderingContext2D
 import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkViewsCore
 
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 class vtkContextInteractorStyle(vtkmodules.vtkRenderingCore.vtkInteractorStyle):

@@ -6,7 +6,7 @@ import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkIOCore
 
-Pointer = TypeVar("Pointer")
+_Pointer = TypeVar("_Pointer")
 Template = TypeVar("Template")
 
 class vtkGeoJSONFeature(vtkmodules.vtkCommonDataModel.vtkDataObject):

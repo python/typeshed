@@ -9,7 +9,6 @@ import vtkmodules.vtkRenderingOpenGL2
 import vtkmodules.vtkRenderingVolume
 
 Buffer = TypeVar("Buffer")
-Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
 class vtkMultiBlockUnstructuredGridVolumeMapper(vtkmodules.vtkRenderingVolume.vtkUnstructuredGridVolumeMapper):

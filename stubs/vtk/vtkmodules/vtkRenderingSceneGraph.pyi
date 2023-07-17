@@ -4,7 +4,7 @@ from typing import Callable, TypeVar, Union, overload
 import vtkmodules.vtkCommonCore
 
 Buffer = TypeVar("Buffer")
-Pointer = TypeVar("Pointer")
+_Pointer = TypeVar("_Pointer")
 Template = TypeVar("Template")
 
 class vtkViewNode(vtkmodules.vtkCommonCore.vtkObject):
