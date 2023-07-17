@@ -953,6 +953,7 @@ class _TreeviewColumnDict(TypedDict):
     anchor: tkinter._Anchor
     id: str
 
+
 class Treeview(Widget, tkinter.XView, tkinter.YView):
     def __init__(
         self,
@@ -1021,13 +1022,7 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         anchor: tkinter._Anchor = ...,
         # id is read-only
     ) -> _TreeviewColumnDict | None: ...
-    @overload
-    def delete(self, __item: str | int) -> None: ...
-    @overload
     def delete(self, *items: str | int) -> None: ...
-    @overload
-    def detach(self, __item: str | int) -> None: ...
-    @overload
     def detach(self, *items: str | int) -> None: ...
     def exists(self, item: str | int) -> bool: ...
     @overload  # type: ignore[override]
@@ -1129,6 +1124,7 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
     def selection_toggle(self, __items: str | int | list[str] | tuple[str, ...] | list[int] | tuple[int, ...]) -> None: ...
     @overload
     def selection_toggle(self, *items: str | int) -> None: ...
+    
     @overload
     def set(self, item: str | int, column: None = None, value: None = None) -> dict[str, Any]: ...
     @overload
