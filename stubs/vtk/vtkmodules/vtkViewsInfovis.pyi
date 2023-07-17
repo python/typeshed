@@ -14,7 +14,6 @@ import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingLabel
 import vtkmodules.vtkViewsCore
 
-Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")

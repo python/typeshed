@@ -1,5 +1,4 @@
-from collections.abc import Callable
-from typing import TypeVar, Union
+from typing import TypeVar
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
@@ -8,7 +7,6 @@ import vtkmodules.vtkFiltersParallel
 import vtkmodules.vtkImagingCore
 import vtkmodules.vtkParallelCore
 
-Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")

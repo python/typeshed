@@ -1,12 +1,4 @@
-from collections.abc import Callable
-from typing import TypeVar, Union
-
 import vtkmodules.vtkCommonCore
-
-Callback = Union[Callable[..., None], None]
-Buffer = TypeVar("Buffer")
-Pointer = TypeVar("Pointer")
-Template = TypeVar("Template")
 
 class vtkPythonArchiver(vtkmodules.vtkCommonCore.vtkArchiver):
     def CloseArchive(self) -> None: ...

@@ -1,15 +1,9 @@
-from collections.abc import Callable, MutableSequence
-from typing import TypeVar, Union
+from collections.abc import MutableSequence
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkDomainsChemistry
 import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingOpenGL2
-
-Callback = Union[Callable[..., None], None]
-Buffer = TypeVar("Buffer")
-Pointer = TypeVar("Pointer")
-Template = TypeVar("Template")
 
 class vtkOpenGLMoleculeMapper(vtkmodules.vtkDomainsChemistry.vtkMoleculeMapper):
     def GetFastAtomMapper(self) -> vtkmodules.vtkRenderingOpenGL2.vtkOpenGLSphereMapper: ...

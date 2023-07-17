@@ -2,13 +2,9 @@ from collections.abc import Callable, MutableSequence, Sequence
 from typing import Tuple, TypeVar, Union, overload
 
 import vtkmodules.vtkCommonCore
+import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkFiltersGeneral
-
-Callback = Union[Callable[..., None], None]
-Buffer = TypeVar("Buffer")
-Pointer = TypeVar("Pointer")
-Template = TypeVar("Template")
 
 VTK_EXTRACT_COMPONENT: int
 VTK_EXTRACT_DETERMINANT: int

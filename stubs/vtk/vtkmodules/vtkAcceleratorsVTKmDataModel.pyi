@@ -1,13 +1,8 @@
-from collections.abc import Callable, MutableSequence, Sequence
-from typing import Tuple, TypeAlias, TypeVar, Union, overload
+from collections.abc import MutableSequence, Sequence
+from typing import Tuple, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
-
-Callback: TypeAlias = Union[Callable[..., None], None]
-Buffer = TypeVar("Buffer")
-Pointer = TypeVar("Pointer")
-Template = TypeVar("Template")
 
 class vtkmDataSet(vtkmodules.vtkCommonDataModel.vtkDataSet):
     def ComputeBounds(self) -> None: ...

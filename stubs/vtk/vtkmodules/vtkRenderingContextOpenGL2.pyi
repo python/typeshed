@@ -8,7 +8,6 @@ import vtkmodules.vtkRenderingContext2D
 import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingOpenGL2
 
-Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")

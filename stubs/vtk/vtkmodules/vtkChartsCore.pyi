@@ -1,5 +1,5 @@
-from collections.abc import Callable, MutableSequence, Sequence
-from typing import Tuple, TypeVar, Union, overload
+from collections.abc import MutableSequence, Sequence
+from typing import Tuple, TypeVar, overload
 
 import vtkmodules.vtkCommonColor
 import vtkmodules.vtkCommonCore
@@ -11,10 +11,7 @@ import vtkmodules.vtkFiltersGeneral
 import vtkmodules.vtkRenderingContext2D
 import vtkmodules.vtkRenderingCore
 
-Callback = Union[Callable[..., None], None]
-Buffer = TypeVar("Buffer")
-Pointer = TypeVar("Pointer")
-Template = TypeVar("Template")
+_Pointer = TypeVar("_Pointer")
 
 class vtkAxis(vtkmodules.vtkRenderingContext2D.vtkContextItem):
     class Location(int): ...
@@ -1125,7 +1122,7 @@ class vtkContextArea(vtkmodules.vtkRenderingContext2D.vtkAbstractContextItem):
     @overload
     def GetFixedMarginsArray(self, margins: MutableSequence[int]) -> None: ...
     @overload
-    def GetFixedMarginsArray(self) -> Pointer: ...
+    def GetFixedMarginsArray(self) -> _Pointer: ...
     def GetFixedRect(self) -> vtkmodules.vtkCommonDataModel.vtkRecti: ...
     def GetGeometry(self) -> vtkmodules.vtkCommonDataModel.vtkRecti: ...
     def GetNumberOfGenerationsFromBase(self, type: str) -> int: ...
@@ -1232,7 +1229,7 @@ class vtkPiecewiseFunctionItem(vtkScalarsToColorsItem):
 
 class vtkPiecewisePointHandleItem(vtkmodules.vtkRenderingContext2D.vtkContextItem):
     @staticmethod
-    def CallRedraw(sender: vtkmodules.vtkCommonCore.vtkObject, event: int, receiver: Pointer, params: Pointer) -> None: ...
+    def CallRedraw(sender: vtkmodules.vtkCommonCore.vtkObject, event: int, receiver: _Pointer, params: _Pointer) -> None: ...
     def GetCurrentPointIndex(self) -> int: ...
     def GetNumberOfGenerationsFromBase(self, type: str) -> int: ...
     @staticmethod

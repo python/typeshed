@@ -1,5 +1,5 @@
-from collections.abc import Callable, MutableSequence, Sequence
-from typing import Tuple, TypeVar, Union, overload
+from collections.abc import MutableSequence, Sequence
+from typing import Tuple, TypeVar, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
@@ -9,10 +9,7 @@ import vtkmodules.vtkFiltersCore
 import vtkmodules.vtkFiltersGeneral
 import vtkmodules.vtkImagingCore
 
-Callback = Union[Callable[..., None], None]
-Buffer = TypeVar("Buffer")
-Pointer = TypeVar("Pointer")
-Template = TypeVar("Template")
+_Pointer = TypeVar("_Pointer")
 
 class vtkmAverageToCells(vtkmodules.vtkCommonExecutionModel.vtkDataSetAlgorithm):
     def GetNumberOfGenerationsFromBase(self, type: str) -> int: ...
@@ -202,7 +199,7 @@ class vtkmImageConnectivity(vtkmodules.vtkCommonExecutionModel.vtkImageAlgorithm
 
 class vtkmLevelOfDetail(vtkmodules.vtkCommonExecutionModel.vtkPolyDataAlgorithm):
     @overload
-    def GetNumberOfDivisions(self) -> Pointer: ...
+    def GetNumberOfDivisions(self) -> _Pointer: ...
     @overload
     def GetNumberOfDivisions(self, div: MutableSequence[int]) -> None: ...
     def GetNumberOfGenerationsFromBase(self, type: str) -> int: ...

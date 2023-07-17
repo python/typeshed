@@ -5,10 +5,7 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 
-Callback = Union[Callable[..., None], None]
-Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
-Template = TypeVar("Template")
 
 VTK_EDGE_OVERLAP: int
 VTK_NODE_OVERLAP: int

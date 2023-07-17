@@ -8,11 +8,6 @@ import vtkmodules.vtkCommonTransforms
 import vtkmodules.vtkFiltersGeometry
 import vtkmodules.vtkRenderingCore
 
-Callback = Union[Callable[..., None], None]
-Buffer = TypeVar("Buffer")
-Pointer = TypeVar("Pointer")
-Template = TypeVar("Template")
-
 VTK_BSPLINE_EDGE: int
 VTK_BSPLINE_ZERO: int
 VTK_BSPLINE_ZERO_AT_BORDER: int

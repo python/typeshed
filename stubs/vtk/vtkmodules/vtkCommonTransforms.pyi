@@ -1,13 +1,10 @@
-from collections.abc import Callable, MutableSequence, Sequence
-from typing import Tuple, TypeVar, Union, overload
+from collections.abc import MutableSequence, Sequence
+from typing import Tuple, TypeVar, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonMath
 
-Callback = Union[Callable[..., None], None]
-Buffer = TypeVar("Buffer")
-Pointer = TypeVar("Pointer")
-Template = TypeVar("Template")
+_Template = TypeVar("_Template")
 
 VTK_LANDMARK_AFFINE: int
 VTK_LANDMARK_RIGIDBODY: int

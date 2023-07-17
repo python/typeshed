@@ -10,7 +10,6 @@ import vtkmodules.vtkIOImage
 import vtkmodules.vtkIOLegacy
 import vtkmodules.vtkParallelCore
 
-Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")

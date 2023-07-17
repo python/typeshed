@@ -1,13 +1,8 @@
-from collections.abc import Callable, MutableSequence, Sequence
-from typing import TypeVar, Union, overload
+from collections.abc import MutableSequence, Sequence
+from typing import overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
-
-Callback = Union[Callable[..., None], None]
-Buffer = TypeVar("Buffer")
-Pointer = TypeVar("Pointer")
-Template = TypeVar("Template")
 
 class vtkColorSeries(vtkmodules.vtkCommonCore.vtkObject):
     class ColorSchemes(int): ...
