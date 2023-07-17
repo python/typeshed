@@ -10,7 +10,6 @@ import vtkmodules.vtkCommonTransforms
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")
 _Pointer = TypeVar("_Pointer")
-Template = TypeVar("Template")
 
 VTK_FILE_BYTE_ORDER_BIG_ENDIAN: int
 VTK_FILE_BYTE_ORDER_LITTLE_ENDIAN: int

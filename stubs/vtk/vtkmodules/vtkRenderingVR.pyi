@@ -12,7 +12,6 @@ import vtkmodules.vtkRenderingOpenGL2
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")
 _Pointer = TypeVar("_Pointer")
-Template = TypeVar("Template")
 
 class vtkOpenGLAvatar(vtkmodules.vtkRenderingCore.vtkAvatar):
     def GetBounds(self) -> Tuple[float, float, float, float, float, float]: ...

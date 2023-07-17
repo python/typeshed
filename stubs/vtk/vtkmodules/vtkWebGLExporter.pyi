@@ -9,7 +9,6 @@ import vtkmodules.vtkIOExport
 import vtkmodules.vtkRenderingCore
 
 _Pointer = TypeVar("_Pointer")
-Template = TypeVar("Template")
 
 class WebGLObjectTypes(int): ...
 

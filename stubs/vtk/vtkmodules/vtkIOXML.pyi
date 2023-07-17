@@ -7,7 +7,6 @@ import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkIOCore
 import vtkmodules.vtkIOXMLParser
 
-Template = TypeVar("Template")
 
 class vtkXMLReader(vtkmodules.vtkCommonExecutionModel.vtkAlgorithm):
     class FieldType(int): ...

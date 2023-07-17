@@ -8,7 +8,6 @@ import vtkmodules.vtkCommonMath
 import vtkmodules.vtkCommonTransforms
 
 _Pointer = TypeVar("_Pointer")
-Template = TypeVar("Template")
 
 class vtkImageBorderMode(int): ...
 

@@ -5,7 +5,6 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 
-Template = TypeVar("Template")
 
 class vtkImageCanvasSource2D(vtkmodules.vtkCommonExecutionModel.vtkImageAlgorithm):
     def DrawCircle(self, c0: int, c1: int, radius: float) -> None: ...

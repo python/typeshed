@@ -7,7 +7,6 @@ import vtkmodules.vtkCommonExecutionModel
 
 Callback: TypeAlias = Union[Callable[..., None], None]
 _Pointer = TypeVar("_Pointer")
-Template = TypeVar("Template")
 
 VTK_ASCII: int
 VTK_BINARY: int

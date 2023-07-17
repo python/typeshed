@@ -1,5 +1,5 @@
 from collections.abc import MutableSequence, Sequence
-from typing import Tuple, TypeVar, overload
+from typing import Tuple, overload, TypeVar
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
@@ -9,7 +9,6 @@ import vtkmodules.vtkCommonTransforms
 import vtkmodules.vtkFiltersGeneral
 
 _Pointer = TypeVar("_Pointer")
-Template = TypeVar("Template")
 
 VTK_DIJKSTRA_EDGE_SEARCH: int
 VTK_GREEDY_EDGE_SEARCH: int
@@ -94,7 +93,7 @@ class vtkBandedPolyDataContourFilter(vtkmodules.vtkCommonExecutionModel.vtkPolyD
     def GetScalarModeMinValue(self) -> int: ...
     def GetValue(self, i: int) -> float: ...
     @overload
-    def GetValues(self) -> Pointer: ...
+    def GetValues(self) -> _Pointer: ...
     @overload
     def GetValues(self, contourValues: MutableSequence[float]) -> None: ...
     def IsA(self, type: str) -> int: ...

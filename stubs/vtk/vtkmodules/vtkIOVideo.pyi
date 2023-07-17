@@ -5,7 +5,6 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
 
 Buffer = TypeVar("Buffer")
-Template = TypeVar("Template")
 
 class vtkVideoSource(vtkmodules.vtkCommonExecutionModel.vtkImageAlgorithm):
     def AutoAdvanceOff(self) -> None: ...

@@ -7,7 +7,6 @@ import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkRenderingCore
 
 _Pointer = TypeVar("_Pointer")
-Template = TypeVar("Template")
 
 class vtkConvertSelectionDomain(vtkmodules.vtkCommonExecutionModel.vtkPassInputTypeAlgorithm):
     def GetNumberOfGenerationsFromBase(self, type: str) -> int: ...

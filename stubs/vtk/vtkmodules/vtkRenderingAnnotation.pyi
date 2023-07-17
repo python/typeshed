@@ -9,7 +9,6 @@ import vtkmodules.vtkImagingColor
 import vtkmodules.vtkRenderingCore
 
 _Pointer = TypeVar("_Pointer")
-Template = TypeVar("Template")
 
 VTK_DEFAULT_NUMBER_OF_RADIAL_AXES: int
 VTK_IV_COLUMN: int

@@ -4,7 +4,6 @@ from typing import Tuple, TypeVar, Union, overload
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkIOCore
 
-Template = TypeVar("Template")
 
 class vtkCesium3DTilesWriter(vtkmodules.vtkIOCore.vtkWriter):
     class InputType(int): ...

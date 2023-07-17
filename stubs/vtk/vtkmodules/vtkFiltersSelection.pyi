@@ -5,7 +5,6 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 
-Template = TypeVar("Template")
 
 class vtkCellDistanceSelector(vtkmodules.vtkCommonExecutionModel.vtkSelectionAlgorithm):
     class InputPorts(int): ...

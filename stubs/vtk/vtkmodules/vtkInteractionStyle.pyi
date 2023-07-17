@@ -4,7 +4,6 @@ from typing import Tuple, TypeVar, Union, overload
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkRenderingCore
 
-Template = TypeVar("Template")
 
 VTKIS_ACTOR: int
 VTKIS_CAMERA: int

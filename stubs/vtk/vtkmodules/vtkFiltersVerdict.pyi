@@ -5,7 +5,6 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 
-Template = TypeVar("Template")
 
 class vtkCellQuality(vtkmodules.vtkCommonExecutionModel.vtkDataSetAlgorithm):
     def GetNumberOfGenerationsFromBase(self, type: str) -> int: ...

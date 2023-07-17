@@ -7,7 +7,6 @@ import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkImagingCore
 import vtkmodules.vtkImagingGeneral
 
-Template = TypeVar("Template")
 
 VTK_IMAGE_NON_MAXIMUM_SUPPRESSION_MAGNITUDE_INPUT: int
 VTK_IMAGE_NON_MAXIMUM_SUPPRESSION_VECTOR_INPUT: int

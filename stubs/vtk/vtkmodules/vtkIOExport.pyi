@@ -11,7 +11,6 @@ import vtkmodules.vtkRenderingVtkJS
 
 Callback: TypeAlias = Union[Callable[..., None], None]
 _Pointer = TypeVar("_Pointer")
-Template = TypeVar("Template")
 
 class vtkX3D(vtkmodules.vtkCommonCore.namespace):
     class X3DAttribute(int): ...

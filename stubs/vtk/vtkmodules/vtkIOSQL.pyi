@@ -8,7 +8,6 @@ import vtkmodules.vtkIOCore
 
 Callback = Union[Callable[..., None], None]
 _Pointer = TypeVar("_Pointer")
-Template = TypeVar("Template")
 
 VTK_SQL_ALLBACKENDS: str
 VTK_SQL_DEFAULT_COLUMN_SIZE: int

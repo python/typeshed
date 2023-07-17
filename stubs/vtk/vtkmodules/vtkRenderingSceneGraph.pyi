@@ -5,7 +5,6 @@ import vtkmodules.vtkCommonCore
 
 Buffer = TypeVar("Buffer")
 _Pointer = TypeVar("_Pointer")
-Template = TypeVar("Template")
 
 class vtkViewNode(vtkmodules.vtkCommonCore.vtkObject):
     class operation_type(int): ...

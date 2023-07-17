@@ -7,7 +7,6 @@ import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkParallelCore
 
 _Pointer = TypeVar("_Pointer")
-Template = TypeVar("Template")
 
 class vtkIOSSReader(vtkmodules.vtkCommonExecutionModel.vtkReaderAlgorithm):
     class EntityType(int): ...

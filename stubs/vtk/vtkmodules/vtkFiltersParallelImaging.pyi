@@ -7,7 +7,6 @@ import vtkmodules.vtkFiltersParallel
 import vtkmodules.vtkImagingCore
 import vtkmodules.vtkParallelCore
 
-Template = TypeVar("Template")
 
 class vtkExtractPiece(vtkmodules.vtkCommonExecutionModel.vtkCompositeDataSetAlgorithm):
     def GetNumberOfGenerationsFromBase(self, type: str) -> int: ...

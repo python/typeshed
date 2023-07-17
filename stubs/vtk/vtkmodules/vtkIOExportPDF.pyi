@@ -9,7 +9,6 @@ import vtkmodules.vtkRenderingContext2D
 import vtkmodules.vtkRenderingCore
 
 _Pointer = TypeVar("_Pointer")
-Template = TypeVar("Template")
 
 class vtkPDFContextDevice2D(vtkmodules.vtkRenderingContext2D.vtkContextDevice2D):
     def ComputeJustifiedStringBounds(self, string: str, bounds: MutableSequence[float]) -> None: ...

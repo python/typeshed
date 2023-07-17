@@ -8,7 +8,6 @@ import vtkmodules.vtkCommonExecutionModel
 
 Callback: TypeAlias = Union[Callable[..., None], None]
 _Pointer = TypeVar("_Pointer")
-Template = TypeVar("Template")
 
 VTK_ARROW_GLYPH: int
 VTK_BOX_TYPE_AXIS_ALIGNED: int

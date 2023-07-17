@@ -7,7 +7,6 @@ import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingVolume
 
-Template = TypeVar("Template")
 
 class vtkAMRVolumeMapper(vtkmodules.vtkRenderingVolume.vtkVolumeMapper):
     DefaultRenderMode: int

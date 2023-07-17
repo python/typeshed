@@ -10,7 +10,6 @@ import vtkmodules.vtkInteractionWidgets
 import vtkmodules.vtkRenderingCore
 
 _Pointer = TypeVar("_Pointer")
-Template = TypeVar("Template")
 
 class vtkImageViewer(vtkmodules.vtkCommonCore.vtkObject):
     def GetActor2D(self) -> vtkmodules.vtkRenderingCore.vtkActor2D: ...

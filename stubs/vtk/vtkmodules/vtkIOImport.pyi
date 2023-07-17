@@ -4,7 +4,6 @@ from typing import TypeVar, Union, overload
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkRenderingCore
 
-Template = TypeVar("Template")
 
 class vtk3DSCamera_t:
     @overload

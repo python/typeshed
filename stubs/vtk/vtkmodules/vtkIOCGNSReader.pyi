@@ -5,7 +5,6 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkParallelCore
 
-Template = TypeVar("Template")
 
 class vtkCGNSFileSeriesReader(vtkmodules.vtkCommonExecutionModel.vtkMultiBlockDataSetAlgorithm):
     def AddFileName(self, fname: str) -> None: ...

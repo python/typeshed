@@ -6,7 +6,6 @@ import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkIOCore
 
 _Pointer = TypeVar("_Pointer")
-Template = TypeVar("Template")
 
 VTK_BIG_ENDIAN: int
 VTK_COLOR_MODE_DEFAULT: int

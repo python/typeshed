@@ -6,7 +6,6 @@ import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkCommonTransforms
 
-Template = TypeVar("Template")
 
 class vtkEdgeLayoutStrategy(vtkmodules.vtkCommonCore.vtkObject):
     def GetEdgeWeightArrayName(self) -> str: ...

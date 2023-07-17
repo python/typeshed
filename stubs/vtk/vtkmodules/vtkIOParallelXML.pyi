@@ -1,12 +1,8 @@
-from collections.abc import Callable
-from typing import TypeVar, Union
-
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkIOXML
 import vtkmodules.vtkParallelCore
 
-Template = TypeVar("Template")
 
 class vtkXMLCompositeDataSetWriterHelper(vtkmodules.vtkCommonCore.vtkObject):
     def GetNumberOfGenerationsFromBase(self, type: str) -> int: ...

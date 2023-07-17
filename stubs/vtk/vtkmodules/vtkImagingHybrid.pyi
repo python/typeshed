@@ -7,7 +7,6 @@ import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkImagingCore
 import vtkmodules.vtkIOImage
 
-Template = TypeVar("Template")
 
 VTK_ACCUMULATION_MODE_MAX: int
 VTK_ACCUMULATION_MODE_MIN: int

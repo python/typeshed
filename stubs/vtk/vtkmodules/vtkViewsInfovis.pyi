@@ -15,7 +15,6 @@ import vtkmodules.vtkRenderingLabel
 import vtkmodules.vtkViewsCore
 
 _Pointer = TypeVar("_Pointer")
-Template = TypeVar("Template")
 
 class vtkApplyColors(vtkmodules.vtkCommonExecutionModel.vtkPassInputTypeAlgorithm):
     def GetCellColorOutputArrayName(self) -> str: ...

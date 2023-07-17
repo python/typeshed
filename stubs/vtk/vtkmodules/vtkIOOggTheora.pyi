@@ -4,7 +4,6 @@ from typing import TypeVar, Union
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkIOMovie
 
-Template = TypeVar("Template")
 
 class vtkOggTheoraWriter(vtkmodules.vtkIOMovie.vtkGenericMovieWriter):
     def End(self) -> None: ...

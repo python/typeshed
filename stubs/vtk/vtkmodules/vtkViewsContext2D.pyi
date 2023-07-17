@@ -6,7 +6,6 @@ import vtkmodules.vtkRenderingContext2D
 import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkViewsCore
 
-Template = TypeVar("Template")
 
 class vtkContextInteractorStyle(vtkmodules.vtkRenderingCore.vtkInteractorStyle):
     def GetNumberOfGenerationsFromBase(self, type: str) -> int: ...

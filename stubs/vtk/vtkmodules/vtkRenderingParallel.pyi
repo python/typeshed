@@ -10,7 +10,6 @@ import vtkmodules.vtkRenderingOpenGL2
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")
-Template = TypeVar("Template")
 
 class vtkClientServerCompositePass(vtkmodules.vtkRenderingCore.vtkRenderPass):
     def GetController(self) -> vtkmodules.vtkParallelCore.vtkMultiProcessController: ...

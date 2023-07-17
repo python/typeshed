@@ -6,7 +6,6 @@ import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkRenderingCore
 
 Buffer = TypeVar("Buffer")
-Template = TypeVar("Template")
 
 class vtkDataEncoder(vtkmodules.vtkCommonCore.vtkObject):
     def EncodeAsBase64Jpg(self, img: vtkmodules.vtkCommonDataModel.vtkImageData, quality: int = 50) -> str: ...

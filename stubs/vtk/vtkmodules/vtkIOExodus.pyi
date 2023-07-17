@@ -8,7 +8,6 @@ import vtkmodules.vtkIOCore
 import vtkmodules.vtkIOXMLParser
 
 _Pointer = TypeVar("_Pointer")
-Template = TypeVar("Template")
 
 class vtkCPExodusIIElementBlock(vtkmodules.vtkCommonDataModel.vtkUnstructuredGridBase):
     def GetNumberOfGenerationsFromBase(self, type: str) -> int: ...

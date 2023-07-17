@@ -8,7 +8,6 @@ import vtkmodules.vtkCommonSystem
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")
 _Pointer = TypeVar("_Pointer")
-Template = TypeVar("Template")
 
 class vtkCommunicator(vtkmodules.vtkCommonCore.vtkObject):
     class Tags(int): ...

@@ -6,7 +6,6 @@ import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkParallelCore
 
-Template = TypeVar("Template")
 
 class vtkAMRBaseParticlesReader(vtkmodules.vtkCommonExecutionModel.vtkMultiBlockDataSetAlgorithm):
     def FilterLocationOff(self) -> None: ...

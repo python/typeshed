@@ -7,7 +7,6 @@ import vtkmodules.vtkCommonMath
 import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingOpenGL2
 
-Template = TypeVar("Template")
 
 class vtkOpenGLGL2PSHelperImpl(vtkmodules.vtkRenderingOpenGL2.vtkOpenGLGL2PSHelper):
     def Draw3DPath(

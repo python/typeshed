@@ -6,7 +6,6 @@ import vtkmodules.vtkCommonTransforms
 import vtkmodules.vtkInteractionWidgets
 import vtkmodules.vtkRenderingCore
 
-Template = TypeVar("Template")
 
 class vtkCompassRepresentation(vtkmodules.vtkInteractionWidgets.vtkContinuousValueWidgetRepresentation):
     class InteractionStateType(int): ...

@@ -4,7 +4,6 @@ from typing import TypeVar, Union
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
 
-Template = TypeVar("Template")
 
 class vtkCityGMLReader(vtkmodules.vtkCommonExecutionModel.vtkMultiBlockDataSetAlgorithm):
     def GetBeginBuildingIndex(self) -> int: ...

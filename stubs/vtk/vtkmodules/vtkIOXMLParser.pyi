@@ -6,7 +6,6 @@ import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkIOCore
 
 _Pointer = TypeVar("_Pointer")
-Template = TypeVar("Template")
 
 class vtkXMLParser(vtkmodules.vtkCommonCore.vtkObject):
     def CleanupParser(self) -> int: ...

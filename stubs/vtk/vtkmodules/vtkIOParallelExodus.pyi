@@ -5,7 +5,6 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkIOExodus
 import vtkmodules.vtkParallelCore
 
-Template = TypeVar("Template")
 
 class vtkPExodusIIReader(vtkmodules.vtkIOExodus.vtkExodusIIReader):
     def Broadcast(self, ctrl: vtkmodules.vtkParallelCore.vtkMultiProcessController) -> None: ...

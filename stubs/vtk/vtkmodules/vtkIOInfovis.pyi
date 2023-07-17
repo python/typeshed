@@ -7,7 +7,6 @@ import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkIOLegacy
 import vtkmodules.vtkIOXML
 
-Template = TypeVar("Template")
 
 class vtkBiomTableReader(vtkmodules.vtkIOLegacy.vtkTableReader):
     def GetNumberOfGenerationsFromBase(self, type: str) -> int: ...

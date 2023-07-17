@@ -7,7 +7,6 @@ import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkCommonMisc
 
 _Pointer = TypeVar("_Pointer")
-Template = TypeVar("Template")
 
 class vtkStatisticsAlgorithm(vtkmodules.vtkCommonExecutionModel.vtkTableAlgorithm):
     class InputPorts(int): ...

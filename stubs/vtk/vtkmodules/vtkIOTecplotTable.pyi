@@ -1,10 +1,6 @@
-from collections.abc import Callable
-from typing import TypeVar, Union
-
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
 
-Template = TypeVar("Template")
 
 class vtkTecplotTableReader(vtkmodules.vtkCommonExecutionModel.vtkTableAlgorithm):
     def GeneratePedigreeIdsOff(self) -> None: ...

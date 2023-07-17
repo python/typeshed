@@ -5,7 +5,6 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 
-Template = TypeVar("Template")
 
 class vtkHDFReader(vtkmodules.vtkCommonExecutionModel.vtkDataObjectAlgorithm):
     def CanReadFile(self, name: str) -> int: ...

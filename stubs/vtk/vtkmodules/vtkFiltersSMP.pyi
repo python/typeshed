@@ -5,7 +5,6 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkFiltersCore
 
-Template = TypeVar("Template")
 
 class vtkSMPContourGrid(vtkmodules.vtkFiltersCore.vtkContourGrid):
     def GetMergePieces(self) -> bool: ...

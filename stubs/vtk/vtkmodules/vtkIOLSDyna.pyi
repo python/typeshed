@@ -5,7 +5,6 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkIOXMLParser
 
-Template = TypeVar("Template")
 
 VTK_LSDYNA_BADFILE: int
 

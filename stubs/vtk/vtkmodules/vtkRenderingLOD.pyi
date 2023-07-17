@@ -7,7 +7,6 @@ import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkFiltersCore
 import vtkmodules.vtkRenderingCore
 
-Template = TypeVar("Template")
 
 class vtkLODActor(vtkmodules.vtkRenderingCore.vtkActor):
     def AddLODMapper(self, mapper: vtkmodules.vtkRenderingCore.vtkMapper) -> None: ...

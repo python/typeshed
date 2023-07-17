@@ -7,7 +7,6 @@ import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkRenderingCore
 
 Buffer = TypeVar("Buffer")
-Template = TypeVar("Template")
 
 VTK_SKIP_RETURN_CODE: int
 

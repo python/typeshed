@@ -11,7 +11,6 @@ import vtkmodules.vtkIOLegacy
 import vtkmodules.vtkParallelCore
 
 _Pointer = TypeVar("_Pointer")
-Template = TypeVar("Template")
 
 class vtkEnSightWriter(vtkmodules.vtkIOCore.vtkWriter):
     def GetBaseName(self) -> str: ...

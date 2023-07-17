@@ -6,7 +6,6 @@ import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 
 Callback = Union[Callable[..., None], None]
-Template = TypeVar("Template")
 
 VTK_COLOR_BY_INPUT: int
 VTK_COLOR_BY_SOURCE: int

@@ -10,7 +10,6 @@ import vtkmodules.vtkIOCore
 import vtkmodules.vtkIOImage
 import vtkmodules.vtkRenderingCore
 
-Template = TypeVar("Template")
 
 class vtkMINCImageAttributes(vtkmodules.vtkCommonCore.vtkObject):
     @overload

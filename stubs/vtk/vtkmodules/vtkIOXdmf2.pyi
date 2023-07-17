@@ -5,7 +5,6 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 
-Template = TypeVar("Template")
 
 class vtkSILBuilder(vtkmodules.vtkCommonCore.vtkObject):
     def AddChildEdge(self, parent: int, child: int) -> int: ...

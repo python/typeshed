@@ -6,7 +6,6 @@ import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 
 _Pointer = TypeVar("_Pointer")
-Template = TypeVar("Template")
 
 VTK_DENSITY_ESTIMATE_FIXED_RADIUS: int
 VTK_DENSITY_ESTIMATE_RELATIVE_RADIUS: int

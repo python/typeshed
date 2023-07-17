@@ -4,7 +4,6 @@ from typing import TypeVar, Union
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 
-Template = TypeVar("Template")
 
 class vtkThreadedImageWriter(vtkmodules.vtkCommonCore.vtkObject):
     def EncodeAndWrite(self, image: vtkmodules.vtkCommonDataModel.vtkImageData, fileName: str) -> None: ...

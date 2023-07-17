@@ -11,7 +11,6 @@ import vtkmodules.vtkRenderingCore
 
 Buffer = TypeVar("Buffer")
 _Pointer = TypeVar("_Pointer")
-Template = TypeVar("Template")
 
 class vtkAbstractContextBufferId(vtkmodules.vtkCommonCore.vtkObject):
     def Allocate(self) -> None: ...

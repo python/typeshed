@@ -6,7 +6,6 @@ import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkRenderingCore
 
-Template = TypeVar("Template")
 
 class vtkHyperTreeGridMapper(vtkmodules.vtkRenderingCore.vtkMapper):
     def FillInputPortInformation(self, port: int, info: vtkmodules.vtkCommonCore.vtkInformation) -> int: ...

@@ -1,5 +1,5 @@
-from collections.abc import Callable, MutableSequence
-from typing import Tuple, TypeVar, Union, overload
+from collections.abc import MutableSequence
+from typing import Tuple, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
@@ -7,7 +7,6 @@ import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkImagingCore
 import vtkmodules.vtkRenderingCore
 
-Template = TypeVar("Template")
 
 class vtkDepthImageToPointCloud(vtkmodules.vtkCommonExecutionModel.vtkPolyDataAlgorithm):
     def CullFarPointsOff(self) -> None: ...

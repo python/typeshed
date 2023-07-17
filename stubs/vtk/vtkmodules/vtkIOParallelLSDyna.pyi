@@ -5,7 +5,6 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkIOLSDyna
 import vtkmodules.vtkParallelCore
 
-Template = TypeVar("Template")
 
 class vtkPLSDynaReader(vtkmodules.vtkIOLSDyna.vtkLSDynaReader):
     def CanReadFile(self, fname: str) -> int: ...

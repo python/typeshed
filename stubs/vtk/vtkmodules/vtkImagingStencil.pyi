@@ -6,7 +6,6 @@ import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkImagingCore
 
-Template = TypeVar("Template")
 
 class vtkImageStencil(vtkmodules.vtkCommonExecutionModel.vtkThreadedImageAlgorithm):
     def GetBackgroundColor(self) -> Tuple[float, float, float, float]: ...

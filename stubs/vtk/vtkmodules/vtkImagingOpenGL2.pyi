@@ -5,7 +5,6 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkImagingGeneral
 import vtkmodules.vtkRenderingCore
 
-Template = TypeVar("Template")
 
 class vtkOpenGLImageGradient(vtkmodules.vtkImagingGeneral.vtkImageGradient):
     def GetNumberOfGenerationsFromBase(self, type: str) -> int: ...

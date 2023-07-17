@@ -17,7 +17,6 @@ import vtkmodules.vtkRenderingCore
 
 Callback: TypeAlias = Union[Callable[..., None], None]
 _Pointer = TypeVar("_Pointer")
-Template = TypeVar("Template")
 
 VTK_CUBIC_RESLICE: int
 VTK_IMAGE_PLANE_WIDGET_MAX_TEXTBUFF: int

@@ -9,7 +9,6 @@ import vtkmodules.vtkRenderingCore
 
 Buffer = TypeVar("Buffer")
 _Pointer = TypeVar("_Pointer")
-Template = TypeVar("Template")
 
 VTKKW_FPMM_SHIFT: int
 VTKKW_FP_MASK: float

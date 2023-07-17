@@ -1,12 +1,6 @@
-from collections.abc import Callable
-from typing import TypeVar, Union
-
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkIOExport
 import vtkmodules.vtkRenderingCore
-
-Buffer = TypeVar("Buffer")
-Template = TypeVar("Template")
 
 class vtkGL2PSExporter(vtkmodules.vtkIOExport.vtkExporter):
     class SortScheme(int): ...

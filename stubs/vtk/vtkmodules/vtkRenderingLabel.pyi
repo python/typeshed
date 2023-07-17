@@ -9,7 +9,6 @@ import vtkmodules.vtkFiltersGeneral
 import vtkmodules.vtkRenderingCore
 
 Buffer = TypeVar("Buffer")
-Template = TypeVar("Template")
 
 VTK_LABEL_FIELD_DATA: int
 VTK_LABEL_IDS: int

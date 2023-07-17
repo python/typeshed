@@ -4,7 +4,6 @@ from typing import TypeVar, Union
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
 
-Template = TypeVar("Template")
 
 class vtkOMFReader(vtkmodules.vtkCommonExecutionModel.vtkDataObjectAlgorithm):
     def GetColumnMajorOrdering(self) -> bool: ...

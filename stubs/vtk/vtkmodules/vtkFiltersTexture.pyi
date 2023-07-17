@@ -5,7 +5,6 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 
-Template = TypeVar("Template")
 
 class vtkImplicitTextureCoords(vtkmodules.vtkCommonExecutionModel.vtkDataSetAlgorithm):
     def FlipTextureOff(self) -> None: ...

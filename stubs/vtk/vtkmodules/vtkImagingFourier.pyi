@@ -5,7 +5,6 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkImagingCore
 
-Template = TypeVar("Template")
 
 class vtkImageButterworthHighPass(vtkmodules.vtkCommonExecutionModel.vtkThreadedImageAlgorithm):
     def GetCutOff(self) -> Tuple[float, float, float]: ...

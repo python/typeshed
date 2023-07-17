@@ -8,7 +8,6 @@ import vtkmodules.vtkRenderingCore
 
 Buffer = TypeVar("Buffer")
 _Pointer = TypeVar("_Pointer")
-Template = TypeVar("Template")
 
 class vtkFreeTypeStringToImage(vtkmodules.vtkRenderingCore.vtkStringToImage):
     def DeepCopy(self, utility: vtkFreeTypeStringToImage) -> None: ...
