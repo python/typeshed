@@ -961,9 +961,9 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         master: tkinter.Misc | None = None,
         *,
         class_: str = ...,
-        columns: str | list[str] | list[int] | list[str | int] | tuple[str | int, ...] = ...,
+        columns: _TreeviewColumnId | list[str] | list[int] | list[str | int] | tuple[str | int, ...] = ...,
         cursor: tkinter._Cursor = ...,
-        displaycolumns: str | list[str] | tuple[str, ...] | list[int] | tuple[int, ...] = ...,
+        displaycolumns: _TreeviewColumnId | list[str] | tuple[str, ...] | list[int] | tuple[int, ...] = ...,
         height: int = ...,
         name: str = ...,
         padding: _Padding = ...,
@@ -983,9 +983,9 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         self,
         cnf: dict[str, Any] | None = None,
         *,
-        columns: str | list[str] | list[int] | list[str | int] | tuple[str | int, ...] = ...,
+        columns: _TreeviewColumnId | list[str] | list[int] | list[str | int] | tuple[str | int, ...] = ...,
         cursor: tkinter._Cursor = ...,
-        displaycolumns: str | list[str] | tuple[str, ...] | list[int] | tuple[int, ...] = ...,
+        displaycolumns: _TreeviewColumnId | list[str] | tuple[str, ...] | list[int] | tuple[int, ...] = ...,
         height: int = ...,
         padding: _Padding = ...,
         selectmode: Literal["extended", "browse", "none"] = ...,
@@ -1110,10 +1110,22 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         def selection(self, selop: Incomplete | None = ..., items: Incomplete | None = None) -> tuple[str, ...]: ...
 
     if sys.version_info >= (3, 6):
-        def selection_set(self, *items: str | list[str] | tuple[str, ...] | int | list[int] | tuple[int, ...]) -> None: ...
-        def selection_add(self, *items: str | list[str] | tuple[str, ...] | int | list[int] | tuple[int, ...]) -> None: ...
-        def selection_remove(self, *items: str | list[str] | tuple[str, ...] | int | list[int] | tuple[int, ...]) -> None: ...
-        def selection_toggle(self, *items: str | list[str] | tuple[str, ...] | int | list[int] | tuple[int, ...]) -> None: ...
+        @overload
+        def selection_set(self, items: str | int | list[str] | tuple[str, ...] | list[int] | tuple[int, ...]) -> None: ...
+        @overload
+        def selection_set(self, *items: str | int) -> None: ...
+        @overload
+        def selection_add(self, items: str | int | list[str] | tuple[str, ...] | list[int] | tuple[int, ...]) -> None: ...
+        @overload
+        def selection_add(self, *items: str | int) -> None: ...
+        @overload
+        def selection_remove(self, items: str | int | list[str] | tuple[str, ...] | list[int] | tuple[int, ...]) -> None: ...
+        @overload
+        def selection_remove(self, *items: str | int) -> None: ...
+        @overload
+        def selection_toggle(self, items: str | int | list[str] | tuple[str, ...] | list[int] | tuple[int, ...]) -> None: ...
+        @overload
+        def selection_toggle(self, *items: str | int) -> None: ...
     else:
         def selection_set(self, items: str | list[str] | tuple[str, ...] | int | list[int] | tuple[int, ...]) -> None: ...
         def selection_add(self, items: str | list[str] | tuple[str, ...] | int | list[int] | tuple[int, ...]) -> None: ...
