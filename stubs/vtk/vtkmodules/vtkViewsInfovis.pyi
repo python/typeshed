@@ -14,7 +14,6 @@ import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingLabel
 import vtkmodules.vtkViewsCore
 
-Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 

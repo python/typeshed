@@ -6,7 +6,6 @@ import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkIOCore
 
-Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 

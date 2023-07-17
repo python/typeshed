@@ -8,7 +8,6 @@ import vtkmodules.vtkCommonMath
 import vtkmodules.vtkCommonTransforms
 import vtkmodules.vtkFiltersGeneral
 
-Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 

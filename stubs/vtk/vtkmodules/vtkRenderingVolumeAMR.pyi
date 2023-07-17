@@ -7,7 +7,6 @@ import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingVolume
 
-Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 

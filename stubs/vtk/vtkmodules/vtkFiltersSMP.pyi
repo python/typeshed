@@ -5,7 +5,6 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkFiltersCore
 
-Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 

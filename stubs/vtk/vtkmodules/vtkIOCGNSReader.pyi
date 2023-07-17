@@ -5,7 +5,6 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkParallelCore
 
-Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 

@@ -10,7 +10,6 @@ import vtkmodules.vtkIOCore
 import vtkmodules.vtkIOImage
 import vtkmodules.vtkRenderingCore
 
-Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 

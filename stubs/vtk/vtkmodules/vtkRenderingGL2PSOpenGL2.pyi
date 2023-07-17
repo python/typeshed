@@ -7,7 +7,6 @@ import vtkmodules.vtkCommonMath
 import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingOpenGL2
 
-Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 

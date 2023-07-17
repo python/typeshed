@@ -8,7 +8,6 @@ import vtkmodules.vtkFiltersCore
 import vtkmodules.vtkIOExport
 import vtkmodules.vtkRenderingCore
 
-Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 

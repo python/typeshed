@@ -6,7 +6,6 @@ import vtkmodules.vtkRenderingContext2D
 import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkViewsCore
 
-Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 

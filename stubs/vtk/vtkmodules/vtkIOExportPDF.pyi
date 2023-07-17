@@ -8,7 +8,6 @@ import vtkmodules.vtkIOExport
 import vtkmodules.vtkRenderingContext2D
 import vtkmodules.vtkRenderingCore
 
-Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 

@@ -9,7 +9,6 @@ import vtkmodules.vtkInteractionStyle
 import vtkmodules.vtkInteractionWidgets
 import vtkmodules.vtkRenderingCore
 
-Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 

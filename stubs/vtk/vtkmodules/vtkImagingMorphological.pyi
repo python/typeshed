@@ -7,7 +7,6 @@ import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkImagingCore
 import vtkmodules.vtkImagingGeneral
 
-Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 

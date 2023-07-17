@@ -6,7 +6,6 @@ import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingFreeType
 
-Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 

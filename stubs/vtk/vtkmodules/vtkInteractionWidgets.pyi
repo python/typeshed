@@ -16,7 +16,6 @@ import vtkmodules.vtkRenderingContext2D
 import vtkmodules.vtkRenderingCore
 
 Callback = Union[Callable[..., None], None]
-Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 

@@ -7,7 +7,6 @@ import vtkmodules.vtkFiltersParallel
 import vtkmodules.vtkImagingCore
 import vtkmodules.vtkParallelCore
 
-Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 

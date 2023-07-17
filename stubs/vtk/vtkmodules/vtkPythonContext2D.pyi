@@ -4,7 +4,6 @@ from typing import TypeVar, Union
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkRenderingContext2D
 
-Buffer = TypeVar("Buffer")
 Pointer = TypeVar("Pointer")
 Template = TypeVar("Template")
 
