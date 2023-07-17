@@ -1,4 +1,5 @@
-from typing import Callable, Sequence, TypeVar, Union, overload
+from collections.abc import Callable, Sequence
+from typing import TypeVar, Union, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkRenderingCore

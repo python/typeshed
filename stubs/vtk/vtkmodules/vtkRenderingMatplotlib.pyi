@@ -1,4 +1,5 @@
-from typing import Callable, MutableSequence, TypeVar, Union
+from collections.abc import Callable, MutableSequence
+from typing import TypeVar, Union
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkRenderingFreeType
