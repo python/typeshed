@@ -1,5 +1,5 @@
-from collections.abc import Callable, Sequence
-from typing import Tuple, TypeVar, Union, overload
+from collections.abc import Sequence
+from typing import Tuple, TypeVar, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonExecutionModel
