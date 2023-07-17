@@ -2,10 +2,10 @@ from collections.abc import Callable, MutableSequence, Sequence
 from typing import Tuple, TypeVar, Union, overload
 
 import vtkmodules.vtkCommonCore
+import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkImagingCore
 import vtkmodules.vtkImagingGeneral
-import vtkmodules.vtkCommonDataModel
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")

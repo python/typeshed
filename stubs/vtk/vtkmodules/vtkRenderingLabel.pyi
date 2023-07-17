@@ -4,9 +4,9 @@ from typing import Tuple, TypeVar, Union, overload
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
-import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkCommonTransforms
 import vtkmodules.vtkFiltersGeneral
+import vtkmodules.vtkRenderingCore
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")

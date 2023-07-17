@@ -2,11 +2,11 @@ from collections.abc import Callable, MutableSequence, Sequence
 from typing import TypeVar, Union, overload
 
 import vtkmodules.vtkCommonCore
+import vtkmodules.vtkCommonDataModel
+import vtkmodules.vtkCommonMath
+import vtkmodules.vtkFiltersCore
 import vtkmodules.vtkIOExport
 import vtkmodules.vtkRenderingCore
-import vtkmodules.vtkCommonMath
-import vtkmodules.vtkCommonDataModel
-import vtkmodules.vtkFiltersCore
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")

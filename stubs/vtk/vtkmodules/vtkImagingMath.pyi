@@ -2,8 +2,8 @@ from collections.abc import Callable, Sequence
 from typing import Tuple, TypeVar, Union, overload
 
 import vtkmodules.vtkCommonCore
-import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkCommonDataModel
+import vtkmodules.vtkCommonExecutionModel
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")

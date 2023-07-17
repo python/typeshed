@@ -2,8 +2,8 @@ from collections.abc import Callable
 from typing import TypeVar, Union
 
 import vtkmodules.vtkCommonCore
-import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkCommonDataModel
+import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkCommonTransforms
 
 Callback = Union[Callable[..., None], None]

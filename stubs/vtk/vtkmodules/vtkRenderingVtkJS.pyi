@@ -1,12 +1,11 @@
 from collections.abc import Callable
 from typing import TypeVar, Union, overload
 
-
 import vtkmodules.vtkCommonCore
-import vtkmodules.vtkRenderingSceneGraph
+import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkRenderingCore
 import vtkmodules.vtkRenderingOpenGL2
-import vtkmodules.vtkCommonDataModel
+import vtkmodules.vtkRenderingSceneGraph
 
 Callback = Union[Callable[..., None], None]
 Buffer = TypeVar("Buffer")

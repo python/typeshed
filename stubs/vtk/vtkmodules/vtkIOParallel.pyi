@@ -2,12 +2,12 @@ from collections.abc import Callable, MutableSequence
 from typing import TypeVar, Union, overload
 
 import vtkmodules.vtkCommonCore
+import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkIOCore
 import vtkmodules.vtkIOGeometry
 import vtkmodules.vtkIOImage
 import vtkmodules.vtkIOLegacy
-import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkParallelCore
 
 Callback = Union[Callable[..., None], None]
