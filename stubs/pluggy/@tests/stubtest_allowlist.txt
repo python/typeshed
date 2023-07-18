@@ -1,10 +1,2 @@
-pluggy._callers.HookImpl
-pluggy._hooks.HookImpl.argnames
-pluggy._hooks.HookImpl.kwargnames
-pluggy._hooks.HookSpec.argnames
-pluggy._hooks.HookSpec.kwargnames
 pluggy._hooks._HookRelay.__getattr__
-pluggy._manager.HookImpl.argnames
-pluggy._manager.HookImpl.kwargnames
-pluggy._manager.HookSpec.argnames
-pluggy._manager.HookSpec.kwargnames
+pluggy._hooks._SubsetHookCaller.spec

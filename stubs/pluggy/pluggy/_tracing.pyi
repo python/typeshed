@@ -1,5 +1,4 @@
 import sys
-from _typeshed import Incomplete
 from collections.abc import Callable
 from typing import Any
 
@@ -19,8 +18,8 @@ class TagTracer:
     def setprocessor(self, tags: str | tuple[str, ...], processor: _Processor) -> None: ...
 
 class TagTracerSub:
-    root: Incomplete
-    tags: Incomplete
+    root: TagTracer
+    tags: tuple[str, ...]
     def __init__(self, root: TagTracer, tags: tuple[str, ...]) -> None: ...
     def __call__(self, *args: object) -> None: ...
     def get(self, name: str) -> TagTracerSub: ...

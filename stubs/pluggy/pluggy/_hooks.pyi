@@ -1,9 +1,7 @@
 import sys
-from _typeshed import Incomplete
 from collections.abc import Callable, Generator, Mapping, Sequence, Set as AbstractSet
 from types import ModuleType
-from typing import Any, TypeVar, overload
-from typing_extensions import TypedDict
+from typing import Any, Final, TypedDict, TypeVar, overload
 
 from ._result import _Result
 
@@ -33,7 +31,7 @@ class _HookImplOpts(TypedDict):
     specname: str | None
 
 class HookspecMarker:
-    project_name: Incomplete
+    project_name: Final[str]
     def __init__(self, project_name: str) -> None: ...
     @overload
     def __call__(self, function: _F, firstresult: bool = ..., historic: bool = ..., warn_on_impl: Warning | None = ...) -> _F: ...
@@ -43,7 +41,7 @@ class HookspecMarker:
     ) -> Callable[[_F], _F]: ...
 
 class HookimplMarker:
-    project_name: Incomplete
+    project_name: Final[str]
     def __init__(self, project_name: str) -> None: ...
     @overload
     def __call__(
@@ -75,8 +73,8 @@ class _HookRelay:
     def __getattr__(self, name: str) -> _HookCaller: ...
 
 class _HookCaller:
-    name: Incomplete
-    spec: Incomplete
+    name: Final[str]
+    spec: HookSpec | None
     def __init__(
         self,
         name: str,
@@ -95,29 +93,30 @@ class _HookCaller:
     def call_extra(self, methods: Sequence[Callable[..., object]], kwargs: Mapping[str, object]) -> Any: ...
 
 class _SubsetHookCaller(_HookCaller):
-    name: Incomplete
     def __init__(self, orig: _HookCaller, remove_plugins: AbstractSet[_Plugin]) -> None: ...
-    @property
-    def spec(self) -> HookSpec | None: ...
 
 class HookImpl:
-    function: Incomplete
-    plugin: Incomplete
-    opts: Incomplete
-    plugin_name: Incomplete
-    wrapper: Incomplete
-    hookwrapper: Incomplete
-    optionalhook: Incomplete
-    tryfirst: Incomplete
-    trylast: Incomplete
+    function: Final[_HookImplFunction[object]]
+    plugin: _Plugin
+    opts: _HookImplOpts
+    plugin_name: str
+    wrapper: bool
+    hookwrapper: bool
+    optionalhook: bool
+    tryfirst: bool
+    trylast: bool
+    argnames: tuple[str, ...]
+    kwargnames: tuple[str, ...]
     def __init__(
         self, plugin: _Plugin, plugin_name: str, function: _HookImplFunction[object], hook_impl_opts: _HookImplOpts
     ) -> None: ...
 
 class HookSpec:
-    namespace: Incomplete
-    function: Incomplete
-    name: Incomplete
-    opts: Incomplete
-    warn_on_impl: Incomplete
+    namespace: _Namespace
+    function: Callable[..., object]
+    name: str
+    opts: _HookSpecOpts
+    warn_on_impl: Warning | None
+    argnames: tuple[str, ...]
+    kwargnames: tuple[str, ...]
     def __init__(self, namespace: _Namespace, name: str, opts: _HookSpecOpts) -> None: ...

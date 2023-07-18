@@ -2,19 +2,21 @@ import sys
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from importlib import metadata as importlib_metadata
-from typing import Any
+from typing import Any, Final
 
 from ._hooks import (
     HookImpl as HookImpl,
     HookSpec as HookSpec,
     _HookCaller,
     _HookImplOpts,
+    _HookRelay,
     _HookSpecOpts,
     _Namespace,
     _Plugin,
     normalize_hookimpl_opts as normalize_hookimpl_opts,
 )
 from ._result import _Result as _Result
+from ._tracing import TagTracerSub
 
 if sys.version_info >= (3, 10):
     from typing import TypeAlias
@@ -25,7 +27,7 @@ _BeforeTrace: TypeAlias = Callable[[str, Sequence[HookImpl], Mapping[str, Any]],
 _AfterTrace: TypeAlias = Callable[[_Result[Any], str, Sequence[HookImpl], Mapping[str, Any]], None]
 
 class PluginValidationError(Exception):
-    plugin: Incomplete
+    plugin: _Plugin
     def __init__(self, plugin: _Plugin, message: str) -> None: ...
 
 class DistFacade:
@@ -36,9 +38,9 @@ class DistFacade:
     def __dir__(self) -> list[str]: ...
 
 class PluginManager:
-    project_name: Incomplete
-    trace: Incomplete
-    hook: Incomplete
+    project_name: Final[str]
+    trace: Final[TagTracerSub]
+    hook: Final[_HookRelay]
     def __init__(self, project_name: str) -> None: ...
     def register(self, plugin: _Plugin, name: str | None = ...) -> str | None: ...
     def parse_hookimpl_opts(self, plugin: _Plugin, name: str) -> _HookImplOpts | None: ...
