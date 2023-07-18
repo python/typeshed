@@ -1,7 +1,5 @@
-import sys
 from collections.abc import Callable
 from typing import Any
-
 from typing_extensions import TypeAlias
 
 _Writer: TypeAlias = Callable[[str], None]

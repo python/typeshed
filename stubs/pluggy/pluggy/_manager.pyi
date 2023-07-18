@@ -2,6 +2,7 @@ import sys
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from typing import Any
+from typing_extensions import Final, TypeAlias
 
 from ._hooks import (
     HookImpl as HookImpl,
@@ -16,8 +17,6 @@ from ._hooks import (
 )
 from ._result import _Result as _Result
 from ._tracing import TagTracerSub
-
-from typing_extensions import Final, TypeAlias
 
 if sys.version_info >= (3, 8):
     from importlib.metadata import Distribution

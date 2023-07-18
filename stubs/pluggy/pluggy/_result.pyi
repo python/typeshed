@@ -1,8 +1,6 @@
-import sys
 from collections.abc import Callable
 from types import TracebackType
 from typing import Generic, TypeVar
-
 from typing_extensions import TypeAlias
 
 _ExcInfo: TypeAlias = tuple[type[BaseException], BaseException, TracebackType]
