@@ -1,11 +1,9 @@
-import sys
 from collections.abc import Callable, Generator, Mapping, Sequence, Set as AbstractSet
 from types import ModuleType
 from typing import Any, TypeVar, overload
+from typing_extensions import Final, TypeAlias, TypedDict
 
 from ._result import _Result
-
-from typing_extensions import Final, TypedDict, TypeAlias
 
 _T = TypeVar("_T")
 _F = TypeVar("_F", bound=Callable[..., object])
