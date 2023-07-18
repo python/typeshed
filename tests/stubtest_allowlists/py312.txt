@@ -67,7 +67,6 @@ pathlib.Path.__init__
 pathlib.PurePath.__init__
 pathlib.PurePath.is_relative_to
 pathlib.PurePath.relative_to
-pdb.Pdb.set_convenience_variable
 poplib.POP3_SSL.__init__
 posixpath.__all__
 posixpath.isjunction
