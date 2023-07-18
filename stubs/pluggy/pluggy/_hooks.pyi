@@ -5,15 +5,7 @@ from typing import Any, TypeVar, overload
 
 from ._result import _Result
 
-if sys.version_info >= (3, 8):
-    from typing import Final, TypedDict
-else:
-    from typing_extensions import Final, TypedDict
-
-if sys.version_info >= (3, 10):
-    from typing import TypeAlias
-else:
-    from typing_extensions import TypeAlias
+from typing_extensions import Final, TypedDict, TypeAlias
 
 _T = TypeVar("_T")
 _F = TypeVar("_F", bound=Callable[..., object])
