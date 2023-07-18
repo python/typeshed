@@ -1,8 +1,7 @@
 import sys
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Mapping, Sequence
-from importlib import metadata as importlib_metadata
-from typing import Any, Final
+from typing import Any
 
 from ._hooks import (
     HookImpl as HookImpl,
@@ -23,6 +22,14 @@ if sys.version_info >= (3, 10):
 else:
     from typing_extensions import TypeAlias
 
+if sys.version_info >= (3, 8):
+    from importlib.metadata import Distribution
+    from typing import Final
+else:
+    from typing_extensions import Final
+
+    Distribution: TypeAlias = Any
+
 _BeforeTrace: TypeAlias = Callable[[str, Sequence[HookImpl], Mapping[str, Any]], None]
 _AfterTrace: TypeAlias = Callable[[_Result[Any], str, Sequence[HookImpl], Mapping[str, Any]], None]
 
@@ -31,7 +38,7 @@ class PluginValidationError(Exception):
     def __init__(self, plugin: _Plugin, message: str) -> None: ...
 
 class DistFacade:
-    def __init__(self, dist: importlib_metadata.Distribution) -> None: ...
+    def __init__(self, dist: Distribution) -> None: ...
     @property
     def project_name(self) -> str: ...
     def __getattr__(self, attr: str, default: Incomplete | None = ...) -> Any: ...

@@ -1,9 +1,14 @@
 import sys
 from collections.abc import Callable, Generator, Mapping, Sequence, Set as AbstractSet
 from types import ModuleType
-from typing import Any, Final, TypedDict, TypeVar, overload
+from typing import Any, TypeVar, overload
 
 from ._result import _Result
+
+if sys.version_info >= (3, 8):
+    from typing import Final, TypedDict
+else:
+    from typing_extensions import Final, TypedDict
 
 if sys.version_info >= (3, 10):
     from typing import TypeAlias
