@@ -17,17 +17,11 @@ from ._hooks import (
 from ._result import _Result as _Result
 from ._tracing import TagTracerSub
 
-if sys.version_info >= (3, 10):
-    from typing import TypeAlias
-else:
-    from typing_extensions import TypeAlias
+from typing_extensions import Final, TypeAlias
 
 if sys.version_info >= (3, 8):
     from importlib.metadata import Distribution
-    from typing import Final
 else:
-    from typing_extensions import Final
-
     Distribution: TypeAlias = Any
 
 _BeforeTrace: TypeAlias = Callable[[str, Sequence[HookImpl], Mapping[str, Any]], None]

@@ -2,10 +2,7 @@ import sys
 from collections.abc import Callable
 from typing import Any
 
-if sys.version_info >= (3, 10):
-    from typing import TypeAlias
-else:
-    from typing_extensions import TypeAlias
+from typing_extensions import TypeAlias
 
 _Writer: TypeAlias = Callable[[str], None]
 _Processor: TypeAlias = Callable[[tuple[str, ...], tuple[Any, ...]], None]

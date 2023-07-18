@@ -3,10 +3,7 @@ from collections.abc import Callable
 from types import TracebackType
 from typing import Generic, TypeVar
 
-if sys.version_info >= (3, 10):
-    from typing import TypeAlias
-else:
-    from typing_extensions import TypeAlias
+from typing_extensions import TypeAlias
 
 _ExcInfo: TypeAlias = tuple[type[BaseException], BaseException, TracebackType]
 _T = TypeVar("_T")
