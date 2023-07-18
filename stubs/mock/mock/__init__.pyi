@@ -20,4 +20,5 @@ __all__ = (
     "PropertyMock",
     "seal",
 )
+__version__: str
 version_info: tuple[int, int, int]
