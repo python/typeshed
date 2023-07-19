@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Callable, Coroutine, Iterable, Mapping, Sequence
 from contextlib import AbstractContextManager
 from types import TracebackType
-from typing import Any, Generic, TypeVar, overload
+from typing import Any, ClassVar, Generic, TypeVar, overload
 from typing_extensions import Literal, ParamSpec, Self
 
 _F = TypeVar("_F", bound=Callable[..., Any])
@@ -381,7 +381,7 @@ class PropertyMock(Mock):
 def seal(mock: Any) -> None: ...
 
 class ThreadingMixin(Base):
-    DEFAULT_TIMEOUT: float | None
+    DEFAULT_TIMEOUT: ClassVar[float | None]
 
     def __init__(self, *args: Any, timeout: float | None = ..., **kwargs: Any) -> None: ...
     def reset_mock(self, *args: Any, **kwargs: Any) -> None: ...
