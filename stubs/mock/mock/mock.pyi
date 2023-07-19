@@ -1,8 +1,8 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from collections.abc import Callable, Coroutine, Iterable, Mapping, Sequence
 from contextlib import AbstractContextManager
 from types import TracebackType
-from typing import Any, Generic, TypeVar, overload
+from typing import Any, ClassVar, Generic, TypeVar, overload
 from typing_extensions import Literal, ParamSpec, Self
 
 _F = TypeVar("_F", bound=Callable[..., Any])
@@ -22,6 +22,7 @@ __all__ = (
     "call",
     "create_autospec",
     "AsyncMock",
+    "ThreadingMock",
     "FILTER_DIR",
     "NonCallableMock",
     "NonCallableMagicMock",
@@ -80,7 +81,7 @@ class _CallList(list[_Call]):
     def __contains__(self, value: Any) -> bool: ...
 
 class Base:
-    def __init__(self, *args: Any, **kwargs: Any) -> None: ...
+    def __init__(self, *args: Unused, **kwargs: Unused) -> None: ...
 
 # We subclass with "Any" because mocks are explicitly designed to stand in for other types,
 # something that can't be expressed with our static type system.
@@ -376,5 +377,14 @@ def mock_open(mock: Incomplete | None = None, read_data: Any = "") -> Any: ...
 class PropertyMock(Mock):
     def __get__(self, obj: _T, obj_type: type[_T] | None = None) -> Self: ...
     def __set__(self, obj: Any, value: Any) -> None: ...
+
+class ThreadingMixin(Base):
+    DEFAULT_TIMEOUT: ClassVar[float | None]
+    def __init__(self, *args: Unused, timeout: float | None = ..., **kwargs: Unused) -> None: ...
+    def reset_mock(self, *args: Unused, **kwargs: Unused) -> None: ...
+    def wait_until_called(self, *, timeout: float | None = ...) -> None: ...
+    def wait_until_any_call_with(self, *args: object, **kwargs: object) -> None: ...
+
+class ThreadingMock(ThreadingMixin, MagicMixin, Mock): ...
 
 def seal(mock: Any) -> None: ...

@@ -1,2 +1,6 @@
 mock.patch
 mock.mock.patch
+
+# Functions have a sentinel default, which are not reflected in the signature.
+mock.mock.ThreadingMixin.__init__
+mock.mock.ThreadingMixin.wait_until_called
