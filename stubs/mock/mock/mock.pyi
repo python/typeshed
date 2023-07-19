@@ -329,7 +329,12 @@ class AsyncMockMixin(Base):
     __annotations__: dict[str, Any] | None  # type: ignore[assignment]
 
 class AsyncMagicMixin(MagicMixin): ...
-class AsyncMock(AsyncMockMixin, AsyncMagicMixin, Mock): ...
+
+class AsyncMock(AsyncMockMixin, AsyncMagicMixin, Mock):
+    # Improving the `reset_mock` signature.
+    # It is defined on `AsyncMockMixin` with `*args, **kwargs`, which is not ideal.
+    # But, `NonCallableMock` super-class has the better version.
+    def reset_mock(self, visited: Any = None, *, return_value: bool = False, side_effect: bool = False) -> None: ...
 
 class MagicProxy(Base):
     name: str
