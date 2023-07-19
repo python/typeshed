@@ -1,6 +1,6 @@
 import re
 import subprocess
-from _typeshed import Incomplete, Unused
+from _typeshed import Incomplete
 from builtins import range as _range
 from collections import OrderedDict
 from collections.abc import Callable, Generator, Iterable, Iterator
@@ -44,7 +44,6 @@ class Process:
     def run(self) -> Self: ...
     def __int__(self) -> int: ...  # technically, it can return `None` before `run` is called
     def __eq__(self, other: object) -> bool: ...
-
 
 class CronTab:
     lines: list[str | CronItem] | None
