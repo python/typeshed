@@ -329,6 +329,7 @@ class AsyncMockMixin(Base):
     __annotations__: dict[str, Any] | None  # type: ignore[assignment]
 
 class AsyncMagicMixin(MagicMixin): ...
+
 class AsyncMock(AsyncMockMixin, AsyncMagicMixin, Mock):
     # Improving the `reset_mock` signature.
     # It is defined on `AsyncMockMixin` with `*args, **kwargs`, which is not ideal.
