@@ -20,9 +20,9 @@ from openpyxl.descriptors.nested import (
     NestedString,
     NestedText,
     NestedValue,
-    _HasTagAndGet,
 )
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.xml._functions_overloads import _HasTagAndGet
 from openpyxl.xml.functions import Element
 
 _ = object()  # More concise discard object for casts
