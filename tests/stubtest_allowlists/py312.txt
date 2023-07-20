@@ -1,6 +1,5 @@
 # Uncategorised, from Python 3.12
 argparse.BooleanOptionalAction.__init__
-array.array.__class_getitem__
 asyncio.BaseEventLoop.create_connection
 asyncio.BaseEventLoop.shutdown_default_executor
 asyncio.Handle.get_context
