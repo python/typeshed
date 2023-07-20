@@ -246,8 +246,9 @@ async def get_github_repo_info(session: aiohttp.ClientSession, pypi_info: PypiIn
 
     Else, return None.
     """
-    project_urls = pypi_info.info.get("project_urls", {}).values()
-    for project_url in project_urls:
+    # project_urls can be None in the downloaded JSON.
+    project_url_dict = pypi_info.info.get("project_urls") or {}
+    for project_url in project_url_dict.values():
         assert isinstance(project_url, str)
         split_url = urllib.parse.urlsplit(project_url)
         if split_url.netloc == "github.com" and not split_url.query and not split_url.fragment:
