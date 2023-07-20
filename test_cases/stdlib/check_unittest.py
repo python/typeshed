@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from decimal import Decimal
 from fractions import Fraction
 from typing_extensions import assert_type
-from unittest.mock import Mock, patch
+from unittest.mock import MagicMock, Mock, patch
 
 case = unittest.TestCase()
 
@@ -94,13 +94,20 @@ case.assertGreater(Bacon(), Ham())  # type: ignore
 ###
 
 
-@patch("sys.exit", new=Mock())
-def f(i: int) -> str:
+@patch("sys.exit")
+def f_default_new(i: int, mock: MagicMock) -> str:
     return "asdf"
 
 
-assert_type(f(1), str)
-f("a")  # type: ignore
+@patch("sys.exit", new=42)
+def f_explicit_new(i: int) -> str:
+    return "asdf"
+
+
+assert_type(f_default_new(1), str)
+f_default_new("a")  # Not an error due to ParamSpec limitations
+assert_type(f_explicit_new(1), str)
+f_explicit_new("a")  # type: ignore[arg-type]
 
 
 @patch("sys.exit", new=Mock())
