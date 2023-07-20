@@ -39,6 +39,7 @@ class DAVClient:
     timeout: _Timeout | None
     ssl_verify_cert: bool | str
     ssl_cert: str | tuple[str, str] | None
+    huge_tree: bool
     def __init__(
         self,
         url: str,
