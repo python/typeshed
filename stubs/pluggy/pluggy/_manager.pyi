@@ -21,7 +21,7 @@ from ._tracing import TagTracerSub
 if sys.version_info >= (3, 8):
     from importlib.metadata import Distribution
 else:
-    from importlib_metadata import Distribution
+    Distribution: TypeAlias = Any
 
 _BeforeTrace: TypeAlias = Callable[[str, Sequence[HookImpl], Mapping[str, Any]], None]
 _AfterTrace: TypeAlias = Callable[[_Result[Any], str, Sequence[HookImpl], Mapping[str, Any]], None]
