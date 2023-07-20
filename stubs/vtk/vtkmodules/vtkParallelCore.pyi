@@ -5,7 +5,7 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonSystem
 
-Callback: TypeAlias = Union[Callable[..., None], None]
+Callback: TypeAlias = Callable[..., None] | None
 _Pointer = TypeVar("_Pointer")
 
 class vtkCommunicator(vtkmodules.vtkCommonCore.vtkObject):
@@ -730,7 +730,7 @@ class vtkMultiProcessStream:
     @overload
     def GetRawData(self, data: MutableSequence[int], size: int) -> None: ...
     @overload
-    def GetRawData(self) -> Tuple[int, int]: ...
+    def GetRawData(self) -> tuple[int, int]: ...
     @overload
     def Pop(self, array: MutableSequence[float], size: int) -> None: ...
     @overload

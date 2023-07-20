@@ -6,7 +6,7 @@ import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 import vtkmodules.vtkIOCore
 
-Callback: TypeAlias = Union[Callable[..., None], None]
+Callback: TypeAlias = Callable[..., None] | None
 _Pointer = TypeVar("_Pointer")
 
 VTK_SQL_ALLBACKENDS: str

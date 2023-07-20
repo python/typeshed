@@ -5,7 +5,7 @@ import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
 import vtkmodules.vtkCommonExecutionModel
 
-Callback: TypeAlias = Union[Callable[..., None], None]
+Callback: TypeAlias = Callable[..., None] | None
 _Pointer = TypeVar("_Pointer")
 
 VTK_ASCII: int
