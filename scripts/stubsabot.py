@@ -262,6 +262,7 @@ async def get_github_repo_info(session: aiohttp.ClientSession, stub_info: StubIn
             tags: list[dict[str, Any]] = await response.json()
             assert isinstance(tags, list)
             return GithubInfo(repo_path=url_path, tags=tags)
+    return None
 
 
 class GithubDiffInfo(NamedTuple):
