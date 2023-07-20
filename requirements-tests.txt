@@ -11,6 +11,7 @@ mypy==1.4.1
 pre-commit-hooks==4.4.0                           # must match .pre-commit-config.yaml
 pycln==2.1.5                                      # must match .pre-commit-config.yaml
 pytype==2023.6.16; platform_system != "Windows" and python_version < "3.11"
+ruff==0.0.278                                     # must match .pre-commit-config.yaml
 
 # Libraries used by our various scripts.
 aiohttp==3.8.4; python_version < "3.12"           # aiohttp can't be installed on 3.12 yet

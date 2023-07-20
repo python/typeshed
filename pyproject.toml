@@ -57,9 +57,47 @@ extra_standard_library = [
 ]
 known_first_party = ["utils", "parse_metadata"]
 
+[tool.ruff]
+line-length = 130
+target-version = "py37"
+fix = true
+exclude = [
+    # We're only interested in autofixes for our stubs
+    "*.py",
+    # Ignore generated protobuf stubs
+    "*_pb2.pyi",
+    # virtual environment, cache directories, etc.:
+    "env",
+    ".env",
+    ".venv",
+    ".git",
+    ".mypy_cache",
+    ".pytype",
+]
+
+# Only enable rules that have safe autofixes;
+# only enable rules that are relevant to stubs
+select = [
+    "UP004",  # Remove explicit `object` inheritance
+    "UP006",  # PEP-585 autofixes
+    "UP007",  # PEP-604 autofixes
+    "UP013",  # Class-based syntax for TypedDicts
+    "UP014",  # Class-based syntax for NamedTuples
+    "UP019",  # Use str over typing.Text
+    "UP035",  # import from typing, not typing_extensions, wherever possible
+    "UP039",  # don't use parens after a class definition with no bases
+    "PYI009",  # use `...`, not `pass`, in empty class bodies
+    "PYI010",  # function bodies must be empty
+    "PYI012",  # class bodies must not contain `pass`
+    "PYI013",  # non-empty class bodies must not contain `...`
+    "PYI020",  # quoted annotations are always unnecessary in stubs
+    "PYI025",  # always alias `collections.abc.Set` as `AbstractSet` when importing it
+    "PYI032",  # use `object`, not `Any`, as the second parameter to `__eq__`
+]
+
 [tool.pycln]
 all = true
 disable_all_dunder_policy = true
 
 [tool.typeshed]
-pyright_version = "1.1.316"
+pyright_version = "1.1.318"
