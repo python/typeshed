@@ -8,7 +8,7 @@ from urllib.parse import ParseResult, SplitResult
 from vobject.base import VBase
 
 from .davclient import DAVClient
-from .elements.cdav import CalendarQuery, CompFilter, ScheduleInboxURL, ScheduleOutboxURL
+from .elements.cdav import CalendarData, CalendarQuery, CompFilter, ScheduleInboxURL, ScheduleOutboxURL
 from .lib.url import URL
 
 _CC = TypeVar("_CC", bound=CalendarObjectResource)
@@ -125,6 +125,7 @@ class Calendar(DAVObject):
         include_completed: bool = False,
         sort_keys: Sequence[str] = (),
         split_expanded: bool = True,
+        props: list[CalendarData] | None = None,
         **kwargs,
     ) -> list[CalendarObjectResource]: ...
     @overload
@@ -136,6 +137,7 @@ class Calendar(DAVObject):
         include_completed: bool = False,
         sort_keys: Sequence[str] = (),
         split_expanded: bool = True,
+        props: list[CalendarData] | None = None,
         **kwargs,
     ) -> list[_CC]: ...
     @overload
@@ -147,6 +149,7 @@ class Calendar(DAVObject):
         include_completed: bool = False,
         sort_keys: Sequence[str] = (),
         split_expanded: bool = True,
+        props: list[CalendarData] | None = None,
         **kwargs,
     ) -> list[_CC]: ...
     def build_search_xml_query(
@@ -161,6 +164,7 @@ class Calendar(DAVObject):
         expand: bool | None = None,
         start: datetime.datetime | None = None,
         end: datetime.datetime | None = None,
+        props: list[CalendarData] | None = None,
         *,
         uid=...,
         summary=...,
@@ -168,6 +172,7 @@ class Calendar(DAVObject):
         description=...,
         location=...,
         status=...,
+        **kwargs: str,
     ) -> tuple[CalendarQuery, _CompClass]: ...
     def freebusy_request(self, start: datetime.datetime, end: datetime.datetime) -> FreeBusy: ...
     def todos(
