@@ -20,6 +20,7 @@ class DAVResponse:
     status: int
     headers: CaseInsensitiveDict[str]
     objects: dict[str, dict[str, str]]  # only defined after call to find_objects_and_props()
+    huge_tree: bool
     def __init__(self, response: Response, davclient: DAVClient | None = None) -> None: ...
     @property
     def raw(self) -> str: ...
