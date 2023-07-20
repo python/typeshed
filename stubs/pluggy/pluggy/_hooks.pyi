@@ -29,10 +29,12 @@ class HookspecMarker:
     project_name: str
     def __init__(self, project_name: str) -> None: ...
     @overload
-    def __call__(self, function: _F, firstresult: bool = ..., historic: bool = ..., warn_on_impl: Warning | None = ...) -> _F: ...
+    def __call__(
+        self, function: _F, firstresult: bool = False, historic: bool = False, warn_on_impl: Warning | None = None
+    ) -> _F: ...
     @overload
     def __call__(
-        self, function: None = ..., firstresult: bool = ..., historic: bool = ..., warn_on_impl: Warning | None = ...
+        self, function: None = None, firstresult: bool = False, historic: bool = False, warn_on_impl: Warning | None = None
     ) -> Callable[[_F], _F]: ...
 
 class HookimplMarker:
@@ -42,23 +44,23 @@ class HookimplMarker:
     def __call__(
         self,
         function: _F,
-        hookwrapper: bool = ...,
-        optionalhook: bool = ...,
-        tryfirst: bool = ...,
-        trylast: bool = ...,
-        specname: str | None = ...,
-        wrapper: bool = ...,
+        hookwrapper: bool = False,
+        optionalhook: bool = False,
+        tryfirst: bool = False,
+        trylast: bool = False,
+        specname: str | None = None,
+        wrapper: bool = False,
     ) -> _F: ...
     @overload
     def __call__(
         self,
-        function: None = ...,
-        hookwrapper: bool = ...,
-        optionalhook: bool = ...,
-        tryfirst: bool = ...,
-        trylast: bool = ...,
-        specname: str | None = ...,
-        wrapper: bool = ...,
+        function: None = None,
+        hookwrapper: bool = False,
+        optionalhook: bool = False,
+        tryfirst: bool = False,
+        trylast: bool = False,
+        specname: str | None = None,
+        wrapper: bool = False,
     ) -> Callable[[_F], _F]: ...
 
 def normalize_hookimpl_opts(opts: _HookImplOpts) -> None: ...
@@ -74,8 +76,8 @@ class _HookCaller:
         self,
         name: str,
         hook_execute: _HookExec,
-        specmodule_or_class: _Namespace | None = ...,
-        spec_opts: _HookSpecOpts | None = ...,
+        specmodule_or_class: _Namespace | None = None,
+        spec_opts: _HookSpecOpts | None = None,
     ) -> None: ...
     def has_spec(self) -> bool: ...
     def set_specification(self, specmodule_or_class: _Namespace, spec_opts: _HookSpecOpts) -> None: ...
@@ -83,7 +85,7 @@ class _HookCaller:
     def get_hookimpls(self) -> list[HookImpl]: ...
     def __call__(self, **kwargs: object) -> Any: ...
     def call_historic(
-        self, result_callback: Callable[[Any], None] | None = ..., kwargs: Mapping[str, object] | None = ...
+        self, result_callback: Callable[[Any], None] | None = None, kwargs: Mapping[str, object] | None = None
     ) -> None: ...
     def call_extra(self, methods: Sequence[Callable[..., object]], kwargs: Mapping[str, object]) -> Any: ...
 
