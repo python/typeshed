@@ -10,11 +10,16 @@ Run with -h for more help.
 
 from __future__ import annotations
 
+import aiohttp
 import argparse
+import asyncio
 import os
 import re
 import subprocess
 import sys
+import urllib.parse
+
+from stubsabot import fetch_pypi_info, get_github_api_headers
 
 if sys.version_info >= (3, 8):
     from importlib.metadata import distribution
@@ -70,7 +75,24 @@ def run_ruff(stub_dir: str) -> None:
     subprocess.run([sys.executable, "-m", "ruff", stub_dir])
 
 
-def create_metadata(stub_dir: str, version: str) -> None:
+async def get_upstream_repo_url(project: str) -> str | None:
+    # aiohttp is overkill here, but it would also just be silly
+    # to have both requests and aiohttp in our requirements-tests.txt file.
+    async with aiohttp.ClientSession() as session:
+        pypi_info = await fetch_pypi_info(project, session)
+        for url in (pypi_info.info.get("project_urls") or {}).values():
+            url = re.sub(r"^(https?://)?(www\.)", r"\1", url)
+            netloc = urllib.parse.urlparse(url).netloc
+            if netloc in {"gitlab.com", "github.com", "bitbucket.org", "foss.heptapod.net"}:
+                # truncate to https://site.com/user/repo
+                upstream_repo_url = "/".join(url.split("/")[:5])
+                async with session.get(upstream_repo_url, headers=get_github_api_headers()) as response:
+                    if response.status == 200:
+                        return upstream_repo_url
+    return None
+
+
+def create_metadata(project: str, stub_dir: str, version: str) -> None:
     """Create a METADATA.toml file."""
     match = re.match(r"[0-9]+.[0-9]+", version)
     if match is None:
@@ -79,9 +101,13 @@ def create_metadata(stub_dir: str, version: str) -> None:
     version = match.group(0)
     if os.path.exists(filename):
         return
+    metadata = f'version = "{version}.*"'
+    upstream_repo_url = asyncio.run(get_upstream_repo_url(project))
+    if upstream_repo_url is not None:
+        metadata += f'\nupstream_repository = "{upstream_repo_url}"'
     print(f"Writing {filename}")
     with open(filename, "w", encoding="UTF-8") as file:
-        file.write(f'version = "{version}.*"')
+        file.write(metadata)
 
 
 def add_pyright_exclusion(stub_dir: str) -> None:
@@ -168,7 +194,7 @@ def main() -> None:
     run_isort(stub_dir)
     run_black(stub_dir)
 
-    create_metadata(stub_dir, version)
+    create_metadata(project, stub_dir, version)
 
     # Since the generated stubs won't have many type annotations, we
     # have to exclude them from strict pyright checks.
