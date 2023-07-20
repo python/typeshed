@@ -2,7 +2,7 @@ import sys
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from typing import Any
-from typing_extensions import Final, TypeAlias
+from typing_extensions import TypeAlias
 
 from ._hooks import (
     HookImpl as HookImpl,
