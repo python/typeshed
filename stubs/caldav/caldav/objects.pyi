@@ -230,7 +230,7 @@ class CalendarObjectResource(DAVObject):
     def get_relatives(
         self,
         reltypes: Container[str] | None = None,
-        relfilter: Callable[[str], object] | None = None,
+        relfilter: Callable[[Any], bool] | None = None,
         fetch_objects: bool = True,
         ignore_missing: bool = True,
     ) -> defaultdict[str, set[str]]: ...
