@@ -10,7 +10,6 @@ Run with -h for more help.
 
 from __future__ import annotations
 
-import aiohttp
 import argparse
 import asyncio
 import os
@@ -19,6 +18,7 @@ import subprocess
 import sys
 import urllib.parse
 
+import aiohttp
 from stubsabot import fetch_pypi_info, get_github_api_headers
 
 if sys.version_info >= (3, 8):
