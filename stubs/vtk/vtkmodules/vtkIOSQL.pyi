@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from typing import TypeAlias, TypeVar, Union, overload
+from typing import TypeAlias, TypeVar, overload
 
 import vtkmodules.vtkCommonCore
 import vtkmodules.vtkCommonDataModel
