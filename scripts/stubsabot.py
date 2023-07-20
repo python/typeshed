@@ -248,20 +248,17 @@ async def get_github_repo_info(session: aiohttp.ClientSession, stub_info: StubIn
 
     Else, return None.
     """
-    if stub_info.upstream_repository is None:
-        return None
-    split_url = urllib.parse.urlsplit(stub_info.upstream_repository)
-    if split_url.netloc != "github.com":
-        return None
-    url_path = split_url.path.strip("/")
-    if len(Path(url_path).parts) != 2:
-        return None
-    github_tags_info_url = f"https://api.github.com/repos/{url_path}/tags"
-    async with session.get(github_tags_info_url, headers=get_github_api_headers()) as response:
-        if response.status == 200:
-            tags: list[dict[str, Any]] = await response.json()
-            assert isinstance(tags, list)
-            return GithubInfo(repo_path=url_path, tags=tags)
+    if stub_info.upstream_repository:
+        split_url = urllib.parse.urlsplit(stub_info.upstream_repository)
+        if split_url.netloc == "github.com" and not split_url.query and not split_url.fragment:
+            url_path = split_url.path.strip("/")
+            if len(Path(url_path).parts) == 2:
+                github_tags_info_url = f"https://api.github.com/repos/{url_path}/tags"
+                async with session.get(github_tags_info_url, headers=get_github_api_headers()) as response:
+                    if response.status == 200:
+                        tags: list[dict[str, Any]] = await response.json()
+                        assert isinstance(tags, list)
+                        return GithubInfo(repo_path=url_path, tags=tags)
     return None
 
 
