@@ -120,7 +120,7 @@ class StubMetadata:
     requires: Annotated[list[str], "The raw requirements as listed in METADATA.toml"]
     extra_description: str | None
     stub_distribution: Annotated[str, "The name under which the distribution is uploaded to PyPI"]
-    upstream_repository: str | None
+    upstream_repository: Annotated[str, "The URL of the upstream repository"] | None
     obsolete_since: Annotated[str, "A string representing a specific version"] | None
     no_longer_updated: bool
     uploaded_to_pypi: Annotated[bool, "Whether or not a distribution is uploaded to PyPI"]
