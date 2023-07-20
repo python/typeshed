@@ -1,14 +1,14 @@
-from collections.abc import Callable, Generator, Mapping, Sequence, Set as AbstractSet
+from collections.abc import Callable, Generator, Mapping, Sequence
 from types import ModuleType
 from typing import Any, TypeVar, overload
-from typing_extensions import Final, TypeAlias, TypedDict
+from typing_extensions import TypeAlias, TypedDict
 
 from ._result import _Result
 
 _T = TypeVar("_T")
 _F = TypeVar("_F", bound=Callable[..., object])
 _Namespace: TypeAlias = ModuleType | type
-_Plugin = object
+_Plugin: TypeAlias = object
 _HookExec: TypeAlias = Callable[[str, Sequence[HookImpl], Mapping[str, object], bool], object | list[object]]
 _HookImplFunction: TypeAlias = Callable[..., _T | Generator[None, _Result[_T], None]]
 
@@ -26,7 +26,7 @@ class _HookImplOpts(TypedDict):
     specname: str | None
 
 class HookspecMarker:
-    project_name: Final[str]
+    project_name: str
     def __init__(self, project_name: str) -> None: ...
     @overload
     def __call__(self, function: _F, firstresult: bool = ..., historic: bool = ..., warn_on_impl: Warning | None = ...) -> _F: ...
@@ -36,7 +36,7 @@ class HookspecMarker:
     ) -> Callable[[_F], _F]: ...
 
 class HookimplMarker:
-    project_name: Final[str]
+    project_name: str
     def __init__(self, project_name: str) -> None: ...
     @overload
     def __call__(
@@ -68,7 +68,7 @@ class _HookRelay:
     def __getattr__(self, name: str) -> _HookCaller: ...
 
 class _HookCaller:
-    name: Final[str]
+    name: str
     spec: HookSpec | None
     def __init__(
         self,
@@ -87,11 +87,8 @@ class _HookCaller:
     ) -> None: ...
     def call_extra(self, methods: Sequence[Callable[..., object]], kwargs: Mapping[str, object]) -> Any: ...
 
-class _SubsetHookCaller(_HookCaller):
-    def __init__(self, orig: _HookCaller, remove_plugins: AbstractSet[_Plugin]) -> None: ...
-
 class HookImpl:
-    function: Final[_HookImplFunction[object]]
+    function: _HookImplFunction[object]
     plugin: _Plugin
     opts: _HookImplOpts
     plugin_name: str

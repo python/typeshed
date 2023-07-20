@@ -1,2 +1,1 @@
-pluggy._hooks._HookRelay.__getattr__
-pluggy._hooks._SubsetHookCaller.spec
+pluggy._hooks._HookRelay.__getattr__  # is not present at runtime

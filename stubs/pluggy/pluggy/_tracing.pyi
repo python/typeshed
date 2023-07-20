@@ -2,7 +2,7 @@ from collections.abc import Callable
 from typing import Any
 from typing_extensions import TypeAlias
 
-_Writer: TypeAlias = Callable[[str], None]
+_Writer: TypeAlias = Callable[[str], object]
 _Processor: TypeAlias = Callable[[tuple[str, ...], tuple[Any, ...]], None]
 
 class TagTracer:
