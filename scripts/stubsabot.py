@@ -54,6 +54,7 @@ class ActionLevel(enum.IntEnum):
 class StubInfo:
     distribution: str
     version_spec: str
+    upstream_repository: str | None
     obsolete: bool
     no_longer_updated: bool
 
@@ -64,6 +65,7 @@ def read_typeshed_stub_metadata(stub_path: Path) -> StubInfo:
     return StubInfo(
         distribution=stub_path.name,
         version_spec=meta["version"],
+        upstream_repository=meta.get("upstream_repository"),
         obsolete="obsolete_since" in meta,
         no_longer_updated=meta.get("no_longer_updated", False),
     )
@@ -239,18 +241,15 @@ class GithubInfo:
     tags: list[dict[str, Any]]
 
 
-async def get_github_repo_info(session: aiohttp.ClientSession, pypi_info: PypiInfo) -> GithubInfo | None:
+async def get_github_repo_info(session: aiohttp.ClientSession, stub_info: StubInfo) -> GithubInfo | None:
     """
-    If the project represented by `pypi_info` is hosted on GitHub,
+    If the project represented by `stub_info` is hosted on GitHub,
     return information regarding the project as it exists on GitHub.
 
     Else, return None.
     """
-    # project_urls can be None in the downloaded JSON.
-    project_url_dict = pypi_info.info.get("project_urls") or {}
-    for project_url in project_url_dict.values():
-        assert isinstance(project_url, str)
-        split_url = urllib.parse.urlsplit(project_url)
+    if stub_info.upstream_repository:
+        split_url = urllib.parse.urlsplit(stub_info.upstream_repository)
         if split_url.netloc == "github.com" and not split_url.query and not split_url.fragment:
             url_path = split_url.path.strip("/")
             if len(Path(url_path).parts) == 2:
@@ -271,14 +270,14 @@ class GithubDiffInfo(NamedTuple):
 
 
 async def get_diff_info(
-    session: aiohttp.ClientSession, stub_info: StubInfo, pypi_info: PypiInfo, pypi_version: packaging.version.Version
+    session: aiohttp.ClientSession, stub_info: StubInfo, pypi_version: packaging.version.Version
 ) -> GithubDiffInfo | None:
     """Return a tuple giving info about the diff between two releases, if possible.
 
     Return `None` if the project isn't hosted on GitHub,
     or if a link pointing to the diff couldn't be found for any other reason.
     """
-    github_info = await get_github_repo_info(session, pypi_info)
+    github_info = await get_github_repo_info(session, stub_info)
     if github_info is None:
         return None
 
@@ -444,11 +443,12 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
     maybe_links: dict[str, str | None] = {
         "Release": f"{pypi_info.pypi_root}/{relevant_version}",
         "Homepage": project_urls.get("Homepage"),
+        "Repository": stub_info.upstream_repository,
         "Changelog": project_urls.get("Changelog") or project_urls.get("Changes") or project_urls.get("Change Log"),
     }
     links = {k: v for k, v in maybe_links.items() if v is not None}
 
-    diff_info = await get_diff_info(session, stub_info, pypi_info, relevant_version)
+    diff_info = await get_diff_info(session, stub_info, relevant_version)
     if diff_info is not None:
         links["Diff"] = diff_info.diff_url
 
