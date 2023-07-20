@@ -19,6 +19,7 @@ import sys
 import urllib.parse
 
 import aiohttp
+
 from stubsabot import fetch_pypi_info, get_github_api_headers
 
 if sys.version_info >= (3, 8):
