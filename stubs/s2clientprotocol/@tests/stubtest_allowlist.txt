@@ -1,3 +1,3 @@
 # Generated pb2 methods diverge for a variety of reasons. They are tested
 # carefully in mypy-protobuf which internally runs stubtest. Skip those here.
-google.protobuf\..*_pb2\..*
+s2clientprotocol\..*_pb2\..*
