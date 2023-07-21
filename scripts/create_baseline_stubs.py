@@ -78,6 +78,7 @@ async def get_project_urls_from_pypi(project: str, session: aiohttp.ClientSessio
     pypi_root = f"https://pypi.org/pypi/{urllib.parse.quote(project)}"
     async with session.get(f"{pypi_root}/json") as response:
         response.raise_for_status()
+        j: dict[str, dict[str, dict[str, str]]]
         j = await response.json()
         if project_urls := j["info"].get("project_urls"):
             assert isinstance(project_urls, dict)
