@@ -103,6 +103,7 @@ class HTTPMessage(email.message.Message):
 def parse_headers(fp: io.BufferedIOBase, _class: Callable[[], email.message.Message] = ...) -> HTTPMessage: ...
 
 class HTTPResponse(io.BufferedIOBase, BinaryIO):  # type: ignore[misc]  # incompatible method definitions in the base classes
+    url: str
     msg: HTTPMessage
     headers: HTTPMessage
     version: int
