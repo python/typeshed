@@ -16,10 +16,10 @@ import os
 import re
 import subprocess
 import sys
-import termcolor
 import urllib.parse
 
 import aiohttp
+import termcolor
 
 if sys.version_info >= (3, 8):
     from importlib.metadata import distribution
