@@ -20,8 +20,6 @@ import urllib.parse
 
 import aiohttp
 
-from stubsabot import fetch_pypi_info, get_github_api_headers
-
 if sys.version_info >= (3, 8):
     from importlib.metadata import distribution
 
@@ -76,18 +74,29 @@ def run_ruff(stub_dir: str) -> None:
     subprocess.run([sys.executable, "-m", "ruff", stub_dir])
 
 
+async def get_project_urls_from_pypi(project: str, session: aiohttp.ClientSession) -> list[str]:
+    pypi_root = f"https://pypi.org/pypi/{urllib.parse.quote(project)}"
+    async with session.get(f"{pypi_root}/json") as response:
+        response.raise_for_status()
+        j = await response.json()
+        if project_urls := j["info"].get("project_urls"):
+            assert isinstance(project_urls, dict)
+            return list(project_urls.values())
+        else:
+            return []
+
+
 async def get_upstream_repo_url(project: str) -> str | None:
     # aiohttp is overkill here, but it would also just be silly
     # to have both requests and aiohttp in our requirements-tests.txt file.
     async with aiohttp.ClientSession() as session:
-        pypi_info = await fetch_pypi_info(project, session)
-        for url in (pypi_info.info.get("project_urls") or {}).values():
+        for url in await get_project_urls_from_pypi(project, session):
             url = re.sub(r"^(https?://)?(www\.)", r"\1", url)
             netloc = urllib.parse.urlparse(url).netloc
             if netloc in {"gitlab.com", "github.com", "bitbucket.org", "foss.heptapod.net"}:
                 # truncate to https://site.com/user/repo
                 upstream_repo_url = "/".join(url.split("/")[:5])
-                async with session.get(upstream_repo_url, headers=get_github_api_headers()) as response:
+                async with session.get(upstream_repo_url) as response:
                     if response.status == 200:
                         return upstream_repo_url
     return None
