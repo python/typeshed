@@ -184,6 +184,7 @@ supported:
 * `stub_distribution` (optional): Distribution name to be uploaded to PyPI.
   This defaults to `types-<distribution>` and should only be set in special
   cases.
+* `upstream_repository` (recommended): The URL of the upstream repository.
 * `obsolete_since` (optional): This field is part of our process for
   [removing obsolete third-party libraries](#third-party-library-removal-policy).
   It contains the first version of the corresponding library that ships
