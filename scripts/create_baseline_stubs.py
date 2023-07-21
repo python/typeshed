@@ -131,8 +131,8 @@ def create_metadata(project: str, stub_dir: str, version: str) -> None:
     upstream_repo_url = asyncio.run(get_upstream_repo_url(project))
     if upstream_repo_url is None:
         warning = (
-            f"\nDid not succeed in finding a URL pointing to the upstream repo for {project!r}.\n"
-            f"Please add it manually to the `stubs/{project}/METADATA.toml` file, if possible!\n"
+            f"\nDid not succeed in finding a URL pointing to the source code for {project!r}.\n"
+            f"Please add it as `upstream_repository` to `stubs/{project}/METADATA.toml`, if possible!\n"
         )
         print(termcolor.colored(warning, "red"))
     else:
