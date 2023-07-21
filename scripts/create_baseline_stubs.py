@@ -16,6 +16,7 @@ import os
 import re
 import subprocess
 import sys
+import termcolor
 import urllib.parse
 
 import aiohttp
@@ -74,25 +75,39 @@ def run_ruff(stub_dir: str) -> None:
     subprocess.run([sys.executable, "-m", "ruff", stub_dir])
 
 
-async def get_project_urls_from_pypi(project: str, session: aiohttp.ClientSession) -> list[str]:
+async def get_project_urls_from_pypi(project: str, session: aiohttp.ClientSession) -> dict[str, str]:
     pypi_root = f"https://pypi.org/pypi/{urllib.parse.quote(project)}"
     async with session.get(f"{pypi_root}/json") as response:
-        response.raise_for_status()
+        if response.status != 200:
+            return {}
         j: dict[str, dict[str, dict[str, str]]]
         j = await response.json()
-        if project_urls := j["info"].get("project_urls"):
-            assert isinstance(project_urls, dict)
-            return list(project_urls.values())
-        else:
-            return []
+        return j["info"].get("project_urls") or {}
 
 
 async def get_upstream_repo_url(project: str) -> str | None:
     # aiohttp is overkill here, but it would also just be silly
     # to have both requests and aiohttp in our requirements-tests.txt file.
     async with aiohttp.ClientSession() as session:
-        for url in await get_project_urls_from_pypi(project, session):
-            url = re.sub(r"^(https?://)?(www\.)", r"\1", url)
+        project_urls = await get_project_urls_from_pypi(project, session)
+
+        if not project_urls:
+            return None
+
+        # Order the project URLs so that we put the ones
+        # that are most likely to point to the source code first
+        urls_to_check: list[str] = []
+        url_names_probably_pointing_to_source = ("Source", "Repository", "Homepage")
+        for url_name in url_names_probably_pointing_to_source:
+            if url := project_urls.get(url_name):
+                urls_to_check.append(url)
+        urls_to_check.extend(
+            url for url_name, url in project_urls.items() if url_name not in url_names_probably_pointing_to_source
+        )
+
+        for url in urls_to_check:
+            # Remove `www.`; replace `http://` with `https://`
+            url = re.sub(r"^(https?://)?(www\.)?", "https://", url)
             netloc = urllib.parse.urlparse(url).netloc
             if netloc in {"gitlab.com", "github.com", "bitbucket.org", "foss.heptapod.net"}:
                 # truncate to https://site.com/user/repo
@@ -114,7 +129,13 @@ def create_metadata(project: str, stub_dir: str, version: str) -> None:
         return
     metadata = f'version = "{version}.*"'
     upstream_repo_url = asyncio.run(get_upstream_repo_url(project))
-    if upstream_repo_url is not None:
+    if upstream_repo_url is None:
+        warning = (
+            f"\nDid not succeed in finding a URL pointing to the upstream repo for {project!r}.\n"
+            f"Please add it manually to the `stubs/{project}/METADATA.toml` file, if possible!\n"
+        )
+        print(termcolor.colored(warning, "red"))
+    else:
         metadata += f'\nupstream_repository = "{upstream_repo_url}"'
     print(f"Writing {filename}")
     with open(filename, "w", encoding="UTF-8") as file:
