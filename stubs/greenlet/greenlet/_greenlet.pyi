@@ -1,7 +1,7 @@
 from collections.abc import Callable
 from contextvars import Context
 from types import FrameType, TracebackType
-from typing import Any, overload
+from typing import Any, Protocol, overload
 from typing_extensions import Literal, TypeAlias
 
 _TraceEvent: TypeAlias = Literal["switch", "throw"]
@@ -18,6 +18,10 @@ GREENLET_USE_TRACING: bool
 # to pass this around, can still pass it around without having to ignore type errors...
 _C_API: object
 
+class _ParentDescriptor(Protocol):
+    def __get__(self, obj: greenlet, owner: type[greenlet] | None = None) -> greenlet | None: ...
+    def __set__(self, obj: greenlet, value: greenlet) -> None: ...
+
 class GreenletExit(BaseException): ...
 class error(Exception): ...
 
@@ -30,10 +34,11 @@ class greenlet:
     def gr_context(self, value: Context | None) -> None: ...
     @property
     def gr_frame(self) -> FrameType | None: ...
-    @property
-    def parent(self) -> greenlet | None: ...
-    @parent.setter
-    def parent(self, value: greenlet | None) -> None: ...
+    # the parent attribute is a bit special, since it can't be set to `None` manually, but
+    # it can be `None` for the master greenlet which will always be around, regardless of
+    # how many greenlets have been spawned explicitly. Since there can only be one such
+    # greenlet per thread, there is no way to create another one manually.
+    parent = _ParentDescriptor
     @property
     def run(self) -> Callable[..., Any]: ...
     @run.setter
