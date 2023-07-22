@@ -1,5 +1,5 @@
 version = "9.2.6"
-requires = []
+upstream_repository = "https://gitlab.kitware.com/vtk/vtk"
 partial_stub = true
 
 [tool.stubtest]
