@@ -1,5 +1,5 @@
 import re
-from collections.abc import Iterable, Iterator
+from collections.abc import Generator, Iterable, Iterator
 from typing import Any
 
 # We don't re-export any `html5lib` types / values here, because they are not
