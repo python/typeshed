@@ -38,7 +38,7 @@ class greenlet:
     # it can be `None` for the master greenlet which will always be around, regardless of
     # how many greenlets have been spawned explicitly. Since there can only be one such
     # greenlet per thread, there is no way to create another one manually.
-    parent = _ParentDescriptor
+    parent: _ParentDescriptor
     @property
     def run(self) -> Callable[..., Any]: ...
     @run.setter
