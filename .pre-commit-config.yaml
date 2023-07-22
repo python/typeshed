@@ -9,13 +9,6 @@ repos:
       - id: check-merge-conflict
       - id: mixed-line-ending
       - id: check-case-conflict
-  - repo: https://github.com/hadialqattan/pycln
-    rev: v2.1.6 # must match requirements-tests.txt
-    hooks:
-      - id: pycln
-        args: [--config=pyproject.toml]
-        types: [file]
-        types_or: [python, pyi]
   - repo: https://github.com/psf/black
     rev: 23.7.0 # must match requirements-tests.txt
     hooks:

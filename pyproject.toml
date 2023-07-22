@@ -78,6 +78,7 @@ exclude = [
 # Only enable rules that have safe autofixes;
 # only enable rules that are relevant to stubs
 select = [
+    "F401",   # Remove unused imports
     "UP004",  # Remove explicit `object` inheritance
     "UP006",  # PEP-585 autofixes
     "UP007",  # PEP-604 autofixes
@@ -94,10 +95,6 @@ select = [
     "PYI025",  # always alias `collections.abc.Set` as `AbstractSet` when importing it
     "PYI032",  # use `object`, not `Any`, as the second parameter to `__eq__`
 ]
-
-[tool.pycln]
-all = true
-disable_all_dunder_policy = true
 
 [tool.typeshed]
 pyright_version = "1.1.318"
