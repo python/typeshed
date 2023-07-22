@@ -14,6 +14,7 @@ asyncio.WriteTransport.get_write_buffer_limits  # Documented. Exists in subclass
 builtins.float.__set_format__  # Internal method for CPython test suite
 builtins.str.maketrans
 builtins.input  # Incorrect default value in text signature, fixed in 3.10
+bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
 cmath.log
 collections.AsyncGenerator.asend  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
 collections.AsyncGenerator.__anext__  # async at runtime, deliberately not in the stub, see #7491
@@ -23,15 +24,18 @@ collections.AsyncGenerator.ag_await
 collections.AsyncGenerator.ag_code
 collections.AsyncGenerator.ag_frame
 collections.AsyncGenerator.ag_running
+collections.ByteString  # see comments in py3_common.txt
 collections.Callable
 collections.Mapping.__reversed__  # Set to None at runtime for a better error message
+configparser.ParsingError.filename
 contextvars.ContextVar.get
-distutils.command.bdist_wininst  # see #6523
 dummy_threading.Condition.acquire
 dummy_threading.Condition.release
 dummy_threading.Event.isSet
 dummy_threading.local.__new__
+enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
+importlib.abc.Finder.find_module
 inspect.Signature.from_builtin  # Removed in 3.11, can add if someone needs this
 inspect.Signature.from_function  # Removed in 3.11, can add if someone needs this
 ipaddress._BaseNetwork.__init__
@@ -48,6 +52,13 @@ uuid.UUID.int
 uuid.UUID.is_safe
 xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495
 xml.etree.cElementTree.TreeBuilder.start  # bpo-39495
+typing_extensions\.get_original_bases
+
+# Exist at runtime for internal reasons, no need to put them in the stub
+typing_extensions\.TypeAliasType\.__call__
+typing_extensions\.TypeAliasType\.__init_subclass__
+# We call them read-only properties, runtime implementation is slightly different
+typing_extensions\.TypeAliasType\.__(parameters|type_params|name|module|value)__
 
 collections.Coroutine.cr_await
 collections.Coroutine.cr_code
@@ -151,3 +162,25 @@ types.GetSetDescriptorType.__get__
 types.MemberDescriptorType.__get__
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__
+
+# https://github.com/python/mypy/issues/15302
+typing_extensions\.assert_never
+typing_extensions\.assert_type
+typing_extensions\.reveal_type
+
+# Doesn't exist at runtime
+typing\.Protocol
+
+# We lie about the existence of these methods
+.*.__buffer__
+.*.__release_buffer__
+
+# Removed in 3.12
+distutils\..*
+asyncore.dispatcher.addr
+asyncore.dispatcher.handle_accepted
+asynchat.async_chat.encoding
+asynchat.async_chat.use_encoding
+asynchat.find_prefix_at_end
+pkgutil.ImpImporter\..*
+pkgutil.ImpLoader\..*

@@ -5,6 +5,7 @@ from _ctypes import (
     RTLD_LOCAL as RTLD_LOCAL,
     ArgumentError as ArgumentError,
     Array as Array,
+    CFuncPtr as _CFuncPtr,
     Structure as Structure,
     Union as Union,
     _CanCastTo as _CanCastTo,
@@ -26,8 +27,7 @@ from _ctypes import (
     set_errno as set_errno,
     sizeof as sizeof,
 )
-from collections.abc import Callable, Sequence
-from typing import Any, ClassVar, Generic, TypeVar, overload
+from typing import Any, ClassVar, Generic, TypeVar
 from typing_extensions import TypeAlias
 
 if sys.platform == "win32":
@@ -91,22 +91,7 @@ if sys.platform == "win32":
 pydll: LibraryLoader[PyDLL]
 pythonapi: PyDLL
 
-_ECT: TypeAlias = Callable[[type[_CData] | None, _FuncPointer, tuple[_CData, ...]], _CData]
-_PF: TypeAlias = tuple[int] | tuple[int, str] | tuple[int, str, Any]
-
-class _FuncPointer(_PointerLike, _CData):
-    restype: type[_CData] | Callable[[int], Any] | None
-    argtypes: Sequence[type[_CData]]
-    errcheck: _ECT
-    @overload
-    def __init__(self, address: int) -> None: ...
-    @overload
-    def __init__(self, callable: Callable[..., Any]) -> None: ...
-    @overload
-    def __init__(self, func_spec: tuple[str | int, CDLL], paramflags: tuple[_PF, ...] = ...) -> None: ...
-    @overload
-    def __init__(self, vtlb_index: int, name: str, paramflags: tuple[_PF, ...] = ..., iid: _Pointer[c_int] = ...) -> None: ...
-    def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
+class _FuncPointer(_CFuncPtr): ...
 
 class _NamedFuncPointer(_FuncPointer):
     __name__: str
@@ -195,6 +180,9 @@ class c_bool(_SimpleCData[bool]):
 
 if sys.platform == "win32":
     class HRESULT(_SimpleCData[int]): ...  # TODO undocumented
+
+if sys.version_info >= (3, 12):
+    c_time_t: type[c_int32 | c_int64]
 
 class py_object(_CanCastTo, _SimpleCData[_T]): ...
 class BigEndianStructure(Structure): ...

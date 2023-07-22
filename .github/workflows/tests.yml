@@ -29,7 +29,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
+          python-version: "3.11"
           cache: pip
           cache-dependency-path: requirements-tests.txt
       - run: pip install -r requirements-tests.txt
@@ -42,7 +42,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
+          python-version: "3.11"
       - run: ./tests/check_new_syntax.py
 
   flake8:
@@ -52,7 +52,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
+          python-version: "3.11"
           cache: pip
           cache-dependency-path: requirements-tests.txt
       - run: pip install -r requirements-tests.txt
@@ -85,7 +85,7 @@ jobs:
     strategy:
       matrix:
         platform: ["linux", "win32", "darwin"]
-        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12-dev"]
+        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
       fail-fast: false
     steps:
       - uses: actions/checkout@v3
@@ -97,6 +97,26 @@ jobs:
       - run: pip install -r requirements-tests.txt
       - run: python ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
 
+  # Run mypy slightly differently on the py312 stubs,
+  # as mypyc doesn't work on Python 3.12 yet
+  # (and various non-types dependencies can't be installed on Python 3.12 yet)
+  mypy-312:
+    name: Run mypy against the stubs (3.12)
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        platform: ["linux", "win32", "darwin"]
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements-tests.txt
+      - run: pip install -r requirements-tests.txt
+      - run: python ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=3.12
+
   regression-tests:
     name: Run mypy on the test cases
     runs-on: ubuntu-latest
@@ -104,7 +124,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
+          python-version: "3.11"
           cache: pip
           cache-dependency-path: requirements-tests.txt
       - run: pip install -r requirements-tests.txt
@@ -122,7 +142,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
+          python-version: "3.11"
           cache: pip
           cache-dependency-path: requirements-tests.txt
       - name: Install typeshed test-suite requirements
@@ -138,10 +158,10 @@ jobs:
             echo "Installing packages: $DEPENDENCIES"
             pip install $DEPENDENCIES
           fi
+      - name: Activate the isolated venv for the rest of the job
+        run: echo "$PWD/.venv/bin" >> $GITHUB_PATH
       - name: List 3rd-party stub dependencies installed
-        run: |
-          source .venv/bin/activate
-          pip freeze --all
+        run: pip freeze --all
       - name: Get pyright version
         uses: SebRollen/toml-action@v1.0.2
         id: pyright_version
@@ -154,16 +174,14 @@ jobs:
           version: ${{ steps.pyright_version.outputs.value }}
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
-          no-comments: ${{ matrix.python-version != '3.10' || matrix.python-platform != 'Linux' }} # Having each job create the same comment is too noisy.
-          venv-path: .
+          no-comments: ${{ matrix.python-version != '3.11' || matrix.python-platform != 'Linux' }} # Having each job create the same comment is too noisy.
       - name: Run pyright with stricter settings on some of the stubs
         uses: jakebailey/pyright-action@v1
         with:
           version: ${{ steps.pyright_version.outputs.value }}
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
-          no-comments: ${{ matrix.python-version != '3.10' || matrix.python-platform != 'Linux' }} # Having each job create the same comment is too noisy.
-          venv-path: .
+          no-comments: ${{ matrix.python-version != '3.11' || matrix.python-platform != 'Linux' }} # Having each job create the same comment is too noisy.
           project: ./pyrightconfig.stricter.json
       - name: Run pyright on the test cases
         uses: jakebailey/pyright-action@v1
@@ -171,8 +189,7 @@ jobs:
           version: ${{ steps.pyright_version.outputs.value }}
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
-          no-comments: ${{ matrix.python-version != '3.10' || matrix.python-platform != 'Linux' }} # Having each job create the same comment is too noisy.
-          venv-path: .
+          no-comments: ${{ matrix.python-version != '3.11' || matrix.python-platform != 'Linux' }} # Having each job create the same comment is too noisy.
           project: ./pyrightconfig.testcases.json
 
   stub-uploader:
@@ -191,7 +208,7 @@ jobs:
           path: stub_uploader
       - uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
+          python-version: "3.11"
           cache: pip
           cache-dependency-path: stub_uploader/requirements.txt
       - name: Run tests

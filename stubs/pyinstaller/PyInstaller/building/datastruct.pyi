@@ -24,11 +24,11 @@ class Target:
     invcnum: ClassVar[int]
     tocfilename: LiteralString
     tocbasename: LiteralString
-    dependencies: TOC
+    dependencies: list[_TOCTuple]
     def __init__(self) -> None: ...
     def __postinit__(self) -> None: ...
 
-class Tree(Target, TOC):
+class Tree(Target, list[_TOCTuple]):
     root: str | None
     prefix: str | None
     excludes: Sequence[str]
@@ -41,3 +41,6 @@ class Tree(Target, TOC):
         typecode: _TypeCode = "DATA",
     ) -> None: ...
     def assemble(self) -> None: ...
+
+def normalize_toc(toc: Iterable[_TOCTuple]) -> list[_TOCTuple]: ...
+def normalize_pyz_toc(toc: Iterable[_TOCTuple]) -> list[_TOCTuple]: ...

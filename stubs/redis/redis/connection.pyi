@@ -31,7 +31,8 @@ _ConnectFunc: TypeAlias = Callable[[Connection], object]
 
 class BaseParser:
     EXCEPTION_CLASSES: ClassVar[dict[str, type[Exception] | dict[str, type[Exception]]]]
-    def parse_error(self, response: str) -> Exception: ...
+    @classmethod
+    def parse_error(cls, response: str) -> Exception: ...
 
 class SocketBuffer:
     socket_read_size: int
@@ -88,6 +89,8 @@ class AbstractConnection:
     credential_provider: CredentialProvider | None
     password: str | None
     username: str | None
+    socket_timeout: float | None
+    socket_connect_timeout: float | None
     retry_on_timeout: bool
     retry_on_error: list[type[Exception]]
     retry: Retry
@@ -100,6 +103,8 @@ class AbstractConnection:
         self,
         db: int = 0,
         password: str | None = None,
+        socket_timeout: float | None = None,
+        socket_connect_timeout: float | None = None,
         retry_on_timeout: bool = False,
         retry_on_error: list[type[Exception]] = ...,
         encoding: str = "utf-8",
@@ -127,15 +132,15 @@ class AbstractConnection:
     def send_packed_command(self, command: str | Iterable[str], check_health: bool = True) -> None: ...
     def send_command(self, *args, **kwargs) -> None: ...
     def can_read(self, timeout: float | None = 0) -> bool: ...
-    def read_response(self, disable_decoding: bool = False) -> Any: ...  # `str | bytes` or `list[str | bytes]`
+    def read_response(
+        self, disable_decoding: bool = False, *, disconnect_on_error: bool = True
+    ) -> Any: ...  # `str | bytes` or `list[str | bytes]`
     def pack_command(self, *args) -> list[bytes]: ...
     def pack_commands(self, commands: Iterable[Iterable[Incomplete]]) -> list[bytes]: ...
 
 class Connection(AbstractConnection):
     host: str
     port: int
-    socket_timeout: float | None
-    socket_connect_timeout: float | None
     socket_keepalive: bool
     socket_keepalive_options: Mapping[str, int | str]
     socket_type: int
@@ -143,14 +148,14 @@ class Connection(AbstractConnection):
         self,
         host: str = "localhost",
         port: int = 6379,
-        socket_timeout: float | None = None,
-        socket_connect_timeout: float | None = None,
         socket_keepalive: bool = False,
         socket_keepalive_options: Mapping[str, int | str] | None = None,
         socket_type: int = 0,
         *,
         db: int = 0,
         password: str | None = None,
+        socket_timeout: float | None = None,
+        socket_connect_timeout: float | None = None,
         retry_on_timeout: bool = False,
         retry_on_error: list[type[Exception]] = ...,
         encoding: str = "utf-8",
@@ -222,14 +227,14 @@ class SSLConnection(Connection):
 
 class UnixDomainSocketConnection(AbstractConnection):
     path: str
-    socket_timeout: float | None
     def __init__(
         self,
         path: str = "",
-        socket_timeout: float | None = None,
         *,
         db: int = 0,
         password: str | None = None,
+        socket_timeout: float | None = None,
+        socket_connect_timeout: float | None = None,
         retry_on_timeout: bool = False,
         retry_on_error: list[type[Exception]] = ...,
         encoding: str = "utf-8",
