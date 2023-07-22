@@ -35,7 +35,7 @@ VENV_DIR = ".venv"
 TYPESHED = "typeshed"
 
 SUPPORTED_PLATFORMS = ["linux", "darwin", "win32"]
-SUPPORTED_VERSIONS = ["3.11", "3.10", "3.9", "3.8", "3.7"]
+SUPPORTED_VERSIONS = ["3.12", "3.11", "3.10", "3.9", "3.8", "3.7"]
 
 
 def package_with_test_cases(package_name: str) -> PackageInfo:
@@ -160,7 +160,7 @@ def run_testcases(
     if not testcasedir_already_setup:
         setup_testcase_dir(package, tempdir=tempdir, new_test_case_dir=new_test_case_dir, verbosity=verbosity)
 
-    # "--enable-error-code ignore-without-code" is purposefully ommited.
+    # "--enable-error-code ignore-without-code" is purposefully omitted.
     # See https://github.com/python/typeshed/pull/8083
     flags = [
         "--python-version",

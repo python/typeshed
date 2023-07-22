@@ -10,6 +10,7 @@ import re
 import sys
 import urllib.parse
 from pathlib import Path
+from typing import TypedDict
 
 import yaml
 from packaging.requirements import Requirement
@@ -19,6 +20,10 @@ from parse_metadata import read_metadata
 from utils import VERSIONS_RE, get_all_testcase_directories, get_gitignore_spec, spec_matches_path, strip_comments
 
 extension_descriptions = {".pyi": "stub", ".py": ".py"}
+
+# These type checkers and linters must have exact versions in the requirements file to ensure
+# consistent CI runs.
+linters = {"black", "flake8", "flake8-bugbear", "flake8-noqa", "flake8-pyi", "isort", "ruff", "mypy", "pytype"}
 
 
 def assert_consistent_filetypes(
@@ -93,7 +98,7 @@ def check_no_symlinks() -> None:
 
 
 def check_versions() -> None:
-    versions = set()
+    versions = set[str]()
     with open("stdlib/VERSIONS", encoding="UTF-8") as f:
         data = f.read().splitlines()
     for line in data:
@@ -115,7 +120,7 @@ def check_versions() -> None:
 
 
 def _find_stdlib_modules() -> set[str]:
-    modules = set()
+    modules = set[str]()
     for path, _, files in os.walk("stdlib"):
         for filename in files:
             base_module = ".".join(os.path.normpath(path).split(os.sep)[1:])
@@ -140,11 +145,21 @@ def get_txt_requirements() -> dict[str, SpecifierSet]:
         return {requirement.name: requirement.specifier for requirement in requirements}
 
 
+class PreCommitConfigRepos(TypedDict):
+    hooks: list[dict[str, str]]
+    repo: str
+    rev: str
+
+
+class PreCommitConfig(TypedDict):
+    repos: list[PreCommitConfigRepos]
+
+
 def get_precommit_requirements() -> dict[str, SpecifierSet]:
     with open(".pre-commit-config.yaml", encoding="UTF-8") as precommit_file:
         precommit = precommit_file.read()
-    yam = yaml.load(precommit, Loader=yaml.Loader)
-    precommit_requirements = {}
+    yam: PreCommitConfig = yaml.load(precommit, Loader=yaml.Loader)
+    precommit_requirements: dict[str, SpecifierSet] = {}
     for repo in yam["repos"]:
         if not repo.get("python_requirement", True):
             continue
@@ -159,11 +174,26 @@ def get_precommit_requirements() -> dict[str, SpecifierSet]:
     return precommit_requirements
 
 
-def check_requirements() -> None:
+def check_requirement_pins() -> None:
+    """Check that type checkers and linters are pinned to an exact version."""
+    requirements = get_txt_requirements()
+    for package in linters:
+        assert package in requirements, f"type checker/linter '{package}' not found in requirements-tests.txt"
+        spec = requirements[package]
+        assert len(spec) == 1, f"type checker/linter '{package}' has complex specifier in requirements-tests.txt"
+        msg = f"type checker/linter '{package}' is not pinned to an exact version in requirements-tests.txt"
+        assert str(spec).startswith("=="), msg
+
+
+def check_precommit_requirements() -> None:
+    """Check that the requirements in requirements-tests.txt and .pre-commit-config.yaml match."""
     requirements_txt_requirements = get_txt_requirements()
     precommit_requirements = get_precommit_requirements()
     no_txt_entry_msg = "All pre-commit requirements must also be listed in `requirements-tests.txt` (missing {requirement!r})"
     for requirement, specifier in precommit_requirements.items():
+        # annoying: the ruff repo for pre-commit is different to the name in requirements-tests.txt
+        if requirement == "ruff-pre-commit":
+            requirement = "ruff"
         assert requirement in requirements_txt_requirements, no_txt_entry_msg.format(requirement=requirement)
         specifier_mismatch = (
             f'Specifier "{specifier}" for {requirement!r} in `.pre-commit-config.yaml` '
@@ -180,4 +210,5 @@ if __name__ == "__main__":
     check_metadata()
     check_no_symlinks()
     check_test_cases()
-    check_requirements()
+    check_requirement_pins()
+    check_precommit_requirements()

@@ -12,9 +12,9 @@ Xlib.protocol.rq.DictWrapper.__lt__
 Xlib.protocol.rq.Event.__gt__
 Xlib.protocol.rq.Event.__lt__
 
-# Can be None or str once instanciated
+# Can be None or str once instantiated
 Xlib.protocol.rq.*.structcode
-# Should only ever be str once instanciated
+# Should only ever be str once instantiated
 Xlib.protocol.rq.*.name
 
 # Structs generate their attributes (@type_check_only)
@@ -22,3 +22,4 @@ Xlib.protocol.rq.Struct.__getattr__
 
 # Iteration variable that bleeds into the global scope
 Xlib.protocol.rq.c
+Xlib.protocol.rq.size

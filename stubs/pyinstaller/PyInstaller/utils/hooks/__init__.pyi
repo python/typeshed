@@ -1,6 +1,5 @@
 # https://pyinstaller.org/en/stable/hooks.html
 
-import logging
 from _typeshed import StrOrBytesPath, StrPath
 from collections.abc import Callable, Iterable
 from typing import Any
@@ -14,7 +13,6 @@ from PyInstaller.utils.hooks.win32 import get_pywin32_module_file_attribute as g
 
 conda_support = conda
 
-logger: logging.Logger
 PY_IGNORE_EXTENSIONS: Final[set[str]]
 hook_variables: dict[str, str]
 
@@ -45,7 +43,9 @@ def is_module_or_submodule(name: str, mod_or_submod: str) -> bool: ...
 
 PY_DYLIB_PATTERNS: Final[list[str]]
 
-def collect_dynamic_libs(package: str, destdir: object = None, search_patterns: Iterable[str] = ...) -> list[tuple[str, str]]: ...
+def collect_dynamic_libs(
+    package: str, destdir: object = None, search_patterns: Iterable[str] = ["*.dll", "*.dylib", "lib*.so"]
+) -> list[tuple[str, str]]: ...
 def collect_data_files(
     package: str,
     include_py_files: bool = False,

@@ -7,19 +7,18 @@ import re
 import subprocess
 import sys
 import venv
-from collections.abc import Iterable
 from functools import lru_cache
 from pathlib import Path
-from typing import NamedTuple
+from typing import Any, NamedTuple
 from typing_extensions import Annotated
 
 import pathspec
 
 try:
-    from termcolor import colored as colored
+    from termcolor import colored as colored  # pyright: ignore[reportGeneralTypeIssues]
 except ImportError:
 
-    def colored(text: str, color: str | None = None, on_color: str | None = None, attrs: Iterable[str] | None = None) -> str:
+    def colored(text: str, color: str | None = None, **kwargs: Any) -> str:  # type: ignore[misc]
         return text
 
 
@@ -112,12 +111,12 @@ def testcase_dir_from_package_name(package_name: str) -> Path:
 
 
 def get_all_testcase_directories() -> list[PackageInfo]:
-    testcase_directories = [PackageInfo("stdlib", Path("test_cases"))]
+    testcase_directories: list[PackageInfo] = []
     for package_name in os.listdir("stubs"):
         potential_testcase_dir = testcase_dir_from_package_name(package_name)
         if potential_testcase_dir.is_dir():
             testcase_directories.append(PackageInfo(package_name, potential_testcase_dir))
-    return sorted(testcase_directories)
+    return [PackageInfo("stdlib", Path("test_cases"))] + sorted(testcase_directories)
 
 
 # ====================================================================

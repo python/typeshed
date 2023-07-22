@@ -54,6 +54,7 @@ class ActionLevel(enum.IntEnum):
 class StubInfo:
     distribution: str
     version_spec: str
+    upstream_repository: str | None
     obsolete: bool
     no_longer_updated: bool
 
@@ -64,6 +65,7 @@ def read_typeshed_stub_metadata(stub_path: Path) -> StubInfo:
     return StubInfo(
         distribution=stub_path.name,
         version_spec=meta["version"],
+        upstream_repository=meta.get("upstream_repository"),
         obsolete="obsolete_since" in meta,
         no_longer_updated=meta.get("no_longer_updated", False),
     )
@@ -80,6 +82,17 @@ class PypiReleaseDownload:
 
 VersionString: TypeAlias = str
 ReleaseDownload: TypeAlias = dict[str, Any]
+
+
+def _best_effort_version(version: VersionString) -> packaging.version.Version:
+    try:
+        return packaging.version.Version(version)
+    except packaging.version.InvalidVersion:
+        # packaging.version.Version no longer parses legacy versions
+        try:
+            return packaging.version.Version(version.replace("-", "+"))
+        except packaging.version.InvalidVersion:
+            return packaging.version.Version("0")
 
 
 @dataclass
@@ -104,7 +117,7 @@ class PypiInfo:
         return self.get_release(version=self.info["version"])
 
     def releases_in_descending_order(self) -> Iterator[PypiReleaseDownload]:
-        for version in sorted(self.releases, key=packaging.version.Version, reverse=True):
+        for version in sorted(self.releases, key=_best_effort_version, reverse=True):
             yield self.get_release(version=version)
 
 
@@ -169,6 +182,10 @@ async def release_contains_py_typed(release_to_download: PypiReleaseDownload, *,
 
 
 async def find_first_release_with_py_typed(pypi_info: PypiInfo, *, session: aiohttp.ClientSession) -> PypiReleaseDownload | None:
+    """If the latest release is py.typed, return the first release that included a py.typed file.
+
+    If the latest release is not py.typed, return None.
+    """
     release_iter = (release for release in pypi_info.releases_in_descending_order() if not release.version.is_prerelease)
     latest_release = next(release_iter)
     # If the latest release is not py.typed, assume none are.
@@ -224,24 +241,22 @@ class GithubInfo:
     tags: list[dict[str, Any]]
 
 
-async def get_github_repo_info(session: aiohttp.ClientSession, pypi_info: PypiInfo) -> GithubInfo | None:
+async def get_github_repo_info(session: aiohttp.ClientSession, stub_info: StubInfo) -> GithubInfo | None:
     """
-    If the project represented by `pypi_info` is hosted on GitHub,
+    If the project represented by `stub_info` is hosted on GitHub,
     return information regarding the project as it exists on GitHub.
 
     Else, return None.
     """
-    project_urls = pypi_info.info.get("project_urls", {}).values()
-    for project_url in project_urls:
-        assert isinstance(project_url, str)
-        split_url = urllib.parse.urlsplit(project_url)
+    if stub_info.upstream_repository:
+        split_url = urllib.parse.urlsplit(stub_info.upstream_repository)
         if split_url.netloc == "github.com" and not split_url.query and not split_url.fragment:
             url_path = split_url.path.strip("/")
             if len(Path(url_path).parts) == 2:
                 github_tags_info_url = f"https://api.github.com/repos/{url_path}/tags"
                 async with session.get(github_tags_info_url, headers=get_github_api_headers()) as response:
                     if response.status == 200:
-                        tags = await response.json()
+                        tags: list[dict[str, Any]] = await response.json()
                         assert isinstance(tags, list)
                         return GithubInfo(repo_path=url_path, tags=tags)
     return None
@@ -255,21 +270,21 @@ class GithubDiffInfo(NamedTuple):
 
 
 async def get_diff_info(
-    session: aiohttp.ClientSession, stub_info: StubInfo, pypi_info: PypiInfo, pypi_version: packaging.version.Version
+    session: aiohttp.ClientSession, stub_info: StubInfo, pypi_version: packaging.version.Version
 ) -> GithubDiffInfo | None:
     """Return a tuple giving info about the diff between two releases, if possible.
 
     Return `None` if the project isn't hosted on GitHub,
     or if a link pointing to the diff couldn't be found for any other reason.
     """
-    github_info = await get_github_repo_info(session, pypi_info)
+    github_info = await get_github_repo_info(session, stub_info)
     if github_info is None:
         return None
 
-    versions_to_tags = {}
+    versions_to_tags: dict[packaging.version.Version, str] = {}
     for tag in github_info.tags:
         tag_name = tag["name"]
-        # Some packages in typeshed (e.g. emoji) have tag names
+        # Some packages in typeshed have tag names
         # that are invalid to be passed to the Version() constructor,
         # e.g. v.1.4.2
         with contextlib.suppress(packaging.version.InvalidVersion):
@@ -283,7 +298,7 @@ async def get_diff_info(
         return None
 
     try:
-        old_version = max(version for version in versions_to_tags if version in curr_specifier)
+        old_version = max(version for version in versions_to_tags if version in curr_specifier and version < pypi_version)
     except ValueError:
         return None
     else:
@@ -378,7 +393,7 @@ class DiffAnalysis:
         return analysis
 
     def __str__(self) -> str:
-        data_points = []
+        data_points: list[str] = []
         if self.runtime_definitely_has_consistent_directory_structure_with_typeshed:
             data_points += [
                 self.describe_public_files_added(),
@@ -398,7 +413,7 @@ async def analyze_diff(
     url = f"https://api.github.com/repos/{github_repo_path}/compare/{old_tag}...{new_tag}"
     async with session.get(url, headers=get_github_api_headers()) as response:
         response.raise_for_status()
-        json_resp = await response.json()
+        json_resp: dict[str, list[FileInfo]] = await response.json()
         assert isinstance(json_resp, dict)
     # https://docs.github.com/en/rest/commits/commits#compare-two-commits
     py_files: list[FileInfo] = [file for file in json_resp["files"] if Path(file["filename"]).suffix == ".py"]
@@ -418,21 +433,22 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
     latest_release = pypi_info.get_latest_release()
     latest_version = latest_release.version
     spec = packaging.specifiers.SpecifierSet(f"=={stub_info.version_spec}")
-    if latest_version in spec:
+    obsolete_since = await find_first_release_with_py_typed(pypi_info, session=session)
+    if obsolete_since is None and latest_version in spec:
         return NoUpdate(stub_info.distribution, "up to date")
 
-    obsolete_since = await find_first_release_with_py_typed(pypi_info, session=session)
     relevant_version = obsolete_since.version if obsolete_since else latest_version
 
     project_urls = pypi_info.info["project_urls"] or {}
     maybe_links: dict[str, str | None] = {
         "Release": f"{pypi_info.pypi_root}/{relevant_version}",
         "Homepage": project_urls.get("Homepage"),
+        "Repository": stub_info.upstream_repository,
         "Changelog": project_urls.get("Changelog") or project_urls.get("Changes") or project_urls.get("Change Log"),
     }
     links = {k: v for k, v in maybe_links.items() if v is not None}
 
-    diff_info = await get_diff_info(session, stub_info, pypi_info, relevant_version)
+    diff_info = await get_diff_info(session, stub_info, relevant_version)
     if diff_info is not None:
         links["Diff"] = diff_info.diff_url
 
@@ -581,7 +597,8 @@ def get_update_pr_body(update: Update, metadata: dict[str, Any]) -> str:
     if update.diff_analysis is not None:
         body += f"\n\n{update.diff_analysis}"
 
-    stubtest_will_run = not metadata.get("tool", {}).get("stubtest", {}).get("skip", False)
+    stubtest_settings: dict[str, Any] = metadata.get("tool", {}).get("stubtest", {})
+    stubtest_will_run = not stubtest_settings.get("skip", False)
     if stubtest_will_run:
         body += textwrap.dedent(
             """
@@ -614,7 +631,8 @@ async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession
             meta = tomlkit.load(f)
         meta["version"] = update.new_version_spec
         with open(update.stub_path / "METADATA.toml", "w", encoding="UTF-8") as f:
-            tomlkit.dump(meta, f)
+            # tomlkit.dump has partially unknown IO type
+            tomlkit.dump(meta, f)  # pyright: ignore[reportUnknownMemberType]
         body = get_update_pr_body(update, meta)
         subprocess.check_call(["git", "commit", "--all", "-m", f"{title}\n\n{body}"])
         if action_level <= ActionLevel.local:
@@ -642,7 +660,8 @@ async def suggest_typeshed_obsolete(obsolete: Obsolete, session: aiohttp.ClientS
         obs_string.comment(f"Released on {obsolete.obsolete_since_date.date().isoformat()}")
         meta["obsolete_since"] = obs_string
         with open(obsolete.stub_path / "METADATA.toml", "w", encoding="UTF-8") as f:
-            tomlkit.dump(meta, f)
+            # tomlkit.dump has partially unknown Mapping type
+            tomlkit.dump(meta, f)  # pyright: ignore[reportUnknownMemberType]
         body = "\n".join(f"{k}: {v}" for k, v in obsolete.links.items())
         subprocess.check_call(["git", "commit", "--all", "-m", f"{title}\n\n{body}"])
         if action_level <= ActionLevel.local:
@@ -727,7 +746,8 @@ async def main() -> None:
                     if isinstance(update, Update):
                         await suggest_typeshed_update(update, session, action_level=args.action_level)
                         continue
-                    if isinstance(update, Obsolete):
+                    # Redundant, but keeping for extra runtime validation
+                    if isinstance(update, Obsolete):  # pyright: ignore[reportUnnecessaryIsInstance]
                         await suggest_typeshed_obsolete(update, session, action_level=args.action_level)
                         continue
                 except RemoteConflict as e:

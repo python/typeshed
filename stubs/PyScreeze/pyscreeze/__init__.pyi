@@ -1,11 +1,10 @@
-from _typeshed import Incomplete, StrOrBytesPath
+from _typeshed import Incomplete, StrOrBytesPath, Unused
 from collections.abc import Callable, Generator
 from typing import NamedTuple, SupportsFloat, TypeVar, overload
 from typing_extensions import Final, ParamSpec, SupportsIndex, TypeAlias
 
 from PIL import Image
 
-_Unused: TypeAlias = object
 _P = ParamSpec("_P")
 _R = TypeVar("_R")
 # TODO: cv2.Mat is not available as a type yet:
@@ -42,14 +41,14 @@ class PyScreezeException(Exception): ...
 class ImageNotFoundException(PyScreezeException): ...
 
 # _locateAll_opencv
-def requiresPillow(wrappedFunction: Callable[_P, _R]) -> Callable[_P, _R]: ...
+def requiresPyGetWindow(wrappedFunction: Callable[_P, _R]) -> Callable[_P, _R]: ...
 @overload
 def locate(
     needleImage: str | Image.Image | _Mat,
     haystackImage: str | Image.Image | _Mat,
     *,
     grayscale: bool | None = None,
-    limit: _Unused = 1,
+    limit: Unused = 1,
     region: tuple[int, int, int, int] | None = None,
     step: int = 1,
     confidence: SupportsFloat | SupportsIndex | str = 0.999,
@@ -62,7 +61,7 @@ def locate(
     haystackImage: str | Image.Image,
     *,
     grayscale: bool | None = None,
-    limit: _Unused = 1,
+    limit: Unused = 1,
     region: tuple[int, int, int, int] | None = None,
     step: int = 1,
     confidence: None = None,
@@ -75,7 +74,7 @@ def locateOnScreen(
     minSearchTime: float = 0,
     *,
     grayscale: bool | None = None,
-    limit: _Unused = 1,
+    limit: Unused = 1,
     region: tuple[int, int, int, int] | None = None,
     step: int = 1,
     confidence: SupportsFloat | SupportsIndex | str = 0.999,
@@ -88,7 +87,7 @@ def locateOnScreen(
     minSearchTime: float = 0,
     *,
     grayscale: bool | None = None,
-    limit: _Unused = 1,
+    limit: Unused = 1,
     region: tuple[int, int, int, int] | None = None,
     step: int = 1,
     confidence: None = None,
@@ -125,7 +124,7 @@ def locateCenterOnScreen(
     *,
     minSearchTime: float,
     grayscale: bool | None = None,
-    limit: _Unused = 1,
+    limit: Unused = 1,
     region: tuple[int, int, int, int] | None = None,
     step: int = 1,
     confidence: SupportsFloat | SupportsIndex | str = 0.999,
@@ -138,11 +137,13 @@ def locateCenterOnScreen(
     *,
     minSearchTime: float,
     grayscale: bool | None = None,
-    limit: _Unused = 1,
+    limit: Unused = 1,
     region: tuple[int, int, int, int] | None = None,
     step: int = 1,
     confidence: None = None,
 ) -> Point | None: ...
+def locateOnScreenNear(image: str | Image.Image | _Mat, x: int, y: int) -> Box: ...
+def locateCenterOnScreenNear(image: str | Image.Image | _Mat, x: int, y: int) -> Point | None: ...
 
 # _locateAll_opencv
 @overload
@@ -151,7 +152,7 @@ def locateOnWindow(
     title: str,
     *,
     grayscale: bool | None = None,
-    limit: _Unused = 1,
+    limit: Unused = 1,
     step: int = 1,
     confidence: SupportsFloat | SupportsIndex | str = 0.999,
 ) -> Box | None: ...
@@ -163,7 +164,7 @@ def locateOnWindow(
     title: str,
     *,
     grayscale: bool | None = None,
-    limit: _Unused = 1,
+    limit: Unused = 1,
     step: int = 1,
     confidence: None = None,
 ) -> Box | None: ...
@@ -176,8 +177,6 @@ def pixelMatchesColor(
 ) -> bool: ...
 def pixel(x: int, y: int) -> tuple[int, int, int]: ...
 def screenshot(imageFilename: StrOrBytesPath | None = None, region: tuple[int, int, int, int] | None = None) -> Image.Image: ...
-
-grab = screenshot
 
 # _locateAll_opencv
 @overload
