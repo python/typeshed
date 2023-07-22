@@ -111,12 +111,12 @@ def testcase_dir_from_package_name(package_name: str) -> Path:
 
 
 def get_all_testcase_directories() -> list[PackageInfo]:
-    testcase_directories = [PackageInfo("stdlib", Path("test_cases"))]
+    testcase_directories: list[PackageInfo] = []
     for package_name in os.listdir("stubs"):
         potential_testcase_dir = testcase_dir_from_package_name(package_name)
         if potential_testcase_dir.is_dir():
             testcase_directories.append(PackageInfo(package_name, potential_testcase_dir))
-    return sorted(testcase_directories)
+    return [PackageInfo("stdlib", Path("test_cases"))] + sorted(testcase_directories)
 
 
 # ====================================================================
@@ -134,6 +134,4 @@ def spec_matches_path(spec: pathspec.PathSpec, path: Path) -> bool:
     normalized_path = path.as_posix()
     if path.is_dir():
         normalized_path += "/"
-    # pathspec.PathSpec.match_file has partially Unknown file parameter
-    # https://github.com/cpburnz/python-pathspec/pull/75
-    return spec.match_file(normalized_path)  # pyright: ignore[reportUnknownMemberType]
+    return spec.match_file(normalized_path)
