@@ -1,4 +1,5 @@
 version = "2.0.*"
+upstream_repository = "https://github.com/unbit/uwsgi"
 extra_description = """\
   Type hints for uWSGI's \
   [Python API](https://uwsgi-docs.readthedocs.io/en/latest/PythonModule.html). \
