@@ -1,4 +1,5 @@
 version = "5.2.*"
+upstream_repository = "https://github.com/astropy/astropy"
 
 [tool.stubtest]
 ignore_missing_stub = true
