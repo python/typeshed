@@ -1,4 +1,5 @@
 version = "66.0.*"
+upstream_repository = "https://github.com/cztomczak/cefpython"
 
 [tool.stubtest]
 skip = true # https://github.com/python/typeshed/pull/10096#issuecomment-1528821104
