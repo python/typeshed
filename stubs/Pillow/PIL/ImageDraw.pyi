@@ -11,6 +11,14 @@ _XY: TypeAlias = Sequence[float | tuple[float, float]]
 _Outline: TypeAlias = Any
 
 class ImageDraw:
+    font: Incomplete
+    palette: Incomplete
+    im: Incomplete
+    draw: Incomplete
+    mode: Incomplete
+    ink: Incomplete
+    fontmode: str
+    fill: bool
     def __init__(self, im: Image, mode: str | None = None) -> None: ...
     def getfont(self): ...
     def arc(self, xy: _XY, start: float, end: float, fill: _Ink | None = None, width: float = 1) -> None: ...
@@ -39,6 +47,7 @@ class ImageDraw:
         rotation: float = 0,
         fill: _Ink | None = None,
         outline: _Ink | None = None,
+        width: float = 1,
     ) -> None: ...
     def rectangle(
         self,
@@ -91,26 +100,6 @@ class ImageDraw:
         stroke_fill: _Ink | None = None,
         embedded_color: bool = False,
     ) -> None: ...
-    def textsize(
-        self,
-        text: str | bytes,
-        font: _Font | None = None,
-        spacing: float = 4,
-        direction: Literal["rtl", "ltr", "ttb"] | None = None,
-        features: Sequence[str] | None = None,
-        language: str | None = None,
-        stroke_width: int = 0,
-    ) -> tuple[int, int]: ...
-    def multiline_textsize(
-        self,
-        text: str | bytes,
-        font: _Font | None = None,
-        spacing: float = 4,
-        direction: Literal["rtl", "ltr", "ttb"] | None = None,
-        features: Sequence[str] | None = None,
-        language: str | None = None,
-        stroke_width: int = 0,
-    ) -> tuple[int, int]: ...
     def textlength(
         self,
         text: str | bytes,

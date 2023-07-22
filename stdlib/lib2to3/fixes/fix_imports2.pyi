@@ -3,4 +3,4 @@ from . import fix_imports
 MAPPING: dict[str, str]
 
 class FixImports2(fix_imports.FixImports):
-    mapping = MAPPING  # noqa: F821
+    mapping = MAPPING

@@ -120,14 +120,27 @@ class StubMetadata:
     requires: Annotated[list[str], "The raw requirements as listed in METADATA.toml"]
     extra_description: str | None
     stub_distribution: Annotated[str, "The name under which the distribution is uploaded to PyPI"]
+    upstream_repository: Annotated[str, "The URL of the upstream repository"] | None
     obsolete_since: Annotated[str, "A string representing a specific version"] | None
     no_longer_updated: bool
     uploaded_to_pypi: Annotated[bool, "Whether or not a distribution is uploaded to PyPI"]
+    partial_stub: Annotated[bool, "Whether this is a partial type stub package as per PEP 561."]
     stubtest_settings: StubtestSettings
 
 
 _KNOWN_METADATA_FIELDS: Final = frozenset(
-    {"version", "requires", "extra_description", "stub_distribution", "obsolete_since", "no_longer_updated", "upload", "tool"}
+    {
+        "version",
+        "requires",
+        "extra_description",
+        "stub_distribution",
+        "upstream_repository",
+        "obsolete_since",
+        "no_longer_updated",
+        "upload",
+        "tool",
+        "partial_stub",
+    }
 )
 _KNOWN_METADATA_TOOL_FIELDS: Final = {
     "stubtest": {
@@ -184,12 +197,16 @@ def read_metadata(distribution: str) -> StubMetadata:
     else:
         stub_distribution = f"types-{distribution}"
 
+    upstream_repository: object = data.get("upstream_repository")
+    assert isinstance(upstream_repository, (str, type(None)))
     obsolete_since: object = data.get("obsolete_since")
     assert isinstance(obsolete_since, (str, type(None)))
     no_longer_updated: object = data.get("no_longer_updated", False)
     assert type(no_longer_updated) is bool
     uploaded_to_pypi: object = data.get("upload", True)
     assert type(uploaded_to_pypi) is bool
+    partial_stub: object = data.get("partial_stub", True)
+    assert type(partial_stub) is bool
 
     empty_tools: dict[object, object] = {}
     tools_settings: object = data.get("tool", empty_tools)
@@ -206,9 +223,11 @@ def read_metadata(distribution: str) -> StubMetadata:
         requires=requires,
         extra_description=extra_description,
         stub_distribution=stub_distribution,
+        upstream_repository=upstream_repository,
         obsolete_since=obsolete_since,
         no_longer_updated=no_longer_updated,
         uploaded_to_pypi=uploaded_to_pypi,
+        partial_stub=partial_stub,
         stubtest_settings=read_stubtest_settings(distribution),
     )
 

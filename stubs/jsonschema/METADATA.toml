@@ -1,4 +1,6 @@
 version = "4.17.*"
+upstream_repository = "https://github.com/python-jsonschema/jsonschema"
+partial_stub = true
 
 [tool.stubtest]
 ignore_missing_stub = true
