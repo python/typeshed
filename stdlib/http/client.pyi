@@ -103,7 +103,6 @@ class HTTPMessage(email.message.Message):
 def parse_headers(fp: io.BufferedIOBase, _class: Callable[[], email.message.Message] = ...) -> HTTPMessage: ...
 
 class HTTPResponse(io.BufferedIOBase, BinaryIO):  # type: ignore[misc]  # incompatible method definitions in the base classes
-    url: str
     msg: HTTPMessage
     headers: HTTPMessage
     version: int
@@ -137,6 +136,10 @@ class HTTPResponse(io.BufferedIOBase, BinaryIO):  # type: ignore[misc]  # incomp
     def geturl(self) -> str: ...
     def getcode(self) -> int: ...
     def begin(self) -> None: ...
+    # url is set on instances of the class in urllib.request.AbstractHTTPHandler.do_open
+    # to match urllib.response.addinfourl's interface.
+    # It's not set in HTTPResponse.__init__ or any other method on the class
+    url: str
 
 class HTTPConnection:
     auto_open: int  # undocumented
