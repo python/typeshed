@@ -65,6 +65,7 @@
         "stubs/python-jose",
         "stubs/pywin32",
         "stubs/PyYAML",
+        "stubs/qrcode",
         "stubs/redis",
         "stubs/requests",
         "stubs/setuptools",
