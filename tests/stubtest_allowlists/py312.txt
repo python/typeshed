@@ -1,6 +1,5 @@
 # Uncategorised, from Python 3.12
 argparse.BooleanOptionalAction.__init__
-array.array.__class_getitem__
 asyncio.BaseEventLoop.create_connection
 asyncio.BaseEventLoop.shutdown_default_executor
 asyncio.Handle.get_context
@@ -21,8 +20,6 @@ collections.UserDict.get
 configparser.ParsingError.__init__
 configparser.RawConfigParser.readfp
 configparser.__all__
-datetime.__all__
-email.utils.localtime
 enum.Enum.__signature__
 enum.EnumMeta.__call__
 enum.EnumType.__call__
@@ -31,7 +28,6 @@ genericpath.__all__
 genericpath.islink
 gzip.GzipFile.filename
 http.client.HTTPConnection.get_proxy_response_headers
-http.client.HTTPSConnection.__init__
 imaplib.IMAP4_SSL.__init__
 importlib.abc.Finder
 importlib.abc.Loader.module_repr
@@ -52,18 +48,9 @@ importlib.metadata._meta.PackageMetadata.get
 importlib.metadata._meta.SimplePath.__truediv__
 importlib.metadata._meta.SimplePath.parent
 importlib.resources.files
-importlib.util.allowing_all_extensions
 importlib.util.module_for_loader
 importlib.util.set_loader
 importlib.util.set_package
-inspect.AGEN_CLOSED
-inspect.AGEN_CREATED
-inspect.AGEN_RUNNING
-inspect.AGEN_SUSPENDED
-inspect.__all__
-inspect.getasyncgenlocals
-inspect.getasyncgenstate
-inspect.markcoroutinefunction
 logging.Logger.getChildren
 logging.__all__
 logging.getHandlerByName
@@ -79,57 +66,12 @@ pathlib.Path.__init__
 pathlib.PurePath.__init__
 pathlib.PurePath.is_relative_to
 pathlib.PurePath.relative_to
-pdb.Pdb.set_convenience_variable
 poplib.POP3_SSL.__init__
 posixpath.__all__
 posixpath.isjunction
 posixpath.splitroot
-pydoc.HTMLRepr.__init__
-pydoc.TextRepr.__init__
 smtplib.SMTP.starttls
 smtplib.SMTP_SSL.__init__
-sqlite3.Connection.autocommit
-sqlite3.Connection.getconfig
-sqlite3.Connection.setconfig
-sqlite3.LEGACY_TRANSACTION_CONTROL
-sqlite3.SQLITE_DBCONFIG_DEFENSIVE
-sqlite3.SQLITE_DBCONFIG_DQS_DDL
-sqlite3.SQLITE_DBCONFIG_DQS_DML
-sqlite3.SQLITE_DBCONFIG_ENABLE_FKEY
-sqlite3.SQLITE_DBCONFIG_ENABLE_FTS3_TOKENIZER
-sqlite3.SQLITE_DBCONFIG_ENABLE_LOAD_EXTENSION
-sqlite3.SQLITE_DBCONFIG_ENABLE_QPSG
-sqlite3.SQLITE_DBCONFIG_ENABLE_TRIGGER
-sqlite3.SQLITE_DBCONFIG_ENABLE_VIEW
-sqlite3.SQLITE_DBCONFIG_LEGACY_ALTER_TABLE
-sqlite3.SQLITE_DBCONFIG_LEGACY_FILE_FORMAT
-sqlite3.SQLITE_DBCONFIG_NO_CKPT_ON_CLOSE
-sqlite3.SQLITE_DBCONFIG_RESET_DATABASE
-sqlite3.SQLITE_DBCONFIG_TRIGGER_EQP
-sqlite3.SQLITE_DBCONFIG_TRUSTED_SCHEMA
-sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
-sqlite3.dbapi2.Connection.autocommit
-sqlite3.dbapi2.Connection.getconfig
-sqlite3.dbapi2.Connection.setconfig
-sqlite3.dbapi2.LEGACY_TRANSACTION_CONTROL
-sqlite3.dbapi2.SQLITE_DBCONFIG_DEFENSIVE
-sqlite3.dbapi2.SQLITE_DBCONFIG_DQS_DDL
-sqlite3.dbapi2.SQLITE_DBCONFIG_DQS_DML
-sqlite3.dbapi2.SQLITE_DBCONFIG_ENABLE_FKEY
-sqlite3.dbapi2.SQLITE_DBCONFIG_ENABLE_FTS3_TOKENIZER
-sqlite3.dbapi2.SQLITE_DBCONFIG_ENABLE_LOAD_EXTENSION
-sqlite3.dbapi2.SQLITE_DBCONFIG_ENABLE_QPSG
-sqlite3.dbapi2.SQLITE_DBCONFIG_ENABLE_TRIGGER
-sqlite3.dbapi2.SQLITE_DBCONFIG_ENABLE_VIEW
-sqlite3.dbapi2.SQLITE_DBCONFIG_LEGACY_ALTER_TABLE
-sqlite3.dbapi2.SQLITE_DBCONFIG_LEGACY_FILE_FORMAT
-sqlite3.dbapi2.SQLITE_DBCONFIG_NO_CKPT_ON_CLOSE
-sqlite3.dbapi2.SQLITE_DBCONFIG_RESET_DATABASE
-sqlite3.dbapi2.SQLITE_DBCONFIG_TRIGGER_EQP
-sqlite3.dbapi2.SQLITE_DBCONFIG_TRUSTED_SCHEMA
-sqlite3.dbapi2.SQLITE_DBCONFIG_WRITABLE_SCHEMA
-sqlite3.dbapi2.enable_shared_cache
-sqlite3.enable_shared_cache
 sre_parse.Tokenizer.checkgroupname
 sre_parse.expand_template
 sre_parse.parse_template
@@ -221,14 +163,14 @@ _collections_abc.MutableMapping.setdefault
 
 # typing.IO uses positional-or-keyword arguments, but in the stubs we prefer
 # to mark these as positional-only for compatibility with existing sub-classes.
-typing.BinaryIO.write
-typing.IO.read
-typing.IO.readline
-typing.IO.readlines
-typing.IO.seek
-typing.IO.truncate
-typing.IO.write
-typing.IO.writelines
+typing(_extensions)?\.BinaryIO\.write
+typing(_extensions)?\.IO\.read
+typing(_extensions)?\.IO\.readline
+typing(_extensions)?\.IO\.readlines
+typing(_extensions)?\.IO\.seek
+typing(_extensions)?\.IO\.truncate
+typing(_extensions)?\.IO\.write
+typing(_extensions)?\.IO\.writelines
 
 # positional-only complaints caused by differences between typing aliases and the "real" classes in the stdlib
 _collections_abc.Coroutine.send

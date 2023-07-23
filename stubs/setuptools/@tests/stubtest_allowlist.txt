@@ -42,10 +42,6 @@ setuptools._distutils.dist.Distribution.get_requires
 setuptools._distutils.dist.Distribution.get_provides
 setuptools._distutils.dist.Distribution.get_obsoletes
 
-# Not supported by typeshed
-setuptools.py34compat
-setuptools.command.py36compat
-
 # Private modules
 setuptools.config._validate_pyproject.*
 setuptools.command.build_py.build_py.existing_egg_info_dir

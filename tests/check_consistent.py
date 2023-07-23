@@ -23,7 +23,7 @@ extension_descriptions = {".pyi": "stub", ".py": ".py"}
 
 # These type checkers and linters must have exact versions in the requirements file to ensure
 # consistent CI runs.
-linters = {"black", "flake8", "flake8-bugbear", "flake8-noqa", "flake8-pyi", "isort", "mypy", "pycln", "pytype"}
+linters = {"black", "flake8", "flake8-bugbear", "flake8-noqa", "flake8-pyi", "isort", "ruff", "mypy", "pytype"}
 
 
 def assert_consistent_filetypes(
@@ -191,6 +191,9 @@ def check_precommit_requirements() -> None:
     precommit_requirements = get_precommit_requirements()
     no_txt_entry_msg = "All pre-commit requirements must also be listed in `requirements-tests.txt` (missing {requirement!r})"
     for requirement, specifier in precommit_requirements.items():
+        # annoying: the ruff repo for pre-commit is different to the name in requirements-tests.txt
+        if requirement == "ruff-pre-commit":
+            requirement = "ruff"
         assert requirement in requirements_txt_requirements, no_txt_entry_msg.format(requirement=requirement)
         specifier_mismatch = (
             f'Specifier "{specifier}" for {requirement!r} in `.pre-commit-config.yaml` '

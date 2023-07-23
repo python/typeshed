@@ -6,7 +6,7 @@ from typing_extensions import Final, Literal, Self, TypeAlias
 from openpyxl.descriptors import Sequence, Strict
 from openpyxl.descriptors.base import Alias, Float, MinMax, NoneSet, Set, _ConvertibleToFloat
 from openpyxl.descriptors.serialisable import Serialisable
-from openpyxl.xml.functions import _Element
+from openpyxl.xml.functions import Element
 
 from .colors import Color
 
@@ -56,7 +56,7 @@ fills: Final[tuple[_FillsType, ...]]
 class Fill(Serialisable):
     tagname: ClassVar[str]
     @classmethod
-    def from_tree(cls, el: _Element) -> Self: ...
+    def from_tree(cls, el: Element) -> Self: ...
 
 class PatternFill(Fill):
     tagname: ClassVar[str]
@@ -114,4 +114,4 @@ class GradientFill(Fill):
     def __iter__(self) -> Generator[tuple[str, str], None, None]: ...
     def to_tree(  # type: ignore[override]
         self, tagname: Unused = None, namespace: Unused = None, idx: Unused = None
-    ) -> _Element: ...
+    ) -> Element: ...

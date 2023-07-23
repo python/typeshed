@@ -13,7 +13,6 @@ posix.PRIO_DARWIN_BG
 posix.PRIO_DARWIN_NONUI
 posix.PRIO_DARWIN_PROCESS
 posix.PRIO_DARWIN_THREAD
-socket.TCP_CONNECTION_INFO
 syslog.LOG_MASK
 syslog.LOG_UPTO
 syslog.setlogmask

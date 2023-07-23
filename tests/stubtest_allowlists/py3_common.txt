@@ -99,7 +99,7 @@ tkinter.tix.[A-Z_]+
 tkinter.tix.TclVersion
 tkinter.tix.TkVersion
 traceback.TracebackException.from_exception  # explicitly expanding arguments going into TracebackException __init__
-typing.IO.__next__  # Added because IO streams are iterable. See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
+typing(_extensions)?\.IO\.__next__  # Added because IO streams are iterable. See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
 typing.type_check_only  # typing decorator that is not available at runtime
 unittest.mock.patch  # It's a complicated overload and I haven't been able to figure out why stubtest doesn't like it
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__  # Args are passed as is to super, so super args are specified
@@ -383,8 +383,9 @@ tempfile._TemporaryFileWrapper.[\w_]+  # Dynamically specified by __getattr__, a
 typing_extensions\._SpecialForm.*
 typing_extensions\.TypeVar.*
 typing_extensions\.ParamSpec.*
-typing\.Generic
+typing(_extensions)?\.Generic
 typing\.Protocol
+typing_extensions\._TypedDict\..*
 
 # Special primitives
 typing_extensions\.Annotated
@@ -392,40 +393,33 @@ typing_extensions\.NamedTuple
 typing_extensions\.LiteralString
 typing_extensions\.Coroutine
 typing_extensions\.Awaitable
-typing_extensions\.AsyncIterator
-typing_extensions\.AsyncIterable
-typing_extensions\.AsyncGenerator
-typing\.ValuesView
-typing\.Sized
-typing\.Sequence
-typing\.Reversible
-typing\.Pattern
-typing\.MutableSet
-typing\.MutableSequence
-typing\.MutableMapping
-typing\.Match
-typing\.MappingView
-typing\.Mapping
-typing\.KeysView
-typing\.Iterator
-typing\.Iterable
-typing\.ItemsView
-typing\.Hashable
-typing\.Generator
-typing\.Coroutine
-typing\.Collection
-typing\.Container
+typing(_extensions)?\.AsyncIterator
+typing(_extensions)?\.AsyncIterable
+typing(_extensions)?\.AsyncGenerator
+typing(_extensions)?\.ValuesView
+typing(_extensions)?\.Sized
+typing(_extensions)?\.Sequence
+typing(_extensions)?\.Reversible
+typing(_extensions)?\.Pattern
+typing(_extensions)?\.MutableSet
+typing(_extensions)?\.MutableSequence
+typing(_extensions)?\.MutableMapping
+typing(_extensions)?\.Match
+typing(_extensions)?\.MappingView
+typing(_extensions)?\.Mapping
+typing(_extensions)?\.KeysView
+typing(_extensions)?\.Iterator
+typing(_extensions)?\.Iterable
+typing(_extensions)?\.ItemsView
+typing(_extensions)?\.Hashable
+typing(_extensions)?\.Generator
+typing(_extensions)?\.Coroutine
+typing(_extensions)?\.Collection
+typing(_extensions)?\.Container
 typing\.ByteString
-typing\.AwaitableGenerator
-typing\.Awaitable
-typing\.AsyncIterator
-typing\.AsyncIterable
-typing\.AsyncGenerator
-typing\.AbstractSet
-
-# Internal attributes
-.*\.__protocol_attrs__
-.*\.__callable_proto_members_only__
+typing(_extensions)?\.AwaitableGenerator
+typing(_extensions)?\.Awaitable
+typing(_extensions)?\.AbstractSet
 
 typing_extensions.NewType.__mro_entries__  # just exists for an error message
 
@@ -433,6 +427,8 @@ typing_extensions.NewType.__mro_entries__  # just exists for an error message
 typing_extensions.NewType.__call__
 typing_extensions\.deprecated
 typing_extensions\.override
+typing_extensions\.get_protocol_members
+typing_extensions\.is_protocol
 
 # Typing-related weirdness
 _collections_abc.Callable
@@ -447,14 +443,14 @@ _collections_abc.ByteString
 
 # These are abstract properties at runtime,
 # but marking them as such in the stub breaks half the the typed-Python ecosystem (see #8726)
-typing.IO.closed
-typing.IO.mode
-typing.IO.name
-typing.TextIO.buffer
-typing.TextIO.encoding
-typing.TextIO.errors
-typing.TextIO.line_buffering
-typing.TextIO.newlines
+typing(_extensions)?\.IO\.closed
+typing(_extensions)?\.IO\.mode
+typing(_extensions)?\.IO\.name
+typing(_extensions)?\.TextIO\.buffer
+typing(_extensions)?\.TextIO\.encoding
+typing(_extensions)?\.TextIO\.errors
+typing(_extensions)?\.TextIO\.line_buffering
+typing(_extensions)?\.TextIO\.newlines
 
 types.MethodType.__closure__  # read-only but not actually a property; stubtest thinks it doesn't exist.
 types.MethodType.__defaults__  # read-only but not actually a property; stubtest thinks it doesn't exist.
@@ -603,7 +599,7 @@ mmap.mmap.__iter__
 mmap.mmap.__contains__
 xml.etree.ElementTree.Element.__iter__
 xml.etree.cElementTree.Element.__iter__
-typing.IO.__iter__  # See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
+typing(_extensions)?\.IO\.__iter__  # See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
 
 # LC_MESSAGES is sometimes present in __all__, sometimes not,
 # so stubtest will sometimes complain about exported names being different at runtime to the exported names in the stub

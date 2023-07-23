@@ -14,11 +14,12 @@ from openpyxl.descriptors.nested import (
     NestedMinMax,
     NestedNoneSet,
     NestedSet,
-    _HasTagAndGet,
     _NestedNoneSetParam,
 )
 from openpyxl.descriptors.serialisable import Serialisable
-from openpyxl.xml.functions import _Element
+from openpyxl.xml.functions import Element
+
+from ..xml._functions_overloads import _HasTagAndGet
 
 _ScalingOrientation: TypeAlias = Literal["maxMin", "minMax"]
 _BaseAxisAxPos: TypeAlias = Literal["b", "l", "r", "t"]
@@ -196,7 +197,7 @@ class NumericAxis(_BaseAxis):
         **kw,
     ) -> None: ...
     @classmethod
-    def from_tree(cls, node: _Element) -> Self: ...
+    def from_tree(cls, node: Element) -> Self: ...
 
 class TextAxis(_BaseAxis):
     tagname: ClassVar[str]
