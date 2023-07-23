@@ -12,7 +12,6 @@ selectors.KqueueSelector
 signal.SIGEMT
 signal.SIGINFO
 socket.[A-Z0-9_]+
-errno.[A-Z0-9]+
 
 # Exists at runtime, but missing from stubs
 mimetypes.MimeTypes.read_windows_registry

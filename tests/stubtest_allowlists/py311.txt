@@ -50,14 +50,14 @@ _collections_abc.MutableMapping.setdefault
 
 # typing.IO uses positional-or-keyword arguments, but in the stubs we prefer
 # to mark these as positional-only for compatibility with existing sub-classes.
-typing.BinaryIO.write
-typing.IO.read
-typing.IO.readline
-typing.IO.readlines
-typing.IO.seek
-typing.IO.truncate
-typing.IO.write
-typing.IO.writelines
+typing(_extensions)?\.BinaryIO\.write
+typing(_extensions)?\.IO\.read
+typing(_extensions)?\.IO\.readline
+typing(_extensions)?\.IO\.readlines
+typing(_extensions)?\.IO\.seek
+typing(_extensions)?\.IO\.truncate
+typing(_extensions)?\.IO\.write
+typing(_extensions)?\.IO\.writelines
 
 # positional-only complaints caused by differences between typing aliases and the "real" classes in the stdlib
 _collections_abc.Coroutine.send
