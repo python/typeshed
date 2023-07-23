@@ -205,6 +205,7 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
     wrapper_script.write_text(wrapper_script_contents)
 
     # replace "-m mypy.stubtest" in stubtest_cmd with the path to our wrapper script
+    assert stubtest_cmd[1:3] == ["-m", "mypy.stubtest"]
     stubtest_cmd[1:3] = [str(wrapper_script)]
     return True
 
