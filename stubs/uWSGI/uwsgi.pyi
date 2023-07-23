@@ -15,8 +15,7 @@ class _RPCCallable(Protocol):
 # FIXME: Technically we know the exact layout of _AppsDict and _WorkerDict
 #        but TypedDict does not support bytes keys, so for now we use type
 #        aliases to a more generic dict
-_AppsDict: TypeAlias = dict[bytes, int | bytes]
-_WorkerDict: TypeAlias = dict[bytes, int | bytes | tuple[_AppsDict, ...]]
+_WorkerDict: TypeAlias = dict[bytes, Any]
 
 SPOOL_IGNORE: Literal[0]
 SPOOL_OK: Literal[-2]
