@@ -149,9 +149,6 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
     has been executed.
     """
     uwsgi_ini = dist / "@tests/uwsgi.ini"
-    if not uwsgi_ini.exists():
-        print_error("Did not find a uwsgi.ini for the uWSGI tests")
-        return False
 
     if sys.platform == "win32":
         print_error("uWSGI is not supported on Windows")
@@ -177,9 +174,6 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
     uwsgi_script.write_text(uwsgi_script_contents)
 
     uwsgi_exe = venv_dir / "bin" / "uwsgi"
-    if not uwsgi_exe.exists():
-        print_error("Did not find a uwsgi executable")
-        return False
 
     # It would be nice to reliably separate uWSGI output from
     # the stubtest output, on linux it appears that stubtest
