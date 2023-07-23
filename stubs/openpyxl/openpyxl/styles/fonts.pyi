@@ -12,8 +12,7 @@ from openpyxl.descriptors.nested import (
     NestedString,
     _NestedNoneSetParam,
 )
-from openpyxl.descriptors.serialisable import Serialisable
-from openpyxl.xml.functions import Element
+from openpyxl.descriptors.serialisable import Serialisable, _SerialisableTreeElement
 
 from ..xml._functions_overloads import _HasTagAndGet
 from .colors import Color
@@ -73,6 +72,6 @@ class Font(Serialisable):
         extend: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
     ) -> None: ...
     @classmethod
-    def from_tree(cls, node: Element) -> Self: ...
+    def from_tree(cls, node: _SerialisableTreeElement) -> Self: ...
 
 DEFAULT_FONT: Final[Font]

@@ -5,7 +5,7 @@ from typing_extensions import Final, Literal, TypeAlias
 from openpyxl.descriptors import Strict, String
 from openpyxl.descriptors.base import Alias, Bool, Integer, NoneSet, Typed, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.excel import ExtensionList
-from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.descriptors.serialisable import Serialisable, _SerialisableTreeElement
 from openpyxl.worksheet.filters import AutoFilter, SortState
 
 _TableColumnTotalsRowFunction: TypeAlias = Literal[
@@ -129,7 +129,7 @@ class TableColumn(Serialisable):
     ) -> None: ...
     def __iter__(self): ...
     @classmethod
-    def from_tree(cls, node): ...
+    def from_tree(cls, node: _SerialisableTreeElement): ...
 
 class TableNameDescriptor(String[Incomplete]):
     def __set__(self, instance: Serialisable | Strict, value) -> None: ...

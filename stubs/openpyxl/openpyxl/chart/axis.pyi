@@ -16,8 +16,7 @@ from openpyxl.descriptors.nested import (
     NestedSet,
     _NestedNoneSetParam,
 )
-from openpyxl.descriptors.serialisable import Serialisable
-from openpyxl.xml.functions import Element
+from openpyxl.descriptors.serialisable import Serialisable, _SerialisableTreeElement
 
 from ..xml._functions_overloads import _HasTagAndGet
 
@@ -197,7 +196,7 @@ class NumericAxis(_BaseAxis):
         **kw,
     ) -> None: ...
     @classmethod
-    def from_tree(cls, node: Element) -> Self: ...
+    def from_tree(cls, node: _SerialisableTreeElement) -> Self: ...
 
 class TextAxis(_BaseAxis):
     tagname: ClassVar[str]
