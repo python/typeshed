@@ -7,7 +7,7 @@ from uwsgi import _RPCCallable
 _T = TypeVar("_T")
 _T2 = TypeVar("_T2")
 _SR = TypeVar("_SR", bound=Literal[0, -1, -2] | None)
-_SignalCallback = TypeVar("_SignalCallback", bound=Callable[[int], Any])
+_SignalCallbackT = TypeVar("_SignalCallbackT", bound=Callable[[int], Any])
 _RPCCallableT = TypeVar("_RPCCallableT", bound=_RPCCallable)
 _P = ParamSpec("_P")
 _P2 = ParamSpec("_P2")
@@ -125,14 +125,14 @@ class signal:
     num: int
     target: str
     def __init__(self, num: int, *, target: str = "", **kwargs: Any) -> None: ...
-    def __call__(self, f: _SignalCallback) -> _SignalCallback: ...
+    def __call__(self, f: _SignalCallbackT) -> _SignalCallbackT: ...
 
 class timer:
     num: int
     secs: int
     target: str
     def __init__(self, secs: int, *, signum: int = ..., target: str = "", **kwargs: Any) -> None: ...
-    def __call__(self, f: _SignalCallback) -> _SignalCallback: ...
+    def __call__(self, f: _SignalCallbackT) -> _SignalCallbackT: ...
 
 class cron:
     num: int
@@ -145,21 +145,21 @@ class cron:
     def __init__(
         self, minute: int, hour: int, day: int, month: int, dayweek: int, *, signum: int = ..., target: str = "", **kwargs: Any
     ) -> None: ...
-    def __call__(self, f: _SignalCallback) -> _SignalCallback: ...
+    def __call__(self, f: _SignalCallbackT) -> _SignalCallbackT: ...
 
 class rbtimer:
     num: int
     secs: int
     target: str
     def __init__(self, secs: int, *, signum: int = ..., target: str = "", **kwargs: Any) -> None: ...
-    def __call__(self, f: _SignalCallback) -> _SignalCallback: ...
+    def __call__(self, f: _SignalCallbackT) -> _SignalCallbackT: ...
 
 class filemon:
     num: int
     fsobj: str
     target: str
     def __init__(self, fsobj: str, *, signum: int = ..., target: str = "", **kwargs: Any) -> None: ...
-    def __call__(self, f: _SignalCallback) -> _SignalCallback: ...
+    def __call__(self, f: _SignalCallbackT) -> _SignalCallbackT: ...
 
 class lock(Generic[_P, _T]):
     f: Callable[_P, _T]
