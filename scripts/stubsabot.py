@@ -542,6 +542,7 @@ async def update_existing_pull_request(*, title: str, body: str, branch_name: st
 
 
 async def update_pull_request_label(*, pr_number: int, session: aiohttp.ClientSession) -> None:
+    # There is no pulls/.../labels endpoint, which is why we need to use the issues endpoint.
     async with session.post(
         f"{TYPESHED_API_URL}/issues/{pr_number}/labels", json={"labels": [STUBSABOT_LABEL]}, headers=get_github_api_headers()
     ) as response:
