@@ -717,7 +717,7 @@ async def main() -> None:
         ["git", "branch", "--show-current"], text=True, capture_output=True, check=True
     ).stdout.strip()
 
-    if args.action_level >= ActionLevel.fork:
+    if args.action_level >= ActionLevel.local:
         subprocess.check_call(["git", "fetch", "--prune", "--all"])
 
     try:
