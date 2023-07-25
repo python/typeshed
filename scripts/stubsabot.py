@@ -757,7 +757,7 @@ async def main() -> None:
     finally:
         # if you need to cleanup, try:
         # git branch -D $(git branch --list 'stubsabot/*')
-        if args.action_level >= ActionLevel.local:
+        if args.action_level >= ActionLevel.local and original_branch:
             subprocess.check_call(["git", "checkout", original_branch])
 
 
