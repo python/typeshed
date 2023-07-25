@@ -18,6 +18,7 @@ import urllib.parse
 import zipfile
 from collections.abc import Iterator, Mapping, Sequence
 from dataclasses import dataclass
+from http import HTTPStatus
 from pathlib import Path
 from typing import Annotated, Any, ClassVar, NamedTuple
 from typing_extensions import Self, TypeAlias
