@@ -505,10 +505,10 @@ async def create_or_update_pull_request(*, title: str, body: str, branch_name: s
         headers=get_github_api_headers(),
     ) as response:
         resp_json = await response.json()
-        if response.status == 201:
+        if response.status == HTTPStatus.CREATED:
             pr_number = resp_json["number"]
             assert isinstance(pr_number, int)
-        elif response.status == 422 and any(
+        elif response.status == HTTPStatus.UNAUTHORIZED and any(
             "A pull request already exists" in e.get("message", "") for e in resp_json.get("errors", [])
         ):
             pr_number = await update_existing_pull_request(title=title, body=body, branch_name=branch_name, session=session)
