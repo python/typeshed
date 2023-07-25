@@ -692,7 +692,13 @@ async def main() -> None:
         default=None,
         help="Limit number of actions performed and the remainder are logged. Useful for testing",
     )
+    parser.add_argument("distributions", nargs="*", help="Distributions to update, default = all")
     args = parser.parse_args()
+
+    if args.distributions:
+        paths_to_update = [Path("stubs") / distribution for distribution in args.distributions]
+    else:
+        paths_to_update = list(Path("stubs").iterdir())
 
     if args.action_level > ActionLevel.nothing:
         subprocess.run(["git", "update-index", "--refresh"], capture_output=True)
@@ -725,7 +731,7 @@ async def main() -> None:
         async with aiohttp.ClientSession(connector=conn) as session:
             tasks = [
                 asyncio.create_task(determine_action(stubs_path, session))
-                for stubs_path in Path("stubs").iterdir()
+                for stubs_path in paths_to_update
                 if stubs_path.name not in denylist
             ]
 
