@@ -168,7 +168,7 @@ def get_precommit_requirements() -> dict[str, SpecifierSet]:
         package_rev = repo["rev"].removeprefix("v")
         package_specifier = SpecifierSet(f"=={package_rev}")
         precommit_requirements[package_name] = package_specifier
-        for additional_req in hook.get("additional_dependencies", []):
+        for additional_req in hook.get("additional_dependencies", ()):
             req = Requirement(additional_req)
             precommit_requirements[req.name] = req.specifier
     return precommit_requirements
