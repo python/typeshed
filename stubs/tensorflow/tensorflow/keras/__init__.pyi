@@ -5,6 +5,8 @@ from tensorflow.keras import (
     constraints as constraints,
     initializers as initializers,
     layers as layers,
+    losses as losses,
+    metrics as metrics,
     optimizers as optimizers,
     regularizers as regularizers,
 )

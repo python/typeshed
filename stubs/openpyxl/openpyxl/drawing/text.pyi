@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
@@ -16,11 +16,14 @@ from openpyxl.descriptors.base import (
     _ConvertibleToInt,
 )
 from openpyxl.descriptors.excel import Coordinate, ExtensionList
+from openpyxl.descriptors.nested import EmptyTag, NestedBool, NestedInteger, NestedText, NestedValue
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.effect import Color, EffectContainer, EffectList
-from openpyxl.drawing.fill import BlipFillProperties, GradientFillProperties, PatternFillProperties
+from openpyxl.drawing.fill import Blip, BlipFillProperties, GradientFillProperties, PatternFillProperties
 from openpyxl.drawing.geometry import Scene3D
 from openpyxl.drawing.line import LineProperties
+
+from ..xml._functions_overloads import _HasTagAndGet
 
 _CharacterPropertiesU: TypeAlias = Literal[
     "words",
@@ -145,8 +148,8 @@ class EmbeddedWAVAudioFile(Serialisable):
     def __init__(self, name: str | None = None) -> None: ...
 
 class Hyperlink(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     invalidUrl: String[Literal[True]]
     action: String[Literal[True]]
     tgtFrame: String[Literal[True]]
@@ -173,8 +176,8 @@ class Hyperlink(Serialisable):
     ) -> None: ...
 
 class Font(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     typeface: String[Literal[False]]
     panose: Incomplete
     pitchFamily: MinMax[float, Literal[True]]
@@ -188,8 +191,8 @@ class Font(Serialisable):
     ) -> None: ...
 
 class CharacterProperties(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     kumimoji: Bool[Literal[True]]
     lang: String[Literal[True]]
     altLang: String[Literal[True]]
@@ -217,20 +220,20 @@ class CharacterProperties(Serialisable):
     sym: Typed[Font, Literal[True]]
     hlinkClick: Typed[Hyperlink, Literal[True]]
     hlinkMouseOver: Typed[Hyperlink, Literal[True]]
-    rtl: Incomplete
+    rtl: NestedBool[Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    noFill: Incomplete
+    noFill: EmptyTag[Literal[False]]
     solidFill: Incomplete
     gradFill: Typed[GradientFillProperties, Literal[True]]
     blipFill: Typed[BlipFillProperties, Literal[True]]
     pattFill: Typed[PatternFillProperties, Literal[True]]
-    grpFill: Incomplete
+    grpFill: EmptyTag[Literal[False]]
     effectLst: Typed[EffectList, Literal[True]]
     effectDag: Typed[EffectContainer, Literal[True]]
-    uLnTx: Incomplete
+    uLnTx: EmptyTag[Literal[False]]
     uLn: Typed[LineProperties, Literal[True]]
-    uFillTx: Incomplete
-    uFill: Incomplete
+    uFillTx: EmptyTag[Literal[False]]
+    uFill: EmptyTag[Literal[False]]
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
@@ -261,20 +264,20 @@ class CharacterProperties(Serialisable):
         sym: Font | None = None,
         hlinkClick: Hyperlink | None = None,
         hlinkMouseOver: Hyperlink | None = None,
-        rtl: Incomplete | None = None,
+        rtl: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
         extLst: ExtensionList | None = None,
-        noFill: Incomplete | None = None,
+        noFill: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
         solidFill: Incomplete | None = None,
         gradFill: GradientFillProperties | None = None,
         blipFill: BlipFillProperties | None = None,
         pattFill: PatternFillProperties | None = None,
-        grpFill: Incomplete | None = None,
+        grpFill: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
         effectLst: EffectList | None = None,
         effectDag: EffectContainer | None = None,
-        uLnTx: Incomplete | None = None,
+        uLnTx: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
         uLn: LineProperties | None = None,
-        uFillTx: Incomplete | None = None,
-        uFill: Incomplete | None = None,
+        uFillTx: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
+        uFill: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
     ) -> None: ...
 
 class TabStop(Serialisable):
@@ -287,10 +290,14 @@ class TabStopList(Serialisable):
     def __init__(self, tab: Incomplete | None = None) -> None: ...
 
 class Spacing(Serialisable):
-    spcPct: Incomplete
-    spcPts: Incomplete
+    spcPct: NestedInteger[Literal[True]]
+    spcPts: NestedInteger[Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, spcPct: Incomplete | None = None, spcPts: Incomplete | None = None) -> None: ...
+    def __init__(
+        self,
+        spcPct: _HasTagAndGet[_ConvertibleToInt | None] | _ConvertibleToInt | None = None,
+        spcPts: _HasTagAndGet[_ConvertibleToInt | None] | _ConvertibleToInt | None = None,
+    ) -> None: ...
 
 class AutonumberBullet(Serialisable):
     type: Set[_AutonumberBulletType]
@@ -298,8 +305,8 @@ class AutonumberBullet(Serialisable):
     def __init__(self, type: _AutonumberBulletType, startAt: _ConvertibleToInt) -> None: ...
 
 class ParagraphProperties(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     marL: Integer[Literal[True]]
     marR: Integer[Literal[True]]
     lvl: Integer[Literal[True]]
@@ -317,17 +324,17 @@ class ParagraphProperties(Serialisable):
     tabLst: Typed[TabStopList, Literal[True]]
     defRPr: Typed[CharacterProperties, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    buClrTx: Incomplete
+    buClrTx: EmptyTag[Literal[False]]
     buClr: Typed[Color, Literal[True]]
-    buSzTx: Incomplete
-    buSzPct: Incomplete
-    buSzPts: Incomplete
-    buFontTx: Incomplete
+    buSzTx: EmptyTag[Literal[False]]
+    buSzPct: NestedInteger[Literal[True]]
+    buSzPts: NestedInteger[Literal[True]]
+    buFontTx: EmptyTag[Literal[False]]
     buFont: Typed[Font, Literal[True]]
-    buNone: Incomplete
-    buAutoNum: Incomplete
-    buChar: Incomplete
-    buBlip: Incomplete
+    buNone: EmptyTag[Literal[False]]
+    buAutoNum: EmptyTag[Literal[False]]
+    buChar: NestedValue[str, Literal[True]]
+    buBlip: NestedValue[Blip, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
@@ -348,22 +355,22 @@ class ParagraphProperties(Serialisable):
         tabLst: TabStopList | None = None,
         defRPr: CharacterProperties | None = None,
         extLst: ExtensionList | None = None,
-        buClrTx: Incomplete | None = None,
+        buClrTx: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
         buClr: Color | None = None,
-        buSzTx: Incomplete | None = None,
-        buSzPct: Incomplete | None = None,
-        buSzPts: Incomplete | None = None,
-        buFontTx: Incomplete | None = None,
+        buSzTx: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
+        buSzPct: _HasTagAndGet[_ConvertibleToInt | None] | _ConvertibleToInt | None = None,
+        buSzPts: _HasTagAndGet[_ConvertibleToInt | None] | _ConvertibleToInt | None = None,
+        buFontTx: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
         buFont: Font | None = None,
-        buNone: Incomplete | None = None,
-        buAutoNum: Incomplete | None = None,
-        buChar: Incomplete | None = None,
-        buBlip: Incomplete | None = None,
+        buNone: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
+        buAutoNum: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
+        buChar: object = None,
+        buBlip: object = None,
     ) -> None: ...
 
 class ListStyle(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     defPPr: Typed[ParagraphProperties, Literal[True]]
     lvl1pPr: Typed[ParagraphProperties, Literal[True]]
     lvl2pPr: Typed[ParagraphProperties, Literal[True]]
@@ -392,18 +399,18 @@ class ListStyle(Serialisable):
     ) -> None: ...
 
 class RegularTextRun(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     rPr: Typed[CharacterProperties, Literal[True]]
     properties: Alias
-    t: Incomplete
+    t: NestedText[str, Literal[False]]
     value: Alias
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, rPr: CharacterProperties | None = None, t: str = "") -> None: ...
+    def __init__(self, rPr: CharacterProperties | None = None, t: object = "") -> None: ...
 
 class LineBreak(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     rPr: Typed[CharacterProperties, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, rPr: CharacterProperties | None = None) -> None: ...
@@ -425,8 +432,8 @@ class TextField(Serialisable):
     ) -> None: ...
 
 class Paragraph(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     pPr: Typed[ParagraphProperties, Literal[True]]
     properties: Alias
     endParaRPr: Typed[CharacterProperties, Literal[True]]
@@ -464,8 +471,8 @@ class TextNormalAutofit(Serialisable):
     def __init__(self, fontScale: _ConvertibleToInt, lnSpcReduction: _ConvertibleToInt) -> None: ...
 
 class RichTextProperties(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     rot: Integer[Literal[True]]
     spcFirstLastPara: Bool[Literal[True]]
     vertOverflow: NoneSet[_RichTextPropertiesVertOverflow]
@@ -488,10 +495,10 @@ class RichTextProperties(Serialisable):
     prstTxWarp: Typed[PresetTextShape, Literal[True]]
     scene3d: Typed[Scene3D, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    noAutofit: Incomplete
-    normAutofit: Incomplete
-    spAutoFit: Incomplete
-    flatTx: Incomplete
+    noAutofit: EmptyTag[Literal[False]]
+    normAutofit: EmptyTag[Literal[False]]
+    spAutoFit: EmptyTag[Literal[False]]
+    flatTx: NestedInteger[Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
@@ -514,11 +521,11 @@ class RichTextProperties(Serialisable):
         forceAA: _ConvertibleToBool | None = None,
         upright: _ConvertibleToBool | None = None,
         compatLnSpc: _ConvertibleToBool | None = None,
-        prstTxWarp: Incomplete | None = None,
-        scene3d: Incomplete | None = None,
-        extLst: Incomplete | None = None,
-        noAutofit: Incomplete | None = None,
-        normAutofit: Incomplete | None = None,
-        spAutoFit: Incomplete | None = None,
-        flatTx: Incomplete | None = None,
+        prstTxWarp: PresetTextShape | None = None,
+        scene3d: Scene3D | None = None,
+        extLst: Unused = None,
+        noAutofit: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
+        normAutofit: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
+        spAutoFit: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
+        flatTx: _HasTagAndGet[_ConvertibleToInt | None] | _ConvertibleToInt | None = None,
     ) -> None: ...

@@ -58,13 +58,19 @@ aiofiles.threadpool.text.AsyncTextIndirectIOWrapper.writable
 # These functions get the wrong signature from functools.wraps()
 aiofiles.os.stat
 aiofiles.os.rename
+aiofiles.os.renames
 aiofiles.os.replace
 aiofiles.os.remove
+aiofiles.os.unlink
 aiofiles.os.mkdir
 aiofiles.os.makedirs
+aiofiles.os.link
+aiofiles.os.symlink
+aiofiles.os.readlink
 aiofiles.os.rmdir
 aiofiles.os.removedirs
 aiofiles.os.scandir
+aiofiles.os.listdir
 aiofiles.ospath.exists
 aiofiles.ospath.isfile
 aiofiles.ospath.isdir

@@ -4,7 +4,7 @@ import types
 from _typeshed import SupportsKeysAndGetItem, Unused
 from abc import ABCMeta
 from builtins import property as _builtins_property
-from collections.abc import Iterable, Iterator, Mapping
+from collections.abc import Callable, Iterable, Iterator, Mapping
 from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Literal, Self, TypeAlias
 
@@ -33,6 +33,9 @@ if sys.version_info >= (3, 11):
         "property",
         "verify",
     ]
+
+if sys.version_info >= (3, 12):
+    __all__ += ["pickle_by_enum_name", "pickle_by_global_name"]
 
 _EnumMemberT = TypeVar("_EnumMemberT")
 _EnumerationT = TypeVar("_EnumerationT", bound=type[Enum])
@@ -187,6 +190,7 @@ class Enum(metaclass=EnumMeta):
     # and in practice using `object` here has the same effect as using `Any`.
     def __new__(cls, value: object) -> Self: ...
     def __dir__(self) -> list[str]: ...
+    def __hash__(self) -> int: ...
     def __format__(self, format_spec: str) -> str: ...
     def __reduce_ex__(self, proto: Unused) -> tuple[Any, ...]: ...
 
@@ -234,6 +238,8 @@ if sys.version_info >= (3, 11):
         _value_: str
         @_magic_enum_attr
         def value(self) -> str: ...
+        @staticmethod
+        def _generate_next_value_(name: str, start: int, count: int, last_values: list[str]) -> str: ...
 
     class EnumCheck(StrEnum):
         CONTINUOUS: str
@@ -289,3 +295,7 @@ class auto(IntFlag):
     @_magic_enum_attr
     def value(self) -> Any: ...
     def __new__(cls) -> Self: ...
+
+if sys.version_info >= (3, 12):
+    def pickle_by_global_name(self: Enum, proto: int) -> str: ...
+    def pickle_by_enum_name(self: _EnumMemberT, proto: int) -> tuple[Callable[..., Any], tuple[type[_EnumMemberT], str]]: ...

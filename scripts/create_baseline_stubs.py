@@ -11,10 +11,15 @@ Run with -h for more help.
 from __future__ import annotations
 
 import argparse
+import asyncio
 import os
 import re
 import subprocess
 import sys
+import urllib.parse
+
+import aiohttp
+import termcolor
 
 if sys.version_info >= (3, 8):
     from importlib.metadata import distribution
@@ -65,7 +70,55 @@ def run_isort(stub_dir: str) -> None:
     subprocess.run([sys.executable, "-m", "isort", stub_dir])
 
 
-def create_metadata(stub_dir: str, version: str) -> None:
+def run_ruff(stub_dir: str) -> None:
+    print(f"Running ruff: ruff {stub_dir}")
+    subprocess.run([sys.executable, "-m", "ruff", stub_dir])
+
+
+async def get_project_urls_from_pypi(project: str, session: aiohttp.ClientSession) -> dict[str, str]:
+    pypi_root = f"https://pypi.org/pypi/{urllib.parse.quote(project)}"
+    async with session.get(f"{pypi_root}/json") as response:
+        if response.status != 200:
+            return {}
+        j: dict[str, dict[str, dict[str, str]]]
+        j = await response.json()
+        return j["info"].get("project_urls") or {}
+
+
+async def get_upstream_repo_url(project: str) -> str | None:
+    # aiohttp is overkill here, but it would also just be silly
+    # to have both requests and aiohttp in our requirements-tests.txt file.
+    async with aiohttp.ClientSession() as session:
+        project_urls = await get_project_urls_from_pypi(project, session)
+
+        if not project_urls:
+            return None
+
+        # Order the project URLs so that we put the ones
+        # that are most likely to point to the source code first
+        urls_to_check: list[str] = []
+        url_names_probably_pointing_to_source = ("Source", "Repository", "Homepage")
+        for url_name in url_names_probably_pointing_to_source:
+            if url := project_urls.get(url_name):
+                urls_to_check.append(url)
+        urls_to_check.extend(
+            url for url_name, url in project_urls.items() if url_name not in url_names_probably_pointing_to_source
+        )
+
+        for url in urls_to_check:
+            # Remove `www.`; replace `http://` with `https://`
+            url = re.sub(r"^(https?://)?(www\.)?", "https://", url)
+            netloc = urllib.parse.urlparse(url).netloc
+            if netloc in {"gitlab.com", "github.com", "bitbucket.org", "foss.heptapod.net"}:
+                # truncate to https://site.com/user/repo
+                upstream_repo_url = "/".join(url.split("/")[:5])
+                async with session.get(upstream_repo_url) as response:
+                    if response.status == 200:
+                        return upstream_repo_url
+    return None
+
+
+def create_metadata(project: str, stub_dir: str, version: str) -> None:
     """Create a METADATA.toml file."""
     match = re.match(r"[0-9]+.[0-9]+", version)
     if match is None:
@@ -74,9 +127,19 @@ def create_metadata(stub_dir: str, version: str) -> None:
     version = match.group(0)
     if os.path.exists(filename):
         return
+    metadata = f'version = "{version}.*"'
+    upstream_repo_url = asyncio.run(get_upstream_repo_url(project))
+    if upstream_repo_url is None:
+        warning = (
+            f"\nCould not find a URL pointing to the source code for {project!r}.\n"
+            f"Please add it as `upstream_repository` to `stubs/{project}/METADATA.toml`, if possible!\n"
+        )
+        print(termcolor.colored(warning, "red"))
+    else:
+        metadata += f'\nupstream_repository = "{upstream_repo_url}"'
     print(f"Writing {filename}")
     with open(filename, "w", encoding="UTF-8") as file:
-        file.write(f'version = "{version}.*"')
+        file.write(metadata)
 
 
 def add_pyright_exclusion(stub_dir: str) -> None:
@@ -110,7 +173,7 @@ def add_pyright_exclusion(stub_dir: str) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="""Generate baseline stubs automatically for an installed pip package
-                       using stubgen. Also run black and isort. If the name of
+                       using stubgen. Also run black, isort and ruff. If the name of
                        the project is different from the runtime Python package name, you may
                        need to use --package (example: --package yaml PyYAML)."""
     )
@@ -159,10 +222,11 @@ def main() -> None:
     run_stubgen(package, stub_dir)
     run_stubdefaulter(stub_dir)
 
+    run_ruff(stub_dir)
     run_isort(stub_dir)
     run_black(stub_dir)
 
-    create_metadata(stub_dir, version)
+    create_metadata(project, stub_dir, version)
 
     # Since the generated stubs won't have many type annotations, we
     # have to exclude them from strict pyright checks.

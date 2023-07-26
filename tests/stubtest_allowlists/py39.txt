@@ -19,6 +19,7 @@ asyncio.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
 builtins.float.__setformat__  # Internal method for CPython test suite
 builtins.input  # Incorrect default value in text signature, fixed in 3.10
+bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
 collections.AsyncGenerator.asend  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
 collections.AsyncGenerator.__anext__  # async at runtime, deliberately not in the stub, see #7491
 collections.AsyncGenerator.aclose  # async at runtime, deliberately not in the stub, see #7491
@@ -27,20 +28,23 @@ collections.AsyncGenerator.ag_await
 collections.AsyncGenerator.ag_code
 collections.AsyncGenerator.ag_frame
 collections.AsyncGenerator.ag_running
+collections.ByteString  # see comments in py3_common.txt
 collections.Callable
 collections.Mapping.__reversed__  # Set to None at runtime for a better error message
 collections.ItemsView.__reversed__
 collections.KeysView.__reversed__
 collections.ValuesView.__reversed__
+configparser.ParsingError.filename
 contextlib.AbstractAsyncContextManager.__class_getitem__
 contextlib.AbstractContextManager.__class_getitem__
-distutils.command.bdist_wininst  # see #6523
+enum.Enum._generate_next_value_
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 functools.cached_property.__set__  # Stub is a white lie; see comments in the stub
 functools._lru_cache_wrapper.cache_parameters  # Cannot be detected statically
 gettext.install
 gettext.translation
 hmac.new  # Stub is a white lie; see comments in the stub
+importlib.abc.Finder.find_module
 inspect.Signature.from_builtin  # Removed in 3.11, can add if someone needs this
 inspect.Signature.from_function  # Removed in 3.11, can add if someone needs this
 ipaddress.IPv4Interface.hostmask
@@ -71,6 +75,13 @@ typing._TypedDict.update
 typing._TypedDict.values
 weakref.ProxyType.__reversed__  # Doesn't really exist
 weakref.WeakValueDictionary.update
+typing_extensions\.get_original_bases
+
+# Exist at runtime for internal reasons, no need to put them in the stub
+typing_extensions\.TypeAliasType\.__call__
+typing_extensions\.TypeAliasType\.__init_subclass__
+# We call them read-only properties, runtime implementation is slightly different
+typing_extensions\.TypeAliasType\.__(parameters|type_params|name|module|value)__
 
 collections.Coroutine.cr_await
 collections.Coroutine.cr_code
@@ -165,3 +176,30 @@ types.GetSetDescriptorType.__get__
 types.MemberDescriptorType.__get__
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__
+
+# https://github.com/python/mypy/issues/15302
+typing_extensions\.assert_never
+typing_extensions\.assert_type
+typing_extensions\.reveal_type
+
+# Super-special typing primitives
+typing_extensions\.Final
+typing\.NamedTuple
+typing\.Annotated
+
+# We lie about the existence of these methods
+.*.__buffer__
+.*.__release_buffer__
+
+# Removed in 3.12
+distutils\..*
+asyncore.dispatcher.addr
+asyncore.dispatcher.handle_accepted
+asynchat.async_chat.encoding
+asynchat.async_chat.use_encoding
+asynchat.find_prefix_at_end
+pkgutil.ImpImporter\..*
+pkgutil.ImpLoader\..*
+
+# Omit internal _KEEP argument
+tarfile.TarInfo.replace

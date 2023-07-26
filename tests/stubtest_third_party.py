@@ -9,6 +9,7 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
+from textwrap import dedent
 from typing import NoReturn
 
 from parse_metadata import get_recursive_requirements, read_metadata
@@ -97,6 +98,11 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_platforms_only:
         if platform_allowlist.exists():
             stubtest_cmd.extend(["--allowlist", str(platform_allowlist)])
 
+        # Perform some black magic in order to run stubtest inside uWSGI
+        if dist_name == "uWSGI":
+            if not setup_uwsgi_stubtest_command(dist, venv_dir, stubtest_cmd):
+                return False
+
         try:
             subprocess.run(stubtest_cmd, env=stubtest_env, check=True, capture_output=True)
         except subprocess.CalledProcessError as e:
@@ -125,6 +131,82 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_platforms_only:
     if verbose:
         print_commands(dist, pip_cmd, stubtest_cmd, mypypath)
 
+    return True
+
+
+def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[str]) -> bool:
+    """Perform some black magic in order to run stubtest inside uWSGI.
+
+    We have to write the exit code from stubtest to a surrogate file
+    because uwsgi --pyrun does not exit with the exitcode from the
+    python script. We have a second wrapper script that passed the
+    arguments along to the uWSGI script and retrieves the exit code
+    from the file, so it behaves like running stubtest normally would.
+
+    Both generated wrapper scripts are created inside `venv_dir`,
+    which itself is a subdirectory inside a temporary directory,
+    so both scripts will be cleaned up after this function
+    has been executed.
+    """
+    uwsgi_ini = dist / "@tests/uwsgi.ini"
+
+    if sys.platform == "win32":
+        print_error("uWSGI is not supported on Windows")
+        return False
+
+    uwsgi_script = venv_dir / "uwsgi_stubtest.py"
+    wrapper_script = venv_dir / "uwsgi_wrapper.py"
+    exit_code_surrogate = venv_dir / "exit_code"
+    uwsgi_script_contents = dedent(
+        f"""
+        import json
+        import os
+        import sys
+        from mypy.stubtest import main
+
+        sys.argv = json.loads(os.environ.get("STUBTEST_ARGS"))
+        exit_code = main()
+        with open("{exit_code_surrogate}", mode="w") as fp:
+            fp.write(str(exit_code))
+        sys.exit(exit_code)
+        """
+    )
+    uwsgi_script.write_text(uwsgi_script_contents)
+
+    uwsgi_exe = venv_dir / "bin" / "uwsgi"
+
+    # It would be nice to reliably separate uWSGI output from
+    # the stubtest output, on linux it appears that stubtest
+    # will always go to stdout and uWSGI to stderr, but on
+    # MacOS they both go to stderr, for now we deal with the
+    # bit of extra spam
+    wrapper_script_contents = dedent(
+        f"""
+        import json
+        import os
+        import subprocess
+        import sys
+
+        stubtest_env = os.environ | {{"STUBTEST_ARGS": json.dumps(sys.argv)}}
+        uwsgi_cmd = [
+            "{uwsgi_exe}",
+            "--ini",
+            "{uwsgi_ini}",
+            "--spooler",
+            "{venv_dir}",
+            "--pyrun",
+            "{uwsgi_script}",
+        ]
+        subprocess.run(uwsgi_cmd, env=stubtest_env)
+        with open("{exit_code_surrogate}", mode="r") as fp:
+            sys.exit(int(fp.read()))
+        """
+    )
+    wrapper_script.write_text(wrapper_script_contents)
+
+    # replace "-m mypy.stubtest" in stubtest_cmd with the path to our wrapper script
+    assert stubtest_cmd[1:3] == ["-m", "mypy.stubtest"]
+    stubtest_cmd[1:3] = [str(wrapper_script)]
     return True
 
 
