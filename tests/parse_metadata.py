@@ -202,8 +202,8 @@ def read_metadata(distribution: str) -> StubMetadata:
     assert isinstance(upstream_repository, (str, type(None)))
     if isinstance(upstream_repository, str):
         parsed_url = urllib.parse.urlsplit(upstream_repository)
-        assert parsed_url.scheme == "https", "URLs in the upstream_repository key should use https"
-        assert not parsed_url.netloc.startswith("www."), "`www.` should be removed from URLs in the upstream_repository key"
+        assert parsed_url.scheme == "https", "URLs in the upstream_repository field should use https"
+        assert not parsed_url.netloc.startswith("www."), "`www.` should be removed from URLs in the upstream_repository field"
         assert not parsed_url.query
         assert not parsed_url.fragment
         if parsed_url.netloc == "github.com":
