@@ -20,6 +20,7 @@ class Client:
         namespace: str | None = ...,
         credentials: Incomplete | None = ...,
         client_options: Incomplete | None = ...,
+        database: str | None = None,
     ) -> None: ...
     @contextmanager
     def context(
