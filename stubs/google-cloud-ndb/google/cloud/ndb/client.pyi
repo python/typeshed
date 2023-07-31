@@ -14,7 +14,6 @@ class Client:
     client_info: Incomplete
     secure: bool
     stub: Incomplete
-    host: str
     database: str | None
     def __init__(
         self,
