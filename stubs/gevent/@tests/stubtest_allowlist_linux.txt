@@ -13,6 +13,10 @@ gevent.subprocess._posixsubprocess
 gevent.subprocess.Popen.pipe_cloexec
 gevent.subprocess.Popen.rawlink
 
+# zope.interface related stuff
+gevent.libev.corecffi.loop.__implemented__
+gevent.libev.corecffi.loop.__provides__
+
 # Error: is not present at runtime
 # =============================
 # this is currently missing from the gevent implementation, but we'll ignore
@@ -44,6 +48,10 @@ gevent\.socket\.SO_\w+
 # these are inconsistent due to the ParamSpec hack for positional only callables
 gevent.libev.corecext.loop.run_callback
 gevent.libev.corecext.loop.run_callback_threadsafe
+gevent.libev.watcher.watcher.feed
+
+# undocumented argument for internal use only
+gevent.libev.watcher.watcher.__init__
 
 # ares_host_result always has the same layout, so we set the arguments on __new__
 # to reflect that fact, we don't care that the implementation accepts any number

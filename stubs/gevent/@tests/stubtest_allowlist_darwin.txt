@@ -10,11 +10,16 @@ gevent.socket.SYSPROTO_CONTROL
 gevent.subprocess._posixsubprocess
 gevent.subprocess.Popen.pipe_cloexec
 
+# zope.interface related stuff
+gevent.libev.corecffi.loop.__implemented__
+gevent.libev.corecffi.loop.__provides__
+
 # Error: is inconsistent
 # ======================
 # these are inconsistent due to the ParamSpec hack for positional only callables
 gevent.libev.corecext.loop.run_callback
 gevent.libev.corecext.loop.run_callback_threadsafe
+gevent.libev.watcher.watcher.feed
 
 # ares_host_result always has the same layout, so we set the arguments on __new__
 # to reflect that fact, we don't care that the implementation accepts any number
