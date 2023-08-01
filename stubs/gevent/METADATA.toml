@@ -1,0 +1,3 @@
+version = "23.7.*"
+upstream_repository = "https://github.com/gevent/gevent"
+requires = ["types-greenlet", "types-psutil"]
