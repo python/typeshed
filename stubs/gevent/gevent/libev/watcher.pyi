@@ -61,7 +61,5 @@ class child(_base.ChildMixin, watcher):
 class stat(_base.StatMixin, watcher):
     @property
     def interval(self) -> float: ...
-    @interval.setter
-    def interval(self, value: float) -> None: ...
 
 __all__: list[str] = []

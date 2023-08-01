@@ -62,13 +62,12 @@ gevent.socket.SocketType.sendfile
 gevent.socket.SocketType.set_inheritable
 
 # zope.interface related attributes we can ignore
-gevent._ffi.loop.AbstractLoop.__implemented__
-gevent._ffi.loop.AbstractLoop.__providedBy__
-gevent._ffi.loop.AbstractLoop.__provides__
 gevent._monitor.PeriodicMonitoringThread.__implemented__
 gevent._monitor.PeriodicMonitoringThread.__providedBy__
 gevent._monitor.PeriodicMonitoringThread.__provides__
+gevent.libev.corecffi.loop.__implemented__
 gevent.libev.corecffi.loop.__provides__
+gevent.libuv.loop.loop.__implemented__
 gevent.libuv.loop.loop.__provides__
 gevent.events.EventLoopBlocked.__implemented__
 gevent.events.EventLoopBlocked.__providedBy__
@@ -183,6 +182,7 @@ gevent._ffi.watcher.watcher.start
 gevent._hub_primitives.WaitOperationsGreenlet.cancel_waits_close_and_then
 gevent.baseserver.BaseServer.do_close
 gevent.baseserver.BaseServer.do_handle
+gevent.libev.watcher.watcher.feed
 
 # we don't care about write/writeall allowing a named parameter
 gevent._fileobjectcommon.FlushingBufferedWriter.write

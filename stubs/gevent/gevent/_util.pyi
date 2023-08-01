@@ -9,7 +9,7 @@ _T = TypeVar("_T")
 WRAPPER_ASSIGNMENTS: tuple[str, ...]
 WRAPPER_UPDATES: tuple[str, ...]
 
-def update_wrapper(wrapper: object, wrapped: object, assigned: Sequence[str] = ..., updated: Sequence[str] = ...): ...
+def update_wrapper(wrapper: _T, wrapped: object, assigned: Sequence[str] = ..., updated: Sequence[str] = ...) -> _T: ...
 def copy_globals(
     source: ModuleType,
     globs: MutableMapping[str, Any],
@@ -18,8 +18,8 @@ def copy_globals(
     names_to_ignore: Sequence[str] = ...,
     dunder_names_to_keep: Sequence[str] = ...,
     cleanup_globs: bool = True,
-): ...
-def import_c_accel(globs, cname) -> None: ...
+) -> list[str]: ...
+def import_c_accel(globs: MutableMapping[str, Any], cname: str) -> None: ...
 
 class Lazy(Generic[_T]):
     data: _T

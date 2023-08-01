@@ -18,4 +18,9 @@ gevent.ssl.SSLSocket.sendmsg
 gevent._ffi.loop.AbstractLoop.fork
 
 # for some reason this extension exists even though it is not supported on windows
-gevent.libevcorecext.*
+gevent.libev.corecext.*
+
+# zope.interface related attributes we can ignore
+gevent._ffi.loop.AbstractLoop.__implemented__
+gevent._ffi.loop.AbstractLoop.__providedBy__
+gevent._ffi.loop.AbstractLoop.__provides__

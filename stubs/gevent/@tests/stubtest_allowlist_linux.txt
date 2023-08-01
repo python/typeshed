@@ -10,6 +10,7 @@ gevent.socket.TCP_USER_TIMEOUT
 gevent.socket.UDPLITE_RECV_CSCOV
 gevent.socket.UDPLITE_SEND_CSCOV
 gevent.subprocess._posixsubprocess
+gevent.subprocess.Popen.pipe_cloexec
 gevent.subprocess.Popen.rawlink
 
 # Error: is not present at runtime

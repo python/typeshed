@@ -69,7 +69,12 @@ class StreamServer(BaseServer[[_GeventSocket, _Address]]):
 
 class DatagramServer(BaseServer[[_GeventSocket, _Address]]):
     reuse_addr: ClassVar[int | None]
-    def __init__(self, *args, **kwargs) -> None: ...
+    def __init__(
+        self,
+        listener: _GeventSocket | tuple[str, int] | str,
+        handle: Callable[[_GeventSocket, _Address], object] | None = None,
+        spawn: _Spawner = "default",
+    ) -> None: ...
     @classmethod
     def get_listener(cls, address: _StrictAddress, family: int | None = None) -> _GeventSocket: ...
     def do_read(self) -> tuple[_GeventSocket, _Address]: ...
