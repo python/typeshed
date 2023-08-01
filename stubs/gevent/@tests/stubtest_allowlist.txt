@@ -31,10 +31,12 @@ gevent._ffi.loop.AbstractLoop.async
 gevent._ffi.loop.assign_standard_callbacks
 gevent._fileobjectcommon.UniversalNewlineBytesWrapper
 gevent._waiter.Waiter.switch_args
-gevent.libev.corecext.loop.async
 
 # loop local that wasn't deleted
 gevent.resolver.blocking.Resolver.method
+
+# isn't actually implemented for libuv, it just raises an exception
+gevent.libuv.watcher.watcher.feed
 
 # unnecessary python 2 compatibility stuff
 gevent._config.Config.trace_malloc
@@ -60,9 +62,14 @@ gevent.socket.SocketType.sendfile
 gevent.socket.SocketType.set_inheritable
 
 # zope.interface related attributes we can ignore
+gevent._ffi.loop.AbstractLoop.__implemented__
+gevent._ffi.loop.AbstractLoop.__providedBy__
+gevent._ffi.loop.AbstractLoop.__provides__
 gevent._monitor.PeriodicMonitoringThread.__implemented__
 gevent._monitor.PeriodicMonitoringThread.__providedBy__
 gevent._monitor.PeriodicMonitoringThread.__provides__
+gevent.libev.corecffi.loop.__provides__
+gevent.libuv.loop.loop.__provides__
 gevent.events.EventLoopBlocked.__implemented__
 gevent.events.EventLoopBlocked.__providedBy__
 gevent.events.EventLoopBlocked.__provides__
@@ -96,10 +103,6 @@ gevent.events._PatchAllMixin.__provides__
 
 # these shouldn't be in __all__ they end up there, due to how gevent imports
 # the globals from the stdlib ssl module
-gevent.socket.TCP_CONGESTION
-gevent.socket.TCP_USER_TIMEOUT
-gevent.socket.UDPLITE_RECV_CSCOV
-gevent.socket.UDPLITE_SEND_CSCOV
 gevent.ssl._ASN1Object
 gevent.ssl._DEFAULT_CIPHERS
 gevent.ssl._Enum
@@ -134,39 +137,17 @@ gevent.ssl.socket_error
 gevent.ssl.sys
 gevent.ssl.warnings
 gevent.subprocess._USE_POSIX_SPAWN
-gevent.subprocess._posixsubprocess
 gevent.subprocess._use_posix_spawn
-gevent.subprocess.Popen.pipe_cloexec
 gevent.subprocess.Popen.rawlink
 
 # Error: is not present at runtime
 # =============================
-# this is currently missing from the gevent implementation, but we'll ignore
-# it for simplicity's sake
-gevent.socket.SocketType.sendmsg_afalg
-
 # Due to the way gevent copies globals from other modules, there's a few symbols
 # that may not end up in the module, that would otherwise end up there with a
 # `from x import *`. None of these seem critical, so we ignore them
 gevent\.socket\.AF_\w+
-gevent\.socket\.AI_\w+
 gevent.socket.AddressInfo
-gevent\.socket\.BDADDR_\w+
-gevent\.socket\.BTPROTO_\w+
-gevent\.socket\.EAI_\w+
-gevent\.socket\.HCI_*\w+
-gevent\.socket\.IPPROTO_\w+
-gevent.socket.IPV6_USE_MIN_MTU
-gevent.socket.IPX_TYPE
-gevent.socket.IP_RECVDSTADDR
-gevent.socket.LOCAL_PEERCRED
-gevent\.socket\.MSG_\w+
 gevent.socket.MsgFlag
-gevent\.socket\.NETLINK_\w+
-gevent\.socket\.RDS_\w+
-gevent\.socket\.SCM_\w+
-gevent\.socket\.SOL_\w+
-gevent\.socket\.SO_\w+
 gevent.ssl.PROTOCOL_SSLv2
 gevent.ssl.PROTOCOL_SSLv3
 gevent.ssl.RAND_egd
@@ -202,8 +183,6 @@ gevent._ffi.watcher.watcher.start
 gevent._hub_primitives.WaitOperationsGreenlet.cancel_waits_close_and_then
 gevent.baseserver.BaseServer.do_close
 gevent.baseserver.BaseServer.do_handle
-gevent.libev.corecext.loop.run_callback
-gevent.libev.corecext.loop.run_callback_threadsafe
 
 # we don't care about write/writeall allowing a named parameter
 gevent._fileobjectcommon.FlushingBufferedWriter.write
@@ -234,11 +213,6 @@ gevent._hub_primitives.wait_readwrite
 gevent._hub_primitives.wait_write
 gevent.pywsgi.WSGIHandler.__init__
 
-# ares_host_result always has the same layout, so we set the arguments on __new__
-# to reflect that fact, we don't care that the implementation accepts any number
-# of arguments
-gevent.resolver.cares.ares_host_result.__new__
-
 # we have punted on socket, the gevent version of these functions sometimes use
 # named parameters, while the base implementation only allows positional arguments
 # we're fine with holding the geven implemenation to the same restrictions
@@ -247,10 +221,8 @@ gevent.resolver.cares.ares_host_result.__new__
 gevent.socket.SocketType.bind
 gevent.socket.SocketType.connect
 gevent.socket.SocketType.connect_ex
-gevent.socket.SocketType.recvmsg_into
 gevent.socket.SocketType.send
 gevent.socket.SocketType.sendall
-gevent.socket.SocketType.sendmsg
 gevent.socket.SocketType.setblocking
 gevent.socket.SocketType.settimeout
 gevent.socket.SocketType.shutdown
@@ -261,8 +233,6 @@ gevent.socket.gethostbyname
 gevent.socket.gethostbyname_ex
 gevent.socket.getnameinfo
 gevent.socket.socket.closed
-gevent.socket.socket.recvmsg_into
-gevent.socket.socket.sendmsg
 gevent.socket.wait_readwrite
 gevent.socket.wait_write
 
@@ -318,13 +288,6 @@ gevent.events.IPeriodicMonitorThreadStartedEvent
 # internal use module for some complex protocols used across different modules
 # so there wasn't really a great place for them
 gevent._types
-
-# These depend on cffi, which is an optional dependency, which we don't want
-# to enforce
-gevent.libev.corecffi
-gevent.libev.watcher
-gevent.libuv.loop
-gevent.libuv.watcher
 
 # Optional dependencies that have no types package either, we don't care if
 # we get an import error here, the stubs themselves dont import dns

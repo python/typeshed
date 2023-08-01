@@ -14,6 +14,7 @@ class loop(AbstractLoop):
     SIGNAL_CHECK_INTERVAL_MS: int
     approx_timer_resolution: float
     error_handler: None
+    def __init__(self, flags: int | None = None, default: bool | None = None) -> None: ...
 
     class _HandleState(NamedTuple):
         handle: int

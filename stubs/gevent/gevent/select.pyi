@@ -1,5 +1,6 @@
+import sys
 from collections.abc import Collection
-from select import error as error, poll as poll
+from select import error as error
 from typing import Any
 
 # this implementation is slightly more strict because it reuses the lists, so it can't
@@ -9,4 +10,9 @@ def select(
     rlist: Collection[Any], wlist: Collection[Any], xlist: Collection[Any], timeout: float | None = None
 ) -> tuple[list[Any], list[Any], list[Any]]: ...
 
-__all__ = ["error", "poll", "select"]
+if sys.platform != "win32":
+    from select import poll as poll
+
+    __all__ = ["error", "poll", "select"]
+else:
+    __all__ = ["error", "select"]
