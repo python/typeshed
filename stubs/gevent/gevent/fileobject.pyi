@@ -1,4 +1,6 @@
 import sys
+from typing import Any
+from typing_extensions import TypeAlias
 
 from gevent._fileobjectcommon import FileObjectBlock as FileObjectBlock, FileObjectThread as FileObjectThread
 
@@ -12,8 +14,8 @@ if sys.platform != "win32":
         OpenBinaryModeWriting,
         OpenTextMode,
     )
-    from typing import IO, Any, AnyStr, overload
-    from typing_extensions import Literal, TypeAlias
+    from typing import IO, AnyStr, overload
+    from typing_extensions import Literal
 
     from gevent._fileobjectcommon import _IOT, FileObjectBase
 

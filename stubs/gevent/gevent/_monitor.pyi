@@ -3,7 +3,7 @@ from collections.abc import Callable, Sequence
 from gevent.events import IPeriodicMonitorThread, MemoryUsageThresholdExceeded, MemoryUsageUnderThreshold
 from gevent.hub import Hub
 from greenlet import greenlet
-from zope.interface import implementer  # type: ignore[import]  # pyright: ignore[reportMissingTypeStubs]
+from zope.interface import implementer  # type: ignore[import]  # pyright: ignore[reportMissingImports]
 
 class MonitorWarning(RuntimeWarning): ...
 
