@@ -10,10 +10,7 @@ from greenlet import greenlet as greenlet_t
 # but for everyone else we shouldn't care whether or not we have type stubs
 # it's not possible to correctly type hint Interface classes without a plugin
 # for the interfaces needes by other modules we define an equivalent Protocol
-from zope.interface import (  # type: ignore[import]  # pyright: ignore[reportMissingImports, reportUnknownVariableType]
-    Interface,
-    implementer,
-)
+from zope.interface import Interface, implementer  # type: ignore[import]  # pyright: ignore[reportMissingImports]
 
 # this is copied from types-psutil, it would be nice if we could just import this
 # but it doesn't seem like we can...
