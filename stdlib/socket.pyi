@@ -204,7 +204,7 @@ if sys.platform != "win32" and sys.platform != "darwin":
         TCP_WINDOW_CLAMP as TCP_WINDOW_CLAMP,
     )
 
-    if sys.version_info >= (3, 6):
+    if sys.version_info >= (3, 6, 7):
         from _socket import TCP_USER_TIMEOUT as TCP_USER_TIMEOUT
 if sys.platform != "win32":
     from _socket import (
