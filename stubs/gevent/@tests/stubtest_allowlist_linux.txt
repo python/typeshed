@@ -6,7 +6,6 @@ gevent.libev.corecext.loop.async
 # these shouldn't be in __all__ they end up there, due to how gevent imports
 # the globals from the stdlib ssl module
 gevent.socket.TCP_CONGESTION
-gevent.socket.TCP_USER_TIMEOUT
 gevent.socket.UDPLITE_RECV_CSCOV
 gevent.socket.UDPLITE_SEND_CSCOV
 gevent.subprocess._posixsubprocess
