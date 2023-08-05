@@ -7,6 +7,6 @@ requires = ["types-greenlet", "types-psutil"]
 # especially in the stdlib module replacement
 platforms = ["linux", "darwin", "win32"]
 # for testing the ffi loop implementations on all platforms
-stubtest_requirements = ["cffi"]
+stubtest_requirements = ["cffi", "dnspython"]
 apt_dependencies = ["libev4", "libev-dev", "libuv1", "libuv1-dev"]
 brew_dependencies = ["libev", "libuv"]

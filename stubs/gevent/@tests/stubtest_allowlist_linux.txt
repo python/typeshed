@@ -5,16 +5,8 @@ gevent.libev.corecext.loop.async
 
 # these shouldn't be in __all__ they end up there, due to how gevent imports
 # the globals from the stdlib ssl module
-gevent.socket.TCP_CONGESTION
-gevent.socket.UDPLITE_RECV_CSCOV
-gevent.socket.UDPLITE_SEND_CSCOV
-gevent.subprocess._posixsubprocess
 gevent.subprocess.Popen.pipe_cloexec
 gevent.subprocess.Popen.rawlink
-
-# zope.interface related stuff
-gevent.libev.corecffi.loop.__implemented__
-gevent.libev.corecffi.loop.__provides__
 
 # Error: is not present at runtime
 # =============================
@@ -25,22 +17,7 @@ gevent.socket.SocketType.sendmsg_afalg
 # Due to the way gevent copies globals from other modules, there's a few symbols
 # that may not end up in the module, that would otherwise end up there with a
 # `from x import *`. None of these seem critical, so we ignore them
-gevent\.socket\.AI_\w+
-gevent\.socket\.BDADDR_\w+
-gevent\.socket\.BTPROTO_\w+
-gevent\.socket\.EAI_\w+
-gevent\.socket\.IPPROTO_\w+
-gevent.socket.IPV6_USE_MIN_MTU
-gevent.socket.IPX_TYPE
-gevent.socket.IP_RECVDSTADDR
-gevent.socket.LOCAL_PEERCRED
-gevent\.socket\.MSG_\w+
 gevent.socket.MsgFlag
-gevent\.socket\.NETLINK_\w+
-gevent\.socket\.RDS_\w+
-gevent\.socket\.SCM_\w+
-gevent\.socket\.SOL_\w+
-gevent\.socket\.SO_\w+
 
 # Error: is inconsistent
 # ======================

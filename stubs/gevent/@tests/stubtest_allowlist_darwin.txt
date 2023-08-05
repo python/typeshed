@@ -5,14 +5,7 @@ gevent.libev.corecext.loop.async
 
 # these shouldn't be in __all__ they end up there, due to how gevent imports
 # the globals from the stdlib ssl module
-gevent.socket.PF_SYSTEM
-gevent.socket.SYSPROTO_CONTROL
-gevent.subprocess._posixsubprocess
 gevent.subprocess.Popen.pipe_cloexec
-
-# zope.interface related stuff
-gevent.libev.corecffi.loop.__implemented__
-gevent.libev.corecffi.loop.__provides__
 
 # Error: is inconsistent
 # ======================

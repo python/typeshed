@@ -62,70 +62,14 @@ gevent.socket.SocketType.sendfile
 gevent.socket.SocketType.set_inheritable
 
 # zope.interface related attributes we can ignore
-gevent._monitor.PeriodicMonitoringThread.__implemented__
-gevent._monitor.PeriodicMonitoringThread.__providedBy__
-gevent._monitor.PeriodicMonitoringThread.__provides__
-gevent.libuv.loop.loop.__implemented__
-gevent.libuv.loop.loop.__provides__
-gevent.events.EventLoopBlocked.__implemented__
-gevent.events.EventLoopBlocked.__providedBy__
-gevent.events.EventLoopBlocked.__provides__
-gevent.events.GeventDidPatchAllEvent.__implemented__
-gevent.events.GeventDidPatchAllEvent.__provides__
-gevent.events.GeventDidPatchBuiltinModulesEvent.__implemented__
-gevent.events.GeventDidPatchBuiltinModulesEvent.__provides__
-gevent.events.GeventDidPatchEvent.__implemented__
-gevent.events.GeventDidPatchEvent.__provides__
-gevent.events.GeventDidPatchModuleEvent.__implemented__
-gevent.events.GeventDidPatchModuleEvent.__provides__
-gevent.events.GeventPatchEvent.__implemented__
-gevent.events.GeventPatchEvent.__providedBy__
-gevent.events.GeventPatchEvent.__provides__
-gevent.events.GeventWillPatchAllEvent.__implemented__
-gevent.events.GeventWillPatchAllEvent.__provides__
-gevent.events.GeventWillPatchEvent.__implemented__
-gevent.events.GeventWillPatchEvent.__provides__
-gevent.events.GeventWillPatchModuleEvent.__implemented__
-gevent.events.GeventWillPatchModuleEvent.__provides__
-gevent.events.MemoryUsageThresholdExceeded.__implemented__
-gevent.events.MemoryUsageThresholdExceeded.__provides__
-gevent.events.MemoryUsageUnderThreshold.__implemented__
-gevent.events.MemoryUsageUnderThreshold.__provides__
-gevent.events._AbstractMemoryEvent.__implemented__
-gevent.events._AbstractMemoryEvent.__providedBy__
-gevent.events._AbstractMemoryEvent.__provides__
-gevent.events._PatchAllMixin.__implemented__
-gevent.events._PatchAllMixin.__providedBy__
-gevent.events._PatchAllMixin.__provides__
+gevent.[\w\.]+\.__implemented__
+gevent.[\w\.]+\.__providedBy__
+gevent.[\w\.]+\.__provides__
 
 # these shouldn't be in __all__ they end up there, due to how gevent imports
-# the globals from the stdlib ssl module
-gevent.ssl._ASN1Object
-gevent.ssl._DEFAULT_CIPHERS
-gevent.ssl._Enum
-gevent.ssl._GLOBAL_DEFAULT_TIMEOUT
-gevent.ssl._IntEnum
-gevent.ssl._IntFlag
-gevent.ssl._OPENSSL_API_VERSION
-gevent.ssl._PROTOCOL_NAMES
-gevent.ssl._RESTRICTED_SERVER_CIPHERS
-gevent.ssl._SSLContext
-gevent.ssl._SSLMethod
-gevent.ssl._SSLv2_IF_EXISTS
-gevent.ssl._TLSAlertType
-gevent.ssl._TLSContentType
-gevent.ssl._TLSMessageType
-gevent.ssl._create_default_https_context
-gevent.ssl._create_stdlib_context
-gevent.ssl._create_unverified_context
-gevent.ssl._dnsname_match
-gevent.ssl._inet_paton
-gevent.ssl._ipaddress_match
-gevent.ssl._nid2obj
-gevent.ssl._socket
-gevent.ssl._ssl
-gevent.ssl._sslcopydoc
-gevent.ssl._txt2obj
+# the globals from the stdlib ssl module, For ssl/subprocess we ignore all symbols
+# that start with an underscore (i.e. internal symbols)
+gevent\.ssl\._[A-Za-z0-9]\w*
 gevent.ssl.base64
 gevent.ssl.create_connection
 gevent.ssl.errno
@@ -133,16 +77,17 @@ gevent.ssl.os
 gevent.ssl.socket_error
 gevent.ssl.sys
 gevent.ssl.warnings
-gevent.subprocess._USE_POSIX_SPAWN
-gevent.subprocess._use_posix_spawn
+gevent\.subprocess\._[A-Za-z0-9]\w*
 gevent.subprocess.Popen.rawlink
 
 # Error: is not present at runtime
 # =============================
 # Due to the way gevent copies globals from other modules, there's a few symbols
 # that may not end up in the module, that would otherwise end up there with a
-# `from x import *`. None of these seem critical, so we ignore them
-gevent\.socket\.AF_\w+
+# `from x import *`. None of these seem critical, so we ignore them. For socket
+# we ignore all constants that start with at least one segment of all uppercase
+# letters before the underscore
+gevent\.socket\.[A-Z0-9]+(_\w+)?
 gevent.socket.AddressInfo
 gevent.socket.MsgFlag
 gevent.ssl.PROTOCOL_SSLv2
@@ -285,7 +230,3 @@ gevent.events.IPeriodicMonitorThreadStartedEvent
 # internal use module for some complex protocols used across different modules
 # so there wasn't really a great place for them
 gevent._types
-
-# Optional dependencies that have no types package either, we don't care if
-# we get an import error here, the stubs themselves dont import dns
-gevent.resolver.dnspython
