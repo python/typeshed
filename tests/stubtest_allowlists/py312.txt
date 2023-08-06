@@ -2,17 +2,13 @@
 argparse.BooleanOptionalAction.__init__
 asyncio.BaseEventLoop.create_connection
 asyncio.BaseEventLoop.shutdown_default_executor
-asyncio.Handle.get_context
 asyncio.StreamWriter.start_tls
-asyncio.Task.get_context
 asyncio.base_events.BaseEventLoop.create_connection
 asyncio.base_events.BaseEventLoop.shutdown_default_executor
 asyncio.constants.THREAD_JOIN_TIMEOUT
 asyncio.create_eager_task_factory
 asyncio.eager_task_factory
-asyncio.events.Handle.get_context
 asyncio.streams.StreamWriter.start_tls
-asyncio.tasks.Task.get_context
 asyncio.tasks.__all__
 asyncio.tasks.create_eager_task_factory
 asyncio.tasks.eager_task_factory
