@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import asyncio
 from typing import Any, Awaitable, List, Tuple, Union
 from typing_extensions import assert_type
@@ -21,7 +23,7 @@ async def test_gather(awaitable1: Awaitable[int], awaitable2: Awaitable[str]) ->
     c = await asyncio.gather(awaitable1, awaitable2, awaitable1, awaitable1, awaitable1, awaitable1)
     assert_type(c, List[Any])
 
-    awaitables_list: List[Awaitable[int]] = [awaitable1]
+    awaitables_list: list[Awaitable[int]] = [awaitable1]
     d = await asyncio.gather(*awaitables_list)
     assert_type(d, List[Any])
 

@@ -1,21 +1,35 @@
-from typing import Any
+from _typeshed import Incomplete
+from collections.abc import Callable, Iterator
+from contextlib import contextmanager
+from typing import ClassVar
 
-DATASTORE_API_HOST: Any
+from google.cloud.ndb import context as context_module, key
+
+DATASTORE_API_HOST: str
 
 class Client:
-    SCOPE: Any
-    namespace: Any
-    host: Any
-    client_info: Any
-    secure: Any
-    stub: Any
-    def __init__(self, project: Any | None = ..., namespace: Any | None = ..., credentials: Any | None = ...) -> None: ...
+    SCOPE: ClassVar[tuple[str, ...]]
+    namespace: str | None
+    host: str
+    client_info: Incomplete
+    secure: bool
+    stub: Incomplete
+    database: str | None
+    def __init__(
+        self,
+        project: str | None = ...,
+        namespace: str | None = ...,
+        credentials: Incomplete | None = ...,
+        client_options: Incomplete | None = ...,
+        database: str | None = None,
+    ) -> None: ...
+    @contextmanager
     def context(
         self,
         namespace=...,
-        cache_policy: Any | None = ...,
-        global_cache: Any | None = ...,
-        global_cache_policy: Any | None = ...,
-        global_cache_timeout_policy: Any | None = ...,
+        cache_policy: Callable[[key.Key], bool] | None = ...,
+        global_cache: Incomplete | None = ...,
+        global_cache_policy: Callable[[key.Key], bool] | None = ...,
+        global_cache_timeout_policy: Callable[[key.Key], int] | None = ...,
         legacy_data: bool = ...,
-    ) -> None: ...
+    ) -> Iterator[context_module.Context]: ...

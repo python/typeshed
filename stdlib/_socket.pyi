@@ -583,7 +583,11 @@ class socket:
     def proto(self) -> int: ...
     @property
     def timeout(self) -> float | None: ...
-    def __init__(self, family: int = ..., type: int = ..., proto: int = ..., fileno: _FD | None = ...) -> None: ...
+    if sys.platform == "win32":
+        def __init__(self, family: int = ..., type: int = ..., proto: int = ..., fileno: _FD | bytes | None = ...) -> None: ...
+    else:
+        def __init__(self, family: int = ..., type: int = ..., proto: int = ..., fileno: _FD | None = ...) -> None: ...
+
     def bind(self, __address: _Address) -> None: ...
     def close(self) -> None: ...
     def connect(self, __address: _Address) -> None: ...
@@ -688,3 +692,28 @@ if sys.platform != "win32" or sys.version_info >= (3, 8):
     def if_nameindex() -> list[tuple[int, str]]: ...
     def if_nametoindex(__name: str) -> int: ...
     def if_indextoname(__index: int) -> str: ...
+
+if sys.version_info >= (3, 12):
+    IP_PKTINFO: int
+    IP_UNBLOCK_SOURCE: int
+    IP_BLOCK_SOURCE: int
+    IP_ADD_SOURCE_MEMBERSHIP: int
+    IP_DROP_SOURCE_MEMBERSHIP: int
+    if sys.platform == "win32":
+        AF_HYPERV: int
+        HV_PROTOCOL_RAW: int
+        HVSOCKET_CONNECT_TIMEOUT: int
+        HVSOCKET_CONNECT_TIMEOUT_MAX: int
+        HVSOCKET_CONNECTED_SUSPEND: int
+        HVSOCKET_ADDRESS_FLAG_PASSTHRU: int
+        HV_GUID_ZERO: str
+        HV_GUID_WILDCARD: str
+        HV_GUID_BROADCAST: str
+        HV_GUID_CHILDREN: str
+        HV_GUID_LOOPBACK: str
+        HV_GUID_PARENT: str
+    else:
+        ETHERTYPE_ARP: int
+        ETHERTYPE_IP: int
+        ETHERTYPE_IPV6: int
+        ETHERTYPE_VLAN: int

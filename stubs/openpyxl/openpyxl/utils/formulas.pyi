@@ -1,3 +1,3 @@
-from typing import Any
+from typing_extensions import Final
 
-FORMULAE: Any
+FORMULAE: Final[frozenset[str]]

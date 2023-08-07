@@ -1,3 +1,0 @@
-# These are re-exports which we consider an implementation detail:
-chevron.main.version
-chevron.renderer.linesep

@@ -1,12 +1,12 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, OpenBinaryMode
 from asyncio import AbstractEventLoop
 from collections.abc import Generator, Iterable
-from tempfile import TemporaryDirectory, _BytesMode
+from tempfile import TemporaryDirectory
 from types import coroutine as coroutine
 from typing import TypeVar
 
-from ..base import AsyncBase as AsyncBase
-from ..threadpool.utils import (
+from aiofiles.base import AsyncBase as AsyncBase
+from aiofiles.threadpool.utils import (
     cond_delegate_to_executor as cond_delegate_to_executor,
     delegate_to_executor as delegate_to_executor,
     proxy_property_directly as proxy_property_directly,
@@ -17,6 +17,7 @@ _T = TypeVar("_T")
 class AsyncSpooledTemporaryFile(AsyncBase[_T]):
     def fileno(self) -> Generator[Incomplete, Incomplete, Incomplete]: ...
     def rollover(self) -> Generator[Incomplete, Incomplete, Incomplete]: ...
+    async def close(self) -> None: ...
     async def flush(self) -> None: ...
     async def isatty(self) -> bool: ...
     # All must return `AnyStr`:
@@ -32,7 +33,7 @@ class AsyncSpooledTemporaryFile(AsyncBase[_T]):
     @property
     def encoding(self) -> str: ...
     @property
-    def mode(self) -> _BytesMode: ...
+    def mode(self) -> OpenBinaryMode: ...
     @property
     def name(self) -> str: ...
     @property

@@ -1,1 +1,7 @@
-version = "65.5.*"
+version = "68.0.*"
+upstream_repository = "https://github.com/pypa/setuptools"
+partial_stub = true
+
+[tool.stubtest]
+# darwin is equivalent to linux for OS-specific methods
+platforms = ["linux", "win32"]

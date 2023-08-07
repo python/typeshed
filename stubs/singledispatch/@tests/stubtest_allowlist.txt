@@ -1,1 +1,2 @@
-singledispatch.singledispatchmethod.__call__  # A lie to reflect that the descriptor get returns a callable
+# Internal utils, we are not interested in them:
+singledispatch.helpers

@@ -1,11 +1,12 @@
-from typing import Any
+from _typeshed import Incomplete
+from typing_extensions import Final
 
 class ReadOnlyCell:
-    parent: Any
-    row: Any
-    column: Any
-    data_type: Any
-    def __init__(self, sheet, row, column, value, data_type: str = ..., style_id: int = ...) -> None: ...
+    parent: Incomplete
+    row: Incomplete
+    column: Incomplete
+    data_type: Incomplete
+    def __init__(self, sheet, row, column, value, data_type: str = "n", style_id: int = 0) -> None: ...
     def __eq__(self, other): ...
     def __ne__(self, other): ...
     # defined twice in the implementation
@@ -39,13 +40,13 @@ class ReadOnlyCell:
     def value(self, value) -> None: ...
 
 class EmptyCell:
-    value: Any
+    value: Incomplete
     is_date: bool
-    font: Any
-    border: Any
-    fill: Any
-    number_format: Any
-    alignment: Any
+    font: Incomplete
+    border: Incomplete
+    fill: Incomplete
+    number_format: Incomplete
+    alignment: Incomplete
     data_type: str
 
-EMPTY_CELL: Any
+EMPTY_CELL: Final[EmptyCell]

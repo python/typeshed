@@ -1,4 +1,6 @@
 version = "1.15.*"
+requires = ["types-setuptools"]
 
 [tool.stubtest]
-ignore_missing_stub = false
+# linux and darwin are mostly equivalent, except for a single `RTLD_DEEPBIND` variable
+platforms = ["linux", "win32"]

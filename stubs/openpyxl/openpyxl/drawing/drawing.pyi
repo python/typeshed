@@ -1,10 +1,10 @@
-from typing import Any
+from _typeshed import Incomplete
 
 class Drawing:
     count: int
     name: str
     description: str
-    coordinates: Any
+    coordinates: Incomplete
     left: int
     top: int
     resize_proportional: bool
@@ -21,7 +21,6 @@ class Drawing:
     def height(self): ...
     @height.setter
     def height(self, h) -> None: ...
-    def set_dimension(self, w: int = ..., h: int = ...) -> None: ...
-    def get_emu_dimensions(self): ...
+    def set_dimension(self, w: int = 0, h: int = 0) -> None: ...
     @property
     def anchor(self): ...

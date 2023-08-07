@@ -1,0 +1,7 @@
+version = "1.36.*"
+upstream_repository = "https://github.com/influxdata/influxdb-client-python"
+requires = ["types-urllib3"]
+
+[tool.stubtest]
+extras = ["extra"]
+stubtest_requirements = ["aiohttp"]

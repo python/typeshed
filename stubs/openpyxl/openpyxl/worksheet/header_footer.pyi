@@ -1,61 +1,69 @@
-from typing import Any
+from re import Pattern
+from typing import ClassVar
+from typing_extensions import Final, Literal
 
 from openpyxl.descriptors import Strict
+from openpyxl.descriptors.base import Alias, Bool, Integer, MatchPattern, String, Typed, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.serialisable import Serialisable
 
-FONT_PATTERN: str
-COLOR_PATTERN: str
-SIZE_REGEX: str
-FORMAT_REGEX: Any
+FONT_PATTERN: Final = '&"(?P<font>.+)"'
+COLOR_PATTERN: Final = "&K(?P<color>[A-F0-9]{6})"
+SIZE_REGEX: Final = r"&(?P<size>\d+\s?)"
+FORMAT_REGEX: Final[Pattern[str]]
 
 class _HeaderFooterPart(Strict):
-    text: Any
-    font: Any
-    size: Any
-    RGB: str
-    color: Any
+    text: String[Literal[True]]
+    font: String[Literal[True]]
+    size: Integer[Literal[True]]
+    RGB: ClassVar[str]
+    color: MatchPattern[str, Literal[True]]
     def __init__(
-        self, text: Any | None = ..., font: Any | None = ..., size: Any | None = ..., color: Any | None = ...
+        self, text: str | None = None, font: str | None = None, size: _ConvertibleToInt | None = None, color: str | None = None
     ) -> None: ...
-    def __bool__(self): ...
+    def __bool__(self) -> bool: ...
     @classmethod
     def from_str(cls, text): ...
 
 class HeaderFooterItem(Strict):
-    left: Any
-    center: Any
-    centre: Any
-    right: Any
-    def __init__(self, left: Any | None = ..., right: Any | None = ..., center: Any | None = ...) -> None: ...
-    def __bool__(self): ...
+    left: Typed[_HeaderFooterPart, Literal[False]]
+    center: Typed[_HeaderFooterPart, Literal[False]]
+    centre: Alias
+    right: Typed[_HeaderFooterPart, Literal[False]]
+    def __init__(
+        self,
+        left: _HeaderFooterPart | None = None,
+        right: _HeaderFooterPart | None = None,
+        center: _HeaderFooterPart | None = None,
+    ) -> None: ...
+    def __bool__(self) -> bool: ...
     def to_tree(self, tagname): ...
     @classmethod
     def from_tree(cls, node): ...
 
 class HeaderFooter(Serialisable):
-    tagname: str
-    differentOddEven: Any
-    differentFirst: Any
-    scaleWithDoc: Any
-    alignWithMargins: Any
-    oddHeader: Any
-    oddFooter: Any
-    evenHeader: Any
-    evenFooter: Any
-    firstHeader: Any
-    firstFooter: Any
-    __elements__: Any
+    tagname: ClassVar[str]
+    differentOddEven: Bool[Literal[True]]
+    differentFirst: Bool[Literal[True]]
+    scaleWithDoc: Bool[Literal[True]]
+    alignWithMargins: Bool[Literal[True]]
+    oddHeader: Typed[HeaderFooterItem, Literal[True]]
+    oddFooter: Typed[HeaderFooterItem, Literal[True]]
+    evenHeader: Typed[HeaderFooterItem, Literal[True]]
+    evenFooter: Typed[HeaderFooterItem, Literal[True]]
+    firstHeader: Typed[HeaderFooterItem, Literal[True]]
+    firstFooter: Typed[HeaderFooterItem, Literal[True]]
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        differentOddEven: Any | None = ...,
-        differentFirst: Any | None = ...,
-        scaleWithDoc: Any | None = ...,
-        alignWithMargins: Any | None = ...,
-        oddHeader: Any | None = ...,
-        oddFooter: Any | None = ...,
-        evenHeader: Any | None = ...,
-        evenFooter: Any | None = ...,
-        firstHeader: Any | None = ...,
-        firstFooter: Any | None = ...,
+        differentOddEven: _ConvertibleToBool | None = None,
+        differentFirst: _ConvertibleToBool | None = None,
+        scaleWithDoc: _ConvertibleToBool | None = None,
+        alignWithMargins: _ConvertibleToBool | None = None,
+        oddHeader: HeaderFooterItem | None = None,
+        oddFooter: HeaderFooterItem | None = None,
+        evenHeader: HeaderFooterItem | None = None,
+        evenFooter: HeaderFooterItem | None = None,
+        firstHeader: HeaderFooterItem | None = None,
+        firstFooter: HeaderFooterItem | None = None,
     ) -> None: ...
-    def __bool__(self): ...
+    def __bool__(self) -> bool: ...

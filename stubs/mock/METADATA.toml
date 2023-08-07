@@ -1,4 +1,2 @@
-version = "4.0.*"
-
-[tool.stubtest]
-ignore_missing_stub = false
+version = "5.1.*"
+upstream_repository = "https://github.com/testing-cabal/mock"
