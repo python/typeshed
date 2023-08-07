@@ -46,10 +46,6 @@ importlib.resources.files
 importlib.util.module_for_loader
 importlib.util.set_loader
 importlib.util.set_package
-logging.Logger.getChildren
-logging.__all__
-logging.getHandlerByName
-logging.getHandlerNames
 ntpath.__all__
 ntpath.isjunction
 ntpath.splitroot
