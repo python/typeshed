@@ -198,6 +198,9 @@ class Options(enum.IntFlag):
         OP_ENABLE_MIDDLEBOX_COMPAT: int
         if sys.platform == "linux":
             OP_IGNORE_UNEXPECTED_EOF: int
+    if sys.version_info >= (3, 12) and sys.platform != "linux":
+        OP_ENABLE_KTLS: int
+        OP_IGNORE_UNEXPECTED_EOF: int
 
 OP_ALL: Options
 OP_NO_SSLv2: Options
@@ -216,6 +219,9 @@ if sys.version_info >= (3, 8):
     OP_ENABLE_MIDDLEBOX_COMPAT: Options
     if sys.platform == "linux":
         OP_IGNORE_UNEXPECTED_EOF: Options
+if sys.version_info >= (3, 12) and sys.platform != "linux":
+    OP_ENABLE_KTLS: Options
+    OP_IGNORE_UNEXPECTED_EOF: Options
 
 HAS_NEVER_CHECK_COMMON_NAME: bool
 HAS_SSLv2: bool
