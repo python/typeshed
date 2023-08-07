@@ -60,6 +60,8 @@ __all__ = [
 
 if sys.version_info >= (3, 11):
     __all__ += ["getLevelNamesMapping"]
+if sys.version_info >= (3, 12):
+    __all__ += ["getHandlerByName", "getHandlerNames"]
 
 _SysExcInfoType: TypeAlias = tuple[type[BaseException], BaseException, TracebackType | None] | tuple[None, None, None]
 _ExcInfoType: TypeAlias = None | bool | _SysExcInfoType | BaseException
@@ -111,6 +113,8 @@ class Logger(Filterer):
     def isEnabledFor(self, level: int) -> bool: ...
     def getEffectiveLevel(self) -> int: ...
     def getChild(self, suffix: str) -> Self: ...  # see python/typing#980
+    if sys.version_info >= (3, 12):
+        def getChildren(self) -> set[Logger]: ...
     if sys.version_info >= (3, 8):
         def debug(
             self,
@@ -323,6 +327,10 @@ class Handler(Filterer):
     def handleError(self, record: LogRecord) -> None: ...
     def format(self, record: LogRecord) -> str: ...
     def emit(self, record: LogRecord) -> None: ...
+
+if sys.version_info >= (3, 12):
+    def getHandlerByName(name: str) -> Handler | None: ...
+    def getHandlerNames() -> frozenset[str]: ...
 
 class Formatter:
     converter: Callable[[float | None], struct_time]
