@@ -1,0 +1,6 @@
+from _typeshed import Incomplete
+
+def metric_closure(G, weight: str = "weight"): ...
+def steiner_tree(
+    G, terminal_nodes, weight: str = "weight", method: Incomplete | None = None
+): ...
