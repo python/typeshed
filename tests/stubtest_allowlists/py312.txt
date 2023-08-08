@@ -1,9 +1,5 @@
 # Uncategorised, from Python 3.12
 argparse.BooleanOptionalAction.__init__
-asyncio.BaseEventLoop.create_connection
-asyncio.BaseEventLoop.shutdown_default_executor
-asyncio.base_events.BaseEventLoop.create_connection
-asyncio.base_events.BaseEventLoop.shutdown_default_executor
 asyncio.create_eager_task_factory
 asyncio.eager_task_factory
 asyncio.tasks.__all__
