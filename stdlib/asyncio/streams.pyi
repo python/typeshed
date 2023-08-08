@@ -150,7 +150,12 @@ class StreamWriter:
     async def drain(self) -> None: ...
     if sys.version_info >= (3, 12):
         async def start_tls(
-            self, sslcontext: ssl.SSLContext, *, server_hostname: str | None = None, ssl_handshake_timeout: float | None = None, ssl_shutdown_timeout: float | None = None
+            self,
+            sslcontext: ssl.SSLContext,
+            *,
+            server_hostname: str | None = None,
+            ssl_handshake_timeout: float | None = None,
+            ssl_shutdown_timeout: float | None = None,
         ) -> None: ...
     elif sys.version_info >= (3, 11):
         async def start_tls(
