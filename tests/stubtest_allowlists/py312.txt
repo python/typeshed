@@ -60,10 +60,6 @@ smtplib.SMTP_SSL.__init__
 sre_parse.Tokenizer.checkgroupname
 sre_parse.expand_template
 sre_parse.parse_template
-ssl.OP_LEGACY_SERVER_CONNECT
-ssl.Options.OP_LEGACY_SERVER_CONNECT
-ssl.RAND_pseudo_bytes
-ssl.wrap_socket
 turtle.RawTurtle.teleport
 turtle.TNavigator.teleport
 turtle.TPen.teleport
