@@ -60,11 +60,6 @@ smtplib.SMTP_SSL.__init__
 sre_parse.Tokenizer.checkgroupname
 sre_parse.expand_template
 sre_parse.parse_template
-turtle.RawTurtle.teleport
-turtle.TNavigator.teleport
-turtle.TPen.teleport
-turtle.__all__
-turtle.teleport
 typing.ParamSpec.__mro_entries__
 typing.ParamSpecArgs.__mro_entries__
 typing.ParamSpecKwargs.__mro_entries__
