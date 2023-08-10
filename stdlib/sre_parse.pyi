@@ -118,6 +118,7 @@ else:
 
 if sys.version_info >= (3, 8):
     def parse(str: str, flags: int = 0, state: State | None = None) -> SubPattern: ...
+
 else:
     def parse(str: str, flags: int = 0, pattern: Pattern | None = None) -> SubPattern: ...
 
