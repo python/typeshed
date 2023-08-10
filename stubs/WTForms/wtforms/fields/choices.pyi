@@ -12,12 +12,18 @@ _GroupedChoices: TypeAlias = dict[str, Iterable[_Choice]]
 _FullChoice: TypeAlias = tuple[Any, str, bool]  # value, label, selected
 _FullGroupedChoices: TypeAlias = tuple[str, Iterable[_FullChoice]]
 
+# this is defined anonymously inside SelectFieldBase, we have to pull it
+# out of there so pytype doesn't crash
+class _Option(Field):
+    checked: bool
+
 class SelectFieldBase(Field):
+    option_widget: _Widget[_Option]
     def __init__(
         self,
         label: str | None = None,
         validators: tuple[_Validator[_FormT, Self], ...] | list[Any] | None = None,
-        option_widget: _Widget[SelectFieldBase._Option] | None = None,
+        option_widget: _Widget[_Option] | None = None,
         *,
         filters: Sequence[_Filter] = (),
         description: str = "",
@@ -34,11 +40,8 @@ class SelectFieldBase(Field):
     def iter_choices(self) -> Iterator[_FullChoice]: ...
     def has_groups(self) -> bool: ...
     def iter_groups(self) -> Iterator[_FullGroupedChoices]: ...
-    def __iter__(self) -> Iterator[SelectFieldBase._Option]: ...
-
-    class _Option(Field):
-        checked: bool
-    option_widget: _Widget[_Option]
+    def __iter__(self) -> Iterator[_Option]: ...
+    _Option: type[_Option]
 
 class SelectField(SelectFieldBase):
     coerce: Callable[[Any], Any]
@@ -57,7 +60,7 @@ class SelectField(SelectFieldBase):
         id: str | None = None,
         default: object | None = None,
         widget: _Widget[Self] | None = None,
-        option_widget: _Widget[SelectFieldBase._Option] | None = None,
+        option_widget: _Widget[_Option] | None = None,
         render_kw: dict[str, Any] | None = None,
         name: str | None = None,
         _form: BaseForm | None = None,
