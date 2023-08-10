@@ -98,7 +98,6 @@ _TemplateType: TypeAlias = tuple[list[tuple[int, int]], list[str | None]]
 _TemplateByteType: TypeAlias = tuple[list[tuple[int, int]], list[bytes | None]]
 
 if sys.version_info >= (3, 12):
-    def parse(str: str, flags: int = 0, state: State | None = None) -> SubPattern: ...
     @overload
     def parse_template(source: str, pattern: _Pattern[Any]) -> _TemplateType: ...
     @overload
