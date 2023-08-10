@@ -60,11 +60,6 @@ smtplib.SMTP_SSL.__init__
 sre_parse.Tokenizer.checkgroupname
 sre_parse.expand_template
 sre_parse.parse_template
-turtle.RawTurtle.teleport
-turtle.TNavigator.teleport
-turtle.TPen.teleport
-turtle.__all__
-turtle.teleport
 typing.ParamSpec.__mro_entries__
 typing.ParamSpecArgs.__mro_entries__
 typing.ParamSpecKwargs.__mro_entries__
@@ -97,6 +92,10 @@ zipfile.Path.is_symlink
 zipfile.Path.match
 zipfile.Path.relative_to
 zipfile.Path.rglob
+
+# TODO: remove after rc2 release
+turtle.__all__
+turtle.teleport
 
 # Errors that also existed on Python 3.11
 _collections_abc.AsyncGenerator.ag_await
