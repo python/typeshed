@@ -58,8 +58,6 @@ posixpath.splitroot
 smtplib.SMTP.starttls
 smtplib.SMTP_SSL.__init__
 sre_parse.Tokenizer.checkgroupname
-sre_parse.expand_template
-sre_parse.parse_template
 turtle.RawTurtle.teleport
 turtle.TNavigator.teleport
 turtle.TPen.teleport
