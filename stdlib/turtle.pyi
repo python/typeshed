@@ -650,9 +650,6 @@ def shape(name: None = None) -> str: ...
 @overload
 def shape(name: str) -> None: ...
 
-if sys.version_info >= (3, 12):
-    def teleport(x: float | None = None, y: float | None = None, *, fill_gap: bool = False) -> None: ...
-
 # Unsafely overlaps when no arguments are provided
 @overload
 def shapesize() -> tuple[float, float, float]: ...  # type: ignore[misc]

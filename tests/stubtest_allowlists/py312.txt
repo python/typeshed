@@ -93,6 +93,10 @@ zipfile.Path.match
 zipfile.Path.relative_to
 zipfile.Path.rglob
 
+# TODO: remove after rc2 release
+turtle.__all__
+turtle.teleport
+
 # Errors that also existed on Python 3.11
 _collections_abc.AsyncGenerator.ag_await
 _collections_abc.AsyncGenerator.ag_code
