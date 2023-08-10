@@ -128,8 +128,6 @@ __all__ = [
     "done",
     "Terminator",
 ]
-if sys.version_info >= (3, 12):
-    __all__ += ["teleport"]
 
 # Note: '_Color' is the alias we use for arguments and _AnyColor is the
 # alias we use for return types. Really, these two aliases should be the
