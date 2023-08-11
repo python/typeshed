@@ -4,6 +4,7 @@ from datetime import datetime
 from typing import Any, overload
 from typing_extensions import Final, Literal
 
+from openpyxl import _VisibilityType
 from openpyxl.cell.cell import Cell, _CellValue
 from openpyxl.formatting.formatting import ConditionalFormattingList
 from openpyxl.workbook.child import _WorkbookChild
@@ -52,7 +53,7 @@ class Worksheet(_WorkbookChild):
     col_breaks: ColBreak
     merged_cells: MultiCellRange
     data_validations: DataValidationList
-    sheet_state: Literal["visible", "hidden", "veryHidden"]
+    sheet_state: _VisibilityType
     page_setup: PrintPageSetup
     print_options: PrintOptions
     page_margins: PageMargins
