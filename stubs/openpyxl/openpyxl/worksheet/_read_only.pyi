@@ -6,10 +6,12 @@ from openpyxl.worksheet.worksheet import Worksheet
 def read_dimension(source): ...
 
 class ReadOnlyWorksheet:
-    cell: Incomplete
-    iter_rows: Incomplete
+    cell = Worksheet.cell
+    iter_rows = Worksheet.iter_rows
+    # Same as Worksheet.values
     @property
     def values(self): ...
+    # Same as Worksheet.rows
     @property
     def rows(self): ...
     __getitem__ = Worksheet.__getitem__

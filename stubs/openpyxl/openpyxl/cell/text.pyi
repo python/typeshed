@@ -2,11 +2,13 @@ from _typeshed import Incomplete
 from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Alias, Integer, NoneSet, Typed, _ConvertibleToInt
-from openpyxl.descriptors.nested import NestedString, NestedText
+from openpyxl.descriptors.base import Alias, Integer, NoneSet, Typed, _ConvertibleToBool, _ConvertibleToFloat, _ConvertibleToInt
+from openpyxl.descriptors.nested import NestedString, NestedText, _NestedNoneSetParam
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.colors import Color
-from openpyxl.styles.fonts import Font, _FontU
+from openpyxl.styles.fonts import Font, _FontScheme, _FontU, _FontVertAlign
+
+from ..xml._functions_overloads import _HasTagAndGet
 
 _PhoneticPropertiesType: TypeAlias = Literal["halfwidthKatakana", "fullwidthKatakana", "Hiragana", "noConversion"]
 _PhoneticPropertiesAlignment: TypeAlias = Literal["noControl", "left", "center", "distributed"]
@@ -35,38 +37,39 @@ class PhoneticText(Serialisable):
 class InlineFont(Font):
     tagname: ClassVar[str]
     rFont: NestedString[Literal[True]]
-    charset: Incomplete
-    family: Incomplete
-    b: Incomplete
-    i: Incomplete
-    strike: Incomplete
-    outline: Incomplete
-    shadow: Incomplete
-    condense: Incomplete
-    extend: Incomplete
-    color: Incomplete
-    sz: Incomplete
-    u: Incomplete
-    vertAlign: Incomplete
-    scheme: Incomplete
+    # Same as parent
+    # charset = Font.charset
+    # family = Font.family
+    # b = Font.b
+    # i = Font.i
+    # strike = Font.strike
+    # outline = Font.outline
+    # shadow = Font.shadow
+    # condense = Font.condense
+    # extend = Font.extend
+    # color = Font.color
+    # sz = Font.sz
+    # u = Font.u
+    # vertAlign = Font.vertAlign
+    # scheme = Font.scheme
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         rFont: object = None,
-        charset: int | None = None,
-        family: float | None = None,
-        b: bool | None = None,
-        i: bool | None = None,
-        strike: bool | None = None,
-        outline: bool | None = None,
-        shadow: bool | None = None,
-        condense: bool | None = None,
-        extend: bool | None = None,
+        charset: _HasTagAndGet[_ConvertibleToInt | None] | _ConvertibleToInt | None = None,
+        family: _HasTagAndGet[_ConvertibleToFloat | None] | _ConvertibleToFloat | None = None,
+        b: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
+        i: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
+        strike: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
+        outline: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
+        shadow: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
+        condense: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
+        extend: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
         color: Color | None = None,
-        sz: float | None = None,
-        u: _FontU | None = None,
-        vertAlign: Literal["superscript", "subscript", "baseline", None] = None,
-        scheme: Literal["major", "minor", None] = None,
+        sz: _HasTagAndGet[_ConvertibleToFloat | None] | _ConvertibleToFloat | None = None,
+        u: _NestedNoneSetParam[_FontU] = None,
+        vertAlign: _NestedNoneSetParam[_FontVertAlign] = None,
+        scheme: _NestedNoneSetParam[_FontScheme] = None,
     ) -> None: ...
 
 class RichText(Serialisable):
