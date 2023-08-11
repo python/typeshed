@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import os
 import re
+import urllib.parse
 from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
@@ -199,6 +200,21 @@ def read_metadata(distribution: str) -> StubMetadata:
 
     upstream_repository: object = data.get("upstream_repository")
     assert isinstance(upstream_repository, (str, type(None)))
+    if isinstance(upstream_repository, str):
+        parsed_url = urllib.parse.urlsplit(upstream_repository)
+        assert parsed_url.scheme == "https", "URLs in the upstream_repository field should use https"
+        assert not parsed_url.netloc.startswith("www."), "`www.` should be removed from URLs in the upstream_repository field"
+        assert not parsed_url.query
+        assert not parsed_url.fragment
+        if parsed_url.netloc == "github.com":
+            cleaned_url_path = parsed_url.path.strip("/")
+            num_url_path_parts = len(Path(cleaned_url_path).parts)
+            bad_github_url_msg = (
+                f"Invalid upstream_repository for {distribution!r}: "
+                "URLs for GitHub repositories always have two parts in their paths"
+            )
+            assert num_url_path_parts == 2, bad_github_url_msg
+
     obsolete_since: object = data.get("obsolete_since")
     assert isinstance(obsolete_since, (str, type(None)))
     no_longer_updated: object = data.get("no_longer_updated", False)
