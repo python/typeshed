@@ -45,6 +45,7 @@ typing._SpecialForm.__mro_entries__
 typing._TypedDict.__delitem__
 typing._TypedDict.__ior__
 typing._TypedDict.__or__
+typing._TypedDict.__ror__
 typing._TypedDict.copy
 typing._TypedDict.items
 typing._TypedDict.keys
