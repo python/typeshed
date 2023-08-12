@@ -908,7 +908,8 @@ class _TypedDict(Mapping[str, object], metaclass=ABCMeta):
         def __ror__(self, __value: typing_extensions.Self) -> typing_extensions.Self: ...
         @overload
         def __ror__(self, __value: dict[str, Any]) -> dict[str, object]: ...
-        def __ior__(self, __value: typing_extensions.Self) -> typing_extensions.Self: ...
+        # supposedly incompatible definitions of __or__ and __ior__
+        def __ior__(self, __value: typing_extensions.Self) -> typing_extensions.Self: ...  # type: ignore[misc]
 
 @_final
 class ForwardRef:

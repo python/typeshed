@@ -241,7 +241,8 @@ class _TypedDict(Mapping[str, object], metaclass=abc.ABCMeta):
         def __ror__(self, __value: Self) -> Self: ...
         @overload
         def __ror__(self, __value: dict[str, Any]) -> dict[str, object]: ...
-        def __ior__(self, __value: Self) -> Self: ...
+        # supposedly incompatible definitions of `__ior__` and `__or__`:
+        def __ior__(self, __value: Self) -> Self: ...  # type: ignore[misc]
 
 # TypedDict is a (non-subscriptable) special form.
 TypedDict: object
