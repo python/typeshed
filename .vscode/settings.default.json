@@ -96,11 +96,10 @@
     "mypy-type-checker.importStrategy": "fromEnvironment",
     "mypy-type-checker.args": [
         "--custom-typeshed-dir=${workspaceFolder}",
-        "--python-version=3.7",
-        "--strict"
-        // Needed because a library stubbed in typeshed won't necessarily be installed inthe dev's environment
-        // Currentyl broken in dmypy: https://github.com/python/mypy/issues/10709
-        // "--ignore-missing-imports"
+        "--python-version=3.8",
+        "--strict",
+        // Needed because a library stubbed in typeshed won't necessarily be installed in the dev's environment
+        "--ignore-missing-imports"
     ],
     // Ensure typeshed's configs are used, and not user's VSCode settings
     "flake8.args": [
