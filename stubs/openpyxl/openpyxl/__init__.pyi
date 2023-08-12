@@ -17,7 +17,7 @@ from ._constants import (
 
 open = load_workbook
 
-# Utility type reused elsewhere
+# Utility types reused elsewhere
 class _Decodable(Protocol):  # noqa: Y046
     def decode(self, __encoding: str) -> str: ...
 

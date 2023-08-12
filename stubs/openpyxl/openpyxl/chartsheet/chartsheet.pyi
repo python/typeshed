@@ -51,7 +51,7 @@ class Chartsheet(_WorkbookChild, Serialisable):
         webPublishItems: WebPublishItems | None = None,
         extLst: Unused = None,
         parent: Incomplete | None = None,
-        title: str | _Decodable = "",
+        title: str | _Decodable | None = "",
         sheet_state: _VisibilityType = "visible",
     ) -> None: ...
     def add_chart(self, chart) -> None: ...

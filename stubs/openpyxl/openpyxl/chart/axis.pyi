@@ -5,6 +5,7 @@ from typing_extensions import Literal, Self, TypeAlias
 from openpyxl.chart.layout import Layout
 from openpyxl.chart.shapes import GraphicalProperties
 from openpyxl.chart.text import RichText, Text
+from openpyxl.chart.title import Title, TitleDescriptor
 from openpyxl.descriptors.base import Alias, Typed, _ConvertibleToBool, _ConvertibleToFloat, _ConvertibleToInt
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.nested import (
@@ -70,7 +71,7 @@ class _BaseAxis(Serialisable):
     axPos: NestedSet[_BaseAxisAxPos]
     majorGridlines: Typed[ChartLines, Literal[True]]
     minorGridlines: Typed[ChartLines, Literal[True]]
-    title: Incomplete
+    title: TitleDescriptor
     numFmt: Incomplete
     number_format: Alias
     majorTickMark: NestedNoneSet[_BaseAxisTickMark]
@@ -93,7 +94,7 @@ class _BaseAxis(Serialisable):
         axPos: _HasTagAndGet[_BaseAxisAxPos] | _BaseAxisAxPos,
         majorGridlines: ChartLines | None,
         minorGridlines: ChartLines | None,
-        title: Incomplete | None,
+        title: str | Title | None,
         numFmt: Incomplete | None,
         majorTickMark: _NestedNoneSetParam[_BaseAxisTickMark],
         minorTickMark: _NestedNoneSetParam[_BaseAxisTickMark],
@@ -113,7 +114,7 @@ class _BaseAxis(Serialisable):
         axPos: _HasTagAndGet[_BaseAxisAxPos] | _BaseAxisAxPos = "l",
         majorGridlines: ChartLines | None = None,
         minorGridlines: ChartLines | None = None,
-        title: Incomplete | None = None,
+        title: str | Title | None = None,
         numFmt: Incomplete | None = None,
         majorTickMark: Incomplete | None = None,
         minorTickMark: Incomplete | None = None,
