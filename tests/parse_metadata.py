@@ -205,15 +205,16 @@ def read_metadata(distribution: str) -> StubMetadata:
     if isinstance(upstream_repository, str):
         parsed_url = urllib.parse.urlsplit(upstream_repository)
         assert parsed_url.scheme == "https", f"{distribution}: URLs in the upstream_repository field should use https"
-        assert not parsed_url.netloc.startswith(
-            "www."
-        ), f"{distribution}: `World Wide Web` subdomain (`www.`) should be removed from URLs in the upstream_repository field"
-        assert parsed_url.hostname in QUERY_URL_ALLOWLIST or (
-            not parsed_url.query
-        ), f"{distribution}: Query params (`?`) should be removed from URLs in the upstream_repository field"
-        assert (
-            not parsed_url.fragment
-        ), f"{distribution}: Fragments (`#`) should be removed from URLs in the upstream_repository field"
+        no_www_please = (
+            f"{distribution}: `World Wide Web` subdomain (`www.`) should be removed from URLs in the upstream_repository field"
+        )
+        assert not parsed_url.netloc.startswith("www."), no_www_please
+        no_query_params_please = (
+            f"{distribution}: Query params (`?`) should be removed from URLs in the upstream_repository field"
+        )
+        assert parsed_url.hostname in QUERY_URL_ALLOWLIST or (not parsed_url.query), no_query_params_please
+        no_fragments_please = f"{distribution}: Fragments (`#`) should be removed from URLs in the upstream_repository field"
+        assert not parsed_url.fragment, no_fragments_please
         if parsed_url.netloc == "github.com":
             cleaned_url_path = parsed_url.path.strip("/")
             num_url_path_parts = len(Path(cleaned_url_path).parts)
