@@ -1,8 +1,7 @@
 version = "0.2.*"
 # There is no web portal for the source, this is the official source link:
 # https://people.csail.mit.edu/hubert/pyaudio/#sources
-# https://people.csail.mit.edu/hubert/git/pyaudio.git
-# upstream_repository =
+upstream_repository = "https://people.csail.mit.edu/hubert/git/pyaudio.git"
 
 [tool.stubtest]
 # linux and win32 are equivalent

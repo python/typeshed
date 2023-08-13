@@ -31,6 +31,8 @@ __all__ = [
 
 
 _STUBTEST_PLATFORM_MAPPING: Final = {"linux": "apt_dependencies", "darwin": "brew_dependencies", "win32": "choco_dependencies"}
+QUERY_URL_ALLOWLIST = {"sourceware.org"}
+"""Some older websites have a bad pattern of using query params for navigation"""
 
 
 def _is_list_of_strings(obj: object) -> TypeGuard[list[str]]:
@@ -204,8 +206,10 @@ def read_metadata(distribution: str) -> StubMetadata:
         parsed_url = urllib.parse.urlsplit(upstream_repository)
         assert parsed_url.scheme == "https", "URLs in the upstream_repository field should use https"
         assert not parsed_url.netloc.startswith("www."), "`www.` should be removed from URLs in the upstream_repository field"
-        assert not parsed_url.query
-        assert not parsed_url.fragment
+        assert (
+            parsed_url.hostname not in QUERY_URL_ALLOWLIST and not parsed_url.query
+        ), "`?` should be removed from URLs in the upstream_repository field"
+        assert not parsed_url.fragment, "`#` should be removed from URLs in the upstream_repository field"
         if parsed_url.netloc == "github.com":
             cleaned_url_path = parsed_url.path.strip("/")
             num_url_path_parts = len(Path(cleaned_url_path).parts)
