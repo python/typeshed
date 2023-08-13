@@ -18,7 +18,7 @@ from types import (
     TracebackType,
     WrapperDescriptorType,
 )
-from typing_extensions import Never as _Never, ParamSpec as _ParamSpec, final as _final
+from typing_extensions import Never as _Never, ParamSpec as _ParamSpec, TypeGuard as _TypeGuard, final as _final
 
 if sys.version_info >= (3, 10):
     from types import UnionType
@@ -498,9 +498,8 @@ class AsyncGenerator(AsyncIterator[_YieldT_co], Generic[_YieldT_co, _SendT_contr
 
 @runtime_checkable
 class Container(Protocol[_T_co]):
-    # This is generic more on vibes than anything else
     @abstractmethod
-    def __contains__(self, __x: object) -> bool: ...
+    def __contains__(self, __x: object) -> _TypeGuard[_T_co]: ...
 
 @runtime_checkable
 class Collection(Iterable[_T_co], Container[_T_co], Protocol[_T_co]):
