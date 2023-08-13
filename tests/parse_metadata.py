@@ -208,8 +208,8 @@ def read_metadata(distribution: str) -> StubMetadata:
         assert not parsed_url.netloc.startswith(
             "www."
         ), "`World Wide Web` subdomain (`www.`) should be removed from URLs in the upstream_repository field"
-        assert (
-            parsed_url.hostname not in QUERY_URL_ALLOWLIST and not parsed_url.query
+        assert parsed_url.hostname in QUERY_URL_ALLOWLIST or (
+            not parsed_url.query
         ), "Query params (`?`) should be removed from URLs in the upstream_repository field"
         assert not parsed_url.fragment, "Fragments (`#`) should be removed from URLs in the upstream_repository field"
         if parsed_url.netloc == "github.com":
