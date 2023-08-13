@@ -1,1 +1,6 @@
+from xml.etree.ElementTree import _FileRead
+
+from openpyxl.cell.rich_text import CellRichText
+
 def read_string_table(xml_source): ...
+def read_rich_text(xml_source: _FileRead) -> list[CellRichText | str]: ...
