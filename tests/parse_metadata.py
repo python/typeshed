@@ -32,7 +32,7 @@ __all__ = [
 
 _STUBTEST_PLATFORM_MAPPING: Final = {"linux": "apt_dependencies", "darwin": "brew_dependencies", "win32": "choco_dependencies"}
 # Some older websites have a bad pattern of using query params for navigation.
-QUERY_URL_ALLOWLIST = {"sourceware.org"}
+_QUERY_URL_ALLOWLIST = {"sourceware.org"}
 
 
 def _is_list_of_strings(obj: object) -> TypeGuard[list[str]]:
@@ -212,7 +212,7 @@ def read_metadata(distribution: str) -> StubMetadata:
         no_query_params_please = (
             f"{distribution}: Query params (`?`) should be removed from URLs in the upstream_repository field"
         )
-        assert parsed_url.hostname in QUERY_URL_ALLOWLIST or (not parsed_url.query), no_query_params_please
+        assert parsed_url.hostname in _QUERY_URL_ALLOWLIST or (not parsed_url.query), no_query_params_please
         no_fragments_please = f"{distribution}: Fragments (`#`) should be removed from URLs in the upstream_repository field"
         assert not parsed_url.fragment, no_fragments_please
         if parsed_url.netloc == "github.com":
