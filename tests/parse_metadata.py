@@ -31,6 +31,8 @@ __all__ = [
 
 
 _STUBTEST_PLATFORM_MAPPING: Final = {"linux": "apt_dependencies", "darwin": "brew_dependencies", "win32": "choco_dependencies"}
+# Some older websites have a bad pattern of using query params for navigation.
+_QUERY_URL_ALLOWLIST = {"sourceware.org"}
 
 
 def _is_list_of_strings(obj: object) -> TypeGuard[list[str]]:
@@ -202,10 +204,17 @@ def read_metadata(distribution: str) -> StubMetadata:
     assert isinstance(upstream_repository, (str, type(None)))
     if isinstance(upstream_repository, str):
         parsed_url = urllib.parse.urlsplit(upstream_repository)
-        assert parsed_url.scheme == "https", "URLs in the upstream_repository field should use https"
-        assert not parsed_url.netloc.startswith("www."), "`www.` should be removed from URLs in the upstream_repository field"
-        assert not parsed_url.query
-        assert not parsed_url.fragment
+        assert parsed_url.scheme == "https", f"{distribution}: URLs in the upstream_repository field should use https"
+        no_www_please = (
+            f"{distribution}: `World Wide Web` subdomain (`www.`) should be removed from URLs in the upstream_repository field"
+        )
+        assert not parsed_url.netloc.startswith("www."), no_www_please
+        no_query_params_please = (
+            f"{distribution}: Query params (`?`) should be removed from URLs in the upstream_repository field"
+        )
+        assert parsed_url.hostname in _QUERY_URL_ALLOWLIST or (not parsed_url.query), no_query_params_please
+        no_fragments_please = f"{distribution}: Fragments (`#`) should be removed from URLs in the upstream_repository field"
+        assert not parsed_url.fragment, no_fragments_please
         if parsed_url.netloc == "github.com":
             cleaned_url_path = parsed_url.path.strip("/")
             num_url_path_parts = len(Path(cleaned_url_path).parts)
