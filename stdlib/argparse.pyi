@@ -1,5 +1,4 @@
 import sys
-from _typeshed import Sentinel
 from collections.abc import Callable, Generator, Iterable, Sequence
 from re import Pattern
 from typing import IO, Any, Generic, NewType, NoReturn, Protocol, TypeVar, overload
