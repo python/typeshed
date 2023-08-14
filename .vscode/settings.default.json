@@ -96,7 +96,8 @@
     "mypy-type-checker.importStrategy": "fromEnvironment",
     "mypy-type-checker.args": [
         "--custom-typeshed-dir=${workspaceFolder}",
-        "--python-version=3.8",
+        // We only guarantee all of our tests can be run if you're on Python 3.9 or higher
+        "--python-version=3.9",
         "--strict",
         // Needed because a library stubbed in typeshed won't necessarily be installed in the dev's environment
         "--ignore-missing-imports"
