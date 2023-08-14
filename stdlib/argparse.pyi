@@ -342,11 +342,11 @@ if sys.version_info >= (3, 9):
             option_strings: Sequence[str],
             dest: str,
             default: _T | str | None = None,
-            type: Callable[[str], _T] | FileType | Sentinel = None,
-            choices: Iterable[_T] | None | Sentinel = None,
+            type: Callable[[str], _T] | FileType | None = None,
+            choices: Iterable[_T] | None = None,
             required: bool = False,
             help: str | None = None,
-            metavar: str | tuple[str, ...] | None | Sentinel = None,
+            metavar: str | tuple[str, ...] | None = None,
         ) -> None: ...
 
 class Namespace(_AttributeHolder):
