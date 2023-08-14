@@ -2,7 +2,6 @@ import _typeshed
 import sys
 import types
 from _typeshed import SupportsKeysAndGetItem, Unused
-from abc import ABCMeta
 from builtins import property as _builtins_property
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from typing import Any, Generic, TypeVar, overload
