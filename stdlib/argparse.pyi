@@ -3,6 +3,7 @@ from collections.abc import Callable, Generator, Iterable, Sequence
 from re import Pattern
 from typing import IO, Any, Generic, NewType, NoReturn, Protocol, TypeVar, overload
 from typing_extensions import Literal, Self, TypeAlias
+from _typeshed import Sentinel
 
 __all__ = [
     "ArgumentParser",
