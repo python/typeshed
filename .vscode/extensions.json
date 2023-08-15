@@ -3,6 +3,7 @@
 {
     "recommendations": [
         "bierner.github-markdown-preview",
+        "charliermarsh.ruff",
         "editorconfig.editorconfig",
         "ms-python.black-formatter",
         "ms-python.flake8",
@@ -30,8 +31,6 @@
         "ms-python.autopep8",
         // Not using pylint
         "ms-python.pylint",
-        // Not using Ruff
-        "charliermarsh.ruff",
         // VSCode has implemented an optimized version
         "coenraads.bracket-pair-colorizer",
         "coenraads.bracket-pair-colorizer-2",

@@ -1,18 +1,7 @@
 # Uncategorised, from Python 3.12
 argparse.BooleanOptionalAction.__init__
-asyncio.BaseEventLoop.create_connection
-asyncio.BaseEventLoop.shutdown_default_executor
-asyncio.Handle.get_context
-asyncio.StreamWriter.start_tls
-asyncio.Task.get_context
-asyncio.base_events.BaseEventLoop.create_connection
-asyncio.base_events.BaseEventLoop.shutdown_default_executor
-asyncio.constants.THREAD_JOIN_TIMEOUT
 asyncio.create_eager_task_factory
 asyncio.eager_task_factory
-asyncio.events.Handle.get_context
-asyncio.streams.StreamWriter.start_tls
-asyncio.tasks.Task.get_context
 asyncio.tasks.__all__
 asyncio.tasks.create_eager_task_factory
 asyncio.tasks.eager_task_factory
@@ -51,10 +40,6 @@ importlib.resources.files
 importlib.util.module_for_loader
 importlib.util.set_loader
 importlib.util.set_package
-logging.Logger.getChildren
-logging.__all__
-logging.getHandlerByName
-logging.getHandlerNames
 ntpath.__all__
 ntpath.isjunction
 ntpath.splitroot
@@ -72,18 +57,6 @@ posixpath.isjunction
 posixpath.splitroot
 smtplib.SMTP.starttls
 smtplib.SMTP_SSL.__init__
-sre_parse.Tokenizer.checkgroupname
-sre_parse.expand_template
-sre_parse.parse_template
-ssl.OP_LEGACY_SERVER_CONNECT
-ssl.Options.OP_LEGACY_SERVER_CONNECT
-ssl.RAND_pseudo_bytes
-ssl.wrap_socket
-turtle.RawTurtle.teleport
-turtle.TNavigator.teleport
-turtle.TPen.teleport
-turtle.__all__
-turtle.teleport
 typing.ParamSpec.__mro_entries__
 typing.ParamSpecArgs.__mro_entries__
 typing.ParamSpecKwargs.__mro_entries__
@@ -116,6 +89,10 @@ zipfile.Path.is_symlink
 zipfile.Path.match
 zipfile.Path.relative_to
 zipfile.Path.rglob
+
+# TODO: remove after rc2 release
+turtle.__all__
+turtle.teleport
 
 # Errors that also existed on Python 3.11
 _collections_abc.AsyncGenerator.ag_await
@@ -250,16 +227,6 @@ unittest.case.TestCase.__init_subclass__
 
 # Super-special typing primitives
 typing\._SpecialForm.*
-typing._TypedDict.__delitem__
-typing._TypedDict.__ior__
-typing._TypedDict.__or__
-typing._TypedDict.copy
-typing._TypedDict.items
-typing._TypedDict.keys
-typing._TypedDict.pop
-typing._TypedDict.setdefault
-typing._TypedDict.update
-typing._TypedDict.values
 typing_extensions\.Final
 typing\.NamedTuple
 typing\.LiteralString
