@@ -75,7 +75,6 @@ gevent.ssl.create_connection
 gevent.ssl.errno
 gevent.ssl.os
 gevent.ssl.socket_error
-gevent.ssl.sys
 gevent.ssl.warnings
 gevent\.subprocess\._[A-Za-z0-9]\w*
 gevent.subprocess.Popen.rawlink
@@ -208,9 +207,11 @@ gevent.Timeout.start_new
 gevent.timeout.Timeout.__init__
 gevent.timeout.Timeout.start_new
 
-# Error: is not a type
+# Error: is not a type/function
 # =====================
 # zope.interface related errors, these shouldn't matter
+gevent._monitor.implementer
+gevent.events.implementer
 gevent.events.IEventLoopBlocked
 gevent.events.IGeventDidPatchAllEvent
 gevent.events.IGeventDidPatchBuiltinModulesEvent
