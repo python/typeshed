@@ -1,3 +1,5 @@
+from typing import Protocol
+
 from openpyxl.compat.numbers import NUMPY as NUMPY
 from openpyxl.reader.excel import load_workbook as load_workbook
 from openpyxl.workbook import Workbook as Workbook
@@ -14,3 +16,7 @@ from ._constants import (
 
 DEBUG: bool
 open = load_workbook
+
+# Utility types reused elsewhere
+class _Decodable(Protocol):  # noqa: Y046
+    def decode(self, __encoding: str) -> str: ...
