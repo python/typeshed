@@ -11,7 +11,6 @@ from aiofiles.ospath import wrap as wrap
 __all__ = [
     "path",
     "stat",
-    "statvfs",
     "rename",
     "renames",
     "replace",
@@ -27,9 +26,11 @@ __all__ = [
     "listdir",
     "scandir",
     "access",
-    "sendfile",
     "wrap",
 ]
+
+if sys.platform != "win32":
+    __all__ += ["statvfs", "sendfile"]
 
 path = ospath
 
