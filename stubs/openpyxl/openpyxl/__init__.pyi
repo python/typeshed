@@ -15,10 +15,11 @@ from ._constants import (
     __version__ as __version__,
 )
 
+DEBUG: bool
 open = load_workbook
 
 # Utility types reused elsewhere
+_VisibilityType: TypeAlias = Literal["visible", "hidden", "veryHidden"]  # noqa: Y047
+
 class _Decodable(Protocol):  # noqa: Y046
     def decode(self, __encoding: str) -> str: ...
-
-_VisibilityType: TypeAlias = Literal["visible", "hidden", "veryHidden"]  # noqa: Y047

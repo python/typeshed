@@ -1,10 +1,6 @@
-from _typeshed import ReadableBuffer, StrOrBytesPath, SupportsRead
-from typing import Any, TypeVar
+from xml.etree.ElementTree import _FileRead
 
-_T = TypeVar("_T")
+from openpyxl.cell.rich_text import CellRichText
 
-class _Readable(SupportsRead[_T]):
-    def close(self) -> Any: ...
-
-# SupportsRead type parameter is the same as pyexpat.XMLParserType.Parse's first argument
-def read_string_table(xml_source: StrOrBytesPath | int | _Readable[str | ReadableBuffer]) -> list[str]: ...
+def read_string_table(xml_source: _FileRead) -> list[str]: ...
+def read_rich_text(xml_source: _FileRead) -> list[CellRichText | str]: ...

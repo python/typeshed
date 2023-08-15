@@ -4,9 +4,12 @@ from typing_extensions import Final
 
 from openpyxl.descriptors import MetaSerialisable
 
-from ..xml._functions_overloads import _HasTagAndGet, _HasTagAndTextAndAttrib
+from ..xml._functions_overloads import _HasAttrib, _HasTagAndGet, _HasText
 
-class _SerialisableTreeElement(_HasTagAndGet[Incomplete], _HasTagAndTextAndAttrib, SupportsIter[Incomplete], Protocol):
+# For any override directly re-using Serialisable.from_tree
+class _ChildSerialisableTreeElement(_HasAttrib, _HasText, SupportsIter[Incomplete], Protocol): ...
+
+class _SerialisableTreeElement(_HasTagAndGet[Incomplete], _ChildSerialisableTreeElement, Protocol):
     def find(self, __path: str) -> Incomplete | None: ...
 
 KEYWORDS: Final[frozenset[str]]
@@ -25,6 +28,8 @@ class Serialisable(metaclass=MetaSerialisable):
     namespace: ClassVar[str | None]
     # Note: To respect the Liskov substitution principle, the protocol for node includes all child class requirements
     # See comment in xml/functions.pyi as to why use a protocol instead of Element
+    # Child classes should be more precise than _SerialisableTreeElement !
+    # Use _ChildSerialisableTreeElement instead for child classes that reuse Serialisable.from_tree directly.
     @classmethod
     def from_tree(cls, node: _SerialisableTreeElement): ...
     def to_tree(self, tagname: str | None = None, idx: Incomplete | None = None, namespace: str | None = None): ...

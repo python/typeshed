@@ -6,6 +6,8 @@ from typing_extensions import Final
 from zipfile import ZipExtFile
 
 from openpyxl.cell.cell import Cell
+from openpyxl.cell.rich_text import CellRichText
+from openpyxl.descriptors.serialisable import _ChildSerialisableTreeElement
 from openpyxl.worksheet.hyperlink import HyperlinkList
 from openpyxl.worksheet.pagebreak import ColBreak, RowBreak
 from openpyxl.worksheet.protection import SheetProtection
@@ -41,6 +43,8 @@ SCENARIOS_TAG: Final[str]
 DATA_TAG: Final[str]
 DIMENSION_TAG: Final[str]
 CUSTOM_VIEWS_TAG: Final[str]
+
+def parse_richtext_string(element: _ChildSerialisableTreeElement) -> CellRichText | str: ...
 
 class WorkSheetParser:
     min_row: Incomplete | None

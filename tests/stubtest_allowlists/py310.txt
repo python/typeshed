@@ -42,16 +42,6 @@ types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
 typing._SpecialForm.__mro_entries__
-typing._TypedDict.__delitem__
-typing._TypedDict.__ior__
-typing._TypedDict.__or__
-typing._TypedDict.copy
-typing._TypedDict.items
-typing._TypedDict.keys
-typing._TypedDict.pop
-typing._TypedDict.setdefault
-typing._TypedDict.update
-typing._TypedDict.values
 weakref.ProxyType.__reversed__  # Doesn't really exist
 weakref.WeakValueDictionary.update
 typing_extensions\.get_original_bases
