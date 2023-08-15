@@ -1,9 +1,18 @@
 from collections.abc import Callable, Sequence
+from typing import Any, TypeVar
 
 from gevent.events import IPeriodicMonitorThread, MemoryUsageThresholdExceeded, MemoryUsageUnderThreshold
 from gevent.hub import Hub
 from greenlet import greenlet
-from zope.interface import implementer  # type: ignore[import]  # pyright: ignore
+
+_T = TypeVar("_T")
+
+# FIXME: While it would be nice to import Interface from zope.interface here so the
+#        mypy plugin will work correctly for the people that use it, it causes all
+#        sorts of issues to reference a module that is not stubbed in typeshed, so
+#        for now we punt and just define an alias for Interface and implementer we
+#        can get rid of later
+def implementer(__interface: Any) -> Callable[[_T], _T]: ...
 
 class MonitorWarning(RuntimeWarning): ...
 
@@ -15,7 +24,7 @@ class _MonitorEntry:
     def __eq__(self, other: object) -> bool: ...
     def __hash__(self) -> int: ...
 
-@implementer(IPeriodicMonitorThread)  # pyright: ignore[reportUntypedClassDecorator]
+@implementer(IPeriodicMonitorThread)
 class PeriodicMonitoringThread:
     inactive_sleep_time: float
     min_sleep_time: float
