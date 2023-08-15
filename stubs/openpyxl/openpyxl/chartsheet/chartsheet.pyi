@@ -1,8 +1,8 @@
 from _typeshed import Incomplete, Unused
 from typing import ClassVar
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal
 
-from openpyxl import _Decodable
+from openpyxl import _Decodable, _VisibilityType
 from openpyxl.chartsheet.custom import CustomChartsheetViews
 from openpyxl.chartsheet.properties import ChartsheetProperties
 from openpyxl.chartsheet.protection import ChartsheetProtection
@@ -16,8 +16,6 @@ from openpyxl.workbook.child import _WorkbookChild
 from openpyxl.worksheet.drawing import Drawing
 from openpyxl.worksheet.header_footer import HeaderFooter as _HeaderFooter
 from openpyxl.worksheet.page import PageMargins, PrintPageSetup
-
-_ChartsheetSheetState: TypeAlias = Literal["visible", "hidden", "veryHidden"]
 
 class Chartsheet(_WorkbookChild, Serialisable):
     tagname: ClassVar[str]
@@ -33,7 +31,7 @@ class Chartsheet(_WorkbookChild, Serialisable):
     picture: Typed[SheetBackgroundPicture, Literal[True]]
     webPublishItems: Typed[WebPublishItems, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
-    sheet_state: Set[_ChartsheetSheetState]
+    sheet_state: Set[_VisibilityType]
     headerFooter: Typed[_HeaderFooter, Literal[False]]
     HeaderFooter: Alias
     __elements__: ClassVar[tuple[str, ...]]
@@ -54,7 +52,7 @@ class Chartsheet(_WorkbookChild, Serialisable):
         extLst: Unused = None,
         parent: Incomplete | None = None,
         title: str | _Decodable | None = "",
-        sheet_state: _ChartsheetSheetState = "visible",
+        sheet_state: _VisibilityType = "visible",
     ) -> None: ...
     def add_chart(self, chart) -> None: ...
     def to_tree(self): ...
