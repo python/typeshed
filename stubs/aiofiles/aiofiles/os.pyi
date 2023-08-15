@@ -1,7 +1,8 @@
+import sys
 from _typeshed import BytesPath, FileDescriptorOrPath, GenericPath, ReadableBuffer, StrOrBytesPath, StrPath
 from asyncio.events import AbstractEventLoop
 from collections.abc import Sequence
-from os import _ScandirIterator, stat_result, statvfs_result
+from os import _ScandirIterator, stat_result
 from typing import Any, AnyStr, overload
 
 from aiofiles import ospath
@@ -10,7 +11,6 @@ from aiofiles.ospath import wrap as wrap
 __all__ = [
     "path",
     "stat",
-    "statvfs",
     "rename",
     "renames",
     "replace",
@@ -26,9 +26,11 @@ __all__ = [
     "listdir",
     "scandir",
     "access",
-    "sendfile",
     "wrap",
 ]
+
+if sys.platform != "win32":
+    __all__ += ["statvfs", "sendfile"]
 
 path = ospath
 
@@ -116,21 +118,25 @@ async def listdir(path: int, *, loop: AbstractEventLoop | None = ..., executor: 
 async def access(
     path: FileDescriptorOrPath, mode: int, *, dir_fd: int | None = None, effective_ids: bool = False, follow_symlinks: bool = True
 ) -> bool: ...
-@overload
-async def sendfile(
-    out_fd: int, in_fd: int, offset: int | None, count: int, *, loop: AbstractEventLoop | None = ..., executor: Any = ...
-) -> int: ...
-@overload
-async def sendfile(
-    out_fd: int,
-    in_fd: int,
-    offset: int,
-    count: int,
-    headers: Sequence[ReadableBuffer] = ...,
-    trailers: Sequence[ReadableBuffer] = ...,
-    flags: int = ...,
-    *,
-    loop: AbstractEventLoop | None = ...,
-    executor: Any = ...,
-) -> int: ...  # FreeBSD and Mac OS X only
-async def statvfs(path: FileDescriptorOrPath) -> statvfs_result: ...  # Unix only
+
+if sys.platform != "win32":
+    from os import statvfs_result
+
+    @overload
+    async def sendfile(
+        out_fd: int, in_fd: int, offset: int | None, count: int, *, loop: AbstractEventLoop | None = ..., executor: Any = ...
+    ) -> int: ...
+    @overload
+    async def sendfile(
+        out_fd: int,
+        in_fd: int,
+        offset: int,
+        count: int,
+        headers: Sequence[ReadableBuffer] = ...,
+        trailers: Sequence[ReadableBuffer] = ...,
+        flags: int = ...,
+        *,
+        loop: AbstractEventLoop | None = ...,
+        executor: Any = ...,
+    ) -> int: ...  # FreeBSD and Mac OS X only
+    async def statvfs(path: FileDescriptorOrPath) -> statvfs_result: ...  # Unix only
