@@ -134,16 +134,6 @@ unittest.case.TestCase.__init_subclass__
 
 # Super-special typing primitives
 typing\._SpecialForm.*
-typing._TypedDict.__delitem__
-typing._TypedDict.__ior__
-typing._TypedDict.__or__
-typing._TypedDict.copy
-typing._TypedDict.items
-typing._TypedDict.keys
-typing._TypedDict.pop
-typing._TypedDict.setdefault
-typing._TypedDict.update
-typing._TypedDict.values
 typing_extensions\.Final
 typing\.NamedTuple
 typing\.LiteralString

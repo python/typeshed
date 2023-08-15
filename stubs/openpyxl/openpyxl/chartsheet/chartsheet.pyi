@@ -2,7 +2,7 @@ from _typeshed import Incomplete, Unused
 from typing import ClassVar
 from typing_extensions import Literal
 
-from openpyxl import _VisibilityType
+from openpyxl import _Decodable, _VisibilityType
 from openpyxl.chartsheet.custom import CustomChartsheetViews
 from openpyxl.chartsheet.properties import ChartsheetProperties
 from openpyxl.chartsheet.protection import ChartsheetProtection
@@ -51,7 +51,7 @@ class Chartsheet(_WorkbookChild, Serialisable):
         webPublishItems: WebPublishItems | None = None,
         extLst: Unused = None,
         parent: Incomplete | None = None,
-        title: str = "",
+        title: str | _Decodable | None = "",
         sheet_state: _VisibilityType = "visible",
     ) -> None: ...
     def add_chart(self, chart) -> None: ...

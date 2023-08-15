@@ -1,3 +1,14 @@
+# Loop variables leaked in global scope
+openpyxl.utils.cell.col
+openpyxl.utils.cell.i
+
+# Unintended re-export from star-import
+openpyxl.chart.marker.DRAWING_NS
+openpyxl.chart.marker.PRESET_COLORS
+openpyxl.chart.shapes.DRAWING_NS
+openpyxl.chart.shapes.PRESET_COLORS
+openpyxl.descriptors.DEBUG
+
 # The actual runtime definition depends on what else is installed
 # (lxml, defusedxml, et_xmlfile)
 openpyxl.xml._functions_overloads

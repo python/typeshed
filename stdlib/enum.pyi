@@ -2,7 +2,6 @@ import _typeshed
 import sys
 import types
 from _typeshed import SupportsKeysAndGetItem, Unused
-from abc import ABCMeta
 from builtins import property as _builtins_property
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from typing import Any, Generic, TypeVar, overload
@@ -76,12 +75,8 @@ class _EnumDict(dict[str, Any]):
         @overload
         def update(self, members: Iterable[tuple[str, Any]], **more_members: Any) -> None: ...
 
-# Note: EnumMeta actually subclasses type directly, not ABCMeta.
-# This is a temporary workaround to allow multiple creation of enums with builtins
-# such as str as mixins, which due to the handling of ABCs of builtin types, cause
-# spurious inconsistent metaclass structure. See #1595.
 # Structurally: Iterable[T], Reversible[T], Container[T] where T is the enum itself
-class EnumMeta(ABCMeta):
+class EnumMeta(type):
     if sys.version_info >= (3, 11):
         def __new__(
             metacls: type[_typeshed.Self],

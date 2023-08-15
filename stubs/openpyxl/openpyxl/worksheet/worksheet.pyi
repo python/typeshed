@@ -4,7 +4,7 @@ from datetime import datetime
 from typing import Any, overload
 from typing_extensions import Final, Literal
 
-from openpyxl import _VisibilityType
+from openpyxl import _Decodable, _VisibilityType
 from openpyxl.cell.cell import Cell, _CellValue
 from openpyxl.formatting.formatting import ConditionalFormattingList
 from openpyxl.workbook.child import _WorkbookChild
@@ -67,7 +67,7 @@ class Worksheet(_WorkbookChild):
     sheet_format: SheetFormatProperties
     scenarios: ScenarioList
 
-    def __init__(self, parent: Workbook, title: str | None = None) -> None: ...
+    def __init__(self, parent: Workbook, title: str | _Decodable | None = None) -> None: ...
     @property
     def sheet_view(self) -> SheetView: ...
     @property
