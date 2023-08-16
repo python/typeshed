@@ -1,4 +1,4 @@
-# Exists at runtime, missing from the stubs
+# Exists at runtime, but missing from stubs
 msvcrt.GetErrorMode
 
 # pathlib methods that exist on Windows, but always raise NotImplementedError,
