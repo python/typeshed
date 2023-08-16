@@ -1,5 +1,4 @@
 # Uncategorised, from Python 3.12
-argparse.BooleanOptionalAction.__init__
 asyncio.create_eager_task_factory
 asyncio.eager_task_factory
 asyncio.tasks.__all__
