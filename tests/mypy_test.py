@@ -12,7 +12,6 @@ import sys
 import tempfile
 import time
 from collections import defaultdict
-from collections.abc import Sequence
 from dataclasses import dataclass
 from itertools import product
 from pathlib import Path
@@ -47,7 +46,7 @@ except ImportError:
     print_error("Cannot import mypy. Did you install it?")
     sys.exit(1)
 
-SUPPORTED_VERSIONS = ["3.12", "3.11", "3.10", "3.9", "3.8", "3.7"]
+SUPPORTED_VERSIONS = ["3.12", "3.11", "3.10", "3.9", "3.8"]
 SUPPORTED_PLATFORMS = ("linux", "win32", "darwin")
 DIRECTORIES_TO_TEST = [Path("stdlib"), Path("stubs")]
 
@@ -86,21 +85,6 @@ def remove_dev_suffix(version: str) -> str:
 parser = argparse.ArgumentParser(
     description="Typecheck typeshed's stubs with mypy. Patterns are unanchored regexps on the full path."
 )
-if sys.version_info < (3, 8):
-
-    class ExtendAction(argparse.Action):
-        def __call__(
-            self,
-            parser: argparse.ArgumentParser,
-            namespace: argparse.Namespace,
-            values: Sequence[str],
-            option_string: object = None,
-        ) -> None:
-            items = getattr(namespace, self.dest) or []
-            items.extend(values)
-            setattr(namespace, self.dest, items)
-
-    parser.register("action", "extend", ExtendAction)
 parser.add_argument(
     "filter",
     type=valid_path,
