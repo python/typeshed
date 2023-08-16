@@ -5,7 +5,7 @@ class PatchRetentionRule:
     attribute_map: Incomplete
     discriminator: Incomplete
     def __init__(
-        self, type: str = "expire", every_seconds: int = 2592000, shard_group_duration_seconds: Incomplete | None = None
+        self, type: str = "expire", every_seconds: int = 2592000, shard_group_duration_seconds: int | None = None
     ) -> None: ...
     @property
     def type(self): ...

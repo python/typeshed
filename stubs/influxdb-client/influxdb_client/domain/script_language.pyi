@@ -6,8 +6,8 @@ class ScriptLanguage:
     SQL: Final = "sql"
     INFLUXQL: Final = "influxql"
 
-    openapi_types: dict[Incomplete, Incomplete]
-    attribute_map: dict[Incomplete, Incomplete]
+    openapi_types: ClassVar[dict[Incomplete, Incomplete]]
+    attribute_map: ClassVar[dict[Incomplete, Incomplete]]
     def to_dict(self) -> dict[Incomplete, Incomplete]: ...
     def to_str(self) -> str: ...
     def __eq__(self, other: object) -> bool: ...
