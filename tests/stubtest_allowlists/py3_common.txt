@@ -357,10 +357,6 @@ csv.Dialect.skipinitialspace
 csv.DictReader.__init__  # runtime sig has *args but will error if more than 5 positional args are supplied
 csv.DictWriter.__init__  # runtime sig has *args but will error if more than 5 positional args are supplied
 
-# Removed undocumented and often mistakenly used _normalize parameter that was removed in 3.12
-# On 3.12, stubtest doesn't correctly combine the overload because parameter names mismatch
-fractions.Fraction.__new__
-
 contextvars.Context.__init__  # C signature is broader than what is actually accepted
 dataclasses.field  # White lies around defaults
 hashlib.sha3_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
