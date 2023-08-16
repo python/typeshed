@@ -1,9 +1,12 @@
 from _typeshed import SupportsItems
 from collections.abc import Iterable, Iterator, Mapping, Sequence
 from typing import Any, ClassVar
+from typing_extensions import TypeAlias
 
 from wtforms.fields.core import Field, UnboundField
 from wtforms.meta import DefaultMeta, _MultiDictLike
+
+_FormErrors: TypeAlias = dict[str | None, Sequence[str] | _FormErrors]
 
 class BaseForm:
     meta: DefaultMeta
@@ -37,8 +40,9 @@ class BaseForm:
     def validate(self, extra_validators: Mapping[str, Sequence[Any]] | None = None) -> bool: ...
     @property
     def data(self) -> dict[str, Any]: ...
+    # because of the Liskov violation in FormField.errors we need to make errors a recursive type
     @property
-    def errors(self) -> dict[str | None, Sequence[str]]: ...
+    def errors(self) -> _FormErrors: ...
 
 class FormMeta(type):
     def __init__(cls, name: str, bases: Sequence[type[object]], attrs: Mapping[str, Any]) -> None: ...
