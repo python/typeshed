@@ -94,39 +94,18 @@ turtle.__all__
 turtle.teleport
 
 # Errors that also existed on Python 3.11
-_collections_abc.AsyncGenerator.ag_await
-_collections_abc.AsyncGenerator.ag_code
-_collections_abc.AsyncGenerator.ag_frame
-_collections_abc.AsyncGenerator.ag_running
 _collections_abc.AsyncIterable.__class_getitem__
 _collections_abc.Awaitable.__class_getitem__
 _collections_abc.Container.__class_getitem__
-_collections_abc.ItemsView.__reversed__
 _collections_abc.Iterable.__class_getitem__
-_collections_abc.KeysView.__reversed__
 _collections_abc.MappingView.__class_getitem__
-_collections_abc.ValuesView.__reversed__
 _csv.Reader
 _csv.Writer
 configparser.LegacyInterpolation.__init__
 enum.Enum.__init__
-ipaddress._BaseNetwork.broadcast_address
-ipaddress._BaseNetwork.hostmask
-ipaddress.IPv4Interface.hostmask
-ipaddress.IPv6Interface.hostmask
-multiprocessing.managers.SharedMemoryServer.create
-multiprocessing.managers.SharedMemoryServer.list_segments
-multiprocessing.managers.SharedMemoryServer.public
-multiprocessing.managers.SharedMemoryServer.release_segment
-multiprocessing.managers.SharedMemoryServer.shutdown
-multiprocessing.managers.SharedMemoryServer.track_segment
-multiprocessing.spawn._main
-queue.SimpleQueue.__init__
-sys.UnraisableHookArgs  # Not exported from sys
 tkinter._VersionInfoType.__doc__
 typing.NewType.__call__
 typing.NewType.__mro_entries__
-weakref.WeakValueDictionary.update
 
 # ==========
 # Related to positional-only arguments
@@ -174,41 +153,23 @@ _collections_abc.AsyncGenerator.athrow  # async at runtime, deliberately not in 
 _weakref.ProxyType.__reversed__  # Doesn't really exist
 argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group  # deprecated, forwards arguments to super
 ast.ImportFrom.level  # None on the class, but never None on instances
-asyncio.base_events.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
-asyncio.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 builtins.property.__set_name__  # Doesn't actually exist
 dataclasses.KW_ONLY  # white lies around defaults
 enum.auto.__init__  # The stub for enum.auto is nothing like the implementation
 enum.auto.value  # The stub for enum.auto is nothing like the implementation
-fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
-ftplib.FTP.trust_server_pasv_ipv4_address  # Dangerous to use, intentionally undocumented, intentionally missing from typeshed. #6154
 functools._lru_cache_wrapper.cache_parameters  # Cannot be detected statically
-functools.cached_property.__set__  # Stub is a white lie; see comments in the stub
-hmac.new  # Stub is a white lie; see comments in the stub
 http.HTTPMethod.description  # mutable instance attribute at runtime but we pretend it's a property
 inspect._ParameterKind.description  # Still exists, but stubtest can't see it
 os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all PathLike classes to implement class_getitem
-pickle.Pickler.reducer_override  # implemented in C pickler
-types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
 types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
 weakref.ProxyType.__reversed__  # Doesn't really exist
 
 # C signature is broader than what is actually accepted
-ast.Bytes.__new__
-ast.Ellipsis.__new__
 ast.ExtSlice.__new__
 ast.Index.__new__
-ast.NameConstant.__new__
-ast.Num.__new__
-ast.Str.__new__
-asyncio.futures.Future.__init__
-asyncio.Future.__init__
 contextvars.Context.__init__
-queue.SimpleQueue.__init__
-xml.etree.ElementTree.XMLParser.__init__
-xml.etree.cElementTree.XMLParser.__init__
 
 # Treated an alias of a typing class in the stubs,
 # they are generic to type checkers anyway.
@@ -226,10 +187,6 @@ unittest.case.TestCase.__init_subclass__
 
 # Super-special typing primitives
 typing\._SpecialForm.*
-typing_extensions\.Final
 typing\.NamedTuple
 typing\.LiteralString
 typing\.Annotated
-
-# Omit internal _KEEP argument
-tarfile.TarInfo.replace
