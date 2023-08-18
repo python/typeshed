@@ -12,9 +12,9 @@ from openpyxl.descriptors.nested import (
     NestedString,
     _NestedNoneSetParam,
 )
-from openpyxl.descriptors.serialisable import Serialisable, _SerialisableTreeElement
+from openpyxl.descriptors.serialisable import Serialisable
 
-from ..xml._functions_overloads import _HasTagAndGet
+from ..xml._functions_overloads import _HasTagAndGet, _SupportsFindAndIterAndAttribAndText
 from .colors import Color
 
 _FontU: TypeAlias = Literal["single", "double", "singleAccounting", "doubleAccounting"]
@@ -72,6 +72,6 @@ class Font(Serialisable):
         extend: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
     ) -> None: ...
     @classmethod
-    def from_tree(cls, node: _SerialisableTreeElement) -> Self: ...
+    def from_tree(cls, node: _SupportsFindAndIterAndAttribAndText) -> Self: ...
 
 DEFAULT_FONT: Final[Font]

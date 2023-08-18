@@ -1,16 +1,14 @@
 from _typeshed import Incomplete, SupportsIter
 from typing import Any, ClassVar, NoReturn, Protocol
-from typing_extensions import Final
+from typing_extensions import Final, Self
 
 from openpyxl.descriptors import MetaSerialisable
 
-from ..xml._functions_overloads import _HasAttrib, _HasTagAndGet, _HasText
+from ..xml._functions_overloads import _HasAttrib, _HasGet, _HasText, _SupportsFind
 
 # For any override directly re-using Serialisable.from_tree
 class _ChildSerialisableTreeElement(_HasAttrib, _HasText, SupportsIter[Incomplete], Protocol): ...
-
-class _SerialisableTreeElement(_HasTagAndGet[Incomplete], _ChildSerialisableTreeElement, Protocol):
-    def find(self, __path: str) -> Incomplete | None: ...
+class _SerialisableTreeElement(_HasGet[object], _SupportsFind, _ChildSerialisableTreeElement, Protocol): ...
 
 KEYWORDS: Final[frozenset[str]]
 seq_types: Final[tuple[type[list[Any]], type[tuple[Any, ...]]]]
@@ -31,7 +29,7 @@ class Serialisable(metaclass=MetaSerialisable):
     # Child classes should be more precise than _SerialisableTreeElement !
     # Use _ChildSerialisableTreeElement instead for child classes that reuse Serialisable.from_tree directly.
     @classmethod
-    def from_tree(cls, node: _SerialisableTreeElement): ...
+    def from_tree(cls, node: _SerialisableTreeElement) -> Self: ...
     def to_tree(self, tagname: str | None = None, idx: Incomplete | None = None, namespace: str | None = None): ...
     def __iter__(self): ...
     def __eq__(self, other): ...

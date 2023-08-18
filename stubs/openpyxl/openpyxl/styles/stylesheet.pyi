@@ -4,7 +4,7 @@ from typing_extensions import Literal
 
 from openpyxl.descriptors.base import Typed
 from openpyxl.descriptors.excel import ExtensionList
-from openpyxl.descriptors.serialisable import Serialisable, _SerialisableTreeElement
+from openpyxl.descriptors.serialisable import Serialisable, _ChildSerialisableTreeElement
 from openpyxl.styles.cell_style import CellStyleList
 from openpyxl.styles.colors import ColorList
 from openpyxl.styles.named_styles import _NamedCellStyleList
@@ -45,7 +45,7 @@ class Stylesheet(Serialisable):
         extLst: Unused = None,
     ) -> None: ...
     @classmethod
-    def from_tree(cls, node: _SerialisableTreeElement): ...
+    def from_tree(cls, node: _ChildSerialisableTreeElement): ...
     @property
     def custom_formats(self): ...
     def to_tree(self, tagname: str | None = None, idx: Incomplete | None = None, namespace: str | None = None): ...
