@@ -26,7 +26,7 @@ _NPX_ERROR_MESSAGE = colored("\nSkipping Pyright tests: npx is not installed or 
 _SUCCESS = colored("Success", "green")
 _SKIPPED = colored("Skipped", "yellow")
 _FAILED = colored("Failed", "red")
-# We're using the oldest supported version because it's the most likely to produce errors
+# We're using the oldest fully supported version because it's the most likely to produce errors
 # due to unsupported syntax, feature, or bug in a tool.
 _PYTHON_VERSION = "3.8"
 
