@@ -28,7 +28,7 @@ _SKIPPED = colored("Skipped", "yellow")
 _FAILED = colored("Failed", "red")
 # We're using the oldest supported version because it's the most likely to produce errors
 # due to unsupported syntax, feature, or bug in a tool.
-_PYTHON_VERSION = "3.7"
+_PYTHON_VERSION = "3.8"
 
 
 def _parse_jsonc(json_text: str) -> str:
