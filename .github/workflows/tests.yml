@@ -85,7 +85,7 @@ jobs:
     strategy:
       matrix:
         platform: ["linux", "win32", "darwin"]
-        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+        python-version: ["3.8", "3.9", "3.10", "3.11"]
       fail-fast: false
     steps:
       - uses: actions/checkout@v3
@@ -98,8 +98,7 @@ jobs:
       - run: python ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
 
   # Run mypy slightly differently on the py312 stubs,
-  # as mypyc doesn't work on Python 3.12 yet
-  # (and various non-types dependencies can't be installed on Python 3.12 yet)
+  # as at least one non-types dependency (greenlet) can't be installed on Python 3.12 yet
   mypy-312:
     name: Run mypy against the stubs (3.12)
     runs-on: ubuntu-latest
