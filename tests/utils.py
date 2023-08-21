@@ -23,7 +23,7 @@ except ImportError:
 
 
 # A backport of functools.cache for Python <3.9
-# This module is imported by mypy_test.py, which needs to run on 3.7 in CI
+# This module is imported by mypy_test.py, which needs to run on 3.8 in CI
 cache = lru_cache(None)
 
 
