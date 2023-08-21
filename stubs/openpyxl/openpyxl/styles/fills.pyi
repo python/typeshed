@@ -57,9 +57,7 @@ fills: Final[tuple[_FillsType, ...]]
 class Fill(Serialisable):
     tagname: ClassVar[str]
     @classmethod
-    def from_tree(  # type: ignore[override]
-        cls, el: Iterable[ABCSequence[_SupportsIterAndAttribAndTextAndTag]]
-    ) -> PatternFill | GradientFill | None: ...
+    def from_tree(cls, el: Iterable[ABCSequence[_SupportsIterAndAttribAndTextAndTag]]) -> PatternFill | GradientFill | None: ...
 
 class PatternFill(Fill):
     tagname: ClassVar[str]
