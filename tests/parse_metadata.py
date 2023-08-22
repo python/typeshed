@@ -169,8 +169,11 @@ def read_metadata(distribution: str) -> StubMetadata:
     Use `read_dependencies` if you need to parse the dependencies
     given in the `requires` field, for example.
     """
-    with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
-        data: dict[str, object] = tomli.load(f)
+    try:
+        with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
+            data: dict[str, object] = tomli.load(f)
+    except FileNotFoundError:
+        raise ValueError(f"Typeshed has no stubs for {distribution!r}!") from None
 
     unknown_metadata_fields = data.keys() - _KNOWN_METADATA_FIELDS
     assert not unknown_metadata_fields, f"Unexpected keys in METADATA.toml for {distribution!r}: {unknown_metadata_fields}"
