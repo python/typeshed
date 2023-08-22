@@ -20,6 +20,7 @@ from packaging.version import Version
 from utils import cache
 
 __all__ = [
+    "NoSuchStubError",
     "StubMetadata",
     "PackageDependencies",
     "StubtestSettings",
@@ -160,6 +161,10 @@ _KNOWN_METADATA_TOOL_FIELDS: Final = {
 _DIST_NAME_RE: Final = re.compile(r"^[a-z0-9]([a-z0-9._-]*[a-z0-9])?$", re.IGNORECASE)
 
 
+class NoSuchStubError(ValueError):
+    """Raise NoSuchStubError to indicate that a stubs/{distribution} directory doesn't exist"""
+
+
 @cache
 def read_metadata(distribution: str) -> StubMetadata:
     """Return an object describing the metadata of a stub as given in the METADATA.toml file.
@@ -173,7 +178,7 @@ def read_metadata(distribution: str) -> StubMetadata:
         with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
             data: dict[str, object] = tomli.load(f)
     except FileNotFoundError:
-        raise ValueError(f"Typeshed has no stubs for {distribution!r}!") from None
+        raise NoSuchStubError(f"Typeshed has no stubs for {distribution!r}!") from None
 
     unknown_metadata_fields = data.keys() - _KNOWN_METADATA_FIELDS
     assert not unknown_metadata_fields, f"Unexpected keys in METADATA.toml for {distribution!r}: {unknown_metadata_fields}"

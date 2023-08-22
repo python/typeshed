@@ -12,7 +12,7 @@ from pathlib import Path
 from textwrap import dedent
 from typing import NoReturn
 
-from parse_metadata import get_recursive_requirements, read_metadata
+from parse_metadata import NoSuchStubError, get_recursive_requirements, read_metadata
 from utils import colored, get_mypy_req, make_venv, print_error, print_success_msg
 
 
@@ -22,7 +22,7 @@ def run_stubtest(
     dist_name = dist.name
     try:
         metadata = read_metadata(dist_name)
-    except ValueError as e:
+    except NoSuchStubError as e:
         parser.error(str(e))
     print(f"{dist_name}... ", end="")
 
