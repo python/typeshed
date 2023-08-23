@@ -1,6 +1,6 @@
 from collections.abc import Mapping
 from typing import overload
-from typing_extensions import Self
+from typing_extensions import Self, TypeAlias
 from xml.sax.handler import ContentHandler, DTDHandler, EntityResolver, ErrorHandler
 
 class XMLReader:
@@ -68,7 +68,20 @@ class AttributesImpl:
     def items(self) -> list[tuple[str, str]]: ...
     def values(self) -> list[str]: ...
 
+_NSName: TypeAlias = tuple[str | None, str]
+
 class AttributesNSImpl(AttributesImpl):
-    def __init__(self, attrs: Mapping[tuple[str, str], str], qnames: Mapping[tuple[str, str], str]) -> None: ...
-    def getNameByQName(self, name: str) -> tuple[str, str]: ...  # type: ignore[override]
-    def getQNameByName(self, name: tuple[str, str]) -> str: ...  # type: ignore[override]
+    def __init__(self, attrs: Mapping[_NSName, str], qnames: Mapping[_NSName, str]) -> None: ...
+    def getType(self, name: _NSName) -> str: ...  # type: ignore[override]
+    def getValue(self, name: _NSName) -> str: ...  # type: ignore[override]
+    def getNameByQName(self, name: str) -> _NSName: ...  # type: ignore[override]
+    def getQNameByName(self, name: _NSName) -> str: ...  # type: ignore[override]
+    def getNames(self) -> list[_NSName]: ...  # type: ignore[override]
+    def __getitem__(self, name: _NSName) -> str: ...  # type: ignore[override]
+    def keys(self) -> list[_NSName]: ...  # type: ignore[override]
+    def __contains__(self, name: _NSName) -> bool: ...  # type: ignore[override]
+    @overload  # type: ignore[override]
+    def get(self, name: _NSName, alternative: None = None) -> str | None: ...
+    @overload  # type: ignore[override]
+    def get(self, name: _NSName, alternative: str) -> str: ...
+    def items(self) -> list[tuple[_NSName, str]]: ...  # type: ignore[override]
