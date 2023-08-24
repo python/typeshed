@@ -1,8 +1,7 @@
 from collections.abc import Iterator, Mapping
 from typing import Any
 from typing_extensions import Self
-from xml.sax import handler
-from xml.sax import xmlreader
+from xml.sax import handler, xmlreader
 
 def is_string(x: object) -> bool: ...
 

@@ -3,7 +3,7 @@ from collections.abc import Callable, Mapping, MutableMapping
 from typing import Any
 from typing_extensions import TypeAlias
 from xml.sax import handler
-from xml.sax.xmlreader import XMLReader, AttributesImpl
+from xml.sax.xmlreader import AttributesImpl, XMLReader
 
 from netaddr.core import Publisher, Subscriber
 from netaddr.ip import IPAddress, IPNetwork, IPRange
