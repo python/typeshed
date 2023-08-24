@@ -89,7 +89,7 @@ class Request:
     ui_locales: Any
     id_token_hint: Any
     login_hint: Any
-    acr_values: None
+    acr_values: Any
     #
     # END `__getattr__` override
     #
