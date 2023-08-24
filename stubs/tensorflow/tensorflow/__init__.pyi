@@ -345,7 +345,7 @@ class GradientTape:
 
 _SpecProto = TypeVar("_SpecProto", bound=Message)
 
-class TypeSpec(Generic[_SpecProto], ABC):
+class TypeSpec(ABC, Generic[_SpecProto]):
     @property
     @abstractmethod
     def value_type(self) -> Any: ...
