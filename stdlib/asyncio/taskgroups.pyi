@@ -1,7 +1,7 @@
 import sys
 from contextvars import Context
 from types import TracebackType
-from typing import TypeVar
+from typing import Any, TypeVar
 from typing_extensions import Self
 
 from . import _CoroutineLike
@@ -19,7 +19,7 @@ class TaskGroup:
     async def __aenter__(self) -> Self: ...
     async def __aexit__(self, et: type[BaseException] | None, exc: BaseException | None, tb: TracebackType | None) -> None: ...
     def create_task(self, coro: _CoroutineLike[_T], *, name: str | None = None, context: Context | None = None) -> Task[_T]: ...
-    def _on_task_done(self, task) -> None: ...
+    def _on_task_done(self, task: Task[Any]) -> None: ...
 
     _loop: AbstractEventLoop | None
-    _tasks: set[Task[_T]]
+    _tasks: set[Task[Any]]
