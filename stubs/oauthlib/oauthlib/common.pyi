@@ -55,6 +55,44 @@ class Request:
         headers: Incomplete | None = None,
         encoding: str = "utf-8",
     ): ...
+    #
+    # Start `__getattr__` override
+    # attributes managed in `self._params` by `__getattr__` override
+    #
+    access_token: Any
+    client: Any
+    client_id: Any
+    client_secret: Any
+    code: Any
+    code_challenge: Any
+    code_challenge_method: Any
+    code_verifier: Any
+    extra_credentials: Any
+    grant_type: Any
+    redirect_uri: Any
+    refresh_token: Any
+    request_token: Any
+    response_type: Any
+    scope: Any
+    scopes: Any
+    state: Any
+    token: Any
+    user: Any
+    token_type_hint: Any
+    # OpenID Connect
+    response_mode: Any
+    nonce: Any
+    display: Any
+    prompt: Any
+    claims: Any
+    max_age: Any
+    ui_locales: Any
+    id_token_hint: Any
+    login_hint: Any
+    acr_values: None
+    #
+    # END `__getattr__` override
+    #
     def __getattr__(self, name: str): ...
     @property
     def uri_query(self): ...
