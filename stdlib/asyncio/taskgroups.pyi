@@ -5,6 +5,7 @@ from typing import TypeVar
 from typing_extensions import Self
 
 from . import _CoroutineLike
+from .events import AbstractEventLoop
 from .tasks import Task
 
 if sys.version_info >= (3, 12):
@@ -18,3 +19,7 @@ class TaskGroup:
     async def __aenter__(self) -> Self: ...
     async def __aexit__(self, et: type[BaseException] | None, exc: BaseException | None, tb: TracebackType | None) -> None: ...
     def create_task(self, coro: _CoroutineLike[_T], *, name: str | None = None, context: Context | None = None) -> Task[_T]: ...
+    def _on_task_done(self, task) -> None: ...
+
+    _loop: AbstractEventLoop | None
+    _tasks: set[Task[_T]]
