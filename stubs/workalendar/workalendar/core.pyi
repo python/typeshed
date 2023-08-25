@@ -17,7 +17,6 @@ ISO_FRI: Incomplete
 ISO_SAT: Incomplete
 ISO_SUN: Incomplete
 
-
 def cleaned_date(day, keep_datetime: bool = False): ...
 def daterange(start, end) -> Generator[Incomplete, None, None]: ...
 
