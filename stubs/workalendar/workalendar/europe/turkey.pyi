@@ -10,6 +10,6 @@ class Turkey(IslamicCalendar):
     include_eid_al_adha: bool
     length_eid_al_adha: int
     include_labour_day: bool
-    labour_day_label: str
+    labour_day_label: ClassVar[str]
     FIXED_HOLIDAYS: Incomplete
     def get_delta_islamic_holidays(self, year): ...

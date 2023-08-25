@@ -1,6 +1,6 @@
 class AutumHoliday:
     include_autumn_holiday: bool
-    autumn_holiday_label: str
+    autumn_holiday_label: ClassVar[str]
 
 class AutumnHolidayLastMondaySeptember(AutumHoliday):
     def get_autumn_holiday(self, year): ...

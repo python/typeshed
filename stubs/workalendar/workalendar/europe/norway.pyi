@@ -11,6 +11,6 @@ class Norway(WesternCalendar):
     include_whit_monday: bool
     include_whit_sunday: bool
     include_boxing_day: bool
-    boxing_day_label: str
+    boxing_day_label: ClassVar[str]
     include_labour_day: bool
     FIXED_HOLIDAYS: Incomplete

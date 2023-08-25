@@ -15,7 +15,7 @@ class HebrewHolidays:
 
 class Florida(UnitedStates):
     include_thanksgiving_friday: bool
-    thanksgiving_friday_label: str
+    thanksgiving_friday_label: ClassVar[str]
     include_columbus_day: bool
     include_federal_presidents_day: bool
 
@@ -28,7 +28,7 @@ class FloridaLegal(Florida):
     include_confederation_day: bool
     include_jefferson_davis_birthday: bool
     include_columbus_day: bool
-    columbus_day_label: str
+    columbus_day_label: ClassVar[str]
     include_election_day_every_year: bool
     def __init__(self, *args, **kwargs) -> None: ...
     def get_confederate_day(self, year): ...

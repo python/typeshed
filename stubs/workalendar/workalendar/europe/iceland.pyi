@@ -10,7 +10,7 @@ class Iceland(WesternCalendar):
     include_whit_monday: bool
     include_christmas_eve: bool
     include_boxing_day: bool
-    boxing_day_label: str
+    boxing_day_label: ClassVar[str]
     include_labour_day: bool
     FIXED_HOLIDAYS: Incomplete
     def get_first_day_of_summer(self, year): ...

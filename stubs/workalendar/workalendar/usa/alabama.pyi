@@ -2,9 +2,9 @@ from .core import UnitedStates
 
 class Alabama(UnitedStates):
     include_confederation_day: bool
-    martin_luther_king_label: str
-    presidents_day_label: str
-    columbus_day_label: str
+    martin_luther_king_label: ClassVar[str]
+    presidents_day_label: ClassVar[str]
+    columbus_day_label: ClassVar[str]
     include_jefferson_davis_birthday: bool
 
 class AlabamaBaldwinCounty(Alabama):

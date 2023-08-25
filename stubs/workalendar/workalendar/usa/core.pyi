@@ -5,27 +5,27 @@ from ..core import WesternCalendar
 class UnitedStates(WesternCalendar):
     FIXED_HOLIDAYS: Incomplete
     include_veterans_day: bool
-    veterans_day_label: str
-    martin_luther_king_label: str
+    veterans_day_label: ClassVar[str]
+    martin_luther_king_label: ClassVar[str]
     include_thanksgiving_friday: bool
-    thanksgiving_friday_label: str
+    thanksgiving_friday_label: ClassVar[str]
     include_federal_presidents_day: bool
-    presidents_day_label: str
+    presidents_day_label: ClassVar[str]
     include_lincoln_birthday: bool
     include_columbus_day: bool
-    columbus_day_label: str
+    columbus_day_label: ClassVar[str]
     include_confederation_day: bool
     include_jefferson_davis_birthday: bool
     include_cesar_chavez_day: bool
     include_patriots_day: bool
-    boxing_day_label: str
+    boxing_day_label: ClassVar[str]
     include_election_day_every_year: bool
     include_election_day_even: bool
-    election_day_label: str
+    election_day_label: ClassVar[str]
     include_inauguration_day: bool
-    national_memorial_day_label: str
+    national_memorial_day_label: ClassVar[str]
     include_fat_tuesday: bool
-    fat_tuesday_label: str
+    fat_tuesday_label: ClassVar[str]
     include_juneteenth: bool
     shift_exceptions: Incomplete
     def shift(self, holidays, year): ...

@@ -7,7 +7,7 @@ class Ukraine(OrthodoxCalendar):
     shift_new_years_day: bool
     FIXED_HOLIDAYS: Incomplete
     include_labour_day: bool
-    labour_day_label: str
+    labour_day_label: ClassVar[str]
     include_christmas: bool
     include_good_friday: bool
     include_easter_sunday: bool

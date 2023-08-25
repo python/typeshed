@@ -9,7 +9,7 @@ class Spain(WesternCalendar):
     include_all_saints: bool
     include_immaculate_conception: bool
     include_labour_day: bool
-    labour_day_label: str
+    labour_day_label: ClassVar[str]
     FIXED_HOLIDAYS: Incomplete
 
 class Andalusia(Spain):
@@ -35,7 +35,7 @@ class CanaryIslands(Spain):
 class Catalonia(Spain):
     include_easter_monday: bool
     include_boxing_day: bool
-    boxing_day_label: str
+    boxing_day_label: ClassVar[str]
     FIXED_HOLIDAYS: Incomplete
 
 class Extremadura(Spain):

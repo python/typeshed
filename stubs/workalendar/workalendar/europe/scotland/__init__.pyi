@@ -29,7 +29,7 @@ from .mixins import (
 class Scotland(WesternCalendar):
     FIXED_HOLIDAYS: Incomplete
     include_spring_holiday: bool
-    spring_holiday_label: str
+    spring_holiday_label: ClassVar[str]
     include_fair_holiday: bool
     include_autumn_holiday: bool
     include_saint_andrew: bool

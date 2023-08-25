@@ -20,7 +20,7 @@ class Kazakhstan(OrthodoxCalendar, IslamicCalendar):
     include_eid_al_adha: bool
     length_eid_al_adha: int
     include_day_of_sacrifice: bool
-    day_of_sacrifice_label: str
+    day_of_sacrifice_label: ClassVar[str]
     include_islamic_new_year: bool
     include_laylat_al_qadr: bool
     include_nuzul_al_quran: bool

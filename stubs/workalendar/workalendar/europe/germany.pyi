@@ -10,7 +10,7 @@ class Germany(WesternCalendar):
     include_whit_monday: bool
     include_good_friday: bool
     include_boxing_day: bool
-    boxing_day_label: str
+    boxing_day_label: ClassVar[str]
     all_time_include_reformation_day: bool
     include_reformation_day_2018: bool
     def include_reformation_day(self, year): ...

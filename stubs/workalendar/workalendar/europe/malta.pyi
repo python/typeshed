@@ -8,5 +8,5 @@ class Malta(WesternCalendar):
     include_immaculate_conception: bool
     include_christmas: bool
     include_labour_day: bool
-    labour_day_label: str
+    labour_day_label: ClassVar[str]
     FIXED_HOLIDAYS: Incomplete

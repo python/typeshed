@@ -1,6 +1,6 @@
 class FairHoliday:
     include_fair_holiday: bool
-    fair_holiday_label: str
+    fair_holiday_label: ClassVar[str]
 
 class FairHolidayLastMondayJune(FairHoliday):
     def get_fair_holiday(self, year): ...

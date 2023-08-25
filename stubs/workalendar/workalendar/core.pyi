@@ -1,29 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from typing import ClassVar
 
-MON: Incomplete
-TUE: Incomplete
-WED: Incomplete
-THU: Incomplete
-FRI: Incomplete
-SAT: Incomplete
-SUN: Incomplete
-ISO_MON: Incomplete
-ISO_TUE: Incomplete
-ISO_WED: Incomplete
-ISO_THU: Incomplete
-ISO_FRI: Incomplete
-ISO_SAT: Incomplete
-ISO_SUN: Incomplete
-
-class classproperty:
-    getter: Incomplete
-    __doc__: Incomplete
-    def __init__(self, getter) -> None: ...
-    def __get__(self, instance, owner): ...
-
-def cleaned_date(day, keep_datetime: bool = False): ...
-def daterange(start, end) -> Generator[Incomplete, None, None]: ...
 
 class ChristianMixin:
     EASTER_METHOD: Incomplete
@@ -33,31 +11,31 @@ class ChristianMixin:
     include_fat_tuesday: bool
     fat_tuesday_label: Incomplete
     include_ash_wednesday: bool
-    ash_wednesday_label: str
+    ash_wednesday_label: ClassVar[str]
     include_palm_sunday: bool
     include_holy_thursday: bool
-    holy_thursday_label: str
+    holy_thursday_label: ClassVar[str]
     include_good_friday: bool
-    good_friday_label: str
+    good_friday_label: ClassVar[str]
     include_easter_monday: bool
     include_easter_saturday: bool
-    easter_saturday_label: str
+    easter_saturday_label: ClassVar[str]
     include_easter_sunday: bool
     include_all_saints: bool
     include_immaculate_conception: bool
-    immaculate_conception_label: str
+    immaculate_conception_label: ClassVar[str]
     include_christmas: bool
-    christmas_day_label: str
+    christmas_day_label: ClassVar[str]
     include_christmas_eve: bool
     include_ascension: bool
     include_assumption: bool
     include_whit_sunday: bool
-    whit_sunday_label: str
+    whit_sunday_label: ClassVar[str]
     include_whit_monday: bool
-    whit_monday_label: str
+    whit_monday_label: ClassVar[str]
     include_corpus_christi: bool
     include_boxing_day: bool
-    boxing_day_label: str
+    boxing_day_label: ClassVar[str]
     include_all_souls: bool
     def get_fat_tuesday(self, year): ...
     def get_ash_wednesday(self, year): ...
@@ -83,7 +61,7 @@ class OrthodoxMixin(ChristianMixin):
     EASTER_METHOD: Incomplete
     WEEKEND_DAYS: Incomplete
     include_orthodox_christmas: bool
-    orthodox_christmas_day_label: str
+    orthodox_christmas_day_label: ClassVar[str]
     def get_fixed_holidays(self, year): ...
 
 class LunarMixin:
@@ -92,13 +70,13 @@ class LunarMixin:
 
 class ChineseNewYearMixin(LunarMixin):
     include_chinese_new_year_eve: bool
-    chinese_new_year_eve_label: str
+    chinese_new_year_eve_label: ClassVar[str]
     include_chinese_new_year: bool
-    chinese_new_year_label: str
+    chinese_new_year_label: ClassVar[str]
     include_chinese_second_day: bool
-    chinese_second_day_label: str
+    chinese_second_day_label: ClassVar[str]
     include_chinese_third_day: bool
-    chinese_third_day_label: str
+    chinese_third_day_label: ClassVar[str]
     shift_sunday_holidays: bool
     shift_start_cny_sunday: bool
     def get_chinese_new_year(self, year): ...
@@ -124,12 +102,12 @@ class IslamicMixin(CalverterMixin):
     include_start_ramadan: bool
     include_eid_al_fitr: bool
     length_eid_al_fitr: int
-    eid_al_fitr_label: str
+    eid_al_fitr_label: ClassVar[str]
     include_eid_al_adha: bool
-    eid_al_adha_label: str
+    eid_al_adha_label: ClassVar[str]
     length_eid_al_adha: int
     include_day_of_sacrifice: bool
-    day_of_sacrifice_label: str
+    day_of_sacrifice_label: ClassVar[str]
     include_islamic_new_year: bool
     include_laylat_al_qadr: bool
     include_nuzul_al_quran: bool
@@ -189,7 +167,7 @@ class Calendar(CoreCalendar):
     include_new_years_eve: bool
     shift_new_years_day: bool
     include_labour_day: bool
-    labour_day_label: str
+    labour_day_label: ClassVar[str]
     def __init__(self, **kwargs) -> None: ...
     def get_fixed_holidays(self, year): ...
     def get_variable_days(self, year): ...

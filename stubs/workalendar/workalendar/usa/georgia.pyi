@@ -3,8 +3,8 @@ from .core import UnitedStates
 class Georgia(UnitedStates):
     include_confederation_day: bool
     include_federal_presidents_day: bool
-    label_washington_birthday_december: str
-    thanksgiving_friday_label: str
+    label_washington_birthday_december: ClassVar[str]
+    thanksgiving_friday_label: ClassVar[str]
     def get_washington_birthday_december(self, year): ...
     def get_confederate_day(self, year): ...
     def get_robert_lee_birthday(self, year): ...

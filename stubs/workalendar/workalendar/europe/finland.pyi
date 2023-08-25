@@ -9,10 +9,10 @@ class Finland(WesternCalendar):
     include_easter_monday: bool
     include_ascension: bool
     include_whit_sunday: bool
-    whit_sunday_label: str
+    whit_sunday_label: ClassVar[str]
     include_christmas_eve: bool
     include_boxing_day: bool
-    boxing_day_label: str
+    boxing_day_label: ClassVar[str]
     include_labour_day: bool
     FIXED_HOLIDAYS: Incomplete
     def get_midsummer_eve(self, year): ...

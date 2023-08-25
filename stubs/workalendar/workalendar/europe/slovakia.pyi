@@ -9,6 +9,6 @@ class Slovakia(WesternCalendar):
     include_all_saints: bool
     include_christmas_eve: bool
     include_boxing_day: bool
-    boxing_day_label: str
+    boxing_day_label: ClassVar[str]
     include_labour_day: bool
     FIXED_HOLIDAYS: Incomplete

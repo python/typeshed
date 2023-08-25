@@ -5,20 +5,20 @@ from ..core import WesternCalendar
 class Brazil(WesternCalendar):
     FIXED_HOLIDAYS: Incomplete
     include_sao_jose: bool
-    sao_jose_label: str
+    sao_jose_label: ClassVar[str]
     include_sao_pedro: bool
-    sao_pedro_label: str
+    sao_pedro_label: ClassVar[str]
     include_sao_joao: bool
-    sao_joao_label: str
+    sao_joao_label: ClassVar[str]
     include_labour_day: bool
     include_servidor_publico: bool
-    servidor_publico_label: str
+    servidor_publico_label: ClassVar[str]
     include_consciencia_negra: bool
     consciencia_negra_day: Incomplete
-    consciencia_negra_label: str
+    consciencia_negra_label: ClassVar[str]
     include_easter_sunday: bool
     include_immaculate_conception: bool
-    immaculate_conception_label: str
+    immaculate_conception_label: ClassVar[str]
     def get_variable_days(self, year): ...
 
 class BrazilAcre(Brazil):
@@ -33,7 +33,7 @@ class BrazilAlagoas(Brazil):
 class BrazilAmapa(Brazil):
     FIXED_HOLIDAYS: Incomplete
     include_sao_jose: bool
-    sao_jose_label: str
+    sao_jose_label: ClassVar[str]
     include_consciencia_negra: bool
 
 class BrazilAmazonas(Brazil):
@@ -91,11 +91,11 @@ class BrazilParana(Brazil):
 class BrazilRioDeJaneiro(Brazil):
     FIXED_HOLIDAYS: Incomplete
     include_fat_tuesday: bool
-    fat_tuesday_label: str
+    fat_tuesday_label: ClassVar[str]
     include_servidor_publico: bool
-    servidor_publico_label: str
+    servidor_publico_label: ClassVar[str]
     include_consciencia_negra: bool
-    consciencia_negra_label: str
+    consciencia_negra_label: ClassVar[str]
     include_immaculate_conception: bool
     def get_dia_do_comercio(self, year): ...
     def get_variable_days(self, year): ...
@@ -103,7 +103,7 @@ class BrazilRioDeJaneiro(Brazil):
 class BrazilRioGrandeDoNorte(Brazil):
     FIXED_HOLIDAYS: Incomplete
     include_sao_pedro: bool
-    sao_pedro_label: str
+    sao_pedro_label: ClassVar[str]
 
 class BrazilRioGrandeDoSul(Brazil):
     FIXED_HOLIDAYS: Incomplete
@@ -123,13 +123,13 @@ class BrazilSaoPauloState(Brazil):
 class BrazilSaoPauloCity(BrazilSaoPauloState):
     FIXED_HOLIDAYS: Incomplete
     include_fat_tuesday: bool
-    fat_tuesday_label: str
+    fat_tuesday_label: ClassVar[str]
     include_easter_sunday: bool
     include_corpus_christi: bool
     include_good_friday: bool
-    good_friday_label: str
+    good_friday_label: ClassVar[str]
     include_consciencia_negra: bool
-    consciencia_negra_label: str
+    consciencia_negra_label: ClassVar[str]
 
 class BrazilSergipe(Brazil):
     FIXED_HOLIDAYS: Incomplete
@@ -141,7 +141,7 @@ class BrazilVitoriaCity(BrazilEspiritoSanto):
     FIXED_HOLIDAYS: Incomplete
     include_corpus_christi: bool
     include_good_friday: bool
-    good_friday_label: str
+    good_friday_label: ClassVar[str]
 
 class BrazilVilaVelhaCity(BrazilEspiritoSanto):
     FIXED_HOLIDAYS: Incomplete
@@ -150,9 +150,9 @@ class BrazilCariacicaCity(BrazilEspiritoSanto):
     FIXED_HOLIDAYS: Incomplete
     include_corpus_christi: bool
     include_good_friday: bool
-    good_friday_label: str
+    good_friday_label: ClassVar[str]
     include_sao_joao: bool
-    sao_joao_label: str
+    sao_joao_label: ClassVar[str]
 
 class BrazilGuarapariCity(BrazilEspiritoSanto):
     FIXED_HOLIDAYS: Incomplete
@@ -164,11 +164,11 @@ class BrazilGuarapariCity(BrazilEspiritoSanto):
 class BrazilSerraCity(BrazilEspiritoSanto):
     FIXED_HOLIDAYS: Incomplete
     include_fat_tuesday: bool
-    fat_tuesday_label: str
+    fat_tuesday_label: ClassVar[str]
     include_ash_wednesday: bool
-    ash_wednesday_label: str
+    ash_wednesday_label: ClassVar[str]
     include_good_friday: bool
-    good_friday_label: str
+    good_friday_label: ClassVar[str]
     include_sao_pedro: bool
     include_immaculate_conception: bool
     def get_variable_days(self, year): ...
@@ -205,7 +205,7 @@ class BrazilCuiabaCity(BrazilMatoGrosso):
     include_easter_sunday: bool
     include_corpus_christi: bool
     include_good_friday: bool
-    good_friday_label: str
+    good_friday_label: ClassVar[str]
 
 class BrazilBelemCity(BrazilPara):
     FIXED_HOLIDAYS: Incomplete
@@ -254,7 +254,7 @@ class BrazilPalmasCity(BrazilTocantins):
 
 class BrazilBankCalendar(Brazil):
     include_fat_tuesday: bool
-    fat_tuesday_label: str
+    fat_tuesday_label: ClassVar[str]
     include_good_friday: bool
     include_ash_wednesday: bool
     include_corpus_christi: bool

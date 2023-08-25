@@ -4,7 +4,7 @@ from ..core import IslamoWesternCalendar
 
 class Nigeria(IslamoWesternCalendar):
     include_labour_day: bool
-    labour_day_label: str
+    labour_day_label: ClassVar[str]
     include_good_friday: bool
     include_easter_monday: bool
     include_boxing_day: bool

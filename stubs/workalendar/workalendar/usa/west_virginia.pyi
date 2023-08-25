@@ -5,7 +5,7 @@ from .core import UnitedStates
 class WestVirginia(UnitedStates):
     include_thanksgiving_friday: bool
     include_election_day_even: bool
-    election_day_label: str
+    election_day_label: ClassVar[str]
     west_virginia_include_christmas_eve: bool
     west_virginia_include_nye: bool
     FIXED_HOLIDAYS: Incomplete

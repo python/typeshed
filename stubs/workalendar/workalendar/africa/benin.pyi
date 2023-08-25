@@ -12,6 +12,6 @@ class Benin(IslamoWesternCalendar):
     include_prophet_birthday: bool
     include_eid_al_fitr: bool
     include_day_of_sacrifice: bool
-    include_day_of_sacrifice_label: str
+    include_day_of_sacrifice_label: ClassVar[str]
     FIXED_HOLIDAYS: Incomplete
     WEEKEND_DAYS: Incomplete

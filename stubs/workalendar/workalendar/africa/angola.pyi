@@ -4,9 +4,9 @@ from ..core import WesternCalendar
 
 class Angola(WesternCalendar):
     include_labour_day: bool
-    labour_day_label: str
+    labour_day_label: ClassVar[str]
     include_fat_tuesday: bool
-    fat_tuesday_label: str
+    fat_tuesday_label: ClassVar[str]
     include_good_friday: bool
     include_easter_sunday: bool
     include_christmas: bool

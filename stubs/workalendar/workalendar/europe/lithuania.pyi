@@ -12,7 +12,7 @@ class Lithuania(WesternCalendar):
     include_christmas_eve: bool
     include_christmas: bool
     include_boxing_day: bool
-    boxing_day_label: str
+    boxing_day_label: ClassVar[str]
     def get_mothers_day(self, year): ...
     def get_fathers_day(self, year): ...
     include_all_souls: Incomplete

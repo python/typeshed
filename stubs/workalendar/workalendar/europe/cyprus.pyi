@@ -11,7 +11,7 @@ class Cyprus(WesternCalendar):
     include_easter_sunday: bool
     include_easter_monday: bool
     include_whit_monday: bool
-    whit_monday_label: str
+    whit_monday_label: ClassVar[str]
     include_christmas_eve: bool
     include_christmas_day: bool
     include_boxing_day: bool

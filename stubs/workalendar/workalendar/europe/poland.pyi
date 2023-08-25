@@ -8,7 +8,7 @@ class Poland(WesternCalendar):
     include_easter_sunday: bool
     include_easter_monday: bool
     include_whit_sunday: bool
-    whit_sunday_label: str
+    whit_sunday_label: ClassVar[str]
     include_corpus_christi: bool
     include_assumption: bool
     include_all_saints: bool

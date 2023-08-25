@@ -17,7 +17,7 @@ class CaliforniaBerkeley(California):
     include_cesar_chavez_day: bool
     include_lincoln_birthday: bool
     include_columbus_day: bool
-    columbus_day_label: str
+    columbus_day_label: ClassVar[str]
 
 class CaliforniaSanFrancisco(California):
     include_cesar_chavez_day: bool
